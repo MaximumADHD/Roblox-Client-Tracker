@@ -17,8 +17,6 @@ local TileOverlay = require(TileRoot.SplitTile.TileOverlay)
 local StyleTypes = require(App.Style.StyleTypes)
 local useDebouncedState = require(UIBlox.Utility.useDebouncedState)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local OUTLINE_THICKNESS = 1
 local CORNER_RADIUS = UDim.new(0, 8)
 local DROP_SHADOW = "component_assets/dropshadow_24_6"
@@ -63,21 +61,15 @@ export type Props = {
 }
 
 local function useIsHoveredState(hoverDelay: number?, onHoverChanged: (() -> ())?)
-	if UIBloxConfig.experienceTileHoverDelay then
-		local isHovered, setIsHovered = useDebouncedState(false, hoverDelay)
+	local isHovered, setIsHovered = useDebouncedState(false, hoverDelay)
 
-		React.useLayoutEffect(function()
-			if onHoverChanged ~= nil then
-				onHoverChanged(isHovered)
-			end
-		end, { onHoverChanged, isHovered })
+	React.useLayoutEffect(function()
+		if onHoverChanged ~= nil then
+			onHoverChanged(isHovered)
+		end
+	end, { onHoverChanged, isHovered })
 
-		return isHovered, setIsHovered
-	else
-		local isHovered, setIsHovered = React.useState(false)
-
-		return isHovered, setIsHovered
-	end
+	return isHovered, setIsHovered
 end
 
 local function VerticalTile(props: Props)

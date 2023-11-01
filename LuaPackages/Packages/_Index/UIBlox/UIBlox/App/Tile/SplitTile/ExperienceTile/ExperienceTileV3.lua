@@ -28,8 +28,6 @@ local VerticalTile = require(SplitTileRoot.VerticalTile.VerticalTile)
 local TileContentPanel = require(SplitTileRoot.TileContentPanel)
 local VerticalTileThumbnail = require(SplitTileRoot.VerticalTile.VerticalTileThumbnail)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 export type AspectRatioMode = AspectRatioModeEnum.AspectRatioMode
 
 export type StyleProps = Constants.StyleProps
@@ -156,7 +154,7 @@ local function ExperienceTileV3(props: Props)
 				aspectRatio = finalAspetRatio,
 				border = border,
 				isTopRounded = true,
-				isBottomRounded = if UIBloxConfig.experienceTileHoverDelay then not hasBackground else false,
+				isBottomRounded = not hasBackground,
 				thumbnail = finalThumbnail,
 			}),
 			TopContentOverlay = if props.renderTopContentOverlay ~= nil
@@ -170,7 +168,7 @@ local function ExperienceTileV3(props: Props)
 		props.thumbnailAspectRatioOverride,
 		topContentPadding,
 		border,
-		if UIBloxConfig.experienceTileHoverDelay then hasBackground else nil,
+		hasBackground,
 	} :: { any })
 
 	local renderBottomContent = React.useCallback(function(isHovered: boolean): React.ReactElement?
@@ -271,11 +269,11 @@ local function ExperienceTileV3(props: Props)
 		[React.Event.Activated] = props.onActivated,
 	}, {
 		VerticalTile = React.createElement(VerticalTile, {
-			hasBackground = if UIBloxConfig.experienceTileHoverDelay then hasBackground else true,
-			hasOutline = if UIBloxConfig.experienceTileHoverDelay then setDefault(props.hasOutline, true) else true,
+			hasBackground = hasBackground,
+			hasOutline = setDefault(props.hasOutline, true),
 			isHoverEnabled = isHoverEnabled,
-			hoverDelay = if UIBloxConfig.experienceTileHoverDelay then props.hoverDelay else nil,
-			onHoverChanged = if UIBloxConfig.experienceTileHoverDelay then props.onHoverChanged else nil,
+			hoverDelay = props.hoverDelay,
+			onHoverChanged = props.onHoverChanged,
 			isOverlayVisible = false,
 			isActive = false,
 			renderTopContent = renderTopContent,

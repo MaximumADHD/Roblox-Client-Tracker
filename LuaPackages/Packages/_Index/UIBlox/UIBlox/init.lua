@@ -228,8 +228,6 @@ local function initializeLibrary(configs)
 		Tile = strict({
 			MenuTile = require(script.App.Tile.MenuTile.MenuTile),
 			PlayerTile = require(script.App.Tile.PlayerTile.PlayerTile),
-			ExperienceTile = require(script.App.Tile.ExperienceTile.ExperienceTile),
-			ExperienceTileV2 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV2),
 			ExperienceTileV3 = require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV3),
 			AspectRatioModeEnum = require(script.App.Tile.SplitTile.ExperienceTile.Enum.AspectRatioMode),
 			getExperienceTileHeight = require(script.App.Tile.SplitTile.ExperienceTile.getExperienceTileHeight),
@@ -351,6 +349,12 @@ local function initializeLibrary(configs)
 			CursorKind = require(script.App.SelectionImage.CursorKind),
 			withSelectionCursorProvider = require(script.App.SelectionImage.withSelectionCursorProvider),
 			useSelectionCursor = require(script.App.SelectionImage.useSelectionCursor),
+		}),
+
+		SelectionCursor = strict({
+			CursorProvider = require(script.App.SelectionCursor.CursorProvider),
+			useCursor = require(script.App.SelectionCursor.useCursor),
+			withCursor = require(script.App.SelectionCursor.withCursor),
 		}),
 
 		Template = strict({

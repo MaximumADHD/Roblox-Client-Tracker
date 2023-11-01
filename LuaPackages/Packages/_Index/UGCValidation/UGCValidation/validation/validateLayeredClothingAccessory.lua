@@ -20,6 +20,7 @@ local validateUVSpace = require(root.validation.validateUVSpace)
 local validateCanLoad = require(root.validation.validateCanLoad)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 local validateAccessoryName = require(root.validation.validateAccessoryName)
+local validateScaleType = require(root.validation.validateScaleType)
 
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
 local validateMisMatchUV = require(root.validation.validateMisMatchUV)
@@ -36,6 +37,7 @@ local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyP
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationLayeredAndRigidLists = require(root.flags.getFFlagUGCValidationLayeredAndRigidLists)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
+local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 
 local function buildAllowedAssetTypeIdSet()
 	local allowedAssetTypeIdSet = {}
@@ -162,6 +164,17 @@ local function validateLayeredClothingAccessory(
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
+	end
+
+	if getFFlagUGCValidateAccessoriesScaleType() then
+		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
+		if partScaleType and partScaleType:IsA("StringValue") then
+			success, failedReason = validateScaleType(partScaleType)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
 	end
 
 	if getFFlagUGCValidateThumbnailConfiguration() then

@@ -17,6 +17,7 @@ local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateCanLoad = require(root.validation.validateCanLoad)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 local validateAccessoryName = require(root.validation.validateAccessoryName)
+local validateScaleType = require(root.validation.validateScaleType)
 
 local createAccessorySchema = require(root.util.createAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
@@ -24,6 +25,7 @@ local getAttachment = require(root.util.getAttachment)
 local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
+local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 
 local function validateLegacyAccessory(
 	instances: { Instance },
@@ -109,6 +111,17 @@ local function validateLegacyAccessory(
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
+	end
+
+	if getFFlagUGCValidateAccessoriesScaleType() then
+		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
+		if partScaleType and partScaleType:IsA("StringValue") then
+			success, failedReason = validateScaleType(partScaleType)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
 	end
 
 	if getFFlagUGCValidateThumbnailConfiguration() then

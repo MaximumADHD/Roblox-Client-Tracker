@@ -8,6 +8,7 @@ local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 local getFFlagUGCValidateTestInactiveControls = require(root.flags.getFFlagUGCValidateTestInactiveControls)
+local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 
 local function joinTables(...)
 	local result = {}
@@ -26,7 +27,12 @@ Analytics.ErrorType = {
 	validateAssetBounds_AssetSizeTooBig = "validateAssetBounds_AssetSizeTooBig",
 	validateAssetBounds_AssetSizeTooSmall = "validateAssetBounds_AssetSizeTooSmall",
 	validateAssetBounds_InconsistentAvatarPartScaleType = "validateAssetBounds_InconsistentAvatarPartScaleType",
-	validateAssetBounds_InvalidAvatarPartScaleType = "validateAssetBounds_InvalidAvatarPartScaleType",
+	validateAssetBounds_InvalidAvatarPartScaleType = if getFFlagUGCValidateAccessoriesScaleType()
+		then nil
+		else "validateAssetBounds_InvalidAvatarPartScaleType",
+	validateScaleType_InvalidAvatarPartScaleType = if getFFlagUGCValidateAccessoriesScaleType()
+		then "validateScaleType_InvalidAvatarPartScaleType"
+		else nil,
 	validateAssetCreator_DependencyNotOwnedByCreator = "validateAssetCreator_DependencyNotOwnedByCreator",
 	validateAssetCreator_FailedToLoad = "validateAssetCreator_FailedToLoad",
 	validateAssetCreator_TooManyDependencies = "validateAssetCreator_TooManyDependencies",
@@ -153,6 +159,7 @@ function Analytics.reportFailure(errorType: string, extraArgs: { [string]: strin
 	if not getFFlagUGCValidationAnalytics() then
 		return
 	end
+
 	local target = if RunService:IsStudio() then "studio" else "rcc"
 	local args = joinTables(Analytics.metadata, extraArgs or {}, {
 		errorType = errorType,

@@ -74,25 +74,12 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 					and alignedPanel:IsPositionLockedType()
 					and (alignedPanel:IsVisible() or alignedPanel.alwaysUpdatePosition)
 				if shouldAlignToPanel then
-					if UIBloxConfig.vrAlignPanel3DUnderInGamePanel then
-						-- finalPosition should be calculated according to panelPart's position and camera height
-						finalPosition = Vector3.new(
-							panelPart.Position.X,
-							userHeadCameraCF.Position.Y - 0.4 * cameraHeadScale,
-							panelPart.Position.Z
-						)
-					else
-						-- finalPosition should be calculated by panelPart's position + an offset that's based on other panel's LookVector.
-						-- lookVectorOffset is based on finalPositions calculated in alignedPanel:EvaluatePositioning() and above,
-						-- since both finalPositions are equal to userHeadCameraCF.Position + a lookVector offset
-						local lookVectorOffset = (cameraHeadScale * 2)
-							- (alignedPanel.distance * cameraHeadScale + panelPart.Size.Z * 0.5)
-						local shiftedPanelPartPosition = panelPart.Position
-							+ lookVectorOffset * alignedPanel.LastFollowCF.LookVector
-
-						finalPosition =
-							Vector3.new(shiftedPanelPartPosition.X, finalPosition.Y, shiftedPanelPartPosition.Z)
-					end
+					-- finalPosition should be calculated according to panelPart's position and camera height
+					finalPosition = Vector3.new(
+						panelPart.Position.X,
+						userHeadCameraCF.Position.Y - 0.4 * cameraHeadScale,
+						panelPart.Position.Z
+					)
 				end
 			end
 		elseif props.anchoring == Constants.AnchoringTypes.Wrist then

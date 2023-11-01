@@ -17,8 +17,6 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local ThumbnailButton = require(MediaGallery.ThumbnailButton)
 local getShowItems = require(MediaGallery.getShowItems)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local ICON_CYCLE_LEFT = "icons/actions/cycleLeft"
 local ICON_CYCLE_RIGHT = "icons/actions/cycleRight"
 local IMAGE_RATIO = 16 / 9 -- width / height
@@ -195,15 +193,11 @@ end
 
 function MediaGalleryFullScreen:render()
 	return withStyle(function(style)
-		if UIBloxConfig.enableMediaGalleryUpdate then
-			return self:renderWithProviderNewLayout(style)
-		else
-			return self:renderWithProvider(style)
-		end
+		return self:renderWithProvider(style)
 	end)
 end
 
-function MediaGalleryFullScreen:renderWithProviderNewLayout(style)
+function MediaGalleryFullScreen:renderWithProvider(style)
 	local layoutOrder = self.props.layoutOrder
 	local anchorPoint = self.props.anchorPoint
 	local position = self.props.position
@@ -267,85 +261,6 @@ function MediaGalleryFullScreen:renderWithProviderNewLayout(style)
 				self.showNextItem
 			)
 			else nil,
-		EventConnection = showArrows and Roact.createElement(ExternalEventConnection, {
-			event = UserInputService.InputBegan,
-			callback = self.onUserInputBegan,
-		}) or nil,
-	})
-end
-
-function MediaGalleryFullScreen:renderWithProvider(style)
-	local layoutOrder = self.props.layoutOrder
-	local anchorPoint = self.props.anchorPoint
-	local position = self.props.position
-	local size = self.props.size
-
-	local itemsToShow = self.state.itemsToShow
-	local showArrows = self.state.showArrows
-	local focusIndex = self.state.focusIndex
-
-	local item = itemsToShow[focusIndex]
-	local leftArrowDisabled = focusIndex <= 1
-	local rightArrowDisabled = focusIndex >= #itemsToShow
-
-	return Roact.createElement("Frame", {
-		LayoutOrder = layoutOrder,
-		Size = size,
-		AnchorPoint = anchorPoint,
-		Position = position,
-		BorderSizePixel = 0,
-		BackgroundTransparency = 1,
-		[Roact.Change.AbsoluteSize] = self.onResize,
-	}, {
-		ItemFrame = Roact.createElement("Frame", {
-			Size = self.itemFrameSize,
-			AnchorPoint = Vector2.new(0.5, 0),
-			Position = UDim2.fromScale(0.5, 0),
-			BorderSizePixel = 0,
-			BackgroundTransparency = 1,
-		}, {
-			LeftArrow = showArrows and Roact.createElement("Frame", {
-				Size = UDim2.new(0, ARROW_WIDTH, 1, 0),
-				AnchorPoint = Vector2.new(0, 0),
-				Position = UDim2.fromScale(0, 0),
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				ZIndex = 100,
-			}, {
-				LeftArrowButton = Roact.createElement(IconButton, {
-					size = UDim2.fromScale(1, 1),
-					icon = Images[ICON_CYCLE_LEFT],
-					showBackground = true,
-					backgroundColor = style.Theme.Overlay,
-					isDisabled = leftArrowDisabled,
-					onActivated = self.showPreviousItem,
-				}),
-			}) or nil,
-			Item = Roact.createElement(ThumbnailButton, {
-				itemKey = focusIndex,
-				imageId = item.imageId,
-				isVideo = item.isVideo,
-				userInteractionEnabled = false,
-				onPlayActivated = item.isVideo and self.onVideoPlayActivated or nil,
-			}),
-			RightArrow = showArrows and Roact.createElement("Frame", {
-				Size = UDim2.new(0, ARROW_WIDTH, 1, 0),
-				AnchorPoint = Vector2.new(1, 0),
-				Position = UDim2.fromScale(1, 0),
-				BorderSizePixel = 0,
-				BackgroundTransparency = 1,
-				ZIndex = 100,
-			}, {
-				RightArrowButton = Roact.createElement(IconButton, {
-					size = UDim2.fromScale(1, 1),
-					icon = Images[ICON_CYCLE_RIGHT],
-					showBackground = true,
-					backgroundColor = style.Theme.Overlay,
-					isDisabled = rightArrowDisabled,
-					onActivated = self.showNextItem,
-				}),
-			}) or nil,
-		}),
 		EventConnection = showArrows and Roact.createElement(ExternalEventConnection, {
 			event = UserInputService.InputBegan,
 			callback = self.onUserInputBegan,

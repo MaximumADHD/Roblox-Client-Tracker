@@ -10,7 +10,6 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Interactable = require(Core.Control.Interactable)
 
@@ -254,15 +253,10 @@ function GenericButton:renderButton(loadingProgress)
 		local textStyle = text and getContentStyle(textStateColorMap, currentState, style)
 		local iconStyle = icon and getContentStyle(iconStateColorMap, currentState, style)
 		local inputIconStyle = inputIcon and getContentStyle(inputIconStateColorMap, currentState, style)
-		local isHoverState = currentState == ControlState.Hover
+
 		-- Temp solution to add an additional hover background layer for Hover state.
 		-- For long term, need design support to provide a new style with dedicated hover state color
-		local showHoverBackground
-		if UIBloxConfig.enableGenericButtonHoverBackgroundFix then
-			showHoverBackground = isHoverState and self.props.isHoverBackgroundEnabled == true
-		else
-			showHoverBackground = false
-		end
+		local showHoverBackground = currentState == ControlState.Hover and self.props.isHoverBackgroundEnabled == true
 
 		-- Handle standard button sizes
 		local sidePadding = CONTENT_PADDING

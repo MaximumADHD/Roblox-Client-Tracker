@@ -48,6 +48,10 @@ ButtonStack.validateProps = t.strictInterface({
 	-- the button size - (2 * minHorizontalButtonPadding).
 	minHorizontalButtonPadding = t.optional(t.numberMin(0)),
 
+	-- optional prop to disable built-in RoactGamepad handling of button selection,
+	-- and instead rely on default game engine selection
+	disableRoactGamepadButtonSelection = t.optional(t.boolean),
+
 	-- optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
@@ -127,14 +131,24 @@ function ButtonStack:render()
 				defaultChildIndex = colIndex
 			end
 
-			local gamepadProps = {
-				[Roact.Ref] = self.buttonRefs[colIndex],
-				NextSelectionUp = (isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
-				NextSelectionDown = (isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
-				NextSelectionLeft = (not isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
-				NextSelectionRight = (not isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1]
-					or nil,
-			}
+			local gamepadProps
+
+			if self.props.disableRoactGamepadButtonSelection then
+				gamepadProps = {
+					[Roact.Ref] = self.buttonRefs[colIndex],
+				}
+			else
+				gamepadProps = {
+					[Roact.Ref] = self.buttonRefs[colIndex],
+					NextSelectionUp = (isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
+					NextSelectionDown = (isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1]
+						or nil,
+					NextSelectionLeft = (not isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
+					NextSelectionRight = (not isButtonStacked and colIndex < #buttons)
+							and self.buttonRefs[colIndex + 1]
+						or nil,
+				}
+			end
 			local buttonPropsWithGamepad = Cryo.Dictionary.join(buttonProps, gamepadProps)
 			table.insert(buttonTable, Roact.createElement(Button, buttonPropsWithGamepad))
 		end

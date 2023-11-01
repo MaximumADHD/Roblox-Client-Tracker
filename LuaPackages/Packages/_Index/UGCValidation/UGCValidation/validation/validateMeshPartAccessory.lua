@@ -19,6 +19,7 @@ local validateCanLoad = require(root.validation.validateCanLoad)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 local validateAccessoryName = require(root.validation.validateAccessoryName)
 local validateSurfaceAppearances = require(root.validation.validateSurfaceAppearances)
+local validateScaleType = require(root.validation.validateScaleType)
 
 local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
@@ -27,6 +28,7 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
+local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 
 local function validateMeshPartAccessory(
 	instances: { Instance },
@@ -129,6 +131,13 @@ local function validateMeshPartAccessory(
 	end
 
 	reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance))
+
+	if getFFlagUGCValidateAccessoriesScaleType() then
+		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
+		if partScaleType and partScaleType:IsA("StringValue") then
+			reasonsAccumulator:updateReasons(validateScaleType(partScaleType))
+		end
+	end
 
 	return reasonsAccumulator:getFinalResults()
 end

@@ -54,13 +54,9 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 	local LeftControllerModel: Constants.Ref<Part?> = React.useRef(nil)
 	local RightControllerModel: Constants.Ref<Part?> = React.useRef(nil)
 
-	local vrSessionStateAvailable = false
-	local vrSessionStateSignal = nil
-	if UIBloxConfig.enableAutoHidingPointerOverlay then
-		vrSessionStateAvailable, vrSessionStateSignal = pcall(function()
-			return VRService:GetPropertyChangedSignal("VRSessionState")
-		end)
-	end
+	local vrSessionStateAvailable, vrSessionStateSignal = pcall(function()
+		return VRService:GetPropertyChangedSignal("VRSessionState")
+	end)
 
 	local VREnabledCallback = React.useCallback(function()
 		if not LaserPointer.current then
@@ -101,6 +97,9 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 		end
 		if RightControllerModel.current then
 			RightControllerModel.current:setEnabled(false)
+		end
+		if LaserPointer.current and UIBloxConfig.destroyLaserPointersOnUnmount then
+			LaserPointer.current:setMode(LaserPointer.current.Mode["Disabled"])
 		end
 		ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
 		ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
@@ -157,7 +156,7 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 			event = VRService:GetPropertyChangedSignal("VREnabled"),
 			callback = VREnabledCallback,
 		}),
-		VRSessionStateConnection = if (UIBloxConfig.enableAutoHidingPointerOverlay and vrSessionStateAvailable)
+		VRSessionStateConnection = if vrSessionStateAvailable
 			then React.createElement(ExternalEventConnection, {
 				event = vrSessionStateSignal,
 				callback = VRSessionStateCallback,

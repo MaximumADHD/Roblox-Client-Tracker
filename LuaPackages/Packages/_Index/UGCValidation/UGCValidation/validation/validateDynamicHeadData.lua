@@ -11,6 +11,7 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
+local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getEngineFeatureUGCValidateGetInactiveControls =
@@ -74,8 +75,10 @@ local function validateDynamicHeadData(meshPartHead: MeshPart, isServer: boolean
 		end
 	end
 
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
 	if getEngineFeatureUGCValidateGetInactiveControls() and getFFlagUGCValidateTestInactiveControls() then
-		local commandExecuted, inactiveControls = pcall(function()
+		local commandExecuted, missingControlsOrErrorMessage, inactiveControls = pcall(function()
 			return UGCValidationService:GetDynamicHeadMeshInactiveControls(
 				meshPartHead.MeshId,
 				requiredActiveFACSControls
@@ -83,24 +86,32 @@ local function validateDynamicHeadData(meshPartHead: MeshPart, isServer: boolean
 		end)
 
 		if not commandExecuted then
-			if string.find(inactiveControls, "Download Error") == 1 then
+			local errorMessage = missingControlsOrErrorMessage
+			if string.find(errorMessage, "Download Error") == 1 then
 				return downloadFailure(isServer)
 			end
-			assert(false, inactiveControls) --any other error to download error is a code problem
+			assert(false, errorMessage) --any other error to download error is a code problem
 		end
 
-		if #inactiveControls > 0 then
+		local missingControls = missingControlsOrErrorMessage
+
+		local doAllControlsExist = #missingControls == 0
+		local areAllControlsActive = #inactiveControls == 0
+		if not doAllControlsExist or not areAllControlsActive then
 			Analytics.reportFailure(
 				Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls
 			)
-			return false,
-				{
-					`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is missing FACS controls: {table.concat(inactiveControls, ", ")}`,
-				}
+
+			reasonsAccumulator:updateReasons(doAllControlsExist, {
+				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is missing FACS controls: {table.concat(missingControls, ", ")}`,
+			})
+			reasonsAccumulator:updateReasons(areAllControlsActive, {
+				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) has inactive FACS controls: {table.concat(inactiveControls, ", ")}`,
+			})
 		end
 	end
 
-	return true
+	return reasonsAccumulator:getFinalResults()
 end
 
 return validateDynamicHeadData

@@ -467,7 +467,7 @@ function MediaGalleryPreview:renderThumbnails(style)
 				isSelected = isSelected,
 				onActivated = notEmpty and self.onItemActivated or nil,
 				onPlayActivated = isVideo and self.onItemPlayActivated or nil,
-				useScaledPlayButton = if UIBloxConfig.enableMediaGalleryUpdate then true else false,
+				useScaledPlayButton = true,
 			}),
 			TimerBar = isAnimated and self:renderTimerBar(style) or nil,
 		})

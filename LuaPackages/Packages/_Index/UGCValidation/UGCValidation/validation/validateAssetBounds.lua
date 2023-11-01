@@ -9,6 +9,7 @@ local root = script.Parent.Parent
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
 local getFFlagUGCValidateMinBoundsOnlyMesh = require(root.flags.getFFlagUGCValidateMinBoundsOnlyMesh)
 local getFFlagUGCValidationRefactorAssetTraversal = require(root.flags.getFFlagUGCValidationRefactorAssetTraversal)
+local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -19,6 +20,8 @@ local Types = require(root.util.Types)
 local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+
+local validateScaleType = require(root.validation.validateScaleType)
 
 local assetHierarchy
 
@@ -250,9 +253,14 @@ local function getScaleType(
 		assert(scaleType) -- expected parts have been checked for existance before calling this function
 
 		if not prevPartScaleType then
-			prevPartScaleType = scaleType.Value
+			-- when getFFlagUGCValidateAccessoriesScaleType() is removed true, replace any with StringValue
+			prevPartScaleType = (if getFFlagUGCValidateAccessoriesScaleType() then scaleType else scaleType.Value) :: any
 		else
-			return prevPartScaleType == scaleType.Value
+			if getFFlagUGCValidateAccessoriesScaleType() then
+				return prevPartScaleType.Value == scaleType.Value
+			else
+				return prevPartScaleType == scaleType.Value
+			end
 		end
 		return true
 	end)
@@ -261,15 +269,20 @@ local function getScaleType(
 		return false, { "All MeshParts must have the same Value in their AvatarPartScaleType child" }, nil
 	end
 
-	if not Constants.AvatarPartScaleTypes[prevPartScaleType] then
-		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_InvalidAvatarPartScaleType)
-		return false,
-			{
-				"The Value of all MeshParts AvatarPartScaleType children must be either Classic, ProportionsSlender, or ProportionsNormal",
-			},
-			nil
+	if getFFlagUGCValidateAccessoriesScaleType() then
+		local success, reasons = validateScaleType(prevPartScaleType)
+		return success, reasons, if success then prevPartScaleType.Value else nil
+	else
+		if not Constants.AvatarPartScaleTypes[prevPartScaleType] then
+			Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_InvalidAvatarPartScaleType :: string)
+			return false,
+				{
+					"The Value of all MeshParts AvatarPartScaleType children must be either Classic, ProportionsSlender, or ProportionsNormal",
+				},
+				nil
+		end
+		return true, nil, prevPartScaleType
 	end
-	return true, nil, prevPartScaleType
 end
 
 local function validateMinBoundsInternal(

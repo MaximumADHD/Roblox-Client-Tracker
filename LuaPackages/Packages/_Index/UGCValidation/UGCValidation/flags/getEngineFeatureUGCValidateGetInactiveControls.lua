@@ -1,5 +1,5 @@
 --!strict
 
 return function()
-	return game:GetEngineFeature("UGCValidateGetInactiveControls")
+	return game:GetEngineFeature("UGCValidateGetInactiveControls2")
 end

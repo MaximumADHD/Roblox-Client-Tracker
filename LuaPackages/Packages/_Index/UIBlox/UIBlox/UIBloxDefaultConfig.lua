@@ -17,9 +17,6 @@ return {
 	-- config for supporting right side gadget for Menu Cell
 	enableRightSideGadgetView = false,
 
-	-- indicate whether hover background fix for button is enabled
-	enableGenericButtonHoverBackgroundFix = false,
-
 	-- indicate whether fix for tooltip color styles is enabled
 	enableTooltipColorStylesFix = false,
 
@@ -38,21 +35,12 @@ return {
 	-- New color palettes of color system 1.1
 	useNewThemeColorPalettes = false,
 
-	-- for new updated media gallery
-	enableMediaGalleryUpdate = false,
-
-	-- Enable auto hiding of VR Pointer Overlay when VR sessions is not visible
-	enableAutoHidingPointerOverlay = false,
-
 	-- Enable rendering the offhand VR laser pointer
 	dualVRLaserPointers = false,
 
 	-- Removes central AnchorPoint and Position from ExperienceDetails media gallery Preview
 	-- to avoid layout bug related to AutomaticSize
 	removePreviewAnchor = false,
-
-	-- Change how VR Panel3D aligned to the in-game panel
-	vrAlignPanel3DUnderInGamePanel = false,
 
 	-- Fix Panel3D frame-behind issues when positioned relative to the camera
 	vrFixUIJitter = false,
@@ -74,9 +62,6 @@ return {
 
 	-- Allow UIBlox TextButtons to be shown after Icon Buttons in the ActionBar
 	enableTextButtonsInActionBar = false,
-
-	-- Add hover delay support for ExperienceTileV3
-	experienceTileHoverDelay = false,
 
 	-- Enable alternate platform content icon map for KeyLabel
 	usePlatformContentKeyLabels = false,
@@ -145,4 +130,7 @@ return {
 
 	-- Add gamepad support to LinkButton
 	enableLinkButtonGamepadSupport = false,
+
+	-- Destroy laser pointers if the PointerOverlay component is unmounted
+	destroyLaserPointersOnUnmount = false,
 }
