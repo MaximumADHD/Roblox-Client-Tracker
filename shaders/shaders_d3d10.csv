@@ -970,3 +970,4 @@ UITransformedLitFogVSShadowedFSM,Vertex
 UITransformedVS,Vertex
 UIVS,Vertex
 UpSampleTentFS,Fragment
+VoxelRaycastPS,Fragment

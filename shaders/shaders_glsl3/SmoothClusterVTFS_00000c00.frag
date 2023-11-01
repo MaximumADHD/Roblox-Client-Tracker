@@ -33,7 +33,7 @@ void main()
         f2 = vec4(0.0);
     }
     vec3 f3;
-    if (((f2.w < 0.0) || f1) || (!(VARYING0.w == 0.0)))
+    if (((f2.w < 0.0) || f1) || (VARYING0.w > 0.0))
     {
         f3 = VARYING5.xyz * VARYING5.xyz;
     }

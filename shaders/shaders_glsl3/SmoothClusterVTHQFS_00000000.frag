@@ -40,7 +40,7 @@ void main()
     vec3 f3;
     vec3 f4;
     vec3 f5;
-    if (((f2.w < 0.0) || f1) || (!(VARYING0.w == 0.0)))
+    if (((f2.w < 0.0) || f1) || (VARYING0.w > 0.0))
     {
         f5 = vec3(0.0, 1.0, 0.0);
         f4 = VARYING4.xyz * VARYING4.xyz;

@@ -284,8 +284,8 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.OutputPath: string
 	Property AssetPatchSettings.PatchId: string
 Class AssetService : Instance [NotCreatable] [Service]
-	Function AssetService:CreateDynamicImageAsync(textureId: string) -> DynamicImage [Yields]
 	Function AssetService:CreateDynamicMeshAsync(meshId: string) -> DynamicMesh [Yields]
+	Function AssetService:CreateEditableImageAsync(textureId: string) -> EditableImage [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
@@ -299,6 +299,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:RegisterUGCValidationFunction(function: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function AssetService:SavePlaceAsync() -> () [Yields]
 	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields]
+	Function AssetService:createDynamicMeshFromPartAsync(meshPart: Instance) -> DynamicMesh [Yields]
 	Event AssetService.OpenCreateResultModal(resultType: Enum.PromptCreateAssetResult) {RobloxScriptSecurity}
 	Event AssetService.OpenPublishResultModal(resultType: Enum.PromptPublishAssetResult) {RobloxScriptSecurity}
 Class Atmosphere : Instance
@@ -625,6 +626,19 @@ Class StarterGui : BasePlayerGui [NotCreatable] [Service]
 	Function StarterGui:SetCore(parameterName: string, value: any) -> ()
 	Function StarterGui:SetCoreGuiEnabled(coreGuiType: Enum.CoreGuiType, enabled: boolean) -> ()
 	Event StarterGui.CoreGuiChangedSignal(coreGuiType: Enum.CoreGuiType, enabled: boolean) {RobloxScriptSecurity}
+Class BaseRemoteEvent : Instance [NotCreatable]
+Class RemoteEvent : BaseRemoteEvent
+	Function RemoteEvent:FireAllClients(arguments: ...any) -> ()
+	Function RemoteEvent:FireClient(player: Player, arguments: ...any) -> ()
+	Function RemoteEvent:FireServer(arguments: ...any) -> ()
+	Event RemoteEvent.OnClientEvent(arguments: ...any)
+	Event RemoteEvent.OnServerEvent(player: Player, arguments: ...any)
+Class UnreliableRemoteEvent : BaseRemoteEvent [NotBrowsable]
+	Function UnreliableRemoteEvent:FireAllClients(arguments: ...any) -> ()
+	Function UnreliableRemoteEvent:FireClient(player: Player, arguments: ...any) -> ()
+	Function UnreliableRemoteEvent:FireServer(arguments: ...any) -> ()
+	Event UnreliableRemoteEvent.OnClientEvent(arguments: ...any)
+	Event UnreliableRemoteEvent.OnServerEvent(player: Player, arguments: ...any)
 Class BaseWrap : Instance [NotCreatable]
 	Property BaseWrap.CageMeshId: string {✏️PluginSecurity}
 	Property BaseWrap.CageOrigin: CFrame {✏️PluginSecurity}
@@ -823,6 +837,7 @@ Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:GetCaptureSizeAsync(captureContentId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
+	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:SaveScreenshotCapture() -> () {RobloxScriptSecurity}
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) {RobloxScriptSecurity}
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
@@ -893,6 +908,12 @@ Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Chat.ServerToClientUnderOver13FilteredResponseSignal(sender: Instance, unfilteredMessage: string, isError: boolean, errorStr: string, under13: string, over13: string) {RobloxSecurity} [Hidden]
 Class ChatbotUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ChatbotUIService:DisplayContent(contentType: string, data: { [string]: any }) -> () {RobloxScriptSecurity}
+	Function ChatbotUIService:GetSettings() -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Event ChatbotUIService.ActionActivatedSignal(action: string) {RobloxScriptSecurity}
+	Event ChatbotUIService.FindVariationsSignal(action: string) {RobloxScriptSecurity}
+	Event ChatbotUIService.SettingChangedSignal(setting: string, value: any) {RobloxScriptSecurity}
+	Event ChatbotUIService.ShiftToAssetIdSignal(action: string, change: number) {RobloxScriptSecurity}
+	Event ChatbotUIService.ShiftVariationSignal(action: string, change: number) {RobloxScriptSecurity}
 Class ClickDetector : Instance
 	Property ClickDetector.MaxActivationDistance: number
 	Property ClickDetector.CursorIcon: string
@@ -1553,19 +1574,19 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property DraggerService.PivotSnapToGeometry: boolean {RobloxScriptSecurity} [ReadOnly]
 	Property DraggerService.ShowHover: boolean [ReadOnly]
 	Property DraggerService.ShowPivotIndicator: boolean [NotReplicated]
-Class DynamicImage : Instance
-	Property DynamicImage.ImageData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
-	Property DynamicImage.Size: Vector2
-	Function DynamicImage:Copy(min: Vector2, max: Vector2) -> DynamicImage
-	Function DynamicImage:Crop(min: Vector2, max: Vector2) -> ()
-	Function DynamicImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number) -> ()
-	Function DynamicImage:DrawImage(position: Vector2, image: DynamicImage, combineType: Enum.ImageCombineType) -> ()
-	Function DynamicImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number) -> ()
-	Function DynamicImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number) -> ()
-	Function DynamicImage:ReadPixels(position: Vector2, size: Vector2) -> { any } [CustomLuaState] {🧬Safe}
-	Function DynamicImage:Resize(size: Vector2) -> ()
-	Function DynamicImage:Rotate(degrees: number, changeSize: boolean) -> ()
-	Function DynamicImage:WritePixels(position: Vector2, size: Vector2, pixels: { any }) -> () [CustomLuaState]
+Class EditableImage : Instance
+	Property EditableImage.ImageData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
+	Property EditableImage.Size: Vector2
+	Function EditableImage:Copy(min: Vector2, max: Vector2) -> EditableImage
+	Function EditableImage:Crop(min: Vector2, max: Vector2) -> ()
+	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number) -> ()
+	Function EditableImage:DrawImage(position: Vector2, image: EditableImage, combineType: Enum.ImageCombineType) -> ()
+	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number) -> ()
+	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number) -> ()
+	Function EditableImage:ReadPixels(position: Vector2, size: Vector2) -> { any } [CustomLuaState] {🧬Safe}
+	Function EditableImage:Resize(size: Vector2) -> ()
+	Function EditableImage:Rotate(degrees: number, changeSize: boolean) -> ()
+	Function EditableImage:WritePixels(position: Vector2, size: Vector2, pixels: { any }) -> () [CustomLuaState]
 Class EngineAPICloudProcessingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class EulerRotationCurve : Instance
 	Property EulerRotationCurve.RotationOrder: Enum.RotationOrder
@@ -2266,6 +2287,13 @@ Class SelectionPartLasso : SelectionLasso [Deprecated]
 	Property SelectionPartLasso.Part: BasePart? [Deprecated]
 Class SelectionPointLasso : SelectionLasso [Deprecated]
 	Property SelectionPointLasso.Point: Vector3 [Deprecated]
+Class Path2D : GuiBase [NotReplicated]
+	Property Path2D.Visible: boolean {RobloxScriptSecurity}
+	Property Path2D.SelectedControlPoint: number {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
+	Property Path2D.AbsoluteSize: Vector2 {RobloxScriptSecurity} [ReadOnly]
+	Property Path2D.Position: UDim2 {RobloxScriptSecurity}
+	Function Path2D:GetControlPoints() -> { any } {RobloxScriptSecurity}
+	Function Path2D:SetControlPoints(controlPoints: { any }) -> () {RobloxScriptSecurity}
 Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GuiService.AutoSelectGuiEnabled: boolean
 	Property GuiService.CoreEffectFolder: Folder? {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -3437,6 +3465,7 @@ Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.PhysicalConfigData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 Class MeshPart : TriangleMeshPart
 	Property MeshPart.DoubleSided: boolean {✏️PluginSecurity}
+	Property MeshPart.DynamicMeshData: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property MeshPart.HasJointOffset: boolean {✏️NotAccessibleSecurity} [Hidden]
 	Property MeshPart.HasSkinnedMesh: boolean {✏️NotAccessibleSecurity} [Hidden]
 	Property MeshPart.MeshID: string [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
@@ -3640,10 +3669,12 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property PackageLink.PackageAssetName: string [ReadOnly] [NotScriptable]
 	Property PackageLink.PermissionLevel: Enum.PackagePermission [ReadOnly] [NotScriptable]
 	Property PackageLink.AutoUpdate: boolean [NotScriptable]
+	Property PackageLink.DefaultName: string {✏️NotAccessibleSecurity}
 	Property PackageLink.ModifiedState: number [Hidden] [NotScriptable]
 	Property PackageLink.PackageGuid: number [Hidden] [NotScriptable]
 	Property PackageLink.PackageId: string [ReadOnly]
 	Property PackageLink.PackageIdSerialize: string [Hidden] [NotScriptable]
+	Property PackageLink.SerializedDefaultAttributes: BinaryString {✏️NotAccessibleSecurity}
 	Property PackageLink.Status: string {RobloxScriptSecurity} [ReadOnly]
 	Property PackageLink.VersionIdSerialize: number [Hidden] [NotScriptable]
 	Property PackageLink.VersionNumber: number {✏️NotAccessibleSecurity} [📁 LoadOnly] [NotReplicated]
@@ -4284,12 +4315,6 @@ Class RemoteCursorService : Instance [NotCreatable] [Service]
 	Event RemoteCursorService.RequestAllRemoteCursorPositionForScript(script: string) {RobloxSecurity} [Hidden]
 	Event RemoteCursorService.UpdateClientRemoteCursorPosition(script: string, remoteCursorPosition: string) {RobloxSecurity} [Hidden]
 Class RemoteDebuggerServer : Instance [NotCreatable] [Service] [NotReplicated]
-Class RemoteEvent : Instance
-	Function RemoteEvent:FireAllClients(arguments: ...any) -> ()
-	Function RemoteEvent:FireClient(player: Player, arguments: ...any) -> ()
-	Function RemoteEvent:FireServer(arguments: ...any) -> ()
-	Event RemoteEvent.OnClientEvent(arguments: ...any)
-	Event RemoteEvent.OnServerEvent(player: Player, arguments: ...any)
 Class RemoteFunction : Instance
 	Function RemoteFunction:InvokeClient(player: Player, arguments: ...any) -> ...any [Yields]
 	Function RemoteFunction:InvokeServer(arguments: ...any) -> ...any [Yields]
@@ -4341,15 +4366,14 @@ Class ReplicatedFirst : Instance [NotCreatable] [Service]
 	Event ReplicatedFirst.RemoveDefaultLoadingGuiSignal() {RobloxScriptSecurity}
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RibbonNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function RibbonNotificationService:NewNotificationFromPlugin(notificationId: string) -> () {RobloxScriptSecurity}
-	Function RibbonNotificationService:NewNotificationFromPlugin2(notificationId: string) -> () {RobloxScriptSecurity}
-	Event RibbonNotificationService.NewNotificationFromRibbon(notificationId: string) {RobloxScriptSecurity}
-	Event RibbonNotificationService.NewNotificationId(notificationId: string) {RobloxScriptSecurity}
+	Function RibbonNotificationService:OnNotificationUpdateFromPlugin(newNotificationId: string, seenNotificationId: string) -> () {RobloxScriptSecurity}
+	Event RibbonNotificationService.NewNotificationFromRibbon(newNotificationId: string) {RobloxScriptSecurity}
+	Event RibbonNotificationService.ToggleNotificationTray(checked: boolean) {RobloxScriptSecurity}
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
 Class RobloxServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
 Class RomarkService : Instance [NotCreatable] [Service]
-	Function RomarkService:EndRemoteRomarkTest() -> () {RobloxScriptSecurity}
+	Function RomarkService:EndRemoteRomarkTest() -> ()
 	Event RomarkService.RomarkEndOfTest() {RobloxScriptSecurity} [Hidden]
 Class RotationCurve : Instance
 	Property RotationCurve.Length: number [ReadOnly]
@@ -4689,9 +4713,9 @@ Class Sound : Instance
 	Property Sound.IsSpatial: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Sound.PlayOnRemove: boolean
 	Property Sound.UsageContextPermission: Enum.UsageContext {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property Sound.EmitterSize: number
-	Property Sound.MaxDistance: number
-	Property Sound.MinDistance: number [📁 LoadOnly]
+	Property Sound.EmitterSize: number [Deprecated]
+	Property Sound.MaxDistance: number [Deprecated]
+	Property Sound.MinDistance: number [📁 LoadOnly] [Deprecated]
 	Property Sound.Pitch: number [📁 LoadOnly] [Deprecated]
 	Property Sound.PlayingReplicator: boolean [Hidden] [NotScriptable]
 	Property Sound.TimePositionReplicator: number [Hidden] [NotScriptable]
@@ -4711,8 +4735,8 @@ Class Sound : Instance
 	Property Sound.LoopRegion: NumberRange
 	Property Sound.PlaybackRegion: NumberRange
 	Property Sound.SoundGroup: SoundGroup?
-	Property Sound.xmlRead_MaxDistance_3: number [Hidden] [NotReplicated] [NotScriptable]
-	Property Sound.xmlRead_MinDistance_3: number [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable]
+	Property Sound.xmlRead_MaxDistance_3: number [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
+	Property Sound.xmlRead_MinDistance_3: number [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
 	Function Sound:Pause() -> ()
 	Function Sound:Play() -> ()
 	Function Sound:Resume() -> ()
@@ -4897,14 +4921,19 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StopWatchReporter:SendReport(reportName: string) -> () {RobloxScriptSecurity}
 	Function StopWatchReporter:StartTask(reportName: string, taskName: string) -> number {RobloxScriptSecurity}
 Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function StreamingService:GetEphemeralVariable(key: string) -> any {RobloxScriptSecurity}
 	Function StreamingService:GetInstance(collectorName: string, requestId: string? = "instanceId") -> Instance? {RobloxScriptSecurity}
+	Function StreamingService:InvokeCommand(requestId: string, commandName: string, arg: any) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterContextCollector(collectorName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
+	Function StreamingService:RegisterSequentialCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
+	Function StreamingService:SetEphemeralVariable(key: string, value: any, timeToLive: number? = -1) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterCommand(commandName: string) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterContextCollector(collectorName: string) -> () {RobloxScriptSecurity}
 	Event StreamingService.RequestEnded(requestId: string) {RobloxScriptSecurity}
 	Event StreamingService.RequestError(requestId: string, errorMessage: string) {RobloxScriptSecurity}
-	Event StreamingService.RequestStarted(requestId: string) {RobloxScriptSecurity}
+	Event StreamingService.RequestStarted(requestId: string, queryToProcess: string) {RobloxScriptSecurity}
+	Event StreamingService.SequentialCommandsFinished(requestId: string, success: boolean) {RobloxScriptSecurity}
 	Event StreamingService.Stream(requestId: string, streamContent: string) {RobloxScriptSecurity}
 Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Enable CoreScript Debugger: boolean
@@ -5059,12 +5088,14 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioAssetService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
+	Function StudioAssetService:FireOnUGCSubmitCompleted(cancelled: boolean) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:PublishPackage(instance: Instance, publishInfo: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:SerializeInstances(instances: { Instance }) -> string {RobloxScriptSecurity} [Yields]
-	Function StudioAssetService:ShowSaveToRoblox(instances: { Instance }, assetType: any) -> () {RobloxScriptSecurity}
+	Function StudioAssetService:ShowSaveToRoblox(instances: { Instance }, assetType: any, hasSubsequent: boolean? = false) -> () {RobloxScriptSecurity}
 	Event StudioAssetService.OnConvertToPackageResult(isSuccessful: boolean, errorMessage: string) {RobloxScriptSecurity}
 	Event StudioAssetService.OnPublishPackageResult(result: { [string]: any }, errorMessage: string) {RobloxScriptSecurity}
-	Event StudioAssetService.OnSaveToRoblox(instances: { Instance }, assetType: any) {RobloxScriptSecurity}
+	Event StudioAssetService.OnSaveToRoblox(instances: { Instance }, assetType: any, hasSubsequent: boolean) {RobloxScriptSecurity}
+	Event StudioAssetService.OnUGCSubmitCompleted(cancelled: boolean) {RobloxScriptSecurity}
 Class StudioAttachment : Instance [NotReplicated]
 	Property StudioAttachment.AutoHideParent: boolean
 	Property StudioAttachment.IsArrowVisible: boolean
@@ -6683,6 +6714,7 @@ Enum CoreGuiType
 	EnumItem CoreGuiType.All : 4
 	EnumItem CoreGuiType.EmotesMenu : 5
 	EnumItem CoreGuiType.SelfView : 6
+	EnumItem CoreGuiType.Captures : 7
 Enum CreateOutfitFailure
 	EnumItem CreateOutfitFailure.InvalidName : 1
 	EnumItem CreateOutfitFailure.OutfitLimitReached : 2

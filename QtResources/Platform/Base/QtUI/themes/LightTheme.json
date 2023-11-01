@@ -794,6 +794,11 @@
             }
         },
         {
+            "Foreground Inverse": {
+                "Default": "#2C2C2C"
+            }
+        },
+        {
             "Foreground Main": {
                 "Default": "#F6F6F6"
             }
@@ -871,6 +876,11 @@
         {
             "Text Disabled": {
                 "Default": "#989898"
+            }
+        },
+        {
+            "Text Inverse": {
+                "Default": "#FFFFFF"
             }
         },
         {
@@ -1635,6 +1645,7 @@
     },
     "Foreground": {
         "Contrast": "#E1E1E1",
+        "Inverse": "#2C2C2C",
         "Main": "#F6F6F6",
         "Muted": "#FAFAFA"
     },
@@ -1665,6 +1676,7 @@
     "Text": {
         "Contrast": "#FFFFFF",
         "Disabled": "#989898",
+        "Inverse": "#FFFFFF",
         "Primary": "#1D1D1D",
         "Secondary": "#3B3B3B",
         "TextLink": "#0074B6"

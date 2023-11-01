@@ -9399,6 +9399,50 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">UnreliableRemoteEvent</string>
+        <string name="ClassCategory">Scripting</string>
+        <string name="ExplorerOrder">51</string>
+        <string name="ExplorerImageIndex">75</string>
+        <string name="summary">Same as RemoteEvents but events are sent unreliably (neither reliably nor ordered).</string>
+        <bool name="FFlag">UnreliableEvents</bool>
+      </Properties>
+      <Item class="ReflectionMetadataFunctions">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FireAllClients</string>
+            <string name="ScriptContext">Server</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FireClient</string>
+            <string name="ScriptContext">Server</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FireServer</string>
+            <string name="ScriptContext">Client</string>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ReflectionMetadataEvents">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">OnClientEvent</string>
+            <string name="ScriptContext">Client</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">OnServerEvent</string>
+            <string name="ScriptContext">Server</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">TerrainRegion</string>
         <bool name="Browsable">true</bool>
         <string name="ExplorerOrder">20</string>

@@ -218,3 +218,4 @@ Studio.Common.Action.Undo,,Undo,Undo
 Studio.Common.Action.Value,,Value,Value
 Studio.Common.Action.Yes,,Yes,Yes
 Studio.Common.Action.Next,,Next,Next
+Studio.Docking.PlaceholerPanelText,QtitanDocking: The text that will be displayed in placeholder panels,Empty Docking Area,Empty Docking Area

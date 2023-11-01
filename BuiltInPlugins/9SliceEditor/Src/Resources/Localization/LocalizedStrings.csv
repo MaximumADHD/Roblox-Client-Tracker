@@ -7,7 +7,7 @@ Studio.9SliceEditor.Plugin.Toolbar,9SliceEditor,9SliceEditor,9SliceEditor,9Slice
 Studio.9SliceEditor.TextEditor.Right,Right,Rechts,Right,Derecha,Droite,Destra,右,오른쪽,Direita,右,右,右
 Studio.9SliceEditor.Plugin.Button,Toggle,Umschalten,Toggle,Alternar,Activer/désactiver,Attiva/disattiva,切り換え,토글,Alternador,切换,切换,切換
 Studio.9SliceEditor.TextEditor.Bottom,Bottom,Unten,Bottom,Inferior,Bas,In Basso,下,하단,Inferior,下,下,下
-Studio.9SliceEditor.Plugin.Description,Toggles the Template plugin window.,Schaltet das Vorlagen-Plugin-Fenster um.,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,Attiva/Disattiva la finestra del plugin Template.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 토글합니다.,Alterna a janela do plugin de modelos.,切换样板插件窗口。,切换样板插件窗口。,切換樣板外掛程式視窗。
+Studio.9SliceEditor.Plugin.Description,Toggles the Template plugin window.,Schaltet das Vorlagen-Plugin-Fenster um,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,Attiva/Disattiva la finestra del plugin Template.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 토글합니다.,Alterna a janela do plugin de modelos.,切换样板插件窗口。,切换样板插件窗口。,切換樣板外掛程式視窗。
 Studio.9SliceEditor.TextEditor.Offsets,Offsets,Versatz,Offsets,Desplazamientos,Offsets,Offsets,オフセット,오프셋,Deslocamentos,偏移,偏移,偏移
 Studio.9SliceEditor.SliceEditor.CloseButton,Close,Schließen,Close,Cerrar,Fermer,Chiudi,閉じる,닫기,Fechar,关闭,关闭,關閉
 Studio.9SliceEditor.SliceEditor.RevertButton,Revert,Zurücksetzen,Revert,Revertir,Revenir à,Ripristina,元に戻す,되돌리기,Reverter,还原,还原,還原

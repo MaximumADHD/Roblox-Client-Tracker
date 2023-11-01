@@ -135,6 +135,7 @@ Studio.AnimationClipEditor.Menu.Brows, ,Brows
 Studio.AnimationClipEditor.Menu.Core, ,Core
 Studio.AnimationClipEditor.Menu.CreateFromVideo, ,Live Animation Creator
 Studio.AnimationClipEditor.Menu.CreateNew, ,Create New
+Studio.AnimationClipEditor.Menu.Everything, ,Everything
 Studio.AnimationClipEditor.Menu.Export, ,Export
 Studio.AnimationClipEditor.Menu.Eyes, ,Eyes
 Studio.AnimationClipEditor.Menu.FromFBX, ,From FBX Animation
@@ -146,6 +147,7 @@ Studio.AnimationClipEditor.Menu.Load, ,Load
 Studio.AnimationClipEditor.Menu.Mouth, ,Mouth
 Studio.AnimationClipEditor.Menu.Movement, ,Movement
 Studio.AnimationClipEditor.Menu.New, ,New...
+Studio.AnimationClipEditor.Menu.Nothing, ,Nothing
 Studio.AnimationClipEditor.Menu.OptimizeKeyframes, ,Optimize Keyframes
 Studio.AnimationClipEditor.Menu.Overwrite_Migrated, ,Do you want to overwrite existing animation {overwriteName}?
 Studio.AnimationClipEditor.Menu.PromoteToChannels, ,Promote to Channel Animation
@@ -261,6 +263,7 @@ Studio.AnimationClipEditor.Toast.Saved_Migrated, ,Saved animation {savedAnimName
 Studio.AnimationClipEditor.Tooltip.AddTrackButton, ,Add a new animation track
 Studio.AnimationClipEditor.Tooltip.CurrentFrameBox, ,Change scrubber time
 Studio.AnimationClipEditor.Tooltip.EndFrameBox, ,Change timeline length
+Studio.AnimationClipEditor.Tooltip.FilterEvents, ,Filter Events by name
 Studio.AnimationClipEditor.Tooltip.GoToCurveEditor, ,Go to the Curve Editor
 Studio.AnimationClipEditor.Tooltip.GoToDopesheetEditor, ,Go to the Dopesheet Editor
 Studio.AnimationClipEditor.Tooltip.GoToFirstFrame, ,Move the scrubber to the first frame

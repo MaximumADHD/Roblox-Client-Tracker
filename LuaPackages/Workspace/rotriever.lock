@@ -18,6 +18,7 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "Rodux Rodux 0.1.0",
     "Screenshot TnSScreenshot 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "VerifiedBadges VerifiedBadges 0.8.1",
@@ -506,6 +507,7 @@ dependencies = [
     "JestGlobals JestGlobals 0.1.0",
     "LoggingProtocol LoggingProtocol 0.1.0",
     "MessageBus MessageBus 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
     "t t 0.1.0",
 ]
 
@@ -1032,6 +1034,7 @@ dependencies = [
 name = "Loggers"
 version = "0.1.0"
 dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "RobloxAppEvents RobloxAppEvents 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
@@ -1639,6 +1642,7 @@ name = "RobloxAppSessionization"
 version = "0.1.0"
 dependencies = [
     "Cryo Cryo 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
     "Loggers Loggers 0.1.0",
     "NavigationRodux NavigationRodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
@@ -1821,7 +1825,10 @@ version = "0.1.0"
 [[package]]
 name = "SocialChatToast"
 version = "0.1.0"
-dependencies = ["Rodux Rodux 0.1.0"]
+dependencies = [
+    "JestGlobals JestGlobals 0.1.0",
+    "Rodux Rodux 0.1.0",
+]
 
 [[package]]
 name = "SocialCommon"
@@ -1956,6 +1963,7 @@ dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "Cryo Cryo 0.1.0",
     "FormFactor FormFactor 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Time Time 0.1.0",
     "UIBlox UIBlox 0.1.0",
@@ -2096,15 +2104,22 @@ dependencies = [
 name = "StreamNotifications"
 version = "0.1.0"
 dependencies = [
+    "AbuseReports AbuseReports 0.1.0",
+    "CentralOverlay CentralOverlay 0.1.0",
+    "HttpRequest HttpRequest 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
+    "NotificationsCommon NotificationsCommon 0.1.0",
+    "Promise Promise 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "RoactServices RoactServices 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
+    "UrlBuilder UrlBuilder 0.1.0",
 ]
 
 [[package]]
@@ -2468,6 +2483,7 @@ dependencies = [
     "AppSystemBar AppSystemBar 0.1.0",
     "AvatarPolicies AvatarPolicies 0.1.0",
     "Cryo Cryo 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
     "Loggers Loggers 0.1.0",
     "PolicyProvider PolicyProvider 0.1.0",
     "React React 0.1.0",

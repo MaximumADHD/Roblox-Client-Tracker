@@ -357,10 +357,10 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Successfully granted Universe permission to use asset {assetId:int},Studio.Toolbox.General.CategoryCreationsLeftShoeAccessory,Left Shoe Accessories
  ,Left Shoe Accessories,Studio.Toolbox.Audio.SoundEffect.Category.computers,Computers
  ,Computers,Studio.Toolbox.General.CategoryMyVideos,My Videos
- ,My Videos,Studio.Toolbox.General.CategoryCreationsDressSkirtAccessory,Dress Skirt Accessories
- ,Dress Skirt Accessories,Studio.Toolbox.Audio.SoundEffect.Category.Rustling leaves,Rustling leaves
+ ,My Videos,Studio.Toolbox.Audio.SoundEffect.Category.Rustling leaves,Rustling leaves
  ,Rustling leaves,Studio.Toolbox.Audio.SoundEffect.Category.Rustling_leaves,Rustling leaves
- ,Rustling leaves,Studio.Toolbox.AssetUploadResult.Failure,Submission failed
+ ,Rustling leaves,Studio.Toolbox.General.CategoryCreationsDressSkirtAccessory,Dress Skirt Accessories
+ ,Dress Skirt Accessories,Studio.Toolbox.AssetUploadResult.Failure,Submission failed
  ,Submission failed,Studio.Toolbox.AssetConfigCopy.PackageCantShare,Marketplace publishing is not available when updates are enabled
  ,Marketplace publishing is not available when updates are enabled,Studio.Toolbox.General.CategoryCreationsGroupHats,Group Hats
  ,Group Hats,Studio.Toolbox.General.CategoryCreationsGroupFaceAccessory,Group Face Accessories
@@ -835,10 +835,10 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Bicycle bell,Studio.Toolbox.AssetConfig.UGCUnknownMeshPartsMessage,The following mesh parts are unknown and will not be uploaded:
  ,The following mesh parts are unknown and will not be uploaded:,Studio.Toolbox.Audio.SoundEffect.Category.birds,Birds
  ,Birds,Studio.Toolbox.Audio.SoundEffect.Category.Howl,Howl
- ,Howl,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft,Aircraft
+ ,Howl,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
+ ,Your current balance:,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft,Aircraft
  ,Aircraft,Studio.Toolbox.Audio.SoundEffect.Category.aircraft,Aircraft
- ,Aircraft,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
- ,Your current balance:,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
+ ,Aircraft,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
  ,You need {robux:int} more Robux to buy "{name}" from {creator}.,Studio.Toolbox.Purchase.Retry,Retry
  ,Retry,Studio.Toolbox.Purchase.Buy,Buy
  ,Buy,Studio.Toolbox.Audio.SoundEffect.Category.Glass,Glass
@@ -889,7 +889,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Do you grant permission for this Experience?,Studio.Toolbox.General.AbbreviatedSeconds,s
  ,s,Studio.Toolbox.General.AbbreviatedMinutes,m
  ,m,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
- ,Sound Length,Studio.Toolbox.AssetUploadResult.CreatorDashboardMessage,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.
+ ,Sound Length,Studio.Toolbox.AssetUploadResult.NextSubmit,Proceed to Next Item
+ ,Proceed to Next Item,Studio.Toolbox.AssetUploadResult.CreatorDashboardMessage,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.
 A message displayed to the user after asset upload success informing them that they can configure and put assets on sale in the Creator Dashboard web interface a link to it.,Once your asset is approved you can place it on sale and configure it on your {creatorDashboardLink}.,Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
  ,Invalid Animation ID,"Studio.Toolbox.Audio.SoundEffect.Category.Rowboat, canoe, kayak","Rowboat, canoe, kayak"
  ,"Rowboat, canoe, kayak",Studio.Toolbox.Audio.SoundEffect.Category.Rowboat_canoe_kayak,"Rowboat, canoe, kayak"

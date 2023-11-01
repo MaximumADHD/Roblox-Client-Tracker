@@ -1,6 +1,6 @@
-Key,Source,en-us,es-es,fr-fr,ja-jp,ko-kr,pt-br
-Studio.CompositorGraphEditor.Plugin.Button,Toggle,Toggle,Alternar,Activer/désactiver,切り換え,전환,Alternar
-Studio.CompositorGraphEditor.Plugin.Name,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
-Studio.CompositorGraphEditor.Plugin.Toolbar,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
-Studio.CompositorGraphEditor.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 전환합니다.,Alterna a janela do plugin de modelos.
-Studio.CompositorGraphEditor.Plugin.Text,Example Text!,Example Text!,Texto de ejemplo,Exemple de texte !,テキストの例！,예시 텍스트!,Texto de exemplo!
+Key,Source,de-de,en-us,es-es,fr-fr,ja-jp,ko-kr,pt-br
+Studio.CompositorGraphEditor.Plugin.Button,Toggle,Umschalten,Toggle,Alternar,Activer/désactiver,切り換え,전환,Alternar
+Studio.CompositorGraphEditor.Plugin.Name,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
+Studio.CompositorGraphEditor.Plugin.Toolbar,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
+Studio.CompositorGraphEditor.Plugin.Description,Toggles the Template plugin window.,Schaltet das Vorlagen-Plugin-Fenster um.,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 전환합니다.,Alterna a janela do plugin de modelos.
+Studio.CompositorGraphEditor.Plugin.Text,Example Text!,Beispieltext!,Example Text!,Texto de ejemplo,Exemple de texte !,テキストの例！,예시 텍스트!,Texto de exemplo!

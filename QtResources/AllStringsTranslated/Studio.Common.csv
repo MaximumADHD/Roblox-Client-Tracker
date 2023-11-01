@@ -13,17 +13,17 @@ Studio.Common.Action.Exit,,,Exit,Exit,,Beenden,Salir,Quitter,,Esci,退出,나가
 Studio.Common.Action.File,,,File,File,,Datei,Archivo,Fichier,,File,ファイル,파일,Arquivo,Файл,,,,文件,文件,檔案
 Studio.Common.Action.Find,,,Find,Find,,Suchen,Buscar,Rechercher,,Trova,探す,찾기,Localizar,Найти,,,,查找,查找,尋找
 Studio.Common.Action.Help,,,Help,Help,,Hilfe,Ayuda,Aide,,Guida,ヘルプ,도움말,Ajuda,Справка,,,,帮助,帮助,說明
-Studio.Common.Action.Home,,,Home,Home,,,Inicio,Accueil,,Inizio,ホーム,홈,Início,Главная,,,,首页,首页,首頁
+Studio.Common.Action.Home,,,Home,Home,,Start,Inicio,Accueil,,Inizio,ホーム,홈,Início,Главная,,,,首页,首页,首頁
 Studio.Common.Action.Ignore,,,Ignore,Ignore,,Ignorieren,Omitir,Ignorer,,Ignora,無視,무시,Ignorar,Пропустить,,,,忽略,忽略,忽略
 Studio.Common.Action.Insert,,,Insert,Insert,,Einfügen,Insertar,Insérer,,Immetti,挿入,삽입,Inserir,Вставить,,,,插入,插入,插入
 Studio.Common.Action.New,,,New,New,,Neu,Nuevo,Nouveau,,Nuovo,新規,새로 만들기,Novo,Новый,,,,新增,新增,新增
 Studio.Common.Action.Next,,,Next,Next,,Weiter,Siguiente,Suivant,,Avanti,次へ,다음,Próximo,Далее,,,,下一个,下一个,繼續
 Studio.Common.Action.No,,,No,No,,Nein,No,Non,,No,いいえ,아니요,Não,Нет,,,,否,否,否
-Studio.Common.Action.OK,,,OK,OK,,,Aceptar,OK,,OK,OK,확인,OK,ОК,,,,确认,确认,確定
-Studio.Common.Action.Okay,,,Okay,Okay,,,Aceptar,OK,,Okay,OK,확인,OK,ОК,,,,好的,好的,好
+Studio.Common.Action.OK,,,OK,OK,,OK,Aceptar,OK,,OK,OK,확인,OK,ОК,,,,确认,确认,確定
+Studio.Common.Action.Okay,,,Okay,Okay,,OK,Aceptar,OK,,Okay,OK,확인,OK,ОК,,,,好的,好的,好
 Studio.Common.Action.Open,,,Open,Open,,Öffnen,Abrir,Ouvrir,,Apri,開く,열기,Abrir,Открыть,,,,打开,打开,開啟
 Studio.Common.Action.Paste,,,Paste,Paste,,Einfügen,Pegar,Coller,,Incolla,貼り付け,붙여넣기,Colar,Вставить,,,,粘贴,粘贴,貼上
-Studio.Common.Action.Pause,,,Pause,Pause,,,Pausar,Pause,,Pausa,一時停止,일시 중지,Pausar,Приостановить,,,,暂停,暂停,暫停
+Studio.Common.Action.Pause,,,Pause,Pause,,Pause,Pausar,Pause,,Pausa,一時停止,일시 중지,Pausar,Приостановить,,,,暂停,暂停,暫停
 Studio.Common.Action.Play,,,Play,Play,,Spielen,Jugar,Jouer,,Gioca,プレイ,플레이,Jogar,Воспроизвести,,,,开始游戏,开始游戏,開始
 Studio.Common.Action.Previous,,,Previous,Previous,,Zurück,Anterior,Précédent,,Precedente,前へ,이전,Anterior,Предыдущий,,,,上一个,上一个,上一步
 Studio.Common.Action.Reload,,,Reload,Reload,,Neu laden,Volver a cargar,Recharger,,Ricarica,リロード,다시 불러오기,Recarregar,Перезагрузить,,,,重新加载,重新加载,重新載入
@@ -48,29 +48,29 @@ Studio.Common.Action.Move,,,Move,Move,,Verschieben,Mover,Déplacer,,Sposta,移�
 Studio.Common.Action.Rotate,,,Rotate,Rotate,,Drehen,Girar,Pivoter,,Ruota,回転,회전,Girar,Вращать,,,,旋转,旋转,旋轉
 Studio.Common.Action.Error,,,Error,Error,,Fehler,Error,Erreur,,Errore,エラー,오류,Erro,Ошибка,,,,错误,错误,錯誤
 Studio.Common.Action.Height,,,Height,Height,,Höhe,Altura,Hauteur,,Altezza,高さ,높이,Altura,Высота,,,,高度,高度,高度：
-Studio.Common.Action.LabelWithColon1,,,%1:,%1:,,,%1:,%1 :,,%1:,%1:,%1:,%1:,%1:,,,,%1,%1,%1：
-Studio.Common.Action.Name,,,Name,Name,,,Nombre,Nom,,Nome,名前,이름,Nome,Имя,,,,名称,名称,名稱
+Studio.Common.Action.LabelWithColon1,,,%1:,%1:,,%1:,%1:,%1 :,,%1:,%1:,%1:,%1:,%1:,,,,%1,%1,%1：
+Studio.Common.Action.Name,,,Name,Name,,Name,Nombre,Nom,,Nome,名前,이름,Nome,Имя,,,,名称,名称,名稱
 Studio.Common.Action.Search,,,Search,Search,,Suchen,Buscar,Rechercher,,Cerca,サーチ,검색,Pesquisar,Поиск,,,,搜索,搜索,搜尋
 Studio.Common.Action.Value,,,Value,Value,,Wert,Valor,Valeur,,Valore,値,값,Valor,Значение,,,,值,值,值
 Studio.Common.Action.Warning,,,Warning,Warning,,Warnung,Advertencia,Avertissement,,Attenzione,警告,경고,Aviso,Предупреждение,,,,警告,警告,警告
 Studio.Common.Action.Width,,,Width,Width,,Breite,Ancho,Largeur,,Larghezza,幅,너비,Largura,Ширина,,,,宽度,宽度,寬度
-Studio.Common.Action.Submit,,,Submit,Submit,,,Enviar,Soumettre,,Invia,送信,제출,Enviar,Завершить,,,,提交,提交,提交
-Studio.Common.Action.Install,,,Install,Install,,,Instalar,Installer,,Installa,インストール,설치,Instalar,Установить,,,,安装,安装,安裝
-Studio.Common.Action.Installed,,,Installed,Installed,,,Instalado,Installé,,Installazione riuscita,インストール済み,설치됨,Instalado,Установлено,,,,已安装,已安装,已安裝
-Studio.Common.Action.Loading,,,Loading...,Loading...,,,Cargando...,Chargement...,,Caricamento...,読み込み中...,불러오는 중...,Carregando...,Загрузка...,,,,正在加载...,正在加载...,正在載入……
-Studio.Common.Action.Resume,,,Resume,Resume,,,Reanudar,Reprendre,,Riprendi,再開,재개,Retomar,Возобновить,,,,继续,继续,繼續
-Studio.Common.Action.Confirm,,,Confirm,Confirm,,,Confirmar,Confirmer,,Conferma,確定,확인,Confirmar,Подтвердить,,,,确认,确认,確認
-Studio.Common.Action.HideDetails,,,Hide Details,Hide Details,,,Ocultar detalles,Cacher les détails,,Nascondi dettagli,詳細を非表示にする,세부 정보 숨기기,Ocultar detalhes,Скрыть,,,,隐藏详情,隐藏详情,隱藏詳細資料
-Studio.Common.Action.LearnMore,,,Learn More,Learn More,,,Aprende más,En savoir plus,,Maggiori informazioni,もっと詳しく,더 알아보기,Saiba mais,Подробнее,,,,了解更多,了解更多,了解更多
-Studio.Common.Action.SelectAll,,,Select All,Select All,,,Seleccionar todo,Tout sélectionner,,Seleziona tutto,すべて選択,모두 선택,Selecionar tudo,Выбрать все,,,,全选,全选,全選
-Studio.Common.Action.ShowDetails,,,Show Details,Show Details,,,Mostrar detalles,Afficher détails,,Mostra dettagli,詳細を表示,세부 정보 표시,Exibir detalhes,Развернуть,,,,显示详情,显示详情,顯示詳細資料
-Studio.Common.Action.ReportBug,,,Report Bug,Report Bug,,,Reportar error,Signaler un bug,,Segnala bug,バグを報告,버그 신고,Comunicar bug,Сообщить об ошибке,,,,回报问题,回报问题,舉報問題
-Studio.Common.Action.SaveToRoblox,,,Save to Roblox,Save to Roblox,,,Guardar en Roblox,Sauvegarder sur Roblox,,Salva su Roblox,Robloxに保存,Roblox에 저장,Salvar na Roblox,Сохранить в Roblox,,,,保存至 Roblox,保存至 Roblox,儲存到 Roblox
-Studio.Common.Action.Accessory,,,Accessory,Accessory,,,Accesorio,Accessoire,,Accessorio,アクセサリ,장신구,Acessório,Аксессуар,,,,配饰,配饰,飾品
-Studio.Common.Action.Import,,,Import,Import,,,Importar,Importer,,Importa,インポート,가져오기,Importar,Импортировать,,,,导入,导入,匯入
-Studio.Common.Action.Rig,,,Rig,Rig,,,Rig,Rig,,Rig,リグ,리그,Rig,,,,,骨架,骨架,骨架
-Studio.Common.Action.Animation,,,Animation,Animation,,,Animación,Animation,,Animazione,アニメーション,애니메이션,Animação,Анимация,,,,动画,动画,動畫
-Studio.Common.Action.AvatarUnification,,,Avatar Unification,Avatar Unification,,,Unificación de avatar,Unification de l'Avatar,,Unificazione Avatar,アバターの統一,아바타 통합,Unificação de avatar,,,,,虚拟形象统一,虚拟形象统一,虛擬人偶統一
-Studio.Common.Action.PublishToRobloxAs,,,Publish to Roblox As...,Publish to Roblox As...,,,Publicar en Roblox como...,Publier sur Roblox comme...,,Pubblicare su Roblox come...,名前をつけてRobloxに公開...,다른 이름으로 Roblox에 게시...,Publicar na Roblox como...,,,,,发布至 Roblox 为...,发布至 Roblox 为...,
-Studio.Common.Action.SaveToRobloxAs,,,Save to Roblox As...,Save to Roblox As...,,,Guardar en Roblox como...,Sauvegarder sur Roblox...,,Salva su Roblox come...,名前をつけてRobloxに保存...,다른 이름으로 Roblox에 저장...,Salvar na Roblox como...,,,,,保存至 Roblox 为...,保存至 Roblox 为...,
-Studio.Common.Action.Preview,,,Preview,Preview,,,Vista previa,Prévisualisation,,,プレビュー,미리 보기,Prévia,,,,,,,
+Studio.Common.Action.Submit,,,Submit,Submit,,Absenden,Enviar,Soumettre,,Invia,送信,제출,Enviar,Завершить,,,,提交,提交,提交
+Studio.Common.Action.Install,,,Install,Install,,Installieren,Instalar,Installer,,Installa,インストール,설치,Instalar,Установить,,,,安装,安装,安裝
+Studio.Common.Action.Installed,,,Installed,Installed,,Installiert,Instalado,Installé,,Installazione riuscita,インストール済み,설치됨,Instalado,Установлено,,,,已安装,已安装,已安裝
+Studio.Common.Action.Loading,,,Loading...,Loading...,,Lädt ...,Cargando...,Chargement...,,Caricamento...,読み込み中...,불러오는 중...,Carregando...,Загрузка...,,,,正在加载...,正在加载...,正在載入……
+Studio.Common.Action.Resume,,,Resume,Resume,,Fortsetzen,Reanudar,Reprendre,,Riprendi,再開,재개,Retomar,Возобновить,,,,继续,继续,繼續
+Studio.Common.Action.Confirm,,,Confirm,Confirm,,Bestätigen,Confirmar,Confirmer,,Conferma,確定,확인,Confirmar,Подтвердить,,,,确认,确认,確認
+Studio.Common.Action.HideDetails,,,Hide Details,Hide Details,,Details ausblenden,Ocultar detalles,Cacher les détails,,Nascondi dettagli,詳細を非表示にする,세부 정보 숨기기,Ocultar detalhes,Скрыть,,,,隐藏详情,隐藏详情,隱藏詳細資料
+Studio.Common.Action.LearnMore,,,Learn More,Learn More,,Mehr erfahren,Aprende más,En savoir plus,,Maggiori informazioni,もっと詳しく,더 알아보기,Saiba mais,Подробнее,,,,了解更多,了解更多,了解更多
+Studio.Common.Action.SelectAll,,,Select All,Select All,,Alles auswählen,Seleccionar todo,Tout sélectionner,,Seleziona tutto,すべて選択,모두 선택,Selecionar tudo,Выбрать все,,,,全选,全选,全選
+Studio.Common.Action.ShowDetails,,,Show Details,Show Details,,Details anzeigen,Mostrar detalles,Afficher détails,,Mostra dettagli,詳細を表示,세부 정보 표시,Exibir detalhes,Развернуть,,,,显示详情,显示详情,顯示詳細資料
+Studio.Common.Action.ReportBug,,,Report Bug,Report Bug,,Fehler melden,Reportar error,Signaler un bug,,Segnala bug,バグを報告,버그 신고,Comunicar bug,Сообщить об ошибке,,,,回报问题,回报问题,舉報問題
+Studio.Common.Action.SaveToRoblox,,,Save to Roblox,Save to Roblox,,Auf Roblox speichern,Guardar en Roblox,Sauvegarder sur Roblox,,Salva su Roblox,Robloxに保存,Roblox에 저장,Salvar na Roblox,Сохранить в Roblox,,,,保存至 Roblox,保存至 Roblox,儲存到 Roblox
+Studio.Common.Action.Accessory,,,Accessory,Accessory,,Accessoire,Accesorio,Accessoire,,Accessorio,アクセサリ,장신구,Acessório,Аксессуар,,,,配饰,配饰,飾品
+Studio.Common.Action.Import,,,Import,Import,,Importieren,Importar,Importer,,Importa,インポート,가져오기,Importar,Импортировать,,,,导入,导入,匯入
+Studio.Common.Action.Rig,,,Rig,Rig,,Rig,Rig,Rig,,Rig,リグ,리그,Rig,,,,,骨架,骨架,骨架
+Studio.Common.Action.Animation,,,Animation,Animation,,Animation,Animación,Animation,,Animazione,アニメーション,애니메이션,Animação,Анимация,,,,动画,动画,動畫
+Studio.Common.Action.AvatarUnification,,,Avatar Unification,Avatar Unification,,Avatarvereinigung,Unificación de avatar,Unification de l'Avatar,,Unificazione Avatar,アバターの統一,아바타 통합,Unificação de avatar,,,,,虚拟形象统一,虚拟形象统一,虛擬人偶統一
+Studio.Common.Action.PublishToRobloxAs,,,Publish to Roblox As...,Publish to Roblox As...,,Auf Roblox veröffentlichen als ...,Publicar en Roblox como...,Publier sur Roblox comme...,,Pubblicare su Roblox come...,名前をつけてRobloxに公開...,다른 이름으로 Roblox에 게시...,Publicar na Roblox como...,,,,,发布至 Roblox 为...,发布至 Roblox 为...,
+Studio.Common.Action.SaveToRobloxAs,,,Save to Roblox As...,Save to Roblox As...,,Auf Roblox speichern als ...,Guardar en Roblox como...,Sauvegarder sur Roblox...,,Salva su Roblox come...,名前をつけてRobloxに保存...,다른 이름으로 Roblox에 저장...,Salvar na Roblox como...,,,,,保存至 Roblox 为...,保存至 Roblox 为...,
+Studio.Common.Action.Preview,,,Preview,Preview,,Vorschau,Vista previa,Prévisualisation,,,プレビュー,미리 보기,Prévia,,,,,,,

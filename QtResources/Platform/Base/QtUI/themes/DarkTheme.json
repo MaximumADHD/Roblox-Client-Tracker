@@ -790,6 +790,11 @@
             }
         },
         {
+            "Foreground Inverse": {
+                "Default": "#F6F6F6"
+            }
+        },
+        {
             "Foreground Main": {
                 "Default": "#2C2C2C"
             }
@@ -841,12 +846,12 @@
         },
         {
             "Secondary States HoverOutlineBorder": {
-                "Default": "#171717"
+                "Default": "#565656"
             }
         },
         {
             "Secondary States RestingOutlineBorder": {
-                "Default": "#565656"
+                "Default": "#171717"
             }
         },
         {
@@ -867,6 +872,11 @@
         {
             "Text Disabled": {
                 "Default": "#565656"
+            }
+        },
+        {
+            "Text Inverse": {
+                "Default": "#1D1D1D"
             }
         },
         {
@@ -1640,6 +1650,7 @@
     },
     "Foreground": {
         "Contrast": "#3B3B3B",
+        "Inverse": "#F6F6F6",
         "Main": "#2C2C2C",
         "Muted": "#1D1D1D"
     },
@@ -1659,8 +1670,8 @@
         "Muted": "#1D1D1D",
         "States": {
             "HoverBackground": "#989898",
-            "HoverOutlineBorder": "#171717",
-            "RestingOutlineBorder": "#565656"
+            "HoverOutlineBorder": "#565656",
+            "RestingOutlineBorder": "#171717"
         }
     },
     "Success": {
@@ -1670,6 +1681,7 @@
     "Text": {
         "Contrast": "#FFFFFF",
         "Disabled": "#565656",
+        "Inverse": "#1D1D1D",
         "Primary": "#E1E1E1",
         "Secondary": "#989898",
         "TextLink": "#2BB1FF"
