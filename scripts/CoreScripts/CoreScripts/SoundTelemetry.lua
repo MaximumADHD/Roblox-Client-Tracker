@@ -10,7 +10,6 @@ local GetFIntSoundSessionTelemetryThrottle = require(CoreGuiModules.Flags.GetFIn
 local GetFFlagEnableSoundTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundTelemetry)
 local GetFIntSoundTelemetryThrottlingPercentage = require(CoreGuiModules.Flags.GetFIntSoundTelemetryThrottlingPercentage)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
-game:DefineFastFlag("SoundSessionTelemetryNewParams", false)
 game:DefineFastFlag("SoundSessionTelemetryInitialDMTraverse", false)
 
 local LoggingProtocol = require(CorePackages.Workspace.Packages.LoggingProtocol)
@@ -83,33 +82,20 @@ local function logSessionEvent()
 
 	-- Standardized params get cleared out by the time the end-of-session event fires and this code triggers
 	-- But if we get the placeid/sessionid/etc ourselves then they have valid values.
-	if game:GetFastFlag("SoundSessionTelemetryNewParams") then
-		local customFields = {
-			asset_ids = table.concat(assetIds, ","),
-			loop_counts = table.concat(loopCounts, ","),
-			playback_seconds = table.concat(playbackSeconds, ","),
-			placeid = tostring(game.PlaceId),
-			sessionid = AnalyticsService:GetSessionId(),
-			universeid = tostring(game.GameId),
-		}
+	local customFields = {
+		asset_ids = table.concat(assetIds, ","),
+		loop_counts = table.concat(loopCounts, ","),
+		playback_seconds = table.concat(playbackSeconds, ","),
+		placeid = tostring(game.PlaceId),
+		sessionid = AnalyticsService:GetSessionId(),
+		universeid = tostring(game.GameId),
+	}
 
-		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-			customFields.playsessionid = AnalyticsService:GetPlaySessionId()
-		end
-
-		myLoggingProtocol:logRobloxTelemetryEvent(sessionEventConfig, nil, customFields)
-	else			
-		myLoggingProtocol:logRobloxTelemetryEvent(
-			sessionEventConfig,
-			myStandardizedFields,
-			{
-				asset_ids = table.concat(assetIds, ","),
-				loop_counts = table.concat(loopCounts, ","),
-				playback_seconds = table.concat(playbackSeconds, ","),
-			}
-		)
+	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+		customFields.playsessionid = AnalyticsService:GetPlaySessionId()
 	end
 
+	myLoggingProtocol:logRobloxTelemetryEvent(sessionEventConfig, nil, customFields)
 end
 
 local function aggregateEndSessionData()

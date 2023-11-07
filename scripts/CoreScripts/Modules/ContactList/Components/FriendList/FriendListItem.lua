@@ -34,8 +34,10 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local useStyle = UIBlox.Core.Style.useStyle
 
 local OpenOrUpdateCFM = require(ContactList.Actions.OpenOrUpdateCFM)
-
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local useStartCallCallback = require(ContactList.Hooks.useStartCallCallback)
+local Pages = require(ContactList.Enums.Pages)
 
 local rng = Random.new()
 
@@ -48,15 +50,19 @@ export type Props = {
 	dismissCallback: () -> (),
 	layoutOrder: number?,
 	showDivider: boolean,
+	searchQueryString: string?,
+	itemListIndex: number,
+	isSuggestedUser: boolean,
 }
 
-local CALL_IMAGE_SIZE = 28
+local CALL_IMAGE_SIZE = 24
 local PADDING_IN_BETWEEN = 12
 local PROFILE_SIZE = 68
 local PLAYER_CONTEXT_HEIGHT = 24
 local PADDING = Vector2.new(24, 12)
 
 local function FriendListItem(props: Props)
+	local analytics = useAnalytics()
 	local style = useStyle()
 	local theme = style.Theme
 	local font = style.Font
@@ -85,6 +91,11 @@ local function FriendListItem(props: Props)
 	end, {})
 	local tag = useSelector(selectTag)
 
+	local selectCurrentPage = React.useCallback(function(state: any)
+		return state.Navigation.currentPage
+	end, {})
+	local currentPage = useSelector(selectCurrentPage)
+
 	local itemBackgroundTheme, setItemBackgroundTheme = React.useState("BackgroundDefault")
 	local onItemStateChanged = React.useCallback(function(oldState, newState)
 		if newState == ControlState.Pressed then
@@ -98,7 +109,13 @@ local function FriendListItem(props: Props)
 
 	local image = getStandardSizeAvatarHeadShotRbxthumb(tostring(props.userId))
 
-	local startCall = useStartCallCallback(tag, props.userId, props.combinedName, props.dismissCallback)
+	local analyticsInfo = {
+		searchQueryString = props.searchQueryString,
+		itemListIndex = props.itemListIndex,
+		isSuggestedUser = props.isSuggestedUser,
+		page = currentPage,
+	}
+	local startCall = useStartCallCallback(tag, props.userId, props.combinedName, props.dismissCallback, analyticsInfo)
 
 	local playerContext = React.useMemo(function()
 		local icon = Images["component_assets/circle_26_stroke_3"]
@@ -178,6 +195,19 @@ local function FriendListItem(props: Props)
 		end
 	end, {})
 
+	local openOrUpdateCFM = React.useCallback(function()
+		analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuOpened, {
+			eventTimestampMs = os.time() * 1000,
+			friendUserId = friend.userId,
+			searchQueryString = props.searchQueryString,
+			itemListIndex = props.itemListIndex,
+			isSuggestedUser = props.isSuggestedUser,
+			page = Pages.FriendList,
+		})
+
+		dispatch(OpenOrUpdateCFM(friend))
+	end, dependencyArray(friend.userId, props.searchQueryString, props.itemListIndex, props.isSuggestedUser))
+
 	return React.createElement(Interactable, {
 		Position = UDim2.fromOffset(0, 0),
 		Size = UDim2.new(1, 0, 0, PROFILE_SIZE + PADDING.Y * 2),
@@ -198,12 +228,8 @@ local function FriendListItem(props: Props)
 		ProfileImage = React.createElement("ImageButton", {
 			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
 			Image = image,
-			[React.Event.MouseButton2Up] = function()
-				dispatch(OpenOrUpdateCFM(friend))
-			end,
-			[React.Event.TouchTap] = function()
-				dispatch(OpenOrUpdateCFM(friend))
-			end,
+			[React.Event.MouseButton2Up] = openOrUpdateCFM,
+			[React.Event.TouchTap] = openOrUpdateCFM,
 			AutoButtonColor = false,
 		}, {
 			UICorner = React.createElement("UICorner", {
@@ -277,7 +303,7 @@ local function FriendListItem(props: Props)
 				Size = UDim2.fromOffset(CALL_IMAGE_SIZE, CALL_IMAGE_SIZE),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				Image = "rbxassetid://14532752184", -- TODO(IRIS-659): Replace with UIBLOX icon
+				Image = "rbxassetid://15239343417", -- TODO(IRIS-659): Replace with UIBLOX icon
 				ImageColor3 = theme.ContextualPrimaryDefault.Color,
 				ImageTransparency = theme.ContextualPrimaryDefault.Transparency,
 			})

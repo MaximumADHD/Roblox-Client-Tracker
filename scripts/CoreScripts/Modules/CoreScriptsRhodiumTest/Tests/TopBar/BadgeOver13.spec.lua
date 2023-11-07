@@ -21,7 +21,19 @@ local Reducer = require(TopBar.Reducer)
 local PresentationComponent = require(TopBar.Components.Presentation.BadgeOver13:FindFirstChild("BadgeOver13.story"))
 local AppComponent = require(TopBar.Components.Presentation.BadgeOver13)
 
+local Chrome = Modules.Chrome
+local ChromeEnabled = Chrome.Enabled
+
 local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
+
+function CloseChrome()
+	-- New users will see Chrome open and hide BadgeOver13
+	-- In order for these tests to pass, we need to force close Chrome
+	if ChromeEnabled then
+		local ChromeService = require(Chrome.Service)
+		ChromeService:close()
+	end
+end
 
 return function()
 	describe("WHEN story is mounted", function()
@@ -39,6 +51,7 @@ return function()
 		})
 
 		beforeAll(function()
+			CloseChrome()
 			ReactRoblox.act(function()
 				root:render(
 					React.createElement(RoactRodux.StoreProvider, {
@@ -105,6 +118,7 @@ return function()
 		describe("WHEN badge is activated", function()
 
 			beforeAll(function()
+				CloseChrome()
 				fireEvent.mockClear()
 
 				local container = parent:FindFirstChild("subject", true)
@@ -167,6 +181,7 @@ return function()
 			describe("WHEN Learn More link is activated", function()
 
 				beforeAll(function()
+					CloseChrome()
 					fireEvent.mockClear()
 
 					local container = parent:FindFirstChild("subject", true)
@@ -192,6 +207,10 @@ return function()
 	end)
 
 	describe("WHEN app is mounted", function()
+
+		beforeAll(function()
+			CloseChrome()
+		end)
 		local setRBXEventStream = jest.fn()
 
 		local function mountWithConfig(config)
@@ -244,6 +263,7 @@ return function()
 								VRService = {
 									VREnabled = config.isVREnabled,
 								},
+								visibilityChanged = function() end,
 							})
 						})
 					}))

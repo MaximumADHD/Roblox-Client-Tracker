@@ -17,8 +17,11 @@ local Constants = require(Chrome.Unibar.Constants)
 local ChromeTypes = require(Chrome.Service.Types)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
+local FFlagSelfViewFixes = require(Chrome.Flags.GetFFlagSelfViewFixes)()
 local GetFFlagSelfViewMultiTouchFix = require(Chrome.Flags.GetFFlagSelfViewMultiTouchFix)
 local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
+
+local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 
 local useWindowSize = require(script.Parent.Parent.Parent.Hooks.useWindowSize)
 
@@ -48,6 +51,12 @@ local WindowHost = function(props: WindowHostProps)
 	local positionTween: Tween? = React.useMemo(function()
 		return nil
 	end, {})
+
+	local isMenuOpen = if FFlagSelfViewFixes
+		then useSelector(function(state)
+			return state.displayOptions.menuOpen or state.displayOptions.inspectMenuOpen
+		end)
+		else nil
 
 	-- When a reposition tween is playing, momentarily disallow dragging the window
 	local isRepositioning, updateIsRepositioning = React.useBinding(false)
@@ -315,7 +324,7 @@ local WindowHost = function(props: WindowHostProps)
 			[React.Change.AbsoluteSize] = debounce(function()
 				repositionWindowWithinScreenBounds()
 			end, RESIZE_DEBOUNCE_TIME),
-			DisplayOrder = 100,
+			DisplayOrder = if not FFlagSelfViewFixes then 100 elseif isMenuOpen then -1 else 100,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		}, {
 			WindowFrame = React.createElement("Frame", {

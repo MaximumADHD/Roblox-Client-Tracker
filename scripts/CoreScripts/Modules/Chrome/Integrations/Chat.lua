@@ -14,6 +14,7 @@ local GameSettings = UserSettings().GameSettings
 local GuiService = game:GetService("GuiService")
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
+local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 
 local unreadMessages = 0
 -- note: do not rely on ChatSelector:GetVisibility after startup; it's state is incorrect if user opens via keyboard shortcut
@@ -77,6 +78,7 @@ ChatSelector.MessagesChanged:connect(function(messages: number)
 	lastMessagesChangedValue = messages
 end)
 
+local viewportConn: any? = nil
 coroutine.wrap(function()
 	local LocalPlayer = Players.LocalPlayer
 	while not LocalPlayer do
@@ -93,7 +95,23 @@ coroutine.wrap(function()
 	end
 
 	if canChat and chatChromeIntegration.availability then
-		ChromeUtils.setCoreGuiAvailability(chatChromeIntegration, Enum.CoreGuiType.Chat)
+		ChromeUtils.setCoreGuiAvailability(chatChromeIntegration, Enum.CoreGuiType.Chat, function(enabled)
+			if viewportConn then
+				viewportConn:disconnect()
+				viewportConn = nil
+			end
+			if enabled then
+				viewportConn = ViewportUtil.viewport:connect(function(viewportInfo)
+					if EnabledPinnedChat and not viewportInfo.tinyPortrait then
+						chatChromeIntegration.availability:pinned()
+					else
+						chatChromeIntegration.availability:available()
+					end
+				end, true)
+			else
+				chatChromeIntegration.availability:unavailable()
+			end
+		end)
 		-- clone of ChatConnector.lua didMount()
 		local willEnableChat = GameSettings.ChatVisible
 		if ViewportUtil.isSmallTouchScreen() then

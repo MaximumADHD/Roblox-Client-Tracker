@@ -9,9 +9,11 @@ local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
 
 local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
 
+local FFlagEnableCaptures13Experiment = game:DefineFastFlag("EnableCaptures13Experiment", false)
 local FFlagScreenshotSharingEnableExperiment = Screenshots.Flags.FFlagScreenshotSharingEnableExperiment
 local FStringScreenshotSharingIXPLayer = game:DefineFastString("ScreenshotSharingIXPLayer", "Experience.Menu")
 local FStringScreenshotSharingIXPTreatmentKey = game:DefineFastString("ScreenshotSharingIXPTreatmentKey", "ScreenshotSharingEnabled")
+local FStringCapturesU13IXPTreatmentKey = game:DefineFastString("CapturesU13IXPTreatmentKey", "CapturesEnabledU13")
 
 -- TODO(SACQ-1024): Write tests for GetShowCapturesTab
 local GetShowCapturesTab = function()
@@ -39,7 +41,7 @@ local GetShowCapturesTab = function()
 
 	assert(layerData ~= nil, "layerData must not be nil")
 
-	return layerData[FStringScreenshotSharingIXPTreatmentKey]
+	return layerData[FStringScreenshotSharingIXPTreatmentKey] or (FFlagEnableCaptures13Experiment and layerData[FStringCapturesU13IXPTreatmentKey])
 end
 
 return GetShowCapturesTab

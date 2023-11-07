@@ -31,6 +31,8 @@ local useSelector = dependencies.Hooks.useSelector
 local useStyle = UIBlox.Core.Style.useStyle
 local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local CallHistoryItem = require(ContactList.Components.CallHistory.CallHistoryItem)
 local NoItemView = require(ContactList.Components.common.NoItemView)
 local Constants = require(ContactList.Components.common.Constants)
@@ -49,6 +51,7 @@ export type Props = {
 
 local function CallHistoryContainer(props: Props)
 	local apolloClient = useApolloClient()
+	local analytics = useAnalytics()
 	local dispatch = useDispatch()
 	local style = useStyle()
 	local theme = style.Theme
@@ -66,6 +69,11 @@ local function CallHistoryContainer(props: Props)
 	local lastRemovedFriend = useSelector(function(state)
 		return state.LastRemovedFriend.lastRemovedFriendId
 	end)
+
+	local selectCurrentPage = React.useCallback(function(state: any)
+		return state.Navigation.currentPage
+	end, {})
+	local currentPage = useSelector(selectCurrentPage)
 
 	local getCallRecords = React.useCallback(function(currentRecords, cursor)
 		isLoading.current = true
@@ -120,8 +128,13 @@ local function CallHistoryContainer(props: Props)
 	end, { getCallRecords })
 
 	local navigateToNewCall = React.useCallback(function()
+		analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+			eventTimestampMs = os.time() * 1000,
+			startingPage = currentPage,
+			destinationPage = Pages.FriendList,
+		})
 		dispatch(SetCurrentPage(Pages.FriendList))
-	end, {})
+	end, { currentPage })
 
 	React.useEffect(function()
 		if status ~= RetrievalStatus.Fetching then

@@ -27,6 +27,14 @@ local function Initialize()
 	this._onDisplayedCallback = function() end
 	this._onSettingsHiddenCallback = function() end
 
+	function this:getMenuContainerHeight()
+		return this.Page.AbsoluteSize.Y
+	end
+
+	function this:getMenuContainerWidth()
+		return this.Page.AbsoluteSize.X
+	end
+
 	function this:SetHub(newHubRef)
 		-- Keep a reference to the hub so we can open and close the whole menu from here
 		this.HubRef = newHubRef
@@ -105,6 +113,12 @@ local function Initialize()
 		end,
 		showReportSentPage = function(reportedPlayer)
 			this:showReportSentPage(reportedPlayer)
+		end,
+		getMenuContainerWidth = function()
+			return this:getMenuContainerWidth()
+		end,
+		getMenuContainerHeight = function()
+			return this:getMenuContainerHeight()
 		end,
 		onReportComplete = function(text)
 			this:showAlert(text,"Ok", function()

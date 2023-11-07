@@ -74,4 +74,15 @@ return {
 		Touch = "Touch",
 		Gamepad = "Gamepad",
 	},
+
+	Analytics = {
+		EventNameTopBarButtonActivated = 'topbar-button-activated',
+		ChatButtonName = 'chat',
+		MoreMenuButtonName = 'more-menu',
+		InventoryButtonName = 'inventory',
+		LeaderboardButtonName = 'leaderboard',
+		EmotesButtonName = 'emotes',
+		StatusActive = 'active',
+		StatusInactive = 'inactive',
+	}
 }

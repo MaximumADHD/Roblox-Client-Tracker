@@ -11,8 +11,6 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 local Rodux = PurchasePromptDeps.Rodux
 local RoactRodux = PurchasePromptDeps.RoactRodux
-local UIBlox = PurchasePromptDeps.UIBlox
-local StyleProvider = UIBlox.Style.Provider
 local IAPExperience = require(CorePackages.IAPExperience)
 local LocaleProvider =  IAPExperience.Locale.LocaleProvider
 
@@ -21,9 +19,7 @@ local LocalizationContextProvider = require(Root.Components.Connection.Localizat
 local getLocalizationContext = require(Root.Localization.getLocalizationContext)
 local Reducer = require(Root.Reducers.Reducer)
 local LayoutValues = require(Root.Services.LayoutValues)
-
-local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local Gotham = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local UnitTestHelpers = require(CorePackages.Workspace.Packages.UnitTestHelpers)
 
 local UnitTestContainer = Roact.Component:extend("UnitTestContainer")
 
@@ -45,12 +41,7 @@ function UnitTestContainer:render()
 		LocaleProvider = Roact.createElement(LocaleProvider, {
 			locale = LocalizationService.RobloxLocaleId
 		}, {
-			StyleProvider = Roact.createElement(StyleProvider, {
-				style = {
-					Theme = DarkTheme,
-					Font = Gotham,
-				},
-			}, {
+			StyleProvider = UnitTestHelpers.createStyleProvider({
 				LocalizationContextProvider = Roact.createElement(LocalizationContextProvider, {
 					localizationContext = self.localizationContext,
 					render = function()

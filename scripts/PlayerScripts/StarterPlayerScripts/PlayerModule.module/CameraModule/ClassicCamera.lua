@@ -9,14 +9,6 @@
 
 -- Local private variables and constants
 
-local FFlagUserVRPlayerScriptsMisc
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRPlayerScriptsMisc")
-	end)
-	FFlagUserVRPlayerScriptsMisc = success and result
-end
-
 local ZERO_VECTOR2 = Vector2.new(0,0)
 
 local tweenAcceleration = math.rad(220) -- Radians/Second^2
@@ -249,24 +241,5 @@ function ClassicCamera:Update()
 	self.lastUpdate = now
 	return newCameraCFrame, newCameraFocus
 end
-
-function ClassicCamera:EnterFirstPerson()
-	if FFlagUserVRPlayerScriptsMisc then
-		BaseCamera.EnterFirstPerson(self) -- remove with FFlagUserVRPlayerScriptsMisc
-	else
-		self.inFirstPerson = true
-		self:UpdateMouseBehavior()
-	end
-end
-
-function ClassicCamera:LeaveFirstPerson()
-	if FFlagUserVRPlayerScriptsMisc then
-		BaseCamera.LeaveFirstPerson(self) -- remove with FFlagUserVRPlayerScriptsMisc
-	else
-		self.inFirstPerson = false
-		self:UpdateMouseBehavior()
-	end
-end
-
 
 return ClassicCamera

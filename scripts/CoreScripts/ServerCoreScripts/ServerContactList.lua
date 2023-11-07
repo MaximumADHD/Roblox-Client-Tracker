@@ -9,7 +9,8 @@ local TeleportService = game:GetService("TeleportService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 
-local FFlagIrisUpdateCallIdForUserRemoteEventEnabled = game:DefineFastFlag("IrisUpdateCallIdForUserRemoteEventEnabled2", true)
+local FFlagIrisUpdateCurrentCallRemoteEventEnabled =
+	game:DefineFastFlag("IrisUpdateCurrentCallRemoteEventEnabled", true)
 
 local RemoteInvokeIrisInvite = Instance.new("RemoteEvent")
 RemoteInvokeIrisInvite.Name = "ContactListInvokeIrisInvite"
@@ -41,58 +42,73 @@ RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanc
 	TeleportService:TeleportAsync(placeId, { player }, teleportOptions)
 end)
 
-local RemoteEventUpdateCallIdForUser = Instance.new("RemoteEvent")
-RemoteEventUpdateCallIdForUser.Name = "UpdateCallIdForUser"
-RemoteEventUpdateCallIdForUser.Parent = RobloxReplicatedStorage
+local RemoteEventUpdateCurrentCall = Instance.new("RemoteEvent")
+RemoteEventUpdateCurrentCall.Name = "UpdateCurrentCall"
+RemoteEventUpdateCurrentCall.Parent = RobloxReplicatedStorage
 
-if FFlagIrisUpdateCallIdForUserRemoteEventEnabled then
-	local userIdToCallInfoMap: { [string]: { callId: string, endCallOnLeave: boolean } } = {}
+if FFlagIrisUpdateCurrentCallRemoteEventEnabled then
+	local currentCall: { callId: string, participants: { [number]: string } } | nil
 	local function enforceCallParticipants()
-		-- This enforces the privacy of the call. If there are people who are
-		-- in a call, and not everyone in this server is in that call, we remove
-		-- all users from the server.
-		local lastCallId = nil
-		local kickUsers = false
-		for _, callInfo in pairs(userIdToCallInfoMap) do
-			local currentCallId = callInfo.callId
-			if lastCallId == nil then
-				lastCallId = currentCallId
-			elseif lastCallId ~= currentCallId then
-				kickUsers = true
-				break
-			end
-		end
-
-		if kickUsers then
+		if currentCall ~= nil then
+			-- This enforces the privacy of the call. If there are people who are
+			-- in a call, and not everyone in this server is in that call, we remove
+			-- all users from the server.
+			local kickUsers = false
 			for _, player in pairs(Players:GetPlayers()) do
-				player:Kick()
+				local userId = tostring(player.UserId)
+				local isParticipant = table.find(currentCall.participants, userId) ~= nil
+				if not isParticipant then
+					kickUsers = true
+					break
+				end
+			end
+
+			if kickUsers then
+				for _, player in pairs(Players:GetPlayers()) do
+					player:Kick()
+				end
 			end
 		end
 	end
 
-	RemoteEventUpdateCallIdForUser.OnServerEvent:Connect(function(player, callId: string, endCallOnLeave: boolean)
-		-- Note we expect this to be called for each user, regardless of whether
-		-- a call exists. We are passed "" for callId if the user is not in a call.
-		local userId = tostring(player.UserId)
-		userIdToCallInfoMap[userId] = { callId = callId, endCallOnLeave = endCallOnLeave }
+	local function terminateCall(callId: string)
+		local success, _ = pcall(function()
+			local url = Url.APIS_URL .. "call/v1/force-terminate-call-rcc"
+			local params = HttpService:JSONEncode({ callId = callId })
+			local request = HttpRbxApiService:PostAsyncFullUrl(url, params)
+			return HttpService:JSONDecode(request)
+		end)
+		return success
+	end
 
+	RemoteEventUpdateCurrentCall.OnServerEvent:Connect(
+		function(_, call: { callId: string, participants: { [number]: string } } | nil)
+			if currentCall ~= nil and call ~= nil and currentCall.callId ~= call.callId then
+				-- This should be rare. The server is hosting two calls.
+				-- Terminate the existing call and expect that the next line
+				-- will disconnect all users.
+				terminateCall(currentCall.callId)
+			end
+
+			currentCall = call
+			enforceCallParticipants()
+		end
+	)
+
+	Players.PlayerAdded:Connect(function(player)
 		enforceCallParticipants()
 	end)
 
 	Players.PlayerRemoving:Connect(function(player)
 		-- It is possible for a user to crash and leave the experience without
 		-- ending the call. This allows us to end the call on the user's behalf.
-		local targetUserId: string = tostring(player.UserId)
-		local targetCallInfo = userIdToCallInfoMap[targetUserId]
-		if targetCallInfo ~= nil and targetCallInfo.callId ~= "" and targetCallInfo.endCallOnLeave then
-			pcall(function()
-				local url = Url.APIS_URL .. "call/v1/force-terminate-call-rcc"
-				local params = HttpService:JSONEncode({ callId = targetCallInfo.callId })
-				local request = HttpRbxApiService:PostAsyncFullUrl(url, params)
-				return HttpService:JSONDecode(request)
-			end)
+		if currentCall ~= nil then
+			local targetUserId: string = tostring(player.UserId)
+			local isParticipant = table.find(currentCall.participants, targetUserId) ~= nil
+			if isParticipant and terminateCall(currentCall.callId) then
+				-- Call has been terminated, remove it from this server.
+				currentCall = nil
+			end
 		end
-
-		targetCallInfo[targetUserId] = nil
 	end)
 end

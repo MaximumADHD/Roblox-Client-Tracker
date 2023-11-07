@@ -19,6 +19,7 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local useDispatch = dependencies.Hooks.useDispatch
 local UIBlox = dependencies.UIBlox
+local dependencyArray = dependencies.Hooks.dependencyArray
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
 
 local useSelector = dependencies.Hooks.useSelector
@@ -33,14 +34,17 @@ local CallState = require(ContactList.Enums.CallState)
 local rng = Random.new()
 
 local OpenOrUpdateCFM = require(ContactList.Actions.OpenOrUpdateCFM)
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
+local Pages = require(ContactList.Enums.Pages)
 
 local useStartCallCallback = require(ContactList.Hooks.useStartCallCallback)
 
 local PADDING_IN_BETWEEN = 12
 local PROFILE_SIZE = 68
-local DETAIL_CONTEXT_HEIGHT = 24
+local DETAIL_CONTEXT_HEIGHT = 16
 local PADDING = Vector2.new(24, 12)
-local CALL_IMAGE_SIZE = 28
+local CALL_IMAGE_SIZE = 24
 
 export type Participant = {
 	userId: number,
@@ -60,7 +64,7 @@ export type Props = {
 	localUserId: number,
 	showDivider: boolean,
 	dismissCallback: () -> (),
-	layoutOrder: number?,
+	layoutOrder: number,
 }
 
 local function getIsMissedCall(callRecord, localUserId)
@@ -80,11 +84,11 @@ end
 local function getCallContextImage(callRecord, localUserId)
 	-- TODO(IRIS-659): Replace with UIBLOX icon
 	if getIsMissedCall(callRecord, localUserId) then
-		return "rbxassetid://14439512369"
+		return "rbxassetid://15239344406"
 	elseif callRecord.callerId == localUserId then
-		return "rbxassetid://14439517793"
+		return "rbxassetid://15239341275"
 	else
-		return "rbxassetid://14439507750"
+		return "rbxassetid://15239341959"
 	end
 end
 
@@ -159,6 +163,7 @@ local function CallHistoryItem(props: Props)
 		userName = UserProfiles.Formatters.formatUsername(userName)
 	end
 
+	local analytics = useAnalytics()
 	local style = useStyle()
 	local theme = style.Theme
 	local font = style.Font
@@ -181,7 +186,18 @@ local function CallHistoryItem(props: Props)
 	end, {})
 	local tag = useSelector(selectTag)
 
-	local startCall = useStartCallCallback(tag, otherParticipantId, combinedName, props.dismissCallback)
+	local selectCurrentPage = React.useCallback(function(state: any)
+		return state.Navigation.currentPage
+	end, {})
+	local currentPage = useSelector(selectCurrentPage)
+
+	local analyticsInfo = {
+		searchQueryString = "",
+		itemListIndex = props.layoutOrder,
+		isSuggestedUser = false,
+		page = currentPage,
+	}
+	local startCall = useStartCallCallback(tag, otherParticipantId, combinedName, props.dismissCallback, analyticsInfo)
 
 	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
 		if
@@ -203,6 +219,19 @@ local function CallHistoryItem(props: Props)
 			end
 		end
 	end, {})
+
+	local openOrUpdateCFM = React.useCallback(function()
+		analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuOpened, {
+			eventTimestampMs = os.time() * 1000,
+			friendUserId = otherParticipantId,
+			searchQueryString = nil,
+			itemListIndex = props.layoutOrder,
+			isSuggestedUser = false,
+			page = Pages.CallHistory,
+		})
+
+		dispatch(OpenOrUpdateCFM(otherParticipant))
+	end, dependencyArray(otherParticipantId, props.layoutOrder))
 
 	local image = getStandardSizeAvatarHeadShotRbxthumb(tostring(otherParticipantId))
 
@@ -228,12 +257,8 @@ local function CallHistoryItem(props: Props)
 		ProfileImage = React.createElement("ImageButton", {
 			Size = UDim2.fromOffset(PROFILE_SIZE, PROFILE_SIZE),
 			Image = image,
-			[React.Event.MouseButton2Up] = function()
-				dispatch(OpenOrUpdateCFM(otherParticipant))
-			end,
-			[React.Event.TouchTap] = function()
-				dispatch(OpenOrUpdateCFM(otherParticipant))
-			end,
+			[React.Event.MouseButton2Up] = openOrUpdateCFM,
+			[React.Event.TouchTap] = openOrUpdateCFM,
 			AutoButtonColor = false,
 		}, {
 			UICorner = React.createElement("UICorner", {
@@ -334,7 +359,7 @@ local function CallHistoryItem(props: Props)
 				Size = UDim2.fromOffset(CALL_IMAGE_SIZE, CALL_IMAGE_SIZE),
 				AnchorPoint = Vector2.new(1, 0.5),
 				BackgroundTransparency = 1,
-				Image = "rbxassetid://14532752184", -- TODO(IRIS-659): Replace with UIBLOX icon
+				Image = "rbxassetid://15239343417", -- TODO(IRIS-659): Replace with UIBLOX icon
 				ImageColor3 = theme.ContextualPrimaryDefault.Color,
 				ImageTransparency = theme.ContextualPrimaryDefault.Transparency,
 			})

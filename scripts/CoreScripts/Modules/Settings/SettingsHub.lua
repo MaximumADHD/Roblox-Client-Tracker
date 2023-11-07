@@ -88,6 +88,7 @@ local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableG
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
 local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
+local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -1532,7 +1533,7 @@ local function CreateSettingsHub()
 
 		this.VoiceRecordingIndicatorFrame = if GetFFlagVoiceRecordingIndicatorsEnabled() and not FFlagAvatarChatCoreScriptSupport then utility:Create'Frame'
 			{
-				Size = UDim2.fromOffset(0, 100),
+				Size = if GetFFlagRightAlignMicText() and ChromeEnabled then UDim2.new(1, 0, 0, 100) else UDim2.fromOffset(0, 100),
 				Position = UDim2.new(0,0,0,0),
 				Parent = this.HubBar,
 				BackgroundTransparency = 1,
@@ -1556,16 +1557,33 @@ local function CreateSettingsHub()
 		if GetFFlagVoiceRecordingIndicatorsEnabled() then
 			if utility:IsSmallTouchScreen() then
 				this.VoiceRecordingText.Size = UDim2.fromScale(1, 1)
-				this.VoiceRecordingText.Position = UDim2.new(0,60,0,-60)
 				this.VoiceRecordingText.AnchorPoint = Vector2.new(0,0)
+				if GetFFlagRightAlignMicText() and ChromeEnabled then 
+					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
+					this.VoiceRecordingText.Position = UDim2.new(0,0,0,-60)
+				else
+					this.VoiceRecordingText.Position = UDim2.new(0,60,0,-60)
+				end
 			elseif isTenFootInterface then
 				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
-				this.VoiceRecordingText.Size = UDim2.new(0,1200,0,100)
-				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+				if GetFFlagRightAlignMicText() and ChromeEnabled then 
+					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
+					this.VoiceRecordingText.Size = UDim2.new(1,0,0,100)
+					this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
+				else
+					this.VoiceRecordingText.Size = UDim2.new(0,1200,0,100)
+					this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+				end
 			else
 				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
-				this.VoiceRecordingText.Size = UDim2.new(0, 800, 0, 60)
-				this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+				if GetFFlagRightAlignMicText() and ChromeEnabled then 
+					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
+					this.VoiceRecordingText.Size = UDim2.new(1, 0, 0, 60)
+					this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
+				else
+					this.VoiceRecordingText.Size = UDim2.new(0, 800, 0, 60)
+					this.VoiceRecordingText.Position = UDim2.new(0.5,0,0.1,0)
+				end
 			end
 
 			this.voiceRecordingIndicatorTextMotor = Otter.createSingleMotor(0)

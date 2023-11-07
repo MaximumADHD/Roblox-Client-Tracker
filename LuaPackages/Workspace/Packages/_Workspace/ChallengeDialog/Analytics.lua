@@ -3,6 +3,9 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Workspace
 
-local Package = require(PackageIndex["AbuseReports"]["AbuseReports"])
+local Package = require(PackageIndex["Analytics"]["Analytics"])
+
+export type Analytics = Package.Analytics
+
 
 return Package

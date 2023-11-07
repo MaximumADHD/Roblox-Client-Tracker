@@ -13,6 +13,8 @@ return function()
 	local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
 	local MenuNavigationPromptTokenMapper = require(script.Parent.Parent.TokenMappers.MenuNavigationPromptTokenMapper)
 
+	local TopBarAppPolicy = require(script.Parent.Parent.TopBarAppPolicy)
+
 	local defaultStyle = {
 		themeName = "dark",
 		fontName = "gotham",
@@ -32,19 +34,23 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				LocalizationProvider = Roact.createElement(LocalizationProvider, {
-					localization = Localization.new(LocalizationService.RobloxLocaleId),
+				PolicyProvider = Roact.createElement(TopBarAppPolicy.Provider, {
+					policy = { TopBarAppPolicy.Mapper },
 				}, {
-					StyleProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {
-						style = defaultStyle,
+					LocalizationProvider = Roact.createElement(LocalizationProvider, {
+						localization = Localization.new(LocalizationService.RobloxLocaleId),
 					}, {
-						DesignTokenProvider = Roact.createElement(DesignTokenProvider, {
-							tokenMappers = {
-								MenuNavigationPrompt = MenuNavigationPromptTokenMapper
-							}
+						StyleProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {
+							style = defaultStyle,
 						}, {
-							TopBarApp = Roact.createElement(TopBarApp)
-						}),
+							DesignTokenProvider = Roact.createElement(DesignTokenProvider, {
+								tokenMappers = {
+									MenuNavigationPrompt = MenuNavigationPromptTokenMapper
+								}
+							}, {
+								TopBarApp = Roact.createElement(TopBarApp)
+							}),
+						})
 					})
 				})
 			})

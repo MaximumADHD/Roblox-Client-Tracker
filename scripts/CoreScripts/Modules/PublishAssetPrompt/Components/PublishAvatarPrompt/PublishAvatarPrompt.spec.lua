@@ -1,13 +1,10 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
 
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
-	local UIBlox = require(CorePackages.UIBlox)
+	local UnitTestHelpers = require(CorePackages.Workspace.Packages.UnitTestHelpers)
 
 	local PublishAvatarPromptFolder = script.Parent.Parent.Parent
 	local Reducer = require(PublishAvatarPromptFolder.Reducer)
@@ -17,11 +14,6 @@ return function()
 	if not FFlagPublishAvatarPromptEnabled then
 		return
 	end
-
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
 
 	describe("PublishAvatarPrompt", function()
 		it("should create and destroy without errors", function()
@@ -45,9 +37,7 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
+				ThemeProvider = UnitTestHelpers.createStyleProvider({
 					PublishAvatarPrompt = Roact.createElement(PublishAvatarPrompt, {
 						screenSize = Vector2.new(1920, 1080),
 					}),

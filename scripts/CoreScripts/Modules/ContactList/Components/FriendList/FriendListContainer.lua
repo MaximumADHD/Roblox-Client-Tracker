@@ -34,6 +34,8 @@ local GetSuggestedCallees = dependencies.NetworkingCall.GetSuggestedCallees
 local useStyle = UIBlox.Core.Style.useStyle
 local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local FriendListItem = require(ContactList.Components.FriendList.FriendListItem)
 local SectionHeader = require(ContactList.Components.FriendList.SectionHeader)
 local NoItemView = require(ContactList.Components.common.NoItemView)
@@ -54,6 +56,7 @@ export type Props = {
 
 local function FriendListContainer(props: Props)
 	local apolloClient = useApolloClient()
+	local analytics = useAnalytics()
 	local dispatch = useDispatch()
 	local style = useStyle()
 	local theme = style.Theme
@@ -97,6 +100,11 @@ local function FriendListContainer(props: Props)
 					return
 				end
 
+				analytics.fireEvent(EventNamesEnum.PhoneBookSearchAttempted, {
+					eventTimestampMs = os.time() * 1000,
+					searchQueryString = trimmedSearchText,
+				})
+
 				local requestFriends = dispatch(
 					if trimmedSearchText == ""
 						then FindFriendsFromUserId.API(
@@ -116,6 +124,12 @@ local function FriendListContainer(props: Props)
 
 					local responseFriends = result[1]
 					local responseSuggestedCallees = result[2]
+
+					analytics.fireEvent(EventNamesEnum.PhoneBookSearchFinished, {
+						eventTimestampMs = os.time() * 1000,
+						searchQueryString = trimmedSearchText,
+						searchResultCount = #responseFriends.responseBody.PageItems,
+					})
 
 					local updatedFriends = {}
 					for _, friend in ipairs(currentFriends) do
@@ -285,7 +299,6 @@ local function FriendListContainer(props: Props)
 					Only incrementing numbers are counted when measuring the size of the entries table with #entries.
 					String keys like "suggestedHeader" do not contribute to the #entries count.
 				]]
-				--
 				entries[#entries + 1] = React.createElement(SectionHeader, {
 					name = RobloxTranslator:FormatByKey("Feature.Call.Label.Suggested"),
 					description = RobloxTranslator:FormatByKey("Feature.Call.Description.SuggestedFriends"),
@@ -317,8 +330,9 @@ local function FriendListContainer(props: Props)
 						dismissCallback = props.dismissCallback,
 						layoutOrder = #entries + 1,
 						showDivider = i ~= #filteredSuggestedCallees,
+						itemListIndex = i,
+						isSuggestedUser = true,
 					})
-					-- end
 				end
 			end
 
@@ -352,6 +366,9 @@ local function FriendListContainer(props: Props)
 					dismissCallback = props.dismissCallback,
 					layoutOrder = #entries + 1,
 					showDivider = i ~= #filteredFriends,
+					searchQueryString = trimmedSearchText,
+					itemListIndex = i,
+					isSuggestedUser = false,
 				})
 				-- end
 			end

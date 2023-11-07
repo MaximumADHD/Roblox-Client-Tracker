@@ -6,6 +6,7 @@ local UIBlox = require(CorePackages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
+local ViewportUtil = require(Chrome.Service.ViewportUtil)
 
 local _integrations = require(Chrome.Integrations)
 local SubMenu = require(script.Parent.SubMenu)
@@ -16,6 +17,7 @@ local HealthBar = require(script.Parent.HealthBar)
 local useChromeMenuItems = require(Chrome.Hooks.useChromeMenuItems)
 local useChromeMenuStatus = require(Chrome.Hooks.useChromeMenuStatus)
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
+local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 
@@ -23,24 +25,51 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
 local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
+local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
 
--- Configure the menu.  Top level ordering, integration availability.
--- Integration availability signals will ultimately filter items out so no need for granular filtering here.
--- ie. Voice Mute integration will only be shown is voice is enabled/active
-ChromeService:configureMenu({
-	{ "trust_and_safety" },
-	{ "selfie_view", "toggle_mic_mute", "dummy_window", "dummy_window_2" },
-	{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
-})
-if GetFFlagUnibarRespawn() then
-	ChromeService:configureSubMenu("nine_dot", { "chat", "leaderboard", "emotes", "backpack", "respawn" })
-else
-	ChromeService:configureSubMenu("nine_dot", { "chat", "leaderboard", "emotes", "backpack" })
+function configureUnibar(viewportInfo)
+	-- Configure the menu.  Top level ordering, integration availability.
+	-- Integration availability signals will ultimately filter items out so no need for granular filtering here.
+	-- ie. Voice Mute integration will only be shown is voice is enabled/active
+	local nineDot = { "leaderboard", "emotes", "backpack" }
+	if GetFFlagUnibarRespawn() then
+		-- append to end of nine-dot
+		table.insert(nineDot, "respawn")
+	end
+
+	if EnabledPinnedChat and not viewportInfo.tinyPortrait then
+		ChromeService:removeRecentlyUsed("chat")
+		ChromeService:configureMenu({
+			{ "trust_and_safety" },
+			{ "selfie_view", "toggle_mic_mute", "dummy_window", "dummy_window_2" },
+			{ "chat", ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
+		})
+	else
+		ChromeService:configureMenu({
+			{ "trust_and_safety" },
+			{ "selfie_view", "toggle_mic_mute", "dummy_window", "dummy_window_2" },
+			{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
+		})
+		-- prepend chat to nine-dot menu
+		table.insert(nineDot, 1, "chat")
+		ChromeService:setRecentlyUsed("chat", true)
+	end
+	ChromeService:configureSubMenu("nine_dot", nineDot)
 end
-ChromeService:setRecentlyUsed("chat", true)
+
+local priorTinyPortrait = nil
+
+ViewportUtil.viewport:connect(function(viewportInfo)
+	local tinyPortrait = viewportInfo.tinyPortrait
+	-- reconfigure only when tiny portrait updates
+	if tinyPortrait ~= priorTinyPortrait then
+		configureUnibar(viewportInfo)
+		priorTinyPortrait = tinyPortrait
+	end
+end, true)
 
 export type IconDividerProps = {
 	toggleTransition: any?,
@@ -130,6 +159,7 @@ function IconPositionBinding(
 	iconReflow: any,
 	unibarWidth: any,
 	pinned: boolean,
+	leftAlign: boolean?,
 	flipLerp: any
 )
 	return React.joinBindings({ toggleTransition, iconReflow, unibarWidth })
@@ -142,6 +172,9 @@ function IconPositionBinding(
 			end
 
 			local closedPos = closedPosition
+			if leftAlign and not pinned then
+				closedPos = closedPosition - val[3]
+			end
 			local openDelta = open - closedPos
 
 			return UDim2.new(0, closedPos + openDelta * val[1], 0, 0)
@@ -151,7 +184,12 @@ end
 type UnibarProp = {
 	menuFrameRef: any,
 	onAreaChanged: (id: string, position: UDim2, size: UDim2) -> nil,
+	onMinWidthChanged: (width: number) -> (),
 }
+
+function isLeft(alignment)
+	return alignment == Enum.HorizontalAlignment.Left
+end
 
 function Unibar(props: UnibarProp)
 	local currentOpenPositions = {}
@@ -163,7 +201,8 @@ function Unibar(props: UnibarProp)
 	local menuItems = useChromeMenuItems()
 
 	-- Animation for menu open(toggleTransition = 1), closed(toggleTransition = 0) status
-	local toggleTransition, setToggleTransition = ReactOtter.useAnimatedBinding(0)
+	local menuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
+	local toggleTransition, setToggleTransition = ReactOtter.useAnimatedBinding(if menuOpen then 1 else 0)
 	local unibarWidth, setUnibarWidth = ReactOtter.useAnimatedBinding(0)
 	local iconReflow, setIconReflow = ReactOtter.useAnimatedBinding(1)
 	local flipLerp = React.useRef(false)
@@ -177,7 +216,7 @@ function Unibar(props: UnibarProp)
 	local expandSize: number = 0
 
 	local onAreaChanged = React.useCallback(function(rbx)
-		if rbx then
+		if rbx and props.onAreaChanged then
 			props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, rbx.AbsolutePosition, rbx.AbsoluteSize)
 		end
 	end, {})
@@ -187,17 +226,26 @@ function Unibar(props: UnibarProp)
 			return UDim2.new(0, linearInterpolation(minSize, val[2], val[1]), 0, Constants.ICON_CELL_WIDTH)
 		end)
 
+	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
+
 	for k, item in menuItems do
 		if item.integration.availability:get() == ChromeService.AvailabilitySignal.Pinned then
 			pinnedCount += 1
 		end
 	end
 
-	local pinnedCountWithoutToggle = math.max(pinnedCount - 1, 0)
+	local extraPinnedCount = 0
+	if leftAlign then
+		extraPinnedCount = 1
+	else
+		extraPinnedCount = math.max(pinnedCount - 1, 0)
+	end
 
 	for k, item in menuItems do
 		if item.isDivider then
-			local closedPos = xOffset
+			local closedPos = xOffset + Constants.ICON_CELL_WIDTH * extraPinnedCount
+			closedPos = closedPos
+
 			local prior = priorPositions[item.id] or xOffset
 			currentOpenPositions[item.id] = xOffset
 			updatePositions = updatePositions or (prior ~= xOffset)
@@ -209,15 +257,24 @@ function Unibar(props: UnibarProp)
 				iconReflow,
 				unibarWidth,
 				false,
+				leftAlign,
 				flipLerp
 			)
-
 			-- Clip the remaining few pixels on the right edge of the unibar during transition
-			local visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
-				local position: UDim2 = values[1]
-				local size: UDim2 = values[2]
-				return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH)
-			end)
+
+			local visibleBinding
+			if leftAlign then
+				visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
+					local position: UDim2 = values[1]
+					return position.X.Offset >= (Constants.ICON_CELL_WIDTH * 0.5)
+				end)
+			else
+				visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
+					local position: UDim2 = values[1]
+					local size: UDim2 = values[2]
+					return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH)
+				end)
+			end
 
 			children[item.id or ("icon" .. k)] = React.createElement(IconDivider, {
 				position = positionBinding,
@@ -226,7 +283,7 @@ function Unibar(props: UnibarProp)
 			xOffset += Constants.DIVIDER_CELL_WIDTH
 		elseif item.integration then
 			local pinned = false
-			local closedPos = xOffset + Constants.ICON_CELL_WIDTH * pinnedCountWithoutToggle
+			local closedPos = xOffset + Constants.ICON_CELL_WIDTH * extraPinnedCount
 			if item.integration.availability:get() == ChromeService.AvailabilitySignal.Pinned then
 				pinned = true
 				closedPos = xOffsetPinned
@@ -243,14 +300,25 @@ function Unibar(props: UnibarProp)
 				iconReflow,
 				unibarWidth,
 				pinned,
+				leftAlign,
 				flipLerp
 			)
+
 			-- Clip the remaining few pixels on the right edge of the unibar during transition
-			local visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
-				local position: UDim2 = values[1]
-				local size: UDim2 = values[2]
-				return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH * 1.5)
-			end)
+			local visibleBinding
+			if leftAlign then
+				visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
+					local position: UDim2 = values[1]
+					return position.X.Offset >= (Constants.ICON_CELL_WIDTH * 0.5)
+				end)
+			else
+				visibleBinding = React.joinBindings({ positionBinding, unibarSizeBinding }):map(function(values)
+					local position: UDim2 = values[1]
+					local size: UDim2 = values[2]
+					return position.X.Offset <= (size.X.Offset - Constants.ICON_CELL_WIDTH * 1.5)
+				end)
+			end
+
 			children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
 				position = positionBinding :: any,
 				visible = pinned or visibleBinding :: any,
@@ -265,6 +333,9 @@ function Unibar(props: UnibarProp)
 	end
 
 	minSize = Constants.ICON_CELL_WIDTH * pinnedCount
+	if props.onMinWidthChanged then
+		props.onMinWidthChanged(minSize)
+	end
 	expandSize = xOffset
 
 	React.useEffect(function()
@@ -335,6 +406,7 @@ end
 type UnibarMenuProp = {
 	layoutOrder: number,
 	onAreaChanged: (id: string, position: UDim2, size: UDim2) -> nil,
+	onMinWidthChanged: (width: number) -> (),
 }
 
 local UnibarMenu = function(props: UnibarMenuProp)
@@ -348,6 +420,8 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			menuOutterFrame.current.Size = menuFrame.current.Size
 		end
 	end
+
+	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
 
 	React.useEffect(function()
 		local conn
@@ -379,13 +453,16 @@ local UnibarMenu = function(props: UnibarMenuProp)
 		}, {
 			React.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+				HorizontalAlignment = if leftAlign
+					then Enum.HorizontalAlignment.Left
+					else Enum.HorizontalAlignment.Right,
 				VerticalAlignment = Enum.VerticalAlignment.Top,
 				Padding = UDim.new(0, 10),
 			}) :: any,
 			React.createElement(Unibar, {
 				menuFrameRef = menuFrame,
 				onAreaChanged = props.onAreaChanged,
+				onMinWidthChanged = props.onMinWidthChanged,
 			}) :: any,
 			React.createElement(SubMenu) :: any,
 			React.createElement(WindowManager) :: React.React_Element<any>,

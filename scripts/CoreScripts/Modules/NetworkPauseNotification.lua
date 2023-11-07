@@ -19,6 +19,7 @@ local fadeTweenInfo = TweenInfo.new(FADE_DURATION, Enum.EasingStyle.Sine)
 local pulseTweenInfo = TweenInfo.new(PULSE_DURATION, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
 
 local FFlagLocalizeGameplayPaused = game:DefineFastFlag("LocalizeGameplayPaused", false)
+local FFlagNetworkPauseNotifTweenCancel = game:DefineFastFlag("NetworkPauseNotifTweenCancel", false)
 
 -- gui builder
 local function build()
@@ -158,11 +159,17 @@ end
 
 function Notification:Show()
 	self.__gui.Upper.IconContainer.Icon.Size = PULSE_ORIGINAL_SIZE
+	if FFlagNetworkPauseNotifTweenCancel then
+		self.__animations.hide:Cancel()
+	end
 	self.__animations.show:Play()
 end
 
 function Notification:Hide()
 	self.__animations.pulse:Cancel()
+	if FFlagNetworkPauseNotifTweenCancel then
+		self.__animations.show:Cancel()
+	end
 	self.__animations.hide:Play()
 end
 

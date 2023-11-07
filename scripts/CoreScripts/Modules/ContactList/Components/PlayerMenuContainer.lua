@@ -9,9 +9,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
-local ConfigureFriendMenu = require(ContactList.Components.common.ConfigureFriendMenu)
-local FriendAction = require(ContactList.Enums.FriendAction)
-local UpdateLastFriend = require(ContactList.Actions.UpdateLastFriend)
 
 local dependencies = require(ContactList.dependencies)
 local UnfriendTargetUserId = dependencies.NetworkingFriends.UnfriendTargetUserId
@@ -21,6 +18,11 @@ local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
 
 local CloseCFM = require(ContactList.Actions.CloseCFM)
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
+local ConfigureFriendMenu = require(ContactList.Components.common.ConfigureFriendMenu)
+local FriendAction = require(ContactList.Enums.FriendAction)
+local UpdateLastFriend = require(ContactList.Actions.UpdateLastFriend)
 
 local useStyle = UIBlox.Core.Style.useStyle
 local withStyle = UIBlox.Style.withStyle
@@ -38,6 +40,7 @@ local UNFRIEND_TEXT_KEY = "FriendPlayerPrompt.Label.Unfriend"
 local BODY_KEY = "Feature.SettingsHub.Message.BlockConfirmation"
 
 local function PlayerMenuContainer()
+	local analytics = useAnalytics()
 	local style = useStyle()
 	local theme = style.Theme
 
@@ -67,9 +70,22 @@ local function PlayerMenuContainer()
 				currentUserId = localUserId,
 				targetUserId = friend.userId,
 			})
-			dispatch(request):andThen(function(res)
-				dispatch(UpdateLastFriend(friend.userId))
-			end)
+			dispatch(request)
+				:andThen(function(res)
+					analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuUnfriendFinished, {
+						eventTimestampMs = os.time() * 1000,
+						friendUserId = friend.userId,
+						success = true,
+					})
+					dispatch(UpdateLastFriend(friend.userId))
+				end)
+				:catch(function(err)
+					analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuUnfriendFinished, {
+						eventTimestampMs = os.time() * 1000,
+						friendUserId = friend.userId,
+						success = false,
+					})
+				end)
 		end
 	end, { dialogType, friend.userId })
 

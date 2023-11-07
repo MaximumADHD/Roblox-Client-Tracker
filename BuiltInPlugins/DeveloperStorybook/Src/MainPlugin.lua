@@ -12,11 +12,9 @@ local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
 local UI = Framework.UI
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
-local DockWidget = if FFlagDevFrameworkBetterInit then UI.DockWidget else Framework.StudioUI.DockWidget
-local PluginButton = if FFlagDevFrameworkBetterInit then UI.PluginButton else Framework.StudioUI.PluginButton
-local PluginToolbar = if FFlagDevFrameworkBetterInit then UI.PluginToolbar else Framework.StudioUI.PluginToolbar
+local DockWidget = UI.DockWidget
+local PluginButton = UI.PluginButton
+local PluginToolbar = UI.PluginToolbar
 
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store

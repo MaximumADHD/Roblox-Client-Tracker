@@ -1,3 +1,4 @@
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -16,6 +17,8 @@ type EventNames = EventNamesEnum.EventNames
 local localPlayer = Players.LocalPlayer :: Player
 
 local platformEnum = UserInputService:GetPlatform()
+
+local playSessionId = AnalyticsService:GetPlaySessionId()
 
 local platform
 
@@ -44,11 +47,6 @@ type GenericEvent = {
 	formatRulesForAdditionalInfo: any?,
 }
 
--- Generates timestamp in ms
-local function generateTimestamp(): number
-	return os.time() * 1000
-end
-
 local EventStreamActionList: { [EventNames]: GenericEvent } = {
 	[EventNamesEnum.CallBarHangUpClicked] = {
 		context = Contexts.ContactList,
@@ -58,13 +56,178 @@ local EventStreamActionList: { [EventNames]: GenericEvent } = {
 			universeId = game.GameId,
 			placeId = game.PlaceId,
 			deviceType = platform,
-			timestamp_ms = generateTimestamp(),
+			playSessionId = playSessionId,
 		},
 		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
 			calleeUserId = Dash.identity,
 			callerUserId = Dash.identity,
 			callId = Dash.identity,
 			callStatus = Dash.identity,
+			isRetry = Dash.identity,
+		},
+	},
+	[EventNamesEnum.PhoneBookNavigate] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookNavigate,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+			playSessionId = playSessionId,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			startingPage = Dash.identity,
+			destinationPage = Dash.identity,
+		},
+	},
+	[EventNamesEnum.PhoneBookSearchClicked] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookSearchClicked,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			playSessionId = playSessionId,
+		},
+	},
+	[EventNamesEnum.PhoneBookSearchAttempted] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookSearchAttempted,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+			playSessionId = playSessionId,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			searchQueryString = Dash.identity,
+		},
+	},
+	[EventNamesEnum.PhoneBookSearchFinished] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookSearchFinished,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+			playSessionId = playSessionId,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			searchQueryString = Dash.identity,
+			searchResultCount = Dash.identity,
+		},
+	},
+	[EventNamesEnum.PhoneBookPlayerMenuOpened] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookPlayerMenuOpened,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+			playSessionId = playSessionId,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			friendUserId = Dash.identity,
+			searchQueryString = Dash.identity,
+			itemListIndex = Dash.identity,
+			isSuggestedUser = Dash.identity,
+			page = Dash.identity,
+		},
+	},
+	[EventNamesEnum.PhoneBookPlayerMenuUnfriendClicked] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookPlayerMenuUnfriendClicked,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+			playSessionId = playSessionId,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			friendUserId = Dash.identity,
+		},
+	},
+	[EventNamesEnum.PhoneBookPlayerMenuUnfriendFinished] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookPlayerMenuUnfriendFinished,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+			playSessionId = playSessionId,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			friendUserId = Dash.identity,
+			success = Dash.identity,
+		},
+	},
+	[EventNamesEnum.PhoneBookPlayerMenuBlockClicked] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookPlayerMenuBlockClicked,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+			playSessionId = playSessionId,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			friendUserId = Dash.identity,
+		},
+	},
+	[EventNamesEnum.PhoneBookCallFriendClicked] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookCallFriendClicked,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+			playSessionId = playSessionId,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			friendUserId = Dash.identity,
+			searchQueryString = Dash.identity,
+			itemListIndex = Dash.identity,
+			isSuggestedUser = Dash.identity,
+			page = Dash.identity,
+		},
+	},
+	[EventNamesEnum.PhoneBookCallFriendFailed] = {
+		context = Contexts.ContactList,
+		eventType = EventTypes.PhoneBookCallFriendFailed,
+		additionalInfo = {
+			uid = localPlayer.UserId,
+			universeId = game.GameId,
+			placeId = game.PlaceId,
+			deviceType = platform,
+			playSessionId = playSessionId,
+		},
+		formatRulesForAdditionalInfo = {
+			eventTimestampMs = Dash.identity,
+			calleeUserId = Dash.identity,
+			callerUserId = Dash.identity,
+			errorMsg = Dash.identity,
+			page = Dash.identity,
 		},
 	},
 }

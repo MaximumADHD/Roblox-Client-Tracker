@@ -21,6 +21,7 @@ local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAv
 local getFFlagAddApolloClientToExperienceChat = require(RobloxGui.Modules.Flags.getFFlagAddApolloClientToExperienceChat)
 local GetFFlagDisableBubbleChatForExpChat = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisableBubbleChatForExpChat
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
 local getIconVoiceIndicator
@@ -35,6 +36,7 @@ local getPermissions
 local selfViewListenerChanged
 local displayCameraDeniedToast
 local isCamEnabledForUserAndPlace
+local isCameraOnlyUser
 if FFlagAvatarChatCoreScriptSupport then
 	onClickedCameraIndicator = require(RobloxGui.Modules.VoiceChat.Components.onClickedCameraIndicator)
 	getPermissions = require(RobloxGui.Modules.VoiceChat.Components.getPermissions)
@@ -43,6 +45,10 @@ if FFlagAvatarChatCoreScriptSupport then
 	if getFFlagDoNotPromptCameraPermissionsOnMount() then
 		displayCameraDeniedToast = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.displayCameraDeniedToast)
 		isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
+	end
+
+	if getFFlagEnableAlwaysAvailableCamera() then
+		isCameraOnlyUser = require(RobloxGui.Modules.Settings.isCameraOnlyUser)
 	end
 end
 
@@ -85,6 +91,7 @@ ExperienceChat.mountClientApp({
 	onClickedCameraIndicator = if onClickedCameraIndicator then onClickedCameraIndicator else nil,
 	displayCameraDeniedToast = if displayCameraDeniedToast then displayCameraDeniedToast else nil,
 	isCamEnabledForUserAndPlace = if isCamEnabledForUserAndPlace then isCamEnabledForUserAndPlace else nil,
+	isCameraOnlyUser = if isCameraOnlyUser then isCameraOnlyUser else nil,
 	getPermissions = if getPermissions then getPermissions else nil,
 	selfViewListenerChanged = if selfViewListenerChanged then selfViewListenerChanged else nil,
 	defaultTargetTextChannel = if createdDefaultChannels then findTextChannel("RBXGeneral") else nil,

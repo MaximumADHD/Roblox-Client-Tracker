@@ -150,6 +150,14 @@ local function CallBarContainer(passedProps: Props)
 			maybeHideCallBarAndEndCall()
 		end)
 
+		local transferCallTeleportJoinConn = props.callProtocol:listenToHandleTransferCallTeleportJoin(function()
+			-- Fetch call state since the instance id will be updated and this
+			-- can happen after the call bar is fetched.
+			props.callProtocol:getCallState():andThen(function(params)
+				dispatch(RoduxCall.Actions.UpdateCall(params))
+			end)
+		end)
+
 		props.callProtocol:getCallState():andThen(function(params)
 			dispatch(RoduxCall.Actions.UpdateCall(params))
 		end)
@@ -159,6 +167,7 @@ local function CallBarContainer(passedProps: Props)
 			teleportingCallConn:Disconnect()
 			activeCallConn:Disconnect()
 			endCallConn:Disconnect()
+			transferCallTeleportJoinConn:Disconnect()
 		end
 	end, { props.callProtocol, maybeHideCallBarAndEndCall })
 

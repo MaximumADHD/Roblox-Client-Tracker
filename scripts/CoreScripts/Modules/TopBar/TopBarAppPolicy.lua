@@ -6,6 +6,9 @@ local TopBarAppPolicy = PolicyProvider.withGetPolicyImplementation(implementatio
 
 TopBarAppPolicy.Mapper = function(policy)
 	return {
+		getDisplayVoiceBetaBadge = function()
+			return policy.DisplayVoiceBetaBadge or false
+		end,
 	}
 end
 

@@ -8,6 +8,7 @@ local StarterGui = game:GetService("StarterGui")
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
+local FFlagSelfViewFixes = require(script.Parent.Parent.Flags.GetFFlagSelfViewFixes)()
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -54,10 +55,13 @@ local selfieViewChromeIntegration = ChromeService:register({
 			}, {})
 		end,
 		Window = function(_)
+			local connectionObject: any = ChromeService:dragConnection(ID)
 			return React.createElement(SelfieView.Window, {
 				id = ID,
 				windowSize = windowSize,
-				isDraggedOut = ChromeService:dragConnection(ID) ~= nil,
+				isDraggedOut = if FFlagSelfViewFixes
+					then connectionObject ~= nil and connectionObject.connection ~= nil
+					else connectionObject ~= nil,
 			}, {})
 		end,
 	},

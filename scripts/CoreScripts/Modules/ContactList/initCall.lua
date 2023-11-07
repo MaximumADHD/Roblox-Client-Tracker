@@ -20,37 +20,20 @@ local _handleActiveCallConn
 local _handleEndCallConn
 
 return function(callProtocol: CallProtocol.CallProtocolModule)
-	local updateCallIdForUser = function(callId, endCallOnLeave)
+	local updateCurrentCall = function(currentCall)
 		coroutine.wrap(function()
-			-- Called to update the call id associated with the user on the RCC
-			-- server. Used on RCC to enforce call privacy and ending the call
-			-- in case of a crash.
-			local updateCallIdForUserRemoteEvent =
-				RobloxReplicatedStorage:WaitForChild("UpdateCallIdForUser", math.huge) :: RemoteEvent
-			updateCallIdForUserRemoteEvent:FireServer(callId, endCallOnLeave)
+			-- Called to update the call info associated with the RCC server.
+			-- Used on RCC to enforce call privacy and ending the call in case
+			-- of a crash.
+			local updateCurrentCallUserRemoteEvent =
+				RobloxReplicatedStorage:WaitForChild("UpdateCurrentCall", math.huge) :: RemoteEvent
+			updateCurrentCallUserRemoteEvent:FireServer(currentCall)
 		end)()
 	end
 
 	-- At the very beginning in experience, try to update the calling state
 	-- machine to the right state
 	callProtocol:getCallState():andThen(function(params)
-		if
-			params.status ~= RoduxCall.Enums.Status.Teleporting.rawValue()
-			and params.status ~= RoduxCall.Enums.Status.Accepting.rawValue()
-		then
-			-- Teleporting and accepting are handled in the block below.
-			if params.status == RoduxCall.Enums.Status.Active.rawValue() and Players.LocalPlayer then
-				-- The sole reason we would be active at start is if this call is a
-				-- transfer via a teleport. The incoming transfer call listener
-				-- should handle this but there is no harm in doing this.
-				updateCallIdForUser(params.callId, true)
-			elseif params.status ~= RoduxCall.Enums.Status.Active.rawValue() and Players.LocalPlayer then
-				-- In cases where the call is not about to become active or is not
-				-- active, this user is not in a call. Let RCC know.
-				updateCallIdForUser("", false)
-			end
-		end
-
 		if
 			params.status == RoduxCall.Enums.Status.Teleporting.rawValue()
 			and Players.LocalPlayer
@@ -148,22 +131,27 @@ return function(callProtocol: CallProtocol.CallProtocolModule)
 	end)
 
 	_handleTransferCallTeleportJoinConn = callProtocol:listenToHandleTransferCallTeleportJoin(function(params)
-		updateCallIdForUser(params.callId, true)
+		updateCurrentCall({
+			callId = params.callId,
+			participants = { tostring(params.callerId), tostring(params.calleeId) },
+		})
 	end)
 
 	_handleTransferCallTeleportLeaveConn = callProtocol:listenToHandleTransferCallTeleportLeave(function(params)
 		-- User is leaving this server and transfering the call to another
-		-- server. Let the server know that when this user disconnects, we do
-		-- not end the call.
-		updateCallIdForUser(params.callId, false)
+		-- server. This server is no longer associated with the call.
+		updateCurrentCall(nil)
 	end)
 
 	_handleActiveCallConn = callProtocol:listenToHandleActiveCall(function(params)
-		updateCallIdForUser(params.callId, true)
+		updateCurrentCall({
+			callId = params.callId,
+			participants = { tostring(params.callerId), tostring(params.calleeId) },
+		})
 	end)
 
 	_handleEndCallConn = callProtocol:listenToHandleEndCall(function(params)
-		updateCallIdForUser("", false)
+		updateCurrentCall(nil)
 
 		-- We ended a call that was in this server, teleport them back to the root.
 		if params.callAction == CallAction.Finish.rawValue() and game.JobId == params.instanceId then

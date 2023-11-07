@@ -56,11 +56,20 @@ local defaultProps = {
 }
 
 local function formatDuration(duration: number): string
-	local minutes = math.floor(duration / 60)
+	local hours = math.floor(duration / 3600)
+	local minutes = math.floor((duration % 3600) / 60)
 	local seconds = duration % 60
+
+	local hoursStr = string.format("%02d", hours)
 	local minutesStr = string.format("%02d", minutes)
 	local secondsStr = string.format("%02d", seconds)
-	local formattedTime = minutesStr .. ":" .. secondsStr
+
+	local formattedTime = ""
+	if hours > 0 then
+		formattedTime = hoursStr .. ":" .. minutesStr .. ":" .. secondsStr
+	else
+		formattedTime = minutesStr .. ":" .. secondsStr
+	end
 
 	return formattedTime
 end
@@ -144,15 +153,10 @@ local function CallBar(passedProps: Props)
 		or isCallEndedInInstance
 
 	local actionButtonCallback = React.useCallback(function()
-		analytics.fireEvent(EventNamesEnum.CallBarHangUpClicked, {
-			callerUserId = callerId,
-			calleeUserId = calleeId,
-			callId = callId,
-			callStatus = callStatus,
-		})
-
+		local isRetry = false
 		if isCallEndedInInstance then
 			teleportToRootPlace()
+			isRetry = true
 		elseif callStatus == RoduxCall.Enums.Status.Active.rawValue() then
 			if GetFFlagSoundManagerRefactor() then
 				SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
@@ -163,10 +167,19 @@ local function CallBar(passedProps: Props)
 		elseif callStatus == RoduxCall.Enums.Status.Connecting.rawValue() then
 			props.callProtocol:cancelCall(callId)
 		end
+
+		analytics.fireEvent(EventNamesEnum.CallBarHangUpClicked, {
+			eventTimestampMs = os.time() * 1000,
+			callerUserId = callerId,
+			calleeUserId = calleeId,
+			callId = callId,
+			callStatus = callStatus,
+			isRetry = isRetry,
+		})
 	end, { callStatus, props.callProtocol, isCallEndedInInstance })
 
 	local actionButtonBackground = if isCallEndedInInstance then style.Theme.SystemPrimaryDefault else style.Theme.Alert
-	local actionButtonImage = if isCallEndedInInstance then "rbxassetid://15123605982" else "rbxassetid://14535614005"
+	local actionButtonImage = if isCallEndedInInstance then "rbxassetid://15123605982" else "rbxassetid://15239778319"
 	local actionButtonImageColor = if isCallEndedInInstance then Colors.Slate else Colors.White
 
 	React.useEffect(function()
@@ -194,6 +207,8 @@ local function CallBar(passedProps: Props)
 	local combinedName = ""
 	if namesFetch.data then
 		combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, otherParticipantId)
+	elseif namesFetch.error then
+		combinedName = "Name Error"
 	end
 
 	return React.createElement("Frame", {

@@ -42,34 +42,6 @@ local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
 end
 
-local FFlagUserFixVRSwimming do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixVRSwimming")
-	end)
-	FFlagUserFixVRSwimming = success and result
-end
-
-local FFlagUserVRSwimmingUsesThumbstick do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRSwimmingUsesThumbstick")
-	end)
-	FFlagUserVRSwimmingUsesThumbstick = success and result
-end
-
-local FFlagUserVRFollowCamera do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRFollowCamera2")
-	end)
-	FFlagUserVRFollowCamera = success and result
-end
-
-local FFlagUserVRTorsoEstimation do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRTorsoEstimation")
-	end)
-	FFlagUserVRTorsoEstimation = success and result
-end
-
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -434,57 +406,37 @@ function ControlModule:calculateRawMoveVector(humanoid: Humanoid, cameraRelative
 	if not camera then
 		return cameraRelativeMoveVector
 	end
-
-	if not FFlagUserFixVRSwimming then
-		if humanoid:GetState() == Enum.HumanoidStateType.Swimming then
-			return camera.CFrame:VectorToWorldSpace(cameraRelativeMoveVector)
-		end
-	end
-
 	local cameraCFrame = camera.CFrame
 
 	if VRService.VREnabled and humanoid.RootPart then
-		if FFlagUserVRFollowCamera then
-			local vrFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-			
-			if FFlagUserVRTorsoEstimation then
-				vrFrame = self:GetEstimatedVRTorsoFrame()
-			end
-						
-			-- movement relative to VR frustum
-			local cameraDelta = camera.Focus.Position - cameraCFrame.Position
-			if cameraDelta.Magnitude < 3 then -- "nearly" first person
-				cameraCFrame = cameraCFrame * vrFrame
-			else
-				cameraCFrame = camera.CFrame * (vrFrame.Rotation + vrFrame.Position * camera.HeadScale)
-			end
+		local vrFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+		
+		vrFrame = self:GetEstimatedVRTorsoFrame()
+					
+		-- movement relative to VR frustum
+		local cameraDelta = camera.Focus.Position - cameraCFrame.Position
+		if cameraDelta.Magnitude < 3 then -- "nearly" first person
+			cameraCFrame = cameraCFrame * vrFrame
 		else
-			-- movement relative to VR frustum
-			local cameraDelta = humanoid.RootPart.CFrame.Position - cameraCFrame.Position
-			if cameraDelta.Magnitude < 3 then -- "nearly" first person
-				local vrFrame = VRService:GetUserCFrame(Enum.UserCFrame.Head)
-				cameraCFrame = cameraCFrame * vrFrame
-			end
+			cameraCFrame = camera.CFrame * (vrFrame.Rotation + vrFrame.Position * camera.HeadScale)
 		end
 	end
 
-	if FFlagUserFixVRSwimming then
-		if humanoid:GetState() == Enum.HumanoidStateType.Swimming then	
-			if FFlagUserVRSwimmingUsesThumbstick and VRService.VREnabled then
-				cameraRelativeMoveVector = Vector3.new(cameraRelativeMoveVector.X, 0, cameraRelativeMoveVector.Z)
-				if cameraRelativeMoveVector.Magnitude < 0.01 then
-					return Vector3.zero
-				end
-
-				local pitch = -getGamepadRightThumbstickPosition().Y * math.rad(80)
-				local yawAngle = math.atan2(-cameraRelativeMoveVector.X, -cameraRelativeMoveVector.Z)
-				local _, cameraYaw, _ = cameraCFrame:ToEulerAnglesYXZ()
-				yawAngle += cameraYaw
-				local movementCFrame = CFrame.fromEulerAnglesYXZ(pitch, yawAngle, 0)
-				return movementCFrame.LookVector
-			else
-				return cameraCFrame:VectorToWorldSpace(cameraRelativeMoveVector)
+	if humanoid:GetState() == Enum.HumanoidStateType.Swimming then	
+		if VRService.VREnabled then
+			cameraRelativeMoveVector = Vector3.new(cameraRelativeMoveVector.X, 0, cameraRelativeMoveVector.Z)
+			if cameraRelativeMoveVector.Magnitude < 0.01 then
+				return Vector3.zero
 			end
+
+			local pitch = -getGamepadRightThumbstickPosition().Y * math.rad(80)
+			local yawAngle = math.atan2(-cameraRelativeMoveVector.X, -cameraRelativeMoveVector.Z)
+			local _, cameraYaw, _ = cameraCFrame:ToEulerAnglesYXZ()
+			yawAngle += cameraYaw
+			local movementCFrame = CFrame.fromEulerAnglesYXZ(pitch, yawAngle, 0)
+			return movementCFrame.LookVector
+		else
+			return cameraCFrame:VectorToWorldSpace(cameraRelativeMoveVector)
 		end
 	end
 

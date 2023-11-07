@@ -96,7 +96,7 @@ local getTopBarInset = function(screenSize: Vector2, keepOutAreas: KeepOutAreas)
 
 	-- Sort areas by their X position from left most to right most
 	table.sort(sortedKeepOutAreas, function(area1, area2)
-		return area1.position.X < area2.position.X
+		return area1.position.X < area2.position.X and area1.position.X + area1.size.X < area2.size.X + area2.position.X
 	end)
 
 	local insetTopLeft, _ = GuiService:GetGuiInset()

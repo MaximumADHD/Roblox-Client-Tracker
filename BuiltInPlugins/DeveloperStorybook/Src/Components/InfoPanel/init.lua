@@ -26,10 +26,8 @@ local sort = table.sort
 local UI = Framework.UI
 local ScrollingFrame = UI.ScrollingFrame
 local Pane = UI.Pane
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
-local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
-local StyledDialog = if FFlagDevFrameworkBetterInit then UI.StyledDialog else Framework.StudioUI.StyledDialog
+local TextLabel = UI.TextLabel
+local StyledDialog = UI.StyledDialog
 
 local SetLive = require(Main.Src.Actions.SetLive)
 

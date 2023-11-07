@@ -22,6 +22,7 @@ local useChromeMenuItems = require(Chrome.Hooks.useChromeMenuItems)
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
 
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
+local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
@@ -94,6 +95,10 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	})
 end
 
+function isLeft(alignment)
+	return alignment == Enum.HorizontalAlignment.Left
+end
+
 function SubMenu(props: SubMenuProps)
 	local style = useStyle()
 	local theme = style.Theme
@@ -150,10 +155,12 @@ function SubMenu(props: SubMenuProps)
 		rows[item.id] = React.createElement(MenuRow, item)
 	end
 
+	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
+
 	return React.createElement("Frame", {
 		Size = UDim2.new(0, 240, 0, 0),
-		AnchorPoint = Vector2.new(1, 0),
-		Position = UDim2.new(1, 0, 0, 0),
+		AnchorPoint = if leftAlign then Vector2.zero else Vector2.new(1, 0),
+		Position = if leftAlign then UDim2.new(0, 0, 0, 0) else UDim2.new(1, 0, 0, 0),
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,
 		BackgroundTransparency = theme.BackgroundUIContrast.Transparency,
 		AutomaticSize = Enum.AutomaticSize.Y,
@@ -195,16 +202,7 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 
 	-- close submenu on click outside
 	React.useEffect(function()
-		if not currentSubMenu and connection.current then
-			connection.current:Disconnect()
-			connection.current = nil
-		end
-		if not currentSubMenu and connectionTapped.current then
-			connectionTapped.current:Disconnect()
-			connectionTapped.current = nil
-		end
-
-		if currentSubMenu and connection.current == nil then
+		if currentSubMenu then
 			if GetFFlagUnibarRespawn() then
 				connectionTapped.current = UserInputService.TouchTap:Connect(function(evt)
 					local subMenuId = ChromeService:currentSubMenu():get()
@@ -228,6 +226,17 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 					ChromeService:toggleSubMenu(subMenuId)
 				end
 			end)
+		end
+
+		return function()
+			if connection.current then
+				connection.current:Disconnect()
+				connection.current = nil
+			end
+			if connectionTapped.current then
+				connectionTapped.current:Disconnect()
+				connectionTapped.current = nil
+			end
 		end
 	end, { currentSubMenu })
 

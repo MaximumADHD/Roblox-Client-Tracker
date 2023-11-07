@@ -4,20 +4,12 @@
 	2021 Roblox VR
 --]]
 
-local FFlagUserVRPlayerScriptsMisc
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRPlayerScriptsMisc")
-	end)
-	FFlagUserVRPlayerScriptsMisc = success and result
-end
-
 local FFlagUserVRVehicleCamera
 do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRVehicleCamera")
+		return UserSettings():IsUserFeatureEnabled("UserVRVehicleCamera2")
 	end)
-	FFlagUserVRVehicleCamera = success and result and FFlagUserVRPlayerScriptsMisc
+	FFlagUserVRVehicleCamera = success and result
 end
 
 local EPSILON = 1e-3
@@ -26,7 +18,6 @@ local PITCH_LIMIT = math.rad(80)
 local YAW_DEFAULT = math.rad(0)
 local ZOOM_MINIMUM = 0.5
 local ZOOM_SENSITIVITY_CURVATURE = 0.5
-local DEFAULT_CAMERA_DIST = 16 -- remove with FFlagUserVRPlayerScriptsMisc
 local TP_FOLLOW_DIST = 200
 local TP_FOLLOW_ANGLE_DOT = 0.56
 -- assume an assembly radius of 10
@@ -37,7 +28,6 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local VRBaseCamera = require(script.Parent:WaitForChild("VRBaseCamera"))
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
-local ZoomController = require(script.Parent:WaitForChild("ZoomController")) -- remove with FFlagUserVRPlayerScriptsMisc
 local VehicleCamera = require(script.Parent:WaitForChild("VehicleCamera"))
 local VehicleCameraCore =  require(script.Parent.VehicleCamera:FindFirstChild("VehicleCameraCore")) :: any
 local VehicleCameraConfig = require(script.Parent.VehicleCamera:FindFirstChild("VehicleCameraConfig")) :: any
@@ -104,37 +94,19 @@ function VRVehicleCamera:Reset()
 	local assemblyParts = cameraSubject:GetConnectedParts(true) -- passing true to recursively get all assembly parts
 	local assemblyPosition, assemblyRadius = CameraUtils.getLooseBoundingSphere(assemblyParts)
 
-	if FFlagUserVRPlayerScriptsMisc then
-		-- limit min assembly radius to 5 to prevent extremely small zooms
-		assemblyRadius = math.max(assemblyRadius, MIN_ASSEMBLY_RADIUS)
-	else
-		assemblyRadius = math.max(assemblyRadius, EPSILON)
-	end
+	-- limit min assembly radius to 5 to prevent extremely small zooms
+	assemblyRadius = math.max(assemblyRadius, MIN_ASSEMBLY_RADIUS)
 
 	self.assemblyRadius = assemblyRadius
 	self.assemblyOffset = cameraSubject.CFrame:Inverse()*assemblyPosition -- seat-space offset of the assembly bounding sphere center
 
-	if FFlagUserVRPlayerScriptsMisc then
-		-- scale zoom levels by car radius and headscale
-		self.gamepadZoomLevels = {}
-		for i, zoom in DEFAULT_GAMEPAD_ZOOM_LEVELS do
-			table.insert(self.gamepadZoomLevels, zoom * self.headScale * self.assemblyRadius / 10)
-		end
-		self.lastCameraFocus = nil
-		self:SetCameraToSubjectDistance(self.gamepadZoomLevels[#self.gamepadZoomLevels])
-
-	else
-		self.lastCameraFocus = nil
-		self:_StepInitialZoom()
+	-- scale zoom levels by car radius and headscale
+	self.gamepadZoomLevels = {}
+	for i, zoom in DEFAULT_GAMEPAD_ZOOM_LEVELS do
+		table.insert(self.gamepadZoomLevels, zoom * self.headScale * self.assemblyRadius / 10)
 	end
-end
-
--- remove with FFlagUserVRPlayerScriptsMisc
-function VRVehicleCamera:_StepInitialZoom()
-	self:SetCameraToSubjectDistance(math.max(
-		ZoomController.GetZoomRadius(),
-		self.assemblyRadius*VehicleCameraConfig.initialZoomRadiusMul
-	))
+	self.lastCameraFocus = nil
+	self:SetCameraToSubjectDistance(self.gamepadZoomLevels[#self.gamepadZoomLevels])
 end
 
 function VRVehicleCamera:_StepRotation(dt, vdotz): CFrame
@@ -226,8 +198,8 @@ function VRVehicleCamera:Update()
 		worldDt = 0
 
 		-- update fade from black
-		self:UpdateFadeFromBlack(worldDt)
-		self:UpdateEdgeBlur(localPlayer, worldDt)
+		self:UpdateFadeFromBlack(dt)
+		self:UpdateEdgeBlur(localPlayer, dt)
 
 		local camera, focus
 		if VRService.ThirdPersonFollowCamEnabled then
@@ -507,9 +479,6 @@ function VRVehicleCamera:UpdateComfortCamera(dt)
 			cf = CFrame.new(cameraFocusP - (zoom * newLookVector), cameraFocusP)
 		else
 			-- new focus / teleport
-			if not FFlagUserVRPlayerScriptsMisc then
-				self.currentSubjectDistance = DEFAULT_CAMERA_DIST
-			end
 			self.lastCameraFocus = self:GetVRFocus(subjectCFrame.Position, dt)
 			self.needsReset = false
 			self:StartFadeFromBlack()
@@ -539,24 +508,6 @@ function VRVehicleCamera:UpdateComfortCamera(dt)
 	end
 
 	return cf, focus
-end
-
-function VRVehicleCamera:EnterFirstPerson()
-	if FFlagUserVRPlayerScriptsMisc then
-		VRBaseCamera.EnterFirstPerson(self) -- remove with FFlagUserVRPlayerScriptsMisc
-	else
-		self.inFirstPerson = true
-		self:UpdateMouseBehavior()
-	end
-end
-
-function VRVehicleCamera:LeaveFirstPerson()
-	if FFlagUserVRPlayerScriptsMisc then
-		VRBaseCamera.LeaveFirstPerson(self) -- remove with FFlagUserVRPlayerScriptsMisc
-	else
-		self.inFirstPerson = false
-		self:UpdateMouseBehavior()
-	end
 end
 
 return VRVehicleCamera

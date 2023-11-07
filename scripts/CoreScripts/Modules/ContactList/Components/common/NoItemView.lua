@@ -122,9 +122,9 @@ local function NoItemView(props: Props)
 					VerticalAlignment = Enum.VerticalAlignment.Center,
 				}),
 				StartCallIcon = React.createElement(ImageSetLabel, {
-					Size = UDim2.fromOffset(28, 28),
+					Size = UDim2.fromOffset(24, 24),
 					BackgroundTransparency = 1,
-					Image = "rbxassetid://14532752184",
+					Image = "rbxassetid://15239343417",
 					ImageColor3 = theme.SystemPrimaryContent.Color,
 					LayoutOrder = 1,
 				}),

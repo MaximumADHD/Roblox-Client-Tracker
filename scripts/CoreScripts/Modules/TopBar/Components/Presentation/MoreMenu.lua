@@ -21,6 +21,9 @@ local SetKeepOutArea = require(Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(Actions.RemoveKeepOutArea)
 local SetMoreMenuOpen = require(Actions.SetMoreMenuOpen)
 
+local TopBarAnalytics = require(TopBar.Analytics)
+
+local FFlagEnableTopBarAnalytics = require(TopBar.Flags.GetFFlagEnableTopBarAnalytics)()
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 
 local Constants = require(TopBar.Constants)
@@ -96,6 +99,10 @@ MoreMenu.validateProps = t.strictInterface({
 
 function MoreMenu:init()
 	self.rootRef = Roact.createRef()
+	if FFlagEnableTopBarAnalytics then
+		self.analytics = TopBarAnalytics.default
+	end
+
 	self:setState({
 		vrShowMenuIcon = false,
 	})
@@ -106,6 +113,9 @@ function MoreMenu:init()
 
 	self.moreButtonActivated = function()
 		self.props.setMoreMenuOpen(not self.props.moreMenuOpen)
+		if self.analytics then
+			self.analytics:onMoreMenuActivated()
+		end
 	end
 end
 
@@ -130,12 +140,16 @@ function MoreMenu:renderWithStyle(style)
 			text = RobloxTranslator:FormatByKey("CoreScripts.TopBar.Leaderboard"),
 			keyCodeLabel = isUsingKeyBoard and Enum.KeyCode.Tab or nil,
 			onActivated = function()
+				local isLeaderboardActive = self.props.leaderboardOpen
 				if VRService.VREnabled then
 					local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 					InGameMenu.openPlayersPage()
 				else
 					PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
 					self.props.setMoreMenuOpen(false)
+				end
+				if self.analytics then
+					self.analytics:onLeaderboardActivated(not isLeaderboardActive)
 				end
 			end,
 		})
@@ -165,6 +179,9 @@ function MoreMenu:renderWithStyle(style)
 					EmotesMenuMaster:open()
 				end
 				self.props.setMoreMenuOpen(false)
+				if self.analytics then
+					self.analytics:onEmotesActivated(EmotesMenuMaster:isOpen())
+				end
 			end,
 		})
 		hasOptions = true
@@ -183,6 +200,9 @@ function MoreMenu:renderWithStyle(style)
 			onActivated = function()
 				BackpackModule:OpenClose()
 				self.props.setMoreMenuOpen(false)
+				if self.analytics then
+					self.analytics:onInventoryActivated(BackpackModule.IsOpen)
+				end
 			end,
 		})
 		hasOptions = true

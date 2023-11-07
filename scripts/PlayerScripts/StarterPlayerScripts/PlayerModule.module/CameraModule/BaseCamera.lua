@@ -34,12 +34,6 @@ local R15_HEAD_OFFSET = Vector3.new(0, 1.5, 0)
 local R15_HEAD_OFFSET_NO_SCALING = Vector3.new(0, 2, 0)
 local HUMANOID_ROOT_PART_SIZE = Vector3.new(2, 2, 1)
 
- -- Remove with FFlagUserVRPlayerScriptsMisc
-local GAMEPAD_ZOOM_STEP = 10
-local GAMEPAD_ZOOM_STEP_1 = 0
-local GAMEPAD_ZOOM_STEP_2 = 10
-local GAMEPAD_ZOOM_STEP_3 = 20
-
 local ZOOM_SENSITIVITY_CURVATURE = 0.5
 local FIRST_PERSON_DISTANCE_MIN = 0.5
 
@@ -57,13 +51,6 @@ local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local player = Players.LocalPlayer
-local FFlagUserVRPlayerScriptsMisc
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRPlayerScriptsMisc")
-	end)
-	FFlagUserVRPlayerScriptsMisc = success and result
-end
 
 --[[ The Module ]]--
 local BaseCamera = {}
@@ -72,9 +59,7 @@ BaseCamera.__index = BaseCamera
 function BaseCamera.new()
 	local self = setmetatable({}, BaseCamera)
 	
-	if FFlagUserVRPlayerScriptsMisc then
-		self.gamepadZoomLevels = {0, 10, 20} -- zoom levels that are cycled through on a gamepad R3 press
-	end
+	self.gamepadZoomLevels = {0, 10, 20} -- zoom levels that are cycled through on a gamepad R3 press
 	
 	-- So that derived classes have access to this
 	self.FIRST_PERSON_DISTANCE_THRESHOLD = FIRST_PERSON_DISTANCE_THRESHOLD
@@ -92,10 +77,6 @@ function BaseCamera.new()
 	self.lastSubject = nil
 	self.lastSubjectPosition = Vector3.new(0, 5, 0)
 	self.lastSubjectCFrame = CFrame.new(self.lastSubjectPosition)
-
-	if not FFlagUserVRPlayerScriptsMisc then
- 		self.defaultSubjectDistance = math.clamp(DEFAULT_DISTANCE, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
-	end
 
 	self.currentSubjectDistance = math.clamp(DEFAULT_DISTANCE, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
 
@@ -143,14 +124,6 @@ function BaseCamera.new()
 	player.CharacterAdded:Connect(function(char)
 		self:OnCharacterAdded(char)
 	end)
-
-	if not FFlagUserVRPlayerScriptsMisc then
-		if self.cameraChangedConn then self.cameraChangedConn:Disconnect() end
-		self.cameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
-			self:OnCurrentCameraChanged()
-		end)
-		self:OnCurrentCameraChanged()
-	end
 
 	if self.playerCameraModeChangeConn then self.playerCameraModeChangeConn:Disconnect() end
 	self.playerCameraModeChangeConn = player:GetPropertyChangedSignal("CameraMode"):Connect(function()
@@ -466,24 +439,11 @@ function BaseCamera:GetSubjectPosition(): Vector3?
 	return result
 end
 
--- remove with FFlagUserVRPlayerScriptsMisc
-function BaseCamera:UpdateDefaultSubjectDistance()
-	if self.portraitMode then
-		self.defaultSubjectDistance = math.clamp(PORTRAIT_DEFAULT_DISTANCE, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
-	else
-		self.defaultSubjectDistance = math.clamp(DEFAULT_DISTANCE, player.CameraMinZoomDistance, player.CameraMaxZoomDistance)
-	end
-end
-
 function BaseCamera:OnViewportSizeChanged()
 	local camera = game.Workspace.CurrentCamera
 	local size = camera.ViewportSize
 	self.portraitMode = size.X < size.Y
 	self.isSmallTouchScreen = UserInputService.TouchEnabled and (size.Y < 500 or size.X < 700)
-
-	if not FFlagUserVRPlayerScriptsMisc then
-		self:UpdateDefaultSubjectDistance()
-	end
 end
 
 -- Listener for changes to workspace.CurrentCamera
@@ -563,135 +523,77 @@ function BaseCamera:GamepadZoomPress()
 	-- this code relies on the fact that SetCameraToSubjectDistance will clamp the min and max
 	local dist = self:GetCameraToSubjectDistance()
 
-	if FFlagUserVRPlayerScriptsMisc then
-		local max = player.CameraMaxZoomDistance
+	local max = player.CameraMaxZoomDistance
 
-		-- check from largest to smallest, set the first zoom level which is 
-		-- below the threshold
-		for i = #self.gamepadZoomLevels, 1, -1 do
-			local zoom = self.gamepadZoomLevels[i]
-		
-			if max < zoom then
-				continue
-			end
-			
-			if zoom < player.CameraMinZoomDistance then
-				zoom = player.CameraMinZoomDistance
-			end
-
-			-- no more zoom levels to check, all the remaining ones
-			-- are < min
-			if max == zoom then
-				break
-			end
-
-			-- theshold is set at halfway between zoom levels
-			if dist > zoom + (max - zoom) / 2 then
-				self:SetCameraToSubjectDistance(zoom)
-				return
-			end
-
-			max = zoom
-		end
-		
-		-- cycle back to the largest
-		self:SetCameraToSubjectDistance(self.gamepadZoomLevels[#self.gamepadZoomLevels])
-	else
-		local cameraMinZoomDistance = player.CameraMinZoomDistance
-		local cameraMaxZoomDistance = player.CameraMaxZoomDistance
-
-		local ZOOM_STEP_1 = 0
-
-		-- Adjust steps such that the minimum zoom level is not subceeded
-		if cameraMinZoomDistance > FIRST_PERSON_DISTANCE_MIN then
-			ZOOM_STEP_1 = cameraMinZoomDistance
-		end
+	-- check from largest to smallest, set the first zoom level which is 
+	-- below the threshold
+	for i = #self.gamepadZoomLevels, 1, -1 do
+		local zoom = self.gamepadZoomLevels[i]
 	
-		local ZOOM_STEP_2 = ZOOM_STEP_1 + GAMEPAD_ZOOM_STEP
-		local ZOOM_STEP_3 = ZOOM_STEP_2 + GAMEPAD_ZOOM_STEP
-
-		-- Adjust steps such that maximum zoom level is not exceeded
-		if cameraMaxZoomDistance < ZOOM_STEP_3 then
-			ZOOM_STEP_3 = cameraMaxZoomDistance
-			ZOOM_STEP_2 = ZOOM_STEP_1 + (ZOOM_STEP_3 - ZOOM_STEP_1)/2
+		if max < zoom then
+			continue
 		end
 		
-		if dist > (ZOOM_STEP_2 + ZOOM_STEP_3)/2 then
-			self:SetCameraToSubjectDistance(ZOOM_STEP_2)
-		elseif dist > (ZOOM_STEP_1 + ZOOM_STEP_2)/2 then
-			self:SetCameraToSubjectDistance(ZOOM_STEP_1)
-		else
-			self:SetCameraToSubjectDistance(ZOOM_STEP_3)
+		if zoom < player.CameraMinZoomDistance then
+			zoom = player.CameraMinZoomDistance
 		end
+
+		-- no more zoom levels to check, all the remaining ones
+		-- are < min
+		if max == zoom then
+			break
+		end
+
+		-- theshold is set at halfway between zoom levels
+		if dist > zoom + (max - zoom) / 2 then
+			self:SetCameraToSubjectDistance(zoom)
+			return
+		end
+
+		max = zoom
 	end
+	
+	-- cycle back to the largest
+	self:SetCameraToSubjectDistance(self.gamepadZoomLevels[#self.gamepadZoomLevels])
 end
 
 function BaseCamera:Enable(enable: boolean)
 	if self.enabled ~= enable then
 		self.enabled = enable
 
-		if FFlagUserVRPlayerScriptsMisc then
-			self:OnEnabledChanged()
-		else
-			if self.enabled then
-				CameraInput.setInputEnabled(true)
-		
-				self.gamepadZoomPressConnection = CameraInput.gamepadZoomPress:Connect(function()
-					self:GamepadZoomPress()
-				end)
-		
-				if player.CameraMode == Enum.CameraMode.LockFirstPerson then
-					self.currentSubjectDistance = 0.5
-					if not self.inFirstPerson then
-						self:EnterFirstPerson()
-					end
-				end
-			else
-				CameraInput.setInputEnabled(false)
-		
-				if self.gamepadZoomPressConnection then
-					self.gamepadZoomPressConnection:Disconnect()
-					self.gamepadZoomPressConnection = nil
-				end
-				-- Clean up additional event listeners and reset a bunch of properties
-				self:Cleanup()
-			end
-			self:OnEnabledChanged(enable)
-		end
+		self:OnEnabledChanged()
 	end
 end
 
 function BaseCamera:OnEnabledChanged()
-	if FFlagUserVRPlayerScriptsMisc then
-		if self.enabled then
-			CameraInput.setInputEnabled(true)
+	if self.enabled then
+		CameraInput.setInputEnabled(true)
 
-			self.gamepadZoomPressConnection = CameraInput.gamepadZoomPress:Connect(function()
-				self:GamepadZoomPress()
-			end)
+		self.gamepadZoomPressConnection = CameraInput.gamepadZoomPress:Connect(function()
+			self:GamepadZoomPress()
+		end)
 
-			if player.CameraMode == Enum.CameraMode.LockFirstPerson then
-				self.currentSubjectDistance = 0.5
-				if not self.inFirstPerson then
-					self:EnterFirstPerson()
-				end
+		if player.CameraMode == Enum.CameraMode.LockFirstPerson then
+			self.currentSubjectDistance = 0.5
+			if not self.inFirstPerson then
+				self:EnterFirstPerson()
 			end
-
-			if self.cameraChangedConn then self.cameraChangedConn:Disconnect(); self.cameraChangedConn = nil end
-			self.cameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
-				self:OnCurrentCameraChanged()
-			end)
-			self:OnCurrentCameraChanged()
-		else
-			CameraInput.setInputEnabled(false)
-
-			if self.gamepadZoomPressConnection then
-				self.gamepadZoomPressConnection:Disconnect()
-				self.gamepadZoomPressConnection = nil
-			end
-			-- Clean up additional event listeners and reset a bunch of properties
-			self:Cleanup()
 		end
+
+		if self.cameraChangedConn then self.cameraChangedConn:Disconnect(); self.cameraChangedConn = nil end
+		self.cameraChangedConn = workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+			self:OnCurrentCameraChanged()
+		end)
+		self:OnCurrentCameraChanged()
+	else
+		CameraInput.setInputEnabled(false)
+
+		if self.gamepadZoomPressConnection then
+			self.gamepadZoomPressConnection:Disconnect()
+			self.gamepadZoomPressConnection = nil
+		end
+		-- Clean up additional event listeners and reset a bunch of properties
+		self:Cleanup()
 	end
 end
 
@@ -708,11 +610,9 @@ function BaseCamera:Cleanup()
 		self.viewportSizeChangedConn:Disconnect()
 		self.viewportSizeChangedConn = nil
 	end
-	if FFlagUserVRPlayerScriptsMisc then
-		if self.cameraChangedConn then 
-			self.cameraChangedConn:Disconnect()
-			self.cameraChangedConn = nil 
-		end
+	if self.cameraChangedConn then 
+		self.cameraChangedConn:Disconnect()
+		self.cameraChangedConn = nil 
 	end
 
 	self.lastCameraTransform = nil
@@ -829,17 +729,13 @@ function BaseCamera:InFirstPerson(): boolean
 end
 
 function BaseCamera:EnterFirstPerson()
-	if FFlagUserVRPlayerScriptsMisc then
-		self.inFirstPerson = true
-		self:UpdateMouseBehavior()
-	end
+	self.inFirstPerson = true
+	self:UpdateMouseBehavior()
 end
 
 function BaseCamera:LeaveFirstPerson()
-	if FFlagUserVRPlayerScriptsMisc then
-		self.inFirstPerson = false
-		self:UpdateMouseBehavior()
-	end
+	self.inFirstPerson = false
+	self:UpdateMouseBehavior()
 end
 
 -- Nominal distance, set by dollying in and out with the mouse wheel or equivalent, not measured distance

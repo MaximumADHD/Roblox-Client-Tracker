@@ -138,15 +138,16 @@ task.defer(function()
 	updateRespawn(SettingsHub:GetRespawnBehaviour())
 end)
 
--- todo: reduce external boilerplate for a signal sourced directly from ChromeService
 local currentSubMenu = ChromeService:currentSubMenu()
 local submenuVisibility = MappedSignal.new(currentSubMenu:signal(), function()
 	return currentSubMenu:get() == "nine_dot"
 end)
 
-submenuVisibility:connect(function(menuVisible)
-	PlayerListMaster:SetMinimized(menuVisible)
-end)
+if ChromeService:orderAlignment():get() == Enum.HorizontalAlignment.Right then
+	submenuVisibility:connect(function(menuVisible)
+		PlayerListMaster:SetMinimized(menuVisible)
+	end)
+end
 
 return ChromeService:register({
 	initialAvailability = ChromeService.AvailabilitySignal.Available,

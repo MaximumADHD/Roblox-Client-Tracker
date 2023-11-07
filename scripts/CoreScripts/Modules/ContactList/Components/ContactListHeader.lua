@@ -8,14 +8,17 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local dependencies = require(ContactList.dependencies)
 local Pages = require(ContactList.Enums.Pages)
 local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 
 local useDispatch = dependencies.Hooks.useDispatch
+local useSelector = dependencies.Hooks.useSelector
 local UIBlox = dependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local useStyle = UIBlox.Core.Style.useStyle
 
-local BUTTON_SIZE = 28
+local BUTTON_SIZE = 32
 local DIVIDER_WIDTH = 1
 local BUTTON_PADDING = 8
 local TEXT_PADDING = 12
@@ -39,18 +42,34 @@ local getTitleFromPage = function(currentPage)
 end
 
 local ContactListHeader = function(props: Props)
+	local analytics = useAnalytics()
 	local style = useStyle()
 	local dispatch = useDispatch()
 	local theme = style.Theme
 	local font = style.Font
 
-	local navigateToCallHistory = React.useCallback(function()
-		dispatch(SetCurrentPage(Pages.CallHistory))
+	local selectCurrentPage = React.useCallback(function(state: any)
+		return state.Navigation.currentPage
 	end, {})
+	local currentPage = useSelector(selectCurrentPage)
+
+	local navigateToCallHistory = React.useCallback(function()
+		analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+			eventTimestampMs = os.time() * 1000,
+			startingPage = currentPage,
+			destinationPage = Pages.CallHistory,
+		})
+		dispatch(SetCurrentPage(Pages.CallHistory))
+	end, { currentPage })
 
 	local navigateToNewCall = React.useCallback(function()
+		analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+			eventTimestampMs = os.time() * 1000,
+			startingPage = currentPage,
+			destinationPage = Pages.FriendList,
+		})
 		dispatch(SetCurrentPage(Pages.FriendList))
-	end)
+	end, { currentPage })
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, props.headerHeight),
@@ -116,7 +135,7 @@ local ContactListHeader = function(props: Props)
 				Size = UDim2.fromOffset(BUTTON_SIZE, BUTTON_SIZE),
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				BackgroundTransparency = theme.BackgroundDefault.Transparency,
-				Image = "rbxassetid://14522111372",
+				Image = "rbxassetid://15239778003",
 				LayoutOrder = 4,
 				[React.Event.Activated] = navigateToNewCall,
 			}, {

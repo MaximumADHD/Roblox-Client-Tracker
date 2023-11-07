@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Workspace
 
-local Package = require(PackageIndex["CentralOverlay"]["CentralOverlay"])
+local Package = require(PackageIndex["SharedFlags"]["SharedFlags"])
 
 return Package

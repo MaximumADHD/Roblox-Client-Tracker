@@ -89,8 +89,8 @@ function SubscriptionPurchaseOverlay:getErrorType()
 		return PurchaseErrorType.SubscriptionExceededUserSpendLimit
 	elseif props.purchaseError == PurchaseError.SubscriptionUnsupportedLocale then
 		return PurchaseErrorType.SubscriptionUnsupportedLocale
-	elseif props.purchaseError == PurchaseError.RestrictedUserAge then
-		return PurchaseErrorType.RestrictedUserAge
+	elseif props.purchaseError == PurchaseError.RestrictedUser then
+		return PurchaseErrorType.RestrictedUser
 	elseif props.purchaseError == PurchaseError.SubscriptionPurchasePlatformNotSupported then
 		return PurchaseErrorType.SubscriptionPurchasePlatformNotSupported
 	elseif props.purchaseError == PurchaseError.SubscriptionInvalidSaleLocation then

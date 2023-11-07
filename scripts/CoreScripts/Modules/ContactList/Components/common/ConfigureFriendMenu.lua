@@ -14,9 +14,12 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local dependencies = require(ContactList.dependencies)
 local useSelector = dependencies.Hooks.useSelector
 
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local FriendAction = require(ContactList.Enums.FriendAction)
 
 local function ConfigureFriendMenu(props)
+	local analytics = useAnalytics()
 	local style = useStyle()
 	local theme = style.Theme
 
@@ -28,12 +31,24 @@ local function ConfigureFriendMenu(props)
 		end
 	end)
 
+	local friendUserId = useSelector(function(state)
+		if state.PlayerMenu.friend then
+			return state.PlayerMenu.friend.userId
+		else
+			return nil
+		end
+	end)
+
 	return Roact.createElement(BaseMenu, {
 		buttonProps = {
 			{
 				icon = Images["icons/actions/block"],
 				text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.Block") .. " " .. combinedName,
 				onActivated = function()
+					analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuBlockClicked, {
+						eventTimestampMs = os.time() * 1000,
+						friendUserId = friendUserId,
+					})
 					props.initiateConfirmation(FriendAction.Block.rawValue())
 				end,
 			},
@@ -41,6 +56,10 @@ local function ConfigureFriendMenu(props)
 				icon = Images["icons/actions/friends/friendRemove"],
 				text = RobloxTranslator:FormatByKey("FriendPlayerPrompt.Label.Unfriend") .. " " .. combinedName,
 				onActivated = function()
+					analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuUnfriendClicked, {
+						eventTimestampMs = os.time() * 1000,
+						friendUserId = friendUserId,
+					})
 					props.initiateConfirmation(FriendAction.Unfriend.rawValue())
 				end,
 			},

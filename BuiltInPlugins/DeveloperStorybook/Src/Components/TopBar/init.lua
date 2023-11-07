@@ -17,11 +17,9 @@ local Pane = UI.Pane
 local SelectInput = UI.SelectInput
 local Slider = UI.Slider
 local Tooltip = UI.Tooltip
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
-local Image = if FFlagDevFrameworkBetterInit then UI.Image else UI.Decoration.Image
-local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
-local SearchBar = if FFlagDevFrameworkBetterInit then UI.SearchBar else Framework.StudioUI.SearchBar
+local Image = UI.Image
+local TextLabel = UI.TextLabel
+local SearchBar = UI.SearchBar
 
 local StyleModifier = Framework.Util.StyleModifier
 

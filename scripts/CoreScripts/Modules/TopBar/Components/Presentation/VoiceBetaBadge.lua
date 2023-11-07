@@ -33,6 +33,10 @@ local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local Constants = require(TopBar.Constants)
 
+local Chrome = TopBar.Parent.Chrome
+local ChromeEnabled = require(Chrome.Enabled)
+local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil
+
 VoiceBetaBadge.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
 	Analytics = t.table,
@@ -73,7 +77,9 @@ end
 
 function VoiceBetaBadge:init()
 	self.buttonRef = Roact.createRef()
+
 	self:setState({
+		chromeMenuOpen = ChromeService and ChromeService:status():get() == ChromeService.MenuStatus.Open,
 		vrShowMenuIcon = VRService.VREnabled and GamepadService.GamepadCursorEnabled,
 		voiceChatServiceConnected = false,
 		showPopup = false,
@@ -107,9 +113,29 @@ function VoiceBetaBadge:init()
 	end
 end
 
+function VoiceBetaBadge:didMount()
+	if ChromeService then
+		self.chromeMenuStatusConn = ChromeService:status():connect(function()
+			self:setState({
+				chromeMenuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
+			})
+		end)
+	end
+end
+
+function VoiceBetaBadge:onUnmount()
+	if self.chromeMenuStatusConn then
+		self.chromeMenuStatusConn:Disconnect()
+		self.chromeMenuStatusConn = nil
+	end
+end
+
 function VoiceBetaBadge:render()
 	local visible = (not VRService.VREnabled or self.state.vrShowMenuIcon) and self.state.voiceChatServiceConnected
 
+	if self.state.chromeMenuOpen then
+		visible = false
+	end
 	local onAreaChanged = function(rbx)
 		if visible and rbx then
 			-- Need to recalculate the position as stroke is not part of AbsolutePosition/AbsoluteSize

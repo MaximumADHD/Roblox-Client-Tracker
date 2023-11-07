@@ -29,7 +29,10 @@ else
 		isMobileClient = isMobileClient or (platformEnum == Enum.Platform.UWP)
 
 		local isConsole = (platformEnum == Enum.Platform.XBox360) or (platformEnum == Enum.Platform.XBoxOne)
-		isConsole = isConsole or (platformEnum == Enum.Platform.PS3) or (platformEnum == Enum.Platform.PS4)
+		isConsole = isConsole
+			or (platformEnum == Enum.Platform.PS3)
+			or (platformEnum == Enum.Platform.PS4)
+			or (game:GetEngineFeature("PlatformEnumPS5") and platformEnum == Enum.Platform.PS5)
 		isConsole = isConsole or (platformEnum == Enum.Platform.WiiU)
 
 		-- assign a target based on the form factor

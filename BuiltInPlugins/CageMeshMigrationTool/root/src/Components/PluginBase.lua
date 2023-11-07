@@ -14,9 +14,7 @@ local ScreenSelect = require(root.src.Components.ScreenSelect)
 local Framework = require(root.Packages.Framework)
 
 local UI = Framework.UI
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
-local DockWidget = if FFlagDevFrameworkBetterInit then UI.DockWidget else Framework.StudioUI.DockWidget
+local DockWidget = UI.DockWidget
 
 local PluginBase = Roact.PureComponent:extend("PluginBase")
 

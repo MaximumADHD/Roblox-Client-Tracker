@@ -155,6 +155,7 @@ local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoice
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
 local GetFFlagEnableAudioOutputDevice = require(RobloxGui.Modules.Flags.GetFFlagEnableAudioOutputDevice)
+local FFlagHideEmptyInputDeviceSelector = game:DefineFastFlag("HideEmptyInputDeviceSelector", false)
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
 local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableAccessibilitySettingsInExperienceMenu)
 local GetFFlagSupportsOverscanPolicy = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportsOverscanPolicy
@@ -2670,7 +2671,15 @@ local function Initialize()
 		else
 
 			if GetFFlagVoiceChatUILogging() then
-				log:warning("Errors in get {} device info", deviceType)
+				if FFlagHideEmptyInputDeviceSelector then
+					if #deviceNames > 0 then
+						log:warning("Errors in get {} device info success: {} VCSSuccess: {}", deviceType, success, VCSSuccess)
+					else
+						log:warning("Empty deviceNames list for {}", deviceType)
+					end
+				else
+					log:warning("Errors in get {} device info", deviceType)
+				end
 			end
 			this[deviceType.."DeviceNames"] = {}
 			this[deviceType.."DeviceGuids"] = {}
@@ -2684,6 +2693,16 @@ local function Initialize()
 		else
 			this[deviceType.."DeviceSelector"]:UpdateOptions(deviceNames)
 			this[deviceType.."DeviceSelector"]:SetSelectionIndex(selectedIndex)
+		end
+
+		if FFlagHideEmptyInputDeviceSelector then
+			if this[deviceType.."DeviceFrame"] then
+				if #deviceNames > 0 then
+					this[deviceType.."DeviceFrame"].Visible = true
+				else
+					this[deviceType.."DeviceFrame"].Visible = false
+				end
+			end
 		end
 	end
 

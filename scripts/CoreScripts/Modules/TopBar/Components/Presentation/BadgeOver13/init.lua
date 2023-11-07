@@ -16,6 +16,11 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
+local TopBar = script.Parent.Parent.Parent
+local Chrome = TopBar.Parent.Chrome
+local ChromeEnabled = require(Chrome.Enabled)
+local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil
+
 local COPY_ID_TO_LOCALIZATION_KEY = {
     TextFilter = "InGame.CommonUI.Badge.Popup.TextFilterOnlyInfo",
     Voice = "InGame.CommonUI.Badge.Popup.VoiceInfo",
@@ -35,7 +40,18 @@ return function(props)
         end):catch(function() end)
     end, {})
 
+    local chromeClosed = true
+    if ChromeService then
+        local menuStatus = require(Chrome.Hooks.useChromeMenuStatus)()
+        chromeClosed = menuStatus == ChromeService.MenuStatus.Closed
+    end
+
     local shouldRender = (isVREnabled == false or isGamepadCursorEnabled == true) and (isUnfilteredChat == true or isVoiceEnabled == true)
+    shouldRender = shouldRender and chromeClosed
+
+    if props.visibilityChanged then
+        props.visibilityChanged(shouldRender)
+    end
 
     -- generate copyType array based on feature enrollment
     local copyType = {}

@@ -1,14 +1,5 @@
 --!nonstrict
 
-
-local FFlagUserVRPlayerScriptsMisc
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRPlayerScriptsMisc")
-	end)
-	FFlagUserVRPlayerScriptsMisc = success and result
-end
-
 local MIN_ASSEMBLY_RADIUS = 5
 local EPSILON = 1e-3
 local PITCH_LIMIT = math.rad(80)
@@ -77,34 +68,18 @@ function VehicleCamera:Reset()
 	local assemblyParts = cameraSubject:GetConnectedParts(true) -- passing true to recursively get all assembly parts
 	local assemblyPosition, assemblyRadius = CameraUtils.getLooseBoundingSphere(assemblyParts)
 	
-	if FFlagUserVRPlayerScriptsMisc then
-		-- assembly radius is limited to 5 in case of extremely small radii causing zoom to be extremely close
-		assemblyRadius = math.max(assemblyRadius, MIN_ASSEMBLY_RADIUS)
-	else
-		assemblyRadius = math.max(assemblyRadius, EPSILON)
-	end
-	
+	-- assembly radius is limited to 5 in case of extremely small radii causing zoom to be extremely close
+	assemblyRadius = math.max(assemblyRadius, MIN_ASSEMBLY_RADIUS)
+
 	self.assemblyRadius = assemblyRadius
 	self.assemblyOffset = cameraSubject.CFrame:Inverse()*assemblyPosition -- seat-space offset of the assembly bounding sphere center
 	
-	if FFlagUserVRPlayerScriptsMisc then
-		-- scale zoom levels by car radius and headscale
-		self.gamepadZoomLevels = {}
-		for i, zoom in DEFAULT_GAMEPAD_ZOOM_LEVELS do
-			table.insert(self.gamepadZoomLevels, zoom * self.assemblyRadius / 10)
-		end
-		self:SetCameraToSubjectDistance(self.gamepadZoomLevels[#self.gamepadZoomLevels])
-	else
-		self:_StepInitialZoom()
+	-- scale zoom levels by car radius and headscale
+	self.gamepadZoomLevels = {}
+	for i, zoom in DEFAULT_GAMEPAD_ZOOM_LEVELS do
+		table.insert(self.gamepadZoomLevels, zoom * self.assemblyRadius / 10)
 	end
-end
-
--- remove with FFlagUserVRPlayerScriptsMisc
-function VehicleCamera:_StepInitialZoom()
-	self:SetCameraToSubjectDistance(math.max(
-		ZoomController.GetZoomRadius(),
-		self.assemblyRadius*VehicleCameraConfig.initialZoomRadiusMul
-	))
+	self:SetCameraToSubjectDistance(self.gamepadZoomLevels[#self.gamepadZoomLevels])
 end
 
 function VehicleCamera:_StepRotation(dt, vdotz): CFrame
@@ -235,25 +210,6 @@ end
 
 function VehicleCamera:ApplyVRTransform()
 	-- no-op override; VR transform is not applied in vehicles
-end
-
-
-function VehicleCamera:EnterFirstPerson()
-	if FFlagUserVRPlayerScriptsMisc then
-		BaseCamera.EnterFirstPerson(self) -- remove with FFlagUserVRPlayerScriptsMisc
-	else
-		self.inFirstPerson = true
-		self:UpdateMouseBehavior()
-	end
-end
-
-function VehicleCamera:LeaveFirstPerson()
-	if FFlagUserVRPlayerScriptsMisc then
-		BaseCamera.LeaveFirstPerson(self) -- remove with FFlagUserVRPlayerScriptsMisc
-	else
-		self.inFirstPerson = false
-		self:UpdateMouseBehavior()
-	end
 end
 
 return VehicleCamera

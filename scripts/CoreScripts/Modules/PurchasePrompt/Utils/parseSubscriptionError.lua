@@ -6,8 +6,8 @@ local function parseSubscriptionError(errorReason)
 		return PurchaseError.SubscriptionExceededUserSpendLimit
 	elseif errorReason == "UnsupportedLocale" then
 		return PurchaseError.SubscriptionUnsupportedLocale
-	elseif errorReason == "RestrictedUserAge" then
-		return PurchaseError.RestrictedUserAge
+	elseif errorReason == "RestrictedUser" then
+		return PurchaseError.RestrictedUser
 	elseif errorReason == "PurchasePlatformNotSupported" then
 		return PurchaseError.SubscriptionPurchasePlatformNotSupported
 	elseif errorReason == "InvalidSaleLocation" then

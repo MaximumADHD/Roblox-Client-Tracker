@@ -52,6 +52,8 @@ return function()
 					combinedName = "display name",
 					dismissCallback = function() end,
 					showDivider = true,
+					itemListIndex = 1,
+					isSuggestedUser = false,
 				}),
 			}),
 		})

@@ -6,10 +6,35 @@ local ObservableValue = utils.ObservableValue
 export type ObservableScreenSize = utils.ObservableValue<Vector2>
 export type ObservableMobileDevice = utils.ObservableValue<boolean>
 
+export type ViewportInfo = {
+	size: Vector2,
+	portraitOrientation: boolean,
+	tinyPortrait: boolean,
+}
+
+export type ObservableViewport = utils.ObservableValue<ViewportInfo>
+
 local screenSize: ObservableScreenSize = ObservableValue.new(Vector2.new(0, 0))
 local mobileDevice: ObservableMobileDevice = ObservableValue.new(false)
-
 local connectionViewportSize: RBXScriptConnection | nil = nil
+local smallPortraitLimitPx = 360
+
+function createViewportInfo(viewportSize: Vector2)
+	local isPortrait = viewportSize.Y > viewportSize.X
+	return {
+		size = viewportSize,
+		portraitOrientation = isPortrait,
+		tinyPortrait = isPortrait and viewportSize.X < smallPortraitLimitPx,
+	}
+end
+
+local viewport: ObservableViewport = ObservableValue.new(createViewportInfo(Vector2.zero))
+
+function updateViewportSize(cameraViewportSize: Vector2)
+	local viewportSize = Vector2.new(cameraViewportSize.X, cameraViewportSize.Y)
+	screenSize:set(viewportSize)
+	viewport:set(createViewportInfo(viewportSize))
+end
 
 function setCurrentCamera(camera: Camera?)
 	if connectionViewportSize then
@@ -22,11 +47,10 @@ function setCurrentCamera(camera: Camera?)
 	if camera then
 		local platform = UserInputService:GetPlatform()
 		mobileDevice:set(platform == Enum.Platform.IOS or platform == Enum.Platform.Android)
-
 		connectionViewportSize = camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
-			screenSize:set(Vector2.new(camera.ViewportSize.X, camera.ViewportSize.Y))
+			updateViewportSize(camera.ViewportSize)
 		end)
-		screenSize:set(Vector2.new(camera.ViewportSize.X, camera.ViewportSize.Y))
+		updateViewportSize(camera.ViewportSize)
 	end
 end
 
@@ -38,6 +62,7 @@ setCurrentCamera(Workspace.CurrentCamera)
 return {
 	screenSize = screenSize,
 	mobileDevice = mobileDevice,
+	viewport = viewport,
 	isSmallTouchScreen = function()
 		-- clone of isSmallTouchScreen from Utility.lua
 		local viewportSize = screenSize:get()

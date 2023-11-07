@@ -316,19 +316,20 @@ return function()
 				-- on second session, we will read from the cache which is controls
 				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeVersionId())
 				expect(manager:isChromeEnabled()).toBe(true)
-				expect(manager:shouldDisableSeenClosure()).toBe(false)
+				expect(manager:shouldPinChat()).toBe(false)
+				expect(manager:shouldDefaultOpen()).toBe(false)
 				expect(manager:isMenuModernizationEnabled()).toBe(false)
 				expect(manager:areMenuControlsEnabled()).toBe(false)
 				expect(manager:isV2MenuEnabled()).toBe(false)
 			end
 		end)
 
-		it("returns chrome without seen closure for user in the variant", function()
+		it("returns chrome with pinned chat for user in the variant", function()
 			if IsExperienceMenuABTestEnabled() and isChromeValid then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
 				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
-					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId() },
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromePinnedChatVersionId() },
 				})
 
 				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
@@ -338,15 +339,47 @@ return function()
 				manager:initialize()
 
 				-- version should now be version controls
-				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromePinnedChatVersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeWithoutSeenVersionId())
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromePinnedChatVersionId())
 				expect(manager:isChromeEnabled()).toBe(true)
-				expect(manager:shouldDisableSeenClosure()).toBe(true)
+				expect(manager:shouldPinChat()).toBe(true)
+				expect(manager:shouldDefaultOpen()).toBe(false)
+				expect(manager:isMenuModernizationEnabled()).toBe(false)
+				expect(manager:areMenuControlsEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
+			end
+		end)
+
+		it("returns chrome with default open for user in the variant", function()
+			if IsExperienceMenuABTestEnabled() and isChromeValid then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeDefaultOpenVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be version controls
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeDefaultOpenVersionId())
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeDefaultOpenVersionId())
+				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:shouldPinChat()).toBe(false)
+				expect(manager:shouldDefaultOpen()).toBe(true)
 				expect(manager:isMenuModernizationEnabled()).toBe(false)
 				expect(manager:areMenuControlsEnabled()).toBe(false)
 				expect(manager:isV2MenuEnabled()).toBe(false)

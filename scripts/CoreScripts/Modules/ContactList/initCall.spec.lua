@@ -65,9 +65,9 @@ return function()
 		RemoteIrisInviteTeleport.Name = "ContactListIrisInviteTeleport"
 		RemoteIrisInviteTeleport.Parent = RobloxReplicatedStorage
 
-		local RemoteUpdateCallIdForUser = Instance.new("RemoteEvent")
-		RemoteUpdateCallIdForUser.Name = "UpdateCallIdForUser"
-		RemoteUpdateCallIdForUser.Parent = RobloxReplicatedStorage
+		local RemoteUpdateCurrentCall = Instance.new("RemoteEvent")
+		RemoteUpdateCurrentCall.Name = "UpdateCurrentCall"
+		RemoteUpdateCurrentCall.Parent = RobloxReplicatedStorage
 	end)
 
 	describe("GetCallState", function()
@@ -218,12 +218,10 @@ return function()
 	)
 
 	it("update call id based on call events from idle", function(c: any)
-		local RemoteUpdateCallIdForUser = RobloxReplicatedStorage:FindFirstChild("UpdateCallIdForUser") :: any
-		local currentCallId = nil
-		local currentEndCallOnLeave = nil
-		local connection = RemoteUpdateCallIdForUser.OnServerEvent:Connect(function(player, callId, endCallOnLeave)
-			currentCallId = callId
-			currentEndCallOnLeave = endCallOnLeave
+		local RemoteUpdateCurrentCall = RobloxReplicatedStorage:FindFirstChild("UpdateCurrentCall") :: any
+		local currentCall = nil
+		local connection = RemoteUpdateCurrentCall.OnServerEvent:Connect(function(player, call)
+			currentCall = call
 		end)
 
 		local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Idle.rawValue(), "") :: any
@@ -247,33 +245,32 @@ return function()
 		initCall(MockCallProtocol)
 
 		wait()
-		expect(currentCallId).toBe("")
-		expect(currentEndCallOnLeave).toBe(false)
+		expect(currentCall).toBe(nil)
 
 		MessageBus:Publish("ActiveCall", {
 			status = RoduxCall.Enums.Status.Active.rawValue(),
 			callId = "123456",
 			callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
+			calleeId = 456,
 			instanceId = "",
 		})
 		wait()
-		expect(currentCallId).toBe("123456")
-		expect(currentEndCallOnLeave).toBe(true)
+		expect(currentCall).toEqual({ callId = "123456", participants = { "12345678", "456" } })
 
 		MessageBus:Publish("TransferCallTeleportLeave", { callId = "123456" })
 		wait()
-		expect(currentCallId).toBe("123456")
-		expect(currentEndCallOnLeave).toBe(false)
+		expect(currentCall).toBe(nil)
 
-		MessageBus:Publish("TransferCallTeleportJoin", { callId = "123456" })
+		MessageBus:Publish(
+			"TransferCallTeleportJoin",
+			{ callId = "123456", callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0, calleeId = 456 }
+		)
 		wait()
-		expect(currentCallId).toBe("123456")
-		expect(currentEndCallOnLeave).toBe(true)
+		expect(currentCall).toEqual({ callId = "123456", participants = { "12345678", "456" } })
 
 		MessageBus:Publish("EndCall", {})
 		wait()
-		expect(currentCallId).toBe("")
-		expect(currentEndCallOnLeave).toBe(false)
+		expect(currentCall).toBe(nil)
 
 		connection:disconnect()
 	end)

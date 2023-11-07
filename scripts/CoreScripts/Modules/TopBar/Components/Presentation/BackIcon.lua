@@ -25,6 +25,8 @@ local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableC
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
+local ChromeEnabled = require(script.Parent.Parent.Parent.Parent.Chrome.Enabled)
+
 local BackButtonController = require(RobloxGui.Modules.Settings.BackButtonController)
 
 local GetFStringTeleportBackButtonTopBarIXPCustomFieldName =
@@ -32,7 +34,7 @@ local GetFStringTeleportBackButtonTopBarIXPCustomFieldName =
 
 local BackIcon = Roact.PureComponent:extend("BackIcon")
 
-local BACK_ICON_AREA_WIDTH = 32
+local BACK_ICON_AREA_WIDTH = if ChromeEnabled() then Constants.TopBarButtonHeight else 32
 
 local ICON_SIZE = 20
 

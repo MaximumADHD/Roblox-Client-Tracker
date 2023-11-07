@@ -18,7 +18,9 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local IconButton = require(script.Parent.IconButton)
 
 local TopBar = script.Parent.Parent.Parent
+local TopBarAnalytics = require(TopBar.Analytics)
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local FFlagEnableTopBarAnalytics = require(TopBar.Flags.GetFFlagEnableTopBarAnalytics)()
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local Constants = require(TopBar.Constants)
@@ -53,9 +55,13 @@ ChatIcon.validateProps = t.strictInterface({
 
 function ChatIcon:init()
 	self.buttonRef = Roact.createRef()
+	
 	self.chatIconActivated = function()
 		ChatSelector:ToggleVisibility()
 		GameSettings.ChatVisible = ChatSelector:GetVisibility()
+		if FFlagEnableTopBarAnalytics then
+			TopBarAnalytics.default:onChatButtonActivated(GameSettings.ChatVisible)
+		end
 	end
 end
 

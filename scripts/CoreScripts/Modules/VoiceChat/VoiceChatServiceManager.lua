@@ -72,6 +72,7 @@ local FFlagOverwriteIsMutedLocally = game:DefineFastFlag("OverwriteIsMutedLocall
 local FFlagVoiceMuteUnmuteAnalytics = game:DefineFastFlag("VoiceMuteUnmuteAnalytics", false)
 local FFlagHideVoiceUIUntilInputExists = game:DefineFastFlag("HideVoiceUIUntilInputExists", false)
 local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermissionsAnalytics", false)
+local FFlagVoiceChatEnableIrisMuteStateFix = game:DefineFastFlag("VoiceChatEnableIrisMuteStateFix", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 
@@ -99,6 +100,9 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local FFlagEasierUnmutingPassMuteStatus = game:DefineFastFlag("EasierUnmutingPassMuteStatus", false)
 local ExperienceChat = if FFlagEasierUnmutingPassMuteStatus then require(CorePackages.ExperienceChat) else nil
+
+local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
+local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
 type VoiceChatPlaceSettings = {
 	isUniverseEnabledForVoice: boolean,
@@ -176,6 +180,8 @@ local VoiceChatServiceManager = {
 	bannedUntil = nil,
 	errorText = nil,
 	BlockStatusChanged = nil,
+	isInCall = false,
+	callMutedState = false,
 	_mutedAnyone = false,
 	VOICE_CHAT_DEVICE_TYPE = VOICE_CHAT_DEVICE_TYPE,
 	getPermissionsFunction = getCamMicPermissions,
@@ -276,6 +282,9 @@ function VoiceChatServiceManager:_reportJoinFailed(result, level)
 end
 
 function VoiceChatServiceManager:_asyncInit()
+	if FFlagVoiceChatEnableIrisMuteStateFix then
+		self:CheckCallState()
+	end
 	return (if FFlagFixNonSelfCalls then self else VoiceChatServiceManager):canUseServiceAsync():andThen(function(canUseService)
 		local serviceName = "VoiceChatService"
 		if game:GetEngineFeature("UseNewVoiceChatService") then
@@ -738,6 +747,28 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage()
 	end
 end
 
+function VoiceChatServiceManager:CheckCallState()
+	log:trace("Checking user call state")
+	local success, err = pcall(function()
+		CallProtocol:getCallState():andThen(function(params)
+			-- If call exist, use the muted state from CallProtocol
+			log:trace("Got user call state")
+			if params.status ~= CallProtocolEnums.CallStatus.Idle.rawValue()
+				and params.status ~= CallProtocolEnums.CallStatus.Ringing.rawValue() then
+				self.isInCall = true
+				self.callMutedState = params.muted
+				log:trace("Changing call muted state to {}", params.muted)
+			end
+		end):catch(function(e)
+			-- Not in call
+			log:trace("User not in call {}", e)
+		end)	
+	end)
+	if not success then
+		log:debug("Error checking user call state {}", err)
+	end
+end
+
 function VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 	self:showPrompt(VoiceChatPromptType.VoiceLoading)
 end
@@ -983,7 +1014,7 @@ function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 			-- we already checked and requested permissions above. If we got here then Mic permissions were denied.
 			if FFlagAvatarChatCoreScriptSupport then
 				if FFlagFixMissingPermissionsAnalytics then
-					self:_reportJoinFailed("missingPermissions")				
+					self:_reportJoinFailed("missingPermissions")
 				end
 				self:showPrompt(VoiceChatPromptType.Permission)
 			else
@@ -1055,13 +1086,33 @@ function VoiceChatServiceManager:CreateAudioDeviceData(device: AudioDeviceInput)
 		end
 	end
 
-	if isLocalPlayer and self.localMuted ~= nil and self.localMuted ~= not device.Active then
-		log:debug("Mismatch between LocalMuted and device.Active")
-		local newActive = not self.localMuted
-		device.Active = newActive
-		local SendMuteEvent = self:GetSendMuteEvent()
-		if SendMuteEvent then
-			SendMuteEvent:FireServer(newActive)
+	if FFlagVoiceChatEnableIrisMuteStateFix then
+		if isLocalPlayer and self.localMuted ~= nil and self.localMuted ~= not device.Active and not self.isInCall then
+			log:debug("Mismatch between LocalMuted and device.Active")
+			local newActive = not self.localMuted
+			device.Active = newActive
+			local SendMuteEvent = self:GetSendMuteEvent()
+			if SendMuteEvent then
+				SendMuteEvent:FireServer(newActive)
+			end
+		elseif self.isInCall and isLocalPlayer then
+			local newActive = not self.callMutedState
+			log:debug("Overwriting Active State to match Iris call. .Active = {}", newActive)
+			device.Active = newActive
+			local SendMuteEvent = self:GetSendMuteEvent()
+			if SendMuteEvent then
+				SendMuteEvent:FireServer(newActive)
+			end
+		end
+	else
+		if isLocalPlayer and self.localMuted ~= nil and self.localMuted ~= not device.Active then
+			log:debug("Mismatch between LocalMuted and device.Active")
+			local newActive = not self.localMuted
+			device.Active = newActive
+			local SendMuteEvent = self:GetSendMuteEvent()
+			if SendMuteEvent then
+				SendMuteEvent:FireServer(newActive)
+			end
 		end
 	end
 

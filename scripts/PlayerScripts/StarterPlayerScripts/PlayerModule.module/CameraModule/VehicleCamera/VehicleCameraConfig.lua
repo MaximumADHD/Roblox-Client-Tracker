@@ -50,9 +50,6 @@ local VEHICLE_CAMERA_CONFIG = {
 	-- (hz) Responsiveness of pitch cutoff to falling angular velocities
 	pitchResponseDampingFalling = 3,
 
-	-- (unitless) Initial zoom radius as a fraction of car radius
-	initialZoomRadiusMul = 3, -- Remove with FFlagUserVRPlayerScriptsMisc
-
 	-- (unitless) Vertical third-person camera offset as a fraction of car radius
 	verticalCenterOffset = 0.33,
 }

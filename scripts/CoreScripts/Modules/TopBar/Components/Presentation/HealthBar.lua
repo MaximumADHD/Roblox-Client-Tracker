@@ -156,13 +156,14 @@ function HealthBar:render()
 		Visible = healthVisible,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(healthBarSize.X, UDim.new(1, 0)),
+		LayoutOrder = self.props.layoutOrder,
 		[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
 		[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
 		[Roact.Ref] = self.rootRef,
 	}, {
-		Padding = Roact.createElement("UIPadding", {
+		Padding = not ChromeEnabled and Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, healthBarOffset),
-		}),
+		}) or nil,
 
 		HealthBar = Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
@@ -172,7 +173,6 @@ function HealthBar:render()
 			Size = healthBarSize,
 			Position = UDim2.fromScale(0, 0.5),
 			AnchorPoint = Vector2.new(0, 0.5),
-			LayoutOrder = self.props.layoutOrder,
 		}, {
 			Fill = Roact.createElement("ImageLabel", {
 				BackgroundTransparency = 1,

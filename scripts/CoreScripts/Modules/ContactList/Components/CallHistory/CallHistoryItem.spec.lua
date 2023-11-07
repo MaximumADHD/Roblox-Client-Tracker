@@ -72,6 +72,8 @@ return function()
 							universeId = 123,
 							placeId = 456,
 						},
+						isSuggestedUser = false,
+						layoutOrder = 1,
 						localUserId = localUserId,
 						showDivider = true,
 						dismissCallback = function() end,

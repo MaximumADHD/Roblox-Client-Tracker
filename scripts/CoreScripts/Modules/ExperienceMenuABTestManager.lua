@@ -20,7 +20,7 @@ local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
-local TEST_VERSION = "t6" -- bump on new A/B campaigns
+local TEST_VERSION = "t7" -- bump on new A/B campaigns
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
@@ -38,8 +38,12 @@ local MENU_VERSION_MODERNIZATION_ENUM = {
 	STICKY_BAR = "v5.3"..TEST_VERSION,
 }
 
-local MENU_VERSION_CHROME = "v6"..TEST_VERSION
-local MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE = "v6.1"..TEST_VERSION
+local MENU_VERSION_CHROME_ENUM = {
+	UNIBAR = "v6.1"..TEST_VERSION,
+	PINNED_CHAT = "v6.2"..TEST_VERSION,
+	DEFAULT_OPEN = "v6.3"..TEST_VERSION,
+}
+
 
 local validVersion = {
 	[DEFAULT_MENU_VERSION] = true,
@@ -51,8 +55,9 @@ local validVersion = {
 	[MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED] = true,
 	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = false,
 	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = false,
-	[MENU_VERSION_CHROME] = true,
-	[MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE] = true,
+	[MENU_VERSION_CHROME_ENUM.UNIBAR] = true,
+	[MENU_VERSION_CHROME_ENUM.PINNED_CHAT] = true,
+	[MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN] = true,
 }
 
 local ExperienceMenuABTestManager = {}
@@ -114,11 +119,15 @@ function ExperienceMenuABTestManager.modernizationStickyBarVersionId()
 end
 
 function ExperienceMenuABTestManager.chromeVersionId()
-	return MENU_VERSION_CHROME
+	return MENU_VERSION_CHROME_ENUM.UNIBAR
 end
 
-function ExperienceMenuABTestManager.chromeWithoutSeenVersionId()
-	return MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE
+function ExperienceMenuABTestManager.chromePinnedChatVersionId()
+	return MENU_VERSION_CHROME_ENUM.PINNED_CHAT
+end
+
+function ExperienceMenuABTestManager.chromeDefaultOpenVersionId()
+	return MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN
 end
 
 function parseCountData(data)
@@ -204,11 +213,21 @@ function ExperienceMenuABTestManager:shouldShowStickyBar()
 end
 
 function ExperienceMenuABTestManager:isChromeEnabled()
-	return self:getVersion() == MENU_VERSION_CHROME or self:getVersion() == MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE
+	for _, version in MENU_VERSION_CHROME_ENUM do 
+		if self:getVersion() == version then
+			return true
+		end
+	end
+
+	return false
 end
 
-function ExperienceMenuABTestManager:shouldDisableSeenClosure()
-	return self:getVersion() == MENU_VERSION_CHROME_WITHOUT_SEEN_CLOSE
+function ExperienceMenuABTestManager:shouldPinChat()
+	return self:getVersion() == MENU_VERSION_CHROME_ENUM.PINNED_CHAT
+end
+
+function ExperienceMenuABTestManager:shouldDefaultOpen()
+	return self:getVersion() == MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN
 end
 
 -- this is called on the assumption that IXP layers are initialized

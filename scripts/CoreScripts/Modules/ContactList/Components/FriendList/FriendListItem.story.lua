@@ -20,6 +20,8 @@ return {
 				combinedName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
+				itemListIndex = 1,
+				isSuggestedUser = true,
 			})
 		end,
 
@@ -30,6 +32,8 @@ return {
 				combinedName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
+				itemListIndex = 1,
+				isSuggestedUser = true,
 			})
 		end,
 
@@ -40,6 +44,8 @@ return {
 				combinedName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
+				itemListIndex = 1,
+				isSuggestedUser = true,
 			})
 		end,
 
@@ -50,6 +56,9 @@ return {
 				combinedName = "display name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
+				searchQueryString = "",
+				itemListIndex = 1,
+				isSuggestedUser = false,
 			})
 		end,
 	},

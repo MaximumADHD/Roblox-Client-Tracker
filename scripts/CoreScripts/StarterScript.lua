@@ -57,7 +57,7 @@ local TrustAndSafetyIXPManager = require(RobloxGui.Modules.TrustAndSafety.TrustA
 local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
 
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
-local GetFFlagContactListEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListEnabled)
+local GetFFlagContactListClientEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListClientEnabled)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6", false)
 local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagEnableApolloClientInExperience
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
@@ -100,6 +100,12 @@ local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Fl
 if getFFlagDoNotPromptCameraPermissionsOnMount() then
 	local ExperienceChat = require(CorePackages.ExperienceChat)
 	ExperienceChat.GlobalFlags.DoNotPromptCameraPermissionsOnMount = true
+end
+
+local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
+if getFFlagEnableAlwaysAvailableCamera() then
+	local ExperienceChat = require(CorePackages.ExperienceChat)
+	ExperienceChat.GlobalFlags.EnableAlwaysAvailableCamera = true
 end
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
@@ -361,7 +367,7 @@ if getFFlagEnableApolloClientInExperience() then
 	coroutine.wrap(safeRequire)(CoreGuiModules.ApolloClient)
 end
 
-if GetFFlagContactListEnabled() then
+if GetFFlagContactListClientEnabled() then
 	initify(CoreGuiModules.ContactList)
 	coroutine.wrap(safeRequire)(CoreGuiModules.ContactList)
 end

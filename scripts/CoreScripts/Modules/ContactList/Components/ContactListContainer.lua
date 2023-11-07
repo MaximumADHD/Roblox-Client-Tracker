@@ -30,6 +30,9 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local GetFFlagPeekViewEnableSnapToViewState = dependencies.GetFFlagPeekViewEnableSnapToViewState
 
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
+
 local ContactListHeader = require(ContactList.Components.ContactListHeader)
 local CallHistoryContainer = require(ContactList.Components.CallHistory.CallHistoryContainer)
 local FriendListContainer = require(ContactList.Components.FriendList.FriendListContainer)
@@ -48,6 +51,7 @@ local localPlayer = Players.LocalPlayer :: Player
 local currentCamera = workspace.CurrentCamera :: Camera
 
 local EnableSocialServiceIrisInvite = game:GetEngineFeature("EnableSocialServiceIrisInvite")
+local EnableSocialServiceCallingRename = game:GetEngineFeature("EnableSocialServiceCallingRename")
 
 local SEARCH_BAR_HEIGHT = 36
 local HEADER_HEIGHT = 36
@@ -63,6 +67,7 @@ local PHONEBOOK_CONTAINER_TOP_MARGIN = PHONEBOOK_CONTAINER_MARGIN + TopBarConsta
 local PEEK_HEADER_HEIGHT = 25
 
 local function ContactListContainer()
+	local analytics = useAnalytics()
 	local style = useStyle()
 	local theme = style.Theme
 
@@ -83,6 +88,11 @@ local function ContactListContainer()
 
 	local closePeekViewSignal = React.useRef(Signal.new())
 
+	local selectCurrentPage = React.useCallback(function(state: any)
+		return state.Navigation.currentPage
+	end, {})
+	local currentPage = useSelector(selectCurrentPage)
+
 	if EnableSocialServiceIrisInvite then
 		React.useEffect(function()
 			local promptIrisInviteRequestedConn = SocialService.PromptIrisInviteRequested:Connect(
@@ -101,6 +111,11 @@ local function ContactListContainer()
 							)
 						then
 							dispatch(SetCurrentTag(tag))
+							analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+								eventTimestampMs = os.time() * 1000,
+								startingPage = currentPage,
+								destinationPage = Pages.CallHistory,
+							})
 							dispatch(SetCurrentPage(Pages.CallHistory))
 
 							if GetFFlagCorescriptsSoundManagerEnabled() then
@@ -128,8 +143,22 @@ local function ContactListContainer()
 				end
 			)
 
-			local irisInvitePromptClosedConn = SocialService.IrisInvitePromptClosed:Connect(function(player: any)
+			local closeEvent: any
+			if EnableSocialServiceCallingRename then
+				closeEvent = SocialService.PhoneBookPromptClosed
+			else
+				-- Fix a lint issue with game engine. We should be guarded with
+				-- the engine feature.
+				local InnerSocialService = game:GetService("SocialService") :: any
+				closeEvent = InnerSocialService.IrisInvitePromptClosed
+			end
+			local phoneBookPromptClosedConn = closeEvent:Connect(function(player: any)
 				if localPlayer and localPlayer.UserId == player.UserId then
+					analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+						eventTimestampMs = os.time() * 1000,
+						startingPage = tostring(currentPage),
+						destinationPage = nil,
+					})
 					dispatch(SetCurrentPage(nil))
 					-- Increment the id so we create a new PeekView for the next open.
 					setContactListId(contactListId + 1)
@@ -138,9 +167,9 @@ local function ContactListContainer()
 
 			return function()
 				promptIrisInviteRequestedConn:Disconnect()
-				irisInvitePromptClosedConn:Disconnect()
+				phoneBookPromptClosedConn:Disconnect()
 			end
-		end, dependencyArray(contactListId))
+		end, dependencyArray(contactListId, currentPage))
 	end
 
 	local dismissCallback = React.useCallback(function()
@@ -174,11 +203,6 @@ local function ContactListContainer()
 	local onSearchChanged = React.useCallback(function(newSearchQuery)
 		setSearchText(newSearchQuery)
 	end, {})
-
-	local selectCurrentPage = React.useCallback(function(state: any)
-		return state.Navigation.currentPage
-	end, {})
-	local currentPage = useSelector(selectCurrentPage)
 
 	-- Listen for screen size changes
 	React.useEffect(function()
@@ -233,9 +257,17 @@ local function ContactListContainer()
 	end, {})
 
 	local onSearchBarFocused = React.useCallback(function()
+		analytics.fireEvent(EventNamesEnum.PhoneBookSearchClicked, { eventTimestampMs = os.time() * 1000 })
+		if currentPage ~= Pages.FriendList then
+			analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
+				eventTimestampMs = os.time() * 1000,
+				startingPage = currentPage,
+				destinationPage = Pages.FriendList,
+			})
+		end
 		dispatch(SetCurrentPage(Pages.FriendList))
 		setExpectedPeekViewState(PeekViewState.Full)
-	end, {})
+	end, { currentPage })
 
 	-- Use an ImageButton here so that it acts as a click sink
 	local contactListContainerContent = React.useMemo(

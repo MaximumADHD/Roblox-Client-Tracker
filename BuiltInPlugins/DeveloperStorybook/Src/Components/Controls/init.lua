@@ -15,9 +15,7 @@ local Checkbox = UI.Checkbox
 local Pane = UI.Pane
 local DEPRECATED_TextInput = UI.DEPRECATED_TextInput
 local SelectInput = UI.SelectInput
-local SharedFlags = Framework.SharedFlags
-local FFlagDevFrameworkBetterInit = SharedFlags.getFFlagDevFrameworkBetterInit()
-local TextLabel = if FFlagDevFrameworkBetterInit then UI.TextLabel else UI.Decoration.TextLabel
+local TextLabel = UI.TextLabel
 
 local Dash = Framework.Dash
 local keys = Dash.keys
