@@ -125,7 +125,7 @@ ContextMenuDropdown {
 
         if (canConfigure && gameHasRootPlace) {
             listModel.append({"text": qsTr(isPublic ? "Studio.App.ContextMenuDropdown.MakePrivate" : "Studio.App.ContextMenuDropdown.MakePublic"), "action": "toggle_active", "disabled" : ageGated});
-            listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Archive"), "action": "archive_game", "disabled" : FFlagStartPageContextMenuDisableArchive ? ageGated : false});
+            listModel.append({"text": qsTr("Studio.App.ContextMenuDropdown.Archive"), "action": "archive_game", "disabled" : ageGated});
         }
 
         var recentPageIndex = 2;
@@ -137,18 +137,15 @@ ContextMenuDropdown {
             listModel.append({"text": qsTr("Studio.Common.Action.Remove"), "action": "leave_team_create", "disabled" : false});
         }
 
-        if(FFlagLocalizationStartPageFixes)
-        {
-            var largestRowEntry = listContainer.width
-            var dropdownPadding = 12
+        var largestRowEntry = listContainer.width
+        var dropdownPadding = 12
 
-            for(var i = 0; i < listModel.count; i++){
-                listTextMetrics.text = listModel.get(i).text
-                largestRowEntry = Math.max(listTextMetrics.width + dropdownPadding * 2, largestRowEntry)
-            }
-
-            listContainer.width = largestRowEntry;
+        for(var i = 0; i < listModel.count; i++){
+            listTextMetrics.text = listModel.get(i).text
+            largestRowEntry = Math.max(listTextMetrics.width + dropdownPadding * 2, largestRowEntry)
         }
+
+        listContainer.width = largestRowEntry;
 
     }
 }

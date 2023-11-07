@@ -63,6 +63,9 @@ Class AccessoryDescription : Instance [NotBrowsable]
 	Property AccessoryDescription.IsLayered: boolean
 	Property AccessoryDescription.Order: number
 	Property AccessoryDescription.Puffiness: number
+Class AccountService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function AccountService:DeviceIntegrityAvailable() -> boolean {RobloxScriptSecurity}
+	Function AccountService:GetDeviceIntegrityToken(data: string) -> string {RobloxScriptSecurity}
 Class Accoutrement : Instance
 	Property Accoutrement.BackendAccoutrementState: number [Hidden] [NotScriptable]
 	Property Accoutrement.AttachmentForward: Vector3 [Hidden] [NotReplicated]
@@ -284,8 +287,9 @@ Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.OutputPath: string
 	Property AssetPatchSettings.PatchId: string
 Class AssetService : Instance [NotCreatable] [Service]
-	Function AssetService:CreateDynamicMeshAsync(meshId: string) -> DynamicMesh [Yields]
 	Function AssetService:CreateEditableImageAsync(textureId: string) -> EditableImage [Yields]
+	Function AssetService:CreateEditableMeshAsync(meshId: string) -> EditableMesh [Yields]
+	Function AssetService:CreateEditableMeshFromPartAsync(meshPart: Instance) -> EditableMesh [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
@@ -299,7 +303,6 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:RegisterUGCValidationFunction(function: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function AssetService:SavePlaceAsync() -> () [Yields]
 	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields]
-	Function AssetService:createDynamicMeshFromPartAsync(meshPart: Instance) -> DynamicMesh [Yields]
 	Event AssetService.OpenCreateResultModal(resultType: Enum.PromptCreateAssetResult) {RobloxScriptSecurity}
 	Event AssetService.OpenPublishResultModal(resultType: Enum.PromptPublishAssetResult) {RobloxScriptSecurity}
 Class Atmosphere : Instance
@@ -1333,33 +1336,33 @@ Class BevelMesh : DataModelMesh [NotCreatable] [NotBrowsable] [Deprecated]
 	Property BevelMesh.Bulge: number [Hidden] [NotScriptable] [Deprecated]
 Class BlockMesh : BevelMesh
 Class CylinderMesh : BevelMesh [Deprecated]
-Class DynamicMesh : DataModelMesh
-	Property DynamicMesh.MeshVersion: number {✏️NotAccessibleSecurity} [Hidden]
-	Property DynamicMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
-	Function DynamicMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
-	Function DynamicMesh:AddVertex(p: Vector3) -> number
-	Function DynamicMesh:CreateMeshPartAsync(collisionFidelity: Enum.CollisionFidelity) -> MeshPart [Yields]
-	Function DynamicMesh:FindClosestPointOnSurface(point: Vector3) -> ...any
-	Function DynamicMesh:FindClosestVertex(toThisPoint: Vector3) -> number
-	Function DynamicMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any }
-	Function DynamicMesh:GetAdjacentTriangles(triangleId: number) -> { any }
-	Function DynamicMesh:GetAdjacentVertices(vertexId: number) -> { any }
-	Function DynamicMesh:GetPosition(vertexId: number) -> Vector3
-	Function DynamicMesh:GetTriangleVertices(triangleId: number) -> ...any
-	Function DynamicMesh:GetTriangles() -> { any }
-	Function DynamicMesh:GetUV(vertexId: number) -> Vector2
-	Function DynamicMesh:GetVertexColor(vertexId: number) -> Color3
-	Function DynamicMesh:GetVertexColorAlpha(vertexId: number) -> number
-	Function DynamicMesh:GetVertexNormal(vertexId: number) -> Vector3
-	Function DynamicMesh:GetVertices() -> { any }
-	Function DynamicMesh:Raycast(origin: Vector3, direction: Vector3) -> ...any
-	Function DynamicMesh:RemoveTriangle(triangleId: number) -> ()
-	Function DynamicMesh:RemoveVertex(vertexId: number) -> ()
-	Function DynamicMesh:SetPosition(vertexId: number, p: Vector3) -> ()
-	Function DynamicMesh:SetUV(vertexId: number, uv: Vector2) -> ()
-	Function DynamicMesh:SetVertexColor(vertexId: number, color: Color3) -> ()
-	Function DynamicMesh:SetVertexColorAlpha(vertexId: number, alpha: number) -> ()
-	Function DynamicMesh:SetVertexNormal(vertexId: number, vnormal: Vector3) -> ()
+Class EditableMesh : DataModelMesh
+	Property EditableMesh.MeshVersion: number {✏️NotAccessibleSecurity} [Hidden]
+	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
+	Function EditableMesh:AddVertex(p: Vector3) -> number
+	Function EditableMesh:CreateMeshPartAsync(collisionFidelity: Enum.CollisionFidelity) -> MeshPart [Yields]
+	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any
+	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number
+	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any }
+	Function EditableMesh:GetAdjacentTriangles(triangleId: number) -> { any }
+	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any }
+	Function EditableMesh:GetPosition(vertexId: number) -> Vector3
+	Function EditableMesh:GetTriangleVertices(triangleId: number) -> ...any
+	Function EditableMesh:GetTriangles() -> { any }
+	Function EditableMesh:GetUV(vertexId: number) -> Vector2
+	Function EditableMesh:GetVertexColor(vertexId: number) -> Color3
+	Function EditableMesh:GetVertexColorAlpha(vertexId: number) -> number
+	Function EditableMesh:GetVertexNormal(vertexId: number) -> Vector3
+	Function EditableMesh:GetVertices() -> { any }
+	Function EditableMesh:Raycast(origin: Vector3, direction: Vector3) -> ...any
+	Function EditableMesh:RemoveTriangle(triangleId: number) -> ()
+	Function EditableMesh:RemoveVertex(vertexId: number) -> ()
+	Function EditableMesh:SetPosition(vertexId: number, p: Vector3) -> ()
+	Function EditableMesh:SetUV(vertexId: number, uv: Vector2) -> ()
+	Function EditableMesh:SetVertexColor(vertexId: number, color: Color3) -> ()
+	Function EditableMesh:SetVertexColorAlpha(vertexId: number, alpha: number) -> ()
+	Function EditableMesh:SetVertexNormal(vertexId: number, vnormal: Vector3) -> ()
 Class FileMesh : DataModelMesh
 	Property FileMesh.MeshId: string
 	Property FileMesh.TextureId: string
@@ -2150,8 +2153,8 @@ Class DockWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 	Function DockWidgetPluginGui:RequestRaise() -> () {RobloxScriptSecurity}
 Class QWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 Class ScreenGui : LayerCollector
-	Property ScreenGui.ClipToDeviceSafeArea: boolean [NotBrowsable]
-	Property ScreenGui.SafeAreaCompatibility: Enum.SafeAreaCompatibility [NotBrowsable]
+	Property ScreenGui.ClipToDeviceSafeArea: boolean
+	Property ScreenGui.SafeAreaCompatibility: Enum.SafeAreaCompatibility
 	Property ScreenGui.ScreenInsets: Enum.ScreenInsets [NotBrowsable]
 	Property ScreenGui.OnTopOfCoreBlur: boolean {RobloxScriptSecurity} [Hidden]
 	Property ScreenGui.DisplayOrder: number
@@ -2288,11 +2291,18 @@ Class SelectionPartLasso : SelectionLasso [Deprecated]
 Class SelectionPointLasso : SelectionLasso [Deprecated]
 	Property SelectionPointLasso.Point: Vector3 [Deprecated]
 Class Path2D : GuiBase [NotReplicated]
-	Property Path2D.Visible: boolean {RobloxScriptSecurity}
 	Property Path2D.SelectedControlPoint: number {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Property Path2D.AbsoluteSize: Vector2 {RobloxScriptSecurity} [ReadOnly]
+	Property Path2D.Color: Color3 {RobloxScriptSecurity}
 	Property Path2D.Position: UDim2 {RobloxScriptSecurity}
+	Property Path2D.Thickness: number {RobloxScriptSecurity}
+	Property Path2D.Visible: boolean {RobloxScriptSecurity}
 	Function Path2D:GetControlPoints() -> { any } {RobloxScriptSecurity}
+	Function Path2D:GetPositionOnCurve(t: number) -> UDim2 {RobloxScriptSecurity}
+	Function Path2D:GetPositionOnCurveArcLength(t: number) -> UDim2 {RobloxScriptSecurity}
+	Function Path2D:GetSegmentCount() -> number {RobloxScriptSecurity}
+	Function Path2D:GetTangentOnCurve(t: number) -> Vector2 {RobloxScriptSecurity}
+	Function Path2D:GetTangentOnCurveArcLength(t: number) -> Vector2 {RobloxScriptSecurity}
 	Function Path2D:SetControlPoints(controlPoints: { any }) -> () {RobloxScriptSecurity}
 Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GuiService.AutoSelectGuiEnabled: boolean
@@ -3002,9 +3012,11 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ThirdPartyPurchaseFinished(player: Instance, productId: string, receipt: string, wasPurchased: boolean) {LocalUserSecurity}
 	Callback MarketplaceService.ProcessReceipt(receiptInfo: { [string]: any }) -> Enum.ProductPurchaseDecision
 Class MaterialGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function MaterialGenerationService:GenerateMaterialVariantsAsync(prompt: string, samples: number) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:GetAccountingBalanceAsync() -> number {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:RefillAccountingBalanceAsync() -> number {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:StartSession() -> MaterialGenerationSession {RobloxScriptSecurity}
+	Function MaterialGenerationService:UploadMaterialVariantsAsync(materialVaraints: { Instance }) -> () {RobloxScriptSecurity} [Yields]
 Class MaterialGenerationSession : Instance [NotCreatable] [NotReplicated]
 	Function MaterialGenerationSession:GenerateImagesAsync(prompt: string, options: { [string]: any }) -> ...any {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationSession:GenerateMaterialMapsAsync(imageId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -3465,7 +3477,7 @@ Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.PhysicalConfigData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 Class MeshPart : TriangleMeshPart
 	Property MeshPart.DoubleSided: boolean {✏️PluginSecurity}
-	Property MeshPart.DynamicMeshData: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property MeshPart.EditableMeshString: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property MeshPart.HasJointOffset: boolean {✏️NotAccessibleSecurity} [Hidden]
 	Property MeshPart.HasSkinnedMesh: boolean {✏️NotAccessibleSecurity} [Hidden]
 	Property MeshPart.MeshID: string [📁 LoadOnly] [Hidden] [NotReplicated] [NotScriptable] [Deprecated]
@@ -4368,7 +4380,7 @@ Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RibbonNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RibbonNotificationService:OnNotificationUpdateFromPlugin(newNotificationId: string, seenNotificationId: string) -> () {RobloxScriptSecurity}
 	Event RibbonNotificationService.NewNotificationFromRibbon(newNotificationId: string) {RobloxScriptSecurity}
-	Event RibbonNotificationService.ToggleNotificationTray(checked: boolean) {RobloxScriptSecurity}
+	Event RibbonNotificationService.ToggleNotificationTray(checked: boolean, newNotificationAvailable: boolean) {RobloxScriptSecurity}
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
 Class RobloxServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4685,26 +4697,22 @@ Class SnippetService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function SocialService:CanSendCallInviteAsync(player: Instance) -> boolean [Yields]
 	Function SocialService:CanSendGameInviteAsync(player: Instance, recipientId: number? = 0) -> boolean [Yields]
-	Function SocialService:CanSendIrisInviteAsync(player: Instance) -> boolean [Yields]
 	Function SocialService:HideSelfView() -> ()
 	Function SocialService:InvokeGameInvitePromptClosed(player: Instance, recipientIds: { any }) -> () {RobloxScriptSecurity}
 	Function SocialService:InvokeIrisInvite(player: Instance, tag: string, irisParticipants: { any }) -> () {RobloxScriptSecurity}
 	Function SocialService:InvokeIrisInvitePromptClosed(player: Instance) -> () {RobloxScriptSecurity}
 	Function SocialService:PromptGameInvite(player: Instance, experienceInviteOptions: Instance? = nil) -> ()
-	Function SocialService:PromptIrisInvite(player: Instance, tag: string) -> ()
 	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> ()
 	Function SocialService:ShowSelfView(selfViewPosition: Enum.SelfViewPosition? = "LastPosition") -> ()
 	Event SocialService.CallInviteStateChanged(player: Instance, inviteState: Enum.InviteState)
 	Event SocialService.GameInvitePromptClosed(player: Instance, recipientIds: { any })
 	Event SocialService.IrisInviteInitiated(message: string) {RobloxSecurity} [Hidden]
-	Event SocialService.IrisInvitePromptClosed(player: Instance)
 	Event SocialService.PhoneBookPromptClosed(player: Instance)
 	Event SocialService.PromptInviteRequested(player: Instance, experienceInviteOptions: Instance) {RobloxScriptSecurity}
 	Event SocialService.PromptIrisInviteRequested(player: Instance, tag: string) {RobloxScriptSecurity}
 	Event SocialService.SelfViewHidden() {RobloxScriptSecurity}
 	Event SocialService.SelfViewVisible(selfViewPosition: Enum.SelfViewPosition) {RobloxScriptSecurity}
 	Callback SocialService.OnCallInviteInvoked(tag: string, callParticipantIds: { any }) -> Instance
-	Callback SocialService.OnIrisInviteInvoked(tag: string, irisParticipantIds: { any }) -> Instance
 Class Sound : Instance
 	Property Sound.ChannelCount: number {RobloxScriptSecurity} [ReadOnly] [NotBrowsable]
 	Property Sound.IsLoaded: boolean [ReadOnly]
@@ -4928,10 +4936,11 @@ Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:RegisterContextCollector(collectorName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterSequentialCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:SetEphemeralVariable(key: string, value: any, timeToLive: number? = -1) -> () {RobloxScriptSecurity}
+	Function StreamingService:SetPluginInfoCallback(function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterCommand(commandName: string) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterContextCollector(collectorName: string) -> () {RobloxScriptSecurity}
 	Event StreamingService.RequestEnded(requestId: string) {RobloxScriptSecurity}
-	Event StreamingService.RequestError(requestId: string, errorMessage: string) {RobloxScriptSecurity}
+	Event StreamingService.RequestError(requestId: string, errorType: string, errorMessage: string) {RobloxScriptSecurity}
 	Event StreamingService.RequestStarted(requestId: string, queryToProcess: string) {RobloxScriptSecurity}
 	Event StreamingService.SequentialCommandsFinished(requestId: string, success: boolean) {RobloxScriptSecurity}
 	Event StreamingService.Stream(requestId: string, streamContent: string) {RobloxScriptSecurity}
@@ -5090,6 +5099,7 @@ Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioAssetService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:FireOnUGCSubmitCompleted(cancelled: boolean) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:PublishPackage(instance: Instance, publishInfo: { [string]: any }) -> () {RobloxScriptSecurity}
+	Function StudioAssetService:RequestAvatarAutosetupAsync(meshId: string, textureId: string, progressCallback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
 	Function StudioAssetService:SerializeInstances(instances: { Instance }) -> string {RobloxScriptSecurity} [Yields]
 	Function StudioAssetService:ShowSaveToRoblox(instances: { Instance }, assetType: any, hasSubsequent: boolean? = false) -> () {RobloxScriptSecurity}
 	Event StudioAssetService.OnConvertToPackageResult(isSuccessful: boolean, errorMessage: string) {RobloxScriptSecurity}
@@ -5144,7 +5154,7 @@ Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioPublishService:ShowSaveOrPublishPlaceToRoblox(showGameSelect: boolean, isPublish: boolean, closeMode: Enum.StudioCloseMode) -> () {RobloxScriptSecurity}
 	Event StudioPublishService.GameNameUpdated(name: string) {RobloxScriptSecurity}
 	Event StudioPublishService.GamePublishCancelled() {RobloxScriptSecurity}
-	Event StudioPublishService.GamePublishFinished(success: boolean, gameId: number, message: string) {RobloxScriptSecurity}
+	Event StudioPublishService.GamePublishFinished(success: boolean, gameId: number, message: string, reason: Enum.StudioPlaceUpdateFailureReason) {RobloxScriptSecurity}
 	Event StudioPublishService.OnSaveOrPublishPlaceToRoblox(showGameSelect: boolean, isPublish: boolean, closeMode: Enum.StudioCloseMode) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioSdkService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5569,12 +5579,14 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetMeshVerts(meshId: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetPropertyValue(instance: Instance, property: string) -> any {RobloxScriptSecurity}
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:RegisterUGCValidationFunction(setFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ResetCollisionFidelity(meshPart: Instance, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
 	Function UGCValidationService:SetMeshIdBlocking(meshPart: Instance, meshId: string) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateCageMeshIntersection(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageNonManifoldAndHoles(meshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageUVTriangleArea(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateDynamicHeadMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:ValidateEditableImageSize(editableImage: EditableImage) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateFullBodyCageDeletion(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateImageTransparencyThresholdByteString(image: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateImageTransparencyThresholdTextureID(textureId: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
@@ -6133,8 +6145,12 @@ Enum AdornCullingMode
 	EnumItem AdornCullingMode.Automatic : 0
 	EnumItem AdornCullingMode.Never : 1
 Enum AlignType
-	EnumItem AlignType.Parallel : 0
-	EnumItem AlignType.Perpendicular : 1
+	EnumItem AlignType.Parallel : 0 [Deprecated]
+	EnumItem AlignType.Perpendicular : 1 [Deprecated]
+	EnumItem AlignType.PrimaryAxisParallel : 2
+	EnumItem AlignType.PrimaryAxisPerpendicular : 3
+	EnumItem AlignType.PrimaryAxisLookAt : 4
+	EnumItem AlignType.AllAxes : 5
 Enum AlphaMode
 	EnumItem AlphaMode.Overlay : 0
 	EnumItem AlphaMode.Transparency : 1
@@ -6669,6 +6685,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.NetworkTimeout : 298
 	EnumItem ConnectionError.NetworkMisbehavior : 299
 	EnumItem ConnectionError.NetworkSecurity : 300
+	EnumItem ConnectionError.ReplacementReady : 301
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -7875,6 +7892,17 @@ Enum PromptCreateAssetResult
 	EnumItem PromptCreateAssetResult.UploadFailed : 4
 	EnumItem PromptCreateAssetResult.NoUserInput : 5
 	EnumItem PromptCreateAssetResult.UnknownFailure : 6
+Enum PromptCreateAvatarResult
+	EnumItem PromptCreateAvatarResult.Success : 1
+	EnumItem PromptCreateAvatarResult.PermissionDenied : 2
+	EnumItem PromptCreateAvatarResult.Timeout : 3
+	EnumItem PromptCreateAvatarResult.UploadFailed : 4
+	EnumItem PromptCreateAvatarResult.NoUserInput : 5
+	EnumItem PromptCreateAvatarResult.InvalidHumanoidDescription : 6
+	EnumItem PromptCreateAvatarResult.UGCValidationFailed : 7
+	EnumItem PromptCreateAvatarResult.ModeratedName : 8
+	EnumItem PromptCreateAvatarResult.MaxOutfits : 9
+	EnumItem PromptCreateAvatarResult.UnknownFailure : 10
 Enum PromptPublishAssetResult
 	EnumItem PromptPublishAssetResult.Success : 1
 	EnumItem PromptPublishAssetResult.PermissionDenied : 2
@@ -8200,6 +8228,9 @@ Enum StudioDataModelType
 	EnumItem StudioDataModelType.PlayServer : 2
 	EnumItem StudioDataModelType.Standalone : 3
 	EnumItem StudioDataModelType.None : 4
+Enum StudioPlaceUpdateFailureReason
+	EnumItem StudioPlaceUpdateFailureReason.Other : 0
+	EnumItem StudioPlaceUpdateFailureReason.TeamCreateConflict : 1
 Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.Default : 0
 	EnumItem StudioScriptEditorColorCategories.Operator : 1

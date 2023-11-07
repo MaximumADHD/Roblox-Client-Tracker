@@ -1485,7 +1485,7 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
-        <string name="Name">DynamicMesh</string>
+        <string name="Name">EditableMesh</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
     </Item>
@@ -8219,7 +8219,7 @@
         <string name="Name">StyleBase</string>
         <string name="ClassCategory">Styling</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled</string>
+        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -8227,7 +8227,7 @@
         <string name="Name">StyleSheet</string>
         <string name="ClassCategory">Styling</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled</string>
+        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -8236,7 +8236,7 @@
         <string name="ClassCategory">Styling</string>
         <string name="PreferredParent">StyleSheet</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled</string>
+        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -8244,7 +8244,7 @@
         <string name="Name">StyleLink</string>
         <string name="ClassCategory">Styling</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled</string>
+        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -8253,7 +8253,7 @@
         <string name="ClassCategory">Styling</string>
         <string name="PreferredParent">StyleSheet</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled</string>
+        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

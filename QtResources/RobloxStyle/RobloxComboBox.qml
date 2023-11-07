@@ -214,17 +214,11 @@ Button {
                             parent.hovered = containsMouse;
                         }
                     onEntered:	{
-                        if(FFlagLocalizationStartPageFixes)
-                        {
-                            var pos = comboBoxDropDownMouseArea.mapToItem(comboBoxButton, 0, 0);
-                            dropDownTooltip.show(styleData.value, pos.x, pos.y, 4, dropDownTooltip.height, dropDownTooltip.width);
-                        }
+                        var pos = comboBoxDropDownMouseArea.mapToItem(comboBoxButton, 0, 0);
+                        dropDownTooltip.show(styleData.value, pos.x, pos.y, 4, dropDownTooltip.height, dropDownTooltip.width);
 					} 
                     onExited: { 
-                        if(FFlagLocalizationStartPageFixes)
-                        {
-                            dropDownTooltip.hide();
-                        }
+                        dropDownTooltip.hide();
 					}
                         onClicked: {
                             // The user clicked on an item. Make it the current item.

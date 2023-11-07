@@ -311,5 +311,7 @@ Studio.App.PackageContextMenu.ShowPackagesDiff,,Compare Package Versions,Compare
 Studio.App.RibbonUpdatesBar.UpdateAvailableAction,,Update Available,Update Available
 Studio.App.RibbonUpdatesBar.WhatsNewAction,,Notifications,Notifications
 Studio.App.RibbonUpdatesBar.WhatsNewAction.ToolTip,,Click this button to see what's new with Studio and our developer community!,Click this button to see what's new with Studio and our developer community!
+Studio.App.RibbonUpdatesBar.StudioNotifications,,Creator Notifications,Creator Notifications
+Studio.App.RibbonUpdatesBar.StudioNotifications.ToolTip,,Receive important updates about your creations all in one place,Receive important updates about your creations all in one place
 Studio.App.RobloxRibbonMainWindow.CompositorDebugger,,Compositor Debugger,Compositor Debugger
 Studio.App.RobloxRibbonMainWindow.CompositorDebuggerTooltip,,Connect to an animation compositor graph to see its layers and their properties in real time,Connect to an animation compositor graph to see its layers and their properties in real time

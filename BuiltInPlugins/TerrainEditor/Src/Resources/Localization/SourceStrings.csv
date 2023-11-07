@@ -1,4 +1,5 @@
 Key,en-us
+Studio.TerrainEditor.BaseTool.Clear,Clear
 Studio.TerrainEditor.BaseTool.Draw,Draw
 Studio.TerrainEditor.BaseTool.Fill,Fill
 Studio.TerrainEditor.BaseTool.Flatten,Flatten
@@ -52,12 +53,15 @@ Studio.TerrainEditor.BrushShape.Cylinder,Cylinder
 Studio.TerrainEditor.BrushShape.Sphere,Sphere
 Studio.TerrainEditor.Categories.BiomeSettings,Biome Settings
 Studio.TerrainEditor.Categories.BrushSettings,Brush Settings
+Studio.TerrainEditor.Categories.ClearSettings,Clear Settings
 Studio.TerrainEditor.Categories.HeightmapSettings,Heightmap Settings
 Studio.TerrainEditor.Categories.MaterialSettings,Material Settings
 Studio.TerrainEditor.Categories.SeaLevelSettings,Sea Level Settings
 Studio.TerrainEditor.Categories.SelectionSettings,Selection Settings
 Studio.TerrainEditor.Categories.TransformSettings,Transform Settings
 Studio.TerrainEditor.Categories.Upgrades,Upgrades
+Studio.TerrainEditor.ClearSettings.Clear,Are you sure you want to clear all Terrain?
+Studio.TerrainEditor.ClearSettings.ClearButton,Clear
 Studio.TerrainEditor.Dialog.Cancel,Cancel
 Studio.TerrainEditor.Dialog.Pause,Pause
 Studio.TerrainEditor.Dialog.Resume,Resume
@@ -195,9 +199,11 @@ Studio.TerrainEditor.SeaLevelSettings.Create,Create
 Studio.TerrainEditor.SeaLevelSettings.Evaporate,Evaporate
 Studio.TerrainEditor.SeaLevelSettings.Position,Position
 Studio.TerrainEditor.SeaLevelSettings.Size,Size
+Studio.TerrainEditor.SeaLevelSettings.SnapToVoxels,Snap to Voxels
 Studio.TerrainEditor.SelectionSettings.Position,Position
 Studio.TerrainEditor.SelectionSettings.Rotation,Rotation
 Studio.TerrainEditor.SelectionSettings.Size,Size
+Studio.TerrainEditor.SelectionSettings.SnapToVoxels,Snap to Voxels
 Studio.TerrainEditor.SelectionSettings.Transform,Transform
 Studio.TerrainEditor.Shorelines.Description,Click Upgrade to improve the way water joins with terrain at the shores.
 Studio.TerrainEditor.Shorelines.Explanation,"The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. You might want to review and hand-edit the results afterwards, especially around streams, waterfalls and any other non-horizontal water surfaces. The upgrade can be reverted right after its completion using the Undo command."

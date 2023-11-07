@@ -43,8 +43,6 @@ Studio.App.BetaFeatures.DraggerImprovementsTitle,,Dragger QoL Improvements,Dragg
 Studio.App.BetaFeatures.DraggerImprovementsDescription,,Many small quality of life improvements to the core Studio draggers. See the DevForum announcement for a full list of what's been changed.,Many small quality of life improvements to the core Studio draggers. See the DevForum announcement for a full list of what's been changed.
 Studio.App.BetaFeatures.FacialAnimationRecordingTitle,,Face Capture,Face Capture
 Studio.App.BetaFeatures.FacialAnimationRecordingDescription,,"Animation Editor will have a ""Face Capture"" button to use a camera to record your own face movements onto an avatar.","Animation Editor will have a ""Face Capture"" button to use a camera to record your own face movements onto an avatar."
-Studio.App.BetaFeatures.ACESaveRigWithAnimationTitle,,Save rig with Animation,Save rig with Animation
-Studio.App.BetaFeatures.ACESaveRigWithAnimationDescription,,Animation clip editor will save the rig along with keyframes to make the animation retargetable.,Animation clip editor will save the rig along with keyframes to make the animation retargetable.
 Studio.App.BetaFeatures.ForumPostTitleEnding,,%1 is now enabled,%1 is now enabled
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
@@ -145,3 +143,9 @@ Studio.App.BetaFeatures.GrassLengthCustomizationTitle,,Grass Length Customizatio
 Studio.App.BetaFeatures.GrassLengthCustomizationDescription,,Enables customization of terrain grass length in Studio.,Enables customization of terrain grass length in Studio.
 Studio.App.BetaFeatures.AudioWiringApiTitle,,New Audio API,New Audio API
 Studio.App.BetaFeatures.AudioWiringApiDescription,,"Enables new instances for customizing, processing, and routing sounds or voices within the engine","Enables new instances for customizing, processing, and routing sounds or voices within the engine"
+Studio.App.BetaFeatures.NewDockingTitle,,Updated Docking System,Updated Docking System
+Studio.App.BetaFeatures.NewDockingDescription,,"New docking logic that allows undocking of the 3D Viewport and addresses docking corruption glitches and issues. Please note when enabled, this will start with a new layout. Your old layout will be restored if you disable this feature.","New docking logic that allows undocking of the 3D Viewport and addresses docking corruption glitches and issues. Please note when enabled, this will start with a new layout. Your old layout will be restored if you disable this feature."
+Studio.App.BetaFeatures.StudioNotifications,,Notification Overhaul,Notification Overhaul
+Studio.App.BetaFeatures.StudioNotificationsDescription,,Improves UI and expands functionality of Studio Notifications,Improves UI and expands functionality of Studio Notifications
+Studio.App.BetaFeatures.UIListLayoutFlexTitle,,UIListLayout Flex Features,UIListLayout Flex Features
+Studio.App.BetaFeatures.UIListLayoutFlexDescription,,Add flexible layout options to UIListLayout.,Add flexible layout options to UIListLayout.

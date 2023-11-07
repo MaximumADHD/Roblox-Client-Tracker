@@ -40,10 +40,5 @@ Studio.App.StudioFlagEditor.AddOverrideTitle,Title of Add Override dialog that a
 Studio.App.StudioFlagEditor.NameField,The name of a flag in the Flag Editor (File -> Advanced -> Open Flag Editor).,Name,Name
 Studio.App.StudioFlagEditor.TypeField,"The type of a flag (FFlag, FLog, DFString, etc.) in the Flag Editor (File -> Advanced -> Open Flag Editor).",Type,Type
 Studio.App.StudioFlagEditor.ValueField,The value of a flag in the Flag Editor (File -> Advanced -> Open Flag Editor).,Value,Value
-Studio.App.StudioProjectConfig.UnexpectedFieldWarning2,,"The Project File has unexpected fields, they will be ignored. 
-%1 
-%2","The Project File has unexpected fields, they will be ignored. 
-%1 
-%2"
 Studio.App.BrowserServiceController.Hidden,,(Hidden),(Hidden)
 Studio.App.BrowserServiceController.OSNotUpToDate,,"Your OS is not up to date, some functions may not be fully supported","Your OS is not up to date, some functions may not be fully supported"

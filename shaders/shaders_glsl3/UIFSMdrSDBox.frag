@@ -19,21 +19,23 @@ void main()
     bvec4 f2 = bvec4(CB2[0].y > 0.5);
     vec4 f3 = vec4(f2.x ? f1.x : f0.x, f2.y ? f1.y : f0.y, f2.z ? f1.z : f0.z, f2.w ? f1.w : f0.w);
     float f4 = f0.w;
-    vec4 f5 = vec4(f0.xyz / vec3(f4), f4);
-    bvec4 f6 = bvec4(CB2[0].y > 1.5);
-    vec4 f7 = VARYING1 * vec4(f6.x ? f5.x : f3.x, f6.y ? f5.y : f3.y, f6.z ? f5.z : f3.z, f6.w ? f5.w : f3.w);
-    vec2 f8 = abs(vec2((VARYING0.x * CB3[0].x) + CB3[0].y, (VARYING0.y * CB3[0].z) + CB3[0].w)) - CB3[1].xy;
-    float f9 = length(max(f8, vec2(0.0))) + min(max(f8.x, f8.y), 0.0);
-    vec4 f10 = f7;
-    f10.w = (f7.w * clamp(CB3[1].z - f9, 0.0, 1.0)) * clamp(f9 - CB3[1].w, 0.0, 1.0);
-    vec3 f11 = sqrt(clamp((f10.xyz * f10.xyz) * CB0[20].y, vec3(0.0), vec3(1.0)));
-    vec4 f12 = f10;
-    f12.x = f11.x;
-    vec4 f13 = f12;
-    f13.y = f11.y;
-    vec4 f14 = f13;
-    f14.z = f11.z;
-    _entryPointOutput = f14;
+    vec3 f5 = f0.xyz / vec3(f4);
+    bvec3 f6 = bvec3(f4 == 0.0);
+    vec4 f7 = vec4(vec3(f6.x ? vec3(0.0).x : f5.x, f6.y ? vec3(0.0).y : f5.y, f6.z ? vec3(0.0).z : f5.z), f4);
+    bvec4 f8 = bvec4(CB2[0].y > 1.5);
+    vec4 f9 = VARYING1 * vec4(f8.x ? f7.x : f3.x, f8.y ? f7.y : f3.y, f8.z ? f7.z : f3.z, f8.w ? f7.w : f3.w);
+    vec2 f10 = abs(vec2((VARYING0.x * CB3[0].x) + CB3[0].y, (VARYING0.y * CB3[0].z) + CB3[0].w)) - CB3[1].xy;
+    float f11 = length(max(f10, vec2(0.0))) + min(max(f10.x, f10.y), 0.0);
+    vec4 f12 = f9;
+    f12.w = (f9.w * clamp(CB3[1].z - f11, 0.0, 1.0)) * clamp(f11 - CB3[1].w, 0.0, 1.0);
+    vec3 f13 = sqrt(clamp((f12.xyz * f12.xyz) * CB0[20].y, vec3(0.0), vec3(1.0)));
+    vec4 f14 = f12;
+    f14.x = f13.x;
+    vec4 f15 = f14;
+    f15.y = f13.y;
+    vec4 f16 = f15;
+    f16.z = f13.z;
+    _entryPointOutput = f16;
 }
 
 //$$DiffuseMapTexture=s0

@@ -64,6 +64,7 @@ Studio.RobloxPropertiesWidget.Category.Aerodynamics,,Aerodynamics,Aerodynamics
 Studio.RobloxPropertiesWidget.Category.AirProperties,,AirProperties,AirProperties
 Studio.RobloxPropertiesWidget.Category.AlignOrientation,,AlignOrientation,AlignOrientation
 Studio.RobloxPropertiesWidget.Category.AlignPosition,,AlignPosition,AlignPosition
+Studio.RobloxPropertiesWidget.Category.Alignment,,Alignment,Alignment
 Studio.RobloxPropertiesWidget.Category.AlignmentMode,,AlignmentMode,AlignmentMode
 Studio.RobloxPropertiesWidget.Category.AngularLimits,,AngularLimits,AngularLimits
 Studio.RobloxPropertiesWidget.Category.AngularMotor,,AngularMotor,AngularMotor

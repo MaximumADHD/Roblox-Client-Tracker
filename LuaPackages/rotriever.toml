@@ -55,7 +55,7 @@ QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.3.1"
 GraphqlToolsUtils = { target = "github.com/Roblox/graphql-tools-lua", version = "0.3.1", package = "Utils" }
 DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
-UGCValidation = "github.com/roblox/ugc-validation@1.10.0"
+UGCValidation = "github.com/roblox/ugc-validation@1.10.2"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
 Signal = "github.com/roblox/signal-lua@1.0"
@@ -69,10 +69,10 @@ InGameMenuDependencies = { git = "https://github.com/Roblox/in-game-menu-depende
 RoactGamepad = "github.com/roblox/roact-gamepad@0.5.11"
 
 [dev_dependencies]
-Jest = "github.com/roblox/jest-roblox@3.4.1"
+Jest = "github.com/roblox/jest-roblox@3.5.0"
+JestBenchmark = "github.com/roblox/jest-roblox@3.5.0"
 JestGlobals = "github.com/roblox/jest-roblox@2.4.1"
-JestGlobals3 = { target = "github.com/roblox/jest-roblox", version = "3.4.1", package = "JestGlobals" }
-JestBenchmark = { target = "github.com/roblox/jest-roblox", version = "3.4.1", package = "JestBenchmark" }
+JestGlobals3 = { target = "github.com/roblox/jest-roblox", version = "3.5.0", package = "JestGlobals" }
 # switch from git-dependency once mirrored in artifactory
 ReactTestingLibrary = "github.com/Roblox/react-testing-library-lua@12.2.0"
 Rhodium = "github.com/roblox/rhodium@0.5.0"

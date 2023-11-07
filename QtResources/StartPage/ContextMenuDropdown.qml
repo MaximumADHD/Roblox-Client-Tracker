@@ -87,22 +87,11 @@ Item {
     }
 
     function show(x, y, attachedParent) {
-        if(FFlagLocalizationStartPageFixes)
-        {
-            container.attachedParent = attachedParent;
-            gameGridViewWithHeader.setFocusTo("ContextMenu");
-            populateDropdownFunction();
-            moveTo(x, y);
-            becomeVisible();
-        }
-        else
-        {
-            container.attachedParent = attachedParent;
-            moveTo(x, y);
-            gameGridViewWithHeader.setFocusTo("ContextMenu");
-            populateDropdownFunction();
-            becomeVisible();
-        }
+        container.attachedParent = attachedParent;
+        gameGridViewWithHeader.setFocusTo("ContextMenu");
+        populateDropdownFunction();
+        moveTo(x, y);
+        becomeVisible();
     }
 
     function hide() {
@@ -235,7 +224,7 @@ Item {
                                 anchors.left: parent.left
                                 anchors.leftMargin: 8
                                 font.pixelSize: container.listElementFontPixelSize
-                                font.weight: FFlagLocalizationStartPageFixes ? container.listElementFontWeight : userPreferences.theme.style("CommonStyle fontWeight")
+                                font.weight: container.listElementFontWeight
                                 renderType: userPreferences.theme.style("CommonStyle textRenderType")
                                 color: userPreferences.theme.style("CommonStyle mainText")
                                 opacity: (model && model.disabled) ? .3 : 1

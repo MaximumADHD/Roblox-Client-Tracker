@@ -42,6 +42,7 @@ Studio.AvatarCompatibilityPreviewer.AssetPalettes.Sweaters, ,Sweaters
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Torso, ,Torso
 Studio.AvatarCompatibilityPreviewer.AssetPalettes.Waist, ,Waist
 Studio.AvatarCompatibilityPreviewer.AssetType.BackAccessory, ,Back
+Studio.AvatarCompatibilityPreviewer.AssetType.Body, ,Avatar Body
 Studio.AvatarCompatibilityPreviewer.AssetType.DressSkirtAccessory, ,Dress/Skirt
 Studio.AvatarCompatibilityPreviewer.AssetType.EyebrowAccessory, ,Eyebrow
 Studio.AvatarCompatibilityPreviewer.AssetType.EyelashAccessory, ,Eyelash
@@ -128,6 +129,34 @@ Studio.AvatarCompatibilityPreviewer.Stages.CheckBody, ,Check Body
 Studio.AvatarCompatibilityPreviewer.Stages.CheckFace, ,Check Face
 Studio.AvatarCompatibilityPreviewer.Stages.Publish, ,Submit
 Studio.AvatarCompatibilityPreviewer.Stages.Test, ,Test in Experience
+Studio.AvatarCompatibilityPreviewer.SubmitDialog.Cancel, ,Cancel
+Studio.AvatarCompatibilityPreviewer.SubmitDialog.OK, ,OK
+Studio.AvatarCompatibilityPreviewer.SubmitDialog.Title, ,Submit Assets
+Studio.AvatarCompatibilityPreviewer.SubmitInner.CallToAction, ,Select the assets you want to submit to Roblox:
+Studio.AvatarCompatibilityPreviewer.SubmitInner.ChoiceItem, ,{assetType}: {instanceName}
+Studio.AvatarCompatibilityPreviewer.Survey.MessagePlaceholder, ,Please tell us any additional details that will help improve this tool.
+Studio.AvatarCompatibilityPreviewer.Survey.PleaseRateYourExperience, ,Please rate your experience with the auto setup results.
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemBadLayeredClothing, ,Layered clothing does not fit properly or is distorted when the character moves
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemCharacterDoesntBend, ,Character does not bend in the right places when animated
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemCharacterWeirdBend, ,"Character deforms in a weird way when joints bend, even though the joints are in the right place"
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemHeadEyebrows, ,Eyebrows
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemHeadEyelashes, ,Eyelashes
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemHeadEyes, ,Eyes
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemHeadHair, ,Hair
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemHeadLooksBad, ,The head looks bad
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemHeadMouth, ,Mouth
+Studio.AvatarCompatibilityPreviewer.Survey.ProblemHeadTeeth, ,Teeth
+Studio.AvatarCompatibilityPreviewer.Survey.Specifically, ,"Specifically, these aspects:"
+Studio.AvatarCompatibilityPreviewer.Survey.StarsRating1, ,Very dissatisfied
+Studio.AvatarCompatibilityPreviewer.Survey.StarsRating2, ,Somewhat dissatisfied
+Studio.AvatarCompatibilityPreviewer.Survey.StarsRating3, ,Neither dissatisfied nor satisfied
+Studio.AvatarCompatibilityPreviewer.Survey.StarsRating4, ,Somewhat satisfied
+Studio.AvatarCompatibilityPreviewer.Survey.StarsRating5, ,Very satisfied
+Studio.AvatarCompatibilityPreviewer.Survey.Title, ,Rate Avatar Setup Results
+Studio.AvatarCompatibilityPreviewer.Survey.WhatAreasShouldWeImproveOn, ,What areas should we improve on? Please select all that apply.
+Studio.AvatarCompatibilityPreviewer.SurveyDialog.Close, ,Close
+Studio.AvatarCompatibilityPreviewer.SurveyDialog.FinishAlert, ,Thank you for submitting your feedback!
+Studio.AvatarCompatibilityPreviewer.SurveyDialog.SendFeedback, ,Send Feedback
 Studio.AvatarCompatibilityPreviewer.UGCValidation.AlertTitle, ,Body Errors
 Studio.AvatarCompatibilityPreviewer.UGCValidation.AssetNotFound, ,{asset} not found
 Studio.AvatarCompatibilityPreviewer.UGCValidation.SuccessTooltip, ,This avatar can be uploaded to Marketplace

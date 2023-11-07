@@ -1,6 +1,12 @@
 Key,en-us
+Studio.PathEditor.Info.AddPointTool,Add Point
+Studio.PathEditor.Info.AddTangentTool,Add Tangent
+Studio.PathEditor.Info.Delete,Delete
+Studio.PathEditor.Info.DeletePoint,Delete Point
+Studio.PathEditor.Info.DeleteTangent,Delete Tangent
+Studio.PathEditor.Info.Done,Done
+Studio.PathEditor.Info.MoveTool,Move Tool
 Studio.PathEditor.Plugin.Button,Toggle
 Studio.PathEditor.Plugin.Description,Toggles the Template plugin window.
 Studio.PathEditor.Plugin.Name,PathEditor
-Studio.PathEditor.Plugin.Text,Example Text!
 Studio.PathEditor.Plugin.Toolbar,PathEditor

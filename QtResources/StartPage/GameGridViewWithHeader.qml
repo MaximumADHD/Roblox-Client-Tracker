@@ -269,7 +269,7 @@ Item {
 
                         id: gameTabComponentRectangle
                         objectName: model.elementId + "_Category"
-                        width: FFlagLocalizationStartPageFixes ? Math.max(gameTabBarUpperTabWidth, textMetrics.width + 20) : gameTabBarUpperTabWidth
+                        width: Math.max(gameTabBarUpperTabWidth, textMetrics.width + 20)
                         height: parent.height
                         color: userPreferences.theme.style("CommonStyle mainBackground")
 
@@ -304,11 +304,11 @@ Item {
                                 id: gameTabComponentText
                                 anchors.left: parent.left
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: FFlagLocalizationStartPageFixes ? textMetrics.text : model.text
+                                text: textMetrics.text
                                 horizontalAlignment: Text.AlignHCenter
                                 verticalAlignment: Text.AlignVCenter
-                                font.weight: FFlagLocalizationStartPageFixes ? textMetrics.font.weight : Font.Bold
-                                font.pixelSize: FFlagLocalizationStartPageFixes ? textMetrics.font.pixelSize : 18
+                                font.weight: textMetrics.font.weight
+                                font.pixelSize: textMetrics.font.pixelSize
                                 color: (isHovered || isSelected) ? userPreferences.theme.style("StartPage HeaderTab hoverText") : userPreferences.theme.style("StartPage HeaderTab text")
                                 renderType: Text.QtRendering
 

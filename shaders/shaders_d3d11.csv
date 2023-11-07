@@ -53,7 +53,6 @@ CloudsFS,Fragment
 CloudsGenReflectionMapFS,Fragment
 CloudsReprojectFilterFS,Fragment
 CloudsSunCoverFS,Fragment
-CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
 CloudsWind2dFS,Fragment
 CloudsWindFS,Fragment

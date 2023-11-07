@@ -10,6 +10,7 @@ dependencies = [
     "Analytics Analytics 0.1.0",
     "AvatarIdentification TnSAvatarIdentification 0.1.0",
     "Cryo Cryo 0.1.0",
+    "Dash Dash 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
@@ -259,6 +260,7 @@ dependencies = [
 name = "ChallengeDialog"
 version = "0.1.0"
 dependencies = [
+    "Analytics Analytics 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
     "Cryo Cryo 0.1.0",
     "Http Http 0.1.0",
@@ -974,6 +976,7 @@ dependencies = [
 [[package]]
 name = "ItemDetails"
 version = "0.1.0"
+dependencies = ["UnitTestHelpers UnitTestHelpers 0.1.0"]
 
 [[package]]
 name = "JestConfigs"
@@ -1711,6 +1714,7 @@ dependencies = [
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "Otter Otter 0.1.0",
+    "PermissionsProtocol PermissionsProtocol 0.1.0",
     "PolicyProvider PolicyProvider 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
@@ -1732,6 +1736,7 @@ dependencies = [
     "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
 
 [[package]]
@@ -2009,6 +2014,7 @@ dependencies = [
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
     "SocialLuaAnalytics SocialLuaAnalytics 0.1.0",
+    "StreamNotifications StreamNotifications 0.1.0",
     "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
@@ -2104,8 +2110,6 @@ dependencies = [
 name = "StreamNotifications"
 version = "0.1.0"
 dependencies = [
-    "AbuseReports AbuseReports 0.1.0",
-    "CentralOverlay CentralOverlay 0.1.0",
     "HttpRequest HttpRequest 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
@@ -2446,6 +2450,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
 ]
 
 [[package]]
@@ -2600,6 +2605,7 @@ dependencies = [
     "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
     "UsersNetworking NetworkingUsers 0.1.0",
 ]
 

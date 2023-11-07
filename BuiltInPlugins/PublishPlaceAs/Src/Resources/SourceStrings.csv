@@ -40,10 +40,12 @@ Studio.PublishPlaceAs.PageTitle.Creator,Creator, ,Creator
 Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this game, ,Only developers of this game
 Studio.PublishPlaceAs.General.RolloutOptionDefault,Default, ,Default
 Studio.PublishPlaceAs.General.RolloutOption,RolloutOption, ,RolloutOption
-Studio.PublishPlaceAs.Genre.Scary,Horror, ,Horror
 Studio.PublishPlaceAs.PageTitle.Description,Description, ,Description
 Studio.PublishPlaceAs.General.RolloutOptionDefaultDesc,New play sessions will happen on servers with the latest version while existing servers with the old version keeping running until they naturally die out., ,New play sessions will happen on servers with the latest version while existing servers with the old version keeping running until they naturally die out.
 Studio.PublishPlaceAs.General.RollbackToggleDesc,Enabling rollback to previous version if the overwrite is rejected [link], ,Enabling rollback to previous version if the overwrite is rejected [link]
+Studio.PublishPlaceAs.General.UploadInProgressElps,Upload in progress..., ,Upload in progress...
+Studio.PublishPlaceAs.General.UploadErrorRetry,"Encountered error while uploading, retrying...", ,"Encountered error while uploading, retrying..."
+Studio.PublishPlaceAs.General.PleaseWait,Please Wait, ,Please Wait
 Studio.PublishPlaceAs.Button.AddNewPlaceToGame,Add as a new place, ,Add as a new place
 Studio.PublishPlaceAs.Button.Cancel,Cancel, ,Cancel
 Studio.PublishPlaceAs.FooterButton.Cancel,Cancel, ,Cancel
@@ -64,12 +66,13 @@ Studio.PublishPlaceAs.MenuItem.BasicInfo,Basic Info, ,Basic Info
 Studio.PublishPlaceAs.Devices.Phone,Phone, ,Phone
 Studio.PublishPlaceAs.Devices.Console,Console, ,Console
 Studio.PublishPlaceAs.Devices.VR,VR, ,VR
-Studio.PublishPlaceAs.PageTitle.Name,Name, ,Name
 Studio.PublishPlaceAs.Genre.Fantasy,Medieval, ,Medieval
+Studio.PublishPlaceAs.PageTitle.Name,Name, ,Name
 Studio.PublishPlaceAs.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
 Studio.PublishPlaceAs.Genre.All,All, ,All
 Studio.PublishPlaceAs.Genre.Tutorial,Building, ,Building
 Studio.PublishPlaceAs.Genre.FPS,FPS, ,FPS
+Studio.PublishPlaceAs.Genre.Scary,Horror, ,Horror
 Studio.PublishPlaceAs.Genre.War,Military, ,Military
 Studio.PublishPlaceAs.Genre.Pirate,Naval, ,Naval
 Studio.PublishPlaceAs.Genre.RPG,RPG, ,RPG

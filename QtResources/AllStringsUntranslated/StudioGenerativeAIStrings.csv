@@ -1,14 +1,53 @@
 Key,Context,Source,en-us
-Studio.App.GenerativeAI.Welcome,,"Hi!
+Studio.App.GenerativeAI.InsertAssetWelcome,,"How can I help you today? If you need ideas:
+- <b>Answering questions:</b> ""Can you explain..."" 
+- <b>Insert assets:</b> ""Create a..."" 
+- <b>Add code:</b> ""Write a script to..."" 
+- <b>Explain code:</b> ""Explain the selected code."" 
 
-Here are some ways I can help:
-- Suggest code
-- Answer questions related to your code
-- Explain code","Hi!
+ I'm still learning, so I may not be able to help with everything. You can always ask, though.","How can I help you today? If you need ideas:
+- <b>Answering questions:</b> ""Can you explain..."" 
+- <b>Insert assets:</b> ""Create a..."" 
+- <b>Add code:</b> ""Write a script to..."" 
+- <b>Explain code:</b> ""Explain the selected code."" 
 
-Here are some ways I can help:
-- Suggest code
-- Answer questions related to your code
-- Explain code"
+ I'm still learning, so I may not be able to help with everything. You can always ask, though."
 Studio.App.GenerativeAI.ClearAllMessages,,Clear All Messages,Clear All Messages
 Studio.App.GenerativeAI.Placeholder,,Enter request here,Enter request here
+Studio.App.GenerativeAI.ThumbsDown1,,I’ll try to do better next time. Help me to improve by answering some <a href='%1'>quick questions</a>.,I’ll try to do better next time. Help me to improve by answering some <a href='%1'>quick questions</a>.
+Studio.App.GenerativeAI.ServerLogs,,See Server Logs,See Server Logs
+Studio.App.GenerativeAI.FindVariations,,Find Variations,Find Variations
+Studio.App.GenerativeAI.LegalMessage5,,"Hi, <b>%1</b>, I'm your Assistant. I'm here to help you create on Roblox. Before we can get started, I'll need you to review and accept the <span class='link'><a href='%2'>Terms of Service</a></span> and <span class='link'><a href='%3'>Privacy Policy</a></span>. I learn from the instructions you give me, and will filter out personal information, but to be safe, don't share it with me.<hr>
+
+<a href='%4'>Yes, I accept</a>
+
+<a href='%5'>No, I don't accept<a/>","Hi, <b>%1</b>, I'm your Assistant. I'm here to help you create on Roblox. Before we can get started, I'll need you to review and accept the <span class='link'><a href='%2'>Terms of Service</a></span> and <span class='link'><a href='%3'>Privacy Policy</a></span>. I learn from the instructions you give me, and will filter out personal information, but to be safe, don't share it with me.<hr>
+
+<a href='%4'>Yes, I accept</a>
+
+<a href='%5'>No, I don't accept<a/>"
+Studio.App.GenerativeAI.LegalMessageNo,,"No, I don't accept","No, I don't accept"
+Studio.App.GenerativeAI.LegalMessageNoResponse,,"No problem. You can click ""Yes"" anytime above, if you change your mind.","No problem. You can click ""Yes"" anytime above, if you change your mind."
+Studio.App.GenerativeAI.LegalMessageYesResponse,,"Thanks, looking forward to working with you.","Thanks, looking forward to working with you."
+Studio.App.GenerativeAI.LegalMessageYes,,"Yes, I accept","Yes, I accept"
+Studio.App.GenerativeAI.NextVariation,,Next Variation,Next Variation
+Studio.App.GenerativeAI.PreviousVariations,,Previous Variation,Previous Variation
+Studio.App.GenerativeAI.ClickToSwapVariation,,Click on any variation to swap the model.,Click on any variation to swap the model.
+Studio.App.GenerativeAI.GetInfo,,Get Info,Get Info
+Studio.App.GenerativeAI.StopGeneration,,Stop generation,Stop generation
+Studio.App.GenerativeAI.Setting.UseInventory,,Use inventory only,Use inventory only
+Studio.App.GenerativeAI.Setting.DisableAssetScripts,,Disable scrips in assets,Disable scrips in assets
+Studio.App.GenerativeAI.Setting.ClearChat,,Clear chat,Clear chat
+Studio.App.GenerativeAI.StopGeneration.DataModelInactive,,"Sorry, I had to stop generation when you switch to Client/Server","Sorry, I had to stop generation when you switch to Client/Server"
+Studio.App.GenerativeAI.StopGeneration.DataModelDestroyed,,"Sorry, I had to stop generation when you exit Playtest","Sorry, I had to stop generation when you exit Playtest"
+Studio.App.GenerativeAI.PlayDataModel.Warning,,Be aware that new changes will get lost when you leave PlayTest <br/> <br/>,Be aware that new changes will get lost when you leave PlayTest <br/> <br/>
+Studio.App.GenerativeAI.ExplainCodeRequest,,Explain this code.,Explain this code.
+Studio.App.GenerativeAI.Try.Connect,,Trying to connect with Assistant,Trying to connect with Assistant
+Studio.App.GenerativeAI.PromptLengthV1,,Looks like your message was too long. Try simplifying your request.,Looks like your message was too long. Try simplifying your request.
+Studio.App.GenerativeAI.PromptLengthV2,,"Sorry, I don't understand. Try again with a shorter message.","Sorry, I don't understand. Try again with a shorter message."
+Studio.App.GenerativeAI.TimeoutWarningV1,,I'm still working on your request. Hang tight. <br/>,I'm still working on your request. Hang tight. <br/>
+Studio.App.GenerativeAI.TimeoutWarningV2,,Sorry for the wait. I'm still working on your request. <br/>,Sorry for the wait. I'm still working on your request. <br/>
+Studio.App.GenerativeAI.TimeoutWarningV3,,"Your request is taking longer than normal, but I'm still working on it. <br/>","Your request is taking longer than normal, but I'm still working on it. <br/>"
+Studio.App.GenerativeAI.TimeoutErrorV1,,"Sorry, I'm experiencing a high volume of requests. Please try again later. <br/>","Sorry, I'm experiencing a high volume of requests. Please try again later. <br/>"
+Studio.App.GenerativeAI.TimeoutErrorV2,,I'm suddenly receiving a lot of requests right now. Please try again later. I'd be happy to help. <br/>,I'm suddenly receiving a lot of requests right now. Please try again later. I'd be happy to help. <br/>
+Studio.App.GenerativeAI.TimeoutErrorV3,,"Sorry, there are a lot of requests right now. Please try again later. <br/>","Sorry, there are a lot of requests right now. Please try again later. <br/>"

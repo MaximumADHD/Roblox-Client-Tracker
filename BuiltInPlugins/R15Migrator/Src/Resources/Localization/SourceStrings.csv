@@ -1,4 +1,11 @@
 Key,en-us
+Studio.R15Migrator.AdapterPane.AdapterInserted,Adapter inserted. [link1]
+Studio.R15Migrator.AdapterPane.AdapterRemoved,Adapter removed. [link1]
+Studio.R15Migrator.AdapterPane.FindRemainingCharactersText,"With this Script removed, unconverted R6 characters will appear broken. This can be a good way to find any remaining characters and Scripts that need conversion."
+Studio.R15Migrator.AdapterPane.LearnMore,Learn more
+Studio.R15Migrator.AdapterPane.RemovalHeaderText,Remove before Publishing
+Studio.R15Migrator.AdapterPane.RemovalText,"Prior to publishing your experience, you are required to remove the adapter"
+Studio.R15Migrator.AdapterPane.SeamlessTestingText,"With this script inserted, you can seamlessly test a mix of R6 characters alongside R15 characters during the conversion process."
 Studio.R15Migrator.AnimationConversion.Animations,Animations
 Studio.R15Migrator.AnimationConversion.Convert,Convert
 Studio.R15Migrator.AnimationConversion.ConvertingAnimations,Converting animations in progress...
@@ -87,6 +94,7 @@ Studio.R15Migrator.ScriptStatus.Complete,All script issues have been resolved.
 Studio.R15Migrator.ScriptStatus.Error,Name must be updated in order to convert this script to be compatable with R15 gameplay.
 Studio.R15Migrator.ScriptStatus.Reverted,This script was just reverted. Reversion can be undone as long as there are no additional changes made to the script.
 Studio.R15Migrator.ScriptStatus.Warning,"Something was found in your script that may cause problems, however it may not be required to fix."
+Studio.R15Migrator.Tabs.AdapterPane,Adapter
 Studio.R15Migrator.Tabs.AnimationConversion,Animation
 Studio.R15Migrator.Tabs.CharacterConversion,Character
 Studio.R15Migrator.Tabs.ReplaceRules,Edit Rules

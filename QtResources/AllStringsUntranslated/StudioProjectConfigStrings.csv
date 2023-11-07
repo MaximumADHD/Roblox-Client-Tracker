@@ -1,0 +1,6 @@
+Key,Context,Source,en-us
+Studio.App.ProjectConfig.UnexpectedFieldWarning2,,"The Project File has unexpected fields, they will be ignored. 
+%1 
+%2","The Project File has unexpected fields, they will be ignored. 
+%1 
+%2"
