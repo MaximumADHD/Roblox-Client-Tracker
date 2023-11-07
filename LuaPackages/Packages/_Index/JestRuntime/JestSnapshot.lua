@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestSnapshot-edcba0e9-3.4.1"]["JestSnapshot"])
+local Package = require(PackageIndex["JestSnapshot-edcba0e9-3.5.0"]["JestSnapshot"])
 
 export type JestSnapshot_SnapshotResolver = Package.JestSnapshot_SnapshotResolver
 export type JestSnapshot_SnapshotStateType = Package.JestSnapshot_SnapshotStateType

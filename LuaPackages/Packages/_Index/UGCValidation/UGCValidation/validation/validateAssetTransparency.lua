@@ -1,6 +1,5 @@
---!nocheck
+--!strict
 --[[
-	using nocheck for now, will change later. That's because the binary used to lint doesn't have the cpp functions
 
 	validateTransparency.lua checks the transparency of each part on a UGC bundle. On Studio, this utilizes taking a screen capture of the viewport, while in RCC servers it utilizes the thumbnail generator.
 ]]
@@ -14,7 +13,7 @@ local getFFlagUGCValidationValidateTransparencyServer =
 	require(root.flags.getFFlagUGCValidationValidateTransparencyServer)
 local getEngineFeatureViewportFrameSnapshotEngineFeature =
 	require(root.flags.getEngineFeatureViewportFrameSnapshotEngineFeature)
-
+local getUGCValidationHeadThreshold = require(root.flags.getUGCValidationHeadThreshold)
 local UGCValidationService = game:GetService("UGCValidationService")
 local Types = require(root.util.Types)
 local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
@@ -28,9 +27,9 @@ local TRANSPARENT_PART_COLOR: Color3 = Color3.fromRGB(7, 32, 91) --magic number,
 
 local assetTypeEnumToPartsToValidIDs = {
 	[Enum.AssetType.DynamicHead] = {
-		[CAMERA_POSITIONS[1]] = 0.32,
-		[CAMERA_POSITIONS[2]] = 0.32,
-		[CAMERA_POSITIONS[3]] = 0.32,
+		[CAMERA_POSITIONS[1]] = getUGCValidationHeadThreshold() / 100,
+		[CAMERA_POSITIONS[2]] = getUGCValidationHeadThreshold() / 100,
+		[CAMERA_POSITIONS[3]] = getUGCValidationHeadThreshold() / 100,
 	},
 	[Enum.AssetType.Torso] = {
 		[CAMERA_POSITIONS[1]] = 0.50,
@@ -124,7 +123,6 @@ local function validateOnServer(assetTypeEnum: Enum.AssetType, dir: Vector3): (b
 
 	if not passesValidation then
 		local errorMsg = string.format(VALIDATION_FAILED_ERROR_STRING, assetTypeEnum.Name)
-		error(errorMsg)
 		return false, { errorMsg }
 	end
 
@@ -239,7 +237,6 @@ return function(
 				end
 			end
 		end
-		instClone = inst :: Folder
 		instClone.Parent = if isServer then workspace else worldModel
 		moveParts(instClone :: Folder, nil, CFrame.new(), hierarchy.root, hierarchy)
 		local maxSize: Vector3 = Vector3.new()

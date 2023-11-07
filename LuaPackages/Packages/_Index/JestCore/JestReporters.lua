@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestReporters-edcba0e9-3.4.1"]["JestReporters"])
+local Package = require(PackageIndex["JestReporters-edcba0e9-3.5.0"]["JestReporters"])
 
 export type BaseReporter = Package.BaseReporter
 export type DefaultReporter = Package.DefaultReporter

@@ -5,7 +5,7 @@ commit = "562c11cafb9f68fb01a2a0252be28ce2747f0784"
 source = "url+https://github.com/roblox/react-testing-library-lua"
 dependencies = [
     "DomTestingLibrary <patched> DomTestingLibrary d9b6c762 git+https://github.com/roblox/dom-testing-library-lua#d9b6c762c95e0bc296bd41f0ab25995d4fbbd5a6",
-    "JestGlobals JestGlobals 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestGlobals JestGlobals 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",

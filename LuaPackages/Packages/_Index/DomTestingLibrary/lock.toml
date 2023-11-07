@@ -5,11 +5,11 @@ commit = "d9b6c762c95e0bc296bd41f0ab25995d4fbbd5a6"
 source = "git+https://github.com/roblox/dom-testing-library-lua#d9b6c762c95e0bc296bd41f0ab25995d4fbbd5a6"
 dependencies = [
     "Chalk ChalkLua 0.2.0 url+https://github.com/roblox/chalk-lua",
-    "JestGetType JestGetType 3.4.1 url+https://github.com/roblox/jest-roblox",
-    "JestGlobals JestGlobals 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "JestGetType JestGetType 3.5.0 url+https://github.com/roblox/jest-roblox",
+    "JestGlobals JestGlobals 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "LuauRegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
-    "PrettyFormat PrettyFormat 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "PrettyFormat PrettyFormat 3.5.0 url+https://github.com/roblox/jest-roblox",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RobloxShared RobloxShared 3.4.1 url+https://github.com/roblox/jest-roblox",
+    "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
 ]

@@ -563,7 +563,19 @@ function _getError(errors: (Circus_Exception | Array<Circus_Exception | nil | Ci
 end
 
 function getErrorStack(error_): string
-	return if typeof(error_.stack) == "string" then error_.stack else error_.message
+	-- ROBLOX DEVIATION START: avoid losing error info from already-separated
+	-- messages by only reducing to the stack if the message is a subset of it
+	if typeof(error_.stack) == "string" then
+		local plain = true
+		if string.find(error_.stack, error_.message, nil, plain) then
+			return error_.stack
+		else
+			return error_.message .. "\n" .. error_.stack
+		end
+	end
+	return error_.message
+	-- ROBLOX DEVIATION END
+	-- return if typeof(error_.stack) == "string" then error_.stack else error_.message
 end
 
 local function addErrorToEachTestUnderDescribe(

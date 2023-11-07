@@ -13,7 +13,7 @@ return function(flowUuid: string, flowEventType: string, viewName: string, input
 	-- Field names should match proto fields https://github.rbx.com/Roblox/proto-schemas/blob/master/production/eventstream/subscriptions/subscription_purchase.proto
 	return {
 		purchase_flow_uuid = flowUuid,
-		puchase_flow_event_type = flowEventType,
+		purchase_flow_event_type = flowEventType,
 		view_name = viewName,
 		input_type = inputType,
 		subscription_provider_id = subscriptionProviderId,
