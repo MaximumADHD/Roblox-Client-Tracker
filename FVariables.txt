@@ -1181,6 +1181,7 @@
 [C++] DFFlagUseImprovedGCDeletionRate
 [C++] DFFlagUseJointAnalytics
 [C++] DFFlagUseNetworkIxpLog
+[C++] DFFlagUseNewTextWrappedPropertyChangedSignal
 [C++] DFFlagUseNewTranslationKey
 [C++] DFFlagUserAnimateScaleRun
 [C++] DFFlagUseRbxFilesystemSpace
