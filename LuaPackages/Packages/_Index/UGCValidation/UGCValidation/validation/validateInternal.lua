@@ -1,7 +1,6 @@
 local root = script.Parent.Parent
 
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidationMeshPartAccessoryUploads = require(root.flags.getFFlagUGCValidationMeshPartAccessoryUploads)
 
 local ConstantsInterface = require(root.ConstantsInterface)
@@ -56,7 +55,7 @@ local function validateInternal(
 	token,
 	universeId
 ): (boolean, { string }?)
-	if getFFlagUGCValidateBodyParts() and ConstantsInterface.isBodyPart(assetTypeEnum) then
+	if ConstantsInterface.isBodyPart(assetTypeEnum) then
 		return validateBodyPartInternal(
 			isAsync,
 			instances,

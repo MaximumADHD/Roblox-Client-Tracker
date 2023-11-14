@@ -29,7 +29,16 @@ local FACE_LEFT_CFRAME = CFrame.fromEulerAnglesYXZ(math.rad(-20), math.rad(20), 
 local FACE_RIGHT_CFRAME = CFrame.fromEulerAnglesYXZ(math.rad(-20), math.rad(-20), 0)
 
 -- FOV for Body Part and Head thumbnails
-local FIELD_OF_VIEW_DEG = 30
+local HEAD_BODYPART_FIELD_OF_VIEW_DEG = 30
+
+-- Accessory constants
+local ACCESSORY_DEFAULT_CFRAME = CFrame.Angles(math.rad(25), math.rad(25), math.rad(0))
+local ACCESSORY_FIELD_OF_VIEW_DEG = 20
+local ACCESSORY_EXTENT_SCALE = 1.1
+-- used if LC item is a left shoe
+local LEFT_SHOE_CFRAME = CFrame.Angles(math.rad(0), math.rad(90), math.rad(0))
+-- used if LC item is a right shoe
+local RIGHT_SHOE_CFRAME = CFrame.Angles(math.rad(0), math.rad(-90), math.rad(0))
 
 export type CameraOptions = {
 	optFieldOfView: number?,
@@ -168,7 +177,7 @@ module.SetupBodyPartCamera = function(
 		CharacterUtility.CalculateBodyPartsExtents(mannequinTargetCFrame, mannequinFocusParts)
 	-- Setup Camera with these options
 	local cameraOptions = {
-		optFieldOfView = FIELD_OF_VIEW_DEG,
+		optFieldOfView = HEAD_BODYPART_FIELD_OF_VIEW_DEG,
 		targetCFrame = mannequinTargetCFrame,
 		minExtent = minPartsExtent,
 		maxExtent = maxPartsExtent,
@@ -203,11 +212,59 @@ module.SetupHeadCamera = function(headModel: Model, camera: Camera)
 
 	-- Setup Camera
 	local cameraOptions = {
-		optFieldOfView = FIELD_OF_VIEW_DEG,
+		optFieldOfView = HEAD_BODYPART_FIELD_OF_VIEW_DEG,
 		targetCFrame = headTargetCFrame,
 		minExtent = minHeadExtent,
 		maxExtent = maxHeadExtent,
 		extentScale = HEAD_MARGIN_SCALE,
+	}
+	module.SetupCamera(camera, cameraOptions)
+end
+
+local function isLeftShoe(acc: Instance)
+	local handle = acc:FindFirstChildWhichIsA("MeshPart")
+	if not handle then
+		return false
+	end
+	assert(handle, "Assert handle is not nil to silence type checker")
+	return nil ~= handle:FindFirstChild("LeftFootAttachment")
+end
+
+local function isRightShoe(acc: Instance)
+	local handle = acc:FindFirstChildWhichIsA("MeshPart")
+	if not handle then
+		return false
+	end
+	assert(handle, "Assert handle is not nil to silence type checker")
+	return nil ~= handle:FindFirstChild("RightFootAttachment")
+end
+
+local function getAccessoryAngle(acc: Instance)
+	if isLeftShoe(acc) then
+		return LEFT_SHOE_CFRAME
+	elseif isRightShoe(acc) then
+		return RIGHT_SHOE_CFRAME
+	end
+	return ACCESSORY_DEFAULT_CFRAME
+end
+
+module.SetupAccessoryCamera = function(accessoryModel: Model, camera: Camera)
+	local modelChildren = accessoryModel:GetChildren()
+	assert(#modelChildren == 1, "Assert SetupMeshPartAccessoryCamera accessoryModel only has accessory as a child.")
+	local accoutrement = modelChildren[1] :: Instance
+	local handle = accoutrement:FindFirstChild("Handle") :: MeshPart
+	assert(handle, "Assert Accessory has handle for camera setup.")
+	handle.CFrame = CFrame.new()
+	local targetCFrame = handle.CFrame * getAccessoryAngle(accoutrement)
+
+	local minPartsExtent, maxPartsExtent = CharacterUtility.CalculateModelExtents(accessoryModel, targetCFrame)
+	-- Setup Camera
+	local cameraOptions = {
+		optFieldOfView = ACCESSORY_FIELD_OF_VIEW_DEG,
+		targetCFrame = targetCFrame,
+		minExtent = minPartsExtent,
+		maxExtent = maxPartsExtent,
+		extentScale = ACCESSORY_EXTENT_SCALE,
 	}
 	module.SetupCamera(camera, cameraOptions)
 end

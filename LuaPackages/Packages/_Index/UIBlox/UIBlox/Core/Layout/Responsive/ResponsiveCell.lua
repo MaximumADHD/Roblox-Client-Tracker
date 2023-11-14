@@ -16,6 +16,8 @@ local ResponsiveCell = Roact.PureComponent:extend("ResponsiveCell")
 ResponsiveCell.validateProps = t.interface({
 	-- Order of the row in its container
 	layoutOrder = t.optional(t.integer),
+	-- ZIndex of the cell
+	zIndex = t.optional(t.integer),
 	-- Width in columns of the item's cell.
 	-- Values for multiple breakpoint can be returned as table, see format above.
 	colspan = t.optional(t.union(t.integer, t.table)),
@@ -113,6 +115,7 @@ function ResponsiveCell:render()
 					AutomaticSize = if context.relativeHeight then Enum.AutomaticSize.None else Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
 					LayoutOrder = order,
+					ZIndex = self.props.zIndex,
 					[Roact.Ref] = self.props.gridCellRef,
 				}, self.props[Roact.Children])
 				-- wrap multiline cell to allow row/colspan

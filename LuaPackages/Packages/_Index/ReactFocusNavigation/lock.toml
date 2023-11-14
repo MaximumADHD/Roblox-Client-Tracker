@@ -6,6 +6,6 @@ source = "url+https://github.com/roblox/focus-navigation"
 dependencies = [
     "FocusBehaviors FocusBehaviors 1.3.0 url+https://github.com/roblox/focus-navigation",
     "FocusNavigation FocusNavigation 1.3.0 url+https://github.com/roblox/focus-navigation",
-    "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
     "Utils Utils 1.3.0 url+https://github.com/roblox/focus-navigation",
 ]

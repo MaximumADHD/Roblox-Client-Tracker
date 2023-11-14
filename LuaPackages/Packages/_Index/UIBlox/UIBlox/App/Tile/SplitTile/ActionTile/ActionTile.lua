@@ -9,6 +9,7 @@ local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 local Roact = require(Packages.Roact)
 local getControlStateColor = require(UIBlox.Utility.getControlStateColor)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local useStyle = require(Core.Style.useStyle)
 local Interactable = require(Core.Control.Interactable)
 local useControlState = require(Core.Control.useControlState)
@@ -16,6 +17,7 @@ local StyleTypes = require(App.Style.StyleTypes)
 local Fonts = require(App.Style.Fonts)
 local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
 local CursorKind = require(App.SelectionImage.CursorKind)
+local useCursor = require(App.SelectionCursor.useCursor)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
@@ -134,7 +136,9 @@ local function ActionTile(props: Props)
 
 	local controlState, updateControlState = useControlState()
 	-- TODO: Use RoundedRect here until the selection cursor for ActionTile is ready, as it's currently the only type of cursor with additional outter spacing.
-	local selectionCursor = useSelectionCursor(CursorKind.RoundedRect)
+	local selectionCursor = if UIBloxConfig.useNewSelectionCursor
+		then useCursor(border.CornerRadius)
+		else useSelectionCursor(CursorKind.RoundedRect)
 	local colorForCurrentControlState: StyleTypes.ThemeItem? = getControlStateColor(controlState, overlayColors)
 	local overlayColor: Color3 | nil
 	local overlayTransparency: number

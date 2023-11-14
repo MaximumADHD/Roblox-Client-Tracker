@@ -15,6 +15,8 @@ local InteractableList = require(UIBlox.Core.Control.InteractableList)
 local SelectionMode = require(UIBlox.Core.Control.Enum.SelectionMode)
 local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
+local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local IconTab = require(script.Parent.IconTab)
 local HorizontalContainer = require(script.Parent.HorizontalContainer)
@@ -43,7 +45,9 @@ local defaultProps: Props = {
 
 local function IconTabGroup(providedProps: Props)
 	local props: Props = Object.assign({}, defaultProps, providedProps)
-	local selectionCursor = useSelectionCursor(CursorKind.XLargePill)
+	local selectionCursor = if UIBloxConfig.useNewSelectionCursor
+		then useCursor(UDim.new(0.5, 0), 0)
+		else useSelectionCursor(CursorKind.XLargePill)
 	return HorizontalContainer({
 		size = UDim2.new(0, 0, 0, Constants.ICON_TAB_GROUP_HEIGHT),
 		showRoundedBackground = false,

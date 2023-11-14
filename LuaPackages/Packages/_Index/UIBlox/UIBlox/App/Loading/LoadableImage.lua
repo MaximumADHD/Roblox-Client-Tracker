@@ -231,7 +231,15 @@ function LoadableImage:render()
 	local showFailedStateWhenLoadingFailed = self.props.showFailedStateWhenLoadingFailed
 	local loadingComplete = self:isImageNonNil() and self:isLoadingComplete(self.state)
 
-	local loadingFailed = self:getCurrentImageAssetFetchStatus(self.state) == Enum.AssetFetchStatus.Failure
+	local loadingStarted
+	local loadingFailed
+	if UIBloxConfig.makeDefaultLoadingStrategyDefault then
+		local assetFetchStatus = self:getCurrentImageAssetFetchStatus(self.state)
+		loadingStarted = assetFetchStatus ~= Enum.AssetFetchStatus.None
+		loadingFailed = assetFetchStatus == Enum.AssetFetchStatus.Failure
+	else
+		loadingFailed = self:getCurrentImageAssetFetchStatus(self.state) == Enum.AssetFetchStatus.Failure
+	end
 
 	local hasUISizeConstraint = false
 
@@ -281,6 +289,7 @@ function LoadableImage:render()
 				not loadingComplete
 				and useShimmerAnimationWhileLoading
 				and loadingStrategy == LoadingStrategy.Default
+				and ((not UIBloxConfig.makeDefaultLoadingStrategyDefault) or loadingStarted)
 			then
 				shimmer = self:renderShimmer(theme, sizeConstraint)
 			end

@@ -1,14 +1,11 @@
 local UGCValidationService = game:GetService("UGCValidationService")
 
-local root = script.Parent.Parent
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
-
 local function getMeshSize(meshId: string)
 	local verts = UGCValidationService:GetMeshVerts(meshId)
 
-	local minX, maxX = math.huge, (if getFFlagUGCValidateBodyParts() then -math.huge else 0)
-	local minY, maxY = math.huge, (if getFFlagUGCValidateBodyParts() then -math.huge else 0)
-	local minZ, maxZ = math.huge, (if getFFlagUGCValidateBodyParts() then -math.huge else 0)
+	local minX, maxX = math.huge, -math.huge
+	local minY, maxY = math.huge, -math.huge
+	local minZ, maxZ = math.huge, -math.huge
 
 	for i = 1, #verts do
 		local vert = verts[i]

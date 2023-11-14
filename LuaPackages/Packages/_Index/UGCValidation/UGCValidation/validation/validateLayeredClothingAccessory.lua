@@ -33,7 +33,6 @@ local createLayeredClothingSchema = require(root.util.createLayeredClothingSchem
 local getAttachment = require(root.util.getAttachment)
 local getMeshSize = require(root.util.getMeshSize)
 
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationLayeredAndRigidLists = require(root.flags.getFFlagUGCValidationLayeredAndRigidLists)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
@@ -110,12 +109,9 @@ local function validateLayeredClothingAccessory(
 	local textureId = handle.TextureID
 	local attachment = getAttachment(handle, assetInfo.attachmentNames)
 
-	local boundsInfo = nil
-	if getFFlagUGCValidateBodyParts() then
-		boundsInfo = Constants.LC_BOUNDS
-		if assetInfo.layeredClothingBounds and assetInfo.layeredClothingBounds[attachment.Name] then
-			boundsInfo = assetInfo.layeredClothingBounds[attachment.Name]
-		end
+	local boundsInfo = Constants.LC_BOUNDS
+	if assetInfo.layeredClothingBounds and assetInfo.layeredClothingBounds[attachment.Name] then
+		boundsInfo = assetInfo.layeredClothingBounds[attachment.Name]
 	end
 
 	if isServer then
@@ -188,7 +184,7 @@ local function validateLayeredClothingAccessory(
 	do
 		local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
 
-		if getFFlagUGCValidateBodyParts() and wrapLayer == nil then
+		if wrapLayer == nil then
 			Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_NoWrapLayer)
 			table.insert(reasons, "Could not find WrapLayer!")
 			validationResult = false
@@ -218,15 +214,8 @@ local function validateLayeredClothingAccessory(
 		table.insert(reasons, "Mesh must contain valid MeshId")
 		validationResult = false
 	else
-		success, failedReason = validateMeshBounds(
-			handle,
-			attachment,
-			meshId,
-			meshScale,
-			assetTypeEnum,
-			if getFFlagUGCValidateBodyParts() then boundsInfo else Constants.LC_BOUNDS,
-			(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
-		)
+		success, failedReason =
+			validateMeshBounds(handle, attachment, meshId, meshScale, boundsInfo, assetTypeEnum.Name)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false

@@ -1,8 +1,5 @@
 --!nonstrict
 
-local root = script.Parent.Parent
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
-
 local function checkName(nameList, instanceName)
 	if type(nameList) == "table" then
 		for _, name in pairs(nameList) do
@@ -66,25 +63,15 @@ local function validateWithSchemaHelper(schema, instance, authorizedSet)
 end
 
 local function validateWithSchema(schema, instance)
-	if getFFlagUGCValidateBodyParts() then
-		if
-			instance.ClassName ~= schema.ClassName
-			or (schema.Name ~= nil and (not checkName(schema.Name, instance.Name)))
-		then
-			return {
-				success = false,
-				message = "Expected top-level instance to be a " .. schema.ClassName .. " named " .. getReadableName(
-					schema.Name
-				),
-			}
-		end
-	else
-		if instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and schema.Name ~= instance.Name) then
-			return {
-				success = false,
-				message = "Expected top-level instance to be a " .. schema.ClassName,
-			}
-		end
+	if
+		instance.ClassName ~= schema.ClassName or (schema.Name ~= nil and (not checkName(schema.Name, instance.Name)))
+	then
+		return {
+			success = false,
+			message = "Expected top-level instance to be a " .. schema.ClassName .. " named " .. getReadableName(
+				schema.Name
+			),
+		}
 	end
 
 	local authorizedSet = {}

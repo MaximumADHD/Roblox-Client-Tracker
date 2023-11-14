@@ -112,10 +112,6 @@ return {
 	-- Bugfix for the coplay footer badge text being off center
 	fixCoPlayFooterBadgeTextCenteringAndZIndex = false,
 
-	-- enable logger in uiblox.
-	-- This is a FFlag config, it will be removed once Logger become stable in prod.
-	enableLogger = false,
-
 	-- enable trace level log
 	enableTraceLevelLog = false,
 
@@ -133,4 +129,10 @@ return {
 
 	-- Destroy laser pointers if the PointerOverlay component is unmounted
 	destroyLaserPointersOnUnmount = false,
+
+	-- Use new selection cursor in related components
+	useNewSelectionCursor = false,
+
+	-- Set zindex on ResponsiveCell
+	setZIndexOnGridCells = false,
 }

@@ -1,114 +1,12 @@
 --!nonstrict
 local root = script.Parent.Parent
 
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
-
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local getAssetCreationDetails = require(root.util.getAssetCreationDetails)
 local ParseContentIds = require(root.util.ParseContentIds)
 local Types = require(root.util.Types)
-
--- rbxassetid://1234
-local function getRbxAssetId(contentId)
-	local id = string.match(contentId, "^rbxassetid://(%d+)$")
-	return id
-end
-
--- http(s)://www.(sitetest1.)roblox(labs).com/asset/?id=1234
-local function getAssetUrlId(contentId)
-	contentId = string.match(contentId, "^https?://www%.(.+)")
-	if not contentId then
-		return nil
-	end
-	contentId = string.match(contentId, "^sitetest%d%.robloxlabs(.+)") or string.match(contentId, "^roblox(.+)")
-	if not contentId then
-		return nil
-	end
-	local id = string.match(contentId, "^%.com/asset/%?id=(%d+)$")
-	return id
-end
-
--- http(s)://assetdelivery.(sitetest1.)roblox(labs).com/v1/asset/?id=1234
-local function getAssetDeliveryAssetUrlId(contentId)
-	contentId = string.match(contentId, "^https?://assetdelivery%.(.+)")
-	if not contentId then
-		return nil
-	end
-	contentId = string.match(contentId, "^sitetest%d%.robloxlabs(.+)") or string.match(contentId, "^roblox(.+)")
-	if not contentId then
-		return nil
-	end
-	local id = string.match(contentId, "^%.com/v1/asset/%?id=(%d+)$")
-	return id
-end
-
--- attempt to extract the asset id out of a valid content id URL
-local function tryGetAssetIdFromContentId(contentId)
-	local id
-
-	id = getRbxAssetId(contentId)
-	if id ~= nil then
-		return id
-	end
-
-	id = getAssetUrlId(contentId)
-	if id ~= nil then
-		return id
-	end
-
-	id = getAssetDeliveryAssetUrlId(contentId)
-	if id ~= nil then
-		return id
-	end
-
-	return nil
-end
-
-local function parseContentId(contentIds, contentIdMap, object, fieldName)
-	local contentId = object[fieldName]
-
-	if contentId == "" then
-		return true
-	end
-
-	local id = tryGetAssetIdFromContentId(contentId)
-	if id == nil then
-		return false, {
-			"Could not parse ContentId",
-			contentId,
-		}
-	end
-
-	-- do not check the same asset ID multiple times
-	if contentIdMap[id] == nil then
-		contentIdMap[id] = {
-			fieldName = fieldName,
-			instance = object,
-		} :: any
-		table.insert(contentIds, id)
-	end
-
-	return true
-end
-
-local function parseDescendantContentIds_DEPRECATED(contentIds, contentIdMap, object)
-	for _, descendant in pairs(object:GetDescendants()) do
-		local contentIdFields = Constants.CONTENT_ID_FIELDS[descendant.ClassName]
-		if contentIdFields then
-			local success, reasons
-			for _, field in ipairs(contentIdFields) do
-				success, reasons = parseContentId(contentIds, contentIdMap, descendant, field)
-				if not success then
-					return false, reasons
-				end
-			end
-		end
-	end
-
-	return true
-end
 
 local function validateUser(
 	restrictedUserIds: Types.RestrictedUserIds?,
@@ -151,12 +49,7 @@ local function validateModeration(
 	local contentIdMap = {}
 	local contentIds = {}
 
-	local parseSuccess, parseReasons
-	if getFFlagUGCValidateBodyParts() then
-		parseSuccess, parseReasons = ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, instance)
-	else
-		parseSuccess, parseReasons = parseDescendantContentIds_DEPRECATED(contentIds, contentIdMap, instance)
-	end
+	local parseSuccess, parseReasons = ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, instance)
 	if not parseSuccess then
 		Analytics.reportFailure(Analytics.ErrorType.validateModeration_FailedToParse)
 		return false, parseReasons
@@ -179,12 +72,10 @@ local function validateModeration(
 		end
 	end
 
-	if getFFlagUGCValidateBodyParts() then
-		local passedUserCheck, reasons = validateUser(restrictedUserIds, response, contentIdMap)
-		if not passedUserCheck then
-			Analytics.reportFailure(Analytics.ErrorType.validateModeration_ValidateUser)
-			return passedUserCheck, reasons
-		end
+	local passedUserCheck, reasons = validateUser(restrictedUserIds, response, contentIdMap)
+	if not passedUserCheck then
+		Analytics.reportFailure(Analytics.ErrorType.validateModeration_ValidateUser)
+		return passedUserCheck, reasons
 	end
 
 	for _, details in pairs(response) do

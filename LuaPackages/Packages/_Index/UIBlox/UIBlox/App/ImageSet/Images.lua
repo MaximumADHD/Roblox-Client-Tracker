@@ -14,19 +14,14 @@ local CorePackages = script:FindFirstAncestor("CorePackages")
 local success, scale = pcall(GuiService.GetResolutionScale, GuiService)
 
 if not success or not CorePackages then
-	if UIBloxConfig.enableLogger then
-		Logger:warning("Can't get resolution scale, default to scale 1")
-	end
+	Logger:warning("Can't get resolution scale, default to scale 1")
 	scale = 1
 end
 
 -- Both this and the resolution scale should probably be provided to UIBlox via some
 -- prop or context, maybe even token, rather than us calling GuiService directly.
 if UIBloxConfig.increaseImageResolutionForTenFoot and GuiService:IsTenFootInterface() then
-	if UIBloxConfig.enableLogger then
-		Logger:info("scale the resolution to 3 for 10 foot UI ")
-	end
-
+	Logger:info("scale the resolution to 3 for 10 foot UI ")
 	scale = 3
 end
 
@@ -55,9 +50,7 @@ end
 local function getImagePath(packagePath: string?, imageName: string): string
 	if packagePath == nil then
 		-- fallback to an uploaded image
-		if UIBloxConfig.enableLogger then
-			Logger:debug("use fallback images for {}", imageName)
-		end
+		Logger:debug("use fallback images for {}", imageName)
 		return FALLBACK_IMAGES[imageName]
 	else
 		return string.format("rbxasset://%s/AppImageAtlas/%s.png", packagePath, imageName)

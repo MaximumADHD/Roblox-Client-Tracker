@@ -6,7 +6,6 @@
 
 local root = script.Parent.Parent
 
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 
 local Constants = require(root.Constants)
@@ -14,7 +13,7 @@ local Constants = require(root.Constants)
 local Analytics = require(root.Analytics)
 
 local function validateScaleType(partScaleTypeNullable: StringValue?): (boolean, { string }?)
-	if not getFFlagUGCValidateBodyParts() or not getFFlagUGCValidateAccessoriesScaleType() then
+	if not getFFlagUGCValidateAccessoriesScaleType() then
 		return true
 	end
 

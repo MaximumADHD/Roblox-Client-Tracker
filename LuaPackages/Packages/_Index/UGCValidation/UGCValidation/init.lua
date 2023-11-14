@@ -7,7 +7,6 @@ local root = script
 
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagMoveToolboxCodeToUGCValidation = require(root.flags.getFFlagMoveToolboxCodeToUGCValidation)
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidationLayeredAndRigidLists = require(root.flags.getFFlagUGCValidationLayeredAndRigidLists)
 local getFFlagUGCValidationMeshPartAccessoryUploads = require(root.flags.getFFlagUGCValidationMeshPartAccessoryUploads)
 
@@ -67,7 +66,7 @@ local function DEPRECATED_validateInternal(
 	restrictedUserIds: Types.RestrictedUserIds?,
 	token: string?
 ): (boolean, { string }?)
-	if getFFlagUGCValidateBodyParts() and ConstantsInterface.isBodyPart(assetTypeEnum) then
+	if ConstantsInterface.isBodyPart(assetTypeEnum) then
 		return DEPRECATED_validateBodyPartInternal(
 			isAsync,
 			instances,

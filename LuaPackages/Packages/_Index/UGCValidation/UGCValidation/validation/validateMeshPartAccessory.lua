@@ -120,7 +120,7 @@ local function validateMeshPartAccessory(
 		reasonsAccumulator:updateReasons(false, { "Mesh must contain valid MeshId" })
 	else
 		reasonsAccumulator:updateReasons(
-			validateMeshBounds(handle, attachment, meshId, meshScale, assetTypeEnum, boundsInfo, assetTypeEnum.Name)
+			validateMeshBounds(handle, attachment, meshId, meshScale, boundsInfo, assetTypeEnum.Name)
 		)
 
 		reasonsAccumulator:updateReasons(validateMeshTriangles(meshId))

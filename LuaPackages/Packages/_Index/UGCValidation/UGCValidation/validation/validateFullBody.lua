@@ -7,7 +7,6 @@
 local root = script.Parent.Parent
 
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidationResetPhysicsData = require(root.flags.getFFlagUGCValidationResetPhysicsData)
 
 local Analytics = require(root.Analytics)
@@ -135,7 +134,7 @@ local function resetAllPhysicsData(fullBodyData: Types.FullBodyData)
 end
 
 local function validateFullBody(fullBodyData: Types.FullBodyData, isServer: boolean?): (boolean, { string }?)
-	if not getFFlagUGCValidateBodyParts() or not getFFlagUGCValidateFullBody() then
+	if not getFFlagUGCValidateFullBody() then
 		return true
 	end
 

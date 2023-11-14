@@ -5,5 +5,5 @@ commit = "f424225f04feb5b7190b8ffa82f7bb094c0c3720"
 source = "url+https://github.com/roblox/roact-fit-components"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
-    "Roact <patched> RoactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
+    "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
 ]

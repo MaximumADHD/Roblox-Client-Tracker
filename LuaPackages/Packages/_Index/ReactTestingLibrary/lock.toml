@@ -8,8 +8,8 @@ dependencies = [
     "JestGlobals JestGlobals 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
-    "ReactRoblox <patched> ReactRobloxProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
-    "Scheduler Scheduler 17.0.1-rc.17 url+https://github.com/roblox/roact-alignment",
-    "Shared Shared 17.0.1-rc.17 url+https://github.com/roblox/roact-alignment",
+    "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
+    "Scheduler Scheduler 17.0.1 url+https://github.com/roblox/roact-alignment",
+    "Shared Shared 17.0.1 url+https://github.com/roblox/roact-alignment",
 ]

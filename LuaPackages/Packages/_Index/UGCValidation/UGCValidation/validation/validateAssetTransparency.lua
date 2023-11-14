@@ -13,7 +13,24 @@ local getFFlagUGCValidationValidateTransparencyServer =
 	require(root.flags.getFFlagUGCValidationValidateTransparencyServer)
 local getEngineFeatureViewportFrameSnapshotEngineFeature =
 	require(root.flags.getEngineFeatureViewportFrameSnapshotEngineFeature)
-local getUGCValidationHeadThreshold = require(root.flags.getUGCValidationHeadThreshold)
+
+local FIntUGCValidationHeadThreshold = game:DefineFastInt("UGCValidationHeadThreshold", 30)
+local FIntUGCValidationTorsoThresholdFront = game:DefineFastInt("UGCValidationTorsoThresholdFront", 50)
+local FIntUGCValidationTorsoThresholdBack = game:DefineFastInt("UGCValidationTorsoThresholdBack", 48)
+local FIntUGCValidationTorsoThresholdSide = game:DefineFastInt("UGCValidationTorsoThresholdSide", 46)
+local FIntUGCValidationLeftArmThresholdFront = game:DefineFastInt("UGCValidationLeftArmThresholdFront", 35)
+local FIntUGCValidationLeftArmThresholdBack = game:DefineFastInt("UGCValidationLeftArmThresholdBack", 33)
+local FIntUGCValidationLeftArmThresholdSide = game:DefineFastInt("UGCValidationLeftArmThresholdSide", 50)
+local FIntUGCValidationRightArmThresholdFront = game:DefineFastInt("UGCValidationRightArmThresholdFront", 35)
+local FIntUGCValidationRightArmThresholdBack = game:DefineFastInt("UGCValidationRightArmThresholdBack", 33)
+local FIntUGCValidationRightArmThresholdSide = game:DefineFastInt("UGCValidationRightArmThresholdSide", 50)
+local FIntUGCValidationLeftLegThresholdFront = game:DefineFastInt("UGCValidationLeftLegThresholdFront", 50)
+local FIntUGCValidationLeftLegThresholdBack = game:DefineFastInt("UGCValidationLeftLegThresholdBack", 50)
+local FIntUGCValidationLeftLegThresholdSide = game:DefineFastInt("UGCValidationLeftLegThresholdSide", 46)
+local FIntUGCValidationRightLegThresholdFront = game:DefineFastInt("UGCValidationRightLegThresholdFront", 50)
+local FIntUGCValidationRightLegThresholdBack = game:DefineFastInt("UGCValidationRightLegThresholdBack", 50)
+local FIntUGCValidationRightLegThresholdSide = game:DefineFastInt("UGCValidationRightLegThresholdSide", 48)
+
 local UGCValidationService = game:GetService("UGCValidationService")
 local Types = require(root.util.Types)
 local AssetTraversalUtils = require(root.util.AssetTraversalUtils)
@@ -27,34 +44,34 @@ local TRANSPARENT_PART_COLOR: Color3 = Color3.fromRGB(7, 32, 91) --magic number,
 
 local assetTypeEnumToPartsToValidIDs = {
 	[Enum.AssetType.DynamicHead] = {
-		[CAMERA_POSITIONS[1]] = getUGCValidationHeadThreshold() / 100,
-		[CAMERA_POSITIONS[2]] = getUGCValidationHeadThreshold() / 100,
-		[CAMERA_POSITIONS[3]] = getUGCValidationHeadThreshold() / 100,
+		[CAMERA_POSITIONS[1]] = FIntUGCValidationHeadThreshold / 100,
+		[CAMERA_POSITIONS[2]] = FIntUGCValidationHeadThreshold / 100,
+		[CAMERA_POSITIONS[3]] = FIntUGCValidationHeadThreshold / 100,
 	},
 	[Enum.AssetType.Torso] = {
-		[CAMERA_POSITIONS[1]] = 0.50,
-		[CAMERA_POSITIONS[2]] = 0.48,
-		[CAMERA_POSITIONS[3]] = 0.46,
+		[CAMERA_POSITIONS[1]] = FIntUGCValidationTorsoThresholdFront / 100,
+		[CAMERA_POSITIONS[2]] = FIntUGCValidationTorsoThresholdBack / 100,
+		[CAMERA_POSITIONS[3]] = FIntUGCValidationTorsoThresholdSide / 100,
 	},
 	[Enum.AssetType.LeftArm] = {
-		[CAMERA_POSITIONS[1]] = 0.35,
-		[CAMERA_POSITIONS[2]] = 0.33,
-		[CAMERA_POSITIONS[3]] = 0.50,
+		[CAMERA_POSITIONS[1]] = FIntUGCValidationLeftArmThresholdFront / 100,
+		[CAMERA_POSITIONS[2]] = FIntUGCValidationLeftArmThresholdBack / 100,
+		[CAMERA_POSITIONS[3]] = FIntUGCValidationLeftArmThresholdSide / 100,
 	},
 	[Enum.AssetType.RightArm] = {
-		[CAMERA_POSITIONS[1]] = 0.35,
-		[CAMERA_POSITIONS[2]] = 0.33,
-		[CAMERA_POSITIONS[3]] = 0.50,
+		[CAMERA_POSITIONS[1]] = FIntUGCValidationRightArmThresholdFront / 100,
+		[CAMERA_POSITIONS[2]] = FIntUGCValidationRightArmThresholdBack / 100,
+		[CAMERA_POSITIONS[3]] = FIntUGCValidationRightArmThresholdSide / 100,
 	},
 	[Enum.AssetType.LeftLeg] = {
-		[CAMERA_POSITIONS[1]] = 0.50,
-		[CAMERA_POSITIONS[2]] = 0.50,
-		[CAMERA_POSITIONS[3]] = 0.46,
+		[CAMERA_POSITIONS[1]] = FIntUGCValidationLeftLegThresholdFront / 100,
+		[CAMERA_POSITIONS[2]] = FIntUGCValidationLeftLegThresholdBack / 100,
+		[CAMERA_POSITIONS[3]] = FIntUGCValidationLeftLegThresholdSide / 100,
 	},
 	[Enum.AssetType.RightLeg] = {
-		[CAMERA_POSITIONS[1]] = 0.50,
-		[CAMERA_POSITIONS[2]] = 0.50,
-		[CAMERA_POSITIONS[3]] = 0.48,
+		[CAMERA_POSITIONS[1]] = FIntUGCValidationRightLegThresholdFront / 100,
+		[CAMERA_POSITIONS[2]] = FIntUGCValidationRightLegThresholdBack / 100,
+		[CAMERA_POSITIONS[3]] = FIntUGCValidationRightLegThresholdSide / 100,
 	},
 }
 

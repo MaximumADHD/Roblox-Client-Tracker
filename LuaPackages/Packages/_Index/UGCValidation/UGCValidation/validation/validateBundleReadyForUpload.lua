@@ -222,7 +222,7 @@ local function validateBundleReadyForUpload(
 		progressCallback(response)
 	end)
 		:andThen(function()
-			if getFFlagUGCValidateFullBody() then
+			if getFFlagUGCValidateFullBody() and bundleType == "Body" then
 				local function createFullBodyData(inputPieces: { AvatarValidationPiece }): Types.FullBodyData
 					local results: Types.FullBodyData = {}
 					for _, individualPiece in inputPieces do

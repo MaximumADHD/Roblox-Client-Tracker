@@ -8,6 +8,7 @@ local t = require(Packages.t)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 local Array = LuauPolyfill.Array
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ResponsiveLayoutContext = require(Responsive.ResponsiveLayoutContext)
 local ResponsiveLayoutConfigReader = require(Responsive.ResponsiveLayoutConfigReader)
@@ -235,12 +236,22 @@ function ResponsiveRow:renderChildren(context)
 			return sum + child.colspan
 		end, 0) / context.columns
 	end
+
+	if UIBloxConfig.setZIndexOnGridCells then
+		-- We want zIndex to be in desending order so cells can be taller
+		-- and can overlap over the cell rendered below (example: on hover)
+		for idx = 1, #children do
+			children[idx].zIndex = (#children + 2) - idx
+		end
+	end
+
 	return Array.map(children, function(child, index)
 		return Roact.createElement(ResponsiveCell, {
 			key = child.key or formatCellKey(index, #children),
 			colspan = child.colspan,
 			rowspan = child.rowspan,
 			order = child.order,
+			zIndex = child.zIndex,
 		}, {
 			ResponsiveItem = child.cell,
 		})

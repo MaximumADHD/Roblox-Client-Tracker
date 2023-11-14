@@ -5,8 +5,6 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
-
 local function validateTextureSize(
 	textureId: string,
 	allowNoTexture: boolean?,
@@ -27,13 +25,11 @@ local function validateTextureSize(
 		end)
 
 		if not success then
-			if getFFlagUGCValidateBodyParts() then
-				if nil ~= isServer and isServer then
-					-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
-					-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
-					-- which would mean the asset failed validation
-					error("Failed to execute validateTextureSize check")
-				end
+			if nil ~= isServer and isServer then
+				-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
+				-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
+				-- which would mean the asset failed validation
+				error("Failed to execute validateTextureSize check")
 			end
 			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_FailedToExecute)
 			return false, { "Failed to execute validateTextureSize check" }
@@ -49,13 +45,11 @@ local function validateTextureSize(
 		end)
 
 		if not success then
-			if getFFlagUGCValidateBodyParts() then
-				if nil ~= isServer and isServer then
-					-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
-					-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
-					-- which would mean the asset failed validation
-					error("Failed to load texture data " .. tostring(imageSize))
-				end
+			if nil ~= isServer and isServer then
+				-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
+				-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
+				-- which would mean the asset failed validation
+				error("Failed to load texture data " .. tostring(imageSize))
 			end
 			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_FailedToLoadTexture)
 			return false, { "Failed to load texture data", imageSize } :: { any }

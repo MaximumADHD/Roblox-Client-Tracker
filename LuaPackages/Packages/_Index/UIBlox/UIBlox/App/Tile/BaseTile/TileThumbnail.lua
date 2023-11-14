@@ -18,6 +18,9 @@ TileThumbnail.validateProps = t.strictInterface({
 	-- Optional whether this component will have rounded corner or not
 	hasRoundedCorners = t.optional(t.boolean),
 
+	-- Optional corner radius of the component
+	cornerRadius = t.optional(t.UDim),
+
 	-- Optional the thumbnail image
 	Image = t.optional(t.union(t.string, t.table)),
 
@@ -46,9 +49,8 @@ TileThumbnail.validateProps = t.strictInterface({
 TileThumbnail.defaultProps = {
 	imageSize = UDim2.fromScale(1, 1),
 	imageTransparency = 0,
+	cornerRadius = UDim.new(0, 10),
 }
-
-local CORNER_RADIUS = UDim.new(0, 10)
 
 function TileThumbnail:render()
 	local hasRoundedCorners = self.props.hasRoundedCorners
@@ -60,6 +62,7 @@ function TileThumbnail:render()
 	local multiSelect = self.props.multiSelect
 	local overlayComponents = self.props.overlayComponents
 	local backgroundImage = self.props.backgroundImage
+	local cornerRadius = self.props.cornerRadius
 
 	local isImageSetImage = typeof(image) == "table"
 
@@ -95,7 +98,7 @@ function TileThumbnail:render()
 						Size = imageSize,
 					}, {
 						UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
-							CornerRadius = CORNER_RADIUS,
+							CornerRadius = cornerRadius,
 						}) or nil,
 					}) or Roact.createElement(LoadableImage, {
 						AnchorPoint = Vector2.new(0.5, 0.5),
@@ -104,17 +107,17 @@ function TileThumbnail:render()
 						Image = image,
 						Position = UDim2.fromScale(0.5, 0.5),
 						Size = imageSize,
-						cornerRadius = hasRoundedCorners and CORNER_RADIUS or nil,
+						cornerRadius = hasRoundedCorners and cornerRadius or nil,
 						showFailedStateWhenLoadingFailed = true,
 						useShimmerAnimationWhileLoading = true,
 					}),
 					UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
-						CornerRadius = CORNER_RADIUS,
+						CornerRadius = cornerRadius,
 					}) or nil,
 				}),
 
 				UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
-					CornerRadius = CORNER_RADIUS,
+					CornerRadius = cornerRadius,
 				}) or nil,
 			}),
 
@@ -126,7 +129,7 @@ function TileThumbnail:render()
 
 			SelectionOverlay = isSelected and Roact.createElement(TileSelectionOverlay, {
 				ZIndex = 2,
-				cornerRadius = hasRoundedCorners and CORNER_RADIUS or nil,
+				cornerRadius = hasRoundedCorners and cornerRadius or nil,
 			}),
 
 			UnselectedOverlay = (multiSelect and not isSelected) and Roact.createElement(TileUnselectedOverlay, {

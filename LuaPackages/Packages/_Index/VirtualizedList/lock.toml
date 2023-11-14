@@ -7,5 +7,5 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Otter Otter 1.1.0 url+https://github.com/roblox/otter",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
 ]

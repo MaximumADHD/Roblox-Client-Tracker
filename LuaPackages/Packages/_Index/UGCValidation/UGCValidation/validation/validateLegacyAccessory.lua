@@ -22,7 +22,6 @@ local validateScaleType = require(root.validation.validateScaleType)
 local createAccessorySchema = require(root.util.createAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
 
-local getFFlagUGCValidateBodyParts = require(root.flags.getFFlagUGCValidateBodyParts)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
@@ -148,15 +147,8 @@ local function validateLegacyAccessory(
 		table.insert(reasons, "Mesh must contain valid MeshId")
 		validationResult = false
 	else
-		success, failedReason = validateMeshBounds(
-			handle,
-			attachment,
-			meshId,
-			meshScale,
-			assetTypeEnum,
-			boundsInfo,
-			(getFFlagUGCValidateBodyParts() and assetTypeEnum.Name or "")
-		)
+		success, failedReason =
+			validateMeshBounds(handle, attachment, meshId, meshScale, boundsInfo, assetTypeEnum.Name)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false

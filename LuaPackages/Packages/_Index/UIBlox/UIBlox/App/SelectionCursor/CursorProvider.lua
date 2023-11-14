@@ -56,12 +56,7 @@ local CursorProvider = function(props: Props)
 	local refCache = RoactGamepad.useRefCache()
 	local componentTokens = useStyle().Tokens.Component.SelectionCursor
 
-	local getCursor = function(
-		radius: UDim?,
-		inset: boolean?,
-		offset: number?,
-		borderWidth: number?
-	): React.Ref<GuiObject>
+	local getCursor = function(radius: UDim?, offset: number?, borderWidth: number?): React.Ref<GuiObject>
 		local pRadius = UDim.new(0, 0)
 		if radius ~= nil then
 			pRadius = radius
@@ -74,18 +69,10 @@ local CursorProvider = function(props: Props)
 			pBorderWidth = componentTokens.BorderWidth
 		end
 		local pOffset = 0
-		if inset then
-			if offset ~= nil then
-				pOffset = offset
-			else
-				pOffset = -componentTokens.Inset
-			end
+		if offset ~= nil then
+			pOffset = (offset - pBorderWidth)
 		else
-			if offset ~= nil then
-				pOffset = (offset - pBorderWidth)
-			else
-				pOffset = (componentTokens.Offset - pBorderWidth)
-			end
+			pOffset = (componentTokens.Offset - pBorderWidth)
 		end
 		local key = encodeKey(pRadius, pOffset, pBorderWidth)
 

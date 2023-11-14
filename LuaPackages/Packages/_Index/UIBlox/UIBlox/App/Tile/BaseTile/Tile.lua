@@ -18,14 +18,17 @@ local GetWrappedTextWithIcon = require(UIBlox.Core.Text.GetWrappedTextWithIcon)
 
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
 
 local TileName = require(BaseTile.TileName)
 local TileThumbnail = require(BaseTile.TileThumbnail)
 local TileBanner = require(BaseTile.TileBanner)
 local StyledTextLabel = require(App.Text.StyledTextLabel)
 local Images = require(UIBlox.App.ImageSet.Images)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ICON_PADDING = 4
+local THUMBNAIL_CORNER_RADIUS = UDim.new(0, 10)
 
 local Tile = React.PureComponent:extend("Tile")
 
@@ -134,6 +137,9 @@ local tileInterface = t.strictInterface({
 
 	-- Pass through React.Tag
 	[React.Tag] = t.optional(t.string),
+
+	-- Optional selection cursor
+	cursor = t.optional(t.any),
 })
 
 local function tileBannerUseValidator(props)
@@ -292,7 +298,9 @@ function Tile:render()
 				[React.Event.Activated] = not isDisabled and onActivated or nil,
 				[React.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 				ref = self.props.textButtonRef,
-				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+				SelectionImageObject = if self.props.cursor
+					then self.props.cursor
+					else getSelectionCursor(CursorKind.RoundedRect),
 			}, {
 				UIListLayout = React.createElement("UIListLayout", {
 					FillDirection = Enum.FillDirection.Vertical,
@@ -311,12 +319,15 @@ function Tile:render()
 					NextSelectionDown = self.props.NextSelectionDown,
 					ref = self.props.thumbnailRef,
 					[React.Tag] = self.props[React.Tag],
-					SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
+					SelectionImageObject = if self.props.cursor
+						then self.props.cursor
+						else getSelectionCursor(CursorKind.RoundedRectNoInset),
 					inputBindings = inputBindings,
 				}, {
 					Image = React.createElement(TileThumbnail, {
 						Image = thumbnail,
 						hasRoundedCorners = hasRoundedCorners,
+						cornerRadius = if UIBloxConfig.useNewSelectionCursor then THUMBNAIL_CORNER_RADIUS else nil,
 						isSelected = isSelected,
 						multiSelect = multiSelect,
 						overlayComponents = thumbnailOverlayComponents,
@@ -382,9 +393,16 @@ function Tile:render()
 	end)
 end
 
+local TileFunctionalWrapper = function(passedProps)
+	local props = Cryo.Dictionary.join({
+		cursor = useCursor(THUMBNAIL_CORNER_RADIUS),
+	}, passedProps)
+	return React.createElement(Tile, props)
+end
+
 return React.forwardRef(function(props, ref)
 	return React.createElement(
-		Tile,
+		if UIBloxConfig.useNewSelectionCursor then TileFunctionalWrapper else Tile,
 		Cryo.Dictionary.join(props, {
 			thumbnailRef = ref,
 		})

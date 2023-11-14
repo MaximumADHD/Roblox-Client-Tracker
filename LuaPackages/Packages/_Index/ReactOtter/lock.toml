@@ -5,5 +5,5 @@ commit = "ae0b502bda8964decf3bbd643c7288f733c09398"
 source = "url+https://github.com/roblox/otter"
 dependencies = [
     "Otter Otter 1.1.0 url+https://github.com/roblox/otter",
-    "React <patched> ReactProxy b12570d2 git+https://github.com/roblox/roact-17-upgrade#main",
+    "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
 ]

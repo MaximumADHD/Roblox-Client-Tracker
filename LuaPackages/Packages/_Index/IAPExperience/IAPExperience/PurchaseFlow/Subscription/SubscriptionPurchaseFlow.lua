@@ -34,6 +34,7 @@ type Props = {
 	name: string,
 	subscriptionProviderId: string,
 	subscriptionProviderName: string,
+	priceTier: number,
 	displayPrice: string,
 	period: string,
 	disclaimerText: string,
