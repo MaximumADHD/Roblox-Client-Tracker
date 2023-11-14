@@ -9,10 +9,26 @@ return function()
 
 	describe("AvatarPartGrid", function()
 		it("should create and destroy without errors", function()
+			-- create a new humanoid model
 			local humanoidModel = Players:CreateHumanoidModelFromDescription(
 				Instance.new("HumanoidDescription"),
 				Enum.HumanoidRigType.R15
 			)
+			local function createDummyAccessory(name: string)
+				local accessory = Instance.new("Part")
+				accessory.Name = name
+				local handle = Instance.new("MeshPart")
+				handle.Name = "Handle"
+				handle.Parent = accessory
+				return accessory
+			end
+
+			local eyebrows = createDummyAccessory("Eyebrows")
+			local eyelashes = createDummyAccessory("Eyelashes")
+
+			eyebrows.Parent = humanoidModel
+			eyelashes.Parent = humanoidModel
+
 			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				AvatarPartGrid = Roact.createElement(AvatarPartGrid, {
 					humanoidModel = humanoidModel,

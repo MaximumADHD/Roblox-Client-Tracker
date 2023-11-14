@@ -79,7 +79,7 @@ function PublishAssetPromptApp:render()
 				screenSize = self.state.screenSize,
 			})
 		end
-	elseif FFlagPublishAvatarPromptEnabled and self.props.humanoidDescription then
+	elseif FFlagPublishAvatarPromptEnabled and self.props.humanoidModel then
 		if self.props.promptType == PromptType.PublishAvatar then
 			promptElement = Roact.createElement(PublishAvatarPrompt, {
 				screenSize = self.state.screenSize,
@@ -175,9 +175,7 @@ local function mapStateToProps(state)
 		promptType = state.promptRequest.promptInfo.promptType,
 		assetInstance = state.promptRequest.promptInfo.assetInstance,
 		assetType = state.promptRequest.promptInfo.assetType,
-		humanoidDescription = if FFlagPublishAvatarPromptEnabled
-			then state.promptRequest.promptInfo.humanoidDescription
-			else nil,
+		humanoidModel = if FFlagPublishAvatarPromptEnabled then state.promptRequest.promptInfo.humanoidModel else nil,
 	}
 end
 

@@ -15,7 +15,6 @@ local OpenResultModal = require(PublishAssetPrompt.Thunks.OpenResultModal)
 
 local FFlagInExperiencePublishDeserializeAsset = game:DefineFastFlag("InExperiencePublishDeserializeAsset", false)
 local FFlagNewInExperienceSerializationFix = game:DefineFastFlag("NewInExperienceSerializationFix", false)
--- TODO: AVBURST-13147 Revisit how humanoid description will be passed through and outfitToPublish in metadata
 local FFlagPublishAvatarPromptEnabled = require(script.Parent.FFlagPublishAvatarPromptEnabled)
 
 local EngineFeaturePromptImportAnimationClipFromVideoAsyncEnabled =
@@ -53,7 +52,8 @@ local function ConnectAssetServiceEvents(store)
 							local instance = AssetService:DeserializeInstance(metadata["serializedInstance"])
 							store:dispatch(OpenPublishAssetPrompt(instance, metadata["assetType"], guid, scopes))
 						elseif FFlagPublishAvatarPromptEnabled and metadata["outfitToPublish"] then
-							store:dispatch(OpenPublishAvatarPrompt(metadata["outfitToPublish"], guid, scopes))
+							local model = AssetService:DeserializeInstance(metadata["outfitToPublish"]) :: Model
+							store:dispatch(OpenPublishAvatarPrompt(model, guid, scopes))
 						end
 					else
 						if
@@ -61,7 +61,8 @@ local function ConnectAssetServiceEvents(store)
 							and FFlagInExperiencePublishDeserializeAsset
 						then
 							if FFlagPublishAvatarPromptEnabled and metadata["outfitToPublish"] then
-								store:dispatch(OpenPublishAvatarPrompt(metadata["outfitToPublish"], guid, scopes))
+								local model = AssetService:DeserializeInstance(metadata["outfitToPublish"]) :: Model
+								store:dispatch(OpenPublishAvatarPrompt(model, guid, scopes))
 							else
 								local instance = AssetService:DeserializeInstance(metadata["serializedInstance"])
 
@@ -69,7 +70,8 @@ local function ConnectAssetServiceEvents(store)
 							end
 						else
 							if FFlagPublishAvatarPromptEnabled and metadata["outfitToPublish"] then
-								store:dispatch(OpenPublishAvatarPrompt(metadata["outfitToPublish"], guid, scopes))
+								local model = AssetService:DeserializeInstance(metadata["outfitToPublish"]) :: Model
+								store:dispatch(OpenPublishAvatarPrompt(model, guid, scopes))
 							else
 								store:dispatch(
 									OpenPublishAssetPrompt(

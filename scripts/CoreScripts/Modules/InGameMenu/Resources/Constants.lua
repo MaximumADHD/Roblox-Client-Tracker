@@ -61,6 +61,7 @@ local Constants = {
 	AnalyticsResumeGameName = "resume",
 	AnalyticsResumeShieldSource = "shield",
 	AnalyticsResumeButtonSource = "button",
+	AnalyticsResumeGamepadSource = "gamepad",
 	AnalyticsConfirmedName = "confirmed",
 	AnalyticsCancelledName = "cancelled",
 	AnalyticsReportLeft = "ingame_menu_report_left",
@@ -124,6 +125,7 @@ local Constants = {
 		mid = MessageBus.getMessageId("Game", "openSurvey"),
 		validateParams = t.strictInterface({
 			eventType = t.string,
+			userId = t.optional(t.string),
 		}),
 	},
 	SurveyEventType =  "leaveButtonClick"

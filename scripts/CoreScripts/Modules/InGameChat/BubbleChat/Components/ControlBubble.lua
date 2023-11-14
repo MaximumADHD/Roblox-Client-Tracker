@@ -23,7 +23,6 @@ local DEFAULT_BACKGROUND_COLOR = Color3.fromRGB(250, 250, 250)
 
 local Modules = CoreGui.RobloxGui.Modules
 local GetFFlagForceChatBubbleColorCS = require(Modules.Flags.GetFFlagForceChatBubbleColorCS)
-local FFlagBubbleSizingFix = require(Modules.Flags.FFlagBubbleSizingFix)
 
 local ControlBubble = Roact.PureComponent:extend("ControlBubble")
 
@@ -48,11 +47,6 @@ function ControlBubble:render()
 			or GetFFlagForceChatBubbleColorCS()
 		then BACKGROUND_COLOR
 		else chatSettings.BackgroundColor3
-
-	local size = not self.props.isImageSet and UDim2.fromOffset(14, 18) or UDim2.fromOffset(28, 28)
-	if FFlagBubbleSizingFix then
-		size = not self.props.isImageSet and self.props.iconSize or UDim2.fromOffset(28, 28)
-	end
 
 	return Roact.createElement("ImageButton", {
 		AnchorPoint = Vector2.new(0.5, 1),
@@ -87,7 +81,7 @@ function ControlBubble:render()
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.fromScale(0.5, 0.5),
 					-- Icons from image set are a different size.
-					Size = size,
+					Size = not self.props.isImageSet and self.props.iconSize or UDim2.fromOffset(28, 28),
 					BackgroundTransparency = 1,
 					ImageTransparency = if self.props.enabled then ICON_TRANSPARENCY else DISABLED_ICON_TRANSPARENCY,
 					ImageColor3 = if self.props.enabled then ICON_COLOR else DISABLED_ICON_COLOR,

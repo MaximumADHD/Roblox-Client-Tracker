@@ -5,11 +5,12 @@
 local GUI_DISTANCE_FROM_CAMERA = 6
 local VERTICAL_SCREEN_PERCENT = 1/3
 local HORIZONTAL_SCREEN_PERCENT = 1/3
-local SECOND_TO_FADE = 2.5
+local SECONDS_TO_FADE = 2.5
 local ROTATIONS_PER_SECOND = 0.5
 local TEXT_SCROLL_SPEED = 25
 
 local CoreGui = game:GetService('CoreGui')
+local CorePackages = game:GetService('CorePackages')
 local RunService = game:GetService('RunService')
 local MarketPlaceService = game:GetService('MarketplaceService')
 local UserInputService = game:GetService('UserInputService')
@@ -18,7 +19,10 @@ local GuiService = game:GetService('GuiService')
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Util = require(RobloxGui.Modules.Settings.Utility)
+local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
 local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
+local GetFFlagHideExperienceLoadingJudder =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagHideExperienceLoadingJudder
 
 local function FadeElements(element, newValue, duration)
 	duration = duration or 0.5
@@ -44,7 +48,7 @@ do
 	GameInfoProvider.Finished = false
 	GameInfoProvider.GameAssetInfo = nil
 	GameInfoProvider.LoadingFinishedEvent = LoadingFinishedSignal.Event
-	
+
 	function GameInfoProvider:GetGameName()
 		if self.GameAssetInfo ~= nil then
 			return self.GameAssetInfo.Name
@@ -88,41 +92,54 @@ end
 
 
 
-
 local LoadingScreen = {}
+local loadingContainer = nil
+local surfaceGuiAdorn = nil
+local loadingSurfaceGui = nil
 
+if GetFFlagHideExperienceLoadingJudder() then
+	loadingContainer = Util:Create'Frame'
+	{
+		Name = 'VRLoadingScreenContainer';
+		Size = UDim2.new(1,0,1,0);
+		BackgroundTransparency = 1;
+		BackgroundColor3 = Color3.new(0,0,0);
+	}
+else
+	surfaceGuiAdorn = Util:Create'Part'
+	{
+		Name = "LoadingGui";
+		Transparency = 1;
+		CanCollide = false;
+		Anchored = true;
+		Archivable = false;
+		FormFactor = Enum.FormFactor.Custom;
+		RobloxLocked = true;
+		Parent = RobloxGui;
+	}
 
-local surfaceGuiAdorn = Util:Create'Part'
-{
-	Name = "LoadingGui";
-	Transparency = 1;
-	CanCollide = false;
-	Anchored = true;
-	Archivable = false;
-	FormFactor = Enum.FormFactor.Custom;
-	RobloxLocked = true;
-	Parent = RobloxGui;
-}
-
-local loadingSurfaceGui = Util:Create'SurfaceGui'
-{
-	Name = "LoadingSurfaceGui";
-	Adornee = surfaceGuiAdorn;
-	ToolPunchThroughDistance = 1000;
-	CanvasSize = Vector2.new(500, 500);
-	Archivable = false;
-	Parent = CoreGui;
-}
+	loadingSurfaceGui = Util:Create'SurfaceGui'
+	{
+		Name = "LoadingSurfaceGui";
+		Adornee = surfaceGuiAdorn;
+		ToolPunchThroughDistance = 1000;
+		CanvasSize = Vector2.new(500, 500);
+		Archivable = false;
+		Parent = CoreGui;
+	}
+end
 
 local backgroundImage = Util:Create'ImageLabel'
 {
 	Name = 'LoadingBackground';
-	Size = UDim2.new(1,0,1,0);
+	Position = if GetFFlagHideExperienceLoadingJudder() then UDim2.new(0.25,0,0.25,0) else nil;
+	Size = if GetFFlagHideExperienceLoadingJudder() then UDim2.new(0.5,0,0.5,0) else UDim2.new(1,0,1,0);
 	Image = 'rbxasset://textures/ui/LoadingScreen/BackgroundLight.png';
 	ScaleType = Enum.ScaleType.Slice;
 	SliceCenter = Rect.new(70,70,110,110);
 	BackgroundTransparency = 1;
-	Parent = loadingSurfaceGui;
+	Parent = if GetFFlagHideExperienceLoadingJudder() then loadingContainer else loadingSurfaceGui;
+	ImageColor3 = if GetFFlagHideExperienceLoadingJudder() then Color3.new(0,0,0) else nil;
 }
 
 local spinnerRotation = 0
@@ -146,6 +163,7 @@ local loadingText = Util:Create'TextLabel'
 	FontSize = Enum.FontSize.Size60;
 	Position = UDim2.new(0.5,0,0.2,0);
 	Parent = backgroundImage;
+	TextColor3 = if GetFFlagHideExperienceLoadingJudder() then Color3.new(77/255, 163/255, 224/255) else nil;
 }
 
 local gameNameText = Util:Create'TextLabel'
@@ -159,6 +177,7 @@ local gameNameText = Util:Create'TextLabel'
 	Position = UDim2.new(0.05,0,0.65,0);
 	ClipsDescendants = true;
 	Parent = backgroundImage;
+	TextColor3 = if GetFFlagHideExperienceLoadingJudder() then Color3.new(15/255, 237/255, 255/255) else nil;
 }
 
 
@@ -182,6 +201,7 @@ local creatorText = Util:Create'TextLabel'
 	FontSize = Enum.FontSize.Size42;
 	Size = UDim2.new(1, 0, 1, 0);
 	Parent = creatorTextContainer;
+	TextColor3 = if GetFFlagHideExperienceLoadingJudder() then Color3.new(15/255, 237/255, 255/255) else nil;
 }
 
 
@@ -203,14 +223,15 @@ delay(2.5, function()
 	freeze = false
 end)
 local function UpdateLayout(delta)
-	local screenDims = ScreenDimsAtDepth(GUI_DISTANCE_FROM_CAMERA)
+	if not GetFFlagHideExperienceLoadingJudder() then
+		local screenDims = ScreenDimsAtDepth(GUI_DISTANCE_FROM_CAMERA)
 
-	surfaceGuiAdorn.Size = Vector3.new(screenDims.x * HORIZONTAL_SCREEN_PERCENT, screenDims.y * VERTICAL_SCREEN_PERCENT, 1)
-	local camera = workspace.CurrentCamera
-	if camera then
-		surfaceGuiAdorn.Parent = camera
+		surfaceGuiAdorn.Size = Vector3.new(screenDims.x * HORIZONTAL_SCREEN_PERCENT, screenDims.y * VERTICAL_SCREEN_PERCENT, 1)
+		local camera = workspace.CurrentCamera
+		if camera then
+			surfaceGuiAdorn.Parent = camera
+		end
 	end
-
 
 	if creatorText.TextBounds.X < creatorTextContainer.AbsoluteSize.X then
 		creatorText.Position = UDim2.new(0, 0, 0, 0)
@@ -256,11 +277,19 @@ local function CleanUp()
 	if CleanedUp then return end
 	CleanedUp = true
 
-	FadeElements(loadingSurfaceGui, 1, SECOND_TO_FADE)
-	wait(SECOND_TO_FADE)
+	if GetFFlagHideExperienceLoadingJudder() then
+		FadeElements(loadingContainer, 1, SECONDS_TO_FADE)
+	else
+		FadeElements(loadingSurfaceGui, 1, SECONDS_TO_FADE)
+	end
+	wait(SECONDS_TO_FADE)
 
 	RunService:UnbindFromRenderStep("LoadingGui3D")
-	surfaceGuiAdorn.Parent = nil
+	if GetFFlagHideExperienceLoadingJudder() then
+		loadingContainer.Parent = nil
+	else
+		surfaceGuiAdorn.Parent = nil
+	end
 	if CameraChangedConn then
 		CameraChangedConn:disconnect()
 		CameraChangedConn = nil
@@ -280,16 +309,19 @@ local function OnGameInfoLoaded()
 	creatorText.Text = creatorName
 end
 
-local function OnReplicatingFinishedAsync()
-	local function OnGameLoaded()
-		CleanUp()
-	end
+local OnReplicatingFinishedAsync = nil
+if not GetFFlagHideExperienceLoadingJudder() then
+	OnReplicatingFinishedAsync = function()
+		local function OnGameLoaded()
+			CleanUp()
+		end
 
-	if game:IsLoaded() then
-		OnGameLoaded()
-	else
-		game.Loaded:Wait()
-		OnGameLoaded()
+		if game:IsLoaded() then
+			OnGameLoaded()
+		else
+			game.Loaded:Wait()
+			OnGameLoaded()
+		end
 	end
 end
 
@@ -297,14 +329,16 @@ local function OnDefaultLoadingGuiRemoved()
 	CleanUp()
 end
 
+local UpdateSurfaceGuiPosition = nil
+if not GetFFlagHideExperienceLoadingJudder() then
+	UpdateSurfaceGuiPosition = function()
+		local camera = workspace.CurrentCamera
+		if camera then
+			local cameraCFrame = camera.CFrame
+			local cameraLook = cameraCFrame.lookVector
 
-local function UpdateSurfaceGuiPosition()
-	local camera = workspace.CurrentCamera
-	if camera then
-		local cameraCFrame = camera.CFrame
-		local cameraLook = cameraCFrame.lookVector
-
-		surfaceGuiAdorn.CFrame = (cameraCFrame * CFrame.Angles(0,math.pi,0)) + cameraLook * GUI_DISTANCE_FROM_CAMERA
+			surfaceGuiAdorn.CFrame = (cameraCFrame * CFrame.Angles(0,math.pi,0)) + cameraLook * GUI_DISTANCE_FROM_CAMERA
+		end
 	end
 end
 
@@ -314,7 +348,9 @@ do
 		local now = tick()
 		local delta = now - lastUpdate
 
-		UpdateSurfaceGuiPosition()
+		if not GetFFlagHideExperienceLoadingJudder() then
+			UpdateSurfaceGuiPosition()
+		end
 		UpdateLayout(delta)
 
 		local rotation = delta * ROTATIONS_PER_SECOND * 360
@@ -323,26 +359,33 @@ do
 
 		lastUpdate = now
 	end)
-	UpdateSurfaceGuiPosition()
+	if not GetFFlagHideExperienceLoadingJudder() then
+		UpdateSurfaceGuiPosition()
+	end
 	UpdateLayout()
 
-	local function connectCameraEvent()
-		if workspace.CurrentCamera then
-			if CameraChangedConn then
-				CameraChangedConn:disconnect()
+	local connectCameraEvent = nil
+	if not GetFFlagHideExperienceLoadingJudder() then
+		connectCameraEvent = function()
+			if workspace.CurrentCamera then
+				if CameraChangedConn then
+					CameraChangedConn:disconnect()
+				end
+				CameraChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
+					UpdateSurfaceGuiPosition()
+				end)
 			end
-			CameraChangedConn = workspace.CurrentCamera:GetPropertyChangedSignal("CFrame"):Connect(function()
-				UpdateSurfaceGuiPosition()
-			end)
 		end
 	end
-	WorkspaceChangedConn = workspace.Changed:Connect(function(prop)
-		if prop == 'CurrentCamera' then
-			connectCameraEvent()
-		end
-	end)
+	if not GetFFlagHideExperienceLoadingJudder() then
+		WorkspaceChangedConn = workspace.Changed:Connect(function(prop)
+			if prop == 'CurrentCamera' then
+				connectCameraEvent()
+			end
+		end)
 
-	connectCameraEvent()
+		connectCameraEvent()
+	end
 end
 
 GameInfoProvider:LoadAssetsAsync()
@@ -351,11 +394,12 @@ if GameInfoProvider:IsReady() then
 end
 GameInfoProvider.LoadingFinishedEvent:Connect(OnGameInfoLoaded)
 
-
-if ReplicatedFirst:IsFinishedReplicating() then
-	spawn(OnReplicatingFinishedAsync)
-else
-	ReplicatedFirst.FinishedReplicating:connect(OnReplicatingFinishedAsync)
+if not GetFFlagHideExperienceLoadingJudder() then
+	if ReplicatedFirst:IsFinishedReplicating() then
+		spawn(OnReplicatingFinishedAsync)
+	else
+		ReplicatedFirst.FinishedReplicating:connect(OnReplicatingFinishedAsync)
+	end
 end
 
 if ReplicatedFirst:IsDefaultLoadingGuiRemoved() then
@@ -372,5 +416,16 @@ GuiService.UiMessageChanged:connect(function(type, newMessage)
 	-- TODO
 end)
 
-return LoadingScreen
+if GetFFlagHideExperienceLoadingJudder() then
+	SplashScreenManager.addStatusChangeListener(function(isFPSAtTarget)
+		if isFPSAtTarget then
+			CleanUp()
+		end
+	end)
+end
 
+if GetFFlagHideExperienceLoadingJudder() then
+	return loadingContainer
+else
+	return LoadingScreen
+end

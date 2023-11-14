@@ -10,8 +10,8 @@ local ApiFetchUsersPresences = require(CorePackages.Workspace.Packages.UserLib).
 -- Remove with FFlagWriteRbxthumbsIntoStore
 local ApiFetchUsersThumbnail = require(ShareGame.Thunks.ApiFetchUsersThumbnail)
 local UsersGetFriends = Requests.UsersGetFriends
-local PreloadAndStoreUsersThumbnail =
-	require(CorePackages.Workspace.Packages.UserLib).Thunks.PreloadAndStoreUsersThumbnail
+local StoreUsersThumbnail =
+	require(CorePackages.Workspace.Packages.UserLib).Thunks.StoreUsersThumbnail
 
 local FetchUserFriendsStarted = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsStarted
 local FetchUserFriendsFailed = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsFailed
@@ -50,10 +50,10 @@ return function(requestImpl, userId, thumbnailRequest, userSort)
 				return userIds
 			end)
 			:andThen(function(userIds)
-				-- Asynchronously fetch friend thumbnails so we don't block display of UI
 				if FFlagWriteRbxthumbsIntoStore then
-					store:dispatch(PreloadAndStoreUsersThumbnail(userIds, thumbnailRequest))
+					store:dispatch(StoreUsersThumbnail(userIds, thumbnailRequest))
 				else
+					-- Asynchronously fetch friend thumbnails so we don't block display of UI
 					store:dispatch(ApiFetchUsersThumbnail(requestImpl, userIds, thumbnailRequest))
 				end
 				return store:dispatch(ApiFetchUsersPresences(requestImpl, userIds))

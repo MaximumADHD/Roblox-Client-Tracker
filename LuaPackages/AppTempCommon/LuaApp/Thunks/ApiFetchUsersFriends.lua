@@ -7,8 +7,8 @@ local ApiFetchUsersPresences = require(CorePackages.Workspace.Packages.UserLib).
 -- 2023/06/15
 -- Remove with FFlagWriteRbxthumbsIntoStore
 local ApiFetchUsersThumbnail = require(CorePackages.AppTempCommon.LuaApp.Thunks.ApiFetchUsersThumbnail)
-local PreloadAndStoreUsersThumbnail =
-	require(CorePackages.Workspace.Packages.UserLib).Thunks.PreloadAndStoreUsersThumbnail
+local StoreUsersThumbnail =
+	require(CorePackages.Workspace.Packages.UserLib).Thunks.StoreUsersThumbnail
 local UsersGetFriends = Requests.UsersGetFriends
 
 local FetchUserFriendsStarted = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsStarted
@@ -45,7 +45,7 @@ return function(requestImpl, userId, thumbnailRequest, userSort): any
 			:andThen(function(userIds)
 				-- Asynchronously fetch friend thumbnails so we don't block display of UI
 				if FFlagWriteRbxthumbsIntoStore then
-					store:dispatch(PreloadAndStoreUsersThumbnail(userIds, thumbnailRequest))
+					store:dispatch(StoreUsersThumbnail(userIds, thumbnailRequest))
 				else
 					store:dispatch(ApiFetchUsersThumbnail.Fetch(requestImpl, userIds, thumbnailRequest))
 				end

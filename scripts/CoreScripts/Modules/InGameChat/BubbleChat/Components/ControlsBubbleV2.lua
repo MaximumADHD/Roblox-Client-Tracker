@@ -32,8 +32,10 @@ local VoiceConstants = require(Modules.VoiceChat.Constants)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
 local displayCameraDeniedToast = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.displayCameraDeniedToast)
+local isCameraOnlyUser = require(RobloxGui.Modules.Settings.isCameraOnlyUser)
 
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 
 local AvatarChatUISettings = Constants.AVATAR_CHAT_UI_SETTINGS
 
@@ -169,14 +171,8 @@ end
 	Camera icon should only be shown to the local player.
 ]]
 function ControlsBubble:shouldShowCameraIndicator()
-	if getFFlagDoNotPromptCameraPermissionsOnMount() then
-		if self.props.isLocalPlayer and self:getCameraButtonVisibleAtMount() then
-			return true
-		end
-	else
-		if self.props.isLocalPlayer and self.props.hasCameraPermissions then
-			return true
-		end
+	if self.props.isLocalPlayer and self:getCameraButtonVisibleAtMount() then
+		return true
 	end
 
 	return false
@@ -197,6 +193,12 @@ function ControlsBubble:shouldShowMicOffIndicator()
 end
 
 function ControlsBubble:getCameraButtonVisibleAtMount()
+	if getFFlagEnableAlwaysAvailableCamera() then
+		if isCameraOnlyUser() then
+			-- If the user is a camera only user do not show the camera button
+			return false
+		end
+	end
 	return isCamEnabledForUserAndPlace()
 end
 

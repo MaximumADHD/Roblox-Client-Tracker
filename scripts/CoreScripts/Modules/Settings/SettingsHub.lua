@@ -54,6 +54,7 @@ local SETTINGS_HUB_MOUSE_OVERRIDE_KEY = Symbol.named("SettingsHubCursorOverride"
 local VERSION_BAR_HEIGHT = isTenFootInterface and 32 or (utility:IsSmallTouchScreen() and 24 or 26)
 
 local BOTTOM_BUTTON_BAR_HEIGHT = 80
+local BOTTOM_BUTTON_10FT_SIZE = 72
 
 -- [[ FAST FLAGS ]]
 local FFlagUseNotificationsLocalization = settings():GetFFlag('UseNotificationsLocalization')
@@ -62,12 +63,12 @@ local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 local FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)()
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
+local isRoactAbuseReportMenuEnabled = require(RobloxGui.Modules.TrustAndSafety.isRoactAbuseReportMenuEnabled)
 
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFFlagMuteButtonRaceConditionFix)
-local GetFFlagAbuseReportMenuMigration = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAbuseReportMenuMigration
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
@@ -85,10 +86,13 @@ local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFla
 local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
+local GetFFlagFix10ftBottomButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagFix10ftBottomButtons)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
+local GetFFlagFix10ftMenuGap = require(RobloxGui.Modules.Settings.Flags.GetFFlagFix10ftMenuGap)
 local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
 local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
+local GetFFlagFixResumeSourceAnalytics =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixResumeSourceAnalytics)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -210,7 +214,7 @@ local chat = require(RobloxGui.Modules.ChatSelector)
 
 local SETTINGS_SHIELD_ACTIVE_POSITION
 local SETTINGS_SHIELD_SIZE
-if isTenFootInterface then
+if not (GetFFlagFix10ftMenuGap() and Theme.UIBloxThemeEnabled) and isTenFootInterface then
 	SETTINGS_SHIELD_ACTIVE_POSITION = UDim2.new(0,0,0,0)
 	SETTINGS_SHIELD_SIZE = UDim2.new(1,0,1,0)
 else
@@ -474,7 +478,9 @@ local function CreateSettingsHub()
 			wholeButton.Visible = false
 			wholeButton:Destroy()
 		end
-		local buttonSize = if isTenFootInterface then UDim2.new(0, 320, 0, 120) else UDim2.new(0, 260, 0, Theme.LargeButtonHeight)
+		local tenFootButtonHeight = if GetFFlagFix10ftBottomButtons() and Theme.UIBloxThemeEnabled then BOTTOM_BUTTON_10FT_SIZE else 120
+		local buttonSize = if isTenFootInterface then UDim2.new(0, 320, 0, tenFootButtonHeight) else UDim2.new(0, 260, 0, Theme.LargeButtonHeight)
+
 		updateButtonPosition("LeaveGame", UDim2.new(0.5, if isTenFootInterface then -160 else -130, 0.5, -25), buttonSize)
 		updateButtonPosition("ResetCharacter", UDim2.new(0.5, if isTenFootInterface then -550 else -400, 0.5, -25), buttonSize)
 		updateButtonPosition("Resume", UDim2.new(0.5, if isTenFootInterface then 200 else 140, 0.5, -25), buttonSize)
@@ -501,7 +507,7 @@ local function CreateSettingsHub()
 		this.BottomBarButtonsComponents[#this.BottomBarButtonsComponents + 1] = iconBtn;
 	end
 
-	local function addBottomBarButtonOld(name, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys)
+	local function addBottomBarButtonOld(name, text, gamepadImage, keyboardImage, position, clickFunc, hotkeys, hotFunc)
 
 
 		local buttonName = name .. "Button"
@@ -509,7 +515,7 @@ local function CreateSettingsHub()
 
 		local size = UDim2.new(0,260,0,Theme.LargeButtonHeight)
 		if isTenFootInterface then
-			size = UDim2.new(0,320,0,120)
+			size = if Theme.UIBloxThemeEnabled and GetFFlagFix10ftBottomButtons() then UDim2.new(0,320,0,BOTTOM_BUTTON_10FT_SIZE) else UDim2.new(0,320,0,120)
 		end
 
 		this[buttonName], this[textName] = utility:MakeStyledButton(name .. "Button", text, size, clickFunc, nil, this)
@@ -600,7 +606,11 @@ local function CreateSettingsHub()
 
 		local hotKeyFunc = function(contextName, inputState, inputObject)
 			if inputState == Enum.UserInputState.Begin then
-				clickFunc()
+				if GetFFlagFixResumeSourceAnalytics() then
+					hotFunc()
+				else
+					clickFunc()
+				end
 			end
 		end
 
@@ -614,7 +624,7 @@ local function CreateSettingsHub()
 
 		local size = sizeOverride or UDim2.new(0,260,0,70)
 		if isTenFootInterface then
-			size = UDim2.new(0,320,0,120)
+			size = if Theme.UIBloxThemeEnabled and GetFFlagFix10ftBottomButtons() then UDim2.new(0,320,0,BOTTOM_BUTTON_10FT_SIZE) else UDim2.new(0,320,0,120)
 		end
 
 		this[buttonName], this[textName] = utility:MakeStyledButton(name .. "Button", text, size, clickFunc, nil, this)
@@ -1759,18 +1769,23 @@ local function CreateSettingsHub()
 			this:SwitchToPage(this.LeaveGamePage, nil, 1, true)
 		end
 
-		local resumeFunc = function()
+		local resumeFunc = function(source)
 			setVisibilityInternal(false)
 			AnalyticsService:SetRBXEventStream(
 				Constants.AnalyticsTargetName,
 				Constants.AnalyticsResumeGameName,
 				Constants.AnalyticsMenuActionName,
-				{ source = if Theme.UIBloxThemeEnabled then Constants.AnalyticsResumeShieldSource else Constants.AnalyticsResumeButtonSource }
+				{ source = if Theme.UIBloxThemeEnabled then 
+					if GetFFlagFixResumeSourceAnalytics() then source else Constants.AnalyticsResumeShieldSource
+				else Constants.AnalyticsResumeButtonSource }
 			)
 		end
 
 		if Theme.UIBloxThemeEnabled then
-			this.Shield.Activated:Connect(resumeFunc)
+			this.Shield.Activated:Connect(if GetFFlagFixResumeSourceAnalytics() then
+				function() resumeFunc(Constants.AnalyticsResumeShieldSource) end
+				else resumeFunc
+			)
 		end
 
 		local leaveGameText = "Leave"
@@ -1783,7 +1798,7 @@ local function CreateSettingsHub()
 		else
 			addBottomBarButtonOld("LeaveGame", leaveGameText, buttonX,
 				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
+				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}, leaveGameFunc
 			)
 		end
 
@@ -1805,14 +1820,20 @@ local function CreateSettingsHub()
 		else
 			addBottomBarButtonOld("ResetCharacter", "Reset Character", buttonY,
 				"rbxasset://textures/ui/Settings/Help/ResetIcon.png", UDim2.new(0.5,isTenFootInterface and -550 or -400,0.5,-25),
-				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}
+				resetCharFunc, {Enum.KeyCode.R, Enum.KeyCode.ButtonY}, resetCharFunc
 			)
 		end
 
 		local resumeGameText = "Resume"
+		local resumeButtonFunc = if GetFFlagFixResumeSourceAnalytics() then 
+			function() resumeFunc(Constants.AnalyticsResumeButtonSource) end 
+			else resumeFunc
+		local resumeHotkeyFunc = if GetFFlagFixResumeSourceAnalytics() then 
+			function() resumeFunc(Constants.AnalyticsResumeGamepadSource) end 
+			else nil
 		addBottomBarButtonOld("Resume", resumeGameText, buttonB,
 			"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
-			resumeFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}
+			resumeButtonFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}, resumeHotkeyFunc
 		)
 
 		if Theme.UIBloxThemeEnabled or (FFlagInGameMenuHomeButton and isSubjectToDesktopPolicies()) then
@@ -3281,7 +3302,7 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	if GetFFlagAbuseReportMenuMigration() then
+	if isRoactAbuseReportMenuEnabled() then
 		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
 	else
 		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)

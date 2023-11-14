@@ -7,8 +7,6 @@ return function()
 	local Rodux = require(CorePackages.Rodux)
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
-	local GetFFlagCorescriptsSoundManagerEnabled =
-		require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
@@ -33,12 +31,10 @@ return function()
 			return Constants.VIP_SERVER
 		end
 
-		if GetFFlagCorescriptsSoundManagerEnabled() then
-			local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
-			local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
-			SoundManager.init()
-			SoundManager:CreateSoundGroup(SoundGroups.Iris.Name)
-		end
+		local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
+		local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+		SoundManager.init()
+		SoundManager:CreateSoundGroup(SoundGroups.Iris.Name)
 	end)
 
 	it("should mount and unmount without errors", function()

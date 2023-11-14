@@ -19,12 +19,17 @@ local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
 
 local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 
+local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
+
 local SafetyBubble = require(script.Parent.SafetyBubble)
 local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
 	or game:GetEngineFeature("EnableMaquettesSupport")
 local GetFFlagUIBloxVRFixUIJitter =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRFixUIJitter
 local FFlagVRControllerModelsSetByDevFix = game:DefineFastFlag("VRControllerModelsSetByDevFix", false)
+local GetFFlagHideExperienceLoadingJudder =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagHideExperienceLoadingJudder
+
 
 local VRHub = {}
 local RegisteredModules = {}
@@ -42,6 +47,9 @@ if FFlagVRControllerModelsSetByDevFix then
 	VRHub.ControllerModelsEnabledSetByDeveloper = true
 end
 
+if GetFFlagHideExperienceLoadingJudder() then
+	VRHub.isFPSAtTarget = SplashScreenManager.isFPSAtTarget()
+end
 VRHub.SafetyBubble = nil
 -- TODO: AvatarGestures cannot be turned on until this is implemented
 VRHub.IsFirstPerson = false
@@ -158,7 +166,11 @@ local function onVREnabledChanged()
 
 		--Check again in case creating the laser pointer gracefully failed
 		if VRHub.LaserPointer then
-			VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
+			if VRHub.isFPSAtTarget or not GetFFlagHideExperienceLoadingJudder() then
+				VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
+			elseif GetFFlagHideExperienceLoadingJudder() then
+				VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
+			end
 		end
 		if FFlagVRControllerModelsSetByDevFix then
 			enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
@@ -301,7 +313,7 @@ VRHub.ShowHighlightedLeaveGameIconToggled = Util:Create("BindableEvent")({
 
 function VRHub:SetShowHighlightedLeaveGameIconToggled(showHighlightedLeaveGameIcon)
 	if VRHub.ShowHighlightedLeaveGameIcon ~= showHighlightedLeaveGameIcon then
-		VRHub.ShowHighlightedLeaveGameIcon = showHighlightedLeaveGameIcon	
+		VRHub.ShowHighlightedLeaveGameIcon = showHighlightedLeaveGameIcon
 		VRHub.ShowHighlightedLeaveGameIconToggled:Fire()
 	end
 end
@@ -351,6 +363,13 @@ function VRHub:GetControllerButtonPosition(keyCode)
 	local leftControllerButtonPos = VRHub.LeftControllerModel and VRHub.LeftControllerModel:getButtonPosition(keyCode)
 	local rightControllerButtonPos = VRHub.RightControllerModel and VRHub.RightControllerModel:getButtonPosition(keyCode)
 	return leftControllerButtonPos, rightControllerButtonPos
+end
+
+if GetFFlagHideExperienceLoadingJudder() then
+	SplashScreenManager.addStatusChangeListener(function(isFPSAtTarget)
+		VRHub.isFPSAtTarget = isFPSAtTarget
+		onVREnabledChanged()
+	end)
 end
 
 return VRHub

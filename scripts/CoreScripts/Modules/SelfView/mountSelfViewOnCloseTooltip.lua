@@ -1,0 +1,46 @@
+local CorePackages = game:GetService("CorePackages")
+local Roact = require(CorePackages.Roact)
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
+local ScreenSideOffset = TopBarConstants.ScreenSideOffset
+local TopBarButtonHeight = TopBarConstants.TopBarButtonHeight
+local UIBlox = require(CorePackages.UIBlox)
+local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
+local Promise = require(CorePackages.Packages.Promise)
+
+local SelfViewTooltipFTUX = require(script.Parent.SelfViewTooltipFTUX)
+local PADDING_TIME = 5
+
+return function (props)
+	local screenGui = Instance.new("ScreenGui")
+	screenGui.Name = "SelfViewTooltipOnCloseGui"
+	screenGui.DisplayOrder = -1
+	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	screenGui.Parent = CoreGui
+
+	local root = Roact.createElement(AppStyleProvider, {
+	}, {
+		frame = Roact.createElement("Frame", {
+			Position = UDim2.fromOffset(ScreenSideOffset, - TopBarButtonHeight),
+			Size =  UDim2.fromOffset(TopBarButtonHeight, TopBarButtonHeight),
+			BackgroundTransparency = 0,
+			Visible = false,
+		}, {
+			tooltip = Roact.createElement(SelfViewTooltipFTUX, {
+				fallbackText = props.fallbackText,
+				translationKey = props.translationKey,
+				tooltipLifetime = props.tooltipLifetime,
+			})
+		})
+	})
+
+	local instance = Roact.mount(root, screenGui, "SelfViewTooltipOnClose")
+
+	Promise.delay(props.tooltipLifetime + PADDING_TIME):andThen(function()
+		pcall(function()
+			-- Some time after the tooltip's lifetime, we want to unmount the instance
+			Roact.unmount(instance)
+		end)
+	end)
+end

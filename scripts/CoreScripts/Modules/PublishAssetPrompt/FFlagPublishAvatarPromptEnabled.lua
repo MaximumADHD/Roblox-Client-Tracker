@@ -1,1 +1,1 @@
-return game:DefineFastFlag("PublishAvatarPromptEnabled", false)
+return game:DefineFastFlag("PublishAvatarPromptEnabled2", false)

@@ -17,6 +17,7 @@ VoiceChatPrompt.validateProps = t.strictInterface({
 	onContinueFunc = t.optional(t.callback),
 	onReadyForSignal = t.optional(t.callback),
 	Analytics = t.optional(t.table),
+	VoiceChatServiceManager = t.optional(t.table),
 	policyMapper = t.optional(t.callback),
 })
 

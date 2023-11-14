@@ -19,6 +19,15 @@ return function()
 		AnalyticsMockStub.reportBanMessageEvent(str)
 	end
 
+	local VCSMStub = {
+		reportBanMessage = function(str) end
+	}
+
+	local VCSMock = {}
+	function VCSMock:reportBanMessage(str)
+		VCSMStub.reportBanMessage(str)
+	end
+
 	describe("VoiceChatPromptFrame", function()
 		it("should create and destroy without errors", function()
 			local element = Roact.createElement(VoiceChatPromptFrame)
@@ -30,12 +39,16 @@ return function()
 		it("should display when signal is passed in", function()
 			local signal = Instance.new("BindableEvent")
 
-			local mock, mockFn = jest.fn()
-			AnalyticsMockStub.reportBanMessageEvent = mockFn
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
 
 			local element = Roact.createElement(VoiceChatPromptFrame, {
 				promptSignal = signal.Event,
-				Analytics = AnalyticsMock
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock
 			})
 			local instance = Roact.mount(element)
 
@@ -44,7 +57,8 @@ return function()
 			waitForEvents()
 
 
-			jestExpect(mock).toHaveBeenCalledWith("Shown")
+			jestExpect(analyticsMock).toHaveBeenCalledWith("Shown")
+			jestExpect(vcsMock).toHaveBeenCalledWith("Shown")
 
 			Roact.unmount(instance)
 		end)

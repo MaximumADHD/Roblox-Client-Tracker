@@ -5,8 +5,6 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
-local GetFFlagCorescriptsSoundManagerEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -19,9 +17,7 @@ local PlayerMenuContainer = require(ContactList.Components.PlayerMenuContainer)
 
 return function()
 	React.useEffect(function()
-		if GetFFlagCorescriptsSoundManagerEnabled() then
-			SoundManager:CreateSoundGroup(SoundGroups.Iris.Name)
-		end
+		SoundManager:CreateSoundGroup(SoundGroups.Iris.Name)
 	end, {})
 
 	return React.createElement("Folder", {}, {

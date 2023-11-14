@@ -61,7 +61,6 @@ local GetFFlagContactListClientEnabled = require(RobloxGui.Modules.Common.Flags.
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6", false)
 local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagEnableApolloClientInExperience
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
-local GetFFlagCorescriptsSoundManagerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 local GetFFlagIrisAlwaysOnTopEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisAlwaysOnTopEnabled
 local GetFFlagEnableSocialContextToast = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSocialContextToast
 local GetFFlagTenFootUiAchievements = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagTenFootUiAchievements
@@ -319,10 +318,6 @@ if FFlagLuaAppEnableToastNotificationsCoreScripts then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ToastNotificationGUI", script.Parent)
 end
 
-if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/GameInviteModalGUI", script.Parent)
-end
-
 if GetFFlagRtMessaging() then
 	game:GetService("RtMessagingService")
 end
@@ -388,13 +383,15 @@ if FFlagCoreScriptsGlobalEffects then
 	end
 end
 
-if GetFFlagCorescriptsSoundManagerEnabled() then
-	local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
-	SoundManager.init()
-end
+local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+SoundManager.init()
 
 if GetFFlagEnableSocialContextToast() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/SocialContextToast", RobloxGui)
+end
+
+if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/GameInviteModalGUI", script.Parent)
 end
 
 if GetFFlagTenFootUiAchievements() then

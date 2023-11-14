@@ -115,7 +115,7 @@ local function getVisibleIntegrationIds()
 			table.insert(ids, menuItem.integration.id)
 		end
 	end
-	return ids
+	return table.concat(ids, ",")
 end
 
 local function getTrackerName(prefix: string, integrationId: Types.IntegrationId)

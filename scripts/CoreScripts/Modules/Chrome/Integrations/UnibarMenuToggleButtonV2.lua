@@ -31,27 +31,13 @@ function ToggleMenuButton(props)
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			BackgroundTransparency = 1,
-			Image = Images["icons/menu/AR_cube"],
+			Image = Images["icons/menu/AR"],
 			Size = toggleIconTransition:map(function(value: any): any
 				value = 1 - value
 				return UDim2.new(0, 36 * value, 0, 36 * value)
 			end),
 			ImageColor3 = style.Theme.IconEmphasis.Color,
 			ImageTransparency = style.Theme.IconEmphasis.Transparency,
-		}) :: any,
-		React.createElement(ImageSetLabel, {
-			Name = "CubeFrame",
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.new(0.5, 0, 0.5, 0),
-			BackgroundTransparency = 1,
-			Image = Images["icons/menu/AR_frame"],
-			Size = toggleIconTransition:map(function(value: any): any
-				return UDim2.new(0, 36 + 10 * value, 0, 36 + 10 * value)
-			end),
-			ImageTransparency = toggleIconTransition:map(function(value: any): any
-				return 1 - ((1 - style.Theme.IconEmphasis.Transparency) * (1 - value))
-			end),
-			ImageColor3 = style.Theme.IconEmphasis.Color,
 		}) :: any,
 		React.createElement("Frame", {
 			Name = "X1",

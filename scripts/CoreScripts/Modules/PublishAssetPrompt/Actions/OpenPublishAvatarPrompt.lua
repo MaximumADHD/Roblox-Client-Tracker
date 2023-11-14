@@ -1,6 +1,6 @@
 --[[
 	This action is triggered by the game-engine function AssetService:PromptPublishAvatarAsync
-	It causes a "Publish Avatar" prompt to appear on-screen. We need to pass a HumanoidDescription to this prompt.
+	It causes a "Publish Avatar" prompt to appear on-screen. We need to pass a HumanoidModel to this prompt.
 	Reducer that handles this action:
 		../Reducer/PromptRequestReducer
 ]]
@@ -11,7 +11,7 @@ export type Action = {
 	type: string,
 	promptInfo: {
 		promptType: string,
-		humanoidDescription: any,
+		humanoidModel: Model,
 		guid: string,
 		scopes: any,
 	},
@@ -19,11 +19,11 @@ export type Action = {
 
 return Rodux.makeActionCreator(
 	script.Name,
-	function(promptType: string, humanoidDescription: any, guid: string, scopes: any)
+	function(promptType: string, humanoidModel: Model, guid: string, scopes: any)
 		return {
 			promptInfo = {
 				promptType = promptType,
-				humanoidDescription = humanoidDescription,
+				humanoidModel = humanoidModel,
 				guid = guid,
 				scopes = scopes,
 			},

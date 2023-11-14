@@ -11,7 +11,22 @@ return function()
 			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				AvatarItemCard = Roact.createElement(AvatarItemCard, {
 					asset = Instance.new("MeshPart"),
-					isHeadAsset = true,
+				}),
+			})
+
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
+
+		it("should create and destroy without errors when taking an Accessory as input", function()
+			local accessory = Instance.new("Accessory")
+			local handle = Instance.new("MeshPart")
+			-- Accessory is expected to have child MeshPart named Handle
+			handle.Name = "Handle"
+			handle.Parent = accessory
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
+				AvatarItemCard = Roact.createElement(AvatarItemCard, {
+					asset = accessory,
 				}),
 			})
 
@@ -36,7 +51,6 @@ return function()
 			local element = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
 				AvatarItemCard = Roact.createElement(AvatarItemCard, {
 					asset = partsTable,
-					isHeadAsset = false,
 				}),
 			})
 

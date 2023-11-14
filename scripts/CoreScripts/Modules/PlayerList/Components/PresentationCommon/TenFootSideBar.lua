@@ -17,6 +17,8 @@ local isNewInGameMenuEnabled = require(CoreGui.RobloxGui.Modules.isNewInGameMenu
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local isRoactAbuseReportMenuEnabled = require(RobloxGui.Modules.TrustAndSafety.isRoactAbuseReportMenuEnabled)
+
 local TenFootSideBar = Roact.PureComponent:extend("TenFootSideBar")
 
 local function openPlatformProfileUI(platformId)
@@ -101,7 +103,12 @@ function TenFootSideBar:openSidebar(player)
 				local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 				InGameMenu.openReportDialog(player, self.__componentName)
 			else
-				ReportAbuseMenu:ReportPlayer(player, self.__componentName)
+				if isRoactAbuseReportMenuEnabled() then
+					local ReportAbuseMenuNew = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
+					ReportAbuseMenuNew:ReportPlayer(player, self.__componentName)
+				else
+					ReportAbuseMenu:ReportPlayer(player, self.__componentName)
+				end
 			end
 		end)
 	end

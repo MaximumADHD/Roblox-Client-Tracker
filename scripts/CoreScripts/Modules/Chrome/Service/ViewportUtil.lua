@@ -10,6 +10,7 @@ export type ViewportInfo = {
 	size: Vector2,
 	portraitOrientation: boolean,
 	tinyPortrait: boolean,
+	isMobileDevice: boolean,
 }
 
 export type ObservableViewport = utils.ObservableValue<ViewportInfo>
@@ -21,10 +22,13 @@ local smallPortraitLimitPx = 360
 
 function createViewportInfo(viewportSize: Vector2)
 	local isPortrait = viewportSize.Y > viewportSize.X
+	local platform = UserInputService:GetPlatform()
+	local isMobileDevice = platform == Enum.Platform.IOS or platform == Enum.Platform.Android
 	return {
 		size = viewportSize,
 		portraitOrientation = isPortrait,
-		tinyPortrait = isPortrait and viewportSize.X < smallPortraitLimitPx,
+		tinyPortrait = isMobileDevice and isPortrait and viewportSize.X < smallPortraitLimitPx,
+		isMobileDevice = isMobileDevice,
 	}
 end
 

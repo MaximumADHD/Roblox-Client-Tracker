@@ -9,4 +9,6 @@ local enumerate = dependencies.enumerate
 return enumerate(script.Name, {
 	CallerIsInAnotherCall = "CallerIsInAnotherCall",
 	CalleeIsInAnotherCall = "CalleeIsInAnotherCall",
+	PlaceIsNotVoiceEnabled = "PlaceIsNotVoiceEnabled",
+	UniverseIsNotVoiceEnabled = "UniverseIsNotVoiceEnabled",
 })

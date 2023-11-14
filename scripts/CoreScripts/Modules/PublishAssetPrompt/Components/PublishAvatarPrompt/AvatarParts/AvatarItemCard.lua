@@ -13,18 +13,20 @@ local AvatarPartViewport = require(script.Parent.AvatarPartViewport)
 local PADDING = 5
 
 export type Props = {
-	asset: { [number]: Folder } | MeshPart,
+	asset: { [number]: Folder } | MeshPart | Accessory,
 	LayoutOrder: number?,
 	viewportSize: number?,
 	titleText: string?,
-	isHeadAsset: boolean?,
 }
 local function AvatarItemCard(props: Props)
 	local style = useStyle()
 	local font = style.Font
 	local theme = style.Theme
 	local asset = props.asset
-	assert(typeof(asset) == "table" or asset:IsA("MeshPart"), "Assert that asset is a table or MeshPart")
+	assert(
+		typeof(asset) == "table" or asset:IsA("MeshPart") or asset:IsA("Accessory"),
+		"Assert that asset is a table, MeshPart, or Accessory"
+	)
 	return React.createElement("Frame", {
 		Size = UDim2.fromScale(1, 1),
 		LayoutOrder = props.LayoutOrder,
@@ -38,7 +40,6 @@ local function AvatarItemCard(props: Props)
 		AvatarPartViewport = React.createElement(AvatarPartViewport, {
 			asset = asset,
 			LayoutOrder = 1,
-			isHeadAsset = props.isHeadAsset,
 			viewportSize = props.viewportSize,
 		}),
 		TitleText = props.titleText and React.createElement("TextLabel", {

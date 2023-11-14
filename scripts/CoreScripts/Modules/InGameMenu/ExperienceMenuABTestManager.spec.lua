@@ -13,6 +13,10 @@ local expect = JestGlobals.expect
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_CSAT_QUALIFICATION = "ExperienceMenuCSATQualification"
 
+local GetFFlagDisableChromeUnibar = require(script.Parent.Parent.Flags.GetFFlagDisableChromeUnibar)()
+local GetFFlagDisableChromePinnedChat = require(script.Parent.Parent.Flags.GetFFlagDisableChromePinnedChat)()
+local GetFFlagDisableChromeDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagDisableChromeDefaultOpen)()
+
 local isV2Valid = false
 local isV3Valid = false
 local isControlsValid = false
@@ -293,7 +297,7 @@ return function()
 			end
 		end)
 
-		it("returns chrome for user in the variant", function()
+		it("returns chrome for user in the variant, if not disabled", function()
 			if IsExperienceMenuABTestEnabled() and isChromeValid then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
@@ -307,15 +311,15 @@ return function()
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
-				-- version should now be version controls
-				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeVersionId())
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeUnibar then ExperienceMenuABTestManager.default.chromeVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
-				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeVersionId())
-				expect(manager:isChromeEnabled()).toBe(true)
+				-- on second session, we will read from the cache
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeUnibar then ExperienceMenuABTestManager.default.chromeVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeUnibar)
 				expect(manager:shouldPinChat()).toBe(false)
 				expect(manager:shouldDefaultOpen()).toBe(false)
 				expect(manager:isMenuModernizationEnabled()).toBe(false)
@@ -324,7 +328,7 @@ return function()
 			end
 		end)
 
-		it("returns chrome with pinned chat for user in the variant", function()
+		it("returns chrome with pinned chat for user in the variant, if not disabled", function()
 			if IsExperienceMenuABTestEnabled() and isChromeValid then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
@@ -338,16 +342,16 @@ return function()
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
-				-- version should now be version controls
-				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromePinnedChatVersionId())
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromePinnedChat then ExperienceMenuABTestManager.default.chromePinnedChatVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromePinnedChatVersionId())
-				expect(manager:isChromeEnabled()).toBe(true)
-				expect(manager:shouldPinChat()).toBe(true)
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromePinnedChat then ExperienceMenuABTestManager.default.chromePinnedChatVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromePinnedChat)
+				expect(manager:shouldPinChat()).toBe(not GetFFlagDisableChromePinnedChat)
 				expect(manager:shouldDefaultOpen()).toBe(false)
 				expect(manager:isMenuModernizationEnabled()).toBe(false)
 				expect(manager:areMenuControlsEnabled()).toBe(false)
@@ -355,7 +359,7 @@ return function()
 			end
 		end)
 
-		it("returns chrome with default open for user in the variant", function()
+		it("returns chrome with default open for user in the variant, if not disabled", function()
 			if IsExperienceMenuABTestEnabled() and isChromeValid then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
 				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
@@ -369,17 +373,17 @@ return function()
 				-- when ixp layers are registered, test manager is initialized
 				manager:initialize()
 
-				-- version should now be version controls
-				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeDefaultOpenVersionId())
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeDefaultOpen then ExperienceMenuABTestManager.default.chromeDefaultOpenVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
 
 				-- beginning of second session
 				manager:initialize()
 
 				-- on second session, we will read from the cache which is controls
-				expect(manager:getVersion()).toBe(ExperienceMenuABTestManager.default.chromeDefaultOpenVersionId())
-				expect(manager:isChromeEnabled()).toBe(true)
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeDefaultOpen then ExperienceMenuABTestManager.default.chromeDefaultOpenVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeDefaultOpen)
 				expect(manager:shouldPinChat()).toBe(false)
-				expect(manager:shouldDefaultOpen()).toBe(true)
+				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeDefaultOpen)
 				expect(manager:isMenuModernizationEnabled()).toBe(false)
 				expect(manager:areMenuControlsEnabled()).toBe(false)
 				expect(manager:isV2MenuEnabled()).toBe(false)

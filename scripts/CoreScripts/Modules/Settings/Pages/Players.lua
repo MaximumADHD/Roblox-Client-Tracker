@@ -34,6 +34,7 @@ local LocalizationProvider = require(CorePackages.Workspace.Packages.Localizatio
 local utility = require(RobloxGui.Modules.Settings.Utility)
 
 local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
+local reportAbuseMenuNew = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
 local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
@@ -52,11 +53,16 @@ local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local FFlagShowAddFriendButtonForXboxUA = game:DefineFastFlag("ShowAddFriendButtonForXboxUA", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
+local isRoactAbuseReportMenuEnabled = require(RobloxGui.Modules.TrustAndSafety.isRoactAbuseReportMenuEnabled)
 
 local GameInviteAnalyticsManager
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	GameInviteAnalyticsManager = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalyticsManager
 end
+
+local _, PlatformFriendsService = pcall(function()
+	return game:GetService('PlatformFriendsService')
+end)
 
 	------------ Constants -------------------
 local Theme = require(script.Parent.Parent.Theme)
@@ -847,7 +853,11 @@ local function Initialize()
 
 			if showRightSideButtons(player) then
 				local reportPlayerFunction = function()
-					reportAbuseMenu:ReportPlayer(player, "MenuPlayerList")
+					if isRoactAbuseReportMenuEnabled() then
+						reportAbuseMenuNew:ReportPlayer(player, "MenuPlayerList")
+					else
+						reportAbuseMenu:ReportPlayer(player, "MenuPlayerList")
+					end
 				end
 
 				local reportButton = utility:MakeStyledImageButton("ReportPlayer", REPORT_PLAYER_IMAGE,
@@ -1107,7 +1117,7 @@ local function Initialize()
 		inspectButton.Parent = parent
 	end
 
-	local function resizePlatformName(parent, consoleName)
+	local function resizePlatformName(parent, consoleName, consoleUserId)
 		local platformNameContainer = parent:FindFirstChild("PlatformNameContainer")
 
 		if platformNameContainer then
@@ -1131,8 +1141,19 @@ local function Initialize()
 		platformNameContainer.LayoutOrder = -1
 		platformNameContainer.Parent = parent
 
-		-- TODO: create onActivated function to open gamer card
 		local onActivated = nil
+		if
+			game:GetEngineFeature("PlatformFriendsService") and
+			game:GetEngineFeature("PlatformFriendsProfile") and
+			PlatformFriendsService and
+			PlatformFriendsService:IsProfileEnabled() and
+			consoleUserId and
+			consoleUserId ~= ""
+		then
+			onActivated = function()
+				PlatformFriendsService:ShowProfile(consoleUserId)
+			end
+		end
 
 		-- create platform name
 		local consoleNameContainer, consoleNameText = utility:MakeStyledButton("consoleNameContainer", consoleName, UDim2.new(0, 0, 0, Theme.ButtonHeight), onActivated)
@@ -1763,7 +1784,12 @@ local function Initialize()
 							if userProfile.names.platformName ~= "" then
 								platformName = userProfile.names.platformName
 							end
-							resizePlatformName(rightSideButtons, platformName)
+
+							if game:GetEngineFeature("PlatformFriendsService") and game:GetEngineFeature("PlatformFriendsProfile") then
+								resizePlatformName(rightSideButtons, platformName, userProfile.platformProfileId)
+							else
+								resizePlatformName(rightSideButtons, platformName)
+							end
 						end
 					end
 				end)

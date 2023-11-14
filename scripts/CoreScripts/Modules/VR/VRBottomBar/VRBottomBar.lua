@@ -65,6 +65,11 @@ local FFlagVRBottomBarFixMoreMenuPosition = game:DefineFastFlag("VRBottomBarFixM
 
 local UsePositionConfig = FFlagVRBottomBarUsePositionConfig or FFlagVRBottomBarDebugPositionConfig or FFlagVRBottomBarEnableMoreMenu
 
+local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
+local GetFFlagHideExperienceLoadingJudder =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagHideExperienceLoadingJudder
+
+
 -- this var moves the gui and bottom bar together
 local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
 local scaleGuiDistance = GetFIntVRScaleGuiDistance() * 0.01
@@ -220,7 +225,7 @@ local Chat =
 	end,
 }
 
-local SafetyOn = 
+local SafetyOn =
 {
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_safety_on.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_safety_on.png",
@@ -231,7 +236,7 @@ local SafetyOn =
 	end,
 }
 
-local SafetyOff = 
+local SafetyOff =
 {
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_safety_off.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_safety_off.png",
@@ -242,7 +247,7 @@ local SafetyOff =
 	end,
 }
 
-local LeaveGame = 
+local LeaveGame =
 {
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_leave.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_leave.png",
@@ -263,14 +268,14 @@ local LeaveGame =
 	end,
 }
 
-local LeaveGameHighlighted = 
+local LeaveGameHighlighted =
 {
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_leave_highlighted.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_leave_highlighted.png",
 	onActivated = LeaveGame.onActivated,
 }
 
-local MoreButton = 
+local MoreButton =
 {
 	iconOn = "rbxasset://textures/ui/MenuBar/icon_more.png",
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_more.png",
@@ -330,11 +335,19 @@ function VRBottomBar:init()
 		moreMenuOpen = false,
 		vrMenuOpen = true,
 		lookAway = false, -- whether player looks away from VRBottomBar
-		userGui = VRService.VREnabled and safeRequire(RobloxGui.Modules.VR.UserGui) or Roact.None
+		userGui = VRService.VREnabled and safeRequire(RobloxGui.Modules.VR.UserGui) or Roact.None,
+		hidden = if GetFFlagHideExperienceLoadingJudder() then not SplashScreenManager.isFPSAtTarget() else nil,
 	})
-	
+
 	self.backpackHasItems = false
 	self.emotesLoaded = false
+
+	if GetFFlagHideExperienceLoadingJudder() then
+		self.onTargetFPSSTateChange = function(isFPSAtTarget)
+			self:setState({hidden = not isFPSAtTarget})
+		end
+		SplashScreenManager.addStatusChangeListener(self.onTargetFPSSTateChange)
+	end
 
 	self.getVoiceIcon = function()
 		return {
@@ -429,7 +442,7 @@ function VRBottomBar:init()
 			itemSize = UDim2.new(0, 44, 0, 44),
 		}
 	end
-	
+
 	self:setState({
 		itemList = { MainMenu, SeparatorIcon, ToggleGui, SeparatorIcon, LeaveGame},
 		moreItemList = {},
@@ -449,7 +462,7 @@ function VRBottomBar:init()
 			moreMenuOpen = VRHub.ShowMoreMenu,
 		})
 	end
-	
+
 	self.updateItemListState = function()
 		local activeItems, moreItems = self:updateItems()
 		self:setState({
@@ -516,7 +529,7 @@ function VRBottomBar:init()
 		local finalPosition = args.finalPosition
 		local cameraHeadScale = args.cameraHeadScale
 		local userGuiPanelPart = self.getAlignedPanelPart()
-		
+
 		if userGuiPanelPart then
 			local yOffset = self.state.yOffset -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
 			local zOffset = self.state.zOffset -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
@@ -558,14 +571,14 @@ function VRBottomBar:init()
 			panelCFrame = panelCFrame:ToWorldSpace(moreMenuOffsetCFrame) -- Move in moreMenu object space
 			finalPosition = panelCFrame.Position
 		end
-		
+
 		return finalPosition
 	end
 
 	self.moreMenuPanelTiltCallback = function(args)
 		local panelCFrame = args.panelCFrame
 		local userGuiPanelPart = self.getAlignedPanelPart()
-		
+
 		if userGuiPanelPart then
 			panelCFrame = CFrame.new(panelCFrame.Position) * userGuiPanelPart.CFrame.Rotation
 		end
@@ -585,9 +598,9 @@ function VRBottomBar:updateItems()
 	local emotesEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu)
 	local chatEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Chat)
 	local playerListEnabled = StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList)
-	
+
 	local enabledItems = { MainMenu, SeparatorIcon, ToggleGui }
-	
+
 	if FFlagVRBottomBarDebugPositionConfig then
 		enabledItems = {
 			self.getDebugYOffsetUp(),
@@ -631,7 +644,7 @@ function VRBottomBar:updateItems()
 			table.insert(enabledItems, SafetyOff)
 		end
 	end
-	
+
 	if FFlagVRBottomBarHighlightedLeaveGameIcon then
 		if VRHub.ShowHighlightedLeaveGameIcon then
 			table.insert(enabledItems, LeaveGameHighlighted)
@@ -641,7 +654,7 @@ function VRBottomBar:updateItems()
 	else
 		table.insert(enabledItems, LeaveGame)
 	end
-	
+
 	local enabledMoreItems = {}
 	if FFlagVRBottomBarEnableMoreMenu then
 		if showEmotesIcon then
@@ -706,7 +719,7 @@ function VRBottomBar:renderWithStyle(style)
 					itemList = itemList,
 					selection = selection,
 					placement = Placement.Bottom,
-					hidden = false,
+					hidden = if GetFFlagHideExperienceLoadingJudder() then self.state.hidden else false,
 					onSafeAreaChanged = function() end,
 					size = UDim2.new(1, 0, 1, 0),
 					position = UDim2.new(),

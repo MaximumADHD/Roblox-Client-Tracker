@@ -23,7 +23,7 @@ local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local PreviewExpandIcon = UIBloxImages["icons/actions/previewExpand"]
 local DropShadow = UIBloxImages["component_assets/dropshadow_25"]
 
-local VIEWPORT_HEIGHT = 400
+local VIEWPORT_HEIGHT = 240
 local DEFAULT_CAMERA_FOV = 30
 local DEFAULT_CAMERA_Y_ROT = 25
 local DROP_SHADOW_SIZE = UDim2.new(0.4, 50, 0.15, 10)

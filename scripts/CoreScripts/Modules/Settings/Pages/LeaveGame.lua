@@ -19,6 +19,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
+local Players = game:GetService("Players")
 
 ----------- UTILITIES --------------
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
@@ -31,6 +32,7 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
+local GetFFlagSurveyUserIdFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSurveyUserIdFix
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
@@ -61,7 +63,12 @@ local function Initialize()
 			}
 		)
 
-		MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})
+		if GetFFlagSurveyUserIdFix() then
+			local localUserId = tostring(Players.LocalPlayer.UserId)
+			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId})
+		else
+			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})
+		end
 
 		-- need to wait for render frames so on slower devices the leave button highlight will update
 		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button

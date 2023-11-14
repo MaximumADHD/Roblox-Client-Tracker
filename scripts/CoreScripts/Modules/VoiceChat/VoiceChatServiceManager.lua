@@ -64,6 +64,8 @@ local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlag
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
+local GetFFlagLuaVoiceChatAnalyticsBanMessageV2 =
+	require(RobloxGui.Modules.Flags.GetFFlagLuaVoiceChatAnalyticsBanMessageV2)
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local FFlagFixNonSelfCalls = game:DefineFastFlag("FixNonSelfCalls", false)
 local FFlagAlwaysSetupVoiceListeners = game:DefineFastFlag("AlwaysSetupVoiceListeners", false)
@@ -174,6 +176,7 @@ local VoiceChatServiceManager = {
 	SignalREventTable = {} :: EventTable,
 	audioDevices = {} :: { [AudioDeviceInput]: AudioDeviceData },
 	service = nil,
+	previousSessionId = nil,
 	voiceEnabled = false,
 	VOICE_STATE = VOICE_STATE,
 	isBanned = false,
@@ -182,6 +185,7 @@ local VoiceChatServiceManager = {
 	BlockStatusChanged = nil,
 	isInCall = false,
 	callMutedState = false,
+	banReason = nil,
 	_mutedAnyone = false,
 	VOICE_CHAT_DEVICE_TYPE = VOICE_CHAT_DEVICE_TYPE,
 	getPermissionsFunction = getCamMicPermissions,
@@ -738,6 +742,9 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage()
 		self:_reportJoinFailed("PlayerModeratedBadState", Analytics.ERROR)
 		return
 	else
+		if GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
+			self.banReason = userSettings.banReason
+		end
 		if userSettings.bannedUntil == nil then
 			self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
 		else
@@ -961,6 +968,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 				policyMapper = self.policyMapper,
 				errorText = errorText,
 				onReadyForSignal = onReadyForSignal,
+				VoiceChatServiceManager = if GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then self else nil,
 				onContinueFunc = if promptType == VoiceChatPromptType.VoiceChatSuspendedTemporary
 					then function()
 						PostInformedOfBan(bind(self, "PostRequest"), true)
@@ -1068,6 +1076,15 @@ end
 
 function VoiceChatServiceManager:GetNudgeAnalyticsData()
 	return PlayersService.LocalPlayer.UserId, self:GetSessionId()
+end
+
+function VoiceChatServiceManager:reportBanMessage(eventType: string)
+	self.Analytics:reportBanMessageEventV2(
+		eventType,
+		self.banReason,
+		PlayersService.LocalPlayer.UserId,
+		if self.service then self.previousSessionId else ""
+	)
 end
 
 function VoiceChatServiceManager:CreateAudioDeviceData(device: AudioDeviceInput): AudioDeviceData
@@ -1648,6 +1665,9 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 			local playerModeratedEvent = self:GetSignalREvent("ParticipantModeratedFromVoice")
 			self.playerModeratedConnection = playerModeratedEvent:Connect(function()
 				log:debug("User Moderated")
+				if GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
+					self.previousSessionId = self.service:GetSessionId()
+				end
 				self:ShowPlayerModeratedMessage()
 				self.service:Leave()
 			end)
@@ -1655,6 +1675,9 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 		elseif game:GetEngineFeature("VoiceChatServicePlayerModeratedEvent") then
 			self.playerModeratedConnection = self.service.LocalPlayerModerated:connect(function()
 				log:debug("User Moderated old")
+				if GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
+					self.previousSessionId = self.service:GetSessionId()
+				end
 				self:ShowPlayerModeratedMessage()
 				self.service:Leave()
 			end)

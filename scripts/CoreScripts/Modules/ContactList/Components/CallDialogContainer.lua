@@ -91,6 +91,16 @@ local function CallDialogContainer(passedProps: Props)
 							)
 						)
 					)
+				elseif
+					params.errorType == ErrorType.UniverseIsNotVoiceEnabled.rawValue()
+					or params.errorType == ErrorType.PlaceIsNotVoiceEnabled.rawValue()
+				then
+					dispatch(
+						OpenOrUpdateDialog(
+							RobloxTranslator:FormatByKey("Feature.Call.Error.Title.ExperienceError"),
+							RobloxTranslator:FormatByKey("Feature.Call.Description.ExperienceError")
+						)
+					)
 				else
 					dispatch(
 						OpenOrUpdateDialog(

@@ -10,8 +10,6 @@ local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
-local GetFFlagCorescriptsSoundManagerEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -118,15 +116,13 @@ local function ContactListContainer()
 							})
 							dispatch(SetCurrentPage(Pages.CallHistory))
 
-							if GetFFlagCorescriptsSoundManagerEnabled() then
-								if GetFFlagSoundManagerRefactor() then
-									SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-								else
-									SoundManager:PlaySound_old(
-										Sounds.Swipe.Name,
-										{ Volume = 0.5, SoundGroup = SoundGroups.Iris }
-									)
-								end
+							if GetFFlagSoundManagerRefactor() then
+								SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
+							else
+								SoundManager:PlaySound_old(
+									Sounds.Swipe.Name,
+									{ Volume = 0.5, SoundGroup = SoundGroups.Iris }
+								)
 							end
 						else
 							dispatch(
@@ -174,12 +170,10 @@ local function ContactListContainer()
 
 	local dismissCallback = React.useCallback(function()
 		if not isSmallScreen and contactListContainerRef.current then
-			if GetFFlagCorescriptsSoundManagerEnabled() then
-				if GetFFlagSoundManagerRefactor() then
-					SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-				else
-					SoundManager:PlaySound_old(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-				end
+			if GetFFlagSoundManagerRefactor() then
+				SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
+			else
+				SoundManager:PlaySound_old(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 			end
 			pcall(function()
 				contactListContainerRef.current:TweenPosition(
@@ -244,12 +238,10 @@ local function ContactListContainer()
 				SocialService:InvokeIrisInvitePromptClosed(localPlayer)
 			end
 
-			if GetFFlagCorescriptsSoundManagerEnabled() then
-				if GetFFlagSoundManagerRefactor() then
-					SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-				else
-					SoundManager:PlaySound_old(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-				end
+			if GetFFlagSoundManagerRefactor() then
+				SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
+			else
+				SoundManager:PlaySound_old(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 			end
 		end
 

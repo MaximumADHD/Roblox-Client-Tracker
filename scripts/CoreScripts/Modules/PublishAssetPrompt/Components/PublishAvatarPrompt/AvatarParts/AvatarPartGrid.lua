@@ -41,12 +41,22 @@ local function getPart(humanoidModel: Model, partName: string): MeshPart
 end
 
 local function getItems(humanoidModel: Model, name: string): { [number]: AvatarItemCard.Props }
+	local eyelashes, eyebrows
+	for _, child in ipairs(humanoidModel:GetChildren()) do
+		if child:IsA("Accessory") then
+			if child.AccessoryType == Enum.AccessoryType.Eyebrow then
+				eyebrows = child
+			elseif child.AccessoryType == Enum.AccessoryType.Eyelash then
+				eyelashes = child
+			end
+		end
+	end
+
 	local items: { AvatarItemCard.Props } = {
 		{
 			asset = getPart(humanoidModel, "Head"),
 			-- Note that it was decided by design to not localize titleText
 			titleText = name .. "'s Head",
-			isHeadAsset = true,
 		},
 		{
 			asset = createObjectsFolder({
@@ -54,7 +64,6 @@ local function getItems(humanoidModel: Model, name: string): { [number]: AvatarI
 				getPart(humanoidModel, "LowerTorso"),
 			}),
 			titleText = name .. "'s Torso",
-			isHeadAsset = false,
 		},
 		{
 			asset = createObjectsFolder({
@@ -63,7 +72,6 @@ local function getItems(humanoidModel: Model, name: string): { [number]: AvatarI
 				getPart(humanoidModel, "LeftHand"),
 			}),
 			titleText = name .. "'s Left Arm",
-			isHeadAsset = false,
 		},
 		{
 			asset = createObjectsFolder({
@@ -72,7 +80,6 @@ local function getItems(humanoidModel: Model, name: string): { [number]: AvatarI
 				getPart(humanoidModel, "LeftFoot"),
 			}),
 			titleText = name .. "'s Left Leg",
-			isHeadAsset = false,
 		},
 		{
 			asset = createObjectsFolder({
@@ -81,7 +88,6 @@ local function getItems(humanoidModel: Model, name: string): { [number]: AvatarI
 				getPart(humanoidModel, "RightHand"),
 			}),
 			titleText = name .. "'s Right Arm",
-			isHeadAsset = false,
 		},
 		{
 			asset = createObjectsFolder({
@@ -90,9 +96,23 @@ local function getItems(humanoidModel: Model, name: string): { [number]: AvatarI
 				getPart(humanoidModel, "RightFoot"),
 			}),
 			titleText = name .. "'s Right Leg",
-			isHeadAsset = false,
 		},
 	}
+
+	if eyebrows then
+		table.insert(items, {
+			asset = eyebrows,
+			titleText = name .. "'s Eyebrows",
+		})
+	end
+
+	if eyelashes then
+		table.insert(items, {
+			asset = eyelashes,
+			titleText = name .. "'s Eyelashes",
+		})
+	end
+
 	return items
 end
 
@@ -110,7 +130,6 @@ local function AvatarPartGrid(props: Props)
 		return React.createElement(AvatarItemCard, {
 			asset = item.asset,
 			titleText = item.titleText,
-			isHeadAsset = item.isHeadAsset,
 			viewportSize = itemCardWidth,
 		})
 	end, { itemCardWidth })

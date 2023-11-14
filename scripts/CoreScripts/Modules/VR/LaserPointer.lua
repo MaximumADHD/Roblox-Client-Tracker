@@ -20,6 +20,8 @@ local FFlagUIBloxVRDualLaserPointers =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRDualLaserPointers()
 local FFlagVRFixCursorJitterLua = game:DefineFastFlag("VRFixCursorJitterLua", false)
 local FFlagVRLaserPointerOptimization = game:DefineFastFlag("VRLaserPointerOptimization", false)
+local FFlagEnableUserInputCFrameLogging = game:DefineFastFlag("EnableUserInputCFrameLogging", false)
+local FFlagEnableUpdateduserInputCFrameUpdate = game:DefineFastFlag("EnableUpdateduserInputCFrameUpdate", false)
 local ContextActionService = game:GetService("ContextActionService")
 
 local LocalPlayer = Players.LocalPlayer
@@ -349,6 +351,10 @@ function LaserPointer.new(laserDistance)
 			elseif FFlagVRFixCursorJitterLua and
 				(prop == "PointerHitCFrame" or prop == "DidPointerHit") then
 				self:cursorInputsChanged()
+			elseif FFlagEnableUpdateduserInputCFrameUpdate
+				and prop == "VRSessionState"
+				and VRService.VRSessionState == Enum.VRSessionState.Focused then
+				self:updateInputUserCFrame()
 			end
 		end)
 
@@ -371,6 +377,12 @@ function LaserPointer.new(laserDistance)
 					self:updateInputUserCFrame()
 			end
 		end)
+
+		if FFlagEnableUpdateduserInputCFrameUpdate then
+			VRService.UserCFrameEnabled:Connect(function(type, enabled)
+				self:updateInputUserCFrame()
+			end)
+		end
 	end
 
 	self:onModeChanged(self.mode)
@@ -396,6 +408,10 @@ function LaserPointer.getModeName(mode)
 end
 
 function LaserPointer:updateInputUserCFrame()
+	local prevInputUserCFrame
+	if FFlagEnableUserInputCFrameLogging then
+		prevInputUserCFrame = VRService.GuiInputUserCFrame
+	end
 	if VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand)
 		and self.laserHand == LaserHand.Right then
 		VRService.GuiInputUserCFrame = Enum.UserCFrame.RightHand
@@ -408,6 +424,9 @@ function LaserPointer:updateInputUserCFrame()
 		VRService.GuiInputUserCFrame = Enum.UserCFrame.LeftHand
 	else
 		VRService.GuiInputUserCFrame = Enum.UserCFrame.Head
+	end
+	if FFlagEnableUserInputCFrameLogging and prevInputUserCFrame ~= VRService.GuiInputUserCFrame then
+		print("Updated GuiInputUserCFrame is: " .. tostring(VRService.GuiInputUserCFrame))
 	end
 end
 

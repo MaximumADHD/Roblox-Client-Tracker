@@ -16,11 +16,15 @@ local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTe
 
 local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
 
+local GetFFlagDisableChromeUnibar = require(script.Parent.Flags.GetFFlagDisableChromeUnibar)()
+local GetFFlagDisableChromePinnedChat = require(script.Parent.Flags.GetFFlagDisableChromePinnedChat)()
+local GetFFlagDisableChromeDefaultOpen = require(script.Parent.Flags.GetFFlagDisableChromeDefaultOpen)()
+
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
-local TEST_VERSION = "t7" -- bump on new A/B campaigns
+local TEST_VERSION = "t8" -- bump on new A/B campaigns
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
@@ -55,9 +59,10 @@ local validVersion = {
 	[MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED] = true,
 	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = false,
 	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = false,
-	[MENU_VERSION_CHROME_ENUM.UNIBAR] = true,
-	[MENU_VERSION_CHROME_ENUM.PINNED_CHAT] = true,
-	[MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN] = true,
+	-- Invalidate Unibar test variants if the respective disable flag is turned on
+	[MENU_VERSION_CHROME_ENUM.UNIBAR] = not GetFFlagDisableChromeUnibar,
+	[MENU_VERSION_CHROME_ENUM.PINNED_CHAT] = not GetFFlagDisableChromePinnedChat,
+	[MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN] = not GetFFlagDisableChromeDefaultOpen,
 }
 
 local ExperienceMenuABTestManager = {}

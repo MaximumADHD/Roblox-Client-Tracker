@@ -20,6 +20,8 @@
 ]]
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
+local RunService = game:GetService("RunService")
 
 local Cryo = require(CorePackages.Cryo)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
@@ -40,6 +42,7 @@ local getFFlagDecoupleHasAndRequestPermissions = require(RobloxGui.Modules.Flags
 local getFFlagPermissionsEarlyOutStallsQueue = require(RobloxGui.Modules.Flags.getFFlagPermissionsEarlyOutStallsQueue)
 local getFFlagUseCameraDeviceGrantedSignal = require(RobloxGui.Modules.Flags.getFFlagUseCameraDeviceGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+local getFFlagEnableAnalyticsForCameraDevicePermissions = require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
 
 local AvatarChatService : any = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 
@@ -174,6 +177,17 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 					hasCameraPermissions = hasCameraPermissions or false,
 					hasMicPermissions = hasMicPermissions or false,
 				}
+
+				if getFFlagEnableAnalyticsForCameraDevicePermissions() then
+					-- Check if we requested camera permissions
+					if checkingCamera then
+						local didAuthorize = hasCameraPermissions or false
+						local target = if RunService:IsStudio() then "studio" else "client"
+						AnalyticsService:SendEventDeferred(target, "avatarChat", "CameraDevicePermissionPrompted", {
+							didAuthorize = didAuthorize,
+						})
+					end
+				end
 
 				-- Remove with AVBURST-12354 once the C++ side fixes this.
 				if checkingCamera and not hasCameraPermissions then

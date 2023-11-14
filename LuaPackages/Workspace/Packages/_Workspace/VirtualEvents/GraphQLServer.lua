@@ -18,6 +18,7 @@ export type VirtualEventsPage = Package.VirtualEventsPage
 export type VirtualEventsByUniverseIdOptions = Package.VirtualEventsByUniverseIdOptions
 export type MutualFriend = Package.MutualFriend
 export type ProfileInsights = Package.ProfileInsights
+export type Friend = Package.Friend
 export type UserProfile = Package.UserProfile
 export type MockOptions = Package.MockOptions
 export type Response = Package.Response

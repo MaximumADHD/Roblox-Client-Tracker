@@ -1,5 +1,9 @@
 local AvatarChatService = game:GetService("AvatarChatService")
 local CoreGui = game:GetService("CoreGui")
+local VideoCaptureService = game:GetService("VideoCaptureService")
+local CorePackages = game:GetService("CorePackages")
+
+local Cryo = require(CorePackages.Cryo)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 
@@ -21,6 +25,12 @@ local isCameraOnlyUser = function(): boolean
 	local placeMicEnabled = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.PlaceAudio)
 	local userMicEnabled = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserAudio)
 	local userMicEligible = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserAudioEligible)
+
+	local cameraDevices = VideoCaptureService:GetCameraDevices()
+	-- If user has no eligible camera devices, then the user cannot be camera only
+	if Cryo.isEmpty(cameraDevices) then
+		return false
+	end
 
 	-- Couple enabled and eligible
 	local userMicGranted = userMicEnabled and userMicEligible

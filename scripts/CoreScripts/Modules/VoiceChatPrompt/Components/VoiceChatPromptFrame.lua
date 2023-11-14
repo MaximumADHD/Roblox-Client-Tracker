@@ -28,6 +28,8 @@ local GetFFlagAvatarChatBanMessage = require(RobloxGui.Modules.Flags.GetFFlagAva
 local GetFFlagEnableVoiceNudge = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceNudge)
 local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
+local GetFFlagLuaVoiceChatAnalyticsBanMessageV2 =
+	require(RobloxGui.Modules.Flags.GetFFlagLuaVoiceChatAnalyticsBanMessageV2)
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local FFlagVoiceChatPromptFrameNewCopyEnabled2 = game:DefineFastFlag("VoiceChatPromptFrameNewCopyEnabled2", false)
 
@@ -150,6 +152,7 @@ VoiceChatPromptFrame.validateProps = t.strictInterface({
 	onSecondaryActivated = t.optional(t.callback),
 	onReadyForSignal = t.optional(t.callback),
 	Analytics = t.optional(t.table),
+	VoiceChatServiceManager = t.optional(t.table),
 	showNewContent = t.optional(t.boolean),
 	policyMapper = t.optional(t.callback),
 })
@@ -185,8 +188,13 @@ function VoiceChatPromptFrame:init()
 	end
 
 	self.promptSignalCallback = function(promptType)
-		if self.props.Analytics and PromptTypeIsBan(promptType) then
-			self.props.Analytics:reportBanMessageEvent("Shown")
+		if PromptTypeIsBan(promptType) then
+			if self.props.Analytics then
+				self.props.Analytics:reportBanMessageEvent("Shown")
+			end
+			if self.props.VoiceChatServiceManager and GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
+				self.props.VoiceChatServiceManager:reportBanMessage("Shown")
+			end
 		end
 		if promptType and promptType ~= PromptType.None then
 			self:setState({
@@ -222,6 +230,9 @@ function VoiceChatPromptFrame:init()
 		ContextActionService:UnbindCoreAction(CLOSE_VOICE_BAN_PROMPT)
 		if self.props.Analytics then
 			self.props.Analytics:reportBanMessageEvent("Acknowledged")
+		end
+		if self.props.VoiceChatServiceManager and GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
+			self.props.VoiceChatServiceManager:reportBanMessage("Acknowledged")
 		end
 	end
 

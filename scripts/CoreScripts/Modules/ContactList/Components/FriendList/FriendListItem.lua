@@ -9,8 +9,6 @@ local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
-local GetFFlagCorescriptsSoundManagerEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCorescriptsSoundManagerEnabled
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local ContactList = RobloxGui.Modules.ContactList
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -175,11 +173,7 @@ local function FriendListItem(props: Props)
 	end, { presence, style })
 
 	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
-		if
-			inputObject
-			and inputObject.UserInputType == Enum.UserInputType.MouseMovement
-			and GetFFlagCorescriptsSoundManagerEnabled()
-		then
+		if inputObject and inputObject.UserInputType == Enum.UserInputType.MouseMovement then
 			if GetFFlagSoundManagerRefactor() then
 				SoundManager:PlaySound(Sounds.Hover.Name, {
 					Volume = 0.5 + rng:NextNumber(-0.25, 0.25),

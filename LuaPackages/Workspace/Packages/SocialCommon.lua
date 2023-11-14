@@ -7,6 +7,7 @@ local Package = require(PackageIndex["SocialCommon"]["SocialCommon"])
 
 export type ContextualInfoTypes = Package.ContextualInfoTypes
 export type RecommendationSourceEnum = Package.RecommendationSourceEnum
+export type Buttons = Package.Buttons
 
 
 return Package

@@ -9,6 +9,7 @@ return function()
 	local Network = require(InspectAndBuyFolder.Services.Network)
 	local Thunk = require(InspectAndBuyFolder.Thunk)
 	local GetAssetsFromHumanoidDescription = require(script.Parent.GetAssetsFromHumanoidDescription)
+	local FFlagSkipHDTests1 = game:DefineFastFlag("SkipHDTests1", false)
 
 	local function countKeys(t)
 		local count = 0
@@ -36,7 +37,9 @@ return function()
 		Using the mock humanoid description object in MockNetwork.lua, there are 4 valid ids.
 		Body color and scale fields should be ignored.
 	]]
-	it("should add a characters currently wearing assets from a humanoid description object", function()
+	-- TODO AVBURST-13728 - Reenable test when HumanoidDescription migration is complete.
+	local itSkipIfFlagsOn = if FFlagSkipHDTests1 then itSKIP else it
+	itSkipIfFlagsOn("should add a characters currently wearing assets from a humanoid description object", function()
 		local store = Rodux.Store.new(Reducer)
 		local mockHumanoidDescription = MockNetwork.GetMockHumanoidDescription()
 		local thunk = GetAssetsFromHumanoidDescription(mockHumanoidDescription)

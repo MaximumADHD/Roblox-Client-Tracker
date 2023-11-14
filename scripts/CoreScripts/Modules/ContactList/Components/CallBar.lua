@@ -11,6 +11,7 @@ local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundG
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
+local GetFFlagCallBarRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCallBarRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -85,6 +86,8 @@ local function getTextFromCallStatus(status: string, instanceId: string)
 		status == RoduxCall.Enums.Status.Failed.rawValue()
 		or (status == RoduxCall.Enums.Status.Idle.rawValue() and game.JobId == instanceId)
 	then
+		return RobloxTranslator:FormatByKey("Feature.Call.Label.CallEnded")
+	elseif GetFFlagCallBarRefactor() and status == RoduxCall.Enums.Status.Idle.rawValue() then
 		return RobloxTranslator:FormatByKey("Feature.Call.Label.CallEnded")
 	else
 		error("Invalid status for call bar: " .. status .. ".")

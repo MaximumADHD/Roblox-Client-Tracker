@@ -6,6 +6,7 @@ local playerList = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local GameInvitePackage = require(CorePackages.Workspace.Packages.GameInvite)
 local renderCoreScriptGameInviteModalContainer = GameInvitePackage.renderCoreScriptGameInviteModalContainer
 local GameInviteModalManager = GameInvitePackage.GameInviteModalManager
+local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 
 local gameInviteCoreScriptSideEffectManager = function(isModalOpen: boolean)
 	if isModalOpen then
@@ -15,5 +16,5 @@ local gameInviteCoreScriptSideEffectManager = function(isModalOpen: boolean)
 	end
 end
 
-renderCoreScriptGameInviteModalContainer()
+renderCoreScriptGameInviteModalContainer(ApolloClient)
 GameInviteModalManager.ToggleGameInviteModalEvent.Event:Connect(gameInviteCoreScriptSideEffectManager)

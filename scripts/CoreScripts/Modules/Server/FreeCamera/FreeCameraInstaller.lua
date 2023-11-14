@@ -8,7 +8,6 @@ local FFlagAllowLuobuFreecamGroup = game:DefineFastFlag("AllowLuobuFreecamGroup"
 
 -- Users in the following groups have global Freecam permissions:
 local FREECAM_GROUP_IDS = {
-	1200769, -- Roblox Admins
 	4358041, -- Freecam
 }
 

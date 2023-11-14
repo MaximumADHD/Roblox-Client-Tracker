@@ -26,7 +26,6 @@ local VoiceBetaBadge = Roact.PureComponent:extend("MenuIcon")
 local GetFStringVoiceBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFStringVoiceBetaBadgeLearnMore)
 local GetFFlagBetaBadgeLearnMoreLinkFormview = require(RobloxGui.Modules.Flags.GetFFlagBetaBadgeLearnMoreLinkFormview)
 
-local FFlagUpdateVoiceBetaDescription = game:DefineFastFlag("UpdateVoiceBetaDescription", false)
 local TopBar = script.Parent.Parent.Parent
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
@@ -53,7 +52,7 @@ local STROKE_THICKNESS = 2
 
 local BadgeSize = UDim2.fromOffset(31, 11)
 local PopupPadding = UDim.new(0, 12)
-local PopupSize = UDim2.fromOffset(330, if FFlagUpdateVoiceBetaDescription then 185 else 165)
+local PopupSize = UDim2.fromOffset(330, 185)
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
@@ -217,9 +216,7 @@ function VoiceBetaBadge:render()
 						}),
 					}),
 					Text = Roact.createElement("TextLabel", {
-						Text = if FFlagUpdateVoiceBetaDescription
-							then RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.DisclaimerText2")
-							else RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.DisclaimerText"),
+						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.Popup.DisclaimerText2"),
 						TextSize = popupTextSize,
 						Font = font,
 						LayoutOrder = 0,

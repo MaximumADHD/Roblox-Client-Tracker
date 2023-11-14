@@ -30,10 +30,12 @@ local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
+local Players = game:GetService("Players")
 
 ----------- UTILITIES --------------
 
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
+local GetFFlagSurveyUserIdFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSurveyUserIdFix
 
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Roact)
@@ -235,7 +237,12 @@ local function Initialize()
 					end
 					this.LeaveGameFunc(false)
 
-					MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType}) 
+					if GetFFlagSurveyUserIdFix() then
+						local localUserId = tostring(Players.LocalPlayer.UserId)
+						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId})
+					else
+						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})
+					end
 				end,
 			}),
 		})

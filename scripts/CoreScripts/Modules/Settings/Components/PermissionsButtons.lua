@@ -40,7 +40,6 @@ local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEven
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
 local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
-local FFlagACPermissionButtonFix = game:DefineFastFlag("ACPermissionButtonFix", false)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 
@@ -136,11 +135,9 @@ function PermissionsButtons:init()
 	-- Mute all players in the lobby
 	self.toggleMuteAll = function()
 		-- Ensure VCS is initialized.
-		if FFlagACPermissionButtonFix then
-			local voiceService = VoiceChatServiceManager:getService()
-			if not voiceService then
-				return
-			end
+		local voiceService = VoiceChatServiceManager:getService()
+		if not voiceService then
+			return
 		end
 
 		local newAllPlayersMuted = not self.state.allPlayersMuted
@@ -165,11 +162,9 @@ function PermissionsButtons:init()
 			return
 		end
 		-- Ensure VCS is initialized.
-		if FFlagACPermissionButtonFix then
-			local voiceService = VoiceChatServiceManager:getService()
-			if not voiceService then
-				return
-			end
+		local voiceService = VoiceChatServiceManager:getService()
+		if not voiceService then
+			return
 		end
 
 		VoiceChatServiceManager:ToggleMic()

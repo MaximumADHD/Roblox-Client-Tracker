@@ -109,6 +109,14 @@ local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetSer
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 
+local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
+local FFlagMockFTUXAlwaysAvailableCameraUser = game:DefineFastFlag("MockOpenSelfViewForCameraUser", false)
+local globalShowSelfViewFunction = nil
+local FIntSelfViewTooltipLifetime = game:DefineFastInt("SelfViewTooltipLifetime", 10)
+local mountSelfViewOnCloseTooltip = require(RobloxGui.Modules.SelfView.mountSelfViewOnCloseTooltip)
+local mountSelfViewOnOpenTooltip = require(RobloxGui.Modules.SelfView.mountSelfViewOnOpenTooltip)
+local mountedOnOpenTooltipInstance = nil
+
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
 local displayCameraDeniedToast = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.displayCameraDeniedToast)
 
@@ -201,7 +209,11 @@ local cloneCamUpdatePosEvery = 1
 local hasCameraPermissions = false
 local hasMicPermissions = false
 local function getShouldShowMicButton()
-	return hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
+	if getFFlagEnableAlwaysAvailableCamera() then
+		return hasMicPermissions
+	else
+		return hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
+	end
 end
 local cachedHasCameraPermissions = false
 local cachedHasMicPermissions = false
@@ -305,6 +317,61 @@ local Observer = {
 	CharacterRemoving = "CharacterRemoving",
 	HumanoidStateChanged = "HumanoidStateChanged",
 }
+
+function getShouldDisplaySelfieView()
+	local shouldDisplaySelfieView = false
+
+	if FFlagMockFTUXAlwaysAvailableCameraUser then
+		return true
+	end
+
+	-- todo: remove pcall when ShowSelfieViewForCameraUser added to appstorageservice
+	pcall(function()
+		local savedState = AppStorageService:GetItem("ShowSelfieViewForCameraUser")
+		if savedState == "true" then
+			shouldDisplaySelfieView = true
+		end
+	end)
+
+
+	return shouldDisplaySelfieView
+end
+
+function setSelfieViewDisplayInAppStorage(newState)
+	-- todo: remove pcall when ShowSelfieViewForCameraUser added to appstorageservice
+	pcall(function()
+		AppStorageService:SetItem("ShowSelfieViewForCameraUser", if newState then "true" else "false")
+	end)
+end
+
+function shouldDisplaySelfViewTooltip(tooltipName)
+	if not getFFlagEnableAlwaysAvailableCamera() or not isCamEnabledForUserAndPlace() then
+		-- If always available camera is not on or user is not a camera user, never render tooltips
+		return false
+	end
+
+	local shouldDisplayTooltip = false
+
+	if FFlagMockFTUXAlwaysAvailableCameraUser then
+		return true
+	end
+
+	pcall(function()
+		shouldDisplayTooltip = AppStorageService:GetItem(tooltipName) == "true"
+	end)
+	return shouldDisplayTooltip
+end
+
+function displaySelfieViewByDefault()
+	if
+		getFFlagEnableAlwaysAvailableCamera()
+		and isCamEnabledForUserAndPlace()
+		and getShouldDisplaySelfieView()
+		and globalShowSelfViewFunction ~= nil
+	then
+		globalShowSelfViewFunction(true)
+	end
+end
 
 function getRelativePosition(uiObject)
 	if not uiObject.Parent then
@@ -429,6 +496,10 @@ end
 function initVoiceChatServiceManager()
 	do
 		local cachedMicState = VoiceChatServiceManager.VOICE_STATE.MUTED
+		if getFFlagEnableAlwaysAvailableCamera() then
+			--correct default state is connecting, fix was needed to make it update icon when switching from connecting to muted when showing self view on experience start
+			cachedMicState = VoiceChatServiceManager.VOICE_STATE.CONNECTING
+		end
 		local cachedLevel = 0
 
 		local function updateMicIcon(state, level)
@@ -505,6 +576,8 @@ function initVoiceChatServiceManager()
 			:andThen(function()
 				local voiceService = VoiceChatServiceManager:getService()
 				if voiceService then
+					--trigger opening self view here (too) so it shows mic button (, too, if cam also enabled), needed here again to show both buttons on self view showing on place start
+					displaySelfieViewByDefault()
 				voiceService.StateChanged:Connect(function(_oldState, newState)
 					local voiceManagerState = LOCAL_STATE_MAP[newState]
 					if GetFFlagShowMicConnectingIconAndToast() then
@@ -1104,6 +1177,25 @@ local function createViewport()
 			end
 			frame.Active = true
 			frame.Visible = true
+
+			if shouldDisplaySelfViewTooltip("ShowSelfieViewOpenedTooltip") then
+				mountedOnOpenTooltipInstance = mountSelfViewOnOpenTooltip({
+					fallbackText = "Use your camera to make your avatar smile and move just like you",
+					translationKey = "Feature.Avatar.Message.FTUXSelfieViewOpenedTooltip",
+					anchorPoint = frame.AnchorPoint,
+					position = frame.Position,
+					size = frame.Size,
+					bottomButtonsFramePosition = bottomButtonsFrame.Position,
+					bottomButtonsFrameSize = bottomButtonsFrame.Size,
+					aspectRatio = aspectRatioConstraint.AspectRatio,
+					maxSize = sizeConstraint.MaxSize,
+					minSize = sizeConstraint.MinSize,
+					tooltipLifetime = FIntSelfViewTooltipLifetime,
+				})
+				pcall(function()
+					AppStorageService:SetItem("ShowSelfieViewOpenedTooltip", "false")
+				end)
+			end
 		else
 			micButton.Position = UDim2.new(0, 40, 0, -1)
 			micButton.Size = UDim2.new(0, 34, 0, 34)
@@ -1151,10 +1243,23 @@ local function createViewport()
 					end
 				end
 			end
+
+			if shouldDisplaySelfViewTooltip("ShowSelfieViewClosedTooltip") then
+				mountSelfViewOnCloseTooltip({
+					fallbackText = "You can find your camera and self-view controls here",
+					translationKey = "Feature.Avatar.Message.FTUXSelfieViewClosedTooltip",
+					tooltipLifetime = FIntSelfViewTooltipLifetime,
+				})
+				pcall(function()
+					AppStorageService:SetItem("ShowSelfieViewClosedTooltip", "false")
+				end)
+			end
 		end
 
 		bottomButtonsFrame.Visible = isOpen
 	end
+
+	globalShowSelfViewFunction = showSelfView
 
 	closeButton.Activated:Connect(function()
 		showSelfView(not isOpen)
@@ -1205,6 +1310,11 @@ local function createViewport()
 		selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
 			-- Calling hideSelfView when self view is not visible is no-op
 			if isOpen then
+				if getFFlagEnableAlwaysAvailableCamera() and mountedOnOpenTooltipInstance then
+					-- If we have mounted a tooltip and the developer calls this API, we want to unmount the tooltip
+					mountedOnOpenTooltipInstance.unmount()
+					mountedOnOpenTooltipInstance = nil
+				end
 				showSelfView(false)
 			end
 		end)
@@ -2447,7 +2557,8 @@ function startRenderStepped(player)
 				-- 1. Face rotation
 				-- 2. Camera orientation
 
-				if UserInputService.AccelerometerEnabled then
+				local platformEnum = UserInputService:GetPlatform()
+				if platformEnum == Enum.Platform.IOS or platformEnum == Enum.Platform.Android then
 					if cloneAnimator ~= nil then
 						local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
 						for i, trackS in pairs(playingAnims) do
@@ -2698,11 +2809,15 @@ function Initialize(player)
 	startRenderStepped(player)
 
 	initialized = true
+
+	--trigger opening self view here so it shows if cam enabled (before even voice enabled, as to be independent of voice/mic enabled/available)
+	displaySelfieViewByDefault()
 end
 
 function setIsOpen(shouldBeOpen)
 	debugPrint("Self View: setIsOpen(): " .. tostring(shouldBeOpen))
 	isOpen = shouldBeOpen
+	setSelfieViewDisplayInAppStorage(shouldBeOpen)
 
 	if isOpen then
 		ReInit(Players.LocalPlayer)

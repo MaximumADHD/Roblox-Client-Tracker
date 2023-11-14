@@ -11,6 +11,8 @@ game:DefineFastFlag("LuaVoiceChatAnalyticsUseCounterV2", false)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUseEventsV2", false)
 game:DefineFastFlag("LuaVoiceChatAnalyticsBanMessage", true)
 game:DefineFastFlag("LuaVoiceChatReconnectMissedSequence", false)
+local GetFFlagLuaVoiceChatAnalyticsBanMessageV2 =
+	require(RobloxGui.Modules.Flags.GetFFlagLuaVoiceChatAnalyticsBanMessageV2)
 
 type EventStreamFn = (AnalyticsService, string, string, string, { [string]: any }) -> ()
 type DiagFn = (AnalyticsService, string, number) -> ()
@@ -63,6 +65,7 @@ type AnalyticsWrapperMeta = {
 
 	_report: (AnalyticsWrapper, string, string, string?, { [string]: any }) -> (),
 	reportVoiceChatJoinResult: (AnalyticsWrapper, boolean, string, LogLevel?) -> (),
+	reportBanMessageEventV2: (AnalyticsWrapper, eventType: string, banReason: number, userId: number, voiceSessionId: string) -> (),
 	reportBanMessageEvent: (AnalyticsWrapper, string) -> (),
 	reportReconnectDueToMissedSequence: (AnalyticsWrapper) -> (),
 	reportOutOfOrderSequence: (AnalyticsWrapper) -> (),
@@ -152,6 +155,17 @@ end
 function Analytics:reportBanMessageEvent(event: string)
 	if game:GetFastFlag("LuaVoiceChatAnalyticsBanMessage") then
 		self._impl:ReportCounter("voiceChat-reportBanMessage" .. event, 1)
+	end
+end
+
+function Analytics:reportBanMessageEventV2(eventType: string, banReason: number, userId: number, voiceSessionId: string)
+	if GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
+		self:_report("voiceChat", "reportBanEvent", nil, {
+			eventType = eventType,
+			banReason = banReason,
+			userId = userId,
+			voiceSessionId = voiceSessionId
+		})
 	end
 end
 

@@ -20,6 +20,7 @@ local Types = require(script.Parent.Types)
 local GetFFlagEnableUnibarSneakPeak = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagEnableUnibarMaxDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
 local GetFFlagSelfViewMultiTouchFix = require(script.Parent.Parent.Flags.GetFFlagSelfViewMultiTouchFix)
+local GetFFlagEnableChromeEscapeFix = require(script.Parent.Parent.Flags.GetFFlagEnableChromeEscapeFix)
 local GetFFlagEnableChromeDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableChromeDefaultOpen)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 
@@ -184,10 +185,12 @@ function ChromeService.new(): ChromeService
 	local localeId = LocalizationService.RobloxLocaleId
 	local self = {}
 	self._chromeSeenCount = if GetFFlagEnableUnibarMaxDefaultOpen() then getChromeSeenCount() else 0
-	self._status = if GetFFlagEnableChromeDefaultOpen()
+
+	local status: ObservableMenuStatus = if GetFFlagEnableChromeDefaultOpen()
 			and (GetFFlagEnableUnibarSneakPeak() or GetFFlagEnableUnibarMaxDefaultOpen())
 		then getInitialStatus(self._chromeSeenCount)
 		else utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
+	self._status = status
 	self._currentSubMenu = utils.ObservableValue.new(nil)
 	self._selectedItem = utils.ObservableValue.new(nil)
 	self._selectedItemIdx = 0
@@ -217,7 +220,12 @@ function ChromeService.new(): ChromeService
 	self._onIntegrationActivated = Signal.new()
 	self._onIntegrationStatusChanged = Signal.new()
 
-	self._lastInputToOpenMenu = Enum.UserInputType.None
+	-- If unibar is default opened, init as MouseButton1 to prevent focus navigation at startup
+	self._lastInputToOpenMenu = if GetFFlagEnableChromeEscapeFix()
+			and GetFFlagEnableChromeDefaultOpen()
+			and status:get() == ChromeService.MenuStatus.Open
+		then Enum.UserInputType.MouseButton1
+		else Enum.UserInputType.None
 
 	local service = (setmetatable(self, ChromeService) :: any) :: ChromeService
 
@@ -225,7 +233,7 @@ function ChromeService.new(): ChromeService
 	ViewportUtil.viewport:connect(function(viewportInfo: ViewportUtil.ViewportInfo)
 		service:updateScreenSize(
 			viewportInfo.size,
-			ViewportUtil.mobileDevice:get(),
+			viewportInfo.isMobileDevice,
 			viewportInfo.portraitOrientation,
 			viewportInfo.tinyPortrait
 		)

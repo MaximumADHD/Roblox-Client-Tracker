@@ -148,8 +148,8 @@ local function setUpAestheticPart(part, connections)
 	maintainPropertyValue(part, "CanQuery", false, connections)
 end
 
-local function setUpPart(character, part, fixedAttachments, connections)
-	if AestheticParts[part.Name] then
+local function setUpPart(character, part, fixedAttachments, connections, propertyTransferOnly)
+	if AestheticParts[part.Name] and not propertyTransferOnly then
 		setUpAestheticPart(part, connections)
 	end
 
@@ -185,10 +185,21 @@ local function onWeldDestroyed(adapter, adapterToParts)
 	end
 end
 
-local function setUpAdapterPart(character, adapter, partNameToAdapter, adapterToParts, weldPartNames)
+local function setUpAdapterPart(
+	character,
+	adapter,
+	partNameToAdapter,
+	adapterToParts,
+	weldPartNames,
+	connections,
+	propertyTransferOnly
+)
 	local newAdapter = adapter:Clone()
 	newAdapter:ClearAllChildren()
 	newAdapter.Parent = character
+	if propertyTransferOnly then
+		setUpAestheticPart(newAdapter, connections)
+	end
 
 	local adapterChildren = adapter:GetChildren()
 	for _, child in adapterChildren do
@@ -243,10 +254,11 @@ local function onChildAdded(
 	connections,
 	adapterToParts,
 	fixedAttachments,
-	adaptInstancesTable
+	adaptInstancesTable,
+	propertyTransferOnly
 )
 	if child:IsA("BasePart") then
-		setUpPart(character, child, fixedAttachments, connections)
+		setUpPart(character, child, fixedAttachments, connections, propertyTransferOnly)
 		if partNameToAdapter[child.Name] then
 			onAdaptedPartAdded(
 				child,
@@ -293,8 +305,19 @@ function SetupAdapterParts.setupCharacter(character, AdapterReference, Collision
 	local fixedAttachments = {}
 	local adaptInstancesTable = {}
 
+	-- Make the adapters function only as property propagators
+	local propertyTransferOnly = if CollisionHead == nil then true else false
+
 	for _, child in AdapterReference:GetChildren() do
-		local adapter = setUpAdapterPart(character, child, partNameToAdapter, adapterToParts, weldPartNames)
+		local adapter = setUpAdapterPart(
+			character,
+			child,
+			partNameToAdapter,
+			adapterToParts,
+			weldPartNames,
+			connections,
+			propertyTransferOnly
+		)
 		CollectionService:AddTag(adapter, ALWAYS_TRANSPARENT_PART_TAG)
 	end
 	AdapterReference:Destroy()
@@ -310,7 +333,8 @@ function SetupAdapterParts.setupCharacter(character, AdapterReference, Collision
 				connections,
 				adapterToParts,
 				fixedAttachments,
-				adaptInstancesTable
+				adaptInstancesTable,
+				propertyTransferOnly
 			)
 		end)
 	)
@@ -350,7 +374,9 @@ function SetupAdapterParts.setupCharacter(character, AdapterReference, Collision
 		)
 	end
 
-	createHead(character, connections, CollisionHead)
+	if not propertyTransferOnly then
+		createHead(character, connections, CollisionHead)
+	end
 
 	return {
 		["partNameToAdapter"] = partNameToAdapter,

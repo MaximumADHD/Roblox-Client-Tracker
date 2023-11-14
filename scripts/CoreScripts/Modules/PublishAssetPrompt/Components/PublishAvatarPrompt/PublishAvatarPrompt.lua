@@ -29,7 +29,7 @@ local PublishAvatarPrompt = Roact.PureComponent:extend("PublishAvatarPrompt")
 
 PublishAvatarPrompt.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
-	humanoidDescription = t.any,
+	humanoidModel = t.instanceOf("Model"),
 
 	-- Mapped state
 	guid = t.any,
@@ -85,10 +85,7 @@ function PublishAvatarPrompt:init()
 end
 
 function PublishAvatarPrompt:renderPromptBody()
-	-- TODO: Replace placeholder HD AVBURST-13327
 	-- Note it's nice to use LocalPlayer.Character.Humanoid.HumanoidDescription for debugging
-	local model =
-		Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R15)
 	return Roact.createFragment({
 		UIListLayout = Roact.createElement("UIListLayout", {
 			Padding = PADDING,
@@ -102,17 +99,13 @@ function PublishAvatarPrompt:renderPromptBody()
 		}),
 		EmbeddedPreview = Roact.createElement(ObjectViewport, {
 			openPreviewView = self.openPreviewView,
-			model = model,
+			model = self.props.humanoidModel,
 			useFullBodyCameraSettings = true,
 			fieldOfView = CAMERA_FOV,
 			LayoutOrder = 1,
 		}),
 		AvatarPartGrid = Roact.createElement(AvatarPartGrid, {
-			-- TODO: AVBURST-13327 Placeholder until Humanoid Model can be passed to frontend
-			humanoidModel = Players:CreateHumanoidModelFromDescription(
-				Instance.new("HumanoidDescription"),
-				Enum.HumanoidRigType.R15
-			),
+			humanoidModel = self.props.humanoidModel,
 			name = self.state.name,
 			LayoutOrder = 2,
 			screenSize = self.props.screenSize,
@@ -138,12 +131,7 @@ function PublishAvatarPrompt:render()
 		screenSize = self.props.screenSize,
 		showingPreviewView = self.state.showingPreviewView,
 		closePreviewView = self.closePreviewView,
-		-- TODO: Replace placeholder HD AVBURST-13327
-		-- Note it's nice to use LocalPlayer.Character.Humanoid.HumanoidDescription for debugging
-		asset = Players:CreateHumanoidModelFromDescription(
-			Instance.new("HumanoidDescription"),
-			Enum.HumanoidRigType.R15
-		),
+		asset = self.props.humanoidModel,
 		nameLabel = "Body Name", -- TODO AVBURST-12954 localize
 		defaultName = self.state.name,
 		typeData = localized[BODY_TEXT],
@@ -155,9 +143,7 @@ end
 
 local function mapStateToProps(state)
 	return {
-		-- TODO: Replace placeholder HD AVBURST-13327
-		-- Currently humanoidDescription is just a string, so the viewport uses a placeholder
-		humanoidDescription = state.promptRequest.promptInfo.humanoidDescription,
+		humanoidModel = state.promptRequest.promptInfo.humanoidModel,
 		guid = state.promptRequest.promptInfo.guid,
 		scopes = state.promptRequest.promptInfo.scopes,
 	}

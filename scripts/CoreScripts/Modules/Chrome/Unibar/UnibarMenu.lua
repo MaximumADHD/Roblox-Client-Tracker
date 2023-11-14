@@ -55,7 +55,9 @@ function configureUnibar(viewportInfo)
 		})
 		-- prepend chat to nine-dot menu
 		table.insert(nineDot, 1, "chat")
-		ChromeService:setRecentlyUsed("chat", true)
+		if not ChromeService:isMostRecentlyUsed("chat") then
+			ChromeService:setRecentlyUsed("chat", true)
+		end
 	end
 	ChromeService:configureSubMenu("nine_dot", nineDot)
 end

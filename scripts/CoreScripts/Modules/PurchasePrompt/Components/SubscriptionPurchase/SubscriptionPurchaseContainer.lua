@@ -55,6 +55,7 @@ function SubscriptionPurchaseContainer:render()
 			name = props.subscriptionPurchaseInfo.Name,
 			subscriptionProviderId = props.subscriptionPurchaseInfo.SubscriptionProviderId,
 			subscriptionProviderName = props.subscriptionPurchaseInfo.SubscriptionProviderName,
+			priceTier = props.subscriptionPurchaseInfo.PriceTier,
 			displayPrice = props.subscriptionPurchaseInfo.DisplayPrice,
 			period = props.subscriptionPurchaseInfo.DisplaySubscriptionPeriod,
 			disclaimerText = props.subscriptionPurchaseInfo.DisclaimerText,

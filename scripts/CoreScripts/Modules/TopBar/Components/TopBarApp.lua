@@ -335,12 +335,14 @@ function TopBarApp:renderWithStyle(style)
 					}),
 
 					VoiceStateContext = Roact.createElement(VoiceStateContext.Provider, {}, {
-						Unibar = Roact.createElement(Unibar, {
-							layoutOrder = 1,
-							onAreaChanged = self.props.setKeepOutArea,
-							onMinWidthChanged = function(width: number)
-								self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
-							end,
+						CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+							Unibar = Roact.createElement(Unibar, {
+								layoutOrder = 1,
+								onAreaChanged = self.props.setKeepOutArea,
+								onMinWidthChanged = function(width: number)
+									self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
+								end,
+							}),
 						}),
 					}),
 
