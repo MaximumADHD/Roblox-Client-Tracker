@@ -158,7 +158,8 @@ Rectangle {
                     iconSourceHeight: 32
                     objectName: model.objectName + "_SidebarButton"
                     text: model.text
-                    visible: model.objectName == "NewUser" && !showNewUserPage ? false : true
+                    visible: model.objectName == "NewUser" && (!showNewUserPage || 
+                        (FFlagStudioOnboardingStartPageCTA && newUserPageController.isStartPageCTAVisible())) ? false : true
                     selected: index === sidebarListView.currentIndex
                     onClicked: {
                         myGamesPage.gameGridViewWithHeader.setFocusTo("");

@@ -35,6 +35,7 @@ Item {
     property bool useSelectionMode: false;
 
     property int pageNumber;
+    property bool disableHeader: false // *** Only with FFlagStudioOnboardingStartPageCTA
 
     readonly property bool isTemplatePage: gamePageName == "templatePage"
     readonly property bool isMyGamesPage: gamePageName == "myGamesPage"
@@ -235,7 +236,8 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        height: gameTabBarHeight
+        height: FFlagStudioOnboardingStartPageCTA && disableHeader ? 0 : gameTabBarHeight
+        visible: !FFlagStudioOnboardingStartPageCTA || !disableHeader
         z: 3
 
         Rectangle {

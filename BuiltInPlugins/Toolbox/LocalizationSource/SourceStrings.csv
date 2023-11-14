@@ -43,7 +43,6 @@ Studio.Toolbox.Common.Loading,Loading, ,Loading
 Studio.Toolbox.AssetConfigSharing.OnlyMe,Only me, ,Only me
 Studio.Toolbox.General.CategoryRecentAudio,Recent Audio, ,Recent Audio
 Studio.Toolbox.General.DistributeOnMarketplace,Distribute on Marketplace, ,Distribute on Marketplace
-Studio.Toolbox.Audio.Music.Genre.rock,Rock, ,Rock
 Studio.Toolbox.Audio.SoundEffect.Category.Choir,Choir, ,Choir
 Studio.Toolbox.Common.Update,Update, ,Update
 Studio.Toolbox.General.CategoryRecentDecals,Recent Images, ,Recent Images
@@ -65,6 +64,7 @@ Studio.Toolbox.Common.Yes,Yes, ,Yes
 Studio.Toolbox.General.AssetTypePlugin,Plugin, ,Plugin
 Studio.Toolbox.General.SortByFavorites,Favorites, ,Favorites
 Studio.Toolbox.UiSortIntent.Favorites,Favorites, ,Favorites
+Studio.Toolbox.AssetConfigSharing.DistributeCreatorStoreQuotaUnavailable,Creator Store sharing has been temporarily disabled., ,Creator Store sharing has been temporarily disabled.
 Studio.Toolbox.Audio.SoundEffect.Category.Alarm,Alarm, ,Alarm
 Studio.Toolbox.General.SearchBarCreatorText,Search for users, ,Search for users
 Studio.Toolbox.Audio.SoundEffect.Category.debris,Debris, ,Debris
@@ -307,7 +307,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Copy Texture ID,Studio.Toolbox.Audio.SoundEffect.Category.Harp,Harp
  ,Harp,Studio.Toolbox.Audio.SoundEffect.Category.Pizzicato,Pizzicato
  ,Pizzicato,Studio.Toolbox.General.TabMarketplace,Marketplace
- ,Marketplace,Studio.Toolbox.Audio.SoundEffect.Category.Knock,Knock
+ ,Marketplace,Studio.Toolbox.Audio.SoundEffect.Category.Squeal,Squeal
+ ,Squeal,Studio.Toolbox.General.TabCreatorStore,Creator Store
+ ,Creator Store,Studio.Toolbox.Audio.SoundEffect.Category.Knock,Knock
  ,Knock,Studio.Toolbox.General.TabInventory,Inventory
  ,Inventory,Studio.Toolbox.General.GoBack,Go Back
  ,Go Back,Studio.Toolbox.Audio.SoundEffect.Category.voices,Voices
@@ -520,7 +522,8 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Theme music,Studio.Toolbox.Audio.SoundEffect.Category.Theme_music,Theme music
  ,Theme music,Studio.Toolbox.General.Comments,Allow Comments
  ,Allow Comments,Studio.Toolbox.Audio.SoundEffect.Category.buzzers,Buzzers
- ,Buzzers,Studio.Toolbox.Audio.SoundEffect.Category.Shuffling cards,Shuffling cards
+ ,Buzzers,Studio.Toolbox.General.DistributeOnCreatorStore,Distribute on Creator Store
+ ,Distribute on Creator Store,Studio.Toolbox.Audio.SoundEffect.Category.Shuffling cards,Shuffling cards
  ,Shuffling cards,Studio.Toolbox.Audio.SoundEffect.Category.Shuffling_cards,Shuffling cards
  ,Shuffling cards,Studio.Toolbox.AssetConfigSharing.PublicDisabledLinkText,Learn more
  ,Learn more,Studio.Toolbox.General.LearnMore,Learn more
@@ -584,9 +587,20 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Sniff,Studio.Toolbox.AssetConfigAnimation.AnimationID,Animation ID
  ,Animation ID,Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use."
  ,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",Studio.Toolbox.AssetConfigCopy.DistributeAgreement,"To maintain community safety, Roblox may terminate accounts that publish spam or assets with malicious or obfuscated code."
- ,"To maintain community safety, Roblox may terminate accounts that publish spam or assets with malicious or obfuscated code.",Studio.Toolbox.AssetConfigCopy.TemporarilyDisabledMessage,Marketplace publishing is unavailable at this time. Please check back later.
- ,Marketplace publishing is unavailable at this time. Please check back later.,Studio.Toolbox.AssetConfigCopy.DistributeToMarketplaceAsPackageWarning,Distributing this updateable asset to marketplace will give all users use and view access.
- ,Distributing this updateable asset to marketplace will give all users use and view access.,Studio.Toolbox.AssetConfigDeleteLocal.InformationText,We recommend that you delete the local animation data to improve your experience's loading performance. You will always be able to reimport the animation to continue working on it.
+ ,"To maintain community safety, Roblox may terminate accounts that publish spam or assets with malicious or obfuscated code.",Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library
+ ,Add up to {max:int} tags from the tag library,Studio.Toolbox.Tags.MaxTagsDescription,Add up to {max:int} tags from the tag library
+ ,Add up to {max:int} tags from the tag library,"Studio.Toolbox.Audio.SoundEffect.Category.Chewing, mastication","Chewing, mastication"
+ ,"Chewing, mastication",Studio.Toolbox.Audio.SoundEffect.Category.Chewing_mastication,"Chewing, mastication"
+ ,"Chewing, mastication",Studio.Toolbox.Audio.SoundEffect.Category.Rustle,Rustle
+ ,Rustle,Studio.Toolbox.GrantAssetPermission.DialogText,Do you grant permission for this Experience?
+ ,Do you grant permission for this Experience?,Studio.Toolbox.Audio.SoundEffect.Category.crashes,Crashes
+ ,Crashes,Studio.Toolbox.AssetConfigCopy.PackageCantShareOnCreatorStore,Creator Store publishing is not available when updates are enabled
+ ,Creator Store publishing is not available when updates are enabled,Studio.Toolbox.AssetConfigCopy.TemporarilyDisabledMessage,Marketplace publishing is unavailable at this time. Please check back later.
+ ,Marketplace publishing is unavailable at this time. Please check back later.,Studio.Toolbox.AssetConfigCopy.TemporarilyDisabledMessageOnCreatorStore,Creator Store publishing is unavailable at this time. Please check back later.
+ ,Creator Store publishing is unavailable at this time. Please check back later.,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
+ ,You need {robux:int} more Robux to buy "{name}" from {creator}.,Studio.Toolbox.AssetConfigCopy.DistributeToMarketplaceAsPackageWarning,Distributing this updateable asset to marketplace will give all users use and view access.
+ ,Distributing this updateable asset to marketplace will give all users use and view access.,Studio.Toolbox.AssetConfigCopy.DistributeToCreatorStoreAsPackageWarning,Distributing this updateable asset to Creator Store will give all users use and view access.
+ ,Distributing this updateable asset to Creator Store will give all users use and view access.,Studio.Toolbox.AssetConfigDeleteLocal.InformationText,We recommend that you delete the local animation data to improve your experience's loading performance. You will always be able to reimport the animation to continue working on it.
  ,We recommend that you delete the local animation data to improve your experience's loading performance. You will always be able to reimport the animation to continue working on it.,Studio.Toolbox.Audio.SoundEffect.Category.rings,Rings
  ,Rings,Studio.Toolbox.Audio.SoundEffect.Category.House music,House music
  ,House music,Studio.Toolbox.Audio.SoundEffect.Category.House_music,House music
@@ -662,7 +676,9 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Hiss,"Studio.Toolbox.Audio.SoundEffect.Category.Propeller, airscrew","Propeller, airscrew"
  ,"Propeller, airscrew",Studio.Toolbox.Audio.SoundEffect.Category.Propeller_airscrew,"Propeller, airscrew"
  ,"Propeller, airscrew",Studio.Toolbox.AssetConfigSharing.VerifyReason2,Increase Marketplace publishing limit
- ,Increase Marketplace publishing limit,Studio.Toolbox.AssetConfigVersions.Current,Current published version
+ ,Increase Marketplace publishing limit,Studio.Toolbox.AssetConfigSharing.VerifyReason2CreatorStore,Increase Creator Store publishing limit
+ ,Increase Creator Store publishing limit,Studio.Toolbox.Audio.SoundEffect.Category.industrial,Industrial
+ ,Industrial,Studio.Toolbox.AssetConfigVersions.Current,Current published version
  ,Current published version,Studio.Toolbox.Audio.SoundEffect.Category.flying,Flying
  ,Flying,Studio.Toolbox.Audio.SoundEffect.Category.Growling,Growling
  ,Growling,Studio.Toolbox.Audio.SoundEffect.Category.Ska,Ska
@@ -671,9 +687,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Electric,Studio.Toolbox.HomeView.trending,Trending
  ,Trending,Studio.Toolbox.UiSortIntent.Trending,Trending
  ,Trending,Studio.Toolbox.AssetConfigVersions.AddANote,Add a note or select to restore versions.
- ,Add a note or select to restore versions.,Studio.Toolbox.Audio.SoundEffect.Category.air,Air
- ,Air,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort
- ,Snort,Studio.Toolbox.AssetConfigVersions.Version,Version
+ ,Add a note or select to restore versions.,Studio.Toolbox.AssetConfigVersions.Version,Version
  ,Version,Studio.Toolbox.Announcement.Header_Default,Announcement
  ,Announcement,Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package"
  ,"Can use, view and edit this package",Studio.Toolbox.AssetConfigVersions.CurrentLabel,Current
@@ -697,11 +711,11 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Package Owner,Studio.Toolbox.Audio.SoundEffect.Category.Pant,Pant
  ,Pant,Studio.Toolbox.AssetConfig.BundleUploadCreateBundleStep,Creating bundle...
  ,Creating bundle...,Studio.Toolbox.Audio.SoundEffect.Category.pumps,Pumps
- ,Pumps,Studio.Toolbox.Audio.SoundEffect.Browse,Browse by Category
- ,Browse by Category,Studio.Toolbox.Audio.Music,Music
+ ,Pumps,Studio.Toolbox.Audio.Music,Music
  ,Music,Studio.Toolbox.Audio.SoundEffect.Category.Music,Music
  ,Music,Studio.Toolbox.SearchOptionsType.Music,Music
- ,Music,Studio.Toolbox.Audio.SoundEffect.Category.wagons,Wagons
+ ,Music,Studio.Toolbox.Audio.SoundEffect.Browse,Browse by Category
+ ,Browse by Category,Studio.Toolbox.Audio.SoundEffect.Category.wagons,Wagons
  ,Wagons,Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner
  ,Owner,Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner
  ,Owner,Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access
@@ -802,10 +816,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Trance music,Studio.Toolbox.AssetConfig.CreateBundleUnsupportedBundleType,Error creating bundle. The given bundle type is unsupported.
  ,Error creating bundle. The given bundle type is unsupported.,Studio.Toolbox.AssetConfig.CreateBundleServiceUnavailable,Error creating bundle. Service Unavailable.
  ,Error creating bundle. Service Unavailable.,Studio.Toolbox.HomeView.SeeAll,See All
- ,See All,Studio.Toolbox.Audio.SoundEffect.Category.Jackhammer,Jackhammer
- ,Jackhammer,Studio.Toolbox.Audio.SoundEffect.Category.Tender music,Tender music
- ,Tender music,Studio.Toolbox.Audio.SoundEffect.Category.Tender_music,Tender music
- ,Tender music,Studio.Toolbox.AssetConfig.BundleUploadStepNumber,Step {currentStep:int}/{totalSteps:int}
+ ,See All,Studio.Toolbox.AssetConfig.BundleUploadStepNumber,Step {currentStep:int}/{totalSteps:int}
  , Step {currentStep:int}/{totalSteps:int},Studio.Toolbox.Audio.Music.Genre.pop,Pop
  ,Pop,Studio.Toolbox.AssetConfig.BundleUploadAssetsStep,Uploading body parts...
  ,Uploading body parts...,Studio.Toolbox.Audio.SoundEffect.Category.footsteps,Footsteps
@@ -838,8 +849,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Howl,Studio.Toolbox.Purchase.RobuxBalance,Your current balance:
  ,Your current balance:,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft,Aircraft
  ,Aircraft,Studio.Toolbox.Audio.SoundEffect.Category.aircraft,Aircraft
- ,Aircraft,Studio.Toolbox.Purchase.InsufficientPrompt,You need {robux:int} more Robux to buy "{name}" from {creator}.
- ,You need {robux:int} more Robux to buy "{name}" from {creator}.,Studio.Toolbox.Purchase.Retry,Retry
+ ,Aircraft,Studio.Toolbox.Purchase.Retry,Retry
  ,Retry,Studio.Toolbox.Purchase.Buy,Buy
  ,Buy,Studio.Toolbox.Audio.SoundEffect.Category.Glass,Glass
  ,Glass,Studio.Toolbox.Audio.SoundEffect.Category.glass,Glass
@@ -880,13 +890,7 @@ Submit for,{price:int} Robux,Studio.Toolbox.General.FooterButtonWhiteName,White
  ,Buy & Installation Complete!,Studio.Toolbox.Purchase.SuccessDetails,Successfully installed "{name}".
  ,Successfully installed "{name}".,Studio.Toolbox.Audio.SoundEffect.Category.antique-cars,Antique Cars
  ,Antique Cars,Studio.Toolbox.Audio.SoundEffect.Category.Banjo,Banjo
- ,Banjo,Studio.Toolbox.MaxTagsDescription,Add up to {max:int} tags from the tag library
- ,Add up to {max:int} tags from the tag library,Studio.Toolbox.Tags.MaxTagsDescription,Add up to {max:int} tags from the tag library
- ,Add up to {max:int} tags from the tag library,"Studio.Toolbox.Audio.SoundEffect.Category.Chewing, mastication","Chewing, mastication"
- ,"Chewing, mastication",Studio.Toolbox.Audio.SoundEffect.Category.Chewing_mastication,"Chewing, mastication"
- ,"Chewing, mastication",Studio.Toolbox.Audio.SoundEffect.Category.Rustle,Rustle
- ,Rustle,Studio.Toolbox.GrantAssetPermission.DialogText,Do you grant permission for this Experience?
- ,Do you grant permission for this Experience?,Studio.Toolbox.General.AbbreviatedSeconds,s
+ ,Banjo,Studio.Toolbox.General.AbbreviatedSeconds,s
  ,s,Studio.Toolbox.General.AbbreviatedMinutes,m
  ,m,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length
  ,Sound Length,Studio.Toolbox.AssetUploadResult.NextSubmit,Proceed to Next Item
@@ -929,11 +933,14 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Tonalities,Studio.Toolbox.Audio.Music.Genre.marches-military,Marches & Military
  ,Marches & Military,Studio.Toolbox.Audio.SoundEffect.Category.modern-cars,Modern Cars
  ,Modern Cars,Studio.Toolbox.Audio.Music.Genre.religious,Religious
- ,Religious,Studio.Toolbox.Audio.Music.Genre.scores-orchestral,Scores & Orchestral
+ ,Religious,Studio.Toolbox.Audio.Music.Genre.rock,Rock
+ ,Rock,Studio.Toolbox.Audio.Music.Genre.scores-orchestral,Scores & Orchestral
  ,Scores & Orchestral,Studio.Toolbox.Audio.SoundEffect,Sound Effect
  ,Sound Effect,Studio.Toolbox.SearchOptionsType.SoundEffect,Sound Effect
  ,Sound Effect,Studio.Toolbox.Audio.SoundEffect.Category.acid,Acid
- ,Acid,Studio.Toolbox.Audio.SoundEffect.Category.ambience,Ambience
+ ,Acid,Studio.Toolbox.Audio.SoundEffect.Category.air,Air
+ ,Air,Studio.Toolbox.Audio.SoundEffect.Category.Snort,Snort
+ ,Snort,Studio.Toolbox.Audio.SoundEffect.Category.ambience,Ambience
  ,Ambience,Studio.Toolbox.Audio.SoundEffect.Category.amphibians,Amphibians
  ,Amphibians,Studio.Toolbox.Audio.SoundEffect.Category.rocks,Rocks
  ,Rocks,Studio.Toolbox.Audio.SoundEffect.Category.answering-machine,Answering Machine
@@ -991,8 +998,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,"Boat, Water vehicle",Studio.Toolbox.Audio.SoundEffect.Category.cracks,Cracks
  ,Cracks,Studio.Toolbox.Audio.SoundEffect.Category.Whimper (dog),Whimper (dog)
  ,Whimper (dog),Studio.Toolbox.Audio.SoundEffect.Category.Whimper_(dog),Whimper (dog)
- ,Whimper (dog),Studio.Toolbox.Audio.SoundEffect.Category.crashes,Crashes
- ,Crashes,Studio.Toolbox.Audio.SoundEffect.Category.creaks,Creaks
+ ,Whimper (dog),Studio.Toolbox.Audio.SoundEffect.Category.creaks,Creaks
  ,Creaks,Studio.Toolbox.Audio.SoundEffect.Category.Lullaby,Lullaby
  ,Lullaby,Studio.Toolbox.Audio.SoundEffect.Category.crunches,Crunches
  ,Crunches,Studio.Toolbox.Audio.SoundEffect.Category.dirt,Dirt
@@ -1039,8 +1045,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Handling,Studio.Toolbox.Audio.SoundEffect.Category.hardware,Hardware
  ,Hardware,Studio.Toolbox.Audio.SoundEffect.Category.Percussion,Percussion
  ,Percussion,Studio.Toolbox.Audio.SoundEffect.Category.heavy,Heavy
- ,Heavy,Studio.Toolbox.Audio.SoundEffect.Category.industrial,Industrial
- ,Industrial,Studio.Toolbox.Audio.SoundEffect.Category.Crackle,Crackle
+ ,Heavy,Studio.Toolbox.Audio.SoundEffect.Category.Crackle,Crackle
  ,Crackle,Studio.Toolbox.Audio.SoundEffect.Category.insects,Insects
  ,Insects,Studio.Toolbox.Audio.SoundEffect.Category.jets,Jets
  ,Jets,Studio.Toolbox.Audio.SoundEffect.Category.reptiles,Reptiles
@@ -1275,10 +1280,10 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Strum,Studio.Toolbox.Audio.SoundEffect.Category.Sitar,Sitar
  ,Sitar,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft engine,Aircraft engine
  ,Aircraft engine,Studio.Toolbox.Audio.SoundEffect.Category.Aircraft_engine,Aircraft engine
- ,Aircraft engine,Studio.Toolbox.Audio.SoundEffect.Category.Zither,Zither
- ,Zither,Studio.Toolbox.Audio.SoundEffect.Category.Exciting music,Exciting music
+ ,Aircraft engine,Studio.Toolbox.Audio.SoundEffect.Category.Exciting music,Exciting music
  ,Exciting music,Studio.Toolbox.Audio.SoundEffect.Category.Exciting_music,Exciting music
- ,Exciting music,Studio.Toolbox.Audio.SoundEffect.Category.Clicking,Clicking
+ ,Exciting music,Studio.Toolbox.Audio.SoundEffect.Category.Zither,Zither
+ ,Zither,Studio.Toolbox.Audio.SoundEffect.Category.Clicking,Clicking
  ,Clicking,Studio.Toolbox.Audio.SoundEffect.Category.Keyboard (musical),Keyboard (musical)
  ,Keyboard (musical),Studio.Toolbox.Audio.SoundEffect.Category.Keyboard_(musical),Keyboard (musical)
  ,Keyboard (musical),Studio.Toolbox.Audio.SoundEffect.Category.Piano,Piano
@@ -1312,11 +1317,11 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Scratching (performance technique),Studio.Toolbox.Audio.SoundEffect.Category.Scratching_(performance_technique),Scratching (performance technique)
  ,Scratching (performance technique),Studio.Toolbox.Audio.SoundEffect.Category.Pop music,Pop music
  ,Pop music,Studio.Toolbox.Audio.SoundEffect.Category.Pop_music,Pop music
- ,Pop music,Studio.Toolbox.Audio.SoundEffect.Category.Hip hop music,Hip hop music
- ,Hip hop music,Studio.Toolbox.Audio.SoundEffect.Category.Hip_hop_music,Hip hop music
- ,Hip hop music,Studio.Toolbox.Audio.SoundEffect.Category.Happy music,Happy music
+ ,Pop music,Studio.Toolbox.Audio.SoundEffect.Category.Happy music,Happy music
  ,Happy music,Studio.Toolbox.Audio.SoundEffect.Category.Happy_music,Happy music
- ,Happy music,Studio.Toolbox.Audio.SoundEffect.Category.Rock music,Rock music
+ ,Happy music,Studio.Toolbox.Audio.SoundEffect.Category.Hip hop music,Hip hop music
+ ,Hip hop music,Studio.Toolbox.Audio.SoundEffect.Category.Hip_hop_music,Hip hop music
+ ,Hip hop music,Studio.Toolbox.Audio.SoundEffect.Category.Rock music,Rock music
  ,Rock music,Studio.Toolbox.Audio.SoundEffect.Category.Rock_music,Rock music
  ,Rock music,Studio.Toolbox.Audio.SoundEffect.Category.Progressive rock,Progressive rock
  ,Progressive rock,Studio.Toolbox.Audio.SoundEffect.Category.Progressive_rock,Progressive rock
@@ -1332,9 +1337,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Folk music,Studio.Toolbox.Audio.SoundEffect.Category.Middle Eastern music,Middle Eastern music
  ,Middle Eastern music,Studio.Toolbox.Audio.SoundEffect.Category.Middle_Eastern_music,Middle Eastern music
  ,Middle Eastern music,Studio.Toolbox.Audio.SoundEffect.Category.Disco,Disco
- ,Disco,Studio.Toolbox.Audio.SoundEffect.Category.Sad music,Sad music
- ,Sad music,Studio.Toolbox.Audio.SoundEffect.Category.Sad_music,Sad music
- ,Sad music,Studio.Toolbox.Audio.SoundEffect.Category.Busy signal,Busy signal
+ ,Disco,Studio.Toolbox.Audio.SoundEffect.Category.Busy signal,Busy signal
  ,Busy signal,Studio.Toolbox.Audio.SoundEffect.Category.Busy_signal,Busy signal
  ,Busy signal,Studio.Toolbox.Audio.SoundEffect.Category.Opera,Opera
  ,Opera,Studio.Toolbox.Audio.SoundEffect.Category.Coin (dropping),Coin (dropping)
@@ -1366,7 +1369,12 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,Christmas music,Studio.Toolbox.Audio.SoundEffect.Category.Christmas_music,Christmas music
  ,Christmas music,Studio.Toolbox.Audio.SoundEffect.Category.Wedding music,Wedding music
  ,Wedding music,Studio.Toolbox.Audio.SoundEffect.Category.Wedding_music,Wedding music
- ,Wedding music,Studio.Toolbox.Audio.SoundEffect.Category.Angry music,Angry music
+ ,Wedding music,Studio.Toolbox.Audio.SoundEffect.Category.Sad music,Sad music
+ ,Sad music,Studio.Toolbox.Audio.SoundEffect.Category.Sad_music,Sad music
+ ,Sad music,Studio.Toolbox.Audio.SoundEffect.Category.Jackhammer,Jackhammer
+ ,Jackhammer,Studio.Toolbox.Audio.SoundEffect.Category.Tender music,Tender music
+ ,Tender music,Studio.Toolbox.Audio.SoundEffect.Category.Tender_music,Tender music
+ ,Tender music,Studio.Toolbox.Audio.SoundEffect.Category.Angry music,Angry music
  ,Angry music,Studio.Toolbox.Audio.SoundEffect.Category.Angry_music,Angry music
  ,Angry music,Studio.Toolbox.Audio.SoundEffect.Category.Scary music,Scary music
  ,Scary music,Studio.Toolbox.Audio.SoundEffect.Category.Scary_music,Scary music
@@ -1532,8 +1540,7 @@ ID: {assetId:int},Type: {assetType},Studio.Toolbox.Audio.Music.Genre.children,Ch
  ,"Beep, bleep",Studio.Toolbox.Audio.SoundEffect.Category.Beep_bleep,"Beep, bleep"
  ,"Beep, bleep",Studio.Toolbox.Audio.SoundEffect.Category.Ping,Ping
  ,Ping,Studio.Toolbox.Audio.SoundEffect.Category.Ding,Ding
- ,Ding,Studio.Toolbox.Audio.SoundEffect.Category.Squeal,Squeal
- ,Squeal,Studio.Toolbox.Audio.SoundEffect.Category.Creak,Creak
+ ,Ding,Studio.Toolbox.Audio.SoundEffect.Category.Creak,Creak
  ,Creak,Studio.Toolbox.Audio.SoundEffect.Category.Whir,Whir
  ,Whir,Studio.Toolbox.Audio.SoundEffect.Category.Sizzle,Sizzle
  ,Sizzle,Studio.Toolbox.Audio.SoundEffect.Category.Rumble,Rumble

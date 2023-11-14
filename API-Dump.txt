@@ -653,6 +653,7 @@ Class BaseWrap : Instance [NotCreatable]
 	Property BaseWrap.HSRMeshIdData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BaseWrap.ImportInProcess: boolean {✏️RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property BaseWrap.ImportOriginWorld: CFrame [ReadOnly]
+	Function BaseWrap:GetCageOffset() -> Vector3 {RobloxScriptSecurity}
 	Function BaseWrap:GetFaces(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
 	Function BaseWrap:GetVertices(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
 	Function BaseWrap:IsHSRReady() -> boolean {RobloxScriptSecurity}
@@ -914,6 +915,7 @@ Class ChatbotUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ChatbotUIService:GetSettings() -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Event ChatbotUIService.ActionActivatedSignal(action: string) {RobloxScriptSecurity}
 	Event ChatbotUIService.FindVariationsSignal(action: string) {RobloxScriptSecurity}
+	Event ChatbotUIService.SetMaterialSettingsSignal(guid: string, studsPerTile: number, isOrganic: boolean) {RobloxScriptSecurity}
 	Event ChatbotUIService.SettingChangedSignal(setting: string, value: any) {RobloxScriptSecurity}
 	Event ChatbotUIService.ShiftToAssetIdSignal(action: string, change: number) {RobloxScriptSecurity}
 	Event ChatbotUIService.ShiftVariationSignal(action: string, change: number) {RobloxScriptSecurity}
@@ -1951,6 +1953,8 @@ Class TextButton : GuiButton
 	Property TextButton.FontFace: Font
 	Property TextButton.FontSize: Enum.FontSize [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property TextButton.LineHeight: number
+	Property TextButton.LocalizationMatchIdentifier: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property TextButton.LocalizationMatchedSourceText: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property TextButton.MaxVisibleGraphemes: number
 	Property TextButton.RichText: boolean
 	Property TextButton.Text: string
@@ -1993,6 +1997,8 @@ Class TextLabel : GuiLabel
 	Property TextLabel.FontFace: Font
 	Property TextLabel.FontSize: Enum.FontSize [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property TextLabel.LineHeight: number
+	Property TextLabel.LocalizationMatchIdentifier: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property TextLabel.LocalizationMatchedSourceText: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property TextLabel.MaxVisibleGraphemes: number
 	Property TextLabel.RichText: boolean
 	Property TextLabel.Text: string
@@ -2054,6 +2060,8 @@ Class TextBox : GuiObject
 	Property TextBox.FontFace: Font
 	Property TextBox.FontSize: Enum.FontSize [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property TextBox.LineHeight: number
+	Property TextBox.LocalizationMatchIdentifier: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property TextBox.LocalizationMatchedSourceText: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property TextBox.MaxVisibleGraphemes: number
 	Property TextBox.PlaceholderColor3: Color3
 	Property TextBox.PlaceholderText: string
@@ -2669,7 +2677,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function InsertService:ApproveAssetVersionId(assetVersionId: number) -> () [Deprecated]
 	Function InsertService:CreateMeshPartAsync(meshId: string, collisionFidelity: Enum.CollisionFidelity, renderFidelity: Enum.RenderFidelity) -> MeshPart {PluginSecurity} [Yields]
 	Function InsertService:GetBaseCategories() -> { any } [Yields] [Deprecated]
-	Function InsertService:GetBaseSets() -> { any } [Yields]
+	Function InsertService:GetBaseSets() -> { any } [Yields] [Deprecated]
 	Function InsertService:GetCollection(categoryId: number) -> { any } [Yields]
 	Function InsertService:GetFreeDecals(searchText: string, pageNum: number) -> { any } [Yields]
 	Function InsertService:GetFreeModels(searchText: string, pageNum: number) -> { any } [Yields]
@@ -3343,6 +3351,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BasePart.Position: Vector3 [Hidden] [NotReplicated]
 	Property BasePart.Size: Vector3 [📁 LoadOnly] [NotReplicated]
 	Property BasePart.siz: Vector3 [📁 LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
+	Function BasePart:AngularAccelerationToTorque(angAcceleration: Vector3, angVelocity: Vector3? = Vector3?.new()) -> Vector3
 	Function BasePart:ApplyAngularImpulse(impulse: Vector3) -> ()
 	Function BasePart:ApplyImpulse(impulse: Vector3) -> ()
 	Function BasePart:ApplyImpulseAtPosition(impulse: Vector3, position: Vector3) -> ()
@@ -3367,6 +3376,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function BasePart:SetNetworkOwner(playerInstance: Player? = nil) -> ()
 	Function BasePart:SetNetworkOwnershipAuto() -> ()
 	Function BasePart:SubtractAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
+	Function BasePart:TorqueToAngularAcceleration(torque: Vector3, angVelocity: Vector3? = Vector3?.new()) -> Vector3
 	Function BasePart:UnionAsync(parts: { Instance }, collisionfidelity: Enum.CollisionFidelity? = "Default", renderFidelity: Enum.RenderFidelity? = "Automatic") -> Instance? [Yields]
 	Event BasePart.LocalSimulationTouched(part: BasePart) [Deprecated]
 	Event BasePart.NetworkOwnerChanged(systemAddress: SystemAddress) {LocalUserSecurity} [Hidden]
@@ -3620,6 +3630,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function WorldRoot:Raycast(origin: Vector3, direction: Vector3, raycastParams: RaycastParams? = RaycastParams?.new()) -> RaycastResult? {🧬Safe}
 	Function WorldRoot:RaycastCachedTerrain(id: string, origin: Vector3, direction: Vector3, ignoreWater: boolean) -> RaycastResult? {RobloxScriptSecurity}
 	Function WorldRoot:SetInsertPoint(point: Vector3, ignoreGrid: boolean? = false) -> () {RobloxScriptSecurity}
+	Function WorldRoot:Shapecast(part: BasePart, direction: Vector3, params: RaycastParams? = RaycastParams?.new()) -> RaycastResult?
 	Function WorldRoot:Spherecast(position: Vector3, radius: number, direction: Vector3, params: RaycastParams? = RaycastParams?.new()) -> RaycastResult? {🧬Safe}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.AirDensity: number
@@ -3639,6 +3650,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity}
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
+	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
 	Property Workspace.PrimalPhysicsSolver: Enum.PrimalPhysicsSolver [NotScriptable]
 	Property Workspace.ReplicateInstanceDestroySetting: Enum.ReplicateInstanceDestroySetting [NotScriptable]
 	Property Workspace.Retargeting: Enum.AnimatorRetargetingMode
@@ -3670,6 +3682,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Function Workspace:JoinToOutsiders(objects: { Instance }, jointType: Enum.JointCreationMode) -> ()
 	Function Workspace:MakeJoints(objects: { Instance }) -> () {PluginSecurity} [Deprecated]
 	Function Workspace:PGSIsEnabled() -> boolean
+	Function Workspace:SetAvatarUnificationMode(value: Enum.AvatarUnificationMode) -> () {RobloxScriptSecurity}
 	Function Workspace:SetMeshPartHeadsAndAccessories(value: Enum.MeshPartHeadsAndAccessories) -> () {RobloxScriptSecurity}
 	Function Workspace:SetPhysicsThrottleEnabled(value: boolean) -> () {LocalUserSecurity}
 	Function Workspace:UnjoinFromOutsiders(objects: { Instance }) -> ()
@@ -3862,9 +3875,13 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 Class PlaceStatsService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PlacesService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PlacesService:StartPlaySolo() -> () {RobloxScriptSecurity}
+	Function PlacesService:StopPlaySolo() -> () {RobloxScriptSecurity}
 Class PlatformFriendsService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function PlatformFriendsService:GetPartyMembers() -> { any } {RobloxScriptSecurity} [Yields]
 	Function PlatformFriendsService:IsInviteFriendsEnabled() -> boolean {RobloxScriptSecurity}
+	Function PlatformFriendsService:IsProfileEnabled() -> boolean {RobloxScriptSecurity}
 	Function PlatformFriendsService:ShowInviteFriendsUI() -> () {RobloxScriptSecurity}
+	Function PlatformFriendsService:ShowProfile(platformUserId: string) -> () {RobloxScriptSecurity}
 Class Player : Instance
 	Property Player.CanLoadCharacterAppearance: boolean
 	Property Player.GameplayPaused: boolean {✏️NotAccessibleSecurity}
@@ -4895,6 +4912,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.DevTouchMovementMode: Enum.DevTouchMovementMode
 	Property StarterPlayer.EnableMouseLockOption: boolean
 	Property StarterPlayer.HumanoidStateMachineMode: Enum.HumanoidStateMachineMode [NotBrowsable]
+	Property StarterPlayer.LuaCharacterController: Enum.CharacterControlMode [NotBrowsable]
 	Property StarterPlayer.HealthDisplayDistance: number
 	Property StarterPlayer.NameDisplayDistance: number
 	Property StarterPlayer.AutoJumpEnabled: boolean
@@ -5486,6 +5504,8 @@ Class TextSource : Instance [NotCreatable]
 	Property TextSource.CanSend: boolean
 	Property TextSource.UserId: number [ReadOnly]
 	Property TextSource.UserIdReplicated: number [Hidden] [NotScriptable]
+Class TextureGenerationMeshHandler : Instance [NotCreatable] [Service] [NotReplicated]
+	Function TextureGenerationMeshHandler:PrepareInstancesForTexturingAsync(instances: { Instance }, unwrapMode: Enum.TextureGenerationMeshHandlerUnwrapMode) -> string {RobloxScriptSecurity} [Yields]
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ThirdPartyUserService:GetUserPlatformId() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetUserPlatformName() -> string {RobloxScriptSecurity}
@@ -5619,7 +5639,7 @@ Class UITextSizeConstraint : UIConstraint
 	Property UITextSizeConstraint.MinTextSize: number
 Class UICorner : UIComponent
 	Property UICorner.CornerRadius: UDim
-Class UIFlexItem : UIComponent
+Class UIFlexItem : UIComponent [NotBrowsable]
 	Property UIFlexItem.FlexMode: Enum.UIFlexMode
 	Property UIFlexItem.GrowRatio: number
 	Property UIFlexItem.ItemLineAlignment: Enum.ItemLineAlignment
@@ -6541,6 +6561,11 @@ Enum CenterDialogType
 	EnumItem CenterDialogType.PlayerInitiatedDialog : 2
 	EnumItem CenterDialogType.ModalDialog : 3
 	EnumItem CenterDialogType.QuitDialog : 4
+Enum CharacterControlMode
+	EnumItem CharacterControlMode.Default : 0
+	EnumItem CharacterControlMode.Legacy : 1
+	EnumItem CharacterControlMode.NoCharacterController : 2
+	EnumItem CharacterControlMode.LuaCharacterController : 3
 Enum ChatCallbackType
 	EnumItem ChatCallbackType.OnCreatingChatWindow : 1
 	EnumItem ChatCallbackType.OnClientSendingMessage : 2
@@ -7844,6 +7869,10 @@ Enum PlayerActions
 	EnumItem PlayerActions.CharacterLeft : 2
 	EnumItem PlayerActions.CharacterRight : 3
 	EnumItem PlayerActions.CharacterJump : 4
+Enum PlayerCharacterDestroyBehavior
+	EnumItem PlayerCharacterDestroyBehavior.Default : 0
+	EnumItem PlayerCharacterDestroyBehavior.Disabled : 1
+	EnumItem PlayerCharacterDestroyBehavior.Enabled : 2
 Enum PlayerChatType
 	EnumItem PlayerChatType.All : 0
 	EnumItem PlayerChatType.Team : 1
@@ -8544,6 +8573,10 @@ Enum TextYAlignment
 	EnumItem TextYAlignment.Top : 0
 	EnumItem TextYAlignment.Center : 1
 	EnumItem TextYAlignment.Bottom : 2
+Enum TextureGenerationMeshHandlerUnwrapMode
+	EnumItem TextureGenerationMeshHandlerUnwrapMode.Never : 0
+	EnumItem TextureGenerationMeshHandlerUnwrapMode.Always : 1
+	EnumItem TextureGenerationMeshHandlerUnwrapMode.WhenInvalidUVsDetected : 2
 Enum TextureMode
 	EnumItem TextureMode.Stretch : 0
 	EnumItem TextureMode.Wrap : 1

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ExperienceLoadingScript",
+    "tree": {
+      "$path": "../../../../../../../modules/core-scripts/experience-loading-script/src"
+    }
+  }
+}

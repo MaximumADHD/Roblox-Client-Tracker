@@ -12,6 +12,7 @@ Button {
     property color color: RobloxStyle.colorBluePrimary
     property color disabledColor: RobloxStyle.colorBlueDisabled
     property color hoverColor: RobloxStyle.colorBlueHover
+    property color fontColor: "white"
 
     property int fontSize: 18
 
@@ -48,7 +49,7 @@ Button {
             horizontalAlignment: Text.AlignHCenter
             font.weight: userPreferences.theme.style("CommonStyle fontWeight")
             font.pixelSize: fontSize
-            color: "white"
+            color: FFlagStudioOnboardingStartPageCTA ? fontColor: "white"
             text: control.text
         }
     }

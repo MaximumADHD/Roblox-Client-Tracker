@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoduxFriends",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/rodux-friends/src"
+    }
+  }
+}

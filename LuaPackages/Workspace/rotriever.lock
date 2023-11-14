@@ -432,6 +432,15 @@ dependencies = [
 [[package]]
 name = "DiscoveryJest3TestSuite"
 version = "0.1.0"
+dependencies = [
+    "ExperienceAnalytics ExperienceAnalytics 0.1.0",
+    "SocialContextToasts SocialContextToasts 0.1.0",
+]
+
+[[package]]
+name = "DiscoveryTestHelpers"
+version = "0.1.0"
+dependencies = ["SharedFlags SharedFlags 0.1.0"]
 
 [[package]]
 name = "EditProfile"
@@ -502,6 +511,14 @@ name = "ExperienceChat"
 version = "0.1.0"
 
 [[package]]
+name = "ExperienceLoadingScript"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+]
+
+[[package]]
 name = "ExperienceService"
 version = "0.1.0"
 dependencies = [
@@ -563,9 +580,11 @@ version = "0.1.0"
 dependencies = [
     "Analytics Analytics 0.1.0",
     "ApolloClient ApolloClient 0.1.0",
+    "ApolloLocalState ApolloLocalState 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
     "ContactImporter ContactImporter 0.1.0",
     "ContactsProtocol ContactsProtocol 0.1.0",
+    "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
     "FriendsLanding FriendsLanding 0.1.0",
     "GraphQLServer GraphQLServer 0.1.0",
@@ -589,6 +608,7 @@ dependencies = [
     "RobloxAppHooks RobloxAppHooks 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
+    "RoduxFriends RoduxFriends 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
     "SocialLuaAnalytics SocialLuaAnalytics 0.1.0",
@@ -751,6 +771,7 @@ dependencies = [
     "ApolloLocalState ApolloLocalState 0.1.0",
     "Cryo Cryo 0.1.0",
     "DataLoader DataLoader 0.1.0",
+    "DiscoveryTestHelpers DiscoveryTestHelpers 0.1.0",
     "Fetch Fetch 0.1.0",
     "GraphQL GraphQL 0.1.0",
     "GraphQlShared GraphQlShared 0.1.0",
@@ -762,7 +783,6 @@ dependencies = [
     "JestGlobals JestGlobals 0.1.0",
     "JestGlobals3 JestGlobals3 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
-    "PersonalizationTestHelpers PersonalizationTestHelpers 0.1.0",
     "Promise Promise 0.1.0",
     "RecordPlayback RecordPlayback 0.1.0",
     "Rodux Rodux 0.1.0",
@@ -1055,10 +1075,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "LuaAppCrossPlatformCompatibilityJest3TestSuite"
-version = "0.1.0"
-
-[[package]]
 name = "LuaAppUtilJest3TestSuite"
 version = "0.1.0"
 
@@ -1301,19 +1317,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "PersonalizationTestHelpers"
-version = "0.1.0"
-dependencies = ["SharedFlags SharedFlags 0.1.0"]
-
-[[package]]
-name = "PersonalizationTestSuite"
-version = "0.1.0"
-dependencies = [
-    "ExperienceAnalytics ExperienceAnalytics 0.1.0",
-    "SocialContextToasts SocialContextToasts 0.1.0",
-]
-
-[[package]]
 name = "PlaceInfoRodux"
 version = "0.1.0"
 dependencies = [
@@ -1519,10 +1522,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "Roact17UpgradeFlag"
-version = "0.1.0"
-
-[[package]]
 name = "RoactAppExperiment"
 version = "0.1.0"
 
@@ -1669,11 +1668,19 @@ name = "Rodux"
 version = "0.1.0"
 
 [[package]]
+name = "RoduxFriends"
+version = "0.1.0"
+
+[[package]]
 name = "RoduxGames"
 version = "0.1.0"
 
 [[package]]
 name = "RoduxNetworking"
+version = "0.1.0"
+
+[[package]]
+name = "RoduxUsers"
 version = "0.1.0"
 
 [[package]]
@@ -2070,6 +2077,16 @@ dependencies = [
     "Cryo Cryo 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+]
+
+[[package]]
+name = "SplashScreenManager"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "MockableProxyServices MockableProxyServices 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
 ]
 

@@ -28,3 +28,5 @@ Studio.App.LoginManager.FailToFetchModerationInfo,,Fail to get moderation status
 Studio.App.LoginManager.ClosingDownAllOpenPlacesElps,,Closing down all open places...,Closing down all open places...
 Studio.App.Login.UserModerated,,"User is moderated, please check website for more details.","User is moderated, please check website for more details."
 Studio.App.Login.UnableToLogout,,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.,Unable to log out. Please save modified places in other Studio instances and then proceed with log out.
+Studio.App.Login.LogOutOf1,,Log out of @%1?,Log out of @%1?
+Studio.App.Login.AreYouSureLogoutDetails,,Logging out will remove all existing credentials for this account. All instances of Studio under this account will be closed.,Logging out will remove all existing credentials for this account. All instances of Studio under this account will be closed.

@@ -1626,6 +1626,14 @@
                 "seeAllText": "#FF00A2FF",
                 "shadow": "#636363"
             }
+        },
+        {
+            "TutorialBanner": {
+                "BannerBackground": "#E1E1E1",
+                "TextboxBackground": "#FFFFFF",
+                "TextColor": "#000000",
+                "OpenTutorialsButtonColor": "#EDEDED"
+            }
         }
     ],
     "Action": {

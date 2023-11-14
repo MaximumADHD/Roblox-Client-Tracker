@@ -135,6 +135,14 @@ Studio.App.TutorialPage.SubHeaderText,,Learn the Studio interface and main contr
 Studio.App.TutorialPage.OpenTemplate,,Start with a Template instead,Start with a Template instead
 Studio.App.TutorialPage.StartTour,,Start Tour,Start Tour
 Studio.App.TutorialPage.RestartTour,,Restart Tour,Restart Tour
+Studio.App.TutorialBanner.GetStartedText,,Get Started,Get Started
+Studio.App.TutorialBanner.TakeTheStudioTourText,,Take the Studio Tour,Take the Studio Tour
+Studio.App.TutorialBanner.StartTourText,, START TOUR , START TOUR 
+Studio.App.TutorialBanner.OpenTutorialsText,, OPEN TUTORIALS , OPEN TUTORIALS 
+Studio.App.TutorialBanner.CreateYourFirstProjectText,,Create your first project in Studio with our quick introductory tour.,Create your first project in Studio with our quick introductory tour.
+Studio.App.TutorialBanner.LearnWithTutorialsText,,Learn with tutorials,Learn with tutorials
+Studio.App.TutorialBanner.ContinueYourJourneyText,,"Continue your journey with our tutorials, and discover how to build and script complete experiences in Studio.","Continue your journey with our tutorials, and discover how to build and script complete experiences in Studio."
+Studio.App.TutorialBanner.LearnStudioText,, LEARN STUDIO , LEARN STUDIO 
 Studio.App.AuthenticationHelper.AuthFailedTryAgain,,Authentication failed. Please try again or contact support if the problem persists.,Authentication failed. Please try again or contact support if the problem persists.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
 Studio.App.LoginRequest.ParseError,Start page login,Could not read response from server. Please try again later.,Could not read response from server. Please try again later.

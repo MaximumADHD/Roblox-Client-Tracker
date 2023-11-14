@@ -1,6 +1,6 @@
-Key,Source,de-de,en-us,es-es,fr-fr,ja-jp,ko-kr,pt-br
-Studio.CompositorGraphEditor.Plugin.Button,Toggle,Umschalten,Toggle,Alternar,Activer/désactiver,切り換え,전환,Alternar
-Studio.CompositorGraphEditor.Plugin.Name,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
-Studio.CompositorGraphEditor.Plugin.Toolbar,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
-Studio.CompositorGraphEditor.Plugin.Description,Toggles the Template plugin window.,Schaltet das Vorlagen-Plugin-Fenster um.,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,テンプレートのプラグインウィンドウを切り換え。,템플릿 플러그인 창을 전환합니다.,Alterna a janela do plugin de modelos.
-Studio.CompositorGraphEditor.Plugin.Text,Example Text!,Beispieltext!,Example Text!,Texto de ejemplo,Exemple de texte !,テキストの例！,예시 텍스트!,Texto de exemplo!
+Key,Source,de-de,en-us,es-es,fr-fr,ja-jp,ko-kr,pt-br,zh-cjv,zh-cn,zh-tw
+Studio.CompositorGraphEditor.Plugin.Button,Toggle,Umschalten,Toggle,Alternar,Activer/désactiver,切りかえ,전환,Alternar,切换,切换,切換
+Studio.CompositorGraphEditor.Plugin.Name,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
+Studio.CompositorGraphEditor.Plugin.Toolbar,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor,CompositorGraphEditor
+Studio.CompositorGraphEditor.Plugin.Description,Toggles the Template plugin window.,Schaltet das Vorlagen-Plugin-Fenster um.,Toggles the Template plugin window.,Alterna la ventana del plugin Plantilla.,Active/désactive la fenêtre du plugin Modèle.,テンプレートのプラグインウィンドウを切りかえ。,템플릿 플러그인 창을 전환합니다.,Alterna a janela do plugin de modelos.,切换模板插件窗口。,切换模板插件窗口。,切換範本外掛程式視窗。
+Studio.CompositorGraphEditor.Plugin.Text,Example Text!,Beispieltext!,Example Text!,Texto de ejemplo,Exemple de texte !,テキストの例！,예시 텍스트!,Texto de exemplo!,示例文本！,示例文本！,範例文字！

@@ -189,7 +189,7 @@ Studio.App.RobloxRibbonMainWindow.InternalBetaFeatures,,Roblox Internal - Beta,R
 Studio.App.RobloxRibbonMainWindow.InternalFeaturesAreEnabled,,Internal Features are enabled,Internal Features are enabled
 Studio.Common.Action.Accessory,,Accessory,Accessory
 Studio.Common.Action.Rig,,Rig,Rig
-Studio.Common.Action.Preview,,Preview,Preview
+Studio.Common.Action.Preview,,Setup,Setup
 Studio.Common.Action.Animation,,Animation,Animation
 Studio.Common.Action.AvatarUnification,,Avatar Unification,Avatar Unification
 Studio.Common.Action.File,,File,File

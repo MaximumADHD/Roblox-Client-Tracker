@@ -17,6 +17,9 @@ Studio.App.GenerativeAI.Placeholder,,Enter request here,Enter request here
 Studio.App.GenerativeAI.ThumbsDown1,,I’ll try to do better next time. Help me to improve by answering some <a href='%1'>quick questions</a>.,I’ll try to do better next time. Help me to improve by answering some <a href='%1'>quick questions</a>.
 Studio.App.GenerativeAI.ServerLogs,,See Server Logs,See Server Logs
 Studio.App.GenerativeAI.FindVariations,,Find Variations,Find Variations
+Studio.App.GenerativeAI.StudsPerTile,,Studs Per Tile,Studs Per Tile
+Studio.App.GenerativeAI.Pattern,,Pattern,Pattern
+Studio.App.GenerativeAI.Organic,,Organic,Organic
 Studio.App.GenerativeAI.LegalMessage5,,"Hi, <b>%1</b>, I'm your Assistant. I'm here to help you create on Roblox. Before we can get started, I'll need you to review and accept the <span class='link'><a href='%2'>Terms of Service</a></span> and <span class='link'><a href='%3'>Privacy Policy</a></span>. I learn from the instructions you give me, and will filter out personal information, but to be safe, don't share it with me.<hr>
 
 <a href='%4'>Yes, I accept</a>
@@ -26,6 +29,15 @@ Studio.App.GenerativeAI.LegalMessage5,,"Hi, <b>%1</b>, I'm your Assistant. I'm h
 <a href='%4'>Yes, I accept</a>
 
 <a href='%5'>No, I don't accept<a/>"
+Studio.App.GenerativeAI.LegalMessage.Version2.5,,"Hi, <b>%1</b>, I'm your Assistant. I'm here to help you create on Roblox. Before we can get started, I'll need you to review and accept the <span class='link'><a href='%2'>Terms of Service</a></span> and <span class='link'><a href='%3'>Privacy Policy</a></span>. I learn from the instructions you give me, and will filter out personal information, but to be safe, don't share it with me.<hr>
+
+<span class='instanceLink'><a href='%4'>Yes, I accept</a></span>
+
+<span class='instanceLink'><a href='%5'>No, I don't accept<a/></span>","Hi, <b>%1</b>, I'm your Assistant. I'm here to help you create on Roblox. Before we can get started, I'll need you to review and accept the <span class='link'><a href='%2'>Terms of Service</a></span> and <span class='link'><a href='%3'>Privacy Policy</a></span>. I learn from the instructions you give me, and will filter out personal information, but to be safe, don't share it with me.<hr>
+
+<span class='instanceLink'><a href='%4'>Yes, I accept</a></span>
+
+<span class='instanceLink'><a href='%5'>No, I don't accept<a/></span>"
 Studio.App.GenerativeAI.LegalMessageNo,,"No, I don't accept","No, I don't accept"
 Studio.App.GenerativeAI.LegalMessageNoResponse,,"No problem. You can click ""Yes"" anytime above, if you change your mind.","No problem. You can click ""Yes"" anytime above, if you change your mind."
 Studio.App.GenerativeAI.LegalMessageYesResponse,,"Thanks, looking forward to working with you.","Thanks, looking forward to working with you."
@@ -36,6 +48,7 @@ Studio.App.GenerativeAI.ClickToSwapVariation,,Click on any variation to swap the
 Studio.App.GenerativeAI.GetInfo,,Get Info,Get Info
 Studio.App.GenerativeAI.StopGeneration,,Stop generation,Stop generation
 Studio.App.GenerativeAI.Setting.UseInventory,,Use inventory only,Use inventory only
+Studio.App.GenerativeAI.Setting.DisableAssetScriptsButton,,Disable scripts in assets,Disable scripts in assets
 Studio.App.GenerativeAI.Setting.DisableAssetScripts,,Disable scrips in assets,Disable scrips in assets
 Studio.App.GenerativeAI.Setting.ClearChat,,Clear chat,Clear chat
 Studio.App.GenerativeAI.StopGeneration.DataModelInactive,,"Sorry, I had to stop generation when you switch to Client/Server","Sorry, I had to stop generation when you switch to Client/Server"

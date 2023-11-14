@@ -306,7 +306,7 @@ Studio.App.RobloxStudioVerbs.QuickOpenActions,,Quick Open Actions,Quick Open Act
 Studio.App.RBXMainWindow.AssetManager,,Asset Manager,Asset Manager
 Studio.App.RobloxRibbonMainWindow.TagEditor,,Tag Editor,Tag Editor
 Studio.App.RobloxRibbonMainWindow.TagEditorTooltip,,Create and manage groupings of instances.,Create and manage groupings of instances.
-Studio.App.RobloxRibbonMainWindow.AvatarPreviewer,,Avatar Preview,Avatar Preview
+Studio.App.RobloxRibbonMainWindow.AvatarPreviewer,,Avatar Setup,Avatar Setup
 Studio.App.PackageContextMenu.ShowPackagesDiff,,Compare Package Versions,Compare Package Versions
 Studio.App.RibbonUpdatesBar.UpdateAvailableAction,,Update Available,Update Available
 Studio.App.RibbonUpdatesBar.WhatsNewAction,,Notifications,Notifications

@@ -6,6 +6,7 @@ Studio.TerrainEditor.BaseTool.Flatten,Flatten
 Studio.TerrainEditor.BaseTool.Generate,Generate
 Studio.TerrainEditor.BaseTool.Import,Import
 Studio.TerrainEditor.BaseTool.Paint,Paint
+Studio.TerrainEditor.BaseTool.Ramp,Ramp
 Studio.TerrainEditor.BaseTool.Sculpt,Sculpt
 Studio.TerrainEditor.BaseTool.SeaLevel,Sea Level
 Studio.TerrainEditor.BaseTool.Select,Select
@@ -47,7 +48,7 @@ Studio.TerrainEditor.BrushSettings.PlaneRotation,Plane Rotation
 Studio.TerrainEditor.BrushSettings.PullTerrain,Pull Terrain
 Studio.TerrainEditor.BrushSettings.Snapping,Snapping
 Studio.TerrainEditor.BrushSettings.Strength,Strength
-Studio.TerrainEditor.BrushSettings.WaterLevel,Water Level
+Studio.TerrainEditor.BrushSettings.WaterAutofill,Water Autofill
 Studio.TerrainEditor.BrushShape.Cube,Cube
 Studio.TerrainEditor.BrushShape.Cylinder,Cylinder
 Studio.TerrainEditor.BrushShape.Sphere,Sphere
@@ -205,10 +206,11 @@ Studio.TerrainEditor.SelectionSettings.Rotation,Rotation
 Studio.TerrainEditor.SelectionSettings.Size,Size
 Studio.TerrainEditor.SelectionSettings.SnapToVoxels,Snap to Voxels
 Studio.TerrainEditor.SelectionSettings.Transform,Transform
+Studio.TerrainEditor.SelectionWarning.Size,Size must be at least 4x4x4.
 Studio.TerrainEditor.Shorelines.Description,Click Upgrade to improve the way water joins with terrain at the shores.
 Studio.TerrainEditor.Shorelines.Explanation,"The upgrade will only be applied to this place. This will automatically adjust shallow water shape on existing shorelines. You might want to review and hand-edit the results afterwards, especially around streams, waterfalls and any other non-horizontal water surfaces. The upgrade can be reverted right after its completion using the Undo command."
 Studio.TerrainEditor.Shorelines.Title,Shorelines
-Studio.TerrainEditor.Snapping.Increment,Increment
+Studio.TerrainEditor.Snapping.BrushSize,Brush Size
 Studio.TerrainEditor.Snapping.Off,Off
 Studio.TerrainEditor.Snapping.Voxel,Voxel
 Studio.TerrainEditor.Tabs.Create,Create

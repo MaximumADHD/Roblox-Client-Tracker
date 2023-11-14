@@ -3,14 +3,14 @@ Studio.CompositorDebugger.Plugin.Text,Example Text!,Beispieltext!,Example Text!,
 Studio.CompositorDebugger.Plugin.Button,Compositor Debugger,Compositor-Debugger,Compositor Debugger,Depurador de compositor,Compositor Debugger,Debug Compositore,植字デバッガー,컴포지터 디버거,Depurador do compositor,合成器调试器,合成器调试器,合成器調試器
 Studio.CompositorDebugger.Plugin.Name,Compositor Debugger,Compositor-Debugger,Compositor Debugger,Depurador de compositor,Debugger de compositeur,Debug Compositore,植字デバッガー,컴포지터 디버거,Depurador do compositor,合成器调试器,合成器调试器,合成器調試器
 Studio.CompositorDebugger.Plugin.Toolbar,Animation,Animation,Animation,Animación,Animation,Animazione,アニメーション,애니메이션,Animação,动画,动画,動畫
-Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.,Schaltet das Compositor-Debugger-Fenster um.,Toggles the Compositor Debugger window.,Activa la ventana de depurador de compositores.,Active/désactive la fenêtre Compositor Debugger.,Commuta la finestra del Debug Compositore.,植字デバッガーウィンドウを切り替え。,컴포지터 디버거 창을 토글합니다.,Alterna a janela do Depurador do compositor.,切换合成器调试器窗口。,切换合成器调试器窗口。,切換合成器調試器視窗。
-Studio.CompositorDebugger.LayerView.layerDetails,Layer Details,Ebenendetails,Layer Details,Detalles de capa,Détails de la couche,Dettagli livello,レイヤーの詳細,레이어 세부 정보,Detalhes da camada,分层细节,分层细节,圖層詳情
+Studio.CompositorDebugger.Plugin.Description,Toggles the Compositor Debugger window.,Schaltet das Compositor-Debugger-Fenster um.,Toggles the Compositor Debugger window.,Activa la ventana de depurador de compositores.,Active/désactive la fenêtre Compositor Debugger.,Commuta la finestra del Debug Compositore.,植字デバッガーウィンドウを切りかえ。,컴포지터 디버거 창을 토글합니다.,Alterna a janela do Depurador do compositor.,切换合成器调试器窗口。,切换合成器调试器窗口。,切換合成器調試器視窗。
+Studio.CompositorDebugger.LayerView.layerDetails,Layer Details,Ebenendetails,Layer Details,Detalles de capa,Détails de la couche,Dettagli livello,レイヤーの詳細,레이어 세부 정보,Detalhes da camada,层细节,层细节,圖層詳情
 Studio.CompositorDebugger.LayerView.Properties,Properties,Eigenschaften,Properties,Propiedades,Propriétés,Proprietà,プロパティ,속성,Propriedades,属性,属性,屬性
-Studio.CompositorDebugger.LayerView.props,Properties,Eigenschaften,Properties,Propiedades,Propriétés, ,プロパティ,속성,Propriedades, , , 
+Studio.CompositorDebugger.LayerView.props,Properties,Eigenschaften,Properties,Propiedades,Propriétés, ,プロパティ,속성,Propriedades,属性,属性,屬性
 Studio.CompositorDebugger.LayerView.state,State,Status,State,Estado,État,Stato,状況,상태,Estado,状态,状态,狀態
 Studio.CompositorDebugger.LayerView.UserData,User Data,Benutzerdaten,User Data,Datos de usuario,Données de l'utilisateur,Dati utente,ユーザーデータ,사용자 데이터,Dados do usuário,用户数据,用户数据,使用者資料
 Studio.CompositorDebugger.LayerView.watches,Watches,Überwachungen,Watches,Inspecciones,Surveillances,Ispezioni,観察,조사식,Observações,监视,监视,監看記錄
 Studio.CompositorDebugger.LayerPanel.LayerData,Layer Data,Ebenendaten,Layer Data,Datos de capa,Données sur les superpositions,Dati dei strati,レイヤーデータ,레이어 데이터,Dados da camada,分层数据,分层数据,圖層資料
 Studio.CompositorDebugger.LayerPanel.Visualization,Visualization,Visualisierung,Visualization,Visualización,Visualisation,Visualizzazione,視覚化,시각화,Visualização,可视化,可视化,視覺效果
 Studio.CompositorDebugger.LayerPanel.RawData,Raw Data,Rohdaten,Raw Data,Datos sin procesar,Données brutes,Dati grezzi,未加工データ,원시 데이터,Dados brutos,原始数据,原始数据,原始資料
-Studio.CompositorDebugger.LayerPanel.History,History,Verlauf,History,Historial,Historique, ,履歴,기록,História, , , 
+Studio.CompositorDebugger.LayerPanel.History,History,Verlauf,History,Historial,Historique, ,履歴,기록,História,历史记录,历史记录,歷史紀錄

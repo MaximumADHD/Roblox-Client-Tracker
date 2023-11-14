@@ -61,17 +61,18 @@ Studio.AvatarCompatibilityPreviewer.AssetType.ShoulderAccessory, ,Shoulder
 Studio.AvatarCompatibilityPreviewer.AssetType.SweaterAccessory, ,Sweater
 Studio.AvatarCompatibilityPreviewer.AssetType.TeeShirtAccessory, ,T-Shirt
 Studio.AvatarCompatibilityPreviewer.AssetType.WaistAccessory, ,Waist
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupETA, ,ETA: {eta:int}s
 Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupErrorTitle, ,Something went wrong.
-Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupInProgressActionText, ,Cancel Auto Setup
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupInProgressActionText, ,Cancel Avatar Setup
 Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupInProgressDescription, ,This might take a few minutes. You can keep working in the editor in the meantime.
-Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupInProgressTitle, ,Avatar Auto Setup in Progress
-Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptConfirmText, ,Are you sure you want to cancel Auto Setup?
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.AutoSetupInProgressTitle, ,Avatar Setup in Progress
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptConfirmText, ,Are you sure you want to cancel Avatar Setup?
 Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptNo, ,No
-Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptTitle, ,Cancel Auto Setup
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptTitle, ,Cancel Avatar Setup
 Studio.AvatarCompatibilityPreviewer.AvatarScreen.CancelPromptYes, ,Yes
 Studio.AvatarCompatibilityPreviewer.AvatarScreen.ErrorMultipleBodies, ,"Multiple meshes named _Geo. Either change your model to only have the main body named _Geo, or select the specific one you want."
-Studio.AvatarCompatibilityPreviewer.AvatarScreen.ErrorSourceFail, ,We hit an internal error while performing auto setup. Please check the output window.
-Studio.AvatarCompatibilityPreviewer.AvatarScreen.StartAutoSetup, ,Auto Setup
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.ErrorSourceFail, ,We hit an internal error while performing avatar setup. Please check the output window.
+Studio.AvatarCompatibilityPreviewer.AvatarScreen.StartAutoSetup, ,Avatar Setup
 Studio.AvatarCompatibilityPreviewer.Categories.accessories, ,Accessories
 Studio.AvatarCompatibilityPreviewer.Categories.animations, ,Animations
 Studio.AvatarCompatibilityPreviewer.Categories.body, ,Body
@@ -120,9 +121,9 @@ Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600211410, ,Run
 Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600212676, ,Swim
 Studio.AvatarCompatibilityPreviewer.ItemNames.Movement_11600249883, ,Walk
 Studio.AvatarCompatibilityPreviewer.Plugin.Button, ,Preview Avatar
-Studio.AvatarCompatibilityPreviewer.Plugin.Description, ,Opens the Avatar Previewer
-Studio.AvatarCompatibilityPreviewer.Plugin.Name, ,Avatar Previewer
-Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar, ,Avatar Previewer
+Studio.AvatarCompatibilityPreviewer.Plugin.Description, ,Opens the Avatar Setup
+Studio.AvatarCompatibilityPreviewer.Plugin.Name, ,Avatar Setup
+Studio.AvatarCompatibilityPreviewer.Plugin.Toolbar, ,Avatar Setup
 Studio.AvatarCompatibilityPreviewer.SelectScreen.CurrentPlace, ,Current Place
 Studio.AvatarCompatibilityPreviewer.SelectScreen.ImportCharacterFrom, ,Select Character From
 Studio.AvatarCompatibilityPreviewer.Stages.CheckBody, ,Check Body
@@ -135,7 +136,7 @@ Studio.AvatarCompatibilityPreviewer.SubmitDialog.Title, ,Submit Assets
 Studio.AvatarCompatibilityPreviewer.SubmitInner.CallToAction, ,Select the assets you want to submit to Roblox:
 Studio.AvatarCompatibilityPreviewer.SubmitInner.ChoiceItem, ,{assetType}: {instanceName}
 Studio.AvatarCompatibilityPreviewer.Survey.MessagePlaceholder, ,Please tell us any additional details that will help improve this tool.
-Studio.AvatarCompatibilityPreviewer.Survey.PleaseRateYourExperience, ,Please rate your experience with the auto setup results.
+Studio.AvatarCompatibilityPreviewer.Survey.PleaseRateYourExperience, ,Please rate your experience with the avatar setup results.
 Studio.AvatarCompatibilityPreviewer.Survey.ProblemBadLayeredClothing, ,Layered clothing does not fit properly or is distorted when the character moves
 Studio.AvatarCompatibilityPreviewer.Survey.ProblemCharacterDoesntBend, ,Character does not bend in the right places when animated
 Studio.AvatarCompatibilityPreviewer.Survey.ProblemCharacterWeirdBend, ,"Character deforms in a weird way when joints bend, even though the joints are in the right place"
@@ -157,6 +158,8 @@ Studio.AvatarCompatibilityPreviewer.Survey.WhatAreasShouldWeImproveOn, ,What are
 Studio.AvatarCompatibilityPreviewer.SurveyDialog.Close, ,Close
 Studio.AvatarCompatibilityPreviewer.SurveyDialog.FinishAlert, ,Thank you for submitting your feedback!
 Studio.AvatarCompatibilityPreviewer.SurveyDialog.SendFeedback, ,Send Feedback
+Studio.AvatarCompatibilityPreviewer.TestingScreen.Description, ,You are testing your avatar.
+Studio.AvatarCompatibilityPreviewer.TestingScreen.Stop, ,Stop Testing
 Studio.AvatarCompatibilityPreviewer.UGCValidation.AlertTitle, ,Body Errors
 Studio.AvatarCompatibilityPreviewer.UGCValidation.AssetNotFound, ,{asset} not found
 Studio.AvatarCompatibilityPreviewer.UGCValidation.SuccessTooltip, ,This avatar can be uploaded to Marketplace

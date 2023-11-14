@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RoduxUsers",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/rodux-users/src"
+    }
+  }
+}

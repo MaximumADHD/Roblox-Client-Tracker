@@ -3514,6 +3514,12 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">LuaCharacterController</string>
+            <string name="FFlag">EnableLuaCharacterController</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">AnimationCompositorMode</string>
             <string name="FFlag">EnableAnimationCompositorMode</string>
           </Properties>
@@ -7268,6 +7274,16 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">UIFlexItem</string>
+        <string name="ExplorerOrder">130</string>
+        <string name="ExplorerImageIndex">26</string>
+        <string name="PreferredParent">GuiObject</string>
+        <string name="FFlag">UIListLayoutShowFlexProperties</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">ScreenGui</string>
         <string name="ClassCategory">GUI</string>
         <string name="ExplorerOrder">140</string>
@@ -9404,7 +9420,7 @@
         <string name="ExplorerOrder">51</string>
         <string name="ExplorerImageIndex">75</string>
         <string name="summary">Same as RemoteEvents but events are sent unreliably (neither reliably nor ordered).</string>
-        <bool name="FFlag">UnreliableEvents</bool>
+        <bool name="FFlag">UnreliableEventsStudioAwareness</bool>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
         <Item class="ReflectionMetadataMember">

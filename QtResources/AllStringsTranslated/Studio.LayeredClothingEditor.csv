@@ -65,7 +65,7 @@ Studio.LayeredClothingEditor.AssetType.Skirt,,,Skirt,Skirt,,Rock,Camisa,Jupe,,Go
 Studio.LayeredClothingEditor.Generate.Prompt,,,The asset is ready.,The asset is ready.,,Das Objekt ist bereit.,El recurso está listo.,L'actif est prêt.,,La risorsa è disponibile.,アセットの準備ができました。,애셋이 준비되었습니다.,O ativo está pronto.,,,,,素材已就绪。,素材已就绪。,素材已準備完成。
 Studio.LayeredClothingEditor.Actions.Undo,,,Undo,Undo,,Rückgängig,Deshacer,Annuler,,Annulla,取り消す,실행 취소,Desfazer,,,,,撤消,撤消,復原
 Studio.LayeredClothingEditor.Actions.Redo,,,Redo,Redo,,Wiederholen,Rehacer,Refaire,,Ripeti,やり直す,다시 실행,Refazer,,,,,重做,重做,重做
-Studio.LayeredClothingEditor.Actions.ToggleTransform,,,Toggle Transform,Toggle Transform,,Transformation umschalten,Alternar transformar,Transformation,,Attiva/disattiva trasformazione,変形を切り替え,변형 토글,Alternar transformar,,,,,切换变形,切换变形,新增變形
+Studio.LayeredClothingEditor.Actions.ToggleTransform,,,Toggle Transform,Toggle Transform,,Transformation umschalten,Alternar transformar,Transformation,,Attiva/disattiva trasformazione,変形を切りかえ,변형 토글,Alternar transformar,,,,,切换变形,切换变形,新增變形
 Studio.LayeredClothingEditor.Actions.SelectLattice,,,Select Lattice,Select Lattice,,Gitter auswählen,Seleccionar enrejado,Sélectionner treillage,,Seleziona reticolo,格子を選択,격자 선택,Selecionar treliça,,,,,选择栅格,选择栅格,選擇格紋
 Studio.LayeredClothingEditor.ToolSettings.FalloffDistance,,,Falloff Distance,Falloff Distance,,Falloff-Distanz,Distancia de desvanecimiento,Distance de chute,,Distanza falloff,減衰距離,감쇠 거리,Distância de queda,,,,,衰减距离,衰减距离,淡出距離
 Studio.LayeredClothingEditor.ToolSettings.Target,,,Target,Target,,Ziel,Objetivo,Cible,,Target,ターゲット,대상,Alvo,,,,,目标,目标,對象

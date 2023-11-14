@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SplashScreenManager",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/splash-screen-manager/src"
+    }
+  }
+}

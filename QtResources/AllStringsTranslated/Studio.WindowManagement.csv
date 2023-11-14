@@ -1,7 +1,7 @@
 Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.WindowManagement.DockPanelAction.Close,,,Close,Close,,,Cerrar,Fermer,,Chiudi,閉じる,닫기,Fechar,,,,,关闭,关闭,關閉
-Studio.WindowManagement.DockPanelAction.Expand,,,Expand,Expand,,,Ampliar,Étendre,,Espandi,展開する,확장,Expandir,,,,,扩展,扩展,展開
-Studio.WindowManagement.DockPanelAction.Collapse,,,Collapse,Collapse,,,Contraer,Réduire,,Comprimi,折り畳み表示,축소,Recolher,,,,,收起,收起,摺疊
-Studio.WindowManagement.DockPanelAction.WindowPosition,,,Window Position,Window Position,,,Posición de la ventana,Position de la fenêtre,,Posizione Finestra,ウィンドウの位置,창 위치,Posição da janela,,,,,窗口位置,窗口位置,視窗位置
-Studio.WindowManagement.DockPanelAction.Float,,,Float,Float,,,Flotante,Flottant,,Fluttuante,フロート,고정 해제,Flutuante,,,,,浮点,浮点,浮動
-Studio.WindowManagement.DockPanelAction.Dock,,,Dock,Dock,,,Acoplar,Dock,,Dock,ドック,고정,Ancorar,,,,,固定,固定,固定
+Studio.WindowManagement.DockPanelAction.Close,,,Close,Close,,Schließen,Cerrar,Fermer,,Chiudi,閉じる,닫기,Fechar,,,,,关闭,关闭,關閉
+Studio.WindowManagement.DockPanelAction.Expand,,,Expand,Expand,,Erweitern,Ampliar,Étendre,,Espandi,展開する,확장,Expandir,,,,,扩展,扩展,展開
+Studio.WindowManagement.DockPanelAction.Collapse,,,Collapse,Collapse,,Minimieren,Contraer,Réduire,,Comprimi,折り畳み表示,축소,Recolher,,,,,收起,收起,摺疊
+Studio.WindowManagement.DockPanelAction.WindowPosition,,,Window Position,Window Position,,Fensterposition,Posición de la ventana,Position de la fenêtre,,Posizione Finestra,ウィンドウの位置,창 위치,Posição da janela,,,,,窗口位置,窗口位置,視窗位置
+Studio.WindowManagement.DockPanelAction.Float,,,Float,Float,,Schweben,Flotante,Flottant,,Fluttuante,フロート,고정 해제,Flutuante,,,,,浮点,浮点,浮動
+Studio.WindowManagement.DockPanelAction.Dock,,,Dock,Dock,,Andocken,Acoplar,Dock,,Dock,ドック,고정,Ancorar,,,,,固定,固定,固定
