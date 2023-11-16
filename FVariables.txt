@@ -6485,9 +6485,11 @@
 [C++] FFlagVoiceChatPassMuteEventsToJava
 [Lua] FFlagVoiceChatPromptFrameNewCopyEnabled2
 [Lua] FFlagVoiceChatReportOutOfOrderSequence2
+[C++] FFlagVoiceChatResetMultistreamSubscriptionsV2
 [C++] FFlagVoiceChatSendInitialBatchEmpty
 [C++] FFlagVoiceChatSendNewJoinSessionEvents
 [Lua] FFlagVoiceChatServiceManagerUseAvatarChat
+[C++] FFlagVoiceChatStatsMultistreamSubscriptionsV2
 [C++] FFlagVoiceChatStatsSteadyClock
 [C++] FFlagVoiceChatStreamingGrpcEnablePotentialRaceConditionFix2
 [Lua] FFlagVoiceChatStudioErrorToasts2
@@ -6501,6 +6503,7 @@
 [Lua] FFlagVoiceChatUseSoundServiceInputApi
 [C++] FFlagVoiceChatUseTaskManager3
 [C++] FFlagVoiceChatV2EnableSignalRKickUser3
+[C++] FFlagVoiceChatWaitForSignalRJoinStageMetrics
 [Lua] FFlagVoiceChatWatchForMissedSignalROnConnectionChanged
 [Lua] FFlagVoiceChatWatchForMissedSignalROnEventReceived
 [C++] FFlagVoiceChatWebRTCGetStatsDebugMenu
