@@ -1,0 +1,48 @@
+PROTO_0:
+  DUPTABLE R3 K13 [{"id", "isEnabled", "isValid", "lineNumber", "scriptName", "scriptLine", "condition", "logMessage", "continueExecution", "debugpointType", "removeOnHit", "context", "scriptGUID"}]
+  GETTABLEKS R4 R0 K0 ["id"]
+  SETTABLEKS R4 R3 K0 ["id"]
+  GETTABLEKS R4 R0 K1 ["isEnabled"]
+  SETTABLEKS R4 R3 K1 ["isEnabled"]
+  GETTABLEKS R4 R0 K2 ["isValid"]
+  SETTABLEKS R4 R3 K2 ["isValid"]
+  GETTABLEKS R4 R0 K3 ["lineNumber"]
+  SETTABLEKS R4 R3 K3 ["lineNumber"]
+  LOADK R4 K14 [""]
+  SETTABLEKS R4 R3 K4 ["scriptName"]
+  GETTABLEKS R4 R0 K5 ["scriptLine"]
+  SETTABLEKS R4 R3 K5 ["scriptLine"]
+  GETTABLEKS R4 R0 K6 ["condition"]
+  SETTABLEKS R4 R3 K6 ["condition"]
+  GETTABLEKS R4 R0 K7 ["logMessage"]
+  SETTABLEKS R4 R3 K7 ["logMessage"]
+  GETTABLEKS R4 R0 K8 ["continueExecution"]
+  SETTABLEKS R4 R3 K8 ["continueExecution"]
+  GETTABLEKS R4 R0 K9 ["debugpointType"]
+  SETTABLEKS R4 R3 K9 ["debugpointType"]
+  GETTABLEKS R4 R0 K10 ["removeOnHit"]
+  SETTABLEKS R4 R3 K10 ["removeOnHit"]
+  SETTABLEKS R1 R3 K11 ["context"]
+  SETTABLEKS R2 R3 K12 ["scriptGUID"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["Constants"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Models"]
+  GETTABLEKS R3 R4 K9 ["MetaBreakpoint"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K10 [PROTO_0]
+  DUPTABLE R4 K12 [{"extractNonChildData"}]
+  SETTABLEKS R3 R4 K11 ["extractNonChildData"]
+  RETURN R4 1

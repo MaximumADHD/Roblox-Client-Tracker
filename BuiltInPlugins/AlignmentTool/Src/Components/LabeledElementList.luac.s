@@ -1,0 +1,461 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["IsCollapsed"]
+  JUMPIF R1 [+21]
+  GETTABLEKS R1 R0 K2 ["OnSizeChanged"]
+  JUMPIFNOT R1 [+18]
+  GETTABLEKS R1 R0 K3 ["Id"]
+  JUMPIF R1 [+4]
+  GETTABLEKS R1 R0 K4 ["Text"]
+  JUMPIF R1 [+1]
+  LOADK R1 K5 [""]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["contentFrameRef"]
+  GETTABLEKS R2 R3 K7 ["current"]
+  GETTABLEKS R3 R0 K2 ["OnSizeChanged"]
+  MOVE R4 R1
+  GETTABLEKS R5 R2 K8 ["Size"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["contentFrameRef"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["onContentSizeChanged"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  LOADNIL R2
+  LOADNIL R3
+  GETTABLEKS R4 R1 K1 ["IsCollapsed"]
+  JUMPIFNOT R4 [+9]
+  GETIMPORT R2 K5 [Enum.FillDirection.Vertical]
+  GETIMPORT R4 K8 [UDim.new]
+  LOADN R5 1
+  LOADN R6 0
+  CALL R4 2 1
+  MOVE R3 R4
+  JUMP [+4]
+  GETIMPORT R2 K10 [Enum.FillDirection.Horizontal]
+  GETTABLEKS R3 R1 K11 ["LabelColumnWidth"]
+  GETIMPORT R4 K13 [UDim2.new]
+  MOVE R5 R3
+  GETIMPORT R6 K8 [UDim.new]
+  LOADN R7 0
+  LOADN R8 22
+  CALL R6 2 -1
+  CALL R4 -1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K14 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K20 [{"axis", "contentPadding", "minimumSize", "BackgroundTransparency", "FillDirection", "LayoutOrder"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K21 ["Axis"]
+  GETTABLEKS R8 R9 K4 ["Vertical"]
+  SETTABLEKS R8 R7 K15 ["axis"]
+  GETTABLEKS R8 R1 K22 ["Padding"]
+  SETTABLEKS R8 R7 K16 ["contentPadding"]
+  GETIMPORT R8 K13 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADN R11 0
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K17 ["minimumSize"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K18 ["BackgroundTransparency"]
+  SETTABLEKS R2 R7 K3 ["FillDirection"]
+  GETTABLEKS R8 R1 K19 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K19 ["LayoutOrder"]
+  DUPTABLE R8 K25 [{"Label", "Content"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K14 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K30 [{"LayoutOrder", "Size", "Text", "TextXAlignment", "TextYAlignment"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K19 ["LayoutOrder"]
+  SETTABLEKS R4 R11 K26 ["Size"]
+  GETTABLEKS R12 R1 K27 ["Text"]
+  SETTABLEKS R12 R11 K27 ["Text"]
+  GETTABLEKS R12 R1 K28 ["TextXAlignment"]
+  SETTABLEKS R12 R11 K28 ["TextXAlignment"]
+  GETTABLEKS R12 R1 K29 ["TextYAlignment"]
+  SETTABLEKS R12 R11 K29 ["TextYAlignment"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K23 ["Label"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K14 ["createElement"]
+  GETUPVAL R10 1
+  NEWTABLE R11 8 0
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K21 ["Axis"]
+  GETTABLEKS R12 R13 K31 ["Both"]
+  SETTABLEKS R12 R11 K15 ["axis"]
+  GETTABLEKS R12 R1 K32 ["ContentPadding"]
+  SETTABLEKS R12 R11 K16 ["contentPadding"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K18 ["BackgroundTransparency"]
+  GETTABLEKS R12 R1 K33 ["ContentFillDirection"]
+  SETTABLEKS R12 R11 K3 ["FillDirection"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K19 ["LayoutOrder"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K34 ["Change"]
+  GETTABLEKS R12 R13 K26 ["Size"]
+  GETTABLEKS R13 R0 K35 ["onContentSizeChanged"]
+  SETTABLE R13 R11 R12
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K36 ["Ref"]
+  GETTABLEKS R13 R0 K37 ["contentFrameRef"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K38 ["Children"]
+  GETTABLE R12 R13 R14
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K24 ["Content"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["isCollapsed"]
+  JUMPIFEQ R0 R1 [+6]
+  DUPTABLE R0 K2 [{"isCollapsed"}]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K1 ["isCollapsed"]
+  RETURN R0 1
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_contentColumnWidth"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["_maximumContentWidth"]
+  JUMPIFLT R1 R2 [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  GETUPVAL R1 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Stylizer"]
+  GETTABLEKS R1 R0 K2 ["LabeledElementList"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["_frameRef"]
+  GETTABLEKS R2 R3 K4 ["current"]
+  GETTABLEKS R4 R1 K5 ["ItemPaddingHorizontal"]
+  GETTABLEKS R3 R4 K6 ["Offset"]
+  GETUPVAL R4 0
+  GETTABLEKS R8 R2 K7 ["AbsoluteSize"]
+  GETTABLEKS R7 R8 K8 ["X"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K9 ["_labelColumnWidth"]
+  SUB R6 R7 R8
+  SUB R5 R6 R3
+  SETTABLEKS R5 R4 K10 ["_contentColumnWidth"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K10 ["_contentColumnWidth"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K11 ["_maximumContentWidth"]
+  JUMPIFLT R5 R6 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETUPVAL R5 0
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R4
+  CAPTURE UPVAL U0
+  NAMECALL R5 R5 K12 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_contentSizeMap"]
+  SETTABLE R1 R2 R0
+  GETUPVAL R2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["_maximumContentWidth"]
+  GETIMPORT R2 K3 [pairs]
+  GETUPVAL R5 0
+  GETTABLEKS R3 R5 K0 ["_contentSizeMap"]
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  GETTABLEKS R8 R6 K4 ["X"]
+  GETTABLEKS R7 R8 K5 ["Offset"]
+  GETUPVAL R8 0
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K1 ["_maximumContentWidth"]
+  FASTCALL2 MATH_MAX R10 R7 [+4]
+  MOVE R11 R7
+  GETIMPORT R9 K8 [math.max]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K1 ["_maximumContentWidth"]
+  FORGLOOP R2 2 [-17]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["_contentColumnWidth"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["_maximumContentWidth"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETUPVAL R3 0
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  NAMECALL R3 R3 K10 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["_frameRef"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K2 ["_contentSizeMap"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K3 ["_contentColumnWidth"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K4 ["_maximumContentWidth"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K5 ["_labelColumnWidth"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K6 ["onSizeChanged"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K7 ["onSectionSizeChanged"]
+  DUPTABLE R4 K9 [{"isCollapsed"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K8 ["isCollapsed"]
+  NAMECALL R2 R0 K10 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Items"]
+  GETTABLEKS R4 R1 K3 ["Stylizer"]
+  GETTABLEKS R5 R4 K4 ["LabeledElementList"]
+  LOADN R6 0
+  SETTABLEKS R6 R0 K5 ["_labelColumnWidth"]
+  GETIMPORT R6 K7 [ipairs]
+  MOVE R7 R3
+  CALL R6 1 3
+  FORGPREP_INEXT R6
+  GETUPVAL R11 0
+  GETTABLEKS R13 R10 K8 ["Text"]
+  GETTABLEKS R14 R5 K9 ["TextSize"]
+  GETTABLEKS R15 R5 K10 ["Font"]
+  GETIMPORT R16 K13 [Vector2.new]
+  GETTABLEKS R17 R1 K14 ["MaximumLabelWidth"]
+  LOADN R18 16
+  CALL R16 2 -1
+  NAMECALL R11 R11 K15 ["GetTextSize"]
+  CALL R11 -1 1
+  GETTABLEKS R13 R11 K16 ["X"]
+  GETTABLEKS R14 R0 K5 ["_labelColumnWidth"]
+  FASTCALL2 MATH_MAX R13 R14 [+3]
+  GETIMPORT R12 K19 [math.max]
+  CALL R12 2 1
+  SETTABLEKS R12 R0 K5 ["_labelColumnWidth"]
+  FORGLOOP R6 2 [inext] [-28]
+  GETTABLEKS R7 R2 K20 ["isCollapsed"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R6 R5 K21 ["ItemPaddingVertical"]
+  JUMPIF R6 [+2]
+  GETTABLEKS R6 R5 K22 ["ItemPaddingHorizontal"]
+  NEWTABLE R7 0 0
+  GETIMPORT R8 K7 [ipairs]
+  MOVE R9 R3
+  CALL R8 1 3
+  FORGPREP_INEXT R8
+  LOADK R14 K23 ["Item"]
+  FASTCALL1 TOSTRING R11 [+3]
+  MOVE R16 R11
+  GETIMPORT R15 K25 [tostring]
+  CALL R15 1 1
+  CONCAT R13 R14 R15
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K26 ["createElement"]
+  GETUPVAL R15 2
+  DUPTABLE R16 K36 [{"IsCollapsed", "ContentFillDirection", "ContentPadding", "LabelColumnWidth", "LayoutOrder", "Padding", "Text", "TextXAlignment", "TextYAlignment", "OnSizeChanged"}]
+  GETTABLEKS R17 R2 K20 ["isCollapsed"]
+  SETTABLEKS R17 R16 K27 ["IsCollapsed"]
+  GETTABLEKS R17 R12 K28 ["ContentFillDirection"]
+  SETTABLEKS R17 R16 K28 ["ContentFillDirection"]
+  GETTABLEKS R17 R5 K37 ["ItemContentPadding"]
+  SETTABLEKS R17 R16 K29 ["ContentPadding"]
+  GETIMPORT R17 K39 [UDim.new]
+  LOADN R18 0
+  GETTABLEKS R19 R0 K5 ["_labelColumnWidth"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K30 ["LabelColumnWidth"]
+  SETTABLEKS R11 R16 K31 ["LayoutOrder"]
+  SETTABLEKS R6 R16 K32 ["Padding"]
+  GETTABLEKS R17 R12 K8 ["Text"]
+  SETTABLEKS R17 R16 K8 ["Text"]
+  GETTABLEKS R17 R12 K33 ["TextXAlignment"]
+  SETTABLEKS R17 R16 K33 ["TextXAlignment"]
+  GETTABLEKS R17 R12 K34 ["TextYAlignment"]
+  SETTABLEKS R17 R16 K34 ["TextYAlignment"]
+  GETTABLEKS R17 R0 K40 ["onSectionSizeChanged"]
+  SETTABLEKS R17 R16 K35 ["OnSizeChanged"]
+  DUPTABLE R17 K42 [{"Content"}]
+  GETTABLEKS R18 R12 K41 ["Content"]
+  SETTABLEKS R18 R17 K41 ["Content"]
+  CALL R14 3 1
+  SETTABLE R14 R7 R13
+  FORGLOOP R8 2 [inext] [-60]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K26 ["createElement"]
+  GETUPVAL R9 3
+  NEWTABLE R10 8 0
+  GETTABLEKS R11 R5 K43 ["SectionPadding"]
+  SETTABLEKS R11 R10 K44 ["contentPadding"]
+  GETIMPORT R11 K39 [UDim.new]
+  LOADN R12 1
+  LOADN R13 0
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K45 ["width"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K46 ["BackgroundTransparency"]
+  GETTABLEKS R11 R1 K31 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K31 ["LayoutOrder"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K47 ["Change"]
+  GETTABLEKS R11 R12 K48 ["AbsoluteSize"]
+  GETTABLEKS R12 R0 K49 ["onSizeChanged"]
+  SETTABLE R12 R10 R11
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K50 ["Ref"]
+  GETTABLEKS R12 R0 K51 ["_frameRef"]
+  SETTABLE R12 R10 R11
+  MOVE R11 R7
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["TextService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["FitFrame"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K11 ["FitFrameOnAxis"]
+  GETTABLEKS R4 R2 K12 ["FitFrameVertical"]
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R7 R1 K9 ["Packages"]
+  GETTABLEKS R6 R7 K13 ["Roact"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETTABLEKS R8 R1 K9 ["Packages"]
+  GETTABLEKS R7 R8 K14 ["Framework"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K15 ["ContextServices"]
+  GETTABLEKS R8 R7 K16 ["withContext"]
+  GETTABLEKS R9 R6 K17 ["UI"]
+  GETTABLEKS R10 R9 K18 ["TextLabel"]
+  GETTABLEKS R11 R5 K19 ["PureComponent"]
+  LOADK R13 K20 ["LabeledElementListItem"]
+  NAMECALL R11 R11 K21 ["extend"]
+  CALL R11 2 1
+  DUPTABLE R12 K31 [{"ContentFillDirection", "ContentPadding", "LabelColumnWidth", "LayoutOrder", "Padding", "Text", "TextXAlignment", "TextYAlignment", "OnSizeChanged"}]
+  GETIMPORT R13 K35 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K22 ["ContentFillDirection"]
+  GETIMPORT R13 K38 [UDim.new]
+  LOADN R14 0
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K23 ["ContentPadding"]
+  GETIMPORT R13 K38 [UDim.new]
+  LOADN R14 0
+  LOADN R15 100
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K24 ["LabelColumnWidth"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K25 ["LayoutOrder"]
+  GETIMPORT R13 K38 [UDim.new]
+  LOADN R14 0
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K26 ["Padding"]
+  LOADK R13 K39 ["Label"]
+  SETTABLEKS R13 R12 K27 ["Text"]
+  GETIMPORT R13 K41 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K28 ["TextXAlignment"]
+  GETIMPORT R13 K43 [Enum.TextYAlignment.Top]
+  SETTABLEKS R13 R12 K29 ["TextYAlignment"]
+  DUPCLOSURE R13 K44 [PROTO_0]
+  SETTABLEKS R13 R12 K30 ["OnSizeChanged"]
+  SETTABLEKS R12 R11 K45 ["defaultProps"]
+  DUPCLOSURE R12 K46 [PROTO_2]
+  CAPTURE VAL R5
+  SETTABLEKS R12 R11 K47 ["init"]
+  DUPCLOSURE R12 K48 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  SETTABLEKS R12 R11 K49 ["render"]
+  GETTABLEKS R12 R5 K19 ["PureComponent"]
+  LOADK R14 K50 ["LabeledElementList"]
+  NAMECALL R12 R12 K21 ["extend"]
+  CALL R12 2 1
+  DUPTABLE R13 K54 [{"Collapsible", "Items", "MaximumLabelWidth", "LayoutOrder"}]
+  LOADB R14 0
+  SETTABLEKS R14 R13 K51 ["Collapsible"]
+  NEWTABLE R14 0 0
+  SETTABLEKS R14 R13 K52 ["Items"]
+  LOADK R14 K55 [∞]
+  SETTABLEKS R14 R13 K53 ["MaximumLabelWidth"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K25 ["LayoutOrder"]
+  SETTABLEKS R13 R12 K45 ["defaultProps"]
+  DUPCLOSURE R13 K56 [PROTO_8]
+  CAPTURE VAL R5
+  SETTABLEKS R13 R12 K47 ["init"]
+  DUPCLOSURE R13 K57 [PROTO_9]
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  SETTABLEKS R13 R12 K49 ["render"]
+  MOVE R13 R8
+  DUPTABLE R14 K59 [{"Stylizer"}]
+  GETTABLEKS R15 R7 K58 ["Stylizer"]
+  SETTABLEKS R15 R14 K58 ["Stylizer"]
+  CALL R13 1 1
+  MOVE R14 R12
+  CALL R13 1 1
+  MOVE R12 R13
+  RETURN R12 1

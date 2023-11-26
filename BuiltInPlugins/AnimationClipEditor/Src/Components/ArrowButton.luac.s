@@ -1,0 +1,111 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R2 K2 ["scrollBarTheme"]
+  GETTABLEKS R4 R1 K3 ["Rotation"]
+  GETTABLEKS R5 R1 K4 ["Position"]
+  GETTABLEKS R6 R1 K5 ["AnchorPoint"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  LOADK R8 K7 ["ImageButton"]
+  NEWTABLE R9 8 0
+  GETIMPORT R10 K10 [UDim2.new]
+  LOADN R11 0
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K11 ["SCROLL_BAR_SIZE"]
+  LOADN R13 0
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["SCROLL_BAR_SIZE"]
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K12 ["Size"]
+  SETTABLEKS R5 R9 K4 ["Position"]
+  SETTABLEKS R6 R9 K5 ["AnchorPoint"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K13 ["AutoButtonColor"]
+  GETTABLEKS R10 R3 K14 ["controlColor"]
+  SETTABLEKS R10 R9 K15 ["BackgroundColor3"]
+  GETTABLEKS R10 R3 K16 ["borderColor"]
+  SETTABLEKS R10 R9 K17 ["BorderColor3"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K18 ["ImageTransparency"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K19 ["Event"]
+  GETTABLEKS R10 R11 K20 ["Activated"]
+  GETTABLEKS R11 R1 K21 ["OnActivated"]
+  SETTABLE R11 R9 R10
+  DUPTABLE R10 K23 [{"Arrow"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K6 ["createElement"]
+  LOADK R12 K24 ["ImageLabel"]
+  DUPTABLE R13 K28 [{"Size", "Rotation", "Position", "AnchorPoint", "Image", "ImageColor3", "BackgroundTransparency"}]
+  GETUPVAL R14 2
+  SETTABLEKS R14 R13 K12 ["Size"]
+  SETTABLEKS R4 R13 K3 ["Rotation"]
+  GETIMPORT R14 K10 [UDim2.new]
+  LOADK R15 K29 [0.5]
+  LOADN R16 0
+  LOADK R17 K29 [0.5]
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K4 ["Position"]
+  GETIMPORT R14 K31 [Vector2.new]
+  LOADK R15 K29 [0.5]
+  LOADK R16 K29 [0.5]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K5 ["AnchorPoint"]
+  GETTABLEKS R14 R3 K32 ["arrowImage"]
+  SETTABLEKS R14 R13 K25 ["Image"]
+  GETTABLEKS R14 R3 K33 ["imageColor"]
+  SETTABLEKS R14 R13 K26 ["ImageColor3"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K27 ["BackgroundTransparency"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K22 ["Arrow"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K2 [UDim2.new]
+  LOADN R1 0
+  LOADN R2 9
+  LOADN R3 0
+  LOADN R4 5
+  CALL R0 4 1
+  GETIMPORT R1 K4 [script]
+  LOADK R3 K5 ["AnimationClipEditor"]
+  NAMECALL R1 R1 K6 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K11 ["ContextServices"]
+  GETTABLEKS R4 R3 K12 ["withContext"]
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R7 R1 K9 ["Packages"]
+  GETTABLEKS R6 R7 K13 ["Roact"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETTABLEKS R9 R1 K14 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Util"]
+  GETTABLEKS R7 R8 K16 ["Constants"]
+  CALL R6 1 1
+  GETTABLEKS R7 R5 K17 ["PureComponent"]
+  LOADK R9 K18 ["ArrowButton"]
+  NAMECALL R7 R7 K19 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K20 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K21 ["render"]
+  MOVE R8 R4
+  DUPTABLE R9 K23 [{"Stylizer"}]
+  GETTABLEKS R10 R3 K22 ["Stylizer"]
+  SETTABLEKS R10 R9 K22 ["Stylizer"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

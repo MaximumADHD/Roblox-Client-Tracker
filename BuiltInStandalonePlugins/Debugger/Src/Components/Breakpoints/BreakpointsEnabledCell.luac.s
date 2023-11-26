@@ -1,0 +1,357 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["CellProps"]
+  GETTABLEKS R1 R0 K2 ["OnToggle"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["Row"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Row"]
+  GETIMPORT R1 K3 [game]
+  LOADK R3 K4 ["MetaBreakpointManager"]
+  NAMECALL R1 R1 K5 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R5 R0 K6 ["item"]
+  GETTABLEKS R4 R5 K7 ["id"]
+  NAMECALL R2 R1 K8 ["GetBreakpointById"]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K9 ["setBreakpointRowEnabled"]
+  MOVE R4 R2
+  MOVE R5 R0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["props"]
+  GETTABLEKS R6 R7 K10 ["Analytics"]
+  LOADK R7 K11 ["LuaBreakpointsTable.BreakpointIconClicked"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["props"]
+  GETTABLEKS R8 R9 K12 ["CurrentConnectionId"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["onToggle"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K1 ["onBreakpointIconClicked"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["item"]
+  GETTABLEKS R1 R2 K1 ["isValid"]
+  JUMPIF R1 [+6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["DebugpointIconTable"]
+  GETTABLEKS R1 R2 K3 ["invalidBreakpoint"]
+  RETURN R1 1
+  GETTABLEKS R2 R0 K0 ["item"]
+  GETTABLEKS R1 R2 K4 ["debugpointType"]
+  JUMPIFNOTEQKS R1 K5 ["Breakpoint"] [+46]
+  GETTABLEKS R2 R0 K0 ["item"]
+  GETTABLEKS R1 R2 K6 ["condition"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R0 K0 ["item"]
+  GETTABLEKS R1 R2 K6 ["condition"]
+  JUMPIFNOTEQKS R1 K7 [""] [+18]
+  GETTABLEKS R3 R0 K0 ["item"]
+  GETTABLEKS R2 R3 K8 ["isEnabled"]
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["DebugpointIconTable"]
+  GETTABLEKS R1 R2 K9 ["breakpointEnabled"]
+  JUMPIF R1 [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["DebugpointIconTable"]
+  GETTABLEKS R1 R2 K10 ["breakpointDisabled"]
+  RETURN R1 1
+  GETTABLEKS R3 R0 K0 ["item"]
+  GETTABLEKS R2 R3 K8 ["isEnabled"]
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["DebugpointIconTable"]
+  GETTABLEKS R1 R2 K11 ["conditionalEnabled"]
+  JUMPIF R1 [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["DebugpointIconTable"]
+  GETTABLEKS R1 R2 K12 ["conditionalDisabled"]
+  RETURN R1 1
+  GETTABLEKS R3 R0 K0 ["item"]
+  GETTABLEKS R2 R3 K8 ["isEnabled"]
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["DebugpointIconTable"]
+  GETTABLEKS R1 R2 K13 ["logpointEnabled"]
+  JUMPIF R1 [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["DebugpointIconTable"]
+  GETTABLEKS R1 R2 K14 ["logpointDisabled"]
+  RETURN R1 1
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Row"]
+  GETTABLEKS R3 R1 K2 ["Style"]
+  GETTABLEKS R4 R1 K3 ["HasChildren"]
+  GETTABLEKS R6 R1 K4 ["ColumnIndex"]
+  JUMPIFEQKN R6 K5 [1] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETTABLEKS R7 R2 K6 ["depth"]
+  GETTABLEKS R8 R3 K7 ["Indent"]
+  MUL R6 R7 R8
+  GETTABLEKS R9 R3 K8 ["CellPadding"]
+  GETTABLEKS R8 R9 K9 ["Left"]
+  ADD R7 R8 R6
+  JUMPIF R4 [+2]
+  MULK R8 R6 K10 [2]
+  ADD R7 R7 R8
+  GETTABLEKS R9 R3 K11 ["Arrow"]
+  GETTABLEKS R8 R9 K12 ["Size"]
+  GETTABLEKS R11 R1 K13 ["CellProps"]
+  GETTABLEKS R10 R11 K14 ["Expansion"]
+  GETTABLEKS R11 R2 K15 ["item"]
+  GETTABLE R9 R10 R11
+  JUMPIFNOT R5 [+22]
+  DUPTABLE R10 K19 [{"Top", "Left", "Right", "Bottom"}]
+  GETTABLEKS R12 R3 K8 ["CellPadding"]
+  GETTABLEKS R11 R12 K16 ["Top"]
+  SETTABLEKS R11 R10 K16 ["Top"]
+  SETTABLEKS R7 R10 K9 ["Left"]
+  GETTABLEKS R12 R3 K8 ["CellPadding"]
+  GETTABLEKS R11 R12 K17 ["Right"]
+  SETTABLEKS R11 R10 K17 ["Right"]
+  GETTABLEKS R12 R3 K8 ["CellPadding"]
+  GETTABLEKS R11 R12 K18 ["Bottom"]
+  SETTABLEKS R11 R10 K18 ["Bottom"]
+  JUMPIF R10 [+2]
+  GETTABLEKS R10 R3 K8 ["CellPadding"]
+  GETUPVAL R11 0
+  MOVE R12 R2
+  CALL R11 1 1
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K20 ["createElement"]
+  GETUPVAL R13 2
+  DUPTABLE R14 K25 [{"Style", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Size", "ClipsDescendants"}]
+  LOADK R15 K26 ["Box"]
+  SETTABLEKS R15 R14 K2 ["Style"]
+  GETTABLEKS R15 R1 K27 ["BackgroundColor"]
+  SETTABLEKS R15 R14 K21 ["BackgroundColor3"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K22 ["BorderSizePixel"]
+  GETTABLEKS R15 R3 K28 ["Border"]
+  SETTABLEKS R15 R14 K23 ["BorderColor3"]
+  GETIMPORT R15 K31 [UDim2.new]
+  GETTABLEKS R17 R1 K32 ["Width"]
+  GETTABLEKS R16 R17 K33 ["Scale"]
+  GETTABLEKS R18 R1 K32 ["Width"]
+  GETTABLEKS R17 R18 K34 ["Offset"]
+  LOADN R18 1
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K12 ["Size"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K24 ["ClipsDescendants"]
+  DUPTABLE R15 K35 [{"Left"}]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K20 ["createElement"]
+  GETUPVAL R17 2
+  DUPTABLE R18 K42 [{"Layout", "LayoutOrder", "Padding", "Spacing", "HorizontalAlignment", "AutomaticSize"}]
+  GETIMPORT R19 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R19 R18 K36 ["Layout"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K37 ["LayoutOrder"]
+  SETTABLEKS R10 R18 K38 ["Padding"]
+  GETTABLEKS R19 R3 K47 ["CellSpacing"]
+  SETTABLEKS R19 R18 K39 ["Spacing"]
+  GETIMPORT R19 K48 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R19 R18 K40 ["HorizontalAlignment"]
+  GETIMPORT R19 K50 [Enum.AutomaticSize.XY]
+  SETTABLEKS R19 R18 K41 ["AutomaticSize"]
+  DUPTABLE R19 K54 [{"Toggle", "ChildCountIndicator", "BreakpointIconPane"}]
+  JUMPIFNOT R4 [+62]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K20 ["createElement"]
+  LOADK R21 K55 ["ImageButton"]
+  NEWTABLE R22 8 0
+  LOADN R23 0
+  SETTABLEKS R23 R22 K37 ["LayoutOrder"]
+  GETIMPORT R23 K31 [UDim2.new]
+  LOADN R24 0
+  MOVE R25 R8
+  LOADN R26 0
+  MOVE R27 R8
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K12 ["Size"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K56 ["BackgroundTransparency"]
+  GETTABLEKS R24 R3 K11 ["Arrow"]
+  GETTABLEKS R23 R24 K57 ["Image"]
+  SETTABLEKS R23 R22 K57 ["Image"]
+  GETTABLEKS R24 R3 K11 ["Arrow"]
+  GETTABLEKS R23 R24 K58 ["Color"]
+  SETTABLEKS R23 R22 K59 ["ImageColor3"]
+  GETIMPORT R23 K61 [Vector2.new]
+  MOVE R24 R8
+  MOVE R25 R8
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K62 ["ImageRectSize"]
+  JUMPIFNOT R9 [+5]
+  GETTABLEKS R24 R3 K11 ["Arrow"]
+  GETTABLEKS R23 R24 K63 ["ExpandedOffset"]
+  JUMPIF R23 [+4]
+  GETTABLEKS R24 R3 K11 ["Arrow"]
+  GETTABLEKS R23 R24 K64 ["CollapsedOffset"]
+  SETTABLEKS R23 R22 K65 ["ImageRectOffset"]
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K66 ["Event"]
+  GETTABLEKS R23 R24 K67 ["Activated"]
+  GETTABLEKS R24 R0 K68 ["onToggle"]
+  SETTABLE R24 R22 R23
+  CALL R20 2 1
+  JUMPIF R20 [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K51 ["Toggle"]
+  MOVE R20 R4
+  JUMPIFNOT R20 [+35]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K20 ["createElement"]
+  GETUPVAL R21 3
+  DUPTABLE R22 K70 [{"Text", "BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADK R24 K71 ["(x"]
+  GETTABLEKS R28 R2 K15 ["item"]
+  GETTABLEKS R27 R28 K72 ["children"]
+  LENGTH R25 R27
+  LOADK R26 K73 [")"]
+  CONCAT R23 R24 R26
+  SETTABLEKS R23 R22 K69 ["Text"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K56 ["BackgroundTransparency"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K37 ["LayoutOrder"]
+  GETIMPORT R23 K31 [UDim2.new]
+  LOADN R24 0
+  GETUPVAL R26 4
+  GETTABLEKS R25 R26 K74 ["ICON_SIZE"]
+  LOADN R26 0
+  GETUPVAL R28 4
+  GETTABLEKS R27 R28 K74 ["ICON_SIZE"]
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K12 ["Size"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K52 ["ChildCountIndicator"]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K20 ["createElement"]
+  GETUPVAL R21 2
+  DUPTABLE R22 K76 [{"LayoutOrder", "OnPress", "AutomaticSize"}]
+  LOADN R23 2
+  SETTABLEKS R23 R22 K37 ["LayoutOrder"]
+  GETTABLEKS R23 R0 K77 ["onBreakpointIconClicked"]
+  SETTABLEKS R23 R22 K75 ["OnPress"]
+  GETIMPORT R23 K50 [Enum.AutomaticSize.XY]
+  SETTABLEKS R23 R22 K41 ["AutomaticSize"]
+  DUPTABLE R23 K79 [{"BreakpointIcon"}]
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K20 ["createElement"]
+  GETUPVAL R25 5
+  DUPTABLE R26 K80 [{"Size", "Image"}]
+  GETIMPORT R27 K31 [UDim2.new]
+  LOADN R28 0
+  GETUPVAL R30 4
+  GETTABLEKS R29 R30 K74 ["ICON_SIZE"]
+  LOADN R30 0
+  GETUPVAL R32 4
+  GETTABLEKS R31 R32 K74 ["ICON_SIZE"]
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K12 ["Size"]
+  SETTABLEKS R11 R26 K57 ["Image"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K78 ["BreakpointIcon"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K53 ["BreakpointIconPane"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K9 ["Left"]
+  CALL R12 3 -1
+  RETURN R12 -1
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["Common"]
+  GETTABLEKS R3 R2 K1 ["currentDebuggerConnectionId"]
+  DUPTABLE R4 K3 [{"CurrentConnectionId"}]
+  SETTABLEKS R3 R4 K2 ["CurrentConnectionId"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["Constants"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Util"]
+  GETTABLEKS R6 R7 K12 ["BreakpointHelperFunctions"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K13 ["ContextServices"]
+  GETTABLEKS R7 R6 K14 ["Analytics"]
+  GETTABLEKS R8 R3 K15 ["UI"]
+  GETTABLEKS R9 R8 K16 ["Pane"]
+  GETTABLEKS R10 R8 K17 ["Image"]
+  GETTABLEKS R11 R8 K18 ["TextLabel"]
+  GETTABLEKS R12 R1 K19 ["PureComponent"]
+  LOADK R14 K20 ["BreakpointsEnabledCell"]
+  NAMECALL R12 R12 K21 ["extend"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K22 [PROTO_2]
+  CAPTURE VAL R5
+  SETTABLEKS R13 R12 K23 ["init"]
+  DUPCLOSURE R13 K24 [PROTO_3]
+  CAPTURE VAL R4
+  DUPCLOSURE R14 K25 [PROTO_4]
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  SETTABLEKS R14 R12 K26 ["render"]
+  GETTABLEKS R14 R6 K27 ["withContext"]
+  DUPTABLE R15 K28 [{"Analytics"}]
+  SETTABLEKS R7 R15 K14 ["Analytics"]
+  CALL R14 1 1
+  MOVE R15 R12
+  CALL R14 1 1
+  MOVE R12 R14
+  GETTABLEKS R14 R2 K29 ["connect"]
+  DUPCLOSURE R15 K30 [PROTO_5]
+  CALL R14 1 1
+  MOVE R15 R12
+  CALL R14 1 1
+  MOVE R12 R14
+  RETURN R12 1

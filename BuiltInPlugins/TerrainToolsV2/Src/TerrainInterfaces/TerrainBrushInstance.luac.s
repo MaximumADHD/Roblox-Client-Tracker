@@ -1,0 +1,2593 @@
+PROTO_0:
+  MOVE R6 R3
+  NAMECALL R4 R1 K0 ["Dot"]
+  CALL R4 2 1
+  JUMPIFNOTEQKN R4 K1 [0] [+4]
+  LOADNIL R5
+  LOADNIL R6
+  RETURN R5 2
+  SUB R6 R2 R0
+  MOVE R8 R3
+  NAMECALL R6 R6 K0 ["Dot"]
+  CALL R6 2 1
+  DIV R5 R6 R4
+  MUL R7 R1 R5
+  ADD R6 R0 R7
+  MOVE R7 R5
+  RETURN R6 2
+
+PROTO_1:
+  LOADN R4 1
+  LOADN R5 1
+  LOADN R6 1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R3 K2 [Vector3.new]
+  CALL R3 3 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["VOXEL_RESOLUTION"]
+  MOD R4 R1 R5
+  MUL R2 R3 R4
+  SUB R5 R0 R2
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["VOXEL_RESOLUTION"]
+  DIV R4 R5 R6
+  LOADK R6 K4 [0.5]
+  LOADK R7 K4 [0.5]
+  LOADK R8 K4 [0.5]
+  FASTCALL VECTOR [+2]
+  GETIMPORT R5 K2 [Vector3.new]
+  CALL R5 3 1
+  ADD R3 R4 R5
+  GETTABLEKS R8 R3 K5 ["x"]
+  FASTCALL1 MATH_FLOOR R8 [+2]
+  GETIMPORT R7 K8 [math.floor]
+  CALL R7 1 1
+  GETTABLEKS R9 R3 K9 ["y"]
+  FASTCALL1 MATH_FLOOR R9 [+2]
+  GETIMPORT R8 K8 [math.floor]
+  CALL R8 1 1
+  GETTABLEKS R10 R3 K10 ["z"]
+  FASTCALL1 MATH_FLOOR R10 [+2]
+  GETIMPORT R9 K8 [math.floor]
+  CALL R9 1 1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R6 K2 [Vector3.new]
+  CALL R6 3 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["VOXEL_RESOLUTION"]
+  MUL R5 R6 R7
+  ADD R4 R5 R2
+  RETURN R4 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["CurrentCamera"]
+  GETTABLEKS R2 R0 K1 ["CoordinateFrame"]
+  GETTABLEKS R1 R2 K2 ["lookVector"]
+  GETTABLEKS R5 R1 K3 ["x"]
+  FASTCALL1 MATH_ROUND R5 [+2]
+  GETIMPORT R4 K6 [math.round]
+  CALL R4 1 1
+  GETTABLEKS R6 R1 K7 ["y"]
+  FASTCALL1 MATH_ROUND R6 [+2]
+  GETIMPORT R5 K6 [math.round]
+  CALL R5 1 1
+  GETTABLEKS R7 R1 K8 ["z"]
+  FASTCALL1 MATH_ROUND R7 [+2]
+  GETIMPORT R6 K6 [math.round]
+  CALL R6 1 1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R3 K11 [Vector3.new]
+  CALL R3 3 1
+  GETTABLEKS R2 R3 K12 ["Unit"]
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETIMPORT R2 K3 [Enum.KeyCode.LeftShift]
+  NAMECALL R0 R0 K4 ["IsKeyDown"]
+  CALL R0 2 1
+  JUMPIF R0 [+6]
+  GETUPVAL R0 0
+  GETIMPORT R2 K6 [Enum.KeyCode.RightShift]
+  NAMECALL R0 R0 K4 ["IsKeyDown"]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETIMPORT R2 K3 [Enum.KeyCode.LeftControl]
+  NAMECALL R0 R0 K4 ["IsKeyDown"]
+  CALL R0 2 1
+  JUMPIF R0 [+6]
+  GETUPVAL R0 0
+  GETIMPORT R2 K6 [Enum.KeyCode.RightControl]
+  NAMECALL R0 R0 K4 ["IsKeyDown"]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R0 0
+  GETIMPORT R2 K3 [Enum.KeyCode.LeftAlt]
+  NAMECALL R0 R0 K4 ["IsKeyDown"]
+  CALL R0 2 1
+  JUMPIF R0 [+6]
+  GETUPVAL R0 0
+  GETIMPORT R2 K6 [Enum.KeyCode.RightAlt]
+  NAMECALL R0 R0 K4 ["IsKeyDown"]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_6:
+  GETUPVAL R0 0
+  GETIMPORT R2 K3 [Enum.KeyCode.B]
+  NAMECALL R0 R0 K4 ["IsKeyDown"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["currentTool"]
+  LOADNIL R2
+  LOADNIL R3
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Flatten"]
+  JUMPIFNOTEQ R1 R4 [+5]
+  GETUPVAL R4 1
+  GETTABLEKS R2 R4 K2 ["Off"]
+  LOADB R3 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["Dictionary"]
+  GETTABLEKS R4 R5 K4 ["join"]
+  MOVE R5 R0
+  DUPTABLE R6 K7 [{"autoMaterial", "planeLock"}]
+  SETTABLEKS R3 R6 K5 ["autoMaterial"]
+  SETTABLEKS R2 R6 K6 ["planeLock"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_8:
+  MOVE R2 R0
+  JUMPIFNOT R2 [+9]
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["table"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["TerrainBrush requires an options table"]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K6 ["Off"]
+  DUPTABLE R3 K28 [{"_terrain", "_mouse", "_analytics", "_operationSettings", "_isRunning", "_currentLoopTag", "_mouseDown", "_mouseClick", "_mouseOrigin", "_scrollWheelPosition", "_downKeys", "_connections", "_cursor", "_cursorGrid", "_planePositionYChanged", "_heightPickerSet", "_requestBrushSizeChanged", "_requestBrushStrengthChanged", "_materialSelectRequested", "_isTerrainDirty", "_tool"}]
+  GETTABLEKS R4 R0 K29 ["terrain"]
+  SETTABLEKS R4 R3 K7 ["_terrain"]
+  GETTABLEKS R4 R0 K30 ["mouse"]
+  SETTABLEKS R4 R3 K8 ["_mouse"]
+  GETTABLEKS R4 R0 K31 ["analytics"]
+  SETTABLEKS R4 R3 K9 ["_analytics"]
+  DUPTABLE R4 K55 [{"currentTool", "baseSizeHeightLocked", "brushShape", "cursorSize", "cursorHeight", "strength", "material", "autoMaterial", "flattenMode", "pivot", "planeLock", "ignoreWater", "ignoreParts", "fixedPlane", "editPlaneMode", "snapToVoxels", "heightPicker", "planeCFrame", "planePositionY", "centerPoint", "targetPoint", "planePoint", "planeNormal"}]
+  GETTABLEKS R5 R0 K56 ["tool"]
+  SETTABLEKS R5 R4 K32 ["currentTool"]
+  GETUPVAL R6 1
+  JUMPIFNOT R6 [+2]
+  LOADB R5 1
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K33 ["baseSizeHeightLocked"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K57 ["Sphere"]
+  SETTABLEKS R5 R4 K34 ["brushShape"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K58 ["INITIAL_BRUSH_SIZE"]
+  SETTABLEKS R5 R4 K35 ["cursorSize"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K58 ["INITIAL_BRUSH_SIZE"]
+  SETTABLEKS R5 R4 K36 ["cursorHeight"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K59 ["INITIAL_BRUSH_STRENGTH"]
+  SETTABLEKS R5 R4 K37 ["strength"]
+  GETIMPORT R5 K63 [Enum.Material.Grass]
+  SETTABLEKS R5 R4 K38 ["material"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K39 ["autoMaterial"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K64 ["Both"]
+  SETTABLEKS R5 R4 K40 ["flattenMode"]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K65 ["Center"]
+  SETTABLEKS R5 R4 K41 ["pivot"]
+  SETTABLEKS R1 R4 K42 ["planeLock"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K43 ["ignoreWater"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K44 ["ignoreParts"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K45 ["fixedPlane"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K46 ["editPlaneMode"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K47 ["snapToVoxels"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K48 ["heightPicker"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K49 ["planeCFrame"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K66 ["INITIAL_PLANE_POSITION_Y"]
+  SETTABLEKS R5 R4 K50 ["planePositionY"]
+  LOADN R6 0
+  LOADN R7 0
+  LOADN R8 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R5 K69 [Vector3.new]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K51 ["centerPoint"]
+  LOADN R6 0
+  LOADN R7 0
+  LOADN R8 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R5 K69 [Vector3.new]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K52 ["targetPoint"]
+  LOADN R6 0
+  LOADN R7 0
+  LOADN R8 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R5 K69 [Vector3.new]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K53 ["planePoint"]
+  LOADN R6 0
+  LOADN R7 1
+  LOADN R8 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R5 K69 [Vector3.new]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K54 ["planeNormal"]
+  SETTABLEKS R4 R3 K10 ["_operationSettings"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K11 ["_isRunning"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K12 ["_currentLoopTag"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K13 ["_mouseDown"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K14 ["_mouseClick"]
+  GETIMPORT R4 K71 [Vector2.new]
+  LOADN R5 0
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K15 ["_mouseOrigin"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K16 ["_scrollWheelPosition"]
+  GETUPVAL R5 6
+  JUMPIF R5 [+3]
+  NEWTABLE R4 0 0
+  JUMPIF R4 [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K17 ["_downKeys"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K18 ["_connections"]
+  GETUPVAL R5 7
+  GETTABLEKS R4 R5 K68 ["new"]
+  GETTABLEKS R5 R0 K29 ["terrain"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K19 ["_cursor"]
+  GETUPVAL R5 8
+  GETTABLEKS R4 R5 K68 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K20 ["_cursorGrid"]
+  GETUPVAL R5 9
+  GETTABLEKS R4 R5 K68 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K21 ["_planePositionYChanged"]
+  GETUPVAL R5 9
+  GETTABLEKS R4 R5 K68 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K22 ["_heightPickerSet"]
+  GETUPVAL R5 9
+  GETTABLEKS R4 R5 K68 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K23 ["_requestBrushSizeChanged"]
+  GETUPVAL R5 9
+  GETTABLEKS R4 R5 K68 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K24 ["_requestBrushStrengthChanged"]
+  GETUPVAL R5 9
+  GETTABLEKS R4 R5 K68 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K25 ["_materialSelectRequested"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K26 ["_isTerrainDirty"]
+  GETTABLEKS R4 R0 K56 ["tool"]
+  SETTABLEKS R4 R3 K27 ["_tool"]
+  GETUPVAL R4 10
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K73 [setmetatable]
+  CALL R2 2 1
+  GETTABLEKS R4 R2 K7 ["_terrain"]
+  FASTCALL2K ASSERT R4 K74 [+4]
+  LOADK R5 K74 ["TerrainBrush needs a terrain instance"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R2 K8 ["_mouse"]
+  FASTCALL2K ASSERT R4 K75 [+4]
+  LOADK R5 K75 ["TerrainBrush needs a mouse instance"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  LOADB R4 0
+  GETTABLEKS R6 R2 K10 ["_operationSettings"]
+  GETTABLEKS R5 R6 K32 ["currentTool"]
+  JUMPIFEQKNIL R5 [+12]
+  GETTABLEKS R6 R2 K10 ["_operationSettings"]
+  GETTABLEKS R5 R6 K32 ["currentTool"]
+  GETUPVAL R7 11
+  GETTABLEKS R6 R7 K76 ["None"]
+  JUMPIFNOTEQ R5 R6 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K77 [+4]
+  LOADK R5 K77 ["TerrainBrush needs a tool passed to constructor"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  GETIMPORT R3 K79 [RaycastParams.new]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K80 ["_raycastParams"]
+  GETTABLEKS R3 R2 K80 ["_raycastParams"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K81 ["BruteForceAllSlow"]
+  RETURN R2 1
+
+PROTO_9:
+  NAMECALL R1 R0 K0 ["stop"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_10:
+  PREPVARARGS 1
+  GETTABLEKS R1 R0 K0 ["_planePositionYChanged"]
+  GETVARARGS R3 4294967295
+  NAMECALL R1 R1 K1 ["Connect"]
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_11:
+  PREPVARARGS 1
+  GETTABLEKS R1 R0 K0 ["_heightPickerSet"]
+  GETVARARGS R3 4294967295
+  NAMECALL R1 R1 K1 ["Connect"]
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_12:
+  PREPVARARGS 1
+  GETTABLEKS R1 R0 K0 ["_requestBrushSizeChanged"]
+  GETVARARGS R3 4294967295
+  NAMECALL R1 R1 K1 ["Connect"]
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_13:
+  PREPVARARGS 1
+  GETTABLEKS R1 R0 K0 ["_requestBrushStrengthChanged"]
+  GETVARARGS R3 4294967295
+  NAMECALL R1 R1 K1 ["Connect"]
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_14:
+  PREPVARARGS 1
+  GETTABLEKS R1 R0 K0 ["_materialSelectRequested"]
+  GETVARARGS R3 4294967295
+  NAMECALL R1 R1 K1 ["Connect"]
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_15:
+  GETTABLEKS R4 R1 K0 ["currentTool"]
+  JUMPIFEQKNIL R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["Unable to change terrain brush tool"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  LOADNIL R2
+  SETTABLEKS R2 R1 K0 ["currentTool"]
+  GETTABLEKS R2 R1 K4 ["brushMode"]
+  SETTABLEKS R2 R0 K4 ["brushMode"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["Dictionary"]
+  GETTABLEKS R2 R3 K6 ["join"]
+  GETTABLEKS R3 R0 K7 ["_operationSettings"]
+  MOVE R4 R1
+  CALL R2 2 1
+  MOVE R3 R2
+  GETTABLEKS R4 R3 K0 ["currentTool"]
+  LOADNIL R5
+  LOADNIL R6
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K8 ["Flatten"]
+  JUMPIFNOTEQ R4 R7 [+5]
+  GETUPVAL R7 2
+  GETTABLEKS R5 R7 K9 ["Off"]
+  LOADB R6 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["Dictionary"]
+  GETTABLEKS R7 R8 K6 ["join"]
+  MOVE R8 R3
+  DUPTABLE R9 K12 [{"autoMaterial", "planeLock"}]
+  SETTABLEKS R6 R9 K10 ["autoMaterial"]
+  SETTABLEKS R5 R9 K11 ["planeLock"]
+  CALL R7 2 1
+  MOVE R2 R7
+  SETTABLEKS R2 R0 K7 ["_operationSettings"]
+  NAMECALL R3 R0 K13 ["_updateCursor"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["_isRunning"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_isRunning"]
+  NAMECALL R1 R0 K1 ["_connectInput"]
+  CALL R1 1 0
+  NAMECALL R1 R0 K2 ["_run"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_17:
+  NAMECALL R1 R0 K0 ["_saveChanges"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K1 ["_isRunning"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_currentLoopTag"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K3 ["_mouseDown"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K4 ["_mouseClick"]
+  GETUPVAL R1 0
+  JUMPIF R1 [+4]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K5 ["_downKeys"]
+  NAMECALL R1 R0 K6 ["_disconnectAllConnections"]
+  CALL R1 1 0
+  NAMECALL R1 R0 K7 ["_destroyCursor"]
+  CALL R1 1 0
+  LOADB R1 0
+  SETTABLEKS R1 R0 K1 ["_isRunning"]
+  RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R6 R0 K2 ["_operationSettings"]
+  GETTABLEKS R5 R6 K3 ["cursorSize"]
+  DIVK R4 R5 K1 [2]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["VOXEL_RESOLUTION"]
+  MUL R3 R4 R5
+  MULK R2 R3 K0 [5]
+  FASTCALL2K MATH_MIN R2 K5 [+4]
+  LOADK R3 K5 [500]
+  GETIMPORT R1 K8 [math.min]
+  CALL R1 2 1
+  RETURN R1 1
+
+PROTO_19:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["isVisibleForOperation"]
+  GETTABLEKS R2 R0 K1 ["_operationSettings"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+89]
+  GETUPVAL R1 1
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K2 ["_cursor"]
+  NAMECALL R1 R1 K3 ["createOnce"]
+  CALL R1 1 0
+  JUMP [+5]
+  GETTABLEKS R1 R0 K2 ["_cursor"]
+  NAMECALL R1 R1 K4 ["maybeCreate"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["_cursor"]
+  DUPTABLE R3 K13 [{"size", "height", "strength", "location", "shape", "pivot", "mouseDown", "adjusting"}]
+  GETTABLEKS R5 R0 K1 ["_operationSettings"]
+  GETTABLEKS R4 R5 K14 ["cursorSize"]
+  SETTABLEKS R4 R3 K5 ["size"]
+  GETTABLEKS R5 R0 K1 ["_operationSettings"]
+  GETTABLEKS R4 R5 K15 ["cursorHeight"]
+  SETTABLEKS R4 R3 K6 ["height"]
+  GETTABLEKS R5 R0 K1 ["_operationSettings"]
+  GETTABLEKS R4 R5 K7 ["strength"]
+  SETTABLEKS R4 R3 K7 ["strength"]
+  GETTABLEKS R5 R0 K1 ["_operationSettings"]
+  GETTABLEKS R4 R5 K16 ["targetPoint"]
+  SETTABLEKS R4 R3 K8 ["location"]
+  GETTABLEKS R5 R0 K1 ["_operationSettings"]
+  GETTABLEKS R4 R5 K17 ["brushShape"]
+  SETTABLEKS R4 R3 K9 ["shape"]
+  GETTABLEKS R5 R0 K1 ["_operationSettings"]
+  GETTABLEKS R4 R5 K10 ["pivot"]
+  SETTABLEKS R4 R3 K10 ["pivot"]
+  GETTABLEKS R4 R0 K18 ["_mouseDown"]
+  SETTABLEKS R4 R3 K11 ["mouseDown"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K22 [Enum.KeyCode.LeftShift]
+  NAMECALL R4 R4 K23 ["IsKeyDown"]
+  CALL R4 2 1
+  JUMPIF R4 [+6]
+  GETUPVAL R4 2
+  GETIMPORT R6 K25 [Enum.KeyCode.RightShift]
+  NAMECALL R4 R4 K23 ["IsKeyDown"]
+  CALL R4 2 1
+  JUMPIF R4 [+13]
+  GETUPVAL R4 2
+  GETIMPORT R6 K27 [Enum.KeyCode.LeftControl]
+  NAMECALL R4 R4 K23 ["IsKeyDown"]
+  CALL R4 2 1
+  JUMPIF R4 [+6]
+  GETUPVAL R4 2
+  GETIMPORT R6 K29 [Enum.KeyCode.RightControl]
+  NAMECALL R4 R4 K23 ["IsKeyDown"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K12 ["adjusting"]
+  NAMECALL R1 R1 K30 ["update"]
+  CALL R1 2 0
+  JUMP [+5]
+  GETTABLEKS R1 R0 K2 ["_cursor"]
+  NAMECALL R1 R1 K31 ["hide"]
+  CALL R1 1 0
+  LOADNIL R1
+  LOADNIL R2
+  GETTABLEKS R4 R0 K1 ["_operationSettings"]
+  GETTABLEKS R3 R4 K32 ["planeCFrame"]
+  JUMPIFEQKNIL R3 [+19]
+  GETTABLEKS R4 R0 K1 ["_operationSettings"]
+  GETTABLEKS R3 R4 K33 ["editPlaneMode"]
+  JUMPIFNOT R3 [+13]
+  GETTABLEKS R4 R0 K1 ["_operationSettings"]
+  GETTABLEKS R3 R4 K32 ["planeCFrame"]
+  GETTABLEKS R1 R3 K34 ["Position"]
+  GETTABLEKS R4 R0 K1 ["_operationSettings"]
+  GETTABLEKS R3 R4 K32 ["planeCFrame"]
+  GETTABLEKS R2 R3 K35 ["LookVector"]
+  JUMP [+8]
+  GETTABLEKS R3 R0 K1 ["_operationSettings"]
+  GETTABLEKS R1 R3 K36 ["planePoint"]
+  GETTABLEKS R3 R0 K1 ["_operationSettings"]
+  GETTABLEKS R2 R3 K37 ["planeNormal"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K0 ["isVisibleForOperation"]
+  GETTABLEKS R4 R0 K1 ["_operationSettings"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+44]
+  GETTABLEKS R3 R0 K38 ["_cursorGrid"]
+  NAMECALL R3 R3 K4 ["maybeCreate"]
+  CALL R3 1 0
+  GETTABLEKS R3 R0 K38 ["_cursorGrid"]
+  DUPTABLE R5 K40 [{"cursorSize", "planePoint", "planeNormal", "mouseDown", "planeCFrame", "planeLock", "editPlaneMode"}]
+  GETTABLEKS R7 R0 K1 ["_operationSettings"]
+  GETTABLEKS R6 R7 K14 ["cursorSize"]
+  SETTABLEKS R6 R5 K14 ["cursorSize"]
+  SETTABLEKS R1 R5 K36 ["planePoint"]
+  SETTABLEKS R2 R5 K37 ["planeNormal"]
+  GETTABLEKS R6 R0 K18 ["_mouseDown"]
+  SETTABLEKS R6 R5 K11 ["mouseDown"]
+  GETTABLEKS R7 R0 K1 ["_operationSettings"]
+  GETTABLEKS R6 R7 K32 ["planeCFrame"]
+  SETTABLEKS R6 R5 K32 ["planeCFrame"]
+  GETTABLEKS R7 R0 K1 ["_operationSettings"]
+  GETTABLEKS R6 R7 K39 ["planeLock"]
+  SETTABLEKS R6 R5 K39 ["planeLock"]
+  GETTABLEKS R7 R0 K1 ["_operationSettings"]
+  GETTABLEKS R6 R7 K33 ["editPlaneMode"]
+  SETTABLEKS R6 R5 K33 ["editPlaneMode"]
+  NAMECALL R3 R3 K30 ["update"]
+  CALL R3 2 0
+  RETURN R0 0
+  GETTABLEKS R3 R0 K38 ["_cursorGrid"]
+  NAMECALL R3 R3 K31 ["hide"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_20:
+  GETTABLEKS R1 R0 K0 ["_cursor"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["_cursorGrid"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_21:
+  GETIMPORT R1 K1 [pairs]
+  GETTABLEKS R2 R0 K2 ["_connections"]
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  NAMECALL R6 R5 K3 ["Disconnect"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [-4]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K2 ["_connections"]
+  RETURN R0 0
+
+PROTO_22:
+  GETTABLEKS R1 R0 K0 ["_isTerrainDirty"]
+  JUMPIFNOT R1 [+13]
+  GETUPVAL R1 0
+  LOADK R4 K1 ["Terrain "]
+  GETTABLEKS R6 R0 K2 ["_operationSettings"]
+  GETTABLEKS R5 R6 K3 ["currentTool"]
+  CONCAT R3 R4 R5
+  NAMECALL R1 R1 K4 ["SetWaypoint"]
+  CALL R1 2 0
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["_isTerrainDirty"]
+  RETURN R0 0
+
+PROTO_23:
+  GETTABLEKS R2 R0 K0 ["_operationSettings"]
+  GETTABLEKS R1 R2 K1 ["currentTool"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["Add"]
+  JUMPIFEQ R1 R2 [+38]
+  GETTABLEKS R2 R0 K0 ["_operationSettings"]
+  GETTABLEKS R1 R2 K1 ["currentTool"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["Subtract"]
+  JUMPIFEQ R1 R2 [+29]
+  GETUPVAL R1 1
+  JUMPIFNOT R1 [+9]
+  GETTABLEKS R2 R0 K0 ["_operationSettings"]
+  GETTABLEKS R1 R2 K1 ["currentTool"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["Draw"]
+  JUMPIFEQ R1 R2 [+18]
+  GETTABLEKS R2 R0 K0 ["_operationSettings"]
+  GETTABLEKS R1 R2 K1 ["currentTool"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["Paint"]
+  JUMPIFNOTEQ R1 R2 [+21]
+  GETTABLEKS R2 R0 K0 ["_operationSettings"]
+  GETTABLEKS R1 R2 K6 ["target"]
+  GETIMPORT R2 K10 [Enum.Material.Air]
+  JUMPIFNOTEQ R1 R2 [+13]
+  GETTABLEKS R3 R0 K0 ["_operationSettings"]
+  GETTABLEKS R2 R3 K11 ["planeLock"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K12 ["Off"]
+  JUMPIFEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_24:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["_connections"]
+  GETTABLE R2 R3 R0
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["_connections"]
+  GETTABLE R2 R3 R0
+  NAMECALL R2 R2 K1 ["Disconnect"]
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_connections"]
+  MOVE R5 R1
+  NAMECALL R3 R0 K2 ["Connect"]
+  CALL R3 2 1
+  SETTABLE R3 R2 R0
+  RETURN R0 0
+
+PROTO_25:
+  GETUPVAL R2 0
+  JUMPIF R2 [+7]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["_downKeys"]
+  GETTABLEKS R3 R0 K1 ["KeyCode"]
+  LOADB R4 1
+  SETTABLE R4 R2 R3
+  GETTABLEKS R2 R0 K2 ["UserInputType"]
+  GETIMPORT R3 K5 [Enum.UserInputType.MouseButton1]
+  JUMPIFNOTEQ R2 R3 [+109]
+  JUMPIF R1 [+107]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["_isRunning"]
+  JUMPIFNOT R2 [+103]
+  GETUPVAL R2 2
+  JUMPIFNOT R2 [+64]
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K7 ["_needToCacheTerrainPhysics"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+27]
+  GETUPVAL R2 1
+  GETIMPORT R3 K9 [workspace]
+  LOADK R5 K10 [""]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K11 ["_operationSettings"]
+  GETTABLEKS R6 R7 K12 ["targetPoint"]
+  GETUPVAL R7 1
+  NAMECALL R7 R7 K13 ["getCachedTerrainSize"]
+  CALL R7 1 -1
+  NAMECALL R3 R3 K14 ["CacheCurrentTerrain"]
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K15 ["_terrainCacheID"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K12 ["targetPoint"]
+  SETTABLEKS R3 R2 K16 ["_terrainCachePoint"]
+  JUMP [+32]
+  GETUPVAL R2 3
+  GETIMPORT R4 K18 [Enum.KeyCode.LeftShift]
+  NAMECALL R2 R2 K19 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIF R2 [+6]
+  GETUPVAL R2 3
+  GETIMPORT R4 K21 [Enum.KeyCode.RightShift]
+  NAMECALL R2 R2 K19 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+18]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K11 ["_operationSettings"]
+  GETTABLEKS R2 R3 K22 ["currentTool"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K23 ["Smooth"]
+  JUMPIFNOTEQ R2 R3 [+9]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K12 ["targetPoint"]
+  SETTABLEKS R3 R2 K16 ["_terrainCachePoint"]
+  GETUPVAL R2 1
+  LOADB R3 1
+  SETTABLEKS R3 R2 K24 ["_mouseDown"]
+  GETUPVAL R2 1
+  LOADB R3 1
+  SETTABLEKS R3 R2 K25 ["_mouseClick"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K26 ["strength"]
+  SETTABLEKS R3 R2 K27 ["_brushStrength"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K28 ["cursorSize"]
+  SETTABLEKS R3 R2 K29 ["_brushSize"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K30 ["cursorHeight"]
+  SETTABLEKS R3 R2 K31 ["_brushHeight"]
+  GETUPVAL R2 1
+  LOADN R3 0
+  SETTABLEKS R3 R2 K32 ["_scrollWheelPosition"]
+  JUMP [+176]
+  GETUPVAL R2 5
+  JUMPIFNOT R2 [+51]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K34 [Enum.KeyCode.B]
+  JUMPIFNOTEQ R2 R3 [+46]
+  GETUPVAL R2 1
+  GETIMPORT R3 K37 [Vector2.new]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K38 ["_mouse"]
+  GETTABLEKS R4 R5 K39 ["X"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K38 ["_mouse"]
+  GETTABLEKS R5 R6 K40 ["Y"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K41 ["_mouseOrigin"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K26 ["strength"]
+  SETTABLEKS R3 R2 K27 ["_brushStrength"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K28 ["cursorSize"]
+  SETTABLEKS R3 R2 K29 ["_brushSize"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K30 ["cursorHeight"]
+  SETTABLEKS R3 R2 K31 ["_brushHeight"]
+  GETUPVAL R2 1
+  LOADN R3 0
+  SETTABLEKS R3 R2 K32 ["_scrollWheelPosition"]
+  JUMP [+123]
+  GETUPVAL R2 5
+  JUMPIFNOT R2 [+60]
+  GETUPVAL R2 3
+  GETIMPORT R4 K34 [Enum.KeyCode.B]
+  NAMECALL R2 R2 K19 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+53]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K18 [Enum.KeyCode.LeftShift]
+  JUMPIFEQ R2 R3 [+7]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K21 [Enum.KeyCode.RightShift]
+  JUMPIFNOTEQ R2 R3 [+42]
+  GETUPVAL R2 1
+  GETIMPORT R3 K37 [Vector2.new]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K38 ["_mouse"]
+  GETTABLEKS R4 R5 K39 ["X"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K38 ["_mouse"]
+  GETTABLEKS R5 R6 K40 ["Y"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K41 ["_mouseOrigin"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K26 ["strength"]
+  SETTABLEKS R3 R2 K27 ["_brushStrength"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K28 ["cursorSize"]
+  SETTABLEKS R3 R2 K29 ["_brushSize"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K30 ["cursorHeight"]
+  SETTABLEKS R3 R2 K31 ["_brushHeight"]
+  JUMP [+61]
+  GETUPVAL R2 5
+  JUMPIFNOT R2 [+59]
+  GETUPVAL R2 3
+  GETIMPORT R4 K34 [Enum.KeyCode.B]
+  NAMECALL R2 R2 K19 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+52]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K43 [Enum.KeyCode.LeftControl]
+  JUMPIFEQ R2 R3 [+7]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K45 [Enum.KeyCode.RightControl]
+  JUMPIFNOTEQ R2 R3 [+41]
+  GETUPVAL R2 1
+  GETIMPORT R3 K37 [Vector2.new]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K38 ["_mouse"]
+  GETTABLEKS R4 R5 K39 ["X"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K38 ["_mouse"]
+  GETTABLEKS R5 R6 K40 ["Y"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K41 ["_mouseOrigin"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K26 ["strength"]
+  SETTABLEKS R3 R2 K27 ["_brushStrength"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K28 ["cursorSize"]
+  SETTABLEKS R3 R2 K29 ["_brushSize"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K30 ["cursorHeight"]
+  SETTABLEKS R3 R2 K31 ["_brushHeight"]
+  GETUPVAL R2 5
+  JUMPIFNOT R2 [+18]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K47 [Enum.KeyCode.LeftAlt]
+  JUMPIFEQ R2 R3 [+7]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K49 [Enum.KeyCode.RightAlt]
+  JUMPIFNOTEQ R2 R3 [+7]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K38 ["_mouse"]
+  LOADK R3 K50 ["rbxasset://SystemCursors/Cross"]
+  SETTABLEKS R3 R2 K51 ["Icon"]
+  RETURN R0 0
+
+PROTO_26:
+  GETUPVAL R2 0
+  JUMPIF R2 [+7]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["_downKeys"]
+  GETTABLEKS R3 R0 K1 ["KeyCode"]
+  LOADNIL R4
+  SETTABLE R4 R2 R3
+  GETTABLEKS R2 R0 K2 ["UserInputType"]
+  GETIMPORT R3 K5 [Enum.UserInputType.MouseButton1]
+  JUMPIFNOTEQ R2 R3 [+76]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["_mouseDown"]
+  JUMPIFNOT R2 [+71]
+  GETUPVAL R2 2
+  JUMPIFNOT R2 [+16]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K7 ["_terrainCacheID"]
+  JUMPIFNOT R2 [+12]
+  GETIMPORT R2 K9 [workspace]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K7 ["_terrainCacheID"]
+  NAMECALL R2 R2 K10 ["ClearCachedTerrain"]
+  CALL R2 2 0
+  GETUPVAL R2 1
+  LOADNIL R3
+  SETTABLEKS R3 R2 K7 ["_terrainCacheID"]
+  GETUPVAL R2 1
+  LOADB R3 0
+  SETTABLEKS R3 R2 K6 ["_mouseDown"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K12 ["strength"]
+  SETTABLEKS R3 R2 K13 ["_brushStrength"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K14 ["cursorSize"]
+  SETTABLEKS R3 R2 K15 ["_brushSize"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K16 ["cursorHeight"]
+  SETTABLEKS R3 R2 K17 ["_brushHeight"]
+  GETUPVAL R2 1
+  LOADN R3 0
+  SETTABLEKS R3 R2 K18 ["_scrollWheelPosition"]
+  GETUPVAL R2 1
+  GETIMPORT R3 K21 [Vector2.new]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K22 ["_mouse"]
+  GETTABLEKS R4 R5 K23 ["X"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K22 ["_mouse"]
+  GETTABLEKS R5 R6 K24 ["Y"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K25 ["_mouseOrigin"]
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K26 ["_saveChanges"]
+  CALL R2 1 0
+  JUMP [+142]
+  GETUPVAL R2 3
+  JUMPIFNOT R2 [+60]
+  GETUPVAL R2 4
+  GETIMPORT R4 K28 [Enum.KeyCode.B]
+  NAMECALL R2 R2 K29 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+53]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K31 [Enum.KeyCode.LeftShift]
+  JUMPIFEQ R2 R3 [+7]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K33 [Enum.KeyCode.RightShift]
+  JUMPIFNOTEQ R2 R3 [+42]
+  GETUPVAL R2 1
+  GETIMPORT R3 K21 [Vector2.new]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K22 ["_mouse"]
+  GETTABLEKS R4 R5 K23 ["X"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K22 ["_mouse"]
+  GETTABLEKS R5 R6 K24 ["Y"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K25 ["_mouseOrigin"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K12 ["strength"]
+  SETTABLEKS R3 R2 K13 ["_brushStrength"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K14 ["cursorSize"]
+  SETTABLEKS R3 R2 K15 ["_brushSize"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K16 ["cursorHeight"]
+  SETTABLEKS R3 R2 K17 ["_brushHeight"]
+  JUMP [+80]
+  GETUPVAL R2 3
+  JUMPIFNOT R2 [+60]
+  GETUPVAL R2 4
+  GETIMPORT R4 K28 [Enum.KeyCode.B]
+  NAMECALL R2 R2 K29 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+53]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K35 [Enum.KeyCode.LeftControl]
+  JUMPIFEQ R2 R3 [+7]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K37 [Enum.KeyCode.RightControl]
+  JUMPIFNOTEQ R2 R3 [+42]
+  GETUPVAL R2 1
+  GETIMPORT R3 K21 [Vector2.new]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K22 ["_mouse"]
+  GETTABLEKS R4 R5 K23 ["X"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K22 ["_mouse"]
+  GETTABLEKS R5 R6 K24 ["Y"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K25 ["_mouseOrigin"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K12 ["strength"]
+  SETTABLEKS R3 R2 K13 ["_brushStrength"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K14 ["cursorSize"]
+  SETTABLEKS R3 R2 K15 ["_brushSize"]
+  GETUPVAL R2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["_operationSettings"]
+  GETTABLEKS R3 R4 K16 ["cursorHeight"]
+  SETTABLEKS R3 R2 K17 ["_brushHeight"]
+  JUMP [+18]
+  GETUPVAL R2 3
+  JUMPIFNOT R2 [+16]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K31 [Enum.KeyCode.LeftShift]
+  JUMPIFEQ R2 R3 [+7]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K33 [Enum.KeyCode.RightShift]
+  JUMPIFNOTEQ R2 R3 [+5]
+  GETUPVAL R2 1
+  LOADB R3 1
+  SETTABLEKS R3 R2 K38 ["_restoreCachedTerrain"]
+  GETUPVAL R2 3
+  JUMPIFNOT R2 [+10]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K28 [Enum.KeyCode.B]
+  JUMPIFNOTEQ R2 R3 [+5]
+  GETUPVAL R2 1
+  LOADNIL R3
+  SETTABLEKS R3 R2 K39 ["_scrollMouseDiff"]
+  GETUPVAL R2 3
+  JUMPIFNOT R2 [+18]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K41 [Enum.KeyCode.LeftAlt]
+  JUMPIFEQ R2 R3 [+7]
+  GETTABLEKS R2 R0 K1 ["KeyCode"]
+  GETIMPORT R3 K43 [Enum.KeyCode.RightAlt]
+  JUMPIFNOTEQ R2 R3 [+7]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K22 ["_mouse"]
+  LOADK R3 K44 ["rbxasset://SystemCursors/Arrow"]
+  SETTABLEKS R3 R2 K45 ["Icon"]
+  RETURN R0 0
+
+PROTO_27:
+  GETUPVAL R0 0
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K0 ["_downKeys"]
+  RETURN R0 0
+
+PROTO_28:
+  LOADNIL R1
+  GETUPVAL R2 0
+  JUMPIFNOT R2 [+14]
+  GETUPVAL R1 1
+  GETIMPORT R3 K3 [Enum.KeyCode.LeftShift]
+  NAMECALL R1 R1 K4 ["IsKeyDown"]
+  CALL R1 2 1
+  JUMPIF R1 [+21]
+  GETUPVAL R1 1
+  GETIMPORT R3 K6 [Enum.KeyCode.RightShift]
+  NAMECALL R1 R1 K4 ["IsKeyDown"]
+  CALL R1 2 1
+  JUMP [+14]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K7 ["_downKeys"]
+  GETIMPORT R4 K3 [Enum.KeyCode.LeftShift]
+  GETTABLE R2 R3 R4
+  JUMPIF R2 [+6]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K7 ["_downKeys"]
+  GETIMPORT R4 K6 [Enum.KeyCode.RightShift]
+  GETTABLE R2 R3 R4
+  MOVE R1 R2
+  JUMPIFNOT R1 [+103]
+  DIVK R2 R0 K8 [10]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K9 ["_operationSettings"]
+  GETTABLEKS R4 R5 K10 ["cursorSize"]
+  MUL R3 R4 R2
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K9 ["_operationSettings"]
+  GETTABLEKS R5 R6 K11 ["cursorHeight"]
+  MUL R4 R5 R2
+  FASTCALL1 MATH_ABS R3 [+3]
+  MOVE R6 R3
+  GETIMPORT R5 K14 [math.abs]
+  CALL R5 1 1
+  LOADN R6 1
+  JUMPIFNOTLT R5 R6 [+7]
+  FASTCALL1 MATH_SIGN R3 [+3]
+  MOVE R6 R3
+  GETIMPORT R5 K16 [math.sign]
+  CALL R5 1 1
+  MOVE R3 R5
+  FASTCALL1 MATH_ABS R4 [+3]
+  MOVE R6 R4
+  GETIMPORT R5 K14 [math.abs]
+  CALL R5 1 1
+  LOADN R6 1
+  JUMPIFNOTLT R5 R6 [+7]
+  FASTCALL1 MATH_SIGN R4 [+3]
+  MOVE R6 R4
+  GETIMPORT R5 K16 [math.sign]
+  CALL R5 1 1
+  MOVE R4 R5
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K9 ["_operationSettings"]
+  GETTABLEKS R7 R8 K10 ["cursorSize"]
+  ADD R6 R7 R3
+  FASTCALL1 MATH_ROUND R6 [+2]
+  GETIMPORT R5 K18 [math.round]
+  CALL R5 1 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K9 ["_operationSettings"]
+  GETTABLEKS R8 R9 K11 ["cursorHeight"]
+  ADD R7 R8 R4
+  FASTCALL1 MATH_ROUND R7 [+2]
+  GETIMPORT R6 K18 [math.round]
+  CALL R6 1 1
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K19 ["MIN_BRUSH_SIZE"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K20 ["MAX_BRUSH_SIZE"]
+  FASTCALL2 MATH_MIN R10 R5 [+4]
+  MOVE R11 R5
+  GETIMPORT R9 K22 [math.min]
+  CALL R9 2 1
+  FASTCALL2 MATH_MAX R8 R9 [+3]
+  GETIMPORT R7 K24 [math.max]
+  CALL R7 2 1
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K19 ["MIN_BRUSH_SIZE"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K20 ["MAX_BRUSH_SIZE"]
+  FASTCALL2 MATH_MIN R11 R6 [+4]
+  MOVE R12 R6
+  GETIMPORT R10 K22 [math.min]
+  CALL R10 2 1
+  FASTCALL2 MATH_MAX R9 R10 [+3]
+  GETIMPORT R8 K24 [math.max]
+  CALL R8 2 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K25 ["_requestBrushSizeChanged"]
+  MOVE R11 R7
+  MOVE R12 R8
+  NAMECALL R9 R9 K26 ["Fire"]
+  CALL R9 3 0
+  LOADNIL R2
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+14]
+  GETUPVAL R2 1
+  GETIMPORT R4 K28 [Enum.KeyCode.LeftControl]
+  NAMECALL R2 R2 K4 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIF R2 [+21]
+  GETUPVAL R2 1
+  GETIMPORT R4 K30 [Enum.KeyCode.RightControl]
+  NAMECALL R2 R2 K4 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMP [+14]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["_downKeys"]
+  GETIMPORT R5 K28 [Enum.KeyCode.LeftControl]
+  GETTABLE R3 R4 R5
+  JUMPIF R3 [+6]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["_downKeys"]
+  GETIMPORT R5 K30 [Enum.KeyCode.RightControl]
+  GETTABLE R3 R4 R5
+  MOVE R2 R3
+  JUMPIFNOT R2 [+26]
+  LOADK R4 K31 [0.1]
+  LOADN R6 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K9 ["_operationSettings"]
+  GETTABLEKS R8 R9 K32 ["strength"]
+  MULK R9 R0 K31 [0.1]
+  ADD R7 R8 R9
+  FASTCALL2 MATH_MIN R6 R7 [+3]
+  GETIMPORT R5 K22 [math.min]
+  CALL R5 2 1
+  FASTCALL2 MATH_MAX R4 R5 [+3]
+  GETIMPORT R3 K24 [math.max]
+  CALL R3 2 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K33 ["_requestBrushStrengthChanged"]
+  MOVE R6 R3
+  NAMECALL R4 R4 K26 ["Fire"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_29:
+  GETUPVAL R0 0
+  LOADN R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_30:
+  GETUPVAL R0 0
+  LOADN R1 255
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_31:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_scrollMouseDiff"]
+  JUMPIF R0 [+17]
+  GETIMPORT R1 K3 [Vector2.new]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["_mouse"]
+  GETTABLEKS R2 R3 K5 ["X"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["_mouse"]
+  GETTABLEKS R3 R4 K6 ["Y"]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["_mouseOrigin"]
+  SUB R0 R1 R2
+  GETTABLEKS R2 R0 K5 ["X"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K8 ["_scrollWheelPosition"]
+  ADD R1 R2 R3
+  GETUPVAL R2 1
+  GETIMPORT R4 K12 [Enum.KeyCode.B]
+  NAMECALL R2 R2 K13 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+35]
+  GETUPVAL R2 1
+  GETIMPORT R4 K15 [Enum.KeyCode.LeftShift]
+  NAMECALL R2 R2 K13 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIF R2 [+6]
+  GETUPVAL R2 1
+  GETIMPORT R4 K17 [Enum.KeyCode.RightShift]
+  NAMECALL R2 R2 K13 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+21]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K18 ["_operationSettings"]
+  GETTABLEKS R4 R5 K19 ["strength"]
+  MULK R5 R1 K20 [0.005]
+  ADD R3 R4 R5
+  LOADK R4 K21 [0.1]
+  LOADN R5 1
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R2 K24 [math.clamp]
+  CALL R2 3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K25 ["_requestBrushStrengthChanged"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K26 ["Fire"]
+  CALL R3 2 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETIMPORT R4 K12 [Enum.KeyCode.B]
+  NAMECALL R2 R2 K13 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+70]
+  GETUPVAL R2 1
+  GETIMPORT R4 K28 [Enum.KeyCode.LeftControl]
+  NAMECALL R2 R2 K13 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIF R2 [+6]
+  GETUPVAL R2 1
+  GETIMPORT R4 K30 [Enum.KeyCode.RightControl]
+  NAMECALL R2 R2 K13 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+56]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K31 ["_brushHeight"]
+  DIVK R4 R1 K32 [10]
+  ADD R2 R3 R4
+  MOVE R5 R2
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K33 ["MIN_BRUSH_SIZE"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K34 ["MAX_BRUSH_SIZE"]
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R4 K24 [math.clamp]
+  CALL R4 3 1
+  FASTCALL1 MATH_FLOOR R4 [+2]
+  GETIMPORT R3 K36 [math.floor]
+  CALL R3 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K37 ["_requestBrushSizeChanged"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K38 ["_brushSize"]
+  MOVE R7 R3
+  NAMECALL R4 R4 K26 ["Fire"]
+  CALL R4 3 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K18 ["_operationSettings"]
+  GETTABLEKS R4 R5 K39 ["baseSizeHeightLocked"]
+  JUMPIFNOT R4 [+9]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K37 ["_requestBrushSizeChanged"]
+  MOVE R6 R3
+  MOVE R7 R3
+  NAMECALL R4 R4 K26 ["Fire"]
+  CALL R4 3 0
+  RETURN R0 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K37 ["_requestBrushSizeChanged"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K38 ["_brushSize"]
+  MOVE R7 R3
+  NAMECALL R4 R4 K26 ["Fire"]
+  CALL R4 3 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETIMPORT R4 K12 [Enum.KeyCode.B]
+  NAMECALL R2 R2 K13 ["IsKeyDown"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+45]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K38 ["_brushSize"]
+  DIVK R4 R1 K32 [10]
+  ADD R2 R3 R4
+  MOVE R5 R2
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K33 ["MIN_BRUSH_SIZE"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K34 ["MAX_BRUSH_SIZE"]
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R4 K24 [math.clamp]
+  CALL R4 3 1
+  FASTCALL1 MATH_FLOOR R4 [+2]
+  GETIMPORT R3 K36 [math.floor]
+  CALL R3 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K18 ["_operationSettings"]
+  GETTABLEKS R4 R5 K39 ["baseSizeHeightLocked"]
+  JUMPIFNOT R4 [+9]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K37 ["_requestBrushSizeChanged"]
+  MOVE R6 R3
+  MOVE R7 R3
+  NAMECALL R4 R4 K26 ["Fire"]
+  CALL R4 3 0
+  RETURN R0 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K37 ["_requestBrushSizeChanged"]
+  MOVE R6 R3
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K31 ["_brushHeight"]
+  NAMECALL R4 R4 K26 ["Fire"]
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_32:
+  GETUPVAL R0 0
+  GETIMPORT R2 K3 [Enum.KeyCode.B]
+  NAMECALL R0 R0 K4 ["IsKeyDown"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+41]
+  GETIMPORT R1 K6 [workspace]
+  GETTABLEKS R0 R1 K7 ["CurrentCamera"]
+  LOADN R2 255
+  NAMECALL R0 R0 K8 ["Zoom"]
+  CALL R0 2 0
+  GETUPVAL R0 1
+  GETTABLEKS R1 R0 K9 ["_scrollWheelPosition"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K10 ["SCROLL_WHEEL_SPEED"]
+  ADD R1 R1 R2
+  SETTABLEKS R1 R0 K9 ["_scrollWheelPosition"]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K11 ["_scrollMouseDiff"]
+  JUMPIF R0 [+20]
+  GETUPVAL R0 1
+  GETIMPORT R2 K14 [Vector2.new]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K15 ["_mouse"]
+  GETTABLEKS R3 R4 K16 ["X"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K15 ["_mouse"]
+  GETTABLEKS R4 R5 K17 ["Y"]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K18 ["_mouseOrigin"]
+  SUB R1 R2 R3
+  SETTABLEKS R1 R0 K11 ["_scrollMouseDiff"]
+  GETUPVAL R0 3
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_33:
+  GETUPVAL R0 0
+  GETIMPORT R2 K3 [Enum.KeyCode.B]
+  NAMECALL R0 R0 K4 ["IsKeyDown"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+41]
+  GETIMPORT R1 K6 [workspace]
+  GETTABLEKS R0 R1 K7 ["CurrentCamera"]
+  LOADN R2 1
+  NAMECALL R0 R0 K8 ["Zoom"]
+  CALL R0 2 0
+  GETUPVAL R0 1
+  GETTABLEKS R1 R0 K9 ["_scrollWheelPosition"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K10 ["SCROLL_WHEEL_SPEED"]
+  SUB R1 R1 R2
+  SETTABLEKS R1 R0 K9 ["_scrollWheelPosition"]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K11 ["_scrollMouseDiff"]
+  JUMPIF R0 [+20]
+  GETUPVAL R0 1
+  GETIMPORT R2 K14 [Vector2.new]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K15 ["_mouse"]
+  GETTABLEKS R3 R4 K16 ["X"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K15 ["_mouse"]
+  GETTABLEKS R4 R5 K17 ["Y"]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K18 ["_mouseOrigin"]
+  SUB R1 R2 R3
+  SETTABLEKS R1 R0 K11 ["_scrollMouseDiff"]
+  GETUPVAL R0 3
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_34:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_mouseDown"]
+  JUMPIF R0 [+4]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["_scrollMouseDiff"]
+  JUMPIFNOT R0 [+1]
+  RETURN R0 0
+  GETUPVAL R0 1
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_35:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["InputBegan"]
+  NEWCLOSURE R3 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  GETTABLE R4 R5 R2
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  GETTABLE R4 R5 R2
+  NAMECALL R4 R4 K2 ["Disconnect"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K1 ["_connections"]
+  MOVE R7 R3
+  NAMECALL R5 R2 K3 ["Connect"]
+  CALL R5 2 1
+  SETTABLE R5 R4 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["InputEnded"]
+  NEWCLOSURE R3 P2
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U0
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  GETTABLE R4 R5 R2
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  GETTABLE R4 R5 R2
+  NAMECALL R4 R4 K2 ["Disconnect"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K1 ["_connections"]
+  MOVE R7 R3
+  NAMECALL R5 R2 K3 ["Connect"]
+  CALL R5 2 1
+  SETTABLE R5 R4 R2
+  GETUPVAL R2 1
+  JUMPIF R2 [+22]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["WindowFocusReleased"]
+  NEWCLOSURE R3 P3
+  CAPTURE VAL R0
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  GETTABLE R4 R5 R2
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  GETTABLE R4 R5 R2
+  NAMECALL R4 R4 K2 ["Disconnect"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K1 ["_connections"]
+  MOVE R7 R3
+  NAMECALL R5 R2 K3 ["Connect"]
+  CALL R5 2 1
+  SETTABLE R5 R4 R2
+  GETUPVAL R2 4
+  JUMPIF R2 [+51]
+  NEWCLOSURE R2 P4
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  GETTABLEKS R4 R0 K6 ["_mouse"]
+  GETTABLEKS R3 R4 K7 ["WheelForward"]
+  NEWCLOSURE R4 P5
+  CAPTURE VAL R2
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  NAMECALL R5 R5 K2 ["Disconnect"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  MOVE R8 R4
+  NAMECALL R6 R3 K3 ["Connect"]
+  CALL R6 2 1
+  SETTABLE R6 R5 R3
+  GETTABLEKS R4 R0 K6 ["_mouse"]
+  GETTABLEKS R3 R4 K8 ["WheelBackward"]
+  NEWCLOSURE R4 P6
+  CAPTURE VAL R2
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  NAMECALL R5 R5 K2 ["Disconnect"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  MOVE R8 R4
+  NAMECALL R6 R3 K3 ["Connect"]
+  CALL R6 2 1
+  SETTABLE R6 R5 R3
+  GETUPVAL R2 4
+  JUMPIFNOT R2 [+80]
+  NEWCLOSURE R2 P7
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U5
+  GETTABLEKS R4 R0 K6 ["_mouse"]
+  GETTABLEKS R3 R4 K7 ["WheelForward"]
+  NEWCLOSURE R4 P8
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  CAPTURE VAL R2
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  NAMECALL R5 R5 K2 ["Disconnect"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  MOVE R8 R4
+  NAMECALL R6 R3 K3 ["Connect"]
+  CALL R6 2 1
+  SETTABLE R6 R5 R3
+  GETTABLEKS R4 R0 K6 ["_mouse"]
+  GETTABLEKS R3 R4 K8 ["WheelBackward"]
+  NEWCLOSURE R4 P9
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  CAPTURE VAL R2
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  NAMECALL R5 R5 K2 ["Disconnect"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  MOVE R8 R4
+  NAMECALL R6 R3 K3 ["Connect"]
+  CALL R6 2 1
+  SETTABLE R6 R5 R3
+  GETTABLEKS R4 R0 K6 ["_mouse"]
+  GETTABLEKS R3 R4 K9 ["Move"]
+  NEWCLOSURE R4 P10
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R0 K1 ["_connections"]
+  GETTABLE R5 R6 R3
+  NAMECALL R5 R5 K2 ["Disconnect"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K1 ["_connections"]
+  MOVE R8 R4
+  NAMECALL R6 R3 K3 ["Connect"]
+  CALL R6 2 1
+  SETTABLE R6 R5 R3
+  RETURN R0 0
+
+PROTO_36:
+  GETTABLEKS R4 R0 K1 ["_operationSettings"]
+  GETTABLEKS R3 R4 K2 ["planePositionY"]
+  ORK R2 R3 K0 [0]
+  GETTABLEKS R4 R1 K3 ["x"]
+  MOVE R5 R2
+  GETTABLEKS R6 R1 K4 ["z"]
+  FASTCALL VECTOR [+2]
+  GETIMPORT R3 K7 [Vector3.new]
+  CALL R3 3 1
+  RETURN R3 1
+
+PROTO_37:
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_isRunning"]
+  LOADN R2 0
+  LOADN R3 0
+  LOADN R4 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R1 K3 [Vector3.new]
+  CALL R1 3 1
+  LOADN R3 0
+  LOADN R4 1
+  LOADN R5 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R2 K3 [Vector3.new]
+  CALL R2 3 1
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R3 K3 [Vector3.new]
+  CALL R3 3 1
+  GETIMPORT R4 K5 [tick]
+  CALL R4 0 1
+  LOADB R5 1
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R0 K6 ["_currentLoopTag"]
+  GETTABLEKS R7 R0 K6 ["_currentLoopTag"]
+  JUMPIFNOT R7 [+1032]
+  GETTABLEKS R7 R0 K6 ["_currentLoopTag"]
+  JUMPIFNOTEQ R7 R6 [+1029]
+  GETTABLEKS R7 R0 K7 ["_mouse"]
+  JUMPIF R7 [+5]
+  GETIMPORT R7 K9 [warn]
+  LOADK R8 K10 ["No mouse in TerrainBrush:_run()"]
+  CALL R7 1 0
+  RETURN R0 0
+  GETUPVAL R7 0
+  JUMPIFNOT R7 [+13]
+  GETUPVAL R7 1
+  GETIMPORT R9 K14 [Enum.KeyCode.B]
+  NAMECALL R7 R7 K15 ["IsKeyDown"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+6]
+  GETTABLEKS R7 R0 K16 ["_mouseDown"]
+  JUMPIF R7 [+3]
+  GETUPVAL R7 2
+  CALL R7 0 0
+  JUMP [+1004]
+  GETTABLEKS R8 R0 K17 ["_operationSettings"]
+  GETTABLEKS R7 R8 K18 ["currentTool"]
+  GETTABLEKS R9 R0 K17 ["_operationSettings"]
+  GETTABLEKS R8 R9 K19 ["heightPicker"]
+  GETTABLEKS R11 R0 K17 ["_operationSettings"]
+  GETTABLEKS R10 R11 K20 ["planeLock"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K21 ["Off"]
+  JUMPIFNOTEQ R10 R11 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  GETTABLEKS R12 R0 K17 ["_operationSettings"]
+  GETTABLEKS R11 R12 K20 ["planeLock"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K22 ["Manual"]
+  JUMPIFEQ R11 R12 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  GETTABLEKS R12 R0 K17 ["_operationSettings"]
+  GETTABLEKS R11 R12 K23 ["fixedPlane"]
+  GETTABLEKS R13 R0 K17 ["_operationSettings"]
+  GETTABLEKS R12 R13 K24 ["snapToVoxels"]
+  GETTABLEKS R14 R0 K17 ["_operationSettings"]
+  GETTABLEKS R13 R14 K25 ["ignoreWater"]
+  GETTABLEKS R15 R0 K17 ["_operationSettings"]
+  GETTABLEKS R14 R15 K26 ["editPlaneMode"]
+  GETTABLEKS R16 R0 K17 ["_operationSettings"]
+  GETTABLEKS R15 R16 K27 ["planeCFrame"]
+  GETTABLEKS R17 R0 K17 ["_operationSettings"]
+  GETTABLEKS R16 R17 K28 ["ignoreParts"]
+  GETUPVAL R17 0
+  JUMPIFNOT R17 [+52]
+  GETTABLEKS R17 R0 K29 ["_tool"]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K30 ["Sculpt"]
+  JUMPIFEQ R17 R18 [+8]
+  GETTABLEKS R17 R0 K29 ["_tool"]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K31 ["Draw"]
+  JUMPIFNOTEQ R17 R18 [+30]
+  GETUPVAL R17 1
+  GETIMPORT R19 K33 [Enum.KeyCode.LeftShift]
+  NAMECALL R17 R17 K15 ["IsKeyDown"]
+  CALL R17 2 1
+  JUMPIF R17 [+6]
+  GETUPVAL R17 1
+  GETIMPORT R19 K35 [Enum.KeyCode.RightShift]
+  NAMECALL R17 R17 K15 ["IsKeyDown"]
+  CALL R17 2 1
+  JUMPIFNOT R17 [+15]
+  GETUPVAL R17 1
+  GETIMPORT R19 K14 [Enum.KeyCode.B]
+  NAMECALL R17 R17 K15 ["IsKeyDown"]
+  CALL R17 2 1
+  JUMPIF R17 [+8]
+  GETTABLEKS R17 R0 K17 ["_operationSettings"]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K36 ["Smooth"]
+  SETTABLEKS R18 R17 K18 ["currentTool"]
+  JUMP [+9]
+  GETTABLEKS R17 R0 K29 ["_tool"]
+  JUMPIFNOT R17 [+6]
+  GETTABLEKS R17 R0 K17 ["_operationSettings"]
+  GETTABLEKS R18 R0 K29 ["_tool"]
+  SETTABLEKS R18 R17 K18 ["currentTool"]
+  GETIMPORT R17 K5 [tick]
+  CALL R17 0 1
+  GETTABLEKS R21 R0 K17 ["_operationSettings"]
+  GETTABLEKS R20 R21 K38 ["cursorSize"]
+  MULK R19 R20 K37 [0.5]
+  GETUPVAL R21 5
+  GETTABLEKS R20 R21 K39 ["VOXEL_RESOLUTION"]
+  MUL R18 R19 R20
+  GETTABLEKS R21 R0 K7 ["_mouse"]
+  GETTABLEKS R20 R21 K40 ["Origin"]
+  GETTABLEKS R19 R20 K41 ["p"]
+  JUMPIFNOT R16 [+33]
+  NEWTABLE R20 0 1
+  GETTABLEKS R21 R0 K42 ["_terrain"]
+  SETLIST R20 R21 1 [1]
+  GETUPVAL R21 6
+  LOADK R23 K43 ["Baseplate"]
+  NAMECALL R21 R21 K44 ["FindFirstChild"]
+  CALL R21 2 1
+  JUMPIFNOT R21 [+10]
+  MOVE R22 R20
+  GETUPVAL R23 6
+  LOADK R25 K43 ["Baseplate"]
+  NAMECALL R23 R23 K44 ["FindFirstChild"]
+  CALL R23 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R21 K47 [table.insert]
+  CALL R21 -1 0
+  GETTABLEKS R21 R0 K48 ["_raycastParams"]
+  GETIMPORT R22 K51 [Enum.RaycastFilterType.Whitelist]
+  SETTABLEKS R22 R21 K52 ["FilterType"]
+  GETTABLEKS R21 R0 K48 ["_raycastParams"]
+  SETTABLEKS R20 R21 K53 ["FilterDescendantsInstances"]
+  JUMP [+45]
+  GETUPVAL R21 0
+  JUMPIFNOT R21 [+3]
+  NEWTABLE R20 0 0
+  JUMP [+9]
+  NEWTABLE R20 0 1
+  GETTABLEKS R21 R0 K54 ["_cursor"]
+  NAMECALL R21 R21 K55 ["getCursorPart"]
+  CALL R21 1 -1
+  SETLIST R20 R21 4294967295 [1]
+  GETUPVAL R22 7
+  GETTABLEKS R21 R22 K56 ["LocalPlayer"]
+  JUMPIFNOT R21 [+17]
+  GETUPVAL R23 7
+  GETTABLEKS R22 R23 K56 ["LocalPlayer"]
+  GETTABLEKS R21 R22 K57 ["Character"]
+  JUMPIFNOT R21 [+11]
+  GETUPVAL R25 7
+  GETTABLEKS R24 R25 K56 ["LocalPlayer"]
+  GETTABLEKS R23 R24 K57 ["Character"]
+  FASTCALL2 TABLE_INSERT R20 R23 [+4]
+  MOVE R22 R20
+  GETIMPORT R21 K47 [table.insert]
+  CALL R21 2 0
+  GETTABLEKS R21 R0 K48 ["_raycastParams"]
+  GETIMPORT R22 K59 [Enum.RaycastFilterType.Blacklist]
+  SETTABLEKS R22 R21 K52 ["FilterType"]
+  GETTABLEKS R21 R0 K48 ["_raycastParams"]
+  SETTABLEKS R20 R21 K53 ["FilterDescendantsInstances"]
+  GETTABLEKS R22 R0 K7 ["_mouse"]
+  GETTABLEKS R21 R22 K60 ["UnitRay"]
+  GETTABLEKS R20 R21 K61 ["Direction"]
+  LOADNIL R21
+  LOADNIL R22
+  LOADNIL R23
+  LOADNIL R24
+  GETTABLEKS R25 R0 K48 ["_raycastParams"]
+  SETTABLEKS R13 R25 K62 ["IgnoreWater"]
+  GETTABLEKS R25 R0 K48 ["_raycastParams"]
+  LOADB R26 1
+  SETTABLEKS R26 R25 K63 ["BruteForceAllSlow"]
+  GETUPVAL R25 6
+  MOVE R27 R19
+  MULK R28 R20 K64 [10000]
+  GETTABLEKS R29 R0 K48 ["_raycastParams"]
+  NAMECALL R25 R25 K65 ["Raycast"]
+  CALL R25 4 1
+  GETUPVAL R26 8
+  JUMPIFNOT R26 [+46]
+  GETTABLEKS R26 R0 K16 ["_mouseDown"]
+  JUMPIFNOT R26 [+43]
+  NAMECALL R26 R0 K66 ["_needToCacheTerrainPhysics"]
+  CALL R26 1 1
+  JUMPIFNOT R26 [+39]
+  JUMPIFNOT R25 [+3]
+  GETTABLEKS R26 R25 K67 ["Position"]
+  JUMPIF R26 [+1]
+  MOVE R26 R3
+  GETTABLEKS R28 R0 K68 ["_terrainCachePoint"]
+  SUB R27 R26 R28
+  GETTABLEKS R28 R27 K69 ["magnitude"]
+  NAMECALL R30 R0 K71 ["getCachedTerrainSize"]
+  CALL R30 1 1
+  MULK R29 R30 K70 [0.9]
+  JUMPIFNOTLT R29 R28 [+14]
+  GETIMPORT R29 K73 [workspace]
+  GETTABLEKS R31 R0 K74 ["_terrainCacheID"]
+  MOVE R32 R26
+  NAMECALL R33 R0 K71 ["getCachedTerrainSize"]
+  CALL R33 1 -1
+  NAMECALL R29 R29 K75 ["CacheCurrentTerrain"]
+  CALL R29 -1 0
+  SETTABLEKS R26 R0 K68 ["_terrainCachePoint"]
+  GETUPVAL R29 6
+  GETTABLEKS R31 R0 K74 ["_terrainCacheID"]
+  MOVE R32 R19
+  MULK R33 R20 K64 [10000]
+  MOVE R34 R13
+  NAMECALL R29 R29 K76 ["RaycastCachedTerrain"]
+  CALL R29 5 1
+  MOVE R25 R29
+  JUMPIFNOT R25 [+9]
+  GETTABLEKS R21 R25 K77 ["Instance"]
+  GETTABLEKS R22 R25 K67 ["Position"]
+  GETTABLEKS R23 R25 K78 ["Material"]
+  GETTABLEKS R24 R25 K79 ["Normal"]
+  JUMP [+74]
+  LOADNIL R21
+  LOADNIL R23
+  GETUPVAL R27 6
+  GETTABLEKS R26 R27 K80 ["CurrentCamera"]
+  GETTABLEKS R28 R26 K81 ["CoordinateFrame"]
+  GETTABLEKS R27 R28 K82 ["lookVector"]
+  GETTABLEKS R30 R27 K83 ["x"]
+  FASTCALL1 MATH_ROUND R30 [+2]
+  GETIMPORT R29 K86 [math.round]
+  CALL R29 1 1
+  GETTABLEKS R31 R27 K87 ["y"]
+  FASTCALL1 MATH_ROUND R31 [+2]
+  GETIMPORT R30 K86 [math.round]
+  CALL R30 1 1
+  GETTABLEKS R32 R27 K88 ["z"]
+  FASTCALL1 MATH_ROUND R32 [+2]
+  GETIMPORT R31 K86 [math.round]
+  CALL R31 1 1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R28 K3 [Vector3.new]
+  CALL R28 3 1
+  GETTABLEKS R24 R28 K89 ["Unit"]
+  LOADN R29 0
+  LOADN R30 0
+  LOADN R31 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R28 K3 [Vector3.new]
+  CALL R28 3 1
+  LOADN R30 0
+  LOADN R31 1
+  LOADN R32 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R29 K3 [Vector3.new]
+  CALL R29 3 1
+  MOVE R32 R29
+  NAMECALL R30 R20 K90 ["Dot"]
+  CALL R30 2 1
+  JUMPIFNOTEQKN R30 K91 [0] [+4]
+  LOADNIL R26
+  LOADNIL R27
+  JUMP [+9]
+  SUB R32 R28 R19
+  MOVE R34 R29
+  NAMECALL R32 R32 K90 ["Dot"]
+  CALL R32 2 1
+  DIV R31 R32 R30
+  MUL R32 R20 R31
+  ADD R26 R19 R32
+  MOVE R27 R31
+  JUMPIFNOT R26 [+6]
+  JUMPIFNOT R27 [+5]
+  LOADN R28 0
+  JUMPIFNOTLE R28 R27 [+3]
+  MOVE R22 R26
+  JUMP [+2]
+  MULK R28 R20 K64 [10000]
+  ADD R22 R19 R28
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K92 ["Add"]
+  JUMPIFNOTEQ R7 R26 [+4]
+  MULK R26 R20 K93 [0.05]
+  SUB R22 R22 R26
+  JUMP [+17]
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K94 ["Subtract"]
+  JUMPIFEQ R7 R26 [+11]
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K95 ["Paint"]
+  JUMPIFEQ R7 R26 [+6]
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K96 ["Grow"]
+  JUMPIFNOTEQ R7 R26 [+3]
+  MULK R26 R20 K93 [0.05]
+  ADD R22 R22 R26
+  JUMPIF R8 [+10]
+  GETUPVAL R27 4
+  GETTABLEKS R26 R27 K97 ["Flatten"]
+  JUMPIFNOTEQ R7 R26 [+22]
+  GETTABLEKS R26 R0 K98 ["_mouseClick"]
+  JUMPIFNOT R26 [+18]
+  JUMPIF R11 [+17]
+  JUMPIF R9 [+16]
+  GETTABLEKS R26 R0 K99 ["_planePositionYChanged"]
+  JUMPIFNOT R12 [+7]
+  GETUPVAL R29 9
+  MOVE R30 R22
+  MOVE R31 R18
+  CALL R29 2 1
+  GETTABLEKS R28 R29 K87 ["y"]
+  JUMPIF R28 [+3]
+  GETTABLEKS R29 R22 K87 ["y"]
+  SUBK R28 R29 K100 [1]
+  NAMECALL R26 R26 K101 ["Fire"]
+  CALL R26 2 0
+  LOADNIL R26
+  GETUPVAL R27 10
+  JUMPIFNOT R27 [+14]
+  GETUPVAL R26 1
+  GETIMPORT R28 K33 [Enum.KeyCode.LeftShift]
+  NAMECALL R26 R26 K15 ["IsKeyDown"]
+  CALL R26 2 1
+  JUMPIF R26 [+19]
+  GETUPVAL R26 1
+  GETIMPORT R28 K35 [Enum.KeyCode.RightShift]
+  NAMECALL R26 R26 K15 ["IsKeyDown"]
+  CALL R26 2 1
+  JUMP [+12]
+  GETTABLEKS R28 R0 K102 ["_downKeys"]
+  GETIMPORT R29 K33 [Enum.KeyCode.LeftShift]
+  GETTABLE R27 R28 R29
+  JUMPIF R27 [+5]
+  GETTABLEKS R28 R0 K102 ["_downKeys"]
+  GETIMPORT R29 K35 [Enum.KeyCode.RightShift]
+  GETTABLE R27 R28 R29
+  MOVE R26 R27
+  MOVE R27 R11
+  JUMPIFNOT R27 [+10]
+  NOT R27 R8
+  JUMPIFNOT R27 [+8]
+  GETTABLEKS R29 R0 K17 ["_operationSettings"]
+  GETTABLEKS R28 R29 K103 ["planePositionY"]
+  JUMPIFNOTEQKNIL R28 [+2]
+  LOADB R27 0 +1
+  LOADB R27 1
+  LOADB R28 1
+  JUMPIFNOT R9 [+5]
+  JUMPIFNOT R26 [+4]
+  GETUPVAL R29 0
+  JUMPIF R29 [+2]
+  LOADB R28 0
+  JUMP [+7]
+  GETTABLEKS R29 R0 K16 ["_mouseDown"]
+  JUMPIFNOT R29 [+4]
+  GETTABLEKS R29 R0 K98 ["_mouseClick"]
+  JUMPIF R29 [+1]
+  LOADB R28 0
+  JUMPIFNOT R28 [+91]
+  JUMPIFNOT R10 [+16]
+  JUMPIFNOT R14 [+15]
+  GETTABLEKS R30 R0 K17 ["_operationSettings"]
+  GETTABLEKS R29 R30 K27 ["planeCFrame"]
+  GETTABLEKS R1 R29 K67 ["Position"]
+  LOADN R30 0
+  LOADN R31 1
+  LOADN R32 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R29 K3 [Vector3.new]
+  CALL R29 3 1
+  MOVE R2 R29
+  JUMP [+73]
+  JUMPIFNOT R10 [+11]
+  JUMPIF R14 [+10]
+  JUMPIFNOT R15 [+9]
+  GETTABLEKS R30 R0 K17 ["_operationSettings"]
+  GETTABLEKS R29 R30 K27 ["planeCFrame"]
+  GETTABLEKS R1 R29 K67 ["Position"]
+  GETTABLEKS R2 R15 K104 ["LookVector"]
+  JUMP [+61]
+  JUMPIFNOT R27 [+5]
+  MOVE R31 R22
+  NAMECALL R29 R0 K105 ["putPlanePositionYIntoVector"]
+  CALL R29 2 1
+  JUMPIF R29 [+1]
+  MOVE R29 R22
+  MOVE R1 R29
+  GETUPVAL R30 4
+  GETTABLEKS R29 R30 K97 ["Flatten"]
+  JUMPIFEQ R7 R29 [+4]
+  JUMPIF R9 [+2]
+  MOVE R2 R24
+  JUMP [+45]
+  GETUPVAL R31 4
+  GETTABLEKS R30 R31 K97 ["Flatten"]
+  JUMPIFNOTEQ R7 R30 [+9]
+  LOADN R30 0
+  LOADN R31 1
+  LOADN R32 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R29 K3 [Vector3.new]
+  CALL R29 3 1
+  JUMPIF R29 [+31]
+  GETUPVAL R31 6
+  GETTABLEKS R30 R31 K80 ["CurrentCamera"]
+  GETTABLEKS R32 R30 K81 ["CoordinateFrame"]
+  GETTABLEKS R31 R32 K82 ["lookVector"]
+  GETTABLEKS R34 R31 K83 ["x"]
+  FASTCALL1 MATH_ROUND R34 [+2]
+  GETIMPORT R33 K86 [math.round]
+  CALL R33 1 1
+  GETTABLEKS R35 R31 K87 ["y"]
+  FASTCALL1 MATH_ROUND R35 [+2]
+  GETIMPORT R34 K86 [math.round]
+  CALL R34 1 1
+  GETTABLEKS R36 R31 K88 ["z"]
+  FASTCALL1 MATH_ROUND R36 [+2]
+  GETIMPORT R35 K86 [math.round]
+  CALL R35 1 1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R32 K3 [Vector3.new]
+  CALL R32 3 1
+  GETTABLEKS R29 R32 K89 ["Unit"]
+  MOVE R2 R29
+  LOADB R5 1
+  MOVE R30 R1
+  MOVE R31 R2
+  MOVE R34 R31
+  NAMECALL R32 R20 K90 ["Dot"]
+  CALL R32 2 1
+  JUMPIFNOTEQKN R32 K91 [0] [+4]
+  LOADNIL R29
+  LOADNIL R33
+  JUMP [+8]
+  SUB R34 R30 R19
+  MOVE R36 R31
+  NAMECALL R34 R34 K90 ["Dot"]
+  CALL R34 2 1
+  DIV R33 R34 R32
+  MUL R34 R20 R33
+  ADD R29 R19 R34
+  JUMPIF R29 [+1]
+  MOVE R29 R19
+  LOADNIL R30
+  JUMPIFNOT R12 [+10]
+  GETUPVAL R31 9
+  MOVE R32 R22
+  MOVE R33 R18
+  CALL R31 2 1
+  MOVE R22 R31
+  GETUPVAL R31 9
+  MOVE R32 R29
+  MOVE R33 R18
+  CALL R31 2 1
+  MOVE R30 R31
+  JUMPIFNOT R27 [+5]
+  OR R33 R30 R29
+  NAMECALL R31 R0 K105 ["putPlanePositionYIntoVector"]
+  CALL R31 2 1
+  MOVE R30 R31
+  JUMPIFNOT R9 [+2]
+  OR R22 R30 R29
+  MOVE R30 R29
+  GETTABLEKS R31 R0 K17 ["_operationSettings"]
+  SETTABLEKS R22 R31 K106 ["targetPoint"]
+  GETTABLEKS R31 R0 K17 ["_operationSettings"]
+  OR R32 R30 R29
+  SETTABLEKS R32 R31 K107 ["planePoint"]
+  GETTABLEKS R31 R0 K17 ["_operationSettings"]
+  SETTABLEKS R2 R31 K108 ["planeNormal"]
+  GETTABLEKS R31 R0 K16 ["_mouseDown"]
+  JUMPIFNOT R31 [+378]
+  GETTABLEKS R31 R0 K98 ["_mouseClick"]
+  JUMPIFNOT R31 [+2]
+  MOVE R4 R17
+  MOVE R3 R22
+  LOADNIL R31
+  GETUPVAL R32 10
+  JUMPIFNOT R32 [+14]
+  GETUPVAL R31 1
+  GETIMPORT R33 K110 [Enum.KeyCode.LeftAlt]
+  NAMECALL R31 R31 K15 ["IsKeyDown"]
+  CALL R31 2 1
+  JUMPIF R31 [+19]
+  GETUPVAL R31 1
+  GETIMPORT R33 K112 [Enum.KeyCode.RightAlt]
+  NAMECALL R31 R31 K15 ["IsKeyDown"]
+  CALL R31 2 1
+  JUMP [+12]
+  GETTABLEKS R33 R0 K102 ["_downKeys"]
+  GETIMPORT R34 K110 [Enum.KeyCode.LeftAlt]
+  GETTABLE R32 R33 R34
+  JUMPIF R32 [+5]
+  GETTABLEKS R33 R0 K102 ["_downKeys"]
+  GETIMPORT R34 K112 [Enum.KeyCode.RightAlt]
+  GETTABLE R32 R33 R34
+  MOVE R31 R32
+  LOADNIL R32
+  GETUPVAL R33 0
+  JUMPIFNOT R33 [+30]
+  JUMPIFNOT R31 [+29]
+  GETTABLEKS R33 R0 K98 ["_mouseClick"]
+  JUMPIFNOT R33 [+26]
+  JUMPIFNOT R21 [+25]
+  LOADK R35 K113 ["Terrain"]
+  NAMECALL R33 R21 K114 ["IsA"]
+  CALL R33 2 1
+  JUMPIFNOT R33 [+20]
+  GETTABLEKS R33 R0 K115 ["_materialSelectRequested"]
+  MOVE R35 R23
+  GETUPVAL R36 1
+  GETIMPORT R38 K33 [Enum.KeyCode.LeftShift]
+  NAMECALL R36 R36 K15 ["IsKeyDown"]
+  CALL R36 2 1
+  JUMPIF R36 [+6]
+  GETUPVAL R36 1
+  GETIMPORT R38 K35 [Enum.KeyCode.RightShift]
+  NAMECALL R36 R36 K15 ["IsKeyDown"]
+  CALL R36 2 1
+  NAMECALL R33 R33 K101 ["Fire"]
+  CALL R33 3 0
+  LOADB R32 1
+  GETTABLEKS R34 R0 K98 ["_mouseClick"]
+  JUMPIF R34 [+4]
+  LOADB R33 0
+  ADDK R34 R4 K116 [0.1]
+  JUMPIFNOTLT R34 R17 [+4]
+  NOT R33 R14
+  JUMPIFNOT R33 [+1]
+  NOT R33 R32
+  JUMPIFNOT R33 [+288]
+  LOADB R34 0
+  SETTABLEKS R34 R0 K98 ["_mouseClick"]
+  JUMPIFNOT R5 [+14]
+  GETTABLEKS R34 R0 K117 ["_analytics"]
+  JUMPIFNOT R34 [+10]
+  GETTABLEKS R34 R0 K117 ["_analytics"]
+  LOADK R36 K118 ["useBrushToolExtended"]
+  GETUPVAL R37 11
+  GETTABLEKS R38 R0 K17 ["_operationSettings"]
+  CALL R37 1 -1
+  NAMECALL R34 R34 K119 ["report"]
+  CALL R34 -1 0
+  LOADB R5 0
+  GETUPVAL R34 1
+  GETIMPORT R36 K121 [Enum.KeyCode.LeftControl]
+  NAMECALL R34 R34 K15 ["IsKeyDown"]
+  CALL R34 2 1
+  JUMPIF R34 [+6]
+  GETUPVAL R34 1
+  GETIMPORT R36 K123 [Enum.KeyCode.RightControl]
+  NAMECALL R34 R34 K15 ["IsKeyDown"]
+  CALL R34 2 1
+  GETUPVAL R35 0
+  JUMPIF R35 [+27]
+  JUMPIFNOT R31 [+26]
+  JUMPIFNOT R21 [+253]
+  LOADK R37 K113 ["Terrain"]
+  NAMECALL R35 R21 K114 ["IsA"]
+  CALL R35 2 1
+  JUMPIFNOT R35 [+248]
+  GETTABLEKS R35 R0 K115 ["_materialSelectRequested"]
+  MOVE R37 R23
+  GETUPVAL R38 1
+  GETIMPORT R40 K33 [Enum.KeyCode.LeftShift]
+  NAMECALL R38 R38 K15 ["IsKeyDown"]
+  CALL R38 2 1
+  JUMPIF R38 [+6]
+  GETUPVAL R38 1
+  GETIMPORT R40 K35 [Enum.KeyCode.RightShift]
+  NAMECALL R38 R38 K15 ["IsKeyDown"]
+  CALL R38 2 1
+  NAMECALL R35 R35 K101 ["Fire"]
+  CALL R35 3 0
+  JUMP [+228]
+  GETTABLEKS R35 R0 K17 ["_operationSettings"]
+  GETTABLEKS R36 R0 K124 ["brushMode"]
+  SETTABLEKS R36 R35 K124 ["brushMode"]
+  GETUPVAL R35 0
+  JUMPIFNOT R35 [+38]
+  JUMPIFNOT R34 [+37]
+  GETTABLEKS R35 R0 K124 ["brushMode"]
+  GETUPVAL R38 12
+  GETTABLEKS R37 R38 K125 ["BrushMode"]
+  GETTABLEKS R36 R37 K92 ["Add"]
+  JUMPIFNOTEQ R35 R36 [+11]
+  GETTABLEKS R35 R0 K17 ["_operationSettings"]
+  GETUPVAL R38 12
+  GETTABLEKS R37 R38 K125 ["BrushMode"]
+  GETTABLEKS R36 R37 K94 ["Subtract"]
+  SETTABLEKS R36 R35 K124 ["brushMode"]
+  JUMP [+18]
+  GETTABLEKS R35 R0 K124 ["brushMode"]
+  GETUPVAL R38 12
+  GETTABLEKS R37 R38 K125 ["BrushMode"]
+  GETTABLEKS R36 R37 K94 ["Subtract"]
+  JUMPIFNOTEQ R35 R36 [+10]
+  GETTABLEKS R35 R0 K17 ["_operationSettings"]
+  GETUPVAL R38 12
+  GETTABLEKS R37 R38 K125 ["BrushMode"]
+  GETTABLEKS R36 R37 K92 ["Add"]
+  SETTABLEKS R36 R35 K124 ["brushMode"]
+  SUB R35 R22 R3
+  GETTABLEKS R36 R35 K69 ["magnitude"]
+  MULK R37 R18 K37 [0.5]
+  GETUPVAL R38 8
+  JUMPIF R38 [+112]
+  LOADB R38 1
+  JUMPIFNOTLT R37 R36 [+60]
+  GETTABLEKS R39 R35 K126 ["unit"]
+  MULK R43 R37 K128 [2]
+  ADDK R42 R43 K127 [20]
+  FASTCALL2 MATH_MIN R36 R42 [+4]
+  MOVE R41 R36
+  GETIMPORT R40 K130 [math.min]
+  CALL R40 2 1
+  DIV R43 R40 R37
+  SUBK R42 R43 K116 [0.1]
+  FASTCALL1 MATH_CEIL R42 [+2]
+  GETIMPORT R41 K132 [math.ceil]
+  CALL R41 1 1
+  GETUPVAL R43 4
+  GETTABLEKS R42 R43 K92 ["Add"]
+  JUMPIFNOTEQ R7 R42 [+16]
+  JUMPIF R9 [+14]
+  GETTABLEKS R44 R35 K126 ["unit"]
+  NAMECALL R42 R20 K90 ["Dot"]
+  CALL R42 2 1
+  FASTCALL1 MATH_ABS R42 [+3]
+  MOVE R44 R42
+  GETIMPORT R43 K134 [math.abs]
+  CALL R43 1 1
+  LOADK R44 K135 [0.99]
+  JUMPIFNOTLT R44 R43 [+2]
+  LOADB R38 0
+  JUMPIFNOT R38 [+66]
+  LOADN R44 1
+  MOVE R42 R41
+  LOADN R43 1
+  FORNPREP R42
+  GETTABLEKS R45 R0 K17 ["_operationSettings"]
+  MUL R48 R39 R40
+  DIV R49 R44 R41
+  MUL R47 R48 R49
+  ADD R46 R3 R47
+  SETTABLEKS R46 R45 K136 ["centerPoint"]
+  GETUPVAL R45 13
+  GETTABLEKS R46 R0 K42 ["_terrain"]
+  GETTABLEKS R47 R0 K17 ["_operationSettings"]
+  CALL R45 2 0
+  FORNLOOP R42
+  MUL R42 R39 R40
+  ADD R22 R3 R42
+  JUMP [+44]
+  GETUPVAL R40 4
+  GETTABLEKS R39 R40 K92 ["Add"]
+  JUMPIFNOTEQ R7 R39 [+29]
+  JUMPIF R9 [+27]
+  GETTABLEKS R41 R35 K126 ["unit"]
+  NAMECALL R39 R20 K90 ["Dot"]
+  CALL R39 2 1
+  LOADN R43 0
+  LOADN R44 0
+  LOADN R45 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R42 K3 [Vector3.new]
+  CALL R42 3 1
+  SUB R41 R35 R42
+  GETTABLEKS R40 R41 K69 ["magnitude"]
+  LOADK R41 K137 [0.01]
+  JUMPIFLT R40 R41 [+10]
+  FASTCALL1 MATH_ABS R39 [+3]
+  MOVE R41 R39
+  GETIMPORT R40 K134 [math.abs]
+  CALL R40 1 1
+  LOADK R41 K135 [0.99]
+  JUMPIFLT R40 R41 [+2]
+  LOADB R38 0
+  JUMPIFNOT R38 [+10]
+  GETTABLEKS R39 R0 K17 ["_operationSettings"]
+  SETTABLEKS R22 R39 K136 ["centerPoint"]
+  GETUPVAL R39 13
+  GETTABLEKS R40 R0 K42 ["_terrain"]
+  GETTABLEKS R41 R0 K17 ["_operationSettings"]
+  CALL R39 2 0
+  JUMPIFNOT R38 [+69]
+  LOADB R39 1
+  SETTABLEKS R39 R0 K138 ["_isTerrainDirty"]
+  MOVE R3 R22
+  JUMP [+64]
+  JUMPIFNOTLT R37 R36 [+43]
+  GETTABLEKS R38 R35 K126 ["unit"]
+  MULK R42 R37 K128 [2]
+  ADDK R41 R42 K127 [20]
+  FASTCALL2 MATH_MIN R36 R41 [+4]
+  MOVE R40 R36
+  GETIMPORT R39 K130 [math.min]
+  CALL R39 2 1
+  MOVE R36 R39
+  DIV R41 R36 R37
+  SUBK R40 R41 K116 [0.1]
+  FASTCALL1 MATH_CEIL R40 [+2]
+  GETIMPORT R39 K132 [math.ceil]
+  CALL R39 1 1
+  LOADN R42 1
+  MOVE R40 R39
+  LOADN R41 1
+  FORNPREP R40
+  GETTABLEKS R43 R0 K17 ["_operationSettings"]
+  MUL R46 R38 R36
+  DIV R47 R42 R39
+  MUL R45 R46 R47
+  ADD R44 R3 R45
+  SETTABLEKS R44 R43 K136 ["centerPoint"]
+  GETTABLEKS R43 R0 K139 ["_restoreCachedTerrain"]
+  JUMPIF R43 [+6]
+  GETUPVAL R43 13
+  GETTABLEKS R44 R0 K42 ["_terrain"]
+  GETTABLEKS R45 R0 K17 ["_operationSettings"]
+  CALL R43 2 0
+  FORNLOOP R40
+  MUL R40 R38 R36
+  ADD R22 R3 R40
+  JUMP [+13]
+  GETTABLEKS R38 R0 K17 ["_operationSettings"]
+  SETTABLEKS R22 R38 K136 ["centerPoint"]
+  GETTABLEKS R38 R0 K139 ["_restoreCachedTerrain"]
+  JUMPIF R38 [+6]
+  GETUPVAL R38 13
+  GETTABLEKS R39 R0 K42 ["_terrain"]
+  GETTABLEKS R40 R0 K17 ["_operationSettings"]
+  CALL R38 2 0
+  LOADB R38 1
+  SETTABLEKS R38 R0 K138 ["_isTerrainDirty"]
+  MOVE R3 R22
+  LOADB R38 0
+  SETTABLEKS R38 R0 K139 ["_restoreCachedTerrain"]
+  GETUPVAL R35 4
+  GETTABLEKS R34 R35 K97 ["Flatten"]
+  JUMPIFNOTEQ R7 R34 [+8]
+  JUMPIFNOT R8 [+6]
+  GETTABLEKS R34 R0 K140 ["_heightPickerSet"]
+  LOADB R36 0
+  NAMECALL R34 R34 K101 ["Fire"]
+  CALL R34 2 0
+  NAMECALL R31 R0 K141 ["_updateCursor"]
+  CALL R31 1 0
+  GETUPVAL R31 2
+  CALL R31 0 0
+  JUMPBACK [-1035]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["TerrainToolsBrushUseIsKeyDown"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["TerrainToolsBrushUseIsKeyDown"]
+  NAMECALL R0 R0 K4 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K5 ["TerrainEditorOverhaul"]
+  NAMECALL R1 R1 K4 ["GetFastFlag"]
+  CALL R1 2 1
+  GETIMPORT R5 K7 [script]
+  GETTABLEKS R4 R5 K8 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Parent"]
+  GETTABLEKS R2 R3 K8 ["Parent"]
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R5 R2 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R6 R2 K11 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Cryo"]
+  CALL R4 1 1
+  GETTABLEKS R5 R3 K14 ["Util"]
+  GETTABLEKS R6 R5 K15 ["Signal"]
+  GETIMPORT R7 K10 [require]
+  GETTABLEKS R10 R2 K16 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Util"]
+  GETTABLEKS R8 R9 K17 ["Constants"]
+  CALL R7 1 1
+  GETIMPORT R8 K10 [require]
+  GETTABLEKS R11 R2 K16 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Util"]
+  GETTABLEKS R9 R10 K18 ["TerrainEnums"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K19 ["BrushShape"]
+  GETTABLEKS R10 R8 K20 ["FlattenMode"]
+  GETTABLEKS R11 R8 K21 ["PivotType"]
+  GETTABLEKS R12 R8 K22 ["PlaneLockType"]
+  GETTABLEKS R13 R8 K23 ["ToolId"]
+  GETIMPORT R14 K10 [require]
+  GETTABLEKS R17 R2 K16 ["Src"]
+  GETTABLEKS R16 R17 K14 ["Util"]
+  GETTABLEKS R15 R16 K24 ["quickWait"]
+  CALL R14 1 1
+  GETIMPORT R15 K10 [require]
+  GETTABLEKS R18 R2 K16 ["Src"]
+  GETTABLEKS R17 R18 K25 ["TerrainWorldUI"]
+  GETTABLEKS R16 R17 K26 ["TerrainBrushCursor"]
+  CALL R15 1 1
+  GETIMPORT R16 K10 [require]
+  GETTABLEKS R19 R2 K16 ["Src"]
+  GETTABLEKS R18 R19 K25 ["TerrainWorldUI"]
+  GETTABLEKS R17 R18 K27 ["TerrainBrushCursorGrid"]
+  CALL R16 1 1
+  GETIMPORT R17 K10 [require]
+  GETTABLEKS R20 R2 K16 ["Src"]
+  GETTABLEKS R19 R20 K28 ["TerrainOperations"]
+  GETTABLEKS R18 R19 K29 ["performTerrainBrushOperation"]
+  CALL R17 1 1
+  GETIMPORT R18 K10 [require]
+  GETTABLEKS R21 R2 K16 ["Src"]
+  GETTABLEKS R20 R21 K14 ["Util"]
+  GETTABLEKS R19 R20 K30 ["createToolAnalytics"]
+  CALL R18 1 1
+  GETIMPORT R19 K1 [game]
+  LOADK R21 K31 ["ChangeHistoryService"]
+  NAMECALL R19 R19 K32 ["GetService"]
+  CALL R19 2 1
+  GETIMPORT R20 K1 [game]
+  LOADK R22 K33 ["Players"]
+  NAMECALL R20 R20 K32 ["GetService"]
+  CALL R20 2 1
+  GETIMPORT R21 K1 [game]
+  LOADK R23 K34 ["UserInputService"]
+  NAMECALL R21 R21 K32 ["GetService"]
+  CALL R21 2 1
+  GETIMPORT R22 K1 [game]
+  LOADK R24 K35 ["Workspace"]
+  NAMECALL R22 R22 K32 ["GetService"]
+  CALL R22 2 1
+  GETIMPORT R23 K1 [game]
+  LOADK R25 K36 ["TerrainBrushRaycastFix"]
+  LOADB R26 0
+  NAMECALL R23 R23 K3 ["DefineFastFlag"]
+  CALL R23 3 1
+  DUPCLOSURE R24 K37 [PROTO_0]
+  DUPCLOSURE R25 K38 [PROTO_1]
+  CAPTURE VAL R7
+  DUPCLOSURE R26 K39 [PROTO_2]
+  CAPTURE VAL R22
+  DUPCLOSURE R27 K40 [PROTO_3]
+  CAPTURE VAL R21
+  DUPCLOSURE R28 K41 [PROTO_4]
+  CAPTURE VAL R21
+  DUPCLOSURE R29 K42 [PROTO_5]
+  CAPTURE VAL R21
+  DUPCLOSURE R30 K43 [PROTO_6]
+  CAPTURE VAL R21
+  DUPCLOSURE R31 K44 [PROTO_7]
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R4
+  NEWTABLE R32 32 0
+  SETTABLEKS R32 R32 K45 ["__index"]
+  DUPCLOSURE R33 K46 [PROTO_8]
+  CAPTURE VAL R12
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R0
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  CAPTURE VAL R6
+  CAPTURE VAL R32
+  CAPTURE VAL R13
+  SETTABLEKS R33 R32 K47 ["new"]
+  DUPCLOSURE R33 K48 [PROTO_9]
+  SETTABLEKS R33 R32 K49 ["destroy"]
+  DUPCLOSURE R33 K50 [PROTO_10]
+  SETTABLEKS R33 R32 K51 ["subscribeToPlanePositionYChanged"]
+  DUPCLOSURE R33 K52 [PROTO_11]
+  SETTABLEKS R33 R32 K53 ["subscribeToHeightPickerSet"]
+  DUPCLOSURE R33 K54 [PROTO_12]
+  SETTABLEKS R33 R32 K55 ["subscribeToRequestBrushSizeChanged"]
+  DUPCLOSURE R33 K56 [PROTO_13]
+  SETTABLEKS R33 R32 K57 ["subscribeToRequestBrushStrengthChanged"]
+  DUPCLOSURE R33 K58 [PROTO_14]
+  SETTABLEKS R33 R32 K59 ["subscribeToMaterialSelectRequested"]
+  DUPCLOSURE R33 K60 [PROTO_15]
+  CAPTURE VAL R4
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  SETTABLEKS R33 R32 K61 ["updateSettings"]
+  DUPCLOSURE R33 K62 [PROTO_16]
+  SETTABLEKS R33 R32 K63 ["start"]
+  DUPCLOSURE R33 K64 [PROTO_17]
+  CAPTURE VAL R0
+  SETTABLEKS R33 R32 K65 ["stop"]
+  DUPCLOSURE R33 K66 [PROTO_18]
+  CAPTURE VAL R7
+  SETTABLEKS R33 R32 K67 ["getCachedTerrainSize"]
+  DUPCLOSURE R33 K68 [PROTO_19]
+  CAPTURE VAL R15
+  CAPTURE VAL R1
+  CAPTURE VAL R21
+  CAPTURE VAL R16
+  SETTABLEKS R33 R32 K69 ["_updateCursor"]
+  DUPCLOSURE R33 K70 [PROTO_20]
+  SETTABLEKS R33 R32 K71 ["_destroyCursor"]
+  DUPCLOSURE R33 K72 [PROTO_21]
+  SETTABLEKS R33 R32 K73 ["_disconnectAllConnections"]
+  DUPCLOSURE R33 K74 [PROTO_22]
+  CAPTURE VAL R19
+  SETTABLEKS R33 R32 K75 ["_saveChanges"]
+  DUPCLOSURE R33 K76 [PROTO_23]
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  SETTABLEKS R33 R32 K77 ["_needToCacheTerrainPhysics"]
+  DUPCLOSURE R33 K78 [PROTO_35]
+  CAPTURE VAL R21
+  CAPTURE VAL R0
+  CAPTURE VAL R23
+  CAPTURE VAL R13
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  SETTABLEKS R33 R32 K79 ["_connectInput"]
+  DUPCLOSURE R33 K80 [PROTO_36]
+  SETTABLEKS R33 R32 K81 ["putPlanePositionYIntoVector"]
+  DUPCLOSURE R33 K82 [PROTO_37]
+  CAPTURE VAL R1
+  CAPTURE VAL R21
+  CAPTURE VAL R14
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R7
+  CAPTURE VAL R22
+  CAPTURE VAL R20
+  CAPTURE VAL R23
+  CAPTURE VAL R25
+  CAPTURE VAL R0
+  CAPTURE VAL R18
+  CAPTURE VAL R8
+  CAPTURE VAL R17
+  SETTABLEKS R33 R32 K83 ["_run"]
+  RETURN R32 1

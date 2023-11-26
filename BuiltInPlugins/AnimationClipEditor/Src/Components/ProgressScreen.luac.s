@@ -1,0 +1,209 @@
+PROTO_0:
+  GETIMPORT R2 K1 [pairs]
+  GETUPVAL R5 0
+  GETTABLEKS R3 R5 K2 ["ANIMATION_FROM_VIDEO_STATUS"]
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  JUMPIFNOTEQ R6 R1 [+2]
+  RETURN R5 1
+  FORGLOOP R2 2 [-4]
+  LOADK R2 K3 ["Error"]
+  RETURN R2 1
+
+PROTO_1:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["statusCodeToKey"]
+  CALL R2 2 1
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K2 ["Localization"]
+  LOADK R6 K3 ["AnimationFromVideo"]
+  MOVE R7 R2
+  NAMECALL R4 R3 K4 ["getText"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Stylizer"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["Localization"]
+  GETTABLEKS R3 R1 K3 ["progressScreenTheme"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R5 R4 K4 ["OnCancelled"]
+  GETTABLEKS R6 R4 K5 ["OnClose"]
+  GETTABLEKS R7 R1 K6 ["dialogTheme"]
+  GETTABLEKS R8 R1 K7 ["progressBarTheme"]
+  LOADN R10 0
+  LOADN R12 1
+  GETTABLEKS R14 R4 K9 ["Progress"]
+  DIVK R13 R14 K8 [100]
+  FASTCALL2 MATH_MIN R12 R13 [+3]
+  GETIMPORT R11 K12 [math.min]
+  CALL R11 2 1
+  FASTCALL2 MATH_MAX R10 R11 [+3]
+  GETIMPORT R9 K14 [math.max]
+  CALL R9 2 1
+  GETTABLEKS R12 R4 K15 ["Status"]
+  NAMECALL R10 R0 K16 ["statusCodeToString"]
+  CALL R10 2 1
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K17 ["createElement"]
+  GETUPVAL R12 1
+  DUPTABLE R13 K21 [{"Size", "Buttons", "OnButtonClicked", "OnClose"}]
+  GETIMPORT R14 K24 [UDim2.new]
+  LOADN R15 0
+  LOADN R16 124
+  LOADN R17 0
+  LOADN R18 140
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K18 ["Size"]
+  NEWTABLE R14 0 1
+  DUPTABLE R15 K27 [{"Key", "Text"}]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K25 ["Key"]
+  LOADK R18 K28 ["Dialog"]
+  LOADK R19 K29 ["Cancel"]
+  NAMECALL R16 R2 K30 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K26 ["Text"]
+  SETLIST R14 R15 1 [1]
+  SETTABLEKS R14 R13 K19 ["Buttons"]
+  SETTABLEKS R5 R13 K20 ["OnButtonClicked"]
+  SETTABLEKS R6 R13 K5 ["OnClose"]
+  DUPTABLE R14 K34 [{"Layout", "PromptText", "ProgressBarContainer"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K17 ["createElement"]
+  LOADK R16 K35 ["UIListLayout"]
+  DUPTABLE R17 K39 [{"SortOrder", "FillDirection", "Padding"}]
+  GETIMPORT R18 K42 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R18 R17 K36 ["SortOrder"]
+  GETIMPORT R18 K44 [Enum.FillDirection.Vertical]
+  SETTABLEKS R18 R17 K37 ["FillDirection"]
+  GETIMPORT R18 K46 [UDim.new]
+  LOADN R19 0
+  LOADN R20 8
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K38 ["Padding"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K31 ["Layout"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K17 ["createElement"]
+  LOADK R16 K47 ["TextLabel"]
+  DUPTABLE R17 K53 [{"Size", "BackgroundTransparency", "TextSize", "TextColor3", "Font", "Text", "TextTruncate", "LayoutOrder"}]
+  GETIMPORT R18 K24 [UDim2.new]
+  LOADN R19 1
+  LOADN R20 0
+  LOADN R21 0
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K54 ["TRACK_HEIGHT"]
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K18 ["Size"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K48 ["BackgroundTransparency"]
+  GETTABLEKS R18 R7 K55 ["textSize"]
+  SETTABLEKS R18 R17 K49 ["TextSize"]
+  GETTABLEKS R18 R7 K56 ["textColor"]
+  SETTABLEKS R18 R17 K50 ["TextColor3"]
+  GETTABLEKS R18 R1 K57 ["font"]
+  SETTABLEKS R18 R17 K51 ["Font"]
+  SETTABLEKS R10 R17 K26 ["Text"]
+  GETIMPORT R18 K59 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R18 R17 K52 ["TextTruncate"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K41 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K32 ["PromptText"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K17 ["createElement"]
+  LOADK R16 K60 ["Frame"]
+  DUPTABLE R17 K63 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size", "LayoutOrder"}]
+  GETTABLEKS R18 R1 K64 ["BorderColor"]
+  SETTABLEKS R18 R17 K61 ["BackgroundColor3"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K48 ["BackgroundTransparency"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K62 ["BorderSizePixel"]
+  GETIMPORT R18 K24 [UDim2.new]
+  LOADN R19 1
+  LOADN R20 0
+  LOADN R21 0
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K54 ["TRACK_HEIGHT"]
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K18 ["Size"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K41 ["LayoutOrder"]
+  DUPTABLE R18 K66 [{"ProgressBar"}]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K17 ["createElement"]
+  LOADK R20 K60 ["Frame"]
+  DUPTABLE R21 K67 [{"BackgroundColor3", "Size"}]
+  GETTABLEKS R22 R8 K68 ["backgroundColor"]
+  SETTABLEKS R22 R21 K61 ["BackgroundColor3"]
+  GETIMPORT R22 K24 [UDim2.new]
+  MOVE R23 R9
+  LOADN R24 0
+  LOADN R25 0
+  GETUPVAL R27 2
+  GETTABLEKS R26 R27 K54 ["TRACK_HEIGHT"]
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K18 ["Size"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K65 ["ProgressBar"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K33 ["ProgressBarContainer"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Constants"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["EditEventsDialog"]
+  GETTABLEKS R5 R6 K14 ["FocusedPrompt"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K15 ["ContextServices"]
+  GETTABLEKS R6 R5 K16 ["withContext"]
+  GETTABLEKS R7 R1 K17 ["PureComponent"]
+  LOADK R9 K18 ["ProgressScreen"]
+  NAMECALL R7 R7 K19 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K20 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R8 R7 K21 ["statusCodeToKey"]
+  DUPCLOSURE R8 K22 [PROTO_1]
+  SETTABLEKS R8 R7 K23 ["statusCodeToString"]
+  DUPCLOSURE R8 K24 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETTABLEKS R8 R7 K25 ["render"]
+  MOVE R8 R6
+  DUPTABLE R9 K28 [{"Stylizer", "Localization"}]
+  GETTABLEKS R10 R5 K26 ["Stylizer"]
+  SETTABLEKS R10 R9 K26 ["Stylizer"]
+  GETTABLEKS R10 R5 K27 ["Localization"]
+  SETTABLEKS R10 R9 K27 ["Localization"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

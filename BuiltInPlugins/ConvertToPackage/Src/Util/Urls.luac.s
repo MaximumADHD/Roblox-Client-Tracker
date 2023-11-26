@@ -1,0 +1,103 @@
+PROTO_0:
+  ORK R1 R1 K0 [100]
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["makeQueryString"]
+  DUPTABLE R5 K6 [{"userId", "width", "height", "format"}]
+  SETTABLEKS R0 R5 K2 ["userId"]
+  SETTABLEKS R1 R5 K3 ["width"]
+  SETTABLEKS R1 R5 K4 ["height"]
+  LOADK R6 K7 ["png"]
+  SETTABLEKS R6 R5 K5 ["format"]
+  CALL R4 1 1
+  CONCAT R2 R3 R4
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R9 0
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K0 ["makeQueryString"]
+  DUPTABLE R11 K10 [{"assetid", "type", "name", "description", "genreTypeId", "ispublic", "allowComments", "groupId", "isPackage"}]
+  SETTABLEKS R0 R11 K1 ["assetid"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R13 R1
+  GETIMPORT R12 K12 [tostring]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K2 ["type"]
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R13 R2
+  GETIMPORT R12 K12 [tostring]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K3 ["name"]
+  FASTCALL1 TOSTRING R3 [+3]
+  MOVE R13 R3
+  GETIMPORT R12 K12 [tostring]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K4 ["description"]
+  SETTABLEKS R4 R11 K5 ["genreTypeId"]
+  JUMPIFNOT R5 [+2]
+  LOADK R12 K13 ["True"]
+  JUMP [+1]
+  LOADK R12 K14 ["False"]
+  SETTABLEKS R12 R11 K6 ["ispublic"]
+  JUMPIFNOT R6 [+2]
+  LOADK R12 K13 ["True"]
+  JUMP [+1]
+  LOADK R12 K14 ["False"]
+  SETTABLEKS R12 R11 K7 ["allowComments"]
+  ORK R12 R7 K15 [""]
+  SETTABLEKS R12 R11 K8 ["groupId"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K9 ["isPackage"]
+  CALL R10 1 1
+  CONCAT R8 R9 R10
+  RETURN R8 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["DEPRECATED_modules"]
+  GETTABLEKS R3 R4 K6 ["Http"]
+  GETTABLEKS R2 R3 K7 ["Url"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["wrapStrictTable"]
+  CALL R2 1 1
+  NEWTABLE R3 4 0
+  GETTABLEKS R5 R1 K11 ["BASE_URL"]
+  LOADK R6 K12 ["headshot-thumbnail/image?"]
+  CONCAT R4 R5 R6
+  GETTABLEKS R6 R1 K13 ["DEVELOP_URL"]
+  LOADK R7 K14 ["/v1/groups/%s"]
+  CONCAT R5 R6 R7
+  GETTABLEKS R7 R1 K15 ["DATA_URL"]
+  LOADK R8 K16 ["Data/Upload.ashx?"]
+  CONCAT R6 R7 R8
+  GETTABLEKS R8 R1 K13 ["DEVELOP_URL"]
+  LOADK R9 K17 ["v1/user/groups/canmanage"]
+  CONCAT R7 R8 R9
+  DUPCLOSURE R8 K18 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  SETTABLEKS R8 R3 K19 ["constructUserThumbnailUrl"]
+  DUPCLOSURE R8 K20 [PROTO_1]
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  SETTABLEKS R8 R3 K21 ["constructPostUploadAssetUrl"]
+  DUPCLOSURE R8 K22 [PROTO_2]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R3 K23 ["constructGetMyGroupUrl"]
+  MOVE R8 R2
+  MOVE R9 R3
+  CALL R8 1 -1
+  RETURN R8 -1

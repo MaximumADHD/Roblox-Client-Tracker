@@ -1,0 +1,47 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  DUPTABLE R2 K2 [{"notificationClient"}]
+  GETUPVAL R3 2
+  SETTABLEKS R3 R2 K1 ["notificationClient"]
+  DUPTABLE R3 K4 [{"NotificationTray"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 3
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K3 ["NotificationTray"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Clients"]
+  GETTABLEKS R3 R4 K9 ["NotificationClient"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Contexts"]
+  GETTABLEKS R4 R5 K11 ["NotificationsProvider"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Components"]
+  GETTABLEKS R5 R6 K13 ["NotificationTray"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R5 1

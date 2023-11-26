@@ -1,0 +1,72 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  LOADK R4 K0 ["R15MigratorHasAdapter"]
+  NAMECALL R1 R1 K1 ["AddTag"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["R15MigratorHasAdapter"]
+  NAMECALL R0 R0 K1 ["GetTagged"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  LOADB R0 0
+  LOADB R1 0
+  GETIMPORT R2 K1 [pairs]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["getTagged"]
+  CALL R3 0 -1
+  CALL R2 -1 3
+  FORGPREP_NEXT R2
+  LOADB R0 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K3 ["HasUnificationScripts"]
+  MOVE R8 R6
+  CALL R7 1 1
+  JUMPIFNOT R7 [+2]
+  LOADB R1 1
+  JUMP [+2]
+  FORGLOOP R2 2 [-10]
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K6 ["Workspace"]
+  NAMECALL R2 R2 K7 ["GetService"]
+  CALL R2 2 1
+  JUMPIFNOT R1 [+3]
+  GETIMPORT R4 K11 [Enum.AvatarUnificationMode.Enabled]
+  JUMPIF R4 [+2]
+  GETIMPORT R4 K13 [Enum.AvatarUnificationMode.Disabled]
+  NAMECALL R2 R2 K14 ["SetAvatarUnificationMode"]
+  CALL R2 2 0
+  RETURN R0 2
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["CollectionService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETTABLEKS R3 R1 K7 ["Src"]
+  GETTABLEKS R2 R3 K8 ["Modules"]
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R4 R2 K11 ["NpcManager"]
+  CALL R3 1 1
+  NEWTABLE R4 4 0
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K13 ["addTag"]
+  DUPCLOSURE R5 K14 [PROTO_1]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K15 ["getTagged"]
+  DUPCLOSURE R5 K16 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K17 ["getTaggedData"]
+  RETURN R4 1

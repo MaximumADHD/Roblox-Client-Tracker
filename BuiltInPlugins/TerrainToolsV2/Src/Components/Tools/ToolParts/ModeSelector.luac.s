@@ -1,0 +1,83 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Frame"]
+  DUPTABLE R3 K5 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
+  GETTABLEKS R4 R0 K2 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K2 ["LayoutOrder"]
+  GETIMPORT R4 K8 [UDim2.new]
+  LOADN R5 1
+  LOADN R6 0
+  LOADN R7 0
+  LOADN R8 22
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K3 ["Size"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K4 ["BackgroundTransparency"]
+  DUPTABLE R4 K11 [{"UIPadding", "Toggle"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K9 ["UIPadding"]
+  DUPTABLE R7 K13 [{"PaddingLeft"}]
+  GETIMPORT R8 K15 [UDim.new]
+  LOADN R9 0
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K18 ["MIN_WIDGET_SIZE"]
+  GETTABLEKS R12 R13 K19 ["X"]
+  SUBK R11 R12 K17 [208]
+  DIVK R10 R11 K16 [2]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["PaddingLeft"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K9 ["UIPadding"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K23 [{"LayoutOrder", "Size", "Selected", "Select", "Options"}]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K2 ["LayoutOrder"]
+  GETIMPORT R8 K8 [UDim2.new]
+  LOADN R9 0
+  LOADN R10 208
+  LOADN R11 0
+  LOADN R12 22
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K3 ["Size"]
+  GETTABLEKS R8 R0 K20 ["Selected"]
+  SETTABLEKS R8 R7 K20 ["Selected"]
+  GETTABLEKS R8 R0 K21 ["Select"]
+  SETTABLEKS R8 R7 K21 ["Select"]
+  GETTABLEKS R8 R0 K22 ["Options"]
+  SETTABLEKS R8 R7 K22 ["Options"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["Toggle"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R2 K7 ["SingleSelectButtonGroup"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Util"]
+  GETTABLEKS R5 R6 K10 ["Constants"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K11 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  RETURN R5 1

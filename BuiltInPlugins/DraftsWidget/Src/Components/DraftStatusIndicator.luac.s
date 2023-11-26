@@ -1,0 +1,69 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Tooltip"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["Icon"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["createElement"]
+  LOADK R4 K4 ["ImageLabel"]
+  DUPTABLE R5 K10 [{"BackgroundTransparency", "Size", "Position", "AnchorPoint", "Image"}]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K5 ["BackgroundTransparency"]
+  GETIMPORT R6 K13 [UDim2.fromOffset]
+  LOADN R7 16
+  LOADN R8 16
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["Size"]
+  GETIMPORT R6 K15 [UDim2.new]
+  LOADK R7 K16 [0.5]
+  LOADN R8 0
+  LOADK R9 K16 [0.5]
+  LOADN R10 0
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K7 ["Position"]
+  GETIMPORT R6 K18 [Vector2.new]
+  LOADK R7 K16 [0.5]
+  LOADK R8 K16 [0.5]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K8 ["AnchorPoint"]
+  SETTABLEKS R2 R5 K9 ["Image"]
+  DUPTABLE R6 K19 [{"Tooltip"}]
+  MOVE R7 R1
+  JUMPIFNOT R7 [+11]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K22 [{"Text", "Enabled"}]
+  SETTABLEKS R1 R9 K20 ["Text"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K21 ["Enabled"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K1 ["Tooltip"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K8 ["UI"]
+  GETTABLEKS R3 R4 K9 ["Tooltip"]
+  GETTABLEKS R4 R1 K10 ["PureComponent"]
+  LOADK R6 K11 ["DraftStatusIndicator"]
+  NAMECALL R4 R4 K12 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K13 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K14 ["render"]
+  RETURN R4 1

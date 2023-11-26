@@ -1,0 +1,228 @@
+PROTO_0:
+  NEWTABLE R1 0 0
+  NEWTABLE R2 0 0
+  GETIMPORT R3 K1 [ipairs]
+  MOVE R4 R0
+  CALL R3 1 3
+  FORGPREP_INEXT R3
+  GETTABLEKS R8 R7 K2 ["ClassName"]
+  GETTABLE R9 R1 R8
+  JUMPIF R9 [+9]
+  LOADB R9 1
+  SETTABLE R9 R1 R8
+  FASTCALL2 TABLE_INSERT R2 R8 [+5]
+  MOVE R10 R2
+  MOVE R11 R8
+  GETIMPORT R9 K5 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R3 2 [inext] [-14]
+  GETIMPORT R3 K7 [table.concat]
+  MOVE R4 R2
+  LOADK R5 K8 [","]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_1:
+  MOVE R2 R1
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R1 R2
+  GETUPVAL R2 0
+  DUPTABLE R3 K3 [{"studioSid", "clientId", "placeId"}]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K4 ["GetSessionId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K0 ["studioSid"]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K5 ["GetClientId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K1 ["clientId"]
+  GETIMPORT R5 K7 [game]
+  GETTABLEKS R4 R5 K8 ["PlaceId"]
+  SETTABLEKS R4 R3 K2 ["placeId"]
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K9 ["LogAnalytics"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+18]
+  GETIMPORT R3 K11 [print]
+  LOADK R4 K12 ["%s SendEvent eventName=%s args=%s"]
+  LOADK R6 K13 ["AlignTool"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R8 R0
+  GETIMPORT R7 K15 [tostring]
+  CALL R7 1 1
+  GETUPVAL R8 3
+  MOVE R10 R2
+  NAMECALL R8 R8 K16 ["JSONEncode"]
+  CALL R8 2 -1
+  NAMECALL R4 R4 K17 ["format"]
+  CALL R4 -1 -1
+  CALL R3 -1 0
+  GETUPVAL R3 1
+  LOADK R5 K18 ["studio"]
+  LOADK R6 K13 ["AlignTool"]
+  MOVE R7 R0
+  MOVE R8 R2
+  NAMECALL R3 R3 K19 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_2:
+  ORK R1 R1 K0 [1]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["LogAnalytics"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+18]
+  GETIMPORT R2 K3 [print]
+  LOADK R3 K4 ["%s ReportCounter counterName=%s count=%s"]
+  LOADK R5 K5 ["AlignTool"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K7 [tostring]
+  CALL R6 1 1
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R8 R1
+  GETIMPORT R7 K7 [tostring]
+  CALL R7 1 1
+  NAMECALL R3 R3 K8 ["format"]
+  CALL R3 4 -1
+  CALL R2 -1 0
+  GETUPVAL R2 1
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K9 ["ReportCounter"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["AlignToolOpen"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["AlignToolClose"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  LOADNIL R0
+  ORK R0 R0 K0 [1]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K3 [print]
+  LOADK R2 K4 ["%s ReportCounter counterName=%s count=%s"]
+  LOADK R4 K5 ["AlignTool"]
+  LOADK R6 K6 ["AlignToolImpression"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 1
+  LOADK R3 K6 ["AlignToolImpression"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  GETUPVAL R0 2
+  LOADK R1 K6 ["AlignToolImpression"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R3 0
+  MOVE R4 R1
+  CALL R3 1 1
+  DUPTABLE R4 K8 [{"mode", "x", "y", "z", "coordinateSpace", "relativeTo", "objectCount", "objectTypes"}]
+  GETTABLEKS R5 R2 K9 ["Mode"]
+  SETTABLEKS R5 R4 K0 ["mode"]
+  GETTABLEKS R6 R2 K10 ["Axes"]
+  GETTABLEKS R5 R6 K11 ["X"]
+  SETTABLEKS R5 R4 K1 ["x"]
+  GETTABLEKS R6 R2 K10 ["Axes"]
+  GETTABLEKS R5 R6 K12 ["Y"]
+  SETTABLEKS R5 R4 K2 ["y"]
+  GETTABLEKS R6 R2 K10 ["Axes"]
+  GETTABLEKS R5 R6 K13 ["Z"]
+  SETTABLEKS R5 R4 K3 ["z"]
+  GETTABLEKS R5 R2 K14 ["CoordinateSpace"]
+  SETTABLEKS R5 R4 K4 ["coordinateSpace"]
+  GETTABLEKS R5 R2 K15 ["RelativeTo"]
+  SETTABLEKS R5 R4 K5 ["relativeTo"]
+  LENGTH R5 R1
+  SETTABLEKS R5 R4 K6 ["objectCount"]
+  SETTABLEKS R3 R4 K7 ["objectTypes"]
+  GETUPVAL R5 1
+  LOADK R6 K16 ["UseAlignTool"]
+  MOVE R7 R4
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_7:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  DUPTABLE R3 K4 [{"alignToolOpen", "alignToolClose", "alignToolImpression", "useAlignTool"}]
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K0 ["alignToolOpen"]
+  NEWCLOSURE R4 P3
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K1 ["alignToolClose"]
+  NEWCLOSURE R4 P4
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K2 ["alignToolImpression"]
+  NEWCLOSURE R4 P5
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K3 ["useAlignTool"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Types"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Utility"]
+  GETTABLEKS R4 R5 K12 ["DebugFlags"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K13 ["Packages"]
+  GETTABLEKS R5 R6 K14 ["Dash"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K15 ["join"]
+  DUPCLOSURE R6 K16 [PROTO_0]
+  DUPCLOSURE R7 K17 [PROTO_7]
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  RETURN R7 1

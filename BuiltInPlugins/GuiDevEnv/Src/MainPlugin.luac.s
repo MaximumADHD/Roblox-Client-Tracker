@@ -1,0 +1,104 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  RETURN R0 0
+
+PROTO_2:
+  DUPCLOSURE R2 K0 [PROTO_0]
+  SETTABLEKS R2 R0 K1 ["onClose"]
+  DUPCLOSURE R2 K2 [PROTO_1]
+  SETTABLEKS R2 R0 K3 ["onRestore"]
+  GETTABLEKS R3 R0 K4 ["props"]
+  GETTABLEKS R2 R3 K5 ["plugin"]
+  NAMECALL R2 R2 K6 ["GetMouse"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K7 ["mouse"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["plugin"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["provide"]
+  NEWTABLE R4 0 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["new"]
+  MOVE R6 R2
+  CALL R5 1 -1
+  SETLIST R4 R5 4294967295 [1]
+  DUPTABLE R5 K5 [{"MainWidget"}]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K6 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K17 [{"Id", "Enabled", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose", "ShouldRestore", "OnWidgetRestored"}]
+  GETUPVAL R10 4
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K18 ["GuiDevEnv"]
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K7 ["Id"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K8 ["Enabled"]
+  GETTABLEKS R9 R2 K19 ["Name"]
+  SETTABLEKS R9 R8 K9 ["Title"]
+  GETIMPORT R9 K22 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R9 R8 K10 ["ZIndexBehavior"]
+  GETIMPORT R9 K24 [Enum.InitialDockState.Float]
+  SETTABLEKS R9 R8 K11 ["InitialDockState"]
+  GETIMPORT R9 K26 [Vector2.new]
+  LOADN R10 128
+  LOADN R11 224
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K12 ["Size"]
+  GETIMPORT R9 K26 [Vector2.new]
+  LOADN R10 250
+  LOADN R11 200
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K13 ["MinSize"]
+  GETTABLEKS R9 R0 K27 ["onClose"]
+  SETTABLEKS R9 R8 K14 ["OnClose"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K15 ["ShouldRestore"]
+  GETTABLEKS R9 R0 K28 ["onRestore"]
+  SETTABLEKS R9 R8 K16 ["OnWidgetRestored"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K4 ["MainWidget"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioFixPluginWidgetLocalizedIds"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K12 ["ContextServices"]
+  GETTABLEKS R5 R4 K13 ["Plugin"]
+  GETTABLEKS R6 R3 K14 ["UI"]
+  GETTABLEKS R7 R6 K15 ["DockWidget"]
+  GETTABLEKS R8 R2 K16 ["PureComponent"]
+  LOADK R10 K17 ["MainPlugin"]
+  NAMECALL R8 R8 K18 ["extend"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K19 [PROTO_2]
+  SETTABLEKS R9 R8 K20 ["init"]
+  DUPCLOSURE R9 K21 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R0
+  SETTABLEKS R9 R8 K22 ["render"]
+  RETURN R8 1

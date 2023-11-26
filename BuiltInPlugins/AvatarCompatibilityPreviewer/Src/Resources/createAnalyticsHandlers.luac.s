@@ -1,0 +1,286 @@
+PROTO_0:
+  DUPTABLE R1 K3 [{"paletteKey", "source", "serializedValue"}]
+  GETTABLEKS R3 R0 K4 ["palette"]
+  GETTABLEKS R2 R3 K5 ["Key"]
+  SETTABLEKS R2 R1 K0 ["paletteKey"]
+  GETTABLEKS R3 R0 K6 ["item"]
+  GETTABLEKS R2 R3 K1 ["source"]
+  SETTABLEKS R2 R1 K1 ["source"]
+  GETTABLEKS R4 R0 K6 ["item"]
+  GETTABLEKS R3 R4 K1 ["source"]
+  JUMPIFNOTEQKS R3 K7 ["builtin"] [+31]
+  GETTABLEKS R4 R0 K4 ["palette"]
+  GETTABLEKS R3 R4 K8 ["Serializer"]
+  JUMPIFNOT R3 [+16]
+  GETTABLEKS R5 R0 K4 ["palette"]
+  GETTABLEKS R4 R5 K8 ["Serializer"]
+  GETTABLEKS R3 R4 K9 ["serialize"]
+  GETTABLEKS R5 R0 K6 ["item"]
+  GETTABLEKS R4 R5 K10 ["builtinItem"]
+  CALL R3 1 -1
+  FASTCALL TOSTRING [+2]
+  GETIMPORT R2 K12 [tostring]
+  CALL R2 -1 1
+  JUMP [+10]
+  GETTABLEKS R4 R0 K6 ["item"]
+  GETTABLEKS R3 R4 K10 ["builtinItem"]
+  FASTCALL1 TOSTRING R3 [+2]
+  GETIMPORT R2 K12 [tostring]
+  CALL R2 1 1
+  JUMP [+1]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K2 ["serializedValue"]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["join"]
+  DUPTABLE R3 K4 [{"studioSid", "clientId", "placeId"}]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K5 ["GetSessionId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K1 ["studioSid"]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K6 ["GetClientId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K2 ["clientId"]
+  GETIMPORT R5 K8 [game]
+  GETTABLEKS R4 R5 K9 ["PlaceId"]
+  SETTABLEKS R4 R3 K3 ["placeId"]
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R3 1
+  LOADK R5 K10 ["studio"]
+  LOADK R6 K11 ["AvatarCompatibilityPreviewer"]
+  MOVE R7 R0
+  MOVE R8 R2
+  NAMECALL R3 R3 K12 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R3 0
+  LOADK R4 K0 ["AddUserItems"]
+  DUPTABLE R5 K3 [{"itemsSelected", "itemsSucceeded"}]
+  SETTABLEKS R1 R5 K1 ["itemsSelected"]
+  SETTABLEKS R2 R5 K2 ["itemsSucceeded"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  LOADK R4 K0 ["AutoSetupFailure"]
+  DUPTABLE R5 K3 [{"assetUrl", "timeToComplete"}]
+  SETTABLEKS R2 R5 K1 ["assetUrl"]
+  SETTABLEKS R1 R5 K2 ["timeToComplete"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R3 0
+  LOADK R4 K0 ["AutoSetupFinish"]
+  DUPTABLE R5 K3 [{"assetUrl", "timeToComplete"}]
+  SETTABLEKS R2 R5 K1 ["assetUrl"]
+  SETTABLEKS R1 R5 K2 ["timeToComplete"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["BundlesMetadataError"]
+  DUPTABLE R4 K2 [{"problem"}]
+  SETTABLEKS R1 R4 K1 ["problem"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["ChangedLayers"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["EquipItem"]
+  GETUPVAL R4 1
+  MOVE R5 R1
+  CALL R4 1 1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["PaletteOpen"]
+  DUPTABLE R4 K2 [{"paletteKey"}]
+  SETTABLEKS R1 R4 K1 ["paletteKey"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["PluginOpen"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["TabOpen"]
+  DUPTABLE R4 K2 [{"tabKey"}]
+  SETTABLEKS R1 R4 K1 ["tabKey"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R2 1
+  LOADK R3 K0 ["Publish"]
+  DUPTABLE R4 K2 [{"isAutoSetupped"}]
+  SETTABLEKS R1 R4 K1 ["isAutoSetupped"]
+  CALL R2 2 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  LOADK R3 K0 ["Publish"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["SelectScreenChoice"]
+  DUPTABLE R4 K2 [{"choice"}]
+  SETTABLEKS R1 R4 K1 ["choice"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["AutoSetupSurvey"]
+  DUPTABLE R4 K4 [{"rating", "message", "problems"}]
+  GETTABLEKS R5 R1 K1 ["rating"]
+  SETTABLEKS R5 R4 K1 ["rating"]
+  GETTABLEKS R5 R1 K2 ["message"]
+  SETTABLEKS R5 R4 K2 ["message"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["keys"]
+  GETTABLEKS R6 R1 K3 ["problems"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K3 ["problems"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["SetStage"]
+  DUPTABLE R4 K2 [{"stageKey"}]
+  SETTABLEKS R1 R4 K1 ["stageKey"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["TestInExperience"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["UnequipItem"]
+  GETUPVAL R4 1
+  MOVE R5 R1
+  CALL R4 1 1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_17:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  DUPTABLE R2 K15 [{"addUserItems", "autoSetupFailure", "autoSetupFinish", "bundlesMetadataError", "changedLayers", "equipItem", "openPalette", "openPlugin", "openTab", "publish", "selectScreenChoice", "sendAutoSetupSurvey", "setStage", "testInExperience", "unequipItem"}]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K0 ["addUserItems"]
+  NEWCLOSURE R3 P2
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K1 ["autoSetupFailure"]
+  NEWCLOSURE R3 P3
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K2 ["autoSetupFinish"]
+  GETUPVAL R4 1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+3]
+  NEWCLOSURE R3 P4
+  CAPTURE VAL R1
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K3 ["bundlesMetadataError"]
+  NEWCLOSURE R3 P5
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K4 ["changedLayers"]
+  NEWCLOSURE R3 P6
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  SETTABLEKS R3 R2 K5 ["equipItem"]
+  NEWCLOSURE R3 P7
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K6 ["openPalette"]
+  NEWCLOSURE R3 P8
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K7 ["openPlugin"]
+  NEWCLOSURE R3 P9
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K8 ["openTab"]
+  NEWCLOSURE R3 P10
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K9 ["publish"]
+  NEWCLOSURE R3 P11
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K10 ["selectScreenChoice"]
+  NEWCLOSURE R3 P12
+  CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K11 ["sendAutoSetupSurvey"]
+  NEWCLOSURE R3 P13
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K12 ["setStage"]
+  NEWCLOSURE R3 P14
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K13 ["testInExperience"]
+  NEWCLOSURE R3 P15
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  SETTABLEKS R3 R2 K14 ["unequipItem"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Src"]
+  GETTABLEKS R3 R4 K8 ["Types"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagAvatarPreviewerAutoSetup"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Flags"]
+  GETTABLEKS R5 R6 K11 ["getFFlagAvatarPreviewerUGCValidationNotice"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_0]
+  DUPCLOSURE R6 K13 [PROTO_17]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  RETURN R6 1

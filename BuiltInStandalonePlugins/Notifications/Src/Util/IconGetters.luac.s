@@ -1,0 +1,85 @@
+PROTO_0:
+  LOADK R2 K0 ["rbxthumb://type=GameIcon&id=%*&w=50&h=50"]
+  MOVE R4 R0
+  NAMECALL R2 R2 K1 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  RETURN R1 1
+
+PROTO_1:
+  LOADK R2 K0 ["rbxthumb://type=AvatarHeadShot&id=%*&w=48&h=48"]
+  MOVE R4 R0
+  NAMECALL R2 R2 K1 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R1
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R1
+  MOVE R3 R0
+  CALL R2 1 -1
+  RETURN R2 -1
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_3:
+  JUMPIFNOT R1 [+2]
+  LOADK R2 K0 ["Plugin-Icon-StatusDisabled"]
+  RETURN R2 1
+  JUMPIFNOT R0 [+2]
+  LOADK R2 K1 [""]
+  RETURN R2 1
+  LOADK R2 K2 ["Plugin-Icon-StatusUnread"]
+  RETURN R2 1
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Static"]
+  JUMPIFEQ R1 R2 [+3]
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLE R2 R3 R0
+  JUMPIFNOT R2 [+3]
+  GETUPVAL R3 1
+  GETTABLE R2 R3 R0
+  RETURN R2 1
+  LOADK R2 K1 ["Plugin-Icon-Placeholder"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Enums"]
+  GETTABLEKS R2 R3 K7 ["NotificationTargetType"]
+  CALL R1 1 1
+  DUPTABLE R2 K9 [{"DevForumAnnouncement"}]
+  LOADK R3 K10 ["Plugin-Icon-StaticDevForumAnnouncements"]
+  SETTABLEKS R3 R2 K8 ["DevForumAnnouncement"]
+  NEWTABLE R3 2 0
+  GETTABLEKS R4 R1 K11 ["Universe"]
+  DUPCLOSURE R5 K12 [PROTO_0]
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R1 K13 ["User"]
+  DUPCLOSURE R5 K14 [PROTO_1]
+  SETTABLE R5 R3 R4
+  DUPCLOSURE R4 K15 [PROTO_2]
+  CAPTURE VAL R3
+  DUPCLOSURE R5 K16 [PROTO_3]
+  DUPCLOSURE R6 K17 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  DUPTABLE R7 K21 [{"getDynamicIconPath", "getReadStatusIconTag", "getStaticIconTag"}]
+  SETTABLEKS R4 R7 K18 ["getDynamicIconPath"]
+  SETTABLEKS R5 R7 K19 ["getReadStatusIconTag"]
+  SETTABLEKS R6 R7 K20 ["getStaticIconTag"]
+  RETURN R7 1

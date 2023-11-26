@@ -1,0 +1,161 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["refreshData"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R4 R3 K1 ["Localization"]
+  GETTABLEKS R6 R3 K2 ["Stylizer"]
+  GETTABLEKS R5 R6 K3 ["TopPanel"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K9 [{"Size", "Layout", "Padding", "LayoutOrder"}]
+  GETTABLEKS R9 R5 K5 ["Size"]
+  SETTABLEKS R9 R8 K5 ["Size"]
+  GETIMPORT R9 K13 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K6 ["Layout"]
+  GETTABLEKS R9 R5 K7 ["Padding"]
+  SETTABLEKS R9 R8 K7 ["Padding"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K8 ["LayoutOrder"]
+  DUPTABLE R9 K17 [{"NumTextures", "RefreshWrapper", "TotalMemory"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K20 [{"Text", "Size", "TextXAlignment", "LayoutOrder"}]
+  LOADK R14 K21 ["# "]
+  LOADK R20 K3 ["TopPanel"]
+  LOADK R21 K22 ["Textures"]
+  NAMECALL R18 R4 K23 ["getText"]
+  CALL R18 3 1
+  MOVE R15 R18
+  LOADK R16 K24 [": "]
+  MOVE R17 R1
+  CONCAT R13 R14 R17
+  SETTABLEKS R13 R12 K18 ["Text"]
+  GETTABLEKS R15 R5 K25 ["AggregateStats"]
+  GETTABLEKS R14 R15 K14 ["NumTextures"]
+  GETTABLEKS R13 R14 K5 ["Size"]
+  SETTABLEKS R13 R12 K5 ["Size"]
+  GETIMPORT R13 K27 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K19 ["TextXAlignment"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K8 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K14 ["NumTextures"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K30 [{"Size", "AnchorPoint", "Position", "LayoutOrder"}]
+  GETTABLEKS R14 R5 K31 ["Refresh"]
+  GETTABLEKS R13 R14 K5 ["Size"]
+  SETTABLEKS R13 R12 K5 ["Size"]
+  GETTABLEKS R14 R5 K31 ["Refresh"]
+  GETTABLEKS R13 R14 K28 ["AnchorPoint"]
+  SETTABLEKS R13 R12 K28 ["AnchorPoint"]
+  GETTABLEKS R14 R5 K31 ["Refresh"]
+  GETTABLEKS R13 R14 K29 ["Position"]
+  SETTABLEKS R13 R12 K29 ["Position"]
+  LOADN R13 2
+  SETTABLEKS R13 R12 K8 ["LayoutOrder"]
+  DUPTABLE R13 K33 [{"RefreshTextures"}]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K4 ["createElement"]
+  GETUPVAL R15 3
+  DUPTABLE R16 K36 [{"Text", "TextXAlignment", "LeftIcon", "Size", "OnClick"}]
+  LOADK R19 K3 ["TopPanel"]
+  LOADK R20 K31 ["Refresh"]
+  NAMECALL R17 R4 K23 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K18 ["Text"]
+  GETIMPORT R17 K38 [Enum.TextXAlignment.Center]
+  SETTABLEKS R17 R16 K19 ["TextXAlignment"]
+  GETTABLEKS R19 R5 K31 ["Refresh"]
+  GETTABLEKS R18 R19 K39 ["Button"]
+  GETTABLEKS R17 R18 K40 ["Icon"]
+  SETTABLEKS R17 R16 K34 ["LeftIcon"]
+  GETIMPORT R17 K43 [UDim2.fromScale]
+  LOADN R18 1
+  LOADN R19 1
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K5 ["Size"]
+  NEWCLOSURE R17 P0
+  CAPTURE VAL R0
+  SETTABLEKS R17 R16 K35 ["OnClick"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K32 ["RefreshTextures"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K15 ["RefreshWrapper"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K20 [{"Text", "Size", "TextXAlignment", "LayoutOrder"}]
+  LOADK R20 K3 ["TopPanel"]
+  LOADK R21 K5 ["Size"]
+  NAMECALL R18 R4 K23 ["getText"]
+  CALL R18 3 1
+  MOVE R14 R18
+  LOADK R15 K24 [": "]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K44 ["round"]
+  GETUPVAL R21 5
+  GETTABLEKS R20 R21 K45 ["BYTES_IN_MB"]
+  DIV R19 R2 R20
+  LOADN R20 2
+  CALL R18 2 1
+  MOVE R16 R18
+  LOADK R17 K46 [" MB"]
+  CONCAT R13 R14 R17
+  SETTABLEKS R13 R12 K18 ["Text"]
+  GETTABLEKS R15 R5 K25 ["AggregateStats"]
+  GETTABLEKS R14 R15 K16 ["TotalMemory"]
+  GETTABLEKS R13 R14 K5 ["Size"]
+  SETTABLEKS R13 R12 K5 ["Size"]
+  GETIMPORT R13 K48 [Enum.TextXAlignment.Right]
+  SETTABLEKS R13 R12 K19 ["TextXAlignment"]
+  LOADN R13 3
+  SETTABLEKS R13 R12 K8 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K16 ["TotalMemory"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K8 ["UI"]
+  GETTABLEKS R3 R4 K9 ["Pane"]
+  GETTABLEKS R5 R2 K8 ["UI"]
+  GETTABLEKS R4 R5 K10 ["IconButton"]
+  GETTABLEKS R6 R2 K8 ["UI"]
+  GETTABLEKS R5 R6 K11 ["TextLabel"]
+  GETTABLEKS R7 R0 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Util"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R6 K14 ["Utils"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R6 K15 ["Constants"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K16 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  RETURN R9 1

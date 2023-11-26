@@ -1,0 +1,196 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["canvasRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  JUMPIFNOT R1 [+10]
+  GETIMPORT R2 K4 [UDim2.new]
+  LOADN R3 1
+  LOADN R4 0
+  LOADN R5 0
+  GETTABLEKS R6 R0 K5 ["Y"]
+  CALL R2 4 1
+  SETTABLEKS R2 R1 K6 ["CanvasSize"]
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R3 0 0
+  NAMECALL R1 R0 K0 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K2 ["canvasRef"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["contentSizeChanged"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["contentSizeChanged"]
+  GETTABLEKS R2 R0 K1 ["AbsoluteContentSize"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWTABLE R1 0 0
+  GETIMPORT R2 K1 [pairs]
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  LOADK R8 K3 ["Frame"]
+  DUPTABLE R9 K7 [{"LayoutOrder", "BackgroundTransparency", "Size"}]
+  GETTABLEKS R10 R6 K8 ["Index"]
+  SETTABLEKS R10 R9 K4 ["LayoutOrder"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K5 ["BackgroundTransparency"]
+  GETIMPORT R10 K11 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  GETUPVAL R14 1
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K6 ["Size"]
+  DUPTABLE R10 K13 [{"Button"}]
+  GETTABLEKS R11 R6 K12 ["Button"]
+  SETTABLEKS R11 R10 K12 ["Button"]
+  CALL R7 3 1
+  SETTABLE R7 R1 R5
+  FORGLOOP R2 2 [-29]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R3 2
+  NEWTABLE R4 2 0
+  GETIMPORT R5 K17 [Enum.AutomaticSize.Y]
+  SETTABLEKS R5 R4 K18 ["AutomaticCanvasSize"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K19 ["Ref"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K20 ["canvasRef"]
+  SETTABLE R6 R4 R5
+  DUPTABLE R5 K23 [{"UIListLayout", "FitContent"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["createElement"]
+  LOADK R7 K21 ["UIListLayout"]
+  NEWTABLE R8 8 0
+  GETUPVAL R9 4
+  SETTABLEKS R9 R8 K24 ["VerticalAlignment"]
+  GETUPVAL R9 5
+  SETTABLEKS R9 R8 K25 ["Padding"]
+  GETIMPORT R9 K27 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R9 R8 K26 ["SortOrder"]
+  GETIMPORT R9 K30 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K28 ["FillDirection"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K31 ["Change"]
+  GETTABLEKS R9 R10 K32 ["AbsoluteContentSize"]
+  NEWCLOSURE R10 P0
+  CAPTURE UPVAL U3
+  SETTABLE R10 R8 R9
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K21 ["UIListLayout"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["createElement"]
+  GETUPVAL R7 6
+  DUPTABLE R8 K35 [{"AutomaticSize", "HorizontalAlignment", "Layout"}]
+  GETIMPORT R9 K17 [Enum.AutomaticSize.Y]
+  SETTABLEKS R9 R8 K15 ["AutomaticSize"]
+  GETIMPORT R9 K37 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K33 ["HorizontalAlignment"]
+  GETIMPORT R9 K39 [Enum.FillDirection.Vertical]
+  SETTABLEKS R9 R8 K34 ["Layout"]
+  MOVE R9 R1
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K22 ["FitContent"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["ItemHeight"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["Items"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["RenderItem"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["MakeMenuActions"]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K5 ["OnDoubleClicked"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K6 ["OnSelectionChanged"]
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K7 ["ButtonStyle"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K8 ["GetCurrentSelection"]
+  GETTABLEKS R10 R0 K0 ["props"]
+  GETTABLEKS R9 R10 K9 ["VerticalAlignment"]
+  GETTABLEKS R11 R0 K0 ["props"]
+  GETTABLEKS R10 R11 K10 ["Padding"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K11 ["createElement"]
+  GETUPVAL R12 1
+  DUPTABLE R13 K14 [{"Size", "GetCurrentSelection", "OnDoubleClicked", "OnSelectionChanged", "MakeMenuActions", "ButtonStyle", "Items", "RenderItem", "RenderContents"}]
+  GETIMPORT R14 K17 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 1
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K12 ["Size"]
+  SETTABLEKS R8 R13 K8 ["GetCurrentSelection"]
+  SETTABLEKS R5 R13 K5 ["OnDoubleClicked"]
+  SETTABLEKS R6 R13 K6 ["OnSelectionChanged"]
+  SETTABLEKS R4 R13 K4 ["MakeMenuActions"]
+  SETTABLEKS R7 R13 K7 ["ButtonStyle"]
+  SETTABLEKS R2 R13 K2 ["Items"]
+  SETTABLEKS R3 R13 K3 ["RenderItem"]
+  NEWCLOSURE R14 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE UPVAL U3
+  SETTABLEKS R14 R13 K13 ["RenderContents"]
+  CALL R11 2 -1
+  RETURN R11 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Components"]
+  GETTABLEKS R4 R5 K10 ["AbstractItemView"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K11 ["UI"]
+  GETTABLEKS R5 R4 K12 ["Pane"]
+  GETTABLEKS R6 R4 K13 ["ScrollingFrame"]
+  GETTABLEKS R7 R2 K14 ["Component"]
+  LOADK R9 K15 ["ListItemView"]
+  NAMECALL R7 R7 K16 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K17 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R8 R7 K18 ["init"]
+  DUPCLOSURE R8 K19 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  SETTABLEKS R8 R7 K20 ["render"]
+  RETURN R7 1

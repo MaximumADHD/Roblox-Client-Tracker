@@ -1,0 +1,100 @@
+PROTO_0:
+  NEWTABLE R1 2 0
+  SETTABLEKS R0 R1 K0 ["__networking"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K1 ["__metadataCache"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K3 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["__networking"]
+  LOADK R5 K1 ["develop"]
+  LOADK R7 K2 ["/v1/universes/"]
+  MOVE R8 R1
+  CONCAT R6 R7 R8
+  NAMECALL R3 R2 K3 ["get"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["__metadataCache"]
+  GETTABLE R2 R3 R1
+  JUMPIF R2 [+36]
+  MOVE R4 R1
+  NAMECALL R2 R0 K1 ["universesV1GET"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K2 ["await"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K0 ["__metadataCache"]
+  GETTABLE R3 R4 R1
+  JUMPIF R3 [+25]
+  GETTABLEKS R3 R2 K3 ["responseBody"]
+  GETTABLEKS R4 R0 K0 ["__metadataCache"]
+  DUPTABLE R5 K8 [{"rootPlaceId", "creatorId", "creatorName", "creatorType"}]
+  GETTABLEKS R6 R3 K4 ["rootPlaceId"]
+  SETTABLEKS R6 R5 K4 ["rootPlaceId"]
+  GETTABLEKS R6 R3 K9 ["creatorTargetId"]
+  SETTABLEKS R6 R5 K5 ["creatorId"]
+  GETTABLEKS R6 R3 K6 ["creatorName"]
+  SETTABLEKS R6 R5 K6 ["creatorName"]
+  GETIMPORT R7 K12 [Enum.CreatorType]
+  GETTABLEKS R8 R3 K7 ["creatorType"]
+  GETTABLE R6 R7 R8
+  SETTABLEKS R6 R5 K7 ["creatorType"]
+  SETTABLE R5 R4 R1
+  GETTABLEKS R3 R0 K0 ["__metadataCache"]
+  GETTABLE R2 R3 R1
+  RETURN R2 1
+
+PROTO_3:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["getUniverseMetadata"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K1 ["rootPlaceId"]
+  RETURN R3 1
+
+PROTO_4:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["getUniverseMetadata"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K1 ["creatorId"]
+  RETURN R3 1
+
+PROTO_5:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["getUniverseMetadata"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K1 ["creatorName"]
+  RETURN R3 1
+
+PROTO_6:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["getUniverseMetadata"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K1 ["creatorType"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 8 0
+  SETTABLEKS R0 R0 K0 ["__index"]
+  DUPCLOSURE R1 K1 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["new"]
+  DUPCLOSURE R1 K3 [PROTO_1]
+  SETTABLEKS R1 R0 K4 ["universesV1GET"]
+  DUPCLOSURE R1 K5 [PROTO_2]
+  SETTABLEKS R1 R0 K6 ["getUniverseMetadata"]
+  DUPCLOSURE R1 K7 [PROTO_3]
+  SETTABLEKS R1 R0 K8 ["getRootPlace"]
+  DUPCLOSURE R1 K9 [PROTO_4]
+  SETTABLEKS R1 R0 K10 ["getCreatorId"]
+  DUPCLOSURE R1 K11 [PROTO_5]
+  SETTABLEKS R1 R0 K12 ["getCreatorName"]
+  DUPCLOSURE R1 K13 [PROTO_6]
+  SETTABLEKS R1 R0 K14 ["getCreatorType"]
+  RETURN R0 1

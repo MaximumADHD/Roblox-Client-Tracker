@@ -1,0 +1,141 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["OnPromote"]
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["OnPromote"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["OnClose"]
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["OnClose"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["onPromote"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["onClose"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["onClose"]
+  CALL R1 0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["onPromote"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K8 [{"PromptText", "Size", "Buttons", "OnButtonClicked", "OnClose"}]
+  LOADK R7 K9 ["Dialog"]
+  LOADK R8 K10 ["PromotePrompt1"]
+  NAMECALL R5 R1 K11 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K3 ["PromptText"]
+  GETIMPORT R5 K14 [UDim2.new]
+  LOADN R6 0
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K15 ["PROMPT_SIZE"]
+  GETTABLEKS R8 R9 K16 ["Width"]
+  GETTABLEKS R7 R8 K17 ["Offset"]
+  LOADN R8 0
+  LOADN R9 180
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K4 ["Size"]
+  NEWTABLE R5 0 2
+  DUPTABLE R6 K21 [{"Key", "Text", "Style"}]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K18 ["Key"]
+  LOADK R9 K9 ["Dialog"]
+  LOADK R10 K22 ["Cancel"]
+  NAMECALL R7 R1 K11 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K19 ["Text"]
+  LOADK R7 K23 ["Round"]
+  SETTABLEKS R7 R6 K20 ["Style"]
+  DUPTABLE R7 K21 [{"Key", "Text", "Style"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K18 ["Key"]
+  LOADK R10 K9 ["Dialog"]
+  LOADK R11 K24 ["Confirm"]
+  NAMECALL R8 R1 K11 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K19 ["Text"]
+  LOADK R8 K25 ["RoundPrimary"]
+  SETTABLEKS R8 R7 K20 ["Style"]
+  SETLIST R5 R6 2 [1]
+  SETTABLEKS R5 R4 K5 ["Buttons"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K6 ["OnButtonClicked"]
+  GETTABLEKS R5 R0 K26 ["onClose"]
+  SETTABLEKS R5 R4 K7 ["OnClose"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Util"]
+  GETTABLEKS R6 R7 K13 ["Constants"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Components"]
+  GETTABLEKS R8 R9 K15 ["EditEventsDialog"]
+  GETTABLEKS R7 R8 K16 ["FocusedPrompt"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K17 ["PureComponent"]
+  LOADK R9 K18 ["PromoteToCurvesPrompt"]
+  NAMECALL R7 R7 K19 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K20 [PROTO_2]
+  SETTABLEKS R8 R7 K21 ["init"]
+  DUPCLOSURE R8 K22 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  SETTABLEKS R8 R7 K23 ["render"]
+  MOVE R8 R4
+  DUPTABLE R9 K25 [{"Localization"}]
+  GETTABLEKS R10 R3 K24 ["Localization"]
+  SETTABLEKS R10 R9 K24 ["Localization"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

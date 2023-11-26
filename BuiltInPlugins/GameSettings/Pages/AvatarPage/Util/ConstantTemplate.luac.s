@@ -1,0 +1,25 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Util"]
+  GETTABLEKS R2 R3 K6 ["ConstantAvatar"]
+  CALL R1 1 1
+  NEWTABLE R2 8 0
+  LOADK R3 K7 ["PlayerChoice"]
+  SETTABLEKS R3 R2 K7 ["PlayerChoice"]
+  LOADK R3 K8 ["Standard"]
+  SETTABLEKS R3 R2 K9 ["AnimationStandard"]
+  LOADK R3 K10 ["OuterBox"]
+  SETTABLEKS R3 R2 K11 ["OuterCollision"]
+  LOADK R3 K12 ["InnerBox"]
+  SETTABLEKS R3 R2 K13 ["InnerCollision"]
+  GETTABLEKS R4 R1 K14 ["AvatarType"]
+  GETTABLEKS R3 R4 K15 ["R6"]
+  SETTABLEKS R3 R2 K15 ["R6"]
+  GETTABLEKS R4 R1 K14 ["AvatarType"]
+  GETTABLEKS R3 R4 K16 ["R15"]
+  SETTABLEKS R3 R2 K16 ["R15"]
+  RETURN R2 1

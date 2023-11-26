@@ -1,0 +1,74 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Dictionary"]
+  GETTABLEKS R1 R2 K1 ["join"]
+  DUPTABLE R2 K4 [{"AnchorPoint", "Position"}]
+  GETIMPORT R3 K7 [Vector2.new]
+  LOADK R4 K8 [0.5]
+  LOADN R5 0
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K2 ["AnchorPoint"]
+  GETIMPORT R3 K10 [UDim2.new]
+  LOADK R4 K8 [0.5]
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K3 ["Position"]
+  MOVE R3 R0
+  CALL R1 2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["createElement"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K12 ["Portal"]
+  DUPTABLE R4 K14 [{"target"}]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R4 K13 ["target"]
+  DUPTABLE R5 K16 [{"ProgressDialog"}]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  LOADK R7 K17 ["ScreenGui"]
+  DUPTABLE R8 K19 [{"ZIndexBehavior"}]
+  GETIMPORT R9 K22 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R9 R8 K18 ["ZIndexBehavior"]
+  DUPTABLE R9 K24 [{"ProgressWidget"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K11 ["createElement"]
+  GETUPVAL R11 3
+  MOVE R12 R1
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K23 ["ProgressWidget"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K15 ["ProgressDialog"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Components"]
+  GETTABLEKS R4 R5 K10 ["ProgressWidget"]
+  CALL R3 1 1
+  GETIMPORT R4 K12 [game]
+  LOADK R6 K13 ["CoreGui"]
+  NAMECALL R4 R4 K14 ["GetService"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K15 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  RETURN R5 1

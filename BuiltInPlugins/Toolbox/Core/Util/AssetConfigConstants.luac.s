@@ -1,0 +1,786 @@
+PROTO_0:
+  DUPTABLE R2 K3 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R0 R2 K0 ["type"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K1 ["isCatalog"]
+  JUMPIFEQKB R1 TRUE [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  SETTABLEKS R3 R2 K2 ["isUploadable"]
+  RETURN R2 1
+
+PROTO_1:
+  DUPTABLE R2 K3 [{"type", "isMarketplace", "isBuyable"}]
+  SETTABLEKS R0 R2 K0 ["type"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K1 ["isMarketplace"]
+  JUMPIFEQKB R1 TRUE [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  SETTABLEKS R3 R2 K2 ["isBuyable"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["enumerate"]
+  GETTABLEKS R4 R0 K9 ["Core"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K9 ["Core"]
+  GETTABLEKS R6 R7 K10 ["Flags"]
+  GETTABLEKS R5 R6 K11 ["getFFlagToolboxAddNewUGCAssetTypes"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R3 K12 ["convertArrayToTable"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R10 R0 K9 ["Core"]
+  GETTABLEKS R9 R10 K7 ["Util"]
+  GETTABLEKS R8 R9 K13 ["SharedFlags"]
+  GETTABLEKS R7 R8 K14 ["getFFlagEnableUGCBodyUploadFlow"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R11 R0 K9 ["Core"]
+  GETTABLEKS R10 R11 K7 ["Util"]
+  GETTABLEKS R9 R10 K13 ["SharedFlags"]
+  GETTABLEKS R8 R9 K15 ["getFFlagToolboxRedirectToGenericReportPage"]
+  CALL R7 1 1
+  NEWTABLE R8 64 0
+  LOADN R9 76
+  SETTABLEKS R9 R8 K16 ["WIDTH"]
+  MOVE R10 R6
+  CALL R10 0 1
+  JUMPIFNOT R10 [+2]
+  LOADN R9 92
+  JUMP [+1]
+  LOADN R9 128
+  SETTABLEKS R9 R8 K17 ["HEIGHT"]
+  LOADN R9 132
+  SETTABLEKS R9 R8 K18 ["MIN_WIDTH"]
+  LOADN R9 244
+  SETTABLEKS R9 R8 K19 ["MIN_HEIGHT"]
+  LOADK R9 K20 ["https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use"]
+  SETTABLEKS R9 R8 K21 ["TERM_OF_USE_URL"]
+  LOADK R9 K22 ["https://www.roblox.com/my/account#!/info"]
+  SETTABLEKS R9 R8 K23 ["ACCOUNT_SETTING_URL"]
+  LOADN R9 50
+  SETTABLEKS R9 R8 K24 ["NAME_CHARACTER_LIMIT"]
+  LOADN R9 232
+  SETTABLEKS R9 R8 K25 ["DESCRIPTION_CHARACTER_LIMIT"]
+  LOADN R9 180
+  SETTABLEKS R9 R8 K26 ["TITLE_GUTTER_WIDTH"]
+  GETIMPORT R9 K29 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 150
+  LOADN R12 0
+  LOADN R13 200
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K30 ["OverrideAssetItemSize"]
+  MOVE R9 R5
+  NEWTABLE R10 0 3
+  LOADK R11 K31 ["ImagePicker"]
+  LOADK R12 K32 ["Thumbnail"]
+  LOADK R13 K33 ["ModelPreview"]
+  SETLIST R10 R11 3 [1]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K34 ["PreviewTypes"]
+  MOVE R9 R5
+  NEWTABLE R10 0 5
+  LOADK R11 K35 ["Sales"]
+  LOADK R12 K36 ["General"]
+  LOADK R13 K37 ["Versions"]
+  LOADK R14 K38 ["Override"]
+  LOADK R15 K39 ["Permissions"]
+  SETLIST R10 R11 5 [1]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K40 ["SIDE_TABS"]
+  MOVE R9 R5
+  NEWTABLE R10 0 3
+  LOADK R11 K41 ["Title"]
+  LOADK R12 K42 ["Description"]
+  LOADK R13 K43 ["Price"]
+  SETLIST R10 R11 3 [1]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K44 ["FIELD_NAMES"]
+  NEWTABLE R9 0 14
+  DUPTABLE R10 K46 [{"name"}]
+  GETIMPORT R12 K50 [Enum.Genre.All]
+  GETTABLEKS R11 R12 K51 ["Name"]
+  SETTABLEKS R11 R10 K45 ["name"]
+  DUPTABLE R11 K46 [{"name"}]
+  GETIMPORT R13 K53 [Enum.Genre.TownAndCity]
+  GETTABLEKS R12 R13 K51 ["Name"]
+  SETTABLEKS R12 R11 K45 ["name"]
+  DUPTABLE R12 K46 [{"name"}]
+  GETIMPORT R14 K55 [Enum.Genre.Fantasy]
+  GETTABLEKS R13 R14 K51 ["Name"]
+  SETTABLEKS R13 R12 K45 ["name"]
+  DUPTABLE R13 K46 [{"name"}]
+  GETIMPORT R15 K57 [Enum.Genre.SciFi]
+  GETTABLEKS R14 R15 K51 ["Name"]
+  SETTABLEKS R14 R13 K45 ["name"]
+  DUPTABLE R14 K46 [{"name"}]
+  GETIMPORT R16 K59 [Enum.Genre.Ninja]
+  GETTABLEKS R15 R16 K51 ["Name"]
+  SETTABLEKS R15 R14 K45 ["name"]
+  DUPTABLE R15 K46 [{"name"}]
+  GETIMPORT R17 K61 [Enum.Genre.Scary]
+  GETTABLEKS R16 R17 K51 ["Name"]
+  SETTABLEKS R16 R15 K45 ["name"]
+  DUPTABLE R16 K46 [{"name"}]
+  GETIMPORT R18 K63 [Enum.Genre.Pirate]
+  GETTABLEKS R17 R18 K51 ["Name"]
+  SETTABLEKS R17 R16 K45 ["name"]
+  DUPTABLE R17 K46 [{"name"}]
+  GETIMPORT R19 K65 [Enum.Genre.Adventure]
+  GETTABLEKS R18 R19 K51 ["Name"]
+  SETTABLEKS R18 R17 K45 ["name"]
+  DUPTABLE R18 K46 [{"name"}]
+  GETIMPORT R20 K67 [Enum.Genre.Sports]
+  GETTABLEKS R19 R20 K51 ["Name"]
+  SETTABLEKS R19 R18 K45 ["name"]
+  DUPTABLE R19 K46 [{"name"}]
+  GETIMPORT R21 K69 [Enum.Genre.Funny]
+  GETTABLEKS R20 R21 K51 ["Name"]
+  SETTABLEKS R20 R19 K45 ["name"]
+  DUPTABLE R20 K46 [{"name"}]
+  GETIMPORT R22 K71 [Enum.Genre.WildWest]
+  GETTABLEKS R21 R22 K51 ["Name"]
+  SETTABLEKS R21 R20 K45 ["name"]
+  DUPTABLE R21 K46 [{"name"}]
+  GETIMPORT R23 K73 [Enum.Genre.War]
+  GETTABLEKS R22 R23 K51 ["Name"]
+  SETTABLEKS R22 R21 K45 ["name"]
+  DUPTABLE R22 K46 [{"name"}]
+  GETIMPORT R24 K75 [Enum.Genre.SkatePark]
+  GETTABLEKS R23 R24 K51 ["Name"]
+  SETTABLEKS R23 R22 K45 ["name"]
+  DUPTABLE R23 K46 [{"name"}]
+  GETIMPORT R25 K77 [Enum.Genre.Tutorial]
+  GETTABLEKS R24 R25 K51 ["Name"]
+  SETTABLEKS R24 R23 K45 ["name"]
+  SETLIST R9 R10 14 [1]
+  SETTABLEKS R9 R8 K78 ["GENRE_TYPE"]
+  MOVE R9 R5
+  NEWTABLE R10 0 3
+  LOADK R11 K79 ["EDIT_FLOW"]
+  LOADK R12 K80 ["UPLOAD_FLOW"]
+  LOADK R13 K81 ["DOWNLOAD_FLOW"]
+  SETLIST R10 R11 3 [1]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K82 ["FLOW_TYPE"]
+  MOVE R9 R5
+  NEWTABLE R10 0 5
+  LOADK R11 K83 ["ASSET_TYPE_SELECTION"]
+  LOADK R12 K84 ["ASSET_VALIDATION"]
+  LOADK R13 K85 ["CONFIGURE_ASSET"]
+  LOADK R14 K86 ["UPLOADING_ASSET"]
+  LOADK R15 K87 ["UPLOAD_ASSET_RESULT"]
+  SETLIST R10 R11 5 [1]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K88 ["SCREENS"]
+  MOVE R9 R5
+  NEWTABLE R10 0 8
+  LOADK R11 K89 ["Unknown"]
+  LOADK R12 K90 ["ReviewPending"]
+  LOADK R13 K91 ["Moderated"]
+  LOADK R14 K92 ["ReviewApproved"]
+  LOADK R15 K93 ["OnSale"]
+  LOADK R16 K94 ["OffSale"]
+  LOADK R17 K95 ["DelayedRelease"]
+  LOADK R18 K96 ["Free"]
+  SETLIST R10 R11 8 [1]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K97 ["ASSET_STATUS"]
+  MOVE R9 R5
+  NEWTABLE R10 0 1
+  LOADK R11 K93 ["OnSale"]
+  SETLIST R10 R11 1 [1]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K98 ["SALES_STATUS_FOR_PRICE"]
+  DUPCLOSURE R9 K99 [PROTO_0]
+  DUPCLOSURE R10 K100 [PROTO_1]
+  NEWTABLE R11 0 28
+  GETIMPORT R13 K103 [Enum.AssetType.Hat]
+  DUPTABLE R12 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R13 R12 K104 ["type"]
+  LOADB R14 1
+  SETTABLEKS R14 R12 K105 ["isCatalog"]
+  LOADB R14 1
+  SETTABLEKS R14 R12 K106 ["isUploadable"]
+  GETIMPORT R14 K109 [Enum.AssetType.TShirt]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 0
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  GETIMPORT R15 K111 [Enum.AssetType.Shirt]
+  DUPTABLE R14 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R15 R14 K104 ["type"]
+  LOADB R16 1
+  SETTABLEKS R16 R14 K105 ["isCatalog"]
+  LOADB R16 0
+  SETTABLEKS R16 R14 K106 ["isUploadable"]
+  GETIMPORT R16 K113 [Enum.AssetType.Pants]
+  DUPTABLE R15 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R16 R15 K104 ["type"]
+  LOADB R17 1
+  SETTABLEKS R17 R15 K105 ["isCatalog"]
+  LOADB R17 0
+  SETTABLEKS R17 R15 K106 ["isUploadable"]
+  GETIMPORT R17 K115 [Enum.AssetType.HairAccessory]
+  DUPTABLE R16 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R17 R16 K104 ["type"]
+  LOADB R18 1
+  SETTABLEKS R18 R16 K105 ["isCatalog"]
+  LOADB R18 1
+  SETTABLEKS R18 R16 K106 ["isUploadable"]
+  GETIMPORT R18 K117 [Enum.AssetType.FaceAccessory]
+  DUPTABLE R17 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R18 R17 K104 ["type"]
+  LOADB R19 1
+  SETTABLEKS R19 R17 K105 ["isCatalog"]
+  LOADB R19 1
+  SETTABLEKS R19 R17 K106 ["isUploadable"]
+  GETIMPORT R19 K119 [Enum.AssetType.NeckAccessory]
+  DUPTABLE R18 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R19 R18 K104 ["type"]
+  LOADB R20 1
+  SETTABLEKS R20 R18 K105 ["isCatalog"]
+  LOADB R20 1
+  SETTABLEKS R20 R18 K106 ["isUploadable"]
+  GETIMPORT R20 K121 [Enum.AssetType.ShoulderAccessory]
+  DUPTABLE R19 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R20 R19 K104 ["type"]
+  LOADB R21 1
+  SETTABLEKS R21 R19 K105 ["isCatalog"]
+  LOADB R21 1
+  SETTABLEKS R21 R19 K106 ["isUploadable"]
+  GETIMPORT R21 K123 [Enum.AssetType.FrontAccessory]
+  DUPTABLE R20 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R21 R20 K104 ["type"]
+  LOADB R22 1
+  SETTABLEKS R22 R20 K105 ["isCatalog"]
+  LOADB R22 1
+  SETTABLEKS R22 R20 K106 ["isUploadable"]
+  GETIMPORT R22 K125 [Enum.AssetType.BackAccessory]
+  DUPTABLE R21 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R22 R21 K104 ["type"]
+  LOADB R23 1
+  SETTABLEKS R23 R21 K105 ["isCatalog"]
+  LOADB R23 1
+  SETTABLEKS R23 R21 K106 ["isUploadable"]
+  GETIMPORT R23 K127 [Enum.AssetType.WaistAccessory]
+  DUPTABLE R22 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R23 R22 K104 ["type"]
+  LOADB R24 1
+  SETTABLEKS R24 R22 K105 ["isCatalog"]
+  LOADB R24 1
+  SETTABLEKS R24 R22 K106 ["isUploadable"]
+  GETIMPORT R24 K129 [Enum.AssetType.TShirtAccessory]
+  DUPTABLE R23 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R24 R23 K104 ["type"]
+  LOADB R25 1
+  SETTABLEKS R25 R23 K105 ["isCatalog"]
+  LOADB R25 1
+  SETTABLEKS R25 R23 K106 ["isUploadable"]
+  GETIMPORT R25 K131 [Enum.AssetType.ShirtAccessory]
+  DUPTABLE R24 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R25 R24 K104 ["type"]
+  LOADB R26 1
+  SETTABLEKS R26 R24 K105 ["isCatalog"]
+  LOADB R26 1
+  SETTABLEKS R26 R24 K106 ["isUploadable"]
+  GETIMPORT R26 K133 [Enum.AssetType.PantsAccessory]
+  DUPTABLE R25 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R26 R25 K104 ["type"]
+  LOADB R27 1
+  SETTABLEKS R27 R25 K105 ["isCatalog"]
+  LOADB R27 1
+  SETTABLEKS R27 R25 K106 ["isUploadable"]
+  GETIMPORT R27 K135 [Enum.AssetType.JacketAccessory]
+  DUPTABLE R26 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R27 R26 K104 ["type"]
+  LOADB R28 1
+  SETTABLEKS R28 R26 K105 ["isCatalog"]
+  LOADB R28 1
+  SETTABLEKS R28 R26 K106 ["isUploadable"]
+  GETIMPORT R28 K137 [Enum.AssetType.SweaterAccessory]
+  DUPTABLE R27 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R28 R27 K104 ["type"]
+  LOADB R29 1
+  SETTABLEKS R29 R27 K105 ["isCatalog"]
+  LOADB R29 1
+  SETTABLEKS R29 R27 K106 ["isUploadable"]
+  SETLIST R11 R12 16 [1]
+  GETIMPORT R13 K139 [Enum.AssetType.ShortsAccessory]
+  DUPTABLE R12 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R13 R12 K104 ["type"]
+  LOADB R14 1
+  SETTABLEKS R14 R12 K105 ["isCatalog"]
+  LOADB R14 1
+  SETTABLEKS R14 R12 K106 ["isUploadable"]
+  GETIMPORT R14 K141 [Enum.AssetType.LeftShoeAccessory]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  GETIMPORT R15 K143 [Enum.AssetType.RightShoeAccessory]
+  DUPTABLE R14 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R15 R14 K104 ["type"]
+  LOADB R16 1
+  SETTABLEKS R16 R14 K105 ["isCatalog"]
+  LOADB R16 1
+  SETTABLEKS R16 R14 K106 ["isUploadable"]
+  GETIMPORT R16 K145 [Enum.AssetType.DressSkirtAccessory]
+  DUPTABLE R15 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R16 R15 K104 ["type"]
+  LOADB R17 1
+  SETTABLEKS R17 R15 K105 ["isCatalog"]
+  LOADB R17 1
+  SETTABLEKS R17 R15 K106 ["isUploadable"]
+  GETIMPORT R17 K147 [Enum.AssetType.Model]
+  DUPTABLE R16 K150 [{"type", "isMarketplace", "isBuyable"}]
+  SETTABLEKS R17 R16 K104 ["type"]
+  LOADB R18 1
+  SETTABLEKS R18 R16 K148 ["isMarketplace"]
+  LOADB R18 0
+  SETTABLEKS R18 R16 K149 ["isBuyable"]
+  GETIMPORT R18 K152 [Enum.AssetType.Decal]
+  DUPTABLE R17 K150 [{"type", "isMarketplace", "isBuyable"}]
+  SETTABLEKS R18 R17 K104 ["type"]
+  LOADB R19 1
+  SETTABLEKS R19 R17 K148 ["isMarketplace"]
+  LOADB R19 0
+  SETTABLEKS R19 R17 K149 ["isBuyable"]
+  GETIMPORT R19 K154 [Enum.AssetType.Mesh]
+  DUPTABLE R18 K150 [{"type", "isMarketplace", "isBuyable"}]
+  SETTABLEKS R19 R18 K104 ["type"]
+  LOADB R20 1
+  SETTABLEKS R20 R18 K148 ["isMarketplace"]
+  LOADB R20 0
+  SETTABLEKS R20 R18 K149 ["isBuyable"]
+  GETIMPORT R20 K156 [Enum.AssetType.MeshPart]
+  DUPTABLE R19 K150 [{"type", "isMarketplace", "isBuyable"}]
+  SETTABLEKS R20 R19 K104 ["type"]
+  LOADB R21 1
+  SETTABLEKS R21 R19 K148 ["isMarketplace"]
+  LOADB R21 0
+  SETTABLEKS R21 R19 K149 ["isBuyable"]
+  GETIMPORT R21 K158 [Enum.AssetType.Audio]
+  DUPTABLE R20 K150 [{"type", "isMarketplace", "isBuyable"}]
+  SETTABLEKS R21 R20 K104 ["type"]
+  LOADB R22 1
+  SETTABLEKS R22 R20 K148 ["isMarketplace"]
+  LOADB R22 0
+  SETTABLEKS R22 R20 K149 ["isBuyable"]
+  GETIMPORT R22 K160 [Enum.AssetType.Animation]
+  DUPTABLE R21 K150 [{"type", "isMarketplace", "isBuyable"}]
+  SETTABLEKS R22 R21 K104 ["type"]
+  LOADB R23 1
+  SETTABLEKS R23 R21 K148 ["isMarketplace"]
+  LOADB R23 0
+  SETTABLEKS R23 R21 K149 ["isBuyable"]
+  GETIMPORT R23 K162 [Enum.AssetType.Video]
+  DUPTABLE R22 K150 [{"type", "isMarketplace", "isBuyable"}]
+  SETTABLEKS R23 R22 K104 ["type"]
+  LOADB R24 1
+  SETTABLEKS R24 R22 K148 ["isMarketplace"]
+  LOADB R24 0
+  SETTABLEKS R24 R22 K149 ["isBuyable"]
+  GETIMPORT R28 K164 [Enum.AssetType.Plugin]
+  DUPTABLE R23 K150 [{"type", "isMarketplace", "isBuyable"}]
+  SETTABLEKS R28 R23 K104 ["type"]
+  LOADB R29 1
+  SETTABLEKS R29 R23 K148 ["isMarketplace"]
+  LOADB R29 1
+  SETTABLEKS R29 R23 K149 ["isBuyable"]
+  SETLIST R11 R12 12 [17]
+  SETTABLEKS R11 R8 K165 ["ASSET_TYPE_INFO"]
+  MOVE R11 R4
+  CALL R11 0 1
+  JUMPIFNOT R11 [+144]
+  GETTABLEKS R12 R8 K165 ["ASSET_TYPE_INFO"]
+  GETIMPORT R14 K167 [Enum.AssetType.Torso]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  FASTCALL2 TABLE_INSERT R12 R13 [+3]
+  GETIMPORT R11 K170 [table.insert]
+  CALL R11 2 0
+  GETTABLEKS R12 R8 K165 ["ASSET_TYPE_INFO"]
+  GETIMPORT R14 K172 [Enum.AssetType.RightArm]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  FASTCALL2 TABLE_INSERT R12 R13 [+3]
+  GETIMPORT R11 K170 [table.insert]
+  CALL R11 2 0
+  GETTABLEKS R12 R8 K165 ["ASSET_TYPE_INFO"]
+  GETIMPORT R14 K174 [Enum.AssetType.LeftArm]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  FASTCALL2 TABLE_INSERT R12 R13 [+3]
+  GETIMPORT R11 K170 [table.insert]
+  CALL R11 2 0
+  GETTABLEKS R12 R8 K165 ["ASSET_TYPE_INFO"]
+  GETIMPORT R14 K176 [Enum.AssetType.LeftLeg]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  FASTCALL2 TABLE_INSERT R12 R13 [+3]
+  GETIMPORT R11 K170 [table.insert]
+  CALL R11 2 0
+  GETTABLEKS R12 R8 K165 ["ASSET_TYPE_INFO"]
+  GETIMPORT R14 K178 [Enum.AssetType.RightLeg]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  FASTCALL2 TABLE_INSERT R12 R13 [+3]
+  GETIMPORT R11 K170 [table.insert]
+  CALL R11 2 0
+  GETTABLEKS R12 R8 K165 ["ASSET_TYPE_INFO"]
+  GETIMPORT R14 K180 [Enum.AssetType.DynamicHead]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  FASTCALL2 TABLE_INSERT R12 R13 [+3]
+  GETIMPORT R11 K170 [table.insert]
+  CALL R11 2 0
+  GETTABLEKS R12 R8 K165 ["ASSET_TYPE_INFO"]
+  GETIMPORT R14 K182 [Enum.AssetType.EyebrowAccessory]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  FASTCALL2 TABLE_INSERT R12 R13 [+3]
+  GETIMPORT R11 K170 [table.insert]
+  CALL R11 2 0
+  GETTABLEKS R12 R8 K165 ["ASSET_TYPE_INFO"]
+  GETIMPORT R14 K184 [Enum.AssetType.EyelashAccessory]
+  DUPTABLE R13 K107 [{"type", "isCatalog", "isUploadable"}]
+  SETTABLEKS R14 R13 K104 ["type"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K105 ["isCatalog"]
+  LOADB R15 1
+  SETTABLEKS R15 R13 K106 ["isUploadable"]
+  FASTCALL2 TABLE_INSERT R12 R13 [+3]
+  GETIMPORT R11 K170 [table.insert]
+  CALL R11 2 0
+  GETIMPORT R11 K186 [ipairs]
+  GETTABLEKS R12 R8 K165 ["ASSET_TYPE_INFO"]
+  CALL R11 1 3
+  FORGPREP_INEXT R11
+  GETIMPORT R17 K188 [next]
+  MOVE R18 R15
+  CALL R17 1 1
+  JUMPIFNOTEQKNIL R17 [+2]
+  LOADB R16 0 +1
+  LOADB R16 1
+  JUMPIFNOT R16 [+40]
+  GETTABLEKS R17 R15 K105 ["isCatalog"]
+  JUMPIFNOT R17 [+15]
+  GETTABLEKS R17 R15 K148 ["isMarketplace"]
+  JUMPIFNOT R17 [+12]
+  GETIMPORT R17 K190 [error]
+  GETTABLEKS R22 R15 K104 ["type"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K192 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K193 [" cannot be both a catalog and marketplace asset"]
+  CONCAT R18 R19 R20
+  CALL R17 1 0
+  GETTABLEKS R18 R8 K165 ["ASSET_TYPE_INFO"]
+  GETTABLEKS R19 R15 K104 ["type"]
+  GETTABLE R17 R18 R19
+  JUMPIFNOT R17 [+11]
+  GETIMPORT R17 K190 [error]
+  LOADK R19 K194 ["AssetConfigConstants.ASSET_TYPE_INFO contains a duplicate of "]
+  GETTABLEKS R21 R15 K104 ["type"]
+  FASTCALL1 TOSTRING R21 [+2]
+  GETIMPORT R20 K192 [tostring]
+  CALL R20 1 1
+  CONCAT R18 R19 R20
+  CALL R17 1 0
+  GETTABLEKS R17 R8 K165 ["ASSET_TYPE_INFO"]
+  GETTABLEKS R18 R15 K104 ["type"]
+  SETTABLE R15 R17 R18
+  FORGLOOP R11 2 [inext] [-50]
+  MOVE R11 R5
+  NEWTABLE R12 0 3
+  LOADK R13 K195 ["WhitelistedPlugins"]
+  LOADK R14 K196 ["MyPlugins"]
+  LOADK R15 K197 ["GroupPlugins"]
+  SETLIST R12 R13 3 [1]
+  CALL R11 1 1
+  SETTABLEKS R11 R8 K198 ["developCategoryType"]
+  MOVE R11 R5
+  NEWTABLE R12 0 2
+  LOADK R13 K199 ["MyPackages"]
+  LOADK R14 K200 ["GroupPackages"]
+  SETLIST R12 R13 2 [1]
+  CALL R11 1 1
+  SETTABLEKS R11 R8 K201 ["packagesCategoryType"]
+  MOVE R11 R5
+  NEWTABLE R12 0 9
+  LOADK R13 K202 ["Asset"]
+  LOADK R14 K203 ["Avatar"]
+  LOADK R15 K204 ["AvatarHeadShot"]
+  LOADK R16 K205 ["BadgeIcon"]
+  LOADK R17 K206 ["BundleThumbnail"]
+  LOADK R18 K207 ["GameIcon"]
+  LOADK R19 K208 ["GamePass"]
+  LOADK R20 K209 ["GroupIcon"]
+  LOADK R21 K210 ["Outfit"]
+  SETLIST R12 R13 9 [1]
+  CALL R11 1 1
+  SETTABLEKS R11 R8 K211 ["rbxThumbTypes"]
+  DUPTABLE R11 K215 [{"AvatarHeadshotImageSize", "GroupIconImageSize", "AssetThumbnailSize"}]
+  LOADN R12 60
+  SETTABLEKS R12 R11 K212 ["AvatarHeadshotImageSize"]
+  LOADN R12 150
+  SETTABLEKS R12 R11 K213 ["GroupIconImageSize"]
+  LOADN R12 164
+  SETTABLEKS R12 R11 K214 ["AssetThumbnailSize"]
+  SETTABLEKS R11 R8 K216 ["rbxThumbSizes"]
+  DUPTABLE R11 K222 [{"MaxThumbnails", "AspectRatioHeight", "AspectRatioWidth", "RecommendedHeight", "RecommendedWidth"}]
+  LOADN R12 5
+  SETTABLEKS R12 R11 K217 ["MaxThumbnails"]
+  LOADN R12 9
+  SETTABLEKS R12 R11 K218 ["AspectRatioHeight"]
+  LOADN R12 16
+  SETTABLEKS R12 R11 K219 ["AspectRatioWidth"]
+  LOADN R12 176
+  SETTABLEKS R12 R11 K220 ["RecommendedHeight"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K221 ["RecommendedWidth"]
+  SETTABLEKS R11 R8 K223 ["additionalImages"]
+  NEWTABLE R11 0 3
+  LOADK R12 K224 ["jpg"]
+  LOADK R13 K225 ["jpeg"]
+  LOADK R14 K226 ["png"]
+  SETLIST R11 R12 3 [1]
+  SETTABLEKS R11 R8 K227 ["IMAGE_TYPES"]
+  LOADK R11 K228 ["Success"]
+  SETTABLEKS R11 R8 K229 ["TAGS_SUGGESTION_SUCCESS"]
+  LOADN R11 5
+  SETTABLEKS R11 R8 K230 ["MAX_DISPLAY_SUGGESTIONS"]
+  LOADN R11 10
+  SETTABLEKS R11 R8 K231 ["MAX_FETCH_SUGGESTIONS"]
+  LOADK R11 K232 ["avatar_meshpart_accessory"]
+  SETTABLEKS R11 R8 K233 ["AVATAR_MESHPART_ACCESSORY_FORMAT"]
+  LOADK R11 K234 ["EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"]
+  SETTABLEKS R11 R8 K235 ["MULTIPART_FORM_BOUNDARY"]
+  LOADK R11 K236 ["OverrideAssetId"]
+  SETTABLEKS R11 R8 K237 ["OVERRIDE_ASSET_ID"]
+  MOVE R11 R7
+  CALL R11 0 1
+  JUMPIF R11 [+12]
+  NEWTABLE R11 2 0
+  GETIMPORT R12 K147 [Enum.AssetType.Model]
+  LOADB R13 1
+  SETTABLE R13 R11 R12
+  GETIMPORT R12 K164 [Enum.AssetType.Plugin]
+  LOADB R13 1
+  SETTABLE R13 R11 R12
+  SETTABLEKS R11 R8 K238 ["LIBRARY_REPORT_ASSET_TYPES"]
+  DUPTABLE R11 K241 [{"Public", "Private"}]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K239 ["Public"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K240 ["Private"]
+  SETTABLEKS R11 R8 K242 ["SHARING_KEYS"]
+  MOVE R11 R6
+  CALL R11 0 1
+  JUMPIFNOT R11 [+266]
+  MOVE R11 R2
+  LOADK R12 K243 ["UGCBundleTypes"]
+  NEWTABLE R13 0 2
+  LOADK R14 K244 ["Body"]
+  LOADK R15 K179 ["DynamicHead"]
+  SETLIST R13 R14 2 [1]
+  CALL R11 2 1
+  SETTABLEKS R11 R8 K243 ["UGCBundleTypes"]
+  NEWTABLE R11 2 0
+  GETTABLEKS R14 R8 K243 ["UGCBundleTypes"]
+  GETTABLEKS R13 R14 K244 ["Body"]
+  GETTABLEKS R12 R13 K245 ["rawValue"]
+  CALL R12 0 1
+  GETTABLEKS R14 R8 K243 ["UGCBundleTypes"]
+  GETTABLEKS R13 R14 K244 ["Body"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R14 R8 K243 ["UGCBundleTypes"]
+  GETTABLEKS R13 R14 K179 ["DynamicHead"]
+  GETTABLEKS R12 R13 K245 ["rawValue"]
+  CALL R12 0 1
+  GETTABLEKS R14 R8 K243 ["UGCBundleTypes"]
+  GETTABLEKS R13 R14 K179 ["DynamicHead"]
+  SETTABLE R13 R11 R12
+  SETTABLEKS R11 R8 K246 ["UGCBundleTypeStringToEnumeration"]
+  NEWTABLE R11 16 0
+  GETIMPORT R12 K180 [Enum.AssetType.DynamicHead]
+  SETTABLEKS R12 R11 K179 ["DynamicHead"]
+  GETIMPORT R12 K174 [Enum.AssetType.LeftArm]
+  SETTABLEKS R12 R11 K173 ["LeftArm"]
+  GETIMPORT R12 K176 [Enum.AssetType.LeftLeg]
+  SETTABLEKS R12 R11 K175 ["LeftLeg"]
+  GETIMPORT R12 K172 [Enum.AssetType.RightArm]
+  SETTABLEKS R12 R11 K171 ["RightArm"]
+  GETIMPORT R12 K178 [Enum.AssetType.RightLeg]
+  SETTABLEKS R12 R11 K177 ["RightLeg"]
+  GETIMPORT R12 K167 [Enum.AssetType.Torso]
+  SETTABLEKS R12 R11 K166 ["Torso"]
+  GETIMPORT R12 K182 [Enum.AssetType.EyebrowAccessory]
+  SETTABLEKS R12 R11 K181 ["EyebrowAccessory"]
+  GETIMPORT R12 K184 [Enum.AssetType.EyelashAccessory]
+  SETTABLEKS R12 R11 K183 ["EyelashAccessory"]
+  GETIMPORT R12 K115 [Enum.AssetType.HairAccessory]
+  SETTABLEKS R12 R11 K114 ["HairAccessory"]
+  SETTABLEKS R11 R8 K247 ["AllowedAssetStringsMetadataToAssetTypeMap"]
+  DUPTABLE R11 K263 [{"Head", "UpperTorso", "LowerTorso", "LeftUpperLeg", "LeftLowerLeg", "LeftHand", "RightUpperArm", "RightLowerArm", "RightHand", "LeftUpperArm", "LeftLowerArm", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot", "EyebrowAccessory", "EyelashAccessory", "HairAccessory"}]
+  LOADK R12 K248 ["Head"]
+  SETTABLEKS R12 R11 K248 ["Head"]
+  LOADK R12 K249 ["UpperTorso"]
+  SETTABLEKS R12 R11 K249 ["UpperTorso"]
+  LOADK R12 K250 ["LowerTorso"]
+  SETTABLEKS R12 R11 K250 ["LowerTorso"]
+  LOADK R12 K251 ["LeftUpperLeg"]
+  SETTABLEKS R12 R11 K251 ["LeftUpperLeg"]
+  LOADK R12 K252 ["LeftLowerLeg"]
+  SETTABLEKS R12 R11 K252 ["LeftLowerLeg"]
+  LOADK R12 K253 ["LeftHand"]
+  SETTABLEKS R12 R11 K253 ["LeftHand"]
+  LOADK R12 K254 ["RightUpperArm"]
+  SETTABLEKS R12 R11 K254 ["RightUpperArm"]
+  LOADK R12 K255 ["RightLowerArm"]
+  SETTABLEKS R12 R11 K255 ["RightLowerArm"]
+  LOADK R12 K0 ["script"]
+  SETTABLEKS R12 R11 K256 ["RightHand"]
+  LOADK R12 K1 [script]
+  SETTABLEKS R12 R11 K257 ["LeftUpperArm"]
+  LOADK R12 K2 ["Parent"]
+  SETTABLEKS R12 R11 K258 ["LeftLowerArm"]
+  LOADK R12 K3 ["require"]
+  SETTABLEKS R12 R11 K259 ["LeftFoot"]
+  LOADK R12 K4 [require]
+  SETTABLEKS R12 R11 K260 ["RightUpperLeg"]
+  LOADK R12 K5 ["Packages"]
+  SETTABLEKS R12 R11 K261 ["RightLowerLeg"]
+  LOADK R12 K6 ["Framework"]
+  SETTABLEKS R12 R11 K262 ["RightFoot"]
+  LOADK R12 K181 ["EyebrowAccessory"]
+  SETTABLEKS R12 R11 K181 ["EyebrowAccessory"]
+  LOADK R12 K183 ["EyelashAccessory"]
+  SETTABLEKS R12 R11 K183 ["EyelashAccessory"]
+  LOADK R12 K114 ["HairAccessory"]
+  SETTABLEKS R12 R11 K114 ["HairAccessory"]
+  SETTABLEKS R11 R8 K264 ["UGC_BODY_PARTS"]
+  NEWTABLE R11 32 0
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K248 ["Head"]
+  GETIMPORT R13 K180 [Enum.AssetType.DynamicHead]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K249 ["UpperTorso"]
+  GETIMPORT R13 K167 [Enum.AssetType.Torso]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K250 ["LowerTorso"]
+  GETIMPORT R13 K167 [Enum.AssetType.Torso]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K257 ["LeftUpperArm"]
+  GETIMPORT R13 K174 [Enum.AssetType.LeftArm]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K258 ["LeftLowerArm"]
+  GETIMPORT R13 K174 [Enum.AssetType.LeftArm]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K253 ["LeftHand"]
+  GETIMPORT R13 K174 [Enum.AssetType.LeftArm]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K254 ["RightUpperArm"]
+  GETIMPORT R13 K172 [Enum.AssetType.RightArm]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K255 ["RightLowerArm"]
+  GETIMPORT R13 K172 [Enum.AssetType.RightArm]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K256 ["RightHand"]
+  GETIMPORT R13 K172 [Enum.AssetType.RightArm]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K251 ["LeftUpperLeg"]
+  GETIMPORT R13 K176 [Enum.AssetType.LeftLeg]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K252 ["LeftLowerLeg"]
+  GETIMPORT R13 K176 [Enum.AssetType.LeftLeg]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K259 ["LeftFoot"]
+  GETIMPORT R13 K176 [Enum.AssetType.LeftLeg]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K260 ["RightUpperLeg"]
+  GETIMPORT R13 K178 [Enum.AssetType.RightLeg]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K261 ["RightLowerLeg"]
+  GETIMPORT R13 K178 [Enum.AssetType.RightLeg]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K262 ["RightFoot"]
+  GETIMPORT R13 K178 [Enum.AssetType.RightLeg]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K181 ["EyebrowAccessory"]
+  GETIMPORT R13 K182 [Enum.AssetType.EyebrowAccessory]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K183 ["EyelashAccessory"]
+  GETIMPORT R13 K184 [Enum.AssetType.EyelashAccessory]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R8 K264 ["UGC_BODY_PARTS"]
+  GETTABLEKS R12 R13 K114 ["HairAccessory"]
+  GETIMPORT R13 K115 [Enum.AssetType.HairAccessory]
+  SETTABLE R13 R11 R12
+  SETTABLEKS R11 R8 K265 ["UGC_BODY_PART_NAMES_TO_ASSET_TYPE"]
+  RETURN R8 1

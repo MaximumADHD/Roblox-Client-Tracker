@@ -1,0 +1,65 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["EnableAudioImport"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["shouldEnableAudioImport"]
+  CALL R0 0 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  JUMPIF R0 [+2]
+  GETUPVAL R0 1
+  CALL R0 0 1
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["shouldEnableVideoImport"]
+  CALL R0 0 -1
+  RETURN R0 -1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["ShowBadges"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["PluginPolicyService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  LOADK R2 K4 ["AssetManager"]
+  NAMECALL R0 R0 K5 ["getPluginPolicy"]
+  CALL R0 2 1
+  GETIMPORT R1 K7 [require]
+  GETIMPORT R4 K9 [script]
+  GETTABLEKS R3 R4 K10 ["Parent"]
+  GETTABLEKS R2 R3 K11 ["hasInternalPermission"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K12 ["EnableCustomVideoUploadLua"]
+  NAMECALL R2 R2 K13 ["GetEngineFeature"]
+  CALL R2 2 1
+  NEWTABLE R3 8 0
+  DUPCLOSURE R4 K14 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K15 ["shouldEnableAudioImport"]
+  DUPCLOSURE R4 K16 [PROTO_1]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K17 ["enableAudioImport"]
+  DUPCLOSURE R4 K18 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K19 ["shouldEnableVideoImport"]
+  DUPCLOSURE R4 K20 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K21 ["enableVideoImport"]
+  DUPCLOSURE R4 K22 [PROTO_4]
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K23 ["enableBadgesCallout"]
+  RETURN R3 1

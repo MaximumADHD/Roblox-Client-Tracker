@@ -1,0 +1,295 @@
+PROTO_0:
+  GETIMPORT R0 K2 [CFrame.new]
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  CALL R0 2 1
+  GETIMPORT R2 K4 [game]
+  LOADK R4 K5 ["Workspace"]
+  NAMECALL R2 R2 K6 ["GetService"]
+  CALL R2 2 1
+  GETTABLEKS R1 R2 K7 ["CurrentCamera"]
+  GETIMPORT R2 K11 [Enum.CameraType.Scriptable]
+  SETTABLEKS R2 R1 K9 ["CameraType"]
+  GETIMPORT R2 K13 [wait]
+  CALL R2 0 0
+  SETTABLEKS R0 R1 K0 ["CFrame"]
+  GETIMPORT R2 K13 [wait]
+  CALL R2 0 0
+  GETIMPORT R2 K15 [Enum.CameraType.Fixed]
+  SETTABLEKS R2 R1 K9 ["CameraType"]
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R2 K1 [spawn]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R2 1 0
+  GETIMPORT R2 K3 [print]
+  LOADK R3 K4 ["local pos = Vector3.new(%.2f, %.2f, %.2f)
+local lookAt = Vector3.new(%.2f, %.2f, %.2f)
+local cf = CFrame.new(pos, lookAt)
+local cam = game:GetService(\"Workspace\").CurrentCamera
+cam.CameraType = Enum.CameraType.Scriptable
+wait()
+cam.CFrame = cf
+wait()
+cam.CameraType = Enum.CameraType.Fixed
+	"]
+  GETTABLEKS R5 R0 K5 ["x"]
+  GETTABLEKS R6 R0 K6 ["y"]
+  GETTABLEKS R7 R0 K7 ["z"]
+  GETTABLEKS R8 R1 K5 ["x"]
+  GETTABLEKS R9 R1 K6 ["y"]
+  GETTABLEKS R10 R1 K7 ["z"]
+  NAMECALL R3 R3 K8 ["format"]
+  CALL R3 7 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  FASTCALL2K ASSERT R0 K0 [+5]
+  MOVE R2 R0
+  LOADK R3 K0 ["getCameraDetailsForRegion requires a Region3"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETTABLEKS R2 R0 K3 ["CFrame"]
+  GETTABLEKS R1 R2 K4 ["p"]
+  GETTABLEKS R2 R0 K5 ["Size"]
+  GETTABLEKS R4 R2 K6 ["x"]
+  GETTABLEKS R5 R2 K7 ["z"]
+  FASTCALL2 MATH_MAX R4 R5 [+3]
+  GETIMPORT R3 K10 [math.max]
+  CALL R3 2 1
+  DIVK R5 R3 K12 [2]
+  DIVK R4 R5 K11 [0.473814720414451]
+  LOADN R7 0
+  MOVE R8 R4
+  LOADN R9 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R6 K15 [Vector3.new]
+  CALL R6 3 1
+  ADD R5 R1 R6
+  MOVE R6 R5
+  MOVE R7 R1
+  RETURN R6 2
+
+PROTO_3:
+  LOADK R4 K0 ["://(%d+)"]
+  NAMECALL R2 R0 K1 ["match"]
+  CALL R2 2 -1
+  FASTCALL TONUMBER [+2]
+  GETIMPORT R1 K3 [tonumber]
+  CALL R1 -1 1
+  RETURN R1 1
+
+PROTO_4:
+  DUPTABLE R4 K4 [{"_imageUploader", "_unvalidatedAssetService", "_userId", "_seenAssets"}]
+  SETTABLEKS R0 R4 K0 ["_imageUploader"]
+  MOVE R5 R1
+  JUMPIF R5 [+6]
+  GETIMPORT R5 K6 [game]
+  LOADK R7 K7 ["UnvalidatedAssetService"]
+  NAMECALL R5 R5 K8 ["GetService"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K1 ["_unvalidatedAssetService"]
+  MOVE R5 R2
+  JUMPIF R5 [+9]
+  GETIMPORT R5 K6 [game]
+  LOADK R7 K9 ["StudioService"]
+  NAMECALL R5 R5 K8 ["GetService"]
+  CALL R5 2 1
+  NAMECALL R5 R5 K10 ["GetUserId"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K2 ["_userId"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K3 ["_seenAssets"]
+  GETUPVAL R5 0
+  FASTCALL2 SETMETATABLE R4 R5 [+3]
+  GETIMPORT R3 K12 [setmetatable]
+  CALL R3 2 1
+  GETTABLEKS R5 R3 K0 ["_imageUploader"]
+  FASTCALL2K ASSERT R5 K13 [+4]
+  LOADK R6 K13 ["ImportAssetHandler expects an ImageUploader"]
+  GETIMPORT R4 K15 [assert]
+  CALL R4 2 0
+  RETURN R3 1
+
+PROTO_5:
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [tonumber]
+  CALL R1 1 1
+  JUMPIF R1 [+17]
+  LOADK R2 K2 ["Asset id \"%s\" for temp id \"%s\" could not be cast to an integer"]
+  MOVE R4 R0
+  GETUPVAL R5 0
+  NAMECALL R2 R2 K3 ["format"]
+  CALL R2 3 1
+  GETIMPORT R3 K5 [warn]
+  MOVE R4 R2
+  CALL R3 1 0
+  FASTCALL2 ASSERT R1 R2 [+5]
+  MOVE R4 R1
+  MOVE R5 R2
+  GETIMPORT R3 K7 [assert]
+  CALL R3 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K8 ["_unvalidatedAssetService"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["_userId"]
+  GETUPVAL R5 2
+  MOVE R6 R1
+  NAMECALL R2 R2 K10 ["UpgradeTempAssetId"]
+  CALL R2 4 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["_seenAssets"]
+  GETUPVAL R3 0
+  SETTABLE R1 R2 R3
+  GETUPVAL R2 3
+  JUMPIFNOT R2 [+3]
+  GETUPVAL R2 3
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["Failed to upload asset"]
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["Name"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_7:
+  FASTCALL2K ASSERT R1 K0 [+5]
+  MOVE R5 R1
+  LOADK R6 K0 ["ImportAssetHandler:handleAsset() requires an assetFile"]
+  GETIMPORT R4 K2 [assert]
+  CALL R4 2 0
+  FASTCALL2K ASSERT R2 K3 [+5]
+  MOVE R5 R2
+  LOADK R6 K3 ["ImportAssetHandler:handleAsset() requires a Region3"]
+  GETIMPORT R4 K2 [assert]
+  CALL R4 2 0
+  FASTCALL2K ASSERT R2 K4 [+5]
+  MOVE R7 R2
+  LOADK R8 K4 ["getCameraDetailsForRegion requires a Region3"]
+  GETIMPORT R6 K2 [assert]
+  CALL R6 2 0
+  GETTABLEKS R7 R2 K5 ["CFrame"]
+  GETTABLEKS R6 R7 K6 ["p"]
+  GETTABLEKS R7 R2 K7 ["Size"]
+  GETTABLEKS R9 R7 K8 ["x"]
+  GETTABLEKS R10 R7 K9 ["z"]
+  FASTCALL2 MATH_MAX R9 R10 [+3]
+  GETIMPORT R8 K12 [math.max]
+  CALL R8 2 1
+  DIVK R10 R8 K14 [2]
+  DIVK R9 R10 K13 [0.473814720414451]
+  LOADN R12 0
+  MOVE R13 R9
+  LOADN R14 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R11 K17 [Vector3.new]
+  CALL R11 3 1
+  ADD R10 R6 R11
+  MOVE R4 R10
+  MOVE R5 R6
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K18 ["SetCameraOnRegionImport"]
+  CALL R6 0 1
+  JUMPIFNOT R6 [+4]
+  GETUPVAL R6 1
+  MOVE R7 R4
+  MOVE R8 R5
+  CALL R6 2 0
+  NAMECALL R6 R1 K19 ["GetTemporaryId"]
+  CALL R6 1 1
+  GETTABLEKS R8 R0 K20 ["_seenAssets"]
+  GETTABLE R7 R8 R6
+  JUMPIFNOT R7 [+14]
+  GETTABLEKS R8 R0 K20 ["_seenAssets"]
+  GETTABLE R7 R8 R6
+  GETTABLEKS R8 R0 K21 ["_unvalidatedAssetService"]
+  GETTABLEKS R10 R0 K22 ["_userId"]
+  MOVE R11 R7
+  MOVE R12 R5
+  MOVE R13 R4
+  NAMECALL R8 R8 K23 ["AppendVantagePoint"]
+  CALL R8 5 0
+  RETURN R0 0
+  LOADK R10 K24 ["://(%d+)"]
+  NAMECALL R8 R6 K25 ["match"]
+  CALL R8 2 -1
+  FASTCALL TONUMBER [+2]
+  GETIMPORT R7 K27 [tonumber]
+  CALL R7 -1 1
+  JUMPIF R7 [+16]
+  LOADK R8 K28 ["Temp id \"%s\" could not be cast to an integer"]
+  MOVE R10 R6
+  NAMECALL R8 R8 K29 ["format"]
+  CALL R8 2 1
+  GETIMPORT R9 K31 [warn]
+  MOVE R10 R8
+  CALL R9 1 0
+  FASTCALL2 ASSERT R7 R8 [+5]
+  MOVE R10 R7
+  MOVE R11 R8
+  GETIMPORT R9 K2 [assert]
+  CALL R9 2 0
+  GETTABLEKS R8 R0 K20 ["_seenAssets"]
+  SETTABLE R7 R8 R6
+  GETTABLEKS R8 R0 K21 ["_unvalidatedAssetService"]
+  GETTABLEKS R10 R0 K22 ["_userId"]
+  MOVE R11 R7
+  MOVE R12 R5
+  MOVE R13 R4
+  LOADK R14 K32 ["TerrainToolsV2Import"]
+  NAMECALL R8 R8 K33 ["AppendTempAssetId"]
+  CALL R8 6 0
+  GETTABLEKS R8 R0 K34 ["_imageUploader"]
+  MOVE R10 R6
+  GETTABLEKS R11 R1 K35 ["Name"]
+  LOADK R12 K36 [""]
+  NAMECALL R13 R1 K37 ["GetBinaryContents"]
+  CALL R13 1 -1
+  NAMECALL R8 R8 K38 ["upload"]
+  CALL R8 -1 1
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R6
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  NEWCLOSURE R11 P1
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  NAMECALL R8 R8 K39 ["andThen"]
+  CALL R8 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["DebugFlags"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K8 [PROTO_1]
+  DUPCLOSURE R3 K9 [PROTO_2]
+  DUPCLOSURE R4 K10 [PROTO_3]
+  NEWTABLE R5 4 0
+  SETTABLEKS R5 R5 K11 ["__index"]
+  DUPCLOSURE R6 K12 [PROTO_4]
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K13 ["new"]
+  DUPCLOSURE R6 K14 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K15 ["handleAsset"]
+  RETURN R5 1

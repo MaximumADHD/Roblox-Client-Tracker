@@ -1,0 +1,96 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["ActionButton"]
+  GETTABLEKS R3 R2 K3 ["ButtonSize"]
+  LOADNIL R4
+  GETTABLEKS R5 R1 K4 ["IsDisabled"]
+  JUMPIFNOT R5 [+4]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["Disabled"]
+  JUMP [+6]
+  GETTABLEKS R5 R1 K6 ["IsPressed"]
+  JUMPIFNOT R5 [+3]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["Pressed"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K14 [{"LayoutOrder", "OnClick", "Size", "Style", "StyleModifier"}]
+  GETTABLEKS R8 R1 K9 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
+  GETTABLEKS R8 R1 K10 ["OnClick"]
+  SETTABLEKS R8 R7 K10 ["OnClick"]
+  SETTABLEKS R3 R7 K11 ["Size"]
+  LOADK R8 K15 ["Round"]
+  SETTABLEKS R8 R7 K12 ["Style"]
+  SETTABLEKS R4 R7 K13 ["StyleModifier"]
+  DUPTABLE R8 K18 [{"Image", "Tooltip"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K19 [{"Style", "StyleModifier"}]
+  GETTABLEKS R12 R1 K20 ["ImageStyle"]
+  SETTABLEKS R12 R11 K12 ["Style"]
+  SETTABLEKS R4 R11 K13 ["StyleModifier"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K16 ["Image"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K22 [{"Text"}]
+  GETTABLEKS R12 R1 K23 ["TooltipText"]
+  SETTABLEKS R12 R11 K21 ["Text"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K17 ["Tooltip"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["Util"]
+  GETTABLEKS R5 R4 K11 ["StyleModifier"]
+  GETTABLEKS R6 R3 K12 ["ContextServices"]
+  GETTABLEKS R7 R6 K13 ["withContext"]
+  GETTABLEKS R9 R3 K14 ["Style"]
+  GETTABLEKS R8 R9 K15 ["Stylizer"]
+  GETTABLEKS R9 R3 K16 ["UI"]
+  GETTABLEKS R10 R9 K17 ["Button"]
+  GETTABLEKS R11 R9 K18 ["Image"]
+  GETTABLEKS R12 R9 K19 ["Tooltip"]
+  GETTABLEKS R13 R2 K20 ["PureComponent"]
+  LOADK R15 K21 ["ActionButton"]
+  NAMECALL R13 R13 K22 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K23 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  SETTABLEKS R14 R13 K24 ["render"]
+  MOVE R14 R7
+  DUPTABLE R15 K25 [{"Stylizer"}]
+  SETTABLEKS R8 R15 K15 ["Stylizer"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 -1
+  RETURN R14 -1

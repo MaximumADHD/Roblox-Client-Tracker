@@ -1,0 +1,334 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["calcAxisPosMouseClick"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["setPosition"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_updateDragConnection"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_updateDragConnection"]
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_updateDragConnection"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["_mouseButton1UpConnection"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["_mouseButton1UpConnection"]
+  NAMECALL R0 R0 K1 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_mouseButton1UpConnection"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_updateDragConnection"]
+  JUMPIFNOT R0 [+1]
+  RETURN R0 0
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K1 ["updateCollisionPlaneNormal"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["_position"]
+  SETTABLEKS R1 R0 K3 ["_prevPosition"]
+  GETUPVAL R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["_mouse"]
+  GETTABLEKS R1 R2 K5 ["Button1Up"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["_endDrag"]
+  NAMECALL R1 R1 K7 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K8 ["_mouseButton1UpConnection"]
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K9 ["RenderStepped"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K10 ["_updateDrag"]
+  NAMECALL R1 R1 K7 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K0 ["_updateDragConnection"]
+  RETURN R0 0
+
+PROTO_3:
+  DUPTABLE R5 K4 [{"_axis", "_mouse", "_position", "_clampingFunc"}]
+  SETTABLEKS R2 R5 K0 ["_axis"]
+  SETTABLEKS R0 R5 K1 ["_mouse"]
+  SETTABLEKS R1 R5 K2 ["_position"]
+  SETTABLEKS R3 R5 K3 ["_clampingFunc"]
+  GETUPVAL R6 0
+  FASTCALL2 SETMETATABLE R5 R6 [+3]
+  GETIMPORT R4 K6 [setmetatable]
+  CALL R4 2 1
+  JUMPIFNOTEQKNIL R0 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  FASTCALL2K ASSERT R6 K7 [+4]
+  LOADK R7 K7 ["Mouse missing in for AxisLockedDragger"]
+  GETIMPORT R5 K9 [assert]
+  CALL R5 2 0
+  GETIMPORT R5 K12 [Instance.new]
+  LOADK R6 K13 ["Part"]
+  CALL R5 1 1
+  LOADK R6 K14 ["AdornPart"]
+  SETTABLEKS R6 R5 K15 ["Name"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K16 ["Transparency"]
+  LOADK R6 K17 ["Smooth"]
+  SETTABLEKS R6 R5 K18 ["TopSurface"]
+  LOADK R6 K17 ["Smooth"]
+  SETTABLEKS R6 R5 K19 ["BottomSurface"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K20 ["Anchored"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K21 ["CanCollide"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K22 ["CastShadow"]
+  GETUPVAL R6 1
+  SETTABLEKS R6 R5 K23 ["Parent"]
+  GETIMPORT R6 K12 [Instance.new]
+  LOADK R7 K24 ["SphereHandleAdornment"]
+  CALL R6 1 1
+  GETIMPORT R7 K26 [BrickColor.new]
+  LOADK R8 K27 ["Toothpaste"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K28 ["Color"]
+  LOADN R7 10
+  SETTABLEKS R7 R6 K29 ["Radius"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K30 ["AlwaysOnTop"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K31 ["Visible"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K32 ["ZIndex"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R4
+  SETTABLEKS R7 R4 K33 ["_updateDrag"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R4
+  SETTABLEKS R7 R4 K34 ["_endDrag"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R4
+  CAPTURE UPVAL U2
+  SETTABLEKS R7 R4 K35 ["_startDrag"]
+  LOADNIL R7
+  SETTABLEKS R7 R4 K36 ["_mouseButton1UpConnection"]
+  GETTABLEKS R7 R6 K37 ["MouseButton1Down"]
+  GETTABLEKS R9 R4 K35 ["_startDrag"]
+  NAMECALL R7 R7 K38 ["Connect"]
+  CALL R7 2 1
+  SETTABLEKS R7 R4 K39 ["_mouseButton1DownConnection"]
+  LOADNIL R7
+  SETTABLEKS R7 R4 K40 ["_updateDragConnection"]
+  SETTABLEKS R5 R6 K41 ["Adornee"]
+  SETTABLEKS R5 R6 K23 ["Parent"]
+  SETTABLEKS R5 R4 K42 ["_part"]
+  SETTABLEKS R6 R4 K43 ["_adorn"]
+  RETURN R4 1
+
+PROTO_4:
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_clampingFunc"]
+  GETTABLEKS R1 R0 K1 ["_updateDragConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K1 ["_updateDragConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["_updateDragConnection"]
+  GETTABLEKS R1 R0 K3 ["_mouseButton1DownConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K3 ["_mouseButton1DownConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["_mouseButton1DownConnection"]
+  GETTABLEKS R1 R0 K4 ["_mouseButton1UpConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K4 ["_mouseButton1UpConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["_mouseButton1UpConnection"]
+  GETTABLEKS R1 R0 K5 ["_adorn"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K5 ["_adorn"]
+  NAMECALL R1 R1 K6 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["_adorn"]
+  GETTABLEKS R1 R0 K7 ["_part"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K7 ["_part"]
+  NAMECALL R1 R1 K6 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K7 ["_part"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["_adorn"]
+  SETTABLEKS R1 R2 K1 ["Visible"]
+  JUMPIF R1 [+3]
+  GETTABLEKS R2 R0 K2 ["_endDrag"]
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["_position"]
+  RETURN R1 1
+
+PROTO_7:
+  GETTABLEKS R2 R0 K0 ["_position"]
+  JUMPIFEQ R2 R1 [+29]
+  SETTABLEKS R1 R0 K0 ["_position"]
+  GETTABLEKS R2 R0 K1 ["_part"]
+  SETTABLEKS R1 R2 K2 ["Position"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["CurrentCamera"]
+  GETTABLEKS R3 R4 K4 ["CoordinateFrame"]
+  GETTABLEKS R2 R3 K5 ["p"]
+  GETTABLEKS R3 R0 K0 ["_position"]
+  ADD R6 R2 R3
+  DIVK R5 R6 K6 [2]
+  GETTABLEKS R4 R5 K7 ["Magnitude"]
+  GETTABLEKS R5 R0 K8 ["_adorn"]
+  FASTCALL1 MATH_SQRT R4 [+3]
+  MOVE R7 R4
+  GETIMPORT R6 K11 [math.sqrt]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K12 ["Radius"]
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R1 R0 K0 ["_position"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["CurrentCamera"]
+  GETTABLEKS R3 R4 K2 ["CoordinateFrame"]
+  GETTABLEKS R2 R3 K3 ["p"]
+  GETTABLEKS R3 R0 K4 ["_axis"]
+  SUB R4 R2 R1
+  MOVE R7 R4
+  NAMECALL R5 R3 K5 ["Dot"]
+  CALL R5 2 1
+  JUMPIFNOTEQKN R5 K6 [0] [+5]
+  LOADNIL R5
+  SETTABLEKS R5 R0 K7 ["_planeNormal"]
+  RETURN R0 0
+  MOVE R7 R4
+  NAMECALL R5 R3 K8 ["Cross"]
+  CALL R5 2 1
+  MOVE R9 R3
+  NAMECALL R7 R5 K8 ["Cross"]
+  CALL R7 2 1
+  GETTABLEKS R6 R7 K9 ["Unit"]
+  SETTABLEKS R6 R0 K7 ["_planeNormal"]
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["CurrentCamera"]
+  GETTABLEKS R2 R3 K1 ["CoordinateFrame"]
+  GETTABLEKS R1 R2 K2 ["p"]
+  GETTABLEKS R4 R0 K3 ["_mouse"]
+  GETTABLEKS R3 R4 K4 ["UnitRay"]
+  GETTABLEKS R2 R3 K5 ["Direction"]
+  GETTABLEKS R5 R0 K6 ["_planeNormal"]
+  NAMECALL R3 R2 K7 ["Dot"]
+  CALL R3 2 1
+  LOADN R4 0
+  JUMPIFNOTLT R3 R4 [+13]
+  GETTABLEKS R6 R0 K8 ["_position"]
+  SUB R5 R6 R1
+  GETTABLEKS R7 R0 K6 ["_planeNormal"]
+  NAMECALL R5 R5 K7 ["Dot"]
+  CALL R5 2 1
+  DIV R4 R5 R3
+  MUL R6 R4 R2
+  ADD R5 R1 R6
+  RETURN R5 1
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["_planeNormal"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  NAMECALL R1 R0 K1 ["calcPlaneHit"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+27]
+  GETTABLEKS R3 R0 K2 ["_prevPosition"]
+  SUB R2 R1 R3
+  GETTABLEKS R3 R0 K3 ["_axis"]
+  MOVE R8 R3
+  NAMECALL R6 R2 K4 ["Dot"]
+  CALL R6 2 1
+  MOVE R9 R3
+  NAMECALL R7 R3 K4 ["Dot"]
+  CALL R7 2 1
+  DIV R5 R6 R7
+  MUL R4 R5 R3
+  GETTABLEKS R6 R0 K2 ["_prevPosition"]
+  ADD R5 R4 R6
+  GETTABLEKS R6 R0 K5 ["_clampingFunc"]
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R0 K5 ["_clampingFunc"]
+  MOVE R7 R5
+  CALL R6 1 1
+  MOVE R5 R6
+  RETURN R5 1
+  GETTABLEKS R2 R0 K6 ["_position"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["CoreGui"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["RunService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K5 ["Workspace"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  NEWTABLE R3 16 0
+  SETTABLEKS R3 R3 K6 ["__index"]
+  DUPCLOSURE R4 K7 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K8 ["new"]
+  DUPCLOSURE R4 K9 [PROTO_4]
+  SETTABLEKS R4 R3 K10 ["destroy"]
+  DUPCLOSURE R4 K11 [PROTO_5]
+  SETTABLEKS R4 R3 K12 ["updateVisibility"]
+  DUPCLOSURE R4 K13 [PROTO_6]
+  SETTABLEKS R4 R3 K14 ["getPosition"]
+  DUPCLOSURE R4 K15 [PROTO_7]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K16 ["setPosition"]
+  DUPCLOSURE R4 K17 [PROTO_8]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K18 ["updateCollisionPlaneNormal"]
+  DUPCLOSURE R4 K19 [PROTO_9]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K20 ["calcPlaneHit"]
+  DUPCLOSURE R4 K21 [PROTO_10]
+  SETTABLEKS R4 R3 K22 ["calcAxisPosMouseClick"]
+  RETURN R3 1

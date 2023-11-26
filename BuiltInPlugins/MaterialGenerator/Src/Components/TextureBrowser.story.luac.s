@@ -1,0 +1,72 @@
+PROTO_0:
+  DUPTABLE R0 K7 [{"Name", "Id", "Textures", "BaseMaterial", "IsGenerating", "IsTemporary", "Session"}]
+  LOADK R1 K8 ["Testing"]
+  SETTABLEKS R1 R0 K0 ["Name"]
+  GETUPVAL R1 0
+  LOADB R3 0
+  NAMECALL R1 R1 K9 ["GenerateGUID"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K1 ["Id"]
+  DUPTABLE R1 K11 [{"ColorMap"}]
+  LOADK R2 K12 ["rbxassetid://12799638751"]
+  SETTABLEKS R2 R1 K10 ["ColorMap"]
+  SETTABLEKS R1 R0 K2 ["Textures"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["BaseMaterial"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K4 ["IsGenerating"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K5 ["IsTemporary"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K6 ["Session"]
+  RETURN R0 1
+
+PROTO_1:
+  NEWTABLE R1 0 4
+  GETUPVAL R2 0
+  CALL R2 0 1
+  GETUPVAL R3 0
+  CALL R3 0 1
+  GETUPVAL R4 0
+  CALL R4 0 1
+  GETUPVAL R5 0
+  CALL R5 0 1
+  SETLIST R1 R2 4 [1]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K3 [{"GeneratingImages", "Materials"}]
+  LOADN R5 4
+  SETTABLEKS R5 R4 K1 ["GeneratingImages"]
+  SETTABLEKS R1 R4 K2 ["Materials"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [game]
+  LOADK R3 K5 ["HttpService"]
+  NAMECALL R1 R1 K6 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R2 R0 K7 ["Packages"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R4 R2 K10 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K2 ["Parent"]
+  GETTABLEKS R5 R6 K11 ["TextureBrowser"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R1
+  DUPTABLE R6 K14 [{"story"}]
+  DUPCLOSURE R7 K15 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K13 ["story"]
+  RETURN R6 1

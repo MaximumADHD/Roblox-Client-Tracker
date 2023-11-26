@@ -1,0 +1,147 @@
+PROTO_0:
+  NEWTABLE R1 1 0
+  SETTABLEKS R0 R1 K0 ["__networking"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K2 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["__networking"]
+  LOADK R5 K1 ["develop"]
+  LOADK R7 K2 ["/v2/universes/"]
+  MOVE R8 R1
+  LOADK R9 K3 ["/shutdown"]
+  CONCAT R6 R7 R9
+  DUPTABLE R7 K5 [{"Body"}]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K4 ["Body"]
+  NAMECALL R3 R2 K6 ["post"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["__networking"]
+  LOADK R6 K1 ["voice"]
+  LOADK R8 K2 ["/v1/settings/universe/"]
+  MOVE R9 R1
+  CONCAT R7 R8 R9
+  DUPTABLE R8 K4 [{"Body"}]
+  DUPTABLE R9 K6 [{"optIn"}]
+  SETTABLEKS R2 R9 K5 ["optIn"]
+  SETTABLEKS R9 R8 K3 ["Body"]
+  NAMECALL R4 R3 K7 ["post"]
+  CALL R4 4 -1
+  RETURN R4 -1
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["__networking"]
+  LOADK R5 K1 ["voice"]
+  LOADK R7 K2 ["/v1/settings/universe/"]
+  MOVE R8 R1
+  CONCAT R6 R7 R8
+  NAMECALL R3 R2 K3 ["get"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_4:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+2]
+  LOADB R2 0
+  RETURN R2 1
+  LOADK R4 K0 ["VersionControlService"]
+  NAMECALL R2 R1 K1 ["GetService"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K2 ["ScriptCollabEnabled"]
+  RETURN R3 1
+
+PROTO_5:
+  LOADK R4 K0 ["StudioData"]
+  NAMECALL R2 R1 K1 ["GetService"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K2 ["EnableScriptCollabByDefaultOnLoad"]
+  RETURN R3 1
+
+PROTO_6:
+  LOADK R5 K0 ["StudioData"]
+  NAMECALL R3 R1 K1 ["GetService"]
+  CALL R3 2 1
+  SETTABLEKS R2 R3 K2 ["EnableScriptCollabByDefaultOnLoad"]
+  RETURN R0 0
+
+PROTO_7:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["universesShutdownV2POST"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K1 ["await"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_8:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["voiceUniverseSettingsGET"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K1 ["await"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K2 ["responseBody"]
+  GETTABLEKS R3 R4 K3 ["isUniverseEnabledForVoice"]
+  RETURN R3 1
+
+PROTO_9:
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R0 K0 ["voiceUniverseSettingsPOST"]
+  CALL R3 3 1
+  NAMECALL R3 R3 K1 ["await"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  CALL R1 0 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Src"]
+  GETTABLEKS R4 R5 K6 ["Util"]
+  GETTABLEKS R3 R4 K7 ["GameSettingsUtilities"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K8 ["isTeamCreateEnabled"]
+  NEWTABLE R2 16 0
+  SETTABLEKS R2 R2 K9 ["__index"]
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K11 ["new"]
+  DUPCLOSURE R3 K12 [PROTO_1]
+  SETTABLEKS R3 R2 K13 ["universesShutdownV2POST"]
+  DUPCLOSURE R3 K14 [PROTO_2]
+  SETTABLEKS R3 R2 K15 ["voiceUniverseSettingsPOST"]
+  DUPCLOSURE R3 K16 [PROTO_3]
+  SETTABLEKS R3 R2 K17 ["voiceUniverseSettingsGET"]
+  DUPCLOSURE R3 K18 [PROTO_4]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K19 ["getScriptCollaborationEnabledOnServer"]
+  DUPCLOSURE R3 K20 [PROTO_5]
+  SETTABLEKS R3 R2 K21 ["getScriptCollaborationEnabled"]
+  DUPCLOSURE R3 K22 [PROTO_6]
+  SETTABLEKS R3 R2 K23 ["setScriptCollaborationEnabled"]
+  DUPCLOSURE R3 K24 [PROTO_7]
+  SETTABLEKS R3 R2 K25 ["shutdownAllServers"]
+  DUPCLOSURE R3 K26 [PROTO_8]
+  SETTABLEKS R3 R2 K27 ["getVoiceChatEnabled"]
+  DUPCLOSURE R3 K28 [PROTO_9]
+  SETTABLEKS R3 R2 K29 ["setVoiceChatEnabled"]
+  DUPCLOSURE R3 K30 [PROTO_10]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K31 ["getIsTeamCreateEnabled"]
+  RETURN R2 1

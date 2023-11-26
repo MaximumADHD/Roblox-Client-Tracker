@@ -1,0 +1,65 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["BaseUrl"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["convertAssetTypeValueToEnum"]
+  MOVE R4 R1
+  CALL R3 1 1
+  LOADNIL R4
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  LOADK R4 K2 ["%s/abusereport/asset?id=%s"]
+  JUMP [+9]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K3 ["LIBRARY_REPORT_ASSET_TYPES"]
+  GETTABLE R5 R6 R3
+  JUMPIFNOTEQKB R5 TRUE [+3]
+  LOADK R4 K4 ["%s/abusereport/library?id=%s&source=Studio"]
+  JUMP [+1]
+  LOADK R4 K2 ["%s/abusereport/asset?id=%s"]
+  GETIMPORT R5 K7 [string.format]
+  MOVE R6 R4
+  MOVE R7 R2
+  GETUPVAL R8 4
+  MOVE R10 R0
+  NAMECALL R8 R8 K8 ["urlEncode"]
+  CALL R8 2 -1
+  CALL R5 -1 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ContentProvider"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["HttpService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R5 K6 [script]
+  GETTABLEKS R4 R5 K7 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Parent"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R7 R2 K10 ["Core"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["SharedFlags"]
+  GETTABLEKS R4 R5 K13 ["getFFlagToolboxRedirectToGenericReportPage"]
+  CALL R3 1 1
+  GETTABLEKS R5 R2 K10 ["Core"]
+  GETTABLEKS R4 R5 K11 ["Util"]
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R6 R4 K14 ["AssetConfigConstants"]
+  CALL R5 1 1
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R7 R4 K15 ["EnumConvert"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K16 [PROTO_0]
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  RETURN R7 1

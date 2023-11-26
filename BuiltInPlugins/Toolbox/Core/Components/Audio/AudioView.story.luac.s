@@ -1,0 +1,110 @@
+PROTO_0:
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_1:
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_2:
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_3:
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_4:
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_5:
+  NEWTABLE R0 0 4
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createMockSwimlane"]
+  LOADK R2 K1 ["Genres"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["MOCK_GENRES"]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createMockSwimlane"]
+  LOADK R3 K3 ["Vibes"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["MOCK_VIBES"]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["createMockList"]
+  LOADK R4 K6 ["Trending"]
+  CALL R3 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["createMockList"]
+  LOADK R5 K7 ["Essentials"]
+  CALL R4 1 -1
+  SETLIST R0 R1 4294967295 [1]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K8 ["createElement"]
+  GETUPVAL R2 2
+  NEWTABLE R3 0 0
+  DUPTABLE R4 K10 [{"AudioView"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K14 [{"Sections", "PageSize", "AssetLogicWrapperProps"}]
+  SETTABLEKS R0 R7 K11 ["Sections"]
+  LOADN R8 10
+  SETTABLEKS R8 R7 K12 ["PageSize"]
+  DUPTABLE R8 K20 [{"CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
+  DUPCLOSURE R9 K21 [PROTO_0]
+  SETTABLEKS R9 R8 K15 ["CanInsertAsset"]
+  DUPCLOSURE R9 K22 [PROTO_1]
+  SETTABLEKS R9 R8 K16 ["LogAssetImpression"]
+  DUPCLOSURE R9 K23 [PROTO_2]
+  SETTABLEKS R9 R8 K17 ["OnAssetPreviewButtonClicked"]
+  DUPCLOSURE R9 K24 [PROTO_3]
+  SETTABLEKS R9 R8 K18 ["TryInsert"]
+  DUPCLOSURE R9 K25 [PROTO_4]
+  SETTABLEKS R9 R8 K19 ["TryOpenAssetConfig"]
+  SETTABLEKS R8 R7 K13 ["AssetLogicWrapperProps"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K9 ["AudioView"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Core"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["MockWrapper"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Core"]
+  GETTABLEKS R5 R6 K11 ["Types"]
+  GETTABLEKS R4 R5 K12 ["AudioTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K13 ["Parent"]
+  GETTABLEKS R5 R6 K14 ["AudioView"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K13 ["Parent"]
+  GETTABLEKS R6 R7 K15 ["AudioView.mocks"]
+  CALL R5 1 1
+  DUPTABLE R6 K17 [{"story"}]
+  DUPCLOSURE R7 K18 [PROTO_5]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K16 ["story"]
+  RETURN R6 1

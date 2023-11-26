@@ -1,0 +1,102 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["arguments"]
+  GETTABLEKS R2 R1 K1 ["altDataId"]
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["altDataMap"]
+  GETTABLE R3 R4 R2
+  JUMPIF R3 [+1]
+  LOADNIL R3
+  JUMPIF R3 [+6]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["StartRecordingActions"]
+  GETTABLEKS R5 R0 K4 ["requestId"]
+  CALL R4 1 0
+  MOVE R4 R3
+  JUMPIF R4 [+11]
+  DUPTABLE R4 K8 [{"request", "assetId", "altAssets"}]
+  SETTABLEKS R0 R4 K5 ["request"]
+  GETTABLEKS R5 R1 K6 ["assetId"]
+  SETTABLEKS R5 R4 K6 ["assetId"]
+  GETTABLEKS R5 R1 K7 ["altAssets"]
+  SETTABLEKS R5 R4 K7 ["altAssets"]
+  MOVE R3 R4
+  FASTCALL2K ASSERT R3 K9 [+5]
+  MOVE R5 R3
+  LOADK R6 K9 ["Failed to set default altData in insertAsset"]
+  GETIMPORT R4 K11 [assert]
+  CALL R4 2 0
+  GETTABLEKS R4 R3 K6 ["assetId"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K12 ["loadAssetAsync"]
+  MOVE R6 R4
+  CALL R5 1 1
+  JUMPIF R5 [+1]
+  RETURN R0 0
+  GETTABLEKS R6 R1 K13 ["newInstanceId"]
+  JUMPIFNOT R6 [+7]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K14 ["set"]
+  GETTABLEKS R7 R1 K13 ["newInstanceId"]
+  MOVE R8 R5
+  CALL R6 2 0
+  SETTABLEKS R5 R1 K15 ["direct_instance"]
+  GETUPVAL R6 2
+  GETTABLEKS R8 R0 K4 ["requestId"]
+  LOADK R9 K16 ["SetPropertyInstant"]
+  MOVE R10 R0
+  NAMECALL R6 R6 K17 ["InvokeCommand"]
+  CALL R6 4 0
+  GETTABLEKS R6 R5 K18 ["Parent"]
+  JUMPIF R6 [+11]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K19 ["GetRequestFolder"]
+  GETTABLEKS R7 R0 K4 ["requestId"]
+  CALL R6 1 1
+  JUMPIF R6 [+2]
+  GETIMPORT R6 K21 [workspace]
+  SETTABLEKS R6 R5 K18 ["Parent"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K22 ["EndRecordingActions"]
+  GETTABLEKS R7 R0 K4 ["requestId"]
+  CALL R6 1 0
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K23 ["modifyChatWithInstanceLink"]
+  GETTABLEKS R7 R0 K4 ["requestId"]
+  MOVE R8 R5
+  LOADK R9 K24 ["added"]
+  GETTABLEKS R10 R1 K13 ["newInstanceId"]
+  MOVE R11 R3
+  CALL R6 5 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StreamingService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Utils"]
+  GETTABLEKS R3 R4 K10 ["Utils"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [require]
+  GETIMPORT R7 K5 [script]
+  GETTABLEKS R6 R7 K6 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["BuilderNameMap"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K13 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  RETURN R5 1

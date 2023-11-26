@@ -1,0 +1,134 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Stylizer"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["DraftsServiceEnabled"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["DraftsServiceError"]
+  JUMPIFEQKNIL R2 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADNIL R5
+  JUMPIFNOT R4 [+27]
+  DUPTABLE R6 K5 [{"LoadingIndicator"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K9 [{"Position", "AnchorPoint"}]
+  GETIMPORT R10 K12 [UDim2.new]
+  LOADK R11 K13 [0.5]
+  LOADN R12 0
+  LOADK R13 K13 [0.5]
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K7 ["Position"]
+  GETIMPORT R10 K15 [Vector2.new]
+  LOADK R11 K13 [0.5]
+  LOADK R12 K13 [0.5]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K8 ["AnchorPoint"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K4 ["LoadingIndicator"]
+  MOVE R5 R6
+  JUMP [+23]
+  JUMPIF R2 [+13]
+  DUPTABLE R6 K17 [{"FeatureDisabledPage"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K19 [{"Text"}]
+  SETTABLEKS R3 R9 K18 ["Text"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K16 ["FeatureDisabledPage"]
+  MOVE R5 R6
+  JUMP [+9]
+  DUPTABLE R6 K21 [{"ScriptList"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  GETUPVAL R8 3
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K20 ["ScriptList"]
+  MOVE R5 R6
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["createElement"]
+  LOADK R7 K22 ["Frame"]
+  DUPTABLE R8 K25 [{"BackgroundColor3", "Size"}]
+  GETTABLEKS R9 R1 K26 ["backgroundColor"]
+  SETTABLEKS R9 R8 K23 ["BackgroundColor3"]
+  GETIMPORT R9 K12 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 0
+  LOADN R12 1
+  LOADN R13 0
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K24 ["Size"]
+  MOVE R9 R5
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["DraftsServiceStatus"]
+  DUPTABLE R3 K3 [{"DraftsServiceEnabled", "DraftsServiceError"}]
+  GETTABLEKS R4 R2 K4 ["Enabled"]
+  SETTABLEKS R4 R3 K1 ["DraftsServiceEnabled"]
+  GETTABLEKS R4 R2 K5 ["Error"]
+  SETTABLEKS R4 R3 K2 ["DraftsServiceError"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K13 ["DraftListView"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K12 ["Components"]
+  GETTABLEKS R8 R9 K14 ["FeatureDisabledPage"]
+  CALL R7 1 1
+  GETTABLEKS R8 R3 K15 ["UI"]
+  GETTABLEKS R9 R8 K16 ["LoadingIndicator"]
+  GETTABLEKS R10 R1 K17 ["Component"]
+  LOADK R12 K18 ["MainView"]
+  NAMECALL R10 R10 K19 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K20 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K21 ["render"]
+  MOVE R11 R5
+  DUPTABLE R12 K23 [{"Stylizer"}]
+  GETTABLEKS R13 R4 K22 ["Stylizer"]
+  SETTABLEKS R13 R12 K22 ["Stylizer"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  DUPCLOSURE R11 K24 [PROTO_1]
+  GETTABLEKS R12 R2 K25 ["connect"]
+  MOVE R13 R11
+  CALL R12 1 1
+  MOVE R13 R10
+  CALL R12 1 -1
+  RETURN R12 -1

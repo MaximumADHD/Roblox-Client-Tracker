@@ -1,0 +1,103 @@
+PROTO_0:
+  MOVE R3 R2
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  MOVE R2 R3
+  ORK R1 R1 K0 ["WindControl"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  DUPTABLE R4 K4 [{"placeId"}]
+  GETIMPORT R6 K6 [game]
+  GETTABLEKS R5 R6 K7 ["PlaceId"]
+  SETTABLEKS R5 R4 K3 ["placeId"]
+  MOVE R5 R2
+  CALL R3 2 1
+  GETUPVAL R4 1
+  LOADK R6 K8 ["studio"]
+  MOVE R7 R1
+  MOVE R8 R0
+  MOVE R9 R3
+  NAMECALL R4 R4 K9 ["SendEventDeferred"]
+  CALL R4 5 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["windsockOrigin"]
+  LOADK R2 K1 ["ribbon"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["windsockOrigin"]
+  LOADK R2 K1 ["properties"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  JUMPIFNOT R0 [+2]
+  LOADK R1 K0 ["widgetDisabled"]
+  JUMP [+1]
+  LOADK R1 K1 ["placeClosing"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K2 ["totalCount"]
+  CALL R2 1 1
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+25]
+  GETUPVAL R2 1
+  LOADK R3 K3 ["windsockUsage"]
+  MOVE R4 R1
+  DUPTABLE R5 K7 [{"textFieldCount", "sliderCount", "greenCircleCount"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["textFieldCount"]
+  SETTABLEKS R6 R5 K4 ["textFieldCount"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["sliderCount"]
+  SETTABLEKS R6 R5 K5 ["sliderCount"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["greenCircleCount"]
+  SETTABLEKS R6 R5 K6 ["greenCircleCount"]
+  CALL R2 3 0
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K8 ["reset"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_4:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  DUPTABLE R2 K3 [{"openedFromRibbon", "openedFromProperties", "usageReport"}]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K0 ["openedFromRibbon"]
+  NEWCLOSURE R3 P2
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K1 ["openedFromProperties"]
+  NEWCLOSURE R3 P3
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K2 ["usageReport"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Cryo"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["AnalyticsGlobals"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K10 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1

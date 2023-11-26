@@ -1,0 +1,33 @@
+PROTO_0:
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [tonumber]
+  CALL R1 1 1
+  MOVE R3 R1
+  LOADK R4 K2 ["Expected baseSize to be a number, received %s"]
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K4 [type]
+  CALL R6 1 1
+  NAMECALL R4 R4 K5 ["format"]
+  CALL R4 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R2 K7 [assert]
+  CALL R2 -1 0
+  DUPTABLE R2 K9 [{"baseSize"}]
+  SETTABLEKS R1 R2 K8 ["baseSize"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["Action"]
+  CALL R0 1 1
+  MOVE R1 R0
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K6 ["Name"]
+  DUPCLOSURE R3 K7 [PROTO_0]
+  CALL R1 2 -1
+  RETURN R1 -1

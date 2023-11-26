@@ -1,0 +1,141 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Name"]
+  GETTABLEKS R3 R1 K2 ["Order"]
+  GETTABLEKS R4 R1 K3 ["Width"]
+  GETTABLEKS R5 R1 K4 ["ColumnIndex"]
+  GETTABLEKS R6 R1 K5 ["Style"]
+  GETTABLEKS R8 R1 K6 ["OnPress"]
+  JUMPIFNOTEQKNIL R8 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 1
+  GETUPVAL R10 2
+  DUPTABLE R11 K14 [{"LayoutOrder", "BorderColor3", "BorderSizePixel", "Padding", "Style", "StyleModifier", "Size"}]
+  SETTABLEKS R5 R11 K8 ["LayoutOrder"]
+  GETTABLEKS R12 R6 K15 ["Border"]
+  SETTABLEKS R12 R11 K9 ["BorderColor3"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K10 ["BorderSizePixel"]
+  GETTABLEKS R12 R6 K16 ["HeaderCellPadding"]
+  SETTABLEKS R12 R11 K11 ["Padding"]
+  LOADK R12 K17 ["SubtleBox"]
+  SETTABLEKS R12 R11 K5 ["Style"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R12 R1 K12 ["StyleModifier"]
+  JUMPIF R12 [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K12 ["StyleModifier"]
+  GETIMPORT R12 K20 [UDim2.new]
+  GETTABLEKS R13 R4 K21 ["Scale"]
+  GETTABLEKS R14 R4 K22 ["Offset"]
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K13 ["Size"]
+  GETTABLEKS R12 R1 K23 ["WrapperProps"]
+  CALL R10 2 1
+  DUPTABLE R11 K27 [{"Text", "Icon", "Tooltip"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  GETUPVAL R13 3
+  DUPTABLE R14 K30 [{"Text", "Size", "TextXAlignment", "TextTruncate"}]
+  SETTABLEKS R2 R14 K24 ["Text"]
+  GETIMPORT R15 K32 [UDim2.fromScale]
+  LOADN R16 1
+  LOADN R17 1
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K13 ["Size"]
+  GETIMPORT R15 K35 [Enum.TextXAlignment.Left]
+  SETTABLEKS R15 R14 K28 ["TextXAlignment"]
+  GETIMPORT R15 K37 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R15 R14 K29 ["TextTruncate"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K24 ["Text"]
+  MOVE R12 R3
+  JUMPIFNOT R12 [+45]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K43 [{"ImageColor3", "Image", "Size", "Position", "Rotation", "AnchorPoint"}]
+  GETTABLEKS R15 R6 K44 ["IconColor"]
+  SETTABLEKS R15 R14 K38 ["ImageColor3"]
+  LOADK R15 K45 ["rbxasset://textures/DeveloperFramework/Table/sort_arrow.png"]
+  SETTABLEKS R15 R14 K39 ["Image"]
+  GETIMPORT R15 K47 [UDim2.fromOffset]
+  LOADN R16 6
+  LOADN R17 8
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K13 ["Size"]
+  GETIMPORT R15 K20 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 246
+  LOADN R18 0
+  LOADN R19 8
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K40 ["Position"]
+  GETIMPORT R16 K50 [Enum.SortDirection.Descending]
+  JUMPIFNOTEQ R3 R16 [+3]
+  LOADN R15 166
+  JUMP [+1]
+  LOADN R15 90
+  SETTABLEKS R15 R14 K41 ["Rotation"]
+  GETIMPORT R15 K52 [Vector2.new]
+  LOADN R16 1
+  LOADN R17 0
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K42 ["AnchorPoint"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K25 ["Icon"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K53 [{"Text"}]
+  SETTABLEKS R2 R14 K24 ["Text"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K26 ["Tooltip"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["Dash"]
+  GETTABLEKS R4 R3 K9 ["assign"]
+  GETTABLEKS R5 R2 K10 ["UI"]
+  GETTABLEKS R6 R5 K11 ["Pane"]
+  GETTABLEKS R7 R5 K12 ["Image"]
+  GETTABLEKS R8 R5 K13 ["TextLabel"]
+  GETTABLEKS R9 R5 K14 ["Tooltip"]
+  GETTABLEKS R11 R2 K15 ["Wrappers"]
+  GETTABLEKS R10 R11 K16 ["withControl"]
+  GETTABLEKS R11 R1 K17 ["PureComponent"]
+  LOADK R13 K18 ["TableHeaderCell"]
+  NAMECALL R11 R11 K19 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K20 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  SETTABLEKS R12 R11 K21 ["render"]
+  MOVE R12 R10
+  MOVE R13 R11
+  CALL R12 1 -1
+  RETURN R12 -1

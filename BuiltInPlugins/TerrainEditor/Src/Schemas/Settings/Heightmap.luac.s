@@ -1,0 +1,183 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["Error"]
+  JUMPIFEQKS R1 K1 [""] [+15]
+  GETIMPORT R1 K4 [Enum.PropertyStatus.Error]
+  GETUPVAL R2 0
+  LOADK R4 K5 ["ImportWarning"]
+  LOADK R5 K6 ["FailedImport"]
+  DUPTABLE R6 K7 [{"Error"}]
+  GETTABLEKS R7 R0 K0 ["Error"]
+  SETTABLEKS R7 R6 K0 ["Error"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 4 -1
+  RETURN R1 -1
+  GETTABLEKS R1 R0 K9 ["Image"]
+  JUMPIFNOT R1 [+41]
+  GETTABLEKS R3 R0 K9 ["Image"]
+  GETTABLEKS R2 R3 K10 ["ChannelInfo"]
+  GETTABLEKS R1 R2 K11 ["DiscardedChannels"]
+  JUMPIFNOT R1 [+9]
+  GETIMPORT R1 K13 [Enum.PropertyStatus.Warning]
+  GETUPVAL R2 0
+  LOADK R4 K5 ["ImportWarning"]
+  LOADK R5 K11 ["DiscardedChannels"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 3 -1
+  RETURN R1 -1
+  GETTABLEKS R3 R0 K9 ["Image"]
+  GETTABLEKS R2 R3 K14 ["Preview"]
+  GETTABLEKS R1 R2 K0 ["Error"]
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K13 [Enum.PropertyStatus.Warning]
+  GETUPVAL R2 0
+  LOADK R4 K5 ["ImportWarning"]
+  LOADK R5 K15 ["FailedPreview"]
+  DUPTABLE R6 K7 [{"Error"}]
+  GETTABLEKS R9 R0 K9 ["Image"]
+  GETTABLEKS R8 R9 K14 ["Preview"]
+  GETTABLEKS R7 R8 K0 ["Error"]
+  SETTABLEKS R7 R6 K0 ["Error"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 4 -1
+  RETURN R1 -1
+  GETIMPORT R1 K17 [Enum.PropertyStatus.Ok]
+  LOADK R2 K1 [""]
+  RETURN R1 2
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["Error"]
+  JUMPIFEQKS R1 K1 [""] [+15]
+  GETIMPORT R1 K4 [Enum.PropertyStatus.Error]
+  GETUPVAL R2 0
+  LOADK R4 K5 ["ImportWarning"]
+  LOADK R5 K6 ["FailedImport"]
+  DUPTABLE R6 K7 [{"Error"}]
+  GETTABLEKS R7 R0 K0 ["Error"]
+  SETTABLEKS R7 R6 K0 ["Error"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 4 -1
+  RETURN R1 -1
+  GETTABLEKS R1 R0 K9 ["Image"]
+  JUMPIFNOT R1 [+25]
+  GETTABLEKS R3 R0 K9 ["Image"]
+  GETTABLEKS R2 R3 K10 ["Preview"]
+  GETTABLEKS R1 R2 K0 ["Error"]
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K12 [Enum.PropertyStatus.Warning]
+  GETUPVAL R2 0
+  LOADK R4 K5 ["ImportWarning"]
+  LOADK R5 K13 ["FailedPreview"]
+  DUPTABLE R6 K7 [{"Error"}]
+  GETTABLEKS R9 R0 K9 ["Image"]
+  GETTABLEKS R8 R9 K10 ["Preview"]
+  GETTABLEKS R7 R8 K0 ["Error"]
+  SETTABLEKS R7 R6 K0 ["Error"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 4 -1
+  RETURN R1 -1
+  GETIMPORT R1 K15 [Enum.PropertyStatus.Ok]
+  LOADK R2 K1 [""]
+  RETURN R1 2
+
+PROTO_2:
+  GETTABLEKS R4 R0 K0 ["Localization"]
+  GETUPVAL R5 0
+  MOVE R6 R0
+  NEWTABLE R7 0 4
+  DUPTABLE R8 K4 [{"Id", "Schema", "Validate"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["Heightmap"]
+  SETTABLEKS R9 R8 K1 ["Id"]
+  DUPTABLE R9 K7 [{"Type"}]
+  LOADK R10 K8 ["Image"]
+  SETTABLEKS R10 R9 K6 ["Type"]
+  SETTABLEKS R9 R8 K2 ["Schema"]
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R4
+  SETTABLEKS R9 R8 K3 ["Validate"]
+  DUPTABLE R9 K4 [{"Id", "Schema", "Validate"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K9 ["Colormap"]
+  SETTABLEKS R10 R9 K1 ["Id"]
+  DUPTABLE R10 K7 [{"Type"}]
+  LOADK R11 K8 ["Image"]
+  SETTABLEKS R11 R10 K6 ["Type"]
+  SETTABLEKS R10 R9 K2 ["Schema"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R4
+  SETTABLEKS R10 R9 K3 ["Validate"]
+  DUPTABLE R10 K11 [{"Id", "Layout", "Schema"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K12 ["DefaultMaterial"]
+  SETTABLEKS R11 R10 K1 ["Id"]
+  GETIMPORT R11 K16 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K10 ["Layout"]
+  DUPTABLE R11 K18 [{"AllowAir", "Type"}]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K17 ["AllowAir"]
+  LOADK R12 K19 ["Material"]
+  SETTABLEKS R12 R11 K6 ["Type"]
+  SETTABLEKS R11 R10 K2 ["Schema"]
+  DUPTABLE R11 K20 [{"Id", "Schema"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K21 ["Import"]
+  SETTABLEKS R12 R11 K1 ["Id"]
+  DUPTABLE R12 K23 [{"Label", "Type"}]
+  GETUPVAL R15 2
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K21 ["Import"]
+  NAMECALL R13 R4 K24 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K22 ["Label"]
+  LOADK R13 K25 ["Button"]
+  SETTABLEKS R13 R12 K6 ["Type"]
+  SETTABLEKS R12 R11 K2 ["Schema"]
+  SETLIST R7 R8 4 [1]
+  DUPTABLE R8 K29 [{"Category", "Data", "Overrides"}]
+  GETUPVAL R9 2
+  SETTABLEKS R9 R8 K26 ["Category"]
+  SETTABLEKS R1 R8 K27 ["Data"]
+  SETTABLEKS R3 R8 K28 ["Overrides"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["ApplyById"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K10 ["Categories"]
+  GETTABLEKS R4 R1 K11 ["HeightmapSettings"]
+  GETTABLEKS R5 R1 K12 ["Storage"]
+  GETTABLEKS R6 R3 K11 ["HeightmapSettings"]
+  NEWTABLE R7 2 0
+  NEWTABLE R8 4 0
+  GETTABLEKS R9 R4 K13 ["Colormap"]
+  GETTABLEKS R10 R5 K14 ["LocalSession"]
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R4 K15 ["Heightmap"]
+  GETTABLEKS R10 R5 K14 ["LocalSession"]
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R4 K16 ["Import"]
+  GETTABLEKS R10 R5 K14 ["LocalSession"]
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R4 K17 ["DefaultMaterial"]
+  GETTABLEKS R10 R5 K18 ["LocalPersistent"]
+  SETTABLE R10 R8 R9
+  SETTABLEKS R8 R7 K12 ["Storage"]
+  DUPCLOSURE R8 K19 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K20 ["Generator"]
+  RETURN R7 1

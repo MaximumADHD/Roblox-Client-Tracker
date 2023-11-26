@@ -1,0 +1,174 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R4 R2 K2 ["asset"]
+  GETTABLEKS R3 R4 K3 ["icon"]
+  GETIMPORT R4 K6 [Color3.fromRGB]
+  LOADN R5 255
+  LOADN R6 255
+  LOADN R7 255
+  CALL R4 3 1
+  LOADN R5 0
+  GETTABLEKS R7 R2 K2 ["asset"]
+  GETTABLEKS R6 R7 K7 ["background"]
+  GETTABLEKS R4 R6 K8 ["color"]
+  GETTABLEKS R7 R2 K2 ["asset"]
+  GETTABLEKS R6 R7 K7 ["background"]
+  GETTABLEKS R5 R6 K9 ["borderSize"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K10 ["Dictionary"]
+  GETTABLEKS R6 R7 K11 ["join"]
+  MOVE R7 R1
+  DUPTABLE R8 K19 [{"BackgroundColor3", "Image", "BorderColor3", "BorderSizePixel", "ScaleType", "TileSize", "backgroundIndex", "Stylizer"}]
+  SETTABLEKS R4 R8 K12 ["BackgroundColor3"]
+  LOADK R9 K20 [""]
+  SETTABLEKS R9 R8 K13 ["Image"]
+  GETTABLEKS R9 R3 K21 ["borderColor"]
+  SETTABLEKS R9 R8 K14 ["BorderColor3"]
+  SETTABLEKS R5 R8 K15 ["BorderSizePixel"]
+  GETIMPORT R9 K24 [Enum.ScaleType.Tile]
+  SETTABLEKS R9 R8 K16 ["ScaleType"]
+  GETIMPORT R9 K27 [UDim2.new]
+  LOADK R10 K28 [0.125]
+  LOADN R11 0
+  LOADK R12 K28 [0.125]
+  LOADN R13 0
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K17 ["TileSize"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K29 ["None"]
+  SETTABLEKS R9 R8 K18 ["backgroundIndex"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K29 ["None"]
+  SETTABLEKS R9 R8 K1 ["Stylizer"]
+  CALL R6 2 1
+  MOVE R1 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K30 ["createElement"]
+  LOADK R7 K31 ["ImageLabel"]
+  MOVE R8 R1
+  CALL R6 2 -1
+  RETURN R6 -1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["Stylizer"]
+  GETTABLEKS R3 R1 K1 ["asset"]
+  GETTABLEKS R2 R3 K2 ["icon"]
+  GETIMPORT R3 K5 [Color3.fromRGB]
+  LOADN R4 255
+  LOADN R5 255
+  LOADN R6 255
+  CALL R3 3 1
+  LOADN R4 0
+  GETTABLEKS R6 R1 K1 ["asset"]
+  GETTABLEKS R5 R6 K6 ["background"]
+  GETTABLEKS R3 R5 K7 ["color"]
+  GETTABLEKS R6 R1 K1 ["asset"]
+  GETTABLEKS R5 R6 K6 ["background"]
+  GETTABLEKS R4 R5 K8 ["borderSize"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["Dictionary"]
+  GETTABLEKS R5 R6 K10 ["join"]
+  MOVE R6 R0
+  DUPTABLE R7 K18 [{"BackgroundColor3", "Image", "BorderColor3", "BorderSizePixel", "ScaleType", "TileSize", "backgroundIndex", "Stylizer"}]
+  SETTABLEKS R3 R7 K11 ["BackgroundColor3"]
+  LOADK R8 K19 [""]
+  SETTABLEKS R8 R7 K12 ["Image"]
+  GETTABLEKS R8 R2 K20 ["borderColor"]
+  SETTABLEKS R8 R7 K13 ["BorderColor3"]
+  SETTABLEKS R4 R7 K14 ["BorderSizePixel"]
+  GETIMPORT R8 K23 [Enum.ScaleType.Tile]
+  SETTABLEKS R8 R7 K15 ["ScaleType"]
+  GETIMPORT R8 K26 [UDim2.new]
+  LOADK R9 K27 [0.125]
+  LOADN R10 0
+  LOADK R11 K27 [0.125]
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K16 ["TileSize"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K28 ["None"]
+  SETTABLEKS R8 R7 K17 ["backgroundIndex"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K28 ["None"]
+  SETTABLEKS R8 R7 K0 ["Stylizer"]
+  CALL R5 2 1
+  MOVE R0 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K29 ["createElement"]
+  LOADK R6 K30 ["ImageLabel"]
+  MOVE R7 R0
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["props"]
+  LOADNIL R3
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["Cryo"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R1 K8 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K9 ["ContextServices"]
+  GETTABLEKS R6 R5 K10 ["withContext"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R11 R0 K11 ["Core"]
+  GETTABLEKS R10 R11 K12 ["Util"]
+  GETTABLEKS R9 R10 K13 ["SharedFlags"]
+  GETTABLEKS R8 R9 K14 ["getFFlagToolboxConsolidateRenderMethods"]
+  CALL R7 1 1
+  MOVE R8 R7
+  CALL R8 0 1
+  JUMPIFNOT R8 [+22]
+  GETTABLEKS R8 R2 K15 ["Component"]
+  LOADK R10 K16 ["AssetBackground1"]
+  NAMECALL R8 R8 K17 ["extend"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K18 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  SETTABLEKS R9 R8 K19 ["render"]
+  MOVE R9 R6
+  DUPTABLE R10 K21 [{"Stylizer"}]
+  GETTABLEKS R11 R5 K20 ["Stylizer"]
+  SETTABLEKS R11 R10 K20 ["Stylizer"]
+  CALL R9 1 1
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
+  RETURN R8 1
+  DUPCLOSURE R8 K22 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  GETTABLEKS R9 R2 K15 ["Component"]
+  LOADK R11 K16 ["AssetBackground1"]
+  NAMECALL R9 R9 K17 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K23 [PROTO_2]
+  CAPTURE VAL R8
+  SETTABLEKS R10 R9 K19 ["render"]
+  MOVE R10 R6
+  DUPTABLE R11 K21 [{"Stylizer"}]
+  GETTABLEKS R12 R5 K20 ["Stylizer"]
+  SETTABLEKS R12 R11 K20 ["Stylizer"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

@@ -1,0 +1,38 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Table"]
+  GETTABLE R1 R2 R0
+  JUMPIF R1 [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Table"]
+  GETTABLEKS R1 R2 K1 ["computer_error"]
+  DUPTABLE R2 K5 [{"Image", "ImageRectOffset", "ImageRectSize"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["Asset"]
+  SETTABLEKS R3 R2 K2 ["Image"]
+  GETIMPORT R3 K9 [Vector2.new]
+  GETTABLEN R4 R1 1
+  GETTABLEN R5 R1 2
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K3 ["ImageRectOffset"]
+  GETIMPORT R3 K9 [Vector2.new]
+  LOADN R4 16
+  LOADN R5 16
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K4 ["ImageRectSize"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 4 0
+  LOADK R1 K0 ["rbxasset://textures/TagEditor/famfamfam.png"]
+  SETTABLEKS R1 R0 K1 ["Asset"]
+  GETIMPORT R1 K3 [require]
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["SpritesheetData"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K7 ["Table"]
+  DUPCLOSURE R1 K8 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K9 ["Lookup"]
+  RETURN R0 1

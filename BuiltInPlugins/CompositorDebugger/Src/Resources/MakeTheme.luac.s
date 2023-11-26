@@ -1,0 +1,26 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["Style"]
+  GETTABLEKS R3 R2 K9 ["makeTheme"]
+  MOVE R4 R3
+  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Components"]
+  DUPTABLE R6 K14 [{"Dark", "Light"}]
+  DUPTABLE R7 K16 [{"Foo"}]
+  LOADK R8 K17 ["FOO"]
+  SETTABLEKS R8 R7 K15 ["Foo"]
+  SETTABLEKS R7 R6 K12 ["Dark"]
+  DUPTABLE R7 K16 [{"Foo"}]
+  LOADK R8 K18 ["BAR"]
+  SETTABLEKS R8 R7 K15 ["Foo"]
+  SETTABLEKS R7 R6 K13 ["Light"]
+  CALL R4 2 -1
+  RETURN R4 -1

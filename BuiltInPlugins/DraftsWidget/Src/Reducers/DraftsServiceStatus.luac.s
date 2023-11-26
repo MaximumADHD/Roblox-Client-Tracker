@@ -1,0 +1,39 @@
+PROTO_0:
+  GETTABLEKS R2 R1 K0 ["isEnabled"]
+  GETTABLEKS R3 R1 K1 ["errorMessage"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["Dictionary"]
+  GETTABLEKS R4 R5 K3 ["join"]
+  MOVE R5 R0
+  DUPTABLE R6 K6 [{"Enabled", "Error"}]
+  SETTABLEKS R2 R6 K4 ["Enabled"]
+  SETTABLEKS R3 R6 K5 ["Error"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["createReducer"]
+  DUPTABLE R4 K11 [{"Enabled", "Error"}]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K9 ["Enabled"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K10 ["Error"]
+  DUPTABLE R5 K13 [{"DraftsServiceLoaded"}]
+  DUPCLOSURE R6 K14 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K12 ["DraftsServiceLoaded"]
+  CALL R3 2 1
+  RETURN R3 1

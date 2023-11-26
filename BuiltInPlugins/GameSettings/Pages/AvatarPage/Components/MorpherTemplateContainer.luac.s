@@ -1,0 +1,138 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["frameRef"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["frameRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  GETIMPORT R2 K4 [UDim2.new]
+  LOADN R3 1
+  LOADN R4 0
+  LOADN R5 0
+  GETTABLEKS R7 R0 K5 ["AbsoluteContentSize"]
+  GETTABLEKS R6 R7 K6 ["y"]
+  CALL R2 4 1
+  SETTABLEKS R2 R1 K7 ["Size"]
+  RETURN R0 0
+
+PROTO_2:
+  NEWTABLE R1 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  LOADK R3 K1 ["UIListLayout"]
+  NEWTABLE R4 1 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["Change"]
+  GETTABLEKS R5 R6 K3 ["AbsoluteContentSize"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  SETTABLE R6 R4 R5
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K4 ["UIListLayoutVertical"]
+  GETTABLEKS R3 R0 K5 ["props"]
+  GETTABLEKS R2 R3 K6 ["StateTemplates"]
+  JUMPIFNOT R2 [+82]
+  GETTABLEKS R4 R0 K5 ["props"]
+  GETTABLEKS R3 R4 K6 ["StateTemplates"]
+  GETTABLEKS R2 R3 K7 ["templates"]
+  JUMPIFNOT R2 [+75]
+  GETIMPORT R2 K9 [pairs]
+  GETTABLEKS R6 R0 K5 ["props"]
+  GETTABLEKS R5 R6 K6 ["StateTemplates"]
+  GETTABLEKS R3 R5 K7 ["templates"]
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  FASTCALL1 TOSTRING R5 [+3]
+  MOVE R8 R5
+  GETIMPORT R7 K11 [tostring]
+  CALL R7 1 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K20 [{"ThemeData", "template", "StateTemplates", "IsEnabled", "IsGameShutdownRequired", "AssetOverrideErrors", "Mouse", "IsPlacePublished", "clobberTemplate"}]
+  GETTABLEKS R12 R0 K5 ["props"]
+  GETTABLEKS R11 R12 K12 ["ThemeData"]
+  SETTABLEKS R11 R10 K12 ["ThemeData"]
+  SETTABLEKS R5 R10 K13 ["template"]
+  GETTABLEKS R12 R0 K5 ["props"]
+  GETTABLEKS R11 R12 K6 ["StateTemplates"]
+  SETTABLEKS R11 R10 K6 ["StateTemplates"]
+  GETTABLEKS R12 R0 K5 ["props"]
+  GETTABLEKS R11 R12 K14 ["IsEnabled"]
+  SETTABLEKS R11 R10 K14 ["IsEnabled"]
+  GETTABLEKS R12 R0 K5 ["props"]
+  GETTABLEKS R11 R12 K15 ["IsGameShutdownRequired"]
+  SETTABLEKS R11 R10 K15 ["IsGameShutdownRequired"]
+  GETTABLEKS R12 R0 K5 ["props"]
+  GETTABLEKS R11 R12 K16 ["AssetOverrideErrors"]
+  SETTABLEKS R11 R10 K16 ["AssetOverrideErrors"]
+  GETTABLEKS R12 R0 K5 ["props"]
+  GETTABLEKS R11 R12 K17 ["Mouse"]
+  SETTABLEKS R11 R10 K17 ["Mouse"]
+  GETTABLEKS R12 R0 K5 ["props"]
+  GETTABLEKS R11 R12 K18 ["IsPlacePublished"]
+  SETTABLEKS R11 R10 K18 ["IsPlacePublished"]
+  GETTABLEKS R12 R0 K5 ["props"]
+  GETTABLEKS R11 R12 K19 ["clobberTemplate"]
+  SETTABLEKS R11 R10 K19 ["clobberTemplate"]
+  CALL R8 2 1
+  SETTABLE R8 R1 R7
+  JUMP [+2]
+  FORGLOOP R2 2 [-64]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  LOADK R3 K21 ["Frame"]
+  NEWTABLE R4 4 0
+  GETIMPORT R5 K24 [UDim2.new]
+  LOADN R6 1
+  LOADN R7 0
+  LOADN R8 1
+  LOADN R9 0
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K25 ["Size"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K26 ["BorderSizePixel"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K27 ["BackgroundTransparency"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K28 ["Ref"]
+  GETTABLEKS R6 R0 K29 ["frameRef"]
+  SETTABLE R6 R4 R5
+  MOVE R5 R1
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R1 K5 ["Packages"]
+  GETTABLEKS R3 R4 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Components"]
+  GETTABLEKS R4 R5 K8 ["MorpherTemplate"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K9 ["Component"]
+  LOADK R6 K10 ["ComponentMorpherTemplateContainer"]
+  NAMECALL R4 R4 K11 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K13 ["init"]
+  DUPCLOSURE R5 K14 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K15 ["render"]
+  RETURN R4 1

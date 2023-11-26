@@ -1,0 +1,173 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["TableHeader"]
+  NEWTABLE R3 0 0
+  GETIMPORT R4 K4 [ipairs]
+  GETTABLEKS R5 R1 K5 ["Groups"]
+  CALL R4 1 3
+  FORGPREP_INEXT R4
+  GETTABLEKS R9 R8 K6 ["Name"]
+  GETTABLEKS R10 R8 K6 ["Name"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K7 ["createElement"]
+  GETUPVAL R12 1
+  DUPTABLE R13 K12 [{"Size", "Style", "StyleModifier", "LayoutOrder"}]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K13 ["GridHeaderLabelSize"]
+  SETTABLEKS R14 R13 K8 ["Size"]
+  LOADK R14 K14 ["GroupLabel"]
+  SETTABLEKS R14 R13 K9 ["Style"]
+  GETTABLEKS R15 R8 K6 ["Name"]
+  GETTABLEKS R16 R1 K15 ["ColHovered"]
+  JUMPIFNOTEQ R15 R16 [+5]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K16 ["Hover"]
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K10 ["StyleModifier"]
+  GETTABLEKS R16 R1 K5 ["Groups"]
+  LENGTH R15 R16
+  SUB R14 R15 R7
+  SETTABLEKS R14 R13 K11 ["LayoutOrder"]
+  DUPTABLE R14 K18 [{"TextLabel"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K7 ["createElement"]
+  GETUPVAL R16 4
+  DUPTABLE R17 K22 [{"Style", "TextWrapped", "TextTruncate", "Size", "Text"}]
+  LOADK R18 K14 ["GroupLabel"]
+  SETTABLEKS R18 R17 K9 ["Style"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K19 ["TextWrapped"]
+  GETIMPORT R18 K25 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R18 R17 K20 ["TextTruncate"]
+  GETIMPORT R18 K28 [UDim2.new]
+  LOADN R19 1
+  LOADN R20 0
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K8 ["Size"]
+  SETTABLEKS R9 R17 K21 ["Text"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K17 ["TextLabel"]
+  CALL R11 3 1
+  SETTABLE R11 R3 R10
+  FORGLOOP R4 2 [inext] [-69]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K32 [{"Size", "LayoutOrder", "Layout", "Padding", "Spacing"}]
+  GETIMPORT R7 K28 [UDim2.new]
+  LOADN R8 1
+  LOADN R9 0
+  LOADN R10 0
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K33 ["GroupRowHeight"]
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K8 ["Size"]
+  GETTABLEKS R7 R1 K11 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K11 ["LayoutOrder"]
+  GETIMPORT R7 K36 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R7 R6 K29 ["Layout"]
+  GETTABLEKS R7 R2 K30 ["Padding"]
+  SETTABLEKS R7 R6 K30 ["Padding"]
+  LOADN R7 255
+  SETTABLEKS R7 R6 K31 ["Spacing"]
+  DUPTABLE R7 K39 [{"GroupCountDisplay", "Headers"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K41 [{"GroupCount", "LayoutOrder"}]
+  GETTABLEKS R12 R1 K5 ["Groups"]
+  LENGTH R11 R12
+  SETTABLEKS R11 R10 K40 ["GroupCount"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K11 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K37 ["GroupCountDisplay"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 6
+  DUPTABLE R10 K47 [{"Size", "AutomaticCanvasSize", "CanvasPosition", "ScrollingDirection", "Layout", "Padding", "LayoutOrder", "ScrollBarThickness", "ScrollingEnabled"}]
+  GETTABLEKS R11 R2 K48 ["ScrollingFrameSize"]
+  SETTABLEKS R11 R10 K8 ["Size"]
+  GETIMPORT R11 K51 [Enum.AutomaticSize.XY]
+  SETTABLEKS R11 R10 K42 ["AutomaticCanvasSize"]
+  GETIMPORT R11 K53 [Vector2.new]
+  GETTABLEKS R12 R1 K54 ["ScrollPositionX"]
+  LOADN R13 0
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K43 ["CanvasPosition"]
+  GETIMPORT R11 K56 [Enum.ScrollingDirection.X]
+  SETTABLEKS R11 R10 K44 ["ScrollingDirection"]
+  GETIMPORT R11 K36 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R11 R10 K29 ["Layout"]
+  GETTABLEKS R11 R2 K57 ["ScrollingFramePadding"]
+  SETTABLEKS R11 R10 K30 ["Padding"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K11 ["LayoutOrder"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K45 ["ScrollBarThickness"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K46 ["ScrollingEnabled"]
+  MOVE R11 R3
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K38 ["Headers"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R2 K9 ["UI"]
+  GETTABLEKS R5 R4 K10 ["Pane"]
+  GETTABLEKS R6 R4 K11 ["ScrollingFrame"]
+  GETTABLEKS R7 R4 K12 ["TextLabel"]
+  GETTABLEKS R9 R2 K13 ["Util"]
+  GETTABLEKS R8 R9 K14 ["StyleModifier"]
+  GETIMPORT R9 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K2 ["Parent"]
+  GETTABLEKS R11 R12 K2 ["Parent"]
+  GETTABLEKS R10 R11 K15 ["Constants"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K2 ["Parent"]
+  GETTABLEKS R11 R12 K16 ["GroupCountDisplay"]
+  CALL R10 1 1
+  GETTABLEKS R11 R1 K17 ["Component"]
+  LOADK R13 K18 ["TableHeader"]
+  NAMECALL R11 R11 K19 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K20 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  SETTABLEKS R12 R11 K21 ["render"]
+  GETTABLEKS R12 R3 K22 ["withContext"]
+  DUPTABLE R13 K24 [{"Stylizer"}]
+  GETTABLEKS R14 R3 K23 ["Stylizer"]
+  SETTABLEKS R14 R13 K23 ["Stylizer"]
+  CALL R12 1 1
+  MOVE R13 R11
+  CALL R12 1 1
+  MOVE R11 R12
+  RETURN R11 1

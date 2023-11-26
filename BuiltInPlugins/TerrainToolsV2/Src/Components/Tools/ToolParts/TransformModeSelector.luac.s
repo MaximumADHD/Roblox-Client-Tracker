@@ -1,0 +1,123 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["LayoutOrder"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["TransformMode"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["SetTransformMode"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K9 [{"AutomaticSize", "HorizontalAlignment", "Size"}]
+  GETIMPORT R8 K12 [Enum.AutomaticSize.Y]
+  SETTABLEKS R8 R7 K6 ["AutomaticSize"]
+  GETIMPORT R8 K14 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R8 R7 K7 ["HorizontalAlignment"]
+  GETIMPORT R8 K17 [UDim2.fromScale]
+  LOADN R9 1
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K8 ["Size"]
+  DUPTABLE R8 K19 [{"ButtonGroup"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K25 [{"AnchorPoint", "Position", "Size", "Selected", "Select", "Options"}]
+  GETIMPORT R12 K28 [Vector2.new]
+  LOADK R13 K29 [0.5]
+  LOADN R14 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K20 ["AnchorPoint"]
+  GETIMPORT R12 K17 [UDim2.fromScale]
+  LOADK R13 K29 [0.5]
+  LOADN R14 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K21 ["Position"]
+  GETIMPORT R12 K30 [UDim2.new]
+  LOADN R13 0
+  LOADN R14 141
+  LOADN R15 0
+  LOADN R16 22
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K8 ["Size"]
+  SETTABLEKS R3 R11 K22 ["Selected"]
+  SETTABLEKS R4 R11 K23 ["Select"]
+  NEWTABLE R12 0 2
+  DUPTABLE R13 K33 [{"Text", "Data"}]
+  LOADK R16 K34 ["RegionSettings"]
+  LOADK R17 K23 ["Select"]
+  NAMECALL R14 R1 K35 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K31 ["Text"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K3 ["TransformMode"]
+  GETTABLEKS R14 R15 K23 ["Select"]
+  SETTABLEKS R14 R13 K32 ["Data"]
+  DUPTABLE R14 K33 [{"Text", "Data"}]
+  LOADK R17 K34 ["RegionSettings"]
+  LOADK R18 K36 ["Transform"]
+  NAMECALL R15 R1 K35 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K31 ["Text"]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K3 ["TransformMode"]
+  GETTABLEKS R15 R16 K36 ["Transform"]
+  SETTABLEKS R15 R14 K32 ["Data"]
+  SETLIST R12 R13 2 [1]
+  SETTABLEKS R12 R11 K24 ["Options"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K18 ["ButtonGroup"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R6 R1 K10 ["UI"]
+  GETTABLEKS R5 R6 K11 ["Pane"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Util"]
+  GETTABLEKS R7 R8 K14 ["TerrainEnums"]
+  CALL R6 1 1
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K2 ["Parent"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R7 K15 ["SingleSelectButtonGroup"]
+  CALL R8 1 1
+  GETTABLEKS R9 R2 K16 ["PureComponent"]
+  LOADK R11 K17 ["TransformMode"]
+  NAMECALL R9 R9 K18 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K19 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R10 R9 K20 ["render"]
+  MOVE R10 R4
+  DUPTABLE R11 K22 [{"Localization"}]
+  GETTABLEKS R12 R3 K21 ["Localization"]
+  SETTABLEKS R12 R11 K21 ["Localization"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

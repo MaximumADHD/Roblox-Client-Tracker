@@ -1,0 +1,252 @@
+PROTO_0:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["ImageLabel"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [UDim2.new]
+  LOADN R3 0
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R2 4 1
+  SETTABLEKS R2 R1 K6 ["Size"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K7 ["BackgroundTransparency"]
+  SETTABLEKS R0 R1 K8 ["Parent"]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_pollImageLoop"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R3 K7 [{"ImageLoaded", "_loadedImagesCache", "_imageLabelPool", "_loadingImageLabels", "_loadingImageIds", "_alive", "_createImageLabel"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K8 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K0 ["ImageLoaded"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K1 ["_loadedImagesCache"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K2 ["_imageLabelPool"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K3 ["_loadingImageLabels"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K4 ["_loadingImageIds"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K5 ["_alive"]
+  JUMPIFNOT R0 [+3]
+  GETTABLEKS R4 R0 K9 ["createImageLabel"]
+  JUMPIF R4 [+1]
+  GETUPVAL R4 1
+  SETTABLEKS R4 R3 K6 ["_createImageLabel"]
+  GETUPVAL R4 2
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K11 [setmetatable]
+  CALL R2 2 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["new"]
+  LOADK R4 K12 ["CoreGui"]
+  MOVE R5 R1
+  CALL R3 2 1
+  GETIMPORT R4 K14 [Instance.new]
+  LOADK R5 K15 ["ScreenGui"]
+  CALL R4 1 1
+  SETTABLEKS R4 R2 K16 ["_hostGui"]
+  GETTABLEKS R4 R2 K16 ["_hostGui"]
+  LOADK R5 K17 ["ImageLoader"]
+  SETTABLEKS R5 R4 K18 ["Name"]
+  GETTABLEKS R4 R2 K16 ["_hostGui"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K19 ["Enabled"]
+  GETTABLEKS R4 R2 K16 ["_hostGui"]
+  NAMECALL R5 R3 K20 ["asInstance"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K21 ["Parent"]
+  JUMPIFNOT R0 [+3]
+  GETTABLEKS R4 R0 K22 ["_dontPoll"]
+  JUMPIF R4 [+5]
+  GETIMPORT R4 K24 [spawn]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CALL R4 1 0
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  DUPTABLE R2 K3 [{"dontPoll", "createImageLabel"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K1 ["dontPoll"]
+  SETTABLEKS R0 R2 K2 ["createImageLabel"]
+  LOADB R3 1
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_4:
+  JUMPIFEQKNIL R1 [+3]
+  JUMPIFNOTEQKS R1 K0 [""] [+3]
+  LOADB R2 0
+  RETURN R2 1
+  GETTABLEKS R3 R0 K1 ["_loadedImagesCache"]
+  GETTABLE R2 R3 R1
+  JUMPIFNOT R2 [+8]
+  GETTABLEKS R2 R0 K2 ["ImageLoaded"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K3 ["Fire"]
+  CALL R2 2 0
+  LOADB R2 1
+  RETURN R2 1
+  GETTABLEKS R3 R0 K4 ["_loadingImageIds"]
+  GETTABLE R2 R3 R1
+  JUMPIFNOT R2 [+2]
+  LOADB R2 0
+  RETURN R2 1
+  LOADNIL R2
+  GETTABLEKS R4 R0 K5 ["_imageLabelPool"]
+  LENGTH R3 R4
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+8]
+  GETIMPORT R3 K8 [table.remove]
+  GETTABLEKS R4 R0 K5 ["_imageLabelPool"]
+  CALL R3 1 1
+  MOVE R2 R3
+  JUMP [+6]
+  GETTABLEKS R3 R0 K9 ["_createImageLabel"]
+  GETTABLEKS R4 R0 K10 ["_hostGui"]
+  CALL R3 1 1
+  MOVE R2 R3
+  SETTABLEKS R1 R2 K11 ["Image"]
+  GETTABLEKS R3 R0 K4 ["_loadingImageIds"]
+  LOADB R4 1
+  SETTABLE R4 R3 R1
+  GETTABLEKS R4 R0 K12 ["_loadingImageLabels"]
+  FASTCALL2 TABLE_INSERT R4 R2 [+4]
+  MOVE R5 R2
+  GETIMPORT R3 K14 [table.insert]
+  CALL R3 2 0
+  LOADB R3 0
+  RETURN R3 1
+
+PROTO_5:
+  GETTABLEKS R4 R0 K1 ["_loadedImagesCache"]
+  GETTABLE R3 R4 R1
+  ORK R2 R3 K0 [False]
+  RETURN R2 1
+
+PROTO_6:
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["_alive"]
+  GETIMPORT R1 K2 [ipairs]
+  GETTABLEKS R2 R0 K3 ["_imageLabelPool"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  NAMECALL R6 R5 K4 ["Destroy"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [inext] [-4]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["_imageLabelPool"]
+  GETIMPORT R1 K2 [ipairs]
+  GETTABLEKS R2 R0 K5 ["_loadingImageLabels"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  NAMECALL R6 R5 K4 ["Destroy"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [inext] [-4]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["_loadingImageLabels"]
+  GETTABLEKS R1 R0 K6 ["_hostGui"]
+  NAMECALL R1 R1 K4 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K6 ["_hostGui"]
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_alive"]
+  JUMPIFNOT R1 [+8]
+  NAMECALL R1 R0 K1 ["_checkImages"]
+  CALL R1 1 0
+  GETIMPORT R1 K3 [wait]
+  LOADK R2 K4 [0.1]
+  CALL R1 1 0
+  JUMPBACK [-11]
+  RETURN R0 0
+
+PROTO_8:
+  LOADN R1 1
+  GETTABLEKS R3 R0 K0 ["_loadingImageLabels"]
+  LENGTH R2 R3
+  JUMPIFNOTLE R1 R2 [+43]
+  GETTABLEKS R3 R0 K0 ["_loadingImageLabels"]
+  GETTABLE R2 R3 R1
+  GETTABLEKS R3 R2 K1 ["IsLoaded"]
+  JUMPIFNOT R3 [+34]
+  GETTABLEKS R3 R2 K2 ["Image"]
+  GETTABLEKS R4 R0 K3 ["_loadedImagesCache"]
+  LOADB R5 1
+  SETTABLE R5 R4 R3
+  GETTABLEKS R4 R0 K4 ["ImageLoaded"]
+  MOVE R6 R3
+  NAMECALL R4 R4 K5 ["Fire"]
+  CALL R4 2 0
+  LOADK R4 K6 [""]
+  SETTABLEKS R4 R2 K2 ["Image"]
+  GETTABLEKS R4 R0 K7 ["_loadingImageIds"]
+  LOADNIL R5
+  SETTABLE R5 R4 R3
+  GETIMPORT R4 K10 [table.remove]
+  GETTABLEKS R5 R0 K0 ["_loadingImageLabels"]
+  MOVE R6 R1
+  CALL R4 2 0
+  GETTABLEKS R5 R0 K11 ["_imageLabelPool"]
+  FASTCALL2 TABLE_INSERT R5 R2 [+4]
+  MOVE R6 R2
+  GETIMPORT R4 K13 [table.insert]
+  CALL R4 2 0
+  JUMP [+1]
+  ADDK R1 R1 K14 [1]
+  JUMPBACK [-47]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K7 ["ContextServices"]
+  GETTABLEKS R2 R3 K8 ["ContextItem"]
+  GETTABLEKS R3 R1 K9 ["Util"]
+  GETTABLEKS R4 R3 K10 ["Signal"]
+  GETTABLEKS R6 R1 K11 ["TestHelpers"]
+  GETTABLEKS R5 R6 K12 ["ServiceWrapper"]
+  DUPCLOSURE R6 K13 [PROTO_0]
+  LOADK R9 K14 ["ImageLoader"]
+  NAMECALL R7 R2 K15 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K16 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  SETTABLEKS R8 R7 K17 ["new"]
+  DUPCLOSURE R8 K18 [PROTO_3]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R7 K19 ["mock"]
+  DUPCLOSURE R8 K20 [PROTO_4]
+  SETTABLEKS R8 R7 K21 ["loadImage"]
+  DUPCLOSURE R8 K22 [PROTO_5]
+  SETTABLEKS R8 R7 K23 ["hasImageLoaded"]
+  DUPCLOSURE R8 K24 [PROTO_6]
+  SETTABLEKS R8 R7 K25 ["destroy"]
+  DUPCLOSURE R8 K26 [PROTO_7]
+  SETTABLEKS R8 R7 K27 ["_pollImageLoop"]
+  DUPCLOSURE R8 K28 [PROTO_8]
+  SETTABLEKS R8 R7 K29 ["_checkImages"]
+  RETURN R7 1

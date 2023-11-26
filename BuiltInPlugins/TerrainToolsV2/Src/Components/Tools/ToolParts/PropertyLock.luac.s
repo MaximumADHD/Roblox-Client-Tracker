@@ -1,0 +1,283 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"isHovered"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["isHovered"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"isHovered"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["isHovered"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"isHovered"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["isHovered"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["onMouseEnter"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K4 ["onMouseLeave"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Theme"]
+  NAMECALL R1 R1 K2 ["get"]
+  CALL R1 1 1
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K4 ["Locked"]
+  ORK R2 R3 K3 [False]
+  GETTABLEKS R4 R0 K5 ["state"]
+  GETTABLEKS R3 R4 K6 ["isHovered"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["createElement"]
+  LOADK R5 K8 ["ImageButton"]
+  NEWTABLE R6 16 0
+  GETIMPORT R7 K11 [Vector2.new]
+  LOADN R8 1
+  LOADN R9 0
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K12 ["AnchorPoint"]
+  GETIMPORT R7 K14 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 245
+  LOADN R10 0
+  LOADN R11 5
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K15 ["Position"]
+  GETIMPORT R7 K14 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 18
+  LOADN R10 0
+  LOADN R11 34
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K16 ["Size"]
+  GETTABLEKS R7 R1 K17 ["backgroundColor"]
+  SETTABLEKS R7 R6 K18 ["BackgroundColor3"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K19 ["BorderSizePixel"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K20 ["AutoButtonColor"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K21 ["Event"]
+  GETTABLEKS R7 R8 K22 ["MouseEnter"]
+  GETTABLEKS R8 R0 K23 ["onMouseEnter"]
+  SETTABLE R8 R6 R7
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K21 ["Event"]
+  GETTABLEKS R7 R8 K24 ["MouseLeave"]
+  GETTABLEKS R8 R0 K25 ["onMouseLeave"]
+  SETTABLE R8 R6 R7
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K21 ["Event"]
+  GETTABLEKS R7 R8 K26 ["Activated"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K27 ["Clicked"]
+  SETTABLE R8 R6 R7
+  DUPTABLE R7 K31 [{"Paperclip", "PaperclipCover", "IconBackgroundPaperclipCover"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  LOADK R9 K32 ["Frame"]
+  DUPTABLE R10 K34 [{"Size", "BackgroundColor3", "BorderSizePixel", "ZIndex"}]
+  GETIMPORT R11 K14 [UDim2.new]
+  LOADN R12 0
+  LOADN R13 11
+  LOADN R14 1
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K16 ["Size"]
+  GETTABLEKS R12 R1 K35 ["propertyLockTheme"]
+  GETTABLEKS R11 R12 K36 ["paperclipColor"]
+  SETTABLEKS R11 R10 K18 ["BackgroundColor3"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K19 ["BorderSizePixel"]
+  LOADN R11 10
+  SETTABLEKS R11 R10 K33 ["ZIndex"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K28 ["Paperclip"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  LOADK R9 K32 ["Frame"]
+  DUPTABLE R10 K37 [{"Position", "Size", "BackgroundColor3", "BorderSizePixel", "ZIndex"}]
+  GETIMPORT R11 K14 [UDim2.new]
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 0
+  LOADN R15 2
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K15 ["Position"]
+  GETIMPORT R11 K14 [UDim2.new]
+  LOADN R12 0
+  LOADN R13 10
+  LOADN R14 0
+  LOADN R15 30
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K16 ["Size"]
+  GETTABLEKS R11 R1 K17 ["backgroundColor"]
+  SETTABLEKS R11 R10 K18 ["BackgroundColor3"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K19 ["BorderSizePixel"]
+  LOADN R11 11
+  SETTABLEKS R11 R10 K33 ["ZIndex"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K29 ["PaperclipCover"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  LOADK R9 K32 ["Frame"]
+  DUPTABLE R10 K37 [{"Position", "Size", "BackgroundColor3", "BorderSizePixel", "ZIndex"}]
+  GETIMPORT R11 K14 [UDim2.new]
+  LOADN R12 0
+  LOADN R13 5
+  LOADN R14 0
+  LOADN R15 9
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K15 ["Position"]
+  GETIMPORT R11 K14 [UDim2.new]
+  LOADN R12 0
+  LOADN R13 12
+  LOADN R14 0
+  LOADN R15 16
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K16 ["Size"]
+  GETTABLEKS R11 R1 K17 ["backgroundColor"]
+  SETTABLEKS R11 R10 K18 ["BackgroundColor3"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K19 ["BorderSizePixel"]
+  LOADN R11 12
+  SETTABLEKS R11 R10 K33 ["ZIndex"]
+  DUPTABLE R11 K39 [{"IconBackground"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  LOADK R13 K32 ["Frame"]
+  DUPTABLE R14 K42 [{"Position", "Size", "BackgroundColor3", "BorderColor3", "BorderSizePixel", "BackgroundTransparency", "ZIndex"}]
+  GETIMPORT R15 K14 [UDim2.new]
+  LOADN R16 0
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 2
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K15 ["Position"]
+  GETIMPORT R15 K14 [UDim2.new]
+  LOADN R16 0
+  LOADN R17 12
+  LOADN R18 0
+  LOADN R19 12
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K16 ["Size"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R16 R1 K35 ["propertyLockTheme"]
+  GETTABLEKS R15 R16 K43 ["iconBackgroundHover"]
+  JUMPIF R15 [+2]
+  GETTABLEKS R15 R1 K17 ["backgroundColor"]
+  SETTABLEKS R15 R14 K18 ["BackgroundColor3"]
+  GETTABLEKS R16 R1 K35 ["propertyLockTheme"]
+  GETTABLEKS R15 R16 K44 ["iconBorderHover"]
+  SETTABLEKS R15 R14 K40 ["BorderColor3"]
+  JUMPIFNOT R3 [+2]
+  LOADN R15 1
+  JUMP [+1]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K19 ["BorderSizePixel"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R16 R1 K35 ["propertyLockTheme"]
+  GETTABLEKS R15 R16 K45 ["iconBackgroundHoverTransparency"]
+  JUMPIF R15 [+1]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K41 ["BackgroundTransparency"]
+  LOADN R15 13
+  SETTABLEKS R15 R14 K33 ["ZIndex"]
+  DUPTABLE R15 K47 [{"Icon"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K7 ["createElement"]
+  LOADK R17 K48 ["ImageLabel"]
+  DUPTABLE R18 K50 [{"Position", "Size", "BackgroundTransparency", "BorderSizePixel", "Image", "ZIndex"}]
+  GETIMPORT R19 K14 [UDim2.new]
+  LOADN R20 0
+  LOADN R21 2
+  LOADN R22 0
+  LOADN R23 1
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K15 ["Position"]
+  GETIMPORT R19 K14 [UDim2.new]
+  LOADN R20 0
+  JUMPIFNOT R2 [+2]
+  LOADN R21 8
+  JUMP [+1]
+  LOADN R21 10
+  LOADN R22 0
+  LOADN R23 9
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K16 ["Size"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K41 ["BackgroundTransparency"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K19 ["BorderSizePixel"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R20 R1 K35 ["propertyLockTheme"]
+  GETTABLEKS R19 R20 K51 ["lockedIcon"]
+  JUMPIF R19 [+4]
+  GETTABLEKS R20 R1 K35 ["propertyLockTheme"]
+  GETTABLEKS R19 R20 K52 ["unlockedIcon"]
+  SETTABLEKS R19 R18 K49 ["Image"]
+  LOADN R19 14
+  SETTABLEKS R19 R18 K33 ["ZIndex"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K46 ["Icon"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K38 ["IconBackground"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K30 ["IconBackgroundPaperclipCover"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["ContextItems"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K12 ["PureComponent"]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K13 ["Name"]
+  NAMECALL R6 R6 K14 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K15 [PROTO_2]
+  SETTABLEKS R7 R6 K16 ["init"]
+  DUPCLOSURE R7 K17 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K18 ["render"]
+  MOVE R7 R4
+  DUPTABLE R8 K20 [{"Theme"}]
+  GETTABLEKS R9 R5 K21 ["DEPRECATED_Theme"]
+  SETTABLEKS R9 R8 K19 ["Theme"]
+  CALL R7 1 1
+  MOVE R8 R6
+  CALL R7 1 1
+  MOVE R6 R7
+  RETURN R6 1

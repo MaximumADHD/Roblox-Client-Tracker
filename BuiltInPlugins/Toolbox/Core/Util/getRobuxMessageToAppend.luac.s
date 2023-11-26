@@ -1,0 +1,34 @@
+PROTO_0:
+  GETUPVAL R3 0
+  CALL R3 0 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R2 K1 [assert]
+  CALL R2 -1 0
+  LOADN R2 0
+  JUMPIFNOTLT R2 R0 [+9]
+  LOADK R3 K2 ["
+"]
+  LOADK R6 K3 ["AssetConfig"]
+  LOADK R7 K4 ["CreateBundleNoRobuxDeducted"]
+  NAMECALL R4 R1 K5 ["getText"]
+  CALL R4 3 1
+  CONCAT R2 R3 R4
+  RETURN R2 1
+  LOADK R2 K6 [""]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K4 ["Core"]
+  GETTABLEKS R1 R2 K5 ["Util"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R4 R1 K8 ["SharedFlags"]
+  GETTABLEKS R3 R4 K9 ["getFFlagEnableCreateUGCBundleCreationFeeErrorCodes"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

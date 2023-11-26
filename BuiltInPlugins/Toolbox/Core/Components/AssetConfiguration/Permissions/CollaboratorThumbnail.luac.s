@@ -1,0 +1,251 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["ref"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  JUMPIFNOTEQKNIL R0 [+2]
+  RETURN R0 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K3 [{"backgroundColor"}]
+  GETTABLEKS R5 R0 K4 ["Parent"]
+  GETTABLEKS R4 R5 K5 ["BackgroundColor3"]
+  SETTABLEKS R4 R3 K2 ["backgroundColor"]
+  NAMECALL R1 R1 K6 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["ref"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  JUMPIFNOTEQKNIL R0 [+2]
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["colorChanged"]
+  JUMPIFNOT R1 [+10]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["colorChanged"]
+  NAMECALL R1 R1 K3 ["Disconnect"]
+  CALL R1 1 0
+  GETUPVAL R1 0
+  LOADNIL R2
+  SETTABLEKS R2 R1 K2 ["colorChanged"]
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  JUMPIFNOT R1 [+32]
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K4 ["Parent"]
+  LOADK R4 K5 ["BackgroundColor3"]
+  NAMECALL R2 R2 K6 ["GetPropertyChangedSignal"]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  NAMECALL R2 R2 K7 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K2 ["colorChanged"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["ref"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  JUMPIFNOTEQKNIL R1 [+2]
+  RETURN R0 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K9 [{"backgroundColor"}]
+  GETTABLEKS R6 R1 K4 ["Parent"]
+  GETTABLEKS R5 R6 K5 ["BackgroundColor3"]
+  SETTABLEKS R5 R4 K8 ["backgroundColor"]
+  NAMECALL R2 R2 K10 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"backgroundColor"}]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K0 ["backgroundColor"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R2 R0 K3 ["parentChanged"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["createRef"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K5 ["ref"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["parentChanged"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["ref"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  LOADK R4 K2 ["Parent"]
+  NAMECALL R2 R1 K3 ["GetPropertyChangedSignal"]
+  CALL R2 2 1
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K4 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K5 ["parentChangedSignal"]
+  GETTABLEKS R2 R0 K6 ["parentChanged"]
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["parentChangedSignal"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["parentChangedSignal"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["parentChangedSignal"]
+  GETTABLEKS R1 R0 K2 ["colorChanged"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K2 ["colorChanged"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["colorChanged"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Stylizer"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["UseMask"]
+  ORK R2 R3 K2 [False]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["IsLoadedThumbnail"]
+  ORK R3 R4 K2 [False]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["Dictionary"]
+  GETTABLEKS R4 R5 K6 ["join"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  DUPTABLE R6 K7 [{"UseMask", "IsLoadedThumbnail", "Stylizer"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["None"]
+  SETTABLEKS R7 R6 K3 ["UseMask"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["None"]
+  SETTABLEKS R7 R6 K4 ["IsLoadedThumbnail"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["None"]
+  SETTABLEKS R7 R6 K1 ["Stylizer"]
+  CALL R4 2 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K9 ["createElement"]
+  LOADK R6 K10 ["ImageLabel"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["Dictionary"]
+  GETTABLEKS R7 R8 K6 ["join"]
+  MOVE R8 R4
+  NEWTABLE R9 8 0
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K11 ["Ref"]
+  GETTABLEKS R11 R0 K12 ["ref"]
+  SETTABLE R11 R9 R10
+  JUMPIFNOT R3 [+7]
+  GETIMPORT R10 K15 [Color3.new]
+  LOADN R11 1
+  LOADN R12 1
+  LOADN R13 1
+  CALL R10 3 1
+  JUMPIF R10 [+8]
+  GETTABLEKS R13 R1 K16 ["assetConfig"]
+  GETTABLEKS R12 R13 K17 ["packagePermissions"]
+  GETTABLEKS R11 R12 K18 ["subjectThumbnail"]
+  GETTABLEKS R10 R11 K19 ["defaultImageColor"]
+  SETTABLEKS R10 R9 K20 ["ImageColor3"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K21 ["ImageTransparency"]
+  GETTABLEKS R13 R1 K16 ["assetConfig"]
+  GETTABLEKS R12 R13 K17 ["packagePermissions"]
+  GETTABLEKS R11 R12 K18 ["subjectThumbnail"]
+  GETTABLEKS R10 R11 K22 ["backgroundColor"]
+  SETTABLEKS R10 R9 K23 ["BackgroundColor3"]
+  JUMPIFNOT R2 [+2]
+  LOADN R10 0
+  JUMP [+1]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K24 ["BackgroundTransparency"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K25 ["BorderSizePixel"]
+  CALL R7 2 1
+  DUPTABLE R8 K27 [{"Mask"}]
+  MOVE R9 R2
+  JUMPIFNOT R9 [+29]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K9 ["createElement"]
+  LOADK R10 K10 ["ImageLabel"]
+  DUPTABLE R11 K30 [{"BackgroundTransparency", "Size", "Image", "ImageColor3"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K24 ["BackgroundTransparency"]
+  GETIMPORT R12 K32 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K28 ["Size"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K33 ["AVATAR_MASK"]
+  SETTABLEKS R12 R11 K29 ["Image"]
+  GETTABLEKS R13 R0 K34 ["state"]
+  GETTABLEKS R12 R13 K22 ["backgroundColor"]
+  SETTABLEKS R12 R11 K20 ["ImageColor3"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K26 ["Mask"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["Roact"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R1 K8 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R0 K9 ["Core"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R5 K11 ["Images"]
+  CALL R6 1 1
+  GETTABLEKS R7 R4 K12 ["ContextServices"]
+  GETTABLEKS R8 R7 K13 ["withContext"]
+  GETTABLEKS R9 R3 K14 ["PureComponent"]
+  LOADK R11 K15 ["CollaboratorThumbnail"]
+  NAMECALL R9 R9 K16 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K17 [PROTO_2]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K18 ["init"]
+  DUPCLOSURE R10 K19 [PROTO_4]
+  SETTABLEKS R10 R9 K20 ["didMount"]
+  DUPCLOSURE R10 K21 [PROTO_5]
+  SETTABLEKS R10 R9 K22 ["willUnmount"]
+  DUPCLOSURE R10 K23 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  SETTABLEKS R10 R9 K24 ["render"]
+  MOVE R10 R8
+  DUPTABLE R11 K26 [{"Stylizer"}]
+  GETTABLEKS R12 R7 K25 ["Stylizer"]
+  SETTABLEKS R12 R11 K25 ["Stylizer"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

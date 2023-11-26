@@ -1,0 +1,240 @@
+PROTO_0:
+  GETIMPORT R0 K1 [tick]
+  CALL R0 0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["targetTime"]
+  JUMPIFNOTLE R1 R0 [+21]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["heartbeatConn"]
+  NAMECALL R0 R0 K4 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  DUPTABLE R2 K7 [{"show", "tooltipPosition"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K5 ["show"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K8 ["getPosition"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K6 ["tooltipPosition"]
+  NAMECALL R0 R0 K9 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  SETTABLEKS R1 R3 K0 ["mouseX"]
+  GETUPVAL R3 0
+  SETTABLEKS R2 R3 K1 ["mouseY"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K2 ["resetTargetTime"]
+  CALL R3 1 0
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K3 ["disconnectHeartbeat"]
+  CALL R3 1 0
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["Heartbeat"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U0
+  NAMECALL R4 R4 K5 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K6 ["heartbeatConn"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R3 0
+  SETTABLEKS R1 R3 K0 ["mouseX"]
+  GETUPVAL R3 0
+  SETTABLEKS R2 R3 K1 ["mouseY"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K2 ["resetTargetTime"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["disconnectHeartbeat"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  DUPTABLE R2 K2 [{"show"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K1 ["show"]
+  NAMECALL R0 R0 K3 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["detectorRef"]
+  DUPTABLE R1 K3 [{"show"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K2 ["show"]
+  SETTABLEKS R1 R0 K4 ["state"]
+  LOADK R1 K5 [∞]
+  SETTABLEKS R1 R0 K6 ["targetTime"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K7 ["mouseEnter"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K8 ["mouseMoved"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K9 ["mouseLeave"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["heartbeatConn"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["heartbeatConn"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["heartbeatConn"]
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R2 K1 [tick]
+  CALL R2 0 1
+  GETTABLEKS R5 R0 K3 ["props"]
+  GETTABLEKS R4 R5 K4 ["showDelay"]
+  ORK R3 R4 K2 [0.5]
+  ADD R1 R2 R3
+  SETTABLEKS R1 R0 K5 ["targetTime"]
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["detectorRef"]
+  NAMECALL R1 R1 K1 ["getValue"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+20]
+  GETTABLEKS R2 R1 K2 ["AbsolutePosition"]
+  GETIMPORT R3 K5 [UDim2.new]
+  LOADN R4 0
+  GETTABLEKS R7 R0 K7 ["mouseX"]
+  GETTABLEKS R8 R2 K8 ["X"]
+  SUB R6 R7 R8
+  ADDK R5 R6 K6 [13]
+  LOADN R6 0
+  GETTABLEKS R9 R0 K10 ["mouseY"]
+  GETTABLEKS R10 R2 K11 ["Y"]
+  SUB R8 R9 R10
+  ADDK R7 R8 K9 [23]
+  CALL R3 4 -1
+  RETURN R3 -1
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Frame"]
+  NEWTABLE R3 8 0
+  GETIMPORT R4 K4 [UDim2.new]
+  LOADN R5 1
+  LOADN R6 0
+  LOADN R7 1
+  LOADN R8 0
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K5 ["Size"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K6 ["BackgroundTransparency"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["Ref"]
+  GETTABLEKS R5 R0 K8 ["detectorRef"]
+  SETTABLE R5 R3 R4
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["Event"]
+  GETTABLEKS R4 R5 K10 ["MouseEnter"]
+  GETTABLEKS R5 R0 K11 ["mouseEnter"]
+  SETTABLE R5 R3 R4
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["Event"]
+  GETTABLEKS R4 R5 K12 ["MouseMoved"]
+  GETTABLEKS R5 R0 K13 ["mouseMoved"]
+  SETTABLE R5 R3 R4
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["Event"]
+  GETTABLEKS R4 R5 K14 ["MouseLeave"]
+  GETTABLEKS R5 R0 K15 ["mouseLeave"]
+  SETTABLE R5 R3 R4
+  DUPTABLE R4 K17 [{"Tooltip"}]
+  GETTABLEKS R6 R0 K18 ["state"]
+  GETTABLEKS R5 R6 K19 ["show"]
+  JUMPIFNOT R5 [+57]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K1 ["Frame"]
+  DUPTABLE R7 K25 [{"ZIndex", "Position", "Size", "Visible", "BackgroundColor3", "BorderColor3"}]
+  LOADN R8 10
+  SETTABLEKS R8 R7 K20 ["ZIndex"]
+  GETTABLEKS R9 R0 K18 ["state"]
+  GETTABLEKS R8 R9 K26 ["tooltipPosition"]
+  SETTABLEKS R8 R7 K21 ["Position"]
+  GETTABLEKS R9 R0 K27 ["props"]
+  GETTABLEKS R8 R9 K5 ["Size"]
+  SETTABLEKS R8 R7 K5 ["Size"]
+  GETTABLEKS R9 R0 K27 ["props"]
+  GETTABLEKS R8 R9 K28 ["enabled"]
+  SETTABLEKS R8 R7 K22 ["Visible"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K29 ["Theme"]
+  GETIMPORT R10 K33 [Enum.StudioStyleGuideColor.MainBackground]
+  GETIMPORT R11 K36 [Enum.StudioStyleGuideModifier.Default]
+  NAMECALL R8 R8 K37 ["GetColor"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K23 ["BackgroundColor3"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K29 ["Theme"]
+  GETIMPORT R10 K39 [Enum.StudioStyleGuideColor.Border]
+  GETIMPORT R11 K36 [Enum.StudioStyleGuideModifier.Default]
+  NAMECALL R8 R8 K37 ["GetColor"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K24 ["BorderColor3"]
+  GETTABLEKS R9 R0 K27 ["props"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K40 ["Children"]
+  GETTABLE R8 R9 R10
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K16 ["Tooltip"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [game]
+  LOADK R3 K5 ["RunService"]
+  NAMECALL R1 R1 K6 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R4 K12 [settings]
+  CALL R4 0 1
+  GETTABLEKS R3 R4 K13 ["Studio"]
+  GETTABLEKS R4 R2 K14 ["Component"]
+  LOADK R6 K15 ["Tooltip"]
+  NAMECALL R4 R4 K16 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K17 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K18 ["init"]
+  DUPCLOSURE R5 K19 [PROTO_5]
+  SETTABLEKS R5 R4 K20 ["disconnectHeartbeat"]
+  DUPCLOSURE R5 K21 [PROTO_6]
+  SETTABLEKS R5 R4 K22 ["resetTargetTime"]
+  DUPCLOSURE R5 K23 [PROTO_7]
+  SETTABLEKS R5 R4 K24 ["getPosition"]
+  DUPCLOSURE R5 K25 [PROTO_8]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K26 ["render"]
+  RETURN R4 1

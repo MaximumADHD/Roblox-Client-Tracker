@@ -1,0 +1,37 @@
+PROTO_0:
+  NEWTABLE R1 0 2
+  DUPTABLE R2 K2 [{"Label", "Value"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["Filename"]
+  SETTABLEKS R3 R2 K0 ["Label"]
+  GETTABLEKS R4 R0 K4 ["File"]
+  GETTABLEKS R3 R4 K5 ["Name"]
+  SETTABLEKS R3 R2 K1 ["Value"]
+  DUPTABLE R3 K2 [{"Label", "Value"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["Dimensions"]
+  SETTABLEKS R4 R3 K0 ["Label"]
+  LOADK R5 K7 ["%*x%*px"]
+  GETTABLEKS R7 R0 K8 ["Width"]
+  GETTABLEKS R8 R0 K9 ["Height"]
+  NAMECALL R5 R5 K10 ["format"]
+  CALL R5 3 1
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K1 ["Value"]
+  SETLIST R1 R2 2 [1]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["MetadataItem"]
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

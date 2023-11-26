@@ -1,0 +1,770 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIFNOT R1 [+3]
+  GETUPVAL R2 2
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+  GETUPVAL R2 3
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+  GETUPVAL R2 4
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["getFFlagMSPhase02"]
+  GETTABLEKS R4 R2 K9 ["getFFlagMSPhase02FixCategory"]
+  NEWTABLE R5 64 0
+  GETIMPORT R6 K13 [Enum.Material.Aluminum]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K15 ["Metal"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K17 [Enum.Material.Asphalt]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K18 ["Concrete"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K20 [Enum.Material.Basalt]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K21 ["Rock"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K23 [Enum.Material.Brick]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K24 ["Stone"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K26 [Enum.Material.Cobblestone]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K24 ["Stone"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K27 [Enum.Material.Concrete]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K18 ["Concrete"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K29 [Enum.Material.CorrodedMetal]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K15 ["Metal"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K31 [Enum.Material.CrackedLava]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K21 ["Rock"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K33 [Enum.Material.DiamondPlate]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K15 ["Metal"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K35 [Enum.Material.Fabric]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K34 ["Fabric"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K37 [Enum.Material.ForceField]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K38 ["Special"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K40 [Enum.Material.Glacier]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K41 ["Organic"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K43 [Enum.Material.Glass]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K44 ["Translucent"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K46 [Enum.Material.Granite]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K21 ["Rock"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K48 [Enum.Material.Grass]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K49 ["Ground"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K50 [Enum.Material.Ground]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K49 ["Ground"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K52 [Enum.Material.Ice]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K41 ["Organic"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K54 [Enum.Material.LeafyGrass]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K49 ["Ground"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K56 [Enum.Material.Limestone]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K21 ["Rock"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K58 [Enum.Material.Neon]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K38 ["Special"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K60 [Enum.Material.Marble]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K21 ["Rock"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K61 [Enum.Material.Metal]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K15 ["Metal"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K63 [Enum.Material.Mud]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K49 ["Ground"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K65 [Enum.Material.Pavement]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K18 ["Concrete"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K67 [Enum.Material.Pebble]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K21 ["Rock"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K69 [Enum.Material.Plastic]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K68 ["Plastic"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K70 [Enum.Material.Rock]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K21 ["Rock"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K72 [Enum.Material.Salt]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K41 ["Organic"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K74 [Enum.Material.Sand]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K49 ["Ground"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K76 [Enum.Material.Sandstone]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K21 ["Rock"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K78 [Enum.Material.Slate]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K21 ["Rock"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K80 [Enum.Material.SmoothPlastic]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K68 ["Plastic"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K82 [Enum.Material.Snow]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K49 ["Ground"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K84 [Enum.Material.Wood]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K83 ["Wood"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K86 [Enum.Material.WoodPlanks]
+  NEWTABLE R7 0 2
+  LOADK R8 K14 ["Materials"]
+  LOADK R9 K83 ["Wood"]
+  SETLIST R7 R8 2 [1]
+  SETTABLE R7 R5 R6
+  NEWTABLE R6 64 0
+  GETIMPORT R7 K13 [Enum.Material.Aluminum]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K15 ["Metal"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K17 [Enum.Material.Asphalt]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K18 ["Concrete"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K20 [Enum.Material.Basalt]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K21 ["Rock"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K23 [Enum.Material.Brick]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K24 ["Stone"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K88 [Enum.Material.Cardboard]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K89 ["Paper"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K91 [Enum.Material.Carpet]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K34 ["Fabric"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K93 [Enum.Material.CeramicTiles]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K94 ["Ceramic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K96 [Enum.Material.ClayRoofTiles]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K94 ["Ceramic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K26 [Enum.Material.Cobblestone]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K24 ["Stone"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K27 [Enum.Material.Concrete]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K18 ["Concrete"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K29 [Enum.Material.CorrodedMetal]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K15 ["Metal"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K31 [Enum.Material.CrackedLava]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K21 ["Rock"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K33 [Enum.Material.DiamondPlate]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K15 ["Metal"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K35 [Enum.Material.Fabric]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K34 ["Fabric"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K37 [Enum.Material.ForceField]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K38 ["Special"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K40 [Enum.Material.Glacier]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K41 ["Organic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K43 [Enum.Material.Glass]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K44 ["Translucent"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K46 [Enum.Material.Granite]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K21 ["Rock"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K48 [Enum.Material.Grass]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K49 ["Ground"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K50 [Enum.Material.Ground]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K49 ["Ground"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K52 [Enum.Material.Ice]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K41 ["Organic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K54 [Enum.Material.LeafyGrass]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K49 ["Ground"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K98 [Enum.Material.Leather]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K97 ["Leather"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K56 [Enum.Material.Limestone]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K21 ["Rock"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K58 [Enum.Material.Neon]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K38 ["Special"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K60 [Enum.Material.Marble]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K21 ["Rock"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K61 [Enum.Material.Metal]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K15 ["Metal"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K63 [Enum.Material.Mud]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K49 ["Ground"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K65 [Enum.Material.Pavement]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K18 ["Concrete"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K67 [Enum.Material.Pebble]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K21 ["Rock"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K100 [Enum.Material.Plaster]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K94 ["Ceramic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K69 [Enum.Material.Plastic]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K68 ["Plastic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K70 [Enum.Material.Rock]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K21 ["Rock"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K102 [Enum.Material.RoofShingles]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K103 ["Synthetic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K105 [Enum.Material.Rubber]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K103 ["Synthetic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K72 [Enum.Material.Salt]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K41 ["Organic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K74 [Enum.Material.Sand]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K49 ["Ground"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K76 [Enum.Material.Sandstone]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K21 ["Rock"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K78 [Enum.Material.Slate]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K21 ["Rock"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K80 [Enum.Material.SmoothPlastic]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K68 ["Plastic"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K82 [Enum.Material.Snow]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K49 ["Ground"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K84 [Enum.Material.Wood]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K83 ["Wood"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  GETIMPORT R7 K86 [Enum.Material.WoodPlanks]
+  NEWTABLE R8 0 2
+  LOADK R9 K14 ["Materials"]
+  LOADK R10 K83 ["Wood"]
+  SETLIST R8 R9 2 [1]
+  SETTABLE R8 R6 R7
+  NEWTABLE R7 64 0
+  GETIMPORT R8 K13 [Enum.Material.Aluminum]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K15 ["Metal"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K17 [Enum.Material.Asphalt]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K18 ["Concrete"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K20 [Enum.Material.Basalt]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K21 ["Rock"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K23 [Enum.Material.Brick]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K24 ["Stone"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K88 [Enum.Material.Cardboard]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K89 ["Paper"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K91 [Enum.Material.Carpet]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K34 ["Fabric"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K93 [Enum.Material.CeramicTiles]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K94 ["Ceramic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K96 [Enum.Material.ClayRoofTiles]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K94 ["Ceramic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K26 [Enum.Material.Cobblestone]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K24 ["Stone"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K27 [Enum.Material.Concrete]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K18 ["Concrete"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K29 [Enum.Material.CorrodedMetal]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K15 ["Metal"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K31 [Enum.Material.CrackedLava]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K21 ["Rock"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K33 [Enum.Material.DiamondPlate]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K15 ["Metal"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K35 [Enum.Material.Fabric]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K34 ["Fabric"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K37 [Enum.Material.ForceField]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K38 ["Special"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K40 [Enum.Material.Glacier]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K41 ["Organic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K43 [Enum.Material.Glass]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K44 ["Translucent"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K46 [Enum.Material.Granite]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K21 ["Rock"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K48 [Enum.Material.Grass]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K49 ["Ground"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K50 [Enum.Material.Ground]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K49 ["Ground"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K52 [Enum.Material.Ice]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K41 ["Organic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K54 [Enum.Material.LeafyGrass]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K49 ["Ground"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K98 [Enum.Material.Leather]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K34 ["Fabric"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K56 [Enum.Material.Limestone]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K21 ["Rock"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K58 [Enum.Material.Neon]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K38 ["Special"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K60 [Enum.Material.Marble]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K21 ["Rock"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K61 [Enum.Material.Metal]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K15 ["Metal"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K63 [Enum.Material.Mud]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K49 ["Ground"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K65 [Enum.Material.Pavement]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K18 ["Concrete"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K67 [Enum.Material.Pebble]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K21 ["Rock"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K100 [Enum.Material.Plaster]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K94 ["Ceramic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K69 [Enum.Material.Plastic]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K68 ["Plastic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K70 [Enum.Material.Rock]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K21 ["Rock"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K102 [Enum.Material.RoofShingles]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K103 ["Synthetic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K105 [Enum.Material.Rubber]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K103 ["Synthetic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K72 [Enum.Material.Salt]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K41 ["Organic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K74 [Enum.Material.Sand]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K49 ["Ground"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K76 [Enum.Material.Sandstone]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K21 ["Rock"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K78 [Enum.Material.Slate]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K21 ["Rock"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K80 [Enum.Material.SmoothPlastic]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K68 ["Plastic"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K82 [Enum.Material.Snow]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K49 ["Ground"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K84 [Enum.Material.Wood]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K83 ["Wood"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K86 [Enum.Material.WoodPlanks]
+  NEWTABLE R9 0 2
+  LOADK R10 K14 ["Materials"]
+  LOADK R11 K83 ["Wood"]
+  SETLIST R9 R10 2 [1]
+  SETTABLE R9 R7 R8
+  DUPCLOSURE R8 K106 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  RETURN R8 1

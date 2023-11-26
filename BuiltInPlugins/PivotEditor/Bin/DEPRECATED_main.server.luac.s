@@ -1,0 +1,28 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["defineLuaFlags"]
+  CALL R1 1 0
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagImprovePluginSpeedPivotEditor"]
+  CALL R1 1 1
+  MOVE R2 R1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K4 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["main"]
+  CALL R2 1 1
+  MOVE R3 R2
+  GETIMPORT R4 K11 [plugin]
+  CALL R3 1 0
+  RETURN R0 0

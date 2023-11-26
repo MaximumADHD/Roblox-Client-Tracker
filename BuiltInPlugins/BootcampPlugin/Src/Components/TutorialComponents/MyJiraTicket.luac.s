@@ -1,0 +1,88 @@
+PROTO_0:
+  GETIMPORT R0 K2 [Random.new]
+  CALL R0 0 1
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K5 ["Part"]
+  CALL R1 1 1
+  LOADK R2 K6 ["My part"]
+  SETTABLEKS R2 R1 K7 ["Name"]
+  GETIMPORT R2 K10 [Color3.fromRGB]
+  LOADN R3 27
+  LOADN R4 143
+  LOADN R5 143
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K11 ["Color"]
+  GETTABLEKS R3 R1 K12 ["Position"]
+  LOADN R7 246
+  LOADN R8 10
+  NAMECALL R5 R0 K13 ["NextInteger"]
+  CALL R5 3 1
+  LOADN R6 0
+  LOADN R9 246
+  LOADN R10 10
+  NAMECALL R7 R0 K13 ["NextInteger"]
+  CALL R7 3 -1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R4 K15 [Vector3.new]
+  CALL R4 -1 1
+  ADD R2 R3 R4
+  SETTABLEKS R2 R1 K12 ["Position"]
+  GETIMPORT R2 K17 [workspace]
+  SETTABLEKS R2 R1 K18 ["Parent"]
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K5 [{"Text", "OnClick"}]
+  LOADK R7 K6 ["TutorialComponents"]
+  LOADK R8 K7 ["MyJiraTicket"]
+  NAMECALL R5 R1 K8 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K3 ["Text"]
+  GETUPVAL R5 2
+  SETTABLEKS R5 R4 K4 ["OnClick"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R6 R2 K10 ["UI"]
+  GETTABLEKS R5 R6 K11 ["Button"]
+  GETTABLEKS R6 R1 K12 ["PureComponent"]
+  LOADK R8 K13 ["MyJiraTicket"]
+  NAMECALL R6 R6 K14 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K15 [PROTO_0]
+  DUPCLOSURE R8 K16 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  SETTABLEKS R8 R6 K17 ["render"]
+  MOVE R8 R4
+  DUPTABLE R9 K19 [{"Localization"}]
+  GETTABLEKS R10 R3 K18 ["Localization"]
+  SETTABLEKS R10 R9 K18 ["Localization"]
+  CALL R8 1 1
+  MOVE R9 R6
+  CALL R8 1 1
+  MOVE R6 R8
+  RETURN R6 1

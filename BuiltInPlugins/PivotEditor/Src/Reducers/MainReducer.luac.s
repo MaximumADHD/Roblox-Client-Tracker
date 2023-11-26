@@ -1,0 +1,133 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K2 [{"editingMode", "statusMessage"}]
+  GETTABLEKS R5 R1 K0 ["editingMode"]
+  SETTABLEKS R5 R4 K0 ["editingMode"]
+  GETTABLEKS R5 R1 K1 ["statusMessage"]
+  SETTABLEKS R5 R4 K1 ["statusMessage"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K2 [{"editingMode", "statusMessage"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["Transform"]
+  SETTABLEKS R5 R4 K0 ["editingMode"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["None"]
+  SETTABLEKS R5 R4 K1 ["statusMessage"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"targetObject", "editingMode", "statusMessage"}]
+  GETTABLEKS R5 R1 K0 ["targetObject"]
+  SETTABLEKS R5 R4 K0 ["targetObject"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["Transform"]
+  SETTABLEKS R5 R4 K1 ["editingMode"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K5 ["None"]
+  SETTABLEKS R5 R4 K2 ["statusMessage"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"targetObject", "editingMode", "statusMessage"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["None"]
+  SETTABLEKS R5 R4 K0 ["targetObject"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["None"]
+  SETTABLEKS R5 R4 K1 ["editingMode"]
+  GETTABLEKS R5 R1 K2 ["statusMessage"]
+  SETTABLEKS R5 R4 K2 ["statusMessage"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Rodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Utility"]
+  GETTABLEKS R4 R5 K10 ["EditingMode"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Utility"]
+  GETTABLEKS R5 R6 K11 ["StatusMessage"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Actions"]
+  GETTABLEKS R6 R7 K13 ["BeginSelectingPivot"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Actions"]
+  GETTABLEKS R7 R8 K14 ["DoneSelectingPivot"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K12 ["Actions"]
+  GETTABLEKS R8 R9 K15 ["SelectObjectForEditing"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K8 ["Src"]
+  GETTABLEKS R10 R11 K12 ["Actions"]
+  GETTABLEKS R9 R10 K16 ["SelectInvalidSelection"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K17 ["join"]
+  DUPTABLE R10 K21 [{"targetObject", "editingMode", "statusMessage"}]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K18 ["targetObject"]
+  GETTABLEKS R11 R3 K22 ["None"]
+  SETTABLEKS R11 R10 K19 ["editingMode"]
+  GETTABLEKS R11 R4 K22 ["None"]
+  SETTABLEKS R11 R10 K20 ["statusMessage"]
+  GETTABLEKS R11 R2 K23 ["createReducer"]
+  MOVE R12 R10
+  NEWTABLE R13 4 0
+  GETTABLEKS R14 R5 K24 ["name"]
+  DUPCLOSURE R15 K25 [PROTO_0]
+  CAPTURE VAL R9
+  SETTABLE R15 R13 R14
+  GETTABLEKS R14 R6 K24 ["name"]
+  DUPCLOSURE R15 K26 [PROTO_1]
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLE R15 R13 R14
+  GETTABLEKS R14 R7 K24 ["name"]
+  DUPCLOSURE R15 K27 [PROTO_2]
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLE R15 R13 R14
+  GETTABLEKS R14 R8 K24 ["name"]
+  DUPCLOSURE R15 K28 [PROTO_3]
+  CAPTURE VAL R9
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLE R15 R13 R14
+  CALL R11 2 -1
+  RETURN R11 -1

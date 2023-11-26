@@ -1,0 +1,182 @@
+PROTO_0:
+  LOADK R1 K0 [""]
+  GETIMPORT R2 K2 [ipairs]
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP_INEXT R2
+  GETTABLEKS R7 R6 K3 ["UISelected"]
+  JUMPIFNOT R7 [+2]
+  MOVE R1 R6
+  RETURN R1 1
+  FORGLOOP R2 2 [inext] [-6]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["ToggleCollidesWith"]
+  GETUPVAL R2 1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R4 R1 K2 ["Stylizer"]
+  GETTABLEKS R3 R4 K3 ["GroupListView"]
+  NEWTABLE R4 0 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["getSelectedGroup"]
+  GETTABLEKS R6 R1 K5 ["Groups"]
+  CALL R5 1 1
+  JUMPIFNOTEQKS R5 K6 [""] [+46]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K9 [{"Padding"}]
+  GETTABLEKS R9 R3 K10 ["UnselectedViewPadding"]
+  SETTABLEKS R9 R8 K8 ["Padding"]
+  DUPTABLE R9 K12 [{"TextLabel"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K7 ["createElement"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K18 [{"Size", "Text", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
+  GETIMPORT R13 K21 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K13 ["Size"]
+  LOADK R15 K22 ["Info"]
+  LOADK R16 K23 ["SelectAGroup"]
+  NAMECALL R13 R2 K24 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K14 ["Text"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K15 ["TextWrapped"]
+  GETIMPORT R13 K27 [Enum.TextXAlignment.Center]
+  SETTABLEKS R13 R12 K16 ["TextXAlignment"]
+  GETIMPORT R13 K28 [Enum.TextYAlignment.Center]
+  SETTABLEKS R13 R12 K17 ["TextYAlignment"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K11 ["TextLabel"]
+  CALL R6 3 -1
+  RETURN R6 -1
+  GETIMPORT R6 K30 [ipairs]
+  GETTABLEKS R7 R1 K5 ["Groups"]
+  CALL R6 1 3
+  FORGPREP_INEXT R6
+  GETTABLEKS R11 R10 K31 ["Name"]
+  GETTABLEKS R12 R10 K31 ["Name"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K7 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K35 [{"LayoutOrder", "Size", "Layout", "HorizontalAlignment"}]
+  SETTABLEKS R9 R15 K32 ["LayoutOrder"]
+  GETIMPORT R16 K37 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 0
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K38 ["GroupListRowHeight"]
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K13 ["Size"]
+  GETIMPORT R16 K41 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R16 R15 K33 ["Layout"]
+  GETIMPORT R16 K43 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R16 R15 K34 ["HorizontalAlignment"]
+  DUPTABLE R16 K45 [{"Button"}]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K7 ["createElement"]
+  GETUPVAL R18 5
+  DUPTABLE R19 K48 [{"Checked", "Text", "OnClick"}]
+  GETTABLEKS R20 R5 K49 ["GetCollidesWith"]
+  MOVE R21 R10
+  CALL R20 1 1
+  SETTABLEKS R20 R19 K46 ["Checked"]
+  SETTABLEKS R12 R19 K14 ["Text"]
+  NEWCLOSURE R20 P0
+  CAPTURE VAL R5
+  CAPTURE VAL R10
+  SETTABLEKS R20 R19 K47 ["OnClick"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K44 ["Button"]
+  CALL R13 3 1
+  SETTABLE R13 R4 R11
+  FORGLOOP R6 2 [inext] [-55]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K51 [{"AutomaticSize", "LayoutOrder", "Layout", "Padding"}]
+  GETIMPORT R9 K53 [Enum.AutomaticSize.XY]
+  SETTABLEKS R9 R8 K50 ["AutomaticSize"]
+  GETTABLEKS R9 R1 K32 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K32 ["LayoutOrder"]
+  GETIMPORT R9 K41 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K33 ["Layout"]
+  GETTABLEKS R9 R3 K54 ["MainPanePadding"]
+  SETTABLEKS R9 R8 K8 ["Padding"]
+  DUPTABLE R9 K56 [{"ListPane"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K7 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K57 [{"AutomaticSize", "Layout"}]
+  GETIMPORT R13 K53 [Enum.AutomaticSize.XY]
+  SETTABLEKS R13 R12 K50 ["AutomaticSize"]
+  GETIMPORT R13 K59 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K33 ["Layout"]
+  MOVE R13 R4
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K55 ["ListPane"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R2 K9 ["UI"]
+  GETTABLEKS R5 R4 K10 ["Checkbox"]
+  GETTABLEKS R6 R4 K11 ["Pane"]
+  GETTABLEKS R7 R4 K12 ["TextLabel"]
+  GETIMPORT R8 K4 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K2 ["Parent"]
+  GETTABLEKS R10 R11 K2 ["Parent"]
+  GETTABLEKS R9 R10 K13 ["Constants"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K14 ["Component"]
+  LOADK R11 K15 ["GroupListView"]
+  NAMECALL R9 R9 K16 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K17 [PROTO_0]
+  SETTABLEKS R10 R9 K18 ["getSelectedGroup"]
+  NEWCLOSURE R10 P1
+  CAPTURE REF R9
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  SETTABLEKS R10 R9 K19 ["render"]
+  GETTABLEKS R10 R3 K20 ["withContext"]
+  DUPTABLE R11 K23 [{"Stylizer", "Localization"}]
+  GETTABLEKS R12 R3 K21 ["Stylizer"]
+  SETTABLEKS R12 R11 K21 ["Stylizer"]
+  GETTABLEKS R12 R3 K22 ["Localization"]
+  SETTABLEKS R12 R11 K22 ["Localization"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  CLOSEUPVALS R9
+  RETURN R9 1

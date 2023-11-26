@@ -1,0 +1,213 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  LOADNIL R3
+  GETTABLEKS R4 R1 K2 ["Name"]
+  JUMPIFNOT R4 [+152]
+  GETTABLEKS R4 R1 K2 ["Name"]
+  LOADK R6 K3 ["^rbxassetid://"]
+  NAMECALL R4 R4 K4 ["find"]
+  CALL R4 2 1
+  JUMPIF R4 [+7]
+  GETTABLEKS R4 R1 K2 ["Name"]
+  LOADK R6 K5 ["^rbxasset://"]
+  NAMECALL R4 R4 K4 ["find"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+32]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K10 [{"Size", "Image", "ImageColor3"}]
+  GETIMPORT R7 K13 [UDim2.fromScale]
+  LOADN R8 1
+  LOADN R9 1
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K7 ["Size"]
+  GETTABLEKS R7 R1 K2 ["Name"]
+  SETTABLEKS R7 R6 K8 ["Image"]
+  GETTABLEKS R8 R1 K2 ["Name"]
+  LOADK R10 K5 ["^rbxasset://"]
+  NAMECALL R8 R8 K4 ["find"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R7 R2 K14 ["IconColor"]
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K9 ["ImageColor3"]
+  CALL R4 2 1
+  MOVE R3 R4
+  JUMP [+106]
+  GETTABLEKS R4 R1 K2 ["Name"]
+  LOADK R6 K15 ["emoji:"]
+  NAMECALL R4 R4 K4 ["find"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+46]
+  GETTABLEKS R4 R1 K2 ["Name"]
+  LOADK R6 K15 ["emoji:"]
+  NAMECALL R4 R4 K4 ["find"]
+  CALL R4 2 2
+  GETTABLEKS R6 R1 K2 ["Name"]
+  ADDK R8 R5 K16 [1]
+  LOADN R9 255
+  NAMECALL R6 R6 K17 ["sub"]
+  CALL R6 3 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K18 ["getNamedEmoji"]
+  MOVE R8 R6
+  CALL R7 1 1
+  JUMPIF R7 [+7]
+  LOADK R10 K19 ["^[a-zA-Z%-_]+$"]
+  NAMECALL R8 R6 K20 ["match"]
+  CALL R8 2 1
+  JUMPIF R8 [+2]
+  MOVE R7 R6
+  JUMP [+2]
+  JUMPIF R7 [+1]
+  LOADK R7 K21 ["❌"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K24 [{"TextSize", "Text", "Size"}]
+  GETTABLEKS R11 R2 K22 ["TextSize"]
+  SETTABLEKS R11 R10 K22 ["TextSize"]
+  SETTABLEKS R7 R10 K23 ["Text"]
+  GETTABLEKS R11 R2 K7 ["Size"]
+  SETTABLEKS R11 R10 K7 ["Size"]
+  CALL R8 2 1
+  MOVE R3 R8
+  JUMP [+53]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K25 ["Lookup"]
+  GETTABLEKS R5 R1 K2 ["Name"]
+  CALL R4 1 1
+  JUMPIF R4 [+5]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K25 ["Lookup"]
+  LOADK R5 K26 ["computer_error"]
+  CALL R4 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K6 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K28 [{"Size", "Image", "Style"}]
+  GETIMPORT R8 K13 [UDim2.fromScale]
+  LOADN R9 1
+  LOADN R10 1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K7 ["Size"]
+  GETTABLEKS R8 R4 K8 ["Image"]
+  SETTABLEKS R8 R7 K8 ["Image"]
+  DUPTABLE R8 K31 [{"ImageRectSize", "ImageRectOffset"}]
+  GETTABLEKS R10 R4 K29 ["ImageRectSize"]
+  GETIMPORT R11 K34 [Vector2.new]
+  LOADK R12 K35 [0.5]
+  LOADK R13 K35 [0.5]
+  CALL R11 2 1
+  SUB R9 R10 R11
+  SETTABLEKS R9 R8 K29 ["ImageRectSize"]
+  GETTABLEKS R10 R4 K30 ["ImageRectOffset"]
+  GETIMPORT R11 K34 [Vector2.new]
+  LOADK R12 K36 [0.25]
+  LOADK R13 K36 [0.25]
+  CALL R11 2 1
+  ADD R9 R10 R11
+  SETTABLEKS R9 R8 K30 ["ImageRectOffset"]
+  SETTABLEKS R8 R7 K27 ["Style"]
+  CALL R5 2 1
+  MOVE R3 R5
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["createElement"]
+  GETUPVAL R5 5
+  NEWTABLE R6 16 0
+  GETIMPORT R7 K40 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R7 R6 K38 ["HorizontalAlignment"]
+  GETIMPORT R7 K43 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R7 R6 K44 ["Layout"]
+  GETTABLEKS R7 R1 K45 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K45 ["LayoutOrder"]
+  GETTABLEKS R7 R1 K46 ["OnClick"]
+  SETTABLEKS R7 R6 K46 ["OnClick"]
+  GETTABLEKS R7 R2 K47 ["Padding"]
+  SETTABLEKS R7 R6 K47 ["Padding"]
+  GETTABLEKS R7 R1 K48 ["Position"]
+  SETTABLEKS R7 R6 K48 ["Position"]
+  GETUPVAL R7 6
+  GETTABLEKS R8 R1 K7 ["Size"]
+  GETTABLEKS R9 R2 K7 ["Size"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K7 ["Size"]
+  GETIMPORT R7 K50 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R7 R6 K49 ["VerticalAlignment"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K51 ["Event"]
+  GETTABLEKS R7 R8 K52 ["MouseEnter"]
+  GETTABLEKS R8 R1 K53 ["OnMouseEnter"]
+  SETTABLE R8 R6 R7
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K51 ["Event"]
+  GETTABLEKS R7 R8 K54 ["MouseLeave"]
+  GETTABLEKS R8 R1 K55 ["OnMouseLeave"]
+  SETTABLE R8 R6 R7
+  DUPTABLE R7 K57 [{"ChildDecoration"}]
+  SETTABLEKS R3 R7 K56 ["ChildDecoration"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Emoji"]
+  CALL R4 1 1
+  GETTABLEKS R5 R3 K11 ["ContextServices"]
+  GETTABLEKS R6 R5 K12 ["withContext"]
+  GETTABLEKS R7 R5 K13 ["Analytics"]
+  GETTABLEKS R9 R3 K14 ["Style"]
+  GETTABLEKS R8 R9 K15 ["Stylizer"]
+  GETTABLEKS R9 R3 K16 ["UI"]
+  GETTABLEKS R10 R9 K17 ["Pane"]
+  GETTABLEKS R11 R9 K18 ["Image"]
+  GETTABLEKS R12 R9 K19 ["TextLabel"]
+  GETTABLEKS R14 R3 K20 ["Util"]
+  GETTABLEKS R13 R14 K21 ["prioritize"]
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R16 R0 K5 ["Src"]
+  GETTABLEKS R15 R16 K22 ["FamFamFam"]
+  CALL R14 1 1
+  GETTABLEKS R15 R2 K23 ["PureComponent"]
+  LOADK R17 K24 ["Icon"]
+  NAMECALL R15 R15 K25 ["extend"]
+  CALL R15 2 1
+  DUPCLOSURE R16 K26 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  SETTABLEKS R16 R15 K27 ["render"]
+  MOVE R16 R6
+  DUPTABLE R17 K28 [{"Analytics", "Stylizer"}]
+  SETTABLEKS R7 R17 K13 ["Analytics"]
+  SETTABLEKS R8 R17 K15 ["Stylizer"]
+  CALL R16 1 1
+  MOVE R17 R15
+  CALL R16 1 1
+  MOVE R15 R16
+  RETURN R15 1

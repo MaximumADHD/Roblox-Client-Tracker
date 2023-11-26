@@ -1,0 +1,349 @@
+PROTO_0:
+  DUPTABLE R6 K5 [{"_plugin", "_store", "_mouse", "_generalServiceController", "_mock"}]
+  SETTABLEKS R0 R6 K0 ["_plugin"]
+  SETTABLEKS R1 R6 K1 ["_store"]
+  SETTABLEKS R2 R6 K2 ["_mouse"]
+  SETTABLEKS R3 R6 K3 ["_generalServiceController"]
+  SETTABLEKS R4 R6 K4 ["_mock"]
+  GETUPVAL R7 0
+  FASTCALL2 SETMETATABLE R6 R7 [+3]
+  GETIMPORT R5 K7 [setmetatable]
+  CALL R5 2 1
+  LOADNIL R6
+  SETTABLEKS R6 R5 K8 ["_mouseMoveConnection"]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K9 ["_mouseClickedConnection"]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K10 ["_deactivationConnection"]
+  RETURN R5 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  LOADNIL R1
+  LOADNIL R2
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["mock"]
+  CALL R3 0 1
+  LOADB R4 1
+  CALL R0 4 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["_mock"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K1 ["_plugin"]
+  LOADK R3 K2 ["MaterialBrowserLayout"]
+  NAMECALL R1 R1 K3 ["GetSetting"]
+  CALL R1 2 1
+  GETTABLEKS R2 R0 K1 ["_plugin"]
+  LOADK R4 K4 ["MaterialTileSize"]
+  NAMECALL R2 R2 K3 ["GetSetting"]
+  CALL R2 2 1
+  GETTABLEKS R3 R0 K1 ["_plugin"]
+  LOADK R5 K5 ["ViewType"]
+  NAMECALL R3 R3 K3 ["GetSetting"]
+  CALL R3 2 1
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R4 R0 K6 ["_store"]
+  GETUPVAL R6 0
+  MOVE R7 R1
+  CALL R6 1 -1
+  NAMECALL R4 R4 K7 ["dispatch"]
+  CALL R4 -1 0
+  JUMPIFNOT R2 [+8]
+  GETTABLEKS R4 R0 K6 ["_store"]
+  GETUPVAL R6 1
+  MOVE R7 R2
+  CALL R6 1 -1
+  NAMECALL R4 R4 K7 ["dispatch"]
+  CALL R4 -1 0
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R4 R0 K6 ["_store"]
+  GETUPVAL R6 2
+  MOVE R7 R3
+  CALL R6 1 -1
+  NAMECALL R4 R4 K7 ["dispatch"]
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["_mock"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K1 ["_plugin"]
+  LOADK R4 K2 ["MaterialTileSize"]
+  MOVE R5 R1
+  NAMECALL R2 R2 K3 ["SetSetting"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["_mock"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K1 ["_plugin"]
+  LOADK R4 K2 ["ViewType"]
+  MOVE R5 R1
+  NAMECALL R2 R2 K3 ["SetSetting"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["_mock"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K1 ["_plugin"]
+  LOADK R4 K2 ["MaterialBrowserLayout"]
+  MOVE R5 R1
+  NAMECALL R2 R2 K3 ["SetSetting"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_store"]
+  NAMECALL R2 R2 K1 ["getState"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K2 ["MaterialBrowserReducer"]
+  GETTABLEKS R0 R1 K3 ["Material"]
+  JUMPIFNOT R0 [+16]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K4 ["_mouse"]
+  LOADK R1 K5 ["rbxasset://textures/FillCursor.png"]
+  SETTABLEKS R1 R0 K6 ["Icon"]
+  GETUPVAL R0 2
+  GETUPVAL R1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["_mouse"]
+  GETTABLEKS R2 R3 K7 ["Target"]
+  CALL R0 2 1
+  SETUPVAL R0 1
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K4 ["_mouse"]
+  LOADK R1 K8 ["rbxasset://SystemCursors/Arrow"]
+  SETTABLEKS R1 R0 K6 ["Icon"]
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_store"]
+  NAMECALL R2 R2 K1 ["getState"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K2 ["MaterialBrowserReducer"]
+  GETTABLEKS R0 R1 K3 ["Material"]
+  JUMPIFNOT R0 [+28]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["_mouse"]
+  LOADK R2 K5 ["rbxasset://textures/FillCursor.png"]
+  SETTABLEKS R2 R1 K6 ["Icon"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K7 ["_generalServiceController"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["_mouse"]
+  GETTABLEKS R3 R4 K8 ["Target"]
+  GETTABLEKS R4 R0 K3 ["Material"]
+  GETTABLEKS R6 R0 K9 ["MaterialVariant"]
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R0 K9 ["MaterialVariant"]
+  GETTABLEKS R5 R6 K10 ["Name"]
+  JUMP [+1]
+  LOADNIL R5
+  NAMECALL R1 R1 K11 ["ApplyToBasePart"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_store"]
+  GETUPVAL R2 1
+  LOADB R3 0
+  CALL R2 1 -1
+  NAMECALL R0 R0 K1 ["dispatch"]
+  CALL R0 -1 0
+  GETUPVAL R0 2
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 2
+  NAMECALL R0 R0 K2 ["Destroy"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["_mouse"]
+  LOADK R1 K4 ["rbxasset://SystemCursors/Arrow"]
+  SETTABLEKS R1 R0 K5 ["Icon"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K6 ["_mouseMoveConnection"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K6 ["_mouseMoveConnection"]
+  NAMECALL R0 R0 K7 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K6 ["_mouseMoveConnection"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K8 ["_mouseClickedConnection"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K8 ["_mouseClickedConnection"]
+  NAMECALL R0 R0 K7 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K8 ["_mouseClickedConnection"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K9 ["_deactivationConnection"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K9 ["_deactivationConnection"]
+  NAMECALL R0 R0 K7 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K9 ["_deactivationConnection"]
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["_mock"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K1 ["_plugin"]
+  LOADB R3 1
+  NAMECALL R1 R1 K2 ["Activate"]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K3 ["_store"]
+  GETUPVAL R3 0
+  LOADB R4 1
+  CALL R3 1 -1
+  NAMECALL R1 R1 K4 ["dispatch"]
+  CALL R1 -1 0
+  LOADNIL R1
+  GETTABLEKS R3 R0 K5 ["_mouse"]
+  GETTABLEKS R2 R3 K6 ["Move"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE REF R1
+  CAPTURE UPVAL U1
+  NAMECALL R2 R2 K7 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K8 ["_mouseMoveConnection"]
+  GETTABLEKS R3 R0 K5 ["_mouse"]
+  GETTABLEKS R2 R3 K9 ["Button1Down"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  NAMECALL R2 R2 K7 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K10 ["_mouseClickedConnection"]
+  GETTABLEKS R3 R0 K1 ["_plugin"]
+  GETTABLEKS R2 R3 K11 ["Deactivation"]
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE REF R1
+  NAMECALL R2 R2 K7 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K12 ["_deactivationConnection"]
+  CLOSEUPVALS R1
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["_mock"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K1 ["_plugin"]
+  NAMECALL R1 R1 K2 ["Deactivate"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R1 R0 K0 ["_mock"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K1 ["_mouseMoveConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K1 ["_mouseMoveConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K3 ["_mouseClickedConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K3 ["_mouseClickedConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K4 ["_deactivationConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K4 ["_deactivationConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Actions"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R3 K10 ["SetMaterialAsTool"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R3 K11 ["SetMaterialBrowserLayout"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R3 K12 ["SetMaterialTileSize"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R3 K13 ["SetViewType"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K5 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Controllers"]
+  GETTABLEKS R9 R10 K15 ["GeneralServiceController"]
+  CALL R8 1 1
+  GETTABLEKS R10 R0 K5 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Util"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R9 K17 ["SetHighlight"]
+  CALL R10 1 1
+  GETTABLEKS R12 R2 K18 ["ContextServices"]
+  GETTABLEKS R11 R12 K19 ["ContextItem"]
+  LOADK R14 K20 ["PluginController"]
+  NAMECALL R12 R11 K21 ["extend"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K22 [PROTO_0]
+  CAPTURE VAL R12
+  SETTABLEKS R13 R12 K23 ["new"]
+  DUPCLOSURE R13 K24 [PROTO_1]
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  SETTABLEKS R13 R12 K25 ["mock"]
+  DUPCLOSURE R13 K26 [PROTO_2]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R13 R12 K27 ["initialize"]
+  DUPCLOSURE R13 K28 [PROTO_3]
+  SETTABLEKS R13 R12 K29 ["setMaterialTileSize"]
+  DUPCLOSURE R13 K30 [PROTO_4]
+  SETTABLEKS R13 R12 K31 ["setViewType"]
+  DUPCLOSURE R13 K32 [PROTO_5]
+  SETTABLEKS R13 R12 K33 ["setMaterialBrowserLayout"]
+  DUPCLOSURE R13 K34 [PROTO_9]
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  SETTABLEKS R13 R12 K35 ["toggleMaterialAsTool"]
+  DUPCLOSURE R13 K36 [PROTO_10]
+  SETTABLEKS R13 R12 K37 ["untoggleMaterialAsTool"]
+  DUPCLOSURE R13 K38 [PROTO_11]
+  SETTABLEKS R13 R12 K39 ["destroy"]
+  RETURN R12 1

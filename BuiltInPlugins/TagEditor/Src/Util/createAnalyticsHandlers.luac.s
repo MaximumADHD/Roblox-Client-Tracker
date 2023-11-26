@@ -1,0 +1,139 @@
+PROTO_0:
+  MOVE R2 R1
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R1 R2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  DUPTABLE R3 K4 [{"placeId", "calledFrom"}]
+  GETIMPORT R5 K6 [game]
+  GETTABLEKS R4 R5 K7 ["PlaceId"]
+  SETTABLEKS R4 R3 K2 ["placeId"]
+  SETTABLEKS R0 R3 K3 ["calledFrom"]
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R3 1
+  LOADK R5 K8 ["TagEditorUsage"]
+  MOVE R6 R2
+  GETIMPORT R7 K6 [game]
+  LOADK R9 K9 ["ReportTagEditorEventsThrottleHundrethsPercent2"]
+  NAMECALL R7 R7 K10 ["GetFastInt"]
+  CALL R7 2 -1
+  NAMECALL R3 R3 K11 ["ReportInfluxSeries"]
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["ReportCounter"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["Opened"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["WorldVisualization"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["ColorChanged"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["IconChanged"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["TagCreated"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["ObjectTagged"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["TagEditorToggleWidget"]
+  NAMECALL R0 R0 K1 ["ReportCounter"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["TagEditorOpenWidget"]
+  NAMECALL R0 R0 K1 ["ReportCounter"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["TagEditorCloseWidget"]
+  NAMECALL R0 R0 K1 ["ReportCounter"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_11:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  DUPTABLE R3 K9 [{"opened", "worldVisualization", "colorChanged", "iconChanged", "tagCreated", "objectTagged", "toggleWidget", "openWidget", "closeWidget"}]
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K0 ["opened"]
+  NEWCLOSURE R4 P3
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K1 ["worldVisualization"]
+  NEWCLOSURE R4 P4
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K2 ["colorChanged"]
+  NEWCLOSURE R4 P5
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K3 ["iconChanged"]
+  NEWCLOSURE R4 P6
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K4 ["tagCreated"]
+  NEWCLOSURE R4 P7
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K5 ["objectTagged"]
+  NEWCLOSURE R4 P8
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K6 ["toggleWidget"]
+  NEWCLOSURE R4 P9
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K7 ["openWidget"]
+  NEWCLOSURE R4 P10
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K8 ["closeWidget"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Cryo"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_11]
+  CAPTURE VAL R1
+  RETURN R2 1

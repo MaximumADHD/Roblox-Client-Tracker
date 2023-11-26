@@ -1,0 +1,8 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K2 [{"plugin", "toolbar"}]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["plugin"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["toolbar"]
+  RETURN R0 1

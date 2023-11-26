@@ -1,0 +1,621 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Network"]
+  GETTABLEKS R0 R1 K1 ["networkInterface"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["props"]
+  GETTABLEKS R1 R2 K3 ["Settings"]
+  LOADK R3 K4 ["Plugin"]
+  NAMECALL R1 R1 K5 ["get"]
+  CALL R1 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["props"]
+  GETTABLEKS R2 R3 K6 ["nextPage"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["Asset"]
+  GETTABLEKS R1 R2 K1 ["Id"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["getAssets"]
+  NEWTABLE R3 0 1
+  MOVE R4 R0
+  SETLIST R3 R4 1 [1]
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["setAssetPreview"]
+  LOADB R3 1
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R5 R4 K1 ["LogAssetImpression"]
+  JUMPIFNOT R5 [+12]
+  GETTABLEKS R5 R4 K1 ["LogAssetImpression"]
+  MOVE R6 R0
+  MOVE R7 R3
+  MOVE R8 R1
+  MOVE R9 R2
+  GETTABLEKS R10 R4 K2 ["ParentAbsoluteSize"]
+  GETTABLEKS R11 R4 K3 ["ParentAbsolutePosition"]
+  CALL R5 6 -1
+  RETURN R5 -1
+  LOADNIL R5
+  RETURN R5 1
+
+PROTO_3:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K0 ["requestNextPage"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R1
+  SETTABLEKS R2 R0 K1 ["setAssetPreview"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K2 ["logImpression"]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  FASTCALL1 TONUMBER R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [tonumber]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+16]
+  GETTABLEKS R3 R0 K2 ["props"]
+  GETTABLEKS R4 R3 K3 ["getAssetPreviewDataForStartup"]
+  MOVE R5 R2
+  GETTABLEKS R6 R3 K4 ["TryInsert"]
+  GETTABLEKS R7 R3 K5 ["Localization"]
+  GETTABLEKS R9 R3 K6 ["Network"]
+  GETTABLEKS R8 R9 K7 ["networkInterface"]
+  GETTABLEKS R9 R0 K8 ["setAssetPreview"]
+  CALL R4 5 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["idToAssetMap"]
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+
+PROTO_6:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["idToAssetMap"]
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R2 R1 K1 ["IXP"]
+  JUMP [+1]
+  LOADNIL R2
+  GETTABLEKS R3 R1 K2 ["allAssetCount"]
+  GETTABLEKS R4 R1 K3 ["isLoading"]
+  GETTABLEKS R5 R1 K4 ["assetIds"]
+  GETTABLEKS R6 R1 K5 ["LayoutOrder"]
+  GETTABLEKS R7 R1 K6 ["Position"]
+  GETTABLEKS R8 R1 K7 ["RenderTopContent"]
+  GETTABLEKS R9 R1 K8 ["Size"]
+  GETTABLEKS R10 R1 K9 ["CanInsertAsset"]
+  GETTABLEKS R11 R1 K10 ["OnAssetPreviewButtonClicked"]
+  GETTABLEKS R12 R1 K11 ["TryInsert"]
+  GETTABLEKS R13 R1 K12 ["TryOpenAssetConfig"]
+  GETUPVAL R15 0
+  CALL R15 0 1
+  JUMPIFNOT R15 [+14]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K13 ["getTabForCategoryName"]
+  GETTABLEKS R16 R1 K14 ["categoryName"]
+  CALL R15 1 1
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K15 ["INVENTORY"]
+  JUMPIFEQ R15 R16 [+2]
+  LOADB R14 0 +1
+  LOADB R14 1
+  JUMP [+1]
+  LOADNIL R14
+  JUMPIFNOT R3 [+3]
+  LOADN R15 0
+  JUMPIFLT R15 R3 [+25]
+  JUMPIF R4 [+23]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K16 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K19 [{"Position", "Text", "ZIndex"}]
+  GETTABLEKS R18 R1 K20 ["NoResultsPosition"]
+  SETTABLEKS R18 R17 K6 ["Position"]
+  GETTABLEKS R18 R1 K21 ["Localization"]
+  LOADK R20 K22 ["General"]
+  LOADK R21 K23 ["InfoBannerText"]
+  NAMECALL R18 R18 K24 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K17 ["Text"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K18 ["ZIndex"]
+  CALL R15 2 -1
+  RETURN R15 -1
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K25 ["categoryIsPackage"]
+  GETTABLEKS R16 R1 K14 ["categoryName"]
+  CALL R15 1 1
+  JUMPIFNOT R15 [+45]
+  LENGTH R16 R5
+  JUMPIFEQKN R16 K26 [0] [+43]
+  NEWTABLE R16 0 0
+  LOADN R17 1
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K27 ["MaxPackageAssetIdsForHighestPermissionsRequest"]
+  JUMPIFNOTLT R17 R18 [+20]
+  GETTABLE R18 R5 R17
+  JUMPIFEQKNIL R18 [+17]
+  GETTABLE R18 R5 R17
+  GETTABLEKS R21 R0 K0 ["props"]
+  GETTABLEKS R20 R21 K28 ["currentUserPackagePermissions"]
+  GETTABLE R19 R20 R18
+  JUMPIF R19 [+7]
+  FASTCALL2 TABLE_INSERT R16 R18 [+5]
+  MOVE R20 R16
+  MOVE R21 R18
+  GETIMPORT R19 K31 [table.insert]
+  CALL R19 2 0
+  ADDK R17 R17 K32 [1]
+  JUMPBACK [-24]
+  LENGTH R18 R16
+  JUMPIFEQKN R18 K26 [0] [+13]
+  GETTABLEKS R19 R0 K0 ["props"]
+  GETTABLEKS R18 R19 K33 ["dispatchPostAssetCheckPermissions"]
+  GETTABLEKS R21 R0 K0 ["props"]
+  GETTABLEKS R20 R21 K34 ["Network"]
+  GETTABLEKS R19 R20 K35 ["networkInterface"]
+  MOVE R20 R16
+  CALL R18 2 0
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K36 ["categoryIsAudio"]
+  GETTABLEKS R17 R1 K14 ["categoryName"]
+  CALL R16 1 1
+  JUMPIFNOT R16 [+45]
+  GETUPVAL R16 5
+  GETTABLEKS R17 R1 K4 ["assetIds"]
+  NEWCLOSURE R18 P0
+  CAPTURE VAL R1
+  CALL R16 2 1
+  GETUPVAL R18 6
+  GETTABLEKS R17 R18 K37 ["Generator"]
+  DUPTABLE R18 K43 [{"Assets", "CanInsertAsset", "FetchNextPage", "Loading", "LogImpression", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "Position", "Size", "TryInsert", "TryOpenAssetConfig"}]
+  SETTABLEKS R16 R18 K38 ["Assets"]
+  SETTABLEKS R10 R18 K9 ["CanInsertAsset"]
+  GETTABLEKS R19 R0 K44 ["requestNextPage"]
+  SETTABLEKS R19 R18 K39 ["FetchNextPage"]
+  LOADB R19 0
+  SETTABLEKS R19 R18 K40 ["Loading"]
+  GETTABLEKS R19 R0 K45 ["logImpression"]
+  SETTABLEKS R19 R18 K41 ["LogImpression"]
+  GETTABLEKS R19 R1 K10 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R19 R18 K10 ["OnAssetPreviewButtonClicked"]
+  GETTABLEKS R19 R1 K42 ["ParentAbsoluteSize"]
+  SETTABLEKS R19 R18 K42 ["ParentAbsoluteSize"]
+  SETTABLEKS R7 R18 K6 ["Position"]
+  SETTABLEKS R9 R18 K8 ["Size"]
+  SETTABLEKS R12 R18 K11 ["TryInsert"]
+  GETTABLEKS R19 R1 K12 ["TryOpenAssetConfig"]
+  SETTABLEKS R19 R18 K12 ["TryOpenAssetConfig"]
+  CALL R17 1 -1
+  RETURN R17 -1
+  GETUPVAL R16 7
+  MOVE R17 R2
+  CALL R16 1 1
+  JUMPIFNOT R16 [+60]
+  GETTABLEKS R16 R1 K46 ["layoutMode"]
+  GETUPVAL R18 8
+  GETTABLEKS R17 R18 K47 ["ListView"]
+  JUMPIFNOTEQ R16 R17 [+54]
+  JUMPIFNOT R14 [+52]
+  GETUPVAL R16 5
+  GETTABLEKS R17 R1 K4 ["assetIds"]
+  NEWCLOSURE R18 P1
+  CAPTURE VAL R1
+  CALL R16 2 1
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K16 ["createElement"]
+  GETUPVAL R18 9
+  DUPTABLE R19 K49 [{"Assets", "CanInsertAsset", "FetchNextPage", "LogImpression", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "ParentAbsoluteSize", "Position", "Size", "TryInsert", "TryOpenAssetConfig"}]
+  SETTABLEKS R16 R19 K38 ["Assets"]
+  SETTABLEKS R10 R19 K9 ["CanInsertAsset"]
+  GETTABLEKS R20 R0 K44 ["requestNextPage"]
+  SETTABLEKS R20 R19 K39 ["FetchNextPage"]
+  GETTABLEKS R20 R0 K45 ["logImpression"]
+  SETTABLEKS R20 R19 K41 ["LogImpression"]
+  GETTABLEKS R20 R1 K10 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R20 R19 K10 ["OnAssetPreviewButtonClicked"]
+  GETUPVAL R21 10
+  CALL R21 0 1
+  JUMPIFNOT R21 [+3]
+  GETTABLEKS R20 R1 K48 ["OnSearchByCreator"]
+  JUMP [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K48 ["OnSearchByCreator"]
+  GETTABLEKS R20 R1 K42 ["ParentAbsoluteSize"]
+  SETTABLEKS R20 R19 K42 ["ParentAbsoluteSize"]
+  SETTABLEKS R7 R19 K6 ["Position"]
+  SETTABLEKS R9 R19 K8 ["Size"]
+  SETTABLEKS R12 R19 K11 ["TryInsert"]
+  GETTABLEKS R20 R1 K12 ["TryOpenAssetConfig"]
+  SETTABLEKS R20 R19 K12 ["TryOpenAssetConfig"]
+  CALL R17 2 -1
+  RETURN R17 -1
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K16 ["createElement"]
+  GETUPVAL R17 11
+  DUPTABLE R18 K56 [{"AssetIds", "AssetMap", "LayoutOrder", "Position", "RenderTopContent", "RequestNextPage", "Size", "CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "ParentAbsolutePosition", "ParentSize", "TryInsert", "TryOpenAssetConfig"}]
+  SETTABLEKS R5 R18 K50 ["AssetIds"]
+  GETTABLEKS R19 R1 K57 ["idToAssetMap"]
+  SETTABLEKS R19 R18 K51 ["AssetMap"]
+  SETTABLEKS R6 R18 K5 ["LayoutOrder"]
+  SETTABLEKS R7 R18 K6 ["Position"]
+  SETTABLEKS R8 R18 K7 ["RenderTopContent"]
+  GETTABLEKS R19 R0 K44 ["requestNextPage"]
+  SETTABLEKS R19 R18 K52 ["RequestNextPage"]
+  SETTABLEKS R9 R18 K8 ["Size"]
+  SETTABLEKS R10 R18 K9 ["CanInsertAsset"]
+  GETTABLEKS R19 R1 K53 ["LogAssetImpression"]
+  SETTABLEKS R19 R18 K53 ["LogAssetImpression"]
+  SETTABLEKS R11 R18 K10 ["OnAssetPreviewButtonClicked"]
+  GETUPVAL R20 12
+  CALL R20 0 1
+  JUMPIFNOT R20 [+3]
+  GETTABLEKS R19 R1 K48 ["OnSearchByCreator"]
+  JUMP [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K48 ["OnSearchByCreator"]
+  GETTABLEKS R19 R1 K54 ["ParentAbsolutePosition"]
+  SETTABLEKS R19 R18 K54 ["ParentAbsolutePosition"]
+  GETTABLEKS R19 R1 K42 ["ParentAbsoluteSize"]
+  SETTABLEKS R19 R18 K55 ["ParentSize"]
+  SETTABLEKS R12 R18 K11 ["TryInsert"]
+  SETTABLEKS R13 R18 K12 ["TryOpenAssetConfig"]
+  CALL R16 2 -1
+  RETURN R16 -1
+
+PROTO_8:
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R0 R2
+  GETTABLEKS R2 R0 K0 ["assets"]
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  GETTABLEKS R3 R0 K1 ["pageInfo"]
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R3 K2 ["categoryName"]
+  JUMPIF R4 [+5]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["DEFAULT"]
+  GETTABLEKS R4 R5 K4 ["name"]
+  DUPTABLE R5 K11 [{"allAssetCount", "assetIds", "categoryName", "currentUserPackagePermissions", "idToAssetMap", "isLoading", "layoutMode"}]
+  GETTABLEKS R7 R2 K12 ["idsToRender"]
+  LENGTH R6 R7
+  SETTABLEKS R6 R5 K5 ["allAssetCount"]
+  GETTABLEKS R6 R2 K12 ["idsToRender"]
+  JUMPIF R6 [+2]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K6 ["assetIds"]
+  SETTABLEKS R4 R5 K2 ["categoryName"]
+  GETTABLEKS R7 R0 K13 ["packages"]
+  GETTABLEKS R6 R7 K14 ["permissionsTable"]
+  JUMPIF R6 [+2]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K7 ["currentUserPackagePermissions"]
+  GETTABLEKS R6 R2 K8 ["idToAssetMap"]
+  SETTABLEKS R6 R5 K8 ["idToAssetMap"]
+  GETTABLEKS R7 R2 K9 ["isLoading"]
+  ORK R6 R7 K15 [False]
+  SETTABLEKS R6 R5 K9 ["isLoading"]
+  GETUPVAL R7 1
+  CALL R7 0 1
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R6 R3 K10 ["layoutMode"]
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K10 ["layoutMode"]
+  RETURN R5 1
+
+PROTO_9:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R5 0
+  GETUPVAL R6 1
+  MOVE R7 R0
+  MOVE R8 R1
+  MOVE R9 R2
+  MOVE R10 R3
+  MOVE R11 R4
+  CALL R6 5 -1
+  CALL R5 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_12:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 -1
+  RETURN R2 -1
+
+PROTO_14:
+  DUPTABLE R1 K5 [{"dispatchPostAssetCheckPermissions", "getAssetPreviewDataForStartup", "getAssets", "nextPage", "setAssetPreview"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["dispatchPostAssetCheckPermissions"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["getAssetPreviewDataForStartup"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["getAssets"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["nextPage"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R1 K4 ["setAssetPreview"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R1 K8 ["LuauPolyfill"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K9 ["Array"]
+  GETTABLEKS R4 R5 K10 ["map"]
+  GETTABLEKS R6 R0 K11 ["Core"]
+  GETTABLEKS R5 R6 K12 ["Util"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R5 K13 ["getStartupAssetId"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K11 ["Core"]
+  GETTABLEKS R9 R10 K14 ["ContextServices"]
+  GETTABLEKS R8 R9 K15 ["IXPContext"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K11 ["Core"]
+  GETTABLEKS R10 R11 K16 ["Types"]
+  GETTABLEKS R9 R10 K17 ["Category"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K11 ["Core"]
+  GETTABLEKS R11 R12 K16 ["Types"]
+  GETTABLEKS R10 R11 K18 ["LayoutMode"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K11 ["Core"]
+  GETTABLEKS R12 R13 K19 ["Components"]
+  GETTABLEKS R11 R12 K20 ["AssetGrid"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R16 R0 K11 ["Core"]
+  GETTABLEKS R15 R16 K19 ["Components"]
+  GETTABLEKS R14 R15 K21 ["AssetConfiguration"]
+  GETTABLEKS R13 R14 K22 ["Permissions"]
+  GETTABLEKS R12 R13 K23 ["PermissionsConstants"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K11 ["Core"]
+  GETTABLEKS R14 R15 K19 ["Components"]
+  GETTABLEKS R13 R14 K24 ["AssetLogicWrapper"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R17 R0 K11 ["Core"]
+  GETTABLEKS R16 R17 K19 ["Components"]
+  GETTABLEKS R15 R16 K25 ["Audio"]
+  GETTABLEKS R14 R15 K26 ["AudioScroller"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R18 R0 K11 ["Core"]
+  GETTABLEKS R17 R18 K19 ["Components"]
+  GETTABLEKS R16 R17 K27 ["AssetTable"]
+  GETTABLEKS R15 R16 K27 ["AssetTable"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K11 ["Core"]
+  GETTABLEKS R17 R18 K28 ["Models"]
+  GETTABLEKS R16 R17 K29 ["AssetInfo"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K11 ["Core"]
+  GETTABLEKS R18 R19 K19 ["Components"]
+  GETTABLEKS R17 R18 K30 ["InfoBanner"]
+  CALL R16 1 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K11 ["Core"]
+  GETTABLEKS R19 R20 K16 ["Types"]
+  GETTABLEKS R18 R19 K31 ["AssetLogicTypes"]
+  CALL R17 1 1
+  GETTABLEKS R19 R0 K11 ["Core"]
+  GETTABLEKS R18 R19 K32 ["Actions"]
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R20 R18 K33 ["GetAssets"]
+  CALL R19 1 1
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R21 R18 K34 ["SetAssetPreview"]
+  CALL R20 1 1
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R24 R0 K11 ["Core"]
+  GETTABLEKS R23 R24 K35 ["Thunks"]
+  GETTABLEKS R22 R23 K36 ["GetAssetPreviewDataForStartup"]
+  CALL R21 1 1
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R23 R1 K37 ["Framework"]
+  CALL R22 1 1
+  GETTABLEKS R23 R22 K14 ["ContextServices"]
+  GETTABLEKS R24 R23 K38 ["withContext"]
+  GETIMPORT R25 K5 [require]
+  GETTABLEKS R28 R0 K11 ["Core"]
+  GETTABLEKS R27 R28 K14 ["ContextServices"]
+  GETTABLEKS R26 R27 K39 ["Settings"]
+  CALL R25 1 1
+  GETIMPORT R26 K5 [require]
+  GETTABLEKS R29 R0 K11 ["Core"]
+  GETTABLEKS R28 R29 K14 ["ContextServices"]
+  GETTABLEKS R27 R28 K40 ["NetworkContext"]
+  CALL R26 1 1
+  GETIMPORT R27 K5 [require]
+  GETTABLEKS R31 R0 K11 ["Core"]
+  GETTABLEKS R30 R31 K41 ["Networking"]
+  GETTABLEKS R29 R30 K42 ["Requests"]
+  GETTABLEKS R28 R29 K43 ["NextPageRequest"]
+  CALL R27 1 1
+  GETIMPORT R28 K5 [require]
+  GETTABLEKS R32 R0 K11 ["Core"]
+  GETTABLEKS R31 R32 K41 ["Networking"]
+  GETTABLEKS R30 R31 K42 ["Requests"]
+  GETTABLEKS R29 R30 K44 ["PostAssetCheckPermissions"]
+  CALL R28 1 1
+  GETIMPORT R29 K5 [require]
+  GETTABLEKS R33 R0 K11 ["Core"]
+  GETTABLEKS R32 R33 K12 ["Util"]
+  GETTABLEKS R31 R32 K45 ["SharedFlags"]
+  GETTABLEKS R30 R31 K46 ["getIsIXPEnabledForListView"]
+  CALL R29 1 1
+  GETIMPORT R30 K5 [require]
+  GETTABLEKS R34 R0 K11 ["Core"]
+  GETTABLEKS R33 R34 K12 ["Util"]
+  GETTABLEKS R32 R33 K45 ["SharedFlags"]
+  GETTABLEKS R31 R32 K47 ["getFFlagToolboxEnableAssetRows"]
+  CALL R30 1 1
+  GETIMPORT R31 K5 [require]
+  GETTABLEKS R35 R0 K11 ["Core"]
+  GETTABLEKS R34 R35 K12 ["Util"]
+  GETTABLEKS R33 R34 K45 ["SharedFlags"]
+  GETTABLEKS R32 R33 K48 ["getFFlagToolboxFixInventoryCreatorFilter"]
+  CALL R31 1 1
+  GETIMPORT R32 K5 [require]
+  GETTABLEKS R36 R0 K11 ["Core"]
+  GETTABLEKS R35 R36 K12 ["Util"]
+  GETTABLEKS R34 R35 K45 ["SharedFlags"]
+  GETTABLEKS R33 R34 K49 ["getFFlagToolboxFixInventoryGridSearch"]
+  CALL R32 1 1
+  GETTABLEKS R33 R2 K50 ["PureComponent"]
+  LOADK R35 K51 ["AssetGridContainer"]
+  NAMECALL R33 R33 K52 ["extend"]
+  CALL R33 2 1
+  DUPTABLE R34 K54 [{"Size"}]
+  GETIMPORT R35 K57 [UDim2.new]
+  LOADN R36 1
+  LOADN R37 0
+  LOADN R38 1
+  LOADN R39 0
+  CALL R35 4 1
+  SETTABLEKS R35 R34 K53 ["Size"]
+  SETTABLEKS R34 R33 K58 ["defaultProps"]
+  DUPCLOSURE R34 K59 [PROTO_3]
+  SETTABLEKS R34 R33 K60 ["init"]
+  DUPCLOSURE R34 K61 [PROTO_4]
+  CAPTURE VAL R6
+  SETTABLEKS R34 R33 K62 ["didMount"]
+  DUPCLOSURE R34 K63 [PROTO_7]
+  CAPTURE VAL R30
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R16
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R13
+  CAPTURE VAL R29
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  CAPTURE VAL R31
+  CAPTURE VAL R10
+  CAPTURE VAL R32
+  SETTABLEKS R34 R33 K64 ["render"]
+  MOVE R34 R12
+  MOVE R35 R33
+  CALL R34 1 1
+  MOVE R33 R34
+  MOVE R34 R24
+  DUPTABLE R35 K68 [{"IXP", "Localization", "Settings", "Network"}]
+  MOVE R37 R30
+  CALL R37 0 1
+  JUMPIFNOT R37 [+2]
+  MOVE R36 R7
+  JUMP [+1]
+  LOADNIL R36
+  SETTABLEKS R36 R35 K65 ["IXP"]
+  GETTABLEKS R36 R23 K66 ["Localization"]
+  SETTABLEKS R36 R35 K66 ["Localization"]
+  SETTABLEKS R25 R35 K39 ["Settings"]
+  SETTABLEKS R26 R35 K67 ["Network"]
+  CALL R34 1 1
+  MOVE R35 R33
+  CALL R34 1 1
+  MOVE R33 R34
+  DUPCLOSURE R34 K69 [PROTO_8]
+  CAPTURE VAL R8
+  CAPTURE VAL R30
+  DUPCLOSURE R35 K70 [PROTO_14]
+  CAPTURE VAL R28
+  CAPTURE VAL R21
+  CAPTURE VAL R19
+  CAPTURE VAL R27
+  CAPTURE VAL R20
+  GETTABLEKS R36 R3 K71 ["connect"]
+  MOVE R37 R34
+  MOVE R38 R35
+  CALL R36 2 1
+  MOVE R37 R33
+  CALL R36 1 -1
+  RETURN R36 -1

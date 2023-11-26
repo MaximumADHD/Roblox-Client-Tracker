@@ -1,0 +1,294 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 0 10
+  NEWTABLE R1 8 0
+  LOADK R2 K0 ["R6 Script Error"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K2 ["Torso"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K4 ["Reference to R6 Avatar found with Torso"]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 35
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 11
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 30
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 11
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K14 ["Error"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 1
+  LOADK R3 K16 ["Head"]
+  SETTABLEN R3 R2 1
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 1
+  NEWTABLE R1 8 0
+  LOADK R2 K0 ["R6 Script Error"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K18 ["Right Shoulder"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K19 ["Reference to R6 Avatar found with Right Shoulder"]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 51
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 12
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 37
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 12
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K14 ["Error"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 1
+  LOADK R3 K20 ["RightShoulder"]
+  SETTABLEN R3 R2 1
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 2
+  NEWTABLE R1 8 0
+  LOADK R2 K21 ["R6 Script Warning"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K2 ["Torso"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K22 ["Variable must reference RightUpperArm."]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 22
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 12
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 17
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 12
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K23 ["Warning"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 3
+  NEWTABLE R1 8 0
+  LOADK R2 K0 ["R6 Script Error"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K24 ["Left Shoulder"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K25 ["Reference to R6 Avatar found with Left Shoulder"]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 49
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 13
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 36
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 13
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K14 ["Error"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 1
+  LOADK R3 K26 ["LeftShoulder"]
+  SETTABLEN R3 R2 1
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 4
+  NEWTABLE R1 8 0
+  LOADK R2 K21 ["R6 Script Warning"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K2 ["Torso"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K27 ["Variable must reference LeftUpperArm."]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 21
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 13
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 16
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 13
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K23 ["Warning"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 5
+  NEWTABLE R1 8 0
+  LOADK R2 K0 ["R6 Script Error"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K28 ["Right Hip"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K29 ["Reference to R6 Avatar found with Right Hip"]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 41
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 14
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 32
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 14
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K14 ["Error"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 1
+  LOADK R3 K30 ["RightHip"]
+  SETTABLEN R3 R2 1
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 6
+  NEWTABLE R1 8 0
+  LOADK R2 K21 ["R6 Script Warning"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K2 ["Torso"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K31 ["Variable must reference RightUpperLeg."]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 17
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 14
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 12
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 14
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K23 ["Warning"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 7
+  NEWTABLE R1 8 0
+  LOADK R2 K0 ["R6 Script Error"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K32 ["Left Hip"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K33 ["Reference to R6 Avatar found with Left Hip"]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 39
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 15
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 31
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 15
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K14 ["Error"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 1
+  LOADK R3 K34 ["LeftHip"]
+  SETTABLEN R3 R2 1
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 8
+  NEWTABLE R1 8 0
+  LOADK R2 K21 ["R6 Script Warning"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K2 ["Torso"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K35 ["Variable must reference LeftUpperLeg."]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 16
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 15
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 11
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 15
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K23 ["Warning"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 9
+  NEWTABLE R1 8 0
+  LOADK R2 K21 ["R6 Script Warning"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K2 ["Torso"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K36 ["Variable must reference Head."]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 13
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 16
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 8
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 16
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K23 ["Warning"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 10
+  RETURN R0 1

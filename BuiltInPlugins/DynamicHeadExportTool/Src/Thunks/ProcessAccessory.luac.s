@@ -1,0 +1,282 @@
+PROTO_0:
+  LOADB R2 1
+  JUMPIFEQKS R1 K0 [""] [+13]
+  LENGTH R6 R1
+  MINUS R5 R6
+  FASTCALL2 STRING_SUB R0 R5 [+4]
+  MOVE R4 R0
+  GETIMPORT R3 K3 [string.sub]
+  CALL R3 2 1
+  JUMPIFEQ R3 R1 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  NAMECALL R2 R0 K0 ["getState"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K1 ["PluginReducer"]
+  GETTABLEKS R2 R1 K2 ["rig"]
+  GETTABLEKS R3 R1 K3 ["accessoryType"]
+  NEWTABLE R4 0 0
+  NAMECALL R5 R2 K4 ["GetDescendants"]
+  CALL R5 1 3
+  FORGPREP R5
+  LOADK R12 K5 ["WrapLayer"]
+  NAMECALL R10 R9 K6 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+7]
+  FASTCALL2 TABLE_INSERT R4 R9 [+5]
+  MOVE R11 R4
+  MOVE R12 R9
+  GETIMPORT R10 K9 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R5 2 [-13]
+  LENGTH R5 R4
+  JUMPIFNOTEQKN R5 K10 [0] [+6]
+  GETUPVAL R5 0
+  MOVE R6 R0
+  LOADK R7 K11 ["Layered Clothing items not found!"]
+  CALL R5 2 -1
+  RETURN R5 -1
+  LOADK R7 K12 ["RootPart"]
+  NAMECALL R5 R2 K13 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIF R5 [+5]
+  GETUPVAL R6 0
+  MOVE R7 R0
+  LOADK R8 K14 ["Unable to find Part named \"RootPart\""]
+  CALL R6 2 -1
+  RETURN R6 -1
+  LOADK R8 K15 ["FaceFront"]
+  NAMECALL R6 R5 K13 ["FindFirstChild"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+5]
+  LOADK R9 K16 ["Attachment"]
+  NAMECALL R7 R6 K6 ["IsA"]
+  CALL R7 2 1
+  JUMPIF R7 [+5]
+  GETUPVAL R7 0
+  MOVE R8 R0
+  LOADK R9 K17 ["Unable to find Attachment named \"FaceFront\" in RootPart"]
+  CALL R7 2 -1
+  RETURN R7 -1
+  MOVE R7 R4
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  GETTABLEKS R12 R11 K18 ["Parent"]
+  JUMPIFNOT R12 [+5]
+  LOADK R15 K19 ["MeshPart"]
+  NAMECALL R13 R12 K6 ["IsA"]
+  CALL R13 2 1
+  JUMPIF R13 [+11]
+  GETIMPORT R13 K21 [warn]
+  LOADK R15 K22 ["Ignoring '"]
+  NAMECALL R18 R11 K23 ["GetFullName"]
+  CALL R18 1 1
+  MOVE R16 R18
+  LOADK R17 K24 ["'"]
+  CONCAT R14 R15 R17
+  CALL R13 1 0
+  JUMP [+129]
+  GETIMPORT R13 K27 [Instance.new]
+  LOADK R14 K28 ["Folder"]
+  CALL R13 1 1
+  GETUPVAL R16 1
+  GETTABLE R15 R16 R3
+  GETTABLEKS R14 R15 K29 ["Name"]
+  SETTABLEKS R14 R13 K29 ["Name"]
+  GETUPVAL R14 2
+  MOVE R16 R13
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K30 ["Tag"]
+  NAMECALL R14 R14 K31 ["AddTag"]
+  CALL R14 3 0
+  GETIMPORT R14 K27 [Instance.new]
+  LOADK R15 K32 ["Accessory"]
+  CALL R14 1 1
+  NAMECALL R15 R12 K33 ["Clone"]
+  CALL R15 1 1
+  LOADN R16 0
+  NAMECALL R17 R15 K4 ["GetDescendants"]
+  CALL R17 1 3
+  FORGPREP R17
+  LOADK R24 K16 ["Attachment"]
+  NAMECALL R22 R21 K6 ["IsA"]
+  CALL R22 2 1
+  JUMPIFNOT R22 [+22]
+  ADDK R16 R16 K34 [1]
+  GETTABLEKS R23 R21 K29 ["Name"]
+  FASTCALL2K STRING_SUB R23 K35 [+5]
+  MOVE R25 R23
+  LOADK R26 K35 [-10]
+  GETIMPORT R24 K38 [string.sub]
+  CALL R24 2 1
+  JUMPIFEQKS R24 K16 ["Attachment"] [+2]
+  LOADB R22 0 +1
+  LOADB R22 1
+  JUMPIF R22 [+25]
+  GETTABLEKS R23 R21 K29 ["Name"]
+  LOADK R24 K16 ["Attachment"]
+  CONCAT R22 R23 R24
+  SETTABLEKS R22 R21 K29 ["Name"]
+  JUMP [+18]
+  LOADK R24 K5 ["WrapLayer"]
+  NAMECALL R22 R21 K6 ["IsA"]
+  CALL R22 2 1
+  JUMPIF R22 [+13]
+  LOADK R24 K39 ["SurfaceAppearance"]
+  NAMECALL R22 R21 K6 ["IsA"]
+  CALL R22 2 1
+  JUMPIF R22 [+8]
+  LOADK R24 K16 ["Attachment"]
+  NAMECALL R22 R21 K6 ["IsA"]
+  CALL R22 2 1
+  JUMPIF R22 [+3]
+  NAMECALL R22 R21 K40 ["Destroy"]
+  CALL R22 1 0
+  FORGLOOP R17 2 [-46]
+  LOADK R19 K5 ["WrapLayer"]
+  NAMECALL R17 R15 K41 ["FindFirstChildOfClass"]
+  CALL R17 2 1
+  FASTCALL1 ASSERT R17 [+3]
+  MOVE R19 R17
+  GETIMPORT R18 K43 [assert]
+  CALL R18 1 0
+  LOADK R18 K5 ["WrapLayer"]
+  SETTABLEKS R18 R17 K29 ["Name"]
+  GETUPVAL R18 4
+  MOVE R19 R0
+  CALL R18 1 1
+  JUMPIFNOT R18 [+5]
+  LOADK R19 K44 [""]
+  SETTABLEKS R19 R15 K45 ["TextureID"]
+  SETTABLEKS R15 R18 K18 ["Parent"]
+  GETTABLEKS R19 R12 K45 ["TextureID"]
+  JUMPIFNOTEQKS R19 K44 [""] [+13]
+  JUMPIFEQKNIL R18 [+5]
+  GETTABLEKS R19 R18 K46 ["ColorMap"]
+  JUMPIFNOTEQKS R19 K44 [""] [+7]
+  GETIMPORT R19 K48 [BrickColor.new]
+  LOADK R20 K49 ["Really black"]
+  CALL R19 1 1
+  SETTABLEKS R19 R15 K47 ["BrickColor"]
+  NAMECALL R19 R6 K33 ["Clone"]
+  CALL R19 1 1
+  SETTABLEKS R15 R19 K18 ["Parent"]
+  LOADK R19 K50 ["Handle"]
+  SETTABLEKS R19 R15 K29 ["Name"]
+  SETTABLEKS R14 R15 K18 ["Parent"]
+  SETTABLEKS R13 R14 K18 ["Parent"]
+  GETUPVAL R19 5
+  SETTABLEKS R19 R13 K18 ["Parent"]
+  FORGLOOP R7 2 [-149]
+  LOADNIL R7
+  RETURN R7 1
+
+PROTO_2:
+  DUPCLOSURE R0 K0 [PROTO_1]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["DynamicHeadExportTool"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["Workspace"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K8 ["CollectionService"]
+  NAMECALL R2 R2 K7 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R5 R0 K11 ["Src"]
+  GETTABLEKS R4 R5 K12 ["Constants"]
+  CALL R3 1 1
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R7 R0 K11 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Util"]
+  GETTABLEKS R5 R6 K14 ["fail"]
+  CALL R4 1 1
+  GETIMPORT R5 K10 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Util"]
+  GETTABLEKS R6 R7 K15 ["createSurfaceAppearance"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K16 [PROTO_0]
+  NEWTABLE R7 32 0
+  GETIMPORT R8 K20 [Enum.AccessoryType.Hat]
+  GETIMPORT R9 K22 [Enum.AssetType.Hat]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K24 [Enum.AccessoryType.Hair]
+  GETIMPORT R9 K26 [Enum.AssetType.HairAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K28 [Enum.AccessoryType.Face]
+  GETIMPORT R9 K30 [Enum.AssetType.FaceAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K32 [Enum.AccessoryType.Neck]
+  GETIMPORT R9 K34 [Enum.AssetType.NeckAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K36 [Enum.AccessoryType.Shoulder]
+  GETIMPORT R9 K38 [Enum.AssetType.ShoulderAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K40 [Enum.AccessoryType.Front]
+  GETIMPORT R9 K42 [Enum.AssetType.FrontAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K44 [Enum.AccessoryType.Back]
+  GETIMPORT R9 K46 [Enum.AssetType.BackAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K48 [Enum.AccessoryType.Waist]
+  GETIMPORT R9 K50 [Enum.AssetType.WaistAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K52 [Enum.AccessoryType.TShirt]
+  GETIMPORT R9 K54 [Enum.AssetType.TShirtAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K56 [Enum.AccessoryType.Shirt]
+  GETIMPORT R9 K58 [Enum.AssetType.ShirtAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K60 [Enum.AccessoryType.Pants]
+  GETIMPORT R9 K62 [Enum.AssetType.PantsAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K64 [Enum.AccessoryType.Jacket]
+  GETIMPORT R9 K66 [Enum.AssetType.JacketAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K68 [Enum.AccessoryType.Sweater]
+  GETIMPORT R9 K70 [Enum.AssetType.SweaterAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K72 [Enum.AccessoryType.Shorts]
+  GETIMPORT R9 K74 [Enum.AssetType.ShortsAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K76 [Enum.AccessoryType.LeftShoe]
+  GETIMPORT R9 K78 [Enum.AssetType.LeftShoeAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K80 [Enum.AccessoryType.RightShoe]
+  GETIMPORT R9 K82 [Enum.AssetType.RightShoeAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K84 [Enum.AccessoryType.DressSkirt]
+  GETIMPORT R9 K86 [Enum.AssetType.DressSkirtAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K88 [Enum.AccessoryType.Eyebrow]
+  GETIMPORT R9 K90 [Enum.AssetType.EyebrowAccessory]
+  SETTABLE R9 R7 R8
+  GETIMPORT R8 K92 [Enum.AccessoryType.Eyelash]
+  GETIMPORT R9 K94 [Enum.AssetType.EyelashAccessory]
+  SETTABLE R9 R7 R8
+  DUPCLOSURE R8 K95 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  RETURN R8 1

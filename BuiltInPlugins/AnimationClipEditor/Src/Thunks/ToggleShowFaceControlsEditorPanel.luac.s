@@ -1,0 +1,36 @@
+PROTO_0:
+  NAMECALL R1 R0 K0 ["getState"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K1 ["Status"]
+  GETTABLEKS R2 R3 K2 ["RootInstance"]
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R5 R1 K1 ["Status"]
+  GETTABLEKS R4 R5 K3 ["ShowFaceControlsEditorPanel"]
+  NOT R3 R4
+  GETUPVAL R6 0
+  MOVE R7 R3
+  CALL R6 1 -1
+  NAMECALL R4 R0 K4 ["dispatch"]
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPCLOSURE R0 K0 [PROTO_0]
+  CAPTURE UPVAL U0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Actions"]
+  GETTABLEKS R2 R3 K8 ["SetShowFaceControlsEditorPanel"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K9 [PROTO_1]
+  CAPTURE VAL R1
+  RETURN R2 1

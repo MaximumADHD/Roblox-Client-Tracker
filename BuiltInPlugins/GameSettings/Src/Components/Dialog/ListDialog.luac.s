@@ -1,0 +1,110 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Header"]
+  GETTABLEKS R3 R1 K2 ["Entries"]
+  GETTABLEKS R4 R1 K3 ["Buttons"]
+  GETTABLEKS R5 R1 K4 ["Stylizer"]
+  DUPTABLE R6 K5 [{"Header"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  LOADK R8 K7 ["TextLabel"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K8 ["Dictionary"]
+  GETTABLEKS R9 R10 K9 ["join"]
+  GETTABLEKS R11 R5 K10 ["fontStyle"]
+  GETTABLEKS R10 R11 K11 ["SemiBold"]
+  DUPTABLE R11 K18 [{"AutomaticSize", "Size", "BackgroundTransparency", "Text", "TextXAlignment", "TextWrapped"}]
+  GETIMPORT R12 K21 [Enum.AutomaticSize.Y]
+  SETTABLEKS R12 R11 K12 ["AutomaticSize"]
+  GETIMPORT R12 K24 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 196
+  LOADN R15 0
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K13 ["Size"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K14 ["BackgroundTransparency"]
+  SETTABLEKS R2 R11 K15 ["Text"]
+  GETIMPORT R12 K26 [Enum.TextXAlignment.Left]
+  SETTABLEKS R12 R11 K16 ["TextXAlignment"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K17 ["TextWrapped"]
+  CALL R9 2 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K1 ["Header"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K29 [{"TextTruncate", "Items", "Size"}]
+  GETIMPORT R10 K31 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R10 R9 K27 ["TextTruncate"]
+  SETTABLEKS R3 R9 K28 ["Items"]
+  GETIMPORT R10 K24 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 196
+  LOADN R13 0
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K13 ["Size"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K32 ["List"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  GETUPVAL R8 3
+  DUPTABLE R9 K34 [{"Buttons", "OnResult"}]
+  SETTABLEKS R4 R9 K3 ["Buttons"]
+  GETTABLEKS R10 R1 K33 ["OnResult"]
+  SETTABLEKS R10 R9 K33 ["OnResult"]
+  MOVE R10 R6
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Cryo"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K9 ["UI"]
+  GETTABLEKS R5 R4 K10 ["BulletList"]
+  GETTABLEKS R6 R2 K11 ["ContextServices"]
+  GETTABLEKS R7 R6 K12 ["withContext"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R12 R0 K13 ["Src"]
+  GETTABLEKS R11 R12 K14 ["Components"]
+  GETTABLEKS R10 R11 K15 ["Dialog"]
+  GETTABLEKS R9 R10 K16 ["BaseDialog"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K17 ["PureComponent"]
+  LOADK R11 K18 ["ListDialog"]
+  NAMECALL R9 R9 K19 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K20 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  SETTABLEKS R10 R9 K21 ["render"]
+  MOVE R10 R7
+  DUPTABLE R11 K23 [{"Stylizer"}]
+  GETTABLEKS R12 R6 K22 ["Stylizer"]
+  SETTABLEKS R12 R11 K22 ["Stylizer"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

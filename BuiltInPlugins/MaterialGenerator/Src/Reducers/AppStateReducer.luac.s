@@ -1,0 +1,241 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"generatingImages"}]
+  GETTABLEKS R5 R1 K2 ["amount"]
+  SETTABLEKS R5 R4 K0 ["generatingImages"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"generatingImages"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K0 ["generatingImages"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"generationError"}]
+  DUPTABLE R5 K4 [{"generationErrorType", "message"}]
+  GETTABLEKS R6 R1 K2 ["generationErrorType"]
+  SETTABLEKS R6 R5 K2 ["generationErrorType"]
+  GETTABLEKS R6 R1 K3 ["message"]
+  JUMPIF R6 [+3]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["None"]
+  SETTABLEKS R6 R5 K3 ["message"]
+  SETTABLEKS R5 R4 K0 ["generationError"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"isSavingMaterial"}]
+  GETTABLEKS R5 R1 K0 ["isSavingMaterial"]
+  SETTABLEKS R5 R4 K0 ["isSavingMaterial"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"textPrompt"}]
+  GETTABLEKS R5 R1 K0 ["textPrompt"]
+  SETTABLEKS R5 R4 K0 ["textPrompt"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"accountingBudget"}]
+  GETTABLEKS R5 R1 K0 ["accountingBudget"]
+  SETTABLEKS R5 R4 K0 ["accountingBudget"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_6:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"accountingBudgetState"}]
+  GETTABLEKS R5 R1 K0 ["accountingBudgetState"]
+  SETTABLEKS R5 R4 K0 ["accountingBudgetState"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"accountingBudgetError"}]
+  GETTABLEKS R5 R1 K0 ["accountingBudgetError"]
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["None"]
+  SETTABLEKS R5 R4 K0 ["accountingBudgetError"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_8:
+  GETTABLEKS R2 R1 K0 ["original"]
+  GETTABLEKS R3 R1 K1 ["filteredText"]
+  JUMPIFNOTEQ R2 R3 [+2]
+  RETURN R0 1
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K2 ["textPrompt"]
+  GETTABLEKS R4 R1 K0 ["original"]
+  GETTABLEKS R5 R1 K1 ["filteredText"]
+  CALL R2 3 1
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"textPrompt"}]
+  SETTABLEKS R2 R5 K2 ["textPrompt"]
+  CALL R3 2 -1
+  RETURN R3 -1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Rodux"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Actions"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R3 K10 ["DoneGeneratingImages"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R3 K11 ["MergeFilteredTextPrompt"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R3 K12 ["SetAccountingBudget"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R3 K13 ["SetAccountingBudgetError"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R3 K14 ["SetAccountingBudgetState"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R3 K15 ["SetGeneratingImages"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R3 K16 ["SetGenerationError"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R12 R3 K17 ["SetIsSavingMaterial"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R13 R3 K18 ["SetTextPrompt"]
+  CALL R12 1 1
+  GETTABLEKS R14 R0 K8 ["Src"]
+  GETTABLEKS R13 R14 K19 ["Util"]
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R15 R13 K20 ["tryReplaceFirstText"]
+  CALL R14 1 1
+  GETTABLEKS R16 R0 K8 ["Src"]
+  GETTABLEKS R15 R16 K21 ["Enum"]
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R17 R15 K22 ["AccountingBudgetState"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R18 R15 K23 ["GenerationErrorType"]
+  CALL R17 1 1
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R21 R0 K8 ["Src"]
+  GETTABLEKS R20 R21 K24 ["Flags"]
+  GETTABLEKS R19 R20 K25 ["getFFlagMaterialGeneratorRemoveAccounting"]
+  CALL R18 1 1
+  GETTABLEKS R19 R1 K26 ["join"]
+  DUPTABLE R20 K34 [{"isGeneratingImages", "generatingImages", "isSavingMaterial", "textPrompt", "accountingBudget", "accountingBudgetState", "generationError"}]
+  LOADB R21 0
+  SETTABLEKS R21 R20 K27 ["isGeneratingImages"]
+  LOADN R21 0
+  SETTABLEKS R21 R20 K28 ["generatingImages"]
+  LOADB R21 0
+  SETTABLEKS R21 R20 K29 ["isSavingMaterial"]
+  LOADK R21 K35 [""]
+  SETTABLEKS R21 R20 K30 ["textPrompt"]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K31 ["accountingBudget"]
+  GETTABLEKS R21 R16 K36 ["Unknown"]
+  SETTABLEKS R21 R20 K32 ["accountingBudgetState"]
+  DUPTABLE R21 K39 [{"generationErrorType", "message"}]
+  GETTABLEKS R22 R17 K40 ["None"]
+  SETTABLEKS R22 R21 K37 ["generationErrorType"]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K38 ["message"]
+  SETTABLEKS R21 R20 K33 ["generationError"]
+  GETTABLEKS R21 R2 K41 ["createReducer"]
+  MOVE R22 R20
+  NEWTABLE R23 16 0
+  GETTABLEKS R24 R9 K42 ["name"]
+  DUPCLOSURE R25 K43 [PROTO_0]
+  CAPTURE VAL R19
+  SETTABLE R25 R23 R24
+  GETTABLEKS R24 R4 K42 ["name"]
+  DUPCLOSURE R25 K44 [PROTO_1]
+  CAPTURE VAL R19
+  SETTABLE R25 R23 R24
+  GETTABLEKS R24 R10 K42 ["name"]
+  DUPCLOSURE R25 K45 [PROTO_2]
+  CAPTURE VAL R19
+  CAPTURE VAL R1
+  SETTABLE R25 R23 R24
+  GETTABLEKS R24 R11 K42 ["name"]
+  DUPCLOSURE R25 K46 [PROTO_3]
+  CAPTURE VAL R19
+  SETTABLE R25 R23 R24
+  GETTABLEKS R24 R12 K42 ["name"]
+  DUPCLOSURE R25 K47 [PROTO_4]
+  CAPTURE VAL R19
+  SETTABLE R25 R23 R24
+  GETTABLEKS R24 R6 K42 ["name"]
+  MOVE R26 R18
+  CALL R26 0 1
+  JUMPIFNOT R26 [+2]
+  LOADNIL R25
+  JUMP [+2]
+  DUPCLOSURE R25 K48 [PROTO_5]
+  CAPTURE VAL R19
+  SETTABLE R25 R23 R24
+  GETTABLEKS R24 R8 K42 ["name"]
+  MOVE R26 R18
+  CALL R26 0 1
+  JUMPIFNOT R26 [+2]
+  LOADNIL R25
+  JUMP [+2]
+  DUPCLOSURE R25 K49 [PROTO_6]
+  CAPTURE VAL R19
+  SETTABLE R25 R23 R24
+  GETTABLEKS R24 R7 K42 ["name"]
+  MOVE R26 R18
+  CALL R26 0 1
+  JUMPIFNOT R26 [+2]
+  LOADNIL R25
+  JUMP [+3]
+  DUPCLOSURE R25 K50 [PROTO_7]
+  CAPTURE VAL R19
+  CAPTURE VAL R1
+  SETTABLE R25 R23 R24
+  GETTABLEKS R24 R5 K42 ["name"]
+  DUPCLOSURE R25 K51 [PROTO_8]
+  CAPTURE VAL R14
+  CAPTURE VAL R19
+  SETTABLE R25 R23 R24
+  CALL R21 2 1
+  RETURN R21 1

@@ -1,0 +1,192 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K2 [{"DebugDataEvent", "DebugDataConnection"}]
+  GETTABLEKS R5 R1 K3 ["event"]
+  SETTABLEKS R5 R4 K0 ["DebugDataEvent"]
+  GETTABLEKS R5 R1 K4 ["connection"]
+  SETTABLEKS R5 R4 K1 ["DebugDataConnection"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"HistoryField"}]
+  DUPTABLE R5 K5 [{"id", "section", "field"}]
+  GETTABLEKS R6 R1 K2 ["id"]
+  SETTABLEKS R6 R5 K2 ["id"]
+  GETTABLEKS R6 R1 K3 ["section"]
+  SETTABLEKS R6 R5 K3 ["section"]
+  GETTABLEKS R6 R1 K4 ["field"]
+  SETTABLEKS R6 R5 K4 ["field"]
+  SETTABLEKS R5 R4 K0 ["HistoryField"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"LayerAdornmentEvent"}]
+  GETTABLEKS R5 R1 K2 ["event"]
+  SETTABLEKS R5 R4 K0 ["LayerAdornmentEvent"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"PropertyOverrideEvent"}]
+  GETTABLEKS R5 R1 K2 ["event"]
+  SETTABLEKS R5 R4 K0 ["PropertyOverrideEvent"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"Actor"}]
+  GETTABLEKS R5 R1 K2 ["actor"]
+  JUMPIF R5 [+1]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K0 ["Actor"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"SelectedLayer"}]
+  GETTABLEKS R5 R1 K2 ["selectedLayer"]
+  JUMPIF R5 [+1]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K0 ["SelectedLayer"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_6:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"ExpandedSections"}]
+  GETTABLEKS R5 R1 K2 ["expandedSections"]
+  SETTABLEKS R5 R4 K0 ["ExpandedSections"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"Adornments"}]
+  GETTABLEKS R5 R1 K2 ["adornments"]
+  SETTABLEKS R5 R4 K0 ["Adornments"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["Dash"]
+  GETTABLEKS R4 R3 K10 ["join"]
+  GETTABLEKS R5 R3 K11 ["None"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Types"]
+  CALL R6 1 1
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Actions"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R7 K15 ["SetAdornments"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R7 K16 ["SetDebugDataEvent"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R7 K17 ["SetExpandedSections"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R12 R7 K18 ["SetHistoryField"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R13 R7 K19 ["SetLayerAdornmentEvent"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R14 R7 K20 ["SetActor"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R7 K21 ["SetPropertyOverrideEvent"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R16 R7 K22 ["SetSelectedLayer"]
+  CALL R15 1 1
+  GETTABLEKS R16 R1 K23 ["createReducer"]
+  DUPTABLE R17 K31 [{"SelectedLayer", "ExpandedSections", "Adornments", "PropertyOverrideEvent", "LayerAdornmentEvent", "Actor", "HistoryField"}]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K24 ["SelectedLayer"]
+  DUPTABLE R18 K36 [{"layerDetails", "props", "state", "watches"}]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K32 ["layerDetails"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K33 ["props"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K34 ["state"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K35 ["watches"]
+  SETTABLEKS R18 R17 K25 ["ExpandedSections"]
+  NEWTABLE R18 0 0
+  SETTABLEKS R18 R17 K26 ["Adornments"]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K27 ["PropertyOverrideEvent"]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K28 ["LayerAdornmentEvent"]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K29 ["Actor"]
+  NEWTABLE R18 0 0
+  SETTABLEKS R18 R17 K30 ["HistoryField"]
+  NEWTABLE R18 8 0
+  GETTABLEKS R19 R9 K37 ["name"]
+  DUPCLOSURE R20 K38 [PROTO_0]
+  CAPTURE VAL R4
+  SETTABLE R20 R18 R19
+  GETTABLEKS R19 R11 K37 ["name"]
+  DUPCLOSURE R20 K39 [PROTO_1]
+  CAPTURE VAL R4
+  SETTABLE R20 R18 R19
+  GETTABLEKS R19 R12 K37 ["name"]
+  DUPCLOSURE R20 K40 [PROTO_2]
+  CAPTURE VAL R4
+  SETTABLE R20 R18 R19
+  GETTABLEKS R19 R14 K37 ["name"]
+  DUPCLOSURE R20 K41 [PROTO_3]
+  CAPTURE VAL R4
+  SETTABLE R20 R18 R19
+  GETTABLEKS R19 R13 K37 ["name"]
+  DUPCLOSURE R20 K42 [PROTO_4]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLE R20 R18 R19
+  GETTABLEKS R19 R15 K37 ["name"]
+  DUPCLOSURE R20 K43 [PROTO_5]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLE R20 R18 R19
+  GETTABLEKS R19 R10 K37 ["name"]
+  DUPCLOSURE R20 K44 [PROTO_6]
+  CAPTURE VAL R4
+  SETTABLE R20 R18 R19
+  GETTABLEKS R19 R8 K37 ["name"]
+  DUPCLOSURE R20 K45 [PROTO_7]
+  CAPTURE VAL R4
+  SETTABLE R20 R18 R19
+  CALL R16 2 1
+  RETURN R16 1

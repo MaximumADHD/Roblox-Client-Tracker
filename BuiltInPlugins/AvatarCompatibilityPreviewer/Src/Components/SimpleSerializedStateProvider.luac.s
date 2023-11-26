@@ -1,0 +1,107 @@
+PROTO_0:
+  LOADNIL R1
+  LOADNIL R2
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+9]
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K0 ["root"]
+  LOADK R5 K1 ["stage"]
+  LOADK R6 K2 ["CheckBody"]
+  CALL R3 3 2
+  MOVE R1 R3
+  MOVE R2 R4
+  JUMP [+14]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["useState"]
+  LOADK R4 K2 ["CheckBody"]
+  CALL R3 1 2
+  MOVE R1 R3
+  MOVE R2 R4
+  GETUPVAL R3 3
+  GETTABLEKS R4 R0 K0 ["root"]
+  LOADK R5 K1 ["stage"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R3 4 0
+  LOADNIL R3
+  LOADNIL R4
+  GETUPVAL R5 0
+  JUMPIFNOT R5 [+9]
+  GETUPVAL R5 1
+  GETTABLEKS R6 R0 K0 ["root"]
+  LOADK R7 K4 ["textured"]
+  LOADB R8 1
+  CALL R5 3 2
+  MOVE R3 R5
+  MOVE R4 R6
+  JUMP [+14]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["useState"]
+  LOADB R6 1
+  CALL R5 1 2
+  MOVE R3 R5
+  MOVE R4 R6
+  GETUPVAL R5 3
+  GETTABLEKS R6 R0 K0 ["root"]
+  LOADK R7 K4 ["textured"]
+  MOVE R8 R3
+  MOVE R9 R4
+  CALL R5 4 0
+  DUPTABLE R5 K8 [{"stage", "setStage", "isTextured", "setIsTextured"}]
+  SETTABLEKS R1 R5 K1 ["stage"]
+  SETTABLEKS R2 R5 K5 ["setStage"]
+  SETTABLEKS R3 R5 K6 ["isTextured"]
+  SETTABLEKS R4 R5 K7 ["setIsTextured"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K10 ["Provider"]
+  DUPTABLE R8 K12 [{"value"}]
+  SETTABLEKS R5 R8 K11 ["value"]
+  GETTABLEKS R9 R0 K13 ["children"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["SimpleSerializedStateContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Hooks"]
+  GETTABLEKS R5 R6 K12 ["useSerializedEffect"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K7 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Hooks"]
+  GETTABLEKS R6 R7 K13 ["useSerializedState"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K7 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Flags"]
+  GETTABLEKS R7 R8 K15 ["getFFlagAvatarPreviewerCleanerSerializedState"]
+  CALL R6 1 1
+  MOVE R7 R6
+  CALL R7 0 1
+  DUPCLOSURE R8 K16 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  RETURN R8 1

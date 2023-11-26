@@ -1,0 +1,176 @@
+PROTO_0:
+  GETUPVAL R4 0
+  JUMPIFNOT R4 [+21]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["current"]
+  JUMPIFNOT R4 [+17]
+  GETUPVAL R4 0
+  MOVE R5 R0
+  MOVE R6 R3
+  MOVE R7 R1
+  MOVE R8 R2
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K0 ["current"]
+  GETTABLEKS R9 R10 K1 ["AbsoluteSize"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K0 ["current"]
+  GETTABLEKS R10 R11 K2 ["AbsolutePosition"]
+  CALL R4 6 -1
+  RETURN R4 -1
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  CALL R1 0 1
+  GETTABLEKS R3 R0 K1 ["AudioSection"]
+  GETTABLEKS R2 R3 K2 ["ResultsState"]
+  GETUPVAL R3 1
+  NAMECALL R3 R3 K3 ["use"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K4 ["AssetLogicWrapperProps"]
+  GETTABLEKS R4 R5 K5 ["LogAssetImpression"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["useRef"]
+  LOADNIL R6
+  CALL R5 1 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["useCallback"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  NEWTABLE R8 0 1
+  MOVE R9 R4
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  GETUPVAL R8 3
+  DUPTABLE R9 K16 [{"LayoutOrder", "Size", "AutomaticSize", "BackgroundTransparency", "Layout", "Spacing", "ref"}]
+  GETTABLEKS R10 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K9 ["LayoutOrder"]
+  GETIMPORT R10 K19 [UDim2.fromScale]
+  LOADN R11 1
+  LOADN R12 0
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K10 ["Size"]
+  GETIMPORT R10 K22 [Enum.AutomaticSize.Y]
+  SETTABLEKS R10 R9 K11 ["AutomaticSize"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K12 ["BackgroundTransparency"]
+  GETIMPORT R10 K25 [Enum.FillDirection.Vertical]
+  SETTABLEKS R10 R9 K13 ["Layout"]
+  GETTABLEKS R10 R3 K26 ["spacingUnit"]
+  SETTABLEKS R10 R9 K14 ["Spacing"]
+  SETTABLEKS R5 R9 K15 ["ref"]
+  DUPTABLE R10 K29 [{"Header", "Table"}]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K8 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K32 [{"LayoutOrder", "Title", "OnClickSeeAll"}]
+  NAMECALL R14 R1 K33 ["getNextOrder"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K9 ["LayoutOrder"]
+  GETTABLEKS R16 R0 K1 ["AudioSection"]
+  GETTABLEKS R15 R16 K34 ["Section"]
+  GETTABLEKS R14 R15 K35 ["displayName"]
+  SETTABLEKS R14 R13 K30 ["Title"]
+  GETTABLEKS R14 R0 K36 ["OnSeeAllActivated"]
+  SETTABLEKS R14 R13 K31 ["OnClickSeeAll"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K27 ["Header"]
+  JUMPIFNOT R2 [+44]
+  GETTABLEKS R12 R2 K37 ["loading"]
+  JUMPIF R12 [+41]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K38 ["Generator"]
+  DUPTABLE R12 K45 [{"LayoutOrder", "Assets", "LogImpression", "CanInsertAsset", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
+  NAMECALL R13 R1 K33 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K9 ["LayoutOrder"]
+  GETTABLEKS R13 R2 K46 ["assets"]
+  SETTABLEKS R13 R12 K39 ["Assets"]
+  SETTABLEKS R6 R12 K40 ["LogImpression"]
+  GETTABLEKS R14 R0 K4 ["AssetLogicWrapperProps"]
+  GETTABLEKS R13 R14 K41 ["CanInsertAsset"]
+  SETTABLEKS R13 R12 K41 ["CanInsertAsset"]
+  GETTABLEKS R14 R0 K4 ["AssetLogicWrapperProps"]
+  GETTABLEKS R13 R14 K42 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R13 R12 K42 ["OnAssetPreviewButtonClicked"]
+  GETTABLEKS R14 R0 K4 ["AssetLogicWrapperProps"]
+  GETTABLEKS R13 R14 K43 ["TryInsert"]
+  SETTABLEKS R13 R12 K43 ["TryInsert"]
+  GETTABLEKS R14 R0 K4 ["AssetLogicWrapperProps"]
+  GETTABLEKS R13 R14 K44 ["TryOpenAssetConfig"]
+  SETTABLEKS R13 R12 K44 ["TryOpenAssetConfig"]
+  CALL R11 1 1
+  JUMP [+11]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K8 ["createElement"]
+  GETUPVAL R12 6
+  DUPTABLE R13 K47 [{"LayoutOrder"}]
+  NAMECALL R14 R1 K33 ["getNextOrder"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K9 ["LayoutOrder"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K28 ["Table"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Core"]
+  GETTABLEKS R6 R7 K10 ["Components"]
+  GETTABLEKS R5 R6 K11 ["Categorization"]
+  GETTABLEKS R4 R5 K12 ["SectionHeader"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Core"]
+  GETTABLEKS R7 R8 K10 ["Components"]
+  GETTABLEKS R6 R7 K13 ["Audio"]
+  GETTABLEKS R5 R6 K14 ["AudioTable"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Core"]
+  GETTABLEKS R7 R8 K15 ["Types"]
+  GETTABLEKS R6 R7 K16 ["AudioTypes"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Core"]
+  GETTABLEKS R8 R9 K15 ["Types"]
+  GETTABLEKS R7 R8 K17 ["AssetLogicTypes"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K9 ["Core"]
+  GETTABLEKS R9 R10 K18 ["Util"]
+  GETTABLEKS R8 R9 K19 ["LayoutOrderIterator"]
+  CALL R7 1 1
+  GETTABLEKS R9 R2 K20 ["ContextServices"]
+  GETTABLEKS R8 R9 K21 ["Stylizer"]
+  GETTABLEKS R10 R2 K22 ["UI"]
+  GETTABLEKS R9 R10 K23 ["LoadingIndicator"]
+  GETTABLEKS R11 R2 K22 ["UI"]
+  GETTABLEKS R10 R11 K24 ["Pane"]
+  DUPCLOSURE R11 K25 [PROTO_1]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  RETURN R11 1

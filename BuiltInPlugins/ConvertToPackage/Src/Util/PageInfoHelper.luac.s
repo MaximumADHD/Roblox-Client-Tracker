@@ -1,0 +1,168 @@
+PROTO_0:
+  GETTABLE R2 R0 R1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R3 R2 K0 ["category"]
+  JUMPIF R3 [+19]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["shouldDebugWarnings"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+12]
+  GETIMPORT R3 K3 [warn]
+  LOADK R4 K4 ["Lua toolbox: No category for category index %s"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K6 [tostring]
+  CALL R6 1 1
+  NAMECALL R4 R4 K7 ["format"]
+  CALL R4 2 -1
+  CALL R3 -1 0
+  LOADK R3 K8 [""]
+  RETURN R3 1
+  GETTABLEKS R3 R2 K0 ["category"]
+  RETURN R3 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getCategory"]
+  GETTABLEKS R2 R0 K1 ["categories"]
+  GETTABLEKS R3 R0 K2 ["categoryIndex"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETTABLE R2 R0 R1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R3 R2 K0 ["sort"]
+  JUMPIF R3 [+19]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["shouldDebugWarnings"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+12]
+  GETIMPORT R3 K3 [warn]
+  LOADK R4 K4 ["Lua Toolbox: no sort for sort index %s"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K6 [tostring]
+  CALL R6 1 1
+  NAMECALL R4 R4 K7 ["format"]
+  CALL R4 2 -1
+  CALL R3 -1 0
+  LOADK R3 K8 [""]
+  RETURN R3 1
+  GETTABLEKS R3 R2 K0 ["sort"]
+  RETURN R3 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getSortType"]
+  GETTABLEKS R2 R0 K1 ["sorts"]
+  GETTABLEKS R3 R0 K2 ["sortIndex"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_4:
+  JUMPIFNOTEQKN R1 K0 [0] [+3]
+  LOADN R2 0
+  RETURN R2 1
+  LOADN R2 1
+  JUMPIFLT R1 R2 [+8]
+  LENGTH R2 R0
+  JUMPIFLT R2 R1 [+5]
+  GETTABLE R3 R0 R1
+  GETTABLEKS R2 R3 K1 ["id"]
+  JUMPIF R2 [+19]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["shouldDebugWarnings"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+12]
+  GETIMPORT R2 K4 [warn]
+  LOADK R3 K5 ["Lua Toolbox: no group for group index %s"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K7 [tostring]
+  CALL R5 1 1
+  NAMECALL R3 R3 K8 ["format"]
+  CALL R3 2 -1
+  CALL R2 -1 0
+  LOADN R2 0
+  RETURN R2 1
+  GETTABLE R3 R0 R1
+  GETTABLEKS R2 R3 K1 ["id"]
+  RETURN R2 1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getGroupId"]
+  GETTABLEKS R2 R0 K1 ["groups"]
+  GETTABLEKS R3 R0 K2 ["groupIndex"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["categories"]
+  GETTABLEKS R3 R0 K1 ["categoryIndex"]
+  GETTABLE R1 R2 R3
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R2 R1 K2 ["assetType"]
+  JUMPIF R2 [+20]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["shouldDebugWarnings"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+13]
+  GETIMPORT R2 K5 [warn]
+  LOADK R3 K6 ["Lua toolbox: No assetType for category index %s"]
+  GETTABLEKS R6 R0 K1 ["categoryIndex"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  NAMECALL R3 R3 K9 ["format"]
+  CALL R3 2 -1
+  CALL R2 -1 0
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["getEngineAssetType"]
+  GETTABLEKS R3 R1 K2 ["assetType"]
+  CALL R2 1 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["DebugFlags"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Types"]
+  GETTABLEKS R3 R4 K9 ["Category"]
+  CALL R2 1 1
+  NEWTABLE R3 8 0
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K11 ["getCategory"]
+  DUPCLOSURE R4 K12 [PROTO_1]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K13 ["getCategoryForPageInfo"]
+  DUPCLOSURE R4 K14 [PROTO_2]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K15 ["getSortType"]
+  DUPCLOSURE R4 K16 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K17 ["getSortTypeForPageInfo"]
+  DUPCLOSURE R4 K18 [PROTO_4]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K19 ["getGroupId"]
+  DUPCLOSURE R4 K20 [PROTO_5]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K21 ["getGroupIdForPageInfo"]
+  DUPCLOSURE R4 K22 [PROTO_6]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K23 ["getEngineAssetTypeForPageInfoCategory"]
+  RETURN R3 1

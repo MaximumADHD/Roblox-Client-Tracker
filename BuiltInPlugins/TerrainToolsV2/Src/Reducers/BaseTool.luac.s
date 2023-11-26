@@ -1,0 +1,430 @@
+PROTO_0:
+  GETTABLEKS R2 R1 K0 ["baseSize"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"baseSize"}]
+  SETTABLEKS R2 R5 K0 ["baseSize"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_1:
+  GETTABLEKS R2 R1 K0 ["height"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"height"}]
+  SETTABLEKS R2 R5 K0 ["height"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETTABLEKS R2 R1 K0 ["pivot"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"pivot"}]
+  SETTABLEKS R2 R5 K0 ["pivot"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_3:
+  GETTABLEKS R2 R1 K0 ["planePositionY"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"planePositionY"}]
+  SETTABLEKS R2 R5 K0 ["planePositionY"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_4:
+  GETTABLEKS R2 R1 K0 ["position"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"position"}]
+  SETTABLEKS R2 R5 K0 ["position"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_5:
+  GETTABLEKS R2 R1 K0 ["size"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"size"}]
+  SETTABLEKS R2 R5 K0 ["size"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_6:
+  GETTABLEKS R2 R1 K0 ["strength"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"strength"}]
+  SETTABLEKS R2 R5 K0 ["strength"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_7:
+  GETTABLEKS R2 R1 K0 ["brushShape"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"brushShape"}]
+  SETTABLEKS R2 R5 K0 ["brushShape"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_8:
+  GETTABLEKS R2 R1 K0 ["flattenMode"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"flattenMode"}]
+  SETTABLEKS R2 R5 K0 ["flattenMode"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_9:
+  GETTABLEKS R2 R1 K0 ["autoMaterial"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"autoMaterial"}]
+  SETTABLEKS R2 R5 K0 ["autoMaterial"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_10:
+  GETTABLEKS R2 R1 K0 ["locked"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K4 [{"baseSizeHeightLocked"}]
+  SETTABLEKS R2 R5 K3 ["baseSizeHeightLocked"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_11:
+  GETTABLEKS R2 R1 K0 ["editPlaneMode"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"editPlaneMode"}]
+  SETTABLEKS R2 R5 K0 ["editPlaneMode"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_12:
+  GETTABLEKS R2 R1 K0 ["fixedPlane"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"fixedPlane"}]
+  SETTABLEKS R2 R5 K0 ["fixedPlane"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_13:
+  GETTABLEKS R2 R1 K0 ["heightPicker"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"heightPicker"}]
+  SETTABLEKS R2 R5 K0 ["heightPicker"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_14:
+  GETTABLEKS R2 R1 K0 ["ignoreParts"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"ignoreParts"}]
+  SETTABLEKS R2 R5 K0 ["ignoreParts"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_15:
+  GETTABLEKS R2 R1 K0 ["ignoreWater"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"ignoreWater"}]
+  SETTABLEKS R2 R5 K0 ["ignoreWater"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_16:
+  GETTABLEKS R2 R1 K0 ["material"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"material"}]
+  SETTABLEKS R2 R5 K0 ["material"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_17:
+  GETTABLEKS R2 R1 K0 ["planeCFrame"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"planeCFrame"}]
+  SETTABLEKS R2 R5 K0 ["planeCFrame"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_18:
+  GETTABLEKS R2 R1 K0 ["planeLock"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"planeLock"}]
+  SETTABLEKS R2 R5 K0 ["planeLock"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_19:
+  GETTABLEKS R2 R1 K0 ["planeLockActive"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"planeLockActive"}]
+  SETTABLEKS R2 R5 K0 ["planeLockActive"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_20:
+  GETTABLEKS R2 R1 K0 ["ReplaceMode"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"ReplaceMode"}]
+  SETTABLEKS R2 R5 K0 ["ReplaceMode"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_21:
+  GETTABLEKS R2 R1 K0 ["snapToVoxels"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"snapToVoxels"}]
+  SETTABLEKS R2 R5 K0 ["snapToVoxels"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_22:
+  GETTABLEKS R2 R1 K0 ["SourceMaterial"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"SourceMaterial"}]
+  SETTABLEKS R2 R5 K0 ["SourceMaterial"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_23:
+  GETTABLEKS R2 R1 K0 ["TargetMaterial"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"TargetMaterial"}]
+  SETTABLEKS R2 R5 K0 ["TargetMaterial"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K10 ["Constants"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Util"]
+  GETTABLEKS R5 R6 K11 ["TerrainEnums"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K12 ["BrushShape"]
+  GETTABLEKS R6 R4 K13 ["PivotType"]
+  GETTABLEKS R7 R4 K14 ["FlattenMode"]
+  GETTABLEKS R8 R4 K15 ["PlaneLockType"]
+  GETTABLEKS R9 R4 K16 ["ReplaceMode"]
+  GETTABLEKS R10 R1 K17 ["createReducer"]
+  DUPTABLE R11 K41 [{"autoMaterial", "baseSize", "baseSizeHeightLocked", "brushShape", "editPlaneMode", "fixedPlane", "flattenMode", "height", "heightPicker", "ignoreParts", "ignoreWater", "material", "pivot", "planeCFrame", "planeLock", "planePositionY", "planeLockActive", "position", "ReplaceMode", "size", "snapToVoxels", "strength", "SourceMaterial", "TargetMaterial"}]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K18 ["autoMaterial"]
+  GETTABLEKS R12 R3 K42 ["INITIAL_BRUSH_SIZE"]
+  SETTABLEKS R12 R11 K19 ["baseSize"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K20 ["baseSizeHeightLocked"]
+  GETTABLEKS R12 R5 K43 ["Sphere"]
+  SETTABLEKS R12 R11 K21 ["brushShape"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K22 ["editPlaneMode"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K23 ["fixedPlane"]
+  GETTABLEKS R12 R7 K44 ["Both"]
+  SETTABLEKS R12 R11 K24 ["flattenMode"]
+  GETTABLEKS R12 R3 K42 ["INITIAL_BRUSH_SIZE"]
+  SETTABLEKS R12 R11 K25 ["height"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K26 ["heightPicker"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K27 ["ignoreParts"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K28 ["ignoreWater"]
+  GETIMPORT R12 K48 [Enum.Material.Grass]
+  SETTABLEKS R12 R11 K29 ["material"]
+  GETTABLEKS R12 R6 K49 ["Center"]
+  SETTABLEKS R12 R11 K30 ["pivot"]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K31 ["planeCFrame"]
+  GETTABLEKS R12 R8 K50 ["Off"]
+  SETTABLEKS R12 R11 K32 ["planeLock"]
+  GETTABLEKS R12 R3 K51 ["INITIAL_PLANE_POSITION_Y"]
+  SETTABLEKS R12 R11 K33 ["planePositionY"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K34 ["planeLockActive"]
+  DUPTABLE R12 K55 [{"X", "Y", "Z"}]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K52 ["X"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K53 ["Y"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K54 ["Z"]
+  SETTABLEKS R12 R11 K35 ["position"]
+  GETTABLEKS R12 R9 K56 ["Box"]
+  SETTABLEKS R12 R11 K16 ["ReplaceMode"]
+  DUPTABLE R12 K55 [{"X", "Y", "Z"}]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K52 ["X"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K53 ["Y"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K54 ["Z"]
+  SETTABLEKS R12 R11 K36 ["size"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K37 ["snapToVoxels"]
+  GETTABLEKS R12 R3 K57 ["INITIAL_BRUSH_STRENGTH"]
+  SETTABLEKS R12 R11 K38 ["strength"]
+  GETIMPORT R12 K59 [Enum.Material.Brick]
+  SETTABLEKS R12 R11 K39 ["SourceMaterial"]
+  GETIMPORT R12 K61 [Enum.Material.CrackedLava]
+  SETTABLEKS R12 R11 K40 ["TargetMaterial"]
+  DUPTABLE R12 K86 [{"ChangeBaseSize", "ChangeHeight", "ChangePivot", "ChangePlanePositionY", "ChangePosition", "ChangeSize", "ChangeStrength", "ChooseBrushShape", "ChooseFlattenMode", "SetAutoMaterial", "SetBaseSizeHeightLocked", "SetEditPlaneMode", "SetFixedPlane", "SetHeightPicker", "SetIgnoreParts", "SetIgnoreWater", "SetMaterial", "SetPlaneCFrame", "SetPlaneLock", "SetPlaneLockActive", "SetReplaceMode", "SetSnapToVoxels", "SetSourceMaterial", "SetTargetMaterial"}]
+  DUPCLOSURE R13 K87 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K62 ["ChangeBaseSize"]
+  DUPCLOSURE R13 K88 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K63 ["ChangeHeight"]
+  DUPCLOSURE R13 K89 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K64 ["ChangePivot"]
+  DUPCLOSURE R13 K90 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K65 ["ChangePlanePositionY"]
+  DUPCLOSURE R13 K91 [PROTO_4]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K66 ["ChangePosition"]
+  DUPCLOSURE R13 K92 [PROTO_5]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K67 ["ChangeSize"]
+  DUPCLOSURE R13 K93 [PROTO_6]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K68 ["ChangeStrength"]
+  DUPCLOSURE R13 K94 [PROTO_7]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K69 ["ChooseBrushShape"]
+  DUPCLOSURE R13 K95 [PROTO_8]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K70 ["ChooseFlattenMode"]
+  DUPCLOSURE R13 K96 [PROTO_9]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K71 ["SetAutoMaterial"]
+  DUPCLOSURE R13 K97 [PROTO_10]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K72 ["SetBaseSizeHeightLocked"]
+  DUPCLOSURE R13 K98 [PROTO_11]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K73 ["SetEditPlaneMode"]
+  DUPCLOSURE R13 K99 [PROTO_12]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K74 ["SetFixedPlane"]
+  DUPCLOSURE R13 K100 [PROTO_13]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K75 ["SetHeightPicker"]
+  DUPCLOSURE R13 K101 [PROTO_14]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K76 ["SetIgnoreParts"]
+  DUPCLOSURE R13 K102 [PROTO_15]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K77 ["SetIgnoreWater"]
+  DUPCLOSURE R13 K103 [PROTO_16]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K78 ["SetMaterial"]
+  DUPCLOSURE R13 K104 [PROTO_17]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K79 ["SetPlaneCFrame"]
+  DUPCLOSURE R13 K105 [PROTO_18]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K80 ["SetPlaneLock"]
+  DUPCLOSURE R13 K106 [PROTO_19]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K81 ["SetPlaneLockActive"]
+  DUPCLOSURE R13 K107 [PROTO_20]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K82 ["SetReplaceMode"]
+  DUPCLOSURE R13 K108 [PROTO_21]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K83 ["SetSnapToVoxels"]
+  DUPCLOSURE R13 K109 [PROTO_22]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K84 ["SetSourceMaterial"]
+  DUPCLOSURE R13 K110 [PROTO_23]
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K85 ["SetTargetMaterial"]
+  CALL R10 2 1
+  RETURN R10 1

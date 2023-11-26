@@ -1,0 +1,626 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["PreviewInstance"]
+  CALL R0 1 1
+  NAMECALL R0 R0 K2 ["GetExtentsSize"]
+  CALL R0 1 1
+  GETTABLEKS R2 R0 K4 ["Magnitude"]
+  MULK R1 R2 K3 [0.8]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K5 ["Unit"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["camera"]
+  GETIMPORT R4 K9 [CFrame.identity]
+  SETTABLEKS R4 R3 K10 ["Focus"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["camera"]
+  GETIMPORT R4 K12 [CFrame.new]
+  MUL R5 R1 R2
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["camera"]
+  GETTABLEKS R7 R8 K10 ["Focus"]
+  GETTABLEKS R6 R7 K13 ["Position"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K7 ["CFrame"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"showContext"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["state"]
+  GETTABLEKS R4 R5 K0 ["showContext"]
+  NOT R3 R4
+  SETTABLEKS R3 R2 K0 ["showContext"]
+  NAMECALL R0 R0 K3 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["ImportTree"]
+  GETTABLEKS R4 R0 K1 ["ImportTree"]
+  GETTABLEKS R3 R4 K2 ["RigVisualization"]
+  NOT R2 R3
+  SETTABLEKS R2 R1 K2 ["RigVisualization"]
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIF R1 [+4]
+  GETTABLEKS R1 R0 K3 ["SetSettingsChanged"]
+  LOADB R2 1
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K4 ["SelectedImportItem"]
+  JUMPIFNOT R1 [+13]
+  GETTABLEKS R1 R0 K5 ["AssetImportSession"]
+  GETTABLEKS R4 R0 K4 ["SelectedImportItem"]
+  GETTABLEKS R3 R4 K6 ["Id"]
+  NAMECALL R1 R1 K7 ["GetInstance"]
+  CALL R1 2 1
+  GETTABLEKS R2 R0 K8 ["UpdatePreviewInstance"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["SelectedImportItem"]
+  LOADK R3 K2 ["JointImportData"]
+  NAMECALL R1 R1 K3 ["IsA"]
+  CALL R1 2 1
+  GETTABLEKS R2 R0 K1 ["SelectedImportItem"]
+  LOADK R4 K4 ["RootImportData"]
+  NAMECALL R2 R2 K3 ["IsA"]
+  CALL R2 2 1
+  GETTABLEKS R5 R0 K6 ["ImportTree"]
+  GETTABLEKS R4 R5 K5 ["RigVisualization"]
+  JUMPIFNOT R4 [+2]
+  MOVE R3 R2
+  JUMPIF R3 [+1]
+  MOVE R3 R1
+  RETURN R3 1
+
+PROTO_4:
+  JUMPIFNOT R1 [+21]
+  GETIMPORT R4 K1 [game]
+  NAMECALL R2 R1 K2 ["IsDescendantOf"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+15]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K3 ["Disconnect"]
+  CALL R2 1 0
+  GETUPVAL R2 1
+  LOADK R4 K4 ["KeyframeSequence"]
+  LOADB R5 1
+  NAMECALL R2 R2 K5 ["FindFirstChildWhichIsA"]
+  CALL R2 3 1
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R3 2
+  GETUPVAL R4 1
+  MOVE R5 R2
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["SelectedImportItem"]
+  LOADK R3 K2 ["AnimationImportData"]
+  NAMECALL R1 R1 K3 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+12]
+  LOADNIL R1
+  GETTABLEKS R2 R0 K4 ["AncestryChanged"]
+  NEWCLOSURE R4 P0
+  CAPTURE REF R1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  NAMECALL R2 R2 K5 ["connect"]
+  CALL R2 2 1
+  MOVE R1 R2
+  CLOSEUPVALS R1
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  DUPTABLE R4 K2 [{"showContext"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K1 ["showContext"]
+  NAMECALL R2 R0 K3 ["setState"]
+  CALL R2 2 0
+  LOADB R2 0
+  SETTABLEKS R2 R0 K4 ["recenterCamera"]
+  LOADB R2 1
+  SETTABLEKS R2 R0 K5 ["recenterModel"]
+  GETIMPORT R2 K8 [CFrame.identity]
+  SETTABLEKS R2 R0 K9 ["lastCamCFrame"]
+  GETUPVAL R2 0
+  GETTABLEKS R3 R1 K10 ["PreviewInstance"]
+  GETTABLEKS R4 R1 K11 ["ImportTree"]
+  GETTABLEKS R7 R1 K12 ["SelectedImportItem"]
+  GETTABLEKS R6 R7 K13 ["Id"]
+  JUMPIFEQKS R6 K14 ["0"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETTABLEKS R7 R0 K15 ["state"]
+  GETTABLEKS R6 R7 K1 ["showContext"]
+  CALL R2 4 1
+  SETTABLEKS R2 R0 K16 ["previewProps"]
+  GETIMPORT R2 K19 [Instance.new]
+  LOADK R3 K20 ["Camera"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K21 ["camera"]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R0 K22 ["onClickCenterCamera"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K23 ["onClickToggleContext"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R0 K24 ["onClickRigVisualization"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K25 ["isRigVisualized"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R0 K26 ["loadAnimationIntoViewport"]
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["SelectedImportItem"]
+  GETTABLEKS R4 R1 K1 ["SelectedImportItem"]
+  LOADK R7 K2 ["RootImportData"]
+  NAMECALL R5 R3 K3 ["IsA"]
+  CALL R5 2 1
+  JUMPIF R5 [+10]
+  LOADK R7 K4 ["MeshImportData"]
+  NAMECALL R5 R3 K3 ["IsA"]
+  CALL R5 2 1
+  JUMPIF R5 [+5]
+  LOADK R7 K5 ["GroupImportData"]
+  NAMECALL R5 R3 K3 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R0 K6 ["camera"]
+  GETTABLEKS R5 R6 K7 ["CFrame"]
+  SETTABLEKS R5 R0 K8 ["lastCamCFrame"]
+  GETUPVAL R5 0
+  GETTABLEKS R6 R1 K9 ["PreviewInstance"]
+  GETTABLEKS R7 R1 K10 ["ImportTree"]
+  GETTABLEKS R10 R1 K1 ["SelectedImportItem"]
+  GETTABLEKS R9 R10 K11 ["Id"]
+  JUMPIFEQKS R9 K12 ["0"] [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  GETTABLEKS R9 R2 K13 ["showContext"]
+  CALL R5 4 1
+  SETTABLEKS R5 R0 K14 ["previewProps"]
+  LOADK R7 K2 ["RootImportData"]
+  NAMECALL R5 R4 K3 ["IsA"]
+  CALL R5 2 1
+  JUMPIF R5 [+10]
+  LOADK R7 K4 ["MeshImportData"]
+  NAMECALL R5 R4 K3 ["IsA"]
+  CALL R5 2 1
+  JUMPIF R5 [+5]
+  LOADK R7 K5 ["GroupImportData"]
+  NAMECALL R5 R4 K3 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+10]
+  GETTABLEKS R5 R0 K6 ["camera"]
+  GETTABLEKS R6 R0 K8 ["lastCamCFrame"]
+  SETTABLEKS R6 R5 K7 ["CFrame"]
+  LOADB R5 0
+  SETTABLEKS R5 R0 K15 ["recenterCamera"]
+  RETURN R0 0
+  LOADB R5 1
+  SETTABLEKS R5 R0 K15 ["recenterCamera"]
+  RETURN R0 0
+
+PROTO_8:
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R0 K0 ["handleCameraTransition"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R2 R1 K0 ["SelectedImportItem"]
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K0 ["SelectedImportItem"]
+  JUMPIFEQ R3 R2 [+4]
+  GETTABLEKS R4 R0 K2 ["onClickCenterCamera"]
+  CALL R4 0 0
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R2 K2 ["Sizes"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K6 [{"LayoutOrder", "Size"}]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  GETIMPORT R7 K9 [UDim2.new]
+  LOADN R8 1
+  LOADN R9 0
+  GETTABLEKS R10 R3 K10 ["PreviewRatio"]
+  LOADN R11 0
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K5 ["Size"]
+  DUPTABLE R7 K16 [{"WorkspacePreviewContainer", "PreviewControls", "PreviewRenderContainer", "RigVisualization", "AxisIndicatorContainer"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K18 [{"ZIndex"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K17 ["ZIndex"]
+  DUPTABLE R11 K20 [{"WorkspacePreview"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 2
+  DUPTABLE R14 K24 [{"Model", "ReferenceCamera", "Offset"}]
+  GETTABLEKS R16 R0 K25 ["previewProps"]
+  GETTABLEKS R15 R16 K26 ["workspacePreview"]
+  SETTABLEKS R15 R14 K21 ["Model"]
+  GETTABLEKS R15 R0 K27 ["camera"]
+  SETTABLEKS R15 R14 K22 ["ReferenceCamera"]
+  GETTABLEKS R16 R0 K25 ["previewProps"]
+  GETTABLEKS R15 R16 K28 ["insertContextOffset"]
+  SETTABLEKS R15 R14 K23 ["Offset"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K19 ["WorkspacePreview"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K11 ["WorkspacePreviewContainer"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K34 [{"InsertContextCallback", "ResetCameraCallback", "ShouldShowWorkspaceToggle", "ShouldShowRigVisualizationToggle", "VisualizeRigCallback"}]
+  GETTABLEKS R11 R0 K35 ["onClickToggleContext"]
+  SETTABLEKS R11 R10 K29 ["InsertContextCallback"]
+  GETTABLEKS R11 R0 K36 ["onClickCenterCamera"]
+  SETTABLEKS R11 R10 K30 ["ResetCameraCallback"]
+  GETTABLEKS R11 R1 K37 ["SelectedImportItem"]
+  LOADK R13 K38 ["RootImportData"]
+  NAMECALL R11 R11 K39 ["IsA"]
+  CALL R11 2 1
+  JUMPIFNOT R11 [+4]
+  GETTABLEKS R12 R1 K37 ["SelectedImportItem"]
+  GETTABLEKS R11 R12 K40 ["InsertInWorkspace"]
+  SETTABLEKS R11 R10 K31 ["ShouldShowWorkspaceToggle"]
+  GETTABLEKS R11 R1 K37 ["SelectedImportItem"]
+  LOADK R13 K38 ["RootImportData"]
+  NAMECALL R11 R11 K39 ["IsA"]
+  CALL R11 2 1
+  JUMPIFNOT R11 [+5]
+  GETTABLEKS R11 R1 K41 ["AssetImportSession"]
+  NAMECALL R11 R11 K42 ["isAvatar"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K32 ["ShouldShowRigVisualizationToggle"]
+  GETTABLEKS R11 R0 K43 ["onClickRigVisualization"]
+  SETTABLEKS R11 R10 K33 ["VisualizeRigCallback"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["PreviewControls"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K18 [{"ZIndex"}]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K17 ["ZIndex"]
+  DUPTABLE R11 K45 [{"PreviewRender"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K55 [{"Model", "InitialDistance", "Camera", "FocusDirection", "RecenterCameraOnUpdate", "RecenterModelOnUpdate", "OnViewModelLoaded", "Ambient", "LightColor", "LightDirection"}]
+  GETTABLEKS R16 R0 K25 ["previewProps"]
+  GETTABLEKS R15 R16 K56 ["model"]
+  SETTABLEKS R15 R14 K21 ["Model"]
+  GETTABLEKS R16 R0 K25 ["previewProps"]
+  GETTABLEKS R15 R16 K57 ["initDist"]
+  SETTABLEKS R15 R14 K46 ["InitialDistance"]
+  GETTABLEKS R15 R0 K27 ["camera"]
+  SETTABLEKS R15 R14 K47 ["Camera"]
+  GETUPVAL R15 5
+  SETTABLEKS R15 R14 K48 ["FocusDirection"]
+  GETTABLEKS R15 R0 K58 ["recenterCamera"]
+  SETTABLEKS R15 R14 K49 ["RecenterCameraOnUpdate"]
+  GETTABLEKS R15 R0 K59 ["recenterModel"]
+  SETTABLEKS R15 R14 K50 ["RecenterModelOnUpdate"]
+  GETUPVAL R16 6
+  CALL R16 0 1
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R15 R0 K60 ["loadAnimationIntoViewport"]
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K51 ["OnViewModelLoaded"]
+  GETUPVAL R16 7
+  CALL R16 0 1
+  JUMPIFNOT R16 [+7]
+  GETTABLEKS R17 R2 K61 ["PreviewWindow"]
+  GETTABLEKS R16 R17 K62 ["Lighting"]
+  GETTABLEKS R15 R16 K52 ["Ambient"]
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K52 ["Ambient"]
+  GETUPVAL R16 7
+  CALL R16 0 1
+  JUMPIFNOT R16 [+7]
+  GETTABLEKS R17 R2 K61 ["PreviewWindow"]
+  GETTABLEKS R16 R17 K62 ["Lighting"]
+  GETTABLEKS R15 R16 K63 ["Color"]
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K53 ["LightColor"]
+  GETUPVAL R16 7
+  CALL R16 0 1
+  JUMPIFNOT R16 [+7]
+  GETTABLEKS R17 R2 K61 ["PreviewWindow"]
+  GETTABLEKS R16 R17 K62 ["Lighting"]
+  GETTABLEKS R15 R16 K64 ["Direction"]
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K54 ["LightDirection"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K44 ["PreviewRender"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K13 ["PreviewRenderContainer"]
+  GETTABLEKS R9 R0 K65 ["isRigVisualized"]
+  CALL R9 0 1
+  JUMPIFNOT R9 [+32]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K18 [{"ZIndex"}]
+  LOADN R11 3
+  SETTABLEKS R11 R10 K17 ["ZIndex"]
+  NEWTABLE R11 0 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 8
+  DUPTABLE R14 K67 [{"PreviewInstance", "Camera", "AssetImportSession"}]
+  GETTABLEKS R15 R1 K66 ["PreviewInstance"]
+  SETTABLEKS R15 R14 K66 ["PreviewInstance"]
+  GETTABLEKS R15 R0 K27 ["camera"]
+  SETTABLEKS R15 R14 K47 ["Camera"]
+  GETTABLEKS R15 R1 K41 ["AssetImportSession"]
+  SETTABLEKS R15 R14 K41 ["AssetImportSession"]
+  CALL R12 2 -1
+  SETLIST R11 R12 4294967295 [1]
+  CALL R8 3 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K14 ["RigVisualization"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K70 [{"Size", "Position", "AnchorPoint", "ZIndex"}]
+  GETIMPORT R11 K9 [UDim2.new]
+  LOADN R12 0
+  GETTABLEKS R13 R3 K71 ["IndicatorSize"]
+  LOADN R14 0
+  GETTABLEKS R15 R3 K71 ["IndicatorSize"]
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K5 ["Size"]
+  GETIMPORT R11 K9 [UDim2.new]
+  LOADN R12 1
+  GETTABLEKS R13 R3 K72 ["IndicatorOffset"]
+  LOADN R14 1
+  GETTABLEKS R15 R3 K72 ["IndicatorOffset"]
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K68 ["Position"]
+  GETIMPORT R11 K74 [Vector2.new]
+  LOADN R12 1
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K69 ["AnchorPoint"]
+  LOADN R11 4
+  SETTABLEKS R11 R10 K17 ["ZIndex"]
+  DUPTABLE R11 K76 [{"AxisIndicator"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 9
+  DUPTABLE R14 K77 [{"ReferenceCamera"}]
+  GETTABLEKS R15 R0 K27 ["camera"]
+  SETTABLEKS R15 R14 K22 ["ReferenceCamera"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K75 ["AxisIndicator"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K15 ["AxisIndicatorContainer"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  DUPTABLE R1 K2 [{"SetSettingsChanged", "UpdatePreviewInstance"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetSettingsChanged"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["UpdatePreviewInstance"]
+  RETURN R1 1
+
+PROTO_14:
+  DUPTABLE R1 K4 [{"AssetImportSession", "ImportTree", "PreviewInstance", "SelectedImportItem"}]
+  GETTABLEKS R2 R0 K5 ["assetImportSession"]
+  SETTABLEKS R2 R1 K0 ["AssetImportSession"]
+  GETTABLEKS R2 R0 K6 ["importTree"]
+  SETTABLEKS R2 R1 K1 ["ImportTree"]
+  GETTABLEKS R2 R0 K7 ["previewInstance"]
+  SETTABLEKS R2 R1 K2 ["PreviewInstance"]
+  GETTABLEKS R2 R0 K8 ["selectedImportItem"]
+  SETTABLEKS R2 R1 K3 ["SelectedImportItem"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETTABLEKS R7 R3 K11 ["Style"]
+  GETTABLEKS R6 R7 K12 ["Stylizer"]
+  GETTABLEKS R7 R3 K13 ["UI"]
+  GETTABLEKS R8 R7 K14 ["Pane"]
+  GETTABLEKS R9 R7 K15 ["AssetRenderModel"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R14 R0 K16 ["Src"]
+  GETTABLEKS R13 R14 K17 ["Components"]
+  GETTABLEKS R12 R13 K18 ["Preview"]
+  GETTABLEKS R11 R12 K19 ["WorkspacePreview"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R15 R0 K16 ["Src"]
+  GETTABLEKS R14 R15 K17 ["Components"]
+  GETTABLEKS R13 R14 K18 ["Preview"]
+  GETTABLEKS R12 R13 K20 ["AxisIndicator"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R16 R0 K16 ["Src"]
+  GETTABLEKS R15 R16 K17 ["Components"]
+  GETTABLEKS R14 R15 K18 ["Preview"]
+  GETTABLEKS R13 R14 K21 ["PreviewControls"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R17 R0 K16 ["Src"]
+  GETTABLEKS R16 R17 K17 ["Components"]
+  GETTABLEKS R15 R16 K18 ["Preview"]
+  GETTABLEKS R14 R15 K22 ["RigVisualization"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K16 ["Src"]
+  GETTABLEKS R16 R17 K23 ["Actions"]
+  GETTABLEKS R15 R16 K24 ["SetSettingsChanged"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K16 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Thunks"]
+  GETTABLEKS R16 R17 K26 ["UpdatePreviewInstance"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K16 ["Src"]
+  GETTABLEKS R18 R19 K27 ["Flags"]
+  GETTABLEKS R17 R18 K28 ["getFFlagDevFrameworkRenderModelLoadedSignal"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R20 R0 K16 ["Src"]
+  GETTABLEKS R19 R20 K27 ["Flags"]
+  GETTABLEKS R18 R19 K29 ["getFFlagAssetImporterCustomPresets"]
+  CALL R17 1 1
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R21 R0 K16 ["Src"]
+  GETTABLEKS R20 R21 K27 ["Flags"]
+  GETTABLEKS R19 R20 K30 ["getFFlagAinPreviewLighting2"]
+  CALL R18 1 1
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R22 R0 K16 ["Src"]
+  GETTABLEKS R21 R22 K31 ["Utility"]
+  GETTABLEKS R20 R21 K32 ["getAssetPreviewProps"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R23 R0 K16 ["Src"]
+  GETTABLEKS R22 R23 K31 ["Utility"]
+  GETTABLEKS R21 R22 K33 ["getAssetRenderModel"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R24 R0 K16 ["Src"]
+  GETTABLEKS R23 R24 K31 ["Utility"]
+  GETTABLEKS R22 R23 K34 ["loadAnimation"]
+  CALL R21 1 1
+  LOADN R23 255
+  LOADN R24 1
+  LOADN R25 255
+  FASTCALL VECTOR [+2]
+  GETIMPORT R22 K37 [Vector3.new]
+  CALL R22 3 1
+  GETTABLEKS R23 R1 K38 ["PureComponent"]
+  LOADK R25 K39 ["PreviewContainer"]
+  NAMECALL R23 R23 K40 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K41 [PROTO_6]
+  CAPTURE VAL R19
+  CAPTURE VAL R20
+  CAPTURE VAL R22
+  CAPTURE VAL R17
+  CAPTURE VAL R21
+  SETTABLEKS R24 R23 K42 ["init"]
+  DUPCLOSURE R24 K43 [PROTO_7]
+  CAPTURE VAL R19
+  SETTABLEKS R24 R23 K44 ["handleCameraTransition"]
+  DUPCLOSURE R24 K45 [PROTO_8]
+  SETTABLEKS R24 R23 K46 ["willUpdate"]
+  DUPCLOSURE R24 K47 [PROTO_9]
+  SETTABLEKS R24 R23 K48 ["didUpdate"]
+  DUPCLOSURE R24 K49 [PROTO_10]
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R12
+  CAPTURE VAL R9
+  CAPTURE VAL R22
+  CAPTURE VAL R16
+  CAPTURE VAL R18
+  CAPTURE VAL R13
+  CAPTURE VAL R11
+  SETTABLEKS R24 R23 K50 ["render"]
+  MOVE R24 R5
+  DUPTABLE R25 K51 [{"Stylizer"}]
+  SETTABLEKS R6 R25 K12 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  DUPCLOSURE R24 K52 [PROTO_13]
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  DUPCLOSURE R25 K53 [PROTO_14]
+  GETTABLEKS R26 R2 K54 ["connect"]
+  MOVE R27 R25
+  MOVE R28 R24
+  CALL R26 2 1
+  MOVE R27 R23
+  CALL R26 1 -1
+  RETURN R26 -1

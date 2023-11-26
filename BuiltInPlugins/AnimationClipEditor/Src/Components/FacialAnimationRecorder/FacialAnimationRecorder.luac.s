@@ -1,0 +1,1837 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETIMPORT R1 K2 [os.clock]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K3 ["timeAtStartOfRecording"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["props"]
+  GETTABLEKS R0 R1 K5 ["Analytics"]
+  LOADK R3 K6 ["onFacialAnimationRecordingStartRecording"]
+  NAMECALL R1 R0 K7 ["report"]
+  CALL R1 2 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K9 [{"isRecording"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K8 ["isRecording"]
+  NAMECALL R1 R1 K10 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["haveToSetBackToNotLooping"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  LOADB R1 0
+  SETTABLEKS R1 R0 K1 ["haveToSetBackToNotLooping"]
+  GETTABLEKS R1 R0 K2 ["AnimationData"]
+  JUMPIFNOT R1 [+16]
+  GETTABLEKS R3 R1 K3 ["Metadata"]
+  GETTABLEKS R2 R3 K4 ["Looping"]
+  JUMPIFNOT R2 [+11]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["setLooping"]
+  MOVE R4 R1
+  LOADB R5 0
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K6 ["SetAnimationData"]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["Disconnect"]
+  CALL R1 1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["SetInReviewState"]
+  LOADB R2 0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETIMPORT R1 K2 [os.clock]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K3 ["timeAtEndOfRecording"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K4 ["props"]
+  GETTABLEKS R1 R0 K5 ["Analytics"]
+  LOADK R4 K6 ["onFacialAnimationRecordingEndRecording"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["timeAtStartOfRecording"]
+  JUMPIFNOT R6 [+8]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["timeAtEndOfRecording"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["timeAtStartOfRecording"]
+  SUB R5 R6 R7
+  JUMPIF R5 [+1]
+  LOADN R5 0
+  NAMECALL R2 R1 K8 ["report"]
+  CALL R2 3 0
+  GETTABLEKS R2 R0 K9 ["SetInReviewState"]
+  LOADB R3 1
+  CALL R2 1 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K11 [{"isRecording"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K10 ["isRecording"]
+  NAMECALL R2 R2 K12 ["setState"]
+  CALL R2 2 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K13 ["hasFacsData"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["props"]
+  GETTABLEKS R3 R4 K14 ["AnimationData"]
+  CALL R2 1 1
+  SETUPVAL R2 1
+  GETTABLEKS R2 R0 K15 ["LoadRecorderFrames"]
+  MOVE R3 R0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K16 ["RecordedFrames"]
+  GETTABLEKS R5 R0 K5 ["Analytics"]
+  CALL R2 3 0
+  GETTABLEKS R2 R0 K17 ["SetFacialRecordingMode"]
+  LOADB R3 0
+  CALL R2 1 0
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K18 ["disconnect"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K19 ["StepAnimation"]
+  LOADN R3 0
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K20 ["SetPlayState"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K21 ["PLAY_STATE"]
+  GETTABLEKS R3 R4 K22 ["Play"]
+  CALL R2 1 0
+  LOADNIL R2
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K23 ["SelectionChanged"]
+  NEWCLOSURE R5 P0
+  CAPTURE REF R2
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K24 ["Connect"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CLOSEUPVALS R2
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"shouldShowCameraSelectionDialog"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["shouldShowCameraSelectionDialog"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"shouldShowCameraSelectionDialog"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["shouldShowCameraSelectionDialog"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R0 K1 [wait]
+  LOADK R1 K2 [0.1]
+  CALL R0 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["props"]
+  GETTABLEKS R0 R1 K4 ["RootInstance"]
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["props"]
+  GETTABLEKS R0 R1 K5 ["StepAnimation"]
+  LOADN R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["SetInReviewState"]
+  LOADB R2 0
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["SetFacialRecordingMode"]
+  LOADB R2 0
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["movePlayheadToBeginning"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K1 ["isRecording"]
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["endRecording"]
+  CALL R1 0 0
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["startRecording"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Analytics"]
+  LOADK R4 K2 ["onFacialAnimationRecordingReRecordPressed"]
+  NAMECALL R2 R1 K3 ["report"]
+  CALL R2 2 0
+  LOADB R2 1
+  SETUPVAL R2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["resetLooping"]
+  CALL R2 0 0
+  GETTABLEKS R2 R0 K5 ["SetPlayState"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K6 ["PLAY_STATE"]
+  GETTABLEKS R3 R4 K7 ["Pause"]
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K8 ["movePlayheadToBeginning"]
+  CALL R2 0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K9 ["SetInReviewState"]
+  LOADB R3 0
+  CALL R2 1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K10 ["SetFacialRecordingMode"]
+  LOADB R3 1
+  CALL R2 1 0
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K11 ["InitializeRecordingMode"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Localization"]
+  GETUPVAL R2 0
+  DUPTABLE R4 K3 [{"isAgeRestricted"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["isAgeRestricted"]
+  NAMECALL R2 R2 K4 ["setState"]
+  CALL R2 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R3 R0 K5 ["Plugin"]
+  GETTABLEKS R4 R0 K1 ["Localization"]
+  GETTABLEKS R5 R0 K6 ["Stylizer"]
+  GETTABLEKS R6 R0 K7 ["Mouse"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K14 [{"Title", "TitleText", "BodyText", "Buttons", "OnButtonPressed", "OnClose"}]
+  LOADK R11 K15 ["FaceCapture"]
+  LOADK R12 K16 ["WarningTitle"]
+  NAMECALL R9 R1 K17 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K8 ["Title"]
+  LOADK R11 K15 ["FaceCapture"]
+  LOADK R12 K18 ["AgeRestrictedTitle"]
+  NAMECALL R9 R1 K17 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K9 ["TitleText"]
+  LOADK R11 K15 ["FaceCapture"]
+  LOADK R12 K19 ["AgeRestrictedBody"]
+  NAMECALL R9 R1 K17 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K10 ["BodyText"]
+  NEWTABLE R9 0 1
+  DUPTABLE R10 K23 [{"Key", "Text", "Style"}]
+  LOADK R11 K24 ["Ok"]
+  SETTABLEKS R11 R10 K20 ["Key"]
+  GETTABLEKS R11 R0 K1 ["Localization"]
+  LOADK R13 K15 ["FaceCapture"]
+  LOADK R14 K25 ["WarningDialogOk"]
+  NAMECALL R11 R11 K17 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K21 ["Text"]
+  LOADK R11 K26 ["RoundPrimary"]
+  SETTABLEKS R11 R10 K22 ["Style"]
+  SETLIST R9 R10 1 [1]
+  SETTABLEKS R9 R8 K11 ["Buttons"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K27 ["dismissSelf"]
+  SETTABLEKS R9 R8 K12 ["OnButtonPressed"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K27 ["dismissSelf"]
+  SETTABLEKS R9 R8 K13 ["OnClose"]
+  CALL R2 6 0
+  RETURN R0 0
+
+PROTO_11:
+  JUMPIFNOTEQKS R0 K0 ["Agree"] [+10]
+  GETUPVAL R1 0
+  LOADB R2 1
+  SETTABLEKS R2 R1 K1 ["BiometricDataConsent"]
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K2 ["StartupInitialize"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["dismissSelf"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["Localization"]
+  GETIMPORT R2 K3 [game]
+  LOADK R4 K4 ["FacialAnimationRecordingService"]
+  NAMECALL R2 R2 K5 ["GetService"]
+  CALL R2 2 1
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K6 ["Plugin"]
+  GETTABLEKS R5 R0 K1 ["Localization"]
+  GETTABLEKS R6 R0 K7 ["Stylizer"]
+  GETTABLEKS R7 R0 K8 ["Mouse"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K17 [{"Title", "TitleText", "BodyText", "Buttons", "OnButtonPressed", "OnClose", "learnMoreUrl", "learnMoreLabel"}]
+  LOADK R12 K18 ["FaceCapture"]
+  LOADK R13 K19 ["WarningTitle"]
+  NAMECALL R10 R1 K20 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K9 ["Title"]
+  LOADK R12 K18 ["FaceCapture"]
+  LOADK R13 K21 ["BioDataCollectionTitle"]
+  NAMECALL R10 R1 K20 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K10 ["TitleText"]
+  LOADK R12 K18 ["FaceCapture"]
+  LOADK R13 K22 ["BioDataCollectionBody"]
+  NAMECALL R10 R1 K20 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K11 ["BodyText"]
+  NEWTABLE R10 0 2
+  DUPTABLE R11 K26 [{"Key", "Text", "Style"}]
+  LOADK R12 K27 ["Disagree"]
+  SETTABLEKS R12 R11 K23 ["Key"]
+  LOADK R14 K18 ["FaceCapture"]
+  LOADK R15 K28 ["BioDataCollectionDisagree"]
+  NAMECALL R12 R1 K20 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K24 ["Text"]
+  LOADK R12 K29 ["Round"]
+  SETTABLEKS R12 R11 K25 ["Style"]
+  DUPTABLE R12 K26 [{"Key", "Text", "Style"}]
+  LOADK R13 K30 ["Agree"]
+  SETTABLEKS R13 R12 K23 ["Key"]
+  LOADK R15 K18 ["FaceCapture"]
+  LOADK R16 K31 ["BioDataCollectionAgree"]
+  NAMECALL R13 R1 K20 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K24 ["Text"]
+  LOADK R13 K29 ["Round"]
+  SETTABLEKS R13 R12 K25 ["Style"]
+  SETLIST R10 R11 2 [1]
+  SETTABLEKS R10 R9 K12 ["Buttons"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  SETTABLEKS R10 R9 K13 ["OnButtonPressed"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K32 ["dismissSelf"]
+  SETTABLEKS R10 R9 K14 ["OnClose"]
+  GETUPVAL R10 3
+  SETTABLEKS R10 R9 K15 ["learnMoreUrl"]
+  LOADK R12 K18 ["FaceCapture"]
+  LOADK R13 K33 ["LearnMoreLabel"]
+  NAMECALL R10 R1 K20 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K16 ["learnMoreLabel"]
+  CALL R3 6 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["GetCameraDevices"]
+  CALL R0 1 1
+  LOADN R1 0
+  GETIMPORT R2 K2 [pairs]
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  ADDK R1 R1 K3 [1]
+  FORGLOOP R2 1 [-2]
+  RETURN R1 1
+
+PROTO_14:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["numberOfCameras"]
+  CALL R0 0 1
+  JUMPIFEQKN R0 K1 [0] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  GETUPVAL R2 0
+  DUPTABLE R4 K3 [{"shouldShowNoCamerasWarning"}]
+  SETTABLEKS R1 R4 K2 ["shouldShowNoCamerasWarning"]
+  NAMECALL R2 R2 K4 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["CheckOrRequestCameraPermission"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_16:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["FacialAnimationRecordingService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPTABLE R1 K6 [{"AUTHORIZED", "DENIED"}]
+  LOADK R2 K4 ["AUTHORIZED"]
+  SETTABLEKS R2 R1 K4 ["AUTHORIZED"]
+  LOADK R2 K5 ["DENIED"]
+  SETTABLEKS R2 R1 K5 ["DENIED"]
+  GETIMPORT R2 K8 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CALL R2 1 2
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R5 R1 K5 ["DENIED"]
+  JUMPIFEQ R3 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETUPVAL R5 0
+  DUPTABLE R7 K10 [{"deniedCameraPermission"}]
+  SETTABLEKS R4 R7 K9 ["deniedCameraPermission"]
+  NAMECALL R5 R5 K11 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_17:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["RobloxGui"]
+  SETTABLEKS R1 R0 K1 ["presentationGui"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["new"]
+  GETTABLEKS R2 R0 K1 ["presentationGui"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K3 ["focus"]
+  DUPTABLE R3 K9 [{"remainingSeconds", "shouldShowCameraSelectionDialog", "isAgeRestricted", "shouldShowNoCamerasWarning", "deniedCameraPermission"}]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K4 ["remainingSeconds"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K5 ["shouldShowCameraSelectionDialog"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K6 ["isAgeRestricted"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K7 ["shouldShowNoCamerasWarning"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K8 ["deniedCameraPermission"]
+  NAMECALL R1 R0 K10 ["setState"]
+  CALL R1 2 0
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K11 ["startRecording"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K12 ["resetLooping"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  SETTABLEKS R1 R0 K13 ["endRecording"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K14 ["showCameraSelectionDialog"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K15 ["hideCameraSelectionDialog"]
+  NEWCLOSURE R1 P5
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K16 ["movePlayheadToBeginning"]
+  NEWCLOSURE R1 P6
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K17 ["dismissSelf"]
+  NEWCLOSURE R1 P7
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K18 ["toggleRecording"]
+  NEWCLOSURE R1 P8
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U4
+  SETTABLEKS R1 R0 K19 ["triggerReRecording"]
+  NEWCLOSURE R1 P9
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  SETTABLEKS R1 R0 K20 ["showAgeRestrictionError"]
+  NEWCLOSURE R1 P10
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  SETTABLEKS R1 R0 K21 ["showBiometricDataCollectionDialog"]
+  DUPCLOSURE R1 K22 [PROTO_13]
+  CAPTURE UPVAL U10
+  SETTABLEKS R1 R0 K23 ["numberOfCameras"]
+  NEWCLOSURE R1 P12
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K24 ["checkAndShowCameraWarning"]
+  NEWCLOSURE R1 P13
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K25 ["checkOrRequestCameraPermission"]
+  RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["RootInstance"]
+  GETTABLEKS R3 R0 K2 ["Animator"]
+  JUMPIF R3 [+16]
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+2]
+  GETUPVAL R4 1
+  JUMP [+1]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["getAnimationController"]
+  MOVE R4 R2
+  CALL R3 1 1
+  LOADK R6 K2 ["Animator"]
+  NAMECALL R4 R3 K4 ["FindFirstChildOfClass"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K2 ["Animator"]
+  RETURN R0 0
+
+PROTO_19:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R1 K0 ["HeartbeatCount"]
+  ADDK R2 R2 K1 [1]
+  SETTABLEKS R2 R1 K0 ["HeartbeatCount"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["state"]
+  GETTABLEKS R1 R2 K3 ["isRecording"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["HeartbeatCount"]
+  FASTCALL2K MATH_FMOD R3 K4 [+4]
+  LOADK R4 K4 [30]
+  GETIMPORT R2 K7 [math.fmod]
+  CALL R2 2 1
+  JUMPIFNOTEQKN R2 K8 [0] [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["checkAndShowCameraWarning"]
+  CALL R2 0 0
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K10 ["updateAvatarData"]
+  CALL R2 1 0
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K11 ["Step"]
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K12 ["Animator"]
+  MOVE R4 R0
+  NAMECALL R2 R2 K13 ["StepAnimations"]
+  CALL R2 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K14 ["track"]
+  NAMECALL R2 R2 K15 ["GetTrackerData"]
+  CALL R2 1 3
+  LOADN R6 0
+  JUMPIFLT R6 R4 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETUPVAL R6 0
+  DUPTABLE R8 K17 [{"isCameraReady"}]
+  SETTABLEKS R5 R8 K16 ["isCameraReady"]
+  NAMECALL R6 R6 K18 ["setState"]
+  CALL R6 2 0
+  JUMPIFNOT R1 [+71]
+  JUMPIFNOT R5 [+70]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K19 ["RecordInfo"]
+  GETTABLEKS R6 R7 K20 ["startTime"]
+  JUMPIF R6 [+5]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K19 ["RecordInfo"]
+  SETTABLEKS R4 R6 K20 ["startTime"]
+  GETUPVAL R6 2
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K19 ["RecordInfo"]
+  GETTABLEKS R8 R9 K20 ["startTime"]
+  SUB R7 R4 R8
+  SUB R8 R6 R7
+  LOADN R9 0
+  JUMPIFNOTLT R8 R9 [+5]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K21 ["endRecording"]
+  CALL R9 0 0
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K23 ["TICK_FREQUENCY"]
+  MUL R11 R7 R12
+  ADDK R10 R11 K22 [0.5]
+  FASTCALL1 MATH_FLOOR R10 [+2]
+  GETIMPORT R9 K25 [math.floor]
+  CALL R9 1 1
+  NEWTABLE R10 0 0
+  GETIMPORT R11 K27 [pairs]
+  MOVE R12 R2
+  CALL R11 1 3
+  FORGPREP_NEXT R11
+  SETTABLE R15 R10 R14
+  FORGLOOP R11 2 [-2]
+  SETTABLEKS R3 R10 K28 ["Head"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K29 ["RecordedFrames"]
+  SETTABLE R10 R11 R9
+  FASTCALL1 MATH_FLOOR R8 [+3]
+  MOVE R12 R8
+  GETIMPORT R11 K25 [math.floor]
+  CALL R11 1 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K2 ["state"]
+  GETTABLEKS R12 R13 K30 ["remainingSeconds"]
+  JUMPIFEQ R12 R11 [+8]
+  GETUPVAL R12 0
+  DUPTABLE R14 K31 [{"remainingSeconds"}]
+  SETTABLEKS R11 R14 K30 ["remainingSeconds"]
+  NAMECALL R12 R12 K18 ["setState"]
+  CALL R12 2 0
+  RETURN R0 0
+
+PROTO_20:
+  GETUPVAL R1 0
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 0
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["FlipHeadOrientation"]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K1 ["IsStarted"]
+  CALL R1 1 1
+  JUMPIF R1 [+6]
+  GETUPVAL R1 0
+  LOADB R3 1
+  LOADB R4 0
+  NAMECALL R1 R1 K2 ["Init"]
+  CALL R1 3 0
+  GETIMPORT R1 K5 [task.defer]
+  GETTABLEKS R2 R0 K6 ["checkOrRequestCameraPermission"]
+  CALL R1 1 0
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K7 ["RecordInfo"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K8 ["RecordedFrames"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K9 ["HeartbeatCount"]
+  GETTABLEKS R3 R0 K10 ["props"]
+  GETTABLEKS R2 R3 K11 ["Status"]
+  GETTABLEKS R1 R2 K12 ["RootInstance"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K13 ["clearPose"]
+  MOVE R3 R1
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K14 ["focusCameraOnFace"]
+  GETTABLEKS R4 R0 K10 ["props"]
+  GETTABLEKS R3 R4 K12 ["RootInstance"]
+  CALL R2 1 0
+  NAMECALL R2 R0 K15 ["updateAvatarData"]
+  CALL R2 1 0
+  GETIMPORT R2 K18 [Instance.new]
+  LOADK R3 K19 ["TrackerStreamAnimation"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K20 ["animation"]
+  GETTABLEKS R2 R0 K21 ["Animator"]
+  GETTABLEKS R4 R0 K20 ["animation"]
+  NAMECALL R2 R2 K22 ["LoadStreamAnimation"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K23 ["track"]
+  GETTABLEKS R2 R0 K23 ["track"]
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K23 ["track"]
+  NAMECALL R2 R2 K24 ["Play"]
+  CALL R2 1 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K25 ["Heartbeat"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  NAMECALL R2 R2 K26 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K27 ["heartbeatSignal"]
+  RETURN R0 0
+
+PROTO_21:
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["FacialAnimationRecordingService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  LOADB R2 0
+  SETUPVAL R2 0
+  LOADB R2 0
+  SETUPVAL R2 1
+  GETTABLEKS R3 R0 K4 ["props"]
+  GETTABLEKS R2 R3 K5 ["SetInReviewState"]
+  LOADB R3 0
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K6 ["resetLooping"]
+  CALL R2 0 0
+  NAMECALL R2 R1 K7 ["IsAgeRestricted"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+4]
+  GETTABLEKS R3 R0 K8 ["showAgeRestrictionError"]
+  CALL R3 0 0
+  RETURN R0 0
+  GETTABLEKS R3 R1 K9 ["BiometricDataConsent"]
+  JUMPIF R3 [+4]
+  GETTABLEKS R4 R0 K10 ["showBiometricDataCollectionDialog"]
+  CALL R4 0 0
+  RETURN R0 0
+  NAMECALL R4 R0 K11 ["InitializeRecordingMode"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_22:
+  NAMECALL R1 R0 K0 ["StartupInitialize"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_23:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["dismissSelf"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_24:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["Localization"]
+  GETTABLEKS R5 R0 K3 ["state"]
+  GETTABLEKS R4 R5 K4 ["isRecording"]
+  GETTABLEKS R5 R1 K5 ["inReviewState"]
+  GETTABLEKS R6 R1 K6 ["haveToSetBackToNotLooping"]
+  GETTABLEKS R8 R0 K3 ["state"]
+  GETTABLEKS R7 R8 K7 ["isCameraReady"]
+  GETTABLEKS R9 R0 K3 ["state"]
+  GETTABLEKS R8 R9 K8 ["isAgeRestricted"]
+  GETTABLEKS R10 R0 K3 ["state"]
+  GETTABLEKS R9 R10 K9 ["remainingSeconds"]
+  GETTABLEKS R11 R0 K3 ["state"]
+  GETTABLEKS R10 R11 K10 ["deniedCameraPermission"]
+  GETTABLEKS R12 R0 K3 ["state"]
+  GETTABLEKS R11 R12 K11 ["shouldShowCameraSelectionDialog"]
+  GETTABLEKS R13 R0 K3 ["state"]
+  GETTABLEKS R12 R13 K12 ["shouldShowNoCamerasWarning"]
+  GETTABLEKS R13 R1 K13 ["StepAnimation"]
+  GETTABLEKS R15 R0 K3 ["state"]
+  GETTABLEKS R14 R15 K14 ["AnimationData"]
+  GETTABLEKS R16 R2 K15 ["faceCaptureTheme"]
+  GETTABLEKS R15 R16 K16 ["faceCaptureDefaultButtonIconColor"]
+  GETTABLEKS R17 R2 K15 ["faceCaptureTheme"]
+  GETTABLEKS R16 R17 K17 ["stopRecordingButtonImage"]
+  GETTABLEKS R18 R2 K15 ["faceCaptureTheme"]
+  GETTABLEKS R17 R18 K18 ["errorIcon"]
+  GETTABLEKS R18 R1 K1 ["Stylizer"]
+  GETTABLEKS R19 R18 K19 ["TextColor"]
+  GETIMPORT R20 K22 [os.clock]
+  CALL R20 0 1
+  GETUPVAL R22 0
+  NOT R21 R22
+  JUMPIFNOT R21 [+13]
+  GETUPVAL R21 1
+  JUMPIFNOT R21 [+11]
+  GETTABLEKS R21 R0 K23 ["timeAtEndOfRecording"]
+  JUMPIFNOT R21 [+8]
+  GETTABLEKS R23 R0 K23 ["timeAtEndOfRecording"]
+  SUB R22 R20 R23
+  LOADN R23 5
+  JUMPIFLE R22 R23 [+2]
+  LOADB R21 0 +1
+  LOADB R21 1
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K24 ["provide"]
+  NEWTABLE R23 0 1
+  GETTABLEKS R24 R0 K25 ["focus"]
+  SETLIST R23 R24 1 [1]
+  DUPTABLE R24 K28 [{"RecordingPanelPortal", "CameraSelectionDialog"}]
+  NOT R25 R8
+  JUMPIFNOT R25 [+887]
+  GETUPVAL R26 3
+  GETTABLEKS R25 R26 K29 ["createElement"]
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K30 ["Portal"]
+  DUPTABLE R27 K32 [{"target"}]
+  GETTABLEKS R28 R0 K33 ["presentationGui"]
+  SETTABLEKS R28 R27 K31 ["target"]
+  DUPTABLE R28 K36 [{"RecordingPanelContainer", "WarningsPane"}]
+  GETUPVAL R30 3
+  GETTABLEKS R29 R30 K29 ["createElement"]
+  GETUPVAL R30 4
+  DUPTABLE R31 K41 [{"Size", "Position", "AnchorPoint", "Padding"}]
+  GETIMPORT R32 K44 [UDim2.new]
+  LOADN R33 0
+  LOADN R34 160
+  LOADN R35 0
+  LOADN R36 38
+  CALL R32 4 1
+  SETTABLEKS R32 R31 K37 ["Size"]
+  GETIMPORT R32 K44 [UDim2.new]
+  LOADK R33 K45 [0.5]
+  LOADN R34 0
+  LOADN R35 1
+  LOADN R36 251
+  CALL R32 4 1
+  SETTABLEKS R32 R31 K38 ["Position"]
+  GETIMPORT R32 K47 [Vector2.new]
+  LOADK R33 K45 [0.5]
+  LOADN R34 1
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K39 ["AnchorPoint"]
+  DUPTABLE R32 K50 [{"Left", "Right"}]
+  LOADN R33 5
+  SETTABLEKS R33 R32 K48 ["Left"]
+  LOADN R33 5
+  SETTABLEKS R33 R32 K49 ["Right"]
+  SETTABLEKS R32 R31 K40 ["Padding"]
+  DUPTABLE R32 K53 [{"RecordingPanel", "DismissButton"}]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K29 ["createElement"]
+  GETUPVAL R34 5
+  DUPTABLE R35 K63 [{"Size", "Padding", "Layout", "Spacing", "VerticalAlignment", "ZIndex", "Style", "Image", "BackgroundColor3", "BackgroundTransparency", "ImageTransparency"}]
+  GETIMPORT R36 K44 [UDim2.new]
+  LOADN R37 1
+  LOADN R38 0
+  LOADN R39 1
+  LOADN R40 0
+  CALL R36 4 1
+  SETTABLEKS R36 R35 K37 ["Size"]
+  DUPTABLE R36 K50 [{"Left", "Right"}]
+  LOADN R37 40
+  SETTABLEKS R37 R36 K48 ["Left"]
+  LOADN R37 40
+  SETTABLEKS R37 R36 K49 ["Right"]
+  SETTABLEKS R36 R35 K40 ["Padding"]
+  GETIMPORT R36 K67 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R36 R35 K54 ["Layout"]
+  LOADN R36 3
+  SETTABLEKS R36 R35 K55 ["Spacing"]
+  GETIMPORT R36 K69 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R36 R35 K56 ["VerticalAlignment"]
+  LOADN R36 1
+  SETTABLEKS R36 R35 K57 ["ZIndex"]
+  LOADK R36 K70 ["RoundBox"]
+  SETTABLEKS R36 R35 K58 ["Style"]
+  LOADK R36 K71 [""]
+  SETTABLEKS R36 R35 K59 ["Image"]
+  GETTABLEKS R37 R1 K1 ["Stylizer"]
+  GETTABLEKS R36 R37 K72 ["Color"]
+  SETTABLEKS R36 R35 K60 ["BackgroundColor3"]
+  LOADK R36 K73 [0.1]
+  SETTABLEKS R36 R35 K61 ["BackgroundTransparency"]
+  LOADK R36 K73 [0.1]
+  SETTABLEKS R36 R35 K62 ["ImageTransparency"]
+  DUPTABLE R36 K81 [{"Corner", "RecordButton", "ReRecordButton", "FlashingDot", "TextLabelButton", "LoadingIndicator", "CameraSelectionButton"}]
+  GETUPVAL R38 3
+  GETTABLEKS R37 R38 K29 ["createElement"]
+  LOADK R38 K82 ["UICorner"]
+  DUPTABLE R39 K84 [{"CornerRadius"}]
+  GETIMPORT R40 K86 [UDim.new]
+  LOADN R41 0
+  LOADN R42 8
+  CALL R40 2 1
+  SETTABLEKS R40 R39 K83 ["CornerRadius"]
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K74 ["Corner"]
+  NOT R37 R5
+  JUMPIFNOT R37 [+130]
+  GETUPVAL R38 3
+  GETTABLEKS R37 R38 K29 ["createElement"]
+  GETUPVAL R38 6
+  DUPTABLE R39 K92 [{"Size", "Position", "ImageTransparency", "BackgroundTransparency", "BorderSizePixel", "OnClick", "Text", "LayoutOrder", "Style", "StyleModifier"}]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 30
+  LOADN R43 0
+  LOADN R44 30
+  CALL R40 4 1
+  SETTABLEKS R40 R39 K37 ["Size"]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 0
+  LOADN R43 0
+  LOADN R44 0
+  CALL R40 4 1
+  SETTABLEKS R40 R39 K38 ["Position"]
+  LOADN R40 1
+  SETTABLEKS R40 R39 K62 ["ImageTransparency"]
+  LOADK R40 K45 [0.5]
+  SETTABLEKS R40 R39 K61 ["BackgroundTransparency"]
+  LOADN R40 1
+  SETTABLEKS R40 R39 K87 ["BorderSizePixel"]
+  GETTABLEKS R40 R0 K93 ["toggleRecording"]
+  SETTABLEKS R40 R39 K88 ["OnClick"]
+  LOADK R40 K71 [""]
+  SETTABLEKS R40 R39 K89 ["Text"]
+  LOADN R40 1
+  SETTABLEKS R40 R39 K90 ["LayoutOrder"]
+  DUPTABLE R40 K94 [{"BackgroundTransparency", "BorderSizePixel"}]
+  LOADN R41 1
+  SETTABLEKS R41 R40 K61 ["BackgroundTransparency"]
+  LOADN R41 0
+  SETTABLEKS R41 R40 K87 ["BorderSizePixel"]
+  SETTABLEKS R40 R39 K58 ["Style"]
+  JUMPIF R7 [+4]
+  GETUPVAL R41 7
+  GETTABLEKS R40 R41 K95 ["Disabled"]
+  JUMPIF R40 [+1]
+  LOADNIL R40
+  SETTABLEKS R40 R39 K91 ["StyleModifier"]
+  NEWTABLE R40 2 1
+  GETUPVAL R43 3
+  GETTABLEKS R42 R43 K29 ["createElement"]
+  LOADK R43 K96 ["ImageLabel"]
+  DUPTABLE R44 K97 [{"BackgroundTransparency", "Size", "Position", "Image"}]
+  LOADN R45 1
+  SETTABLEKS R45 R44 K61 ["BackgroundTransparency"]
+  GETIMPORT R45 K44 [UDim2.new]
+  LOADN R46 0
+  LOADN R47 30
+  LOADN R48 0
+  LOADN R49 30
+  CALL R45 4 1
+  SETTABLEKS R45 R44 K37 ["Size"]
+  GETIMPORT R45 K44 [UDim2.new]
+  LOADN R46 0
+  LOADN R47 0
+  LOADN R48 0
+  LOADN R49 0
+  CALL R45 4 1
+  SETTABLEKS R45 R44 K38 ["Position"]
+  JUMPIFNOT R4 [+2]
+  MOVE R45 R16
+  JUMPIF R45 [+1]
+  LOADK R45 K98 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/button_control_record.png"]
+  SETTABLEKS R45 R44 K59 ["Image"]
+  CALL R42 2 1
+  SETTABLEKS R42 R40 K59 ["Image"]
+  GETUPVAL R43 3
+  GETTABLEKS R42 R43 K29 ["createElement"]
+  GETUPVAL R43 8
+  DUPTABLE R44 K99 [{"Text"}]
+  JUMPIFNOT R4 [+6]
+  LOADK R47 K100 ["FaceCapture"]
+  LOADK R48 K101 ["TooltipStopRecording"]
+  NAMECALL R45 R3 K102 ["getText"]
+  CALL R45 3 1
+  JUMPIF R45 [+5]
+  LOADK R47 K100 ["FaceCapture"]
+  LOADK R48 K103 ["TooltipStartRecording"]
+  NAMECALL R45 R3 K102 ["getText"]
+  CALL R45 3 1
+  SETTABLEKS R45 R44 K89 ["Text"]
+  CALL R42 2 1
+  SETTABLEKS R42 R40 K104 ["Tooltip"]
+  GETUPVAL R42 3
+  GETTABLEKS R41 R42 K29 ["createElement"]
+  GETUPVAL R42 9
+  DUPTABLE R43 K106 [{"Cursor"}]
+  LOADK R44 K107 ["PointingHand"]
+  SETTABLEKS R44 R43 K105 ["Cursor"]
+  CALL R41 2 -1
+  SETLIST R40 R41 4294967295 [1]
+  CALL R37 3 1
+  SETTABLEKS R37 R36 K75 ["RecordButton"]
+  MOVE R37 R5
+  JUMPIFNOT R37 [+122]
+  GETUPVAL R38 3
+  GETTABLEKS R37 R38 K29 ["createElement"]
+  GETUPVAL R38 6
+  DUPTABLE R39 K92 [{"Size", "Position", "ImageTransparency", "BackgroundTransparency", "BorderSizePixel", "OnClick", "Text", "LayoutOrder", "Style", "StyleModifier"}]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 30
+  LOADN R43 0
+  LOADN R44 30
+  CALL R40 4 1
+  SETTABLEKS R40 R39 K37 ["Size"]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 0
+  LOADN R43 0
+  LOADN R44 0
+  CALL R40 4 1
+  SETTABLEKS R40 R39 K38 ["Position"]
+  LOADN R40 1
+  SETTABLEKS R40 R39 K62 ["ImageTransparency"]
+  LOADK R40 K45 [0.5]
+  SETTABLEKS R40 R39 K61 ["BackgroundTransparency"]
+  LOADN R40 1
+  SETTABLEKS R40 R39 K87 ["BorderSizePixel"]
+  GETTABLEKS R40 R0 K108 ["triggerReRecording"]
+  SETTABLEKS R40 R39 K88 ["OnClick"]
+  LOADK R40 K71 [""]
+  SETTABLEKS R40 R39 K89 ["Text"]
+  LOADN R40 1
+  SETTABLEKS R40 R39 K90 ["LayoutOrder"]
+  DUPTABLE R40 K94 [{"BackgroundTransparency", "BorderSizePixel"}]
+  LOADN R41 1
+  SETTABLEKS R41 R40 K61 ["BackgroundTransparency"]
+  LOADN R41 0
+  SETTABLEKS R41 R40 K87 ["BorderSizePixel"]
+  SETTABLEKS R40 R39 K58 ["Style"]
+  JUMPIF R7 [+4]
+  GETUPVAL R41 7
+  GETTABLEKS R40 R41 K95 ["Disabled"]
+  JUMPIF R40 [+1]
+  LOADNIL R40
+  SETTABLEKS R40 R39 K91 ["StyleModifier"]
+  NEWTABLE R40 2 1
+  GETUPVAL R43 3
+  GETTABLEKS R42 R43 K29 ["createElement"]
+  LOADK R43 K96 ["ImageLabel"]
+  DUPTABLE R44 K110 [{"BackgroundTransparency", "Size", "Position", "Image", "ImageColor3"}]
+  LOADN R45 1
+  SETTABLEKS R45 R44 K61 ["BackgroundTransparency"]
+  GETIMPORT R45 K44 [UDim2.new]
+  LOADN R46 0
+  LOADN R47 30
+  LOADN R48 0
+  LOADN R49 30
+  CALL R45 4 1
+  SETTABLEKS R45 R44 K37 ["Size"]
+  GETIMPORT R45 K44 [UDim2.new]
+  LOADN R46 0
+  LOADN R47 0
+  LOADN R48 0
+  LOADN R49 0
+  CALL R45 4 1
+  SETTABLEKS R45 R44 K38 ["Position"]
+  LOADK R45 K111 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/ReRecordButton.png"]
+  SETTABLEKS R45 R44 K59 ["Image"]
+  SETTABLEKS R15 R44 K109 ["ImageColor3"]
+  CALL R42 2 1
+  SETTABLEKS R42 R40 K59 ["Image"]
+  GETUPVAL R43 3
+  GETTABLEKS R42 R43 K29 ["createElement"]
+  GETUPVAL R43 8
+  DUPTABLE R44 K99 [{"Text"}]
+  LOADK R47 K100 ["FaceCapture"]
+  LOADK R48 K112 ["TooltipReRecording"]
+  NAMECALL R45 R3 K102 ["getText"]
+  CALL R45 3 1
+  SETTABLEKS R45 R44 K89 ["Text"]
+  CALL R42 2 1
+  SETTABLEKS R42 R40 K104 ["Tooltip"]
+  GETUPVAL R42 3
+  GETTABLEKS R41 R42 K29 ["createElement"]
+  GETUPVAL R42 9
+  DUPTABLE R43 K106 [{"Cursor"}]
+  LOADK R44 K107 ["PointingHand"]
+  SETTABLEKS R44 R43 K105 ["Cursor"]
+  CALL R41 2 -1
+  SETLIST R40 R41 4294967295 [1]
+  CALL R37 3 1
+  SETTABLEKS R37 R36 K76 ["ReRecordButton"]
+  MOVE R37 R4
+  JUMPIFNOT R37 [+21]
+  GETUPVAL R38 3
+  GETTABLEKS R37 R38 K29 ["createElement"]
+  GETUPVAL R38 10
+  DUPTABLE R39 K114 [{"Size", "PaddingLeft", "LayoutOrder"}]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 20
+  LOADN R43 0
+  LOADN R44 7
+  CALL R40 4 1
+  SETTABLEKS R40 R39 K37 ["Size"]
+  LOADN R40 30
+  SETTABLEKS R40 R39 K113 ["PaddingLeft"]
+  LOADN R40 2
+  SETTABLEKS R40 R39 K90 ["LayoutOrder"]
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K77 ["FlashingDot"]
+  MOVE R37 R7
+  JUMPIFNOT R37 [+106]
+  GETUPVAL R38 3
+  GETTABLEKS R37 R38 K29 ["createElement"]
+  GETUPVAL R38 6
+  DUPTABLE R39 K118 [{"Size", "Position", "ImageTransparency", "BackgroundTransparency", "BorderSizePixel", "OnClick", "TextXAlignment", "TextTruncate", "TextSize", "Text", "LayoutOrder", "Style"}]
+  JUMPIFNOT R4 [+9]
+  JUMPIFNOT R9 [+8]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 68
+  LOADN R43 1
+  LOADN R44 0
+  CALL R40 4 1
+  JUMPIF R40 [+7]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 60
+  LOADN R43 1
+  LOADN R44 0
+  CALL R40 4 1
+  SETTABLEKS R40 R39 K37 ["Size"]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 0
+  LOADN R43 0
+  LOADN R44 0
+  CALL R40 4 1
+  SETTABLEKS R40 R39 K38 ["Position"]
+  LOADN R40 1
+  SETTABLEKS R40 R39 K62 ["ImageTransparency"]
+  LOADK R40 K45 [0.5]
+  SETTABLEKS R40 R39 K61 ["BackgroundTransparency"]
+  LOADN R40 1
+  SETTABLEKS R40 R39 K87 ["BorderSizePixel"]
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R40 R0 K108 ["triggerReRecording"]
+  JUMPIF R40 [+11]
+  JUMPIF R5 [+4]
+  JUMPIF R4 [+3]
+  GETTABLEKS R40 R0 K93 ["toggleRecording"]
+  JUMPIF R40 [+6]
+  NOT R40 R5
+  JUMPIFNOT R40 [+4]
+  MOVE R40 R4
+  JUMPIFNOT R40 [+2]
+  GETTABLEKS R40 R0 K93 ["toggleRecording"]
+  SETTABLEKS R40 R39 K88 ["OnClick"]
+  GETIMPORT R40 K119 [Enum.TextXAlignment.Center]
+  SETTABLEKS R40 R39 K115 ["TextXAlignment"]
+  GETIMPORT R40 K121 [Enum.TextTruncate.None]
+  SETTABLEKS R40 R39 K116 ["TextTruncate"]
+  LOADN R40 15
+  SETTABLEKS R40 R39 K117 ["TextSize"]
+  JUMPIFNOT R5 [+6]
+  LOADK R42 K100 ["FaceCapture"]
+  LOADK R43 K122 ["PanelReRecording"]
+  NAMECALL R40 R3 K102 ["getText"]
+  CALL R40 3 1
+  JUMPIF R40 [+12]
+  NOT R40 R5
+  JUMPIFNOT R40 [+10]
+  JUMPIFNOT R4 [+4]
+  MOVE R41 R9
+  LOADK R42 K123 [" sec   "]
+  CONCAT R40 R41 R42
+  JUMPIF R40 [+5]
+  LOADK R42 K100 ["FaceCapture"]
+  LOADK R43 K124 ["PanelReady"]
+  NAMECALL R40 R3 K102 ["getText"]
+  CALL R40 3 1
+  SETTABLEKS R40 R39 K89 ["Text"]
+  LOADN R40 3
+  SETTABLEKS R40 R39 K90 ["LayoutOrder"]
+  DUPTABLE R40 K125 [{"BackgroundTransparency", "BorderSizePixel", "TextColor"}]
+  LOADN R41 1
+  SETTABLEKS R41 R40 K61 ["BackgroundTransparency"]
+  LOADN R41 0
+  SETTABLEKS R41 R40 K87 ["BorderSizePixel"]
+  SETTABLEKS R19 R40 K19 ["TextColor"]
+  SETTABLEKS R40 R39 K58 ["Style"]
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K78 ["TextLabelButton"]
+  NOT R37 R5
+  JUMPIFNOT R37 [+20]
+  NOT R37 R7
+  JUMPIFNOT R37 [+18]
+  GETUPVAL R38 3
+  GETTABLEKS R37 R38 K29 ["createElement"]
+  GETUPVAL R38 11
+  DUPTABLE R39 K126 [{"Size", "LayoutOrder"}]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 60
+  LOADN R43 0
+  LOADN R44 15
+  CALL R40 4 1
+  SETTABLEKS R40 R39 K37 ["Size"]
+  LOADN R40 2
+  SETTABLEKS R40 R39 K90 ["LayoutOrder"]
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K79 ["LoadingIndicator"]
+  NOT R37 R5
+  JUMPIFNOT R37 [+108]
+  NOT R37 R4
+  JUMPIFNOT R37 [+106]
+  GETUPVAL R38 3
+  GETTABLEKS R37 R38 K29 ["createElement"]
+  GETUPVAL R38 6
+  DUPTABLE R39 K127 [{"Size", "Style", "Text", "TextSize", "OnClick", "LayoutOrder"}]
+  GETIMPORT R40 K129 [UDim2.fromOffset]
+  LOADN R41 30
+  LOADN R42 30
+  CALL R40 2 1
+  SETTABLEKS R40 R39 K37 ["Size"]
+  DUPTABLE R40 K94 [{"BackgroundTransparency", "BorderSizePixel"}]
+  LOADN R41 1
+  SETTABLEKS R41 R40 K61 ["BackgroundTransparency"]
+  LOADN R41 0
+  SETTABLEKS R41 R40 K87 ["BorderSizePixel"]
+  SETTABLEKS R40 R39 K58 ["Style"]
+  LOADK R40 K71 [""]
+  SETTABLEKS R40 R39 K89 ["Text"]
+  LOADN R40 30
+  SETTABLEKS R40 R39 K117 ["TextSize"]
+  GETTABLEKS R40 R0 K130 ["showCameraSelectionDialog"]
+  SETTABLEKS R40 R39 K88 ["OnClick"]
+  LOADN R40 4
+  SETTABLEKS R40 R39 K90 ["LayoutOrder"]
+  NEWTABLE R40 2 1
+  GETUPVAL R43 3
+  GETTABLEKS R42 R43 K29 ["createElement"]
+  LOADK R43 K96 ["ImageLabel"]
+  DUPTABLE R44 K110 [{"BackgroundTransparency", "Size", "Position", "Image", "ImageColor3"}]
+  LOADN R45 1
+  SETTABLEKS R45 R44 K61 ["BackgroundTransparency"]
+  GETIMPORT R45 K44 [UDim2.new]
+  LOADN R46 0
+  LOADN R47 30
+  LOADN R48 0
+  LOADN R49 30
+  CALL R45 4 1
+  SETTABLEKS R45 R44 K37 ["Size"]
+  GETIMPORT R45 K44 [UDim2.new]
+  LOADN R46 0
+  LOADN R47 0
+  LOADN R48 0
+  LOADN R49 0
+  CALL R45 4 1
+  SETTABLEKS R45 R44 K38 ["Position"]
+  LOADK R45 K131 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/MoreButton.png"]
+  SETTABLEKS R45 R44 K59 ["Image"]
+  SETTABLEKS R15 R44 K109 ["ImageColor3"]
+  CALL R42 2 1
+  SETTABLEKS R42 R40 K59 ["Image"]
+  GETUPVAL R43 3
+  GETTABLEKS R42 R43 K29 ["createElement"]
+  GETUPVAL R43 8
+  DUPTABLE R44 K132 [{"Text", "Position"}]
+  LOADK R47 K100 ["FaceCapture"]
+  LOADK R48 K133 ["TooltipCameraSettings"]
+  NAMECALL R45 R3 K102 ["getText"]
+  CALL R45 3 1
+  SETTABLEKS R45 R44 K89 ["Text"]
+  GETIMPORT R45 K44 [UDim2.new]
+  LOADN R46 0
+  LOADN R47 50
+  LOADN R48 0
+  LOADN R49 50
+  CALL R45 4 1
+  SETTABLEKS R45 R44 K38 ["Position"]
+  CALL R42 2 1
+  SETTABLEKS R42 R40 K104 ["Tooltip"]
+  GETUPVAL R42 3
+  GETTABLEKS R41 R42 K29 ["createElement"]
+  GETUPVAL R42 9
+  DUPTABLE R43 K106 [{"Cursor"}]
+  LOADK R44 K107 ["PointingHand"]
+  SETTABLEKS R44 R43 K105 ["Cursor"]
+  CALL R41 2 -1
+  SETLIST R40 R41 4294967295 [1]
+  CALL R37 3 1
+  SETTABLEKS R37 R36 K80 ["CameraSelectionButton"]
+  CALL R33 3 1
+  SETTABLEKS R33 R32 K51 ["RecordingPanel"]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K29 ["createElement"]
+  GETUPVAL R34 6
+  DUPTABLE R35 K134 [{"Style", "Size", "Position", "AnchorPoint", "ZIndex", "OnClick"}]
+  DUPTABLE R36 K94 [{"BackgroundTransparency", "BorderSizePixel"}]
+  LOADN R37 1
+  SETTABLEKS R37 R36 K61 ["BackgroundTransparency"]
+  LOADN R37 0
+  SETTABLEKS R37 R36 K87 ["BorderSizePixel"]
+  SETTABLEKS R36 R35 K58 ["Style"]
+  GETIMPORT R36 K44 [UDim2.new]
+  LOADN R37 0
+  LOADN R38 16
+  LOADN R39 0
+  LOADN R40 16
+  CALL R36 4 1
+  SETTABLEKS R36 R35 K37 ["Size"]
+  GETIMPORT R36 K44 [UDim2.new]
+  LOADN R37 1
+  LOADN R38 0
+  LOADN R39 0
+  LOADN R40 0
+  CALL R36 4 1
+  SETTABLEKS R36 R35 K38 ["Position"]
+  GETIMPORT R36 K47 [Vector2.new]
+  LOADK R37 K45 [0.5]
+  LOADK R38 K45 [0.5]
+  CALL R36 2 1
+  SETTABLEKS R36 R35 K39 ["AnchorPoint"]
+  LOADN R36 10
+  SETTABLEKS R36 R35 K57 ["ZIndex"]
+  NEWCLOSURE R36 P0
+  CAPTURE VAL R0
+  SETTABLEKS R36 R35 K88 ["OnClick"]
+  DUPTABLE R36 K135 [{"Image"}]
+  GETUPVAL R38 3
+  GETTABLEKS R37 R38 K29 ["createElement"]
+  LOADK R38 K96 ["ImageLabel"]
+  DUPTABLE R39 K136 [{"BackgroundTransparency", "Size", "Image"}]
+  LOADN R40 1
+  SETTABLEKS R40 R39 K61 ["BackgroundTransparency"]
+  GETIMPORT R40 K44 [UDim2.new]
+  LOADN R41 0
+  LOADN R42 16
+  LOADN R43 0
+  LOADN R44 16
+  CALL R40 4 1
+  SETTABLEKS R40 R39 K37 ["Size"]
+  LOADK R40 K137 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/CloseButton.png"]
+  SETTABLEKS R40 R39 K59 ["Image"]
+  CALL R37 2 1
+  SETTABLEKS R37 R36 K59 ["Image"]
+  CALL R33 3 1
+  SETTABLEKS R33 R32 K52 ["DismissButton"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K34 ["RecordingPanelContainer"]
+  GETUPVAL R30 3
+  GETTABLEKS R29 R30 K29 ["createElement"]
+  GETUPVAL R30 5
+  DUPTABLE R31 K139 [{"AutomaticSize", "Position", "AnchorPoint", "Layout", "Spacing", "VerticalAlignment", "ZIndex", "Style", "ImageTransparency"}]
+  GETIMPORT R32 K141 [Enum.AutomaticSize.XY]
+  SETTABLEKS R32 R31 K138 ["AutomaticSize"]
+  GETIMPORT R32 K44 [UDim2.new]
+  LOADK R33 K45 [0.5]
+  LOADN R34 0
+  LOADN R35 1
+  LOADN R36 206
+  CALL R32 4 1
+  SETTABLEKS R32 R31 K38 ["Position"]
+  GETIMPORT R32 K47 [Vector2.new]
+  LOADK R33 K45 [0.5]
+  LOADN R34 1
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K39 ["AnchorPoint"]
+  GETIMPORT R32 K143 [Enum.FillDirection.Vertical]
+  SETTABLEKS R32 R31 K54 ["Layout"]
+  LOADN R32 8
+  SETTABLEKS R32 R31 K55 ["Spacing"]
+  GETIMPORT R32 K69 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R32 R31 K56 ["VerticalAlignment"]
+  LOADN R32 1
+  SETTABLEKS R32 R31 K57 ["ZIndex"]
+  LOADK R32 K70 ["RoundBox"]
+  SETTABLEKS R32 R31 K58 ["Style"]
+  LOADN R32 1
+  SETTABLEKS R32 R31 K62 ["ImageTransparency"]
+  DUPTABLE R32 K148 [{"NoCameraWarningOverlay", "CameraPermissionDeniedWarningOverlay", "DetectingCameraOverlay", "PreviousFacsWillBeOverwrittenInfoOverlay"}]
+  MOVE R33 R12
+  JUMPIFNOT R33 [+18]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K29 ["createElement"]
+  GETUPVAL R34 12
+  DUPTABLE R35 K150 [{"TitleText", "Image", "LayoutOrder"}]
+  LOADK R38 K100 ["FaceCapture"]
+  LOADK R39 K151 ["NoCameraWarningText"]
+  NAMECALL R36 R3 K102 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K149 ["TitleText"]
+  SETTABLEKS R17 R35 K59 ["Image"]
+  LOADN R36 1
+  SETTABLEKS R36 R35 K90 ["LayoutOrder"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K144 ["NoCameraWarningOverlay"]
+  MOVE R33 R10
+  JUMPIFNOT R33 [+18]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K29 ["createElement"]
+  GETUPVAL R34 12
+  DUPTABLE R35 K150 [{"TitleText", "Image", "LayoutOrder"}]
+  LOADK R38 K100 ["FaceCapture"]
+  LOADK R39 K152 ["CameraPermissionDeniedWarningText"]
+  NAMECALL R36 R3 K102 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K149 ["TitleText"]
+  SETTABLEKS R17 R35 K59 ["Image"]
+  LOADN R36 2
+  SETTABLEKS R36 R35 K90 ["LayoutOrder"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K145 ["CameraPermissionDeniedWarningOverlay"]
+  NOT R33 R5
+  JUMPIFNOT R33 [+27]
+  NOT R33 R7
+  JUMPIFNOT R33 [+25]
+  NOT R33 R4
+  JUMPIFNOT R33 [+23]
+  NOT R33 R12
+  JUMPIFNOT R33 [+21]
+  NOT R33 R10
+  JUMPIFNOT R33 [+19]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K29 ["createElement"]
+  GETUPVAL R34 12
+  DUPTABLE R35 K150 [{"TitleText", "Image", "LayoutOrder"}]
+  LOADK R38 K100 ["FaceCapture"]
+  LOADK R39 K153 ["DetectingCameraTitle"]
+  NAMECALL R36 R3 K102 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K149 ["TitleText"]
+  LOADK R36 K71 [""]
+  SETTABLEKS R36 R35 K59 ["Image"]
+  LOADN R36 3
+  SETTABLEKS R36 R35 K90 ["LayoutOrder"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K146 ["DetectingCameraOverlay"]
+  MOVE R33 R5
+  JUMPIFNOT R33 [+25]
+  MOVE R33 R7
+  JUMPIFNOT R33 [+23]
+  NOT R33 R4
+  JUMPIFNOT R33 [+21]
+  MOVE R33 R21
+  JUMPIFNOT R33 [+19]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K29 ["createElement"]
+  GETUPVAL R34 12
+  DUPTABLE R35 K150 [{"TitleText", "Image", "LayoutOrder"}]
+  LOADK R38 K100 ["FaceCapture"]
+  LOADK R39 K154 ["OverwritingPreviousFacsTracksBody"]
+  NAMECALL R36 R3 K102 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K149 ["TitleText"]
+  LOADK R36 K71 [""]
+  SETTABLEKS R36 R35 K59 ["Image"]
+  LOADN R36 4
+  SETTABLEKS R36 R35 K90 ["LayoutOrder"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K147 ["PreviousFacsWillBeOverwrittenInfoOverlay"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K35 ["WarningsPane"]
+  CALL R25 3 1
+  SETTABLEKS R25 R24 K26 ["RecordingPanelPortal"]
+  MOVE R25 R11
+  JUMPIFNOT R25 [+10]
+  GETUPVAL R26 3
+  GETTABLEKS R25 R26 K29 ["createElement"]
+  GETUPVAL R26 13
+  DUPTABLE R27 K156 [{"OnClose"}]
+  GETTABLEKS R28 R0 K157 ["hideCameraSelectionDialog"]
+  SETTABLEKS R28 R27 K155 ["OnClose"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K27 ["CameraSelectionDialog"]
+  CALL R22 2 -1
+  RETURN R22 -1
+
+PROTO_25:
+  GETTABLEKS R1 R0 K0 ["heartbeatSignal"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["heartbeatSignal"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["track"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K2 ["track"]
+  LOADN R3 0
+  NAMECALL R1 R1 K3 ["Stop"]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K4 ["Animator"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K4 ["Animator"]
+  LOADN R3 0
+  NAMECALL R1 R1 K5 ["StepAnimations"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_26:
+  LOADB R1 0
+  SETUPVAL R1 0
+  GETTABLEKS R1 R0 K0 ["resetLooping"]
+  CALL R1 0 0
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["SetInReviewState"]
+  LOADB R2 0
+  CALL R1 1 0
+  NAMECALL R1 R0 K3 ["disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_27:
+  DUPTABLE R2 K6 [{"AnimationData", "PlayState", "RootInstance", "Status", "inReviewState", "haveToSetBackToNotLooping"}]
+  GETTABLEKS R3 R0 K0 ["AnimationData"]
+  SETTABLEKS R3 R2 K0 ["AnimationData"]
+  GETTABLEKS R4 R0 K3 ["Status"]
+  GETTABLEKS R3 R4 K1 ["PlayState"]
+  SETTABLEKS R3 R2 K1 ["PlayState"]
+  GETTABLEKS R4 R0 K3 ["Status"]
+  GETTABLEKS R3 R4 K2 ["RootInstance"]
+  SETTABLEKS R3 R2 K2 ["RootInstance"]
+  GETTABLEKS R3 R0 K3 ["Status"]
+  SETTABLEKS R3 R2 K3 ["Status"]
+  GETTABLEKS R4 R0 K3 ["Status"]
+  GETTABLEKS R3 R4 K4 ["inReviewState"]
+  SETTABLEKS R3 R2 K4 ["inReviewState"]
+  GETTABLEKS R4 R0 K3 ["Status"]
+  GETTABLEKS R3 R4 K5 ["haveToSetBackToNotLooping"]
+  SETTABLEKS R3 R2 K5 ["haveToSetBackToNotLooping"]
+  RETURN R2 1
+
+PROTO_28:
+  GETUPVAL R3 0
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_29:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_30:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_31:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_32:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_33:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_34:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R1
+  CALL R3 1 -1
+  CALL R2 -1 0
+  GETTABLEKS R3 R1 K0 ["Metadata"]
+  GETTABLEKS R2 R3 K1 ["Looping"]
+  GETUPVAL R3 0
+  GETUPVAL R4 2
+  LOADN R5 0
+  CALL R4 1 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_35:
+  DUPTABLE R1 K7 [{"LoadRecorderFrames", "SetFacialRecordingMode", "SetInReviewState", "SetPlayState", "StepAnimation", "SetHaveToSetBackToNotLooping", "SetAnimationData"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["LoadRecorderFrames"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["SetFacialRecordingMode"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["SetInReviewState"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["SetPlayState"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R1 K4 ["StepAnimation"]
+  NEWCLOSURE R2 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  SETTABLEKS R2 R1 K5 ["SetHaveToSetBackToNotLooping"]
+  NEWCLOSURE R2 P6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R1 K6 ["SetAnimationData"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["withContext"]
+  GETTABLEKS R6 R4 K12 ["Focus"]
+  GETIMPORT R7 K14 [game]
+  LOADK R9 K15 ["CoreGui"]
+  NAMECALL R7 R7 K16 ["GetService"]
+  CALL R7 2 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K17 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Util"]
+  GETTABLEKS R9 R10 K19 ["RigUtils"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K17 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Util"]
+  GETTABLEKS R10 R11 K20 ["RigInfo"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K17 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Util"]
+  GETTABLEKS R11 R12 K21 ["Constants"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R15 R0 K17 ["Src"]
+  GETTABLEKS R14 R15 K22 ["Thunks"]
+  GETTABLEKS R13 R14 K23 ["Recording"]
+  GETTABLEKS R12 R13 K24 ["LoadRecorderFrames"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R16 R0 K17 ["Src"]
+  GETTABLEKS R15 R16 K22 ["Thunks"]
+  GETTABLEKS R14 R15 K23 ["Recording"]
+  GETTABLEKS R13 R14 K25 ["SetFacialRecordingMode"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K17 ["Src"]
+  GETTABLEKS R15 R16 K26 ["Actions"]
+  GETTABLEKS R14 R15 K27 ["SetHaveToSetBackToNotLooping"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K17 ["Src"]
+  GETTABLEKS R16 R17 K26 ["Actions"]
+  GETTABLEKS R15 R16 K28 ["SetAnimationData"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R19 R0 K17 ["Src"]
+  GETTABLEKS R18 R19 K29 ["Components"]
+  GETTABLEKS R17 R18 K30 ["FacialAnimationRecorder"]
+  GETTABLEKS R16 R17 K31 ["CameraSelectionDialog"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R20 R0 K17 ["Src"]
+  GETTABLEKS R19 R20 K29 ["Components"]
+  GETTABLEKS R18 R19 K30 ["FacialAnimationRecorder"]
+  GETTABLEKS R17 R18 K32 ["ShowStyledDialog"]
+  CALL R16 1 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R21 R0 K17 ["Src"]
+  GETTABLEKS R20 R21 K29 ["Components"]
+  GETTABLEKS R19 R20 K30 ["FacialAnimationRecorder"]
+  GETTABLEKS R18 R19 K33 ["WarningDialog"]
+  CALL R17 1 1
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R22 R0 K17 ["Src"]
+  GETTABLEKS R21 R22 K29 ["Components"]
+  GETTABLEKS R20 R21 K30 ["FacialAnimationRecorder"]
+  GETTABLEKS R19 R20 K34 ["WarningOverlay"]
+  CALL R18 1 1
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K17 ["Src"]
+  GETTABLEKS R21 R22 K18 ["Util"]
+  GETTABLEKS R20 R21 K35 ["AnimationData"]
+  CALL R19 1 1
+  GETIMPORT R20 K14 [game]
+  LOADK R22 K36 ["RunService"]
+  NAMECALL R20 R20 K16 ["GetService"]
+  CALL R20 2 1
+  GETIMPORT R21 K14 [game]
+  LOADK R23 K37 ["VideoCaptureService"]
+  NAMECALL R21 R21 K16 ["GetService"]
+  CALL R21 2 1
+  GETIMPORT R22 K14 [game]
+  LOADK R24 K38 ["FaceAnimatorService"]
+  NAMECALL R22 R22 K16 ["GetService"]
+  CALL R22 2 1
+  GETTABLEKS R23 R1 K39 ["PureComponent"]
+  LOADK R25 K30 ["FacialAnimationRecorder"]
+  NAMECALL R23 R23 K40 ["extend"]
+  CALL R23 2 1
+  GETIMPORT R24 K14 [game]
+  LOADK R26 K41 ["FacialAnimationRecorderMaxRecordingTimeInSeconds"]
+  LOADN R27 60
+  NAMECALL R24 R24 K42 ["DefineFastInt"]
+  CALL R24 3 1
+  GETIMPORT R25 K14 [game]
+  LOADK R27 K43 ["ACEFaceRecorderBiometricsLink"]
+  LOADK R28 K44 ["https://en.help.roblox.com/hc/articles/8064749848980"]
+  NAMECALL R25 R25 K45 ["DefineFastString"]
+  CALL R25 3 1
+  GETIMPORT R26 K5 [require]
+  GETTABLEKS R28 R0 K6 ["Packages"]
+  GETTABLEKS R27 R28 K9 ["Framework"]
+  CALL R26 1 1
+  GETTABLEKS R28 R26 K18 ["Util"]
+  GETTABLEKS R27 R28 K46 ["StyleModifier"]
+  GETTABLEKS R29 R26 K18 ["Util"]
+  GETTABLEKS R28 R29 K47 ["StyleValue"]
+  GETTABLEKS R29 R26 K48 ["UI"]
+  GETTABLEKS R30 R29 K49 ["Pane"]
+  GETTABLEKS R32 R26 K48 ["UI"]
+  GETTABLEKS R31 R32 K50 ["Button"]
+  GETTABLEKS R32 R29 K51 ["TextLabel"]
+  GETTABLEKS R33 R29 K52 ["Container"]
+  GETTABLEKS R34 R29 K53 ["Tooltip"]
+  GETTABLEKS R35 R29 K54 ["HoverArea"]
+  GETTABLEKS R36 R29 K55 ["LoadingIndicator"]
+  GETIMPORT R37 K5 [require]
+  GETIMPORT R40 K1 [script]
+  GETTABLEKS R39 R40 K56 ["Parent"]
+  GETTABLEKS R38 R39 K57 ["FlashingDot"]
+  CALL R37 1 1
+  GETIMPORT R38 K5 [require]
+  GETTABLEKS R41 R0 K17 ["Src"]
+  GETTABLEKS R40 R41 K26 ["Actions"]
+  GETTABLEKS R39 R40 K58 ["SetPlayState"]
+  CALL R38 1 1
+  GETIMPORT R39 K5 [require]
+  GETTABLEKS R42 R0 K17 ["Src"]
+  GETTABLEKS R41 R42 K26 ["Actions"]
+  GETTABLEKS R40 R41 K59 ["SetInReviewState"]
+  CALL R39 1 1
+  GETIMPORT R40 K5 [require]
+  GETTABLEKS R44 R0 K17 ["Src"]
+  GETTABLEKS R43 R44 K22 ["Thunks"]
+  GETTABLEKS R42 R43 K60 ["Playback"]
+  GETTABLEKS R41 R42 K61 ["StepAnimation"]
+  CALL R40 1 1
+  GETIMPORT R41 K14 [game]
+  LOADK R43 K62 ["Selection"]
+  NAMECALL R41 R41 K16 ["GetService"]
+  CALL R41 2 1
+  GETIMPORT R42 K5 [require]
+  GETTABLEKS R44 R0 K63 ["LuaFlags"]
+  GETTABLEKS R43 R44 K64 ["GetFFlagRigUtilsMigration"]
+  CALL R42 1 1
+  LOADB R43 0
+  LOADB R44 0
+  NEWCLOSURE R45 P0
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R19
+  CAPTURE REF R43
+  CAPTURE VAL R10
+  CAPTURE VAL R41
+  CAPTURE REF R44
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R25
+  CAPTURE VAL R21
+  SETTABLEKS R45 R23 K65 ["init"]
+  DUPCLOSURE R45 K66 [PROTO_18]
+  CAPTURE VAL R42
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  SETTABLEKS R45 R23 K67 ["updateAvatarData"]
+  DUPCLOSURE R45 K68 [PROTO_20]
+  CAPTURE VAL R22
+  CAPTURE VAL R8
+  CAPTURE VAL R20
+  CAPTURE VAL R24
+  CAPTURE VAL R10
+  SETTABLEKS R45 R23 K69 ["InitializeRecordingMode"]
+  NEWCLOSURE R45 P3
+  CAPTURE REF R44
+  CAPTURE REF R43
+  SETTABLEKS R45 R23 K70 ["StartupInitialize"]
+  DUPCLOSURE R45 K71 [PROTO_22]
+  SETTABLEKS R45 R23 K72 ["didMount"]
+  NEWCLOSURE R45 P5
+  CAPTURE REF R44
+  CAPTURE REF R43
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R33
+  CAPTURE VAL R30
+  CAPTURE VAL R31
+  CAPTURE VAL R27
+  CAPTURE VAL R34
+  CAPTURE VAL R35
+  CAPTURE VAL R37
+  CAPTURE VAL R36
+  CAPTURE VAL R18
+  CAPTURE VAL R15
+  SETTABLEKS R45 R23 K73 ["render"]
+  DUPCLOSURE R45 K74 [PROTO_25]
+  SETTABLEKS R45 R23 K75 ["disconnect"]
+  NEWCLOSURE R45 P7
+  CAPTURE REF R44
+  SETTABLEKS R45 R23 K76 ["willUnmount"]
+  MOVE R45 R5
+  DUPTABLE R46 K82 [{"Stylizer", "Analytics", "Localization", "Mouse", "Plugin"}]
+  GETTABLEKS R47 R4 K77 ["Stylizer"]
+  SETTABLEKS R47 R46 K77 ["Stylizer"]
+  GETTABLEKS R47 R4 K78 ["Analytics"]
+  SETTABLEKS R47 R46 K78 ["Analytics"]
+  GETTABLEKS R47 R4 K79 ["Localization"]
+  SETTABLEKS R47 R46 K79 ["Localization"]
+  GETTABLEKS R47 R4 K80 ["Mouse"]
+  SETTABLEKS R47 R46 K80 ["Mouse"]
+  GETTABLEKS R47 R4 K81 ["Plugin"]
+  SETTABLEKS R47 R46 K81 ["Plugin"]
+  CALL R45 1 1
+  MOVE R46 R23
+  CALL R45 1 1
+  MOVE R23 R45
+  DUPCLOSURE R45 K83 [PROTO_27]
+  DUPCLOSURE R46 K84 [PROTO_35]
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R39
+  CAPTURE VAL R38
+  CAPTURE VAL R40
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  GETTABLEKS R47 R2 K85 ["connect"]
+  MOVE R48 R45
+  MOVE R49 R46
+  CALL R47 2 1
+  MOVE R48 R23
+  CALL R47 1 -1
+  CLOSEUPVALS R43
+  RETURN R47 -1

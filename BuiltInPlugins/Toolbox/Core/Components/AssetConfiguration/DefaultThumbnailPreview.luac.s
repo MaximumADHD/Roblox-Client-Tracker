@@ -1,0 +1,209 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["instances"]
+  JUMPIFNOT R1 [+16]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["instances"]
+  LENGTH R1 R2
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+9]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["instances"]
+  GETTABLEN R2 R3 1
+  GETTABLEKS R1 R2 K2 ["Name"]
+  RETURN R1 1
+  LOADK R1 K3 [""]
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["title"]
+  JUMPIF R3 [+3]
+  NAMECALL R3 R0 K3 ["getName"]
+  CALL R3 1 1
+  LOADB R4 1
+  GETTABLEKS R5 R1 K4 ["ShowTitle"]
+  JUMPIFEQKNIL R5 [+3]
+  GETTABLEKS R4 R1 K5 ["showTitle"]
+  GETTABLEKS R5 R1 K6 ["Position"]
+  JUMPIF R5 [+7]
+  GETIMPORT R5 K9 [UDim2.new]
+  LOADN R6 1
+  LOADN R7 0
+  LOADN R8 1
+  LOADN R9 0
+  CALL R5 4 1
+  GETTABLEKS R7 R1 K11 ["titleHeight"]
+  ORK R6 R7 K10 [24]
+  GETTABLEKS R8 R1 K13 ["titlePadding"]
+  ORK R7 R8 K12 [12]
+  GETTABLEKS R9 R1 K15 ["LayoutOrder"]
+  ORK R8 R9 K14 [1]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K16 ["createElement"]
+  LOADK R10 K17 ["Frame"]
+  DUPTABLE R11 K20 [{"BackgroundTransparency", "Size", "Position", "LayoutOrder"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K18 ["BackgroundTransparency"]
+  GETTABLEKS R12 R1 K19 ["Size"]
+  SETTABLEKS R12 R11 K19 ["Size"]
+  SETTABLEKS R5 R11 K6 ["Position"]
+  SETTABLEKS R8 R11 K15 ["LayoutOrder"]
+  DUPTABLE R12 K23 [{"PreviewFrame", "Title"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K16 ["createElement"]
+  GETUPVAL R14 1
+  DUPTABLE R15 K26 [{"BackgroundColor3", "BorderColor3", "Size"}]
+  GETTABLEKS R17 R2 K27 ["thumbnailPreview"]
+  GETTABLEKS R16 R17 K28 ["background"]
+  SETTABLEKS R16 R15 K24 ["BackgroundColor3"]
+  GETTABLEKS R17 R2 K27 ["thumbnailPreview"]
+  GETTABLEKS R16 R17 K29 ["border"]
+  SETTABLEKS R16 R15 K25 ["BorderColor3"]
+  JUMPIFNOT R4 [+9]
+  GETIMPORT R16 K9 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 1
+  ADD R21 R6 R7
+  MINUS R20 R21
+  CALL R16 4 1
+  JUMPIF R16 [+7]
+  GETIMPORT R16 K9 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 1
+  LOADN R20 0
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K19 ["Size"]
+  DUPTABLE R16 K31 [{"Thumbnail"}]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K16 ["createElement"]
+  GETUPVAL R18 2
+  DUPTABLE R19 K34 [{"Size", "BackgroundTransparency", "Image", "defaultImage"}]
+  GETIMPORT R20 K9 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 0
+  LOADN R23 1
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K19 ["Size"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K18 ["BackgroundTransparency"]
+  LOADK R20 K35 ["rbxasset://textures/StudioToolbox/Animation.png"]
+  SETTABLEKS R20 R19 K32 ["Image"]
+  LOADK R20 K36 [""]
+  SETTABLEKS R20 R19 K33 ["defaultImage"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K30 ["Thumbnail"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K21 ["PreviewFrame"]
+  MOVE R13 R4
+  JUMPIFNOT R13 [+45]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K16 ["createElement"]
+  LOADK R14 K37 ["TextLabel"]
+  DUPTABLE R15 K42 [{"Text", "Font", "TextSize", "TextColor3", "Position", "Size", "BackgroundTransparency"}]
+  SETTABLEKS R3 R15 K38 ["Text"]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K43 ["FONT"]
+  SETTABLEKS R16 R15 K39 ["Font"]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K44 ["FONT_SIZE_MEDIUM"]
+  SETTABLEKS R16 R15 K40 ["TextSize"]
+  GETTABLEKS R17 R2 K27 ["thumbnailPreview"]
+  GETTABLEKS R16 R17 K45 ["text"]
+  SETTABLEKS R16 R15 K41 ["TextColor3"]
+  GETIMPORT R16 K9 [UDim2.new]
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 1
+  MINUS R20 R6
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K6 ["Position"]
+  GETIMPORT R16 K9 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 0
+  MOVE R20 R6
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K19 ["Size"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K18 ["BackgroundTransparency"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K22 ["Title"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+PROTO_2:
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R0 R2
+  DUPTABLE R2 K1 [{"instances"}]
+  GETTABLEKS R3 R0 K0 ["instances"]
+  SETTABLEKS R3 R2 K0 ["instances"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R1 K8 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R0 K9 ["Core"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R5 K11 ["Constants"]
+  CALL R6 1 1
+  GETTABLEKS R7 R4 K12 ["ContextServices"]
+  GETTABLEKS R8 R7 K13 ["withContext"]
+  GETTABLEKS R10 R0 K9 ["Core"]
+  GETTABLEKS R9 R10 K14 ["Components"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R9 K15 ["RoundFrame"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K9 ["Core"]
+  GETTABLEKS R13 R14 K14 ["Components"]
+  GETTABLEKS R12 R13 K16 ["ImageWithDefault"]
+  CALL R11 1 1
+  GETTABLEKS R12 R2 K17 ["PureComponent"]
+  LOADK R14 K18 ["DefaultThumbnailPreview"]
+  NAMECALL R12 R12 K19 ["extend"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K20 [PROTO_0]
+  SETTABLEKS R13 R12 K21 ["getName"]
+  DUPCLOSURE R13 K22 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R6
+  SETTABLEKS R13 R12 K23 ["render"]
+  DUPCLOSURE R13 K24 [PROTO_2]
+  MOVE R14 R8
+  DUPTABLE R15 K26 [{"Stylizer"}]
+  GETTABLEKS R16 R7 K25 ["Stylizer"]
+  SETTABLEKS R16 R15 K25 ["Stylizer"]
+  CALL R14 1 1
+  MOVE R15 R12
+  CALL R14 1 1
+  MOVE R12 R14
+  GETTABLEKS R14 R3 K27 ["connect"]
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R15 R12
+  CALL R14 1 -1
+  RETURN R14 -1

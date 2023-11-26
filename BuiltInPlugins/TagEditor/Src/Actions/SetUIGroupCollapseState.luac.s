@@ -1,0 +1,19 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"type", "data"}]
+  LOADK R2 K3 ["SetUIGroupCollapseState"]
+  SETTABLEKS R2 R1 K0 ["type"]
+  SETTABLEKS R0 R1 K1 ["data"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_0]
+  RETURN R2 1

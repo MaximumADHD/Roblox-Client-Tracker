@@ -1,0 +1,68 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 16 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["TESTING"]
+  LOADK R1 K1 ["Unfortunately this feature is not active yet!"]
+  SETTABLEKS R1 R0 K2 ["UNIMPLEMENTED_WARNING"]
+  LOADK R1 K3 ["This operation was successful!"]
+  SETTABLEKS R1 R0 K4 ["OPERATION_SUCCESSFUL"]
+  DUPTABLE R1 K9 [{"Navigation", "NameBox", "View", "ConfirmationButtons"}]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K5 ["Navigation"]
+  LOADN R2 2
+  SETTABLEKS R2 R1 K6 ["NameBox"]
+  LOADN R2 3
+  SETTABLEKS R2 R1 K7 ["View"]
+  LOADN R2 5
+  SETTABLEKS R2 R1 K8 ["ConfirmationButtons"]
+  SETTABLEKS R1 R0 K10 ["INPUT_PANE_LAYOUT"]
+  DUPTABLE R1 K15 [{"Warning", "Namespace", "Detail", "DetailType"}]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K11 ["Warning"]
+  LOADN R2 2
+  SETTABLEKS R2 R1 K12 ["Namespace"]
+  LOADN R2 3
+  SETTABLEKS R2 R1 K13 ["Detail"]
+  LOADN R2 4
+  SETTABLEKS R2 R1 K14 ["DetailType"]
+  SETTABLEKS R1 R0 K16 ["RBXEVENT_ORDER"]
+  DUPTABLE R1 K20 [{"Switch", "Key", "Value"}]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K17 ["Switch"]
+  LOADN R2 2
+  SETTABLEKS R2 R1 K18 ["Key"]
+  LOADN R2 3
+  SETTABLEKS R2 R1 K19 ["Value"]
+  SETTABLEKS R1 R0 K21 ["MEM_STORAGE_ORDER"]
+  DUPTABLE R1 K25 [{"RBXEvent", "Theme", "MemStorage"}]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K22 ["RBXEvent"]
+  LOADN R2 2
+  SETTABLEKS R2 R1 K23 ["Theme"]
+  LOADN R2 3
+  SETTABLEKS R2 R1 K24 ["MemStorage"]
+  SETTABLEKS R1 R0 K26 ["VIEW_ORDER"]
+  DUPTABLE R1 K29 [{"InputPane", "History"}]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K27 ["InputPane"]
+  LOADN R2 2
+  SETTABLEKS R2 R1 K28 ["History"]
+  SETTABLEKS R1 R0 K30 ["APP_ORDER"]
+  DUPTABLE R1 K31 [{"RBXEvent", "MemStorage"}]
+  LOADK R2 K22 ["RBXEvent"]
+  SETTABLEKS R2 R1 K22 ["RBXEvent"]
+  LOADK R2 K24 ["MemStorage"]
+  SETTABLEKS R2 R1 K24 ["MemStorage"]
+  SETTABLEKS R1 R0 K32 ["VIEW_ID"]
+  DUPTABLE R1 K33 [{"MemStorage"}]
+  DUPTABLE R2 K37 [{"GetValue", "SetValue", "NewEntry"}]
+  LOADK R3 K38 ["Get Value"]
+  SETTABLEKS R3 R2 K34 ["GetValue"]
+  LOADK R3 K39 ["Set Value"]
+  SETTABLEKS R3 R2 K35 ["SetValue"]
+  LOADK R3 K40 ["New Entry"]
+  SETTABLEKS R3 R2 K36 ["NewEntry"]
+  SETTABLEKS R2 R1 K24 ["MemStorage"]
+  SETTABLEKS R1 R0 K41 ["ROUTES"]
+  RETURN R0 1

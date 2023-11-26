@@ -1,0 +1,147 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getStateModelTemplateCopy"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["props"]
+  CALL R1 1 1
+  GETUPVAL R3 2
+  GETTABLEKS R4 R0 K2 ["Id"]
+  GETTABLE R2 R3 R4
+  MOVE R3 R1
+  CALL R2 1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["props"]
+  GETTABLEKS R2 R3 K3 ["clobberTemplate"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["props"]
+  GETTABLEKS R3 R4 K4 ["template"]
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R1 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["OuterCollision"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["setCollisionOuterBox"]
+  SETTABLE R3 R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["InnerCollision"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["setCollisionInnerBox"]
+  SETTABLE R3 R1 R2
+  GETTABLEKS R2 R0 K4 ["props"]
+  GETTABLEKS R3 R2 K5 ["Localization"]
+  GETTABLEKS R4 R2 K6 ["Mouse"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K7 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K14 [{"Title", "Buttons", "Enabled", "LayoutOrder", "Selected", "Mouse", "SelectionChanged"}]
+  LOADK R10 K15 ["General"]
+  LOADK R11 K16 ["TitleCollision"]
+  NAMECALL R8 R3 K17 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K8 ["Title"]
+  NEWTABLE R8 0 2
+  DUPTABLE R9 K19 [{"Id", "Title"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K0 ["OuterCollision"]
+  SETTABLEKS R10 R9 K18 ["Id"]
+  LOADK R12 K15 ["General"]
+  LOADK R13 K20 ["CollisionOuterBox"]
+  NAMECALL R10 R3 K17 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K8 ["Title"]
+  DUPTABLE R10 K19 [{"Id", "Title"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K2 ["InnerCollision"]
+  SETTABLEKS R11 R10 K18 ["Id"]
+  LOADK R13 K15 ["General"]
+  LOADK R14 K21 ["CollisionInnerBox"]
+  NAMECALL R11 R3 K17 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K8 ["Title"]
+  SETLIST R8 R9 2 [1]
+  SETTABLEKS R8 R7 K9 ["Buttons"]
+  GETTABLEKS R9 R0 K4 ["props"]
+  GETTABLEKS R8 R9 K22 ["IsEnabled"]
+  SETTABLEKS R8 R7 K10 ["Enabled"]
+  GETTABLEKS R9 R0 K4 ["props"]
+  GETTABLEKS R8 R9 K11 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K11 ["LayoutOrder"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K23 ["getStateModelTemplate"]
+  GETTABLEKS R10 R0 K4 ["props"]
+  CALL R9 1 1
+  GETTABLEKS R8 R9 K24 ["CollisionValue"]
+  SETTABLEKS R8 R7 K12 ["Selected"]
+  NAMECALL R8 R4 K25 ["get"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K6 ["Mouse"]
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R8 R7 K13 ["SelectionChanged"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R1 K5 ["Packages"]
+  GETTABLEKS R3 R4 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R1 K5 ["Packages"]
+  GETTABLEKS R5 R6 K7 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K10 ["Util"]
+  GETTABLEKS R6 R7 K11 ["ConstantTemplate"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K10 ["Util"]
+  GETTABLEKS R7 R8 K12 ["StateInterfaceTemplates"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K10 ["Util"]
+  GETTABLEKS R8 R9 K13 ["StateModelTemplate"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K14 ["Components"]
+  GETTABLEKS R9 R10 K15 ["RadioButtonSetPanel"]
+  CALL R8 1 1
+  GETTABLEKS R9 R2 K16 ["Component"]
+  LOADK R11 K17 ["ComponentCollisionPanel"]
+  NAMECALL R9 R9 K18 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K19 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R10 R9 K20 ["render"]
+  MOVE R10 R4
+  DUPTABLE R11 K23 [{"Localization", "Mouse"}]
+  GETTABLEKS R12 R3 K21 ["Localization"]
+  SETTABLEKS R12 R11 K21 ["Localization"]
+  GETTABLEKS R12 R3 K22 ["Mouse"]
+  SETTABLEKS R12 R11 K22 ["Mouse"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

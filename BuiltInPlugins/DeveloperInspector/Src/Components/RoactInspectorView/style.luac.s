@@ -1,0 +1,8 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K2 [{"Padding", "NodeListHeight"}]
+  LOADN R1 2
+  SETTABLEKS R1 R0 K0 ["Padding"]
+  LOADN R1 240
+  SETTABLEKS R1 R0 K1 ["NodeListHeight"]
+  RETURN R0 1

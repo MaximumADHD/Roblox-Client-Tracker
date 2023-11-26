@@ -1,0 +1,315 @@
+PROTO_0:
+  NEWTABLE R0 0 0
+  GETIMPORT R1 K2 [Enum.AccessoryType]
+  NAMECALL R1 R1 K3 ["GetEnumItems"]
+  CALL R1 1 3
+  FORGPREP R1
+  DUPTABLE R8 K6 [{"Id", "Label"}]
+  GETTABLEKS R9 R5 K7 ["Name"]
+  SETTABLEKS R9 R8 K4 ["Id"]
+  GETTABLEKS R9 R5 K7 ["Name"]
+  SETTABLEKS R9 R8 K5 ["Label"]
+  FASTCALL2 TABLE_INSERT R0 R8 [+4]
+  MOVE R7 R0
+  GETIMPORT R6 K10 [table.insert]
+  CALL R6 2 0
+  FORGLOOP R1 2 [-16]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"Expansion"}]
+  SETTABLEKS R0 R3 K0 ["Expansion"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"Items"}]
+  SETTABLEKS R0 R3 K0 ["Items"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["onExpansionChange"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["onChange"]
+  DUPTABLE R1 K4 [{"Expansion", "Items"}]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K2 ["Expansion"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K3 ["Items"]
+  SETTABLEKS R1 R0 K5 ["state"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  DUPTABLE R4 K3 [{"Items"}]
+  NEWTABLE R5 0 1
+  DUPTABLE R6 K7 [{"Id", "Label", "Children"}]
+  LOADK R7 K8 ["AccessoryType"]
+  SETTABLEKS R7 R6 K4 ["Id"]
+  LOADK R9 K9 ["Plugin"]
+  LOADK R10 K10 ["InputAccesoryType"]
+  NAMECALL R7 R1 K11 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K5 ["Label"]
+  NEWTABLE R7 0 1
+  DUPTABLE R8 K14 [{"Id", "Label", "Schema", "Value"}]
+  LOADK R9 K8 ["AccessoryType"]
+  SETTABLEKS R9 R8 K4 ["Id"]
+  LOADK R11 K9 ["Plugin"]
+  LOADK R12 K15 ["AccesoryType"]
+  NAMECALL R9 R1 K11 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K5 ["Label"]
+  DUPTABLE R9 K17 [{"Type", "Items"}]
+  LOADK R10 K18 ["Select"]
+  SETTABLEKS R10 R9 K16 ["Type"]
+  GETUPVAL R10 0
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K2 ["Items"]
+  SETTABLEKS R9 R8 K12 ["Schema"]
+  NAMECALL R10 R0 K19 ["inferAccessoryType"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K20 ["Name"]
+  SETTABLEKS R9 R8 K13 ["Value"]
+  SETLIST R7 R8 1 [1]
+  SETTABLEKS R7 R6 K6 ["Children"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K2 ["Items"]
+  NAMECALL R2 R0 K21 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_5:
+  NAMECALL R1 R0 K0 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K1 ["MeshPart"]
+  NAMECALL R6 R5 K2 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+6]
+  LOADK R8 K3 ["WrapLayer"]
+  NAMECALL R6 R5 K4 ["FindFirstChildOfClass"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+1]
+  RETURN R5 1
+  FORGLOOP R1 2 [-12]
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["rig"]
+  JUMPIFNOT R1 [+30]
+  GETUPVAL R2 0
+  MOVE R3 R1
+  CALL R2 1 1
+  JUMPIFNOT R2 [+26]
+  GETIMPORT R3 K4 [string.find]
+  GETIMPORT R4 K6 [string.lower]
+  GETTABLEKS R5 R2 K7 ["Name"]
+  CALL R4 1 1
+  LOADK R5 K8 ["eyebrow"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+3]
+  GETIMPORT R3 K12 [Enum.AccessoryType.Eyebrow]
+  RETURN R3 1
+  GETIMPORT R3 K4 [string.find]
+  GETIMPORT R4 K6 [string.lower]
+  GETTABLEKS R5 R2 K7 ["Name"]
+  CALL R4 1 1
+  LOADK R5 K13 ["eyelash"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+3]
+  GETIMPORT R3 K15 [Enum.AccessoryType.Eyelash]
+  RETURN R3 1
+  GETIMPORT R2 K17 [Enum.AccessoryType.Unknown]
+  RETURN R2 1
+
+PROTO_7:
+  NEWTABLE R0 0 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["state"]
+  GETTABLEKS R5 R6 K1 ["Items"]
+  GETTABLEN R4 R5 1
+  GETTABLEKS R1 R4 K2 ["Children"]
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETTABLEKS R6 R5 K3 ["Id"]
+  GETTABLEKS R7 R5 K4 ["Value"]
+  SETTABLE R7 R0 R6
+  FORGLOOP R1 2 [-6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["props"]
+  GETTABLEKS R1 R2 K6 ["setAccessoryType"]
+  GETIMPORT R3 K9 [Enum.AccessoryType]
+  GETTABLEKS R4 R0 K8 ["AccessoryType"]
+  GETTABLE R2 R3 R4
+  CALL R1 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["props"]
+  GETTABLEKS R1 R2 K10 ["close"]
+  CALL R1 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["props"]
+  GETTABLEKS R1 R2 K11 ["processAccessory"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K6 [{"Expansion", "Items", "onExpansionChange", "onChange", "onSubmit"}]
+  GETTABLEKS R5 R0 K7 ["state"]
+  GETTABLEKS R4 R5 K1 ["Expansion"]
+  SETTABLEKS R4 R3 K1 ["Expansion"]
+  GETTABLEKS R5 R0 K7 ["state"]
+  GETTABLEKS R4 R5 K2 ["Items"]
+  SETTABLEKS R4 R3 K2 ["Items"]
+  GETTABLEKS R4 R0 K3 ["onExpansionChange"]
+  SETTABLEKS R4 R3 K3 ["onExpansionChange"]
+  GETTABLEKS R4 R0 K4 ["onChange"]
+  SETTABLEKS R4 R3 K4 ["onChange"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K5 ["onSubmit"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_9:
+  DUPTABLE R2 K1 [{"rig"}]
+  GETTABLEKS R4 R0 K2 ["PluginReducer"]
+  GETTABLEKS R3 R4 K0 ["rig"]
+  SETTABLEKS R3 R2 K0 ["rig"]
+  RETURN R2 1
+
+PROTO_10:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  LOADB R2 0
+  CALL R1 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  DUPTABLE R1 K3 [{"close", "setAccessoryType", "processAccessory"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["close"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["setAccessoryType"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["processAccessory"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["DynamicHeadExportTool"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["FormScreen"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Actions"]
+  GETTABLEKS R7 R8 K15 ["SetEnabled"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Actions"]
+  GETTABLEKS R8 R9 K16 ["SetAccessoryType"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K11 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Thunks"]
+  GETTABLEKS R9 R10 K18 ["ProcessAccessory"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K19 ["PureComponent"]
+  LOADK R11 K20 ["InputAccessoryTypeScreen"]
+  NAMECALL R9 R9 K21 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K22 [PROTO_0]
+  DUPCLOSURE R11 K23 [PROTO_3]
+  SETTABLEKS R11 R9 K24 ["init"]
+  DUPCLOSURE R11 K25 [PROTO_4]
+  CAPTURE VAL R10
+  SETTABLEKS R11 R9 K26 ["didMount"]
+  DUPCLOSURE R11 K27 [PROTO_5]
+  DUPCLOSURE R12 K28 [PROTO_6]
+  CAPTURE VAL R11
+  SETTABLEKS R12 R9 K29 ["inferAccessoryType"]
+  DUPCLOSURE R12 K30 [PROTO_8]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  SETTABLEKS R12 R9 K31 ["render"]
+  GETTABLEKS R12 R4 K32 ["withContext"]
+  DUPTABLE R13 K36 [{"Localization", "Stylizer", "Plugin"}]
+  GETTABLEKS R14 R4 K33 ["Localization"]
+  SETTABLEKS R14 R13 K33 ["Localization"]
+  GETTABLEKS R14 R4 K34 ["Stylizer"]
+  SETTABLEKS R14 R13 K34 ["Stylizer"]
+  GETTABLEKS R14 R4 K35 ["Plugin"]
+  SETTABLEKS R14 R13 K35 ["Plugin"]
+  CALL R12 1 1
+  MOVE R13 R9
+  CALL R12 1 1
+  MOVE R9 R12
+  DUPCLOSURE R12 K37 [PROTO_9]
+  DUPCLOSURE R13 K38 [PROTO_13]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  GETTABLEKS R14 R2 K39 ["connect"]
+  MOVE R15 R12
+  MOVE R16 R13
+  CALL R14 2 1
+  MOVE R15 R9
+  CALL R14 1 -1
+  RETURN R14 -1

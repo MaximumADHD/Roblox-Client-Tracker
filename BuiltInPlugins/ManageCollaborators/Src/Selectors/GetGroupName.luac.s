@@ -1,0 +1,14 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K0 ["GroupMetadata"]
+  GETTABLEKS R2 R3 K1 ["NewGroupMetadata"]
+  JUMPIF R2 [+4]
+  GETTABLEKS R3 R0 K0 ["GroupMetadata"]
+  GETTABLEKS R2 R3 K2 ["CurrentGroupMetadata"]
+  GETTABLE R3 R2 R1
+  GETTABLEKS R4 R3 K3 ["Name"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

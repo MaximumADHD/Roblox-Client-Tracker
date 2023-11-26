@@ -1,0 +1,268 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"text", "focused"}]
+  LOADK R2 K3 [""]
+  SETTABLEKS R2 R1 K0 ["text"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["focused"]
+  SETTABLEKS R1 R0 K4 ["state"]
+  RETURN R0 0
+
+PROTO_1:
+  JUMPIFEQKNIL R0 [+18]
+  GETIMPORT R1 K2 [string.match]
+  MOVE R2 R0
+  LOADK R3 K3 ["^rbxassetid://[0-9]+$"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+1]
+  RETURN R0 1
+  GETIMPORT R1 K2 [string.match]
+  MOVE R2 R0
+  LOADK R3 K4 ["^[0-9]+$"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+4]
+  LOADK R2 K5 ["rbxassetid://"]
+  MOVE R3 R0
+  CONCAT R1 R2 R3
+  RETURN R1 1
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  DUPTABLE R4 K1 [{"text"}]
+  SETTABLEKS R0 R4 K0 ["text"]
+  NAMECALL R2 R2 K2 ["setState"]
+  CALL R2 2 0
+  JUMPIFEQKNIL R0 [+19]
+  GETIMPORT R3 K5 [string.match]
+  MOVE R4 R0
+  LOADK R5 K6 ["^rbxassetid://[0-9]+$"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+2]
+  MOVE R2 R0
+  JUMP [+11]
+  GETIMPORT R3 K5 [string.match]
+  MOVE R4 R0
+  LOADK R5 K7 ["^[0-9]+$"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+4]
+  LOADK R3 K8 ["rbxassetid://"]
+  MOVE R4 R0
+  CONCAT R2 R3 R4
+  JUMP [+1]
+  LOADB R2 0
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["props"]
+  GETTABLEKS R3 R4 K10 ["onHoverFunc"]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["state"]
+  GETTABLEKS R3 R4 K1 ["text"]
+  JUMPIFEQKNIL R3 [+19]
+  GETIMPORT R4 K4 [string.match]
+  MOVE R5 R3
+  LOADK R6 K5 ["^rbxassetid://[0-9]+$"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R2 R3
+  JUMP [+11]
+  GETIMPORT R4 K4 [string.match]
+  MOVE R5 R3
+  LOADK R6 K6 ["^[0-9]+$"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+4]
+  LOADK R4 K7 ["rbxassetid://"]
+  MOVE R5 R3
+  CONCAT R2 R4 R5
+  JUMP [+1]
+  LOADB R2 0
+  JUMPIFNOT R2 [+14]
+  GETUPVAL R3 0
+  DUPTABLE R5 K8 [{"text"}]
+  SETTABLEKS R2 R5 K1 ["text"]
+  NAMECALL R3 R3 K9 ["setState"]
+  CALL R3 2 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K10 ["props"]
+  GETTABLEKS R3 R4 K11 ["onHoverFunc"]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["text"]
+  JUMPIFEQKNIL R1 [+19]
+  GETIMPORT R2 K4 [string.match]
+  MOVE R3 R1
+  LOADK R4 K5 ["^rbxassetid://[0-9]+$"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+2]
+  MOVE R0 R1
+  JUMP [+11]
+  GETIMPORT R2 K4 [string.match]
+  MOVE R3 R1
+  LOADK R4 K6 ["^[0-9]+$"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+4]
+  LOADK R2 K7 ["rbxassetid://"]
+  MOVE R3 R1
+  CONCAT R0 R2 R3
+  JUMP [+1]
+  LOADB R0 0
+  JUMPIFNOT R0 [+19]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K8 ["Get"]
+  CALL R1 0 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["props"]
+  GETTABLEKS R3 R4 K10 ["tagName"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K11 ["SetIcon"]
+  CALL R1 3 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K9 ["props"]
+  GETTABLEKS R1 R2 K12 ["closeFunc"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K5 [{"Size", "LayoutOrder"}]
+  GETTABLEKS R6 R1 K3 ["Size"]
+  SETTABLEKS R6 R5 K3 ["Size"]
+  GETTABLEKS R6 R1 K4 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K4 ["LayoutOrder"]
+  DUPTABLE R6 K8 [{"Input", "Submit"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K14 [{"Size", "Text", "PlaceholderText", "OnTextChanged", "OnValidateText", "OnFocusLost"}]
+  GETIMPORT R10 K17 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 40
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K3 ["Size"]
+  GETTABLEKS R11 R0 K18 ["state"]
+  GETTABLEKS R10 R11 K19 ["text"]
+  SETTABLEKS R10 R9 K9 ["Text"]
+  GETUPVAL R11 3
+  JUMPIFNOT R11 [+6]
+  LOADK R12 K20 ["IconPicker"]
+  LOADK R13 K21 ["EnterAnAssetID"]
+  NAMECALL R10 R2 K22 ["getText"]
+  CALL R10 3 1
+  JUMP [+1]
+  LOADK R10 K23 ["Enter an asset ID or URL"]
+  SETTABLEKS R10 R9 K10 ["PlaceholderText"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R0
+  SETTABLEKS R10 R9 K11 ["OnTextChanged"]
+  GETUPVAL R10 4
+  SETTABLEKS R10 R9 K12 ["OnValidateText"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R0
+  SETTABLEKS R10 R9 K13 ["OnFocusLost"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K6 ["Input"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K27 [{"Size", "Position", "Text", "Style", "OnClick"}]
+  GETIMPORT R10 K29 [UDim2.fromOffset]
+  LOADN R11 100
+  LOADN R12 24
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K3 ["Size"]
+  GETIMPORT R10 K29 [UDim2.fromOffset]
+  LOADN R11 8
+  LOADN R12 50
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K24 ["Position"]
+  GETUPVAL R11 3
+  JUMPIFNOT R11 [+6]
+  LOADK R12 K30 ["General"]
+  LOADK R13 K31 ["Save"]
+  NAMECALL R10 R2 K22 ["getText"]
+  CALL R10 3 1
+  JUMP [+1]
+  LOADK R10 K31 ["Save"]
+  SETTABLEKS R10 R9 K9 ["Text"]
+  LOADK R10 K32 ["RoundPrimary"]
+  SETTABLEKS R10 R9 K25 ["Style"]
+  NEWCLOSURE R10 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  SETTABLEKS R10 R9 K26 ["OnClick"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K7 ["Submit"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R5 R3 K10 ["Localization"]
+  GETTABLEKS R6 R2 K11 ["UI"]
+  GETTABLEKS R7 R6 K12 ["Button"]
+  GETTABLEKS R8 R6 K13 ["Pane"]
+  GETTABLEKS R9 R6 K14 ["TextInput"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K16 ["TagManager"]
+  CALL R10 1 1
+  GETIMPORT R11 K18 [game]
+  LOADK R13 K19 ["TagEditorFixMissingLocalization2"]
+  NAMECALL R11 R11 K20 ["GetFastFlag"]
+  CALL R11 2 1
+  GETTABLEKS R12 R1 K21 ["PureComponent"]
+  LOADK R14 K22 ["CustomPage"]
+  NAMECALL R12 R12 K23 ["extend"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K24 [PROTO_0]
+  SETTABLEKS R13 R12 K25 ["init"]
+  DUPCLOSURE R13 K26 [PROTO_1]
+  DUPCLOSURE R14 K27 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  SETTABLEKS R14 R12 K28 ["render"]
+  JUMPIFNOT R11 [+8]
+  MOVE R14 R4
+  DUPTABLE R15 K29 [{"Localization"}]
+  SETTABLEKS R5 R15 K10 ["Localization"]
+  CALL R14 1 1
+  MOVE R15 R12
+  CALL R14 1 1
+  MOVE R12 R14
+  RETURN R12 1

@@ -1,0 +1,154 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K6 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K7 ["Style"]
+  GETTABLEKS R3 R1 K8 ["Themes"]
+  GETTABLEKS R2 R3 K9 ["StudioTheme"]
+  GETTABLEKS R3 R1 K10 ["StyleKey"]
+  NEWTABLE R4 8 0
+  GETTABLEKS R5 R3 K11 ["HttpOverviewTextColor"]
+  GETIMPORT R6 K14 [Color3.fromRGB]
+  LOADN R7 136
+  LOADN R8 136
+  LOADN R9 136
+  CALL R6 3 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K15 ["EmphasisTextColor"]
+  GETIMPORT R6 K14 [Color3.fromRGB]
+  LOADN R7 255
+  LOADN R8 255
+  LOADN R9 255
+  CALL R6 3 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K16 ["ScrollbarColor"]
+  GETIMPORT R6 K14 [Color3.fromRGB]
+  LOADN R7 204
+  LOADN R8 204
+  LOADN R9 204
+  CALL R6 3 1
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R3 K17 ["SubTitleTextColor"]
+  GETIMPORT R6 K14 [Color3.fromRGB]
+  LOADN R7 170
+  LOADN R8 170
+  LOADN R9 170
+  CALL R6 3 1
+  SETTABLE R6 R4 R5
+  NEWTABLE R5 4 0
+  LOADN R6 1
+  SETTABLEKS R6 R5 K18 ["Weight"]
+  LOADN R6 7
+  SETTABLEKS R6 R5 K19 ["StretchMargin"]
+  GETIMPORT R6 K14 [Color3.fromRGB]
+  LOADN R7 170
+  LOADN R8 170
+  LOADN R9 170
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K20 ["Color"]
+  SETTABLEKS R5 R4 K21 ["Separator"]
+  NEWTABLE R5 8 0
+  GETTABLEKS R6 R3 K11 ["HttpOverviewTextColor"]
+  GETIMPORT R7 K14 [Color3.fromRGB]
+  LOADN R8 46
+  LOADN R9 46
+  LOADN R10 46
+  CALL R7 3 1
+  SETTABLE R7 R5 R6
+  GETTABLEKS R6 R3 K15 ["EmphasisTextColor"]
+  GETIMPORT R7 K14 [Color3.fromRGB]
+  LOADN R8 0
+  LOADN R9 0
+  LOADN R10 0
+  CALL R7 3 1
+  SETTABLE R7 R5 R6
+  GETTABLEKS R6 R3 K16 ["ScrollbarColor"]
+  GETIMPORT R7 K14 [Color3.fromRGB]
+  LOADN R8 25
+  LOADN R9 25
+  LOADN R10 25
+  CALL R7 3 1
+  SETTABLE R7 R5 R6
+  GETTABLEKS R6 R3 K17 ["SubTitleTextColor"]
+  GETIMPORT R7 K14 [Color3.fromRGB]
+  LOADN R8 0
+  LOADN R9 0
+  LOADN R10 0
+  CALL R7 3 1
+  SETTABLE R7 R5 R6
+  NEWTABLE R6 4 0
+  LOADN R7 1
+  SETTABLEKS R7 R6 K18 ["Weight"]
+  LOADN R7 7
+  SETTABLEKS R7 R6 K19 ["StretchMargin"]
+  GETIMPORT R7 K14 [Color3.fromRGB]
+  LOADN R8 0
+  LOADN R9 0
+  LOADN R10 0
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K20 ["Color"]
+  SETTABLEKS R6 R5 K21 ["Separator"]
+  GETTABLEKS R6 R2 K22 ["new"]
+  MOVE R7 R4
+  MOVE R8 R5
+  CALL R6 2 1
+  DUPTABLE R9 K40 [{"BackgroundColor", "ButtonColor", "HttpOverviewTextColor", "ProgressBarColor", "HoverColor", "BorderColor", "SubTextColor", "InfoTextColor", "SubTitleTextColor", "EmphasisTextColor", "TextColor", "ErrorColor", "LinkColor", "Green", "White", "DisabledColor", "ScrollbarColor", "ScrollbarTransparency", "ScrollbarSize", "Font", "FontBold"}]
+  GETTABLEKS R10 R3 K41 ["MainBackground"]
+  SETTABLEKS R10 R9 K23 ["BackgroundColor"]
+  GETTABLEKS R10 R3 K42 ["Button"]
+  SETTABLEKS R10 R9 K24 ["ButtonColor"]
+  GETTABLEKS R10 R3 K11 ["HttpOverviewTextColor"]
+  SETTABLEKS R10 R9 K11 ["HttpOverviewTextColor"]
+  GETTABLEKS R10 R3 K43 ["DialogMainButtonSelected"]
+  SETTABLEKS R10 R9 K25 ["ProgressBarColor"]
+  GETTABLEKS R10 R3 K44 ["ButtonHover"]
+  SETTABLEKS R10 R9 K26 ["HoverColor"]
+  GETTABLEKS R10 R3 K45 ["Border"]
+  SETTABLEKS R10 R9 K27 ["BorderColor"]
+  GETTABLEKS R10 R3 K46 ["SubText"]
+  SETTABLEKS R10 R9 K28 ["SubTextColor"]
+  GETTABLEKS R10 R3 K47 ["DimmedText"]
+  SETTABLEKS R10 R9 K29 ["InfoTextColor"]
+  GETTABLEKS R10 R3 K17 ["SubTitleTextColor"]
+  SETTABLEKS R10 R9 K17 ["SubTitleTextColor"]
+  GETTABLEKS R10 R3 K15 ["EmphasisTextColor"]
+  SETTABLEKS R10 R9 K15 ["EmphasisTextColor"]
+  GETTABLEKS R10 R3 K48 ["MainText"]
+  SETTABLEKS R10 R9 K30 ["TextColor"]
+  GETTABLEKS R10 R3 K49 ["ErrorText"]
+  SETTABLEKS R10 R9 K31 ["ErrorColor"]
+  GETTABLEKS R10 R3 K50 ["LinkText"]
+  SETTABLEKS R10 R9 K32 ["LinkColor"]
+  GETIMPORT R10 K14 [Color3.fromRGB]
+  LOADN R11 64
+  LOADN R12 166
+  LOADN R13 81
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K33 ["Green"]
+  GETIMPORT R10 K14 [Color3.fromRGB]
+  LOADN R11 255
+  LOADN R12 255
+  LOADN R13 255
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K34 ["White"]
+  GETTABLEKS R10 R3 K51 ["MainTextDisabled"]
+  SETTABLEKS R10 R9 K35 ["DisabledColor"]
+  GETTABLEKS R10 R3 K16 ["ScrollbarColor"]
+  SETTABLEKS R10 R9 K16 ["ScrollbarColor"]
+  LOADK R10 K52 [0.7]
+  SETTABLEKS R10 R9 K36 ["ScrollbarTransparency"]
+  LOADN R10 8
+  SETTABLEKS R10 R9 K37 ["ScrollbarSize"]
+  GETIMPORT R10 K55 [Enum.Font.SourceSans]
+  SETTABLEKS R10 R9 K38 ["Font"]
+  GETIMPORT R10 K57 [Enum.Font.SourceSansSemibold]
+  SETTABLEKS R10 R9 K39 ["FontBold"]
+  NAMECALL R7 R6 K58 ["extend"]
+  CALL R7 2 0
+  RETURN R6 1

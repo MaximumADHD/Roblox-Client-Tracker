@@ -1,0 +1,41 @@
+PROTO_0:
+  GETIMPORT R1 K2 [string.find]
+  MOVE R2 R0
+  LOADK R3 K3 ["rbxassetid://"]
+  LOADN R4 1
+  LOADB R5 1
+  CALL R1 4 2
+  JUMPIFNOT R1 [+5]
+  ADDK R5 R2 K4 [1]
+  NAMECALL R3 R0 K5 ["sub"]
+  CALL R3 2 -1
+  RETURN R3 -1
+  GETIMPORT R3 K2 [string.find]
+  MOVE R4 R0
+  LOADK R5 K6 ["http[s]?://www.roblox.com/asset/%?id="]
+  CALL R3 2 2
+  MOVE R1 R3
+  MOVE R2 R4
+  JUMPIFNOT R1 [+5]
+  ADDK R5 R2 K4 [1]
+  NAMECALL R3 R0 K5 ["sub"]
+  CALL R3 2 -1
+  RETURN R3 -1
+  GETIMPORT R3 K2 [string.find]
+  MOVE R4 R0
+  LOADK R5 K7 ["rbxgameasset://Audio/"]
+  LOADN R6 1
+  LOADB R7 1
+  CALL R3 4 2
+  MOVE R1 R3
+  MOVE R2 R4
+  JUMPIFNOT R1 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  LOADNIL R3
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

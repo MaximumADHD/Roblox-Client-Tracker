@@ -1,0 +1,270 @@
+PROTO_0:
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K0 ["enteredText"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["tagMenu"]
+  GETTABLEKS R3 R1 K2 ["groupMenu"]
+  LOADB R4 0
+  JUMPIFEQKNIL R3 [+5]
+  JUMPIFNOTEQKS R3 K3 [""] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["enteredText"]
+  GETIMPORT R6 K7 [string.gsub]
+  MOVE R7 R5
+  LOADK R8 K8 ["^%s+"]
+  LOADK R9 K3 [""]
+  CALL R6 3 0
+  JUMPIFNOT R4 [+22]
+  JUMPIFNOT R0 [+15]
+  JUMPIFEQKS R5 K3 [""] [+14]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K9 ["Get"]
+  CALL R6 0 1
+  MOVE R8 R3
+  MOVE R9 R5
+  NAMECALL R6 R6 K10 ["RenameGroup"]
+  CALL R6 3 0
+  GETTABLEKS R6 R1 K11 ["openGroupMenu"]
+  MOVE R7 R5
+  CALL R6 1 0
+  GETTABLEKS R6 R1 K12 ["setRenamingGroup"]
+  MOVE R7 R3
+  LOADB R8 0
+  CALL R6 2 0
+  RETURN R0 0
+  JUMPIFNOT R0 [+15]
+  JUMPIFEQKS R5 K3 [""] [+14]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K9 ["Get"]
+  CALL R6 0 1
+  MOVE R8 R2
+  MOVE R9 R5
+  NAMECALL R6 R6 K13 ["Rename"]
+  CALL R6 3 0
+  GETTABLEKS R6 R1 K14 ["openTagMenu"]
+  MOVE R7 R5
+  CALL R6 1 0
+  GETTABLEKS R6 R1 K15 ["setRenaming"]
+  MOVE R7 R2
+  LOADB R8 0
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["textBoxRef"]
+  LOADK R1 K2 [""]
+  SETTABLEKS R1 R0 K3 ["enteredText"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K4 ["onTextChanged"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K5 ["onFocusLost"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["tagMenu"]
+  GETTABLEKS R3 R1 K2 ["groupMenu"]
+  LOADB R4 0
+  JUMPIFEQKNIL R3 [+5]
+  JUMPIFNOTEQKS R3 K3 [""] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETUPVAL R5 0
+  JUMPIFNOT R5 [+39]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K13 [{"Size", "Style", "LayoutOrder", "ShouldFocus", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
+  GETTABLEKS R8 R1 K5 ["Size"]
+  SETTABLEKS R8 R7 K5 ["Size"]
+  LOADK R8 K14 ["FilledRoundedBorder"]
+  SETTABLEKS R8 R7 K6 ["Style"]
+  GETTABLEKS R8 R1 K7 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K7 ["LayoutOrder"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K8 ["ShouldFocus"]
+  GETTABLEKS R8 R0 K15 ["textBoxRef"]
+  SETTABLEKS R8 R7 K9 ["ForwardRef"]
+  JUMPIFNOT R4 [+2]
+  MOVE R8 R3
+  JUMP [+1]
+  MOVE R8 R2
+  SETTABLEKS R8 R7 K10 ["PlaceholderText"]
+  GETTABLEKS R8 R0 K16 ["onTextChanged"]
+  SETTABLEKS R8 R7 K11 ["OnTextChanged"]
+  GETTABLEKS R8 R0 K17 ["onFocusLost"]
+  SETTABLEKS R8 R7 K12 ["OnFocusLost"]
+  CALL R5 2 -1
+  RETURN R5 -1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K20 [{"Size", "Style", "LayoutOrder", "TextWrapped", "ShouldFocus", "TextXAlignment", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
+  GETTABLEKS R8 R1 K5 ["Size"]
+  SETTABLEKS R8 R7 K5 ["Size"]
+  LOADK R8 K14 ["FilledRoundedBorder"]
+  SETTABLEKS R8 R7 K6 ["Style"]
+  GETTABLEKS R8 R1 K7 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K7 ["LayoutOrder"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K18 ["TextWrapped"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K8 ["ShouldFocus"]
+  GETIMPORT R8 K23 [Enum.TextXAlignment.Left]
+  SETTABLEKS R8 R7 K19 ["TextXAlignment"]
+  GETTABLEKS R8 R0 K15 ["textBoxRef"]
+  SETTABLEKS R8 R7 K9 ["ForwardRef"]
+  JUMPIFNOT R4 [+2]
+  MOVE R8 R3
+  JUMP [+1]
+  MOVE R8 R2
+  SETTABLEKS R8 R7 K10 ["PlaceholderText"]
+  GETTABLEKS R8 R0 K16 ["onTextChanged"]
+  SETTABLEKS R8 R7 K11 ["OnTextChanged"]
+  GETTABLEKS R8 R0 K17 ["onFocusLost"]
+  SETTABLEKS R8 R7 K12 ["OnFocusLost"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["textBoxRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  NAMECALL R1 R1 K2 ["CaptureFocus"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPTABLE R2 K2 [{"tagMenu", "groupMenu"}]
+  GETTABLEKS R3 R0 K3 ["TagMenu"]
+  SETTABLEKS R3 R2 K0 ["tagMenu"]
+  GETTABLEKS R3 R0 K4 ["GroupMenu"]
+  SETTABLEKS R3 R2 K1 ["groupMenu"]
+  RETURN R2 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["OpenTagMenu"]
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["OpenGroupMenu"]
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["SetRenaming"]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["SetRenaming"]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  DUPTABLE R1 K4 [{"openTagMenu", "openGroupMenu", "setRenaming", "setRenamingGroup"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["openTagMenu"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K1 ["openGroupMenu"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K2 ["setRenaming"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K3 ["setRenamingGroup"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["UI"]
+  GETTABLEKS R5 R4 K10 ["DEPRECATED_TextInput"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Actions"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K13 ["TagManager"]
+  CALL R7 1 1
+  GETIMPORT R8 K15 [game]
+  LOADK R10 K16 ["TagEditorImprovements2"]
+  NAMECALL R8 R8 K17 ["GetFastFlag"]
+  CALL R8 2 1
+  GETTABLEKS R9 R1 K18 ["Component"]
+  LOADK R11 K19 ["TagRenameTextInput"]
+  NAMECALL R9 R9 K20 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K21 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  SETTABLEKS R10 R9 K22 ["init"]
+  DUPCLOSURE R10 K23 [PROTO_3]
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  SETTABLEKS R10 R9 K24 ["render"]
+  DUPCLOSURE R10 K25 [PROTO_4]
+  SETTABLEKS R10 R9 K26 ["didMount"]
+  DUPCLOSURE R10 K27 [PROTO_5]
+  DUPCLOSURE R11 K28 [PROTO_10]
+  CAPTURE VAL R6
+  GETTABLEKS R12 R2 K29 ["connect"]
+  MOVE R13 R10
+  MOVE R14 R11
+  CALL R12 2 1
+  MOVE R13 R9
+  CALL R12 1 -1
+  RETURN R12 -1

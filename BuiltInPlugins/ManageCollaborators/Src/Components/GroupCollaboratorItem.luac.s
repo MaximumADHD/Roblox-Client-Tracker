@@ -1,0 +1,650 @@
+PROTO_0:
+  DUPTABLE R1 K1 [{"expanded"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["expanded"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["IsOwner"]
+  GETTABLEKS R3 R1 K2 ["CurrentPermission"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["MultipleKey"]
+  RETURN R4 1
+  RETURN R3 1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["IsOwner"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  JUMPIFNOT R2 [+3]
+  NEWTABLE R4 0 0
+  RETURN R4 1
+  NEWTABLE R4 0 2
+  DUPTABLE R5 K6 [{"Key", "Display", "Description"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["NoAccessKey"]
+  SETTABLEKS R6 R5 K3 ["Key"]
+  LOADK R8 K8 ["PermissionLabels"]
+  LOADK R9 K9 ["NoAccess"]
+  NAMECALL R6 R3 K10 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K4 ["Display"]
+  LOADK R8 K11 ["PermissionDescriptions"]
+  LOADK R9 K9 ["NoAccess"]
+  NAMECALL R6 R3 K10 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K5 ["Description"]
+  DUPTABLE R6 K6 [{"Key", "Display", "Description"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K12 ["PlayKey"]
+  SETTABLEKS R7 R6 K3 ["Key"]
+  LOADK R9 K8 ["PermissionLabels"]
+  LOADK R10 K13 ["Play"]
+  NAMECALL R7 R3 K10 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K4 ["Display"]
+  LOADK R9 K11 ["PermissionDescriptions"]
+  LOADK R10 K13 ["Play"]
+  NAMECALL R7 R3 K10 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K5 ["Description"]
+  SETLIST R4 R5 2 [1]
+  RETURN R4 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+1]
+  RETURN R0 0
+  GETUPVAL R0 1
+  DUPTABLE R2 K1 [{"expanded"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["state"]
+  GETTABLEKS R4 R5 K0 ["expanded"]
+  NOT R3 R4
+  SETTABLEKS R3 R2 K0 ["expanded"]
+  NAMECALL R0 R0 K3 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_6:
+  LOADNIL R0
+  GETUPVAL R2 0
+  LENGTH R1 R2
+  JUMPIFNOTEQKN R1 K0 [1] [+23]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["state"]
+  GETTABLEKS R1 R2 K2 ["expanded"]
+  JUMPIFNOT R1 [+8]
+  GETUPVAL R1 2
+  LOADK R3 K3 ["Buttons"]
+  LOADK R4 K4 ["HideRole"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 3 1
+  MOVE R0 R1
+  JUMP [+47]
+  GETUPVAL R1 2
+  LOADK R3 K3 ["Buttons"]
+  LOADK R4 K6 ["SeeOneMoreRole"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 3 1
+  MOVE R0 R1
+  JUMP [+39]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["state"]
+  GETTABLEKS R1 R2 K2 ["expanded"]
+  JUMPIFNOT R1 [+17]
+  GETUPVAL R1 2
+  LOADK R3 K3 ["Buttons"]
+  LOADK R4 K7 ["HideRoles"]
+  DUPTABLE R5 K9 [{"count"}]
+  GETIMPORT R6 K12 [string.format]
+  LOADK R7 K13 ["%u"]
+  GETUPVAL R9 0
+  LENGTH R8 R9
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K8 ["count"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 4 1
+  MOVE R0 R1
+  JUMP [+16]
+  GETUPVAL R1 2
+  LOADK R3 K3 ["Buttons"]
+  LOADK R4 K14 ["SeeMoreRoles"]
+  DUPTABLE R5 K9 [{"count"}]
+  GETIMPORT R6 K12 [string.format]
+  LOADK R7 K13 ["%u"]
+  GETUPVAL R9 0
+  LENGTH R8 R9
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K8 ["count"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 4 1
+  MOVE R0 R1
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K15 ["createElement"]
+  GETUPVAL R2 4
+  DUPTABLE R3 K21 [{"Size", "Text", "LayoutOrder", "Style", "OnClick"}]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K22 ["collaboratorItem"]
+  GETTABLEKS R6 R7 K23 ["groupCollaboratorItem"]
+  GETTABLEKS R5 R6 K24 ["headerComponent"]
+  GETTABLEKS R4 R5 K25 ["size"]
+  SETTABLEKS R4 R3 K16 ["Size"]
+  LOADK R4 K26 [""]
+  SETTABLEKS R4 R3 K17 ["Text"]
+  LOADK R4 K27 [1000000]
+  SETTABLEKS R4 R3 K18 ["LayoutOrder"]
+  LOADK R4 K28 ["RoundSubtle"]
+  SETTABLEKS R4 R3 K19 ["Style"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U1
+  SETTABLEKS R4 R3 K20 ["OnClick"]
+  DUPTABLE R4 K30 [{"Arrow", "Text"}]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K15 ["createElement"]
+  LOADK R6 K31 ["ImageLabel"]
+  DUPTABLE R7 K36 [{"Image", "Position", "AnchorPoint", "BackgroundTransparency", "Size"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K1 ["state"]
+  GETTABLEKS R9 R10 K2 ["expanded"]
+  JUMPIFNOT R9 [+6]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K37 ["arrows"]
+  GETTABLEKS R8 R9 K38 ["down"]
+  JUMP [+5]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K37 ["arrows"]
+  GETTABLEKS R8 R9 K39 ["right"]
+  SETTABLEKS R8 R7 K32 ["Image"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K22 ["collaboratorItem"]
+  GETTABLEKS R11 R12 K23 ["groupCollaboratorItem"]
+  GETTABLEKS R10 R11 K24 ["headerComponent"]
+  GETTABLEKS R9 R10 K40 ["arrowLabel"]
+  GETTABLEKS R8 R9 K41 ["position"]
+  SETTABLEKS R8 R7 K33 ["Position"]
+  GETIMPORT R8 K44 [Vector2.new]
+  LOADN R9 0
+  LOADK R10 K45 [0.5]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K34 ["AnchorPoint"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K35 ["BackgroundTransparency"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K22 ["collaboratorItem"]
+  GETTABLEKS R11 R12 K23 ["groupCollaboratorItem"]
+  GETTABLEKS R10 R11 K24 ["headerComponent"]
+  GETTABLEKS R9 R10 K40 ["arrowLabel"]
+  GETTABLEKS R8 R9 K25 ["size"]
+  SETTABLEKS R8 R7 K16 ["Size"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K29 ["Arrow"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K15 ["createElement"]
+  LOADK R6 K46 ["TextLabel"]
+  DUPTABLE R7 K51 [{"Text", "Position", "AnchorPoint", "TextSize", "TextXAlignment", "TextColor3", "Font", "BackgroundTransparency"}]
+  SETTABLEKS R0 R7 K17 ["Text"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K22 ["collaboratorItem"]
+  GETTABLEKS R11 R12 K23 ["groupCollaboratorItem"]
+  GETTABLEKS R10 R11 K24 ["headerComponent"]
+  GETTABLEKS R9 R10 K52 ["textLabel"]
+  GETTABLEKS R8 R9 K41 ["position"]
+  SETTABLEKS R8 R7 K33 ["Position"]
+  GETIMPORT R8 K44 [Vector2.new]
+  LOADN R9 0
+  LOADK R10 K45 [0.5]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K34 ["AnchorPoint"]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K22 ["collaboratorItem"]
+  GETTABLEKS R9 R10 K23 ["groupCollaboratorItem"]
+  GETTABLEKS R8 R9 K53 ["ExpandTextSize"]
+  SETTABLEKS R8 R7 K47 ["TextSize"]
+  GETIMPORT R8 K56 [Enum.TextXAlignment.Left]
+  SETTABLEKS R8 R7 K48 ["TextXAlignment"]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K57 ["fontStyle"]
+  GETTABLEKS R9 R10 K58 ["Normal"]
+  GETTABLEKS R8 R9 K49 ["TextColor3"]
+  SETTABLEKS R8 R7 K49 ["TextColor3"]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K57 ["fontStyle"]
+  GETTABLEKS R9 R10 K58 ["Normal"]
+  GETTABLEKS R8 R9 K50 ["Font"]
+  SETTABLEKS R8 R7 K50 ["Font"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K35 ["BackgroundTransparency"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K17 ["Text"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_7:
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["LayoutOrder"]
+  GETTABLEKS R4 R1 K3 ["Writable"]
+  GETTABLEKS R5 R1 K4 ["Id"]
+  GETTABLEKS R6 R1 K5 ["Stylizer"]
+  GETTABLEKS R7 R1 K6 ["IsOwner"]
+  GETTABLEKS R8 R1 K7 ["GroupRolesets"]
+  GETTABLEKS R9 R1 K8 ["GroupName"]
+  GETUPVAL R11 0
+  JUMPIFNOT R11 [+3]
+  GETTABLEKS R10 R1 K9 ["IsGroupGame"]
+  JUMP [+1]
+  LOADNIL R10
+  GETTABLEKS R11 R1 K10 ["SetGroupPermission"]
+  GETTABLEKS R12 R1 K11 ["RemoveGroupCollaborator"]
+  GETTABLEKS R13 R1 K12 ["GroupRolePermissions"]
+  GETTABLEKS R14 R1 K13 ["HideSeparator"]
+  LENGTH R16 R8
+  JUMPIFEQKN R16 K14 [0] [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  NEWTABLE R16 0 0
+  NEWTABLE R17 0 0
+  GETIMPORT R18 K16 [ipairs]
+  MOVE R19 R8
+  CALL R18 1 3
+  FORGPREP_INEXT R18
+  JUMPIFNOT R7 [+2]
+  GETTABLE R23 R13 R22
+  JUMP [+1]
+  LOADNIL R23
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K17 ["createElement"]
+  GETUPVAL R25 2
+  DUPTABLE R26 K21 [{"LayoutOrder", "Id", "Writable", "CurrentPermission", "IsGroupOwner", "RolePermissions", "IsGroupGame"}]
+  SETTABLEKS R21 R26 K2 ["LayoutOrder"]
+  SETTABLEKS R22 R26 K4 ["Id"]
+  SETTABLEKS R4 R26 K3 ["Writable"]
+  GETUPVAL R27 3
+  SETTABLEKS R27 R26 K18 ["CurrentPermission"]
+  SETTABLEKS R7 R26 K19 ["IsGroupOwner"]
+  SETTABLEKS R23 R26 K20 ["RolePermissions"]
+  SETTABLEKS R10 R26 K9 ["IsGroupGame"]
+  CALL R24 2 1
+  LOADN R25 3
+  JUMPIFNOTLE R21 R25 [+9]
+  FASTCALL2 TABLE_INSERT R16 R24 [+5]
+  MOVE R26 R16
+  MOVE R27 R24
+  GETIMPORT R25 K24 [table.insert]
+  CALL R25 2 0
+  JUMP [+7]
+  FASTCALL2 TABLE_INSERT R17 R24 [+5]
+  MOVE R26 R17
+  MOVE R27 R24
+  GETIMPORT R25 K24 [table.insert]
+  CALL R25 2 0
+  FORGLOOP R18 2 [inext] [-44]
+  LENGTH R18 R17
+  JUMPIFNOTEQKN R18 K14 [0] [+8]
+  LENGTH R20 R16
+  GETTABLE R19 R16 R20
+  GETTABLEKS R18 R19 K0 ["props"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K13 ["HideSeparator"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K17 ["createElement"]
+  GETUPVAL R19 4
+  DUPTABLE R20 K32 [{"Name", "Icon", "Writable", "Loading", "Removable", "OnRemoved", "CurrentPermission", "AvailablePermissions", "OnPermissionChanged"}]
+  SETTABLEKS R9 R20 K25 ["Name"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K17 ["createElement"]
+  GETUPVAL R22 5
+  DUPTABLE R23 K34 [{"Id", "Size"}]
+  SETTABLEKS R5 R23 K4 ["Id"]
+  GETIMPORT R24 K37 [UDim2.fromScale]
+  LOADN R25 1
+  LOADN R26 1
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K33 ["Size"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K26 ["Icon"]
+  MOVE R21 R4
+  JUMPIFNOT R21 [+1]
+  NOT R21 R7
+  SETTABLEKS R21 R20 K3 ["Writable"]
+  SETTABLEKS R15 R20 K27 ["Loading"]
+  GETUPVAL R22 0
+  JUMPIFNOT R22 [+4]
+  MOVE R21 R4
+  JUMPIFNOT R21 [+3]
+  NOT R21 R7
+  JUMP [+1]
+  NOT R21 R7
+  SETTABLEKS R21 R20 K28 ["Removable"]
+  NEWCLOSURE R21 P0
+  CAPTURE VAL R12
+  CAPTURE VAL R5
+  SETTABLEKS R21 R20 K29 ["OnRemoved"]
+  NAMECALL R21 R0 K38 ["getCurrentPermission"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K18 ["CurrentPermission"]
+  NAMECALL R21 R0 K39 ["getAvailablePermissions"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K30 ["AvailablePermissions"]
+  NEWCLOSURE R21 P1
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  SETTABLEKS R21 R20 K31 ["OnPermissionChanged"]
+  CALL R18 2 1
+  NEWCLOSURE R19 P2
+  CAPTURE VAL R17
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U6
+  CAPTURE VAL R6
+  CAPTURE VAL R15
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K17 ["createElement"]
+  LOADK R21 K40 ["Frame"]
+  DUPTABLE R22 K44 [{"LayoutOrder", "AutomaticSize", "BackgroundTransparency", "Position", "Size"}]
+  SETTABLEKS R3 R22 K2 ["LayoutOrder"]
+  GETIMPORT R23 K47 [Enum.AutomaticSize.Y]
+  SETTABLEKS R23 R22 K41 ["AutomaticSize"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K42 ["BackgroundTransparency"]
+  GETIMPORT R23 K49 [UDim2.new]
+  LOADN R24 0
+  GETTABLEKS R27 R6 K50 ["collaboratorItem"]
+  GETTABLEKS R26 R27 K51 ["groupCollaboratorItem"]
+  GETTABLEKS R25 R26 K52 ["collaboratorItemOffset"]
+  LOADN R26 0
+  LOADN R27 0
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K43 ["Position"]
+  GETTABLEKS R25 R6 K50 ["collaboratorItem"]
+  GETTABLEKS R24 R25 K51 ["groupCollaboratorItem"]
+  GETTABLEKS R23 R24 K53 ["size"]
+  SETTABLEKS R23 R22 K33 ["Size"]
+  DUPTABLE R23 K61 [{"UILayout", "GroupCollaborator", "Role1", "Role2", "Role3", "AdditionalRoles", "Separator"}]
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K17 ["createElement"]
+  LOADK R25 K62 ["UIListLayout"]
+  DUPTABLE R26 K68 [{"FillDirection", "Padding", "SortOrder", "VerticalAlignment", "HorizontalAlignment"}]
+  GETIMPORT R27 K70 [Enum.FillDirection.Vertical]
+  SETTABLEKS R27 R26 K63 ["FillDirection"]
+  GETIMPORT R27 K72 [UDim.new]
+  LOADN R28 0
+  LOADN R29 0
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K64 ["Padding"]
+  GETIMPORT R27 K73 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R27 R26 K65 ["SortOrder"]
+  GETIMPORT R27 K75 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R27 R26 K66 ["VerticalAlignment"]
+  GETIMPORT R27 K77 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R27 R26 K67 ["HorizontalAlignment"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K54 ["UILayout"]
+  SETTABLEKS R18 R23 K55 ["GroupCollaborator"]
+  GETTABLEN R24 R16 1
+  SETTABLEKS R24 R23 K56 ["Role1"]
+  GETTABLEN R24 R16 2
+  SETTABLEKS R24 R23 K57 ["Role2"]
+  GETTABLEN R24 R16 3
+  SETTABLEKS R24 R23 K58 ["Role3"]
+  LENGTH R25 R17
+  LOADN R26 0
+  JUMPIFNOTLT R26 R25 [+50]
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K17 ["createElement"]
+  GETUPVAL R25 7
+  DUPTABLE R26 K85 [{"Expanded", "OnExpandedChanged", "HeaderComponent", "LayoutOrder", "ContentPadding", "ContentSpacing", "PutHeaderLast", "Size", "HorizontalAlignment", "Style"}]
+  GETTABLEKS R28 R0 K86 ["state"]
+  GETTABLEKS R27 R28 K87 ["expanded"]
+  SETTABLEKS R27 R26 K78 ["Expanded"]
+  DUPCLOSURE R27 K88 [PROTO_7]
+  SETTABLEKS R27 R26 K79 ["OnExpandedChanged"]
+  SETTABLEKS R19 R26 K80 ["HeaderComponent"]
+  LOADN R27 4
+  SETTABLEKS R27 R26 K2 ["LayoutOrder"]
+  LOADN R27 0
+  SETTABLEKS R27 R26 K81 ["ContentPadding"]
+  LOADN R27 0
+  SETTABLEKS R27 R26 K82 ["ContentSpacing"]
+  GETTABLEKS R28 R0 K86 ["state"]
+  GETTABLEKS R27 R28 K87 ["expanded"]
+  SETTABLEKS R27 R26 K83 ["PutHeaderLast"]
+  GETTABLEKS R29 R6 K50 ["collaboratorItem"]
+  GETTABLEKS R28 R29 K51 ["groupCollaboratorItem"]
+  GETTABLEKS R27 R28 K89 ["expandablePaneSize"]
+  SETTABLEKS R27 R26 K33 ["Size"]
+  GETIMPORT R27 K77 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R27 R26 K67 ["HorizontalAlignment"]
+  LOADK R27 K90 ["Arrowless"]
+  SETTABLEKS R27 R26 K84 ["Style"]
+  MOVE R27 R17
+  CALL R24 3 1
+  JUMP [+1]
+  LOADNIL R24
+  SETTABLEKS R24 R23 K59 ["AdditionalRoles"]
+  NOT R24 R14
+  JUMPIFNOT R24 [+9]
+  GETUPVAL R25 1
+  GETTABLEKS R24 R25 K17 ["createElement"]
+  GETUPVAL R25 8
+  DUPTABLE R26 K91 [{"LayoutOrder"}]
+  LOADN R27 5
+  SETTABLEKS R27 R26 K2 ["LayoutOrder"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K60 ["Separator"]
+  CALL R20 3 -1
+  RETURN R20 -1
+
+PROTO_9:
+  DUPTABLE R2 K5 [{"IsOwner", "GroupRolesets", "GroupName", "CurrentPermission", "GroupRolePermissions"}]
+  GETUPVAL R3 0
+  MOVE R4 R0
+  GETTABLEKS R5 R1 K6 ["Id"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K0 ["IsOwner"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  GETTABLEKS R5 R1 K6 ["Id"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K1 ["GroupRolesets"]
+  GETUPVAL R3 2
+  MOVE R4 R0
+  GETTABLEKS R5 R1 K6 ["Id"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K2 ["GroupName"]
+  GETUPVAL R3 3
+  MOVE R4 R0
+  GETTABLEKS R5 R1 K6 ["Id"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K3 ["CurrentPermission"]
+  GETTABLEKS R4 R0 K4 ["GroupRolePermissions"]
+  GETTABLEKS R3 R4 K7 ["PermissionsByRole"]
+  SETTABLEKS R3 R2 K4 ["GroupRolePermissions"]
+  RETURN R2 1
+
+PROTO_10:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETVARARGS R2 4294967295
+  CALL R1 -1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETVARARGS R2 4294967295
+  CALL R1 -1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  DUPTABLE R1 K2 [{"SetGroupPermission", "RemoveGroupCollaborator"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetGroupPermission"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["RemoveGroupCollaborator"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["COLLAB2850_FixMcTooltips"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K13 ["Style"]
+  GETTABLEKS R5 R6 K14 ["Stylizer"]
+  GETTABLEKS R6 R4 K15 ["ContextServices"]
+  GETTABLEKS R7 R6 K16 ["withContext"]
+  GETIMPORT R8 K8 [require]
+  GETTABLEKS R11 R1 K17 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Util"]
+  GETTABLEKS R9 R10 K19 ["PermissionsConstants"]
+  CALL R8 1 1
+  GETIMPORT R9 K8 [require]
+  GETTABLEKS R12 R1 K17 ["Src"]
+  GETTABLEKS R11 R12 K20 ["Components"]
+  GETTABLEKS R10 R11 K21 ["CollaboratorItem"]
+  CALL R9 1 1
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R13 R1 K17 ["Src"]
+  GETTABLEKS R12 R13 K20 ["Components"]
+  GETTABLEKS R11 R12 K22 ["RolesetCollaboratorItem"]
+  CALL R10 1 1
+  GETIMPORT R13 K8 [require]
+  GETTABLEKS R15 R1 K9 ["Packages"]
+  GETTABLEKS R14 R15 K12 ["Framework"]
+  CALL R13 1 1
+  GETTABLEKS R12 R13 K23 ["UI"]
+  GETTABLEKS R11 R12 K24 ["Separator"]
+  GETIMPORT R12 K8 [require]
+  GETTABLEKS R16 R1 K17 ["Src"]
+  GETTABLEKS R15 R16 K20 ["Components"]
+  GETTABLEKS R14 R15 K25 ["Thumbnails"]
+  GETTABLEKS R13 R14 K26 ["GroupIconThumbnail"]
+  CALL R12 1 1
+  GETIMPORT R13 K8 [require]
+  GETTABLEKS R16 R1 K17 ["Src"]
+  GETTABLEKS R15 R16 K27 ["Selectors"]
+  GETTABLEKS R14 R15 K28 ["IsGroupOwner"]
+  CALL R13 1 1
+  GETIMPORT R14 K8 [require]
+  GETTABLEKS R17 R1 K17 ["Src"]
+  GETTABLEKS R16 R17 K27 ["Selectors"]
+  GETTABLEKS R15 R16 K29 ["GetGroupRolesets"]
+  CALL R14 1 1
+  GETIMPORT R15 K8 [require]
+  GETTABLEKS R18 R1 K17 ["Src"]
+  GETTABLEKS R17 R18 K27 ["Selectors"]
+  GETTABLEKS R16 R17 K30 ["GetGroupPermission"]
+  CALL R15 1 1
+  GETIMPORT R16 K8 [require]
+  GETTABLEKS R19 R1 K17 ["Src"]
+  GETTABLEKS R18 R19 K27 ["Selectors"]
+  GETTABLEKS R17 R18 K31 ["GetGroupName"]
+  CALL R16 1 1
+  GETIMPORT R17 K8 [require]
+  GETTABLEKS R20 R1 K17 ["Src"]
+  GETTABLEKS R19 R20 K32 ["Thunks"]
+  GETTABLEKS R18 R19 K33 ["RemoveGroupCollaborator"]
+  CALL R17 1 1
+  GETIMPORT R18 K8 [require]
+  GETTABLEKS R21 R1 K17 ["Src"]
+  GETTABLEKS R20 R21 K32 ["Thunks"]
+  GETTABLEKS R19 R20 K34 ["SetGroupPermission"]
+  CALL R18 1 1
+  GETTABLEKS R20 R4 K23 ["UI"]
+  GETTABLEKS R19 R20 K35 ["ExpandablePane"]
+  GETTABLEKS R21 R4 K23 ["UI"]
+  GETTABLEKS R20 R21 K36 ["Button"]
+  GETTABLEKS R21 R8 K37 ["NoAccessKey"]
+  GETTABLEKS R22 R2 K38 ["PureComponent"]
+  LOADK R24 K39 ["GroupCollaboratorItem"]
+  NAMECALL R22 R22 K40 ["extend"]
+  CALL R22 2 1
+  DUPCLOSURE R23 K41 [PROTO_0]
+  SETTABLEKS R23 R22 K42 ["init"]
+  DUPCLOSURE R23 K43 [PROTO_1]
+  CAPTURE VAL R8
+  SETTABLEKS R23 R22 K44 ["getCurrentPermission"]
+  DUPCLOSURE R23 K45 [PROTO_2]
+  CAPTURE VAL R8
+  SETTABLEKS R23 R22 K46 ["getAvailablePermissions"]
+  DUPCLOSURE R23 K47 [PROTO_8]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R21
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R20
+  CAPTURE VAL R19
+  CAPTURE VAL R11
+  SETTABLEKS R23 R22 K48 ["render"]
+  MOVE R23 R7
+  DUPTABLE R24 K50 [{"Stylizer", "Localization"}]
+  SETTABLEKS R5 R24 K14 ["Stylizer"]
+  GETTABLEKS R25 R6 K49 ["Localization"]
+  SETTABLEKS R25 R24 K49 ["Localization"]
+  CALL R23 1 1
+  MOVE R24 R22
+  CALL R23 1 1
+  MOVE R22 R23
+  GETTABLEKS R23 R3 K51 ["connect"]
+  DUPCLOSURE R24 K52 [PROTO_9]
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R15
+  DUPCLOSURE R25 K53 [PROTO_12]
+  CAPTURE VAL R18
+  CAPTURE VAL R17
+  CALL R23 2 1
+  MOVE R24 R22
+  CALL R23 1 1
+  MOVE R22 R23
+  RETURN R22 1

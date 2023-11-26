@@ -1,0 +1,73 @@
+PROTO_0:
+  NAMECALL R3 R0 K0 ["getState"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K1 ["PluginReducer"]
+  GETTABLEKS R1 R2 K2 ["animationId"]
+  GETIMPORT R2 K5 [Instance.new]
+  LOADK R3 K6 ["Folder"]
+  CALL R2 1 1
+  LOADK R3 K7 ["MoodAnimation"]
+  SETTABLEKS R3 R2 K8 ["Name"]
+  GETUPVAL R3 0
+  MOVE R5 R2
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K9 ["Tag"]
+  NAMECALL R3 R3 K10 ["AddTag"]
+  CALL R3 3 0
+  GETIMPORT R3 K5 [Instance.new]
+  LOADK R4 K6 ["Folder"]
+  CALL R3 1 1
+  LOADK R4 K11 ["R15Anim"]
+  SETTABLEKS R4 R3 K8 ["Name"]
+  SETTABLEKS R2 R3 K12 ["Parent"]
+  GETIMPORT R4 K5 [Instance.new]
+  LOADK R5 K13 ["StringValue"]
+  CALL R4 1 1
+  LOADK R5 K14 ["mood"]
+  SETTABLEKS R5 R4 K8 ["Name"]
+  SETTABLEKS R3 R4 K12 ["Parent"]
+  GETIMPORT R5 K5 [Instance.new]
+  LOADK R6 K15 ["Animation"]
+  CALL R5 1 1
+  LOADK R6 K16 ["Animation1"]
+  SETTABLEKS R6 R5 K8 ["Name"]
+  GETIMPORT R6 K19 [string.format]
+  LOADK R7 K20 ["rbxassetid://%s"]
+  MOVE R8 R1
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K21 ["AnimationId"]
+  SETTABLEKS R4 R5 K12 ["Parent"]
+  GETUPVAL R6 2
+  SETTABLEKS R6 R2 K12 ["Parent"]
+  RETURN R0 0
+
+PROTO_1:
+  DUPCLOSURE R0 K0 [PROTO_0]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["DynamicHeadExportTool"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["Workspace"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K8 ["CollectionService"]
+  NAMECALL R2 R2 K7 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R5 R0 K11 ["Src"]
+  GETTABLEKS R4 R5 K12 ["Constants"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K13 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R4 1

@@ -1,0 +1,115 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["LayoutOrder"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["baseSize"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["setBaseSize"]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K5 ["ShowLock"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K6 ["IsLocked"]
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K7 ["ToggleLock"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K8 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K16 [{"LayoutOrder", "Text", "Min", "Max", "SnapIncrement", "Value", "SetValue", "Tooltip"}]
+  SETTABLEKS R2 R10 K2 ["LayoutOrder"]
+  LOADK R13 K17 ["BrushSettings"]
+  LOADK R14 K18 ["BaseSize"]
+  NAMECALL R11 R1 K19 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K9 ["Text"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K20 ["MIN_BRUSH_SIZE"]
+  SETTABLEKS R11 R10 K10 ["Min"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K21 ["MAX_BRUSH_SIZE"]
+  SETTABLEKS R11 R10 K11 ["Max"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K12 ["SnapIncrement"]
+  SETTABLEKS R3 R10 K13 ["Value"]
+  SETTABLEKS R4 R10 K14 ["SetValue"]
+  GETUPVAL R12 3
+  JUMPIFNOT R12 [+6]
+  LOADK R13 K17 ["BrushSettings"]
+  LOADK R14 K22 ["BaseSizeTooltip"]
+  NAMECALL R11 R1 K19 ["getText"]
+  CALL R11 3 1
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K15 ["Tooltip"]
+  DUPTABLE R11 K24 [{"SizeHeightLock"}]
+  MOVE R12 R5
+  JUMPIFNOT R12 [+10]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K8 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K27 [{"Locked", "Clicked"}]
+  SETTABLEKS R6 R14 K25 ["Locked"]
+  SETTABLEKS R7 R14 K26 ["Clicked"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K23 ["SizeHeightLock"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K2 ["Parent"]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Util"]
+  GETTABLEKS R6 R7 K12 ["Constants"]
+  CALL R5 1 1
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K2 ["Parent"]
+  GETTABLEKS R6 R7 K2 ["Parent"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R6 K13 ["LabeledSlider"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R6 K14 ["PropertyLock"]
+  CALL R8 1 1
+  GETIMPORT R9 K16 [game]
+  LOADK R11 K17 ["TerrainEditorOverhaul"]
+  NAMECALL R9 R9 K18 ["GetFastFlag"]
+  CALL R9 2 1
+  GETTABLEKS R10 R2 K19 ["PureComponent"]
+  LOADK R12 K20 ["BrushBaseSizeSlider"]
+  NAMECALL R10 R10 K21 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K22 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  SETTABLEKS R11 R10 K23 ["render"]
+  MOVE R11 R4
+  DUPTABLE R12 K25 [{"Localization"}]
+  GETTABLEKS R13 R3 K24 ["Localization"]
+  SETTABLEKS R13 R12 K24 ["Localization"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

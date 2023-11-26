@@ -1,0 +1,213 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"enabled"}]
+  GETTABLEKS R5 R1 K2 ["enabled"]
+  SETTABLEKS R5 R4 K2 ["enabled"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"errorText"}]
+  GETTABLEKS R5 R1 K2 ["errorText"]
+  SETTABLEKS R5 R4 K2 ["errorText"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"mode"}]
+  GETTABLEKS R5 R1 K2 ["mode"]
+  SETTABLEKS R5 R4 K2 ["mode"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"screen"}]
+  GETTABLEKS R5 R1 K2 ["screen"]
+  SETTABLEKS R5 R4 K2 ["screen"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"rig"}]
+  GETTABLEKS R5 R1 K2 ["rig"]
+  SETTABLEKS R5 R4 K2 ["rig"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K6 [{"colorMap", "metalnessMap", "normalMap", "roughnessMap"}]
+  GETTABLEKS R5 R1 K2 ["colorMap"]
+  SETTABLEKS R5 R4 K2 ["colorMap"]
+  GETTABLEKS R5 R1 K3 ["metalnessMap"]
+  SETTABLEKS R5 R4 K3 ["metalnessMap"]
+  GETTABLEKS R5 R1 K4 ["normalMap"]
+  SETTABLEKS R5 R4 K4 ["normalMap"]
+  GETTABLEKS R5 R1 K5 ["roughnessMap"]
+  SETTABLEKS R5 R4 K5 ["roughnessMap"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_6:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"accessoryType"}]
+  GETTABLEKS R5 R1 K2 ["accessoryType"]
+  SETTABLEKS R5 R4 K2 ["accessoryType"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_7:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"animationId"}]
+  GETTABLEKS R5 R1 K2 ["animationId"]
+  SETTABLEKS R5 R4 K2 ["animationId"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_8:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"ownershipTransferText"}]
+  GETTABLEKS R5 R1 K2 ["ownershipTransferText"]
+  SETTABLEKS R5 R4 K2 ["ownershipTransferText"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["DynamicHeadExportTool"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Actions"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R3 K11 ["SetEnabled"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R3 K12 ["SetErrorText"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R3 K13 ["SetMode"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R3 K14 ["SetScreen"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R3 K15 ["SetRig"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R3 K16 ["SetAccessoryType"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R3 K17 ["SetAnimationId"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R12 R3 K18 ["SetSurfaceAppearanceIds"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R13 R3 K19 ["SetOwnershipTransferText"]
+  CALL R12 1 1
+  GETTABLEKS R13 R1 K20 ["createReducer"]
+  DUPTABLE R14 K33 [{"enabled", "mode", "screen", "rig", "errorText", "accessoryType", "animationId", "colorMap", "metalnessMap", "normalMap", "roughnessMap", "ownershipTransferText"}]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K21 ["enabled"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K22 ["mode"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K23 ["screen"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K24 ["rig"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K25 ["errorText"]
+  GETIMPORT R15 K37 [Enum.AccessoryType.Unknown]
+  SETTABLEKS R15 R14 K26 ["accessoryType"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K27 ["animationId"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K28 ["colorMap"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K29 ["metalnessMap"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K30 ["normalMap"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K31 ["roughnessMap"]
+  LOADK R15 K38 [""]
+  SETTABLEKS R15 R14 K32 ["ownershipTransferText"]
+  NEWTABLE R15 16 0
+  GETTABLEKS R16 R4 K39 ["name"]
+  DUPCLOSURE R17 K40 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R5 K39 ["name"]
+  DUPCLOSURE R17 K41 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R6 K39 ["name"]
+  DUPCLOSURE R17 K42 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R7 K39 ["name"]
+  DUPCLOSURE R17 K43 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R8 K39 ["name"]
+  DUPCLOSURE R17 K44 [PROTO_4]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R11 K39 ["name"]
+  DUPCLOSURE R17 K45 [PROTO_5]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R9 K39 ["name"]
+  DUPCLOSURE R17 K46 [PROTO_6]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R10 K39 ["name"]
+  DUPCLOSURE R17 K47 [PROTO_7]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  GETTABLEKS R16 R12 K39 ["name"]
+  DUPCLOSURE R17 K48 [PROTO_8]
+  CAPTURE VAL R2
+  SETTABLE R17 R15 R16
+  CALL R13 2 1
+  RETURN R13 1

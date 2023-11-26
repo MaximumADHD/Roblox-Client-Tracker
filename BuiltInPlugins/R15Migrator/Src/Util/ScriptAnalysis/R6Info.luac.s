@@ -1,0 +1,821 @@
+PROTO_0:
+  NEWTABLE R1 0 0
+  GETIMPORT R2 K1 [pairs]
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  FASTCALL2 TABLE_INSERT R1 R5 [+5]
+  MOVE R8 R1
+  MOVE R9 R5
+  GETIMPORT R7 K4 [table.insert]
+  CALL R7 2 0
+  FORGLOOP R2 1 [-8]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Conversions"]
+  GETTABLEKS R1 R2 K1 ["Parts"]
+  NEWTABLE R2 0 0
+  GETIMPORT R3 K3 [pairs]
+  MOVE R4 R1
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  FASTCALL2 TABLE_INSERT R2 R6 [+5]
+  MOVE R9 R2
+  MOVE R10 R6
+  GETIMPORT R8 K6 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 1 [-8]
+  MOVE R0 R2
+  RETURN R0 1
+
+PROTO_2:
+  NEWTABLE R0 0 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Conversions"]
+  GETTABLEKS R1 R4 K1 ["Parts"]
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETIMPORT R6 K3 [ipairs]
+  MOVE R7 R5
+  CALL R6 1 3
+  FORGPREP_INEXT R6
+  SETTABLE R10 R0 R10
+  FORGLOOP R6 2 [inext] [-2]
+  FORGLOOP R1 2 [-9]
+  LOADK R1 K4 ["Head"]
+  SETTABLEKS R1 R0 K4 ["Head"]
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Conversions"]
+  GETTABLEKS R1 R2 K1 ["Attachments"]
+  NEWTABLE R2 0 0
+  GETIMPORT R3 K3 [pairs]
+  MOVE R4 R1
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  FASTCALL2 TABLE_INSERT R2 R6 [+5]
+  MOVE R9 R2
+  MOVE R10 R6
+  GETIMPORT R8 K6 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 1 [-8]
+  MOVE R0 R2
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Conversions"]
+  GETTABLEKS R1 R2 K1 ["Joints"]
+  NEWTABLE R2 0 0
+  GETIMPORT R3 K3 [pairs]
+  MOVE R4 R1
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  FASTCALL2 TABLE_INSERT R2 R6 [+5]
+  MOVE R9 R2
+  MOVE R10 R6
+  GETIMPORT R8 K6 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 1 [-8]
+  MOVE R0 R2
+  RETURN R0 1
+
+PROTO_5:
+  GETIMPORT R1 K2 [string.find]
+  GETIMPORT R2 K4 [string.lower]
+  MOVE R3 R0
+  CALL R2 1 1
+  GETIMPORT R3 K4 [string.lower]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["HumanoidKey"]
+  CALL R3 1 -1
+  CALL R1 -1 1
+  JUMPIFNOT R1 [+2]
+  LOADB R1 1
+  RETURN R1 1
+  GETUPVAL R4 0
+  GETTABLEKS R1 R4 K6 ["HumanoidNames"]
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  JUMPIFNOTEQ R5 R0 [+3]
+  LOADB R6 1
+  RETURN R6 1
+  FORGLOOP R1 2 [-5]
+  LOADB R1 0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K9 [{"AttachmentsKey", "AttachmentKey", "PartsKey", "PartKey", "JointsKey", "JointKey", "HumanoidKey", "AnimationKey", "RigTypeKey"}]
+  LOADK R1 K10 ["Attachments"]
+  SETTABLEKS R1 R0 K0 ["AttachmentsKey"]
+  LOADK R1 K11 ["Attachment"]
+  SETTABLEKS R1 R0 K1 ["AttachmentKey"]
+  LOADK R1 K12 ["Parts"]
+  SETTABLEKS R1 R0 K2 ["PartsKey"]
+  LOADK R1 K13 ["Part"]
+  SETTABLEKS R1 R0 K3 ["PartKey"]
+  LOADK R1 K14 ["Joints"]
+  SETTABLEKS R1 R0 K4 ["JointsKey"]
+  LOADK R1 K15 ["Joint"]
+  SETTABLEKS R1 R0 K5 ["JointKey"]
+  LOADK R1 K16 ["Humanoid"]
+  SETTABLEKS R1 R0 K6 ["HumanoidKey"]
+  LOADK R1 K17 ["Animation"]
+  SETTABLEKS R1 R0 K7 ["AnimationKey"]
+  LOADK R1 K8 ["RigTypeKey"]
+  SETTABLEKS R1 R0 K8 ["RigTypeKey"]
+  NEWTABLE R1 0 3
+  GETTABLEKS R2 R0 K6 ["HumanoidKey"]
+  LOADK R3 K18 ["humanoid"]
+  LOADK R4 K19 ["hum"]
+  SETLIST R1 R2 3 [1]
+  SETTABLEKS R1 R0 K20 ["HumanoidNames"]
+  LOADK R1 K21 ["Enum.HumanoidRigType.R6"]
+  SETTABLEKS R1 R0 K22 ["R6RigType"]
+  LOADK R1 K23 ["Enum.HumanoidRigType.R15"]
+  SETTABLEKS R1 R0 K24 ["R15RigType"]
+  NEWTABLE R1 4 0
+  GETTABLEKS R2 R0 K6 ["HumanoidKey"]
+  NEWTABLE R3 16 0
+  LOADK R4 K25 ["HumanoidRootPart"]
+  SETTABLEKS R4 R3 K26 ["Torso"]
+  LOADK R4 K27 ["LeftUpperArm"]
+  SETTABLEKS R4 R3 K28 ["LeftArm"]
+  LOADK R4 K29 ["RightUpperArm"]
+  SETTABLEKS R4 R3 K30 ["RightArm"]
+  LOADK R4 K31 ["LeftUpperLeg"]
+  SETTABLEKS R4 R3 K32 ["LeftLeg"]
+  LOADK R4 K33 ["RightUpperLeg"]
+  SETTABLEKS R4 R3 K34 ["RightLeg"]
+  LOADK R4 K27 ["LeftUpperArm"]
+  SETTABLEKS R4 R3 K35 ["Left Arm"]
+  LOADK R4 K29 ["RightUpperArm"]
+  SETTABLEKS R4 R3 K36 ["Right Arm"]
+  LOADK R4 K31 ["LeftUpperLeg"]
+  SETTABLEKS R4 R3 K37 ["Left Leg"]
+  LOADK R4 K33 ["RightUpperLeg"]
+  SETTABLEKS R4 R3 K38 ["Right Leg"]
+  SETTABLE R3 R1 R2
+  GETTABLEKS R2 R0 K2 ["PartsKey"]
+  NEWTABLE R3 16 0
+  NEWTABLE R4 0 3
+  LOADK R5 K27 ["LeftUpperArm"]
+  LOADK R6 K39 ["LeftLowerArm"]
+  LOADK R7 K40 ["LeftHand"]
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K28 ["LeftArm"]
+  NEWTABLE R4 0 3
+  LOADK R5 K29 ["RightUpperArm"]
+  LOADK R6 K41 ["RightLowerArm"]
+  LOADK R7 K42 ["RightHand"]
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K30 ["RightArm"]
+  NEWTABLE R4 0 3
+  LOADK R5 K31 ["LeftUpperLeg"]
+  LOADK R6 K43 ["LeftLowerLeg"]
+  LOADK R7 K44 ["LeftFoot"]
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K32 ["LeftLeg"]
+  NEWTABLE R4 0 3
+  LOADK R5 K33 ["RightUpperLeg"]
+  LOADK R6 K45 ["RightLowerLeg"]
+  LOADK R7 K46 ["RightFoot"]
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K34 ["RightLeg"]
+  NEWTABLE R4 0 3
+  LOADK R5 K27 ["LeftUpperArm"]
+  LOADK R6 K39 ["LeftLowerArm"]
+  LOADK R7 K40 ["LeftHand"]
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K35 ["Left Arm"]
+  NEWTABLE R4 0 3
+  LOADK R5 K29 ["RightUpperArm"]
+  LOADK R6 K41 ["RightLowerArm"]
+  LOADK R7 K42 ["RightHand"]
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K36 ["Right Arm"]
+  NEWTABLE R4 0 3
+  LOADK R5 K31 ["LeftUpperLeg"]
+  LOADK R6 K43 ["LeftLowerLeg"]
+  LOADK R7 K44 ["LeftFoot"]
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K37 ["Left Leg"]
+  NEWTABLE R4 0 3
+  LOADK R5 K33 ["RightUpperLeg"]
+  LOADK R6 K45 ["RightLowerLeg"]
+  LOADK R7 K46 ["RightFoot"]
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K38 ["Right Leg"]
+  NEWTABLE R4 0 3
+  LOADK R5 K47 ["UpperTorso"]
+  LOADK R6 K48 ["LowerTorso"]
+  LOADK R7 K25 ["HumanoidRootPart"]
+  SETLIST R4 R5 3 [1]
+  SETTABLEKS R4 R3 K26 ["Torso"]
+  SETTABLE R3 R1 R2
+  GETTABLEKS R2 R0 K0 ["AttachmentsKey"]
+  NEWTABLE R3 64 0
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K49 ["Head"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K50 ["FaceCenterAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K50 ["FaceCenterAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K49 ["Head"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K51 ["FaceFrontAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K51 ["FaceFrontAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K49 ["Head"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K52 ["HairAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K52 ["HairAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K49 ["Head"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K53 ["HatAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K53 ["HatAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K25 ["HumanoidRootPart"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K54 ["RootRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K55 ["RootAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K40 ["LeftHand"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K56 ["LeftGripAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K56 ["LeftGripAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K27 ["LeftUpperArm"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K57 ["LeftShoulderAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K57 ["LeftShoulderAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K44 ["LeftFoot"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K58 ["LeftAnkleRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K59 ["LeftFootAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K42 ["RightHand"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K60 ["RightGripAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K60 ["RightGripAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K29 ["RightUpperArm"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K61 ["RightShoulderAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K61 ["RightShoulderAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K46 ["RightFoot"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K62 ["RightAnkleRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K63 ["RightFootAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K47 ["UpperTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K64 ["BodyBackAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K64 ["BodyBackAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K47 ["UpperTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K65 ["BodyFrontAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K65 ["BodyFrontAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K47 ["UpperTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K66 ["LeftCollarAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K66 ["LeftCollarAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K47 ["UpperTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K67 ["NeckAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K67 ["NeckAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K47 ["UpperTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K68 ["RightCollarAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K68 ["RightCollarAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K48 ["LowerTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K69 ["WaistBackAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K69 ["WaistBackAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K48 ["LowerTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K70 ["WaistCenterAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K70 ["WaistCenterAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K48 ["LowerTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K71 ["WaistFrontAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K71 ["WaistFrontAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K25 ["HumanoidRootPart"]
+  LOADK R8 K48 ["LowerTorso"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K54 ["RootRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K54 ["RootRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K48 ["LowerTorso"]
+  LOADK R8 K33 ["RightUpperLeg"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K72 ["RightHipRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K72 ["RightHipRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K48 ["LowerTorso"]
+  LOADK R8 K31 ["LeftUpperLeg"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K73 ["LeftHipRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K73 ["LeftHipRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K31 ["LeftUpperLeg"]
+  LOADK R8 K43 ["LeftLowerLeg"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K74 ["LeftKneeRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K74 ["LeftKneeRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K33 ["RightUpperLeg"]
+  LOADK R8 K45 ["RightLowerLeg"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K75 ["RightKneeRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K75 ["RightKneeRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K29 ["RightUpperArm"]
+  LOADK R8 K41 ["RightLowerArm"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K76 ["RightElbowRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K76 ["RightElbowRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K27 ["LeftUpperArm"]
+  LOADK R8 K39 ["LeftLowerArm"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K77 ["LeftElbowRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K77 ["LeftElbowRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K47 ["UpperTorso"]
+  LOADK R8 K48 ["LowerTorso"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K78 ["WaistRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K78 ["WaistRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K47 ["UpperTorso"]
+  LOADK R8 K27 ["LeftUpperArm"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K79 ["LeftShoulderRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K79 ["LeftShoulderRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K47 ["UpperTorso"]
+  LOADK R8 K29 ["RightUpperArm"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K80 ["RightShoulderRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K80 ["RightShoulderRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K47 ["UpperTorso"]
+  LOADK R8 K49 ["Head"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K81 ["NeckRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K81 ["NeckRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K45 ["RightLowerLeg"]
+  LOADK R8 K46 ["RightFoot"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K62 ["RightAnkleRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K62 ["RightAnkleRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K43 ["LeftLowerLeg"]
+  LOADK R8 K44 ["LeftFoot"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K58 ["LeftAnkleRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K58 ["LeftAnkleRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K41 ["RightLowerArm"]
+  LOADK R8 K42 ["RightHand"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K82 ["RightWristRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K82 ["RightWristRigAttachment"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 2
+  LOADK R7 K39 ["LeftLowerArm"]
+  LOADK R8 K40 ["LeftHand"]
+  SETLIST R6 R7 2 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K1 ["AttachmentKey"]
+  LOADK R6 K83 ["LeftWristRigAttachment"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K83 ["LeftWristRigAttachment"]
+  SETTABLE R3 R1 R2
+  GETTABLEKS R2 R0 K4 ["JointsKey"]
+  NEWTABLE R3 32 0
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K48 ["LowerTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K84 ["Root"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K85 ["RootJoint"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K48 ["LowerTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K84 ["Root"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K84 ["Root"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K40 ["LeftHand"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K86 ["LeftGrip"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K86 ["LeftGrip"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K42 ["RightHand"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K87 ["RightGrip"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K87 ["RightGrip"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K31 ["LeftUpperLeg"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K88 ["LeftHip"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K89 ["Left Hip"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K31 ["LeftUpperLeg"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K88 ["LeftHip"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K88 ["LeftHip"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K27 ["LeftUpperArm"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K90 ["LeftShoulder"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K91 ["Left Shoulder"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K27 ["LeftUpperArm"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K90 ["LeftShoulder"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K90 ["LeftShoulder"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K43 ["LeftLowerLeg"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K92 ["LeftKnee"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K92 ["LeftKnee"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K44 ["LeftFoot"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K93 ["LeftAnkle"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K93 ["LeftAnkle"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K39 ["LeftLowerArm"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K94 ["LeftElbow"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K94 ["LeftElbow"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K40 ["LeftHand"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K95 ["LeftWrist"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K95 ["LeftWrist"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K49 ["Head"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K96 ["Neck"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K96 ["Neck"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K33 ["RightUpperLeg"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K97 ["RightHip"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K98 ["Right Hip"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K33 ["RightUpperLeg"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K97 ["RightHip"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K97 ["RightHip"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K45 ["RightLowerLeg"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K99 ["RightKnee"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K99 ["RightKnee"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K46 ["RightFoot"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K100 ["RightAnkle"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K100 ["RightAnkle"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K29 ["RightUpperArm"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K101 ["RightShoulder"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K102 ["Right Shoulder"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K29 ["RightUpperArm"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K101 ["RightShoulder"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K101 ["RightShoulder"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K41 ["RightLowerArm"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K103 ["RightElbow"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K103 ["RightElbow"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K42 ["RightHand"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K104 ["RightWrist"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K104 ["RightWrist"]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K3 ["PartKey"]
+  NEWTABLE R6 0 1
+  LOADK R7 K47 ["UpperTorso"]
+  SETLIST R6 R7 1 [1]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K5 ["JointKey"]
+  LOADK R6 K105 ["Waist"]
+  SETTABLE R6 R4 R5
+  SETTABLEKS R4 R3 K105 ["Waist"]
+  SETTABLE R3 R1 R2
+  SETTABLEKS R1 R0 K106 ["Conversions"]
+  DUPCLOSURE R1 K107 [PROTO_0]
+  DUPCLOSURE R2 K108 [PROTO_1]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K109 ["GetPartNames"]
+  DUPCLOSURE R2 K110 [PROTO_2]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K111 ["GetR15PartNames"]
+  DUPCLOSURE R2 K112 [PROTO_3]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K113 ["GetAttachmentNames"]
+  DUPCLOSURE R2 K114 [PROTO_4]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K115 ["GetJointNames"]
+  DUPCLOSURE R2 K116 [PROTO_5]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K117 ["IsHumanoidName"]
+  RETURN R0 1

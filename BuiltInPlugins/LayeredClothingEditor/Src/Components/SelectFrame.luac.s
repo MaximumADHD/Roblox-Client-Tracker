@@ -1,0 +1,198 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["PartName"]
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  GETTABLEKS R4 R1 K3 ["Localization"]
+  LOADK R7 K4 ["Select"]
+  LOADK R8 K5 ["Part"]
+  NAMECALL R5 R4 K6 ["getText"]
+  CALL R5 3 1
+  GETUPVAL R6 1
+  CALL R6 0 1
+  JUMPIFNOT R6 [+6]
+  LOADK R8 K4 ["Select"]
+  LOADK R9 K7 ["Selection"]
+  NAMECALL R6 R4 K6 ["getText"]
+  CALL R6 3 1
+  MOVE R5 R6
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K8 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K13 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
+  GETIMPORT R9 K16 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 0
+  LOADN R12 0
+  GETTABLEKS R13 R3 K17 ["TextBoxHeight"]
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K9 ["Size"]
+  SETTABLEKS R0 R8 K10 ["LayoutOrder"]
+  GETIMPORT R9 K21 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K11 ["Layout"]
+  GETIMPORT R9 K23 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K12 ["HorizontalAlignment"]
+  DUPTABLE R9 K26 [{"TextBoxLabel", "SelectedPartBox"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K30 [{"TextXAlignment", "TextYAlignment", "Size", "Text", "LayoutOrder"}]
+  GETIMPORT R13 K31 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K27 ["TextXAlignment"]
+  GETIMPORT R13 K33 [Enum.TextYAlignment.Center]
+  SETTABLEKS R13 R12 K28 ["TextYAlignment"]
+  GETIMPORT R13 K16 [UDim2.new]
+  LOADN R14 0
+  GETTABLEKS R15 R3 K34 ["LabelWidth"]
+  LOADN R16 1
+  LOADN R17 0
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K9 ["Size"]
+  SETTABLEKS R5 R12 K29 ["Text"]
+  ADDK R13 R0 K35 [1]
+  SETTABLEKS R13 R12 K10 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K24 ["TextBoxLabel"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETUPVAL R11 5
+  DUPTABLE R12 K39 [{"Enabled", "ShouldFocus", "Text", "Size", "LayoutOrder", "Style"}]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K36 ["Enabled"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K37 ["ShouldFocus"]
+  SETTABLEKS R2 R12 K29 ["Text"]
+  GETIMPORT R13 K16 [UDim2.new]
+  LOADK R14 K40 [0.5]
+  LOADN R15 0
+  LOADN R16 1
+  LOADN R17 0
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K9 ["Size"]
+  ADDK R13 R0 K41 [2]
+  SETTABLEKS R13 R12 K10 ["LayoutOrder"]
+  LOADK R13 K42 ["FilledRoundedBorder"]
+  SETTABLEKS R13 R12 K38 ["Style"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K25 ["SelectedPartBox"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  SETTABLEKS R1 R0 K0 ["renderContent"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["ButtonEnabled"]
+  GETTABLEKS R3 R1 K2 ["OnConfirmSelection"]
+  GETTABLEKS R4 R1 K3 ["Localization"]
+  LOADK R7 K4 ["Select"]
+  LOADK R8 K5 ["Prompt"]
+  NAMECALL R5 R4 K6 ["getText"]
+  CALL R5 3 1
+  GETUPVAL R6 0
+  CALL R6 0 1
+  JUMPIFNOT R6 [+6]
+  LOADK R8 K4 ["Select"]
+  LOADK R9 K7 ["PromptGeneric"]
+  NAMECALL R6 R4 K6 ["getText"]
+  CALL R6 3 1
+  MOVE R5 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K8 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K17 [{"Title", "PromptText", "NextButtonText", "BackButtonText", "NextButtonEnabled", "HasBackButton", "GoToNext", "RenderContent"}]
+  LOADK R11 K18 ["Editor"]
+  LOADK R12 K4 ["Select"]
+  NAMECALL R9 R4 K6 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K9 ["Title"]
+  SETTABLEKS R5 R8 K10 ["PromptText"]
+  LOADK R11 K19 ["Flow"]
+  LOADK R12 K20 ["Next"]
+  NAMECALL R9 R4 K6 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K11 ["NextButtonText"]
+  LOADK R9 K21 [""]
+  SETTABLEKS R9 R8 K12 ["BackButtonText"]
+  SETTABLEKS R2 R8 K13 ["NextButtonEnabled"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K14 ["HasBackButton"]
+  SETTABLEKS R3 R8 K15 ["GoToNext"]
+  GETTABLEKS R9 R0 K22 ["renderContent"]
+  SETTABLEKS R9 R8 K16 ["RenderContent"]
+  CALL R6 2 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Flags"]
+  GETTABLEKS R6 R7 K12 ["GetFFlagDebugLCEditAvatarCage"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Packages"]
+  GETTABLEKS R7 R8 K13 ["AvatarToolsShared"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K14 ["Components"]
+  GETTABLEKS R8 R7 K15 ["FlowScreenLayout"]
+  GETTABLEKS R9 R2 K16 ["UI"]
+  GETTABLEKS R10 R9 K17 ["TextLabel"]
+  GETTABLEKS R11 R9 K18 ["DEPRECATED_TextInput"]
+  GETTABLEKS R12 R9 K19 ["Pane"]
+  GETTABLEKS R13 R1 K20 ["PureComponent"]
+  LOADK R15 K21 ["SelectFrame"]
+  NAMECALL R13 R13 K22 ["extend"]
+  CALL R13 2 1
+  GETTABLEKS R14 R2 K23 ["Util"]
+  GETTABLEKS R15 R14 K24 ["Typecheck"]
+  GETTABLEKS R16 R15 K25 ["wrap"]
+  MOVE R17 R13
+  GETIMPORT R18 K1 [script]
+  CALL R16 2 0
+  DUPCLOSURE R16 K26 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  SETTABLEKS R16 R13 K27 ["init"]
+  DUPCLOSURE R16 K28 [PROTO_2]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  SETTABLEKS R16 R13 K29 ["render"]
+  MOVE R16 R4
+  DUPTABLE R17 K32 [{"Stylizer", "Localization"}]
+  GETTABLEKS R18 R3 K30 ["Stylizer"]
+  SETTABLEKS R18 R17 K30 ["Stylizer"]
+  GETTABLEKS R18 R3 K31 ["Localization"]
+  SETTABLEKS R18 R17 K31 ["Localization"]
+  CALL R16 1 1
+  MOVE R17 R13
+  CALL R16 1 1
+  MOVE R13 R16
+  RETURN R13 1

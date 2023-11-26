@@ -1,0 +1,265 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["material"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K2 ["OnButtonClick"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["ChangeProperties"]
+  DUPTABLE R1 K3 [{"material", "mergeEmpty"}]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K1 ["material"]
+  SETTABLEKS R2 R1 K1 ["material"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K2 ["mergeEmpty"]
+  SETTABLEKS R2 R1 K2 ["mergeEmpty"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K0 ["onFillClicked"]
+  NEWCLOSURE R1 P1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["updateProperties"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["updateProperties"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["updateProperties"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["mergeEmpty"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["material"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["createFragment"]
+  DUPTABLE R5 K8 [{"EditSettings", "MaterialSettings", "FillButtonFrame"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K12 [{"LayoutOrder", "mergeEmpty", "setMergeEmpty"}]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K10 ["LayoutOrder"]
+  SETTABLEKS R2 R8 K2 ["mergeEmpty"]
+  GETTABLEKS R10 R0 K0 ["props"]
+  GETTABLEKS R9 R10 K13 ["dispatchSetMergeEmpty"]
+  SETTABLEKS R9 R8 K11 ["setMergeEmpty"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K5 ["EditSettings"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K15 [{"LayoutOrder", "material", "setMaterial"}]
+  LOADN R9 2
+  SETTABLEKS R9 R8 K10 ["LayoutOrder"]
+  SETTABLEKS R3 R8 K3 ["material"]
+  GETTABLEKS R10 R0 K0 ["props"]
+  GETTABLEKS R9 R10 K16 ["dispatchSetMaterial"]
+  SETTABLEKS R9 R8 K14 ["setMaterial"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["MaterialSettings"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K18 [{"LayoutOrder", "Buttons"}]
+  LOADN R9 3
+  SETTABLEKS R9 R8 K10 ["LayoutOrder"]
+  NEWTABLE R9 0 1
+  DUPTABLE R10 K23 [{"Key", "Name", "Active", "OnClicked"}]
+  LOADK R11 K24 ["Fill"]
+  SETTABLEKS R11 R10 K19 ["Key"]
+  LOADK R13 K25 ["ToolName"]
+  LOADK R14 K24 ["Fill"]
+  NAMECALL R11 R1 K26 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K20 ["Name"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K21 ["Active"]
+  GETTABLEKS R11 R0 K27 ["onFillClicked"]
+  SETTABLEKS R11 R10 K22 ["OnClicked"]
+  SETLIST R9 R10 1 [1]
+  SETTABLEKS R9 R8 K17 ["Buttons"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K7 ["FillButtonFrame"]
+  CALL R4 1 -1
+  RETURN R4 -1
+
+PROTO_6:
+  DUPTABLE R2 K3 [{"toolName", "material", "mergeEmpty"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["ToolId"]
+  GETTABLEKS R3 R4 K5 ["Fill"]
+  SETTABLEKS R3 R2 K0 ["toolName"]
+  GETTABLEKS R4 R0 K6 ["FillTool"]
+  GETTABLEKS R3 R4 K1 ["material"]
+  SETTABLEKS R3 R2 K1 ["material"]
+  GETTABLEKS R4 R0 K6 ["FillTool"]
+  GETTABLEKS R3 R4 K2 ["mergeEmpty"]
+  SETTABLEKS R3 R2 K2 ["mergeEmpty"]
+  RETURN R2 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  LOADK R3 K0 ["FillTool"]
+  MOVE R4 R0
+  CALL R2 2 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["FillTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["FillTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  DUPTABLE R2 K2 [{"dispatchSetMaterial", "dispatchSetMergeEmpty"}]
+  NEWCLOSURE R3 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K0 ["dispatchSetMaterial"]
+  NEWCLOSURE R3 P2
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K1 ["dispatchSetMergeEmpty"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K13 ["Tools"]
+  GETTABLEKS R6 R7 K14 ["ToolParts"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R6 K15 ["ButtonGroup"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R6 K16 ["EditSettings"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R6 K17 ["MaterialSettings"]
+  CALL R9 1 1
+  GETTABLEKS R11 R0 K11 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Actions"]
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R12 R10 K19 ["ApplyToolAction"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R13 R10 K20 ["SetMaterial"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R14 R10 K21 ["SetMergeEmpty"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K11 ["Src"]
+  GETTABLEKS R16 R17 K22 ["Util"]
+  GETTABLEKS R15 R16 K23 ["TerrainEnums"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R19 R0 K11 ["Src"]
+  GETTABLEKS R18 R19 K12 ["Components"]
+  GETTABLEKS R17 R18 K24 ["Functions"]
+  GETTABLEKS R16 R17 K25 ["TerrainRegionEditor"]
+  CALL R15 1 1
+  GETTABLEKS R16 R2 K26 ["PureComponent"]
+  GETIMPORT R19 K1 [script]
+  GETTABLEKS R18 R19 K27 ["Name"]
+  NAMECALL R16 R16 K28 ["extend"]
+  CALL R16 2 1
+  DUPCLOSURE R17 K29 [PROTO_2]
+  CAPTURE VAL R15
+  SETTABLEKS R17 R16 K30 ["init"]
+  DUPCLOSURE R17 K31 [PROTO_3]
+  SETTABLEKS R17 R16 K32 ["didUpdate"]
+  DUPCLOSURE R17 K33 [PROTO_4]
+  SETTABLEKS R17 R16 K34 ["didMount"]
+  DUPCLOSURE R17 K35 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  SETTABLEKS R17 R16 K36 ["render"]
+  MOVE R17 R5
+  DUPTABLE R18 K38 [{"Localization"}]
+  GETTABLEKS R19 R4 K37 ["Localization"]
+  SETTABLEKS R19 R18 K37 ["Localization"]
+  CALL R17 1 1
+  MOVE R18 R16
+  CALL R17 1 1
+  MOVE R16 R17
+  DUPCLOSURE R17 K39 [PROTO_6]
+  CAPTURE VAL R14
+  DUPCLOSURE R18 K40 [PROTO_10]
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  GETTABLEKS R19 R3 K41 ["connect"]
+  MOVE R20 R17
+  MOVE R21 R18
+  CALL R19 2 1
+  MOVE R20 R16
+  CALL R19 1 -1
+  RETURN R19 -1

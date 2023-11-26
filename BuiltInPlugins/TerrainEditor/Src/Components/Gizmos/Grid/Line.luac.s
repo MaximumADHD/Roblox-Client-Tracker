@@ -1,0 +1,78 @@
+PROTO_0:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["Line"]
+  NAMECALL R1 R1 K1 ["use"]
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K2 ["Color"]
+  GETUPVAL R3 1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R4 R1 K3 ["TransparencyActive"]
+  JUMP [+2]
+  GETTABLEKS R4 R1 K4 ["Transparency"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  LOADK R6 K6 ["BoxHandleAdornment"]
+  DUPTABLE R7 K14 [{"Adornee", "AlwaysOnTop", "Archivable", "CFrame", "Color", "Size", "Transparency", "Visible", "ZIndex"}]
+  GETTABLEKS R8 R0 K7 ["Adornee"]
+  SETTABLEKS R8 R7 K7 ["Adornee"]
+  GETTABLEKS R8 R0 K8 ["AlwaysOnTop"]
+  SETTABLEKS R8 R7 K8 ["AlwaysOnTop"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K9 ["Archivable"]
+  GETTABLEKS R8 R0 K10 ["CFrame"]
+  SETTABLEKS R8 R7 K10 ["CFrame"]
+  SETTABLEKS R2 R7 K2 ["Color"]
+  GETTABLEKS R8 R0 K11 ["Size"]
+  SETTABLEKS R8 R7 K11 ["Size"]
+  GETTABLEKS R9 R0 K8 ["AlwaysOnTop"]
+  JUMPIFNOT R9 [+5]
+  LOADK R9 K15 [0.5]
+  LOADK R11 K15 [0.5]
+  MUL R10 R11 R4
+  ADD R8 R9 R10
+  JUMP [+1]
+  MOVE R8 R4
+  SETTABLEKS R8 R7 K4 ["Transparency"]
+  GETTABLEKS R8 R0 K12 ["Visible"]
+  SETTABLEKS R8 R7 K12 ["Visible"]
+  GETTABLEKS R9 R0 K8 ["AlwaysOnTop"]
+  JUMPIFNOT R9 [+2]
+  LOADN R8 0
+  JUMP [+1]
+  LOADN R8 255
+  SETTABLEKS R8 R7 K13 ["ZIndex"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R4 R1 K9 ["ContextServices"]
+  GETTABLEKS R3 R4 K10 ["Stylizer"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K11 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Hooks"]
+  GETTABLEKS R5 R6 K13 ["useMouseDown"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Resources"]
+  GETTABLEKS R6 R7 K15 ["Theme"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K16 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  RETURN R6 1

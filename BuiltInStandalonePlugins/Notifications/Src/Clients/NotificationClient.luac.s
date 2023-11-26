@@ -1,0 +1,215 @@
+PROTO_0:
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["GetUserId"]
+  CALL R1 1 1
+  DUPTABLE R2 K3 [{"count", "notificationChannel"}]
+  LOADN R3 10
+  SETTABLEKS R3 R2 K1 ["count"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["Studio"]
+  GETTABLEKS R3 R4 K5 ["rawValue"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K2 ["notificationChannel"]
+  JUMPIFNOT R0 [+2]
+  SETTABLEKS R0 R2 K6 ["cursor"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K7 ["composeUrl"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["APIS_URL"]
+  LOADK R6 K9 ["creator-notifications/v1/creator-stream-notifications/"]
+  LOADK R8 K10 ["users/%*/notifications"]
+  MOVE R10 R1
+  NAMECALL R8 R8 K11 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  CONCAT R5 R6 R7
+  MOVE R6 R2
+  CALL R3 3 1
+  GETUPVAL R4 3
+  GETUPVAL R6 3
+  MOVE R8 R3
+  NAMECALL R6 R6 K12 ["get"]
+  CALL R6 2 -1
+  NAMECALL R4 R4 K13 ["handleRetry"]
+  CALL R4 -1 1
+  DUPCLOSURE R6 K14 [PROTO_0]
+  NAMECALL R4 R4 K15 ["catch"]
+  CALL R4 2 1
+  NAMECALL R4 R4 K16 ["await"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K17 ["responseCode"]
+  LOADN R6 200
+  JUMPIFNOTLE R6 R5 [+14]
+  GETTABLEKS R5 R4 K17 ["responseCode"]
+  LOADN R6 44
+  JUMPIFNOTLT R5 R6 [+9]
+  GETUPVAL R5 4
+  GETTABLEKS R7 R4 K18 ["responseBody"]
+  NAMECALL R5 R5 K19 ["JSONDecode"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K18 ["responseBody"]
+  RETURN R4 1
+
+PROTO_2:
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["GetUserId"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["composeUrl"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["APIS_URL"]
+  LOADK R5 K3 ["creator-notifications/v1/creator-stream-notifications/"]
+  LOADK R7 K4 ["users/%*/notification/%*"]
+  MOVE R9 R1
+  MOVE R10 R0
+  NAMECALL R7 R7 K5 ["format"]
+  CALL R7 3 1
+  MOVE R6 R7
+  CONCAT R4 R5 R6
+  CALL R2 2 1
+  DUPTABLE R3 K7 [{"Status"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K6 ["Status"]
+  DUPTABLE R4 K12 [{"Url", "Body", "Method", "Headers"}]
+  SETTABLEKS R2 R4 K8 ["Url"]
+  GETUPVAL R5 2
+  MOVE R7 R3
+  NAMECALL R5 R5 K13 ["JSONEncode"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K9 ["Body"]
+  LOADK R5 K14 ["PUT"]
+  SETTABLEKS R5 R4 K10 ["Method"]
+  NEWTABLE R5 1 0
+  LOADK R6 K15 ["application/json"]
+  SETTABLEKS R6 R5 K16 ["Content-Type"]
+  SETTABLEKS R5 R4 K11 ["Headers"]
+  GETUPVAL R5 3
+  GETUPVAL R7 3
+  MOVE R9 R4
+  NAMECALL R7 R7 K17 ["request"]
+  CALL R7 2 -1
+  NAMECALL R5 R5 K18 ["handleRetry"]
+  CALL R5 -1 1
+  DUPCLOSURE R7 K19 [PROTO_2]
+  NAMECALL R5 R5 K20 ["catch"]
+  CALL R5 2 1
+  NAMECALL R5 R5 K21 ["await"]
+  CALL R5 1 -1
+  RETURN R5 -1
+
+PROTO_4:
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["GetUserId"]
+  CALL R0 1 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["composeUrl"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["APIS_URL"]
+  LOADK R4 K3 ["creator-notifications/v1/creator-stream-notifications/"]
+  LOADK R6 K4 ["users/%*/notifications"]
+  MOVE R8 R0
+  NAMECALL R6 R6 K5 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  CONCAT R3 R4 R5
+  CALL R1 2 1
+  DUPTABLE R2 K7 [{"NotificationChannel"}]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["Studio"]
+  GETTABLEKS R3 R4 K9 ["rawValue"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K6 ["NotificationChannel"]
+  DUPTABLE R3 K14 [{"Url", "Body", "Method", "Headers"}]
+  SETTABLEKS R1 R3 K10 ["Url"]
+  GETUPVAL R4 3
+  MOVE R6 R2
+  NAMECALL R4 R4 K15 ["JSONEncode"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K11 ["Body"]
+  LOADK R4 K16 ["PUT"]
+  SETTABLEKS R4 R3 K12 ["Method"]
+  NEWTABLE R4 1 0
+  LOADK R5 K17 ["application/json"]
+  SETTABLEKS R5 R4 K18 ["Content-Type"]
+  SETTABLEKS R4 R3 K13 ["Headers"]
+  GETUPVAL R4 4
+  GETUPVAL R6 4
+  MOVE R8 R3
+  NAMECALL R6 R6 K19 ["request"]
+  CALL R6 2 -1
+  NAMECALL R4 R4 K20 ["handleRetry"]
+  CALL R4 -1 1
+  DUPCLOSURE R6 K21 [PROTO_4]
+  NAMECALL R4 R4 K22 ["catch"]
+  CALL R4 2 1
+  NAMECALL R4 R4 K23 ["await"]
+  CALL R4 1 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R4 R1 K7 ["RobloxAPI"]
+  GETTABLEKS R3 R4 K8 ["Url"]
+  GETTABLEKS R2 R3 K9 ["new"]
+  CALL R2 0 1
+  GETTABLEKS R4 R1 K10 ["Http"]
+  GETTABLEKS R3 R4 K11 ["Networking"]
+  GETTABLEKS R4 R3 K9 ["new"]
+  DUPTABLE R5 K14 [{"isInternal", "loggingLevel"}]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K12 ["isInternal"]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K13 ["loggingLevel"]
+  CALL R4 1 1
+  GETIMPORT R5 K16 [game]
+  LOADK R7 K17 ["HttpService"]
+  NAMECALL R5 R5 K18 ["GetService"]
+  CALL R5 2 1
+  GETIMPORT R6 K16 [game]
+  LOADK R8 K19 ["StudioService"]
+  NAMECALL R6 R6 K18 ["GetService"]
+  CALL R6 2 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K20 ["Src"]
+  GETTABLEKS R9 R10 K21 ["Enums"]
+  GETTABLEKS R8 R9 K22 ["NotificationChannel"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K23 [PROTO_1]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  DUPCLOSURE R9 K24 [PROTO_3]
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  DUPCLOSURE R10 K25 [PROTO_5]
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  DUPTABLE R11 K29 [{"getNotifications", "markNotificationRead", "markAllNotificationsRead"}]
+  SETTABLEKS R8 R11 K26 ["getNotifications"]
+  SETTABLEKS R9 R11 K27 ["markNotificationRead"]
+  SETTABLEKS R10 R11 K28 ["markAllNotificationsRead"]
+  RETURN R11 1

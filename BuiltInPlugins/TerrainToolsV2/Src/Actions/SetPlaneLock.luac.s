@@ -1,0 +1,45 @@
+PROTO_0:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["string"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  LOADK R3 K3 ["Expected planeLock to be a string, received %s"]
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  NAMECALL R3 R3 K4 ["format"]
+  CALL R3 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R1 K6 [assert]
+  CALL R1 -1 0
+  DUPTABLE R1 K8 [{"planeLock"}]
+  SETTABLEKS R0 R1 K7 ["planeLock"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["Action"]
+  CALL R0 1 1
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  GETIMPORT R2 K1 [require]
+  GETTABLEKS R5 R1 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["TerrainEnums"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["PlaneLockType"]
+  MOVE R4 R0
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K10 ["Name"]
+  DUPCLOSURE R6 K11 [PROTO_0]
+  CALL R4 2 -1
+  RETURN R4 -1

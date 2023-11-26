@@ -1,0 +1,74 @@
+PROTO_0:
+  GETIMPORT R1 K1 [print]
+  LOADK R2 K2 ["				Event Revieved:
+				\tNamespace: %s
+				\tDetail: %s
+				\tDetail Type: %s
+			"]
+  GETTABLEKS R4 R0 K3 ["Namespace"]
+  GETUPVAL R5 0
+  GETTABLEKS R7 R0 K4 ["Detail"]
+  NAMECALL R5 R5 K5 ["JSONDecode"]
+  CALL R5 2 1
+  GETTABLEKS R6 R0 K6 ["DetailType"]
+  NAMECALL R2 R2 K7 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["RobloxEventReceived"]
+  DUPCLOSURE R2 K1 [PROTO_0]
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K2 ["Connect"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R1 K1 [print]
+  LOADK R2 K2 ["Callback for Example"]
+  CALL R1 1 0
+  GETIMPORT R1 K1 [print]
+  LOADK R2 K3 ["Value is "]
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["Example"]
+  LOADN R3 0
+  NAMECALL R0 R0 K1 ["SetItem"]
+  CALL R0 3 0
+  GETUPVAL R0 0
+  LOADK R2 K0 ["Example"]
+  DUPCLOSURE R3 K2 [PROTO_2]
+  NAMECALL R0 R0 K3 ["Bind"]
+  CALL R0 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["NotificationService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["MemStorageService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K5 ["HttpService"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K7 [pcall]
+  DUPCLOSURE R4 K8 [PROTO_1]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CALL R3 1 0
+  GETIMPORT R3 K7 [pcall]
+  DUPCLOSURE R4 K9 [PROTO_3]
+  CAPTURE VAL R1
+  CALL R3 1 0
+  RETURN R0 0

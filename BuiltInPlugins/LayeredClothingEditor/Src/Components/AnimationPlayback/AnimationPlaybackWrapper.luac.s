@@ -1,0 +1,226 @@
+PROTO_0:
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K0 ["previewAvatar"]
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["PreviewContext"]
+  NAMECALL R3 R2 K2 ["getCurrentPreviewAvatarIndex"]
+  CALL R3 1 1
+  NEWTABLE R4 0 1
+  NAMECALL R6 R2 K3 ["getAvatars"]
+  CALL R6 1 1
+  GETTABLE R5 R6 R3
+  SETLIST R4 R5 1 [1]
+  GETTABLEKS R5 R0 K4 ["previewAvatar"]
+  JUMPIFEQ R4 R5 [+11]
+  SETTABLEKS R4 R0 K4 ["previewAvatar"]
+  DUPTABLE R7 K6 [{"temp"}]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K5 ["temp"]
+  NAMECALL R5 R0 K7 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["updatePreviewAvatar"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["PreviewContext"]
+  NAMECALL R3 R2 K2 ["getAnimationTargetChangedSignal"]
+  CALL R3 1 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K3 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K4 ["previewModelChangedConnection"]
+  NAMECALL R3 R0 K5 ["updatePreviewAvatar"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["AnimationId"]
+  GETTABLEKS R3 R1 K2 ["IsPlaying"]
+  GETTABLEKS R4 R1 K3 ["SetPlayhead"]
+  GETTABLEKS R5 R1 K4 ["SetTrackLength"]
+  GETTABLEKS R6 R1 K5 ["SetIsPlaying"]
+  GETTABLEKS R7 R1 K6 ["SliderPlayhead"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K14 [{"AnimationId", "IsPlayingOverride", "PreviewAvatars", "PlayheadOverride", "OnPlayheadChanged", "OnIsPlayingChanged", "OnTrackLengthChanged"}]
+  SETTABLEKS R2 R10 K1 ["AnimationId"]
+  SETTABLEKS R3 R10 K8 ["IsPlayingOverride"]
+  GETTABLEKS R11 R0 K15 ["previewAvatar"]
+  SETTABLEKS R11 R10 K9 ["PreviewAvatars"]
+  SETTABLEKS R7 R10 K10 ["PlayheadOverride"]
+  SETTABLEKS R4 R10 K11 ["OnPlayheadChanged"]
+  SETTABLEKS R6 R10 K12 ["OnIsPlayingChanged"]
+  SETTABLEKS R5 R10 K13 ["OnTrackLengthChanged"]
+  CALL R8 2 -1
+  RETURN R8 -1
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["previewModelChangedConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["previewModelChangedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["previewModelChangedConnection"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["animation"]
+  DUPTABLE R3 K5 [{"AnimationId", "IsPlaying", "Playhead", "SliderPlayhead"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["getPreviewingAnimationId"]
+  MOVE R5 R0
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K1 ["AnimationId"]
+  GETTABLEKS R4 R2 K2 ["IsPlaying"]
+  SETTABLEKS R4 R3 K2 ["IsPlaying"]
+  GETTABLEKS R4 R2 K3 ["Playhead"]
+  SETTABLEKS R4 R3 K3 ["Playhead"]
+  GETTABLEKS R4 R2 K4 ["SliderPlayhead"]
+  SETTABLEKS R4 R3 K4 ["SliderPlayhead"]
+  RETURN R3 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  DUPTABLE R1 K3 [{"SetPlayhead", "SetTrackLength", "SetIsPlaying"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetPlayhead"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["SetTrackLength"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["SetIsPlaying"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["AvatarToolsShared"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K9 ["Util"]
+  GETTABLEKS R4 R5 K10 ["AccessoryAndBodyToolShared"]
+  GETTABLEKS R5 R4 K11 ["PreviewingInfo"]
+  GETTABLEKS R6 R3 K12 ["Components"]
+  GETTABLEKS R7 R6 K13 ["PreviewAnimationPlayback"]
+  GETTABLEKS R9 R3 K14 ["Contexts"]
+  GETTABLEKS R8 R9 K15 ["EditingItemContext"]
+  GETTABLEKS R10 R3 K14 ["Contexts"]
+  GETTABLEKS R9 R10 K16 ["PreviewContext"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K5 ["Packages"]
+  GETTABLEKS R11 R12 K17 ["Framework"]
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K18 ["ContextServices"]
+  GETTABLEKS R12 R11 K19 ["withContext"]
+  GETTABLEKS R13 R1 K20 ["PureComponent"]
+  LOADK R15 K21 ["AnimationPlaybackWrapper"]
+  NAMECALL R13 R13 K22 ["extend"]
+  CALL R13 2 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K23 ["Src"]
+  GETTABLEKS R16 R17 K24 ["Actions"]
+  GETTABLEKS R15 R16 K25 ["SetPlayhead"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K23 ["Src"]
+  GETTABLEKS R17 R18 K24 ["Actions"]
+  GETTABLEKS R16 R17 K26 ["SetTrackLength"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K23 ["Src"]
+  GETTABLEKS R18 R19 K24 ["Actions"]
+  GETTABLEKS R17 R18 K27 ["SetIsPlaying"]
+  CALL R16 1 1
+  GETTABLEKS R17 R10 K9 ["Util"]
+  GETTABLEKS R18 R17 K28 ["Typecheck"]
+  GETTABLEKS R19 R18 K29 ["wrap"]
+  MOVE R20 R13
+  GETIMPORT R21 K1 [script]
+  CALL R19 2 0
+  DUPCLOSURE R19 K30 [PROTO_0]
+  SETTABLEKS R19 R13 K31 ["init"]
+  DUPCLOSURE R19 K32 [PROTO_1]
+  SETTABLEKS R19 R13 K33 ["updatePreviewAvatar"]
+  DUPCLOSURE R19 K34 [PROTO_3]
+  SETTABLEKS R19 R13 K35 ["didMount"]
+  DUPCLOSURE R19 K36 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  SETTABLEKS R19 R13 K37 ["render"]
+  DUPCLOSURE R19 K38 [PROTO_5]
+  SETTABLEKS R19 R13 K39 ["willUnmount"]
+  MOVE R19 R12
+  DUPTABLE R20 K40 [{"EditingItemContext", "PreviewContext"}]
+  SETTABLEKS R8 R20 K15 ["EditingItemContext"]
+  SETTABLEKS R9 R20 K16 ["PreviewContext"]
+  CALL R19 1 1
+  MOVE R20 R13
+  CALL R19 1 1
+  MOVE R13 R19
+  DUPCLOSURE R19 K41 [PROTO_6]
+  CAPTURE VAL R5
+  DUPCLOSURE R20 K42 [PROTO_10]
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  GETTABLEKS R21 R2 K43 ["connect"]
+  MOVE R22 R19
+  MOVE R23 R20
+  CALL R21 2 1
+  MOVE R22 R13
+  CALL R21 1 -1
+  RETURN R21 -1

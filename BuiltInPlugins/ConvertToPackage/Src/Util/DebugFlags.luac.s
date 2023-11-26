@@ -1,0 +1,283 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["ToolboxDebugFlags"]
+  NAMECALL R0 R0 K1 ["FindFirstChild"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["ToolboxDebugFlags"]
+  NAMECALL R0 R0 K1 ["FindFirstChild"]
+  CALL R0 2 1
+  JUMPIF R0 [+11]
+  GETIMPORT R1 K4 [Instance.new]
+  LOADK R2 K5 ["Folder"]
+  CALL R1 1 1
+  MOVE R0 R1
+  LOADK R1 K0 ["ToolboxDebugFlags"]
+  SETTABLEKS R1 R0 K6 ["Name"]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K7 ["Parent"]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R2 0
+  RETURN R2 1
+  MOVE R4 R0
+  NAMECALL R2 R1 K1 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R3 R2 K2 ["Value"]
+  RETURN R3 1
+  LOADB R3 0
+  RETURN R3 1
+
+PROTO_3:
+  GETIMPORT R0 K1 [wait]
+  LOADK R1 K2 [0.3]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  LOADK R3 K3 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K4 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  LOADK R4 K5 ["RunToolboxTests"]
+  NAMECALL R2 R1 K4 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R0 R2 K6 ["Value"]
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  LOADK R4 K2 ["ToolboxDisableTooltips"]
+  NAMECALL R2 R1 K1 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R0 R2 K3 ["Value"]
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  LOADK R4 K2 ["ToolboxDebugUrls"]
+  NAMECALL R2 R1 K1 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R0 R2 K3 ["Value"]
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  LOADK R4 K2 ["ToolboxDebugState"]
+  NAMECALL R2 R1 K1 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R0 R2 K3 ["Value"]
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  LOADK R4 K2 ["ToolboxDebugWarnings"]
+  NAMECALL R2 R1 K1 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R0 R2 K3 ["Value"]
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_8:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  LOADK R4 K2 ["ToolboxLogSettings"]
+  NAMECALL R2 R1 K1 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R0 R2 K3 ["Value"]
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_9:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  LOADK R4 K2 ["ToolboxUseTestCustomLocale"]
+  NAMECALL R2 R1 K1 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R0 R2 K3 ["Value"]
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_10:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  LOADK R4 K2 ["ToolboxUseTestRealLocaleId"]
+  NAMECALL R2 R1 K1 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R0 R2 K3 ["Value"]
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_11:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+11]
+  GETIMPORT R2 K4 [Instance.new]
+  LOADK R3 K5 ["Folder"]
+  CALL R2 1 1
+  MOVE R1 R2
+  LOADK R2 K0 ["ToolboxDebugFlags"]
+  SETTABLEKS R2 R1 K6 ["Name"]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K7 ["Parent"]
+  MOVE R0 R1
+  LOADK R3 K8 ["ToolboxCustomLocale"]
+  NAMECALL R1 R0 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+13]
+  GETIMPORT R2 K4 [Instance.new]
+  LOADK R3 K9 ["StringValue"]
+  CALL R2 1 1
+  MOVE R1 R2
+  LOADK R2 K8 ["ToolboxCustomLocale"]
+  SETTABLEKS R2 R1 K6 ["Name"]
+  LOADK R2 K10 ["CustomLocale"]
+  SETTABLEKS R2 R1 K11 ["Value"]
+  SETTABLEKS R0 R1 K7 ["Parent"]
+  RETURN R1 1
+
+PROTO_12:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["ToolboxDebugFlags"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+11]
+  GETIMPORT R2 K4 [Instance.new]
+  LOADK R3 K5 ["Folder"]
+  CALL R2 1 1
+  MOVE R1 R2
+  LOADK R2 K0 ["ToolboxDebugFlags"]
+  SETTABLEKS R2 R1 K6 ["Name"]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K7 ["Parent"]
+  MOVE R0 R1
+  LOADK R3 K8 ["ToolboxRealLocale"]
+  NAMECALL R1 R0 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+13]
+  GETIMPORT R2 K4 [Instance.new]
+  LOADK R3 K9 ["StringValue"]
+  CALL R2 1 1
+  MOVE R1 R2
+  LOADK R2 K8 ["ToolboxRealLocale"]
+  SETTABLEKS R2 R1 K6 ["Name"]
+  LOADK R2 K10 ["en-us"]
+  SETTABLEKS R2 R1 K11 ["Value"]
+  SETTABLEKS R0 R1 K7 ["Parent"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Workspace"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  CAPTURE VAL R0
+  DUPCLOSURE R2 K5 [PROTO_1]
+  CAPTURE VAL R0
+  DUPCLOSURE R3 K6 [PROTO_2]
+  CAPTURE VAL R0
+  NEWTABLE R4 16 0
+  DUPCLOSURE R5 K7 [PROTO_3]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K8 ["shouldRunTests"]
+  DUPCLOSURE R5 K9 [PROTO_4]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K10 ["shouldDisableTooltips"]
+  DUPCLOSURE R5 K11 [PROTO_5]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K12 ["shouldDebugUrls"]
+  DUPCLOSURE R5 K13 [PROTO_6]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K14 ["shouldDebugState"]
+  DUPCLOSURE R5 K15 [PROTO_7]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K16 ["shouldDebugWarnings"]
+  DUPCLOSURE R5 K17 [PROTO_8]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K18 ["shouldLogSettings"]
+  DUPCLOSURE R5 K19 [PROTO_9]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K20 ["shouldUseTestCustomLocale"]
+  DUPCLOSURE R5 K21 [PROTO_10]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K22 ["shouldUseTestRealLocale"]
+  DUPCLOSURE R5 K23 [PROTO_11]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K24 ["getOrCreateTestCustomLocale"]
+  DUPCLOSURE R5 K25 [PROTO_12]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K26 ["getOrCreateTestRealLocale"]
+  RETURN R4 1

@@ -1,0 +1,226 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnAbsoluteSizeChanged"]
+  GETTABLEKS R2 R0 K1 ["AbsoluteSize"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["setToolIndex"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R4 K7 [{"Icon", "Key", "Name", "OnClick", "Position", "Selected", "Size"}]
+  GETTABLEKS R5 R0 K8 ["icon"]
+  SETTABLEKS R5 R4 K0 ["Icon"]
+  SETTABLEKS R1 R4 K1 ["Key"]
+  GETTABLEKS R5 R0 K9 ["name"]
+  SETTABLEKS R5 R4 K2 ["Name"]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U0
+  SETTABLEKS R5 R4 K3 ["OnClick"]
+  SETTABLEKS R2 R4 K4 ["Position"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K10 ["ToolIndex"]
+  SETTABLEKS R5 R4 K5 ["Selected"]
+  SETTABLEKS R3 R4 K6 ["Size"]
+  RETURN R4 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K0 ["Key"]
+  NAMECALL R1 R1 K1 ["setTabIndex"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["Toolbar"]
+  NAMECALL R1 R1 K1 ["use"]
+  CALL R1 2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["new"]
+  CALL R2 0 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["use"]
+  CALL R3 0 1
+  GETUPVAL R4 3
+  MOVE R5 R3
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K3 ["Tools"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLEKS R12 R4 K3 ["Tools"]
+  GETTABLE R11 R12 R8
+  GETTABLEKS R10 R11 K4 ["icon"]
+  GETIMPORT R11 K7 [string.format]
+  GETTABLEKS R13 R9 K4 ["icon"]
+  GETTABLEKS R12 R13 K8 ["Image"]
+  GETTABLEKS R13 R1 K9 ["StudioTheme"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K8 ["Image"]
+  GETTABLEKS R12 R4 K3 ["Tools"]
+  GETTABLE R11 R12 R8
+  GETTABLEKS R10 R11 K4 ["icon"]
+  GETTABLEKS R11 R1 K10 ["IconSize"]
+  SETTABLEKS R11 R10 K11 ["Size"]
+  FORGLOOP R5 2 [-26]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R3
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K12 ["createElement"]
+  GETUPVAL R9 5
+  NEWTABLE R10 8 0
+  GETIMPORT R11 K16 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K14 ["AutomaticSize"]
+  GETIMPORT R11 K19 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R11 R10 K17 ["HorizontalAlignment"]
+  GETIMPORT R11 K22 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K23 ["Layout"]
+  GETTABLEKS R11 R0 K24 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K24 ["LayoutOrder"]
+  GETIMPORT R11 K27 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R11 R10 K25 ["VerticalAlignment"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K28 ["Change"]
+  GETTABLEKS R11 R12 K29 ["AbsoluteSize"]
+  SETTABLE R5 R10 R11
+  DUPTABLE R11 K31 [{"Categories", "Tools"}]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K12 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K33 [{"AutomaticSize", "BackgroundColor", "LayoutOrder", "Size"}]
+  GETIMPORT R15 K16 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K14 ["AutomaticSize"]
+  GETTABLEKS R15 R1 K34 ["TabBackgroundColor"]
+  SETTABLEKS R15 R14 K32 ["BackgroundColor"]
+  NAMECALL R15 R2 K35 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K24 ["LayoutOrder"]
+  GETIMPORT R15 K38 [UDim2.fromScale]
+  LOADN R16 1
+  LOADN R17 0
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K11 ["Size"]
+  DUPTABLE R15 K40 [{"Tabs"}]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K12 ["createElement"]
+  GETUPVAL R17 6
+  DUPTABLE R18 K43 [{"LayoutOrder", "OnTabSelected", "SelectedTab", "Tabs"}]
+  NAMECALL R19 R2 K35 ["getNextOrder"]
+  CALL R19 1 1
+  SETTABLEKS R19 R18 K24 ["LayoutOrder"]
+  SETTABLEKS R7 R18 K41 ["OnTabSelected"]
+  GETTABLEKS R19 R4 K44 ["TabIndex"]
+  SETTABLEKS R19 R18 K42 ["SelectedTab"]
+  GETTABLEKS R19 R4 K39 ["Tabs"]
+  SETTABLEKS R19 R18 K39 ["Tabs"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K39 ["Tabs"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K30 ["Categories"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K12 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K45 [{"AutomaticSize", "LayoutOrder", "Size"}]
+  GETIMPORT R15 K16 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K14 ["AutomaticSize"]
+  NAMECALL R15 R2 K35 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K24 ["LayoutOrder"]
+  GETIMPORT R15 K38 [UDim2.fromScale]
+  LOADN R16 1
+  LOADN R17 0
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K11 ["Size"]
+  DUPTABLE R15 K47 [{"Grid"}]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K12 ["createElement"]
+  GETUPVAL R17 7
+  DUPTABLE R18 K54 [{"AutomaticSize", "Cells", "CellComponent", "CellPadding", "CellSize", "GetCellProps", "ScrollingDirection", "Size"}]
+  GETIMPORT R19 K16 [Enum.AutomaticSize.Y]
+  SETTABLEKS R19 R18 K14 ["AutomaticSize"]
+  GETTABLEKS R19 R4 K3 ["Tools"]
+  SETTABLEKS R19 R18 K48 ["Cells"]
+  GETUPVAL R19 8
+  SETTABLEKS R19 R18 K49 ["CellComponent"]
+  GETTABLEKS R19 R1 K50 ["CellPadding"]
+  SETTABLEKS R19 R18 K50 ["CellPadding"]
+  GETTABLEKS R19 R1 K51 ["CellSize"]
+  SETTABLEKS R19 R18 K51 ["CellSize"]
+  SETTABLEKS R6 R18 K52 ["GetCellProps"]
+  GETIMPORT R19 K55 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R19 R18 K53 ["ScrollingDirection"]
+  GETIMPORT R19 K38 [UDim2.fromScale]
+  LOADN R20 1
+  LOADN R21 0
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K11 ["Size"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K46 ["Grid"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K3 ["Tools"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R4 R1 K9 ["ContextServices"]
+  GETTABLEKS R3 R4 K10 ["Stylizer"]
+  GETTABLEKS R5 R1 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["LayoutOrderIterator"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K13 ["Tile"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K14 ["UI"]
+  GETTABLEKS R7 R6 K15 ["Grid"]
+  GETTABLEKS R8 R6 K16 ["Pane"]
+  GETTABLEKS R9 R6 K17 ["Tabs"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K18 ["Src"]
+  GETTABLEKS R12 R13 K19 ["Controllers"]
+  GETTABLEKS R11 R12 K20 ["ToolController"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K18 ["Src"]
+  GETTABLEKS R13 R14 K21 ["Hooks"]
+  GETTABLEKS R12 R13 K22 ["useToolbar"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K18 ["Src"]
+  GETTABLEKS R14 R15 K23 ["Resources"]
+  GETTABLEKS R13 R14 K24 ["Theme"]
+  CALL R12 1 1
+  DUPCLOSURE R13 K25 [PROTO_4]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  RETURN R13 1

@@ -1,0 +1,212 @@
+PROTO_0:
+  DUPTABLE R8 K5 [{"InstanceName", "VariableName", "Type", "Range", "Suggestions"}]
+  SETTABLEKS R0 R8 K0 ["InstanceName"]
+  SETTABLEKS R1 R8 K1 ["VariableName"]
+  SETTABLEKS R2 R8 K2 ["Type"]
+  NEWTABLE R9 2 0
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K6 ["StartKey"]
+  DUPTABLE R11 K9 [{"line", "character"}]
+  SETTABLEKS R3 R11 K7 ["line"]
+  SETTABLEKS R4 R11 K8 ["character"]
+  SETTABLE R11 R9 R10
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K10 ["EndKey"]
+  DUPTABLE R11 K9 [{"line", "character"}]
+  SETTABLEKS R3 R11 K7 ["line"]
+  ADDK R12 R5 K11 [1]
+  SETTABLEKS R12 R11 K8 ["character"]
+  SETTABLE R11 R9 R10
+  SETTABLEKS R9 R8 K3 ["Range"]
+  SETTABLEKS R6 R8 K4 ["Suggestions"]
+  GETUPVAL R9 1
+  FASTCALL2 SETMETATABLE R8 R9 [+3]
+  GETIMPORT R7 K13 [setmetatable]
+  CALL R7 2 1
+  RETURN R7 1
+
+PROTO_1:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["HumanoidKey"]
+  JUMPIFNOTEQ R2 R4 [+13]
+  LOADK R6 K1 ["ScriptAnalysis"]
+  LOADK R7 K2 ["HumanoidWarning"]
+  DUPTABLE R8 K5 [{"name", "suggestion"}]
+  SETTABLEKS R0 R8 K3 ["name"]
+  GETTABLEN R9 R1 1
+  SETTABLEKS R9 R8 K4 ["suggestion"]
+  NAMECALL R4 R3 K6 ["getText"]
+  CALL R4 4 -1
+  RETURN R4 -1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["RigTypeKey"]
+  JUMPIFNOTEQ R2 R4 [+13]
+  LOADK R6 K1 ["ScriptAnalysis"]
+  LOADK R7 K8 ["RigTypeWarning"]
+  DUPTABLE R8 K5 [{"name", "suggestion"}]
+  SETTABLEKS R0 R8 K3 ["name"]
+  GETTABLEN R9 R1 1
+  SETTABLEKS R9 R8 K4 ["suggestion"]
+  NAMECALL R4 R3 K6 ["getText"]
+  CALL R4 4 -1
+  RETURN R4 -1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["ReferenceKey"]
+  JUMPIFNOTEQ R2 R4 [+11]
+  LOADK R6 K1 ["ScriptAnalysis"]
+  LOADK R7 K10 ["VariableReferenceWarning"]
+  DUPTABLE R8 K11 [{"suggestion"}]
+  GETTABLEN R9 R1 1
+  SETTABLEKS R9 R8 K4 ["suggestion"]
+  NAMECALL R4 R3 K6 ["getText"]
+  CALL R4 4 -1
+  RETURN R4 -1
+  LOADK R6 K1 ["ScriptAnalysis"]
+  LOADK R7 K12 ["R6ReferenceError"]
+  DUPTABLE R8 K13 [{"name"}]
+  SETTABLEKS R0 R8 K3 ["name"]
+  NAMECALL R4 R3 K6 ["getText"]
+  CALL R4 4 1
+  RETURN R4 1
+
+PROTO_2:
+  LOADB R1 1
+  GETTABLEKS R2 R0 K0 ["Type"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["HumanoidKey"]
+  JUMPIFEQ R2 R3 [+18]
+  LOADB R1 1
+  GETTABLEKS R2 R0 K0 ["Type"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["RigTypeKey"]
+  JUMPIFEQ R2 R3 [+10]
+  GETTABLEKS R2 R0 K0 ["Type"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["ReferenceKey"]
+  JUMPIFEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["Type"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["AnimationKey"]
+  JUMPIFNOTEQ R2 R3 [+34]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["new"]
+  GETTABLEKS R3 R0 K3 ["Range"]
+  LOADK R6 K4 ["ScriptAnalysis"]
+  LOADK R7 K5 ["AnimationWarningCode"]
+  NAMECALL R4 R1 K6 ["getText"]
+  CALL R4 3 1
+  GETTABLEKS R5 R0 K7 ["InstanceName"]
+  LOADK R8 K4 ["ScriptAnalysis"]
+  LOADK R9 K8 ["AnimationWarning"]
+  NAMECALL R6 R1 K6 ["getText"]
+  CALL R6 3 1
+  GETIMPORT R9 K10 [Enum]
+  GETTABLEKS R8 R9 K11 ["Severity"]
+  GETTABLEKS R7 R8 K12 ["Error"]
+  GETTABLEKS R8 R0 K13 ["Suggestions"]
+  DUPTABLE R9 K15 [{"href"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K16 ["R6Error"]
+  SETTABLEKS R10 R9 K14 ["href"]
+  CALL R2 7 -1
+  RETURN R2 -1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["new"]
+  GETTABLEKS R3 R0 K3 ["Range"]
+  NAMECALL R5 R0 K17 ["IsWarning"]
+  CALL R5 1 1
+  JUMPIFNOT R5 [+6]
+  LOADK R6 K4 ["ScriptAnalysis"]
+  LOADK R7 K18 ["R6ScriptWarningCode"]
+  NAMECALL R4 R1 K6 ["getText"]
+  CALL R4 3 1
+  JUMP [+5]
+  LOADK R6 K4 ["ScriptAnalysis"]
+  LOADK R7 K19 ["R6ScriptErrorCode"]
+  NAMECALL R4 R1 K6 ["getText"]
+  CALL R4 3 1
+  GETTABLEKS R5 R0 K7 ["InstanceName"]
+  GETUPVAL R6 3
+  GETTABLEKS R7 R0 K7 ["InstanceName"]
+  GETTABLEKS R8 R0 K13 ["Suggestions"]
+  GETTABLEKS R9 R0 K0 ["Type"]
+  MOVE R10 R1
+  CALL R6 4 1
+  NAMECALL R8 R0 K17 ["IsWarning"]
+  CALL R8 1 1
+  JUMPIFNOT R8 [+7]
+  GETIMPORT R9 K10 [Enum]
+  GETTABLEKS R8 R9 K11 ["Severity"]
+  GETTABLEKS R7 R8 K20 ["Warning"]
+  JUMP [+6]
+  GETIMPORT R9 K10 [Enum]
+  GETTABLEKS R8 R9 K11 ["Severity"]
+  GETTABLEKS R7 R8 K12 ["Error"]
+  NAMECALL R9 R0 K17 ["IsWarning"]
+  CALL R9 1 1
+  JUMPIFNOT R9 [+3]
+  NEWTABLE R8 0 0
+  JUMP [+2]
+  GETTABLEKS R8 R0 K13 ["Suggestions"]
+  DUPTABLE R9 K15 [{"href"}]
+  NAMECALL R11 R0 K17 ["IsWarning"]
+  CALL R11 1 1
+  JUMPIFNOT R11 [+4]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K21 ["R6Warning"]
+  JUMP [+3]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K16 ["R6Error"]
+  SETTABLEKS R10 R9 K14 ["href"]
+  CALL R2 7 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["DocumentationUrls"]
+  CALL R1 1 1
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K8 ["ScriptAnalysis"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R2 K9 ["Constants"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R2 K10 ["Diagnostic"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R2 K11 ["R6Info"]
+  CALL R5 1 1
+  NEWTABLE R6 4 0
+  SETTABLEKS R6 R6 K12 ["__index"]
+  DUPCLOSURE R7 K13 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  SETTABLEKS R7 R6 K14 ["new"]
+  DUPCLOSURE R7 K15 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  DUPCLOSURE R8 K16 [PROTO_2]
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  SETTABLEKS R8 R6 K17 ["IsWarning"]
+  DUPCLOSURE R8 K18 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  SETTABLEKS R8 R6 K19 ["ConvertToDiagnostic"]
+  RETURN R6 1

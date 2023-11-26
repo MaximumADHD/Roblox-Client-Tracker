@@ -1,0 +1,186 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R2 K2 ["timelineTheme"]
+  GETTABLEKS R4 R1 K3 ["Value"]
+  GETTABLEKS R5 R1 K4 ["Width"]
+  GETTABLEKS R6 R1 K5 ["Position"]
+  GETTABLEKS R7 R1 K6 ["ScaleType"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["SCALE_TYPE"]
+  GETTABLEKS R9 R10 K8 ["Number"]
+  JUMPIFEQ R7 R9 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K9 ["TICK_LABEL_SIZE"]
+  GETTABLEKS R10 R1 K10 ["TickWidthScale"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K11 ["TICK_LABEL_POSITION"]
+  GETTABLE R11 R12 R7
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K12 ["createElement"]
+  LOADK R13 K13 ["Frame"]
+  DUPTABLE R14 K18 [{"Size", "Position", "AnchorPoint", "BackgroundTransparency", "BorderSizePixel"}]
+  GETIMPORT R15 K21 [UDim2.new]
+  LOADN R16 0
+  MOVE R17 R5
+  LOADN R18 0
+  MOVE R19 R5
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K14 ["Size"]
+  SETTABLEKS R6 R14 K5 ["Position"]
+  GETIMPORT R15 K23 [Vector2.new]
+  LOADN R16 0
+  LOADN R17 1
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K15 ["AnchorPoint"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K16 ["BackgroundTransparency"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K17 ["BorderSizePixel"]
+  DUPTABLE R15 K27 [{"TimeLabel", "Tick", "Line"}]
+  JUMPIFEQKS R4 K28 [""] [+50]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K12 ["createElement"]
+  LOADK R17 K29 ["TextLabel"]
+  DUPTABLE R18 K37 [{"Position", "Size", "AnchorPoint", "TextColor3", "BorderSizePixel", "BackgroundTransparency", "TextSize", "TextXAlignment", "TextYAlignment", "Font", "Text", "Rotation"}]
+  SETTABLEKS R11 R18 K5 ["Position"]
+  SETTABLEKS R9 R18 K14 ["Size"]
+  GETIMPORT R19 K23 [Vector2.new]
+  LOADK R20 K38 [0.5]
+  LOADK R21 K38 [0.5]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K15 ["AnchorPoint"]
+  GETTABLEKS R19 R3 K39 ["textColor"]
+  SETTABLEKS R19 R18 K30 ["TextColor3"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K17 ["BorderSizePixel"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K16 ["BackgroundTransparency"]
+  GETTABLEKS R19 R3 K40 ["textSize"]
+  SETTABLEKS R19 R18 K31 ["TextSize"]
+  GETIMPORT R19 K43 [Enum.TextXAlignment.Left]
+  SETTABLEKS R19 R18 K32 ["TextXAlignment"]
+  GETIMPORT R19 K45 [Enum.TextYAlignment.Center]
+  SETTABLEKS R19 R18 K33 ["TextYAlignment"]
+  GETTABLEKS R19 R2 K46 ["font"]
+  SETTABLEKS R19 R18 K34 ["Font"]
+  SETTABLEKS R4 R18 K35 ["Text"]
+  LOADN R19 166
+  SETTABLEKS R19 R18 K36 ["Rotation"]
+  CALL R16 2 1
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K24 ["TimeLabel"]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K12 ["createElement"]
+  LOADK R18 K13 ["Frame"]
+  DUPTABLE R19 K49 [{"AnchorPoint", "Position", "Size", "BorderSizePixel", "BackgroundColor3"}]
+  GETIMPORT R20 K23 [Vector2.new]
+  JUMPIFNOT R8 [+2]
+  LOADN R21 1
+  JUMP [+1]
+  LOADN R21 0
+  LOADN R22 0
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K15 ["AnchorPoint"]
+  GETIMPORT R20 K21 [UDim2.new]
+  JUMPIFNOT R8 [+2]
+  LOADN R21 1
+  JUMP [+1]
+  LOADN R21 0
+  LOADN R22 0
+  LOADN R23 1
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K5 ["Position"]
+  GETIMPORT R20 K21 [UDim2.new]
+  MOVE R21 R10
+  LOADN R22 0
+  LOADN R23 0
+  LOADN R24 1
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K14 ["Size"]
+  LOADN R20 0
+  SETTABLEKS R20 R19 K17 ["BorderSizePixel"]
+  GETTABLEKS R20 R3 K50 ["lineColor"]
+  SETTABLEKS R20 R19 K48 ["BackgroundColor3"]
+  CALL R17 2 1
+  ORK R16 R17 K47 []
+  SETTABLEKS R16 R15 K25 ["Tick"]
+  JUMPIFNOT R8 [+43]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K12 ["createElement"]
+  LOADK R17 K13 ["Frame"]
+  DUPTABLE R18 K51 [{"Position", "Size", "AnchorPoint", "BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
+  GETIMPORT R19 K21 [UDim2.new]
+  LOADN R20 1
+  LOADN R21 0
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K5 ["Position"]
+  GETIMPORT R19 K21 [UDim2.new]
+  LOADN R20 50
+  LOADN R21 0
+  LOADN R22 0
+  LOADN R23 1
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K14 ["Size"]
+  GETIMPORT R19 K23 [Vector2.new]
+  LOADN R20 0
+  LOADN R21 0
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K15 ["AnchorPoint"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K17 ["BorderSizePixel"]
+  GETTABLEKS R19 R3 K50 ["lineColor"]
+  SETTABLEKS R19 R18 K48 ["BackgroundColor3"]
+  GETTABLEKS R19 R3 K52 ["lowerTransparency"]
+  SETTABLEKS R19 R18 K16 ["BackgroundTransparency"]
+  CALL R16 2 1
+  JUMPIF R16 [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K26 ["Line"]
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Util"]
+  GETTABLEKS R6 R7 K13 ["Constants"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K14 ["PureComponent"]
+  LOADK R8 K15 ["TimelineTick"]
+  NAMECALL R6 R6 K16 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K17 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  SETTABLEKS R7 R6 K18 ["render"]
+  MOVE R7 R4
+  DUPTABLE R8 K20 [{"Stylizer"}]
+  GETTABLEKS R9 R3 K19 ["Stylizer"]
+  SETTABLEKS R9 R8 K19 ["Stylizer"]
+  CALL R7 1 1
+  MOVE R8 R6
+  CALL R7 1 1
+  MOVE R6 R7
+  RETURN R6 1

@@ -1,0 +1,26 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K4 ["HasInternalPermission"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+2]
+  GETUPVAL R0 0
+  CALL R0 0 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R2 R0 K3 ["Src"]
+  GETTABLEKS R1 R2 K4 ["Flags"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["FFlagEnableBulkFaceImporter"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

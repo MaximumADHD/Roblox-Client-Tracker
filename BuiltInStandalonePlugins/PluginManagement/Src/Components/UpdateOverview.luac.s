@@ -1,0 +1,304 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["PluginManagementService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETUPVAL R2 0
+  FASTCALL1 TONUMBER R2 [+2]
+  GETIMPORT R1 K5 [tonumber]
+  CALL R1 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["state"]
+  GETTABLEKS R3 R4 K7 ["checked"]
+  NOT R2 R3
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R0 K8 ["SetAutoUpdate"]
+  CALL R3 3 0
+  GETUPVAL R3 1
+  DUPTABLE R5 K10 [{"checked", "lastModified"}]
+  SETTABLEKS R2 R5 K7 ["checked"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K11 ["data"]
+  GETTABLEKS R6 R7 K12 ["updated"]
+  SETTABLEKS R6 R5 K9 ["lastModified"]
+  NAMECALL R3 R3 K13 ["setState"]
+  CALL R3 2 0
+  JUMPIFNOT R2 [+24]
+  GETUPVAL R3 3
+  JUMPIFNOT R3 [+22]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K14 ["Analytics"]
+  LOADK R5 K15 ["TryUpdatePlugin"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K11 ["data"]
+  GETTABLEKS R6 R7 K16 ["assetId"]
+  NAMECALL R3 R3 K17 ["report"]
+  CALL R3 3 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K18 ["UpdatePlugin"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K11 ["data"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K14 ["Analytics"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["plugin"]
+  GETTABLEKS R3 R1 K2 ["updateAvailable"]
+  GETTABLEKS R6 R1 K3 ["data"]
+  GETTABLEKS R5 R6 K4 ["assetId"]
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K6 [tostring]
+  CALL R4 1 1
+  DUPTABLE R5 K9 [{"checked", "lastModified"}]
+  GETTABLEKS R7 R1 K3 ["data"]
+  GETTABLEKS R6 R7 K10 ["autoUpdateEnabled"]
+  SETTABLEKS R6 R5 K7 ["checked"]
+  GETTABLEKS R7 R1 K3 ["data"]
+  GETTABLEKS R6 R7 K11 ["updated"]
+  SETTABLEKS R6 R5 K8 ["lastModified"]
+  SETTABLEKS R5 R0 K12 ["state"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R5 R0 K13 ["onClick"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["LayoutOrder"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  GETTABLEKS R4 R1 K3 ["Stylizer"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K11 [{"HorizontalAlignment", "LayoutOrder", "Layout", "Position", "Size", "Spacing", "Style"}]
+  GETIMPORT R8 K14 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R8 R7 K5 ["HorizontalAlignment"]
+  SETTABLEKS R2 R7 K1 ["LayoutOrder"]
+  GETIMPORT R8 K17 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R8 R7 K6 ["Layout"]
+  GETIMPORT R8 K20 [UDim2.fromOffset]
+  LOADN R9 0
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K7 ["Position"]
+  GETIMPORT R8 K22 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADN R11 0
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K23 ["PLUGIN_UPDATE_HEIGHT"]
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K8 ["Size"]
+  LOADN R8 10
+  SETTABLEKS R8 R7 K9 ["Spacing"]
+  LOADK R8 K24 ["Box"]
+  SETTABLEKS R8 R7 K10 ["Style"]
+  DUPTABLE R8 K28 [{"UpdatePane", "Separator", "LastUpdatedText"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 1
+  DUPTABLE R11 K30 [{"AutomaticSize", "Layout", "LayoutOrder", "Spacing", "Style"}]
+  GETIMPORT R12 K32 [Enum.AutomaticSize.XY]
+  SETTABLEKS R12 R11 K29 ["AutomaticSize"]
+  GETIMPORT R12 K17 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R12 R11 K6 ["Layout"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K1 ["LayoutOrder"]
+  LOADN R12 10
+  SETTABLEKS R12 R11 K9 ["Spacing"]
+  LOADK R12 K24 ["Box"]
+  SETTABLEKS R12 R11 K10 ["Style"]
+  DUPTABLE R12 K35 [{"UpdateCheckbox", "UpdateText"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K4 ["createElement"]
+  GETUPVAL R14 3
+  DUPTABLE R15 K40 [{"AutomaticSize", "Checked", "Disabled", "Font", "LayoutOrder", "OnClick"}]
+  GETIMPORT R16 K32 [Enum.AutomaticSize.XY]
+  SETTABLEKS R16 R15 K29 ["AutomaticSize"]
+  GETTABLEKS R17 R0 K41 ["state"]
+  GETTABLEKS R16 R17 K42 ["checked"]
+  SETTABLEKS R16 R15 K36 ["Checked"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K37 ["Disabled"]
+  GETTABLEKS R16 R4 K38 ["Font"]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K1 ["LayoutOrder"]
+  GETTABLEKS R16 R0 K43 ["onClick"]
+  SETTABLEKS R16 R15 K39 ["OnClick"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K33 ["UpdateCheckbox"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K4 ["createElement"]
+  GETUPVAL R14 4
+  DUPTABLE R15 K47 [{"AutomaticSize", "Font", "LayoutOrder", "Text", "TextSize", "TextXAlignment"}]
+  GETIMPORT R16 K32 [Enum.AutomaticSize.XY]
+  SETTABLEKS R16 R15 K29 ["AutomaticSize"]
+  GETTABLEKS R16 R4 K38 ["Font"]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 2
+  SETTABLEKS R16 R15 K1 ["LayoutOrder"]
+  LOADK R18 K48 ["PluginEntry"]
+  LOADK R19 K49 ["AutoUpdateText"]
+  NAMECALL R16 R3 K50 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K44 ["Text"]
+  LOADN R16 16
+  SETTABLEKS R16 R15 K45 ["TextSize"]
+  GETIMPORT R16 K51 [Enum.TextXAlignment.Left]
+  SETTABLEKS R16 R15 K46 ["TextXAlignment"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K34 ["UpdateText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K25 ["UpdatePane"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 5
+  DUPTABLE R11 K53 [{"DominantAxis", "LayoutOrder", "Style"}]
+  GETIMPORT R12 K55 [Enum.DominantAxis.Height]
+  SETTABLEKS R12 R11 K52 ["DominantAxis"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K1 ["LayoutOrder"]
+  GETTABLEKS R12 R4 K26 ["Separator"]
+  SETTABLEKS R12 R11 K10 ["Style"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K26 ["Separator"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K56 [{"Font", "LayoutOrder", "Size", "Text", "TextSize", "TextXAlignment"}]
+  GETTABLEKS R12 R4 K38 ["Font"]
+  SETTABLEKS R12 R11 K38 ["Font"]
+  LOADN R12 3
+  SETTABLEKS R12 R11 K1 ["LayoutOrder"]
+  GETIMPORT R12 K58 [UDim2.fromScale]
+  LOADK R13 K59 [0.5]
+  LOADN R14 1
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K8 ["Size"]
+  LOADK R14 K48 ["PluginEntry"]
+  LOADK R15 K60 ["AutoUpdateEntry"]
+  DUPTABLE R16 K62 [{"date"}]
+  GETTABLEKS R18 R0 K41 ["state"]
+  GETTABLEKS R17 R18 K63 ["lastModified"]
+  SETTABLEKS R17 R16 K61 ["date"]
+  NAMECALL R12 R3 K50 ["getText"]
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K44 ["Text"]
+  LOADN R12 16
+  SETTABLEKS R12 R11 K45 ["TextSize"]
+  GETIMPORT R12 K51 [Enum.TextXAlignment.Left]
+  SETTABLEKS R12 R11 K46 ["TextXAlignment"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K27 ["LastUpdatedText"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R1 K1 [{"UpdatePlugin"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["UpdatePlugin"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["FitFrame"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Util"]
+  GETTABLEKS R6 R7 K12 ["Constants"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K13 ["ContextServices"]
+  GETTABLEKS R7 R6 K14 ["withContext"]
+  GETTABLEKS R9 R3 K11 ["Util"]
+  GETTABLEKS R8 R9 K15 ["deepCopy"]
+  GETTABLEKS R9 R3 K16 ["UI"]
+  GETTABLEKS R10 R9 K17 ["Pane"]
+  GETTABLEKS R11 R9 K18 ["Checkbox"]
+  GETTABLEKS R12 R9 K19 ["TextLabel"]
+  GETTABLEKS R13 R9 K20 ["Separator"]
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K10 ["Src"]
+  GETTABLEKS R16 R17 K21 ["Thunks"]
+  GETTABLEKS R15 R16 K22 ["UpdatePlugin"]
+  CALL R14 1 1
+  GETTABLEKS R15 R1 K23 ["PureComponent"]
+  LOADK R17 K24 ["UpdateOverview"]
+  NAMECALL R15 R15 K25 ["extend"]
+  CALL R15 2 1
+  DUPTABLE R16 K28 [{"LayoutOrder", "data"}]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K26 ["LayoutOrder"]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K27 ["data"]
+  SETTABLEKS R16 R15 K29 ["defaultProps"]
+  DUPCLOSURE R16 K30 [PROTO_1]
+  SETTABLEKS R16 R15 K31 ["init"]
+  DUPCLOSURE R16 K32 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  SETTABLEKS R16 R15 K33 ["render"]
+  MOVE R16 R7
+  DUPTABLE R17 K38 [{"Analytics", "Localization", "Plugin", "Stylizer"}]
+  GETTABLEKS R18 R6 K34 ["Analytics"]
+  SETTABLEKS R18 R17 K34 ["Analytics"]
+  GETTABLEKS R18 R6 K35 ["Localization"]
+  SETTABLEKS R18 R17 K35 ["Localization"]
+  GETTABLEKS R18 R6 K36 ["Plugin"]
+  SETTABLEKS R18 R17 K36 ["Plugin"]
+  GETTABLEKS R18 R6 K37 ["Stylizer"]
+  SETTABLEKS R18 R17 K37 ["Stylizer"]
+  CALL R16 1 1
+  MOVE R17 R15
+  CALL R16 1 1
+  MOVE R15 R16
+  DUPCLOSURE R16 K39 [PROTO_4]
+  CAPTURE VAL R14
+  GETTABLEKS R17 R2 K40 ["connect"]
+  LOADNIL R18
+  MOVE R19 R16
+  CALL R17 2 1
+  MOVE R18 R15
+  CALL R17 1 -1
+  RETURN R17 -1

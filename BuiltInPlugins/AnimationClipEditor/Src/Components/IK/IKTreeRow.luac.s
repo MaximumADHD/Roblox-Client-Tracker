@@ -1,0 +1,347 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["OnInputBegan"]
+  MOVE R3 R1
+  GETUPVAL R4 1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["Item"]
+  GETTABLEKS R4 R1 K3 ["IKMode"]
+  GETTABLEKS R5 R1 K4 ["IsSelected"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  LOADK R7 K6 ["ImageButton"]
+  NEWTABLE R8 8 0
+  GETTABLEKS R9 R1 K7 ["Position"]
+  SETTABLEKS R9 R8 K7 ["Position"]
+  GETIMPORT R9 K10 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 248
+  LOADN R12 0
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K11 ["TRACK_HEIGHT"]
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K12 ["Size"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K13 ["ImageTransparency"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K14 ["AutoButtonColor"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R10 R2 K15 ["ikTheme"]
+  GETTABLEKS R9 R10 K16 ["selected"]
+  JUMP [+2]
+  GETTABLEKS R9 R2 K17 ["backgroundColor"]
+  SETTABLEKS R9 R8 K18 ["BackgroundColor3"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K19 ["BorderSizePixel"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K20 ["ZIndex"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K21 ["Event"]
+  GETTABLEKS R9 R10 K22 ["InputBegan"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLE R10 R8 R9
+  DUPTABLE R9 K25 [{"Pin", "Container"}]
+  LOADB R10 0
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K26 ["IK_MODE"]
+  GETTABLEKS R11 R12 K27 ["FullBody"]
+  JUMPIFNOTEQ R4 R11 [+4]
+  NAMECALL R10 R0 K28 ["renderPinButton"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K23 ["Pin"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K33 [{"HorizontalAlignment", "Layout", "Spacing", "VerticalAlignment"}]
+  GETIMPORT R13 K36 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R13 R12 K29 ["HorizontalAlignment"]
+  GETIMPORT R13 K39 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R13 R12 K30 ["Layout"]
+  LOADN R13 14
+  SETTABLEKS R13 R12 K31 ["Spacing"]
+  GETIMPORT R13 K41 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R13 R12 K32 ["VerticalAlignment"]
+  DUPTABLE R13 K44 [{"HierarchyLines", "TextLabel"}]
+  NAMECALL R14 R0 K45 ["renderHierarchyLines"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K42 ["HierarchyLines"]
+  NAMECALL R14 R0 K46 ["renderJointLabel"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K43 ["TextLabel"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K24 ["Container"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R0 1
+  GETUPVAL R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["Item"]
+  GETTABLEKS R4 R1 K3 ["IsSelected"]
+  GETTABLEKS R5 R1 K4 ["RootInstance"]
+  GETTABLEKS R6 R1 K5 ["PinnedParts"]
+  GETTABLEKS R7 R1 K6 ["TogglePinnedPart"]
+  GETUPVAL R10 0
+  CALL R10 0 1
+  JUMPIFNOT R10 [+2]
+  GETUPVAL R9 1
+  JUMP [+1]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K7 ["getPartByName"]
+  MOVE R9 R5
+  MOVE R10 R3
+  CALL R8 2 1
+  JUMPIFNOT R8 [+2]
+  GETTABLE R9 R6 R8
+  JUMP [+1]
+  LOADNIL R9
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K16 [{"Position", "AnchorPoint", "ZIndex", "IsRound", "Size", "BorderSizePixel", "OnClick"}]
+  GETIMPORT R13 K19 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 246
+  LOADK R16 K20 [0.5]
+  LOADN R17 0
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K9 ["Position"]
+  GETIMPORT R13 K22 [Vector2.new]
+  LOADN R14 1
+  LOADK R15 K20 [0.5]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K10 ["AnchorPoint"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K11 ["ZIndex"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K12 ["IsRound"]
+  GETIMPORT R13 K24 [UDim2.fromOffset]
+  LOADN R14 11
+  LOADN R15 11
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K13 ["Size"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K14 ["BorderSizePixel"]
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  SETTABLEKS R13 R12 K15 ["OnClick"]
+  DUPTABLE R13 K26 [{"Image"}]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K8 ["createElement"]
+  LOADK R15 K27 ["ImageLabel"]
+  DUPTABLE R16 K30 [{"BackgroundColor3", "BorderSizePixel", "Size", "Image", "ImageColor3"}]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R18 R2 K31 ["ikTheme"]
+  GETTABLEKS R17 R18 K32 ["selected"]
+  JUMPIF R17 [+2]
+  GETTABLEKS R17 R2 K33 ["backgroundColor"]
+  SETTABLEKS R17 R16 K28 ["BackgroundColor3"]
+  LOADN R17 0
+  SETTABLEKS R17 R16 K14 ["BorderSizePixel"]
+  GETIMPORT R17 K35 [UDim2.fromScale]
+  LOADN R18 1
+  LOADN R19 1
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K13 ["Size"]
+  GETTABLEKS R18 R2 K31 ["ikTheme"]
+  GETTABLEKS R17 R18 K36 ["pinImage"]
+  SETTABLEKS R17 R16 K25 ["Image"]
+  JUMPIFNOT R9 [+5]
+  GETTABLEKS R18 R2 K31 ["ikTheme"]
+  GETTABLEKS R17 R18 K37 ["pinHover"]
+  JUMPIF R17 [+4]
+  GETTABLEKS R18 R2 K31 ["ikTheme"]
+  GETTABLEKS R17 R18 K38 ["iconColor"]
+  SETTABLEKS R17 R16 K29 ["ImageColor3"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K25 ["Image"]
+  CALL R10 3 -1
+  RETURN R10 -1
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Item"]
+  GETTABLEKS R3 R1 K2 ["IsLeafNode"]
+  GETTABLEKS R4 R1 K3 ["Depth"]
+  GETTABLEKS R5 R1 K4 ["GetVerticalLineHeight"]
+  GETTABLEKS R6 R1 K5 ["Chain"]
+  SUBK R7 R4 K6 [1]
+  GETTABLEKS R8 R1 K7 ["IsExpanded"]
+  GETTABLEKS R9 R1 K8 ["OnToggleExpanded"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K20 [{"Highlight", "IsSelected", "InActiveChain", "IsLeafNode", "IsChildNode", "IsExpanded", "Indent", "Height", "IKHeight", "LayoutOrder", "ToggleExpanded", "Element"}]
+  GETTABLE R14 R6 R2
+  JUMPIFNOTEQKNIL R14 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  SETTABLEKS R13 R12 K10 ["Highlight"]
+  GETTABLEKS R13 R1 K11 ["IsSelected"]
+  SETTABLEKS R13 R12 K11 ["IsSelected"]
+  GETTABLE R13 R6 R2
+  SETTABLEKS R13 R12 K12 ["InActiveChain"]
+  SETTABLEKS R3 R12 K2 ["IsLeafNode"]
+  LOADN R14 0
+  JUMPIFLT R14 R7 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  SETTABLEKS R13 R12 K13 ["IsChildNode"]
+  SETTABLEKS R8 R12 K7 ["IsExpanded"]
+  SETTABLEKS R7 R12 K14 ["Indent"]
+  MOVE R13 R5
+  MOVE R14 R2
+  LOADB R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K15 ["Height"]
+  MOVE R13 R5
+  MOVE R14 R2
+  LOADB R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K16 ["IKHeight"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K17 ["LayoutOrder"]
+  SETTABLEKS R9 R12 K18 ["ToggleExpanded"]
+  SETTABLEKS R2 R12 K19 ["Element"]
+  CALL R10 2 -1
+  RETURN R10 -1
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["Item"]
+  GETTABLEKS R4 R1 K3 ["IsSelected"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  LOADK R6 K5 ["TextLabel"]
+  DUPTABLE R7 K16 [{"Text", "TextSize", "Font", "TextColor3", "TextXAlignment", "TextYAlignment", "Size", "TextTruncate", "BackgroundTransparency", "LayoutOrder"}]
+  SETTABLEKS R3 R7 K6 ["Text"]
+  GETTABLEKS R9 R2 K17 ["ikTheme"]
+  GETTABLEKS R8 R9 K18 ["textSize"]
+  SETTABLEKS R8 R7 K7 ["TextSize"]
+  GETTABLEKS R8 R2 K19 ["font"]
+  SETTABLEKS R8 R7 K8 ["Font"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R9 R2 K17 ["ikTheme"]
+  GETTABLEKS R8 R9 K20 ["primaryTextColor"]
+  JUMPIF R8 [+4]
+  GETTABLEKS R9 R2 K17 ["ikTheme"]
+  GETTABLEKS R8 R9 K21 ["textColor"]
+  SETTABLEKS R8 R7 K9 ["TextColor3"]
+  GETIMPORT R8 K24 [Enum.TextXAlignment.Left]
+  SETTABLEKS R8 R7 K10 ["TextXAlignment"]
+  GETIMPORT R8 K26 [Enum.TextYAlignment.Center]
+  SETTABLEKS R8 R7 K11 ["TextYAlignment"]
+  GETIMPORT R8 K29 [UDim2.new]
+  LOADN R9 0
+  LOADN R10 160
+  LOADN R11 1
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K12 ["Size"]
+  GETIMPORT R8 K31 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R8 R7 K13 ["TextTruncate"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K14 ["BackgroundTransparency"]
+  LOADN R8 3
+  SETTABLEKS R8 R7 K15 ["LayoutOrder"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Cryo"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["Constants"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K11 ["RigUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Util"]
+  GETTABLEKS R5 R6 K12 ["RigInfo"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K13 ["Roact"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K14 ["Framework"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K15 ["ContextServices"]
+  GETTABLEKS R8 R7 K16 ["withContext"]
+  GETTABLEKS R9 R6 K17 ["UI"]
+  GETTABLEKS R10 R9 K18 ["Button"]
+  GETTABLEKS R11 R9 K19 ["Pane"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R16 R0 K8 ["Src"]
+  GETTABLEKS R15 R16 K20 ["Components"]
+  GETTABLEKS R14 R15 K21 ["IK"]
+  GETTABLEKS R13 R14 K22 ["HierarchyLines"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R15 R0 K23 ["LuaFlags"]
+  GETTABLEKS R14 R15 K24 ["GetFFlagRigUtilsMigration"]
+  CALL R13 1 1
+  GETTABLEKS R14 R5 K25 ["PureComponent"]
+  LOADK R16 K26 ["IKTreeRow"]
+  NAMECALL R14 R14 K27 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K28 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  SETTABLEKS R15 R14 K29 ["render"]
+  DUPCLOSURE R15 K30 [PROTO_3]
+  CAPTURE VAL R13
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R10
+  SETTABLEKS R15 R14 K31 ["renderPinButton"]
+  DUPCLOSURE R15 K32 [PROTO_4]
+  CAPTURE VAL R5
+  CAPTURE VAL R12
+  SETTABLEKS R15 R14 K33 ["renderHierarchyLines"]
+  DUPCLOSURE R15 K34 [PROTO_5]
+  CAPTURE VAL R5
+  SETTABLEKS R15 R14 K35 ["renderJointLabel"]
+  MOVE R15 R8
+  DUPTABLE R16 K37 [{"Stylizer"}]
+  GETTABLEKS R17 R7 K36 ["Stylizer"]
+  SETTABLEKS R17 R16 K36 ["Stylizer"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  RETURN R14 1

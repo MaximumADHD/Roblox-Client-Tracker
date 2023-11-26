@@ -1,0 +1,262 @@
+PROTO_0:
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K0 ["state"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createRef"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K2 ["baseFrameRef"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["baseFrameRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["baseFrameRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  GETIMPORT R2 K4 [UDim2.new]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["X"]
+  GETTABLEKS R3 R4 K6 ["Scale"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["X"]
+  GETTABLEKS R4 R5 K7 ["Offset"]
+  LOADN R5 0
+  GETTABLEKS R8 R0 K9 ["AbsoluteContentSize"]
+  GETTABLEKS R7 R8 K10 ["y"]
+  ADDK R6 R7 K8 [48]
+  CALL R2 4 1
+  SETTABLEKS R2 R1 K11 ["CanvasSize"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["Size"]
+  GETTABLEKS R4 R1 K3 ["LayoutOrder"]
+  GETTABLEKS R5 R1 K4 ["name"]
+  GETTABLEKS R6 R1 K5 ["description"]
+  GETTABLEKS R7 R1 K6 ["owner"]
+  GETTABLEKS R8 R1 K7 ["allowComment"]
+  GETTABLEKS R9 R1 K8 ["commentOn"]
+  GETTABLEKS R10 R1 K9 ["onNameChange"]
+  GETTABLEKS R11 R1 K10 ["onDescChange"]
+  GETTABLEKS R12 R1 K11 ["onOwnerSelected"]
+  GETTABLEKS R13 R1 K12 ["toggleComment"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K13 ["new"]
+  CALL R14 0 1
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K14 ["createElement"]
+  GETUPVAL R16 2
+  NEWTABLE R17 4 0
+  GETIMPORT R18 K18 [Enum.AutomaticSize.Y]
+  SETTABLEKS R18 R17 K19 ["AutomaticCanvasSize"]
+  SETTABLEKS R4 R17 K3 ["LayoutOrder"]
+  SETTABLEKS R3 R17 K2 ["Size"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K20 ["Ref"]
+  GETTABLEKS R19 R0 K21 ["baseFrameRef"]
+  SETTABLE R19 R17 R18
+  DUPTABLE R18 K28 [{"Padding", "UIListLayout", "Title", "Description", "Ownership", "Comment"}]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K14 ["createElement"]
+  LOADK R20 K29 ["UIPadding"]
+  DUPTABLE R21 K34 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R22 K36 [UDim.new]
+  LOADN R23 0
+  LOADN R24 24
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K30 ["PaddingTop"]
+  GETIMPORT R22 K36 [UDim.new]
+  LOADN R23 0
+  LOADN R24 24
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K31 ["PaddingBottom"]
+  GETIMPORT R22 K36 [UDim.new]
+  LOADN R23 0
+  LOADN R24 24
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K32 ["PaddingLeft"]
+  GETIMPORT R22 K36 [UDim.new]
+  LOADN R23 0
+  LOADN R24 24
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K33 ["PaddingRight"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K22 ["Padding"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K14 ["createElement"]
+  LOADK R20 K23 ["UIListLayout"]
+  NEWTABLE R21 8 0
+  GETIMPORT R22 K39 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K37 ["FillDirection"]
+  GETIMPORT R22 K42 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R22 R21 K40 ["HorizontalAlignment"]
+  GETIMPORT R22 K45 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R22 R21 K43 ["VerticalAlignment"]
+  GETIMPORT R22 K47 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R22 R21 K46 ["SortOrder"]
+  GETIMPORT R22 K36 [UDim.new]
+  LOADN R23 0
+  LOADN R24 5
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K22 ["Padding"]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K48 ["Change"]
+  GETTABLEKS R22 R23 K49 ["AbsoluteContentSize"]
+  NEWCLOSURE R23 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLE R23 R21 R22
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K23 ["UIListLayout"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K14 ["createElement"]
+  GETUPVAL R20 3
+  DUPTABLE R21 K54 [{"Title", "TotalHeight", "MaxCount", "TextChangeCallBack", "TextContent", "LayoutOrder"}]
+  LOADK R24 K55 ["General"]
+  LOADK R25 K24 ["Title"]
+  NAMECALL R22 R2 K56 ["getText"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K24 ["Title"]
+  LOADN R22 100
+  SETTABLEKS R22 R21 K50 ["TotalHeight"]
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K57 ["NAME_CHARACTER_LIMIT"]
+  SETTABLEKS R22 R21 K51 ["MaxCount"]
+  SETTABLEKS R10 R21 K52 ["TextChangeCallBack"]
+  SETTABLEKS R5 R21 K53 ["TextContent"]
+  NAMECALL R22 R14 K58 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K3 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K24 ["Title"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K14 ["createElement"]
+  GETUPVAL R20 3
+  DUPTABLE R21 K54 [{"Title", "TotalHeight", "MaxCount", "TextChangeCallBack", "TextContent", "LayoutOrder"}]
+  LOADK R24 K55 ["General"]
+  LOADK R25 K25 ["Description"]
+  NAMECALL R22 R2 K56 ["getText"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K24 ["Title"]
+  LOADN R22 64
+  SETTABLEKS R22 R21 K50 ["TotalHeight"]
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K59 ["DESCRIPTION_CHARACTER_LIMIT"]
+  SETTABLEKS R22 R21 K51 ["MaxCount"]
+  SETTABLEKS R11 R21 K52 ["TextChangeCallBack"]
+  SETTABLEKS R6 R21 K53 ["TextContent"]
+  NAMECALL R22 R14 K58 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K3 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K25 ["Description"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K14 ["createElement"]
+  GETUPVAL R20 5
+  DUPTABLE R21 K61 [{"Title", "owner", "TotalHeight", "onDropDownSelect", "LayoutOrder"}]
+  LOADK R24 K55 ["General"]
+  LOADK R25 K26 ["Ownership"]
+  NAMECALL R22 R2 K56 ["getText"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K24 ["Title"]
+  SETTABLEKS R7 R21 K6 ["owner"]
+  LOADN R22 70
+  SETTABLEKS R22 R21 K50 ["TotalHeight"]
+  SETTABLEKS R12 R21 K60 ["onDropDownSelect"]
+  NAMECALL R22 R14 K58 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K3 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K26 ["Ownership"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K14 ["createElement"]
+  GETUPVAL R20 6
+  DUPTABLE R21 K65 [{"Title", "TotalHeight", "CommentEnabled", "CommentOn", "ToggleCallback", "LayoutOrder"}]
+  LOADK R24 K55 ["General"]
+  LOADK R25 K66 ["Comments"]
+  NAMECALL R22 R2 K56 ["getText"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K24 ["Title"]
+  LOADN R22 80
+  SETTABLEKS R22 R21 K50 ["TotalHeight"]
+  SETTABLEKS R8 R21 K62 ["CommentEnabled"]
+  SETTABLEKS R9 R21 K63 ["CommentOn"]
+  SETTABLEKS R13 R21 K64 ["ToggleCallback"]
+  NAMECALL R22 R14 K58 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K3 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K27 ["Comment"]
+  CALL R15 3 -1
+  RETURN R15 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["Roact"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K8 ["ContextServices"]
+  GETTABLEKS R5 R4 K9 ["withContext"]
+  GETTABLEKS R6 R2 K10 ["UI"]
+  GETTABLEKS R7 R6 K11 ["ScrollingFrame"]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Util"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R8 K14 ["LayoutOrderIterator"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R8 K15 ["Constants"]
+  CALL R10 1 1
+  GETTABLEKS R13 R0 K12 ["Src"]
+  GETTABLEKS R12 R13 K16 ["Components"]
+  GETTABLEKS R11 R12 K17 ["ConvertToPackageWindow"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R13 R11 K18 ["ConfigTextField"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R14 R11 K19 ["ConfigAccess"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R11 K20 ["ConfigComment"]
+  CALL R14 1 1
+  GETTABLEKS R15 R3 K21 ["PureComponent"]
+  LOADK R17 K22 ["PublishAsset"]
+  NAMECALL R15 R15 K23 ["extend"]
+  CALL R15 2 1
+  DUPCLOSURE R16 K24 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R16 R15 K25 ["init"]
+  DUPCLOSURE R16 K26 [PROTO_2]
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  SETTABLEKS R16 R15 K27 ["render"]
+  MOVE R16 R5
+  DUPTABLE R17 K30 [{"Localization", "Stylizer"}]
+  GETTABLEKS R18 R4 K28 ["Localization"]
+  SETTABLEKS R18 R17 K28 ["Localization"]
+  GETTABLEKS R18 R4 K29 ["Stylizer"]
+  SETTABLEKS R18 R17 K29 ["Stylizer"]
+  CALL R16 1 1
+  MOVE R17 R15
+  CALL R16 1 1
+  MOVE R15 R16
+  RETURN R15 1

@@ -1,0 +1,61 @@
+PROTO_0:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["complete"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["tutorial"]
+  GETTABLEKS R1 R2 K1 ["dataModel"]
+  LOADK R4 K2 ["Workspace"]
+  NAMECALL R2 R1 K3 ["GetService"]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  JUMPIFNOT R4 [+3]
+  GETTABLEKS R3 R2 K4 ["CurrentCamera"]
+  JUMP [+2]
+  GETTABLEKS R3 R2 K5 ["Camera"]
+  GETTABLEKS R4 R3 K6 ["Changed"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  NAMECALL R4 R4 K7 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K8 ["connection"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["connection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["TutorialStep"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Flags"]
+  GETTABLEKS R3 R4 K8 ["getFFlagTutorialsTourWidget"]
+  CALL R2 1 1
+  CALL R2 0 1
+  GETTABLEKS R3 R1 K9 ["extend"]
+  LOADK R4 K10 ["Focus"]
+  CALL R3 1 1
+  LOADB R4 1
+  SETTABLEKS R4 R3 K11 ["showComplete"]
+  DUPCLOSURE R4 K12 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K13 ["bind"]
+  DUPCLOSURE R4 K14 [PROTO_2]
+  SETTABLEKS R4 R3 K15 ["unbind"]
+  RETURN R3 1

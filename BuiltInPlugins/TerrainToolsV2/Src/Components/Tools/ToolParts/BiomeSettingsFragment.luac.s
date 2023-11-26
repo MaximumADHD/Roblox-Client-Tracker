@@ -1,0 +1,126 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["LayoutOrder"]
+  ORK R2 R3 K2 [1]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["createFragment"]
+  DUPTABLE R4 K8 [{"BiomeSelect", "BiomeSize", "CavesToggle"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K12 [{"LayoutOrder", "biomeSelection", "selectBiome"}]
+  SETTABLEKS R2 R7 K3 ["LayoutOrder"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K10 ["biomeSelection"]
+  SETTABLEKS R8 R7 K10 ["biomeSelection"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K11 ["selectBiome"]
+  SETTABLEKS R8 R7 K11 ["selectBiome"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K5 ["BiomeSelect"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K19 [{"LayoutOrder", "Text", "Min", "Max", "SnapIncrement", "Value", "SetValue"}]
+  ADDK R8 R2 K2 [1]
+  SETTABLEKS R8 R7 K3 ["LayoutOrder"]
+  LOADK R10 K20 ["Generate"]
+  LOADK R11 K6 ["BiomeSize"]
+  NAMECALL R8 R1 K21 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K13 ["Text"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K22 ["MIN_BIOME_SIZE"]
+  SETTABLEKS R8 R7 K14 ["Min"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K23 ["MAX_BIOME_SIZE"]
+  SETTABLEKS R8 R7 K15 ["Max"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K24 ["BIOME_SNAP_INCREMENT"]
+  SETTABLEKS R8 R7 K16 ["SnapIncrement"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K25 ["biomeSize"]
+  SETTABLEKS R8 R7 K17 ["Value"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K26 ["setBiomeSize"]
+  SETTABLEKS R8 R7 K18 ["SetValue"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K6 ["BiomeSize"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["createElement"]
+  GETUPVAL R6 4
+  DUPTABLE R7 K29 [{"LayoutOrder", "Text", "IsOn", "SetIsOn"}]
+  ADDK R8 R2 K30 [3]
+  SETTABLEKS R8 R7 K3 ["LayoutOrder"]
+  LOADK R10 K20 ["Generate"]
+  LOADK R11 K31 ["Caves"]
+  NAMECALL R8 R1 K21 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K13 ["Text"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K32 ["haveCaves"]
+  SETTABLEKS R8 R7 K27 ["IsOn"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K33 ["setHaveCaves"]
+  SETTABLEKS R8 R7 K28 ["SetIsOn"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K7 ["CavesToggle"]
+  CALL R3 1 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K2 ["Parent"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R5 K10 ["BiomeSelector"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R5 K11 ["LabeledSlider"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R5 K12 ["LabeledToggle"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K13 ["Src"]
+  GETTABLEKS R11 R12 K14 ["Util"]
+  GETTABLEKS R10 R11 K15 ["Constants"]
+  CALL R9 1 1
+  GETTABLEKS R10 R2 K16 ["PureComponent"]
+  LOADK R12 K17 ["BiomeSettingsFragment"]
+  NAMECALL R10 R10 K18 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K19 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  SETTABLEKS R11 R10 K20 ["render"]
+  MOVE R11 R4
+  DUPTABLE R12 K22 [{"Localization"}]
+  GETTABLEKS R13 R3 K21 ["Localization"]
+  SETTABLEKS R13 R12 K21 ["Localization"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

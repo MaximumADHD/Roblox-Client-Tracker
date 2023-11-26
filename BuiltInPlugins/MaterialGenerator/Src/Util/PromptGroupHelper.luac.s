@@ -1,0 +1,103 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["create"]
+  MOVE R2 R0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["promptText"]
+  GETUPVAL R4 2
+  CALL R1 3 1
+  GETUPVAL R3 2
+  GETTABLEKS R4 R1 K2 ["Name"]
+  FASTCALL2 TABLE_INSERT R3 R4 [+3]
+  GETIMPORT R2 K5 [table.insert]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_1:
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  DUPTABLE R3 K4 [{"promptText", "filteredPromptText", "initialImageId", "materialVariants"}]
+  GETTABLEKS R4 R0 K0 ["promptText"]
+  SETTABLEKS R4 R3 K0 ["promptText"]
+  GETTABLEKS R4 R0 K1 ["filteredPromptText"]
+  SETTABLEKS R4 R3 K1 ["filteredPromptText"]
+  GETTABLEKS R4 R0 K2 ["initialImageId"]
+  SETTABLEKS R4 R3 K2 ["initialImageId"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["map"]
+  GETTABLEKS R5 R0 K6 ["imageIds"]
+  MOVE R6 R2
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K3 ["materialVariants"]
+  RETURN R3 1
+
+PROTO_2:
+  JUMPIFNOT R0 [+17]
+  JUMPIFNOT R1 [+16]
+  LOADB R2 0
+  GETTABLEKS R3 R0 K0 ["promptText"]
+  GETTABLEKS R4 R1 K0 ["promptText"]
+  JUMPIFNOTEQ R3 R4 [+9]
+  GETTABLEKS R3 R0 K1 ["initialImageId"]
+  GETTABLEKS R4 R1 K1 ["initialImageId"]
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+  LOADB R2 0
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  JUMPIFNOTEQ R0 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K2 [{"materialVariants"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["filter"]
+  GETTABLEKS R6 R0 K1 ["materialVariants"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R1
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K1 ["materialVariants"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["MaterialGenerator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["MaterialVariantHelper"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  CALL R3 1 1
+  NEWTABLE R4 4 0
+  DUPCLOSURE R5 K12 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K13 ["create"]
+  DUPCLOSURE R5 K14 [PROTO_2]
+  SETTABLEKS R5 R4 K15 ["equalPrompts"]
+  DUPCLOSURE R5 K16 [PROTO_4]
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K17 ["removeMaterial"]
+  RETURN R4 1

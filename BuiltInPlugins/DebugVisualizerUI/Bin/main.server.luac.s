@@ -1,0 +1,254 @@
+PROTO_0:
+  GETIMPORT R2 K1 [settings]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K2 ["Physics"]
+  GETTABLEKS R0 R1 K3 ["AreTimestepsShown"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 0
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K6 ["CoreGui"]
+  NAMECALL R2 R2 K7 ["GetService"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K8 ["Parent"]
+  RETURN R0 0
+  GETUPVAL R1 0
+  LOADNIL R2
+  SETTABLEKS R2 R1 K8 ["Parent"]
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R2 K2 [Instance.new]
+  LOADK R3 K3 ["Frame"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [UDim2.new]
+  LOADN R4 1
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 15
+  CALL R3 4 1
+  SETTABLEKS R3 R2 K6 ["Size"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K7 ["BackgroundTransparency"]
+  GETIMPORT R3 K2 [Instance.new]
+  LOADK R4 K8 ["UIListLayout"]
+  CALL R3 1 1
+  SETTABLEKS R2 R3 K9 ["Parent"]
+  LOADK R4 K10 ["Horizontal"]
+  SETTABLEKS R4 R3 K11 ["FillDirection"]
+  LOADK R4 K12 ["Center"]
+  SETTABLEKS R4 R3 K13 ["HorizontalAlignment"]
+  LOADK R4 K12 ["Center"]
+  SETTABLEKS R4 R3 K14 ["VerticalAlignment"]
+  GETIMPORT R4 K2 [Instance.new]
+  LOADK R5 K3 ["Frame"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 15
+  LOADN R8 0
+  LOADN R9 15
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K6 ["Size"]
+  SETTABLEKS R2 R4 K9 ["Parent"]
+  SETTABLEKS R0 R4 K15 ["BackgroundColor3"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K16 ["BorderSizePixel"]
+  GETIMPORT R5 K2 [Instance.new]
+  LOADK R6 K17 ["TextLabel"]
+  CALL R5 1 1
+  SETTABLEKS R1 R5 K18 ["Text"]
+  SETTABLEKS R2 R5 K9 ["Parent"]
+  GETIMPORT R6 K5 [UDim2.new]
+  LOADN R7 1
+  LOADN R8 241
+  LOADN R9 0
+  LOADN R10 15
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K6 ["Size"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K7 ["BackgroundTransparency"]
+  GETIMPORT R6 K20 [Color3.new]
+  LOADN R7 1
+  LOADN R8 1
+  LOADN R9 1
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K21 ["TextColor3"]
+  RETURN R2 1
+
+PROTO_2:
+  GETIMPORT R0 K2 [Instance.new]
+  LOADK R1 K3 ["ScreenGui"]
+  CALL R0 1 1
+  SETUPVAL R0 0
+  GETUPVAL R0 0
+  LOADK R1 K4 ["AdaptiveTimeSteppingLegend"]
+  SETTABLEKS R1 R0 K5 ["Name"]
+  GETUPVAL R0 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K6 ["Enabled"]
+  GETIMPORT R0 K2 [Instance.new]
+  LOADK R1 K7 ["Frame"]
+  CALL R0 1 1
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K8 ["Parent"]
+  GETIMPORT R1 K10 [UDim2.new]
+  LOADN R2 0
+  LOADN R3 120
+  LOADN R4 0
+  LOADN R5 80
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K11 ["Size"]
+  GETIMPORT R1 K10 [UDim2.new]
+  LOADN R2 0
+  LOADN R3 0
+  LOADN R4 0
+  LOADN R5 0
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K12 ["Position"]
+  GETIMPORT R1 K14 [Color3.new]
+  LOADN R2 0
+  LOADN R3 0
+  LOADN R4 0
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K15 ["BackgroundColor3"]
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K16 ["TextLabel"]
+  CALL R1 1 1
+  SETTABLEKS R0 R1 K8 ["Parent"]
+  GETIMPORT R2 K10 [UDim2.new]
+  LOADN R3 1
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 25
+  CALL R2 4 1
+  SETTABLEKS R2 R1 K11 ["Size"]
+  GETIMPORT R2 K14 [Color3.new]
+  LOADN R3 1
+  LOADN R4 1
+  LOADN R5 1
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K17 ["TextColor3"]
+  GETUPVAL R2 1
+  LOADK R3 K18 ["Studio.DebugVisualizerUI.AdaptiveTimesteppingLegend.LegendLabel"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K19 ["Text"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K20 ["BackgroundTransparency"]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K21 ["LayoutOrder"]
+  GETIMPORT R2 K2 [Instance.new]
+  LOADK R3 K22 ["UIListLayout"]
+  CALL R2 1 1
+  SETTABLEKS R0 R2 K8 ["Parent"]
+  LOADK R3 K23 ["Vertical"]
+  SETTABLEKS R3 R2 K24 ["FillDirection"]
+  LOADK R3 K25 ["Center"]
+  SETTABLEKS R3 R2 K26 ["HorizontalAlignment"]
+  LOADK R3 K25 ["Center"]
+  SETTABLEKS R3 R2 K27 ["VerticalAlignment"]
+  LOADK R3 K21 ["LayoutOrder"]
+  SETTABLEKS R3 R2 K28 ["SortOrder"]
+  GETUPVAL R3 2
+  GETIMPORT R4 K14 [Color3.new]
+  LOADN R5 255
+  LOADN R6 0
+  LOADN R7 0
+  CALL R4 3 1
+  LOADK R5 K29 ["240hz"]
+  CALL R3 2 1
+  SETTABLEKS R0 R3 K8 ["Parent"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K21 ["LayoutOrder"]
+  GETUPVAL R4 2
+  GETIMPORT R5 K31 [Color3.fromRGB]
+  LOADN R6 255
+  LOADN R7 198
+  LOADN R8 0
+  CALL R5 3 1
+  LOADK R6 K32 ["120hz"]
+  CALL R4 2 1
+  SETTABLEKS R0 R4 K8 ["Parent"]
+  LOADN R5 2
+  SETTABLEKS R5 R4 K21 ["LayoutOrder"]
+  GETUPVAL R5 2
+  GETIMPORT R6 K31 [Color3.fromRGB]
+  LOADN R7 64
+  LOADN R8 166
+  LOADN R9 81
+  CALL R6 3 1
+  LOADK R7 K33 ["60hz"]
+  CALL R5 2 1
+  SETTABLEKS R0 R5 K8 ["Parent"]
+  LOADN R6 3
+  SETTABLEKS R6 R5 K21 ["LayoutOrder"]
+  GETIMPORT R6 K35 [plugin]
+  LOADK R7 K36 ["DebugVisualizerUI"]
+  SETTABLEKS R7 R6 K5 ["Name"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["Parent"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ShowDebugVisualizerUI"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ShowDebugVisualizerUI"]
+  NAMECALL R0 R0 K4 ["GetFastFlag"]
+  CALL R0 2 1
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  LOADNIL R1
+  GETIMPORT R4 K6 [script]
+  GETTABLEKS R3 R4 K7 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Parent"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R2 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["tr"]
+  CALL R3 1 1
+  NEWCLOSURE R4 P0
+  CAPTURE REF R1
+  DUPCLOSURE R5 K12 [PROTO_1]
+  NEWCLOSURE R6 P2
+  CAPTURE REF R1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  GETIMPORT R8 K14 [plugin]
+  GETTABLEKS R7 R8 K15 ["Unloading"]
+  NEWCLOSURE R9 P3
+  CAPTURE REF R1
+  NAMECALL R7 R7 K16 ["Connect"]
+  CALL R7 2 0
+  GETIMPORT R8 K18 [settings]
+  CALL R8 0 1
+  GETTABLEKS R7 R8 K19 ["Physics"]
+  LOADK R9 K20 ["AreTimestepsShown"]
+  NAMECALL R7 R7 K21 ["GetPropertyChangedSignal"]
+  CALL R7 2 1
+  MOVE R9 R4
+  NAMECALL R7 R7 K16 ["Connect"]
+  CALL R7 2 0
+  MOVE R7 R6
+  CALL R7 0 0
+  GETIMPORT R9 K18 [settings]
+  CALL R9 0 1
+  GETTABLEKS R8 R9 K19 ["Physics"]
+  GETTABLEKS R7 R8 K20 ["AreTimestepsShown"]
+  JUMPIFNOT R7 [+9]
+  GETIMPORT R8 K1 [game]
+  LOADK R10 K22 ["CoreGui"]
+  NAMECALL R8 R8 K23 ["GetService"]
+  CALL R8 2 1
+  SETTABLEKS R8 R1 K7 ["Parent"]
+  JUMP [+3]
+  LOADNIL R8
+  SETTABLEKS R8 R1 K7 ["Parent"]
+  CLOSEUPVALS R1
+  RETURN R0 0

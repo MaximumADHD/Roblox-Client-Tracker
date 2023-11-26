@@ -1,0 +1,602 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  RETURN R0 0
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
+  RETURN R0 0
+
+PROTO_4:
+  RETURN R0 0
+
+PROTO_5:
+  RETURN R0 0
+
+PROTO_6:
+  RETURN R0 0
+
+PROTO_7:
+  RETURN R0 0
+
+PROTO_8:
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["state"]
+  GETTABLEKS R2 R1 K2 ["isDragging"]
+  JUMPIF R2 [+3]
+  GETTABLEKS R2 R1 K3 ["isDragStarting"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K5 [{"isHovered"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K4 ["isHovered"]
+  NAMECALL R2 R2 K6 ["setState"]
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K7 ["OnHover"]
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["state"]
+  GETTABLEKS R2 R1 K2 ["isDragging"]
+  JUMPIF R2 [+3]
+  GETTABLEKS R2 R1 K3 ["isDragStarting"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K5 [{"isHovered"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K4 ["isHovered"]
+  NAMECALL R2 R2 K6 ["setState"]
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K7 ["OnHoverEnd"]
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["state"]
+  GETTABLEKS R5 R3 K2 ["isDragging"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R5 R3 K3 ["mousePos"]
+  GETTABLEKS R6 R3 K4 ["mouseOffset"]
+  ADD R4 R5 R6
+  JUMP [+2]
+  GETTABLEKS R4 R2 K5 ["AbsolutePosition"]
+  GETTABLEKS R5 R1 K6 ["UserInputType"]
+  GETIMPORT R6 K9 [Enum.UserInputType.MouseButton1]
+  JUMPIFNOTEQ R5 R6 [+54]
+  GETTABLEKS R5 R3 K2 ["isDragging"]
+  JUMPIF R5 [+3]
+  GETTABLEKS R5 R3 K10 ["isDragStarting"]
+  JUMPIFNOT R5 [+1]
+  RETURN R0 0
+  GETIMPORT R5 K13 [Enum.UserInputState.Cancel]
+  SETTABLEKS R5 R1 K11 ["UserInputState"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K14 ["DoubleClickDetector"]
+  NAMECALL R5 R5 K15 ["isDoubleClick"]
+  CALL R5 1 1
+  JUMPIFNOT R5 [+4]
+  GETTABLEKS R5 R2 K16 ["OnDoubleClicked"]
+  CALL R5 0 0
+  RETURN R0 0
+  GETIMPORT R5 K19 [Vector2.new]
+  GETTABLEKS R7 R1 K20 ["Position"]
+  GETTABLEKS R6 R7 K21 ["X"]
+  GETTABLEKS R8 R1 K20 ["Position"]
+  GETTABLEKS R7 R8 K22 ["Y"]
+  CALL R5 2 1
+  GETUPVAL R6 0
+  DUPTABLE R8 K24 [{"isDragStarting", "mouseStart", "mouseOffset", "mousePos"}]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K10 ["isDragStarting"]
+  SETTABLEKS R5 R8 K23 ["mouseStart"]
+  SUB R9 R4 R5
+  SETTABLEKS R9 R8 K4 ["mouseOffset"]
+  SETTABLEKS R5 R8 K3 ["mousePos"]
+  NAMECALL R6 R6 K25 ["setState"]
+  CALL R6 2 0
+  GETTABLEKS R6 R2 K26 ["OnSelected"]
+  MOVE R7 R5
+  CALL R6 1 0
+  RETURN R0 0
+  GETUPVAL R5 0
+  DUPTABLE R7 K27 [{"mousePos"}]
+  GETIMPORT R8 K19 [Vector2.new]
+  GETTABLEKS R10 R1 K20 ["Position"]
+  GETTABLEKS R9 R10 K21 ["X"]
+  GETTABLEKS R11 R1 K20 ["Position"]
+  GETTABLEKS R10 R11 K22 ["Y"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K3 ["mousePos"]
+  NAMECALL R5 R5 K25 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["state"]
+  GETTABLEKS R5 R3 K2 ["isDragging"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R5 R3 K3 ["mousePos"]
+  GETTABLEKS R6 R3 K4 ["mouseOffset"]
+  ADD R4 R5 R6
+  JUMP [+2]
+  GETTABLEKS R4 R2 K5 ["AbsolutePosition"]
+  GETTABLEKS R5 R1 K6 ["UserInputType"]
+  GETIMPORT R6 K9 [Enum.UserInputType.MouseButton1]
+  JUMPIFNOTEQ R5 R6 [+48]
+  GETTABLEKS R5 R3 K2 ["isDragging"]
+  JUMPIF R5 [+4]
+  GETTABLEKS R5 R3 K10 ["isDragStarting"]
+  JUMPIF R5 [+1]
+  RETURN R0 0
+  GETIMPORT R5 K13 [Vector2.new]
+  GETTABLEKS R7 R1 K14 ["Position"]
+  GETTABLEKS R6 R7 K15 ["X"]
+  GETTABLEKS R8 R1 K14 ["Position"]
+  GETTABLEKS R7 R8 K16 ["Y"]
+  CALL R5 2 1
+  GETUPVAL R6 0
+  DUPTABLE R8 K18 [{"isDragging", "isDragStarting", "mouseStart", "mouseOffset", "mousePos"}]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K2 ["isDragging"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K10 ["isDragStarting"]
+  GETIMPORT R9 K20 [Vector2.zero]
+  SETTABLEKS R9 R8 K17 ["mouseStart"]
+  GETIMPORT R9 K20 [Vector2.zero]
+  SETTABLEKS R9 R8 K4 ["mouseOffset"]
+  GETIMPORT R9 K20 [Vector2.zero]
+  SETTABLEKS R9 R8 K3 ["mousePos"]
+  NAMECALL R6 R6 K21 ["setState"]
+  CALL R6 2 0
+  GETTABLEKS R6 R2 K22 ["OnDragEnd"]
+  GETTABLEKS R7 R2 K5 ["AbsolutePosition"]
+  MOVE R8 R4
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["state"]
+  GETTABLEKS R3 R0 K2 ["UserInputType"]
+  GETIMPORT R4 K5 [Enum.UserInputType.MouseMovement]
+  JUMPIFNOTEQ R3 R4 [+36]
+  GETUPVAL R3 0
+  DUPTABLE R5 K7 [{"mousePos"}]
+  GETIMPORT R6 K10 [Vector2.new]
+  GETTABLEKS R8 R0 K11 ["Position"]
+  GETTABLEKS R7 R8 K12 ["X"]
+  GETTABLEKS R9 R0 K11 ["Position"]
+  GETTABLEKS R8 R9 K13 ["Y"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["mousePos"]
+  NAMECALL R3 R3 K14 ["setState"]
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K15 ["OnHoverMoved"]
+  JUMPIFNOT R3 [+14]
+  GETTABLEKS R3 R1 K15 ["OnHoverMoved"]
+  GETIMPORT R4 K10 [Vector2.new]
+  GETTABLEKS R6 R0 K11 ["Position"]
+  GETTABLEKS R5 R6 K12 ["X"]
+  GETTABLEKS R7 R0 K11 ["Position"]
+  GETTABLEKS R6 R7 K13 ["Y"]
+  CALL R4 2 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_14:
+  DUPTABLE R1 K6 [{"isHovered", "isDragging", "isDragStarting", "mouseStart", "mousePos", "mouseOffset"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["isHovered"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["isDragging"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K2 ["isDragStarting"]
+  GETIMPORT R2 K9 [Vector2.zero]
+  SETTABLEKS R2 R1 K3 ["mouseStart"]
+  GETIMPORT R2 K9 [Vector2.zero]
+  SETTABLEKS R2 R1 K4 ["mousePos"]
+  GETIMPORT R2 K9 [Vector2.zero]
+  SETTABLEKS R2 R1 K5 ["mouseOffset"]
+  SETTABLEKS R1 R0 K10 ["state"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K11 ["new"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K12 ["DoubleClickDetector"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K13 ["onMouseEnter"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K14 ["onMouseLeave"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K15 ["onInputBegan"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K16 ["onInputEnded"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K17 ["onInputChanged"]
+  RETURN R0 0
+
+PROTO_15:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R2 K2 ["isDragStarting"]
+  JUMPIFNOT R3 [+27]
+  GETTABLEKS R4 R2 K3 ["mouseStart"]
+  GETTABLEKS R5 R2 K4 ["mousePos"]
+  SUB R3 R4 R5
+  GETTABLEKS R4 R3 K5 ["Magnitude"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K6 ["DragEpsilon"]
+  JUMPIFNOTLT R5 R4 [+16]
+  GETTABLEKS R4 R1 K7 ["OnDragStart"]
+  GETTABLEKS R5 R2 K4 ["mousePos"]
+  CALL R4 1 0
+  DUPTABLE R6 K9 [{"isDragStarting", "isDragging"}]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K2 ["isDragStarting"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K8 ["isDragging"]
+  NAMECALL R4 R0 K10 ["setState"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["Stylizer"]
+  GETTABLEKS R5 R2 K3 ["isDragging"]
+  JUMPIFNOT R5 [+4]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["Selected"]
+  JUMP [+15]
+  GETTABLEKS R5 R1 K5 ["IsSelected"]
+  JUMPIFNOT R5 [+4]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["Selected"]
+  JUMP [+8]
+  GETTABLEKS R5 R2 K6 ["isHovered"]
+  JUMPIFNOT R5 [+4]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["Hover"]
+  JUMP [+1]
+  LOADNIL R4
+  JUMPIFEQKNIL R4 [+11]
+  GETTABLE R5 R3 R4
+  JUMPIFEQKNIL R5 [+8]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["join"]
+  MOVE R6 R3
+  GETTABLE R7 R3 R4
+  CALL R5 2 1
+  MOVE R3 R5
+  GETUPVAL R5 2
+  GETTABLEKS R6 R3 K9 ["Disabled"]
+  GETTABLEKS R7 R1 K9 ["Disabled"]
+  CALL R5 2 1
+  GETTABLEKS R6 R3 K10 ["BackgroundColor"]
+  GETTABLEKS R7 R1 K11 ["AbsolutePosition"]
+  GETTABLEKS R8 R3 K12 ["BackgroundImage"]
+  GETUPVAL R9 2
+  GETTABLEKS R10 R1 K13 ["AbsoluteSize"]
+  GETTABLEKS R11 R3 K14 ["PointSize"]
+  CALL R9 2 1
+  GETUPVAL R10 2
+  GETTABLEKS R11 R1 K15 ["Size"]
+  GETIMPORT R12 K18 [UDim2.fromOffset]
+  GETTABLEKS R13 R9 K19 ["X"]
+  GETTABLEKS R14 R9 K20 ["Y"]
+  CALL R12 2 -1
+  CALL R10 -1 1
+  GETTABLEKS R11 R3 K21 ["StrokeWidth"]
+  JUMPIFNOTEQKNIL R11 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  GETTABLEKS R13 R1 K5 ["IsSelected"]
+  JUMPIFNOT R13 [+6]
+  GETTABLEKS R13 R3 K22 ["SelectedColor"]
+  JUMPIFEQKNIL R13 [+3]
+  GETTABLEKS R6 R3 K22 ["SelectedColor"]
+  GETTABLEKS R13 R2 K3 ["isDragging"]
+  JUMPIFNOT R13 [+21]
+  GETTABLEKS R13 R3 K23 ["DragColor"]
+  JUMPIFEQKNIL R13 [+3]
+  GETTABLEKS R6 R3 K23 ["DragColor"]
+  GETTABLEKS R14 R2 K24 ["mousePos"]
+  GETTABLEKS R15 R2 K25 ["mouseOffset"]
+  ADD R13 R14 R15
+  GETTABLEKS R14 R1 K26 ["FollowCursorOnDrag"]
+  JUMPIFNOT R14 [+1]
+  MOVE R7 R13
+  GETTABLEKS R14 R1 K27 ["OnDragMoved"]
+  GETTABLEKS R15 R1 K11 ["AbsolutePosition"]
+  MOVE R16 R13
+  CALL R14 2 0
+  NEWTABLE R13 0 0
+  GETTABLEKS R14 R1 K28 ["children"]
+  JUMPIFEQKNIL R14 [+3]
+  GETTABLEKS R13 R1 K28 ["children"]
+  JUMPIFEQKNIL R11 [+35]
+  MOVE R15 R13
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K29 ["createElement"]
+  LOADK R17 K30 ["Frame"]
+  DUPTABLE R18 K32 [{"BackgroundTransparency", "Size"}]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K31 ["BackgroundTransparency"]
+  SETTABLEKS R10 R18 K15 ["Size"]
+  NEWTABLE R19 0 1
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K29 ["createElement"]
+  LOADK R21 K33 ["UIStroke"]
+  DUPTABLE R22 K36 [{"Thickness", "Color"}]
+  GETTABLEKS R23 R3 K21 ["StrokeWidth"]
+  SETTABLEKS R23 R22 K34 ["Thickness"]
+  GETTABLEKS R23 R3 K37 ["StrokeColor"]
+  SETTABLEKS R23 R22 K35 ["Color"]
+  CALL R20 2 -1
+  SETLIST R19 R20 4294967295 [1]
+  CALL R16 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R14 K40 [table.insert]
+  CALL R14 -1 0
+  LOADNIL R14
+  JUMPIFNOT R5 [+85]
+  JUMPIF R8 [+35]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K29 ["createElement"]
+  LOADK R16 K30 ["Frame"]
+  DUPTABLE R17 K46 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "Active", "ZIndex"}]
+  GETTABLEKS R18 R3 K41 ["AnchorPoint"]
+  SETTABLEKS R18 R17 K41 ["AnchorPoint"]
+  GETIMPORT R18 K48 [UDim2.new]
+  LOADN R19 0
+  GETTABLEKS R20 R7 K19 ["X"]
+  LOADN R21 0
+  GETTABLEKS R22 R7 K20 ["Y"]
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K42 ["Position"]
+  SETTABLEKS R10 R17 K15 ["Size"]
+  SETTABLEKS R6 R17 K43 ["BackgroundColor3"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K44 ["Active"]
+  GETTABLEKS R18 R1 K45 ["ZIndex"]
+  SETTABLEKS R18 R17 K45 ["ZIndex"]
+  MOVE R18 R13
+  CALL R15 3 1
+  MOVE R14 R15
+  RETURN R14 1
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K29 ["createElement"]
+  LOADK R16 K49 ["ImageLabel"]
+  DUPTABLE R17 K53 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "Image", "Active", "ZIndex", "BackgroundTransparency", "ImageTransparency", "ScaleType"}]
+  GETTABLEKS R18 R3 K41 ["AnchorPoint"]
+  SETTABLEKS R18 R17 K41 ["AnchorPoint"]
+  GETIMPORT R18 K48 [UDim2.new]
+  LOADN R19 0
+  GETTABLEKS R20 R7 K19 ["X"]
+  LOADN R21 0
+  GETTABLEKS R22 R7 K20 ["Y"]
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K42 ["Position"]
+  SETTABLEKS R10 R17 K15 ["Size"]
+  SETTABLEKS R6 R17 K43 ["BackgroundColor3"]
+  SETTABLEKS R8 R17 K50 ["Image"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K44 ["Active"]
+  GETTABLEKS R18 R1 K45 ["ZIndex"]
+  SETTABLEKS R18 R17 K45 ["ZIndex"]
+  GETTABLEKS R18 R3 K31 ["BackgroundTransparency"]
+  SETTABLEKS R18 R17 K31 ["BackgroundTransparency"]
+  GETTABLEKS R18 R3 K51 ["ImageTransparency"]
+  SETTABLEKS R18 R17 K51 ["ImageTransparency"]
+  GETIMPORT R18 K56 [Enum.ScaleType.Crop]
+  SETTABLEKS R18 R17 K52 ["ScaleType"]
+  MOVE R18 R13
+  CALL R15 3 1
+  MOVE R14 R15
+  RETURN R14 1
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K29 ["createElement"]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K57 ["Fragment"]
+  NEWTABLE R17 0 0
+  DUPTABLE R18 K60 [{"Point", "InputListener"}]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K29 ["createElement"]
+  LOADK R20 K61 ["ImageButton"]
+  NEWTABLE R21 16 0
+  GETTABLEKS R22 R3 K41 ["AnchorPoint"]
+  SETTABLEKS R22 R21 K41 ["AnchorPoint"]
+  GETIMPORT R22 K48 [UDim2.new]
+  LOADN R23 0
+  GETTABLEKS R24 R7 K19 ["X"]
+  LOADN R25 0
+  GETTABLEKS R26 R7 K20 ["Y"]
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K42 ["Position"]
+  SETTABLEKS R10 R21 K15 ["Size"]
+  SETTABLEKS R6 R21 K43 ["BackgroundColor3"]
+  SETTABLEKS R8 R21 K50 ["Image"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K44 ["Active"]
+  GETTABLEKS R22 R1 K45 ["ZIndex"]
+  SETTABLEKS R22 R21 K45 ["ZIndex"]
+  GETTABLEKS R22 R3 K31 ["BackgroundTransparency"]
+  SETTABLEKS R22 R21 K31 ["BackgroundTransparency"]
+  GETTABLEKS R22 R3 K51 ["ImageTransparency"]
+  SETTABLEKS R22 R21 K51 ["ImageTransparency"]
+  GETIMPORT R22 K56 [Enum.ScaleType.Crop]
+  SETTABLEKS R22 R21 K52 ["ScaleType"]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K62 ["Event"]
+  GETTABLEKS R22 R23 K63 ["MouseEnter"]
+  GETTABLEKS R23 R0 K64 ["onMouseEnter"]
+  SETTABLE R23 R21 R22
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K62 ["Event"]
+  GETTABLEKS R22 R23 K65 ["MouseLeave"]
+  GETTABLEKS R23 R0 K66 ["onMouseLeave"]
+  SETTABLE R23 R21 R22
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K62 ["Event"]
+  GETTABLEKS R22 R23 K67 ["InputBegan"]
+  GETTABLEKS R23 R0 K68 ["onInputBegan"]
+  SETTABLE R23 R21 R22
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K62 ["Event"]
+  GETTABLEKS R22 R23 K69 ["InputEnded"]
+  GETTABLEKS R23 R0 K70 ["onInputEnded"]
+  SETTABLE R23 R21 R22
+  MOVE R22 R13
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K58 ["Point"]
+  GETTABLEKS R20 R2 K3 ["isDragging"]
+  JUMPIF R20 [+6]
+  GETTABLEKS R20 R2 K71 ["isDragStarting"]
+  JUMPIF R20 [+3]
+  GETTABLEKS R19 R1 K72 ["OnHoverMoved"]
+  JUMPIFNOT R19 [+15]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K29 ["createElement"]
+  GETUPVAL R20 4
+  DUPTABLE R21 K75 [{"signal", "callback"}]
+  GETUPVAL R23 5
+  GETTABLEKS R22 R23 K76 ["InputChanged"]
+  SETTABLEKS R22 R21 K73 ["signal"]
+  GETTABLEKS R22 R0 K77 ["onInputChanged"]
+  SETTABLEKS R22 R21 K74 ["callback"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K59 ["InputListener"]
+  CALL R15 3 1
+  MOVE R14 R15
+  RETURN R14 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["UserInputService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Types"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K11 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Framework"]
+  CALL R4 1 1
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R7 R1 K11 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Dash"]
+  CALL R5 1 1
+  GETTABLEKS R6 R4 K15 ["ContextServices"]
+  GETTABLEKS R7 R6 K16 ["withContext"]
+  GETTABLEKS R9 R4 K17 ["Style"]
+  GETTABLEKS R8 R9 K18 ["Stylizer"]
+  GETTABLEKS R9 R4 K19 ["Util"]
+  GETTABLEKS R10 R9 K20 ["DoubleClickDetector"]
+  GETTABLEKS R11 R9 K21 ["prioritize"]
+  GETTABLEKS R12 R9 K22 ["StyleModifier"]
+  GETIMPORT R13 K8 [require]
+  GETTABLEKS R16 R1 K9 ["Src"]
+  GETTABLEKS R15 R16 K23 ["Resources"]
+  GETTABLEKS R14 R15 K24 ["Constants"]
+  CALL R13 1 1
+  GETTABLEKS R15 R1 K9 ["Src"]
+  GETTABLEKS R14 R15 K25 ["Components"]
+  GETIMPORT R15 K8 [require]
+  GETTABLEKS R16 R14 K26 ["SignalListener"]
+  CALL R15 1 1
+  GETTABLEKS R16 R3 K27 ["Component"]
+  LOADK R18 K28 ["DraggablePoint"]
+  NAMECALL R16 R16 K29 ["extend"]
+  CALL R16 2 1
+  DUPTABLE R17 K43 [{"Style", "ZIndex", "AbsolutePosition", "FollowCursorOnDrag", "OnSelected", "OnMouse1Down", "OnHover", "OnHoverMoved", "OnHoverEnd", "OnDeselected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnDoubleClicked"}]
+  LOADK R18 K44 ["ControlPoint"]
+  SETTABLEKS R18 R17 K17 ["Style"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K30 ["ZIndex"]
+  GETIMPORT R18 K47 [Vector2.new]
+  LOADN R19 0
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K31 ["AbsolutePosition"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K32 ["FollowCursorOnDrag"]
+  DUPCLOSURE R18 K48 [PROTO_0]
+  SETTABLEKS R18 R17 K33 ["OnSelected"]
+  DUPCLOSURE R18 K49 [PROTO_1]
+  SETTABLEKS R18 R17 K34 ["OnMouse1Down"]
+  DUPCLOSURE R18 K50 [PROTO_2]
+  SETTABLEKS R18 R17 K35 ["OnHover"]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K36 ["OnHoverMoved"]
+  DUPCLOSURE R18 K51 [PROTO_3]
+  SETTABLEKS R18 R17 K37 ["OnHoverEnd"]
+  DUPCLOSURE R18 K52 [PROTO_4]
+  SETTABLEKS R18 R17 K38 ["OnDeselected"]
+  DUPCLOSURE R18 K53 [PROTO_5]
+  SETTABLEKS R18 R17 K39 ["OnDragStart"]
+  DUPCLOSURE R18 K54 [PROTO_6]
+  SETTABLEKS R18 R17 K40 ["OnDragMoved"]
+  DUPCLOSURE R18 K55 [PROTO_7]
+  SETTABLEKS R18 R17 K41 ["OnDragEnd"]
+  DUPCLOSURE R18 K56 [PROTO_8]
+  SETTABLEKS R18 R17 K42 ["OnDoubleClicked"]
+  SETTABLEKS R17 R16 K57 ["defaultProps"]
+  DUPCLOSURE R17 K58 [PROTO_14]
+  CAPTURE VAL R10
+  SETTABLEKS R17 R16 K59 ["init"]
+  DUPCLOSURE R17 K60 [PROTO_15]
+  CAPTURE VAL R13
+  SETTABLEKS R17 R16 K61 ["didUpdate"]
+  DUPCLOSURE R17 K62 [PROTO_16]
+  CAPTURE VAL R12
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  CAPTURE VAL R3
+  CAPTURE VAL R15
+  CAPTURE VAL R0
+  SETTABLEKS R17 R16 K63 ["render"]
+  MOVE R17 R7
+  DUPTABLE R18 K64 [{"Stylizer"}]
+  SETTABLEKS R8 R18 K18 ["Stylizer"]
+  CALL R17 1 1
+  MOVE R18 R16
+  CALL R17 1 1
+  MOVE R16 R17
+  RETURN R16 1

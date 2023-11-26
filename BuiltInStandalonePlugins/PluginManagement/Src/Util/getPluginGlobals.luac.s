@@ -1,0 +1,114 @@
+PROTO_0:
+  GETUPVAL R1 0
+  JUMPIFEQKNIL R1 [+3]
+  GETUPVAL R1 0
+  RETURN R1 1
+  JUMPIFNOTEQKNIL R0 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["getPluginGlobals hasn't been initialized yet"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  DUPTABLE R1 K11 [{"plugin", "localization", "theme", "store", "api", "mouse", "focusGui", "analytics"}]
+  SETTABLEKS R0 R1 K3 ["plugin"]
+  GETUPVAL R2 1
+  SETTABLEKS R2 R1 K4 ["localization"]
+  GETUPVAL R2 2
+  SETTABLEKS R2 R1 K5 ["theme"]
+  GETUPVAL R2 3
+  SETTABLEKS R2 R1 K6 ["store"]
+  GETUPVAL R2 4
+  SETTABLEKS R2 R1 K7 ["api"]
+  NAMECALL R2 R0 K12 ["GetMouse"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K8 ["mouse"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K9 ["focusGui"]
+  GETUPVAL R2 5
+  SETTABLEKS R2 R1 K10 ["analytics"]
+  SETUPVAL R1 0
+  GETUPVAL R1 0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K7 ["ContextServices"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Rodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Reducers"]
+  GETTABLEKS R5 R6 K11 ["MainReducer"]
+  CALL R4 1 1
+  GETTABLEKS R6 R3 K12 ["Store"]
+  GETTABLEKS R5 R6 K13 ["new"]
+  MOVE R6 R4
+  LOADNIL R7
+  NEWTABLE R8 0 1
+  GETTABLEKS R9 R3 K14 ["thunkMiddleware"]
+  SETLIST R8 R9 1 [1]
+  CALL R5 3 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Resources"]
+  GETTABLEKS R7 R8 K16 ["makeTheme"]
+  CALL R6 1 1
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Resources"]
+  GETTABLEKS R7 R8 K17 ["SourceStrings"]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Resources"]
+  GETTABLEKS R8 R9 K18 ["LocalizedStrings"]
+  GETTABLEKS R9 R2 K19 ["Localization"]
+  GETTABLEKS R10 R9 K13 ["new"]
+  DUPTABLE R11 K23 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R7 R11 K20 ["stringResourceTable"]
+  SETTABLEKS R8 R11 K21 ["translationResourceTable"]
+  LOADK R12 K24 ["PluginInstallation"]
+  SETTABLEKS R12 R11 K22 ["pluginName"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R13 R0 K5 ["Packages"]
+  GETTABLEKS R12 R13 K25 ["Http"]
+  CALL R11 1 1
+  GETTABLEKS R13 R11 K26 ["API"]
+  GETTABLEKS R12 R13 K13 ["new"]
+  DUPTABLE R13 K28 [{"networking"}]
+  GETTABLEKS R15 R11 K29 ["Networking"]
+  GETTABLEKS R14 R15 K13 ["new"]
+  DUPTABLE R15 K32 [{"isInternal", "loggingLevel"}]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K30 ["isInternal"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K31 ["loggingLevel"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K27 ["networking"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R16 R0 K9 ["Src"]
+  GETTABLEKS R15 R16 K33 ["Util"]
+  GETTABLEKS R14 R15 K34 ["getAnalyticsContextItem"]
+  CALL R13 1 1
+  MOVE R14 R13
+  CALL R14 0 1
+  LOADNIL R15
+  NEWCLOSURE R16 P0
+  CAPTURE REF R15
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  CLOSEUPVALS R15
+  RETURN R16 1

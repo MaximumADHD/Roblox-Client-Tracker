@@ -1,0 +1,21 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K7 ["ContextServices"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Resources"]
+  GETTABLEKS R4 R5 K10 ["AnalyticsHandlers"]
+  CALL R3 1 1
+  GETTABLEKS R5 R2 K11 ["Analytics"]
+  GETTABLEKS R4 R5 K12 ["new"]
+  MOVE R5 R3
+  CALL R4 1 1
+  RETURN R4 1

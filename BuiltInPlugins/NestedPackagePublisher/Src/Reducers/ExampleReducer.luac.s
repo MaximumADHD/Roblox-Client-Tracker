@@ -1,0 +1,41 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"DefaultStateObject"}]
+  GETTABLEKS R5 R1 K4 ["something"]
+  SETTABLEKS R5 R4 K2 ["DefaultStateObject"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Actions"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R3 K10 ["ExampleAction"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K11 ["createReducer"]
+  DUPTABLE R6 K13 [{"DefaultStateObject"}]
+  LOADK R7 K14 [""]
+  SETTABLEKS R7 R6 K12 ["DefaultStateObject"]
+  NEWTABLE R7 1 0
+  GETTABLEKS R8 R4 K15 ["name"]
+  DUPCLOSURE R9 K16 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLE R9 R7 R8
+  CALL R5 2 -1
+  RETURN R5 -1

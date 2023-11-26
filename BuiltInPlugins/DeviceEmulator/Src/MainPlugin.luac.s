@@ -1,0 +1,409 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioEnableMultiTouchGestureEmulation"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+6]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K4 ["StudioUnlockMouseWhenEmulating"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"enabled"}]
+  GETTABLEKS R3 R0 K0 ["enabled"]
+  NOT R2 R3
+  SETTABLEKS R2 R1 K0 ["enabled"]
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  DUPCLOSURE R2 K0 [PROTO_1]
+  NAMECALL R0 R0 K1 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"enabled"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["enabled"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"enabled"}]
+  SETTABLEKS R0 R3 K0 ["enabled"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["pluginLoaderContext"]
+  GETTABLEKS R0 R1 K2 ["mainButtonClickedSignal"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["toggleEnabled"]
+  NAMECALL R0 R0 K4 ["Connect"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"enabled"}]
+  GETTABLEKS R4 R0 K2 ["Enabled"]
+  SETTABLEKS R4 R3 K0 ["enabled"]
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_7:
+  NEWTABLE R0 0 0
+  RETURN R0 1
+
+PROTO_8:
+  DUPTABLE R2 K1 [{"enabled"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["enabled"]
+  SETTABLEKS R2 R0 K2 ["state"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K3 ["toggleEnabled"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K4 ["onClose"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K5 ["onRestore"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K6 ["onDockWidgetCreated"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K7 ["onWidgetEnabledChanged"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K8 ["Localization"]
+  GETTABLEKS R2 R3 K9 ["new"]
+  DUPTABLE R3 K13 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R4 1
+  SETTABLEKS R4 R3 K10 ["stringResourceTable"]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K11 ["translationResourceTable"]
+  LOADK R4 K14 ["DeviceEmulator"]
+  SETTABLEKS R4 R3 K12 ["pluginName"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K15 ["localization"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K16 ["Analytics"]
+  GETTABLEKS R2 R3 K9 ["new"]
+  DUPCLOSURE R3 K17 [PROTO_7]
+  NEWTABLE R4 0 0
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K18 ["analytics"]
+  GETIMPORT R2 K20 [game]
+  LOADK R4 K21 ["StudioEnableMultiTouchGestureEmulation"]
+  NAMECALL R2 R2 K22 ["GetFastFlag"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+6]
+  GETIMPORT R2 K20 [game]
+  LOADK R4 K23 ["StudioUnlockMouseWhenEmulating"]
+  NAMECALL R2 R2 K22 ["GetFastFlag"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K9 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K24 ["multiTouchController"]
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["multiTouchController"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["multiTouchController"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["pluginLoaderContext"]
+  GETTABLEKS R1 R2 K2 ["mainButton"]
+  GETTABLEKS R4 R0 K3 ["state"]
+  GETTABLEKS R3 R4 K4 ["enabled"]
+  NAMECALL R1 R1 K5 ["SetActive"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Plugin"]
+  GETTABLEKS R4 R2 K3 ["enabled"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 1
+  NEWTABLE R7 0 0
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  GETUPVAL R7 2
+  NEWTABLE R8 0 0
+  CALL R6 2 1
+  LOADNIL R7
+  GETIMPORT R8 K6 [game]
+  LOADK R10 K7 ["StudioEnableMultiTouchGestureEmulation"]
+  NAMECALL R8 R8 K8 ["GetFastFlag"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+6]
+  GETIMPORT R8 K6 [game]
+  LOADK R10 K9 ["StudioUnlockMouseWhenEmulating"]
+  NAMECALL R8 R8 K8 ["GetFastFlag"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+8]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["createElement"]
+  GETUPVAL R9 3
+  NEWTABLE R10 0 0
+  CALL R8 2 1
+  MOVE R7 R8
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K10 ["provide"]
+  NEWTABLE R9 0 5
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K11 ["new"]
+  MOVE R11 R3
+  CALL R10 1 1
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K11 ["new"]
+  NAMECALL R12 R3 K12 ["getMouse"]
+  CALL R12 1 -1
+  CALL R11 -1 1
+  GETUPVAL R12 7
+  CALL R12 0 1
+  GETTABLEKS R13 R0 K13 ["localization"]
+  GETTABLEKS R14 R0 K14 ["analytics"]
+  SETLIST R9 R10 5 [1]
+  DUPTABLE R10 K16 [{"MainWidget"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K4 ["createElement"]
+  GETUPVAL R12 8
+  NEWTABLE R13 16 0
+  GETUPVAL R15 9
+  JUMPIFNOT R15 [+2]
+  LOADK R14 K17 ["DeviceEmulator"]
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K18 ["Id"]
+  SETTABLEKS R4 R13 K19 ["Enabled"]
+  GETTABLEKS R15 R1 K20 ["pluginLoaderContext"]
+  GETTABLEKS R14 R15 K21 ["mainDockWidget"]
+  SETTABLEKS R14 R13 K22 ["Widget"]
+  GETTABLEKS R14 R0 K13 ["localization"]
+  LOADK R16 K2 ["Plugin"]
+  LOADK R17 K23 ["Name"]
+  NAMECALL R14 R14 K24 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K25 ["Title"]
+  GETIMPORT R14 K29 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R14 R13 K27 ["ZIndexBehavior"]
+  GETIMPORT R14 K32 [Enum.InitialDockState.Bottom]
+  SETTABLEKS R14 R13 K30 ["InitialDockState"]
+  GETIMPORT R14 K34 [Vector2.new]
+  LOADN R15 104
+  LOADN R16 164
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K35 ["Size"]
+  GETIMPORT R14 K34 [Vector2.new]
+  LOADN R15 44
+  LOADN R16 200
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K36 ["MinSize"]
+  GETTABLEKS R14 R0 K37 ["onClose"]
+  SETTABLEKS R14 R13 K38 ["OnClose"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K39 ["ShouldRestore"]
+  GETTABLEKS R14 R0 K40 ["onRestore"]
+  SETTABLEKS R14 R13 K41 ["OnWidgetRestored"]
+  GETTABLEKS R14 R0 K42 ["onDockWidgetCreated"]
+  SETTABLEKS R14 R13 K43 ["OnWidgetCreated"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K44 ["Change"]
+  GETTABLEKS R14 R15 K19 ["Enabled"]
+  GETTABLEKS R15 R0 K45 ["onWidgetEnabledChanged"]
+  SETTABLE R15 R13 R14
+  DUPTABLE R14 K47 [{"MainPane"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K4 ["createElement"]
+  GETUPVAL R16 10
+  DUPTABLE R17 K50 [{"Style", "Size", "Position"}]
+  LOADK R18 K51 ["Box"]
+  SETTABLEKS R18 R17 K48 ["Style"]
+  GETIMPORT R18 K54 [UDim2.fromScale]
+  LOADN R19 1
+  LOADN R20 1
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K35 ["Size"]
+  GETIMPORT R18 K56 [UDim2.fromOffset]
+  LOADN R19 0
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K49 ["Position"]
+  DUPTABLE R18 K58 [{"ScrollingFrame"}]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K4 ["createElement"]
+  GETUPVAL R20 11
+  DUPTABLE R21 K63 [{"AutomaticCanvasSize", "CanvasSize", "Layout", "Position", "ScrollingDirection"}]
+  GETIMPORT R22 K66 [Enum.AutomaticSize.Y]
+  SETTABLEKS R22 R21 K59 ["AutomaticCanvasSize"]
+  GETIMPORT R22 K54 [UDim2.fromScale]
+  LOADN R23 0
+  LOADN R24 0
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K60 ["CanvasSize"]
+  GETIMPORT R22 K69 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K61 ["Layout"]
+  GETIMPORT R22 K54 [UDim2.fromScale]
+  LOADN R23 0
+  LOADN R24 0
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K49 ["Position"]
+  GETIMPORT R22 K70 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R22 R21 K62 ["ScrollingDirection"]
+  DUPTABLE R22 K72 [{"ContainerPane"}]
+  GETUPVAL R24 0
+  GETTABLEKS R23 R24 K4 ["createElement"]
+  GETUPVAL R24 10
+  DUPTABLE R25 K76 [{"AutomaticSize", "Size", "AnchorPoint", "Position", "Layout", "Padding", "Spacing"}]
+  GETIMPORT R26 K66 [Enum.AutomaticSize.Y]
+  SETTABLEKS R26 R25 K64 ["AutomaticSize"]
+  GETIMPORT R26 K54 [UDim2.fromScale]
+  LOADN R27 1
+  LOADN R28 0
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K35 ["Size"]
+  GETIMPORT R26 K34 [Vector2.new]
+  LOADN R27 0
+  LOADN R28 0
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K73 ["AnchorPoint"]
+  GETIMPORT R26 K54 [UDim2.fromScale]
+  LOADN R27 0
+  LOADN R28 0
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K49 ["Position"]
+  GETIMPORT R26 K69 [Enum.FillDirection.Vertical]
+  SETTABLEKS R26 R25 K61 ["Layout"]
+  LOADN R26 5
+  SETTABLEKS R26 R25 K74 ["Padding"]
+  LOADN R26 5
+  SETTABLEKS R26 R25 K75 ["Spacing"]
+  DUPTABLE R26 K80 [{"GraphicsPane", "NetworkPane", "MultiTouchPane"}]
+  SETTABLEKS R5 R26 K77 ["GraphicsPane"]
+  SETTABLEKS R6 R26 K78 ["NetworkPane"]
+  SETTABLEKS R7 R26 K79 ["MultiTouchPane"]
+  CALL R23 3 1
+  SETTABLEKS R23 R22 K71 ["ContainerPane"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K57 ["ScrollingFrame"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K46 ["MainPane"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K15 ["MainWidget"]
+  CALL R8 2 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioFixPluginWidgetLocalizedIds"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K12 ["UI"]
+  GETTABLEKS R5 R4 K13 ["Pane"]
+  GETTABLEKS R6 R4 K14 ["ScrollingFrame"]
+  GETTABLEKS R7 R4 K15 ["DockWidget"]
+  GETTABLEKS R8 R3 K16 ["ContextServices"]
+  GETTABLEKS R9 R8 K17 ["Plugin"]
+  GETTABLEKS R10 R8 K18 ["Mouse"]
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R14 R1 K19 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Resources"]
+  GETTABLEKS R12 R13 K21 ["MakeTheme"]
+  CALL R11 1 1
+  GETTABLEKS R15 R1 K19 ["Src"]
+  GETTABLEKS R14 R15 K20 ["Resources"]
+  GETTABLEKS R13 R14 K22 ["Localization"]
+  GETTABLEKS R12 R13 K23 ["SourceStrings"]
+  GETTABLEKS R16 R1 K19 ["Src"]
+  GETTABLEKS R15 R16 K20 ["Resources"]
+  GETTABLEKS R14 R15 K22 ["Localization"]
+  GETTABLEKS R13 R14 K24 ["LocalizedStrings"]
+  GETIMPORT R14 K8 [require]
+  GETTABLEKS R17 R1 K19 ["Src"]
+  GETTABLEKS R16 R17 K25 ["Components"]
+  GETTABLEKS R15 R16 K26 ["GraphicsPane"]
+  CALL R14 1 1
+  GETIMPORT R15 K8 [require]
+  GETTABLEKS R18 R1 K19 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Components"]
+  GETTABLEKS R16 R17 K27 ["NetworkPane"]
+  CALL R15 1 1
+  GETIMPORT R16 K8 [require]
+  GETTABLEKS R19 R1 K19 ["Src"]
+  GETTABLEKS R18 R19 K25 ["Components"]
+  GETTABLEKS R17 R18 K28 ["MultiTouchPane"]
+  CALL R16 1 1
+  GETIMPORT R17 K8 [require]
+  GETTABLEKS R20 R1 K19 ["Src"]
+  GETTABLEKS R19 R20 K29 ["Controllers"]
+  GETTABLEKS R18 R19 K30 ["MultiTouchController"]
+  CALL R17 1 1
+  GETTABLEKS R18 R2 K31 ["PureComponent"]
+  LOADK R20 K32 ["MainPlugin"]
+  NAMECALL R18 R18 K33 ["extend"]
+  CALL R18 2 1
+  GETIMPORT R19 K8 [require]
+  GETTABLEKS R21 R1 K34 ["Bin"]
+  GETTABLEKS R20 R21 K35 ["defineLuaFlags"]
+  CALL R19 1 0
+  DUPCLOSURE R19 K36 [PROTO_0]
+  DUPCLOSURE R20 K37 [PROTO_8]
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R17
+  SETTABLEKS R20 R18 K38 ["init"]
+  DUPCLOSURE R20 K39 [PROTO_9]
+  SETTABLEKS R20 R18 K40 ["willUnmount"]
+  DUPCLOSURE R20 K41 [PROTO_10]
+  SETTABLEKS R20 R18 K42 ["didUpdate"]
+  DUPCLOSURE R20 K43 [PROTO_11]
+  CAPTURE VAL R2
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  SETTABLEKS R20 R18 K44 ["render"]
+  RETURN R18 1

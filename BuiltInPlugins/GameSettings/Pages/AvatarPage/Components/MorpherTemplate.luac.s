@@ -1,0 +1,257 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["frameRef"]
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R0 K9 [{"ThemeData", "LayoutOrder", "template", "StateTemplates", "IsEnabled", "IsGameShutdownRequired", "AssetOverrideErrors", "Mouse", "clobberTemplate"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["props"]
+  GETTABLEKS R1 R2 K0 ["ThemeData"]
+  SETTABLEKS R1 R0 K0 ["ThemeData"]
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K11 ["getNextOrder"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K1 ["LayoutOrder"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["props"]
+  GETTABLEKS R1 R2 K2 ["template"]
+  SETTABLEKS R1 R0 K2 ["template"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["props"]
+  GETTABLEKS R1 R2 K3 ["StateTemplates"]
+  SETTABLEKS R1 R0 K3 ["StateTemplates"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["props"]
+  GETTABLEKS R1 R2 K4 ["IsEnabled"]
+  SETTABLEKS R1 R0 K4 ["IsEnabled"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["props"]
+  GETTABLEKS R1 R2 K5 ["IsGameShutdownRequired"]
+  SETTABLEKS R1 R0 K5 ["IsGameShutdownRequired"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["props"]
+  GETTABLEKS R1 R2 K6 ["AssetOverrideErrors"]
+  SETTABLEKS R1 R0 K6 ["AssetOverrideErrors"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["props"]
+  GETTABLEKS R1 R2 K7 ["Mouse"]
+  SETTABLEKS R1 R0 K7 ["Mouse"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["props"]
+  GETTABLEKS R1 R2 K8 ["clobberTemplate"]
+  SETTABLEKS R1 R0 K8 ["clobberTemplate"]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["IsPlacePublished"]
+  SETTABLEKS R1 R0 K2 ["IsEnabled"]
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["frameRef"]
+  GETTABLEKS R1 R2 K1 ["current"]
+  GETIMPORT R2 K4 [UDim2.new]
+  LOADN R3 1
+  LOADN R4 0
+  LOADN R5 0
+  GETTABLEKS R7 R0 K5 ["AbsoluteContentSize"]
+  GETTABLEKS R6 R7 K6 ["y"]
+  CALL R2 4 1
+  SETTABLEKS R2 R1 K7 ["Size"]
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  CALL R1 0 1
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["createElement"]
+  LOADK R5 K2 ["Frame"]
+  NEWTABLE R6 4 0
+  GETIMPORT R7 K4 [UDim2.new]
+  LOADN R8 1
+  LOADN R9 0
+  LOADN R10 1
+  LOADN R11 0
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K5 ["Size"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K6 ["BorderSizePixel"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K7 ["getBackgroundColor"]
+  GETTABLEKS R8 R0 K8 ["props"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K9 ["BackgroundColor3"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K10 ["Ref"]
+  GETTABLEKS R8 R0 K11 ["frameRef"]
+  SETTABLE R8 R6 R7
+  DUPTABLE R7 K20 [{"UIListLayoutVertical", "PublishingHint", "PresetsPanel", "AvatarTypePanel", "AnimationPanel", "CollisionPanel", "ScalePanel", "AssetsPanel"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  LOADK R9 K21 ["UIListLayout"]
+  NEWTABLE R10 8 0
+  GETIMPORT R11 K25 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R11 R10 K23 ["SortOrder"]
+  GETIMPORT R11 K28 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R11 R10 K26 ["HorizontalAlignment"]
+  GETIMPORT R11 K31 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K29 ["FillDirection"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K32 ["VirticalPadding"]
+  SETTABLEKS R11 R10 K33 ["Padding"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K34 ["Change"]
+  GETTABLEKS R11 R12 K35 ["AbsoluteContentSize"]
+  NEWCLOSURE R12 P2
+  CAPTURE VAL R0
+  SETTABLE R12 R10 R11
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["UIListLayoutVertical"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 4
+  MOVE R11 R2
+  CALL R11 0 1
+  GETTABLEKS R13 R0 K8 ["props"]
+  GETTABLEKS R12 R13 K36 ["IsPlacePublished"]
+  SETTABLEKS R12 R11 K37 ["IsEnabled"]
+  MOVE R10 R11
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["PublishingHint"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 5
+  MOVE R10 R2
+  CALL R10 0 1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["PresetsPanel"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 6
+  MOVE R10 R2
+  CALL R10 0 1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["AvatarTypePanel"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 7
+  MOVE R10 R2
+  CALL R10 0 1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K16 ["AnimationPanel"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 8
+  MOVE R10 R2
+  CALL R10 0 1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K17 ["CollisionPanel"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 9
+  MOVE R10 R2
+  CALL R10 0 1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K18 ["ScalePanel"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 10
+  MOVE R10 R2
+  CALL R10 0 1
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K19 ["AssetsPanel"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R1 K5 ["Packages"]
+  GETTABLEKS R3 R4 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R1 K5 ["Packages"]
+  GETTABLEKS R5 R6 K7 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K8 ["Util"]
+  GETTABLEKS R4 R3 K9 ["LayoutOrderIterator"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K8 ["Util"]
+  GETTABLEKS R6 R7 K10 ["ConstantLayout"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K8 ["Util"]
+  GETTABLEKS R7 R8 K11 ["StateInterfaceTheme"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K12 ["Components"]
+  GETTABLEKS R8 R9 K13 ["PublishingHint"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K12 ["Components"]
+  GETTABLEKS R9 R10 K14 ["PresetsPanel"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K12 ["Components"]
+  GETTABLEKS R10 R11 K15 ["AvatarTypePanel"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K12 ["Components"]
+  GETTABLEKS R11 R12 K16 ["AnimationPanel"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R13 R0 K12 ["Components"]
+  GETTABLEKS R12 R13 K17 ["CollisionPanel"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R14 R0 K12 ["Components"]
+  GETTABLEKS R13 R14 K18 ["ScalePanel"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R15 R0 K12 ["Components"]
+  GETTABLEKS R14 R15 K19 ["AssetsPanel"]
+  CALL R13 1 1
+  GETTABLEKS R14 R2 K20 ["Component"]
+  LOADK R16 K21 ["ComponentMorpherTemplate"]
+  NAMECALL R14 R14 K22 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K23 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R15 R14 K24 ["init"]
+  DUPCLOSURE R15 K25 [PROTO_4]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  SETTABLEKS R15 R14 K26 ["render"]
+  RETURN R14 1

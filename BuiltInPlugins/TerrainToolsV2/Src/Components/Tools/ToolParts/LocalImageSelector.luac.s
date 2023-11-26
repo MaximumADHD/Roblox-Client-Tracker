@@ -1,0 +1,219 @@
+PROTO_0:
+  GETUPVAL R0 1
+  GETUPVAL R2 2
+  NAMECALL R0 R0 K0 ["PromptImportFile"]
+  CALL R0 2 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R0 0 3
+  LOADK R1 K0 ["png"]
+  LOADK R2 K1 ["jpg"]
+  LOADK R3 K2 ["jpeg"]
+  SETLIST R0 R1 3 [1]
+  LOADNIL R1
+  GETIMPORT R2 K4 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE REF R1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R2 1 2
+  JUMPIFNOT R2 [+9]
+  JUMPIFNOT R1 [+16]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["props"]
+  GETTABLEKS R4 R5 K6 ["SelectFile"]
+  MOVE R5 R1
+  CALL R4 1 0
+  JUMP [+8]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["props"]
+  GETTABLEKS R4 R5 K6 ["SelectFile"]
+  LOADNIL R5
+  MOVE R6 R3
+  CALL R4 2 0
+  CLOSEUPVALS R1
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["CurrentFile"]
+  JUMPIFNOT R0 [+3]
+  GETTABLEKS R1 R0 K2 ["file"]
+  JUMPIF R1 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["CurrentFile"]
+  GETTABLEKS R1 R2 K3 ["preview"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K9 [{"BackgroundTransparency", "Size", "Image", "ScaleType"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K5 ["BackgroundTransparency"]
+  GETIMPORT R5 K12 [UDim2.new]
+  LOADN R6 1
+  LOADN R7 0
+  LOADN R8 1
+  LOADN R9 0
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K6 ["Size"]
+  SETTABLEKS R1 R4 K7 ["Image"]
+  GETIMPORT R5 K15 [Enum.ScaleType.Fit]
+  SETTABLEKS R5 R4 K8 ["ScaleType"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["CurrentFile"]
+  JUMPIFNOT R0 [+3]
+  GETTABLEKS R1 R0 K2 ["file"]
+  JUMPIF R1 [+3]
+  NEWTABLE R1 0 0
+  RETURN R1 1
+  NEWTABLE R1 0 1
+  LOADK R2 K3 ["%ix%ipx"]
+  GETTABLEKS R4 R0 K4 ["width"]
+  GETTABLEKS R5 R0 K5 ["height"]
+  NAMECALL R2 R2 K6 ["format"]
+  CALL R2 3 -1
+  SETLIST R1 R2 4294967295 [1]
+  RETURN R1 1
+
+PROTO_4:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["promptSelection"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K1 ["renderPreview"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["getMetadata"]
+  RETURN R0 0
+
+PROTO_5:
+  LOADB R1 0
+  LOADNIL R2
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["CurrentFile"]
+  JUMPIFNOT R3 [+17]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["CurrentFile"]
+  GETTABLEKS R3 R4 K2 ["file"]
+  JUMPIFNOT R3 [+10]
+  LOADB R1 1
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["CurrentFile"]
+  GETTABLEKS R3 R4 K2 ["file"]
+  GETTABLEKS R2 R3 K3 ["Name"]
+  JUMP [+10]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K4 ["Localization"]
+  LOADK R5 K5 ["LocalImageSelector"]
+  LOADK R6 K6 ["NoImageSelected"]
+  NAMECALL R3 R3 K7 ["getText"]
+  CALL R3 3 1
+  MOVE R2 R3
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K8 ["Dictionary"]
+  GETTABLEKS R3 R4 K9 ["join"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  DUPTABLE R5 K18 [{"CurrentFile", "SelectFile", "SelectionName", "HasSelection", "PreviewTitle", "RenderPreview", "GetMetadata", "PromptSelection", "ClearSelection"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K19 ["None"]
+  SETTABLEKS R6 R5 K1 ["CurrentFile"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K19 ["None"]
+  SETTABLEKS R6 R5 K10 ["SelectFile"]
+  SETTABLEKS R2 R5 K11 ["SelectionName"]
+  SETTABLEKS R1 R5 K12 ["HasSelection"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K13 ["PreviewTitle"]
+  SETTABLEKS R6 R5 K13 ["PreviewTitle"]
+  GETTABLEKS R6 R0 K20 ["renderPreview"]
+  SETTABLEKS R6 R5 K14 ["RenderPreview"]
+  GETTABLEKS R6 R0 K21 ["getMetadata"]
+  SETTABLEKS R6 R5 K15 ["GetMetadata"]
+  GETTABLEKS R6 R0 K22 ["promptSelection"]
+  SETTABLEKS R6 R5 K16 ["PromptSelection"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K17 ["ClearSelection"]
+  SETTABLEKS R6 R5 K17 ["ClearSelection"]
+  CALL R3 2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K23 ["createElement"]
+  GETUPVAL R5 2
+  MOVE R6 R3
+  CALL R4 2 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Cryo"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K13 ["LoadingImage"]
+  CALL R6 1 1
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K2 ["Parent"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R7 K14 ["PromptSelectorWithPreview"]
+  CALL R8 1 1
+  GETIMPORT R9 K16 [game]
+  LOADK R11 K17 ["StudioService"]
+  NAMECALL R9 R9 K18 ["GetService"]
+  CALL R9 2 1
+  GETTABLEKS R10 R2 K19 ["PureComponent"]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K20 ["Name"]
+  NAMECALL R10 R10 K21 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K22 [PROTO_4]
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K23 ["init"]
+  DUPCLOSURE R11 K24 [PROTO_5]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  SETTABLEKS R11 R10 K25 ["render"]
+  MOVE R11 R5
+  DUPTABLE R12 K27 [{"Localization"}]
+  GETTABLEKS R13 R4 K26 ["Localization"]
+  SETTABLEKS R13 R12 K26 ["Localization"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

@@ -1,0 +1,1048 @@
+PROTO_0:
+  FASTCALL1 MATH_DEG R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K2 [math.deg]
+  CALL R3 1 1
+  FASTCALL1 MATH_DEG R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K2 [math.deg]
+  CALL R4 1 1
+  FASTCALL1 MATH_DEG R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K2 [math.deg]
+  CALL R5 1 1
+  RETURN R3 3
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["X"]
+  FASTCALL1 MATH_ROUND R3 [+2]
+  GETIMPORT R2 K3 [math.round]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K4 ["Y"]
+  FASTCALL1 MATH_ROUND R4 [+2]
+  GETIMPORT R3 K3 [math.round]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K5 ["Z"]
+  FASTCALL1 MATH_ROUND R5 [+2]
+  GETIMPORT R4 K3 [math.round]
+  CALL R4 1 1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R1 K8 [Vector3.new]
+  CALL R1 3 1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_cursorGridObject"]
+  SETTABLEKS R0 R1 K1 ["planeCFrame"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["props"]
+  GETTABLEKS R1 R2 K3 ["setPlaneCFrame"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["Workspace"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R0 R1 K4 ["CurrentCamera"]
+  LOADN R2 0
+  LOADN R3 0
+  LOADN R4 206
+  FASTCALL VECTOR [+2]
+  GETIMPORT R1 K7 [Vector3.new]
+  CALL R1 3 1
+  GETTABLEKS R3 R0 K8 ["CFrame"]
+  GETIMPORT R4 K9 [CFrame.new]
+  MOVE R5 R1
+  CALL R4 1 1
+  MUL R2 R3 R4
+  GETIMPORT R4 K11 [CFrame.fromEulerAnglesXYZ]
+  LOADK R5 K12 [1.5707963267949]
+  LOADN R6 0
+  LOADN R7 0
+  CALL R4 3 1
+  GETTABLEKS R6 R2 K13 ["Position"]
+  GETTABLEKS R9 R6 K14 ["X"]
+  FASTCALL1 MATH_ROUND R9 [+2]
+  GETIMPORT R8 K17 [math.round]
+  CALL R8 1 1
+  GETTABLEKS R10 R6 K18 ["Y"]
+  FASTCALL1 MATH_ROUND R10 [+2]
+  GETIMPORT R9 K17 [math.round]
+  CALL R9 1 1
+  GETTABLEKS R11 R6 K19 ["Z"]
+  FASTCALL1 MATH_ROUND R11 [+2]
+  GETIMPORT R10 K17 [math.round]
+  CALL R10 1 1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R7 K7 [Vector3.new]
+  CALL R7 3 1
+  MOVE R5 R7
+  ADD R3 R4 R5
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K20 ["props"]
+  GETTABLEKS R4 R5 K21 ["setPlaneCFrame"]
+  MOVE R5 R3
+  CALL R4 1 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K22 ["_cursorGridObject"]
+  SETTABLEKS R3 R4 K23 ["planeCFrame"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K24 ["_Selection"]
+  GETTABLEKS R4 R5 K25 ["SelectionChanged"]
+  NAMECALL R4 R4 K26 ["Fire"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["setEditPlaneMode"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["editPlaneMode"]
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  FASTCALL1 TONUMBER R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [tonumber]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+61]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["props"]
+  GETTABLEKS R3 R4 K3 ["planeCFrame"]
+  JUMPIFNOTEQKS R0 K4 ["X"] [+14]
+  GETTABLEKS R7 R3 K5 ["Position"]
+  GETTABLEKS R6 R7 K4 ["X"]
+  SUB R5 R2 R6
+  LOADN R6 0
+  LOADN R7 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R4 K8 [Vector3.new]
+  CALL R4 3 1
+  ADD R3 R3 R4
+  JUMP [+29]
+  JUMPIFNOTEQKS R0 K9 ["Y"] [+14]
+  LOADN R5 0
+  GETTABLEKS R8 R3 K5 ["Position"]
+  GETTABLEKS R7 R8 K9 ["Y"]
+  SUB R6 R2 R7
+  LOADN R7 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R4 K8 [Vector3.new]
+  CALL R4 3 1
+  ADD R3 R3 R4
+  JUMP [+14]
+  JUMPIFNOTEQKS R0 K10 ["Z"] [+13]
+  LOADN R5 0
+  LOADN R6 0
+  GETTABLEKS R9 R3 K5 ["Position"]
+  GETTABLEKS R8 R9 K10 ["Z"]
+  SUB R7 R2 R8
+  FASTCALL VECTOR [+2]
+  GETIMPORT R4 K8 [Vector3.new]
+  CALL R4 3 1
+  ADD R3 R3 R4
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["props"]
+  GETTABLEKS R4 R5 K11 ["setPlaneCFrame"]
+  MOVE R5 R3
+  CALL R4 1 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K12 ["_cursorGridObject"]
+  SETTABLEKS R3 R4 K3 ["planeCFrame"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K13 ["_Selection"]
+  GETTABLEKS R3 R4 K14 ["SelectionChanged"]
+  NAMECALL R3 R3 K15 ["Fire"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["updatePosition"]
+  MOVE R5 R1
+  MOVE R6 R3
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_7:
+  FASTCALL1 TONUMBER R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [tonumber]
+  CALL R2 1 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  RETURN R0 0
+  FASTCALL1 MATH_RAD R2 [+3]
+  MOVE R4 R2
+  GETIMPORT R3 K4 [math.rad]
+  CALL R3 1 1
+  MOVE R2 R3
+  JUMPIFNOT R2 [+64]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["props"]
+  GETTABLEKS R3 R4 K6 ["planeCFrame"]
+  NAMECALL R3 R3 K7 ["ToEulerAnglesXYZ"]
+  CALL R3 1 3
+  GETIMPORT R6 K10 [CFrame.new]
+  FASTCALL VECTOR [+2]
+  GETIMPORT R7 K12 [Vector3.new]
+  CALL R7 0 1
+  CALL R6 1 1
+  JUMPIFNOTEQKS R0 K13 ["X"] [+9]
+  GETIMPORT R7 K15 [CFrame.fromEulerAnglesXYZ]
+  MOVE R8 R2
+  MOVE R9 R4
+  MOVE R10 R5
+  CALL R7 3 1
+  MOVE R6 R7
+  JUMP [+19]
+  JUMPIFNOTEQKS R0 K16 ["Y"] [+9]
+  GETIMPORT R7 K15 [CFrame.fromEulerAnglesXYZ]
+  MOVE R8 R3
+  MOVE R9 R2
+  MOVE R10 R5
+  CALL R7 3 1
+  MOVE R6 R7
+  JUMP [+9]
+  JUMPIFNOTEQKS R0 K17 ["Z"] [+8]
+  GETIMPORT R7 K15 [CFrame.fromEulerAnglesXYZ]
+  MOVE R8 R3
+  MOVE R9 R4
+  MOVE R10 R2
+  CALL R7 3 1
+  MOVE R6 R7
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K18 ["_cursorGridObject"]
+  GETTABLEKS R8 R9 K6 ["planeCFrame"]
+  GETTABLEKS R7 R8 K19 ["Position"]
+  ADD R6 R6 R7
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["props"]
+  GETTABLEKS R7 R8 K20 ["setPlaneCFrame"]
+  MOVE R8 R6
+  CALL R7 1 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K18 ["_cursorGridObject"]
+  SETTABLEKS R6 R7 K6 ["planeCFrame"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K21 ["_Selection"]
+  GETTABLEKS R3 R4 K22 ["SelectionChanged"]
+  NAMECALL R3 R3 K23 ["Fire"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["updateRotation"]
+  MOVE R5 R1
+  MOVE R6 R3
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Manual"]
+  JUMPIFEQ R0 R1 [+8]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["setEditPlaneMode"]
+  LOADB R2 0
+  CALL R1 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["props"]
+  GETTABLEKS R1 R2 K3 ["setPlaneLock"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_10:
+  DUPTABLE R2 K1 [{"planeCFrame"}]
+  GETTABLEKS R3 R1 K0 ["planeCFrame"]
+  SETTABLEKS R3 R2 K0 ["planeCFrame"]
+  SETTABLEKS R2 R0 K2 ["_cursorGridObject"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["Selection"]
+  GETTABLEKS R2 R3 K4 ["new"]
+  GETTABLEKS R3 R0 K2 ["_cursorGridObject"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K5 ["_Selection"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["new"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETIMPORT R4 K8 [game]
+  GETIMPORT R5 K10 [settings]
+  CALL R5 0 1
+  GETTABLEKS R6 R0 K5 ["_Selection"]
+  CALL R2 4 1
+  SETTABLEKS R2 R0 K11 ["_draggerContext"]
+  GETTABLEKS R2 R0 K11 ["_draggerContext"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K12 ["updatePlaneFn"]
+  GETTABLEKS R2 R0 K11 ["_draggerContext"]
+  GETTABLEKS R4 R0 K13 ["props"]
+  GETTABLEKS R3 R4 K0 ["planeCFrame"]
+  SETTABLEKS R3 R2 K0 ["planeCFrame"]
+  DUPTABLE R2 K18 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  NAMECALL R3 R3 K19 ["GetMouse"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K14 ["Mouse"]
+  GETTABLEKS R3 R0 K11 ["_draggerContext"]
+  SETTABLEKS R3 R2 K15 ["DraggerContext"]
+  GETUPVAL R3 0
+  SETTABLEKS R3 R2 K16 ["DraggerSchema"]
+  DUPTABLE R3 K26 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowLocalSpaceIndicator", "ShowPivotIndicator", "HandlesList"}]
+  LOADK R4 K27 ["AdjustablePlaneLock"]
+  SETTABLEKS R4 R3 K20 ["AnalyticsName"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K21 ["AllowDragSelect"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K22 ["AllowFreeformDrag"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K23 ["ShowLocalSpaceIndicator"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K24 ["ShowPivotIndicator"]
+  NEWTABLE R4 0 2
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K4 ["new"]
+  GETTABLEKS R6 R0 K11 ["_draggerContext"]
+  DUPTABLE R7 K31 [{"ShowBoundingBox", "Summonable", "Outset"}]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K28 ["ShowBoundingBox"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K29 ["Summonable"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K30 ["Outset"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K32 ["TransformHandlesImplementation"]
+  GETTABLEKS R8 R9 K4 ["new"]
+  GETTABLEKS R9 R0 K11 ["_draggerContext"]
+  CALL R8 1 -1
+  CALL R5 -1 1
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K4 ["new"]
+  GETTABLEKS R7 R0 K11 ["_draggerContext"]
+  DUPTABLE R8 K31 [{"ShowBoundingBox", "Summonable", "Outset"}]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K28 ["ShowBoundingBox"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K29 ["Summonable"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K30 ["Outset"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K32 ["TransformHandlesImplementation"]
+  GETTABLEKS R9 R10 K4 ["new"]
+  GETTABLEKS R10 R0 K11 ["_draggerContext"]
+  CALL R9 1 -1
+  CALL R6 -1 -1
+  SETLIST R4 R5 4294967295 [1]
+  SETTABLEKS R4 R3 K25 ["HandlesList"]
+  SETTABLEKS R3 R2 K17 ["DraggerSettings"]
+  SETTABLEKS R2 R0 K33 ["_draggerProps"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K34 ["resetPlaneCFrame"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K35 ["toggleEditPlaneMode"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K36 ["updatePosition"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K37 ["onPositionVectorFocusLost"]
+  NEWCLOSURE R2 P5
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K38 ["updateRotation"]
+  NEWCLOSURE R2 P6
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K39 ["onRotationVectorFocusLost"]
+  NEWCLOSURE R2 P7
+  CAPTURE UPVAL U5
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K40 ["setPlaneLock"]
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R2 R0 K0 ["_cursorGridObject"]
+  GETTABLEKS R3 R1 K1 ["planeCFrame"]
+  SETTABLEKS R3 R2 K1 ["planeCFrame"]
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["planeCFrame"]
+  JUMPIF R1 [+17]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K2 ["planeLock"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["Manual"]
+  JUMPIFNOTEQ R1 R2 [+9]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K4 ["setPlaneCFrame"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R1 R0 K5 ["resetPlaneCFrame"]
+  CALL R1 0 0
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K6 ["Localization"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K7 ["LayoutOrder"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["new"]
+  CALL R3 0 1
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K9 ["isSubsection"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K10 ["brushShape"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K11 ["Sphere"]
+  JUMPIFNOTEQ R6 R7 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K12 ["strength"]
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K13 ["snapToVoxels"]
+  JUMPIFNOTEQKNIL R8 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETTABLEKS R10 R0 K0 ["props"]
+  GETTABLEKS R9 R10 K14 ["ignoreWater"]
+  JUMPIFNOTEQKNIL R9 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  GETTABLEKS R11 R0 K0 ["props"]
+  GETTABLEKS R10 R11 K15 ["ignoreParts"]
+  JUMPIFNOTEQKNIL R10 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K2 ["planeLock"]
+  JUMPIFNOTEQKNIL R11 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K16 ["disablePlaneLock"]
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R12 R13 K17 ["disableIgnoreWater"]
+  GETTABLEKS R15 R0 K0 ["props"]
+  GETTABLEKS R14 R15 K18 ["fixedPlane"]
+  JUMPIFNOTEQKNIL R14 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  GETTABLEKS R15 R0 K0 ["props"]
+  GETTABLEKS R14 R15 K19 ["editPlaneMode"]
+  GETTABLEKS R16 R0 K0 ["props"]
+  GETTABLEKS R15 R16 K1 ["planeCFrame"]
+  LOADB R16 0
+  GETTABLEKS R18 R0 K0 ["props"]
+  GETTABLEKS R17 R18 K2 ["planeLock"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K3 ["Manual"]
+  JUMPIFNOTEQ R17 R18 [+9]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K20 ["ToolUsesPlaneLock"]
+  GETTABLEKS R19 R0 K0 ["props"]
+  GETTABLEKS R18 R19 K21 ["currentTool"]
+  GETTABLE R16 R17 R18
+  GETTABLEKS R19 R0 K0 ["props"]
+  GETTABLEKS R18 R19 K22 ["flattenMode"]
+  JUMPIFNOTEQKNIL R18 [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  GETTABLEKS R19 R0 K0 ["props"]
+  GETTABLEKS R18 R19 K18 ["fixedPlane"]
+  JUMPIFNOT R18 [+8]
+  GETTABLEKS R20 R0 K0 ["props"]
+  GETTABLEKS R19 R20 K23 ["planePositionY"]
+  JUMPIFNOTEQKNIL R19 [+2]
+  LOADB R18 0 +1
+  LOADB R18 1
+  GETTABLEKS R20 R0 K0 ["props"]
+  GETTABLEKS R19 R20 K24 ["setFixedPlane"]
+  GETUPVAL R21 4
+  GETTABLEKS R20 R21 K25 ["createElement"]
+  GETUPVAL R21 5
+  DUPTABLE R22 K28 [{"Title", "Padding", "LayoutOrder", "isSubsection"}]
+  LOADK R25 K29 ["BrushSettings"]
+  LOADK R26 K29 ["BrushSettings"]
+  NAMECALL R23 R1 K30 ["getText"]
+  CALL R23 3 1
+  SETTABLEKS R23 R22 K26 ["Title"]
+  GETIMPORT R23 K32 [UDim.new]
+  LOADN R24 0
+  LOADN R25 12
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K27 ["Padding"]
+  SETTABLEKS R2 R22 K7 ["LayoutOrder"]
+  SETTABLEKS R4 R22 K9 ["isSubsection"]
+  DUPTABLE R23 K50 [{"BrushMode", "BrushShapeSelector", "BaseSizeSlider", "HeightSlider", "StrengthSlider", "FlattenModeSelector", "PivotSelector", "PlaneLock", "PlaneController", "Dragger", "PositionInput", "RotateInput", "FixedPlaneToggle", "HeightSelectionToggle", "SnapToVoxelsToggle", "IgnoreWaterToggle", "IgnorePartsToggle"}]
+  GETUPVAL R25 6
+  JUMPIFNOT R25 [+29]
+  GETTABLEKS R26 R0 K0 ["props"]
+  GETTABLEKS R25 R26 K51 ["brushMode"]
+  JUMPIFNOT R25 [+24]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 7
+  DUPTABLE R26 K53 [{"LayoutOrder", "brushMode", "setBrushMode"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K51 ["brushMode"]
+  SETTABLEKS R27 R26 K51 ["brushMode"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K52 ["setBrushMode"]
+  SETTABLEKS R27 R26 K52 ["setBrushMode"]
+  CALL R24 2 1
+  JUMP [+1]
+  LOADNIL R24
+  SETTABLEKS R24 R23 K33 ["BrushMode"]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 8
+  DUPTABLE R26 K56 [{"LayoutOrder", "brushShape", "setBrushShape"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K10 ["brushShape"]
+  SETTABLEKS R27 R26 K10 ["brushShape"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K55 ["setBrushShape"]
+  SETTABLEKS R27 R26 K55 ["setBrushShape"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K34 ["BrushShapeSelector"]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 9
+  DUPTABLE R26 K62 [{"LayoutOrder", "baseSize", "setBaseSize", "ShowLock", "IsLocked", "ToggleLock"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K57 ["baseSize"]
+  SETTABLEKS R27 R26 K57 ["baseSize"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K58 ["setBaseSize"]
+  SETTABLEKS R27 R26 K58 ["setBaseSize"]
+  SETTABLEKS R5 R26 K59 ["ShowLock"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K63 ["baseSizeHeightLocked"]
+  SETTABLEKS R27 R26 K60 ["IsLocked"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K64 ["toggleBaseSizeHeightLocked"]
+  SETTABLEKS R27 R26 K61 ["ToggleLock"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K35 ["BaseSizeSlider"]
+  MOVE R24 R5
+  JUMPIFNOT R24 [+54]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 10
+  DUPTABLE R26 K72 [{"LayoutOrder", "Text", "Min", "Max", "SnapIncrement", "Value", "SetValue", "Tooltip"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K73 ["Height"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K65 ["Text"]
+  GETUPVAL R28 3
+  GETTABLEKS R27 R28 K74 ["MIN_BRUSH_SIZE"]
+  SETTABLEKS R27 R26 K66 ["Min"]
+  GETUPVAL R28 3
+  GETTABLEKS R27 R28 K75 ["MAX_BRUSH_SIZE"]
+  SETTABLEKS R27 R26 K67 ["Max"]
+  LOADN R27 1
+  SETTABLEKS R27 R26 K68 ["SnapIncrement"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K76 ["height"]
+  SETTABLEKS R27 R26 K69 ["Value"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K77 ["setHeight"]
+  SETTABLEKS R27 R26 K70 ["SetValue"]
+  GETUPVAL R28 6
+  JUMPIFNOT R28 [+6]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K78 ["HeightTooltip"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  JUMP [+1]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K71 ["Tooltip"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K36 ["HeightSlider"]
+  MOVE R24 R6
+  JUMPIFNOT R24 [+54]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 10
+  DUPTABLE R26 K72 [{"LayoutOrder", "Text", "Min", "Max", "SnapIncrement", "Value", "SetValue", "Tooltip"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K79 ["Strength"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K65 ["Text"]
+  LOADK R27 K80 [0.1]
+  SETTABLEKS R27 R26 K66 ["Min"]
+  LOADN R27 1
+  SETTABLEKS R27 R26 K67 ["Max"]
+  GETUPVAL R28 11
+  JUMPIFNOT R28 [+2]
+  LOADK R27 K81 [0.05]
+  JUMP [+1]
+  LOADK R27 K80 [0.1]
+  SETTABLEKS R27 R26 K68 ["SnapIncrement"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K12 ["strength"]
+  SETTABLEKS R27 R26 K69 ["Value"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K82 ["setStrength"]
+  SETTABLEKS R27 R26 K70 ["SetValue"]
+  GETUPVAL R28 6
+  JUMPIFNOT R28 [+6]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K83 ["StrengthTooltip"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  JUMP [+1]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K71 ["Tooltip"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K37 ["StrengthSlider"]
+  MOVE R24 R17
+  JUMPIFNOT R24 [+23]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 12
+  DUPTABLE R26 K85 [{"LayoutOrder", "flattenMode", "setFlattenMode"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K22 ["flattenMode"]
+  SETTABLEKS R27 R26 K22 ["flattenMode"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K84 ["setFlattenMode"]
+  SETTABLEKS R27 R26 K84 ["setFlattenMode"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K38 ["FlattenModeSelector"]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 13
+  DUPTABLE R26 K88 [{"LayoutOrder", "pivot", "setPivot"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K86 ["pivot"]
+  SETTABLEKS R27 R26 K86 ["pivot"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K87 ["setPivot"]
+  SETTABLEKS R27 R26 K87 ["setPivot"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K39 ["PivotSelector"]
+  MOVE R24 R10
+  JUMPIFNOT R24 [+21]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 14
+  DUPTABLE R26 K90 [{"LayoutOrder", "planeLock", "setPlaneLock"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K2 ["planeLock"]
+  SETTABLEKS R27 R26 K2 ["planeLock"]
+  GETTABLEKS R27 R0 K89 ["setPlaneLock"]
+  SETTABLEKS R27 R26 K89 ["setPlaneLock"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K40 ["PlaneLock"]
+  MOVE R24 R16
+  JUMPIFNOT R24 [+23]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 15
+  DUPTABLE R26 K94 [{"LayoutOrder", "EditPlaneMode", "Reset", "SetEditPlaneMode"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  SETTABLEKS R14 R26 K91 ["EditPlaneMode"]
+  GETTABLEKS R27 R0 K5 ["resetPlaneCFrame"]
+  SETTABLEKS R27 R26 K92 ["Reset"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K95 ["setEditPlaneMode"]
+  SETTABLEKS R27 R26 K93 ["SetEditPlaneMode"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K41 ["PlaneController"]
+  MOVE R24 R14
+  JUMPIFNOT R24 [+9]
+  MOVE R24 R16
+  JUMPIFNOT R24 [+7]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 16
+  GETTABLEKS R26 R0 K96 ["_draggerProps"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K42 ["Dragger"]
+  MOVE R24 R14
+  JUMPIFNOT R24 [+43]
+  MOVE R24 R16
+  JUMPIFNOT R24 [+41]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 17
+  DUPTABLE R26 K101 [{"LayoutOrder", "Text", "Key", "Vector", "Precisions", "OnFocusLost"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K102 ["Position"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K65 ["Text"]
+  LOADK R27 K102 ["Position"]
+  SETTABLEKS R27 R26 K97 ["Key"]
+  GETTABLEKS R27 R15 K102 ["Position"]
+  SETTABLEKS R27 R26 K98 ["Vector"]
+  DUPTABLE R27 K106 [{"X", "Y", "Z"}]
+  LOADN R28 2
+  SETTABLEKS R28 R27 K103 ["X"]
+  LOADN R28 2
+  SETTABLEKS R28 R27 K104 ["Y"]
+  LOADN R28 2
+  SETTABLEKS R28 R27 K105 ["Z"]
+  SETTABLEKS R27 R26 K99 ["Precisions"]
+  GETTABLEKS R27 R0 K107 ["onPositionVectorFocusLost"]
+  SETTABLEKS R27 R26 K100 ["OnFocusLost"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K43 ["PositionInput"]
+  MOVE R24 R14
+  JUMPIFNOT R24 [+54]
+  MOVE R24 R16
+  JUMPIFNOT R24 [+52]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 17
+  DUPTABLE R26 K101 [{"LayoutOrder", "Text", "Key", "Vector", "Precisions", "OnFocusLost"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K108 ["Rotation"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K65 ["Text"]
+  LOADK R27 K108 ["Rotation"]
+  SETTABLEKS R27 R26 K97 ["Key"]
+  GETUPVAL R28 18
+  GETTABLEKS R30 R0 K0 ["props"]
+  GETTABLEKS R29 R30 K1 ["planeCFrame"]
+  NAMECALL R29 R29 K109 ["toEulerAnglesXYZ"]
+  CALL R29 1 -1
+  CALL R28 -1 -1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R27 K111 [Vector3.new]
+  CALL R27 -1 1
+  SETTABLEKS R27 R26 K98 ["Vector"]
+  DUPTABLE R27 K106 [{"X", "Y", "Z"}]
+  LOADN R28 2
+  SETTABLEKS R28 R27 K103 ["X"]
+  LOADN R28 2
+  SETTABLEKS R28 R27 K104 ["Y"]
+  LOADN R28 2
+  SETTABLEKS R28 R27 K105 ["Z"]
+  SETTABLEKS R27 R26 K99 ["Precisions"]
+  GETTABLEKS R27 R0 K112 ["onRotationVectorFocusLost"]
+  SETTABLEKS R27 R26 K100 ["OnFocusLost"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K44 ["RotateInput"]
+  MOVE R24 R13
+  JUMPIFNOT R24 [+26]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 19
+  DUPTABLE R26 K115 [{"LayoutOrder", "Text", "IsOn", "SetIsOn"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K116 ["FixedPlane"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K65 ["Text"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K18 ["fixedPlane"]
+  SETTABLEKS R27 R26 K113 ["IsOn"]
+  SETTABLEKS R19 R26 K114 ["SetIsOn"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K45 ["FixedPlaneToggle"]
+  MOVE R24 R18
+  JUMPIFNOT R24 [+42]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 20
+  DUPTABLE R26 K121 [{"LayoutOrder", "Label", "heightPicker", "setHeightPicker", "planePositionY", "setPlanePositionY"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K122 ["PlanePosition"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K117 ["Label"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K118 ["heightPicker"]
+  SETTABLEKS R27 R26 K118 ["heightPicker"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K119 ["setHeightPicker"]
+  SETTABLEKS R27 R26 K119 ["setHeightPicker"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K23 ["planePositionY"]
+  SETTABLEKS R27 R26 K23 ["planePositionY"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K120 ["setPlanePositionY"]
+  SETTABLEKS R27 R26 K120 ["setPlanePositionY"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K46 ["HeightSelectionToggle"]
+  MOVE R24 R7
+  JUMPIFNOT R24 [+30]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 19
+  DUPTABLE R26 K115 [{"LayoutOrder", "Text", "IsOn", "SetIsOn"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K123 ["SnapToVoxels"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K65 ["Text"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K13 ["snapToVoxels"]
+  SETTABLEKS R27 R26 K113 ["IsOn"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K124 ["setSnapToVoxels"]
+  SETTABLEKS R27 R26 K114 ["SetIsOn"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K47 ["SnapToVoxelsToggle"]
+  MOVE R24 R8
+  JUMPIFNOT R24 [+32]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 19
+  DUPTABLE R26 K126 [{"LayoutOrder", "Text", "IsOn", "SetIsOn", "Disabled"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K127 ["IgnoreWater"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K65 ["Text"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K14 ["ignoreWater"]
+  SETTABLEKS R27 R26 K113 ["IsOn"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K128 ["setIgnoreWater"]
+  SETTABLEKS R27 R26 K114 ["SetIsOn"]
+  SETTABLEKS R12 R26 K125 ["Disabled"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K48 ["IgnoreWaterToggle"]
+  JUMPIFNOT R9 [+31]
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K25 ["createElement"]
+  GETUPVAL R25 19
+  DUPTABLE R26 K115 [{"LayoutOrder", "Text", "IsOn", "SetIsOn"}]
+  NAMECALL R27 R3 K54 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K7 ["LayoutOrder"]
+  LOADK R29 K29 ["BrushSettings"]
+  LOADK R30 K129 ["IgnoreParts"]
+  NAMECALL R27 R1 K30 ["getText"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K65 ["Text"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K15 ["ignoreParts"]
+  SETTABLEKS R27 R26 K113 ["IsOn"]
+  GETTABLEKS R28 R0 K0 ["props"]
+  GETTABLEKS R27 R28 K130 ["setIgnoreParts"]
+  SETTABLEKS R27 R26 K114 ["SetIsOn"]
+  CALL R24 2 1
+  JUMPIF R24 [+1]
+  LOADNIL R24
+  SETTABLEKS R24 R23 K49 ["IgnorePartsToggle"]
+  CALL R20 3 -1
+  RETURN R20 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["DraggerFramework"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R3 K9 ["DraggerTools"]
+  GETTABLEKS R5 R6 K10 ["DraggerToolComponent"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["PlaneDraggerSchema"]
+  GETTABLEKS R6 R7 K13 ["DraggerSchema"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R3 K14 ["Implementation"]
+  GETTABLEKS R7 R8 K15 ["DraggerContext_PluginImpl"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R3 K16 ["Handles"]
+  GETTABLEKS R8 R9 K17 ["MoveHandles"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R3 K16 ["Handles"]
+  GETTABLEKS R9 R10 K18 ["RotateHandles"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K19 ["Util"]
+  GETTABLEKS R10 R9 K20 ["LayoutOrderIterator"]
+  GETTABLEKS R11 R1 K21 ["ContextServices"]
+  GETTABLEKS R12 R11 K22 ["withContext"]
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R16 R0 K11 ["Src"]
+  GETTABLEKS R15 R16 K19 ["Util"]
+  GETTABLEKS R14 R15 K23 ["Constants"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K11 ["Src"]
+  GETTABLEKS R16 R17 K19 ["Util"]
+  GETTABLEKS R15 R16 K24 ["TerrainEnums"]
+  CALL R14 1 1
+  GETTABLEKS R15 R14 K25 ["BrushShape"]
+  GETTABLEKS R16 R14 K26 ["PlaneLockType"]
+  GETIMPORT R18 K1 [script]
+  GETTABLEKS R17 R18 K2 ["Parent"]
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R19 R17 K27 ["LabeledSlider"]
+  CALL R18 1 1
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R20 R17 K28 ["LabeledToggle"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R21 R17 K29 ["Panel"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R22 R17 K30 ["VectorTextInput"]
+  CALL R21 1 1
+  GETTABLEKS R22 R17 K31 ["BrushProperties"]
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R24 R22 K32 ["BaseSizeSlider"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R25 R22 K33 ["BrushModeSelector"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R26 R22 K34 ["BrushShapeSelector"]
+  CALL R25 1 1
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R27 R22 K35 ["FlattenModeSelector"]
+  CALL R26 1 1
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R28 R22 K36 ["HeightSelectionToggle"]
+  CALL R27 1 1
+  GETIMPORT R28 K4 [require]
+  GETTABLEKS R29 R22 K37 ["PlaneLockSelector"]
+  CALL R28 1 1
+  GETIMPORT R29 K4 [require]
+  GETTABLEKS R30 R22 K38 ["PivotSelector"]
+  CALL R29 1 1
+  GETIMPORT R30 K4 [require]
+  GETTABLEKS R31 R22 K39 ["PlaneController"]
+  CALL R30 1 1
+  GETIMPORT R31 K41 [game]
+  LOADK R33 K42 ["TerrainEditorOverhaul"]
+  NAMECALL R31 R31 K43 ["GetFastFlag"]
+  CALL R31 2 1
+  GETTABLEKS R32 R2 K44 ["PureComponent"]
+  GETIMPORT R35 K1 [script]
+  GETTABLEKS R34 R35 K45 ["Name"]
+  NAMECALL R32 R32 K46 ["extend"]
+  CALL R32 2 1
+  GETIMPORT R33 K41 [game]
+  LOADK R35 K47 ["TerrainSmoothToolFix"]
+  NAMECALL R33 R33 K43 ["GetFastFlag"]
+  CALL R33 2 1
+  DUPCLOSURE R34 K48 [PROTO_0]
+  DUPCLOSURE R35 K49 [PROTO_1]
+  DUPCLOSURE R36 K50 [PROTO_10]
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R16
+  SETTABLEKS R36 R32 K51 ["init"]
+  DUPCLOSURE R36 K52 [PROTO_11]
+  SETTABLEKS R36 R32 K53 ["willUpdate"]
+  DUPCLOSURE R36 K54 [PROTO_12]
+  CAPTURE VAL R16
+  CAPTURE VAL R10
+  CAPTURE VAL R15
+  CAPTURE VAL R13
+  CAPTURE VAL R2
+  CAPTURE VAL R20
+  CAPTURE VAL R31
+  CAPTURE VAL R24
+  CAPTURE VAL R25
+  CAPTURE VAL R23
+  CAPTURE VAL R18
+  CAPTURE VAL R33
+  CAPTURE VAL R26
+  CAPTURE VAL R29
+  CAPTURE VAL R28
+  CAPTURE VAL R30
+  CAPTURE VAL R4
+  CAPTURE VAL R21
+  CAPTURE VAL R34
+  CAPTURE VAL R19
+  CAPTURE VAL R27
+  SETTABLEKS R36 R32 K55 ["render"]
+  MOVE R36 R12
+  DUPTABLE R37 K57 [{"Localization"}]
+  GETTABLEKS R38 R11 K56 ["Localization"]
+  SETTABLEKS R38 R37 K56 ["Localization"]
+  CALL R36 1 1
+  MOVE R37 R32
+  CALL R36 1 1
+  MOVE R32 R36
+  RETURN R32 1

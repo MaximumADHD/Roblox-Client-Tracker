@@ -1,0 +1,154 @@
+PROTO_0:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useContext"]
+  GETUPVAL R3 2
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K2 ["Dummy"]
+  JUMPIFNOTEQKNIL R3 [+3]
+  LOADNIL R3
+  RETURN R3 1
+  GETTABLEKS R5 R0 K2 ["Dummy"]
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K3 ["LUAU_ANALYZE_ERROR"]
+  FASTCALL2 ASSERT R4 R5 [+3]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K2 ["Dummy"]
+  GETTABLEKS R3 R4 K6 ["Head"]
+  LOADK R5 K7 ["FaceControls"]
+  NAMECALL R3 R3 K8 ["FindFirstChildWhichIsA"]
+  CALL R3 2 1
+  JUMPIFNOTEQKNIL R3 [+18]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["createElement"]
+  GETUPVAL R5 4
+  DUPTABLE R6 K12 [{"key", "Text"}]
+  LOADK R7 K13 ["Notice"]
+  SETTABLEKS R7 R6 K10 ["key"]
+  LOADK R9 K14 ["CheckFace"]
+  LOADK R10 K15 ["DynamicHeadNotice"]
+  NAMECALL R7 R1 K16 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K11 ["Text"]
+  CALL R4 2 -1
+  RETURN R4 -1
+  GETTABLEKS R5 R2 K17 ["avatarAssets"]
+  GETTABLEKS R4 R5 K18 ["emotion"]
+  JUMPIFEQKNIL R4 [+21]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["createElement"]
+  GETUPVAL R5 5
+  DUPTABLE R6 K20 [{"key", "Dummy", "AnimationId"}]
+  LOADK R7 K21 ["AnimationController"]
+  SETTABLEKS R7 R6 K10 ["key"]
+  GETTABLEKS R7 R0 K2 ["Dummy"]
+  SETTABLEKS R7 R6 K2 ["Dummy"]
+  GETTABLEKS R8 R2 K17 ["avatarAssets"]
+  GETTABLEKS R7 R8 K18 ["emotion"]
+  SETTABLEKS R7 R6 K19 ["AnimationId"]
+  CALL R4 2 -1
+  RETURN R4 -1
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["Head"]
+  DUPTABLE R2 K4 [{"focus", "cframe", "fov"}]
+  GETIMPORT R3 K7 [CFrame.new]
+  GETTABLEKS R4 R1 K8 ["Position"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K1 ["focus"]
+  GETIMPORT R3 K10 [CFrame.lookAt]
+  GETTABLEKS R5 R1 K8 ["Position"]
+  GETTABLEKS R9 R1 K12 ["Size"]
+  GETTABLEKS R8 R9 K13 ["Magnitude"]
+  GETTABLEKS R10 R1 K5 ["CFrame"]
+  GETTABLEKS R9 R10 K14 ["LookVector"]
+  MUL R7 R8 R9
+  MULK R6 R7 K11 [1.5]
+  ADD R4 R5 R6
+  GETTABLEKS R5 R1 K8 ["Position"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K2 ["cframe"]
+  LOADN R3 35
+  SETTABLEKS R3 R2 K3 ["fov"]
+  RETURN R2 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K0 ["avatarAssets"]
+  GETTABLEKS R2 R3 K1 ["skinTone"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Components"]
+  GETTABLEKS R4 R5 K11 ["AnimationController"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Components"]
+  GETTABLEKS R5 R6 K12 ["Notice"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Util"]
+  GETTABLEKS R6 R7 K14 ["Constants"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Util"]
+  GETTABLEKS R7 R8 K15 ["EquipmentStateContext"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K13 ["Util"]
+  GETTABLEKS R8 R9 K16 ["createHumanoidDescriptionWithSkinTone"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K17 ["Parent"]
+  GETTABLEKS R9 R10 K18 ["StageType"]
+  CALL R8 1 1
+  GETTABLEKS R10 R1 K19 ["ContextServices"]
+  GETTABLEKS R9 R10 K20 ["Localization"]
+  DUPTABLE R10 K25 [{"tabs", "render", "getPreviewCameraModifications", "getHumanoidDescription"}]
+  NEWTABLE R11 0 1
+  LOADK R12 K26 ["face"]
+  SETLIST R11 R12 1 [1]
+  SETTABLEKS R11 R10 K21 ["tabs"]
+  DUPCLOSURE R11 K27 [PROTO_0]
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETTABLEKS R11 R10 K22 ["render"]
+  DUPCLOSURE R11 K28 [PROTO_1]
+  SETTABLEKS R11 R10 K23 ["getPreviewCameraModifications"]
+  DUPCLOSURE R11 K29 [PROTO_2]
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K24 ["getHumanoidDescription"]
+  RETURN R10 1

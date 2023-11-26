@@ -1,0 +1,122 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ProcessService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  LOADN R2 0
+  NAMECALL R0 R0 K4 ["ExitAsync"]
+  CALL R0 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ImprovePluginSpeed_ManageCollaborators"]
+  NAMECALL R0 R0 K3 ["getFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  JUMPIF R0 [+11]
+  GETIMPORT R2 K8 [require]
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["commonInit"]
+  CALL R2 1 1
+  MOVE R3 R2
+  CALL R3 0 0
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R5 R1 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Util"]
+  GETTABLEKS R3 R4 K12 ["DebugFlags"]
+  CALL R2 1 1
+  LOADNIL R3
+  JUMPIF R0 [+8]
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K13 ["Packages"]
+  GETTABLEKS R5 R6 K14 ["Framework"]
+  CALL R4 1 1
+  MOVE R3 R4
+  GETTABLEKS R4 R2 K15 ["RunningUnderCLI"]
+  CALL R4 0 1
+  JUMPIF R4 [+4]
+  GETTABLEKS R4 R2 K16 ["RunTests"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+105]
+  JUMPIFNOT R0 [+19]
+  GETIMPORT R4 K8 [require]
+  GETIMPORT R7 K5 [script]
+  GETTABLEKS R6 R7 K6 ["Parent"]
+  GETTABLEKS R5 R6 K9 ["commonInit"]
+  CALL R4 1 1
+  MOVE R5 R4
+  CALL R5 0 0
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R7 R1 K13 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Framework"]
+  CALL R5 1 1
+  MOVE R3 R5
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R7 R1 K13 ["Packages"]
+  GETTABLEKS R6 R7 K17 ["Dev"]
+  GETTABLEKS R5 R6 K18 ["TestEZ"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K19 ["TestBootstrap"]
+  GETTABLEKS R7 R4 K20 ["Reporters"]
+  GETTABLEKS R6 R7 K21 ["TeamCityReporter"]
+  GETTABLEKS R8 R4 K20 ["Reporters"]
+  GETTABLEKS R7 R8 K22 ["TextReporter"]
+  GETIMPORT R10 K25 [_G]
+  GETTABLEKS R9 R10 K23 ["TEAMCITY"]
+  JUMPIFNOT R9 [+2]
+  MOVE R8 R6
+  JUMPIF R8 [+1]
+  MOVE R8 R7
+  GETTABLEKS R9 R1 K10 ["Src"]
+  DUPTABLE R10 K29 [{"showTimingInfo", "testNamePattern", "extraEnvironment"}]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K26 ["showTimingInfo"]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K27 ["testNamePattern"]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K28 ["extraEnvironment"]
+  GETIMPORT R11 K31 [print]
+  LOADK R13 K32 ["----- All "]
+  GETTABLEKS R14 R1 K33 ["Name"]
+  LOADK R15 K34 [" Tests ------"]
+  CONCAT R12 R13 R15
+  CALL R11 1 0
+  NEWTABLE R13 0 1
+  MOVE R14 R9
+  SETLIST R13 R14 1 [1]
+  MOVE R14 R8
+  MOVE R15 R10
+  NAMECALL R11 R5 K35 ["run"]
+  CALL R11 4 0
+  GETIMPORT R11 K31 [print]
+  LOADK R12 K36 ["----------------------------------"]
+  CALL R11 1 0
+  GETTABLEKS R11 R2 K37 ["RunDeveloperFrameworkTests"]
+  CALL R11 0 1
+  JUMPIFNOT R11 [+19]
+  GETIMPORT R11 K31 [print]
+  LOADK R12 K38 [""]
+  CALL R11 1 0
+  GETIMPORT R11 K31 [print]
+  LOADK R12 K39 ["----- All DeveloperFramework Tests ------"]
+  CALL R11 1 0
+  GETTABLEKS R12 R3 K40 ["TestHelpers"]
+  GETTABLEKS R11 R12 K41 ["runFrameworkTests"]
+  MOVE R12 R4
+  MOVE R13 R8
+  CALL R11 2 0
+  GETIMPORT R11 K31 [print]
+  LOADK R12 K36 ["----------------------------------"]
+  CALL R11 1 0
+  GETTABLEKS R4 R2 K15 ["RunningUnderCLI"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+4]
+  GETIMPORT R4 K43 [pcall]
+  DUPCLOSURE R5 K44 [PROTO_0]
+  CALL R4 1 0
+  RETURN R0 0

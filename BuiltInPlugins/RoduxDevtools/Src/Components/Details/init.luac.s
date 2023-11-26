@@ -1,0 +1,108 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Events"]
+  GETTABLEKS R4 R1 K2 ["SelectedIndex"]
+  GETTABLE R2 R3 R4
+  JUMPIF R2 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  GETTABLEKS R4 R2 K3 ["eventType"]
+  JUMPIFNOTEQKS R4 K4 ["Flush"] [+3]
+  GETUPVAL R3 0
+  JUMP [+7]
+  GETTABLEKS R4 R2 K3 ["eventType"]
+  JUMPIFNOTEQKS R4 K5 ["Reduce"] [+3]
+  GETUPVAL R3 1
+  JUMP [+1]
+  LOADNIL R3
+  JUMPIF R3 [+2]
+  LOADNIL R4
+  RETURN R4 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K6 ["createElement"]
+  MOVE R5 R3
+  DUPTABLE R6 K11 [{"Event", "SelectedIndex", "OnSetState", "OnRedoAction", "OnUndoAction"}]
+  SETTABLEKS R2 R6 K7 ["Event"]
+  GETTABLEKS R7 R1 K2 ["SelectedIndex"]
+  SETTABLEKS R7 R6 K2 ["SelectedIndex"]
+  GETTABLEKS R7 R1 K8 ["OnSetState"]
+  SETTABLEKS R7 R6 K8 ["OnSetState"]
+  GETTABLEKS R7 R1 K9 ["OnRedoAction"]
+  SETTABLEKS R7 R6 K9 ["OnRedoAction"]
+  GETTABLEKS R7 R1 K10 ["OnUndoAction"]
+  SETTABLEKS R7 R6 K10 ["OnUndoAction"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_1:
+  DUPTABLE R2 K2 [{"SelectedIndex", "Events"}]
+  GETTABLEKS R3 R1 K0 ["SelectedIndex"]
+  JUMPIF R3 [+2]
+  GETTABLEKS R3 R0 K3 ["selectedIndex"]
+  SETTABLEKS R3 R2 K0 ["SelectedIndex"]
+  GETTABLEKS R3 R1 K1 ["Events"]
+  JUMPIF R3 [+2]
+  GETTABLEKS R3 R0 K4 ["events"]
+  SETTABLEKS R3 R2 K1 ["Events"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K11 ["ContextServices"]
+  GETTABLEKS R6 R5 K12 ["withContext"]
+  GETTABLEKS R7 R5 K13 ["Analytics"]
+  GETTABLEKS R8 R5 K14 ["Localization"]
+  GETTABLEKS R10 R4 K15 ["Style"]
+  GETTABLEKS R9 R10 K16 ["Stylizer"]
+  GETIMPORT R10 K4 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K17 ["FlushDetails"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K18 ["ReduceDetails"]
+  CALL R11 1 1
+  GETTABLEKS R12 R2 K19 ["PureComponent"]
+  LOADK R14 K20 ["Details"]
+  NAMECALL R12 R12 K21 ["extend"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K22 [PROTO_0]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R2
+  SETTABLEKS R13 R12 K23 ["render"]
+  MOVE R13 R6
+  DUPTABLE R14 K24 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R7 R14 K13 ["Analytics"]
+  SETTABLEKS R8 R14 K14 ["Localization"]
+  SETTABLEKS R9 R14 K16 ["Stylizer"]
+  CALL R13 1 1
+  MOVE R14 R12
+  CALL R13 1 1
+  MOVE R12 R13
+  GETTABLEKS R13 R3 K25 ["connect"]
+  DUPCLOSURE R14 K26 [PROTO_1]
+  CALL R13 1 1
+  MOVE R14 R12
+  CALL R13 1 -1
+  RETURN R13 -1

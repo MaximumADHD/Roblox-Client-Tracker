@@ -1,0 +1,97 @@
+PROTO_0:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"sizes"}]
+  SETTABLEKS R0 R3 K0 ["sizes"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"sizes"}]
+  GETTABLEKS R3 R0 K2 ["props"]
+  GETTABLEKS R2 R3 K3 ["InitialSizes"]
+  SETTABLEKS R2 R1 K0 ["sizes"]
+  SETTABLEKS R1 R0 K4 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K5 ["onSizesChange"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["state"]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R3 R2 K2 ["Layout"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K12 [{"Size", "Sizes", "OnSizesChange", "MinSizes", "PaneStyle", "BarStyle", "UseScale", "ClampSize", "Layout"}]
+  GETIMPORT R7 K15 [UDim2.fromScale]
+  LOADN R8 1
+  LOADN R9 1
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K4 ["Size"]
+  GETTABLEKS R7 R1 K16 ["sizes"]
+  SETTABLEKS R7 R6 K5 ["Sizes"]
+  GETTABLEKS R7 R0 K17 ["onSizesChange"]
+  SETTABLEKS R7 R6 K6 ["OnSizesChange"]
+  GETTABLEKS R7 R2 K7 ["MinSizes"]
+  SETTABLEKS R7 R6 K7 ["MinSizes"]
+  LOADK R7 K18 ["BorderBox"]
+  SETTABLEKS R7 R6 K8 ["PaneStyle"]
+  LOADK R7 K18 ["BorderBox"]
+  SETTABLEKS R7 R6 K9 ["BarStyle"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K10 ["UseScale"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K11 ["ClampSize"]
+  SETTABLEKS R3 R6 K2 ["Layout"]
+  GETTABLEKS R7 R2 K19 ["children"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETTABLEKS R5 R3 K11 ["Analytics"]
+  GETTABLEKS R6 R3 K12 ["Localization"]
+  GETTABLEKS R8 R2 K13 ["Style"]
+  GETTABLEKS R7 R8 K14 ["Stylizer"]
+  GETTABLEKS R8 R2 K15 ["UI"]
+  GETTABLEKS R9 R8 K16 ["SplitPane"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K17 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Types"]
+  CALL R10 1 1
+  GETTABLEKS R11 R1 K19 ["PureComponent"]
+  LOADK R13 K20 ["MainSplitPane"]
+  NAMECALL R11 R11 K21 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K22 [PROTO_1]
+  SETTABLEKS R12 R11 K23 ["init"]
+  DUPCLOSURE R12 K24 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  SETTABLEKS R12 R11 K25 ["render"]
+  MOVE R12 R4
+  DUPTABLE R13 K26 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R5 R13 K11 ["Analytics"]
+  SETTABLEKS R6 R13 K12 ["Localization"]
+  SETTABLEKS R7 R13 K14 ["Stylizer"]
+  CALL R12 1 1
+  MOVE R13 R11
+  CALL R12 1 1
+  MOVE R11 R12
+  RETURN R11 1

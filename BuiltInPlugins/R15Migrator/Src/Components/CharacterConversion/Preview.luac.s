@@ -1,0 +1,454 @@
+PROTO_0:
+  FASTCALL VECTOR [+2]
+  GETIMPORT R3 K2 [Vector3.new]
+  CALL R3 0 1
+  NAMECALL R1 R0 K3 ["MoveTo"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["OnSelectionChange"]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["OnSelectionChange"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  NAMECALL R2 R0 K0 ["GetDescendants"]
+  CALL R2 1 3
+  FORGPREP R2
+  GETTABLEKS R7 R6 K1 ["Name"]
+  JUMPIFNOTEQ R7 R1 [+8]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["isValidDisplayInstance"]
+  MOVE R8 R6
+  CALL R7 1 1
+  JUMPIFNOT R7 [+1]
+  RETURN R6 1
+  FORGLOOP R2 2 [-12]
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["Parent"]
+  JUMPIF R1 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  LOADK R4 K1 ["SpecialMesh"]
+  NAMECALL R2 R0 K2 ["FindFirstChildWhichIsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+1]
+  RETURN R2 1
+  GETTABLEKS R3 R0 K3 ["Name"]
+  LOADK R5 K4 ["%s+"]
+  LOADK R6 K5 [""]
+  NAMECALL R3 R3 K6 ["gsub"]
+  CALL R3 3 1
+  NAMECALL R4 R1 K7 ["GetChildren"]
+  CALL R4 1 3
+  FORGPREP R4
+  LOADK R11 K8 ["CharacterMesh"]
+  NAMECALL R9 R8 K9 ["IsA"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+8]
+  GETTABLEKS R9 R8 K10 ["BodyPart"]
+  JUMPIFNOT R9 [+5]
+  GETTABLEKS R10 R9 K3 ["Name"]
+  JUMPIFNOTEQ R10 R3 [+2]
+  RETURN R8 1
+  FORGLOOP R4 2 [-14]
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K0 ["Color"]
+  GETIMPORT R1 K4 [Enum.Material.Neon]
+  SETTABLEKS R1 R0 K2 ["Material"]
+  LOADK R1 K5 [0.5]
+  SETTABLEKS R1 R0 K6 ["Transparency"]
+  LOADK R3 K7 ["MeshPart"]
+  NAMECALL R1 R0 K8 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+3]
+  LOADK R1 K9 [""]
+  SETTABLEKS R1 R0 K10 ["TextureID"]
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["Part"]
+  CALL R1 1 1
+  LOADK R2 K4 ["SelectionPart"]
+  SETTABLEKS R2 R1 K5 ["Name"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K6 ["Anchored"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K7 ["CanCollide"]
+  GETTABLEKS R2 R0 K8 ["CFrame"]
+  SETTABLEKS R2 R1 K8 ["CFrame"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K9 ["Locked"]
+  GETTABLEKS R2 R0 K10 ["Size"]
+  SETTABLEKS R2 R1 K10 ["Size"]
+  GETTABLEKS R2 R0 K11 ["Parent"]
+  SETTABLEKS R2 R1 K11 ["Parent"]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K12 ["Color"]
+  GETIMPORT R2 K16 [Enum.Material.Neon]
+  SETTABLEKS R2 R1 K14 ["Material"]
+  LOADK R2 K17 [0.5]
+  SETTABLEKS R2 R1 K18 ["Transparency"]
+  LOADK R4 K19 ["MeshPart"]
+  NAMECALL R2 R1 K20 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  LOADK R2 K21 [""]
+  SETTABLEKS R2 R1 K22 ["TextureID"]
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Stylizer"]
+  GETTABLEKS R2 R1 K2 ["SelectionColor"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R2
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R2
+  LOADK R7 K3 ["MeshPart"]
+  NAMECALL R5 R0 K4 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+30]
+  SETTABLEKS R2 R0 K5 ["Color"]
+  GETIMPORT R5 K9 [Enum.Material.Neon]
+  SETTABLEKS R5 R0 K7 ["Material"]
+  LOADK R5 K10 [0.5]
+  SETTABLEKS R5 R0 K11 ["Transparency"]
+  LOADK R7 K3 ["MeshPart"]
+  NAMECALL R5 R0 K4 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+3]
+  LOADK R5 K12 [""]
+  SETTABLEKS R5 R0 K13 ["TextureID"]
+  SETTABLEKS R2 R0 K5 ["Color"]
+  GETIMPORT R5 K9 [Enum.Material.Neon]
+  SETTABLEKS R5 R0 K7 ["Material"]
+  LOADK R5 K12 [""]
+  SETTABLEKS R5 R0 K13 ["TextureID"]
+  LOADK R5 K10 [0.5]
+  SETTABLEKS R5 R0 K11 ["Transparency"]
+  RETURN R0 0
+  LOADK R7 K14 ["BasePart"]
+  NAMECALL R5 R0 K4 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+68]
+  GETUPVAL R5 1
+  MOVE R6 R0
+  CALL R5 1 1
+  JUMPIFNOT R5 [+46]
+  GETIMPORT R6 K17 [Instance.new]
+  LOADK R7 K18 ["Part"]
+  CALL R6 1 1
+  LOADK R7 K19 ["SelectionPart"]
+  SETTABLEKS R7 R6 K20 ["Name"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K21 ["Anchored"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K22 ["CanCollide"]
+  GETTABLEKS R7 R0 K23 ["CFrame"]
+  SETTABLEKS R7 R6 K23 ["CFrame"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K24 ["Locked"]
+  GETTABLEKS R7 R0 K25 ["Size"]
+  SETTABLEKS R7 R6 K25 ["Size"]
+  GETTABLEKS R7 R0 K26 ["Parent"]
+  SETTABLEKS R7 R6 K26 ["Parent"]
+  SETTABLEKS R2 R6 K5 ["Color"]
+  GETIMPORT R7 K9 [Enum.Material.Neon]
+  SETTABLEKS R7 R6 K7 ["Material"]
+  LOADK R7 K10 [0.5]
+  SETTABLEKS R7 R6 K11 ["Transparency"]
+  LOADK R9 K3 ["MeshPart"]
+  NAMECALL R7 R6 K4 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+100]
+  LOADK R7 K12 [""]
+  SETTABLEKS R7 R6 K13 ["TextureID"]
+  RETURN R0 0
+  SETTABLEKS R2 R0 K5 ["Color"]
+  GETIMPORT R6 K9 [Enum.Material.Neon]
+  SETTABLEKS R6 R0 K7 ["Material"]
+  LOADK R6 K10 [0.5]
+  SETTABLEKS R6 R0 K11 ["Transparency"]
+  LOADK R8 K3 ["MeshPart"]
+  NAMECALL R6 R0 K4 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+82]
+  LOADK R6 K12 [""]
+  SETTABLEKS R6 R0 K13 ["TextureID"]
+  RETURN R0 0
+  LOADK R7 K27 ["Accoutrement"]
+  NAMECALL R5 R0 K4 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+73]
+  LOADK R7 K28 ["Handle"]
+  NAMECALL R5 R0 K29 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+68]
+  LOADK R8 K3 ["MeshPart"]
+  NAMECALL R6 R5 K4 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+18]
+  SETTABLEKS R2 R5 K5 ["Color"]
+  GETIMPORT R6 K9 [Enum.Material.Neon]
+  SETTABLEKS R6 R5 K7 ["Material"]
+  LOADK R6 K10 [0.5]
+  SETTABLEKS R6 R5 K11 ["Transparency"]
+  LOADK R8 K3 ["MeshPart"]
+  NAMECALL R6 R5 K4 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+49]
+  LOADK R6 K12 [""]
+  SETTABLEKS R6 R5 K13 ["TextureID"]
+  RETURN R0 0
+  GETIMPORT R6 K17 [Instance.new]
+  LOADK R7 K18 ["Part"]
+  CALL R6 1 1
+  LOADK R7 K19 ["SelectionPart"]
+  SETTABLEKS R7 R6 K20 ["Name"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K21 ["Anchored"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K22 ["CanCollide"]
+  GETTABLEKS R7 R5 K23 ["CFrame"]
+  SETTABLEKS R7 R6 K23 ["CFrame"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K24 ["Locked"]
+  GETTABLEKS R7 R5 K25 ["Size"]
+  SETTABLEKS R7 R6 K25 ["Size"]
+  GETTABLEKS R7 R5 K26 ["Parent"]
+  SETTABLEKS R7 R6 K26 ["Parent"]
+  SETTABLEKS R2 R6 K5 ["Color"]
+  GETIMPORT R7 K9 [Enum.Material.Neon]
+  SETTABLEKS R7 R6 K7 ["Material"]
+  LOADK R7 K10 [0.5]
+  SETTABLEKS R7 R6 K11 ["Transparency"]
+  LOADK R9 K3 ["MeshPart"]
+  NAMECALL R7 R6 K4 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+3]
+  LOADK R7 K12 [""]
+  SETTABLEKS R7 R6 K13 ["TextureID"]
+  RETURN R0 0
+
+PROTO_7:
+  JUMPIF R0 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Selection"]
+  NAMECALL R2 R0 K2 ["Clone"]
+  CALL R2 1 1
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  JUMPIFNOT R7 [+11]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["getMatchingInstance"]
+  MOVE R9 R2
+  MOVE R10 R6
+  CALL R8 2 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K4 ["applySelectionEffect"]
+  MOVE R10 R8
+  CALL R9 1 0
+  FORGLOOP R3 2 [-13]
+  RETURN R2 1
+
+PROTO_8:
+  DUPCLOSURE R2 K0 [PROTO_0]
+  SETTABLEKS R2 R0 K1 ["onViewModelLoaded"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K2 ["onSelectionChanged"]
+  DUPCLOSURE R2 K3 [PROTO_2]
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R0 K4 ["getMatchingInstance"]
+  DUPCLOSURE R2 K5 [PROTO_3]
+  NEWCLOSURE R3 P4
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  SETTABLEKS R3 R0 K6 ["applySelectionEffect"]
+  NEWCLOSURE R3 P5
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K7 ["setupAssetRenderModel"]
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Character"]
+  GETTABLEKS R3 R1 K2 ["Selection"]
+  GETTABLEKS R4 R1 K3 ["Stylizer"]
+  GETTABLEKS R5 R0 K4 ["setupAssetRenderModel"]
+  MOVE R6 R2
+  CALL R5 1 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["LayoutOrderIterator"]
+  GETTABLEKS R6 R7 K6 ["new"]
+  CALL R6 0 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K7 ["createFragment"]
+  DUPTABLE R8 K10 [{"ViewPortPane", "TreeViewArea"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K19 [{"BackgroundColor3", "BackgroundTransparency", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
+  GETTABLEKS R12 R4 K20 ["ViewportBackgroundColor"]
+  SETTABLEKS R12 R11 K12 ["BackgroundColor3"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K13 ["BackgroundTransparency"]
+  NAMECALL R12 R6 K21 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
+  GETIMPORT R12 K25 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K15 ["Layout"]
+  GETIMPORT R12 K27 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R12 R11 K16 ["HorizontalAlignment"]
+  GETIMPORT R12 K29 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R12 R11 K17 ["VerticalAlignment"]
+  GETIMPORT R12 K31 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 0
+  GETTABLEKS R16 R4 K32 ["ViewportHeight"]
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K18 ["Size"]
+  DUPTABLE R12 K34 [{"Viewport"}]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETUPVAL R14 3
+  DUPTABLE R15 K41 [{"DisablePan", "DisableZoom", "FocusDirection", "Model", "OnViewModelLoaded", "RecenterModelOnUpdate", "Size"}]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K35 ["DisablePan"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K36 ["DisableZoom"]
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 255
+  FASTCALL VECTOR [+2]
+  GETIMPORT R16 K43 [Vector3.new]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K37 ["FocusDirection"]
+  SETTABLEKS R5 R15 K38 ["Model"]
+  GETTABLEKS R16 R0 K44 ["onViewModelLoaded"]
+  SETTABLEKS R16 R15 K39 ["OnViewModelLoaded"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K40 ["RecenterModelOnUpdate"]
+  GETIMPORT R16 K46 [UDim2.fromScale]
+  LOADN R17 1
+  LOADN R18 1
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K18 ["Size"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K33 ["Viewport"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K8 ["ViewPortPane"]
+  GETUPVAL R10 4
+  JUMPIFNOT R10 [+39]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K47 [{"Size", "LayoutOrder"}]
+  GETIMPORT R12 K31 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 0
+  GETTABLEKS R16 R4 K48 ["TreeHeight"]
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K18 ["Size"]
+  NAMECALL R12 R6 K21 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
+  DUPTABLE R12 K50 [{"TreeView"}]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETUPVAL R14 5
+  DUPTABLE R15 K53 [{"Instance", "OnSelectionChange", "Selection"}]
+  SETTABLEKS R2 R15 K51 ["Instance"]
+  GETTABLEKS R16 R0 K54 ["onSelectionChanged"]
+  SETTABLEKS R16 R15 K52 ["OnSelectionChange"]
+  SETTABLEKS R3 R15 K2 ["Selection"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K49 ["TreeView"]
+  CALL R9 3 1
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K9 ["TreeViewArea"]
+  CALL R7 1 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["DebugShowCharacterInstanceTree"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 1
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Roact"]
+  CALL R3 1 1
+  GETTABLEKS R5 R1 K12 ["Src"]
+  GETTABLEKS R4 R5 K13 ["Components"]
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R7 R4 K14 ["CharacterConversion"]
+  GETTABLEKS R6 R7 K15 ["InstanceTree"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K16 ["ContextServices"]
+  GETTABLEKS R7 R2 K17 ["UI"]
+  GETTABLEKS R8 R2 K18 ["Util"]
+  GETTABLEKS R9 R7 K19 ["AssetRenderModel"]
+  GETTABLEKS R10 R7 K20 ["Pane"]
+  GETTABLEKS R11 R3 K21 ["PureComponent"]
+  LOADK R13 K22 ["CharacterPreview"]
+  NAMECALL R11 R11 K23 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K24 [PROTO_8]
+  CAPTURE VAL R5
+  SETTABLEKS R12 R11 K25 ["init"]
+  DUPCLOSURE R12 K26 [PROTO_9]
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  SETTABLEKS R12 R11 K27 ["render"]
+  GETTABLEKS R12 R6 K28 ["withContext"]
+  DUPTABLE R13 K30 [{"Stylizer"}]
+  GETTABLEKS R14 R6 K29 ["Stylizer"]
+  SETTABLEKS R14 R13 K29 ["Stylizer"]
+  CALL R12 1 1
+  MOVE R13 R11
+  CALL R12 1 1
+  MOVE R11 R12
+  RETURN R11 1

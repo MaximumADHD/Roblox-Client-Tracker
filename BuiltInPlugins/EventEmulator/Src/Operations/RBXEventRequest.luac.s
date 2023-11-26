@@ -1,0 +1,18 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K0 ["Namespace"]
+  GETTABLEKS R4 R0 K1 ["Detail"]
+  GETTABLEKS R5 R0 K2 ["DetailType"]
+  NAMECALL R1 R1 K3 ["sendRobloxEvent"]
+  CALL R1 4 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["VirtualInputManager"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

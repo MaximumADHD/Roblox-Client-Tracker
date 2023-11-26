@@ -1,0 +1,60 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["combineReducers"]
+  DUPTABLE R1 K6 [{"MainSwitch", "Languages", "CountryRegion", "CustomPolicySwitch", "Policies"}]
+  GETUPVAL R2 1
+  SETTABLEKS R2 R1 K1 ["MainSwitch"]
+  GETUPVAL R2 2
+  SETTABLEKS R2 R1 K2 ["Languages"]
+  GETUPVAL R2 3
+  SETTABLEKS R2 R1 K3 ["CountryRegion"]
+  GETUPVAL R2 4
+  SETTABLEKS R2 R1 K4 ["CustomPolicySwitch"]
+  GETUPVAL R2 5
+  SETTABLEKS R2 R1 K5 ["Policies"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Reducers"]
+  GETTABLEKS R3 R4 K9 ["MainSwitchReducer"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Src"]
+  GETTABLEKS R5 R6 K8 ["Reducers"]
+  GETTABLEKS R4 R5 K10 ["CustomPolicySwitchReducer"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["Src"]
+  GETTABLEKS R6 R7 K8 ["Reducers"]
+  GETTABLEKS R5 R6 K11 ["LanguagesReducer"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K7 ["Src"]
+  GETTABLEKS R7 R8 K8 ["Reducers"]
+  GETTABLEKS R6 R7 K12 ["CountryRegionReducer"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K7 ["Src"]
+  GETTABLEKS R8 R9 K8 ["Reducers"]
+  GETTABLEKS R7 R8 K13 ["PoliciesReducer"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K14 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  RETURN R7 1

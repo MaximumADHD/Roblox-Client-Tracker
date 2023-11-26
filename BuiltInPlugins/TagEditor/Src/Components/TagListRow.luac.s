@@ -1,0 +1,738 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["GroupName"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R0 K1 ["GroupName"]
+  JUMPIFNOTEQKS R2 K2 [""] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  GETTABLEKS R3 R0 K3 ["Disabled"]
+  NOT R2 R3
+  JUMPIFNOT R1 [+26]
+  JUMPIFNOT R2 [+49]
+  GETTABLEKS R3 R0 K4 ["groupMenu"]
+  JUMPIFEQKNIL R3 [+46]
+  GETTABLEKS R3 R0 K4 ["groupMenu"]
+  GETTABLEKS R4 R0 K1 ["GroupName"]
+  JUMPIFNOTEQ R3 R4 [+40]
+  GETTABLEKS R4 R0 K5 ["renamingGroup"]
+  GETTABLEKS R5 R0 K1 ["GroupName"]
+  JUMPIFNOTEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETTABLEKS R4 R0 K6 ["setRenamingGroup"]
+  GETTABLEKS R5 R0 K1 ["GroupName"]
+  MOVE R6 R3
+  CALL R4 2 0
+  RETURN R0 0
+  GETTABLEKS R3 R0 K7 ["tagMenu"]
+  JUMPIFEQKNIL R3 [+21]
+  GETTABLEKS R3 R0 K7 ["tagMenu"]
+  GETTABLEKS R4 R0 K8 ["TagName"]
+  JUMPIFNOTEQ R3 R4 [+15]
+  GETTABLEKS R4 R0 K9 ["renamingTag"]
+  GETTABLEKS R5 R0 K8 ["TagName"]
+  JUMPIFNOTEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETTABLEKS R4 R0 K10 ["setRenaming"]
+  GETTABLEKS R5 R0 K8 ["TagName"]
+  MOVE R6 R3
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["GroupName"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R0 K1 ["GroupName"]
+  JUMPIFNOTEQKS R2 K2 [""] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  GETTABLEKS R3 R0 K3 ["Disabled"]
+  NOT R2 R3
+  JUMPIFNOT R1 [+17]
+  JUMPIFNOT R2 [+31]
+  GETTABLEKS R3 R0 K4 ["groupMenu"]
+  JUMPIFEQKNIL R3 [+7]
+  GETTABLEKS R3 R0 K4 ["groupMenu"]
+  GETTABLEKS R4 R0 K1 ["GroupName"]
+  JUMPIFEQ R3 R4 [+22]
+  GETTABLEKS R3 R0 K5 ["openGroupMenu"]
+  GETTABLEKS R4 R0 K1 ["GroupName"]
+  CALL R3 1 0
+  RETURN R0 0
+  GETTABLEKS R3 R0 K6 ["tagMenu"]
+  JUMPIFEQKNIL R3 [+7]
+  GETTABLEKS R3 R0 K6 ["tagMenu"]
+  GETTABLEKS R4 R0 K7 ["TagName"]
+  JUMPIFEQ R3 R4 [+6]
+  GETTABLEKS R3 R0 K8 ["openTagMenu"]
+  GETTABLEKS R4 R0 K7 ["TagName"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["TagGroup"]
+  GETTABLEKS R3 R0 K2 ["assigningGroup"]
+  JUMPIFEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["Get"]
+  CALL R2 0 1
+  GETTABLEKS R4 R0 K4 ["TagName"]
+  JUMPIFNOT R1 [+2]
+  LOADK R5 K5 [""]
+  JUMP [+2]
+  GETTABLEKS R5 R0 K2 ["assigningGroup"]
+  NAMECALL R2 R2 K6 ["SetGroup"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["Get"]
+  CALL R1 0 1
+  GETTABLEKS R3 R0 K2 ["TagName"]
+  GETTABLEKS R5 R0 K3 ["IsTagAssignedToAll"]
+  NOT R4 R5
+  NAMECALL R1 R1 K4 ["SetTag"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["GroupName"]
+  JUMPIFNOT R1 [+17]
+  GETTABLEKS R1 R0 K1 ["GroupName"]
+  JUMPIFEQKS R1 K2 [""] [+14]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["Get"]
+  CALL R1 0 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["GroupName"]
+  NAMECALL R1 R1 K4 ["ToggleGroupVisibility"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["Get"]
+  CALL R1 0 1
+  GETTABLEKS R3 R0 K5 ["TagName"]
+  GETTABLEKS R5 R0 K6 ["IsVisibleToggled"]
+  NOT R4 R5
+  NAMECALL R1 R1 K7 ["SetVisible"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["ToggleGroup"]
+  GETTABLEKS R2 R0 K2 ["GroupName"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["GroupName"]
+  GETTABLEKS R3 R0 K2 ["assigningGroup"]
+  JUMPIFEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  JUMPIF R1 [+5]
+  GETTABLEKS R2 R0 K3 ["openGroupMenu"]
+  GETTABLEKS R3 R0 K1 ["GroupName"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K4 ["setAssigningGroup"]
+  JUMPIFNOT R1 [+2]
+  LOADK R3 K5 [""]
+  JUMP [+2]
+  GETTABLEKS R3 R0 K1 ["GroupName"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_7:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["onPress"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["onClick"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K2 ["toggleGroupMembership"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K3 ["toggleAssignment"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K4 ["toggleVisible"]
+  NEWCLOSURE R1 P5
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K5 ["toggleGroup"]
+  NEWCLOSURE R1 P6
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K6 ["editGroupMembership"]
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"hovered"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["hovered"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"hovered"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["hovered"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R4 R1 K2 ["Stylizer"]
+  GETTABLEKS R3 R4 K3 ["TagListRow"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["new"]
+  CALL R4 0 1
+  GETTABLEKS R6 R1 K2 ["Stylizer"]
+  GETTABLEKS R5 R6 K5 ["VisibleIcon"]
+  GETTABLEKS R7 R1 K2 ["Stylizer"]
+  GETTABLEKS R6 R7 K6 ["VisibleOffIcon"]
+  GETTABLEKS R7 R1 K7 ["GroupName"]
+  JUMPIFNOT R7 [+6]
+  GETTABLEKS R8 R1 K7 ["GroupName"]
+  JUMPIFNOTEQKS R8 K8 [""] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETTABLEKS R9 R1 K9 ["Disabled"]
+  NOT R8 R9
+  LOADB R9 0
+  GETTABLEKS R10 R1 K10 ["assigningGroup"]
+  JUMPIFEQKNIL R10 [+7]
+  GETTABLEKS R10 R1 K10 ["assigningGroup"]
+  JUMPIFNOTEQKS R10 K8 [""] [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  GETTABLEKS R11 R1 K11 ["TagGroup"]
+  GETTABLEKS R12 R1 K10 ["assigningGroup"]
+  JUMPIFEQ R11 R12 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  GETTABLEKS R12 R1 K7 ["GroupName"]
+  GETTABLEKS R13 R1 K10 ["assigningGroup"]
+  JUMPIFEQ R12 R13 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  MOVE R12 R9
+  JUMPIFNOT R12 [+1]
+  NOT R12 R11
+  NOT R13 R7
+  NOT R14 R7
+  MOVE R15 R7
+  JUMPIFNOT R15 [+1]
+  NOT R15 R12
+  NOT R16 R9
+  LOADB R17 0
+  GETTABLEKS R18 R1 K12 ["renamingGroup"]
+  JUMPIFEQKNIL R18 [+9]
+  GETTABLEKS R18 R1 K12 ["renamingGroup"]
+  GETTABLEKS R19 R1 K7 ["GroupName"]
+  JUMPIFNOTEQ R18 R19 [+3]
+  LOADB R17 1
+  JUMP [+11]
+  GETTABLEKS R18 R1 K13 ["renamingTag"]
+  JUMPIFEQKNIL R18 [+8]
+  GETTABLEKS R18 R1 K13 ["renamingTag"]
+  GETTABLEKS R19 R1 K14 ["TagName"]
+  JUMPIFNOTEQ R18 R19 [+2]
+  LOADB R17 1
+  JUMPIFNOT R10 [+6]
+  LOADK R20 K15 ["Tooltip"]
+  LOADK R21 K16 ["UnassignFromGroup"]
+  NAMECALL R18 R2 K17 ["getText"]
+  CALL R18 3 1
+  JUMP [+5]
+  LOADK R20 K15 ["Tooltip"]
+  LOADK R21 K18 ["AssignToGroup"]
+  NAMECALL R18 R2 K17 ["getText"]
+  CALL R18 3 1
+  GETTABLEKS R20 R1 K19 ["IsTagAssignedToAll"]
+  JUMPIFNOT R20 [+6]
+  LOADK R21 K15 ["Tooltip"]
+  LOADK R22 K20 ["RemoveTag"]
+  NAMECALL R19 R2 K17 ["getText"]
+  CALL R19 3 1
+  JUMP [+5]
+  LOADK R21 K15 ["Tooltip"]
+  LOADK R22 K21 ["ApplyTag"]
+  NAMECALL R19 R2 K17 ["getText"]
+  CALL R19 3 1
+  LOADNIL R20
+  LOADB R21 0
+  JUMPIFNOT R7 [+9]
+  GETTABLEKS R22 R1 K22 ["groupMenu"]
+  GETTABLEKS R23 R1 K7 ["GroupName"]
+  JUMPIFEQ R22 R23 [+2]
+  LOADB R21 0 +1
+  LOADB R21 1
+  JUMP [+8]
+  GETTABLEKS R22 R1 K23 ["tagMenu"]
+  GETTABLEKS R23 R1 K14 ["TagName"]
+  JUMPIFEQ R22 R23 [+2]
+  LOADB R21 0 +1
+  LOADB R21 1
+  JUMPIFNOT R21 [+2]
+  LOADK R20 K24 ["SelectedTag"]
+  JUMP [+6]
+  GETTABLEKS R23 R0 K25 ["state"]
+  GETTABLEKS R22 R23 K26 ["hovered"]
+  JUMPIFNOT R22 [+1]
+  LOADK R20 K27 ["PaneHover"]
+  ORK R22 R20 K28 ["None"]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K29 ["createElement"]
+  GETUPVAL R24 2
+  DUPTABLE R25 K32 [{"LayoutOrder", "Size"}]
+  GETTABLEKS R26 R1 K30 ["LayoutOrder"]
+  SETTABLEKS R26 R25 K30 ["LayoutOrder"]
+  GETTABLEKS R26 R3 K31 ["Size"]
+  SETTABLEKS R26 R25 K31 ["Size"]
+  DUPTABLE R26 K35 [{"HoverArea", "RootPane"}]
+  GETUPVAL R28 1
+  GETTABLEKS R27 R28 K29 ["createElement"]
+  GETUPVAL R28 3
+  DUPTABLE R29 K39 [{"Cursor", "MouseEnter", "MouseLeave"}]
+  LOADK R30 K40 ["PointingHand"]
+  SETTABLEKS R30 R29 K36 ["Cursor"]
+  NEWCLOSURE R30 P0
+  CAPTURE VAL R0
+  SETTABLEKS R30 R29 K37 ["MouseEnter"]
+  NEWCLOSURE R30 P1
+  CAPTURE VAL R0
+  SETTABLEKS R30 R29 K38 ["MouseLeave"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K33 ["HoverArea"]
+  GETUPVAL R28 1
+  GETTABLEKS R27 R28 K29 ["createElement"]
+  GETUPVAL R28 2
+  DUPTABLE R29 K48 [{"Layout", "HorizontalAlignment", "Spacing", "Padding", "Style", "OnPress", "OnClick"}]
+  GETIMPORT R30 K52 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R30 R29 K41 ["Layout"]
+  GETIMPORT R30 K54 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R30 R29 K42 ["HorizontalAlignment"]
+  GETTABLEKS R30 R3 K43 ["Spacing"]
+  SETTABLEKS R30 R29 K43 ["Spacing"]
+  JUMPIF R7 [+4]
+  GETTABLEKS R31 R1 K11 ["TagGroup"]
+  JUMPIFNOTEQKS R31 K8 [""] [+4]
+  GETTABLEKS R30 R3 K55 ["PaddingUnindented"]
+  JUMP [+2]
+  GETTABLEKS R30 R3 K56 ["PaddingIndented"]
+  SETTABLEKS R30 R29 K44 ["Padding"]
+  SETTABLEKS R20 R29 K45 ["Style"]
+  GETTABLEKS R30 R0 K57 ["onPress"]
+  SETTABLEKS R30 R29 K46 ["OnPress"]
+  GETTABLEKS R30 R0 K58 ["onClick"]
+  SETTABLEKS R30 R29 K47 ["OnClick"]
+  DUPTABLE R30 K66 [{"ArrowImage", "CheckboxPane", "TagImage", "NameText", "RenameTextInput", "EditGroupMembership", "VisibleToggleButton"}]
+  MOVE R31 R7
+  JUMPIFNOT R31 [+27]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K29 ["createElement"]
+  GETUPVAL R32 4
+  DUPTABLE R33 K69 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder"}]
+  SETTABLEKS R22 R33 K67 ["BackgroundStyle"]
+  GETTABLEKS R35 R1 K70 ["IsGroupCollapsed"]
+  JUMPIFNOT R35 [+3]
+  GETTABLEKS R34 R3 K71 ["ClosedArrowImage"]
+  JUMP [+2]
+  GETTABLEKS R34 R3 K72 ["OpenArrowImage"]
+  SETTABLEKS R34 R33 K68 ["LeftIcon"]
+  GETTABLEKS R34 R0 K73 ["toggleGroup"]
+  SETTABLEKS R34 R33 K47 ["OnClick"]
+  NAMECALL R34 R4 K74 ["getNextOrder"]
+  CALL R34 1 1
+  SETTABLEKS R34 R33 K30 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K59 ["ArrowImage"]
+  MOVE R31 R13
+  JUMPIFNOT R31 [+90]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K29 ["createElement"]
+  GETUPVAL R32 2
+  DUPTABLE R33 K75 [{"LayoutOrder", "Size", "Layout"}]
+  NAMECALL R34 R4 K74 ["getNextOrder"]
+  CALL R34 1 1
+  SETTABLEKS R34 R33 K30 ["LayoutOrder"]
+  GETTABLEKS R34 R3 K76 ["CheckboxSize"]
+  SETTABLEKS R34 R33 K31 ["Size"]
+  GETIMPORT R34 K52 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R34 R33 K41 ["Layout"]
+  DUPTABLE R34 K79 [{"ToggleGroupMembershipButton", "Checkbox"}]
+  MOVE R35 R9
+  JUMPIFNOT R35 [+30]
+  GETUPVAL R36 1
+  GETTABLEKS R35 R36 K29 ["createElement"]
+  GETUPVAL R36 4
+  DUPTABLE R37 K82 [{"BackgroundStyle", "LeftIcon", "OnClick", "IconColor", "TooltipText"}]
+  SETTABLEKS R22 R37 K67 ["BackgroundStyle"]
+  JUMPIFNOT R10 [+3]
+  GETTABLEKS R38 R3 K83 ["UnassignIcon"]
+  JUMP [+2]
+  GETTABLEKS R38 R3 K84 ["AssignIcon"]
+  SETTABLEKS R38 R37 K68 ["LeftIcon"]
+  GETTABLEKS R38 R0 K85 ["toggleGroupMembership"]
+  SETTABLEKS R38 R37 K47 ["OnClick"]
+  JUMPIFNOT R10 [+3]
+  GETTABLEKS R38 R3 K86 ["UnassignIconColor"]
+  JUMP [+2]
+  GETTABLEKS R38 R3 K87 ["AssignIconColor"]
+  SETTABLEKS R38 R37 K80 ["IconColor"]
+  SETTABLEKS R18 R37 K81 ["TooltipText"]
+  CALL R35 2 1
+  SETTABLEKS R35 R34 K77 ["ToggleGroupMembershipButton"]
+  NOT R35 R9
+  JUMPIFNOT R35 [+32]
+  GETUPVAL R36 1
+  GETTABLEKS R35 R36 K29 ["createElement"]
+  GETUPVAL R36 5
+  DUPTABLE R37 K89 [{"Checked", "OnClick"}]
+  GETTABLEKS R39 R1 K90 ["IsTagAssignedToSome"]
+  JUMPIFNOT R39 [+4]
+  GETUPVAL R39 5
+  GETTABLEKS R38 R39 K91 ["Indeterminate"]
+  JUMP [+2]
+  GETTABLEKS R38 R1 K19 ["IsTagAssignedToAll"]
+  SETTABLEKS R38 R37 K88 ["Checked"]
+  GETTABLEKS R38 R0 K92 ["toggleAssignment"]
+  SETTABLEKS R38 R37 K47 ["OnClick"]
+  DUPTABLE R38 K93 [{"Tooltip"}]
+  GETUPVAL R40 1
+  GETTABLEKS R39 R40 K29 ["createElement"]
+  GETUPVAL R40 6
+  DUPTABLE R41 K95 [{"Text"}]
+  SETTABLEKS R19 R41 K94 ["Text"]
+  CALL R39 2 1
+  SETTABLEKS R39 R38 K15 ["Tooltip"]
+  CALL R35 3 1
+  SETTABLEKS R35 R34 K78 ["Checkbox"]
+  CALL R31 3 1
+  SETTABLEKS R31 R30 K60 ["CheckboxPane"]
+  MOVE R31 R14
+  JUMPIFNOT R31 [+19]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K29 ["createElement"]
+  GETUPVAL R32 7
+  DUPTABLE R33 K97 [{"Name", "OnClick", "LayoutOrder"}]
+  GETTABLEKS R34 R1 K98 ["TagIcon"]
+  SETTABLEKS R34 R33 K96 ["Name"]
+  GETTABLEKS R34 R0 K99 ["OnButtonClicked"]
+  SETTABLEKS R34 R33 K47 ["OnClick"]
+  NAMECALL R34 R4 K74 ["getNextOrder"]
+  CALL R34 1 1
+  SETTABLEKS R34 R33 K30 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K61 ["TagImage"]
+  NOT R31 R17
+  JUMPIFNOT R31 [+35]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K29 ["createElement"]
+  GETUPVAL R32 8
+  DUPTABLE R33 K102 [{"LayoutOrder", "Text", "Size", "TextXAlignment", "TextTruncate"}]
+  NAMECALL R34 R4 K74 ["getNextOrder"]
+  CALL R34 1 1
+  SETTABLEKS R34 R33 K30 ["LayoutOrder"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R34 R1 K7 ["GroupName"]
+  JUMP [+2]
+  GETTABLEKS R34 R1 K14 ["TagName"]
+  SETTABLEKS R34 R33 K94 ["Text"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R34 R3 K103 ["GroupTextSize"]
+  JUMP [+2]
+  GETTABLEKS R34 R3 K104 ["TextSize"]
+  SETTABLEKS R34 R33 K31 ["Size"]
+  GETIMPORT R34 K105 [Enum.TextXAlignment.Left]
+  SETTABLEKS R34 R33 K100 ["TextXAlignment"]
+  GETIMPORT R34 K107 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R34 R33 K101 ["TextTruncate"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K62 ["NameText"]
+  MOVE R31 R17
+  JUMPIFNOT R31 [+19]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K29 ["createElement"]
+  GETUPVAL R32 9
+  DUPTABLE R33 K32 [{"LayoutOrder", "Size"}]
+  NAMECALL R34 R4 K74 ["getNextOrder"]
+  CALL R34 1 1
+  SETTABLEKS R34 R33 K30 ["LayoutOrder"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R34 R3 K103 ["GroupTextSize"]
+  JUMP [+2]
+  GETTABLEKS R34 R3 K104 ["TextSize"]
+  SETTABLEKS R34 R33 K31 ["Size"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K63 ["RenameTextInput"]
+  MOVE R31 R15
+  JUMPIFNOT R31 [+43]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K29 ["createElement"]
+  GETUPVAL R32 4
+  DUPTABLE R33 K108 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "TooltipText"}]
+  SETTABLEKS R22 R33 K67 ["BackgroundStyle"]
+  JUMPIFNOT R8 [+8]
+  JUMPIF R12 [+7]
+  JUMPIFNOT R11 [+3]
+  GETTABLEKS R34 R3 K109 ["StopAssigningIcon"]
+  JUMP [+4]
+  GETTABLEKS R34 R3 K110 ["EditAssignmentsIcon"]
+  JUMP [+1]
+  LOADNIL R34
+  SETTABLEKS R34 R33 K68 ["LeftIcon"]
+  GETTABLEKS R34 R0 K111 ["editGroupMembership"]
+  SETTABLEKS R34 R33 K47 ["OnClick"]
+  NAMECALL R34 R4 K74 ["getNextOrder"]
+  CALL R34 1 1
+  SETTABLEKS R34 R33 K30 ["LayoutOrder"]
+  JUMPIFNOT R11 [+6]
+  LOADK R36 K15 ["Tooltip"]
+  LOADK R37 K112 ["EndGroupAssignment"]
+  NAMECALL R34 R2 K17 ["getText"]
+  CALL R34 3 1
+  JUMP [+5]
+  LOADK R36 K15 ["Tooltip"]
+  LOADK R37 K113 ["StartGroupAssignment"]
+  NAMECALL R34 R2 K17 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K81 ["TooltipText"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K64 ["EditGroupMembership"]
+  MOVE R31 R16
+  JUMPIFNOT R31 [+32]
+  GETUPVAL R32 1
+  GETTABLEKS R31 R32 K29 ["createElement"]
+  GETUPVAL R32 4
+  DUPTABLE R33 K108 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "TooltipText"}]
+  SETTABLEKS R22 R33 K67 ["BackgroundStyle"]
+  GETTABLEKS R35 R1 K114 ["IsVisibleToggled"]
+  JUMPIFNOT R35 [+2]
+  MOVE R34 R5
+  JUMP [+1]
+  MOVE R34 R6
+  SETTABLEKS R34 R33 K68 ["LeftIcon"]
+  GETTABLEKS R34 R0 K115 ["toggleVisible"]
+  SETTABLEKS R34 R33 K47 ["OnClick"]
+  NAMECALL R34 R4 K74 ["getNextOrder"]
+  CALL R34 1 1
+  SETTABLEKS R34 R33 K30 ["LayoutOrder"]
+  LOADK R36 K15 ["Tooltip"]
+  LOADK R37 K116 ["ToggleVisibility"]
+  NAMECALL R34 R2 K17 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K81 ["TooltipText"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K65 ["VisibleToggleButton"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K34 ["RootPane"]
+  CALL R23 3 -1
+  RETURN R23 -1
+
+PROTO_11:
+  DUPTABLE R2 K5 [{"assigningGroup", "groupMenu", "renamingGroup", "tagMenu", "renamingTag"}]
+  GETTABLEKS R3 R0 K6 ["AssigningGroup"]
+  SETTABLEKS R3 R2 K0 ["assigningGroup"]
+  GETTABLEKS R3 R0 K7 ["GroupMenu"]
+  SETTABLEKS R3 R2 K1 ["groupMenu"]
+  GETTABLEKS R3 R0 K8 ["RenamingGroup"]
+  SETTABLEKS R3 R2 K2 ["renamingGroup"]
+  GETTABLEKS R3 R0 K9 ["TagMenu"]
+  SETTABLEKS R3 R2 K3 ["tagMenu"]
+  GETTABLEKS R3 R0 K10 ["RenamingTag"]
+  SETTABLEKS R3 R2 K4 ["renamingTag"]
+  RETURN R2 1
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["OpenTagMenu"]
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["SetRenaming"]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["SetAssigningGroup"]
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["SetRenamingGroup"]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["OpenGroupMenu"]
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_17:
+  DUPTABLE R1 K5 [{"openTagMenu", "setRenaming", "setAssigningGroup", "setRenamingGroup", "openGroupMenu"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["openTagMenu"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K1 ["setRenaming"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K2 ["setAssigningGroup"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K3 ["setRenamingGroup"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K4 ["openGroupMenu"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K11 ["ContextServices"]
+  GETTABLEKS R6 R5 K12 ["withContext"]
+  GETTABLEKS R7 R5 K13 ["Analytics"]
+  GETTABLEKS R8 R5 K14 ["Localization"]
+  GETTABLEKS R10 R4 K15 ["Style"]
+  GETTABLEKS R9 R10 K16 ["Stylizer"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K5 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Actions"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R13 R0 K5 ["Src"]
+  GETTABLEKS R12 R13 K18 ["TagManager"]
+  CALL R11 1 1
+  GETTABLEKS R12 R4 K19 ["UI"]
+  GETTABLEKS R13 R12 K20 ["Checkbox"]
+  GETTABLEKS R14 R12 K21 ["HoverArea"]
+  GETTABLEKS R15 R12 K22 ["IconButton"]
+  GETTABLEKS R16 R12 K23 ["Pane"]
+  GETTABLEKS R17 R12 K24 ["TextLabel"]
+  GETTABLEKS R18 R12 K25 ["Tooltip"]
+  GETTABLEKS R19 R4 K26 ["Util"]
+  GETTABLEKS R20 R19 K27 ["LayoutOrderIterator"]
+  GETIMPORT R21 K4 [require]
+  GETIMPORT R24 K1 [script]
+  GETTABLEKS R23 R24 K2 ["Parent"]
+  GETTABLEKS R22 R23 K28 ["Icon"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETIMPORT R25 K1 [script]
+  GETTABLEKS R24 R25 K2 ["Parent"]
+  GETTABLEKS R23 R24 K29 ["TagRenameTextInput"]
+  CALL R22 1 1
+  GETTABLEKS R23 R2 K30 ["PureComponent"]
+  LOADK R25 K31 ["TagListRow"]
+  NAMECALL R23 R23 K32 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K33 [PROTO_7]
+  CAPTURE VAL R11
+  SETTABLEKS R24 R23 K34 ["init"]
+  DUPCLOSURE R24 K35 [PROTO_10]
+  CAPTURE VAL R20
+  CAPTURE VAL R2
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R13
+  CAPTURE VAL R18
+  CAPTURE VAL R21
+  CAPTURE VAL R17
+  CAPTURE VAL R22
+  SETTABLEKS R24 R23 K36 ["render"]
+  MOVE R24 R6
+  DUPTABLE R25 K37 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R7 R25 K13 ["Analytics"]
+  SETTABLEKS R8 R25 K14 ["Localization"]
+  SETTABLEKS R9 R25 K16 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  DUPCLOSURE R24 K38 [PROTO_11]
+  DUPCLOSURE R25 K39 [PROTO_17]
+  CAPTURE VAL R10
+  GETTABLEKS R26 R3 K40 ["connect"]
+  MOVE R27 R24
+  MOVE R28 R25
+  CALL R26 2 1
+  MOVE R27 R23
+  CALL R26 1 -1
+  RETURN R26 -1

@@ -1,0 +1,158 @@
+PROTO_0:
+  GETIMPORT R0 K1 [workspace]
+  LOADK R2 K2 ["TempInstancesFolder"]
+  NAMECALL R0 R0 K3 ["FindFirstChild"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETIMPORT R1 K1 [game]
+  GETTABLEKS R0 R1 K2 ["CoreGui"]
+  LOADK R2 K3 ["TempScreenGui"]
+  NAMECALL R0 R0 K4 ["FindFirstChild"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETIMPORT R0 K1 [workspace]
+  LOADK R2 K2 ["TempInstancesFolder"]
+  NAMECALL R0 R0 K3 ["FindFirstChild"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+3]
+  NAMECALL R1 R0 K4 ["Destroy"]
+  CALL R1 1 0
+  GETIMPORT R2 K6 [game]
+  GETTABLEKS R1 R2 K7 ["CoreGui"]
+  LOADK R3 K8 ["TempScreenGui"]
+  NAMECALL R1 R1 K3 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+3]
+  NAMECALL R2 R1 K4 ["Destroy"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R0 K1 [workspace]
+  LOADK R2 K2 ["TempInstancesFolder"]
+  NAMECALL R0 R0 K3 ["FindFirstChild"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+1]
+  RETURN R0 1
+  GETIMPORT R1 K6 [Instance.new]
+  LOADK R2 K7 ["Folder"]
+  CALL R1 1 1
+  MOVE R0 R1
+  LOADK R1 K2 ["TempInstancesFolder"]
+  SETTABLEKS R1 R0 K8 ["Name"]
+  GETIMPORT R1 K1 [workspace]
+  SETTABLEKS R1 R0 K9 ["Parent"]
+  RETURN R0 1
+
+PROTO_4:
+  GETIMPORT R1 K1 [game]
+  GETTABLEKS R0 R1 K2 ["CoreGui"]
+  LOADK R2 K3 ["TempScreenGui"]
+  NAMECALL R0 R0 K4 ["FindFirstChild"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+1]
+  RETURN R0 1
+  GETIMPORT R1 K7 [Instance.new]
+  LOADK R2 K8 ["ScreenGui"]
+  GETIMPORT R4 K1 [game]
+  GETTABLEKS R3 R4 K2 ["CoreGui"]
+  CALL R1 2 1
+  MOVE R0 R1
+  LOADK R1 K3 ["TempScreenGui"]
+  SETTABLEKS R1 R0 K9 ["Name"]
+  GETIMPORT R1 K13 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R1 R0 K11 ["ZIndexBehavior"]
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getTempInstancesFolder"]
+  CALL R1 0 1
+  GETIMPORT R2 K3 [Instance.new]
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R1 R2 K4 ["Parent"]
+  RETURN R2 1
+
+PROTO_6:
+  MOVE R1 R0
+  JUMPIF R1 [+4]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getTempScreenGui"]
+  CALL R1 0 1
+  MOVE R0 R1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["new"]
+  MOVE R2 R0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["Selection"]
+  GETTABLEKS R3 R4 K1 ["new"]
+  CALL R3 0 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_7:
+  NEWTABLE R0 0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["thunkMiddleware"]
+  SETLIST R0 R1 1 [1]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["Store"]
+  GETTABLEKS R1 R2 K2 ["new"]
+  GETUPVAL R2 1
+  LOADNIL R3
+  MOVE R4 R0
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Rodux"]
+  CALL R1 1 1
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["DraggerSchemaCore"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R2 K8 ["DraggerSchema"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Reducers"]
+  GETTABLEKS R5 R6 K11 ["MainReducer"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Utility"]
+  GETTABLEKS R6 R7 K13 ["MockDraggerContext_Pivot"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K14 [PROTO_0]
+  DUPCLOSURE R7 K15 [PROTO_1]
+  NEWTABLE R8 8 0
+  DUPCLOSURE R9 K16 [PROTO_2]
+  SETTABLEKS R9 R8 K17 ["cleanTempInstances"]
+  DUPCLOSURE R9 K18 [PROTO_3]
+  SETTABLEKS R9 R8 K19 ["getTempInstancesFolder"]
+  DUPCLOSURE R9 K20 [PROTO_4]
+  SETTABLEKS R9 R8 K21 ["getTempScreenGui"]
+  DUPCLOSURE R9 K22 [PROTO_5]
+  CAPTURE VAL R8
+  SETTABLEKS R9 R8 K23 ["createInstance"]
+  DUPCLOSURE R9 K24 [PROTO_6]
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  SETTABLEKS R9 R8 K25 ["createTestDraggerContext"]
+  DUPCLOSURE R9 K26 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R9 R8 K27 ["createTestStore"]
+  RETURN R8 1

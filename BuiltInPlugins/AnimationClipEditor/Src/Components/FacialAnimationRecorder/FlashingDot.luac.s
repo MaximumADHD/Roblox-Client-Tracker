@@ -1,0 +1,256 @@
+PROTO_0:
+  DUPTABLE R1 K3 [{"time", "sinTime", "animatingDotIndex"}]
+  LOADK R2 K4 [1.5707963267949]
+  SETTABLEKS R2 R1 K0 ["time"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K1 ["sinTime"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K2 ["animatingDotIndex"]
+  SETTABLEKS R1 R0 K5 ["state"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["updateAnimation"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["RenderStepped"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K1 ["connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K2 ["animationConnection"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["animationConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["animationConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["sinTime"]
+  GETTABLEKS R3 R0 K1 ["animatingDotIndex"]
+  GETTABLEKS R5 R0 K2 ["time"]
+  GETUPVAL R6 0
+  ADD R4 R5 R6
+  MULK R6 R4 K3 [5]
+  FASTCALL1 MATH_SIN R6 [+2]
+  GETIMPORT R5 K6 [math.sin]
+  CALL R5 1 1
+  LOADN R6 0
+  JUMPIFNOTLE R6 R2 [+4]
+  LOADN R6 0
+  JUMPIFLT R5 R6 [+7]
+  LOADN R6 0
+  JUMPIFNOTLT R2 R6 [+6]
+  LOADN R6 0
+  JUMPIFNOTLE R6 R5 [+3]
+  MODK R6 R3 K7 [1]
+  ADDK R3 R6 K7 [1]
+  DUPTABLE R6 K8 [{"time", "sinTime", "animatingDotIndex"}]
+  SETTABLEKS R4 R6 K2 ["time"]
+  SETTABLEKS R5 R6 K0 ["sinTime"]
+  SETTABLEKS R3 R6 K1 ["animatingDotIndex"]
+  RETURN R6 1
+
+PROTO_5:
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  NAMECALL R2 R0 K0 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_6:
+  SUB R5 R1 R0
+  MUL R4 R5 R2
+  ADD R3 R0 R4
+  RETURN R3 1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["AnchorPoint"]
+  GETTABLEKS R4 R1 K3 ["Position"]
+  GETTABLEKS R5 R1 K4 ["ZIndex"]
+  GETTABLEKS R6 R1 K5 ["LayoutOrder"]
+  GETTABLEKS R7 R1 K6 ["Stylizer"]
+  GETTABLEKS R8 R7 K7 ["Size"]
+  GETTABLEKS R10 R1 K7 ["Size"]
+  OR R9 R10 R8
+  GETTABLEKS R11 R1 K9 ["PaddingLeft"]
+  ORK R10 R11 K8 [0]
+  GETIMPORT R11 K12 [Color3.new]
+  LOADN R12 1
+  LOADN R13 1
+  LOADN R14 1
+  CALL R11 3 1
+  DUPTABLE R12 K14 [{"UIListLayout"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K15 ["createElement"]
+  LOADK R14 K13 ["UIListLayout"]
+  DUPTABLE R15 K21 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R16 K23 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R16 R15 K16 ["SortOrder"]
+  GETIMPORT R16 K25 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R16 R15 K17 ["FillDirection"]
+  GETIMPORT R16 K27 [UDim.new]
+  LOADN R17 1
+  LOADN R18 0
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K18 ["Padding"]
+  GETIMPORT R16 K29 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R16 R15 K19 ["HorizontalAlignment"]
+  GETIMPORT R16 K30 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R16 R15 K20 ["VerticalAlignment"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K13 ["UIListLayout"]
+  GETTABLEKS R14 R2 K31 ["sinTime"]
+  FASTCALL1 MATH_ABS R14 [+2]
+  GETIMPORT R13 K34 [math.abs]
+  CALL R13 1 1
+  GETTABLEKS R14 R2 K35 ["animatingDotIndex"]
+  LOADN R17 1
+  LOADN R15 1
+  LOADN R16 1
+  FORNPREP R15
+  LOADK R18 K36 [0.5]
+  JUMPIFNOTEQ R17 R14 [+8]
+  GETGLOBAL R19 K37 ["lerpNum"]
+  LOADK R20 K36 [0.5]
+  LOADN R21 0
+  MOVE R22 R13
+  CALL R19 3 1
+  MOVE R18 R19
+  LOADK R20 K38 ["Frame"]
+  MOVE R21 R17
+  CONCAT R19 R20 R21
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K15 ["createElement"]
+  LOADK R21 K38 ["Frame"]
+  DUPTABLE R22 K42 [{"Size", "LayoutOrder", "BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
+  GETIMPORT R23 K44 [UDim2.new]
+  LOADK R24 K45 [0.666666666666667]
+  MOVE R25 R10
+  LOADK R26 K45 [0.666666666666667]
+  LOADN R27 0
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K7 ["Size"]
+  SETTABLEKS R17 R22 K5 ["LayoutOrder"]
+  LOADN R23 0
+  SETTABLEKS R23 R22 K39 ["BorderSizePixel"]
+  SETTABLEKS R11 R22 K40 ["BackgroundColor3"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K41 ["BackgroundTransparency"]
+  DUPTABLE R23 K47 [{"Image"}]
+  GETUPVAL R25 0
+  GETTABLEKS R24 R25 K15 ["createElement"]
+  LOADK R25 K48 ["ImageLabel"]
+  DUPTABLE R26 K50 [{"AnchorPoint", "BackgroundTransparency", "Size", "Position", "Image", "ImageTransparency", "LayoutOrder"}]
+  GETIMPORT R27 K52 [Vector2.new]
+  LOADN R28 0
+  LOADK R29 K36 [0.5]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K2 ["AnchorPoint"]
+  LOADN R27 1
+  SETTABLEKS R27 R26 K41 ["BackgroundTransparency"]
+  GETIMPORT R27 K44 [UDim2.new]
+  LOADN R28 0
+  LOADN R29 8
+  LOADN R30 0
+  LOADN R31 8
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K7 ["Size"]
+  GETIMPORT R27 K44 [UDim2.new]
+  LOADN R28 0
+  MOVE R29 R10
+  LOADK R30 K36 [0.5]
+  LOADN R31 0
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K3 ["Position"]
+  LOADK R27 K53 ["rbxasset://textures/AnimationEditor/FaceCaptureUI/FlashingDot.png"]
+  SETTABLEKS R27 R26 K46 ["Image"]
+  SETTABLEKS R18 R26 K49 ["ImageTransparency"]
+  LOADN R27 2
+  SETTABLEKS R27 R26 K5 ["LayoutOrder"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K46 ["Image"]
+  CALL R20 3 1
+  SETTABLE R20 R12 R19
+  FORNLOOP R15
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K15 ["createElement"]
+  LOADK R16 K38 ["Frame"]
+  DUPTABLE R17 K54 [{"AnchorPoint", "Position", "Size", "ZIndex", "LayoutOrder", "BorderSizePixel", "BackgroundTransparency"}]
+  SETTABLEKS R3 R17 K2 ["AnchorPoint"]
+  SETTABLEKS R4 R17 K3 ["Position"]
+  SETTABLEKS R9 R17 K7 ["Size"]
+  SETTABLEKS R5 R17 K4 ["ZIndex"]
+  SETTABLEKS R6 R17 K5 ["LayoutOrder"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K39 ["BorderSizePixel"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K41 ["BackgroundTransparency"]
+  MOVE R18 R12
+  CALL R15 3 -1
+  RETURN R15 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["AnimationClipEditor"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Roact"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K13 ["ContextServices"]
+  GETTABLEKS R5 R4 K14 ["withContext"]
+  GETTABLEKS R7 R2 K15 ["Util"]
+  GETTABLEKS R6 R7 K16 ["Typecheck"]
+  GETTABLEKS R7 R3 K17 ["PureComponent"]
+  LOADK R9 K18 ["FlashingDot"]
+  NAMECALL R7 R7 K19 ["extend"]
+  CALL R7 2 1
+  GETTABLEKS R8 R6 K20 ["wrap"]
+  MOVE R9 R7
+  GETIMPORT R10 K5 [script]
+  CALL R8 2 0
+  DUPCLOSURE R8 K21 [PROTO_0]
+  SETTABLEKS R8 R7 K22 ["init"]
+  DUPCLOSURE R8 K23 [PROTO_2]
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K24 ["didMount"]
+  DUPCLOSURE R8 K25 [PROTO_3]
+  SETTABLEKS R8 R7 K26 ["willUnmount"]
+  DUPCLOSURE R8 K27 [PROTO_5]
+  SETTABLEKS R8 R7 K28 ["updateAnimation"]
+  DUPCLOSURE R8 K29 [PROTO_6]
+  SETGLOBAL R8 K30 ["lerpNum"]
+  DUPCLOSURE R8 K31 [PROTO_7]
+  CAPTURE VAL R3
+  SETTABLEKS R8 R7 K32 ["render"]
+  MOVE R8 R5
+  DUPTABLE R9 K34 [{"Stylizer"}]
+  GETTABLEKS R10 R4 K33 ["Stylizer"]
+  SETTABLEKS R10 R9 K33 ["Stylizer"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

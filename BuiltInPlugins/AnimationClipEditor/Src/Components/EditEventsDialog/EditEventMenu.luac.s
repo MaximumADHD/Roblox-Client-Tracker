@@ -1,0 +1,111 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnMenuItemClicked"]
+  GETTABLEKS R2 R0 K1 ["Data"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["props"]
+  NEWTABLE R3 0 0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  DUPTABLE R7 K4 [{"Text", "Data", "OnItemClicked"}]
+  LOADK R10 K5 ["ContextMenu"]
+  LOADK R11 K6 ["EditEventName"]
+  NAMECALL R8 R1 K7 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K1 ["Text"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K8 ["ACTION_KEYS"]
+  GETTABLEKS R8 R9 K9 ["Edit"]
+  SETTABLEKS R8 R7 K2 ["Data"]
+  SETTABLEKS R4 R7 K3 ["OnItemClicked"]
+  FASTCALL2 TABLE_INSERT R3 R7 [+4]
+  MOVE R6 R3
+  GETIMPORT R5 K12 [table.insert]
+  CALL R5 2 0
+  DUPTABLE R7 K4 [{"Text", "Data", "OnItemClicked"}]
+  LOADK R10 K5 ["ContextMenu"]
+  LOADK R11 K13 ["DeleteAllSameEvents"]
+  NAMECALL R8 R1 K7 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K1 ["Text"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K8 ["ACTION_KEYS"]
+  GETTABLEKS R8 R9 K14 ["Delete"]
+  SETTABLEKS R8 R7 K2 ["Data"]
+  SETTABLEKS R4 R7 K3 ["OnItemClicked"]
+  FASTCALL2 TABLE_INSERT R3 R7 [+4]
+  MOVE R6 R3
+  GETIMPORT R5 K12 [table.insert]
+  CALL R5 2 0
+  RETURN R3 1
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R3 R2 K2 ["ShowMenu"]
+  JUMPIFNOT R3 [+17]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K6 [{"Actions", "OnMenuOpened"}]
+  MOVE R9 R1
+  NAMECALL R7 R0 K7 ["makeMenuActions"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K4 ["Actions"]
+  GETTABLEKS R7 R2 K5 ["OnMenuOpened"]
+  SETTABLEKS R7 R6 K5 ["OnMenuOpened"]
+  CALL R4 2 1
+  JUMPIF R4 [+1]
+  LOADNIL R4
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Constants"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K12 ["ContextServices"]
+  GETTABLEKS R5 R4 K13 ["withContext"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Components"]
+  GETTABLEKS R7 R8 K15 ["ContextMenu"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K16 ["PureComponent"]
+  LOADK R9 K17 ["EditEventMenu"]
+  NAMECALL R7 R7 K18 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K19 [PROTO_1]
+  CAPTURE VAL R3
+  SETTABLEKS R8 R7 K20 ["makeMenuActions"]
+  DUPCLOSURE R8 K21 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K22 ["render"]
+  MOVE R8 R5
+  DUPTABLE R9 K24 [{"Localization"}]
+  GETTABLEKS R10 R4 K23 ["Localization"]
+  SETTABLEKS R10 R9 K23 ["Localization"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

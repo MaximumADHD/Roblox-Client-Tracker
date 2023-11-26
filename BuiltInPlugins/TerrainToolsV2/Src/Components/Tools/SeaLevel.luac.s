@@ -1,0 +1,711 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onChangeSeaLevel"]
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onChangeSeaLevel"]
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Analytics"]
+  JUMPIFNOT R0 [+22]
+  LOADK R5 K2 ["regionAction"]
+  LOADK R6 K3 ["Water"]
+  NAMECALL R3 R2 K4 ["report"]
+  CALL R3 3 0
+  GETUPVAL R3 0
+  DUPTABLE R5 K8 [{"applying", "sourceMaterial", "targetMaterial"}]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K5 ["applying"]
+  GETIMPORT R6 K12 [Enum.Material.Air]
+  SETTABLEKS R6 R5 K6 ["sourceMaterial"]
+  GETIMPORT R6 K13 [Enum.Material.Water]
+  SETTABLEKS R6 R5 K7 ["targetMaterial"]
+  NAMECALL R3 R3 K14 ["setState"]
+  CALL R3 2 0
+  JUMP [+21]
+  LOADK R5 K2 ["regionAction"]
+  LOADK R6 K15 ["Evaporate"]
+  NAMECALL R3 R2 K4 ["report"]
+  CALL R3 3 0
+  GETUPVAL R3 0
+  DUPTABLE R5 K8 [{"applying", "sourceMaterial", "targetMaterial"}]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K5 ["applying"]
+  GETIMPORT R6 K13 [Enum.Material.Water]
+  SETTABLEKS R6 R5 K6 ["sourceMaterial"]
+  GETIMPORT R6 K12 [Enum.Material.Air]
+  SETTABLEKS R6 R5 K7 ["targetMaterial"]
+  NAMECALL R3 R3 K14 ["setState"]
+  CALL R3 2 0
+  GETUPVAL R3 1
+  LOADK R5 K16 ["TerrainSeaLevel"]
+  NAMECALL R3 R3 K17 ["SetWaypoint"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"applying"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["applying"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["create"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["evaporate"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K2 ["onChangeSeaLevel"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["onFinish"]
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["dispatchChangeSelection"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["SelectionSize"]
+  GETTABLEKS R3 R1 K2 ["SelectionTransform"]
+  GETTABLEKS R4 R1 K3 ["SnapToVoxels"]
+  GETTABLEKS R5 R1 K4 ["Localization"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["new"]
+  CALL R6 0 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K6 ["createFragment"]
+  DUPTABLE R8 K10 [{"RegionSettings", "EvaporateButtonFrame", "FillDialog"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K16 [{"Padding", "LayoutOrder", "isSubsection", "Title"}]
+  GETIMPORT R12 K18 [UDim.new]
+  LOADN R13 0
+  LOADN R14 12
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K12 ["Padding"]
+  NAMECALL R12 R6 K19 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K14 ["isSubsection"]
+  LOADK R14 K20 ["SelectionSettings"]
+  LOADK R15 K20 ["SelectionSettings"]
+  NAMECALL R12 R5 K21 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K15 ["Title"]
+  NEWTABLE R12 0 1
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETUPVAL R14 3
+  DUPTABLE R15 K29 [{"LayoutOrder", "SetRegion", "SetSnapToVoxels", "Size", "SnapToVoxels", "SourceSize", "SourceTransform", "Transform", "ToolName"}]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K13 ["LayoutOrder"]
+  NEWCLOSURE R16 P0
+  CAPTURE VAL R1
+  SETTABLEKS R16 R15 K22 ["SetRegion"]
+  GETTABLEKS R16 R1 K30 ["dispatchSetSnapToVoxels"]
+  SETTABLEKS R16 R15 K23 ["SetSnapToVoxels"]
+  SETTABLEKS R2 R15 K24 ["Size"]
+  SETTABLEKS R4 R15 K3 ["SnapToVoxels"]
+  SETTABLEKS R2 R15 K25 ["SourceSize"]
+  SETTABLEKS R3 R15 K26 ["SourceTransform"]
+  SETTABLEKS R3 R15 K27 ["Transform"]
+  GETTABLEKS R16 R1 K31 ["toolName"]
+  SETTABLEKS R16 R15 K28 ["ToolName"]
+  CALL R13 2 -1
+  SETLIST R12 R13 4294967295 [1]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K7 ["RegionSettings"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K34 [{"LayoutOrder", "Buttons", "Style"}]
+  NAMECALL R12 R6 K19 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
+  NEWTABLE R12 0 2
+  DUPTABLE R13 K39 [{"Key", "Name", "Active", "OnClicked"}]
+  LOADK R14 K40 ["Evporate"]
+  SETTABLEKS R14 R13 K35 ["Key"]
+  LOADK R16 K41 ["SeaLevel"]
+  LOADK R17 K42 ["Evaporate"]
+  NAMECALL R14 R5 K21 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K36 ["Name"]
+  GETTABLEKS R16 R0 K43 ["state"]
+  GETTABLEKS R15 R16 K44 ["applying"]
+  NOT R14 R15
+  SETTABLEKS R14 R13 K37 ["Active"]
+  GETTABLEKS R14 R0 K45 ["evaporate"]
+  SETTABLEKS R14 R13 K38 ["OnClicked"]
+  DUPTABLE R14 K39 [{"Key", "Name", "Active", "OnClicked"}]
+  LOADK R15 K46 ["Create"]
+  SETTABLEKS R15 R14 K35 ["Key"]
+  LOADK R17 K41 ["SeaLevel"]
+  LOADK R18 K46 ["Create"]
+  NAMECALL R15 R5 K21 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K36 ["Name"]
+  GETTABLEKS R17 R0 K43 ["state"]
+  GETTABLEKS R16 R17 K44 ["applying"]
+  NOT R15 R16
+  SETTABLEKS R15 R14 K37 ["Active"]
+  GETTABLEKS R15 R0 K47 ["create"]
+  SETTABLEKS R15 R14 K38 ["OnClicked"]
+  SETLIST R12 R13 2 [1]
+  SETTABLEKS R12 R11 K32 ["Buttons"]
+  LOADK R12 K48 ["RoundPrimary"]
+  SETTABLEKS R12 R11 K33 ["Style"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K8 ["EvaporateButtonFrame"]
+  GETTABLEKS R11 R0 K43 ["state"]
+  GETTABLEKS R10 R11 K44 ["applying"]
+  JUMPIFNOT R10 [+37]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["createElement"]
+  GETUPVAL R10 5
+  DUPTABLE R11 K54 [{"OnFinish", "Replace", "Size", "SourceMaterial", "TargetMaterial", "Transform", "Terrain"}]
+  GETTABLEKS R12 R0 K55 ["onFinish"]
+  SETTABLEKS R12 R11 K49 ["OnFinish"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K50 ["Replace"]
+  SETTABLEKS R2 R11 K24 ["Size"]
+  GETTABLEKS R13 R0 K43 ["state"]
+  GETTABLEKS R12 R13 K56 ["sourceMaterial"]
+  SETTABLEKS R12 R11 K51 ["SourceMaterial"]
+  GETTABLEKS R13 R0 K43 ["state"]
+  GETTABLEKS R12 R13 K57 ["targetMaterial"]
+  SETTABLEKS R12 R11 K52 ["TargetMaterial"]
+  SETTABLEKS R3 R11 K27 ["Transform"]
+  GETTABLEKS R12 R1 K53 ["Terrain"]
+  NAMECALL R12 R12 K58 ["get"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K53 ["Terrain"]
+  CALL R9 2 1
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K9 ["FillDialog"]
+  CALL R7 1 -1
+  RETURN R7 -1
+
+PROTO_7:
+  DUPTABLE R2 K3 [{"SelectionTransform", "SelectionSize", "SnapToVoxels"}]
+  GETTABLEKS R4 R0 K4 ["SeaLevelTool"]
+  GETTABLEKS R3 R4 K0 ["SelectionTransform"]
+  SETTABLEKS R3 R2 K0 ["SelectionTransform"]
+  GETTABLEKS R4 R0 K4 ["SeaLevelTool"]
+  GETTABLEKS R3 R4 K1 ["SelectionSize"]
+  SETTABLEKS R3 R2 K1 ["SelectionSize"]
+  GETTABLEKS R4 R0 K4 ["SeaLevelTool"]
+  GETTABLEKS R3 R4 K2 ["SnapToVoxels"]
+  SETTABLEKS R3 R2 K2 ["SnapToVoxels"]
+  RETURN R2 1
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  LOADK R3 K0 ["SeaLevelTool"]
+  MOVE R4 R0
+  CALL R2 2 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  LOADK R5 K0 ["SeaLevelTool"]
+  MOVE R6 R2
+  CALL R4 2 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["SeaLevelTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  DUPTABLE R2 K2 [{"dispatchChangeSelection", "dispatchSetSnapToVoxels"}]
+  NEWCLOSURE R3 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K0 ["dispatchChangeSelection"]
+  NEWCLOSURE R3 P2
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K1 ["dispatchSetSnapToVoxels"]
+  RETURN R2 1
+
+PROTO_12:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["Position"]
+  GETTABLEKS R1 R2 K2 ["X"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["Position"]
+  GETTABLEKS R2 R3 K3 ["Y"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["Position"]
+  GETTABLEKS R3 R4 K4 ["Z"]
+  FASTCALL VECTOR [+2]
+  GETIMPORT R0 K7 [Vector3.new]
+  CALL R0 3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K8 ["Size"]
+  GETTABLEKS R2 R3 K2 ["X"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K8 ["Size"]
+  GETTABLEKS R3 R4 K3 ["Y"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["props"]
+  GETTABLEKS R5 R6 K8 ["Size"]
+  GETTABLEKS R4 R5 K4 ["Z"]
+  FASTCALL VECTOR [+2]
+  GETIMPORT R1 K7 [Vector3.new]
+  CALL R1 3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K9 ["SeaLevel"]
+  MOVE R4 R0
+  MOVE R5 R1
+  GETIMPORT R6 K13 [Enum.Material.Air]
+  GETIMPORT R7 K15 [Enum.Material.Water]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["props"]
+  GETTABLEKS R8 R9 K16 ["toolName"]
+  NAMECALL R2 R2 K17 ["replaceMaterial"]
+  CALL R2 6 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["Position"]
+  GETTABLEKS R1 R2 K2 ["X"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["Position"]
+  GETTABLEKS R2 R3 K3 ["Y"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["Position"]
+  GETTABLEKS R3 R4 K4 ["Z"]
+  FASTCALL VECTOR [+2]
+  GETIMPORT R0 K7 [Vector3.new]
+  CALL R0 3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K8 ["Size"]
+  GETTABLEKS R2 R3 K2 ["X"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K8 ["Size"]
+  GETTABLEKS R3 R4 K3 ["Y"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["props"]
+  GETTABLEKS R5 R6 K8 ["Size"]
+  GETTABLEKS R4 R5 K4 ["Z"]
+  FASTCALL VECTOR [+2]
+  GETIMPORT R1 K7 [Vector3.new]
+  CALL R1 3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K9 ["SeaLevel"]
+  MOVE R4 R0
+  MOVE R5 R1
+  GETIMPORT R6 K13 [Enum.Material.Water]
+  GETIMPORT R7 K15 [Enum.Material.Air]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["props"]
+  GETTABLEKS R8 R9 K16 ["toolName"]
+  NAMECALL R2 R2 K17 ["replaceMaterial"]
+  CALL R2 6 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["SeaLevel"]
+  NAMECALL R0 R0 K2 ["cancel"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_15:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["tryGenerateSeaLevel"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["tryEvaporateSeaLevel"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["cancel"]
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["Position"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["Size"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["SeaLevel"]
+  NAMECALL R4 R4 K5 ["isReplacing"]
+  CALL R4 1 1
+  JUMPIFNOT R4 [+8]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K4 ["SeaLevel"]
+  NAMECALL R5 R5 K6 ["getProgress"]
+  CALL R5 1 1
+  JUMPIF R5 [+1]
+  LOADN R5 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["createFragment"]
+  DUPTABLE R7 K11 [{"MapSettingsWithPreview", "SeaLevelButtons", "ProgressDialog"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K12 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K17 [{"toolName", "LayoutOrder", "Position", "Size", "OnPositionChanged", "OnSizeChanged"}]
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K13 ["toolName"]
+  SETTABLEKS R11 R10 K13 ["toolName"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K14 ["LayoutOrder"]
+  SETTABLEKS R2 R10 K2 ["Position"]
+  SETTABLEKS R3 R10 K3 ["Size"]
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K18 ["dispatchChangePosition"]
+  SETTABLEKS R11 R10 K15 ["OnPositionChanged"]
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K19 ["dispatchChangeSize"]
+  SETTABLEKS R11 R10 K16 ["OnSizeChanged"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K8 ["MapSettingsWithPreview"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K12 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K21 [{"LayoutOrder", "Buttons"}]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K14 ["LayoutOrder"]
+  NEWTABLE R11 0 2
+  DUPTABLE R12 K26 [{"Key", "Name", "Active", "OnClicked"}]
+  LOADK R13 K27 ["Evaporate"]
+  SETTABLEKS R13 R12 K22 ["Key"]
+  LOADK R15 K4 ["SeaLevel"]
+  LOADK R16 K27 ["Evaporate"]
+  NAMECALL R13 R1 K28 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K23 ["Name"]
+  NOT R13 R4
+  SETTABLEKS R13 R12 K24 ["Active"]
+  GETTABLEKS R13 R0 K29 ["tryEvaporateSeaLevel"]
+  SETTABLEKS R13 R12 K25 ["OnClicked"]
+  DUPTABLE R13 K26 [{"Key", "Name", "Active", "OnClicked"}]
+  LOADK R14 K30 ["Create"]
+  SETTABLEKS R14 R13 K22 ["Key"]
+  LOADK R16 K4 ["SeaLevel"]
+  LOADK R17 K30 ["Create"]
+  NAMECALL R14 R1 K28 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K23 ["Name"]
+  NOT R14 R4
+  SETTABLEKS R14 R13 K24 ["Active"]
+  GETTABLEKS R14 R0 K31 ["tryGenerateSeaLevel"]
+  SETTABLEKS R14 R13 K25 ["OnClicked"]
+  SETLIST R11 R12 2 [1]
+  SETTABLEKS R11 R10 K20 ["Buttons"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K9 ["SeaLevelButtons"]
+  MOVE R8 R4
+  JUMPIFNOT R8 [+26]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K12 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K36 [{"Title", "SubText", "Progress", "OnCancelButtonClicked"}]
+  LOADK R13 K4 ["SeaLevel"]
+  LOADK R14 K37 ["SeaLevelProgressTitle"]
+  NAMECALL R11 R1 K28 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K32 ["Title"]
+  LOADK R13 K38 ["Replace"]
+  LOADK R14 K39 ["Replacing"]
+  NAMECALL R11 R1 K28 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K33 ["SubText"]
+  SETTABLEKS R5 R10 K34 ["Progress"]
+  GETTABLEKS R11 R0 K40 ["cancel"]
+  SETTABLEKS R11 R10 K35 ["OnCancelButtonClicked"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K10 ["ProgressDialog"]
+  CALL R6 1 -1
+  RETURN R6 -1
+
+PROTO_17:
+  DUPTABLE R2 K3 [{"toolName", "Position", "Size"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["ToolId"]
+  GETTABLEKS R3 R4 K5 ["SeaLevel"]
+  SETTABLEKS R3 R2 K0 ["toolName"]
+  GETTABLEKS R4 R0 K6 ["SeaLevelTool"]
+  GETTABLEKS R3 R4 K7 ["position"]
+  SETTABLEKS R3 R2 K1 ["Position"]
+  GETTABLEKS R4 R0 K6 ["SeaLevelTool"]
+  GETTABLEKS R3 R4 K8 ["size"]
+  SETTABLEKS R3 R2 K2 ["Size"]
+  RETURN R2 1
+
+PROTO_18:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  LOADK R3 K0 ["SeaLevelTool"]
+  MOVE R4 R0
+  CALL R2 2 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_19:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["SeaLevelTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_20:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["SeaLevelTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_21:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  DUPTABLE R2 K2 [{"dispatchChangePosition", "dispatchChangeSize"}]
+  NEWCLOSURE R3 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K0 ["dispatchChangePosition"]
+  NEWCLOSURE R3 P2
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K1 ["dispatchChangeSize"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["ContextItems"]
+  CALL R6 1 1
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Actions"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R7 K14 ["ApplyToolAction"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R7 K15 ["ChangePosition"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R7 K16 ["ChangeSize"]
+  CALL R10 1 1
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K2 ["Parent"]
+  GETTABLEKS R11 R12 K17 ["ToolParts"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R13 R11 K18 ["ButtonGroup"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R14 R11 K19 ["MapSettingsWithPreview"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K11 ["Src"]
+  GETTABLEKS R16 R17 K20 ["Components"]
+  GETTABLEKS R15 R16 K21 ["ProgressDialog"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K11 ["Src"]
+  GETTABLEKS R17 R18 K22 ["Util"]
+  GETTABLEKS R16 R17 K23 ["TerrainEnums"]
+  CALL R15 1 1
+  GETIMPORT R16 K25 [game]
+  LOADK R18 K26 ["TerrainEditorOverhaul"]
+  NAMECALL R16 R16 K27 ["GetFastFlag"]
+  CALL R16 2 1
+  JUMPIFNOT R16 [+96]
+  GETTABLEKS R17 R6 K28 ["PluginActionsController"]
+  GETTABLEKS R18 R6 K29 ["Terrain"]
+  GETTABLEKS R19 R1 K22 ["Util"]
+  GETTABLEKS R20 R19 K30 ["LayoutOrderIterator"]
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R22 R11 K31 ["Panel"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R23 R11 K32 ["RegionFragment"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R26 R0 K11 ["Src"]
+  GETTABLEKS R25 R26 K20 ["Components"]
+  GETTABLEKS R24 R25 K33 ["FillDialog"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R25 R7 K34 ["ChangeSelection"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R26 R7 K35 ["SetSnapToVoxels"]
+  CALL R25 1 1
+  GETIMPORT R26 K25 [game]
+  LOADK R28 K36 ["ChangeHistoryService"]
+  NAMECALL R26 R26 K37 ["GetService"]
+  CALL R26 2 1
+  GETTABLEKS R27 R2 K38 ["PureComponent"]
+  GETIMPORT R30 K1 [script]
+  GETTABLEKS R29 R30 K39 ["Name"]
+  NAMECALL R27 R27 K40 ["extend"]
+  CALL R27 2 1
+  DUPCLOSURE R28 K41 [PROTO_4]
+  CAPTURE VAL R26
+  SETTABLEKS R28 R27 K42 ["init"]
+  DUPCLOSURE R28 K43 [PROTO_6]
+  CAPTURE VAL R20
+  CAPTURE VAL R2
+  CAPTURE VAL R21
+  CAPTURE VAL R22
+  CAPTURE VAL R12
+  CAPTURE VAL R23
+  SETTABLEKS R28 R27 K44 ["render"]
+  MOVE R28 R5
+  DUPTABLE R29 K47 [{"Analytics", "Localization", "PluginActionsController", "Terrain"}]
+  GETTABLEKS R30 R4 K45 ["Analytics"]
+  SETTABLEKS R30 R29 K45 ["Analytics"]
+  GETTABLEKS R30 R4 K46 ["Localization"]
+  SETTABLEKS R30 R29 K46 ["Localization"]
+  SETTABLEKS R17 R29 K28 ["PluginActionsController"]
+  SETTABLEKS R18 R29 K29 ["Terrain"]
+  CALL R28 1 1
+  MOVE R29 R27
+  CALL R28 1 1
+  MOVE R27 R28
+  DUPCLOSURE R28 K48 [PROTO_7]
+  DUPCLOSURE R29 K49 [PROTO_11]
+  CAPTURE VAL R8
+  CAPTURE VAL R24
+  CAPTURE VAL R25
+  GETTABLEKS R30 R3 K50 ["connect"]
+  MOVE R31 R28
+  MOVE R32 R29
+  CALL R30 2 1
+  MOVE R31 R27
+  CALL R30 1 -1
+  RETURN R30 -1
+  GETTABLEKS R17 R2 K38 ["PureComponent"]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K39 ["Name"]
+  NAMECALL R17 R17 K40 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K51 [PROTO_15]
+  SETTABLEKS R18 R17 K42 ["init"]
+  DUPCLOSURE R18 K52 [PROTO_16]
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  SETTABLEKS R18 R17 K44 ["render"]
+  MOVE R18 R5
+  DUPTABLE R19 K54 [{"Localization", "SeaLevel"}]
+  GETTABLEKS R20 R4 K46 ["Localization"]
+  SETTABLEKS R20 R19 K46 ["Localization"]
+  GETTABLEKS R20 R6 K53 ["SeaLevel"]
+  SETTABLEKS R20 R19 K53 ["SeaLevel"]
+  CALL R18 1 1
+  MOVE R19 R17
+  CALL R18 1 1
+  MOVE R17 R18
+  DUPCLOSURE R18 K55 [PROTO_17]
+  CAPTURE VAL R15
+  DUPCLOSURE R19 K56 [PROTO_21]
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  GETTABLEKS R20 R3 K50 ["connect"]
+  MOVE R21 R18
+  MOVE R22 R19
+  CALL R20 2 1
+  MOVE R21 R17
+  CALL R20 1 -1
+  RETURN R20 -1

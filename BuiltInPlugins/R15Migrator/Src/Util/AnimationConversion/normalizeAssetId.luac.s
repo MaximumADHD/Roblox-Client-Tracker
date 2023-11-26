@@ -1,0 +1,36 @@
+PROTO_0:
+  GETIMPORT R1 K2 [string.find]
+  MOVE R2 R0
+  LOADK R3 K3 ["rbxassetid://"]
+  LOADN R4 1
+  LOADB R5 1
+  CALL R1 4 2
+  JUMPIFNOT R1 [+9]
+  ADDK R6 R2 K4 [1]
+  NAMECALL R4 R0 K5 ["sub"]
+  CALL R4 2 -1
+  FASTCALL TONUMBER [+2]
+  GETIMPORT R3 K7 [tonumber]
+  CALL R3 -1 1
+  RETURN R3 1
+  GETIMPORT R3 K2 [string.find]
+  MOVE R4 R0
+  LOADK R5 K8 ["http[s]?://www.roblox.com/[Aa]sset[/]?%?[Ii][Dd]="]
+  CALL R3 2 2
+  MOVE R1 R3
+  MOVE R2 R4
+  JUMPIFNOT R1 [+9]
+  ADDK R6 R2 K4 [1]
+  NAMECALL R4 R0 K5 ["sub"]
+  CALL R4 2 -1
+  FASTCALL TONUMBER [+2]
+  GETIMPORT R3 K7 [tonumber]
+  CALL R3 -1 1
+  RETURN R3 1
+  LOADNIL R3
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

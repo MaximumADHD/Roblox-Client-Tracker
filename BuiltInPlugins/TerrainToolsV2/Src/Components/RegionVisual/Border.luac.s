@@ -1,0 +1,40 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["Adornee"]
+  GETTABLEKS R2 R0 K1 ["AlwaysOnTop"]
+  GETTABLEKS R3 R0 K2 ["CFrame"]
+  GETTABLEKS R4 R0 K3 ["Color"]
+  GETTABLEKS R5 R0 K4 ["Size"]
+  GETTABLEKS R6 R0 K5 ["Transparency"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  LOADK R8 K7 ["BoxHandleAdornment"]
+  DUPTABLE R9 K10 [{"Adornee", "Color3", "Transparency", "AlwaysOnTop", "Size", "CFrame", "ZIndex"}]
+  SETTABLEKS R1 R9 K0 ["Adornee"]
+  SETTABLEKS R4 R9 K8 ["Color3"]
+  JUMPIFNOT R2 [+2]
+  MOVE R10 R6
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K5 ["Transparency"]
+  SETTABLEKS R2 R9 K1 ["AlwaysOnTop"]
+  SETTABLEKS R5 R9 K4 ["Size"]
+  SETTABLEKS R3 R9 K2 ["CFrame"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K9 ["ZIndex"]
+  CALL R7 2 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

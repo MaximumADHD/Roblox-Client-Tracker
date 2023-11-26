@@ -1,0 +1,255 @@
+PROTO_0:
+  GETIMPORT R2 K1 [pairs]
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  JUMPIFNOTEQ R6 R1 [+3]
+  LOADB R7 1
+  RETURN R7 1
+  FORGLOOP R2 2 [-5]
+  LOADB R2 0
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["onScopeFilterChange"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K2 ["Analytics"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["WatchScopeEdited"]
+  GETUPVAL R4 2
+  MOVE R5 R0
+  CALL R4 1 -1
+  NAMECALL R1 R1 K4 ["report"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWTABLE R1 0 4
+  LOADK R2 K0 ["AllScopes"]
+  SETTABLEN R2 R1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["LocalScope"]
+  SETTABLEN R2 R1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["UpvalueScope"]
+  SETTABLEN R2 R1 3
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["GlobalScope"]
+  SETTABLEN R2 R1 4
+  SETTABLEKS R1 R0 K4 ["keyColumns"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K5 ["clickCallback"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  NEWTABLE R4 0 4
+  LOADNIL R5
+  SETTABLEN R5 R4 1
+  LOADK R7 K3 ["Watch"]
+  LOADK R8 K4 ["LocalTooltip"]
+  NAMECALL R5 R3 K5 ["getText"]
+  CALL R5 3 1
+  SETTABLEN R5 R4 2
+  LOADK R7 K3 ["Watch"]
+  LOADK R8 K6 ["UpvalueTooltip"]
+  NAMECALL R5 R3 K5 ["getText"]
+  CALL R5 3 1
+  SETTABLEN R5 R4 3
+  LOADK R7 K3 ["Watch"]
+  LOADK R8 K7 ["GlobalTooltip"]
+  NAMECALL R5 R3 K5 ["getText"]
+  CALL R5 3 1
+  SETTABLEN R5 R4 4
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K21 [{"KeyTexts", "Tooltips", "NumDisplay", "MaxDisplay", "ClickCallback", "KeyStates", "Localization", "Style", "Widget", "DropdownWidth", "ShouldShowDropdownIcon", "Tooltip", "LayoutOrder"}]
+  GETTABLEKS R8 R0 K22 ["keyColumns"]
+  SETTABLEKS R8 R7 K9 ["KeyTexts"]
+  SETTABLEKS R4 R7 K10 ["Tooltips"]
+  GETTABLEKS R8 R1 K23 ["NumEnabledChoices"]
+  SETTABLEKS R8 R7 K11 ["NumDisplay"]
+  LOADN R8 3
+  SETTABLEKS R8 R7 K12 ["MaxDisplay"]
+  GETTABLEKS R8 R0 K24 ["clickCallback"]
+  SETTABLEKS R8 R7 K13 ["ClickCallback"]
+  GETTABLEKS R8 R1 K14 ["KeyStates"]
+  SETTABLEKS R8 R7 K14 ["KeyStates"]
+  SETTABLEKS R3 R7 K2 ["Localization"]
+  SETTABLEKS R2 R7 K15 ["Style"]
+  LOADK R8 K3 ["Watch"]
+  SETTABLEKS R8 R7 K16 ["Widget"]
+  LOADN R8 100
+  SETTABLEKS R8 R7 K17 ["DropdownWidth"]
+  GETTABLEKS R8 R1 K18 ["ShouldShowDropdownIcon"]
+  SETTABLEKS R8 R7 K18 ["ShouldShowDropdownIcon"]
+  LOADK R10 K3 ["Watch"]
+  LOADK R11 K25 ["FilterScopes"]
+  NAMECALL R8 R3 K5 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K19 ["Tooltip"]
+  GETTABLEKS R8 R1 K20 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K20 ["LayoutOrder"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_4:
+  GETTABLEKS R3 R0 K0 ["Watch"]
+  GETTABLEKS R2 R3 K1 ["listOfEnabledScopes"]
+  NEWTABLE R3 0 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["LocalScope"]
+  GETIMPORT R6 K4 [pairs]
+  MOVE R7 R2
+  CALL R6 1 3
+  FORGPREP_NEXT R6
+  JUMPIFNOTEQ R10 R5 [+3]
+  LOADB R4 1
+  JUMP [+3]
+  FORGLOOP R6 2 [-5]
+  LOADB R4 0
+  SETTABLEN R4 R3 2
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["UpvalueScope"]
+  GETIMPORT R6 K4 [pairs]
+  MOVE R7 R2
+  CALL R6 1 3
+  FORGPREP_NEXT R6
+  JUMPIFNOTEQ R10 R5 [+3]
+  LOADB R4 1
+  JUMP [+3]
+  FORGLOOP R6 2 [-5]
+  LOADB R4 0
+  SETTABLEN R4 R3 3
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K6 ["GlobalScope"]
+  GETIMPORT R6 K4 [pairs]
+  MOVE R7 R2
+  CALL R6 1 3
+  FORGPREP_NEXT R6
+  JUMPIFNOTEQ R10 R5 [+3]
+  LOADB R4 1
+  JUMP [+3]
+  FORGLOOP R6 2 [-5]
+  LOADB R4 0
+  SETTABLEN R4 R3 4
+  DUPTABLE R4 K9 [{"NumEnabledChoices", "KeyStates"}]
+  LENGTH R5 R2
+  SETTABLEKS R5 R4 K7 ["NumEnabledChoices"]
+  SETTABLEKS R3 R4 K8 ["KeyStates"]
+  RETURN R4 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_6:
+  DUPTABLE R1 K1 [{"onScopeFilterChange"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["onScopeFilterChange"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETTABLEKS R6 R4 K11 ["Localization"]
+  GETTABLEKS R7 R4 K12 ["Analytics"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K13 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Resources"]
+  GETTABLEKS R9 R10 K15 ["AnalyticsEventNames"]
+  CALL R8 1 1
+  GETTABLEKS R10 R3 K16 ["Style"]
+  GETTABLEKS R9 R10 K17 ["Stylizer"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R14 R0 K13 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Components"]
+  GETTABLEKS R12 R13 K19 ["Common"]
+  GETTABLEKS R11 R12 K20 ["DropdownField"]
+  CALL R10 1 1
+  GETTABLEKS R12 R0 K13 ["Src"]
+  GETTABLEKS R11 R12 K21 ["Thunks"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R14 R11 K22 ["Watch"]
+  GETTABLEKS R13 R14 K23 ["FilterScopeWatchThunk"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R16 R0 K13 ["Src"]
+  GETTABLEKS R15 R16 K24 ["Util"]
+  GETTABLEKS R14 R15 K25 ["flatListToString"]
+  CALL R13 1 1
+  GETTABLEKS R14 R1 K26 ["PureComponent"]
+  LOADK R16 K27 ["ScopeDropdownField"]
+  NAMECALL R14 R14 K28 ["extend"]
+  CALL R14 2 1
+  DUPTABLE R15 K32 [{"LocalScope", "UpvalueScope", "GlobalScope"}]
+  LOADK R16 K33 ["Local"]
+  SETTABLEKS R16 R15 K29 ["LocalScope"]
+  LOADK R16 K34 ["Upvalue"]
+  SETTABLEKS R16 R15 K30 ["UpvalueScope"]
+  LOADK R16 K35 ["Global"]
+  SETTABLEKS R16 R15 K31 ["GlobalScope"]
+  DUPCLOSURE R16 K36 [PROTO_0]
+  DUPCLOSURE R17 K37 [PROTO_2]
+  CAPTURE VAL R15
+  CAPTURE VAL R8
+  CAPTURE VAL R13
+  SETTABLEKS R17 R14 K38 ["init"]
+  DUPCLOSURE R17 K39 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  SETTABLEKS R17 R14 K40 ["render"]
+  MOVE R17 R5
+  DUPTABLE R18 K41 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R7 R18 K12 ["Analytics"]
+  SETTABLEKS R6 R18 K11 ["Localization"]
+  SETTABLEKS R9 R18 K17 ["Stylizer"]
+  CALL R17 1 1
+  MOVE R18 R14
+  CALL R17 1 1
+  MOVE R14 R17
+  GETTABLEKS R17 R2 K42 ["connect"]
+  DUPCLOSURE R18 K43 [PROTO_4]
+  CAPTURE VAL R15
+  DUPCLOSURE R19 K44 [PROTO_6]
+  CAPTURE VAL R12
+  CALL R17 2 1
+  MOVE R18 R14
+  CALL R17 1 1
+  MOVE R14 R17
+  RETURN R14 1

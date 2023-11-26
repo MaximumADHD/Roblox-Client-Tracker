@@ -1,0 +1,1630 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["GameStateTypes"]
+  GETTABLEKS R1 R2 K1 ["Client"]
+  JUMPIFNOTEQ R0 R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["DebugpointIconTable"]
+  GETTABLEKS R1 R2 K3 ["client"]
+  RETURN R1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["GameStateTypes"]
+  GETTABLEKS R1 R2 K4 ["Server"]
+  JUMPIFNOTEQ R0 R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["DebugpointIconTable"]
+  GETTABLEKS R1 R2 K5 ["server"]
+  RETURN R1 1
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["goToScript"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"sizes"}]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K0 ["sizes"]
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K0 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R1 K1 [{"selectedBreakpoints"}]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K0 ["selectedBreakpoints"]
+  RETURN R1 1
+
+PROTO_5:
+  NEWTABLE R1 0 0
+  GETIMPORT R2 K1 [pairs]
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  FASTCALL2 TABLE_INSERT R1 R5 [+5]
+  MOVE R8 R1
+  MOVE R9 R5
+  GETIMPORT R7 K4 [table.insert]
+  CALL R7 2 0
+  FORGLOOP R2 1 [-8]
+  GETUPVAL R2 0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K5 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["Id"]
+  GETTABLEKS R2 R0 K1 ["Data"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["BreakpointActions"]
+  GETTABLEKS R3 R4 K3 ["DeleteBreakpoint"]
+  JUMPIFEQ R1 R3 [+8]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["LogpointActions"]
+  GETTABLEKS R3 R4 K5 ["DeleteLogpoint"]
+  JUMPIFNOTEQ R1 R3 [+27]
+  GETIMPORT R3 K7 [game]
+  LOADK R5 K8 ["MetaBreakpointManager"]
+  NAMECALL R3 R3 K9 ["GetService"]
+  CALL R3 2 1
+  GETTABLEKS R7 R2 K10 ["item"]
+  GETTABLEKS R6 R7 K11 ["id"]
+  NAMECALL R4 R3 K12 ["RemoveBreakpointById"]
+  CALL R4 2 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K13 ["props"]
+  GETTABLEKS R4 R5 K14 ["Analytics"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K15 ["RemoveMetaBreakpoint"]
+  LOADK R7 K16 ["LuaBreakpointsTable.ContextMenu"]
+  NAMECALL R4 R4 K17 ["report"]
+  CALL R4 3 0
+  RETURN R0 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["BreakpointActions"]
+  GETTABLEKS R3 R4 K18 ["EditBreakpoint"]
+  JUMPIFEQ R1 R3 [+8]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["LogpointActions"]
+  GETTABLEKS R3 R4 K19 ["EditLogpoint"]
+  JUMPIFNOTEQ R1 R3 [+15]
+  GETIMPORT R3 K7 [game]
+  LOADK R5 K20 ["DebuggerUIService"]
+  NAMECALL R3 R3 K9 ["GetService"]
+  CALL R3 2 1
+  GETTABLEKS R7 R2 K10 ["item"]
+  GETTABLEKS R6 R7 K11 ["id"]
+  NAMECALL R4 R3 K18 ["EditBreakpoint"]
+  CALL R4 2 0
+  RETURN R0 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["BreakpointActions"]
+  GETTABLEKS R3 R4 K21 ["EnableBreakpoint"]
+  JUMPIFEQ R1 R3 [+22]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["LogpointActions"]
+  GETTABLEKS R3 R4 K22 ["EnableLogpoint"]
+  JUMPIFEQ R1 R3 [+15]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["BreakpointActions"]
+  GETTABLEKS R3 R4 K23 ["DisableBreakpoint"]
+  JUMPIFEQ R1 R3 [+8]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["LogpointActions"]
+  GETTABLEKS R3 R4 K24 ["DisableLogpoint"]
+  JUMPIFNOTEQ R1 R3 [+32]
+  GETIMPORT R3 K7 [game]
+  LOADK R5 K8 ["MetaBreakpointManager"]
+  NAMECALL R3 R3 K9 ["GetService"]
+  CALL R3 2 1
+  GETTABLEKS R7 R2 K10 ["item"]
+  GETTABLEKS R6 R7 K11 ["id"]
+  NAMECALL R4 R3 K25 ["GetBreakpointById"]
+  CALL R4 2 1
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K26 ["setBreakpointRowEnabled"]
+  MOVE R6 R4
+  MOVE R7 R2
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K13 ["props"]
+  GETTABLEKS R8 R9 K14 ["Analytics"]
+  LOADK R9 K16 ["LuaBreakpointsTable.ContextMenu"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K13 ["props"]
+  GETTABLEKS R10 R11 K27 ["CurrentDebuggerConnectionId"]
+  CALL R5 5 0
+  RETURN R0 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K28 ["CommonActions"]
+  GETTABLEKS R3 R4 K29 ["GoToScript"]
+  JUMPIFNOTEQ R1 R3 [+5]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K30 ["goToScript"]
+  CALL R3 0 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R4 R2 K1 ["SortOrder"]
+  OR R3 R4 R1
+  GETTABLEKS R4 R2 K2 ["onSetBreakpointSortState"]
+  GETTABLEKS R6 R2 K3 ["SortIndex"]
+  JUMPIFNOTEQ R6 R0 [+3]
+  MOVE R5 R1
+  JUMPIF R5 [+1]
+  MOVE R5 R3
+  MOVE R6 R0
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_8:
+  DUPTABLE R1 K1 [{"selectedBreakpoints"}]
+  NEWTABLE R2 0 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["item"]
+  SETLIST R2 R3 1 [1]
+  SETTABLEKS R2 R1 K0 ["selectedBreakpoints"]
+  RETURN R1 1
+
+PROTO_9:
+  GETUPVAL R1 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K0 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["props"]
+  GETTABLEKS R2 R1 K2 ["Localization"]
+  GETTABLEKS R3 R1 K3 ["Plugin"]
+  NAMECALL R3 R3 K4 ["get"]
+  CALL R3 1 1
+  GETTABLEKS R6 R0 K5 ["item"]
+  GETTABLEKS R5 R6 K6 ["debugpointType"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K7 ["DebugpointType"]
+  GETTABLEKS R6 R7 K8 ["Logpoint"]
+  JUMPIFEQ R5 R6 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K9 ["getBreakpointActions"]
+  MOVE R6 R2
+  GETTABLEKS R8 R0 K5 ["item"]
+  GETTABLEKS R7 R8 K10 ["isEnabled"]
+  MOVE R8 R4
+  MOVE R9 R0
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K11 ["onMenuActionSelected"]
+  CALL R5 5 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K12 ["getBreakpointActionsOrder"]
+  GETTABLEKS R8 R0 K5 ["item"]
+  GETTABLEKS R7 R8 K10 ["isEnabled"]
+  MOVE R8 R4
+  CALL R6 2 1
+  GETUPVAL R7 3
+  MOVE R8 R3
+  MOVE R9 R5
+  MOVE R10 R6
+  CALL R7 3 0
+  RETURN R0 0
+
+PROTO_10:
+  DUPTABLE R1 K1 [{"deleteAllPopup"}]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["deleteAllPopup"]
+  RETURN R1 1
+
+PROTO_11:
+  GETUPVAL R0 0
+  DUPCLOSURE R2 K0 [PROTO_10]
+  NAMECALL R0 R0 K1 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_12:
+  DUPTABLE R1 K1 [{"deleteAllPopup"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["deleteAllPopup"]
+  RETURN R1 1
+
+PROTO_13:
+  GETUPVAL R0 0
+  DUPCLOSURE R2 K0 [PROTO_12]
+  NAMECALL R0 R0 K1 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["MetaBreakpointManager"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [ipairs]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["props"]
+  GETTABLEKS R2 R4 K7 ["Breakpoints"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  GETTABLEKS R8 R5 K8 ["id"]
+  NAMECALL R6 R0 K9 ["RemoveBreakpointById"]
+  CALL R6 2 0
+  FORGLOOP R1 2 [inext] [-6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["props"]
+  GETTABLEKS R1 R2 K10 ["Analytics"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K11 ["RemoveAllMetaBreakpoints"]
+  LOADK R4 K12 ["LuaBreakpointsTable"]
+  NAMECALL R1 R1 K13 ["report"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_15:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["MetaBreakpointManager"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["props"]
+  GETTABLEKS R1 R2 K5 ["hasDisabledBreakpoints"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K6 ["onToggleEnabledAll"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  JUMPIFNOT R1 [+13]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K7 ["Analytics"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K8 ["EnableAllMetaBreakpoints"]
+  LOADK R5 K9 ["LuaBreakpointsTable"]
+  NAMECALL R2 R2 K10 ["report"]
+  CALL R2 3 0
+  RETURN R0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K7 ["Analytics"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["DisableAllMetaBreakpoints"]
+  LOADK R5 K9 ["LuaBreakpointsTable"]
+  NAMECALL R2 R2 K10 ["report"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["selectedBreakpoints"]
+  LENGTH R0 R1
+  JUMPIFEQKN R0 K2 [0] [+40]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["selectedBreakpoints"]
+  GETTABLEN R0 R1 1
+  GETIMPORT R1 K4 [game]
+  LOADK R3 K5 ["DebuggerUIService"]
+  NAMECALL R1 R1 K6 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R3 R0 K7 ["hiddenConnectionId"]
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R2 R0 K7 ["hiddenConnectionId"]
+  JUMP [+5]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K8 ["props"]
+  GETTABLEKS R2 R3 K9 ["CurrentDebuggerConnectionId"]
+  GETTABLEKS R4 R0 K10 ["hiddenLineNumber"]
+  JUMPIFNOT R4 [+3]
+  GETTABLEKS R3 R0 K10 ["hiddenLineNumber"]
+  JUMP [+2]
+  GETTABLEKS R3 R0 K11 ["lineNumber"]
+  GETTABLEKS R6 R0 K12 ["scriptGUID"]
+  MOVE R7 R2
+  MOVE R8 R3
+  LOADB R9 1
+  NAMECALL R4 R1 K13 ["OpenScriptAtLine"]
+  CALL R4 5 0
+  RETURN R0 0
+
+PROTO_17:
+  NEWTABLE R1 0 0
+  GETIMPORT R2 K1 [pairs]
+  GETUPVAL R3 0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  GETTABLEKS R7 R5 K2 ["id"]
+  SETTABLE R6 R1 R7
+  FORGLOOP R2 2 [-4]
+  DUPTABLE R2 K4 [{"breakpointIdToExpansionState"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["Dictionary"]
+  GETTABLEKS R3 R4 K6 ["join"]
+  GETTABLEKS R4 R0 K3 ["breakpointIdToExpansionState"]
+  MOVE R5 R1
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K3 ["breakpointIdToExpansionState"]
+  RETURN R2 1
+
+PROTO_18:
+  GETUPVAL R1 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  NAMECALL R1 R1 K0 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_19:
+  GETTABLEKS R1 R0 K0 ["children"]
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  RETURN R1 1
+
+PROTO_20:
+  GETIMPORT R4 K1 [game]
+  LOADK R6 K2 ["MetaBreakpointManager"]
+  NAMECALL R4 R4 K3 ["GetService"]
+  CALL R4 2 1
+  GETTABLEKS R5 R2 K4 ["item"]
+  GETTABLEKS R6 R5 K5 ["id"]
+  MOVE R9 R6
+  NAMECALL R7 R4 K6 ["GetBreakpointById"]
+  CALL R7 2 1
+  JUMPIF R7 [+1]
+  RETURN R0 0
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["props"]
+  GETTABLEKS R9 R10 K8 ["CurrentKeys"]
+  GETTABLE R8 R9 R3
+  JUMPIFNOTEQKS R8 K9 ["condition"] [+22]
+  GETTABLEKS R8 R1 K10 ["Text"]
+  GETTABLEKS R9 R7 K11 ["Condition"]
+  JUMPIFEQ R8 R9 [+44]
+  SETTABLEKS R8 R7 K11 ["Condition"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["props"]
+  GETTABLEKS R9 R10 K12 ["Analytics"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K13 ["MetaBreakpointConditionChanged"]
+  LOADK R12 K14 ["LuaBreakpointsTable"]
+  NAMECALL R9 R9 K15 ["report"]
+  CALL R9 3 0
+  RETURN R0 0
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["props"]
+  GETTABLEKS R9 R10 K8 ["CurrentKeys"]
+  GETTABLE R8 R9 R3
+  JUMPIFNOTEQKS R8 K16 ["logMessage"] [+21]
+  GETTABLEKS R8 R1 K10 ["Text"]
+  GETTABLEKS R9 R7 K17 ["LogMessage"]
+  JUMPIFEQ R8 R9 [+15]
+  SETTABLEKS R8 R7 K17 ["LogMessage"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["props"]
+  GETTABLEKS R9 R10 K12 ["Analytics"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K18 ["MetaBreakpointLogMessageChanged"]
+  LOADK R12 K14 ["LuaBreakpointsTable"]
+  NAMECALL R9 R9 K15 ["report"]
+  CALL R9 3 0
+  RETURN R0 0
+
+PROTO_21:
+  NEWTABLE R1 0 0
+  GETUPVAL R4 0
+  LENGTH R3 R4
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K1 ["ColumnFilter"]
+  LENGTH R4 R5
+  ADD R2 R3 R4
+  LOADN R5 1
+  MOVE R3 R2
+  LOADN R4 1
+  FORNPREP R3
+  JUMPIFNOTEQKN R5 K2 [2] [+14]
+  MOVE R7 R1
+  GETIMPORT R8 K5 [UDim.new]
+  LOADN R10 2
+  ADDK R11 R2 K6 [0.5]
+  DIV R9 R10 R11
+  LOADN R10 0
+  CALL R8 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R6 K9 [table.insert]
+  CALL R6 -1 0
+  JUMP [+27]
+  JUMPIFNOTEQKN R5 K10 [3] [+14]
+  MOVE R7 R1
+  GETIMPORT R8 K5 [UDim.new]
+  LOADK R10 K6 [0.5]
+  ADDK R11 R2 K6 [0.5]
+  DIV R9 R10 R11
+  LOADN R10 0
+  CALL R8 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R6 K9 [table.insert]
+  CALL R6 -1 0
+  JUMP [+12]
+  MOVE R7 R1
+  GETIMPORT R8 K5 [UDim.new]
+  LOADN R10 1
+  ADDK R11 R2 K6 [0.5]
+  DIV R9 R10 R11
+  LOADN R10 0
+  CALL R8 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R6 K9 [table.insert]
+  CALL R6 -1 0
+  FORNLOOP R3
+  DUPTABLE R3 K15 [{"selectedBreakpoints", "breakpointIdToExpansionState", "sizes", "deleteAllPopup"}]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K11 ["selectedBreakpoints"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K12 ["breakpointIdToExpansionState"]
+  SETTABLEKS R1 R3 K13 ["sizes"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K14 ["deleteAllPopup"]
+  SETTABLEKS R3 R0 K16 ["state"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K17 ["OnDoubleClick"]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K18 ["OnColumnSizesChange"]
+  NEWCLOSURE R3 P2
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K19 ["onSelectionChange"]
+  NEWCLOSURE R3 P3
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  SETTABLEKS R3 R0 K20 ["onMenuActionSelected"]
+  NEWCLOSURE R3 P4
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K21 ["OnSortChange"]
+  NEWCLOSURE R3 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  SETTABLEKS R3 R0 K22 ["onRightClick"]
+  NEWCLOSURE R3 P6
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K23 ["displayDeleteAllBreakpointsPopup"]
+  NEWCLOSURE R3 P7
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K24 ["closeDeleteAllBreakpointsPopup"]
+  NEWCLOSURE R3 P8
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R3 R0 K25 ["deleteAllBreakpoints"]
+  NEWCLOSURE R3 P9
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R3 R0 K26 ["toggleEnabledAll"]
+  NEWCLOSURE R3 P10
+  CAPTURE VAL R0
+  SETTABLEKS R3 R0 K27 ["goToScript"]
+  NEWCLOSURE R3 P11
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  SETTABLEKS R3 R0 K28 ["onExpansionChange"]
+  DUPCLOSURE R3 K29 [PROTO_19]
+  SETTABLEKS R3 R0 K30 ["getTreeChildren"]
+  NEWCLOSURE R3 P13
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R3 R0 K31 ["OnFocusLost"]
+  RETURN R0 0
+
+PROTO_22:
+  DUPTABLE R1 K1 [{"sizes"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["fetchSizesFromColumnScales"]
+  GETUPVAL R4 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["ColumnSize"]
+  GETTABLE R3 R4 R5
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K0 ["sizes"]
+  RETURN R1 1
+
+PROTO_23:
+  DUPTABLE R1 K1 [{"selectedBreakpoints"}]
+  NEWTABLE R2 0 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["props"]
+  GETTABLEKS R3 R4 K3 ["CurrentBreakpoint"]
+  SETLIST R2 R3 1 [1]
+  SETTABLEKS R2 R1 K0 ["selectedBreakpoints"]
+  RETURN R1 1
+
+PROTO_24:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Plugin"]
+  NAMECALL R2 R2 K2 ["get"]
+  CALL R2 1 1
+  LOADK R5 K3 ["breakpointsWindowConfigs"]
+  NAMECALL R3 R2 K4 ["GetSetting"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+24]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["ColumnSize"]
+  GETTABLE R4 R3 R5
+  JUMPIFNOT R4 [+19]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K6 ["ColumnFilter"]
+  GETTABLE R4 R3 R5
+  JUMPIFNOT R4 [+14]
+  GETTABLEKS R4 R1 K7 ["onColumnFilterChange"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["ColumnFilter"]
+  GETTABLE R5 R3 R6
+  CALL R4 1 0
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R3
+  CAPTURE UPVAL U0
+  NAMECALL R4 R0 K8 ["setState"]
+  CALL R4 2 0
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K9 ["IsPaused"]
+  JUMPIFNOT R4 [+10]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K10 ["CurrentBreakpoint"]
+  JUMPIFNOT R4 [+5]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  NAMECALL R4 R0 K8 ["setState"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_25:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Plugin"]
+  NAMECALL R2 R2 K2 ["get"]
+  CALL R2 1 1
+  NEWTABLE R3 0 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["ColumnFilter"]
+  GETTABLEKS R5 R1 K3 ["ColumnFilter"]
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["ColumnSize"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["fetchScaleFromColumnSizes"]
+  GETTABLEKS R7 R0 K6 ["state"]
+  GETTABLEKS R6 R7 K7 ["sizes"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  LOADK R6 K8 ["breakpointsWindowConfigs"]
+  MOVE R7 R3
+  NAMECALL R4 R2 K9 ["SetSetting"]
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_26:
+  DUPTABLE R1 K1 [{"sizes"}]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K0 ["sizes"]
+  RETURN R1 1
+
+PROTO_27:
+  DUPTABLE R1 K1 [{"selectedBreakpoints"}]
+  NEWTABLE R2 0 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["props"]
+  GETTABLEKS R3 R4 K3 ["CurrentBreakpoint"]
+  SETLIST R2 R3 1 [1]
+  SETTABLEKS R2 R1 K0 ["selectedBreakpoints"]
+  RETURN R1 1
+
+PROTO_28:
+  DUPTABLE R1 K1 [{"selectedBreakpoints"}]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K0 ["selectedBreakpoints"]
+  RETURN R1 1
+
+PROTO_29:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R5 R2 K1 ["ColumnFilter"]
+  LENGTH R4 R5
+  GETUPVAL R6 0
+  LENGTH R5 R6
+  ADD R3 R4 R5
+  GETTABLEKS R5 R2 K1 ["ColumnFilter"]
+  LENGTH R4 R5
+  GETTABLEKS R6 R1 K1 ["ColumnFilter"]
+  LENGTH R5 R6
+  JUMPIFEQ R4 R5 [+78]
+  GETTABLEKS R6 R0 K2 ["state"]
+  GETTABLEKS R5 R6 K3 ["sizes"]
+  LENGTH R4 R5
+  JUMPIFEQ R4 R3 [+71]
+  NEWTABLE R4 0 0
+  GETTABLEKS R7 R1 K1 ["ColumnFilter"]
+  LENGTH R6 R7
+  GETUPVAL R8 0
+  LENGTH R7 R8
+  ADD R5 R6 R7
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K4 ["List"]
+  GETTABLEKS R6 R7 K5 ["toSet"]
+  GETTABLEKS R7 R2 K1 ["ColumnFilter"]
+  CALL R6 1 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K6 ["fetchOldColumnSizes"]
+  MOVE R8 R5
+  GETTABLEKS R9 R1 K1 ["ColumnFilter"]
+  GETUPVAL R10 0
+  GETTABLEKS R12 R0 K2 ["state"]
+  GETTABLEKS R11 R12 K3 ["sizes"]
+  CALL R7 4 1
+  JUMPIFNOTLT R3 R5 [+24]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K7 ["fetchDeletedColumnsSize"]
+  GETUPVAL R10 0
+  LENGTH R9 R10
+  MOVE R10 R5
+  GETTABLEKS R11 R1 K1 ["ColumnFilter"]
+  MOVE R12 R7
+  MOVE R13 R6
+  CALL R8 5 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K8 ["updatedSizesAfterRemovingColumns"]
+  MOVE R10 R3
+  MOVE R11 R8
+  MOVE R12 R7
+  GETUPVAL R13 0
+  GETTABLEKS R14 R2 K1 ["ColumnFilter"]
+  CALL R9 5 1
+  MOVE R4 R9
+  JUMP [+11]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K9 ["updatedSizesAfterAddingColumns"]
+  MOVE R9 R3
+  MOVE R10 R5
+  MOVE R11 R7
+  GETTABLEKS R12 R2 K1 ["ColumnFilter"]
+  GETUPVAL R13 0
+  CALL R8 5 1
+  MOVE R4 R8
+  NEWCLOSURE R10 P0
+  CAPTURE REF R4
+  NAMECALL R8 R0 K10 ["setState"]
+  CALL R8 2 0
+  CLOSEUPVALS R4
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K11 ["IsPaused"]
+  GETTABLEKS R5 R1 K11 ["IsPaused"]
+  JUMPIFEQ R4 R5 [+17]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K11 ["IsPaused"]
+  JUMPIFNOT R4 [+11]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K12 ["CurrentBreakpoint"]
+  JUMPIFNOT R4 [+6]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  NAMECALL R4 R0 K10 ["setState"]
+  CALL R4 2 0
+  RETURN R0 0
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K13 ["Breakpoints"]
+  GETTABLEKS R5 R1 K13 ["Breakpoints"]
+  JUMPIFEQ R4 R5 [+95]
+  GETTABLEKS R6 R0 K2 ["state"]
+  GETTABLEKS R5 R6 K14 ["selectedBreakpoints"]
+  LENGTH R4 R5
+  JUMPIFEQKN R4 K15 [0] [+88]
+  NEWTABLE R4 0 0
+  NEWTABLE R5 0 0
+  NEWTABLE R6 0 0
+  GETIMPORT R7 K17 [ipairs]
+  GETTABLEKS R10 R0 K2 ["state"]
+  GETTABLEKS R8 R10 K14 ["selectedBreakpoints"]
+  CALL R7 1 3
+  FORGPREP_INEXT R7
+  GETTABLEKS R12 R11 K18 ["context"]
+  JUMPIFNOT R12 [+9]
+  GETTABLEKS R12 R11 K19 ["id"]
+  GETTABLEKS R14 R11 K18 ["context"]
+  GETTABLEKS R15 R11 K20 ["scriptGUID"]
+  CONCAT R13 R14 R15
+  SETTABLE R13 R6 R12
+  JUMP [+4]
+  GETTABLEKS R12 R11 K19 ["id"]
+  LOADB R13 1
+  SETTABLE R13 R5 R12
+  FORGLOOP R7 2 [inext] [-17]
+  GETIMPORT R7 K17 [ipairs]
+  GETTABLEKS R10 R0 K0 ["props"]
+  GETTABLEKS R8 R10 K13 ["Breakpoints"]
+  CALL R7 1 3
+  FORGPREP_INEXT R7
+  GETTABLEKS R13 R11 K19 ["id"]
+  GETTABLE R12 R5 R13
+  JUMPIFNOT R12 [+7]
+  FASTCALL2 TABLE_INSERT R4 R11 [+5]
+  MOVE R13 R4
+  MOVE R14 R11
+  GETIMPORT R12 K23 [table.insert]
+  CALL R12 2 0
+  GETTABLEKS R13 R11 K19 ["id"]
+  GETTABLE R12 R6 R13
+  JUMPIFNOT R12 [+25]
+  GETIMPORT R12 K17 [ipairs]
+  GETTABLEKS R13 R11 K24 ["children"]
+  CALL R12 1 3
+  FORGPREP_INEXT R12
+  GETTABLEKS R18 R16 K18 ["context"]
+  GETTABLEKS R19 R16 K20 ["scriptGUID"]
+  CONCAT R17 R18 R19
+  GETTABLEKS R19 R11 K19 ["id"]
+  GETTABLE R18 R6 R19
+  JUMPIFNOTEQ R18 R17 [+8]
+  FASTCALL2 TABLE_INSERT R4 R16 [+5]
+  MOVE R19 R4
+  MOVE R20 R16
+  GETIMPORT R18 K23 [table.insert]
+  CALL R18 2 0
+  FORGLOOP R12 2 [inext] [-18]
+  FORGLOOP R7 2 [inext] [-41]
+  NEWCLOSURE R9 P2
+  CAPTURE VAL R4
+  NAMECALL R7 R0 K10 ["setState"]
+  CALL R7 2 0
+  RETURN R0 0
+
+PROTO_30:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"Width"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K2 ["state"]
+  GETTABLEKS R6 R7 K3 ["sizes"]
+  GETTABLE R5 R6 R1
+  SETTABLEKS R5 R4 K0 ["Width"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_31:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  GETTABLEKS R4 R1 K3 ["IsPaused"]
+  JUMPIFNOT R4 [+24]
+  GETTABLEKS R4 R1 K4 ["CurrentBreakpoint"]
+  JUMPIFNOT R4 [+21]
+  GETTABLEKS R6 R0 K5 ["state"]
+  GETTABLEKS R5 R6 K6 ["selectedBreakpoints"]
+  GETTABLEN R4 R5 1
+  JUMPIFNOT R4 [+15]
+  GETTABLEKS R6 R1 K4 ["CurrentBreakpoint"]
+  GETTABLEKS R5 R6 K7 ["id"]
+  GETTABLEKS R9 R0 K5 ["state"]
+  GETTABLEKS R8 R9 K6 ["selectedBreakpoints"]
+  GETTABLEN R7 R8 1
+  GETTABLEKS R6 R7 K7 ["id"]
+  JUMPIFEQ R5 R6 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  NEWTABLE R5 0 3
+  DUPTABLE R6 K10 [{"Name", "Key"}]
+  LOADK R7 K11 [""]
+  SETTABLEKS R7 R6 K8 ["Name"]
+  GETUPVAL R8 0
+  GETTABLEN R7 R8 1
+  SETTABLEKS R7 R6 K9 ["Key"]
+  DUPTABLE R7 K13 [{"Name", "Key", "Tooltip"}]
+  LOADK R10 K14 ["BreakpointsWindow"]
+  LOADK R11 K15 ["ScriptColumn"]
+  NAMECALL R8 R2 K16 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K8 ["Name"]
+  GETUPVAL R9 0
+  GETTABLEN R8 R9 2
+  SETTABLEKS R8 R7 K9 ["Key"]
+  LOADK R11 K14 ["BreakpointsWindow"]
+  LOADK R12 K18 ["ScriptColumnTooltip"]
+  NAMECALL R9 R2 K16 ["getText"]
+  CALL R9 3 1
+  ORK R8 R9 K17 []
+  SETTABLEKS R8 R7 K12 ["Tooltip"]
+  DUPTABLE R8 K13 [{"Name", "Key", "Tooltip"}]
+  LOADK R11 K14 ["BreakpointsWindow"]
+  LOADK R12 K19 ["LineColumn"]
+  NAMECALL R9 R2 K16 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K8 ["Name"]
+  GETUPVAL R10 0
+  GETTABLEN R9 R10 3
+  SETTABLEKS R9 R8 K9 ["Key"]
+  LOADK R12 K14 ["BreakpointsWindow"]
+  LOADK R13 K20 ["LineColumnTooltip"]
+  NAMECALL R10 R2 K16 ["getText"]
+  CALL R10 3 1
+  ORK R9 R10 K17 []
+  SETTABLEKS R9 R8 K12 ["Tooltip"]
+  SETLIST R5 R6 3 [1]
+  GETIMPORT R6 K22 [ipairs]
+  GETTABLEKS R7 R1 K23 ["ColumnFilter"]
+  CALL R6 1 3
+  FORGPREP_INEXT R6
+  DUPTABLE R11 K13 [{"Name", "Key", "Tooltip"}]
+  LOADK R14 K14 ["BreakpointsWindow"]
+  MOVE R15 R10
+  NAMECALL R12 R2 K16 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K8 ["Name"]
+  GETUPVAL R13 1
+  GETTABLE R12 R13 R10
+  SETTABLEKS R12 R11 K9 ["Key"]
+  LOADK R15 K14 ["BreakpointsWindow"]
+  MOVE R17 R10
+  LOADK R18 K12 ["Tooltip"]
+  CONCAT R16 R17 R18
+  NAMECALL R13 R2 K16 ["getText"]
+  CALL R13 3 1
+  ORK R12 R13 K17 []
+  SETTABLEKS R12 R11 K12 ["Tooltip"]
+  FASTCALL2 TABLE_INSERT R5 R11 [+5]
+  MOVE R13 R5
+  MOVE R14 R11
+  GETIMPORT R12 K26 [table.insert]
+  CALL R12 2 0
+  FORGLOOP R6 2 [inext] [-30]
+  GETUPVAL R6 2
+  MOVE R7 R5
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CALL R6 2 1
+  NEWTABLE R7 0 0
+  GETIMPORT R8 K28 [pairs]
+  GETTABLEKS R9 R1 K29 ["Breakpoints"]
+  CALL R8 1 3
+  FORGPREP_NEXT R8
+  GETTABLEKS R15 R0 K5 ["state"]
+  GETTABLEKS R14 R15 K30 ["breakpointIdToExpansionState"]
+  GETTABLEKS R15 R12 K7 ["id"]
+  GETTABLE R13 R14 R15
+  JUMPIFNOTEQKNIL R13 [+9]
+  GETTABLEKS R14 R0 K5 ["state"]
+  GETTABLEKS R13 R14 K30 ["breakpointIdToExpansionState"]
+  GETTABLEKS R14 R12 K7 ["id"]
+  LOADB R15 0
+  SETTABLE R15 R13 R14
+  GETTABLEKS R15 R0 K5 ["state"]
+  GETTABLEKS R14 R15 K30 ["breakpointIdToExpansionState"]
+  GETTABLEKS R15 R12 K7 ["id"]
+  GETTABLE R13 R14 R15
+  SETTABLE R13 R7 R12
+  FORGLOOP R8 2 [-26]
+  LOADNIL R8
+  GETTABLEKS R9 R1 K31 ["hasDisabledBreakpoints"]
+  JUMPIFNOT R9 [+7]
+  LOADK R11 K14 ["BreakpointsWindow"]
+  LOADK R12 K32 ["EnableAll"]
+  NAMECALL R9 R2 K16 ["getText"]
+  CALL R9 3 1
+  MOVE R8 R9
+  JUMP [+6]
+  LOADK R11 K14 ["BreakpointsWindow"]
+  LOADK R12 K33 ["DisableAll"]
+  NAMECALL R9 R2 K16 ["getText"]
+  CALL R9 3 1
+  MOVE R8 R9
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K34 ["HEADER_HEIGHT"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K36 ["BUTTON_PADDING"]
+  MULK R11 R12 K35 [2]
+  ADD R9 R10 R11
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K37 ["createElement"]
+  GETUPVAL R11 6
+  DUPTABLE R12 K43 [{"Size", "Style", "Layout", "VerticalAlignment", "BackgroundColor3"}]
+  GETIMPORT R13 K46 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K38 ["Size"]
+  LOADK R13 K47 ["Box"]
+  SETTABLEKS R13 R12 K39 ["Style"]
+  GETIMPORT R13 K51 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K40 ["Layout"]
+  GETIMPORT R13 K53 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R13 R12 K41 ["VerticalAlignment"]
+  GETTABLEKS R13 R3 K54 ["MainBackground"]
+  SETTABLEKS R13 R12 K42 ["BackgroundColor3"]
+  DUPTABLE R13 K58 [{"HeaderPane", "TablePane", "DeleteAllDialog"}]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K37 ["createElement"]
+  GETUPVAL R15 6
+  DUPTABLE R16 K63 [{"Size", "Spacing", "Padding", "Style", "Layout", "LayoutOrder", "VerticalAlignment", "HorizontalAlignment"}]
+  GETIMPORT R17 K65 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 0
+  MOVE R21 R9
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K38 ["Size"]
+  GETUPVAL R18 4
+  GETTABLEKS R17 R18 K36 ["BUTTON_PADDING"]
+  SETTABLEKS R17 R16 K59 ["Spacing"]
+  GETUPVAL R18 4
+  GETTABLEKS R17 R18 K36 ["BUTTON_PADDING"]
+  SETTABLEKS R17 R16 K60 ["Padding"]
+  LOADK R17 K47 ["Box"]
+  SETTABLEKS R17 R16 K39 ["Style"]
+  GETIMPORT R17 K67 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R17 R16 K40 ["Layout"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K61 ["LayoutOrder"]
+  GETIMPORT R17 K69 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R17 R16 K41 ["VerticalAlignment"]
+  GETIMPORT R17 K71 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R17 R16 K62 ["HorizontalAlignment"]
+  DUPTABLE R17 K74 [{"ButtonsContainer", "DropdownContainer"}]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K37 ["createElement"]
+  GETUPVAL R19 6
+  DUPTABLE R20 K75 [{"Size", "LayoutOrder", "Style", "Layout", "VerticalAlignment", "HorizontalAlignment"}]
+  GETIMPORT R21 K65 [UDim2.new]
+  LOADK R22 K76 [0.5]
+  LOADN R23 0
+  LOADN R24 0
+  GETUPVAL R26 4
+  GETTABLEKS R25 R26 K34 ["HEADER_HEIGHT"]
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K38 ["Size"]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K61 ["LayoutOrder"]
+  LOADK R21 K47 ["Box"]
+  SETTABLEKS R21 R20 K39 ["Style"]
+  GETIMPORT R21 K67 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R21 R20 K40 ["Layout"]
+  GETIMPORT R21 K69 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R21 R20 K41 ["VerticalAlignment"]
+  GETIMPORT R21 K71 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R21 R20 K62 ["HorizontalAlignment"]
+  DUPTABLE R21 K79 [{"DisableAllBreakpointButton", "DeleteAllBreakpointButton"}]
+  GETUPVAL R23 5
+  GETTABLEKS R22 R23 K37 ["createElement"]
+  GETUPVAL R23 7
+  DUPTABLE R24 K84 [{"Size", "LayoutOrder", "LeftIcon", "TooltipText", "OnClick", "Disabled"}]
+  GETIMPORT R25 K65 [UDim2.new]
+  LOADN R26 0
+  GETUPVAL R28 4
+  GETTABLEKS R27 R28 K85 ["BUTTON_SIZE"]
+  LOADN R28 0
+  GETUPVAL R30 4
+  GETTABLEKS R29 R30 K85 ["BUTTON_SIZE"]
+  CALL R25 4 1
+  SETTABLEKS R25 R24 K38 ["Size"]
+  LOADN R25 1
+  SETTABLEKS R25 R24 K61 ["LayoutOrder"]
+  LOADK R25 K86 ["rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png"]
+  SETTABLEKS R25 R24 K80 ["LeftIcon"]
+  SETTABLEKS R8 R24 K81 ["TooltipText"]
+  GETTABLEKS R25 R0 K87 ["toggleEnabledAll"]
+  SETTABLEKS R25 R24 K82 ["OnClick"]
+  GETTABLEKS R27 R1 K29 ["Breakpoints"]
+  LENGTH R26 R27
+  JUMPIFEQKN R26 K88 [0] [+2]
+  LOADB R25 0 +1
+  LOADB R25 1
+  SETTABLEKS R25 R24 K83 ["Disabled"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K77 ["DisableAllBreakpointButton"]
+  GETUPVAL R23 5
+  GETTABLEKS R22 R23 K37 ["createElement"]
+  GETUPVAL R23 7
+  DUPTABLE R24 K84 [{"Size", "LayoutOrder", "LeftIcon", "TooltipText", "OnClick", "Disabled"}]
+  GETIMPORT R25 K65 [UDim2.new]
+  LOADN R26 0
+  GETUPVAL R28 4
+  GETTABLEKS R27 R28 K85 ["BUTTON_SIZE"]
+  LOADN R28 0
+  GETUPVAL R30 4
+  GETTABLEKS R29 R30 K85 ["BUTTON_SIZE"]
+  CALL R25 4 1
+  SETTABLEKS R25 R24 K38 ["Size"]
+  LOADN R25 2
+  SETTABLEKS R25 R24 K61 ["LayoutOrder"]
+  LOADK R25 K89 ["rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png"]
+  SETTABLEKS R25 R24 K80 ["LeftIcon"]
+  LOADK R27 K14 ["BreakpointsWindow"]
+  LOADK R28 K90 ["DeleteAll"]
+  NAMECALL R25 R2 K16 ["getText"]
+  CALL R25 3 1
+  SETTABLEKS R25 R24 K81 ["TooltipText"]
+  GETTABLEKS R25 R0 K91 ["displayDeleteAllBreakpointsPopup"]
+  SETTABLEKS R25 R24 K82 ["OnClick"]
+  GETTABLEKS R27 R1 K29 ["Breakpoints"]
+  LENGTH R26 R27
+  JUMPIFEQKN R26 K88 [0] [+2]
+  LOADB R25 0 +1
+  LOADB R25 1
+  SETTABLEKS R25 R24 K83 ["Disabled"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K78 ["DeleteAllBreakpointButton"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K72 ["ButtonsContainer"]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K37 ["createElement"]
+  GETUPVAL R19 6
+  DUPTABLE R20 K75 [{"Size", "LayoutOrder", "Style", "Layout", "VerticalAlignment", "HorizontalAlignment"}]
+  GETIMPORT R21 K65 [UDim2.new]
+  LOADK R22 K76 [0.5]
+  LOADN R23 0
+  LOADN R24 0
+  GETUPVAL R26 4
+  GETTABLEKS R25 R26 K34 ["HEADER_HEIGHT"]
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K38 ["Size"]
+  LOADN R21 2
+  SETTABLEKS R21 R20 K61 ["LayoutOrder"]
+  LOADK R21 K47 ["Box"]
+  SETTABLEKS R21 R20 K39 ["Style"]
+  GETIMPORT R21 K67 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R21 R20 K40 ["Layout"]
+  GETIMPORT R21 K69 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R21 R20 K41 ["VerticalAlignment"]
+  GETIMPORT R21 K93 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R21 R20 K62 ["HorizontalAlignment"]
+  DUPTABLE R21 K95 [{"ColumnDropdown"}]
+  GETUPVAL R23 5
+  GETTABLEKS R22 R23 K37 ["createElement"]
+  GETUPVAL R23 8
+  DUPTABLE R24 K97 [{"LayoutOrder", "AutomaticSize"}]
+  LOADN R25 1
+  SETTABLEKS R25 R24 K61 ["LayoutOrder"]
+  GETIMPORT R25 K99 [Enum.AutomaticSize.X]
+  SETTABLEKS R25 R24 K96 ["AutomaticSize"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K94 ["ColumnDropdown"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K73 ["DropdownContainer"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K55 ["HeaderPane"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K37 ["createElement"]
+  GETUPVAL R15 6
+  DUPTABLE R16 K100 [{"Size", "Style", "LayoutOrder"}]
+  GETIMPORT R17 K65 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 1
+  MINUS R21 R9
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K38 ["Size"]
+  LOADK R17 K47 ["Box"]
+  SETTABLEKS R17 R16 K39 ["Style"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K61 ["LayoutOrder"]
+  DUPTABLE R17 K102 [{"BreakpointsTable"}]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K37 ["createElement"]
+  GETUPVAL R19 9
+  DUPTABLE R20 K127 [{"Size", "Columns", "RootItems", "OnExpansionChange", "RightClick", "CellComponent", "LayoutOrder", "OnSelectionChange", "HighlightedRows", "Scroll", "ScrollFocusIndex", "Expansion", "GetChildren", "TextInputCols", "OnFocusLost", "OnDoubleClick", "SortIndex", "SortOrder", "OnSortChange", "OnColumnSizesChange", "UseDeficit", "UseScale", "ClampSize", "ColumnHeaderHeight", "RowHeight", "ExpandOnDoubleClick"}]
+  GETIMPORT R21 K65 [UDim2.new]
+  LOADN R22 1
+  LOADN R23 0
+  LOADN R24 1
+  LOADN R25 0
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K38 ["Size"]
+  SETTABLEKS R6 R20 K103 ["Columns"]
+  GETTABLEKS R21 R1 K29 ["Breakpoints"]
+  JUMPIF R21 [+2]
+  NEWTABLE R21 0 0
+  SETTABLEKS R21 R20 K104 ["RootItems"]
+  GETTABLEKS R21 R0 K128 ["onExpansionChange"]
+  SETTABLEKS R21 R20 K105 ["OnExpansionChange"]
+  GETTABLEKS R21 R0 K129 ["onRightClick"]
+  SETTABLEKS R21 R20 K106 ["RightClick"]
+  GETUPVAL R21 10
+  SETTABLEKS R21 R20 K107 ["CellComponent"]
+  LOADN R21 2
+  SETTABLEKS R21 R20 K61 ["LayoutOrder"]
+  GETTABLEKS R21 R0 K130 ["onSelectionChange"]
+  SETTABLEKS R21 R20 K108 ["OnSelectionChange"]
+  GETTABLEKS R22 R0 K5 ["state"]
+  GETTABLEKS R21 R22 K6 ["selectedBreakpoints"]
+  SETTABLEKS R21 R20 K109 ["HighlightedRows"]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K110 ["Scroll"]
+  MOVE R21 R4
+  JUMPIFNOT R21 [+4]
+  GETTABLEKS R22 R0 K0 ["props"]
+  GETTABLEKS R21 R22 K131 ["CurrentBreakpointIndex"]
+  SETTABLEKS R21 R20 K111 ["ScrollFocusIndex"]
+  SETTABLEKS R7 R20 K112 ["Expansion"]
+  GETTABLEKS R21 R0 K132 ["getTreeChildren"]
+  SETTABLEKS R21 R20 K113 ["GetChildren"]
+  GETTABLEKS R21 R1 K114 ["TextInputCols"]
+  SETTABLEKS R21 R20 K114 ["TextInputCols"]
+  GETTABLEKS R21 R0 K115 ["OnFocusLost"]
+  SETTABLEKS R21 R20 K115 ["OnFocusLost"]
+  GETTABLEKS R21 R0 K116 ["OnDoubleClick"]
+  SETTABLEKS R21 R20 K116 ["OnDoubleClick"]
+  GETTABLEKS R21 R1 K117 ["SortIndex"]
+  SETTABLEKS R21 R20 K117 ["SortIndex"]
+  GETTABLEKS R21 R1 K118 ["SortOrder"]
+  SETTABLEKS R21 R20 K118 ["SortOrder"]
+  GETTABLEKS R21 R0 K119 ["OnSortChange"]
+  SETTABLEKS R21 R20 K119 ["OnSortChange"]
+  GETTABLEKS R21 R0 K120 ["OnColumnSizesChange"]
+  SETTABLEKS R21 R20 K120 ["OnColumnSizesChange"]
+  LOADB R21 0
+  SETTABLEKS R21 R20 K121 ["UseDeficit"]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K122 ["UseScale"]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K123 ["ClampSize"]
+  GETUPVAL R22 4
+  GETTABLEKS R21 R22 K133 ["COLUMN_HEADER_HEIGHT"]
+  SETTABLEKS R21 R20 K124 ["ColumnHeaderHeight"]
+  GETUPVAL R22 4
+  GETTABLEKS R21 R22 K134 ["ROW_HEIGHT"]
+  SETTABLEKS R21 R20 K125 ["RowHeight"]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K126 ["ExpandOnDoubleClick"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K101 ["BreakpointsTable"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K56 ["TablePane"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K37 ["createElement"]
+  GETUPVAL R15 11
+  DUPTABLE R16 K138 [{"Enabled", "CloseDialog", "DeleteAllBreakpoints"}]
+  GETTABLEKS R18 R0 K5 ["state"]
+  GETTABLEKS R17 R18 K139 ["deleteAllPopup"]
+  SETTABLEKS R17 R16 K135 ["Enabled"]
+  GETTABLEKS R17 R0 K140 ["closeDeleteAllBreakpointsPopup"]
+  SETTABLEKS R17 R16 K136 ["CloseDialog"]
+  GETTABLEKS R17 R0 K141 ["deleteAllBreakpoints"]
+  SETTABLEKS R17 R16 K137 ["DeleteAllBreakpoints"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K57 ["DeleteAllDialog"]
+  CALL R10 3 -1
+  RETURN R10 -1
+
+PROTO_32:
+  NEWTABLE R2 0 0
+  LOADNIL R3
+  LOADNIL R4
+  LOADB R5 0
+  GETIMPORT R6 K1 [pairs]
+  GETTABLEKS R9 R0 K2 ["Breakpoint"]
+  GETTABLEKS R7 R9 K3 ["MetaBreakpoints"]
+  CALL R6 1 3
+  FORGPREP_NEXT R6
+  GETUPVAL R11 0
+  MOVE R12 R10
+  CALL R11 1 1
+  GETTABLEKS R12 R10 K4 ["scriptName"]
+  SETTABLEKS R12 R11 K5 ["scriptGUID"]
+  GETTABLEKS R14 R0 K6 ["ScriptInfo"]
+  GETTABLEKS R13 R14 K6 ["ScriptInfo"]
+  GETTABLEKS R14 R11 K4 ["scriptName"]
+  GETTABLE R12 R13 R14
+  SETTABLEKS R12 R11 K4 ["scriptName"]
+  GETTABLEKS R14 R0 K6 ["ScriptInfo"]
+  GETTABLEKS R13 R14 K7 ["ScriptLineContents"]
+  GETTABLEKS R14 R11 K5 ["scriptGUID"]
+  GETTABLE R12 R13 R14
+  JUMPIFNOT R12 [+10]
+  GETTABLEKS R15 R0 K6 ["ScriptInfo"]
+  GETTABLEKS R14 R15 K7 ["ScriptLineContents"]
+  GETTABLEKS R15 R11 K5 ["scriptGUID"]
+  GETTABLE R13 R14 R15
+  GETTABLEKS R14 R11 K8 ["lineNumber"]
+  GETTABLE R12 R13 R14
+  SETTABLEKS R12 R11 K9 ["scriptLine"]
+  FASTCALL2 TABLE_INSERT R2 R11 [+5]
+  MOVE R13 R2
+  MOVE R14 R11
+  GETIMPORT R12 K12 [table.insert]
+  CALL R12 2 0
+  GETTABLEKS R12 R10 K13 ["isEnabled"]
+  JUMPIFNOTEQKB R12 FALSE [+2]
+  LOADB R5 1
+  FORGLOOP R6 2 [-49]
+  LOADN R6 1
+  GETIMPORT R7 K15 [ipairs]
+  MOVE R8 R2
+  CALL R7 1 3
+  FORGPREP_INEXT R7
+  GETTABLEKS R12 R11 K16 ["id"]
+  GETTABLEKS R14 R0 K17 ["Common"]
+  GETTABLEKS R13 R14 K18 ["currentBreakpointId"]
+  JUMPIFNOTEQ R12 R13 [+3]
+  MOVE R3 R11
+  MOVE R4 R6
+  ADDK R6 R6 K19 [1]
+  NEWTABLE R12 0 0
+  SETTABLEKS R12 R11 K20 ["children"]
+  GETIMPORT R12 K1 [pairs]
+  GETTABLEKS R13 R11 K21 ["contextBreakpoints"]
+  CALL R12 1 3
+  FORGPREP_NEXT R12
+  GETIMPORT R17 K15 [ipairs]
+  GETTABLEKS R18 R16 K22 ["breakpoints"]
+  CALL R17 1 3
+  FORGPREP_INEXT R17
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K23 ["extractNonChildData"]
+  MOVE R23 R11
+  MOVE R24 R15
+  GETTABLEKS R25 R21 K24 ["Script"]
+  CALL R22 3 1
+  GETTABLEKS R23 R16 K25 ["connectionId"]
+  SETTABLEKS R23 R22 K26 ["hiddenConnectionId"]
+  GETTABLEKS R23 R22 K8 ["lineNumber"]
+  SETTABLEKS R23 R22 K27 ["hiddenLineNumber"]
+  LOADK R23 K28 [""]
+  SETTABLEKS R23 R22 K8 ["lineNumber"]
+  GETTABLEKS R23 R21 K29 ["Enabled"]
+  SETTABLEKS R23 R22 K13 ["isEnabled"]
+  GETTABLEKS R23 R21 K30 ["Valid"]
+  SETTABLEKS R23 R22 K31 ["isValid"]
+  DUPTABLE R23 K34 [{"Value", "LeftIcon"}]
+  GETTABLEKS R26 R0 K6 ["ScriptInfo"]
+  GETTABLEKS R25 R26 K6 ["ScriptInfo"]
+  GETTABLEKS R26 R21 K24 ["Script"]
+  GETTABLE R24 R25 R26
+  SETTABLEKS R24 R23 K32 ["Value"]
+  DUPTABLE R24 K37 [{"Image", "Size"}]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K38 ["GameStateTypes"]
+  GETTABLEKS R26 R27 K39 ["Client"]
+  JUMPIFNOTEQ R15 R26 [+7]
+  GETUPVAL R27 2
+  GETTABLEKS R26 R27 K40 ["DebugpointIconTable"]
+  GETTABLEKS R25 R26 K41 ["client"]
+  JUMP [+14]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K38 ["GameStateTypes"]
+  GETTABLEKS R26 R27 K42 ["Server"]
+  JUMPIFNOTEQ R15 R26 [+7]
+  GETUPVAL R27 2
+  GETTABLEKS R26 R27 K40 ["DebugpointIconTable"]
+  GETTABLEKS R25 R26 K43 ["server"]
+  JUMP [+1]
+  LOADNIL R25
+  SETTABLEKS R25 R24 K35 ["Image"]
+  GETIMPORT R25 K46 [UDim2.new]
+  LOADN R26 0
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K47 ["ICON_SIZE"]
+  LOADN R28 0
+  GETUPVAL R30 2
+  GETTABLEKS R29 R30 K47 ["ICON_SIZE"]
+  CALL R25 4 1
+  SETTABLEKS R25 R24 K36 ["Size"]
+  SETTABLEKS R24 R23 K33 ["LeftIcon"]
+  SETTABLEKS R23 R22 K4 ["scriptName"]
+  GETTABLEKS R24 R11 K20 ["children"]
+  FASTCALL2 TABLE_INSERT R24 R22 [+4]
+  MOVE R25 R22
+  GETIMPORT R23 K12 [table.insert]
+  CALL R23 2 0
+  FORGLOOP R17 2 [inext] [-93]
+  FORGLOOP R12 2 [-101]
+  FORGLOOP R7 2 [inext] [-124]
+  NEWTABLE R7 0 0
+  NEWTABLE R8 0 0
+  GETIMPORT R9 K15 [ipairs]
+  GETUPVAL R10 3
+  CALL R9 1 3
+  FORGPREP_INEXT R9
+  FASTCALL2 TABLE_INSERT R7 R13 [+5]
+  MOVE R15 R7
+  MOVE R16 R13
+  GETIMPORT R14 K12 [table.insert]
+  CALL R14 2 0
+  FORGLOOP R9 2 [inext] [-8]
+  GETIMPORT R9 K15 [ipairs]
+  GETTABLEKS R12 R0 K2 ["Breakpoint"]
+  GETTABLEKS R10 R12 K48 ["listOfEnabledColumns"]
+  CALL R9 1 3
+  FORGPREP_INEXT R9
+  GETUPVAL R17 4
+  GETTABLE R16 R17 R13
+  FASTCALL2 TABLE_INSERT R7 R16 [+4]
+  MOVE R15 R7
+  GETIMPORT R14 K12 [table.insert]
+  CALL R14 2 0
+  JUMPIFEQKS R13 K49 ["ConditionColumn"] [+3]
+  JUMPIFNOTEQKS R13 K50 ["LogMessageColumn"] [+6]
+  GETUPVAL R16 3
+  LENGTH R15 R16
+  ADD R14 R12 R15
+  LOADB R15 1
+  SETTABLE R15 R8 R14
+  FORGLOOP R9 2 [inext] [-18]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K51 ["sortTableByColumnAndOrder"]
+  MOVE R10 R2
+  GETTABLEKS R12 R0 K2 ["Breakpoint"]
+  GETTABLEKS R11 R12 K52 ["ColumnIndex"]
+  GETTABLEKS R13 R0 K2 ["Breakpoint"]
+  GETTABLEKS R12 R13 K53 ["SortDirection"]
+  MOVE R13 R7
+  LOADB R14 0
+  NEWTABLE R15 0 2
+  LOADK R16 K5 ["scriptGUID"]
+  LOADK R17 K8 ["lineNumber"]
+  SETLIST R15 R16 2 [1]
+  CALL R9 6 0
+  DUPTABLE R9 K65 [{"Breakpoints", "IsPaused", "CurrentBreakpoint", "CurrentBreakpointIndex", "CurrentDebuggerConnectionId", "SortIndex", "SortOrder", "hasDisabledBreakpoints", "ColumnFilter", "TextInputCols", "CurrentKeys"}]
+  SETTABLEKS R2 R9 K54 ["Breakpoints"]
+  GETTABLEKS R11 R0 K17 ["Common"]
+  GETTABLEKS R10 R11 K66 ["isPaused"]
+  SETTABLEKS R10 R9 K55 ["IsPaused"]
+  SETTABLEKS R3 R9 K56 ["CurrentBreakpoint"]
+  SETTABLEKS R4 R9 K57 ["CurrentBreakpointIndex"]
+  GETTABLEKS R11 R0 K17 ["Common"]
+  GETTABLEKS R10 R11 K67 ["currentDebuggerConnectionId"]
+  SETTABLEKS R10 R9 K58 ["CurrentDebuggerConnectionId"]
+  GETTABLEKS R11 R0 K2 ["Breakpoint"]
+  GETTABLEKS R10 R11 K52 ["ColumnIndex"]
+  SETTABLEKS R10 R9 K59 ["SortIndex"]
+  GETTABLEKS R11 R0 K2 ["Breakpoint"]
+  GETTABLEKS R10 R11 K53 ["SortDirection"]
+  SETTABLEKS R10 R9 K60 ["SortOrder"]
+  SETTABLEKS R5 R9 K61 ["hasDisabledBreakpoints"]
+  GETTABLEKS R11 R0 K2 ["Breakpoint"]
+  GETTABLEKS R10 R11 K48 ["listOfEnabledColumns"]
+  SETTABLEKS R10 R9 K62 ["ColumnFilter"]
+  SETTABLEKS R8 R9 K63 ["TextInputCols"]
+  SETTABLEKS R7 R9 K64 ["CurrentKeys"]
+  RETURN R9 1
+
+PROTO_33:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 -1
+  RETURN R2 -1
+
+PROTO_34:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 -1
+  RETURN R2 -1
+
+PROTO_35:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_36:
+  DUPTABLE R1 K3 [{"onToggleEnabledAll", "onSetBreakpointSortState", "onColumnFilterChange"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["onToggleEnabledAll"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["onSetBreakpointSortState"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["onColumnFilterChange"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["Cryo"]
+  CALL R4 1 1
+  GETTABLEKS R5 R3 K10 ["ContextServices"]
+  GETTABLEKS R6 R5 K11 ["Analytics"]
+  GETTABLEKS R7 R5 K12 ["Plugin"]
+  GETTABLEKS R8 R5 K13 ["Localization"]
+  GETTABLEKS R10 R3 K14 ["Style"]
+  GETTABLEKS R9 R10 K15 ["Stylizer"]
+  GETTABLEKS R10 R3 K16 ["Dash"]
+  GETTABLEKS R11 R10 K17 ["map"]
+  GETTABLEKS R12 R10 K18 ["join"]
+  GETTABLEKS R13 R3 K19 ["Util"]
+  GETTABLEKS R14 R13 K20 ["deepCopy"]
+  GETTABLEKS R15 R3 K21 ["UI"]
+  GETTABLEKS R16 R15 K22 ["IconButton"]
+  GETTABLEKS R17 R15 K23 ["Pane"]
+  GETTABLEKS R18 R15 K24 ["TreeTable"]
+  GETTABLEKS R19 R15 K25 ["showContextMenu"]
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R23 R0 K26 ["Src"]
+  GETTABLEKS R22 R23 K27 ["Models"]
+  GETTABLEKS R21 R22 K28 ["BreakpointRow"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R24 R0 K26 ["Src"]
+  GETTABLEKS R23 R24 K19 ["Util"]
+  GETTABLEKS R22 R23 K29 ["Constants"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R26 R0 K26 ["Src"]
+  GETTABLEKS R25 R26 K30 ["Components"]
+  GETTABLEKS R24 R25 K31 ["Breakpoints"]
+  GETTABLEKS R23 R24 K32 ["BreakpointsTreeTableCell"]
+  CALL R22 1 1
+  GETTABLEKS R23 R1 K33 ["PureComponent"]
+  LOADK R25 K34 ["BreakpointsTable"]
+  NAMECALL R23 R23 K35 ["extend"]
+  CALL R23 2 1
+  GETTABLEKS R25 R0 K26 ["Src"]
+  GETTABLEKS R24 R25 K19 ["Util"]
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R26 R24 K36 ["BreakpointHelperFunctions"]
+  CALL R25 1 1
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R27 R24 K37 ["WatchHelperFunctions"]
+  CALL R26 1 1
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R28 R24 K38 ["ColumnResizeHelperFunctions"]
+  CALL R27 1 1
+  GETIMPORT R28 K4 [require]
+  GETTABLEKS R31 R0 K26 ["Src"]
+  GETTABLEKS R30 R31 K39 ["Resources"]
+  GETTABLEKS R29 R30 K40 ["AnalyticsEventNames"]
+  CALL R28 1 1
+  GETTABLEKS R30 R0 K26 ["Src"]
+  GETTABLEKS R29 R30 K41 ["Thunks"]
+  GETIMPORT R30 K4 [require]
+  GETTABLEKS R32 R29 K31 ["Breakpoints"]
+  GETTABLEKS R31 R32 K42 ["ToggleAllBreakpoints"]
+  CALL R30 1 1
+  GETTABLEKS R32 R0 K26 ["Src"]
+  GETTABLEKS R31 R32 K43 ["Actions"]
+  GETIMPORT R32 K4 [require]
+  GETTABLEKS R34 R31 K44 ["BreakpointsWindow"]
+  GETTABLEKS R33 R34 K45 ["SetBreakpointSortState"]
+  CALL R32 1 1
+  GETIMPORT R33 K4 [require]
+  GETTABLEKS R35 R31 K44 ["BreakpointsWindow"]
+  GETTABLEKS R34 R35 K46 ["BreakpointColumnFilter"]
+  CALL R33 1 1
+  GETIMPORT R34 K4 [require]
+  GETIMPORT R37 K1 [script]
+  GETTABLEKS R36 R37 K2 ["Parent"]
+  GETTABLEKS R35 R36 K47 ["BreakpointsDropdownField"]
+  CALL R34 1 1
+  GETIMPORT R35 K4 [require]
+  GETIMPORT R38 K1 [script]
+  GETTABLEKS R37 R38 K2 ["Parent"]
+  GETTABLEKS R36 R37 K48 ["DeleteAllBreakpointsDialog"]
+  CALL R35 1 1
+  GETIMPORT R36 K4 [require]
+  GETTABLEKS R37 R24 K49 ["MakePluginActions"]
+  CALL R36 1 1
+  NEWTABLE R37 0 3
+  LOADK R38 K50 ["isEnabled"]
+  SETTABLEN R38 R37 1
+  LOADK R38 K51 ["scriptName"]
+  SETTABLEN R38 R37 2
+  LOADK R38 K52 ["lineNumber"]
+  SETTABLEN R38 R37 3
+  DUPTABLE R38 K58 [{"SourceLineColumn", "ConditionColumn", "LogMessageColumn", "ContinueExecutionColumn", "RemoveOnHitColumn"}]
+  LOADK R39 K59 ["scriptLine"]
+  SETTABLEKS R39 R38 K53 ["SourceLineColumn"]
+  LOADK R39 K60 ["condition"]
+  SETTABLEKS R39 R38 K54 ["ConditionColumn"]
+  LOADK R39 K61 ["logMessage"]
+  SETTABLEKS R39 R38 K55 ["LogMessageColumn"]
+  LOADK R39 K62 ["continueExecution"]
+  SETTABLEKS R39 R38 K56 ["ContinueExecutionColumn"]
+  LOADK R39 K63 ["removeOnHit"]
+  SETTABLEKS R39 R38 K57 ["RemoveOnHitColumn"]
+  DUPCLOSURE R39 K64 [PROTO_0]
+  CAPTURE VAL R21
+  DUPCLOSURE R40 K65 [PROTO_21]
+  CAPTURE VAL R37
+  CAPTURE VAL R21
+  CAPTURE VAL R28
+  CAPTURE VAL R25
+  CAPTURE VAL R36
+  CAPTURE VAL R19
+  CAPTURE VAL R4
+  SETTABLEKS R40 R23 K66 ["init"]
+  DUPCLOSURE R40 K67 [PROTO_24]
+  CAPTURE VAL R21
+  CAPTURE VAL R27
+  SETTABLEKS R40 R23 K68 ["didMount"]
+  DUPCLOSURE R40 K69 [PROTO_25]
+  CAPTURE VAL R21
+  CAPTURE VAL R27
+  SETTABLEKS R40 R23 K70 ["willUnmount"]
+  DUPCLOSURE R40 K71 [PROTO_29]
+  CAPTURE VAL R37
+  CAPTURE VAL R4
+  CAPTURE VAL R27
+  SETTABLEKS R40 R23 K72 ["didUpdate"]
+  DUPCLOSURE R40 K73 [PROTO_31]
+  CAPTURE VAL R37
+  CAPTURE VAL R38
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R21
+  CAPTURE VAL R1
+  CAPTURE VAL R17
+  CAPTURE VAL R16
+  CAPTURE VAL R34
+  CAPTURE VAL R18
+  CAPTURE VAL R22
+  CAPTURE VAL R35
+  SETTABLEKS R40 R23 K74 ["render"]
+  GETTABLEKS R40 R5 K75 ["withContext"]
+  DUPTABLE R41 K76 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
+  SETTABLEKS R6 R41 K11 ["Analytics"]
+  SETTABLEKS R8 R41 K13 ["Localization"]
+  SETTABLEKS R9 R41 K15 ["Stylizer"]
+  SETTABLEKS R7 R41 K12 ["Plugin"]
+  CALL R40 1 1
+  MOVE R41 R23
+  CALL R40 1 1
+  MOVE R23 R40
+  GETTABLEKS R40 R2 K77 ["connect"]
+  DUPCLOSURE R41 K78 [PROTO_32]
+  CAPTURE VAL R14
+  CAPTURE VAL R20
+  CAPTURE VAL R21
+  CAPTURE VAL R37
+  CAPTURE VAL R38
+  CAPTURE VAL R26
+  DUPCLOSURE R42 K79 [PROTO_36]
+  CAPTURE VAL R30
+  CAPTURE VAL R32
+  CAPTURE VAL R33
+  CALL R40 2 1
+  MOVE R41 R23
+  CALL R40 1 1
+  MOVE R23 R40
+  RETURN R23 1

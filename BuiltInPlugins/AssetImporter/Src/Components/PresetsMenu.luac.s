@@ -1,0 +1,496 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"isFocused"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["isFocused"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"isFocused"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["isFocused"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"isHovered"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K0 ["isHovered"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R3 R2 K1 ["CurrentPreset"]
+  GETTABLEKS R4 R2 K2 ["PresetController"]
+  GETUPVAL R5 1
+  JUMPIFNOTEQ R0 R5 [+6]
+  MOVE R7 R3
+  NAMECALL R5 R4 K3 ["resolvePreset"]
+  CALL R5 2 0
+  RETURN R0 0
+  GETUPVAL R5 2
+  JUMPIFNOTEQ R0 R5 [+13]
+  GETUPVAL R5 0
+  DUPTABLE R7 K6 [{"showNameDialog", "promptIntent"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K4 ["showNameDialog"]
+  LOADK R8 K7 ["Rename"]
+  SETTABLEKS R8 R7 K5 ["promptIntent"]
+  NAMECALL R5 R5 K8 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+  GETUPVAL R5 3
+  JUMPIFNOTEQ R0 R5 [+8]
+  GETTABLEKS R5 R2 K2 ["PresetController"]
+  MOVE R7 R3
+  NAMECALL R5 R5 K9 ["delete"]
+  CALL R5 2 0
+  RETURN R0 0
+  GETUPVAL R5 4
+  JUMPIFNOTEQ R0 R5 [+6]
+  MOVE R7 R3
+  NAMECALL R5 R4 K10 ["save"]
+  CALL R5 2 0
+  RETURN R0 0
+  GETUPVAL R5 5
+  JUMPIFNOTEQ R0 R5 [+13]
+  GETUPVAL R5 0
+  DUPTABLE R7 K6 [{"showNameDialog", "promptIntent"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K4 ["showNameDialog"]
+  LOADK R8 K11 ["Create"]
+  SETTABLEKS R8 R7 K5 ["promptIntent"]
+  NAMECALL R5 R5 K8 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+  GETUPVAL R5 6
+  JUMPIFNOTEQ R0 R5 [+7]
+  GETTABLEKS R5 R2 K2 ["PresetController"]
+  MOVE R7 R3
+  NAMECALL R5 R5 K12 ["setDefault"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["PresetController"]
+  GETTABLEKS R4 R1 K2 ["CurrentPreset"]
+  NAMECALL R2 R2 K3 ["isStudioDefault"]
+  CALL R2 2 1
+  GETTABLEKS R3 R1 K1 ["PresetController"]
+  GETTABLEKS R5 R1 K2 ["CurrentPreset"]
+  NAMECALL R3 R3 K4 ["isLastImport"]
+  CALL R3 2 1
+  GETTABLEKS R4 R1 K1 ["PresetController"]
+  GETTABLEKS R6 R1 K2 ["CurrentPreset"]
+  NAMECALL R4 R4 K5 ["isDefault"]
+  CALL R4 2 1
+  NOT R5 R2
+  JUMPIFNOT R5 [+1]
+  NOT R5 R3
+  GETUPVAL R6 1
+  JUMPIFNOTEQ R0 R6 [+4]
+  GETTABLEKS R6 R1 K6 ["SettingsChanged"]
+  RETURN R6 1
+  GETUPVAL R6 2
+  JUMPIFNOTEQ R0 R6 [+2]
+  RETURN R5 1
+  GETUPVAL R6 3
+  JUMPIFNOTEQ R0 R6 [+2]
+  RETURN R5 1
+  GETUPVAL R6 4
+  JUMPIFNOTEQ R0 R6 [+5]
+  GETTABLEKS R7 R1 K6 ["SettingsChanged"]
+  AND R6 R7 R5
+  RETURN R6 1
+  GETUPVAL R6 5
+  JUMPIFNOTEQ R0 R6 [+6]
+  NOT R6 R2
+  JUMPIF R6 [+2]
+  GETTABLEKS R6 R1 K6 ["SettingsChanged"]
+  RETURN R6 1
+  GETUPVAL R6 6
+  JUMPIFNOTEQ R0 R6 [+3]
+  NOT R6 R4
+  RETURN R6 1
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onHoveredItemChanged"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["props"]
+  GETTABLEKS R5 R6 K1 ["Stylizer"]
+  GETTABLEKS R4 R5 K2 ["TopBar"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["isItemEnabled"]
+  MOVE R7 R0
+  CALL R6 1 1
+  JUMPIF R6 [+4]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["Disabled"]
+  JUMP [+6]
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["Hover"]
+  JUMP [+1]
+  LOADNIL R5
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K6 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K13 [{"LayoutOrder", "OnClick", "OnMouseEnter", "Size", "StyleModifier", "AutomaticSize"}]
+  SETTABLEKS R1 R8 K7 ["LayoutOrder"]
+  SETTABLEKS R2 R8 K8 ["OnClick"]
+  NEWCLOSURE R9 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  SETTABLEKS R9 R8 K9 ["OnMouseEnter"]
+  GETTABLEKS R9 R4 K14 ["MenuItemSize"]
+  SETTABLEKS R9 R8 K10 ["Size"]
+  SETTABLEKS R5 R8 K11 ["StyleModifier"]
+  GETIMPORT R9 K17 [Enum.AutomaticSize.X]
+  SETTABLEKS R9 R8 K12 ["AutomaticSize"]
+  DUPTABLE R9 K19 [{"TextLabel"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K22 [{"Text", "TextXAlignment", "Size", "StyleModifier", "AutomaticSize"}]
+  SETTABLEKS R0 R12 K20 ["Text"]
+  GETIMPORT R13 K24 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K21 ["TextXAlignment"]
+  GETIMPORT R13 K27 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K10 ["Size"]
+  SETTABLEKS R5 R12 K11 ["StyleModifier"]
+  GETIMPORT R13 K17 [Enum.AutomaticSize.X]
+  SETTABLEKS R13 R12 K12 ["AutomaticSize"]
+  DUPTABLE R13 K29 [{"Padding"}]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K6 ["createElement"]
+  LOADK R15 K30 ["UIPadding"]
+  DUPTABLE R16 K33 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R17 K36 [UDim.new]
+  LOADN R18 0
+  GETTABLEKS R20 R4 K28 ["Padding"]
+  GETTABLEKS R19 R20 K23 ["Left"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K31 ["PaddingLeft"]
+  GETIMPORT R17 K36 [UDim.new]
+  LOADN R18 0
+  GETTABLEKS R20 R4 K28 ["Padding"]
+  GETTABLEKS R19 R20 K37 ["Right"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K32 ["PaddingRight"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K28 ["Padding"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K18 ["TextLabel"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_7:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"showNameDialog"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["showNameDialog"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["PresetController"]
+  JUMPIFNOTEQKS R0 K2 ["Save"] [+28]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["state"]
+  GETTABLEKS R3 R4 K4 ["promptIntent"]
+  JUMPIFNOTEQKS R3 K5 ["Create"] [+10]
+  MOVE R5 R1
+  NAMECALL R3 R2 K6 ["save"]
+  CALL R3 2 0
+  MOVE R5 R1
+  NAMECALL R3 R2 K7 ["resolvePreset"]
+  CALL R3 2 0
+  JUMP [+11]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["state"]
+  GETTABLEKS R3 R4 K4 ["promptIntent"]
+  JUMPIFNOTEQKS R3 K8 ["Rename"] [+5]
+  MOVE R5 R1
+  NAMECALL R3 R2 K9 ["rename"]
+  CALL R3 2 0
+  GETUPVAL R3 0
+  DUPTABLE R5 K11 [{"showNameDialog"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K10 ["showNameDialog"]
+  NAMECALL R3 R3 K12 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  LOADK R4 K2 ["Templates"]
+  LOADK R5 K3 ["Reset"]
+  NAMECALL R2 R1 K4 ["getText"]
+  CALL R2 3 1
+  LOADK R5 K2 ["Templates"]
+  LOADK R6 K5 ["Rename"]
+  NAMECALL R3 R1 K4 ["getText"]
+  CALL R3 3 1
+  LOADK R6 K2 ["Templates"]
+  LOADK R7 K6 ["Delete"]
+  NAMECALL R4 R1 K4 ["getText"]
+  CALL R4 3 1
+  LOADK R7 K2 ["Templates"]
+  LOADK R8 K7 ["SaveChanges"]
+  NAMECALL R5 R1 K4 ["getText"]
+  CALL R5 3 1
+  LOADK R8 K2 ["Templates"]
+  LOADK R9 K8 ["SaveNewPreset"]
+  NAMECALL R6 R1 K4 ["getText"]
+  CALL R6 3 1
+  LOADK R9 K2 ["Templates"]
+  LOADK R10 K9 ["SetAsDefault"]
+  NAMECALL R7 R1 K4 ["getText"]
+  CALL R7 3 1
+  NEWTABLE R8 0 6
+  MOVE R9 R2
+  MOVE R10 R3
+  MOVE R11 R4
+  MOVE R12 R5
+  MOVE R13 R6
+  MOVE R14 R7
+  SETLIST R8 R9 6 [1]
+  SETTABLEKS R8 R0 K10 ["dropdownItems"]
+  DUPTABLE R8 K15 [{"isFocused", "isHovered", "showNameDialog", "promptIntent"}]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K11 ["isFocused"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K12 ["isHovered"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K13 ["showNameDialog"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K14 ["promptIntent"]
+  SETTABLEKS R8 R0 K16 ["state"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  SETTABLEKS R8 R0 K17 ["focused"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R0
+  SETTABLEKS R8 R0 K18 ["unfocused"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R0
+  SETTABLEKS R8 R0 K19 ["onHoveredItemChanged"]
+  NEWCLOSURE R8 P3
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R8 R0 K20 ["onItemActivated"]
+  NEWCLOSURE R8 P4
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R8 R0 K21 ["isItemEnabled"]
+  NEWCLOSURE R8 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  SETTABLEKS R8 R0 K22 ["onRenderItem"]
+  NEWCLOSURE R8 P6
+  CAPTURE VAL R0
+  SETTABLEKS R8 R0 K23 ["onNameDialogClose"]
+  NEWCLOSURE R8 P7
+  CAPTURE VAL R0
+  SETTABLEKS R8 R0 K24 ["onNameDialogButtonPressed"]
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R4 R1 K2 ["Stylizer"]
+  GETTABLEKS R3 R4 K3 ["TopBar"]
+  GETTABLEKS R4 R1 K4 ["Localization"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K8 [{"Size", "LayoutOrder"}]
+  GETTABLEKS R8 R3 K9 ["MenuButtonSize"]
+  SETTABLEKS R8 R7 K6 ["Size"]
+  GETTABLEKS R8 R1 K7 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K7 ["LayoutOrder"]
+  DUPTABLE R8 K12 [{"PresetMenu", "PresetNamePrompt"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K22 [{"Items", "HideText", "OnItemActivated", "OnRenderItem", "OnMouseEnter", "OnMouseLeave", "Size", "ExpandIcon", "ShowSelection", "UseAutoWidth"}]
+  GETTABLEKS R12 R0 K23 ["dropdownItems"]
+  SETTABLEKS R12 R11 K13 ["Items"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K14 ["HideText"]
+  GETTABLEKS R12 R0 K24 ["onItemActivated"]
+  SETTABLEKS R12 R11 K15 ["OnItemActivated"]
+  GETTABLEKS R12 R0 K25 ["onRenderItem"]
+  SETTABLEKS R12 R11 K16 ["OnRenderItem"]
+  GETTABLEKS R12 R0 K26 ["focused"]
+  SETTABLEKS R12 R11 K17 ["OnMouseEnter"]
+  GETTABLEKS R12 R0 K27 ["unfocused"]
+  SETTABLEKS R12 R11 K18 ["OnMouseLeave"]
+  GETIMPORT R12 K30 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K6 ["Size"]
+  GETTABLEKS R12 R3 K31 ["MenuImage"]
+  SETTABLEKS R12 R11 K19 ["ExpandIcon"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K20 ["ShowSelection"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K21 ["UseAutoWidth"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K10 ["PresetMenu"]
+  GETTABLEKS R10 R2 K32 ["showNameDialog"]
+  JUMPIFNOT R10 [+28]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K38 [{"CurrentPreset", "Intent", "IsHintError", "OnClose", "OnButtonPressed"}]
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R12 R13 K33 ["CurrentPreset"]
+  SETTABLEKS R12 R11 K33 ["CurrentPreset"]
+  GETTABLEKS R12 R2 K39 ["promptIntent"]
+  SETTABLEKS R12 R11 K34 ["Intent"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K35 ["IsHintError"]
+  GETTABLEKS R12 R0 K40 ["onNameDialogClose"]
+  SETTABLEKS R12 R11 K36 ["OnClose"]
+  GETTABLEKS R12 R0 K41 ["onNameDialogButtonPressed"]
+  SETTABLEKS R12 R11 K37 ["OnButtonPressed"]
+  CALL R9 2 1
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K11 ["PresetNamePrompt"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_11:
+  DUPTABLE R1 K2 [{"CurrentPreset", "SettingsChanged"}]
+  GETTABLEKS R2 R0 K3 ["currentPreset"]
+  SETTABLEKS R2 R1 K0 ["CurrentPreset"]
+  GETTABLEKS R2 R0 K4 ["settingsChanged"]
+  SETTABLEKS R2 R1 K1 ["SettingsChanged"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETTABLEKS R6 R4 K11 ["Stylizer"]
+  GETTABLEKS R7 R4 K12 ["Localization"]
+  GETTABLEKS R9 R1 K13 ["Util"]
+  GETTABLEKS R8 R9 K14 ["StyleModifier"]
+  GETTABLEKS R9 R1 K15 ["UI"]
+  GETTABLEKS R10 R9 K16 ["TextLabel"]
+  GETTABLEKS R11 R9 K17 ["SelectInput"]
+  GETTABLEKS R12 R9 K18 ["Button"]
+  GETTABLEKS R13 R9 K19 ["Pane"]
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R18 R0 K20 ["Src"]
+  GETTABLEKS R17 R18 K21 ["Components"]
+  GETTABLEKS R16 R17 K22 ["Dialogs"]
+  GETTABLEKS R15 R16 K23 ["PresetNamePrompt"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K20 ["Src"]
+  GETTABLEKS R17 R18 K24 ["Controllers"]
+  GETTABLEKS R16 R17 K25 ["PresetController"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K20 ["Src"]
+  GETTABLEKS R18 R19 K26 ["Flags"]
+  GETTABLEKS R17 R18 K27 ["getFFlagAssetImporterCustomPresets"]
+  CALL R16 1 1
+  GETTABLEKS R17 R2 K28 ["PureComponent"]
+  LOADK R19 K29 ["PresetsMenu"]
+  NAMECALL R17 R17 K30 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K31 [PROTO_9]
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  SETTABLEKS R18 R17 K32 ["init"]
+  DUPCLOSURE R18 K33 [PROTO_10]
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R11
+  CAPTURE VAL R14
+  SETTABLEKS R18 R17 K34 ["render"]
+  MOVE R18 R5
+  DUPTABLE R19 K35 [{"Stylizer", "Localization", "PresetController"}]
+  SETTABLEKS R6 R19 K11 ["Stylizer"]
+  SETTABLEKS R7 R19 K12 ["Localization"]
+  MOVE R21 R16
+  CALL R21 0 1
+  JUMPIFNOT R21 [+2]
+  MOVE R20 R15
+  JUMP [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K25 ["PresetController"]
+  CALL R18 1 1
+  MOVE R19 R17
+  CALL R18 1 1
+  MOVE R17 R18
+  DUPCLOSURE R18 K36 [PROTO_11]
+  GETTABLEKS R19 R3 K37 ["connect"]
+  MOVE R20 R18
+  LOADNIL R21
+  CALL R19 2 1
+  MOVE R20 R17
+  CALL R19 1 -1
+  RETURN R19 -1

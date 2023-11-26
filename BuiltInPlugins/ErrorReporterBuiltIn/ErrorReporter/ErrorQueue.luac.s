@@ -1,0 +1,261 @@
+PROTO_0:
+  GETUPVAL R3 0
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R2 K1 [assert]
+  CALL R2 -1 0
+  MOVE R2 R1
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R1 R2
+  DUPTABLE R2 K11 [{"_reportMethod", "_queueTimeLimit", "_queueErrorLimit", "_queueKeyLimit", "_errors", "_totalErrorCount", "_totalKeyCount", "_runningTime", "_renderSteppedConnection"}]
+  SETTABLEKS R0 R2 K2 ["_reportMethod"]
+  GETTABLEKS R4 R1 K13 ["queueTimeLimit"]
+  ORK R3 R4 K12 [30]
+  SETTABLEKS R3 R2 K3 ["_queueTimeLimit"]
+  GETTABLEKS R4 R1 K14 ["queueErrorLimit"]
+  ORK R3 R4 K12 [30]
+  SETTABLEKS R3 R2 K4 ["_queueErrorLimit"]
+  GETTABLEKS R4 R1 K16 ["queueKeyLimit"]
+  ORK R3 R4 K15 [10]
+  SETTABLEKS R3 R2 K5 ["_queueKeyLimit"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K6 ["_errors"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K7 ["_totalErrorCount"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K8 ["_totalKeyCount"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K9 ["_runningTime"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K10 ["_renderSteppedConnection"]
+  GETUPVAL R5 1
+  FASTCALL2 SETMETATABLE R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K18 [setmetatable]
+  CALL R3 2 0
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["string"]
+  MOVE R3 R1
+  CALL R2 1 1
+  JUMPIFNOT R2 [+2]
+  JUMPIFNOTEQKS R1 K1 [""] [+3]
+  LOADB R2 0
+  RETURN R2 1
+  GETTABLEKS R4 R0 K2 ["_errors"]
+  GETTABLE R3 R4 R1
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_2:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["string"]
+  MOVE R5 R1
+  CALL R4 1 1
+  FASTCALL2K ASSERT R4 K1 [+4]
+  LOADK R5 K1 ["Expected errorKey to be a string"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["any"]
+  MOVE R5 R2
+  CALL R4 1 1
+  FASTCALL2K ASSERT R4 K5 [+4]
+  LOADK R5 K5 ["Expected errorData to not be nil"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K6 ["_errors"]
+  GETTABLE R3 R4 R1
+  JUMPIF R3 [+15]
+  GETTABLEKS R3 R0 K6 ["_errors"]
+  DUPTABLE R4 K9 [{"data", "count"}]
+  SETTABLEKS R2 R4 K7 ["data"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K8 ["count"]
+  SETTABLE R4 R3 R1
+  GETTABLEKS R4 R0 K11 ["_totalKeyCount"]
+  ADDK R3 R4 K10 [1]
+  SETTABLEKS R3 R0 K11 ["_totalKeyCount"]
+  JUMP [+11]
+  GETTABLEKS R4 R0 K6 ["_errors"]
+  GETTABLE R3 R4 R1
+  GETTABLEKS R7 R0 K6 ["_errors"]
+  GETTABLE R6 R7 R1
+  GETTABLEKS R5 R6 K8 ["count"]
+  ADDK R4 R5 K10 [1]
+  SETTABLEKS R4 R3 K8 ["count"]
+  GETTABLEKS R4 R0 K12 ["_totalErrorCount"]
+  ADDK R3 R4 K10 [1]
+  SETTABLEKS R3 R0 K12 ["_totalErrorCount"]
+  NAMECALL R3 R0 K13 ["isReadyToReport"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+3]
+  NAMECALL R3 R0 K14 ["reportAllErrors"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["_totalKeyCount"]
+  GETTABLEKS R3 R0 K1 ["_queueKeyLimit"]
+  JUMPIFLE R3 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  GETTABLEKS R3 R0 K2 ["_totalErrorCount"]
+  GETTABLEKS R4 R0 K3 ["_queueErrorLimit"]
+  JUMPIFLE R4 R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETTABLEKS R4 R0 K2 ["_totalErrorCount"]
+  LOADN R5 0
+  JUMPIFLT R5 R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETTABLEKS R5 R0 K4 ["_runningTime"]
+  GETTABLEKS R6 R0 K5 ["_queueTimeLimit"]
+  JUMPIFLE R6 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  MOVE R5 R1
+  JUMPIF R5 [+3]
+  MOVE R5 R2
+  JUMPIF R5 [+1]
+  AND R5 R3 R4
+  RETURN R5 1
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["_errors"]
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K0 ["_errors"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K1 ["_totalErrorCount"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K2 ["_totalKeyCount"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K3 ["_runningTime"]
+  GETIMPORT R2 K5 [pairs]
+  MOVE R3 R1
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  GETTABLEKS R7 R0 K6 ["_reportMethod"]
+  MOVE R8 R5
+  GETTABLEKS R9 R6 K7 ["data"]
+  GETTABLEKS R10 R6 K8 ["count"]
+  CALL R7 3 0
+  FORGLOOP R2 2 [-9]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R3 R0 K0 ["_runningTime"]
+  ADD R2 R3 R1
+  SETTABLEKS R2 R0 K0 ["_runningTime"]
+  NAMECALL R2 R0 K1 ["isReadyToReport"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+3]
+  NAMECALL R2 R0 K2 ["reportAllErrors"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_onQueueTimerTick"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_renderSteppedConnection"]
+  JUMPIFNOTEQKNIL R1 [+14]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K1 ["_runningTime"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["RenderStepped"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K3 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K0 ["_renderSteppedConnection"]
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R1 R0 K0 ["_renderSteppedConnection"]
+  JUMPIFEQKNIL R1 [+12]
+  GETTABLEKS R1 R0 K0 ["_renderSteppedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADN R1 0
+  SETTABLEKS R1 R0 K2 ["_runningTime"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_renderSteppedConnection"]
+  NAMECALL R1 R0 K3 ["reportAllErrors"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R5 R2 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["Typecheck"]
+  GETTABLEKS R3 R4 K13 ["t"]
+  GETTABLEKS R4 R3 K14 ["tuple"]
+  GETTABLEKS R5 R3 K15 ["callback"]
+  GETTABLEKS R6 R3 K16 ["optional"]
+  GETTABLEKS R7 R3 K17 ["strictInterface"]
+  DUPTABLE R8 K21 [{"queueTimeLimit", "queueErrorLimit", "queueKeyLimit"}]
+  GETTABLEKS R9 R3 K16 ["optional"]
+  GETTABLEKS R10 R3 K22 ["numberPositive"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K18 ["queueTimeLimit"]
+  GETTABLEKS R9 R3 K16 ["optional"]
+  GETTABLEKS R10 R3 K22 ["numberPositive"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K19 ["queueErrorLimit"]
+  GETTABLEKS R9 R3 K16 ["optional"]
+  GETTABLEKS R10 R3 K22 ["numberPositive"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K20 ["queueKeyLimit"]
+  CALL R7 1 -1
+  CALL R6 -1 -1
+  CALL R4 -1 1
+  NEWTABLE R5 16 0
+  SETTABLEKS R5 R5 K23 ["__index"]
+  DUPCLOSURE R6 K24 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K25 ["new"]
+  DUPCLOSURE R6 K26 [PROTO_1]
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K27 ["hasError"]
+  DUPCLOSURE R6 K28 [PROTO_2]
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K29 ["addError"]
+  DUPCLOSURE R6 K30 [PROTO_3]
+  SETTABLEKS R6 R5 K31 ["isReadyToReport"]
+  DUPCLOSURE R6 K32 [PROTO_4]
+  SETTABLEKS R6 R5 K33 ["reportAllErrors"]
+  DUPCLOSURE R6 K34 [PROTO_5]
+  SETTABLEKS R6 R5 K35 ["_onQueueTimerTick"]
+  DUPCLOSURE R6 K36 [PROTO_7]
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K37 ["startTimer"]
+  DUPCLOSURE R6 K38 [PROTO_8]
+  SETTABLEKS R6 R5 K39 ["stopTimer"]
+  RETURN R5 1

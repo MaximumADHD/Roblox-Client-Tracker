@@ -1,0 +1,488 @@
+PROTO_0:
+  NAMECALL R1 R0 K0 ["canSkip"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["goToNextScreen"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R1 0 2
+  DUPTABLE R2 K2 [{"name", "selectable"}]
+  LOADK R3 K3 ["Game development assets"]
+  SETTABLEKS R3 R2 K0 ["name"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K1 ["selectable"]
+  DUPTABLE R3 K5 [{"name", "selectable", "type"}]
+  LOADK R4 K6 ["Model"]
+  SETTABLEKS R4 R3 K0 ["name"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["selectable"]
+  GETIMPORT R4 K9 [Enum.AssetType.Model]
+  SETTABLEKS R4 R3 K4 ["type"]
+  SETLIST R1 R2 2 [1]
+  DUPTABLE R4 K5 [{"name", "selectable", "type"}]
+  LOADK R5 K10 ["Animation"]
+  SETTABLEKS R5 R4 K0 ["name"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K1 ["selectable"]
+  GETIMPORT R5 K11 [Enum.AssetType.Animation]
+  SETTABLEKS R5 R4 K4 ["type"]
+  FASTCALL2 TABLE_INSERT R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K14 [table.insert]
+  CALL R2 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R4 R0 K15 ["props"]
+  GETTABLEKS R3 R4 K16 ["allowedAssetTypesForRelease"]
+  CALL R2 1 1
+  LENGTH R3 R2
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+46]
+  GETTABLEKS R5 R0 K15 ["props"]
+  GETTABLEKS R4 R5 K18 ["Localization"]
+  LOADK R6 K19 ["General"]
+  LOADK R7 K20 ["CategoryCreationsCatalogSectionDivider"]
+  NAMECALL R4 R4 K21 ["getText"]
+  CALL R4 3 1
+  ORK R3 R4 K17 [""]
+  LENGTH R5 R1
+  ADDK R4 R5 K22 [1]
+  DUPTABLE R5 K2 [{"name", "selectable"}]
+  SETTABLEKS R3 R5 K0 ["name"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K1 ["selectable"]
+  SETTABLE R5 R1 R4
+  GETIMPORT R4 K24 [pairs]
+  MOVE R5 R2
+  CALL R4 1 3
+  FORGPREP_NEXT R4
+  GETUPVAL R11 1
+  GETTABLEKS R13 R0 K15 ["props"]
+  GETTABLEKS R12 R13 K18 ["Localization"]
+  CALL R11 1 1
+  GETTABLE R10 R11 R8
+  ORK R9 R10 K17 [""]
+  LENGTH R11 R1
+  ADDK R10 R11 K22 [1]
+  DUPTABLE R11 K5 [{"name", "selectable", "type"}]
+  SETTABLEKS R9 R11 K0 ["name"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K1 ["selectable"]
+  SETTABLEKS R8 R11 K4 ["type"]
+  SETTABLE R11 R1 R10
+  FORGLOOP R4 2 [-20]
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["isBuyableMarketplaceAsset"]
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["assetTypeEnum"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+2]
+  LOADB R1 1
+  RETURN R1 1
+  LOADN R1 0
+  GETIMPORT R2 K4 [pairs]
+  NAMECALL R3 R0 K5 ["getSelectorItems"]
+  CALL R3 1 -1
+  CALL R2 -1 3
+  FORGPREP_NEXT R2
+  GETTABLEKS R7 R6 K6 ["selectable"]
+  JUMPIFNOT R7 [+1]
+  ADDK R1 R1 K7 [1]
+  FORGLOOP R2 2 [-5]
+  JUMPIFEQKN R1 K8 [2] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  LOADNIL R4
+  MOVE R5 R0
+  MOVE R6 R1
+  NAMECALL R2 R2 K0 ["renderContent"]
+  CALL R2 4 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETUPVAL R1 0
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["goToNextScreen"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R1 R4 K1 ["Stylizer"]
+  GETUPVAL R5 0
+  JUMPIFNOT R5 [+10]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K2 ["assetTypeEnum"]
+  GETIMPORT R7 K6 [Enum.AssetType.Animation]
+  JUMPIFEQ R6 R7 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["createElement"]
+  LOADK R7 K8 ["Frame"]
+  DUPTABLE R8 K13 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
+  GETTABLEKS R10 R1 K14 ["typeSelection"]
+  GETTABLEKS R9 R10 K15 ["background"]
+  SETTABLEKS R9 R8 K9 ["BackgroundColor3"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K10 ["BackgroundTransparency"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K11 ["BorderSizePixel"]
+  GETTABLEKS R9 R4 K12 ["Size"]
+  SETTABLEKS R9 R8 K12 ["Size"]
+  DUPTABLE R9 K20 [{"AssetThumbnailPreview", "DefaultThumbnailPreview", "AssetTypeSelector", "Footer"}]
+  NOT R10 R5
+  JUMPIFNOT R10 [+30]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K7 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K24 [{"Size", "Position", "titleHeight", "titlePadding"}]
+  GETIMPORT R13 K27 [UDim2.new]
+  LOADN R14 0
+  LOADN R15 150
+  LOADN R16 0
+  LOADN R17 186
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K12 ["Size"]
+  GETIMPORT R13 K27 [UDim2.new]
+  LOADK R14 K28 [0.5]
+  LOADN R15 181
+  LOADN R16 0
+  LOADN R17 48
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K21 ["Position"]
+  LOADN R13 24
+  SETTABLEKS R13 R12 K22 ["titleHeight"]
+  LOADN R13 12
+  SETTABLEKS R13 R12 K23 ["titlePadding"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K16 ["AssetThumbnailPreview"]
+  MOVE R10 R5
+  JUMPIFNOT R10 [+24]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K7 ["createElement"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K29 [{"Size", "Position"}]
+  GETIMPORT R13 K27 [UDim2.new]
+  LOADN R14 0
+  LOADN R15 150
+  LOADN R16 0
+  LOADN R17 186
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K12 ["Size"]
+  GETIMPORT R13 K27 [UDim2.new]
+  LOADK R14 K28 [0.5]
+  LOADN R15 181
+  LOADN R16 0
+  LOADN R17 48
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K21 ["Position"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K17 ["DefaultThumbnailPreview"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K7 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K34 [{"Position", "height", "width", "assetTypeEnum", "onAssetTypeSelected", "items"}]
+  GETIMPORT R13 K27 [UDim2.new]
+  LOADK R14 K28 [0.5]
+  LOADN R15 56
+  LOADN R16 0
+  LOADN R17 54
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K21 ["Position"]
+  LOADN R13 40
+  SETTABLEKS R13 R12 K30 ["height"]
+  LOADN R13 144
+  SETTABLEKS R13 R12 K31 ["width"]
+  GETTABLEKS R14 R0 K0 ["props"]
+  GETTABLEKS R13 R14 K2 ["assetTypeEnum"]
+  SETTABLEKS R13 R12 K2 ["assetTypeEnum"]
+  GETTABLEKS R14 R0 K0 ["props"]
+  GETTABLEKS R13 R14 K32 ["onAssetTypeSelected"]
+  SETTABLEKS R13 R12 K32 ["onAssetTypeSelected"]
+  NAMECALL R13 R0 K35 ["getSelectorItems"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K33 ["items"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K18 ["AssetTypeSelector"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K7 ["createElement"]
+  LOADK R11 K8 ["Frame"]
+  DUPTABLE R12 K37 [{"Size", "Position", "BackgroundColor3", "BorderColor3"}]
+  GETIMPORT R13 K27 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 62
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K12 ["Size"]
+  GETIMPORT R13 K27 [UDim2.new]
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 1
+  LOADN R17 194
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K21 ["Position"]
+  GETTABLEKS R15 R1 K14 ["typeSelection"]
+  GETTABLEKS R14 R15 K38 ["configFooter"]
+  GETTABLEKS R13 R14 K15 ["background"]
+  SETTABLEKS R13 R12 K9 ["BackgroundColor3"]
+  GETTABLEKS R15 R1 K14 ["typeSelection"]
+  GETTABLEKS R14 R15 K38 ["configFooter"]
+  GETTABLEKS R13 R14 K39 ["border"]
+  SETTABLEKS R13 R12 K36 ["BorderColor3"]
+  DUPTABLE R13 K44 [{"UIListLayout", "UIPadding", "CancelButton", "NextButton"}]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  LOADK R15 K40 ["UIListLayout"]
+  DUPTABLE R16 K49 [{"Padding", "FillDirection", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R17 K51 [UDim.new]
+  LOADN R18 0
+  LOADN R19 24
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K45 ["Padding"]
+  GETIMPORT R17 K53 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R17 R16 K46 ["FillDirection"]
+  GETIMPORT R17 K55 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R17 R16 K47 ["HorizontalAlignment"]
+  GETIMPORT R17 K57 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R17 R16 K48 ["VerticalAlignment"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K40 ["UIListLayout"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  LOADK R15 K41 ["UIPadding"]
+  DUPTABLE R16 K59 [{"PaddingRight"}]
+  GETIMPORT R17 K51 [UDim.new]
+  LOADN R18 0
+  LOADN R19 24
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K58 ["PaddingRight"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K41 ["UIPadding"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETUPVAL R15 5
+  DUPTABLE R16 K63 [{"Size", "LayoutOrder", "titleText", "onClick"}]
+  GETIMPORT R17 K27 [UDim2.new]
+  LOADN R18 0
+  LOADN R19 120
+  LOADN R20 0
+  LOADN R21 32
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K12 ["Size"]
+  LOADN R17 0
+  SETTABLEKS R17 R16 K60 ["LayoutOrder"]
+  LOADK R17 K64 ["Cancel"]
+  SETTABLEKS R17 R16 K61 ["titleText"]
+  GETTABLEKS R17 R4 K65 ["onClose"]
+  SETTABLEKS R17 R16 K62 ["onClick"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K42 ["CancelButton"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETUPVAL R15 5
+  DUPTABLE R16 K67 [{"Size", "LayoutOrder", "titleText", "isPrimary", "onClick"}]
+  GETIMPORT R17 K27 [UDim2.new]
+  LOADN R18 0
+  LOADN R19 120
+  LOADN R20 0
+  LOADN R21 32
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K12 ["Size"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K60 ["LayoutOrder"]
+  LOADK R17 K68 ["Next"]
+  SETTABLEKS R17 R16 K61 ["titleText"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K66 ["isPrimary"]
+  NEWCLOSURE R17 P0
+  CAPTURE VAL R0
+  SETTABLEKS R17 R16 K62 ["onClick"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K43 ["NextButton"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K19 ["Footer"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_7:
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R0 R2
+  DUPTABLE R2 K5 [{"instances", "currentScreen", "screenFlowType", "allowedAssetTypesForRelease", "assetTypeEnum"}]
+  GETTABLEKS R3 R0 K0 ["instances"]
+  SETTABLEKS R3 R2 K0 ["instances"]
+  GETTABLEKS R3 R0 K1 ["currentScreen"]
+  SETTABLEKS R3 R2 K1 ["currentScreen"]
+  GETTABLEKS R3 R0 K2 ["screenFlowType"]
+  SETTABLEKS R3 R2 K2 ["screenFlowType"]
+  GETTABLEKS R3 R0 K3 ["allowedAssetTypesForRelease"]
+  SETTABLEKS R3 R2 K3 ["allowedAssetTypesForRelease"]
+  GETTABLEKS R3 R0 K4 ["assetTypeEnum"]
+  SETTABLEKS R3 R2 K4 ["assetTypeEnum"]
+  RETURN R2 1
+
+PROTO_8:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  DUPTABLE R1 K2 [{"goToNextScreen", "onAssetTypeSelected"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["goToNextScreen"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["onAssetTypeSelected"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["RoactRodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R1 K8 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R0 K9 ["Core"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R5 K11 ["ContextHelper"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R5 K12 ["AssetConfigConstants"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R5 K13 ["AssetConfigUtil"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R5 K14 ["getAllowedAssetTypeEnums"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K9 ["Core"]
+  GETTABLEKS R12 R13 K15 ["Localization"]
+  GETTABLEKS R11 R12 K16 ["getLocalizedAssetTextMap"]
+  CALL R10 1 1
+  GETTABLEKS R12 R0 K9 ["Core"]
+  GETTABLEKS R11 R12 K17 ["Components"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R13 R11 K18 ["NavButton"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R15 R11 K19 ["AssetConfiguration"]
+  GETTABLEKS R14 R15 K20 ["AssetThumbnailPreview"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R16 R11 K19 ["AssetConfiguration"]
+  GETTABLEKS R15 R16 K21 ["DefaultThumbnailPreview"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R17 R11 K19 ["AssetConfiguration"]
+  GETTABLEKS R16 R17 K22 ["AssetTypeSelector"]
+  CALL R15 1 1
+  GETIMPORT R16 K24 [game]
+  LOADK R18 K25 ["UseDefaultThumbnailForAnimation"]
+  NAMECALL R16 R16 K26 ["GetFastFlag"]
+  CALL R16 2 1
+  GETTABLEKS R18 R0 K9 ["Core"]
+  GETTABLEKS R17 R18 K27 ["Actions"]
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R19 R17 K28 ["SetCurrentScreen"]
+  CALL R18 1 1
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R20 R17 K29 ["SetUploadAssetType"]
+  CALL R19 1 1
+  GETTABLEKS R21 R0 K9 ["Core"]
+  GETTABLEKS R20 R21 K30 ["Thunks"]
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R23 R20 K19 ["AssetConfiguration"]
+  GETTABLEKS R22 R23 K31 ["GoToNextScreen"]
+  CALL R21 1 1
+  GETTABLEKS R22 R6 K32 ["withLocalization"]
+  GETTABLEKS R23 R4 K33 ["ContextServices"]
+  GETTABLEKS R24 R23 K34 ["withContext"]
+  GETTABLEKS R25 R2 K35 ["PureComponent"]
+  LOADK R27 K36 ["AssetTypeSelection"]
+  NAMECALL R25 R25 K37 ["extend"]
+  CALL R25 2 1
+  DUPCLOSURE R26 K38 [PROTO_0]
+  SETTABLEKS R26 R25 K39 ["didMount"]
+  DUPCLOSURE R26 K40 [PROTO_1]
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  SETTABLEKS R26 R25 K41 ["getSelectorItems"]
+  DUPCLOSURE R26 K42 [PROTO_2]
+  CAPTURE VAL R8
+  SETTABLEKS R26 R25 K43 ["canSkip"]
+  DUPCLOSURE R26 K44 [PROTO_4]
+  CAPTURE VAL R22
+  SETTABLEKS R26 R25 K45 ["render"]
+  DUPCLOSURE R26 K46 [PROTO_6]
+  CAPTURE VAL R16
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R12
+  SETTABLEKS R26 R25 K47 ["renderContent"]
+  DUPCLOSURE R26 K48 [PROTO_7]
+  DUPCLOSURE R27 K49 [PROTO_10]
+  CAPTURE VAL R21
+  CAPTURE VAL R19
+  MOVE R28 R24
+  DUPTABLE R29 K51 [{"Stylizer", "Localization"}]
+  GETTABLEKS R30 R23 K50 ["Stylizer"]
+  SETTABLEKS R30 R29 K50 ["Stylizer"]
+  GETTABLEKS R30 R23 K15 ["Localization"]
+  SETTABLEKS R30 R29 K15 ["Localization"]
+  CALL R28 1 1
+  MOVE R29 R25
+  CALL R28 1 1
+  MOVE R25 R28
+  GETTABLEKS R28 R3 K52 ["connect"]
+  MOVE R29 R26
+  MOVE R30 R27
+  CALL R28 2 1
+  MOVE R29 R25
+  CALL R28 1 -1
+  RETURN R28 -1

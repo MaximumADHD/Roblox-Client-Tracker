@@ -1,0 +1,8 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K2 [{"Padding", "HeaderHeight"}]
+  LOADN R1 5
+  SETTABLEKS R1 R0 K0 ["Padding"]
+  LOADN R1 33
+  SETTABLEKS R1 R0 K1 ["HeaderHeight"]
+  RETURN R0 1

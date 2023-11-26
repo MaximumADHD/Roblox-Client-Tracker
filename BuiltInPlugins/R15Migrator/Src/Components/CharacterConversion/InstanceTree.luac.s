@@ -1,0 +1,261 @@
+PROTO_0:
+  LOADK R3 K0 ["Accoutrement"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+2]
+  LOADB R1 1
+  RETURN R1 1
+  LOADK R3 K2 ["BasePart"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+2]
+  LOADB R1 1
+  RETURN R1 1
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_1:
+  NEWTABLE R2 0 0
+  NAMECALL R3 R0 K0 ["GetChildren"]
+  CALL R3 1 3
+  FORGPREP R3
+  MOVE R8 R1
+  MOVE R9 R7
+  CALL R8 1 1
+  JUMPIFNOT R8 [+7]
+  LENGTH R9 R2
+  ADDK R8 R9 K1 [1]
+  GETUPVAL R9 0
+  MOVE R10 R7
+  MOVE R11 R1
+  CALL R9 2 1
+  SETTABLE R9 R2 R8
+  FORGLOOP R3 2 [-12]
+  NAMECALL R3 R0 K2 ["Clone"]
+  CALL R3 1 1
+  NAMECALL R4 R3 K3 ["ClearAllChildren"]
+  CALL R4 1 0
+  MOVE R4 R2
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  SETTABLEKS R3 R8 K4 ["Parent"]
+  FORGLOOP R4 2 [-3]
+  RETURN R3 1
+
+PROTO_2:
+  JUMPIF R0 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETUPVAL R1 0
+  NAMECALL R3 R0 K0 ["GetChildren"]
+  CALL R3 1 1
+  GETTABLEN R2 R3 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["isValidDisplayInstance"]
+  CALL R1 2 1
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["Selection"]
+  MOVE R2 R1
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLE R7 R0 R5
+  JUMPIFNOT R7 [+3]
+  JUMPIFNOT R6 [+2]
+  LOADB R7 0
+  SETTABLE R7 R0 R5
+  FORGLOOP R2 2 [-6]
+  GETUPVAL R2 0
+  DUPTABLE R4 K2 [{"Selection"}]
+  SETTABLEKS R0 R4 K1 ["Selection"]
+  NAMECALL R2 R2 K3 ["setState"]
+  CALL R2 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K5 ["OnSelectionChange"]
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["props"]
+  GETTABLEKS R2 R3 K5 ["OnSelectionChange"]
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"Expansion"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["Dictionary"]
+  GETTABLEKS R4 R5 K3 ["join"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["state"]
+  GETTABLEKS R5 R6 K0 ["Expansion"]
+  MOVE R6 R0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K0 ["Expansion"]
+  NAMECALL R1 R1 K5 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["getInstanceTreeRoot"]
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["Instance"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K3 ["instanceTreeRoot"]
+  DUPTABLE R1 K6 [{"Expansion", "Selection"}]
+  NEWTABLE R2 1 0
+  GETTABLEKS R3 R0 K3 ["instanceTreeRoot"]
+  LOADB R4 1
+  SETTABLE R4 R2 R3
+  SETTABLEKS R2 R1 K4 ["Expansion"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K5 ["Selection"]
+  SETTABLEKS R1 R0 K7 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K8 ["onSelectionChanged"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K9 ["onExpansionChanged"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K11 [{"Size", "LayoutOrder", "Instances", "Selection", "Expansion", "OnSelectionChange", "OnExpansionChange", "Style"}]
+  GETIMPORT R6 K14 [UDim2.fromScale]
+  LOADN R7 1
+  LOADN R8 1
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K3 ["Size"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K4 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K4 ["LayoutOrder"]
+  NEWTABLE R6 0 1
+  GETTABLEKS R7 R0 K15 ["instanceTreeRoot"]
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K5 ["Instances"]
+  GETTABLEKS R7 R0 K16 ["state"]
+  GETTABLEKS R6 R7 K6 ["Selection"]
+  SETTABLEKS R6 R5 K6 ["Selection"]
+  GETTABLEKS R7 R0 K16 ["state"]
+  GETTABLEKS R6 R7 K7 ["Expansion"]
+  SETTABLEKS R6 R5 K7 ["Expansion"]
+  GETTABLEKS R6 R0 K17 ["onSelectionChanged"]
+  SETTABLEKS R6 R5 K8 ["OnSelectionChange"]
+  GETTABLEKS R6 R0 K18 ["onExpansionChanged"]
+  SETTABLEKS R6 R5 K9 ["OnExpansionChange"]
+  GETTABLEKS R6 R2 K19 ["CompactNoBorder"]
+  SETTABLEKS R6 R5 K10 ["Style"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_7:
+  GETTABLEKS R2 R1 K0 ["Instance"]
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K0 ["Instance"]
+  JUMPIFEQ R2 R3 [+27]
+  GETTABLEKS R2 R0 K2 ["getInstanceTreeRoot"]
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K0 ["Instance"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K3 ["instanceTreeRoot"]
+  DUPTABLE R4 K6 [{"Expansion", "Selection"}]
+  NEWTABLE R5 1 0
+  GETTABLEKS R6 R0 K3 ["instanceTreeRoot"]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  SETTABLEKS R5 R4 K4 ["Expansion"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K5 ["Selection"]
+  NAMECALL R2 R0 K7 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+  GETTABLEKS R2 R1 K5 ["Selection"]
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K5 ["Selection"]
+  JUMPIFEQ R2 R3 [+28]
+  NEWTABLE R2 0 0
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R3 R6 K5 ["Selection"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R0 K3 ["instanceTreeRoot"]
+  MOVE R10 R6
+  LOADB R11 1
+  NAMECALL R8 R8 K8 ["FindFirstChild"]
+  CALL R8 3 1
+  JUMPIFNOT R8 [+2]
+  LOADB R9 1
+  SETTABLE R9 R2 R8
+  FORGLOOP R3 1 [-11]
+  DUPTABLE R5 K9 [{"Selection"}]
+  SETTABLEKS R2 R5 K5 ["Selection"]
+  NAMECALL R3 R0 K7 ["setState"]
+  CALL R3 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Cryo"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Roact"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K9 ["ContextServices"]
+  GETTABLEKS R5 R2 K10 ["UI"]
+  GETTABLEKS R6 R5 K11 ["InstanceTreeView"]
+  GETTABLEKS R7 R3 K12 ["PureComponent"]
+  LOADK R9 K13 ["CharacterInstanceTree"]
+  NAMECALL R7 R7 K14 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K15 [PROTO_0]
+  SETTABLEKS R8 R7 K16 ["isValidDisplayInstance"]
+  DUPCLOSURE R8 K17 [PROTO_1]
+  CAPTURE VAL R8
+  NEWCLOSURE R9 P2
+  CAPTURE VAL R8
+  CAPTURE REF R7
+  SETTABLEKS R9 R7 K18 ["getInstanceTreeRoot"]
+  DUPCLOSURE R9 K19 [PROTO_5]
+  CAPTURE VAL R1
+  SETTABLEKS R9 R7 K20 ["init"]
+  DUPCLOSURE R9 K21 [PROTO_6]
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  SETTABLEKS R9 R7 K22 ["render"]
+  DUPCLOSURE R9 K23 [PROTO_7]
+  SETTABLEKS R9 R7 K24 ["didUpdate"]
+  GETTABLEKS R9 R4 K25 ["withContext"]
+  DUPTABLE R10 K27 [{"Stylizer"}]
+  GETTABLEKS R11 R4 K26 ["Stylizer"]
+  SETTABLEKS R11 R10 K26 ["Stylizer"]
+  CALL R9 1 1
+  MOVE R10 R7
+  CALL R9 1 1
+  MOVE R7 R9
+  CLOSEUPVALS R7
+  RETURN R7 1

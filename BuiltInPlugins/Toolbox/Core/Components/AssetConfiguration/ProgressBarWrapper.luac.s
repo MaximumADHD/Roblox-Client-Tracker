@@ -1,0 +1,268 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R3 R2 K1 ["uploadSucceeded"]
+  JUMPIFEQKNIL R3 [+10]
+  GETTABLEKS R3 R1 K1 ["uploadSucceeded"]
+  GETTABLEKS R4 R2 K1 ["uploadSucceeded"]
+  JUMPIFEQ R3 R4 [+4]
+  GETTABLEKS R3 R2 K2 ["onFinish"]
+  CALL R3 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["progress"]
+  GETTABLEKS R4 R1 K3 ["progressText"]
+  GETTABLEKS R5 R1 K4 ["progressTitle"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  LOADK R7 K6 ["Frame"]
+  DUPTABLE R8 K10 [{"BackgroundTransparency", "Position", "Size"}]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K7 ["BackgroundTransparency"]
+  GETIMPORT R9 K13 [UDim2.new]
+  LOADK R10 K14 [0.5]
+  LOADN R11 56
+  LOADN R12 0
+  LOADN R13 58
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K8 ["Position"]
+  GETIMPORT R9 K13 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 144
+  LOADN R12 0
+  LOADN R13 6
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K9 ["Size"]
+  DUPTABLE R9 K20 [{"ProgressTitle", "ProgressMessage", "LoadingBar", "ProgressPercentText", "TimeWarning"}]
+  JUMPIFNOT R5 [+40]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K25 [{"Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment"}]
+  GETIMPORT R13 K13 [UDim2.new]
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 202
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K8 ["Position"]
+  GETIMPORT R13 K13 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 30
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K9 ["Size"]
+  SETTABLEKS R5 R12 K21 ["Text"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K26 ["FONT_SIZE_TITLE"]
+  SETTABLEKS R13 R12 K22 ["TextSize"]
+  GETIMPORT R13 K29 [Enum.TextXAlignment.Center]
+  SETTABLEKS R13 R12 K23 ["TextXAlignment"]
+  GETIMPORT R13 K30 [Enum.TextYAlignment.Center]
+  SETTABLEKS R13 R12 K24 ["TextYAlignment"]
+  CALL R10 2 1
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K15 ["ProgressTitle"]
+  JUMPIFNOT R4 [+40]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K25 [{"Position", "Size", "Text", "TextSize", "TextXAlignment", "TextYAlignment"}]
+  GETIMPORT R13 K13 [UDim2.new]
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 224
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K8 ["Position"]
+  GETIMPORT R13 K13 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 30
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K9 ["Size"]
+  SETTABLEKS R4 R12 K21 ["Text"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K26 ["FONT_SIZE_TITLE"]
+  SETTABLEKS R13 R12 K22 ["TextSize"]
+  GETIMPORT R13 K29 [Enum.TextXAlignment.Center]
+  SETTABLEKS R13 R12 K23 ["TextXAlignment"]
+  GETIMPORT R13 K30 [Enum.TextYAlignment.Center]
+  SETTABLEKS R13 R12 K24 ["TextYAlignment"]
+  CALL R10 2 1
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K16 ["ProgressMessage"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K32 [{"Progress", "Size"}]
+  SETTABLEKS R3 R12 K31 ["Progress"]
+  GETIMPORT R13 K13 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 1
+  LOADN R17 0
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K9 ["Size"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K17 ["LoadingBar"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K34 [{"Position", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
+  GETIMPORT R13 K13 [UDim2.new]
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 15
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K8 ["Position"]
+  GETIMPORT R13 K13 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 10
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K9 ["Size"]
+  LOADK R15 K35 ["AssetConfig"]
+  LOADK R16 K36 ["ProgressBarProgressText"]
+  DUPTABLE R17 K38 [{"percent"}]
+  MULK R19 R3 K39 [100]
+  FASTCALL1 MATH_FLOOR R19 [+2]
+  GETIMPORT R18 K42 [math.floor]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K37 ["percent"]
+  NAMECALL R13 R2 K43 ["getText"]
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K21 ["Text"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K44 ["GRAY_3"]
+  SETTABLEKS R13 R12 K33 ["TextColor"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K45 ["FONT_SIZE_LARGE"]
+  SETTABLEKS R13 R12 K22 ["TextSize"]
+  GETIMPORT R13 K47 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K23 ["TextXAlignment"]
+  GETIMPORT R13 K30 [Enum.TextYAlignment.Center]
+  SETTABLEKS R13 R12 K24 ["TextYAlignment"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K18 ["ProgressPercentText"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K34 [{"Position", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextYAlignment"}]
+  GETIMPORT R13 K13 [UDim2.new]
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 15
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K8 ["Position"]
+  GETIMPORT R13 K13 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 0
+  LOADN R17 10
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K9 ["Size"]
+  LOADK R15 K35 ["AssetConfig"]
+  LOADK R16 K48 ["ProgressUploadWaitTimeWarning"]
+  NAMECALL R13 R2 K43 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K21 ["Text"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K49 ["GRAY_2"]
+  SETTABLEKS R13 R12 K33 ["TextColor"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K50 ["FONT_SIZE_MEDIUM"]
+  SETTABLEKS R13 R12 K22 ["TextSize"]
+  GETIMPORT R13 K52 [Enum.TextXAlignment.Right]
+  SETTABLEKS R13 R12 K23 ["TextXAlignment"]
+  GETIMPORT R13 K30 [Enum.TextYAlignment.Center]
+  SETTABLEKS R13 R12 K24 ["TextYAlignment"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K19 ["TimeWarning"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_2:
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R0 R2
+  DUPTABLE R2 K4 [{"progress", "progressText", "progressTitle", "uploadSucceeded"}]
+  GETTABLEKS R3 R0 K5 ["progressPercentage"]
+  SETTABLEKS R3 R2 K0 ["progress"]
+  GETTABLEKS R3 R0 K1 ["progressText"]
+  SETTABLEKS R3 R2 K1 ["progressText"]
+  GETTABLEKS R3 R0 K2 ["progressTitle"]
+  SETTABLEKS R3 R2 K2 ["progressTitle"]
+  GETTABLEKS R3 R0 K3 ["uploadSucceeded"]
+  SETTABLEKS R3 R2 K3 ["uploadSucceeded"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Roact"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["RoactRodux"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K10 ["ContextServices"]
+  GETTABLEKS R6 R5 K11 ["withContext"]
+  GETTABLEKS R7 R2 K12 ["UI"]
+  GETTABLEKS R8 R7 K13 ["LoadingBar"]
+  GETTABLEKS R9 R7 K14 ["TextLabel"]
+  GETTABLEKS R11 R0 K15 ["Core"]
+  GETTABLEKS R10 R11 K16 ["Util"]
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R12 R10 K17 ["Colors"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R13 R10 K18 ["Constants"]
+  CALL R12 1 1
+  GETTABLEKS R13 R3 K19 ["Component"]
+  LOADK R15 K20 ["ProgressBarWrapper"]
+  NAMECALL R13 R13 K21 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K22 [PROTO_0]
+  SETTABLEKS R14 R13 K23 ["didUpdate"]
+  DUPCLOSURE R14 K24 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  SETTABLEKS R14 R13 K25 ["render"]
+  DUPCLOSURE R14 K26 [PROTO_2]
+  MOVE R15 R6
+  DUPTABLE R16 K29 [{"Localization", "Stylizer"}]
+  GETTABLEKS R17 R5 K27 ["Localization"]
+  SETTABLEKS R17 R16 K27 ["Localization"]
+  GETTABLEKS R17 R5 K28 ["Stylizer"]
+  SETTABLEKS R17 R16 K28 ["Stylizer"]
+  CALL R15 1 1
+  MOVE R16 R13
+  CALL R15 1 1
+  MOVE R13 R15
+  GETTABLEKS R15 R4 K30 ["connect"]
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R16 R13
+  CALL R15 1 -1
+  RETURN R15 -1

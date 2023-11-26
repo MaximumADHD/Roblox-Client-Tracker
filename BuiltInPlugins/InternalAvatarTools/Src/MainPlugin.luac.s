@@ -1,0 +1,179 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Localization"]
+  GETTABLEKS R2 R3 K1 ["new"]
+  DUPTABLE R3 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R4 1
+  SETTABLEKS R4 R3 K2 ["stringResourceTable"]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K3 ["translationResourceTable"]
+  LOADK R4 K6 ["InternalAvatarTools"]
+  SETTABLEKS R4 R3 K4 ["pluginName"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K7 ["localization"]
+  DUPTABLE R4 K9 [{"promptExportNonAccessoryOpen"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K8 ["promptExportNonAccessoryOpen"]
+  NAMECALL R2 R0 K10 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R0 1
+  DUPTABLE R2 K1 [{"promptExportNonAccessoryOpen"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["promptExportNonAccessoryOpen"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+  GETUPVAL R0 2
+  GETUPVAL R1 3
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  GETUPVAL R0 2
+  DUPTABLE R2 K1 [{"promptExportNonAccessoryOpen"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["promptExportNonAccessoryOpen"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"promptExportNonAccessoryOpen"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["promptExportNonAccessoryOpen"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Plugin"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["provide"]
+  NEWTABLE R4 0 4
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["new"]
+  MOVE R6 R2
+  CALL R5 1 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K3 ["new"]
+  NAMECALL R7 R2 K4 ["getMouse"]
+  CALL R7 1 -1
+  CALL R6 -1 1
+  GETUPVAL R7 3
+  CALL R7 0 1
+  GETTABLEKS R8 R0 K5 ["localization"]
+  SETLIST R4 R5 4 [1]
+  DUPTABLE R5 K8 [{"Toolbar", "PromptExportNonAccessory"}]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 5
+  DUPTABLE R8 K11 [{"onExportClicked"}]
+  NEWCLOSURE R9 P0
+  CAPTURE UPVAL U6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
+  CAPTURE VAL R2
+  SETTABLEKS R9 R8 K10 ["onExportClicked"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["Toolbar"]
+  GETTABLEKS R7 R0 K12 ["state"]
+  GETTABLEKS R6 R7 K13 ["promptExportNonAccessoryOpen"]
+  JUMPIFNOT R6 [+16]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 8
+  DUPTABLE R8 K16 [{"onConfirm", "onCancel"}]
+  NEWCLOSURE R9 P1
+  CAPTURE UPVAL U7
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  SETTABLEKS R9 R8 K14 ["onConfirm"]
+  NEWCLOSURE R9 P2
+  CAPTURE VAL R0
+  SETTABLEKS R9 R8 K15 ["onCancel"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K7 ["PromptExportNonAccessory"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["Plugin"]
+  GETTABLEKS R5 R3 K10 ["Mouse"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Resources"]
+  GETTABLEKS R7 R8 K13 ["MakeTheme"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Components"]
+  GETTABLEKS R8 R9 K15 ["Toolbar"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K11 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Components"]
+  GETTABLEKS R9 R10 K16 ["PromptExportNonAccessory"]
+  CALL R8 1 1
+  GETTABLEKS R12 R0 K11 ["Src"]
+  GETTABLEKS R11 R12 K12 ["Resources"]
+  GETTABLEKS R10 R11 K17 ["Localization"]
+  GETTABLEKS R9 R10 K18 ["SourceStrings"]
+  GETTABLEKS R13 R0 K11 ["Src"]
+  GETTABLEKS R12 R13 K12 ["Resources"]
+  GETTABLEKS R11 R12 K17 ["Localization"]
+  GETTABLEKS R10 R11 K19 ["LocalizedStrings"]
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K11 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Functions"]
+  GETTABLEKS R12 R13 K21 ["NonAccessoriesSelected"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K11 ["Src"]
+  GETTABLEKS R14 R15 K20 ["Functions"]
+  GETTABLEKS R13 R14 K22 ["Export"]
+  CALL R12 1 1
+  GETTABLEKS R13 R1 K23 ["PureComponent"]
+  LOADK R15 K24 ["MainPlugin"]
+  NAMECALL R13 R13 K25 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K26 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  SETTABLEKS R14 R13 K27 ["init"]
+  DUPCLOSURE R14 K28 [PROTO_4]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  SETTABLEKS R14 R13 K29 ["render"]
+  RETURN R13 1

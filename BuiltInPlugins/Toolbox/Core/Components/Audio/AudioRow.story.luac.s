@@ -1,0 +1,484 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K0 ["expandedAssetId"]
+  JUMPIFNOTEQ R2 R3 [+5]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["None"]
+  JUMP [+1]
+  GETUPVAL R1 0
+  DUPTABLE R2 K2 [{"expandedAssetId"}]
+  SETTABLEKS R1 R2 K0 ["expandedAssetId"]
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  NAMECALL R1 R1 K0 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"expandedAssetId"}]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K0 ["expandedAssetId"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K3 ["toggleIsExpanded"]
+  RETURN R0 0
+
+PROTO_3:
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_4:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["Insert Asset"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createFragment"]
+  DUPTABLE R2 K2 [{"Player"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["createElement"]
+  LOADK R4 K4 ["Frame"]
+  DUPTABLE R5 K7 [{"Size", "BackgroundTransparency"}]
+  GETIMPORT R6 K10 [UDim2.new]
+  LOADN R7 1
+  LOADN R8 0
+  LOADN R9 0
+  LOADN R10 116
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K5 ["Size"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K6 ["BackgroundTransparency"]
+  DUPTABLE R6 K2 [{"Player"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K11 ["Generator"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K12 ["join"]
+  GETTABLEKS R9 R0 K13 ["props"]
+  DUPTABLE R10 K20 [{"LayoutOrder", "IsExpanded", "OnExpanded", "ParentAbsoluteSize", "CanInsertAsset", "InsertAsset"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K14 ["LayoutOrder"]
+  GETTABLEKS R15 R0 K13 ["props"]
+  GETTABLEKS R14 R15 K21 ["AssetInfo"]
+  GETTABLEKS R13 R14 K22 ["Asset"]
+  GETTABLEKS R12 R13 K23 ["Id"]
+  GETTABLEKS R14 R0 K24 ["state"]
+  GETTABLEKS R13 R14 K25 ["expandedAssetId"]
+  JUMPIFEQ R12 R13 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  SETTABLEKS R11 R10 K15 ["IsExpanded"]
+  GETTABLEKS R11 R0 K26 ["toggleIsExpanded"]
+  SETTABLEKS R11 R10 K16 ["OnExpanded"]
+  GETIMPORT R11 K28 [UDim2.fromOffset]
+  LOADN R12 244
+  LOADN R13 244
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K17 ["ParentAbsoluteSize"]
+  DUPCLOSURE R11 K29 [PROTO_3]
+  SETTABLEKS R11 R10 K18 ["CanInsertAsset"]
+  DUPCLOSURE R11 K30 [PROTO_4]
+  SETTABLEKS R11 R10 K19 ["InsertAsset"]
+  CALL R8 2 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K1 ["Player"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K1 ["Player"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"AudioRow"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K5 [{"AssetInfo", "LayoutOrder"}]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K3 ["AssetInfo"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["AudioRow"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"AudioRow"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K5 [{"AssetInfo", "LayoutOrder"}]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K3 ["AssetInfo"]
+  LOADN R7 2
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["AudioRow"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"AudioRow"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K5 [{"AssetInfo", "LayoutOrder"}]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K3 ["AssetInfo"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["AudioRow"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"AudioRow"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K5 [{"AssetInfo", "LayoutOrder"}]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K3 ["AssetInfo"]
+  LOADN R7 2
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["AudioRow"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"AudioRow"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K5 [{"AssetInfo", "LayoutOrder"}]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K3 ["AssetInfo"]
+  LOADN R7 2
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["AudioRow"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"AudioRow"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K5 [{"AssetInfo", "LayoutOrder"}]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K3 ["AssetInfo"]
+  LOADN R7 2
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["AudioRow"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"AudioRow"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K5 [{"AssetInfo", "LayoutOrder"}]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K3 ["AssetInfo"]
+  LOADN R7 2
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["AudioRow"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Dash"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R8 R0 K10 ["Core"]
+  GETTABLEKS R7 R8 K11 ["Types"]
+  GETTABLEKS R6 R7 K12 ["Category"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R9 R0 K10 ["Core"]
+  GETTABLEKS R8 R9 K13 ["Models"]
+  GETTABLEKS R7 R8 K14 ["AssetInfo"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K15 ["Parent"]
+  GETTABLEKS R8 R9 K16 ["AudioRow"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K17 ["Stories"]
+  GETTABLEKS R9 R10 K18 ["ToolboxStoryWrapper"]
+  CALL R8 1 1
+  GETTABLEKS R9 R2 K19 ["PureComponent"]
+  LOADK R11 K20 ["AudioRowWrapper"]
+  NAMECALL R9 R9 K21 ["extend"]
+  CALL R9 2 1
+  DUPTABLE R10 K25 [{"Asset", "AudioDetails", "Creator"}]
+  DUPTABLE R11 K34 [{"Id", "Name", "AssetGenres", "TypeId", "IsEndorsed", "Description", "Duration", "HasScripts"}]
+  LOADK R12 K35 [142376088]
+  SETTABLEKS R12 R11 K26 ["Id"]
+  LOADK R12 K36 ["Cascaded Drumming"]
+  SETTABLEKS R12 R11 K27 ["Name"]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K28 ["AssetGenres"]
+  LOADN R12 10
+  SETTABLEKS R12 R11 K29 ["TypeId"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K30 ["IsEndorsed"]
+  LOADK R12 K37 ["High hat with various percussion sounds. Loud crashes."]
+  SETTABLEKS R12 R11 K31 ["Description"]
+  LOADK R12 K38 ["128"]
+  SETTABLEKS R12 R11 K32 ["Duration"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K33 ["HasScripts"]
+  SETTABLEKS R11 R10 K22 ["Asset"]
+  DUPTABLE R11 K43 [{"Artist", "Type", "SoundEffectCategory", "SoundEffectSubcategory"}]
+  LOADK R12 K44 ["OnlyTwentyCharacters"]
+  SETTABLEKS R12 R11 K39 ["Artist"]
+  GETTABLEKS R13 R5 K45 ["SOUND_EFFECTS"]
+  GETTABLEKS R12 R13 K46 ["name"]
+  SETTABLEKS R12 R11 K40 ["Type"]
+  LOADK R12 K47 ["instruments"]
+  SETTABLEKS R12 R11 K41 ["SoundEffectCategory"]
+  LOADK R12 K48 ["Drum"]
+  SETTABLEKS R12 R11 K42 ["SoundEffectSubcategory"]
+  SETTABLEKS R11 R10 K23 ["AudioDetails"]
+  DUPTABLE R11 K49 [{"Id", "Name", "Type"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K26 ["Id"]
+  LOADK R12 K50 ["Rolbox"]
+  SETTABLEKS R12 R11 K27 ["Name"]
+  LOADK R12 K51 ["User"]
+  SETTABLEKS R12 R11 K40 ["Type"]
+  SETTABLEKS R11 R10 K24 ["Creator"]
+  DUPTABLE R11 K25 [{"Asset", "AudioDetails", "Creator"}]
+  DUPTABLE R12 K34 [{"Id", "Name", "AssetGenres", "TypeId", "IsEndorsed", "Description", "Duration", "HasScripts"}]
+  LOADK R13 K35 [142376088]
+  SETTABLEKS R13 R12 K26 ["Id"]
+  LOADK R13 K36 ["Cascaded Drumming"]
+  SETTABLEKS R13 R12 K27 ["Name"]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K28 ["AssetGenres"]
+  LOADN R13 10
+  SETTABLEKS R13 R12 K29 ["TypeId"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K30 ["IsEndorsed"]
+  LOADK R13 K37 ["High hat with various percussion sounds. Loud crashes."]
+  SETTABLEKS R13 R12 K31 ["Description"]
+  LOADK R13 K52 ["508"]
+  SETTABLEKS R13 R12 K32 ["Duration"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K33 ["HasScripts"]
+  SETTABLEKS R12 R11 K22 ["Asset"]
+  DUPTABLE R12 K55 [{"Type", "MusicGenre", "Artist", "MusicAlbum"}]
+  GETTABLEKS R14 R5 K56 ["MUSIC"]
+  GETTABLEKS R13 R14 K46 ["name"]
+  SETTABLEKS R13 R12 K40 ["Type"]
+  LOADK R13 K57 ["rock"]
+  SETTABLEKS R13 R12 K53 ["MusicGenre"]
+  LOADK R13 K39 ["Artist"]
+  SETTABLEKS R13 R12 K39 ["Artist"]
+  LOADK R13 K58 ["asdf"]
+  SETTABLEKS R13 R12 K54 ["MusicAlbum"]
+  SETTABLEKS R12 R11 K23 ["AudioDetails"]
+  DUPTABLE R12 K49 [{"Id", "Name", "Type"}]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K26 ["Id"]
+  LOADK R13 K50 ["Rolbox"]
+  SETTABLEKS R13 R12 K27 ["Name"]
+  LOADK R13 K51 ["User"]
+  SETTABLEKS R13 R12 K40 ["Type"]
+  SETTABLEKS R12 R11 K24 ["Creator"]
+  DUPTABLE R12 K59 [{"Asset"}]
+  DUPTABLE R13 K60 [{"Id", "Name", "AssetGenres", "TypeId", "IsEndorsed", "Description", "HasScripts"}]
+  LOADK R14 K35 [142376088]
+  SETTABLEKS R14 R13 K26 ["Id"]
+  LOADK R14 K36 ["Cascaded Drumming"]
+  SETTABLEKS R14 R13 K27 ["Name"]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K28 ["AssetGenres"]
+  LOADN R14 10
+  SETTABLEKS R14 R13 K29 ["TypeId"]
+  LOADB R14 0
+  SETTABLEKS R14 R13 K30 ["IsEndorsed"]
+  LOADK R14 K37 ["High hat with various percussion sounds. Loud crashes."]
+  SETTABLEKS R14 R13 K31 ["Description"]
+  LOADB R14 0
+  SETTABLEKS R14 R13 K33 ["HasScripts"]
+  SETTABLEKS R13 R12 K22 ["Asset"]
+  DUPTABLE R13 K61 [{"Asset", "AudioDetails"}]
+  DUPTABLE R14 K60 [{"Id", "Name", "AssetGenres", "TypeId", "IsEndorsed", "Description", "HasScripts"}]
+  LOADK R15 K35 [142376088]
+  SETTABLEKS R15 R14 K26 ["Id"]
+  LOADK R15 K36 ["Cascaded Drumming"]
+  SETTABLEKS R15 R14 K27 ["Name"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K28 ["AssetGenres"]
+  LOADN R15 10
+  SETTABLEKS R15 R14 K29 ["TypeId"]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K30 ["IsEndorsed"]
+  LOADK R15 K62 [""]
+  SETTABLEKS R15 R14 K31 ["Description"]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K33 ["HasScripts"]
+  SETTABLEKS R14 R13 K22 ["Asset"]
+  DUPTABLE R14 K63 [{"Type"}]
+  GETTABLEKS R16 R5 K56 ["MUSIC"]
+  GETTABLEKS R15 R16 K46 ["name"]
+  SETTABLEKS R15 R14 K40 ["Type"]
+  SETTABLEKS R14 R13 K23 ["AudioDetails"]
+  DUPTABLE R14 K61 [{"Asset", "AudioDetails"}]
+  DUPTABLE R15 K60 [{"Id", "Name", "AssetGenres", "TypeId", "IsEndorsed", "Description", "HasScripts"}]
+  LOADK R16 K35 [142376088]
+  SETTABLEKS R16 R15 K26 ["Id"]
+  LOADK R16 K36 ["Cascaded Drumming"]
+  SETTABLEKS R16 R15 K27 ["Name"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K28 ["AssetGenres"]
+  LOADN R16 10
+  SETTABLEKS R16 R15 K29 ["TypeId"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K30 ["IsEndorsed"]
+  LOADK R16 K62 [""]
+  SETTABLEKS R16 R15 K31 ["Description"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K33 ["HasScripts"]
+  SETTABLEKS R15 R14 K22 ["Asset"]
+  DUPTABLE R15 K63 [{"Type"}]
+  GETTABLEKS R17 R5 K45 ["SOUND_EFFECTS"]
+  GETTABLEKS R16 R17 K46 ["name"]
+  SETTABLEKS R16 R15 K40 ["Type"]
+  SETTABLEKS R15 R14 K23 ["AudioDetails"]
+  DUPCLOSURE R15 K64 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R15 R9 K65 ["init"]
+  DUPCLOSURE R15 K66 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  SETTABLEKS R15 R9 K67 ["render"]
+  DUPTABLE R15 K70 [{"summary", "stories"}]
+  LOADK R16 K71 ["Audio Row"]
+  SETTABLEKS R16 R15 K68 ["summary"]
+  NEWTABLE R16 0 7
+  DUPTABLE R17 K73 [{"name", "story"}]
+  LOADK R18 K74 ["Soundeffect Odd"]
+  SETTABLEKS R18 R17 K46 ["name"]
+  DUPCLOSURE R18 K75 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  SETTABLEKS R18 R17 K72 ["story"]
+  DUPTABLE R18 K73 [{"name", "story"}]
+  LOADK R19 K76 ["Soundeffect Even"]
+  SETTABLEKS R19 R18 K46 ["name"]
+  DUPCLOSURE R19 K77 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  SETTABLEKS R19 R18 K72 ["story"]
+  DUPTABLE R19 K73 [{"name", "story"}]
+  LOADK R20 K78 ["Music Odd"]
+  SETTABLEKS R20 R19 K46 ["name"]
+  DUPCLOSURE R20 K79 [PROTO_8]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  SETTABLEKS R20 R19 K72 ["story"]
+  DUPTABLE R20 K73 [{"name", "story"}]
+  LOADK R21 K80 ["Music Even"]
+  SETTABLEKS R21 R20 K46 ["name"]
+  DUPCLOSURE R21 K81 [PROTO_9]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  SETTABLEKS R21 R20 K72 ["story"]
+  DUPTABLE R21 K73 [{"name", "story"}]
+  LOADK R22 K82 ["Empty Music"]
+  SETTABLEKS R22 R21 K46 ["name"]
+  DUPCLOSURE R22 K83 [PROTO_10]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  SETTABLEKS R22 R21 K72 ["story"]
+  DUPTABLE R22 K73 [{"name", "story"}]
+  LOADK R23 K84 ["Empty SoundEffect"]
+  SETTABLEKS R23 R22 K46 ["name"]
+  DUPCLOSURE R23 K85 [PROTO_11]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  SETTABLEKS R23 R22 K72 ["story"]
+  DUPTABLE R23 K73 [{"name", "story"}]
+  LOADK R24 K86 ["Uncategorized"]
+  SETTABLEKS R24 R23 K46 ["name"]
+  DUPCLOSURE R24 K87 [PROTO_12]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  SETTABLEKS R24 R23 K72 ["story"]
+  SETLIST R16 R17 7 [1]
+  SETTABLEKS R16 R15 K69 ["stories"]
+  RETURN R15 1

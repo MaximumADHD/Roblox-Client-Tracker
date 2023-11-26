@@ -1,0 +1,72 @@
+PROTO_0:
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["RunService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K4 ["Selection"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  NAMECALL R3 R1 K5 ["IsRunning"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+69]
+  GETIMPORT R3 K7 [pairs]
+  NAMECALL R4 R2 K8 ["Get"]
+  CALL R4 1 -1
+  CALL R3 -1 3
+  FORGPREP_NEXT R3
+  LOADK R10 K9 ["Humanoid"]
+  NAMECALL R8 R7 K10 ["FindFirstChild"]
+  CALL R8 2 1
+  JUMPIFEQKNIL R8 [+54]
+  LOADK R11 K11 ["Head"]
+  NAMECALL R9 R7 K10 ["FindFirstChild"]
+  CALL R9 2 1
+  JUMPIFEQKNIL R9 [+9]
+  LOADK R12 K12 ["MeshPart"]
+  NAMECALL R10 R9 K13 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+3]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K14 ["Anchored"]
+  LOADK R12 K15 ["Animator"]
+  NAMECALL R10 R8 K16 ["FindFirstChildOfClass"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+34]
+  NAMECALL R11 R10 K17 ["GetPlayingAnimationTracks"]
+  CALL R11 1 1
+  GETIMPORT R12 K7 [pairs]
+  MOVE R13 R11
+  CALL R12 1 3
+  FORGPREP_NEXT R12
+  NAMECALL R17 R16 K18 ["Stop"]
+  CALL R17 1 0
+  FORGLOOP R12 2 [-4]
+  GETIMPORT R12 K21 [Instance.new]
+  LOADK R13 K22 ["Animation"]
+  CALL R12 1 1
+  GETIMPORT R13 K25 [string.format]
+  LOADK R14 K26 ["rbxassetid://%s"]
+  MOVE R15 R0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K27 ["AnimationId"]
+  MOVE R15 R12
+  NAMECALL R13 R10 K28 ["LoadAnimation"]
+  CALL R13 2 1
+  LOADB R14 1
+  SETTABLEKS R14 R13 K29 ["Looped"]
+  NAMECALL R14 R13 K30 ["Play"]
+  CALL R14 1 0
+  FORGLOOP R3 2 [-60]
+  RETURN R0 0
+  GETIMPORT R3 K32 [print]
+  LOADK R4 K33 ["Animation will be played only in Play mode."]
+  CALL R3 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 1 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["attachAnimation"]
+  RETURN R0 1

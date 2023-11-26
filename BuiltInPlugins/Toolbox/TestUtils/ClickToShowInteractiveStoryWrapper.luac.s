@@ -1,0 +1,99 @@
+PROTO_0:
+  DUPTABLE R1 K1 [{"isShowing"}]
+  GETTABLEKS R3 R0 K0 ["isShowing"]
+  NOT R2 R3
+  SETTABLEKS R2 R1 K0 ["isShowing"]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPCLOSURE R2 K0 [PROTO_0]
+  NAMECALL R0 R0 K1 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"isShowing"}]
+  GETTABLEKS R4 R0 K2 ["props"]
+  GETTABLEKS R3 R4 K3 ["IsShownByDefault"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R0 K2 ["props"]
+  GETTABLEKS R2 R3 K3 ["IsShownByDefault"]
+  JUMP [+1]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["isShowing"]
+  SETTABLEKS R1 R0 K4 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K5 ["toggleIsShowing"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  LOADK R4 K3 ["Frame"]
+  DUPTABLE R5 K7 [{"AutomaticSize", "BackgroundTransparency", "Size"}]
+  GETIMPORT R6 K10 [Enum.AutomaticSize.Y]
+  SETTABLEKS R6 R5 K4 ["AutomaticSize"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K5 ["BackgroundTransparency"]
+  GETIMPORT R6 K13 [UDim2.new]
+  LOADN R7 1
+  LOADN R8 0
+  LOADN R9 0
+  LOADN R10 0
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K6 ["Size"]
+  DUPTABLE R6 K16 [{"Button", "SearchOption"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  LOADK R8 K17 ["TextButton"]
+  NEWTABLE R9 4 0
+  GETIMPORT R10 K19 [UDim2.fromOffset]
+  LOADN R11 200
+  LOADN R12 50
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K6 ["Size"]
+  LOADK R10 K20 ["Click to View Component"]
+  SETTABLEKS R10 R9 K21 ["Text"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K22 ["Event"]
+  GETTABLEKS R10 R11 K23 ["Activated"]
+  GETTABLEKS R11 R0 K24 ["toggleIsShowing"]
+  SETTABLE R11 R9 R10
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K14 ["Button"]
+  GETTABLEKS R8 R2 K25 ["isShowing"]
+  JUMPIFNOT R8 [+8]
+  GETTABLEKS R7 R1 K26 ["OnRender"]
+  GETTABLEKS R8 R2 K25 ["isShowing"]
+  GETTABLEKS R9 R0 K24 ["toggleIsShowing"]
+  CALL R7 2 1
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K15 ["SearchOption"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["PureComponent"]
+  LOADK R4 K9 ["ClickToShowInteractiveStoryWrapper"]
+  NAMECALL R2 R2 K10 ["extend"]
+  CALL R2 2 1
+  DUPCLOSURE R3 K11 [PROTO_2]
+  SETTABLEKS R3 R2 K12 ["init"]
+  DUPCLOSURE R3 K13 [PROTO_3]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K14 ["render"]
+  RETURN R2 1

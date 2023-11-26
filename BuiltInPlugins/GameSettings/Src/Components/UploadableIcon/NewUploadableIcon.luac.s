@@ -1,0 +1,173 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADB R2 1
+  NAMECALL R0 R0 K0 ["mouseHoverChanged"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADB R2 0
+  NAMECALL R0 R0 K0 ["mouseHoverChanged"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["mouseEnter"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["mouseLeave"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["props"]
+  JUMPIFNOT R1 [+7]
+  GETTABLEKS R3 R2 K1 ["Mouse"]
+  LOADK R5 K2 ["PointingHand"]
+  NAMECALL R3 R3 K3 ["__pushCursor"]
+  CALL R3 2 0
+  RETURN R0 0
+  GETTABLEKS R3 R2 K1 ["Mouse"]
+  NAMECALL R3 R3 K4 ["__resetCursor"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Visible"]
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  LOADK R5 K4 ["ImageButton"]
+  NEWTABLE R6 16 0
+  SETTABLEKS R2 R6 K1 ["Visible"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K5 ["BorderSizePixel"]
+  GETTABLEKS R8 R3 K6 ["newThumbnail"]
+  GETTABLEKS R7 R8 K7 ["background"]
+  SETTABLEKS R7 R6 K8 ["BackgroundColor3"]
+  GETTABLEKS R8 R3 K6 ["newThumbnail"]
+  GETTABLEKS R7 R8 K9 ["border"]
+  SETTABLEKS R7 R6 K10 ["ImageColor3"]
+  GETTABLEKS R9 R3 K11 ["dottedBorder"]
+  GETTABLEKS R8 R9 K12 ["square"]
+  GETTABLEKS R7 R8 K13 ["image"]
+  SETTABLEKS R7 R6 K14 ["Image"]
+  GETIMPORT R7 K18 [Enum.ResamplerMode.Pixelated]
+  SETTABLEKS R7 R6 K19 ["ResampleMode"]
+  GETIMPORT R7 K22 [Enum.ScaleType.Slice]
+  SETTABLEKS R7 R6 K20 ["ScaleType"]
+  GETTABLEKS R8 R3 K11 ["dottedBorder"]
+  GETTABLEKS R7 R8 K23 ["sliceCenter"]
+  SETTABLEKS R7 R6 K24 ["SliceCenter"]
+  GETIMPORT R7 K27 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 150
+  LOADN R10 0
+  LOADN R11 150
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K28 ["Size"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K29 ["Event"]
+  GETTABLEKS R7 R8 K30 ["MouseEnter"]
+  GETTABLEKS R8 R0 K31 ["mouseEnter"]
+  SETTABLE R8 R6 R7
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K29 ["Event"]
+  GETTABLEKS R7 R8 K32 ["MouseLeave"]
+  GETTABLEKS R8 R0 K33 ["mouseLeave"]
+  SETTABLE R8 R6 R7
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K29 ["Event"]
+  GETTABLEKS R7 R8 K34 ["Activated"]
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETTABLEKS R8 R9 K35 ["OnClick"]
+  SETTABLE R8 R6 R7
+  DUPTABLE R7 K37 [{"Plus"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K38 ["ImageLabel"]
+  DUPTABLE R10 K46 [{"BackgroundTransparency", "Image", "ImageColor3", "ImageTransparency", "ImageRectSize", "ImageRectOffset", "Size", "Position", "AnchorPoint", "ZIndex"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K39 ["BackgroundTransparency"]
+  GETTABLEKS R12 R3 K47 ["plus"]
+  GETTABLEKS R11 R12 K13 ["image"]
+  SETTABLEKS R11 R10 K14 ["Image"]
+  GETTABLEKS R12 R3 K6 ["newThumbnail"]
+  GETTABLEKS R11 R12 K47 ["plus"]
+  SETTABLEKS R11 R10 K10 ["ImageColor3"]
+  LOADK R11 K48 [0.4]
+  SETTABLEKS R11 R10 K40 ["ImageTransparency"]
+  GETTABLEKS R12 R3 K47 ["plus"]
+  GETTABLEKS R11 R12 K49 ["rectSize"]
+  SETTABLEKS R11 R10 K41 ["ImageRectSize"]
+  GETTABLEKS R12 R3 K47 ["plus"]
+  GETTABLEKS R11 R12 K50 ["rectOffset"]
+  SETTABLEKS R11 R10 K42 ["ImageRectOffset"]
+  GETIMPORT R11 K27 [UDim2.new]
+  LOADN R12 0
+  LOADN R13 24
+  LOADN R14 0
+  LOADN R15 24
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K28 ["Size"]
+  GETIMPORT R11 K27 [UDim2.new]
+  LOADK R12 K51 [0.5]
+  LOADN R13 0
+  LOADK R14 K51 [0.5]
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K43 ["Position"]
+  GETIMPORT R11 K53 [Vector2.new]
+  LOADK R12 K51 [0.5]
+  LOADK R13 K51 [0.5]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K44 ["AnchorPoint"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K45 ["ZIndex"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K36 ["Plus"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R5 R1 K10 ["PureComponent"]
+  LOADK R7 K11 ["NewUploadableIcon"]
+  NAMECALL R5 R5 K12 ["extend"]
+  CALL R5 2 1
+  DUPCLOSURE R6 K13 [PROTO_2]
+  SETTABLEKS R6 R5 K14 ["init"]
+  DUPCLOSURE R6 K15 [PROTO_3]
+  SETTABLEKS R6 R5 K16 ["mouseHoverChanged"]
+  DUPCLOSURE R6 K17 [PROTO_4]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K18 ["render"]
+  MOVE R6 R4
+  DUPTABLE R7 K21 [{"Stylizer", "Mouse"}]
+  GETTABLEKS R8 R3 K19 ["Stylizer"]
+  SETTABLEKS R8 R7 K19 ["Stylizer"]
+  GETTABLEKS R8 R3 K20 ["Mouse"]
+  SETTABLEKS R8 R7 K20 ["Mouse"]
+  CALL R6 1 1
+  MOVE R7 R5
+  CALL R6 1 1
+  MOVE R5 R6
+  RETURN R5 1

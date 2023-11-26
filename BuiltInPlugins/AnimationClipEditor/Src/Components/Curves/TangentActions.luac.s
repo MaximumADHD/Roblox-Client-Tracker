@@ -1,0 +1,229 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["PluginActions"]
+  NEWTABLE R2 0 2
+  LOADK R5 K2 ["ClearTangent"]
+  NAMECALL R3 R1 K3 ["get"]
+  CALL R3 2 1
+  LOADK R6 K4 ["ZeroTangent"]
+  NAMECALL R4 R1 K3 ["get"]
+  CALL R4 2 -1
+  SETLIST R2 R3 4294967295 [1]
+  RETURN R2 1
+
+PROTO_1:
+  JUMPIFNOT R1 [+23]
+  LOADB R3 0
+  SETTABLEKS R3 R1 K0 ["Enabled"]
+  GETTABLEKS R4 R0 K1 ["Actions"]
+  FASTCALL2 TABLE_INSERT R4 R1 [+4]
+  MOVE R5 R1
+  GETIMPORT R3 K4 [table.insert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K5 ["Connections"]
+  GETTABLEKS R5 R1 K6 ["Triggered"]
+  MOVE R7 R2
+  NAMECALL R5 R5 K7 ["Connect"]
+  CALL R5 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R3 K4 [table.insert]
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["OnSetTangent"]
+  GETTABLEKS R2 R0 K2 ["InstanceName"]
+  GETTABLEKS R3 R0 K3 ["Path"]
+  GETTABLEKS R4 R0 K4 ["Tick"]
+  GETTABLEKS R5 R0 K5 ["Side"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETTABLEKS R1 R0 K1 ["OnSetTangent"]
+  GETTABLEKS R2 R0 K2 ["InstanceName"]
+  GETTABLEKS R3 R0 K3 ["Path"]
+  GETTABLEKS R4 R0 K4 ["Tick"]
+  GETTABLEKS R5 R0 K5 ["Side"]
+  LOADN R6 0
+  CALL R1 5 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["PluginActions"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K2 ["Connections"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K3 ["Actions"]
+  LOADK R6 K4 ["ClearTangent"]
+  NAMECALL R4 R1 K5 ["get"]
+  CALL R4 2 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NAMECALL R2 R0 K6 ["addAction"]
+  CALL R2 3 0
+  LOADK R6 K7 ["ZeroTangent"]
+  NAMECALL R4 R1 K5 ["get"]
+  CALL R4 2 1
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R0
+  NAMECALL R2 R0 K6 ["addAction"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["ShowMenu"]
+  GETTABLEKS R3 R0 K2 ["Actions"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K3 ["PluginActions"]
+  GETUPVAL R5 0
+  MOVE R6 R4
+  CALL R5 1 1
+  JUMPIF R5 [+26]
+  JUMPIFEQKNIL R3 [+25]
+  GETIMPORT R5 K5 [ipairs]
+  MOVE R6 R3
+  CALL R5 1 3
+  FORGPREP_INEXT R5
+  LOADB R10 0
+  SETTABLEKS R10 R9 K6 ["Enabled"]
+  FORGLOOP R5 2 [inext] [-4]
+  LOADK R7 K7 ["ClearTangent"]
+  NAMECALL R5 R4 K8 ["get"]
+  CALL R5 2 1
+  LOADB R6 1
+  SETTABLEKS R6 R5 K6 ["Enabled"]
+  LOADK R7 K9 ["ZeroTangent"]
+  NAMECALL R5 R4 K8 ["get"]
+  CALL R5 2 1
+  LOADB R6 1
+  SETTABLEKS R6 R5 K6 ["Enabled"]
+  JUMPIFNOT R2 [+16]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K10 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K12 [{"Actions", "OnMenuOpened"}]
+  NAMECALL R8 R0 K13 ["makeMenuActions"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K2 ["Actions"]
+  GETTABLEKS R8 R1 K11 ["OnMenuOpened"]
+  SETTABLEKS R8 R7 K11 ["OnMenuOpened"]
+  CALL R5 2 1
+  JUMPIF R5 [+1]
+  LOADNIL R5
+  RETURN R5 1
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["Connections"]
+  JUMPIFNOT R1 [+15]
+  GETIMPORT R1 K2 [ipairs]
+  GETTABLEKS R2 R0 K0 ["Connections"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  NAMECALL R6 R5 K3 ["Disconnect"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [inext] [-4]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K0 ["Connections"]
+  GETTABLEKS R1 R0 K4 ["Actions"]
+  JUMPIFNOT R1 [+11]
+  GETIMPORT R1 K2 [ipairs]
+  GETTABLEKS R2 R0 K4 ["Actions"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  LOADB R6 0
+  SETTABLEKS R6 R5 K5 ["Enabled"]
+  FORGLOOP R1 2 [inext] [-4]
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["Status"]
+  DUPTABLE R2 K5 [{"InstanceName", "Path", "Tick", "Side"}]
+  GETTABLEKS R4 R1 K6 ["RightClickContextInfo"]
+  GETTABLEKS R3 R4 K1 ["InstanceName"]
+  SETTABLEKS R3 R2 K1 ["InstanceName"]
+  GETTABLEKS R4 R1 K6 ["RightClickContextInfo"]
+  GETTABLEKS R3 R4 K2 ["Path"]
+  SETTABLEKS R3 R2 K2 ["Path"]
+  GETTABLEKS R4 R1 K6 ["RightClickContextInfo"]
+  GETTABLEKS R3 R4 K3 ["Tick"]
+  SETTABLEKS R3 R2 K3 ["Tick"]
+  GETTABLEKS R4 R1 K6 ["RightClickContextInfo"]
+  GETTABLEKS R3 R4 K4 ["Side"]
+  SETTABLEKS R3 R2 K4 ["Side"]
+  RETURN R2 1
+
+PROTO_8:
+  NEWTABLE R0 0 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["isEmpty"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Components"]
+  GETTABLEKS R5 R6 K13 ["ContextMenu"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K15 ["ContextServices"]
+  GETTABLEKS R7 R6 K16 ["withContext"]
+  GETTABLEKS R8 R1 K17 ["PureComponent"]
+  LOADK R10 K18 ["TangentActions"]
+  NAMECALL R8 R8 K19 ["extend"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K20 [PROTO_0]
+  SETTABLEKS R9 R8 K21 ["makeMenuActions"]
+  DUPCLOSURE R9 K22 [PROTO_1]
+  SETTABLEKS R9 R8 K23 ["addAction"]
+  DUPCLOSURE R9 K24 [PROTO_4]
+  SETTABLEKS R9 R8 K25 ["didMount"]
+  DUPCLOSURE R9 K26 [PROTO_5]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R9 R8 K27 ["render"]
+  DUPCLOSURE R9 K28 [PROTO_6]
+  SETTABLEKS R9 R8 K29 ["willUnmount"]
+  MOVE R9 R7
+  DUPTABLE R10 K31 [{"PluginActions"}]
+  GETTABLEKS R11 R6 K30 ["PluginActions"]
+  SETTABLEKS R11 R10 K30 ["PluginActions"]
+  CALL R9 1 1
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
+  DUPCLOSURE R9 K32 [PROTO_7]
+  DUPCLOSURE R10 K33 [PROTO_8]
+  GETTABLEKS R11 R2 K34 ["connect"]
+  MOVE R12 R9
+  MOVE R13 R10
+  CALL R11 2 1
+  MOVE R12 R8
+  CALL R11 1 -1
+  RETURN R11 -1

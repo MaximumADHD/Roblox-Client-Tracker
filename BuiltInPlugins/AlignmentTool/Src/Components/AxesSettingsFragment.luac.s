@@ -1,0 +1,276 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["OnAlignmentSpaceChanged"]
+  JUMPIFNOT R2 [+4]
+  GETTABLEKS R2 R1 K1 ["OnAlignmentSpaceChanged"]
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["OnEnabledAxesChanged"]
+  JUMPIFNOT R2 [+15]
+  GETUPVAL R2 1
+  GETTABLEKS R3 R1 K2 ["EnabledAxes"]
+  NEWTABLE R4 1 0
+  GETTABLEKS R7 R1 K2 ["EnabledAxes"]
+  GETTABLE R6 R7 R0
+  NOT R5 R6
+  SETTABLE R5 R4 R0
+  CALL R2 2 1
+  GETTABLEKS R3 R1 K1 ["OnEnabledAxesChanged"]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R5 R1 K0 ["AlignmentSpace"]
+  FASTCALL1 TYPE R5 [+2]
+  GETIMPORT R4 K2 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K3 ["string"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K4 [+4]
+  LOADK R4 K4 ["Missing required property AlignmentSpace."]
+  GETIMPORT R2 K6 [assert]
+  CALL R2 2 0
+  GETTABLEKS R5 R1 K7 ["EnabledAxes"]
+  FASTCALL1 TYPE R5 [+2]
+  GETIMPORT R4 K2 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K8 ["table"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K9 [+4]
+  LOADK R4 K9 ["Missing required property EnabledAxes."]
+  GETIMPORT R2 K6 [assert]
+  CALL R2 2 0
+  GETTABLEKS R5 R1 K10 ["OnAlignmentSpaceChanged"]
+  FASTCALL1 TYPE R5 [+2]
+  GETIMPORT R4 K2 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K11 ["function"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K12 [+4]
+  LOADK R4 K12 ["Missing required property OnAlignmentSpaceChanged."]
+  GETIMPORT R2 K6 [assert]
+  CALL R2 2 0
+  GETTABLEKS R5 R1 K13 ["OnEnabledAxesChanged"]
+  FASTCALL1 TYPE R5 [+2]
+  GETIMPORT R4 K2 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K11 ["function"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K14 [+4]
+  LOADK R4 K14 ["Missing required property OnEnabledAxesChanged."]
+  GETIMPORT R2 K6 [assert]
+  CALL R2 2 0
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K15 ["setAlignmentSpace"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R0 K16 ["toggleAxis"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K7 [{"Disabled", "Key", "LayoutOrder", "Selected", "Text", "OnClick"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K1 ["Disabled"]
+  SETTABLEKS R0 R4 K2 ["Key"]
+  SETTABLEKS R1 R4 K3 ["LayoutOrder"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K8 ["AlignmentSpace"]
+  JUMPIFEQ R6 R0 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  SETTABLEKS R5 R4 K4 ["Selected"]
+  GETUPVAL R5 3
+  LOADK R7 K9 ["AxesSettingsFragment"]
+  MOVE R8 R0
+  NAMECALL R5 R5 K10 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K5 ["Text"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K11 ["setAlignmentSpace"]
+  SETTABLEKS R5 R4 K6 ["OnClick"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["EnabledAxes"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  GETTABLEKS R4 R1 K3 ["Stylizer"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["new"]
+  CALL R5 0 1
+  NEWTABLE R6 0 0
+  NEWTABLE R7 0 3
+  LOADK R8 K5 ["X"]
+  LOADK R9 K6 ["Y"]
+  LOADK R10 K7 ["Z"]
+  SETLIST R7 R8 3 [1]
+  GETIMPORT R8 K9 [ipairs]
+  MOVE R9 R7
+  CALL R8 1 3
+  FORGPREP_INEXT R8
+  JUMPIFNOT R2 [+2]
+  GETTABLE R13 R2 R12
+  JUMPIF R13 [+1]
+  LOADB R13 0
+  LOADK R16 K10 ["AxesSettingsFragment"]
+  MOVE R17 R12
+  NAMECALL R14 R3 K11 ["getText"]
+  CALL R14 3 1
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K12 ["createElement"]
+  GETUPVAL R16 2
+  DUPTABLE R17 K19 [{"Key", "Checked", "Disabled", "LayoutOrder", "Text", "OnClick"}]
+  SETTABLEKS R12 R17 K13 ["Key"]
+  SETTABLEKS R13 R17 K14 ["Checked"]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K15 ["Disabled"]
+  NAMECALL R18 R5 K20 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K16 ["LayoutOrder"]
+  SETTABLEKS R14 R17 K17 ["Text"]
+  GETTABLEKS R18 R0 K21 ["toggleAxis"]
+  SETTABLEKS R18 R17 K18 ["OnClick"]
+  CALL R15 2 1
+  SETTABLE R15 R6 R12
+  FORGLOOP R8 2 [inext] [-35]
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K22 ["createFragment"]
+  DUPTABLE R10 K25 [{"AlignmentSpaceButtons", "AxisCheckboxes"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K12 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K30 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection", "LayoutOrder"}]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K31 ["Axis"]
+  GETTABLEKS R14 R15 K32 ["Both"]
+  SETTABLEKS R14 R13 K26 ["axis"]
+  GETTABLEKS R14 R4 K33 ["SectionContentPadding"]
+  SETTABLEKS R14 R13 K27 ["contentPadding"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K28 ["BackgroundTransparency"]
+  GETIMPORT R14 K36 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R14 R13 K29 ["FillDirection"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K16 ["LayoutOrder"]
+  DUPTABLE R14 K39 [{"WorldSpaceButton", "LocalSpaceButton"}]
+  MOVE R15 R8
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K40 ["World"]
+  LOADN R17 1
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K37 ["WorldSpaceButton"]
+  MOVE R15 R8
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K41 ["Local"]
+  LOADN R17 2
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K38 ["LocalSpaceButton"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K23 ["AlignmentSpaceButtons"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K12 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K30 [{"axis", "contentPadding", "BackgroundTransparency", "FillDirection", "LayoutOrder"}]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K31 ["Axis"]
+  GETTABLEKS R14 R15 K32 ["Both"]
+  SETTABLEKS R14 R13 K26 ["axis"]
+  GETTABLEKS R14 R4 K33 ["SectionContentPadding"]
+  SETTABLEKS R14 R13 K27 ["contentPadding"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K28 ["BackgroundTransparency"]
+  GETIMPORT R14 K36 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R14 R13 K29 ["FillDirection"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K16 ["LayoutOrder"]
+  MOVE R14 R6
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K24 ["AxisCheckboxes"]
+  CALL R9 1 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K7 ["FitFrame"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K8 ["FitFrameOnAxis"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Roact"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K11 ["ContextServices"]
+  GETTABLEKS R6 R5 K12 ["withContext"]
+  GETTABLEKS R7 R4 K13 ["UI"]
+  GETTABLEKS R8 R7 K14 ["Checkbox"]
+  GETTABLEKS R9 R7 K15 ["RadioButton"]
+  GETTABLEKS R10 R4 K16 ["Util"]
+  GETTABLEKS R11 R10 K17 ["LayoutOrderIterator"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K18 ["Src"]
+  GETTABLEKS R14 R15 K19 ["Utility"]
+  GETTABLEKS R13 R14 K20 ["AlignmentSpace"]
+  CALL R12 1 1
+  GETTABLEKS R13 R1 K21 ["join"]
+  GETTABLEKS R14 R3 K22 ["PureComponent"]
+  LOADK R16 K23 ["AxesSettingsFragment"]
+  NAMECALL R14 R14 K24 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K25 [PROTO_2]
+  CAPTURE VAL R13
+  SETTABLEKS R15 R14 K26 ["init"]
+  DUPCLOSURE R15 K27 [PROTO_4]
+  CAPTURE VAL R11
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  SETTABLEKS R15 R14 K28 ["render"]
+  MOVE R15 R6
+  DUPTABLE R16 K31 [{"Localization", "Stylizer"}]
+  GETTABLEKS R17 R5 K29 ["Localization"]
+  SETTABLEKS R17 R16 K29 ["Localization"]
+  GETTABLEKS R17 R5 K30 ["Stylizer"]
+  SETTABLEKS R17 R16 K30 ["Stylizer"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  RETURN R14 1

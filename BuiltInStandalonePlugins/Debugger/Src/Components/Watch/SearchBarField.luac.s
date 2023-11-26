@@ -1,0 +1,102 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K9 [{"ShowSearchIcon", "ShowSearchButton", "OnTextChanged", "OnSearchRequested", "LayoutOrder", "Size", "SearchTerm"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["ShowSearchIcon"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K3 ["ShowSearchButton"]
+  GETTABLEKS R5 R1 K10 ["onFilterTextChanged"]
+  SETTABLEKS R5 R4 K4 ["OnTextChanged"]
+  GETTABLEKS R5 R1 K11 ["onSearchRequested"]
+  SETTABLEKS R5 R4 K5 ["OnSearchRequested"]
+  GETTABLEKS R5 R1 K6 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K6 ["LayoutOrder"]
+  GETTABLEKS R5 R1 K7 ["Size"]
+  SETTABLEKS R5 R4 K7 ["Size"]
+  GETTABLEKS R5 R1 K8 ["SearchTerm"]
+  SETTABLEKS R5 R4 K8 ["SearchTerm"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["Watch"]
+  DUPTABLE R3 K2 [{"SearchTerm"}]
+  GETTABLEKS R4 R2 K3 ["filterText"]
+  SETTABLEKS R4 R3 K1 ["SearchTerm"]
+  RETURN R3 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_4:
+  DUPTABLE R1 K2 [{"onFilterTextChanged", "onSearchRequested"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["onFilterTextChanged"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K1 ["onSearchRequested"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["UI"]
+  GETTABLEKS R5 R4 K10 ["SearchBar"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K12 ["Thunks"]
+  GETTABLEKS R8 R9 K13 ["Watch"]
+  GETTABLEKS R7 R8 K14 ["FilterWatchDataThunk"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K15 ["PureComponent"]
+  LOADK R9 K16 ["SearchBarField"]
+  NAMECALL R7 R7 K17 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K18 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  SETTABLEKS R8 R7 K19 ["render"]
+  GETTABLEKS R8 R2 K20 ["connect"]
+  DUPCLOSURE R9 K21 [PROTO_1]
+  DUPCLOSURE R10 K22 [PROTO_4]
+  CAPTURE VAL R6
+  CALL R8 2 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

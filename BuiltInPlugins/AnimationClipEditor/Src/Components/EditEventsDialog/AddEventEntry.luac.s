@@ -1,0 +1,198 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Mouse"]
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Mouse"]
+  LOADK R2 K2 ["PointingHand"]
+  NAMECALL R0 R0 K3 ["__pushCursor"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Mouse"]
+  JUMPIFNOT R0 [+8]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Mouse"]
+  NAMECALL R0 R0 K2 ["__popCursor"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["mouseEnter"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K1 ["mouseLeave"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R3 R2 K2 ["Stylizer"]
+  GETTABLEKS R4 R2 K3 ["Size"]
+  GETTABLEKS R5 R2 K4 ["PaddingLeft"]
+  GETTABLEKS R6 R2 K5 ["PaddingRight"]
+  GETTABLEKS R7 R3 K6 ["dialogTheme"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  LOADK R9 K8 ["ImageButton"]
+  NEWTABLE R10 8 0
+  SETTABLEKS R4 R10 K3 ["Size"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K9 ["BackgroundTransparency"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K10 ["AutoButtonColor"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K11 ["Event"]
+  GETTABLEKS R11 R12 K12 ["Activated"]
+  GETTABLEKS R12 R2 K13 ["OnAddEvent"]
+  SETTABLE R12 R10 R11
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K11 ["Event"]
+  GETTABLEKS R11 R12 K14 ["MouseEnter"]
+  GETTABLEKS R12 R0 K15 ["mouseEnter"]
+  SETTABLE R12 R10 R11
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K11 ["Event"]
+  GETTABLEKS R11 R12 K16 ["MouseLeave"]
+  GETTABLEKS R12 R0 K17 ["mouseLeave"]
+  SETTABLE R12 R10 R11
+  DUPTABLE R11 K21 [{"Padding", "Label", "AddImage"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  LOADK R13 K22 ["UIPadding"]
+  DUPTABLE R14 K25 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  SETTABLEKS R5 R14 K4 ["PaddingLeft"]
+  SETTABLEKS R6 R14 K5 ["PaddingRight"]
+  GETIMPORT R15 K28 [UDim.new]
+  LOADN R16 0
+  LOADN R17 2
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K23 ["PaddingTop"]
+  GETIMPORT R15 K28 [UDim.new]
+  LOADN R16 0
+  LOADN R17 2
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K24 ["PaddingBottom"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K18 ["Padding"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  LOADK R13 K29 ["TextLabel"]
+  DUPTABLE R14 K35 [{"Size", "Text", "TextColor3", "Font", "TextSize", "TextXAlignment", "BackgroundTransparency"}]
+  GETIMPORT R15 K37 [UDim2.new]
+  LOADN R16 1
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K38 ["TRACKLIST_BUTTON_SIZE"]
+  MINUS R17 R18
+  LOADN R18 1
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K3 ["Size"]
+  LOADK R17 K39 ["Title"]
+  LOADK R18 K40 ["AddEvent"]
+  NAMECALL R15 R1 K41 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K30 ["Text"]
+  GETTABLEKS R15 R7 K42 ["subTextColor"]
+  SETTABLEKS R15 R14 K31 ["TextColor3"]
+  GETTABLEKS R15 R3 K43 ["font"]
+  SETTABLEKS R15 R14 K32 ["Font"]
+  GETTABLEKS R15 R7 K44 ["textSize"]
+  SETTABLEKS R15 R14 K33 ["TextSize"]
+  GETIMPORT R15 K47 [Enum.TextXAlignment.Left]
+  SETTABLEKS R15 R14 K34 ["TextXAlignment"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K9 ["BackgroundTransparency"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K19 ["Label"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  LOADK R13 K48 ["ImageLabel"]
+  DUPTABLE R14 K53 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency", "Image", "ImageColor3"}]
+  GETUPVAL R15 2
+  SETTABLEKS R15 R14 K3 ["Size"]
+  GETIMPORT R15 K55 [Vector2.new]
+  LOADK R16 K56 [0.5]
+  LOADK R17 K56 [0.5]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K49 ["AnchorPoint"]
+  GETIMPORT R15 K37 [UDim2.new]
+  LOADN R16 0
+  GETTABLEKS R19 R5 K58 ["Offset"]
+  MINUS R18 R19
+  DIVK R17 R18 K57 [2]
+  LOADK R18 K56 [0.5]
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K50 ["Position"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K9 ["BackgroundTransparency"]
+  GETTABLEKS R15 R7 K59 ["addImage"]
+  SETTABLEKS R15 R14 K51 ["Image"]
+  GETTABLEKS R15 R7 K42 ["subTextColor"]
+  SETTABLEKS R15 R14 K52 ["ImageColor3"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K20 ["AddImage"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K2 [UDim2.new]
+  LOADN R1 0
+  LOADN R2 9
+  LOADN R3 0
+  LOADN R4 8
+  CALL R0 4 1
+  GETIMPORT R1 K4 [script]
+  LOADK R3 K5 ["AnimationClipEditor"]
+  NAMECALL R1 R1 K6 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R7 R1 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Util"]
+  GETTABLEKS R5 R6 K14 ["Constants"]
+  CALL R4 1 1
+  GETTABLEKS R5 R3 K15 ["ContextServices"]
+  GETTABLEKS R6 R5 K16 ["withContext"]
+  GETTABLEKS R7 R2 K17 ["PureComponent"]
+  LOADK R9 K18 ["AddEventEntry"]
+  NAMECALL R7 R7 K19 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K20 [PROTO_2]
+  SETTABLEKS R8 R7 K21 ["init"]
+  DUPCLOSURE R8 K22 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K23 ["render"]
+  MOVE R8 R6
+  DUPTABLE R9 K27 [{"Stylizer", "Localization", "Mouse"}]
+  GETTABLEKS R10 R5 K24 ["Stylizer"]
+  SETTABLEKS R10 R9 K24 ["Stylizer"]
+  GETTABLEKS R10 R5 K25 ["Localization"]
+  SETTABLEKS R10 R9 K25 ["Localization"]
+  GETTABLEKS R10 R5 K26 ["Mouse"]
+  SETTABLEKS R10 R9 K26 ["Mouse"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

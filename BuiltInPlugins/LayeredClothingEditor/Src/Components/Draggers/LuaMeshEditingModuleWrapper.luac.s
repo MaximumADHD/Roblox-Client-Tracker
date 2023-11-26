@@ -1,0 +1,373 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"temp"}]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K0 ["temp"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADB R2 1
+  NAMECALL R0 R0 K0 ["Activate"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["LuaMeshEditingModuleContext"]
+  NAMECALL R1 R1 K2 ["getCurrentTool"]
+  CALL R1 1 1
+  GETIMPORT R2 K6 [Enum.RibbonTool.Select]
+  JUMPIFEQ R0 R2 [+13]
+  GETIMPORT R2 K8 [Enum.RibbonTool.Rotate]
+  JUMPIFEQ R0 R2 [+9]
+  GETIMPORT R2 K10 [Enum.RibbonTool.Move]
+  JUMPIFEQ R0 R2 [+5]
+  GETIMPORT R2 K12 [Enum.RibbonTool.Scale]
+  JUMPIFNOTEQ R0 R2 [+14]
+  GETIMPORT R2 K15 [task.delay]
+  LOADN R3 0
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U1
+  CALL R2 2 0
+  JUMPIFNOT R1 [+4]
+  MOVE R4 R0
+  NAMECALL R2 R1 K16 ["setCurrentHandle"]
+  CALL R2 2 0
+  LOADB R2 1
+  RETURN R2 1
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["GetSelectedRibbonTool"]
+  CALL R0 1 1
+  GETIMPORT R1 K4 [Enum.RibbonTool.None]
+  JUMPIFEQ R0 R1 [+54]
+  GETIMPORT R1 K6 [next]
+  GETIMPORT R2 K8 [game]
+  LOADK R4 K9 ["Selection"]
+  NAMECALL R2 R2 K10 ["GetService"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K11 ["Get"]
+  CALL R2 1 -1
+  CALL R1 -1 1
+  JUMPIFNOTEQKNIL R1 [+9]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K12 ["onToolSelected"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFNOT R1 [+33]
+  RETURN R0 0
+  RETURN R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K13 ["props"]
+  GETTABLEKS R1 R2 K14 ["LuaMeshEditingModuleContext"]
+  NAMECALL R1 R1 K15 ["disableEditing"]
+  CALL R1 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K13 ["props"]
+  GETTABLEKS R1 R2 K16 ["SetControlsPanelBlockerMessage"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K13 ["props"]
+  GETTABLEKS R2 R3 K17 ["Localization"]
+  LOADK R4 K18 ["Editor"]
+  LOADK R5 K19 ["ResumeEditing"]
+  NAMECALL R2 R2 K20 ["getText"]
+  CALL R2 3 -1
+  CALL R1 -1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K13 ["props"]
+  GETTABLEKS R1 R2 K21 ["SetControlsPanelBlockerActivity"]
+  LOADB R2 1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["LuaMeshEditingModuleContext"]
+  NAMECALL R0 R0 K2 ["getCurrentTool"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+3]
+  NAMECALL R1 R0 K3 ["undo"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["LuaMeshEditingModuleContext"]
+  NAMECALL R0 R0 K2 ["getCurrentTool"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+3]
+  NAMECALL R1 R0 K3 ["redo"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Plugin"]
+  NAMECALL R2 R2 K2 ["get"]
+  CALL R2 1 1
+  LOADB R5 1
+  NAMECALL R3 R2 K3 ["Activate"]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K4 ["LuaMeshEditingModuleContext"]
+  NAMECALL R3 R3 K5 ["getToolChangedSignal"]
+  CALL R3 1 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K6 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K7 ["toolChangedHandle"]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  SETTABLEKS R3 R0 K8 ["onToolSelected"]
+  GETTABLEKS R3 R2 K9 ["Deactivation"]
+  NEWCLOSURE R5 P2
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K6 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K10 ["deactivationListener"]
+  GETTABLEKS R3 R1 K11 ["PluginActions"]
+  LOADK R5 K12 ["Undo"]
+  NAMECALL R3 R3 K2 ["get"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+12]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K13 ["Enabled"]
+  GETTABLEKS R4 R3 K14 ["Triggered"]
+  NEWCLOSURE R6 P3
+  CAPTURE VAL R0
+  NAMECALL R4 R4 K6 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K15 ["undoHandle"]
+  GETTABLEKS R4 R1 K11 ["PluginActions"]
+  LOADK R6 K16 ["Redo"]
+  NAMECALL R4 R4 K2 ["get"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+12]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K13 ["Enabled"]
+  GETTABLEKS R5 R4 K14 ["Triggered"]
+  NEWCLOSURE R7 P4
+  CAPTURE VAL R0
+  NAMECALL R5 R5 K6 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K17 ["redoHandle"]
+  GETUPVAL R5 0
+  LOADB R7 0
+  NAMECALL R5 R5 K18 ["SetEnabled"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Mouse"]
+  NAMECALL R2 R2 K2 ["get"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K3 ["Plugin"]
+  NAMECALL R3 R3 K2 ["get"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K4 ["LuaMeshEditingModuleContext"]
+  NAMECALL R4 R4 K5 ["getCurrentTool"]
+  CALL R4 1 1
+  JUMPIFEQKNIL R4 [+14]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K6 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K8 [{"Mouse", "Plugin", "VertexToolBase"}]
+  SETTABLEKS R2 R7 K1 ["Mouse"]
+  SETTABLEKS R3 R7 K3 ["Plugin"]
+  SETTABLEKS R4 R7 K7 ["VertexToolBase"]
+  CALL R5 2 -1
+  RETURN R5 -1
+  LOADNIL R5
+  RETURN R5 1
+
+PROTO_8:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["PluginActions"]
+  LOADK R4 K2 ["Undo"]
+  NAMECALL R2 R2 K3 ["get"]
+  CALL R2 2 1
+  GETTABLEKS R3 R1 K1 ["PluginActions"]
+  LOADK R5 K4 ["Redo"]
+  NAMECALL R3 R3 K3 ["get"]
+  CALL R3 2 1
+  JUMPIFNOT R2 [+3]
+  LOADB R4 0
+  SETTABLEKS R4 R2 K5 ["Enabled"]
+  JUMPIFNOT R3 [+3]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K5 ["Enabled"]
+  GETTABLEKS R4 R0 K6 ["deactivationListener"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K6 ["deactivationListener"]
+  NAMECALL R4 R4 K7 ["Disconnect"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K8 ["undoHandle"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K8 ["undoHandle"]
+  NAMECALL R4 R4 K7 ["Disconnect"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K9 ["redoHandle"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K9 ["redoHandle"]
+  NAMECALL R4 R4 K7 ["Disconnect"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K10 ["toolChangedHandle"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K10 ["toolChangedHandle"]
+  NAMECALL R4 R4 K7 ["Disconnect"]
+  CALL R4 1 0
+  GETUPVAL R4 0
+  LOADB R6 1
+  NAMECALL R4 R4 K11 ["SetEnabled"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R2 R0 K0 ["selectItem"]
+  DUPTABLE R3 K2 [{"EditingCage"}]
+  GETTABLEKS R4 R2 K3 ["editingCage"]
+  SETTABLEKS R4 R3 K1 ["EditingCage"]
+  RETURN R3 1
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  DUPTABLE R1 K2 [{"SetControlsPanelBlockerActivity", "SetControlsPanelBlockerMessage"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetControlsPanelBlockerActivity"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["SetControlsPanelBlockerMessage"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["LuaMeshEditingModule"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K5 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["AvatarToolsShared"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K5 ["Packages"]
+  GETTABLEKS R6 R7 K10 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K11 ["ContextServices"]
+  GETTABLEKS R7 R6 K12 ["withContext"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R3 K13 ["Components"]
+  GETTABLEKS R9 R10 K14 ["MeshEditingComponent"]
+  CALL R8 1 1
+  GETTABLEKS R10 R4 K15 ["Contexts"]
+  GETTABLEKS R9 R10 K16 ["LuaMeshEditingModuleContext"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R13 R0 K17 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Actions"]
+  GETTABLEKS R11 R12 K19 ["SetControlsPanelBlockerActivity"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K17 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Actions"]
+  GETTABLEKS R12 R13 K20 ["SetControlsPanelBlockerMessage"]
+  CALL R11 1 1
+  GETIMPORT R12 K22 [game]
+  LOADK R14 K23 ["ChangeHistoryService"]
+  NAMECALL R12 R12 K24 ["GetService"]
+  CALL R12 2 1
+  GETTABLEKS R13 R1 K25 ["PureComponent"]
+  LOADK R15 K26 ["LuaMeshEditingModuleWrapper"]
+  NAMECALL R13 R13 K27 ["extend"]
+  CALL R13 2 1
+  NEWTABLE R14 0 4
+  GETIMPORT R15 K31 [Enum.RibbonTool.Select]
+  GETIMPORT R16 K33 [Enum.RibbonTool.Move]
+  GETIMPORT R17 K35 [Enum.RibbonTool.Scale]
+  GETIMPORT R18 K37 [Enum.RibbonTool.Rotate]
+  SETLIST R14 R15 4 [1]
+  NEWTABLE R15 0 0
+  GETIMPORT R16 K39 [ipairs]
+  MOVE R17 R14
+  CALL R16 1 3
+  FORGPREP_INEXT R16
+  SETTABLE R19 R15 R20
+  FORGLOOP R16 2 [inext] [-2]
+  DUPCLOSURE R16 K40 [PROTO_6]
+  CAPTURE VAL R12
+  SETTABLEKS R16 R13 K41 ["didMount"]
+  DUPCLOSURE R16 K42 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  SETTABLEKS R16 R13 K43 ["render"]
+  DUPCLOSURE R16 K44 [PROTO_8]
+  CAPTURE VAL R12
+  SETTABLEKS R16 R13 K45 ["willUnmount"]
+  DUPCLOSURE R16 K46 [PROTO_9]
+  DUPCLOSURE R17 K47 [PROTO_12]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  MOVE R18 R7
+  DUPTABLE R19 K52 [{"Plugin", "PluginActions", "Localization", "LuaMeshEditingModuleContext", "Mouse"}]
+  GETTABLEKS R20 R6 K48 ["Plugin"]
+  SETTABLEKS R20 R19 K48 ["Plugin"]
+  GETTABLEKS R20 R6 K49 ["PluginActions"]
+  SETTABLEKS R20 R19 K49 ["PluginActions"]
+  GETTABLEKS R20 R6 K50 ["Localization"]
+  SETTABLEKS R20 R19 K50 ["Localization"]
+  SETTABLEKS R9 R19 K16 ["LuaMeshEditingModuleContext"]
+  GETTABLEKS R20 R6 K51 ["Mouse"]
+  SETTABLEKS R20 R19 K51 ["Mouse"]
+  CALL R18 1 1
+  MOVE R19 R13
+  CALL R18 1 1
+  MOVE R13 R18
+  GETTABLEKS R18 R2 K53 ["connect"]
+  MOVE R19 R16
+  MOVE R20 R17
+  CALL R18 2 1
+  MOVE R19 R13
+  CALL R18 1 -1
+  RETURN R18 -1

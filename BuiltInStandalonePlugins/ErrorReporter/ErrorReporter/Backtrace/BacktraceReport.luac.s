@@ -1,0 +1,245 @@
+PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ProcessService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETIMPORT R0 K2 [os.date]
+  LOADK R1 K3 ["!*t"]
+  CALL R0 1 1
+  DUPTABLE R1 K12 [{"uuid", "timestamp", "lang", "langVersion", "agent", "agentVersion", "threads", "mainThread"}]
+  GETUPVAL R2 0
+  LOADB R4 0
+  NAMECALL R2 R2 K13 ["GenerateGUID"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K14 ["lower"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K4 ["uuid"]
+  GETIMPORT R2 K16 [os.time]
+  MOVE R3 R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K5 ["timestamp"]
+  LOADK R2 K17 ["lua"]
+  SETTABLEKS R2 R1 K6 ["lang"]
+  LOADK R3 K18 ["Roblox"]
+  GETIMPORT R4 K20 [_VERSION]
+  CONCAT R2 R3 R4
+  SETTABLEKS R2 R1 K7 ["langVersion"]
+  LOADK R2 K21 ["backtrace-Lua"]
+  SETTABLEKS R2 R1 K8 ["agent"]
+  LOADK R2 K22 ["0.1.0"]
+  SETTABLEKS R2 R1 K9 ["agentVersion"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K10 ["threads"]
+  LOADK R2 K23 ["default"]
+  SETTABLEKS R2 R1 K11 ["mainThread"]
+  GETUPVAL R4 1
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K25 [setmetatable]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["string"]
+  MOVE R4 R0
+  CALL R3 1 1
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["Expected errorMessage to be a string"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["string"]
+  MOVE R4 R1
+  CALL R3 1 1
+  FASTCALL2K ASSERT R3 K4 [+4]
+  LOADK R4 K4 ["Expected errorStack to be a string"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["new"]
+  CALL R2 0 1
+  NEWTABLE R5 2 0
+  SETTABLEKS R0 R5 K6 ["error.message"]
+  GETUPVAL R7 2
+  JUMPIF R7 [+10]
+  GETIMPORT R6 K8 [game]
+  LOADK R8 K9 ["StudioService"]
+  NAMECALL R6 R6 K10 ["GetService"]
+  CALL R6 2 1
+  NAMECALL R6 R6 K11 ["GetUserId"]
+  CALL R6 1 1
+  JUMPIF R6 [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K12 ["PlayerId"]
+  NAMECALL R3 R2 K13 ["addAttributes"]
+  CALL R3 2 0
+  GETUPVAL R3 3
+  MOVE R4 R1
+  CALL R3 1 2
+  MOVE R7 R3
+  NAMECALL R5 R2 K14 ["addStackToMainThread"]
+  CALL R5 2 0
+  SETTABLEKS R4 R2 K15 ["sourceCode"]
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["IBacktraceReport"]
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_4:
+  GETTABLEKS R3 R0 K0 ["IAttributes"]
+  MOVE R4 R1
+  CALL R3 1 1
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["Expected newAttributes to be a table"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["Dictionary"]
+  GETTABLEKS R2 R3 K5 ["join"]
+  GETTABLEKS R3 R0 K6 ["attributes"]
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  MOVE R4 R1
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K6 ["attributes"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R3 R0 K0 ["IAnnotations"]
+  MOVE R4 R1
+  CALL R3 1 1
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["Expected newAnnotations to be a table"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["Dictionary"]
+  GETTABLEKS R2 R3 K5 ["join"]
+  GETTABLEKS R3 R0 K6 ["annotations"]
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  MOVE R4 R1
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K6 ["annotations"]
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["table"]
+  MOVE R5 R1
+  CALL R4 1 1
+  FASTCALL2K ASSERT R4 K1 [+4]
+  LOADK R5 K1 ["Expected stack to be an array of tables"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["string"]
+  MOVE R5 R2
+  CALL R4 1 1
+  FASTCALL2K ASSERT R4 K5 [+4]
+  LOADK R5 K5 ["Expected threadName to be a string"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["Dictionary"]
+  GETTABLEKS R3 R4 K7 ["join"]
+  GETTABLEKS R4 R0 K8 ["threads"]
+  NEWTABLE R5 1 0
+  DUPTABLE R6 K11 [{"name", "stack"}]
+  SETTABLEKS R2 R6 K9 ["name"]
+  SETTABLEKS R1 R6 K10 ["stack"]
+  SETTABLE R6 R5 R2
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K8 ["threads"]
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["table"]
+  MOVE R4 R1
+  CALL R3 1 1
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["Expected stack to be an array of tables"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  MOVE R4 R1
+  GETTABLEKS R5 R0 K4 ["mainThread"]
+  NAMECALL R2 R0 K5 ["addStackToThread"]
+  CALL R2 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Cryo"]
+  CALL R3 1 1
+  GETTABLEKS R6 R2 K12 ["Util"]
+  GETTABLEKS R5 R6 K13 ["Typecheck"]
+  GETTABLEKS R4 R5 K14 ["t"]
+  GETIMPORT R5 K8 [require]
+  GETIMPORT R8 K5 [script]
+  GETTABLEKS R7 R8 K6 ["Parent"]
+  GETTABLEKS R6 R7 K15 ["BacktraceInterfaces"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETIMPORT R9 K5 [script]
+  GETTABLEKS R8 R9 K6 ["Parent"]
+  GETTABLEKS R7 R8 K16 ["processErrorStack"]
+  CALL R6 1 1
+  DUPTABLE R7 K19 [{"IAttributes", "IAnnotations"}]
+  GETTABLEKS R8 R5 K17 ["IAttributes"]
+  SETTABLEKS R8 R7 K17 ["IAttributes"]
+  GETTABLEKS R8 R5 K18 ["IAnnotations"]
+  SETTABLEKS R8 R7 K18 ["IAnnotations"]
+  SETTABLEKS R7 R7 K20 ["__index"]
+  GETIMPORT R8 K22 [pcall]
+  DUPCLOSURE R9 K23 [PROTO_0]
+  CALL R8 1 2
+  DUPCLOSURE R10 K24 [PROTO_1]
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  SETTABLEKS R10 R7 K25 ["new"]
+  DUPCLOSURE R10 K26 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R10 R7 K27 ["fromMessageAndStack"]
+  DUPCLOSURE R10 K28 [PROTO_3]
+  CAPTURE VAL R5
+  SETTABLEKS R10 R7 K29 ["validate"]
+  DUPCLOSURE R10 K30 [PROTO_4]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R7 K31 ["addAttributes"]
+  DUPCLOSURE R10 K32 [PROTO_5]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R7 K33 ["addAnnotations"]
+  DUPCLOSURE R10 K34 [PROTO_6]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETTABLEKS R10 R7 K35 ["addStackToThread"]
+  DUPCLOSURE R10 K36 [PROTO_7]
+  CAPTURE VAL R4
+  SETTABLEKS R10 R7 K37 ["addStackToMainThread"]
+  RETURN R7 1

@@ -1,0 +1,204 @@
+PROTO_0:
+  DUPTABLE R1 K1 [{"hovered"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["hovered"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"hovered"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["hovered"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"hovered"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["hovered"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["TagSettingRow"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["new"]
+  CALL R3 0 1
+  GETIMPORT R4 K5 [UDim2.new]
+  LOADN R5 1
+  GETTABLEKS R9 R2 K6 ["TextSize"]
+  GETTABLEKS R8 R9 K7 ["X"]
+  GETTABLEKS R7 R8 K8 ["Offset"]
+  GETTABLEKS R10 R1 K9 ["ControlSize"]
+  GETTABLEKS R9 R10 K7 ["X"]
+  GETTABLEKS R8 R9 K8 ["Offset"]
+  SUB R6 R7 R8
+  LOADN R7 0
+  GETTABLEKS R10 R2 K6 ["TextSize"]
+  GETTABLEKS R9 R10 K10 ["Y"]
+  GETTABLEKS R8 R9 K8 ["Offset"]
+  CALL R4 4 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K11 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K14 [{"Size", "LayoutOrder"}]
+  GETTABLEKS R8 R2 K12 ["Size"]
+  SETTABLEKS R8 R7 K12 ["Size"]
+  GETTABLEKS R8 R1 K13 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K13 ["LayoutOrder"]
+  NEWTABLE R8 0 2
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K20 [{"Size", "Layout", "HorizontalAlignment", "Spacing", "OnClick", "Style"}]
+  GETTABLEKS R12 R2 K12 ["Size"]
+  SETTABLEKS R12 R11 K12 ["Size"]
+  GETIMPORT R12 K24 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R12 R11 K15 ["Layout"]
+  GETIMPORT R12 K26 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R12 R11 K16 ["HorizontalAlignment"]
+  GETTABLEKS R12 R2 K17 ["Spacing"]
+  SETTABLEKS R12 R11 K17 ["Spacing"]
+  GETTABLEKS R12 R1 K18 ["OnClick"]
+  SETTABLEKS R12 R11 K18 ["OnClick"]
+  GETTABLEKS R14 R0 K28 ["state"]
+  GETTABLEKS R13 R14 K29 ["hovered"]
+  ANDK R12 R13 K27 ["PaneHover"]
+  SETTABLEKS R12 R11 K19 ["Style"]
+  DUPTABLE R12 K32 [{"RowText", "ControlPane"}]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETUPVAL R14 3
+  DUPTABLE R15 K36 [{"Size", "Style", "LayoutOrder", "Text", "TextXAlignment", "TextTruncate"}]
+  SETTABLEKS R4 R15 K12 ["Size"]
+  GETTABLEKS R18 R0 K28 ["state"]
+  GETTABLEKS R17 R18 K29 ["hovered"]
+  JUMPIFNOT R17 [+2]
+  LOADK R16 K37 ["ButtonTextHover"]
+  JUMP [+1]
+  LOADK R16 K38 ["ButtonText"]
+  SETTABLEKS R16 R15 K19 ["Style"]
+  NAMECALL R16 R3 K39 ["getNextOrder"]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K13 ["LayoutOrder"]
+  GETTABLEKS R16 R1 K33 ["Text"]
+  SETTABLEKS R16 R15 K33 ["Text"]
+  GETIMPORT R16 K41 [Enum.TextXAlignment.Left]
+  SETTABLEKS R16 R15 K34 ["TextXAlignment"]
+  GETIMPORT R16 K43 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R16 R15 K35 ["TextTruncate"]
+  DUPTABLE R16 K45 [{"Tooltip"}]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K11 ["createElement"]
+  GETUPVAL R18 4
+  DUPTABLE R19 K47 [{"Text", "Priority"}]
+  GETTABLEKS R20 R1 K48 ["TooltipText"]
+  SETTABLEKS R20 R19 K33 ["Text"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K46 ["Priority"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K44 ["Tooltip"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K30 ["RowText"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K49 [{"LayoutOrder", "Size"}]
+  NAMECALL R16 R3 K39 ["getNextOrder"]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K13 ["LayoutOrder"]
+  GETTABLEKS R16 R1 K9 ["ControlSize"]
+  SETTABLEKS R16 R15 K12 ["Size"]
+  DUPTABLE R16 K51 [{"Control"}]
+  GETTABLEKS R17 R1 K50 ["Control"]
+  JUMPIFNOT R17 [+6]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K11 ["createElement"]
+  GETTABLEKS R18 R1 K50 ["Control"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K50 ["Control"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K31 ["ControlPane"]
+  CALL R9 3 1
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K11 ["createElement"]
+  GETUPVAL R11 5
+  DUPTABLE R12 K55 [{"Cursor", "MouseEnter", "MouseLeave"}]
+  GETTABLEKS R14 R1 K18 ["OnClick"]
+  JUMPIFEQKNIL R14 [+3]
+  LOADK R13 K56 ["PointingHand"]
+  JUMP [+1]
+  LOADK R13 K57 ["Arrow"]
+  SETTABLEKS R13 R12 K52 ["Cursor"]
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R0
+  SETTABLEKS R13 R12 K53 ["MouseEnter"]
+  NEWCLOSURE R13 P1
+  CAPTURE VAL R0
+  SETTABLEKS R13 R12 K54 ["MouseLeave"]
+  CALL R10 2 -1
+  SETLIST R8 R9 4294967295 [1]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["withContext"]
+  GETTABLEKS R6 R4 K12 ["Analytics"]
+  GETTABLEKS R7 R4 K13 ["Localization"]
+  GETTABLEKS R9 R3 K14 ["Style"]
+  GETTABLEKS R8 R9 K15 ["Stylizer"]
+  GETTABLEKS R9 R3 K16 ["UI"]
+  GETTABLEKS R10 R9 K17 ["HoverArea"]
+  GETTABLEKS R11 R9 K18 ["Pane"]
+  GETTABLEKS R12 R9 K19 ["TextLabel"]
+  GETTABLEKS R13 R9 K20 ["Tooltip"]
+  GETTABLEKS R14 R3 K21 ["Util"]
+  GETTABLEKS R15 R14 K22 ["LayoutOrderIterator"]
+  GETTABLEKS R16 R2 K23 ["PureComponent"]
+  LOADK R18 K24 ["TagSettingRow"]
+  NAMECALL R16 R16 K25 ["extend"]
+  CALL R16 2 1
+  DUPCLOSURE R17 K26 [PROTO_0]
+  SETTABLEKS R17 R16 K27 ["init"]
+  DUPCLOSURE R17 K28 [PROTO_3]
+  CAPTURE VAL R15
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  SETTABLEKS R17 R16 K29 ["render"]
+  MOVE R17 R5
+  DUPTABLE R18 K30 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R6 R18 K12 ["Analytics"]
+  SETTABLEKS R7 R18 K13 ["Localization"]
+  SETTABLEKS R8 R18 K15 ["Stylizer"]
+  CALL R17 1 1
+  MOVE R18 R16
+  CALL R17 1 1
+  MOVE R16 R17
+  RETURN R16 1

@@ -1,0 +1,25 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 2 0
+  DUPTABLE R1 K8 [{"Relevance", "Name", "DateModified", "DateCreated", "Creator", "ShortestToLongest", "LongestToShortest", "MostUsed"}]
+  LOADK R2 K0 ["Relevance"]
+  SETTABLEKS R2 R1 K0 ["Relevance"]
+  LOADK R2 K1 ["Name"]
+  SETTABLEKS R2 R1 K1 ["Name"]
+  LOADK R2 K2 ["DateModified"]
+  SETTABLEKS R2 R1 K2 ["DateModified"]
+  LOADK R2 K3 ["DateCreated"]
+  SETTABLEKS R2 R1 K3 ["DateCreated"]
+  LOADK R2 K4 ["Creator"]
+  SETTABLEKS R2 R1 K4 ["Creator"]
+  LOADK R2 K5 ["ShortestToLongest"]
+  SETTABLEKS R2 R1 K5 ["ShortestToLongest"]
+  LOADK R2 K6 ["LongestToShortest"]
+  SETTABLEKS R2 R1 K6 ["LongestToShortest"]
+  LOADK R2 K7 ["MostUsed"]
+  SETTABLEKS R2 R1 K7 ["MostUsed"]
+  SETTABLEKS R1 R0 K9 ["OPTION"]
+  GETTABLEKS R2 R0 K9 ["OPTION"]
+  GETTABLEKS R1 R2 K0 ["Relevance"]
+  SETTABLEKS R1 R0 K10 ["DEFAULT"]
+  RETURN R0 1

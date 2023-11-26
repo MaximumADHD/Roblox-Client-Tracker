@@ -1,0 +1,70 @@
+PROTO_0:
+  DUPTABLE R2 K1 [{"targetObject"}]
+  GETTABLEKS R3 R0 K0 ["targetObject"]
+  SETTABLEKS R3 R2 K0 ["targetObject"]
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_3:
+  DUPTABLE R1 K2 [{"selectObjectForEditing", "selectInvalidSelection"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["selectObjectForEditing"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["selectInvalidSelection"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["RoactRodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Actions"]
+  GETTABLEKS R3 R4 K9 ["SelectObjectForEditing"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K7 ["Src"]
+  GETTABLEKS R5 R6 K8 ["Actions"]
+  GETTABLEKS R4 R5 K10 ["SelectInvalidSelection"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["SelectionUpdater"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K13 [PROTO_0]
+  DUPCLOSURE R6 K14 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  GETTABLEKS R7 R1 K15 ["connect"]
+  MOVE R8 R5
+  MOVE R9 R6
+  CALL R7 2 1
+  MOVE R8 R4
+  CALL R7 1 -1
+  RETURN R7 -1

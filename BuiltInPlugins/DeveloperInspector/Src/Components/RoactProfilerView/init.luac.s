@@ -1,0 +1,586 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["setProfileSearchTerm"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K2 ["Inspector"]
+  NAMECALL R1 R1 K3 ["get"]
+  CALL R1 1 1
+  NAMECALL R2 R1 K4 ["getTargetApi"]
+  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["isInstance"]
+  MOVE R4 R2
+  CALL R3 1 1
+  JUMPIFNOT R3 [+7]
+  MOVE R5 R0
+  NAMECALL R3 R2 K1 ["setProfileSearchTerm"]
+  CALL R3 2 0
+  NAMECALL R3 R2 K6 ["getProfileData"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Inspector"]
+  NAMECALL R0 R0 K2 ["get"]
+  CALL R0 1 1
+  NAMECALL R1 R0 K3 ["getTargetApi"]
+  CALL R1 1 1
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K4 ["getSelectedPath"]
+  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["isInstance"]
+  MOVE R4 R1
+  CALL R3 1 1
+  JUMPIFNOT R3 [+5]
+  JUMPIFNOT R2 [+4]
+  MOVE R5 R2
+  NAMECALL R3 R1 K6 ["openPath"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Inspector"]
+  NAMECALL R0 R0 K2 ["get"]
+  CALL R0 1 1
+  NAMECALL R1 R0 K3 ["getTargetApi"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["isInstance"]
+  MOVE R3 R1
+  CALL R2 1 1
+  JUMPIFNOT R2 [+3]
+  NAMECALL R2 R1 K5 ["clearProfileData"]
+  CALL R2 1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K6 ["clearTable"]
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Filter"]
+  LENGTH R2 R0
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+4]
+  NEWTABLE R1 0 0
+  JUMPIF R1 [+7]
+  NEWTABLE R1 0 3
+  LOADK R2 K2 ["Consumer"]
+  LOADK R3 K3 ["Provider"]
+  LOADK R4 K4 ["RoduxConnection"]
+  SETLIST R1 R2 3 [1]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K5 ["setProfileFilter"]
+  MOVE R3 R1
+  CALL R2 1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K6 ["Inspector"]
+  NAMECALL R2 R2 K7 ["get"]
+  CALL R2 1 1
+  NAMECALL R3 R2 K8 ["getTargetApi"]
+  CALL R3 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["isInstance"]
+  MOVE R5 R3
+  CALL R4 1 1
+  JUMPIFNOT R4 [+7]
+  MOVE R6 R1
+  NAMECALL R4 R3 K5 ["setProfileFilter"]
+  CALL R4 2 0
+  NAMECALL R4 R3 K10 ["getProfileData"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_4:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K0 ["onSearchTable"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K1 ["onViewComponent"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K2 ["onClearTable"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K3 ["onToggleFilter"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["TableData"]
+  GETTABLEKS R2 R1 K2 ["selectedRow"]
+  JUMPIF R2 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETTABLEKS R4 R1 K4 ["pageIndex"]
+  SUBK R3 R4 K3 [1]
+  GETTABLEKS R4 R1 K5 ["pageSize"]
+  MUL R2 R3 R4
+  GETTABLEKS R4 R1 K2 ["selectedRow"]
+  SUB R3 R4 R2
+  GETTABLEKS R5 R1 K6 ["pageRows"]
+  GETTABLE R4 R5 R3
+  JUMPIFNOT R4 [+3]
+  GETTABLEKS R5 R4 K7 ["path"]
+  JUMPIF R5 [+1]
+  LOADNIL R5
+  RETURN R5 1
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  NAMECALL R3 R0 K2 ["getSelectedPath"]
+  CALL R3 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K5 [{"Layout"}]
+  GETIMPORT R7 K9 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R7 R6 K4 ["Layout"]
+  DUPTABLE R7 K12 [{"Left", "Right"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K15 [{"Size", "LayoutOrder", "Layout"}]
+  GETIMPORT R11 K18 [UDim2.fromScale]
+  LOADK R12 K19 [0.5]
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["Size"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K14 ["LayoutOrder"]
+  GETIMPORT R11 K21 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K4 ["Layout"]
+  DUPTABLE R11 K24 [{"Tools", "Table"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 1
+  DUPTABLE R14 K27 [{"Padding", "LayoutOrder", "Layout", "HorizontalAlignment", "Size"}]
+  GETTABLEKS R15 R2 K25 ["Padding"]
+  SETTABLEKS R15 R14 K25 ["Padding"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K14 ["LayoutOrder"]
+  GETIMPORT R15 K9 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R15 R14 K4 ["Layout"]
+  GETIMPORT R15 K28 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R15 R14 K26 ["HorizontalAlignment"]
+  GETIMPORT R15 K30 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 32
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K13 ["Size"]
+  DUPTABLE R15 K34 [{"Search", "Filter", "Clear"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  GETUPVAL R17 2
+  DUPTABLE R18 K39 [{"LayoutOrder", "ShowSearchIcon", "ShowSearchButton", "OnTextChanged", "Width"}]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K14 ["LayoutOrder"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K35 ["ShowSearchIcon"]
+  LOADB R19 0
+  SETTABLEKS R19 R18 K36 ["ShowSearchButton"]
+  GETTABLEKS R19 R0 K40 ["onSearchTable"]
+  SETTABLEKS R19 R18 K37 ["OnTextChanged"]
+  LOADN R19 44
+  SETTABLEKS R19 R18 K38 ["Width"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K31 ["Search"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  GETUPVAL R17 3
+  DUPTABLE R18 K43 [{"Style", "Size", "LayoutOrder", "OnClick"}]
+  GETTABLEKS R22 R0 K0 ["props"]
+  GETTABLEKS R21 R22 K32 ["Filter"]
+  LENGTH R20 R21
+  LOADN R21 0
+  JUMPIFNOTLT R21 R20 [+3]
+  LOADK R19 K44 ["RoundPrimary"]
+  JUMP [+1]
+  LOADK R19 K45 ["RoundSubtle"]
+  SETTABLEKS R19 R18 K41 ["Style"]
+  GETIMPORT R19 K30 [UDim2.new]
+  LOADN R20 0
+  GETTABLEKS R21 R2 K46 ["ButtonSize"]
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K13 ["Size"]
+  LOADN R19 2
+  SETTABLEKS R19 R18 K14 ["LayoutOrder"]
+  GETTABLEKS R19 R0 K47 ["onToggleFilter"]
+  SETTABLEKS R19 R18 K42 ["OnClick"]
+  DUPTABLE R19 K50 [{"Tooltip", "Icon"}]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K3 ["createElement"]
+  GETUPVAL R21 4
+  DUPTABLE R22 K52 [{"Text"}]
+  LOADK R23 K53 ["Exclude higher-order components"]
+  SETTABLEKS R23 R22 K51 ["Text"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K48 ["Tooltip"]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K3 ["createElement"]
+  GETUPVAL R21 5
+  DUPTABLE R22 K57 [{"Size", "Position", "AnchorPoint", "Image"}]
+  GETIMPORT R23 K59 [UDim2.fromOffset]
+  GETTABLEKS R24 R2 K60 ["IconSize"]
+  GETTABLEKS R25 R2 K60 ["IconSize"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K13 ["Size"]
+  GETIMPORT R23 K18 [UDim2.fromScale]
+  LOADK R24 K19 [0.5]
+  LOADK R25 K19 [0.5]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K54 ["Position"]
+  GETIMPORT R23 K62 [Vector2.new]
+  LOADK R24 K19 [0.5]
+  LOADK R25 K19 [0.5]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K55 ["AnchorPoint"]
+  LOADK R23 K63 ["rbxasset://textures/DeveloperInspector/Filter.png"]
+  SETTABLEKS R23 R22 K56 ["Image"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K49 ["Icon"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K32 ["Filter"]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  GETUPVAL R17 3
+  DUPTABLE R18 K43 [{"Style", "Size", "LayoutOrder", "OnClick"}]
+  LOADK R19 K45 ["RoundSubtle"]
+  SETTABLEKS R19 R18 K41 ["Style"]
+  GETIMPORT R19 K30 [UDim2.new]
+  LOADN R20 0
+  GETTABLEKS R21 R2 K46 ["ButtonSize"]
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K13 ["Size"]
+  LOADN R19 3
+  SETTABLEKS R19 R18 K14 ["LayoutOrder"]
+  GETTABLEKS R19 R0 K64 ["onClearTable"]
+  SETTABLEKS R19 R18 K42 ["OnClick"]
+  DUPTABLE R19 K50 [{"Tooltip", "Icon"}]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K3 ["createElement"]
+  GETUPVAL R21 4
+  DUPTABLE R22 K52 [{"Text"}]
+  LOADK R23 K65 ["Clear the table"]
+  SETTABLEKS R23 R22 K51 ["Text"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K48 ["Tooltip"]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K3 ["createElement"]
+  GETUPVAL R21 5
+  DUPTABLE R22 K57 [{"Size", "Position", "AnchorPoint", "Image"}]
+  GETIMPORT R23 K59 [UDim2.fromOffset]
+  GETTABLEKS R24 R2 K60 ["IconSize"]
+  GETTABLEKS R25 R2 K60 ["IconSize"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K13 ["Size"]
+  GETIMPORT R23 K18 [UDim2.fromScale]
+  LOADK R24 K19 [0.5]
+  LOADK R25 K19 [0.5]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K54 ["Position"]
+  GETIMPORT R23 K62 [Vector2.new]
+  LOADK R24 K19 [0.5]
+  LOADK R25 K19 [0.5]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K55 ["AnchorPoint"]
+  LOADK R23 K66 ["rbxasset://textures/DeveloperInspector/Bin.png"]
+  SETTABLEKS R23 R22 K56 ["Image"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K49 ["Icon"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K33 ["Clear"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K22 ["Tools"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 1
+  DUPTABLE R14 K67 [{"Padding", "LayoutOrder", "Size"}]
+  GETTABLEKS R15 R2 K25 ["Padding"]
+  SETTABLEKS R15 R14 K25 ["Padding"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K14 ["LayoutOrder"]
+  GETIMPORT R15 K30 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 1
+  LOADN R19 224
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K13 ["Size"]
+  DUPTABLE R15 K69 [{"Child"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  GETUPVAL R17 6
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K68 ["Child"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K23 ["Table"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K10 ["Left"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K15 [{"Size", "LayoutOrder", "Layout"}]
+  GETIMPORT R11 K18 [UDim2.fromScale]
+  LOADK R12 K19 [0.5]
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["Size"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K14 ["LayoutOrder"]
+  GETIMPORT R11 K21 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K4 ["Layout"]
+  DUPTABLE R11 K24 [{"Tools", "Table"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 1
+  DUPTABLE R14 K27 [{"Padding", "LayoutOrder", "Layout", "HorizontalAlignment", "Size"}]
+  GETTABLEKS R15 R2 K25 ["Padding"]
+  SETTABLEKS R15 R14 K25 ["Padding"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K14 ["LayoutOrder"]
+  GETIMPORT R15 K9 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R15 R14 K4 ["Layout"]
+  GETIMPORT R15 K70 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R15 R14 K26 ["HorizontalAlignment"]
+  GETIMPORT R15 K30 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 32
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K13 ["Size"]
+  DUPTABLE R15 K72 [{"View"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  GETUPVAL R17 3
+  DUPTABLE R18 K74 [{"Style", "Text", "Size", "OnClick", "StyleModifier"}]
+  LOADK R19 K75 ["Round"]
+  SETTABLEKS R19 R18 K41 ["Style"]
+  LOADK R19 K76 ["View Component"]
+  SETTABLEKS R19 R18 K51 ["Text"]
+  GETIMPORT R19 K30 [UDim2.new]
+  LOADN R20 0
+  LOADN R21 130
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K13 ["Size"]
+  GETTABLEKS R19 R0 K77 ["onViewComponent"]
+  SETTABLEKS R19 R18 K42 ["OnClick"]
+  JUMPIFNOTEQKNIL R3 [+5]
+  GETUPVAL R20 7
+  GETTABLEKS R19 R20 K78 ["Disabled"]
+  JUMPIF R19 [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K73 ["StyleModifier"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K71 ["View"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K22 ["Tools"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 1
+  DUPTABLE R14 K67 [{"Padding", "LayoutOrder", "Size"}]
+  GETTABLEKS R15 R2 K25 ["Padding"]
+  SETTABLEKS R15 R14 K25 ["Padding"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K14 ["LayoutOrder"]
+  GETIMPORT R15 K30 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 1
+  LOADN R19 224
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K13 ["Size"]
+  DUPTABLE R15 K69 [{"Child"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  GETUPVAL R17 8
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K68 ["Child"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K23 ["Table"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K11 ["Right"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_7:
+  DUPTABLE R1 K4 [{"Tabs", "TableData", "SearchTerm", "Filter"}]
+  GETTABLEKS R3 R0 K5 ["Targets"]
+  GETTABLEKS R2 R3 K6 ["tabs"]
+  SETTABLEKS R2 R1 K0 ["Tabs"]
+  GETTABLEKS R3 R0 K7 ["RoactInspector"]
+  GETTABLEKS R2 R3 K8 ["profileComponents"]
+  SETTABLEKS R2 R1 K1 ["TableData"]
+  GETTABLEKS R3 R0 K7 ["RoactInspector"]
+  GETTABLEKS R2 R3 K9 ["profileSearchTerm"]
+  SETTABLEKS R2 R1 K2 ["SearchTerm"]
+  GETTABLEKS R3 R0 K7 ["RoactInspector"]
+  GETTABLEKS R2 R3 K10 ["profileFilter"]
+  SETTABLEKS R2 R1 K3 ["Filter"]
+  RETURN R1 1
+
+PROTO_8:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_11:
+  DUPTABLE R1 K3 [{"clearTable", "setProfileSearchTerm", "setProfileFilter"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["clearTable"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["setProfileSearchTerm"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["setProfileFilter"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["InspectorContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["RoactProfilerEventsTable"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K14 ["RoactProfilerComponentsTable"]
+  CALL R6 1 1
+  GETTABLEKS R7 R3 K15 ["DeveloperTools"]
+  GETTABLEKS R8 R7 K16 ["RoactInspectorApi"]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K17 ["Actions"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R9 K18 ["RoactInspector"]
+  GETTABLEKS R11 R12 K19 ["ClearProfileData"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R13 R9 K18 ["RoactInspector"]
+  GETTABLEKS R12 R13 K20 ["SetProfileSearchTerm"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R14 R9 K18 ["RoactInspector"]
+  GETTABLEKS R13 R14 K21 ["SetProfileFilter"]
+  CALL R12 1 1
+  GETTABLEKS R13 R3 K22 ["ContextServices"]
+  GETTABLEKS R14 R13 K23 ["withContext"]
+  GETTABLEKS R15 R3 K10 ["Util"]
+  GETTABLEKS R16 R15 K24 ["StyleModifier"]
+  GETTABLEKS R17 R3 K25 ["UI"]
+  GETTABLEKS R18 R17 K26 ["Pane"]
+  GETTABLEKS R19 R17 K27 ["Tooltip"]
+  GETTABLEKS R20 R17 K28 ["Button"]
+  GETTABLEKS R21 R17 K29 ["Image"]
+  GETTABLEKS R22 R17 K30 ["SearchBar"]
+  GETTABLEKS R23 R1 K31 ["PureComponent"]
+  LOADK R25 K32 ["RoactProfilerView"]
+  NAMECALL R23 R23 K33 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K34 [PROTO_4]
+  CAPTURE VAL R8
+  SETTABLEKS R24 R23 K35 ["init"]
+  DUPCLOSURE R24 K36 [PROTO_5]
+  SETTABLEKS R24 R23 K37 ["getSelectedPath"]
+  DUPCLOSURE R24 K38 [PROTO_6]
+  CAPTURE VAL R1
+  CAPTURE VAL R18
+  CAPTURE VAL R22
+  CAPTURE VAL R20
+  CAPTURE VAL R19
+  CAPTURE VAL R21
+  CAPTURE VAL R6
+  CAPTURE VAL R16
+  CAPTURE VAL R5
+  SETTABLEKS R24 R23 K39 ["render"]
+  MOVE R24 R14
+  DUPTABLE R25 K42 [{"Inspector", "Stylizer"}]
+  SETTABLEKS R4 R25 K40 ["Inspector"]
+  GETTABLEKS R26 R13 K41 ["Stylizer"]
+  SETTABLEKS R26 R25 K41 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  GETTABLEKS R24 R2 K43 ["connect"]
+  DUPCLOSURE R25 K44 [PROTO_7]
+  DUPCLOSURE R26 K45 [PROTO_11]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CALL R24 2 1
+  MOVE R25 R23
+  CALL R24 1 -1
+  RETURN R24 -1

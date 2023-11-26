@@ -1,0 +1,291 @@
+PROTO_0:
+  JUMPIF R0 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  FASTCALL1 ASSERT R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [assert]
+  CALL R1 1 0
+  LOADK R4 K2 ["Actor"]
+  NAMECALL R2 R0 K3 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+2]
+  MOVE R1 R0
+  JUMP [+9]
+  LOADK R4 K4 ["Player"]
+  NAMECALL R2 R0 K3 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R1 R0 K5 ["Character"]
+  JUMP [+1]
+  LOADNIL R1
+  JUMPIFNOT R1 [+7]
+  LOADK R5 K6 ["HasCompositor"]
+  NAMECALL R3 R1 K7 ["GetAttribute"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+2]
+  MOVE R2 R1
+  RETURN R2 1
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_1:
+  JUMPIF R0 [+2]
+  LOADNIL R1
+  JUMP [+30]
+  FASTCALL1 ASSERT R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [assert]
+  CALL R2 1 0
+  LOADK R5 K2 ["Actor"]
+  NAMECALL R3 R0 K3 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+2]
+  MOVE R2 R0
+  JUMP [+9]
+  LOADK R5 K4 ["Player"]
+  NAMECALL R3 R0 K3 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R2 R0 K5 ["Character"]
+  JUMP [+1]
+  LOADNIL R2
+  JUMPIFNOT R2 [+7]
+  LOADK R5 K6 ["HasCompositor"]
+  NAMECALL R3 R2 K7 ["GetAttribute"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+2]
+  MOVE R1 R2
+  JUMP [+1]
+  LOADNIL R1
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_2:
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["DebugDataConnection"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  JUMPIF R0 [+2]
+  LOADNIL R2
+  JUMP [+30]
+  FASTCALL1 ASSERT R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K3 [assert]
+  CALL R3 1 0
+  LOADK R6 K4 ["Actor"]
+  NAMECALL R4 R0 K5 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R3 R0
+  JUMP [+9]
+  LOADK R6 K6 ["Player"]
+  NAMECALL R4 R0 K5 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+3]
+  GETTABLEKS R3 R0 K7 ["Character"]
+  JUMP [+1]
+  LOADNIL R3
+  JUMPIFNOT R3 [+7]
+  LOADK R6 K8 ["HasCompositor"]
+  NAMECALL R4 R3 K9 ["GetAttribute"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R2 R3
+  JUMP [+1]
+  LOADNIL R2
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K10 ["AttachCompositor"]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_3:
+  DUPCLOSURE R1 K0 [PROTO_1]
+  SETTABLEKS R1 R0 K1 ["isSelectedInstanceValid"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["onValidSelection"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["DetachCompositor"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["onValidSelection"]
+  MOVE R2 R0
+  LOADB R3 0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["onValidSelection"]
+  MOVE R2 R0
+  LOADB R3 1
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_8:
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Folder"]
+  NEWTABLE R3 0 0
+  DUPTABLE R4 K4 [{"InstanceSelector", "PlayerListener"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K8 [{"IsSelectedInstanceValid", "OnValidSelection", "OnInvalidSelection"}]
+  GETTABLEKS R8 R0 K9 ["isSelectedInstanceValid"]
+  SETTABLEKS R8 R7 K5 ["IsSelectedInstanceValid"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K6 ["OnValidSelection"]
+  DUPCLOSURE R8 K10 [PROTO_6]
+  SETTABLEKS R8 R7 K7 ["OnInvalidSelection"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K2 ["InstanceSelector"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K8 [{"IsSelectedInstanceValid", "OnValidSelection", "OnInvalidSelection"}]
+  GETTABLEKS R8 R0 K9 ["isSelectedInstanceValid"]
+  SETTABLEKS R8 R7 K5 ["IsSelectedInstanceValid"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R0
+  SETTABLEKS R8 R7 K6 ["OnValidSelection"]
+  DUPCLOSURE R8 K11 [PROTO_8]
+  SETTABLEKS R8 R7 K7 ["OnInvalidSelection"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K3 ["PlayerListener"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_10:
+  DUPTABLE R1 K1 [{"DebugDataConnection"}]
+  GETTABLEKS R3 R0 K2 ["Status"]
+  GETTABLEKS R2 R3 K0 ["DebugDataConnection"]
+  SETTABLEKS R2 R1 K0 ["DebugDataConnection"]
+  RETURN R1 1
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_14:
+  DUPTABLE R1 K3 [{"AttachCompositor", "DetachCompositor", "ParseDebugData"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["AttachCompositor"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["DetachCompositor"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["ParseDebugData"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Components"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R3 K11 ["AvatarToolsShared"]
+  GETTABLEKS R5 R6 K12 ["InstanceSelector"]
+  CALL R4 1 1
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Thunks"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R5 K14 ["AttachCompositor"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R5 K15 ["DetachCompositor"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R5 K16 ["ParseDebugData"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K17 ["PlayerListener"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Types"]
+  CALL R10 1 1
+  GETTABLEKS R11 R1 K19 ["PureComponent"]
+  LOADK R13 K20 ["CompositorSelector"]
+  NAMECALL R11 R11 K21 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K22 [PROTO_0]
+  DUPCLOSURE R13 K23 [PROTO_3]
+  SETTABLEKS R13 R11 K24 ["init"]
+  DUPCLOSURE R13 K25 [PROTO_4]
+  SETTABLEKS R13 R11 K26 ["willUnmount"]
+  DUPCLOSURE R13 K27 [PROTO_9]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  SETTABLEKS R13 R11 K28 ["render"]
+  DUPCLOSURE R13 K29 [PROTO_10]
+  DUPCLOSURE R14 K30 [PROTO_14]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  GETTABLEKS R15 R2 K31 ["connect"]
+  MOVE R16 R13
+  MOVE R17 R14
+  CALL R15 2 1
+  MOVE R16 R11
+  CALL R15 1 1
+  MOVE R11 R15
+  RETURN R11 1

@@ -1,0 +1,616 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["calculateVisibleComponents"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["calculateVisibleComponents"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Analytics"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["WatchAdded"]
+  LOADK R4 K3 ["WatchWindow"]
+  NAMECALL R1 R1 K4 ["report"]
+  CALL R1 3 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K5 ["OnAddExpression"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K6 ["OnSetTab"]
+  LOADK R2 K7 ["Watches"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K8 ["CurrentStepStateBundle"]
+  JUMPIFEQKNIL R2 [+29]
+  GETTABLEKS R3 R2 K9 ["debuggerStateToken"]
+  JUMPIFEQKNIL R3 [+25]
+  GETIMPORT R4 K11 [game]
+  LOADK R6 K12 ["DebuggerConnectionManager"]
+  NAMECALL R4 R4 K13 ["GetService"]
+  CALL R4 2 1
+  GETTABLEKS R7 R3 K14 ["debuggerConnectionId"]
+  NAMECALL R5 R4 K15 ["GetConnectionById"]
+  CALL R5 2 1
+  JUMPIFEQKNIL R5 [+12]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["props"]
+  GETTABLEKS R6 R7 K16 ["OnExecuteExpressionForAllFrames"]
+  MOVE R7 R0
+  MOVE R8 R5
+  MOVE R9 R3
+  GETTABLEKS R10 R2 K17 ["threadId"]
+  CALL R6 4 0
+  RETURN R0 0
+
+PROTO_3:
+  DUPTABLE R1 K3 [{"shouldShowDropdown", "shouldShowDropdownIcon", "shouldShowSearchBar"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["shouldShowDropdown"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K1 ["shouldShowDropdownIcon"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K2 ["shouldShowSearchBar"]
+  RETURN R1 1
+
+PROTO_4:
+  DUPTABLE R1 K3 [{"shouldShowDropdown", "shouldShowDropdownIcon", "shouldShowSearchBar"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["shouldShowDropdown"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K1 ["shouldShowDropdownIcon"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K2 ["shouldShowSearchBar"]
+  RETURN R1 1
+
+PROTO_5:
+  DUPTABLE R1 K3 [{"shouldShowDropdown", "shouldShowDropdownIcon", "shouldShowSearchBar"}]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["shouldShowDropdown"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["shouldShowDropdownIcon"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K2 ["shouldShowSearchBar"]
+  RETURN R1 1
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["componentRef"]
+  GETTABLEKS R0 R1 K1 ["current"]
+  GETTABLEKS R2 R0 K2 ["AbsoluteSize"]
+  GETTABLEKS R1 R2 K3 ["x"]
+  JUMPIFNOTEQKNIL R0 [+2]
+  RETURN R0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["state"]
+  GETTABLEKS R2 R3 K5 ["shouldShowDropdown"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["state"]
+  GETTABLEKS R3 R4 K6 ["shouldShowDropdownIcon"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["state"]
+  GETTABLEKS R4 R5 K7 ["shouldShowSearchBar"]
+  LOADN R5 164
+  JUMPIFNOTLT R1 R5 [+10]
+  JUMPIFNOT R3 [+2]
+  JUMPIF R2 [+1]
+  JUMPIFNOT R4 [+26]
+  GETUPVAL R5 0
+  DUPCLOSURE R7 K8 [PROTO_3]
+  NAMECALL R5 R5 K9 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+  LOADN R5 15
+  JUMPIFNOTLT R1 R5 [+10]
+  JUMPIF R2 [+2]
+  JUMPIFNOT R3 [+1]
+  JUMPIF R4 [+14]
+  GETUPVAL R5 0
+  DUPCLOSURE R7 K10 [PROTO_4]
+  NAMECALL R5 R5 K9 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+  JUMPIFNOT R2 [+2]
+  JUMPIF R3 [+1]
+  JUMPIF R4 [+5]
+  GETUPVAL R5 0
+  DUPCLOSURE R7 K11 [PROTO_5]
+  NAMECALL R5 R5 K9 ["setState"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["children"]
+  JUMPIF R1 [+2]
+  NEWTABLE R1 0 0
+  RETURN R1 1
+
+PROTO_8:
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["DebuggerUIService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K4 ["ExpressionAdded"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  NAMECALL R2 R2 K5 ["Connect"]
+  CALL R2 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["createRef"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K7 ["componentRef"]
+  DUPTABLE R2 K11 [{"shouldShowDropdown", "shouldShowDropdownIcon", "shouldShowSearchBar"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K8 ["shouldShowDropdown"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K9 ["shouldShowDropdownIcon"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K10 ["shouldShowSearchBar"]
+  SETTABLEKS R2 R0 K12 ["state"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K13 ["calculateVisibleComponents"]
+  DUPCLOSURE R2 K14 [PROTO_7]
+  SETTABLEKS R2 R0 K15 ["getTreeChildren"]
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  DUPTABLE R4 K5 [{"Variables", "Watches"}]
+  LOADK R7 K6 ["Watch"]
+  LOADK R8 K7 ["VariablesTab"]
+  NAMECALL R5 R2 K8 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K3 ["Variables"]
+  LOADK R7 K6 ["Watch"]
+  LOADK R8 K9 ["WatchesTab"]
+  NAMECALL R5 R2 K8 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K4 ["Watches"]
+  NEWTABLE R5 0 2
+  DUPTABLE R6 K12 [{"Label", "Key"}]
+  GETTABLEKS R7 R4 K3 ["Variables"]
+  SETTABLEKS R7 R6 K10 ["Label"]
+  LOADK R7 K3 ["Variables"]
+  SETTABLEKS R7 R6 K11 ["Key"]
+  DUPTABLE R7 K12 [{"Label", "Key"}]
+  GETTABLEKS R8 R4 K4 ["Watches"]
+  SETTABLEKS R8 R7 K10 ["Label"]
+  LOADK R8 K4 ["Watches"]
+  SETTABLEKS R8 R7 K11 ["Key"]
+  SETLIST R5 R6 2 [1]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K13 ["HEADER_HEIGHT"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K15 ["BUTTON_PADDING"]
+  MULK R8 R9 K14 [2]
+  ADD R6 R7 R8
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K16 ["createElement"]
+  GETUPVAL R8 2
+  NEWTABLE R9 8 0
+  GETIMPORT R10 K19 [UDim2.fromScale]
+  LOADN R11 1
+  LOADN R12 1
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K20 ["Size"]
+  LOADK R10 K21 ["Box"]
+  SETTABLEKS R10 R9 K22 ["Style"]
+  GETIMPORT R10 K26 [Enum.FillDirection.Vertical]
+  SETTABLEKS R10 R9 K27 ["Layout"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K28 ["Ref"]
+  GETTABLEKS R11 R0 K29 ["componentRef"]
+  SETTABLE R11 R9 R10
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K30 ["Change"]
+  GETTABLEKS R10 R11 K31 ["AbsoluteSize"]
+  GETTABLEKS R11 R0 K32 ["calculateVisibleComponents"]
+  SETTABLE R11 R9 R10
+  DUPTABLE R10 K35 [{"HeaderView", "BodyView"}]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K16 ["createElement"]
+  GETUPVAL R12 2
+  DUPTABLE R13 K39 [{"LayoutOrder", "Size", "Style", "Spacing", "Padding"}]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K36 ["LayoutOrder"]
+  GETIMPORT R14 K41 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 0
+  MOVE R18 R6
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K20 ["Size"]
+  LOADK R14 K21 ["Box"]
+  SETTABLEKS R14 R13 K22 ["Style"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K15 ["BUTTON_PADDING"]
+  SETTABLEKS R14 R13 K37 ["Spacing"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K15 ["BUTTON_PADDING"]
+  SETTABLEKS R14 R13 K38 ["Padding"]
+  DUPTABLE R14 K44 [{"TabView", "RightView"}]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K16 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K46 [{"LayoutOrder", "Tabs", "Size"}]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K36 ["LayoutOrder"]
+  SETTABLEKS R5 R17 K45 ["Tabs"]
+  GETIMPORT R18 K41 [UDim2.new]
+  LOADK R19 K47 [0.4]
+  LOADN R20 0
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K20 ["Size"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K42 ["TabView"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K16 ["createElement"]
+  GETUPVAL R16 2
+  DUPTABLE R17 K51 [{"AnchorPoint", "Position", "Size", "LayoutOrder", "HorizontalAlignment", "Layout", "Spacing"}]
+  GETIMPORT R18 K53 [Vector2.new]
+  LOADN R19 1
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K48 ["AnchorPoint"]
+  GETIMPORT R18 K41 [UDim2.new]
+  LOADN R19 1
+  LOADN R20 0
+  LOADN R21 0
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K49 ["Position"]
+  GETIMPORT R18 K41 [UDim2.new]
+  LOADK R19 K54 [0.6]
+  LOADN R20 0
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K20 ["Size"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K36 ["LayoutOrder"]
+  GETIMPORT R18 K56 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R18 R17 K50 ["HorizontalAlignment"]
+  GETIMPORT R18 K58 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R18 R17 K27 ["Layout"]
+  LOADN R18 10
+  SETTABLEKS R18 R17 K37 ["Spacing"]
+  DUPTABLE R18 K62 [{"ScopeDropdownView", "SearchBarView", "ColumnsDropdownView"}]
+  GETTABLEKS R19 R1 K63 ["IsVariablesTab"]
+  JUMPIFNOT R19 [+34]
+  GETTABLEKS R21 R0 K64 ["state"]
+  GETTABLEKS R20 R21 K65 ["shouldShowDropdown"]
+  JUMPIF R20 [+5]
+  GETTABLEKS R20 R0 K64 ["state"]
+  GETTABLEKS R19 R20 K66 ["shouldShowDropdownIcon"]
+  JUMPIFNOT R19 [+24]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K16 ["createElement"]
+  GETUPVAL R20 4
+  DUPTABLE R21 K68 [{"LayoutOrder", "Size", "ShouldShowDropdownIcon"}]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K36 ["LayoutOrder"]
+  GETIMPORT R22 K41 [UDim2.new]
+  LOADK R23 K47 [0.4]
+  LOADN R24 0
+  LOADN R25 1
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K20 ["Size"]
+  GETTABLEKS R23 R0 K64 ["state"]
+  GETTABLEKS R22 R23 K66 ["shouldShowDropdownIcon"]
+  SETTABLEKS R22 R21 K67 ["ShouldShowDropdownIcon"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K59 ["ScopeDropdownView"]
+  GETTABLEKS R20 R0 K64 ["state"]
+  GETTABLEKS R19 R20 K69 ["shouldShowSearchBar"]
+  JUMPIFNOT R19 [+18]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K16 ["createElement"]
+  GETUPVAL R20 5
+  DUPTABLE R21 K70 [{"LayoutOrder", "Size"}]
+  LOADN R22 2
+  SETTABLEKS R22 R21 K36 ["LayoutOrder"]
+  GETIMPORT R22 K41 [UDim2.new]
+  LOADK R23 K54 [0.6]
+  LOADN R24 0
+  LOADN R25 1
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K20 ["Size"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["SearchBarView"]
+  GETTABLEKS R20 R1 K63 ["IsVariablesTab"]
+  JUMPIFNOT R20 [+14]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K16 ["createElement"]
+  GETUPVAL R20 6
+  DUPTABLE R21 K72 [{"LayoutOrder", "AutomaticSize"}]
+  LOADN R22 3
+  SETTABLEKS R22 R21 K36 ["LayoutOrder"]
+  GETIMPORT R22 K74 [Enum.AutomaticSize.X]
+  SETTABLEKS R22 R21 K71 ["AutomaticSize"]
+  CALL R19 2 1
+  JUMP [+13]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K16 ["createElement"]
+  GETUPVAL R20 7
+  DUPTABLE R21 K72 [{"LayoutOrder", "AutomaticSize"}]
+  LOADN R22 3
+  SETTABLEKS R22 R21 K36 ["LayoutOrder"]
+  GETIMPORT R22 K74 [Enum.AutomaticSize.X]
+  SETTABLEKS R22 R21 K71 ["AutomaticSize"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K61 ["ColumnsDropdownView"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K43 ["RightView"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K33 ["HeaderView"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K16 ["createElement"]
+  GETUPVAL R12 2
+  DUPTABLE R13 K75 [{"LayoutOrder", "Size", "Style"}]
+  LOADN R14 2
+  SETTABLEKS R14 R13 K36 ["LayoutOrder"]
+  GETIMPORT R14 K41 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 1
+  MINUS R18 R6
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K20 ["Size"]
+  LOADK R14 K21 ["Box"]
+  SETTABLEKS R14 R13 K22 ["Style"]
+  DUPTABLE R14 K77 [{"DisplayTableView"}]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K16 ["createElement"]
+  GETUPVAL R16 8
+  DUPTABLE R17 K78 [{"Stylizer"}]
+  SETTABLEKS R3 R17 K2 ["Stylizer"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K76 ["DisplayTableView"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K34 ["BodyView"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+PROTO_10:
+  GETTABLEKS R2 R0 K0 ["Common"]
+  GETTABLEKS R4 R2 K1 ["debuggerConnectionIdToDST"]
+  GETTABLEKS R5 R2 K2 ["currentDebuggerConnectionId"]
+  GETTABLE R3 R4 R5
+  GETTABLEKS R5 R2 K3 ["debuggerConnectionIdToCurrentThreadId"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R5 R2 K3 ["debuggerConnectionIdToCurrentThreadId"]
+  GETTABLEKS R6 R2 K2 ["currentDebuggerConnectionId"]
+  GETTABLE R4 R5 R6
+  JUMPIF R4 [+1]
+  LOADNIL R4
+  JUMPIFNOT R4 [+19]
+  GETTABLEKS R6 R2 K4 ["currentFrameMap"]
+  JUMPIFNOT R6 [+16]
+  GETTABLEKS R6 R2 K2 ["currentDebuggerConnectionId"]
+  JUMPIFNOT R6 [+13]
+  GETTABLEKS R7 R2 K4 ["currentFrameMap"]
+  GETTABLEKS R8 R2 K2 ["currentDebuggerConnectionId"]
+  GETTABLE R6 R7 R8
+  JUMPIFNOT R6 [+7]
+  GETTABLEKS R7 R2 K4 ["currentFrameMap"]
+  GETTABLEKS R8 R2 K2 ["currentDebuggerConnectionId"]
+  GETTABLE R6 R7 R8
+  GETTABLE R5 R6 R4
+  JUMPIF R5 [+1]
+  LOADNIL R5
+  LOADNIL R6
+  JUMPIFEQKNIL R3 [+13]
+  JUMPIFEQKNIL R4 [+11]
+  JUMPIFEQKNIL R5 [+9]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["ctor"]
+  MOVE R8 R3
+  MOVE R9 R4
+  MOVE R10 R5
+  CALL R7 3 1
+  MOVE R6 R7
+  DUPTABLE R7 K8 [{"IsVariablesTab", "CurrentStepStateBundle"}]
+  GETTABLEKS R10 R0 K9 ["Watch"]
+  GETTABLEKS R9 R10 K10 ["currentTab"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K11 ["Variables"]
+  JUMPIFEQ R9 R10 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  SETTABLEKS R8 R7 K6 ["IsVariablesTab"]
+  SETTABLEKS R6 R7 K7 ["CurrentStepStateBundle"]
+  RETURN R7 1
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_13:
+  GETUPVAL R4 0
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  CALL R5 4 -1
+  CALL R4 -1 -1
+  RETURN R4 -1
+
+PROTO_14:
+  DUPTABLE R1 K3 [{"OnAddExpression", "OnSetTab", "OnExecuteExpressionForAllFrames"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["OnAddExpression"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["OnSetTab"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["OnExecuteExpressionForAllFrames"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETTABLEKS R6 R4 K11 ["Analytics"]
+  GETTABLEKS R7 R4 K12 ["Localization"]
+  GETTABLEKS R9 R3 K13 ["Style"]
+  GETTABLEKS R8 R9 K14 ["Stylizer"]
+  GETTABLEKS R9 R3 K15 ["UI"]
+  GETTABLEKS R10 R9 K16 ["Pane"]
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K2 ["Parent"]
+  GETTABLEKS R12 R13 K17 ["DisplayTable"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K18 ["ControlledTabs"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K2 ["Parent"]
+  GETTABLEKS R14 R15 K19 ["ScopeDropdownField"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K2 ["Parent"]
+  GETTABLEKS R15 R16 K20 ["VariablesDropdownField"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETIMPORT R18 K1 [script]
+  GETTABLEKS R17 R18 K2 ["Parent"]
+  GETTABLEKS R16 R17 K21 ["MyWatchesDropdownField"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETIMPORT R19 K1 [script]
+  GETTABLEKS R18 R19 K2 ["Parent"]
+  GETTABLEKS R17 R18 K22 ["SearchBarField"]
+  CALL R16 1 1
+  GETTABLEKS R17 R0 K23 ["Src"]
+  GETTABLEKS R18 R17 K24 ["Models"]
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R21 R18 K25 ["Watch"]
+  GETTABLEKS R20 R21 K26 ["TableTab"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R21 R18 K27 ["StepStateBundle"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R23 R17 K28 ["Util"]
+  GETTABLEKS R22 R23 K29 ["Constants"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R25 R17 K30 ["Actions"]
+  GETTABLEKS R24 R25 K25 ["Watch"]
+  GETTABLEKS R23 R24 K31 ["AddExpression"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R26 R17 K30 ["Actions"]
+  GETTABLEKS R25 R26 K25 ["Watch"]
+  GETTABLEKS R24 R25 K32 ["SetTab"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R27 R17 K33 ["Thunks"]
+  GETTABLEKS R26 R27 K25 ["Watch"]
+  GETTABLEKS R25 R26 K34 ["ExecuteExpressionForAllFrames"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R27 R17 K35 ["Resources"]
+  GETTABLEKS R26 R27 K36 ["AnalyticsEventNames"]
+  CALL R25 1 1
+  GETTABLEKS R26 R1 K37 ["PureComponent"]
+  LOADK R28 K38 ["WatchComponent"]
+  NAMECALL R26 R26 K39 ["extend"]
+  CALL R26 2 1
+  DUPCLOSURE R27 K40 [PROTO_0]
+  SETTABLEKS R27 R26 K41 ["didMount"]
+  DUPCLOSURE R27 K42 [PROTO_1]
+  SETTABLEKS R27 R26 K43 ["didUpdate"]
+  DUPCLOSURE R27 K44 [PROTO_8]
+  CAPTURE VAL R25
+  CAPTURE VAL R1
+  SETTABLEKS R27 R26 K45 ["init"]
+  DUPCLOSURE R27 K46 [PROTO_9]
+  CAPTURE VAL R21
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R11
+  SETTABLEKS R27 R26 K47 ["render"]
+  MOVE R27 R5
+  DUPTABLE R28 K48 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R6 R28 K11 ["Analytics"]
+  SETTABLEKS R7 R28 K12 ["Localization"]
+  SETTABLEKS R8 R28 K14 ["Stylizer"]
+  CALL R27 1 1
+  MOVE R28 R26
+  CALL R27 1 1
+  MOVE R26 R27
+  GETTABLEKS R27 R2 K49 ["connect"]
+  DUPCLOSURE R28 K50 [PROTO_10]
+  CAPTURE VAL R20
+  CAPTURE VAL R19
+  DUPCLOSURE R29 K51 [PROTO_14]
+  CAPTURE VAL R22
+  CAPTURE VAL R23
+  CAPTURE VAL R24
+  CALL R27 2 1
+  MOVE R28 R26
+  CALL R27 1 1
+  MOVE R26 R27
+  RETURN R26 1

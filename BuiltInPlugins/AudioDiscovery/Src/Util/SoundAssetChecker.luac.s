@@ -1,0 +1,903 @@
+PROTO_0:
+  DUPTABLE R2 K21 [{"soundsFound", "_soundAssets", "_nonSoundAssetIds", "_currentBatch", "_pendingAssetIds", "_batchesToSend", "_batchRequestsInFlight", "_maxAssetsPerRequest", "_perRequestCooldown", "_cooldownAfterHttp429", "_maxRecentRequests", "_lastSentRequests", "_hit429", "_started", "_dead", "_httpTask", "_renderSteppedConnection", "_goodAssets", "_badAssets", "_resolvedAssets", "_networking"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K22 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K0 ["soundsFound"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K1 ["_soundAssets"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K2 ["_nonSoundAssetIds"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K3 ["_currentBatch"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K4 ["_pendingAssetIds"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K5 ["_batchesToSend"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K6 ["_batchRequestsInFlight"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R3 R1 K23 ["maxAssetsPerRequest"]
+  JUMPIF R3 [+1]
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K7 ["_maxAssetsPerRequest"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R3 R1 K24 ["perRequestCooldown"]
+  JUMPIF R3 [+1]
+  GETUPVAL R3 2
+  SETTABLEKS R3 R2 K8 ["_perRequestCooldown"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R3 R1 K25 ["cooldownAfterHttp429"]
+  JUMPIF R3 [+1]
+  GETUPVAL R3 3
+  SETTABLEKS R3 R2 K9 ["_cooldownAfterHttp429"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R3 R1 K26 ["maxRecentRequests"]
+  JUMPIF R3 [+1]
+  GETUPVAL R3 4
+  SETTABLEKS R3 R2 K10 ["_maxRecentRequests"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K11 ["_lastSentRequests"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["_hit429"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K13 ["_started"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K14 ["_dead"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K15 ["_httpTask"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K16 ["_renderSteppedConnection"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K17 ["_goodAssets"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K18 ["_badAssets"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K19 ["_resolvedAssets"]
+  SETTABLEKS R0 R2 K20 ["_networking"]
+  GETUPVAL R5 5
+  FASTCALL2 SETMETATABLE R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K28 [setmetatable]
+  CALL R3 2 0
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_renderStepped"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_dead"]
+  JUMPIF R0 [+5]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K1 ["_stepHttpTask"]
+  CALL R0 1 0
+  JUMPBACK [-9]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["_started"]
+  JUMPIF R1 [+3]
+  GETTABLEKS R1 R0 K1 ["_dead"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_started"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["RenderStepped"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K3 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K4 ["_renderSteppedConnection"]
+  GETIMPORT R1 K7 [coroutine.create]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K8 ["_httpTask"]
+  NAMECALL R1 R0 K9 ["_wakeUpHttpTask"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_dead"]
+  GETTABLEKS R1 R0 K1 ["_renderSteppedConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K1 ["_renderSteppedConnection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["_renderSteppedConnection"]
+  GETTABLEKS R1 R0 K3 ["_httpTask"]
+  JUMPIFNOT R1 [+8]
+  GETIMPORT R1 K6 [coroutine.close]
+  GETTABLEKS R2 R0 K3 ["_httpTask"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["_httpTask"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["_dead"]
+  JUMPIF R1 [+10]
+  GETTABLEKS R1 R0 K1 ["_httpTask"]
+  JUMPIFNOT R1 [+7]
+  GETIMPORT R1 K4 [coroutine.status]
+  GETTABLEKS R2 R0 K1 ["_httpTask"]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K5 ["suspended"] [+2]
+  RETURN R0 0
+  GETIMPORT R1 K7 [coroutine.resume]
+  GETTABLEKS R2 R0 K1 ["_httpTask"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K1 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["string"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL1 ASSERT R3 [+2]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 1 0
+  JUMPIFEQKS R1 K5 [""] [+3]
+  JUMPIFNOTEQKS R1 K6 ["0"] [+2]
+  RETURN R0 0
+  GETTABLEKS R3 R0 K7 ["_soundAssets"]
+  GETTABLE R2 R3 R1
+  JUMPIF R2 [+8]
+  GETTABLEKS R3 R0 K8 ["_nonSoundAssetIds"]
+  GETTABLE R2 R3 R1
+  JUMPIF R2 [+4]
+  GETTABLEKS R3 R0 K9 ["_pendingAssetIds"]
+  GETTABLE R2 R3 R1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R3 R0 K10 ["_currentBatch"]
+  FASTCALL2 TABLE_INSERT R3 R1 [+4]
+  MOVE R4 R1
+  GETIMPORT R2 K13 [table.insert]
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K9 ["_pendingAssetIds"]
+  LOADB R3 1
+  SETTABLE R3 R2 R1
+  GETTABLEKS R3 R0 K10 ["_currentBatch"]
+  LENGTH R2 R3
+  GETTABLEKS R3 R0 K14 ["_maxAssetsPerRequest"]
+  JUMPIFNOTLE R3 R2 [+4]
+  NAMECALL R2 R0 K15 ["flush"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_currentBatch"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K0 ["_currentBatch"]
+  LENGTH R2 R1
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+12]
+  GETTABLEKS R3 R0 K1 ["_batchesToSend"]
+  FASTCALL2 TABLE_INSERT R3 R1 [+4]
+  MOVE R4 R1
+  GETIMPORT R2 K4 [table.insert]
+  CALL R2 2 0
+  NAMECALL R2 R0 K5 ["_wakeUpHttpTask"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R3 R0 K0 ["_resolvedAssets"]
+  GETTABLE R2 R3 R1
+  JUMPIF R2 [+9]
+  GETTABLEKS R2 R0 K0 ["_resolvedAssets"]
+  LOADB R3 1
+  SETTABLE R3 R2 R1
+  GETTABLEKS R2 R0 K1 ["_badAssets"]
+  SUBK R2 R2 K2 [1]
+  SETTABLEKS R2 R0 K1 ["_badAssets"]
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R3 R0 K0 ["_batchesToSend"]
+  LENGTH R2 R3
+  LOADN R3 0
+  JUMPIFLT R3 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["_dead"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  NAMECALL R1 R0 K1 ["_hasBatchesToSend"]
+  CALL R1 1 1
+  JUMPIF R1 [+3]
+  GETIMPORT R1 K4 [coroutine.yield]
+  CALL R1 0 0
+  GETTABLEKS R1 R0 K5 ["_hit429"]
+  LOADN R2 0
+  JUMPIFLT R2 R1 [+8]
+  GETTABLEKS R2 R0 K6 ["_lastSentRequests"]
+  LENGTH R1 R2
+  GETTABLEKS R2 R0 K7 ["_maxRecentRequests"]
+  JUMPIFNOTLE R2 R1 [+4]
+  GETIMPORT R1 K4 [coroutine.yield]
+  CALL R1 0 0
+  GETIMPORT R1 K10 [table.remove]
+  GETTABLEKS R2 R0 K11 ["_batchesToSend"]
+  LOADN R3 1
+  CALL R1 2 1
+  MOVE R4 R1
+  NAMECALL R2 R0 K12 ["_sendBatch"]
+  CALL R2 2 0
+  GETIMPORT R2 K4 [coroutine.yield]
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R2 R0 K0 ["_dead"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  LOADN R2 1
+  GETTABLEKS R4 R0 K1 ["_lastSentRequests"]
+  LENGTH R3 R4
+  JUMPIFNOTLE R2 R3 [+21]
+  GETTABLEKS R3 R0 K1 ["_lastSentRequests"]
+  GETTABLE R4 R3 R2
+  SUB R4 R4 R1
+  SETTABLE R4 R3 R2
+  GETTABLEKS R4 R0 K1 ["_lastSentRequests"]
+  GETTABLE R3 R4 R2
+  LOADN R4 0
+  JUMPIFNOTLE R3 R4 [+8]
+  GETIMPORT R3 K4 [table.remove]
+  GETTABLEKS R4 R0 K1 ["_lastSentRequests"]
+  MOVE R5 R2
+  CALL R3 2 0
+  JUMP [+1]
+  ADDK R2 R2 K5 [1]
+  JUMPBACK [-25]
+  GETTABLEKS R3 R0 K6 ["_hit429"]
+  SUB R3 R3 R1
+  SETTABLEKS R3 R0 K6 ["_hit429"]
+  GETTABLEKS R3 R0 K6 ["_hit429"]
+  LOADN R4 0
+  JUMPIFNOTLE R3 R4 [+4]
+  LOADN R3 0
+  SETTABLEKS R3 R0 K6 ["_hit429"]
+  NAMECALL R3 R0 K7 ["_hasBatchesToSend"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+15]
+  GETTABLEKS R3 R0 K6 ["_hit429"]
+  LOADN R4 0
+  JUMPIFNOTLE R3 R4 [+11]
+  GETTABLEKS R4 R0 K1 ["_lastSentRequests"]
+  LENGTH R3 R4
+  GETTABLEKS R4 R0 K8 ["_maxRecentRequests"]
+  JUMPIFNOTLT R3 R4 [+4]
+  NAMECALL R3 R0 K9 ["_wakeUpHttpTask"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R1 K0 ["_batchRequestsInFlight"]
+  SUBK R2 R2 K1 [1]
+  SETTABLEKS R2 R1 K0 ["_batchRequestsInFlight"]
+  RETURN R0 1
+
+PROTO_13:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K0 ["responseBody"]
+  NAMECALL R1 R1 K1 ["_onBatchResponse"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_14:
+  GETTABLEKS R1 R0 K0 ["responseCode"]
+  JUMPIFNOTEQKN R1 K1 [429] [+17]
+  GETUPVAL R1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_cooldownAfterHttp429"]
+  SETTABLEKS R2 R1 K3 ["_hit429"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["_batchesToSend"]
+  GETUPVAL R3 1
+  FASTCALL2 TABLE_INSERT R2 R3 [+3]
+  GETIMPORT R1 K7 [table.insert]
+  CALL R1 2 0
+  RETURN R0 0
+  GETTABLEKS R1 R0 K0 ["responseCode"]
+  LOADN R2 144
+  JUMPIFNOTLE R2 R1 [+6]
+  GETTABLEKS R1 R0 K0 ["responseCode"]
+  LOADN R2 244
+  JUMPIFLT R1 R2 [+11]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["_batchesToSend"]
+  GETUPVAL R3 1
+  FASTCALL2 TABLE_INSERT R2 R3 [+3]
+  GETIMPORT R1 K7 [table.insert]
+  CALL R1 2 0
+  RETURN R0 0
+  GETIMPORT R1 K9 [warn]
+  LOADK R2 K10 ["Fetching sound asset details failed: %d %s"]
+  GETTABLEKS R4 R0 K0 ["responseCode"]
+  GETTABLEKS R6 R0 K11 ["responseBody"]
+  GETTABLEKS R5 R6 K12 ["message"]
+  NAMECALL R2 R2 K13 ["format"]
+  CALL R2 3 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETIMPORT R2 K2 [table.concat]
+  MOVE R3 R1
+  LOADK R4 K3 [","]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["composeUrl"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["APIS_URL"]
+  LOADK R5 K6 ["toolbox-service/v1/items/details"]
+  DUPTABLE R6 K8 [{"assetIds"}]
+  SETTABLEKS R2 R6 K7 ["assetIds"]
+  CALL R3 3 1
+  GETTABLEKS R5 R0 K9 ["_lastSentRequests"]
+  GETTABLEKS R6 R0 K10 ["_perRequestCooldown"]
+  FASTCALL2 TABLE_INSERT R5 R6 [+3]
+  GETIMPORT R4 K12 [table.insert]
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K13 ["_batchRequestsInFlight"]
+  ADDK R4 R4 K14 [1]
+  SETTABLEKS R4 R0 K13 ["_batchRequestsInFlight"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  GETTABLEKS R5 R0 K15 ["_networking"]
+  MOVE R7 R3
+  NAMECALL R5 R5 K16 ["get"]
+  CALL R5 2 1
+  MOVE R7 R4
+  MOVE R8 R4
+  NAMECALL R5 R5 K17 ["andThen"]
+  CALL R5 3 1
+  GETTABLEKS R6 R0 K15 ["_networking"]
+  MOVE R8 R5
+  NAMECALL R6 R6 K18 ["parseJson"]
+  CALL R6 2 1
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NEWCLOSURE R10 P2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NAMECALL R7 R6 K17 ["andThen"]
+  CALL R7 3 0
+  RETURN R0 0
+
+PROTO_16:
+  GETIMPORT R4 K3 [Enum.CreatorType.User]
+  JUMPIFNOTEQ R2 R4 [+7]
+  LOADB R3 1
+  JUMPIFEQKN R1 K4 [1] [+13]
+  LOADB R3 1
+  JUMPIFEQKN R1 K5 [1750384777] [+10]
+  LOADB R3 0
+  GETUPVAL R4 0
+  JUMPIFNOTEQ R4 R1 [+6]
+  GETUPVAL R4 1
+  JUMPIFEQ R4 R2 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_17:
+  GETUPVAL R4 0
+  MOVE R6 R1
+  NAMECALL R4 R4 K0 ["reportPermissionCheck"]
+  CALL R4 2 0
+  NEWTABLE R4 0 0
+  GETTABLEKS R6 R1 K1 ["responseBody"]
+  GETTABLEKS R5 R6 K2 ["results"]
+  GETIMPORT R6 K4 [pairs]
+  MOVE R7 R3
+  CALL R6 1 3
+  FORGPREP_NEXT R6
+  GETUPVAL R11 1
+  JUMPIFNOT R11 [+67]
+  GETTABLE R12 R5 R9
+  GETTABLEKS R11 R12 K5 ["value"]
+  JUMPIFNOT R11 [+27]
+  GETTABLE R13 R5 R9
+  GETTABLEKS R12 R13 K5 ["value"]
+  GETTABLEKS R11 R12 K6 ["status"]
+  JUMPIFNOTEQKS R11 K7 ["HasPermission"] [+11]
+  GETTABLE R11 R2 R10
+  LOADK R12 K8 ["ok"]
+  SETTABLEKS R12 R11 K9 ["OK"]
+  GETTABLEKS R11 R0 K10 ["_goodAssets"]
+  ADDK R11 R11 K11 [1]
+  SETTABLEKS R11 R0 K10 ["_goodAssets"]
+  JUMP [+95]
+  GETTABLE R11 R2 R10
+  LOADK R12 K12 ["error"]
+  SETTABLEKS R12 R11 K9 ["OK"]
+  GETTABLEKS R11 R0 K13 ["_badAssets"]
+  ADDK R11 R11 K11 [1]
+  SETTABLEKS R11 R0 K13 ["_badAssets"]
+  JUMP [+85]
+  GETTABLE R12 R5 R9
+  GETTABLEKS R11 R12 K12 ["error"]
+  JUMPIFNOT R11 [+26]
+  GETTABLE R13 R5 R9
+  GETTABLEKS R12 R13 K12 ["error"]
+  GETTABLEKS R11 R12 K14 ["message"]
+  JUMPIFNOT R11 [+75]
+  GETUPVAL R11 2
+  JUMPIFNOT R11 [+12]
+  GETIMPORT R11 K16 [warn]
+  LOADK R12 K17 ["Fetching sound asset universe permissions failed: %s"]
+  GETTABLE R16 R5 R9
+  GETTABLEKS R15 R16 K12 ["error"]
+  GETTABLEKS R14 R15 K18 ["code"]
+  NAMECALL R12 R12 K19 ["format"]
+  CALL R12 2 -1
+  CALL R11 -1 0
+  GETTABLEKS R11 R0 K13 ["_badAssets"]
+  ADDK R11 R11 K11 [1]
+  SETTABLEKS R11 R0 K13 ["_badAssets"]
+  JUMP [+55]
+  GETTABLEKS R11 R0 K13 ["_badAssets"]
+  ADDK R11 R11 K11 [1]
+  SETTABLEKS R11 R0 K13 ["_badAssets"]
+  JUMP [+49]
+  GETTABLE R13 R5 R9
+  GETTABLEKS R12 R13 K5 ["value"]
+  GETTABLEKS R11 R12 K6 ["status"]
+  JUMPIFNOTEQKS R11 K7 ["HasPermission"] [+11]
+  GETTABLE R11 R2 R10
+  LOADK R12 K8 ["ok"]
+  SETTABLEKS R12 R11 K9 ["OK"]
+  GETTABLEKS R11 R0 K10 ["_goodAssets"]
+  ADDK R11 R11 K11 [1]
+  SETTABLEKS R11 R0 K10 ["_goodAssets"]
+  JUMP [+32]
+  GETTABLE R13 R5 R9
+  GETTABLEKS R12 R13 K12 ["error"]
+  GETTABLEKS R11 R12 K14 ["message"]
+  JUMPIFEQKNIL R11 [+21]
+  GETUPVAL R11 2
+  JUMPIFNOT R11 [+12]
+  GETIMPORT R11 K16 [warn]
+  LOADK R12 K17 ["Fetching sound asset universe permissions failed: %s"]
+  GETTABLE R16 R5 R9
+  GETTABLEKS R15 R16 K12 ["error"]
+  GETTABLEKS R14 R15 K18 ["code"]
+  NAMECALL R12 R12 K19 ["format"]
+  CALL R12 2 -1
+  CALL R11 -1 0
+  GETTABLEKS R11 R0 K13 ["_badAssets"]
+  ADDK R11 R11 K11 [1]
+  SETTABLEKS R11 R0 K13 ["_badAssets"]
+  JUMP [+5]
+  GETTABLEKS R11 R0 K13 ["_badAssets"]
+  ADDK R11 R11 K11 [1]
+  SETTABLEKS R11 R0 K13 ["_badAssets"]
+  GETTABLEKS R11 R0 K20 ["_soundAssets"]
+  GETTABLE R12 R2 R10
+  SETTABLE R12 R11 R10
+  GETTABLE R13 R2 R10
+  FASTCALL2 TABLE_INSERT R4 R13 [+4]
+  MOVE R12 R4
+  GETIMPORT R11 K23 [table.insert]
+  CALL R11 2 0
+  FORGLOOP R6 2 [-130]
+  LENGTH R6 R4
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+7]
+  GETTABLEKS R6 R0 K24 ["soundsFound"]
+  MOVE R8 R4
+  NAMECALL R6 R6 K25 ["Fire"]
+  CALL R6 2 0
+  NAMECALL R6 R0 K26 ["_hasBatchesToSend"]
+  CALL R6 1 1
+  JUMPIF R6 [+12]
+  GETTABLEKS R6 R0 K27 ["_batchRequestsInFlight"]
+  JUMPIFNOTEQKN R6 K28 [0] [+9]
+  GETUPVAL R6 0
+  GETTABLEKS R8 R0 K10 ["_goodAssets"]
+  GETTABLEKS R9 R0 K13 ["_badAssets"]
+  NAMECALL R6 R6 K29 ["reportBreakdown"]
+  CALL R6 3 0
+  RETURN R0 0
+
+PROTO_18:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  GETUPVAL R5 2
+  NAMECALL R1 R1 K0 ["_onBatchCheckUniversePermissionResponse"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_19:
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["Fetching sound asset permissions failed: %d %s"]
+  GETTABLEKS R4 R0 K3 ["responseCode"]
+  GETTABLEKS R6 R0 K4 ["responseBody"]
+  GETTABLEKS R5 R6 K5 ["message"]
+  NAMECALL R2 R2 K6 ["format"]
+  CALL R2 3 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_20:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  GETUPVAL R5 2
+  NAMECALL R1 R1 K0 ["_onBatchCheckUniversePermissionResponse"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_21:
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["Fetching sound asset permissions failed: %d %s"]
+  GETTABLEKS R4 R0 K3 ["responseCode"]
+  GETTABLEKS R6 R0 K4 ["responseBody"]
+  GETTABLEKS R5 R6 K5 ["message"]
+  NAMECALL R2 R2 K6 ["format"]
+  CALL R2 3 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_22:
+  NEWTABLE R2 1 0
+  LOADK R3 K0 ["application/json"]
+  SETTABLEKS R3 R2 K1 ["Content-Type"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["composeUrl"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["APIS_URL"]
+  LOADK R5 K4 ["asset-permissions-api/v1/assets/check-permissions"]
+  CALL R3 2 1
+  GETIMPORT R4 K6 [game]
+  LOADK R6 K7 ["AudioDiscoveryPermCheckMaxAssetIdsPerRequest"]
+  NAMECALL R4 R4 K8 ["GetFastInt"]
+  CALL R4 2 1
+  LOADN R5 0
+  NEWTABLE R6 0 0
+  NEWTABLE R7 0 0
+  GETIMPORT R8 K10 [pairs]
+  MOVE R9 R1
+  CALL R8 1 3
+  FORGPREP_NEXT R8
+  JUMPIFNOTEQ R5 R4 [+36]
+  GETUPVAL R13 1
+  DUPTABLE R15 K12 [{"requests"}]
+  SETTABLEKS R6 R15 K11 ["requests"]
+  NAMECALL R13 R13 K13 ["JSONEncode"]
+  CALL R13 2 1
+  GETTABLEKS R14 R0 K14 ["_networking"]
+  MOVE R16 R3
+  MOVE R17 R13
+  MOVE R18 R2
+  NAMECALL R14 R14 K15 ["post"]
+  CALL R14 4 1
+  GETTABLEKS R15 R0 K14 ["_networking"]
+  MOVE R17 R14
+  NAMECALL R15 R15 K16 ["parseJson"]
+  CALL R15 2 1
+  NEWCLOSURE R18 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE REF R7
+  DUPCLOSURE R19 K17 [PROTO_19]
+  NAMECALL R16 R15 K18 ["andThen"]
+  CALL R16 3 0
+  NEWTABLE R6 0 0
+  NEWTABLE R7 0 0
+  LOADN R5 0
+  JUMP [+42]
+  DUPTABLE R13 K22 [{"subject", "action", "assetId"}]
+  DUPTABLE R14 K25 [{"subjectType", "subjectId"}]
+  LOADK R15 K26 ["Universe"]
+  SETTABLEKS R15 R14 K23 ["subjectType"]
+  GETIMPORT R17 K6 [game]
+  GETTABLEKS R16 R17 K27 ["GameId"]
+  FASTCALL1 TOSTRING R16 [+2]
+  GETIMPORT R15 K29 [tostring]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K24 ["subjectId"]
+  SETTABLEKS R14 R13 K19 ["subject"]
+  LOADK R14 K30 ["use"]
+  SETTABLEKS R14 R13 K20 ["action"]
+  FASTCALL1 TOSTRING R11 [+3]
+  MOVE R15 R11
+  GETIMPORT R14 K29 [tostring]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K21 ["assetId"]
+  FASTCALL2 TABLE_INSERT R6 R13 [+5]
+  MOVE R15 R6
+  MOVE R16 R13
+  GETIMPORT R14 K33 [table.insert]
+  CALL R14 2 0
+  FASTCALL2 TABLE_INSERT R7 R11 [+5]
+  MOVE R15 R7
+  MOVE R16 R11
+  GETIMPORT R14 K33 [table.insert]
+  CALL R14 2 0
+  ADDK R5 R5 K34 [1]
+  FORGLOOP R8 2 [-80]
+  GETUPVAL R8 1
+  DUPTABLE R10 K12 [{"requests"}]
+  SETTABLEKS R6 R10 K11 ["requests"]
+  NAMECALL R8 R8 K13 ["JSONEncode"]
+  CALL R8 2 1
+  GETTABLEKS R9 R0 K14 ["_networking"]
+  MOVE R11 R3
+  MOVE R12 R8
+  MOVE R13 R2
+  NAMECALL R9 R9 K15 ["post"]
+  CALL R9 4 1
+  GETTABLEKS R10 R0 K14 ["_networking"]
+  MOVE R12 R9
+  NAMECALL R10 R10 K16 ["parseJson"]
+  CALL R10 2 1
+  NEWCLOSURE R13 P2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE REF R7
+  DUPCLOSURE R14 K35 [PROTO_21]
+  NAMECALL R11 R10 K18 ["andThen"]
+  CALL R11 3 0
+  CLOSEUPVALS R7
+  RETURN R0 0
+
+PROTO_23:
+  NEWTABLE R3 0 0
+  GETIMPORT R4 K1 [ipairs]
+  MOVE R5 R1
+  CALL R4 1 3
+  FORGPREP_INEXT R4
+  LOADB R9 1
+  SETTABLE R9 R3 R8
+  FORGLOOP R4 2 [inext] [-3]
+  NEWTABLE R4 0 0
+  NEWTABLE R5 0 0
+  GETIMPORT R6 K1 [ipairs]
+  GETTABLEKS R7 R2 K2 ["data"]
+  CALL R6 1 3
+  FORGPREP_INEXT R6
+  GETTABLEKS R12 R10 K3 ["asset"]
+  GETTABLEKS R11 R12 K4 ["id"]
+  GETTABLEKS R12 R0 K5 ["_pendingAssetIds"]
+  LOADNIL R13
+  SETTABLE R13 R12 R11
+  LOADNIL R12
+  SETTABLE R12 R3 R11
+  GETTABLEKS R13 R10 K3 ["asset"]
+  GETTABLEKS R12 R13 K6 ["typeId"]
+  JUMPIFEQKN R12 K7 [3] [+6]
+  GETTABLEKS R12 R0 K8 ["_nonSoundAssetIds"]
+  LOADB R13 1
+  SETTABLE R13 R12 R11
+  JUMP [+97]
+  GETTABLEKS R14 R10 K9 ["creator"]
+  GETTABLEKS R13 R14 K10 ["type"]
+  JUMPIFNOTEQKN R13 K11 [1] [+4]
+  GETIMPORT R12 K15 [Enum.CreatorType.User]
+  JUMP [+2]
+  GETIMPORT R12 K17 [Enum.CreatorType.Group]
+  GETTABLEKS R16 R10 K9 ["creator"]
+  GETTABLEKS R15 R16 K4 ["id"]
+  MOVE R16 R12
+  NAMECALL R13 R0 K18 ["_checkSound"]
+  CALL R13 3 1
+  JUMPIFNOT R13 [+2]
+  LOADK R14 K19 ["ok"]
+  JUMP [+1]
+  LOADK R14 K20 ["error"]
+  DUPTABLE R15 K27 [{"OK", "Id", "Name", "CreatorId", "CreatorType", "Creator", "Time"}]
+  SETTABLEKS R14 R15 K21 ["OK"]
+  FASTCALL1 TOSTRING R11 [+3]
+  MOVE R17 R11
+  GETIMPORT R16 K29 [tostring]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K22 ["Id"]
+  GETTABLEKS R17 R10 K3 ["asset"]
+  GETTABLEKS R16 R17 K30 ["name"]
+  SETTABLEKS R16 R15 K23 ["Name"]
+  GETTABLEKS R17 R10 K9 ["creator"]
+  GETTABLEKS R16 R17 K4 ["id"]
+  SETTABLEKS R16 R15 K24 ["CreatorId"]
+  GETTABLEKS R18 R10 K9 ["creator"]
+  GETTABLEKS R17 R18 K10 ["type"]
+  JUMPIFNOTEQKN R17 K11 [1] [+3]
+  LOADK R16 K14 ["User"]
+  JUMP [+1]
+  LOADK R16 K16 ["Group"]
+  SETTABLEKS R16 R15 K13 ["CreatorType"]
+  GETTABLEKS R17 R10 K9 ["creator"]
+  GETTABLEKS R16 R17 K30 ["name"]
+  SETTABLEKS R16 R15 K25 ["Creator"]
+  GETTABLEKS R17 R10 K3 ["asset"]
+  GETTABLEKS R16 R17 K31 ["duration"]
+  SETTABLEKS R16 R15 K26 ["Time"]
+  SETTABLE R15 R5 R11
+  GETIMPORT R17 K33 [game]
+  GETTABLEKS R16 R17 K34 ["GameId"]
+  JUMPIFNOTEQKN R16 K35 [0] [+23]
+  JUMPIFNOT R13 [+6]
+  GETTABLEKS R16 R0 K36 ["_goodAssets"]
+  ADDK R16 R16 K11 [1]
+  SETTABLEKS R16 R0 K36 ["_goodAssets"]
+  JUMP [+5]
+  GETTABLEKS R16 R0 K37 ["_badAssets"]
+  ADDK R16 R16 K11 [1]
+  SETTABLEKS R16 R0 K37 ["_badAssets"]
+  GETTABLEKS R16 R0 K38 ["_soundAssets"]
+  SETTABLE R15 R16 R11
+  FASTCALL2 TABLE_INSERT R4 R15 [+5]
+  MOVE R17 R4
+  MOVE R18 R15
+  GETIMPORT R16 K41 [table.insert]
+  CALL R16 2 0
+  FORGLOOP R6 2 [inext] [-119]
+  GETIMPORT R6 K43 [pairs]
+  MOVE R7 R3
+  CALL R6 1 3
+  FORGPREP_NEXT R6
+  GETTABLEKS R11 R0 K5 ["_pendingAssetIds"]
+  LOADNIL R12
+  SETTABLE R12 R11 R9
+  GETTABLEKS R11 R0 K8 ["_nonSoundAssetIds"]
+  LOADB R12 1
+  SETTABLE R12 R11 R9
+  FORGLOOP R6 1 [-9]
+  GETIMPORT R7 K33 [game]
+  GETTABLEKS R6 R7 K34 ["GameId"]
+  JUMPIFEQKN R6 K35 [0] [+6]
+  MOVE R8 R5
+  NAMECALL R6 R0 K44 ["_sendBatchCheckUniversePermission"]
+  CALL R6 2 0
+  RETURN R0 0
+  LENGTH R6 R4
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+7]
+  GETTABLEKS R6 R0 K45 ["soundsFound"]
+  MOVE R8 R4
+  NAMECALL R6 R6 K46 ["Fire"]
+  CALL R6 2 0
+  NAMECALL R6 R0 K47 ["_hasBatchesToSend"]
+  CALL R6 1 1
+  JUMPIF R6 [+12]
+  GETTABLEKS R6 R0 K48 ["_batchRequestsInFlight"]
+  JUMPIFNOTEQKN R6 K35 [0] [+9]
+  GETUPVAL R6 0
+  GETTABLEKS R8 R0 K36 ["_goodAssets"]
+  GETTABLEKS R9 R0 K37 ["_badAssets"]
+  NAMECALL R6 R6 K49 ["reportBreakdown"]
+  CALL R6 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioAudioDiscoveryMaxAssetIdsPerRequest"]
+  NAMECALL R0 R0 K3 ["GetFastInt"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["StudioAudioDiscoveryPerRequestCooldown"]
+  NAMECALL R1 R1 K3 ["GetFastInt"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K5 ["StudioAudioDiscoveryCooldownAfterHttp429"]
+  NAMECALL R2 R2 K3 ["GetFastInt"]
+  CALL R2 2 1
+  GETIMPORT R3 K1 [game]
+  LOADK R5 K6 ["StudioAudioDiscoveryMaxRecentRequests"]
+  NAMECALL R3 R3 K3 ["GetFastInt"]
+  CALL R3 2 1
+  GETIMPORT R4 K1 [game]
+  LOADK R6 K7 ["DEBUG_StudioAudioDiscoveryPermissionCheckErrors"]
+  NAMECALL R4 R4 K8 ["GetFastFlag"]
+  CALL R4 2 1
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K9 ["AddNonPermCase"]
+  NAMECALL R5 R5 K8 ["GetFastFlag"]
+  CALL R5 2 1
+  GETIMPORT R9 K11 [script]
+  GETTABLEKS R8 R9 K12 ["Parent"]
+  GETTABLEKS R7 R8 K12 ["Parent"]
+  GETTABLEKS R6 R7 K12 ["Parent"]
+  GETIMPORT R7 K14 [require]
+  GETTABLEKS R9 R6 K15 ["Packages"]
+  GETTABLEKS R8 R9 K16 ["Framework"]
+  CALL R7 1 1
+  GETTABLEKS R9 R7 K17 ["RobloxAPI"]
+  GETTABLEKS R8 R9 K18 ["Url"]
+  GETTABLEKS R9 R8 K19 ["new"]
+  CALL R9 0 1
+  GETTABLEKS R11 R7 K20 ["Util"]
+  GETTABLEKS R10 R11 K21 ["Signal"]
+  GETIMPORT R11 K14 [require]
+  GETTABLEKS R13 R6 K22 ["Src"]
+  GETTABLEKS R12 R13 K23 ["Types"]
+  CALL R11 1 1
+  GETIMPORT R12 K1 [game]
+  LOADK R14 K24 ["RunService"]
+  NAMECALL R12 R12 K25 ["GetService"]
+  CALL R12 2 1
+  GETIMPORT R13 K1 [game]
+  LOADK R15 K26 ["HttpService"]
+  NAMECALL R13 R13 K25 ["GetService"]
+  CALL R13 2 1
+  GETIMPORT R14 K14 [require]
+  GETTABLEKS R17 R6 K22 ["Src"]
+  GETTABLEKS R16 R17 K20 ["Util"]
+  GETTABLEKS R15 R16 K27 ["Analytics"]
+  CALL R14 1 1
+  NEWTABLE R15 16 0
+  SETTABLEKS R15 R15 K28 ["__index"]
+  DUPCLOSURE R16 K29 [PROTO_0]
+  CAPTURE VAL R10
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R15
+  SETTABLEKS R16 R15 K19 ["new"]
+  DUPCLOSURE R16 K30 [PROTO_3]
+  CAPTURE VAL R12
+  SETTABLEKS R16 R15 K31 ["start"]
+  DUPCLOSURE R16 K32 [PROTO_4]
+  SETTABLEKS R16 R15 K33 ["destroy"]
+  DUPCLOSURE R16 K34 [PROTO_5]
+  SETTABLEKS R16 R15 K35 ["_wakeUpHttpTask"]
+  DUPCLOSURE R16 K36 [PROTO_6]
+  SETTABLEKS R16 R15 K37 ["addAssetId"]
+  DUPCLOSURE R16 K38 [PROTO_7]
+  SETTABLEKS R16 R15 K39 ["flush"]
+  DUPCLOSURE R16 K40 [PROTO_8]
+  SETTABLEKS R16 R15 K41 ["resolved"]
+  DUPCLOSURE R16 K42 [PROTO_9]
+  SETTABLEKS R16 R15 K43 ["_hasBatchesToSend"]
+  DUPCLOSURE R16 K44 [PROTO_10]
+  SETTABLEKS R16 R15 K45 ["_stepHttpTask"]
+  DUPCLOSURE R16 K46 [PROTO_11]
+  SETTABLEKS R16 R15 K47 ["_renderStepped"]
+  DUPCLOSURE R16 K48 [PROTO_15]
+  CAPTURE VAL R9
+  SETTABLEKS R16 R15 K49 ["_sendBatch"]
+  GETIMPORT R17 K1 [game]
+  GETTABLEKS R16 R17 K50 ["CreatorId"]
+  GETIMPORT R18 K1 [game]
+  GETTABLEKS R17 R18 K51 ["CreatorType"]
+  DUPCLOSURE R18 K52 [PROTO_16]
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  SETTABLEKS R18 R15 K53 ["_checkSound"]
+  DUPCLOSURE R18 K54 [PROTO_17]
+  CAPTURE VAL R14
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  SETTABLEKS R18 R15 K55 ["_onBatchCheckUniversePermissionResponse"]
+  DUPCLOSURE R18 K56 [PROTO_22]
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  SETTABLEKS R18 R15 K57 ["_sendBatchCheckUniversePermission"]
+  DUPCLOSURE R18 K58 [PROTO_23]
+  CAPTURE VAL R14
+  SETTABLEKS R18 R15 K59 ["_onBatchResponse"]
+  RETURN R15 1

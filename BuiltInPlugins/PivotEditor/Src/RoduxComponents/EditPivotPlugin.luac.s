@@ -1,0 +1,329 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"active"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["state"]
+  GETTABLEKS R4 R5 K0 ["active"]
+  NOT R3 R4
+  SETTABLEKS R3 R2 K0 ["active"]
+  NAMECALL R0 R0 K3 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R3 K1 [{"active"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K0 ["active"]
+  NAMECALL R1 R0 K2 ["setState"]
+  CALL R1 2 0
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["toggleActive"]
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R3 R0 K4 ["props"]
+  GETTABLEKS R2 R3 K5 ["pluginLoaderContext"]
+  GETTABLEKS R1 R2 K6 ["mainButtonClickedSignal"]
+  GETTABLEKS R3 R0 K3 ["toggleActive"]
+  NAMECALL R1 R1 K7 ["Connect"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"active"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["active"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["Plugin"]
+  NAMECALL R2 R2 K2 ["get"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K3 ["Deactivation"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K4 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K5 ["_deactivatedConnection"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["_deactivatedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R3 R2 K0 ["active"]
+  JUMPIFNOT R3 [+16]
+  GETTABLEKS R4 R0 K1 ["state"]
+  GETTABLEKS R3 R4 K0 ["active"]
+  JUMPIF R3 [+11]
+  GETTABLEKS R4 R0 K2 ["props"]
+  GETTABLEKS R3 R4 K3 ["Plugin"]
+  NAMECALL R3 R3 K4 ["get"]
+  CALL R3 1 1
+  LOADB R5 1
+  NAMECALL R3 R3 K5 ["Activate"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["pluginLoaderContext"]
+  GETTABLEKS R1 R2 K2 ["mainButton"]
+  GETTABLEKS R4 R0 K3 ["state"]
+  GETTABLEKS R3 R4 K4 ["active"]
+  NAMECALL R1 R1 K5 ["SetActive"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_7:
+  LOADB R1 0
+  LOADN R2 0
+  GETIMPORT R3 K1 [ipairs]
+  GETUPVAL R4 0
+  NAMECALL R4 R4 K2 ["Get"]
+  CALL R4 1 -1
+  CALL R3 -1 3
+  FORGPREP_INEXT R3
+  LOADK R10 K3 ["BasePart"]
+  NAMECALL R8 R7 K4 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+15]
+  ADDK R2 R2 K5 [1]
+  GETTABLEKS R8 R7 K6 ["PivotOffset"]
+  GETIMPORT R9 K9 [CFrame.new]
+  CALL R9 0 1
+  JUMPIFEQ R8 R9 [+50]
+  GETIMPORT R8 K9 [CFrame.new]
+  CALL R8 0 1
+  SETTABLEKS R8 R7 K6 ["PivotOffset"]
+  LOADB R1 1
+  JUMP [+42]
+  LOADK R10 K10 ["Model"]
+  NAMECALL R8 R7 K4 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+37]
+  ADDK R2 R2 K5 [1]
+  GETTABLEKS R8 R7 K11 ["PrimaryPart"]
+  JUMPIFNOT R8 [+21]
+  GETTABLEKS R9 R7 K11 ["PrimaryPart"]
+  GETTABLEKS R8 R9 K6 ["PivotOffset"]
+  GETIMPORT R9 K13 [CFrame.identity]
+  JUMPIFEQ R8 R9 [+26]
+  GETTABLEKS R8 R7 K11 ["PrimaryPart"]
+  GETIMPORT R9 K13 [CFrame.identity]
+  SETTABLEKS R9 R8 K6 ["PivotOffset"]
+  NAMECALL R8 R7 K14 ["GetPivot"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K15 ["WorldPivot"]
+  LOADB R1 1
+  JUMP [+12]
+  GETUPVAL R8 1
+  MOVE R9 R7
+  CALL R8 1 1
+  GETTABLEKS R9 R7 K15 ["WorldPivot"]
+  JUMPIFEQ R8 R9 [+6]
+  GETUPVAL R9 2
+  MOVE R10 R7
+  MOVE R11 R8
+  CALL R9 2 0
+  LOADB R1 1
+  FORGLOOP R3 2 [inext] [-63]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R3 3
+  LOADK R5 K16 ["Clear Pivot"]
+  NAMECALL R3 R3 K17 ["SetWaypoint"]
+  CALL R3 2 0
+  GETUPVAL R3 4
+  LOADK R5 K18 ["clearPivot"]
+  DUPTABLE R6 K20 [{"objectCount"}]
+  SETTABLEKS R2 R6 K19 ["objectCount"]
+  NAMECALL R3 R3 K21 ["sendEvent"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_onClearPivot"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_9:
+  NEWTABLE R1 2 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+30]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K7 [{"Toolbar", "Title", "Tooltip", "Icon", "Active", "OnClick"}]
+  SETTABLEKS R0 R4 K1 ["Toolbar"]
+  LOADK R5 K8 ["EditPivot"]
+  SETTABLEKS R5 R4 K2 ["Title"]
+  LOADK R5 K9 [""]
+  SETTABLEKS R5 R4 K3 ["Tooltip"]
+  LOADK R5 K9 [""]
+  SETTABLEKS R5 R4 K4 ["Icon"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K10 ["state"]
+  GETTABLEKS R5 R6 K11 ["active"]
+  SETTABLEKS R5 R4 K5 ["Active"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K12 ["toggleActive"]
+  SETTABLEKS R5 R4 K6 ["OnClick"]
+  CALL R2 2 1
+  JUMP [+1]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K8 ["EditPivot"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K14 [{"Toolbar", "Title", "Tooltip", "Icon", "Active", "Enabled", "OnClick"}]
+  SETTABLEKS R0 R4 K1 ["Toolbar"]
+  LOADK R5 K15 ["ClearPivot"]
+  SETTABLEKS R5 R4 K2 ["Title"]
+  LOADK R5 K9 [""]
+  SETTABLEKS R5 R4 K3 ["Tooltip"]
+  LOADK R5 K9 [""]
+  SETTABLEKS R5 R4 K4 ["Icon"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K5 ["Active"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K13 ["Enabled"]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U3
+  SETTABLEKS R5 R4 K6 ["OnClick"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K15 ["ClearPivot"]
+  RETURN R1 1
+
+PROTO_10:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createFragment"]
+  DUPTABLE R2 K3 [{"Toolbar", "Session"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K7 [{"Title", "RenderButtons"}]
+  LOADK R6 K8 ["Pivot"]
+  SETTABLEKS R6 R5 K5 ["Title"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K6 ["RenderButtons"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K1 ["Toolbar"]
+  GETTABLEKS R4 R0 K9 ["state"]
+  GETTABLEKS R3 R4 K10 ["active"]
+  JUMPIFNOT R3 [+5]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["createElement"]
+  GETUPVAL R4 4
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K2 ["Session"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Selection"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["ChangeHistoryService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R5 K6 [script]
+  GETTABLEKS R4 R5 K7 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Parent"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R2 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R2 K10 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Roact"]
+  CALL R4 1 1
+  GETTABLEKS R5 R3 K13 ["ContextServices"]
+  GETTABLEKS R6 R5 K14 ["withContext"]
+  GETTABLEKS R7 R3 K15 ["UI"]
+  GETTABLEKS R8 R7 K16 ["PluginButton"]
+  GETTABLEKS R9 R7 K17 ["PluginToolbar"]
+  GETIMPORT R10 K9 [require]
+  GETTABLEKS R14 R2 K10 ["Packages"]
+  GETTABLEKS R13 R14 K18 ["DraggerFramework"]
+  GETTABLEKS R12 R13 K19 ["Utility"]
+  GETTABLEKS R11 R12 K20 ["Analytics"]
+  CALL R10 1 1
+  GETIMPORT R11 K9 [require]
+  GETTABLEKS R14 R2 K21 ["Src"]
+  GETTABLEKS R13 R14 K22 ["RoduxComponents"]
+  GETTABLEKS R12 R13 K23 ["EditPivotSession"]
+  CALL R11 1 1
+  GETIMPORT R12 K9 [require]
+  GETTABLEKS R15 R2 K21 ["Src"]
+  GETTABLEKS R14 R15 K19 ["Utility"]
+  GETTABLEKS R13 R14 K24 ["setWorldPivot"]
+  CALL R12 1 1
+  GETIMPORT R13 K9 [require]
+  GETTABLEKS R16 R2 K21 ["Src"]
+  GETTABLEKS R15 R16 K19 ["Utility"]
+  GETTABLEKS R14 R15 K25 ["getDefaultModelPivot"]
+  CALL R13 1 1
+  GETTABLEKS R14 R4 K26 ["PureComponent"]
+  LOADK R16 K27 ["EditPivotPlugin"]
+  NAMECALL R14 R14 K28 ["extend"]
+  CALL R14 2 1
+  GETIMPORT R15 K9 [require]
+  GETTABLEKS R18 R2 K21 ["Src"]
+  GETTABLEKS R17 R18 K29 ["Flags"]
+  GETTABLEKS R16 R17 K30 ["getFFlagImprovePluginSpeedPivotEditor"]
+  CALL R15 1 1
+  DUPCLOSURE R16 K31 [PROTO_1]
+  CAPTURE VAL R15
+  SETTABLEKS R16 R14 K32 ["init"]
+  DUPCLOSURE R16 K33 [PROTO_3]
+  SETTABLEKS R16 R14 K34 ["didMount"]
+  DUPCLOSURE R16 K35 [PROTO_4]
+  SETTABLEKS R16 R14 K36 ["willUnmount"]
+  DUPCLOSURE R16 K37 [PROTO_5]
+  SETTABLEKS R16 R14 K38 ["willUpdate"]
+  MOVE R16 R15
+  CALL R16 0 1
+  JUMPIFNOT R16 [+3]
+  DUPCLOSURE R16 K39 [PROTO_6]
+  SETTABLEKS R16 R14 K40 ["didUpdate"]
+  DUPCLOSURE R16 K41 [PROTO_7]
+  CAPTURE VAL R0
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  SETTABLEKS R16 R14 K42 ["_onClearPivot"]
+  DUPCLOSURE R16 K43 [PROTO_10]
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R15
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  SETTABLEKS R16 R14 K44 ["render"]
+  MOVE R16 R6
+  DUPTABLE R17 K46 [{"Plugin"}]
+  GETTABLEKS R18 R5 K45 ["Plugin"]
+  SETTABLEKS R18 R17 K45 ["Plugin"]
+  CALL R16 1 1
+  MOVE R17 R14
+  CALL R16 1 1
+  MOVE R14 R16
+  RETURN R14 1

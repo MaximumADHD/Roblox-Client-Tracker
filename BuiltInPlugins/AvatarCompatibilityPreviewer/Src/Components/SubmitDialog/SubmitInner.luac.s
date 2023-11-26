@@ -1,0 +1,265 @@
+PROTO_0:
+  GETIMPORT R4 K2 [table.find]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["availableChoices"]
+  MOVE R6 R0
+  CALL R4 2 1
+  FASTCALL2K ASSERT R4 K4 [+4]
+  LOADK R5 K4 ["Couldn't find available choice index for A"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 1
+  GETIMPORT R5 K2 [table.find]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["availableChoices"]
+  MOVE R7 R1
+  CALL R5 2 1
+  FASTCALL2K ASSERT R5 K7 [+4]
+  LOADK R6 K7 ["Couldn't find available choice index for B"]
+  GETIMPORT R4 K6 [assert]
+  CALL R4 2 1
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETIMPORT R1 K2 [table.clone]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETIMPORT R2 K4 [table.find]
+  MOVE R3 R1
+  GETUPVAL R4 0
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+7]
+  GETIMPORT R3 K6 [table.remove]
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 0
+  RETURN R1 1
+  GETUPVAL R5 0
+  FASTCALL2 TABLE_INSERT R1 R5 [+4]
+  MOVE R4 R1
+  GETIMPORT R3 K8 [table.insert]
+  CALL R3 2 0
+  GETIMPORT R3 K10 [table.sort]
+  MOVE R4 R1
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CALL R3 2 0
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["setPublishChoices"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["setHeight"]
+  GETTABLEKS R3 R0 K1 ["AbsoluteSize"]
+  GETTABLEKS R2 R3 K2 ["Y"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K7 [{"key", "Checked", "Key", "LayoutOrder", "OnClick", "Text"}]
+  GETUPVAL R5 2
+  GETTABLEKS R7 R1 K8 ["assetType"]
+  FASTCALL1 TOSTRING R7 [+2]
+  GETIMPORT R6 K10 [tostring]
+  CALL R6 1 1
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K1 ["key"]
+  GETIMPORT R6 K13 [table.find]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K14 ["publishChoices"]
+  MOVE R8 R1
+  CALL R6 2 1
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["Checked"]
+  SETTABLEKS R1 R4 K3 ["Key"]
+  GETUPVAL R5 4
+  NAMECALL R5 R5 K15 ["getNextOrder"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K4 ["LayoutOrder"]
+  GETUPVAL R5 5
+  SETTABLEKS R5 R4 K5 ["OnClick"]
+  GETUPVAL R5 6
+  LOADK R7 K16 ["SubmitInner"]
+  LOADK R8 K17 ["ChoiceItem"]
+  DUPTABLE R9 K19 [{"assetType", "instanceName"}]
+  GETUPVAL R10 6
+  LOADK R12 K20 ["AssetType"]
+  GETTABLEKS R15 R1 K8 ["assetType"]
+  FASTCALL1 TYPEOF R15 [+2]
+  GETIMPORT R14 K22 [typeof]
+  CALL R14 1 1
+  JUMPIFNOTEQKS R14 K23 ["string"] [+4]
+  GETTABLEKS R13 R1 K8 ["assetType"]
+  JUMP [+4]
+  GETTABLEKS R14 R1 K8 ["assetType"]
+  GETTABLEKS R13 R14 K24 ["Name"]
+  NAMECALL R10 R10 K25 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K8 ["assetType"]
+  GETTABLEKS R11 R1 K26 ["instance"]
+  GETTABLEKS R10 R11 K24 ["Name"]
+  SETTABLEKS R10 R9 K18 ["instanceName"]
+  NAMECALL R5 R5 K25 ["getText"]
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K6 ["Text"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  LOADK R4 K1 ["SubmitInner"]
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["new"]
+  CALL R3 0 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K3 ["useCallback"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NEWTABLE R6 0 1
+  GETTABLEKS R7 R0 K4 ["availableChoices"]
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 1
+  GETUPVAL R5 4
+  CALL R5 0 1
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  GETUPVAL R7 5
+  NEWTABLE R8 8 0
+  GETIMPORT R9 K9 [Enum.AutomaticSize.Y]
+  SETTABLEKS R9 R8 K7 ["AutomaticSize"]
+  GETIMPORT R9 K12 [Enum.FillDirection.Vertical]
+  SETTABLEKS R9 R8 K13 ["Layout"]
+  GETTABLEKS R9 R2 K14 ["ContentPadding"]
+  SETTABLEKS R9 R8 K15 ["Padding"]
+  GETTABLEKS R9 R2 K16 ["CallToActionSpacing"]
+  SETTABLEKS R9 R8 K17 ["Spacing"]
+  GETIMPORT R9 K20 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K18 ["HorizontalAlignment"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K21 ["Change"]
+  GETTABLEKS R9 R10 K22 ["AbsoluteSize"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R0
+  SETTABLE R10 R8 R9
+  DUPTABLE R9 K25 [{"Title", "Checkboxes"}]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 6
+  DUPTABLE R12 K28 [{"AutomaticSize", "LayoutOrder", "Text"}]
+  GETIMPORT R13 K30 [Enum.AutomaticSize.XY]
+  SETTABLEKS R13 R12 K7 ["AutomaticSize"]
+  NAMECALL R13 R3 K31 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K26 ["LayoutOrder"]
+  LOADK R15 K1 ["SubmitInner"]
+  LOADK R16 K32 ["CallToAction"]
+  NAMECALL R13 R1 K33 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K27 ["Text"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K23 ["Title"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 5
+  DUPTABLE R12 K34 [{"AutomaticSize", "Layout", "LayoutOrder", "HorizontalAlignment", "Spacing"}]
+  GETIMPORT R13 K9 [Enum.AutomaticSize.Y]
+  SETTABLEKS R13 R12 K7 ["AutomaticSize"]
+  GETIMPORT R13 K12 [Enum.FillDirection.Vertical]
+  SETTABLEKS R13 R12 K13 ["Layout"]
+  NAMECALL R13 R3 K31 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K26 ["LayoutOrder"]
+  GETIMPORT R13 K20 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R13 R12 K18 ["HorizontalAlignment"]
+  GETTABLEKS R13 R2 K35 ["CheckboxSpacing"]
+  SETTABLEKS R13 R12 K17 ["Spacing"]
+  GETUPVAL R14 7
+  GETTABLEKS R13 R14 K36 ["collectArray"]
+  GETTABLEKS R14 R0 K4 ["availableChoices"]
+  NEWCLOSURE R15 P2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U8
+  CAPTURE VAL R5
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CALL R13 2 -1
+  CALL R10 -1 1
+  SETTABLEKS R10 R9 K24 ["Checkboxes"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["createUniqueKey"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Resources"]
+  GETTABLEKS R7 R8 K15 ["Theme"]
+  CALL R6 1 1
+  GETTABLEKS R7 R2 K16 ["UI"]
+  GETTABLEKS R8 R7 K17 ["Checkbox"]
+  GETTABLEKS R9 R7 K18 ["Pane"]
+  GETTABLEKS R10 R7 K19 ["TextLabel"]
+  GETTABLEKS R12 R2 K20 ["ContextServices"]
+  GETTABLEKS R11 R12 K21 ["Localization"]
+  GETTABLEKS R13 R2 K20 ["ContextServices"]
+  GETTABLEKS R12 R13 K22 ["Stylizer"]
+  GETTABLEKS R14 R2 K11 ["Util"]
+  GETTABLEKS R13 R14 K23 ["LayoutOrderIterator"]
+  DUPCLOSURE R14 K24 [PROTO_5]
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  RETURN R14 1

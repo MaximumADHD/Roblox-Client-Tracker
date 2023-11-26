@@ -1,0 +1,52 @@
+PROTO_0:
+  NEWTABLE R3 0 0
+  NEWTABLE R4 0 0
+  GETIMPORT R5 K1 [ipairs]
+  MOVE R6 R2
+  CALL R5 1 3
+  FORGPREP_INEXT R5
+  GETTABLEKS R12 R9 K2 ["pathColumn"]
+  FASTCALL2 TABLE_INSERT R3 R12 [+4]
+  MOVE R11 R3
+  GETIMPORT R10 K5 [table.insert]
+  CALL R10 2 0
+  GETTABLEKS R10 R9 K2 ["pathColumn"]
+  SETTABLE R9 R4 R10
+  FORGLOOP R5 2 [inext] [-12]
+  DUPTABLE R5 K10 [{"stepStateBundle", "parentPath", "childKeys", "newVarsMapping"}]
+  SETTABLEKS R0 R5 K6 ["stepStateBundle"]
+  SETTABLEKS R1 R5 K7 ["parentPath"]
+  SETTABLEKS R3 R5 K8 ["childKeys"]
+  SETTABLEKS R4 R5 K9 ["newVarsMapping"]
+  RETURN R5 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K7 ["Util"]
+  GETTABLEKS R3 R2 K8 ["Action"]
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Models"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R4 K11 ["Watch"]
+  GETTABLEKS R6 R7 K12 ["VariableRow"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K10 ["Models"]
+  GETTABLEKS R7 R8 K13 ["StepStateBundle"]
+  CALL R6 1 1
+  MOVE R7 R3
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K14 ["Name"]
+  DUPCLOSURE R9 K15 [PROTO_0]
+  CALL R7 2 -1
+  RETURN R7 -1

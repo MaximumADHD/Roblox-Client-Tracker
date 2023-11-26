@@ -1,0 +1,736 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["biomeSelection"]
+  GETTABLE R4 R2 R0
+  NOT R3 R4
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K2 ["dispatchSetBiomeSelection"]
+  MOVE R5 R0
+  MOVE R6 R3
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_1:
+  FASTCALL1 TONUMBER R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [tonumber]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+10]
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+8]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["props"]
+  GETTABLEKS R2 R3 K3 ["dispatchSetBiomeSize"]
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["TerrainGeneration"]
+  DUPTABLE R3 K8 [{"position", "size", "biomeSelection", "biomeSize", "haveCaves", "seed"}]
+  GETTABLEKS R4 R0 K2 ["position"]
+  SETTABLEKS R4 R3 K2 ["position"]
+  GETTABLEKS R4 R0 K3 ["size"]
+  SETTABLEKS R4 R3 K3 ["size"]
+  GETTABLEKS R4 R0 K4 ["biomeSelection"]
+  SETTABLEKS R4 R3 K4 ["biomeSelection"]
+  GETTABLEKS R4 R0 K5 ["biomeSize"]
+  SETTABLEKS R4 R3 K5 ["biomeSize"]
+  GETTABLEKS R4 R0 K6 ["haveCaves"]
+  SETTABLEKS R4 R3 K6 ["haveCaves"]
+  GETTABLEKS R4 R0 K7 ["seed"]
+  SETTABLEKS R4 R3 K7 ["seed"]
+  NAMECALL R1 R1 K9 ["updateSettings"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"mapSettingsValid"}]
+  SETTABLEKS R0 R3 K0 ["mapSettingsValid"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["dispatchSetSeed"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R0 K1 [pairs]
+  GETUPVAL R3 0
+  GETTABLEKS R1 R3 K2 ["warnings"]
+  CALL R0 1 3
+  FORGPREP_NEXT R0
+  JUMPIFNOT R4 [+7]
+  GETIMPORT R5 K4 [warn]
+  MOVE R7 R3
+  LOADK R8 K5 [" is invalid."]
+  CONCAT R6 R7 R8
+  CALL R5 1 0
+  RETURN R0 0
+  FORGLOOP R0 2 [-9]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K6 ["updateGenerateProps"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K7 ["props"]
+  GETTABLEKS R0 R1 K8 ["TerrainGeneration"]
+  NAMECALL R0 R0 K9 ["startGeneration"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["TerrainGeneration"]
+  NAMECALL R0 R0 K2 ["togglePauseGeneration"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["TerrainGeneration"]
+  NAMECALL R0 R0 K2 ["cancelGeneration"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R3 R0 K1 ["Position"]
+  GETTABLEKS R4 R2 K2 ["dispatchChangePosition"]
+  DUPTABLE R5 K6 [{"X", "Y", "Z"}]
+  GETTABLEKS R6 R3 K3 ["X"]
+  SETTABLEKS R6 R5 K3 ["X"]
+  GETTABLEKS R6 R3 K4 ["Y"]
+  SETTABLEKS R6 R5 K4 ["Y"]
+  GETTABLEKS R6 R3 K5 ["Z"]
+  SETTABLEKS R6 R5 K5 ["Z"]
+  CALL R4 1 0
+  GETTABLEKS R4 R2 K7 ["dispatchChangeSize"]
+  DUPTABLE R5 K6 [{"X", "Y", "Z"}]
+  GETTABLEKS R6 R1 K3 ["X"]
+  SETTABLEKS R6 R5 K3 ["X"]
+  GETTABLEKS R6 R1 K4 ["Y"]
+  SETTABLEKS R6 R5 K4 ["Y"]
+  GETTABLEKS R6 R1 K5 ["Z"]
+  SETTABLEKS R6 R5 K5 ["Z"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K0 ["warnings"]
+  RETURN R0 0
+
+PROTO_10:
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K0 ["warnings"]
+  DUPTABLE R1 K2 [{"mapSettingsValid"}]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K1 ["mapSettingsValid"]
+  SETTABLEKS R1 R0 K3 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K4 ["selectBiome"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K5 ["onBiomeSizeChanged"]
+  NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K6 ["updateGenerateProps"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K7 ["setMapSettingsValidated"]
+  NEWCLOSURE R1 P4
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K8 ["onSeedFocusLost"]
+  NEWCLOSURE R1 P5
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K9 ["tryGenerate"]
+  NEWCLOSURE R1 P6
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K10 ["onGenerationPauseRequested"]
+  NEWCLOSURE R1 P7
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K11 ["onGenerationCancelRequested"]
+  NEWCLOSURE R1 P8
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K12 ["onRegionChanged"]
+  NEWCLOSURE R1 P9
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K13 ["setWarnings"]
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R1 R0 K0 ["updateGenerateProps"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R1 R0 K0 ["updateGenerateProps"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["dispatchChangeSelection"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["position"]
+  GETTABLEKS R4 R1 K3 ["size"]
+  GETTABLEKS R5 R1 K4 ["biomeSelection"]
+  GETTABLEKS R6 R1 K5 ["biomeSize"]
+  GETTABLEKS R7 R1 K6 ["haveCaves"]
+  GETTABLEKS R8 R1 K7 ["seed"]
+  GETTABLEKS R9 R0 K8 ["selectBiome"]
+  GETTABLEKS R10 R1 K9 ["snapToVoxels"]
+  GETTABLEKS R11 R1 K10 ["transform"]
+  GETTABLEKS R12 R1 K11 ["TerrainGeneration"]
+  NAMECALL R12 R12 K12 ["isGenerating"]
+  CALL R12 1 1
+  JUMPIFNOT R12 [+6]
+  GETTABLEKS R13 R1 K11 ["TerrainGeneration"]
+  NAMECALL R13 R13 K13 ["getProgress"]
+  CALL R13 1 1
+  JUMPIF R13 [+1]
+  LOADN R13 0
+  JUMPIFNOT R12 [+6]
+  GETTABLEKS R14 R1 K11 ["TerrainGeneration"]
+  NAMECALL R14 R14 K14 ["isPaused"]
+  CALL R14 1 1
+  JUMPIF R14 [+1]
+  LOADB R14 0
+  GETTABLEKS R16 R0 K15 ["state"]
+  GETTABLEKS R15 R16 K16 ["mapSettingsValid"]
+  JUMPIFNOT R15 [+1]
+  NOT R15 R12
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K17 ["createFragment"]
+  DUPTABLE R17 K24 [{"MapSettingsWithPreview", "RegionSettings", "MaterialSettings", "OtherSettings", "GenerateButtonFrame", "ProgressDialog"}]
+  GETUPVAL R19 1
+  JUMPIF R19 [+34]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K25 ["createElement"]
+  GETUPVAL R19 2
+  DUPTABLE R20 K34 [{"toolName", "LayoutOrder", "Position", "Size", "OnPositionChanged", "OnSizeChanged", "SetMapSettingsValid", "SetWarnings"}]
+  GETTABLEKS R21 R1 K26 ["toolName"]
+  SETTABLEKS R21 R20 K26 ["toolName"]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K27 ["LayoutOrder"]
+  SETTABLEKS R3 R20 K28 ["Position"]
+  SETTABLEKS R4 R20 K29 ["Size"]
+  GETTABLEKS R21 R1 K35 ["dispatchChangePosition"]
+  SETTABLEKS R21 R20 K30 ["OnPositionChanged"]
+  GETTABLEKS R21 R1 K36 ["dispatchChangeSize"]
+  SETTABLEKS R21 R20 K31 ["OnSizeChanged"]
+  GETTABLEKS R21 R0 K37 ["setMapSettingsValidated"]
+  SETTABLEKS R21 R20 K32 ["SetMapSettingsValid"]
+  GETTABLEKS R21 R0 K38 ["setWarnings"]
+  SETTABLEKS R21 R20 K33 ["SetWarnings"]
+  CALL R18 2 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K18 ["MapSettingsWithPreview"]
+  GETUPVAL R19 1
+  JUMPIFNOT R19 [+60]
+  JUMPIFNOT R11 [+59]
+  JUMPIFNOT R4 [+58]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K25 ["createElement"]
+  GETUPVAL R19 3
+  DUPTABLE R20 K42 [{"Padding", "LayoutOrder", "isSubsection", "Title"}]
+  GETIMPORT R21 K45 [UDim.new]
+  LOADN R22 0
+  LOADN R23 12
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K39 ["Padding"]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K27 ["LayoutOrder"]
+  LOADB R21 0
+  SETTABLEKS R21 R20 K40 ["isSubsection"]
+  LOADK R23 K46 ["SelectionSettings"]
+  LOADK R24 K46 ["SelectionSettings"]
+  NAMECALL R21 R2 K47 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K41 ["Title"]
+  DUPTABLE R21 K49 [{"Region"}]
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K25 ["createElement"]
+  GETUPVAL R23 4
+  DUPTABLE R24 K56 [{"HideWireframe", "LayoutOrder", "SetRegion", "Size", "SourceSize", "SourceTransform", "Transform", "ToolName"}]
+  LOADB R25 1
+  SETTABLEKS R25 R24 K50 ["HideWireframe"]
+  LOADN R25 1
+  SETTABLEKS R25 R24 K27 ["LayoutOrder"]
+  NEWCLOSURE R25 P0
+  CAPTURE VAL R1
+  SETTABLEKS R25 R24 K51 ["SetRegion"]
+  SETTABLEKS R4 R24 K29 ["Size"]
+  SETTABLEKS R4 R24 K52 ["SourceSize"]
+  SETTABLEKS R11 R24 K53 ["SourceTransform"]
+  SETTABLEKS R11 R24 K54 ["Transform"]
+  GETTABLEKS R25 R1 K26 ["toolName"]
+  SETTABLEKS R25 R24 K55 ["ToolName"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K48 ["Region"]
+  CALL R18 3 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K19 ["RegionSettings"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K25 ["createElement"]
+  GETUPVAL R19 3
+  DUPTABLE R20 K57 [{"Title", "LayoutOrder"}]
+  LOADK R23 K20 ["MaterialSettings"]
+  LOADK R24 K20 ["MaterialSettings"]
+  NAMECALL R21 R2 K47 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K41 ["Title"]
+  LOADN R21 2
+  SETTABLEKS R21 R20 K27 ["LayoutOrder"]
+  DUPTABLE R21 K59 [{"BiomeSettingsFragment"}]
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K25 ["createElement"]
+  GETUPVAL R23 5
+  DUPTABLE R24 K62 [{"LayoutOrder", "biomeSelection", "selectBiome", "biomeSize", "setBiomeSize", "haveCaves", "setHaveCaves"}]
+  LOADN R25 1
+  SETTABLEKS R25 R24 K27 ["LayoutOrder"]
+  SETTABLEKS R5 R24 K4 ["biomeSelection"]
+  SETTABLEKS R9 R24 K8 ["selectBiome"]
+  SETTABLEKS R6 R24 K5 ["biomeSize"]
+  GETTABLEKS R25 R1 K63 ["dispatchSetBiomeSize"]
+  SETTABLEKS R25 R24 K60 ["setBiomeSize"]
+  SETTABLEKS R7 R24 K6 ["haveCaves"]
+  GETTABLEKS R25 R1 K64 ["dispatchSetHaveCaves"]
+  SETTABLEKS R25 R24 K61 ["setHaveCaves"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K58 ["BiomeSettingsFragment"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K20 ["MaterialSettings"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K25 ["createElement"]
+  GETUPVAL R19 6
+  DUPTABLE R20 K66 [{"LayoutOrder", "seed", "setSeed"}]
+  LOADN R21 3
+  SETTABLEKS R21 R20 K27 ["LayoutOrder"]
+  SETTABLEKS R8 R20 K7 ["seed"]
+  GETTABLEKS R21 R1 K67 ["dispatchSetSeed"]
+  SETTABLEKS R21 R20 K65 ["setSeed"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K21 ["OtherSettings"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K25 ["createElement"]
+  GETUPVAL R19 7
+  DUPTABLE R20 K70 [{"LayoutOrder", "Buttons", "Style"}]
+  LOADN R21 4
+  SETTABLEKS R21 R20 K27 ["LayoutOrder"]
+  NEWTABLE R21 0 1
+  DUPTABLE R22 K75 [{"Key", "Name", "Active", "OnClicked"}]
+  LOADK R23 K76 ["Generate"]
+  SETTABLEKS R23 R22 K71 ["Key"]
+  LOADK R25 K76 ["Generate"]
+  LOADK R26 K77 ["ButtonGenerate"]
+  NAMECALL R23 R2 K47 ["getText"]
+  CALL R23 3 1
+  SETTABLEKS R23 R22 K72 ["Name"]
+  SETTABLEKS R15 R22 K73 ["Active"]
+  GETTABLEKS R23 R0 K78 ["tryGenerate"]
+  SETTABLEKS R23 R22 K74 ["OnClicked"]
+  SETLIST R21 R22 1 [1]
+  SETTABLEKS R21 R20 K68 ["Buttons"]
+  GETUPVAL R22 1
+  JUMPIFNOT R22 [+2]
+  LOADK R21 K79 ["RoundPrimary"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K69 ["Style"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K22 ["GenerateButtonFrame"]
+  MOVE R18 R12
+  JUMPIFNOT R18 [+32]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K25 ["createElement"]
+  GETUPVAL R19 8
+  DUPTABLE R20 K85 [{"Title", "SubText", "Progress", "IsPaused", "OnPauseButtonClicked", "OnCancelButtonClicked"}]
+  LOADK R23 K76 ["Generate"]
+  LOADK R24 K86 ["GenerateProgressTitle"]
+  NAMECALL R21 R2 K47 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K41 ["Title"]
+  LOADK R23 K76 ["Generate"]
+  LOADK R24 K87 ["GenerateVoxels"]
+  NAMECALL R21 R2 K47 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K80 ["SubText"]
+  SETTABLEKS R13 R20 K81 ["Progress"]
+  SETTABLEKS R14 R20 K82 ["IsPaused"]
+  GETTABLEKS R21 R0 K88 ["onGenerationPauseRequested"]
+  SETTABLEKS R21 R20 K83 ["OnPauseButtonClicked"]
+  GETTABLEKS R21 R0 K89 ["onGenerationCancelRequested"]
+  SETTABLEKS R21 R20 K84 ["OnCancelButtonClicked"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K23 ["ProgressDialog"]
+  CALL R16 1 -1
+  RETURN R16 -1
+
+PROTO_15:
+  DUPTABLE R2 K9 [{"toolName", "biomeSelection", "biomeSize", "haveCaves", "position", "seed", "size", "snapToVoxels", "transform"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K10 ["ToolId"]
+  GETTABLEKS R3 R4 K11 ["Generate"]
+  SETTABLEKS R3 R2 K0 ["toolName"]
+  GETTABLEKS R4 R0 K12 ["GenerateTool"]
+  GETTABLEKS R3 R4 K1 ["biomeSelection"]
+  SETTABLEKS R3 R2 K1 ["biomeSelection"]
+  GETTABLEKS R4 R0 K12 ["GenerateTool"]
+  GETTABLEKS R3 R4 K2 ["biomeSize"]
+  SETTABLEKS R3 R2 K2 ["biomeSize"]
+  GETTABLEKS R4 R0 K12 ["GenerateTool"]
+  GETTABLEKS R3 R4 K3 ["haveCaves"]
+  SETTABLEKS R3 R2 K3 ["haveCaves"]
+  GETUPVAL R4 1
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R5 R0 K13 ["Tools"]
+  GETTABLEKS R4 R5 K14 ["SelectionTransform"]
+  GETTABLEKS R3 R4 K15 ["Position"]
+  JUMP [+4]
+  GETTABLEKS R4 R0 K12 ["GenerateTool"]
+  GETTABLEKS R3 R4 K4 ["position"]
+  SETTABLEKS R3 R2 K4 ["position"]
+  GETTABLEKS R4 R0 K12 ["GenerateTool"]
+  GETTABLEKS R3 R4 K5 ["seed"]
+  SETTABLEKS R3 R2 K5 ["seed"]
+  GETUPVAL R4 1
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K13 ["Tools"]
+  GETTABLEKS R3 R4 K16 ["SelectionSize"]
+  JUMP [+4]
+  GETTABLEKS R4 R0 K12 ["GenerateTool"]
+  GETTABLEKS R3 R4 K6 ["size"]
+  SETTABLEKS R3 R2 K6 ["size"]
+  GETUPVAL R4 1
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K13 ["Tools"]
+  GETTABLEKS R3 R4 K17 ["SnapToVoxels"]
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K7 ["snapToVoxels"]
+  GETUPVAL R4 1
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K13 ["Tools"]
+  GETTABLEKS R3 R4 K14 ["SelectionTransform"]
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K8 ["transform"]
+  RETURN R2 1
+
+PROTO_16:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  LOADK R3 K0 ["GenerateTool"]
+  MOVE R4 R0
+  CALL R2 2 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_17:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  LOADK R5 K0 ["GenerateTool"]
+  MOVE R6 R2
+  CALL R4 2 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_18:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["GenerateTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_19:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["GenerateTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_20:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["GenerateTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_21:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["GenerateTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_23:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  LOADK R4 K0 ["GenerateTool"]
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_24:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_25:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  DUPTABLE R2 K8 [{"dispatchSetBiomeSelection", "dispatchSetBiomeSize", "dispatchSetHaveCaves", "dispatchChangePosition", "dispatchSetSeed", "dispatchSetSnapToVoxels", "dispatchChangeSize", "dispatchChangeSelection"}]
+  NEWCLOSURE R3 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K0 ["dispatchSetBiomeSelection"]
+  NEWCLOSURE R3 P2
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K1 ["dispatchSetBiomeSize"]
+  NEWCLOSURE R3 P3
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K2 ["dispatchSetHaveCaves"]
+  NEWCLOSURE R3 P4
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K3 ["dispatchChangePosition"]
+  NEWCLOSURE R3 P5
+  CAPTURE UPVAL U5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K4 ["dispatchSetSeed"]
+  NEWCLOSURE R3 P6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  SETTABLEKS R3 R2 K5 ["dispatchSetSnapToVoxels"]
+  NEWCLOSURE R3 P7
+  CAPTURE UPVAL U7
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R3 R2 K6 ["dispatchChangeSize"]
+  NEWCLOSURE R3 P8
+  CAPTURE VAL R0
+  CAPTURE UPVAL U8
+  SETTABLEKS R3 R2 K7 ["dispatchChangeSelection"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["ContextItems"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K13 ["Util"]
+  GETTABLEKS R8 R9 K14 ["TerrainEnums"]
+  CALL R7 1 1
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K15 ["ToolParts"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R8 K16 ["BiomeSettingsFragment"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R8 K17 ["ButtonGroup"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R12 R8 K18 ["MapSettingsWithPreview"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R13 R8 K19 ["OtherGenerateSettings"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R14 R8 K20 ["RegionFragment"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R15 R8 K21 ["Panel"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R18 R0 K11 ["Src"]
+  GETTABLEKS R17 R18 K22 ["Components"]
+  GETTABLEKS R16 R17 K23 ["ProgressDialog"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R17 R8 K20 ["RegionFragment"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R18 R8 K24 ["VolumeDragger"]
+  CALL R17 1 1
+  GETTABLEKS R19 R0 K11 ["Src"]
+  GETTABLEKS R18 R19 K25 ["Actions"]
+  GETIMPORT R19 K4 [require]
+  GETTABLEKS R20 R18 K26 ["ApplyToolAction"]
+  CALL R19 1 1
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R21 R18 K27 ["ChangePosition"]
+  CALL R20 1 1
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R22 R18 K28 ["ChangeSelection"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R23 R18 K29 ["ChangeSize"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R24 R18 K30 ["SetBiomeSelection"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R25 R18 K31 ["SetBiomeSize"]
+  CALL R24 1 1
+  GETIMPORT R25 K4 [require]
+  GETTABLEKS R26 R18 K32 ["SetHaveCaves"]
+  CALL R25 1 1
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R27 R18 K33 ["SetSeed"]
+  CALL R26 1 1
+  GETIMPORT R27 K4 [require]
+  GETTABLEKS R28 R18 K34 ["SetSnapToVoxels"]
+  CALL R27 1 1
+  GETIMPORT R28 K36 [game]
+  LOADK R30 K37 ["TerrainEditorOverhaul"]
+  NAMECALL R28 R28 K38 ["GetFastFlag"]
+  CALL R28 2 1
+  GETTABLEKS R29 R2 K39 ["PureComponent"]
+  GETIMPORT R32 K1 [script]
+  GETTABLEKS R31 R32 K40 ["Name"]
+  NAMECALL R29 R29 K41 ["extend"]
+  CALL R29 2 1
+  DUPCLOSURE R30 K42 [PROTO_10]
+  SETTABLEKS R30 R29 K43 ["init"]
+  DUPCLOSURE R30 K44 [PROTO_11]
+  SETTABLEKS R30 R29 K45 ["didUpdate"]
+  DUPCLOSURE R30 K46 [PROTO_12]
+  SETTABLEKS R30 R29 K47 ["didMount"]
+  DUPCLOSURE R30 K48 [PROTO_14]
+  CAPTURE VAL R2
+  CAPTURE VAL R28
+  CAPTURE VAL R11
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R15
+  SETTABLEKS R30 R29 K49 ["render"]
+  MOVE R30 R5
+  DUPTABLE R31 K52 [{"Localization", "TerrainGeneration"}]
+  GETTABLEKS R32 R4 K50 ["Localization"]
+  SETTABLEKS R32 R31 K50 ["Localization"]
+  GETTABLEKS R32 R6 K51 ["TerrainGeneration"]
+  SETTABLEKS R32 R31 K51 ["TerrainGeneration"]
+  CALL R30 1 1
+  MOVE R31 R29
+  CALL R30 1 1
+  MOVE R29 R30
+  DUPCLOSURE R30 K53 [PROTO_15]
+  CAPTURE VAL R7
+  CAPTURE VAL R28
+  DUPCLOSURE R31 K54 [PROTO_25]
+  CAPTURE VAL R19
+  CAPTURE VAL R23
+  CAPTURE VAL R24
+  CAPTURE VAL R25
+  CAPTURE VAL R20
+  CAPTURE VAL R26
+  CAPTURE VAL R27
+  CAPTURE VAL R22
+  CAPTURE VAL R21
+  GETTABLEKS R32 R3 K55 ["connect"]
+  MOVE R33 R30
+  MOVE R34 R31
+  CALL R32 2 1
+  MOVE R33 R29
+  CALL R32 1 -1
+  RETURN R32 -1

@@ -1,0 +1,214 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["OnReturn"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["OnClose"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K6 [{"Layout", "Padding", "Spacing"}]
+  GETIMPORT R7 K10 [Enum.FillDirection.Vertical]
+  SETTABLEKS R7 R6 K3 ["Layout"]
+  LOADN R7 50
+  SETTABLEKS R7 R6 K4 ["Padding"]
+  LOADN R7 20
+  SETTABLEKS R7 R6 K5 ["Spacing"]
+  DUPTABLE R7 K15 [{"Tick", "Title", "Description", "Row"}]
+  GETUPVAL R9 3
+  JUMPIFNOT R9 [+2]
+  LOADNIL R8
+  JUMP [+20]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K19 [{"LayoutOrder", "Image", "Size"}]
+  MOVE R11 R3
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K16 ["LayoutOrder"]
+  LOADK R11 K20 ["rbxasset://textures/Tutorials/Tick.png"]
+  SETTABLEKS R11 R10 K17 ["Image"]
+  GETIMPORT R11 K23 [UDim2.fromOffset]
+  LOADN R12 52
+  LOADN R13 52
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K18 ["Size"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K11 ["Tick"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K27 [{"AutomaticSize", "LayoutOrder", "Text", "Style"}]
+  GETIMPORT R11 K29 [Enum.AutomaticSize.XY]
+  SETTABLEKS R11 R10 K24 ["AutomaticSize"]
+  MOVE R11 R3
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K16 ["LayoutOrder"]
+  LOADK R13 K30 ["Completed"]
+  LOADK R14 K12 ["Title"]
+  NAMECALL R11 R2 K31 ["getText"]
+  CALL R11 3 1
+  GETTABLEKS R13 R1 K32 ["Name"]
+  NAMECALL R11 R11 K33 ["format"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K25 ["Text"]
+  LOADK R11 K12 ["Title"]
+  SETTABLEKS R11 R10 K26 ["Style"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["Title"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K35 [{"AutomaticSize", "LayoutOrder", "Text", "TextWrapped", "Style"}]
+  GETIMPORT R11 K29 [Enum.AutomaticSize.XY]
+  SETTABLEKS R11 R10 K24 ["AutomaticSize"]
+  MOVE R11 R3
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K16 ["LayoutOrder"]
+  LOADK R13 K30 ["Completed"]
+  LOADK R14 K13 ["Description"]
+  NAMECALL R11 R2 K31 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K25 ["Text"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K34 ["TextWrapped"]
+  LOADK R11 K36 ["Subtitle"]
+  SETTABLEKS R11 R10 K26 ["Style"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["Description"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K37 [{"AutomaticSize", "Layout", "LayoutOrder", "Spacing"}]
+  GETIMPORT R11 K29 [Enum.AutomaticSize.XY]
+  SETTABLEKS R11 R10 K24 ["AutomaticSize"]
+  GETIMPORT R11 K39 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R11 R10 K3 ["Layout"]
+  MOVE R11 R3
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K16 ["LayoutOrder"]
+  LOADN R11 20
+  SETTABLEKS R11 R10 K5 ["Spacing"]
+  DUPTABLE R11 K42 [{"Dashboard", "Continue"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K2 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K44 [{"LayoutOrder", "Text", "Style", "OnClick", "Size"}]
+  MOVE R15 R3
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K16 ["LayoutOrder"]
+  LOADK R17 K30 ["Completed"]
+  LOADK R18 K45 ["Back"]
+  NAMECALL R15 R2 K31 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K25 ["Text"]
+  LOADK R15 K46 ["Round"]
+  SETTABLEKS R15 R14 K26 ["Style"]
+  NEWCLOSURE R15 P0
+  CAPTURE VAL R0
+  SETTABLEKS R15 R14 K43 ["OnClick"]
+  GETIMPORT R15 K23 [UDim2.fromOffset]
+  LOADN R16 150
+  LOADN R17 32
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K18 ["Size"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K40 ["Dashboard"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K2 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K44 [{"LayoutOrder", "Text", "Style", "OnClick", "Size"}]
+  MOVE R15 R3
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K16 ["LayoutOrder"]
+  LOADK R17 K30 ["Completed"]
+  LOADK R18 K41 ["Continue"]
+  NAMECALL R15 R2 K31 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K25 ["Text"]
+  LOADK R15 K47 ["RoundPrimary"]
+  SETTABLEKS R15 R14 K26 ["Style"]
+  NEWCLOSURE R15 P1
+  CAPTURE VAL R0
+  SETTABLEKS R15 R14 K43 ["OnClick"]
+  GETIMPORT R15 K23 [UDim2.fromOffset]
+  LOADN R16 80
+  LOADN R17 32
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K18 ["Size"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K41 ["Continue"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K14 ["Row"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["getFFlagTutorialsTourWidget"]
+  CALL R2 1 1
+  CALL R2 0 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K10 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K11 ["ContextServices"]
+  GETTABLEKS R5 R4 K12 ["withContext"]
+  GETTABLEKS R6 R4 K13 ["Analytics"]
+  GETTABLEKS R7 R4 K14 ["Localization"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K7 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Util"]
+  GETTABLEKS R9 R10 K16 ["counter"]
+  CALL R8 1 1
+  GETTABLEKS R9 R3 K17 ["UI"]
+  GETTABLEKS R10 R9 K18 ["Button"]
+  GETTABLEKS R11 R9 K19 ["Image"]
+  GETTABLEKS R12 R9 K20 ["Pane"]
+  GETTABLEKS R13 R9 K21 ["TextLabel"]
+  GETTABLEKS R14 R1 K22 ["PureComponent"]
+  LOADK R16 K23 ["CompletedTutorialDialog"]
+  NAMECALL R14 R14 K24 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K25 [PROTO_2]
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R10
+  SETTABLEKS R15 R14 K26 ["render"]
+  MOVE R15 R5
+  DUPTABLE R16 K27 [{"Analytics", "Localization"}]
+  SETTABLEKS R6 R16 K13 ["Analytics"]
+  SETTABLEKS R7 R16 K14 ["Localization"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  RETURN R14 1

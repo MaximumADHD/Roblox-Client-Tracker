@@ -1,0 +1,230 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Theme"]
+  NAMECALL R1 R1 K2 ["get"]
+  CALL R1 1 1
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["Localization"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K4 ["selectBiome"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K5 ["biomeSelection"]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K6 ["LayoutOrder"]
+  DUPTABLE R6 K9 [{"LayoutPadding", "GridLayout"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K10 ["createElement"]
+  LOADK R8 K11 ["UIPadding"]
+  DUPTABLE R9 K16 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R10 K19 [UDim.new]
+  LOADN R11 0
+  LOADN R12 9
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K12 ["PaddingTop"]
+  GETIMPORT R10 K19 [UDim.new]
+  LOADN R11 0
+  LOADN R12 9
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K13 ["PaddingBottom"]
+  GETIMPORT R10 K19 [UDim.new]
+  LOADN R11 0
+  LOADN R12 9
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K14 ["PaddingLeft"]
+  GETIMPORT R10 K19 [UDim.new]
+  LOADN R11 0
+  LOADN R12 9
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K15 ["PaddingRight"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K7 ["LayoutPadding"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K10 ["createElement"]
+  LOADK R8 K20 ["UIGridLayout"]
+  DUPTABLE R9 K24 [{"CellSize", "CellPadding", "SortOrder"}]
+  GETIMPORT R10 K26 [UDim2.new]
+  LOADN R11 0
+  LOADN R12 86
+  LOADN R13 0
+  LOADN R14 16
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K21 ["CellSize"]
+  GETIMPORT R10 K26 [UDim2.new]
+  LOADN R11 0
+  LOADN R12 20
+  LOADN R13 0
+  LOADN R14 8
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K22 ["CellPadding"]
+  GETIMPORT R10 K28 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R10 R9 K23 ["SortOrder"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K8 ["GridLayout"]
+  GETIMPORT R7 K30 [ipairs]
+  GETUPVAL R8 1
+  CALL R7 1 3
+  FORGPREP_INEXT R7
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  GETUPVAL R13 2
+  DUPTABLE R14 K35 [{"Checked", "OnClick", "Key", "LayoutOrder", "Text"}]
+  GETTABLE R15 R4 R11
+  SETTABLEKS R15 R14 K31 ["Checked"]
+  SETTABLEKS R3 R14 K32 ["OnClick"]
+  SETTABLEKS R11 R14 K33 ["Key"]
+  SETTABLEKS R10 R14 K6 ["LayoutOrder"]
+  LOADK R17 K36 ["Generate"]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K37 ["BiomeToLocalizationKey"]
+  GETTABLE R18 R19 R11
+  NAMECALL R15 R2 K38 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K34 ["Text"]
+  CALL R12 2 1
+  SETTABLE R12 R6 R11
+  FORGLOOP R7 2 [inext] [-27]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K10 ["createElement"]
+  LOADK R8 K39 ["Frame"]
+  DUPTABLE R9 K42 [{"Size", "BackgroundTransparency", "LayoutOrder"}]
+  GETIMPORT R10 K26 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 148
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K40 ["Size"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K41 ["BackgroundTransparency"]
+  SETTABLEKS R5 R9 K6 ["LayoutOrder"]
+  DUPTABLE R10 K45 [{"Label", "Border"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K10 ["createElement"]
+  LOADK R12 K46 ["TextLabel"]
+  DUPTABLE R13 K52 [{"Text", "Font", "TextSize", "TextColor3", "Size", "TextXAlignment", "Position", "BackgroundTransparency"}]
+  LOADK R16 K53 ["MaterialSettings"]
+  LOADK R17 K54 ["ChooseBiome"]
+  NAMECALL R14 R2 K38 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K34 ["Text"]
+  GETTABLEKS R14 R1 K55 ["font"]
+  SETTABLEKS R14 R13 K47 ["Font"]
+  GETTABLEKS R14 R1 K56 ["textSize"]
+  SETTABLEKS R14 R13 K48 ["TextSize"]
+  GETTABLEKS R14 R1 K57 ["textColor"]
+  SETTABLEKS R14 R13 K49 ["TextColor3"]
+  GETIMPORT R14 K26 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 0
+  LOADN R18 16
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K40 ["Size"]
+  GETIMPORT R14 K59 [Enum.TextXAlignment.Left]
+  SETTABLEKS R14 R13 K50 ["TextXAlignment"]
+  GETIMPORT R14 K26 [UDim2.new]
+  LOADN R15 0
+  LOADN R16 20
+  LOADN R17 0
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K51 ["Position"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K41 ["BackgroundTransparency"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K43 ["Label"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K10 ["createElement"]
+  LOADK R12 K39 ["Frame"]
+  DUPTABLE R13 K62 [{"Size", "Position", "BackgroundColor3", "BorderColor3"}]
+  GETIMPORT R14 K26 [UDim2.new]
+  LOADN R15 0
+  LOADN R16 229
+  LOADN R17 0
+  LOADN R18 128
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K40 ["Size"]
+  GETIMPORT R14 K26 [UDim2.new]
+  LOADN R15 0
+  LOADN R16 20
+  LOADN R17 0
+  LOADN R18 20
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K51 ["Position"]
+  GETTABLEKS R14 R1 K63 ["backgroundColor"]
+  SETTABLEKS R14 R13 K60 ["BackgroundColor3"]
+  GETTABLEKS R14 R1 K64 ["borderColor"]
+  SETTABLEKS R14 R13 K61 ["BorderColor3"]
+  MOVE R14 R6
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K44 ["Border"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["ContextItems"]
+  CALL R5 1 1
+  GETTABLEKS R7 R2 K12 ["UI"]
+  GETTABLEKS R6 R7 K13 ["Checkbox"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Util"]
+  GETTABLEKS R8 R9 K15 ["Constants"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Util"]
+  GETTABLEKS R9 R10 K16 ["TerrainEnums"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K17 ["Biome"]
+  NEWTABLE R10 0 9
+  GETTABLEKS R11 R9 K18 ["Water"]
+  GETTABLEKS R12 R9 K19 ["Marsh"]
+  GETTABLEKS R13 R9 K20 ["Plains"]
+  GETTABLEKS R14 R9 K21 ["Hills"]
+  GETTABLEKS R15 R9 K22 ["Dunes"]
+  GETTABLEKS R16 R9 K23 ["Canyons"]
+  GETTABLEKS R17 R9 K24 ["Mountains"]
+  GETTABLEKS R18 R9 K25 ["Lavascape"]
+  GETTABLEKS R19 R9 K26 ["Arctic"]
+  SETLIST R10 R11 9 [1]
+  GETTABLEKS R11 R1 K27 ["PureComponent"]
+  LOADK R13 K28 ["BiomeSelector"]
+  NAMECALL R11 R11 K29 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K30 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R12 R11 K31 ["render"]
+  MOVE R12 R4
+  DUPTABLE R13 K34 [{"Theme", "Localization"}]
+  GETTABLEKS R14 R5 K35 ["DEPRECATED_Theme"]
+  SETTABLEKS R14 R13 K32 ["Theme"]
+  GETTABLEKS R14 R3 K33 ["Localization"]
+  SETTABLEKS R14 R13 K33 ["Localization"]
+  CALL R12 1 1
+  MOVE R13 R11
+  CALL R12 1 1
+  MOVE R11 R12
+  RETURN R11 1

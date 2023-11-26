@@ -1,0 +1,190 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K3 [{"Padding", "Size"}]
+  LOADN R4 2
+  SETTABLEKS R4 R3 K1 ["Padding"]
+  GETTABLEKS R4 R0 K2 ["Size"]
+  SETTABLEKS R4 R3 K2 ["Size"]
+  DUPTABLE R4 K5 [{"Image"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K7 [{"Style"}]
+  DUPTABLE R8 K5 [{"Image"}]
+  LOADK R9 K8 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/Air.png"]
+  SETTABLEKS R9 R8 K4 ["Image"]
+  SETTABLEKS R8 R7 K6 ["Style"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K4 ["Image"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K3 [{"Padding", "Size"}]
+  LOADN R4 2
+  SETTABLEKS R4 R3 K1 ["Padding"]
+  GETTABLEKS R4 R0 K2 ["Size"]
+  SETTABLEKS R4 R3 K2 ["Size"]
+  DUPTABLE R4 K5 [{"Image"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K7 [{"Style"}]
+  DUPTABLE R8 K5 [{"Image"}]
+  LOADK R9 K8 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Large/Water.png"]
+  SETTABLEKS R9 R8 K4 ["Image"]
+  SETTABLEKS R8 R7 K6 ["Style"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K4 ["Image"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["AllowAir"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnChanged"]
+  GETTABLEKS R2 R0 K1 ["Material"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["MaterialRenderer"]
+  NAMECALL R1 R1 K1 ["use"]
+  CALL R1 2 1
+  GETTABLEKS R2 R0 K2 ["Schema"]
+  GETUPVAL R3 1
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  NEWTABLE R5 0 1
+  GETTABLEKS R6 R2 K3 ["AllowAir"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 4
+  DUPTABLE R7 K9 [{"AutomaticSize", "Layout", "Size", "VerticalAlignment"}]
+  GETIMPORT R8 K12 [Enum.AutomaticSize.Y]
+  SETTABLEKS R8 R7 K5 ["AutomaticSize"]
+  GETIMPORT R8 K15 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R8 R7 K6 ["Layout"]
+  GETIMPORT R8 K18 [UDim2.fromScale]
+  LOADN R9 1
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K7 ["Size"]
+  GETIMPORT R8 K20 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R8 R7 K8 ["VerticalAlignment"]
+  DUPTABLE R8 K22 [{"Grid"}]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 5
+  DUPTABLE R11 K32 [{"AutomaticSize", "CustomPreviews", "GridItemSize", "InitialDistance", "OnClick", "Items", "ScrollingDirection", "SelectedItem", "ShowGridLabels", "Size", "ViewType"}]
+  GETIMPORT R12 K12 [Enum.AutomaticSize.Y]
+  SETTABLEKS R12 R11 K5 ["AutomaticSize"]
+  NEWTABLE R12 2 0
+  GETIMPORT R13 K35 [Enum.Material.Air]
+  GETUPVAL R14 6
+  SETTABLE R14 R12 R13
+  GETIMPORT R13 K37 [Enum.Material.Water]
+  GETUPVAL R14 7
+  SETTABLE R14 R12 R13
+  SETTABLEKS R12 R11 K23 ["CustomPreviews"]
+  GETTABLEKS R12 R1 K24 ["GridItemSize"]
+  SETTABLEKS R12 R11 K24 ["GridItemSize"]
+  GETTABLEKS R12 R1 K25 ["InitialDistance"]
+  SETTABLEKS R12 R11 K25 ["InitialDistance"]
+  SETTABLEKS R4 R11 K26 ["OnClick"]
+  SETTABLEKS R3 R11 K27 ["Items"]
+  GETIMPORT R12 K38 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R12 R11 K28 ["ScrollingDirection"]
+  GETTABLEKS R12 R0 K39 ["Value"]
+  SETTABLEKS R12 R11 K29 ["SelectedItem"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K30 ["ShowGridLabels"]
+  GETIMPORT R12 K18 [UDim2.fromScale]
+  LOADN R13 1
+  LOADN R14 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K7 ["Size"]
+  GETUPVAL R13 8
+  GETTABLEKS R12 R13 K21 ["Grid"]
+  SETTABLEKS R12 R11 K31 ["ViewType"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K21 ["Grid"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["MaterialFramework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R5 R1 K10 ["ContextServices"]
+  GETTABLEKS R4 R5 K11 ["Stylizer"]
+  GETTABLEKS R5 R3 K12 ["useMemo"]
+  GETTABLEKS R6 R3 K13 ["useState"]
+  GETTABLEKS R8 R1 K14 ["UI"]
+  GETTABLEKS R7 R8 K15 ["Image"]
+  GETTABLEKS R9 R1 K14 ["UI"]
+  GETTABLEKS R8 R9 K16 ["Pane"]
+  GETTABLEKS R10 R2 K17 ["Components"]
+  GETTABLEKS R9 R10 K18 ["MaterialGrid"]
+  GETTABLEKS R11 R2 K19 ["Enums"]
+  GETTABLEKS R10 R11 K20 ["ViewType"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K21 ["Src"]
+  GETTABLEKS R13 R14 K22 ["Util"]
+  GETTABLEKS R12 R13 K23 ["getMaterials"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K21 ["Src"]
+  GETTABLEKS R14 R15 K24 ["Resources"]
+  GETTABLEKS R13 R14 K25 ["Theme"]
+  CALL R12 1 1
+  DUPCLOSURE R13 K26 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  DUPCLOSURE R14 K27 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  DUPCLOSURE R15 K28 [PROTO_4]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R10
+  RETURN R15 1

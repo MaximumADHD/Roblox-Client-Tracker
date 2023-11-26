@@ -1,0 +1,46 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["defineLuaFlags"]
+  CALL R1 1 0
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["TestLoader"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["launch"]
+  LOADK R3 K9 ["MaterialGenerator"]
+  GETTABLEKS R4 R0 K10 ["Src"]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K11 ["isCli"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K13 [game]
+  LOADK R4 K14 ["EnableMaterialGenerator"]
+  NAMECALL R2 R2 K15 ["GetFastFlag"]
+  CALL R2 2 1
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K16 ["Flags"]
+  GETTABLEKS R3 R4 K17 ["getFFlagImprovePluginSpeedMaterialGenerator"]
+  CALL R2 1 1
+  MOVE R3 R2
+  CALL R3 0 1
+  JUMPIFNOT R3 [+1]
+  RETURN R0 0
+  GETIMPORT R3 K4 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K2 ["Parent"]
+  GETTABLEKS R4 R5 K18 ["main"]
+  CALL R3 1 1
+  MOVE R4 R3
+  GETIMPORT R5 K20 [plugin]
+  CALL R4 1 0
+  RETURN R0 0

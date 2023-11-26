@@ -1,0 +1,153 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"Key", "Label"}]
+  SETTABLEKS R0 R1 K0 ["Key"]
+  GETUPVAL R2 0
+  LOADK R4 K3 ["Categories"]
+  MOVE R5 R0
+  NAMECALL R2 R2 K4 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K1 ["Label"]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["map"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["Tabs"]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U2
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["openTab"]
+  GETTABLEKS R4 R0 K1 ["Key"]
+  NAMECALL R1 R1 K2 ["report"]
+  CALL R1 3 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["SetSelectedTab"]
+  GETTABLEKS R2 R0 K1 ["Key"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["useMemo"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NEWTABLE R5 0 2
+  MOVE R6 R2
+  GETTABLEKS R7 R0 K2 ["Tabs"]
+  SETLIST R5 R6 2 [1]
+  CALL R3 2 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 4
+  DUPTABLE R6 K7 [{"LayoutOrder", "Size", "Style"}]
+  GETTABLEKS R7 R0 K4 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K4 ["LayoutOrder"]
+  GETIMPORT R7 K10 [UDim2.new]
+  LOADN R8 1
+  LOADN R9 0
+  LOADN R10 0
+  LOADN R11 32
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K5 ["Size"]
+  LOADK R7 K11 ["SubtleBox"]
+  SETTABLEKS R7 R6 K6 ["Style"]
+  DUPTABLE R7 K13 [{"ScrollingFrame"}]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K19 [{"AutomaticCanvasSize", "AutomaticSize", "Padding", "ScrollingDirection", "ScrollBarThickness"}]
+  GETIMPORT R11 K22 [Enum.AutomaticSize.X]
+  SETTABLEKS R11 R10 K14 ["AutomaticCanvasSize"]
+  GETIMPORT R11 K24 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K15 ["AutomaticSize"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K16 ["Padding"]
+  GETIMPORT R11 K25 [Enum.ScrollingDirection.X]
+  SETTABLEKS R11 R10 K17 ["ScrollingDirection"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K18 ["ScrollBarThickness"]
+  DUPTABLE R11 K26 [{"Tabs"}]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K30 [{"component", "innerProps", "dependencies"}]
+  GETUPVAL R15 7
+  SETTABLEKS R15 R14 K27 ["component"]
+  DUPTABLE R15 K33 [{"SelectedTab", "OnTabSelected", "Tabs"}]
+  GETTABLEKS R16 R0 K31 ["SelectedTab"]
+  SETTABLEKS R16 R15 K31 ["SelectedTab"]
+  NEWCLOSURE R16 P1
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R16 R15 K32 ["OnTabSelected"]
+  SETTABLEKS R3 R15 K2 ["Tabs"]
+  SETTABLEKS R15 R14 K28 ["innerProps"]
+  NEWTABLE R15 0 1
+  MOVE R16 R3
+  SETLIST R15 R16 1 [1]
+  SETTABLEKS R15 R14 K29 ["dependencies"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K2 ["Tabs"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K12 ["ScrollingFrame"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["ForceRerender"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Types"]
+  CALL R5 1 1
+  GETTABLEKS R7 R2 K14 ["ContextServices"]
+  GETTABLEKS R6 R7 K15 ["Analytics"]
+  GETTABLEKS R8 R2 K14 ["ContextServices"]
+  GETTABLEKS R7 R8 K16 ["Localization"]
+  GETTABLEKS R8 R2 K17 ["UI"]
+  GETTABLEKS R9 R8 K18 ["Pane"]
+  GETTABLEKS R10 R8 K19 ["ScrollingFrame"]
+  GETTABLEKS R11 R8 K20 ["Tabs"]
+  DUPCLOSURE R12 K21 [PROTO_3]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  RETURN R12 1

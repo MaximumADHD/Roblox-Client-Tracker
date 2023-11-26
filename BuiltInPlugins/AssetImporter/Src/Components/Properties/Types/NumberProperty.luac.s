@@ -1,0 +1,60 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["Value"]
+  FASTCALL1 TOSTRING R2 [+2]
+  GETIMPORT R1 K2 [tostring]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K3 ["Editable"]
+  JUMPIFEQKNIL R2 [+25]
+  GETTABLEKS R2 R0 K3 ["Editable"]
+  JUMPIF R2 [+21]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K9 [{"LayoutOrder", "Size", "Text", "TextXAlignment"}]
+  GETTABLEKS R5 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K5 ["LayoutOrder"]
+  GETTABLEKS R5 R0 K6 ["Size"]
+  SETTABLEKS R5 R4 K6 ["Size"]
+  SETTABLEKS R1 R4 K7 ["Text"]
+  GETIMPORT R5 K12 [Enum.TextXAlignment.Left]
+  SETTABLEKS R5 R4 K8 ["TextXAlignment"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K14 [{"Disabled", "LayoutOrder", "Size", "Text"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K13 ["Disabled"]
+  GETTABLEKS R5 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K5 ["LayoutOrder"]
+  GETTABLEKS R5 R0 K6 ["Size"]
+  SETTABLEKS R5 R4 K6 ["Size"]
+  SETTABLEKS R1 R4 K7 ["Text"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["UI"]
+  GETTABLEKS R4 R3 K9 ["TextInput"]
+  GETTABLEKS R5 R3 K10 ["TextLabel"]
+  DUPCLOSURE R6 K11 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  RETURN R6 1

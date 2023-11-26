@@ -1,0 +1,103 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["frameWidth"]
+  GETTABLEKS R3 R0 K2 ["AbsoluteSize"]
+  GETTABLEKS R2 R3 K3 ["X"]
+  JUMPIFEQ R1 R2 [+12]
+  GETUPVAL R1 0
+  DUPTABLE R3 K4 [{"frameWidth"}]
+  GETTABLEKS R5 R0 K2 ["AbsoluteSize"]
+  GETTABLEKS R4 R5 K3 ["X"]
+  SETTABLEKS R4 R3 K1 ["frameWidth"]
+  NAMECALL R1 R1 K5 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"frameWidth"}]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K0 ["frameWidth"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["resizeContainer"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["LayoutOrder"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["Dictionary"]
+  GETTABLEKS R2 R3 K3 ["join"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  DUPTABLE R4 K6 [{"maximumWidth", "width"}]
+  GETTABLEKS R6 R0 K7 ["state"]
+  GETTABLEKS R5 R6 K8 ["frameWidth"]
+  SETTABLEKS R5 R4 K4 ["maximumWidth"]
+  GETIMPORT R5 K11 [UDim.new]
+  LOADN R6 1
+  LOADN R7 0
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K5 ["width"]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K12 ["createElement"]
+  GETUPVAL R4 2
+  NEWTABLE R5 4 0
+  LOADN R6 1
+  SETTABLEKS R6 R5 K13 ["BackgroundTransparency"]
+  SETTABLEKS R1 R5 K1 ["LayoutOrder"]
+  GETIMPORT R6 K11 [UDim.new]
+  LOADN R7 1
+  LOADN R8 0
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K5 ["width"]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K14 ["Change"]
+  GETTABLEKS R6 R7 K15 ["AbsoluteSize"]
+  GETTABLEKS R7 R0 K16 ["resizeContainer"]
+  SETTABLE R7 R5 R6
+  DUPTABLE R6 K18 [{"Text"}]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K12 ["createElement"]
+  GETUPVAL R8 3
+  MOVE R9 R2
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K17 ["Text"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Cryo"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["FitFrame"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["FitFrameVertical"]
+  GETTABLEKS R5 R3 K10 ["FitTextLabel"]
+  GETTABLEKS R6 R2 K11 ["Component"]
+  LOADK R8 K12 ["FluidFitTextLabel"]
+  NAMECALL R6 R6 K13 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K14 [PROTO_1]
+  SETTABLEKS R7 R6 K15 ["init"]
+  DUPCLOSURE R7 K16 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K17 ["render"]
+  RETURN R6 1

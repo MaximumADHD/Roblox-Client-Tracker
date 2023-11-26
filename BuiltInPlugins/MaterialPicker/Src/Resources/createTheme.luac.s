@@ -1,0 +1,242 @@
+PROTO_0:
+  LOADNIL R1
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["mock"]
+  GETUPVAL R3 1
+  CALL R2 1 1
+  MOVE R1 R2
+  JUMP [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["new"]
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  CALL R2 2 1
+  MOVE R1 R2
+  GETUPVAL R4 3
+  NAMECALL R2 R1 K2 ["extend"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["MaterialPicker"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["MaterialFramework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Packages"]
+  GETTABLEKS R7 R8 K9 ["_Index"]
+  GETTABLEKS R6 R7 K10 ["DeveloperFramework"]
+  GETTABLEKS R5 R6 K10 ["DeveloperFramework"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  CALL R3 1 1
+  GETTABLEKS R5 R1 K12 ["Resources"]
+  GETTABLEKS R4 R5 K13 ["Theme"]
+  GETTABLEKS R6 R2 K14 ["Style"]
+  GETTABLEKS R5 R6 K15 ["StyleKey"]
+  GETIMPORT R6 K18 [string.format]
+  LOADK R7 K19 ["rbxasset://studio_svg_textures/Shared/Modeling/%s/Large/Material.png"]
+  LOADK R8 K20 ["Light"]
+  CALL R6 2 1
+  GETIMPORT R7 K18 [string.format]
+  LOADK R8 K19 ["rbxasset://studio_svg_textures/Shared/Modeling/%s/Large/Material.png"]
+  LOADK R9 K21 ["Dark"]
+  CALL R7 2 1
+  NEWTABLE R8 8 0
+  GETTABLEKS R9 R5 K22 ["MaterialManagerButtonIcon"]
+  SETTABLE R7 R8 R9
+  GETTABLEKS R9 R5 K23 ["FilterChipTextColor"]
+  GETIMPORT R10 K26 [Color3.fromHex]
+  LOADK R11 K27 ["FFFFFF"]
+  CALL R10 1 1
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R5 K28 ["FilterChipBorderColor"]
+  GETIMPORT R10 K26 [Color3.fromHex]
+  LOADK R11 K29 ["262626"]
+  CALL R10 1 1
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R5 K30 ["FilterChipInactiveBackgroundColor"]
+  GETIMPORT R10 K26 [Color3.fromHex]
+  LOADK R11 K31 ["3C3C3C"]
+  CALL R10 1 1
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R5 K32 ["FilterChipInactiveHoverBackgroundColor"]
+  GETIMPORT R10 K26 [Color3.fromHex]
+  LOADK R11 K33 ["424242"]
+  CALL R10 1 1
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R5 K34 ["FilterChipActiveBackgroundColor"]
+  GETIMPORT R10 K26 [Color3.fromHex]
+  LOADK R11 K35 ["1A1A1A"]
+  CALL R10 1 1
+  SETTABLE R10 R8 R9
+  GETTABLEKS R9 R5 K36 ["FilterChipActiveHoverBackgroundColor"]
+  GETIMPORT R10 K26 [Color3.fromHex]
+  LOADK R11 K37 ["252525"]
+  CALL R10 1 1
+  SETTABLE R10 R8 R9
+  NEWTABLE R9 8 0
+  GETTABLEKS R10 R5 K22 ["MaterialManagerButtonIcon"]
+  SETTABLE R6 R9 R10
+  GETTABLEKS R10 R5 K23 ["FilterChipTextColor"]
+  GETIMPORT R11 K26 [Color3.fromHex]
+  LOADK R12 K38 ["000000"]
+  CALL R11 1 1
+  SETTABLE R11 R9 R10
+  GETTABLEKS R10 R5 K28 ["FilterChipBorderColor"]
+  GETIMPORT R11 K26 [Color3.fromHex]
+  LOADK R12 K39 ["B6B6B6"]
+  CALL R11 1 1
+  SETTABLE R11 R9 R10
+  GETTABLEKS R10 R5 K30 ["FilterChipInactiveBackgroundColor"]
+  GETIMPORT R11 K26 [Color3.fromHex]
+  LOADK R12 K27 ["FFFFFF"]
+  CALL R11 1 1
+  SETTABLE R11 R9 R10
+  GETTABLEKS R10 R5 K32 ["FilterChipInactiveHoverBackgroundColor"]
+  GETIMPORT R11 K26 [Color3.fromHex]
+  LOADK R12 K40 ["E4EEFE"]
+  CALL R11 1 1
+  SETTABLE R11 R9 R10
+  GETTABLEKS R10 R5 K34 ["FilterChipActiveBackgroundColor"]
+  GETIMPORT R11 K26 [Color3.fromHex]
+  LOADK R12 K41 ["A8A8A8"]
+  CALL R11 1 1
+  SETTABLE R11 R9 R10
+  GETTABLEKS R10 R5 K36 ["FilterChipActiveHoverBackgroundColor"]
+  GETIMPORT R11 K26 [Color3.fromHex]
+  LOADK R12 K42 ["D8E6FF"]
+  CALL R11 1 1
+  SETTABLE R11 R9 R10
+  DUPTABLE R10 K50 [{"MainView", "PrimaryTools", "SearchBar", "ViewToggle", "MaterialManagerButton", "Filters", "Footer"}]
+  DUPTABLE R11 K52 [{"Padding"}]
+  LOADN R12 10
+  SETTABLEKS R12 R11 K51 ["Padding"]
+  SETTABLEKS R11 R10 K43 ["MainView"]
+  DUPTABLE R11 K55 [{"Size", "Spacing", "Padding"}]
+  GETIMPORT R12 K58 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 32
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K53 ["Size"]
+  LOADN R12 4
+  SETTABLEKS R12 R11 K54 ["Spacing"]
+  DUPTABLE R12 K63 [{"Top", "Right", "Bottom", "Left"}]
+  LOADN R13 4
+  SETTABLEKS R13 R12 K59 ["Top"]
+  LOADN R13 8
+  SETTABLEKS R13 R12 K60 ["Right"]
+  LOADN R13 4
+  SETTABLEKS R13 R12 K61 ["Bottom"]
+  LOADN R13 8
+  SETTABLEKS R13 R12 K62 ["Left"]
+  SETTABLEKS R12 R11 K51 ["Padding"]
+  SETTABLEKS R11 R10 K44 ["PrimaryTools"]
+  DUPTABLE R11 K64 [{"Size"}]
+  GETIMPORT R12 K58 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 224
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K53 ["Size"]
+  SETTABLEKS R11 R10 K45 ["SearchBar"]
+  DUPTABLE R11 K64 [{"Size"}]
+  GETIMPORT R12 K58 [UDim2.new]
+  LOADN R13 0
+  LOADN R14 16
+  LOADN R15 0
+  LOADN R16 16
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K53 ["Size"]
+  SETTABLEKS R11 R10 K46 ["ViewToggle"]
+  DUPTABLE R11 K66 [{"Size", "LeftIcon"}]
+  GETIMPORT R12 K58 [UDim2.new]
+  LOADN R13 0
+  LOADN R14 16
+  LOADN R15 0
+  LOADN R16 16
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K53 ["Size"]
+  GETTABLEKS R12 R5 K22 ["MaterialManagerButtonIcon"]
+  SETTABLEKS R12 R11 K65 ["LeftIcon"]
+  SETTABLEKS R11 R10 K47 ["MaterialManagerButton"]
+  DUPTABLE R11 K75 [{"Size", "ChipSize", "TextColor", "BorderColor", "InactiveBackgroundColor", "InactiveHoverBackgroundColor", "ActiveBackgroundColor", "ActiveHoverBackgroundColor", "TextSize"}]
+  GETIMPORT R12 K58 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 28
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K53 ["Size"]
+  GETIMPORT R12 K58 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 22
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K67 ["ChipSize"]
+  GETTABLEKS R12 R5 K23 ["FilterChipTextColor"]
+  SETTABLEKS R12 R11 K68 ["TextColor"]
+  GETTABLEKS R12 R5 K28 ["FilterChipBorderColor"]
+  SETTABLEKS R12 R11 K69 ["BorderColor"]
+  GETTABLEKS R12 R5 K30 ["FilterChipInactiveBackgroundColor"]
+  SETTABLEKS R12 R11 K70 ["InactiveBackgroundColor"]
+  GETTABLEKS R12 R5 K32 ["FilterChipInactiveHoverBackgroundColor"]
+  SETTABLEKS R12 R11 K71 ["InactiveHoverBackgroundColor"]
+  GETTABLEKS R12 R5 K34 ["FilterChipActiveBackgroundColor"]
+  SETTABLEKS R12 R11 K72 ["ActiveBackgroundColor"]
+  GETTABLEKS R12 R5 K36 ["FilterChipActiveHoverBackgroundColor"]
+  SETTABLEKS R12 R11 K73 ["ActiveHoverBackgroundColor"]
+  LOADN R12 14
+  SETTABLEKS R12 R11 K74 ["TextSize"]
+  SETTABLEKS R11 R10 K48 ["Filters"]
+  DUPTABLE R11 K64 [{"Size"}]
+  GETIMPORT R12 K58 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 248
+  LOADN R15 0
+  LOADN R16 24
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K53 ["Size"]
+  SETTABLEKS R11 R10 K49 ["Footer"]
+  DUPTABLE R11 K64 [{"Size"}]
+  GETIMPORT R12 K58 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 1
+  GETTABLEKS R22 R10 K44 ["PrimaryTools"]
+  GETTABLEKS R21 R22 K53 ["Size"]
+  GETTABLEKS R20 R21 K76 ["Y"]
+  GETTABLEKS R19 R20 K77 ["Offset"]
+  GETTABLEKS R23 R10 K48 ["Filters"]
+  GETTABLEKS R22 R23 K53 ["Size"]
+  GETTABLEKS R21 R22 K76 ["Y"]
+  GETTABLEKS R20 R21 K77 ["Offset"]
+  ADD R18 R19 R20
+  GETTABLEKS R22 R10 K49 ["Footer"]
+  GETTABLEKS R21 R22 K53 ["Size"]
+  GETTABLEKS R20 R21 K76 ["Y"]
+  GETTABLEKS R19 R20 K77 ["Offset"]
+  ADD R17 R18 R19
+  MINUS R16 R17
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K53 ["Size"]
+  SETTABLEKS R11 R10 K78 ["MaterialGrid"]
+  DUPCLOSURE R11 K79 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  RETURN R11 1

@@ -1,0 +1,704 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["heightmap"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R3 R0 K0 ["heightmap"]
+  GETTABLEKS R2 R3 K1 ["file"]
+  JUMPIF R2 [+3]
+  LOADB R2 0
+  LOADK R3 K2 ["ValidHeightMapImport"]
+  RETURN R2 2
+  GETTABLEKS R2 R0 K3 ["materialMode"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["Colormap"]
+  JUMPIFNOTEQ R2 R3 [+12]
+  GETTABLEKS R2 R0 K5 ["colormap"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R3 R0 K5 ["colormap"]
+  GETTABLEKS R2 R3 K1 ["file"]
+  JUMPIF R2 [+3]
+  LOADB R2 0
+  LOADK R3 K6 ["NoColormapProvided"]
+  RETURN R2 2
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  SETTABLEKS R0 R2 K0 ["_importProgress"]
+  GETUPVAL R2 0
+  SETTABLEKS R1 R2 K1 ["_importOperation"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["_updateSignal"]
+  NAMECALL R2 R2 K3 ["Fire"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_hasPixelWarning"]
+  RETURN R0 0
+
+PROTO_3:
+  MOVE R2 R0
+  JUMPIFNOT R2 [+9]
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["table"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["TerrainImporter requires an options table"]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  DUPTABLE R2 K19 [{"_localization", "_analytics", "_assetHandler", "_heightmapImporterService", "_importSettings", "_importing", "_importProgress", "_importOperation", "_isPaused", "_hasPixelWarning", "_updateSignal", "_errorSignal", "_importFinishSignal"}]
+  GETTABLEKS R3 R0 K20 ["localization"]
+  SETTABLEKS R3 R2 K6 ["_localization"]
+  GETTABLEKS R3 R0 K21 ["analytics"]
+  SETTABLEKS R3 R2 K7 ["_analytics"]
+  GETUPVAL R4 0
+  JUMPIFNOT R4 [+10]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K22 ["new"]
+  GETTABLEKS R4 R0 K23 ["imageUploader"]
+  LOADNIL R5
+  GETTABLEKS R6 R0 K24 ["userId"]
+  CALL R3 3 1
+  JUMPIF R3 [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K8 ["_assetHandler"]
+  GETTABLEKS R3 R0 K25 ["heightmapImporterService"]
+  JUMPIF R3 [+1]
+  GETUPVAL R3 2
+  SETTABLEKS R3 R2 K9 ["_heightmapImporterService"]
+  DUPTABLE R3 K33 [{"guid", "position", "size", "heightmap", "colormap", "defaultMaterial", "materialMode"}]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K26 ["guid"]
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R4 K35 [Vector3.new]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K27 ["position"]
+  LOADN R5 0
+  LOADN R6 0
+  LOADN R7 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R4 K35 [Vector3.new]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K28 ["size"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K29 ["heightmap"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K30 ["colormap"]
+  GETIMPORT R4 K39 [Enum.Material.Asphalt]
+  SETTABLEKS R4 R3 K31 ["defaultMaterial"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K40 ["DefaultMaterial"]
+  SETTABLEKS R4 R3 K32 ["materialMode"]
+  SETTABLEKS R3 R2 K10 ["_importSettings"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K11 ["_importing"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["_importProgress"]
+  LOADK R3 K41 [""]
+  SETTABLEKS R3 R2 K13 ["_importOperation"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K14 ["_isPaused"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K15 ["_hasPixelWarning"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K22 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K16 ["_updateSignal"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K22 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K17 ["_errorSignal"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K22 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K18 ["_importFinishSignal"]
+  GETUPVAL R3 5
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K43 [setmetatable]
+  CALL R1 2 1
+  GETTABLEKS R3 R1 K9 ["_heightmapImporterService"]
+  FASTCALL2K ASSERT R3 K44 [+4]
+  LOADK R4 K44 ["TerrainImporter.new() requires a HeightmapImporterService"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K45 ["_updateImportProgress"]
+  GETTABLEKS R3 R1 K9 ["_heightmapImporterService"]
+  GETTABLEKS R2 R3 K46 ["ProgressUpdate"]
+  GETTABLEKS R4 R1 K45 ["_updateImportProgress"]
+  NAMECALL R2 R2 K47 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K48 ["_terrainProgressUpdateConnection"]
+  GETTABLEKS R3 R1 K9 ["_heightmapImporterService"]
+  GETTABLEKS R2 R3 K49 ["ColormapHasUnknownPixels"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K47 ["Connect"]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["_updateSignal"]
+  RETURN R1 1
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["_importFinishSignal"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["Connect"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["_errorSignal"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["Connect"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_hasPixelWarning"]
+  RETURN R1 1
+
+PROTO_8:
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["_hasPixelWarning"]
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["_importProgress"]
+  RETURN R1 1
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["_importOperation"]
+  RETURN R1 1
+
+PROTO_11:
+  GETTABLEKS R1 R0 K0 ["_importing"]
+  RETURN R1 1
+
+PROTO_12:
+  GETTABLEKS R1 R0 K0 ["_isPaused"]
+  RETURN R1 1
+
+PROTO_13:
+  LOADB R3 0
+  NAMECALL R1 R0 K0 ["_setImporting"]
+  CALL R1 2 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["_heightmapImporterService"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_localization"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["_analytics"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["_imageUploader"]
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  GETTABLEKS R3 R0 K2 ["_importSettings"]
+  MOVE R4 R1
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K2 ["_importSettings"]
+  RETURN R0 0
+
+PROTO_15:
+  GETTABLEKS R2 R0 K0 ["_importing"]
+  JUMPIFEQ R1 R2 [+11]
+  SETTABLEKS R1 R0 K0 ["_importing"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K1 ["_isPaused"]
+  GETTABLEKS R2 R0 K2 ["_updateSignal"]
+  NAMECALL R2 R2 K3 ["Fire"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R2 R0 K0 ["_isPaused"]
+  NOT R1 R2
+  SETTABLEKS R1 R0 K0 ["_isPaused"]
+  GETTABLEKS R1 R0 K1 ["_heightmapImporterService"]
+  GETTABLEKS R3 R0 K0 ["_isPaused"]
+  NAMECALL R1 R1 K2 ["SetImportHeightmapPaused"]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K3 ["_updateSignal"]
+  NAMECALL R1 R1 K4 ["Fire"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_17:
+  GETTABLEKS R1 R0 K0 ["_heightmapImporterService"]
+  NAMECALL R1 R1 K1 ["CancelImportHeightmap"]
+  CALL R1 1 0
+  LOADB R1 0
+  SETTABLEKS R1 R0 K2 ["_hasPixelWarning"]
+  RETURN R0 0
+
+PROTO_18:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["importTerrainLocalHeightMap"]
+  MOVE R4 R0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["guid"]
+  NAMECALL R1 R1 K2 ["report"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_19:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["importTerrainLocalColorMap"]
+  MOVE R4 R0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["guid"]
+  NAMECALL R1 R1 K2 ["report"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_20:
+  GETUPVAL R0 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["heightmap"]
+  GETTABLEKS R2 R3 K1 ["file"]
+  GETUPVAL R3 2
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["guid"]
+  JUMPIFNOT R5 [+4]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  JUMPIF R4 [+1]
+  LOADNIL R4
+  NAMECALL R0 R0 K3 ["handleAsset"]
+  CALL R0 4 0
+  LOADB R0 0
+  GETUPVAL R1 4
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K4 ["Colormap"]
+  JUMPIFNOTEQ R1 R2 [+6]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K5 ["colormap"]
+  GETTABLEKS R0 R1 K1 ["file"]
+  JUMPIFNOT R0 [+19]
+  GETUPVAL R1 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["colormap"]
+  GETTABLEKS R3 R4 K1 ["file"]
+  GETUPVAL R4 2
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K2 ["guid"]
+  JUMPIFNOT R6 [+4]
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  JUMPIF R5 [+1]
+  LOADNIL R5
+  NAMECALL R1 R1 K3 ["handleAsset"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_21:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  GETUPVAL R4 3
+  GETUPVAL R5 4
+  NAMECALL R0 R0 K0 ["ImportHeightmap"]
+  CALL R0 5 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R4 0
+  GETTABLEKS R5 R4 K0 ["heightmap"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R6 R4 K0 ["heightmap"]
+  GETTABLEKS R5 R6 K1 ["file"]
+  JUMPIF R5 [+3]
+  LOADB R2 0
+  LOADK R3 K2 ["ValidHeightMapImport"]
+  JUMP [+20]
+  GETTABLEKS R5 R4 K3 ["materialMode"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K4 ["Colormap"]
+  JUMPIFNOTEQ R5 R6 [+12]
+  GETTABLEKS R5 R4 K5 ["colormap"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R6 R4 K5 ["colormap"]
+  GETTABLEKS R5 R6 K1 ["file"]
+  JUMPIF R5 [+3]
+  LOADB R2 0
+  LOADK R3 K6 ["NoColormapProvided"]
+  JUMP [+2]
+  LOADB R2 1
+  LOADNIL R3
+  JUMPIF R2 [+9]
+  MOVE R4 R1
+  GETUPVAL R5 2
+  LOADK R7 K7 ["Warning"]
+  MOVE R8 R3
+  NAMECALL R5 R5 K8 ["getText"]
+  CALL R5 3 -1
+  CALL R4 -1 0
+  RETURN R0 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["size"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K10 ["position"]
+  JUMPIF R5 [+7]
+  LOADN R6 0
+  LOADN R7 0
+  LOADN R8 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R5 K13 [Vector3.new]
+  CALL R5 3 1
+  LOADN R7 0
+  GETTABLEKS R9 R4 K15 ["Y"]
+  DIVK R8 R9 K14 [2]
+  LOADN R9 0
+  FASTCALL VECTOR [+2]
+  GETIMPORT R6 K13 [Vector3.new]
+  CALL R6 3 1
+  ADD R5 R5 R6
+  DIVK R6 R4 K14 [2]
+  SUB R7 R5 R6
+  ADD R8 R5 R6
+  GETIMPORT R9 K17 [Region3.new]
+  MOVE R10 R7
+  MOVE R11 R8
+  CALL R9 2 1
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K18 ["VOXEL_RESOLUTION"]
+  NAMECALL R9 R9 K19 ["ExpandToGrid"]
+  CALL R9 2 1
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K0 ["heightmap"]
+  GETTABLEKS R10 R11 K1 ["file"]
+  NAMECALL R10 R10 K20 ["GetTemporaryId"]
+  CALL R10 1 1
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K3 ["materialMode"]
+  LOADK R12 K21 [""]
+  GETIMPORT R13 K25 [Enum.Material.Asphalt]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K26 ["DefaultMaterial"]
+  JUMPIFNOTEQ R11 R14 [+5]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K27 ["defaultMaterial"]
+  JUMP [+14]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K4 ["Colormap"]
+  JUMPIFNOTEQ R11 R14 [+10]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K5 ["colormap"]
+  GETTABLEKS R14 R15 K1 ["file"]
+  NAMECALL R14 R14 K20 ["GetTemporaryId"]
+  CALL R14 1 1
+  MOVE R12 R14
+  GETUPVAL R14 4
+  JUMPIFNOT R14 [+71]
+  LOADK R14 K4 ["Colormap"]
+  NEWTABLE R15 0 0
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K26 ["DefaultMaterial"]
+  JUMPIFNOTEQ R11 R16 [+7]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K27 ["defaultMaterial"]
+  GETTABLEKS R14 R16 K28 ["Name"]
+  JUMP [+23]
+  DUPTABLE R16 K32 [{"width", "height", "channels"}]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K5 ["colormap"]
+  GETTABLEKS R17 R18 K29 ["width"]
+  SETTABLEKS R17 R16 K29 ["width"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K5 ["colormap"]
+  GETTABLEKS R17 R18 K30 ["height"]
+  SETTABLEKS R17 R16 K30 ["height"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K5 ["colormap"]
+  GETTABLEKS R17 R18 K31 ["channels"]
+  SETTABLEKS R17 R16 K31 ["channels"]
+  MOVE R15 R16
+  DUPTABLE R16 K32 [{"width", "height", "channels"}]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K0 ["heightmap"]
+  GETTABLEKS R17 R18 K29 ["width"]
+  SETTABLEKS R17 R16 K29 ["width"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K0 ["heightmap"]
+  GETTABLEKS R17 R18 K30 ["height"]
+  SETTABLEKS R17 R16 K30 ["height"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K0 ["heightmap"]
+  GETTABLEKS R17 R18 K31 ["channels"]
+  SETTABLEKS R17 R16 K31 ["channels"]
+  GETUPVAL R17 4
+  LOADK R19 K33 ["importTerrainLocal"]
+  MOVE R20 R9
+  MOVE R21 R14
+  MOVE R22 R16
+  MOVE R23 R15
+  GETUPVAL R25 0
+  GETTABLEKS R24 R25 K34 ["guid"]
+  NAMECALL R17 R17 K35 ["report"]
+  CALL R17 7 0
+  GETUPVAL R14 5
+  JUMPIFNOT R14 [+10]
+  GETIMPORT R14 K37 [spawn]
+  NEWCLOSURE R15 P0
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U0
+  CAPTURE VAL R9
+  CAPTURE UPVAL U4
+  CAPTURE VAL R11
+  CAPTURE UPVAL U1
+  CALL R14 1 0
+  GETIMPORT R14 K39 [pcall]
+  NEWCLOSURE R15 P1
+  CAPTURE UPVAL U7
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE REF R12
+  CAPTURE REF R13
+  CALL R14 1 2
+  MOVE R2 R14
+  MOVE R3 R15
+  JUMPIF R2 [+5]
+  MOVE R14 R1
+  MOVE R15 R3
+  CALL R14 1 0
+  CLOSEUPVALS R12
+  RETURN R0 0
+  MOVE R14 R0
+  CALL R14 0 0
+  CLOSEUPVALS R12
+  RETURN R0 0
+
+PROTO_23:
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["Dictionary"]
+  GETTABLEKS R6 R7 K1 ["join"]
+  MOVE R7 R1
+  NEWTABLE R8 0 0
+  CALL R6 2 1
+  MOVE R1 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K2 ["new"]
+  NEWCLOSURE R7 P0
+  CAPTURE REF R1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R3
+  CAPTURE UPVAL U3
+  CAPTURE VAL R4
+  CAPTURE UPVAL U4
+  CAPTURE VAL R5
+  CAPTURE VAL R0
+  CALL R6 1 -1
+  CLOSEUPVALS R1
+  RETURN R6 -1
+
+PROTO_24:
+  GETUPVAL R0 0
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["_hasPixelWarning"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["_updateImportProgress"]
+  LOADN R1 0
+  LOADK R2 K2 ["Starting"]
+  CALL R0 2 0
+  GETUPVAL R0 0
+  LOADB R2 1
+  NAMECALL R0 R0 K3 ["_setImporting"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_25:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_updateImportProgress"]
+  LOADN R1 1
+  LOADK R2 K1 [""]
+  CALL R0 2 0
+  GETUPVAL R0 0
+  LOADB R2 0
+  NAMECALL R0 R0 K2 ["_setImporting"]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["_importFinishSignal"]
+  NAMECALL R0 R0 K4 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_26:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_errorSignal"]
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["Fire"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_27:
+  GETTABLEKS R1 R0 K0 ["_importing"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+10]
+  DUPTABLE R3 K2 [{"guid"}]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K3 ["GenerateGUID"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K1 ["guid"]
+  NAMECALL R1 R0 K4 ["updateSettings"]
+  CALL R1 2 0
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  NEWCLOSURE R3 P2
+  CAPTURE VAL R0
+  LOADB R4 0
+  SETTABLEKS R4 R0 K5 ["_hasPixelWarning"]
+  GETTABLEKS R4 R0 K6 ["_updateImportProgress"]
+  LOADN R5 0
+  LOADK R6 K7 ["Starting"]
+  CALL R4 2 0
+  LOADB R6 1
+  NAMECALL R4 R0 K8 ["_setImporting"]
+  CALL R4 2 0
+  GETUPVAL R4 2
+  GETTABLEKS R5 R0 K9 ["_heightmapImporterService"]
+  GETTABLEKS R6 R0 K10 ["_importSettings"]
+  GETTABLEKS R7 R0 K6 ["_updateImportProgress"]
+  GETTABLEKS R8 R0 K11 ["_localization"]
+  GETTABLEKS R9 R0 K12 ["_analytics"]
+  GETTABLEKS R10 R0 K13 ["_assetHandler"]
+  CALL R4 6 1
+  MOVE R6 R3
+  NAMECALL R4 R4 K14 ["catch"]
+  CALL R4 2 1
+  NAMECALL R4 R4 K15 ["await"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K6 ["_updateImportProgress"]
+  LOADN R5 1
+  LOADK R6 K16 [""]
+  CALL R4 2 0
+  LOADB R6 0
+  NAMECALL R4 R0 K8 ["_setImporting"]
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K17 ["_importFinishSignal"]
+  NAMECALL R4 R4 K18 ["Fire"]
+  CALL R4 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["TerrainToolsImportUploadAssets"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Cryo"]
+  CALL R3 1 1
+  GETTABLEKS R5 R2 K12 ["ContextServices"]
+  GETTABLEKS R4 R5 K13 ["ContextItem"]
+  GETTABLEKS R5 R2 K14 ["Util"]
+  GETTABLEKS R6 R5 K15 ["Signal"]
+  GETTABLEKS R7 R5 K16 ["Promise"]
+  GETIMPORT R8 K8 [require]
+  GETTABLEKS R11 R1 K17 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Util"]
+  GETTABLEKS R9 R10 K18 ["Constants"]
+  CALL R8 1 1
+  GETIMPORT R9 K8 [require]
+  GETTABLEKS R12 R1 K17 ["Src"]
+  GETTABLEKS R11 R12 K14 ["Util"]
+  GETTABLEKS R10 R11 K19 ["ImportAssetHandler"]
+  CALL R9 1 1
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R13 R1 K17 ["Src"]
+  GETTABLEKS R12 R13 K14 ["Util"]
+  GETTABLEKS R11 R12 K20 ["TerrainEnums"]
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K21 ["ImportMaterialMode"]
+  GETIMPORT R12 K1 [game]
+  LOADK R14 K22 ["HeightmapImporterService"]
+  NAMECALL R12 R12 K23 ["GetService"]
+  CALL R12 2 1
+  GETIMPORT R13 K1 [game]
+  LOADK R15 K24 ["HttpService"]
+  NAMECALL R13 R13 K23 ["GetService"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K25 [PROTO_0]
+  CAPTURE VAL R11
+  LOADK R17 K26 ["TerrainImporter"]
+  NAMECALL R15 R4 K27 ["extend"]
+  CALL R15 2 1
+  DUPCLOSURE R16 K28 [PROTO_3]
+  CAPTURE VAL R0
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  CAPTURE VAL R6
+  CAPTURE VAL R15
+  SETTABLEKS R16 R15 K29 ["new"]
+  DUPCLOSURE R16 K30 [PROTO_4]
+  SETTABLEKS R16 R15 K31 ["getSignal"]
+  DUPCLOSURE R16 K32 [PROTO_5]
+  SETTABLEKS R16 R15 K33 ["subscribeToImportFinish"]
+  DUPCLOSURE R16 K34 [PROTO_6]
+  SETTABLEKS R16 R15 K35 ["subscribeToErrors"]
+  DUPCLOSURE R16 K36 [PROTO_7]
+  SETTABLEKS R16 R15 K37 ["getHasPixelWarning"]
+  DUPCLOSURE R16 K38 [PROTO_8]
+  SETTABLEKS R16 R15 K39 ["clearHasPixelWarning"]
+  DUPCLOSURE R16 K40 [PROTO_9]
+  SETTABLEKS R16 R15 K41 ["getImportProgress"]
+  DUPCLOSURE R16 K42 [PROTO_10]
+  SETTABLEKS R16 R15 K43 ["getImportOperation"]
+  DUPCLOSURE R16 K44 [PROTO_11]
+  SETTABLEKS R16 R15 K45 ["isImporting"]
+  DUPCLOSURE R16 K46 [PROTO_12]
+  SETTABLEKS R16 R15 K47 ["isPaused"]
+  DUPCLOSURE R16 K48 [PROTO_13]
+  SETTABLEKS R16 R15 K49 ["destroy"]
+  DUPCLOSURE R16 K50 [PROTO_14]
+  CAPTURE VAL R3
+  SETTABLEKS R16 R15 K51 ["updateSettings"]
+  DUPCLOSURE R16 K52 [PROTO_15]
+  SETTABLEKS R16 R15 K53 ["_setImporting"]
+  DUPCLOSURE R16 K54 [PROTO_16]
+  SETTABLEKS R16 R15 K55 ["togglePause"]
+  DUPCLOSURE R16 K56 [PROTO_17]
+  SETTABLEKS R16 R15 K57 ["cancel"]
+  DUPCLOSURE R16 K58 [PROTO_23]
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  CAPTURE VAL R0
+  DUPCLOSURE R17 K59 [PROTO_27]
+  CAPTURE VAL R0
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  SETTABLEKS R17 R15 K60 ["startImport"]
+  RETURN R15 1

@@ -1,0 +1,22 @@
+PROTO_0:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["string"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["pathStr must be a string"]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  GETIMPORT R1 K7 [string.match]
+  MOVE R2 R0
+  LOADK R3 K8 ["([^.]*)$"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

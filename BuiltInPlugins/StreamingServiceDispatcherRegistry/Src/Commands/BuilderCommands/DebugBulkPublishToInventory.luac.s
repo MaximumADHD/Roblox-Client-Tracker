@@ -1,0 +1,102 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["HasInternalPermission"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  DUPTABLE R0 K6 [{"Name", "AssetType", "Description", "IsPackage", "PublishToMarketplace", "AllowComments"}]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Name"]
+  SETTABLEKS R1 R0 K0 ["Name"]
+  GETIMPORT R2 K9 [Enum.AssetType.Model]
+  GETTABLEKS R1 R2 K0 ["Name"]
+  SETTABLEKS R1 R0 K1 ["AssetType"]
+  LOADK R1 K10 [""]
+  SETTABLEKS R1 R0 K2 ["Description"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K3 ["IsPackage"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K4 ["PublishToMarketplace"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K5 ["AllowComments"]
+  GETUPVAL R1 1
+  GETUPVAL R3 0
+  MOVE R4 R0
+  NAMECALL R1 R1 K11 ["PublishPackage"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["IsStudio"]
+  CALL R1 1 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETIMPORT R1 K2 [game]
+  LOADK R3 K3 ["CLI88299"]
+  NAMECALL R1 R1 K4 ["GetFastFlag"]
+  CALL R1 2 1
+  JUMPIF R1 [+8]
+  GETIMPORT R1 K6 [pcall]
+  DUPCLOSURE R2 K7 [PROTO_0]
+  CAPTURE UPVAL U1
+  CALL R1 1 2
+  AND R3 R1 R2
+  JUMPIF R3 [+1]
+  RETURN R0 0
+  GETIMPORT R1 K2 [game]
+  LOADK R3 K8 ["RunCommandsInCodeAssist"]
+  NAMECALL R1 R1 K4 ["GetFastFlag"]
+  CALL R1 2 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 2
+  NAMECALL R1 R1 K9 ["Get"]
+  CALL R1 1 3
+  FORGPREP R1
+  GETIMPORT R6 K6 [pcall]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R5
+  CAPTURE UPVAL U3
+  CALL R6 1 2
+  JUMPIF R6 [+4]
+  GETIMPORT R8 K11 [warn]
+  MOVE R9 R7
+  CALL R8 1 0
+  FORGLOOP R1 2 [-12]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioAssetService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["StudioService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K5 ["RunService"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K1 [game]
+  LOADK R5 K6 ["Selection"]
+  NAMECALL R3 R3 K3 ["GetService"]
+  CALL R3 2 1
+  GETIMPORT R8 K8 [script]
+  GETTABLEKS R7 R8 K9 ["Parent"]
+  GETTABLEKS R6 R7 K9 ["Parent"]
+  GETTABLEKS R5 R6 K9 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["Parent"]
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R7 R4 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K14 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  RETURN R6 1

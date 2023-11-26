@@ -1,0 +1,133 @@
+PROTO_0:
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R0 K0 ["moveToWithIk"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_1:
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R0 K0 ["rotateToWithIk"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Mouse"]
+  GETTABLEKS R3 R1 K2 ["Tool"]
+  GETTABLEKS R4 R1 K3 ["Context"]
+  DUPCLOSURE R5 K4 [PROTO_0]
+  DUPCLOSURE R6 K5 [PROTO_1]
+  NEWTABLE R7 0 0
+  GETIMPORT R8 K9 [Enum.RibbonTool.Move]
+  JUMPIFNOTEQ R3 R8 [+23]
+  MOVE R9 R7
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K10 ["new"]
+  MOVE R11 R4
+  LOADNIL R12
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["TransformHandlesImplementation"]
+  GETTABLEKS R13 R14 K10 ["new"]
+  MOVE R14 R4
+  MOVE R15 R5
+  GETIMPORT R16 K9 [Enum.RibbonTool.Move]
+  CALL R13 3 -1
+  CALL R10 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K14 [table.insert]
+  CALL R8 -1 0
+  JUMP [+25]
+  GETIMPORT R8 K16 [Enum.RibbonTool.Rotate]
+  JUMPIFNOTEQ R3 R8 [+22]
+  MOVE R9 R7
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K10 ["new"]
+  MOVE R11 R4
+  LOADNIL R12
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["TransformHandlesImplementation"]
+  GETTABLEKS R13 R14 K10 ["new"]
+  MOVE R14 R4
+  MOVE R15 R6
+  GETIMPORT R16 K16 [Enum.RibbonTool.Rotate]
+  CALL R13 3 -1
+  CALL R10 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K14 [table.insert]
+  CALL R8 -1 0
+  DUPTABLE R8 K22 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowLocalSpaceIndicator", "HandlesList"}]
+  LOADK R10 K23 ["AnimationClipEditor"]
+  GETTABLEKS R11 R3 K24 ["Name"]
+  CONCAT R9 R10 R11
+  SETTABLEKS R9 R8 K17 ["AnalyticsName"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K18 ["AllowDragSelect"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K19 ["AllowFreeformDrag"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K20 ["ShowLocalSpaceIndicator"]
+  SETTABLEKS R7 R8 K21 ["HandlesList"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K25 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K29 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
+  SETTABLEKS R2 R11 K1 ["Mouse"]
+  SETTABLEKS R4 R11 K26 ["DraggerContext"]
+  GETUPVAL R12 1
+  SETTABLEKS R12 R11 K27 ["DraggerSchema"]
+  SETTABLEKS R8 R11 K28 ["DraggerSettings"]
+  CALL R9 2 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K9 ["DraggerFramework"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R3 K10 ["DraggerTools"]
+  GETTABLEKS R5 R6 K11 ["DraggerToolComponent"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R3 K12 ["Handles"]
+  GETTABLEKS R6 R7 K13 ["MoveHandles"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R3 K12 ["Handles"]
+  GETTABLEKS R7 R8 K14 ["RotateHandles"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R3 K12 ["Handles"]
+  GETTABLEKS R8 R9 K15 ["ExtrudeHandles"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R12 R0 K16 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Util"]
+  GETTABLEKS R10 R11 K18 ["DraggerSchema"]
+  GETTABLEKS R9 R10 K18 ["DraggerSchema"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K19 ["PureComponent"]
+  LOADK R11 K20 ["AnimationClipEditorDragger"]
+  NAMECALL R9 R9 K21 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K22 [PROTO_2]
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R10 R9 K23 ["render"]
+  RETURN R9 1

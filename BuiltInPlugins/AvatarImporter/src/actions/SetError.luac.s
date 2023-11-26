@@ -1,0 +1,23 @@
+PROTO_0:
+  DUPTABLE R2 K2 [{"name", "message"}]
+  SETTABLEKS R0 R2 K0 ["name"]
+  SETTABLEKS R1 R2 K1 ["message"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["src"]
+  GETTABLEKS R3 R4 K6 ["actions"]
+  GETTABLEKS R2 R3 K7 ["Action"]
+  CALL R1 1 1
+  MOVE R2 R1
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K8 ["Name"]
+  DUPCLOSURE R4 K9 [PROTO_0]
+  CALL R2 2 -1
+  RETURN R2 -1

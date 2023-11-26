@@ -1,0 +1,324 @@
+PROTO_0:
+  JUMPIF R0 [+7]
+  GETIMPORT R2 K1 [warn]
+  LOADK R4 K2 ["Error on request: "]
+  MOVE R5 R1
+  CONCAT R3 R4 R5
+  CALL R2 1 0
+  RETURN R0 0
+  GETTABLEKS R2 R1 K3 ["Success"]
+  JUMPIF R2 [+14]
+  GETIMPORT R2 K1 [warn]
+  LOADK R4 K4 ["Error returned: "]
+  GETTABLEKS R5 R1 K5 ["StatusCode"]
+  LOADK R6 K6 [" "]
+  GETTABLEKS R7 R1 K7 ["StatusMessage"]
+  LOADK R8 K6 [" "]
+  GETTABLEKS R9 R1 K8 ["Body"]
+  CONCAT R3 R4 R9
+  CALL R2 1 0
+  RETURN R0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  DUPTABLE R3 K4 [{"Url", "Method", "Headers", "Body"}]
+  LOADK R4 K5 ["https://apis.sitetest1.robloxlabs.com/image-localization-api/v1/image-localization/ingest"]
+  SETTABLEKS R4 R3 K0 ["Url"]
+  LOADK R4 K6 ["POST"]
+  SETTABLEKS R4 R3 K1 ["Method"]
+  NEWTABLE R4 1 0
+  LOADK R5 K7 ["application/json"]
+  SETTABLEKS R5 R4 K8 ["Content-Type"]
+  SETTABLEKS R4 R3 K2 ["Headers"]
+  SETTABLEKS R0 R3 K3 ["Body"]
+  NAMECALL R1 R1 K9 ["RequestInternal"]
+  CALL R1 2 1
+  DUPCLOSURE R4 K10 [PROTO_0]
+  NAMECALL R2 R1 K11 ["Start"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  DUPTABLE R3 K2 [{"assetIds", "universeId"}]
+  SETTABLEKS R0 R3 K0 ["assetIds"]
+  GETIMPORT R5 K4 [game]
+  GETTABLEKS R4 R5 K5 ["GameId"]
+  SETTABLEKS R4 R3 K1 ["universeId"]
+  NAMECALL R1 R1 K6 ["JSONEncode"]
+  CALL R1 2 1
+  GETUPVAL R2 1
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWTABLE R0 0 0
+  GETIMPORT R1 K1 [pairs]
+  GETIMPORT R2 K3 [workspace]
+  NAMECALL R2 R2 K4 ["GetDescendants"]
+  CALL R2 1 -1
+  CALL R1 -1 3
+  FORGPREP_NEXT R1
+  LOADK R8 K5 ["ImageLabel"]
+  NAMECALL R6 R5 K6 ["IsA"]
+  CALL R6 2 1
+  JUMPIF R6 [+5]
+  LOADK R8 K7 ["ImageButton"]
+  NAMECALL R6 R5 K6 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+8]
+  GETTABLEKS R8 R5 K8 ["Image"]
+  FASTCALL2 TABLE_INSERT R0 R8 [+4]
+  MOVE R7 R0
+  GETIMPORT R6 K11 [table.insert]
+  CALL R6 2 0
+  FORGLOOP R1 2 [-19]
+  LENGTH R1 R0
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+17]
+  GETUPVAL R1 0
+  DUPTABLE R3 K14 [{"assetIds", "universeId"}]
+  SETTABLEKS R0 R3 K12 ["assetIds"]
+  GETIMPORT R5 K16 [game]
+  GETTABLEKS R4 R5 K17 ["GameId"]
+  SETTABLEKS R4 R3 K13 ["universeId"]
+  NAMECALL R1 R1 K18 ["JSONEncode"]
+  CALL R1 2 1
+  GETUPVAL R2 1
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPCLOSURE R1 K0 [PROTO_4]
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K1 ["uploadImageAssetIds"]
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["ImageLocalizationFeatureEnabled"]
+  NAMECALL R1 R1 K3 ["GetFastFlag"]
+  CALL R1 2 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K4 ["props"]
+  GETTABLEKS R2 R1 K5 ["Stylizer"]
+  GETTABLEKS R3 R1 K6 ["Localization"]
+  GETTABLEKS R4 R1 K7 ["LayoutOrder"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K8 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K11 [{"LayoutOrder", "AutomaticSize", "Padding"}]
+  LOADN R8 2
+  SETTABLEKS R8 R7 K7 ["LayoutOrder"]
+  GETIMPORT R8 K14 [Enum.AutomaticSize.XY]
+  SETTABLEKS R8 R7 K9 ["AutomaticSize"]
+  DUPTABLE R8 K17 [{"Top", "Left"}]
+  GETTABLEKS R9 R2 K18 ["PaddingTop"]
+  SETTABLEKS R9 R8 K15 ["Top"]
+  GETTABLEKS R9 R2 K19 ["LeftIndent"]
+  SETTABLEKS R9 R8 K16 ["Left"]
+  SETTABLEKS R8 R7 K10 ["Padding"]
+  DUPTABLE R8 K21 [{"Upload"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K24 [{"Title", "TitleWidth"}]
+  LOADK R14 K25 ["ImageLocalizationSection"]
+  LOADK R15 K26 ["UploadButtonLabel"]
+  NAMECALL R12 R3 K27 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K22 ["Title"]
+  GETTABLEKS R12 R2 K28 ["LabelWidth"]
+  SETTABLEKS R12 R11 K23 ["TitleWidth"]
+  DUPTABLE R12 K30 [{"ButtonContainer"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K8 ["createElement"]
+  LOADK R14 K31 ["Frame"]
+  DUPTABLE R15 K34 [{"BackgroundTransparency", "Size"}]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K32 ["BackgroundTransparency"]
+  GETIMPORT R16 K37 [UDim2.new]
+  LOADN R17 0
+  GETTABLEKS R18 R2 K38 ["ButtonWidth"]
+  LOADN R19 1
+  LOADN R20 0
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K33 ["Size"]
+  DUPTABLE R16 K40 [{"Button"}]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K8 ["createElement"]
+  GETUPVAL R18 3
+  DUPTABLE R19 K46 [{"AnchorPoint", "OnClick", "Position", "Size", "Style", "Text"}]
+  GETIMPORT R20 K48 [Vector2.new]
+  LOADK R21 K49 [0.5]
+  LOADK R22 K49 [0.5]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K41 ["AnchorPoint"]
+  GETTABLEKS R20 R0 K50 ["uploadImageAssetIds"]
+  SETTABLEKS R20 R19 K42 ["OnClick"]
+  GETIMPORT R20 K37 [UDim2.new]
+  LOADK R21 K49 [0.5]
+  LOADN R22 0
+  LOADK R23 K49 [0.5]
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K43 ["Position"]
+  GETIMPORT R20 K37 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 0
+  LOADN R23 0
+  GETTABLEKS R24 R2 K51 ["ButtonHeight"]
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K33 ["Size"]
+  LOADK R20 K52 ["TextButton"]
+  SETTABLEKS R20 R19 K44 ["Style"]
+  LOADK R22 K25 ["ImageLocalizationSection"]
+  LOADK R23 K53 ["UploadButton"]
+  NAMECALL R20 R3 K27 ["getText"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K45 ["Text"]
+  NEWTABLE R20 0 1
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K8 ["createElement"]
+  GETUPVAL R22 4
+  DUPTABLE R23 K55 [{"Cursor"}]
+  LOADK R24 K56 ["PointingHand"]
+  SETTABLEKS R24 R23 K54 ["Cursor"]
+  CALL R21 2 -1
+  SETLIST R20 R21 4294967295 [1]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K39 ["Button"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K29 ["ButtonContainer"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K20 ["Upload"]
+  CALL R5 3 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["createElement"]
+  GETUPVAL R7 1
+  DUPTABLE R8 K58 [{"LayoutOrder", "AutomaticSize", "Padding", "Spacing"}]
+  SETTABLEKS R4 R8 K7 ["LayoutOrder"]
+  GETIMPORT R9 K14 [Enum.AutomaticSize.XY]
+  SETTABLEKS R9 R8 K9 ["AutomaticSize"]
+  DUPTABLE R9 K59 [{"Top"}]
+  GETTABLEKS R10 R2 K18 ["PaddingTop"]
+  SETTABLEKS R10 R9 K15 ["Top"]
+  SETTABLEKS R9 R8 K10 ["Padding"]
+  GETTABLEKS R9 R2 K57 ["Spacing"]
+  SETTABLEKS R9 R8 K57 ["Spacing"]
+  DUPTABLE R9 K62 [{"SectionLabel", "Content"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETUPVAL R11 5
+  DUPTABLE R12 K63 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
+  GETIMPORT R13 K14 [Enum.AutomaticSize.XY]
+  SETTABLEKS R13 R12 K9 ["AutomaticSize"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  LOADK R13 K64 ["Label"]
+  SETTABLEKS R13 R12 K44 ["Style"]
+  LOADK R15 K25 ["ImageLocalizationSection"]
+  LOADK R16 K60 ["SectionLabel"]
+  NAMECALL R13 R3 K27 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K45 ["Text"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K60 ["SectionLabel"]
+  SETTABLEKS R5 R9 K61 ["Content"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_7:
+  DUPTABLE R2 K1 [{"IsBusy"}]
+  GETTABLEKS R4 R0 K2 ["CloudTable"]
+  GETTABLEKS R3 R4 K0 ["IsBusy"]
+  SETTABLEKS R3 R2 K0 ["IsBusy"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETTABLEKS R6 R3 K11 ["UI"]
+  GETTABLEKS R7 R6 K12 ["Pane"]
+  GETTABLEKS R8 R6 K13 ["Button"]
+  GETTABLEKS R9 R6 K14 ["HoverArea"]
+  GETTABLEKS R10 R6 K15 ["TextLabel"]
+  GETTABLEKS R11 R6 K16 ["TitledFrame"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K17 ["Src"]
+  GETTABLEKS R14 R15 K9 ["ContextServices"]
+  GETTABLEKS R13 R14 K18 ["AnalyticsContext"]
+  CALL R12 1 1
+  GETTABLEKS R13 R1 K19 ["PureComponent"]
+  LOADK R15 K20 ["ImageLocalizationSection"]
+  NAMECALL R13 R13 K21 ["extend"]
+  CALL R13 2 1
+  GETIMPORT R14 K23 [game]
+  LOADK R16 K24 ["HttpService"]
+  NAMECALL R14 R14 K25 ["GetService"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K26 [PROTO_1]
+  CAPTURE VAL R14
+  DUPCLOSURE R16 K27 [PROTO_2]
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  DUPCLOSURE R17 K28 [PROTO_3]
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  DUPCLOSURE R18 K29 [PROTO_5]
+  CAPTURE VAL R17
+  SETTABLEKS R18 R13 K30 ["init"]
+  DUPCLOSURE R18 K31 [PROTO_6]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  SETTABLEKS R18 R13 K32 ["render"]
+  DUPCLOSURE R18 K33 [PROTO_7]
+  MOVE R19 R5
+  DUPTABLE R20 K38 [{"Plugin", "Stylizer", "Localization", "Analytics"}]
+  GETTABLEKS R21 R4 K34 ["Plugin"]
+  SETTABLEKS R21 R20 K34 ["Plugin"]
+  GETTABLEKS R21 R4 K35 ["Stylizer"]
+  SETTABLEKS R21 R20 K35 ["Stylizer"]
+  GETTABLEKS R21 R4 K36 ["Localization"]
+  SETTABLEKS R21 R20 K36 ["Localization"]
+  SETTABLEKS R12 R20 K37 ["Analytics"]
+  CALL R19 1 1
+  MOVE R20 R13
+  CALL R19 1 1
+  MOVE R13 R19
+  GETTABLEKS R19 R2 K39 ["connect"]
+  MOVE R20 R18
+  CALL R19 1 1
+  MOVE R20 R13
+  CALL R19 1 -1
+  RETURN R19 -1

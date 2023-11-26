@@ -1,0 +1,76 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K4 [{"results", "searchTerm"}]
+  GETTABLEKS R5 R1 K2 ["results"]
+  SETTABLEKS R5 R4 K2 ["results"]
+  GETTABLEKS R5 R1 K3 ["searchTerm"]
+  SETTABLEKS R5 R4 K3 ["searchTerm"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"isSearching"}]
+  GETTABLEKS R5 R1 K2 ["isSearching"]
+  SETTABLEKS R5 R4 K2 ["isSearching"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Rodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K7 ["Cryo"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Core"]
+  GETTABLEKS R6 R7 K9 ["Actions"]
+  GETTABLEKS R5 R6 K10 ["SetLiveSearch"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Core"]
+  GETTABLEKS R7 R8 K9 ["Actions"]
+  GETTABLEKS R6 R7 K11 ["SetLiveSearching"]
+  CALL R5 1 1
+  GETIMPORT R6 K13 [game]
+  LOADK R8 K14 ["ToolboxFixLiveSearchDebounce"]
+  NAMECALL R6 R6 K15 ["GetFastFlag"]
+  CALL R6 2 1
+  GETTABLEKS R7 R2 K16 ["createReducer"]
+  DUPTABLE R8 K20 [{"searchTerm", "isSearching", "results"}]
+  LOADK R9 K21 [""]
+  SETTABLEKS R9 R8 K17 ["searchTerm"]
+  JUMPIFNOT R6 [+2]
+  LOADNIL R9
+  JUMP [+1]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K18 ["isSearching"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K19 ["results"]
+  NEWTABLE R9 2 0
+  GETTABLEKS R10 R4 K22 ["name"]
+  DUPCLOSURE R11 K23 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLE R11 R9 R10
+  GETTABLEKS R10 R5 K22 ["name"]
+  JUMPIFNOT R6 [+2]
+  LOADNIL R11
+  JUMP [+2]
+  DUPCLOSURE R11 K24 [PROTO_1]
+  CAPTURE VAL R3
+  SETTABLE R11 R9 R10
+  CALL R7 2 1
+  RETURN R7 1

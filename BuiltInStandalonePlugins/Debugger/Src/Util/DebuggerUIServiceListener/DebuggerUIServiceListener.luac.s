@@ -1,0 +1,84 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["store"]
+  GETUPVAL R3 0
+  CALL R3 0 -1
+  NAMECALL R1 R1 K1 ["dispatch"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["OnExpressionsCleared"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  MOVE R2 R1
+  JUMPIF R2 [+6]
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K2 ["DebuggerUIService"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K4 ["ExpressionsCleared"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K5 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K6 ["_expressionsClearedConnection"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["_expressionsClearedConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["_expressionsClearedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_expressionsClearedConnection"]
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R2 K1 [{"store"}]
+  SETTABLEKS R0 R2 K0 ["store"]
+  MOVE R3 R1
+  JUMPIF R3 [+6]
+  GETIMPORT R3 K3 [game]
+  LOADK R5 K4 ["DebuggerUIService"]
+  NAMECALL R3 R3 K5 ["GetService"]
+  CALL R3 2 1
+  GETTABLEKS R4 R3 K6 ["ExpressionsCleared"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
+  NAMECALL R4 R4 K7 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R2 K8 ["_expressionsClearedConnection"]
+  GETUPVAL R5 0
+  FASTCALL2 SETMETATABLE R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K10 [setmetatable]
+  CALL R3 2 0
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Actions"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R1 K6 ["Watch"]
+  GETTABLEKS R3 R4 K7 ["ClearAllExpressions"]
+  CALL R2 1 1
+  NEWTABLE R3 4 0
+  SETTABLEKS R3 R3 K8 ["__index"]
+  DUPCLOSURE R4 K9 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K10 ["OnExpressionsCleared"]
+  DUPCLOSURE R4 K11 [PROTO_2]
+  DUPCLOSURE R5 K12 [PROTO_3]
+  SETTABLEKS R5 R3 K13 ["destroy"]
+  DUPCLOSURE R5 K14 [PROTO_4]
+  CAPTURE VAL R3
+  SETTABLEKS R5 R3 K15 ["new"]
+  RETURN R3 1

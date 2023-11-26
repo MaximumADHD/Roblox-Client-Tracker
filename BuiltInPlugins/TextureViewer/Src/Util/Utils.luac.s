@@ -1,0 +1,59 @@
+PROTO_0:
+  GETIMPORT R2 K2 [string.format]
+  LOADK R4 K3 ["%."]
+  ORK R5 R1 K4 [0]
+  LOADK R6 K5 ["f"]
+  CONCAT R3 R4 R6
+  MOVE R4 R0
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETIMPORT R1 K2 [string.match]
+  MOVE R2 R0
+  LOADK R3 K3 ["%?id="]
+  CALL R1 2 1
+  JUMPIF R1 [+5]
+  GETIMPORT R1 K2 [string.match]
+  MOVE R2 R0
+  LOADK R3 K4 ["rbxassetid://"]
+  CALL R1 2 1
+  RETURN R1 1
+
+PROTO_2:
+  GETIMPORT R1 K2 [string.find]
+  MOVE R2 R0
+  LOADK R3 K3 ["?id="]
+  CALL R1 2 2
+  JUMPIFNOT R2 [+8]
+  ADDK R5 R2 K4 [1]
+  FASTCALL2 STRING_SUB R0 R5 [+4]
+  MOVE R4 R0
+  GETIMPORT R3 K6 [string.sub]
+  CALL R3 2 1
+  RETURN R3 1
+  GETIMPORT R3 K2 [string.find]
+  MOVE R4 R0
+  LOADK R5 K7 ["rbxassetid://"]
+  CALL R3 2 2
+  MOVE R1 R3
+  MOVE R2 R4
+  JUMPIFNOT R2 [+8]
+  ADDK R5 R2 K4 [1]
+  FASTCALL2 STRING_SUB R0 R5 [+4]
+  MOVE R4 R0
+  GETIMPORT R3 K6 [string.sub]
+  CALL R3 2 1
+  RETURN R3 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 4 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["round"]
+  DUPCLOSURE R1 K2 [PROTO_1]
+  SETTABLEKS R1 R0 K3 ["doesTextureAliasContainId"]
+  DUPCLOSURE R1 K4 [PROTO_2]
+  SETTABLEKS R1 R0 K5 ["parseIdFromTextureAlias"]
+  RETURN R0 1

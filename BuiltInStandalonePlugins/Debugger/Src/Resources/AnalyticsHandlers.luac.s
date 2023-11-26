@@ -1,0 +1,293 @@
+PROTO_0:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["GetSessionId"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K1 ["studioSid"]
+  GETIMPORT R2 K3 [game]
+  GETTABLEKS R1 R2 K4 ["PlaceId"]
+  SETTABLEKS R1 R0 K5 ["placeid"]
+  GETUPVAL R1 0
+  LOADK R3 K6 ["DebuggerUserEvent"]
+  MOVE R4 R0
+  GETUPVAL R5 1
+  NAMECALL R1 R1 K7 ["ReportInfluxSeries"]
+  CALL R1 4 0
+  GETUPVAL R1 0
+  LOADK R3 K8 ["studio"]
+  LOADK R4 K9 ["Debugger"]
+  LOADK R5 K6 ["DebuggerUserEvent"]
+  MOVE R6 R0
+  NAMECALL R1 R1 K10 ["SendEventDeferred"]
+  CALL R1 5 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R2 K2 [{"eventName", "actionSource"}]
+  SETTABLEKS R0 R2 K0 ["eventName"]
+  SETTABLEKS R1 R2 K1 ["actionSource"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K3 ["GetSessionId"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K4 ["studioSid"]
+  GETIMPORT R4 K6 [game]
+  GETTABLEKS R3 R4 K7 ["PlaceId"]
+  SETTABLEKS R3 R2 K8 ["placeid"]
+  GETUPVAL R3 0
+  LOADK R5 K9 ["DebuggerUserEvent"]
+  MOVE R6 R2
+  GETUPVAL R7 1
+  NAMECALL R3 R3 K10 ["ReportInfluxSeries"]
+  CALL R3 4 0
+  GETUPVAL R3 0
+  LOADK R5 K11 ["studio"]
+  LOADK R6 K12 ["Debugger"]
+  LOADK R7 K9 ["DebuggerUserEvent"]
+  MOVE R8 R2
+  NAMECALL R3 R3 K13 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R2 K2 [{"eventName", "enabledScopes"}]
+  SETTABLEKS R0 R2 K0 ["eventName"]
+  SETTABLEKS R1 R2 K1 ["enabledScopes"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K3 ["GetSessionId"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K4 ["studioSid"]
+  GETIMPORT R4 K6 [game]
+  GETTABLEKS R3 R4 K7 ["PlaceId"]
+  SETTABLEKS R3 R2 K8 ["placeid"]
+  GETUPVAL R3 0
+  LOADK R5 K9 ["DebuggerUserEvent"]
+  MOVE R6 R2
+  GETUPVAL R7 1
+  NAMECALL R3 R3 K10 ["ReportInfluxSeries"]
+  CALL R3 4 0
+  GETUPVAL R3 0
+  LOADK R5 K11 ["studio"]
+  LOADK R6 K12 ["Debugger"]
+  LOADK R7 K9 ["DebuggerUserEvent"]
+  MOVE R8 R2
+  NAMECALL R3 R3 K13 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_3:
+  DUPTABLE R2 K2 [{"eventName", "enabledColumns"}]
+  SETTABLEKS R0 R2 K0 ["eventName"]
+  SETTABLEKS R1 R2 K1 ["enabledColumns"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K3 ["GetSessionId"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K4 ["studioSid"]
+  GETIMPORT R4 K6 [game]
+  GETTABLEKS R3 R4 K7 ["PlaceId"]
+  SETTABLEKS R3 R2 K8 ["placeid"]
+  GETUPVAL R3 0
+  LOADK R5 K9 ["DebuggerUserEvent"]
+  MOVE R6 R2
+  GETUPVAL R7 1
+  NAMECALL R3 R3 K10 ["ReportInfluxSeries"]
+  CALL R3 4 0
+  GETUPVAL R3 0
+  LOADK R5 K11 ["studio"]
+  LOADK R6 K12 ["Debugger"]
+  LOADK R7 K9 ["DebuggerUserEvent"]
+  MOVE R8 R2
+  NAMECALL R3 R3 K13 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R2 K2 [{"eventName", "enabledColumns"}]
+  SETTABLEKS R0 R2 K0 ["eventName"]
+  SETTABLEKS R1 R2 K1 ["enabledColumns"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K3 ["GetSessionId"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K4 ["studioSid"]
+  GETIMPORT R4 K6 [game]
+  GETTABLEKS R3 R4 K7 ["PlaceId"]
+  SETTABLEKS R3 R2 K8 ["placeid"]
+  GETUPVAL R3 0
+  LOADK R5 K9 ["DebuggerUserEvent"]
+  MOVE R6 R2
+  GETUPVAL R7 1
+  NAMECALL R3 R3 K10 ["ReportInfluxSeries"]
+  CALL R3 4 0
+  GETUPVAL R3 0
+  LOADK R5 K11 ["studio"]
+  LOADK R6 K12 ["Debugger"]
+  LOADK R7 K9 ["DebuggerUserEvent"]
+  MOVE R8 R2
+  NAMECALL R3 R3 K13 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPTABLE R2 K2 [{"eventName", "enabledColumns"}]
+  SETTABLEKS R0 R2 K0 ["eventName"]
+  SETTABLEKS R1 R2 K1 ["enabledColumns"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K3 ["GetSessionId"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K4 ["studioSid"]
+  GETIMPORT R4 K6 [game]
+  GETTABLEKS R3 R4 K7 ["PlaceId"]
+  SETTABLEKS R3 R2 K8 ["placeid"]
+  GETUPVAL R3 0
+  LOADK R5 K9 ["DebuggerUserEvent"]
+  MOVE R6 R2
+  GETUPVAL R7 1
+  NAMECALL R3 R3 K10 ["ReportInfluxSeries"]
+  CALL R3 4 0
+  GETUPVAL R3 0
+  LOADK R5 K11 ["studio"]
+  LOADK R6 K12 ["Debugger"]
+  LOADK R7 K9 ["DebuggerUserEvent"]
+  MOVE R8 R2
+  NAMECALL R3 R3 K13 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_6:
+  DUPTABLE R2 K2 [{"eventName", "enabledColumns"}]
+  SETTABLEKS R0 R2 K0 ["eventName"]
+  SETTABLEKS R1 R2 K1 ["enabledColumns"]
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K3 ["GetSessionId"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K4 ["studioSid"]
+  GETIMPORT R4 K6 [game]
+  GETTABLEKS R3 R4 K7 ["PlaceId"]
+  SETTABLEKS R3 R2 K8 ["placeid"]
+  GETUPVAL R3 0
+  LOADK R5 K9 ["DebuggerUserEvent"]
+  MOVE R6 R2
+  GETUPVAL R7 1
+  NAMECALL R3 R3 K10 ["ReportInfluxSeries"]
+  CALL R3 4 0
+  GETUPVAL R3 0
+  LOADK R5 K11 ["studio"]
+  LOADK R6 K12 ["Debugger"]
+  LOADK R7 K9 ["DebuggerUserEvent"]
+  MOVE R8 R2
+  NAMECALL R3 R3 K13 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_7:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  NEWTABLE R3 32 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["RemoveMetaBreakpoint"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["RemoveAllMetaBreakpoints"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["EnableMetaBreakpoint"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["DisableMetaBreakpoint"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["EnableBreakpoint"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["DisableBreakpoint"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["EnableAllMetaBreakpoints"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K7 ["DisableAllMetaBreakpoints"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K8 ["MetaBreakpointConditionChanged"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["MetaBreakpointLogMessageChanged"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K10 ["MetaBreakpointContinueExecutionChanged"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K11 ["MetaBreakpointRemoveOnHitChanged"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K12 ["CallstackStepInto"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K13 ["CallstackStepOver"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K14 ["CallstackStepOut"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K15 ["CallstackChangeFrame"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["WatchAdded"]
+  SETTABLE R2 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K17 ["WatchScopeEdited"]
+  NEWCLOSURE R5 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K18 ["BreakpointsColumnsEdited"]
+  NEWCLOSURE R5 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K19 ["CallstackColumnsEdited"]
+  NEWCLOSURE R5 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K20 ["VariablesColumnsEdited"]
+  NEWCLOSURE R5 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K21 ["MyWatchesColumnsEdited"]
+  NEWCLOSURE R5 P6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLE R5 R3 R4
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Resources"]
+  GETTABLEKS R2 R3 K7 ["AnalyticsEventNames"]
+  CALL R1 1 1
+  GETIMPORT R3 K9 [settings]
+  CALL R3 0 1
+  LOADK R5 K10 ["DebuggerEventsThrottleHundredthPercent"]
+  NAMECALL R3 R3 K11 ["GetFVariable"]
+  CALL R3 2 -1
+  FASTCALL TONUMBER [+2]
+  GETIMPORT R2 K13 [tonumber]
+  CALL R2 -1 1
+  DUPCLOSURE R3 K14 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R3 1

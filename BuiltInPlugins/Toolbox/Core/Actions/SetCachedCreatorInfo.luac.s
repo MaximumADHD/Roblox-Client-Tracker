@@ -1,0 +1,62 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["union"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["strictInterface"]
+  NEWTABLE R4 0 0
+  CALL R3 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["interface"]
+  DUPTABLE R5 K6 [{"Id", "Name", "Type"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["number"]
+  SETTABLEKS R6 R5 K3 ["Id"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["string"]
+  SETTABLEKS R6 R5 K4 ["Name"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K9 ["isValidCreatorType"]
+  SETTABLEKS R6 R5 K5 ["Type"]
+  CALL R4 1 -1
+  CALL R2 -1 1
+  MOVE R3 R0
+  CALL R2 1 1
+  FASTCALL2K ASSERT R2 K10 [+4]
+  LOADK R3 K10 ["CreatorInfo must be either an empty table, or have all keys defined"]
+  GETIMPORT R1 K12 [assert]
+  CALL R1 2 0
+  DUPTABLE R1 K14 [{"cachedCreatorInfo"}]
+  SETTABLEKS R0 R1 K13 ["cachedCreatorInfo"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K6 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K7 ["Util"]
+  GETTABLEKS R3 R2 K8 ["Action"]
+  GETTABLEKS R5 R0 K9 ["Core"]
+  GETTABLEKS R4 R5 K7 ["Util"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R4 K10 ["CreatorInfoHelper"]
+  CALL R5 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R1 K6 ["Framework"]
+  CALL R9 1 1
+  GETTABLEKS R8 R9 K7 ["Util"]
+  GETTABLEKS R7 R8 K11 ["Typecheck"]
+  GETTABLEKS R6 R7 K12 ["t"]
+  MOVE R7 R3
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K13 ["Name"]
+  DUPCLOSURE R9 K14 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CALL R7 2 -1
+  RETURN R7 -1

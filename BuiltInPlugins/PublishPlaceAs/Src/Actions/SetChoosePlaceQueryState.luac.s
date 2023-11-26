@@ -1,0 +1,40 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["assertNullableType"]
+  MOVE R2 R0
+  LOADK R3 K1 ["string"]
+  LOADK R4 K2 ["SetChoosePlaceQuery arg"]
+  CALL R1 3 0
+  DUPTABLE R1 K4 [{"placeInfo"}]
+  DUPTABLE R2 K6 [{"queryState"}]
+  SETTABLEKS R0 R2 K5 ["queryState"]
+  SETTABLEKS R2 R1 K3 ["placeInfo"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Cryo"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["AssertType"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K2 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["Action"]
+  CALL R3 1 1
+  MOVE R4 R3
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K11 ["Name"]
+  DUPCLOSURE R6 K12 [PROTO_0]
+  CAPTURE VAL R2
+  CALL R4 2 -1
+  RETURN R4 -1

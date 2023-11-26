@@ -1,0 +1,570 @@
+PROTO_0:
+  LOADN R1 10
+  SETTABLEKS R1 R0 K0 ["lastNonFreePrice"]
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["Id"]
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R1 0
+  LOADN R2 0
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["lastNonFreePrice"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["new"]
+  CALL R4 0 1
+  LOADK R7 K4 ["Monetization"]
+  LOADK R8 K5 ["PrivateServersTitle"]
+  NAMECALL R5 R2 K6 ["getText"]
+  CALL R5 3 1
+  LOADK R8 K4 ["Monetization"]
+  LOADK R9 K7 ["PriceTitle"]
+  NAMECALL R6 R2 K6 ["getText"]
+  CALL R6 3 1
+  GETTABLEKS R7 R1 K8 ["LayoutOrder"]
+  GETTABLEKS R9 R1 K9 ["VIPServersData"]
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R8 R1 K9 ["VIPServersData"]
+  JUMPIF R8 [+2]
+  NEWTABLE R8 0 0
+  GETTABLEKS R9 R1 K10 ["Enabled"]
+  GETTABLEKS R10 R1 K11 ["TaxRate"]
+  GETTABLEKS R11 R1 K12 ["MinimumFee"]
+  GETTABLEKS R12 R8 K13 ["isEnabled"]
+  GETTABLEKS R14 R8 K14 ["price"]
+  JUMPIFNOT R14 [+3]
+  GETTABLEKS R13 R8 K14 ["price"]
+  JUMPIF R13 [+1]
+  LOADN R13 0
+  GETTABLEKS R15 R8 K15 ["activeServersCount"]
+  JUMPIFNOT R15 [+3]
+  GETTABLEKS R14 R8 K15 ["activeServersCount"]
+  JUMPIF R14 [+1]
+  LOADN R14 0
+  GETTABLEKS R16 R8 K16 ["activeSubscriptionsCount"]
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R15 R8 K16 ["activeSubscriptionsCount"]
+  JUMPIF R15 [+1]
+  LOADN R15 0
+  GETTABLEKS R16 R8 K17 ["changed"]
+  GETTABLEKS R17 R8 K18 ["willShutdown"]
+  JUMPIFEQKN R13 K19 [0] [+2]
+  LOADB R18 0 +1
+  LOADB R18 1
+  JUMPIF R18 [+2]
+  SETTABLEKS R13 R0 K20 ["lastNonFreePrice"]
+  GETTABLEKS R19 R1 K21 ["OnVipServersToggled"]
+  GETTABLEKS R20 R1 K22 ["OnVipServersPriceChanged"]
+  LOADNIL R21
+  LOADNIL R22
+  LOADN R23 0
+  JUMPIFNOTLT R15 R23 [+12]
+  LOADK R25 K4 ["Monetization"]
+  LOADK R26 K23 ["OverPrivateServerSubscriptions"]
+  DUPTABLE R27 K25 [{"numOfSubscriptions"}]
+  MULK R28 R15 K26 [-1]
+  SETTABLEKS R28 R27 K24 ["numOfSubscriptions"]
+  NAMECALL R23 R2 K6 ["getText"]
+  CALL R23 4 1
+  MOVE R21 R23
+  JUMP [+9]
+  LOADK R25 K4 ["Monetization"]
+  LOADK R26 K27 ["PrivateServerSubscriptions"]
+  DUPTABLE R27 K25 [{"numOfSubscriptions"}]
+  SETTABLEKS R15 R27 K24 ["numOfSubscriptions"]
+  NAMECALL R23 R2 K6 ["getText"]
+  CALL R23 4 1
+  MOVE R21 R23
+  LOADK R25 K4 ["Monetization"]
+  LOADK R26 K28 ["PrivateServersActive"]
+  DUPTABLE R27 K30 [{"totalVipServers"}]
+  SETTABLEKS R14 R27 K29 ["totalVipServers"]
+  NAMECALL R23 R2 K6 ["getText"]
+  CALL R23 4 1
+  MOVE R22 R23
+  GETUPVAL R24 2
+  JUMPIFNOT R24 [+2]
+  LOADNIL R23
+  JUMP [+14]
+  JUMPIFNOT R9 [+7]
+  GETTABLEKS R25 R3 K31 ["robuxFeeBase"]
+  GETTABLEKS R24 R25 K32 ["transparency"]
+  GETTABLEKS R23 R24 K33 ["enabled"]
+  JUMPIF R23 [+6]
+  GETTABLEKS R25 R3 K31 ["robuxFeeBase"]
+  GETTABLEKS R24 R25 K32 ["transparency"]
+  GETTABLEKS R23 R24 K34 ["disabled"]
+  LOADNIL R24
+  LOADNIL R25
+  GETTABLEKS R26 R1 K35 ["PriceError"]
+  LOADNIL R27
+  JUMPIFNOT R9 [+3]
+  JUMPIFNOT R26 [+2]
+  MOVE R24 R26
+  JUMP [+8]
+  JUMPIFNOT R16 [+7]
+  LOADK R30 K4 ["Monetization"]
+  LOADK R31 K36 ["PrivateServersPriceChangeWarning"]
+  NAMECALL R28 R2 K6 ["getText"]
+  CALL R28 3 1
+  MOVE R24 R28
+  LOADB R27 1
+  LOADK R30 K4 ["Monetization"]
+  LOADK R31 K37 ["PrivateServersHint"]
+  NAMECALL R28 R2 K6 ["getText"]
+  CALL R28 3 1
+  MOVE R25 R28
+  JUMPIFNOT R17 [+6]
+  LOADK R30 K4 ["Monetization"]
+  LOADK R31 K38 ["PrivateServersShutdownWarning"]
+  NAMECALL R28 R2 K6 ["getText"]
+  CALL R28 3 1
+  MOVE R25 R28
+  GETUPVAL R29 2
+  JUMPIFNOT R29 [+2]
+  LOADNIL R28
+  JUMP [+25]
+  GETUPVAL R28 3
+  MOVE R29 R25
+  GETTABLEKS R32 R3 K39 ["fontStyle"]
+  GETTABLEKS R31 R32 K40 ["Subtext"]
+  GETTABLEKS R30 R31 K41 ["TextSize"]
+  GETTABLEKS R33 R3 K39 ["fontStyle"]
+  GETTABLEKS R32 R33 K40 ["Subtext"]
+  GETTABLEKS R31 R32 K42 ["Font"]
+  GETIMPORT R32 K44 [Vector2.new]
+  GETTABLEKS R35 R3 K31 ["robuxFeeBase"]
+  GETTABLEKS R34 R35 K45 ["subText"]
+  GETTABLEKS R33 R34 K46 ["width"]
+  LOADK R34 K47 [∞]
+  CALL R32 2 -1
+  CALL R28 -1 1
+  NOT R29 R12
+  JUMPIF R29 [+2]
+  NOT R30 R12
+  AND R29 R30 R16
+  JUMPIF R12 [+7]
+  JUMPIF R16 [+1]
+  JUMPIFNOT R17 [+5]
+  GETTABLEKS R31 R3 K39 ["fontStyle"]
+  GETTABLEKS R30 R31 K48 ["SmallError"]
+  JUMPIF R30 [+4]
+  GETTABLEKS R31 R3 K39 ["fontStyle"]
+  GETTABLEKS R30 R31 K40 ["Subtext"]
+  NEWTABLE R31 0 2
+  DUPTABLE R32 K51 [{"Id", "Title"}]
+  LOADB R33 1
+  SETTABLEKS R33 R32 K49 ["Id"]
+  LOADK R35 K4 ["Monetization"]
+  LOADK R36 K52 ["Free"]
+  NAMECALL R33 R2 K6 ["getText"]
+  CALL R33 3 1
+  SETTABLEKS R33 R32 K50 ["Title"]
+  DUPTABLE R33 K54 [{"Id", "Title", "Children"}]
+  LOADB R34 0
+  SETTABLEKS R34 R33 K49 ["Id"]
+  LOADK R36 K4 ["Monetization"]
+  LOADK R37 K55 ["Paid"]
+  NAMECALL R34 R2 K6 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K50 ["Title"]
+  DUPTABLE R34 K57 [{"RobuxFeeBase"}]
+  GETUPVAL R36 4
+  GETTABLEKS R35 R36 K58 ["createElement"]
+  GETUPVAL R36 5
+  DUPTABLE R37 K64 [{"Price", "TaxRate", "MinimumFee", "SubText", "Enabled", "OnPriceChanged", "HasPriceChanged", "LayoutOrder", "ShowPriceChangeWarning"}]
+  SETTABLEKS R13 R37 K59 ["Price"]
+  SETTABLEKS R10 R37 K11 ["TaxRate"]
+  SETTABLEKS R11 R37 K12 ["MinimumFee"]
+  SETTABLEKS R24 R37 K60 ["SubText"]
+  NOT R38 R18
+  SETTABLEKS R38 R37 K10 ["Enabled"]
+  SETTABLEKS R20 R37 K61 ["OnPriceChanged"]
+  SETTABLEKS R16 R37 K62 ["HasPriceChanged"]
+  NAMECALL R38 R4 K65 ["getNextOrder"]
+  CALL R38 1 1
+  SETTABLEKS R38 R37 K8 ["LayoutOrder"]
+  SETTABLEKS R27 R37 K63 ["ShowPriceChangeWarning"]
+  CALL R35 2 1
+  SETTABLEKS R35 R34 K56 ["RobuxFeeBase"]
+  SETTABLEKS R34 R33 K53 ["Children"]
+  SETLIST R31 R32 2 [1]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K58 ["createElement"]
+  GETUPVAL R34 2
+  JUMPIFNOT R34 [+2]
+  GETUPVAL R33 6
+  JUMP [+1]
+  GETUPVAL R33 7
+  GETUPVAL R35 2
+  JUMPIFNOT R35 [+20]
+  DUPTABLE R34 K69 [{"AutomaticSize", "Layout", "LayoutOrder", "Spacing"}]
+  GETIMPORT R35 K72 [Enum.AutomaticSize.XY]
+  SETTABLEKS R35 R34 K66 ["AutomaticSize"]
+  GETIMPORT R35 K75 [Enum.FillDirection.Vertical]
+  SETTABLEKS R35 R34 K67 ["Layout"]
+  SETTABLEKS R7 R34 K8 ["LayoutOrder"]
+  GETUPVAL R36 2
+  JUMPIFNOT R36 [+3]
+  GETTABLEKS R35 R3 K76 ["titleSpacing"]
+  JUMP [+1]
+  LOADNIL R35
+  SETTABLEKS R35 R34 K68 ["Spacing"]
+  JUMP [+22]
+  DUPTABLE R34 K80 [{"axis", "minimumSize", "BackgroundTransparency", "LayoutOrder"}]
+  GETUPVAL R37 7
+  GETTABLEKS R36 R37 K81 ["Axis"]
+  GETTABLEKS R35 R36 K74 ["Vertical"]
+  SETTABLEKS R35 R34 K77 ["axis"]
+  GETIMPORT R35 K83 [UDim2.new]
+  LOADN R36 1
+  LOADN R37 0
+  LOADN R38 0
+  LOADN R39 0
+  CALL R35 4 1
+  SETTABLEKS R35 R34 K78 ["minimumSize"]
+  LOADN R35 1
+  SETTABLEKS R35 R34 K79 ["BackgroundTransparency"]
+  SETTABLEKS R7 R34 K8 ["LayoutOrder"]
+  DUPTABLE R35 K86 [{"ToggleAndSubscriptionsAndTotal", "PriceConfig"}]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K58 ["createElement"]
+  GETUPVAL R37 8
+  DUPTABLE R38 K87 [{"LayoutOrder", "Title"}]
+  LOADN R39 1
+  SETTABLEKS R39 R38 K8 ["LayoutOrder"]
+  SETTABLEKS R5 R38 K50 ["Title"]
+  DUPTABLE R39 K92 [{"UIListLayout", "ToggleButton", "SubText", "Subscriptions", "TotalVIPServers"}]
+  GETUPVAL R41 2
+  JUMPIFNOT R41 [+2]
+  LOADNIL R40
+  JUMP [+14]
+  GETUPVAL R41 4
+  GETTABLEKS R40 R41 K58 ["createElement"]
+  LOADK R41 K88 ["UIListLayout"]
+  DUPTABLE R42 K94 [{"SortOrder", "FillDirection"}]
+  GETIMPORT R43 K95 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R43 R42 K93 ["SortOrder"]
+  GETIMPORT R43 K75 [Enum.FillDirection.Vertical]
+  SETTABLEKS R43 R42 K73 ["FillDirection"]
+  CALL R40 2 1
+  SETTABLEKS R40 R39 K88 ["UIListLayout"]
+  GETUPVAL R41 4
+  GETTABLEKS R40 R41 K58 ["createElement"]
+  GETUPVAL R41 9
+  DUPTABLE R42 K99 [{"Disabled", "Selected", "OnClick", "LayoutOrder"}]
+  NOT R43 R9
+  SETTABLEKS R43 R42 K96 ["Disabled"]
+  SETTABLEKS R12 R42 K97 ["Selected"]
+  SETTABLEKS R19 R42 K98 ["OnClick"]
+  LOADN R43 1
+  SETTABLEKS R43 R42 K8 ["LayoutOrder"]
+  CALL R40 2 1
+  SETTABLEKS R40 R39 K89 ["ToggleButton"]
+  MOVE R40 R29
+  JUMPIFNOT R40 [+75]
+  GETUPVAL R41 2
+  JUMPIFNOT R41 [+26]
+  GETUPVAL R41 4
+  GETTABLEKS R40 R41 K58 ["createElement"]
+  GETUPVAL R41 10
+  DUPTABLE R42 K104 [{"AutomaticSize", "Style", "Text", "LayoutOrder", "TextWrapped", "TextXAlignment"}]
+  GETIMPORT R43 K72 [Enum.AutomaticSize.XY]
+  SETTABLEKS R43 R42 K66 ["AutomaticSize"]
+  LOADK R43 K105 ["Label"]
+  SETTABLEKS R43 R42 K100 ["Style"]
+  SETTABLEKS R25 R42 K101 ["Text"]
+  LOADN R43 2
+  SETTABLEKS R43 R42 K8 ["LayoutOrder"]
+  LOADB R43 1
+  SETTABLEKS R43 R42 K102 ["TextWrapped"]
+  GETIMPORT R43 K107 [Enum.TextXAlignment.Left]
+  SETTABLEKS R43 R42 K103 ["TextXAlignment"]
+  CALL R40 2 1
+  JUMP [+47]
+  GETUPVAL R41 4
+  GETTABLEKS R40 R41 K58 ["createElement"]
+  LOADK R41 K108 ["TextLabel"]
+  GETUPVAL R44 11
+  GETTABLEKS R43 R44 K109 ["Dictionary"]
+  GETTABLEKS R42 R43 K110 ["join"]
+  MOVE R43 R30
+  DUPTABLE R44 K113 [{"Size", "BackgroundTransparency", "Text", "TextYAlignment", "TextXAlignment", "TextWrapped", "LayoutOrder"}]
+  GETIMPORT R45 K83 [UDim2.new]
+  LOADN R46 0
+  GETTABLEKS R48 R28 K114 ["X"]
+  FASTCALL1 MATH_CEIL R48 [+2]
+  GETIMPORT R47 K117 [math.ceil]
+  CALL R47 1 1
+  LOADN R48 0
+  GETTABLEKS R49 R28 K118 ["Y"]
+  CALL R45 4 1
+  SETTABLEKS R45 R44 K111 ["Size"]
+  LOADN R45 1
+  SETTABLEKS R45 R44 K79 ["BackgroundTransparency"]
+  SETTABLEKS R25 R44 K101 ["Text"]
+  GETIMPORT R45 K120 [Enum.TextYAlignment.Center]
+  SETTABLEKS R45 R44 K112 ["TextYAlignment"]
+  GETIMPORT R45 K107 [Enum.TextXAlignment.Left]
+  SETTABLEKS R45 R44 K103 ["TextXAlignment"]
+  LOADB R45 1
+  SETTABLEKS R45 R44 K102 ["TextWrapped"]
+  LOADN R45 2
+  SETTABLEKS R45 R44 K8 ["LayoutOrder"]
+  CALL R42 2 -1
+  CALL R40 -1 1
+  SETTABLEKS R40 R39 K60 ["SubText"]
+  MOVE R40 R12
+  JUMPIFNOT R40 [+91]
+  GETUPVAL R41 2
+  JUMPIFNOT R41 [+23]
+  GETUPVAL R41 4
+  GETTABLEKS R40 R41 K58 ["createElement"]
+  GETUPVAL R41 10
+  DUPTABLE R42 K121 [{"AutomaticSize", "LayoutOrder", "Style", "Text", "TextXAlignment"}]
+  GETIMPORT R43 K72 [Enum.AutomaticSize.XY]
+  SETTABLEKS R43 R42 K66 ["AutomaticSize"]
+  LOADN R43 2
+  SETTABLEKS R43 R42 K8 ["LayoutOrder"]
+  LOADK R43 K105 ["Label"]
+  SETTABLEKS R43 R42 K100 ["Style"]
+  SETTABLEKS R21 R42 K101 ["Text"]
+  GETIMPORT R43 K107 [Enum.TextXAlignment.Left]
+  SETTABLEKS R43 R42 K103 ["TextXAlignment"]
+  CALL R40 2 1
+  JUMP [+66]
+  GETUPVAL R41 4
+  GETTABLEKS R40 R41 K58 ["createElement"]
+  LOADK R41 K108 ["TextLabel"]
+  DUPTABLE R42 K124 [{"Font", "TextSize", "TextColor3", "Text", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment", "TextTransparency", "LayoutOrder"}]
+  GETTABLEKS R45 R3 K39 ["fontStyle"]
+  GETTABLEKS R44 R45 K125 ["Normal"]
+  GETTABLEKS R43 R44 K42 ["Font"]
+  SETTABLEKS R43 R42 K42 ["Font"]
+  GETTABLEKS R45 R3 K39 ["fontStyle"]
+  GETTABLEKS R44 R45 K125 ["Normal"]
+  GETTABLEKS R43 R44 K41 ["TextSize"]
+  SETTABLEKS R43 R42 K41 ["TextSize"]
+  JUMPIFNOT R12 [+7]
+  GETTABLEKS R45 R3 K39 ["fontStyle"]
+  GETTABLEKS R44 R45 K125 ["Normal"]
+  GETTABLEKS R43 R44 K122 ["TextColor3"]
+  JUMPIF R43 [+6]
+  GETTABLEKS R45 R3 K39 ["fontStyle"]
+  GETTABLEKS R44 R45 K40 ["Subtext"]
+  GETTABLEKS R43 R44 K122 ["TextColor3"]
+  SETTABLEKS R43 R42 K122 ["TextColor3"]
+  SETTABLEKS R21 R42 K101 ["Text"]
+  GETIMPORT R43 K83 [UDim2.new]
+  LOADN R44 1
+  LOADN R45 0
+  LOADN R46 0
+  GETTABLEKS R47 R3 K126 ["rowHeight"]
+  CALL R43 4 1
+  SETTABLEKS R43 R42 K111 ["Size"]
+  LOADN R43 1
+  SETTABLEKS R43 R42 K79 ["BackgroundTransparency"]
+  GETIMPORT R43 K107 [Enum.TextXAlignment.Left]
+  SETTABLEKS R43 R42 K103 ["TextXAlignment"]
+  GETIMPORT R43 K120 [Enum.TextYAlignment.Center]
+  SETTABLEKS R43 R42 K112 ["TextYAlignment"]
+  SETTABLEKS R23 R42 K123 ["TextTransparency"]
+  LOADN R43 2
+  SETTABLEKS R43 R42 K8 ["LayoutOrder"]
+  CALL R40 2 1
+  SETTABLEKS R40 R39 K90 ["Subscriptions"]
+  MOVE R40 R12
+  JUMPIFNOT R40 [+91]
+  GETUPVAL R41 2
+  JUMPIFNOT R41 [+23]
+  GETUPVAL R41 4
+  GETTABLEKS R40 R41 K58 ["createElement"]
+  GETUPVAL R41 10
+  DUPTABLE R42 K121 [{"AutomaticSize", "LayoutOrder", "Style", "Text", "TextXAlignment"}]
+  GETIMPORT R43 K72 [Enum.AutomaticSize.XY]
+  SETTABLEKS R43 R42 K66 ["AutomaticSize"]
+  LOADN R43 3
+  SETTABLEKS R43 R42 K8 ["LayoutOrder"]
+  LOADK R43 K105 ["Label"]
+  SETTABLEKS R43 R42 K100 ["Style"]
+  SETTABLEKS R22 R42 K101 ["Text"]
+  GETIMPORT R43 K107 [Enum.TextXAlignment.Left]
+  SETTABLEKS R43 R42 K103 ["TextXAlignment"]
+  CALL R40 2 1
+  JUMP [+66]
+  GETUPVAL R41 4
+  GETTABLEKS R40 R41 K58 ["createElement"]
+  LOADK R41 K108 ["TextLabel"]
+  DUPTABLE R42 K124 [{"Font", "TextSize", "TextColor3", "Text", "Size", "BackgroundTransparency", "TextXAlignment", "TextYAlignment", "TextTransparency", "LayoutOrder"}]
+  GETTABLEKS R45 R3 K39 ["fontStyle"]
+  GETTABLEKS R44 R45 K125 ["Normal"]
+  GETTABLEKS R43 R44 K42 ["Font"]
+  SETTABLEKS R43 R42 K42 ["Font"]
+  GETTABLEKS R45 R3 K39 ["fontStyle"]
+  GETTABLEKS R44 R45 K125 ["Normal"]
+  GETTABLEKS R43 R44 K41 ["TextSize"]
+  SETTABLEKS R43 R42 K41 ["TextSize"]
+  JUMPIFNOT R12 [+7]
+  GETTABLEKS R45 R3 K39 ["fontStyle"]
+  GETTABLEKS R44 R45 K125 ["Normal"]
+  GETTABLEKS R43 R44 K122 ["TextColor3"]
+  JUMPIF R43 [+6]
+  GETTABLEKS R45 R3 K39 ["fontStyle"]
+  GETTABLEKS R44 R45 K40 ["Subtext"]
+  GETTABLEKS R43 R44 K122 ["TextColor3"]
+  SETTABLEKS R43 R42 K122 ["TextColor3"]
+  SETTABLEKS R22 R42 K101 ["Text"]
+  GETIMPORT R43 K83 [UDim2.new]
+  LOADN R44 1
+  LOADN R45 0
+  LOADN R46 0
+  GETTABLEKS R47 R3 K126 ["rowHeight"]
+  CALL R43 4 1
+  SETTABLEKS R43 R42 K111 ["Size"]
+  LOADN R43 1
+  SETTABLEKS R43 R42 K79 ["BackgroundTransparency"]
+  GETIMPORT R43 K107 [Enum.TextXAlignment.Left]
+  SETTABLEKS R43 R42 K103 ["TextXAlignment"]
+  GETIMPORT R43 K120 [Enum.TextYAlignment.Center]
+  SETTABLEKS R43 R42 K112 ["TextYAlignment"]
+  SETTABLEKS R23 R42 K123 ["TextTransparency"]
+  LOADN R43 3
+  SETTABLEKS R43 R42 K8 ["LayoutOrder"]
+  CALL R40 2 1
+  SETTABLEKS R40 R39 K91 ["TotalVIPServers"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K84 ["ToggleAndSubscriptionsAndTotal"]
+  MOVE R36 R12
+  JUMPIFNOT R36 [+30]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K58 ["createElement"]
+  GETUPVAL R37 12
+  DUPTABLE R38 K129 [{"Title", "FillDirection", "Buttons", "Enabled", "Selected", "SelectionChanged", "LayoutOrder"}]
+  SETTABLEKS R6 R38 K50 ["Title"]
+  GETUPVAL R40 2
+  JUMPIFNOT R40 [+3]
+  GETIMPORT R39 K131 [Enum.FillDirection.Horizontal]
+  JUMP [+1]
+  LOADNIL R39
+  SETTABLEKS R39 R38 K73 ["FillDirection"]
+  SETTABLEKS R31 R38 K127 ["Buttons"]
+  SETTABLEKS R12 R38 K10 ["Enabled"]
+  SETTABLEKS R18 R38 K97 ["Selected"]
+  NEWCLOSURE R39 P0
+  CAPTURE VAL R20
+  CAPTURE VAL R0
+  SETTABLEKS R39 R38 K128 ["SelectionChanged"]
+  LOADN R39 2
+  SETTABLEKS R39 R38 K8 ["LayoutOrder"]
+  CALL R36 2 1
+  SETTABLEKS R36 R35 K85 ["PriceConfig"]
+  CALL R32 3 -1
+  RETURN R32 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R1 K5 ["Packages"]
+  GETTABLEKS R3 R4 K6 ["Cryo"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R1 K5 ["Packages"]
+  GETTABLEKS R4 R5 K7 ["Roact"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R1 K5 ["Packages"]
+  GETTABLEKS R5 R6 K8 ["Framework"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R1 K9 ["Src"]
+  GETTABLEKS R7 R8 K10 ["Flags"]
+  GETTABLEKS R6 R7 K11 ["getFFlagGameSettingsFixMoreLayoutIssues"]
+  CALL R5 1 1
+  CALL R5 0 1
+  GETTABLEKS R6 R4 K12 ["Util"]
+  JUMPIFNOT R5 [+2]
+  LOADNIL R7
+  JUMP [+4]
+  GETTABLEKS R8 R6 K13 ["FitFrame"]
+  GETTABLEKS R7 R8 K14 ["FitFrameOnAxis"]
+  GETTABLEKS R8 R6 K15 ["GetTextSize"]
+  GETTABLEKS R9 R6 K16 ["LayoutOrderIterator"]
+  GETTABLEKS R10 R4 K17 ["ContextServices"]
+  GETTABLEKS R11 R10 K18 ["withContext"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R1 K9 ["Src"]
+  GETTABLEKS R14 R15 K19 ["Components"]
+  GETTABLEKS R13 R14 K20 ["RadioButtonSet"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R15 R0 K19 ["Components"]
+  GETTABLEKS R14 R15 K21 ["RobuxFeeBase"]
+  CALL R13 1 1
+  GETTABLEKS R14 R4 K22 ["UI"]
+  GETTABLEKS R15 R14 K23 ["Pane"]
+  GETTABLEKS R16 R14 K24 ["TextLabel"]
+  GETTABLEKS R17 R14 K25 ["TitledFrame"]
+  GETTABLEKS R18 R14 K26 ["ToggleButton"]
+  GETIMPORT R20 K4 [require]
+  GETTABLEKS R23 R1 K9 ["Src"]
+  GETTABLEKS R22 R23 K12 ["Util"]
+  GETTABLEKS R21 R22 K27 ["GameSettingsUtilities"]
+  CALL R20 1 1
+  GETTABLEKS R19 R20 K28 ["shouldDisablePrivateServersAndPaidAccess"]
+  GETTABLEKS R20 R3 K29 ["PureComponent"]
+  LOADK R22 K30 ["VIPServers"]
+  NAMECALL R20 R20 K31 ["extend"]
+  CALL R20 2 1
+  DUPCLOSURE R21 K32 [PROTO_0]
+  SETTABLEKS R21 R20 K33 ["init"]
+  DUPCLOSURE R21 K34 [PROTO_2]
+  CAPTURE VAL R19
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  CAPTURE VAL R7
+  CAPTURE VAL R17
+  CAPTURE VAL R18
+  CAPTURE VAL R16
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  SETTABLEKS R21 R20 K35 ["render"]
+  MOVE R21 R11
+  DUPTABLE R22 K39 [{"Localization", "Stylizer", "Mouse"}]
+  GETTABLEKS R23 R10 K36 ["Localization"]
+  SETTABLEKS R23 R22 K36 ["Localization"]
+  GETTABLEKS R23 R10 K37 ["Stylizer"]
+  SETTABLEKS R23 R22 K37 ["Stylizer"]
+  GETTABLEKS R23 R10 K38 ["Mouse"]
+  SETTABLEKS R23 R22 K38 ["Mouse"]
+  CALL R21 1 1
+  MOVE R22 R20
+  CALL R21 1 1
+  MOVE R20 R21
+  RETURN R20 1

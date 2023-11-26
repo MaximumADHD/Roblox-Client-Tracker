@@ -1,0 +1,106 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Model1"]
+  GETTABLEKS R3 R1 K2 ["Model2"]
+  GETTABLEKS R4 R1 K3 ["Animation1"]
+  GETTABLEKS R5 R1 K4 ["Animation2"]
+  GETTABLEKS R6 R1 K5 ["Stylizer"]
+  GETTABLEKS R7 R1 K6 ["Loaded"]
+  GETTABLEKS R8 R6 K7 ["PreviewWindowSize"]
+  GETTABLEKS R9 R6 K8 ["PreviewWindowPosition"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  GETUPVAL R11 1
+  NEWTABLE R12 0 0
+  DUPTABLE R13 K13 [{"OriginalPreview", "Arrow", "SuggestedPreview"}]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K9 ["createElement"]
+  GETUPVAL R15 2
+  DUPTABLE R16 K17 [{"Size", "Model", "AnimationId", "Loaded"}]
+  SETTABLEKS R8 R16 K14 ["Size"]
+  SETTABLEKS R2 R16 K15 ["Model"]
+  SETTABLEKS R4 R16 K16 ["AnimationId"]
+  SETTABLEKS R7 R16 K6 ["Loaded"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K10 ["OriginalPreview"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K9 ["createElement"]
+  GETUPVAL R15 3
+  DUPTABLE R16 K23 [{"Size", "Position", "Image", "ImageRectSize", "ImageRectOffset", "ImageColor3"}]
+  GETTABLEKS R18 R6 K11 ["Arrow"]
+  GETTABLEKS R17 R18 K14 ["Size"]
+  SETTABLEKS R17 R16 K14 ["Size"]
+  GETTABLEKS R18 R6 K11 ["Arrow"]
+  GETTABLEKS R17 R18 K18 ["Position"]
+  SETTABLEKS R17 R16 K18 ["Position"]
+  GETTABLEKS R18 R6 K11 ["Arrow"]
+  GETTABLEKS R17 R18 K19 ["Image"]
+  SETTABLEKS R17 R16 K19 ["Image"]
+  GETTABLEKS R18 R6 K11 ["Arrow"]
+  GETTABLEKS R17 R18 K20 ["ImageRectSize"]
+  SETTABLEKS R17 R16 K20 ["ImageRectSize"]
+  GETTABLEKS R18 R6 K11 ["Arrow"]
+  GETTABLEKS R17 R18 K24 ["Offset"]
+  SETTABLEKS R17 R16 K21 ["ImageRectOffset"]
+  GETTABLEKS R18 R6 K11 ["Arrow"]
+  GETTABLEKS R17 R18 K25 ["Color"]
+  SETTABLEKS R17 R16 K22 ["ImageColor3"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K11 ["Arrow"]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K9 ["createElement"]
+  GETUPVAL R15 2
+  DUPTABLE R16 K26 [{"Size", "Position", "Model", "AnimationId", "Loaded"}]
+  SETTABLEKS R8 R16 K14 ["Size"]
+  SETTABLEKS R9 R16 K18 ["Position"]
+  SETTABLEKS R3 R16 K15 ["Model"]
+  SETTABLEKS R5 R16 K16 ["AnimationId"]
+  SETTABLEKS R7 R16 K6 ["Loaded"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K12 ["SuggestedPreview"]
+  CALL R10 3 -1
+  RETURN R10 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R5 R2 K9 ["Style"]
+  GETTABLEKS R4 R5 K10 ["Stylizer"]
+  GETTABLEKS R5 R2 K11 ["UI"]
+  GETTABLEKS R6 R5 K12 ["Pane"]
+  GETTABLEKS R7 R5 K13 ["Image"]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R8 K14 ["PreviewModelComponent"]
+  CALL R9 1 1
+  GETTABLEKS R10 R1 K15 ["PureComponent"]
+  LOADK R12 K16 ["DisplayAvatarsComponent"]
+  NAMECALL R10 R10 K17 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K18 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K19 ["render"]
+  GETTABLEKS R11 R3 K20 ["withContext"]
+  DUPTABLE R12 K21 [{"Stylizer"}]
+  SETTABLEKS R4 R12 K10 ["Stylizer"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

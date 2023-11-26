@@ -1,0 +1,86 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  LOADK R1 K1 ["TerrainEditor"]
+  CALL R0 1 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["mock"]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["mock"]
+  CALL R2 0 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["mock"]
+  CALL R3 0 1
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K0 ["new"]
+  MOVE R5 R0
+  MOVE R6 R2
+  CALL R4 2 1
+  GETUPVAL R5 5
+  LOADB R6 1
+  CALL R5 1 1
+  GETUPVAL R7 6
+  GETTABLEKS R6 R7 K2 ["mock"]
+  MOVE R7 R1
+  MOVE R8 R4
+  MOVE R9 R3
+  MOVE R10 R2
+  MOVE R11 R5
+  CALL R6 5 1
+  DUPTABLE R7 K9 [{"Analytics", "Localization", "PluginController", "ShortcutController", "Stylizer", "ToolController"}]
+  SETTABLEKS R3 R7 K3 ["Analytics"]
+  SETTABLEKS R2 R7 K4 ["Localization"]
+  SETTABLEKS R1 R7 K5 ["PluginController"]
+  SETTABLEKS R4 R7 K6 ["ShortcutController"]
+  SETTABLEKS R5 R7 K7 ["Stylizer"]
+  SETTABLEKS R6 R7 K8 ["ToolController"]
+  RETURN R7 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K7 ["ContextServices"]
+  GETTABLEKS R2 R3 K8 ["Analytics"]
+  GETTABLEKS R4 R1 K7 ["ContextServices"]
+  GETTABLEKS R3 R4 K9 ["Localization"]
+  GETTABLEKS R6 R1 K10 ["TestHelpers"]
+  GETTABLEKS R5 R6 K11 ["Instances"]
+  GETTABLEKS R4 R5 K12 ["MockPlugin"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K13 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Resources"]
+  GETTABLEKS R6 R7 K15 ["MakeTheme"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K16 ["Controllers"]
+  GETTABLEKS R7 R8 K17 ["PluginController"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K13 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Controllers"]
+  GETTABLEKS R8 R9 K18 ["ShortcutController"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K13 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Controllers"]
+  GETTABLEKS R9 R10 K19 ["ToolController"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K20 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  RETURN R9 1

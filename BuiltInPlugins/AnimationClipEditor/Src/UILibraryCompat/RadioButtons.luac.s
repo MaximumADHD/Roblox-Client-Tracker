@@ -1,0 +1,333 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["onButtonClicked"]
+  JUMPIFNOT R2 [+8]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["onButtonClicked"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["layoutRef"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K2 ["containerRef"]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K3 ["currentLayout"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K4 ["onButtonClicked"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onButtonClicked"]
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onButtonClicked"]
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R7 0
+  MOVE R9 R2
+  GETTABLEKS R11 R5 K0 ["radioButton"]
+  GETTABLEKS R10 R11 K1 ["textSize"]
+  GETTABLEKS R12 R5 K0 ["radioButton"]
+  GETTABLEKS R11 R12 K2 ["font"]
+  GETUPVAL R12 1
+  NAMECALL R7 R7 K3 ["GetTextSize"]
+  CALL R7 5 1
+  GETTABLEKS R6 R7 K4 ["X"]
+  GETTABLEKS R8 R5 K0 ["radioButton"]
+  GETTABLEKS R7 R8 K5 ["buttonHeight"]
+  GETIMPORT R8 K8 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADN R11 0
+  MOVE R12 R7
+  CALL R8 4 1
+  GETTABLEKS R10 R0 K9 ["props"]
+  GETTABLEKS R9 R10 K10 ["FillDirection"]
+  GETIMPORT R10 K13 [Enum.FillDirection.Horizontal]
+  JUMPIFNOTEQ R9 R10 [+9]
+  GETIMPORT R9 K8 [UDim2.new]
+  LOADN R10 0
+  ADD R11 R6 R7
+  LOADN R12 0
+  MOVE R13 R7
+  CALL R9 4 1
+  MOVE R8 R9
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K14 ["createElement"]
+  LOADK R10 K15 ["Frame"]
+  DUPTABLE R11 K19 [{"LayoutOrder", "BackgroundTransparency", "Size"}]
+  NAMECALL R12 R0 K20 ["nextLayout"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K16 ["LayoutOrder"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K17 ["BackgroundTransparency"]
+  SETTABLEKS R8 R11 K18 ["Size"]
+  DUPTABLE R12 K24 [{"UIListLayout", "Background", "Text"}]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K14 ["createElement"]
+  LOADK R14 K21 ["UIListLayout"]
+  DUPTABLE R15 K28 [{"FillDirection", "VerticalAlignment", "SortOrder", "Padding"}]
+  GETIMPORT R16 K13 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R16 R15 K10 ["FillDirection"]
+  GETIMPORT R16 K30 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R16 R15 K25 ["VerticalAlignment"]
+  GETIMPORT R16 K31 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R16 R15 K26 ["SortOrder"]
+  GETIMPORT R16 K33 [UDim.new]
+  LOADN R17 0
+  GETTABLEKS R19 R5 K0 ["radioButton"]
+  GETTABLEKS R18 R19 K34 ["buttonPadding"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K27 ["Padding"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K21 ["UIListLayout"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K14 ["createElement"]
+  LOADK R14 K35 ["ImageButton"]
+  NEWTABLE R15 8 0
+  LOADN R16 1
+  SETTABLEKS R16 R15 K16 ["LayoutOrder"]
+  GETIMPORT R16 K8 [UDim2.new]
+  LOADN R17 0
+  MOVE R18 R7
+  LOADN R19 0
+  MOVE R20 R7
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K18 ["Size"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K17 ["BackgroundTransparency"]
+  GETTABLEKS R17 R5 K0 ["radioButton"]
+  GETTABLEKS R16 R17 K36 ["radioButtonColor"]
+  SETTABLEKS R16 R15 K37 ["ImageColor3"]
+  GETTABLEKS R17 R5 K0 ["radioButton"]
+  GETTABLEKS R16 R17 K38 ["radioButtonBackground"]
+  SETTABLEKS R16 R15 K39 ["Image"]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K40 ["Event"]
+  GETTABLEKS R16 R17 K41 ["Activated"]
+  NEWCLOSURE R17 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLE R17 R15 R16
+  DUPTABLE R16 K43 [{"Highlight"}]
+  MOVE R17 R4
+  JUMPIFNOT R17 [+40]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K14 ["createElement"]
+  LOADK R18 K44 ["ImageLabel"]
+  DUPTABLE R19 K47 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency", "Image"}]
+  GETIMPORT R20 K8 [UDim2.new]
+  LOADK R21 K48 [0.4]
+  LOADN R22 0
+  LOADK R23 K48 [0.4]
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K18 ["Size"]
+  GETIMPORT R20 K50 [Vector2.new]
+  LOADK R21 K51 [0.5]
+  LOADK R22 K51 [0.5]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K45 ["AnchorPoint"]
+  GETIMPORT R20 K8 [UDim2.new]
+  LOADK R21 K51 [0.5]
+  LOADN R22 0
+  LOADK R23 K51 [0.5]
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K46 ["Position"]
+  LOADN R20 1
+  SETTABLEKS R20 R19 K17 ["BackgroundTransparency"]
+  GETTABLEKS R21 R5 K0 ["radioButton"]
+  GETTABLEKS R20 R21 K52 ["radioButtonSelected"]
+  SETTABLEKS R20 R19 K39 ["Image"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K42 ["Highlight"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K22 ["Background"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K14 ["createElement"]
+  LOADK R14 K53 ["TextButton"]
+  NEWTABLE R15 16 0
+  LOADN R16 2
+  SETTABLEKS R16 R15 K16 ["LayoutOrder"]
+  SETTABLEKS R2 R15 K23 ["Text"]
+  GETIMPORT R16 K8 [UDim2.new]
+  LOADN R17 0
+  MOVE R18 R6
+  LOADN R19 1
+  LOADN R20 0
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K18 ["Size"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K17 ["BackgroundTransparency"]
+  GETTABLEKS R17 R5 K0 ["radioButton"]
+  GETTABLEKS R16 R17 K2 ["font"]
+  SETTABLEKS R16 R15 K54 ["Font"]
+  GETTABLEKS R17 R5 K0 ["radioButton"]
+  GETTABLEKS R16 R17 K1 ["textSize"]
+  SETTABLEKS R16 R15 K55 ["TextSize"]
+  GETTABLEKS R17 R5 K0 ["radioButton"]
+  GETTABLEKS R16 R17 K56 ["textColor"]
+  SETTABLEKS R16 R15 K57 ["TextColor3"]
+  GETIMPORT R16 K60 [Enum.TextXAlignment.Left]
+  SETTABLEKS R16 R15 K58 ["TextXAlignment"]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K40 ["Event"]
+  GETTABLEKS R16 R17 K41 ["Activated"]
+  NEWCLOSURE R17 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLE R17 R15 R16
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K23 ["Text"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+PROTO_5:
+  LOADN R1 0
+  SETTABLEKS R1 R0 K0 ["currentLayout"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K1 ["currentLayout"]
+  ADDK R1 R2 K0 [1]
+  SETTABLEKS R1 R0 K1 ["currentLayout"]
+  GETTABLEKS R1 R0 K1 ["currentLayout"]
+  RETURN R1 1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["Buttons"]
+  GETTABLEKS R4 R1 K3 ["LayoutOrder"]
+  GETTABLEKS R5 R1 K4 ["Selected"]
+  GETTABLEKS R6 R1 K5 ["FillDirection"]
+  GETUPVAL R7 0
+  LOADK R8 K6 ["Frame"]
+  LOADK R9 K7 ["UIListLayout"]
+  DUPTABLE R10 K10 [{"FillDirection", "Padding", "SortOrder"}]
+  MOVE R11 R6
+  JUMPIF R11 [+2]
+  GETIMPORT R11 K13 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K5 ["FillDirection"]
+  GETIMPORT R11 K16 [UDim.new]
+  LOADN R12 0
+  GETTABLEKS R14 R2 K17 ["radioButton"]
+  GETTABLEKS R13 R14 K18 ["contentPadding"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K8 ["Padding"]
+  GETIMPORT R11 K19 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R11 R10 K9 ["SortOrder"]
+  CALL R7 3 1
+  NAMECALL R8 R0 K20 ["resetLayout"]
+  CALL R8 1 0
+  NEWTABLE R8 0 0
+  GETIMPORT R9 K22 [ipairs]
+  MOVE R10 R3
+  CALL R9 1 3
+  FORGPREP_INEXT R9
+  GETTABLEKS R14 R13 K23 ["Key"]
+  GETTABLEKS R17 R13 K23 ["Key"]
+  GETTABLEKS R18 R13 K24 ["Text"]
+  MOVE R19 R12
+  GETTABLEKS R21 R13 K23 ["Key"]
+  JUMPIFEQ R5 R21 [+2]
+  LOADB R20 0 +1
+  LOADB R20 1
+  MOVE R21 R2
+  NAMECALL R15 R0 K25 ["createButton"]
+  CALL R15 6 1
+  SETTABLE R15 R8 R14
+  FORGLOOP R9 2 [inext] [-19]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K26 ["createElement"]
+  MOVE R10 R7
+  DUPTABLE R11 K28 [{"BackgroundTransparency", "LayoutOrder"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K27 ["BackgroundTransparency"]
+  SETTABLEKS R4 R11 K3 ["LayoutOrder"]
+  MOVE R12 R8
+  CALL R9 3 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K2 [Vector2.new]
+  LOADK R1 K3 [1000000]
+  LOADN R2 50
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["TextService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [script]
+  LOADK R4 K10 ["AnimationClipEditor"]
+  NAMECALL R2 R2 K11 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETIMPORT R3 K13 [require]
+  GETTABLEKS R5 R2 K14 ["Packages"]
+  GETTABLEKS R4 R5 K15 ["Roact"]
+  CALL R3 1 1
+  GETIMPORT R4 K13 [require]
+  GETIMPORT R7 K9 [script]
+  GETTABLEKS R6 R7 K16 ["Parent"]
+  GETTABLEKS R5 R6 K17 ["createFitToContent"]
+  CALL R4 1 1
+  GETIMPORT R5 K13 [require]
+  GETTABLEKS R7 R2 K14 ["Packages"]
+  GETTABLEKS R6 R7 K18 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K19 ["ContextServices"]
+  GETTABLEKS R7 R6 K20 ["withContext"]
+  GETTABLEKS R8 R3 K21 ["PureComponent"]
+  LOADK R10 K22 ["RadioButtons"]
+  NAMECALL R8 R8 K23 ["extend"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K24 [PROTO_1]
+  CAPTURE VAL R3
+  SETTABLEKS R9 R8 K25 ["init"]
+  DUPCLOSURE R9 K26 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLEKS R9 R8 K27 ["createButton"]
+  DUPCLOSURE R9 K28 [PROTO_5]
+  SETTABLEKS R9 R8 K29 ["resetLayout"]
+  DUPCLOSURE R9 K30 [PROTO_6]
+  SETTABLEKS R9 R8 K31 ["nextLayout"]
+  DUPCLOSURE R9 K32 [PROTO_7]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETTABLEKS R9 R8 K33 ["render"]
+  MOVE R9 R7
+  DUPTABLE R10 K35 [{"Stylizer"}]
+  GETTABLEKS R11 R6 K34 ["Stylizer"]
+  SETTABLEKS R11 R10 K34 ["Stylizer"]
+  CALL R9 1 1
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
+  RETURN R8 1

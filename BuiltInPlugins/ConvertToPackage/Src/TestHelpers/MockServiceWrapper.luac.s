@@ -1,0 +1,113 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["localization"]
+  JUMPIF R1 [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["mock"]
+  CALL R2 0 1
+  MOVE R1 R2
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["storeState"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["Store"]
+  GETTABLEKS R3 R4 K5 ["new"]
+  GETUPVAL R4 2
+  MOVE R5 R2
+  NEWTABLE R6 0 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K6 ["thunkMiddleware"]
+  SETLIST R6 R7 1 [1]
+  CALL R3 3 1
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K7 ["theme"]
+  JUMPIF R4 [+4]
+  GETUPVAL R5 3
+  LOADB R6 1
+  CALL R5 1 1
+  MOVE R4 R5
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K8 ["networkInterface"]
+  JUMPIF R5 [+4]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K5 ["new"]
+  CALL R5 0 1
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K9 ["plugin"]
+  JUMPIF R6 [+2]
+  NEWTABLE R6 0 0
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K10 ["focusGui"]
+  JUMPIF R7 [+2]
+  NEWTABLE R7 0 0
+  GETTABLEKS R9 R0 K0 ["props"]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K11 ["Children"]
+  GETTABLE R8 R9 R10
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  GETUPVAL R10 6
+  DUPTABLE R11 K14 [{"localization", "plugin", "focusGui", "networkInterface", "store", "theme"}]
+  SETTABLEKS R1 R11 K1 ["localization"]
+  SETTABLEKS R6 R11 K9 ["plugin"]
+  SETTABLEKS R7 R11 K10 ["focusGui"]
+  SETTABLEKS R5 R11 K8 ["networkInterface"]
+  SETTABLEKS R3 R11 K13 ["store"]
+  SETTABLEKS R4 R11 K7 ["theme"]
+  MOVE R12 R8
+  CALL R9 3 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Rodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["ContextServices"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Components"]
+  GETTABLEKS R6 R7 K12 ["ServiceWrapper"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Resources"]
+  GETTABLEKS R7 R8 K14 ["MakeTheme"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Reducers"]
+  GETTABLEKS R8 R9 K16 ["MainReducer"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Networking"]
+  GETTABLEKS R9 R10 K18 ["NetworkInterfaceMock"]
+  CALL R8 1 1
+  GETTABLEKS R9 R4 K19 ["Localization"]
+  GETTABLEKS R10 R1 K20 ["Component"]
+  LOADK R12 K21 ["MockServiceWrapper"]
+  NAMECALL R10 R10 K22 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K23 [PROTO_0]
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  SETTABLEKS R11 R10 K24 ["render"]
+  RETURN R10 1

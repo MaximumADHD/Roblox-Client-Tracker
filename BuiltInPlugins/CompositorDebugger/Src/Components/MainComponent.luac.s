@@ -1,0 +1,301 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["ToggleAdornment"]
+  GETTABLEKS R2 R0 K2 ["id"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"layout"}]
+  GETTABLEKS R6 R0 K2 ["AbsoluteSize"]
+  GETTABLEKS R5 R6 K3 ["X"]
+  GETTABLEKS R7 R0 K2 ["AbsoluteSize"]
+  GETTABLEKS R6 R7 K4 ["Y"]
+  JUMPIFNOTLT R6 R5 [+4]
+  GETIMPORT R4 K8 [Enum.FillDirection.Horizontal]
+  JUMP [+2]
+  GETIMPORT R4 K10 [Enum.FillDirection.Vertical]
+  SETTABLEKS R4 R3 K0 ["layout"]
+  NAMECALL R1 R1 K11 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["openedTimestamp"]
+  DUPTABLE R1 K2 [{"layout"}]
+  GETIMPORT R2 K6 [Enum.FillDirection.Vertical]
+  SETTABLEKS R2 R1 K1 ["layout"]
+  SETTABLEKS R1 R0 K7 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K8 ["onToggleAdornment"]
+  NEWCLOSURE R1 P1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K9 ["onAbsoluteSizeChanged"]
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R1 K2 [os.time]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K3 ["openedTimestamp"]
+  GETTABLEKS R2 R0 K4 ["props"]
+  GETTABLEKS R1 R2 K5 ["Analytics"]
+  LOADK R3 K6 ["onCompositorOpened"]
+  NAMECALL R1 R1 K7 ["report"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Analytics"]
+  LOADK R3 K2 ["onCompositorClosed"]
+  GETIMPORT R5 K5 [os.time]
+  CALL R5 0 1
+  GETTABLEKS R6 R0 K6 ["openedTimestamp"]
+  SUB R4 R5 R6
+  NAMECALL R1 R1 K7 ["report"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R2 K2 ["layout"]
+  GETTABLEKS R4 R1 K3 ["LayerMap"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R5 R1 K3 ["LayerMap"]
+  GETTABLEKS R6 R1 K4 ["SelectedLayer"]
+  GETTABLE R4 R5 R6
+  GETTABLEKS R5 R1 K5 ["Overrides"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R6 R1 K5 ["Overrides"]
+  GETTABLEKS R7 R1 K4 ["SelectedLayer"]
+  GETTABLE R5 R6 R7
+  GETTABLEKS R6 R1 K6 ["ExpandedSections"]
+  GETTABLEKS R8 R1 K7 ["HistoryField"]
+  GETTABLEKS R7 R8 K8 ["id"]
+  JUMPIFNOT R7 [+9]
+  GETTABLEKS R8 R1 K7 ["HistoryField"]
+  GETTABLEKS R7 R8 K9 ["section"]
+  JUMPIFNOT R7 [+4]
+  GETTABLEKS R8 R1 K7 ["HistoryField"]
+  GETTABLEKS R7 R8 K10 ["field"]
+  NEWTABLE R8 0 2
+  GETIMPORT R9 K13 [UDim.new]
+  LOADK R10 K14 [0.35]
+  LOADN R11 0
+  CALL R9 2 1
+  GETIMPORT R10 K13 [UDim.new]
+  LOADK R11 K15 [0.25]
+  LOADN R12 0
+  CALL R10 2 -1
+  SETLIST R8 R9 4294967295 [1]
+  NEWTABLE R9 0 2
+  GETIMPORT R10 K13 [UDim.new]
+  LOADK R11 K16 [0.6]
+  LOADN R12 0
+  CALL R10 2 1
+  GETIMPORT R11 K13 [UDim.new]
+  LOADK R12 K17 [0.4]
+  LOADN R13 0
+  CALL R11 2 -1
+  SETLIST R9 R10 4294967295 [1]
+  NEWTABLE R10 0 2
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K18 ["createElement"]
+  GETUPVAL R12 1
+  DUPTABLE R13 K22 [{"DebugData", "Adornments", "OnToggleAdornment"}]
+  GETTABLEKS R14 R1 K19 ["DebugData"]
+  SETTABLEKS R14 R13 K19 ["DebugData"]
+  GETTABLEKS R14 R1 K20 ["Adornments"]
+  SETTABLEKS R14 R13 K20 ["Adornments"]
+  GETTABLEKS R14 R0 K23 ["onToggleAdornment"]
+  SETTABLEKS R14 R13 K21 ["OnToggleAdornment"]
+  CALL R11 2 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K18 ["createElement"]
+  GETUPVAL R13 2
+  DUPTABLE R14 K25 [{"LayerData", "ExpandedSections", "Overrides"}]
+  SETTABLEKS R4 R14 K24 ["LayerData"]
+  SETTABLEKS R6 R14 K6 ["ExpandedSections"]
+  SETTABLEKS R5 R14 K5 ["Overrides"]
+  CALL R12 2 -1
+  SETLIST R10 R11 4294967295 [1]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K18 ["createElement"]
+  GETUPVAL R12 3
+  NEWTABLE R13 2 0
+  GETIMPORT R14 K28 [UDim2.fromScale]
+  LOADN R15 1
+  LOADN R16 1
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K29 ["Size"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K30 ["Change"]
+  GETTABLEKS R14 R15 K31 ["AbsoluteSize"]
+  GETTABLEKS R15 R0 K32 ["onAbsoluteSizeChanged"]
+  SETTABLE R15 R13 R14
+  DUPTABLE R14 K35 [{"CompositorSelector", "MainSplitPane"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K18 ["createElement"]
+  GETUPVAL R16 4
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K33 ["CompositorSelector"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K18 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K39 [{"MinSizes", "InitialSizes", "Layout"}]
+  SETTABLEKS R8 R17 K36 ["MinSizes"]
+  SETTABLEKS R9 R17 K37 ["InitialSizes"]
+  SETTABLEKS R3 R17 K38 ["Layout"]
+  MOVE R18 R10
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K34 ["MainSplitPane"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+PROTO_6:
+  DUPTABLE R1 K7 [{"DebugData", "LayerMap", "Overrides", "Adornments", "ExpandedSections", "HistoryField", "SelectedLayer"}]
+  GETTABLEKS R3 R0 K0 ["DebugData"]
+  GETTABLEKS R2 R3 K0 ["DebugData"]
+  SETTABLEKS R2 R1 K0 ["DebugData"]
+  GETTABLEKS R3 R0 K0 ["DebugData"]
+  GETTABLEKS R2 R3 K1 ["LayerMap"]
+  SETTABLEKS R2 R1 K1 ["LayerMap"]
+  GETTABLEKS R3 R0 K0 ["DebugData"]
+  GETTABLEKS R2 R3 K2 ["Overrides"]
+  SETTABLEKS R2 R1 K2 ["Overrides"]
+  GETTABLEKS R3 R0 K8 ["Status"]
+  GETTABLEKS R2 R3 K3 ["Adornments"]
+  SETTABLEKS R2 R1 K3 ["Adornments"]
+  GETTABLEKS R3 R0 K8 ["Status"]
+  GETTABLEKS R2 R3 K4 ["ExpandedSections"]
+  SETTABLEKS R2 R1 K4 ["ExpandedSections"]
+  GETTABLEKS R3 R0 K8 ["Status"]
+  GETTABLEKS R2 R3 K5 ["HistoryField"]
+  SETTABLEKS R2 R1 K5 ["HistoryField"]
+  GETTABLEKS R3 R0 K8 ["Status"]
+  GETTABLEKS R2 R3 K6 ["SelectedLayer"]
+  SETTABLEKS R2 R1 K6 ["SelectedLayer"]
+  RETURN R1 1
+
+PROTO_7:
+  GETUPVAL R3 0
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_9:
+  DUPTABLE R1 K2 [{"SetHistoryField", "ToggleAdornment"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetHistoryField"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["ToggleAdornment"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["withContext"]
+  GETTABLEKS R6 R4 K12 ["Analytics"]
+  GETTABLEKS R8 R3 K13 ["Style"]
+  GETTABLEKS R7 R8 K14 ["Stylizer"]
+  GETTABLEKS R8 R3 K15 ["UI"]
+  GETTABLEKS R9 R8 K16 ["Pane"]
+  GETTABLEKS R11 R0 K17 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Actions"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R12 R10 K19 ["SetHistoryField"]
+  CALL R11 1 1
+  GETTABLEKS R13 R0 K17 ["Src"]
+  GETTABLEKS R12 R13 K20 ["Components"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R14 R12 K21 ["CompositorSelector"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R12 K22 ["LayerPanel"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R16 R12 K23 ["LayerTree"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R17 R12 K24 ["MainSplitPane"]
+  CALL R16 1 1
+  GETTABLEKS R18 R0 K17 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Thunks"]
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R19 R17 K26 ["ToggleAdornment"]
+  CALL R18 1 1
+  GETTABLEKS R19 R1 K27 ["PureComponent"]
+  LOADK R21 K28 ["MainComponent"]
+  NAMECALL R19 R19 K29 ["extend"]
+  CALL R19 2 1
+  DUPCLOSURE R20 K30 [PROTO_2]
+  SETTABLEKS R20 R19 K31 ["init"]
+  DUPCLOSURE R20 K32 [PROTO_3]
+  SETTABLEKS R20 R19 K33 ["didMount"]
+  DUPCLOSURE R20 K34 [PROTO_4]
+  SETTABLEKS R20 R19 K35 ["willUnmount"]
+  DUPCLOSURE R20 K36 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  SETTABLEKS R20 R19 K37 ["render"]
+  MOVE R20 R5
+  DUPTABLE R21 K38 [{"Analytics", "Stylizer"}]
+  SETTABLEKS R6 R21 K12 ["Analytics"]
+  SETTABLEKS R7 R21 K14 ["Stylizer"]
+  CALL R20 1 1
+  MOVE R21 R19
+  CALL R20 1 1
+  MOVE R19 R20
+  DUPCLOSURE R20 K39 [PROTO_6]
+  DUPCLOSURE R21 K40 [PROTO_9]
+  CAPTURE VAL R11
+  CAPTURE VAL R18
+  GETTABLEKS R22 R2 K41 ["connect"]
+  MOVE R23 R20
+  MOVE R24 R21
+  CALL R22 2 1
+  MOVE R23 R19
+  CALL R22 1 1
+  MOVE R19 R22
+  RETURN R19 1

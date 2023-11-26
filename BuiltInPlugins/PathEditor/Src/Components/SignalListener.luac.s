@@ -1,0 +1,58 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  DUPTABLE R2 K2 [{"connection"}]
+  GETTABLEKS R3 R1 K3 ["signal"]
+  GETTABLEKS R5 R1 K4 ["callback"]
+  NAMECALL R3 R3 K5 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K1 ["connection"]
+  SETTABLEKS R2 R0 K6 ["state"]
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["connection"]
+  JUMPIFEQKNIL R1 [+8]
+  GETTABLEKS R2 R0 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["connection"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  LOADNIL R1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R5 R1 K10 ["PureComponent"]
+  LOADK R7 K11 ["SignalListener"]
+  NAMECALL R5 R5 K12 ["extend"]
+  CALL R5 2 1
+  DUPCLOSURE R6 K13 [PROTO_0]
+  SETTABLEKS R6 R5 K14 ["init"]
+  DUPCLOSURE R6 K15 [PROTO_1]
+  SETTABLEKS R6 R5 K16 ["willUnmount"]
+  DUPCLOSURE R6 K17 [PROTO_2]
+  SETTABLEKS R6 R5 K18 ["render"]
+  MOVE R6 R4
+  NEWTABLE R7 0 0
+  CALL R6 1 1
+  MOVE R7 R5
+  CALL R6 1 1
+  MOVE R5 R6
+  RETURN R5 1

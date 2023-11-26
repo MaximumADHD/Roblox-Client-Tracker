@@ -1,0 +1,40 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [typeof]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["function"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["No showDialog function was provided."]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  DUPTABLE R1 K7 [{"showDialog"}]
+  SETTABLEKS R0 R1 K6 ["showDialog"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K9 [setmetatable]
+  CALL R2 2 0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K7 ["ContextServices"]
+  GETTABLEKS R2 R3 K8 ["ContextItem"]
+  LOADK R5 K9 ["DialogProvider"]
+  NAMECALL R3 R2 K10 ["extend"]
+  CALL R3 2 1
+  DUPCLOSURE R4 K11 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K12 ["new"]
+  RETURN R3 1

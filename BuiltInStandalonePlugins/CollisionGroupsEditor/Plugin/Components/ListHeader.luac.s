@@ -1,0 +1,142 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R4 R1 K2 ["Stylizer"]
+  GETTABLEKS R3 R4 K3 ["ListHeader"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K9 [{"Size", "LayoutOrder", "Layout", "Padding"}]
+  GETIMPORT R7 K12 [UDim2.new]
+  LOADN R8 1
+  LOADN R9 0
+  LOADN R10 0
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K13 ["GroupRowHeight"]
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K5 ["Size"]
+  GETTABLEKS R7 R1 K6 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K6 ["LayoutOrder"]
+  GETIMPORT R7 K17 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R7 R6 K7 ["Layout"]
+  GETTABLEKS R7 R3 K8 ["Padding"]
+  SETTABLEKS R7 R6 K8 ["Padding"]
+  DUPTABLE R7 K20 [{"GroupCountDisplay", "LabelPane"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K22 [{"GroupCount", "LayoutOrder"}]
+  GETTABLEKS R11 R1 K21 ["GroupCount"]
+  SETTABLEKS R11 R10 K21 ["GroupCount"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K6 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K18 ["GroupCountDisplay"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K24 [{"Style", "Size", "LayoutOrder", "Layout", "Padding"}]
+  LOADK R11 K25 ["GroupLabel"]
+  SETTABLEKS R11 R10 K23 ["Style"]
+  GETIMPORT R11 K12 [UDim2.new]
+  LOADN R12 1
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K26 ["GroupRowWidth"]
+  MINUS R13 R14
+  LOADN R14 0
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K13 ["GroupRowHeight"]
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K5 ["Size"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K6 ["LayoutOrder"]
+  GETIMPORT R11 K17 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R11 R10 K7 ["Layout"]
+  GETTABLEKS R11 R3 K27 ["LabelPanePadding"]
+  SETTABLEKS R11 R10 K8 ["Padding"]
+  DUPTABLE R11 K29 [{"TextLabel"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K4 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K33 [{"Size", "Text", "TextXAlignment", "TextYAlignment"}]
+  GETIMPORT R15 K12 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 1
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K5 ["Size"]
+  GETTABLEKS R16 R1 K34 ["SelectedGroupName"]
+  JUMPIFEQKS R16 K35 [""] [+13]
+  LOADK R17 K36 ["Info"]
+  LOADK R18 K37 ["CanCollideWith"]
+  NEWTABLE R19 0 1
+  GETTABLEKS R20 R1 K34 ["SelectedGroupName"]
+  SETLIST R19 R20 1 [1]
+  NAMECALL R15 R2 K38 ["getText"]
+  CALL R15 4 1
+  JUMP [+1]
+  LOADK R15 K35 [""]
+  SETTABLEKS R15 R14 K30 ["Text"]
+  GETIMPORT R15 K40 [Enum.TextXAlignment.Left]
+  SETTABLEKS R15 R14 K31 ["TextXAlignment"]
+  GETIMPORT R15 K42 [Enum.TextYAlignment.Center]
+  SETTABLEKS R15 R14 K32 ["TextYAlignment"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K28 ["TextLabel"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K19 ["LabelPane"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R2 K9 ["UI"]
+  GETTABLEKS R5 R4 K10 ["Pane"]
+  GETTABLEKS R6 R4 K11 ["TextLabel"]
+  GETIMPORT R7 K4 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K2 ["Parent"]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K12 ["Constants"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K2 ["Parent"]
+  GETTABLEKS R9 R10 K13 ["GroupCountDisplay"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K14 ["Component"]
+  LOADK R11 K15 ["ListHeader"]
+  NAMECALL R9 R9 K16 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K17 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R10 R9 K18 ["render"]
+  GETTABLEKS R10 R3 K19 ["withContext"]
+  DUPTABLE R11 K22 [{"Stylizer", "Localization"}]
+  GETTABLEKS R12 R3 K20 ["Stylizer"]
+  SETTABLEKS R12 R11 K20 ["Stylizer"]
+  GETTABLEKS R12 R3 K21 ["Localization"]
+  SETTABLEKS R12 R11 K21 ["Localization"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

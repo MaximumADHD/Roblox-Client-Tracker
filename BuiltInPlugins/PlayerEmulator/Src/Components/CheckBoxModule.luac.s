@@ -1,0 +1,90 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["CheckBoxCallback"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["ItemKey"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  SETTABLEKS R2 R0 K0 ["onActivated"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["Enabled"]
+  GETTABLEKS R4 R1 K3 ["ItemKey"]
+  GETTABLEKS R5 R1 K4 ["Selected"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  LOADK R7 K6 ["Frame"]
+  DUPTABLE R8 K9 [{"Size", "BackgroundTransparency"}]
+  GETTABLEKS R9 R2 K10 ["CHECKBOX_FRAME_SIZE"]
+  SETTABLEKS R9 R8 K7 ["Size"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K8 ["BackgroundTransparency"]
+  DUPTABLE R9 K13 [{"Padding", "CheckBox"}]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  LOADK R11 K14 ["UIPadding"]
+  DUPTABLE R12 K16 [{"PaddingLeft"}]
+  GETTABLEKS R13 R2 K17 ["LISTITEM_INDENT_LEFT"]
+  SETTABLEKS R13 R12 K15 ["PaddingLeft"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K11 ["Padding"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K23 [{"Checked", "Disabled", "Key", "OnClick", "Text"}]
+  SETTABLEKS R5 R12 K18 ["Checked"]
+  NOT R13 R3
+  SETTABLEKS R13 R12 K19 ["Disabled"]
+  SETTABLEKS R4 R12 K20 ["Key"]
+  GETTABLEKS R13 R0 K24 ["onActivated"]
+  SETTABLEKS R13 R12 K21 ["OnClick"]
+  SETTABLEKS R4 R12 K22 ["Text"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K12 ["CheckBox"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R5 R2 K10 ["UI"]
+  GETTABLEKS R6 R5 K11 ["Checkbox"]
+  GETTABLEKS R7 R1 K12 ["PureComponent"]
+  LOADK R9 K13 ["CheckBoxModule"]
+  NAMECALL R7 R7 K14 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K15 [PROTO_1]
+  SETTABLEKS R8 R7 K16 ["init"]
+  DUPCLOSURE R8 K17 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  SETTABLEKS R8 R7 K18 ["render"]
+  MOVE R8 R4
+  DUPTABLE R9 K20 [{"Stylizer"}]
+  GETTABLEKS R10 R3 K19 ["Stylizer"]
+  SETTABLEKS R10 R9 K19 ["Stylizer"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

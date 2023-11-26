@@ -1,0 +1,197 @@
+PROTO_0:
+  NEWTABLE R1 1 0
+  SETTABLEKS R0 R1 K0 ["__networking"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K2 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["__networking"]
+  LOADK R6 K1 ["develop"]
+  LOADK R8 K2 ["/v2/universes/"]
+  MOVE R9 R1
+  LOADK R10 K3 ["/places"]
+  CONCAT R7 R8 R10
+  DUPTABLE R8 K5 [{"Params"}]
+  SETTABLEKS R2 R8 K4 ["Params"]
+  NAMECALL R4 R3 K6 ["get"]
+  CALL R4 4 -1
+  RETURN R4 -1
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["__networking"]
+  LOADK R6 K1 ["develop"]
+  LOADK R8 K2 ["/v2/places/"]
+  MOVE R9 R1
+  CONCAT R7 R8 R9
+  DUPTABLE R8 K4 [{"Body"}]
+  SETTABLEKS R2 R8 K3 ["Body"]
+  NAMECALL R4 R3 K5 ["patch"]
+  CALL R4 4 -1
+  RETURN R4 -1
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["responseBody"]
+  GETIMPORT R2 K2 [pairs]
+  GETTABLEKS R3 R1 K3 ["data"]
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  GETUPVAL R7 0
+  SETTABLEKS R7 R6 K4 ["index"]
+  GETUPVAL R7 1
+  GETTABLEKS R8 R6 K5 ["id"]
+  SETTABLE R6 R7 R8
+  GETUPVAL R8 0
+  ADDK R7 R8 K6 [1]
+  SETUPVAL R7 0
+  FORGLOOP R2 2 [-11]
+  GETTABLEKS R2 R1 K7 ["nextPageCursor"]
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADK R2 K8 [""]
+  GETUPVAL R3 1
+  MOVE R4 R2
+  GETUPVAL R5 0
+  RETURN R3 3
+
+PROTO_4:
+  NEWTABLE R4 0 0
+  JUMPIFNOTEQKNIL R3 [+3]
+  LOADN R5 1
+  JUMP [+1]
+  ADDK R5 R3 K0 [1]
+  DUPTABLE R6 K5 [{"limit", "sortOrder", "cursor", "extendedSettings"}]
+  LOADN R7 10
+  SETTABLEKS R7 R6 K1 ["limit"]
+  LOADK R7 K6 ["Asc"]
+  SETTABLEKS R7 R6 K2 ["sortOrder"]
+  SETTABLEKS R2 R6 K3 ["cursor"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K4 ["extendedSettings"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["resolve"]
+  MOVE R10 R1
+  MOVE R11 R6
+  NAMECALL R8 R0 K8 ["placesV2GET"]
+  CALL R8 3 -1
+  CALL R7 -1 1
+  NEWCLOSURE R9 P0
+  CAPTURE REF R5
+  CAPTURE VAL R4
+  NAMECALL R7 R7 K9 ["andThen"]
+  CALL R7 2 -1
+  CLOSEUPVALS R5
+  RETURN R7 -1
+
+PROTO_5:
+  MOVE R5 R1
+  DUPTABLE R6 K1 [{"name"}]
+  SETTABLEKS R2 R6 K0 ["name"]
+  NAMECALL R3 R0 K2 ["placesV2PATCH"]
+  CALL R3 3 1
+  NAMECALL R3 R3 K3 ["await"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_6:
+  MOVE R5 R1
+  DUPTABLE R6 K1 [{"maxPlayerCount"}]
+  SETTABLEKS R2 R6 K0 ["maxPlayerCount"]
+  NAMECALL R3 R0 K2 ["placesV2PATCH"]
+  CALL R3 3 1
+  NAMECALL R3 R3 K3 ["await"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_7:
+  MOVE R5 R1
+  DUPTABLE R6 K1 [{"allowCopying"}]
+  SETTABLEKS R2 R6 K0 ["allowCopying"]
+  NAMECALL R3 R0 K2 ["placesV2PATCH"]
+  CALL R3 3 1
+  NAMECALL R3 R3 K3 ["await"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_8:
+  MOVE R5 R1
+  DUPTABLE R6 K1 [{"socialSlotType"}]
+  SETTABLEKS R2 R6 K0 ["socialSlotType"]
+  NAMECALL R3 R0 K2 ["placesV2PATCH"]
+  CALL R3 3 1
+  NAMECALL R3 R3 K3 ["await"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_9:
+  MOVE R5 R1
+  DUPTABLE R6 K1 [{"customSocialSlotsCount"}]
+  SETTABLEKS R2 R6 K0 ["customSocialSlotsCount"]
+  NAMECALL R3 R0 K2 ["placesV2PATCH"]
+  CALL R3 3 1
+  NAMECALL R3 R3 K3 ["await"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R2 R0 K0 ["__networking"]
+  LOADK R5 K1 ["develop"]
+  LOADK R7 K2 ["/v1/assets/"]
+  MOVE R8 R1
+  LOADK R9 K3 ["/published-versions"]
+  CONCAT R6 R7 R9
+  NAMECALL R3 R2 K4 ["get"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_11:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["assetPublishVersionV1GET"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K1 ["await"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K2 ["responseBody"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K6 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K7 ["Util"]
+  GETTABLEKS R1 R2 K8 ["Promise"]
+  NEWTABLE R2 16 0
+  SETTABLEKS R2 R2 K9 ["__index"]
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K11 ["new"]
+  DUPCLOSURE R3 K12 [PROTO_1]
+  SETTABLEKS R3 R2 K13 ["placesV2GET"]
+  DUPCLOSURE R3 K14 [PROTO_2]
+  SETTABLEKS R3 R2 K15 ["placesV2PATCH"]
+  DUPCLOSURE R3 K16 [PROTO_4]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K17 ["getPlaces"]
+  DUPCLOSURE R3 K18 [PROTO_5]
+  SETTABLEKS R3 R2 K19 ["setName"]
+  DUPCLOSURE R3 K20 [PROTO_6]
+  SETTABLEKS R3 R2 K21 ["setMaxPlayerCount"]
+  DUPCLOSURE R3 K22 [PROTO_7]
+  SETTABLEKS R3 R2 K23 ["setAllowCopying"]
+  DUPCLOSURE R3 K24 [PROTO_8]
+  SETTABLEKS R3 R2 K25 ["setSocialSlotType"]
+  DUPCLOSURE R3 K26 [PROTO_9]
+  SETTABLEKS R3 R2 K27 ["setCustomSocialSlotsCount"]
+  DUPCLOSURE R3 K28 [PROTO_10]
+  SETTABLEKS R3 R2 K29 ["assetPublishVersionV1GET"]
+  DUPCLOSURE R3 K30 [PROTO_11]
+  SETTABLEKS R3 R2 K31 ["getAssetPublishedVersions"]
+  RETURN R2 1

@@ -1,0 +1,478 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["telemetry"]
+  MOVE R4 R0
+  LOADNIL R5
+  GETUPVAL R6 1
+  DUPTABLE R7 K2 [{"placeId"}]
+  GETIMPORT R9 K4 [game]
+  GETTABLEKS R8 R9 K5 ["PlaceId"]
+  SETTABLEKS R8 R7 K1 ["placeId"]
+  MOVE R8 R1
+  CALL R6 2 -1
+  NAMECALL R2 R2 K6 ["logRobloxTelemetryEvent"]
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["totalCount"]
+  CALL R1 1 1
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+28]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["log"]
+  GETUPVAL R2 2
+  DUPTABLE R3 K6 [{"ctx", "textFieldCount", "sliderCount", "greenCircleCount"}]
+  SETTABLEKS R0 R3 K2 ["ctx"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["textFieldCount"]
+  SETTABLEKS R4 R3 K3 ["textFieldCount"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["sliderCount"]
+  SETTABLEKS R4 R3 K4 ["sliderCount"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["greenCircleCount"]
+  SETTABLEKS R4 R3 K5 ["greenCircleCount"]
+  CALL R1 2 0
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K7 ["reset"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R1 K1 [{"enabled"}]
+  GETTABLEKS R3 R0 K0 ["enabled"]
+  NOT R2 R3
+  SETTABLEKS R2 R1 K0 ["enabled"]
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  DUPCLOSURE R2 K0 [PROTO_2]
+  NAMECALL R0 R0 K1 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["toggleEnabled"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["state"]
+  GETTABLEKS R0 R1 K2 ["enabled"]
+  JUMPIF R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["log"]
+  GETUPVAL R1 1
+  DUPTABLE R2 K5 [{"ctx"}]
+  LOADK R3 K6 ["ribbon"]
+  SETTABLEKS R3 R2 K4 ["ctx"]
+  CALL R0 2 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K7 ["logUsageReport"]
+  LOADK R1 K8 ["widgetDisabled"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["toggleEnabled"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["state"]
+  GETTABLEKS R0 R1 K2 ["enabled"]
+  JUMPIF R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["log"]
+  GETUPVAL R1 1
+  DUPTABLE R2 K5 [{"ctx"}]
+  LOADK R3 K6 ["properties"]
+  SETTABLEKS R3 R2 K4 ["ctx"]
+  CALL R0 2 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K7 ["logUsageReport"]
+  LOADK R1 K8 ["widgetDisabled"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"enabled"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["enabled"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"enabled"}]
+  SETTABLEKS R0 R3 K0 ["enabled"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"enabled"}]
+  GETTABLEKS R4 R0 K2 ["Enabled"]
+  SETTABLEKS R4 R3 K0 ["enabled"]
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_9:
+  NEWTABLE R0 0 0
+  RETURN R0 1
+
+PROTO_10:
+  DUPTABLE R4 K1 [{"enabled"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K0 ["enabled"]
+  NAMECALL R2 R0 K2 ["setState"]
+  CALL R2 2 0
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R0 K3 ["log"]
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R0 K4 ["logUsageReport"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K5 ["toggleEnabled"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R0 K6 ["toggleFromRibbon"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R0 K7 ["toggleFromProperties"]
+  NEWCLOSURE R2 P5
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K8 ["onClose"]
+  NEWCLOSURE R2 P6
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K9 ["onRestore"]
+  NEWCLOSURE R2 P7
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K10 ["onWidgetEnabledChanged"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K11 ["Localization"]
+  GETTABLEKS R2 R3 K12 ["new"]
+  DUPTABLE R3 K16 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R4 5
+  SETTABLEKS R4 R3 K13 ["stringResourceTable"]
+  GETUPVAL R4 6
+  SETTABLEKS R4 R3 K14 ["translationResourceTable"]
+  LOADK R4 K17 ["WindControl"]
+  SETTABLEKS R4 R3 K15 ["pluginName"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K18 ["localization"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K19 ["Analytics"]
+  GETTABLEKS R2 R3 K12 ["new"]
+  DUPCLOSURE R3 K20 [PROTO_9]
+  NEWTABLE R4 0 0
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K21 ["analytics"]
+  GETUPVAL R3 7
+  GETTABLEKS R2 R3 K12 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K22 ["telemetry"]
+  GETUPVAL R2 8
+  JUMPIFNOT R2 [+21]
+  GETUPVAL R2 9
+  JUMPIFNOT R2 [+10]
+  GETUPVAL R2 10
+  LOADK R4 K23 ["openGlobalWindControl"]
+  GETTABLEKS R5 R0 K7 ["toggleFromProperties"]
+  NAMECALL R2 R2 K24 ["bind"]
+  CALL R2 3 1
+  SETTABLEKS R2 R0 K25 ["onOpenWindControlEditorConnection"]
+  RETURN R0 0
+  GETUPVAL R2 10
+  LOADK R4 K23 ["openGlobalWindControl"]
+  GETTABLEKS R5 R0 K5 ["toggleEnabled"]
+  NAMECALL R2 R2 K24 ["bind"]
+  CALL R2 3 1
+  SETTABLEKS R2 R0 K25 ["onOpenWindControlEditorConnection"]
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R3 R0 K0 ["state"]
+  GETTABLEKS R2 R3 K1 ["enabled"]
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+35]
+  DUPTABLE R3 K3 [{"Toggle"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K12 [{"Toolbar", "Active", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+  SETTABLEKS R1 R6 K5 ["Toolbar"]
+  SETTABLEKS R2 R6 K6 ["Active"]
+  LOADK R7 K13 ["WindControl"]
+  SETTABLEKS R7 R6 K7 ["Title"]
+  LOADK R7 K14 [""]
+  SETTABLEKS R7 R6 K8 ["Tooltip"]
+  LOADK R7 K14 [""]
+  SETTABLEKS R7 R6 K9 ["Icon"]
+  GETUPVAL R8 3
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R7 R0 K15 ["toggleFromRibbon"]
+  JUMP [+2]
+  GETTABLEKS R7 R0 K16 ["toggleEnabled"]
+  SETTABLEKS R7 R6 K10 ["OnClick"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K11 ["ClickableWhenViewportHidden"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["Toggle"]
+  RETURN R3 1
+  DUPTABLE R3 K3 [{"Toggle"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K18 [{"Toolbar", "Active", "Id", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+  SETTABLEKS R1 R6 K5 ["Toolbar"]
+  SETTABLEKS R2 R6 K6 ["Active"]
+  LOADK R7 K19 ["wind_control_toggle_button"]
+  SETTABLEKS R7 R6 K17 ["Id"]
+  GETTABLEKS R7 R0 K20 ["localization"]
+  LOADK R9 K21 ["Plugin"]
+  LOADK R10 K22 ["Button"]
+  NAMECALL R7 R7 K23 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K7 ["Title"]
+  GETTABLEKS R7 R0 K20 ["localization"]
+  LOADK R9 K21 ["Plugin"]
+  LOADK R10 K24 ["Description"]
+  NAMECALL R7 R7 K23 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K8 ["Tooltip"]
+  LOADK R7 K25 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
+  SETTABLEKS R7 R6 K9 ["Icon"]
+  GETUPVAL R8 3
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R7 R0 K15 ["toggleFromRibbon"]
+  JUMP [+2]
+  GETTABLEKS R7 R0 K16 ["toggleEnabled"]
+  SETTABLEKS R7 R6 K10 ["OnClick"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K11 ["ClickableWhenViewportHidden"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["Toggle"]
+  RETURN R3 1
+
+PROTO_12:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["renderButtons"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_13:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Plugin"]
+  GETTABLEKS R3 R0 K2 ["state"]
+  GETTABLEKS R4 R3 K3 ["enabled"]
+  LOADNIL R5
+  GETUPVAL R6 0
+  JUMPIFNOT R6 [+2]
+  LOADK R5 K4 ["windControl"]
+  JUMP [+8]
+  GETTABLEKS R6 R0 K5 ["localization"]
+  LOADK R8 K1 ["Plugin"]
+  LOADK R9 K6 ["Toolbar"]
+  NAMECALL R6 R6 K7 ["getText"]
+  CALL R6 3 1
+  MOVE R5 R6
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K8 ["provide"]
+  NEWTABLE R7 0 5
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K9 ["new"]
+  MOVE R9 R2
+  CALL R8 1 1
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K9 ["new"]
+  NAMECALL R10 R2 K10 ["getMouse"]
+  CALL R10 1 -1
+  CALL R9 -1 1
+  GETUPVAL R10 4
+  CALL R10 0 1
+  GETTABLEKS R11 R0 K5 ["localization"]
+  GETTABLEKS R12 R0 K11 ["analytics"]
+  SETLIST R7 R8 5 [1]
+  DUPTABLE R8 K13 [{"MainGui", "Toolbar"}]
+  MOVE R9 R4
+  JUMPIFNOT R9 [+7]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K14 ["createElement"]
+  GETUPVAL R10 6
+  NEWTABLE R11 0 0
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K12 ["MainGui"]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K14 ["createElement"]
+  GETUPVAL R10 7
+  DUPTABLE R11 K17 [{"Title", "RenderButtons"}]
+  SETTABLEKS R5 R11 K15 ["Title"]
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R0
+  SETTABLEKS R12 R11 K16 ["RenderButtons"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K6 ["Toolbar"]
+  CALL R6 2 -1
+  RETURN R6 -1
+
+PROTO_14:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+7]
+  GETTABLEKS R1 R0 K0 ["analytics"]
+  JUMPIFNOT R1 [+4]
+  GETTABLEKS R1 R0 K1 ["logUsageReport"]
+  LOADK R2 K2 ["placeClosing"]
+  CALL R1 1 0
+  GETUPVAL R1 1
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R1 R0 K3 ["onOpenWindControlEditorConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K3 ["onOpenWindControlEditorConnection"]
+  NAMECALL R1 R1 K4 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["onOpenWindControlEditorConnection"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K8 [game]
+  LOADK R4 K9 ["MemStorageService"]
+  NAMECALL R2 R2 K10 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Cryo"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K12 ["Dictionary"]
+  GETTABLEKS R4 R5 K13 ["join"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K5 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K15 ["UI"]
+  GETTABLEKS R7 R6 K16 ["PluginButton"]
+  GETTABLEKS R8 R6 K17 ["PluginToolbar"]
+  GETTABLEKS R9 R5 K18 ["ContextServices"]
+  GETTABLEKS R10 R9 K19 ["Plugin"]
+  GETTABLEKS R11 R9 K20 ["Mouse"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R16 R0 K21 ["Src"]
+  GETTABLEKS R15 R16 K22 ["Util"]
+  GETTABLEKS R14 R15 K23 ["Telemetry"]
+  GETTABLEKS R13 R14 K24 ["TelemetryProtocol"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R17 R0 K21 ["Src"]
+  GETTABLEKS R16 R17 K22 ["Util"]
+  GETTABLEKS R15 R16 K23 ["Telemetry"]
+  GETTABLEKS R14 R15 K25 ["WindsockOrigin"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R18 R0 K21 ["Src"]
+  GETTABLEKS R17 R18 K22 ["Util"]
+  GETTABLEKS R16 R17 K23 ["Telemetry"]
+  GETTABLEKS R15 R16 K26 ["WindsockUsage"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R19 R0 K21 ["Src"]
+  GETTABLEKS R18 R19 K22 ["Util"]
+  GETTABLEKS R17 R18 K23 ["Telemetry"]
+  GETTABLEKS R16 R17 K27 ["TelemetryProtocolTypes"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R19 R0 K21 ["Src"]
+  GETTABLEKS R18 R19 K22 ["Util"]
+  GETTABLEKS R17 R18 K28 ["AnalyticsGlobals"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R20 R0 K21 ["Src"]
+  GETTABLEKS R19 R20 K29 ["Resources"]
+  GETTABLEKS R18 R19 K30 ["MakeTheme"]
+  CALL R17 1 1
+  GETTABLEKS R21 R0 K21 ["Src"]
+  GETTABLEKS R20 R21 K29 ["Resources"]
+  GETTABLEKS R19 R20 K31 ["Localization"]
+  GETTABLEKS R18 R19 K32 ["SourceStrings"]
+  GETTABLEKS R22 R0 K21 ["Src"]
+  GETTABLEKS R21 R22 K29 ["Resources"]
+  GETTABLEKS R20 R21 K31 ["Localization"]
+  GETTABLEKS R19 R20 K33 ["LocalizedStrings"]
+  GETTABLEKS R21 R0 K21 ["Src"]
+  GETTABLEKS R20 R21 K34 ["Components"]
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R22 R20 K35 ["MainGui"]
+  CALL R21 1 1
+  GETIMPORT R22 K8 [game]
+  LOADK R24 K36 ["EnableWindControlPluginPropertyButton"]
+  NAMECALL R22 R22 K37 ["GetFastFlag"]
+  CALL R22 2 1
+  GETIMPORT R23 K8 [game]
+  LOADK R25 K38 ["EnableWindControlPluginRibbonButton"]
+  NAMECALL R23 R23 K37 ["GetFastFlag"]
+  CALL R23 2 1
+  GETIMPORT R24 K8 [game]
+  LOADK R26 K39 ["EnableWindControlRBXTelemetry"]
+  NAMECALL R24 R24 K37 ["GetFastFlag"]
+  CALL R24 2 1
+  GETTABLEKS R25 R1 K40 ["PureComponent"]
+  LOADK R27 K41 ["MainPlugin"]
+  NAMECALL R25 R25 K42 ["extend"]
+  CALL R25 2 1
+  DUPCLOSURE R26 K43 [PROTO_10]
+  CAPTURE VAL R4
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R9
+  CAPTURE VAL R18
+  CAPTURE VAL R19
+  CAPTURE VAL R12
+  CAPTURE VAL R22
+  CAPTURE VAL R24
+  CAPTURE VAL R2
+  SETTABLEKS R26 R25 K44 ["init"]
+  DUPCLOSURE R26 K45 [PROTO_11]
+  CAPTURE VAL R23
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R24
+  SETTABLEKS R26 R25 K46 ["renderButtons"]
+  DUPCLOSURE R26 K47 [PROTO_13]
+  CAPTURE VAL R23
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R17
+  CAPTURE VAL R1
+  CAPTURE VAL R21
+  CAPTURE VAL R8
+  SETTABLEKS R26 R25 K48 ["render"]
+  DUPCLOSURE R26 K49 [PROTO_14]
+  CAPTURE VAL R24
+  CAPTURE VAL R22
+  SETTABLEKS R26 R25 K50 ["willUnmount"]
+  RETURN R25 1

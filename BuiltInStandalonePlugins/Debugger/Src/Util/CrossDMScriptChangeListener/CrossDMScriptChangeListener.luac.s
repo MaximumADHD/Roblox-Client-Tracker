@@ -1,0 +1,104 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["store"]
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  CALL R4 2 -1
+  NAMECALL R2 R2 K1 ["dispatch"]
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["store"]
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  CALL R5 3 -1
+  NAMECALL R3 R3 K1 ["dispatch"]
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  MOVE R2 R1
+  JUMPIF R2 [+6]
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K2 ["CrossDMScriptChangeListener"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K4 ["GuidNameChanged"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  NAMECALL R3 R3 K5 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K6 ["_guidNameChangedConnection"]
+  GETTABLEKS R3 R2 K7 ["GuidLineContentsChanged"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  NAMECALL R3 R3 K5 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K8 ["_guidLineChangedConnection"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["_guidNameChangedConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["_guidNameChangedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_guidNameChangedConnection"]
+  GETTABLEKS R1 R0 K2 ["_guidLineChangedConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K2 ["_guidLineChangedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_guidLineChangedConnection"]
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R2 K1 [{"store"}]
+  SETTABLEKS R0 R2 K0 ["store"]
+  GETUPVAL R3 0
+  MOVE R4 R2
+  MOVE R5 R1
+  CALL R3 2 0
+  GETUPVAL R5 1
+  FASTCALL2 SETMETATABLE R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K3 [setmetatable]
+  CALL R3 2 0
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Actions"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R1 K6 ["Common"]
+  GETTABLEKS R3 R4 K7 ["SetFilenameForGuid"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R1 K6 ["Common"]
+  GETTABLEKS R4 R5 K8 ["SetScriptSourceLine"]
+  CALL R3 1 1
+  NEWTABLE R4 4 0
+  SETTABLEKS R4 R4 K9 ["__index"]
+  DUPCLOSURE R5 K10 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  DUPCLOSURE R6 K11 [PROTO_3]
+  SETTABLEKS R6 R4 K12 ["destroy"]
+  DUPCLOSURE R6 K13 [PROTO_4]
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  SETTABLEKS R6 R4 K14 ["new"]
+  RETURN R4 1

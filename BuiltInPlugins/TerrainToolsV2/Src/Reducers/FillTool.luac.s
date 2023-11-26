@@ -1,0 +1,51 @@
+PROTO_0:
+  GETTABLEKS R2 R1 K0 ["mergeEmpty"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"mergeEmpty"}]
+  SETTABLEKS R2 R5 K0 ["mergeEmpty"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_1:
+  GETTABLEKS R2 R1 K0 ["material"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  MOVE R4 R0
+  DUPTABLE R5 K3 [{"material"}]
+  SETTABLEKS R2 R5 K0 ["material"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["createReducer"]
+  DUPTABLE R4 K11 [{"mergeEmpty", "material"}]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K9 ["mergeEmpty"]
+  GETIMPORT R5 K15 [Enum.Material.Grass]
+  SETTABLEKS R5 R4 K10 ["material"]
+  DUPTABLE R5 K18 [{"SetMergeEmpty", "SetMaterial"}]
+  DUPCLOSURE R6 K19 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K16 ["SetMergeEmpty"]
+  DUPCLOSURE R6 K20 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K17 ["SetMaterial"]
+  CALL R3 2 1
+  RETURN R3 1

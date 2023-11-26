@@ -1,0 +1,289 @@
+PROTO_0:
+  LOADK R1 K0 ["Symbol("]
+  GETUPVAL R2 0
+  LOADK R3 K1 [")"]
+  CONCAT R0 R1 R3
+  RETURN R0 1
+
+PROTO_1:
+  GETIMPORT R1 K1 [newproxy]
+  LOADB R2 1
+  CALL R1 1 1
+  FASTCALL1 GETMETATABLE R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K3 [getmetatable]
+  CALL R2 1 1
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K4 ["__tostring"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R1 K6 ["Cryo"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K7 [PROTO_1]
+  DUPTABLE R4 K31 [{"NoneKey", "NoAccessKey", "UseViewKey", "EditKey", "RevokedKey", "OwnKey", "UserSubjectKey", "GroupSubjectKey", "RoleSubjectKey", "ActionKey", "PermissionLevelKey", "PermissionSourceKey", "SubjectIdKey", "SubjectNameKey", "SubjectTypeKey", "SubjectRankKey", "GroupIdKey", "GroupNameKey", "AccountPermissionLevel", "UniversePermissionLevel", "AssetPermissionLevel", "AssetPermissionSource", "GroupPermissionSource"}]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K36 ["NonePermission"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K8 ["NoneKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K38 ["NoAccessPermission"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K9 ["NoAccessKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K39 ["UseViewPermission"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K10 ["UseViewKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K40 ["EditPermission"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K11 ["EditKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K41 ["RevokedPermission"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K12 ["RevokedKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K42 ["OwnPermisison"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K13 ["OwnKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K43 ["UserSubjectType"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K14 ["UserSubjectKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K44 ["GroupSubjectType"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K15 ["GroupSubjectKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K45 ["RoleSubjectType"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K16 ["RoleSubjectKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K46 ["Action"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K17 ["ActionKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K47 ["PermissionLevel"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K18 ["PermissionLevelKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K48 ["PermissionSource"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K19 ["PermissionSourceKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K49 ["SubjectId"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K20 ["SubjectIdKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K50 ["SubjectName"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K21 ["SubjectNameKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K51 ["SubjectType"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K22 ["SubjectTypeKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K52 ["SubjectRank"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K23 ["SubjectRankKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K53 ["GroupId"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K24 ["GroupIdKey"]
+  GETIMPORT R6 K33 [newproxy]
+  LOADB R7 1
+  CALL R6 1 1
+  FASTCALL1 GETMETATABLE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [getmetatable]
+  CALL R7 1 1
+  LOADK R9 K54 ["GroupName"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R9
+  SETTABLEKS R8 R7 K37 ["__tostring"]
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K25 ["GroupNameKey"]
+  LOADK R5 K55 ["Account"]
+  SETTABLEKS R5 R4 K26 ["AccountPermissionLevel"]
+  LOADK R5 K56 ["Universe"]
+  SETTABLEKS R5 R4 K27 ["UniversePermissionLevel"]
+  LOADK R5 K57 ["Asset"]
+  SETTABLEKS R5 R4 K28 ["AssetPermissionLevel"]
+  LOADK R5 K57 ["Asset"]
+  SETTABLEKS R5 R4 K29 ["AssetPermissionSource"]
+  LOADK R5 K58 ["GroupRoleset"]
+  SETTABLEKS R5 R4 K30 ["GroupPermissionSource"]
+  DUPTABLE R5 K61 [{"MaxSearchResultsPerSubjectType", "MaxPackageAssetIdsForHighestPermissionsRequest"}]
+  LOADN R6 3
+  SETTABLEKS R6 R5 K59 ["MaxSearchResultsPerSubjectType"]
+  LOADN R6 100
+  SETTABLEKS R6 R5 K60 ["MaxPackageAssetIdsForHighestPermissionsRequest"]
+  GETTABLEKS R7 R2 K62 ["Dictionary"]
+  GETTABLEKS R6 R7 K63 ["join"]
+  MOVE R7 R4
+  MOVE R8 R5
+  CALL R6 2 -1
+  RETURN R6 -1

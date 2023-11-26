@@ -1,0 +1,51 @@
+PROTO_0:
+  GETIMPORT R0 K1 [plugin]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["Name"]
+  SETTABLEKS R1 R0 K2 ["Name"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K4 ["HasInternalPermission"]
+  CALL R0 1 1
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETIMPORT R3 K6 [script]
+  GETTABLEKS R2 R3 K7 ["Parent"]
+  GETTABLEKS R1 R2 K7 ["Parent"]
+  GETTABLEKS R0 R1 K8 ["Common"]
+  GETIMPORT R1 K10 [require]
+  GETTABLEKS R2 R0 K11 ["defineLuaFlags"]
+  CALL R1 1 0
+  GETIMPORT R1 K13 [plugin]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETIMPORT R4 K6 [script]
+  GETTABLEKS R3 R4 K7 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Parent"]
+  GETTABLEKS R1 R2 K7 ["Parent"]
+  GETIMPORT R2 K10 [require]
+  GETTABLEKS R4 R1 K14 ["Packages"]
+  GETTABLEKS R3 R4 K15 ["TestLoader"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K16 ["isCli"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+1]
+  RETURN R0 0
+  GETIMPORT R3 K1 [game]
+  LOADK R5 K17 ["EnableStudioTutorials"]
+  NAMECALL R3 R3 K18 ["GetFastFlag"]
+  CALL R3 2 1
+  JUMPIF R3 [+1]
+  RETURN R0 0
+  DUPCLOSURE R3 K19 [PROTO_0]
+  CAPTURE VAL R1
+  GETIMPORT R4 K13 [plugin]
+  GETTABLEKS R5 R1 K20 ["Name"]
+  SETTABLEKS R5 R4 K20 ["Name"]
+  RETURN R0 0

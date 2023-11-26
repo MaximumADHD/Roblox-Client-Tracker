@@ -1,0 +1,188 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R3 R2 K2 ["Stylizer"]
+  GETTABLEKS R4 R2 K3 ["IKMode"]
+  GETTABLEKS R5 R2 K4 ["Height"]
+  GETTABLEKS R6 R2 K5 ["LayoutOrder"]
+  GETTABLEKS R7 R2 K6 ["SetIKMode"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  LOADK R9 K8 ["Frame"]
+  DUPTABLE R10 K13 [{"Size", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "LayoutOrder"}]
+  GETIMPORT R11 K16 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 0
+  LOADN R14 0
+  MOVE R15 R5
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K9 ["Size"]
+  GETTABLEKS R12 R3 K17 ["ikTheme"]
+  GETTABLEKS R11 R12 K18 ["headerColor"]
+  SETTABLEKS R11 R10 K10 ["BackgroundColor3"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K11 ["BorderSizePixel"]
+  GETTABLEKS R12 R3 K17 ["ikTheme"]
+  GETTABLEKS R11 R12 K19 ["headerBorder"]
+  SETTABLEKS R11 R10 K12 ["BorderColor3"]
+  SETTABLEKS R6 R10 K5 ["LayoutOrder"]
+  DUPTABLE R11 K22 [{"IKModeLabel", "RadioButtonsFrame"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  LOADK R13 K23 ["TextLabel"]
+  DUPTABLE R14 K33 [{"AnchorPoint", "Position", "Size", "BackgroundTransparency", "TextSize", "Font", "TextColor3", "TextXAlignment", "TextYAlignment", "Text", "LayoutOrder"}]
+  GETIMPORT R15 K35 [Vector2.new]
+  LOADN R16 0
+  LOADK R17 K36 [0.5]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K24 ["AnchorPoint"]
+  GETIMPORT R15 K16 [UDim2.new]
+  LOADN R16 0
+  LOADN R17 0
+  LOADK R18 K36 [0.5]
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K25 ["Position"]
+  GETIMPORT R15 K16 [UDim2.new]
+  LOADN R16 0
+  LOADN R17 64
+  LOADN R18 0
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K37 ["TRACK_HEIGHT"]
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K9 ["Size"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K26 ["BackgroundTransparency"]
+  GETTABLEKS R16 R3 K17 ["ikTheme"]
+  GETTABLEKS R15 R16 K38 ["textSize"]
+  SETTABLEKS R15 R14 K27 ["TextSize"]
+  GETTABLEKS R15 R3 K39 ["font"]
+  SETTABLEKS R15 R14 K28 ["Font"]
+  GETTABLEKS R16 R3 K17 ["ikTheme"]
+  GETTABLEKS R15 R16 K40 ["textColor"]
+  SETTABLEKS R15 R14 K29 ["TextColor3"]
+  GETIMPORT R15 K43 [Enum.TextXAlignment.Center]
+  SETTABLEKS R15 R14 K30 ["TextXAlignment"]
+  GETIMPORT R15 K44 [Enum.TextYAlignment.Center]
+  SETTABLEKS R15 R14 K31 ["TextYAlignment"]
+  LOADK R17 K45 ["IKMenu"]
+  LOADK R18 K3 ["IKMode"]
+  NAMECALL R15 R1 K46 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K32 ["Text"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K5 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K20 ["IKModeLabel"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  LOADK R13 K8 ["Frame"]
+  DUPTABLE R14 K47 [{"BackgroundTransparency", "AnchorPoint", "Position", "Size", "LayoutOrder"}]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K26 ["BackgroundTransparency"]
+  GETIMPORT R15 K35 [Vector2.new]
+  LOADN R16 1
+  LOADK R17 K36 [0.5]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K24 ["AnchorPoint"]
+  GETIMPORT R15 K16 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADK R18 K36 [0.5]
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K25 ["Position"]
+  GETIMPORT R15 K16 [UDim2.new]
+  LOADN R16 0
+  LOADN R17 186
+  LOADK R18 K36 [0.5]
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K9 ["Size"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K5 ["LayoutOrder"]
+  DUPTABLE R15 K49 [{"RadioButtons"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K7 ["createElement"]
+  GETUPVAL R17 2
+  DUPTABLE R18 K54 [{"Buttons", "SelectedKey", "FillDirection", "LayoutOrder", "OnClick"}]
+  NEWTABLE R19 0 2
+  DUPTABLE R20 K56 [{"Key", "Text"}]
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K57 ["IK_MODE"]
+  GETTABLEKS R21 R22 K58 ["BodyPart"]
+  SETTABLEKS R21 R20 K55 ["Key"]
+  LOADK R23 K45 ["IKMenu"]
+  LOADK R24 K58 ["BodyPart"]
+  NAMECALL R21 R1 K46 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K32 ["Text"]
+  DUPTABLE R21 K56 [{"Key", "Text"}]
+  GETUPVAL R24 1
+  GETTABLEKS R23 R24 K57 ["IK_MODE"]
+  GETTABLEKS R22 R23 K59 ["FullBody"]
+  SETTABLEKS R22 R21 K55 ["Key"]
+  LOADK R24 K45 ["IKMenu"]
+  LOADK R25 K59 ["FullBody"]
+  NAMECALL R22 R1 K46 ["getText"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K32 ["Text"]
+  SETLIST R19 R20 2 [1]
+  SETTABLEKS R19 R18 K50 ["Buttons"]
+  SETTABLEKS R4 R18 K51 ["SelectedKey"]
+  GETIMPORT R19 K61 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R19 R18 K52 ["FillDirection"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K5 ["LayoutOrder"]
+  SETTABLEKS R7 R18 K53 ["OnClick"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K48 ["RadioButtons"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K21 ["RadioButtonsFrame"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationClipEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K9 ["UI"]
+  GETTABLEKS R3 R4 K10 ["RadioButtonList"]
+  GETTABLEKS R4 R2 K11 ["ContextServices"]
+  GETTABLEKS R5 R4 K12 ["withContext"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Util"]
+  GETTABLEKS R7 R8 K15 ["Constants"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K16 ["PureComponent"]
+  LOADK R9 K17 ["IKModeButtons"]
+  NAMECALL R7 R7 K18 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K19 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  SETTABLEKS R8 R7 K20 ["render"]
+  MOVE R8 R5
+  DUPTABLE R9 K23 [{"Stylizer", "Localization"}]
+  GETTABLEKS R10 R4 K21 ["Stylizer"]
+  SETTABLEKS R10 R9 K21 ["Stylizer"]
+  GETTABLEKS R10 R4 K22 ["Localization"]
+  SETTABLEKS R10 R9 K22 ["Localization"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

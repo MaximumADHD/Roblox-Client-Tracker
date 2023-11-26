@@ -1,0 +1,8 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K3 ["_Index"]
+  GETTABLEKS R2 R0 K4 ["LuaMeshEditingModule"]
+  GETTABLEKS R1 R2 K4 ["LuaMeshEditingModule"]
+  RETURN R1 1

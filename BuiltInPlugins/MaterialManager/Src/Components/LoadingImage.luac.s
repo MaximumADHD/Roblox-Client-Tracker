@@ -1,0 +1,232 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["mostRecentRequestedImage"]
+  JUMPIFNOTEQ R0 R1 [+2]
+  RETURN R0 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K2 [{"currentImageLoaded"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K1 ["currentImageLoaded"]
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K0 ["mostRecentRequestedImage"]
+  JUMPIFEQKNIL R0 [+10]
+  JUMPIFEQKS R0 K4 [""] [+8]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K5 ["ImageLoader"]
+  MOVE R3 R0
+  NAMECALL R1 R1 K6 ["loadImage"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["isMounted"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["mostRecentRequestedImage"]
+  JUMPIFNOTEQ R0 R1 [+9]
+  GETUPVAL R1 0
+  DUPTABLE R3 K3 [{"currentImageLoaded"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K2 ["currentImageLoaded"]
+  NAMECALL R1 R1 K4 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  DUPTABLE R2 K2 [{"currentImageLoaded"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K1 ["currentImageLoaded"]
+  SETTABLEKS R2 R0 K3 ["state"]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K4 ["mostRecentRequestedImage"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R2 R0 K5 ["requestLoadImage"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K6 ["onImageLoaded"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  LOADB R2 1
+  SETTABLEKS R2 R0 K1 ["isMounted"]
+  GETTABLEKS R3 R1 K2 ["ImageLoader"]
+  GETTABLEKS R2 R3 K3 ["ImageLoaded"]
+  GETTABLEKS R4 R0 K4 ["onImageLoaded"]
+  NAMECALL R2 R2 K5 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K6 ["onImageLoaderConnection"]
+  GETTABLEKS R2 R0 K7 ["requestLoadImage"]
+  GETTABLEKS R3 R1 K8 ["Image"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["onImageLoaderConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["onImageLoaderConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["onImageLoaderConnection"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K2 ["isMounted"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R4 R1 K1 ["Image"]
+  GETTABLEKS R5 R3 K1 ["Image"]
+  JUMPIFEQ R4 R5 [+6]
+  GETTABLEKS R4 R0 K2 ["requestLoadImage"]
+  GETTABLEKS R5 R3 K1 ["Image"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R0 K1 ["state"]
+  GETTABLEKS R2 R3 K2 ["currentImageLoaded"]
+  JUMPIFNOT R2 [+42]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["join"]
+  MOVE R4 R1
+  DUPTABLE R5 K11 [{"Size", "LayoutOrder", "AnchorPoint", "Position", "ZIndex", "ImageTransparency", "ImageLoader"}]
+  GETIMPORT R6 K14 [UDim2.new]
+  LOADN R7 1
+  LOADN R8 0
+  LOADN R9 1
+  LOADN R10 0
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K4 ["Size"]
+  LOADN R6 2
+  SETTABLEKS R6 R5 K5 ["LayoutOrder"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K15 ["None"]
+  SETTABLEKS R6 R5 K6 ["AnchorPoint"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K15 ["None"]
+  SETTABLEKS R6 R5 K7 ["Position"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K15 ["None"]
+  SETTABLEKS R6 R5 K8 ["ZIndex"]
+  LOADK R6 K16 [0.5]
+  SETTABLEKS R6 R5 K9 ["ImageTransparency"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K15 ["None"]
+  SETTABLEKS R6 R5 K10 ["ImageLoader"]
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K17 ["createElement"]
+  LOADK R5 K18 ["Frame"]
+  DUPTABLE R6 K20 [{"LayoutOrder", "AnchorPoint", "Position", "Size", "ZIndex", "BackgroundTransparency"}]
+  GETTABLEKS R7 R1 K5 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K5 ["LayoutOrder"]
+  GETTABLEKS R7 R1 K6 ["AnchorPoint"]
+  SETTABLEKS R7 R6 K6 ["AnchorPoint"]
+  GETTABLEKS R7 R1 K7 ["Position"]
+  SETTABLEKS R7 R6 K7 ["Position"]
+  GETTABLEKS R7 R1 K4 ["Size"]
+  SETTABLEKS R7 R6 K4 ["Size"]
+  GETTABLEKS R7 R1 K8 ["ZIndex"]
+  SETTABLEKS R7 R6 K8 ["ZIndex"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K19 ["BackgroundTransparency"]
+  DUPTABLE R7 K23 [{"Image", "LoadingSpinner"}]
+  MOVE R8 R2
+  JUMPIFNOT R8 [+6]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K17 ["createElement"]
+  LOADK R9 K24 ["ImageLabel"]
+  MOVE R10 R3
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K21 ["Image"]
+  JUMPIF R2 [+33]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K17 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K25 [{"LayoutOrder", "AnchorPoint", "Position", "Size"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K5 ["LayoutOrder"]
+  GETIMPORT R11 K27 [Vector2.new]
+  LOADK R12 K16 [0.5]
+  LOADK R13 K16 [0.5]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K6 ["AnchorPoint"]
+  GETIMPORT R11 K14 [UDim2.new]
+  LOADK R12 K16 [0.5]
+  LOADN R13 0
+  LOADK R14 K16 [0.5]
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K7 ["Position"]
+  GETIMPORT R11 K29 [UDim2.fromScale]
+  LOADK R12 K16 [0.5]
+  LOADK R13 K16 [0.5]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K4 ["Size"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K22 ["LoadingSpinner"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["Dash"]
+  GETTABLEKS R4 R1 K9 ["ContextServices"]
+  GETTABLEKS R5 R4 K10 ["withContext"]
+  GETTABLEKS R6 R1 K11 ["UI"]
+  GETTABLEKS R7 R6 K12 ["LoadingIndicator"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K13 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Controllers"]
+  GETTABLEKS R9 R10 K15 ["ImageLoader"]
+  CALL R8 1 1
+  GETTABLEKS R9 R2 K16 ["PureComponent"]
+  LOADK R11 K17 ["LoadingImage"]
+  NAMECALL R9 R9 K18 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K19 [PROTO_2]
+  SETTABLEKS R10 R9 K20 ["init"]
+  DUPCLOSURE R10 K21 [PROTO_3]
+  SETTABLEKS R10 R9 K22 ["didMount"]
+  DUPCLOSURE R10 K23 [PROTO_4]
+  SETTABLEKS R10 R9 K24 ["willUnmount"]
+  DUPCLOSURE R10 K25 [PROTO_5]
+  SETTABLEKS R10 R9 K26 ["didUpdate"]
+  DUPCLOSURE R10 K27 [PROTO_6]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  SETTABLEKS R10 R9 K28 ["render"]
+  MOVE R10 R5
+  DUPTABLE R11 K29 [{"ImageLoader"}]
+  SETTABLEKS R8 R11 K15 ["ImageLoader"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

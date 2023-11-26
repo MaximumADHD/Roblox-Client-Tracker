@@ -1,0 +1,102 @@
+PROTO_0:
+  NAMECALL R1 R0 K0 ["lower"]
+  CALL R1 1 1
+  MOVE R0 R1
+  LOADK R3 K1 ["[ _](%a)"]
+  GETIMPORT R4 K4 [string.upper]
+  NAMECALL R1 R0 K5 ["gsub"]
+  CALL R1 3 1
+  MOVE R0 R1
+  LOADK R3 K6 ["^%a"]
+  GETIMPORT R4 K4 [string.upper]
+  NAMECALL R1 R0 K5 ["gsub"]
+  CALL R1 3 1
+  MOVE R0 R1
+  LOADK R3 K7 ["%p"]
+  LOADK R4 K8 [""]
+  NAMECALL R1 R0 K5 ["gsub"]
+  CALL R1 3 1
+  MOVE R0 R1
+  RETURN R0 1
+
+PROTO_1:
+  NEWTABLE R2 0 0
+  JUMPIFNOT R1 [+22]
+  GETIMPORT R3 K1 [pairs]
+  NAMECALL R4 R1 K2 ["GetDescendants"]
+  CALL R4 1 -1
+  CALL R3 -1 3
+  FORGPREP_NEXT R3
+  LOADK R10 K3 ["MaterialVariant"]
+  NAMECALL R8 R7 K4 ["IsA"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+8]
+  GETIMPORT R8 K7 [string.lower]
+  GETTABLEKS R9 R7 K8 ["Name"]
+  CALL R8 1 1
+  GETTABLEKS R9 R7 K8 ["Name"]
+  SETTABLE R9 R2 R8
+  FORGLOOP R3 2 [-14]
+  GETIMPORT R3 K7 [string.lower]
+  MOVE R4 R0
+  CALL R3 1 1
+  GETTABLE R4 R2 R3
+  JUMPIF R4 [+1]
+  RETURN R0 1
+  LOADN R4 0
+  ADDK R4 R4 K9 [1]
+  GETIMPORT R6 K11 [string.format]
+  LOADK R7 K12 ["%s %0d"]
+  MOVE R8 R3
+  MOVE R9 R4
+  CALL R6 3 1
+  GETTABLE R5 R2 R6
+  JUMPIFNOT R5 [+1]
+  JUMPBACK [-10]
+  GETIMPORT R5 K11 [string.format]
+  LOADK R6 K12 ["%s %0d"]
+  MOVE R7 R0
+  MOVE R8 R4
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_2:
+  MOVE R4 R0
+  LOADK R5 K0 [" Material"]
+  CONCAT R3 R4 R5
+  NAMECALL R4 R3 K1 ["lower"]
+  CALL R4 1 1
+  MOVE R3 R4
+  LOADK R6 K2 ["[ _](%a)"]
+  GETIMPORT R7 K5 [string.upper]
+  NAMECALL R4 R3 K6 ["gsub"]
+  CALL R4 3 1
+  MOVE R3 R4
+  LOADK R6 K7 ["^%a"]
+  GETIMPORT R7 K5 [string.upper]
+  NAMECALL R4 R3 K6 ["gsub"]
+  CALL R4 3 1
+  MOVE R3 R4
+  LOADK R6 K8 ["%p"]
+  LOADK R7 K9 [""]
+  NAMECALL R4 R3 K6 ["gsub"]
+  CALL R4 3 1
+  MOVE R3 R4
+  MOVE R2 R3
+  GETUPVAL R3 0
+  MOVE R4 R2
+  MOVE R5 R1
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  DUPCLOSURE R1 K3 [PROTO_0]
+  DUPCLOSURE R2 K4 [PROTO_1]
+  DUPCLOSURE R3 K5 [PROTO_2]
+  CAPTURE VAL R2
+  RETURN R3 1

@@ -1,0 +1,49 @@
+PROTO_0:
+  DUPTABLE R4 K7 [{"Line", "Script", "FrameName", "FrameType", "Populated", "FrameId", "PopulatableType"}]
+  SETTABLEKS R0 R4 K0 ["Line"]
+  SETTABLEKS R1 R4 K1 ["Script"]
+  SETTABLEKS R2 R4 K2 ["FrameName"]
+  SETTABLEKS R3 R4 K3 ["FrameType"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K4 ["Populated"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K5 ["FrameId"]
+  LOADK R5 K8 ["StackFrame"]
+  SETTABLEKS R5 R4 K6 ["PopulatableType"]
+  GETUPVAL R7 0
+  FASTCALL2 SETMETATABLE R4 R7 [+4]
+  MOVE R6 R4
+  GETIMPORT R5 K10 [setmetatable]
+  CALL R5 2 0
+  RETURN R4 1
+
+PROTO_1:
+  FASTCALL1 ASSERT R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [assert]
+  CALL R2 1 0
+  GETTABLEKS R2 R1 K2 ["Locals"]
+  SETTABLEKS R2 R0 K2 ["Locals"]
+  GETTABLEKS R2 R1 K3 ["Globals"]
+  SETTABLEKS R2 R0 K3 ["Globals"]
+  GETTABLEKS R2 R1 K4 ["Upvalues"]
+  SETTABLEKS R2 R0 K4 ["Upvalues"]
+  LOADB R2 1
+  SETTABLEKS R2 R0 K5 ["Populated"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["ScriptRef"]
+  CALL R0 1 1
+  NEWTABLE R1 4 0
+  SETTABLEKS R1 R1 K6 ["__index"]
+  DUPCLOSURE R2 K7 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K8 ["new"]
+  DUPCLOSURE R2 K9 [PROTO_1]
+  SETTABLEKS R2 R1 K10 ["MockSetChildren"]
+  RETURN R1 1

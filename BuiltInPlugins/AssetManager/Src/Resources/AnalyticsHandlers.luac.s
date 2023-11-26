@@ -1,0 +1,774 @@
+PROTO_0:
+  MOVE R2 R1
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R1 R2
+  GETUPVAL R2 0
+  DUPTABLE R3 K3 [{"studioSid", "clientId", "placeId"}]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K4 ["GetSessionId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K0 ["studioSid"]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K5 ["GetClientId"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K1 ["clientId"]
+  GETIMPORT R5 K7 [game]
+  GETTABLEKS R4 R5 K8 ["PlaceId"]
+  SETTABLEKS R4 R3 K2 ["placeId"]
+  MOVE R4 R1
+  CALL R2 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K9 ["LogAnalytics"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+18]
+  GETIMPORT R3 K11 [print]
+  LOADK R4 K12 ["%s SendEvent eventName=%s args=%s"]
+  GETUPVAL R6 3
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R8 R0
+  GETIMPORT R7 K14 [tostring]
+  CALL R7 1 1
+  GETUPVAL R8 4
+  MOVE R10 R2
+  NAMECALL R8 R8 K15 ["JSONEncode"]
+  CALL R8 2 -1
+  NAMECALL R4 R4 K16 ["format"]
+  CALL R4 -1 -1
+  CALL R3 -1 0
+  GETUPVAL R3 1
+  LOADK R5 K17 ["studio"]
+  GETUPVAL R6 3
+  MOVE R7 R0
+  MOVE R8 R2
+  NAMECALL R3 R3 K18 ["SendEventDeferred"]
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_1:
+  ORK R1 R1 K0 [1]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["LogAnalytics"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+18]
+  GETIMPORT R2 K3 [print]
+  LOADK R3 K4 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R5 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K6 [tostring]
+  CALL R6 1 1
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R8 R1
+  GETIMPORT R7 K6 [tostring]
+  CALL R7 1 1
+  NAMECALL R3 R3 K7 ["format"]
+  CALL R3 4 -1
+  CALL R2 -1 0
+  GETUPVAL R2 2
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K8 ["ReportCounter"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+35]
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 0
+  LOADNIL R1
+  ORK R1 R1 K0 [1]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["LogAnalytics"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+18]
+  GETIMPORT R2 K3 [print]
+  LOADK R3 K4 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R5 3
+  LOADK R7 K5 ["AssetManagerFolderOpen"]
+  FASTCALL1 TOSTRING R7 [+2]
+  GETIMPORT R6 K7 [tostring]
+  CALL R6 1 1
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R8 R1
+  GETIMPORT R7 K7 [tostring]
+  CALL R7 1 1
+  NAMECALL R3 R3 K8 ["format"]
+  CALL R3 4 -1
+  CALL R2 -1 0
+  GETUPVAL R2 4
+  LOADK R4 K5 ["AssetManagerFolderOpen"]
+  MOVE R5 R1
+  NAMECALL R2 R2 K9 ["ReportCounter"]
+  CALL R2 3 0
+  RETURN R0 0
+  GETUPVAL R1 4
+  LOADK R3 K10 ["Action"]
+  LOADK R4 K11 ["Asset Manager"]
+  MOVE R5 R0
+  NAMECALL R1 R1 K12 ["TrackEvent"]
+  CALL R1 4 0
+  GETUPVAL R1 4
+  LOADK R3 K5 ["AssetManagerFolderOpen"]
+  LOADN R4 1
+  NAMECALL R1 R1 K9 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Context Menu Item Click"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerContextMenuItemClick"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerContextMenuItemClick"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Context Menu Item Click"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerContextMenuItemClick"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+32]
+  LOADNIL R0
+  ORK R0 R0 K0 [1]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K3 [print]
+  LOADK R2 K4 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 2
+  LOADK R6 K5 ["MassUpdateFromAssetManager"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K7 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K7 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K8 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 3
+  LOADK R3 K5 ["MassUpdateFromAssetManager"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K9 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 3
+  LOADK R2 K5 ["MassUpdateFromAssetManager"]
+  LOADN R3 1
+  NAMECALL R0 R0 K9 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Bulk Import Button Click"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerBulkImportButtonClick"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerBulkImportButtonClick"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Bulk Import Button Click"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerBulkImportButtonClick"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Search"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerSearch"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerSearch"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Search"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerSearch"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Insert After Search"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerInsertAfterSearch"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerInsertAfterSearch"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Insert After Search"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerInsertAfterSearch"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Double Click Insert"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerDoubleClickInsert"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerDoubleClickInsert"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Double Click Insert"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerDoubleClickInsert"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Drag Insert"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerDragInsert"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerDragInsert"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Drag Insert"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerDragInsert"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["CancelDragInsert"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 2
+  LOADK R6 K6 ["AssetManagerCancelDragInsert"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 3
+  LOADK R3 K6 ["AssetManagerCancelDragInsert"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Asset Preview Play Sound"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerAssetPreviewPlaySound"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerAssetPreviewPlaySound"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Asset Preview Play Sound"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerAssetPreviewPlaySound"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Asset Preview Pause Sound"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerAssetPreviewPauseSound"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerAssetPreviewPauseSound"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Asset Preview Pause Sound"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerAssetPreviewPauseSound"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Asset Preview Play Video"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerAssetPreviewPlayVideo"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerAssetPreviewPlayVideo"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Asset Preview Play Video"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerAssetPreviewPlayVideo"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+35]
+  GETUPVAL R0 1
+  LOADK R1 K0 ["Asset Preview Pause Video"]
+  CALL R0 1 0
+  LOADNIL R0
+  ORK R0 R0 K1 [1]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["LogAnalytics"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETIMPORT R1 K4 [print]
+  LOADK R2 K5 ["%s ReportCounter counterName=%s count=%s"]
+  GETUPVAL R4 3
+  LOADK R6 K6 ["AssetManagerAssetPreviewPauseVideo"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  NAMECALL R2 R2 K9 ["format"]
+  CALL R2 4 -1
+  CALL R1 -1 0
+  GETUPVAL R1 4
+  LOADK R3 K6 ["AssetManagerAssetPreviewPauseVideo"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K10 ["ReportCounter"]
+  CALL R1 3 0
+  RETURN R0 0
+  GETUPVAL R0 4
+  LOADK R2 K11 ["Action"]
+  LOADK R3 K12 ["Asset Manager"]
+  LOADK R4 K0 ["Asset Preview Pause Video"]
+  NAMECALL R0 R0 K13 ["TrackEvent"]
+  CALL R0 4 0
+  GETUPVAL R0 4
+  LOADK R2 K6 ["AssetManagerAssetPreviewPauseVideo"]
+  LOADN R3 1
+  NAMECALL R0 R0 K10 ["ReportCounter"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_15:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  DUPTABLE R3 K13 [{"openFolder", "clickContextMenuItem", "massUpdateFromAssetManager", "clickBulkImportButton", "search", "insertAfterSearch", "doubleClickInsert", "dragInsert", "cancelDragInsert", "AssetPreviewPlaySound", "AssetPreviewPauseSound", "AssetPreviewPlayVideo", "AssetPreviewPauseVideo"}]
+  NEWCLOSURE R4 P2
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K0 ["openFolder"]
+  NEWCLOSURE R4 P3
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K1 ["clickContextMenuItem"]
+  NEWCLOSURE R4 P4
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K2 ["massUpdateFromAssetManager"]
+  NEWCLOSURE R4 P5
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K3 ["clickBulkImportButton"]
+  NEWCLOSURE R4 P6
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K4 ["search"]
+  NEWCLOSURE R4 P7
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K5 ["insertAfterSearch"]
+  NEWCLOSURE R4 P8
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K6 ["doubleClickInsert"]
+  NEWCLOSURE R4 P9
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K7 ["dragInsert"]
+  NEWCLOSURE R4 P10
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K8 ["cancelDragInsert"]
+  NEWCLOSURE R4 P11
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K9 ["AssetPreviewPlaySound"]
+  NEWCLOSURE R4 P12
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K10 ["AssetPreviewPauseSound"]
+  NEWCLOSURE R4 P13
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K11 ["AssetPreviewPlayVideo"]
+  NEWCLOSURE R4 P14
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K12 ["AssetPreviewPauseVideo"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Dash"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R6 R1 K11 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Util"]
+  GETTABLEKS R4 R5 K13 ["DebugFlags"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K14 ["join"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K15 ["AssetManagerUseEventIngest"]
+  NAMECALL R5 R5 K16 ["GetFastFlag"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  LOADK R6 K17 ["Asset Manager"]
+  JUMP [+1]
+  LOADK R6 K17 ["Asset Manager"]
+  DUPCLOSURE R7 K18 [PROTO_15]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  RETURN R7 1

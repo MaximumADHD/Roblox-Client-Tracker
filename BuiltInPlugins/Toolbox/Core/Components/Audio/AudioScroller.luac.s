@@ -1,0 +1,234 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["Assets"]
+  LENGTH R2 R3
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K2 ["Loading"]
+  JUMPIFNOT R4 [+2]
+  LOADN R3 60
+  JUMP [+1]
+  LOADN R3 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["props"]
+  GETTABLEKS R5 R6 K3 ["RenderTopContent"]
+  JUMPIFNOT R5 [+2]
+  LOADN R4 30
+  JUMP [+1]
+  LOADN R4 0
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K4 ["AUDIO_ROW"]
+  GETTABLEKS R9 R10 K5 ["ROW_HEIGHT"]
+  MUL R8 R9 R2
+  ADD R7 R8 R3
+  ADD R6 R7 R4
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K4 ["AUDIO_ROW"]
+  GETTABLEKS R7 R8 K6 ["EXPANDED_ROW_HEIGHT"]
+  ADD R5 R6 R7
+  RETURN R5 1
+
+PROTO_1:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R0 K0 ["calculateCanvasHeight"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["Generator"]
+  DUPTABLE R1 K10 [{"AudioType", "Assets", "TryInsert", "CanInsertAsset", "LayoutOrder", "LogImpression", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig"}]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["AudioType"]
+  SETTABLEKS R2 R1 K1 ["AudioType"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["Assets"]
+  SETTABLEKS R2 R1 K2 ["Assets"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["TryInsert"]
+  SETTABLEKS R2 R1 K3 ["TryInsert"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["CanInsertAsset"]
+  SETTABLEKS R2 R1 K4 ["CanInsertAsset"]
+  LOADN R2 2
+  SETTABLEKS R2 R1 K5 ["LayoutOrder"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["LogImpression"]
+  SETTABLEKS R2 R1 K6 ["LogImpression"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K7 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R2 R1 K7 ["OnAssetPreviewButtonClicked"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K8 ["ParentAbsoluteSize"]
+  SETTABLEKS R2 R1 K8 ["ParentAbsoluteSize"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K9 ["TryOpenAssetConfig"]
+  SETTABLEKS R2 R1 K9 ["TryOpenAssetConfig"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K13 [{"CalculateCanvasHeight", "FetchNextPage", "Items", "Loading", "PageSize", "Position", "RenderContent", "RenderTopContent", "Size", "Total"}]
+  GETTABLEKS R7 R0 K14 ["calculateCanvasHeight"]
+  SETTABLEKS R7 R6 K3 ["CalculateCanvasHeight"]
+  GETTABLEKS R7 R1 K4 ["FetchNextPage"]
+  SETTABLEKS R7 R6 K4 ["FetchNextPage"]
+  GETTABLEKS R7 R1 K15 ["Assets"]
+  SETTABLEKS R7 R6 K5 ["Items"]
+  GETTABLEKS R7 R1 K6 ["Loading"]
+  SETTABLEKS R7 R6 K6 ["Loading"]
+  GETUPVAL R8 3
+  CALL R8 0 1
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R7 R1 K7 ["PageSize"]
+  JUMP [+1]
+  GETUPVAL R7 4
+  SETTABLEKS R7 R6 K7 ["PageSize"]
+  GETTABLEKS R7 R1 K8 ["Position"]
+  SETTABLEKS R7 R6 K8 ["Position"]
+  SETTABLEKS R3 R6 K9 ["RenderContent"]
+  GETTABLEKS R7 R1 K10 ["RenderTopContent"]
+  SETTABLEKS R7 R6 K10 ["RenderTopContent"]
+  GETTABLEKS R7 R1 K11 ["Size"]
+  SETTABLEKS R7 R6 K11 ["Size"]
+  GETTABLEKS R7 R1 K12 ["Total"]
+  SETTABLEKS R7 R6 K12 ["Total"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_4:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K9 ["Core"]
+  GETTABLEKS R4 R5 K10 ["Util"]
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R4 K11 ["Constants"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R9 R0 K9 ["Core"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K13 ["AssetLogicWrapper"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R10 R0 K9 ["Core"]
+  GETTABLEKS R9 R10 K14 ["Types"]
+  GETTABLEKS R8 R9 K15 ["AssetLogicTypes"]
+  CALL R7 1 1
+  GETTABLEKS R8 R3 K16 ["ContextServices"]
+  GETTABLEKS R9 R8 K17 ["withContext"]
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R13 R0 K9 ["Core"]
+  GETTABLEKS R12 R13 K18 ["Models"]
+  GETTABLEKS R11 R12 K19 ["AssetInfo"]
+  CALL R10 1 1
+  GETTABLEKS R12 R3 K20 ["UI"]
+  GETTABLEKS R11 R12 K21 ["LoadingIndicator"]
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R16 R0 K9 ["Core"]
+  GETTABLEKS R15 R16 K12 ["Components"]
+  GETTABLEKS R14 R15 K22 ["Audio"]
+  GETTABLEKS R13 R14 K23 ["AudioTable"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R16 R0 K9 ["Core"]
+  GETTABLEKS R15 R16 K12 ["Components"]
+  GETTABLEKS R14 R15 K24 ["StyledScrollingFrame"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R17 R0 K9 ["Core"]
+  GETTABLEKS R16 R17 K12 ["Components"]
+  GETTABLEKS R15 R16 K25 ["LoadScroller"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R19 R0 K9 ["Core"]
+  GETTABLEKS R18 R19 K10 ["Util"]
+  GETTABLEKS R17 R18 K26 ["SharedFlags"]
+  GETTABLEKS R16 R17 K27 ["getFFlagToolboxAudioDiscoveryUXImprovements"]
+  CALL R15 1 1
+  GETTABLEKS R16 R2 K28 ["PureComponent"]
+  LOADK R18 K29 ["AudioScroller"]
+  NAMECALL R16 R16 K30 ["extend"]
+  CALL R16 2 1
+  DUPTABLE R17 K33 [{"Size", "PageSize"}]
+  GETIMPORT R18 K36 [UDim2.new]
+  LOADN R19 1
+  LOADN R20 0
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K31 ["Size"]
+  MOVE R19 R15
+  CALL R19 0 1
+  JUMPIFNOT R19 [+2]
+  LOADN R18 20
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K32 ["PageSize"]
+  SETTABLEKS R17 R16 K37 ["defaultProps"]
+  MOVE R18 R15
+  CALL R18 0 1
+  JUMPIFNOT R18 [+2]
+  LOADNIL R17
+  JUMP [+1]
+  LOADN R17 20
+  DUPCLOSURE R18 K38 [PROTO_1]
+  CAPTURE VAL R5
+  SETTABLEKS R18 R16 K39 ["init"]
+  DUPCLOSURE R18 K40 [PROTO_3]
+  CAPTURE VAL R12
+  CAPTURE VAL R2
+  CAPTURE VAL R14
+  CAPTURE VAL R15
+  CAPTURE VAL R17
+  SETTABLEKS R18 R16 K41 ["render"]
+  MOVE R18 R9
+  DUPTABLE R19 K44 [{"Localization", "Stylizer"}]
+  GETTABLEKS R20 R8 K42 ["Localization"]
+  SETTABLEKS R20 R19 K42 ["Localization"]
+  GETTABLEKS R20 R8 K43 ["Stylizer"]
+  SETTABLEKS R20 R19 K43 ["Stylizer"]
+  CALL R18 1 1
+  MOVE R19 R16
+  CALL R18 1 1
+  MOVE R16 R18
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R2
+  CAPTURE REF R16
+  SETGLOBAL R18 K45 ["TypedAudioScroller"]
+  DUPTABLE R18 K48 [{"Component", "Generator"}]
+  SETTABLEKS R16 R18 K46 ["Component"]
+  GETGLOBAL R19 K45 ["TypedAudioScroller"]
+  SETTABLEKS R19 R18 K47 ["Generator"]
+  CLOSEUPVALS R16
+  RETURN R18 1

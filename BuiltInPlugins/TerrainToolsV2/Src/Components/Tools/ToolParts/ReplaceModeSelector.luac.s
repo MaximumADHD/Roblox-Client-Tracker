@@ -1,0 +1,121 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["LayoutOrder"]
+  GETTABLEKS R4 R1 K3 ["ReplaceMode"]
+  GETTABLEKS R5 R1 K4 ["SetReplaceMode"]
+  GETTABLEKS R6 R1 K5 ["Tool"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K9 [{"Size", "Text", "LayoutOrder"}]
+  GETIMPORT R10 K12 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 22
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K7 ["Size"]
+  LOADK R12 K13 ["BrushSettings"]
+  LOADK R13 K14 ["MaterialMode"]
+  NAMECALL R10 R2 K15 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K8 ["Text"]
+  SETTABLEKS R3 R9 K2 ["LayoutOrder"]
+  NEWTABLE R10 0 1
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K6 ["createElement"]
+  GETUPVAL R12 2
+  DUPTABLE R13 K19 [{"Size", "Selected", "Select", "Options"}]
+  GETIMPORT R14 K12 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 0
+  LOADN R18 22
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K7 ["Size"]
+  SETTABLEKS R4 R13 K16 ["Selected"]
+  SETTABLEKS R5 R13 K17 ["Select"]
+  NEWTABLE R14 0 2
+  DUPTABLE R15 K21 [{"Text", "Data"}]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K22 ["Paint"]
+  JUMPIFNOTEQ R6 R17 [+7]
+  LOADK R18 K13 ["BrushSettings"]
+  LOADK R19 K22 ["Paint"]
+  NAMECALL R16 R2 K15 ["getText"]
+  CALL R16 3 1
+  JUMP [+5]
+  LOADK R18 K13 ["BrushSettings"]
+  LOADK R19 K23 ["Fill"]
+  NAMECALL R16 R2 K15 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K8 ["Text"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K20 ["Data"]
+  DUPTABLE R16 K21 [{"Text", "Data"}]
+  LOADK R19 K13 ["BrushSettings"]
+  LOADK R20 K24 ["Replace"]
+  NAMECALL R17 R2 K15 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K8 ["Text"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K20 ["Data"]
+  SETLIST R14 R15 2 [1]
+  SETTABLEKS R14 R13 K18 ["Options"]
+  CALL R11 2 -1
+  SETLIST R10 R11 4294967295 [1]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K2 ["Parent"]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Roact"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Util"]
+  GETTABLEKS R6 R7 K12 ["TerrainEnums"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K13 ["ToolId"]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K2 ["Parent"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R7 K14 ["LabeledElementPair"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R7 K15 ["SingleSelectButtonGroup"]
+  CALL R9 1 1
+  GETTABLEKS R10 R2 K16 ["PureComponent"]
+  LOADK R12 K17 ["ReplaceModeSelector"]
+  NAMECALL R10 R10 K18 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K19 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K20 ["render"]
+  MOVE R11 R4
+  DUPTABLE R12 K22 [{"Localization"}]
+  GETTABLEKS R13 R3 K21 ["Localization"]
+  SETTABLEKS R13 R12 K21 ["Localization"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

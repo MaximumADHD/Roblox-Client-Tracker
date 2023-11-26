@@ -1,0 +1,516 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_studioDeviceEmulatorService"]
+  NAMECALL R1 R1 K1 ["asService"]
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K2 ["IsMultiTouchEnabled"]
+  JUMPIFNOT R0 [+61]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["_screenGui"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K4 ["Enabled"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_studioDeviceEmulatorService"]
+  NAMECALL R1 R1 K1 ["asService"]
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K5 ["PivotPosition"]
+  GETUPVAL R1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["_pivot"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K7 ["updateControlCirclePos"]
+  CALL R1 3 0
+  LOADN R3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K8 ["_touches"]
+  LENGTH R1 R4
+  LOADN R2 1
+  FORNPREP R1
+  GETUPVAL R4 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["_touches"]
+  GETTABLE R6 R7 R3
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["_studioDeviceEmulatorService"]
+  NAMECALL R7 R7 K1 ["asService"]
+  CALL R7 1 1
+  SUBK R9 R3 K9 [1]
+  NAMECALL R7 R7 K10 ["GetTouchPosition"]
+  CALL R7 2 -1
+  NAMECALL R4 R4 K7 ["updateControlCirclePos"]
+  CALL R4 -1 0
+  GETUPVAL R4 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K11 ["_connectingLines"]
+  GETTABLE R6 R7 R3
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K8 ["_touches"]
+  GETTABLE R7 R8 R3
+  NAMECALL R4 R4 K12 ["updateConnectingLine"]
+  CALL R4 3 0
+  FORNLOOP R1
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["_screenGui"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K4 ["Enabled"]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_studioDeviceEmulatorService"]
+  NAMECALL R1 R1 K1 ["asService"]
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K2 ["PivotPosition"]
+  GETUPVAL R1 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["_pivot"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K4 ["updateControlCirclePos"]
+  CALL R1 3 0
+  LOADN R3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["_touches"]
+  LENGTH R1 R4
+  LOADN R2 1
+  FORNPREP R1
+  GETUPVAL R4 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["_connectingLines"]
+  GETTABLE R6 R7 R3
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["_touches"]
+  GETTABLE R7 R8 R3
+  NAMECALL R4 R4 K7 ["updateConnectingLine"]
+  CALL R4 3 0
+  FORNLOOP R1
+  RETURN R0 0
+
+PROTO_2:
+  LOADN R2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["_touches"]
+  LENGTH R0 R3
+  LOADN R1 1
+  FORNPREP R0
+  GETUPVAL R3 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["_touches"]
+  GETTABLE R5 R6 R2
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["_studioDeviceEmulatorService"]
+  NAMECALL R6 R6 K2 ["asService"]
+  CALL R6 1 1
+  SUBK R8 R2 K3 [1]
+  NAMECALL R6 R6 K4 ["GetTouchPosition"]
+  CALL R6 2 -1
+  NAMECALL R3 R3 K5 ["updateControlCirclePos"]
+  CALL R3 -1 0
+  GETUPVAL R3 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["_connectingLines"]
+  GETTABLE R5 R6 R2
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["_touches"]
+  GETTABLE R6 R7 R2
+  NAMECALL R3 R3 K7 ["updateConnectingLine"]
+  CALL R3 3 0
+  FORNLOOP R0
+  RETURN R0 0
+
+PROTO_3:
+  LOADN R2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["_touches"]
+  LENGTH R0 R3
+  LOADN R1 1
+  FORNPREP R0
+  GETUPVAL R3 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["_touches"]
+  GETTABLE R5 R6 R2
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["_studioDeviceEmulatorService"]
+  NAMECALL R6 R6 K2 ["asService"]
+  CALL R6 1 1
+  SUBK R8 R2 K3 [1]
+  NAMECALL R6 R6 K4 ["GetTouchInBounds"]
+  CALL R6 2 -1
+  NAMECALL R3 R3 K5 ["updateControlCircleColor"]
+  CALL R3 -1 0
+  FORNLOOP R0
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R2 K6 [{"_studioDeviceEmulatorService", "_screenGui", "_pivot", "_touches", "_connectingLines", "_mock"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K7 ["new"]
+  LOADK R4 K8 ["StudioDeviceEmulatorService"]
+  MOVE R5 R0
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K0 ["_studioDeviceEmulatorService"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K1 ["_screenGui"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K2 ["_pivot"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K3 ["_touches"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K4 ["_connectingLines"]
+  SETTABLEKS R0 R2 K5 ["_mock"]
+  GETUPVAL R3 1
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K10 [setmetatable]
+  CALL R1 2 1
+  NAMECALL R2 R1 K11 ["initScreenGui"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K1 ["_screenGui"]
+  NAMECALL R2 R1 K12 ["makeNewPivotCircle"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K2 ["_pivot"]
+  LOADN R4 1
+  GETTABLEKS R5 R1 K0 ["_studioDeviceEmulatorService"]
+  NAMECALL R5 R5 K13 ["asService"]
+  CALL R5 1 1
+  NAMECALL R5 R5 K14 ["GetMaxNumTouches"]
+  CALL R5 1 1
+  MOVE R2 R5
+  LOADN R3 1
+  FORNPREP R2
+  GETTABLEKS R5 R1 K3 ["_touches"]
+  NAMECALL R6 R1 K15 ["makeNewControlCircle"]
+  CALL R6 1 1
+  SETTABLE R6 R5 R4
+  GETTABLEKS R5 R1 K4 ["_connectingLines"]
+  NAMECALL R6 R1 K16 ["makeNewConnectingLine"]
+  CALL R6 1 1
+  SETTABLE R6 R5 R4
+  FORNLOOP R2
+  JUMPIF R0 [+60]
+  GETTABLEKS R2 R1 K0 ["_studioDeviceEmulatorService"]
+  NAMECALL R2 R2 K17 ["asInstance"]
+  CALL R2 1 1
+  LOADK R4 K18 ["IsMultiTouchEnabled"]
+  NAMECALL R2 R2 K19 ["GetPropertyChangedSignal"]
+  CALL R2 2 1
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K20 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K21 ["_isMultiTouchEnabledChanged"]
+  GETTABLEKS R2 R1 K0 ["_studioDeviceEmulatorService"]
+  NAMECALL R2 R2 K17 ["asInstance"]
+  CALL R2 1 1
+  LOADK R4 K22 ["PivotPosition"]
+  NAMECALL R2 R2 K19 ["GetPropertyChangedSignal"]
+  CALL R2 2 1
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K20 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K23 ["_pivotPositionChanged"]
+  GETTABLEKS R3 R1 K0 ["_studioDeviceEmulatorService"]
+  NAMECALL R3 R3 K13 ["asService"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K24 ["TouchPositionsChanged"]
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K20 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K25 ["_touchPositionsChanged"]
+  GETTABLEKS R3 R1 K0 ["_studioDeviceEmulatorService"]
+  NAMECALL R3 R3 K13 ["asService"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K26 ["TouchInBoundsChanged"]
+  NEWCLOSURE R4 P3
+  CAPTURE VAL R1
+  NAMECALL R2 R2 K20 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K27 ["_touchInBoundsChanged"]
+  RETURN R1 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  LOADB R1 1
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["_mock"]
+  JUMPIF R1 [+20]
+  GETTABLEKS R1 R0 K1 ["_isMultiTouchEnabledChanged"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K3 ["_pivotPositionChanged"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K4 ["_touchPositionsChanged"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K5 ["_touchInBoundsChanged"]
+  NAMECALL R1 R1 K2 ["Disconnect"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K6 ["_screenGui"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K6 ["_screenGui"]
+  NAMECALL R1 R1 K7 ["Destroy"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K8 ["_studioDeviceEmulatorService"]
+  NAMECALL R1 R1 K9 ["destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETIMPORT R2 K1 [game]
+  GETTABLEKS R1 R2 K2 ["CoreGui"]
+  LOADK R3 K3 ["MultiTouchScreenGui"]
+  NAMECALL R1 R1 K4 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+4]
+  NAMECALL R2 R1 K5 ["ClearAllChildren"]
+  CALL R2 1 0
+  RETURN R1 1
+  GETIMPORT R2 K8 [Instance.new]
+  LOADK R3 K9 ["ScreenGui"]
+  CALL R2 1 1
+  MOVE R1 R2
+  LOADK R2 K3 ["MultiTouchScreenGui"]
+  SETTABLEKS R2 R1 K10 ["Name"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K11 ["IgnoreGuiInset"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K12 ["Enabled"]
+  GETIMPORT R3 K1 [game]
+  GETTABLEKS R2 R3 K2 ["CoreGui"]
+  SETTABLEKS R2 R1 K13 ["Parent"]
+  RETURN R1 1
+
+PROTO_8:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["Frame"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [UDim2.new]
+  LOADK R3 K6 [0.05]
+  LOADN R4 0
+  LOADK R5 K6 [0.05]
+  LOADN R6 0
+  CALL R2 4 1
+  SETTABLEKS R2 R1 K7 ["Size"]
+  GETIMPORT R2 K9 [Vector2.new]
+  LOADK R3 K10 [0.5]
+  LOADK R4 K10 [0.5]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K11 ["AnchorPoint"]
+  GETIMPORT R2 K14 [Color3.fromRGB]
+  LOADN R3 0
+  LOADN R4 0
+  LOADN R5 0
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K15 ["BackgroundColor3"]
+  LOADK R2 K10 [0.5]
+  SETTABLEKS R2 R1 K16 ["BackgroundTransparency"]
+  GETTABLEKS R2 R0 K17 ["_screenGui"]
+  SETTABLEKS R2 R1 K18 ["Parent"]
+  GETIMPORT R2 K2 [Instance.new]
+  LOADK R3 K19 ["UIAspectRatioConstraint"]
+  CALL R2 1 1
+  LOADN R3 1
+  SETTABLEKS R3 R2 K20 ["AspectRatio"]
+  SETTABLEKS R1 R2 K18 ["Parent"]
+  GETIMPORT R3 K2 [Instance.new]
+  LOADK R4 K21 ["UICorner"]
+  CALL R3 1 1
+  GETIMPORT R4 K23 [UDim.new]
+  LOADN R5 1
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K24 ["CornerRadius"]
+  SETTABLEKS R1 R3 K18 ["Parent"]
+  GETIMPORT R4 K2 [Instance.new]
+  LOADK R5 K25 ["UIStroke"]
+  CALL R4 1 1
+  LOADK R5 K10 [0.5]
+  SETTABLEKS R5 R4 K26 ["Transparency"]
+  SETTABLEKS R1 R4 K18 ["Parent"]
+  RETURN R1 1
+
+PROTO_9:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["Frame"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K4 ["_screenGui"]
+  SETTABLEKS R2 R1 K5 ["Parent"]
+  GETIMPORT R2 K7 [UDim2.new]
+  LOADK R3 K8 [0.01]
+  LOADN R4 0
+  LOADK R5 K8 [0.01]
+  LOADN R6 0
+  CALL R2 4 1
+  SETTABLEKS R2 R1 K9 ["Size"]
+  GETIMPORT R2 K11 [Vector2.new]
+  LOADK R3 K12 [0.5]
+  LOADK R4 K12 [0.5]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K13 ["AnchorPoint"]
+  GETIMPORT R2 K16 [Color3.fromRGB]
+  LOADN R3 0
+  LOADN R4 0
+  LOADN R5 0
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K17 ["BackgroundColor3"]
+  LOADK R2 K12 [0.5]
+  SETTABLEKS R2 R1 K18 ["BackgroundTransparency"]
+  GETIMPORT R2 K2 [Instance.new]
+  LOADK R3 K19 ["UIAspectRatioConstraint"]
+  CALL R2 1 1
+  LOADN R3 1
+  SETTABLEKS R3 R2 K20 ["AspectRatio"]
+  SETTABLEKS R1 R2 K5 ["Parent"]
+  GETIMPORT R3 K2 [Instance.new]
+  LOADK R4 K21 ["UICorner"]
+  CALL R3 1 1
+  GETIMPORT R4 K23 [UDim.new]
+  LOADN R5 1
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K24 ["CornerRadius"]
+  SETTABLEKS R1 R3 K5 ["Parent"]
+  RETURN R1 1
+
+PROTO_10:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["Frame"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K4 ["_screenGui"]
+  SETTABLEKS R2 R1 K5 ["Parent"]
+  GETIMPORT R2 K7 [Vector2.new]
+  LOADK R3 K8 [0.5]
+  LOADK R4 K8 [0.5]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K9 ["AnchorPoint"]
+  GETIMPORT R2 K12 [Color3.fromRGB]
+  LOADN R3 0
+  LOADN R4 0
+  LOADN R5 0
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K13 ["BackgroundColor3"]
+  RETURN R1 1
+
+PROTO_11:
+  GETIMPORT R3 K2 [UDim2.new]
+  LOADN R4 0
+  GETTABLEKS R5 R2 K3 ["x"]
+  LOADN R6 0
+  GETTABLEKS R7 R2 K4 ["y"]
+  CALL R3 4 1
+  SETTABLEKS R3 R1 K5 ["Position"]
+  RETURN R0 0
+
+PROTO_12:
+  JUMPIFNOT R2 [+9]
+  GETIMPORT R3 K2 [Color3.fromRGB]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R1 K3 ["BackgroundColor3"]
+  RETURN R0 0
+  GETIMPORT R3 K2 [Color3.fromRGB]
+  LOADN R4 255
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R1 K3 ["BackgroundColor3"]
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R6 R0 K0 ["_pivot"]
+  GETTABLEKS R5 R6 K1 ["Position"]
+  GETTABLEKS R4 R5 K2 ["X"]
+  GETTABLEKS R3 R4 K3 ["Offset"]
+  GETTABLEKS R7 R0 K0 ["_pivot"]
+  GETTABLEKS R6 R7 K1 ["Position"]
+  GETTABLEKS R5 R6 K4 ["Y"]
+  GETTABLEKS R4 R5 K3 ["Offset"]
+  GETTABLEKS R7 R2 K1 ["Position"]
+  GETTABLEKS R6 R7 K2 ["X"]
+  GETTABLEKS R5 R6 K3 ["Offset"]
+  GETTABLEKS R8 R2 K1 ["Position"]
+  GETTABLEKS R7 R8 K4 ["Y"]
+  GETTABLEKS R6 R7 K3 ["Offset"]
+  GETIMPORT R7 K7 [UDim2.new]
+  LOADN R8 0
+  SUB R12 R5 R3
+  POWK R11 R12 K8 [2]
+  SUB R13 R6 R4
+  POWK R12 R13 K8 [2]
+  ADD R10 R11 R12
+  FASTCALL1 MATH_SQRT R10 [+2]
+  GETIMPORT R9 K11 [math.sqrt]
+  CALL R9 1 1
+  LOADN R10 0
+  LOADK R11 K12 [0.5]
+  CALL R7 4 1
+  SETTABLEKS R7 R1 K13 ["Size"]
+  GETIMPORT R7 K7 [UDim2.new]
+  LOADN R8 0
+  ADD R10 R3 R5
+  DIVK R9 R10 K8 [2]
+  LOADN R10 0
+  ADD R12 R4 R6
+  DIVK R11 R12 K8 [2]
+  CALL R7 4 1
+  SETTABLEKS R7 R1 K1 ["Position"]
+  SUB R9 R6 R4
+  SUB R10 R5 R3
+  FASTCALL2 MATH_ATAN2 R9 R10 [+3]
+  GETIMPORT R8 K15 [math.atan2]
+  CALL R8 2 1
+  FASTCALL1 MATH_DEG R8 [+2]
+  GETIMPORT R7 K17 [math.deg]
+  CALL R7 1 1
+  SETTABLEKS R7 R1 K18 ["Rotation"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K7 ["TestHelpers"]
+  GETTABLEKS R2 R3 K8 ["ServiceWrapper"]
+  GETTABLEKS R4 R1 K9 ["ContextServices"]
+  GETTABLEKS R3 R4 K10 ["ContextItem"]
+  LOADK R6 K11 ["MultiTouchController"]
+  NAMECALL R4 R3 K12 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K13 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K14 ["new"]
+  DUPCLOSURE R5 K15 [PROTO_5]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K16 ["mock"]
+  DUPCLOSURE R5 K17 [PROTO_6]
+  SETTABLEKS R5 R4 K18 ["destroy"]
+  DUPCLOSURE R5 K19 [PROTO_7]
+  SETTABLEKS R5 R4 K20 ["initScreenGui"]
+  DUPCLOSURE R5 K21 [PROTO_8]
+  SETTABLEKS R5 R4 K22 ["makeNewControlCircle"]
+  DUPCLOSURE R5 K23 [PROTO_9]
+  SETTABLEKS R5 R4 K24 ["makeNewPivotCircle"]
+  DUPCLOSURE R5 K25 [PROTO_10]
+  SETTABLEKS R5 R4 K26 ["makeNewConnectingLine"]
+  DUPCLOSURE R5 K27 [PROTO_11]
+  SETTABLEKS R5 R4 K28 ["updateControlCirclePos"]
+  DUPCLOSURE R5 K29 [PROTO_12]
+  SETTABLEKS R5 R4 K30 ["updateControlCircleColor"]
+  DUPCLOSURE R5 K31 [PROTO_13]
+  SETTABLEKS R5 R4 K32 ["updateConnectingLine"]
+  RETURN R4 1

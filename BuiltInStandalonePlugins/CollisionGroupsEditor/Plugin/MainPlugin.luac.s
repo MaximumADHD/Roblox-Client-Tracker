@@ -1,0 +1,443 @@
+PROTO_0:
+  DUPTABLE R0 K1 [{"uiDmLoaded"}]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["uiDmLoaded"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  DUPCLOSURE R3 K0 [PROTO_0]
+  NAMECALL R1 R1 K1 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R0 K1 [{"uiDmLoaded"}]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["uiDmLoaded"]
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  DUPCLOSURE R3 K0 [PROTO_2]
+  NAMECALL R1 R1 K1 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R0 K1 [{"uiDmLoaded"}]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["uiDmLoaded"]
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["enabled"]
+  JUMPIFNOTEQ R0 R1 [+2]
+  RETURN R0 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K2 [{"enabled"}]
+  SETTABLEKS R0 R3 K1 ["enabled"]
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  LOADK R3 K4 ["WindowEnabledChanged"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K5 ["Invoke"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["enabled"]
+  NOT R0 R1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["enabled"]
+  JUMPIFNOTEQ R0 R1 [+2]
+  RETURN R0 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K2 [{"enabled"}]
+  SETTABLEKS R0 R3 K1 ["enabled"]
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  LOADK R3 K4 ["WindowEnabledChanged"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K5 ["Invoke"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K1 ["enabled"]
+  JUMPIFNOTEQKB R0 FALSE [+2]
+  RETURN R0 0
+  GETUPVAL R0 0
+  DUPTABLE R2 K2 [{"enabled"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K1 ["enabled"]
+  NAMECALL R0 R0 K3 ["setState"]
+  CALL R0 2 0
+  GETUPVAL R0 1
+  LOADK R2 K4 ["WindowEnabledChanged"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["Invoke"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETTABLEKS R1 R2 K1 ["enabled"]
+  JUMPIFNOTEQ R0 R1 [+2]
+  RETURN R0 0
+  GETUPVAL R1 0
+  DUPTABLE R3 K2 [{"enabled"}]
+  SETTABLEKS R0 R3 K1 ["enabled"]
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  LOADK R3 K4 ["WindowEnabledChanged"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K5 ["Invoke"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["Enabled"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["state"]
+  GETTABLEKS R2 R3 K2 ["enabled"]
+  JUMPIFNOTEQ R1 R2 [+2]
+  RETURN R0 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K3 [{"enabled"}]
+  SETTABLEKS R1 R4 K2 ["enabled"]
+  NAMECALL R2 R2 K4 ["setState"]
+  CALL R2 2 0
+  GETUPVAL R2 1
+  LOADK R4 K5 ["WindowEnabledChanged"]
+  MOVE R5 R1
+  NAMECALL R2 R2 K6 ["Invoke"]
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["WindowEnabledChanged"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["state"]
+  GETTABLEKS R3 R4 K2 ["enabled"]
+  NAMECALL R0 R0 K3 ["Invoke"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_11:
+  NEWTABLE R0 0 0
+  RETURN R0 1
+
+PROTO_12:
+  GETIMPORT R0 K1 [print]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["localization"]
+  LOADK R3 K3 ["Info"]
+  LOADK R4 K4 ["CannotModifyInPlayModeMessage"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 3 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R2 R1 K0 ["Plugin"]
+  DUPTABLE R3 K3 [{"enabled", "uiDmLoaded"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K1 ["enabled"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K2 ["uiDmLoaded"]
+  SETTABLEKS R3 R0 K4 ["state"]
+  GETTABLEKS R3 R2 K5 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R4 R3 K6 ["DataModelSessionStarted"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  NAMECALL R4 R4 K7 ["Connect"]
+  CALL R4 2 0
+  GETTABLEKS R4 R3 K8 ["DataModelSessionEnded"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  NAMECALL R4 R4 K7 ["Connect"]
+  CALL R4 2 0
+  GETTABLEKS R4 R3 K9 ["FocusedDataModelSession"]
+  JUMPIFNOT R4 [+4]
+  DUPCLOSURE R6 K10 [PROTO_4]
+  NAMECALL R4 R0 K11 ["setState"]
+  CALL R4 2 0
+  NEWCLOSURE R4 P3
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NEWCLOSURE R5 P4
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  SETTABLEKS R5 R0 K12 ["toggleEnabled"]
+  NEWCLOSURE R5 P5
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  SETTABLEKS R5 R0 K13 ["onClose"]
+  NEWCLOSURE R5 P6
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  SETTABLEKS R5 R0 K14 ["onRestore"]
+  NEWCLOSURE R5 P7
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  SETTABLEKS R5 R0 K15 ["onWidgetEnabledChanged"]
+  LOADK R7 K16 ["PollGuiEnabled"]
+  NEWCLOSURE R8 P8
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  NAMECALL R5 R2 K17 ["OnInvoke"]
+  CALL R5 3 1
+  SETTABLEKS R5 R0 K18 ["trackPollGuiEnabled"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K19 ["Localization"]
+  GETTABLEKS R5 R6 K20 ["new"]
+  DUPTABLE R6 K24 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R7 1
+  SETTABLEKS R7 R6 K21 ["stringResourceTable"]
+  GETUPVAL R7 2
+  SETTABLEKS R7 R6 K22 ["translationResourceTable"]
+  LOADK R7 K25 ["CGE"]
+  SETTABLEKS R7 R6 K23 ["pluginName"]
+  CALL R5 1 1
+  SETTABLEKS R5 R0 K26 ["localization"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K27 ["Analytics"]
+  GETTABLEKS R5 R6 K20 ["new"]
+  DUPCLOSURE R6 K28 [PROTO_11]
+  NEWTABLE R7 0 0
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K29 ["analytics"]
+  GETUPVAL R5 3
+  JUMPIFNOT R5 [+4]
+  NEWCLOSURE R5 P10
+  CAPTURE VAL R0
+  SETTABLEKS R5 R0 K30 ["onAttemptModifyInPlayMode"]
+  RETURN R0 0
+
+PROTO_14:
+  GETTABLEKS R3 R0 K0 ["state"]
+  GETTABLEKS R2 R3 K1 ["enabled"]
+  DUPTABLE R3 K3 [{"Toggle"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K13 [{"Toolbar", "Active", "Id", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+  SETTABLEKS R1 R6 K5 ["Toolbar"]
+  SETTABLEKS R2 R6 K6 ["Active"]
+  LOADK R7 K14 ["collisionGroupsEditorButton"]
+  SETTABLEKS R7 R6 K7 ["Id"]
+  GETTABLEKS R7 R0 K15 ["localization"]
+  LOADK R9 K16 ["Main"]
+  LOADK R10 K8 ["Title"]
+  NAMECALL R7 R7 K17 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K8 ["Title"]
+  GETTABLEKS R7 R0 K15 ["localization"]
+  LOADK R9 K16 ["Main"]
+  LOADK R10 K8 ["Title"]
+  NAMECALL R7 R7 K17 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K9 ["Tooltip"]
+  LOADK R7 K18 ["rbxlocaltheme://CollisionGroups"]
+  SETTABLEKS R7 R6 K10 ["Icon"]
+  GETTABLEKS R7 R0 K19 ["toggleEnabled"]
+  SETTABLEKS R7 R6 K11 ["OnClick"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K12 ["ClickableWhenViewportHidden"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["Toggle"]
+  RETURN R3 1
+
+PROTO_15:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["renderButtons"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Plugin"]
+  GETTABLEKS R4 R2 K3 ["enabled"]
+  JUMPIFNOT R4 [+2]
+  GETTABLEKS R4 R2 K4 ["uiDmLoaded"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["provide"]
+  NEWTABLE R6 0 5
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K6 ["new"]
+  MOVE R8 R3
+  CALL R7 1 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K6 ["new"]
+  NAMECALL R9 R3 K7 ["getMouse"]
+  CALL R9 1 -1
+  CALL R8 -1 1
+  GETUPVAL R9 3
+  CALL R9 0 1
+  GETTABLEKS R10 R0 K8 ["localization"]
+  GETTABLEKS R11 R0 K9 ["analytics"]
+  SETLIST R6 R7 5 [1]
+  DUPTABLE R7 K12 [{"Toolbar", "MainWidget"}]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K13 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K16 [{"Title", "RenderButtons"}]
+  LOADK R11 K17 ["collisionGroupsEditorToolbar"]
+  SETTABLEKS R11 R10 K14 ["Title"]
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R0
+  SETTABLEKS R11 R10 K15 ["RenderButtons"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K10 ["Toolbar"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K13 ["createElement"]
+  GETUPVAL R9 6
+  NEWTABLE R10 16 0
+  GETUPVAL R12 7
+  JUMPIFNOT R12 [+2]
+  LOADK R11 K18 ["CollisionGroupsEditor"]
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K19 ["Id"]
+  SETTABLEKS R4 R10 K20 ["Enabled"]
+  GETTABLEKS R11 R0 K8 ["localization"]
+  LOADK R13 K21 ["Main"]
+  LOADK R14 K14 ["Title"]
+  NAMECALL R11 R11 K22 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K14 ["Title"]
+  GETIMPORT R11 K26 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K24 ["ZIndexBehavior"]
+  GETIMPORT R11 K29 [Enum.InitialDockState.Right]
+  SETTABLEKS R11 R10 K27 ["InitialDockState"]
+  GETIMPORT R11 K31 [Vector2.new]
+  LOADN R12 128
+  LOADN R13 224
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K32 ["Size"]
+  GETIMPORT R11 K31 [Vector2.new]
+  LOADN R12 128
+  LOADN R13 200
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K33 ["MinSize"]
+  GETTABLEKS R11 R0 K34 ["onClose"]
+  SETTABLEKS R11 R10 K35 ["OnClose"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K36 ["ShouldRestore"]
+  GETTABLEKS R11 R0 K37 ["onRestore"]
+  SETTABLEKS R11 R10 K38 ["OnWidgetRestored"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K39 ["Change"]
+  GETTABLEKS R11 R12 K20 ["Enabled"]
+  GETTABLEKS R12 R0 K40 ["onWidgetEnabledChanged"]
+  SETTABLE R12 R10 R11
+  DUPTABLE R11 K42 [{"Gui"}]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K13 ["createElement"]
+  GETUPVAL R13 8
+  DUPTABLE R14 K45 [{"plugin", "OnAttemptModifyInPlayMode"}]
+  SETTABLEKS R3 R14 K43 ["plugin"]
+  GETUPVAL R16 9
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R15 R0 K46 ["onAttemptModifyInPlayMode"]
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K44 ["OnAttemptModifyInPlayMode"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K41 ["Gui"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K11 ["MainWidget"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_17:
+  GETTABLEKS R1 R0 K0 ["trackPollGuiEnabled"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioFixPluginWidgetLocalizedIds"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K12 ["UI"]
+  GETTABLEKS R5 R4 K13 ["DockWidget"]
+  GETTABLEKS R6 R4 K14 ["PluginButton"]
+  GETTABLEKS R7 R4 K15 ["PluginToolbar"]
+  GETTABLEKS R8 R3 K16 ["ContextServices"]
+  GETTABLEKS R9 R8 K17 ["Plugin"]
+  GETTABLEKS R10 R8 K18 ["Mouse"]
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R13 R1 K19 ["Resources"]
+  GETTABLEKS R12 R13 K20 ["MakeTheme"]
+  CALL R11 1 1
+  GETTABLEKS R13 R1 K19 ["Resources"]
+  GETTABLEKS R12 R13 K21 ["SourceStrings"]
+  GETTABLEKS R14 R1 K19 ["Resources"]
+  GETTABLEKS R13 R14 K22 ["LocalizedStrings"]
+  GETTABLEKS R15 R1 K17 ["Plugin"]
+  GETTABLEKS R14 R15 K23 ["Components"]
+  GETIMPORT R15 K8 [require]
+  GETTABLEKS R16 R14 K24 ["Gui"]
+  CALL R15 1 1
+  GETIMPORT R16 K1 [game]
+  LOADK R18 K25 ["FixCGEPlayMode"]
+  NAMECALL R16 R16 K3 ["GetFastFlag"]
+  CALL R16 2 1
+  GETTABLEKS R17 R2 K26 ["PureComponent"]
+  LOADK R19 K27 ["MainPlugin"]
+  NAMECALL R17 R17 K28 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K29 [PROTO_13]
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  SETTABLEKS R18 R17 K30 ["init"]
+  DUPCLOSURE R18 K31 [PROTO_14]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  SETTABLEKS R18 R17 K32 ["renderButtons"]
+  DUPCLOSURE R18 K33 [PROTO_16]
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R0
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  SETTABLEKS R18 R17 K34 ["render"]
+  DUPCLOSURE R18 K35 [PROTO_17]
+  SETTABLEKS R18 R17 K36 ["willUnmount"]
+  RETURN R17 1

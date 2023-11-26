@@ -1,0 +1,39 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K2 [{"render"}]
+  SETTABLEKS R0 R3 K1 ["render"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R2 R0 K3 ["Core"]
+  GETTABLEKS R1 R2 K4 ["Consumers"]
+  GETTABLEKS R2 R0 K5 ["Packages"]
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R4 R2 K8 ["Roact"]
+  CALL R3 1 1
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R7 R0 K3 ["Core"]
+  GETTABLEKS R6 R7 K9 ["Util"]
+  GETTABLEKS R5 R6 K10 ["wrapStrictTable"]
+  CALL R4 1 1
+  GETIMPORT R5 K7 [require]
+  GETTABLEKS R6 R1 K11 ["LocalizationConsumer"]
+  CALL R5 1 1
+  NEWTABLE R6 1 0
+  DUPCLOSURE R7 K12 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K13 ["withLocalization"]
+  MOVE R7 R4
+  MOVE R8 R6
+  LOADK R9 K14 ["ContextHelper"]
+  CALL R7 2 -1
+  RETURN R7 -1

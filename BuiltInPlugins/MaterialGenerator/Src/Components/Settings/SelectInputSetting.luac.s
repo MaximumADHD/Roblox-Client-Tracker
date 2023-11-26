@@ -1,0 +1,161 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["OnValueChanged"]
+  JUMPIFNOT R2 [+4]
+  GETTABLEKS R2 R1 K1 ["OnValueChanged"]
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["itemActivated"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K1 ["Stylizer"]
+  GETTABLEKS R2 R3 K2 ["Setting"]
+  GETTABLEKS R3 R2 K3 ["HorizontalSpacing"]
+  GETTABLEKS R4 R1 K4 ["Disabled"]
+  GETTABLEKS R5 R1 K5 ["Items"]
+  GETTABLEKS R6 R1 K6 ["LabelWidth"]
+  GETUPVAL R7 0
+  GETTABLEKS R8 R1 K7 ["Size"]
+  GETTABLEKS R9 R2 K7 ["Size"]
+  CALL R7 2 1
+  JUMPIFNOT R4 [+4]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K4 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R8
+  GETTABLEKS R9 R1 K8 ["Value"]
+  LOADNIL R10
+  MOVE R11 R5
+  LOADNIL R12
+  LOADNIL R13
+  FORGPREP R11
+  JUMPIFNOTEQ R15 R9 [+3]
+  MOVE R10 R14
+  JUMP [+2]
+  FORGLOOP R11 2 [-5]
+  ADD R11 R6 R3
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K9 ["createElement"]
+  GETUPVAL R13 3
+  DUPTABLE R14 K15 [{"HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing", "VerticalAlignment"}]
+  GETIMPORT R15 K18 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R15 R14 K10 ["HorizontalAlignment"]
+  GETIMPORT R15 K21 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R15 R14 K11 ["Layout"]
+  GETTABLEKS R15 R1 K12 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K12 ["LayoutOrder"]
+  SETTABLEKS R7 R14 K7 ["Size"]
+  SETTABLEKS R3 R14 K13 ["Spacing"]
+  GETIMPORT R15 K23 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R15 R14 K14 ["VerticalAlignment"]
+  DUPTABLE R15 K26 [{"Label", "SelectInput"}]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K9 ["createElement"]
+  GETUPVAL R17 4
+  DUPTABLE R18 K30 [{"LayoutOrder", "Size", "StyleModifier", "Text", "TextXAlignment"}]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K12 ["LayoutOrder"]
+  GETIMPORT R19 K33 [UDim2.new]
+  LOADN R20 0
+  MOVE R21 R6
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K7 ["Size"]
+  SETTABLEKS R8 R18 K27 ["StyleModifier"]
+  GETTABLEKS R19 R1 K28 ["Text"]
+  SETTABLEKS R19 R18 K28 ["Text"]
+  GETIMPORT R19 K34 [Enum.TextXAlignment.Left]
+  SETTABLEKS R19 R18 K29 ["TextXAlignment"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K24 ["Label"]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K9 ["createElement"]
+  GETUPVAL R17 5
+  DUPTABLE R18 K41 [{"Enabled", "ErrorText", "Icons", "Items", "LayoutOrder", "OnItemActivated", "PlaceholderText", "SelectedIndex", "Size"}]
+  NOT R19 R4
+  SETTABLEKS R19 R18 K35 ["Enabled"]
+  GETTABLEKS R19 R1 K36 ["ErrorText"]
+  SETTABLEKS R19 R18 K36 ["ErrorText"]
+  GETTABLEKS R19 R1 K37 ["Icons"]
+  SETTABLEKS R19 R18 K37 ["Icons"]
+  GETTABLEKS R19 R1 K5 ["Items"]
+  SETTABLEKS R19 R18 K5 ["Items"]
+  LOADN R19 2
+  SETTABLEKS R19 R18 K12 ["LayoutOrder"]
+  GETTABLEKS R19 R0 K42 ["itemActivated"]
+  SETTABLEKS R19 R18 K38 ["OnItemActivated"]
+  GETTABLEKS R19 R1 K39 ["PlaceholderText"]
+  SETTABLEKS R19 R18 K39 ["PlaceholderText"]
+  SETTABLEKS R10 R18 K40 ["SelectedIndex"]
+  GETIMPORT R19 K33 [UDim2.new]
+  LOADN R20 1
+  MINUS R21 R11
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K7 ["Size"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K25 ["SelectInput"]
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R6 R1 K10 ["Style"]
+  GETTABLEKS R5 R6 K11 ["Stylizer"]
+  GETTABLEKS R6 R1 K12 ["UI"]
+  GETTABLEKS R7 R6 K13 ["Pane"]
+  GETTABLEKS R8 R6 K14 ["SelectInput"]
+  GETTABLEKS R9 R6 K15 ["TextLabel"]
+  GETTABLEKS R10 R1 K16 ["Util"]
+  GETTABLEKS R11 R10 K17 ["StyleModifier"]
+  GETTABLEKS R12 R10 K18 ["prioritize"]
+  GETTABLEKS R13 R2 K19 ["PureComponent"]
+  LOADK R15 K20 ["SelectInputSetting"]
+  NAMECALL R13 R13 K21 ["extend"]
+  CALL R13 2 1
+  DUPTABLE R14 K23 [{"Disabled"}]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K22 ["Disabled"]
+  SETTABLEKS R14 R13 K24 ["defaultProps"]
+  DUPCLOSURE R14 K25 [PROTO_1]
+  SETTABLEKS R14 R13 K26 ["init"]
+  DUPCLOSURE R14 K27 [PROTO_2]
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  SETTABLEKS R14 R13 K28 ["render"]
+  MOVE R14 R4
+  DUPTABLE R15 K29 [{"Stylizer"}]
+  SETTABLEKS R5 R15 K11 ["Stylizer"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 -1
+  RETURN R14 -1

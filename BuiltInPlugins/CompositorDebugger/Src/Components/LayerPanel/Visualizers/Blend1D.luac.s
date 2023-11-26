@@ -1,0 +1,48 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  GETTABLEKS R4 R0 K1 ["props"]
+  DUPTABLE R5 K4 [{"Show2D", "Stylizer"}]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K2 ["Show2D"]
+  GETTABLEKS R8 R0 K1 ["props"]
+  GETTABLEKS R7 R8 K3 ["Stylizer"]
+  GETTABLEKS R6 R7 K5 ["Blend"]
+  SETTABLEKS R6 R5 K3 ["Stylizer"]
+  CALL R3 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["Dash"]
+  GETTABLEKS R4 R3 K10 ["join"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K11 ["Parent"]
+  GETTABLEKS R6 R7 K12 ["BlendBase"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K13 ["PureComponent"]
+  LOADK R8 K14 ["Blend1DVisualization"]
+  NAMECALL R6 R6 K15 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K16 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K17 ["render"]
+  RETURN R6 1

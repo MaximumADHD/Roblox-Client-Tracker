@@ -1,0 +1,331 @@
+PROTO_0:
+  LOADK R1 K0 ["Symbol("]
+  GETUPVAL R2 0
+  LOADK R3 K1 [")"]
+  CONCAT R0 R1 R3
+  RETURN R0 1
+
+PROTO_1:
+  GETIMPORT R1 K1 [newproxy]
+  LOADB R2 1
+  CALL R1 1 1
+  FASTCALL1 GETMETATABLE R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K3 [getmetatable]
+  CALL R2 1 1
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K4 ["__tostring"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Cryo"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_1]
+  DUPTABLE R3 K30 [{"NoAccessKey", "PlayKey", "EditKey", "NoEditMustBeFriendKey", "NoUserEditGroupGameKey", "AdminKey", "OwnerKey", "MultipleKey", "UserSubjectKey", "GroupSubjectKey", "RoleSubjectKey", "ActionKey", "SubjectIdKey", "SubjectNameKey", "SubjectTypeKey", "SubjectRankKey", "GroupIdKey", "GroupNameKey", "GroupMemberCountKey", "IsFriendKey", "IsEligibleKey", "EligibilityTextKey"}]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K35 ["NoAccessPermission"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K8 ["NoAccessKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K37 ["PlayPermission"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K9 ["PlayKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K38 ["EditPermission"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K10 ["EditKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K39 ["NoEditMustBeFriendPermission"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K11 ["NoEditMustBeFriendKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K40 ["NoUserEditGroupGamePermission"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K12 ["NoUserEditGroupGameKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K41 ["AdminPermission"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K13 ["AdminKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K42 ["OwnerPermission"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K14 ["OwnerKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K43 ["MultiplePermission"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K15 ["MultipleKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K44 ["UserSubjectType"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K16 ["UserSubjectKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K45 ["GroupSubjectType"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K17 ["GroupSubjectKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K46 ["RoleSubjectType"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K18 ["RoleSubjectKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K47 ["Action"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K19 ["ActionKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K48 ["SubjectId"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K20 ["SubjectIdKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K49 ["SubjectName"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K21 ["SubjectNameKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K50 ["SubjectType"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K22 ["SubjectTypeKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K51 ["SubjectRank"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K23 ["SubjectRankKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K52 ["GroupId"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K24 ["GroupIdKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K53 ["GroupName"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K25 ["GroupNameKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K26 ["GroupMemberCountKey"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K26 ["GroupMemberCountKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K54 ["IsFriend"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K27 ["IsFriendKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K55 ["IsEligible"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K28 ["IsEligibleKey"]
+  GETIMPORT R5 K32 [newproxy]
+  LOADB R6 1
+  CALL R5 1 1
+  FASTCALL1 GETMETATABLE R5 [+3]
+  MOVE R7 R5
+  GETIMPORT R6 K34 [getmetatable]
+  CALL R6 1 1
+  LOADK R8 K56 ["EligibilityText"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R8
+  SETTABLEKS R7 R6 K36 ["__tostring"]
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K29 ["EligibilityTextKey"]
+  DUPTABLE R4 K60 [{"DEPRECATED_MaxSearchResultsPerSubjectType", "MaxSearchResultsPerSubjectTypeUsers", "MaxSearchResultsPerSubjectTypeGroups"}]
+  LOADN R5 3
+  SETTABLEKS R5 R4 K57 ["DEPRECATED_MaxSearchResultsPerSubjectType"]
+  LOADN R5 3
+  SETTABLEKS R5 R4 K58 ["MaxSearchResultsPerSubjectTypeUsers"]
+  LOADN R5 2
+  SETTABLEKS R5 R4 K59 ["MaxSearchResultsPerSubjectTypeGroups"]
+  GETTABLEKS R6 R1 K61 ["Dictionary"]
+  GETTABLEKS R5 R6 K62 ["join"]
+  MOVE R6 R3
+  MOVE R7 R4
+  CALL R5 2 -1
+  RETURN R5 -1
