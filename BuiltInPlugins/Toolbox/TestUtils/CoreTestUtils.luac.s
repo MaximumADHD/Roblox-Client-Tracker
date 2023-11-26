@@ -63,7 +63,7 @@ PROTO_2:
   DUPTABLE R3 K3 [{"StudioAssetService"}]
   SETTABLEKS R0 R3 K2 ["StudioAssetService"]
   CALL R2 1 -1
-  SETLIST R1 R2 4294967295 [1]
+  SETLIST R1 R2 -1 [1]
   RETURN R1 1
 
 MAIN:

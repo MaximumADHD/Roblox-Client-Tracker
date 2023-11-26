@@ -40,7 +40,7 @@ PROTO_5:
   GETTABLEKS R4 R5 K5 ["createMockList"]
   LOADK R5 K7 ["Essentials"]
   CALL R4 1 -1
-  SETLIST R0 R1 4294967295 [1]
+  SETLIST R0 R1 -1 [1]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K8 ["createElement"]
   GETUPVAL R2 2

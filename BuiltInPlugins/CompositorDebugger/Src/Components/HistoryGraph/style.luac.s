@@ -37,7 +37,7 @@ MAIN:
   LOADK R10 K30 [0.75]
   LOADN R11 0
   CALL R8 3 -1
-  SETLIST R6 R7 4294967295 [1]
+  SETLIST R6 R7 -1 [1]
   SETTABLEKS R6 R5 K23 ["Vector2"]
   NEWTABLE R6 0 3
   GETIMPORT R7 K29 [Color3.new]
@@ -55,7 +55,7 @@ MAIN:
   LOADN R11 0
   LOADK R12 K30 [0.75]
   CALL R9 3 -1
-  SETLIST R6 R7 4294967295 [1]
+  SETLIST R6 R7 -1 [1]
   SETTABLEKS R6 R5 K24 ["Vector3"]
   SETTABLEKS R5 R4 K15 ["GraphColors"]
   DUPTABLE R5 K36 [{"MaxTicks", "Intervals", "AxisColor", "GridColor", "Margin"}]

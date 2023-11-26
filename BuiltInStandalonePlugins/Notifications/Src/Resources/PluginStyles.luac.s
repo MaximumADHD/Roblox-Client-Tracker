@@ -23,7 +23,7 @@ MAIN:
   LOADK R12 K14 ["$SecondaryHoverBackground"]
   SETTABLEKS R12 R11 K12 ["BackgroundColor3"]
   CALL R9 2 -1
-  SETLIST R8 R9 4294967295 [1]
+  SETLIST R8 R9 -1 [1]
   CALL R5 3 1
   MOVE R6 R2
   LOADK R7 K15 [".Plugin-Icon-Settings"]
@@ -55,7 +55,7 @@ MAIN:
   LOADK R13 K26 ["$StaticDevForumAnnouncements"]
   SETTABLEKS R13 R12 K16 ["Image"]
   CALL R10 2 -1
-  SETLIST R4 R5 4294967295 [1]
+  SETLIST R4 R5 -1 [1]
   MOVE R5 R3
   LOADK R6 K27 ["NotificationsPlugin"]
   MOVE R7 R4

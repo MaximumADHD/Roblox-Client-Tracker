@@ -94,7 +94,7 @@ PROTO_6:
   LOADK R10 K15 ["ButtonSave"]
   NAMECALL R7 R2 K11 ["getText"]
   CALL R7 3 -1
-  SETLIST R5 R6 4294967295 [1]
+  SETLIST R5 R6 -1 [1]
   SETTABLEKS R5 R4 K7 ["Buttons"]
   SETTABLEKS R4 R3 K1 ["isActive"]
   DUPTABLE R4 K8 [{"Title", "Header", "Description", "Buttons"}]
@@ -122,7 +122,7 @@ PROTO_6:
   LOADK R10 K20 ["ReplyYes"]
   NAMECALL R7 R2 K11 ["getText"]
   CALL R7 3 -1
-  SETLIST R5 R6 4294967295 [1]
+  SETLIST R5 R6 -1 [1]
   SETTABLEKS R5 R4 K7 ["Buttons"]
   SETTABLEKS R4 R3 K2 ["universeAvatarType"]
   DUPTABLE R4 K22 [{"Size", "Title", "Header", "Buttons"}]
@@ -146,7 +146,7 @@ PROTO_6:
   LOADK R9 K28 ["ReplyOK"]
   NAMECALL R6 R2 K11 ["getText"]
   CALL R6 3 -1
-  SETLIST R5 R6 4294967295 [1]
+  SETLIST R5 R6 -1 [1]
   SETTABLEKS R5 R4 K7 ["Buttons"]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K24 ["new"]

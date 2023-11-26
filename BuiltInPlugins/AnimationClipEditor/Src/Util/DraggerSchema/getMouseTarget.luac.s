@@ -166,7 +166,7 @@ PROTO_3:
   GETTABLEKS R7 R8 K9 ["findRootPart"]
   GETTABLEKS R8 R0 K0 ["RootInstance"]
   CALL R7 1 -1
-  SETLIST R6 R7 4294967295 [1]
+  SETLIST R6 R7 -1 [1]
   SETTABLEKS R6 R5 K10 ["FilterDescendantsInstances"]
   LOADB R6 1
   SETTABLEKS R6 R5 K11 ["BruteForceAllSlow"]

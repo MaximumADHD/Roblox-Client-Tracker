@@ -38,7 +38,7 @@ PROTO_4:
   GETTABLEKS R3 R4 K2 ["fromUniverseData"]
   GETTABLEKS R4 R0 K3 ["props"]
   CALL R3 1 -1
-  SETLIST R2 R3 4294967295 [1]
+  SETLIST R2 R3 -1 [1]
   SETTABLEKS R2 R1 K0 ["templates"]
   GETTABLEKS R3 R0 K3 ["props"]
   GETTABLEKS R2 R3 K4 ["ThemeData"]

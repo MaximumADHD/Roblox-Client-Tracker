@@ -246,7 +246,7 @@ PROTO_6:
   GETTABLEKS R12 R0 K11 ["draggerContext"]
   CALL R11 1 -1
   CALL R8 -1 -1
-  SETLIST R6 R7 4294967295 [1]
+  SETLIST R6 R7 -1 [1]
   SETTABLEKS R6 R5 K32 ["HandlesList"]
   SETTABLEKS R5 R4 K23 ["DraggerSettings"]
   SETTABLEKS R4 R0 K42 ["draggerProps"]

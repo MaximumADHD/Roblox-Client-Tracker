@@ -157,7 +157,7 @@ PROTO_11:
   LOADK R9 K23 ["ValidationErrorUnknown"]
   NAMECALL R6 R6 K20 ["getText"]
   CALL R6 3 -1
-  SETLIST R5 R6 4294967295 [1]
+  SETLIST R5 R6 -1 [1]
   GETUPVAL R6 0
   NEWCLOSURE R8 P1
   CAPTURE UPVAL U4
@@ -476,7 +476,7 @@ PROTO_23:
   LOADK R5 K6 ["ValidationErrorBadSelectionCount"]
   NAMECALL R2 R2 K7 ["getText"]
   CALL R2 3 -1
-  SETLIST R1 R2 4294967295 [1]
+  SETLIST R1 R2 -1 [1]
   SETTABLEKS R1 R0 K1 ["validationFailureReasons"]
   RETURN R0 1
 
@@ -804,7 +804,7 @@ PROTO_29:
   LOADK R5 K6 ["ValidationErrorBadSelectionCount"]
   NAMECALL R2 R2 K7 ["getText"]
   CALL R2 3 -1
-  SETLIST R1 R2 4294967295 [1]
+  SETLIST R1 R2 -1 [1]
   SETTABLEKS R1 R0 K1 ["validationFailureReasons"]
   RETURN R0 1
 
@@ -1091,7 +1091,7 @@ PROTO_35:
   SETTABLEKS R26 R25 K43 ["itemName"]
   NAMECALL R21 R21 K45 ["getText"]
   CALL R21 4 -1
-  SETLIST R20 R21 4294967295 [1]
+  SETLIST R20 R21 -1 [1]
   JUMP [+1]
   LOADNIL R20
   SETTABLEKS R20 R19 K37 ["errors"]
