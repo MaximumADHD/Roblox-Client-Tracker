@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/3926900/106975524-55bb1000-671c-11eb-9b5c-e425c7ae6414.png">
+<img src="https://github.com/MaximumADHD/Roblox-Client-Tracker/assets/3926900/ff0ba96d-e133-48a8-8541-80fc6ca21f52">
 </p>
 
 <hr/>
