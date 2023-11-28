@@ -8,6 +8,9 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local useSelectionCursor = require(UIBlox.App.SelectionImage.useSelectionCursor)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
+local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
+local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Constants = require(script.Parent.Constants)
 
 type SpringOptions = ReactOtter.SpringOptions
@@ -37,6 +40,8 @@ export type Props = {
 	items: { Item },
 	-- GroupTransparency for fade in&out transparency animation
 	groupTransparency: number,
+	-- Show selection cursor
+	showCursor: boolean?,
 	-- Item's selection cursor kind
 	selectionCursor: any,
 	-- Expanded height offset
@@ -143,7 +148,9 @@ local function MediaGalleryExpandableView(providedProps: Props)
 		} :: { any }
 	)
 
-	local selectionCursor = useSelectionCursor(props.selectionCursor)
+	local selectionCursor = if UIBloxConfig.useNewSelectionCursor
+		then (if props.showCursor then useCursor(borderRadius) else useSelectionCursor(CursorKind.Invisible))
+		else useSelectionCursor(props.selectionCursor)
 	local itemsArray = React.useMemo(function()
 		local newItems = {}
 		for index, item in props.items do

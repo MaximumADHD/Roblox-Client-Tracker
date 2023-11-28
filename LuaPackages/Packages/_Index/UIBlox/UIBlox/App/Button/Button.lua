@@ -24,6 +24,8 @@ local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
 local Images = require(App.ImageSet.Images)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Button = React.PureComponent:extend("Button")
 
@@ -79,6 +81,8 @@ local IS_HOVER_BACKGROUND_ENABLED = {
 	[ButtonType.PrimarySystem] = false,
 	[ButtonType.Secondary] = false,
 }
+
+local CORNER_RADIUS = UDim.new(0, 8)
 
 Button.validateProps = t.strictInterface({
 	[React.Tag] = isReactTagProp,
@@ -142,6 +146,8 @@ Button.validateProps = t.strictInterface({
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	buttonRef = t.optional(t.table),
+	-- Optional selection cursor
+	cursor = t.optional(t.any),
 
 	[React.Change.AbsoluteSize] = t.optional(t.callback),
 	[React.Change.AbsolutePosition] = t.optional(t.callback),
@@ -164,7 +170,9 @@ function Button:render()
 			AnchorPoint = self.props.anchorPoint,
 			Position = self.props.position,
 			LayoutOrder = self.props.layoutOrder,
-			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
+			SelectionImageObject = if self.props.cursor
+				then self.props.cursor
+				else getSelectionCursor(CursorKind.RoundedRectNoInset),
 			icon = self.props.icon,
 			text = self.props.text,
 			inputIcon = self.props.inputIcon,
@@ -198,9 +206,16 @@ function Button:render()
 	end)
 end
 
+local ButtonFunctionalWrapper = function(passedProps)
+	local props = Cryo.Dictionary.join({
+		cursor = useCursor(CORNER_RADIUS),
+	}, passedProps)
+	return React.createElement(Button, props)
+end
+
 local ButtonForwardRef = React.forwardRef(function(props, ref)
 	return React.createElement(
-		Button,
+		if UIBloxConfig.useNewSelectionCursor then ButtonFunctionalWrapper else Button,
 		Cryo.Dictionary.join(props, {
 			buttonRef = ref,
 		})

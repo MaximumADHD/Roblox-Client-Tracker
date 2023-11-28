@@ -1,3 +1,4 @@
+--!strict
 --[[
 	An alternative to useRef that avoids creating the initial value when it is not needed.
 
@@ -12,12 +13,18 @@ local Packages = UIBloxRoot.Parent
 
 local React = require(Packages.React)
 
-local function useLazyRef(initFunction)
-	local ref = React.useRef(nil)
+-- Normally, a ref can always have a nil value; for our purposes, we ensure that
+-- it's always created and should guarantee that in the return value
+type ObjectRef<T> = {
+	current: T,
+}
+
+local function useLazyRef<T>(initFunction: () -> T): ObjectRef<T>
+	local ref = React.useRef(nil :: T?)
 	if ref.current == nil then
 		ref.current = initFunction()
 	end
-	return ref
+	return (ref :: any) :: ObjectRef<T>
 end
 
 return useLazyRef

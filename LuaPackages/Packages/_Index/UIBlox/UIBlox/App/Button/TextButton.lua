@@ -27,6 +27,9 @@ local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 local EnableTextButtonsInActionBar = UIBloxConfig.enableTextButtonsInActionBar
+local withCursor = require(UIBlox.App.SelectionCursor.withCursor)
+
+local CORNER_RADIUS = UDim.new(0, 8)
 
 local TextButton = Roact.PureComponent:extend("TextButton")
 TextButton.debugProps = enumerate("debugProps", {
@@ -127,7 +130,13 @@ function TextButton:render()
 	if EnableTextButtonsInActionBar then
 		return withStyle(function(style)
 			return withSelectionCursorProvider(function(getSelectionCursor)
-				return self:renderWithProviders(style, getSelectionCursor)
+				if UIBloxConfig.useNewSelectionCursor then
+					return withCursor(function(context)
+						return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
+					end)
+				else
+					return self:renderWithProviders(style, getSelectionCursor)
+				end
 			end)
 		end)
 	end
@@ -136,7 +145,7 @@ function TextButton:render()
 	end)
 end
 
-function TextButton:renderWithProviders(style, getSelectionCursor)
+function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 	local currentState = self.props[TextButton.debugProps.controlState] or self.state.controlState
 
 	local textStateColorMap = {
@@ -174,7 +183,9 @@ function TextButton:renderWithProviders(style, getSelectionCursor)
 		BackgroundTransparency = 1,
 		AutoButtonColor = false,
 
-		SelectionImageObject = getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset),
+		SelectionImageObject = if getCursor
+			then getCursor(CORNER_RADIUS)
+			else (getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset)),
 		[Roact.Event.Activated] = self.props.onActivated,
 	}, {
 		sizeConstraint = Roact.createElement("UISizeConstraint", {
@@ -199,7 +210,7 @@ function TextButton:renderWithProviders(style, getSelectionCursor)
 			ZIndex = if UIBloxConfig.useNewThemeColorPalettes then -10 else 0,
 		}, {
 			corner = Roact.createElement("UICorner", {
-				CornerRadius = UDim.new(0, 8),
+				CornerRadius = CORNER_RADIUS,
 			}),
 		}) or nil,
 	})
