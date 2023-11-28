@@ -4510,6 +4510,12 @@
             <string name="FFlag">VoiceServiceEnableDefaultVoice</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">UseAudioApi</string>
+            <string name="FFlag">VoiceInputUseNewAudioApi5</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 

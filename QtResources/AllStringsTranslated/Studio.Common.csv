@@ -9,7 +9,7 @@ Studio.Common.Action.Create,,,Create,Create,,Erstellen,Crear,Créer,,Crea,作成
 Studio.Common.Action.Cut,,,Cut,Cut,,Ausschneiden,Cortar,Couper,,Taglia,切り抜き,잘라내기,Recortar,Вырезать,,,,剪切,剪切,剪下
 Studio.Common.Action.Delete,,,Delete,Delete,,Löschen,Eliminar,Supprimer,,Elimina,削除,삭제,Excluir,Удалить,,,,删除,删除,刪除
 Studio.Common.Action.Edit,,,Edit,Edit,,Bearbeiten,Editar,Modifier,,Modifica,編集,편집,Editar,Изменить,,,,编辑,编辑,編輯
-Studio.Common.Action.Exit,,,Exit,Exit,,Beenden,Salir,Quitter,,Esci,退出,나가기,Sair,Выход,,,,退出,退出,結束
+Studio.Common.Action.Exit,,,Exit,Exit,,Verlassen,Salir,Quitter,,Esci,退出,나가기,Sair,Выход,,,,退出,退出,結束
 Studio.Common.Action.File,,,File,File,,Datei,Archivo,Fichier,,File,ファイル,파일,Arquivo,Файл,,,,文件,文件,檔案
 Studio.Common.Action.Find,,,Find,Find,,Suchen,Buscar,Rechercher,,Trova,探す,찾기,Localizar,Найти,,,,查找,查找,尋找
 Studio.Common.Action.Help,,,Help,Help,,Hilfe,Ayuda,Aide,,Guida,ヘルプ,도움말,Ajuda,Справка,,,,帮助,帮助,說明
@@ -26,7 +26,7 @@ Studio.Common.Action.Paste,,,Paste,Paste,,Einfügen,Pegar,Coller,,Incolla,貼り
 Studio.Common.Action.Pause,,,Pause,Pause,,Pause,Pausar,Pause,,Pausa,一時停止,일시 중지,Pausar,Приостановить,,,,暂停,暂停,暫停
 Studio.Common.Action.Play,,,Play,Play,,Spielen,Jugar,Jouer,,Gioca,プレイ,플레이,Jogar,Воспроизвести,,,,开始游戏,开始游戏,開始
 Studio.Common.Action.Previous,,,Previous,Previous,,Zurück,Anterior,Précédent,,Precedente,前へ,이전,Anterior,Предыдущий,,,,上一个,上一个,上一步
-Studio.Common.Action.Reload,,,Reload,Reload,,Neu laden,Volver a cargar,Recharger,,Ricarica,リロード,다시 불러오기,Recarregar,Перезагрузить,,,,重新加载,重新加载,重新載入
+Studio.Common.Action.Reload,,,Reload,Reload,,Erneut laden,Volver a cargar,Recharger,,Ricarica,リロード,다시 불러오기,Recarregar,Перезагрузить,,,,重新加载,重新加载,重新載入
 Studio.Common.Action.Remove,,,Remove,Remove,,Entfernen,Eliminar,Supprimer,,Rimuovi,削除,제거,Remover,Удалить,,,,移除,移除,移除
 Studio.Common.Action.Rename,,,Rename,Rename,,Umbenennen,Renombrar,Renommer,,Rinomina,名前を変更,이름 변경,Renomear,Переименовать,,,,重命名,重命名,重新命名
 Studio.Common.Action.Replace,,,Replace,Replace,,Ersetzen,Reemplazar,Remplacer,,Sostituisci,置き換え,바꾸기,Substituir,Заменить,,,,替换,替换,取代
@@ -37,7 +37,7 @@ Studio.Common.Action.Select,,,Select,Select,,Auswählen,Seleccionar,Sélectionne
 Studio.Common.Action.Share,,,Share,Share,,Teilen,Compartir,Partager,,Condividi,シェア,공유,Compartilhar,Поделиться,,,,分享,分享,分享
 Studio.Common.Action.Stop,,,Stop,Stop,,Stoppen,Detener,Arrêter,,Interrompi,停止,중지,Parar,Остановить,,,,停止,停止,停止
 Studio.Common.Action.Yes,,,Yes,Yes,,Ja,Sí,Oui,,Sì,はい,예,Sim,Да,,,,是,是,是
-Studio.Common.Action.Continue,,,Continue,Continue,,Fortsetzen,Continuar,Continuer,,Continua,続ける,계속,Continuar,Продолжить,,,,继续,继续,繼續
+Studio.Common.Action.Continue,,,Continue,Continue,,Fortfahren,Continuar,Continuer,,Continua,続ける,계속,Continuar,Продолжить,,,,继续,继续,繼續
 Studio.Common.Action.Redo,,,Redo,Redo,,Wiederholen,Rehacer,Refaire,,Ripeti,やり直す,다시 실행,Refazer,Вернуть,,,,恢复,恢复,重做
 Studio.Common.Action.Undo,,,Undo,Undo,,Rückgängig,Deshacer,Annuler,,Annulla,取り消す,실행 취소,Desfazer,Отменить,,,,撤消,撤消,復原
 Studio.Common.Action.Update,,,Update,Update,,Aktualisieren,Actualizar,Mettre à jour,,Aggiorna,アップデート,업데이트,Atualizar,Обновить,,,,更新,更新,更新

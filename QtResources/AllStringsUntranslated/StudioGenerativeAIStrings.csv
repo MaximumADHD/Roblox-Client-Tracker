@@ -64,3 +64,4 @@ Studio.App.GenerativeAI.TimeoutWarningV3,,"Your request is taking longer than no
 Studio.App.GenerativeAI.TimeoutErrorV1,,"Sorry, I'm experiencing a high volume of requests. Please try again later. <br/>","Sorry, I'm experiencing a high volume of requests. Please try again later. <br/>"
 Studio.App.GenerativeAI.TimeoutErrorV2,,I'm suddenly receiving a lot of requests right now. Please try again later. I'd be happy to help. <br/>,I'm suddenly receiving a lot of requests right now. Please try again later. I'd be happy to help. <br/>
 Studio.App.GenerativeAI.TimeoutErrorV3,,"Sorry, there are a lot of requests right now. Please try again later. <br/>","Sorry, there are a lot of requests right now. Please try again later. <br/>"
+Studio.App.GenerativeAI.CopiedToClipboard,,Copied to clipboard,Copied to clipboard
