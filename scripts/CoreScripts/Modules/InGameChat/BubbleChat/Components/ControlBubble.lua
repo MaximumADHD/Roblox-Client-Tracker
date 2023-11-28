@@ -11,7 +11,7 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 local Cryo = require(CorePackages.Packages.Cryo)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local Colors = UIBlox.App.Style.Colors
 
 local DISABLED_ICON_COLOR = Colors.Flint

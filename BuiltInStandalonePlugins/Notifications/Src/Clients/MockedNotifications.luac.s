@@ -27,7 +27,7 @@ PROTO_0:
   SETTABLEKS R3 R2 K19 ["title"]
   LOADK R3 K26 ["Studio Notifications have been released. Click here to learn more."]
   SETTABLEKS R3 R2 K20 ["body"]
-  LOADK R3 K27 [""]
+  LOADK R3 K27 ["CreateFilledEmphasis"]
   SETTABLEKS R3 R2 K21 ["targetId"]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K28 ["Static"]

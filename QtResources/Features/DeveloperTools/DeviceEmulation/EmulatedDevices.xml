@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+  <!-- NOTE: If adding a new device here please also add it to NotchBetaEmulatedDevices.xml. -->
+
 <EmulatedDevices>
     <Device name="Default"
         device_id="default"

@@ -22,6 +22,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = game:GetService("RunService")
+local VideoCaptureService = game:GetService("VideoCaptureService")
 
 local Cryo = require(CorePackages.Cryo)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
@@ -43,6 +44,7 @@ local getFFlagPermissionsEarlyOutStallsQueue = require(RobloxGui.Modules.Flags.g
 local getFFlagUseCameraDeviceGrantedSignal = require(RobloxGui.Modules.Flags.getFFlagUseCameraDeviceGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAnalyticsForCameraDevicePermissions = require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
+local FFlagCheckCameraAvailabilityBeforePermissions = game:DefineFastFlag("CheckCameraAvailabilityBeforePermissions", false)
 
 local AvatarChatService : any = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 
@@ -70,6 +72,16 @@ local function removePermissionsBasedOnUserSetting(allowedSettings: AllowedSetti
 
 	if not allowedSettings.isVoiceEnabled and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) then
 		permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+	end
+
+	if FFlagCheckCameraAvailabilityBeforePermissions then
+		if Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) then
+			local cameraDevices = VideoCaptureService:GetCameraDevices()
+			local noEligibleCameraConnected = Cryo.isEmpty(cameraDevices)
+			if noEligibleCameraConnected then
+				permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS)
+			end
+		end
 	end
 
 	return permissionsToCheck

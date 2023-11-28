@@ -1,9 +1,6 @@
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
-
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagVoiceChatReportOutOfOrderSequence =
-	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
 
 game:DefineFastInt("LuaVoiceChatAnalyticsPointsThrottle", 0)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUsePointsV2", false)
@@ -176,9 +173,7 @@ function Analytics:reportReconnectDueToMissedSequence()
 end
 
 function Analytics:reportOutOfOrderSequence()
-	if GetFFlagVoiceChatReportOutOfOrderSequence() then
-		self._impl:ReportCounter("voiceChat-outOfOrderSequence", 1)
-	end
+	self._impl:ReportCounter("voiceChat-outOfOrderSequence", 1)
 end
 
 function Analytics:reportReceivedNudge(

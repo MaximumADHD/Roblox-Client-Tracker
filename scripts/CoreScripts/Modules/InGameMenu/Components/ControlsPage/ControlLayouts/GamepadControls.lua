@@ -17,7 +17,7 @@ local React = require(CorePackages.Workspace.Packages.React)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local GAMEPAD_IMAGE_HEIGHT = 465
 

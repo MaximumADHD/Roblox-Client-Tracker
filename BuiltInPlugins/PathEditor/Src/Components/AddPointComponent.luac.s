@@ -134,47 +134,63 @@ PROTO_5:
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K21 ["createElement"]
   LOADK R12 K22 ["ScreenGui"]
-  DUPTABLE R13 K24 [{"DisplayOrder"}]
+  DUPTABLE R13 K25 [{"DisplayOrder", "ZIndexBehavior"}]
   LOADN R14 3
   SETTABLEKS R14 R13 K23 ["DisplayOrder"]
+  GETIMPORT R14 K28 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R14 R13 K24 ["ZIndexBehavior"]
   NEWTABLE R14 0 1
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K21 ["createElement"]
   GETUPVAL R16 2
-  DUPTABLE R17 K33 [{"Style", "Size", "FollowCursorOnDrag", "OnSelected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnHoverMoved"}]
+  DUPTABLE R17 K37 [{"Style", "Size", "FollowCursorOnDrag", "OnSelected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnHoverMoved"}]
   LOADK R18 K4 ["AddPoint"]
-  SETTABLEKS R18 R17 K25 ["Style"]
-  GETIMPORT R18 K35 [UDim2.fromScale]
+  SETTABLEKS R18 R17 K29 ["Style"]
+  GETIMPORT R18 K39 [UDim2.fromScale]
   LOADN R19 1
   LOADN R20 1
   CALL R18 2 1
-  SETTABLEKS R18 R17 K26 ["Size"]
+  SETTABLEKS R18 R17 K30 ["Size"]
   LOADB R18 0
-  SETTABLEKS R18 R17 K27 ["FollowCursorOnDrag"]
+  SETTABLEKS R18 R17 K31 ["FollowCursorOnDrag"]
   NEWCLOSURE R18 P0
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLEKS R18 R17 K28 ["OnSelected"]
+  SETTABLEKS R18 R17 K32 ["OnSelected"]
   NEWCLOSURE R18 P1
   CAPTURE VAL R1
-  SETTABLEKS R18 R17 K29 ["OnDragStart"]
+  SETTABLEKS R18 R17 K33 ["OnDragStart"]
   NEWCLOSURE R18 P2
   CAPTURE VAL R1
-  SETTABLEKS R18 R17 K30 ["OnDragMoved"]
+  SETTABLEKS R18 R17 K34 ["OnDragMoved"]
   NEWCLOSURE R18 P3
   CAPTURE VAL R1
-  SETTABLEKS R18 R17 K31 ["OnDragEnd"]
+  SETTABLEKS R18 R17 K35 ["OnDragEnd"]
   NEWCLOSURE R18 P4
   CAPTURE VAL R0
-  SETTABLEKS R18 R17 K32 ["OnHoverMoved"]
-  DUPTABLE R18 K38 [{"Line", "ControlPoint"}]
-  JUMPIFNOT R8 [+24]
+  SETTABLEKS R18 R17 K36 ["OnHoverMoved"]
+  DUPTABLE R18 K42 [{"Line", "ControlPoint"}]
+  JUMPIFNOT R8 [+46]
   GETUPVAL R20 1
   GETTABLEKS R19 R20 K21 ["createElement"]
   GETUPVAL R20 3
-  DUPTABLE R21 K39 [{"Style", "ControlPoints"}]
-  LOADK R22 K40 ["Tangent"]
-  SETTABLEKS R22 R21 K25 ["Style"]
+  DUPTABLE R21 K45 [{"Color", "Style", "Thickness", "ControlPoints"}]
+  GETTABLEKS R23 R1 K2 ["SelectedObject"]
+  JUMPIFNOT R23 [+5]
+  GETTABLEKS R23 R1 K2 ["SelectedObject"]
+  GETTABLEKS R22 R23 K43 ["Color"]
+  JUMP [+1]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K43 ["Color"]
+  LOADK R22 K46 ["Tangent"]
+  SETTABLEKS R22 R21 K29 ["Style"]
+  GETTABLEKS R23 R1 K2 ["SelectedObject"]
+  JUMPIFNOT R23 [+5]
+  GETTABLEKS R23 R1 K2 ["SelectedObject"]
+  GETTABLEKS R22 R23 K44 ["Thickness"]
+  JUMP [+1]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K44 ["Thickness"]
   NEWTABLE R22 0 2
   GETUPVAL R23 4
   MOVE R24 R6
@@ -189,21 +205,21 @@ PROTO_5:
   CALL R19 2 1
   JUMP [+1]
   LOADNIL R19
-  SETTABLEKS R19 R18 K36 ["Line"]
+  SETTABLEKS R19 R18 K40 ["Line"]
   JUMPIFNOT R7 [+15]
   GETUPVAL R20 1
   GETTABLEKS R19 R20 K21 ["createElement"]
   GETUPVAL R20 5
-  DUPTABLE R21 K42 [{"Style", "Position", "ZIndex"}]
-  LOADK R22 K37 ["ControlPoint"]
-  SETTABLEKS R22 R21 K25 ["Style"]
+  DUPTABLE R21 K48 [{"Style", "Position", "ZIndex"}]
+  LOADK R22 K41 ["ControlPoint"]
+  SETTABLEKS R22 R21 K29 ["Style"]
   SETTABLEKS R9 R21 K11 ["Position"]
   LOADN R22 1
-  SETTABLEKS R22 R21 K41 ["ZIndex"]
+  SETTABLEKS R22 R21 K47 ["ZIndex"]
   CALL R19 2 1
   JUMP [+1]
   LOADNIL R19
-  SETTABLEKS R19 R18 K37 ["ControlPoint"]
+  SETTABLEKS R19 R18 K41 ["ControlPoint"]
   CALL R15 3 -1
   SETLIST R14 R15 -1 [1]
   CALL R11 3 -1

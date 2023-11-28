@@ -14,7 +14,6 @@ local Transition = require(BaseStateMachine.BaseTransitionModule)
 local testState
 
 describe("Handling State Transitions", function()
-
     beforeEach(function()
         testState = State.new()
     end)
@@ -31,7 +30,7 @@ describe("Handling State Transitions", function()
         local testFn = jest.fn(function()
             return false
         end)
-        
+
         local transition1 = Transition.new()
         transition1.name = "Transition 1"
         transition1.Test = testFn

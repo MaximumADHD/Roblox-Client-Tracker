@@ -1,12 +1,6 @@
 local SensorUtil = {}
 
 local DEBUG_VISUAL = false
-local DEBUG_CLEAR_TIME = 0.3
-local clearTime = 0
-
-local RED = Color3.new(1,0,0)
-local GREEN = Color3.new(0,1,0)
-local WHITE = Color3.new(1,1,1)
 
 local UP = Vector3.new(0, 1, 0)
 local DOWN = Vector3.new(0, -1, 0)
@@ -16,17 +10,13 @@ local FORWARD = Vector3.new(0, 0, -1)
 local goldenAngle = math.pi * (3 - math.sqrt(5))
 local pi2 = 2 * math.pi
 
-local MAX_POOL_SIZE = 500
-SensorUtil.debugLHAPool = {}
-SensorUtil.nextLHAIndex = 1
-
 local Players = game:GetService("Players")
 local Utils = game.ReplicatedStorage.RobloxCharacterPackages.CharacterController.Utils
 local TemporalCache = require(Utils.TemporalCache)
+local DebugVisual = require(Utils.DebugVisual)
 SensorUtil.scanCache = {}
 
--- TODO: Try SphereCast?
--- TODO: keep the results for a forward cast globally for all verbs to use??
+-- TODO: keep the results for a forward cast globally for all abilities to use??
 
 local function orthogonal(v : Vector3)
     local dir = v.Unit
@@ -55,17 +45,8 @@ function SensorUtil:Raycast(origin, dir : Vector3, raycastParams : RaycastParams
     else
         result = game.Workspace:Raycast(origin, dir)
     end
+    DebugVisual:DrawRayCast(origin, dir, result)
     
-    if not DEBUG_VISUAL then
-        return result
-    end
-
-    if result then
-        self:DrawRay(origin, dir, GREEN)
-        self:DrawRay(result.Position, result.Normal, RED)
-    else
-        self:DrawRay(origin, dir, WHITE)
-    end
     return result
 end
 
@@ -73,8 +54,26 @@ end
 -- May vary based on the casting radius.
 -- Spherecast would likely be preferred with simple linear area scans where we mostly care if something is hit
 function SensorUtil:SphereScan(scanParams)
-    local defaultRadius = 0.5
-    return game.Workspace:Spherecast(scanParams.origin, scanParams.radius or defaultRadius, scanParams.dir, scanParams.raycastParams)
+    local radius = scanParams.radius or 0.5
+    local result = game.Workspace:Spherecast(scanParams.origin, radius, scanParams.dir, scanParams.raycastParams)
+    DebugVisual:DrawSphereCast(scanParams.origin, scanParams.dir, radius, result)
+
+    if not result then
+        return {}
+    end
+
+    -- TODO: investigate adding a temporal version of spherecast with option where filtered hit ancestors get added to the raycastparam instance filters
+    -- This is so the scan can eventually hit objects that may be obscured by other instances which the filter function wants to ignore
+    local filterFn = scanParams.filter
+    if not filterFn then
+        return {result}
+    end
+
+    if filterFn(result) then
+        return {result}
+    end
+
+    return {}
 end
 
 -- Cast a approximate cylindrical volume from a circular plane
@@ -188,42 +187,6 @@ function SensorUtil:RaycastScanTemporal(scanParams, instance : Instance, scanID 
     return cache:get()
 end
 
-function SensorUtil:DrawRay(origin : Vector3, dir : Vector3, color : Color3)
-    local lha = self:GetNextDebugLHA()
-    lha.Color3 = color
-    lha.Length = dir.Magnitude
-    lha.CFrame = CFrame.new(origin, origin + dir)
-    lha.Visible = true
-end
-
-function SensorUtil:ClearRays()
-    for i, lha in ipairs(self.debugLHAPool) do
-        lha.Visible = false
-    end
-    self.nextLHAIndex = 1
-end
-
-function SensorUtil:GetNextDebugLHA()
-    if self.nextLHAIndex > MAX_POOL_SIZE then
-        self.nextLHAIndex = 1
-    end
-
-    local lha = self.debugLHAPool[self.nextLHAIndex]
-    if not lha then
-        lha = Instance.new("LineHandleAdornment")
-        lha.Name = "LHA_" .. tostring(#self.debugLHAPool+1)
-        lha.Color3 = Color3.new(1,1,1)
-        lha.Thickness = 4
-        lha.ZIndex = 0
-        lha.Adornee = game.Workspace.Terrain
-        lha.Parent = game.Workspace.Terrain
-        lha.Transparency = 0.5
-        table.insert(self.debugLHAPool,lha)
-    end
-    self.nextLHAIndex = self.nextLHAIndex + 1
-    return lha
-end
-
 -- Specific folder for posed clones
 local workspace = game:GetService("Workspace")
 local posedClonesFolder = workspace:FindFirstChild("posedClones")
@@ -250,10 +213,17 @@ function SensorUtil:posedClone(character:Model, animationAssetID:number)
     character.Archivable = false
     clonedCharacter.Name = UID
 
+    -- TODO: only temporarily instantiate the clone to collect info, destroy afterwards
     -- Remove unecessary instances in clone
+    for _, d in ipairs(clonedCharacter:GetChildren()) do
+        -- Remove all unecessary instances
+        if not (d:IsA("BasePart") or d:IsA("Humanoid")) then
+            d:Destroy()
+        end
+    end
+
     for _, d in ipairs(clonedCharacter:GetDescendants()) do
-        -- Remove all scripts and animation instances (they will get re-init later)
-        if d:IsA("Script") or d:IsA("LocalScript") or d:IsA("ModuleScript") or d:IsA("AnimationController") or d:IsA("Animator") then
+        if d:IsA("Decal") then
             d:Destroy()
         end
 
@@ -269,8 +239,23 @@ function SensorUtil:posedClone(character:Model, animationAssetID:number)
         end
     end
 
-    -- add to workspace after the scripts were removed then the scripts won't be excused
+    -- add to workspace after removing scripts so they don't excute
+    -- this should be done prior to animator stuff since animator needs to be part of the workspace before loading
     clonedCharacter.Parent = posedClonesFolder
+
+    local animator = clonedCharacter:FindFirstChild("Animator", true)
+    if not animator then
+        animator = Instance.new("Animator")
+        animator.Parent = clonedCharacter:FindFirstChildOfClass("Humanoid")
+    end
+
+    local animation = Instance.new("Animation")
+    animation.AnimationId = "rbxassetid://" .. tostring(animationAssetID)
+
+    -- The caller can control animTrack position in case they need a specific keyframe
+    local animTrack = animator:LoadAnimation(animation)
+    animTrack:Play()
+    animTrack:AdjustSpeed(0)
     
     -- The caller can move the posed clone to the desired moment in animation
     local hrp = clonedCharacter:WaitForChild("HumanoidRootPart")

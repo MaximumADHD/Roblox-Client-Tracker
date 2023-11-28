@@ -227,7 +227,6 @@ local EventStreamActionList: { [EventNames]: GenericEvent } = {
 			calleeUserId = Dash.identity,
 			callerUserId = Dash.identity,
 			errorMsg = Dash.identity,
-			page = Dash.identity,
 		},
 	},
 }

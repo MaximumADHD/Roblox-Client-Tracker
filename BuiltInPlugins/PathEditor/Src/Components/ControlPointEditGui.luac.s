@@ -57,9 +57,11 @@ PROTO_0:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K10 ["createElement"]
   LOADK R4 K17 ["ScreenGui"]
-  DUPTABLE R5 K19 [{"DisplayOrder"}]
+  DUPTABLE R5 K20 [{"DisplayOrder", "ZIndexBehavior"}]
   LOADN R6 2
   SETTABLEKS R6 R5 K18 ["DisplayOrder"]
+  GETIMPORT R6 K23 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R6 R5 K19 ["ZIndexBehavior"]
   MOVE R6 R2
   CALL R3 3 -1
   RETURN R3 -1

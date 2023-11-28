@@ -12,7 +12,7 @@ local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfIm
 
 local Assets = require(InGameMenu.Resources.Assets)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
 local MoreButton = Roact.PureComponent:extend("MoreButton")
 

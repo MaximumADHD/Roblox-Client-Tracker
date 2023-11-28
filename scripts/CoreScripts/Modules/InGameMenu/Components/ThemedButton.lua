@@ -30,7 +30,7 @@ local InGameMenu = script.Parent.Parent
 local Assets = require(InGameMenu.Resources.Assets)
 local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local withStyle = UIBlox.Core.Style.withStyle
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind

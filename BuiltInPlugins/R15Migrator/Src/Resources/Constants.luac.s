@@ -1,0 +1,8 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 1 0
+  DUPTABLE R1 K1 [{"AdapterTag"}]
+  LOADK R2 K2 ["R15MigratorHasAdapter"]
+  SETTABLEKS R2 R1 K0 ["AdapterTag"]
+  SETTABLEKS R1 R0 K3 ["Tags"]
+  RETURN R0 1

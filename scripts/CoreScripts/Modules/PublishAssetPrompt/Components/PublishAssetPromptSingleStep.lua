@@ -147,15 +147,12 @@ function PublishAssetPromptSingleStep:init()
 	end
 
 	self.denyAndClose = function()
-		-- We should never get to this point if this engine feature is off (see ConnectAssetServiceEvents.lua), but just in case:
-		if game:GetEngineFeature("ExperienceAuthReflectionFixes") then
-			ExperienceAuthService:ScopeCheckUIComplete(
-				self.props.guid,
-				self.props.scopes,
-				Enum.ScopeCheckResult.ConsentDenied,
-				{} -- empty metadata
-			)
-		end
+		ExperienceAuthService:ScopeCheckUIComplete(
+			self.props.guid,
+			self.props.scopes,
+			Enum.ScopeCheckResult.ConsentDenied,
+			{} -- empty metadata
+		)
 		self.closePrompt()
 	end
 
@@ -180,16 +177,13 @@ function PublishAssetPromptSingleStep:init()
 			metadata["emoteThumbnailParameters"] = emoteThumbnailParametersTable
 		end
 
-		-- We should never get to this point if this engine feature is off (see ConnectAssetServiceEvents.lua), but just in case:
-		if game:GetEngineFeature("ExperienceAuthReflectionFixes") then
-			ExperienceAuthService:ScopeCheckUIComplete(
-				self.props.guid,
-				self.props.scopes,
-				Enum.ScopeCheckResult.ConsentAccepted,
-				metadata
-			)
-			self.closePrompt()
-		end
+		ExperienceAuthService:ScopeCheckUIComplete(
+			self.props.guid,
+			self.props.scopes,
+			Enum.ScopeCheckResult.ConsentAccepted,
+			metadata
+		)
+		self.closePrompt()
 	end
 
 	self.onAssetNameUpdated = function(newName, isNameValid)

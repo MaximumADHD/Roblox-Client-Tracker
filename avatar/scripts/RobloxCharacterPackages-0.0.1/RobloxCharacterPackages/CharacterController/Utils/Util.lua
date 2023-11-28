@@ -1,7 +1,7 @@
 local Util = {}
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Anim = require(ReplicatedStorage.RobloxCharacterPackages.MotionCompositor)
+local Compositor = require(ReplicatedStorage.RobloxCharacterPackages.MotionCompositor)
 local CharacterController = ReplicatedStorage.RobloxCharacterPackages.CharacterController
 local EmulatedRootMotionClip = require(CharacterController.Utils.EmulatedRootMotionClip)
 
@@ -89,7 +89,7 @@ function Util.clamp01(x: number)
     return math.clamp(x, 0, 1)
 end
 
-function Util.collinear(a: Vector3, b: Vector3): bool
+function Util.collinear(a: Vector3, b: Vector3) : boolean
     -- Returns whether the two vectors are collinear.
     return a:Cross(b):FuzzyEq(Vector3.zero)
 end
@@ -126,6 +126,26 @@ function Util.linearSmooth(value, target, maxVelocity, dt: number)
     return value + change
 end
 
+function Util.UnitSafe(v)
+    -- NOTES: there is a proposal (@sguggiari) to change the behavior of v.Unit to this.
+    -- This can be removed and switched to v.Unit when that's in.
+    if v.Magnitude < 0.00001 then
+        return v
+    end
+    return v.Unit
+end
+
+function Util.safeClampUnit(vector, default)
+    -- clamps vectors to have magnitude >= 1
+    if vector.Magnitude >= 1 then
+        return vector
+    elseif vector.Magnitude <= 0.0001 then
+        return default
+    else
+        return vector.Unit
+    end
+end
+
 function Util.formatFloat(x: number)
     return string.format("%.2f", x)
 end
@@ -142,7 +162,7 @@ end
 function Util.newClip(clipInfo)
     assert(clipInfo.id, "Clip ID not provided")
     
-    local clip = Anim.newDef("Clip")
+    local clip = Compositor.newDef("Clip")
     clip:animationId("rbxassetid://"..clipInfo.id)
     
     -- XXX: Removing until this clip start/end feature is merged with root
@@ -166,7 +186,7 @@ function Util.newEmulatedRootMotionClip(clipInfo)
 
     local clip = Util.newClip(clipInfo)
 
-    local wrapper = Anim.newDef(EmulatedRootMotionClip)
+    local wrapper = Compositor.newDef(EmulatedRootMotionClip)
         :speed(clipInfo.speed)
         :addChild(nil, clip)
 

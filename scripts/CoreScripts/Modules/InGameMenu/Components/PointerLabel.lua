@@ -11,7 +11,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local INPUT_TYPE_TO_ICON_MAP = {
 	[Enum.UserInputType.MouseButton1] = Assets.Images.Mouse1Press,

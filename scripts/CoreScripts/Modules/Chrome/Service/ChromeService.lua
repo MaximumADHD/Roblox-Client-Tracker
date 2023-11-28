@@ -23,6 +23,7 @@ local GetFFlagSelfViewMultiTouchFix = require(script.Parent.Parent.Flags.GetFFla
 local GetFFlagEnableChromeEscapeFix = require(script.Parent.Parent.Flags.GetFFlagEnableChromeEscapeFix)
 local GetFFlagEnableChromeDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableChromeDefaultOpen)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
+local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 
 local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 1.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
@@ -43,12 +44,17 @@ ChromeService.Key = {
 	MostRecentlyUsed = "MRU",
 }
 
+export type UnibarLayoutInfo = {
+	[number]: Rect,
+}
+
 export type ObservableMenuStatus = utils.ObservableValue<number>
 export type ObservableSubMenu = utils.ObservableValue<string?>
 export type ObservableMenuList = utils.ObservableValue<Types.MenuList>
 export type ObservableIntegration = utils.ObservableValue<Types.IntegrationComponentProps | nil>
 export type ObservableIntegrationList = utils.ObservableValue<Types.IntegrationList>
 export type ObservableIntegrationId = utils.ObservableValue<string?>
+export type ObservableMenuLayout = utils.ObservableValue<UnibarLayoutInfo>
 
 export type ObservableWindowList = utils.ObservableValue<Types.WindowList>
 
@@ -74,6 +80,9 @@ export type ChromeService = {
 	close: (ChromeService) -> (),
 	getLastInputToOpenMenu: (ChromeService) -> Enum.UserInputType,
 	status: (ChromeService) -> ObservableMenuStatus,
+	layout: (ChromeService) -> ObservableMenuLayout,
+	setMenuAbsolutePosition: (ChromeService, position: Vector2) -> (),
+	setMenuAbsoluteSize: (ChromeService, closed: Vector2, open: Vector2) -> (),
 	menuList: (ChromeService) -> ObservableMenuList,
 	windowList: (ChromeService) -> ObservableWindowList,
 	updateLocalization: (ChromeService, component: Types.IntegrationRegisterProps) -> Types.IntegrationRegisterProps,
@@ -135,6 +144,10 @@ export type ChromeService = {
 	setSelectedByOffset: (ChromeService, number) -> (),
 
 	_status: ObservableMenuStatus,
+	_layout: ObservableMenuLayout,
+	_menuAbsolutePosition: Vector2,
+	_menuAbsoluteSizeOpen: Vector2,
+	_menuAbsoluteSizeClosed: Vector2,
 	_currentSubMenu: ObservableSubMenu,
 
 	_integrations: Types.IntegrationList,
@@ -181,6 +194,13 @@ local DummyIntegration = {
 	hideNotificationCountWhileOpen = false,
 }
 
+function createUnibarLayoutInfo(position: Vector2, closedSize: Vector2, openSize: Vector2): UnibarLayoutInfo
+	return {
+		[ChromeService.MenuStatus.Open] = Rect.new(position, (position + openSize)),
+		[ChromeService.MenuStatus.Closed] = Rect.new(position, (position + closedSize)),
+	}
+end
+
 function ChromeService.new(): ChromeService
 	local localeId = LocalizationService.RobloxLocaleId
 	local self = {}
@@ -191,6 +211,10 @@ function ChromeService.new(): ChromeService
 		then getInitialStatus(self._chromeSeenCount)
 		else utils.ObservableValue.new(ChromeService.MenuStatus.Closed)
 	self._status = status
+	self._layout = utils.ObservableValue.new(createUnibarLayoutInfo(Vector2.zero, Vector2.zero, Vector2.zero))
+	self._menuAbsolutePosition = Vector2.zero
+	self._menuAbsoluteSizeOpen = Vector2.zero
+	self._menuAbsoluteSizeClosed = Vector2.zero
 	self._currentSubMenu = utils.ObservableValue.new(nil)
 	self._selectedItem = utils.ObservableValue.new(nil)
 	self._selectedItemIdx = 0
@@ -248,14 +272,18 @@ end
 
 -- Get how many times user has seen chrome from local storage
 function getChromeSeenCount(): number
-	if GetFFlagEnableUnibarMaxDefaultOpen() and LocalStore.isEnabled() then
-		local chromeSeenCount = LocalStore.loadForLocalPlayer(CHROME_SEEN_COUNT_KEY)
-		if chromeSeenCount and tonumber(chromeSeenCount) then
-			return chromeSeenCount
+	if GetFFlagChromeSurveySupport() then
+		return LocalStore.getChromeSeenCount()
+	else
+		if GetFFlagEnableUnibarMaxDefaultOpen() and LocalStore.isEnabled() then
+			local chromeSeenCount = LocalStore.loadForLocalPlayer(CHROME_SEEN_COUNT_KEY)
+			if chromeSeenCount and tonumber(chromeSeenCount) then
+				return chromeSeenCount
+			end
 		end
-	end
 
-	return 0
+		return 0
+	end
 end
 
 -- Get initial status of menu: closed if interacted with before or seen enough times, open otherwise
@@ -1104,6 +1132,25 @@ end
 
 function ChromeService:orderAlignment()
 	return self._orderAlignment
+end
+
+function ChromeService:setMenuAbsolutePosition(position: Vector2)
+	if position ~= self._menuAbsolutePosition then
+		self._menuAbsolutePosition = position
+		self._layout:set(createUnibarLayoutInfo(position, self._menuAbsoluteSizeClosed, self._menuAbsoluteSizeOpen))
+	end
+end
+
+function ChromeService:setMenuAbsoluteSize(closed: Vector2, open: Vector2)
+	if closed ~= self._menuAbsoluteSizeClosed or open ~= self._menuAbsoluteSizeOpen then
+		self._menuAbsoluteSizeClosed = closed
+		self._menuAbsoluteSizeOpen = open
+		self._layout:set(createUnibarLayoutInfo(self._menuAbsolutePosition, closed, open))
+	end
+end
+
+function ChromeService:layout()
+	return self._layout
 end
 
 return ChromeService

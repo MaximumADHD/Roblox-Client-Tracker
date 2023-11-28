@@ -12,7 +12,7 @@ local Assets = require(TnsModule.Resources.Assets)
 local Dependencies = require(TnsModule.Dependencies)
 local Divider = require(Dependencies.Divider)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Button
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetButton
 local withStyle = UIBlox.Core.Style.withStyle
 local IconButton = UIBlox.App.Button.IconButton
 local HeaderBar = UIBlox.App.Bar.HeaderBar

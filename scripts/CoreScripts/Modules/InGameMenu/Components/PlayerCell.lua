@@ -13,7 +13,7 @@ local t = InGameMenuDependencies.t
 
 local Cell = UIBlox.App.Table.Cell
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local LoadableImage = UIBlox.App.Loading.LoadableImage
 local LoadingStrategy = UIBlox.App.Loading.Enum.LoadingStrategy
 local Images = UIBlox.App.ImageSet.Images

@@ -32,7 +32,6 @@ local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfile
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
 local FFlagScriptProfilerFrequencyControl = game:DefineFastFlag("ScriptProfilerFrequencyControl", false)
-local FFlagScriptProfilerSaveState = game:DefineFastFlag("ScriptProfilerSaveState", false)
 local FFlagScriptProfilerTimedProfiling = game:DefineFastFlag("ScriptProfilerTimedProfiling", false)
 local FFlagScriptProfilerFunctionsView = game:DefineFastFlag("ScriptProfilerFunctionsView", false)
 
@@ -130,202 +129,98 @@ function MainViewScriptProfiler:init()
 	end
 
 	self.onBeginProfile = function ()
+		local isClientView, state = self:getActiveState()
 
-		if FFlagScriptProfilerSaveState then
-			local isClientView, state = self:getActiveState()
+		StartScriptProfiling(isClientView, state)
 
-			StartScriptProfiling(isClientView, state)
+		local newState = table.clone(state)
+		newState.isProfiling = true
 
-			local newState = table.clone(state)
-			newState.isProfiling = true
+		if FFlagScriptProfilerTimedProfiling and state.timedProfilingDuration > 0 then
+			newState.timedProfilingCountdown = state.timedProfilingDuration
 
-			if FFlagScriptProfilerTimedProfiling and state.timedProfilingDuration > 0 then
-				newState.timedProfilingCountdown = state.timedProfilingDuration
+			newState.timedProfilingThread = task.delay(state.timedProfilingDuration, function()
+				StopTimedProfiling(isClientView)
+			end)
 
-				newState.timedProfilingThread = task.delay(state.timedProfilingDuration, function()
-					StopTimedProfiling(isClientView)
-				end)
-
-				newState.timedProfilingTimerThread = task.spawn(function()
-					UpdateTimedProfilingTimer(isClientView)
-				end)
-			end
-
-			self:UpdateState(isClientView, newState)
-			return
+			newState.timedProfilingTimerThread = task.spawn(function()
+				UpdateTimedProfilingTimer(isClientView)
+			end)
 		end
 
-		if self.state.isClientView then
-			if FFlagScriptProfilerFrequencyControl then
-				ScriptContext:StartScriptProfiling(self.state.clientFrequency)
-			else
-				ScriptContext:StartScriptProfiling()
-			end
-
-			self:setState({
-				clientIsProfiling = true
-			})
-		else
-			local clientReplicator = getClientReplicator()
-			if clientReplicator then
-				if FFlagScriptProfilerFrequencyControl then
-					clientReplicator:RequestServerScriptProfiling(true, self.state.serverFrequency)
-				else
-					clientReplicator:RequestServerScriptProfiling(true)
-				end
-			end
-
-			self:setState({
-				serverIsProfiling = true
-			})
-		end
+		self:UpdateState(isClientView, newState)
 	end
 
 	self.onEndProfile = function ()
+		local isClientView, state = self:getActiveState()
 
-		if FFlagScriptProfilerSaveState then
-			local isClientView, state = self:getActiveState()
+		local data = StopScriptProfiling(isClientView)
 
-			local data = StopScriptProfiling(isClientView)
+		local newState = table.clone(state)
+		newState.isProfiling = false
+		newState.data = data
 
-			local newState = table.clone(state)
-			newState.isProfiling = false
-			newState.data = data
-
-			if FFlagScriptProfilerTimedProfiling then
-				if state.timedProfilingThread then
-					task.cancel(state.timedProfilingThread)
-					newState.timedProfilingThread = nil
-				end
-
-				if state.timedProfilingTimerThread then
-					task.cancel(state.timedProfilingTimerThread)
-					newState.timedProfilingTimerThread = nil
-				end
+		if FFlagScriptProfilerTimedProfiling then
+			if state.timedProfilingThread then
+				task.cancel(state.timedProfilingThread)
+				newState.timedProfilingThread = nil
 			end
 
-			self:UpdateState(isClientView, newState)
-			return
-		end
-
-		if self.state.isClientView then
-			local data = ScriptContext:StopScriptProfiling() :: any
-
-			self:setState({
-				clientProfilingData = ScriptContext:DeserializeScriptProfilerString(data),
-				clientIsProfiling = false
-			})
-		else
-			local clientReplicator = getClientReplicator()
-			if clientReplicator then
-				clientReplicator:RequestServerScriptProfiling(false)
+			if state.timedProfilingTimerThread then
+				task.cancel(state.timedProfilingTimerThread)
+				newState.timedProfilingTimerThread = nil
 			end
-
-			self:setState({
-				serverProfilingData = nil,
-				serverIsProfiling = false
-			})
 		end
+
+		self:UpdateState(isClientView, newState)
 	end
 
 	self.toggleTimedProfiling = function ()
-		if FFlagScriptProfilerSaveState then
-			local isClientView, state = self:getActiveState()
+		local isClientView, state = self:getActiveState()
 
-			local duration = state.timedProfilingDuration
+		local duration = state.timedProfilingDuration
 
-			if duration == 0 then
-				duration = 60
-			elseif duration == 60 then
-				duration = 60 * 5
-			elseif duration == 60 * 5 then
-				duration = 60 * 10
-			else
-				duration = 0
-			end
-
-			local newState = table.clone(state)
-			newState.timedProfilingDuration = duration
-			self:UpdateState(isClientView, newState)
+		if duration == 0 then
+			duration = 60
+		elseif duration == 60 then
+			duration = 60 * 5
+		elseif duration == 60 * 5 then
+			duration = 60 * 10
+		else
+			duration = 0
 		end
+
+		local newState = table.clone(state)
+		newState.timedProfilingDuration = duration
+		self:UpdateState(isClientView, newState)
 	end
 
 	self.toggleUnits = function ()
-		if FFlagScriptProfilerSaveState then
-			self.props.dispatchSetScriptProfilerState(nil, not self.props.usePercentages, nil, nil)
-		else
-			self:setState(function (_)
-				return {
-					usePercentages = not self.state.usePercentages
-				}
-			end)
-		end
+		self.props.dispatchSetScriptProfilerState(nil, not self.props.usePercentages, nil, nil)
 	end
 
 	self.toggleFrequency = function()
+		local isClientView, state = self:getActiveState()
 
-		if FFlagScriptProfilerSaveState then
-			local isClientView, state = self:getActiveState()
+		local freq = state.frequency
 
-			local freq = state.frequency
-
-			if freq == 1000 then
-				freq = 10000
-			else
-				freq = 1000
-			end
-
-			local newState = table.clone(state)
-			newState.frequency = freq
-			self:UpdateState(isClientView, newState)
-			return
-		end
-
-		if self.state.isClientView then
-			local freq = self.state.clientFrequency
-
-			if freq == 1000 then
-				freq = 10000
-			else
-				freq = 1000
-			end
-
-			self:setState({
-				clientFrequency = freq;
-			})
+		if freq == 1000 then
+			freq = 10000
 		else
-			local freq = self.state.serverFrequency
-
-			if freq == 1000 then
-				freq = 10000
-			else
-				freq = 1000
-			end
-
-			self:setState({
-				serverFrequency = freq;
-			})
+			freq = 1000
 		end
+
+		local newState = table.clone(state)
+		newState.frequency = freq
+		self:UpdateState(isClientView, newState)
 	end
 
 	self.onClientButton = function()
-		if FFlagScriptProfilerSaveState then
-			self.props.dispatchSetScriptProfilerState(true)
-		else
-			self:setState({
-				isClientView = true
-			})
-		end
+		self.props.dispatchSetScriptProfilerState(true)
 	end
 
 	self.onServerButton = function()
-		if FFlagScriptProfilerSaveState then
-			self.props.dispatchSetScriptProfilerState(false)
-		else
-			self:setState({
-				isClientView = false
-			})
-		end
+		self.props.dispatchSetScriptProfilerState(false)
 	end
 
 	self.dataViewDropDownCallback = function(index)
@@ -349,23 +244,9 @@ function MainViewScriptProfiler:init()
 
 	self.utilRef = Roact.createRef()
 
-	if FFlagScriptProfilerSaveState then
-		self.state = {
-			utilTabHeight = 0,
-		}
-	else
-		self.state = {
-			utilTabHeight = 0,
-			isClientView = true,
-			clientIsProfiling = false,
-			serverIsProfiling = false,
-			usePercentages = false,
-			clientProfilingData = TESTING_DATA,
-			serverProfilingData = TESTING_DATA,
-			clientFrequency = 1000,
-			serverFrequency = 1000,
-		}
-	end
+	self.state = {
+		utilTabHeight = 0,
+	}
 end
 
 function MainViewScriptProfiler:didMount()
@@ -375,15 +256,9 @@ function MainViewScriptProfiler:didMount()
 	})
 
 	self.statsConnector = self.props.ServerProfilingData:Signal():Connect(function(data)
-		if FFlagScriptProfilerSaveState then
-			local newState = table.clone(self.props.server)
-			newState.data = data
-			self:UpdateState(false, newState)
-		else
-			self:setState({
-				serverProfilingData = data,
-			})
-		end
+		local newState = table.clone(self.props.server)
+		newState.data = data
+		self:UpdateState(false, newState)
 	end)
 end
 
@@ -429,36 +304,13 @@ function MainViewScriptProfiler:render()
 	local tabList = self.props.tabList
 	local scriptFilters = self.props.serverTypeFilters
 
-	local isClientView
-	local state
+	local isClientView, state = self:getActiveState()
 
-	local isProfiling
-	local profilingData
-	local frequency
-	local usePercentages
-	local isFunctionsView
-
-	if FFlagScriptProfilerSaveState then
-		isClientView, state = self:getActiveState()
-		isProfiling = state.isProfiling
-		profilingData = state.data
-		frequency = state.frequency
-		isFunctionsView = state.isFunctionsView
-
-		usePercentages = self.props.usePercentages
-	else
-		isClientView = self.state.isClientView
-		usePercentages = self.state.usePercentages
-		if isClientView then
-			isProfiling = self.state.clientIsProfiling
-			profilingData = self.state.clientProfilingData
-			frequency = self.state.clientFrequency
-		else
-			isProfiling = self.state.serverIsProfiling
-			profilingData = self.state.serverProfilingData
-			frequency = self.state.serverFrequency
-		end
-	end
+	local isProfiling = state.isProfiling
+	local profilingData = state.data
+	local frequency = state.frequency
+	local usePercentages = self.props.usePercentages
+	local isFunctionsView = state.isFunctionsView
 
 	local utilTabHeight = self.state.utilTabHeight
 	local searchTerm =  self.props.serverSearchTerm
@@ -526,7 +378,7 @@ function MainViewScriptProfiler:render()
 				end,
 			}) :: any,
 
-			FFlagScriptProfilerTimedProfiling and FFlagScriptProfilerSaveState and Roact.createElement("TextButton", {
+			FFlagScriptProfilerTimedProfiling and Roact.createElement("TextButton", {
 				Text = "Time" .. formatTimer(if isProfiling then state.timedProfilingCountdown else state.timedProfilingDuration),
 				TextSize = TEXT_SIZE,
 				TextColor3 = TEXT_COLOR,
@@ -543,7 +395,7 @@ function MainViewScriptProfiler:render()
 				end,
 			}) :: any,
 
-			FFlagScriptProfilerFunctionsView and FFlagScriptProfilerSaveState and Roact.createElement(DropDown, {
+			FFlagScriptProfilerFunctionsView and Roact.createElement(DropDown, {
 				buttonSize = UDim2.new(0, SMALL_DV_BUTTON_WIDTH, 0, SMALL_FRAME_HEIGHT),
 				dropDownList = DATA_VIEW_DROPDOWN_NAMES,
 				selectedIndex = isFunctionsView and 2 or 1,
@@ -563,28 +415,24 @@ function MainViewScriptProfiler:render()
 	})
 end
 
-if FFlagScriptProfilerSaveState then
-	local function mapStateToProps(state, props)
-		return {
-			isClientView = state.ScriptProfiler.isClientView,
-			usePercentages = state.ScriptProfiler.usePercentages,
+local function mapStateToProps(state, props)
+	return {
+		isClientView = state.ScriptProfiler.isClientView,
+		usePercentages = state.ScriptProfiler.usePercentages,
 
-			client = state.ScriptProfiler.client,
-			server = state.ScriptProfiler.server,
-		}
-	end
-
-	local function mapDispatchToProps(dispatch)
-		return {
-			dispatchSetScriptProfilerState = function(isClientView, usePercentages, clientSessionState, serverSessionState)
-				dispatch(SetScriptProfilerState(isClientView, usePercentages, clientSessionState, serverSessionState))
-			end,
-		}
-	end
-
-	return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(
-		DataConsumer(MainViewScriptProfiler, "ServerProfilingData")
-	)
-else
-	return DataConsumer(MainViewScriptProfiler, "ServerProfilingData")
+		client = state.ScriptProfiler.client,
+		server = state.ScriptProfiler.server,
+	}
 end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		dispatchSetScriptProfilerState = function(isClientView, usePercentages, clientSessionState, serverSessionState)
+			dispatch(SetScriptProfilerState(isClientView, usePercentages, clientSessionState, serverSessionState))
+		end,
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(
+	DataConsumer(MainViewScriptProfiler, "ServerProfilingData")
+)

@@ -25,7 +25,7 @@ Studio.RobloxPropertiesWidget.Category.BodyColors,,,Body Colors,Body Colors,,Kö
 Studio.RobloxPropertiesWidget.Category.BodyParts,,,Body Parts,Body Parts,,Körperteile,Partes del cuerpo,Parties du corps,,Parti del corpo,ボディパーツ,신체 파트,Partes do corpo,,,,,身体部件,身体部件,身體零件
 Studio.RobloxPropertiesWidget.Category.Brows,,,Brows,Brows,,Augenbrauen,Cejas,Sourcils,,Sopracciglia,まゆ毛,눈썹,Sobrancelhas,,,,,眉毛,眉毛,眉毛
 Studio.RobloxPropertiesWidget.Category.Browsing,,,Browsing,Browsing,,Durchsuchen,Navegación,Parcourir,,Navigare,閲覧,둘러보기,Navegando,,,,,浏览,浏览,瀏覽
-Studio.RobloxPropertiesWidget.Category.Cache,,,Cache,Cache,,Cache,Caché,Cache,,Cache,キャッシュ,캐시,Cache,,,,,缓存,缓存,快取
+Studio.RobloxPropertiesWidget.Category.Cache,,,Cache,Cache,,Zwischenspeicher,Caché,Cache,,Cache,キャッシュ,캐시,Cache,,,,,缓存,缓存,快取
 Studio.RobloxPropertiesWidget.Category.Camera,,,Camera,Camera,,Kamera,Cámara,Caméra,,Fotocamera,カメラ,카메라,Câmera,,,,,镜头,镜头,相機
 Studio.RobloxPropertiesWidget.Category.Character,,,Character,Character,,Charakter,Personaje,Personnage,,Carattere,キャラクター,캐릭터,Personagem,,,,,人物,人物,人物
 Studio.RobloxPropertiesWidget.Category.CharacterJumpSettings,,,Character Jump Settings,Character Jump Settings,,Charakter-Sprungeinstellungen,Configuración de Salto de personaje,Paramètres de saut de caractère,,Impostazioni salto personaggio,キャラクターのジャンプ設定,캐릭터 점프 설정,Configurações de pulo de personagem,,,,,人物跳跃设置,人物跳跃设置,人物跳躍設定
@@ -122,7 +122,7 @@ Studio.RobloxPropertiesWidget.Category.Teams,,,Teams,Teams,,Teams,Equipos,Équip
 Studio.RobloxPropertiesWidget.Category.Text,,,Text,Text,,Text,Texto,Texte,,Testo,テキスト,텍스트,Texto,,,,,文本,文本,文字
 Studio.RobloxPropertiesWidget.Category.Thrust,,,Thrust,Thrust,,Schub,Impulso,Impulsion,,Spinta,衝上,추력,Propulsão,,,,,推力,推力,推力
 Studio.RobloxPropertiesWidget.Category.Tongue,,,Tongue,Tongue,,Zunge,Lengua,Langue,,Lingua,舌,혀,Língua,,,,,舌头,舌头,舌頭
-Studio.RobloxPropertiesWidget.Category.Tools,,,Tools,Tools,,Tools,Herramientas,Outils,,Strumenti,ツール,도구,Ferramentas,,,,,工具,工具,工具
+Studio.RobloxPropertiesWidget.Category.Tools,,,Tools,Tools,,Werkzeuge,Herramientas,Outils,,Strumenti,ツール,도구,Ferramentas,,,,,工具,工具,工具
 Studio.RobloxPropertiesWidget.Category.Torque,,,Torque,Torque,,Drehmoment,Torsión mecánica,Torsion mécanique,,Coppia,トルク,토크,Torque,,,,,力矩,力矩,扭力
 Studio.RobloxPropertiesWidget.Category.Transform,,,Transform,Transform,,Transformieren,Transformar,Transformer,,Trasforma,変換,변환,Transformar,,,,,变换,变换,轉換
 Studio.RobloxPropertiesWidget.Category.Tuning,,,Tuning,Tuning,,Tuning,Ajuste,Réglage,,Regolazione,チューニング,튜닝,Sintonização,,,,,调整,调整,調整
@@ -154,4 +154,4 @@ Studio.RobloxPropertiesWidget.Category.Permissions,,,Permissions,Permissions,,Be
 Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,Aufnahme,Grabando,Enregistrement,,Registrazione,記録,기록,Gravação,,,,,记录,记录,錄製
 Studio.RobloxPropertiesWidget.Category.Scripting,,,Scripting,Scripting,,Scripting,Scripting,Scripting,,,スクリプト作成,스크립팅,Scripting,,,,,脚本,脚本,指令碼化
 Studio.RobloxPropertiesWidget.Category.ControlPoints,,,Control Points,Control Points,,Kontrollpunkte,Puntos de control,Points de contrôle,,,制御点,제어점,Pontos de controle,,,,,控制点,控制点,控制點
-Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,,Allineamento,整列,,Alinhamento,,,,,,,
+Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,,Allineamento,整列,정렬,Alinhamento,,,,,,,

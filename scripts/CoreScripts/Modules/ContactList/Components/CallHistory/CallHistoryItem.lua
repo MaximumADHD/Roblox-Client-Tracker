@@ -11,6 +11,8 @@ local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundG
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local GetFFlagIrisEnumerateCleanupEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisEnumerateCleanupEnabled
 
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ContactList = RobloxGui.Modules.ContactList
@@ -23,7 +25,7 @@ local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatar
 local useSelector = dependencies.Hooks.useSelector
 
 local ControlState = UIBlox.Core.Control.Enum.ControlState
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Interactable = UIBlox.Core.Control.Interactable
 local useStyle = UIBlox.Core.Style.useStyle
 
@@ -66,7 +68,12 @@ export type Props = {
 }
 
 local function getIsMissedCall(callRecord, localUserId)
-	return callRecord.callerId ~= localUserId and CallState.fromRawValue(callRecord.status) ~= CallState.Finished
+	if GetFFlagIrisEnumerateCleanupEnabled() then
+		return callRecord.callerId ~= localUserId and callRecord.status ~= CallState.Finished
+	else
+		return callRecord.callerId ~= localUserId
+			and (CallState :: any).fromRawValue(callRecord.status) ~= CallState.Finished
+	end
 end
 
 local function getCallStatusText(callRecord, localUserId)

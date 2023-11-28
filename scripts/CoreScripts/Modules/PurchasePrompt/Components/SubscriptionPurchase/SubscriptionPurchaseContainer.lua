@@ -4,6 +4,14 @@ local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
+local React = require(CorePackages.Packages.React)
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CoreScriptsRootProvider = require(RobloxGui.Modules.Common.CoreScriptsRootProvider)
+local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
+local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
+local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
 local RequestType = require(Root.Enums.RequestType)
 
@@ -17,6 +25,11 @@ local ExternalEventConnection = require(Root.Components.Connection.ExternalEvent
 local SubscriptionPurchaseOverlay = require(script.Parent.SubscriptionPurchaseOverlay)
 
 local SubscriptionPurchaseContainer = Roact.Component:extend(script.Name)
+
+local GetFFLagUseCoreScriptsRootProviderForSubscriptionPurchase =
+	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForSubscriptionPurchase)
+
+local SELECTION_GROUP_NAME = "SubscriptionPurchaseContainer"
 
 function SubscriptionPurchaseContainer:init()
 	self.state = {
@@ -32,13 +45,9 @@ function SubscriptionPurchaseContainer:init()
 	end
 end
 
-function SubscriptionPurchaseContainer:render()
+function SubscriptionPurchaseContainer:createElement()
 	local props = self.props
 	local state = self.state
-
-	if props.requestType ~= RequestType.Subscription then
-		return nil
-	end
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -61,7 +70,8 @@ function SubscriptionPurchaseContainer:render()
 			disclaimerText = props.subscriptionPurchaseInfo.DisclaimerText,
 			description = props.subscriptionPurchaseInfo.Description,
 			itemIcon = props.subscriptionPurchaseInfo.ImageUrl,
-	
+
+			isGamepadEnabled = props.isGamepadEnabled,
 			isTestingMode = props.subscriptionPurchaseInfo.IsTestingMode,
 
 			promptSubscriptionPurchase = props.promptSubscriptionPurchase,
@@ -80,35 +90,53 @@ function SubscriptionPurchaseContainer:render()
 			callback = function()
 				props.completeRequest()
 			end,
-		})
+		}),
 	})
 end
 
-SubscriptionPurchaseContainer = connectToStore(
-	function(state)
-		return {
-			requestType = state.promptRequest.requestType,
+function SubscriptionPurchaseContainer:render()
 
-			promptState = state.promptState,
-			purchaseError = state.purchaseError,
-
-			subscriptionPurchaseInfo = state.subscriptionPurchaseInfo,
-			subscriptionId = state.promptRequest.id,
-		}
-	end,
-	function(dispatch)
-		return {
-			promptSubscriptionPurchase = function()
-				return dispatch(launchSubscriptionPurchase())
-			end,
-			completeRequest = function()
-				return dispatch(completeRequest())
-			end,
-			onAnalyticEvent = function(name, data)
-				return dispatch(sendEvent(name, data))
-			end,
-		}
+	if self.props.requestType ~= RequestType.Subscription then
+		return nil
 	end
-)(SubscriptionPurchaseContainer)
+	
+	if GetFFLagUseCoreScriptsRootProviderForSubscriptionPurchase() then
+		return Roact.createElement(CoreScriptsRootProvider, {}, {
+			FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
+				selectionGroupName = SELECTION_GROUP_NAME,
+				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+			}, {
+				SubscriptionPurchaseContainer = self:createElement(),
+			}),
+		})
+	else
+		return self:createElement()
+	end
+end
+
+SubscriptionPurchaseContainer = connectToStore(function(state)
+	return {
+		requestType = state.promptRequest.requestType,
+
+		promptState = state.promptState,
+		purchaseError = state.purchaseError,
+
+		subscriptionPurchaseInfo = state.subscriptionPurchaseInfo,
+		subscriptionId = state.promptRequest.id,
+		isGamepadEnabled = state.gamepadEnabled,
+	}
+end, function(dispatch)
+	return {
+		promptSubscriptionPurchase = function()
+			return dispatch(launchSubscriptionPurchase())
+		end,
+		completeRequest = function()
+			return dispatch(completeRequest())
+		end,
+		onAnalyticEvent = function(name, data)
+			return dispatch(sendEvent(name, data))
+		end,
+	}
+end)(SubscriptionPurchaseContainer)
 
 return SubscriptionPurchaseContainer

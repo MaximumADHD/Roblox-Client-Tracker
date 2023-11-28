@@ -57,7 +57,7 @@ DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
 UGCValidation = "github.com/roblox/ugc-validation@1.10.3"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
-RoduxFriends = { git = "https://github.com/Roblox/rodux-friends", rev = "v4.2.1" }
+RoduxFriends = { git = "https://github.com/Roblox/rodux-friends", rev = "v4.2.3" }
 RoduxUsers = { git = "https://github.com/Roblox/rodux-users", rev = "v1.4.1" }
 Signal = "github.com/roblox/signal-lua@1.0"
 

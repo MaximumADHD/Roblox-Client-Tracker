@@ -83,7 +83,7 @@ PROTO_5:
   DUPTABLE R6 K18 [{"ZIndex", "AbsolutePosition", "FollowCursorOnDrag", "Style", "IsSelected", "OnSelected", "OnDoubleClicked", "OnDragStart", "OnDragMoved", "OnDragEnd"}]
   LOADN R7 1
   SETTABLEKS R7 R6 K8 ["ZIndex"]
-  GETTABLEKS R7 R1 K19 ["position"]
+  GETTABLEKS R7 R1 K19 ["absolutePosition"]
   SETTABLEKS R7 R6 K9 ["AbsolutePosition"]
   LOADB R7 0
   SETTABLEKS R7 R6 K10 ["FollowCursorOnDrag"]

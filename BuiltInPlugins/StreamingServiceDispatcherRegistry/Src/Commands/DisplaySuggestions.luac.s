@@ -1,0 +1,33 @@
+PROTO_0:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["arguments"]
+  GETUPVAL R2 1
+  LOADK R4 K1 ["DisplaySuggestions"]
+  MOVE R5 R1
+  NAMECALL R2 R2 K2 ["DisplayContent"]
+  CALL R2 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K8 [game]
+  LOADK R4 K9 ["ChatbotUIService"]
+  NAMECALL R2 R2 K10 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K8 [game]
+  LOADK R5 K11 ["CAPAddTutorialWorkflowLinks"]
+  NAMECALL R3 R3 K12 ["GetFastFlag"]
+  CALL R3 2 1
+  DUPCLOSURE R4 K13 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R4 1

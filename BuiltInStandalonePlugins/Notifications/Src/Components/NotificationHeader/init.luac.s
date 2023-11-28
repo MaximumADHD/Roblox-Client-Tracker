@@ -65,7 +65,7 @@ PROTO_1:
   SETTABLE R3 R14 R15
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K5 ["Tag"]
-  LOADK R16 K22 ["Plugin-Icon-Settings"]
+  LOADK R16 K22 ["Plugin-Icon-NotificationSettings"]
   SETTABLE R16 R14 R15
   CALL R12 2 1
   SETTABLEKS R12 R11 K17 ["SettingsButton"]

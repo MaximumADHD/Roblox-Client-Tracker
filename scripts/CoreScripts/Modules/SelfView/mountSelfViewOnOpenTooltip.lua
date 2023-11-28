@@ -3,6 +3,8 @@ local Roact = require(CorePackages.Roact)
 local CoreGui = game:GetService("CoreGui")
 local UIBlox = require(CorePackages.UIBlox)
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
+local DarkTheme = UIBlox.App.Style.Constants.ThemeName.Dark
+
 local Promise = require(CorePackages.Packages.Promise)
 
 local SelfViewTooltipFTUX = require(script.Parent.SelfViewTooltipFTUX)
@@ -16,6 +18,9 @@ return function (props)
 	screenGui.Parent = CoreGui
 
 	local root = Roact.createElement(AppStyleProvider, {
+		style = {
+			themeName = DarkTheme,
+		},
 	}, {
 		frame = Roact.createElement("Frame", {
 			Position = props.position,

@@ -23,7 +23,7 @@ local FocusHandler = require(script.Parent.Connection.FocusHandler)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local DropDownSelection = Roact.PureComponent:extend("DropDownSelection")
 

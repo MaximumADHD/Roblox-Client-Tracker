@@ -23,7 +23,7 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local AssetImage = require(script.Parent.AssetImage)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
 local DPAD_INITIAL_MOVE_INTERVAL = 0.5
 local STICK_INITIAL_MOVE_INTERVAL = 0.2

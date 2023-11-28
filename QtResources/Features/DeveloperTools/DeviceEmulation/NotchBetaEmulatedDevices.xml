@@ -444,6 +444,18 @@
         resolution_scale="1.0"
         user_agent="Roblox/XboxOne ROBLOX Xbox App 1.0.0 RobloxApp/1.0.0 (GlobalDist; MicrosoftAppStore) (Studio Emulator)"
         ></Device>
+    <Device name="PS4"
+        device_id="ps4"
+        translation_id = "Studio.App.EmulatorMainWidget.PS4"
+        dpi="96"
+        memoryMB="8192"
+        width="1920"
+        height="1080"
+        device_form="console"
+        platform="PS4"
+        resolution_scale="1.0"
+        user_agent="ROBLOX/PS4 ROBLOX PS4 App 0.0.0.3RobloxApp/0.0.0.2 (GlobalDist; RobloxDirectDownload) (Studio Emulator)"
+        ></Device>
     <Device name="Average Laptop"
         device_id="average_laptop"
         translation_id = "Studio.App.EmulatorMainWidget.AverageLaptop"

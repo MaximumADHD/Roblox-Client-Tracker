@@ -23,4 +23,5 @@ return {
 	toastButtonTypesAutoAlignAndNoBorder = UIBloxFlags.GetFFlagUIBloxToastButtonTypesAutoAlignAndNoBorder(),
 	coPlayFooterChangeColorAndShowMoreFaces = UIBloxFlags.GetFFlagUIBloxUpgradeCoPlayFooter(),
 	makeDefaultLoadingStrategyDefault = UIBloxFlags.GetFFlagChangeUIBloxLoadingStrategy(),
+	destroyLaserPointersOnUnmount = SharedFlags.GetFFlagHideExperienceLoadingJudder(),
 }

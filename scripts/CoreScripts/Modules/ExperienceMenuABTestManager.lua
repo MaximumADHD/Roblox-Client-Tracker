@@ -25,10 +25,12 @@ local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold",
 local ACTION_TRIGGER_LATCHED = 10000
 
 local TEST_VERSION = "t8" -- bump on new A/B campaigns
+local REPORT_ABUSE_MENU_TEST_VERSION = "art1"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
 local MENU_VERSION_V3 = "v3"..TEST_VERSION
+local REPORT_ABUSE_MENU_VERSION_V2 = "ARv2"..REPORT_ABUSE_MENU_TEST_VERSION
 
 local MENU_VERSION_CONTROLS_ENUM = {
 	BASELINE = "v4.1"..TEST_VERSION,
@@ -63,6 +65,7 @@ local validVersion = {
 	[MENU_VERSION_CHROME_ENUM.UNIBAR] = not GetFFlagDisableChromeUnibar,
 	[MENU_VERSION_CHROME_ENUM.PINNED_CHAT] = not GetFFlagDisableChromePinnedChat,
 	[MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN] = not GetFFlagDisableChromeDefaultOpen,
+	[REPORT_ABUSE_MENU_VERSION_V2] = true,
 }
 
 local ExperienceMenuABTestManager = {}
@@ -97,6 +100,10 @@ end
 
 function ExperienceMenuABTestManager.v3VersionId()
 	return MENU_VERSION_V3
+end
+
+function ExperienceMenuABTestManager.reportAbuseMenuV2VersionId()
+	return REPORT_ABUSE_MENU_VERSION_V2
 end
 
 function ExperienceMenuABTestManager.controlsBaselineVersionId()
@@ -179,6 +186,10 @@ end
 
 function ExperienceMenuABTestManager:isV3MenuEnabled()
 	return self:getVersion() == MENU_VERSION_V3
+end
+
+function ExperienceMenuABTestManager:isReportAbuseMenuV2Enabled()
+	return self:getVersion() == REPORT_ABUSE_MENU_VERSION_V2
 end
 
 function ExperienceMenuABTestManager:areMenuControlsEnabled()

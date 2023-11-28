@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DiscoveryPackagesTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/test-suites/discovery-packages-test-suite/src"
+    }
+  }
+}

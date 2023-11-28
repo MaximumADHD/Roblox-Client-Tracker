@@ -13,7 +13,7 @@ local InGameMenu = script.Parent.Parent
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
 local AssetImage = require(InGameMenu.Components.AssetImage)
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local getGameIconRequestSize = require(InGameMenu.Components.getGameIconRequestSize)
 

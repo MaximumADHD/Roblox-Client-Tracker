@@ -20,7 +20,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 local FillCircle = require(script.Parent.FillCircle)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local TextEntryField = Roact.PureComponent:extend("TextEntryField")
 

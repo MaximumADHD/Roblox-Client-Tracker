@@ -4,7 +4,7 @@ local React = require(Packages.React)
 
 local UIBlox = require(Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local useCameraOn = require(script.Parent.Parent.Hooks.useCameraOn)
 

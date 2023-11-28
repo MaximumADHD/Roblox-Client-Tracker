@@ -13,7 +13,7 @@ local useStyle = UIBlox.Core.Style.useStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
 local PADDING_LEFT = 24

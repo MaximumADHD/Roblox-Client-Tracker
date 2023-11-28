@@ -1,19 +1,19 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Anim = require(ReplicatedStorage.RobloxCharacterPackages.MotionCompositor)
+local Compositor = require(ReplicatedStorage.RobloxCharacterPackages.MotionCompositor)
 
-local ModuleManager = require(script.Parent.ModuleManager)
+local AbilityManager = require(script.Parent.AbilityManager)
 
-local coreSelectLayer = Anim.newDef("Select")
+local coreSelectLayer = Compositor.newDef("Select")
     :name("Core Select Layer")
     :selection(function(params) return params.state end)
     :transitionDurationSeconds(0.3)
 
-ModuleManager.forEachModule(function (module)
-    module.addToCompositor(coreSelectLayer)
+AbilityManager.forEachAbility(function (ability)
+    ability.addToCompositor(coreSelectLayer)
 end)
 
 -- TODO: Temp solution to support tool blending, refactor along with anchor support
-toolModule = require(script.Parent.Modules.Tool.Module)
-coreSelectLayer = toolModule.addToCompositor(coreSelectLayer)
+toolAbility = require(script.Parent.Abilities.Tool.Module)
+coreSelectLayer = toolAbility.addToCompositor(coreSelectLayer)
 
 return coreSelectLayer

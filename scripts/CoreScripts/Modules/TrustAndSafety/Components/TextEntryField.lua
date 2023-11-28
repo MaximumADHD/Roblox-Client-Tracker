@@ -14,7 +14,7 @@ local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
 
 local FillCircle = require(TnsModule.Components.FillCircle)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Core.Style.withStyle
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider

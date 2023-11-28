@@ -48,7 +48,7 @@ PROTO_4:
   GETUPVAL R3 1
   GETTABLE R2 R3 R0
   RETURN R2 1
-  LOADK R2 K1 ["Plugin-Icon-Placeholder"]
+  LOADK R2 K1 ["Plugin-Icon-NotificationBell"]
   RETURN R2 1
 
 MAIN:
@@ -62,24 +62,38 @@ MAIN:
   GETTABLEKS R3 R4 K6 ["Enums"]
   GETTABLEKS R2 R3 K7 ["NotificationTargetType"]
   CALL R1 1 1
-  DUPTABLE R2 K9 [{"DevForumAnnouncement"}]
-  LOADK R3 K10 ["Plugin-Icon-StaticDevForumAnnouncements"]
-  SETTABLEKS R3 R2 K8 ["DevForumAnnouncement"]
-  NEWTABLE R3 2 0
-  GETTABLEKS R4 R1 K11 ["Universe"]
-  DUPCLOSURE R5 K12 [PROTO_0]
-  SETTABLE R5 R3 R4
-  GETTABLEKS R4 R1 K13 ["User"]
-  DUPCLOSURE R5 K14 [PROTO_1]
-  SETTABLE R5 R3 R4
-  DUPCLOSURE R4 K15 [PROTO_2]
-  CAPTURE VAL R3
-  DUPCLOSURE R5 K16 [PROTO_3]
-  DUPCLOSURE R6 K17 [PROTO_4]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Resources"]
+  GETTABLEKS R3 R4 K9 ["NotificationLuaIcons"]
+  CALL R2 1 1
+  NEWTABLE R3 0 0
+  GETIMPORT R4 K11 [ipairs]
+  MOVE R5 R2
+  CALL R4 1 3
+  FORGPREP_INEXT R4
+  LOADK R10 K12 ["Plugin-Icon-%*"]
+  MOVE R12 R8
+  NAMECALL R10 R10 K13 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  SETTABLE R9 R3 R8
+  FORGLOOP R4 2 [inext] [-8]
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R1 K14 ["Universe"]
+  DUPCLOSURE R6 K15 [PROTO_0]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R1 K16 ["User"]
+  DUPCLOSURE R6 K17 [PROTO_1]
+  SETTABLE R6 R4 R5
+  DUPCLOSURE R5 K18 [PROTO_2]
+  CAPTURE VAL R4
+  DUPCLOSURE R6 K19 [PROTO_3]
+  DUPCLOSURE R7 K20 [PROTO_4]
   CAPTURE VAL R1
-  CAPTURE VAL R2
-  DUPTABLE R7 K21 [{"getDynamicIconPath", "getReadStatusIconTag", "getStaticIconTag"}]
-  SETTABLEKS R4 R7 K18 ["getDynamicIconPath"]
-  SETTABLEKS R5 R7 K19 ["getReadStatusIconTag"]
-  SETTABLEKS R6 R7 K20 ["getStaticIconTag"]
-  RETURN R7 1
+  CAPTURE VAL R3
+  DUPTABLE R8 K24 [{"getDynamicIconPath", "getReadStatusIconTag", "getStaticIconTag"}]
+  SETTABLEKS R5 R8 K21 ["getDynamicIconPath"]
+  SETTABLEKS R6 R8 K22 ["getReadStatusIconTag"]
+  SETTABLEKS R7 R8 K23 ["getStaticIconTag"]
+  RETURN R8 1

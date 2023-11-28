@@ -65,6 +65,10 @@ Rectangle {
         anchors.topMargin: verticalMargin
         text: newUserPageController.hasCompletedTutorial() ? qsTr("Studio.App.TutorialPage.RestartTour") : qsTr("Studio.App.TutorialPage.StartTour")
         onClicked: {
+            if (FFlagStudioOnboardingStartPageCTAAnalytics)
+            {
+                newUserPageController.reportSourceAnalytics("tab");
+            }
             newUserPageController.startTutorial();
         }
     }

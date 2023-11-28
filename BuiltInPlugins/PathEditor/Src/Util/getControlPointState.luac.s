@@ -1,0 +1,33 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"Mirrored", "Sharp"}]
+  GETTABLEKS R3 R0 K3 ["LeftTangent"]
+  GETTABLEKS R5 R0 K5 ["RightTangent"]
+  MULK R4 R5 K4 [-1]
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["Mirrored"]
+  LOADB R2 1
+  GETTABLEKS R3 R0 K3 ["LeftTangent"]
+  GETIMPORT R4 K8 [Vector2.zero]
+  JUMPIFEQ R3 R4 [+9]
+  GETTABLEKS R3 R0 K5 ["RightTangent"]
+  GETIMPORT R4 K8 [Vector2.zero]
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  SETTABLEKS R2 R1 K1 ["Sharp"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PathEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K8 [PROTO_0]
+  RETURN R2 1

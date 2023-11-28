@@ -62,7 +62,7 @@ MAIN:
   JUMPIFNOT R4 [+1]
   RETURN R0 0
   GETIMPORT R4 K14 [game]
-  LOADK R6 K15 ["EnableStudioNotifications"]
+  LOADK R6 K15 ["EnableStudioNotifications3"]
   NAMECALL R4 R4 K16 ["GetFastFlag"]
   CALL R4 2 1
   JUMPIF R4 [+1]

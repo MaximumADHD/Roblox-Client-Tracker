@@ -31,7 +31,6 @@ return function()
 
 	local Flags = InGameMenu.Flags
 	local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-	local GetFFlagIGMVRSettingsPolish = require(Flags.GetFFlagIGMVRSettingsPolish)
 
 	local function getMountableTreeAndStore(props)
 		local store = Rodux.Store.new(reducer)
@@ -155,60 +154,58 @@ return function()
 		end)
 	end)
 
-	if GetFFlagIGMVRSettingsPolish() then
-		describe("Settings Page VR support", function()
-			it("Adds new VR Controls section in VR", function()
-				local propsForVR = {
-					vrService = {
-						VREnabled = true,
-						GetPropertyChangedSignal = function(self, propertyName)
-							return VRService:GetPropertyChangedSignal(propertyName)
-						end
-					},
-					isVRAppBuild = function() return false end
-				}
+	describe("Settings Page VR support", function()
+		it("Adds new VR Controls section in VR", function()
+			local propsForVR = {
+				vrService = {
+					VREnabled = true,
+					GetPropertyChangedSignal = function(self, propertyName)
+						return VRService:GetPropertyChangedSignal(propertyName)
+					end
+				},
+				isVRAppBuild = function() return false end
+			}
 
-			local element, store = getMountableTreeAndStore(propsForVR)
+		local element, store = getMountableTreeAndStore(propsForVR)
 
-				local playerGui = Players.LocalPlayer.PlayerGui
-				local instance = Roact.mount(element, playerGui)
+			local playerGui = Players.LocalPlayer.PlayerGui
+			local instance = Roact.mount(element, playerGui)
 
-				act(function()
-					store:dispatch(SetMenuOpen(true))
-					store:dispatch(SetCurrentPage("GameSettings"))
-					store:flush()
-				end)
+			act(function()
+				store:dispatch(SetMenuOpen(true))
+				store:dispatch(SetCurrentPage("GameSettings"))
+				store:flush()
+			end)
 
 				local VRControlsHeader = playerGui:FindFirstChild("VRControlsHeader", true)
 				expect(VRControlsHeader).toMatchInstance({ LayoutOrder = 1 })
 
-				Roact.unmount(instance)
+			Roact.unmount(instance)
+		end)
+
+		it("Does not display Camera section in VR", function()
+			local propsForVR = {
+				vrService = {
+					VREnabled = true,
+					GetPropertyChangedSignal = function(self, propertyName)
+						return VRService:GetPropertyChangedSignal(propertyName)
+					end
+				},
+				isVRAppBuild = function() return false end
+			}
+
+			local _element, store = getMountableTreeAndStore(propsForVR)
+
+			local playerGui = Players.LocalPlayer.PlayerGui
+			act(function()
+				store:dispatch(SetMenuOpen(true))
+				store:dispatch(SetCurrentPage("GameSettings"))
+				store:flush()
 			end)
-
-			it("Does not display Camera section in VR", function()
-				local propsForVR = {
-					vrService = {
-						VREnabled = true,
-						GetPropertyChangedSignal = function(self, propertyName)
-							return VRService:GetPropertyChangedSignal(propertyName)
-						end
-					},
-					isVRAppBuild = function() return false end
-				}
-
-				local _element, store = getMountableTreeAndStore(propsForVR)
-
-				local playerGui = Players.LocalPlayer.PlayerGui
-				act(function()
-					store:dispatch(SetMenuOpen(true))
-					store:dispatch(SetCurrentPage("GameSettings"))
-					store:flush()
-				end)
 
 				local CameraHeader = playerGui:FindFirstChild("CameraHeader", true)
 				expect(CameraHeader).toBeNil()
 			end)
 
-		end)
-	end
+	end)
 end

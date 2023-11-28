@@ -12,8 +12,8 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local InGameMenu = script.Parent.Parent
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
 local Assets = require(InGameMenu.Resources.Assets)
 

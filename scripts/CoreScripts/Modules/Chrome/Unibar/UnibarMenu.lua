@@ -185,7 +185,7 @@ end
 
 type UnibarProp = {
 	menuFrameRef: any,
-	onAreaChanged: (id: string, position: UDim2, size: UDim2) -> nil,
+	onAreaChanged: (id: string, position: Vector2, size: Vector2) -> nil,
 	onMinWidthChanged: (width: number) -> (),
 }
 
@@ -196,6 +196,8 @@ end
 function Unibar(props: UnibarProp)
 	local currentOpenPositions = {}
 	local priorOpenPositions = React.useRef({})
+	local priorAbsolutePosition = React.useRef(Vector2.zero)
+
 	local updatePositions = false
 	local priorPositions = priorOpenPositions.current or {}
 
@@ -218,8 +220,17 @@ function Unibar(props: UnibarProp)
 	local expandSize: number = 0
 
 	local onAreaChanged = React.useCallback(function(rbx)
+		local absolutePosition = Vector2.zero
+		if rbx then
+			absolutePosition = rbx.AbsolutePosition
+			if absolutePosition ~= priorAbsolutePosition.current then
+				priorAbsolutePosition.current = absolutePosition
+				ChromeService:setMenuAbsolutePosition(absolutePosition)
+			end
+		end
+
 		if rbx and props.onAreaChanged then
-			props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, rbx.AbsolutePosition, rbx.AbsoluteSize)
+			props.onAreaChanged(Constants.UNIBAR_KEEP_OUT_AREA_ID, absolutePosition, rbx.AbsoluteSize)
 		end
 	end, {})
 
@@ -349,6 +360,13 @@ function Unibar(props: UnibarProp)
 		end
 	end, { expandSize })
 
+	React.useEffect(function()
+		ChromeService:setMenuAbsoluteSize(
+			Vector2.new(minSize, Constants.ICON_CELL_WIDTH),
+			Vector2.new(expandSize, Constants.ICON_CELL_WIDTH)
+		)
+	end, { minSize, expandSize })
+
 	if updatePositions then
 		positionUpdateCount.current = (positionUpdateCount.current or 0) + 1
 	end
@@ -407,7 +425,7 @@ end
 
 type UnibarMenuProp = {
 	layoutOrder: number,
-	onAreaChanged: (id: string, position: UDim2, size: UDim2) -> nil,
+	onAreaChanged: (id: string, position: Vector2, size: Vector2) -> nil,
 	onMinWidthChanged: (width: number) -> (),
 }
 

@@ -24,8 +24,8 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local Assets = require(InGameMenu.Resources.Assets)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local HEADER_HEIGHT = 132
 

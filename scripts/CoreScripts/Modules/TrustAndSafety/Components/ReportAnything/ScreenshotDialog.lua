@@ -6,7 +6,7 @@ local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Cryo)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Button
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetButton
 local useStyle = UIBlox.Core.Style.useStyle
 
 local ButtonStack = UIBlox.App.Button.ButtonStack

@@ -121,14 +121,17 @@ local Constants = {
 		[Enum.UserInputType.Touch] = InputTypes.Touch,
 	},
 
+
 	OnSurveyEventDescriptor = {
 		mid = MessageBus.getMessageId("Game", "openSurvey"),
 		validateParams = t.strictInterface({
 			eventType = t.string,
 			userId = t.optional(t.string),
+			customProps = t.optional(t.table),
 		}),
 	},
-	SurveyEventType =  "leaveButtonClick"
+	SurveyEventType =  "leaveButtonClick",
+	ChromeSeenCountKey = "ChromeSeenCount"
 }
 
 return Constants

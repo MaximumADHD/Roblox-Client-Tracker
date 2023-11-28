@@ -4,6 +4,7 @@ local GetFFlagReportAnythingAnnotationIXP =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFStringReportAnythingAnnotationIXPLayerName =
 	require(RobloxGui.Modules.Settings.Flags.GetFStringReportAnythingAnnotationIXPLayerName)
+local GetFFlagForceReportAnythingAnnotationEnabled = require(script.Parent.Flags.GetFFlagForceReportAnythingAnnotationEnabled)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
@@ -29,10 +30,16 @@ function TrustAndSafetyIXPManager.new(serviceWrapper: any): any
 end
 
 function TrustAndSafetyIXPManager:getReportAnythingExperienceEnabled()
+	if GetFFlagForceReportAnythingAnnotationEnabled() then
+		return true
+	end
 	return self._reportAnythingExperienceEnabled or self._optionalScreenshotEnabled
 end
 
 function TrustAndSafetyIXPManager:getReportAnythingAvatarEnabled()
+	if GetFFlagForceReportAnythingAnnotationEnabled() then
+		return true
+	end
 	return self._reportAnythingAvatarEnabled or self._optionalScreenshotEnabled
 end
 

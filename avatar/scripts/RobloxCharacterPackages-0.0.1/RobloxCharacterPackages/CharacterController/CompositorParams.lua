@@ -6,7 +6,7 @@ return {
     statePrevious = "Running",
     humanoidMoveDir = Vector3.zero,
     hrpCF = CFrame.identity,
-    hrpVelocity = Vector3.zero,
+    desiredVelocity = Vector3.zero,
     inputDir = Vector3.zero,
     inputDirCharSpace = Vector3.zero,
     moveDir = Vector2.zero,

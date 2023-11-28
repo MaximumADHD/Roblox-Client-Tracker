@@ -6,7 +6,7 @@ local React = require(CorePackages.Packages.React)
 local TnsModule = script.Parent.Parent.Parent
 local GetFIntRAMaxAnnotationCount = require(TnsModule.Flags.GetFIntRAMaxAnnotationCount)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local Images = UIBlox.App.ImageSet.Images
 
 local SUPPORT_DRAG_SELECTION = false

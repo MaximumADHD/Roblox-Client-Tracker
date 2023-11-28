@@ -1,4 +1,7 @@
 -- CreateGhostCollisionGroup.server
+-- This is for supporting pose prediction:
+-- We need to pose a model that isn't the player's actual character. 
+-- Obviously don't want the ghost model to collide but setting collision properties is unreliable so we just throw all the ghost models into this inert collision group.
 local PhysicsService = game:GetService("PhysicsService")
 PhysicsService:RegisterCollisionGroup("PosedCloneGhostGroup")
 PhysicsService:CollisionGroupSetCollidable("Default", "PosedCloneGhostGroup", false)

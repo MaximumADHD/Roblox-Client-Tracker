@@ -8,9 +8,9 @@ export type Category = {
 }
 
 export type Function = {
-    Source: string,
-    Name: string,
-    Line: number,
+    Source: string?,
+    Name: string?,
+    Line: number?,
     TotalDuration: number,
     IsNative: boolean?,
 }
@@ -18,7 +18,7 @@ export type Function = {
 export type Node = {
     TotalDuration: number,
     Duration: number,
-    Children: {[FunctionId]: NodeId},
+    Children: {[FunctionId]: NodeId}?,
 }
 
 export type RootDataFormat = {

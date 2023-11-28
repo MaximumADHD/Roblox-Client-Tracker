@@ -11,7 +11,7 @@ local Divider = require(Dependencies.Divider)
 local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
 local withStyle = UIBlox.Style.withStyle
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local CheckBox = UIBlox.App.InputButton.Checkbox
 
 local BlockPlayerItem = Roact.PureComponent:extend("BlockPlayerItem")

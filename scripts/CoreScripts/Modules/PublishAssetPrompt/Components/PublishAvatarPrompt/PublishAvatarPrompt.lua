@@ -56,24 +56,21 @@ function PublishAvatarPrompt:init()
 		})
 	end
 
-	self.confirmUploadReady = function(): boolean
-		if not self.state.isNameValid then
-			return false
-		end
+	-- Prompt can submit as long as name is valid
+	self.canSubmit = function(): boolean
+		return self.state.isNameValid
+	end
+
+	self.onSubmit = function()
 		local metadata = {}
 		metadata[NAME_METADATA_STRING] = self.state.name
 
-		-- We should never get to this point if this engine feature is off, but just in case:
-		if game:GetEngineFeature("ExperienceAuthReflectionFixes") then
-			ExperienceAuthService:ScopeCheckUIComplete(
-				self.props.guid,
-				self.props.scopes,
-				Enum.ScopeCheckResult.ConsentAccepted,
-				metadata
-			)
-		end
-
-		return true
+		ExperienceAuthService:ScopeCheckUIComplete(
+			self.props.guid,
+			self.props.scopes,
+			Enum.ScopeCheckResult.ConsentAccepted,
+			metadata
+		)
 	end
 
 	self.onNameUpdated = function(newName, isNameValid)
@@ -137,7 +134,8 @@ function PublishAvatarPrompt:render()
 		typeData = localized[BODY_TEXT],
 		titleText = localized[TITLE_TEXT],
 		onNameUpdated = self.onNameUpdated,
-		confirmUploadReady = self.confirmUploadReady,
+		canSubmit = self.canSubmit,
+		onSubmit = self.onSubmit,
 	})
 end
 

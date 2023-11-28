@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "GameTile",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/game-tile/src"
+    }
+  }
+}

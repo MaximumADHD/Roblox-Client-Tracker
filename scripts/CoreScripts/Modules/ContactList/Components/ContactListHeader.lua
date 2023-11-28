@@ -15,7 +15,7 @@ local useDispatch = dependencies.Hooks.useDispatch
 local useSelector = dependencies.Hooks.useSelector
 local UIBlox = dependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local useStyle = UIBlox.Core.Style.useStyle
 
 local BUTTON_SIZE = 32

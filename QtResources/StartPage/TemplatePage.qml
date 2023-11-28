@@ -81,6 +81,10 @@ Rectangle {
                 buttonText: qsTr("Studio.App.TutorialBanner.StartTourText")
 
                 function onButtonClicked() {
+                    if (FFlagStudioOnboardingStartPageCTAAnalytics)
+                    {
+                        newUserPageController.reportSourceAnalytics("banner");
+                    }
                     newUserPageController.startTutorial();
                 }
             }
@@ -104,6 +108,10 @@ Rectangle {
                 buttonText: qsTr("Studio.App.TutorialBanner.OpenTutorialsText")
 
                 function onButtonClicked() {
+                    if (FFlagStudioOnboardingStartPageCTAAnalytics)
+                    {
+                        newUserPageController.reportSourceAnalytics("link");
+                    }
                     Qt.openUrlExternally(tutorialPageLink);
                 }
             }

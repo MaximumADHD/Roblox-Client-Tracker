@@ -840,10 +840,14 @@ Class Camera : Instance [NotReplicated]
 Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:GetCaptureSizeAsync(captureContentId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
+	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {RobloxScriptSecurity}
+	Function CaptureService:PromptShareCapture(contentId: string, launchData: { [string]: any }, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
 	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:SaveScreenshotCapture() -> () {RobloxScriptSecurity}
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) {RobloxScriptSecurity}
+	Event CaptureService.OpenShareCapturePrompt(promptId: number, contentId: string, capturePath: string, launchData: { [string]: any }) {RobloxScriptSecurity}
+	Event CaptureService.UserCaptureSaved(captureContentId: string)
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function ChangeHistoryService:FinishRecording(identifier: string, operation: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) -> () {PluginSecurity}
 	Function ChangeHistoryService:GetCanRedo() -> ...any {PluginSecurity}
@@ -1022,6 +1026,8 @@ Class Constraint : Instance [NotCreatable]
 	Property Constraint.Attachment1: Attachment?
 	Property Constraint.Active: boolean [ReadOnly]
 	Property Constraint.Enabled: boolean
+	Function Constraint:GetDebugAppliedForce(bodyId: number) -> Vector3 [Deprecated]
+	Function Constraint:GetDebugAppliedTorque(bodyId: number) -> Vector3 [Deprecated]
 Class AlignOrientation : Constraint
 	Property AlignOrientation.Mode: Enum.OrientationAlignmentMode
 	Property AlignOrientation.AlignType: Enum.AlignType
@@ -1338,7 +1344,7 @@ Class BevelMesh : DataModelMesh [NotCreatable] [NotBrowsable] [Deprecated]
 	Property BevelMesh.Bulge: number [Hidden] [NotScriptable] [Deprecated]
 Class BlockMesh : BevelMesh
 Class CylinderMesh : BevelMesh [Deprecated]
-Class EditableMesh : DataModelMesh
+Class EditableMesh : DataModelMesh [NotReplicated]
 	Property EditableMesh.MeshVersion: number {✏️NotAccessibleSecurity} [Hidden]
 	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
@@ -1357,7 +1363,7 @@ Class EditableMesh : DataModelMesh
 	Function EditableMesh:GetVertexColorAlpha(vertexId: number) -> number
 	Function EditableMesh:GetVertexNormal(vertexId: number) -> Vector3
 	Function EditableMesh:GetVertices() -> { any }
-	Function EditableMesh:Raycast(origin: Vector3, direction: Vector3) -> ...any
+	Function EditableMesh:RaycastLocal(origin: Vector3, direction: Vector3) -> ...any
 	Function EditableMesh:RemoveTriangle(triangleId: number) -> ()
 	Function EditableMesh:RemoveVertex(vertexId: number) -> ()
 	Function EditableMesh:SetPosition(vertexId: number, p: Vector3) -> ()
@@ -1579,7 +1585,7 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property DraggerService.PivotSnapToGeometry: boolean {RobloxScriptSecurity} [ReadOnly]
 	Property DraggerService.ShowHover: boolean [ReadOnly]
 	Property DraggerService.ShowPivotIndicator: boolean [NotReplicated]
-Class EditableImage : Instance
+Class EditableImage : Instance [NotReplicated]
 	Property EditableImage.ImageData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property EditableImage.Size: Vector2
 	Function EditableImage:Copy(min: Vector2, max: Vector2) -> EditableImage
@@ -2304,6 +2310,7 @@ Class Path2D : GuiBase [NotReplicated]
 	Property Path2D.Color: Color3 {RobloxScriptSecurity}
 	Property Path2D.Position: UDim2 {RobloxScriptSecurity}
 	Property Path2D.Thickness: number {RobloxScriptSecurity}
+	Property Path2D.Transparency: number {RobloxScriptSecurity}
 	Property Path2D.Visible: boolean {RobloxScriptSecurity}
 	Function Path2D:GetControlPoints() -> { any } {RobloxScriptSecurity}
 	Function Path2D:GetPositionOnCurve(t: number) -> UDim2 {RobloxScriptSecurity}
@@ -3268,7 +3275,7 @@ Class OpenCloudService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function OpenCloudService:InvokeAsync(version: string, methodName: string, arguments: { [string]: any }) -> { [string]: any } [Yields]
 	Function OpenCloudService:RegisterOpenCloud(version: string, methodName: string, method: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function OpenCloudService:RegistrationComplete() -> () {RobloxScriptSecurity}
-Class OperationTree : Instance
+Class OperationGraph : Instance
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 	Property PVInstance.Pivot Offset: CFrame [NotReplicated] [NotScriptable]
 	Property PVInstance.Origin: CFrame [NotReplicated] [NotScriptable]
@@ -3463,6 +3470,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:GetTerrainWireframe(cframe: CFrame, size: Vector3) -> { any } {RobloxScriptSecurity}
 	Function Terrain:GetWaterCell(x: number, y: number, z: number) -> ...any [Deprecated]
 	Function Terrain:PasteRegion(region: TerrainRegion, corner: Vector3int16, pasteEmptyCells: boolean) -> ()
+	Function Terrain:ReadVoxelChannels(region: Region3, resolution: number, channelIds: { any }) -> { [string]: any } {🧬Safe}
 	Function Terrain:ReadVoxels(region: Region3, resolution: number) -> ...any [CustomLuaState] {🧬Safe}
 	Function Terrain:ReplaceMaterial(region: Region3, resolution: number, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> ()
 	Function Terrain:ReplaceMaterialInTransform(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> () {RobloxScriptSecurity}
@@ -3477,6 +3485,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:WorldToCell(position: Vector3) -> Vector3
 	Function Terrain:WorldToCellPreferEmpty(position: Vector3) -> Vector3
 	Function Terrain:WorldToCellPreferSolid(position: Vector3) -> Vector3
+	Function Terrain:WriteVoxelChannels(region: Region3, resolution: number, channels: { [string]: any }) -> ()
 	Function Terrain:WriteVoxels(region: Region3, resolution: number, materials: { any }, occupancy: { any }) -> () [CustomLuaState]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
@@ -4665,6 +4674,7 @@ Class ServiceVisibilityService : Instance [NotCreatable] [Service]
 	Property ServiceVisibilityService.VisibleServices: BinaryString {RobloxSecurity}
 	Property ServiceVisibilityService.HiddenServices: BinaryString {RobloxSecurity}
 Class SessionService : Instance [NotCreatable] [Service]
+	Function SessionService:GenerateSessionInfoString(includeArbitrarySessions: boolean, includeTag: boolean, includeTimestamps: boolean, includeMetadata: boolean) -> string {RobloxScriptSecurity}
 	Function SessionService:GetCreatedTimestampUtcMs(sid: string) -> number {RobloxScriptSecurity}
 	Function SessionService:GetMetadata(sid: string, key: string) -> any {RobloxScriptSecurity}
 	Function SessionService:GetRootSID() -> string {RobloxScriptSecurity}
@@ -5162,6 +5172,7 @@ Class StudioObjectBase : Instance [NotCreatable] [NotReplicated]
 Class StudioWidget : StudioObjectBase [NotCreatable] [NotReplicated]
 	Function StudioWidget:SetFixedSize(width: number, height: number) -> () {RobloxScriptSecurity}
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property StudioPublishService.PublishLocked: boolean {RobloxScriptSecurity}
 	Function StudioPublishService:ClearUploadNames() -> () {RobloxScriptSecurity}
 	Function StudioPublishService:PublishAs(universeId: number, placeId: number, groupId: number, isPublish: boolean, publishParameters: any) -> () {RobloxScriptSecurity}
 	Function StudioPublishService:PublishThenTurnOnTeamCreate() -> () {RobloxScriptSecurity}
@@ -5173,6 +5184,7 @@ Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioPublishService.GameNameUpdated(name: string) {RobloxScriptSecurity}
 	Event StudioPublishService.GamePublishCancelled() {RobloxScriptSecurity}
 	Event StudioPublishService.GamePublishFinished(success: boolean, gameId: number, message: string, reason: Enum.StudioPlaceUpdateFailureReason) {RobloxScriptSecurity}
+	Event StudioPublishService.OnPublishAttempt() {RobloxScriptSecurity}
 	Event StudioPublishService.OnSaveOrPublishPlaceToRoblox(showGameSelect: boolean, isPublish: boolean, closeMode: Enum.StudioCloseMode) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioSdkService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -6067,6 +6079,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Event VoiceChatInternal.StateChanged(old: Enum.VoiceChatState, new: Enum.VoiceChatState) [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property VoiceChatService.EnableDefaultVoice: boolean {PluginSecurity}
+	Property VoiceChatService.UseAudioApi: Enum.AudioApiRollout {PluginSecurity} [NotBrowsable]
 	Property VoiceChatService.UseNewAudioApi: boolean {RobloxScriptSecurity} [Hidden]
 	Property VoiceChatService.UseNewControlPaths: boolean {RobloxSecurity} [Hidden]
 	Property VoiceChatService.UseNewJoinFlow: boolean {RobloxSecurity} [Hidden]
@@ -6325,6 +6338,10 @@ Enum AssetTypeVerification
 	EnumItem AssetTypeVerification.Default : 1
 	EnumItem AssetTypeVerification.ClientOnly : 2
 	EnumItem AssetTypeVerification.Always : 3
+Enum AudioApiRollout
+	EnumItem AudioApiRollout.Disabled : 0
+	EnumItem AudioApiRollout.Automatic : 1
+	EnumItem AudioApiRollout.Enabled : 2
 Enum AudioSubType
 	EnumItem AudioSubType.Music : 1
 	EnumItem AudioSubType.SoundEffect : 2

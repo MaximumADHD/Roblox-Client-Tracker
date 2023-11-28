@@ -1,10 +1,14 @@
 local AppStorageService = game:GetService("AppStorageService")
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
+local CorePackages = game:GetService("CorePackages")
 
 local hasEngineSupport = game:GetEngineFeature("InGameMenuStateStorageKey")
 
 local APP_STORAGE_KEY = "InGameMenuState"
+local CHROME_SEEN_COUNT_KEY = "ChromeSeenCount"
+local GetFFlagEnableUnibarMaxDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
+local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 
 local storeRoot: any
 local loaded = false
@@ -131,6 +135,17 @@ local function load(key: string, selector): any
 	return nil
 end
 
+local function getChromeSeenCount(): number
+	if GetFFlagChromeSurveySupport() and GetFFlagEnableUnibarMaxDefaultOpen() and hasEngineSupport then
+		local chromeSeenCount = load(CHROME_SEEN_COUNT_KEY, localPlayerSelector)
+		if chromeSeenCount and tonumber(chromeSeenCount) then
+			return chromeSeenCount
+		end
+	end
+
+	return 0
+end
+
 return {
 	isEnabled = function()
 		return hasEngineSupport
@@ -152,5 +167,9 @@ return {
 	clearCache = function()
 		loaded = false
 		storeRoot = nil
+	end,
+
+	getChromeSeenCount = function()
+		return getChromeSeenCount()
 	end,
 }
