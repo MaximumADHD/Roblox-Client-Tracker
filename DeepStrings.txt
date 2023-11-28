@@ -65,6 +65,7 @@ AAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAACertificateServices.crl0
+AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -13351,8 +13352,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-Corporation0
-Corporation1
+CORPORATION0
+CORPORATION1
 CorrectEarlyReturnInMarkDirty
 Correction
 Correctives
@@ -16379,9 +16380,6 @@ DigestAlgorithm_init_bio
 DigestedData_do_final
 DigiCertAssuredIDRootCA.crl0
 DigiCertAssuredIDRootCA.crt0E
-DigiCertEVCodeSigningCA
-DigiCertHighAssuranceEVRootCA.crl0
-DigiCertHighAssuranceEVRootCA.crt0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
 DigiCertTrustedRootG4.crl0
@@ -18466,7 +18464,6 @@ EvAudioVideoInput
 EvAV2CFaceIsOccluded
 EvAV2CFaceNotFound
 EvAV2CHasTrackingError
-EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -29847,7 +29844,6 @@ OrFirstTier
 OrFunction
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -37859,6 +37855,10 @@ SecondsSinceLastPong
 SecondsSinceLastPong_
 SecondsTo_
 SecretTransformationEnabled
+SectigoPublicCodeSigningCAR36.crl0y
+SectigoPublicCodeSigningCAR36.crt0
+SectigoPublicCodeSigningRootR46.crl0
+SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionHidden
 SectionResizeMode
