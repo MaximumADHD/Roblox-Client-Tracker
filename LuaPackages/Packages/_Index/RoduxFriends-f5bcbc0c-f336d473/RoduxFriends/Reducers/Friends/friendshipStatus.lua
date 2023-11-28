@@ -140,6 +140,13 @@ return function(options: roduxFriendsTypes.RoduxFriendsOptions)
 			})
 		end,
 
+		[FriendsNetworking.RequestFriendshipFromContactId.Succeeded.name] = function(state: roduxFriendsTypes.FriendshipStatus, action: roduxFriendsTypes.GetFriendRecommendationsFromUserId)
+			local contactId = tostring(action.namedIds.contacts)
+			return llama.Dictionary.join(state, {
+				[contactId] = Enum.FriendStatus.FriendRequestSent,
+			})
+		end,
+
 		[FriendshipDestroyed.name] = function(state: roduxFriendsTypes.FriendshipStatus, action: roduxFriendsTypes.FriendshipDestroyed)
 			local userId = tostring(action.payload.userId1)
 			return llama.Dictionary.join(state, {

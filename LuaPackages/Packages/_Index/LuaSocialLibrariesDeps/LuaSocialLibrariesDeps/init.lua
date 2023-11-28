@@ -1,6 +1,7 @@
 local LuaSocialLibrariesDeps = script.Parent
 
 local FFlagUseRoduxFriends41 = game:DefineFastFlag("UseRoduxFriends41", false)
+local FFlagUseRoduxUsers14 = game:DefineFastFlag("UseRoduxUsers14", false)
 
 return {
 	GenericPagination = require(LuaSocialLibrariesDeps.GenericPagination),
@@ -9,8 +10,8 @@ return {
 	RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 	llama = require(LuaSocialLibrariesDeps.llama),
 	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
-	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
-	RoduxUsers_v13 = require(LuaSocialLibrariesDeps.RoduxUsers_v13),
+	RoduxUsers = if FFlagUseRoduxUsers14 then require(LuaSocialLibrariesDeps.RoduxUsers_v14) else require(LuaSocialLibrariesDeps.RoduxUsers),
+	RoduxUsers_v13 = if FFlagUseRoduxUsers14 then require(LuaSocialLibrariesDeps.RoduxUsers_v14) else require(LuaSocialLibrariesDeps.RoduxUsers_v13),
 	RoduxFriends = if FFlagUseRoduxFriends41 then require(LuaSocialLibrariesDeps.RoduxFriends_v41) else require(LuaSocialLibrariesDeps.RoduxFriends),
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
 	RoduxGames = require(LuaSocialLibrariesDeps.RoduxGames),

@@ -29,8 +29,10 @@ local CursorKind = require(App.SelectionImage.CursorKind)
 local RoactGamepad = require(Packages.RoactGamepad)
 local Focusable = RoactGamepad.Focusable
 local isCallable = require(UIBlox.Utility.isCallable)
+local withCursor = require(UIBlox.App.SelectionCursor.withCursor)
 
 local DEFAULT_BACKGROUND = "UIMuted"
+local CORNER_RADIUS = UDim.new(0, 8)
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 IconButton.debugProps = enumerate("debugProps", {
@@ -163,12 +165,18 @@ end
 function IconButton:render()
 	return withStyle(function(style)
 		return withSelectionCursorProvider(function(getSelectionCursor)
-			return self:renderWithProviders(style, getSelectionCursor)
+			if UIBloxConfig.useNewSelectionCursor then
+				return withCursor(function(context)
+					return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
+				end)
+			else
+				return self:renderWithProviders(style, getSelectionCursor)
+			end
 		end)
 	end)
 end
 
-function IconButton:renderWithProviders(style, getSelectionCursor)
+function IconButton:renderWithProviders(style, getSelectionCursor, getCursor)
 	local iconSizeMeasurement =
 		getIconSize(self.props.iconSize, if UIBloxConfig.useTokensSizeInIconButton then style else nil)
 	local size = self.getSize(iconSizeMeasurement)
@@ -210,7 +218,9 @@ function IconButton:renderWithProviders(style, getSelectionCursor)
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
 		inputBindings = self.props.inputBindings,
-		SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
+		SelectionImageObject = if UIBloxConfig.useNewSelectionCursor
+			then getCursor(CORNER_RADIUS)
+			else getSelectionCursor(CursorKind.RoundedRectNoInset),
 	}, {
 		sizeConstraint = Roact.createElement("UISizeConstraint", {
 			MinSize = Vector2.new(iconSizeMeasurement, iconSizeMeasurement),
@@ -232,7 +242,7 @@ function IconButton:renderWithProviders(style, getSelectionCursor)
 			ZIndex = if UIBloxConfig.useNewThemeColorPalettes then -10 else 0,
 		}, {
 			corner = Roact.createElement("UICorner", {
-				CornerRadius = UDim.new(0, 8),
+				CornerRadius = CORNER_RADIUS,
 			}),
 		}) or nil,
 	})

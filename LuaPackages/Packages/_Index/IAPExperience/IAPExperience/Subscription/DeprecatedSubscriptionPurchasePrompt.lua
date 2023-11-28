@@ -14,7 +14,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Style.withStyle
 
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
-local SubscriptionTitle = require(IAPExperienceRoot.Subscription.SubscriptionTitle)
+local SubscriptionTitle = require(IAPExperienceRoot.Subscription.DeprecatedSubscriptionTitle)
 local getEnableSubscriptionPromptScrollingFix = require(IAPExperienceRoot.Flags.getEnableSubscriptionPromptScrollingFix)
 
 local CONTENT_PADDING = 24
@@ -93,7 +93,7 @@ end
 
 local function generatePromptText(props, fonts, theme, middleContentSize, calculatePromptHeight)
 	return React.createElement("TextLabel", {
-		LayoutOrder = 2,
+		LayoutOrder = 3,
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, middleContentSize, 0, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,
@@ -117,12 +117,7 @@ local function SubscriptionPurchasePrompt(props)
 	local promptHeight, setPromptHeight = React.useState(0)
 	local isCondensed, setIsCondensed = React.useState(false)
 	local function calculatePromptHeight(textHeight)
-		setPromptHeight(
-			CONTENT_PADDING
-				+ SubscriptionTitle:getTitleHeight(props.screenSize.Y - MARGIN)
-				+ CONTENT_PADDING
-				+ textHeight
-		)
+		setPromptHeight(textHeight + ICON_SIZE + CONTENT_PADDING * 2 + TITLE_CONTENT_HEIGHT)
 	end
 
 	if getEnableSubscriptionPromptScrollingFix() then
@@ -140,7 +135,7 @@ local function SubscriptionPurchasePrompt(props)
 					return React.createElement(PartialPageModal, {
 						title = locMap.titleText,
 						screenSize = props.screenSize,
-						contentPadding = UDim.new(0, CONTENT_PADDING),
+						contentPadding = UDim.new(0, CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING),
 						buttonStackProps = {
 							buttons = {
 								{
@@ -168,6 +163,20 @@ local function SubscriptionPurchasePrompt(props)
 							BackgroundTransparency = 1,
 							Size = UDim2.new(1, 0, 0, 0),
 							AutomaticSize = Enum.AutomaticSize.Y,
+							[React.Change.AbsoluteSize] = function(rbx)
+								if isCondensed then
+									setIsCondensed(
+										props.screenSize.Y
+											< rbx.AbsoluteSize.Y
+												+ 120
+												+ ICON_SIZE
+												- CONDENSED_ICON_SIZE
+												+ (CONTENT_PADDING - CONDENSED_CONTENT_PADDING) * 2
+									)
+								else
+									setIsCondensed(props.screenSize.Y < rbx.AbsoluteSize.Y + 120)
+								end
+							end,
 						}, {
 							PromptScroll = React.createElement("ScrollingFrame", {
 								BackgroundTransparency = 1,
@@ -182,23 +191,34 @@ local function SubscriptionPurchasePrompt(props)
 								CanvasSize = UDim2.new(1, 0, 0, promptHeight),
 							}, {
 								Padding = React.createElement("UIPadding", {
-									PaddingTop = UDim.new(0, CONTENT_PADDING),
-									PaddingBottom = UDim.new(0, CONTENT_PADDING),
+									PaddingTop = UDim.new(
+										0,
+										CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING
+									),
+									PaddingBottom = UDim.new(
+										0,
+										CONTENT_PADDING and isCondensed or CONDENSED_CONTENT_PADDING
+									),
 								}),
 								Layout = React.createElement("UIListLayout", {
 									SortOrder = Enum.SortOrder.LayoutOrder,
 									HorizontalAlignment = Enum.HorizontalAlignment.Center,
-									Padding = UDim.new(0, 24),
+									Padding = UDim.new(0, 8),
 								}),
-								SubscriptionTitleSection = React.createElement(SubscriptionTitle, {
+								Icon = React.createElement(ImageSetLabel, {
+									LayoutOrder = 1,
+									BackgroundTransparency = 1,
+									Size = UDim2.new(1, 0, 0, isCondensed and CONDENSED_ICON_SIZE or ICON_SIZE),
+									ScaleType = Enum.ScaleType.Fit,
+									Image = props.itemIcon,
+								}),
+								SubscriptionInfo = React.createElement(SubscriptionTitle, {
 									subscriptionProviderName = props.subscriptionProviderName,
 									name = props.name,
 									displayPrice = props.displayPrice,
 									period = props.period,
 									disclaimerText = props.disclaimerText,
 									layoutOrder = 2,
-									contentHeight = props.screenSize.Y - MARGIN,
-									itemIcon = props.itemIcon,
 								}),
 								generatePromptText(props, fonts, theme, middleContentSize, calculatePromptHeight),
 							}),

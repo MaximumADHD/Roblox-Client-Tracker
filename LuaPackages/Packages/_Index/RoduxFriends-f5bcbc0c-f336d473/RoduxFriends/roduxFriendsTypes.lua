@@ -36,6 +36,7 @@ type AdditionalData = {
 
 type NamedIds = {
 	users: string,
+	contacts: string?,
 }
 
 export type GetFriendRecommendationsFromUserId = {
@@ -85,6 +86,11 @@ export type GetFriendRequestsSucceeded = {
 }
 
 export type RequestFriendshipFromUserId = {
+	additionalData: AdditionalData,
+	namedIds: NamedIds,
+}
+
+export type RequestFriendshipFromContactId = {
 	additionalData: AdditionalData,
 	namedIds: NamedIds,
 }

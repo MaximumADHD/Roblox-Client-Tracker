@@ -14,9 +14,14 @@ local SubscriptionPurchaseFlowState = require(SubscriptionPurchase.SubscriptionP
 
 local Animator = require(IAPExperienceRoot.Generic.Animator)
 local PurchaseErrorPrompt = require(IAPExperienceRoot.Generic.PurchaseErrorPrompt)
-local SubscriptionPurchasePrompt = require(IAPExperienceRoot.Subscription.SubscriptionPurchasePrompt)
 
-local getEnableSubscriptionPurchaseInstrumentation = require(IAPExperienceRoot.Flags.getEnableSubscriptionPurchaseInstrumentation)
+local getEnableSubscriptionCompactTitle = require(IAPExperienceRoot.Flags.getEnableSubscriptionCompactTitle)
+local SubscriptionPurchasePrompt = if getEnableSubscriptionCompactTitle()
+	then require(IAPExperienceRoot.Subscription.SubscriptionPurchasePrompt)
+	else require(IAPExperienceRoot.Subscription.DeprecatedSubscriptionPurchasePrompt)
+
+local getEnableSubscriptionPurchaseInstrumentation =
+	require(IAPExperienceRoot.Flags.getEnableSubscriptionPurchaseInstrumentation)
 local formatSubscriptionPurchaseEventData = require(IAPExperienceRoot.Utility.formatSubscriptionPurchaseEventData)
 
 local SubscriptionPurchaseFlow = Roact.Component:extend(script.Name)
@@ -41,6 +46,7 @@ type Props = {
 	description: string,
 	itemIcon: any,
 
+	acceptControllerIcon: { [string]: any? },
 	isTestingMode: boolean,
 
 	purchaseSubscription: () -> any,
@@ -157,6 +163,8 @@ function SubscriptionPurchaseFlow:render()
 					errorType = props.errorType,
 
 					flowType = PurchaseFlowType.Subscription,
+
+					doneControllerIcon = props.acceptControllerIcon,
 
 					doneActivated = function()
 						self:reportUserInput("Done")

@@ -77,6 +77,8 @@ Toast.validateProps = t.strictInterface({
 		toastTitle = t.string,
 		-- Changes which button component gets displayed
 		buttonType = t.optional(enumerateValidator(ButtonType)),
+		-- Callback when toast is swiped to dismiss.
+		onTouchSwipeUp = t.optional(t.callback),
 	}),
 })
 
@@ -155,6 +157,9 @@ function Toast:init()
 	self.onTouchSwipe = function(_, swipeDir)
 		if swipeDir == Enum.SwipeDirection.Up then
 			self.stateTable.events.ForceDismiss()
+			if self.currentToastContent.onTouchSwipeUp then
+				self.currentToastContent.onTouchSwipeUp()
+			end
 		end
 	end
 
