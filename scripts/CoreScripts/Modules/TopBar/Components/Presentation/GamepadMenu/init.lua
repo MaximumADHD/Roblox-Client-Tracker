@@ -14,7 +14,7 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local MenuHeader = require(script.MenuHeader)
 local ChatIcon = require(script.ChatIcon)

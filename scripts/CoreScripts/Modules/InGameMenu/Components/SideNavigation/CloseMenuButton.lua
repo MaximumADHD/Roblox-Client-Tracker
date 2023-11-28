@@ -13,7 +13,7 @@ local InGameMenu = script.Parent.Parent.Parent
 local Assets = require(InGameMenu.Resources.Assets)
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
 local validateProps = t.strictInterface({
 	AnchorPoint = t.optional(t.Vector2),

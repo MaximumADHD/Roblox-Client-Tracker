@@ -23,7 +23,7 @@ local RootedConnection = require(InGameMenu.Components.Connection.RootedConnecti
 
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 
 local CONTAINER_WIDTH = 304

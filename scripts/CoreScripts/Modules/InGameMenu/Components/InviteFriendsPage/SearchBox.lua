@@ -17,7 +17,7 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local TEXT_BOX_OFFSET = 44
 local TEXT_BOX_SELECTION_CURSOR_OFFSET = 5

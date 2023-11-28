@@ -1,7 +1,7 @@
-local Anim = game:GetService("ReplicatedStorage").RobloxCharacterPackages.MotionCompositor
-local Layer = require(Anim.Base.Layer)
-local Types = require(Anim.Base.types)
-local Transition = require(Anim.Util.Transition)
+local Compositor = game:GetService("ReplicatedStorage").RobloxCharacterPackages.MotionCompositor
+local Layer = require(Compositor.Base.Layer)
+local Types = require(Compositor.Base.types)
+local Transition = require(Compositor.Util.Transition)
 
 export type LinkData = {
     weight: number | (params: Types.Map?) -> number

@@ -22,6 +22,7 @@ local isV3Valid = false
 local isControlsValid = false
 local isModernizationValid = false
 local isChromeValid = true
+local isReportAbuseV2Valid = true
 
 return function()
 	describe("lifecycle", function()
@@ -294,6 +295,41 @@ return function()
 
 				expect(manager:shouldShowBiggerText()).toBe(false)
 				expect(manager:shouldShowStickyBar()).toBe(true)
+			end
+		end)
+
+		it("returns report abuse V2 for user in the variant", function()
+			if IsExperienceMenuABTestEnabled() and isReportAbuseV2Valid then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = {
+						menuVersion = ExperienceMenuABTestManager.default.reportAbuseMenuV2VersionId(),
+					},
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be Report Abuse v2
+				expect(manager:getVersion()).toBe(
+					ExperienceMenuABTestManager.default.reportAbuseMenuV2VersionId()
+				)
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is Report Abuse v2
+				expect(manager:getVersion()).toBe(
+					ExperienceMenuABTestManager.default.reportAbuseMenuV2VersionId()
+				)
+				expect(manager:isReportAbuseMenuV2Enabled()).toBe(true)
+				expect(manager:isMenuModernizationEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
+				expect(manager:isChromeEnabled()).toBe(false)
 			end
 		end)
 

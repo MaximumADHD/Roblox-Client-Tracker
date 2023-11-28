@@ -51,11 +51,10 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-local GetFFlagIGMVRSettingsPolish = require(Flags.GetFFlagIGMVRSettingsPolish)
 
 local EnableNewComfortSettingsUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRComfortSetting() and
 	game:GetEngineFeature("VRMoreComfortSettings")
@@ -78,14 +77,14 @@ BasicPage.validateProps = t.strictInterface({
 	canCaptureFocus = t.optional(t.boolean),
 	canGamepadCaptureFocus = t.optional(t.boolean),
 	vrService = t.optional(t.union(t.Instance, t.table)),
-	isVRAppBuild = if GetFFlagIGMVRSettingsPolish() then t.optional(t.callback) else nil,
+	isVRAppBuild = t.optional(t.callback),
 	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.optional(t.number) or nil,
 })
 
 BasicPage.defaultProps = {
 	-- vrService can be overridden as a prop to allow a mock for testing
 	vrService = VRService,
-	isVRAppBuild = if GetFFlagIGMVRSettingsPolish() then IsVRAppBuild else nil,
+	isVRAppBuild = IsVRAppBuild,
 }
 
 local vrEnabledAtModuleLoad = UserGameSettings.VREnabled
@@ -132,12 +131,8 @@ end
 
 function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 	local getNextLayoutOrder = createLayoutOrderGenerator()
-	local showInputOutputAudioDevices = self.state.voiceChatEnabled
-	local showVRToggle = self.state.vrActive or UserGameSettings.HasEverUsedVR
-	if GetFFlagIGMVRSettingsPolish() then
-		showVRToggle = (self.state.vrActive or UserGameSettings.HasEverUsedVR) and not self.props.isVRAppBuild()
-		showInputOutputAudioDevices = self.state.voiceChatEnabled and not self.props.isVRAppBuild()
-	end
+	local showInputOutputAudioDevices = self.state.voiceChatEnabled and not self.props.isVRAppBuild()
+	local showVRToggle = (self.state.vrActive or UserGameSettings.HasEverUsedVR) and not self.props.isVRAppBuild()
 
 	return Roact.createElement(Page, {
 		pageTitle = self.props.pageTitle,
@@ -172,18 +167,18 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 					self.setPageSize(UDim2.new(0, 0, 0, rbx.AbsoluteContentSize.Y))
 				end,
 			}),
-			VRControlsHeader = if GetFFlagIGMVRSettingsPolish() and self.state.vrActive then Roact.createElement(CategoryHeader, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 1,
+			VRControlsHeader = if self.state.vrActive then Roact.createElement(CategoryHeader, {
+				LayoutOrder = getNextLayoutOrder(),
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.VrControlsTitle",
 			}) else nil,
 			VignetteEnabled = if not EnableNewComfortSettingsUI and self.state.vrActive then Roact.createElement(AutoPropertyToggleEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 17,
+				LayoutOrder = getNextLayoutOrder(),
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VignetteEnabled",
 				instance = UserGameSettings,
 				valueKey = "VignetteEnabled",
 			}) else nil,
 			VRSmoothRotationEnabled = if not EnableNewComfortSettingsUI and self.state.vrActive then Roact.createElement(AutoPropertyToggleEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 18,
+				LayoutOrder = getNextLayoutOrder(),
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VRSmoothRotationEnabled",
 				instance = UserGameSettings,
 				valueKey = "VRSmoothRotationEnabled",
@@ -220,7 +215,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				}),
 			}) else nil,
 			VRMode = if showVRToggle then Roact.createElement(AutoPropertyToggleEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 16,
+				LayoutOrder = getNextLayoutOrder(),
 				labelKey = "CoreScripts.InGameMenu.GameSettings.VREnabled",
 				instance = UserGameSettings,
 				valueKey = "VREnabled",
@@ -230,16 +225,16 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			VRSafetyBubbleMode = if self.state.vrActive then Roact.createElement(SafetyBubbleModeEntry, {
 				LayoutOrder = getNextLayoutOrder(),
 			}) else nil,
-			VRControlsDivider = if GetFFlagIGMVRSettingsPolish() and self.state.vrActive then Roact.createElement(Divider, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 5,
+			VRControlsDivider = if self.state.vrActive then Roact.createElement(Divider, {
+				LayoutOrder = getNextLayoutOrder(),
 				Size = UDim2.new(1, -24, 0, 1),
 			}) else nil,
-			CameraHeader = if not GetFFlagIGMVRSettingsPolish() or not self.state.vrActive then Roact.createElement(CategoryHeader, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 1,
+			CameraHeader = if not self.state.vrActive then Roact.createElement(CategoryHeader, {
+				LayoutOrder = getNextLayoutOrder(),
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.CameraTitle",
 			}) else nil,
 			CameraMode = not self.state.vrActive and Roact.createElement(CameraModeEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 2,
+				LayoutOrder = getNextLayoutOrder(),
 				ButtonRef = self.cameraModeButton,
 				canOpen = self.props.canCaptureFocus,
 				canCaptureFocus = self.props.canGamepadCaptureFocus,
@@ -247,27 +242,27 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 			InvertedCamera = not self.state.vrActive
 				and self.state.invertedCameraEnabled
 				and Roact.createElement(AutoPropertyToggleEntry, {
-					LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 3,
+					LayoutOrder = getNextLayoutOrder(),
 				labelKey = "CoreScripts.InGameMenu.GameSettings.InvertedCamera",
 				instance = UserGameSettings,
 				valueKey = "CameraYInverted",
 			}),
 			CameraSensitivity = not self.state.vrActive and Roact.createElement(CameraSensitivityEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 4,
+				LayoutOrder = getNextLayoutOrder(),
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
 				isMenuOpen = self.props.isMenuOpen,
 			}),
-			CameraDivider = if not GetFFlagIGMVRSettingsPolish() or not self.state.vrActive then Roact.createElement(Divider, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 5,
+			CameraDivider = if not self.state.vrActive then Roact.createElement(Divider, {
+				LayoutOrder = getNextLayoutOrder(),
 				Size = UDim2.new(1, -24, 0, 1),
 			}) else nil,
 
 			ControlsHeader = Roact.createElement(CategoryHeader, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 6,
+				LayoutOrder = getNextLayoutOrder(),
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.ControlsAudio",
 			}),
 			ShiftLock = not self.state.vrActive and Roact.createElement(AutoPropertyToggleEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 7,
+				LayoutOrder = getNextLayoutOrder(),
 				labelKey = "CoreScripts.InGameMenu.GameSettings.ShiftLock",
 				instance = UserGameSettings,
 				valueKey = "ControlMode",
@@ -276,46 +271,46 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				lockedToOff = not self.state.shiftLockEnabled,
 			}),
 			MovementMode = not self.state.vrActive and Roact.createElement(MovementModeEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 8,
+				LayoutOrder = getNextLayoutOrder(),
 				canOpen = self.props.canCaptureFocus,
 				canCaptureFocus = self.props.canGamepadCaptureFocus,
 			}),
 			VolumeEntry = Roact.createElement(VolumeEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 9,
+				LayoutOrder = getNextLayoutOrder(),
 				buttonRef = self.volumeButton,
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
 				isMenuOpen = self.props.isMenuOpen,
 			}),
 			InputDevice = showInputOutputAudioDevices and Roact.createElement(DeviceSelectionEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 10,
+				LayoutOrder = getNextLayoutOrder(),
 				deviceType = DeviceSelectionEntry.DeviceType.Input,
 				isMenuOpen = self.props.isMenuOpen,
 				canOpen = self.props.canCaptureFocus,
 				canCaptureFocus = self.props.canGamepadCaptureFocus,
 			}),
 			OutputDevice = showInputOutputAudioDevices and Roact.createElement(DeviceSelectionEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 11,
+				LayoutOrder = getNextLayoutOrder(),
 				deviceType = DeviceSelectionEntry.DeviceType.Output,
 				isMenuOpen = self.props.isMenuOpen,
 				canOpen = self.props.canCaptureFocus,
 				canCaptureFocus = self.props.canGamepadCaptureFocus,
 			}),
 			ControlsDivider = Roact.createElement(Divider, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 12,
+				LayoutOrder = getNextLayoutOrder(),
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 
 			GraphicsHeader = Roact.createElement(CategoryHeader, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 13,
+				LayoutOrder = getNextLayoutOrder(),
 				localizationKey = "CoreScripts.InGameMenu.GameSettings.GraphicsTitle",
 			}),
 			GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 14,
+				LayoutOrder = getNextLayoutOrder(),
 				canCaptureFocus = self.props.canCaptureFocus and self.props.canGamepadCaptureFocus,
 				isMenuOpen = self.props.isMenuOpen,
 			}),
 			FullScreen = not self.state.vrActive and Roact.createElement(ToggleEntry, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 15,
+				LayoutOrder = getNextLayoutOrder(),
 				labelKey = "CoreScripts.InGameMenu.GameSettings.FullScreen",
 				checked = self.state.fullScreenEnabled,
 				onToggled = function()
@@ -324,11 +319,11 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				end,
 			}),
 			GraphicsDivider = Roact.createElement(Divider, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 19,
+				LayoutOrder = getNextLayoutOrder(),
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 			AdvancedSettings = Roact.createElement("TextButton", {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 20,
+				LayoutOrder = getNextLayoutOrder(),
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 0, NAVIGATE_FORWARD_BUTTON_HEIGHT),
 				Text = "",
@@ -357,7 +352,7 @@ function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 				}),
 			}),
 			AdvancedDivider = Roact.createElement(Divider, {
-				LayoutOrder = if GetFFlagIGMVRSettingsPolish() then getNextLayoutOrder() else 21,
+				LayoutOrder = getNextLayoutOrder(),
 				Size = UDim2.new(1, -24, 0, 1),
 			}),
 

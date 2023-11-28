@@ -7,6 +7,8 @@ local ScreenSideOffset = TopBarConstants.ScreenSideOffset
 local TopBarButtonHeight = TopBarConstants.TopBarButtonHeight
 local UIBlox = require(CorePackages.UIBlox)
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
+local DarkTheme = UIBlox.App.Style.Constants.ThemeName.Dark
+
 local Promise = require(CorePackages.Packages.Promise)
 
 local SelfViewTooltipFTUX = require(script.Parent.SelfViewTooltipFTUX)
@@ -20,7 +22,10 @@ return function (props)
 	screenGui.Parent = CoreGui
 
 	local root = Roact.createElement(AppStyleProvider, {
-	}, {
+		style = {
+			themeName = DarkTheme,
+		},
+    }, {
 		frame = Roact.createElement("Frame", {
 			Position = UDim2.fromOffset(ScreenSideOffset, - TopBarButtonHeight),
 			Size =  UDim2.fromOffset(TopBarButtonHeight, TopBarButtonHeight),

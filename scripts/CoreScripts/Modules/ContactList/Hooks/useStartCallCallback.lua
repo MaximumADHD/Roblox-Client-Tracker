@@ -27,6 +27,8 @@ type PagesType = Pages.PagesType
 local localPlayer = Players.LocalPlayer :: Player
 
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
+local GetFFlagSeparateVoiceEnabledErrors =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeparateVoiceEnabledErrors
 
 return function(
 	tag,
@@ -38,17 +40,20 @@ return function(
 	local dispatch = useDispatch()
 	local analytics = useAnalytics()
 
-	local validateToMakeCall = React.useCallback(function()
-		local canMakeCall, action = CanMakeCallWithModal()
-		if not canMakeCall then
-			dispatch(action)
-		end
+	local validateToMakeCall
+	if not GetFFlagSeparateVoiceEnabledErrors() then
+		validateToMakeCall = React.useCallback(function()
+			local canMakeCall, action = CanMakeCallWithModal()
+			if not canMakeCall then
+				dispatch(action)
+			end
 
-		return canMakeCall
-	end, {})
+			return canMakeCall
+		end, {})
+	end
 
 	return React.useCallback(function()
-		if not validateToMakeCall() then
+		if not GetFFlagSeparateVoiceEnabledErrors() and not validateToMakeCall() then
 			analytics.fireEvent(EventNamesEnum.PhoneBookCallFriendFailed, {
 				eventTimestampMs = os.time() * 1000,
 				calleeUserId = tonumber(userId),

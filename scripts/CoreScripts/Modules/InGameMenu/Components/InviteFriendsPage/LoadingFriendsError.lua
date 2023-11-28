@@ -20,7 +20,7 @@ local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local FocusHandler = require(InGameMenu.Components.Connection.FocusHandler)
 local RootedConnection = require(InGameMenu.Components.Connection.RootedConnection)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 
 local CONTAINER_WIDTH = 304

@@ -14,7 +14,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 

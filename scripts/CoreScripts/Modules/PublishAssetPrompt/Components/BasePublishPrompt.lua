@@ -58,7 +58,8 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	closePreviewView = t.callback,
 	asset = t.union(t.instanceOf("Model"), t.instanceIsA("AnimationClip")),
 	onNameUpdated = t.callback,
-	confirmUploadReady = t.callback,
+	canSubmit = t.callback,
+	onSubmit = t.callback,
 
 	-- Mapped state
 	guid = t.any,
@@ -92,22 +93,19 @@ function BasePublishPrompt:init()
 	end
 
 	self.denyAndClose = function()
-		-- We should never get to this point if this engine feature is off, but just in case:
-		if game:GetEngineFeature("ExperienceAuthReflectionFixes") then
-			ExperienceAuthService:ScopeCheckUIComplete(
-				self.props.guid,
-				self.props.scopes,
-				Enum.ScopeCheckResult.ConsentDenied,
-				{} -- empty metadata
-			)
-		end
+		ExperienceAuthService:ScopeCheckUIComplete(
+			self.props.guid,
+			self.props.scopes,
+			Enum.ScopeCheckResult.ConsentDenied,
+			{} -- empty metadata
+		)
 		self.closePrompt()
 	end
 
 	-- Intended to do what the Parent wants on submission before closing the prompt
-	-- AVBURST-13553 Currently no visual indicator that Submit should be disabled if not ready
 	self.confirmAndUpload = function()
-		if self.props.confirmUploadReady() then
+		if self.props.canSubmit() then
+			self.props.onSubmit()
 			self.closePrompt()
 		end
 	end
@@ -261,6 +259,7 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 							{
 								buttonType = ButtonType.PrimarySystem,
 								props = {
+									isDisabled = not self.props.canSubmit(),
 									onActivated = self.confirmAndUpload,
 									text = localized[SUBMIT_TEXT],
 								},

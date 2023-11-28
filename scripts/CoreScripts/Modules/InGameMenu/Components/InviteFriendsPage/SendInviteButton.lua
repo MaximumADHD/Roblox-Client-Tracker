@@ -18,7 +18,7 @@ local InviteStatus = Constants.InviteStatus
 
 local Images = UIBlox.App.ImageSet.Images
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local SendInviteButton = Roact.PureComponent:extend("SendInviteButton")
 

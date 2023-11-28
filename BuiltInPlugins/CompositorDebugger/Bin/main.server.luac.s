@@ -60,7 +60,7 @@ MAIN:
   JUMPIFNOT R2 [+1]
   RETURN R0 0
   GETIMPORT R2 K15 [game]
-  LOADK R4 K16 ["CDEnableCompositorDebugger"]
+  LOADK R4 K16 ["CDEnableCompositorDebugger1"]
   NAMECALL R2 R2 K17 ["GetFastFlag"]
   CALL R2 2 1
   JUMPIF R2 [+1]

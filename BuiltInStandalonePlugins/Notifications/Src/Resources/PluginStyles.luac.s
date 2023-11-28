@@ -12,52 +12,62 @@ MAIN:
   GETTABLEKS R2 R3 K8 ["createStyleRule"]
   GETTABLEKS R4 R1 K7 ["Styling"]
   GETTABLEKS R3 R4 K9 ["createStyleSheet"]
-  NEWTABLE R4 0 6
-  MOVE R5 R2
-  LOADK R6 K10 [".Plugin-NotificationCard-Hover"]
-  NEWTABLE R7 0 0
-  NEWTABLE R8 0 1
-  MOVE R9 R2
-  LOADK R10 K11 [":hover"]
-  DUPTABLE R11 K13 [{"BackgroundColor3"}]
-  LOADK R12 K14 ["$SecondaryHoverBackground"]
-  SETTABLEKS R12 R11 K12 ["BackgroundColor3"]
-  CALL R9 2 -1
-  SETLIST R8 R9 -1 [1]
-  CALL R5 3 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Resources"]
+  GETTABLEKS R5 R6 K12 ["NotificationLuaIcons"]
+  CALL R4 1 1
+  NEWTABLE R5 0 3
   MOVE R6 R2
-  LOADK R7 K15 [".Plugin-Icon-Settings"]
-  DUPTABLE R8 K17 [{"Image"}]
-  LOADK R9 K18 ["$NotificationSettingsIcon"]
-  SETTABLEKS R9 R8 K16 ["Image"]
-  CALL R6 2 1
+  LOADK R7 K13 [".Plugin-NotificationCard-Hover"]
+  NEWTABLE R8 0 0
+  NEWTABLE R9 0 1
+  MOVE R10 R2
+  LOADK R11 K14 [":hover"]
+  DUPTABLE R12 K16 [{"BackgroundColor3"}]
+  LOADK R13 K17 ["$SecondaryHoverBackground"]
+  SETTABLEKS R13 R12 K15 ["BackgroundColor3"]
+  CALL R10 2 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R6 3 1
   MOVE R7 R2
-  LOADK R8 K19 [".Plugin-Icon-StatusDisabled"]
-  DUPTABLE R9 K17 [{"Image"}]
-  LOADK R10 K20 ["$NotificationStatusDisabledIcon"]
-  SETTABLEKS R10 R9 K16 ["Image"]
+  LOADK R8 K18 [".Plugin-Icon-StatusDisabled"]
+  DUPTABLE R9 K20 [{"Image"}]
+  LOADK R10 K21 ["$NotificationStatusDisabledIcon"]
+  SETTABLEKS R10 R9 K19 ["Image"]
   CALL R7 2 1
   MOVE R8 R2
-  LOADK R9 K21 [".Plugin-Icon-StatusUnread"]
-  DUPTABLE R10 K17 [{"Image"}]
-  LOADK R11 K22 ["$NotificationStatusUnreadIcon"]
-  SETTABLEKS R11 R10 K16 ["Image"]
-  CALL R8 2 1
-  MOVE R9 R2
-  LOADK R10 K23 [".Plugin-Icon-Placeholder"]
-  DUPTABLE R11 K17 [{"Image"}]
-  LOADK R12 K24 ["$PlaceholderIcon"]
-  SETTABLEKS R12 R11 K16 ["Image"]
-  CALL R9 2 1
-  MOVE R10 R2
-  LOADK R11 K25 [".Plugin-Icon-StaticDevForumAnnouncements"]
-  DUPTABLE R12 K17 [{"Image"}]
-  LOADK R13 K26 ["$StaticDevForumAnnouncements"]
-  SETTABLEKS R13 R12 K16 ["Image"]
-  CALL R10 2 -1
-  SETLIST R4 R5 -1 [1]
-  MOVE R5 R3
-  LOADK R6 K27 ["NotificationsPlugin"]
+  LOADK R9 K22 [".Plugin-Icon-StatusUnread"]
+  DUPTABLE R10 K20 [{"Image"}]
+  LOADK R11 K23 ["$NotificationStatusUnreadIcon"]
+  SETTABLEKS R11 R10 K19 ["Image"]
+  CALL R8 2 -1
+  SETLIST R5 R6 -1 [1]
+  GETIMPORT R6 K25 [ipairs]
   MOVE R7 R4
-  CALL R5 2 -1
-  RETURN R5 -1
+  CALL R6 1 3
+  FORGPREP_INEXT R6
+  MOVE R12 R5
+  MOVE R13 R2
+  LOADK R15 K26 [".Plugin-Icon-%*"]
+  MOVE R17 R10
+  NAMECALL R15 R15 K27 ["format"]
+  CALL R15 2 1
+  MOVE R14 R15
+  DUPTABLE R15 K20 [{"Image"}]
+  LOADK R17 K28 ["$%*Icon"]
+  MOVE R19 R10
+  NAMECALL R17 R17 K27 ["format"]
+  CALL R17 2 1
+  MOVE R16 R17
+  SETTABLEKS R16 R15 K19 ["Image"]
+  CALL R13 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R11 K31 [table.insert]
+  CALL R11 -1 0
+  FORGLOOP R6 2 [inext] [-23]
+  MOVE R6 R3
+  LOADK R7 K32 ["NotificationsPlugin"]
+  MOVE R8 R5
+  CALL R6 2 -1
+  RETURN R6 -1

@@ -1,4 +1,5 @@
---[[ AutoJump Transition ]]--
+--[[ AutoJump Transition ]]
+--
 local BaseTransition = require(
     script.Parent.Parent.Parent
         :WaitForChild("BaseStateMachine")
@@ -12,8 +13,8 @@ AutoJump.sourceName = "Running"
 AutoJump.priority = 3
 
 function AutoJump:Test(stateMachine)
-	local autoJump = stateMachine.context.humanoid:GetAttribute("AutoJump") or false
-	return autoJump
+    local autoJump = stateMachine.context.humanoid:GetAttribute("AutoJump") or false
+    return autoJump
 end
 
 return AutoJump

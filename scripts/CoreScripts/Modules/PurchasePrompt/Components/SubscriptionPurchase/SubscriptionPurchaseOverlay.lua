@@ -7,9 +7,9 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 
 local IAPExperience = PurchasePromptDeps.IAPExperience
-local SubscriptionPurchaseFlow =  IAPExperience.PurchaseFlow.SubscriptionPurchaseFlow
-local SubscriptionPurchaseFlowState =  IAPExperience.PurchaseFlow.SubscriptionPurchaseFlowState
-local PurchaseErrorType =  IAPExperience.PurchaseFlow.PurchaseErrorType
+local SubscriptionPurchaseFlow = IAPExperience.PurchaseFlow.SubscriptionPurchaseFlow
+local SubscriptionPurchaseFlowState = IAPExperience.PurchaseFlow.SubscriptionPurchaseFlowState
+local PurchaseErrorType = IAPExperience.PurchaseFlow.PurchaseErrorType
 
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
@@ -17,6 +17,16 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 local SubscriptionPurchaseOverlay = Roact.PureComponent:extend(script.Name)
 
 local FLOW_NAME = "InGame"
+
+local UIBlox = PurchasePromptDeps.UIBlox
+local Images = UIBlox.App.ImageSet.Images
+
+local XBOX_A_ICON = "icons/controls/keys/xboxA"
+
+-- Remove with FFlagUseDesignSystemGamepadIcons 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 
 type Props = {
 	screenSize: Vector2,
@@ -35,8 +45,9 @@ type Props = {
 	description: string,
 	itemIcon: any,
 
+	isGamepadEnabled: boolean,
 	isTestingMode: boolean,
-	
+
 	promptSubscriptionPurchase: () -> any,
 	endPurchase: () -> any,
 
@@ -53,7 +64,7 @@ function SubscriptionPurchaseOverlay:init()
 			return
 		elseif promptState == PromptState.PurchaseComplete then
 			props.endPurchase()
-			return 
+			return
 		elseif promptState == PromptState.Error then
 			props.endPurchase()
 			return
@@ -83,7 +94,7 @@ end
 
 function SubscriptionPurchaseOverlay:getErrorType()
 	local props: Props = self.props
-	
+
 	if props.purchaseError == PurchaseError.AlreadySubscribed then
 		return PurchaseErrorType.AlreadySubscribed
 	elseif props.purchaseError == PurchaseError.SubscriptionExceededUserSpendLimit then
@@ -108,6 +119,9 @@ end
 function SubscriptionPurchaseOverlay:render()
 	local props: Props = self.props
 
+	local BUTTON_A_ICON = if GetFFlagUseDesignSystemGamepadIcons()
+		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
+		else Images[XBOX_A_ICON]
 
 	return Roact.createElement(SubscriptionPurchaseFlow, {
 		screenSize = props.screenSize,
@@ -125,6 +139,8 @@ function SubscriptionPurchaseOverlay:render()
 		disclaimerText = props.disclaimerText,
 		description = props.description,
 		itemIcon = props.itemIcon,
+
+		acceptControllerIcon = if props.isGamepadEnabled then BUTTON_A_ICON else nil,
 
 		isTestingMode = props.isTestingMode,
 

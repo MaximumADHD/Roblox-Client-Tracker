@@ -28,22 +28,28 @@ PROTO_1:
   SETTABLE R8 R2 R7
   FORGLOOP R3 2 [inext] [-15]
   GETTABLEKS R3 R2 K8 ["MoveTool"]
-  LOADK R4 K9 ["1"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["Move"]
   SETTABLEKS R4 R3 K10 ["defaultShortcut"]
   GETTABLEKS R3 R2 K11 ["AddPointMode"]
-  LOADK R4 K12 ["2"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K12 ["AddPoint"]
   SETTABLEKS R4 R3 K10 ["defaultShortcut"]
   GETTABLEKS R3 R2 K13 ["AddTangentMode"]
-  LOADK R4 K14 ["3"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K14 ["AddTangent"]
   SETTABLEKS R4 R3 K10 ["defaultShortcut"]
   GETTABLEKS R3 R2 K15 ["DoneEditing"]
-  LOADK R4 K16 ["Enter"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K16 ["Done"]
   SETTABLEKS R4 R3 K10 ["defaultShortcut"]
   GETTABLEKS R3 R2 K17 ["DeletePoint"]
-  LOADK R4 K18 ["Delete"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K18 ["Delete"]
   SETTABLEKS R4 R3 K10 ["defaultShortcut"]
   GETTABLEKS R3 R2 K19 ["DeletePoint2"]
-  LOADK R4 K20 ["Backspace"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K20 ["Delete2"]
   SETTABLEKS R4 R3 K10 ["defaultShortcut"]
   RETURN R2 1
 
@@ -53,15 +59,22 @@ MAIN:
   LOADK R2 K2 ["PathEditor"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  NEWTABLE R1 0 6
-  LOADK R2 K4 ["DoneEditing"]
-  LOADK R3 K5 ["AddPointMode"]
-  LOADK R4 K6 ["AddTangentMode"]
-  LOADK R5 K7 ["MoveTool"]
-  LOADK R6 K8 ["DeletePoint"]
-  LOADK R7 K9 ["DeletePoint2"]
-  SETLIST R1 R2 6 [1]
-  DUPCLOSURE R2 K10 [PROTO_0]
-  DUPCLOSURE R3 K11 [PROTO_1]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["getShortcuts"]
+  CALL R1 1 1
+  CALL R1 0 1
+  NEWTABLE R2 0 6
+  LOADK R3 K9 ["DoneEditing"]
+  LOADK R4 K10 ["AddPointMode"]
+  LOADK R5 K11 ["AddTangentMode"]
+  LOADK R6 K12 ["MoveTool"]
+  LOADK R7 K13 ["DeletePoint"]
+  LOADK R8 K14 ["DeletePoint2"]
+  SETLIST R2 R3 6 [1]
+  DUPCLOSURE R3 K15 [PROTO_0]
+  DUPCLOSURE R4 K16 [PROTO_1]
+  CAPTURE VAL R2
   CAPTURE VAL R1
-  RETURN R3 1
+  RETURN R4 1

@@ -63,7 +63,7 @@ DeathTypeValue.Name = "DeathType"
 DeathTypeValue.Value = deathType
 DeathTypeValue.Parent = RobloxReplicatedStorage
 
-if not jointUpgradeActive and deathType ~= "Ragdoll" then
+if not jointUpgradeActive and (deathType :: any) ~= "Ragdoll" then
 	return -- Previously everything below was in support of ragdoll death. But now we'll want to always add ragdoll joints.
 end
 

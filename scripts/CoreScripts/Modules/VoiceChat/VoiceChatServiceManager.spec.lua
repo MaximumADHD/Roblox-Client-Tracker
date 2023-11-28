@@ -605,73 +605,13 @@ return function()
 	end)
 
 	describe("VoiceChatServiceManager SignalR watcher", function()
-		describe("checkAndUpdateSequence VoiceChatReportOutOfOrderSequence off", function()
-			beforeAll(function(c)
-				c.reportFlag = game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence2", false)
-				c.fflagVoiceChatServiceManagerUseAvatarChat =
-					game:SetFastFlagForTesting("VoiceChatServiceManagerUseAvatarChat", false)
-			end)
-			afterAll(function(c)
-				game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence2", c.reportFlag)
-				game:SetFastFlagForTesting(
-					"VoiceChatServiceManagerUseAvatarChat",
-					c.fflagVoiceChatServiceManagerUseAvatarChat
-				)
-			end)
-
-			it("should return true if a sequence increments normally", function()
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 104)).toBe(true)
-			end)
-
-			it("should return true if a sequence number repeats", function()
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
-			end)
-
-			it("should return false if it skips a number", function()
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 103)).toBe(false)
-			end)
-
-			it("should return true if two sequences increment on their own", function()
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 102)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 203)).toBe(true)
-			end)
-
-			it("should return false if either sequence skips", function()
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 101)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 201)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 103)).toBe(false)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 202)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test1", 104)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test2", 204)).toBe(false)
-			end)
-
-			it("should ignore nil values", function()
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 101)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", nil)).toBe(true)
-				expect(VoiceChatServiceManager:checkAndUpdateSequence("test", 102)).toBe(true)
-			end)
-		end)
-
 		describe("checkAndUpdateSequence VoiceChatReportOutOfOrderSequence on", function()
 			beforeAll(function(c)
-				c.reportFlag = game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence2", true)
 				c.fflagVoiceChatServiceManagerUseAvatarChat =
 					game:SetFastFlagForTesting("VoiceChatServiceManagerUseAvatarChat", false)
 			end)
 
 			afterAll(function(c)
-				game:SetFastFlagForTesting("VoiceChatReportOutOfOrderSequence2", c.reportFlag)
 				game:SetFastFlagForTesting(
 					"VoiceChatServiceManagerUseAvatarChat",
 					c.fflagVoiceChatServiceManagerUseAvatarChat
@@ -782,7 +722,6 @@ return function()
 			end)
 
 			it("should not call join on first connect", function(context)
-				local flag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
 				-- Note that join is called on first connect, but that's handled elsewhere
 				VoiceChatServiceManager:watchSignalR()
 
@@ -795,11 +734,9 @@ return function()
 				waitForEvents()
 
 				expect(VoiceChatServiceStub.joinCalled).toBe(false)
-				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", flag)
 			end)
 
 			it("should not call join if no sequence numbers were missed", function(context)
-				local conFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
 				local evtFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
@@ -814,12 +751,10 @@ return function()
 				waitForEvents()
 
 				expect(VoiceChatServiceStub.joinCalled).toBe(false)
-				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
 
 			it("should call join if a sequence number was missed on reconnect", function(context)
-				local conFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
 				local evtFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
@@ -834,12 +769,10 @@ return function()
 				waitForEvents()
 
 				expect(VoiceChatServiceStub.joinCalled).toBe(true)
-				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
 
 			it("should ignore sequence numbers from other namespaces", function(context)
-				local conFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
 				local evtFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
@@ -855,12 +788,10 @@ return function()
 				waitForEvents()
 
 				expect(VoiceChatServiceStub.joinCalled).toBe(false)
-				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
 
 			it("should ignore bad JSON responses", function(context)
-				local conFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", true)
 				local evtFlag = game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", true)
 				VoiceChatServiceManager:watchSignalR()
 
@@ -876,7 +807,6 @@ return function()
 				waitForEvents()
 
 				expect(VoiceChatServiceStub.joinCalled).toBe(false)
-				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnConnectionChanged", conFlag)
 				game:SetFastFlagForTesting("VoiceChatWatchForMissedSignalROnEventReceived", evtFlag)
 			end)
 		end)

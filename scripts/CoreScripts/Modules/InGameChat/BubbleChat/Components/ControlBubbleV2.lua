@@ -16,7 +16,7 @@ local Images = UIBlox.App.ImageSet.Images
 local success, migratedImageSetLabel = pcall(function()
 	return UIBlox.Core.ImageSet.ImageSetLabel
 end)
-local ImageSetLabel = success and migratedImageSetLabel or UIBlox.Core.ImageSet.Label
+local ImageSetLabel = success and migratedImageSetLabel or UIBlox.Core.ImageSet.ImageSetLabel
 
 local getVoiceIndicatorAssetName = require(script.Parent.Parent.Helpers.getVoiceIndicatorAssetName)
 

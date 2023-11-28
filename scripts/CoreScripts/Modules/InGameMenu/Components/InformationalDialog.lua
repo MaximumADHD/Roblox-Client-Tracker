@@ -21,7 +21,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local FocusHandler = require(script.Parent.Connection.FocusHandler)
 

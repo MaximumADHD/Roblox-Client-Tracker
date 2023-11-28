@@ -31,7 +31,7 @@ if avatarJointUpgrade then
 	end
 end
 
-if not DeathTypeValue or (not jointUpgradeActive and DeathTypeValue.Value ~= "Ragdoll") then
+if not DeathTypeValue or (not jointUpgradeActive and (DeathTypeValue.Value :: any) ~= "Ragdoll") then
 	return -- Something's wrong. Don't bother locally modifying the character
 end
 
@@ -93,7 +93,7 @@ local function onOwnedHumanoidDeath(character, humanoid)
 	if not avatarJointUpgrade then
 		-- Tell the server that we started simulating our ragdoll
 		remote:FireServer(humanoid)
-		
+
 		-- stiff shock phase...
 		wait(0.1)
 

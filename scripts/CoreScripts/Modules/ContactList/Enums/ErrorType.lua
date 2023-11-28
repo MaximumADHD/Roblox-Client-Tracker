@@ -1,14 +1,31 @@
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local GetFFlagIrisEnumerateCleanupEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisEnumerateCleanupEnabled
 
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local enumerate = dependencies.enumerate
 
-return enumerate(script.Name, {
-	CallerIsInAnotherCall = "CallerIsInAnotherCall",
-	CalleeIsInAnotherCall = "CalleeIsInAnotherCall",
-	PlaceIsNotVoiceEnabled = "PlaceIsNotVoiceEnabled",
-	UniverseIsNotVoiceEnabled = "UniverseIsNotVoiceEnabled",
-})
+if GetFFlagIrisEnumerateCleanupEnabled() then
+	local ErrorType = {
+		CallerIsInAnotherCall = "CallerIsInAnotherCall" :: "CallerIsInAnotherCall",
+		CalleeIsInAnotherCall = "CalleeIsInAnotherCall" :: "CalleeIsInAnotherCall",
+		PlaceIsNotVoiceEnabled = "PlaceIsNotVoiceEnabled" :: "PlaceIsNotVoiceEnabled",
+		UniverseIsNotVoiceEnabled = "UniverseIsNotVoiceEnabled" :: "UniverseIsNotVoiceEnabled",
+		CallerIsNotVoiceEnabled = "CallerIsNotVoiceEnabled" :: "CallerIsNotVoiceEnabled",
+	}
+
+	return ErrorType
+else
+	return enumerate(script.Name, {
+		CallerIsInAnotherCall = "CallerIsInAnotherCall",
+		CalleeIsInAnotherCall = "CalleeIsInAnotherCall",
+		PlaceIsNotVoiceEnabled = "PlaceIsNotVoiceEnabled",
+		UniverseIsNotVoiceEnabled = "UniverseIsNotVoiceEnabled",
+		CallerIsNotVoiceEnabled = "CallerIsNotVoiceEnabled",
+	})
+end

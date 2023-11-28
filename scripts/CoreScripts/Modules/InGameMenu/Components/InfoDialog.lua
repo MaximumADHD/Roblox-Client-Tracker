@@ -16,7 +16,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 local Divider = require(script.Parent.Divider)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local DIALOG_WIDTH = 312
 local DIALOG_PADDING = 24

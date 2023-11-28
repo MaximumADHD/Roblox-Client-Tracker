@@ -28,7 +28,7 @@ local PlayerContext = UIBlox.App.Indicator.PlayerContext
 local Images = UIBlox.App.ImageSet.Images
 local Interactable = UIBlox.Core.Control.Interactable
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local useStyle = UIBlox.Core.Style.useStyle
 
 local OpenOrUpdateCFM = require(ContactList.Actions.OpenOrUpdateCFM)

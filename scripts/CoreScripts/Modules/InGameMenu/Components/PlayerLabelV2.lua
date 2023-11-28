@@ -20,7 +20,7 @@ local FFlagAlwaysShowDisplayNameInExpMenu = require(InGameMenu.Flags.FFlagAlways
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local CONTAINER_FRAME_HEIGHT = 71
 local PLAYER_ICON_SIZE = 56

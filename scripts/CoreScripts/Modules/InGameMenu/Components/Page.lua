@@ -16,7 +16,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 local ZonePortal = require(InGameMenu.Components.ZonePortal)
 local Direction = require(InGameMenu.Enums.Direction)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
 local TITLE_HEIGHT = 28
 local TITLE_TOP_PADDING = 28

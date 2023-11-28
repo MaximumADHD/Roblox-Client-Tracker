@@ -9,7 +9,7 @@ local Roact = require(CorePackages.Roact)
 
 local UIBlox = require(CorePackages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local t = require(CorePackages.Packages.t)
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local Constants = require(script.Parent.Parent.Parent.Constants)

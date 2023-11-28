@@ -53,8 +53,10 @@ PROTO_4:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K3 ["join"]
   MOVE R3 R0
-  DUPTABLE R4 K4 [{"Path2DToolMode"}]
+  DUPTABLE R4 K5 [{"Path2DToolMode", "ControlPointStates"}]
   SETTABLEKS R1 R4 K0 ["Path2DToolMode"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K4 ["ControlPointStates"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -96,38 +98,49 @@ PROTO_8:
   GETTABLEKS R3 R0 K1 ["SelectedObject"]
   JUMPIFNOTEQKNIL R3 [+2]
   RETURN R0 1
-  JUMPIFNOTEQKS R2 K2 ["SelectedControlPoint"] [+12]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["join"]
-  MOVE R5 R0
-  DUPTABLE R6 K5 [{"SelectedControlPointIndex"}]
-  GETTABLEKS R7 R3 K2 ["SelectedControlPoint"]
-  SETTABLEKS R7 R6 K4 ["SelectedControlPointIndex"]
-  CALL R4 2 -1
-  RETURN R4 -1
-  JUMPIFNOTEQKS R2 K6 ["ControlPointPosition"] [+13]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["join"]
-  MOVE R5 R0
-  DUPTABLE R6 K8 [{"ControlPoints"}]
-  NAMECALL R7 R3 K9 ["GetControlPoints"]
+  NAMECALL R4 R3 K2 ["GetControlPoints"]
+  CALL R4 1 1
+  LOADNIL R5
+  NAMECALL R7 R3 K2 ["GetControlPoints"]
   CALL R7 1 1
-  SETTABLEKS R7 R6 K7 ["ControlPoints"]
-  CALL R4 2 -1
-  RETURN R4 -1
-  JUMPIFNOTEQKS R2 K10 ["Position"] [+18]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["join"]
-  MOVE R5 R0
-  DUPTABLE R6 K12 [{"Refreshed", "ControlPoints"}]
-  GETIMPORT R7 K14 [tick]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K11 ["Refreshed"]
-  NAMECALL R7 R3 K9 ["GetControlPoints"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K7 ["ControlPoints"]
-  CALL R4 2 -1
-  RETURN R4 -1
+  LENGTH R6 R7
+  GETTABLEKS R8 R0 K3 ["ControlPointStates"]
+  LENGTH R7 R8
+  JUMPIFEQ R6 R7 [+5]
+  GETUPVAL R6 0
+  MOVE R7 R4
+  CALL R6 1 1
+  MOVE R5 R6
+  JUMPIFNOTEQKS R2 K4 ["SelectedControlPoint"] [+12]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["join"]
+  MOVE R7 R0
+  DUPTABLE R8 K7 [{"SelectedControlPointIndex"}]
+  GETTABLEKS R9 R3 K4 ["SelectedControlPoint"]
+  SETTABLEKS R9 R8 K6 ["SelectedControlPointIndex"]
+  CALL R6 2 -1
+  RETURN R6 -1
+  JUMPIFNOTEQKS R2 K8 ["ControlPointPosition"] [+12]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["join"]
+  MOVE R7 R0
+  DUPTABLE R8 K10 [{"ControlPoints", "ControlPointStates"}]
+  SETTABLEKS R4 R8 K9 ["ControlPoints"]
+  SETTABLEKS R5 R8 K3 ["ControlPointStates"]
+  CALL R6 2 -1
+  RETURN R6 -1
+  JUMPIFNOTEQKS R2 K11 ["Position"] [+17]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["join"]
+  MOVE R7 R0
+  DUPTABLE R8 K13 [{"Refreshed", "ControlPoints", "ControlPointStates"}]
+  GETIMPORT R9 K15 [tick]
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K12 ["Refreshed"]
+  SETTABLEKS R4 R8 K9 ["ControlPoints"]
+  SETTABLEKS R5 R8 K3 ["ControlPointStates"]
+  CALL R6 2 -1
+  RETURN R6 -1
   RETURN R0 1
 
 PROTO_9:
@@ -152,13 +165,17 @@ PROTO_9:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K7 ["join"]
   MOVE R7 R0
-  DUPTABLE R8 K12 [{"SelectedObject", "SelectedParentScreenGui", "ControlPoints", "SelectedControlPointIndex", "Path2DToolMode"}]
+  DUPTABLE R8 K13 [{"SelectedObject", "SelectedParentScreenGui", "ControlPoints", "ControlPointStates", "SelectedControlPointIndex", "Path2DToolMode"}]
   SETTABLEKS R2 R8 K1 ["SelectedObject"]
   SETTABLEKS R4 R8 K8 ["SelectedParentScreenGui"]
   SETTABLEKS R3 R8 K9 ["ControlPoints"]
+  GETUPVAL R9 1
+  MOVE R10 R3
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K10 ["ControlPointStates"]
   LOADN R9 0
-  SETTABLEKS R9 R8 K10 ["SelectedControlPointIndex"]
-  SETTABLEKS R5 R8 K11 ["Path2DToolMode"]
+  SETTABLEKS R9 R8 K11 ["SelectedControlPointIndex"]
+  SETTABLEKS R5 R8 K12 ["Path2DToolMode"]
   CALL R6 2 -1
   RETURN R6 -1
 
@@ -166,18 +183,20 @@ PROTO_10:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["join"]
   MOVE R3 R0
-  DUPTABLE R4 K6 [{"SelectedObject", "ControlPoints", "SelectedControlPointIndex", "LockSelectedControlPoint", "Path2DToolMode"}]
+  DUPTABLE R4 K7 [{"SelectedObject", "ControlPoints", "ControlPointStates", "SelectedControlPointIndex", "LockSelectedControlPoint", "Path2DToolMode"}]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K7 ["None"]
+  GETTABLEKS R5 R6 K8 ["None"]
   SETTABLEKS R5 R4 K1 ["SelectedObject"]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R4 K2 ["ControlPoints"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K3 ["ControlPointStates"]
   LOADN R5 0
-  SETTABLEKS R5 R4 K3 ["SelectedControlPointIndex"]
+  SETTABLEKS R5 R4 K4 ["SelectedControlPointIndex"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K4 ["LockSelectedControlPoint"]
-  LOADK R5 K8 ["DoneEditing"]
-  SETTABLEKS R5 R4 K5 ["Path2DToolMode"]
+  SETTABLEKS R5 R4 K5 ["LockSelectedControlPoint"]
+  LOADK R5 K9 ["DoneEditing"]
+  SETTABLEKS R5 R4 K6 ["Path2DToolMode"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -201,7 +220,12 @@ PROTO_12:
   GETTABLEKS R2 R3 K0 ["join"]
   MOVE R3 R0
   DUPTABLE R4 K2 [{"SelectedTangentSide"}]
+  GETTABLEKS R6 R1 K3 ["Side"]
+  JUMPIFNOT R6 [+3]
   GETTABLEKS R5 R1 K3 ["Side"]
+  JUMP [+3]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["None"]
   SETTABLEKS R5 R4 K1 ["SelectedTangentSide"]
   CALL R2 2 -1
   RETURN R2 -1
@@ -242,6 +266,65 @@ PROTO_14:
   JUMP [+1]
   LOADNIL R7
   SETTABLEKS R7 R6 K5 ["LockedPoint"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_15:
+  GETTABLEKS R2 R1 K0 ["Index"]
+  GETIMPORT R3 K3 [table.clone]
+  GETTABLEKS R4 R0 K4 ["ControlPointStates"]
+  CALL R3 1 1
+  GETIMPORT R4 K3 [table.clone]
+  GETTABLE R5 R3 R2
+  CALL R4 1 1
+  SETTABLE R4 R3 R2
+  GETTABLE R4 R3 R2
+  GETTABLE R7 R3 R2
+  GETTABLEKS R6 R7 K5 ["Mirrored"]
+  NOT R5 R6
+  SETTABLEKS R5 R4 K5 ["Mirrored"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["join"]
+  MOVE R5 R0
+  DUPTABLE R6 K7 [{"ControlPointStates"}]
+  SETTABLEKS R3 R6 K4 ["ControlPointStates"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_16:
+  GETTABLEKS R2 R1 K0 ["Index"]
+  GETIMPORT R3 K3 [table.clone]
+  GETTABLEKS R4 R0 K4 ["ControlPointStates"]
+  CALL R3 1 1
+  GETIMPORT R4 K3 [table.clone]
+  GETTABLE R5 R3 R2
+  CALL R4 1 1
+  SETTABLE R4 R3 R2
+  GETTABLE R4 R3 R2
+  GETTABLE R7 R3 R2
+  GETTABLEKS R6 R7 K5 ["Sharp"]
+  NOT R5 R6
+  SETTABLEKS R5 R4 K5 ["Sharp"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["join"]
+  MOVE R5 R0
+  DUPTABLE R6 K7 [{"ControlPointStates"}]
+  SETTABLEKS R3 R6 K4 ["ControlPointStates"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_17:
+  GETTABLEKS R2 R1 K0 ["Index"]
+  GETIMPORT R3 K3 [table.clone]
+  GETTABLEKS R4 R0 K4 ["ControlPointStates"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K5 ["State"]
+  SETTABLE R4 R3 R2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["join"]
+  MOVE R5 R0
+  DUPTABLE R6 K7 [{"ControlPointStates"}]
+  SETTABLEKS R3 R6 K4 ["ControlPointStates"]
   CALL R4 2 -1
   RETURN R4 -1
 
@@ -289,122 +372,152 @@ MAIN:
   GETTABLEKS R12 R5 K18 ["LockSelectedControlPoint"]
   CALL R11 1 1
   GETIMPORT R12 K4 [require]
-  GETTABLEKS R13 R5 K19 ["SetFuture"]
+  GETTABLEKS R13 R5 K19 ["ToggleMirrored"]
   CALL R12 1 1
   GETIMPORT R13 K4 [require]
-  GETTABLEKS R14 R5 K20 ["PathChanged"]
+  GETTABLEKS R14 R5 K20 ["ToggleSharp"]
   CALL R13 1 1
   GETIMPORT R14 K4 [require]
-  GETTABLEKS R15 R5 K21 ["ToggleDone"]
+  GETTABLEKS R15 R5 K21 ["SetFuture"]
   CALL R14 1 1
   GETIMPORT R15 K4 [require]
-  GETTABLEKS R16 R5 K22 ["ToggleMoveTool"]
+  GETTABLEKS R16 R5 K22 ["PathChanged"]
   CALL R15 1 1
   GETIMPORT R16 K4 [require]
-  GETTABLEKS R17 R5 K23 ["ToggleAddPointTool"]
+  GETTABLEKS R17 R5 K23 ["ToggleDone"]
   CALL R16 1 1
   GETIMPORT R17 K4 [require]
-  GETTABLEKS R18 R5 K24 ["ToggleAddTangentTool"]
+  GETTABLEKS R18 R5 K24 ["ToggleMoveTool"]
   CALL R17 1 1
   GETIMPORT R18 K4 [require]
-  GETTABLEKS R19 R5 K25 ["ToolbarHovered"]
+  GETTABLEKS R19 R5 K25 ["ToggleAddPointTool"]
   CALL R18 1 1
   GETIMPORT R19 K4 [require]
-  GETTABLEKS R20 R5 K26 ["SetPast"]
+  GETTABLEKS R20 R5 K26 ["ToggleAddTangentTool"]
   CALL R19 1 1
   GETIMPORT R20 K4 [require]
-  GETTABLEKS R21 R5 K27 ["SetIsDraggingPoint"]
+  GETTABLEKS R21 R5 K27 ["ToolbarHovered"]
   CALL R20 1 1
-  GETTABLEKS R21 R2 K28 ["createReducer"]
-  DUPTABLE R22 K41 [{"SelectedObject", "SelectedParentScreenGui", "ControlPoints", "SelectedControlPointIndex", "DeselectedControlPointIndex", "SelectedTangentSide", "LockSelectedControlPoint", "LockedPoint", "Path2DToolMode", "Refreshed", "IsDraggingPoint", "ToolbarHovered", "Past", "Future"}]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K29 ["SelectedObject"]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K30 ["SelectedParentScreenGui"]
-  NEWTABLE R23 0 0
-  SETTABLEKS R23 R22 K31 ["ControlPoints"]
-  LOADN R23 0
-  SETTABLEKS R23 R22 K32 ["SelectedControlPointIndex"]
-  LOADN R23 0
-  SETTABLEKS R23 R22 K33 ["DeselectedControlPointIndex"]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K34 ["SelectedTangentSide"]
-  LOADB R23 0
-  SETTABLEKS R23 R22 K18 ["LockSelectedControlPoint"]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K35 ["LockedPoint"]
-  LOADK R23 K42 ["DoneEditing"]
-  SETTABLEKS R23 R22 K36 ["Path2DToolMode"]
-  LOADN R23 0
-  SETTABLEKS R23 R22 K37 ["Refreshed"]
-  LOADB R23 0
-  SETTABLEKS R23 R22 K38 ["IsDraggingPoint"]
-  LOADB R23 0
-  SETTABLEKS R23 R22 K25 ["ToolbarHovered"]
-  NEWTABLE R23 0 0
-  SETTABLEKS R23 R22 K39 ["Past"]
-  NEWTABLE R23 0 0
-  SETTABLEKS R23 R22 K40 ["Future"]
-  NEWTABLE R23 16 0
-  GETTABLEKS R24 R20 K43 ["name"]
-  DUPCLOSURE R25 K44 [PROTO_0]
+  GETIMPORT R21 K4 [require]
+  GETTABLEKS R22 R5 K28 ["SetPast"]
+  CALL R21 1 1
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R23 R5 K29 ["SetIsDraggingPoint"]
+  CALL R22 1 1
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R24 R5 K30 ["ChangeControlPointState"]
+  CALL R23 1 1
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R27 R0 K5 ["Src"]
+  GETTABLEKS R26 R27 K31 ["Util"]
+  GETTABLEKS R25 R26 K32 ["getControlPointStates"]
+  CALL R24 1 1
+  GETTABLEKS R25 R2 K33 ["createReducer"]
+  DUPTABLE R26 K47 [{"SelectedObject", "SelectedParentScreenGui", "ControlPoints", "ControlPointStates", "SelectedControlPointIndex", "DeselectedControlPointIndex", "SelectedTangentSide", "LockSelectedControlPoint", "LockedPoint", "Path2DToolMode", "Refreshed", "IsDraggingPoint", "ToolbarHovered", "Past", "Future"}]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K34 ["SelectedObject"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K35 ["SelectedParentScreenGui"]
+  NEWTABLE R27 0 0
+  SETTABLEKS R27 R26 K36 ["ControlPoints"]
+  NEWTABLE R27 0 0
+  SETTABLEKS R27 R26 K37 ["ControlPointStates"]
+  LOADN R27 0
+  SETTABLEKS R27 R26 K38 ["SelectedControlPointIndex"]
+  LOADN R27 0
+  SETTABLEKS R27 R26 K39 ["DeselectedControlPointIndex"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K40 ["SelectedTangentSide"]
+  LOADB R27 0
+  SETTABLEKS R27 R26 K18 ["LockSelectedControlPoint"]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K41 ["LockedPoint"]
+  LOADK R27 K48 ["DoneEditing"]
+  SETTABLEKS R27 R26 K42 ["Path2DToolMode"]
+  LOADN R27 0
+  SETTABLEKS R27 R26 K43 ["Refreshed"]
+  LOADB R27 0
+  SETTABLEKS R27 R26 K44 ["IsDraggingPoint"]
+  LOADB R27 0
+  SETTABLEKS R27 R26 K27 ["ToolbarHovered"]
+  NEWTABLE R27 0 0
+  SETTABLEKS R27 R26 K45 ["Past"]
+  NEWTABLE R27 0 0
+  SETTABLEKS R27 R26 K46 ["Future"]
+  NEWTABLE R27 32 0
+  GETTABLEKS R28 R22 K49 ["name"]
+  DUPCLOSURE R29 K50 [PROTO_0]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R18 K43 ["name"]
-  DUPCLOSURE R25 K45 [PROTO_1]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R20 K49 ["name"]
+  DUPCLOSURE R29 K51 [PROTO_1]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R12 K43 ["name"]
-  DUPCLOSURE R25 K46 [PROTO_2]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R14 K49 ["name"]
+  DUPCLOSURE R29 K52 [PROTO_2]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R19 K43 ["name"]
-  DUPCLOSURE R25 K47 [PROTO_3]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R21 K49 ["name"]
+  DUPCLOSURE R29 K53 [PROTO_3]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R14 K43 ["name"]
-  DUPCLOSURE R25 K48 [PROTO_4]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R16 K49 ["name"]
+  DUPCLOSURE R29 K54 [PROTO_4]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R15 K43 ["name"]
-  DUPCLOSURE R25 K49 [PROTO_5]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R17 K49 ["name"]
+  DUPCLOSURE R29 K55 [PROTO_5]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R16 K43 ["name"]
-  DUPCLOSURE R25 K50 [PROTO_6]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R18 K49 ["name"]
+  DUPCLOSURE R29 K56 [PROTO_6]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R17 K43 ["name"]
-  DUPCLOSURE R25 K51 [PROTO_7]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R19 K49 ["name"]
+  DUPCLOSURE R29 K57 [PROTO_7]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R13 K43 ["name"]
-  DUPCLOSURE R25 K52 [PROTO_8]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R15 K49 ["name"]
+  DUPCLOSURE R29 K58 [PROTO_8]
+  CAPTURE VAL R24
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R6 K43 ["name"]
-  DUPCLOSURE R25 K53 [PROTO_9]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R6 K49 ["name"]
+  DUPCLOSURE R29 K59 [PROTO_9]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R7 K43 ["name"]
-  DUPCLOSURE R25 K54 [PROTO_10]
+  CAPTURE VAL R24
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R7 K49 ["name"]
+  DUPCLOSURE R29 K60 [PROTO_10]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R8 K43 ["name"]
-  DUPCLOSURE R25 K55 [PROTO_11]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R8 K49 ["name"]
+  DUPCLOSURE R29 K61 [PROTO_11]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R9 K43 ["name"]
-  DUPCLOSURE R25 K56 [PROTO_12]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R9 K49 ["name"]
+  DUPCLOSURE R29 K62 [PROTO_12]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R10 K43 ["name"]
-  DUPCLOSURE R25 K57 [PROTO_13]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R10 K49 ["name"]
+  DUPCLOSURE R29 K63 [PROTO_13]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R11 K43 ["name"]
-  DUPCLOSURE R25 K58 [PROTO_14]
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R11 K49 ["name"]
+  DUPCLOSURE R29 K64 [PROTO_14]
   CAPTURE VAL R3
-  SETTABLE R25 R23 R24
-  CALL R21 2 1
-  RETURN R21 1
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R12 K49 ["name"]
+  DUPCLOSURE R29 K65 [PROTO_15]
+  CAPTURE VAL R3
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R13 K49 ["name"]
+  DUPCLOSURE R29 K66 [PROTO_16]
+  CAPTURE VAL R3
+  SETTABLE R29 R27 R28
+  GETTABLEKS R28 R23 K49 ["name"]
+  DUPCLOSURE R29 K67 [PROTO_17]
+  CAPTURE VAL R3
+  SETTABLE R29 R27 R28
+  CALL R25 2 1
+  RETURN R25 1

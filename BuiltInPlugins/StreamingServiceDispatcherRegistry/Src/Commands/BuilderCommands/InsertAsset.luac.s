@@ -47,24 +47,33 @@ PROTO_0:
   MOVE R10 R0
   NAMECALL R6 R6 K17 ["InvokeCommand"]
   CALL R6 4 0
-  GETTABLEKS R6 R5 K18 ["Parent"]
+  GETUPVAL R6 3
+  JUMPIFNOT R6 [+10]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K18 ["getRequestParent"]
+  MOVE R7 R5
+  GETTABLEKS R8 R0 K4 ["requestId"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K19 ["Parent"]
+  JUMP [+14]
+  GETTABLEKS R6 R5 K19 ["Parent"]
   JUMPIF R6 [+11]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K19 ["GetRequestFolder"]
+  GETTABLEKS R6 R7 K20 ["GetRequestFolder"]
   GETTABLEKS R7 R0 K4 ["requestId"]
   CALL R6 1 1
   JUMPIF R6 [+2]
-  GETIMPORT R6 K21 [workspace]
-  SETTABLEKS R6 R5 K18 ["Parent"]
+  GETIMPORT R6 K22 [workspace]
+  SETTABLEKS R6 R5 K19 ["Parent"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K22 ["EndRecordingActions"]
+  GETTABLEKS R6 R7 K23 ["EndRecordingActions"]
   GETTABLEKS R7 R0 K4 ["requestId"]
   CALL R6 1 0
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K23 ["modifyChatWithInstanceLink"]
+  GETTABLEKS R6 R7 K24 ["modifyChatWithInstanceLink"]
   GETTABLEKS R7 R0 K4 ["requestId"]
   MOVE R8 R5
-  LOADK R9 K24 ["added"]
+  LOADK R9 K25 ["added"]
   GETTABLEKS R10 R1 K13 ["newInstanceId"]
   MOVE R11 R3
   CALL R6 5 0
@@ -95,8 +104,13 @@ MAIN:
   GETTABLEKS R6 R7 K6 ["Parent"]
   GETTABLEKS R5 R6 K12 ["BuilderNameMap"]
   CALL R4 1 1
-  DUPCLOSURE R5 K13 [PROTO_0]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K13 ["ConvAIAddDraftModeForSceneCreate"]
+  NAMECALL R5 R5 K14 ["GetFastFlag"]
+  CALL R5 2 1
+  DUPCLOSURE R6 K15 [PROTO_0]
   CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R0
-  RETURN R5 1
+  CAPTURE VAL R5
+  RETURN R6 1

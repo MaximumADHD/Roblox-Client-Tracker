@@ -1,4 +1,4 @@
-local Anim = require(game.ReplicatedStorage.RobloxCharacterPackages.MotionCompositor)
+local Compositor = require(game.ReplicatedStorage.RobloxCharacterPackages.MotionCompositor)
 
 local RandomSequenceLayer = require(script.Parent.RandomSequence)
 local InsertService = game:GetService("InsertService")
@@ -18,11 +18,11 @@ local IDLE_ANIM_INFO = {
 }
 
 local function makeIdleRandomSequence()
-    local idleLayer = Anim.newDef(RandomSequenceLayer)
+    local idleLayer = Compositor.newDef(RandomSequenceLayer)
         :name("Idle style pack random sequence")
 
     for _, idleInfo in ipairs(IDLE_ANIM_INFO) do
-        local idleClipLayer = Anim.newDef("Clip")
+        local idleClipLayer = Compositor.newDef("Clip")
             :name(idleInfo.animationPropName)
             :animationId(function(params)
                 return params[idleInfo.animationPropName] or idleInfo.defaultAnim
@@ -39,8 +39,8 @@ local function makeLocmotionModifier(originalLocomotionLayer)
     local runSpeed = 12.8
 
     local function walkBlendSpacePos(params)
-        if params.hrpVelocity then
-            return params.hrpVelocity.Magnitude / params.HeightScale
+        if params.desiredVelocity then
+            return params.desiredVelocity.Magnitude / params.HeightScale
         end
         return 0
     end
@@ -56,16 +56,16 @@ local function makeLocmotionModifier(originalLocomotionLayer)
         return speed
     end
 
-    local stylePackLocomotion = Anim.newDef("Blend1D")
+    local stylePackLocomotion = Compositor.newDef("Blend1D")
         :name("StylePackLocmootionBlend1D")
         :positionSmoothingTime(0.1)
         :targetPosition(walkBlendSpacePos)
         :speed(walkSpeedFunction)
-        :addChild({ position = walkSpeed }, Anim.newDef("Clip")
+        :addChild({ position = walkSpeed }, Compositor.newDef("Clip")
             :animationId(function(params)
                 return params.WalkAnim or "http://www.roblox.com/asset/?id=913402848"
             end))
-        :addChild({ position = runSpeed }, Anim.newDef("Clip")
+        :addChild({ position = runSpeed }, Compositor.newDef("Clip")
             :animationId(function(params)
                 return params.RunAnim or "http://www.roblox.com/asset/?id=913376220"
             end))
@@ -85,7 +85,7 @@ local function makeLocmotionModifier(originalLocomotionLayer)
     local LocomotionAnimationParams = {"WalkAnim", "RunAnim"}
 
     local function isInIdle(params)
-        return params.hrpVelocity.Magnitude < idleSpeed
+        return params.desiredVelocity.Magnitude < idleSpeed
     end
 
     local function stylePackLocomotionSelection(params)
@@ -95,7 +95,7 @@ local function makeLocmotionModifier(originalLocomotionLayer)
             return if hasAnimationParam(params, LocomotionAnimationParams) then "StylePackLocomotion" else "NoStylePack"
         end
     end
-    local locomotionStylePackSelect = Anim.newDef("Select")
+    local locomotionStylePackSelect = Compositor.newDef("Select")
         :name("Locomotion style pack select")
         :selection(stylePackLocomotionSelection)
         :addChild({key = "StylePackLocomotion"}, stylePackLocomotion)
@@ -110,7 +110,7 @@ local function makeStylePackOverrideLayer(originalLayer, stylePackAnimProp, defa
         local hasStylePackAnim = params[stylePackAnimProp] and params[stylePackAnimProp] ~= 0
         return if hasStylePackAnim then 1.0 else 0.0
     end
-    local stylePackLayer = Anim.newDef("Clip")
+    local stylePackLayer = Compositor.newDef("Clip")
         :name(`{stylePackAnimProp} Style pack animation`)
         :animationId(function(params)
             return params[stylePackAnimProp] or defaultAnimationId
@@ -118,7 +118,7 @@ local function makeStylePackOverrideLayer(originalLayer, stylePackAnimProp, defa
     if customizeLayerCallback then
         customizeLayerCallback(stylePackLayer)
     end
-    local stylePackBlend = Anim.newDef("Blend")
+    local stylePackBlend = Compositor.newDef("Blend")
         :name(`{stylePackAnimProp} style pack override`)
         :addChild({ weight = stylePackBlendWeight }, stylePackLayer)
         :addChild({ weight = makeInverseWeightFunction(stylePackBlendWeight) }, originalLayer)
@@ -135,7 +135,7 @@ function StylePacks.wrapCoreSelectLayer(inLayerName, layer)
             propName = "SwimAnim",
             defaultAnimation = "http://www.roblox.com/asset/?id=913384386",
             customizeLayerCallback = function(layer)
-                layer:speed(function(params) return params.hrpVelocity.Magnitude / 10 end)
+                layer:speed(function(params) return params.desiredVelocity.Magnitude / 10 end)
             end,
         },
         { layerName = "SwimIdle", propName = "SwimIdleAnim", defaultAnimation = "http://www.roblox.com/asset/?id=913389285"},
@@ -146,7 +146,7 @@ function StylePacks.wrapCoreSelectLayer(inLayerName, layer)
             propName = "ClimbAnim",
             defaultAnimation = "http://www.roblox.com/asset/?id=507765644",
             customizeLayerCallback = function(layer)
-                layer:speed(function(params) return params.hrpVelocity.Y / 5 end)
+                layer:speed(function(params) return params.desiredVelocity.Y / 5 end)
             end,
         },
     }

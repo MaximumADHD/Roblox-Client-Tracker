@@ -8,7 +8,7 @@ local Cryo = InGameMenuDependencies.Cryo
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
 local StarterGui = game:GetService('StarterGui')
 local CoreGui = game:GetService("CoreGui")

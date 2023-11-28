@@ -321,7 +321,7 @@ function VoiceChatPromptFrame:render()
 						Size = UDim2.new(1, 0, 1, 0),
 						Text = "",
 					}),
-					DialogMainFrame = Roact.createElement(UIBlox.Core.ImageSet.Label, {
+					DialogMainFrame = Roact.createElement(UIBlox.Core.ImageSet.ImageSetLabel, {
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						BackgroundTransparency = 1,
 						Image = Assets.Images.RoundedRect.Image,
@@ -356,7 +356,7 @@ function VoiceChatPromptFrame:render()
 							HorizontalAlignment = Enum.HorizontalAlignment.Center,
 							SortOrder = Enum.SortOrder.LayoutOrder,
 						}),
-						Icon = Roact.createElement(UIBlox.Core.ImageSet.Label, {
+						Icon = Roact.createElement(UIBlox.Core.ImageSet.ImageSetLabel, {
 							Position = UDim2.fromScale(0.5, 0.5),
 							AnchorPoint = Vector2.new(0.5, 0.5),
 							Image = self.state.toastContent.iconImage,

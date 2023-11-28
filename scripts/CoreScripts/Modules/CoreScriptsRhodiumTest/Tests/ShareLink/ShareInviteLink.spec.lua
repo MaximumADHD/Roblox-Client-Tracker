@@ -28,12 +28,9 @@ return function()
 	local STORE_URL = "www.bbc.co.uk"
 	local NETWORK_URL = "www.bbc.com"
 
-	local originalGameInviteShortUrlEnabled, originalGameInviteShortUrlRollout
 	local generateLink, mockAnalytics, externalContentSharingProtocol, makeTestElement
 
 	beforeEach(function()
-		originalGameInviteShortUrlEnabled = game:SetFastFlagForTesting("GameInviteShortUrlEnabled", true)
-		originalGameInviteShortUrlRollout = game:SetFastIntForTesting("GameInviteShortUrlRollout", 100)
 		NetworkingShareLinks.GenerateLink.Mock.clear()
 
 		generateLink = jest.fn()
@@ -83,8 +80,6 @@ return function()
 
 	afterEach(function()
 		NetworkingShareLinks.GenerateLink.Mock.clear()
-		game:SetFastFlagForTesting("GameInviteShortUrlEnabled", originalGameInviteShortUrlEnabled)
-		game:SetFastIntForTesting("GameInviteShortUrlRollout", originalGameInviteShortUrlRollout)
 	end)
 
 	it("should call fetchShareInviteLink on mount if there is no value in the store", function()

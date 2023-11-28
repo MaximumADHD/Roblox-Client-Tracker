@@ -6,7 +6,7 @@ local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
 local BORDER_SIZE = 2

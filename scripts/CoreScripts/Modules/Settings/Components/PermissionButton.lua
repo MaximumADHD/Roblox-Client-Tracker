@@ -4,7 +4,7 @@ local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
 local PermissionButton = Roact.PureComponent:extend("PermissionButton")
 

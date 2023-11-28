@@ -33,12 +33,14 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local GetFFlagSurveyUserIdFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSurveyUserIdFix
+local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
 local Theme = require(RobloxGui.Modules.Settings.Theme)
+local LocalStore = require(RobloxGui.Modules.Chrome.Service.LocalStore)
 
 ----------- CLASS DECLARATION --------------
 
@@ -63,11 +65,17 @@ local function Initialize()
 			}
 		)
 
+		local customProps = nil
+		if GetFFlagChromeSurveySupport() then
+			local chromeSeenCount = tostring(LocalStore.getChromeSeenCount())
+			customProps = { chromeSeenCount = chromeSeenCount }
+		end
+
 		if GetFFlagSurveyUserIdFix() then
 			local localUserId = tostring(Players.LocalPlayer.UserId)
-			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId})
+			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps})
 		else
-			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})
+			MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, customProps = customProps})
 		end
 
 		-- need to wait for render frames so on slower devices the leave button highlight will update

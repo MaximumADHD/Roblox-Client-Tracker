@@ -28,7 +28,7 @@ local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatar
 local teleportToRootPlace = dependencies.teleportToRootPlace
 
 local Colors = UIBlox.App.Style.Colors
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local useStyle = UIBlox.Core.Style.useStyle
 
 local useSelector = dependencies.Hooks.useSelector

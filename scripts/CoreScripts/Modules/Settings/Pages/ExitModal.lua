@@ -36,6 +36,7 @@ local Players = game:GetService("Players")
 
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local GetFFlagSurveyUserIdFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSurveyUserIdFix
+local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Roact)
@@ -50,6 +51,7 @@ local SendAnalytics = require(RobloxGui.Modules.InGameMenu.Utility.SendAnalytics
 local UserLocalStore = require(RobloxGui.Modules.InGameMenu.Utility.UserLocalStore)
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
+local LocalStore = require(RobloxGui.Modules.Chrome.Service.LocalStore)
 
 ----------- COMPONENTS --------------
 
@@ -237,11 +239,17 @@ local function Initialize()
 					end
 					this.LeaveGameFunc(false)
 
+					local customProps = nil
+					if GetFFlagChromeSurveySupport() then
+						local chromeSeenCount = tostring(LocalStore.getChromeSeenCount())
+						customProps = { chromeSeenCount = chromeSeenCount }
+					end
+
 					if GetFFlagSurveyUserIdFix() then
 						local localUserId = tostring(Players.LocalPlayer.UserId)
-						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId})
+						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps})
 					else
-						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType})
+						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, customProps = customProps})
 					end
 				end,
 			}),

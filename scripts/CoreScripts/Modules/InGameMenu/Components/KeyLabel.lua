@@ -18,7 +18,7 @@ local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 -- Additional width for keys with centered text like [Backspace], [Enter], etc
 local CENTERED_EXTRA_WIDTH = 14 * 2

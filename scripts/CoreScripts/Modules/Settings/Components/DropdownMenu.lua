@@ -14,7 +14,7 @@ local t = require(CorePackages.Packages.t)
 local ArgCheck = require(CorePackages.Workspace.Packages.ArgCheck)
 
 local Images = UIBlox.App.ImageSet.Images
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local useStyle = UIBlox.Core.Style.useStyle
 local BaseMenu = UIBlox.App.Menu.BaseMenu
 

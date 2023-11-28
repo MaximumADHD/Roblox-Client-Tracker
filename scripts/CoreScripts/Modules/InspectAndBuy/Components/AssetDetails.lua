@@ -21,7 +21,7 @@ local tutils = require(CorePackages.tutils)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
-local UIBloxImageSetLabel = UIBlox.Core.ImageSet.Label
+local UIBloxImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local ItemInfoList = require(CorePackages.Workspace.Packages.ItemDetails).ItemInfoList
 local AttributionConstants = require(InspectAndBuyFolder.AttributionConstants)
 

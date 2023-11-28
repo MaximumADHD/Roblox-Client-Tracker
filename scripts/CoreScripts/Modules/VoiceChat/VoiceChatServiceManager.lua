@@ -42,12 +42,8 @@ local GetFIntVoiceUsersInteractionExpiryTimeSeconds =
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagVoiceChatUseSoundServiceInputApi =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
-local GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged =
-	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged)
 local GetFFlagVoiceChatWatchForMissedSignalROnEventReceived =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatWatchForMissedSignalROnEventReceived)
-local GetFFlagVoiceChatReportOutOfOrderSequence =
-	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatReportOutOfOrderSequence)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local GetFFlagVoiceChatServiceManagerUseAvatarChat =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
@@ -340,19 +336,12 @@ function VoiceChatServiceManager:asyncInit()
 
 		return Promise.resolve()
 	end
-	if
-		GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged()
-		or GetFFlagVoiceChatWatchForMissedSignalROnEventReceived()
-		or GetFFlagVoiceChatReportOutOfOrderSequence()
-	then
-		if not self.initPromise then
-			-- Don't keep creating new promises every time asyncInit is called
-			self.initPromise = self:_asyncInit()
-		end
-		return self.initPromise
-	else
-		return self:_asyncInit()
+
+	if not self.initPromise then
+		-- Don't keep creating new promises every time asyncInit is called
+		self.initPromise = self:_asyncInit()
 	end
+	return self.initPromise
 end
 
 local inputsExistPromise
@@ -417,53 +406,29 @@ local function jsonDecode(data)
 end
 
 function VoiceChatServiceManager:checkAndUpdateSequence(namespace: string, value: number)
-	if GetFFlagVoiceChatReportOutOfOrderSequence() then
-		-- Returns the difference between the expected sequence number and the received number.
-		-- 0 means everything's fine. Positive means a skip. Negative means a duplicate or out of order number.
+	-- Returns the difference between the expected sequence number and the received number.
+	-- 0 means everything's fine. Positive means a skip. Negative means a duplicate or out of order number.
 
-		if not value then
-			-- Got a nil value. We'll react when we get a message showing that we actually missed something.
-			return 0
-		end
-
-		if not self.SequenceNumbers[namespace] then
-			-- This is the first one we've seen, so assume it's fine.
-			self.SequenceNumbers[namespace] = value
-			return 0
-		end
-
-		local diff = value - self.SequenceNumbers[namespace]
-		if diff > 0 then
-			self.SequenceNumbers[namespace] = value
-		end
-
-		return diff - 1
-	else
-		if not value then
-			-- Got a nil value. We'll react when we get a message showing that we actually missed something.
-			return true
-		end
-
-		if not self.SequenceNumbers[namespace] then
-			-- This is the first one we've seen, so assume it's fine.
-			self.SequenceNumbers[namespace] = value
-			return true
-		end
-
-		local diff = value - self.SequenceNumbers[namespace]
-		if diff > 0 then
-			self.SequenceNumbers[namespace] = value
-		end
-
-		-- Duplicates and old values are fine. Return false if there's a gap though.
-		return diff <= 1
+	if not value then
+		-- Got a nil value. We'll react when we get a message showing that we actually missed something.
+		return 0
 	end
+
+	if not self.SequenceNumbers[namespace] then
+		-- This is the first one we've seen, so assume it's fine.
+		self.SequenceNumbers[namespace] = value
+		return 0
+	end
+
+	local diff = value - self.SequenceNumbers[namespace]
+	if diff > 0 then
+		self.SequenceNumbers[namespace] = value
+	end
+
+	return diff - 1
 end
 
 function VoiceChatServiceManager:onMissedSequence(namespace)
-	if not GetFFlagVoiceChatReportOutOfOrderSequence() then
-		self.Analytics:reportReconnectDueToMissedSequence()
-	end
 	log:error("Detected a missed signalR message: {}", namespace)
 
 	-- For now, rejoin the call regardless of what was missed
@@ -472,101 +437,61 @@ end
 
 type EventData = { namespace: string, detail: string, detailType: string }
 function VoiceChatServiceManager:watchSignalR()
-	if GetFFlagVoiceChatReportOutOfOrderSequence() then
-		self.NotificationService.RobloxEventReceived:Connect(function(eventData: EventData)
-			local namespace = eventData.namespace
-			if not WATCHED_NAMESPACES[namespace] then
-				return
-			end
-
-			local detail = jsonDecode(eventData.detail)
-
-			if GetFFlagUseLuaSignalrConsumer() then
-				local matchingEvent = self.SignalREventTable[detail["type"]]
-				if matchingEvent then
-					matchingEvent:Fire(detail)
-				end
-			end
-			local seqNum = detail.SequenceNumber
-			log:trace("SignalR message {}: {}", namespace, seqNum)
-
-			local diff = self:checkAndUpdateSequence(namespace, seqNum)
-			if diff > 0 then
-				self.Analytics:reportReconnectDueToMissedSequence()
-				if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
-					self:onMissedSequence(namespace)
-				end
-			elseif diff < -1 then -- Ignore duplicate (-1) messages for now
-				self.Analytics:reportOutOfOrderSequence()
-			end
-		end)
-
-		self.NotificationService.RobloxConnectionChanged:Connect(
-			function(connectionHubName, state, seqNum, seqNumByNamespace)
-				if connectionHubName == "signalR" then
-					if state ~= Enum.ConnectionState.Connected then
-						log:info("SignalR disconnected")
-						return -- We'll update the sequence numbers once signalR reconnects
-					end
-
-					for namespace, value in pairs(jsonDecode(seqNumByNamespace)) do
-						if not WATCHED_NAMESPACES[namespace] then
-							continue
-						end
-						log:trace("SignalR message {}: {}", namespace, value)
-
-						local diff = self:checkAndUpdateSequence(namespace, value)
-						if diff > 0 then
-							self.Analytics:reportReconnectDueToMissedSequence()
-							if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
-								self:onMissedSequence(namespace)
-							end
-						elseif diff < -1 then -- Duplicate (-1) messages are expected when reconnecting
-							self.Analytics:reportOutOfOrderSequence()
-						end
-					end
-				end
-			end
-		)
-	else
-		if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
-			self.NotificationService.RobloxEventReceived:Connect(function(eventData: EventData)
-				local namespace = eventData.namespace
-				if not WATCHED_NAMESPACES[namespace] then
-					return
-				end
-
-				local detail = jsonDecode(eventData.detail)
-				local seqNum = detail.SequenceNumber
-				log:trace("SignalR message {}: {}", namespace, seqNum)
-				if not self:checkAndUpdateSequence(namespace, seqNum) then
-					self:onMissedSequence(namespace)
-				end
-			end)
+	self.NotificationService.RobloxEventReceived:Connect(function(eventData: EventData)
+		local namespace = eventData.namespace
+		if not WATCHED_NAMESPACES[namespace] then
+			return
 		end
 
-		if GetFFlagVoiceChatWatchForMissedSignalROnConnectionChanged() then
-			self.NotificationService.RobloxConnectionChanged:Connect(
-				function(connectionHubName, state, seqNum, seqNumByNamespace)
-					if connectionHubName == "signalR" then
-						if state ~= Enum.ConnectionState.Connected then
-							log:info("SignalR disconnected")
-							return -- We'll update the sequence numbers once signalR reconnects
-						end
+		local detail = jsonDecode(eventData.detail)
 
-						for namespace, value in pairs(jsonDecode(seqNumByNamespace)) do
-							if not WATCHED_NAMESPACES[namespace] then
-								continue
-							end
-							if not self:checkAndUpdateSequence(namespace, value) then
-								self:onMissedSequence(namespace)
-							end
+		if GetFFlagUseLuaSignalrConsumer() then
+			local matchingEvent = self.SignalREventTable[detail["type"]]
+			if matchingEvent then
+				matchingEvent:Fire(detail)
+			end
+		end
+		local seqNum = detail.SequenceNumber
+		log:trace("SignalR message {}: {}", namespace, seqNum)
+
+		local diff = self:checkAndUpdateSequence(namespace, seqNum)
+		if diff > 0 then
+			self.Analytics:reportReconnectDueToMissedSequence()
+			if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
+				self:onMissedSequence(namespace)
+			end
+		elseif diff < -1 then -- Ignore duplicate (-1) messages for now
+			self.Analytics:reportOutOfOrderSequence()
+		end
+	end)
+
+	self.NotificationService.RobloxConnectionChanged:Connect(
+		function(connectionHubName, state, seqNum, seqNumByNamespace)
+			if connectionHubName == "signalR" then
+				if state ~= Enum.ConnectionState.Connected then
+					log:info("SignalR disconnected")
+					return -- We'll update the sequence numbers once signalR reconnects
+				end
+
+				for namespace, value in pairs(jsonDecode(seqNumByNamespace)) do
+					if not WATCHED_NAMESPACES[namespace] then
+						continue
+					end
+					log:trace("SignalR message {}: {}", namespace, value)
+
+					local diff = self:checkAndUpdateSequence(namespace, value)
+					if diff > 0 then
+						self.Analytics:reportReconnectDueToMissedSequence()
+						if GetFFlagVoiceChatWatchForMissedSignalROnEventReceived() then
+							self:onMissedSequence(namespace)
 						end
+					elseif diff < -1 then -- Duplicate (-1) messages are expected when reconnecting
+						self.Analytics:reportOutOfOrderSequence()
 					end
 				end
-			)
+			end
 		end
-	end
+	)
 end
 
 --[[

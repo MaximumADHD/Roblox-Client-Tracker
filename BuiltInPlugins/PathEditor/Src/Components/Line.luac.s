@@ -44,143 +44,152 @@ PROTO_2:
   GETTABLEKS R3 R1 K2 ["ZIndex"]
   JUMP [+1]
   LOADN R3 1
-  SETGLOBAL R3 K3 ["zIndex"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["createElement"]
-  LOADK R4 K5 ["Frame"]
-  DUPTABLE R5 K8 [{"BackgroundTransparency", "ZIndex", "Position"}]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K6 ["BackgroundTransparency"]
-  GETTABLEKS R6 R1 K2 ["ZIndex"]
-  SETTABLEKS R6 R5 K2 ["ZIndex"]
-  GETTABLEKS R6 R1 K7 ["Position"]
-  SETTABLEKS R6 R5 K7 ["Position"]
-  DUPTABLE R6 K11 [{"Foreground", "Background"}]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K4 ["createElement"]
-  LOADK R8 K5 ["Frame"]
-  DUPTABLE R9 K13 [{"BackgroundTransparency", "Size", "ZIndex"}]
-  LOADN R10 1
-  SETTABLEKS R10 R9 K6 ["BackgroundTransparency"]
-  GETIMPORT R10 K16 [UDim2.fromScale]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  LOADK R5 K4 ["Frame"]
+  DUPTABLE R6 K7 [{"BackgroundTransparency", "ZIndex", "Position"}]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K5 ["BackgroundTransparency"]
+  GETTABLEKS R7 R1 K2 ["ZIndex"]
+  SETTABLEKS R7 R6 K2 ["ZIndex"]
+  GETTABLEKS R7 R1 K6 ["Position"]
+  SETTABLEKS R7 R6 K6 ["Position"]
+  DUPTABLE R7 K10 [{"Foreground", "Background"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K4 ["Frame"]
+  DUPTABLE R10 K12 [{"BackgroundTransparency", "Size", "ZIndex"}]
   LOADN R11 1
+  SETTABLEKS R11 R10 K5 ["BackgroundTransparency"]
+  GETIMPORT R11 K15 [UDim2.fromScale]
   LOADN R12 1
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K12 ["Size"]
-  GETGLOBAL R10 K3 ["zIndex"]
-  SETTABLEKS R10 R9 K2 ["ZIndex"]
-  DUPTABLE R10 K18 [{"ForegroundLine"}]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K4 ["createElement"]
-  LOADK R12 K19 ["Path2D"]
-  DUPTABLE R13 K23 [{"Color", "Thickness", "ref"}]
-  GETTABLEKS R14 R2 K20 ["Color"]
-  SETTABLEKS R14 R13 K20 ["Color"]
-  GETTABLEKS R14 R2 K21 ["Thickness"]
-  SETTABLEKS R14 R13 K21 ["Thickness"]
-  GETTABLEKS R15 R0 K24 ["pathRefs"]
-  GETTABLEN R14 R15 1
-  SETTABLEKS R14 R13 K22 ["ref"]
+  LOADN R13 1
   CALL R11 2 1
-  SETTABLEKS R11 R10 K17 ["ForegroundLine"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K9 ["Foreground"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K4 ["createElement"]
-  LOADK R8 K5 ["Frame"]
-  DUPTABLE R9 K13 [{"BackgroundTransparency", "Size", "ZIndex"}]
-  LOADN R10 1
-  SETTABLEKS R10 R9 K6 ["BackgroundTransparency"]
-  GETIMPORT R10 K16 [UDim2.fromScale]
-  LOADN R11 1
-  LOADN R12 1
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K12 ["Size"]
-  GETGLOBAL R11 K3 ["zIndex"]
-  SUBK R10 R11 K25 [1]
-  SETTABLEKS R10 R9 K2 ["ZIndex"]
-  NEWTABLE R10 0 4
-  GETTABLEKS R11 R2 K26 ["ContrastColor"]
-  JUMPIFNOT R11 [+26]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K4 ["createElement"]
-  LOADK R12 K19 ["Path2D"]
-  DUPTABLE R13 K27 [{"Position", "Color", "Thickness", "ref"}]
-  GETIMPORT R14 K29 [UDim2.fromOffset]
-  LOADN R15 255
-  LOADN R16 0
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K7 ["Position"]
-  GETTABLEKS R14 R2 K26 ["ContrastColor"]
-  SETTABLEKS R14 R13 K20 ["Color"]
-  GETTABLEKS R14 R2 K21 ["Thickness"]
-  SETTABLEKS R14 R13 K21 ["Thickness"]
-  GETTABLEKS R15 R0 K24 ["pathRefs"]
-  GETTABLEN R14 R15 2
-  SETTABLEKS R14 R13 K22 ["ref"]
-  CALL R11 2 1
-  GETTABLEKS R12 R2 K26 ["ContrastColor"]
-  JUMPIFNOT R12 [+26]
+  SETTABLEKS R11 R10 K11 ["Size"]
+  SETTABLEKS R3 R10 K2 ["ZIndex"]
+  DUPTABLE R11 K17 [{"ForegroundLine"}]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K4 ["createElement"]
-  LOADK R13 K19 ["Path2D"]
-  DUPTABLE R14 K27 [{"Position", "Color", "Thickness", "ref"}]
-  GETIMPORT R15 K29 [UDim2.fromOffset]
-  LOADN R16 0
-  LOADN R17 255
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K7 ["Position"]
-  GETTABLEKS R15 R2 K26 ["ContrastColor"]
-  SETTABLEKS R15 R14 K20 ["Color"]
-  GETTABLEKS R15 R2 K21 ["Thickness"]
-  SETTABLEKS R15 R14 K21 ["Thickness"]
-  GETTABLEKS R16 R0 K24 ["pathRefs"]
-  GETTABLEN R15 R16 3
-  SETTABLEKS R15 R14 K22 ["ref"]
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  LOADK R13 K18 ["Path2D"]
+  DUPTABLE R14 K22 [{"Color", "Thickness", "ref"}]
+  GETTABLEKS R15 R1 K19 ["Color"]
+  JUMPIF R15 [+2]
+  GETTABLEKS R15 R2 K19 ["Color"]
+  SETTABLEKS R15 R14 K19 ["Color"]
+  GETTABLEKS R15 R1 K20 ["Thickness"]
+  JUMPIF R15 [+2]
+  GETTABLEKS R15 R2 K20 ["Thickness"]
+  SETTABLEKS R15 R14 K20 ["Thickness"]
+  GETTABLEKS R16 R0 K23 ["pathRefs"]
+  GETTABLEN R15 R16 1
+  SETTABLEKS R15 R14 K21 ["ref"]
   CALL R12 2 1
-  GETTABLEKS R13 R2 K26 ["ContrastColor"]
-  JUMPIFNOT R13 [+26]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K4 ["createElement"]
-  LOADK R14 K19 ["Path2D"]
-  DUPTABLE R15 K27 [{"Position", "Color", "Thickness", "ref"}]
-  GETIMPORT R16 K29 [UDim2.fromOffset]
+  SETTABLEKS R12 R11 K16 ["ForegroundLine"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K8 ["Foreground"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K4 ["Frame"]
+  DUPTABLE R10 K12 [{"BackgroundTransparency", "Size", "ZIndex"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K5 ["BackgroundTransparency"]
+  GETIMPORT R11 K15 [UDim2.fromScale]
+  LOADN R12 1
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K11 ["Size"]
+  SUBK R11 R3 K24 [1]
+  SETTABLEKS R11 R10 K2 ["ZIndex"]
+  NEWTABLE R11 0 4
+  GETTABLEKS R12 R2 K25 ["ContrastColor"]
+  JUMPIFNOT R12 [+29]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  LOADK R13 K18 ["Path2D"]
+  DUPTABLE R14 K26 [{"Position", "Color", "Thickness", "ref"}]
+  GETIMPORT R15 K28 [UDim2.fromOffset]
+  LOADN R16 255
   LOADN R17 0
-  LOADN R18 1
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K6 ["Position"]
+  GETTABLEKS R15 R2 K25 ["ContrastColor"]
+  SETTABLEKS R15 R14 K19 ["Color"]
+  GETTABLEKS R15 R1 K20 ["Thickness"]
+  JUMPIF R15 [+2]
+  GETTABLEKS R15 R2 K20 ["Thickness"]
+  SETTABLEKS R15 R14 K20 ["Thickness"]
+  GETTABLEKS R16 R0 K23 ["pathRefs"]
+  GETTABLEN R15 R16 2
+  SETTABLEKS R15 R14 K21 ["ref"]
+  CALL R12 2 1
+  GETTABLEKS R13 R2 K25 ["ContrastColor"]
+  JUMPIFNOT R13 [+29]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K3 ["createElement"]
+  LOADK R14 K18 ["Path2D"]
+  DUPTABLE R15 K26 [{"Position", "Color", "Thickness", "ref"}]
+  GETIMPORT R16 K28 [UDim2.fromOffset]
+  LOADN R17 0
+  LOADN R18 255
   CALL R16 2 1
-  SETTABLEKS R16 R15 K7 ["Position"]
-  GETTABLEKS R16 R2 K26 ["ContrastColor"]
-  SETTABLEKS R16 R15 K20 ["Color"]
-  GETTABLEKS R16 R2 K21 ["Thickness"]
-  SETTABLEKS R16 R15 K21 ["Thickness"]
-  GETTABLEKS R17 R0 K24 ["pathRefs"]
-  GETTABLEN R16 R17 4
-  SETTABLEKS R16 R15 K22 ["ref"]
+  SETTABLEKS R16 R15 K6 ["Position"]
+  GETTABLEKS R16 R2 K25 ["ContrastColor"]
+  SETTABLEKS R16 R15 K19 ["Color"]
+  GETTABLEKS R16 R1 K20 ["Thickness"]
+  JUMPIF R16 [+2]
+  GETTABLEKS R16 R2 K20 ["Thickness"]
+  SETTABLEKS R16 R15 K20 ["Thickness"]
+  GETTABLEKS R17 R0 K23 ["pathRefs"]
+  GETTABLEN R16 R17 3
+  SETTABLEKS R16 R15 K21 ["ref"]
   CALL R13 2 1
-  GETTABLEKS R14 R2 K26 ["ContrastColor"]
-  JUMPIFNOT R14 [+26]
+  GETTABLEKS R14 R2 K25 ["ContrastColor"]
+  JUMPIFNOT R14 [+29]
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K4 ["createElement"]
-  LOADK R15 K19 ["Path2D"]
-  DUPTABLE R16 K27 [{"Position", "Color", "Thickness", "ref"}]
-  GETIMPORT R17 K29 [UDim2.fromOffset]
-  LOADN R18 1
-  LOADN R19 0
+  GETTABLEKS R14 R15 K3 ["createElement"]
+  LOADK R15 K18 ["Path2D"]
+  DUPTABLE R16 K26 [{"Position", "Color", "Thickness", "ref"}]
+  GETIMPORT R17 K28 [UDim2.fromOffset]
+  LOADN R18 0
+  LOADN R19 1
   CALL R17 2 1
-  SETTABLEKS R17 R16 K7 ["Position"]
-  GETTABLEKS R17 R2 K26 ["ContrastColor"]
-  SETTABLEKS R17 R16 K20 ["Color"]
-  GETTABLEKS R17 R2 K21 ["Thickness"]
-  SETTABLEKS R17 R16 K21 ["Thickness"]
-  GETTABLEKS R18 R0 K24 ["pathRefs"]
-  GETTABLEN R17 R18 5
-  SETTABLEKS R17 R16 K22 ["ref"]
+  SETTABLEKS R17 R16 K6 ["Position"]
+  GETTABLEKS R17 R2 K25 ["ContrastColor"]
+  SETTABLEKS R17 R16 K19 ["Color"]
+  GETTABLEKS R17 R1 K20 ["Thickness"]
+  JUMPIF R17 [+2]
+  GETTABLEKS R17 R2 K20 ["Thickness"]
+  SETTABLEKS R17 R16 K20 ["Thickness"]
+  GETTABLEKS R18 R0 K23 ["pathRefs"]
+  GETTABLEN R17 R18 4
+  SETTABLEKS R17 R16 K21 ["ref"]
   CALL R14 2 1
-  SETLIST R10 R11 4 [1]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K10 ["Background"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  GETTABLEKS R15 R2 K25 ["ContrastColor"]
+  JUMPIFNOT R15 [+29]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K3 ["createElement"]
+  LOADK R16 K18 ["Path2D"]
+  DUPTABLE R17 K26 [{"Position", "Color", "Thickness", "ref"}]
+  GETIMPORT R18 K28 [UDim2.fromOffset]
+  LOADN R19 1
+  LOADN R20 0
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K6 ["Position"]
+  GETTABLEKS R18 R2 K25 ["ContrastColor"]
+  SETTABLEKS R18 R17 K19 ["Color"]
+  GETTABLEKS R18 R1 K20 ["Thickness"]
+  JUMPIF R18 [+2]
+  GETTABLEKS R18 R2 K20 ["Thickness"]
+  SETTABLEKS R18 R17 K20 ["Thickness"]
+  GETTABLEKS R19 R0 K23 ["pathRefs"]
+  GETTABLEN R18 R19 5
+  SETTABLEKS R18 R17 K21 ["ref"]
+  CALL R15 2 1
+  SETLIST R11 R12 4 [1]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K9 ["Background"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 PROTO_3:
   GETTABLEKS R1 R0 K0 ["setControlPoints"]

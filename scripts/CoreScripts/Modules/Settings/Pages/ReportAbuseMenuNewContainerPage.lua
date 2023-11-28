@@ -26,12 +26,19 @@ local function Initialize()
 
 	this._onHiddenCallback = function() end
 	this._onDisplayedCallback = function() end
+	this._onSettingsHiddenCallback = function() end
 	this._setNextPlayerToReportCallback = function() end
 	this._onMenuWidthChange = function() end
 
 	function this:SetHub(newHubRef)
 		-- Keep a reference to the hub so we can open and close the whole menu from here
 		this.HubRef = newHubRef
+
+		this.HubRef.SettingsShowSignal:connect(function(isOpen)
+			if not isOpen then
+				this:onSettingsHidden()	
+			end
+		end)
 
 		return this
 	end
@@ -54,6 +61,10 @@ local function Initialize()
 
 	function this:onHidden()
 		this._onHiddenCallback()
+	end
+
+	function this:onSettingsHidden()
+		this._onSettingsHiddenCallback()
 	end
 
 	function this:onDisplayed()
@@ -106,6 +117,9 @@ local function Initialize()
 		registerSetNextPlayerToReport = function(setNextPlayerToReportCallback)
 			this._setNextPlayerToReportCallback = setNextPlayerToReportCallback
 		end,
+		registerOnSettingsHidden = function(onSettingsHiddenCallback)
+			this._onSettingsHiddenCallback = onSettingsHiddenCallback
+		end,
 		showReportSentPage = function(reportedPlayer)
 			this:showReportSentPage(reportedPlayer)
 		end,
@@ -118,7 +132,7 @@ local function Initialize()
 	})
 	Roact.mount(abuseReportMenu, this.Page, "AbuseReportMenu")
 
-	this.Page.Size = UDim2.new(1, 0, 1, 0)
+	this.Page.Size = UDim2.new(1, 0, 0, 0)
 	this.Page.AutomaticSize = Enum.AutomaticSize.Y
 	-- We are using changes in AbsolutePosition here to keep track of mobile orientation change
 	-- we can also use AbsoluteSize, but since we are using AutomaticSize, the sizing

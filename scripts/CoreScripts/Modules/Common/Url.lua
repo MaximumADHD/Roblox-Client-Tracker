@@ -21,7 +21,7 @@ local baseGameUrl = string.format("https://games.%s", baseDomain)
 local baseRcsUrl = string.format("https://apis.rcs.%s", baseDomain)
 local baseApisUrl = string.format("https://apis.%s", baseDomain)
 local baseAccountSettingsUrl = string.format("https://accountsettings.%s", baseDomain)
-local developUrl = string.format("https://develop.%s", baseDomain)
+local developUrl = string.format("https://develop.%s", baseDomain) -- remove with FFlagMigratePermissionsAPI
 local gameInternationalizationUrl = string.format("https://gameinternationalization.%s", baseDomain)
 local localeUrl = string.format("https://locale.%s", baseDomain)
 local urlValues = {
@@ -29,7 +29,7 @@ local urlValues = {
 	RCS_URL = baseRcsUrl,
 	APIS_URL = baseApisUrl,
 	ACCOUNT_SETTINGS_URL = baseAccountSettingsUrl,
-	DEVELOP_URL = developUrl,
+	DEVELOP_URL = developUrl, -- remove with FFlagMigratePermissionsAPI
 	GAME_INTERNATIONALIZATION_URL = gameInternationalizationUrl,
 	LOCALE_URL = localeUrl,
 }

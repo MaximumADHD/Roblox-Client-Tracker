@@ -13,7 +13,7 @@ local InGameMenu = script.Parent.Parent
 
 local Assets = require(InGameMenu.Resources.Assets)
 
-local ImageSetButton = UIBlox.Core.ImageSet.Button
+local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 

@@ -6,7 +6,6 @@ local ContextActionService = game:GetService("ContextActionService")
 local GuiService = game:GetService("GuiService")
 local GamepadService = game:GetService("GamepadService")
 local CoreGui = game:GetService("CoreGui")
-local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui.RobloxGui
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
@@ -28,13 +27,10 @@ if not VRService.VREnabled then
 	return nil
 end
 
-local GetFFlagFineTuneAppRefreshRate =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFineTuneAppRefreshRate
-if GetFFlagFineTuneAppRefreshRate() then
-	-- Ensure we have the desired target framerate for experiences
-	-- SVR-685
-	-- SVR-686
-	local EXPERIENCE_QUEST_REFRESH_RATE = 90
+-- Ensure we have the desired target framerate for experiences.
+-- SVR-685 and SVR-686 would simplify this implementation
+local EXPERIENCE_QUEST_REFRESH_RATE = 90
+if game:GetEngineFeature("ExposeOpenXrAPI1") then
 	VRService.QuestDisplayRefreshRate = EXPERIENCE_QUEST_REFRESH_RATE
 end
 
@@ -138,7 +134,7 @@ local function onGuiSelection()
 		GuiService.SelectedObject = nil
 		vrMenuOpen = false
 	end
-end 
+end
 
 VRHub.ShowTopBarChanged.Event:connect(onGuiSelection)
 GuiService:GetPropertyChangedSignal("MenuIsOpen"):Connect(onGuiSelection)
@@ -197,7 +193,7 @@ local function OnVREnabledChanged()
 		CoreGui:SetUserGuiRendering(false, nil, Enum.NormalId.Front)
 	else
 		UserGuiModule:SetVisible(false, userGuiPanel)
-		UserGuiModule:SetVisible(true, plPanel)		
+		UserGuiModule:SetVisible(true, plPanel)
 		VRHub:SetShowTopBar(true)
 	end
 end

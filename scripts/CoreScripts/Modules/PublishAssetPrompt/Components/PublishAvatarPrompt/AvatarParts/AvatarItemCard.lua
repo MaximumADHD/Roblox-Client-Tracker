@@ -53,6 +53,7 @@ local function AvatarItemCard(props: Props)
 			TextWrapped = true,
 			Font = font.Header2.Font,
 			TextSize = font.Header2.RelativeSize * font.BaseSize,
+			TextTruncate = Enum.TextTruncate.AtEnd,
 		}),
 	})
 end

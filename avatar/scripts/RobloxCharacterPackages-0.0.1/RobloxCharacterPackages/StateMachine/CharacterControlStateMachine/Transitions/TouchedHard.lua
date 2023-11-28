@@ -1,5 +1,10 @@
---[[ TouchedHard Transition ]]--
-local baseTransition = require(script.Parent.Parent.Parent:WaitForChild("BaseStateMachine"):WaitForChild("BaseTransitionModule"))
+--[[ TouchedHard Transition ]]
+--
+local baseTransition = require(
+    script.Parent.Parent.Parent
+        :WaitForChild("BaseStateMachine")
+        :WaitForChild("BaseTransitionModule")
+)
 
 local TouchedHard = baseTransition:inherit()
 TouchedHard.name = script.Name
@@ -8,7 +13,7 @@ TouchedHard.sourceName = "Swimming, Running"
 TouchedHard.priority = 3
 
 function TouchedHard:Test(stateMachine)
-	return false
+    return false
 end
 
 return TouchedHard

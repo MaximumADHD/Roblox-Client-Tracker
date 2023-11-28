@@ -43,13 +43,12 @@ local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.Ge
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 
-local GetFFlagVoiceTextOverflowFix = require(RobloxGui.Modules.Flags.GetFFlagVoiceTextOverflowFix)
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
 local PADDING_SIZE = 24
-local SMALL_PADDING_SIZE = if GetFFlagVoiceTextOverflowFix() then 10 else 16
+local SMALL_PADDING_SIZE = 10
 local DIVIDER_HEIGHT = 24
 local Y_HEIGHT = 38
 

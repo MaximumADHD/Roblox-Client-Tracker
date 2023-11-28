@@ -10,7 +10,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 
 local FFlagIrisUpdateCurrentCallRemoteEventEnabled =
-	game:DefineFastFlag("IrisUpdateCurrentCallRemoteEventEnabled", true)
+	game:DefineFastFlag("IrisUpdateCurrentCallRemoteEventEnabled2", false)
+local FFlagContactListTeleportRateLimitEnabled = game:DefineFastFlag("ContactListTeleportRateLimitEnabled", true)
+local FIntMaxContactListPlayerTeleportAttempt = game:DefineFastInt("MaxContactListPlayerTeleportAttempt", 5)
 
 local RemoteInvokeIrisInvite = Instance.new("RemoteEvent")
 RemoteInvokeIrisInvite.Name = "ContactListInvokeIrisInvite"
@@ -29,7 +31,40 @@ local RemoteIrisInviteTeleport = Instance.new("RemoteEvent")
 RemoteIrisInviteTeleport.Name = "ContactListIrisInviteTeleport"
 RemoteIrisInviteTeleport.Parent = RobloxReplicatedStorage
 
+local playerContactListTeleportAttempt: { [number]: number } = {}
+
+if FFlagContactListTeleportRateLimitEnabled then
+	Players.PlayerRemoving:Connect(function(player)
+		playerContactListTeleportAttempt[player.UserId] = nil
+	end)
+end
+
 RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanceId, reservedServerAccessCode)
+	if FFlagContactListTeleportRateLimitEnabled then
+		local contactListTeleportAttempt = playerContactListTeleportAttempt[player.UserId]
+		-- Rate limit in case of DoS
+		if
+			contactListTeleportAttempt ~= nil
+			and contactListTeleportAttempt > FIntMaxContactListPlayerTeleportAttempt
+		then
+			return
+		end
+		if contactListTeleportAttempt == nil then
+			playerContactListTeleportAttempt[player.UserId] = 1
+		else
+			playerContactListTeleportAttempt[player.UserId] = contactListTeleportAttempt + 1
+		end
+
+		-- Do a sanity check of the type and upperbound length of string, as recommended during security review
+		if
+			typeof(instanceId) ~= "string"
+			or #instanceId > 1000
+			or typeof(reservedServerAccessCode) ~= "string"
+			or #reservedServerAccessCode > 1000
+		then
+			return
+		end
+	end
 	-- Fired when an iris invite is made and the initiator needs to be
 	-- teleported to the correct location.
 	local teleportOptions = Instance.new("TeleportOptions")
@@ -48,6 +83,10 @@ RemoteEventUpdateCurrentCall.Parent = RobloxReplicatedStorage
 
 if FFlagIrisUpdateCurrentCallRemoteEventEnabled then
 	local currentCall: { callId: string, participants: { [number]: string } } | nil
+
+	local kMaxUpdateCallAttempts = 10
+	local playerUpdateCallAttempts: { [number]: number } = {}
+
 	local function enforceCallParticipants()
 		if currentCall ~= nil then
 			-- This enforces the privacy of the call. If there are people who are
@@ -65,8 +104,14 @@ if FFlagIrisUpdateCurrentCallRemoteEventEnabled then
 
 			if kickUsers then
 				for _, player in pairs(Players:GetPlayers()) do
-					player:Kick()
+					local userId = tostring(player.UserId)
+					local isParticipant = table.find(currentCall.participants, userId) ~= nil
+					-- only kick call participants
+					if isParticipant then
+						player:Kick()
+					end
 				end
+				currentCall = nil
 			end
 		end
 	end
@@ -81,17 +126,90 @@ if FFlagIrisUpdateCurrentCallRemoteEventEnabled then
 		return success
 	end
 
+	local kMaxCallIdLength = 50
+	local kMaxUserIdLength = 50
+	local kNumParticipants = 2
+	local function sanityCheckParticipants(callParticipants: { [number]: string })
+		if typeof(callParticipants) ~= "table" or callParticipants == nil or #callParticipants ~= kNumParticipants then
+			return false
+		end
+
+		for _, k in ipairs(callParticipants) do
+			if typeof(k) ~= "string" or #k > kMaxUserIdLength or tonumber(k) == nil then
+				return false
+			end
+		end
+		return true
+	end
+
+	local function validateCall(player: Player, callId: string, callParticipants: { [number]: string })
+		-- Sanity check the call infos before sending to backend service
+		if
+			typeof(callId) ~= "string"
+			or #callId > kMaxCallIdLength
+			or not sanityCheckParticipants(callParticipants)
+		then
+			return 400
+		end
+		local success, _ = pcall(function()
+			local url = Url.APIS_URL .. "call/v1/verify-valid-call"
+			local callParticipantsParams = {}
+			for i, k in ipairs(callParticipants) do
+				callParticipantsParams[i] = tonumber(k)
+			end
+			local paramRequest = {
+				callId = callId,
+				userId = player.UserId,
+				instanceId = game.JobId,
+				callParticipants = callParticipantsParams,
+			}
+			local params = HttpService:JSONEncode(paramRequest)
+			local request = HttpRbxApiService:PostAsyncFullUrl(url, params)
+			return HttpService:JSONDecode(request)
+		end)
+
+		if success then
+			return 200
+		else
+			return 400
+		end
+	end
+
 	RemoteEventUpdateCurrentCall.OnServerEvent:Connect(
-		function(_, call: { callId: string, participants: { [number]: string } } | nil)
-			if currentCall ~= nil and call ~= nil and currentCall.callId ~= call.callId then
-				-- This should be rare. The server is hosting two calls.
-				-- Terminate the existing call and expect that the next line
-				-- will disconnect all users.
-				terminateCall(currentCall.callId)
+		function(player: Player, call: { callId: string, participants: { [number]: string } } | nil)
+			-- Limit the amount of time a client can call this to prevent DDoS
+			if
+				playerUpdateCallAttempts[player.UserId] ~= nil
+				and playerUpdateCallAttempts[player.UserId] > kMaxUpdateCallAttempts
+			then
+				return
 			end
 
-			currentCall = call
-			enforceCallParticipants()
+			-- Increment attempts of this player
+			if playerUpdateCallAttempts[player.UserId] ~= nil then
+				playerUpdateCallAttempts[player.UserId] = playerUpdateCallAttempts[player.UserId] + 1
+			else
+				playerUpdateCallAttempts[player.UserId] = 1
+			end
+
+			-- Updating call to nil is valid for leaving the call
+			local isValidCallInfo = call == nil or validateCall(player, call.callId, call.participants) == 200
+			if not isValidCallInfo then
+				-- Malicious actor, kick this player
+				player:Kick()
+			else
+				if currentCall ~= nil and call ~= nil and currentCall.callId ~= call.callId then
+					-- This should be rare. The server is hosting two calls.
+					-- Terminate the existing call and expect that the next line
+					-- will disconnect all users.
+					terminateCall(currentCall.callId)
+					-- Kick all current call participants
+					enforceCallParticipants()
+				end
+				-- Update to new call, and enforce call participants
+				currentCall = call
+				enforceCallParticipants()
+			end
 		end
 	)
 
@@ -100,6 +218,7 @@ if FFlagIrisUpdateCurrentCallRemoteEventEnabled then
 	end)
 
 	Players.PlayerRemoving:Connect(function(player)
+		playerUpdateCallAttempts[player.UserId] = nil
 		-- It is possible for a user to crash and leave the experience without
 		-- ending the call. This allows us to end the call on the user's behalf.
 		if currentCall ~= nil then

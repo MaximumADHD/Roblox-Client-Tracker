@@ -24,7 +24,7 @@ local SystemBar = UIBlox.App.Navigation.SystemBar
 local Placement = UIBlox.App.Navigation.Enum.Placement
 local Panel3D = UIBlox.Core.VR.Panel3D
 local VRConstants = UIBlox.Core.VR.Constants
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Core.Style.withStyle
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")

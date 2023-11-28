@@ -15,7 +15,7 @@ local Assets = require(InGameMenu.Resources.Assets)
 
 local React = require(CorePackages.Workspace.Packages.React)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local CONTAINER_FRAME_HEIGHT = 70
 local GAME_ICON_SIZE = 44

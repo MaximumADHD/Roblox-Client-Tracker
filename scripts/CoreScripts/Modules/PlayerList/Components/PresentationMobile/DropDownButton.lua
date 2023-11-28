@@ -17,7 +17,7 @@ local IconButton = require(Components.PresentationCommon.IconButton)
 
 local Colors = require(CorePackages.Workspace.Packages.Style).Colors
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")

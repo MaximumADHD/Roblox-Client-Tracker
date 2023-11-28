@@ -6,6 +6,8 @@ local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Roact)
 local Cryo = require(CorePackages.Packages.Cryo)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
+local GetFFlagIrisEnumerateCleanupEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisEnumerateCleanupEnabled
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -25,6 +27,11 @@ local useStyle = UIBlox.Core.Style.useStyle
 local ErrorType = require(ContactList.Enums.ErrorType)
 
 local CloseDialog = require(ContactList.Actions.CloseDialog)
+local useAnalytics = require(ContactList.Analytics.useAnalytics)
+local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
+
+local GetFFlagSeparateVoiceEnabledErrors =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeparateVoiceEnabledErrors
 
 local CALL_DIALOG_DISPLAY_ORDER = 8
 
@@ -43,6 +50,7 @@ local function CallDialogContainer(passedProps: Props)
 	local theme = style.Theme
 
 	local dispatch = useDispatch()
+	local analytics = useAnalytics()
 
 	local containerSize, setContainerSize = React.useState(Vector2.new(0, 0))
 
@@ -73,14 +81,24 @@ local function CallDialogContainer(passedProps: Props)
 	React.useEffect(function()
 		local callMessageConn = props.callProtocol:listenToHandleCallMessage(function(params)
 			if params.messageType == CallProtocol.Enums.MessageType.CallError.rawValue() then
-				if params.errorType == ErrorType.CallerIsInAnotherCall.rawValue() then
+				if
+					params.errorType
+					== if GetFFlagIrisEnumerateCleanupEnabled()
+						then ErrorType.CallerIsInAnotherCall
+						else (ErrorType.CallerIsInAnotherCall :: any).rawValue()
+				then
 					dispatch(
 						OpenOrUpdateDialog(
 							RobloxTranslator:FormatByKey("Feature.Call.Error.Title.CouldntMakeCall"),
 							RobloxTranslator:FormatByKey("Feature.Call.Error.Description.AlreadyInCall")
 						)
 					)
-				elseif params.errorType == ErrorType.CalleeIsInAnotherCall.rawValue() then
+				elseif
+					params.errorType
+					== if GetFFlagIrisEnumerateCleanupEnabled()
+						then ErrorType.CalleeIsInAnotherCall
+						else (ErrorType.CalleeIsInAnotherCall :: any).rawValue()
+				then
 					local calleeDisplayName = params.callInfo.calleeDisplayName
 					dispatch(
 						OpenOrUpdateDialog(
@@ -92,8 +110,11 @@ local function CallDialogContainer(passedProps: Props)
 						)
 					)
 				elseif
-					params.errorType == ErrorType.UniverseIsNotVoiceEnabled.rawValue()
-					or params.errorType == ErrorType.PlaceIsNotVoiceEnabled.rawValue()
+					GetFFlagIrisEnumerateCleanupEnabled()
+					and (
+						params.errorType == ErrorType.UniverseIsNotVoiceEnabled
+						or params.errorType == ErrorType.PlaceIsNotVoiceEnabled
+					)
 				then
 					dispatch(
 						OpenOrUpdateDialog(
@@ -101,6 +122,56 @@ local function CallDialogContainer(passedProps: Props)
 							RobloxTranslator:FormatByKey("Feature.Call.Description.ExperienceError")
 						)
 					)
+
+					if GetFFlagSeparateVoiceEnabledErrors() then
+						analytics.fireEvent(EventNamesEnum.PhoneBookCallFriendFailed, {
+							eventTimestampMs = os.time() * 1000,
+							calleeUserId = params.callInfo.calleeId,
+							callerUserId = params.callInfo.callerId,
+							errorMsg = "Universe or place is not voice enabled.",
+						})
+					end
+				elseif
+					not GetFFlagIrisEnumerateCleanupEnabled()
+					and (
+						params.errorType == (ErrorType.UniverseIsNotVoiceEnabled :: any).rawValue()
+						or params.errorType == (ErrorType.PlaceIsNotVoiceEnabled :: any).rawValue()
+					)
+				then
+					dispatch(
+						OpenOrUpdateDialog(
+							RobloxTranslator:FormatByKey("Feature.Call.Error.Title.ExperienceError"),
+							RobloxTranslator:FormatByKey("Feature.Call.Description.ExperienceError")
+						)
+					)
+
+					if GetFFlagSeparateVoiceEnabledErrors() then
+						analytics.fireEvent(EventNamesEnum.PhoneBookCallFriendFailed, {
+							eventTimestampMs = os.time() * 1000,
+							calleeUserId = params.callInfo.calleeId,
+							callerUserId = params.callInfo.callerId,
+							errorMsg = "Universe or place is not voice enabled.",
+						})
+					end
+				elseif
+					GetFFlagSeparateVoiceEnabledErrors()
+					and params.errorType
+						== if GetFFlagIrisEnumerateCleanupEnabled()
+							then ErrorType.CallerIsNotVoiceEnabled
+							else (ErrorType.CallerIsNotVoiceEnabled :: any).rawValue()
+				then
+					dispatch(
+						OpenOrUpdateDialog(
+							RobloxTranslator:FormatByKey("Feature.Call.Modal.EnableChatVoiceTitle"),
+							RobloxTranslator:FormatByKey("Feature.Call.Modal.EnableChatVoiceBody")
+						)
+					)
+					analytics.fireEvent(EventNamesEnum.PhoneBookCallFriendFailed, {
+						eventTimestampMs = os.time() * 1000,
+						calleeUserId = params.callInfo.calleeId,
+						callerUserId = params.callInfo.callerId,
+						errorMsg = "User is not voice enabled.",
+					})
 				else
 					dispatch(
 						OpenOrUpdateDialog(

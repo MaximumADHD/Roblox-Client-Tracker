@@ -31,7 +31,7 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local SendReport = require(InGameMenu.Thunks.SendReport)
 
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local ReportDialog = Roact.PureComponent:extend("ReportDialog")
 

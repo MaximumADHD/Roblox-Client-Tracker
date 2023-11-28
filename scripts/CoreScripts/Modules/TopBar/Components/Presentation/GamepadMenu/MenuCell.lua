@@ -7,7 +7,7 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
 local withStyle = UIBlox.Core.Style.withStyle
-local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
