@@ -11,7 +11,8 @@ local TopBar = script:FindFirstAncestor("TopBar")
 local MenuNavigationPromptTokenMapper = require(TopBar.TokenMappers.MenuNavigationPromptTokenMapper)
 type MenuNavigationPromptTokens = MenuNavigationPromptTokenMapper.MenuNavigationPromptTokens
 
-local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 
 type Props = {
 	Position: UDim2,
@@ -253,7 +254,8 @@ function Body()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
 		}),
-		ConfirmationButton = React.createElement(PrimarySystemButton, {
+		ConfirmationButton = React.createElement(Button, {
+			buttonType = ButtonType.PrimarySystem,
 			layoutOrder = 200,
 			size = UDim2.new(1, 0, 0, Size.buttonHeight),
 			text = localizedStrings.OkText,

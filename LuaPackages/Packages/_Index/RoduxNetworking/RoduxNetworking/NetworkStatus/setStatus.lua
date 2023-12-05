@@ -28,6 +28,11 @@ return function(options)
 	return function(store, ids, keymapper, promiseFunction)
 		local filteredIds = filter(store:getState(), ids, keymapper)
 
+		-- if all IDs were filtered out, kill request
+		if options.killRequestWithFilteredIds and #ids > 0 and #filteredIds == 0 then
+			return Promise.reject("Request with provided IDs already fetching.")
+		end
+
 		store:dispatch(actionCreator(filteredIds, keymapper, EnumNetworkStatus.Fetching))
 
 		return promiseFunction(store, filteredIds):andThen(function(result)

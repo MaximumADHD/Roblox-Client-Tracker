@@ -959,7 +959,7 @@ local function createViewport()
 					return
 				end
 			end
-			VoiceChatServiceManager:ToggleMic()
+			VoiceChatServiceManager:ToggleMic("LegacySelfView")
 			Analytics:setLastCtx("SelfView")
 			if voiceAnalytics then
 				voiceAnalytics:onToggleMuteSelf(not VoiceChatServiceManager.localMuted)

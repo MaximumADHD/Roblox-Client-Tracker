@@ -47,6 +47,7 @@ local _baseUrl, _basePrefix, _baseDomain = parseBaseUrlInformation()
 
 -- construct urls once
 local _baseApiUrl = string.format("https://api.%s", _baseDomain)
+local _baseApisUrl = string.format("https://apis.%s", _baseDomain)
 local _baseAuthUrl = string.format("https://auth.%s", _baseDomain)
 local _baseAccountSettingsUrl = string.format("https://accountsettings.%s", _baseDomain)
 local _baseAvatarUrl = string.format("https://avatar.%s", _baseDomain)
@@ -81,6 +82,7 @@ local Url = {
 	BASE_URL = _baseUrl,
 	BASE_URL_SECURE = _baseUrlSecure,
 	API_URL = _baseApiUrl,
+	APIS_URL = _baseApisUrl,
 	AUTH_URL = _baseAuthUrl,
 	ACCOUNT_SETTINGS_URL = _baseAccountSettingsUrl,
 	AVATAR_URL = _baseAvatarUrl,

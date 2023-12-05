@@ -11,6 +11,8 @@ local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local UIBlox = require(CorePackages.UIBlox)
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local SlideFromTopToast = UIBlox.App.Dialog.Toast
 local Images = UIBlox.App.ImageSet.Images
 
@@ -30,8 +32,10 @@ local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
 local GetFFlagLuaVoiceChatAnalyticsBanMessageV2 =
 	require(RobloxGui.Modules.Flags.GetFFlagLuaVoiceChatAnalyticsBanMessageV2)
+local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local FFlagVoiceChatPromptFrameNewCopyEnabled2 = game:DefineFastFlag("VoiceChatPromptFrameNewCopyEnabled2", false)
+local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
 
 local RobloxTranslator
 if FFlagEnableVoiceChatStorybookFix() then
@@ -78,6 +82,7 @@ local PromptTitle = {
 	[PromptType.VoiceToxicityFeedbackToast] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.ThankYouForFeedback"
 	),
+	[PromptType.VoiceChatSuspendedTemporaryToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.MicUseSuspended")
 }
 local PromptSubTitle = {
 	[PromptType.None] = "",
@@ -107,6 +112,9 @@ local PromptSubTitle = {
 	[PromptType.VoiceToxicityFeedbackToast] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.Subtitle.ThankYouForFeedback"
 	),
+	[PromptType.VoiceChatSuspendedTemporaryToast] = function(dateTime)
+		return RobloxTranslator:FormatByKey("Feature.SettingsHub.Description.ChatWithVoiceDisabledUntil", { dateTime = dateTime })
+	end
 }
 
 if GetFFlagVoiceChatStudioErrorToasts() and runService:IsStudio() then
@@ -140,6 +148,7 @@ end
 local function ShouldShowBannedUntil(promptType)
 	return promptType == PromptType.VoiceChatSuspendedTemporary
 		or promptType == PromptType.VoiceChatSuspendedTemporaryAvatarChat
+		or promptType == PromptType.VoiceChatSuspendedTemporaryToast
 end
 
 local VoiceChatPromptFrame = Roact.PureComponent:extend("VoiceChatPromptFrame")
@@ -197,13 +206,26 @@ function VoiceChatPromptFrame:init()
 			end
 		end
 		if promptType and promptType ~= PromptType.None then
+			local toastTitle = PromptTitle[promptType]
+			local toastSubtitle = PromptSubTitle[promptType]
+
+			if GetFFlagVoiceBanShowToastOnSubsequentJoins() then
+				if typeof(toastTitle) == "function" then
+					toastTitle = toastTitle(self.props.bannedUntil)
+				end
+
+				if typeof(toastSubtitle) == "function" then
+					toastSubtitle = toastSubtitle(self.props.bannedUntil)
+				end
+			end
+
 			self:setState({
 				showPrompt = true,
 				promptType = promptType,
 				toastContent = {
 					iconImage = Images["icons/status/alert"],
-					toastTitle = PromptTitle[promptType],
-					toastSubtitle = PromptSubTitle[promptType],
+					toastTitle = toastTitle,
+					toastSubtitle = toastSubtitle,
 					onDismissed = function() end,
 				},
 			})
@@ -228,11 +250,22 @@ function VoiceChatPromptFrame:init()
 			self.props.onContinueFunc()
 		end
 		ContextActionService:UnbindCoreAction(CLOSE_VOICE_BAN_PROMPT)
-		if self.props.Analytics then
-			self.props.Analytics:reportBanMessageEvent("Acknowledged")
-		end
-		if self.props.VoiceChatServiceManager and GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
-			self.props.VoiceChatServiceManager:reportBanMessage("Acknowledged")
+		if FFlagVoiceChatOnlyReportVoiceBans then
+			if PromptTypeIsBan(self.state.promptType) then
+				if self.props.Analytics then
+					self.props.Analytics:reportBanMessageEvent("Acknowledged")
+				end
+				if self.props.VoiceChatServiceManager and GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
+					self.props.VoiceChatServiceManager:reportBanMessage("Acknowledged")
+				end
+			end
+		else
+			if self.props.Analytics then
+				self.props.Analytics:reportBanMessageEvent("Acknowledged")
+			end
+			if self.props.VoiceChatServiceManager and GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
+				self.props.VoiceChatServiceManager:reportBanMessage("Acknowledged")
+			end
 		end
 	end
 
@@ -443,7 +476,8 @@ function VoiceChatPromptFrame:render()
 								SortOrder = Enum.SortOrder.LayoutOrder,
 								VerticalAlignment = Enum.VerticalAlignment.Center,
 							}),
-							ConfirmButton = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+							ConfirmButton = Roact.createElement(Button, {
+								buttonType = ButtonType.PrimarySystem,
 								layoutOrder = 1,
 								size = if GetFFlagEnableVoiceNudge()
 									then UDim2.new(1, -5, 0, 48)

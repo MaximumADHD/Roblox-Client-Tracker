@@ -21,9 +21,18 @@ local FullscreenTitleBar = UIBlox.App.Bar.FullscreenTitleBar
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local AppDarkTheme = nil
+local AppFont = nil
+local renderWithCoreScriptsStyleProvider = nil
+if not GetFFlagEnableStyleProviderCleanUp() then
+	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+else
+	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
+end
 
 local GetFIntFullscreenTitleBarTriggerDelayMillis = require(InGameMenu.Flags.GetFIntFullscreenTitleBarTriggerDelayMillis)
 
@@ -102,43 +111,50 @@ function SettingsFullScreenTitleBar:leaveGame()
 end
 
 function SettingsFullScreenTitleBar:render()
-	return Roact.createElement(StyleProvider, {
-		style = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		},
+	local fullscreenTitleBar = Roact.createElement(Roact.Portal, {
+		target = CoreGui,
 	}, {
-		FullscreenTitleBar = Roact.createElement(Roact.Portal, {
-			target = CoreGui,
+		InGameFullscreenTitleBarScreen = Roact.createElement("ScreenGui", {
+			Enabled = true,
+			IgnoreGuiInset = true,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			DisplayOrder = Constants.DisplayOrder.FullscreenTitleBar,
 		}, {
-			InGameFullscreenTitleBarScreen = Roact.createElement("ScreenGui", {
-				Enabled = true,
-				IgnoreGuiInset = true,
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				DisplayOrder = Constants.DisplayOrder.FullscreenTitleBar,
-			}, {
-				FullscreenChangedEvent = Roact.createElement(ExternalEventConnection, {
-					event = UserGameSettings.FullscreenChanged,
-					callback = self.onFullscreenChanged,
-				}),
-				TriggerArea = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-					Size = UDim2.new(1, 0, 0, 1),
-					[Roact.Event.MouseEnter] = self.show,
-					[Roact.Event.MouseLeave] = self.cancel,
-				}),
-				Bar = Roact.createElement(FullscreenTitleBar, {
-					title = self.props.titleText,
-					isTriggered = self.state.isTriggered,
-					onDisappear = self.hide,
-					onHover = self.cancel,
-					exitFullscreen = self.toggleFullscreen,
-					closeRoblox = self.props.onClose or self.leaveGame,
-				}),
+			FullscreenChangedEvent = Roact.createElement(ExternalEventConnection, {
+				event = UserGameSettings.FullscreenChanged,
+				callback = self.onFullscreenChanged,
+			}),
+			TriggerArea = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, 0, 0, 1),
+				[Roact.Event.MouseEnter] = self.show,
+				[Roact.Event.MouseLeave] = self.cancel,
+			}),
+			Bar = Roact.createElement(FullscreenTitleBar, {
+				title = self.props.titleText,
+				isTriggered = self.state.isTriggered,
+				onDisappear = self.hide,
+				onHover = self.cancel,
+				exitFullscreen = self.toggleFullscreen,
+				closeRoblox = self.props.onClose or self.leaveGame,
 			}),
 		}),
 	})
+	if not GetFFlagEnableStyleProviderCleanUp() then
+		return Roact.createElement(StyleProvider, {
+			style = {
+				Theme = AppDarkTheme,
+				Font = AppFont,
+			},
+		}, {
+			FullscreenTitleBar = fullscreenTitleBar,
+		})
+	else
+		return renderWithCoreScriptsStyleProvider({
+			FullscreenTitleBar = fullscreenTitleBar,
+		})
+	end
 end
 
 function SettingsFullScreenTitleBar:willUnmount()

@@ -123,6 +123,9 @@ SystemBar.validateProps = t.strictInterface({
 	-- Item list sort order
 	sortOrder = t.optional(t.enum(Enum.SortOrder)),
 	clipsDescendants = t.optional(t.boolean),
+
+	-- Experiment sizing for the system bar portrait height
+	experimentalTabSizePortraitY = t.optional(t.number),
 })
 
 SystemBar.defaultProps = {
@@ -131,6 +134,8 @@ SystemBar.defaultProps = {
 	firstItemPaddingOffset = UDim.new(0, 0),
 	lastItemPaddingOffset = UDim.new(0, 0),
 	clipsDescendants = true,
+
+	experimentalTabSizePortraitY = TAB_SIZE_PORTRAIT_Y,
 }
 
 function SystemBar:isPortrait()
@@ -232,13 +237,13 @@ end
 
 function SystemBar:renderPortrait(frameProps, contents)
 	return withAnimation({
-		offset = self.props.hidden and 0 or -TAB_SIZE_PORTRAIT_Y,
+		offset = self.props.hidden and 0 or -self.props.experimentalTabSizePortraitY,
 	}, function(values)
 		return Roact.createElement(
 			"Frame",
 			Cryo.Dictionary.join(frameProps, {
 				Position = UDim2.new(0, 0, 1, math.floor(values.offset + 0.5)),
-				Size = UDim2.new(1, 0, 0, TAB_SIZE_PORTRAIT_Y),
+				Size = UDim2.new(1, 0, 0, self.props.experimentalTabSizePortraitY),
 				ZIndex = 99,
 			}),
 			{
@@ -253,7 +258,7 @@ function SystemBar:renderPortrait(frameProps, contents)
 					},
 					Cryo.Dictionary.join({
 						Constraint = Roact.createElement("UISizeConstraint", {
-							MaxSize = Vector2.new(MAX_SIZE_PORTRAIT_X, TAB_SIZE_PORTRAIT_Y),
+							MaxSize = Vector2.new(MAX_SIZE_PORTRAIT_X, self.props.experimentalTabSizePortraitY),
 						}),
 						Layout = Roact.createElement("UIListLayout", {
 							FillDirection = Enum.FillDirection.Horizontal,
@@ -330,7 +335,7 @@ function SystemBar:renderSafeArea()
 		size = UDim2.new(1, 0, 1, 0)
 	elseif self:isPortrait() then
 		position = UDim2.new(0, 0, 0, 0)
-		size = UDim2.new(1, 0, 1, -TAB_SIZE_PORTRAIT_Y)
+		size = UDim2.new(1, 0, 1, -self.props.experimentalTabSizePortraitY)
 	else
 		position = UDim2.new(0, 64, 0, 0)
 		size = UDim2.new(1, -TAB_SIZE_LANDSCAPE_X, 1, 0)

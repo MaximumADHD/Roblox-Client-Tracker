@@ -23,8 +23,6 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local VoteStates = require(Indicator.Enum.VoteStates)
 
-local useNewGenericTextLabelProps = UIBloxConfig.useNewGenericTextLabelProps
-
 local ICON_RATING = Images["icons/status/games/rating_large"]
 local ICON_VOTE_DOWN_OFF = Images["icons/actions/vote/voteDownOff"]
 local ICON_VOTE_DOWN_ON = Images["icons/actions/vote/voteDownOn"]
@@ -194,10 +192,7 @@ function RateCount:render()
 		local containerSpacingLeading = styleProps.containerSpacingLeading
 		local containerSpacingTrailing = styleProps.containerSpacingTrailing
 		local containerBorderRadius = styleProps.containerBorderRadius
-		local containerBackgroundColor = styleProps.containerBackgroundColor
-			or if UIBloxConfig.enableRateCountBackgroundContrast
-				then style.Theme.BackgroundContrast
-				else style.Theme.UIEmphasis
+		local containerBackgroundColor = styleProps.containerBackgroundColor or style.Theme.BackgroundContrast
 		local containerGap = styleProps.containerGap
 
 		local statWidgetContainerGap = styleProps.statWidgetContainerGap
@@ -266,7 +261,7 @@ function RateCount:render()
 				}),
 				RateText = Roact.createElement(GenericTextLabel, {
 					LayoutOrder = 1,
-					AutomaticSize = if useNewGenericTextLabelProps then Enum.AutomaticSize.XY else Enum.AutomaticSize.Y,
+					AutomaticSize = Enum.AutomaticSize.XY,
 					Text = rateText,
 					colorStyle = statWidgetDataContentColor,
 					fontStyle = style.Font.Title,
@@ -274,7 +269,7 @@ function RateCount:render()
 				}),
 				RateLabel = Roact.createElement(GenericTextLabel, {
 					LayoutOrder = 2,
-					AutomaticSize = if useNewGenericTextLabelProps then Enum.AutomaticSize.XY else Enum.AutomaticSize.Y,
+					AutomaticSize = Enum.AutomaticSize.XY,
 					Text = rateLabel,
 					colorStyle = statWidgetDataLabelContentColor,
 					fontStyle = style.Font.CaptionHeader,

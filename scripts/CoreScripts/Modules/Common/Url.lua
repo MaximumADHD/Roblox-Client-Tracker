@@ -24,6 +24,8 @@ local baseAccountSettingsUrl = string.format("https://accountsettings.%s", baseD
 local developUrl = string.format("https://develop.%s", baseDomain) -- remove with FFlagMigratePermissionsAPI
 local gameInternationalizationUrl = string.format("https://gameinternationalization.%s", baseDomain)
 local localeUrl = string.format("https://locale.%s", baseDomain)
+local rolesUrl = string.format("https://users.%s", baseDomain)
+
 local urlValues = {
 	GAME_URL = baseGameUrl,
 	RCS_URL = baseRcsUrl,
@@ -32,6 +34,7 @@ local urlValues = {
 	DEVELOP_URL = developUrl, -- remove with FFlagMigratePermissionsAPI
 	GAME_INTERNATIONALIZATION_URL = gameInternationalizationUrl,
 	LOCALE_URL = localeUrl,
+	ROLES_URL = rolesUrl,
 }
 
 setmetatable(Urls, {

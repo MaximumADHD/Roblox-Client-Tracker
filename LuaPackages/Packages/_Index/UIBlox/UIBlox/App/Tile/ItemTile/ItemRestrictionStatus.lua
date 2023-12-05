@@ -13,7 +13,6 @@ local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ItemTileEnums = require(Tile.Enum.ItemTileEnums)
 
@@ -41,10 +40,8 @@ local function getAdditionalText(restrictionTypes, restrictionInfo)
 		additionalText = "#"
 	end
 
-	if UIBloxConfig.enableCollectibleItemRestriction then
-		if restrictionTypes[ItemTileEnums.Restriction.Collectible] then
-			return "#"
-		end
+	if restrictionTypes[ItemTileEnums.Restriction.Collectible] then
+		return "#"
 	end
 
 	if restrictionInfo and restrictionInfo.limitedSerialNumber then
@@ -55,10 +52,8 @@ local function getAdditionalText(restrictionTypes, restrictionInfo)
 end
 
 local function getRestrictionIcon(restrictionTypes)
-	if UIBloxConfig.enableCollectibleItemRestriction then
-		if restrictionTypes[ItemTileEnums.Restriction.Collectible] then
-			return Images["icons/status/item/limited"]
-		end
+	if restrictionTypes[ItemTileEnums.Restriction.Collectible] then
+		return Images["icons/status/item/limited"]
 	end
 
 	if

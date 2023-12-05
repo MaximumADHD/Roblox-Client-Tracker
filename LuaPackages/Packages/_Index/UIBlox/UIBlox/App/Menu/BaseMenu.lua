@@ -75,6 +75,8 @@ BaseMenu.validateProps = t.strictInterface({
 	renderHeader = t.optional(t.callback),
 	-- Height of header
 	headerHeight = t.optional(t.number),
+	-- Override selection order. This selection order only affects calling GuiService:Select() on an ancestor. This property does not affect directional navigation.
+	selectionOrder = t.optional(t.number),
 })
 
 BaseMenu.defaultProps = {
@@ -200,6 +202,7 @@ function BaseMenu:render()
 
 		mergedProps = Cryo.Dictionary.join(mergedProps, {
 			cursorKind = cursorKind,
+			selectionOrder = self.props.selectionOrder,
 		})
 
 		children["cell " .. index] = withSelectionCursorProvider(function(getSelectionCursor)

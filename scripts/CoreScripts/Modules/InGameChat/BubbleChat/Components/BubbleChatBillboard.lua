@@ -191,7 +191,7 @@ function BubbleChatBillboard:init()
 				elseif GetFFlagMicConnectingToast() and self.props.voiceState == Constants.VOICE_STATE.CONNECTING then
 					VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 				else
-					VoiceChatServiceManager:ToggleMic()
+					VoiceChatServiceManager:ToggleMic("LegacyBubbleChat")
 				end
 			end
 		else

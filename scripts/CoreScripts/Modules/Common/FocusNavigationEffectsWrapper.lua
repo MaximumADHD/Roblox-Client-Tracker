@@ -10,7 +10,6 @@ local useRegisterFocusNavigableSurface = FocusNavigableSurfaceRegistry.useRegist
 local useDeRegisterFocusNavigableSurface = FocusNavigableSurfaceRegistry.useDeRegisterFocusNavigableSurface
 local useAutoFocus = FocusNavigationUtils.useAutoFocus
 local useDescendantHasFocus = FocusNavigationUtils.useDescendantHasFocus
-local GetFFlagTenFootUiFixAutoFocusRace = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagTenFootUiFixAutoFocusRace
 
 type FocusNavigableSurfaceIdentifier = FocusNavigationUtils.FocusNavigableSurfaceIdentifier
 
@@ -26,8 +25,7 @@ local function FocusNavigationEffects(props: Props)
 	local focusRef, setFocusRef = React.useState(nil :: GuiObject?)
 	local registerFocusNavigationRoot = useRegisterFocusNavigableSurface()
 	local deregisterFocusNavigationRoot = useDeRegisterFocusNavigableSurface()
-	--LUAU FIXME: this doesn't recognize `useAutoFocus` as a function
-	local autoFocus = (useAutoFocus :: any)({ focusRef }, AUTO_FOCUS_DEBOUNCE_TIME)
+	local autoFocus = useAutoFocus({ focusRef }, AUTO_FOCUS_DEBOUNCE_TIME)
 	local hasFocus = useDescendantHasFocus(focusRef)
 	local lastInputMethod = useLastInputMethod()
 	local lastInputUseFocus = lastInputMethod == "Gamepad"
@@ -52,27 +50,20 @@ local function FocusNavigationEffects(props: Props)
 			end
 		end
 	end, { focusRef, props.focusNavigableSurfaceIdentifier, props.selectionGroupName } :: { any })
-	
-	if GetFFlagTenFootUiFixAutoFocusRace() then
-		local shouldAutoFocus = lastInputUseFocus and focusRef and not hasFocus
-		React.useEffect(function()
-			local autofocusing
-			if shouldAutoFocus then
-				autofocusing = autoFocus()
+
+	local shouldAutoFocus = lastInputUseFocus and focusRef and not hasFocus
+	React.useEffect(function()
+		local autofocusing
+		if shouldAutoFocus then
+			autofocusing = autoFocus()
+		end
+		return function()
+			if autofocusing then
+				autofocusing.cancel()
 			end
-			return function()
-				if autofocusing then
-					autofocusing.cancel()
-				end
-			end
-		end, { shouldAutoFocus, autoFocus } :: { any })
-	else 
-		React.useEffect(function()
-			if lastInputUseFocus and focusRef and not hasFocus then
-				autoFocus()
-			end
-		end, { focusRef, hasFocus, lastInputUseFocus } :: { any })
-	end
+		end
+	end, { shouldAutoFocus, autoFocus } :: { any })
+
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,

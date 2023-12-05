@@ -63,24 +63,23 @@ function ActionBar:init()
 end
 
 ActionBar.validateProps = t.strictInterface({
-	-- buttons: A table of button tables that contain props that PrimaryContextualButton allow.
-	-- See [[Button]] for more information.
+	-- A table of button tables that contain props that [[Button]] allows.
 	button = t.optional(t.strictInterface({
 		props = Button.validateProps,
 	})),
 
-	-- height of the icon wrapper
+	-- Height of the icon wrapper
 	iconSize = t.optional(t.number),
-	-- height of each button
+	-- Height of each button
 	buttonHeight = t.optional(t.number),
-	-- padding between each button
+	-- Padding between each button
 	buttonPadding = t.optional(t.number),
 
 	-- Indicate whether the button should be rendered at start of the action bar. By default, the button is
 	-- rendered at the end of the component.
 	enableButtonAtStart = t.optional(t.boolean),
 
-	-- icons: A table of button tables that contain props that IconButton allow.
+	-- A table of button tables that contain props that IconButton allow.
 	icons = t.optional(t.array(t.strictInterface({
 		props = IconButton.validateProps,
 	}))),

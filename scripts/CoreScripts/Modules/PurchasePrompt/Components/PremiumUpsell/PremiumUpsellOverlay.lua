@@ -6,9 +6,6 @@ local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 
-local UIBlox = PurchasePromptDeps.UIBlox
-local Images = UIBlox.App.ImageSet.Images
-
 local IAPExperience = PurchasePromptDeps.IAPExperience
 local PremiumUpsellFlow =  IAPExperience.PurchaseFlow.PremiumUpsellFlow
 local PremiumUpsellFlowState =  IAPExperience.PurchaseFlow.PremiumUpsellFlowState
@@ -21,7 +18,6 @@ local PremiumUpsellOverlay = Roact.PureComponent:extend(script.Name)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 
 local CONFIRM_BUTTON_BIND = "PremiumPurchaseConfirmButtonBind"
 local CANCEL_BUTTON_BIND = "PremiumPurchaseCancelButtonBind"
@@ -123,9 +119,7 @@ end
 function PremiumUpsellOverlay:render()
 	local props: Props = self.props
 
-	local BUTTON_A_ICON = if GetFFlagUseDesignSystemGamepadIcons()
-		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
-		else Images[XBOX_A_ICON]
+	local BUTTON_A_ICON = "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
 
 	return Roact.createElement(PremiumUpsellFlow, {
 		screenSize = props.screenSize,

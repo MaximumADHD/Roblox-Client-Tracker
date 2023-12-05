@@ -47,6 +47,7 @@ return function()
 				CallBar = Roact.createElement(CallBar, {
 					size = Vector2.new(200, 44),
 					activeUtc = os.time(),
+					position = UDim2.new(0.5, -100, 0, 0),
 				}),
 			}),
 		})

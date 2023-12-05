@@ -12,6 +12,7 @@ local BoxButton = require(Components.BoxButton)
 local DropDown = require(Components.DropDown)
 local ProfilerView = require(script.Parent.ProfilerView)
 local ProfilerFunctionsView = require(script.Parent.ProfilerFunctionsView)
+local ProfilerData = require(script.Parent.ProfilerDataFormatV2)
 
 local Actions = script.Parent.Parent.Parent.Actions
 local SetScriptProfilerState = require(Actions.SetScriptProfilerState)
@@ -27,6 +28,8 @@ local BACKGROUND_COLOR = Constants.Color.UnselectedGray
 
 local TESTING_DATA = nil -- Assign this to override the data for testing
 
+local LIVE_UPDATE_TEXT = "Live"
+
 local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfiler")
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
@@ -34,10 +37,79 @@ local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientRe
 local FFlagScriptProfilerFrequencyControl = game:DefineFastFlag("ScriptProfilerFrequencyControl", false)
 local FFlagScriptProfilerTimedProfiling = game:DefineFastFlag("ScriptProfilerTimedProfiling", false)
 local FFlagScriptProfilerFunctionsView = game:DefineFastFlag("ScriptProfilerFunctionsView", false)
+local FFlagScriptProfilerAverages = game:DefineFastFlag("ScriptProfilerAverages", false)
+local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
 
+local FFlagScriptProfilerLiveUpdate = game:DefineFastFlag("ScriptProfilerLiveUpdate", false)
+local FIntScriptProfilerLiveUpdateIntervalMS = game:DefineFastInt("ScriptProfilerLiveUpdateIntervalMS", 1000)
 
 local DATA_VIEW_DROPDOWN_NAMES = { "Callgraph", "Functions", }
 local SMALL_DV_BUTTON_WIDTH = 100
+
+type SearchFilterType = {[number]: boolean}
+
+local function annotateSearchFilterNodes(data: ProfilerData.RootDataFormat, searchFilterFuncs: SearchFilterType, searchFilterNodes: SearchFilterType, funcId: number, nodeId: number, parentIsMatch: boolean):  boolean
+	local node = data.Nodes[nodeId]
+
+	if not node.Children then
+		return funcId > 0 and searchFilterFuncs[funcId]
+	end
+
+	local children = node.Children :: {[ProfilerData.FunctionId]: ProfilerData.NodeId}
+
+	local hasMatch = false
+
+	if funcId > 0 and searchFilterFuncs[funcId] then
+		hasMatch = true
+
+		searchFilterNodes[nodeId] = true
+
+		for functionId, nodeId in pairs(children) do
+			searchFilterNodes[nodeId] = true
+
+			annotateSearchFilterNodes(data, searchFilterFuncs, searchFilterNodes, functionId, nodeId, true)
+		end
+	else
+		for functionId, nodeId in pairs(children) do
+			local match = annotateSearchFilterNodes(data, searchFilterFuncs, searchFilterNodes, functionId, nodeId, parentIsMatch)
+
+			hasMatch = hasMatch or match
+		end
+
+		if hasMatch or parentIsMatch then
+			searchFilterNodes[nodeId] = true
+		end
+	end
+
+	return hasMatch
+end
+
+local function generateSearchFilters(state, searchTerm: string): (SearchFilterType?, SearchFilterType?)
+	if searchTerm == "" then
+		return nil, nil
+	end
+
+	local data = state.data :: ProfilerData.RootDataFormat
+	if not data then
+		return nil, nil
+	end
+
+	local searchFilterFuncs = table.create(#data.Functions, false)
+
+	for i, func in data.Functions do
+		if func.Name and string.find(func.Name, searchTerm, 1, true) then
+			searchFilterFuncs[i] = true
+		end
+	end
+
+	local searchFilterNodes = table.create(#data.Nodes, false)
+
+	for i, cat in data.Categories do
+		annotateSearchFilterNodes(data, searchFilterFuncs, searchFilterNodes, 0, cat.NodeId, false)
+	end
+
+	return searchFilterFuncs, searchFilterNodes
+end
 
 function MainViewScriptProfiler:getActiveState()
 	return self.props.isClientView, if self.props.isClientView then self.props.client else self.props.server
@@ -114,7 +186,7 @@ function MainViewScriptProfiler:init()
 	local function UpdateTimedProfilingTimer(isClient)
 		local DELTA = 1 / 2
 
-		while wait(DELTA) do
+		while task.wait(DELTA) do
 			local state = self:getState(isClient)
 			local countdown = state.timedProfilingCountdown
 
@@ -128,6 +200,27 @@ function MainViewScriptProfiler:init()
 		end
 	end
 
+	local function LiveUpdate(isClient)
+		while task.wait(FIntScriptProfilerLiveUpdateIntervalMS / 1000) do
+			local state = self:getState(isClient)
+
+			if state.liveUpdate then
+				if isClient then
+					local newState = table.clone(state)
+					local dataString = ScriptContext:GetScriptProfilingData()
+					newState.data = ScriptContext:DeserializeScriptProfilerString(dataString)
+
+					self:UpdateState(isClient, newState)
+				else
+					local clientReplicator = getClientReplicator()
+					if clientReplicator then
+						clientReplicator:RequestServerScriptProfilingData()
+					end
+				end
+			end
+		end
+	end
+
 	self.onBeginProfile = function ()
 		local isClientView, state = self:getActiveState()
 
@@ -135,6 +228,9 @@ function MainViewScriptProfiler:init()
 
 		local newState = table.clone(state)
 		newState.isProfiling = true
+		newState.rootNode = 0
+		newState.rootNodeName = nil
+		newState.searchFilter = {}
 
 		if FFlagScriptProfilerTimedProfiling and state.timedProfilingDuration > 0 then
 			newState.timedProfilingCountdown = state.timedProfilingDuration
@@ -146,6 +242,10 @@ function MainViewScriptProfiler:init()
 			newState.timedProfilingTimerThread = task.spawn(function()
 				UpdateTimedProfilingTimer(isClientView)
 			end)
+		end
+
+		if FFlagScriptProfilerLiveUpdate then
+			newState.liveUpdateThread = task.spawn(LiveUpdate, isClientView)
 		end
 
 		self:UpdateState(isClientView, newState)
@@ -172,6 +272,13 @@ function MainViewScriptProfiler:init()
 			end
 		end
 
+		if FFlagScriptProfilerLiveUpdate then
+			if state.liveUpdateThread then
+				task.cancel(state.liveUpdateThread)
+				newState.liveUpdateThread = nil
+			end
+		end
+
 		self:UpdateState(isClientView, newState)
 	end
 
@@ -192,6 +299,28 @@ function MainViewScriptProfiler:init()
 
 		local newState = table.clone(state)
 		newState.timedProfilingDuration = duration
+		self:UpdateState(isClientView, newState)
+	end
+
+	self.toggleAverage = function ()
+		local isClientView, state = self:getActiveState()
+
+		local average = state.average
+
+		if average == 0 then
+			average = 1
+		elseif average == 1 then
+			average = 60
+		elseif average == 60 then
+			average = 60 * 5
+		elseif average == 60 * 5 then
+			average = 60 * 10
+		else
+			average = 0
+		end
+
+		local newState = table.clone(state)
+		newState.average = average
 		self:UpdateState(isClientView, newState)
 	end
 
@@ -237,10 +366,32 @@ function MainViewScriptProfiler:init()
 		self:UpdateState(isClientView, newState)
 	end
 
-	-- TODO: Add support for searching the script profiler
-	-- self.onSearchTermChanged = function(newSearchTerm)
-		
-	-- end
+	self.onCheckBoxChanged = function(boxName, newValue)
+		local isClientView, state = self:getActiveState()
+
+		local newState = table.clone(state)
+
+		if boxName == LIVE_UPDATE_TEXT then
+			newState.liveUpdate = newValue
+		end
+
+		self:UpdateState(isClientView, newState)
+	end
+
+	self.onSearchTermChanged = function(newSearchTerm)
+		if not FFlagScriptProfilerSearch then
+			return
+		end
+
+		local isClientView, state = self:getActiveState()
+
+		local newState = table.clone(state)
+		newState.searchTerm = newSearchTerm
+		local flat, graph = generateSearchFilters(state, newSearchTerm)
+		newState.searchFilterFlat = flat or {}
+		newState.searchFilterGraph = graph or {}
+		self:UpdateState(isClientView, newState)
+	end
 
 	self.utilRef = Roact.createRef()
 
@@ -311,13 +462,19 @@ function MainViewScriptProfiler:render()
 	local frequency = state.frequency
 	local usePercentages = self.props.usePercentages
 	local isFunctionsView = state.isFunctionsView
+	local rootNode = state.rootNode
+	local rootNodeName = state.rootNodeName
 
 	local utilTabHeight = self.state.utilTabHeight
-	local searchTerm =  self.props.serverSearchTerm
 
 	local sessionLength = nil
 	if profilingData and profilingData.SessionStartTime and profilingData.SessionEndTime then
 		sessionLength = profilingData.SessionEndTime - profilingData.SessionStartTime
+	end
+
+	local checkBoxStates = {}
+	if FFlagScriptProfilerLiveUpdate then
+		checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate, }
 	end
 
 	return Roact.createElement("Frame", {
@@ -344,9 +501,11 @@ function MainViewScriptProfiler:render()
 			onClientButton = self.onClientButton,
 			onServerButton = self.onServerButton,
 
-			-- TODO: Add support for searching the script profiler
-			-- onSearchTermChanged = self.onSearchTermChanged,
-			-- searchTerm = searchTerm,
+			orderedCheckBoxState = checkBoxStates,
+			onCheckBoxChanged = self.onCheckBoxChanged,
+
+			onSearchTermChanged = self.onSearchTermChanged,
+			searchTerm = state.searchTerm,
 		}, {
 			-- Start/Stop Profiling
 			Roact.createElement(BoxButton, {
@@ -361,7 +520,7 @@ function MainViewScriptProfiler:render()
 			-- Change Sampling Frequency Button
 			-- Since frequency is specified only when starting a new profiling session,
 			-- this button is inactive while profiling.
-			FFlagScriptProfilerFrequencyControl and Roact.createElement("TextButton", {
+			if not FFlagScriptProfilerFrequencyControl then nil else Roact.createElement("TextButton", {
 				Text = "Freq: " .. formatFreq(frequency),
 				TextSize = TEXT_SIZE,
 				TextColor3 = TEXT_COLOR,
@@ -378,7 +537,7 @@ function MainViewScriptProfiler:render()
 				end,
 			}) :: any,
 
-			FFlagScriptProfilerTimedProfiling and Roact.createElement("TextButton", {
+			if not FFlagScriptProfilerTimedProfiling then nil else Roact.createElement("TextButton", {
 				Text = "Time" .. formatTimer(if isProfiling then state.timedProfilingCountdown else state.timedProfilingDuration),
 				TextSize = TEXT_SIZE,
 				TextColor3 = TEXT_COLOR,
@@ -395,7 +554,24 @@ function MainViewScriptProfiler:render()
 				end,
 			}) :: any,
 
-			FFlagScriptProfilerFunctionsView and Roact.createElement(DropDown, {
+			if not FFlagScriptProfilerAverages then nil else Roact.createElement("TextButton", {
+				Text = "Average" .. formatTimer(state.average),
+				TextSize = TEXT_SIZE,
+				TextColor3 = TEXT_COLOR,
+				Font = FONT,
+
+				AutoButtonColor = true,
+				BackgroundColor3 = BACKGROUND_COLOR,
+				BackgroundTransparency = 0,
+
+				[Roact.Event.Activated] = function()
+					if not isProfiling then
+						self.toggleAverage()
+					end
+				end,
+			}) :: any,
+
+			if not FFlagScriptProfilerFunctionsView then nil else Roact.createElement(DropDown, {
 				buttonSize = UDim2.new(0, SMALL_DV_BUTTON_WIDTH, 0, SMALL_FRAME_HEIGHT),
 				dropDownList = DATA_VIEW_DROPDOWN_NAMES,
 				selectedIndex = isFunctionsView and 2 or 1,
@@ -405,12 +581,15 @@ function MainViewScriptProfiler:render()
 
 		ProfilerView = Roact.createElement(if isFunctionsView then ProfilerFunctionsView else ProfilerView, {
 			size = UDim2.new(1, 0, 1, -utilTabHeight),
-			searchTerm = searchTerm,
+			searchFilter = if isFunctionsView then state.searchFilterFlat else state.searchFilterGraph,
 			layoutOrder = 2,
 			data = profilingData,
 			profiling = isProfiling,
 			showAsPercentages = usePercentages,
 			sessionLength = sessionLength,
+			rootNode = rootNode,
+			rootNodeName = rootNodeName,
+			average = state.average,
 		})
 	})
 end

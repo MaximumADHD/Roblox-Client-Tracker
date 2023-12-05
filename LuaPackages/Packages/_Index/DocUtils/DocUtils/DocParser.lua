@@ -151,7 +151,9 @@ function DocParser:parse()
 	local propsType = string.match(source, propsTypePattern)
 	if propsType then
 		propsPattern = "type%s+" .. propsType .. tableVarContentsPattern
-		defaultPropsPattern = "defaultProps:%s+" .. propsType .. tableVarContentsPattern
+
+		-- This will match any defaultProps opject with or without a type
+		defaultPropsPattern = "defaultProps:?%s*%w*" .. tableVarContentsPattern
 
 		result.Typechecking = Types.Typecheckers.Luau
 	elseif propsPattern == nil then

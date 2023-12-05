@@ -310,7 +310,7 @@ function PlayerTile:render()
 					}),
 					areTokensEnabled
 				),
-				addSubtitleSpace = if UIBloxConfig.fixLoadingShimmerForPlayerTileNames then title == nil else nil,
+				addSubtitleSpace = title == nil,
 			}),
 		})
 	end)

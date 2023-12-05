@@ -171,4 +171,19 @@ function Analytics.reportFailure(errorType: string, extraArgs: { [string]: strin
 	RbxAnalyticsService:SendEventDeferred(target, "ugcValidation", "failure", args)
 end
 
+function Analytics.reportThumbnailing(time: number, extraArgs: { [string]: string }?)
+	if not getFFlagUGCValidationAnalytics() then
+		return
+	end
+	local target = if RunService:IsStudio() then "studio" else "rcc"
+	local args = joinTables(Analytics.metadata, extraArgs or {}, {
+		time = time,
+		studioSid = RbxAnalyticsService:GetSessionId(),
+		clientId = RbxAnalyticsService:GetClientId(),
+		placeId = game.PlaceId,
+		userId = if StudioService then StudioService:GetUserId() else 0,
+	})
+	RbxAnalyticsService:SendEventDeferred(target, "ugcValidation", "thumbnailing", args)
+end
+
 return Analytics

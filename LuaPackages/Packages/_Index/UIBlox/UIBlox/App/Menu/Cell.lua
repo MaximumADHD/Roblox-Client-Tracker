@@ -104,6 +104,8 @@ Cell.validateProps = t.strictInterface({
 	borderCornerRadius = t.optional(t.integer),
 	-- Background of the cell. Defaults to `BackgroundUIDefault`.
 	background = t.optional(validateColorInfo),
+
+	selectionOrder = t.optional(t.number),
 })
 
 Cell.defaultProps = {
@@ -303,6 +305,7 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 					[Roact.Ref] = self.props.setButtonRef,
 					[Roact.Event.Activated] = self.props.onActivated,
 					SelectionImageObject = getSelectionCursor(self.props.cursorKind),
+					SelectionOrder = self.props.selectionOrder,
 				},
 				children = {
 

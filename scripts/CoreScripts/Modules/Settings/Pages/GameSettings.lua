@@ -27,6 +27,10 @@ local UserGameSettings = Settings:GetService("UserGameSettings")
 local Url = require(RobloxGui.Modules.Common.Url)
 local VoiceChatService = nil
 local TextChatService = game:GetService("TextChatService")
+local ExperienceStateCaptureService = nil
+if game:GetEngineFeature("CaptureModeEnabled") then
+	ExperienceStateCaptureService = game:GetService("ExperienceStateCaptureService")
+end
 
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
@@ -92,6 +96,7 @@ local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local GetFFlagChatTranslationSettingEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationSettingEnabled)
 local GetFStringChatTranslationLayerName = require(RobloxGui.Modules.Flags.GetFStringChatTranslationLayerName)
+local GetFFlagChatTranslationLaunchEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationLaunchEnabled)
 
 local ChatTranslationSettingsMoved = game:GetEngineFeature("TextChatServiceSettingsSaved")
 
@@ -161,6 +166,7 @@ local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Mo
 local GetFFlagSupportsOverscanPolicy = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportsOverscanPolicy
 local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGameSettingsCameraModeFixEnabled
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
+local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -1346,14 +1352,21 @@ local function Initialize()
 			end
 		end
 
-		if GetFFlagChatTranslationSettingEnabled() then
-			local layerName = GetFStringChatTranslationLayerName()
-			local layerData = getChatTranslationLayerData(layerName)
 
-			local success = setUpChatTranslationIxpDefaults(layerData)
-
-			if success and layerData.ChatTranslationEnabled then
-				createChatTranslationOption()
+		if game:GetEngineFeature("EnableTCSChatTranslation") then
+			if GetFFlagChatTranslationSettingEnabled() then
+				if GetFFlagChatTranslationLaunchEnabled() then
+					createChatTranslationOption()
+				else
+					local layerName = GetFStringChatTranslationLayerName()
+					local layerData = getChatTranslationLayerData(layerName)
+		
+					local success = setUpChatTranslationIxpDefaults(layerData)
+		
+					if success and layerData.ChatTranslationEnabled then
+						createChatTranslationOption()
+					end
+				end
 			end
 		end
 
@@ -1619,6 +1632,71 @@ local function Initialize()
 				end
 			end
 		)
+	end
+
+	local function createFeedbackModeOptions()
+		local rolesCheckUrl = Url.ROLES_URL .. "v1/users/authenticated/roles"
+		local rolesCheckRequest = HttpService:RequestInternal({
+			Url = rolesCheckUrl,
+			Method = "GET"
+		})
+
+		local function rolesCheckCallback(enableFeedbackUI)
+			if enableFeedbackUI then
+				local function onToggleFeedbackMode()
+					this.HubRef:PopMenu(false, true);
+					if ExperienceStateCaptureService ~= nil then
+						-- In this function ExperienceStateCaptureService should always exist, but just in case we do a nil check before we attempt a toggle
+						ExperienceStateCaptureService:ToggleCaptureMode()
+					end
+				end
+
+				local toggleFeedbackModeButton, toggleFeedbackModeText = nil, nil
+				toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton("toggleFeedbackModeButton", "Give Feedback", UDim2.new(0, 300, 1, -20), onToggleFeedbackMode, this)
+				toggleFeedbackModeButton.ZIndex = 2
+				toggleFeedbackModeButton.Selectable = true
+				toggleFeedbackModeText.ZIndex = 2
+				toggleFeedbackModeButton.Position = UDim2.new(1, -400, 0, 12)
+
+				local row = utility:AddNewRowObject(this, "Give Translation Feedback", toggleFeedbackModeButton)
+				row.LayoutOrder = 5
+			end
+		end
+
+		if FFlagDisableFeedbackSoothsayerCheck then
+			-- Skip the roles check and immediate hit the callback as if we passed the soothsayer check
+			rolesCheckCallback(true)
+
+		else
+			rolesCheckRequest:Start(function(reqSuccess, reqResponse)
+				local enableFeedbackUI = false
+				local success = false
+				local err = nil
+				if not reqSuccess then
+					err = "Roles Api Request: Connection error"
+				elseif reqResponse.StatusCode == 401 then
+					err = "Roles Api Request: Unauthorized"
+				elseif reqResponse.StatusCode < 200 or reqResponse.StatusCode >= 400 then
+					err = "Roles Api Status code: " .. reqResponse.StatusCode
+				else
+					-- reqSuccess == true and StatusCode >= 200 and StatusCode < 400
+					success, err = pcall(function()
+						local json = HttpService:JSONDecode(reqResponse.Body)
+						-- Check roles result for soothsayer
+						for _, role in pairs(json.roles) do
+							if role == "Soothsayer" then
+								enableFeedbackUI = true
+							end
+						end
+					end)
+				end
+				if not success then
+					log:warning("Feedback Mode initialization api call failed with url: " .. rolesCheckUrl .. " and with error message: " .. err)
+				end
+
+				rolesCheckCallback(enableFeedbackUI)
+			end)
+		end
 	end
 
 	-- This function is called in SetHub override only if engine flag is enabled
@@ -3028,6 +3106,18 @@ local function Initialize()
 		end
 	end
 
+	local function isFeedbackModeEntryPointEnabled()
+		if RunService:IsStudio() then
+			return false
+		end
+
+		if game:GetEngineFeature("CaptureModeEnabled") == false then
+			return false
+		end
+
+		return true
+	end
+
 	function isLangaugeSelectionDropdownEnabled()
 		-- If the engine feature is not enabled, then no matter what we should
 		-- return false, no need to consider the finer granularity flags
@@ -3056,6 +3146,10 @@ local function Initialize()
 
 		if isLangaugeSelectionDropdownEnabled() then
 			createTranslationOptions()
+		end
+
+		if isFeedbackModeEntryPointEnabled() then
+			createFeedbackModeOptions()
 		end
 	end
 	return this

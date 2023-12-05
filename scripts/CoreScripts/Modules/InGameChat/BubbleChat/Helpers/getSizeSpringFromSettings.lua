@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Otter = require(CorePackages.Packages.Otter)
 
-local function getSizeSpringFromSettings(chatSettings)
+local function getSizeSpringFromSettings(chatSettings): (number) -> Otter.Goal<any>
 	local animationSettings = chatSettings.SizeAnimation
 	if not animationSettings.Enabled then
 		return Otter.instant

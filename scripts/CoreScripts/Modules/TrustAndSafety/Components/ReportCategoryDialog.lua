@@ -20,7 +20,6 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local withVoiceState = require(RobloxGui.Modules.VoiceChat.VoiceStateContext).withVoiceState
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local GameIcon = require(Dependencies.GameIcon)
 local BlockPlayerItem = require(TnsModule.Components.BlockPlayerItem)

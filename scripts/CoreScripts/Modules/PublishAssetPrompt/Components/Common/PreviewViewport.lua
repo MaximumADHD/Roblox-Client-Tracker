@@ -19,7 +19,8 @@ local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
-local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -356,16 +357,16 @@ function PreviewViewport:render()
 	}, {
 
 		-- TODO: move buttons to a superview
-		ResetViewButton = (loadingState == LoadingState.SUCCESSFULLY_LOADED)
-			and Roact.createElement(PrimarySystemButton, {
-				standardSize = StandardButtonSize.XSmall,
-				position = UDim2.new(0, 20, 1, -20),
-				anchorPoint = Vector2.new(0, 1),
-				text = localized.resetViewButtonText,
-				onActivated = function()
-					self:resetCameraPosition()
-				end,
-			}),
+		ResetViewButton = (loadingState == LoadingState.SUCCESSFULLY_LOADED) and Roact.createElement(Button, {
+			buttonType = ButtonType.PrimarySystem,
+			standardSize = StandardButtonSize.XSmall,
+			position = UDim2.new(0, 20, 1, -20),
+			anchorPoint = Vector2.new(0, 1),
+			text = localized.resetViewButtonText,
+			onActivated = function()
+				self:resetCameraPosition()
+			end,
+		}),
 
 		ShrinkPreviewButton = Roact.createElement(IconButton, {
 			position = UDim2.new(1, -20, 1, -20),

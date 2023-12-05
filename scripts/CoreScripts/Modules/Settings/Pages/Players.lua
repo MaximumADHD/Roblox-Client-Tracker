@@ -142,6 +142,7 @@ local GetFFlagWrapBlockModalScreenInProvider = require(RobloxGui.Modules.Flags.G
 local GetFFlagMuteTogglesEnableIXP = require(RobloxGui.Modules.Settings.Flags.GetFFlagMuteTogglesEnableIXP)
 local GetFStringMuteTogglesIXPLayerName = require(RobloxGui.Modules.Settings.Flags.GetFStringMuteTogglesIXPLayerName)
 local GetFFlagUseFriendsPropsInMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagUseFriendsPropsInMuteToggles)
+local GetFFlagFixInviteTextVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixInviteTextVisibility)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
@@ -767,7 +768,7 @@ local function Initialize()
 			GetFFlagPauseMuteFix() and UDim2.new(1, 0, 1, 0) or UDim2.new(1 / 5, -5, 4 / 5, 0),
 			GetFFlagPauseMuteFix() and UDim2.new(1, -6, 1, -4) or UDim2.new(0.5, -6, 0.65, -4),
 			function ()
-				VoiceChatServiceManager:ToggleMic()
+				VoiceChatServiceManager:ToggleMic("InGameMenuPlayers")
 				if voiceAnalytics then
 					voiceAnalytics:onToggleMuteSelf(isLocalPlayerMutedState)
 				end
@@ -1015,6 +1016,21 @@ local function Initialize()
 		frame.SelectionLost:connect(function() setIsHighlighted(false) end)
 		frame.SelectionImageObject = frame:Clone()
 
+		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled then 
+			local SelectionOverrideObject = utility:Create'Frame'{
+					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
+					BorderSizePixel = 0,
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundColor3 = Theme.color("PlayerRowSelection")
+				}
+			utility:Create'UICorner'{
+				CornerRadius = Theme.DefaultCornerRadius,
+				Parent = SelectionOverrideObject,
+			}
+		
+			frame.SelectionImageObject = SelectionOverrideObject
+		end
+
 		return frame
 	end
 
@@ -1065,6 +1081,21 @@ local function Initialize()
 		frame.SelectionGained:connect(function() setIsHighlighted(true) end)
 		frame.SelectionLost:connect(function() setIsHighlighted(false) end)
 		frame.SelectionImageObject = frame:Clone()
+
+		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled then 
+			local SelectionOverrideObject = utility:Create'Frame'{
+					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
+					BorderSizePixel = 0,
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundColor3 = Theme.color("PlayerRowSelection")
+				}
+			utility:Create'UICorner'{
+				CornerRadius = Theme.DefaultCornerRadius,
+				Parent = SelectionOverrideObject,
+			}
+		
+			frame.SelectionImageObject = SelectionOverrideObject
+		end
 
 		return frame
 	end

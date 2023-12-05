@@ -3,6 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGuiModules = CoreGui:WaitForChild("RobloxGui").Modules
+local EventIngestService = game:GetService("EventIngestService")
 
 local SocialContextToastPackage = require(CorePackages.Workspace.Packages.SocialContextToasts)
 local SocialContextToastContainer = SocialContextToastPackage.SocialContextToastContainer
@@ -15,6 +16,7 @@ local httpRequest = HttpRequest.config({
 })
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local Analytics = require(CorePackages.Workspace.Packages.Analytics).Analytics
+local EventIngest = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventIngest
 
 local IXPServiceWrapper = require(RobloxGuiModules.Common.IXPServiceWrapper)
 
@@ -24,6 +26,7 @@ local services = {
     apolloClient = ApolloClient,
     analytics = Analytics.new(),
     ixpService = IXPServiceWrapper,
+    eventIngest = EventIngest.new(EventIngestService),
 }
 
 SocialContextToastContainer(services, game.GameId, game.PlaceId)

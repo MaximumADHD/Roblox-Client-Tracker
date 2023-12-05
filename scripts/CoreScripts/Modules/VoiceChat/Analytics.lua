@@ -33,6 +33,14 @@ export type VoiceMuteGroupArgs = {
 	muted: boolean
 }
 
+export type VoiceMuteSelfArgs = {
+	userId: number,
+	clientSessionId: string,
+	channelId: string,
+	context: string,
+	muted: boolean
+}
+
 -- Only providing types for functions we might use
 type AnalyticsService = {
 	-- Event Stream
@@ -71,7 +79,8 @@ type AnalyticsWrapperMeta = {
 	reportAcknowledgedNudge: (AnalyticsWrapper, number, string) -> (),
 	reportDeniedNudge: (AnalyticsWrapper, number, string) -> (),
 	reportVoiceMuteIndividual: (AnalyticsWrapper, VoiceMuteIndividualArgs) -> (),
-	reportVoiceMuteGroup: (AnalyticsWrapper, VoiceMuteGroupArgs) -> ()
+	reportVoiceMuteGroup: (AnalyticsWrapper, VoiceMuteGroupArgs) -> (),
+	reportVoiceMuteSelf: (AnalyticsWrapper, VoiceMuteSelfArgs) -> ()
 }
 
 -- Replace this when Luau supports it
@@ -238,6 +247,16 @@ function Analytics:reportVoiceMuteGroup(args: VoiceMuteGroupArgs)
 		channel_id = args.channelId,
 		context = args.context,
 		group_type = args.groupType,
+		muted = args.muted
+	})
+end
+
+function Analytics:reportVoiceMuteSelf(args: VoiceMuteSelfArgs)
+	self._impl:SendEventDeferred("client", "voice", "voiceUIMuteUnmuteSelf", {
+		user_id = args.userId,
+		client_session_id = args.clientSessionId,
+		channel_id = args.channelId,
+		context = args.context,
 		muted = args.muted
 	})
 end

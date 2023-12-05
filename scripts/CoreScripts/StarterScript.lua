@@ -107,6 +107,13 @@ if getFFlagEnableAlwaysAvailableCamera() then
 	ExperienceChat.GlobalFlags.EnableAlwaysAvailableCamera = true
 end
 
+local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
+if GetFFlagConsolidateBubbleChat() then
+	local ExperienceChat = require(CorePackages.ExperienceChat)
+	local GlobalFlags = (ExperienceChat.GlobalFlags :: any)
+	GlobalFlags.ConsolidateBubbleChat = true
+end
+
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
 local FFlagScreenshotsFeaturesEnabledForAll = Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll
 local FFlagScreenshotSharingEnableExperiment = Screenshots.Flags.FFlagScreenshotSharingEnableExperiment

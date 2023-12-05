@@ -50,6 +50,7 @@ return {
 				React.createElement(CallBar, {
 					size = Vector2.new(200, 44),
 					activeUtc = activeUtc,
+					position = UDim2.new(0.5, 0, 0, 0),
 				}),
 			})
 		end,

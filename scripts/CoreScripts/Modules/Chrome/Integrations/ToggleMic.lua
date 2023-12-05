@@ -25,7 +25,7 @@ if GetFFlagEnableVoiceMuteAnalytics() then
 end
 
 local toggleMic = function(self)
-	VoiceChatServiceManager:ToggleMic()
+	VoiceChatServiceManager:ToggleMic("ChromeIntegrationsToggleMic")
 	Analytics:setLastCtx("SelfView")
 	if voiceAnalytics then
 		voiceAnalytics:onToggleMuteSelf(not VoiceChatServiceManager.localMuted)

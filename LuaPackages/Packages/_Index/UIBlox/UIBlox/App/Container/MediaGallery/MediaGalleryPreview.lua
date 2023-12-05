@@ -19,8 +19,6 @@ local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
 local ThumbnailButton = require(MediaGallery.ThumbnailButton)
 local getShowItems = require(MediaGallery.getShowItems)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local ICON_CYCLE_LEFT = "icons/actions/cycleLeft"
 local ICON_CYCLE_RIGHT = "icons/actions/cycleRight"
 
@@ -345,8 +343,6 @@ function MediaGalleryPreview:render()
 		}, {
 			Content = Roact.createElement("Frame", {
 				Size = self.contentSize,
-				AnchorPoint = if UIBloxConfig.removePreviewAnchor then nil else Vector2.new(0.5, 0.5),
-				Position = if UIBloxConfig.removePreviewAnchor then nil else UDim2.fromScale(0.5, 0.5),
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
 			}, {

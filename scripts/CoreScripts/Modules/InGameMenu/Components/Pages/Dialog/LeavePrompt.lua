@@ -13,8 +13,8 @@ local InGameMenu = Components.Parent
 
 local GameIcon = require(Components.GameIcon)
 
-local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
-local SecondaryButton = UIBlox.App.Button.SecondaryButton
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 
 -- TODO need to be replaced by uiBlox
 -- https://jira.rbx.com/browse/UIBLOX-147
@@ -98,7 +98,8 @@ function LeavePrompt:render()
 				Size = UDim2.fromOffset(BUTTON_WIDTH, 2 * BUTTON_HEIGHT + BUTTON_PADDING),
 				LayoutOrder = 4,
 			}, {
-				ConfirmButton = Roact.createElement(PrimarySystemButton, {
+				ConfirmButton = Roact.createElement(Button, {
+					buttonType = ButtonType.PrimarySystem,
 					layoutOrder = 4,
 					position = UDim2.fromOffset(0, 0),
 					size = UDim2.fromOffset(BUTTON_WIDTH, BUTTON_HEIGHT),
@@ -106,7 +107,8 @@ function LeavePrompt:render()
 					text = self.props.confirmText,
 					buttonRef = self.leaveButtonRef,
 				}),
-				CancelButton = Roact.createElement(SecondaryButton, {
+				CancelButton = Roact.createElement(Button, {
+					buttonType = ButtonType.Secondary,
 					layoutOrder = 5,
 					position = UDim2.fromOffset(0, BUTTON_HEIGHT + BUTTON_PADDING),
 					size = UDim2.fromOffset(BUTTON_WIDTH, BUTTON_HEIGHT),

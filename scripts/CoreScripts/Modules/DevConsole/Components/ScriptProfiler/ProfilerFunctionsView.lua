@@ -26,6 +26,7 @@ local VALUE_PADDING = Constants.ScriptProfilerFormatting.ValuePadding
 local ProfilerView = Roact.PureComponent:extend("ProfilerView")
 
 local FFlagScriptProfilerSessionLength = game:DefineFastFlag("ScriptProfilerSessionLength", false)
+local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
 
 function ProfilerView:renderChildren()
     local data = self.props.data
@@ -40,8 +41,14 @@ function ProfilerView:renderChildren()
 
     local totalDuration = getDurations(root, 0, true)
     local children = {}
+    local searchFilter = self.props.searchFilter
 
     for index, func in ipairs(root.Functions) do
+
+        if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[index] then
+            continue
+        end
+
         children[index] = Roact.createElement(ProfilerFunctionViewEntry, {
             layoutOrder = (totalDuration - func.TotalDuration) * 1e6, -- Sort by reverse duration
             data = data,

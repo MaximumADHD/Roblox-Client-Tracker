@@ -18,16 +18,6 @@ local SubscriptionPurchaseOverlay = Roact.PureComponent:extend(script.Name)
 
 local FLOW_NAME = "InGame"
 
-local UIBlox = PurchasePromptDeps.UIBlox
-local Images = UIBlox.App.ImageSet.Images
-
-local XBOX_A_ICON = "icons/controls/keys/xboxA"
-
--- Remove with FFlagUseDesignSystemGamepadIcons 
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
-
 type Props = {
 	screenSize: Vector2,
 
@@ -119,9 +109,7 @@ end
 function SubscriptionPurchaseOverlay:render()
 	local props: Props = self.props
 
-	local BUTTON_A_ICON = if GetFFlagUseDesignSystemGamepadIcons()
-		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
-		else Images[XBOX_A_ICON]
+	local BUTTON_A_ICON = "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
 
 	return Roact.createElement(SubscriptionPurchaseFlow, {
 		screenSize = props.screenSize,

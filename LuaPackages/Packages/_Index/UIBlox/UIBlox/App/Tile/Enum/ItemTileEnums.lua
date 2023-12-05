@@ -4,7 +4,6 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local enumerate = require(Packages.enumerate)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local strict = require(UIBlox.Utility.strict)
 
@@ -16,19 +15,11 @@ ItemIconType = enumerate("ItemIconType", {
 	"DynamicHead",
 })
 
-local Restriction
-if UIBloxConfig.enableCollectibleItemRestriction then
-	Restriction = enumerate("Restriction", {
-		"Limited",
-		"LimitedUnique",
-		"Collectible",
-	})
-else
-	Restriction = enumerate("Restriction", {
-		"Limited",
-		"LimitedUnique",
-	})
-end
+local Restriction = enumerate("Restriction", {
+	"Limited",
+	"LimitedUnique",
+	"Collectible",
+})
 
 return strict({
 	ItemIconType = ItemIconType,

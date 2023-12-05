@@ -34,8 +34,8 @@ local GetFIntThrottleInviteSendEndpointDelay = require(Modules.Flags.GetFIntThro
 local GetFFlagSingleUserInvitePageKeybind = require(Modules.Settings.Flags.GetFFlagSingleUserInvitePageKeybind)
 
 local UIBlox = require(CorePackages.UIBlox)
-local PrimaryButton = UIBlox.App.Button.PrimarySystemButton
-local SecondaryButton = UIBlox.App.Button.SecondaryButton
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 
 local useStyle = UIBlox.Core.Style.useStyle
@@ -248,13 +248,15 @@ local InviteSingleUserContainer = function(props)
 				LayoutOrder = 3,
 				BackgroundTransparency = 1,
 			}, {
-				CancelButton = React.createElement(SecondaryButton, {
+				CancelButton = React.createElement(Button, {
+					buttonType = ButtonType.Secondary,
 					size = UDim2.new(0.5, -12, 1, 0),
 					text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.Cancel"),
 					onActivated = onCloseButtonActivated,
 					isDisabled = sendingInvite,
 				}),
-				InviteButton = React.createElement(PrimaryButton, {
+				InviteButton = React.createElement(Button, {
+					buttonType = ButtonType.PrimarySystem,
 					size = UDim2.new(0.5, -12, 1, 0),
 					position = UDim2.new(0.5, 12, 0, 0),
 					text = RobloxTranslator:FormatByKey(inviteTextKey),

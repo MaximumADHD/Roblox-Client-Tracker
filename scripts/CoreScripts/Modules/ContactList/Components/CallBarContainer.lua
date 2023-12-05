@@ -1,6 +1,9 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local Workspace = game:GetService("Workspace")
+
+local Camera = Workspace.CurrentCamera :: Camera
 
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
@@ -8,12 +11,21 @@ local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
+local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local GetFFlagCallBarRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCallBarRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local Chrome = RobloxGui.Modules.Chrome
+local ChromeService = require(Chrome.Service)
+local ChromeConstants = require(Chrome.Unibar.Constants)
+
+local TopBar = RobloxGui.Modules.TopBar
+local TopBarConstants = require(TopBar.Constants)
+
 local ContactList = RobloxGui.Modules.ContactList
+local IrisUnibarEnabled = require(ContactList.IrisUnibarEnabled)
 local dependencies = require(ContactList.dependencies)
 local RoduxCall = dependencies.RoduxCall
 local useSelector = dependencies.Hooks.useSelector
@@ -25,6 +37,8 @@ local CallBar = require(Components.CallBar)
 
 local CALL_BAR_SIZE = Vector2.new(200, 44)
 local CALL_BAR_PADDING = 4
+local CALL_BAR_MARGIN = 12
+local CALL_BAR_UNIBAR_VERTICAL_PADDING = 8
 
 export type Props = {
 	callProtocol: CallProtocol.CallProtocolModule | nil,
@@ -34,13 +48,91 @@ local defaultProps = {
 	callProtocol = CallProtocol.CallProtocol.default,
 }
 
+local ScreenPosition = {
+	On = "On" :: "On",
+	Off = "Off" :: "Off",
+}
+
+export type ScreenPosition = "On" | "Off"
+
 local function CallBarContainer(passedProps: Props)
 	local props = Cryo.Dictionary.join(defaultProps, passedProps)
 
 	local dispatch = useDispatch()
-	local callBarRef = React.useRef(nil)
+	local callBarRef = if IrisUnibarEnabled() then nil else React.useRef(nil)
+
+	local isCallBarEnabled, setIsCallBarEnabled
+	local callBarPosition, setCallBarPosition
+
+	if IrisUnibarEnabled() then
+		callBarPosition, setCallBarPosition = ReactOtter.useAnimatedBinding({
+			X = (Camera.ViewportSize.X / 2) - (CALL_BAR_SIZE.X / 2),
+			Y = -CALL_BAR_SIZE.Y,
+		}, function(callBarPos)
+			if GetFFlagCallBarRefactor() and callBarPos.Y == -CALL_BAR_SIZE.Y and isCallBarEnabled then
+				-- If we're hiding the CallBar then also disable it once the motor is complete
+				setIsCallBarEnabled(false)
+			end
+		end)
+	end
+
+	--[[
+		Updates the screenPosition for the call bar given the current state of the unibar. If the
+		call bar collides with the unibar then move call bar towards the right. If the
+		call bar won't fit in the viewport then adjust the call bar downwards.
+
+		@param screenPosition | The screen position we'd like to update to (On / Off)
+		@param instant? | Instantly update position. If false then we default to spring animation
+			
+	--]]
+	local updateCallBarPosition = React.useCallback(function(screenPosition: ScreenPosition, instant: boolean?)
+		local unibarStatus = ChromeService:status():get()
+		local unibarDimensions = ChromeService:layout():get()
+		local unibar_max = unibarDimensions[unibarStatus].Max
+
+		-- Unibar hasn't initialized yet
+
+		-- By default we set the call bar to be center aligned with the screen
+		local screenPositionXOffset = (Camera.ViewportSize.X / 2) - (CALL_BAR_SIZE.X / 2)
+
+		local screenPositionYOffset
+		if screenPosition == ScreenPosition.On then
+			screenPositionYOffset = TopBarConstants.TopBarTopMargin + TopBarConstants.TopBarButtonPadding
+		else
+			screenPositionYOffset = -CALL_BAR_SIZE.Y
+		end
+
+		if unibar_max.X + CALL_BAR_MARGIN > (Camera.ViewportSize.X / 2) - (CALL_BAR_SIZE.X / 2) then
+			-- If CallBar default position (middle of screen) doesn't fit nicely with unibar
+			if unibar_max.X + (CALL_BAR_MARGIN * 2) + CALL_BAR_SIZE.X > Camera.ViewportSize.X then
+				-- If CallBar has been pushed down because CallBar overflows Viewport
+				if screenPosition == ScreenPosition.On then
+					screenPositionYOffset = TopBarConstants.TopBarHeight + CALL_BAR_UNIBAR_VERTICAL_PADDING
+				end
+			else
+				screenPositionXOffset = unibar_max.X + CALL_BAR_MARGIN
+			end
+		end
+
+		if instant then
+			setCallBarPosition({
+				X = ReactOtter.instant(screenPositionXOffset),
+				Y = ReactOtter.instant(screenPositionYOffset),
+			} :: { [string]: ReactOtter.Goal })
+		else
+			setCallBarPosition({
+				X = ReactOtter.spring(screenPositionXOffset, ChromeConstants.MENU_ANIMATION_SPRING),
+				Y = ReactOtter.spring(screenPositionYOffset, ChromeConstants.MENU_ANIMATION_SPRING),
+			})
+		end
+	end, {})
+
+	-- TODO (timothyhsu): Remove once IrisUnibarEnabled is flipped
 	local initCallBarCallback = React.useCallback(function(ref)
-		callBarRef.current = ref
+		if callBarRef then
+			callBarRef.current = ref
+		end
+
 		pcall(function()
 			if ref then
 				ref:TweenPosition(UDim2.new(0.5, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.3, true)
@@ -112,8 +204,22 @@ local function CallBarContainer(passedProps: Props)
 		end
 	end, { props.callProtocol })
 
+	local unibarMounted, setUnibarMounted = React.useState(false)
+	if IrisUnibarEnabled() then
+		React.useEffect(function()
+			-- Listen for when Unibar has finished mounting
+			local unibarLayoutConnection = ChromeService:layout():connect(function()
+				setUnibarMounted(true)
+			end)
+
+			return function()
+				unibarLayoutConnection.disconnect()
+			end
+		end, {})
+	end
+
 	if GetFFlagCallBarRefactor() then
-		local isCallBarEnabled, setIsCallBarEnabled = React.useState(false)
+		isCallBarEnabled, setIsCallBarEnabled = React.useState(false)
 
 		React.useEffect(function()
 			local isVisible = currentCallStatus == RoduxCall.Enums.Status.Connecting.rawValue()
@@ -121,31 +227,59 @@ local function CallBarContainer(passedProps: Props)
 				or currentCallStatus == RoduxCall.Enums.Status.Active.rawValue()
 				or (currentCallStatus == RoduxCall.Enums.Status.Idle.rawValue() and game.JobId == instanceId)
 
-			local ref = if callBarRef then callBarRef.current else nil
+			if IrisUnibarEnabled() then
+				if isVisible then
+					setIsCallBarEnabled(true)
+				end
 
-			if isVisible then
-				setIsCallBarEnabled(true)
-				initCallBarCallback(ref)
-			else
-				pcall(function()
-					if ref then
-						ref:TweenPosition(
-							UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y - CALL_BAR_PADDING),
-							Enum.EasingDirection.In,
-							Enum.EasingStyle.Quad,
-							0.3,
-							true,
-							function(state)
-								-- This animation could be cancelled for the appear animation.
-								if state == Enum.TweenStatus.Completed then
-									setIsCallBarEnabled(false)
-								end
-							end
-						)
+				updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
+
+				local unibarStatusConnection = ChromeService:status():connect(function()
+					updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
+				end)
+
+				-- Listen for screen size changes
+				local viewportSizeConnection = Camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+					if Camera.ViewportSize.X < 640 then
+						updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
+					else
+						updateCallBarPosition(if isVisible then ScreenPosition.On else ScreenPosition.Off)
 					end
 				end)
+
+				return function()
+					unibarStatusConnection:disconnect()
+					viewportSizeConnection:Disconnect()
+				end
+			else
+				local ref = if callBarRef then callBarRef.current else nil
+
+				if isVisible then
+					setIsCallBarEnabled(true)
+					initCallBarCallback(ref)
+				else
+					pcall(function()
+						if ref then
+							ref:TweenPosition(
+								UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y - CALL_BAR_PADDING),
+								Enum.EasingDirection.In,
+								Enum.EasingStyle.Quad,
+								0.3,
+								true,
+								function(state)
+									-- This animation could be cancelled for the appear animation.
+									if state == Enum.TweenStatus.Completed then
+										setIsCallBarEnabled(false)
+									end
+								end
+							)
+						end
+					end)
+				end
+
+				return function() end
 			end
-		end, { currentCallStatus, initCallBarCallback, instanceId })
+		end, { currentCallStatus, initCallBarCallback, instanceId, unibarMounted })
 
 		React.useEffect(function()
 			local endCallConn = props.callProtocol:listenToHandleEndCall(function(params)
@@ -192,32 +326,46 @@ local function CallBarContainer(passedProps: Props)
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 			}, {
-				UIPadding = React.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, CALL_BAR_PADDING),
-				}),
+				UIPadding = if IrisUnibarEnabled()
+					then nil
+					else React.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, CALL_BAR_PADDING),
+					}),
 				CallBar = React.createElement(CallBar, {
 					size = CALL_BAR_SIZE,
-					callBarRef = initCallBarCallback,
+					callBarRef = if IrisUnibarEnabled() then nil else initCallBarCallback,
 					activeUtc = activeUtc,
+					position = if IrisUnibarEnabled()
+						then callBarPosition:map(function(val)
+							return UDim2.fromOffset(val.X, val.Y)
+						end)
+						else nil,
 				}),
 			})
 			else nil
 	else
 		local maybeHideCallBarAndEndCall = React.useCallback(function()
-			pcall(function()
-				if game.JobId ~= instanceId and callBarRef and callBarRef.current then
-					callBarRef.current:TweenPosition(
-						UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y),
-						Enum.EasingDirection.In,
-						Enum.EasingStyle.Quad,
-						0.3,
-						true,
-						function()
-							dispatch(RoduxCall.Actions.EndCall())
-						end
-					)
+			if IrisUnibarEnabled() then
+				if game.JobId ~= instanceId then
+					updateCallBarPosition(ScreenPosition.Off)
+					dispatch(RoduxCall.Actions.EndCall())
 				end
-			end)
+			else
+				pcall(function()
+					if game.JobId ~= instanceId and callBarRef and callBarRef.current then
+						callBarRef.current:TweenPosition(
+							UDim2.new(0.5, 0, 0, -CALL_BAR_SIZE.Y),
+							Enum.EasingDirection.In,
+							Enum.EasingStyle.Quad,
+							0.3,
+							true,
+							function()
+								dispatch(RoduxCall.Actions.EndCall())
+							end
+						)
+					end
+				end)
+			end
 		end, { instanceId })
 
 		React.useEffect(function()
@@ -262,7 +410,7 @@ local function CallBarContainer(passedProps: Props)
 			end
 		end, { props.callProtocol, maybeHideCallBarAndEndCall })
 
-		local isCallBarEnabled = React.useMemo(function()
+		isCallBarEnabled = React.useMemo(function()
 			return currentCallStatus == RoduxCall.Enums.Status.Connecting.rawValue()
 				or currentCallStatus == RoduxCall.Enums.Status.Teleporting.rawValue()
 				or currentCallStatus == RoduxCall.Enums.Status.Active.rawValue()
@@ -276,13 +424,20 @@ local function CallBarContainer(passedProps: Props)
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 			}, {
-				UIPadding = React.createElement("UIPadding", {
-					PaddingTop = UDim.new(0, 4),
-				}),
+				UIPadding = if IrisUnibarEnabled()
+					then nil
+					else React.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, CALL_BAR_PADDING),
+					}),
 				CallBar = React.createElement(CallBar, {
 					size = CALL_BAR_SIZE,
-					callBarRef = initCallBarCallback,
+					callBarRef = if IrisUnibarEnabled() then nil else initCallBarCallback,
 					activeUtc = activeUtc,
+					position = if IrisUnibarEnabled()
+						then callBarPosition:map(function(val)
+							return UDim2.fromOffset(val.X, val.Y)
+						end)
+						else nil,
 				}),
 			})
 			else nil

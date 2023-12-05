@@ -9,9 +9,6 @@ local Roact = PurchasePromptDeps.Roact
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local UIBlox = PurchasePromptDeps.UIBlox
-local Images = UIBlox.App.ImageSet.Images
-
 local IAPExperience = PurchasePromptDeps.IAPExperience
 local RobuxUpsellFlow = IAPExperience.PurchaseFlow.RobuxUpsellFlow
 local RobuxUpsellFlowState = IAPExperience.PurchaseFlow.RobuxUpsellFlowState
@@ -26,11 +23,7 @@ local RobuxUpsellOverlay = Roact.PureComponent:extend(script.Name)
 local CONFIRM_BUTTON_BIND = "ProductPurchaseConfirmButtonBind"
 local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 
-local XBOX_A_ICON = "icons/controls/keys/xboxA"
-local XBOX_B_ICON = "icons/controls/keys/xboxB"
-
 local GetFFlagDisablePurchasePromptFunctionForMaquettes = require(Root.Flags.GetFFlagDisablePurchasePromptFunctionForMaquettes)
-local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
 local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
@@ -258,12 +251,9 @@ function RobuxUpsellOverlay:render()
 	local props: Props = self.props
 	local externalSettings = ExternalSettings.new()
 
-	local BUTTON_A_ICON = if GetFFlagUseDesignSystemGamepadIcons()
-		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
-		else Images[XBOX_A_ICON]
-	local BUTTON_B_ICON = if GetFFlagUseDesignSystemGamepadIcons()
-		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonB.png"
-		else Images[XBOX_B_ICON]
+	local BUTTON_A_ICON = "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
+	local BUTTON_B_ICON = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB.png"
+
 	return Roact.createElement(RobuxUpsellFlow, {
 		screenSize = props.screenSize,
 

@@ -12,4 +12,5 @@ return {
 	VoiceToxicityModal = "VoiceToxicityModal",
 	VoiceToxicityToast = "VoiceToxicityToast",
 	VoiceToxicityFeedbackToast = "VoiceToxicityFeedbackToast",
+	VoiceChatSuspendedTemporaryToast = "VoiceChatSuspendedTemporaryToast"
 }

@@ -23,13 +23,11 @@ local SetMainPageMoreMenuOpen = require(InGameMenu.Actions.SetMainPageMoreMenuOp
 local SetRespawning = require(InGameMenu.Actions.SetRespawning)
 local SetInputType = require(InGameMenu.Actions.SetInputType)
 
-
 local Constants = require(InGameMenu.Resources.Constants)
 
 local act = require(Modules.act)
 
 local Flags = InGameMenu.Flags
-local UIBloxFlags = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 local GetFFlagUseIGMControllerBar = require(Flags.GetFFlagUseIGMControllerBar)
 local GetFFlagSideNavControllerBar = require(Flags.GetFFlagSideNavControllerBar)
@@ -727,33 +725,15 @@ return function()
 
 		c.gamepadInput(Enum.KeyCode.DPadDown)
 
-		if UIBloxFlags.GetFFlagUIBloxUsePlatformContentKeyLabels() then
-			local ButtonX = "rbxasset://textures/ui/Controls/DesignSystem/ButtonX.png"
-			local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
-			expect(leaveGameKeyLabel).never.toBeNil()
-			expect(leaveGameKeyLabel.Image).toBe(ButtonX)
+		local ButtonX = "rbxasset://textures/ui/Controls/DesignSystem/ButtonX.png"
+		local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
+		expect(leaveGameKeyLabel).never.toBeNil()
+		expect(leaveGameKeyLabel.Image).toBe(ButtonX)
 
-			local ButtonY = "rbxasset://textures/ui/Controls/DesignSystem/ButtonY.png"
-			local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
-			expect(respawnKeyLabel).never.toBeNil()
-			expect(respawnKeyLabel.Image).toBe(ButtonY)
-		else
-			local ButtonX = Images["icons/controls/keys/xboxX"]
-			local leaveGameKeyLabel = Element.new(leaveGameKeyLabelPath_Gamepad):getRbxInstance()
-			expect(leaveGameKeyLabel).toMatchInstance({
-				Image = ButtonX.Image,
-				ImageRectOffset = ButtonX.ImageRectOffset,
-				ImageRectSize = ButtonX.ImageRectSize,
-			})
-
-			local ButtonY = Images["icons/controls/keys/xboxY"]
-			local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
-			expect(respawnKeyLabel).toMatchInstance({
-				Image = ButtonY.Image,
-				ImageRectOffset = ButtonY.ImageRectOffset,
-				ImageRectSize = ButtonY.ImageRectSize,
-			})
-		end
+		local ButtonY = "rbxasset://textures/ui/Controls/DesignSystem/ButtonY.png"
+		local respawnKeyLabel = Element.new(respawnKeyLabelPath_Gamepad):getRbxInstance()
+		expect(respawnKeyLabel).never.toBeNil()
+		expect(respawnKeyLabel.Image).toBe(ButtonY)
 
 		c.keyboardInput(Enum.KeyCode.A)
 

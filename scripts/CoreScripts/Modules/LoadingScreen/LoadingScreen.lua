@@ -27,20 +27,30 @@ local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 local withStyle = UIBlox.Style.withStyle
 
 local AppTempCommon = CorePackages:WaitForChild("AppTempCommon")
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-local AppStyle = {
-	Theme = AppDarkTheme,
-	Font = AppFont,
-}
 local CoreScriptTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local networking = httpRequest(HttpRbxApiService)
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
-local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
 local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local GetFFlagReportFirstExperienceCancelled = require(RobloxGui.Modules.Flags.GetFFlagReportFirstExperienceCancelled)
+local FFlagLoadingScreenLargerJoinStatusText = game:DefineFastFlag("LoadingScreenLargerJoinStatusText", false)
+
+local function enableNewStyleProvider()
+	return GetFFlagEnableStyleProviderCleanUp() or GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts()
+end
+
+local AppStyle
+if not enableNewStyleProvider() then
+	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+	AppStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
+end
 
 -- Constants
 local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
@@ -77,13 +87,7 @@ local connectionHealthCloseEvent = nil
 local numberOfTaps = 0
 local lastTapTime = math.huge
 
-local buttonB
-
-if GetFFlagUseDesignSystemGamepadIcons() then
-	buttonB = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB@2x.png"
-else
-	buttonB = 'rbxasset://textures/ui/Controls/xboxB.png'
-end
+local buttonB = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB@2x.png"
 
 -- helper functions
 local function getPadding(isPortrait)
@@ -508,18 +512,18 @@ function LoadingScreen:renderServerFrame(style)
 		BorderSizePixel = 0,
 		AnchorPoint = Vector2.new(0.5, 1),
 		Position = UDim2.fromScale(0.5, 1),
-		Size = UDim2.fromScale(0.5, 0.2),
+		Size = if FFlagLoadingScreenLargerJoinStatusText then UDim2.new(1, -48, 0.2, 0) else UDim2.fromScale(0.5, 0.2),
 		Active = true,
 	}, {
 		PolicyLabel = showPolicyText and Roact.createElement("TextLabel", {
 			Name = 'PolicyLabel',
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, 20),
-			Position = UDim2.fromScale(0, 0.5),
+			Size = if FFlagLoadingScreenLargerJoinStatusText then  UDim2.new(1, 0, 0, 2 * policyLabelSize) else UDim2.new(1, 0, 0, 20),
+			Position = if FFlagLoadingScreenLargerJoinStatusText then  UDim2.new(0, 0, 1, -4 * serverLabelSize - 2 * policyLabelSize) else UDim2.fromScale(0, 0.5),
 			Font = style.Font.Footer.Font,
 			TextSize = policyLabelSize,
 			TextWrapped = true,
-			TextScaled = true,
+			TextScaled = if FFlagLoadingScreenLargerJoinStatusText then  false else true,
 			TextColor3 = style.Theme.TextDefault.Color,
 			TextStrokeTransparency = 1,
 			Text = CoreScriptTranslator:FormatByKey("Authentication.Login.WeChat.AntiAddictionText"),
@@ -530,12 +534,12 @@ function LoadingScreen:renderServerFrame(style)
 		JoinServerLabel = Roact.createElement("TextLabel", {
 			Name = 'JoinText',
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, - serverLabelSize),
-			Position = UDim2.fromScale(0, 1),
+			Size = if FFlagLoadingScreenLargerJoinStatusText then UDim2.new(1, 0, 0, 4 * serverLabelSize) else UDim2.new(1, 0, 0, - serverLabelSize),
+			Position = if FFlagLoadingScreenLargerJoinStatusText then UDim2.new(0, 0, 1, -2 * serverLabelSize) else UDim2.fromScale(0, 1),
 			Font = style.Font.Footer.Font,
 			TextSize = serverLabelSize,
 			TextWrapped = true,
-			TextScaled = true,
+			TextScaled = if FFlagLoadingScreenLargerJoinStatusText then false else true,
 			TextColor3 = style.Theme.TextDefault.Color,
 			TextStrokeTransparency = 1,
 			Text = serverStatusText,
@@ -751,8 +755,8 @@ end
 function LoadingScreen:render()
 	-- Blur effect can only apply to screengui and it's not recommended to nest screengui
 	-- Use Folder as Roact parent to organize two screenguis
-	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-		return withStyle(function(style) 
+	if enableNewStyleProvider() then
+		return withStyle(function(style)
 			return self.state.visible and Roact.createElement("Folder", {}, { 
 				BackgroundScreen = self:renderBackground(style), 
 				MainScreen = self:renderMain(style),

@@ -22,8 +22,7 @@ local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 local ButtonStack = Roact.PureComponent:extend("ButtonStack")
 
 ButtonStack.validateProps = t.strictInterface({
-	-- A table of button tables that contain props that PrimaryContextualButton,
-	-- AlertButton, PrimarySystemButton, or SecondaryButton allow.
+	-- A table of button tables that contain props that [[Button]] allows.
 	buttons = t.array(t.strictInterface({
 		-- Determines which button to use
 		buttonType = t.optional(enumerateValidator(ButtonType)),

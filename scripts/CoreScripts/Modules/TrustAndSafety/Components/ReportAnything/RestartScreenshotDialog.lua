@@ -6,10 +6,8 @@ local UIBlox = require(CorePackages.UIBlox)
 local React = require(CorePackages.Packages.React)
 
 local ButtonStack = UIBlox.App.Button.ButtonStack
-local SecondaryButton = UIBlox.App.Button.SecondaryButton
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local HeaderBar = UIBlox.App.Bar.HeaderBar
-local PrimaryContextualButton = UIBlox.App.Button.PrimaryContextualButton
 
 local useStyle = UIBlox.Core.Style.useStyle
 local TnsModule = script.Parent.Parent.Parent

@@ -108,6 +108,9 @@ DropdownMenu.validateProps = t.strictInterface({
 
 	-- Override the internal menuOpen dropdown state to close dropdown when true
 	isForcedClosed = t.optional(t.boolean),
+
+	-- Override selection order. This selection order only affects calling GuiService:Select() on an ancestor. This property does not affect directional navigation.
+	selectionOrder = t.optional(t.number),
 })
 
 DropdownMenu.defaultProps = {
@@ -123,8 +126,6 @@ function DropdownMenu:didUpdate(prevProps, prevState)
 end
 
 function DropdownMenu:init()
-	self.rootRef = Roact.createRef()
-
 	self:setState({
 		menuOpen = false,
 		selectedKey = nil,
@@ -190,6 +191,8 @@ function DropdownMenu:render()
 	local cellDatas = self.props.cellDatas
 	local functionalCells = Cryo.List.map(cellDatas, self.mapCellData)
 
+	local selectionOrder = self.props.selectionOrder
+
 	local selectedIndex = Cryo.List.findWhere(functionalCells, function(cell)
 		return cell.selected
 	end)
@@ -245,6 +248,7 @@ function DropdownMenu:render()
 		Size = UDim2.new(UDim.new(1, 0), self.props.height),
 		BackgroundTransparency = 1,
 		[Roact.Change.AbsoluteSize] = self.onResize,
+		[Roact.Ref] = self.props[Roact.Ref],
 	}, {
 		InnerFrame = Roact.createElement("Frame", {
 			Size = UDim2.fromScale(1, 1),
@@ -270,6 +274,7 @@ function DropdownMenu:render()
 					end
 				end,
 				enableTokenOverride = self.props.enableTokenOverride,
+				SelectionOrder = selectionOrder,
 			}),
 			DropdownMenuList = Roact.createElement(DropdownMenuList, {
 				buttonProps = functionalCells,
@@ -286,6 +291,7 @@ function DropdownMenu:render()
 				fixedListHeight = self.props.fixedListHeight,
 				onDismiss = self.closeMenu,
 				enableTokenOverride = self.props.enableTokenOverride,
+				selectionOrder = if selectionOrder then selectionOrder + 1 else nil,
 			}),
 			UISizeConstraint = limitMenuWidth and Roact.createElement("UISizeConstraint", {
 				MaxSize = Vector2.new(DROPDOWN_MENU_MAX_WIDTH, math.huge),

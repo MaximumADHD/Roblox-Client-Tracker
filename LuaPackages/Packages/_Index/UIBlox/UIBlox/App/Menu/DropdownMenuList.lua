@@ -34,6 +34,7 @@ dropdownMenuListComponent.validateProps = t.strictInterface({
 	menuListBackground = t.optional(validateColorInfo),
 	-- Indicate whether design override is enabled
 	enableTokenOverride = t.optional(t.boolean),
+	selectionOrder = t.optional(t.number),
 })
 
 dropdownMenuListComponent.defaultProps = {
@@ -143,6 +144,7 @@ function dropdownMenuListComponent:render()
 					anchorPoint = Vector2.new(0, anchorPointY),
 					background = self.props.menuListBackground,
 					enableTokenOverride = self.props.enableTokenOverride,
+					selectionOrder = self.props.selectionOrder,
 				}),
 			}),
 		})

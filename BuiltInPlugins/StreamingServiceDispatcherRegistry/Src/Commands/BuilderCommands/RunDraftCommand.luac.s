@@ -16,16 +16,18 @@ PROTO_0:
   GETTABLEKS R1 R2 K6 ["enableDraftMode"]
   GETTABLEKS R2 R0 K4 ["requestId"]
   CALL R1 1 0
-  GETTABLEKS R2 R0 K7 ["arguments"]
-  GETTABLEKS R1 R2 K8 ["requestModel"]
+  DUPTABLE R1 K8 [{"requestId", "arguments"}]
   GETTABLEKS R2 R0 K4 ["requestId"]
   SETTABLEKS R2 R1 K4 ["requestId"]
+  GETTABLEKS R3 R0 K7 ["arguments"]
+  GETTABLEKS R2 R3 K7 ["arguments"]
+  SETTABLEKS R2 R1 K7 ["arguments"]
   GETUPVAL R2 3
   GETTABLEKS R4 R0 K4 ["requestId"]
   GETTABLEKS R6 R0 K7 ["arguments"]
   GETTABLEKS R5 R6 K9 ["command"]
   MOVE R6 R1
-  NAMECALL R2 R2 K10 ["InvokeCommand"]
+  NAMECALL R2 R2 K10 ["ExecuteCommandAsync"]
   CALL R2 4 0
   RETURN R0 0
 

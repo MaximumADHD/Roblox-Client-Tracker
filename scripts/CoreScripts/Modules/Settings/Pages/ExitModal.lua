@@ -37,6 +37,8 @@ local Players = game:GetService("Players")
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local GetFFlagSurveyUserIdFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSurveyUserIdFix
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
 
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Roact)
@@ -61,8 +63,15 @@ local Images = UIBlox.App.ImageSet.Images
 local StyleProvider = UIBlox.Core.Style.Provider
 local EducationalModal = UIBlox.App.Dialog.Modal.EducationalModal
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local renderWithCoreScriptsStyleProvider
+local AppDarkTheme
+local AppFont
+if not GetFFlagEnableStyleProviderCleanUp() then
+	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+else
+	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
+end
 
 ------------ VARIABLES -------------------
 
@@ -193,13 +202,7 @@ local function Initialize()
 			actionExit = localization:Format("CoreScripts.InGameMenu.ExitModal.ActionExit"),
 			actionHome = localization:Format("CoreScripts.InGameMenu.ExitModal.ActionHome"),
 		}
-
-		return Roact.createElement(StyleProvider, {
-			style = {
-				Theme = AppDarkTheme,
-				Font = AppFont,
-			},
-		}, {
+		local children = {
 			Roact.createElement(EducationalModal, {
 				bodyContents = {
 					{
@@ -253,7 +256,17 @@ local function Initialize()
 					end
 				end,
 			}),
-		})
+		}
+		if not GetFFlagEnableStyleProviderCleanUp() then
+			return Roact.createElement(StyleProvider, {
+				style = {
+					Theme = AppDarkTheme,
+					Font = AppFont,
+				},
+			}, children)
+		else
+			return renderWithCoreScriptsStyleProvider(children)
+		end
 	end
 
 	local exitModalTree = Roact.mount(ExitModal(), this.Page, "ExitModal")

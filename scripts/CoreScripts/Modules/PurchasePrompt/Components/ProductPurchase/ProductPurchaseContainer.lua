@@ -59,15 +59,12 @@ local CANCEL_LOCALE_KEY = "CoreScripts.PurchasePrompt.CancelPurchase.Cancel"
 local ERROR_LOCALE_KEY = "CoreScripts.PremiumModal.Title.Error"
 
 local ERROR_ICON = "icons/status/error_large"
-local XBOX_A_ICON = "icons/controls/keys/xboxA"
-local XBOX_B_ICON = "icons/controls/keys/xboxB"
 
 local DELAYED_INPUT_SEC = 2.5
 
 local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMessage", false)
 local FFlagPauseGameExploitFix = game:DefineFastFlag("PauseGameExploitFix", false)
 local FFlagPurchaseWithGamePausedFix = game:DefineFastFlag("PurchaseWithGamePausedFix", false)
-local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 
 local function isRelevantRequestType(requestType, purchaseFlow)
 	if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
@@ -351,12 +348,9 @@ function ProductPurchaseContainer:render()
 	local isTestPurchase = self.props.isTestPurchase
 
 	local prompt
-	local BUTTON_A_ICON = if GetFFlagUseDesignSystemGamepadIcons()
-		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
-		else Images[XBOX_A_ICON]
-	local BUTTON_B_ICON = if GetFFlagUseDesignSystemGamepadIcons()
-		then "rbxasset://textures/ui/Controls/DesignSystem/ButtonB.png"
-		else Images[XBOX_B_ICON]
+	local BUTTON_A_ICON = "rbxasset://textures/ui/Controls/DesignSystem/ButtonA.png"
+	local BUTTON_B_ICON = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB.png"
+
 	if promptState == PromptState.None or not isRelevantRequestType(requestType, purchaseFlow) then
 		--[[
 			When the prompt is hidden, we'd rather not keep unused Roblox

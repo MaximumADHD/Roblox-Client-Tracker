@@ -4,7 +4,6 @@ local Text = ExpandableTextAreaRoot.Parent
 local App = Text.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
@@ -159,7 +158,7 @@ function ExpandableTextArea:render()
 				LayoutOrder = layoutOrder,
 				Position = position,
 				Size = width and UDim2.new(width.Scale, width.Offset, 0, 0) or UDim2.new(1, 0, 0, 0),
-				AutomaticSize = if UIBloxConfig.fixExpandableTextAreaChildSizing then Enum.AutomaticSize.Y else nil,
+				AutomaticSize = Enum.AutomaticSize.Y,
 				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 				[Roact.Ref] = ref,
 				[Roact.Change.AbsoluteSize] = function(rbx)

@@ -32,13 +32,9 @@ local Localization
 local LocalizationProvider
 local reducer
 
-local AppDarkTheme
-local AppFont
-
 local GetFFlagIGMGamepadSelectionHistory
 
-local appStyle
-
+local renderWithCoreScriptsStyleProvider
 local FocusHandlerContextProvider
 local ReportList
 
@@ -62,14 +58,7 @@ local function resetModules()
 	LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	reducer = require(InGameMenu.reducer)
 
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
+	renderWithCoreScriptsStyleProvider = require(Modules.Common.renderWithCoreScriptsStyleProvider)
 	FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	ReportList = require(script.Parent.ReportList)
 
@@ -112,9 +101,7 @@ local function getMountableTreeAndStore(props)
 	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = store,
 	}, {
-		ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
+		ThemeProvider = renderWithCoreScriptsStyleProvider({
 			LocalizationProvider = Roact.createElement(LocalizationProvider, {
 				localization = Localization.new("en-us"),
 			}, {

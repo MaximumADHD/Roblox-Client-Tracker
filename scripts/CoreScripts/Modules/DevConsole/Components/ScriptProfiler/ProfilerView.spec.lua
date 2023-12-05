@@ -14,7 +14,8 @@ return function()
 			searchTerm = "",
 			layoutOrder = 0,
 			data = nil,
-			showAsPercentages = false
+			showAsPercentages = false,
+			average = 1,
 		})
 
 		local instance = Roact.mount(element)

@@ -22,7 +22,8 @@ local Divider = require(Dependencies.Divider)
 local ThemedTextLabel = require(Dependencies.ThemedTextLabel)
 local withLocalization = require(Dependencies.withLocalization)
 
-local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 
 local BlockPlayer = require(TnsModule.Thunks.BlockPlayer)
 local BlockPlayerItem = require(TnsModule.Components.BlockPlayerItem)
@@ -311,7 +312,8 @@ function ReportSentDialog:render()
 				screenSize = self.props.screenSize,
 				titleText = localized.titleText,
 				contents = self:renderContents(),
-				actionButtons = Roact.createElement(PrimarySystemButton, {
+				actionButtons = Roact.createElement(Button, {
+					buttonType = ButtonType.PrimarySystem,
 					size = UDim2.new(1, 0, 1, 0),
 					onActivated = function ()
 						return self.onConfirm(localized)

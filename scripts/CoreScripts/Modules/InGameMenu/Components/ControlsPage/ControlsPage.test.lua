@@ -29,11 +29,7 @@ local reducer
 local SetControlLayout
 local Controls
 
-local AppDarkTheme
-local AppFont
-
-local appStyle
-
+local renderWithCoreScriptsStyleProvider
 local ControlsPage
 
 beforeAll(function()
@@ -68,14 +64,7 @@ local function resetModules()
 
 	RobloxGui = CoreGui.RobloxGui
 
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
+	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 	ControlsPage = require(script.Parent)
 end
 
@@ -93,9 +82,7 @@ if game:GetEngineFeature("EnableVRUpdate3") then
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
+			ThemeProvider = renderWithCoreScriptsStyleProvider({
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {

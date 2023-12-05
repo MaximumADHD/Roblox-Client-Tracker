@@ -4,10 +4,6 @@ return {
 	-- default config)
 	styleRefactorConfig = false,
 
-	-- useNewGenericTextLabelProps: when false, GenericTextLabel component supports AutomaticSize, TextSize, and Size
-	-- props from a traditional TextLabel
-	useNewGenericTextLabelProps = false,
-
 	-- Enables token usage in PlayerTile to support scalability
 	useTokensInPlayerTile = false,
 
@@ -20,27 +16,17 @@ return {
 	-- indicate whether fix for tooltip color styles is enabled
 	enableTooltipColorStylesFix = false,
 
-	-- Enable BackgroundContrast background for RateCount
-	enableRateCountBackgroundContrast = false,
-
 	-- Bind all laser pointer buttons for left/right switching
 	bindAllLaserPointerButtons = false,
 
 	-- This fixes slider behavior when they are within a SurfaceGui instead of a ScreenGui
 	allowSlidersToWorkInSurfaceGuis = false,
 
-	-- Enable support for the new Collectible/Limited 2.0 item restriction type
-	enableCollectibleItemRestriction = false,
-
 	-- New color palettes of color system 1.1
 	useNewThemeColorPalettes = false,
 
 	-- Enable rendering the offhand VR laser pointer
 	dualVRLaserPointers = false,
-
-	-- Removes central AnchorPoint and Position from ExperienceDetails media gallery Preview
-	-- to avoid layout bug related to AutomaticSize
-	removePreviewAnchor = false,
 
 	-- Fix Panel3D frame-behind issues when positioned relative to the camera
 	vrFixUIJitter = false,
@@ -63,23 +49,14 @@ return {
 	-- Allow UIBlox TextButtons to be shown after Icon Buttons in the ActionBar
 	enableTextButtonsInActionBar = false,
 
-	-- Enable alternate platform content icon map for KeyLabel
-	usePlatformContentKeyLabels = false,
-
 	-- Indicate whether to enable the new layout for menu/cell
 	enableNewMenuLayout = false,
-
-	-- Take size of empty subtitles into consideration when rendering loading shimmer for names in PlayerTile
-	fixLoadingShimmerForPlayerTileNames = false,
 
 	-- Enable Cursor Provider on Table Cells to match console navigation styling
 	enableSelectionCursorProviderOnTableCell = false,
 
 	-- If true uses the redesigned coplayFoote
 	coPlayFooterChangeColorAndShowMoreFaces = false,
-
-	-- Bugfix for ExpandableTextArea not respecting child size
-	fixExpandableTextAreaChildSizing = false,
 
 	-- Enables the background prop for table cell to act as the cell's primary background instead of layering on top
 	-- This allows us to pass in custom backgrounds that support transparency

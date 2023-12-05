@@ -22,7 +22,7 @@ return function(targetUserId: string | number, voiceState, context: string?)
 				VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 			else
 				Analytics:setLastCtx("bubbleChatToggle")
-				VoiceChatServiceManager:ToggleMic()
+				VoiceChatServiceManager:ToggleMic(context)
 			end
 		else
 			VoiceChatServiceManager:ToggleMutePlayer(tonumber(targetUserId), context)

@@ -37,13 +37,24 @@ function ProfilerView:renderChildren()
 
 	local totalDuration = getDurations(data, 0, usingV2FormatFlag)
 
+	local average = 1
+
+	if FFlagScriptProfilerSessionLength and self.props.average > 0 then
+		local lengthSecs = self.props.sessionLength / 1000
+		average = lengthSecs / self.props.average
+	end
+
 	return Roact.createElement(ProfilerViewEntry, {
 		layoutOrder = 0,
 		depth = 0,
 		data = data,
-		nodeId = 0,
+		nodeId = self.props.rootNode,
+		nodeName = self.props.rootNodeName,
 		functionId = nil,
 		usingV2FormatFlag = usingV2FormatFlag,
+		average = average,
+		searchTerm = self.props.searchTerm,
+		searchFilter = self.props.searchFilter,
 		percentageRatio = if self.props.showAsPercentages
 			then totalDuration / 100
 			else nil
@@ -56,7 +67,7 @@ function ProfilerView:render()
 	local size = self.props.size
 	local label = nil
 
-	if self.props.profiling then
+	if self.props.profiling and not self.props.data then
 		label = Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 0, 0, 0),

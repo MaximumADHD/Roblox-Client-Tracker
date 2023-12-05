@@ -362,7 +362,7 @@ function VRBottomBar:init()
 				if self.props.voiceState == (Enum::any).VoiceChatState.Failed then
 					self.props.voiceChatServiceManager:RejoinPreviousChannel()
 				else
-					self.props.voiceChatServiceManager:ToggleMic()
+					self.props.voiceChatServiceManager:ToggleMic("VRBottomBar")
 				end
 
 				AnalyticsService:ReportCounter("VR-BottomBar-Voice")

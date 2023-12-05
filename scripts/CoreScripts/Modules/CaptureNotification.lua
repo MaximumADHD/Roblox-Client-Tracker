@@ -2,8 +2,6 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local Roact = require(CorePackages.Roact)
@@ -18,6 +16,18 @@ local Images = UIBlox.App.ImageSet.Images
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
+local AppDarkTheme = nil
+local AppFont = nil
+local renderWithCoreScriptsStyleProvider = nil
+if not GetFFlagEnableStyleProviderCleanUp() then
+	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+else
+	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
+end
 
 local TOAST_DURATION = 3
 local CAPTURE_NOTIFICATION_DISPLAY_ORDER = 9
@@ -37,10 +47,13 @@ CaptureNotification.validateProps = t.strictInterface({
 })
 
 function CaptureNotification:init()
-	self.appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
+	self.appStyle = nil
+	if not GetFFlagEnableStyleProviderCleanUp() then
+		self.appStyle = {
+			Theme = AppDarkTheme,
+			Font = AppFont,
+		}
+	end
 
 	self.state = {
 		screenSize = Vector2.new(0, 0),
@@ -67,9 +80,9 @@ function CaptureNotification:init()
 					Color = Color3.fromRGB(247, 75, 82),
 					Transparency = 0,
 				} or nil,
-				toastTitle = isSuccessToast and
-					RobloxTranslator:FormatByKey("NotificationScript2.Capture.Success.ToastText") or
-					RobloxTranslator:FormatByKey("NotificationScript2.Capture.Fail.ToastText"),
+				toastTitle = isSuccessToast and RobloxTranslator:FormatByKey(
+					"NotificationScript2.Capture.Success.ToastText"
+				) or RobloxTranslator:FormatByKey("NotificationScript2.Capture.Fail.ToastText"),
 				onDismissed = function()
 					self:setState({
 						notificationType = NotificationType.None,
@@ -133,15 +146,23 @@ function CaptureNotification:init()
 	end
 end
 
+function CaptureNotification:renderWithStyle(children)
+	if not GetFFlagEnableStyleProviderCleanUp() then
+		return Roact.createElement(UIBlox.Core.Style.Provider, {
+			style = self.appStyle,
+		}, children)
+	else
+		return renderWithCoreScriptsStyleProvider(children)
+	end
+end
+
 function CaptureNotification:render()
 	local notificationType = self.state.notificationType
 	local showSuccessToast = notificationType == NotificationType.Success and self.state.toastContent
 	local showFailToast = notificationType == NotificationType.Fail and self.state.toastContent
 	local showPermissionAlert = notificationType == NotificationType.Permission
 
-	return Roact.createElement(UIBlox.Core.Style.Provider, {
-		style = self.appStyle,
-	}, {
+	return self:renderWithStyle({
 		RobloxCaptureNotificationGui = Roact.createElement("ScreenGui", {
 			AutoLocalize = false,
 			DisplayOrder = CAPTURE_NOTIFICATION_DISPLAY_ORDER,

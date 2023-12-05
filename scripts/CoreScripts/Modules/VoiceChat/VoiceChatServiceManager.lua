@@ -2,6 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local MemStorageService = game:GetService("MemStorageService")
 local PlayersService = game:GetService("Players")
+local Collections = game:GetService("CollectionService")
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
 local Cryo = require(CorePackages.Cryo)
@@ -68,11 +69,14 @@ local FFlagAlwaysSetupVoiceListeners = game:DefineFastFlag("AlwaysSetupVoiceList
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
 local FFlagOverwriteIsMutedLocally = game:DefineFastFlag("OverwriteIsMutedLocally", false)
 local FFlagVoiceMuteUnmuteAnalytics = game:DefineFastFlag("VoiceMuteUnmuteAnalytics", false)
+local FFlagVoiceMuteUnmuteSelfAnalytics = game:DefineFastFlag("VoiceMuteUnmuteSelfAnalytics", false)
 local FFlagHideVoiceUIUntilInputExists = game:DefineFastFlag("HideVoiceUIUntilInputExists", false)
 local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermissionsAnalytics", false)
 local FFlagVoiceChatEnableIrisMuteStateFix = game:DefineFastFlag("VoiceChatEnableIrisMuteStateFix", false)
+local FFlagFixNewAudioAPIEcho = game:DefineFastFlag("FFlagFixNewAudioAPIEcho", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
+local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 
 local Constants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
@@ -627,6 +631,14 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 				end
 			end
 		end
+
+		if
+			GetFFlagVoiceBanShowToastOnSubsequentJoins()
+			and informedOfBanResult
+			and informedOfBanResult.informedOfBan
+		then
+			self:ShowPlayerModeratedMessage(true)
+		end
 	elseif
 		GetFFlagVoiceChatStudioErrorToasts()
 		and self.runService:IsStudio()
@@ -661,7 +673,7 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 		and universePlaceSettings.isPlaceEnabledForVoice
 end
 
-function VoiceChatServiceManager:ShowPlayerModeratedMessage()
+function VoiceChatServiceManager:ShowPlayerModeratedMessage(informedOfBan: boolean)
 	local userSettings = GetUserSettings(bind(self, "GetRequest"))
 	if not userSettings or not userSettings.isBanned then
 		self:_reportJoinFailed("PlayerModeratedBadState", Analytics.ERROR)
@@ -674,7 +686,16 @@ function VoiceChatServiceManager:ShowPlayerModeratedMessage()
 			self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedPermanent)
 		else
 			self.bannedUntil = userSettings.bannedUntil
-			self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+
+			if not GetFFlagVoiceBanShowToastOnSubsequentJoins() then
+				self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+			else
+				if informedOfBan then
+					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporaryToast)
+				else
+					self:showPrompt(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+				end
+			end
 		end
 	end
 end
@@ -1097,6 +1118,19 @@ local function avoidEmitting(character: Model)
 	end
 end
 
+local function destroyDefaultEmitter(inst: Instance)
+	local localPlayer = PlayersService.LocalPlayer
+	local character = localPlayer.Character
+	if not character then return end
+
+	if inst:IsDescendantOf(character) then
+		task.defer(function()
+			log:debug("Destroying RbxDefaultVoiceEmitter for local player")
+			inst:Destroy()
+		end)
+	end
+end
+
 
 function VoiceChatServiceManager:onInstanceAdded(inst: Instance)
 	if inst:IsA("AudioDeviceInput") then
@@ -1180,6 +1214,12 @@ function VoiceChatServiceManager:hookupAudioDeviceInputListener()
 		wire.TargetInstance = output
 
 		-- Snip the local player emitter by default
+		if FFlagFixNewAudioAPIEcho then
+			for _, inst in Collections:GetTagged("RbxDefaultVoiceEmitter") do
+				destroyDefaultEmitter(inst)
+			end
+			Collections:GetInstanceAddedSignal("RbxDefaultVoiceEmitter"):Connect(destroyDefaultEmitter)
+		end
 		localPlayer.CharacterAdded:Connect(avoidEmitting)
 		if localPlayer.Character then
 			avoidEmitting(localPlayer.Character)
@@ -1700,7 +1740,8 @@ function VoiceChatServiceManager:GetSendMuteEvent(): RemoteEvent | nil
 	return self.SendMuteEvent
 end
 
-function VoiceChatServiceManager:ToggleMic()
+-- Do not pass context if the call is not the result of user action
+function VoiceChatServiceManager:ToggleMic(context: string?)
 	self:ensureInitialized("toggle mic")
 	if self.localMuted == nil then
 		-- Not connected, so don't try and toggle anything.
@@ -1733,6 +1774,15 @@ function VoiceChatServiceManager:ToggleMic()
 
 	if not self.localMuted then
 		self.talkingChanged:Fire(self.isTalking)
+	end
+
+	if FFlagVoiceMuteUnmuteSelfAnalytics and context then
+		self.Analytics:reportVoiceMuteSelf(
+			self:JoinWithVoiceMuteData({
+				context = context,
+				muted = self.localMuted
+			}) :: Analytics.VoiceMuteSelfArgs
+		)
 	end
 end
 

@@ -14,6 +14,10 @@ local getEngineFeatureEngineUGCValidateTextureBorder =
 local getEngineFeatureViewportFrameSnapshotEngineFeature =
 	require(root.flags.getEngineFeatureViewportFrameSnapshotEngineFeature)
 local getFIntDynamicHeadBorderSize = require(root.flags.getFIntDynamicHeadBorderSize)
+local getFFlagUseThumbnailerUtil = require(root.flags.getFFlagUseThumbnailerUtil)
+
+local setupDynamicHead = require(root.util.setupDynamicHead)
+local Thumbnailer = require(root.util.Thumbnailer)
 
 local DEFAULT_PART_IDS: { [string]: number } = {
 	LeftArm = 11714033534,
@@ -92,7 +96,9 @@ local CAMERA_FOV: number = 70
 local IMAGE_SIZE: number = 100
 assert(IMAGE_SIZE % 4 == 0)
 local BORDER: number = getFIntDynamicHeadBorderSize() -- (IMAGE_SIZE / 4) - 1
+local FILL = 0.5
 
+-- remove with getFFlagUseThumbnailerUtil
 local function hideNotHead(rig: Model)
 	for _, child in rig:GetChildren() do
 		if child:IsA("MeshPart") and child.Name ~= "Head" then
@@ -101,6 +107,7 @@ local function hideNotHead(rig: Model)
 	end
 end
 
+-- remove with getFFlagUseThumbnailerUtil
 local function swapHead(rig: Model, newHead: MeshPart)
 	rig:FindFirstChild("Head"):Destroy()
 	newHead.Parent = rig
@@ -123,6 +130,7 @@ local function applyMaxMood(rig: Model)
 	return true
 end
 
+-- remove with getFFlagUseThumbnailerUtil
 local function getDefaultCharacter(): Model?
 	local humanoidDescription: HumanoidDescription = Instance.new("HumanoidDescription")
 	for _, part in PARTS do
@@ -179,6 +187,7 @@ local function getDefaultCharacter(): Model?
 	return rig
 end
 
+-- remove with getFFlagUseThumbnailerUtil
 local function setupViewportFrame()
 	local screenGui: ScreenGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
 	local vpf: ViewportFrame = Instance.new("ViewportFrame", screenGui)
@@ -190,6 +199,7 @@ local function setupViewportFrame()
 	return screenGui, worldModel, vpf
 end
 
+-- remove with getFFlagUseThumbnailerUtil
 local function setupCamera(rig: Model, direction: Vector3): Camera?
 	local headPos: Vector3, headSize: Vector3
 	for _, desc in rig:GetDescendants() do
@@ -223,6 +233,7 @@ local CAPTURE_ERROR_STRING = "Unable to capture snapshot of DynamicHead (%s)"
 local READ_FAILED_ERROR_STRING = "Failed to read data from snapshot of DynamicHead (%s)"
 local VALIDATION_FAILED_ERROR_STRING = "DynamicHead (%s) when emoting surpasses the expected bounding box"
 
+-- remove with getFFlagUseThumbnailerUtil
 -- returns: success/failure, errors, failure reasons
 -- if success then there won't be errors or failure reasons
 -- if not success then there will be errors or failure reasons, but not both
@@ -249,6 +260,7 @@ local function validateOnServer(headId): (boolean, string?, { string }?)
 	return true
 end
 
+-- remove with getFFlagUseThumbnailerUtil
 local function validateOnClient(headId, vpf): (boolean, { string }?)
 	local captureSuccess, rbxTempId = pcall(function()
 		task.wait(1)
@@ -271,7 +283,8 @@ local function validateOnClient(headId, vpf): (boolean, { string }?)
 	return true
 end
 
-return function(head: MeshPart, isServer: boolean): (boolean, { string }?)
+-- remove with getFFlagUseThumbnailerUtil
+local function validate_DEPRECATED(head: MeshPart, isServer: boolean): (boolean, { string }?)
 	if
 		not getEngineFeatureEngineUGCValidateBodyParts()
 		or not getEngineFeatureEngineUGCValidateTextureBorder()
@@ -360,6 +373,86 @@ return function(head: MeshPart, isServer: boolean): (boolean, { string }?)
 	else
 		body:Destroy()
 	end
+
+	return true
+end
+
+return function(head: MeshPart, isServer: boolean): (boolean, { string }?)
+	if not getFFlagUseThumbnailerUtil() then
+		return validate_DEPRECATED(head, isServer)
+	end
+
+	if
+		not getEngineFeatureEngineUGCValidateBodyParts()
+		or not getEngineFeatureEngineUGCValidateTextureBorder()
+		or (not isServer and not getEngineFeatureViewportFrameSnapshotEngineFeature())
+	then
+		return true
+	end
+
+	local headClone = head:Clone()
+	local bodyNullable: Model? = setupDynamicHead(headClone)
+	if not bodyNullable then
+		error("couldn't create character")
+	end
+	local body: Model = bodyNullable :: Model
+
+	local succ = applyMaxMood(body)
+	if not succ then
+		error("could not apply mood")
+	end
+
+	local thumbnailer = Thumbnailer.new(isServer, CAMERA_FOV, Vector2.new(IMAGE_SIZE, IMAGE_SIZE))
+	thumbnailer:init(headClone)
+
+	for _, dir in CAMERA_POSITIONS do
+		local plane: Vector3 = Vector3.new(1, 1, 1) - Vector3.new(math.abs(dir.X), math.abs(dir.Y), math.abs(dir.Z))
+
+		local maskedSize: Vector3 = headClone.Size * plane
+		local maxDim: number = math.max(maskedSize.X, maskedSize.Y, maskedSize.Z)
+
+		thumbnailer:setCamera(FILL, maxDim, dir)
+
+		local captureSuccess, img = thumbnailer:takeSnapshot()
+
+		if not captureSuccess then
+			thumbnailer:cleanup()
+			local errorMsg = string.format(CAPTURE_ERROR_STRING, head.MeshId)
+			if isServer then
+				error(errorMsg)
+			else
+				return false, { errorMsg }
+			end
+		end
+
+		local success, passesValidation
+		if isServer then
+			success, passesValidation = pcall(function()
+				return UGCValidationService:ValidateTextureAlphaByteString(img :: string, BORDER)
+			end)
+		else
+			success, passesValidation = pcall(function()
+				return UGCValidationService:ValidateTextureAlpha(img :: string, BORDER)
+			end)
+		end
+
+		if not success then
+			thumbnailer:cleanup()
+			local errorMsg = string.format(READ_FAILED_ERROR_STRING, head.MeshId)
+			if isServer then
+				error(errorMsg)
+			else
+				return false, { errorMsg }
+			end
+		end
+
+		if not passesValidation then
+			thumbnailer:cleanup()
+			return false, { string.format(VALIDATION_FAILED_ERROR_STRING, head.MeshId) }
+		end
+	end
+
+	thumbnailer:cleanup()
 
 	return true
 end

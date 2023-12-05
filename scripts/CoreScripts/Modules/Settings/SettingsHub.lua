@@ -166,7 +166,6 @@ local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuN
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
 local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(RobloxGui.Modules.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
-local GetFFlagUseDesignSystemGamepadIcons = require(RobloxGui.Modules.Flags.GetFFlagUseDesignSystemGamepadIcons)
 local GetShowCapturesTab = require(RobloxGui.Modules.Settings.Experiments.GetShowCapturesTab)
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
@@ -707,19 +706,9 @@ local function CreateSettingsHub()
 		buttonImageAppend = "@2x"
 	end
 
-	local buttonB
-	local buttonX
-	local buttonY
-
-	if GetFFlagUseDesignSystemGamepadIcons() then
-		buttonB = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB" .. buttonImageAppend .. ".png"
-		buttonX = "rbxasset://textures/ui/Controls/DesignSystem/ButtonX" .. buttonImageAppend .. ".png"
-		buttonY = "rbxasset://textures/ui/Controls/DesignSystem/ButtonY" .. buttonImageAppend .. ".png"
-	else
-		buttonB = "rbxasset://textures/ui/Settings/Help/BButtonLight" .. buttonImageAppend .. ".png"
-		buttonX = "rbxasset://textures/ui/Settings/Help/XButtonLight" .. buttonImageAppend .. ".png"
-		buttonY = "rbxasset://textures/ui/Settings/Help/YButtonLight" .. buttonImageAppend .. ".png"
-	end
+	local buttonB = "rbxasset://textures/ui/Controls/DesignSystem/ButtonB" .. buttonImageAppend .. ".png"
+	local buttonX = "rbxasset://textures/ui/Controls/DesignSystem/ButtonX" .. buttonImageAppend .. ".png"
+	local buttonY = "rbxasset://textures/ui/Controls/DesignSystem/ButtonY" .. buttonImageAppend .. ".png"
 
 	local function appendMicButton()
 
@@ -736,7 +725,7 @@ local function CreateSettingsHub()
 		if Theme.UseIconButtons then
 			addBottomBarIconButton("MuteButton", nil, "", buttonB, pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
 				function ()
-					VoiceChatServiceManager:ToggleMic()
+					VoiceChatServiceManager:ToggleMic("InGameMenu")
 					if voiceAnalytics then
 						voiceAnalytics:onToggleMuteSelf(this.isMuted)
 					end
@@ -745,7 +734,7 @@ local function CreateSettingsHub()
 		else
 			addBottomBarButton("MuteButton", "", buttonB, pollImage, UDim2.new(0.5, isTenFootInterface and 300 or 330, 0.5,-25),
 				function ()
-					VoiceChatServiceManager:ToggleMic()
+					VoiceChatServiceManager:ToggleMic("InGameMenu")
 				end, {}, UDim2.new(0,Theme.LargeButtonHeight,0,Theme.LargeButtonHeight),
 				--[[forceHintButton = ]] true
 			)

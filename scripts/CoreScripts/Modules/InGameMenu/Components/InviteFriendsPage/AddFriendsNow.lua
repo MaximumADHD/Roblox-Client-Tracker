@@ -9,6 +9,8 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
@@ -112,7 +114,8 @@ function AddFriendsNow:render()
 								GuiService.SelectedCoreObject = self.buttonRef:getValue()
 							end,
 						}, {
-							MakeFriendsButton = isRooted and Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+							MakeFriendsButton = isRooted and Roact.createElement(Button, {
+								buttonType = ButtonType.Secondary,
 								layoutOrder = 3,
 								size = UDim2.new(1, 0, 0, 48),
 								text = localized.makeFriendsNow,
@@ -130,7 +133,8 @@ function AddFriendsNow:render()
 					end,
 				}),
 
-				MakeFriendsButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+				MakeFriendsButton = Roact.createElement(Button, {
+					buttonType = ButtonType.Secondary,
 					layoutOrder = 3,
 					size = UDim2.new(1, 0, 0, 48),
 					text = localized.makeFriendsNow,

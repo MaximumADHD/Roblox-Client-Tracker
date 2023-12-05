@@ -25,7 +25,7 @@ local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold",
 local ACTION_TRIGGER_LATCHED = 10000
 
 local TEST_VERSION = "t8" -- bump on new A/B campaigns
-local REPORT_ABUSE_MENU_TEST_VERSION = "art1"
+local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION

@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
+local RoactRodux = require(CorePackages.RoactRodux)
 
 local ProfilerData = require(script.Parent.ProfilerDataFormatV2)
 local ProfilerUtil = require(script.Parent.ProfilerUtil)
@@ -14,6 +15,9 @@ local Components = script.Parent.Parent.Parent.Components
 local CellLabel = require(Components.CellLabel)
 local BannerButton = require(Components.BannerButton)
 local Tooltip = require(Components.Tooltip)
+
+local Actions = script.Parent.Parent.Parent.Actions
+local SetScriptProfilerRoot = require(Actions.SetScriptProfilerRoot)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local LINE_WIDTH = Constants.GeneralFormatting.LineWidth
@@ -32,9 +36,25 @@ local TOOLTIP_FORMAT = "%s:%s"
 local ROOT_LABEL = "<root>"
 local ANON_LABEL = "<anonymous>"
 
-local ProfilerViewEntry = Roact.PureComponent:extend("ProfilerViewEntry")
-
 local FFlagScriptProfilerNativeFrames = game:DefineFastFlag("ScriptProfilerNativeFrames", false)
+local FFlagScriptProfilerSetRoot = game:DefineFastFlag("ScriptProfilerSetRoot", false)
+local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
+
+local ProfilerViewEntryComponent = Roact.PureComponent:extend("ProfilerViewEntry")
+
+local ProfilerViewEntry = ProfilerViewEntryComponent
+
+if FFlagScriptProfilerSetRoot then
+	local function mapDispatchToProps(dispatch)
+		return {
+			dispatchSetScriptProfilerRoot = function(nodeId: ProfilerData.NodeId, nodeName: string?)
+				dispatch(SetScriptProfilerRoot(nodeId, nodeName))
+			end,
+		}
+	end
+
+	ProfilerViewEntry  = RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(ProfilerViewEntryComponent)
+end
 
 type BorderedCellLabelProps = {
 	text: string,
@@ -59,7 +79,27 @@ local function BorderedCellLabel(props: BorderedCellLabelProps)
 	})
 end
 
-function ProfilerViewEntry:init()
+local function getNodeName(props: any, usingV2FormatFlag: boolean): string
+	local depth = props.depth
+	local data = props.data
+	local functionId = props.functionId
+
+	local func = if usingV2FormatFlag then data.Functions[functionId] else nil
+
+	local isNative = getNativeFlag(data, func, usingV2FormatFlag)
+
+	local defaultName = if depth == 0 then ROOT_LABEL else ANON_LABEL
+	local name = if usingV2FormatFlag then props.nodeName else data.Name
+	name = if not name or #name == 0 then defaultName else name
+
+	if FFlagScriptProfilerNativeFrames and isNative then
+		name = name .. " <native>"
+	end
+
+	return name
+end
+
+function ProfilerViewEntryComponent:init()
 
 	self.state = {
 		expanded = self.props.depth == 0,
@@ -95,20 +135,36 @@ function ProfilerViewEntry:init()
 		})
 	end
 
+
+	self.onMouse2Click = function ()
+		if not FFlagScriptProfilerSetRoot then
+			return
+		end
+
+		self.props.dispatchSetScriptProfilerRoot(self.props.nodeId, getNodeName(self.props, self.props.usingV2FormatFlag))
+	end
 end
 
-function ProfilerViewEntry:renderChildren(childData, usingV2FormatFlag: boolean)
+function ProfilerViewEntryComponent:renderChildren(childData, usingV2FormatFlag: boolean)
 	local children = {}
 	if self.state.expanded then
 		local percentageRatio = self.props.percentageRatio
 		local totalDuration = getDurations(self.props.data, self.props.nodeId, usingV2FormatFlag)
 		local childDepth = self.props.depth + 1
+		local average = self.props.average
+		local searchTerm = self.props.searchTerm
+		local searchFilter = self.props.searchFilter
 
 		if usingV2FormatFlag then
 			local rootData = self.props.data :: ProfilerData.RootDataFormat
 
 			if childData then
 				for functionId, nodeId in pairs(childData) do
+
+					if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[nodeId] then
+						continue
+					end
+
 					local node = rootData.Nodes[nodeId]
 					local func = rootData.Functions[functionId]
 					local childTotalDuration = getDurations(rootData, nodeId, usingV2FormatFlag)
@@ -119,8 +175,11 @@ function ProfilerViewEntry:renderChildren(childData, usingV2FormatFlag: boolean)
 						nodeId = nodeId,
 						functionId = functionId,
 						nodeName = func.Name,
+						average = average,
 						usingV2FormatFlag = usingV2FormatFlag,
-						percentageRatio = percentageRatio
+						percentageRatio = percentageRatio,
+						searchTerm = searchTerm,
+						searchFilter = searchFilter,
 					})
 				end
 			elseif self.props.depth == 0 then
@@ -128,6 +187,11 @@ function ProfilerViewEntry:renderChildren(childData, usingV2FormatFlag: boolean)
 				assert(childData == nil)
 
 				for index, category in rootData.Categories do
+
+					if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[category.NodeId] then
+						continue
+					end
+
 					local node = rootData.Nodes[category.NodeId]
 					local childTotalDuration = getDurations(rootData, category.NodeId, usingV2FormatFlag)
 
@@ -138,8 +202,11 @@ function ProfilerViewEntry:renderChildren(childData, usingV2FormatFlag: boolean)
 						nodeId = category.NodeId,
 						functionId = nil,
 						nodeName = category.Name,
+						average = average,
 						usingV2FormatFlag = usingV2FormatFlag,
-						percentageRatio = percentageRatio
+						percentageRatio = percentageRatio,
+						searchTerm = searchTerm,
+						searchFilter = searchFilter,
 					})
 				end
 			end
@@ -151,6 +218,7 @@ function ProfilerViewEntry:renderChildren(childData, usingV2FormatFlag: boolean)
 					data = data,
 					nodeId = 0,
 					functionId = 0,
+					average = average,
 					usingV2FormatFlag = usingV2FormatFlag,
 					percentageRatio = percentageRatio
 				})
@@ -160,7 +228,7 @@ function ProfilerViewEntry:renderChildren(childData, usingV2FormatFlag: boolean)
 	return children
 end
 
-function ProfilerViewEntry:renderValues(values)
+function ProfilerViewEntryComponent:renderValues(values)
 	local children = {}
 	local childSize = UDim2.new(VALUE_CELL_WIDTH, -VALUE_PADDING, 0, ENTRY_HEIGHT)
 	local childPosition = UDim2.new(1 - VALUE_CELL_WIDTH * #values, VALUE_PADDING, 0, 0)
@@ -175,7 +243,7 @@ function ProfilerViewEntry:renderValues(values)
 	return children
 end
 
-function ProfilerViewEntry:render()
+function ProfilerViewEntryComponent:render()
 
 	local props = self.props
 
@@ -195,9 +263,10 @@ function ProfilerViewEntry:render()
 
 	local totalDuration, selfDuration = getDurations(data, nodeId, usingV2FormatFlag)
 
-	local childData = standardizeChildren(data, node, usingV2FormatFlag)
+	totalDuration /= self.props.average
+	selfDuration /= self.props.average
 
-	local isNative = getNativeFlag(data, func, usingV2FormatFlag)
+	local childData = standardizeChildren(data, node, usingV2FormatFlag)
 
 	local totalDurationText, selfDurationText
 	if percentageRatio then
@@ -216,13 +285,7 @@ function ProfilerViewEntry:render()
 
 	local values = {totalDurationText, selfDurationText}
 
-	local defaultName = if depth == 0 then ROOT_LABEL else ANON_LABEL
-	local name = if usingV2FormatFlag then props.nodeName else data.Name
-	name = if not name or #name == 0 then defaultName else name
-
-	if FFlagScriptProfilerNativeFrames and isNative then
-		name = name .. " <native>"
-	end
+	local name = getNodeName(props, usingV2FormatFlag)
 
 	local sourceName = getSourceName(data, func, usingV2FormatFlag)
 	sourceName = if not sourceName or #sourceName == 0 then name else sourceName
@@ -262,6 +325,7 @@ function ProfilerViewEntry:render()
 			onMouseEnter = self.onMouseEnter,
 			onMouseLeave = self.onMouseLeave,
 			onMouseMove = self.onMouseMove,
+			onMouse2Click = self.onMouse2Click,
 			layoutOrder = -1, -- Ensures it is always displayed first
 		}, {
 			name = Roact.createElement(CellLabel, {
@@ -269,7 +333,7 @@ function ProfilerViewEntry:render()
 				size = UDim2.new(nameWidth, UDim.new(1, 0)),
 				pos = UDim2.new(0, CELL_PADDING + offset, 0, 0),
 			}),
-			values = Roact.createFragment(self:renderValues(values))
+			values = Roact.createFragment(self:renderValues(values)),
 		}),
 		children = Roact.createFragment(self:renderChildren(childData, usingV2FormatFlag))
 	})

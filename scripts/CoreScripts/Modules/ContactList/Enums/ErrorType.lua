@@ -17,6 +17,7 @@ if GetFFlagIrisEnumerateCleanupEnabled() then
 		PlaceIsNotVoiceEnabled = "PlaceIsNotVoiceEnabled" :: "PlaceIsNotVoiceEnabled",
 		UniverseIsNotVoiceEnabled = "UniverseIsNotVoiceEnabled" :: "UniverseIsNotVoiceEnabled",
 		CallerIsNotVoiceEnabled = "CallerIsNotVoiceEnabled" :: "CallerIsNotVoiceEnabled",
+		UniverseAgeIsNotValid = "UniverseAgeIsNotValid" :: "UniverseAgeIsNotValid",
 	}
 
 	return ErrorType
@@ -27,5 +28,6 @@ else
 		PlaceIsNotVoiceEnabled = "PlaceIsNotVoiceEnabled",
 		UniverseIsNotVoiceEnabled = "UniverseIsNotVoiceEnabled",
 		CallerIsNotVoiceEnabled = "CallerIsNotVoiceEnabled",
+		UniverseAgeIsNotValid = "UniverseAgeIsNotValid",
 	})
 end

@@ -10,8 +10,17 @@ local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationE
 
 local BlockingModalContainer = require(script.Parent.BlockingModalContainer)
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
+local AppDarkTheme = nil
+local AppFont = nil
+local renderWithCoreScriptsStyleProvider = nil
+if not GetFFlagEnableStyleProviderCleanUp() then
+	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+else
+	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
+end
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
@@ -33,11 +42,6 @@ BlockingModalScreen.validateProps = t.interface({
 })
 
 function BlockingModalScreen:render()
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
 	local blockingModalContainer = Roact.createElement(BlockingModalContainer, self.props)
 	if GetFFlagWrapBlockModalScreenInProvider() then
 		blockingModalContainer = Roact.createElement(FocusNavigationEffects, {
@@ -47,23 +51,30 @@ function BlockingModalScreen:render()
 			BlockingModalContainerWrapper = blockingModalContainer,
 		})
 	end
-
-
-	return Roact.createElement(UIBlox.Style.Provider, {
-		style = appStyle,
-	}, {
+	local children = {
 		Roact.createElement(Roact.Portal, {
-       		target = CoreGui
-   		}, {
+			target = CoreGui,
+		}, {
 			BlockingModalScreen = Roact.createElement("ScreenGui", {
 				IgnoreGuiInset = true,
 				AutoLocalize = false,
 				DisplayOrder = 6,
 			}, {
-				BlockingModalContainer = blockingModalContainer
-			})
-		})
-	})
+				BlockingModalContainer = blockingModalContainer,
+			}),
+		}),
+	}
+	if not GetFFlagEnableStyleProviderCleanUp() then
+		local appStyle = {
+			Theme = AppDarkTheme,
+			Font = AppFont,
+		}
+		return Roact.createElement(UIBlox.Style.Provider, {
+			style = appStyle,
+		}, children)
+	else
+		return renderWithCoreScriptsStyleProvider(children)
+	end
 end
 
 return BlockingModalScreen

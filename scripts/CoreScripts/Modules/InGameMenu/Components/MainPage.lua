@@ -22,6 +22,8 @@ local withStyle = UIBlox.Core.Style.withStyle
 local ContextualMenu = UIBlox.App.Menu.ContextualMenu
 local MenuDirection = UIBlox.App.Menu.MenuDirection
 local KeyLabel = UIBlox.App.Menu.KeyLabel
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 
 local InGameMenu = script.Parent.Parent
 
@@ -392,9 +394,9 @@ function MainPage:render()
 			recording = "CoreScripts.InGameMenu.Record.Duration",
 			screenCapture = "CoreScripts.InGameMenu.Controls.Screenshot",
 		})(function(localized)
-			local moreButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+			local moreButton = Roact.createElement(Button, {
+				buttonType = ButtonType.Secondary,
 				size = UDim2.fromOffset(BOTTOM_MENU_ICON_SIZE, BOTTOM_MENU_ICON_SIZE),
-
 				onActivated = function()
 					if GetFFlagRemoveMoreMenuFromReducer() then
 						self:setState({
@@ -442,7 +444,7 @@ function MainPage:render()
 					userId = tostring(Players.LocalPlayer.UserId),
 					iconStyle = "MicLight",
 					onClicked = function()
-						VoiceChatServiceManager:ToggleMic()
+						VoiceChatServiceManager:ToggleMic("VRInGameMenuMainPage")
 					end,
 				})
 				leaveGameSizeOffset = leaveGameSizeOffset - (BOTTOM_MENU_ICON_SIZE + 12)
@@ -522,7 +524,8 @@ function MainPage:render()
 						AnchorPoint = Vector2.new(1, 0),
 						LayoutOrder = 1,
 					}, {
-						Button = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+						Button = Roact.createElement(Button, {
+							buttonType = ButtonType.PrimarySystem,
 							size = UDim2.fromScale(1, 1),
 							onActivated = self.props.startLeavingGame,
 							text = localized.leaveGame,

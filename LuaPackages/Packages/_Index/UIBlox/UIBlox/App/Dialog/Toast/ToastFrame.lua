@@ -13,7 +13,6 @@ local ToastText = require(ToastRoot.ToastText)
 
 local Button = require(AppRoot.Button.Button)
 local ButtonType = require(AppRoot.Button.Enum.ButtonType)
-local PrimarySystemButton = require(AppRoot.Button.PrimarySystemButton)
 local enumerateValidator = require(UIBloxRoot.Utility.enumerateValidator)
 
 local StandardButtonSize = require(UIBloxRoot.Core.Button.Enum.StandardButtonSize)
@@ -157,18 +156,15 @@ function ToastFrame:render()
 				),
 			}),
 		}),
-		ToastButton = buttonProps and Roact.createElement(
-			if UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder then Button else PrimarySystemButton,
-			{
-				buttonType = buttonType,
-				fitContent = not isCompact,
-				layoutOrder = 2,
-				maxWidth = if not isCompact then buttonProps.buttonDimensions.X else nil,
-				onActivated = onActivated,
-				standardSize = StandardButtonSize.Small,
-				text = buttonText,
-			}
-		),
+		ToastButton = buttonProps and Roact.createElement(Button, {
+			buttonType = buttonType,
+			fitContent = not isCompact,
+			layoutOrder = 2,
+			maxWidth = if not isCompact then buttonProps.buttonDimensions.X else nil,
+			onActivated = onActivated,
+			standardSize = StandardButtonSize.Small,
+			text = buttonText,
+		}),
 	})
 end
 

@@ -2,8 +2,8 @@ local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
 local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
-local PrimarySystemButton = UIBlox.App.Button.PrimarySystemButton
-local SecondaryButton = UIBlox.App.Button.SecondaryButton
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 
 local AlertViewButton = Roact.PureComponent:extend("AlertViewButton")
 
@@ -16,12 +16,13 @@ AlertViewButton.defaultProps = {
 }
 
 function AlertViewButton:render()
-	local buttonType = PrimarySystemButton
+	local buttonType = ButtonType.PrimarySystem
 	if self.props.secondary then
-		buttonType = SecondaryButton
+		buttonType = ButtonType.Secondary
 	end
 
-	return Roact.createElement(buttonType, {
+	return Roact.createElement(Button, {
+		buttonType = buttonType,
 		size = self.props.Size,
 		layoutOrder = self.props.LayoutOrder,
 		text = self.props.Text,

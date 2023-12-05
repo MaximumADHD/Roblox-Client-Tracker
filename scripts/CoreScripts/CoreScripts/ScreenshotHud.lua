@@ -25,6 +25,7 @@ local httpImpl = httpRequest(HttpRbxApiService)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 local Promise = require(CorePackages.Promise)
 
+local FFlagScreenshotHudGuiVisibilityApi = game:DefineFastFlag("ScreenshotHudGuiVisibilityApiForScreenshotHud", false)
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
 
@@ -384,16 +385,45 @@ doTakeScreenshot = function()
 		CameraButtonConnection = nil
 	end
 
+	local shouldRestoreCoreUI = false
+	local shouldRestorePlayerGui = false
+
 	-- Hide playerGui
-	local disabledPlayerGuis = getEnabledPlayerScreenGuis()
-	for _, gui in ipairs(disabledPlayerGuis) do
-		gui.Enabled = false
+	local disabledPlayerGuis
+	if FFlagScreenshotHudGuiVisibilityApi and game:GetEngineFeature("ScreenshotHudHideGuisApi") then
+		-- any cast can be removed when the ScreenshotHudHideGuisApi
+		-- engine feature is removed
+		if (ScreenshotHud :: any).HidePlayerGuiForCaptures then
+			disabledPlayerGuis = getEnabledPlayerScreenGuis()
+			for _, gui in ipairs(disabledPlayerGuis) do
+				gui.Enabled = false
+			end
+			shouldRestorePlayerGui = true
+		end
+	else
+		disabledPlayerGuis = getEnabledPlayerScreenGuis()
+		for _, gui in ipairs(disabledPlayerGuis) do
+			gui.Enabled = false
+		end
 	end
 
 	-- Hide coreGui
-	local disabledCoreGuiTypes = getEnabledCoreGuiTypes()
-	for _, coreGuiType in ipairs(disabledCoreGuiTypes) do
-		StarterGui:SetCoreGuiEnabled(coreGuiType, false)
+	local disabledCoreGuiTypes
+	if FFlagScreenshotHudGuiVisibilityApi and game:GetEngineFeature("ScreenshotHudHideGuisApi") then
+		-- any cast can be removed when the ScreenshotHudHideGuisApi
+		-- engine feature is removed
+		if (ScreenshotHud :: any).HideCoreGuiForCaptures then
+			disabledCoreGuiTypes = getEnabledCoreGuiTypes()
+			for _, coreGuiType in ipairs(disabledCoreGuiTypes) do
+				StarterGui:SetCoreGuiEnabled(coreGuiType, false)
+			end
+			shouldRestoreCoreUI = true
+		end
+	else
+		disabledCoreGuiTypes = getEnabledCoreGuiTypes()
+		for _, coreGuiType in ipairs(disabledCoreGuiTypes) do
+			StarterGui:SetCoreGuiEnabled(coreGuiType, false)
+		end
 	end
 
 	-- Hide Proximity Prompts
@@ -443,13 +473,29 @@ doTakeScreenshot = function()
 	end
 
 	-- Show playerGui
-	for _, gui in ipairs(disabledPlayerGuis) do
-		gui.Enabled = true
+	if FFlagScreenshotHudGuiVisibilityApi and game:GetEngineFeature("ScreenshotHudHideGuisApi") then
+		if shouldRestorePlayerGui then
+			for _, gui in ipairs(disabledPlayerGuis) do
+				gui.Enabled = true
+			end
+		end
+	else
+		for _, gui in ipairs(disabledPlayerGuis) do
+			gui.Enabled = true
+		end
 	end
 
 	-- Show coreGui
-	for _, coreGuiType in ipairs(disabledCoreGuiTypes) do
-		StarterGui:SetCoreGuiEnabled(coreGuiType, true)
+	if FFlagScreenshotHudGuiVisibilityApi and game:GetEngineFeature("ScreenshotHudHideGuisApi") then
+		if shouldRestoreCoreUI then
+			for _, coreGuiType in ipairs(disabledCoreGuiTypes) do
+				StarterGui:SetCoreGuiEnabled(coreGuiType, true)
+			end
+		end
+	else
+		for _, coreGuiType in ipairs(disabledCoreGuiTypes) do
+			StarterGui:SetCoreGuiEnabled(coreGuiType, true)
+		end
 	end
 
 	if ScreenshotHud.CloseWhenScreenshotTaken then

@@ -24,8 +24,17 @@ end
 
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
+local AppDarkTheme = nil
+local AppFont = nil
+local renderWithCoreScriptsStyleProvider = nil
+if not GetFFlagEnableStyleProviderCleanUp() then
+	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+else
+	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
+end
 
 local bindMenuActions = require(script.SetupFunctions.bindMenuActions)
 local registerSetCores = require(script.SetupFunctions.registerSetCores)
@@ -89,11 +98,13 @@ return {
 				RespawnBehaviourChangedEvent:Fire(newEnabled, newCallback)
 			end
 		end)
-
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
+		local appStyle = nil
+		if not GetFFlagEnableStyleProviderCleanUp() then
+			appStyle = {
+				Theme = AppDarkTheme,
+				Font = AppFont,
+			}
+		end
 
 		local localization = Localization.new(LocalizationService.RobloxLocaleId)
 		menuStore:dispatch(SetLocaleId(LocalizationService.RobloxLocaleId))
@@ -108,7 +119,40 @@ return {
 		end)
 
 		initVoiceChatStore(menuStore)
-
+		local themeProvider
+		if not GetFFlagEnableStyleProviderCleanUp() then
+			themeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = localization,
+				}, {
+					CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+						FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory()
+								and Roact.createElement(FocusHandlerContextProvider, {}, {
+									InGameMenu = Roact.createElement(App),
+								})
+							or nil,
+						InGameMenu = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(App) or nil,
+					}),
+				}),
+			})
+		else
+			themeProvider = renderWithCoreScriptsStyleProvider({
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = localization,
+				}, {
+					CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+						FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory()
+								and Roact.createElement(FocusHandlerContextProvider, {}, {
+									InGameMenu = Roact.createElement(App),
+								})
+							or nil,
+						InGameMenu = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(App) or nil,
+					}),
+				}),
+			})
+		end
 		local menuTree = Roact.createElement("ScreenGui", {
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,
@@ -125,23 +169,7 @@ return {
 				PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
 					policy = { InGameMenuPolicy.Mapper },
 				}, {
-					ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
-						style = appStyle,
-					}, {
-						LocalizationProvider = Roact.createElement(LocalizationProvider, {
-							localization = localization,
-						}, {
-							CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-								FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory()
-										and Roact.createElement(FocusHandlerContextProvider, {}, {
-											InGameMenu = Roact.createElement(App),
-										})
-									or nil,
-								InGameMenu = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(App)
-									or nil,
-							}),
-						}),
-					}),
+					ThemeProvider = themeProvider,
 				}),
 			}),
 		})

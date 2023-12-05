@@ -1,6 +1,6 @@
 
-type FunctionId = number
-type NodeId = number
+export type FunctionId = number
+export type NodeId = number
 
 export type Category = {
     Name: string,

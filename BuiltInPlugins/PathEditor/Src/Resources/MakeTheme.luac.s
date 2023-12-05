@@ -59,11 +59,11 @@ MAIN:
   NAMECALL R13 R12 K23 ["add"]
   CALL R13 2 0
   GETIMPORT R13 K27 [string.format]
-  LOADK R14 K28 ["rbxasset://studio_svg_textures/Lua/PathEditor/%s/Standard/"]
+  LOADK R14 K28 ["rbxasset://studio_svg_textures/Lua/PathEditor/%s/Large/"]
   LOADK R15 K29 ["Light"]
   CALL R13 2 1
   GETIMPORT R14 K27 [string.format]
-  LOADK R15 K28 ["rbxasset://studio_svg_textures/Lua/PathEditor/%s/Standard/"]
+  LOADK R15 K28 ["rbxasset://studio_svg_textures/Lua/PathEditor/%s/Large/"]
   LOADK R16 K30 ["Dark"]
   CALL R14 2 1
   NEWTABLE R15 8 0

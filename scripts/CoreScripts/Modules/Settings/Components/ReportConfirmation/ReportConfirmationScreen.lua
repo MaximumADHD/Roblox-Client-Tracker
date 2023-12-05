@@ -5,8 +5,18 @@ local UIBlox = require(CorePackages.UIBlox)
 
 local ReportConfirmationContainer = require(script.Parent.ReportConfirmationContainer)
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
+local AppDarkTheme = nil
+local AppFont = nil
+local renderWithCoreScriptsStyleProvider = nil
+if not GetFFlagEnableStyleProviderCleanUp() then
+	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+else
+	renderWithCoreScriptsStyleProvider =
+		require(script.Parent.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
+end
 
 local ReportConfirmationScreen = Roact.PureComponent:extend("ReportConfirmationScreen")
 
@@ -20,16 +30,22 @@ ReportConfirmationScreen.validateProps = t.interface({
 })
 
 function ReportConfirmationScreen:render()
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
+	if not GetFFlagEnableStyleProviderCleanUp() then
+		local appStyle = {
+			Theme = AppDarkTheme,
+			Font = AppFont,
+		}
 
-	return Roact.createElement(UIBlox.Style.Provider, {
-		style = appStyle,
+		return Roact.createElement(UIBlox.Style.Provider, {
+			style = appStyle,
 		}, {
-			reportConfirmationContainer = Roact.createElement(ReportConfirmationContainer, self.props)
+			reportConfirmationContainer = Roact.createElement(ReportConfirmationContainer, self.props),
 		})
+	else
+		return renderWithCoreScriptsStyleProvider({
+			reportConfirmationContainer = Roact.createElement(ReportConfirmationContainer, self.props),
+		})
+	end
 end
 
 return ReportConfirmationScreen

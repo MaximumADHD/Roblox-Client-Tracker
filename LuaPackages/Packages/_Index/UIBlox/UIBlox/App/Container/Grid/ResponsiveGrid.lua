@@ -8,6 +8,9 @@ local React = require(Packages.React)
 local ResponsiveRow = require(UIBlox.Core.Layout.Responsive.ResponsiveRow)
 local useResponsiveLayout = require(UIBlox.Core.Layout.Responsive.useResponsiveLayout)
 local useProperties = require(UIBlox.Utility.useProperties)
+local usePropertiesDeferred = require(UIBlox.Utility.usePropertiesDeferred)
+
+type usePropertiesHook = typeof(useProperties)
 
 export type Props = {
 	-- The type of row, determines which column count and spacing values to select from config
@@ -45,6 +48,8 @@ export type Props = {
 	absoluteWindowTop: number,
 	-- Vertical absolute height of the display window
 	absoluteWindowHeight: number,
+	-- use usePropertiesDeferred else useProperties for updateDisplayLines updates
+	enableDeferredRefPropEvents: boolean?,
 }
 
 -- vertical space taken by one cell => cell height + 1 gutter
@@ -86,7 +91,10 @@ local function ResponsiveGrid(props: Props, ref: React.Ref<Frame>)
 		return setDisplayLines(nil)
 	end, { getCellAbsoluteHeight, props.absoluteWindowTop, props.absoluteWindowHeight, setDisplayLines } :: { any })
 
-	local frameRef = useProperties(ref, updateDisplayLines, { "AbsolutePosition", "AbsoluteSize" })
+	local useRefProps: usePropertiesHook = if props.enableDeferredRefPropEvents
+		then usePropertiesDeferred
+		else useProperties
+	local frameRef = useRefProps(ref, updateDisplayLines, { "AbsolutePosition", "AbsoluteSize" })
 
 	return React.createElement(ResponsiveRow, {
 		kind = props.kind,

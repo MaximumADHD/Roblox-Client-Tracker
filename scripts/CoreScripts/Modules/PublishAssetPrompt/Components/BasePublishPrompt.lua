@@ -8,6 +8,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local ExperienceAuthService = game:GetService("ExperienceAuthService")
 local Players = game:GetService("Players")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -21,6 +22,11 @@ local FullPageModal = UIBlox.App.Dialog.Modal.FullPageModal
 local Overlay = UIBlox.App.Dialog.Overlay
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
+
+local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
+local httpImpl = httpRequest(HttpRbxApiService :: any)
+local GetGameNameAndDescription =
+	require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -70,6 +76,7 @@ BasePublishPrompt.validateProps = t.strictInterface({
 })
 
 function BasePublishPrompt:init()
+	self.isMounted = false
 	self:setState({
 		-- if showUnsavedDataWarning is false, show the prompt
 		-- if true, we are showing a warning that says data is lost when prompt is closed
@@ -111,6 +118,17 @@ function BasePublishPrompt:init()
 	end
 end
 
+function BasePublishPrompt:didMount()
+	self.isMounted = true
+	GetGameNameAndDescription(httpImpl :: any, game.GameId):andThen(function(result)
+		if self.isMounted and result.Name then
+			self:setState({
+				gameName = result.Name,
+			})
+		end
+	end)
+end
+
 function BasePublishPrompt:renderMiddle(localized)
 	return withStyle(function(style)
 		local font = style.Font
@@ -118,7 +136,12 @@ function BasePublishPrompt:renderMiddle(localized)
 		local relativeSize: number = font.CaptionHeader.RelativeSize
 		local textSize: number = baseSize * relativeSize
 		local theme = style.Theme
+
 		assert(LocalPlayer, "Assert LocalPlayer not nil to silence type checker")
+		local localPlayerName = LocalPlayer.Name
+		local gameName = self.state.gameName
+		local typeData = self.props.typeData
+
 		return Roact.createFragment({
 			ScrollingFrame = Roact.createElement(RoactGamepad.Focusable.ScrollingFrame, {
 				BackgroundTransparency = 1,
@@ -172,16 +195,19 @@ function BasePublishPrompt:renderMiddle(localized)
 					rowData = {
 						{
 							infoName = localized[CREATOR_TEXT],
-							infoData = LocalPlayer.Name,
+							infoData = localPlayerName,
 							hasVerifiedBadge = LocalPlayer.HasVerifiedBadge,
+							isLoading = localPlayerName == nil,
 						},
 						{
 							infoName = localized[ATTRIBUTION_TEXT],
-							infoData = game.Name,
+							infoData = gameName,
+							isLoading = gameName == nil,
 						},
 						{
 							infoName = localized[TYPE_TEXT],
-							infoData = self.props.typeData,
+							infoData = typeData,
+							isLoading = typeData == nil,
 						},
 					},
 					LayoutOrder = 4,
@@ -309,6 +335,10 @@ end
 function BasePublishPrompt:render()
 	local localized = GetLocalizedStrings()
 	return self:renderAlertLocalized(localized)
+end
+
+function BasePublishPrompt:willUnmount()
+	self.isMounted = false
 end
 
 local function mapStateToProps(state)

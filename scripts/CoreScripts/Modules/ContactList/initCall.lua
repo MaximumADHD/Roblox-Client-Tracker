@@ -90,7 +90,7 @@ return function(callProtocol: CallProtocol.CallProtocolModule)
 			and params.muted ~= nil
 			and params.muted ~= VoiceChatServiceManager.localMuted
 		then
-			VoiceChatServiceManager:ToggleMic()
+			VoiceChatServiceManager:ToggleMic("CallAPI")
 		end
 
 		-- Only toggle cam if face animation is started

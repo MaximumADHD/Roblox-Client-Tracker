@@ -6,9 +6,11 @@ local Promise = require(root.Promise)
 
 return function(options, methodType)
 	local keyPath = options.keyPath
+	local killRequestWithFilteredIds = options.killRequestWithFilteredIds
 
 	local myNetworkStatus = NetworkStatus({
 		keyPath = keyPath,
+		killRequestWithFilteredIds = killRequestWithFilteredIds,
 	})
 
 	return function(moduleScript, constructBuilderFunction)

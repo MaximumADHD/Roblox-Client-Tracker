@@ -5,7 +5,6 @@ local App = Text.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
@@ -15,8 +14,6 @@ local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local withStyle = require(UIBlox.Core.Style.withStyle)
-
-local useNewGenericTextLabelProps = UIBloxConfig.useNewGenericTextLabelProps
 
 local GenericTextLabel = Roact.PureComponent:extend("GenericTextLabel")
 
@@ -72,21 +69,11 @@ function GenericTextLabel:render()
 			textboxSize = UDim2.new(0, textboxBounds.X, 0, textboxBounds.Y)
 		end
 
-		-- can inline once useNewGenericTextLabelProps is removed
-		local size
-		local textSize
-		local automaticSize
-
-		if useNewGenericTextLabelProps then
-			size = if self.props.AutomaticSize == nil or self.props.AutomaticSize == Enum.AutomaticSize.None
-				then textboxSize
-				else nil
-			textSize = self.props.TextSize or fontSizeMax
-			automaticSize = self.props.AutomaticSize or nil
-		else
-			size = textboxSize
-			textSize = fontSizeMax
-		end
+		local size = if self.props.AutomaticSize == nil or self.props.AutomaticSize == Enum.AutomaticSize.None
+			then textboxSize
+			else nil
+		local textSize = self.props.TextSize or fontSizeMax
+		local automaticSize = self.props.AutomaticSize or nil
 
 		local newProps = Cryo.Dictionary.join(self.props, {
 			[Roact.Children] = Cryo.None,

@@ -22,6 +22,7 @@ return function()
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
+	local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 
 	local noop = function() end
 	local stub = function(val)
@@ -452,6 +453,41 @@ return function()
 				expect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
 					expectedToastText
 				)
+			end)
+
+			it("shows or does not show toast when user is voice banned and has acknowledged ban", function()
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager.policyMapper = mockPolicyMapper
+				VoiceChatServiceManager.runService = runServiceStub
+				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
+					universePlaceVoiceEnabledSettings = {
+						isUniverseEnabledForVoice = true,
+						isPlaceEnabledForVoice = false,
+					},
+					voiceSettings = {
+						isVoiceEnabled = false,
+						isBanned = true,
+						bannedUntil = { Seconds = 1 }
+					},
+					isBanned = true,
+					bannedUntil = { Seconds = 1 },
+					informedOfBan = true
+				})
+
+				local mock, mockFn = jest.fn()
+
+				act(function()
+					VoiceChatServiceManager:userAndPlaceCanUseVoice()
+					VoiceChatServiceManager:createPromptInstance(noop)
+					VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
+				end)
+				waitForEvents.act()
+
+				if GetFFlagVoiceBanShowToastOnSubsequentJoins() then
+					expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.VoiceChatSuspendedTemporaryToast)
+				else
+					expect(mock).never.toHaveBeenCalled()
+				end
 			end)
 		end)
 

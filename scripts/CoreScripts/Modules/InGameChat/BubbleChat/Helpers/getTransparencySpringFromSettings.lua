@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Otter = require(CorePackages.Packages.Otter)
 
-local function getTransparencySpringFromSettings(chatSettings)
+local function getTransparencySpringFromSettings(chatSettings): (number) -> Otter.Goal<any>
 	local animationSettings = chatSettings.TransparencyAnimation
 	if not animationSettings.Enabled then
 		return Otter.instant

@@ -21,6 +21,7 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
+local IrisUnibarEnabled = require(ContactList.IrisUnibarEnabled)
 
 local UIBlox = dependencies.UIBlox
 local RoduxCall = dependencies.RoduxCall
@@ -42,8 +43,10 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 export type Props = {
 	callProtocol: CallProtocol.CallProtocolModule | nil,
 	size: Vector2,
+	-- TODO (timothyhsu): Remove once IrisUnibarEnabled is flipped
 	callBarRef: (any) -> () | nil,
 	activeUtc: number,
+	position: any,
 }
 
 local PROFILE_SIZE = 36
@@ -216,12 +219,14 @@ local function CallBar(passedProps: Props)
 
 	return React.createElement("Frame", {
 		Size = UDim2.fromOffset(props.size.X, props.size.Y),
-		Position = UDim2.new(0.5, 0, 0, -(props.size.Y + GuiService:GetGuiInset().Y)),
-		AnchorPoint = Vector2.new(0.5, 0),
+		Position = if IrisUnibarEnabled()
+			then props.position
+			else UDim2.new(0.5, 0, 0, -(props.size.Y + GuiService:GetGuiInset().Y)),
+		AnchorPoint = if IrisUnibarEnabled() then Vector2.new(0, 0) else Vector2.new(0.5, 0),
 		BackgroundColor3 = theme.BackgroundMuted.Color,
 		BackgroundTransparency = theme.BackgroundMuted.Transparency,
 		BorderSizePixel = 0,
-		ref = props.callBarRef,
+		ref = if not IrisUnibarEnabled() then props.callBarRef else nil,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0.5, 0),

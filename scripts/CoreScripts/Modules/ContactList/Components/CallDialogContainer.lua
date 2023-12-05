@@ -32,6 +32,8 @@ local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 
 local GetFFlagSeparateVoiceEnabledErrors =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeparateVoiceEnabledErrors
+local GetFFlagIrisUniverseAgeCheckError =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUniverseAgeCheckError
 
 local CALL_DIALOG_DISPLAY_ORDER = 8
 
@@ -81,6 +83,7 @@ local function CallDialogContainer(passedProps: Props)
 	React.useEffect(function()
 		local callMessageConn = props.callProtocol:listenToHandleCallMessage(function(params)
 			if params.messageType == CallProtocol.Enums.MessageType.CallError.rawValue() then
+				-- Show error dialog
 				if
 					params.errorType
 					== if GetFFlagIrisEnumerateCleanupEnabled()
@@ -179,6 +182,17 @@ local function CallDialogContainer(passedProps: Props)
 							RobloxTranslator:FormatByKey("Feature.Call.Error.Description.Generic")
 						)
 					)
+				end
+
+				-- Print out error message
+				if
+					GetFFlagIrisUniverseAgeCheckError()
+					and params.errorType
+						== if GetFFlagIrisEnumerateCleanupEnabled()
+							then ErrorType.UniverseAgeIsNotValid
+							else (ErrorType.UniverseAgeIsNotValid :: any).rawValue()
+				then
+					warn("Experience must be at least one week old to place a call")
 				end
 			end
 		end)

@@ -10,6 +10,8 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Cryo = InGameMenuDependencies.Cryo
 
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
@@ -155,13 +157,15 @@ function ReportDialog:renderButtons(style, localized, reportChildren)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			VerticalAlignment = Enum.VerticalAlignment.Bottom,
 		}),
-		CancelButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+		CancelButton = Roact.createElement(Button, {
+			buttonType = ButtonType.Secondary,
 			layoutOrder = 1,
 			size = UDim2.fromOffset(144, 36),
 			text = localized.cancel,
 			onActivated = self.props.dispatchCloseReportDialog,
 		}),
-		ConfirmButton = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+		ConfirmButton = Roact.createElement(Button, {
+			buttonType = ButtonType.PrimarySystem,
 			layoutOrder = 2,
 			size = UDim2.fromOffset(144, 36),
 			isDisabled = not (textInBounds and abuseTypeSelected),

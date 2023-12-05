@@ -166,7 +166,7 @@ function PermissionsButtons:init()
 			return
 		end
 
-		VoiceChatServiceManager:ToggleMic()
+		VoiceChatServiceManager:ToggleMic("InGameMenuPermissionsBar")
 
 		Analytics:setLastCtx("inExperienceEscapeMenu")
 

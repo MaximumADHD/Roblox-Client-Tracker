@@ -79,14 +79,14 @@ function ControlsBubble:init()
 					VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 				else
 					Analytics:setLastCtx("bubbleChatToggle")
-					VoiceChatServiceManager:ToggleMic()
+					VoiceChatServiceManager:ToggleMic("LegacyBubbleChatToggle")
 					self:setState({
 						microphoneEnabled = not VoiceChatServiceManager.localMuted,
 					})
 				end
 			else
 				Analytics:setLastCtx("bubbleChatToggle")
-				VoiceChatServiceManager:ToggleMic()
+				VoiceChatServiceManager:ToggleMic("LegacyBubbleChatToggle")
 
 				self:setState({
 					microphoneEnabled = not VoiceChatServiceManager.localMuted,

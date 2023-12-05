@@ -1,5 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local expect = JestGlobals.expect
 local describe = JestGlobals.describe
@@ -20,11 +21,7 @@ local InGameMenu
 local Localization
 local LocalizationProvider
 
-local AppDarkTheme
-local AppFont
-
-local appStyle
-
+local renderWithCoreScriptsStyleProvider
 local SafetyBubbleModeEntry
 
 local function resetModules()
@@ -42,28 +39,18 @@ local function resetModules()
 	InGameMenu = script.Parent.Parent.Parent
 	Localization = require(InGameMenu.Localization.Localization)
 	LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
-
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-
-	appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
+	renderWithCoreScriptsStyleProvider = require(CoreGui.RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 	SafetyBubbleModeEntry = require(script.Parent.SafetyBubbleModeEntry)
 end
 
 local function getMountableTreeAndStore(props)
-	return Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
+	return renderWithCoreScriptsStyleProvider({
+		LocalizationProvider = Roact.createElement(LocalizationProvider, {
+			localization = Localization.new("en-us"),
 		}, {
-			LocalizationProvider = Roact.createElement(LocalizationProvider, {
-				localization = Localization.new("en-us"),
-			}, {
-				SafetyBubbleModeEntry = Roact.createElement(SafetyBubbleModeEntry),
-			}),
-		})
+			SafetyBubbleModeEntry = Roact.createElement(SafetyBubbleModeEntry),
+		}),
+	})
 end
 
 describe("SafetyBubble widget in IGMv2 VR Settings", function()

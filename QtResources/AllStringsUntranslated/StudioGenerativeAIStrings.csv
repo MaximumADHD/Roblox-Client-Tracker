@@ -51,9 +51,9 @@ Studio.App.GenerativeAI.Setting.UseInventory,,Use inventory only,Use inventory o
 Studio.App.GenerativeAI.Setting.DisableAssetScriptsButton,,Disable scripts in assets,Disable scripts in assets
 Studio.App.GenerativeAI.Setting.DisableAssetScripts,,Disable scrips in assets,Disable scrips in assets
 Studio.App.GenerativeAI.Setting.ClearChat,,Clear chat,Clear chat
-Studio.App.GenerativeAI.StopGeneration.DataModelInactive,,"Sorry, I had to stop generation when you switch to Client/Server","Sorry, I had to stop generation when you switch to Client/Server"
-Studio.App.GenerativeAI.StopGeneration.DataModelDestroyed,,"Sorry, I had to stop generation when you exit Playtest","Sorry, I had to stop generation when you exit Playtest"
-Studio.App.GenerativeAI.PlayDataModel.Warning,,Be aware that new changes will get lost when you leave PlayTest <br/> <br/>,Be aware that new changes will get lost when you leave PlayTest <br/> <br/>
+Studio.App.GenerativeAI.StopGeneration.DataModelInactive,,"Sorry, I had to stop generation when you switched between Client and Server","Sorry, I had to stop generation when you switched between Client and Server"
+Studio.App.GenerativeAI.StopGeneration.DataModelDestroyed,,"Sorry, I had to stop generation when you exited Play Mode","Sorry, I had to stop generation when you exited Play Mode"
+Studio.App.GenerativeAI.PlayDataModel.Warning,,Be aware that new changes will get lost when you leave Play Mode <br/> <br/>,Be aware that new changes will get lost when you leave Play Mode <br/> <br/>
 Studio.App.GenerativeAI.ExplainCodeRequest,,Explain this code.,Explain this code.
 Studio.App.GenerativeAI.Try.Connect,,Trying to connect with Assistant,Trying to connect with Assistant
 Studio.App.GenerativeAI.PromptLengthV1,,Looks like your message was too long. Try simplifying your request.,Looks like your message was too long. Try simplifying your request.
@@ -64,4 +64,5 @@ Studio.App.GenerativeAI.TimeoutWarningV3,,"Your request is taking longer than no
 Studio.App.GenerativeAI.TimeoutErrorV1,,"Sorry, I'm experiencing a high volume of requests. Please try again later. <br/>","Sorry, I'm experiencing a high volume of requests. Please try again later. <br/>"
 Studio.App.GenerativeAI.TimeoutErrorV2,,I'm suddenly receiving a lot of requests right now. Please try again later. I'd be happy to help. <br/>,I'm suddenly receiving a lot of requests right now. Please try again later. I'd be happy to help. <br/>
 Studio.App.GenerativeAI.TimeoutErrorV3,,"Sorry, there are a lot of requests right now. Please try again later. <br/>","Sorry, there are a lot of requests right now. Please try again later. <br/>"
+Studio.App.GenerativeAI.NetworkError,,"Network error, please try again later.","Network error, please try again later."
 Studio.App.GenerativeAI.CopiedToClipboard,,Copied to clipboard,Copied to clipboard

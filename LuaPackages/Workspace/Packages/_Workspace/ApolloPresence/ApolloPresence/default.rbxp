@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ApolloPresence",
+    "tree": {
+      "$path": "../../../../../../../modules/social/apollo/apollo-presence/src"
+    }
+  }
+}

@@ -8,9 +8,11 @@ local GuiService = game:GetService("GuiService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
-local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
+local UIBlox = InGameMenuDependencies.UIBlox
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
@@ -171,13 +173,15 @@ function ConfirmationDialog:render()
 							SortOrder = Enum.SortOrder.LayoutOrder,
 							VerticalAlignment = Enum.VerticalAlignment.Center,
 						}),
-						CancelButton = Roact.createElement(UIBlox.App.Button.SecondaryButton, {
+						CancelButton = Roact.createElement(Button, {
+							buttonType = ButtonType.Secondary,
 							layoutOrder = 1,
 							size = UDim2.new(0.5, -5, 1, 0),
 							text = props.cancelText,
 							onActivated = props.onCancel,
 						}),
-						ConfirmButton = Roact.createElement(UIBlox.App.Button.PrimarySystemButton, {
+						ConfirmButton = Roact.createElement(Button, {
+							buttonType = ButtonType.PrimarySystem,
 							layoutOrder = 2,
 							size = UDim2.new(0.5, -5, 1, 0),
 							text = props.confirmText,

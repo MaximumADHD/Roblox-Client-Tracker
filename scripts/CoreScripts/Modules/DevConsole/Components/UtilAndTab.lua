@@ -24,6 +24,8 @@ local CheckBoxContainer = require(Components.CheckBoxContainer)
 local TabRowContainer = require(Components.TabRowContainer)
 local SearchBar =  require(Components.SearchBar)
 
+local FFlagScriptProfilerMoreUtilAndTabSpaceForButtons = game:DefineFastFlag("ScriptProfilerMoreUtilAndTabSpaceForButtons", false)
+
 local UtilAndTab = Roact.Component:extend("UtilAndTab")
 
 function UtilAndTab:init()
@@ -121,9 +123,11 @@ function UtilAndTab:render()
 
 	local height = formFactor == Constants.FormFactor.Small and SMALL_UTIL_HEIGHT or UTIL_HEIGHT
 	local leftOffset = formFactor == Constants.FormFactor.Small and 6 or 7
+	local numButtonRows = (FFlagScriptProfilerMoreUtilAndTabSpaceForButtons and self.props[Roact.Children] and math.ceil(#self.props[Roact.Children] / 5)) or 1
+
 	buttons = Roact.createElement("Frame", {
 		Position = UDim2.new(1, -leftOffset * CS_BUTTON_WIDTH - PADDING, 0, 0),
-		Size = UDim2.new(0, 5*CS_BUTTON_WIDTH, 0, height),
+		Size = UDim2.new(0, 5*CS_BUTTON_WIDTH, 0, height * numButtonRows),
 		BackgroundTransparency = 1.0,
 	}, {
 		Layout = Roact.createElement("UIGridLayout", {
@@ -140,7 +144,7 @@ function UtilAndTab:render()
 
 	if (formFactor == Constants.FormFactor.Small) or
 		useDropDown then
-		local frameHeight = SMALL_UTIL_HEIGHT + SMALL_PADDING
+		local frameHeight = (SMALL_UTIL_HEIGHT * numButtonRows) + SMALL_PADDING
 		if activeSearchTerm then
 			frameHeight = frameHeight + SMALL_UTIL_HEIGHT + SMALL_PADDING
 		end
@@ -229,7 +233,7 @@ function UtilAndTab:render()
 			-- the searchBar is only visible when there is an active searchterm in the textbox
 			SearchBarFrame = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, SMALL_UTIL_HEIGHT),
-				Position = UDim2.new(0, 0, 0, SMALL_UTIL_HEIGHT + SMALL_PADDING),
+				Position = UDim2.new(0, 0, 0, (SMALL_UTIL_HEIGHT + SMALL_PADDING) * numButtonRows),
 				Visible = activeSearchTerm,
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
@@ -272,7 +276,7 @@ function UtilAndTab:render()
 		end
 
 		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, TAB_HEIGHT + UTIL_HEIGHT + PADDING),
+			Size = UDim2.new(1, 0, 0, TAB_HEIGHT + (UTIL_HEIGHT * numButtonRows) + PADDING),
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
 

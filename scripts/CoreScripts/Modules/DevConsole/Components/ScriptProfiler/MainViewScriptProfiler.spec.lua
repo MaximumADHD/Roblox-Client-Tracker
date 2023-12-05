@@ -16,8 +16,20 @@ return function()
 				ScriptProfiler = {
 					isClientView = true,
 					usePercentages = false,
-					client = { isProfiling = false, data = nil, frequency = 1000, },
-					server = { isProfiling = false, data = nil, frequency = 1000, },
+					client = { isProfiling = false, data = nil, frequency = 1000,
+						timedProfilingThread = nil, timedProfilingTimerThread = nil,
+						timedProfilingDuration = 0, timedProfilingCountdown = 0,
+						isFunctionsView = false, average = 1, searchTerm = "",
+						searchFilterGraph = {}, searchFilterFlat = {},
+						rootNode = 0, rootNodeName = nil,
+						liveUpdate = false, liveUpdateThread = nil, },
+					server = { isProfiling = false, data = nil, frequency = 1000,
+						timedProfilingThread = nil, timedProfilingTimerThread = nil,
+						timedProfilingDuration = 0, timedProfilingCountdown = 0,
+						isFunctionsView = false, average = 1, searchTerm = "",
+						searchFilterGraph = {}, searchFilterFlat = {},
+						rootNode = 0, rootNodeName = nil,
+						liveUpdate = false, liveUpdateThread = nil, },
 				},
 			}
 		end)

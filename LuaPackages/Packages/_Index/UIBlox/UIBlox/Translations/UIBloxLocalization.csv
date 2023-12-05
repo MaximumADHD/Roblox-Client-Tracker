@@ -1,0 +1,4 @@
+﻿Key,Context,Example,Source,de,en-us,es,es-es,fr,id,it,ja,ko,pt,pt-br,ru,th-th,zh-cn,zh-tw,zh-cjv
+CommonUI.Controls.Action.Cancel,,,Cancel,Abbrechen,Cancel,Cancelar,Cancelar,Annuler,Batalkan,Annulla,キャンセル,취소,Cancelar,Cancelar,Отмена,ยกเลิก,取消,取消,取消
+CommonUI.Controls.Action.Confirm,,,Confirm,Bestätigen,Confirm,Confirmar,Confirmar,Confirmer,Konfirmasi,Conferma,確認,확인,Confirmar,Confirmar,Подтверждаю,ยืนยัน,确认,確認,确认
+CommonUI.Controls.Input.Optional,,,{inputLabel} (optional),{inputLabel} (optional),{inputLabel} (optional),{inputLabel} (opcional),{inputLabel} (opcional),{inputLabel} (facultatif),{inputLabel} (opsional),{inputLabel} (facoltativo),{inputLabel} （オプション）,{inputLabel}(선택 사항),{inputLabel} (opcional),{inputLabel} (opcional),{inputLabel} (необязательно),{inputLabel} (ไม่จำเป็น),,,

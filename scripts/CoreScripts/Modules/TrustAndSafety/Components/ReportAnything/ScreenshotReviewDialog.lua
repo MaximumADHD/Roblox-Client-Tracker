@@ -14,7 +14,8 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetButton
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
-local SecondaryButton = UIBlox.App.Button.SecondaryButton
+local Button = UIBlox.App.Button.Button
+local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
 
 local TnsModule = script.Parent.Parent.Parent
@@ -79,7 +80,8 @@ local function ScreenshotReviewDialogSmallPortraitModeHeaderRight(props)
 			Size = UDim2.new(0, props.viewportWidth - retakeButtonWidth - 50, 1, 0),
 			BackgroundTransparency = 1,
 		}),
-		RetakeButton = React.createElement(SecondaryButton, {
+		RetakeButton = React.createElement(Button, {
+			buttonType = ButtonType.Secondary,
 			text = RobloxTranslator:FormatByKey("Feature.ReportAbuse.Action.Retake"),
 			fitContent = true,
 			standardSize = StandardButtonSize.XSmall,
@@ -213,7 +215,8 @@ local function ScreenshotReviewDialog(props: Props)
 								local retakeButtonWidth = if props.isSmallPortraitMode then 72 else 120 
 
 								local retakeButtonHeight = if props.isSmallPortraitMode then 28 else 36
-								return React.createElement(SecondaryButton, {
+								return React.createElement(Button, {
+									buttonType = ButtonType.Secondary,
 									size = if GetFFlagReportAnythingLocalizationEnabled()
 										then nil -- let the button autosize based on content
 										else UDim2.new(0, retakeButtonWidth, 0, retakeButtonHeight),

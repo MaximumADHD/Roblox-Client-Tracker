@@ -50,8 +50,6 @@ local function initializeLibrary(configs)
 		}),
 
 		ImageSet = strict({
-			Button = require(script.Core.ImageSet.ImageSetComponent).Button,
-			Label = require(script.Core.ImageSet.ImageSetComponent).Label,
 			ImageSetButton = require(script.Core.ImageSet.ImageSetComponent).Button,
 			ImageSetLabel = require(script.Core.ImageSet.ImageSetComponent).Label,
 			Validator = strict({
@@ -94,6 +92,7 @@ local function initializeLibrary(configs)
 			useInitializedValue = require(script.Utility.useInitializedValue),
 			useForwardRef = require(script.Utility.useForwardRef),
 			useProperties = require(script.Utility.useProperties),
+			usePropertiesDeferred = require(script.Utility.usePropertiesDeferred),
 		}),
 	})
 
@@ -129,10 +128,7 @@ local function initializeLibrary(configs)
 				ButtonType = require(script.App.Button.Enum.ButtonType),
 				StandardButtonSize = require(script.Core.Button.Enum.StandardButtonSize),
 			}),
-			PrimaryContextualButton = require(script.App.Button.PrimaryContextualButton),
-			PrimarySystemButton = require(script.App.Button.PrimarySystemButton),
-			SecondaryButton = require(script.App.Button.SecondaryButton),
-			AlertButton = require(script.App.Button.AlertButton),
+			Button = require(script.App.Button.Button),
 			ButtonStack = require(script.App.Button.ButtonStack),
 			TextButton = require(script.App.Button.TextButton),
 			LinkButton = require(script.App.Button.LinkButton),
@@ -222,7 +218,6 @@ local function initializeLibrary(configs)
 
 		Pill = strict({
 			SmallPill = require(script.App.Pill.SmallPill),
-			LargePill = require(script.App.Pill.LargePill),
 		}),
 
 		Tile = strict({

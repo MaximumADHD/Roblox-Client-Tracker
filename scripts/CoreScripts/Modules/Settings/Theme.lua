@@ -5,7 +5,6 @@ local GuiService = game:GetService("GuiService")
 local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 
 local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local UIBlox = require(CorePackages.UIBlox)
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local getIconSize = UIBlox.App.ImageSet.getIconSize
@@ -18,7 +17,7 @@ local EnableInGameMenuModernizationStickyBar = require(RobloxGui.Modules.Flags.G
 local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
 
-local AppFontBaseSize = AppFont.BaseSize
+local AppFontBaseSize = 16 * 1.2
 
 local ThemeEnabled = EnableInGameMenuControls() or EnableInGameMenuModernization() or ChromeEnabled()
 
@@ -77,6 +76,11 @@ local AppTheme = {
 		Color = Color3.fromRGB(217, 217, 217),
 		Transparency = 0.0,
 	},
+	-- TODO temporary focus state color, awaiting design feedback
+	Player_RowSelection = {
+		Color = Color3.new(.396, 0.4, 0.408),
+		Transparency = 0.9,
+	}
 }
 
 local AppFont = {
@@ -178,6 +182,7 @@ local ComponentThemeKeys = {
 	DarkenBackground = "Overlay",
 
 	PlayerRowFrame = "BackgroundDefault",
+	PlayerRowSelection = "Player_RowSelection",
 	TabSelection = "IGM_TabSelection",
 
 	DefaultButton = "IGM_Button",

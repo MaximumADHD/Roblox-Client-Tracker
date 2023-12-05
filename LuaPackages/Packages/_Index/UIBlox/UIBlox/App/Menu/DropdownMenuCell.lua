@@ -158,6 +158,8 @@ DropdownMenuCell.validateProps = t.interface({
 
 	-- Indicate whether design override is enabled
 	enableTokenOverride = t.optional(t.boolean),
+
+	selectionOrder = t.optional(t.number),
 })
 
 DropdownMenuCell.defaultProps = {
@@ -332,6 +334,7 @@ function DropdownMenuCell:render()
 				BackgroundTransparency = 1,
 				AutoButtonColor = false,
 				SelectionImageObject = selectionCursor,
+				SelectionOrder = self.props.selectionOrder,
 				[Roact.Event.Activated] = self.props.onActivated,
 			}
 			local interactableProps

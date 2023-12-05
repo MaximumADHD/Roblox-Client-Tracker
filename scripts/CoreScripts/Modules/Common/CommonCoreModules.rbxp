@@ -120,6 +120,18 @@
                 ".robloxrc": {
                     "$path": ".robloxrc"
                 }
+            },
+            "renderWithCoreScriptsStyleProvider": {
+                "$path": "renderWithCoreScriptsStyleProvider.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "renderWithCoreScriptsStyleProvider.spec": {
+                "$path": "renderWithCoreScriptsStyleProvider.spec.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
             }
         }
     }
