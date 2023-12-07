@@ -5617,7 +5617,7 @@
 [C++] FFlagRefactorContentProviderFindAsset2
 [C++] FFlagRefactorDragDetectorCursorIconWorkflow
 [C++] FFlagRefactorGuiRTCacheImpl2
-[C++] FFlagRefactorPartData
+[C++] FFlagRefactorPartData2
 [Lua] FFlagRefactorPlayerNameTag2
 [C++] FFlagRefactorPublishAllDescendantsDeduplication
 [Lua] FFlagRefactorReconnectUnblockTeleport

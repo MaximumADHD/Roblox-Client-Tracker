@@ -67,7 +67,6 @@ AAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAACertificateServices.crl0
-AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -13432,8 +13431,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-CORPORATION0
-CORPORATION1
+Corporation0
+Corporation1
 CorrectEarlyReturnInMarkDirty
 Correction
 Correctives
@@ -16472,6 +16471,9 @@ DigestAlgorithm_init_bio
 DigestedData_do_final
 DigiCertAssuredIDRootCA.crl0
 DigiCertAssuredIDRootCA.crt0E
+DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0
+DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0S
+DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
 DigiCertTrustedRootG4.crl0
@@ -25161,6 +25163,7 @@ ItemValueSizeTooLarge
 ItemWasSet
 ItemWidget
 IterationBased
+IterationCountModel
 Iterations
 IteratorFlag
 IteratorRadius
@@ -30216,6 +30219,7 @@ OrFirstTier
 OrFunction
 Organizaci
 Organization
+Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -38300,10 +38304,6 @@ SecondsSinceLastPong
 SecondsSinceLastPong_
 SecondsTo_
 SecretTransformationEnabled
-SectigoPublicCodeSigningCAR36.crl0y
-SectigoPublicCodeSigningCAR36.crt0
-SectigoPublicCodeSigningRootR46.crl0
-SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionHidden
 SectionResizeMode
@@ -54809,7 +54809,7 @@ WILDCARDMATCH
 WilError_03
 WillReturn
 Win32HardwareSleepListener
-Win64.605.21180
+Win64.605.21342
 WinchEnabled
 WinchForce
 WinchResponsiveness
