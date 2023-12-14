@@ -1,0 +1,115 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = script.Parent.Parent.Parent
+local var1 = require(var0.Packages.Framework)
+local var2 = require(var0.Packages.React)
+local var3 = var1.UI
+local var4 = var3.Button
+local var5 = var3.TextLabel
+local var6 = var2.PureComponent:extend("ErrorBox")
+local function fun11(arg1)
+   local var0 = arg1.props
+   local var1 = var0.Stylizer.ErrorBox
+   local var2 = var0.Padding or var1.Padding
+   local var3 = var0.MaxWidth or var1.MaxWidth
+   local var197 = {}
+   var197.AutomaticSize = Enum.AutomaticSize.XY
+   var197.BackgroundTransparency = 1
+   var197.LayoutOrder = var0.LayoutOrder
+   local var201 = {}
+   local var205 = {}
+   var205.PaddingTop = UDim.new(0, var2)
+   var205.PaddingLeft = UDim.new(0, var2)
+   var205.PaddingRight = UDim.new(0, (var2) + var1.RightPadding)
+   var205.PaddingBottom = UDim.new(0, var2)
+   var201.UIPadding = var2.createElement("UIPadding", var205)
+   local var227 = {}
+   var227.MaxSize = Vector2.new(var3, ∞)
+   var201.UISizeConstraint = var2.createElement("UISizeConstraint", var227)
+   local var236 = {}
+   var236.Color = var1.PrimaryColor
+   var236.Thickness = 1
+   var236.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+   var201.UIStroke = var2.createElement("UIStroke", var236)
+   local var244 = {}
+   var244.CornerRadius = UDim.new(0, var1.CornerRadius)
+   var201.UICorner = var2.createElement("UICorner", var244)
+   local var253 = {}
+   var253.AnchorPoint = Vector2.new(1, 0.5)
+   var253.Position = var1.CloseButtonPosition
+   var253.Size = var1.CloseButtonSize
+   var253.Style = "ErrorClose"
+   var253.OnClick = arg1.props.Close
+   var253.ZIndex = 1000
+   var201.CloseButton = var2.createElement(var4, var253)
+   local var268 = {}
+   var268.AutomaticSize = Enum.AutomaticSize.XY
+   var268.TextXAlignment = Enum.TextXAlignment.Left
+   var268.TextSize = 20
+   var268.TextWrapped = true
+   var268.TextColor = var1.PrimaryColor
+   var268.Text = var0.Text
+   var268.LayoutOrder = 1
+   local var276 = {}
+   local var280 = {}
+   var280.MaxSize = Vector2.new((var3) - 2 * (var2), ∞)
+   var276.UISizeConstraint = var2.createElement("UISizeConstraint", var280)
+   var201.MainWarningLabel = var2.createElement(var5, var268, var276)
+   return var2.createElement("Frame", var197, var201)
+end
+
+function var6.render(arg1)
+   local var0 = arg1.props
+   local var1 = var0.Stylizer.ErrorBox
+   local var2 = var0.Padding or var1.Padding
+   local var3 = var0.MaxWidth or var1.MaxWidth
+   local var197 = {}
+   var197.AutomaticSize = Enum.AutomaticSize.XY
+   var197.BackgroundTransparency = 1
+   var197.LayoutOrder = var0.LayoutOrder
+   local var201 = {}
+   local var205 = {}
+   var205.PaddingTop = UDim.new(0, var2)
+   var205.PaddingLeft = UDim.new(0, var2)
+   var205.PaddingRight = UDim.new(0, (var2) + var1.RightPadding)
+   var205.PaddingBottom = UDim.new(0, var2)
+   var201.UIPadding = var2.createElement("UIPadding", var205)
+   local var227 = {}
+   var227.MaxSize = Vector2.new(var3, ∞)
+   var201.UISizeConstraint = var2.createElement("UISizeConstraint", var227)
+   local var236 = {}
+   var236.Color = var1.PrimaryColor
+   var236.Thickness = 1
+   var236.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+   var201.UIStroke = var2.createElement("UIStroke", var236)
+   local var244 = {}
+   var244.CornerRadius = UDim.new(0, var1.CornerRadius)
+   var201.UICorner = var2.createElement("UICorner", var244)
+   local var253 = {}
+   var253.AnchorPoint = Vector2.new(1, 0.5)
+   var253.Position = var1.CloseButtonPosition
+   var253.Size = var1.CloseButtonSize
+   var253.Style = "ErrorClose"
+   var253.OnClick = arg1.props.Close
+   var253.ZIndex = 1000
+   var201.CloseButton = var2.createElement(var4, var253)
+   local var268 = {}
+   var268.AutomaticSize = Enum.AutomaticSize.XY
+   var268.TextXAlignment = Enum.TextXAlignment.Left
+   var268.TextSize = 20
+   var268.TextWrapped = true
+   var268.TextColor = var1.PrimaryColor
+   var268.Text = var0.Text
+   var268.LayoutOrder = 1
+   local var276 = {}
+   local var280 = {}
+   var280.MaxSize = Vector2.new((var3) - 2 * (var2), ∞)
+   var276.UISizeConstraint = var2.createElement("UISizeConstraint", var280)
+   var201.MainWarningLabel = var2.createElement(var5, var268, var276)
+   return var2.createElement("Frame", var197, var201)
+end
+
+fun11 = var1.ContextServices.withContext
+local var290 = {}
+var290.Stylizer = var1.Style.Stylizer
+var6 = fun11(var290)(var6)
+return var6

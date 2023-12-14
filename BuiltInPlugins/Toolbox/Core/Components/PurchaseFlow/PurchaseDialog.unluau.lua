@@ -1,0 +1,169 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = script.Parent.Parent.Parent.Parent
+local var1 = var0.Packages
+local var2 = require(var1.Roact)
+local var3 = require(var1.Framework)
+local var4 = var3.ContextServices
+local var5 = var3.UI.StyledDialog
+local var6 = var3.Util.GetTextSize
+local var7 = require(var0.Core.Util.Images)
+local var8 = require(var0.Core.Util.Constants)
+local var9 = var8.Dialog
+local var10 = require(var0.Core.Util.ContextHelper).withLocalization
+local var11 = var2.PureComponent:extend("PurchaseDialog")
+function var11.render(arg1)
+   return var10(function(arg1, arg2)
+      return arg1:renderContent(nil, arg2)
+   end)
+end
+
+local function fun2(arg1, arg2, arg3)
+   local var0 = arg1.props
+   local var1 = arg1.props.Stylizer
+   local var90 = var9
+   local var98 = {}
+   var98.Title = var0.Title
+   var90 = var9.IMAGE_SIZE.X.Offset + var9.PROMPT_SIZE.X.Offset
+   var98.MinContentSize = Vector2.new(var90, var9.PROMPT_SIZE.Y.Offset + var90.BALANCE_SIZE.Y.Offset)
+   var98.Buttons = var0.Buttons
+   var98.OnButtonPressed = var0.OnButtonClicked
+   var98.OnClose = var0.OnClose
+   local var102 = {}
+   local var106 = {}
+   var106.Size = var9.IMAGE_SIZE
+   var106.BackgroundTransparency = 1
+   var106.Image = var0.Thumbnail
+   var102.Thumbnail = var2.createElement("ImageLabel", var106)
+   local var114 = {}
+   var114.Size = var9.PROMPT_SIZE
+   var114.Position = UDim2.fromScale(1, 0)
+   var114.AnchorPoint = Vector2.new(1, 0)
+   var114.BackgroundTransparency = 1
+   var114.Text = var0.Prompt
+   var114.TextSize = var8.FONT_SIZE_LARGE
+   var114.Font = var8.FONT
+   var114.TextXAlignment = Enum.TextXAlignment.Left
+   var114.TextYAlignment = Enum.TextYAlignment.Top
+   var114.TextColor3 = var1.purchaseDialog.promptText
+   var114.TextWrapped = true
+   var102.Prompt = var2.createElement("TextLabel", var114)
+   local var139 = {}
+   var139.Size = var9.BALANCE_SIZE
+   var139.Position = var9.BALANCE_POSITION
+   var139.AnchorPoint = Vector2.new(1, 0)
+   var139.BackgroundTransparency = 1
+   local var149 = {}
+   local var153 = {}
+   var153.SortOrder = Enum.SortOrder.LayoutOrder
+   var153.FillDirection = Enum.FillDirection.Horizontal
+   var153.VerticalAlignment = Enum.VerticalAlignment.Center
+   var153.Padding = var9.BALANCE_PADDING
+   var149.Layout = var2.createElement("UIListLayout", var153)
+   local var163 = {}
+   var163.LayoutOrder = 1
+   var163.Size = UDim2.new(0, var6(var0.Localization:getText("Purchase", "RobuxBalance"), var8.FONT_SIZE_MEDIUM, nil, Vector2.new(0, 0)).X, 1, 0)
+   var163.BackgroundTransparency = 1
+   var163.Text = var0.Localization:getText("Purchase", "RobuxBalance")
+   var163.TextSize = var8.FONT_SIZE_MEDIUM
+   var163.Font = var8.FONT
+   var163.TextColor3 = var1.purchaseDialog.balanceText
+   var149.Text = var2.createElement("TextLabel", var163)
+   local var187 = {}
+   var187.LayoutOrder = 2
+   var187.Size = var9.ROBUX_SIZE
+   var187.BackgroundTransparency = 1
+   var187.Image = var7.ROBUX_SMALL
+   var187.ImageColor3 = var1.purchaseDialog.balanceText
+   var149.Icon = var2.createElement("ImageLabel", var187)
+   local var200 = {}
+   var200.LayoutOrder = 3
+   var200.Size = UDim2.new(1, 0, 1, 0)
+   var200.BackgroundTransparency = 1
+   var200.Text = var0.Balance
+   var200.TextSize = var8.FONT_SIZE_MEDIUM
+   var200.Font = var8.FONT
+   var200.TextXAlignment = Enum.TextXAlignment.Left
+   var200.TextColor3 = var1.purchaseDialog.balanceText
+   var149.Robux = var2.createElement("TextLabel", var200)
+   var102.Balance = var2.createElement("Frame", var139, var149)
+   return var2.createElement(var5, var98, var102)
+end
+
+function var11.renderContent(arg1, arg2, arg3)
+   local var0 = arg1.props
+   local var1 = arg1.props.Stylizer
+   local var90 = var9
+   local var98 = {}
+   var98.Title = var0.Title
+   var90 = var9.IMAGE_SIZE.X.Offset + var9.PROMPT_SIZE.X.Offset
+   var98.MinContentSize = Vector2.new(var90, var9.PROMPT_SIZE.Y.Offset + var90.BALANCE_SIZE.Y.Offset)
+   var98.Buttons = var0.Buttons
+   var98.OnButtonPressed = var0.OnButtonClicked
+   var98.OnClose = var0.OnClose
+   local var102 = {}
+   local var106 = {}
+   var106.Size = var9.IMAGE_SIZE
+   var106.BackgroundTransparency = 1
+   var106.Image = var0.Thumbnail
+   var102.Thumbnail = var2.createElement("ImageLabel", var106)
+   local var114 = {}
+   var114.Size = var9.PROMPT_SIZE
+   var114.Position = UDim2.fromScale(1, 0)
+   var114.AnchorPoint = Vector2.new(1, 0)
+   var114.BackgroundTransparency = 1
+   var114.Text = var0.Prompt
+   var114.TextSize = var8.FONT_SIZE_LARGE
+   var114.Font = var8.FONT
+   var114.TextXAlignment = Enum.TextXAlignment.Left
+   var114.TextYAlignment = Enum.TextYAlignment.Top
+   var114.TextColor3 = var1.purchaseDialog.promptText
+   var114.TextWrapped = true
+   var102.Prompt = var2.createElement("TextLabel", var114)
+   local var139 = {}
+   var139.Size = var9.BALANCE_SIZE
+   var139.Position = var9.BALANCE_POSITION
+   var139.AnchorPoint = Vector2.new(1, 0)
+   var139.BackgroundTransparency = 1
+   local var149 = {}
+   local var153 = {}
+   var153.SortOrder = Enum.SortOrder.LayoutOrder
+   var153.FillDirection = Enum.FillDirection.Horizontal
+   var153.VerticalAlignment = Enum.VerticalAlignment.Center
+   var153.Padding = var9.BALANCE_PADDING
+   var149.Layout = var2.createElement("UIListLayout", var153)
+   local var163 = {}
+   var163.LayoutOrder = 1
+   var163.Size = UDim2.new(0, var6(var0.Localization:getText("Purchase", "RobuxBalance"), var8.FONT_SIZE_MEDIUM, nil, Vector2.new(0, 0)).X, 1, 0)
+   var163.BackgroundTransparency = 1
+   var163.Text = var0.Localization:getText("Purchase", "RobuxBalance")
+   var163.TextSize = var8.FONT_SIZE_MEDIUM
+   var163.Font = var8.FONT
+   var163.TextColor3 = var1.purchaseDialog.balanceText
+   var149.Text = var2.createElement("TextLabel", var163)
+   local var187 = {}
+   var187.LayoutOrder = 2
+   var187.Size = var9.ROBUX_SIZE
+   var187.BackgroundTransparency = 1
+   var187.Image = var7.ROBUX_SMALL
+   var187.ImageColor3 = var1.purchaseDialog.balanceText
+   var149.Icon = var2.createElement("ImageLabel", var187)
+   local var200 = {}
+   var200.LayoutOrder = 3
+   var200.Size = UDim2.new(1, 0, 1, 0)
+   var200.BackgroundTransparency = 1
+   var200.Text = var0.Balance
+   var200.TextSize = var8.FONT_SIZE_MEDIUM
+   var200.Font = var8.FONT
+   var200.TextXAlignment = Enum.TextXAlignment.Left
+   var200.TextColor3 = var1.purchaseDialog.balanceText
+   var149.Robux = var2.createElement("TextLabel", var200)
+   var102.Balance = var2.createElement("Frame", var139, var149)
+   return var2.createElement(var5, var98, var102)
+end
+
+fun2 = var4.withContext
+local var219 = {}
+var219.Localization = var4.Localization
+var219.Stylizer = var4.Stylizer
+var11 = fun2(var219)(var11)
+return var11

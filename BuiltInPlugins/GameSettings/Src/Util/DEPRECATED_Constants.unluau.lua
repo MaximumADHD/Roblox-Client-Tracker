@@ -1,0 +1,37 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+THUMBNAIL_WIDTH = 267
+THUMBNAIL_HEIGHT = 150
+local var0 = {}
+var0.MENU_BAR_WIDTH = 192
+var0.MENU_ENTRY_HEIGHT = 42
+var0.FRAME_PADDING = 36
+var0.CENTER_GUTTER = 180
+var0.ELEMENT_PADDING = 32
+var0.RADIO_BUTTON_SIZE = 20
+var0.RADIO_BUTTON_PADDING = 10
+var0.CHECKBOX_SIZE = 20
+var0.CHECKBOX_PADDING = 8
+var0.BUTTON_WIDTH = 125
+var0.BUTTON_HEIGHT = 35
+var0.HEADER_HEIGHT = 45
+var0.BLUE = Color3.fromRGB(0, 162, 255)
+var0.BLUE_DISABLED = Color3.fromRGB(153, 218, 255)
+var0.BLACK = Color3.new(0, 0, 0)
+var0.WHITE = Color3.new(1, 1, 1)
+var0.ROUNDED_BACKGROUND_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBackground.png"
+var0.ROUNDED_BORDER_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBorder.png"
+var0.ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
+var0.ROUND_TEXT_BOX_DEFAULT_HEIGHT = 42
+var0.GRADIENT_IMAGE = "rbxasset://textures/gradient.png"
+var0.GRADIENT_RECT_SIZE = Vector2.new(512, 256)
+var0.ERROR_IMAGE = "rbxasset://textures/GameSettings/ErrorIcon.png"
+var0.ERROR_COLOR = Color3.new(1, 0.266, 0.266)
+var0.WARNING_IMAGE = "rbxasset://textures/GameSettings/Warning.png"
+var0.MAX_THUMBNAILS = 10
+var0.VIDEO_PLACEHOLDER = "rbxasset://textures/GameSettings/placeholder.png"
+var0.THUMBNAIL_PREVIEW_SIZE = UDim2.new(0, THUMBNAIL_WIDTH * 2, 0, THUMBNAIL_HEIGHT * 2)
+var0.THUMBNAIL_SIZE = UDim2.new(0, THUMBNAIL_WIDTH, 0, THUMBNAIL_HEIGHT)
+var0.BAD_REQUEST = 400
+var0.IMAGE_TYPES = { "jpg", "jpeg", "png" }
+var0.TEXT_SIZE = 22
+return var0

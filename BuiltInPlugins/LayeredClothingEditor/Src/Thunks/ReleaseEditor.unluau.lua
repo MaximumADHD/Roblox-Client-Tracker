@@ -1,0 +1,31 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = script.Parent.Parent.Parent
+local var1 = require(var0.Packages.Cryo)
+local var2 = require(var0.Packages.AvatarToolsShared).Util.AccessoryAndBodyToolShared.PreviewConstants
+local var3 = require(var0.Src.Actions.SetAccessoryTypeInfo)
+local var4 = require(var0.Src.Actions.SetAttachmentPoint)
+local var5 = require(var0.Src.Actions.SelectPreviewTab)
+local var6 = require(var0.Src.Actions.SetToolMode)
+local var7 = require(var0.Src.Actions.SetEditingCage)
+local var8 = require(var0.Src.Util.Constants)
+local var9 = game:GetService("Selection")
+local var10 = game:GetService("ChangeHistoryService")
+return function()
+   return function(arg1)
+      local var95 = var3(var1.None)
+      arg1:dispatch()
+      local var98 = {}
+      var98.ItemCFrame = CFrame.new()
+      var98.AttachmentCFrame = CFrame.new()
+      local var103 = var4(var98)
+      arg1:dispatch()
+      var9:Set({})
+      local var111 = var7(var1.None)
+      arg1:dispatch()
+      local var117 = var5(var2.TABS_KEYS.None)
+      arg1:dispatch()
+      local var123 = var6(var8.TOOL_MODE.None)
+      arg1:dispatch()
+      var10:SetEnabled(true)
+   end
+end

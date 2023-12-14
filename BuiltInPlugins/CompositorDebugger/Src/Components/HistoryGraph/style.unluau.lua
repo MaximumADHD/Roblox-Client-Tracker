@@ -1,0 +1,34 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = require(script:FindFirstAncestor("CompositorDebugger").Packages.Framework).Style.StyleKey
+local var1 = {}
+var1.FieldNameHeight = 32
+var1.LegendHeight = 32
+var1.BorderColor = var0.MainText
+var1.BorderWidth = 1
+var1.BackgroundColor = var0.SubBackground2
+local var16 = {}
+local var18 = var0.DialogMainButton
+var16.number = {}
+local var24 = Color3.new(0.75, 0, 0)
+local var29 = Color3.new(0, 0.75, 0)
+var16.Vector2 = {}
+local var35 = Color3.new(0.75, 0, 0)
+local var40 = Color3.new(0, 0.75, 0)
+local var45 = Color3.new(0, 0, 0.75)
+var16.Vector3 = {}
+var1.GraphColors = var16
+local var46 = {}
+var46.MaxTicks = 10
+local var10 = 0.05
+local var11 = 0.1
+local var12 = 0.25
+local var13 = 0.5
+local var14 = 1
+var46.Intervals = {}
+var46.AxisColor = var0.MainText
+var46.GridColor = var0.MainTextDisabled
+var46.Margin = 0.05
+var1.Grid = var46
+var1.Padding = 15
+var1.ScaleWidth = 50
+return var1

@@ -1,0 +1,159 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = script.Parent.Parent.Parent.Parent
+local var1 = game:GetService("PermissionsService")
+local var2 = require(var0.Packages.Roact)
+local var3 = require(var0.Packages.Framework).ContextServices
+local var4 = require(var0.Src.Thunks.SetPluginPermission)
+local var5 = require(var0.Src.Components.FluidFitTextLabel)
+local var6 = require(var0.Packages.FitFrame).FitFrameVertical
+local var7 = require(var0.Src.Util.Constants)
+local var8 = var2.Component:extend("ScriptInjectionHolder")
+local var9 = require(var0.Packages.Framework).UI.ToggleButton
+local var50 = {}
+var50.scriptInjectionPermissions = {}
+var8.defaultProps = var50
+function var8.init(arg1)
+   arg1.frameRef = var2.createRef()
+   local var56 = {}
+   var56.frameWidth = 0
+   arg1.state = var56
+   function arg1.onCheckboxActivated(arg1)
+      local var67 = arg1
+      local var68 = var67.props
+      var68 = arg1.props.API:get()
+      var67 = arg1.props.assetId
+      return var68.setPluginPermission(var68, var67, arg1)
+   end
+   
+   function arg1.resizeFrame()
+      local var0 = arg1.frameRef.current
+      if not var0 then
+      end
+      if arg1.state.frameWidth ~= var0.AbsoluteSize.X then
+         local var81 = {}
+         var81.frameWidth = var0.AbsoluteSize.X
+         arg1:setState(var81)
+      end
+   end
+   
+end
+
+function var8.didMount(arg1)
+   arg1.resizeFrame()
+end
+
+function var8.renderCheckbox(arg1, arg2, arg3, arg4)
+   local var95 = {}
+   var95.BackgroundTransparency = 1
+   var95.Size = UDim2.new(1, 0, 0, 16)
+   var95.LayoutOrder = arg3
+   local var103 = {}
+   local var107 = {}
+   var107.FillDirection = Enum.FillDirection.Horizontal
+   var107.Padding = UDim.new(0, 8)
+   var103.Layout = var2.createElement("UIListLayout", var107)
+   local var117 = {}
+   var117.Disabled = false
+   var117.LayoutOrder = 1
+   function var117.OnClick(arg1)
+      local var129 = arg1
+      local var130 = var129.props
+      var130 = arg1.props.API:get()
+      var129 = arg1.props.assetId
+      return var130.setPluginPermission(var130, var129, arg1)
+   end
+   
+   var117.Selected = arg4.allowed
+   var117.Size = UDim2.new(0, var7.TOGGLE_BUTTON_WIDTH, 0, var7.TOGGLE_BUTTON_HEIGHT)
+   var103.ToggleButton = var2.createElement(var9, var117)
+   return var2.createElement("Frame", var95, var103)
+end
+
+local function fun6(arg1)
+   local var0 = arg1.props.Stylizer
+   local var1 = {}
+   local var156 = pairs(arg1.props.scriptInjectionPermissions)
+   local var157 = var1
+   local var162 = arg1:renderCheckbox(var0, var159, var160)
+   table.insert()
+   local var167 = {}
+   var167.BackgroundTransparency = 1
+   var167.contentPadding = UDim.new(0, 20)
+   var167.LayoutOrder = arg1.props.LayoutOrder
+   var167.width = UDim.new(1, 0)
+   var2.Ref = arg1.frameRef
+   var2.Change.AbsoluteSize = arg1.resizeFrame
+   local var184 = {}
+   local var188 = {}
+   var188.BackgroundTransparency = 1
+   var188.contentPadding = UDim.new(0, 8)
+   var188.LayoutOrder = 0
+   local var198 = UDim.new(1, 0)
+   var188.width = var198
+   var198 = var1
+   var184.Checkboxes = var2.createElement(var6, var188, var198)
+   local var203 = {}
+   var203.BackgroundTransparency = 1
+   var203.Font = var0.Font
+   var203.LayoutOrder = 1
+   var203.TextSize = 16
+   var203.Text = arg1.props.Localization:getText("Details", "ScriptInjectionInfo")
+   var203.TextXAlignment = Enum.TextXAlignment.Left
+   var203.TextColor3 = var0.InfoTextColor
+   var184.InfoText = var2.createElement(var5, var203)
+   return var2.createElement(var6, var167, var184)
+end
+
+function var8.render(arg1)
+   local var0 = arg1.props.Stylizer
+   local var1 = {}
+   local var156 = pairs(arg1.props.scriptInjectionPermissions)
+   local var157 = var1
+   local var162 = arg1:renderCheckbox(var0, var159, var160)
+   table.insert()
+   local var167 = {}
+   var167.BackgroundTransparency = 1
+   var167.contentPadding = UDim.new(0, 20)
+   var167.LayoutOrder = arg1.props.LayoutOrder
+   var167.width = UDim.new(1, 0)
+   var2.Ref = arg1.frameRef
+   var2.Change.AbsoluteSize = arg1.resizeFrame
+   local var184 = {}
+   local var188 = {}
+   var188.BackgroundTransparency = 1
+   var188.contentPadding = UDim.new(0, 8)
+   var188.LayoutOrder = 0
+   local var198 = UDim.new(1, 0)
+   var188.width = var198
+   var198 = var1
+   var184.Checkboxes = var2.createElement(var6, var188, var198)
+   local var203 = {}
+   var203.BackgroundTransparency = 1
+   var203.Font = var0.Font
+   var203.LayoutOrder = 1
+   var203.TextSize = 16
+   var203.Text = arg1.props.Localization:getText("Details", "ScriptInjectionInfo")
+   var203.TextXAlignment = Enum.TextXAlignment.Left
+   var203.TextColor3 = var0.InfoTextColor
+   var184.InfoText = var2.createElement(var5, var203)
+   return var2.createElement(var6, var167, var184)
+end
+
+fun6 = var3.withContext
+local var216 = {}
+var216.API = require(var0.Src.ContextServices.PluginAPI2)
+var216.Localization = var3.Localization
+var216.Stylizer = var3.Stylizer
+var8 = fun6(var216)(var8)
+return require(var0.Packages.RoactRodux).connect(nil, function(arg1)
+   local var0 = {}
+   function var0.setPluginPermission(arg1)
+      local var233 = arg1
+      local var234 = var233.props
+      var234 = arg1.props.API:get()
+      var233 = arg1.props.assetId
+      return var234.setPluginPermission(var234, var233, arg1)
+   end
+   
+   return var0
+end)(var8)

@@ -1,0 +1,35 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = {}
+local var164 = {}
+var164.R6 = "MorphToR6"
+var164.R15 = "MorphToR15"
+var0.AvatarType = var164
+local var2 = {}
+var2.Hat = 8
+var2.Hair = 41
+var2.FaceAccessory = 42
+var2.Neck = 43
+var2.Shoulder = 44
+var2.Front = 45
+var2.Back = 46
+var2.Waist = 47
+var2.ShirtGraphic = 2
+var2.Shirt = 11
+var2.Pants = 12
+var2.Gear = 19
+var2.Head = 17
+var2.Face = 18
+var2.Torso = 27
+var2.RightArm = 28
+var2.LeftArm = 29
+var2.LeftLeg = 30
+var2.RightLeg = 31
+var2.ClimbAnim = 48
+var2.FallAnim = 50
+var2.IdleAnim = 51
+var2.JumpAnim = 52
+var2.RunAnim = 53
+var2.SwimAnim = 54
+var2.WalkAnim = 55
+var0.AssetTypes = var2
+return var0

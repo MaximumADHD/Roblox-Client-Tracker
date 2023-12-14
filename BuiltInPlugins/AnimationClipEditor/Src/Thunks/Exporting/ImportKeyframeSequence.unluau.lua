@@ -1,0 +1,17 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = game:GetService("AnimationClipProvider")
+local var1 = script:FindFirstAncestor("AnimationClipEditor")
+local var2 = require(var1.Src.Util.Constants)
+local var3 = require(var1.Src.Util.RigUtils)
+local var4 = require(var1.Src.Util.RigSerialization)
+local var5 = require(var1.Src.Thunks.LoadAnimationData)
+local var6 = require(var1.Src.Actions.SetIsDirty)
+local var7 = require(var1.Src.Actions.SetIsLegacyAnimSaves)
+local var8 = require(var1.Src.Actions.SetFrameRate)
+local var9 = require(var1.Src.Actions.SetNotification)
+local var10 = require(var1.LuaFlags.GetFFlagAnimSavesMigration)
+return function(arg1, arg2)
+   return function()
+      return arg1:get():PromptForExistingAssetId("Animation")
+   end
+end
