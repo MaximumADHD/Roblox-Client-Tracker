@@ -43,6 +43,13 @@ function ProfilerView:renderChildren()
     local children = {}
     local searchFilter = self.props.searchFilter
 
+    local average = 1
+
+    if FFlagScriptProfilerSessionLength and self.props.average > 0 then
+        local lengthSecs = self.props.sessionLength / 1000
+        average = lengthSecs / self.props.average
+    end
+
     for index, func in ipairs(root.Functions) do
 
         if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[index] then
@@ -54,6 +61,7 @@ function ProfilerView:renderChildren()
             data = data,
             functionId = index,
             nodeName = func.Name,
+            average = average,
             percentageRatio = if self.props.showAsPercentages then
                 totalDuration / 100 else nil
         })
@@ -68,7 +76,7 @@ function ProfilerView:render()
     local size = self.props.size
     local label = nil
 
-    if self.props.profiling then
+    if self.props.profiling and not self.props.data then
         label = Roact.createElement("TextLabel", {
             Size = UDim2.new(1, 0, 1, 0),
             Position = UDim2.new(0, 0, 0, 0),
@@ -162,7 +170,8 @@ function ProfilerView:render()
             AutomaticCanvasSize = Enum.AutomaticSize.Y,
         }, {
             Layout = Roact.createElement("UIListLayout", {
-                FillDirection = Enum.FillDirection.Vertical
+                FillDirection = Enum.FillDirection.Vertical,
+                SortOrder = Enum.SortOrder.LayoutOrder,
             }),
             Children = if label then label else Roact.createFragment(self:renderChildren())
         }),

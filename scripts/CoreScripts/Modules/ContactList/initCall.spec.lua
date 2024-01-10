@@ -12,6 +12,8 @@ local initCall = require(script.Parent.initCall)
 local dependencies = require(script.Parent.dependencies)
 local RoduxCall = dependencies.RoduxCall
 
+local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
+
 return function()
 	local function createMockCallProtocol(state: string, instanceId: string)
 		local MockCallProtocol = {}
@@ -78,7 +80,12 @@ return function()
 
 				-- Get call state returns we are "Accepting". Blank instance id will
 				-- match game.JobId.
-				local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Accepting.rawValue(), "") :: any
+				local MockCallProtocol = createMockCallProtocol(
+					if FFlagUseRoduxCall18
+						then RoduxCall.Enums.Status.Accepting
+						else RoduxCall.Enums.Status.Accepting.rawValue(),
+					""
+				) :: any
 
 				function MockCallProtocol:answerSuccessCall(callId: string)
 					received = callId == "CALL_ID"
@@ -93,8 +100,12 @@ return function()
 			local received = false
 
 			-- Get call state returns we are "Accepting"
-			local MockCallProtocol =
-				createMockCallProtocol(RoduxCall.Enums.Status.Accepting.rawValue(), "WRONG_GAME_INSTANCE_ID") :: any
+			local MockCallProtocol = createMockCallProtocol(
+				if FFlagUseRoduxCall18
+					then RoduxCall.Enums.Status.Accepting
+					else RoduxCall.Enums.Status.Accepting.rawValue(),
+				"WRONG_GAME_INSTANCE_ID"
+			) :: any
 
 			function MockCallProtocol:rejectCall(callId: string)
 				received = callId == "CALL_ID"
@@ -111,8 +122,12 @@ return function()
 
 				-- Get call state returns we are "Teleporting". Blank instance id will
 				-- match game.JobId.
-				local MockCallProtocol =
-					createMockCallProtocol(RoduxCall.Enums.Status.Teleporting.rawValue(), "") :: any
+				local MockCallProtocol = createMockCallProtocol(
+					if FFlagUseRoduxCall18
+						then RoduxCall.Enums.Status.Teleporting
+						else RoduxCall.Enums.Status.Teleporting.rawValue(),
+					""
+				) :: any
 
 				function MockCallProtocol:teleportSuccessCall(callId: string)
 					received = callId == "CALL_ID"
@@ -127,8 +142,12 @@ return function()
 			local received = false
 
 			-- Get call state returns we are "Teleporting"
-			local MockCallProtocol =
-				createMockCallProtocol(RoduxCall.Enums.Status.Teleporting.rawValue(), "WRONG_GAME_INSTANCE_ID") :: any
+			local MockCallProtocol = createMockCallProtocol(
+				if FFlagUseRoduxCall18
+					then RoduxCall.Enums.Status.Teleporting
+					else RoduxCall.Enums.Status.Teleporting.rawValue(),
+				"WRONG_GAME_INSTANCE_ID"
+			) :: any
 
 			function MockCallProtocol:finishCall(callId: string)
 				received = callId == "CALL_ID"
@@ -151,7 +170,12 @@ return function()
 			end)
 
 			-- Blank instance id will match game.JobId.
-			local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Connecting.rawValue(), "") :: any
+			local MockCallProtocol = createMockCallProtocol(
+				if FFlagUseRoduxCall18
+					then RoduxCall.Enums.Status.Connecting
+					else RoduxCall.Enums.Status.Connecting.rawValue(),
+				""
+			) :: any
 
 			function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
 				return MessageBus:Subscribe("TeleportTest", callback, false, true)
@@ -164,7 +188,9 @@ return function()
 			initCall(MockCallProtocol)
 
 			MessageBus:Publish("TeleportTest", {
-				status = RoduxCall.Enums.Status.Teleporting.rawValue(),
+				status = if FFlagUseRoduxCall18
+					then RoduxCall.Enums.Status.Teleporting
+					else RoduxCall.Enums.Status.Teleporting.rawValue(),
 				callId = "123456",
 				callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
 				instanceId = "",
@@ -189,8 +215,12 @@ return function()
 				remoteTeleportReceived = true
 			end)
 
-			local MockCallProtocol =
-				createMockCallProtocol(RoduxCall.Enums.Status.Connecting.rawValue(), "WRONG_GAME_INSTANCE_ID") :: any
+			local MockCallProtocol = createMockCallProtocol(
+				if FFlagUseRoduxCall18
+					then RoduxCall.Enums.Status.Connecting
+					else RoduxCall.Enums.Status.Connecting.rawValue(),
+				"WRONG_GAME_INSTANCE_ID"
+			) :: any
 
 			function MockCallProtocol:listenToHandleTeleportingCall(callback: (any) -> ())
 				return MessageBus:Subscribe("TeleportTest", callback, false, true)
@@ -203,7 +233,9 @@ return function()
 			initCall(MockCallProtocol)
 
 			MessageBus:Publish("TeleportTest", {
-				status = RoduxCall.Enums.Status.Teleporting.rawValue(),
+				status = if FFlagUseRoduxCall18
+					then RoduxCall.Enums.Status.Teleporting
+					else RoduxCall.Enums.Status.Teleporting.rawValue(),
 				callId = "123456",
 				callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
 				instanceId = "WRONG_GAME_INSTANCE_ID",
@@ -224,7 +256,10 @@ return function()
 			currentCall = call
 		end)
 
-		local MockCallProtocol = createMockCallProtocol(RoduxCall.Enums.Status.Idle.rawValue(), "") :: any
+		local MockCallProtocol = createMockCallProtocol(
+			if FFlagUseRoduxCall18 then RoduxCall.Enums.Status.Idle else RoduxCall.Enums.Status.Idle.rawValue(),
+			""
+		) :: any
 
 		function MockCallProtocol:listenToHandleActiveCall(callback: (any) -> ())
 			return MessageBus:Subscribe("ActiveCall", callback, false, true)
@@ -248,7 +283,9 @@ return function()
 		expect(currentCall).toBe(nil)
 
 		MessageBus:Publish("ActiveCall", {
-			status = RoduxCall.Enums.Status.Active.rawValue(),
+			status = if FFlagUseRoduxCall18
+				then RoduxCall.Enums.Status.Active
+				else RoduxCall.Enums.Status.Active.rawValue(),
 			callId = "123456",
 			callerId = Players.LocalPlayer and Players.LocalPlayer.UserId or 0,
 			calleeId = 456,

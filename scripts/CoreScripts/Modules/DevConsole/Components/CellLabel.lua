@@ -12,7 +12,8 @@ export type Props = {
 	size: UDim2,
 	pos: UDim2,
 	layoutOrder: number?,
-	bold: boolean?
+	bold: boolean?,
+	richText: boolean?,
 }
 
 local function CellLabel(props: Props)
@@ -21,6 +22,7 @@ local function CellLabel(props: Props)
 	local pos = props.pos
 	local bold = props.bold
 	local layoutOrder = props.layoutOrder
+	local richText = props.richText
 
 	return Roact.createElement("TextLabel", {
 		Text = text,
@@ -34,6 +36,8 @@ local function CellLabel(props: Props)
 		Position = pos,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
+
+		RichText = richText,
 	})
 end
 

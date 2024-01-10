@@ -13,17 +13,16 @@ local var10 = var2.UI.LinkText
 local var11 = var2.UI.ResponsiveGrid
 local var12 = var2.UI.ScrollingFrame
 local var13 = require(var0.Core.Types.HomeTypes)
-local var14 = require(var0.Core.Util.SharedFlags.getFFlagToolboxTrackCurrentSubcategory)
-local var15 = var5.MAIN_VIEW_PADDING
-local var16 = var5.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
-local var17 = var3.PureComponent:extend("SubcategoriesView")
-local var56 = {}
-var56.Size = UDim2.new(1, 0, 0, 0)
-var17.defaultProps = var56
-function var17.init(arg1, arg2)
-   local var65 = {}
-   var65.maxTileHeight = 0
-   arg1.state = var65
+local var14 = var5.MAIN_VIEW_PADDING
+local var15 = var5.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
+local var16 = var3.PureComponent:extend("SubcategoriesView")
+local var50 = {}
+var50.Size = UDim2.new(1, 0, 0, 0)
+var16.defaultProps = var50
+function var16.init(arg1, arg2)
+   local var59 = {}
+   var59.maxTileHeight = 0
+   arg1.state = var59
    function arg1.onClickBack(arg1)
       local var0 = arg1.props
       local var1 = var0.OnClickBack
@@ -48,15 +47,9 @@ function var17.init(arg1, arg2)
          end
       end
       if var2 then
-         local var87 = var14()
-         if var87 then
-            var87 = var2
-            local var89 = arg1
-            var87({}, var5.children, var1, var4, var5.queryParams)
-         end
-         var87 = var2
-         local var95 = arg1
-         var87({}, var5.children, var1, var4)
+         var6 = var2
+         local var81 = arg1
+         var6({}, var5.children, var1, var4, var5.queryParams)
       end
    end
    
@@ -83,105 +76,105 @@ local function fun6(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
    local var2 = var0.Size
-   local var126 = {}
-   var126.assetType = var8(var1)[var0.CategoryName]
-   local var138 = {}
-   var138.BackgroundColor3 = var0.Stylizer.backgroundColor
-   var138.LayoutOrder = var0.LayoutOrder
-   var138.Position = var0.Position
-   var138.Size = var2
-   local var140 = {}
-   local var144 = {}
-   var144.AutoSizeCanvas = true
-   var144.AutomaticCanvasSize = Enum.AutomaticSize.Y
-   var144.CanvasSize = UDim2.new(1, 0, 0, 0)
-   var144.Layout = Enum.FillDirection.Vertical
-   var144.EnableScrollBarBackground = true
-   var144.Padding = var5.MAIN_VIEW_PADDING
-   var144.Size = var2
-   var144.Spacing = UDim.new(0, var15)
-   local var161 = {}
-   local var165 = {}
-   var165.LayoutOrder = 1
-   var165.OnClick = arg1.onClickBack
-   var165.Style = "Unobtrusive"
-   var165.Text = "< " ... var1:getText("General", "BackToHome", var126)
-   var161.BackButton = var3.createElement(var10, var165)
-   local var173 = {}
-   var173.AutomaticSize = Enum.AutomaticSize.Y
-   local var176 = {}
-   var176.ColumnCount = 1
-   var176.MinWidth = 0
-   local var179 = {}
-   var179.ColumnCount = 2
-   var179.MinWidth = 376
-   local var182 = {}
-   var182.ColumnCount = 3
-   var182.MinWidth = 736
-   var173.CutOffs = {}
-   var173.ItemHeight = UDim.new(0, arg1.state.maxTileHeight)
-   var173.LayoutOrder = 2
-   local var195 = UDim2.new(1, 0, 0, 0)
-   var173.Size = var195
-   var195 = arg1.getSubcategoryElements()
-   var161.InnerGrid = var3.createElement(var11, var173, var195)
-   var140.ScrollingFrame = var3.createElement(var12, var144, var161)
-   return var3.createElement("Frame", var138, var140)
+   local var113 = {}
+   var113.assetType = var8(var1)[var0.CategoryName]
+   local var125 = {}
+   var125.BackgroundColor3 = var0.Stylizer.backgroundColor
+   var125.LayoutOrder = var0.LayoutOrder
+   var125.Position = var0.Position
+   var125.Size = var2
+   local var127 = {}
+   local var131 = {}
+   var131.AutoSizeCanvas = true
+   var131.AutomaticCanvasSize = Enum.AutomaticSize.Y
+   var131.CanvasSize = UDim2.new(1, 0, 0, 0)
+   var131.Layout = Enum.FillDirection.Vertical
+   var131.EnableScrollBarBackground = true
+   var131.Padding = var5.MAIN_VIEW_PADDING
+   var131.Size = var2
+   var131.Spacing = UDim.new(0, var14)
+   local var148 = {}
+   local var152 = {}
+   var152.LayoutOrder = 1
+   var152.OnClick = arg1.onClickBack
+   var152.Style = "Unobtrusive"
+   var152.Text = "< " ... var1:getText("General", "BackToHome", var113)
+   var148.BackButton = var3.createElement(var10, var152)
+   local var160 = {}
+   var160.AutomaticSize = Enum.AutomaticSize.Y
+   local var163 = {}
+   var163.ColumnCount = 1
+   var163.MinWidth = 0
+   local var166 = {}
+   var166.ColumnCount = 2
+   var166.MinWidth = 376
+   local var169 = {}
+   var169.ColumnCount = 3
+   var169.MinWidth = 736
+   var160.CutOffs = {}
+   var160.ItemHeight = UDim.new(0, arg1.state.maxTileHeight)
+   var160.LayoutOrder = 2
+   local var182 = UDim2.new(1, 0, 0, 0)
+   var160.Size = var182
+   var182 = arg1.getSubcategoryElements()
+   var148.InnerGrid = var3.createElement(var11, var160, var182)
+   var127.ScrollingFrame = var3.createElement(var12, var131, var148)
+   return var3.createElement("Frame", var125, var127)
 end
 
-function var17.render(arg1)
+function var16.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
    local var2 = var0.Size
-   local var126 = {}
-   var126.assetType = var8(var1)[var0.CategoryName]
-   local var138 = {}
-   var138.BackgroundColor3 = var0.Stylizer.backgroundColor
-   var138.LayoutOrder = var0.LayoutOrder
-   var138.Position = var0.Position
-   var138.Size = var2
-   local var140 = {}
-   local var144 = {}
-   var144.AutoSizeCanvas = true
-   var144.AutomaticCanvasSize = Enum.AutomaticSize.Y
-   var144.CanvasSize = UDim2.new(1, 0, 0, 0)
-   var144.Layout = Enum.FillDirection.Vertical
-   var144.EnableScrollBarBackground = true
-   var144.Padding = var5.MAIN_VIEW_PADDING
-   var144.Size = var2
-   var144.Spacing = UDim.new(0, var15)
-   local var161 = {}
-   local var165 = {}
-   var165.LayoutOrder = 1
-   var165.OnClick = arg1.onClickBack
-   var165.Style = "Unobtrusive"
-   var165.Text = "< " ... var1:getText("General", "BackToHome", var126)
-   var161.BackButton = var3.createElement(var10, var165)
-   local var173 = {}
-   var173.AutomaticSize = Enum.AutomaticSize.Y
-   local var176 = {}
-   var176.ColumnCount = 1
-   var176.MinWidth = 0
-   local var179 = {}
-   var179.ColumnCount = 2
-   var179.MinWidth = 376
-   local var182 = {}
-   var182.ColumnCount = 3
-   var182.MinWidth = 736
-   var173.CutOffs = {}
-   var173.ItemHeight = UDim.new(0, arg1.state.maxTileHeight)
-   var173.LayoutOrder = 2
-   local var195 = UDim2.new(1, 0, 0, 0)
-   var173.Size = var195
-   var195 = arg1.getSubcategoryElements()
-   var161.InnerGrid = var3.createElement(var11, var173, var195)
-   var140.ScrollingFrame = var3.createElement(var12, var144, var161)
-   return var3.createElement("Frame", var138, var140)
+   local var113 = {}
+   var113.assetType = var8(var1)[var0.CategoryName]
+   local var125 = {}
+   var125.BackgroundColor3 = var0.Stylizer.backgroundColor
+   var125.LayoutOrder = var0.LayoutOrder
+   var125.Position = var0.Position
+   var125.Size = var2
+   local var127 = {}
+   local var131 = {}
+   var131.AutoSizeCanvas = true
+   var131.AutomaticCanvasSize = Enum.AutomaticSize.Y
+   var131.CanvasSize = UDim2.new(1, 0, 0, 0)
+   var131.Layout = Enum.FillDirection.Vertical
+   var131.EnableScrollBarBackground = true
+   var131.Padding = var5.MAIN_VIEW_PADDING
+   var131.Size = var2
+   var131.Spacing = UDim.new(0, var14)
+   local var148 = {}
+   local var152 = {}
+   var152.LayoutOrder = 1
+   var152.OnClick = arg1.onClickBack
+   var152.Style = "Unobtrusive"
+   var152.Text = "< " ... var1:getText("General", "BackToHome", var113)
+   var148.BackButton = var3.createElement(var10, var152)
+   local var160 = {}
+   var160.AutomaticSize = Enum.AutomaticSize.Y
+   local var163 = {}
+   var163.ColumnCount = 1
+   var163.MinWidth = 0
+   local var166 = {}
+   var166.ColumnCount = 2
+   var166.MinWidth = 376
+   local var169 = {}
+   var169.ColumnCount = 3
+   var169.MinWidth = 736
+   var160.CutOffs = {}
+   var160.ItemHeight = UDim.new(0, arg1.state.maxTileHeight)
+   var160.LayoutOrder = 2
+   local var182 = UDim2.new(1, 0, 0, 0)
+   var160.Size = var182
+   var182 = arg1.getSubcategoryElements()
+   var148.InnerGrid = var3.createElement(var11, var160, var182)
+   var127.ScrollingFrame = var3.createElement(var12, var131, var148)
+   return var3.createElement("Frame", var125, var127)
 end
 
 fun6 = var7.withContext
-local var199 = {}
-var199.Localization = var7.Localization
-var199.Stylizer = var7.Stylizer
-var17 = fun6(var199)(var17)
-return var17
+local var186 = {}
+var186.Localization = var7.Localization
+var186.Stylizer = var7.Stylizer
+var16 = fun6(var186)(var16)
+return var16

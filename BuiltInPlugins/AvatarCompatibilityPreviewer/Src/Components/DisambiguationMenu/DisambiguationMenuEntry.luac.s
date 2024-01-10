@@ -33,50 +33,47 @@ PROTO_1:
   SETTABLEKS R9 R8 K8 ["Layout"]
   GETTABLEKS R9 R2 K17 ["HorizontalSpacing"]
   SETTABLEKS R9 R8 K9 ["Spacing"]
-  DUPTABLE R9 K22 [{"ItemIcon", "ItemNames", "ItemName", "Children"}]
+  DUPTABLE R9 K21 [{"ItemIcon", "ItemNames", "Children"}]
   GETUPVAL R11 2
   GETTABLEKS R10 R11 K5 ["createElement"]
   GETUPVAL R11 3
-  DUPTABLE R12 K25 [{"BackgroundColor3", "LayoutOrder", "Size"}]
-  GETTABLEKS R13 R2 K26 ["IconBackground"]
-  SETTABLEKS R13 R12 K23 ["BackgroundColor3"]
-  NAMECALL R13 R1 K27 ["getNextOrder"]
+  DUPTABLE R12 K24 [{"BackgroundColor3", "LayoutOrder", "Size"}]
+  GETTABLEKS R13 R2 K25 ["IconBackground"]
+  SETTABLEKS R13 R12 K22 ["BackgroundColor3"]
+  NAMECALL R13 R1 K26 ["getNextOrder"]
   CALL R13 1 1
   SETTABLEKS R13 R12 K7 ["LayoutOrder"]
-  GETTABLEKS R13 R2 K28 ["IconSize"]
-  SETTABLEKS R13 R12 K24 ["Size"]
-  DUPTABLE R13 K30 [{"ItemDataPreviewModel"}]
+  GETTABLEKS R13 R2 K27 ["IconSize"]
+  SETTABLEKS R13 R12 K23 ["Size"]
+  DUPTABLE R13 K29 [{"ItemDataPreviewModel"}]
   GETUPVAL R15 2
   GETTABLEKS R14 R15 K5 ["createElement"]
   GETUPVAL R15 4
-  DUPTABLE R16 K32 [{"Instance"}]
-  GETTABLEKS R17 R0 K31 ["Instance"]
-  SETTABLEKS R17 R16 K31 ["Instance"]
+  DUPTABLE R16 K31 [{"Instance"}]
+  GETTABLEKS R17 R0 K30 ["Instance"]
+  SETTABLEKS R17 R16 K30 ["Instance"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K29 ["ItemDataPreviewModel"]
+  SETTABLEKS R14 R13 K28 ["ItemDataPreviewModel"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K18 ["ItemIcon"]
-  GETUPVAL R10 5
-  CALL R10 0 1
-  JUMPIFNOT R10 [+165]
   GETUPVAL R11 2
   GETTABLEKS R10 R11 K5 ["createElement"]
   GETUPVAL R11 3
-  DUPTABLE R12 K33 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing", "Size"}]
+  DUPTABLE R12 K32 [{"AutomaticSize", "LayoutOrder", "Layout", "Spacing", "Size"}]
   GETIMPORT R13 K13 [Enum.AutomaticSize.Y]
   SETTABLEKS R13 R12 K6 ["AutomaticSize"]
-  NAMECALL R13 R1 K27 ["getNextOrder"]
+  NAMECALL R13 R1 K26 ["getNextOrder"]
   CALL R13 1 1
   SETTABLEKS R13 R12 K7 ["LayoutOrder"]
-  GETIMPORT R13 K35 [Enum.FillDirection.Vertical]
+  GETIMPORT R13 K34 [Enum.FillDirection.Vertical]
   SETTABLEKS R13 R12 K8 ["Layout"]
-  GETTABLEKS R13 R2 K36 ["TextSpacing"]
+  GETTABLEKS R13 R2 K35 ["TextSpacing"]
   SETTABLEKS R13 R12 K9 ["Spacing"]
-  GETIMPORT R13 K38 [UDim2.new]
+  GETIMPORT R13 K37 [UDim2.new]
   LOADN R14 1
-  GETTABLEKS R20 R2 K28 ["IconSize"]
-  GETTABLEKS R19 R20 K39 ["X"]
-  GETTABLEKS R18 R19 K40 ["Offset"]
+  GETTABLEKS R20 R2 K27 ["IconSize"]
+  GETTABLEKS R19 R20 K38 ["X"]
+  GETTABLEKS R18 R19 K39 ["Offset"]
   GETTABLEKS R19 R2 K17 ["HorizontalSpacing"]
   ADD R17 R18 R19
   ADD R16 R17 R3
@@ -84,22 +81,22 @@ PROTO_1:
   LOADN R16 0
   LOADN R17 0
   CALL R13 4 1
-  SETTABLEKS R13 R12 K24 ["Size"]
+  SETTABLEKS R13 R12 K23 ["Size"]
   DUPTABLE R13 K43 [{"ItemName", "Subtitle", "Warning"}]
   GETUPVAL R15 2
   GETTABLEKS R14 R15 K5 ["createElement"]
-  GETUPVAL R15 6
+  GETUPVAL R15 5
   DUPTABLE R16 K47 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextXAlignment", "TextTruncate"}]
   GETIMPORT R17 K13 [Enum.AutomaticSize.Y]
   SETTABLEKS R17 R16 K6 ["AutomaticSize"]
-  NAMECALL R17 R1 K27 ["getNextOrder"]
+  NAMECALL R17 R1 K26 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K7 ["LayoutOrder"]
   GETIMPORT R17 K49 [UDim2.fromScale]
   LOADN R18 1
   LOADN R19 0
   CALL R17 2 1
-  SETTABLEKS R17 R16 K24 ["Size"]
+  SETTABLEKS R17 R16 K23 ["Size"]
   GETTABLEKS R17 R0 K50 ["Name"]
   SETTABLEKS R17 R16 K44 ["Text"]
   GETIMPORT R17 K52 [Enum.TextXAlignment.Left]
@@ -107,16 +104,16 @@ PROTO_1:
   GETIMPORT R17 K54 [Enum.TextTruncate.AtEnd]
   SETTABLEKS R17 R16 K46 ["TextTruncate"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K20 ["ItemName"]
+  SETTABLEKS R14 R13 K40 ["ItemName"]
   GETTABLEKS R14 R0 K41 ["Subtitle"]
   JUMPIFNOT R14 [+37]
   GETUPVAL R15 2
   GETTABLEKS R14 R15 K5 ["createElement"]
-  GETUPVAL R15 6
+  GETUPVAL R15 5
   DUPTABLE R16 K56 [{"AutomaticSize", "LayoutOrder", "Style", "Size", "Text", "TextXAlignment", "TextTruncate"}]
   GETIMPORT R17 K13 [Enum.AutomaticSize.Y]
   SETTABLEKS R17 R16 K6 ["AutomaticSize"]
-  NAMECALL R17 R1 K27 ["getNextOrder"]
+  NAMECALL R17 R1 K26 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K7 ["LayoutOrder"]
   LOADK R17 K57 ["SubText"]
@@ -125,7 +122,7 @@ PROTO_1:
   LOADN R18 1
   LOADN R19 0
   CALL R17 2 1
-  SETTABLEKS R17 R16 K24 ["Size"]
+  SETTABLEKS R17 R16 K23 ["Size"]
   GETTABLEKS R17 R0 K41 ["Subtitle"]
   SETTABLEKS R17 R16 K44 ["Text"]
   GETIMPORT R17 K52 [Enum.TextXAlignment.Left]
@@ -134,18 +131,18 @@ PROTO_1:
   SETTABLEKS R17 R16 K46 ["TextTruncate"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K41 ["Subtitle"]
-  GETUPVAL R14 7
+  GETUPVAL R14 6
   CALL R14 0 1
   JUMPIFNOT R14 [+39]
   GETTABLEKS R14 R0 K58 ["WarningText"]
   JUMPIFNOT R14 [+36]
   GETUPVAL R15 2
   GETTABLEKS R14 R15 K5 ["createElement"]
-  GETUPVAL R15 6
+  GETUPVAL R15 5
   DUPTABLE R16 K60 [{"AutomaticSize", "LayoutOrder", "Style", "Size", "Text", "TextXAlignment", "TextWrapped"}]
   GETIMPORT R17 K13 [Enum.AutomaticSize.Y]
   SETTABLEKS R17 R16 K6 ["AutomaticSize"]
-  NAMECALL R17 R1 K27 ["getNextOrder"]
+  NAMECALL R17 R1 K26 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K7 ["LayoutOrder"]
   LOADK R17 K42 ["Warning"]
@@ -154,7 +151,7 @@ PROTO_1:
   LOADN R18 1
   LOADN R19 0
   CALL R17 2 1
-  SETTABLEKS R17 R16 K24 ["Size"]
+  SETTABLEKS R17 R16 K23 ["Size"]
   GETTABLEKS R17 R0 K58 ["WarningText"]
   SETTABLEKS R17 R16 K44 ["Text"]
   GETIMPORT R17 K52 [Enum.TextXAlignment.Left]
@@ -165,47 +162,13 @@ PROTO_1:
   SETTABLEKS R14 R13 K42 ["Warning"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K19 ["ItemNames"]
-  GETUPVAL R11 5
-  CALL R11 0 1
-  NOT R10 R11
-  JUMPIFNOT R10 [+46]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K5 ["createElement"]
-  GETUPVAL R11 6
-  DUPTABLE R12 K47 [{"AutomaticSize", "LayoutOrder", "Size", "Text", "TextXAlignment", "TextTruncate"}]
-  GETIMPORT R13 K13 [Enum.AutomaticSize.Y]
-  SETTABLEKS R13 R12 K6 ["AutomaticSize"]
-  NAMECALL R13 R1 K27 ["getNextOrder"]
-  CALL R13 1 1
-  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
-  GETIMPORT R13 K38 [UDim2.new]
-  LOADN R14 1
-  GETTABLEKS R20 R2 K28 ["IconSize"]
-  GETTABLEKS R19 R20 K39 ["X"]
-  GETTABLEKS R18 R19 K40 ["Offset"]
-  GETTABLEKS R19 R2 K17 ["HorizontalSpacing"]
-  ADD R17 R18 R19
-  ADD R16 R17 R3
-  MINUS R15 R16
-  LOADN R16 0
-  LOADN R17 0
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K24 ["Size"]
-  GETTABLEKS R13 R0 K50 ["Name"]
-  SETTABLEKS R13 R12 K44 ["Text"]
-  GETIMPORT R13 K52 [Enum.TextXAlignment.Left]
-  SETTABLEKS R13 R12 K45 ["TextXAlignment"]
-  GETIMPORT R13 K54 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R13 R12 K46 ["TextTruncate"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K20 ["ItemName"]
   GETUPVAL R11 2
   GETTABLEKS R10 R11 K5 ["createElement"]
   GETUPVAL R11 3
   NEWTABLE R12 4 0
   GETIMPORT R13 K62 [Enum.AutomaticSize.XY]
   SETTABLEKS R13 R12 K6 ["AutomaticSize"]
-  NAMECALL R13 R1 K27 ["getNextOrder"]
+  NAMECALL R13 R1 K26 ["getNextOrder"]
   CALL R13 1 1
   SETTABLEKS R13 R12 K7 ["LayoutOrder"]
   SETTABLEKS R5 R12 K63 ["ref"]
@@ -217,7 +180,7 @@ PROTO_1:
   SETTABLE R14 R12 R13
   GETTABLEKS R13 R0 K66 ["children"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K21 ["Children"]
+  SETTABLEKS R10 R9 K20 ["Children"]
   CALL R6 3 -1
   RETURN R6 -1
 
@@ -251,25 +214,19 @@ MAIN:
   GETTABLEKS R7 R8 K15 ["Flags"]
   GETTABLEKS R6 R7 K16 ["getFFlagAvatarPreviewerContextualAccessoryDropdowns"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Flags"]
-  GETTABLEKS R7 R8 K17 ["getFFlagAvatarPreviewerLayeredOrRigidClothingSubtitle"]
-  CALL R6 1 1
-  GETTABLEKS R7 R1 K18 ["UI"]
-  GETTABLEKS R8 R7 K19 ["Pane"]
-  GETTABLEKS R9 R7 K20 ["TextLabel"]
-  GETTABLEKS R11 R1 K21 ["Util"]
-  GETTABLEKS R10 R11 K22 ["LayoutOrderIterator"]
-  GETTABLEKS R12 R1 K23 ["ContextServices"]
-  GETTABLEKS R11 R12 K24 ["Stylizer"]
-  DUPCLOSURE R12 K25 [PROTO_1]
-  CAPTURE VAL R10
-  CAPTURE VAL R11
-  CAPTURE VAL R2
-  CAPTURE VAL R8
-  CAPTURE VAL R3
-  CAPTURE VAL R6
+  GETTABLEKS R6 R1 K17 ["UI"]
+  GETTABLEKS R7 R6 K18 ["Pane"]
+  GETTABLEKS R8 R6 K19 ["TextLabel"]
+  GETTABLEKS R10 R1 K20 ["Util"]
+  GETTABLEKS R9 R10 K21 ["LayoutOrderIterator"]
+  GETTABLEKS R11 R1 K22 ["ContextServices"]
+  GETTABLEKS R10 R11 K23 ["Stylizer"]
+  DUPCLOSURE R11 K24 [PROTO_1]
   CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R8
   CAPTURE VAL R5
-  RETURN R12 1
+  RETURN R11 1

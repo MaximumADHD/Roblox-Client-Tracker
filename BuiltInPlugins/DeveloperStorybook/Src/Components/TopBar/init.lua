@@ -1,12 +1,9 @@
 local Main = script.Parent.Parent.Parent
+local React = require(Main.Packages.React)
 local Types = require(Main.Src.Types)
-local Roact = require(Main.Packages.Roact)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices = Framework.ContextServices
-local withContext = ContextServices.withContext
-
 local Dash = Framework.Dash
 local findIndex = Dash.findIndex
 
@@ -25,6 +22,9 @@ local StyleModifier = Framework.Util.StyleModifier
 
 local ThemeSwitcher = Framework.Style.ThemeSwitcher
 
+local INPUT_WIDTH = 80
+local SLIDER_WIDTH = 120
+
 local Actions = Main.Src.Actions
 local Thunks = Main.Src.Thunks
 local SelectTheme = require(Actions.SelectTheme)
@@ -35,7 +35,7 @@ local SetSettings = require(Actions.SetSettings)
 local EmbedStorybook = require(Thunks.EmbedStorybook)
 local GetStories = require(Thunks.GetStories)
 
-local TopBar = Roact.PureComponent:extend("TopBar")
+local TopBar = React.PureComponent:extend("TopBar")
 
 local THEMES = {
 	"Default",
@@ -83,49 +83,42 @@ end
 
 function TopBar:render()
 	local props = self.props
-	local style = props.Stylizer
-	local sizes = style.Sizes
 
 	local isEmbedded = script:FindFirstAncestor("RunStorybook")
 
-	return Roact.createElement(Pane, {
-		Size = UDim2.new(1, 0, 0, sizes.TopBar),
-		Style = "Box",
-		Padding = 5,
-		Layout = Enum.FillDirection.Horizontal,
-		Spacing = 5,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+	return React.createElement(Pane, {
+		[React.Tag] = "Plugin-TopBar Main X-RowM X-Middle X-PadS",
 	}, {
-		FilterTree = Roact.createElement(Pane, {
-			Size = UDim2.new(0, sizes.SearchBar, 1, 0),
+		FilterTree = React.createElement(Pane, {
+			Size = UDim2.new(0, 300, 1, 0),
 			LayoutOrder = 1,
 		}, {
-			Search = Roact.createElement(SearchBar, {
+			Search = React.createElement(SearchBar, {
 				PlaceholderText = "Search...",
-				Width = sizes.SearchBar,
+				Width = 300,
 				ShowSearchButton = false,
 				ShowSearchIcon = true,
 				OnTextChanged = props.setSearch,
 			}),
 		}),
-		Collapse = Roact.createElement(Button, {
+		Collapse = React.createElement(Button, {
 			Style = "Round",
 			AnchorPoint = Vector2.new(1, 0),
 			Size = UDim2.fromOffset(32, 32),
 			LayoutOrder = 2,
 			OnClick = props.getStories,
 		}, {
-			Tooltip = Roact.createElement(Tooltip, {
+			Tooltip = React.createElement(Tooltip, {
 				Text = "Collapse all stories",
 			}),
-			Icon = Roact.createElement(Image, {
+			Icon = React.createElement(Image, {
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Image = "rbxasset://textures/DeveloperStorybook/Collapse.png",
 			}),
 		}),
-		Embed = Roact.createElement(Button, {
+		Embed = React.createElement(Button, {
 			StyleModifier = isEmbedded and StyleModifier.Disabled or nil,
 			Style = props.Embedded and "RoundPrimary" or "Round",
 			Size = UDim2.fromOffset(32, 32),
@@ -133,35 +126,34 @@ function TopBar:render()
 			LayoutOrder = 4,
 			OnClick = self.onEmbedStorybook,
 		}, {
-			Tooltip = Roact.createElement(Tooltip, {
+			Tooltip = React.createElement(Tooltip, {
 				Text = "Embed Storybook in the place",
 			}),
-			Icon = Roact.createElement(Image, {
+			Icon = React.createElement(Image, {
 				Size = UDim2.fromOffset(24, 24),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Image = "rbxasset://textures/DeveloperStorybook/Embed.png",
 			}),
 		}),
-		Live = Roact.createElement(Checkbox, {
+		Live = React.createElement(Checkbox, {
 			LayoutOrder = 5,
 			Checked = props.Live,
 			OnClick = self.onToggleLive,
 			Text = "Live",
 		}),
-		ThemeLabel = Roact.createElement(TextLabel, {
+		ThemeLabel = React.createElement(TextLabel, {
 			Text = "Theme:",
-			AutomaticSize = Enum.AutomaticSize.XY,
-			AnchorPoint = Vector2.new(0, 0),
 			LayoutOrder = 7,
+			[React.Tag] = "X-Fit",
 		}),
-		SelectTheme = Roact.createElement(Pane, {
+		SelectTheme = React.createElement(Pane, {
 			AnchorPoint = Vector2.new(1, 0),
-			Size = UDim2.new(0, sizes.SelectInput, 1, 0),
+			Size = UDim2.new(0, INPUT_WIDTH, 1, 0),
 			LayoutOrder = 8,
 		}, {
-			Input = Roact.createElement(SelectInput, {
-				Width = sizes.SelectInput,
+			Input = React.createElement(SelectInput, {
+				Width = INPUT_WIDTH,
 				SelectedIndex = findIndex(THEMES, function(theme)
 					return theme == props.CurrentTheme
 				end) or 1,
@@ -169,19 +161,18 @@ function TopBar:render()
 				OnItemActivated = props.selectTheme,
 			}),
 		}),
-		PlatformLabel = Roact.createElement(TextLabel, {
+		PlatformLabel = React.createElement(TextLabel, {
 			Text = "Platform:",
-			AutomaticSize = Enum.AutomaticSize.XY,
-			AnchorPoint = Vector2.new(0, 0),
 			LayoutOrder = 9,
+			[React.Tag] = "X-Fit",
 		}),
-		SelectPlatform = Roact.createElement(Pane, {
+		SelectPlatform = React.createElement(Pane, {
 			AnchorPoint = Vector2.new(1, 0),
-			Size = UDim2.new(0, sizes.SelectInput, 1, 0),
+			Size = UDim2.new(0, INPUT_WIDTH, 1, 0),
 			LayoutOrder = 10,
 		}, {
-			Input = Roact.createElement(SelectInput, {
-				Width = sizes.SelectInput,
+			Input = React.createElement(SelectInput, {
+				Width = INPUT_WIDTH,
 				SelectedIndex = findIndex(PLATFORMS, function(platform)
 					return platform == props.Platform
 				end) or 1,
@@ -189,24 +180,24 @@ function TopBar:render()
 				OnItemActivated = props.selectPlatform,
 			}),
 		}),
-		ReducedMotion = Roact.createElement(Checkbox, {
+		ReducedMotion = React.createElement(Checkbox, {
 			LayoutOrder = 11,
 			Checked = props.Settings.reducedMotion,
 			OnClick = self.onToggleReducedMotion,
 			Text = "Reduced Motion",
 		}),
-		PreferredTransparencyLabel = Roact.createElement(TextLabel, {
+		PreferredTransparencyLabel = React.createElement(TextLabel, {
 			Text = "Preferred Transparency:",
 			AutomaticSize = Enum.AutomaticSize.XY,
 			AnchorPoint = Vector2.new(0, 0),
 			LayoutOrder = 12,
 		}),
-		PreferredTransparencySlider = Roact.createElement(Pane, {
+		PreferredTransparencySlider = React.createElement(Pane, {
 			AnchorPoint = Vector2.new(1, 0),
-			Size = UDim2.new(0, sizes.Slider, 1, 0),
+			Size = UDim2.new(0, SLIDER_WIDTH, 1, 0),
 			LayoutOrder = 13,
 		}, {
-			Slider = Roact.createElement(Slider, {
+			Slider = React.createElement(Slider, {
 				Min = 0,
 				Max = 1,
 				Value = props.Settings.preferredTransparency,
@@ -216,10 +207,6 @@ function TopBar:render()
 		}),
 	})
 end
-
-TopBar = withContext({
-	Stylizer = ContextServices.Stylizer,
-})(TopBar)
 
 return RoactRodux.connect(function(state, props)
 	return {

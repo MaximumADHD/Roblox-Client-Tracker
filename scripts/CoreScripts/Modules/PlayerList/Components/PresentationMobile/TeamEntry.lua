@@ -18,8 +18,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local StatEntry = require(script.Parent.StatEntry)
 
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
-
 local TeamEntry = Roact.PureComponent:extend("TeamEntry")
 
 function TeamEntry:render()
@@ -84,7 +82,7 @@ function TeamEntry:render()
 				Size = UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY),
 				Position = self.props.Position,
 
-				BackgroundTransparency = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then settings.PreferredTransparency * 0.5 else 0.5,
+				BackgroundTransparency = settings.PreferredTransparency * 0.5,
 				BackgroundColor3 = teamColor,
 				BorderSizePixel = 0,
 			}, children)

@@ -1,9 +1,9 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = script:FindFirstAncestor("AnimationClipEditor")
 local var1 = require(var0.Src.Actions.SetBoneVisualization)
-local var2 = require(var0.Src.Actions.SetBoneLinksToBone)
-local var3 = require(var0.Src.Util.RigUtils)
-local var4 = require(var0.LuaFlags.GetFFlagBoneReferences)
+local var2 = require(var0.Src.Util.RigUtils)
+local var3 = require(var0.Src.Util.RigVisualization)
+local var4 = require(var0.LuaFlags.GetFFlagRigVisualization)
 return function()
    return function(arg1)
       local var0 = arg1:getState()
@@ -23,9 +23,9 @@ return function()
          var36 = var1
          var40.updateMicrobones(var40, var36)
       end
-      local var43 = var3
-      var43 = var2
-      local var4 = var2(var43.updateMicrobones(var43, var1))
-      arg1:dispatch()
+      local var42 = var2
+      var42 = var2
+      var36 = var1
+      var42.updateMicrobones(var42, var36)
    end
 end

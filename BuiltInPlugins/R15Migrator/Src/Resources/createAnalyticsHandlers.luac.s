@@ -207,44 +207,117 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  DUPTABLE R1 K2 [{"numScripts", "averageLines"}]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K0 ["numScripts"]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K1 ["averageLines"]
-  LOADN R2 0
-  MOVE R3 R0
-  LOADNIL R4
-  LOADNIL R5
-  FORGPREP R3
-  GETTABLEKS R8 R1 K0 ["numScripts"]
-  ADDK R8 R8 K3 [1]
-  SETTABLEKS R8 R1 K0 ["numScripts"]
-  NAMECALL R8 R7 K4 ["GetSize"]
-  CALL R8 1 1
-  ADD R2 R2 R8
-  FORGLOOP R3 2 [-10]
-  GETTABLEKS R4 R1 K0 ["numScripts"]
-  JUMPIFNOTEQKN R4 K5 [0] [+3]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Dictionary"]
+  GETTABLEKS R3 R4 K1 ["keys"]
+  MOVE R4 R0
+  CALL R3 1 1
+  LENGTH R2 R3
   LOADN R3 0
-  JUMP [+3]
-  GETTABLEKS R4 R1 K0 ["numScripts"]
-  DIV R3 R2 R4
-  SETTABLEKS R3 R1 K1 ["averageLines"]
-  GETUPVAL R3 0
-  LOADK R4 K6 ["InitialScriptAnalysisScan"]
-  MOVE R5 R1
-  CALL R3 2 0
+  MOVE R4 R1
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETTABLE R9 R0 R7
+  JUMPIFNOT R9 [+1]
+  ADDK R3 R3 K2 [1]
+  FORGLOOP R4 2 [-4]
+  DUPTABLE R4 K5 [{"numConverted", "percentConverted"}]
+  SETTABLEKS R3 R4 K3 ["numConverted"]
+  JUMPIFNOTEQKN R2 K6 [0] [+3]
+  LOADN R5 0
+  JUMP [+8]
+  DIV R7 R3 R2
+  MULK R6 R7 K7 [100]
+  LOADN R7 0
+  LOADN R8 100
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R5 K10 [math.clamp]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K4 ["percentConverted"]
+  GETUPVAL R5 1
+  LOADK R6 K11 ["AnimationsConverted"]
+  MOVE R7 R4
+  CALL R5 2 0
   RETURN R0 0
 
 PROTO_7:
+  DUPTABLE R1 K1 [{"numAnimations"}]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K0 ["numAnimations"]
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R1 K0 ["numAnimations"]
+  ADDK R7 R7 K2 [1]
+  SETTABLEKS R7 R1 K0 ["numAnimations"]
+  FORGLOOP R2 2 [-6]
+  GETUPVAL R2 0
+  LOADK R3 K3 ["InitialAnimationAnalysisScan"]
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_8:
+  DUPTABLE R3 K3 [{"fromPart", "toPart", "isEnabled"}]
+  JUMPIFNOT R0 [+2]
+  MOVE R4 R0
+  JUMP [+1]
+  LOADK R4 K4 [""]
+  SETTABLEKS R4 R3 K0 ["fromPart"]
+  JUMPIFNOT R1 [+2]
+  MOVE R4 R1
+  JUMP [+1]
+  LOADK R4 K4 [""]
+  SETTABLEKS R4 R3 K1 ["toPart"]
+  SETTABLEKS R2 R3 K2 ["isEnabled"]
+  GETUPVAL R4 0
+  LOADK R5 K5 ["onScriptRulesUpdate"]
+  MOVE R6 R3
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_9:
+  DUPTABLE R2 K3 [{"numScripts", "averageLines", "totalScripts"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["numScripts"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K1 ["averageLines"]
+  SETTABLEKS R1 R2 K2 ["totalScripts"]
+  LOADN R3 0
+  MOVE R4 R0
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETTABLEKS R9 R2 K0 ["numScripts"]
+  ADDK R9 R9 K4 [1]
+  SETTABLEKS R9 R2 K0 ["numScripts"]
+  NAMECALL R9 R8 K5 ["GetSize"]
+  CALL R9 1 1
+  ADD R3 R3 R9
+  FORGLOOP R4 2 [-10]
+  GETTABLEKS R5 R2 K0 ["numScripts"]
+  JUMPIFNOTEQKN R5 K6 [0] [+3]
+  LOADN R4 0
+  JUMP [+3]
+  GETTABLEKS R5 R2 K0 ["numScripts"]
+  DIV R4 R3 R5
+  SETTABLEKS R4 R2 K1 ["averageLines"]
+  GETUPVAL R4 0
+  LOADK R5 K7 ["InitialScriptAnalysisScan"]
+  MOVE R6 R2
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_10:
   GETUPVAL R0 0
   LOADK R1 K0 ["ScriptSuggestionApplied"]
   NEWTABLE R2 0 0
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_11:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["GetStatusCounts"]
@@ -260,7 +333,15 @@ PROTO_8:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_12:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["onScriptAutoReplacement"]
+  DUPTABLE R3 K2 [{"issueType"}]
+  SETTABLEKS R0 R3 K1 ["issueType"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_13:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["GetStatusCounts"]
@@ -276,7 +357,25 @@ PROTO_9:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_14:
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADN R1 0
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADN R2 0
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADN R3 0
+  DUPTABLE R4 K4 [{"adapterAdded", "numScriptIssuesLeft", "numAnimationsNotConverted", "numCharactersNotConverted"}]
+  SETTABLEKS R0 R4 K0 ["adapterAdded"]
+  SETTABLEKS R1 R4 K1 ["numScriptIssuesLeft"]
+  SETTABLEKS R2 R4 K2 ["numAnimationsNotConverted"]
+  SETTABLEKS R3 R4 K3 ["numCharactersNotConverted"]
+  GETUPVAL R5 0
+  LOADK R6 K5 ["AdapterToggled"]
+  MOVE R7 R4
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_15:
   GETUPVAL R2 0
   MOVE R4 R0
   NAMECALL R2 R2 K0 ["GetStatusCounts"]
@@ -343,7 +442,7 @@ PROTO_10:
   CALL R7 2 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_16:
   GETUPVAL R0 0
   LOADK R1 K0 ["PluginClosed"]
   DUPTABLE R2 K2 [{"timeSpent"}]
@@ -356,7 +455,7 @@ PROTO_11:
   CALL R0 2 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_17:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
@@ -369,7 +468,7 @@ PROTO_12:
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
   CAPTURE VAL R0
-  DUPTABLE R4 K9 [{"onCharactersLoaded", "onCharactersConverted", "onCharactersReverted", "onInitialScriptAnalysisScan", "onScriptSuggestionApplied", "onScriptSelectionReverted", "onScriptSelectionRevertUndo", "onScriptConvertSelection", "onPluginClosed"}]
+  DUPTABLE R4 K14 [{"onCharactersLoaded", "onCharactersConverted", "onCharactersReverted", "onAnimationsConverted", "onInitialAnimationsAnalysisScan", "onScriptRulesUpdate", "onInitialScriptAnalysisScan", "onScriptSuggestionApplied", "onScriptSelectionReverted", "onScriptAutoReplacement", "onScriptSelectionRevertUndo", "onAdapterToggle", "onScriptConvertSelection", "onPluginClosed"}]
   NEWCLOSURE R5 P3
   CAPTURE VAL R1
   CAPTURE UPVAL U0
@@ -386,30 +485,46 @@ PROTO_12:
   CAPTURE UPVAL U3
   SETTABLEKS R5 R4 K2 ["onCharactersReverted"]
   NEWCLOSURE R5 P6
+  CAPTURE UPVAL U0
   CAPTURE VAL R1
-  SETTABLEKS R5 R4 K3 ["onInitialScriptAnalysisScan"]
+  SETTABLEKS R5 R4 K3 ["onAnimationsConverted"]
   NEWCLOSURE R5 P7
   CAPTURE VAL R1
-  SETTABLEKS R5 R4 K4 ["onScriptSuggestionApplied"]
+  SETTABLEKS R5 R4 K4 ["onInitialAnimationsAnalysisScan"]
   NEWCLOSURE R5 P8
-  CAPTURE UPVAL U4
   CAPTURE VAL R1
-  CAPTURE UPVAL U5
-  SETTABLEKS R5 R4 K5 ["onScriptSelectionReverted"]
+  SETTABLEKS R5 R4 K5 ["onScriptRulesUpdate"]
   NEWCLOSURE R5 P9
-  CAPTURE UPVAL U4
   CAPTURE VAL R1
-  CAPTURE UPVAL U5
-  SETTABLEKS R5 R4 K6 ["onScriptSelectionRevertUndo"]
+  SETTABLEKS R5 R4 K6 ["onInitialScriptAnalysisScan"]
   NEWCLOSURE R5 P10
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K7 ["onScriptSuggestionApplied"]
+  NEWCLOSURE R5 P11
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U5
+  SETTABLEKS R5 R4 K8 ["onScriptSelectionReverted"]
+  NEWCLOSURE R5 P12
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K9 ["onScriptAutoReplacement"]
+  NEWCLOSURE R5 P13
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CAPTURE UPVAL U5
+  SETTABLEKS R5 R4 K10 ["onScriptSelectionRevertUndo"]
+  NEWCLOSURE R5 P14
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K11 ["onAdapterToggle"]
+  NEWCLOSURE R5 P15
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
   CAPTURE VAL R1
-  SETTABLEKS R5 R4 K7 ["onScriptConvertSelection"]
-  NEWCLOSURE R5 P11
+  SETTABLEKS R5 R4 K12 ["onScriptConvertSelection"]
+  NEWCLOSURE R5 P16
   CAPTURE VAL R1
   CAPTURE UPVAL U6
-  SETTABLEKS R5 R4 K8 ["onPluginClosed"]
+  SETTABLEKS R5 R4 K13 ["onPluginClosed"]
   RETURN R4 1
 
 MAIN:
@@ -452,7 +567,7 @@ MAIN:
   LOADK R9 K18 ["HttpService"]
   NAMECALL R7 R7 K19 ["GetService"]
   CALL R7 2 1
-  DUPCLOSURE R8 K20 [PROTO_12]
+  DUPCLOSURE R8 K20 [PROTO_17]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R7

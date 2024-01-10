@@ -22,6 +22,7 @@ local GetFFlagSelfViewMultiTouchFix = require(Chrome.Flags.GetFFlagSelfViewMulti
 local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
 
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
+local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
 
 local useWindowSize = require(script.Parent.Parent.Parent.Hooks.useWindowSize)
 
@@ -246,6 +247,12 @@ local WindowHost = function(props: WindowHostProps)
 
 	-- When the drag ends and the window frame is clipped, reposition it within the screen bounds
 	local repositionWindowWithinScreenBounds = React.useCallback(function()
+		if GetFFlagSelfViewAssertFix() then
+			-- Don't reposition if the window was closed within the debounce or umount
+			if windowRef == nil or windowRef.current == nil then
+				return
+			end
+		end
 		assert(windowRef.current ~= nil)
 		assert(windowRef.current.Parent ~= nil)
 

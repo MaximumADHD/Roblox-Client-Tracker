@@ -114,10 +114,6 @@ if GetFFlagConsolidateBubbleChat() then
 	GlobalFlags.ConsolidateBubbleChat = true
 end
 
-local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
-local FFlagScreenshotsFeaturesEnabledForAll = Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll
-local FFlagScreenshotSharingEnableExperiment = Screenshots.Flags.FFlagScreenshotSharingEnableExperiment
-
 -- Since prop validation can be expensive in certain scenarios, you can enable
 -- this flag locally to validate props to Roact components.
 if FFlagUseRoactGlobalConfigInCoreScripts and RunService:IsStudio() then
@@ -254,9 +250,7 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.KeyboardUINavigation)
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
 -- Screenshots
-if FFlagScreenshotsFeaturesEnabledForAll or FFlagScreenshotSharingEnableExperiment then
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.Screenshots.ScreenshotsApp)
-end
+coroutine.wrap(safeRequire)(RobloxGui.Modules.Screenshots.ScreenshotsApp)
 
 initify(CoreGuiModules.AvatarEditorPrompts)
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)

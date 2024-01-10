@@ -1,0 +1,302 @@
+PROTO_0:
+  DUPTABLE R1 K1 [{"enabled"}]
+  GETTABLEKS R3 R0 K0 ["enabled"]
+  NOT R2 R3
+  SETTABLEKS R2 R1 K0 ["enabled"]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPCLOSURE R2 K0 [PROTO_0]
+  NAMECALL R0 R0 K1 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"enabled"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["enabled"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"enabled"}]
+  SETTABLEKS R0 R3 K0 ["enabled"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"enabled"}]
+  GETTABLEKS R4 R0 K2 ["Enabled"]
+  SETTABLEKS R4 R3 K0 ["enabled"]
+  NAMECALL R1 R1 K3 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
+  NEWTABLE R0 0 0
+  RETURN R0 1
+
+PROTO_6:
+  DUPTABLE R2 K1 [{"enabled"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["enabled"]
+  SETTABLEKS R2 R0 K2 ["state"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K3 ["toggleEnabled"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K4 ["onClose"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K5 ["onRestore"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K6 ["onWidgetEnabledChanged"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K7 ["Store"]
+  GETTABLEKS R2 R3 K8 ["new"]
+  GETUPVAL R3 1
+  LOADNIL R4
+  NEWTABLE R5 0 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["thunkMiddleware"]
+  SETLIST R5 R6 1 [1]
+  LOADNIL R6
+  CALL R2 4 1
+  SETTABLEKS R2 R0 K10 ["store"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K11 ["Localization"]
+  GETTABLEKS R2 R3 K8 ["new"]
+  DUPTABLE R3 K15 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R4 3
+  SETTABLEKS R4 R3 K12 ["stringResourceTable"]
+  GETUPVAL R4 4
+  SETTABLEKS R4 R3 K13 ["translationResourceTable"]
+  LOADK R4 K16 ["ActivityFeed"]
+  SETTABLEKS R4 R3 K14 ["pluginName"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K17 ["localization"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K18 ["Analytics"]
+  GETTABLEKS R2 R3 K8 ["new"]
+  DUPCLOSURE R3 K19 [PROTO_5]
+  NEWTABLE R4 0 0
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K20 ["analytics"]
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R3 R0 K0 ["state"]
+  GETTABLEKS R2 R3 K1 ["enabled"]
+  DUPTABLE R3 K3 [{"Toggle"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K12 [{"Toolbar", "Active", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+  SETTABLEKS R1 R6 K5 ["Toolbar"]
+  SETTABLEKS R2 R6 K6 ["Active"]
+  LOADK R7 K13 ["activity_feed_button"]
+  SETTABLEKS R7 R6 K7 ["Title"]
+  GETTABLEKS R7 R0 K14 ["localization"]
+  LOADK R9 K15 ["Plugin"]
+  LOADK R10 K16 ["Description"]
+  NAMECALL R7 R7 K17 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K8 ["Tooltip"]
+  LOADK R7 K18 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
+  SETTABLEKS R7 R6 K9 ["Icon"]
+  GETTABLEKS R7 R0 K19 ["toggleEnabled"]
+  SETTABLEKS R7 R6 K10 ["OnClick"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K11 ["ClickableWhenViewportHidden"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["Toggle"]
+  RETURN R3 1
+
+PROTO_8:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["renderButtons"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Plugin"]
+  GETTABLEKS R4 R2 K3 ["enabled"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["provide"]
+  NEWTABLE R6 0 6
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["new"]
+  MOVE R8 R3
+  CALL R7 1 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K5 ["new"]
+  GETTABLEKS R9 R0 K6 ["store"]
+  CALL R8 1 1
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K5 ["new"]
+  NAMECALL R10 R3 K7 ["getMouse"]
+  CALL R10 1 -1
+  CALL R9 -1 1
+  GETUPVAL R10 4
+  CALL R10 0 1
+  GETTABLEKS R11 R0 K8 ["localization"]
+  GETTABLEKS R12 R0 K9 ["analytics"]
+  SETLIST R6 R7 6 [1]
+  DUPTABLE R7 K12 [{"Toolbar", "MainWidget"}]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K13 ["createElement"]
+  GETUPVAL R9 6
+  DUPTABLE R10 K16 [{"Title", "RenderButtons"}]
+  LOADK R11 K17 ["ActivityFeed"]
+  SETTABLEKS R11 R10 K14 ["Title"]
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R0
+  SETTABLEKS R11 R10 K15 ["RenderButtons"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K10 ["Toolbar"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K13 ["createElement"]
+  GETUPVAL R9 7
+  NEWTABLE R10 16 0
+  LOADK R11 K17 ["ActivityFeed"]
+  SETTABLEKS R11 R10 K18 ["Id"]
+  SETTABLEKS R4 R10 K19 ["Enabled"]
+  GETTABLEKS R11 R0 K8 ["localization"]
+  LOADK R13 K2 ["Plugin"]
+  LOADK R14 K20 ["Name"]
+  NAMECALL R11 R11 K21 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K14 ["Title"]
+  GETIMPORT R11 K25 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K23 ["ZIndexBehavior"]
+  GETIMPORT R11 K28 [Enum.InitialDockState.Bottom]
+  SETTABLEKS R11 R10 K26 ["InitialDockState"]
+  GETIMPORT R11 K30 [Vector2.new]
+  LOADN R12 128
+  LOADN R13 224
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K31 ["Size"]
+  GETIMPORT R11 K30 [Vector2.new]
+  LOADN R12 250
+  LOADN R13 200
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K32 ["MinSize"]
+  GETTABLEKS R11 R0 K33 ["onClose"]
+  SETTABLEKS R11 R10 K34 ["OnClose"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K35 ["ShouldRestore"]
+  GETTABLEKS R11 R0 K36 ["onRestore"]
+  SETTABLEKS R11 R10 K37 ["OnWidgetRestored"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K38 ["Change"]
+  GETTABLEKS R11 R12 K19 ["Enabled"]
+  GETTABLEKS R12 R0 K39 ["onWidgetEnabledChanged"]
+  SETTABLE R12 R10 R11
+  DUPTABLE R11 K42 [{"ExampleComponent", "ExampleRoactRoduxComponent"}]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K13 ["createElement"]
+  GETUPVAL R13 8
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K40 ["ExampleComponent"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K13 ["createElement"]
+  GETUPVAL R13 9
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K41 ["ExampleRoactRoduxComponent"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K11 ["MainWidget"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Rodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Packages"]
+  GETTABLEKS R4 R5 K8 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K9 ["UI"]
+  GETTABLEKS R4 R5 K10 ["DockWidget"]
+  GETTABLEKS R6 R3 K9 ["UI"]
+  GETTABLEKS R5 R6 K11 ["PluginToolbar"]
+  GETTABLEKS R7 R3 K9 ["UI"]
+  GETTABLEKS R6 R7 K12 ["PluginButton"]
+  GETTABLEKS R7 R3 K13 ["ContextServices"]
+  GETTABLEKS R8 R7 K14 ["Plugin"]
+  GETTABLEKS R9 R7 K15 ["Mouse"]
+  GETTABLEKS R10 R7 K16 ["Store"]
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K17 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Reducers"]
+  GETTABLEKS R12 R13 K19 ["MainReducer"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K17 ["Src"]
+  GETTABLEKS R14 R15 K20 ["Resources"]
+  GETTABLEKS R13 R14 K21 ["MakeTheme"]
+  CALL R12 1 1
+  GETTABLEKS R16 R0 K17 ["Src"]
+  GETTABLEKS R15 R16 K20 ["Resources"]
+  GETTABLEKS R14 R15 K22 ["Localization"]
+  GETTABLEKS R13 R14 K23 ["SourceStrings"]
+  GETTABLEKS R17 R0 K17 ["Src"]
+  GETTABLEKS R16 R17 K20 ["Resources"]
+  GETTABLEKS R15 R16 K22 ["Localization"]
+  GETTABLEKS R14 R15 K24 ["LocalizedStrings"]
+  GETTABLEKS R16 R0 K17 ["Src"]
+  GETTABLEKS R15 R16 K25 ["Components"]
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R17 R15 K26 ["ExampleComponent"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R18 R15 K27 ["ExampleRoactRoduxComponent"]
+  CALL R17 1 1
+  GETTABLEKS R18 R1 K28 ["PureComponent"]
+  LOADK R20 K29 ["MainPlugin"]
+  NAMECALL R18 R18 K30 ["extend"]
+  CALL R18 2 1
+  DUPCLOSURE R19 K31 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  SETTABLEKS R19 R18 K32 ["init"]
+  DUPCLOSURE R19 K33 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  SETTABLEKS R19 R18 K34 ["renderButtons"]
+  DUPCLOSURE R19 K35 [PROTO_9]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  SETTABLEKS R19 R18 K36 ["render"]
+  RETURN R18 1

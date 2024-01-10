@@ -217,51 +217,54 @@ PROTO_7:
   GETTABLEKS R18 R19 K9 ["createElement"]
   GETUPVAL R19 3
   DUPTABLE R20 K38 [{"Text", "Position", "AnchorPoint", "AutomaticSize"}]
-  LOADK R21 K32 ["Filter"]
+  LOADK R23 K39 ["ScriptConversion"]
+  LOADK R24 K32 ["Filter"]
+  NAMECALL R21 R4 K40 ["getText"]
+  CALL R21 3 1
   SETTABLEKS R21 R20 K34 ["Text"]
-  GETIMPORT R21 K40 [UDim2.fromScale]
+  GETIMPORT R21 K42 [UDim2.fromScale]
   LOADN R22 0
-  LOADK R23 K41 [0.5]
+  LOADK R23 K43 [0.5]
   CALL R21 2 1
   SETTABLEKS R21 R20 K35 ["Position"]
-  GETIMPORT R21 K43 [Vector2.new]
+  GETIMPORT R21 K45 [Vector2.new]
   LOADN R22 0
-  LOADK R23 K41 [0.5]
+  LOADK R23 K43 [0.5]
   CALL R21 2 1
   SETTABLEKS R21 R20 K36 ["AnchorPoint"]
-  GETIMPORT R21 K45 [Enum.AutomaticSize.XY]
+  GETIMPORT R21 K47 [Enum.AutomaticSize.XY]
   SETTABLEKS R21 R20 K37 ["AutomaticSize"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K31 ["FilterLabel"]
   GETUPVAL R19 1
   GETTABLEKS R18 R19 K9 ["createElement"]
   GETUPVAL R19 4
-  DUPTABLE R20 K51 [{"AnchorPoint", "PlaceholderText", "SelectedIndex", "Items", "OnItemActivated", "OnRenderItem", "Size", "Position", "LayoutOrder"}]
-  GETIMPORT R21 K43 [Vector2.new]
+  DUPTABLE R20 K53 [{"AnchorPoint", "PlaceholderText", "SelectedIndex", "Items", "OnItemActivated", "OnRenderItem", "Size", "Position", "LayoutOrder"}]
+  GETIMPORT R21 K45 [Vector2.new]
   LOADN R22 1
   LOADN R23 0
   CALL R21 2 1
   SETTABLEKS R21 R20 K36 ["AnchorPoint"]
-  LOADK R23 K52 ["ScriptConversion"]
+  LOADK R23 K39 ["ScriptConversion"]
   LOADK R24 K32 ["Filter"]
-  NAMECALL R21 R4 K53 ["getText"]
+  NAMECALL R21 R4 K40 ["getText"]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K46 ["PlaceholderText"]
+  SETTABLEKS R21 R20 K48 ["PlaceholderText"]
   MOVE R23 R8
   NAMECALL R21 R0 K54 ["getFilterIndex"]
   CALL R21 2 1
-  SETTABLEKS R21 R20 K47 ["SelectedIndex"]
-  SETTABLEKS R3 R20 K48 ["Items"]
+  SETTABLEKS R21 R20 K49 ["SelectedIndex"]
+  SETTABLEKS R3 R20 K50 ["Items"]
   GETTABLEKS R21 R0 K55 ["onFilterSelected"]
-  SETTABLEKS R21 R20 K49 ["OnItemActivated"]
+  SETTABLEKS R21 R20 K51 ["OnItemActivated"]
   GETTABLEKS R21 R0 K56 ["onRenderItem"]
-  SETTABLEKS R21 R20 K50 ["OnRenderItem"]
+  SETTABLEKS R21 R20 K52 ["OnRenderItem"]
   GETIMPORT R21 K58 [UDim2.fromOffset]
   GETTABLEKS R22 R6 K59 ["FilterWidth"]
   GETTABLEKS R23 R6 K29 ["FilterHeight"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K6 ["Size"]
-  GETIMPORT R21 K40 [UDim2.fromScale]
+  GETIMPORT R21 K42 [UDim2.fromScale]
   LOADN R22 1
   LOADN R23 0
   CALL R21 2 1

@@ -62,14 +62,15 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETUPVAL R1 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["join"]
-  GETUPVAL R3 2
-  DUPTABLE R4 K2 [{"Progress"}]
-  SETTABLEKS R0 R4 K1 ["Progress"]
-  CALL R2 2 -1
-  CALL R1 -1 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["join"]
+  GETUPVAL R4 2
+  DUPTABLE R5 K3 [{"Progress", "TimeRemaining"}]
+  SETTABLEKS R0 R5 K1 ["Progress"]
+  SETTABLEKS R1 R5 K2 ["TimeRemaining"]
+  CALL R3 2 -1
+  CALL R2 -1 0
   RETURN R0 0
 
 PROTO_7:
@@ -270,15 +271,15 @@ PROTO_14:
   SETLIST R10 R11 2 [1]
   CALL R8 2 1
   GETTABLEKS R9 R4 K1 ["Operation"]
-  JUMPIFNOT R9 [+61]
-  DUPTABLE R9 K13 [{"Description", "Enabled", "OnCancel", "OnClose", "OnPause", "OnResume", "Paused", "Progress", "Title"}]
+  JUMPIFNOT R9 [+65]
+  DUPTABLE R9 K14 [{"Description", "Enabled", "OnCancel", "OnClose", "OnPause", "OnResume", "Paused", "Progress", "TimeRemaining", "Title"}]
   GETTABLEKS R10 R4 K1 ["Operation"]
-  NAMECALL R10 R10 K14 ["getDescription"]
+  NAMECALL R10 R10 K15 ["getDescription"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K6 ["Description"]
   SETTABLEKS R2 R9 K7 ["Enabled"]
   GETTABLEKS R11 R4 K1 ["Operation"]
-  NAMECALL R11 R11 K15 ["canCancel"]
+  NAMECALL R11 R11 K16 ["canCancel"]
   CALL R11 1 1
   JUMPIFNOT R11 [+2]
   MOVE R10 R8
@@ -287,7 +288,7 @@ PROTO_14:
   SETTABLEKS R10 R9 K8 ["OnCancel"]
   SETTABLEKS R8 R9 K9 ["OnClose"]
   GETTABLEKS R11 R4 K1 ["Operation"]
-  NAMECALL R11 R11 K16 ["canPause"]
+  NAMECALL R11 R11 K17 ["canPause"]
   CALL R11 1 1
   JUMPIFNOT R11 [+2]
   MOVE R10 R6
@@ -295,7 +296,7 @@ PROTO_14:
   LOADNIL R10
   SETTABLEKS R10 R9 K10 ["OnPause"]
   GETTABLEKS R11 R4 K1 ["Operation"]
-  NAMECALL R11 R11 K17 ["canResume"]
+  NAMECALL R11 R11 K18 ["canResume"]
   CALL R11 1 1
   JUMPIFNOT R11 [+2]
   MOVE R10 R7
@@ -306,10 +307,12 @@ PROTO_14:
   SETTABLEKS R10 R9 K2 ["Paused"]
   GETTABLEKS R10 R4 K3 ["Progress"]
   SETTABLEKS R10 R9 K3 ["Progress"]
+  GETTABLEKS R10 R4 K12 ["TimeRemaining"]
+  SETTABLEKS R10 R9 K12 ["TimeRemaining"]
   GETTABLEKS R10 R4 K1 ["Operation"]
-  NAMECALL R10 R10 K18 ["getName"]
+  NAMECALL R10 R10 K19 ["getName"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K12 ["Title"]
+  SETTABLEKS R10 R9 K13 ["Title"]
   RETURN R9 1
   LOADNIL R9
   RETURN R9 1

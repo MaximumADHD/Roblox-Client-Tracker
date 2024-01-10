@@ -6,7 +6,6 @@
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local FFlagVRBackpackImproved = game:DefineFastFlag("VRBackpackImproved", false)
 
 local BackpackScript = {}
@@ -25,9 +24,7 @@ local FONT_SIZE = Enum.FontSize.Size14
 local ICON_BUFFER = 5
 
 local BACKGROUND_FADE_DEFAULT = 0.50
-local backgroundFade = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() 
-							then BACKGROUND_FADE_DEFAULT * UserGameSettings.PreferredTransparency
-							else BACKGROUND_FADE_DEFAULT
+local backgroundFade = BACKGROUND_FADE_DEFAULT * UserGameSettings.PreferredTransparency
 local BACKGROUND_COLOR = Color3.new(31/255, 31/255, 31/255)
 
 local VR_FADE_TIME = 1
@@ -37,9 +34,7 @@ local SLOT_DRAGGABLE_COLOR = Color3.new(49/255, 49/255, 49/255)
 local SLOT_EQUIP_COLOR = Color3.new(90/255, 142/255, 233/255)
 local SLOT_EQUIP_THICKNESS = 0.1 -- Relative
 local SLOT_FADE_LOCKED_DEFAULT = 0.50 -- Locked means undraggable
-local slotFadeLocked = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() 
-							then SLOT_FADE_LOCKED_DEFAULT * UserGameSettings.PreferredTransparency 
-							else SLOT_FADE_LOCKED_DEFAULT
+local slotFadeLocked = SLOT_FADE_LOCKED_DEFAULT * UserGameSettings.PreferredTransparency 
 local SLOT_BORDER_COLOR = Color3.new(1, 1, 1) -- Appears when dragging
 
 local TOOLTIP_BUFFER = 6
@@ -72,9 +67,7 @@ local SEARCH_TEXT = "   Search"
 local SEARCH_TEXT_OFFSET_FROMLEFT = 0
 local SEARCH_BACKGROUND_COLOR = Color3.new(0.37, 0.37, 0.37)
 local SEARCH_BACKGROUND_FADE_DEFAULT = 0.15
-local searchBackgroundFade = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() 
-									then SEARCH_BACKGROUND_FADE_DEFAULT * UserGameSettings.PreferredTransparency
-									else SEARCH_BACKGROUND_FADE_DEFAULT
+local searchBackgroundFade = SEARCH_BACKGROUND_FADE_DEFAULT * UserGameSettings.PreferredTransparency
 
 local DOUBLE_CLICK_TIME = 0.5
 
@@ -2006,8 +1999,6 @@ local function OnPreferredTransparencyChanged()
 	searchBackgroundFade = SEARCH_BACKGROUND_FADE_DEFAULT * UserGameSettings.PreferredTransparency
 	searchFrame.BackgroundTransparency = searchBackgroundFade
 end
-if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-	UserGameSettings:GetPropertyChangedSignal("PreferredTransparency"):connect(OnPreferredTransparencyChanged)
-end
+UserGameSettings:GetPropertyChangedSignal("PreferredTransparency"):connect(OnPreferredTransparencyChanged)
 
 return BackpackScript

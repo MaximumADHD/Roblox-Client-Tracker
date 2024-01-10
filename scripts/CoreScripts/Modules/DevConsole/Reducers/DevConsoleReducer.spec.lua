@@ -15,6 +15,7 @@ return function()
 	local MicroProfiler = require(Reducers.MicroProfiler)
 	local DebugVisualizationsData = require(Reducers.DebugVisualizationsData)
 	local ScriptProfiler = require(Reducers.ScriptProfiler)
+	local LuauHeap = require(Reducers.LuauHeap)
 
 	it("has the expected fields, and only the expected fields", function()
 		local state = DevConsoleReducer(nil, {})
@@ -33,6 +34,7 @@ return function()
 			MicroProfiler = MicroProfiler(nil, {}),
 			DebugVisualizationsData = DebugVisualizationsData(nil, {}),
 			ScriptProfiler = ScriptProfiler(nil, {}),
+			LuauHeap = if game:GetFastFlag("DevConsoleLuauHeap") then LuauHeap(nil, {}) else nil,
 		}
 
 		for key in pairs(expectedKeys) do

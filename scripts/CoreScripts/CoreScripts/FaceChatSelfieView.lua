@@ -38,7 +38,9 @@ end
 local newTrackerStreamAnimation = nil
 local cloneStreamTrack = nil
 
+local EngineFeatureAvatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
+local EngineFeatureAnimatorAndADFRefactorInternal = game:GetEngineFeature("AnimatorAndADFRefactorInternal")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CollectionService = game:GetService("CollectionService")
@@ -65,6 +67,7 @@ local FFlagSelfViewChecks3 = game:DefineFastFlag("SelfViewChecks3", false)
 local FFlagSelfViewAdaptToScreenOrientationChange = game:DefineFastFlag("SelfViewAdaptToScreenOrientationChange", false)
 local FFlagSelfViewImprovedUpdateCloneTriggering = game:DefineFastFlag("SelfViewImprovedUpdateCloneTriggering", false)
 local FFlagSelfViewCameraDefaultButtonInViewPort = game:DefineFastFlag("SelfViewCameraDefaultButtonInViewPort", false)
+local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -111,6 +114,7 @@ local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Fl
 
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 local FFlagMockFTUXAlwaysAvailableCameraUser = game:DefineFastFlag("MockOpenSelfViewForCameraUser", false)
+local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local globalShowSelfViewFunction = nil
 local FIntSelfViewTooltipLifetime = game:DefineFastInt("SelfViewTooltipLifetime", 10)
 local mountSelfViewOnCloseTooltip = require(RobloxGui.Modules.SelfView.mountSelfViewOnCloseTooltip)
@@ -119,6 +123,9 @@ local mountedOnOpenTooltipInstance = nil
 
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
 local displayCameraDeniedToast = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.displayCameraDeniedToast)
+if GetFFlagRemoveInGameChatBubbleChatReferences() then
+	displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
+end
 
 local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -260,6 +267,8 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	Accessory = "Accessory",
 	Animator = "Animator",
 	Attachment = "Attachment",
+	AnimationConstraint = EngineFeatureAvatarJointUpgrade and "AnimationConstraint" or nil,
+	BallSocketConstraint = EngineFeatureAvatarJointUpgrade and "BallSocketConstraint" or nil,
 	BodyColors = "BodyColors",
 	CharacterMesh = "CharacterMesh",
 	Decal = "Decal",
@@ -1698,9 +1707,22 @@ function getAnimator(character, timeOut)
 
 	local humanoid = nil
 	if timeOut > 0 then
-		humanoid = character:WaitForChild("Humanoid", timeOut)
+		if FFlagSelfViewLookUpHumanoidByType then
+			local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+			if maybeHumanoid:IsA("Humanoid") then
+				humanoid = maybeHumanoid
+			else
+				humanoid = character:FindFirstChildWhichIsA("Humanoid")
+			end
+		else
+			humanoid = character:WaitForChild("Humanoid", timeOut)
+		end
 	else
-		humanoid = character:FindFirstChild("Humanoid")
+		if FFlagSelfViewLookUpHumanoidByType then
+			humanoid = character:FindFirstChildWhichIsA("Humanoid")
+		else
+			humanoid = character:FindFirstChild("Humanoid")
+		end
 	end
 
 	if humanoid ~= nil then
@@ -2021,48 +2043,59 @@ local function updateClone(player)
 	end
 
 	debugPrint("Self View: clone:" .. tostring(clone))
-	local cloneHumanoid = clone:FindFirstChild("Humanoid")
+	local cloneHumanoid = nil
+	if FFlagSelfViewLookUpHumanoidByType then
+		cloneHumanoid = clone:FindFirstChildWhichIsA("Humanoid")
+	else
+		cloneHumanoid = clone:FindFirstChild("Humanoid")
+	end
 	if cloneHumanoid then
 		cloneHumanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 	end
 	cloneAnimator = getAnimator(clone, 0)
 
-	--prep sync streaming tracks
+	-- --prep sync streaming tracks
 	if cloneAnimator then
-		-- clear cloned tracks
-		local clonedTracks = cloneAnimator:GetPlayingAnimationTracks()
-		local coreScriptTracks = cloneAnimator:GetPlayingAnimationTracksCoreScript()
+		if not EngineFeatureAnimatorAndADFRefactorInternal then
+			-- clear cloned tracks
+			local clonedTracks = cloneAnimator:GetPlayingAnimationTracks()
+			local coreScriptTracks = cloneAnimator:GetPlayingAnimationTracksCoreScript()
 
-		for index, track in ipairs(clonedTracks) do
-			if track ~= nil then
-				track:Stop(0)
-				track:Destroy()
+			for index, track in ipairs(clonedTracks) do
+				if track ~= nil then
+					track:Stop(0)
+					track:Destroy()
+				end
 			end
-		end
 
-		for index, track in ipairs(coreScriptTracks) do
-			if track ~= nil then
-				track:Stop(0)
-				track:Destroy()
+			for index, track in ipairs(coreScriptTracks) do
+				if track ~= nil then
+					track:Stop(0)
+					track:Destroy()
+				end
 			end
-		end
 
-		if newTrackerStreamAnimation then
-			newTrackerStreamAnimation:Destroy()
-			newTrackerStreamAnimation = nil
+			if newTrackerStreamAnimation then
+				newTrackerStreamAnimation:Destroy()
+				newTrackerStreamAnimation = nil
+			end
 		end
 
 		if animator then
-			-- clone tracks manually
-			for index, track in ipairs(animator:GetPlayingAnimationTracksCoreScript()) do
-				syncTrack(cloneAnimator, track)
-			end
-
-			observerInstances[Observer.AnimationPlayedCoreScript] = animator.AnimationPlayedCoreScript:Connect(
-				function(track)
+			if EngineFeatureAnimatorAndADFRefactorInternal then
+				cloneAnimator:SynchronizeWith(animator)
+			else
+				-- clone tracks manually
+				for index, track in ipairs(animator:GetPlayingAnimationTracksCoreScript()) do
 					syncTrack(cloneAnimator, track)
 				end
-			)
+
+				observerInstances[Observer.AnimationPlayedCoreScript] = animator.AnimationPlayedCoreScript:Connect(
+					function(track)
+						syncTrack(cloneAnimator, track)
+					end
+				)
+			end
 
 			gotUsableClone = true
 
@@ -2137,7 +2170,12 @@ local function characterAdded(character)
 	clearObserver(Observer.Color)
 
 	if FFlagSelfViewImprovedUpdateCloneTriggering then
-		local humanoid = character:FindFirstChild("Humanoid")
+		local humanoid = nil
+		if FFlagSelfViewLookUpHumanoidByType then
+			humanoid = character:FindFirstChildWhichIsA("Humanoid")
+		else
+			humanoid = character:FindFirstChild("Humanoid")
+		end
 		if humanoid then
 			addHumanoidStateChangedObserver(humanoid)
 		end
@@ -2165,9 +2203,16 @@ local function characterAdded(character)
 
 		if FFlagSelfViewImprovedUpdateCloneTriggering then
 
-			if descendant.Name == "Humanoid" or descendant:IsA("Humanoid") then
-				local humanoid = descendant
-				addHumanoidStateChangedObserver(humanoid)
+			if FFlagSelfViewLookUpHumanoidByType then
+				if descendant:IsA("Humanoid") then
+					local humanoid = descendant
+					addHumanoidStateChangedObserver(humanoid)
+				end
+			else
+				if descendant.Name == "Humanoid" or descendant:IsA("Humanoid") then
+					local humanoid = descendant
+					addHumanoidStateChangedObserver(humanoid)
+				end
 			end
 
 			--we only want to refresh the avatar self view clone on descendant added if the descendant is actually visible
@@ -2233,7 +2278,12 @@ local function onCharacterAdded(character)
 	ReInit(Players.LocalPlayer)
 	if FFlagSelfViewImprovedUpdateCloneTriggering then
 		clearObserver(Observer.HumanoidStateChanged)
-		local humanoid = character:FindFirstChild("Humanoid")
+		local humanoid = nil
+		if FFlagSelfViewLookUpHumanoidByType then
+			humanoid = character:FindFirstChildWhichIsA("Humanoid")
+		else
+			humanoid = character:FindFirstChild("Humanoid")
+		end
 		if humanoid then
 			addHumanoidStateChangedObserver(humanoid)
 		end
@@ -2453,11 +2503,6 @@ function startRenderStepped(player)
 				end
 			end
 
-			local currentStreamTrackWeight
-			if GetFFlagIrisGyroEnabled() then
-				currentStreamTrackWeight = 1
-			end
-
 			if headRef then
 				local animator = getAnimator(character, 0)
 
@@ -2465,24 +2510,38 @@ function startRenderStepped(player)
 				if cloneAnimator ~= nil and animator ~= nil then
 					gotUsableClone = true
 
-					local playingAnims = cloneAnimator:GetPlayingAnimationTracks()
-					for _, track in pairs(playingAnims) do
-						if track ~= nil then
-							track:Stop(0)
+					if not EngineFeatureAnimatorAndADFRefactorInternal then
+						local playingAnims = cloneAnimator:GetPlayingAnimationTracks()
+						for _, track in pairs(playingAnims) do
+							if track ~= nil then
+								track:Stop(0)
+							end
 						end
-					end
 
-					local orgPlayingTracks = animator:GetPlayingAnimationTracks()
+						local orgPlayingTracks = animator:GetPlayingAnimationTracks()
 
-					local anim = nil
-					orgAnimationTracks = {}
-					for index, value in ipairs(orgPlayingTracks) do
-						anim = value.Animation
-						if anim then
-							if anim:IsA("Animation") then
-								if FFlagSelfViewChecks3 then
-									--avoid error "LoadAnimation requires the asset id to not be empty"
-									if anim.AnimationId ~= "" then
+						local anim = nil
+						orgAnimationTracks = {}
+						for index, value in ipairs(orgPlayingTracks) do
+							anim = value.Animation
+							if anim then
+								if anim:IsA("Animation") then
+									if FFlagSelfViewChecks3 then
+										--avoid error "LoadAnimation requires the asset id to not be empty"
+										if anim.AnimationId ~= "" then
+											orgAnimationTracks[anim.AnimationId] = value
+											if not cloneAnimationTracks[anim.AnimationId] then
+												cloneAnimationTracks[anim.AnimationId] =
+													cloneAnimator:LoadAnimation(anim)
+											end
+											local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
+
+											cloneAnimationTrack:Play()
+											cloneAnimationTrack.TimePosition = value.TimePosition
+											cloneAnimationTrack.Priority = value.Priority
+											cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
+										end
+									else
 										orgAnimationTracks[anim.AnimationId] = value
 										if not cloneAnimationTracks[anim.AnimationId] then
 											cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
@@ -2494,51 +2553,37 @@ function startRenderStepped(player)
 										cloneAnimationTrack.Priority = value.Priority
 										cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
 									end
-								else
-									orgAnimationTracks[anim.AnimationId] = value
-									if not cloneAnimationTracks[anim.AnimationId] then
-										cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
-									end
-									local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
-
-									cloneAnimationTrack:Play()
-									cloneAnimationTrack.TimePosition = value.TimePosition
-									cloneAnimationTrack.Priority = value.Priority
-									cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
 								end
 							end
 						end
-					end
 
-					--clear meanwhile not anymore playing track
-					for trackId in cloneAnimationTracks do
-						local track = cloneAnimationTracks[trackId]
-						if track then
-							anim = track.Animation
-							if anim then
-								if not orgAnimationTracks[anim.AnimationId] then
-									if FFlagSelfViewChecks then
-										if cloneAnimationTracks[anim.AnimationId] ~= nil then
+						--clear meanwhile not anymore playing track
+						for trackId in cloneAnimationTracks do
+							local track = cloneAnimationTracks[trackId]
+							if track then
+								anim = track.Animation
+								if anim then
+									if not orgAnimationTracks[anim.AnimationId] then
+										if FFlagSelfViewChecks then
+											if cloneAnimationTracks[anim.AnimationId] ~= nil then
+												cloneAnimationTracks[anim.AnimationId]:Stop(0)
+											end
+										else
 											cloneAnimationTracks[anim.AnimationId]:Stop(0)
 										end
-									else
-										cloneAnimationTracks[anim.AnimationId]:Stop(0)
+										cloneAnimationTracks[anim.AnimationId] = nil
 									end
-									cloneAnimationTracks[anim.AnimationId] = nil
 								end
 							end
 						end
-					end
 
-					for index, track in ipairs(animator:GetPlayingAnimationTracksCoreScript()) do
-						local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
-						for i, trackS in pairs(playingAnims) do
-							if trackS.Animation:IsA("TrackerStreamAnimation") then
-								trackS.Priority = track.Priority
-								trackS:AdjustWeight(track.WeightCurrent, 0)
 
-								if GetFFlagIrisGyroEnabled() then
-									currentStreamTrackWeight = track.WeightCurrent
+						for index, track in ipairs(animator:GetPlayingAnimationTracksCoreScript()) do
+							local playingAnims = cloneAnimator:GetPlayingAnimationTracksCoreScript()
+							for i, trackS in pairs(playingAnims) do
+								if trackS.Animation:IsA("TrackerStreamAnimation") then
+									trackS.Priority = track.Priority
+									trackS:AdjustWeight(track.WeightCurrent, 0)
 								end
 							end
 						end
@@ -2547,11 +2592,9 @@ function startRenderStepped(player)
 			end
 
 			local camOrientationWeight
-			local trackerWeight
 			local trackerData
 			if GetFFlagIrisGyroEnabled() then
 				camOrientationWeight = 0.5
-				trackerWeight = 1
 				trackerData = nil
 				-- When a device has accelerometer, we make self view orientation a hybrid of:
 				-- 1. Face rotation
@@ -2565,7 +2608,6 @@ function startRenderStepped(player)
 							if trackS.Animation:IsA("TrackerStreamAnimation") then
 								-- poll tracker data
 								_, trackerData, _ = trackS:GetTrackerData()
-								trackS:AdjustWeight(math.clamp(trackerWeight * currentStreamTrackWeight, 0.001, currentStreamTrackWeight), 0)
 							end
 						end
 					end

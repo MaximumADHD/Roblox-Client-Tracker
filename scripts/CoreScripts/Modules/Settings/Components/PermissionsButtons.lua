@@ -36,12 +36,16 @@ local VoiceConstants = require(Modules.VoiceChat.Constants)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local GetFFlagInvertMuteAllPermissionButton = require(RobloxGui.Modules.Flags.GetFFlagInvertMuteAllPermissionButton)
-local GetFFlagMuteAllEvent = require(RobloxGui.Modules.Flags.GetFFlagMuteAllEvent)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUpdateSelfieViewOnBan)
 local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
+
+if GetFFlagRemoveInGameChatBubbleChatReferences() then
+	displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
+end
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 
@@ -447,12 +451,10 @@ function PermissionsButtons:render()
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = self.onCoreGuiChanged,
 		}),
-		MuteAllChangedEvent = if GetFFlagMuteAllEvent() then
-			Roact.createElement(ExternalEventConnection, {
-				event = VoiceChatServiceManager.muteAllChanged.Event,
-				callback = self.toggleMuteAllIcon,
-			})
-		else nil,
+		MuteAllChangedEvent = Roact.createElement(ExternalEventConnection, {
+			event = VoiceChatServiceManager.muteAllChanged.Event,
+			callback = self.toggleMuteAllIcon,
+		}),
 		VideoCaptureEnabledEvent = Roact.createElement(ExternalEventConnection, {
 			event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
 			callback = self.updateVideoCaptureEnabled,

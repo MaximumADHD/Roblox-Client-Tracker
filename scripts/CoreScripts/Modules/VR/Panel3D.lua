@@ -17,8 +17,6 @@ local GamepadService = game:GetService("GamepadService")
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 local CorePackages = game:GetService("CorePackages")
 
-local GetFFlagUIBloxVRFixUIJitter =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRFixUIJitter
 local FFlagVRFreeUIPanel = game:DefineFastFlag("VRFreeUIPanel", false)
 local FFlagVRHeadLockedFixUIPosition = game:DefineFastFlag("VRHeadLockedFixUIPosition", false)
 
@@ -218,9 +216,7 @@ function Panel.new(name)
 	self.isClosest = true
 
 	self.localCF = CFrame.new()
-	if GetFFlagUIBloxVRFixUIJitter() then
-		self.originCF = CFrame.new()
-	end
+	self.originCF = CFrame.new()
 	self.angleFromHorizon = false
 	self.angleFromForward = false
 	self.distance = 0
@@ -1290,12 +1286,10 @@ local function onCurrentCameraChanged()
 	end
 	headscaleChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("HeadScale"):Connect(onHeadScaleChanged)
 
-	if GetFFlagUIBloxVRFixUIJitter() then
-		if cameraCFrameChangedConn then
-			cameraCFrameChangedConn:disconnect()
-		end
-		cameraCFrameChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("CFrame"):Connect(onCameraCFrameChanged)
+	if cameraCFrameChangedConn then
+		cameraCFrameChangedConn:disconnect()
 	end
+	cameraCFrameChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("CFrame"):Connect(onCameraCFrameChanged)
 
 	if VRService.VREnabled and isCameraReady then
 		putFoldersIn(workspace.CurrentCamera)

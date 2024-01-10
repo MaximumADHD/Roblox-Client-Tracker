@@ -39,6 +39,8 @@ local Constants = require(ContactList.Components.common.Constants)
 
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 
+local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
+
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
 local localUserId: number = localPlayer and localPlayer.UserId or 0
@@ -121,7 +123,10 @@ local function CallHistoryContainer(props: Props)
 		getCallRecords({}, "")
 
 		return function()
-			dispatch(RoduxCall.Actions.ClearCallRecords())
+			if not FFlagUseRoduxCall18 then
+				dispatch(RoduxCall.Actions.ClearCallRecords())
+			end
+
 			setCallRecords({})
 			setNextPageCursor("")
 		end

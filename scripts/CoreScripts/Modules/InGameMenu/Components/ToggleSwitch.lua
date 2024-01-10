@@ -17,8 +17,6 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local AssetImage = require(script.Parent.AssetImage)
 
-local FFlagIGMVRComfortSetting = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRComfortSetting()
-
 local KNOB_SIZE = 42
 local KNOB_POSITION_OFF = UDim2.new(0, -3, 0.5, 0)
 local KNOB_POSITION_ON = UDim2.new(1, -39, 0.5, 0)
@@ -46,11 +44,7 @@ function ToggleSwitch:init()
 	self.progress, self.setProgress = Roact.createBinding(initialProgress)
 
 	self.fillTransparency = self.progress:map(function(value)
-		if FFlagIGMVRComfortSetting then
-			return divideTransparency((1 - value), self.props.disabled and 4 or 1)
-		else
-			return 1 - value
-		end
+		return divideTransparency((1 - value), self.props.disabled and 4 or 1)
 	end)
 
 	self.knobPosition = self.progress:map(function(value)

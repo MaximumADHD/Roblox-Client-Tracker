@@ -12,7 +12,7 @@ PROTO_0:
   DUPTABLE R9 K12 [{"Label", "Type"}]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K13 ["ClearSettings"]
-  LOADK R13 K14 ["ClearButton"]
+  LOADK R13 K14 ["ClearButtonLabel"]
   NAMECALL R10 R4 K15 ["getText"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K10 ["Label"]

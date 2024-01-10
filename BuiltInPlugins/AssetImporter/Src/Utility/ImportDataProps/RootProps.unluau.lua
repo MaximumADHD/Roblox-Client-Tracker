@@ -4,166 +4,145 @@ local var1 = require(var0.Src.Utility.DebugFlags)
 local var2 = require(var0.Src.Flags.getFFlagShowOffCenterOriginImporter)
 local var3 = require(var0.Src.Flags.getFFlagChooseAnimationForRestPose)
 local var4 = require(var0.Src.Flags.getFFlagShowRigSettingsNoJoints)
-local var5 = require(var0.Src.Flags.getFFlagDetectGltfJoints)
-local var6 = require(var0.Src.Flags.getFFlagHideAnimationSettingForGltf)
-local var7 = require(var0.Src.Flags.getFFlagImporterOpensAvatarPreviewer2)
-local var8 = require(var0.Src.Flags.getFFlagImporterOpensAvatarPreviewerBetaCheck)
+local var5 = require(var0.Src.Flags.getFFlagHideAnimationSettingForGltf)
+local var6 = require(var0.Src.Flags.getFFlagImporterOpensAvatarPreviewer2)
+local var7 = require(var0.Src.Flags.getFFlagImporterOpensAvatarPreviewerBetaCheck)
 local function fun0(arg1, arg2)
    return arg2:IsAvatar()
 end
 
 local function fun1()
-   return var7() and var8() and var1.RunningUnderCLI()
+   return var6() and var7() and var1.RunningUnderCLI()
 end
 
 local function fun2(arg1)
-   return var7() and var8() and var1.RunningUnderCLI() and arg1:IsR15()
+   return var6() and var7() and var1.RunningUnderCLI() and arg1:IsR15()
 end
 
-local var9 = {}
-var9.Section = "FileGeneral"
-local var202 = {}
-var202.Name = "ImportName"
-var202.Editable = true
-local var205 = {}
-var205.Name = "ImportAsModelAsset"
-var205.Editable = true
-local var208 = {}
-var208.Name = "AddModelToInventory"
-var208.Editable = true
-local var211 = {}
-var211.Name = "ImportAsPackage"
-var211.Editable = true
-function var211.ShouldHide(arg1)
+local var8 = {}
+var8.Section = "FileGeneral"
+local var177 = {}
+var177.Name = "ImportName"
+var177.Editable = true
+local var180 = {}
+var180.Name = "ImportAsModelAsset"
+var180.Editable = true
+local var183 = {}
+var183.Name = "AddModelToInventory"
+var183.Editable = true
+local var186 = {}
+var186.Name = "ImportAsPackage"
+var186.Editable = true
+function var186.ShouldHide(arg1)
    return arg1.AddModelToInventory
 end
 
-local var214 = {}
-var214.Name = "ExistingPackageId"
-var214.Editable = true
-var214.ComponentFactory = require(var0.Src.Components.Properties.Types.AssetIdProperty)
-function var214.ShouldHide(arg1)
+local var189 = {}
+var189.Name = "ExistingPackageId"
+var189.Editable = true
+var189.ComponentFactory = require(var0.Src.Components.Properties.Types.AssetIdProperty)
+function var189.ShouldHide(arg1)
    return arg1.AddModelToInventory and arg1.ImportAsPackage
 end
 
-local var217 = {}
-var217.Name = "InsertInWorkspace"
-var217.Editable = true
-local var220 = {}
-var220.Name = "InsertWithScenePosition"
-var220.Editable = true
-function var220.ShouldHide(arg1)
+local var192 = {}
+var192.Name = "InsertInWorkspace"
+var192.Editable = true
+local var195 = {}
+var195.Name = "InsertWithScenePosition"
+var195.Editable = true
+function var195.ShouldHide(arg1)
    return arg1.InsertInWorkspace
 end
 
-local var223 = {}
-var223.Name = "UseSceneOriginAsCFrame"
-var223.Editable = true
-function var223.ShouldHide(arg1)
+local var198 = {}
+var198.Name = "UseSceneOriginAsCFrame"
+var198.Editable = true
+function var198.ShouldHide(arg1)
    return var2()
 end
 
-local var226 = {}
-var226.Name = "UseSceneOriginAsPivot"
-var226.Editable = true
-local var229 = {}
-var229.Name = "Anchored"
-var229.Editable = true
-local var232 = {}
-var232.Name = "UsesCages"
-var232.Editable = true
-var9.Properties = {}
-local var21 = {}
-var21.Section = "AvatarGeneral"
-local var238 = {}
-var238.Name = "RigType"
-var238.Editable = true
-function var238.ShouldHide(arg1, arg2)
-   if var5() then
-      if arg2:IsGltf() then
-         return true
-      end
-   end
+local var201 = {}
+var201.Name = "UseSceneOriginAsPivot"
+var201.Editable = true
+local var204 = {}
+var204.Name = "Anchored"
+var204.Editable = true
+local var207 = {}
+var207.Name = "UsesCages"
+var207.Editable = true
+var8.Properties = {}
+local var20 = {}
+var20.Section = "AvatarGeneral"
+local var213 = {}
+var213.Name = "RigType"
+var213.Editable = true
+function var213.ShouldHide(arg1, arg2)
    if var4() then
       return true
    end
    return arg2:IsAvatar()
 end
 
-local var241 = {}
-var241.Name = "RigScale"
-var241.Editable = true
-function var241.ShouldHide(arg1, arg2)
-   if var5() then
-      if arg2:IsGltf() then
-         return true
-      end
-   end
+local var216 = {}
+var216.Name = "RigScale"
+var216.Editable = true
+function var216.ShouldHide(arg1, arg2)
    if var4() then
       return true
    end
    return arg2:IsR15()
 end
 
-var21.Properties = {}
-local var24 = {}
-var24.Section = "RigGeneral"
-local var247 = {}
-var247.Name = "RigType"
-var247.Editable = true
-function var247.ShouldHide(arg1, arg2)
-   if var5() then
-      if arg2:IsGltf() then
-         return true
-      end
-   end
+var20.Properties = {}
+local var23 = {}
+var23.Section = "RigGeneral"
+local var222 = {}
+var222.Name = "RigType"
+var222.Editable = true
+function var222.ShouldHide(arg1, arg2)
    return var4()
 end
 
-local var250 = {}
-var250.Name = "ValidateUgcBody"
-var250.Editable = true
-function var250.ShouldHide(arg1, arg2)
-   return var7() and var8() or arg2:IsR15()
+local var225 = {}
+var225.Name = "ValidateUgcBody"
+var225.Editable = true
+function var225.ShouldHide(arg1, arg2)
+   return var6() and var7() or arg2:IsR15()
 end
 
-local var254 = {}
-var254.Name = "OpenAvatarPreviewCallout"
-function var254.ShouldShow(arg1)
-   return var7() and var8() and var1.RunningUnderCLI() and arg1:IsR15()
+local var229 = {}
+var229.Name = "OpenAvatarPreviewCallout"
+function var229.ShouldShow(arg1)
+   return var6() and var7() and var1.RunningUnderCLI() and arg1:IsR15()
 end
 
-var250.Callouts = {}
-local var256 = {}
-var256.Name = "RigScale"
-var256.Editable = true
-function var256.ShouldHide(arg1, arg2)
-   if var5() then
-      if arg2:IsGltf() then
-         return true
-      end
-   end
+var225.Callouts = {}
+local var231 = {}
+var231.Name = "RigScale"
+var231.Editable = true
+function var231.ShouldHide(arg1, arg2)
    if not var4() then
       return true
    end
    return arg2:IsR15()
 end
 
-var24.Properties = {}
-local var260 = {}
-var260.Name = "OpenAvatarPreviewCallout"
-function var260.ShouldShow(arg1)
-   return var7() and var8() and var1.RunningUnderCLI() and arg1:IsR15()
+var23.Properties = {}
+local var235 = {}
+var235.Name = "OpenAvatarPreviewCallout"
+function var235.ShouldShow(arg1)
+   return var6() and var7() and var1.RunningUnderCLI() and arg1:IsR15()
 end
 
-var24.Callouts = {}
-local var30 = {}
-var30.Section = "AnimationGeneral"
-local var265 = {}
-var265.Name = "RestPose"
-var265.Editable = true
-function var265.ShouldHide(arg1, arg2)
-   if var6() then
+var23.Callouts = {}
+local var29 = {}
+var29.Section = "AnimationGeneral"
+local var240 = {}
+var240.Name = "RestPose"
+var240.Editable = true
+function var240.ShouldHide(arg1, arg2)
+   if var5() then
       if arg2:IsGltf() then
          return true
       end
@@ -174,12 +153,12 @@ function var265.ShouldHide(arg1, arg2)
    return arg2:HasAnimation()
 end
 
-local var268 = {}
-var268.Name = "AnimationIdForRestPose"
-var268.Editable = true
-var268.ComponentFactory = require(var0.Src.Components.Properties.Types.AnimationListProperty)
-function var268.ShouldHide(arg1, arg2)
-   if var6() then
+local var243 = {}
+var243.Name = "AnimationIdForRestPose"
+var243.Editable = true
+var243.ComponentFactory = require(var0.Src.Components.Properties.Types.AnimationListProperty)
+function var243.ShouldHide(arg1, arg2)
+   if var5() then
       if arg2:IsGltf() then
          return true
       end
@@ -190,42 +169,42 @@ function var268.ShouldHide(arg1, arg2)
    return arg2:HasAnimation() or arg2:usesCustomRestPoseLua()
 end
 
-var30.Properties = {}
-local var33 = {}
-var33.Section = "FileTransform"
-local var274 = {}
-var274.Name = "WorldForward"
-var274.Editable = true
-local var278 = "WorldUp"
-var274.Dependencies = {}
-local var279 = {}
-var279.Name = "WorldUp"
-var279.Editable = true
-local var283 = "WorldForward"
-var279.Dependencies = {}
-var33.Properties = {}
+var29.Properties = {}
+local var32 = {}
+var32.Section = "FileTransform"
+local var249 = {}
+var249.Name = "WorldForward"
+var249.Editable = true
+local var253 = "WorldUp"
+var249.Dependencies = {}
+local var254 = {}
+var254.Name = "WorldUp"
+var254.Editable = true
+local var258 = "WorldForward"
+var254.Dependencies = {}
+var32.Properties = {}
+local var37 = {}
+var37.Section = "FileGeometry"
 local var38 = {}
-var38.Section = "FileGeometry"
+var38.Name = "ScaleUnit"
+var38.Editable = true
 local var39 = {}
-var39.Name = "ScaleUnit"
-var39.Editable = true
-local var40 = {}
-var40.Name = "FileDimensions"
-var40.Editable = false
-local var294 = "ScaleUnit"
-var40.Dependencies = {}
+var39.Name = "FileDimensions"
+var39.Editable = false
+local var269 = "ScaleUnit"
+var39.Dependencies = {}
+local var41 = {}
+var41.Name = "PolygonCount"
+var41.Editable = false
 local var42 = {}
-var42.Name = "PolygonCount"
-var42.Editable = false
-local var43 = {}
-var43.Name = "MergeMeshes"
-var43.Editable = true
-function var43.ShouldHide(arg1)
+var42.Name = "MergeMeshes"
+var42.Editable = true
+function var42.ShouldHide(arg1)
    return arg1.AddModelToInventory and arg1.ImportAsPackage
 end
 
-local var44 = {}
-var44.Name = "InvertNegativeFaces"
-var44.Editable = true
-var38.Properties = {}
+local var43 = {}
+var43.Name = "InvertNegativeFaces"
+var43.Editable = true
+var37.Properties = {}
 return {}

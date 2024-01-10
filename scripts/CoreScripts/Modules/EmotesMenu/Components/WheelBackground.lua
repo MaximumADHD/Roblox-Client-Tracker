@@ -1,7 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -17,9 +14,6 @@ local Constants = require(EmotesMenu.Constants)
 local SelectionGradient = require(Components.SelectionGradient)
 local SelectionEffect = require(Components.SelectionEffect)
 local WheelText = require(Components.WheelText)
-
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
 local WheelBackground = Roact.PureComponent:extend("WheelBackground")
 
@@ -82,13 +76,9 @@ function WheelBackground:renderContent(preferredTransparency)
 end
 
 function WheelBackground:render()
-	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-		return withStyle(function(style)
-			return self:renderContent(style.Settings.PreferredTransparency)
-		end)
-	end
-
-	return self:renderContent()
+	return withStyle(function(style)
+		return self:renderContent(style.Settings.PreferredTransparency)
+	end)
 end
 
 local function mapStateToProps(state)

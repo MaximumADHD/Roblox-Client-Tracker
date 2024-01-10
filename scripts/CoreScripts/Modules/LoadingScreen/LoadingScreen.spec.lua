@@ -17,27 +17,6 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
-	local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
-
-	it("should create and destroy without errors", function()
-		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-			return
-		end
-
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(LoadingScreenReducer, {}, {
-				Rodux.thunkMiddleware,
-			}),
-		}, {
-			LoadingScreen = Roact.createElement(LoadingScreen,{
-				placeId = 0,
-			}),
-		})
-
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
-
 	local function createLoadingScreenWithAppStyleProvider(reducedMotion)
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(LoadingScreenReducer, {}, {
@@ -68,10 +47,6 @@ return function()
 	end)
 
 	it("should replace shimmer with pulsate with reducedMotion true", function()
-		if not GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-			return
-		end
-
 		local element = createLoadingScreenWithAppStyleProvider(true)
 
 		local folder = Instance.new("Folder")
@@ -87,10 +62,6 @@ return function()
 	end)
 
 	it("should not replace shimmer with pulsate with reducedMotion false", function()
-		if not GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-			return
-		end
-
 		local element = createLoadingScreenWithAppStyleProvider(false)
 
 		local folder = Instance.new("Folder")

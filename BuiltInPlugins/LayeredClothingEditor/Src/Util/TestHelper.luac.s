@@ -1040,52 +1040,6 @@ PROTO_45:
   CALL R0 -1 0
   RETURN R0 0
 
-PROTO_46:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["getMainScroller"]
-  CALL R1 0 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K1 ["new"]
-  LOADK R5 K2 ["EditSwizzle.Content.EditorFrame.EditingModeFrame.EditingModeRadioButtonList"]
-  CALL R4 1 -1
-  NAMECALL R2 R1 K3 ["cat"]
-  CALL R2 -1 1
-  LOADNIL R3
-  GETIMPORT R4 K7 [Enum.CageType.Inner]
-  JUMPIFNOTEQ R0 R4 [+19]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K1 ["new"]
-  LOADK R7 K8 ["Inner.RadioImage.Contents"]
-  CALL R6 1 -1
-  NAMECALL R4 R2 K3 ["cat"]
-  CALL R4 -1 1
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K1 ["new"]
-  LOADK R8 K9 ["TextButton"]
-  CALL R7 1 -1
-  NAMECALL R5 R4 K3 ["cat"]
-  CALL R5 -1 1
-  MOVE R3 R5
-  JUMP [+17]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K1 ["new"]
-  LOADK R7 K10 ["Outer.RadioImage.Contents"]
-  CALL R6 1 -1
-  NAMECALL R4 R2 K3 ["cat"]
-  CALL R4 -1 1
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K1 ["new"]
-  LOADK R8 K9 ["TextButton"]
-  CALL R7 1 -1
-  NAMECALL R5 R4 K3 ["cat"]
-  CALL R5 -1 1
-  MOVE R3 R5
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K11 ["clickXPath"]
-  MOVE R5 R3
-  CALL R4 1 0
-  RETURN R0 0
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -1264,8 +1218,4 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R12
   SETTABLEKS R20 R12 K109 ["addClothesItemToGrid"]
-  DUPCLOSURE R20 K110 [PROTO_46]
-  CAPTURE VAL R12
-  CAPTURE VAL R8
-  SETTABLEKS R20 R12 K111 ["selectCage"]
   RETURN R12 1

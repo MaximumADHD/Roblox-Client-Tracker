@@ -10,6 +10,9 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
 	local mockState = function(currentPage)
 		return {
 			Navigation = {
@@ -27,10 +30,14 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				ContactListHeader = Roact.createElement(ContactListHeader, {
-					headerHeight = 48,
-					currentPage = Pages.FriendList,
-					dismissCallback = function() end,
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					ContactListHeader = Roact.createElement(ContactListHeader, {
+						headerHeight = 48,
+						currentPage = Pages.FriendList,
+						dismissCallback = function() end,
+					}),
 				}),
 			}),
 		})

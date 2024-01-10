@@ -14,18 +14,35 @@ function var6.init(arg1, arg2, arg3)
    var37 = arg1
    var37.init(var37, arg2, arg3)
    local var1 = {}
+   if arg3.Terrain:CountCells() == 0 then
+      local var0 = false
+   end
+   var1.Disabled = true
    var1.Hidden = false
-   local var49 = {}
-   function var49.OnClick()
+   var1.Label = ""
+   local var55 = {}
+   function var55.OnClick()
       arg3.Terrain:Clear()
       arg3.ChangeHistoryService:SetWaypoint("Cleared Terrain")
+      arg1._overrides[var3.ClearSettings][var4.Clear].Disabled = true
+      arg1.OnGizmoChanged:Fire()
    end
    
-   var1.Schema = var49
+   var1.Schema = var55
    var1.Value = true
    var4.Clear = var1
    var3.ClearSettings = {}
    arg1._overrides = {}
+end
+
+function var6.activate(arg1)
+   local var77 = var1
+   var77 = arg1
+   var77.activate(var77)
+   if arg1._services.Terrain:CountCells() == 0 then
+      local var0 = false
+   end
+   arg1._overrides[var3.ClearSettings][var4.Clear].Disabled = true
 end
 
 return var6

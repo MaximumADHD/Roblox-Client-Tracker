@@ -167,30 +167,23 @@ PROTO_3:
   LOADB R2 0 +1
   LOADB R2 1
   SETTABLEKS R2 R0 K9 ["IsPlaying"]
-  GETUPVAL R3 1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+2]
-  LOADNIL R2
-  JUMP [+2]
-  GETTABLEKS R2 R1 K10 ["BoneLinksToBone"]
-  SETTABLEKS R2 R0 K10 ["BoneLinksToBone"]
-  GETTABLEKS R2 R1 K11 ["VisualizeBones"]
-  SETTABLEKS R2 R0 K11 ["VisualizeBones"]
-  GETTABLEKS R2 R1 K12 ["Signals"]
+  GETTABLEKS R2 R1 K10 ["VisualizeBones"]
+  SETTABLEKS R2 R0 K10 ["VisualizeBones"]
+  GETTABLEKS R2 R1 K11 ["Signals"]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K13 ["SIGNAL_KEYS"]
-  GETTABLEKS R4 R5 K14 ["ScrubberChanged"]
-  NAMECALL R2 R2 K15 ["get"]
+  GETTABLEKS R5 R6 K12 ["SIGNAL_KEYS"]
+  GETTABLEKS R4 R5 K13 ["ScrubberChanged"]
+  NAMECALL R2 R2 K14 ["get"]
   CALL R2 2 1
-  SETTABLEKS R2 R0 K16 ["ScrubberSignal"]
+  SETTABLEKS R2 R0 K15 ["ScrubberSignal"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R1
   CAPTURE UPVAL U0
   CAPTURE VAL R0
+  CAPTURE UPVAL U1
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  SETTABLEKS R2 R0 K17 ["OnManipulateJoints"]
+  SETTABLEKS R2 R0 K16 ["OnManipulateJoints"]
   RETURN R0 0
 
 PROTO_4:
@@ -269,7 +262,7 @@ PROTO_6:
 
 PROTO_7:
   GETTABLEKS R2 R0 K0 ["Status"]
-  DUPTABLE R3 K17 [{"Tool", "SelectedTrackInstances", "RootInstance", "IKMode", "StartingPose", "PinnedParts", "IKEnabled", "Playhead", "Tracks", "PlayState", "AnimationData", "DefaultRotationType", "DefaultEulerAnglesOrder", "BoneLinksToBone", "VisualizeBones", "ReadOnly"}]
+  DUPTABLE R3 K16 [{"Tool", "SelectedTrackInstances", "RootInstance", "IKMode", "StartingPose", "PinnedParts", "IKEnabled", "Playhead", "Tracks", "PlayState", "AnimationData", "DefaultRotationType", "DefaultEulerAnglesOrder", "VisualizeBones", "ReadOnly"}]
   GETTABLEKS R5 R0 K0 ["Status"]
   GETTABLEKS R4 R5 K1 ["Tool"]
   SETTABLEKS R4 R3 K1 ["Tool"]
@@ -305,20 +298,12 @@ PROTO_7:
   SETTABLEKS R4 R3 K12 ["DefaultRotationType"]
   GETTABLEKS R4 R2 K13 ["DefaultEulerAnglesOrder"]
   SETTABLEKS R4 R3 K13 ["DefaultEulerAnglesOrder"]
-  GETUPVAL R5 0
-  CALL R5 0 1
-  JUMPIFNOT R5 [+2]
-  LOADNIL R4
-  JUMP [+4]
   GETTABLEKS R5 R0 K0 ["Status"]
-  GETTABLEKS R4 R5 K14 ["BoneLinksToBone"]
-  SETTABLEKS R4 R3 K14 ["BoneLinksToBone"]
+  GETTABLEKS R4 R5 K14 ["VisualizeBones"]
+  SETTABLEKS R4 R3 K14 ["VisualizeBones"]
   GETTABLEKS R5 R0 K0 ["Status"]
-  GETTABLEKS R4 R5 K15 ["VisualizeBones"]
-  SETTABLEKS R4 R3 K15 ["VisualizeBones"]
-  GETTABLEKS R5 R0 K0 ["Status"]
-  GETTABLEKS R4 R5 K16 ["ReadOnly"]
-  SETTABLEKS R4 R3 K16 ["ReadOnly"]
+  GETTABLEKS R4 R5 K15 ["ReadOnly"]
+  SETTABLEKS R4 R3 K15 ["ReadOnly"]
   RETURN R3 1
 
 PROTO_8:
@@ -473,63 +458,57 @@ MAIN:
   CALL R19 1 1
   GETIMPORT R20 K5 [require]
   GETTABLEKS R22 R0 K35 ["LuaFlags"]
-  GETTABLEKS R21 R22 K36 ["GetFFlagBoneReferences"]
+  GETTABLEKS R21 R22 K36 ["GetFFlagMultiSelectionTransform"]
   CALL R20 1 1
-  GETIMPORT R21 K5 [require]
-  GETTABLEKS R23 R0 K35 ["LuaFlags"]
-  GETTABLEKS R22 R23 K37 ["GetFFlagMultiSelectionTransform"]
-  CALL R21 1 1
-  GETTABLEKS R22 R1 K38 ["PureComponent"]
-  LOADK R24 K39 ["DraggerWrapper"]
-  NAMECALL R22 R22 K40 ["extend"]
-  CALL R22 2 1
-  DUPCLOSURE R23 K41 [PROTO_0]
+  GETTABLEKS R21 R1 K37 ["PureComponent"]
+  LOADK R23 K38 ["DraggerWrapper"]
+  NAMECALL R21 R21 K39 ["extend"]
+  CALL R21 2 1
+  DUPCLOSURE R22 K40 [PROTO_0]
   CAPTURE VAL R11
-  SETTABLEKS R23 R22 K42 ["didUpdate"]
-  DUPCLOSURE R23 K43 [PROTO_3]
+  SETTABLEKS R22 R21 K41 ["didUpdate"]
+  DUPCLOSURE R22 K42 [PROTO_3]
   CAPTURE VAL R11
-  CAPTURE VAL R20
   CAPTURE VAL R12
   CAPTURE VAL R14
   CAPTURE VAL R3
-  DUPCLOSURE R24 K44 [PROTO_5]
+  DUPCLOSURE R23 K43 [PROTO_5]
   CAPTURE VAL R11
   CAPTURE VAL R16
-  CAPTURE VAL R21
+  CAPTURE VAL R20
   CAPTURE VAL R10
-  DUPCLOSURE R25 K45 [PROTO_6]
-  CAPTURE VAL R24
+  DUPCLOSURE R24 K44 [PROTO_6]
   CAPTURE VAL R23
+  CAPTURE VAL R22
   CAPTURE VAL R1
   CAPTURE VAL R8
-  SETTABLEKS R25 R22 K46 ["render"]
-  DUPCLOSURE R25 K47 [PROTO_7]
+  SETTABLEKS R24 R21 K45 ["render"]
+  DUPCLOSURE R24 K46 [PROTO_7]
+  DUPCLOSURE R25 K47 [PROTO_12]
   CAPTURE VAL R20
-  DUPCLOSURE R26 K48 [PROTO_12]
-  CAPTURE VAL R21
   CAPTURE VAL R17
   CAPTURE VAL R18
   CAPTURE VAL R15
   CAPTURE VAL R19
-  MOVE R27 R6
-  DUPTABLE R28 K53 [{"Plugin", "PluginActions", "Signals", "Mouse", "Analytics"}]
-  GETTABLEKS R29 R5 K49 ["Plugin"]
-  SETTABLEKS R29 R28 K49 ["Plugin"]
-  GETTABLEKS R29 R5 K50 ["PluginActions"]
-  SETTABLEKS R29 R28 K50 ["PluginActions"]
-  SETTABLEKS R7 R28 K15 ["Signals"]
-  GETTABLEKS R29 R5 K51 ["Mouse"]
-  SETTABLEKS R29 R28 K51 ["Mouse"]
-  GETTABLEKS R29 R5 K52 ["Analytics"]
-  SETTABLEKS R29 R28 K52 ["Analytics"]
-  CALL R27 1 1
-  MOVE R28 R22
-  CALL R27 1 1
-  MOVE R22 R27
-  GETTABLEKS R27 R2 K54 ["connect"]
+  MOVE R26 R6
+  DUPTABLE R27 K52 [{"Plugin", "PluginActions", "Signals", "Mouse", "Analytics"}]
+  GETTABLEKS R28 R5 K48 ["Plugin"]
+  SETTABLEKS R28 R27 K48 ["Plugin"]
+  GETTABLEKS R28 R5 K49 ["PluginActions"]
+  SETTABLEKS R28 R27 K49 ["PluginActions"]
+  SETTABLEKS R7 R27 K15 ["Signals"]
+  GETTABLEKS R28 R5 K50 ["Mouse"]
+  SETTABLEKS R28 R27 K50 ["Mouse"]
+  GETTABLEKS R28 R5 K51 ["Analytics"]
+  SETTABLEKS R28 R27 K51 ["Analytics"]
+  CALL R26 1 1
+  MOVE R27 R21
+  CALL R26 1 1
+  MOVE R21 R26
+  GETTABLEKS R26 R2 K53 ["connect"]
+  MOVE R27 R24
   MOVE R28 R25
-  MOVE R29 R26
-  CALL R27 2 1
-  MOVE R28 R22
-  CALL R27 1 -1
-  RETURN R27 -1
+  CALL R26 2 1
+  MOVE R27 R21
+  CALL R26 1 -1
+  RETURN R26 -1

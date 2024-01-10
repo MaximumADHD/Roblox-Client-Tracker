@@ -15,6 +15,7 @@ local FFlagSelfViewImprovedUpdateCloneTriggering = game:DefineFastFlag("SelfView
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
+local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
 
 local RunService = game:GetService("RunService")
 
@@ -231,6 +232,11 @@ local function updateClone(player: Player?)
 	end
 
 	clone = character:Clone()
+	if GetFFlagSelfViewAssertFix() then
+		if clone == nil then
+			return
+		end
+	end
 	assert(clone ~= nil)
 
 	--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
@@ -690,16 +696,31 @@ function startRenderStepped(player: Player)
 						anim = value.Animation
 						if anim then
 							if anim:IsA("Animation") then
-								orgAnimationTracks[anim.AnimationId] = value
-								if not cloneAnimationTracks[anim.AnimationId] then
-									cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
-								end
-								local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId]
+								if GetFFlagSelfViewAssertFix() then
+									if anim.AnimationId ~= "" then
+										orgAnimationTracks[anim.AnimationId] = value
+										if not cloneAnimationTracks[anim.AnimationId] then
+											cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
+										end
+										local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
 
-								cloneAnimationTrack:Play()
-								cloneAnimationTrack.TimePosition = value.TimePosition
-								cloneAnimationTrack.Priority = value.Priority
-								cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
+										cloneAnimationTrack:Play()
+										cloneAnimationTrack.TimePosition = value.TimePosition
+										cloneAnimationTrack.Priority = value.Priority
+										cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
+									end
+								else
+									orgAnimationTracks[anim.AnimationId] = value
+									if not cloneAnimationTracks[anim.AnimationId] then
+										cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
+									end
+									local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
+
+									cloneAnimationTrack:Play()
+									cloneAnimationTrack.TimePosition = value.TimePosition
+									cloneAnimationTrack.Priority = value.Priority
+									cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
+								end
 							end
 						end
 					end

@@ -26,9 +26,6 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
-
-local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableAccessibilitySettingsInExperienceMenu)
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -268,7 +265,7 @@ local function Initialize()
 		Name = "Page",
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1,0,1,0),
-		AutomaticSize = if GetFFlagEnableAccessibilitySettingsInExperienceMenu() then Enum.AutomaticSize.Y else nil
+		AutomaticSize = Enum.AutomaticSize.Y
 	};
 
 	if Theme.UIBloxThemeEnabled then
@@ -369,7 +366,7 @@ local function Initialize()
 		if skipAnimation then
 			this.Page.Position = endPos
 			animationComplete()
-		elseif GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and UserGameSettings.ReducedMotion then
+		elseif UserGameSettings.ReducedMotion then
 			this.Page.Position = endPos
 			pageParent.InnerCanvasGroupShow.GroupTransparency = 1
 			this.Page.Parent = pageParent.InnerCanvasGroupShow
@@ -422,7 +419,7 @@ local function Initialize()
 				if skipAnimation then
 					this.Page.Position = endPos
 					animationComplete()
-				elseif GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and UserGameSettings.ReducedMotion and isPrevPage then
+				elseif UserGameSettings.ReducedMotion and isPrevPage then
 					pageParent.InnerCanvasGroupHide.GroupTransparency = 0
 					this.Page.Parent = pageParent.InnerCanvasGroupHide
 					

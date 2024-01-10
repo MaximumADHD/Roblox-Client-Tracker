@@ -4,8 +4,16 @@ local EventType = require(script.Parent.Parent.EventType)
 local Roact = require(CorePackages.Roact)
 local VRFTUXToolTips = require(script.Parent.Parent.Parent.Components.Tooltips.VRFTUXToolTips)
 local UIBlox = require(CorePackages.UIBlox)
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
+local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
+	then nil
+	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = if GetFFlagEnableStyleProviderCleanUp()
+	then nil
+	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local renderWithCoreScriptsStyleProvider =
+	require(script.Parent.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 
 type Event = EventType.Event
 type TooltipProps = {
@@ -23,24 +31,32 @@ local PerspectiveTooltipEvent = {
 local Tooltip
 
 function PerspectiveTooltipEvent.StartEvent()
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
-	local PerspectiveTooltip = Roact.createElement(UIBlox.Core.Style.Provider, {
-		style = appStyle,
-	}, {
-		Roact.createElement(VRFTUXToolTips, {
-			tooltipButtons = {
-				{
-					Text = "Press",
-					Controller = Enum.UserCFrame.RightHand,
-					ButtonKeycode = Enum.KeyCode.ButtonR3,
-				},
+	local perspectiveTooltipContent = Roact.createElement(VRFTUXToolTips, {
+		tooltipButtons = {
+			{
+				Text = "Press",
+				Controller = Enum.UserCFrame.RightHand,
+				ButtonKeycode = Enum.KeyCode.ButtonR3,
 			},
-		} :: TooltipProps),
-	})
+		},
+	} :: TooltipProps)
+
+	local PerspectiveTooltip
+	if GetFFlagEnableStyleProviderCleanUp() then
+		PerspectiveTooltip = renderWithCoreScriptsStyleProvider({
+			perspectiveTooltipContent,
+		})
+	else
+		local appStyle = {
+			Theme = AppDarkTheme,
+			Font = AppFont,
+		}
+		PerspectiveTooltip = Roact.createElement(UIBlox.Core.Style.Provider, {
+			style = appStyle,
+		}, {
+			perspectiveTooltipContent,
+		})
+	end
 
 	Tooltip = Roact.mount(PerspectiveTooltip, CoreGui:FindFirstChild("FTUXMenu"), "PerspectiveTooltip")
 end

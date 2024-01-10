@@ -12,30 +12,24 @@
 ]]
 
 local Main = script.Parent.Parent.Parent
-local Roact = require(Main.Packages.Roact)
+local React = require(Main.Packages.React)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices = Framework.ContextServices
-local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Pane = UI.Pane
+local TextLabel = UI.TextLabel
 
 local PanelEntry = require(Main.Src.Components.PanelEntry)
 local Types = require(Main.Src.Types)
 
-local PropsList = Roact.PureComponent:extend("PropsList")
+local PropsList = React.PureComponent:extend("PropsList")
 
 function formatCustomType(propName)
 	return propName:gsub("^%l", string.upper)
 end
 
 local arrayFormat = "Array<%s>"
-function PropsList:renderPropType(
-	propName: string,
-	propType: string | Types.PropType,
-	layoutOrder: number,
-	textStyle: any
-)
+function PropsList:renderPropType(propName: string, propType: string | Types.PropType, layoutOrder: number)
 	local text = ""
 	if typeof(propType) == "string" then
 		text = propType
@@ -49,13 +43,9 @@ function PropsList:renderPropType(
 			else customType
 	end
 
-	return Roact.createElement("TextLabel", {
-		AutomaticSize = Enum.AutomaticSize.XY,
+	return React.createElement(TextLabel, {
 		Text = text,
-		Font = textStyle.Mono.Font,
-		TextSize = textStyle.Mono.Size,
-		TextColor3 = textStyle.Type.Color,
-		BackgroundTransparency = 1,
+		[React.Tag] = "Monospace X-Fit",
 		LayoutOrder = layoutOrder,
 	})
 end
@@ -68,63 +58,32 @@ function PropsList:renderProp(
 	comment: string?,
 	index: number
 )
-	local props = self.props
-	local style = props.Stylizer
-	local sizes = style.Sizes
-	local text = style.Text
-	return Roact.createElement(Pane, {
-		Style = "BorderBox",
-		AutomaticSize = Enum.AutomaticSize.Y,
-		Size = UDim2.fromScale(1, 0),
-		Padding = sizes.InnerPadding,
-		Spacing = sizes.InnerPadding,
+	return React.createElement(Pane, {
 		LayoutOrder = index,
-		Layout = Enum.FillDirection.Vertical,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		[React.Tag] = "Main Border X-Pad X-ColumnM X-FitY",
 	}, {
-		Top = Roact.createElement(Pane, {
-			Layout = Enum.FillDirection.Horizontal,
-			Spacing = sizes.InnerPadding,
-			AutomaticSize = Enum.AutomaticSize.XY,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		Top = React.createElement(Pane, {
+			[React.Tag] = "Main Border X-RowM X-FitY X-Middle",
 		}, {
-			Name = Roact.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.XY,
+			Name = React.createElement(TextLabel, {
 				Text = propName .. if isOptional then "?" else "",
-				Font = Enum.Font.SourceSans,
-				TextSize = text.Type.Size,
-				TextColor3 = text.Header.Color,
-				BackgroundTransparency = 1,
 				LayoutOrder = 1,
+				[React.Tag] = "Semibold X-Fit",
 			}),
-			Type = self:renderPropType(propName, propType, 2, text),
-			Default = default and Roact.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				Text = string.format(
-					'(default: <font face="%s" weight="%s" size="%s">%s</font>)',
-					text.Mono.Font.Name,
-					text.Default.Weight.Name,
-					tostring(text.Mono.Size),
-					tostring(default)
-				),
-				Font = Enum.Font.SourceSans,
-				TextSize = text.Type.Size,
-				TextColor3 = text.Default.Color,
-				BackgroundTransparency = 1,
-				RichText = true,
-				LayoutOrder = 3,
-			}),
+			Type = self:renderPropType(propName, propType, 2),
+			Default = if default
+				then React.createElement(TextLabel, {
+					Text = `(default: <font face="RobotoMono" size="14">{tostring(default)}</font>`,
+					LayoutOrder = 3,
+					RichText = true,
+					[React.Tag] = "X-Fit",
+				})
+				else nil,
 		}),
-		Comment = comment and Roact.createElement("TextLabel", {
-			AutomaticSize = Enum.AutomaticSize.XY,
-			Text = comment,
-			Font = Enum.Font.SourceSans,
-			TextSize = text.Body.Size,
-			TextColor3 = text.Body.Color,
-			BackgroundTransparency = 1,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextWrapped = true,
+		Comment = comment and React.createElement(TextLabel, {
 			LayoutOrder = 3,
+			Text = comment,
+			[React.Tag] = "Label Wrap X-Fit",
 		}),
 	})
 end
@@ -141,15 +100,11 @@ function PropsList:render()
 		children[prop.Name] = self:renderProp(prop.Name, prop.Type, prop.IsOptional, prop.Default, prop.Comment, index)
 	end
 
-	return Roact.createElement(PanelEntry, {
+	return React.createElement(PanelEntry, {
 		Header = header,
 		Description = description,
 		LayoutOrder = layoutOrder,
 	}, children)
 end
-
-PropsList = withContext({
-	Stylizer = ContextServices.Stylizer,
-})(PropsList)
 
 return PropsList

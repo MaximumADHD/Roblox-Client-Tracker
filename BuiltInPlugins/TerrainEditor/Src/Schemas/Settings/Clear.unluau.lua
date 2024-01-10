@@ -9,18 +9,18 @@ local var6 = {}
 var4.Clear = var2.Storage.LocalSession
 var6.Storage = {}
 function var6.Generator(arg1, arg2, arg3, arg4)
-   local var281 = {}
-   var281.Id = var4.Clear
-   var281.Layout = Enum.FillDirection.Vertical
-   local var285 = {}
-   var285.Label = arg1.Localization:getText(var3.ClearSettings, "ClearButton")
-   var285.Type = "Button"
-   var281.Schema = var285
-   local var292 = {}
-   var292.Category = var5
-   var292.Data = arg2
-   var292.Overrides = arg4
-   return var1(arg1, {}, var292)
+   local var266 = {}
+   var266.Id = var4.Clear
+   var266.Layout = Enum.FillDirection.Vertical
+   local var270 = {}
+   var270.Label = arg1.Localization:getText(var3.ClearSettings, "ClearButtonLabel")
+   var270.Type = "Button"
+   var266.Schema = var270
+   local var277 = {}
+   var277.Category = var5
+   var277.Data = arg2
+   var277.Overrides = arg4
+   return var1(arg1, {}, var277)
 end
 
 return var6

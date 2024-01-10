@@ -44,6 +44,7 @@ local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFF
 local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
+local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
 
 local ExperienceChat = require(CorePackages.ExperienceChat)
@@ -101,12 +102,14 @@ else
 	gameLoadedConn = game.Loaded:Connect(function()
 		if game:IsLoaded() then
 			gameLoadedConn:Disconnect()
-			if isTextChatServiceOn() then
-				return
-			else
-				Roact.mount(Roact.createElement(App, {
-					store = chatStore
-				}), CoreGui, "BubbleChat")
+			if not GetFFlagConsolidateBubbleChat() then
+				if isTextChatServiceOn() then
+					return
+				else
+					Roact.mount(Roact.createElement(App, {
+						store = chatStore
+					}), CoreGui, "BubbleChat")
+				end
 			end
 		end
 	end)

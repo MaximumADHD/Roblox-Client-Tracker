@@ -33,7 +33,6 @@ local Settings = UserSettings()
 local GameSettings = Settings.GameSettings
 
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local success, result = pcall(function()
 	return settings():GetFFlag("UseNotificationsLocalization")
 end)
@@ -78,9 +77,7 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
 
 local BG_TRANSPARENCY_DEFAULT = 0.6
-local bgTransparency = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts()
-							then BG_TRANSPARENCY_DEFAULT * GameSettings.PreferredTransparency 
-							else BG_TRANSPARENCY_DEFAULT
+local bgTransparency = BG_TRANSPARENCY_DEFAULT * GameSettings.PreferredTransparency 
 local MAX_NOTIFICATIONS = 3
 local IMAGE_SIZE = isTenFootInterface and 72 or 48
 
@@ -1077,9 +1074,7 @@ local function onPreferredTransparencyChanged()
 		NotificationQueue[i].Frame.BackgroundTransparency = bgTransparency
 	end
 end
-if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-	GameSettings:GetPropertyChangedSignal("PreferredTransparency"):connect(onPreferredTransparencyChanged)
-end
+GameSettings:GetPropertyChangedSignal("PreferredTransparency"):connect(onPreferredTransparencyChanged)
 
 local Platform = UserInputService:GetPlatform()
 local Modules = RobloxGui:FindFirstChild("Modules")

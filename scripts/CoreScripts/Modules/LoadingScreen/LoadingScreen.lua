@@ -32,25 +32,9 @@ local httpRequest = require(AppTempCommon.Temp.httpRequest)
 local networking = httpRequest(HttpRbxApiService)
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local GetFFlagReportFirstExperienceCancelled = require(RobloxGui.Modules.Flags.GetFFlagReportFirstExperienceCancelled)
-local FFlagLoadingScreenLargerJoinStatusText = game:DefineFastFlag("LoadingScreenLargerJoinStatusText", false)
-
-local function enableNewStyleProvider()
-	return GetFFlagEnableStyleProviderCleanUp() or GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts()
-end
-
-local AppStyle
-if not enableNewStyleProvider() then
-	local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-	AppStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-end
+local GetFFlagLoadingScreenLargerJoinStatusText = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLoadingScreenLargerJoinStatusText
+local FFlagLoadingScriptCancelButtonBeforeWait = game:DefineFastFlag("LoadingScriptCancelButtonBeforeWait", false)
 
 -- Constants
 local GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=256&h=256"
@@ -215,7 +199,7 @@ function LoadingScreen:renderBackground(style)
 		thumbnailURL = GAME_THUMBNAIL_URL:format(self.props.placeId)
 	end
 
-	local reducedMotion = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then style.Settings.ReducedMotion else false
+	local reducedMotion = style.Settings.ReducedMotion
 	return Roact.createElement("ScreenGui", {
 		DisplayOrder = BASE_SCREEN_ORDER,
 		IgnoreGuiInset = true,
@@ -273,7 +257,7 @@ function LoadingScreen:renderPlaceIcon(style)
 		iconURL = GAME_ICON_URL:format(self.props.universeId)
 	end
 
-	local reducedMotion = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then style.Settings.ReducedMotion else false
+	local reducedMotion = style.Settings.ReducedMotion
 	return Roact.createElement("Frame", {
 		Name = "IconFrame",
 		BackgroundTransparency = self.bindings.iconTransparency,
@@ -422,7 +406,7 @@ end
 function LoadingScreen:renderMain(style)
 	local padding = getPadding(self.isPortrait)
 
-	local reducedMotion = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then style.Settings.ReducedMotion else false
+	local reducedMotion = style.Settings.ReducedMotion
 	return Roact.createElement("ScreenGui", {
 		DisplayOrder = BASE_SCREEN_ORDER + 1,
 		IgnoreGuiInset = true,
@@ -512,18 +496,18 @@ function LoadingScreen:renderServerFrame(style)
 		BorderSizePixel = 0,
 		AnchorPoint = Vector2.new(0.5, 1),
 		Position = UDim2.fromScale(0.5, 1),
-		Size = if FFlagLoadingScreenLargerJoinStatusText then UDim2.new(1, -48, 0.2, 0) else UDim2.fromScale(0.5, 0.2),
+		Size = if GetFFlagLoadingScreenLargerJoinStatusText() then UDim2.new(1, -48, 0.2, 0) else UDim2.fromScale(0.5, 0.2),
 		Active = true,
 	}, {
 		PolicyLabel = showPolicyText and Roact.createElement("TextLabel", {
 			Name = 'PolicyLabel',
 			BackgroundTransparency = 1,
-			Size = if FFlagLoadingScreenLargerJoinStatusText then  UDim2.new(1, 0, 0, 2 * policyLabelSize) else UDim2.new(1, 0, 0, 20),
-			Position = if FFlagLoadingScreenLargerJoinStatusText then  UDim2.new(0, 0, 1, -4 * serverLabelSize - 2 * policyLabelSize) else UDim2.fromScale(0, 0.5),
+			Size = if GetFFlagLoadingScreenLargerJoinStatusText() then  UDim2.new(1, 0, 0, 2 * policyLabelSize) else UDim2.new(1, 0, 0, 20),
+			Position = if GetFFlagLoadingScreenLargerJoinStatusText() then  UDim2.new(0, 0, 1, -4 * serverLabelSize - 2 * policyLabelSize) else UDim2.fromScale(0, 0.5),
 			Font = style.Font.Footer.Font,
 			TextSize = policyLabelSize,
 			TextWrapped = true,
-			TextScaled = if FFlagLoadingScreenLargerJoinStatusText then  false else true,
+			TextScaled = if GetFFlagLoadingScreenLargerJoinStatusText() then  false else true,
 			TextColor3 = style.Theme.TextDefault.Color,
 			TextStrokeTransparency = 1,
 			Text = CoreScriptTranslator:FormatByKey("Authentication.Login.WeChat.AntiAddictionText"),
@@ -534,12 +518,12 @@ function LoadingScreen:renderServerFrame(style)
 		JoinServerLabel = Roact.createElement("TextLabel", {
 			Name = 'JoinText',
 			BackgroundTransparency = 1,
-			Size = if FFlagLoadingScreenLargerJoinStatusText then UDim2.new(1, 0, 0, 4 * serverLabelSize) else UDim2.new(1, 0, 0, - serverLabelSize),
-			Position = if FFlagLoadingScreenLargerJoinStatusText then UDim2.new(0, 0, 1, -2 * serverLabelSize) else UDim2.fromScale(0, 1),
+			Size = if GetFFlagLoadingScreenLargerJoinStatusText() then UDim2.new(1, 0, 0, 4 * serverLabelSize) else UDim2.new(1, 0, 0, - serverLabelSize),
+			Position = if GetFFlagLoadingScreenLargerJoinStatusText() then UDim2.new(0, 0, 1, -2 * serverLabelSize) else UDim2.fromScale(0, 1),
 			Font = style.Font.Footer.Font,
 			TextSize = serverLabelSize,
 			TextWrapped = true,
-			TextScaled = if FFlagLoadingScreenLargerJoinStatusText then false else true,
+			TextScaled = if GetFFlagLoadingScreenLargerJoinStatusText() then false else true,
 			TextColor3 = style.Theme.TextDefault.Color,
 			TextStrokeTransparency = 1,
 			Text = serverStatusText,
@@ -628,8 +612,13 @@ function LoadingScreen:init()
 		self.updateBindings.iconSize(1.0)
 	end
 
-	-- auto unmount
+	-- automatically fade out and mark loading screen invisible
 	game.Loaded:Connect(function()
+		if FFlagLoadingScriptCancelButtonBeforeWait then
+			if isTenFootInterface then
+				ContextActionService:UnbindCoreAction("CancelGameLoad")
+			end
+		end
 		while debugMode or not self.fadeinComplete do
 			wait() -- wait until fade in animation finished
 		end
@@ -755,19 +744,12 @@ end
 function LoadingScreen:render()
 	-- Blur effect can only apply to screengui and it's not recommended to nest screengui
 	-- Use Folder as Roact parent to organize two screenguis
-	if enableNewStyleProvider() then
-		return withStyle(function(style)
-			return self.state.visible and Roact.createElement("Folder", {}, { 
-				BackgroundScreen = self:renderBackground(style), 
-				MainScreen = self:renderMain(style),
-			})
-		end)
-	end
-	return self.state.visible and Roact.createElement("Folder", {
-	}, {
-		BackgroundScreen = self:renderBackground(AppStyle),
-		MainScreen = self:renderMain(AppStyle),
-	})
+	return withStyle(function(style)
+		return self.state.visible and Roact.createElement("Folder", {}, { 
+			BackgroundScreen = self:renderBackground(style), 
+			MainScreen = self:renderMain(style),
+		})
+	end)
 end
 
 function LoadingScreen:willUpdate(nextProps, nextState)
@@ -792,8 +774,10 @@ end
 
 function LoadingScreen:willUnmount()
 	RunService:SetRobloxGuiFocused(false)
-	if isTenFootInterface then
-		ContextActionService:UnbindCoreAction('CancelGameLoad')
+	if not FFlagLoadingScriptCancelButtonBeforeWait then
+		if isTenFootInterface then
+			ContextActionService:UnbindCoreAction('CancelGameLoad')
+		end
 	end
 	if not connectionHealthCloseEvent then
 		connectionHealthCloseEvent = UserInputService.InputBegan:Connect(function()

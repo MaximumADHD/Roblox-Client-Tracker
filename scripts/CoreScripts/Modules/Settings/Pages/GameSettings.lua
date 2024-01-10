@@ -162,7 +162,6 @@ local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags
 local GetFFlagEnableAudioOutputDevice = require(RobloxGui.Modules.Flags.GetFFlagEnableAudioOutputDevice)
 local FFlagHideEmptyInputDeviceSelector = game:DefineFastFlag("HideEmptyInputDeviceSelector", false)
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
-local GetFFlagEnableAccessibilitySettingsInExperienceMenu = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableAccessibilitySettingsInExperienceMenu)
 local GetFFlagSupportsOverscanPolicy = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportsOverscanPolicy
 local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGameSettingsCameraModeFixEnabled
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
@@ -226,11 +225,9 @@ local function reportSettingsForAnalytics()
 	stringTable["microprofiler_enabled"] = tostring(GameSettings.OnScreenProfilerEnabled)
 	stringTable["microprofiler_webserver_enabled"] = tostring(GameSettings.MicroProfilerWebServerEnabled)
 
-	if GetFFlagEnableAccessibilitySettingsInExperienceMenu() then
-		stringTable["reduced_motion"] = tostring(GameSettings.ReducedMotion)
-		stringTable["preferred_transparency"] = tostring(GameSettings.PreferredTransparency)
-		stringTable["ui_navigation_key_bind_enabled"] = tostring(GameSettings.UiNavigationKeyBindEnabled)
-	end
+	stringTable["reduced_motion"] = tostring(GameSettings.ReducedMotion)
+	stringTable["preferred_transparency"] = tostring(GameSettings.PreferredTransparency)
+	stringTable["ui_navigation_key_bind_enabled"] = tostring(GameSettings.UiNavigationKeyBindEnabled)
 
 	stringTable["universeid"] = tostring(game.GameId)
 	AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsInGameMenuName, Constants.AnalyticsSettingsChangeName, stringTable)
@@ -2987,12 +2984,10 @@ local function Initialize()
 	createVolumeOptions()
 	createGraphicsOptions()
 
-	if GetFFlagEnableAccessibilitySettingsInExperienceMenu() then
-		createReducedMotionOptions()
-		createPreferredTransparencyOptions()
-		if UserInputService.KeyboardEnabled then
-			createUiNavigationKeyBindOptions()
-		end
+	createReducedMotionOptions()
+	createPreferredTransparencyOptions()
+	if UserInputService.KeyboardEnabled then
+		createUiNavigationKeyBindOptions()
 	end
 
 	local canShowPerfStats =  not PolicyService:IsSubjectToChinaPolicies()

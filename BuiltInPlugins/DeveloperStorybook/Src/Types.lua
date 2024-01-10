@@ -14,6 +14,7 @@ export type Roact = any
 export type RoactComponent = any
 export type RoactElement = any
 export type RoduxStore = any
+export type ReactRoblox = any
 
 export type MapStoryDefinition = (StoryDefinition) -> StoryDefinition
 export type MapStory = (Story) -> Story
@@ -21,12 +22,13 @@ export type MapStory = (Story) -> Story
 -- A storybook is a collection of stories which are grouped when viewed
 export type Storybook = {
 	group: string?,
-	storyRoots: Array<Instance>?,
+	storyRoots: { Instance }?,
 	roact: Roact?,
+	reactRoblox: ReactRoblox?,
 	definition: StoryDefinition?,
 	mapDefinition: MapStoryDefinition?,
 	mapStory: MapStory?,
-	exclude: Array<string>?,
+	exclude: { string }?,
 }
 
 -- A story definition contains all the information about single story script
@@ -62,8 +64,8 @@ export type StoryItem = {
 	Name: string,
 	Icon: string,
 	Path: string?,
-	Children: Array<StoryItem>,
-	GetChildren: (StoryItem) -> Array<StoryItem>,
+	Children: { StoryItem },
+	GetChildren: (StoryItem) -> { StoryItem },
 	Storybook: Storybook?,
 	Script: ModuleScript?,
 	StorybookLoadError: string?,
@@ -77,7 +79,7 @@ export type StoryProps = {
 	definition: StoryDefinition,
 }
 
-export type ValueArray = Array<string | number>
+export type ValueArray = { string | number }
 
 export type Settings = {
 	reducedMotion: boolean,

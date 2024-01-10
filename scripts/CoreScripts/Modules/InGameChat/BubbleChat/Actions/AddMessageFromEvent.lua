@@ -7,10 +7,15 @@
 -- arrays.
 
 local Players = game:GetService("Players")
+local CorePackages = game:GetService("CorePackages")
+local ExperienceChat = require(CorePackages.ExperienceChat)
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local Types = require(script.Parent.Parent.Types)
 local maybeAssert = require(script.Parent.Parent.Helpers.maybeAssert)
 local AddMessageWithTimeout = require(script.Parent.AddMessageWithTimeout)
+
+local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
 
 local function addMessageFromEvent(messageData)
 	maybeAssert(Types.IMessageData(messageData))
@@ -33,6 +38,12 @@ local function addMessageFromEvent(messageData)
 					adornee = character,
 				}
 
+				if GetFFlagConsolidateBubbleChat() then
+					local Events = ExperienceChat.Events :: any -- Remove :: any cast when cleaning up GetFFlagConsolidateBubbleChat()
+					if Events.LegacyBubbleCreated ~= nil then -- Remove check when cleaning up GetFFlagConsolidateBubbleChat()
+						Events.LegacyBubbleCreated(message)
+					end
+				end
 				return store:dispatch(AddMessageWithTimeout(message))
 			end
 		end

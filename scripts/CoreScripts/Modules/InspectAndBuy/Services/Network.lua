@@ -10,11 +10,6 @@ local HttpService = game:GetService("HttpService")
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local Url = require(CorePackages.Workspace.Packages.Http).Url
 
---[[
-	TODO AVBURST-12905:
-		Remove and use item details endpoint for getting attribution data
-		instead of using the asset-versions endpoint.
---]]
 local DEVELOPER_URL = string.format("https://develop.%s", Url.DOMAIN)
 
 --[[
@@ -276,11 +271,6 @@ local function getCollectibleResellableInstances(collectibleItemId, userId)
 	return createYieldingPromise(options, true)
 end
 
---[[
-	TODO AVBURST-12905:
-		Remove and use item details endpoint for getting attribution data
-		instead of using the asset-versions endpoint.
---]]
 local function getVersionInfo(assetId)
 	local url = string.format("%sv1/assets/%s/saved-versions", DEVELOPER_URL, assetId)
 	local options = {
@@ -327,7 +317,12 @@ function Network.new()
 		deleteFavoriteForBundle = deleteFavoriteForBundle,
 		getModelFromUserId = getModelFromUserId,
 		getCollectibleResellableInstances = getCollectibleResellableInstances,
-		--TODO AVBURST-12905: use item details endpoint for getting attribution data
+		--[[
+			FIXME(dbanks)
+			2023/12/07
+			See https://roblox.atlassian.net/browse/AVBURST-12905
+			This will be removed once backend sends "creating universe" with asset details.
+		--]]
 		getVersionInfo = getVersionInfo,
 		getExperiencePlayability = getExperiencePlayability,
 		getExperienceInfo = getExperienceInfo,

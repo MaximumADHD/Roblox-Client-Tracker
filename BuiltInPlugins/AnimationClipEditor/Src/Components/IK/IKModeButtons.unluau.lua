@@ -36,21 +36,21 @@ local function fun0(arg1)
    var88.Position = UDim2.new(1, 0, 0.5, 0)
    var88.Size = UDim2.new(0, 186, 0.5, 0)
    var88.LayoutOrder = 1
-   local var114 = {}
-   local var118 = {}
+   local var107 = {}
+   local var111 = {}
    local var3 = {}
    var3.Key = var5.IK_MODE.BodyPart
    var3.Text = var0:getText("IKMenu", "BodyPart")
    local var4 = {}
    var4.Key = var5.IK_MODE.FullBody
    var4.Text = var0:getText("IKMenu", "FullBody")
-   var118.Buttons = {}
-   var118.SelectedKey = var1.IKMode
-   var118.FillDirection = Enum.FillDirection.Horizontal
-   var118.LayoutOrder = 1
-   var118.OnClick = var1.SetIKMode
-   var114.RadioButtons = var1.createElement(var3, var118)
-   var49.RadioButtonsFrame = var1.createElement("Frame", var88, var114)
+   var111.Buttons = {}
+   var111.SelectedKey = var1.IKMode
+   var111.FillDirection = Enum.FillDirection.Horizontal
+   var111.LayoutOrder = 1
+   var111.OnClick = var1.SetIKMode
+   var107.RadioButtons = var1.createElement(var3, var111)
+   var49.RadioButtonsFrame = var1.createElement("Frame", var88, var107)
    return var1.createElement("Frame", var37, var49)
 end
 
@@ -84,27 +84,27 @@ function var6.render(arg1)
    var88.Position = UDim2.new(1, 0, 0.5, 0)
    var88.Size = UDim2.new(0, 186, 0.5, 0)
    var88.LayoutOrder = 1
-   local var114 = {}
-   local var118 = {}
+   local var107 = {}
+   local var111 = {}
    local var3 = {}
    var3.Key = var5.IK_MODE.BodyPart
    var3.Text = var0:getText("IKMenu", "BodyPart")
    local var4 = {}
    var4.Key = var5.IK_MODE.FullBody
    var4.Text = var0:getText("IKMenu", "FullBody")
-   var118.Buttons = {}
-   var118.SelectedKey = var1.IKMode
-   var118.FillDirection = Enum.FillDirection.Horizontal
-   var118.LayoutOrder = 1
-   var118.OnClick = var1.SetIKMode
-   var114.RadioButtons = var1.createElement(var3, var118)
-   var49.RadioButtonsFrame = var1.createElement("Frame", var88, var114)
+   var111.Buttons = {}
+   var111.SelectedKey = var1.IKMode
+   var111.FillDirection = Enum.FillDirection.Horizontal
+   var111.LayoutOrder = 1
+   var111.OnClick = var1.SetIKMode
+   var107.RadioButtons = var1.createElement(var3, var111)
+   var49.RadioButtonsFrame = var1.createElement("Frame", var88, var107)
    return var1.createElement("Frame", var37, var49)
 end
 
 fun0 = var4.withContext
-local var183 = {}
-var183.Stylizer = var4.Stylizer
-var183.Localization = var4.Localization
-var6 = fun0(var183)(var6)
+local var134 = {}
+var134.Stylizer = var4.Stylizer
+var134.Localization = var4.Localization
+var6 = fun0(var134)(var6)
 return var6

@@ -81,6 +81,7 @@ local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.G
 local FFlagAddMenuNavigationToggleDialog = require(script.Parent.Parent.Parent.Flags.FFlagAddMenuNavigationToggleDialog)
 local FFlagEnableGamepadMenuSelector = require(script.Parent.Parent.Parent.Flags.FFlagEnableGamepadMenuSelector)
 local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
+local GetFFlagOpenPlayersPageFromGamepad = require(script.Parent.Parent.Parent.Flags.GetFFlagOpenPlayersPageFromGamepad)
 
 GamepadMenu.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -259,8 +260,14 @@ function GamepadMenu.openRootMenu()
 		InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
 	else
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-		MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true,
-			InGameMenuConstants.AnalyticsMenuOpenTypes.SettingsTriggered)
+
+		if GetFFlagOpenPlayersPageFromGamepad() then
+			MenuModule:SetVisibility(true, nil, nil, true,
+				InGameMenuConstants.AnalyticsMenuOpenTypes.PlayersTriggered)
+		else
+			MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true,
+				InGameMenuConstants.AnalyticsMenuOpenTypes.SettingsTriggered)
+		end		
 	end
 end
 

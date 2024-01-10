@@ -9,9 +9,16 @@ require(script.Parent.defineLuaFlags)
 local commonInit = require(Main.Src.Util.commonInit)
 commonInit()
 
+local Framework = require(Main.Packages.Framework)
+local FFlagDevFrameworkDesignSystem = Framework.SharedFlags.getFFlagDevFrameworkDesignSystem()
+
 local TestLoader = require(Main.Packages.TestLoader)
 TestLoader.launch("DeveloperStorybook", Main.Src)
 if TestLoader.isCli() or not TestLoader.hasInternalPermission() then
+	return
+end
+
+if not FFlagDevFrameworkDesignSystem then
 	return
 end
 

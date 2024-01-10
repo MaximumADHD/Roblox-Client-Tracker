@@ -5,7 +5,7 @@ local var2 = require(var0.Src.Actions.SetInReviewState)
 return function(arg1)
    return function(arg1)
       if arg1:getState().Status.inReviewState then
-         local var52 = var2(false)
+         local var23 = var2(false)
          arg1:dispatch()
          local var1 = var1(false)
          arg1:dispatch()

@@ -11,6 +11,8 @@ local dependencies = require(ContactList.dependencies)
 local PresenceModel = dependencies.RoduxPresence.Models.Presence
 local EnumPresenceType = dependencies.RoduxPresence.Enums.PresenceType
 
+local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
+
 return {
 	stories = {
 		OfflineFriendListItem = function(props)
@@ -74,13 +76,19 @@ return {
 			byUserId = {
 				["12345678"] = PresenceModel.format(PresenceModel.mock()),
 				["11111111"] = PresenceModel.format(PresenceModel.mock({
-					userPresenceType = EnumPresenceType.Online.rawValue(),
+					userPresenceType = if FFlagUseRoduxCall18
+						then EnumPresenceType.Online
+						else EnumPresenceType.Online.rawValue(),
 				})),
 				["22222222"] = PresenceModel.format(PresenceModel.mock({
-					userPresenceType = EnumPresenceType.InStudio.rawValue(),
+					userPresenceType = if FFlagUseRoduxCall18
+						then EnumPresenceType.InStudio
+						else EnumPresenceType.InStudio.rawValue(),
 				})),
 				["33333333"] = PresenceModel.format(PresenceModel.mock({
-					userPresenceType = EnumPresenceType.InGame.rawValue(),
+					userPresenceType = if FFlagUseRoduxCall18
+						then EnumPresenceType.InGame
+						else EnumPresenceType.InGame.rawValue(),
 					lastLocation = "Iris",
 				})),
 			},

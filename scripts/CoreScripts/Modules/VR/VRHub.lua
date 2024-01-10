@@ -24,8 +24,6 @@ local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreen
 local SafetyBubble = require(script.Parent.SafetyBubble)
 local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
 	or game:GetEngineFeature("EnableMaquettesSupport")
-local GetFFlagUIBloxVRFixUIJitter =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRFixUIJitter
 local FFlagVRControllerModelsSetByDevFix = game:DefineFastFlag("VRControllerModelsSetByDevFix", false)
 local GetFFlagHideExperienceLoadingJudder =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagHideExperienceLoadingJudder
@@ -121,39 +119,35 @@ local function onRenderSteppedLast()
 	end
 end
 
-if GetFFlagUIBloxVRFixUIJitter() then
+local function onCameraCFrameChanged()
+	-- We normally update the position of the controllers and laser pointer in RenderStepped.
+	-- If a developer moves the camera after that, for example using TweenService, the controllers and pointer
+	-- will always be a frame behind and the user will notice a severe jitter.  This can be fixed by
+	-- calling the update functions again after the camera moves, passing in a deltaTime of zero.
 
-	local function onCameraCFrameChanged()
-		-- We normally update the position of the controllers and laser pointer in RenderStepped.
-		-- If a developer moves the camera after that, for example using TweenService, the controllers and pointer
-		-- will always be a frame behind and the user will notice a severe jitter.  This can be fixed by
-		-- calling the update functions again after the camera moves, passing in a deltaTime of zero.
-
-		if VRHub.LaserPointer then
-			VRHub.LaserPointer:update(0)
-		end
-		if VRHub.LeftControllerModel then
-			VRHub.LeftControllerModel:update(0)
-		end
-		if VRHub.RightControllerModel then
-			VRHub.RightControllerModel:update(0)
-		end
+	if VRHub.LaserPointer then
+		VRHub.LaserPointer:update(0)
 	end
-
-	local cameraCFrameChangedConn = nil
-	local function onCurrentCameraChanged()
-		if cameraCFrameChangedConn then
-			cameraCFrameChangedConn:disconnect()
-		end
-		if workspace.CurrentCamera then
-			cameraCFrameChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("CFrame"):Connect(onCameraCFrameChanged)
-		end
+	if VRHub.LeftControllerModel then
+		VRHub.LeftControllerModel:update(0)
 	end
-
-	workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
-	onCurrentCameraChanged()
-
+	if VRHub.RightControllerModel then
+		VRHub.RightControllerModel:update(0)
+	end
 end
+
+local cameraCFrameChangedConn = nil
+local function onCurrentCameraChanged()
+	if cameraCFrameChangedConn then
+		cameraCFrameChangedConn:disconnect()
+	end
+	if workspace.CurrentCamera then
+		cameraCFrameChangedConn = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("CFrame"):Connect(onCameraCFrameChanged)
+	end
+end
+
+workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
+onCurrentCameraChanged()
 
 local function onVREnabledChanged()
 	if VRService.VREnabled then

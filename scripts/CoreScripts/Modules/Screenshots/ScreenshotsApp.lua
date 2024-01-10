@@ -5,13 +5,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
 
-local EnabledForAll = Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll
-local ExperimentEnabled = Screenshots.Flags.FFlagScreenshotSharingEnableExperiment
-
-if not (EnabledForAll or ExperimentEnabled) then
-	return {}
-end
-
 local ScreenshotsApp = Screenshots.App.createApp()
 
 local CarouselScreenGui = Instance.new("ScreenGui")

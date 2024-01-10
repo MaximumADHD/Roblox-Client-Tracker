@@ -29,18 +29,8 @@ PROTO_2:
   CALL R7 1 1
   JUMPIFNOT R7 [+2]
   LOADB R1 1
-  JUMP [+2]
+  RETURN R0 2
   FORGLOOP R2 2 [-10]
-  GETIMPORT R2 K5 [game]
-  LOADK R4 K6 ["Workspace"]
-  NAMECALL R2 R2 K7 ["GetService"]
-  CALL R2 2 1
-  JUMPIFNOT R1 [+3]
-  GETIMPORT R4 K11 [Enum.AvatarUnificationMode.Enabled]
-  JUMPIF R4 [+2]
-  GETIMPORT R4 K13 [Enum.AvatarUnificationMode.Disabled]
-  NAMECALL R2 R2 K14 ["SetAvatarUnificationMode"]
-  CALL R2 2 0
   RETURN R0 2
 
 MAIN:

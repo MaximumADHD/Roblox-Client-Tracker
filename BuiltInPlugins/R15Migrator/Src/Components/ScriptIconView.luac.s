@@ -69,11 +69,15 @@ PROTO_5:
   GETTABLEKS R5 R6 K2 ["createElement"]
   GETUPVAL R6 1
   DUPTABLE R7 K7 [{"Text", "AutomaticSize", "LayoutOrder", "TextSize"}]
-  SETTABLEKS R1 R7 K3 ["Text"]
-  GETIMPORT R8 K10 [Enum.AutomaticSize.XY]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R9 R1
+  GETIMPORT R8 K9 [tostring]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K3 ["Text"]
+  GETIMPORT R8 K12 [Enum.AutomaticSize.XY]
   SETTABLEKS R8 R7 K4 ["AutomaticSize"]
   SETTABLEKS R2 R7 K5 ["LayoutOrder"]
-  GETTABLEKS R8 R4 K11 ["CountTextSize"]
+  GETTABLEKS R8 R4 K13 ["CountTextSize"]
   SETTABLEKS R8 R7 K6 ["TextSize"]
   CALL R5 2 -1
   RETURN R5 -1

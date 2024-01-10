@@ -125,10 +125,13 @@ function var12.new(arg1, arg2)
    var212 = arg1
    var209._pluginActions = var212.new(var212, var0)
    var209._cachedValues = {}
+   var209._originalValues = {}
    var209._userInputService = game:GetService("UserInputService")
    var209._workspace = game:GetService("Workspace")
    var209._reservedMouseMove = {}
    var209._reservedMouseDown = {}
+   var209._brushMouse = {}
+   var209._brushScrollWheel = {}
    var209.MouseDownAction = var4.new()
    var209.MouseMoveAction = var4.new()
    local var10 = setmetatable(var209, var12)
@@ -199,7 +202,13 @@ function var12.onBrushChanged(arg1, arg2, arg3, arg4)
       var10._mouseDown = false
    end
    
-   local var0 = arg1._mouse.WheelForward:Connect(function(arg1, arg2)
+   local function fun4()
+      if not var10:isMouseMoveReserved() then
+         var10.MouseMoveAction:Fire()
+      end
+   end
+   
+   local var0 = arg1._userInputService.InputChanged:Connect(function(arg1, arg2)
       assert(arg1, "ShortcutController.new() requires a plugin")
       local function fun0(arg1)
          return arg2:getText("PluginActions", arg1 ... "StatusTip")
@@ -210,115 +219,118 @@ function var12.onBrushChanged(arg1, arg2, arg3, arg4)
       end
       
       local var0 = {}
-      local var364 = {}
-      var364.allowBinding = false
-      var364.defaultShortcut = "ctrl+shift+space"
-      local var368 = var11.EditPlane
-      var364.id = var368
+      local var367 = {}
+      var367.allowBinding = false
+      var367.defaultShortcut = "ctrl+shift+space"
+      local var371 = var11.EditPlane
+      var367.id = var371
       local var2 = var11.EditPlane
-      var368 = arg2:getText("PluginActions", var2 ... "StatusTip")
-      var364.statusTip = var368
+      var371 = arg2:getText("PluginActions", var2 ... "StatusTip")
+      var367.statusTip = var371
       var2 = var11.EditPlane
-      var368 = arg2:getText("PluginActions", var2 ... "Text")
-      var364.text = var368
-      var0.EditPlane = var364
-      local var384 = {}
-      var384.allowBinding = false
-      var384.defaultShortcut = "ctrl+c"
-      local var388 = var11.CopySelected
-      var384.id = var388
+      var371 = arg2:getText("PluginActions", var2 ... "Text")
+      var367.text = var371
+      var0.EditPlane = var367
+      local var387 = {}
+      var387.allowBinding = false
+      var387.defaultShortcut = "ctrl+c"
+      local var391 = var11.CopySelected
+      var387.id = var391
       var2 = var11.CopySelected
-      var388 = arg2:getText("PluginActions", var2 ... "StatusTip")
-      var384.statusTip = var388
+      var391 = arg2:getText("PluginActions", var2 ... "StatusTip")
+      var387.statusTip = var391
       var2 = var11.CopySelected
-      var388 = arg2:getText("PluginActions", var2 ... "Text")
-      var384.text = var388
-      var0.CopySelected = var384
-      local var403 = {}
-      var403.allowBinding = false
-      var403.defaultShortcut = "ctrl+x"
-      local var407 = var11.CutSelected
-      var403.id = var407
+      var391 = arg2:getText("PluginActions", var2 ... "Text")
+      var387.text = var391
+      var0.CopySelected = var387
+      local var406 = {}
+      var406.allowBinding = false
+      var406.defaultShortcut = "ctrl+x"
+      local var410 = var11.CutSelected
+      var406.id = var410
       var2 = var11.CutSelected
-      var407 = arg2:getText("PluginActions", var2 ... "StatusTip")
-      var403.statusTip = var407
+      var410 = arg2:getText("PluginActions", var2 ... "StatusTip")
+      var406.statusTip = var410
       var2 = var11.CutSelected
-      var407 = arg2:getText("PluginActions", var2 ... "Text")
-      var403.text = var407
-      var0.CutSelected = var403
-      local var422 = {}
-      var422.allowBinding = false
-      var422.defaultShortcut = "delete"
-      local var426 = var11.DeleteSelected
-      var422.id = var426
+      var410 = arg2:getText("PluginActions", var2 ... "Text")
+      var406.text = var410
+      var0.CutSelected = var406
+      local var425 = {}
+      var425.allowBinding = false
+      var425.defaultShortcut = "delete"
+      local var429 = var11.DeleteSelected
+      var425.id = var429
       var2 = var11.DeleteSelected
-      var426 = arg2:getText("PluginActions", var2 ... "StatusTip")
-      var422.statusTip = var426
+      var429 = arg2:getText("PluginActions", var2 ... "StatusTip")
+      var425.statusTip = var429
       var2 = var11.DeleteSelected
-      var426 = arg2:getText("PluginActions", var2 ... "Text")
-      var422.text = var426
-      var0.DeleteSelected = var422
-      local var441 = {}
-      var441.allowBinding = false
-      var441.defaultShortcut = "ctrl+v"
-      local var445 = var11.PasteSelected
-      var441.id = var445
+      var429 = arg2:getText("PluginActions", var2 ... "Text")
+      var425.text = var429
+      var0.DeleteSelected = var425
+      local var444 = {}
+      var444.allowBinding = false
+      var444.defaultShortcut = "ctrl+v"
+      local var448 = var11.PasteSelected
+      var444.id = var448
       var2 = var11.PasteSelected
-      var445 = arg2:getText("PluginActions", var2 ... "StatusTip")
-      var441.statusTip = var445
+      var448 = arg2:getText("PluginActions", var2 ... "StatusTip")
+      var444.statusTip = var448
       var2 = var11.PasteSelected
-      var445 = arg2:getText("PluginActions", var2 ... "Text")
-      var441.text = var445
-      var0.PasteSelected = var441
-      local var460 = {}
-      var460.allowBinding = false
-      var460.defaultShortcut = "ctrl+d"
-      local var464 = var11.DuplicateSelected
-      var460.id = var464
+      var448 = arg2:getText("PluginActions", var2 ... "Text")
+      var444.text = var448
+      var0.PasteSelected = var444
+      local var463 = {}
+      var463.allowBinding = false
+      var463.defaultShortcut = "ctrl+d"
+      local var467 = var11.DuplicateSelected
+      var463.id = var467
       var2 = var11.DuplicateSelected
-      var464 = arg2:getText("PluginActions", var2 ... "StatusTip")
-      var460.statusTip = var464
+      var467 = arg2:getText("PluginActions", var2 ... "StatusTip")
+      var463.statusTip = var467
       var2 = var11.DuplicateSelected
-      var464 = arg2:getText("PluginActions", var2 ... "Text")
-      var460.text = var464
-      var0.DuplicateSelected = var460
-      local var479 = {}
-      var479.allowBinding = false
-      var479.defaultShortcut = "return"
-      local var483 = var11.Apply
-      var479.id = var483
+      var467 = arg2:getText("PluginActions", var2 ... "Text")
+      var463.text = var467
+      var0.DuplicateSelected = var463
+      local var482 = {}
+      var482.allowBinding = false
+      var482.defaultShortcut = "return"
+      local var486 = var11.Apply
+      var482.id = var486
       var2 = var11.Apply
-      var483 = arg2:getText("PluginActions", var2 ... "StatusTip")
-      var479.statusTip = var483
+      var486 = arg2:getText("PluginActions", var2 ... "StatusTip")
+      var482.statusTip = var486
       var2 = var11.Apply
-      var483 = arg2:getText("PluginActions", var2 ... "Text")
-      var479.text = var483
-      var0.Apply = var479
-      local var498 = {}
-      var498.allowBinding = false
-      var498.defaultShortcut = "escape"
-      local var502 = var11.Quit
-      var498.id = var502
+      var486 = arg2:getText("PluginActions", var2 ... "Text")
+      var482.text = var486
+      var0.Apply = var482
+      local var501 = {}
+      var501.allowBinding = false
+      var501.defaultShortcut = "escape"
+      local var505 = var11.Quit
+      var501.id = var505
       var2 = var11.Quit
-      var502 = arg2:getText("PluginActions", var2 ... "StatusTip")
-      var498.statusTip = var502
+      var505 = arg2:getText("PluginActions", var2 ... "StatusTip")
+      var501.statusTip = var505
       var2 = var11.Quit
-      var502 = arg2:getText("PluginActions", var2 ... "Text")
-      var498.text = var502
-      var0.Cancel = var498
-      local var517 = {}
-      var517._mouse = arg1:GetMouse()
-      local var520 = var3
-      var520 = arg1
-      var517._pluginActions = var520.new(var520, var0)
-      var517._cachedValues = {}
-      var517._userInputService = game:GetService("UserInputService")
-      var517._workspace = game:GetService("Workspace")
-      var517._reservedMouseMove = {}
-      var517._reservedMouseDown = {}
-      var517.MouseDownAction = var4.new()
-      var517.MouseMoveAction = var4.new()
-      local var10 = setmetatable(var517, var12)
+      var505 = arg2:getText("PluginActions", var2 ... "Text")
+      var501.text = var505
+      var0.Cancel = var501
+      local var520 = {}
+      var520._mouse = arg1:GetMouse()
+      local var523 = var3
+      var523 = arg1
+      var520._pluginActions = var523.new(var523, var0)
+      var520._cachedValues = {}
+      var520._originalValues = {}
+      var520._userInputService = game:GetService("UserInputService")
+      var520._workspace = game:GetService("Workspace")
+      var520._reservedMouseMove = {}
+      var520._reservedMouseDown = {}
+      var520._brushMouse = {}
+      var520._brushScrollWheel = {}
+      var520.MouseDownAction = var4.new()
+      var520.MouseMoveAction = var4.new()
+      local var10 = setmetatable(var520, var12)
       var10._mouse.Button1Down:Connect(function()
          var10._mouseDown = true
          if not var10:isMouseDownReserved() then
@@ -335,25 +347,17 @@ function var12.onBrushChanged(arg1, arg2, arg3, arg4)
       end)
       return var10
    end)
-   local var1 = arg1._mouse.WheelBackward:Connect(function(arg1)
+   local var1 = arg1._userInputService.InputBegan:Connect(function(arg1)
       if arg1._reservedMouseMove == 0 then
          local var0 = false
       end
       return true
    end)
-   local var2 = arg1._mouse.Move:Connect(function()
-      if not var10:isMouseMoveReserved() then
-         var10.MouseMoveAction:Fire()
-      end
-   end)
-   local var3 = arg1._userInputService.InputBegan:Connect(function(arg1)
+   local var2 = arg1._userInputService.InputEnded:Connect(function(arg1)
       if arg1._reservedMouseDown == 0 then
          local var0 = false
       end
       return true
-   end)
-   local var4 = arg1._userInputService.InputEnded:Connect(function(arg1)
-      return arg1._userInputService:IsKeyDown(Enum.KeyCode.LeftAlt) or arg1._userInputService:IsKeyDown(Enum.KeyCode.RightAlt)
    end)
    return {}
 end
@@ -424,11 +428,9 @@ function var12.registerShortcut(arg1, arg2, arg3, arg4)
    if not arg1:supportsShortcut(arg2) then
       error(`Cannot register unsupported shortcut for property {arg2}`)
    end
-   if arg2 ~= var9.BaseSize then
-      if arg2 ~= var9.BaseHeight then
-         if arg2 == "format" then
-            return arg1:onBrushChanged(arg2, arg3, arg4)
-         end
+   if arg2 ~= var9.BrushSize then
+      if arg2 == "format" then
+         return arg1:onBrushChanged(arg2, arg3, arg4)
       end
    end
    return arg1:onBrushChanged(arg2, arg3, arg4)
@@ -450,8 +452,7 @@ function var12.registerShortcut(arg1, arg2, arg3, arg4)
 end
 
 function var12.supportsShortcut(arg1, arg2)
-   var9.BaseSize = true
-   var9.BaseHeight = true
+   var9.BrushSize = true
    var9.BrushMode = true
    var9.ManualPlaneLock = true
    var9.Strength = true

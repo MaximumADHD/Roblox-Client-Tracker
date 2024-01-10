@@ -267,7 +267,7 @@ MAIN:
   GETTABLEKS R4 R2 K10 ["ConvertTransformToRegion"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R5 R2 K11 ["CreateMortonOrderChunks"]
+  GETTABLEKS R5 R2 K11 ["CreateSubregions"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R7 R0 K6 ["Src"]

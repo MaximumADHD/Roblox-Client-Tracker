@@ -13,9 +13,11 @@ local ActionBindingsData = require(Reducers.ActionBindingsData)
 local MicroProfiler = require(Reducers.MicroProfiler)
 local DebugVisualizations = require(Reducers.DebugVisualizationsData)
 local ScriptProfiler = require(Reducers.ScriptProfiler)
+local LuauHeap = require(Reducers.LuauHeap)
 
+local getFFlagDevConsoleLuauHeap = require(Reducers.Parent.Components.LuauHeap.GetFFlagDevConsoleLuauHeap)
 
-return function(state: {[string]: any}?, action: {[string]: any}): {[string]: any}
+return function(state: { [string]: any }?, action: { [string]: any }): { [string]: any }
 	local devConsoleState = state or {}
 	return {
 		DisplayOptions = DevConsoleDisplayOptions(devConsoleState.DisplayOptions, action),
@@ -30,6 +32,7 @@ return function(state: {[string]: any}?, action: {[string]: any}): {[string]: an
 		ActionBindingsData = ActionBindingsData(devConsoleState.ActionBindingsData, action),
 		MicroProfiler = MicroProfiler(devConsoleState.MicroProfiler, action),
 		DebugVisualizationsData = DebugVisualizations(devConsoleState.DebugVisualizationsData, action),
-		ScriptProfiler = ScriptProfiler(devConsoleState.ScriptProfiler, action)
+		ScriptProfiler = ScriptProfiler(devConsoleState.ScriptProfiler, action),
+		LuauHeap = if getFFlagDevConsoleLuauHeap() then LuauHeap(devConsoleState.LuauHeap, action) else nil,
 	}
 end

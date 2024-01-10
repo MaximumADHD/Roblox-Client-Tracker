@@ -4,7 +4,7 @@
 
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
-local Roact = require(Main.Packages.Roact)
+local React = require(Main.Packages.React)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
 local Framework = require(Main.Packages.Framework)
@@ -21,7 +21,7 @@ local Pane = UI.Pane
 
 local SelectionService = game:GetService("Selection")
 
-local Footer = Roact.PureComponent:extend("Footer")
+local Footer = React.PureComponent:extend("Footer")
 
 function Footer:init()
 	self.runTests = function()
@@ -48,43 +48,22 @@ function Footer:init()
 	self.explore = function()
 		SelectionService:Set({ self.props.StoryRef.current })
 	end
-	self.inspect = function()
-		-- TODO: RIDE-3410
-		-- local inspector = self.props.Inspector:get()
-		-- inspector:open()
-	end
 end
 
 function Footer:renderButton(index: number, text: string, callback: () -> (), width: number)
-	local props = self.props
-	local style = props.Stylizer
-	local sizes = style.Sizes
-
-	return Roact.createElement(Button, {
-		Size = UDim2.fromOffset(width, sizes.ButtonHeight),
-		Style = "Round",
+	return React.createElement(Button, {
 		LayoutOrder = index,
 		OnClick = callback,
 		Text = text,
+		Style = "Round",
+		Size = UDim2.fromOffset(150, 32),
 	})
 end
 
 function Footer:render()
-	local props = self.props
-	local style = props.Stylizer
-	local sizes = style and style.Sizes
-
-	return Roact.createElement(Pane, {
-		Style = "Box",
-		Layout = Enum.FillDirection.Horizontal,
-		HorizontalAlignment = Enum.HorizontalAlignment.Right,
-		Spacing = 5,
-		Position = UDim2.fromScale(0, 1),
-		AnchorPoint = Vector2.new(0, 1),
-		Padding = sizes.OuterPadding,
+	return React.createElement(Pane, {
+		[React.Tag] = "Plugin-Footer Main X-RowM X-Right X-Pad",
 	}, {
-		-- TODO: RIDE-3410 find a way to trigger the Roact Inspector to open
-		-- Inspect = self:renderButton(1, "Inspect", self.inspect, 80),
 		Explore = self:renderButton(2, "Explore", self.explore, 80),
 		RunTests = self:renderButton(3, "Run Tests", self.runTests, 90),
 		StorySource = self:renderButton(4, "View Source", self.viewStorySource, 100),
@@ -93,7 +72,6 @@ end
 
 Footer = withContext({
 	Inspector = InspectorContext,
-	Stylizer = ContextServices.Stylizer,
 	Plugin = ContextServices.Plugin,
 })(Footer)
 

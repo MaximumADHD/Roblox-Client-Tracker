@@ -10,9 +10,6 @@ local RoactRodux = require(main.Packages.RoactRodux)
 
 local Framework = require(main.Packages.Framework)
 
-local ContextServices = Framework.ContextServices
-local withContext = ContextServices.withContext
-
 local UI = Framework.UI
 local Container = UI.Container
 local TreeView = UI.TreeView
@@ -112,10 +109,6 @@ function StoryTree:render()
 		}),
 	})
 end
-
-StoryTree = withContext({
-	Stylizer = ContextServices.Stylizer,
-})(StoryTree)
 
 return RoactRodux.connect(function(state, props)
 	return {

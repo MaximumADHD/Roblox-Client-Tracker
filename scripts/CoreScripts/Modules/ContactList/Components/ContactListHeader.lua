@@ -4,7 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local dependencies = require(ContactList.dependencies)
 local Pages = require(ContactList.Enums.Pages)
 local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
@@ -12,11 +11,19 @@ local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 
 local useDispatch = dependencies.Hooks.useDispatch
-local useSelector = dependencies.Hooks.useSelector
+local useLocalization = dependencies.Hooks.useLocalization
 local UIBlox = dependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local useStyle = UIBlox.Core.Style.useStyle
+
+local GetFFlagIrisUseLocalizationProvider =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
+
+local RobloxTranslator
+if not GetFFlagIrisUseLocalizationProvider() then
+	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
 
 local BUTTON_SIZE = 32
 local DIVIDER_WIDTH = 1
@@ -32,10 +39,18 @@ export type Props = {
 }
 
 local getTitleFromPage = function(currentPage)
-	if currentPage == Pages.FriendList then
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.StartNewCall")
-	elseif currentPage == Pages.CallHistory then
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.RecentCalls")
+	if GetFFlagIrisUseLocalizationProvider() then
+		if currentPage == Pages.FriendList then
+			return "Feature.Call.Label.StartNewCall"
+		elseif currentPage == Pages.CallHistory then
+			return "Feature.Call.Label.RecentCalls"
+		end
+	else
+		if currentPage == Pages.FriendList then
+			return RobloxTranslator:FormatByKey("Feature.Call.Label.StartNewCall")
+		elseif currentPage == Pages.CallHistory then
+			return RobloxTranslator:FormatByKey("Feature.Call.Label.RecentCalls")
+		end
 	end
 
 	return ""
@@ -48,28 +63,30 @@ local ContactListHeader = function(props: Props)
 	local theme = style.Theme
 	local font = style.Font
 
-	local selectCurrentPage = React.useCallback(function(state: any)
-		return state.Navigation.currentPage
-	end, {})
-	local currentPage = useSelector(selectCurrentPage)
+	local localized
+	if GetFFlagIrisUseLocalizationProvider() then
+		localized = useLocalization({
+			titleLabel = getTitleFromPage(props.currentPage),
+		})
+	end
 
 	local navigateToCallHistory = React.useCallback(function()
 		analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
 			eventTimestampMs = os.time() * 1000,
-			startingPage = currentPage,
+			startingPage = props.currentPage,
 			destinationPage = Pages.CallHistory,
 		})
 		dispatch(SetCurrentPage(Pages.CallHistory))
-	end, { currentPage })
+	end, { props.currentPage })
 
 	local navigateToNewCall = React.useCallback(function()
 		analytics.fireEvent(EventNamesEnum.PhoneBookNavigate, {
 			eventTimestampMs = os.time() * 1000,
-			startingPage = currentPage,
+			startingPage = props.currentPage,
 			destinationPage = Pages.FriendList,
 		})
 		dispatch(SetCurrentPage(Pages.FriendList))
-	end, { currentPage })
+	end, { props.currentPage })
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, props.headerHeight),
@@ -122,7 +139,9 @@ local ContactListHeader = function(props: Props)
 			Size = UDim2.new(1, -(BUTTON_PADDING + TEXT_PADDING + DIVIDER_WIDTH + BUTTON_SIZE * 2), 0, 24),
 			BackgroundTransparency = 1,
 			Font = font.Header1.Font,
-			Text = getTitleFromPage(props.currentPage),
+			Text = if GetFFlagIrisUseLocalizationProvider()
+				then localized.titleLabel
+				else getTitleFromPage(props.currentPage),
 			TextColor3 = theme.TextEmphasis.Color,
 			TextSize = font.Header1.RelativeSize * font.BaseSize,
 			TextTransparency = theme.TextEmphasis.Transparency,

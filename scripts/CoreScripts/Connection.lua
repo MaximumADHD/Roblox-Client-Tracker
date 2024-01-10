@@ -13,6 +13,7 @@ local VRService = game:GetService("VRService")
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(RobloxGui.Modules.Common.Url)
+local TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
 
 local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
@@ -50,7 +51,7 @@ local function safeGetFString(name, defaultValue)
 	return success and result or defaultValue
 end
 
-local inGameGlobalGuiInset = safeGetFInt("InGameGlobalGuiInset", 36)
+local inGameGlobalGuiInset = TopBarConstant.TopBarHeight
 local defaultTimeoutTime = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 
 -- when this flag turns on, all the errors will not have reconnect option

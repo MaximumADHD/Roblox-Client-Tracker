@@ -243,15 +243,21 @@ return function()
 		end)
 	end)
 
-	describe("Voice Chat Service Manager", function()
+	describe("Voice Chat Service Manager", function(context)
 		beforeAll(function(context)
 			context.fflagVoiceChatServiceManagerUseAvatarChat =
 				game:SetFastFlagForTesting("VoiceChatServiceManagerUseAvatarChat", false)
+			context.DebugSkipVoicePermissionCheck =
+				game:SetFastFlagForTesting("DebugSkipVoicePermissionCheck", false)
 		end)
 		afterAll(function(context)
 			game:SetFastFlagForTesting(
 				"VoiceChatServiceManagerUseAvatarChat",
 				context.fflagVoiceChatServiceManagerUseAvatarChat
+			)
+			game:SetFastFlagForTesting(
+				"DebugSkipVoicePermissionCheck",
+				context.DebugSkipVoicePermissionCheck
 			)
 		end)
 
@@ -292,32 +298,34 @@ return function()
 			expect(deepEqual(VoiceChatServiceManager.participants, {})).toBe(true)
 		end)
 
-		it("requestMicPermission throws when a malformed response is given", function()
-			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-				VoiceChatServiceStub,
-				HTTPServiceStub,
-				PermissionServiceStub,
-				nil,
-				nil,
-				nil,
-				getPermissionsFunction()
-			)
-			expectToReject(VoiceChatServiceManager:requestMicPermission())
-		end)
+		if not game:GetFastFlag("DebugSkipVoicePermissionCheck") then
+			it("requestMicPermission throws when a malformed response is given", function()
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					VoiceChatServiceStub,
+					HTTPServiceStub,
+					PermissionServiceStub,
+					nil,
+					nil,
+					nil,
+					getPermissionsFunction()
+				)
+				expectToReject(VoiceChatServiceManager:requestMicPermission())
+			end)
 
-		it("requestMicPermission rejects when permissions protocol response is denied", function()
-			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-				VoiceChatServiceStub,
-				HTTPServiceStub,
-				PermissionServiceStub,
-				nil,
-				nil,
-				nil,
-				getPermissionsFunction(PermissionsProtocol.Status.DENIED)
-			)
-			PermissionServiceStub.requestPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
-			expectToReject(VoiceChatServiceManager:requestMicPermission())
-		end)
+			it("requestMicPermission rejects when permissions protocol response is denied", function()
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					VoiceChatServiceStub,
+					HTTPServiceStub,
+					PermissionServiceStub,
+					nil,
+					nil,
+					nil,
+					getPermissionsFunction(PermissionsProtocol.Status.DENIED)
+				)
+				PermissionServiceStub.requestPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
+				expectToReject(VoiceChatServiceManager:requestMicPermission())
+			end)
+		end
 
 		it("requestMicPermission resolves when permissions protocol response is approved", function()
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
@@ -334,13 +342,11 @@ return function()
 		end)
 
 		describe("permission prompt", function()
-			local errorToasts, newContent
+			local newContent
 			beforeEach(function()
-				errorToasts = game:SetFastFlagForTesting("VoiceChatStudioErrorToasts2", true)
 				newContent = game:SetFastFlagForTesting("UseVoiceExitBetaLanguageV2", true)
 			end)
 			afterEach(function()
-				game:SetFastFlagForTesting("VoiceChatStudioErrorToasts2", errorToasts)
 				game:SetFastFlagForTesting("UseVoiceExitBetaLanguageV2", newContent)
 			end)
 
@@ -508,16 +514,6 @@ return function()
 		end)
 
 		describe("BlockingUtils", function()
-			local sessionFlag, rejoinFlag
-			beforeEach(function()
-				sessionFlag = game:SetFastFlagForTesting("EnableSessionCancelationOnBlock", true)
-				rejoinFlag = game:SetFastFlagForTesting("EnableVoiceChatRejoinOnBlock", true)
-			end)
-			afterEach(function()
-				game:SetFastFlagForTesting("EnableSessionCancelationOnBlock", sessionFlag)
-				game:SetFastFlagForTesting("EnableVoiceChatRejoinOnBlock", rejoinFlag)
-			end)
-
 			it("we call subscribe block when a user is blocked", function()
 				local BlockMock = Instance.new("BindableEvent")
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(

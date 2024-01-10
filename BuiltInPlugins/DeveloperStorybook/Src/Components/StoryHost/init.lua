@@ -1,20 +1,20 @@
 --[[
-	Hosts a story component, mounting a separate Roact tree to display the story provided.
+	Hosts a story component, mounting a separate React tree to display the story provided.
 
 	Storybook allows stories to be reloaded using ModuleLoader, meaning that the copy of
-	Roact that the story uses may also get reloaded. Roact can't render elements created
+	React that the story uses may also get reloaded. React can't render elements created
 	from a separate load, so this provides a boundary which eliminates this issue.
 
 	This also provides the benefit of letting stories use different versions or implementations
-	of Roact to the Storybook itself, which is currently inherent as plugins do not share
+	of React to the Storybook itself, which is currently inherent as plugins do not share
 	libraries with the Lua App.
 
-	StoryHost also activates a Roact Inspector session for the story's Roact tree.
+	StoryHost also activates a React Inspector session for the story's React tree.
 ]]
 
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
-local Roact = require(Main.Packages.Roact)
+local React = require(Main.Packages.React)
 
 local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -22,6 +22,7 @@ local withContext = ContextServices.withContext
 local UI = Framework.UI
 local TextLabel = UI.TextLabel
 local Pane = UI.Pane
+local joinTags = Framework.Styling.joinTags
 
 local Dash = Framework.Dash
 local join = Dash.join
@@ -31,7 +32,7 @@ local insert = table.insert
 
 local PanelEntry = require(Main.Src.Components.PanelEntry)
 
-local StoryHost = Roact.PureComponent:extend("StoryHost")
+local StoryHost = React.PureComponent:extend("StoryHost")
 
 type Props = {
 	Name: string?,
@@ -41,7 +42,6 @@ type Props = {
 	Platform: string,
 	Settings: Types.Settings,
 	Focus: any,
-	Stylizer: any,
 	Plugin: any,
 }
 
@@ -50,7 +50,7 @@ type State = {
 }
 
 function StoryHost:init()
-	self.paneRef = Roact.createRef()
+	self.paneRef = React.createRef()
 	self.handle = nil
 	self.state = {
 		storyError = nil,
@@ -78,9 +78,16 @@ function StoryHost:_mountStory()
 	local props = self.props :: Props
 	local storyProps = self:getStoryProps()
 	local storyComponent = storyProps.story
-	local myRoact = storyProps.definition.roact
-	local element = myRoact.createElement(storyComponent, storyProps)
-	self.handle = myRoact.mount(element, self.paneRef.current)
+	local myReact = storyProps.definition.roact
+	local myReactRoblox = storyProps.definition.reactRoblox
+	local element = myReact.createElement(storyComponent, storyProps)
+	if myReact.mount then
+		-- Still using Roact or RoactCompat
+		self.handle = myReact.mount(element, self.paneRef.current)
+	else
+		local root = myReactRoblox.createRoot(self.paneRef.current)
+		self.handle = root:render(element)
+	end
 	spawn(function()
 		-- Wait until the story has been loaded and Frame ref has become available
 		while self.mounted do
@@ -113,15 +120,15 @@ function StoryHost:_mountInspector(currentHost: Instance)
 			rootPrefix = reverse(reversePrefix),
 			pickerParent = currentHost:FindFirstAncestor("InfoPanel"),
 		})
-		self.inspector:addRoactTree(name, self.handle, Roact)
+		self.inspector:addRoactTree(name, self.handle, React)
 	end)
 end
 
 function StoryHost:_unmountStory()
 	local storyProps = self:getStoryProps()
-	local myRoact = storyProps.definition.roact
+	local myReact = storyProps.definition.roact
 	if self.handle then
-		myRoact.unmount(self.handle)
+		myReact.unmount(self.handle)
 		self.handle = nil
 	end
 	if self.inspector then
@@ -143,12 +150,12 @@ function StoryHost:didUpdate(prevProps: Props)
 	end
 	local storyProps = self:getStoryProps()
 	local storyComponent = storyProps.story
-	local myRoact = storyProps.definition.roact
-	local element = myRoact.createElement(storyComponent, storyProps)
+	local myReact = storyProps.definition.roact
+	local element = myReact.createElement(storyComponent, storyProps)
 	-- Catch and display any error from trying to mount or update the story
 	local ok, result = xpcall(function()
 		if self.handle then
-			myRoact.update(self.handle, element)
+			myReact.update(self.handle, element)
 		else
 			-- If the previous mounts have failed, try again now
 			self:_mountStory()
@@ -158,7 +165,7 @@ function StoryHost:didUpdate(prevProps: Props)
 	end)
 	if ok then
 		self:setState({
-			storyError = Roact.None,
+			storyError = React.None,
 		})
 	else
 		if self.handle ~= nil then
@@ -198,38 +205,28 @@ end
 function StoryHost:render()
 	local props = self.props
 	local state = self.state
-	local style = props.Stylizer
 
 	local name = props.Name
 	local layoutOrder = props.LayoutOrder
 
 	local children = {}
 	if state.storyError then
-		children.Error = Roact.createElement(TextLabel, {
-			Size = UDim2.fromScale(1, 0),
+		children.Error = React.createElement(TextLabel, {
 			Text = "An error occurred when loading the story:\n\n" .. state.storyError,
-			TextColor = style.ErrorColor,
-			TextWrapped = true,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			AutomaticSize = Enum.AutomaticSize.Y,
+			[React.Tag] = "Error Wrap",
 		})
 	end
 
-	return Roact.createElement(PanelEntry, {
+	return React.createElement(PanelEntry, {
 		Header = name or "Story",
 		Description = props.Summary or "",
 		LayoutOrder = layoutOrder,
 		Size = props.FixedSize and UDim2.new(1, 0, 1, -100) or nil,
 	}, {
-		Pane = Roact.createElement(Pane, {
-			-- Prevent outside borders of elements from getting clipped
-			Padding = 1,
+		Pane = React.createElement(Pane, {
+			ForwardRef = self.paneRef,
 			LayoutOrder = 2,
-			ClipsDescendants = true,
-			Layout = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			AutomaticSize = not props.FixedSize and Enum.AutomaticSize.Y or nil,
-			[Roact.Ref] = self.paneRef,
+			[React.Tag] = joinTags("X-PadS X-Clip X-ColumnM", if props.FixedSize then nil else "X-FitY"),
 		}, children),
 	})
 end
@@ -237,7 +234,6 @@ end
 StoryHost = withContext({
 	Focus = ContextServices.Focus or nil,
 	Plugin = ContextServices.Plugin or nil,
-	Stylizer = ContextServices.Stylizer or nil,
 })(StoryHost)
 
 return StoryHost

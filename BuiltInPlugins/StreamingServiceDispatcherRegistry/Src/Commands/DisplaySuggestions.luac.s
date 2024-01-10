@@ -1,8 +1,6 @@
 PROTO_0:
-  GETUPVAL R1 0
-  JUMPIFNOT R1 [+8]
   GETTABLEKS R1 R0 K0 ["arguments"]
-  GETUPVAL R2 1
+  GETUPVAL R2 0
   LOADK R4 K1 ["DisplaySuggestions"]
   MOVE R5 R1
   NAMECALL R2 R2 K2 ["DisplayContent"]
@@ -23,11 +21,6 @@ MAIN:
   LOADK R4 K9 ["ChatbotUIService"]
   NAMECALL R2 R2 K10 ["GetService"]
   CALL R2 2 1
-  GETIMPORT R3 K8 [game]
-  LOADK R5 K11 ["CAPAddTutorialWorkflowLinks"]
-  NAMECALL R3 R3 K12 ["GetFastFlag"]
-  CALL R3 2 1
-  DUPCLOSURE R4 K13 [PROTO_0]
-  CAPTURE VAL R3
+  DUPCLOSURE R3 K11 [PROTO_0]
   CAPTURE VAL R2
-  RETURN R4 1
+  RETURN R3 1

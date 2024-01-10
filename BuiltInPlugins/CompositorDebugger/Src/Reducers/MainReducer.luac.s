@@ -22,5 +22,5 @@ MAIN:
   DUPTABLE R5 K12 [{"DebugData", "Status"}]
   SETTABLEKS R2 R5 K9 ["DebugData"]
   SETTABLEKS R3 R5 K10 ["Status"]
-  CALL R4 1 1
-  RETURN R4 1
+  CALL R4 1 -1
+  RETURN R4 -1

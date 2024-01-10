@@ -3,7 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
-
 local Components = script.Parent.Parent.Components
 local LogData = require(Components.Log.LogData)
 local ClientMemoryData = require(Components.Memory.ClientMemoryData)
@@ -16,7 +15,10 @@ local ActionBindingsData = require(Components.ActionBindings.ActionBindingsData)
 local ServerJobsData = require(Components.ServerJobs.ServerJobsData)
 local DebugVisualizationsData = require(Components.DebugVisualizations.DebugVisualizationsData)
 local ServerProfilingData = require(Components.ScriptProfiler.ServerProfilingData)
+local LuauHeapData = require(Components.LuauHeap.LuauHeapData)
 local DataContext = require(Components.DataContext)
+
+local getFFlagDevConsoleLuauHeap = require(Components.LuauHeap.GetFFlagDevConsoleLuauHeap)
 
 local DataProvider = Roact.Component:extend("DataProvider")
 
@@ -35,7 +37,8 @@ function DataProvider:init()
 			ActionBindingsData = ActionBindingsData.new(),
 			ServerJobsData = ServerJobsData.new(),
 			DebugVisualizationsData = DebugVisualizationsData.new(),
-			ServerProfilingData = ServerProfilingData.new();
+			ServerProfilingData = ServerProfilingData.new(),
+			LuauHeapData = if getFFlagDevConsoleLuauHeap() then LuauHeapData.new() else nil,
 		},
 	})
 end

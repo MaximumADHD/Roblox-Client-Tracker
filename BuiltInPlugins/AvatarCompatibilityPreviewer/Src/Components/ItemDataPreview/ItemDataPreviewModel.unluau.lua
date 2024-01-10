@@ -24,7 +24,7 @@ local function var6(arg1)
 end
 
 return function(arg1)
-   local var932 = arg1.Instance
+   local var864 = arg1.Instance
    local var0 = var2.useMemo(function(arg1)
       if arg1:IsA("Model") then
          return arg1.PrimaryPart
@@ -42,12 +42,12 @@ return function(arg1)
       end
       return nil
    end, {})
-   local var937 = {}
-   var937.FocusDirection = var0.PrimaryPart and var0.PrimaryPart.CFrame.LookVector
-   var937.Model = var0
-   var937.Static = true
-   var937.Ambient = var5:use("ItemDataPreviewModel").InstanceAmbient
-   var937.LightColor = Color3.new(1, 1, 1)
-   var937.LightDirection = var0.PrimaryPart and var0.PrimaryPart.CFrame.LookVector
-   return var2.createElement(var4, var937)
+   local var869 = {}
+   var869.FocusDirection = var0.PrimaryPart and var0.PrimaryPart.CFrame.LookVector
+   var869.Model = var0
+   var869.Static = true
+   var869.Ambient = var5:use("ItemDataPreviewModel").InstanceAmbient
+   var869.LightColor = Color3.new(1, 1, 1)
+   var869.LightDirection = var0.PrimaryPart and var0.PrimaryPart.CFrame.LookVector
+   return var2.createElement(var4, var869)
 end

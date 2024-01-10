@@ -5,7 +5,6 @@ local VRService = game:GetService("VRService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-local UIBlox = require(CorePackages.UIBlox)
 
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
 
@@ -21,7 +20,6 @@ local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local FFlagFixPlayerListOpenOnLaunch = game:DefineFastFlag("FixPlayerListOpenOnLaunch", false)
 
 local PlayerListSwitcher = Roact.PureComponent:extend("PlayerListSwitcher")
@@ -35,19 +33,12 @@ function PlayerListSwitcher:didMount()
 end
 
 function PlayerListSwitcher:wrapWithUiModeStyleProvider(children) 
-	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-		return {
-			ThemeProvider = Roact.createElement(UiModeStyleProvider, {
-				style = {
-					themeName = self.props.appStyleForUiModeStyleProvider.themeName,
-					fontName = self.props.appStyleForUiModeStyleProvider.fontName,
-				},
-			}, children)
-		}
-	end
 	return {
-		ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-			style = self.props.appStyle,
+		ThemeProvider = Roact.createElement(UiModeStyleProvider, {
+			style = {
+				themeName = self.props.appStyleForUiModeStyleProvider.themeName,
+				fontName = self.props.appStyleForUiModeStyleProvider.fontName,
+			},
 		}, children)
 	}
 end

@@ -19,6 +19,8 @@ local _handleTransferCallTeleportLeaveConn
 local _handleActiveCallConn
 local _handleEndCallConn
 
+local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
+
 return function(callProtocol: CallProtocol.CallProtocolModule)
 	local updateCurrentCall = function(currentCall)
 		coroutine.wrap(function()
@@ -35,7 +37,10 @@ return function(callProtocol: CallProtocol.CallProtocolModule)
 	-- machine to the right state
 	callProtocol:getCallState():andThen(function(params)
 		if
-			params.status == RoduxCall.Enums.Status.Teleporting.rawValue()
+			params.status
+				== (if FFlagUseRoduxCall18
+					then RoduxCall.Enums.Status.Teleporting
+					else RoduxCall.Enums.Status.Teleporting.rawValue())
 			and Players.LocalPlayer
 			and params.callerId == Players.LocalPlayer.UserId
 			and params.callId
@@ -47,7 +52,10 @@ return function(callProtocol: CallProtocol.CallProtocolModule)
 				callProtocol:finishCall(params.callId)
 			end
 		elseif
-			params.status == RoduxCall.Enums.Status.Accepting.rawValue()
+			params.status
+				== (if FFlagUseRoduxCall18
+					then RoduxCall.Enums.Status.Accepting
+					else RoduxCall.Enums.Status.Accepting.rawValue())
 			and Players.LocalPlayer
 			and params.calleeId == Players.LocalPlayer.UserId
 			and params.callId
@@ -106,7 +114,10 @@ return function(callProtocol: CallProtocol.CallProtocolModule)
 	-- Listen to whether the caller should be teleported because the callee has accepted.
 	_handleTeleportingCallConn = callProtocol:listenToHandleTeleportingCall(function(params)
 		if
-			params.status == RoduxCall.Enums.Status.Teleporting.rawValue()
+			params.status
+				== (if FFlagUseRoduxCall18
+					then RoduxCall.Enums.Status.Teleporting
+					else RoduxCall.Enums.Status.Teleporting.rawValue())
 			and Players.LocalPlayer
 			and params.callId
 			and params.callerId == Players.LocalPlayer.UserId
@@ -154,7 +165,10 @@ return function(callProtocol: CallProtocol.CallProtocolModule)
 		updateCurrentCall(nil)
 
 		-- We ended a call that was in this server, teleport them back to the root.
-		if params.callAction == CallAction.Finish.rawValue() and game.JobId == params.instanceId then
+		if
+			params.callAction == (if FFlagUseRoduxCall18 then CallAction.Finish else CallAction.Finish.rawValue())
+			and game.JobId == params.instanceId
+		then
 			teleportToRootPlace()
 		end
 	end)

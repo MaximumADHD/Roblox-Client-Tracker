@@ -7,129 +7,124 @@ PROTO_0:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K5 ["new"]
   CALL R6 0 1
-  SETGLOBAL R6 K6 ["orderIterator"]
-  GETTABLEKS R6 R5 K7 ["ImageSize"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K8 ["createElement"]
-  GETUPVAL R8 2
-  DUPTABLE R9 K14 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "Padding"}]
-  GETIMPORT R10 K18 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R10 R9 K9 ["Layout"]
-  GETIMPORT R10 K20 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R10 R9 K10 ["HorizontalAlignment"]
-  GETIMPORT R10 K22 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R10 R9 K11 ["VerticalAlignment"]
-  LOADN R10 30
-  SETTABLEKS R10 R9 K12 ["Spacing"]
-  LOADN R10 10
-  SETTABLEKS R10 R9 K13 ["Padding"]
-  DUPTABLE R10 K25 [{"Icon", "Text"}]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K8 ["createElement"]
-  GETUPVAL R12 3
-  DUPTABLE R13 K29 [{"Size", "Image", "LayoutOrder"}]
-  GETIMPORT R14 K32 [UDim2.fromOffset]
-  MOVE R15 R6
-  MOVE R16 R6
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K26 ["Size"]
-  GETTABLEKS R14 R5 K33 ["WarningIcon"]
-  SETTABLEKS R14 R13 K27 ["Image"]
-  GETGLOBAL R14 K6 ["orderIterator"]
-  NAMECALL R14 R14 K34 ["getNextOrder"]
-  CALL R14 1 1
-  SETTABLEKS R14 R13 K28 ["LayoutOrder"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K23 ["Icon"]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K8 ["createElement"]
-  GETUPVAL R12 2
-  DUPTABLE R13 K35 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Size", "LayoutOrder", "Spacing"}]
-  GETIMPORT R14 K37 [Enum.FillDirection.Vertical]
-  SETTABLEKS R14 R13 K9 ["Layout"]
-  GETIMPORT R14 K20 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R14 R13 K10 ["HorizontalAlignment"]
-  GETIMPORT R14 K39 [Enum.VerticalAlignment.Bottom]
-  SETTABLEKS R14 R13 K11 ["VerticalAlignment"]
-  GETTABLEKS R14 R5 K40 ["TextSize"]
-  SETTABLEKS R14 R13 K26 ["Size"]
-  GETGLOBAL R14 K6 ["orderIterator"]
-  NAMECALL R14 R14 K34 ["getNextOrder"]
-  CALL R14 1 1
-  SETTABLEKS R14 R13 K28 ["LayoutOrder"]
-  GETTABLEKS R14 R5 K41 ["TextSpacing"]
-  SETTABLEKS R14 R13 K12 ["Spacing"]
-  DUPTABLE R14 K45 [{"Warning", "Detail", "Buttons"}]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K8 ["createElement"]
-  GETUPVAL R16 4
-  DUPTABLE R17 K49 [{"Text", "AutomaticSize", "TextXAlignment", "Size", "Style"}]
-  LOADK R20 K50 ["PublishingBlocked"]
-  LOADK R21 K42 ["Warning"]
-  NAMECALL R18 R4 K51 ["getText"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K24 ["Text"]
-  GETIMPORT R18 K53 [Enum.AutomaticSize.Y]
-  SETTABLEKS R18 R17 K46 ["AutomaticSize"]
-  GETIMPORT R18 K55 [Enum.TextXAlignment.Left]
-  SETTABLEKS R18 R17 K47 ["TextXAlignment"]
-  GETIMPORT R18 K56 [UDim2.new]
-  LOADN R19 1
-  LOADN R20 0
+  GETTABLEKS R7 R5 K6 ["ImageSize"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K13 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "Padding"}]
+  GETIMPORT R11 K17 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R11 R10 K8 ["Layout"]
+  GETIMPORT R11 K19 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R11 R10 K9 ["HorizontalAlignment"]
+  GETIMPORT R11 K21 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R11 R10 K10 ["VerticalAlignment"]
+  LOADN R11 30
+  SETTABLEKS R11 R10 K11 ["Spacing"]
+  LOADN R11 10
+  SETTABLEKS R11 R10 K12 ["Padding"]
+  DUPTABLE R11 K24 [{"Icon", "Text"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  GETUPVAL R13 3
+  DUPTABLE R14 K28 [{"Size", "Image", "LayoutOrder"}]
+  GETIMPORT R15 K31 [UDim2.fromOffset]
+  MOVE R16 R7
+  MOVE R17 R7
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K25 ["Size"]
+  GETTABLEKS R15 R5 K32 ["WarningIcon"]
+  SETTABLEKS R15 R14 K26 ["Image"]
+  NAMECALL R15 R6 K33 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K27 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K22 ["Icon"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K7 ["createElement"]
+  GETUPVAL R13 2
+  DUPTABLE R14 K34 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Size", "LayoutOrder", "Spacing"}]
+  GETIMPORT R15 K36 [Enum.FillDirection.Vertical]
+  SETTABLEKS R15 R14 K8 ["Layout"]
+  GETIMPORT R15 K19 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R15 R14 K9 ["HorizontalAlignment"]
+  GETIMPORT R15 K38 [Enum.VerticalAlignment.Bottom]
+  SETTABLEKS R15 R14 K10 ["VerticalAlignment"]
+  GETTABLEKS R15 R5 K39 ["TextSize"]
+  SETTABLEKS R15 R14 K25 ["Size"]
+  NAMECALL R15 R6 K33 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K27 ["LayoutOrder"]
+  GETTABLEKS R15 R5 K40 ["TextSpacing"]
+  SETTABLEKS R15 R14 K11 ["Spacing"]
+  DUPTABLE R15 K44 [{"Warning", "Detail", "Buttons"}]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K7 ["createElement"]
+  GETUPVAL R17 4
+  DUPTABLE R18 K48 [{"Text", "AutomaticSize", "TextXAlignment", "Size", "Style"}]
+  LOADK R21 K49 ["PublishingBlocked"]
+  LOADK R22 K41 ["Warning"]
+  NAMECALL R19 R4 K50 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K23 ["Text"]
+  GETIMPORT R19 K52 [Enum.AutomaticSize.Y]
+  SETTABLEKS R19 R18 K45 ["AutomaticSize"]
+  GETIMPORT R19 K54 [Enum.TextXAlignment.Left]
+  SETTABLEKS R19 R18 K46 ["TextXAlignment"]
+  GETIMPORT R19 K55 [UDim2.new]
+  LOADN R20 1
   LOADN R21 0
   LOADN R22 0
-  CALL R18 4 1
-  SETTABLEKS R18 R17 K26 ["Size"]
-  LOADK R18 K57 ["Semibold"]
-  SETTABLEKS R18 R17 K48 ["Style"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K42 ["Warning"]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K8 ["createElement"]
-  GETUPVAL R16 4
-  DUPTABLE R17 K59 [{"Text", "AutomaticSize", "Size", "TextXAlignment", "TextWrapped", "LayoutOrder", "Style"}]
-  LOADK R20 K50 ["PublishingBlocked"]
-  LOADK R21 K43 ["Detail"]
-  NAMECALL R18 R4 K51 ["getText"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K24 ["Text"]
-  GETIMPORT R18 K53 [Enum.AutomaticSize.Y]
-  SETTABLEKS R18 R17 K46 ["AutomaticSize"]
-  GETIMPORT R18 K56 [UDim2.new]
-  LOADN R19 1
-  LOADN R20 0
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K25 ["Size"]
+  LOADK R19 K56 ["Semibold"]
+  SETTABLEKS R19 R18 K47 ["Style"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K41 ["Warning"]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K7 ["createElement"]
+  GETUPVAL R17 4
+  DUPTABLE R18 K58 [{"Text", "AutomaticSize", "Size", "TextXAlignment", "TextWrapped", "LayoutOrder", "Style"}]
+  LOADK R21 K49 ["PublishingBlocked"]
+  LOADK R22 K42 ["Detail"]
+  NAMECALL R19 R4 K50 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K23 ["Text"]
+  GETIMPORT R19 K52 [Enum.AutomaticSize.Y]
+  SETTABLEKS R19 R18 K45 ["AutomaticSize"]
+  GETIMPORT R19 K55 [UDim2.new]
+  LOADN R20 1
   LOADN R21 0
   LOADN R22 0
-  CALL R18 4 1
-  SETTABLEKS R18 R17 K26 ["Size"]
-  GETIMPORT R18 K55 [Enum.TextXAlignment.Left]
-  SETTABLEKS R18 R17 K47 ["TextXAlignment"]
-  LOADB R18 1
-  SETTABLEKS R18 R17 K58 ["TextWrapped"]
-  GETGLOBAL R18 K6 ["orderIterator"]
-  NAMECALL R18 R18 K34 ["getNextOrder"]
-  CALL R18 1 1
-  SETTABLEKS R18 R17 K28 ["LayoutOrder"]
-  LOADK R18 K60 ["Body"]
-  SETTABLEKS R18 R17 K48 ["Style"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K43 ["Detail"]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K8 ["createElement"]
-  GETUPVAL R16 5
-  DUPTABLE R17 K61 [{"OnClose", "OnOpen", "LayoutOrder"}]
-  SETTABLEKS R2 R17 K1 ["OnClose"]
-  SETTABLEKS R3 R17 K2 ["OnOpen"]
-  GETGLOBAL R18 K6 ["orderIterator"]
-  NAMECALL R18 R18 K34 ["getNextOrder"]
-  CALL R18 1 1
-  SETTABLEKS R18 R17 K28 ["LayoutOrder"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K44 ["Buttons"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K24 ["Text"]
-  CALL R7 3 -1
-  RETURN R7 -1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K25 ["Size"]
+  GETIMPORT R19 K54 [Enum.TextXAlignment.Left]
+  SETTABLEKS R19 R18 K46 ["TextXAlignment"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K57 ["TextWrapped"]
+  NAMECALL R19 R6 K33 ["getNextOrder"]
+  CALL R19 1 1
+  SETTABLEKS R19 R18 K27 ["LayoutOrder"]
+  LOADK R19 K59 ["Body"]
+  SETTABLEKS R19 R18 K47 ["Style"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K42 ["Detail"]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K7 ["createElement"]
+  GETUPVAL R17 5
+  DUPTABLE R18 K60 [{"OnClose", "OnOpen", "LayoutOrder"}]
+  SETTABLEKS R2 R18 K1 ["OnClose"]
+  SETTABLEKS R3 R18 K2 ["OnOpen"]
+  NAMECALL R19 R6 K33 ["getNextOrder"]
+  CALL R19 1 1
+  SETTABLEKS R19 R18 K27 ["LayoutOrder"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K43 ["Buttons"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K23 ["Text"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0

@@ -12,8 +12,15 @@ local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Symbol = require(CorePackages.Symbol)
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
+local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
+	then nil
+	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = if GetFFlagEnableStyleProviderCleanUp()
+	then nil
+	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local renderWithCoreScriptsStyleProvider = require(CoreGui.RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 local UIBlox = require(CorePackages.UIBlox)
 
 local InspectAndBuyFolder = script.Parent.Parent
@@ -250,27 +257,43 @@ end
 function InspectAndBuy:render()
 	local localPlayerModel = self.localPlayerModel
 
-	-- include theme provider for shimmer panels used in the asset list
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
-
-	return Roact.createElement(InspectAndBuyContext.Provider, {
-		value = self.state.views,
-	}, {
-		Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.state.store,
+	if GetFFlagEnableStyleProviderCleanUp() then
+		return Roact.createElement(InspectAndBuyContext.Provider, {
+			value = self.state.views,
 		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
+			Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.state.store,
 			}, {
-				Container = Roact.createElement(Container, {
-					localPlayerModel = localPlayerModel,
+				ThemeProvider = renderWithCoreScriptsStyleProvider({
+					Container = Roact.createElement(Container, {
+						localPlayerModel = localPlayerModel,
+					}),
 				}),
-			})
+			}),
 		})
-	})
+	else
+		-- include theme provider for shimmer panels used in the asset list
+		local appStyle = {
+			Theme = AppDarkTheme,
+			Font = AppFont,
+		}
+
+		return Roact.createElement(InspectAndBuyContext.Provider, {
+			value = self.state.views,
+		}, {
+			Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.state.store,
+			}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
+				}, {
+					Container = Roact.createElement(Container, {
+						localPlayerModel = localPlayerModel,
+					}),
+				}),
+			}),
+		})
+	end
 end
 
 function InspectAndBuy:bindButtonB()

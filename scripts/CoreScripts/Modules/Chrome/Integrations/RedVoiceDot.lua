@@ -2,9 +2,16 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local React = require(CorePackages.Packages.React)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Players = game:GetService("Players")
+
 local useVoiceState = require(RobloxGui.Modules.VoiceChat.Hooks.useVoiceState)
 local VoiceConstants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
-local Players = game:GetService("Players")
+
+local GetFFlagRemoveInGameChatBubbleChatReferences =
+	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
+if GetFFlagRemoveInGameChatBubbleChatReferences() then
+	VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants) :: any
+end
 
 local RED_DOT_COLOR = Color3.new(0.918, 0.2, 0.137)
 local RED_DOT_SIZE = UDim2.new(0, 4, 0, 4)

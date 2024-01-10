@@ -76,85 +76,89 @@ PROTO_2:
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K6 ["createElement"]
   GETUPVAL R8 2
-  DUPTABLE R9 K13 [{"HeaderComponent", "BackgroundColor", "Size", "Style", "LayoutOrder", "Text", "Expanded"}]
-  GETTABLEKS R10 R0 K14 ["customHeader"]
+  DUPTABLE R9 K15 [{"HeaderComponent", "BackgroundColor", "Size", "Style", "LayoutOrder", "Text", "Expanded", "ContentPadding", "ContentSpacing"}]
+  GETTABLEKS R10 R0 K16 ["customHeader"]
   SETTABLEKS R10 R9 K7 ["HeaderComponent"]
   GETTABLEKS R10 R2 K8 ["BackgroundColor"]
   SETTABLEKS R10 R9 K8 ["BackgroundColor"]
   SETTABLEKS R4 R9 K9 ["Size"]
-  LOADK R10 K15 ["Section"]
+  LOADK R10 K17 ["Section"]
   SETTABLEKS R10 R9 K10 ["Style"]
   SETTABLEKS R3 R9 K2 ["LayoutOrder"]
-  LOADK R10 K16 ["Scripts"]
+  LOADK R10 K18 ["Scripts"]
   SETTABLEKS R10 R9 K11 ["Text"]
   LOADB R10 1
   SETTABLEKS R10 R9 K12 ["Expanded"]
-  DUPTABLE R10 K18 [{"Container"}]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K13 ["ContentPadding"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K14 ["ContentSpacing"]
+  DUPTABLE R10 K20 [{"Container"}]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K6 ["createElement"]
   GETUPVAL R12 3
-  DUPTABLE R13 K22 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
-  GETIMPORT R14 K26 [Enum.FillDirection.Vertical]
-  SETTABLEKS R14 R13 K19 ["Layout"]
-  GETIMPORT R14 K28 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R14 R13 K20 ["HorizontalAlignment"]
-  GETIMPORT R14 K30 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R14 R13 K21 ["VerticalAlignment"]
+  DUPTABLE R13 K24 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
+  GETIMPORT R14 K28 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K21 ["Layout"]
+  GETIMPORT R14 K30 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R14 R13 K22 ["HorizontalAlignment"]
+  GETIMPORT R14 K32 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R14 R13 K23 ["VerticalAlignment"]
   SETTABLEKS R5 R13 K9 ["Size"]
-  DUPTABLE R14 K34 [{"ScriptConversionPaneHeader", "ScriptIssueTreeView", "ScriptConversionPaneFooter"}]
+  DUPTABLE R14 K36 [{"ScriptConversionPaneHeader", "ScriptIssueTreeView", "ScriptConversionPaneFooter"}]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 4
-  DUPTABLE R17 K35 [{"LayoutOrder", "Size"}]
-  NAMECALL R18 R6 K36 ["getNextOrder"]
+  DUPTABLE R17 K37 [{"LayoutOrder", "Size"}]
+  NAMECALL R18 R6 K38 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K2 ["LayoutOrder"]
-  GETIMPORT R18 K38 [UDim2.new]
+  GETIMPORT R18 K40 [UDim2.new]
   LOADN R19 1
   LOADN R20 0
   LOADN R21 0
-  GETTABLEKS R22 R2 K39 ["HeaderHeight"]
+  GETTABLEKS R22 R2 K41 ["HeaderHeight"]
   CALL R18 4 1
   SETTABLEKS R18 R17 K9 ["Size"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K31 ["ScriptConversionPaneHeader"]
+  SETTABLEKS R15 R14 K33 ["ScriptConversionPaneHeader"]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 5
-  DUPTABLE R17 K35 [{"LayoutOrder", "Size"}]
-  NAMECALL R18 R6 K36 ["getNextOrder"]
+  DUPTABLE R17 K37 [{"LayoutOrder", "Size"}]
+  NAMECALL R18 R6 K38 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K2 ["LayoutOrder"]
-  GETIMPORT R18 K38 [UDim2.new]
+  GETIMPORT R18 K40 [UDim2.new]
   LOADN R19 1
   LOADN R20 0
   LOADN R21 1
-  GETTABLEKS R24 R2 K39 ["HeaderHeight"]
+  GETTABLEKS R24 R2 K41 ["HeaderHeight"]
   MINUS R23 R24
-  GETTABLEKS R24 R2 K40 ["FooterHeight"]
+  GETTABLEKS R24 R2 K42 ["FooterHeight"]
   SUB R22 R23 R24
   CALL R18 4 1
   SETTABLEKS R18 R17 K9 ["Size"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K32 ["ScriptIssueTreeView"]
+  SETTABLEKS R15 R14 K34 ["ScriptIssueTreeView"]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 6
-  DUPTABLE R17 K35 [{"LayoutOrder", "Size"}]
-  NAMECALL R18 R6 K36 ["getNextOrder"]
+  DUPTABLE R17 K37 [{"LayoutOrder", "Size"}]
+  NAMECALL R18 R6 K38 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K2 ["LayoutOrder"]
-  GETIMPORT R18 K38 [UDim2.new]
+  GETIMPORT R18 K40 [UDim2.new]
   LOADN R19 1
   LOADN R20 0
   LOADN R21 0
-  GETTABLEKS R22 R2 K40 ["FooterHeight"]
+  GETTABLEKS R22 R2 K42 ["FooterHeight"]
   CALL R18 4 1
   SETTABLEKS R18 R17 K9 ["Size"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K33 ["ScriptConversionPaneFooter"]
+  SETTABLEKS R15 R14 K35 ["ScriptConversionPaneFooter"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K17 ["Container"]
+  SETTABLEKS R11 R10 K19 ["Container"]
   CALL R7 3 -1
   RETURN R7 -1
 

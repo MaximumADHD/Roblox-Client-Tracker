@@ -17,15 +17,19 @@ return function()
 	local dependencies = require(ContactList.dependencies)
 	local RoduxCall = dependencies.RoduxCall
 
+	local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
+
 	beforeAll(function(c: any)
 		c.mockCurrentCall = {
-			status = RoduxCall.Enums.Status.Active.rawValue(),
+			status = if FFlagUseRoduxCall18
+				then RoduxCall.Enums.Status.Active
+				else RoduxCall.Enums.Status.Active.rawValue(),
 			callerId = 11111111,
 			calleeId = 12345678,
 			placeId = 789,
 			callId = "123456",
-			callerDisplayName = "Display Name 1",
-			calleeDisplayName = "Display Name 2",
+			callerCombinedName = "Display Name 1",
+			calleeCombinedName = "Display Name 2",
 			instanceId = "gameId",
 		}
 	end)
@@ -55,13 +59,15 @@ return function()
 		local store = Rodux.Store.new(Reducer, {
 			Call = {
 				currentCall = {
-					status = RoduxCall.Enums.Status.Accepting.rawValue(),
+					status = if FFlagUseRoduxCall18
+						then RoduxCall.Enums.Status.Accepting
+						else RoduxCall.Enums.Status.Accepting.rawValue(),
 					callerId = 11111111,
 					calleeId = 12345678,
 					placeId = 789,
 					callId = "123456",
-					callerDisplayName = "Display Name 1",
-					calleeDisplayName = "Display Name 2",
+					callerCombinedName = "Display Name 1",
+					calleeCombinedName = "Display Name 2",
 					instanceId = "gameId",
 				},
 			},

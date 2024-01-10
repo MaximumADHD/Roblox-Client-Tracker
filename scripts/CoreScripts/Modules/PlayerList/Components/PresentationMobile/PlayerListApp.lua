@@ -32,7 +32,6 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
 local FFlagPlayerListFixBackgroundFlicker = require(PlayerList.Flags.FFlagPlayerListFixBackgroundFlicker)
 local GetFFlagPlayerListChromePushdown = require(PlayerList.Flags.GetFFlagPlayerListChromePushdown)
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -326,7 +325,7 @@ local function mapStateToProps(state)
 		screenSizeX = state.screenSize.X,
 		screenSizeY = state.screenSize.Y,
 
-		preferredTransparency = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then state.settings.preferredTransparency else 1,
+		preferredTransparency = state.settings.preferredTransparency,
 
 		displayOptions = state.displayOptions,
 		players = state.players,

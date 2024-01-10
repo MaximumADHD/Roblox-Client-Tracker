@@ -2,7 +2,10 @@ PROTO_0:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["replaceAnimation"]
-  CALL R0 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R1 R2 K2 ["Analytics"]
+  CALL R0 1 0
   RETURN R0 0
 
 PROTO_1:
@@ -209,10 +212,11 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  CALL R1 0 -1
-  CALL R0 -1 0
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
   RETURN R0 0
 
 PROTO_7:
@@ -323,18 +327,20 @@ MAIN:
   CAPTURE VAL R21
   DUPCLOSURE R25 K39 [PROTO_8]
   GETTABLEKS R26 R10 K40 ["withContext"]
-  DUPTABLE R27 K43 [{"Stylizer", "Localization", "NetworkInterface", "ScriptConversionContext"}]
-  GETTABLEKS R28 R10 K41 ["Stylizer"]
-  SETTABLEKS R28 R27 K41 ["Stylizer"]
-  GETTABLEKS R28 R10 K42 ["Localization"]
-  SETTABLEKS R28 R27 K42 ["Localization"]
+  DUPTABLE R27 K44 [{"Analytics", "Stylizer", "Localization", "NetworkInterface", "ScriptConversionContext"}]
+  GETTABLEKS R28 R10 K41 ["Analytics"]
+  SETTABLEKS R28 R27 K41 ["Analytics"]
+  GETTABLEKS R28 R10 K42 ["Stylizer"]
+  SETTABLEKS R28 R27 K42 ["Stylizer"]
+  GETTABLEKS R28 R10 K43 ["Localization"]
+  SETTABLEKS R28 R27 K43 ["Localization"]
   SETTABLEKS R11 R27 K18 ["NetworkInterface"]
   SETTABLEKS R12 R27 K19 ["ScriptConversionContext"]
   CALL R26 1 1
   MOVE R27 R22
   CALL R26 1 1
   MOVE R22 R26
-  GETTABLEKS R26 R3 K44 ["connect"]
+  GETTABLEKS R26 R3 K45 ["connect"]
   MOVE R27 R25
   MOVE R28 R24
   CALL R26 2 1

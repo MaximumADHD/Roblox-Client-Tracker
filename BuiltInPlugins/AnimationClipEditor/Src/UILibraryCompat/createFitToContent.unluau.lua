@@ -4,12 +4,12 @@ local var1 = require(var0.Packages.Roact)
 local var2 = require(var0.Packages.Cryo)
 return function(arg1, arg2, arg3)
    local var0 = var1.Component:extend(`FitComponent(%s, {arg1}`)
-   local var35 = arg3.BorderSize
-   local var37 = var2.Dictionary
-   var37 = arg3
-   local var39 = {}
-   var39.BorderSize = var2.None
-   arg3 = var37.join(var37, var39)
+   local var25 = arg3.BorderSize
+   local var27 = var2.Dictionary
+   var27 = arg3
+   local var29 = {}
+   var29.BorderSize = var2.None
+   arg3 = var27.join(var27, var29)
    function var0.init()
       local var0 = var1.layoutRef.current
       if var0 == "layoutRef" then

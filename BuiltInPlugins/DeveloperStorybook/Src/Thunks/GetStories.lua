@@ -5,7 +5,6 @@
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
 local Framework = require(Main.Packages.Framework)
-local MaterialFramework = require(Main.Packages.MaterialFramework)
 
 local Dash = Framework.Dash
 local assign = Dash.assign
@@ -27,8 +26,6 @@ local SetStories = require(Main.Src.Actions.SetStories)
 
 local TestLoader = require(Main.Packages.TestLoader)
 local ModuleLoader = TestLoader.ModuleLoader
-
-local FFlagViewportToolingFrameworkStorybook = game:DefineFastFlag("ViewportToolingFrameworkStorybook", false)
 
 -- Services to search for .storybook files
 local STORYBOOK_SOURCES = {
@@ -205,7 +202,10 @@ local function visitInstance(
 	local defaultName = instance.Name:sub(1, -(#STORYBOOK_SUFFIX + 1))
 	local name = storybook.name or defaultName
 	local storybookItem = createItem(name, "Storybook", getStoryHierarchy(storybook, instance))
-	if storybook.group then
+
+	if #storybookItem.Children == 0 then
+		insert(mut_missingItems, storybookItem)
+	elseif storybook.group then
 		local path = split(storybook.group, "/")
 		groupItem(storybookItem, path, mut_foldersByPath, mut_storybookItems)
 	else
@@ -231,15 +231,10 @@ local function findStorybooks()
 	insert(sources, devFramework)
 	local materialFramework = index and index.MaterialFramework.MaterialFramework or Main.Parent.MaterialFramework
 	insert(sources, materialFramework)
-
-	if FFlagViewportToolingFrameworkStorybook then
-		insert(
-			sources,
-			if index
-				then index.ViewportToolingFramework.ViewportToolingFramework
-				else Main.Parent.ViewportToolingFramework
-		)
-	end
+	insert(
+		sources,
+		if index then index.ViewportToolingFramework.ViewportToolingFramework else Main.Parent.ViewportToolingFramework
+	)
 
 	local foldersByPath: { [string]: Types.StoryItem } = {}
 	local storybookItems: Types.Array<Types.StoryItem> = {}

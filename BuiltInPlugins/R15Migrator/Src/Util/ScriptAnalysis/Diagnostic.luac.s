@@ -43,6 +43,11 @@ PROTO_0:
   JUMPIFEQ R6 R7 [+3]
   LOADB R6 0
   RETURN R6 1
+  GETTABLEKS R6 R0 K7 ["issueType"]
+  GETTABLEKS R7 R1 K7 ["issueType"]
+  JUMPIFEQ R6 R7 [+3]
+  LOADB R6 0
+  RETURN R6 1
   GETTABLEKS R6 R0 K6 ["suggestions"]
   LOADNIL R7
   LOADNIL R8
@@ -57,19 +62,20 @@ PROTO_0:
   RETURN R6 1
 
 PROTO_1:
-  DUPTABLE R8 K7 [{"range", "code", "codeDescription", "instanceName", "message", "severity", "suggestions"}]
-  SETTABLEKS R0 R8 K0 ["range"]
-  SETTABLEKS R1 R8 K1 ["code"]
-  SETTABLEKS R6 R8 K2 ["codeDescription"]
-  SETTABLEKS R2 R8 K3 ["instanceName"]
-  SETTABLEKS R3 R8 K4 ["message"]
-  SETTABLEKS R4 R8 K5 ["severity"]
-  SETTABLEKS R5 R8 K6 ["suggestions"]
-  GETUPVAL R9 0
-  FASTCALL2 SETMETATABLE R8 R9 [+3]
-  GETIMPORT R7 K9 [setmetatable]
-  CALL R7 2 1
-  RETURN R7 1
+  DUPTABLE R9 K8 [{"range", "code", "codeDescription", "instanceName", "message", "severity", "suggestions", "issueType"}]
+  SETTABLEKS R0 R9 K0 ["range"]
+  SETTABLEKS R1 R9 K1 ["code"]
+  SETTABLEKS R6 R9 K2 ["codeDescription"]
+  SETTABLEKS R2 R9 K3 ["instanceName"]
+  SETTABLEKS R3 R9 K4 ["message"]
+  SETTABLEKS R4 R9 K5 ["severity"]
+  SETTABLEKS R5 R9 K6 ["suggestions"]
+  SETTABLEKS R7 R9 K7 ["issueType"]
+  GETUPVAL R10 0
+  FASTCALL2 SETMETATABLE R9 R10 [+3]
+  GETIMPORT R8 K10 [setmetatable]
+  CALL R8 2 1
+  RETURN R8 1
 
 PROTO_2:
   DUPTABLE R1 K5 [{"range", "code", "message", "severity", "codeDescription"}]

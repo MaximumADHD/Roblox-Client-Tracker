@@ -11,6 +11,12 @@ local useVoiceState = require(RobloxGui.Modules.VoiceChat.Hooks.useVoiceState)
 local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
+local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
+
+if GetFFlagRemoveInGameChatBubbleChatReferences() then
+	Constants = require(RobloxGui.Modules.VoiceChat.Constants) :: any
+end
+
 local DEFAULT_SIZE = UDim2.fromOffset(36, 36)
 
 local function useJoinBinding(bindings)

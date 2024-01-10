@@ -1,5 +1,6 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = {}
+var0.BrushSize = require(script.BrushSize)
 var0.Button = require(script.Button)
 var0.Label = require(script.Label)
 var0.Image = require(script.Image)

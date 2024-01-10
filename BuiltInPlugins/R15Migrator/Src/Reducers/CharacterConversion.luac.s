@@ -55,14 +55,16 @@ PROTO_2:
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
   MOVE R3 R0
-  DUPTABLE R4 K5 [{"characterMetadataLoadedVersion", "characters", "worldModels"}]
+  DUPTABLE R4 K6 [{"characterMetadataLoadedVersion", "characters", "convertedCharacters", "worldModels"}]
   GETTABLEKS R6 R0 K2 ["characterMetadataLoadedVersion"]
-  ADDK R5 R6 K6 [1]
+  ADDK R5 R6 K7 [1]
   SETTABLEKS R5 R4 K2 ["characterMetadataLoadedVersion"]
   GETTABLEKS R5 R1 K3 ["characters"]
   SETTABLEKS R5 R4 K3 ["characters"]
+  GETTABLEKS R5 R1 K4 ["convertedCharacters"]
+  SETTABLEKS R5 R4 K4 ["convertedCharacters"]
   NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K4 ["worldModels"]
+  SETTABLEKS R5 R4 K5 ["worldModels"]
   CALL R2 2 -1
   RETURN R2 -1
 

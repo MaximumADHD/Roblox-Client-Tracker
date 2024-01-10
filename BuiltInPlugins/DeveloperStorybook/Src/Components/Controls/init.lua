@@ -7,7 +7,7 @@
 	See https://confluence.rbx.com/display/RDE/Developer+Storybook for the story API.
 ]]
 local Main = script.Parent.Parent.Parent
-local Roact = require(Main.Packages.Roact)
+local React = require(Main.Packages.React)
 
 local Framework = require(Main.Packages.Framework)
 local UI = Framework.UI
@@ -38,7 +38,7 @@ type Props = {
 
 -- A toggle button for boolean values
 local function getToggleButton(key: string, value: any, props: Props)
-	return Roact.createElement(Checkbox, {
+	return React.createElement(Checkbox, {
 		Checked = value,
 		Text = key,
 		OnClick = function()
@@ -51,13 +51,13 @@ end
 
 -- A text input for number or string values
 local function getTextInput(key: string, value: any, props: Props)
-	return Roact.createFragment({
-		Label = Roact.createElement(TextLabel, {
-			AutomaticSize = Enum.AutomaticSize.XY,
+	return React.createElement(React.Fragment, {}, {
+		Label = React.createElement(TextLabel, {
 			Text = key,
 			LayoutOrder = 1,
+			[React.Tag] = "X-Fit",
 		}),
-		TextInput = Roact.createElement(DEPRECATED_TextInput, {
+		TextInput = React.createElement(DEPRECATED_TextInput, {
 			Style = "RoundedBorder",
 			Size = UDim2.fromOffset(100, 32),
 			Text = tostring(value),
@@ -81,8 +81,8 @@ local function getSelectInput(key: string, value: any, props: Props)
 	local index = findIndex(values, function(current)
 		return tostring(value) == tostring(current)
 	end) or 1
-	return Roact.createFragment({
-		SelectInput = Roact.createElement(SelectInput, {
+	return React.createElement(React.Fragment, {}, {
+		SelectInput = React.createElement(SelectInput, {
 			Items = map(values, tostring),
 			SelectedIndex = index,
 			OnItemActivated = function(_value, index: number)
@@ -110,7 +110,7 @@ local function Controls(props: Props)
 		else
 			child = getTextInput(key, value, props)
 		end
-		local element = Roact.createElement(Pane, {
+		local element = React.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Layout = Enum.FillDirection.Horizontal,
 			LayoutOrder = index,
@@ -121,12 +121,12 @@ local function Controls(props: Props)
 		return key, element
 	end)
 
-	return Roact.createElement(PanelEntry, {
+	return React.createElement(PanelEntry, {
 		Header = "Controls",
 		Description = "Configuration options for the story",
 		LayoutOrder = props.LayoutOrder,
 	}, {
-		Pane = Roact.createElement(Pane, {
+		Pane = React.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.Y,
 			Layout = if #keys > 5 then Enum.FillDirection.Vertical else Enum.FillDirection.Horizontal,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,

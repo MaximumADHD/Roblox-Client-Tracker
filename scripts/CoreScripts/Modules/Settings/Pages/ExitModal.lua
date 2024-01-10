@@ -80,9 +80,7 @@ local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForCh
 
 ------------ FLAGS -------------------
 
-local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuV1LeaveToHome)
 local GetFIntEducationalPopupDisplayMaxCount = require(RobloxGui.Modules.Flags.GetFIntEducationalPopupDisplayMaxCount)
-local FFlagLuaAppExitModalDoNotShow = game:DefineFastFlag("LuaAppExitModalDoNotShow", false)
 
 ----------- CLASS DECLARATION --------------
 local function Initialize()
@@ -113,9 +111,7 @@ local function Initialize()
 			source = if isUsingGamepad then "Gamepad" else "Button",
 		})
 
-		if GetFFlagInGameMenuV1LeaveToHome() then
-			LinkingProtocol.default:detectURL("roblox://navigation/home")
-		end
+		LinkingProtocol.default:detectURL("roblox://navigation/home")
 
 		-- need to wait for render frames so on slower devices the leave button highlight will update
 		-- otherwise, since on slow devices it takes so long to leave you are left wondering if you pressed the button
@@ -196,9 +192,7 @@ local function Initialize()
 			subtitle = localization:Format("CoreScripts.InGameMenu.ExitModal.Subtitle"),
 			bodyTextOpenMenu = localization:Format("CoreScripts.InGameMenu.ExitModal.BodyTextOpenMenu"),
 			bodyTextClickHome = localization:Format("CoreScripts.InGameMenu.ExitModal.BodyTextClickHome"),
-			optionDontShow = if FFlagLuaAppExitModalDoNotShow
-				then localization:Format("CoreScripts.InGameMenu.ExitModal.OptionDontShow")
-				else nil,
+			optionDontShow = localization:Format("CoreScripts.InGameMenu.ExitModal.OptionDontShow"),
 			actionExit = localization:Format("CoreScripts.InGameMenu.ExitModal.ActionExit"),
 			actionHome = localization:Format("CoreScripts.InGameMenu.ExitModal.ActionHome"),
 		}
@@ -214,10 +208,10 @@ local function Initialize()
 						text = localized.bodyTextClickHome,
 					},
 				},
-				hasDoNotShow = if FFlagLuaAppExitModalDoNotShow then true else nil,
+				hasDoNotShow = true,
 				cancelText = localized.actionExit,
 				confirmText = localized.actionHome,
-				doNotShowText = if FFlagLuaAppExitModalDoNotShow then localized.optionDontShow else nil,
+				doNotShowText = localized.optionDontShow,
 				titleBackgroundImageProps = {
 					image = "rbxasset://textures/ui/LuaApp/graphic/Auth/GridBackground.jpg",
 					imageHeight = 200,
@@ -231,13 +225,13 @@ local function Initialize()
 					this.DontLeaveFunc(false)
 				end,
 				onCancel = function(doNotShow)
-					if FFlagLuaAppExitModalDoNotShow and doNotShow then
+					if doNotShow then
 						this.DontShowAgain()
 					end
 					this.LeaveAppFunc(false)
 				end,
 				onConfirm = function(doNotShow)
-					if FFlagLuaAppExitModalDoNotShow and doNotShow then
+					if doNotShow then
 						this.DontShowAgain()
 					end
 					this.LeaveGameFunc(false)
@@ -291,7 +285,7 @@ end
 PageInstance = Initialize()
 
 PageInstance.Displayed.Event:connect(function()
-	if FFlagLuaAppExitModalDoNotShow and not PageInstance.ShouldShow() then
+	if not PageInstance.ShouldShow() then
 		PageInstance.LeaveAppFunc(true)
 	end
 

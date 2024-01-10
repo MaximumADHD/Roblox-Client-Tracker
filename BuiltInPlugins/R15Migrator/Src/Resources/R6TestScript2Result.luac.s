@@ -84,7 +84,7 @@ MAIN:
   SETTABLEKS R2 R1 K10 ["range"]
   GETIMPORT R4 K12 [Enum]
   GETTABLEKS R3 R4 K13 ["Severity"]
-  GETTABLEKS R2 R3 K23 ["Warning"]
+  GETTABLEKS R2 R3 K14 ["Error"]
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K17 ["suggestions"]
@@ -92,9 +92,9 @@ MAIN:
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Error"]
   SETTABLEKS R2 R1 K1 ["code"]
-  LOADK R2 K24 ["Left Shoulder"]
+  LOADK R2 K23 ["Left Shoulder"]
   SETTABLEKS R2 R1 K3 ["instanceName"]
-  LOADK R2 K25 ["Reference to R6 Avatar found with Left Shoulder"]
+  LOADK R2 K24 ["Reference to R6 Avatar found with Left Shoulder"]
   SETTABLEKS R2 R1 K5 ["message"]
   NEWTABLE R2 2 0
   NEWTABLE R3 2 0
@@ -115,7 +115,7 @@ MAIN:
   GETTABLEKS R2 R3 K14 ["Error"]
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 1
-  LOADK R3 K26 ["LeftShoulder"]
+  LOADK R3 K25 ["LeftShoulder"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
   SETTABLEN R1 R0 4
@@ -124,7 +124,7 @@ MAIN:
   SETTABLEKS R2 R1 K1 ["code"]
   LOADK R2 K2 ["Torso"]
   SETTABLEKS R2 R1 K3 ["instanceName"]
-  LOADK R2 K27 ["Variable must reference LeftUpperArm."]
+  LOADK R2 K26 ["Variable must reference LeftUpperArm."]
   SETTABLEKS R2 R1 K5 ["message"]
   NEWTABLE R2 2 0
   NEWTABLE R3 2 0
@@ -142,7 +142,7 @@ MAIN:
   SETTABLEKS R2 R1 K10 ["range"]
   GETIMPORT R4 K12 [Enum]
   GETTABLEKS R3 R4 K13 ["Severity"]
-  GETTABLEKS R2 R3 K23 ["Warning"]
+  GETTABLEKS R2 R3 K14 ["Error"]
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K17 ["suggestions"]
@@ -150,9 +150,9 @@ MAIN:
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Error"]
   SETTABLEKS R2 R1 K1 ["code"]
-  LOADK R2 K28 ["Right Hip"]
+  LOADK R2 K27 ["Right Hip"]
   SETTABLEKS R2 R1 K3 ["instanceName"]
-  LOADK R2 K29 ["Reference to R6 Avatar found with Right Hip"]
+  LOADK R2 K28 ["Reference to R6 Avatar found with Right Hip"]
   SETTABLEKS R2 R1 K5 ["message"]
   NEWTABLE R2 2 0
   NEWTABLE R3 2 0
@@ -173,7 +173,7 @@ MAIN:
   GETTABLEKS R2 R3 K14 ["Error"]
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 1
-  LOADK R3 K30 ["RightHip"]
+  LOADK R3 K29 ["RightHip"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
   SETTABLEN R1 R0 6
@@ -182,7 +182,7 @@ MAIN:
   SETTABLEKS R2 R1 K1 ["code"]
   LOADK R2 K2 ["Torso"]
   SETTABLEKS R2 R1 K3 ["instanceName"]
-  LOADK R2 K31 ["Variable must reference RightUpperLeg."]
+  LOADK R2 K30 ["Variable must reference RightUpperLeg."]
   SETTABLEKS R2 R1 K5 ["message"]
   NEWTABLE R2 2 0
   NEWTABLE R3 2 0
@@ -200,7 +200,7 @@ MAIN:
   SETTABLEKS R2 R1 K10 ["range"]
   GETIMPORT R4 K12 [Enum]
   GETTABLEKS R3 R4 K13 ["Severity"]
-  GETTABLEKS R2 R3 K23 ["Warning"]
+  GETTABLEKS R2 R3 K14 ["Error"]
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K17 ["suggestions"]
@@ -208,9 +208,9 @@ MAIN:
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Error"]
   SETTABLEKS R2 R1 K1 ["code"]
-  LOADK R2 K32 ["Left Hip"]
+  LOADK R2 K31 ["Left Hip"]
   SETTABLEKS R2 R1 K3 ["instanceName"]
-  LOADK R2 K33 ["Reference to R6 Avatar found with Left Hip"]
+  LOADK R2 K32 ["Reference to R6 Avatar found with Left Hip"]
   SETTABLEKS R2 R1 K5 ["message"]
   NEWTABLE R2 2 0
   NEWTABLE R3 2 0
@@ -231,7 +231,7 @@ MAIN:
   GETTABLEKS R2 R3 K14 ["Error"]
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 1
-  LOADK R3 K34 ["LeftHip"]
+  LOADK R3 K33 ["LeftHip"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
   SETTABLEN R1 R0 8
@@ -240,7 +240,7 @@ MAIN:
   SETTABLEKS R2 R1 K1 ["code"]
   LOADK R2 K2 ["Torso"]
   SETTABLEKS R2 R1 K3 ["instanceName"]
-  LOADK R2 K35 ["Variable must reference LeftUpperLeg."]
+  LOADK R2 K34 ["Variable must reference LeftUpperLeg."]
   SETTABLEKS R2 R1 K5 ["message"]
   NEWTABLE R2 2 0
   NEWTABLE R3 2 0
@@ -258,7 +258,7 @@ MAIN:
   SETTABLEKS R2 R1 K10 ["range"]
   GETIMPORT R4 K12 [Enum]
   GETTABLEKS R3 R4 K13 ["Severity"]
-  GETTABLEKS R2 R3 K23 ["Warning"]
+  GETTABLEKS R2 R3 K14 ["Error"]
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K17 ["suggestions"]
@@ -268,7 +268,7 @@ MAIN:
   SETTABLEKS R2 R1 K1 ["code"]
   LOADK R2 K2 ["Torso"]
   SETTABLEKS R2 R1 K3 ["instanceName"]
-  LOADK R2 K36 ["Variable must reference Head."]
+  LOADK R2 K35 ["Variable must reference Head."]
   SETTABLEKS R2 R1 K5 ["message"]
   NEWTABLE R2 2 0
   NEWTABLE R3 2 0
@@ -286,7 +286,7 @@ MAIN:
   SETTABLEKS R2 R1 K10 ["range"]
   GETIMPORT R4 K12 [Enum]
   GETTABLEKS R3 R4 K13 ["Severity"]
-  GETTABLEKS R2 R3 K23 ["Warning"]
+  GETTABLEKS R2 R3 K14 ["Error"]
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K17 ["suggestions"]

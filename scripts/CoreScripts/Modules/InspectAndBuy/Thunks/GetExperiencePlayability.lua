@@ -18,8 +18,7 @@ local keyMapper = createInspectAndBuyKeyMapper("getExperiencePlayabilityStatus")
 --[[
 	Get the playability status of an experience given its universe id.
 ]]
-local function GetExperiencePlayability(universeId)
-	universeId = tostring(universeId)
+local function GetExperiencePlayability(universeId: string): any
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 

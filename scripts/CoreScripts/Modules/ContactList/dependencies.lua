@@ -38,6 +38,7 @@ return {
 		useDispatch = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useDispatch,
 		useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector,
 		usePrevious = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.usePrevious,
+		useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization,
 	},
 	NetworkingCall = LuaSocialLibrariesDeps.NetworkingCall.config({
 		roduxNetworking = myRoduxNetworking,

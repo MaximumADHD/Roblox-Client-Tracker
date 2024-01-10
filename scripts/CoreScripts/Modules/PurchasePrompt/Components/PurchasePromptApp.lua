@@ -30,8 +30,16 @@ local RobuxUpsellContainer = require(script.Parent.RobuxUpsell.RobuxUpsellContai
 local PremiumUpsellContainer = require(script.Parent.PremiumUpsell.PremiumUpsellContainer)
 local SubscriptionPurchaseContainer = require(script.Parent.SubscriptionPurchase.SubscriptionPurchaseContainer)
 
-local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local Gotham = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
+local DarkTheme = if GetFFlagEnableStyleProviderCleanUp()
+	then nil
+	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local Gotham = if GetFFlagEnableStyleProviderCleanUp()
+	then nil
+	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local renderWithCoreScriptsStyleProvider =
+	require(script.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 
@@ -58,17 +66,25 @@ function PurchasePromptApp:init()
 	}
 end
 
+function PurchasePromptApp:renderWithStyle(children)
+	if GetFFlagEnableStyleProviderCleanUp() then
+		return renderWithCoreScriptsStyleProvider(children)
+	else
+		return Roact.createElement(StyleProvider, {
+			style = {
+				Theme = DarkTheme,
+				Font = Gotham,
+			},
+		}, children)
+	end
+end
+
 function PurchasePromptApp:render()
 	return provideRobloxLocale(function()
 		return Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.state.store,
 		}, {
-			StyleProvider = Roact.createElement(StyleProvider, {
-				style = {
-					Theme = DarkTheme,
-					Font = Gotham,
-				},
-			}, {
+			StyleProvider = self:renderWithStyle({
 				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
 					isTenFootInterface = self.state.isTenFootInterface,
 				}, {
@@ -80,7 +96,7 @@ function PurchasePromptApp:render()
 							IgnoreGuiInset = true,
 						}, {
 							LocaleProvider = Roact.createElement(LocaleProvider, {
-								locale = LocalizationService.RobloxLocaleId
+								locale = LocalizationService.RobloxLocaleId,
 							}, {
 								ProductPurchaseContainer = Roact.createElement(ProductPurchaseContainer),
 								RobuxUpsellContainer = Roact.createElement(RobuxUpsellContainer),
@@ -88,10 +104,10 @@ function PurchasePromptApp:render()
 								SubscriptionPurchaseContainer = Roact.createElement(SubscriptionPurchaseContainer),
 							}),
 							EventConnections = Roact.createElement(EventConnections),
-						})
-					})
-				})
-			})
+						}),
+					}),
+				}),
+			}),
 		})
 	end)
 end

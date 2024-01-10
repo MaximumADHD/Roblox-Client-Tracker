@@ -8,20 +8,20 @@ local var5 = {}
 var5.name = "InventorySearchOptions"
 var5.summary = "The Search Option component for Inventory"
 function {}.story()
-   local var229 = {}
-   local var233 = {}
-   var233.IsShownByDefault = true
-   function var233.OnRender(arg1, arg2)
-      local var240 = {}
-      function var240.GetSearchOptions()
+   local var189 = {}
+   local var193 = {}
+   var193.IsShownByDefault = true
+   function var193.OnRender(arg1, arg2)
+      local var200 = {}
+      function var200.GetSearchOptions()
       end
       
-      var240.OnClose = arg2
-      return var1.createElement(var2, var240)
+      var200.OnClose = arg2
+      return var1.createElement(var2, var200)
    end
    
-   var229.ClickToShowInteractiveStoryWrapper = var1.createElement(var3, var233)
-   return var1.createElement(var4, {}, var229)
+   var189.ClickToShowInteractiveStoryWrapper = var1.createElement(var3, var193)
+   return var1.createElement(var4, {}, var189)
 end
 
 var5.stories = {}

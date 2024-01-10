@@ -69,15 +69,16 @@ function var6.Generator(arg1, arg2, arg3, arg4)
    var4.Schema = var110
    local var6 = {}
    var6.Id = var3.Import
+   var6.Layout = Enum.FillDirection.Vertical
    local var7 = {}
    var7.Label = var0:getText(var5, var3.Import)
    var7.Type = "Button"
    var6.Schema = var7
-   local var123 = {}
-   var123.Category = var5
-   var123.Data = arg2
-   var123.Overrides = arg4
-   return var2(arg1, {}, var123)
+   local var124 = {}
+   var124.Category = var5
+   var124.Data = arg2
+   var124.Overrides = arg4
+   return var2(arg1, {}, var124)
 end
 
 return var6

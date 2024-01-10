@@ -38,8 +38,6 @@ local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
 
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
-
 local PlayerDropDown = Roact.PureComponent:extend("PlayerDropDown")
 
 PlayerDropDown.validateProps = t.strictInterface({
@@ -322,7 +320,7 @@ local function mapStateToProps(state)
 		inspectMenuEnabled = state.displayOptions.inspectMenuEnabled,
 		isTenFootInterface = state.displayOptions.isTenFootInterface,
 		subjectToChinaPolicies = state.displayOptions.subjectToChinaPolicies,
-		preferredTransparency = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then state.settings.preferredTransparency else 1,
+		preferredTransparency = state.settings.preferredTransparency,
 	}
 end
 

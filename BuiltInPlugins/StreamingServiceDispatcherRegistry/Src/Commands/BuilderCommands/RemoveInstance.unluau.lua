@@ -12,15 +12,15 @@ return function(arg1)
    end
    if var3.Parent then
       if not var2 then
-         local var176 = var1
-         var176 = var0
-         var176.StartRecordingActions(var176)
+         local var123 = var1
+         var123 = var0
+         var123.StartRecordingActions(var123)
       end
       var3.Parent = nil
       if not var2 then
-         local var179 = var1
-         var179 = var0
-         var179.EndRecordingActions(var179)
+         local var126 = var1
+         var126 = var0
+         var126.EndRecordingActions(var126)
       end
    end
 end

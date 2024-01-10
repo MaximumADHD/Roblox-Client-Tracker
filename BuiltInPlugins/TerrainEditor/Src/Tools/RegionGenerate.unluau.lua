@@ -17,63 +17,66 @@ local var14 = var8.ToolCategories
 local var15 = var8.Tools
 local var16 = var8.TransformMode
 local var17 = var8.TransformSettings
-local var49 = {}
-var49.Defaults = {}
-var49.Id = var11.SelectionSettings
-var49.Schema = require(var2.Selection)
-local var52 = {}
+local var18 = require(var0.Src.Flags.getFFlagTerrainEditorGenerateTransform)
+local var54 = {}
+var54.Defaults = {}
+var54.Id = var11.SelectionSettings
+var54.Schema = require(var2.Selection)
+local var57 = {}
 var9.Mountains = true
 var9.Hills = true
-local var60 = var9.Plains
-local var61 = true
-var9.Plains = var61
+local var65 = var9.Plains
+local var66 = true
+var9.Plains = var66
 var10.Biomes = {}
 var10.BiomeBlending = 0.25
 var10.BiomeSize = 100
 var10.Caves = true
 var10.Seed = 618033988
-var52.Defaults = {}
-var52.Id = var11.BiomeSettings
-var52.Schema = require(var2.Biome)
-local var72 = {}
-var72.Id = var12.Region
-local var74 = {}
-var74.Type = var12.Region
-var74.Wireframe = false
-var74.Rotation = false
-var72.Schema = var74
-var60 = {}
-var61 = {}
-local var22 = var1:new(var15.Generate, var14.Create, var60, var61)
-function var22.init(arg1, arg2, arg3)
-   local var85 = var1
-   var85 = arg1
-   var85.init(var85, arg2, arg3)
+var57.Defaults = {}
+var57.Id = var11.BiomeSettings
+var57.Schema = require(var2.Biome)
+local var77 = {}
+var77.Id = var12.Region
+local var79 = {}
+var79.Type = var12.Region
+var79.Wireframe = false
+var79.Rotation = false
+var77.Schema = var79
+var65 = {}
+var66 = {}
+local var23 = var1:new(var15.Generate, var14.Create, var65, var66)
+function var23.init(arg1, arg2, arg3)
+   local var90 = var1
+   var90 = arg1
+   var90.init(var90, arg2, arg3)
    local var1 = {}
    var1.Hidden = false
    var1.Label = ""
-   local var98 = {}
-   function var98.OnClick()
-      local var113 = arg1
-      var113 = Region3int16.new(arg1._region.Min, arg1._region.Max - Vector3int16.new(1, 1, 1))
-      arg1._services.Terrain:PasteRegion(arg1._terrainRegion, arg1._region.Min, true)
-      var7.TerrainRegion = var113._services.Terrain:CopyRegion(var113)
-      var7.TerrainRegionSize = var6[var11.SelectionSettings][var3.Size]
-      var7.TerrainRegionTransform = var6[var11.SelectionSettings][var3.Transform]
-      var7.TransformMode = var17.Import
-      var5.Set(var11.TransformSettings, var13.Storage, arg1._pluginController, {})
-      arg1._toolController.selectTabAndTool(var16.Edit, var14.Transform)
+   local var103 = {}
+   function var103.OnClick()
+      if arg1() then
+         local var120 = var5
+         var120 = Region3int16.new(var5._region.Min, var5._region.Max - Vector3int16.new(1, 1, 1))
+         var5._services.Terrain:PasteRegion(var5._terrainRegion, var5._region.Min, true)
+         var18.TerrainRegion = var120._services.Terrain:CopyRegion(var120)
+         var18.TerrainRegionSize = var6[var13.SelectionSettings][var3.Size]
+         var18.TerrainRegionTransform = var6[var13.SelectionSettings][var3.Transform]
+         var18.TransformMode = var17.Import
+         var11.Set(var13.TransformSettings, var7.Storage, var5._pluginController, {})
+         var5._toolController.selectTabAndTool(var16.Edit, var14.Transform)
+      end
    end
    
-   var1.Schema = var98
+   var1.Schema = var103
    var1.Value = true
    var10.Generate = var1
    var11.BiomeSettings = {}
    arg1._overrides = {}
 end
 
-function var22.operation(arg1)
+function var23.operation(arg1)
    return arg1._operation
 end
 
-return var22
+return var23

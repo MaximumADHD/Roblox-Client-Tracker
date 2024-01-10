@@ -40,16 +40,6 @@ PROTO_3:
   RETURN R0 -1
 
 PROTO_4:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["TogglePlay"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["props"]
-  GETTABLEKS R1 R2 K2 ["Analytics"]
-  CALL R0 1 -1
-  RETURN R0 -1
-
-PROTO_5:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["SetPlayState"]
@@ -60,7 +50,7 @@ PROTO_5:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_6:
+PROTO_5:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
   GETTABLEKS R1 R0 K1 ["StepAnimation"]
@@ -68,7 +58,7 @@ PROTO_6:
   CALL R1 1 -1
   RETURN R1 -1
 
-PROTO_7:
+PROTO_6:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
   GETTABLEKS R1 R0 K1 ["AnimationData"]
@@ -78,7 +68,7 @@ PROTO_7:
   CALL R2 1 -1
   RETURN R2 -1
 
-PROTO_8:
+PROTO_7:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K0 ["toggleLoopingWrapper"]
@@ -91,26 +81,18 @@ PROTO_8:
   NEWCLOSURE R1 P3
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K3 ["skipForwardWrapper"]
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIF R2 [+3]
   NEWCLOSURE R1 P4
   CAPTURE VAL R0
-  JUMP [+1]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K4 ["togglePlayWrapper"]
+  SETTABLEKS R1 R0 K4 ["setPlayStateWrapper"]
   NEWCLOSURE R1 P5
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K5 ["setPlayStateWrapper"]
+  SETTABLEKS R1 R0 K5 ["goToFirstFrameWrapper"]
   NEWCLOSURE R1 P6
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K6 ["goToFirstFrameWrapper"]
-  NEWCLOSURE R1 P7
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K7 ["goToLastFrameWrapper"]
+  SETTABLEKS R1 R0 K6 ["goToLastFrameWrapper"]
   RETURN R0 0
 
-PROTO_9:
+PROTO_8:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Stylizer"]
   GETTABLEKS R3 R1 K2 ["AnimationData"]
@@ -192,47 +174,40 @@ PROTO_9:
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K16 ["createElement"]
   GETUPVAL R22 3
-  DUPTABLE R23 K68 [{"PlayState", "IsLooping", "SkipBackward", "SkipForward", "TogglePlay", "SetPlayState", "ToggleLooping", "GoToFirstFrame", "GoToLastFrame", "LayoutOrder"}]
+  DUPTABLE R23 K67 [{"PlayState", "IsLooping", "SkipBackward", "SkipForward", "SetPlayState", "ToggleLooping", "GoToFirstFrame", "GoToLastFrame", "LayoutOrder"}]
   SETTABLEKS R5 R23 K4 ["PlayState"]
   JUMPIFNOT R3 [+8]
   GETTABLEKS R25 R3 K53 ["Metadata"]
   JUMPIFNOT R25 [+5]
   GETTABLEKS R25 R3 K53 ["Metadata"]
-  GETTABLEKS R24 R25 K69 ["Looping"]
+  GETTABLEKS R24 R25 K68 ["Looping"]
   JUMPIF R24 [+1]
   LOADB R24 0
   SETTABLEKS R24 R23 K60 ["IsLooping"]
-  GETTABLEKS R24 R0 K70 ["skipBackwardWrapper"]
+  GETTABLEKS R24 R0 K69 ["skipBackwardWrapper"]
   SETTABLEKS R24 R23 K61 ["SkipBackward"]
-  GETTABLEKS R24 R0 K71 ["skipForwardWrapper"]
+  GETTABLEKS R24 R0 K70 ["skipForwardWrapper"]
   SETTABLEKS R24 R23 K62 ["SkipForward"]
-  GETUPVAL R25 4
-  CALL R25 0 1
-  JUMPIF R25 [+3]
-  GETTABLEKS R24 R0 K72 ["togglePlayWrapper"]
-  JUMP [+1]
-  LOADNIL R24
-  SETTABLEKS R24 R23 K63 ["TogglePlay"]
-  GETTABLEKS R24 R0 K73 ["setPlayStateWrapper"]
-  SETTABLEKS R24 R23 K64 ["SetPlayState"]
-  GETTABLEKS R24 R0 K74 ["toggleLoopingWrapper"]
-  SETTABLEKS R24 R23 K65 ["ToggleLooping"]
-  GETTABLEKS R24 R0 K75 ["goToFirstFrameWrapper"]
-  SETTABLEKS R24 R23 K66 ["GoToFirstFrame"]
-  GETTABLEKS R24 R0 K76 ["goToLastFrameWrapper"]
-  SETTABLEKS R24 R23 K67 ["GoToLastFrame"]
+  GETTABLEKS R24 R0 K71 ["setPlayStateWrapper"]
+  SETTABLEKS R24 R23 K63 ["SetPlayState"]
+  GETTABLEKS R24 R0 K72 ["toggleLoopingWrapper"]
+  SETTABLEKS R24 R23 K64 ["ToggleLooping"]
+  GETTABLEKS R24 R0 K73 ["goToFirstFrameWrapper"]
+  SETTABLEKS R24 R23 K65 ["GoToFirstFrame"]
+  GETTABLEKS R24 R0 K74 ["goToLastFrameWrapper"]
+  SETTABLEKS R24 R23 K66 ["GoToLastFrame"]
   LOADN R24 1
   SETTABLEKS R24 R23 K20 ["LayoutOrder"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K32 ["MediaControls"]
   GETUPVAL R22 0
   GETTABLEKS R21 R22 K16 ["createElement"]
-  GETUPVAL R22 5
-  DUPTABLE R23 K78 [{"StartTick", "EndTick", "FrameRate", "ShowAsTime", "AnimationData", "Playhead", "EditingLength", "StepAnimation", "UpdateEditingLength", "ReadOnly", "LayoutOrder"}]
+  GETUPVAL R22 4
+  DUPTABLE R23 K76 [{"StartTick", "EndTick", "FrameRate", "ShowAsTime", "AnimationData", "Playhead", "EditingLength", "StepAnimation", "UpdateEditingLength", "ReadOnly", "LayoutOrder"}]
   SETTABLEKS R7 R23 K6 ["StartTick"]
   SETTABLEKS R8 R23 K7 ["EndTick"]
   SETTABLEKS R14 R23 K13 ["FrameRate"]
-  SETTABLEKS R11 R23 K77 ["ShowAsTime"]
+  SETTABLEKS R11 R23 K75 ["ShowAsTime"]
   SETTABLEKS R3 R23 K2 ["AnimationData"]
   SETTABLEKS R9 R23 K8 ["Playhead"]
   SETTABLEKS R10 R23 K9 ["EditingLength"]
@@ -246,7 +221,7 @@ PROTO_9:
   CALL R17 3 -1
   RETURN R17 -1
 
-PROTO_10:
+PROTO_9:
   DUPTABLE R1 K4 [{"FrameRate", "PlayState", "ReadOnly", "RootInstance"}]
   GETTABLEKS R3 R0 K5 ["Status"]
   GETTABLEKS R2 R3 K0 ["FrameRate"]
@@ -261,6 +236,14 @@ PROTO_10:
   GETTABLEKS R2 R3 K3 ["RootInstance"]
   SETTABLEKS R2 R1 K3 ["RootInstance"]
   RETURN R1 1
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
 
 PROTO_11:
   GETUPVAL R1 0
@@ -279,11 +262,12 @@ PROTO_12:
   RETURN R0 0
 
 PROTO_13:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  CALL R2 -1 0
   RETURN R0 0
 
 PROTO_14:
@@ -295,23 +279,6 @@ PROTO_14:
   RETURN R0 0
 
 PROTO_15:
-  GETUPVAL R2 0
-  GETUPVAL R3 1
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 -1
-  CALL R2 -1 0
-  RETURN R0 0
-
-PROTO_16:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_17:
   GETUPVAL R1 0
   GETUPVAL R2 1
   LOADB R3 0
@@ -320,7 +287,7 @@ PROTO_17:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_16:
   GETUPVAL R1 0
   GETUPVAL R2 1
   LOADB R3 1
@@ -329,45 +296,36 @@ PROTO_18:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_19:
-  DUPTABLE R1 K8 [{"ToggleLooping", "TogglePlay", "StepAnimation", "SetPlayState", "LoadAnimationData", "UpdateEditingLength", "SkipBackward", "SkipForward"}]
+PROTO_17:
+  DUPTABLE R1 K7 [{"ToggleLooping", "StepAnimation", "SetPlayState", "LoadAnimationData", "UpdateEditingLength", "SkipBackward", "SkipForward"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
   SETTABLEKS R2 R1 K0 ["ToggleLooping"]
-  GETUPVAL R3 1
-  CALL R3 0 1
-  JUMPIF R3 [+4]
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
-  CAPTURE UPVAL U2
-  JUMP [+1]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K1 ["TogglePlay"]
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["StepAnimation"]
   NEWCLOSURE R2 P2
   CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  SETTABLEKS R2 R1 K2 ["StepAnimation"]
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["SetPlayState"]
   NEWCLOSURE R2 P3
   CAPTURE VAL R0
-  CAPTURE UPVAL U4
-  SETTABLEKS R2 R1 K3 ["SetPlayState"]
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K3 ["LoadAnimationData"]
   NEWCLOSURE R2 P4
   CAPTURE VAL R0
-  CAPTURE UPVAL U5
-  SETTABLEKS R2 R1 K4 ["LoadAnimationData"]
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R1 K4 ["UpdateEditingLength"]
   NEWCLOSURE R2 P5
   CAPTURE VAL R0
-  CAPTURE UPVAL U6
-  SETTABLEKS R2 R1 K5 ["UpdateEditingLength"]
+  CAPTURE UPVAL U5
+  SETTABLEKS R2 R1 K5 ["SkipBackward"]
   NEWCLOSURE R2 P6
   CAPTURE VAL R0
-  CAPTURE UPVAL U7
-  SETTABLEKS R2 R1 K6 ["SkipBackward"]
-  NEWCLOSURE R2 P7
-  CAPTURE VAL R0
-  CAPTURE UPVAL U7
-  SETTABLEKS R2 R1 K7 ["SkipForward"]
+  CAPTURE UPVAL U5
+  SETTABLEKS R2 R1 K6 ["SkipForward"]
   RETURN R1 1
 
 MAIN:
@@ -452,49 +410,41 @@ MAIN:
   GETTABLEKS R18 R19 K28 ["Actions"]
   GETTABLEKS R17 R18 K29 ["SetPlayState"]
   CALL R16 1 1
-  GETIMPORT R17 K5 [require]
-  GETTABLEKS R19 R0 K30 ["LuaFlags"]
-  GETTABLEKS R18 R19 K31 ["GetFFlagRhodium"]
-  CALL R17 1 1
-  GETTABLEKS R18 R1 K32 ["PureComponent"]
-  LOADK R20 K16 ["AnimationControlPanel"]
-  NAMECALL R18 R18 K33 ["extend"]
-  CALL R18 2 1
-  DUPCLOSURE R19 K34 [PROTO_8]
-  CAPTURE VAL R17
-  SETTABLEKS R19 R18 K35 ["init"]
-  DUPCLOSURE R19 K36 [PROTO_9]
+  GETTABLEKS R17 R1 K30 ["PureComponent"]
+  LOADK R19 K16 ["AnimationControlPanel"]
+  NAMECALL R17 R17 K31 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K32 [PROTO_7]
+  SETTABLEKS R18 R17 K33 ["init"]
+  DUPCLOSURE R18 K34 [PROTO_8]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R7
   CAPTURE VAL R8
-  CAPTURE VAL R17
   CAPTURE VAL R9
-  SETTABLEKS R19 R18 K37 ["render"]
-  MOVE R19 R6
-  DUPTABLE R20 K40 [{"Stylizer", "Analytics"}]
-  GETTABLEKS R21 R5 K38 ["Stylizer"]
-  SETTABLEKS R21 R20 K38 ["Stylizer"]
-  GETTABLEKS R21 R5 K39 ["Analytics"]
-  SETTABLEKS R21 R20 K39 ["Analytics"]
-  CALL R19 1 1
-  MOVE R20 R18
-  CALL R19 1 1
-  MOVE R18 R19
-  DUPCLOSURE R19 K41 [PROTO_10]
-  DUPCLOSURE R20 K42 [PROTO_19]
+  SETTABLEKS R18 R17 K35 ["render"]
+  MOVE R18 R6
+  DUPTABLE R19 K38 [{"Stylizer", "Analytics"}]
+  GETTABLEKS R20 R5 K36 ["Stylizer"]
+  SETTABLEKS R20 R19 K36 ["Stylizer"]
+  GETTABLEKS R20 R5 K37 ["Analytics"]
+  SETTABLEKS R20 R19 K37 ["Analytics"]
+  CALL R18 1 1
+  MOVE R19 R17
+  CALL R18 1 1
+  MOVE R17 R18
+  DUPCLOSURE R18 K39 [PROTO_9]
+  DUPCLOSURE R19 K40 [PROTO_17]
   CAPTURE VAL R11
-  CAPTURE VAL R17
-  CAPTURE VAL R10
   CAPTURE VAL R12
   CAPTURE VAL R16
   CAPTURE VAL R13
   CAPTURE VAL R15
   CAPTURE VAL R14
-  GETTABLEKS R21 R2 K43 ["connect"]
+  GETTABLEKS R20 R2 K41 ["connect"]
+  MOVE R21 R18
   MOVE R22 R19
-  MOVE R23 R20
-  CALL R21 2 1
-  MOVE R22 R18
-  CALL R21 1 -1
-  RETURN R21 -1
+  CALL R20 2 1
+  MOVE R21 R17
+  CALL R20 1 -1
+  RETURN R20 -1

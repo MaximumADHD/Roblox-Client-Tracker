@@ -123,16 +123,6 @@ local MOCK_ECONOMY_PRODUCT_INFO = {
 	assetId = 10,
 }
 
--- TODO AVBURST-12905: use item details endpoint for getting attribution data
-local MOCK_VERSION_INFO = {
-	data = {
-		{
-			assetId = 17,
-			creatingUniverseId = 13,
-		},
-	},
-}
-
 local MOCK_PLAYABILITY_INFO = {
 	playabilityStatus = PlayabilityStatusEnum.Playable,
 	universeId = 13,
@@ -156,7 +146,20 @@ local function getProductInfo(id)
 	return Promise.resolve(info)
 end
 
--- TODO AVBURST-12905: use item details endpoint for getting attribution data
+--[[
+	FIXME(dbanks)
+	2023/12/07
+	See https://roblox.atlassian.net/browse/AVBURST-12905
+	This will be removed once backend sends "creating universe" with asset details.
+--]]
+local MOCK_VERSION_INFO = {
+	data = {
+		{
+			assetId = 17,
+			creatingUniverseId = 13,
+		},
+	},
+}
 local function getVersionInfo(id)
 	local info = Cryo.Dictionary.join(MOCK_VERSION_INFO, { AssetId = id })
 	return Promise.resolve(info)
@@ -253,7 +256,7 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getFavoriteForBundle = networkFailure,
 			getEconomyProductInfo = networkFailure,
 			getModelFromUserId = networkFailure,
-			getVersionInfo = networkFailure, -- TODO AVBURST-12905: use item details endpoint for getting attribution data
+			getVersionInfo = networkFailure,
 			getExperiencePlayability = networkFailure,
 			getExperienceInfo = networkFailure,
 		}
@@ -272,7 +275,7 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getFavoriteForBundle = getFavoriteForBundle,
 			getEconomyProductInfo = getEconomyProductInfo,
 			getModelFromUserId = getModelFromUserId,
-			getVersionInfo = getVersionInfo, -- TODO AVBURST-12905: use item details endpoint for getting attribution data
+			getVersionInfo = getVersionInfo,
 			getExperiencePlayability = getExperiencePlayability,
 			getExperienceInfo = getExperienceInfo,
 		}
@@ -327,7 +330,6 @@ function MockNetwork.GetMockHumanoidDescriptionEmotes()
 	return MOCK_HUMANOID_DESCRIPTION_EMOTES
 end
 
--- TODO AVBURST-12905: use item details endpoint for getting attribution data
 function MockNetwork.GetVersionInfo()
 	return MOCK_VERSION_INFO
 end

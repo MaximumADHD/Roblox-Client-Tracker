@@ -1,0 +1,56 @@
+PROTO_0:
+  GETIMPORT R0 K2 [Instance.new]
+  LOADK R1 K3 ["Folder"]
+  CALL R0 1 1
+  LOADK R1 K4 ["Design"]
+  SETTABLEKS R1 R0 K5 ["Name"]
+  GETUPVAL R1 0
+  LOADK R2 K4 ["Design"]
+  NEWTABLE R3 0 7
+  GETUPVAL R4 1
+  LOADK R5 K6 ["Frame"]
+  CALL R4 1 1
+  GETUPVAL R5 1
+  LOADK R6 K7 ["ScrollingFrame"]
+  CALL R5 1 1
+  GETUPVAL R6 1
+  LOADK R7 K8 ["TextLabel"]
+  CALL R6 1 1
+  GETUPVAL R7 1
+  LOADK R8 K9 ["TextButton"]
+  CALL R7 1 1
+  GETUPVAL R8 1
+  LOADK R9 K10 ["TextBox"]
+  CALL R8 1 1
+  GETUPVAL R9 1
+  LOADK R10 K11 ["ImageButton"]
+  CALL R9 1 1
+  GETUPVAL R10 1
+  LOADK R11 K12 ["ImageLabel"]
+  CALL R10 1 -1
+  SETLIST R3 R4 -1 [1]
+  DUPTABLE R4 K14 [{"StyleCategory"}]
+  LOADK R5 K15 ["Designs"]
+  SETTABLEKS R5 R4 K13 ["StyleCategory"]
+  CALL R1 3 1
+  SETTABLEKS R0 R1 K16 ["Parent"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K7 ["Styling"]
+  GETTABLEKS R2 R3 K8 ["createStyleRule"]
+  GETTABLEKS R4 R1 K7 ["Styling"]
+  GETTABLEKS R3 R4 K9 ["createStyleSheet"]
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R4 1

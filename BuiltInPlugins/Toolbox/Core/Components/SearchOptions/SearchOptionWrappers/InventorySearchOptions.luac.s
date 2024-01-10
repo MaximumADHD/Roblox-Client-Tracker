@@ -653,867 +653,6 @@ PROTO_23:
   CALL R29 3 -1
   RETURN R29 -1
 
-PROTO_24:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETTABLEKS R2 R0 K0 ["creatorTargetIds"]
-  LOADNIL R3
-  GETUPVAL R5 1
-  CALL R5 0 1
-  JUMPIFNOT R5 [+3]
-  GETTABLEKS R4 R0 K1 ["excludeGroupCreations"]
-  JUMP [+1]
-  LOADNIL R4
-  GETUPVAL R5 1
-  CALL R5 0 1
-  JUMPIFNOT R5 [+25]
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R7 R1
-  GETIMPORT R6 K3 [tostring]
-  CALL R6 1 1
-  GETTABLE R5 R2 R6
-  JUMPIFNOT R5 [+2]
-  LOADB R4 1
-  JUMP [+1]
-  LOADB R4 0
-  GETTABLEKS R3 R0 K1 ["excludeGroupCreations"]
-  JUMPIFNOT R4 [+34]
-  GETUPVAL R5 2
-  MOVE R6 R2
-  CALL R5 1 1
-  MOVE R2 R5
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R6 R1
-  GETIMPORT R5 K3 [tostring]
-  CALL R5 1 1
-  LOADNIL R6
-  SETTABLE R6 R2 R5
-  JUMP [+22]
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R7 R1
-  GETIMPORT R6 K3 [tostring]
-  CALL R6 1 1
-  GETTABLE R5 R2 R6
-  JUMPIFNOT R5 [+2]
-  LOADB R3 1
-  JUMP [+1]
-  LOADB R3 0
-  JUMPIFNOT R3 [+11]
-  GETUPVAL R5 2
-  MOVE R6 R2
-  CALL R5 1 1
-  MOVE R2 R5
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R6 R1
-  GETIMPORT R5 K3 [tostring]
-  CALL R5 1 1
-  LOADNIL R6
-  SETTABLE R6 R2 R5
-  DUPTABLE R5 K10 [{"sortIntentKey", "selectedUsers", "selectedGroups", "isMyAssetsChecked", "isMyCreationsChecked", "includeUnverifiedCreators"}]
-  GETTABLEKS R6 R0 K11 ["uiSortIntent"]
-  SETTABLEKS R6 R5 K4 ["sortIntentKey"]
-  SETTABLEKS R2 R5 K5 ["selectedUsers"]
-  GETTABLEKS R6 R0 K12 ["groupTargetIds"]
-  SETTABLEKS R6 R5 K6 ["selectedGroups"]
-  SETTABLEKS R3 R5 K7 ["isMyAssetsChecked"]
-  SETTABLEKS R4 R5 K8 ["isMyCreationsChecked"]
-  GETTABLEKS R6 R0 K9 ["includeUnverifiedCreators"]
-  SETTABLEKS R6 R5 K9 ["includeUnverifiedCreators"]
-  RETURN R5 1
-
-PROTO_25:
-  GETUPVAL R1 0
-  DUPTABLE R3 K1 [{"creatorSearchTerm"}]
-  SETTABLEKS R0 R3 K0 ["creatorSearchTerm"]
-  NAMECALL R1 R1 K2 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_26:
-  GETTABLEKS R1 R0 K0 ["selectedUsers"]
-  GETTABLEKS R2 R0 K1 ["selectedGroups"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["Id"]
-  FASTCALL1 TOSTRING R4 [+2]
-  GETIMPORT R3 K4 [tostring]
-  CALL R3 1 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["Type"]
-  GETIMPORT R5 K9 [Enum.CreatorType.User]
-  JUMPIFNOTEQ R4 R5 [+12]
-  GETUPVAL R4 1
-  SETTABLE R4 R1 R3
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K10 ["join"]
-  MOVE R5 R1
-  NEWTABLE R6 0 0
-  CALL R4 2 1
-  MOVE R1 R4
-  JUMP [+27]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["Type"]
-  GETIMPORT R5 K12 [Enum.CreatorType.Group]
-  JUMPIFNOTEQ R4 R5 [+12]
-  GETUPVAL R4 1
-  SETTABLE R4 R2 R3
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K10 ["join"]
-  MOVE R5 R2
-  NEWTABLE R6 0 0
-  CALL R4 2 1
-  MOVE R2 R4
-  JUMP [+9]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K13 ["shouldDebugWarnings"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+4]
-  GETIMPORT R4 K15 [warn]
-  LOADK R5 K16 ["CreatorTypes's 'Type' was not found!"]
-  CALL R4 1 0
-  DUPTABLE R4 K17 [{"selectedUsers", "selectedGroups"}]
-  SETTABLEKS R1 R4 K0 ["selectedUsers"]
-  SETTABLEKS R2 R4 K1 ["selectedGroups"]
-  RETURN R4 1
-
-PROTO_27:
-  GETUPVAL R2 0
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  NAMECALL R2 R2 K0 ["setState"]
-  CALL R2 2 0
-  RETURN R0 0
-
-PROTO_28:
-  GETTABLEKS R1 R0 K0 ["isMyCreationsChecked"]
-  LOADNIL R2
-  JUMPIF R1 [+19]
-  GETTABLEKS R2 R0 K1 ["selectedUsers"]
-  GETUPVAL R3 0
-  CALL R3 0 1
-  FASTCALL1 TOSTRING R3 [+3]
-  MOVE R5 R3
-  GETIMPORT R4 K3 [tostring]
-  CALL R4 1 1
-  LOADNIL R5
-  SETTABLE R5 R2 R4
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["join"]
-  MOVE R5 R2
-  NEWTABLE R6 0 0
-  CALL R4 2 1
-  MOVE R2 R4
-  DUPTABLE R3 K5 [{"isMyCreationsChecked", "selectedUsers"}]
-  GETTABLEKS R5 R0 K0 ["isMyCreationsChecked"]
-  NOT R4 R5
-  SETTABLEKS R4 R3 K0 ["isMyCreationsChecked"]
-  SETTABLEKS R2 R3 K1 ["selectedUsers"]
-  RETURN R3 1
-
-PROTO_29:
-  GETUPVAL R1 0
-  DUPCLOSURE R3 K0 [PROTO_28]
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  NAMECALL R1 R1 K1 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_30:
-  DUPTABLE R1 K1 [{"isMyAssetsChecked"}]
-  GETTABLEKS R3 R0 K0 ["isMyAssetsChecked"]
-  NOT R2 R3
-  SETTABLEKS R2 R1 K0 ["isMyAssetsChecked"]
-  RETURN R1 1
-
-PROTO_31:
-  GETUPVAL R1 0
-  DUPCLOSURE R3 K0 [PROTO_30]
-  NAMECALL R1 R1 K1 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_32:
-  GETTABLEKS R1 R0 K0 ["isMyAssetsChecked"]
-  LOADNIL R2
-  JUMPIF R1 [+19]
-  GETTABLEKS R2 R0 K1 ["selectedUsers"]
-  GETUPVAL R3 0
-  CALL R3 0 1
-  FASTCALL1 TOSTRING R3 [+3]
-  MOVE R5 R3
-  GETIMPORT R4 K3 [tostring]
-  CALL R4 1 1
-  LOADNIL R5
-  SETTABLE R5 R2 R4
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["join"]
-  MOVE R5 R2
-  NEWTABLE R6 0 0
-  CALL R4 2 1
-  MOVE R2 R4
-  DUPTABLE R3 K5 [{"isMyAssetsChecked", "selectedUsers"}]
-  GETTABLEKS R5 R0 K0 ["isMyAssetsChecked"]
-  NOT R4 R5
-  SETTABLEKS R4 R3 K0 ["isMyAssetsChecked"]
-  SETTABLEKS R2 R3 K1 ["selectedUsers"]
-  RETURN R3 1
-
-PROTO_33:
-  GETUPVAL R1 0
-  DUPCLOSURE R3 K0 [PROTO_32]
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  NAMECALL R1 R1 K1 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_34:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["updateCreatorItem"]
-  MOVE R3 R1
-  LOADNIL R4
-  CALL R2 2 0
-  RETURN R0 0
-
-PROTO_35:
-  GETUPVAL R0 0
-  DUPTABLE R2 K7 [{"creatorSearchTerm", "includeUnverifiedCreators", "isMyAssetsChecked", "isMyCreationsChecked", "selectedUsers", "selectedGroups", "sortIntentKey"}]
-  LOADK R3 K8 [""]
-  SETTABLEKS R3 R2 K0 ["creatorSearchTerm"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K1 ["includeUnverifiedCreators"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K2 ["isMyAssetsChecked"]
-  GETUPVAL R4 1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+2]
-  LOADB R3 0
-  JUMP [+1]
-  LOADNIL R3
-  SETTABLEKS R3 R2 K3 ["isMyCreationsChecked"]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K4 ["selectedUsers"]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K5 ["selectedGroups"]
-  GETUPVAL R4 2
-  CALL R4 0 1
-  JUMPIFNOT R4 [+6]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K9 ["UiSortIntent"]
-  GETTABLEKS R3 R4 K10 ["Default"]
-  JUMP [+3]
-  GETUPVAL R4 4
-  GETTABLEKS R3 R4 K11 ["DEFAULT"]
-  SETTABLEKS R3 R2 K6 ["sortIntentKey"]
-  NAMECALL R0 R0 K12 ["setState"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_36:
-  GETUPVAL R1 0
-  GETTABLEKS R2 R1 K0 ["selectedUserAndGroupIndexCounter"]
-  ADDK R2 R2 K1 [1]
-  SETTABLEKS R2 R1 K0 ["selectedUserAndGroupIndexCounter"]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K2 ["join"]
-  MOVE R2 R0
-  DUPTABLE R3 K4 [{"Index"}]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["selectedUserAndGroupIndexCounter"]
-  SETTABLEKS R4 R3 K3 ["Index"]
-  CALL R1 2 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K5 ["updateCreatorItem"]
-  MOVE R3 R0
-  MOVE R4 R1
-  CALL R2 2 0
-  GETUPVAL R2 0
-  DUPTABLE R4 K7 [{"creatorSearchTerm"}]
-  LOADK R5 K8 [""]
-  SETTABLEKS R5 R4 K6 ["creatorSearchTerm"]
-  NAMECALL R2 R2 K9 ["setState"]
-  CALL R2 2 0
-  RETURN R0 0
-
-PROTO_37:
-  GETUPVAL R1 0
-  DUPTABLE R3 K1 [{"sortIntentKey"}]
-  SETTABLEKS R0 R3 K0 ["sortIntentKey"]
-  NAMECALL R1 R1 K2 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_38:
-  DUPTABLE R1 K1 [{"includeUnverifiedCreators"}]
-  GETTABLEKS R3 R0 K0 ["includeUnverifiedCreators"]
-  NOT R2 R3
-  SETTABLEKS R2 R1 K0 ["includeUnverifiedCreators"]
-  RETURN R1 1
-
-PROTO_39:
-  GETUPVAL R0 0
-  DUPCLOSURE R2 K0 [PROTO_38]
-  NAMECALL R0 R0 K1 ["setState"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_40:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["state"]
-  LOADNIL R1
-  GETUPVAL R2 1
-  CALL R2 0 1
-  JUMPIFNOT R2 [+16]
-  GETTABLEKS R2 R0 K1 ["isMyCreationsChecked"]
-  JUMPIF R2 [+9]
-  GETTABLEKS R2 R0 K2 ["selectedUsers"]
-  JUMPIFNOT R2 [+8]
-  GETIMPORT R2 K4 [next]
-  GETTABLEKS R3 R0 K2 ["selectedUsers"]
-  CALL R2 1 1
-  JUMPIFNOT R2 [+2]
-  LOADB R1 1
-  JUMP [+17]
-  LOADB R1 0
-  JUMP [+15]
-  GETTABLEKS R2 R0 K5 ["isMyAssetsChecked"]
-  JUMPIF R2 [+9]
-  GETTABLEKS R2 R0 K2 ["selectedUsers"]
-  JUMPIFNOT R2 [+8]
-  GETIMPORT R2 K4 [next]
-  GETTABLEKS R3 R0 K2 ["selectedUsers"]
-  CALL R2 1 1
-  JUMPIFNOT R2 [+2]
-  LOADB R1 1
-  JUMP [+1]
-  LOADB R1 0
-  GETTABLEKS R2 R0 K2 ["selectedUsers"]
-  GETUPVAL R3 1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+23]
-  GETTABLEKS R3 R0 K1 ["isMyCreationsChecked"]
-  JUMPIFNOT R3 [+42]
-  GETUPVAL R3 2
-  CALL R3 0 1
-  GETUPVAL R4 3
-  CALL R4 0 1
-  FASTCALL1 TOSTRING R3 [+3]
-  MOVE R6 R3
-  GETIMPORT R5 K7 [tostring]
-  CALL R5 1 1
-  DUPTABLE R6 K11 [{"Id", "Name", "Type"}]
-  SETTABLEKS R3 R6 K8 ["Id"]
-  SETTABLEKS R4 R6 K9 ["Name"]
-  GETIMPORT R7 K15 [Enum.CreatorType.User]
-  SETTABLEKS R7 R6 K10 ["Type"]
-  SETTABLE R6 R2 R5
-  JUMP [+22]
-  GETTABLEKS R3 R0 K5 ["isMyAssetsChecked"]
-  JUMPIFNOT R3 [+19]
-  GETUPVAL R3 2
-  CALL R3 0 1
-  GETUPVAL R4 3
-  CALL R4 0 1
-  FASTCALL1 TOSTRING R3 [+3]
-  MOVE R6 R3
-  GETIMPORT R5 K7 [tostring]
-  CALL R5 1 1
-  DUPTABLE R6 K11 [{"Id", "Name", "Type"}]
-  SETTABLEKS R3 R6 K8 ["Id"]
-  SETTABLEKS R4 R6 K9 ["Name"]
-  GETIMPORT R7 K15 [Enum.CreatorType.User]
-  SETTABLEKS R7 R6 K10 ["Type"]
-  SETTABLE R6 R2 R5
-  DUPTABLE R3 K22 [{"Creator", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "includeUnverifiedCreators", "uiSortIntent"}]
-  JUMPIF R1 [+3]
-  GETTABLEKS R4 R0 K23 ["creatorSearchTerm"]
-  JUMP [+1]
-  LOADNIL R4
-  SETTABLEKS R4 R3 K16 ["Creator"]
-  SETTABLEKS R2 R3 K17 ["creatorTargetIds"]
-  GETUPVAL R5 1
-  CALL R5 0 1
-  JUMPIFNOT R5 [+3]
-  GETTABLEKS R4 R0 K5 ["isMyAssetsChecked"]
-  JUMP [+1]
-  LOADNIL R4
-  SETTABLEKS R4 R3 K18 ["excludeGroupCreations"]
-  GETTABLEKS R4 R0 K24 ["selectedGroups"]
-  SETTABLEKS R4 R3 K19 ["groupTargetIds"]
-  GETTABLEKS R4 R0 K20 ["includeUnverifiedCreators"]
-  SETTABLEKS R4 R3 K20 ["includeUnverifiedCreators"]
-  GETTABLEKS R4 R0 K25 ["sortIntentKey"]
-  SETTABLEKS R4 R3 K21 ["uiSortIntent"]
-  RETURN R3 1
-
-PROTO_41:
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K0 ["sortIntentList"]
-  LOADN R1 0
-  SETTABLEKS R1 R0 K1 ["selectedUserAndGroupIndexCounter"]
-  DUPCLOSURE R1 K2 [PROTO_24]
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  SETTABLEKS R1 R0 K3 ["getInitState"]
-  GETTABLEKS R1 R0 K3 ["getInitState"]
-  GETTABLEKS R2 R0 K4 ["props"]
-  CALL R1 1 1
-  SETTABLEKS R1 R0 K5 ["state"]
-  NEWCLOSURE R1 P1
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K6 ["updateUserSearch"]
-  NEWCLOSURE R1 P2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  SETTABLEKS R1 R0 K7 ["updateCreatorItem"]
-  GETUPVAL R1 1
-  CALL R1 0 1
-  JUMPIFNOT R1 [+11]
-  NEWCLOSURE R1 P3
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U3
-  SETTABLEKS R1 R0 K8 ["onClickMyCreationsCheckbox"]
-  NEWCLOSURE R1 P4
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K9 ["onClickMyAssetsCheckbox"]
-  JUMP [+6]
-  NEWCLOSURE R1 P5
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U3
-  SETTABLEKS R1 R0 K9 ["onClickMyAssetsCheckbox"]
-  NEWCLOSURE R1 P6
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K10 ["onDeleteCreatorPill"]
-  NEWCLOSURE R1 P7
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
-  SETTABLEKS R1 R0 K11 ["onReset"]
-  NEWCLOSURE R1 P8
-  CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  SETTABLEKS R1 R0 K12 ["onSelectCreator"]
-  NEWCLOSURE R1 P9
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K13 ["onSelectSortIntent"]
-  NEWCLOSURE R1 P10
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K14 ["onToggleIdVerified"]
-  NEWCLOSURE R1 P11
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U8
-  SETTABLEKS R1 R0 K15 ["getSearchOptions"]
-  RETURN R0 0
-
-PROTO_42:
-  GETUPVAL R2 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K0 ["creatorTargetIds"]
-  GETTABLEKS R4 R1 K0 ["creatorTargetIds"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+15]
-  GETUPVAL R2 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["groupTargetIds"]
-  GETTABLEKS R4 R1 K1 ["groupTargetIds"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+7]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["uiSortIntent"]
-  GETTABLEKS R3 R1 K2 ["uiSortIntent"]
-  JUMPIFEQ R2 R3 [+7]
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K3 ["getInitState"]
-  MOVE R3 R1
-  CALL R2 1 -1
-  RETURN R2 -1
-  RETURN R0 0
-
-PROTO_43:
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R1
-  CAPTURE VAL R0
-  NAMECALL R3 R0 K0 ["setState"]
-  CALL R3 2 0
-  RETURN R0 0
-
-PROTO_44:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R0 K1 ["state"]
-  GETTABLEKS R3 R1 K2 ["Localization"]
-  GETTABLEKS R4 R2 K3 ["isMyAssetsChecked"]
-  GETTABLEKS R5 R2 K4 ["isMyCreationsChecked"]
-  GETTABLEKS R6 R2 K5 ["sortIntentKey"]
-  GETTABLEKS R7 R2 K6 ["selectedUsers"]
-  GETTABLEKS R8 R2 K7 ["selectedGroups"]
-  GETUPVAL R10 0
-  CALL R10 0 1
-  JUMPIFNOT R10 [+80]
-  NEWTABLE R9 0 5
-  DUPTABLE R10 K10 [{"Key", "Text"}]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K11 ["UiSortIntent"]
-  GETTABLEKS R11 R12 K12 ["Relevance"]
-  SETTABLEKS R11 R10 K8 ["Key"]
-  LOADK R13 K13 ["SearchOptionsSort"]
-  LOADK R14 K12 ["Relevance"]
-  NAMECALL R11 R3 K14 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K9 ["Text"]
-  DUPTABLE R11 K10 [{"Key", "Text"}]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K11 ["UiSortIntent"]
-  GETTABLEKS R12 R13 K15 ["Name"]
-  SETTABLEKS R12 R11 K8 ["Key"]
-  LOADK R14 K13 ["SearchOptionsSort"]
-  LOADK R15 K15 ["Name"]
-  NAMECALL R12 R3 K14 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K9 ["Text"]
-  DUPTABLE R12 K10 [{"Key", "Text"}]
-  GETUPVAL R15 1
-  GETTABLEKS R14 R15 K11 ["UiSortIntent"]
-  GETTABLEKS R13 R14 K16 ["DateModified"]
-  SETTABLEKS R13 R12 K8 ["Key"]
-  LOADK R15 K13 ["SearchOptionsSort"]
-  LOADK R16 K16 ["DateModified"]
-  NAMECALL R13 R3 K14 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K9 ["Text"]
-  DUPTABLE R13 K10 [{"Key", "Text"}]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K11 ["UiSortIntent"]
-  GETTABLEKS R14 R15 K17 ["DateCreated"]
-  SETTABLEKS R14 R13 K8 ["Key"]
-  LOADK R16 K13 ["SearchOptionsSort"]
-  LOADK R17 K17 ["DateCreated"]
-  NAMECALL R14 R3 K14 ["getText"]
-  CALL R14 3 1
-  SETTABLEKS R14 R13 K9 ["Text"]
-  DUPTABLE R14 K10 [{"Key", "Text"}]
-  GETUPVAL R17 1
-  GETTABLEKS R16 R17 K11 ["UiSortIntent"]
-  GETTABLEKS R15 R16 K18 ["Creator"]
-  SETTABLEKS R15 R14 K8 ["Key"]
-  LOADK R17 K13 ["SearchOptionsSort"]
-  LOADK R18 K18 ["Creator"]
-  NAMECALL R15 R3 K14 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K9 ["Text"]
-  SETLIST R9 R10 5 [1]
-  JUMP [+79]
-  NEWTABLE R9 0 5
-  DUPTABLE R10 K10 [{"Key", "Text"}]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K19 ["OPTION"]
-  GETTABLEKS R11 R12 K12 ["Relevance"]
-  SETTABLEKS R11 R10 K8 ["Key"]
-  LOADK R13 K13 ["SearchOptionsSort"]
-  LOADK R14 K12 ["Relevance"]
-  NAMECALL R11 R3 K14 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K9 ["Text"]
-  DUPTABLE R11 K10 [{"Key", "Text"}]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K19 ["OPTION"]
-  GETTABLEKS R12 R13 K15 ["Name"]
-  SETTABLEKS R12 R11 K8 ["Key"]
-  LOADK R14 K13 ["SearchOptionsSort"]
-  LOADK R15 K15 ["Name"]
-  NAMECALL R12 R3 K14 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K9 ["Text"]
-  DUPTABLE R12 K10 [{"Key", "Text"}]
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K19 ["OPTION"]
-  GETTABLEKS R13 R14 K16 ["DateModified"]
-  SETTABLEKS R13 R12 K8 ["Key"]
-  LOADK R15 K13 ["SearchOptionsSort"]
-  LOADK R16 K16 ["DateModified"]
-  NAMECALL R13 R3 K14 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K9 ["Text"]
-  DUPTABLE R13 K10 [{"Key", "Text"}]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K19 ["OPTION"]
-  GETTABLEKS R14 R15 K17 ["DateCreated"]
-  SETTABLEKS R14 R13 K8 ["Key"]
-  LOADK R16 K13 ["SearchOptionsSort"]
-  LOADK R17 K17 ["DateCreated"]
-  NAMECALL R14 R3 K14 ["getText"]
-  CALL R14 3 1
-  SETTABLEKS R14 R13 K9 ["Text"]
-  DUPTABLE R14 K10 [{"Key", "Text"}]
-  GETUPVAL R17 2
-  GETTABLEKS R16 R17 K19 ["OPTION"]
-  GETTABLEKS R15 R16 K18 ["Creator"]
-  SETTABLEKS R15 R14 K8 ["Key"]
-  LOADK R17 K13 ["SearchOptionsSort"]
-  LOADK R18 K18 ["Creator"]
-  NAMECALL R15 R3 K14 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K9 ["Text"]
-  SETLIST R9 R10 5 [1]
-  SETTABLEKS R9 R0 K20 ["sortIntentList"]
-  GETUPVAL R10 3
-  CALL R10 0 1
-  NOT R9 R10
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K21 ["new"]
-  CALL R10 0 1
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K22 ["createElement"]
-  GETUPVAL R12 6
-  DUPTABLE R13 K26 [{"GetSearchOptions", "OnClose", "OnReset"}]
-  GETTABLEKS R14 R0 K27 ["getSearchOptions"]
-  SETTABLEKS R14 R13 K23 ["GetSearchOptions"]
-  GETTABLEKS R14 R1 K24 ["OnClose"]
-  SETTABLEKS R14 R13 K24 ["OnClose"]
-  GETTABLEKS R14 R0 K28 ["onReset"]
-  SETTABLEKS R14 R13 K25 ["OnReset"]
-  DUPTABLE R14 K31 [{"CreatorAndGroup", "SortBy"}]
-  MOVE R15 R9
-  JUMPIFNOT R15 [+197]
-  GETUPVAL R16 5
-  GETTABLEKS R15 R16 K22 ["createElement"]
-  GETUPVAL R16 7
-  DUPTABLE R17 K34 [{"Header", "LayoutOrder"}]
-  LOADK R20 K35 ["General"]
-  LOADK R21 K36 ["SearchOptionCreatorAndGroups"]
-  NAMECALL R18 R3 K14 ["getText"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K32 ["Header"]
-  NAMECALL R18 R10 K37 ["getNextOrder"]
-  CALL R18 1 1
-  SETTABLEKS R18 R17 K33 ["LayoutOrder"]
-  DUPTABLE R18 K40 [{"VerfifiedCreatorCheckbox", "CreatorGroupFilterContainer"}]
-  GETUPVAL R20 5
-  GETTABLEKS R19 R20 K22 ["createElement"]
-  GETUPVAL R20 8
-  DUPTABLE R21 K43 [{"LayoutOrder", "IsChecked", "OnClick"}]
-  NAMECALL R22 R10 K37 ["getNextOrder"]
-  CALL R22 1 1
-  SETTABLEKS R22 R21 K33 ["LayoutOrder"]
-  GETTABLEKS R22 R2 K44 ["includeUnverifiedCreators"]
-  SETTABLEKS R22 R21 K41 ["IsChecked"]
-  GETTABLEKS R22 R0 K45 ["onToggleIdVerified"]
-  SETTABLEKS R22 R21 K42 ["OnClick"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K38 ["VerfifiedCreatorCheckbox"]
-  GETUPVAL R20 5
-  GETTABLEKS R19 R20 K22 ["createElement"]
-  GETUPVAL R20 9
-  DUPTABLE R21 K50 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Spacing"}]
-  GETIMPORT R22 K53 [Enum.AutomaticSize.XY]
-  SETTABLEKS R22 R21 K46 ["AutomaticSize"]
-  GETIMPORT R22 K55 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R22 R21 K47 ["HorizontalAlignment"]
-  GETIMPORT R22 K58 [Enum.FillDirection.Vertical]
-  SETTABLEKS R22 R21 K48 ["Layout"]
-  NAMECALL R22 R10 K37 ["getNextOrder"]
-  CALL R22 1 1
-  SETTABLEKS R22 R21 K33 ["LayoutOrder"]
-  LOADN R22 6
-  SETTABLEKS R22 R21 K49 ["Spacing"]
-  DUPTABLE R22 K62 [{"MyCreationsCheckbox", "MyAssetsCheckbox", "SearchBar"}]
-  GETUPVAL R24 10
-  CALL R24 0 1
-  JUMPIFNOT R24 [+40]
-  GETUPVAL R24 5
-  GETTABLEKS R23 R24 K22 ["createElement"]
-  GETUPVAL R24 11
-  DUPTABLE R25 K64 [{"Checked", "Key", "LayoutOrder", "OnClick", "Text"}]
-  SETTABLEKS R5 R25 K63 ["Checked"]
-  LOADK R26 K4 ["isMyCreationsChecked"]
-  SETTABLEKS R26 R25 K8 ["Key"]
-  NAMECALL R26 R10 K37 ["getNextOrder"]
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K33 ["LayoutOrder"]
-  GETTABLEKS R26 R0 K65 ["onClickMyCreationsCheckbox"]
-  SETTABLEKS R26 R25 K42 ["OnClick"]
-  LOADK R28 K35 ["General"]
-  LOADK R29 K66 ["MyCreations"]
-  NAMECALL R26 R3 K14 ["getText"]
-  CALL R26 3 1
-  SETTABLEKS R26 R25 K9 ["Text"]
-  DUPTABLE R26 K68 [{"HoverArea"}]
-  GETUPVAL R28 5
-  GETTABLEKS R27 R28 K22 ["createElement"]
-  GETUPVAL R28 12
-  DUPTABLE R29 K70 [{"Cursor"}]
-  LOADK R30 K71 ["PointingHand"]
-  SETTABLEKS R30 R29 K69 ["Cursor"]
-  CALL R27 2 1
-  SETTABLEKS R27 R26 K67 ["HoverArea"]
-  CALL R23 3 1
-  JUMP [+1]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K59 ["MyCreationsCheckbox"]
-  GETUPVAL R24 5
-  GETTABLEKS R23 R24 K22 ["createElement"]
-  GETUPVAL R24 11
-  DUPTABLE R25 K64 [{"Checked", "Key", "LayoutOrder", "OnClick", "Text"}]
-  SETTABLEKS R4 R25 K63 ["Checked"]
-  LOADK R26 K3 ["isMyAssetsChecked"]
-  SETTABLEKS R26 R25 K8 ["Key"]
-  NAMECALL R26 R10 K37 ["getNextOrder"]
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K33 ["LayoutOrder"]
-  GETTABLEKS R26 R0 K72 ["onClickMyAssetsCheckbox"]
-  SETTABLEKS R26 R25 K42 ["OnClick"]
-  LOADK R28 K35 ["General"]
-  LOADK R29 K73 ["MyAssets"]
-  NAMECALL R26 R3 K14 ["getText"]
-  CALL R26 3 1
-  SETTABLEKS R26 R25 K9 ["Text"]
-  DUPTABLE R26 K68 [{"HoverArea"}]
-  GETUPVAL R28 5
-  GETTABLEKS R27 R28 K22 ["createElement"]
-  GETUPVAL R28 12
-  DUPTABLE R29 K70 [{"Cursor"}]
-  LOADK R30 K71 ["PointingHand"]
-  SETTABLEKS R30 R29 K69 ["Cursor"]
-  CALL R27 2 1
-  SETTABLEKS R27 R26 K67 ["HoverArea"]
-  CALL R23 3 1
-  SETTABLEKS R23 R22 K60 ["MyAssetsCheckbox"]
-  GETUPVAL R24 5
-  GETTABLEKS R23 R24 K22 ["createElement"]
-  GETUPVAL R24 13
-  DUPTABLE R25 K82 [{"IsSearching", "LayoutOrder", "OnDeleteCreatorPill", "OnSearchUpdate", "OnSelectCreator", "CreatorResults", "SearchTerm", "SelectedUsers", "SelectedGroups"}]
-  GETTABLEKS R26 R1 K83 ["isSearching"]
-  SETTABLEKS R26 R25 K74 ["IsSearching"]
-  NAMECALL R26 R10 K37 ["getNextOrder"]
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K33 ["LayoutOrder"]
-  GETTABLEKS R26 R0 K84 ["onDeleteCreatorPill"]
-  SETTABLEKS R26 R25 K75 ["OnDeleteCreatorPill"]
-  GETTABLEKS R26 R0 K85 ["updateUserSearch"]
-  SETTABLEKS R26 R25 K76 ["OnSearchUpdate"]
-  GETTABLEKS R26 R0 K86 ["onSelectCreator"]
-  SETTABLEKS R26 R25 K77 ["OnSelectCreator"]
-  GETTABLEKS R26 R1 K87 ["creatorResults"]
-  SETTABLEKS R26 R25 K78 ["CreatorResults"]
-  GETTABLEKS R26 R2 K88 ["creatorSearchTerm"]
-  SETTABLEKS R26 R25 K79 ["SearchTerm"]
-  SETTABLEKS R7 R25 K80 ["SelectedUsers"]
-  SETTABLEKS R8 R25 K81 ["SelectedGroups"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K61 ["SearchBar"]
-  CALL R19 3 1
-  SETTABLEKS R19 R18 K39 ["CreatorGroupFilterContainer"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K29 ["CreatorAndGroup"]
-  GETUPVAL R16 5
-  GETTABLEKS R15 R16 K22 ["createElement"]
-  GETUPVAL R16 7
-  DUPTABLE R17 K90 [{"Header", "HideLowerSeparator", "LayoutOrder"}]
-  LOADK R20 K35 ["General"]
-  LOADK R21 K91 ["SearchOptionSort"]
-  NAMECALL R18 R3 K14 ["getText"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K32 ["Header"]
-  LOADB R18 1
-  SETTABLEKS R18 R17 K89 ["HideLowerSeparator"]
-  NAMECALL R18 R10 K37 ["getNextOrder"]
-  CALL R18 1 1
-  SETTABLEKS R18 R17 K33 ["LayoutOrder"]
-  DUPTABLE R18 K93 [{"RadioButtons"}]
-  GETUPVAL R20 5
-  GETTABLEKS R19 R20 K22 ["createElement"]
-  GETUPVAL R20 14
-  DUPTABLE R21 K97 [{"Buttons", "CurrentSelectedKey", "OnClick", "SelectedKey"}]
-  GETTABLEKS R22 R0 K20 ["sortIntentList"]
-  SETTABLEKS R22 R21 K94 ["Buttons"]
-  SETTABLEKS R6 R21 K95 ["CurrentSelectedKey"]
-  GETTABLEKS R22 R0 K98 ["onSelectSortIntent"]
-  SETTABLEKS R22 R21 K42 ["OnClick"]
-  SETTABLEKS R6 R21 K96 ["SelectedKey"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K92 ["RadioButtons"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K30 ["SortBy"]
-  CALL R11 3 -1
-  RETURN R11 -1
-
-PROTO_45:
-  MOVE R2 R0
-  JUMPIF R2 [+2]
-  NEWTABLE R2 0 0
-  MOVE R0 R2
-  GETTABLEKS R2 R0 K0 ["pageInfo"]
-  JUMPIF R2 [+2]
-  NEWTABLE R2 0 0
-  GETTABLEKS R3 R0 K1 ["liveSearch"]
-  JUMPIF R3 [+2]
-  NEWTABLE R3 0 0
-  DUPTABLE R4 K9 [{"creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "includeUnverifiedCreators", "isSearching", "creatorResults", "uiSortIntent"}]
-  GETTABLEKS R6 R2 K2 ["creatorTargetIds"]
-  JUMPIFNOT R6 [+10]
-  GETTABLEKS R6 R2 K2 ["creatorTargetIds"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K10 ["None"]
-  JUMPIFEQ R6 R7 [+4]
-  GETTABLEKS R5 R2 K2 ["creatorTargetIds"]
-  JUMP [+2]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K2 ["creatorTargetIds"]
-  GETUPVAL R6 1
-  CALL R6 0 1
-  JUMPIFNOT R6 [+3]
-  GETTABLEKS R5 R2 K3 ["excludeGroupCreations"]
-  JUMP [+1]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K3 ["excludeGroupCreations"]
-  GETTABLEKS R6 R2 K4 ["groupTargetIds"]
-  JUMPIFNOT R6 [+10]
-  GETTABLEKS R6 R2 K4 ["groupTargetIds"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K10 ["None"]
-  JUMPIFEQ R6 R7 [+4]
-  GETTABLEKS R5 R2 K4 ["groupTargetIds"]
-  JUMP [+2]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K4 ["groupTargetIds"]
-  GETTABLEKS R6 R2 K5 ["includeUnverifiedCreators"]
-  ORK R5 R6 K11 [False]
-  SETTABLEKS R5 R4 K5 ["includeUnverifiedCreators"]
-  GETTABLEKS R5 R3 K6 ["isSearching"]
-  SETTABLEKS R5 R4 K6 ["isSearching"]
-  GETTABLEKS R5 R3 K12 ["results"]
-  SETTABLEKS R5 R4 K7 ["creatorResults"]
-  GETTABLEKS R6 R2 K8 ["uiSortIntent"]
-  JUMPIFNOT R6 [+10]
-  GETTABLEKS R6 R2 K8 ["uiSortIntent"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K10 ["None"]
-  JUMPIFEQ R6 R7 [+4]
-  GETTABLEKS R5 R2 K8 ["uiSortIntent"]
-  JUMP [+12]
-  GETUPVAL R6 2
-  CALL R6 0 1
-  JUMPIFNOT R6 [+6]
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K13 ["UiSortIntent"]
-  GETTABLEKS R5 R6 K14 ["Default"]
-  JUMP [+3]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K15 ["DEFAULT"]
-  SETTABLEKS R5 R4 K8 ["uiSortIntent"]
-  RETURN R4 1
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -1531,212 +670,114 @@ MAIN:
   GETTABLEKS R5 R1 K9 ["Roact"]
   CALL R4 1 1
   GETIMPORT R5 K6 [require]
-  GETTABLEKS R6 R1 K10 ["RoactRodux"]
+  GETTABLEKS R6 R1 K10 ["Framework"]
   CALL R5 1 1
-  GETIMPORT R6 K6 [require]
-  GETTABLEKS R7 R1 K11 ["Framework"]
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K12 ["ContextServices"]
-  GETTABLEKS R8 R7 K13 ["withContext"]
+  GETTABLEKS R6 R5 K11 ["ContextServices"]
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R11 R0 K12 ["Core"]
+  GETTABLEKS R10 R11 K13 ["Components"]
+  GETTABLEKS R9 R10 K14 ["SearchOptions"]
+  GETTABLEKS R8 R9 K15 ["UserAndGroupFilter"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R12 R0 K12 ["Core"]
+  GETTABLEKS R11 R12 K13 ["Components"]
+  GETTABLEKS R10 R11 K14 ["SearchOptions"]
+  GETTABLEKS R9 R10 K16 ["SearchOptionsEntry"]
+  CALL R8 1 1
   GETIMPORT R9 K6 [require]
-  GETTABLEKS R13 R0 K14 ["Core"]
-  GETTABLEKS R12 R13 K15 ["Components"]
-  GETTABLEKS R11 R12 K16 ["SearchOptions"]
-  GETTABLEKS R10 R11 K17 ["UserAndGroupFilter"]
+  GETTABLEKS R13 R0 K12 ["Core"]
+  GETTABLEKS R12 R13 K13 ["Components"]
+  GETTABLEKS R11 R12 K14 ["SearchOptions"]
+  GETTABLEKS R10 R11 K17 ["SearchOptionsLayout"]
   CALL R9 1 1
   GETIMPORT R10 K6 [require]
-  GETTABLEKS R14 R0 K14 ["Core"]
-  GETTABLEKS R13 R14 K15 ["Components"]
-  GETTABLEKS R12 R13 K16 ["SearchOptions"]
-  GETTABLEKS R11 R12 K18 ["SearchOptionsEntry"]
+  GETTABLEKS R14 R0 K12 ["Core"]
+  GETTABLEKS R13 R14 K13 ["Components"]
+  GETTABLEKS R12 R13 K14 ["SearchOptions"]
+  GETTABLEKS R11 R12 K18 ["VerfifiedCreatorCheckbox"]
   CALL R10 1 1
-  GETIMPORT R11 K6 [require]
-  GETTABLEKS R15 R0 K14 ["Core"]
-  GETTABLEKS R14 R15 K15 ["Components"]
-  GETTABLEKS R13 R14 K16 ["SearchOptions"]
-  GETTABLEKS R12 R13 K19 ["SearchOptionsLayout"]
-  CALL R11 1 1
-  GETIMPORT R12 K6 [require]
-  GETTABLEKS R16 R0 K14 ["Core"]
-  GETTABLEKS R15 R16 K15 ["Components"]
-  GETTABLEKS R14 R15 K16 ["SearchOptions"]
-  GETTABLEKS R13 R14 K20 ["VerfifiedCreatorCheckbox"]
-  CALL R12 1 1
-  GETTABLEKS R14 R6 K21 ["UI"]
-  GETTABLEKS R13 R14 K22 ["Checkbox"]
-  GETIMPORT R14 K6 [require]
-  GETTABLEKS R15 R1 K23 ["Dash"]
-  CALL R14 1 1
-  GETTABLEKS R16 R6 K24 ["Util"]
-  GETTABLEKS R15 R16 K25 ["deepCopy"]
-  GETTABLEKS R17 R6 K24 ["Util"]
-  GETTABLEKS R16 R17 K26 ["deepEqual"]
-  GETTABLEKS R18 R6 K21 ["UI"]
-  GETTABLEKS R17 R18 K27 ["HoverArea"]
-  GETTABLEKS R19 R6 K21 ["UI"]
-  GETTABLEKS R18 R19 K28 ["RadioButtonList"]
-  GETTABLEKS R20 R6 K21 ["UI"]
-  GETTABLEKS R19 R20 K29 ["Pane"]
-  GETIMPORT R20 K6 [require]
-  GETTABLEKS R23 R0 K14 ["Core"]
-  GETTABLEKS R22 R23 K30 ["Reducers"]
-  GETTABLEKS R21 R22 K31 ["PageInfo"]
-  CALL R20 1 1
+  GETTABLEKS R12 R5 K19 ["UI"]
+  GETTABLEKS R11 R12 K20 ["Checkbox"]
+  GETTABLEKS R13 R5 K19 ["UI"]
+  GETTABLEKS R12 R13 K21 ["HoverArea"]
+  GETTABLEKS R14 R5 K19 ["UI"]
+  GETTABLEKS R13 R14 K22 ["RadioButtonList"]
+  GETTABLEKS R15 R5 K19 ["UI"]
+  GETTABLEKS R14 R15 K23 ["Pane"]
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R18 R0 K12 ["Core"]
+  GETTABLEKS R17 R18 K24 ["Reducers"]
+  GETTABLEKS R16 R17 K25 ["PageInfo"]
+  CALL R15 1 1
+  GETIMPORT R16 K6 [require]
+  GETTABLEKS R19 R0 K12 ["Core"]
+  GETTABLEKS R18 R19 K24 ["Reducers"]
+  GETTABLEKS R17 R18 K26 ["LiveSearch"]
+  CALL R16 1 1
+  GETIMPORT R17 K6 [require]
+  GETTABLEKS R20 R0 K12 ["Core"]
+  GETTABLEKS R19 R20 K27 ["Util"]
+  GETTABLEKS R18 R19 K28 ["getUserId"]
+  CALL R17 1 1
+  GETIMPORT R18 K6 [require]
+  GETTABLEKS R21 R0 K12 ["Core"]
+  GETTABLEKS R20 R21 K27 ["Util"]
+  GETTABLEKS R19 R20 K29 ["getUsername"]
+  CALL R18 1 1
+  GETTABLEKS R20 R5 K27 ["Util"]
+  GETTABLEKS R19 R20 K30 ["LayoutOrderIterator"]
   GETIMPORT R21 K6 [require]
-  GETTABLEKS R24 R0 K14 ["Core"]
-  GETTABLEKS R23 R24 K30 ["Reducers"]
-  GETTABLEKS R22 R23 K32 ["LiveSearch"]
+  GETTABLEKS R24 R0 K12 ["Core"]
+  GETTABLEKS R23 R24 K27 ["Util"]
+  GETTABLEKS R22 R23 K31 ["ToolboxUtilities"]
+  CALL R21 1 1
+  GETTABLEKS R20 R21 K32 ["showRobloxCreatedAssets"]
+  GETIMPORT R21 K6 [require]
+  GETTABLEKS R24 R0 K12 ["Core"]
+  GETTABLEKS R23 R24 K33 ["Types"]
+  GETTABLEKS R22 R23 K34 ["BackendTypes"]
   CALL R21 1 1
   GETIMPORT R22 K6 [require]
-  GETTABLEKS R25 R0 K14 ["Core"]
-  GETTABLEKS R24 R25 K24 ["Util"]
-  GETTABLEKS R23 R24 K33 ["getUserId"]
+  GETTABLEKS R25 R0 K12 ["Core"]
+  GETTABLEKS R24 R25 K33 ["Types"]
+  GETTABLEKS R23 R24 K35 ["CreatorTypes"]
   CALL R22 1 1
   GETIMPORT R23 K6 [require]
-  GETTABLEKS R26 R0 K14 ["Core"]
-  GETTABLEKS R25 R26 K24 ["Util"]
-  GETTABLEKS R24 R25 K34 ["getUsername"]
+  GETTABLEKS R26 R0 K12 ["Core"]
+  GETTABLEKS R25 R26 K36 ["Hooks"]
+  GETTABLEKS R24 R25 K37 ["useSelector"]
   CALL R23 1 1
-  GETTABLEKS R25 R6 K24 ["Util"]
-  GETTABLEKS R24 R25 K35 ["LayoutOrderIterator"]
-  GETIMPORT R25 K6 [require]
-  GETTABLEKS R28 R0 K14 ["Core"]
-  GETTABLEKS R27 R28 K24 ["Util"]
-  GETTABLEKS R26 R27 K36 ["DebugFlags"]
-  CALL R25 1 1
-  GETIMPORT R27 K6 [require]
-  GETTABLEKS R30 R0 K14 ["Core"]
-  GETTABLEKS R29 R30 K24 ["Util"]
-  GETTABLEKS R28 R29 K37 ["ToolboxUtilities"]
-  CALL R27 1 1
-  GETTABLEKS R26 R27 K38 ["showRobloxCreatedAssets"]
-  GETIMPORT R27 K6 [require]
-  GETTABLEKS R30 R0 K14 ["Core"]
-  GETTABLEKS R29 R30 K39 ["Types"]
-  GETTABLEKS R28 R29 K40 ["BackendTypes"]
-  CALL R27 1 1
-  GETIMPORT R28 K6 [require]
-  GETTABLEKS R31 R0 K14 ["Core"]
-  GETTABLEKS R30 R31 K39 ["Types"]
-  GETTABLEKS R29 R30 K41 ["CreatorTypes"]
-  CALL R28 1 1
-  GETIMPORT R29 K6 [require]
-  GETTABLEKS R32 R0 K14 ["Core"]
-  GETTABLEKS R31 R32 K39 ["Types"]
-  GETTABLEKS R30 R31 K42 ["SortIntent"]
-  CALL R29 1 1
-  GETIMPORT R30 K6 [require]
-  GETTABLEKS R33 R0 K14 ["Core"]
-  GETTABLEKS R32 R33 K43 ["Hooks"]
-  GETTABLEKS R31 R32 K44 ["useSelector"]
-  CALL R30 1 1
-  GETTABLEKS R31 R3 K45 ["useCallback"]
-  GETTABLEKS R32 R3 K46 ["useMemo"]
-  GETTABLEKS R33 R3 K47 ["useState"]
-  GETIMPORT R34 K6 [require]
-  GETTABLEKS R38 R0 K14 ["Core"]
-  GETTABLEKS R37 R38 K24 ["Util"]
-  GETTABLEKS R36 R37 K48 ["SharedFlags"]
-  GETTABLEKS R35 R36 K49 ["getFFlagToolboxAddCreationsFilterToListView"]
-  CALL R34 1 1
-  GETIMPORT R35 K6 [require]
-  GETTABLEKS R39 R0 K14 ["Core"]
-  GETTABLEKS R38 R39 K24 ["Util"]
-  GETTABLEKS R37 R38 K48 ["SharedFlags"]
-  GETTABLEKS R36 R37 K50 ["getFFlagToolboxAddSortIntentFiltering"]
-  CALL R35 1 1
-  GETIMPORT R36 K6 [require]
-  GETTABLEKS R40 R0 K14 ["Core"]
-  GETTABLEKS R39 R40 K24 ["Util"]
-  GETTABLEKS R38 R39 K48 ["SharedFlags"]
-  GETTABLEKS R37 R38 K51 ["getFFlagToolboxInventoryFilterUsesRoact17"]
-  CALL R36 1 1
-  DUPTABLE R37 K55 [{"IncludeUnverifiedCreators", "MyAssets", "MyCreations"}]
-  LOADK R38 K56 ["includeUnverifiedCreators"]
-  SETTABLEKS R38 R37 K52 ["IncludeUnverifiedCreators"]
-  LOADK R38 K57 ["myAssets"]
-  SETTABLEKS R38 R37 K53 ["MyAssets"]
-  LOADK R38 K58 ["myCreations"]
-  SETTABLEKS R38 R37 K54 ["MyCreations"]
-  MOVE R38 R36
-  CALL R38 0 1
-  JUMPIFNOT R38 [+23]
-  DUPCLOSURE R38 K59 [PROTO_23]
-  CAPTURE VAL R7
-  CAPTURE VAL R30
-  CAPTURE VAL R2
-  CAPTURE VAL R32
-  CAPTURE VAL R22
+  GETTABLEKS R24 R3 K38 ["useCallback"]
+  GETTABLEKS R25 R3 K39 ["useMemo"]
+  GETTABLEKS R26 R3 K40 ["useState"]
+  DUPTABLE R27 K44 [{"IncludeUnverifiedCreators", "MyAssets", "MyCreations"}]
+  LOADK R28 K45 ["includeUnverifiedCreators"]
+  SETTABLEKS R28 R27 K41 ["IncludeUnverifiedCreators"]
+  LOADK R28 K46 ["myAssets"]
+  SETTABLEKS R28 R27 K42 ["MyAssets"]
+  LOADK R28 K47 ["myCreations"]
+  SETTABLEKS R28 R27 K43 ["MyCreations"]
+  DUPCLOSURE R28 K48 [PROTO_23]
+  CAPTURE VAL R6
   CAPTURE VAL R23
-  CAPTURE VAL R33
-  CAPTURE VAL R27
-  CAPTURE VAL R26
-  CAPTURE VAL R31
-  CAPTURE VAL R37
-  CAPTURE VAL R24
-  CAPTURE VAL R4
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  CAPTURE VAL R12
-  CAPTURE VAL R19
-  CAPTURE VAL R13
-  CAPTURE VAL R17
-  CAPTURE VAL R9
-  CAPTURE VAL R18
-  RETURN R38 1
-  GETTABLEKS R38 R4 K60 ["PureComponent"]
-  LOADK R40 K61 ["InventorySearchOptions"]
-  NAMECALL R38 R38 K62 ["extend"]
-  CALL R38 2 1
-  DUPCLOSURE R39 K63 [PROTO_41]
-  CAPTURE VAL R22
-  CAPTURE VAL R34
-  CAPTURE VAL R15
-  CAPTURE VAL R14
+  CAPTURE VAL R2
   CAPTURE VAL R25
-  CAPTURE VAL R35
-  CAPTURE VAL R27
-  CAPTURE VAL R29
-  CAPTURE VAL R23
-  SETTABLEKS R39 R38 K64 ["init"]
-  DUPCLOSURE R39 K65 [PROTO_43]
-  CAPTURE VAL R16
-  SETTABLEKS R39 R38 K66 ["didUpdate"]
-  DUPCLOSURE R39 K67 [PROTO_44]
-  CAPTURE VAL R35
-  CAPTURE VAL R27
-  CAPTURE VAL R29
-  CAPTURE VAL R26
-  CAPTURE VAL R24
-  CAPTURE VAL R4
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  CAPTURE VAL R12
-  CAPTURE VAL R19
-  CAPTURE VAL R34
-  CAPTURE VAL R13
   CAPTURE VAL R17
-  CAPTURE VAL R9
   CAPTURE VAL R18
-  SETTABLEKS R39 R38 K68 ["render"]
-  MOVE R39 R8
-  DUPTABLE R40 K70 [{"Localization"}]
-  GETTABLEKS R41 R7 K69 ["Localization"]
-  SETTABLEKS R41 R40 K69 ["Localization"]
-  CALL R39 1 1
-  MOVE R40 R38
-  CALL R39 1 1
-  MOVE R38 R39
-  DUPCLOSURE R39 K71 [PROTO_45]
-  CAPTURE VAL R2
-  CAPTURE VAL R34
-  CAPTURE VAL R35
+  CAPTURE VAL R26
+  CAPTURE VAL R21
+  CAPTURE VAL R20
+  CAPTURE VAL R24
   CAPTURE VAL R27
-  CAPTURE VAL R29
-  GETTABLEKS R40 R5 K72 ["connect"]
-  MOVE R41 R39
-  LOADNIL R42
-  CALL R40 2 1
-  MOVE R41 R38
-  CALL R40 1 -1
-  RETURN R40 -1
+  CAPTURE VAL R19
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R14
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R7
+  CAPTURE VAL R13
+  RETURN R28 1

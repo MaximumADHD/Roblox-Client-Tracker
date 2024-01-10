@@ -50,6 +50,11 @@ local ScreenshotFlowStepHandlerContainer =
 local TrustAndSafetyIXPManager = require(RobloxGui.Modules.TrustAndSafety.TrustAndSafetyIXPManager).default
 local ReportAnythingAnalytics = require(RobloxGui.Modules.TrustAndSafety.Utility.ReportAnythingAnalytics)
 
+local DSAReportingPackage = require(CorePackages.Workspace.Packages.DsaIllegalContentReporting)
+local isShowEUDSAIllegalContentReportingLink =
+	DSAReportingPackage.isShowEUDSAIllegalContentReportingLink
+local DSAReportLink = DSAReportingPackage.DSAReportLink
+
 local GetFFlagReportSentPageV2Enabled = require(RobloxGui.Modules.Flags.GetFFlagReportSentPageV2Enabled)
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagAddVoiceTagsToAllARSubmissionsEnabled =
@@ -1048,6 +1053,23 @@ local function Initialize()
 				this:ActivateFormPhase(FormPhase.AttachScreenshot)
 			end
 		end
+
+		function this:initIllegalContentReportLink()
+			this.IllegalReportFrame = utility:Create'Frame'{
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(1, 0, 0, 40),
+				Parent = this.Page,
+				-- Using 11 here so it's right below submit button
+				LayoutOrder = 11
+			}
+
+			local dsaLinkComponent = Roact.createElement(DSAReportLink)
+
+			Roact.mount(dsaLinkComponent, this.IllegalReportFrame, "dsLink")
+
+
+		end
 		
 		function this:initOptionalScreenshotButton() 	
 			local button_width = if utility:IsSmallTouchScreen() then 200 else 250 
@@ -1527,6 +1549,9 @@ local function Initialize()
 			if shouldDoReportScreenshot() then 
 				this:initOptionalScreenshotButton()
 			end
+		end
+		if isShowEUDSAIllegalContentReportingLink() then
+			this:initIllegalContentReportLink()
 		end
 
 		if GetFFlagReportAnythingAnnotationIXP() then

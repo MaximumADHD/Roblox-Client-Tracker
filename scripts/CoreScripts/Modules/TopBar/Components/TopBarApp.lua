@@ -53,6 +53,7 @@ local Connection = require(script.Parent.Connection)
 local TopBar = Presentation.Parent.Parent
 local Constants = require(TopBar.Constants)
 local GetFFlagChangeTopbarHeightCalculation = require(TopBar.Flags.GetFFlagChangeTopbarHeightCalculation)
+local GetFFlagFixDupeBetaBadge = require(TopBar.Flags.GetFFlagFixDupeBetaBadge)
 local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
@@ -135,8 +136,13 @@ end
 function TopBarApp:renderWithStyle(style)
 	local chromeEnabled = ChromeEnabled()
 	local showBetaBadge = GetFFlagBetaBadge() and not chromeEnabled
+	local policyAllowsBetaBadge
 	if FFlagControlBetaBadgeWithGuac then
-		showBetaBadge = self.props.displayBetaBadge
+		if GetFFlagFixDupeBetaBadge() then
+			policyAllowsBetaBadge = self.props.displayBetaBadge
+		else
+			showBetaBadge = self.props.displayBetaBadge
+		end
 	end
 
 	local unibarAlignment = Enum.HorizontalAlignment.Right
@@ -395,7 +401,7 @@ function TopBarApp:renderWithStyle(style)
 							})
 							else nil,
 
-						VoiceBetaBadge = if GetFFlagBetaBadge()
+						VoiceBetaBadge = if GetFFlagBetaBadge() and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
 							then Roact.createElement(VoiceBetaBadge, {
 								layoutOrder = 6,
 								Analytics = Analytics.new(),
@@ -505,7 +511,7 @@ function TopBarApp:renderWithStyle(style)
 					})
 					else nil,
 
-				VoiceBetaBadge = if showBetaBadge
+				VoiceBetaBadge = if showBetaBadge and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
 					then Roact.createElement(VoiceBetaBadge, {
 						layoutOrder = 4,
 						Analytics = Analytics.new(),

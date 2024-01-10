@@ -25,6 +25,11 @@ local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
 local GetFFlagEnableChromeMicShimmer = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableChromeMicShimmer)
+local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
+
+if GetFFlagRemoveInGameChatBubbleChatReferences() then
+	Constants = require(RobloxGui.Modules.VoiceChat.Constants) :: any
+end
 
 local DEFAULT_SIZE = UDim2.fromOffset(28, 28)
 

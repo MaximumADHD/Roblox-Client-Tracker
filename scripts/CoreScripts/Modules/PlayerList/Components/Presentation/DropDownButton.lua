@@ -23,8 +23,6 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
-
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
 
 DropDownButton.validateProps = t.strictInterface({
@@ -84,9 +82,7 @@ function DropDownButton:render()
 
 			local backgroundStyle = {
 				Color = backgroundColor,
-				Transparency = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts 
-									then layoutValues.OverrideBackgroundTransparency * style.Settings.PreferredTransparency 
-									else layoutValues.OverrideBackgroundTransparency,
+				Transparency = layoutValues.OverrideBackgroundTransparency * style.Settings.PreferredTransparency 
 			}
 			local overlayStyle = {
 				Transparency = 1,

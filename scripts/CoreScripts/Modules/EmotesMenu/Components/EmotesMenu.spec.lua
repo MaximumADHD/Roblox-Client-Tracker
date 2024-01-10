@@ -1,7 +1,5 @@
 return function()
-	local CoreGui = game:GetService("CoreGui")
 	local CorePackages = game:GetService("CorePackages")
-	local RobloxGui = CoreGui:WaitForChild("RobloxGui")		
 
 	local Roact = require(CorePackages.Roact)
 	local Rodux = require(CorePackages.Rodux)
@@ -18,8 +16,6 @@ return function()
 	local EmotesModules = script.Parent.Parent
 	local EmotesMenuReducer = require(EmotesModules.Reducers.EmotesMenuReducer)
 	local EmotesMenu = require(script.Parent.EmotesMenu)
-
-	local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
@@ -65,12 +61,8 @@ return function()
 		local instance = Roact.mount(element, folder)
 
 		local backgroundCircleOverlay = folder:FindFirstChild("BackgroundCircleOverlay", true)
-		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-			expect((backgroundCircleOverlay :: Frame).BackgroundTransparency).toBeCloseTo(0.4 * preferredTransparency)
-			expect((backgroundCircleOverlay :: Frame).BackgroundColor3).toBe(Colors.Flint:Lerp(Color3.new(0, 0, 0), preferredTransparency))
-		else
-			expect((backgroundCircleOverlay :: ImageLabel).Image).toBe("rbxasset://textures/ui/Emotes/Large/CircleBackground.png")
-		end
+		expect((backgroundCircleOverlay :: Frame).BackgroundTransparency).toBeCloseTo(0.4 * preferredTransparency)
+		expect((backgroundCircleOverlay :: Frame).BackgroundColor3).toBe(Colors.Flint:Lerp(Color3.new(0, 0, 0), preferredTransparency))
 
 		Roact.unmount(instance)
 	end)

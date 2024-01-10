@@ -65,78 +65,6 @@ PROTO_0:
   CALL R11 2 -1
   RETURN R11 -1
 
-PROTO_1:
-  GETTABLEKS R1 R0 K0 ["Stylizer"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["FONT_SIZE_LARGE"]
-  LOADN R5 2
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K2 ["INFO_BANNER_PADDING"]
-  MUL R4 R5 R6
-  ADD R3 R2 R4
-  GETTABLEKS R4 R0 K3 ["Position"]
-  JUMPIF R4 [+7]
-  GETIMPORT R4 K6 [UDim2.new]
-  LOADN R5 0
-  LOADN R6 0
-  LOADN R7 0
-  LOADN R8 0
-  CALL R4 4 1
-  GETTABLEKS R5 R0 K7 ["Size"]
-  JUMPIF R5 [+7]
-  GETIMPORT R5 K6 [UDim2.new]
-  LOADN R6 1
-  LOADN R7 0
-  LOADN R8 0
-  MOVE R9 R3
-  CALL R5 4 1
-  GETTABLEKS R7 R0 K9 ["ZIndex"]
-  ORK R6 R7 K8 [0]
-  GETTABLEKS R8 R0 K10 ["Visible"]
-  JUMPIFEQKNIL R8 [+4]
-  GETTABLEKS R7 R0 K10 ["Visible"]
-  JUMPIF R7 [+6]
-  GETTABLEKS R8 R0 K10 ["Visible"]
-  JUMPIFEQKNIL R8 [+2]
-  LOADB R7 0 +1
-  LOADB R7 1
-  GETTABLEKS R9 R0 K12 ["Text"]
-  ORK R8 R9 K11 [""]
-  GETTABLEKS R9 R1 K13 ["infoBanner"]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K14 ["createElement"]
-  LOADK R11 K15 ["TextLabel"]
-  DUPTABLE R12 K24 [{"Position", "Size", "BackgroundTransparency", "ZIndex", "Visible", "Text", "TextColor3", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "TextWrapped", "ClipsDescendants"}]
-  SETTABLEKS R4 R12 K3 ["Position"]
-  SETTABLEKS R5 R12 K7 ["Size"]
-  LOADN R13 1
-  SETTABLEKS R13 R12 K16 ["BackgroundTransparency"]
-  SETTABLEKS R6 R12 K9 ["ZIndex"]
-  SETTABLEKS R7 R12 K10 ["Visible"]
-  SETTABLEKS R8 R12 K12 ["Text"]
-  GETTABLEKS R13 R9 K25 ["textColor"]
-  SETTABLEKS R13 R12 K17 ["TextColor3"]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K26 ["FONT"]
-  SETTABLEKS R13 R12 K18 ["Font"]
-  SETTABLEKS R2 R12 K19 ["TextSize"]
-  GETIMPORT R13 K29 [Enum.TextXAlignment.Center]
-  SETTABLEKS R13 R12 K20 ["TextXAlignment"]
-  GETIMPORT R13 K30 [Enum.TextYAlignment.Center]
-  SETTABLEKS R13 R12 K21 ["TextYAlignment"]
-  LOADB R13 1
-  SETTABLEKS R13 R12 K22 ["TextWrapped"]
-  LOADB R13 1
-  SETTABLEKS R13 R12 K23 ["ClipsDescendants"]
-  CALL R10 2 -1
-  RETURN R10 -1
-
-PROTO_2:
-  GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["props"]
-  CALL R1 1 -1
-  RETURN R1 -1
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -155,50 +83,22 @@ MAIN:
   GETTABLEKS R6 R7 K9 ["Util"]
   GETTABLEKS R5 R6 K10 ["Constants"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Core"]
-  GETTABLEKS R8 R9 K9 ["Util"]
-  GETTABLEKS R7 R8 K11 ["SharedFlags"]
-  GETTABLEKS R6 R7 K12 ["getFFlagToolboxConsolidateRenderMethods"]
-  CALL R5 1 1
-  GETTABLEKS R6 R3 K13 ["ContextServices"]
-  GETTABLEKS R7 R6 K14 ["withContext"]
-  MOVE R8 R5
-  CALL R8 0 1
-  JUMPIFNOT R8 [+22]
-  GETTABLEKS R8 R2 K15 ["PureComponent"]
-  LOADK R10 K16 ["InfoBanner"]
-  NAMECALL R8 R8 K17 ["extend"]
-  CALL R8 2 1
-  DUPCLOSURE R9 K18 [PROTO_0]
+  GETTABLEKS R5 R3 K11 ["ContextServices"]
+  GETTABLEKS R6 R5 K12 ["withContext"]
+  GETTABLEKS R7 R2 K13 ["PureComponent"]
+  LOADK R9 K14 ["InfoBanner"]
+  NAMECALL R7 R7 K15 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K16 [PROTO_0]
   CAPTURE VAL R4
   CAPTURE VAL R2
-  SETTABLEKS R9 R8 K19 ["render"]
+  SETTABLEKS R8 R7 K17 ["render"]
+  MOVE R8 R6
+  DUPTABLE R9 K19 [{"Stylizer"}]
+  GETTABLEKS R10 R5 K18 ["Stylizer"]
+  SETTABLEKS R10 R9 K18 ["Stylizer"]
+  CALL R8 1 1
   MOVE R9 R7
-  DUPTABLE R10 K21 [{"Stylizer"}]
-  GETTABLEKS R11 R6 K20 ["Stylizer"]
-  SETTABLEKS R11 R10 K20 ["Stylizer"]
-  CALL R9 1 1
-  MOVE R10 R8
-  CALL R9 1 1
-  MOVE R8 R9
-  RETURN R8 1
-  DUPCLOSURE R8 K22 [PROTO_1]
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  GETTABLEKS R9 R2 K15 ["PureComponent"]
-  LOADK R11 K16 ["InfoBanner"]
-  NAMECALL R9 R9 K17 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K23 [PROTO_2]
-  CAPTURE VAL R8
-  SETTABLEKS R10 R9 K19 ["render"]
-  MOVE R10 R7
-  DUPTABLE R11 K21 [{"Stylizer"}]
-  GETTABLEKS R12 R6 K20 ["Stylizer"]
-  SETTABLEKS R12 R11 K20 ["Stylizer"]
-  CALL R10 1 1
-  MOVE R11 R9
-  CALL R10 1 1
-  MOVE R9 R10
-  RETURN R9 1
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

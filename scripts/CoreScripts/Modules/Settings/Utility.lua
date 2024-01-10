@@ -54,6 +54,7 @@ local FFlagUseNotificationsLocalization = success and result
 
 local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
 local FFlagSettingsMenuUseHardwareSafeArea = game:DefineFastFlag("SettingsMenuUseHardwareSafeArea", false)
+local GetFFlagFix10ftMenuAddFriend = require(Settings.Flags.GetFFlagFix10ftMenuAddFriend)
 
 ------------------ Modules --------------------
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
@@ -674,7 +675,10 @@ local function MakeButton(name, text, size, clickFunc, pageRef, hubRef)
 			textLabel.TextSize = Theme.textSize(18)
 		end
 	elseif isTenFootInterface() then
-		textLabel.TextSize = Theme.textSize(36)
+		local isButtonWithOverflowingText = name == "FriendStatus" or name == "BlockButton"
+		if not (GetFFlagFix10ftMenuAddFriend() and Theme.UIBloxThemeEnabled and isButtonWithOverflowingText) then 
+			textLabel.TextSize = Theme.textSize(36)
+		end
 	end
 	constraint.MaxTextSize = textLabel.TextSize
 

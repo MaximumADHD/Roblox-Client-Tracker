@@ -4,33 +4,54 @@ PROTO_0:
   GETIMPORT R1 K2 [tostring]
   CALL R1 1 1
   GETTABLEKS R2 R0 K3 ["Editable"]
-  JUMPIFEQKNIL R2 [+25]
+  JUMPIFEQKNIL R2 [+55]
   GETTABLEKS R2 R0 K3 ["Editable"]
-  JUMPIF R2 [+21]
+  JUMPIF R2 [+51]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K4 ["createElement"]
   GETUPVAL R3 1
-  DUPTABLE R4 K9 [{"LayoutOrder", "Size", "Text", "TextXAlignment"}]
+  DUPTABLE R4 K10 [{"LayoutOrder", "Size", "AutomaticSize", "Text", "TextXAlignment"}]
   GETTABLEKS R5 R0 K5 ["LayoutOrder"]
   SETTABLEKS R5 R4 K5 ["LayoutOrder"]
+  GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+18]
+  GETIMPORT R5 K13 [UDim2.new]
+  LOADN R6 0
+  LOADN R7 0
+  GETTABLEKS R10 R0 K6 ["Size"]
+  GETTABLEKS R9 R10 K14 ["Y"]
+  GETTABLEKS R8 R9 K15 ["Scale"]
+  GETTABLEKS R11 R0 K6 ["Size"]
+  GETTABLEKS R10 R11 K14 ["Y"]
+  GETTABLEKS R9 R10 K16 ["Offset"]
+  CALL R5 4 1
+  JUMP [+2]
   GETTABLEKS R5 R0 K6 ["Size"]
   SETTABLEKS R5 R4 K6 ["Size"]
-  SETTABLEKS R1 R4 K7 ["Text"]
-  GETIMPORT R5 K12 [Enum.TextXAlignment.Left]
-  SETTABLEKS R5 R4 K8 ["TextXAlignment"]
+  GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+3]
+  GETIMPORT R5 K19 [Enum.AutomaticSize.X]
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K7 ["AutomaticSize"]
+  SETTABLEKS R1 R4 K8 ["Text"]
+  GETIMPORT R5 K21 [Enum.TextXAlignment.Left]
+  SETTABLEKS R5 R4 K9 ["TextXAlignment"]
   CALL R2 2 -1
   RETURN R2 -1
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K4 ["createElement"]
-  GETUPVAL R3 2
-  DUPTABLE R4 K14 [{"Disabled", "LayoutOrder", "Size", "Text"}]
+  GETUPVAL R3 3
+  DUPTABLE R4 K23 [{"Disabled", "LayoutOrder", "Size", "Text"}]
   LOADB R5 1
-  SETTABLEKS R5 R4 K13 ["Disabled"]
+  SETTABLEKS R5 R4 K22 ["Disabled"]
   GETTABLEKS R5 R0 K5 ["LayoutOrder"]
   SETTABLEKS R5 R4 K5 ["LayoutOrder"]
   GETTABLEKS R5 R0 K6 ["Size"]
   SETTABLEKS R5 R4 K6 ["Size"]
-  SETTABLEKS R1 R4 K7 ["Text"]
+  SETTABLEKS R1 R4 K8 ["Text"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -53,8 +74,14 @@ MAIN:
   GETTABLEKS R3 R1 K8 ["UI"]
   GETTABLEKS R4 R3 K9 ["TextInput"]
   GETTABLEKS R5 R3 K10 ["TextLabel"]
-  DUPCLOSURE R6 K11 [PROTO_0]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Flags"]
+  GETTABLEKS R7 R8 K13 ["getFFlagAssetImportCustomPresetPolish"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K14 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R5
+  CAPTURE VAL R6
   CAPTURE VAL R4
-  RETURN R6 1
+  RETURN R7 1

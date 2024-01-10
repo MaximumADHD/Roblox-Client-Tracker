@@ -21,9 +21,9 @@ function var13.init(arg1)
    
    function arg1.openDialog()
       local var0 = arg1.props
-      local var214 = {}
-      var214.OnConfirm = arg1.onRevertClicked
-      var8(var0.Plugin, var0.Localization, var6, var214)
+      local var222 = {}
+      var222.OnConfirm = arg1.onRevertClicked
+      var8(var0.Plugin, var0.Localization, var6, var222)
    end
    
    function arg1.onConvertClicked()
@@ -38,50 +38,50 @@ function var13.render(arg1)
    local var1 = var0.Localization
    local var2 = var0.Stylizer
    local var3 = var12.new()
-   local var236 = {}
-   var236.LayoutOrder = var0.LayoutOrder
-   var236.Size = var0.Size
-   var236.Layout = Enum.FillDirection.Vertical
-   var236.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var236.VerticalAlignment = Enum.VerticalAlignment.Top
-   var236.Spacing = var2.Spacing
-   var236.Padding = var2.ButtonPadding
-   local var242 = {}
-   local var246 = {}
-   var246.LayoutOrder = var3:getNextOrder()
-   var242.ScriptConversionConsole = var2.createElement(var7, var246)
-   local var253 = {}
-   var253.LayoutOrder = var3:getNextOrder()
-   var253.Size = UDim2.fromScale(1, 0)
-   var253.AutomaticSize = Enum.AutomaticSize.Y
-   var253.Layout = Enum.FillDirection.Horizontal
-   var253.HorizontalAlignment = Enum.HorizontalAlignment.Right
-   var253.VerticalAlignment = Enum.VerticalAlignment.Center
-   var253.Spacing = var2.ButtonSpacing
-   local var265 = {}
-   local var269 = {}
-   var269.Size = var2.RevertButtonSize
-   var269.Text = var1:getText("ScriptConversion", "Revert")
-   var269.OnClick = arg1.openDialog
-   var269.LayoutOrder = var3:getNextOrder()
-   var265.RevertButton = var2.createElement(var11, var269)
-   local var282 = {}
-   var282.Size = var2.ConvertButtonSize
-   var282.Text = var1:getText("ScriptConversion", "Convert")
-   var282.OnClick = arg1.onConvertClicked
-   var282.LayoutOrder = var3:getNextOrder()
-   var265.ConvertButton = var2.createElement(var11, var282)
-   var242.FooterButtons = var2.createElement(var10, var253, var265)
-   return var2.createElement(var10, var236, var242)
+   local var244 = {}
+   var244.LayoutOrder = var0.LayoutOrder
+   var244.Size = var0.Size
+   var244.Layout = Enum.FillDirection.Vertical
+   var244.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var244.VerticalAlignment = Enum.VerticalAlignment.Top
+   var244.Spacing = var2.Spacing
+   var244.Padding = var2.ButtonPadding
+   local var250 = {}
+   local var254 = {}
+   var254.LayoutOrder = var3:getNextOrder()
+   var250.ScriptConversionConsole = var2.createElement(var7, var254)
+   local var261 = {}
+   var261.LayoutOrder = var3:getNextOrder()
+   var261.Size = UDim2.fromScale(1, 0)
+   var261.AutomaticSize = Enum.AutomaticSize.Y
+   var261.Layout = Enum.FillDirection.Horizontal
+   var261.HorizontalAlignment = Enum.HorizontalAlignment.Right
+   var261.VerticalAlignment = Enum.VerticalAlignment.Center
+   var261.Spacing = var2.ButtonSpacing
+   local var273 = {}
+   local var277 = {}
+   var277.Size = var2.RevertButtonSize
+   var277.Text = var1:getText("ScriptConversion", "Revert")
+   var277.OnClick = arg1.openDialog
+   var277.LayoutOrder = var3:getNextOrder()
+   var273.RevertButton = var2.createElement(var11, var277)
+   local var290 = {}
+   var290.Size = var2.ConvertButtonSize
+   var290.Text = var1:getText("ScriptConversion", "Convert")
+   var290.OnClick = arg1.onConvertClicked
+   var290.LayoutOrder = var3:getNextOrder()
+   var273.ConvertButton = var2.createElement(var11, var290)
+   var250.FooterButtons = var2.createElement(var10, var261, var273)
+   return var2.createElement(var10, var244, var250)
 end
 
-local var295 = {}
-var295.Analytics = var3.Analytics
-var295.Plugin = var3.Plugin
-var295.Localization = var3.Localization
-var295.Stylizer = var3.Stylizer
-var295.ScriptConversionContext = require(var0.Src.Contexts.ScriptConversionContext)
-var13 = var3.withContext(var295)(var13)
+local var303 = {}
+var303.Analytics = var3.Analytics
+var303.Plugin = var3.Plugin
+var303.Localization = var3.Localization
+var303.Stylizer = var3.Stylizer
+var303.ScriptConversionContext = require(var0.Src.Contexts.ScriptConversionContext)
+var13 = var3.withContext(var303)(var13)
 return require(var0.Packages.RoactRodux).connect(nil, function(arg1)
    local var0 = {}
    function var0.ReplaceWithRules()
@@ -91,9 +91,9 @@ return require(var0.Packages.RoactRodux).connect(nil, function(arg1)
    
    function var0.RevertScripts()
       local var0 = arg1.props
-      local var319 = {}
-      var319.OnConfirm = arg1.onRevertClicked
-      var8(var0.Plugin, var0.Localization, var6, var319)
+      local var327 = {}
+      var327.OnConfirm = arg1.onRevertClicked
+      var8(var0.Plugin, var0.Localization, var6, var327)
    end
    
    return var0

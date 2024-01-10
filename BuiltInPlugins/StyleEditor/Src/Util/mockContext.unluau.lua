@@ -4,12 +4,11 @@ local var1 = require(var0.Packages.Framework)
 local var2 = var1.TestHelpers
 local var3 = var1.ContextServices
 local var4 = {}
-local var27 = var3.Analytics.mock()
+local var391 = var3.Analytics.mock()
 local var6 = var3.Localization.mock()
-local var33 = require(var0.Packages.Rodux).Store
-var33 = require(var0.Src.Reducers.MainReducer)
-local var7 = var3.Store.new(var33.new(var33, nil, nil, nil))
-local var8 = require(var0.Src.Resources.MakeTheme)(true)
+local var395 = var3.Store
+var395 = require(var0.Src.Util.createStore)
+local var7 = var395.new(var395())
 return function(arg1)
    if type(arg1) == "table" then
       local var0 = false

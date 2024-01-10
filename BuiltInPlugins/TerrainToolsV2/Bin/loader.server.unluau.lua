@@ -4,6 +4,8 @@ local var0 = script.Parent.Parent
 if require(var0.Src.Util.DebugFlags).RunningUnderCLI() then
 end
 local var1 = require(var0.Src.Util.Constants)
+if game:GetFastFlag("EnableTerrainEditor2") then
+end
 local var2 = {}
 var2.plugin = plugin
 var2.pluginName = "TerrainToolsV2"
@@ -15,30 +17,30 @@ function var2.getToolbarName()
    return "TerrainToolsLuaToolbarName"
 end
 
-local var35 = {}
-function var35.getName()
+local var39 = {}
+function var39.getName()
    return "Editor"
 end
 
-function var35.getDescription(arg1, arg2, arg3)
+function var39.getDescription(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Main", "PluginButtonEditorTooltip")
 end
 
-var35.icon = "rbxlocaltheme://TerrainEditor"
-var35.text = nil
-var35.clickableWhenViewportHidden = true
-var2.buttonInfo = var35
-local var49 = {}
-var49.id = "TerrainTools"
-var49.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, true, false, 300, 600, var1.MIN_WIDGET_SIZE.X, var1.MIN_WIDGET_SIZE.Y)
-function var49.getDockTitle(arg1, arg2, arg3)
+var39.icon = "rbxlocaltheme://TerrainEditor"
+var39.text = nil
+var39.clickableWhenViewportHidden = true
+var2.buttonInfo = var39
+local var53 = {}
+var53.id = "TerrainTools"
+var53.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, true, false, 300, 600, var1.MIN_WIDGET_SIZE.X, var1.MIN_WIDGET_SIZE.Y)
+function var53.getDockTitle(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Main", "Title")
 end
 
-var49.zIndexBehavior = Enum.ZIndexBehavior.Sibling
-var2.dockWidgetInfo = var49
-local var75 = game:GetFastFlag("Shorelines_Tooling")
-if not var75 then
+var53.zIndexBehavior = Enum.ZIndexBehavior.Sibling
+var2.dockWidgetInfo = var53
+local var79 = game:GetFastFlag("Shorelines_Tooling")
+if not var79 then
    if game:GetFastFlag("SmoothVoxels_Tooling") then
       local function fun0()
          return true
@@ -53,10 +55,10 @@ local function fun5()
 end
 
 var2.shouldImmediatelyOpen = nil
-var75 = var2
-local var6 = require(var0.PluginLoader.PluginLoaderBuilder).build(var75)
+var79 = var2
+local var6 = require(var0.PluginLoader.PluginLoaderBuilder).build(var79)
 if not var6.pluginLoader:waitForUserInteraction() then
 end
-local var90 = script
-var90 = var6
-require(var90.Parent.main)(plugin, var90)
+local var94 = script
+var94 = var6
+require(var94.Parent.main)(plugin, var94)

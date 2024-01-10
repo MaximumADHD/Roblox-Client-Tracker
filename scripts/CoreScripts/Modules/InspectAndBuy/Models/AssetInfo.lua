@@ -109,10 +109,10 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 	return newAsset
 end
 
-function AssetInfo.fromHumanoidDescription(id)
+function AssetInfo.fromHumanoidDescription(assetId)
 	local newAsset = AssetInfo.new()
 
-	newAsset.assetId = tostring(id)
+	newAsset.assetId = tostring(assetId)
 
 	return newAsset
 end
@@ -155,9 +155,10 @@ function AssetInfo.fromPurchaseSuccess(assetId)
 end
 
 --[[
-	TODO AVBURST-12905:
-		Remove and use item details endpoint for getting attribution data
-		instead of using the asset-versions endpoint.
+	FIXME(dbanks)
+	2023/12/07
+	See https://roblox.atlassian.net/browse/AVBURST-12905
+	This will be removed once backend sends "creating universe" with asset details.
 --]]
 function AssetInfo.fromGetVersionInfo(assetId, latestVersionData)
 	local newAsset = AssetInfo.new()

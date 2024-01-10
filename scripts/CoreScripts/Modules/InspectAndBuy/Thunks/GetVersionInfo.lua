@@ -1,9 +1,9 @@
 --[[
-	TODO AVBURST-12905:
-		Remove and use item details endpoint for getting attribution data
-		instead of using the asset-versions endpoint.
+	FIXME(dbanks)
+	2023/12/07
+	See https://roblox.atlassian.net/browse/AVBURST-12905
+	This will be removed once backend sends "creating universe" with asset details.
 --]]
-
 local CorePackages = game:GetService("CorePackages")
 local PerformFetch = require(CorePackages.Workspace.Packages.Http).PerformFetch
 local InspectAndBuyFolder = script.Parent.Parent
@@ -24,19 +24,23 @@ local keyMapper = createInspectAndBuyKeyMapper("getVersionInfo")
 --[[
 	Get the version info of an asset given its asset id. Uses saved-versions endpoint.
 ]]
-local function GetVersionInfo(id)
+local function GetVersionInfo(assetId)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 
-		local key = keyMapper(store:getState().storeId, id)
+		local key = keyMapper(store:getState().storeId, assetId)
 
 		return PerformFetch.Single(key, function()
-			return network.getVersionInfo(id):andThen(function(results)
+			return network.getVersionInfo(assetId):andThen(function(results)
 				local latestVersion = results.data[1]
 				local creatingUniverseId = if latestVersion then latestVersion.creatingUniverseId else nil
 				if creatingUniverseId then
+					creatingUniverseId = tostring(creatingUniverseId)
 					-- Set asset to have creating universe id
-					local assetInfo = AssetInfo.fromGetVersionInfo(id, latestVersion)
+					local assetInfo = AssetInfo.fromGetVersionInfo(assetId, latestVersion)
+
+					-- Note: we only ever "SetAssets" if the creatingUniverseId is present: we don't really use/care about
+					-- any other info from the version endpoint.
 					store:dispatch(SetAssets({ assetInfo }))
 					-- Get Experience Playability
 					store:dispatch(GetExperiencePlayability(creatingUniverseId))

@@ -297,12 +297,25 @@ PROTO_26:
 
 PROTO_27:
   GETTABLEKS R2 R0 K0 ["_operationProgress"]
-  JUMPIFEQ R2 R1 [+9]
+  JUMPIFEQ R2 R1 [+28]
   SETTABLEKS R1 R0 K0 ["_operationProgress"]
-  GETTABLEKS R2 R0 K1 ["ProgressChanged"]
+  GETIMPORT R3 K3 [os.clock]
+  CALL R3 0 1
+  GETTABLEKS R4 R0 K4 ["_startTime"]
+  SUB R2 R3 R4
+  SETTABLEKS R2 R0 K5 ["_runningTime"]
+  GETTABLEKS R2 R0 K6 ["ProgressChanged"]
   MOVE R4 R1
-  NAMECALL R2 R2 K2 ["Fire"]
-  CALL R2 2 0
+  LOADN R6 0
+  JUMPIFNOTLT R6 R1 [+8]
+  GETTABLEKS R7 R0 K5 ["_runningTime"]
+  DIV R6 R7 R1
+  GETTABLEKS R7 R0 K5 ["_runningTime"]
+  SUB R5 R6 R7
+  JUMP [+1]
+  LOADNIL R5
+  NAMECALL R2 R2 K7 ["Fire"]
+  CALL R2 3 0
   RETURN R0 0
 
 PROTO_28:

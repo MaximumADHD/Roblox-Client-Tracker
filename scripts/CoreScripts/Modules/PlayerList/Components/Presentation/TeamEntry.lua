@@ -22,8 +22,6 @@ local CellExtender = require(script.Parent.CellExtender)
 
 local TeamEntry = Roact.PureComponent:extend("TeamEntry")
 
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
-
 function TeamEntry:render()
 	return WithLayoutValues(function(layoutValues)
 		return withStyle(function(style)
@@ -39,9 +37,7 @@ function TeamEntry:render()
 				if self.props.teamColor then
 					backgroundStyle = {
 						Color = self.props.teamColor.Color,
-						Transparency = if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() 
-											then layoutValues.TeamEntryBackgroundTransparency * style.Settings.PreferredTransparency 
-											else layoutValues.TeamEntryBackgroundTransparency,
+						Transparency = layoutValues.TeamEntryBackgroundTransparency * style.Settings.PreferredTransparency 
 					}
 				else
 					backgroundStyle = style.Theme.Divider

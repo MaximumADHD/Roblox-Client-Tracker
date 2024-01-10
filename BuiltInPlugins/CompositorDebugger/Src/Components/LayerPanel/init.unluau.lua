@@ -12,30 +12,31 @@ local var9 = require(var7.HistoryGraph)
 local var10 = var0.Src.Util
 local var11 = require(var10.Constants)
 local var12 = require(var10.debugFlags)
-local var13 = require(var0.Src.Types)
-local var14 = require(var0.Packages.React).PureComponent:extend("LayerPanel")
-function var14.init(arg1)
-   local var51 = {}
-   var51.selectedTab = var11.LAYER_TABS.LayerData
-   arg1.state = var51
+local var13 = require(var0.LuaFlags.GetFFlagTestRefactoring)
+local var14 = require(var0.Src.Types)
+local var15 = require(var0.Packages.React).PureComponent:extend("LayerPanel")
+function var15.init(arg1)
+   local var55 = {}
+   var55.selectedTab = var11.LAYER_TABS.LayerData
+   arg1.state = var55
    function arg1.switchToTab(arg1)
-      local var57 = {}
-      var57.selectedTab = arg1
-      arg1:setState(var57)
+      local var61 = {}
+      var61.selectedTab = arg1
+      arg1:setState(var61)
    end
    
 end
 
-function var14.isVisualizationEnabled(arg1, arg2)
+function var15.isVisualizationEnabled(arg1, arg2)
    local var0 = {}
    var0.Blend1D = true
-   local var63 = true
-   var0.Blend2D = var63
-   var63 = arg2
-   return var63 and var0[arg2.className]
+   local var67 = true
+   var0.Blend2D = var67
+   var67 = arg2
+   return var67 and var0[arg2.className]
 end
 
-function var14.didUpdate(arg1, arg2)
+function var15.didUpdate(arg1, arg2)
    local var0 = arg1.props
    local var1 = arg1.state
    local var2 = var0.HistoryField and var0.HistoryField.id and var0.HistoryField.section and var0.HistoryField.field
@@ -43,18 +44,26 @@ function var14.didUpdate(arg1, arg2)
       if var2 then
          if var1.selectedTab == "selectedTab" then
             if not arg1:isVisualizationEnabled(var0.LayerData) then
-               local var92 = {}
-               var92.selectedTab = var11.LAYER_TABS.LayerData
-               arg1:setState(var92)
+               if var13() then
+                  arg1:switchToTab(var11.LAYER_TABS.LayerData)
+               else
+                  local var102 = {}
+                  var102.selectedTab = var11.LAYER_TABS.LayerData
+                  arg1:setState(var102)
+               end
             end
          end
       end
    end
    if var1.selectedTab == "selectedTab" then
       if not arg1:isVisualizationEnabled(var0.LayerData) then
-         local var104 = {}
-         var104.selectedTab = var11.LAYER_TABS.LayerData
-         arg1:setState(var104)
+         if var13() then
+            arg1:switchToTab(var11.LAYER_TABS.LayerData)
+         else
+            local var120 = {}
+            var120.selectedTab = var11.LAYER_TABS.LayerData
+            arg1:setState(var120)
+         end
       end
    end
    if var2 then
@@ -62,16 +71,22 @@ function var14.didUpdate(arg1, arg2)
          if var0.HistoryField.id == "selectedTab" then
             if var0.HistoryField.section == "selectedTab" then
                if var0.HistoryField.field ~= arg2.HistoryField.field then
-                  local var122 = {}
-                  var122.selectedTab = var11.LAYER_TABS.History
-                  arg1:setState(var122)
+                  if var13() then
+                     arg1:switchToTab(var11.LAYER_TABS.History)
+                  end
+                  local var144 = {}
+                  var144.selectedTab = var11.LAYER_TABS.History
+                  arg1:setState(var144)
                end
             end
          end
       end
-      local var127 = {}
-      var127.selectedTab = var11.LAYER_TABS.History
-      arg1:setState(var127)
+      if var13() then
+         arg1:switchToTab(var11.LAYER_TABS.History)
+      end
+      local var155 = {}
+      var155.selectedTab = var11.LAYER_TABS.History
+      arg1:setState(var155)
    end
 end
 
@@ -83,18 +98,26 @@ local function fun4(arg1, arg2)
       if var2 then
          if var1.selectedTab == "selectedTab" then
             if not arg1:isVisualizationEnabled(var0.LayerData) then
-               local var157 = {}
-               var157.selectedTab = var11.LAYER_TABS.LayerData
-               arg1:setState(var157)
+               if var13() then
+                  arg1:switchToTab(var11.LAYER_TABS.LayerData)
+               else
+                  local var191 = {}
+                  var191.selectedTab = var11.LAYER_TABS.LayerData
+                  arg1:setState(var191)
+               end
             end
          end
       end
    end
    if var1.selectedTab == "selectedTab" then
       if not arg1:isVisualizationEnabled(var0.LayerData) then
-         local var169 = {}
-         var169.selectedTab = var11.LAYER_TABS.LayerData
-         arg1:setState(var169)
+         if var13() then
+            arg1:switchToTab(var11.LAYER_TABS.LayerData)
+         else
+            local var209 = {}
+            var209.selectedTab = var11.LAYER_TABS.LayerData
+            arg1:setState(var209)
+         end
       end
    end
    if var2 then
@@ -102,20 +125,26 @@ local function fun4(arg1, arg2)
          if var0.HistoryField.id == "selectedTab" then
             if var0.HistoryField.section == "selectedTab" then
                if var0.HistoryField.field ~= arg2.HistoryField.field then
-                  local var187 = {}
-                  var187.selectedTab = var11.LAYER_TABS.History
-                  arg1:setState(var187)
+                  if var13() then
+                     arg1:switchToTab(var11.LAYER_TABS.History)
+                  end
+                  local var233 = {}
+                  var233.selectedTab = var11.LAYER_TABS.History
+                  arg1:setState(var233)
                end
             end
          end
       end
-      local var192 = {}
-      var192.selectedTab = var11.LAYER_TABS.History
-      arg1:setState(var192)
+      if var13() then
+         arg1:switchToTab(var11.LAYER_TABS.History)
+      end
+      local var244 = {}
+      var244.selectedTab = var11.LAYER_TABS.History
+      arg1:setState(var244)
    end
 end
 
-function var14.render(arg1, arg2)
+function var15.render(arg1, arg2)
    local var0 = arg1.props
    local var1 = arg1.state
    local var2 = var0.HistoryField and var0.HistoryField.id and var0.HistoryField.section and var0.HistoryField.field
@@ -123,18 +152,26 @@ function var14.render(arg1, arg2)
       if var2 then
          if var1.selectedTab == "selectedTab" then
             if not arg1:isVisualizationEnabled(var0.LayerData) then
-               local var157 = {}
-               var157.selectedTab = var11.LAYER_TABS.LayerData
-               arg1:setState(var157)
+               if var13() then
+                  arg1:switchToTab(var11.LAYER_TABS.LayerData)
+               else
+                  local var191 = {}
+                  var191.selectedTab = var11.LAYER_TABS.LayerData
+                  arg1:setState(var191)
+               end
             end
          end
       end
    end
    if var1.selectedTab == "selectedTab" then
       if not arg1:isVisualizationEnabled(var0.LayerData) then
-         local var169 = {}
-         var169.selectedTab = var11.LAYER_TABS.LayerData
-         arg1:setState(var169)
+         if var13() then
+            arg1:switchToTab(var11.LAYER_TABS.LayerData)
+         else
+            local var209 = {}
+            var209.selectedTab = var11.LAYER_TABS.LayerData
+            arg1:setState(var209)
+         end
       end
    end
    if var2 then
@@ -142,31 +179,37 @@ function var14.render(arg1, arg2)
          if var0.HistoryField.id == "selectedTab" then
             if var0.HistoryField.section == "selectedTab" then
                if var0.HistoryField.field ~= arg2.HistoryField.field then
-                  local var187 = {}
-                  var187.selectedTab = var11.LAYER_TABS.History
-                  arg1:setState(var187)
+                  if var13() then
+                     arg1:switchToTab(var11.LAYER_TABS.History)
+                  end
+                  local var233 = {}
+                  var233.selectedTab = var11.LAYER_TABS.History
+                  arg1:setState(var233)
                end
             end
          end
       end
-      local var192 = {}
-      var192.selectedTab = var11.LAYER_TABS.History
-      arg1:setState(var192)
+      if var13() then
+         arg1:switchToTab(var11.LAYER_TABS.History)
+      end
+      local var244 = {}
+      var244.selectedTab = var11.LAYER_TABS.History
+      arg1:setState(var244)
    end
 end
 
 fun4 = var2.withContext
-local var197 = {}
-var197.Analytics = var2.Analytics
-var197.Localization = var2.Localization
-var197.Stylizer = var1.Style.Stylizer
-var14 = fun4(var197)(var14)
-var14 = require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
+local var249 = {}
+var249.Analytics = var2.Analytics
+var249.Localization = var2.Localization
+var249.Stylizer = var1.Style.Stylizer
+var15 = fun4(var249)(var15)
+var15 = require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.HistoryField = arg1.Status.HistoryField
    return var0
 end, function(arg1)
    return {}
-end)(var14)
-var14.Visualizers = require(script.Visualizers)
-return var14
+end)(var15)
+var15.Visualizers = require(script.Visualizers)
+return var15

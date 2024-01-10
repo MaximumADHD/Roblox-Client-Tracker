@@ -18,7 +18,7 @@ local keyMapper = createInspectAndBuyKeyMapper("getExperienceInfo")
 --[[
 	Get information about an experience given its universe id.
 ]]
-local function GetExperienceInfo(universeId)
+local function GetExperienceInfo(universeId:string): any
 	universeId = tostring(universeId)
 
 	return Thunk.new(script.Name, requiredServices, function(store, services)

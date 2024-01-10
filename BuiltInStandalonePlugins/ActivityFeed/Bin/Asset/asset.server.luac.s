@@ -1,0 +1,22 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [plugin]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  GETTABLEKS R0 R1 K4 ["Parent"]
+  GETIMPORT R1 K6 [require]
+  GETTABLEKS R3 R0 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["TestLoader"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["launch"]
+  LOADK R3 K10 ["ActivityFeed"]
+  GETTABLEKS R4 R0 K11 ["Src"]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K12 ["isCli"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  RETURN R0 0

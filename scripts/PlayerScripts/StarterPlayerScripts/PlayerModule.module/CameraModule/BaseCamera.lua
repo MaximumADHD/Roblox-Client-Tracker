@@ -6,6 +6,15 @@
 --]]
 
 --[[ Local Constants ]]--
+
+local FFlagUserFixGamepadMaxZoom
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixGamepadMaxZoom")
+	end)
+	FFlagUserFixGamepadMaxZoom = success and result
+end
+
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
 
@@ -536,12 +545,19 @@ function BaseCamera:GamepadZoomPress()
 		
 		if zoom < player.CameraMinZoomDistance then
 			zoom = player.CameraMinZoomDistance
+			if FFlagUserFixGamepadMaxZoom then
+				-- no more zoom levels to check, all the remaining ones
+				-- are < min
+				if max == zoom then
+					break
+				end
+			end
 		end
 
-		-- no more zoom levels to check, all the remaining ones
-		-- are < min
-		if max == zoom then
-			break
+		if not FFlagUserFixGamepadMaxZoom then
+			if max == zoom then
+				break
+			end
 		end
 
 		-- theshold is set at halfway between zoom levels
@@ -553,7 +569,7 @@ function BaseCamera:GamepadZoomPress()
 		max = zoom
 	end
 	
-	-- cycle back to the largest
+	-- cycle back to the largest, relies on the fact that SetCameraToSubjectDistance will clamp max and min
 	self:SetCameraToSubjectDistance(self.gamepadZoomLevels[#self.gamepadZoomLevels])
 end
 

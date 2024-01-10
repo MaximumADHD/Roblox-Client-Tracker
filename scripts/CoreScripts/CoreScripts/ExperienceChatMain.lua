@@ -3,15 +3,19 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local TextChatService = game:GetService("TextChatService")
 local StarterGui = game:GetService("StarterGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
+
+local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
 
 -- Wait for the game to be Loaded before checking ChatVersion
 -- Otherwise it will always return its default value.
 local _ = game:IsLoaded() or game.Loaded:Wait()
-if TextChatService.ChatVersion ~= Enum.ChatVersion.TextChatService then
-	return
+if not GetFFlagConsolidateBubbleChat() then
+	if TextChatService.ChatVersion ~= Enum.ChatVersion.TextChatService then
+		return
+	end
 end
 
-local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ApolloClient = require(RobloxGui.Modules.ApolloClient)
 local ExperienceChat = require(CorePackages.ExperienceChat)
@@ -21,6 +25,7 @@ local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAv
 local getFFlagAddApolloClientToExperienceChat = require(RobloxGui.Modules.Flags.getFFlagAddApolloClientToExperienceChat)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
+local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
 local getIconVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.getIconVoiceIndicator)
@@ -39,6 +44,9 @@ if FFlagAvatarChatCoreScriptSupport then
 
 	if getFFlagDoNotPromptCameraPermissionsOnMount() then
 		displayCameraDeniedToast = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.displayCameraDeniedToast)
+		if GetFFlagRemoveInGameChatBubbleChatReferences() then
+			displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
+		end
 		isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
 	end
 
@@ -78,7 +86,13 @@ if FFlagEnableSetCoreGuiEnabledExpChat then
 	end)
 end
 
-local createdDefaultChannels = TextChatService.CreateDefaultTextChannels
+local createdDefaultChannels 
+if GetFFlagConsolidateBubbleChat() then
+	createdDefaultChannels = TextChatService.ChatVersion == Enum.ChatVersion.TextChatService 
+else
+	createdDefaultChannels = TextChatService.CreateDefaultTextChannels
+end
+
 ExperienceChat.mountClientApp({
 	apolloClient = if getFFlagAddApolloClientToExperienceChat() then ApolloClient else nil,
 	getIconVoiceIndicator = if getIconVoiceIndicator then getIconVoiceIndicator else nil,

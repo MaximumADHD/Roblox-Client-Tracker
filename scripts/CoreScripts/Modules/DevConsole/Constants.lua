@@ -229,6 +229,25 @@ local Constants = {
 		DepthIndent = 24,
 	},
 
+	LuauHeapFormatting = {
+		ValueCellWidth = 0.2,
+		CellPadding = 24,
+		ValuePadding = 12,
+		DepthIndent = 12,
+		SnapshotWidth = 0.2,
+		SnapshotHighlightSize = 3,
+		TabsHeight = 30,
+		TabButtonWidth = 120,
+		TabButtonHeight = 30,
+		TabButtonPad = 5,
+		TabHighlightHeight = 5,
+		TableHintHeight = 50,
+		GraphEntryFrameHeight = 20,
+		PathEntryFrameHeight = 20,
+		RefEntryFrameHeight = 20,
+		StatEntryFrameHeight = 20,
+	},
+
 	DebugVisualizationsFormatting = {
 		ChartHeaderNames = {"Name", "Toggle", "Draw Type", "Tags"},
 		ChartCellWidths = {60, 80}, -- width of cells 2-4; cell 1 fills remainder

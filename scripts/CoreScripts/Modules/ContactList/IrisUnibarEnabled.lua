@@ -1,18 +1,12 @@
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local Players = game:GetService("Players")
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 local GetFFlagIrisCallBarChromeIntegration =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisCallBarChromeIntegration
 
 return function()
-	local localPlayer = Players.LocalPlayer
-
-	local forcedUserIds = game:GetFastString("InGameMenuChromeForcedUserIds")
-	for forcedUserIdString in forcedUserIds:gmatch("%d+") do
-		if localPlayer and tonumber(forcedUserIdString) == localPlayer.UserId then
-			return GetFFlagIrisCallBarChromeIntegration()
-		end
-	end
-
-	return GetFFlagIrisCallBarChromeIntegration() and game:GetFastFlag("EnableInGameMenuChrome")
+	return GetFFlagIrisCallBarChromeIntegration() and ChromeEnabled()
 end

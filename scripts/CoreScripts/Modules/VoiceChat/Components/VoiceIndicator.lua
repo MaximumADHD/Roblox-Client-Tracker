@@ -24,9 +24,15 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
+local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 
 local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+
+if GetFFlagRemoveInGameChatBubbleChatReferences() then
+	log = require(RobloxGui.Modules.VoiceChat.Logger)(script.Name)
+	Constants = require(RobloxGui.Modules.VoiceChat.Constants) :: any
+end
 
 local VoiceIndicator = Roact.PureComponent:extend("VoiceIndicator")
 

@@ -1,10 +1,8 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 game:DefineFastFlag("ChooseAnimationForRestPose", true)
 game:DefineFastFlag("ShowRigSettingsNoJoints", true)
-game:DefineFastFlag("DetectGltfJoints", true)
 game:DefineFastFlag("HideAnimationSettingForGltf", true)
 game:DefineFastFlag("AinStatusesV2Release", true)
 game:DefineFastFlag("ImporterOpensAvatarPreviewer2", true)
 game:DefineFastFlag("ImporterOpensAvatarPreviewerBetaCheck", true)
-game:DefineFastFlag("AinStatusMove2", true)
 return nil

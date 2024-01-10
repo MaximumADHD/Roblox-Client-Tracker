@@ -18,12 +18,9 @@ local var15 = var3.UI.ScrollingFrame
 local var16 = Vector2.new(17, 6)
 local var17 = Color3.fromRGB(0, 0, 0)
 local var18 = var5.TAB_WIDGET_HEIGHT + var5.HEADER_HEIGHT
-local var19 = require(var0.Core.Flags.getFFlagToolboxImproveJestOutputSpam)
-local var20 = var2.PureComponent:extend("SearchOptionsLayout")
-function var20.init(arg1, arg2)
-   if var19() then
-      arg1.state = {}
-   end
+local var19 = var2.PureComponent:extend("SearchOptionsLayout")
+function var19.init(arg1, arg2)
+   arg1.state = {}
    arg1.layoutRef = var2.createRef()
    function arg1.cancel()
       arg1.props.OnClose()
@@ -52,9 +49,9 @@ function var20.init(arg1, arg2)
    end
    
    function arg1.updateContentsSize(arg1)
-      local var131 = {}
-      var131.contentSize = arg1
-      arg1:setState(var131)
+      local var124 = {}
+      var124.contentSize = arg1
+      arg1:setState(var124)
    end
    
 end
@@ -75,130 +72,130 @@ local function fun9(arg1)
       end
    end
    local var7 = var9.new()
-   local var180 = {}
-   var180.Priority = 2
-   local var182 = {}
-   local var186 = {}
-   var186.AutoButtonColor = false
-   var186.BackgroundTransparency = 0.25
-   var186.BackgroundColor3 = var17
-   var186.Size = UDim2.fromScale(1, 1)
-   var186.ZIndex = 10
+   local var173 = {}
+   var173.Priority = 2
+   local var175 = {}
+   local var179 = {}
+   var179.AutoButtonColor = false
+   var179.BackgroundTransparency = 0.25
+   var179.BackgroundColor3 = var17
+   var179.Size = UDim2.fromScale(1, 1)
+   var179.ZIndex = 10
    var2.Event.Activated = arg1.cancel
-   local var199 = {}
-   local var205 = {}
-   var205.AnchorPoint = Vector2.new(1, 0)
-   var205.Position = UDim2.new(1, 65532, 0, var18 + 4)
-   var205.Size = UDim2.new(0, var5.TOOLBOX_MIN_WIDTH, 1, var18 + 8 + 42)
-   local var229 = {}
-   local var233 = {}
-   var233.BackgroundColor = var3.background
-   function var233.OnClick()
+   local var192 = {}
+   local var198 = {}
+   var198.AnchorPoint = Vector2.new(1, 0)
+   var198.Position = UDim2.new(1, 65532, 0, var18 + 4)
+   var198.Size = UDim2.new(0, var5.TOOLBOX_MIN_WIDTH, 1, var18 + 8 + 42)
+   local var222 = {}
+   local var226 = {}
+   var226.BackgroundColor = var3.background
+   function var226.OnClick()
    end
    
-   var233.Size = var6
-   var233.Style = "BorderBox"
+   var226.Size = var6
+   var226.Style = "BorderBox"
    var2.Event.MouseEnter = arg1.mouseEnter
    var2.Event.MouseLeave = arg1.mouseLeave
-   local var244 = {}
-   local var248 = {}
-   var248.AutoSizeCanvas = true
-   local var250 = {}
-   var250.SortOrder = Enum.SortOrder.LayoutOrder
-   var248.AutoSizeLayoutOptions = var250
-   var248.Layout = Enum.FillDirection.Vertical
-   var248.OnCanvasResize = arg1.updateContentsSize
-   var248.Position = UDim2.new(0, 0, 0, 0)
-   var248.Size = UDim2.new(1, 0, 1, 65494)
-   local var266 = {}
-   local var270 = {}
-   var270.PaddingLeft = UDim.new(0, 10)
-   var270.PaddingRight = UDim.new(0, 10)
-   var270.PaddingTop = UDim.new(0, 10)
-   var270.PaddingBottom = UDim.new(0, 20)
-   var266.Padding = var2.createElement("UIPadding", var270)
-   local var291 = {}
-   var291.AutomaticSize = Enum.AutomaticSize.XY
-   var291.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var291.Layout = Enum.FillDirection.Vertical
-   var291.Spacing = 0
-   var291.Size = UDim2.fromScale(1, 0)
-   var266.Content = var2.createElement(var13, var291, arg1.props[var2.Children])
-   local var308 = {}
-   var308.BackgroundTransparency = 1
-   var308.Size = UDim2.new(1, 0, 0, 10)
-   var308.LayoutOrder = var7:getNextOrder()
-   var266.ExtraPadding = var2.createElement("Frame", var308)
-   var244.Container = var2.createElement(var15, var248, var266)
-   local var323 = {}
-   local var324 = {}
-   var324.Left = 10
-   var324.Right = 10
-   var323.Padding = var324
-   var323.Position = UDim2.new(0, 0, 1, 65494)
-   var323.Spacing = 20
-   var323.Size = UDim2.new(1, 0, 0, 42)
-   var323.ZIndex = 3
-   local var341 = {}
-   local var342 = true
-   if var342 then
-      local var346 = {}
-      var346.LayoutOrder = var7:getNextOrder()
-      var346.Size = UDim2.new(1, 65528, 0, 20)
-      var346.Position = UDim2.new(0, 0, 0, 65516)
-      var346.BackgroundColor3 = Color3.new(1, 1, 1)
-      var346.BorderColor3 = Color3.new(1, 1, 1)
-      local var371 = {}
-      local var375 = {}
-      var375.Color = ColorSequence.new(var3.background)
-      var375.Rotation = 90
+   local var237 = {}
+   local var241 = {}
+   var241.AutoSizeCanvas = true
+   local var243 = {}
+   var243.SortOrder = Enum.SortOrder.LayoutOrder
+   var241.AutoSizeLayoutOptions = var243
+   var241.Layout = Enum.FillDirection.Vertical
+   var241.OnCanvasResize = arg1.updateContentsSize
+   var241.Position = UDim2.new(0, 0, 0, 0)
+   var241.Size = UDim2.new(1, 0, 1, 65494)
+   local var259 = {}
+   local var263 = {}
+   var263.PaddingLeft = UDim.new(0, 10)
+   var263.PaddingRight = UDim.new(0, 10)
+   var263.PaddingTop = UDim.new(0, 10)
+   var263.PaddingBottom = UDim.new(0, 20)
+   var259.Padding = var2.createElement("UIPadding", var263)
+   local var284 = {}
+   var284.AutomaticSize = Enum.AutomaticSize.XY
+   var284.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var284.Layout = Enum.FillDirection.Vertical
+   var284.Spacing = 0
+   var284.Size = UDim2.fromScale(1, 0)
+   var259.Content = var2.createElement(var13, var284, arg1.props[var2.Children])
+   local var301 = {}
+   var301.BackgroundTransparency = 1
+   var301.Size = UDim2.new(1, 0, 0, 10)
+   var301.LayoutOrder = var7:getNextOrder()
+   var259.ExtraPadding = var2.createElement("Frame", var301)
+   var237.Container = var2.createElement(var15, var241, var259)
+   local var316 = {}
+   local var317 = {}
+   var317.Left = 10
+   var317.Right = 10
+   var316.Padding = var317
+   var316.Position = UDim2.new(0, 0, 1, 65494)
+   var316.Spacing = 20
+   var316.Size = UDim2.new(1, 0, 0, 42)
+   var316.ZIndex = 3
+   local var334 = {}
+   local var335 = true
+   if var335 then
+      local var339 = {}
+      var339.LayoutOrder = var7:getNextOrder()
+      var339.Size = UDim2.new(1, 65528, 0, 20)
+      var339.Position = UDim2.new(0, 0, 0, 65516)
+      var339.BackgroundColor3 = Color3.new(1, 1, 1)
+      var339.BorderColor3 = Color3.new(1, 1, 1)
+      local var364 = {}
+      local var368 = {}
+      var368.Color = ColorSequence.new(var3.background)
+      var368.Rotation = 90
       local var0 = NumberSequenceKeypoint.new(0, 1)
       local var1 = NumberSequenceKeypoint.new(1, 0.25)
-      var375.Transparency = NumberSequence.new({})
-      var371.Gradient = var2.createElement("UIGradient", var375)
-      local var2 = var2.createElement("Frame", var346, var371)
+      var368.Transparency = NumberSequence.new({})
+      var364.Gradient = var2.createElement("UIGradient", var368)
+      local var2 = var2.createElement("Frame", var339, var364)
    end
-   var341.GradientOverlay = var342
-   local var396 = {}
-   var396.AutomaticSize = Enum.AutomaticSize.Y
-   var396.AnchorPoint = Vector2.new(0, 1)
-   var396.HorizontalAlignment = Enum.HorizontalAlignment.Right
-   var396.VerticalAlignment = Enum.VerticalAlignment.Center
-   var396.Layout = Enum.FillDirection.Horizontal
-   var396.OnClick = arg1.footerButtonClicked
-   local var406 = {}
-   var406.Bottom = 8
-   var396.Padding = var406
-   var396.Position = UDim2.new(0, 0, 1, 0)
-   var396.Size = UDim2.new(1, 0, 0, 0)
-   var396.Spacing = 20
-   local var421 = {}
-   local var425 = {}
-   var425.AutomaticSize = Enum.AutomaticSize.XY
-   var425.LayoutOrder = var7:getNextOrder()
-   var425.OnClick = arg1.onReset
-   var425.Text = var1:getText("General", "SearchOptionsResetAll")
-   var421.CancelButton = var2.createElement(var12, var425)
-   local var438 = {}
-   var438.LayoutOrder = var7:getNextOrder()
-   var438.OnClick = arg1.onSubmit
-   var438.Style = "RoundPrimary"
-   var438.Size = UDim2.fromOffset(var5.X + var16.X * 2, var5.Y + var16.Y * 2)
-   var438.Text = var4
-   local var455 = {}
-   local var459 = {}
-   var459.Cursor = "PointingHand"
-   var455.HoverArea = var2.createElement(var11, var459)
-   var421.ApplyButton = var2.createElement(var10, var438, var455)
-   var341.Footer = var2.createElement(var13, var396, var421)
-   var244.BottomButtonsContainer = var2.createElement(var13, var323, var341)
-   var229.Contents = var2.createElement(var13, var233, var244)
-   var199.MainPositioning = var2.createElement(var13, var7.join(var205, var0.WrapperProps), var229)
-   var182.ClickEventDetectFrame = var2.createElement("ImageButton", var186, var199)
-   return var2.createElement(var14, var180, var182)
+   var334.GradientOverlay = var335
+   local var389 = {}
+   var389.AutomaticSize = Enum.AutomaticSize.Y
+   var389.AnchorPoint = Vector2.new(0, 1)
+   var389.HorizontalAlignment = Enum.HorizontalAlignment.Right
+   var389.VerticalAlignment = Enum.VerticalAlignment.Center
+   var389.Layout = Enum.FillDirection.Horizontal
+   var389.OnClick = arg1.footerButtonClicked
+   local var399 = {}
+   var399.Bottom = 8
+   var389.Padding = var399
+   var389.Position = UDim2.new(0, 0, 1, 0)
+   var389.Size = UDim2.new(1, 0, 0, 0)
+   var389.Spacing = 20
+   local var414 = {}
+   local var418 = {}
+   var418.AutomaticSize = Enum.AutomaticSize.XY
+   var418.LayoutOrder = var7:getNextOrder()
+   var418.OnClick = arg1.onReset
+   var418.Text = var1:getText("General", "SearchOptionsResetAll")
+   var414.CancelButton = var2.createElement(var12, var418)
+   local var431 = {}
+   var431.LayoutOrder = var7:getNextOrder()
+   var431.OnClick = arg1.onSubmit
+   var431.Style = "RoundPrimary"
+   var431.Size = UDim2.fromOffset(var5.X + var16.X * 2, var5.Y + var16.Y * 2)
+   var431.Text = var4
+   local var448 = {}
+   local var452 = {}
+   var452.Cursor = "PointingHand"
+   var448.HoverArea = var2.createElement(var11, var452)
+   var414.ApplyButton = var2.createElement(var10, var431, var448)
+   var334.Footer = var2.createElement(var13, var389, var414)
+   var237.BottomButtonsContainer = var2.createElement(var13, var316, var334)
+   var222.Contents = var2.createElement(var13, var226, var237)
+   var192.MainPositioning = var2.createElement(var13, var7.join(var198, var0.WrapperProps), var222)
+   var175.ClickEventDetectFrame = var2.createElement("ImageButton", var179, var192)
+   return var2.createElement(var14, var173, var175)
 end
 
-function var20.render(arg1)
+function var19.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
    local var2 = arg1.state.contentSize
@@ -214,145 +211,145 @@ function var20.render(arg1)
       end
    end
    local var7 = var9.new()
-   local var180 = {}
-   var180.Priority = 2
-   local var182 = {}
-   local var186 = {}
-   var186.AutoButtonColor = false
-   var186.BackgroundTransparency = 0.25
-   var186.BackgroundColor3 = var17
-   var186.Size = UDim2.fromScale(1, 1)
-   var186.ZIndex = 10
+   local var173 = {}
+   var173.Priority = 2
+   local var175 = {}
+   local var179 = {}
+   var179.AutoButtonColor = false
+   var179.BackgroundTransparency = 0.25
+   var179.BackgroundColor3 = var17
+   var179.Size = UDim2.fromScale(1, 1)
+   var179.ZIndex = 10
    var2.Event.Activated = arg1.cancel
-   local var199 = {}
-   local var205 = {}
-   var205.AnchorPoint = Vector2.new(1, 0)
-   var205.Position = UDim2.new(1, 65532, 0, var18 + 4)
-   var205.Size = UDim2.new(0, var5.TOOLBOX_MIN_WIDTH, 1, var18 + 8 + 42)
-   local var229 = {}
-   local var233 = {}
-   var233.BackgroundColor = var3.background
-   function var233.OnClick()
+   local var192 = {}
+   local var198 = {}
+   var198.AnchorPoint = Vector2.new(1, 0)
+   var198.Position = UDim2.new(1, 65532, 0, var18 + 4)
+   var198.Size = UDim2.new(0, var5.TOOLBOX_MIN_WIDTH, 1, var18 + 8 + 42)
+   local var222 = {}
+   local var226 = {}
+   var226.BackgroundColor = var3.background
+   function var226.OnClick()
    end
    
-   var233.Size = var6
-   var233.Style = "BorderBox"
+   var226.Size = var6
+   var226.Style = "BorderBox"
    var2.Event.MouseEnter = arg1.mouseEnter
    var2.Event.MouseLeave = arg1.mouseLeave
-   local var244 = {}
-   local var248 = {}
-   var248.AutoSizeCanvas = true
-   local var250 = {}
-   var250.SortOrder = Enum.SortOrder.LayoutOrder
-   var248.AutoSizeLayoutOptions = var250
-   var248.Layout = Enum.FillDirection.Vertical
-   var248.OnCanvasResize = arg1.updateContentsSize
-   var248.Position = UDim2.new(0, 0, 0, 0)
-   var248.Size = UDim2.new(1, 0, 1, 65494)
-   local var266 = {}
-   local var270 = {}
-   var270.PaddingLeft = UDim.new(0, 10)
-   var270.PaddingRight = UDim.new(0, 10)
-   var270.PaddingTop = UDim.new(0, 10)
-   var270.PaddingBottom = UDim.new(0, 20)
-   var266.Padding = var2.createElement("UIPadding", var270)
-   local var291 = {}
-   var291.AutomaticSize = Enum.AutomaticSize.XY
-   var291.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var291.Layout = Enum.FillDirection.Vertical
-   var291.Spacing = 0
-   var291.Size = UDim2.fromScale(1, 0)
-   var266.Content = var2.createElement(var13, var291, arg1.props[var2.Children])
-   local var308 = {}
-   var308.BackgroundTransparency = 1
-   var308.Size = UDim2.new(1, 0, 0, 10)
-   var308.LayoutOrder = var7:getNextOrder()
-   var266.ExtraPadding = var2.createElement("Frame", var308)
-   var244.Container = var2.createElement(var15, var248, var266)
-   local var323 = {}
-   local var324 = {}
-   var324.Left = 10
-   var324.Right = 10
-   var323.Padding = var324
-   var323.Position = UDim2.new(0, 0, 1, 65494)
-   var323.Spacing = 20
-   var323.Size = UDim2.new(1, 0, 0, 42)
-   var323.ZIndex = 3
-   local var341 = {}
-   local var342 = true
-   if var342 then
-      local var346 = {}
-      var346.LayoutOrder = var7:getNextOrder()
-      var346.Size = UDim2.new(1, 65528, 0, 20)
-      var346.Position = UDim2.new(0, 0, 0, 65516)
-      var346.BackgroundColor3 = Color3.new(1, 1, 1)
-      var346.BorderColor3 = Color3.new(1, 1, 1)
-      local var371 = {}
-      local var375 = {}
-      var375.Color = ColorSequence.new(var3.background)
-      var375.Rotation = 90
+   local var237 = {}
+   local var241 = {}
+   var241.AutoSizeCanvas = true
+   local var243 = {}
+   var243.SortOrder = Enum.SortOrder.LayoutOrder
+   var241.AutoSizeLayoutOptions = var243
+   var241.Layout = Enum.FillDirection.Vertical
+   var241.OnCanvasResize = arg1.updateContentsSize
+   var241.Position = UDim2.new(0, 0, 0, 0)
+   var241.Size = UDim2.new(1, 0, 1, 65494)
+   local var259 = {}
+   local var263 = {}
+   var263.PaddingLeft = UDim.new(0, 10)
+   var263.PaddingRight = UDim.new(0, 10)
+   var263.PaddingTop = UDim.new(0, 10)
+   var263.PaddingBottom = UDim.new(0, 20)
+   var259.Padding = var2.createElement("UIPadding", var263)
+   local var284 = {}
+   var284.AutomaticSize = Enum.AutomaticSize.XY
+   var284.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var284.Layout = Enum.FillDirection.Vertical
+   var284.Spacing = 0
+   var284.Size = UDim2.fromScale(1, 0)
+   var259.Content = var2.createElement(var13, var284, arg1.props[var2.Children])
+   local var301 = {}
+   var301.BackgroundTransparency = 1
+   var301.Size = UDim2.new(1, 0, 0, 10)
+   var301.LayoutOrder = var7:getNextOrder()
+   var259.ExtraPadding = var2.createElement("Frame", var301)
+   var237.Container = var2.createElement(var15, var241, var259)
+   local var316 = {}
+   local var317 = {}
+   var317.Left = 10
+   var317.Right = 10
+   var316.Padding = var317
+   var316.Position = UDim2.new(0, 0, 1, 65494)
+   var316.Spacing = 20
+   var316.Size = UDim2.new(1, 0, 0, 42)
+   var316.ZIndex = 3
+   local var334 = {}
+   local var335 = true
+   if var335 then
+      local var339 = {}
+      var339.LayoutOrder = var7:getNextOrder()
+      var339.Size = UDim2.new(1, 65528, 0, 20)
+      var339.Position = UDim2.new(0, 0, 0, 65516)
+      var339.BackgroundColor3 = Color3.new(1, 1, 1)
+      var339.BorderColor3 = Color3.new(1, 1, 1)
+      local var364 = {}
+      local var368 = {}
+      var368.Color = ColorSequence.new(var3.background)
+      var368.Rotation = 90
       local var0 = NumberSequenceKeypoint.new(0, 1)
       local var1 = NumberSequenceKeypoint.new(1, 0.25)
-      var375.Transparency = NumberSequence.new({})
-      var371.Gradient = var2.createElement("UIGradient", var375)
-      local var2 = var2.createElement("Frame", var346, var371)
+      var368.Transparency = NumberSequence.new({})
+      var364.Gradient = var2.createElement("UIGradient", var368)
+      local var2 = var2.createElement("Frame", var339, var364)
    end
-   var341.GradientOverlay = var342
-   local var396 = {}
-   var396.AutomaticSize = Enum.AutomaticSize.Y
-   var396.AnchorPoint = Vector2.new(0, 1)
-   var396.HorizontalAlignment = Enum.HorizontalAlignment.Right
-   var396.VerticalAlignment = Enum.VerticalAlignment.Center
-   var396.Layout = Enum.FillDirection.Horizontal
-   var396.OnClick = arg1.footerButtonClicked
-   local var406 = {}
-   var406.Bottom = 8
-   var396.Padding = var406
-   var396.Position = UDim2.new(0, 0, 1, 0)
-   var396.Size = UDim2.new(1, 0, 0, 0)
-   var396.Spacing = 20
-   local var421 = {}
-   local var425 = {}
-   var425.AutomaticSize = Enum.AutomaticSize.XY
-   var425.LayoutOrder = var7:getNextOrder()
-   var425.OnClick = arg1.onReset
-   var425.Text = var1:getText("General", "SearchOptionsResetAll")
-   var421.CancelButton = var2.createElement(var12, var425)
-   local var438 = {}
-   var438.LayoutOrder = var7:getNextOrder()
-   var438.OnClick = arg1.onSubmit
-   var438.Style = "RoundPrimary"
-   var438.Size = UDim2.fromOffset(var5.X + var16.X * 2, var5.Y + var16.Y * 2)
-   var438.Text = var4
-   local var455 = {}
-   local var459 = {}
-   var459.Cursor = "PointingHand"
-   var455.HoverArea = var2.createElement(var11, var459)
-   var421.ApplyButton = var2.createElement(var10, var438, var455)
-   var341.Footer = var2.createElement(var13, var396, var421)
-   var244.BottomButtonsContainer = var2.createElement(var13, var323, var341)
-   var229.Contents = var2.createElement(var13, var233, var244)
-   var199.MainPositioning = var2.createElement(var13, var7.join(var205, var0.WrapperProps), var229)
-   var182.ClickEventDetectFrame = var2.createElement("ImageButton", var186, var199)
-   return var2.createElement(var14, var180, var182)
+   var334.GradientOverlay = var335
+   local var389 = {}
+   var389.AutomaticSize = Enum.AutomaticSize.Y
+   var389.AnchorPoint = Vector2.new(0, 1)
+   var389.HorizontalAlignment = Enum.HorizontalAlignment.Right
+   var389.VerticalAlignment = Enum.VerticalAlignment.Center
+   var389.Layout = Enum.FillDirection.Horizontal
+   var389.OnClick = arg1.footerButtonClicked
+   local var399 = {}
+   var399.Bottom = 8
+   var389.Padding = var399
+   var389.Position = UDim2.new(0, 0, 1, 0)
+   var389.Size = UDim2.new(1, 0, 0, 0)
+   var389.Spacing = 20
+   local var414 = {}
+   local var418 = {}
+   var418.AutomaticSize = Enum.AutomaticSize.XY
+   var418.LayoutOrder = var7:getNextOrder()
+   var418.OnClick = arg1.onReset
+   var418.Text = var1:getText("General", "SearchOptionsResetAll")
+   var414.CancelButton = var2.createElement(var12, var418)
+   local var431 = {}
+   var431.LayoutOrder = var7:getNextOrder()
+   var431.OnClick = arg1.onSubmit
+   var431.Style = "RoundPrimary"
+   var431.Size = UDim2.fromOffset(var5.X + var16.X * 2, var5.Y + var16.Y * 2)
+   var431.Text = var4
+   local var448 = {}
+   local var452 = {}
+   var452.Cursor = "PointingHand"
+   var448.HoverArea = var2.createElement(var11, var452)
+   var414.ApplyButton = var2.createElement(var10, var431, var448)
+   var334.Footer = var2.createElement(var13, var389, var414)
+   var237.BottomButtonsContainer = var2.createElement(var13, var316, var334)
+   var222.Contents = var2.createElement(var13, var226, var237)
+   var192.MainPositioning = var2.createElement(var13, var7.join(var198, var0.WrapperProps), var222)
+   var175.ClickEventDetectFrame = var2.createElement("ImageButton", var179, var192)
+   return var2.createElement(var14, var173, var175)
 end
 
 fun9 = var6.withContext
-local var469 = {}
-var469.Localization = var6.Localization
-var469.Modal = require(var0.Core.ContextServices.ModalContext)
-var469.Network = require(var0.Core.ContextServices.NetworkContext)
-var469.Stylizer = var6.Stylizer
-var469.Settings = require(var0.Core.ContextServices.Settings)
-var20 = fun9(var469)(var20)
-local var485 = require(var1.RoactRodux).connect(nil, function(arg1)
+local var462 = {}
+var462.Localization = var6.Localization
+var462.Modal = require(var0.Core.ContextServices.ModalContext)
+var462.Network = require(var0.Core.ContextServices.NetworkContext)
+var462.Stylizer = var6.Stylizer
+var462.Settings = require(var0.Core.ContextServices.Settings)
+var19 = fun9(var462)(var19)
+local var478 = require(var1.RoactRodux).connect(nil, function(arg1)
    local var0 = {}
    function var0.searchWithOptions()
       arg1.props.OnClose()
    end
    
    return var0
-end)(var20)
-var20 = var485
-var485 = var3.Wrappers.withAbsoluteSize
-return var485(var20)
+end)(var19)
+var19 = var478
+var478 = var3.Wrappers.withAbsoluteSize
+return var478(var19)

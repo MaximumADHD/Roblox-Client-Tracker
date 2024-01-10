@@ -1,0 +1,1013 @@
+PROTO_0:
+  MOVE R4 R0
+  NAMECALL R2 R1 K0 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+1]
+  RETURN R2 1
+  GETIMPORT R3 K3 [Instance.new]
+  LOADK R4 K4 ["Folder"]
+  CALL R3 1 1
+  SETTABLEKS R0 R3 K5 ["Name"]
+  SETTABLEKS R1 R3 K6 ["Parent"]
+  RETURN R3 1
+
+PROTO_1:
+  DUPCLOSURE R1 K0 [PROTO_0]
+  GETUPVAL R2 0
+  JUMPIF R2 [+19]
+  GETUPVAL R3 1
+  LOADK R6 K1 ["R15MigratorProgress"]
+  NAMECALL R4 R3 K2 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R2 R4
+  JUMP [+10]
+  GETIMPORT R5 K5 [Instance.new]
+  LOADK R6 K6 ["Folder"]
+  CALL R5 1 1
+  LOADK R6 K1 ["R15MigratorProgress"]
+  SETTABLEKS R6 R5 K7 ["Name"]
+  SETTABLEKS R3 R5 K8 ["Parent"]
+  MOVE R2 R5
+  SETUPVAL R2 0
+  JUMPIFNOT R0 [+18]
+  GETUPVAL R3 0
+  MOVE R6 R0
+  NAMECALL R4 R3 K2 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R2 R4
+  RETURN R2 1
+  GETIMPORT R5 K5 [Instance.new]
+  LOADK R6 K6 ["Folder"]
+  CALL R5 1 1
+  SETTABLEKS R0 R5 K7 ["Name"]
+  SETTABLEKS R3 R5 K8 ["Parent"]
+  MOVE R2 R5
+  RETURN R2 1
+  GETUPVAL R2 0
+  RETURN R2 1
+
+PROTO_2:
+  DUPCLOSURE R4 K0 [PROTO_0]
+  GETUPVAL R5 0
+  JUMPIF R5 [+19]
+  GETUPVAL R6 1
+  LOADK R9 K1 ["R15MigratorProgress"]
+  NAMECALL R7 R6 K2 ["FindFirstChild"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+2]
+  MOVE R5 R7
+  JUMP [+10]
+  GETIMPORT R8 K5 [Instance.new]
+  LOADK R9 K6 ["Folder"]
+  CALL R8 1 1
+  LOADK R9 K1 ["R15MigratorProgress"]
+  SETTABLEKS R9 R8 K7 ["Name"]
+  SETTABLEKS R6 R8 K8 ["Parent"]
+  MOVE R5 R8
+  SETUPVAL R5 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K8 ["Parent"]
+  JUMPIFEQ R2 R0 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_3:
+  DUPCLOSURE R2 K0 [PROTO_0]
+  GETUPVAL R3 0
+  JUMPIF R3 [+19]
+  GETUPVAL R4 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  NAMECALL R5 R4 K2 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  MOVE R3 R5
+  JUMP [+10]
+  GETIMPORT R6 K5 [Instance.new]
+  LOADK R7 K6 ["Folder"]
+  CALL R6 1 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  SETTABLEKS R7 R6 K7 ["Name"]
+  SETTABLEKS R4 R6 K8 ["Parent"]
+  MOVE R3 R6
+  SETUPVAL R3 0
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K9 ["IsDescendantOf"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_4:
+  DUPCLOSURE R3 K0 [PROTO_0]
+  GETUPVAL R4 0
+  JUMPIF R4 [+19]
+  GETUPVAL R5 1
+  LOADK R8 K1 ["R15MigratorProgress"]
+  NAMECALL R6 R5 K2 ["FindFirstChild"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R4 R6
+  JUMP [+10]
+  GETIMPORT R7 K5 [Instance.new]
+  LOADK R8 K6 ["Folder"]
+  CALL R7 1 1
+  LOADK R8 K1 ["R15MigratorProgress"]
+  SETTABLEKS R8 R7 K7 ["Name"]
+  SETTABLEKS R5 R7 K8 ["Parent"]
+  MOVE R4 R7
+  SETUPVAL R4 0
+  GETUPVAL R2 0
+  JUMPIFEQ R2 R0 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_5:
+  DUPCLOSURE R4 K0 [PROTO_0]
+  GETUPVAL R5 0
+  JUMPIF R5 [+19]
+  GETUPVAL R6 1
+  LOADK R9 K1 ["R15MigratorProgress"]
+  NAMECALL R7 R6 K2 ["FindFirstChild"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+2]
+  MOVE R5 R7
+  JUMP [+10]
+  GETIMPORT R8 K5 [Instance.new]
+  LOADK R9 K6 ["Folder"]
+  CALL R8 1 1
+  LOADK R9 K1 ["R15MigratorProgress"]
+  SETTABLEKS R9 R8 K7 ["Name"]
+  SETTABLEKS R6 R8 K8 ["Parent"]
+  MOVE R5 R8
+  SETUPVAL R5 0
+  GETUPVAL R3 0
+  NAMECALL R1 R0 K9 ["IsDescendantOf"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_6:
+  DUPCLOSURE R2 K0 [PROTO_0]
+  GETUPVAL R3 0
+  JUMPIF R3 [+19]
+  GETUPVAL R4 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  NAMECALL R5 R4 K2 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  MOVE R3 R5
+  JUMP [+10]
+  GETIMPORT R6 K5 [Instance.new]
+  LOADK R7 K6 ["Folder"]
+  CALL R6 1 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  SETTABLEKS R7 R6 K7 ["Name"]
+  SETTABLEKS R4 R6 K8 ["Parent"]
+  MOVE R3 R6
+  SETUPVAL R3 0
+  GETUPVAL R3 0
+  LOADK R6 K9 ["R6Characters"]
+  NAMECALL R4 R3 K2 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R1 R4
+  JUMP [+10]
+  GETIMPORT R5 K5 [Instance.new]
+  LOADK R6 K6 ["Folder"]
+  CALL R5 1 1
+  LOADK R6 K9 ["R6Characters"]
+  SETTABLEKS R6 R5 K7 ["Name"]
+  SETTABLEKS R3 R5 K8 ["Parent"]
+  MOVE R1 R5
+  MOVE R4 R0
+  NAMECALL R2 R1 K2 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIF R2 [+31]
+  GETIMPORT R3 K11 [warn]
+  LOADK R5 K12 ["Original R6 character is unavailable. Was the %* folder edited?"]
+  DUPCLOSURE R8 K0 [PROTO_0]
+  GETUPVAL R9 0
+  JUMPIF R9 [+19]
+  GETUPVAL R10 1
+  LOADK R13 K1 ["R15MigratorProgress"]
+  NAMECALL R11 R10 K2 ["FindFirstChild"]
+  CALL R11 2 1
+  JUMPIFNOT R11 [+2]
+  MOVE R9 R11
+  JUMP [+10]
+  GETIMPORT R12 K5 [Instance.new]
+  LOADK R13 K6 ["Folder"]
+  CALL R12 1 1
+  LOADK R13 K1 ["R15MigratorProgress"]
+  SETTABLEKS R13 R12 K7 ["Name"]
+  SETTABLEKS R10 R12 K8 ["Parent"]
+  MOVE R9 R12
+  SETUPVAL R9 0
+  GETUPVAL R7 0
+  NAMECALL R5 R5 K13 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  RETURN R2 1
+
+PROTO_7:
+  LOADK R3 K0 ["R15MigratorConversionId"]
+  NAMECALL R1 R0 K1 ["GetAttribute"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getConversionId"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  DUPCLOSURE R4 K1 [PROTO_0]
+  GETUPVAL R5 1
+  JUMPIF R5 [+19]
+  GETUPVAL R6 2
+  LOADK R9 K2 ["R15MigratorProgress"]
+  NAMECALL R7 R6 K3 ["FindFirstChild"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+2]
+  MOVE R5 R7
+  JUMP [+10]
+  GETIMPORT R8 K6 [Instance.new]
+  LOADK R9 K7 ["Folder"]
+  CALL R8 1 1
+  LOADK R9 K2 ["R15MigratorProgress"]
+  SETTABLEKS R9 R8 K8 ["Name"]
+  SETTABLEKS R6 R8 K9 ["Parent"]
+  MOVE R5 R8
+  SETUPVAL R5 1
+  GETUPVAL R5 1
+  LOADK R8 K10 ["R6Characters"]
+  NAMECALL R6 R5 K3 ["FindFirstChild"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R3 R6
+  JUMP [+10]
+  GETIMPORT R7 K6 [Instance.new]
+  LOADK R8 K7 ["Folder"]
+  CALL R7 1 1
+  LOADK R8 K10 ["R6Characters"]
+  SETTABLEKS R8 R7 K8 ["Name"]
+  SETTABLEKS R5 R7 K9 ["Parent"]
+  MOVE R3 R7
+  MOVE R6 R1
+  NAMECALL R4 R3 K3 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIF R4 [+31]
+  GETIMPORT R5 K12 [warn]
+  LOADK R7 K13 ["Original R6 character is unavailable. Was the %* folder edited?"]
+  DUPCLOSURE R10 K1 [PROTO_0]
+  GETUPVAL R11 1
+  JUMPIF R11 [+19]
+  GETUPVAL R12 2
+  LOADK R15 K2 ["R15MigratorProgress"]
+  NAMECALL R13 R12 K3 ["FindFirstChild"]
+  CALL R13 2 1
+  JUMPIFNOT R13 [+2]
+  MOVE R11 R13
+  JUMP [+10]
+  GETIMPORT R14 K6 [Instance.new]
+  LOADK R15 K7 ["Folder"]
+  CALL R14 1 1
+  LOADK R15 K2 ["R15MigratorProgress"]
+  SETTABLEKS R15 R14 K8 ["Name"]
+  SETTABLEKS R12 R14 K9 ["Parent"]
+  MOVE R11 R14
+  SETUPVAL R11 1
+  GETUPVAL R9 1
+  NAMECALL R7 R7 K14 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  CALL R5 1 0
+  MOVE R2 R4
+  RETURN R2 1
+
+PROTO_9:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["getConversionId"]
+  MOVE R3 R0
+  CALL R2 1 1
+  JUMPIF R2 [+2]
+  LOADNIL R1
+  JUMP [+77]
+  DUPCLOSURE R4 K1 [PROTO_0]
+  GETUPVAL R5 1
+  JUMPIF R5 [+19]
+  GETUPVAL R6 2
+  LOADK R9 K2 ["R15MigratorProgress"]
+  NAMECALL R7 R6 K3 ["FindFirstChild"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+2]
+  MOVE R5 R7
+  JUMP [+10]
+  GETIMPORT R8 K6 [Instance.new]
+  LOADK R9 K7 ["Folder"]
+  CALL R8 1 1
+  LOADK R9 K2 ["R15MigratorProgress"]
+  SETTABLEKS R9 R8 K8 ["Name"]
+  SETTABLEKS R6 R8 K9 ["Parent"]
+  MOVE R5 R8
+  SETUPVAL R5 1
+  GETUPVAL R5 1
+  LOADK R8 K10 ["R6Characters"]
+  NAMECALL R6 R5 K3 ["FindFirstChild"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R3 R6
+  JUMP [+10]
+  GETIMPORT R7 K6 [Instance.new]
+  LOADK R8 K7 ["Folder"]
+  CALL R7 1 1
+  LOADK R8 K10 ["R6Characters"]
+  SETTABLEKS R8 R7 K8 ["Name"]
+  SETTABLEKS R5 R7 K9 ["Parent"]
+  MOVE R3 R7
+  MOVE R6 R2
+  NAMECALL R4 R3 K3 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIF R4 [+31]
+  GETIMPORT R5 K12 [warn]
+  LOADK R7 K13 ["Original R6 character is unavailable. Was the %* folder edited?"]
+  DUPCLOSURE R10 K1 [PROTO_0]
+  GETUPVAL R11 1
+  JUMPIF R11 [+19]
+  GETUPVAL R12 2
+  LOADK R15 K2 ["R15MigratorProgress"]
+  NAMECALL R13 R12 K3 ["FindFirstChild"]
+  CALL R13 2 1
+  JUMPIFNOT R13 [+2]
+  MOVE R11 R13
+  JUMP [+10]
+  GETIMPORT R14 K6 [Instance.new]
+  LOADK R15 K7 ["Folder"]
+  CALL R14 1 1
+  LOADK R15 K2 ["R15MigratorProgress"]
+  SETTABLEKS R15 R14 K8 ["Name"]
+  SETTABLEKS R12 R14 K9 ["Parent"]
+  MOVE R11 R14
+  SETUPVAL R11 1
+  GETUPVAL R9 1
+  NAMECALL R7 R7 K14 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  CALL R5 1 0
+  MOVE R1 R4
+  JUMPIFNOT R1 [+8]
+  NAMECALL R2 R1 K15 ["Clone"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K8 ["Name"]
+  SETTABLEKS R3 R2 K8 ["Name"]
+  RETURN R2 1
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_10:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["getConversionId"]
+  MOVE R4 R0
+  CALL R3 1 1
+  JUMPIF R3 [+2]
+  LOADNIL R2
+  JUMP [+77]
+  DUPCLOSURE R5 K1 [PROTO_0]
+  GETUPVAL R6 1
+  JUMPIF R6 [+19]
+  GETUPVAL R7 2
+  LOADK R10 K2 ["R15MigratorProgress"]
+  NAMECALL R8 R7 K3 ["FindFirstChild"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+2]
+  MOVE R6 R8
+  JUMP [+10]
+  GETIMPORT R9 K6 [Instance.new]
+  LOADK R10 K7 ["Folder"]
+  CALL R9 1 1
+  LOADK R10 K2 ["R15MigratorProgress"]
+  SETTABLEKS R10 R9 K8 ["Name"]
+  SETTABLEKS R7 R9 K9 ["Parent"]
+  MOVE R6 R9
+  SETUPVAL R6 1
+  GETUPVAL R6 1
+  LOADK R9 K10 ["R6Characters"]
+  NAMECALL R7 R6 K3 ["FindFirstChild"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+2]
+  MOVE R4 R7
+  JUMP [+10]
+  GETIMPORT R8 K6 [Instance.new]
+  LOADK R9 K7 ["Folder"]
+  CALL R8 1 1
+  LOADK R9 K10 ["R6Characters"]
+  SETTABLEKS R9 R8 K8 ["Name"]
+  SETTABLEKS R6 R8 K9 ["Parent"]
+  MOVE R4 R8
+  MOVE R7 R3
+  NAMECALL R5 R4 K3 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIF R5 [+31]
+  GETIMPORT R6 K12 [warn]
+  LOADK R8 K13 ["Original R6 character is unavailable. Was the %* folder edited?"]
+  DUPCLOSURE R11 K1 [PROTO_0]
+  GETUPVAL R12 1
+  JUMPIF R12 [+19]
+  GETUPVAL R13 2
+  LOADK R16 K2 ["R15MigratorProgress"]
+  NAMECALL R14 R13 K3 ["FindFirstChild"]
+  CALL R14 2 1
+  JUMPIFNOT R14 [+2]
+  MOVE R12 R14
+  JUMP [+10]
+  GETIMPORT R15 K6 [Instance.new]
+  LOADK R16 K7 ["Folder"]
+  CALL R15 1 1
+  LOADK R16 K2 ["R15MigratorProgress"]
+  SETTABLEKS R16 R15 K8 ["Name"]
+  SETTABLEKS R13 R15 K9 ["Parent"]
+  MOVE R12 R15
+  SETUPVAL R12 1
+  GETUPVAL R10 1
+  NAMECALL R8 R8 K14 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  CALL R6 1 0
+  MOVE R2 R5
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_11:
+  LOADK R5 K0 ["R15MigratorConversionId"]
+  MOVE R6 R2
+  NAMECALL R3 R1 K1 ["SetAttribute"]
+  CALL R3 3 0
+  NAMECALL R3 R0 K2 ["Clone"]
+  CALL R3 1 1
+  SETTABLEKS R2 R3 K3 ["Name"]
+  DUPCLOSURE R5 K4 [PROTO_0]
+  GETUPVAL R6 0
+  JUMPIF R6 [+19]
+  GETUPVAL R7 1
+  LOADK R10 K5 ["R15MigratorProgress"]
+  NAMECALL R8 R7 K6 ["FindFirstChild"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+2]
+  MOVE R6 R8
+  JUMP [+10]
+  GETIMPORT R9 K9 [Instance.new]
+  LOADK R10 K10 ["Folder"]
+  CALL R9 1 1
+  LOADK R10 K5 ["R15MigratorProgress"]
+  SETTABLEKS R10 R9 K3 ["Name"]
+  SETTABLEKS R7 R9 K11 ["Parent"]
+  MOVE R6 R9
+  SETUPVAL R6 0
+  GETUPVAL R6 0
+  LOADK R9 K12 ["R6Characters"]
+  NAMECALL R7 R6 K6 ["FindFirstChild"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+2]
+  MOVE R4 R7
+  JUMP [+10]
+  GETIMPORT R8 K9 [Instance.new]
+  LOADK R9 K10 ["Folder"]
+  CALL R8 1 1
+  LOADK R9 K12 ["R6Characters"]
+  SETTABLEKS R9 R8 K3 ["Name"]
+  SETTABLEKS R6 R8 K11 ["Parent"]
+  MOVE R4 R8
+  SETTABLEKS R4 R3 K11 ["Parent"]
+  RETURN R0 0
+
+PROTO_12:
+  DUPCLOSURE R3 K0 [PROTO_0]
+  GETUPVAL R4 0
+  JUMPIF R4 [+19]
+  GETUPVAL R5 1
+  LOADK R8 K1 ["R15MigratorProgress"]
+  NAMECALL R6 R5 K2 ["FindFirstChild"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R4 R6
+  JUMP [+10]
+  GETIMPORT R7 K5 [Instance.new]
+  LOADK R8 K6 ["Folder"]
+  CALL R7 1 1
+  LOADK R8 K1 ["R15MigratorProgress"]
+  SETTABLEKS R8 R7 K7 ["Name"]
+  SETTABLEKS R5 R7 K8 ["Parent"]
+  MOVE R4 R7
+  SETUPVAL R4 0
+  GETUPVAL R4 0
+  LOADK R7 K9 ["R6Characters"]
+  NAMECALL R5 R4 K2 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  MOVE R2 R5
+  JUMP [+10]
+  GETIMPORT R6 K5 [Instance.new]
+  LOADK R7 K6 ["Folder"]
+  CALL R6 1 1
+  LOADK R7 K9 ["R6Characters"]
+  SETTABLEKS R7 R6 K7 ["Name"]
+  SETTABLEKS R4 R6 K8 ["Parent"]
+  MOVE R2 R6
+  MOVE R5 R0
+  NAMECALL R3 R2 K2 ["FindFirstChild"]
+  CALL R3 2 1
+  JUMPIF R3 [+31]
+  GETIMPORT R4 K11 [warn]
+  LOADK R6 K12 ["Original R6 character is unavailable. Was the %* folder edited?"]
+  DUPCLOSURE R9 K0 [PROTO_0]
+  GETUPVAL R10 0
+  JUMPIF R10 [+19]
+  GETUPVAL R11 1
+  LOADK R14 K1 ["R15MigratorProgress"]
+  NAMECALL R12 R11 K2 ["FindFirstChild"]
+  CALL R12 2 1
+  JUMPIFNOT R12 [+2]
+  MOVE R10 R12
+  JUMP [+10]
+  GETIMPORT R13 K5 [Instance.new]
+  LOADK R14 K6 ["Folder"]
+  CALL R13 1 1
+  LOADK R14 K1 ["R15MigratorProgress"]
+  SETTABLEKS R14 R13 K7 ["Name"]
+  SETTABLEKS R11 R13 K8 ["Parent"]
+  MOVE R10 R13
+  SETUPVAL R10 0
+  GETUPVAL R8 0
+  NAMECALL R6 R6 K13 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  CALL R4 1 0
+  MOVE R1 R3
+  JUMPIFNOT R1 [+3]
+  NAMECALL R2 R1 K14 ["Destroy"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_13:
+  DUPCLOSURE R2 K0 [PROTO_0]
+  GETUPVAL R3 0
+  JUMPIF R3 [+19]
+  GETUPVAL R4 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  NAMECALL R5 R4 K2 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  MOVE R3 R5
+  JUMP [+10]
+  GETIMPORT R6 K5 [Instance.new]
+  LOADK R7 K6 ["Folder"]
+  CALL R6 1 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  SETTABLEKS R7 R6 K7 ["Name"]
+  SETTABLEKS R4 R6 K8 ["Parent"]
+  MOVE R3 R6
+  SETUPVAL R3 0
+  GETUPVAL R1 0
+  LOADK R3 K9 ["ScriptConversionRules"]
+  GETUPVAL R4 2
+  MOVE R6 R0
+  NAMECALL R4 R4 K10 ["JSONEncode"]
+  CALL R4 2 -1
+  NAMECALL R1 R1 K11 ["SetAttribute"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_14:
+  DUPCLOSURE R1 K0 [PROTO_0]
+  GETUPVAL R2 0
+  JUMPIF R2 [+19]
+  GETUPVAL R3 1
+  LOADK R6 K1 ["R15MigratorProgress"]
+  NAMECALL R4 R3 K2 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R2 R4
+  JUMP [+10]
+  GETIMPORT R5 K5 [Instance.new]
+  LOADK R6 K6 ["Folder"]
+  CALL R5 1 1
+  LOADK R6 K1 ["R15MigratorProgress"]
+  SETTABLEKS R6 R5 K7 ["Name"]
+  SETTABLEKS R3 R5 K8 ["Parent"]
+  MOVE R2 R5
+  SETUPVAL R2 0
+  GETUPVAL R0 0
+  LOADK R2 K9 ["ScriptConversionRules"]
+  NAMECALL R0 R0 K10 ["GetAttribute"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R1 2
+  MOVE R3 R0
+  NAMECALL R1 R1 K11 ["JSONDecode"]
+  CALL R1 2 1
+  RETURN R1 1
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_15:
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K0 ["GenerateGUID"]
+  CALL R2 1 1
+  MOVE R3 R0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  LOADK R10 K1 ["R15MigratorConversionId"]
+  MOVE R11 R2
+  NAMECALL R8 R7 K2 ["SetAttribute"]
+  CALL R8 3 0
+  FORGLOOP R3 2 [-6]
+  SETTABLEKS R2 R1 K3 ["Name"]
+  LOADK R5 K4 ["OriginalId"]
+  LOADNIL R6
+  NAMECALL R3 R1 K2 ["SetAttribute"]
+  CALL R3 3 0
+  DUPCLOSURE R4 K5 [PROTO_0]
+  GETUPVAL R5 1
+  JUMPIF R5 [+19]
+  GETUPVAL R6 2
+  LOADK R9 K6 ["R15MigratorProgress"]
+  NAMECALL R7 R6 K7 ["FindFirstChild"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+2]
+  MOVE R5 R7
+  JUMP [+10]
+  GETIMPORT R8 K10 [Instance.new]
+  LOADK R9 K11 ["Folder"]
+  CALL R8 1 1
+  LOADK R9 K6 ["R15MigratorProgress"]
+  SETTABLEKS R9 R8 K3 ["Name"]
+  SETTABLEKS R6 R8 K12 ["Parent"]
+  MOVE R5 R8
+  SETUPVAL R5 1
+  GETUPVAL R5 1
+  LOADK R8 K13 ["R6KeyframeSequences"]
+  NAMECALL R6 R5 K7 ["FindFirstChild"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R3 R6
+  JUMP [+10]
+  GETIMPORT R7 K10 [Instance.new]
+  LOADK R8 K11 ["Folder"]
+  CALL R7 1 1
+  LOADK R8 K13 ["R6KeyframeSequences"]
+  SETTABLEKS R8 R7 K3 ["Name"]
+  SETTABLEKS R5 R7 K12 ["Parent"]
+  MOVE R3 R7
+  SETTABLEKS R3 R1 K12 ["Parent"]
+  RETURN R0 0
+
+PROTO_16:
+  LOADK R3 K0 ["KeyframeSequence"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+8]
+  LOADK R4 K2 ["R15MigratorConversionId"]
+  NAMECALL R2 R0 K3 ["GetAttribute"]
+  CALL R2 2 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_17:
+  DUPCLOSURE R2 K0 [PROTO_0]
+  GETUPVAL R3 0
+  JUMPIF R3 [+19]
+  GETUPVAL R4 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  NAMECALL R5 R4 K2 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  MOVE R3 R5
+  JUMP [+10]
+  GETIMPORT R6 K5 [Instance.new]
+  LOADK R7 K6 ["Folder"]
+  CALL R6 1 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  SETTABLEKS R7 R6 K7 ["Name"]
+  SETTABLEKS R4 R6 K8 ["Parent"]
+  MOVE R3 R6
+  SETUPVAL R3 0
+  GETUPVAL R3 0
+  LOADK R6 K9 ["R6KeyframeSequences"]
+  NAMECALL R4 R3 K2 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R1 R4
+  JUMP [+10]
+  GETIMPORT R5 K5 [Instance.new]
+  LOADK R6 K6 ["Folder"]
+  CALL R5 1 1
+  LOADK R6 K9 ["R6KeyframeSequences"]
+  SETTABLEKS R6 R5 K7 ["Name"]
+  SETTABLEKS R3 R5 K8 ["Parent"]
+  MOVE R1 R5
+  NEWTABLE R2 0 0
+  NAMECALL R3 R1 K10 ["GetChildren"]
+  CALL R3 1 3
+  FORGPREP R3
+  GETTABLEKS R8 R7 K7 ["Name"]
+  SETTABLE R7 R2 R8
+  FORGLOOP R3 2 [-4]
+  NEWTABLE R3 0 0
+  MOVE R4 R0
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  LOADK R11 K11 ["R15MigratorConversionId"]
+  NAMECALL R9 R8 K12 ["GetAttribute"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+35]
+  GETTABLE R10 R2 R9
+  JUMPIF R10 [+32]
+  GETIMPORT R11 K14 [warn]
+  LOADK R13 K15 ["Original R6 KeyframeSequence is unavailable. Was the %* folder edited?"]
+  DUPCLOSURE R16 K0 [PROTO_0]
+  GETUPVAL R17 0
+  JUMPIF R17 [+19]
+  GETUPVAL R18 1
+  LOADK R21 K1 ["R15MigratorProgress"]
+  NAMECALL R19 R18 K2 ["FindFirstChild"]
+  CALL R19 2 1
+  JUMPIFNOT R19 [+2]
+  MOVE R17 R19
+  JUMP [+10]
+  GETIMPORT R20 K5 [Instance.new]
+  LOADK R21 K6 ["Folder"]
+  CALL R20 1 1
+  LOADK R21 K1 ["R15MigratorProgress"]
+  SETTABLEKS R21 R20 K7 ["Name"]
+  SETTABLEKS R18 R20 K8 ["Parent"]
+  MOVE R17 R20
+  SETUPVAL R17 0
+  GETUPVAL R15 0
+  NAMECALL R13 R13 K16 ["format"]
+  CALL R13 2 1
+  MOVE R12 R13
+  CALL R11 1 0
+  JUMP [+1]
+  SETTABLE R10 R3 R8
+  FORGLOOP R4 2 [-41]
+  RETURN R3 1
+
+PROTO_18:
+  NAMECALL R1 R0 K0 ["Clone"]
+  CALL R1 1 1
+  DUPCLOSURE R3 K1 [PROTO_0]
+  GETUPVAL R4 0
+  JUMPIF R4 [+19]
+  GETUPVAL R5 1
+  LOADK R8 K2 ["R15MigratorProgress"]
+  NAMECALL R6 R5 K3 ["FindFirstChild"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R4 R6
+  JUMP [+10]
+  GETIMPORT R7 K6 [Instance.new]
+  LOADK R8 K7 ["Folder"]
+  CALL R7 1 1
+  LOADK R8 K2 ["R15MigratorProgress"]
+  SETTABLEKS R8 R7 K8 ["Name"]
+  SETTABLEKS R5 R7 K9 ["Parent"]
+  MOVE R4 R7
+  SETUPVAL R4 0
+  GETUPVAL R4 0
+  LOADK R7 K10 ["R15KeyframeSequences"]
+  NAMECALL R5 R4 K3 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  MOVE R2 R5
+  JUMP [+10]
+  GETIMPORT R6 K6 [Instance.new]
+  LOADK R7 K7 ["Folder"]
+  CALL R6 1 1
+  LOADK R7 K10 ["R15KeyframeSequences"]
+  SETTABLEKS R7 R6 K8 ["Name"]
+  SETTABLEKS R4 R6 K9 ["Parent"]
+  MOVE R2 R6
+  SETTABLEKS R2 R1 K9 ["Parent"]
+  RETURN R0 0
+
+PROTO_19:
+  DUPCLOSURE R2 K0 [PROTO_0]
+  GETUPVAL R3 0
+  JUMPIF R3 [+19]
+  GETUPVAL R4 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  NAMECALL R5 R4 K2 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  MOVE R3 R5
+  JUMP [+10]
+  GETIMPORT R6 K5 [Instance.new]
+  LOADK R7 K6 ["Folder"]
+  CALL R6 1 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  SETTABLEKS R7 R6 K7 ["Name"]
+  SETTABLEKS R4 R6 K8 ["Parent"]
+  MOVE R3 R6
+  SETUPVAL R3 0
+  GETUPVAL R3 0
+  LOADK R6 K9 ["R15KeyframeSequences"]
+  NAMECALL R4 R3 K2 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R1 R4
+  JUMP [+10]
+  GETIMPORT R5 K5 [Instance.new]
+  LOADK R6 K6 ["Folder"]
+  CALL R5 1 1
+  LOADK R6 K9 ["R15KeyframeSequences"]
+  SETTABLEKS R6 R5 K7 ["Name"]
+  SETTABLEKS R3 R5 K8 ["Parent"]
+  MOVE R1 R5
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K11 [tostring]
+  CALL R3 1 1
+  NAMECALL R1 R1 K2 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  NAMECALL R2 R1 K12 ["Destroy"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_20:
+  NEWTABLE R0 0 0
+  DUPCLOSURE R2 K0 [PROTO_0]
+  GETUPVAL R3 0
+  JUMPIF R3 [+19]
+  GETUPVAL R4 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  NAMECALL R5 R4 K2 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  MOVE R3 R5
+  JUMP [+10]
+  GETIMPORT R6 K5 [Instance.new]
+  LOADK R7 K6 ["Folder"]
+  CALL R6 1 1
+  LOADK R7 K1 ["R15MigratorProgress"]
+  SETTABLEKS R7 R6 K7 ["Name"]
+  SETTABLEKS R4 R6 K8 ["Parent"]
+  MOVE R3 R6
+  SETUPVAL R3 0
+  GETUPVAL R3 0
+  LOADK R6 K9 ["R15KeyframeSequences"]
+  NAMECALL R4 R3 K2 ["FindFirstChild"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  MOVE R1 R4
+  JUMP [+10]
+  GETIMPORT R5 K5 [Instance.new]
+  LOADK R6 K6 ["Folder"]
+  CALL R5 1 1
+  LOADK R6 K9 ["R15KeyframeSequences"]
+  SETTABLEKS R6 R5 K7 ["Name"]
+  SETTABLEKS R3 R5 K8 ["Parent"]
+  MOVE R1 R5
+  NAMECALL R1 R1 K10 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K11 ["StringValue"]
+  NAMECALL R6 R5 K12 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+28]
+  GETTABLEKS R7 R5 K7 ["Name"]
+  FASTCALL1 TONUMBER R7 [+2]
+  GETIMPORT R6 K14 [tonumber]
+  CALL R6 1 1
+  GETTABLEKS R8 R5 K15 ["Value"]
+  FASTCALL1 TONUMBER R8 [+2]
+  GETIMPORT R7 K14 [tonumber]
+  CALL R7 1 1
+  LOADK R10 K16 ["KeyframeSequence"]
+  NAMECALL R8 R5 K17 ["FindFirstChildWhichIsA"]
+  CALL R8 2 1
+  LOADK R11 K18 ["name"]
+  NAMECALL R9 R5 K19 ["GetAttribute"]
+  CALL R9 2 1
+  NEWTABLE R10 0 3
+  MOVE R11 R7
+  MOVE R12 R8
+  MOVE R13 R9
+  SETLIST R10 R11 3 [1]
+  SETTABLE R10 R0 R6
+  FORGLOOP R1 2 [-34]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 32 0
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["ServerStorage"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K4 ["HttpService"]
+  NAMECALL R2 R2 K3 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K6 [script]
+  LOADK R5 K7 ["R15Migrator"]
+  NAMECALL R3 R3 K8 ["FindFirstAncestor"]
+  CALL R3 2 1
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R6 R3 K11 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Types"]
+  CALL R4 1 1
+  LOADNIL R5
+  NEWCLOSURE R6 P0
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  NEWCLOSURE R7 P1
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R7 R0 K13 ["isRootSaveFolderChildOf"]
+  NEWCLOSURE R7 P2
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R7 R0 K14 ["isRootSaveFolderDescendantOf"]
+  NEWCLOSURE R7 P3
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R7 R0 K15 ["isRootSaveFolder"]
+  NEWCLOSURE R7 P4
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R7 R0 K16 ["isDescendantOfSaveFolder"]
+  NEWCLOSURE R7 P5
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  DUPCLOSURE R8 K17 [PROTO_7]
+  SETTABLEKS R8 R0 K18 ["getConversionId"]
+  NEWCLOSURE R8 P7
+  CAPTURE VAL R0
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  NEWCLOSURE R9 P8
+  CAPTURE VAL R0
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R9 R0 K19 ["getConvertedFrom"]
+  NEWCLOSURE R9 P9
+  CAPTURE VAL R0
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R9 R0 K20 ["hasConvertedFrom"]
+  NEWCLOSURE R9 P10
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R9 R0 K21 ["addConvertedCharacter"]
+  NEWCLOSURE R9 P11
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R9 R0 K22 ["removeConvertedCharacter"]
+  NEWCLOSURE R9 P12
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R9 R0 K23 ["addScriptConversionRules"]
+  NEWCLOSURE R9 P13
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R9 R0 K24 ["getScriptConversionRules"]
+  NEWCLOSURE R9 P14
+  CAPTURE VAL R2
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R9 R0 K25 ["addConvertedKeyframesequenceInstance"]
+  DUPCLOSURE R9 K26 [PROTO_16]
+  SETTABLEKS R9 R0 K27 ["isConvertedKeyframeSequence"]
+  NEWCLOSURE R9 P16
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R9 R0 K28 ["getOriginalR6KeyframeSequences"]
+  NEWCLOSURE R9 P17
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R9 R0 K29 ["addConvertedAnimationAssetId"]
+  NEWCLOSURE R9 P18
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R9 R0 K30 ["removeConvertedAnimationAssetId"]
+  NEWCLOSURE R9 P19
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  SETTABLEKS R9 R0 K31 ["getAllConvertedAnimationAssetIds"]
+  CLOSEUPVALS R5
+  RETURN R0 1

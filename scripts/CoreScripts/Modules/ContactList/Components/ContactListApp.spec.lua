@@ -8,6 +8,9 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
@@ -22,6 +25,8 @@ return function()
 	local RoduxCall = dependencies.RoduxCall
 
 	local Constants = require(RobloxGui.Modules.Common.Constants)
+
+	local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
 
 	beforeAll(function(c: any)
 		local RemoteGetServerType = Instance.new("RemoteFunction")
@@ -66,13 +71,15 @@ return function()
 					},
 				},
 				currentCall = {
-					status = RoduxCall.Enums.Status.Active.rawValue(),
+					status = if FFlagUseRoduxCall18
+						then RoduxCall.Enums.Status.Active
+						else RoduxCall.Enums.Status.Active.rawValue(),
 					callerId = 11111111,
 					calleeId = 12345678,
 					placeId = 789,
 					callId = "123456",
-					callerDisplayName = "Display Name 1",
-					calleeDisplayName = "Display Name 2",
+					callerCombinedName = "Display Name 1",
+					calleeCombinedName = "Display Name 2",
 					gameInstanceId = "gameId",
 				},
 			},
@@ -89,7 +96,11 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				ContactListApp = Roact.createElement(ContactListApp),
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					ContactListApp = Roact.createElement(ContactListApp),
+				}),
 			}),
 		})
 

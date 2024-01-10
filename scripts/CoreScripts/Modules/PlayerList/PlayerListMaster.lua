@@ -59,7 +59,6 @@ local SetSubjectToChinaPolicies = require(PlayerList.Actions.SetSubjectToChinaPo
 local SetSettings = require(PlayerList.Actions.SetSettings)
 
 local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerList)
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
 
 if not Players.LocalPlayer then
@@ -124,9 +123,7 @@ function PlayerListMaster.new()
 		Rodux.thunkMiddleware,
 	})
 
-	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-		setupSettings(self.store)
-	end
+	setupSettings(self.store)
 
 	if not StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.PlayerList) then
 		self.store:dispatch(SetPlayerListEnabled(false))

@@ -16,8 +16,6 @@ local CorePackages = game:GetService("CorePackages")
 local VRUtil = require(RobloxGui.Modules.VR.VRUtil)
 require(RobloxGui.Modules.VR.Panel3D)
 
-local FFlagUIBloxVRDualLaserPointers =
-	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxVRDualLaserPointers()
 local FFlagVRFixCursorJitterLua = game:DefineFastFlag("VRFixCursorJitterLua", false)
 local FFlagVRLaserPointerOptimization = game:DefineFastFlag("VRLaserPointerOptimization", false)
 local FFlagEnableUserInputCFrameLogging = game:DefineFastFlag("EnableUserInputCFrameLogging", false)
@@ -249,31 +247,29 @@ function LaserPointer.new(laserDistance)
 		})
 		self.parabola.Adornee = self.originPart
 
-		if FFlagUIBloxVRDualLaserPointers then
-			self.parabolaOffhand = Utility:Create("ParabolaAdornment")({
-				Name = "LaserPointerparabolaOffhand",
-				Parent = CoreGui,
-				A = 0,
-				B = 1e-6,
-				C = 0,
-				Color3 = Color3.new(1, 1, 1),
-				Transparency = 0.5,
-				Thickness = TELEPORT.ARC_THICKNESS,
-				Visible = false,
-			})
+		self.parabolaOffhand = Utility:Create("ParabolaAdornment")({
+			Name = "LaserPointerparabolaOffhand",
+			Parent = CoreGui,
+			A = 0,
+			B = 1e-6,
+			C = 0,
+			Color3 = Color3.new(1, 1, 1),
+			Transparency = 0.5,
+			Thickness = TELEPORT.ARC_THICKNESS,
+			Visible = false,
+		})
 
-			self.originPartOffhand = Utility:Create("Part")({
-				Name = "LaserPointerOriginOffhand",
-				Anchored = true,
-				CanCollide = false,
-				TopSurface = Enum.SurfaceType.SmoothNoOutlines,
-				BottomSurface = Enum.SurfaceType.SmoothNoOutlines,
-				Material = Enum.Material.SmoothPlastic,
-				Size = minimumPartSize,
-				Transparency = 1,
-			})
-			self.parabolaOffhand.Adornee = self.originPartOffhand
-		end
+		self.originPartOffhand = Utility:Create("Part")({
+			Name = "LaserPointerOriginOffhand",
+			Anchored = true,
+			CanCollide = false,
+			TopSurface = Enum.SurfaceType.SmoothNoOutlines,
+			BottomSurface = Enum.SurfaceType.SmoothNoOutlines,
+			Material = Enum.Material.SmoothPlastic,
+			Size = minimumPartSize,
+			Transparency = 1,
+		})
+		self.parabolaOffhand.Adornee = self.originPartOffhand
 
 		self.plopPart = Utility:Create("Part")({
 			Name = "LaserPointerTeleportPlop",
@@ -437,33 +433,21 @@ function LaserPointer:onModeChanged(newMode)
 	if newMode == LaserPointerMode.Disabled or newMode == LaserPointerMode.Hidden then
 		-- this enabled the target dot only
 		addPartsToGame(self.originPart, self.cursorPart)
-		if FFlagUIBloxVRDualLaserPointers then
-			removePartsFromGame(self.plopPart, self.plopBall, self.originPartOffhand)
-		else
-			removePartsFromGame(self.plopPart, self.plopBall)
-		end
+		removePartsFromGame(self.plopPart, self.plopBall, self.originPartOffhand)
 		self.forceDotActive = true
 		self.parabola.Visible = false
-		if FFlagUIBloxVRDualLaserPointers then
-			self.parabolaOffhand.Visible = false
-		end
+		self.parabolaOffhand.Visible = false
 		self:setNavigationActionEnabled(false)
 	--Pointer mode
 	elseif newMode == LaserPointerMode.Pointer then
 		addPartsToGame(self.originPart, self.cursorPart)
-		if FFlagUIBloxVRDualLaserPointers then
-			removePartsFromGame(self.plopPart, self.plopBall, self.originPartOffhand)
-		else
-			removePartsFromGame(self.plopPart, self.plopBall)
-		end
+		removePartsFromGame(self.plopPart, self.plopBall, self.originPartOffhand)
 		self.parabola.Visible = true
-		if FFlagUIBloxVRDualLaserPointers then
-			self.parabolaOffhand.Visible = false
-		end
+		self.parabolaOffhand.Visible = false
 		self:setNavigationActionEnabled(false)
 		self.forceDotActive = false
 	--Pointer mode
-	elseif FFlagUIBloxVRDualLaserPointers and newMode == LaserPointerMode.DualPointer then
+	elseif newMode == LaserPointerMode.DualPointer then
 		addPartsToGame(self.originPart, self.originPartOffhand, self.cursorPart)
 		removePartsFromGame(self.plopPart, self.plopBall)
 		self.parabola.Visible = true
@@ -928,14 +912,12 @@ function LaserPointer:update(dt)
 		return
 	end
 
-	if self.mode ~= LaserPointerMode.Pointer and (not FFlagUIBloxVRDualLaserPointers or self.mode ~= LaserPointerMode.DualPointer) then
+	if self.mode ~= LaserPointerMode.Pointer and self.mode ~= LaserPointerMode.DualPointer then
 		return
 	end
 
 	self.parabola.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
-	if FFlagUIBloxVRDualLaserPointers then
-		self.parabolaOffhand.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
-	end
+	self.parabolaOffhand.Thickness = LASER.ARC_THICKNESS * (workspace.CurrentCamera :: Camera).HeadScale
 
 	if LocalPlayer and LocalPlayer.Character and LocalPlayer.Character:FindFirstChildOfClass("Tool") then
 		self.parabola.Color3 = LASER.ARC_COLOR_BAD -- item equipped means RT action bound
@@ -955,21 +937,14 @@ function LaserPointer:update(dt)
 		laserHitPoint = originPos + originLook * self.laserMaxDistance
 	end
 
-	if FFlagUIBloxVRDualLaserPointers then
-		if self:isHeadMounted() then
-			self.parabola.Visible = false
-		else
-			self.parabola.Visible = true
-			self:renderAsLaser(originPos, laserHitPoint)
-		end
+	if self:isHeadMounted() then
+		self.parabola.Visible = false
 	else
-		if self:isHeadMounted() then
-			originPos = originCFrame:pointToWorldSpace(HEAD_MOUNT_OFFSET * (workspace.CurrentCamera :: Camera).HeadScale)
-		end
+		self.parabola.Visible = true
 		self:renderAsLaser(originPos, laserHitPoint)
 	end
 
-	if FFlagUIBloxVRDualLaserPointers and self.mode == LaserPointerMode.DualPointer then
+	if self.mode == LaserPointerMode.DualPointer then
 		if self:isHeadMounted() then
 			self.parabolaOffhand.Visible = false
 		else

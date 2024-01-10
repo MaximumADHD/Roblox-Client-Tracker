@@ -4,7 +4,7 @@
 ]]
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
-local Roact = require(Main.Packages.Roact)
+local React = require(Main.Packages.React)
 local ReactIs = require(Main.Packages.ReactIs)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
@@ -57,11 +57,11 @@ type State = {
 
 local FFlagEnableLoadModule = game:GetFastFlag("EnableLoadModule")
 
-local InfoPanel = Roact.PureComponent:extend("InfoPanel")
+local InfoPanel = React.PureComponent:extend("InfoPanel")
 
 function InfoPanel:init()
 	self.state = {} :: State
-	self.storyRef = Roact.createRef()
+	self.storyRef = React.createRef()
 	self.onScriptChange = function()
 		if self.props.Live then
 			self:updateStory(self.props.SelectedStory)
@@ -83,14 +83,14 @@ function InfoPanel:didUpdate(prevProps: Props)
 	-- Don't make a change if the story selection hasn't changed
 	if prevProps.SelectedStory ~= story then
 		self:setState({
-			storyError = Roact.None,
+			storyError = React.None,
 		})
 		local storyProps = self.state.storyProps
 		if storyProps and storyProps.definition.destroy then
 			-- Clean up the old story if a destructor is provided
 			storyProps.definition.destroy(storyProps)
 		end
-		-- Avoid a breakpoint or yield in the scripts we are requiring from propagating a NoYield error up through Roact
+		-- Avoid a breakpoint or yield in the scripts we are requiring from propagating a NoYield error up through React
 		spawn(function()
 			self:updateStory(story)
 		end)
@@ -109,8 +109,8 @@ end
 function InfoPanel:updateStory(storyItem: Types.StoryItem)
 	if not storyItem then
 		self:setState({
-			storyError = Roact.None,
-			storyProps = Roact.None,
+			storyError = React.None,
+			storyProps = React.None,
 		})
 		return
 	end
@@ -119,15 +119,15 @@ function InfoPanel:updateStory(storyItem: Types.StoryItem)
 		warn("Storybook load failed", storyItem.StorybookLoadError)
 		self:setState({
 			storyError = storyItem.StorybookLoadError,
-			storyProps = Roact.None,
+			storyProps = React.None,
 		})
 		return
 	end
 
 	if not storyItem.Script then
 		self:setState({
-			storyError = Roact.None,
-			storyProps = Roact.None,
+			storyError = React.None,
+			storyProps = React.None,
 		})
 		return
 	end
@@ -167,7 +167,7 @@ function InfoPanel:updateStory(storyItem: Types.StoryItem)
 		end
 		-- Update our state after an async update
 		self:setState({
-			storyError = Roact.None,
+			storyError = React.None,
 			storyProps = storyProps,
 		})
 	end, function(err)
@@ -178,7 +178,7 @@ function InfoPanel:updateStory(storyItem: Types.StoryItem)
 		-- Display the error with loading the story
 		self:setState({
 			storyError = err,
-			storyProps = Roact.None,
+			storyProps = React.None,
 		})
 	end
 end
@@ -197,9 +197,13 @@ function InfoPanel:getStoryDefinition(
 	local definition = {
 		name = storyItem.Name,
 		summary = "",
-		roact = storybook.roact or ModuleLoader:load(Main.Packages.Roact),
+		roact = storybook.roact or ModuleLoader:load(Main.Packages.React),
+		reactRoblox = storybook.reactRoblox or ModuleLoader:load(Main.Packages.ReactRoblox),
 		source = storyItem.Script,
-	} :: Types.StoryDefinition
+		story = nil,
+		stories = nil,
+		props = {},
+	}
 	local isFnStory = typeof(construct) == "function"
 	if isFnStory then
 		-- TODO CLI-42229: Luau typeof "function" type guard
@@ -296,8 +300,6 @@ end
 function InfoPanel:render()
 	local props = self.props
 	local state = self.state
-	local style = props.Stylizer
-	local sizes = style.Sizes
 	local order = 0
 	local function nextOrder()
 		order = order + 1
@@ -305,21 +307,16 @@ function InfoPanel:render()
 	end
 
 	if self.state.storyError then
-		return Roact.createElement(Pane, {
-			Style = "Box",
-			Padding = sizes.OuterPadding,
+		return React.createElement(Pane, {
+			[React.Tag] = "Main X-Pad",
 		}, {
-			Scroller = Roact.createElement(ScrollingFrame, {
+			Scroller = React.createElement(ScrollingFrame, {
 				Size = UDim2.fromScale(1, 1),
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 			}, {
-				Prompt = Roact.createElement(TextLabel, {
-					Size = UDim2.fromScale(1, 0),
+				Prompt = React.createElement(TextLabel, {
 					Text = "An error occurred when loading the story:\n\n" .. self.state.storyError,
-					TextColor = style.ErrorColor,
-					TextWrapped = true,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					AutomaticSize = Enum.AutomaticSize.Y,
+					[React.Tag] = "Error Wrap",
 				}),
 			}),
 		})
@@ -328,24 +325,19 @@ function InfoPanel:render()
 	local storyProps: Types.StoryProps? = state.storyProps
 
 	if not storyProps then
-		return Roact.createElement(Pane, {
-			Style = "BorderBox",
-			Layout = Enum.FillDirection.Vertical,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			Spacing = 20,
+		return React.createElement(Pane, {
+			[React.Tag] = "X-Stroke X-Corner X-ColumnM X-Fill X-Middle X-Center",
 		}, {
-			Banner = Roact.createElement("ImageLabel", {
+			Banner = React.createElement("ImageLabel", {
 				BackgroundTransparency = 1,
 				Image = "rbxasset://textures/DeveloperStorybook/Banner.png",
 				Size = UDim2.fromOffset(95, 95),
 				LayoutOrder = 1,
 			}),
-			Prompt = Roact.createElement(TextLabel, {
-				Text = "Select a story from the tree",
-				TextWrapped = true,
+			Prompt = React.createElement(TextLabel, {
 				LayoutOrder = 2,
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = UDim2.new(1, -80, 0, 0),
+				Text = "Select a story from the tree",
+				[React.Tag] = "X-FitY",
 			}),
 		})
 	end
@@ -359,7 +351,7 @@ function InfoPanel:render()
 	local isRunningAsPlugin = typeof(props.Plugin:get().OpenScript) == "function"
 
 	local children = {
-		Header = Roact.createElement(PanelEntry, {
+		Header = React.createElement(PanelEntry, {
 			IsTitle = true,
 			Header = definition.name,
 			Description = definition.summary,
@@ -368,7 +360,7 @@ function InfoPanel:render()
 	}
 
 	if mapOne(definitelyStoryProps.controls) ~= nil then
-		children.Controls = Roact.createElement(Controls, {
+		children.Controls = React.createElement(Controls, {
 			Controls = definitelyStoryProps.definition.controls or {},
 			ControlState = definitelyStoryProps.controls,
 			LayoutOrder = nextOrder(),
@@ -379,7 +371,7 @@ function InfoPanel:render()
 	end
 
 	if definition.story then
-		children.Story = Roact.createElement(StoryHost, {
+		children.Story = React.createElement(StoryHost, {
 			StoryRef = self.storyRef,
 			LayoutOrder = nextOrder(),
 			StoryProps = definitelyStoryProps,
@@ -401,7 +393,7 @@ function InfoPanel:render()
 				return
 			end
 			-- Load one host per sub-story
-			local subStory = Roact.createElement(StoryHost, {
+			local subStory = React.createElement(StoryHost, {
 				StoryRef = self.storyRef,
 				FixedSize = definitelyStoryProps.storybook.fixedSize,
 				Name = subDefinition.name,
@@ -420,17 +412,17 @@ function InfoPanel:render()
 	end
 
 	assign(children, {
-		Props = docs and docs.Props and Roact.createElement(PropsList, {
+		Props = docs and docs.Props and React.createElement(PropsList, {
 			Header = "Props",
 			LayoutOrder = nextOrder(),
 			Props = docs.Props,
 		}),
-		Styles = docs and docs.Style and Roact.createElement(StylesList, {
+		Styles = docs and docs.Style and React.createElement(StylesList, {
 			Header = "Styles",
 			LayoutOrder = nextOrder(),
 			ComponentName = definition.name,
 		}),
-		StyleValues = docs and docs.Style and Roact.createElement(PropsList, {
+		StyleValues = docs and docs.Style and React.createElement(PropsList, {
 			Header = "Style Values",
 			Description = STYLE_DESCRIPTION,
 			LayoutOrder = nextOrder(),
@@ -441,52 +433,37 @@ function InfoPanel:render()
 	local main
 
 	if definitelyStoryProps.storybook.fixedSize then
-		main = Roact.createElement(Pane, {
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Layout = Enum.FillDirection.Vertical,
-			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
-			Spacing = sizes.InnerPadding,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-			[Roact.Ref] = self.storyRef,
+		main = React.createElement(Pane, {
+			[React.Tag] = "Plugin-Content X-ColumnM",
+			ForwardRef = self.storyRef,
 		}, children)
 	else
-		main = Roact.createElement(ScrollingFrame, {
+		main = React.createElement(ScrollingFrame, {
 			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
 			CanvasSize = UDim2.fromScale(1, 0),
 			AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			[React.Tag] = "Plugin-Content",
 		}, {
-			Content = Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				Layout = Enum.FillDirection.Vertical,
-				Spacing = sizes.InnerPadding,
-				[Roact.Ref] = self.storyRef,
+			Content = React.createElement(Pane, {
+				[React.Tag] = "X-FitY X-ColumnM",
+				ForwardRef = self.storyRef,
 			}, children),
 		})
 	end
 
-	return Roact.createElement(Pane, {
-		ClipsDescendants = true,
-		Style = "BorderBox",
-		Layout = Enum.FillDirection.Vertical,
-		Padding = {
-			Top = sizes.OuterPadding,
-			Left = sizes.OuterPadding,
-			Bottom = sizes.OuterPadding,
-			Right = sizes.InnerPadding,
-		},
+	return React.createElement(Pane, {
+		[React.Tag] = "Main X-Stroke X-Corner X-Clip X-ColumnM X-Pad X-Fill",
 	}, {
 		Main = main,
-		Footer = isRunningAsPlugin and Roact.createElement(Pane, {
+		Footer = isRunningAsPlugin and React.createElement(Pane, {
 			LayoutOrder = 2,
-			Size = UDim2.new(1, 0, 0, sizes.TopBar),
+			[React.Tag] = "Plugin-Footer",
 		}, {
-			Content = Roact.createElement(Footer, {
+			Content = React.createElement(Footer, {
 				StoryRef = self.storyRef,
 			}),
 		}),
-		Dialog = Roact.createElement(StyledDialog, {
+		Dialog = React.createElement(StyledDialog, {
 			Style = "Alert",
 			Enabled = props.Live and not FFlagEnableLoadModule,
 			Title = "Live Not Available",
@@ -497,19 +474,15 @@ function InfoPanel:render()
 			OnButtonPressed = self.props.disableLive,
 			OnClose = self.props.disableLive,
 		}, {
-			Contents = Roact.createElement(TextLabel, {
-				TextSize = 17,
-				TextXAlignment = Enum.TextXAlignment.Left,
+			Contents = React.createElement(TextLabel, {
 				Text = "To use Live mode, please set FFlagEnableLoadModule to True in your local build.\n\nWhen Live mode is enabled, any changes you make to scripts in Studio are immediately reflected in Storybook without having to reload.",
-				Size = UDim2.fromScale(1, 1),
-				TextWrapped = true,
+				[React.Tag] = "Error Wrap X-FitY",
 			}),
 		}),
 	})
 end
 
 InfoPanel = withContext({
-	Stylizer = ContextServices.Stylizer,
 	Plugin = ContextServices.Plugin,
 })(InfoPanel)
 

@@ -33,31 +33,34 @@ PROTO_0:
   GETUPVAL R5 6
   GETUPVAL R6 7
   GETUPVAL R7 8
-  DUPTABLE R8 K18 [{"audioSearchInfo", "categoryName", "creator", "searchTerm", "sortIndex", "targetPage", "currentPage", "requestReason", "queryParams"}]
+  DUPTABLE R8 K19 [{"audioSearchInfo", "additionalAudioSearchInfo", "categoryName", "creator", "searchTerm", "sortIndex", "targetPage", "currentPage", "requestReason", "queryParams"}]
   GETUPVAL R10 9
-  GETTABLEKS R9 R10 K19 ["None"]
+  GETTABLEKS R9 R10 K20 ["None"]
   SETTABLEKS R9 R8 K9 ["audioSearchInfo"]
-  GETUPVAL R9 2
-  SETTABLEKS R9 R8 K10 ["categoryName"]
-  SETTABLEKS R2 R8 K11 ["creator"]
-  LOADK R9 K20 [""]
-  SETTABLEKS R9 R8 K12 ["searchTerm"]
-  SETTABLEKS R1 R8 K13 ["sortIndex"]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K14 ["targetPage"]
-  LOADN R9 0
-  SETTABLEKS R9 R8 K15 ["currentPage"]
   GETUPVAL R10 10
-  GETTABLEKS R9 R10 K21 ["ChangeCategory"]
-  SETTABLEKS R9 R8 K16 ["requestReason"]
-  GETUPVAL R10 11
   CALL R10 0 1
   JUMPIFNOT R10 [+4]
   GETUPVAL R10 9
-  GETTABLEKS R9 R10 K19 ["None"]
+  GETTABLEKS R9 R10 K20 ["None"]
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K17 ["queryParams"]
+  SETTABLEKS R9 R8 K10 ["additionalAudioSearchInfo"]
+  GETUPVAL R9 2
+  SETTABLEKS R9 R8 K11 ["categoryName"]
+  SETTABLEKS R2 R8 K12 ["creator"]
+  LOADK R9 K21 [""]
+  SETTABLEKS R9 R8 K13 ["searchTerm"]
+  SETTABLEKS R1 R8 K14 ["sortIndex"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K15 ["targetPage"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K16 ["currentPage"]
+  GETUPVAL R10 11
+  GETTABLEKS R9 R10 K22 ["ChangeCategory"]
+  SETTABLEKS R9 R8 K17 ["requestReason"]
+  GETUPVAL R10 9
+  GETTABLEKS R9 R10 K20 ["None"]
+  SETTABLEKS R9 R8 K18 ["queryParams"]
   CALL R5 3 -1
   NAMECALL R3 R0 K0 ["dispatch"]
   CALL R3 -1 0
@@ -128,10 +131,9 @@ MAIN:
   CALL R10 1 1
   GETTABLEKS R9 R10 K20 ["showRobloxCreatedAssets"]
   GETIMPORT R10 K4 [require]
-  GETTABLEKS R14 R0 K5 ["Core"]
-  GETTABLEKS R13 R14 K12 ["Util"]
-  GETTABLEKS R12 R13 K21 ["SharedFlags"]
-  GETTABLEKS R11 R12 K22 ["getFFlagToolboxTrackCurrentSubcategory"]
+  GETTABLEKS R13 R0 K5 ["Core"]
+  GETTABLEKS R12 R13 K21 ["Flags"]
+  GETTABLEKS R11 R12 K22 ["getFFlagToolboxNavigationClearsAudioSearch"]
   CALL R10 1 1
   DUPCLOSURE R11 K23 [PROTO_1]
   CAPTURE VAL R8
@@ -141,6 +143,6 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R5
-  CAPTURE VAL R3
   CAPTURE VAL R10
+  CAPTURE VAL R3
   RETURN R11 1

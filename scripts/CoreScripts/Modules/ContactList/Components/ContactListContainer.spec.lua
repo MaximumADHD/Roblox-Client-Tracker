@@ -6,6 +6,9 @@ return function()
 	local RoactRodux = require(CorePackages.RoactRodux)
 	local UIBlox = require(CorePackages.UIBlox)
 
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
@@ -129,7 +132,11 @@ return function()
 				store = store,
 			}, {
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-					ContactListContainer = Roact.createElement(ContactListContainer),
+					LocalizationProvider = Roact.createElement(LocalizationProvider, {
+						localization = Localization.new("en-us"),
+					}, {
+						ContactListContainer = Roact.createElement(ContactListContainer),
+					}),
 				}),
 			})
 
@@ -151,7 +158,11 @@ return function()
 				store = store,
 			}, {
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-					ContactListContainer = Roact.createElement(ContactListContainer),
+					LocalizationProvider = Roact.createElement(LocalizationProvider, {
+						localization = Localization.new("en-us"),
+					}, {
+						ContactListContainer = Roact.createElement(ContactListContainer),
+					}),
 				}),
 			})
 
@@ -173,7 +184,11 @@ return function()
 				store = store,
 			}, {
 				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-					ContactListContainer = Roact.createElement(ContactListContainer),
+					LocalizationProvider = Roact.createElement(LocalizationProvider, {
+						localization = Localization.new("en-us"),
+					}, {
+						ContactListContainer = Roact.createElement(ContactListContainer),
+					}),
 				}),
 			})
 

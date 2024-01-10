@@ -11,8 +11,6 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local EducationalModal = UIBlox.App.Dialog.Modal.EducationalModal
 local withStyle = UIBlox.Core.Style.withStyle
 
-local InGameMenu = script.Parent.Parent
-local GetFFlagLuaAppExitModal = require(InGameMenu.Flags.GetFFlagLuaAppExitModal)
 local FFlagFixExitDialogBlockVRView = require(script.Parent.Parent.Flags.FFlagFixExitDialogBlockVRView)
 
 local EDU_POPUP_CONFIRM_ACTION = "EducationalPopupConfirm"
@@ -87,11 +85,7 @@ end
 function EducationalPopupDialog:bindActions()
 	local function dismissFunc(actionName, inputState, input)
 		if inputState == Enum.UserInputState.Begin then
-			if GetFFlagLuaAppExitModal() then
-				self.props.onDismiss()
-			else
-				self.props.onConfirm()
-			end
+			self.props.onDismiss()
 		end
 	end
 

@@ -12,8 +12,15 @@ local InspectAndBuyInstanceHandle = nil
 
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyModules.Flags.GetFFlagUseInspectAndBuyControllerBar)
 
-local AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local GetFFlagEnableStyleProviderCleanUp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
+local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
+	then nil
+	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
+local AppFont = if GetFFlagEnableStyleProviderCleanUp()
+	then nil
+	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
+local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local TopBar = require(RobloxGui.Modules.TopBar)
 
@@ -25,23 +32,37 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 		InspectAndBuyInstanceHandle = nil
 	end
 
-	local appStyle = {
-		Theme = AppDarkTheme,
-		Font = AppFont,
-	}
+	local appStyle = nil
+	if not GetFFlagEnableStyleProviderCleanUp() then
+		appStyle = {
+			Theme = AppDarkTheme,
+			Font = AppFont,
+		}
+	end
 
 	local inspectAndBuy
 	if GetFFlagUseInspectAndBuyControllerBar() then
-		inspectAndBuy = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle
-		}, {
-			inspectAndBuy = Roact.createElement(InspectAndBuy, {
-				humanoidDescription = humanoidDescription,
-				playerName = playerName,
-				playerId = userId,
-				ctx = ctx,
+		if GetFFlagEnableStyleProviderCleanUp() then
+			inspectAndBuy = renderWithCoreScriptsStyleProvider({
+				inspectAndBuy = Roact.createElement(InspectAndBuy, {
+					humanoidDescription = humanoidDescription,
+					playerName = playerName,
+					playerId = userId,
+					ctx = ctx,
+				}),
 			})
-		})
+		else
+			inspectAndBuy = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				inspectAndBuy = Roact.createElement(InspectAndBuy, {
+					humanoidDescription = humanoidDescription,
+					playerName = playerName,
+					playerId = userId,
+					ctx = ctx,
+				}),
+			})
+		end
 	else
 		inspectAndBuy = Roact.createElement(InspectAndBuy, {
 			humanoidDescription = humanoidDescription,
@@ -50,7 +71,6 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 			ctx = ctx,
 		})
 	end
-
 
 	InspectAndBuyInstanceHandle = Roact.mount(inspectAndBuy, RobloxGui, "InspectAndBuy")
 	GuiService:SetMenuIsOpen(true, INSPECT_MENU_KEY)

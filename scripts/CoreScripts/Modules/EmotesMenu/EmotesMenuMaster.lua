@@ -33,6 +33,7 @@ local Utility = EmotesModules.Utility
 local Backpack = require(CoreScriptModules.BackpackScript)
 local Chat = require(CoreScriptModules.ChatSelector)
 local TenFootInterface = require(CoreScriptModules.TenFootInterface)
+local TopBarConstant = require(CoreScriptModules.TopBar.Constants)
 
 local StyleConstants = UIBlox.App.Style.Constants
 local UiModeStyleProvider = require(CorePackages.Workspace.Packages.Style).UiModeStyleProvider
@@ -52,8 +53,6 @@ local NumberEmotesLoadedChanged = require(Actions.NumberEmotesLoadedChanged)
 local SetGuiInset = require(Actions.SetGuiInset)
 local SetLayout = require(Actions.SetLayout)
 local SetLocale = require(Actions.SetLocale)
-
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 
 local EmotesMenuMaster = {}
 EmotesMenuMaster.__index = EmotesMenuMaster
@@ -304,24 +303,15 @@ function EmotesMenuMaster:_mount()
 	}
 
 	if not self.instance then
-		local app
-		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-			app = Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.store,
-			}, {
-				Roact.createElement(UiModeStyleProvider, {
-					style = appStyleForUiModeStyleProvider
-				}, {
-					EmotesMenu = Roact.createElement(EmotesMenu)
-				})
-			})
-		else
-			app = Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.store,
+		local app = Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
+		}, {
+			Roact.createElement(UiModeStyleProvider, {
+				style = appStyleForUiModeStyleProvider
 			}, {
 				EmotesMenu = Roact.createElement(EmotesMenu)
 			})
-		end
+		})
 
 		self.instance = Roact.mount(app, RobloxGui, "EmotesMenu")
 
@@ -380,7 +370,7 @@ function EmotesMenuMaster.new()
 		self.store:dispatch(SetLayout(Constants.Layout.TenFoot))
 	end
 
-	local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
+	local inGameGlobalGuiInset = TopBarConstant.TopBarHeight
 	if not RobloxGui.IgnoreGuiInset then
 		self.store:dispatch(SetGuiInset(inGameGlobalGuiInset))
 	end

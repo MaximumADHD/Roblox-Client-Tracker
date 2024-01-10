@@ -24,6 +24,8 @@ local Localization = ContextServices.Localization
 local InspectorContext = require(Main.Src.Util.InspectorContext)
 local MakeTheme = require(Main.Src.Resources.MakeTheme)
 
+local registerPluginStyles = Framework.Styling.registerPluginStyles
+
 local SplitPane = Framework.UI.SplitPane
 
 local SourceStrings = Main.Src.Resources.SourceStrings
@@ -104,6 +106,8 @@ function MainPlugin:init(props)
 		self.localization,
 		Analytics.mock(),
 	}
+
+	self.design = registerPluginStyles(props.Plugin)
 end
 
 function MainPlugin:renderButtons(toolbar)
@@ -160,6 +164,9 @@ function MainPlugin:render()
 			}, {
 				Roact.createElement(StoryTree),
 				Roact.createElement(InfoPanel),
+			}),
+			StyleLink = Roact.createElement("StyleLink", {
+				StyleSheet = self.design,
 			}),
 		}),
 	})

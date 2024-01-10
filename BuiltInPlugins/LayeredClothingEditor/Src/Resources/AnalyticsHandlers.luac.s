@@ -152,7 +152,7 @@ PROTO_6:
   GETUPVAL R1 1
   LOADK R3 K3 ["CreateAccessory"]
   MOVE R4 R0
-  NAMECALL R1 R1 K4 ["reportCounter"]
+  NAMECALL R1 R1 K4 ["ReportCounter"]
   CALL R1 3 0
   RETURN R0 0
 

@@ -337,19 +337,21 @@ PROTO_13:
   GETTABLEKS R3 R0 K0 ["_tabs"]
   GETTABLEKS R4 R0 K1 ["_tabIndex"]
   GETTABLE R2 R3 R4
-  GETTABLEKS R4 R2 K2 ["ToolRegistry"]
-  GETTABLEKS R5 R2 K3 ["ToolIndex"]
+  GETTABLEKS R3 R0 K2 ["_useEmptyTool"]
+  JUMPIF R3 [+8]
+  GETTABLEKS R4 R2 K3 ["ToolRegistry"]
+  GETTABLEKS R5 R2 K4 ["ToolIndex"]
   GETTABLE R3 R4 R5
-  NAMECALL R3 R3 K4 ["deactivate"]
+  NAMECALL R3 R3 K5 ["deactivate"]
   CALL R3 1 0
   SETTABLEKS R1 R0 K1 ["_tabIndex"]
   GETTABLEKS R3 R0 K0 ["_tabs"]
   GETTABLEKS R4 R0 K1 ["_tabIndex"]
   GETTABLE R2 R3 R4
-  GETTABLEKS R3 R0 K5 ["_useEmptyTool"]
+  GETTABLEKS R3 R0 K2 ["_useEmptyTool"]
   JUMPIF R3 [+8]
-  GETTABLEKS R4 R2 K2 ["ToolRegistry"]
-  GETTABLEKS R5 R2 K3 ["ToolIndex"]
+  GETTABLEKS R4 R2 K3 ["ToolRegistry"]
+  GETTABLEKS R5 R2 K4 ["ToolIndex"]
   GETTABLE R3 R4 R5
   NAMECALL R3 R3 K6 ["activate"]
   CALL R3 1 0
@@ -357,7 +359,7 @@ PROTO_13:
   MOVE R5 R1
   NAMECALL R3 R3 K8 ["Fire"]
   CALL R3 2 0
-  GETTABLEKS R3 R0 K5 ["_useEmptyTool"]
+  GETTABLEKS R3 R0 K2 ["_useEmptyTool"]
   JUMPIFNOT R3 [+14]
   GETTABLEKS R3 R0 K9 ["OnToolIndexChanged"]
   LOADN R5 255
@@ -369,12 +371,12 @@ PROTO_13:
   CALL R3 2 0
   RETURN R0 0
   GETTABLEKS R3 R0 K9 ["OnToolIndexChanged"]
-  GETTABLEKS R5 R2 K3 ["ToolIndex"]
+  GETTABLEKS R5 R2 K4 ["ToolIndex"]
   NAMECALL R3 R3 K8 ["Fire"]
   CALL R3 2 0
   GETTABLEKS R3 R0 K10 ["OnToolChanged"]
-  GETTABLEKS R6 R2 K2 ["ToolRegistry"]
-  GETTABLEKS R7 R2 K3 ["ToolIndex"]
+  GETTABLEKS R6 R2 K3 ["ToolRegistry"]
+  GETTABLEKS R7 R2 K4 ["ToolIndex"]
   GETTABLE R5 R6 R7
   NAMECALL R3 R3 K8 ["Fire"]
   CALL R3 2 0

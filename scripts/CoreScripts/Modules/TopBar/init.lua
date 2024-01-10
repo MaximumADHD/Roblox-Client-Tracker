@@ -6,16 +6,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local IXPService = game:GetService("IXPService")
 local LocalizationService = game:GetService("LocalizationService")
 
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-
-local AppDarkTheme = nil
-local AppFont = nil
-if not GetFFlagEnableStyleProviderCleanUp() then
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-end
-
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local DesignTokenProvider = require(CorePackages.Workspace.Packages.Style).DesignTokenProvider
@@ -64,8 +54,6 @@ local GlobalConfig = require(script.GlobalConfig)
 
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local FFlagAddMenuNavigationToggleDialog = require(script.Flags.FFlagAddMenuNavigationToggleDialog)
 local FFlagEnableGamepadMenuSelector = require(script.Flags.FFlagEnableGamepadMenuSelector)
 
@@ -128,13 +116,6 @@ function TopBar.new()
 	coroutine.wrap(function()
 		self.store:dispatch(SetSmallTouchDevice(SettingsUtil:IsSmallTouchScreen()))
 	end)()
-	local appStyle = nil
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-	end
 
 	local appStyleForAppStyleProvider = {
 		themeName = StyleConstants.ThemeName.Dark,
@@ -142,20 +123,9 @@ function TopBar.new()
 	}
 
 	local function wrapWithUiModeStyleProvider(children)
-		if
-			GetFFlagEnableStyleProviderCleanUp()
-			or GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts()
-			or FFlagAddMenuNavigationToggleDialog
-		then
-			return {
-				UiModeStyleProvider = Roact.createElement(UiModeStyleProvider, {
-					style = appStyleForAppStyleProvider,
-				}, children),
-			}
-		end
 		return {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
+			UiModeStyleProvider = Roact.createElement(UiModeStyleProvider, {
+				style = appStyleForAppStyleProvider,
 			}, children),
 		}
 	end

@@ -72,18 +72,12 @@ local GetFFlagMuteButtonRaceConditionFix = require(RobloxGui.Modules.Flags.GetFF
 
 local GetFFlagRemoveAssetVersionEndpoint = require(RobloxGui.Modules.Flags.GetFFlagRemoveAssetVersionEndpoint)
 local GetFFlagNewEventIngestPlayerScriptsDimensions = require(RobloxGui.Modules.Flags.GetFFlagNewEventIngestPlayerScriptsDimensions)
-local GetFFlagInGameMenuV1LeaveToHome = require(RobloxGui.Modules.Flags.GetFFlagInGameMenuV1LeaveToHome)
-local FFlagInGameMenuV1FullScreenTitleBar = game:DefineFastFlag("InGameMenuV1FullScreenTitleBar", false)
-local FFlagInGameMenuHomeButton = game:DefineFastFlag("InGameMenuHomeButton", false)
-local FFlagInGameMenuV1ExitModal = game:DefineFastFlag("InGameMenuV1ExitModal", false)
 local FFlagFixMouseIconSettingsMenuWithDeferredEvents = game:DefineFastFlag("FixMouseIconSettingsMenuWithDeferredEvents", false)
 local GetFFlagShareInviteLinkContextMenuV1Enabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics)
-local GetFFlagShareGamePageNullCheckEnabled = require(RobloxGui.Modules.Settings.Flags.GetFFlagShareGamePageNullCheckEnabled)
 local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
-local GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts = require(RobloxGui.Modules.Flags.GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagFix10ftBottomButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagFix10ftBottomButtons)
@@ -93,6 +87,7 @@ local GetFFlagFix10ftMenuGap = require(RobloxGui.Modules.Settings.Flags.GetFFlag
 local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
 local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
 local GetFFlagFixResumeSourceAnalytics =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixResumeSourceAnalytics)
+local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -276,9 +271,7 @@ local function CreateSettingsHub()
 	if GetFFlagEnableTeleportBackButton() then
 		this.BackBarVisibleConnection = nil
 	end
-	if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-		this.PreferredTransparencyChangedConnection = nil
-	end
+	this.PreferredTransparencyChangedConnection = nil
 	this.TabConnection = nil
 	this.LeaveGamePage = require(RobloxGui.Modules.Settings.Pages.LeaveGame)
 	this.ResetCharacterPage = require(RobloxGui.Modules.Settings.Pages.ResetCharacter)
@@ -982,16 +975,14 @@ local function CreateSettingsHub()
 			ShieldInstanceType = "ImageButton"
 		end
 
-		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-			this.CanvasGroup = utility:Create("CanvasGroup")
-			{
-				Name = "CanvasGroup",
-				Size = UDim2.fromScale(1, 1),
-				BackgroundTransparency = 1,
-				GroupTransparency = 0,
-				Parent = this.ClippingShield
-			}
-		end
+		this.CanvasGroup = utility:Create("CanvasGroup")
+		{
+			Name = "CanvasGroup",
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			GroupTransparency = 0,
+			Parent = this.ClippingShield
+		}
 
 		this.Shield = utility:Create(ShieldInstanceType)
 		{
@@ -1557,7 +1548,7 @@ local function CreateSettingsHub()
 			if utility:IsSmallTouchScreen() then
 				this.VoiceRecordingText.Size = UDim2.fromScale(1, 1)
 				this.VoiceRecordingText.AnchorPoint = Vector2.new(0,0)
-				if GetFFlagRightAlignMicText() and ChromeEnabled then 
+				if GetFFlagRightAlignMicText() and ChromeEnabled then
 					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
 					this.VoiceRecordingText.Position = UDim2.new(0,0,0,-60)
 				else
@@ -1565,7 +1556,7 @@ local function CreateSettingsHub()
 				end
 			elseif isTenFootInterface then
 				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
-				if GetFFlagRightAlignMicText() and ChromeEnabled then 
+				if GetFFlagRightAlignMicText() and ChromeEnabled then
 					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
 					this.VoiceRecordingText.Size = UDim2.new(1,0,0,100)
 					this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
@@ -1575,7 +1566,7 @@ local function CreateSettingsHub()
 				end
 			else
 				this.VoiceRecordingText.AnchorPoint = Vector2.new(0, 1)
-				if GetFFlagRightAlignMicText() and ChromeEnabled then 
+				if GetFFlagRightAlignMicText() and ChromeEnabled then
 					this.VoiceRecordingText.TextXAlignment = Enum.TextXAlignment.Right
 					this.VoiceRecordingText.Size = UDim2.new(1, 0, 0, 60)
 					this.VoiceRecordingText.Position = UDim2.new(0,0,0.1,0)
@@ -1687,25 +1678,24 @@ local function CreateSettingsHub()
 				Parent = this.PageViewInnerFrame,
 			}
 		end
-		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-			this.InnerCanvasGroupShow = utility:Create("CanvasGroup")
-			{
-				Name = "InnerCanvasGroupShow",
-				Size = UDim2.fromScale(1, 1),
-				BackgroundTransparency = 1,
-				GroupTransparency = 0,
-				Parent = this.PageViewInnerFrame
-			}
 
-			this.InnerCanvasGroupHide = utility:Create("CanvasGroup")
-			{
-				Name = "InnerCanvasGroupHide",
-				Size = UDim2.fromScale(1, 1),
-				BackgroundTransparency = 1,
-				GroupTransparency = 0,
-				Parent = this.PageViewInnerFrame
-			}
-		end
+		this.InnerCanvasGroupShow = utility:Create("CanvasGroup")
+		{
+			Name = "InnerCanvasGroupShow",
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			GroupTransparency = 0,
+			Parent = this.PageViewInnerFrame
+		}
+
+		this.InnerCanvasGroupHide = utility:Create("CanvasGroup")
+		{
+			Name = "InnerCanvasGroupHide",
+			Size = UDim2.fromScale(1, 1),
+			BackgroundTransparency = 1,
+			GroupTransparency = 0,
+			Parent = this.PageViewInnerFrame
+		}
 
 		if Theme.UseStickyBar() then
 			this.PageView.AutomaticCanvasSize = Enum.AutomaticSize.Y
@@ -1752,6 +1742,9 @@ local function CreateSettingsHub()
 		end
 
 		local leaveGameFunc = function()
+			if FFlagPreventHiddenSwitchPage and this:GetVisibility() == false then
+				return
+			end
 			this:AddToMenuStack(this.Pages.CurrentPage)
 			this.HubBar.Visible = false
 			removeBottomBarBindings()
@@ -1764,7 +1757,7 @@ local function CreateSettingsHub()
 				Constants.AnalyticsTargetName,
 				Constants.AnalyticsResumeGameName,
 				Constants.AnalyticsMenuActionName,
-				{ source = if Theme.UIBloxThemeEnabled then 
+				{ source = if Theme.UIBloxThemeEnabled then
 					if GetFFlagFixResumeSourceAnalytics() then source else Constants.AnalyticsResumeShieldSource
 				else Constants.AnalyticsResumeButtonSource }
 			)
@@ -1814,18 +1807,18 @@ local function CreateSettingsHub()
 		end
 
 		local resumeGameText = "Resume"
-		local resumeButtonFunc = if GetFFlagFixResumeSourceAnalytics() then 
-			function() resumeFunc(Constants.AnalyticsResumeButtonSource) end 
+		local resumeButtonFunc = if GetFFlagFixResumeSourceAnalytics() then
+			function() resumeFunc(Constants.AnalyticsResumeButtonSource) end
 			else resumeFunc
-		local resumeHotkeyFunc = if GetFFlagFixResumeSourceAnalytics() then 
-			function() resumeFunc(Constants.AnalyticsResumeGamepadSource) end 
+		local resumeHotkeyFunc = if GetFFlagFixResumeSourceAnalytics() then
+			function() resumeFunc(Constants.AnalyticsResumeGamepadSource) end
 			else nil
 		addBottomBarButtonOld("Resume", resumeGameText, buttonB,
 			"rbxasset://textures/ui/Settings/Help/EscapeIcon.png", UDim2.new(0.5,isTenFootInterface and 200 or 140,0.5,-25),
 			resumeButtonFunc, {Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart}, resumeHotkeyFunc
 		)
 
-		if Theme.UIBloxThemeEnabled or (FFlagInGameMenuHomeButton and isSubjectToDesktopPolicies()) then
+		if Theme.UIBloxThemeEnabled or isSubjectToDesktopPolicies() then
 			if Theme.UIBloxThemeEnabled then
 				this.HubBarContainer = utility:Create'ImageLabel'
 				{
@@ -1930,23 +1923,19 @@ local function CreateSettingsHub()
 					end
 				end)
 
-				if GetFFlagInGameMenuV1LeaveToHome() then
-					local leaveToHomeFunc = function()
-						this:AddToMenuStack(this.Pages.CurrentPage)
-						this.HubBar.Visible = false
-						removeBottomBarBindings()
-						this:SwitchToPage(this.LeaveGameToHomePage, nil, 1, true)
-					end
-
-					this.HubBarHomeButton.Activated:Connect(leaveToHomeFunc)
-				else
-					this.HubBarHomeButton.Activated:Connect(leaveGameFunc)
+				local leaveToHomeFunc = function()
+					this:AddToMenuStack(this.Pages.CurrentPage)
+					this.HubBar.Visible = false
+					removeBottomBarBindings()
+					this:SwitchToPage(this.LeaveGameToHomePage, nil, 1, true)
 				end
+
+				this.HubBarHomeButton.Activated:Connect(leaveToHomeFunc)
 			end
 
 		end
 
-		if FFlagInGameMenuV1FullScreenTitleBar and isSubjectToDesktopPolicies() then
+		if isSubjectToDesktopPolicies() then
 			this.FullScreenTitleBar = SettingsFullScreenTitleBar.mount({}, this.Shield, "FullScreenTitleBar")
 		end
 
@@ -2228,9 +2217,7 @@ local function CreateSettingsHub()
 	end
 
 	local function onPreferredTransparencyChanged()
-		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-			this.MenuContainer.BackgroundTransparency = Theme.transparency("MenuContainer", 1) * GuiService.PreferredTransparency
-		end
+		this.MenuContainer.BackgroundTransparency = Theme.transparency("MenuContainer", 1) * GuiService.PreferredTransparency
 	end
 
 	local function toggleQuickProfilerFromHotkey(actionName, inputState, inputObject)
@@ -2401,7 +2388,7 @@ local function CreateSettingsHub()
 		end
 
 		setZIndex(SETTINGS_BASE_ZINDEX + 1, newHeader)
-		if Theme.UIBloxThemeEnabled or (FFlagInGameMenuHomeButton and isSubjectToDesktopPolicies()) then
+		if Theme.UIBloxThemeEnabled or isSubjectToDesktopPolicies() then
 			newHeader.Parent = this.HubBarContainer
 		else
 			newHeader.Parent = this.HubBar
@@ -2601,6 +2588,10 @@ local function CreateSettingsHub()
 	function this:SwitchToPage(pageToSwitchTo, ignoreStack, direction, skipAnimation, invisibly, eventData)
 		if this.Pages.PageTable[pageToSwitchTo] == nil then return end
 
+		if FFlagPreventHiddenSwitchPage and this:GetVisibility() == false then
+			return
+		end
+
 		if Theme.UIBloxThemeEnabled then
 			local topExtra = UDim.new(0, 0)
 			local bottomExtra = UDim.new(0, 0)
@@ -2769,7 +2760,7 @@ local function CreateSettingsHub()
 			this.BackBarVisibleConnection = nil
 		end
 
-		if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and this.PreferredTransparencyChangedConnection then
+		if this.PreferredTransparencyChangedConnection then
 			this.PreferredTransparencyChangedConnection:disconnect()
 			this.PreferredTransparencyChangedConnection = nil
 		end
@@ -2801,11 +2792,9 @@ local function CreateSettingsHub()
 			end
 			onScreenSizeChanged()
 
-			if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() then
-				this.PreferredTransparencyChangedConnection = GuiService:GetPropertyChangedSignal("PreferredTransparency"):connect(function()
-					onPreferredTransparencyChanged()
-				end)
-			end
+			this.PreferredTransparencyChangedConnection = GuiService:GetPropertyChangedSignal("PreferredTransparency"):connect(function()
+				onPreferredTransparencyChanged()
+			end)
 			onPreferredTransparencyChanged()
 
 			this.SettingsShowSignal:fire(this.Visible)
@@ -2840,7 +2829,7 @@ local function CreateSettingsHub()
 					movementTime = if Constants then Constants.ShieldOpenAnimationTweenTime else 0.5
 				end
 
-				if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and GameSettings.ReducedMotion then
+				if GameSettings.ReducedMotion then
 					this.Shield.Parent = this.CanvasGroup
 					this.CanvasGroup.GroupTransparency = 1
 					this.Shield.Position = UDim2.new(0, 0, 0, 0)
@@ -2995,7 +2984,7 @@ local function CreateSettingsHub()
 					end
 				end
 
-				if GetFFlagEnableAccessibilitySettingsEffectsInCoreScripts() and GameSettings.ReducedMotion then
+				if GameSettings.ReducedMotion then
 					this.Shield.Parent = this.CanvasGroup
 
 					local tweenInfo = TweenInfo.new(0.25)
@@ -3092,11 +3081,7 @@ local function CreateSettingsHub()
 			end
 
 			if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-				if GetFFlagShareGamePageNullCheckEnabled() then
-					if this.ShareGamePage then
-						this.ShareGamePage:ClearShareInviteLink(this.ShareGameApp)
-					end
-				else
+				if this.ShareGamePage then
 					this.ShareGamePage:ClearShareInviteLink(this.ShareGameApp)
 				end
 			end
@@ -3319,12 +3304,12 @@ local function CreateSettingsHub()
 	this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
 	this.PlayersPage:SetHub(this)
 
-	if FFlagInGameMenuV1ExitModal and isSubjectToDesktopPolicies() then
+	if isSubjectToDesktopPolicies() then
 		this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
 		this.ExitModalPage:SetHub(this)
 	end
 
-	if GetFFlagInGameMenuV1LeaveToHome() and isSubjectToDesktopPolicies() then
+	if isSubjectToDesktopPolicies() then
 		this.LeaveGameToHomePage = require(RobloxGui.Modules.Settings.Pages.LeaveGameToHome)
 		this.LeaveGameToHomePage:SetHub(this)
 	end
@@ -3396,10 +3381,9 @@ local function CreateSettingsHub()
 	if this.ExitModalPage then
 		this:AddPage(this.ExitModalPage)
 	end
-	if GetFFlagInGameMenuV1LeaveToHome() then
-		if this.LeaveGameToHomePage then
-			this:AddPage(this.LeaveGameToHomePage)
-		end
+
+	if this.LeaveGameToHomePage then
+		this:AddPage(this.LeaveGameToHomePage)
 	end
 
 	this:InitInPage(this.PlayersPage)

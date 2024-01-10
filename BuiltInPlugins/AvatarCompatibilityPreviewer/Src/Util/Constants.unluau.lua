@@ -15,7 +15,7 @@ local var0 = {
    "RightUpperArm", 
    "RightLowerArm"
 }
-local var271 = "RightHand"
+local var211 = "RightHand"
 local var2 = {}
 var2.SOURCE_BUILTIN = "builtin"
 var2.SOURCE_INSTANCE = "instance"
@@ -46,17 +46,17 @@ Enum.AssetType.SweaterAccessory = Enum.AccessoryType.Sweater
 Enum.AssetType.TShirtAccessory = Enum.AccessoryType.TShirt
 Enum.AssetType.WaistAccessory = Enum.AccessoryType.Waist
 var2.ASSET_TYPE_TO_ACCESSORY_TYPE = {}
-local var335 = "LeftCheekPuff"
-local var336 = "LeftCheekRaiser"
-local var337 = "LeftDimpler"
-local var351 = "MouthLeft"
-local var352 = "MouthRight"
-local var353 = "Pucker"
+local var275 = "LeftCheekPuff"
+local var276 = "LeftCheekRaiser"
+local var277 = "LeftDimpler"
+local var291 = "MouthLeft"
+local var292 = "MouthRight"
+local var293 = "Pucker"
 local var9 = "RightUpperLipRaiser"
 local var10 = "TongueDown"
 local var11 = "TongueOut"
-local var370 = "TongueUp"
-local var371 = "UpperLipSuck"
+local var310 = "TongueUp"
+local var311 = "UpperLipSuck"
 var2.FACE_CONTROLS_PROPERTIES = { 
    "ChinRaiser", 
    "ChinRaiserUpperLip", 
@@ -99,9 +99,9 @@ var2.FACE_CONTROLS_PROPERTIES = {
    "RightOuterBrowRaiser"
 }
 var2.LIMBS = var0
-local var372 = require(script:FindFirstAncestor("AvatarCompatibilityPreviewer").Packages.Cryo).List
-var372 = var0
+local var312 = require(script:FindFirstAncestor("AvatarCompatibilityPreviewer").Packages.Cryo).List
+var312 = var0
 local var12 = "Handle"
 local var13 = "HumanoidRootPart"
-var2.ALL_ALLOWED_PART_NAMES = var372.join(var372, {})
+var2.ALL_ALLOWED_PART_NAMES = var312.join(var312, {})
 return var2

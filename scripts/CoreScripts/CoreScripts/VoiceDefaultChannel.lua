@@ -16,12 +16,16 @@ local FFlagDefaulChannelDontWaitOnCharacter = game:DefineFastFlag("DefaultChanne
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
+local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
 
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
+if GetFFlagRemoveInGameChatBubbleChatReferences() then
+	log = require(RobloxGui.Modules.VoiceChat.Logger)(script.Name)
+end
 local Analytics = require(RobloxGui.Modules.VoiceChat.Analytics).new()
 
 local function initializeDefaultChannel(defaultMuted)

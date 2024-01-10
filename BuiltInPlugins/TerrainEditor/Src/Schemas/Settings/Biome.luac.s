@@ -65,26 +65,28 @@ PROTO_0:
   LOADK R15 K23 ["Number"]
   SETTABLEKS R15 R14 K8 ["Type"]
   SETTABLEKS R14 R13 K4 ["Schema"]
-  DUPTABLE R14 K5 [{"Id", "Schema"}]
+  DUPTABLE R14 K26 [{"Id", "Layout", "Schema"}]
   GETUPVAL R16 2
-  GETTABLEKS R15 R16 K25 ["Generate"]
+  GETTABLEKS R15 R16 K27 ["Generate"]
   SETTABLEKS R15 R14 K3 ["Id"]
-  DUPTABLE R15 K27 [{"Label", "Type"}]
+  GETIMPORT R15 K31 [Enum.FillDirection.Vertical]
+  SETTABLEKS R15 R14 K25 ["Layout"]
+  DUPTABLE R15 K33 [{"Label", "Type"}]
   GETUPVAL R18 3
   GETUPVAL R20 2
-  GETTABLEKS R19 R20 K25 ["Generate"]
+  GETTABLEKS R19 R20 K27 ["Generate"]
   NAMECALL R16 R4 K2 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K26 ["Label"]
-  LOADK R16 K28 ["Button"]
+  SETTABLEKS R16 R15 K32 ["Label"]
+  LOADK R16 K34 ["Button"]
   SETTABLEKS R16 R15 K8 ["Type"]
   SETTABLEKS R15 R14 K4 ["Schema"]
   SETLIST R8 R9 6 [1]
-  DUPTABLE R9 K32 [{"Category", "Data", "Overrides"}]
+  DUPTABLE R9 K38 [{"Category", "Data", "Overrides"}]
   GETUPVAL R10 3
-  SETTABLEKS R10 R9 K29 ["Category"]
-  SETTABLEKS R1 R9 K30 ["Data"]
-  SETTABLEKS R3 R9 K31 ["Overrides"]
+  SETTABLEKS R10 R9 K35 ["Category"]
+  SETTABLEKS R1 R9 K36 ["Data"]
+  SETTABLEKS R3 R9 K37 ["Overrides"]
   CALL R6 3 -1
   RETURN R6 -1
 

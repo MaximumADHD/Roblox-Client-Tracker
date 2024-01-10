@@ -3,15 +3,15 @@ local var0 = require(script.Parent.Parent.Parent.Core.Util.createSignal)
 local var1 = {}
 var1.__index = var1
 function var1.new()
-   local var1289 = {}
-   var1289._signal = var0()
-   var1289._currentTooltipAssetId = 0
-   var1289._currentTooltipTypeId = 0
-   var1289._isDropdownShown = false
-   var1289._isMouseInSearchOptions = false
-   var1289._isSearchOptionsShown = false
-   var1289._isAssetPreviewing = false
-   return setmetatable(var1289, var1)
+   local var10 = {}
+   var10._signal = var0()
+   var10._currentTooltipAssetId = 0
+   var10._currentTooltipTypeId = 0
+   var10._isDropdownShown = false
+   var10._isMouseInSearchOptions = false
+   var10._isSearchOptionsShown = false
+   var10._isAssetPreviewing = false
+   return setmetatable(var10, var1)
 end
 
 function var1.subscribe(arg1, ...)

@@ -182,7 +182,7 @@ MAIN:
   SETTABLEKS R2 R1 K10 ["range"]
   GETIMPORT R4 K12 [Enum]
   GETTABLEKS R3 R4 K13 ["Severity"]
-  GETTABLEKS R2 R3 K30 ["Warning"]
+  GETTABLEKS R2 R3 K14 ["Error"]
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K17 ["suggestions"]

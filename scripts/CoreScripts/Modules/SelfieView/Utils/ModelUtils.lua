@@ -5,6 +5,7 @@ local FFlagSelfViewChecks2 = game:DefineFastFlag("SelfViewChecks2", false)
 local FFlagSelfViewMakeClonePartsNonTransparent = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent", false)
 local FFlagSelfViewMakeClonePartsNonTransparent2 = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent2", false)
 local FFlagSanitizeSelfViewStrict2 = game:DefineFastFlag("SanitizeSelfViewStrict2", false)
+local EngineFeatureAvatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
 
 --we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
 --so for triggering dirty on DescendantAdded or DescendantRemoving we only trigger it for things which make a visual difference
@@ -248,6 +249,8 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	Accessory = "Accessory",
 	Animator = "Animator",
 	Attachment = "Attachment",
+	AnimationConstraint = EngineFeatureAvatarJointUpgrade and "AnimationConstraint" or nil,
+	BallSocketConstraint = EngineFeatureAvatarJointUpgrade and "BallSocketConstraint" or nil,
 	BodyColors = "BodyColors",
 	CharacterMesh = "CharacterMesh",
 	Decal = "Decal",

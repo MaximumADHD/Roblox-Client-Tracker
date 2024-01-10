@@ -2,7 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService('RunService')
+local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
@@ -27,6 +27,7 @@ local ServerJobs = require(Components.ServerJobs.MainViewServerJobs)
 local MicroProfiler = require(Components.MicroProfiler.MainViewMicroProfiler)
 local ScriptProfiler = require(Components.ScriptProfiler.MainViewScriptProfiler)
 local DebugVisualizations = require(Components.DebugVisualizations.MainViewDebugVisualizations)
+local LuauHeap = require(Components.LuauHeap.MainViewLuauHeap)
 
 local RCCProfilerDataCompleteListener = require(Components.MicroProfiler.RCCProfilerDataCompleteListener)
 local getClientReplicator = require(DevConsole.Util.getClientReplicator)
@@ -44,6 +45,8 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
+local LuauHeapProfilerEngineFeature = game:GetEngineFeature("LuauHeapProfiler")
+local getFFlagDevConsoleLuauHeap = require(Components.LuauHeap.GetFFlagDevConsoleLuauHeap)
 
 local GetFFlagRequestServerStatsFix = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagRequestServerStatsFix)
 
@@ -91,10 +94,41 @@ local DEV_TAB_LIST = {
 		tab = DebugVisualizations,
 		layoutOrder = 10,
 	},
-	ScriptProfiler = if ScriptProfilerEngineFeature then {
-		tab = ScriptProfiler,
-		layoutOrder = 11,
-	} else nil
+	ScriptProfiler = if ScriptProfilerEngineFeature
+		then {
+			tab = ScriptProfiler,
+			layoutOrder = 11,
+		}
+		else nil,
+	LuauHeap = if LuauHeapProfilerEngineFeature and getFFlagDevConsoleLuauHeap()
+		then {
+			tab = LuauHeap,
+			layoutOrder = 12,
+		}
+		else nil,
+}
+
+local ADMIN_TAB_LIST = {
+	Log = {
+		tab = Log,
+		layoutOrder = 1,
+	},
+	Memory = {
+		tab = Memory,
+		layoutOrder = 2,
+	},
+	ScriptProfiler = if ScriptProfilerEngineFeature
+		then {
+			tab = ScriptProfiler,
+			layoutOrder = 3,
+		}
+		else nil,
+	LuauHeap = if LuauHeapProfilerEngineFeature
+		then {
+			tab = LuauHeap,
+			layoutOrder = 4,
+		}
+		else nil,
 }
 
 local PLAYER_TAB_LIST = {
@@ -134,6 +168,10 @@ local platformConversion = {
 	[Enum.Platform.None] = Constants.FormFactor.Large,
 }
 
+local function isAdminAsync()
+	return PlayerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
+end
+
 local function isDeveloper()
 	if RunService:IsStudio() then
 		return true
@@ -150,6 +188,11 @@ function DevConsoleMaster.new()
 	setmetatable(self, DevConsoleMaster)
 
 	self.init = false
+
+	if getFFlagDevConsoleLuauHeap() then
+		self.isDeveloperTabListActive = false
+	end
+
 	self.waitForStart = true
 	self.waitForStartBindable = Instance.new("BindableEvent")
 	coroutine.wrap(function()
@@ -195,7 +238,7 @@ function DevConsoleMaster:SetupDevConsole()
 					size = Constants.MainWindowInit.Size,
 					tabList = PLAYER_TAB_LIST,
 					onCloseCallback = function(value)
-						 self:SetServerStatsConnection(value)
+						self:SetServerStatsConnection(value)
 					end,
 				}),
 
@@ -219,6 +262,16 @@ function DevConsoleMaster:Start()
 		self.element = Roact.mount(self.root, CoreGui, "DevConsoleMaster")
 		local clientReplicator = getClientReplicator()
 
+		if getFFlagDevConsoleLuauHeap() then
+			-- Because the request is async, we spawn it as a separate task
+			task.spawn(function()
+				-- Switch to Admin tab list if we didn't already switch to the developer list
+				if isAdminAsync() and not self.isDeveloperTabListActive then
+					self.store:dispatch(SetTabList(ADMIN_TAB_LIST, "Log", false))
+				end
+			end)
+		end
+
 		if clientReplicator then
 			self._statsConnector = clientReplicator.StatsReceived:connect(function(stats)
 				if not self._statsConnector then
@@ -226,6 +279,10 @@ function DevConsoleMaster:Start()
 				end
 				self._statsConnector:Disconnect()
 				self._statsConnector = nil
+
+				if getFFlagDevConsoleLuauHeap() then
+					self.isDeveloperTabListActive = true
+				end
 
 				self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
 			end)
@@ -282,7 +339,7 @@ function DevConsoleMaster:SetVisibility(value)
 		if GetFFlagRequestServerStatsFix() then
 			self:SetServerStatsConnection(value)
 		end
-		
+
 		self.store:dispatch(SetDevConsoleVisibility(value))
 	end
 end

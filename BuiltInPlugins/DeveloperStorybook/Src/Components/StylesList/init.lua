@@ -11,25 +11,24 @@
 ]]
 
 local Main = script.Parent.Parent.Parent
-local Roact = require(Main.Packages.Roact)
+local React = require(Main.Packages.React)
 
 local Framework = require(Main.Packages.Framework)
-local ContextServices = Framework.ContextServices
-local withContext = ContextServices.withContext
 
 local PanelEntry = require(Main.Src.Components.PanelEntry)
 local FrameworkStyle = require(Main.Packages.Framework).Style
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
-local StylesList = Roact.PureComponent:extend("StylesList")
+local UI = Framework.UI
+local TextLabel = UI.TextLabel
+
+local StylesList = React.PureComponent:extend("StylesList")
 
 local SUMMARY = [[In addition to Default, these Styles are defined for this component:]]
 local NOSTYLES = [[Only the Default style is defined for this component.]]
 
 function StylesList:render()
 	local props = self.props
-	local style = props.Stylizer
-	local text = style.Text
 	local header = props.Header
 	local layoutOrder = props.LayoutOrder
 
@@ -49,26 +48,16 @@ function StylesList:render()
 	local hasStyles = next(stylesList)
 	local headerString = hasStyles and SUMMARY or NOSTYLES
 
-	return Roact.createElement(PanelEntry, {
+	return React.createElement(PanelEntry, {
 		Header = header,
 		Description = headerString,
 		LayoutOrder = layoutOrder,
 	}, {
-		Styles = hasStyles and Roact.createElement("TextLabel", {
-			AutomaticSize = Enum.AutomaticSize.XY,
+		Styles = hasStyles and React.createElement(TextLabel, {
 			Text = stylesString,
-			Font = Enum.Font.SourceSans,
-			TextSize = text.Type.Size,
-			TextColor3 = text.Header.Color,
-			BackgroundTransparency = 1,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextWrapped = true,
+			[React.Tag] = "Title Wrap",
 		}),
 	})
 end
-
-StylesList = withContext({
-	Stylizer = ContextServices.Stylizer,
-})(StylesList)
 
 return StylesList

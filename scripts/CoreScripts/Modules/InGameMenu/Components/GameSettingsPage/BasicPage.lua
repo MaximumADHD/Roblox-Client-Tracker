@@ -56,8 +56,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
 
-local EnableNewComfortSettingsUI = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIGMVRComfortSetting() and
-	game:GetEngineFeature("VRMoreComfortSettings")
+local EnableNewComfortSettingsUI = game:GetEngineFeature("VRMoreComfortSettings")
 
 local VREnabledChanged = UserGameSettings:GetPropertyChangedSignal("VREnabled")
 local IsVRAppBuild = require(CorePackages.Workspace.Packages.AppCommonLib).IsVRAppBuild

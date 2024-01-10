@@ -1,4 +1,5 @@
 local Colors = require(script.Parent.Colors)
+local TopBarConstants = require(script.Parent.Parent.TopBar.Constants)
 
 local WideLandscapeView = {
 	ContainerBackgroundTransparency = 0,
@@ -6,9 +7,9 @@ local WideLandscapeView = {
 	UseContainerAspectRatio = false,
 	ContainerAspectRatio = nil,
 	MaxAssetCardsPerRow = 4,
-	ContainerSize = UDim2.new(1, 0, 1, -36),
+	ContainerSize = UDim2.new(1, 0, 1, -TopBarConstants.TopBarHeight),
 	ContainerAnchorPoint = Vector2.new(0.5, 0),
-	ContainerPosition = UDim2.new(0.5, 0, 0, 36),
+	ContainerPosition = UDim2.new(0.5, 0, 0, TopBarConstants.TopBarHeight),
 	AvatarHeadShotSize = 48,
 	TopSizeY = 50,
 	PlayerViewportSize = UDim2.new(0.33, 0, 1, -42),

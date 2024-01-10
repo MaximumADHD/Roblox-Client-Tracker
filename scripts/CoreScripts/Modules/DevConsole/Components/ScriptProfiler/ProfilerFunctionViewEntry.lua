@@ -125,7 +125,7 @@ function ProfilerFunctionViewEntry:render()
     local functionId = props.functionId
     local func = data.Functions[functionId]
 
-    local totalDuration = func.TotalDuration
+    local totalDuration = func.TotalDuration / self.props.average
 
     local isNative = getNativeFlag(data, func, true)
 

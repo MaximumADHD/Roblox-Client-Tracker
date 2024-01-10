@@ -1,9 +1,9 @@
 --[[
-	TODO AVBURST-12905:
-		Remove and use item details endpoint for getting attribution data
-		instead of using the asset-versions endpoint.
+	FIXME(dbanks)
+	2023/12/07
+	See https://roblox.atlassian.net/browse/AVBURST-12905
+	This will be removed once backend sends "creating universe" with asset details.
 --]]
-
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local JestGlobals = require(CorePackages.JestGlobals)

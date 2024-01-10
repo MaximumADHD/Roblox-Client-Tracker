@@ -1,7 +1,8 @@
 PROTO_0:
-  DUPTABLE R1 K1 [{"characters"}]
-  SETTABLEKS R0 R1 K0 ["characters"]
-  RETURN R1 1
+  DUPTABLE R2 K2 [{"characters", "convertedCharacters"}]
+  SETTABLEKS R0 R2 K0 ["characters"]
+  SETTABLEKS R1 R2 K1 ["convertedCharacters"]
+  RETURN R2 1
 
 MAIN:
   PREPVARARGS 0

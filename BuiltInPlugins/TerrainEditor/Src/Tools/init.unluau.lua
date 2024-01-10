@@ -11,6 +11,5 @@ local var8 = require(script.BrushSculpt)
 local var9 = require(script.BrushSmooth)
 local var10 = require(script.BrushPaint)
 local var11 = require(script.BrushFlatten)
-local var12 = require(script.BrushRamp)
-local var13 = require(script.Empty)
+local var12 = require(script.Empty)
 return {}

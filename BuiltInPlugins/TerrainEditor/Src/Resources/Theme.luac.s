@@ -279,4 +279,36 @@ MAIN:
   LOADN R10 20
   SETTABLEKS R10 R9 K75 ["TextSize"]
   SETTABLE R9 R6 R8
+  LOADK R10 K141 ["Note"]
+  NAMECALL R8 R5 K14 ["add"]
+  CALL R8 2 0
+  GETTABLEKS R8 R5 K141 ["Note"]
+  DUPTABLE R9 K147 [{"Background", "KeyBackground", "EdgePadding", "FramePadding", "TextMargin"}]
+  GETTABLEKS R10 R3 K28 ["MainBackground"]
+  SETTABLEKS R10 R9 K142 ["Background"]
+  GETTABLEKS R10 R3 K148 ["DimmedText"]
+  SETTABLEKS R10 R9 K143 ["KeyBackground"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K144 ["EdgePadding"]
+  LOADN R10 3
+  SETTABLEKS R10 R9 K145 ["FramePadding"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K146 ["TextMargin"]
+  SETTABLE R9 R6 R8
+  LOADK R10 K149 ["BrushSizeRenderer"]
+  NAMECALL R8 R5 K14 ["add"]
+  CALL R8 2 0
+  GETTABLEKS R8 R5 K149 ["BrushSizeRenderer"]
+  DUPTABLE R9 K155 [{"LabelWidth", "LockButtonWidth", "RowHeight", "Locked", "Unlocked"}]
+  LOADN R10 20
+  SETTABLEKS R10 R9 K150 ["LabelWidth"]
+  LOADN R10 26
+  SETTABLEKS R10 R9 K151 ["LockButtonWidth"]
+  LOADN R10 24
+  SETTABLEKS R10 R9 K152 ["RowHeight"]
+  GETTABLEKS R10 R3 K153 ["Locked"]
+  SETTABLEKS R10 R9 K153 ["Locked"]
+  GETTABLEKS R10 R3 K154 ["Unlocked"]
+  SETTABLEKS R10 R9 K154 ["Unlocked"]
+  SETTABLE R9 R6 R8
   RETURN R6 1

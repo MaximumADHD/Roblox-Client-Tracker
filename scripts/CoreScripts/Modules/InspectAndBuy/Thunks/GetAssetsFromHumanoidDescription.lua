@@ -55,7 +55,14 @@ local function GetAssetsFromHumanoidDescription(humanoidDescription, isForLocalP
 				coroutine.wrap(function()
 					store:dispatch(GetProductInfo(asset.assetId))
 					if FFlagAttributionInInspectAndBuy then
-						-- TODO AVBURST-12905: use item details endpoint for getting attribution data
+						--[[
+							FIXME(dbanks)
+							2023/12/07
+							See https://roblox.atlassian.net/browse/AVBURST-12905
+							This will be changed once backend sends "creating universe" with asset details.
+							Either GetProductInfo will get us the "creating universe" id, or we hit different/better
+							endpoint (like generic "get asset details" endpoint to this id.)
+						--]]
 						store:dispatch(GetVersionInfo(asset.assetId))
 					end
 				end)()

@@ -10,83 +10,51 @@
 ]]
 
 local Main = script.Parent.Parent.Parent
-local Roact = require(Main.Packages.Roact)
+local React = require(Main.Packages.React)
 local Framework = require(Main.Packages.Framework)
 
 local Dash = Framework.Dash
 local mapOne = Dash.mapOne
 
-local ContextServices = Framework.ContextServices
-local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Pane = UI.Pane
+local joinTags = Framework.Styling.joinTags
 local TextLabel = UI.TextLabel
 
-local PanelEntry = Roact.PureComponent:extend("InfoPanel")
+local PanelEntry = React.PureComponent:extend("InfoPanel")
 
 function PanelEntry:render()
 	local props = self.props
-	local style = props.Stylizer
-	local text = style.Text
-	local sizes = style.Sizes
 	local header = props.Header
 	local description = props.Description
 	local layoutOrder = props.LayoutOrder
 	local size = props.Size
 
-	local contentChildren = props[Roact.Children]
-	local headerStyles = if props.IsTitle then text.Title else text.Header
+	local contentChildren = props.children
 	local hasChild = contentChildren and mapOne(contentChildren)
 	local hasDescription = typeof(description) == "string" and description ~= ""
 
 	local children = {
-		Name = Roact.createElement(TextLabel, {
+		Name = React.createElement(TextLabel, {
 			LayoutOrder = 1,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Size = UDim2.new(1, 0, 0, 0),
 			Text = header,
-			Font = headerStyles.Font,
-			TextSize = headerStyles.Size,
-			TextColor = headerStyles.Color,
+			[React.Tag] = joinTags("Wrap X-FitY", if props.IsTitle then "Title" else "Subtitle"),
 		}),
-		Description = hasDescription and Roact.createElement(TextLabel, {
+		Description = hasDescription and React.createElement(TextLabel, {
 			LayoutOrder = 2,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Size = UDim2.new(1, 0, 0, 0),
 			Text = description,
-			TextWrapped = true,
+			[React.Tag] = "Wrap X-FitY",
 		}),
-		Content = hasChild and Roact.createElement(Pane, {
+		Content = hasChild and React.createElement(Pane, {
 			LayoutOrder = 3,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			AutomaticSize = not size and Enum.AutomaticSize.Y or nil,
-			-- For a FixedSize panel, the content must fill the remaining space
-			-- AutomaticSize doesn't allow us to do this at time of writing,
-			-- so approximate the size.
-			Size = size and UDim2.new(1, 0, 1, -30),
-			Layout = Enum.FillDirection.Vertical,
-			Padding = {
-				Top = sizes.OuterPadding,
-			},
-			Spacing = sizes.InnerPadding,
+			[React.Tag] = "X-Pad X-ColumnM X-FitY",
 		}, contentChildren),
 	}
-	return Roact.createElement(Pane, {
-		Style = "BorderBox",
-		Padding = sizes.OuterPadding,
-		Spacing = sizes.InnerPadding,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		Layout = Enum.FillDirection.Vertical,
+	return React.createElement(Pane, {
 		LayoutOrder = layoutOrder,
-		AutomaticSize = not size and Enum.AutomaticSize.Y or nil,
 		Size = size,
+		[React.Tag] = "Main Border X-Pad X-ColumnM X-FitY",
 	}, children)
 end
-
-PanelEntry = withContext({
-	Stylizer = ContextServices.Stylizer,
-})(PanelEntry)
 
 return PanelEntry
