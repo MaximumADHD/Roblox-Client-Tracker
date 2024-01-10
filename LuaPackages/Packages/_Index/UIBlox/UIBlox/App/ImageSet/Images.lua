@@ -5,7 +5,6 @@ local FALLBACK_IMAGES = require(ImageSet.FallbackImages)
 local ImagesTypes = require(ImageSet.ImagesTypes)
 
 local UIBlox = ImageSet.Parent.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Logger = require(UIBlox.Logger)
 
 local GuiService = game:GetService("GuiService")
@@ -20,7 +19,7 @@ end
 
 -- Both this and the resolution scale should probably be provided to UIBlox via some
 -- prop or context, maybe even token, rather than us calling GuiService directly.
-if UIBloxConfig.increaseImageResolutionForTenFoot and GuiService:IsTenFootInterface() then
+if GuiService:IsTenFootInterface() then
 	Logger:info("scale the resolution to 3 for 10 foot UI ")
 	scale = 3
 end

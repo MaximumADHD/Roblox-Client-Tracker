@@ -52,6 +52,8 @@ export type Props = {
 	isDisabled: boolean?,
 	-- Callback function invoked when the `Pill` is clicked
 	onActivated: (() -> ())?,
+	-- Callback invoked when `Pill` control state changes. When possible, `onActivated` should be used instead.
+	onStateChanged: ((oldState: EnumItem, newState: EnumItem) -> ())?,
 
 	-- Navigation parameter for RoactGamepad support
 	NextSelectionLeft: any,
@@ -97,7 +99,14 @@ local BUTTON_STATE_COLOR_LAYER2 = {
 }
 
 local function Pillv2(props: Props)
-	local controlState, onStateChanged = useControlState()
+	local controlState, internalOnStateChanged = useControlState()
+	local onStateChanged = React.useCallback(function(oldState, newState)
+		if props.onStateChanged then
+			props.onStateChanged(oldState, newState)
+		end
+		internalOnStateChanged(oldState, newState)
+	end, { props.onStateChanged })
+
 	local style = useStyle()
 	local font = style.Font
 

@@ -48,13 +48,22 @@ local defaultStyleProps: StyleProps = {
 }
 
 local function renderStatItem(containerProps, icon, text, stylePalette, styleProps: StyleProps, textWidth: number?)
+	local useTokensStatGroup = UIBloxConfig.useTokensStatGroup
+
 	local theme = stylePalette.Theme
+	local tokens = stylePalette.Tokens
 	local font: Fonts.FontPalette = stylePalette.Font
 
-	local statSpacingGap = styleProps.statSpacingGap
-	local statIconSize = styleProps.statIconSize :: number
-	local statIconContentColor = styleProps.statIconContentColor or theme.IconDefault
-	local statLabelContentColor = styleProps.statLabelContentColor or theme.TextMuted
+	local statSpacingGap = if useTokensStatGroup then tokens.Global.Space_25 else styleProps.statSpacingGap
+	local statIconSize = if useTokensStatGroup
+		then tokens.Semantic.Icon.Size.Small
+		else styleProps.statIconSize :: number
+	local statIconContentColor = if useTokensStatGroup
+		then tokens.Semantic.Color.Text.Muted
+		else styleProps.statIconContentColor or theme.IconDefault
+	local statLabelContentColor = if useTokensStatGroup
+		then tokens.Semantic.Color.Text.Muted
+		else styleProps.statLabelContentColor or theme.TextMuted
 
 	return React.createElement("Frame", containerProps, {
 		UIListLayout = React.createElement("UIListLayout", {
@@ -68,7 +77,9 @@ local function renderStatItem(containerProps, icon, text, stylePalette, stylePro
 			Image = Images[icon],
 			BackgroundTransparency = 1,
 			ImageTransparency = statIconContentColor.Transparency,
-			ImageColor3 = statIconContentColor.Color,
+			ImageColor3 = if useTokensStatGroup
+				then (statIconContentColor :: { Color3: Color3, Transparency: number }).Color3
+				else (statIconContentColor :: { Color: Color3, Transparency: number }).Color,
 			LayoutOrder = 1,
 			AnchorPoint = Vector2.new(0, 0.5),
 		}),
@@ -81,7 +92,9 @@ local function renderStatItem(containerProps, icon, text, stylePalette, stylePro
 			TextSize = font.BaseSize * font.Body.RelativeSize,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
-			TextColor3 = statLabelContentColor.Color,
+			TextColor3 = if useTokensStatGroup
+				then (statLabelContentColor :: { Color3: Color3, Transparency: number }).Color3
+				else (statLabelContentColor :: { Color: Color3, Transparency: number }).Color,
 			TextTransparency = statLabelContentColor.Transparency,
 			LayoutOrder = 2,
 		}, {
@@ -109,7 +122,9 @@ local function StatGroup(props: Props)
 	local stylePalette = useStyle()
 
 	local styleProps = Cryo.Dictionary.join(defaultStyleProps, props.styleProps or {})
-	local spacingGap = styleProps.spacingGap
+	local spacingGap = if UIBloxConfig.useTokensStatGroup
+		then stylePalette.Tokens.Global.Space_100
+		else styleProps.spacingGap
 
 	local ratingTextWidth, playingTextWidth
 	if UIBloxConfig.useStatGroupManualSize then

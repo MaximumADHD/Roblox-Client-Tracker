@@ -61,9 +61,7 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 	local VREnabledCallback = React.useCallback(function()
 		if not LaserPointer.current then
 			LaserPointer.current = LaserPointerComponent.new()
-			LaserPointer.current:setMode(
-				LaserPointer.current.Mode[if UIBloxConfig.dualVRLaserPointers then "DualPointer" else "Pointer"]
-			)
+			LaserPointer.current:setMode(LaserPointer.current.Mode["DualPointer"])
 			LaserPointer.current:setEnableAmbidexterousPointer(true)
 			LeftControllerModel.current = VRControllerModel.new(Enum.UserCFrame.LeftHand)
 			RightControllerModel.current = VRControllerModel.new(Enum.UserCFrame.RightHand)
@@ -72,21 +70,13 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 		LeftControllerModel.current:setEnabled(VRService.VREnabled)
 		RightControllerModel.current:setEnabled(VRService.VREnabled)
 		if VRService.VREnabled then
-			if UIBloxConfig.bindAllLaserPointerButtons then
-				ContextActionService:BindActivate(
-					Enum.UserInputType.Gamepad1,
-					Enum.KeyCode.ButtonA,
-					Enum.KeyCode.ButtonX,
-					Enum.KeyCode.ButtonR2,
-					Enum.KeyCode.ButtonL2
-				)
-			else
-				ContextActionService:BindActivate(
-					Enum.UserInputType.Gamepad1,
-					Enum.KeyCode.ButtonA,
-					Enum.KeyCode.ButtonR2
-				)
-			end
+			ContextActionService:BindActivate(
+				Enum.UserInputType.Gamepad1,
+				Enum.KeyCode.ButtonA,
+				Enum.KeyCode.ButtonX,
+				Enum.KeyCode.ButtonR2,
+				Enum.KeyCode.ButtonL2
+			)
 		end
 	end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
 
@@ -106,24 +96,22 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 	end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
 
 	local VRSessionStateCallback = React.useCallback(function()
-		local overlayEnabeld = not (
+		local overlayEnabled = not (
 			VRService.VRSessionState == Enum.VRSessionState.Idle
 			or VRService.VRSessionState == Enum.VRSessionState.Visible
 		)
 		if LaserPointer.current then
-			if overlayEnabeld then
-				LaserPointer.current:setMode(
-					LaserPointer.current.Mode[if UIBloxConfig.dualVRLaserPointers then "DualPointer" else "Pointer"]
-				)
+			if overlayEnabled then
+				LaserPointer.current:setMode(LaserPointer.current.Mode["DualPointer"])
 			else
 				LaserPointer.current:setMode(LaserPointer.current.Mode["Disabled"])
 			end
 		end
 		if LeftControllerModel.current then
-			LeftControllerModel.current:setEnabled(overlayEnabeld)
+			LeftControllerModel.current:setEnabled(overlayEnabled)
 		end
 		if RightControllerModel.current then
-			RightControllerModel.current:setEnabled(overlayEnabeld)
+			RightControllerModel.current:setEnabled(overlayEnabled)
 		end
 	end, { LeftControllerModel, RightControllerModel, LaserPointer, LaserPointerComponent, VRControllerModel })
 

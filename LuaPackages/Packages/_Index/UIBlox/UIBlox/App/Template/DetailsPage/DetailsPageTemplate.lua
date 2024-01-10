@@ -321,7 +321,12 @@ function DetailsPageTemplate:render()
 							titleText = self.props.titleText,
 							subTitleText = self.props.subTitleText,
 							renderInfoContent = self.props.renderInfoContent,
-							actionBarProps = self.props.actionBarProps,
+							actionBarProps = if UIBloxConfig.hideHeaderActionBarWhenStickyBarActive
+								then if not (self.state.showStickyActionTopBar or showFullscreen)
+									then self.props.actionBarProps
+									else nil
+								else self.props.actionBarProps,
+
 							headerBarBackgroundHeight = headerBarBackgroundHeight,
 							sideMargin = sideMargin,
 

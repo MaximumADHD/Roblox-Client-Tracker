@@ -11,7 +11,6 @@ local Cryo = require(Packages.Cryo)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Otter = require(Packages.Otter)
 local Images = require(UIBlox.App.ImageSet.Images)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local RoactGamepad = require(Packages.RoactGamepad)
 
@@ -23,10 +22,7 @@ local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 
 local FRAME_PADDING = 4
-local MIN_TAB_WIDTH = 108
-if UIBloxConfig.allowNarrowerSegmentedControl then
-	MIN_TAB_WIDTH = 80
-end
+local MIN_TAB_WIDTH = 80
 local MAX_WIDTH = 640
 local ICON_WIDTH = getIconSize(IconSize.Medium)
 local SPRING_PARAMS = {

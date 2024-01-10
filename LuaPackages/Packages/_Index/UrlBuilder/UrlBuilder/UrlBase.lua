@@ -66,6 +66,7 @@ UrlBase.APIS = UrlBase.new("apis")
 UrlBase.APIS_RBXCDN = "https://apis.rbxcdn.com"
 UrlBase.AUTH = UrlBase.new("auth")
 UrlBase.CHAT = UrlBase.new("chat")
+UrlBase.CREATE = UrlBase.new("create")
 UrlBase.FRIENDS = UrlBase.new("friends", 1)
 UrlBase.ASSETGAME = UrlBase.new("assetgame")
 UrlBase.GAMES = UrlBase.new("games", 1)

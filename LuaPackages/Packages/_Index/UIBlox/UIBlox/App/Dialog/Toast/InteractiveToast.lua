@@ -19,15 +19,12 @@ local ToastFrame = require(ToastRoot.ToastFrame)
 local ToastIcon = require(ToastRoot.ToastIcon)
 local ToastText = require(ToastRoot.ToastText)
 
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
-
 local ANIMATION_SPRING_SETTINGS = {
 	dampingRatio = 1,
 	frequency = 4,
 }
 local PRESSED_SCALE = 0.95
 local TOAST_BACKGROUND_IMAGE = Images["component_assets/circle_21"]
-local TOAST_BORDER_IMAGE = Images["component_assets/circle_21_stroke_1"]
 local TOAST_SLICE_CENTER = Rect.new(10, 10, 11, 11)
 
 local InteractiveToast = Roact.PureComponent:extend("InteractiveToast")
@@ -101,18 +98,6 @@ function InteractiveToast:render()
 					}
 				end,
 			}),
-			ToastBorder = not UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder
-				and Roact.createElement(ImageSetComponent.Label, {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					BackgroundTransparency = 1,
-					Image = TOAST_BORDER_IMAGE,
-					ImageColor3 = theme.TextDefault.Color,
-					ImageTransparency = theme.TextDefault.Transparency,
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					ScaleType = Enum.ScaleType.Slice,
-					Size = UDim2.new(1, 0, 1, 0),
-					SliceCenter = TOAST_SLICE_CENTER,
-				}),
 			ToastFrame = Roact.createElement(ToastFrame, {
 				buttonProps = self.props.buttonProps,
 				iconProps = self.props.iconProps,

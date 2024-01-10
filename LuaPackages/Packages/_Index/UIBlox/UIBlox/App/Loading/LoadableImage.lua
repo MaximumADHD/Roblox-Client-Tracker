@@ -21,8 +21,6 @@ local DebugProps = require(Loading.Enum.DebugProps)
 local LoadingStrategy = require(Loading.Enum.LoadingStrategy)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImageSetData = require(Core.ImageSet.Validator.validateImageSetData)
@@ -104,9 +102,7 @@ LoadableImage.defaultProps = {
 	MinSize = Vector2.new(0, 0),
 	useShimmerAnimationWhileLoading = false,
 	showFailedStateWhenLoadingFailed = false,
-	loadingStrategy = if UIBloxConfig.makeDefaultLoadingStrategyDefault
-		then LoadingStrategy.Default
-		else LoadingStrategy.Eager,
+	loadingStrategy = LoadingStrategy.Default,
 	loadingTimeout = 30,
 	shouldHandleReloads = false,
 }
@@ -231,15 +227,9 @@ function LoadableImage:render()
 	local showFailedStateWhenLoadingFailed = self.props.showFailedStateWhenLoadingFailed
 	local loadingComplete = self:isImageNonNil() and self:isLoadingComplete(self.state)
 
-	local loadingStarted
-	local loadingFailed
-	if UIBloxConfig.makeDefaultLoadingStrategyDefault then
-		local assetFetchStatus = self:getCurrentImageAssetFetchStatus(self.state)
-		loadingStarted = assetFetchStatus ~= Enum.AssetFetchStatus.None
-		loadingFailed = assetFetchStatus == Enum.AssetFetchStatus.Failure
-	else
-		loadingFailed = self:getCurrentImageAssetFetchStatus(self.state) == Enum.AssetFetchStatus.Failure
-	end
+	local assetFetchStatus = self:getCurrentImageAssetFetchStatus(self.state)
+	local loadingStarted = assetFetchStatus ~= Enum.AssetFetchStatus.None
+	local loadingFailed = assetFetchStatus == Enum.AssetFetchStatus.Failure
 
 	local hasUISizeConstraint = false
 
@@ -289,7 +279,7 @@ function LoadableImage:render()
 				not loadingComplete
 				and useShimmerAnimationWhileLoading
 				and loadingStrategy == LoadingStrategy.Default
-				and ((not UIBloxConfig.makeDefaultLoadingStrategyDefault) or loadingStarted)
+				and loadingStarted
 			then
 				shimmer = self:renderShimmer(theme, sizeConstraint)
 			end
@@ -390,20 +380,13 @@ function LoadableImage:awaitImageLoaded(thisImageLoadIndex, currentStatus)
 	local callback = function(newAssetFetchStatus)
 		self:updateAssetFetchStatusForImageLoadIndex(newAssetFetchStatus, thisImageLoadIndex, imageUri)
 		self:maybeReportCounter("Await", newAssetFetchStatus)
-		if UIBloxConfig.makeDefaultLoadingStrategyDefault then
-			if self:isTerminalStatus(newAssetFetchStatus) and self.awaitImageLoadedConnection then
-				self.awaitImageLoadedConnection:Disconnect()
-				self.awaitImageLoadedConnection = nil
-			end
-		else
-			if self:isTerminalStatus(newAssetFetchStatus) then
-				self.awaitImageLoadedConnection:Disconnect()
-				self.awaitImageLoadedConnection = nil
-			end
+		if self:isTerminalStatus(newAssetFetchStatus) and self.awaitImageLoadedConnection then
+			self.awaitImageLoadedConnection:Disconnect()
+			self.awaitImageLoadedConnection = nil
 		end
 	end
 
-	if UIBloxConfig.makeDefaultLoadingStrategyDefault and imageUri == "" then
+	if imageUri == "" then
 		callback(Enum.AssetFetchStatus.Success)
 		return
 	end

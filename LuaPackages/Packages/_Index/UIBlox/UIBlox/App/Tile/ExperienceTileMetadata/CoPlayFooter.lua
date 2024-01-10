@@ -13,7 +13,6 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 local Fonts = require(UIBlox.App.Style.Fonts)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 -- Always a thin line inside the outer badge
 local EMPHASIS_BORDER_WIDTH = 1
 
@@ -185,23 +184,14 @@ local function renderBadge(props: BadgeProps, styleProps: StyleProps, style: Sty
 	local theme = style.Theme
 	local font = style.Font
 
-	local badgeBackgroundColor = styleProps.badgeBackgroundColor
-		or if UIBloxConfig.coPlayFooterChangeColorAndShowMoreFaces
-			then theme.BackgroundUIDefault
-			else theme.ContextualPrimaryDefault
+	local badgeBackgroundColor = styleProps.badgeBackgroundColor or theme.BackgroundUIDefault
 	local badgeBorderWidth = styleProps.badgeBorderWidth :: number
-	local badgeBorderColor = styleProps.badgeBorderColor
-		or if UIBloxConfig.coPlayFooterChangeColorAndShowMoreFaces
-			then style.Theme.BackgroundDefault
-			else style.Theme.BackgroundUIDefault
+	local badgeBorderColor = styleProps.badgeBorderColor or style.Theme.BackgroundDefault
 	local badgeBorderRadius = styleProps.badgeBorderRadius :: number
 	local badgeSpacingLeading = styleProps.badgeSpacingLeading
 	local badgeSpacingTrailing = styleProps.badgeSpacingTrailing
 	local badgeHeight = styleProps.badgeHeight :: number
-	local badgeContentColor = styleProps.badgeContentColor
-		or if UIBloxConfig.coPlayFooterChangeColorAndShowMoreFaces
-			then theme.TextMuted
-			else theme.ContextualPrimaryContent
+	local badgeContentColor = styleProps.badgeContentColor or theme.TextMuted
 
 	local BadgeContainer = React.createElement("Frame", {
 		LayoutOrder = props.layoutOrder,
@@ -221,9 +211,7 @@ local function renderBadge(props: BadgeProps, styleProps: StyleProps, style: Sty
 			MinSize = Vector2.new(badgeHeight, 0),
 		}),
 		Content = React.createElement("TextLabel", {
-			Size = if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex
-				then UDim2.fromScale(1, 1)
-				else UDim2.fromScale(0, 1),
+			Size = UDim2.fromScale(1, 1),
 			BorderSizePixel = 0,
 			Text = text,
 			TextXAlignment = Enum.TextXAlignment.Center,
@@ -241,48 +229,28 @@ local function renderBadge(props: BadgeProps, styleProps: StyleProps, style: Sty
 				PaddingRight = UDim.new(0, badgeSpacingTrailing),
 			}),
 		}),
-		emphasisBorder = if not UIBloxConfig.fixCoPlayFooterBadgeEmphasisBorder and props.showEmphasisBorder
-			then renderEmphasisBorder(
-				badgeBorderWidth,
-				styleProps,
-				style,
-				if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then props.ZIndex + 1 else nil
-			)
-			else nil,
 	})
 
-	if UIBloxConfig.fixCoPlayFooterBadgeEmphasisBorder then
-		return React.createElement("Frame", {
-			LayoutOrder = props.layoutOrder,
-			ZIndex = props.ZIndex,
-			Size = UDim2.fromOffset(0, badgeHeight),
-			BorderSizePixel = 0,
-			BackgroundColor3 = badgeBackgroundColor.Color,
-			BackgroundTransparency = 1,
-			AutomaticSize = Enum.AutomaticSize.X,
-		}, {
-			BadgeContainer = BadgeContainer,
-			emphasisBorder = if props.showEmphasisBorder
-				then renderEmphasisBorder(
-					badgeBorderWidth,
-					styleProps,
-					style,
-					if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then props.ZIndex + 1 else nil
-				)
-				else nil,
-		})
-	else
-		return BadgeContainer
-	end
+	return React.createElement("Frame", {
+		LayoutOrder = props.layoutOrder,
+		ZIndex = props.ZIndex,
+		Size = UDim2.fromOffset(0, badgeHeight),
+		BorderSizePixel = 0,
+		BackgroundColor3 = badgeBackgroundColor.Color,
+		BackgroundTransparency = 1,
+		AutomaticSize = Enum.AutomaticSize.X,
+	}, {
+		BadgeContainer = BadgeContainer,
+		emphasisBorder = if props.showEmphasisBorder
+			then renderEmphasisBorder(badgeBorderWidth, styleProps, style, props.ZIndex + 1)
+			else nil,
+	})
 end
 
 local function renderFaceImage(props: FaceProps, styleProps: StyleProps, style: StyleTypes.AppStyle)
 	local faceBackgroundColor = styleProps.faceBackgroundColor or style.Theme.TextDefault
 	local faceBorderWidth = styleProps.faceBorderWidth :: number
-	local faceBorderColor = styleProps.faceBorderColor
-		or if UIBloxConfig.coPlayFooterChangeColorAndShowMoreFaces
-			then style.Theme.BackgroundDefault
-			else style.Theme.BackgroundUIDefault
+	local faceBorderColor = styleProps.faceBorderColor or style.Theme.BackgroundDefault
 	local faceBorderRadius = styleProps.faceBorderRadius :: number
 	local faceWidth = styleProps.faceWidth :: number
 	local faceHeight = styleProps.faceHeight :: number
@@ -301,12 +269,7 @@ local function renderFaceImage(props: FaceProps, styleProps: StyleProps, style: 
 			borderRadius = faceBorderRadius,
 		}),
 		emphasisBorder = if props.showEmphasisBorder
-			then renderEmphasisBorder(
-				faceBorderWidth,
-				styleProps,
-				style,
-				if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then props.ZIndex + 1 else nil
-			)
+			then renderEmphasisBorder(faceBorderWidth, styleProps, style, props.ZIndex + 1)
 			else nil,
 	})
 end
@@ -342,7 +305,7 @@ local function renderFaces(
 			then renderBadge({
 				usersCount = #users,
 				layoutOrder = 0,
-				ZIndex = if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then maxFaceZindex + 1 else 0,
+				ZIndex = maxFaceZindex + 1,
 				maxDisplayNumber = props.maxBadgeDisplayNumber :: number,
 				showEmphasisBorder = props.showEmphasisBorder :: boolean,
 			}, styleProps, style)
@@ -353,7 +316,7 @@ local function renderFaces(
 		faces["Face_" .. i] = renderFaceImage({
 			user = users[i],
 			layoutOrder = i,
-			ZIndex = if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then maxFaceZindex - i else -i,
+			ZIndex = maxFaceZindex - i,
 			showEmphasisBorder = props.showEmphasisBorder :: boolean,
 		}, styleProps, style)
 	end
@@ -379,21 +342,17 @@ local function CoPlayFooter(passedProps: Props): React.ReactElement?
 	local labelContentColor = styleProps.labelContentColor or style.Theme.TextMuted
 
 	local faceGroupCount = props.faceGroupCount
-	local shouldRenderBadge = true
-	if UIBloxConfig.coPlayFooterChangeColorAndShowMoreFaces then
-		shouldRenderBadge = #props.users > faceGroupCount + 1
-		if not shouldRenderBadge then
-			faceGroupCount = faceGroupCount + 1
-		end
+	local shouldRenderBadge = #props.users > faceGroupCount + 1
+	if not shouldRenderBadge then
+		faceGroupCount = faceGroupCount + 1
 	end
 
-	local maxFaceZindex
-	if UIBloxConfig.fixCoPlayFooterBadgeTextCenteringAndZIndex then
-		maxFaceZindex = faceGroupCount + 1
-	end
+	local maxFaceZindex = faceGroupCount + 1
+
 	local onFacesFrameSizeChange = React.useCallback(function(rbx)
 		updateFacesFrameSize(rbx.AbsoluteSize)
 	end, { updateFacesFrameSize })
+
 	return React.createElement("Frame", {
 		Size = props.size,
 		Position = props.position,

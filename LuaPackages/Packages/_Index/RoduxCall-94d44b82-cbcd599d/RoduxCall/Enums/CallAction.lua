@@ -1,0 +1,17 @@
+return {
+	Accept = "Accept" :: "Accept",
+	AcceptSuccess = "AcceptSuccess" :: "AcceptSuccess",
+	Cancel = "Cancel" :: "Cancel",
+	ConnectionConfirm = "ConnectionConfirm" :: "ConnectionConfirm",
+	Decline = "Decline" :: "Decline",
+	Duplicate = "Duplicate" :: "Duplicate",
+	Fail = "Fail" :: "Fail",
+	Finish = "Finish" :: "Finish",
+	Init = "Init" :: "Init",
+	InitSucess = "InitSuccess" :: "InitSuccess",
+	Miss = "Miss" :: "Miss",
+	Receive = "Receive" :: "Receive",
+	Reject = "Reject" :: "Reject",
+	Suppress = "Suppress" :: "Suppress",
+	TeleportSuccess = "TeleportSuccess" :: "TeleportSuccess",
+}

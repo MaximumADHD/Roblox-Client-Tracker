@@ -4,6 +4,8 @@ local App = Tile.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 local useStyle = require(UIBlox.Core.Style.useStyle)
@@ -68,7 +70,7 @@ local function SocialProofFooter(props: Props)
 		Stats = React.createElement(StatGroup, {
 			ratingText = props.ratingText,
 			playingText = props.playingText,
-			styleProps = styleProps,
+			styleProps = if UIBloxConfig.useTokensStatGroup then nil else styleProps,
 		}),
 	})
 end

@@ -2,6 +2,7 @@ local LuaSocialLibrariesDeps = script.Parent
 
 local FFlagUseRoduxFriends41 = game:DefineFastFlag("UseRoduxFriends41", false)
 local FFlagUseRoduxUsers14 = game:DefineFastFlag("UseRoduxUsers14", false)
+local FFlagUseRoduxCall18 = game:DefineFastFlag("UseRoduxCall18", false)
 
 return {
 	GenericPagination = require(LuaSocialLibrariesDeps.GenericPagination),
@@ -10,9 +11,15 @@ return {
 	RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 	llama = require(LuaSocialLibrariesDeps.llama),
 	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
-	RoduxUsers = if FFlagUseRoduxUsers14 then require(LuaSocialLibrariesDeps.RoduxUsers_v14) else require(LuaSocialLibrariesDeps.RoduxUsers),
-	RoduxUsers_v13 = if FFlagUseRoduxUsers14 then require(LuaSocialLibrariesDeps.RoduxUsers_v14) else require(LuaSocialLibrariesDeps.RoduxUsers_v13),
-	RoduxFriends = if FFlagUseRoduxFriends41 then require(LuaSocialLibrariesDeps.RoduxFriends_v41) else require(LuaSocialLibrariesDeps.RoduxFriends),
+	RoduxUsers = if FFlagUseRoduxUsers14
+		then require(LuaSocialLibrariesDeps.RoduxUsers_v14)
+		else require(LuaSocialLibrariesDeps.RoduxUsers),
+	RoduxUsers_v13 = if FFlagUseRoduxUsers14
+		then require(LuaSocialLibrariesDeps.RoduxUsers_v14)
+		else require(LuaSocialLibrariesDeps.RoduxUsers_v13),
+	RoduxFriends = if FFlagUseRoduxFriends41
+		then require(LuaSocialLibrariesDeps.RoduxFriends_v41)
+		else require(LuaSocialLibrariesDeps.RoduxFriends),
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
 	RoduxGames = require(LuaSocialLibrariesDeps.RoduxGames),
 	RoduxContacts = require(LuaSocialLibrariesDeps.RoduxContacts),
@@ -38,5 +45,7 @@ return {
 	NetworkingSquads = require(LuaSocialLibrariesDeps.NetworkingSquads),
 	RoduxSquads = require(LuaSocialLibrariesDeps.RoduxSquads),
 	NetworkingCall = require(LuaSocialLibrariesDeps.NetworkingCall),
-	RoduxCall = require(LuaSocialLibrariesDeps.RoduxCall),
+	RoduxCall = if FFlagUseRoduxCall18
+		then require(LuaSocialLibrariesDeps.RoduxCall_v18)
+		else require(LuaSocialLibrariesDeps.RoduxCall_v14),
 }

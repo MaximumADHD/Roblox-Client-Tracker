@@ -2,13 +2,18 @@ local ControllerBar = script.Parent
 local Navigation = ControllerBar.Parent
 local App = Navigation.Parent
 local UIBlox = App.Parent
+local InputType = require(UIBlox.Enums.InputType)
 local Packages = UIBlox.Parent
 local React = require(Packages.React)
 local ImagesTypes = require(App.ImageSet.ImagesTypes)
 
-export type ShortcutStaticProps = {
-	-- Icon of the shortcut
-	icon: string | ImagesTypes.ImageSetImage,
+export type Icon = string | ImagesTypes.ImageSetImage
+
+export type IconMap = {
+	[InputType.InputType]: Icon,
+}
+
+type ShortcutStaticProps = {
 	-- Shortcut description
 	text: string,
 	-- Text before icon to indicate key action
@@ -17,14 +22,12 @@ export type ShortcutStaticProps = {
 	hasProgress: false?,
 }
 
-export type AnimationProps = {
+type AnimationInternalProps = {
 	-- The icon progress, and if not provided, it will connect
 	-- to input event and play animation by itself
 	progress: React.Binding<number>?,
 	-- Key code to trigger animation
 	keyCode: Enum.KeyCode?,
-	-- Icon when key is not holding
-	icon: string | ImagesTypes.ImageSetImage,
 	-- Icon when holding key
 	iconHolding: (string | ImagesTypes.ImageSetImage)?,
 	-- Callback on animation finished
@@ -38,22 +41,37 @@ export type AnimationProps = {
 	animationCoolDownTime: number?,
 }
 
-export type ShortcutProgressProps = {
+export type AnimationProps = AnimationInternalProps & {
+	icon: Icon,
+}
+
+type ShortcutProgressInternalProps = {
 	-- Shortcut description
 	text: string,
 	-- Icon has circular progress
 	hasProgress: true,
 	-- Text before icon to indicate key action
 	actionText: string?,
-} & AnimationProps
+} & AnimationInternalProps
 
-export type ShortcutPublicProps = ShortcutStaticProps | ShortcutProgressProps
+export type ShortcutProgressProps = ShortcutProgressInternalProps & AnimationProps
+
+type ShortcutNoIconProps = ShortcutStaticProps | ShortcutProgressInternalProps
+
+-- Internal icon only, no map of icons
+export type ShortcutInternalProps = ShortcutNoIconProps & {
+	icon: Icon,
+}
 
 export type ShortcutProps = {
 	index: number,
 	iconLabelGap: number?,
 	actionTextSpacingLeading: number?,
-	publicProps: ShortcutPublicProps,
+	publicProps: ShortcutInternalProps,
 }
+
+export type ShortcutPublicProps = {
+	icon: Icon | IconMap,
+} & ShortcutNoIconProps
 
 return {}

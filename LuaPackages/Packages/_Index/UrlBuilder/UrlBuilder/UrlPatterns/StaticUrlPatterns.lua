@@ -14,6 +14,7 @@ return function(UrlBuilder)
 		messages = UrlBuilder.fromString("www:my/messages"),
 		feed = UrlBuilder.fromString("www:feeds/inapp"),
 		develop = UrlBuilder.fromString("www:develop"),
+		creatorHub = UrlBuilder.fromString("create:"),
 		blog = UrlBuilder.fromString("blog:"),
 		giftCards = UrlBuilder.fromString("www:giftcards"),
 		amazonStore = UrlBuilder.fromString("https://www.amazon.com/roblox"),

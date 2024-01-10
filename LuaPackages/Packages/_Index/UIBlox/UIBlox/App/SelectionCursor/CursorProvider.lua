@@ -11,6 +11,7 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 
 local CursorContext = require(script.Parent.CursorContext)
 local CursorComponent = require(script.Parent.CursorComponent)
+local CursorType = require(script.Parent.CursorType)
 
 export type Props = {
 	children: React.ReactNode,
@@ -51,6 +52,7 @@ end
 
 local CursorProvider = function(props: Props)
 	local mounted, setMounted = React.useState({})
+	local mountedImageCursors, setMountedImageCursors = React.useState({})
 	local frameRef = React.createRef()
 	local selectionImageObject, setSelectionImageObject = React.useState(nil)
 	local refCache = RoactGamepad.useRefCache()
@@ -89,8 +91,24 @@ local CursorProvider = function(props: Props)
 		return refCache[key]
 	end
 
+	local getCursorByType = function(cursorType): React.Ref<GuiObject>
+		assert(
+			CursorType.isEnumValue(cursorType),
+			("Error! expected a CursorType enum, got %s"):format(tostring(cursorType))
+		)
+
+		if mountedImageCursors[cursorType] == nil then
+			setMountedImageCursors(Cryo.Dictionary.join(mountedImageCursors, {
+				[cursorType] = true,
+			}))
+		end
+
+		return refCache[cursorType]
+	end
+
 	local renderCursors = function(): any
 		local cursors = {}
+		-- param cursors
 		for key, _ in pairs(mounted) do
 			local isVisible = refCache[key] ~= nil
 				and selectionImageObject ~= nil
@@ -105,6 +123,19 @@ local CursorProvider = function(props: Props)
 				borderWidth = borderWidth,
 			})
 		end
+		-- image cursors
+		for cursorType, _ in pairs(mountedImageCursors) do
+			local component = cursorType.rawValue()
+			local isVisible = refCache[cursorType] ~= nil
+				and selectionImageObject ~= nil
+				and refCache[cursorType].current == selectionImageObject
+
+			cursors[cursorType] = React.createElement(component, {
+				ref = refCache[cursorType],
+				isVisible = isVisible,
+			})
+		end
+
 		return cursors
 	end
 
@@ -160,6 +191,7 @@ local CursorProvider = function(props: Props)
 		{
 			value = {
 				getCursor = getCursor,
+				getCursorByType = getCursorByType,
 			},
 		},
 		Cryo.Dictionary.join({

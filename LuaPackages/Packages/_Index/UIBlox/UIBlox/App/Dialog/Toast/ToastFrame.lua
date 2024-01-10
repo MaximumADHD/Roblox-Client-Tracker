@@ -17,8 +17,6 @@ local enumerateValidator = require(UIBloxRoot.Utility.enumerateValidator)
 
 local StandardButtonSize = require(UIBloxRoot.Core.Button.Enum.StandardButtonSize)
 
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
-
 local ToastFrame = Roact.PureComponent:extend("ToastFrame")
 
 ToastFrame.validateProps = t.strictInterface({
@@ -71,7 +69,7 @@ function ToastFrame:render()
 	local buttonWidth = buttonProps and buttonProps.buttonDimensions.X
 
 	local buttonType
-	if UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder and buttonProps then
+	if buttonProps then
 		buttonType = buttonProps.buttonType or ButtonType.PrimarySystem
 	end
 	local isCompact = self.props.isCompact
@@ -81,9 +79,7 @@ function ToastFrame:render()
 	local subtitleTextProps = self.props.subtitleTextProps
 
 	local contentVerticalAlignment: Enum.VerticalAlignment?
-	if not UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder then
-		contentVerticalAlignment = nil
-	elseif not subtitleTextProps then
+	if not subtitleTextProps then
 		contentVerticalAlignment = Enum.VerticalAlignment.Center
 	elseif isCompact then
 		contentVerticalAlignment = Enum.VerticalAlignment.Top
@@ -117,7 +113,7 @@ function ToastFrame:render()
 			AnchorPoint = self.props.anchorPoint,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			ClipsDescendants = if UIBloxConfig.toastButtonTypesAutoAlignAndNoBorder then false else true,
+			ClipsDescendants = false,
 			LayoutOrder = 1,
 			Position = self.props.position,
 			Size = if not buttonProps

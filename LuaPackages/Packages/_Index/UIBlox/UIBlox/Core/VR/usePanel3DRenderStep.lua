@@ -1,7 +1,6 @@
 local VRRoot = script.Parent
 local CoreRoot = VRRoot.Parent
 local UIBlox = CoreRoot.Parent
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Packages = UIBlox.Parent
 local React = require(Packages.React)
@@ -172,18 +171,17 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 						end)
 				end
 			end
-			if UIBloxConfig.vrFixUIJitter then
-				currentCameraChangedConn =
-					workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
-				onCurrentCameraChanged()
 
-				if props.alignedPanel then
-					local panelPart = props.alignedPanel:GetPart()
-					if panelPart then
-						alignedPartCFrameChangedConn = panelPart:GetPropertyChangedSignal("CFrame"):Connect(function()
-							renderSteppedCallback(0)
-						end)
-					end
+			currentCameraChangedConn =
+				workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
+			onCurrentCameraChanged()
+
+			if props.alignedPanel then
+				local panelPart = props.alignedPanel:GetPart()
+				if panelPart then
+					alignedPartCFrameChangedConn = panelPart:GetPropertyChangedSignal("CFrame"):Connect(function()
+						renderSteppedCallback(0)
+					end)
 				end
 			end
 
@@ -191,14 +189,12 @@ local function usePanel3DRenderStep(props: Constants.Panel3DProps, basePart: Con
 
 			return function()
 				connection:Disconnect()
-				if UIBloxConfig.vrFixUIJitter then
-					currentCameraChangedConn:Disconnect()
-					if cameraCFrameChangedConn then
-						cameraCFrameChangedConn:Disconnect()
-					end
-					if alignedPartCFrameChangedConn then
-						alignedPartCFrameChangedConn:Disconnect()
-					end
+				currentCameraChangedConn:Disconnect()
+				if cameraCFrameChangedConn then
+					cameraCFrameChangedConn:Disconnect()
+				end
+				if alignedPartCFrameChangedConn then
+					alignedPartCFrameChangedConn:Disconnect()
 				end
 			end
 		end

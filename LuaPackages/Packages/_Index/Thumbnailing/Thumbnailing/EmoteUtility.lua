@@ -21,10 +21,6 @@ type AttachmentsByName = { [string]: Attachment }
 type SomeKindOfRotationCurve = EulerRotationCurve | RotationCurve
 
 export type KeyframesForPose = {
-	-- FIXME(dbanks)
-	-- 2023/09/19
-	-- Remove with FFlagAXRefactorAnimationManagerAnimSelection4
-	DEPRECATED_animationAssetId: number?,
 	-- The asset id passed in.  This is an explicit choice by the user: they picked this emote to pose.
 	-- If nil, it means they didn't pick an emote.
 	originalAnimationAssetId: number?,
@@ -126,34 +122,6 @@ local function reportCounter(actionName: string, success: boolean)
 	local counterName = prefix .. "_" .. actionName .. "_" .. suffix
 
 	RbxAnalyticsService:ReportCounter(counterName)
-end
-
--- Check for cases where we can quickly/easily resolve pose, with no async complications.
--- If we find one, return true.
--- Remove with FFlagAXRefactorAnimationManagerAnimSelection4
-module.DEPRECATED_SetPlayerCharacterPoseEasyOut = function(character: Model, humanoid: Humanoid?): boolean
-	if humanoid then
-		if humanoid.RigType == Enum.HumanoidRigType.R6 then
-			local tool = character:FindFirstChildOfClass("Tool")
-			local torso = character:FindFirstChild("Torso")
-			if torso then
-				local rightShoulder = torso:FindFirstChild("Right Shoulder") :: Motor6D
-				if rightShoulder then
-					if tool then
-						rightShoulder.CurrentAngle = math.rad(90)
-						rightShoulder.DesiredAngle = math.rad(90)
-					else
-						rightShoulder.CurrentAngle = math.rad(0)
-						rightShoulder.DesiredAngle = math.rad(0)
-					end
-				end
-			end
-			return true
-		end
-		return false
-	else
-		return true
-	end
 end
 
 -- animationAssetIdOrUrl identifies the pose asset we want to load.
@@ -694,55 +662,6 @@ local function getToolKeyframes(character: Model, givenPoseTrumpsToolPose: boole
 end
 
 --[[
-	Do the work needed to convert our resource ids/urls describing pose into
-	useful keyframe data we can use to pose the avatar.
-	This may involve several RPCs to fetch resources from backend.
-	Returns:
-	-- poseKeyframe: pose based on animationAssetId.
-	-- tool: the tool avatar is holding, if present.  If nil you can ignore suggestedKeyframeFromTool and defaultToolKeyframe
-	-- suggestedKeyframeFromTool: a pose based on tool's suggestion of how to pose whole body.  If present, ignore defaultToolKeyframe.
-	-- defaultToolKeyframe: user is holding tool but tool doesn't tell us how to pose avatar.  Some default "hold up your arm" pose
-	   for holding a tool.
-]]
--- FIXME(dbanks)
--- 2023/07/21
--- Remove with FFlagAXRefactorAnimationManagerAnimSelection4.
-local function DEPRECATED_doYieldingWorkToLoadPoseInfo(
-	character: Model,
-	animationAssetId: number?,
-	ignoreRotationInPoseAsset: boolean?
-): (Keyframe?, Keyframe?, Keyframe?)
-	local poseKeyframe
-	local givenPoseTrumpsToolPose
-	-- Get the thumbnails suggested by animationAssetId.
-	-- Note: this is a yielding call.
-	if not ignoreRotationInPoseAsset then
-		ignoreRotationInPoseAsset = false
-	end
-
-	poseKeyframe, givenPoseTrumpsToolPose =
-		getMainThumbnailKeyframe(character, animationAssetId, not ignoreRotationInPoseAsset)
-
-	-- Don't bother with tool info we don't even have a main body pose.
-	if not poseKeyframe then
-		return nil, nil, nil
-	end
-
-	-- If user is holding a tool, that may affect how we pose.  Sort that out.
-	-- Note: this is also a yielding call.
-	-- I considered trying to run getToolKeyframes and getMainThumbnailKeyframe in parallel, but
-	-- running getMainThumbnailKeyframe first gives us givenPoseTrumpsToolPose, which is an input to getToolKeyframes.
-	-- Without givenPoseTrumpsToolPose, getToolKeyframes would always have to hit backend to fetch defaultToolKeyframe.
-	-- With givenPoseTrumpsToolPose, we might skip that call because the tool has a suggestion on how to pose avatar
-	-- and we know we want to use it.
-	--
-	-- So by running them in sequence I may be able to save us a backend call.
-	local suggestedKeyframeFromTool, defaultToolKeyframe = getToolKeyframes(character, givenPoseTrumpsToolPose)
-
-	return poseKeyframe, suggestedKeyframeFromTool, defaultToolKeyframe
-end
-
---[[
 	Experience suggests that on RCC, if just change the "Transform" on a joint, the avatar doesn't move.
 	We have to play the animation a bit to get things to jump into place.
 ]]
@@ -1024,15 +943,7 @@ end
 -- If it's a string, it's a url including an asset hash: e.g.
 -- "http://www.roblox.com/Asset/?hash=225a9c414cf0f236d56759a5fabf56e4"
 -- Depending on the type we will use a different approach to load the asset.
-module.SetPlayerCharacterFace = function(
-	character: Model,
-	animationAssetIdOrUrl: AnimationAssetIdOrUrl?,
-	-- Remove once no one is calling this anymore.
-	-- I believe the only caller is DEPRECATED_AnimationManager.lua.
-	-- So once FFlagAXRefactorAnimationManagerAnimSelection4 is on for good/
-	-- remove from code, remove this param.
-	DEPRECATED_confirmProceedAfterYield: (AnimationAssetIdOrUrl?) -> boolean
-)
+module.SetPlayerCharacterFace = function(character: Model, animationAssetIdOrUrl: AnimationAssetIdOrUrl?)
 	-- Early out on nil/empty input.
 	if not animationAssetIdOrUrl then
 		return
@@ -1060,12 +971,6 @@ module.SetPlayerCharacterFace = function(
 
 	-- If that fails, just quit.  No posing.
 	if not moodKeyframe then
-		return
-	end
-
-	-- We have called some yielding functions (and now we are done, no more yielding functions).
-	-- Do we still want to do this?
-	if DEPRECATED_confirmProceedAfterYield and not DEPRECATED_confirmProceedAfterYield(animationAssetIdOrUrl) then
 		return
 	end
 
@@ -1107,86 +1012,6 @@ module.SetPlayerCharacterNeutralPose = function(character: Model)
 	end
 
 	recurResetJoint(character)
-end
-
---[[
-	Load what we need to load for this character/pose/mood combo.
-	Do not apply anything to the character.
-	Yielding.
-
-	Remove once no one is calling this anymore.
-	-- I believe the only caller is DEPRECATED_AnimationManager.lua.
-	-- So once FFlagAXRefactorAnimationManagerAnimSelection4 is on for good/
-	-- remove from code, remove this function.
-]]
-module.DEPRECATED_LoadKeyframesForPose = function(
-	character: Model,
-	animationAssetId: number?,
-	moodAssetId: number?,
-	ignoreRotationInPoseAsset: boolean?
-): KeyframesForPose?
-	local keyframesForPose: KeyframesForPose = {}
-	keyframesForPose.DEPRECATED_animationAssetId = animationAssetId
-
-	assert(character, "character should be non-nil")
-	if animationAssetId ~= nil then
-		assert(
-			typeof(animationAssetId) == "number",
-			"EmoteUtility.DEPRECATED_LoadKeyframesForPose expects animationAssetId to be a number or nil"
-		)
-		assert(
-			animationAssetId > 0,
-			"EmoteUtility.DEPRECATED_LoadKeyframesForPose expects animationAssetId to be a real asset ID (positive number)"
-		)
-	end
-	if moodAssetId ~= nil then
-		assert(
-			typeof(moodAssetId) == "number",
-			"EmoteUtility.DEPRECATED_LoadKeyframesForPose expects moodAssetId to be a number or nil"
-		)
-	end
-
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
-	if not humanoid then
-		return nil
-	end
-	assert(humanoid, "humanoid should be non-nil. Silence type checker.")
-
-	if humanoid.RigType ~= Enum.HumanoidRigType.R15 then
-		-- Only R15 avatars can be posed: there are no asset ids to load.
-		return keyframesForPose
-	end
-
-	local poseKeyframe, suggestedKeyframeFromTool, defaultToolKeyframe =
-		DEPRECATED_doYieldingWorkToLoadPoseInfo(character, animationAssetId, ignoreRotationInPoseAsset)
-
-	local moodKeyframe
-	-- Worry about applying mood asset to pose.
-	-- Overall idea:
-	-- * If there is no mood asset, skip it.
-	-- * If the user did explicitly choose an emote to pose and that emote has mood info, ignore moodAsset:
-	--   the emote is a stronger/more explicit choice about mood.
-	-- * Otherwise we do care about the mood asset: load it.
-	local shouldApplyMood = false
-	if moodAssetId and moodAssetId ~= 0 then
-		if animationAssetId == nil then
-			shouldApplyMood = true
-		else
-			if not module.PoseKeyframeHasFaceAnimation(poseKeyframe) then
-				shouldApplyMood = true
-			end
-		end
-	end
-	if shouldApplyMood then
-		moodKeyframe = getMainThumbnailKeyframe(character, moodAssetId, true --[[useRotationInPoseAsset]])
-	end
-
-	keyframesForPose.poseKeyframe = poseKeyframe
-	keyframesForPose.moodKeyframe = moodKeyframe
-	keyframesForPose.defaultToolKeyframe = defaultToolKeyframe
-	keyframesForPose.suggestedKeyframeFromTool = suggestedKeyframeFromTool
-
-	return keyframesForPose
 end
 
 local function loadKeyframesForPoseR15(

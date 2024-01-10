@@ -88,11 +88,16 @@ local function initializeLibrary(configs)
 		Hooks = strict({
 			useExternalEvent = require(script.Utility.useExternalEvent),
 			useIsGamepad = require(script.Utility.useIsGamepad),
+			useInputType = require(script.Utility.useInputType),
 			useLazyRef = require(script.Utility.useLazyRef),
 			useInitializedValue = require(script.Utility.useInitializedValue),
 			useForwardRef = require(script.Utility.useForwardRef),
 			useProperties = require(script.Utility.useProperties),
 			usePropertiesDeferred = require(script.Utility.usePropertiesDeferred),
+		}),
+
+		Enums = strict({
+			InputType = require(script.Enums.InputType),
 		}),
 	})
 
@@ -368,6 +373,10 @@ local function initializeLibrary(configs)
 			Cell = require(script.App.Table.Cell),
 			CellHeadDetail = require(script.App.Table.CellHeadDetail),
 			CellTailDescription = require(script.App.Table.CellTailDescription),
+		}),
+
+		Input = strict({
+			TextField = require(script.App.Input.TextField),
 		}),
 	})
 

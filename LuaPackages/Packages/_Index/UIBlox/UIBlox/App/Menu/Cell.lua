@@ -111,7 +111,7 @@ Cell.validateProps = t.strictInterface({
 Cell.defaultProps = {
 	selected = false,
 	disabled = false,
-	rightSideGadgetSize = Vector2.new(0, 0),
+	rightSideGadgetSize = nil,
 	leftPaddingOffset = 0,
 	isElementBackgroundVisible = true,
 	dividerOffset = 0,
@@ -229,7 +229,7 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 		local textLengthOffset = 0
 		local textOnly = true
 
-		if UIBloxConfig.enableRightSideGadgetView and self.props.rightSideGadgetSize ~= nil then
+		if self.props.rightSideGadgetSize ~= nil then
 			textLengthOffset = self.props.rightSideGadgetSize.X
 				+ self.props.iconPaddingLeft
 				+ self.props.iconSize
@@ -399,17 +399,15 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 							PaddingRight = UDim.new(0, rightPadding),
 						}),
 
-						RightSideContent = UIBloxConfig.enableRightSideGadgetView
-								and self.props.renderRightSideGadget
+						RightSideContent = self.props.renderRightSideGadget
+								and self.props.rightSideGadgetSize
 								and Roact.createElement("Frame", {
 									BackgroundTransparency = 1,
 									BorderSizePixel = 0,
 									LayoutOrder = 3,
-									Size = UDim2.new(
-										0,
-										self.props.rightSideGadgetSize.X or 0,
-										0,
-										self.props.rightSideGadgetSize.Y or 0
+									Size = UDim2.fromOffset(
+										self.props.rightSideGadgetSize.X,
+										self.props.rightSideGadgetSize.Y
 									),
 								}, self.props.renderRightSideGadget())
 							or Roact.createFragment({
