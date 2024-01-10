@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "SocialRoactChat",
-    "tree": {
-      "$path": "../../../../../../../modules/social/roact-chat/src"
-    }
-  }
-}

@@ -205,7 +205,6 @@ Studio.App.RBXMainWindow.BasicObjects,,Basic Objects,Basic Objects
 Studio.App.RobloxRibbonMainWindow.AddWeld,,Weld,Weld
 Studio.App.RobloxRibbonMainWindow.AdvancedObjects,,Advanced Objects,Advanced Objects
 Studio.App.RobloxRibbonMainWindow.Always,,Always,Always
-Studio.App.RobloxRibbonMainWindow.Beam,,Beam,Beam
 Studio.App.RobloxRibbonMainWindow.Brick,,Brick,Brick
 Studio.App.RobloxRibbonMainWindow.CheckCollisionsDragging,,Check for collisions when dragging,Check for collisions when dragging
 Studio.App.RobloxRibbonMainWindow.Cobblestone,,Cobblestone,Cobblestone
@@ -215,7 +214,6 @@ Studio.App.RobloxRibbonMainWindow.CorrodedMetal,,Corroded Metal,Corroded Metal
 Studio.App.RobloxRibbonMainWindow.DiamondPlate,,Diamond Plate,Diamond Plate
 Studio.App.RobloxRibbonMainWindow.DisplayAxis,,Display Axis,Display Axis
 Studio.App.RobloxRibbonMainWindow.Emulator,,Emulator,Emulator
-Studio.App.RobloxRibbonMainWindow.Explosion,,Explosion,Explosion
 Studio.App.RobloxRibbonMainWindow.FocusViewOnScriptError,,Focus view on script error,Focus view on script error
 Studio.App.RobloxRibbonMainWindow.Inlets,,Inlets,Inlets
 Studio.App.RobloxRibbonMainWindow.Insert,,Insert,Insert
@@ -234,7 +232,6 @@ Studio.App.RobloxRibbonMainWindow.SmoothNoOutline,,"Smooth, No Outline","Smooth,
 Studio.App.RobloxRibbonMainWindow.SolveConstraintsWhileDragging,,Solve constraints while dragging,Solve constraints while dragging
 Studio.App.RobloxRibbonMainWindow.Studs,,Studs,Studs
 Studio.App.RobloxRibbonMainWindow.SurfaceOnly,,Surface only,Surface only
-Studio.App.RobloxRibbonMainWindow.Trail,,Trail,Trail
 Studio.App.RobloxRibbonMainWindow.UncommentOutTheSelectedText,,Uncomment out the selected text,Uncomment out the selected text
 Studio.App.RobloxRibbonMainWindow.ViewBulkImport,,View Bulk Import,View Bulk Import
 Studio.App.RobloxRibbonMainWindow.ViewGameExplorer,,View Game Explorer,View Game Explorer

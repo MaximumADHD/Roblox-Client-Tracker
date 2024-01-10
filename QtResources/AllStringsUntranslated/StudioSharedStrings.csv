@@ -37,6 +37,7 @@ Studio.App.RBXMainWindow.PublishActiveDocumentToRobloxAs,,Publish active documen
 Studio.App.RBXMainWindow.SaveActiveDocumentToRobloxAs,,Save active document to Roblox as,Save active document to Roblox as
 Studio.App.DebuggerViewsManager.Watch,,Watch,Watch
 Studio.App.DebuggerViewsManager.Breakpoints,,Breakpoints,Breakpoints
+Studio.App.GameExplorer.InsertDecals,,Insert Decals,Insert Decals
 Studio.App.GameExplorer.InsertWithLocation,,Insert with location,Insert with location
 Studio.App.FindReplaceController.FindAllReplaceAll,,Find All / Replace All,Find All / Replace All
 Studio.App.RobloxSettingsDialog.SaveChanges,,Save Changes,Save Changes

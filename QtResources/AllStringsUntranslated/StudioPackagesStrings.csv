@@ -1,5 +1,6 @@
 Key,Context,Source,en-us
 Studio.App.PackageManagementVerbs.PackagePublishError1,,Package publish error: %1,Package publish error: %1
+Studio.App.PackageManagementVerbs.PackagePublishSuccess1,,%1 : Package published successfully,%1 : Package published successfully
 Studio.App.PackageManagementVerbs.PackageScriptDiffError1,,Package Script Diff error: %1,Package Script Diff error: %1
 Studio.App.PackageManagementVerbs.ThisModifiesPackage,,"This object has 3D content but is not a Model, so moving or rotating it will count as modifying the Package. Are you sure you want to continue?","This object has 3D content but is not a Model, so moving or rotating it will count as modifying the Package. Are you sure you want to continue?"
 Studio.App.PackageManagementVerbs.ErrorPrimaryPartNotArchivable,,Error: Cannot publish a Model package when the PrimaryPart is not Archivable.,Error: Cannot publish a Model package when the PrimaryPart is not Archivable.

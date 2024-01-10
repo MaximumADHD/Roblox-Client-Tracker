@@ -2592,7 +2592,6 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">PlaybackRegionsEnabled</string>
-            <bool name="FFlag">SoundLoopPointApi3</bool>
           </Properties>
         </Item>
       </Item>
@@ -7470,7 +7469,6 @@
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">1000</double>
             <double name="UINumTicks">20</double>
-            <string name="FFlag">SurfaceGuiMaxDistance</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

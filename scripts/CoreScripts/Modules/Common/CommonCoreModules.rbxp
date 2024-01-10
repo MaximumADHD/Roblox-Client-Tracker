@@ -13,6 +13,12 @@
                     "$path": ".robloxrc"
                 }
             },
+            "AvatarUtil": {
+                 "$path": "AvatarUtil.lua",
+                 ".robloxrc": {
+                     "$path": ".robloxrc"
+                 }
+             },
             "GetDefaultQualityLevel": {
                 "$path": "GetDefaultQualityLevel.lua",
                 ".robloxrc": {

@@ -157,6 +157,7 @@ Class AnimationRigData : Instance
 	Function AnimationRigData:LoadFromHumanoid(humanoid: Instance) -> boolean {RobloxScriptSecurity}
 Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
 	Property AnimationStreamTrack.Animation: TrackerStreamAnimation? [Hidden] [ReadOnly]
+	Property AnimationStreamTrack.FACSDataLod: Enum.FACSDataLod [Hidden] [ReadOnly]
 	Property AnimationStreamTrack.IsPlaying: boolean [Hidden] [ReadOnly]
 	Property AnimationStreamTrack.Priority: Enum.AnimationPriority [Hidden] [NotReplicated]
 	Property AnimationStreamTrack.WeightCurrent: number [Hidden] [ReadOnly]
@@ -201,6 +202,7 @@ Class Animator : Instance
 	Function Animator:LoadStreamAnimationForSelfieView_deprecated(animation: TrackerStreamAnimation, player: Player) -> AnimationStreamTrack {RobloxScriptSecurity}
 	Function Animator:RegisterEvaluationParallelCallback(callback: (...any) -> ...any) -> ()
 	Function Animator:StepAnimations(deltaTime: number) -> () {PluginSecurity}
+	Function Animator:SynchronizeWith(otherAnimator: Animator) -> () {RobloxScriptSecurity}
 	Event Animator.AnimationPlayed(animationTrack: AnimationTrack)
 	Event Animator.AnimationPlayedCoreScript(animationTrack: AnimationTrack) {RobloxScriptSecurity}
 	Event Animator.AnimationStreamTrackPlayed(animationTrack: AnimationStreamTrack) {RobloxScriptSecurity}
@@ -233,11 +235,13 @@ Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function AssetImportSession:ApplySettings() -> () {RobloxScriptSecurity}
 	Function AssetImportSession:Cancel() -> () {RobloxScriptSecurity}
 	Function AssetImportSession:CreatePresetFromData(importData: Instance) -> { [string]: any } {RobloxScriptSecurity}
-	Function AssetImportSession:GetCurrentStatusTable() -> { [string]: any } {RobloxScriptSecurity}
+	Function AssetImportSession:GetCurrentStatusTable_DEPRECATED() -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:GetFilename() -> string {RobloxScriptSecurity}
 	Function AssetImportSession:GetImportTree() -> Instance? {RobloxScriptSecurity}
 	Function AssetImportSession:GetInstance(nodeId: number) -> Instance? {RobloxScriptSecurity}
-	Function AssetImportSession:GetRigVisualization() -> Instance? {RobloxScriptSecurity}
+	Function AssetImportSession:GetRigVisualization(importDataInstance: Instance) -> Instance? {RobloxScriptSecurity}
+	Function AssetImportSession:GetRigVisualization_DEPRECATED() -> Instance? {RobloxScriptSecurity} [Deprecated]
+	Function AssetImportSession:GetStatuses() -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:HasAnimation() -> boolean {RobloxScriptSecurity}
 	Function AssetImportSession:IsAvatar() -> boolean {RobloxScriptSecurity}
 	Function AssetImportSession:IsGltf() -> boolean {RobloxScriptSecurity}
@@ -258,6 +262,7 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetManagerService:HasUnpublishedChangesForLinkedSource(aliasName: string) -> boolean {RobloxScriptSecurity}
 	Function AssetManagerService:InsertAudio(assetId: number, assetName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertImage(assetId: number) -> () {RobloxScriptSecurity}
+	Function AssetManagerService:InsertImages(assetIds: { any }) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertLinkedSourceAsLocalScript(aliasName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertLinkedSourceAsModuleScript(aliasName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertLinkedSourceAsScript(aliasName: string) -> () {RobloxScriptSecurity}
@@ -290,6 +295,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreateEditableImageAsync(textureId: string) -> EditableImage [Yields]
 	Function AssetService:CreateEditableMeshAsync(meshId: string) -> EditableMesh [Yields]
 	Function AssetService:CreateEditableMeshFromPartAsync(meshPart: Instance) -> EditableMesh [Yields]
+	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: string) -> EditableMesh {RobloxScriptSecurity} [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
@@ -338,20 +344,20 @@ Class Bone : Attachment
 Class AudioAnalyzer : Instance [NotBrowsable]
 	Property AudioAnalyzer.PeakLevel: number [ReadOnly]
 	Property AudioAnalyzer.RmsLevel: number [ReadOnly]
-	Function AudioAnalyzer:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioAnalyzer:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 	Function AudioAnalyzer:GetSpectrum() -> { any } [CustomLuaState]
 Class AudioChorus : Instance [NotBrowsable]
 	Property AudioChorus.Depth: number
 	Property AudioChorus.Mix: number
 	Property AudioChorus.Rate: number
-	Function AudioChorus:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioChorus:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioCompressor : Instance [NotBrowsable]
 	Property AudioCompressor.Attack: number
 	Property AudioCompressor.MakeupGain: number
 	Property AudioCompressor.Ratio: number
 	Property AudioCompressor.Release: number
 	Property AudioCompressor.Threshold: number
-	Function AudioCompressor:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioCompressor:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioDeviceInput : Instance [NotBrowsable]
 	Property AudioDeviceInput.AccessList: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property AudioDeviceInput.AccessType: Enum.AccessModifierType
@@ -359,48 +365,48 @@ Class AudioDeviceInput : Instance [NotBrowsable]
 	Property AudioDeviceInput.IsReady: boolean {RobloxScriptSecurity} [ReadOnly]
 	Property AudioDeviceInput.Muted: boolean
 	Property AudioDeviceInput.Player: Player?
-	Function AudioDeviceInput:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioDeviceInput:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 	Function AudioDeviceInput:GetUserIdAccessList() -> { any }
 	Function AudioDeviceInput:SetUserIdAccessList(userIds: { any }) -> ()
 Class AudioDeviceOutput : Instance [NotBrowsable]
 	Property AudioDeviceOutput.Player: Player?
-	Function AudioDeviceOutput:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioDeviceOutput:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioDistortion : Instance [NotBrowsable]
 	Property AudioDistortion.Level: number
-	Function AudioDistortion:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioDistortion:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioEcho : Instance [NotBrowsable]
 	Property AudioEcho.DelayTime: number
 	Property AudioEcho.DryLevel: number
 	Property AudioEcho.Feedback: number
 	Property AudioEcho.WetLevel: number
-	Function AudioEcho:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioEcho:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioEmitter : Instance [NotBrowsable]
 	Property AudioEmitter.AudioInteractionGroup: string
 	Function AudioEmitter:GetAudibilityFor(listener: AudioListener) -> number {RobloxScriptSecurity}
-	Function AudioEmitter:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioEmitter:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 	Function AudioEmitter:GetInteractingListeners() -> { any } {RobloxScriptSecurity}
 Class AudioEqualizer : Instance [NotBrowsable]
 	Property AudioEqualizer.HighGain: number
 	Property AudioEqualizer.LowGain: number
 	Property AudioEqualizer.MidGain: number
 	Property AudioEqualizer.MidRange: NumberRange
-	Function AudioEqualizer:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioEqualizer:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioFader : Instance [NotBrowsable]
 	Property AudioFader.Volume: number
-	Function AudioFader:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioFader:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioFlanger : Instance [NotBrowsable]
 	Property AudioFlanger.Depth: number
 	Property AudioFlanger.Mix: number
 	Property AudioFlanger.Rate: number
-	Function AudioFlanger:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioFlanger:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioListener : Instance [NotBrowsable]
 	Property AudioListener.AudioInteractionGroup: string
 	Function AudioListener:GetAudibilityOf(emitter: AudioEmitter) -> number {RobloxScriptSecurity}
-	Function AudioListener:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioListener:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 	Function AudioListener:GetInteractingEmitters() -> { any } {RobloxScriptSecurity}
 Class AudioPitchShifter : Instance [NotBrowsable]
 	Property AudioPitchShifter.Pitch: number
-	Function AudioPitchShifter:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioPitchShifter:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioPlayer : Instance [NotBrowsable]
 	Property AudioPlayer.AssetId: string
 	Property AudioPlayer.AutoLoad: boolean
@@ -412,7 +418,7 @@ Class AudioPlayer : Instance [NotBrowsable]
 	Property AudioPlayer.TimePosition: number
 	Property AudioPlayer.LoopRegion: NumberRange
 	Property AudioPlayer.PlaybackRegion: NumberRange
-	Function AudioPlayer:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioPlayer:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 	Function AudioPlayer:Play() -> ()
 	Function AudioPlayer:Stop() -> ()
 Class AudioReverb : Instance [NotBrowsable]
@@ -428,7 +434,7 @@ Class AudioReverb : Instance [NotBrowsable]
 	Property AudioReverb.LowShelfFrequency: number
 	Property AudioReverb.ReferenceFrequency: number
 	Property AudioReverb.WetLevel: number
-	Function AudioReverb:GetConnectedWires(pin: string) -> { any } {RobloxScriptSecurity}
+	Function AudioReverb:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioSearchParams : Instance [NotReplicated]
 	Property AudioSearchParams.Album: string
 	Property AudioSearchParams.Artist: string
@@ -451,8 +457,10 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Function AvatarChatService:PollClientFeatures() -> number {RobloxScriptSecurity}
 	Function AvatarChatService:PollServerFeatures() -> number {RobloxScriptSecurity}
 	Event AvatarChatService.OnClientFeatures(features: number) {RobloxSecurity} [Hidden]
-Class AvatarCreationService : Instance [NotCreatable] [Service] [NotReplicated]
+Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:PromptCreateAvatarAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
+	Event AvatarCreationService.UgcValidationFailure(guid: string, errorMessage: string) {RobloxScriptSecurity}
+	Event AvatarCreationService.UgcValidationSuccess(guid: string, serializedModel: string) {RobloxScriptSecurity}
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarEditorService:CheckApplyDefaultClothing(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields]
 	Function AvatarEditorService:ConformToAvatarRules(humanoidDescription: HumanoidDescription) -> HumanoidDescription [Yields]
@@ -466,13 +474,13 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarEditorService:GetOutfits(outfitSource: Enum.OutfitSource? = "All", outfitType: Enum.OutfitType? = "All") -> OutfitPages [Yields]
 	Function AvatarEditorService:GetRecommendedAssets(assetType: Enum.AvatarAssetType, contextAssetId: number? = 0) -> { any } [Yields]
 	Function AvatarEditorService:GetRecommendedBundles(bundleId: number) -> { any } [Yields]
-	Function AvatarEditorService:NoPromptCreateOutfit(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, name: string) -> boolean {RobloxScriptSecurity}
+	Function AvatarEditorService:NoPromptCreateOutfit(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, name: string, gearAssetId: number? = 0) -> boolean {RobloxScriptSecurity}
 	Function AvatarEditorService:NoPromptDeleteOutfit(outfitId: number) -> boolean {RobloxScriptSecurity}
 	Function AvatarEditorService:NoPromptRenameOutfit(outfitId: number, name: string) -> boolean {RobloxScriptSecurity}
 	Function AvatarEditorService:NoPromptSaveAvatar(humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, saveDict: { [string]: any }, gearAssetId: number? = 0) -> boolean {RobloxScriptSecurity}
 	Function AvatarEditorService:NoPromptSaveAvatarThumbnailCustomization(thumbnailType: Enum.AvatarThumbnailCustomizationType, emoteAssetId: number, cameraDistanceScale: number, yRotDeg: number, fieldOfViewDeg: number? = 0) -> boolean {RobloxScriptSecurity}
 	Function AvatarEditorService:NoPromptSetFavorite(itemId: number, itemType: Enum.AvatarItemType, shouldFavorite: boolean) -> boolean {RobloxScriptSecurity}
-	Function AvatarEditorService:NoPromptUpdateOutfit(outfitId: number, humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType) -> boolean {RobloxScriptSecurity}
+	Function AvatarEditorService:NoPromptUpdateOutfit(outfitId: number, humanoidDescription: HumanoidDescription, rigType: Enum.HumanoidRigType, gearAssetId: number? = 0) -> boolean {RobloxScriptSecurity}
 	Function AvatarEditorService:PerformCreateOutfitWithDescription(humanoidDescription: HumanoidDescription, name: string) -> () {RobloxScriptSecurity}
 	Function AvatarEditorService:PerformDeleteOutfit() -> () {RobloxScriptSecurity}
 	Function AvatarEditorService:PerformRenameOutfit(name: string) -> () {RobloxScriptSecurity}
@@ -536,6 +544,7 @@ Class BaseImportData : Instance [NotCreatable] [NotReplicated]
 	Property BaseImportData.ImportName: string
 	Property BaseImportData.ShouldImport: boolean
 	Function BaseImportData:CreatePresetFromData() -> { [string]: any } {RobloxScriptSecurity}
+	Function BaseImportData:GetPreview() -> Instance? {RobloxScriptSecurity}
 	Function BaseImportData:GetStatuses() -> { [string]: any } {RobloxScriptSecurity}
 	Function BaseImportData:GetStatuses_DEPRECATED() -> { [string]: any } {RobloxScriptSecurity}
 	Event BaseImportData.StatusRemoved(status: { [string]: any })
@@ -997,7 +1006,7 @@ Class CollaboratorsService : Instance [NotCreatable] [Service]
 Class CollectionService : Instance [NotCreatable] [Service]
 	Function CollectionService:AddTag(instance: Instance, tag: string) -> ()
 	Function CollectionService:GetAllTags() -> { any } {🧬Safe}
-	Function CollectionService:GetCollection(clazz: string) -> { Instance } [Deprecated]
+	Function CollectionService:GetCollection(class: string) -> { Instance } [Deprecated]
 	Function CollectionService:GetInstanceAddedSignal(tag: string) -> RBXScriptSignal
 	Function CollectionService:GetInstanceRemovedSignal(tag: string) -> RBXScriptSignal
 	Function CollectionService:GetTagged(tag: string) -> { Instance } {🧬Safe}
@@ -1026,6 +1035,9 @@ Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event CommandService.CommandExecuting(name: string, params: any) {RobloxScriptSecurity}
 Class Configuration : Instance
 Class ConfigureServerService : Instance [NotCreatable] [Service]
+Class ConnectivityService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property ConnectivityService.NetworkStatus: Enum.NetworkStatus {RobloxScriptSecurity} [ReadOnly]
+	Function ConnectivityService:IsNetworkStateAvailable() -> boolean {RobloxScriptSecurity}
 Class Constraint : Instance [NotCreatable]
 	Property Constraint.Color: BrickColor
 	Property Constraint.Visible: boolean
@@ -1318,6 +1330,10 @@ Class ControllerManager : Instance
 	Property ControllerManager.FacingDirection: Vector3
 	Property ControllerManager.MovingDirection: Vector3
 Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
+Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function ConversationalAIAcceptanceService:AlternativeAssetSelected(requestId: string, previousAssetId: number, assetId: number) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:AssetInserted(requestId: string, assetId: number) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:InstanceInserted(requestId: string) -> () {RobloxScriptSecurity}
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptDebuggingManagerHelper : Instance [NotCreatable] [Service]
@@ -1352,7 +1368,6 @@ Class BevelMesh : DataModelMesh [NotCreatable] [NotBrowsable] [Deprecated]
 Class BlockMesh : BevelMesh
 Class CylinderMesh : BevelMesh [Deprecated]
 Class EditableMesh : DataModelMesh [NotReplicated]
-	Property EditableMesh.MeshVersion: number {✏️NotAccessibleSecurity} [Hidden]
 	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
 	Function EditableMesh:AddVertex(p: Vector3) -> number
@@ -1605,6 +1620,8 @@ Class EditableImage : Instance [NotReplicated]
 	Function EditableImage:Resize(size: Vector2) -> ()
 	Function EditableImage:Rotate(degrees: number, changeSize: boolean) -> ()
 	Function EditableImage:WritePixels(position: Vector2, size: Vector2, pixels: { any }) -> () [CustomLuaState]
+Class RobloxEditableImage : EditableImage
+	Property RobloxEditableImage.ImageDataSerialize: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class EngineAPICloudProcessingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class EulerRotationCurve : Instance
 	Property EulerRotationCurve.RotationOrder: Enum.RotationOrder
@@ -2121,6 +2138,7 @@ Class VideoFrame : GuiObject
 	Property VideoFrame.Volume: number
 	Function VideoFrame:Pause() -> ()
 	Function VideoFrame:Play() -> ()
+	Function VideoFrame:SetStudioPreview(isPreview: boolean) -> () {RobloxScriptSecurity}
 	Event VideoFrame.DidLoop(video: string)
 	Event VideoFrame.Ended(video: string)
 	Event VideoFrame.Loaded(video: string)
@@ -3236,6 +3254,7 @@ Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 	Function NetworkReplicator:GetPlayer() -> Instance?
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
 	Function ClientReplicator:RequestRCCProfilerData(frameRate: number, timeFrame: number) -> () {RobloxScriptSecurity}
+	Function ClientReplicator:RequestServerLuauHeapData() -> () {RobloxScriptSecurity}
 	Function ClientReplicator:RequestServerScriptProfiling(start: boolean, frequency: number?) -> () {RobloxScriptSecurity}
 	Function ClientReplicator:RequestServerScriptProfilingData() -> () {RobloxScriptSecurity}
 	Function ClientReplicator:RequestServerStats(request: boolean) -> () {RobloxScriptSecurity}
@@ -3578,7 +3597,7 @@ Class Model : PVInstance
 	Property Model.WorldPivotData: CFrame? [Hidden] [NotScriptable]
 	Function Model:AddPersistentPlayer(playerInstance: Player? = nil) -> ()
 	Function Model:BreakJoints() -> () [Deprecated]
-	Function Model:GetBoundingBox() -> ...any
+	Function Model:GetBoundingBox() -> (CFrame, Vector3)
 	Function Model:GetExtentsSize() -> Vector3
 	Function Model:GetModelCFrame() -> CFrame [Deprecated]
 	Function Model:GetModelSize() -> Vector3 [Deprecated]
@@ -3730,7 +3749,7 @@ Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class PackageUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PackageUIService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
 	Function PackageUIService:GetPackageInfo(packageAssetId: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
-	Function PackageUIService:PublishPackage(packageInstance: Instance) -> () {RobloxScriptSecurity} [Yields]
+	Function PackageUIService:PublishPackage(packageInstance: Instance, addUndoWayPoint: boolean) -> () {RobloxScriptSecurity} [Yields]
 	Function PackageUIService:SetPackageVersion(packageInstance: Instance, versionNumber: number) -> Instance? {RobloxScriptSecurity} [Yields]
 	Event PackageUIService.OnConvertToPackageResult(isSuccessful: boolean, errorMessage: string) {RobloxScriptSecurity}
 	Event PackageUIService.OnOpenConvertToPackagePlugin(instances: { Instance }, name: string, cloneInstances: { Instance }) {RobloxScriptSecurity}
@@ -4509,6 +4528,8 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptContext:ClearScriptProfilingData() -> () {RobloxScriptSecurity}
 	Function ScriptContext:DeserializeScriptProfilerString(jsonString: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetCoverageStats() -> { any } {RobloxScriptSecurity}
+	Function ScriptContext:GetLuauHeapInstanceReferenceReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
+	Function ScriptContext:GetLuauHeapMemoryReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetScriptProfilingData() -> string {RobloxScriptSecurity}
 	Function ScriptContext:SaveScriptProfilingData(filename: string) -> () {RobloxScriptSecurity}
 	Function ScriptContext:SetTimeout(seconds: number) -> () {PluginSecurity}
@@ -4954,6 +4975,8 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Function StarterPlayer:ClearDefaults() -> () {RobloxScriptSecurity}
 Class StarterPlayerScripts : Instance [NotCreatable]
 Class StarterCharacterScripts : StarterPlayerScripts [NotCreatable]
+Class StartupMessageService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function StartupMessageService:GetStartupMessage() -> any {RobloxScriptSecurity}
 Class Stats : Instance [NotCreatable] [Service]
 	Property Stats.ContactsCount: number [ReadOnly]
 	Property Stats.DataReceiveKbps: number [ReadOnly]
@@ -5531,8 +5554,8 @@ Class TextFilterTranslatedResult : Instance [NotCreatable] [NotReplicated]
 	Function TextFilterTranslatedResult:GetTranslationForLocale(locale: string) -> TextFilterResult
 	Function TextFilterTranslatedResult:GetTranslations() -> { [string]: any }
 Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function TextService:FilterAndTranslateStringAsync(stringToFilter: string, fromUserId: number, targetLocales: { any }, textContext: Enum.TextFilterContext? = "PrivateChat") -> Instance? [Yields]
-	Function TextService:FilterStringAsync(stringToFilter: string, fromUserId: number, textContext: Enum.TextFilterContext? = "PrivateChat") -> Instance? [Yields]
+	Function TextService:FilterAndTranslateStringAsync(stringToFilter: string, fromUserId: number, targetLocales: { any }, textContext: Enum.TextFilterContext? = "PrivateChat") -> TextFilterTranslatedResult [Yields]
+	Function TextService:FilterStringAsync(stringToFilter: string, fromUserId: number, textContext: Enum.TextFilterContext? = "PrivateChat") -> TextFilterResult [Yields]
 	Function TextService:GetFamilyInfoAsync(assetId: string) -> { [string]: any } [Yields]
 	Function TextService:GetFontMemoryData() -> { [string]: any } {RobloxScriptSecurity}
 	Function TextService:GetTextBoundsAsync(params: GetTextBoundsParams) -> Vector2 [Yields]
@@ -6149,6 +6172,9 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.SubscriptionHandshakeAcked(eventTag: number, handshakeAnswer: string, usersToMute: string, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeCompleted(sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeInitiated(handshakeOffer: string, newSubscriptionStates: string, isNewConnection: boolean, sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionInitialClientDescriptor(eventTag: number, initialClientDescriptor: string, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionInitialClientDescriptorRequested(eventTag: number, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionReset(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.TurnServerInfoAcked(eventTag: number, userId: number, turnServerInfo: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.TurnServerInfoRequested(eventTag: number, userId: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatClientVoiceCapability() {RobloxSecurity} [Hidden]
@@ -7027,6 +7053,10 @@ Enum ExperienceAuthScope
 Enum ExplosionType
 	EnumItem ExplosionType.NoCraters : 0
 	EnumItem ExplosionType.Craters : 1
+Enum FACSDataLod
+	EnumItem FACSDataLod.LOD0 : 0
+	EnumItem FACSDataLod.LOD1 : 1
+	EnumItem FACSDataLod.LODCount : 2
 Enum FacialAnimationStreamingState
 	EnumItem FacialAnimationStreamingState.None : 0
 	EnumItem FacialAnimationStreamingState.Audio : 1
@@ -7807,6 +7837,10 @@ Enum NetworkOwnership
 	EnumItem NetworkOwnership.Automatic : 0
 	EnumItem NetworkOwnership.Manual : 1
 	EnumItem NetworkOwnership.OnContact : 2
+Enum NetworkStatus
+	EnumItem NetworkStatus.Unknown : 0
+	EnumItem NetworkStatus.Connected : 1
+	EnumItem NetworkStatus.Disconnected : 2
 Enum NormalId
 	EnumItem NormalId.Right : 0
 	EnumItem NormalId.Top : 1

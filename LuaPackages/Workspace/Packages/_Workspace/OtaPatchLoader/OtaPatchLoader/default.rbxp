@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "OtaPatchLoader",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/ota-patch-loader/src"
+    }
+  }
+}

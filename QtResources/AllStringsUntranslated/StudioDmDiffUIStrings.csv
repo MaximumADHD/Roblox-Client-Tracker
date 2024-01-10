@@ -7,3 +7,4 @@ Studio.App.DmDiffUI.Properties,,Properties,Properties
 Studio.App.DmDiffUI.Added1,,%1 (added),%1 (added)
 Studio.App.DmDiffUI.Deleted1,,%1 (deleted),%1 (deleted)
 Studio.App.DmDiffUI.Version.Error,,Diffs are not available for older versions. Select or create a newer version to compare.,Diffs are not available for older versions. Select or create a newer version to compare.
+Studio.App.DmDiffUI.DescendantChangesToolTip1,,%1 descendant change(s),%1 descendant change(s)

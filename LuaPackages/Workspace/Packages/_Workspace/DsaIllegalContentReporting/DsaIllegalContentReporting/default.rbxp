@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DsaIllegalContentReporting",
+    "tree": {
+      "$path": "../../../../../../../modules/trust-and-safety/dsa-illegal-content-reporting/src"
+    }
+  }
+}

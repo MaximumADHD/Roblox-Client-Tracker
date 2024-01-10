@@ -63,7 +63,8 @@ Rectangle {
         anchors.top : subheaderText.bottom
         anchors.leftMargin: leftMargin
         anchors.topMargin: verticalMargin
-        text: newUserPageController.hasCompletedTutorial() ? qsTr("Studio.App.TutorialPage.RestartTour") : qsTr("Studio.App.TutorialPage.StartTour")
+        
+        text: (FFlagStudioOnboardingStartPageCTA && newUserPageController.hasCompletedTutorial()) ? qsTr("Studio.App.TutorialPage.RestartTour") : qsTr("Studio.App.TutorialPage.StartTour")
         onClicked: {
             if (FFlagStudioOnboardingStartPageCTAAnalytics)
             {
