@@ -9,6 +9,7 @@ local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local ParseContentIds = {}
@@ -80,13 +81,44 @@ local function tryGetAssetIdFromContentIdInternal(contentId)
 	return nil
 end
 
-local function parseContentId(contentIds, contentIdMap, allResults, object, fieldName, isRequired)
+local function hasInExpCreatedEditableInstance(object, fieldName, validationContext)
+	if not validationContext then
+		return false
+	end
+
+	if not validationContext.allowEditableInstances then
+		return false
+	end
+
+	local instanceFieldsToEditableImageMap = validationContext.editableImages[object]
+	if instanceFieldsToEditableImageMap and instanceFieldsToEditableImageMap[fieldName] then
+		return true
+	end
+
+	local instanceFieldsToEditableMeshMap = validationContext.editableMeshes[object]
+	if instanceFieldsToEditableMeshMap and instanceFieldsToEditableMeshMap[fieldName] then
+		return true
+	end
+
+	return false
+end
+
+local function parseContentId(contentIds, contentIdMap, allResults, object, fieldName, isRequired, validationContext)
 	local contentId = object[fieldName]
 
 	if contentId == "" then
 		if isRequired then
 			return false, { string.format("%s.%s cannot be empty", object:GetFullName(), fieldName) }
 		end
+
+		if
+			getFFlagUseUGCValidationContext() and hasInExpCreatedEditableInstance(object, fieldName, validationContext)
+		then
+			if allResults then
+				table.insert(allResults, { fieldName = fieldName, instance = object })
+			end
+		end
+
 		return true
 	end
 
@@ -115,7 +147,15 @@ local function parseContentId(contentIds, contentIdMap, allResults, object, fiel
 	return true
 end
 
-local function parseWithErrorCheckInternal(contentIds, contentIdMap, allResults, object, allFields, requiredFields)
+local function parseWithErrorCheckInternal(
+	contentIds,
+	contentIdMap,
+	allResults,
+	object,
+	allFields,
+	requiredFields,
+	validationContext
+)
 	allFields = allFields or Constants.CONTENT_ID_FIELDS
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
@@ -128,9 +168,23 @@ local function parseWithErrorCheckInternal(contentIds, contentIdMap, allResults,
 			local requiredFieldsForClassType = requiredFields and requiredFields[descendant.ClassName]
 			for __, field in ipairs(contentIdFields) do
 				local isRequired = requiredFieldsForClassType and requiredFieldsForClassType[field]
-				reasonsAccumulator:updateReasons(
-					parseContentId(contentIds, contentIdMap, allResults, descendant, field, isRequired)
-				)
+				if getFFlagUseUGCValidationContext() then
+					reasonsAccumulator:updateReasons(
+						parseContentId(
+							contentIds,
+							contentIdMap,
+							allResults,
+							descendant,
+							field,
+							isRequired,
+							validationContext
+						)
+					)
+				else
+					reasonsAccumulator:updateReasons(
+						parseContentId(contentIds, contentIdMap, allResults, descendant, field, isRequired)
+					)
+				end
 			end
 		end
 	end
@@ -146,11 +200,19 @@ function ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, object, a
 	return parseWithErrorCheckInternal(contentIds, contentIdMap, nil, object, allFields, requiredFields)
 end
 
-function ParseContentIds.parse(object, allFields)
+function ParseContentIds.parse(object, allFields, validationContext)
 	local contentIdMap = {}
 	local contentIds = {}
 	local allResults = {}
-	local success = parseWithErrorCheckInternal(contentIds, contentIdMap, allResults, object, allFields)
+
+	local success
+	if getFFlagUseUGCValidationContext() then
+		success =
+			parseWithErrorCheckInternal(contentIds, contentIdMap, allResults, object, allFields, nil, validationContext)
+	else
+		success = parseWithErrorCheckInternal(contentIds, contentIdMap, allResults, object, allFields)
+	end
+
 	assert(success)
 	return allResults
 end

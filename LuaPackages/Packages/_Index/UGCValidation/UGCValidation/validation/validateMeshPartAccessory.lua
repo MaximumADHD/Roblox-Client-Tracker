@@ -1,6 +1,7 @@
 --!strict
 local root = script.Parent.Parent
 
+local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
@@ -25,12 +26,131 @@ local createMeshPartAccessorySchema = require(root.util.createMeshPartAccessoryS
 local getAttachment = require(root.util.getAttachment)
 local getMeshSize = require(root.util.getMeshSize)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
+local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
+local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 
-local function validateMeshPartAccessory(
+local function validateMeshPartAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
+	assert(
+		validationContext.assetTypeEnum ~= nil,
+		"assetTypeEnum required in validationContext for validateMeshPartAccessory"
+	)
+	local instances = validationContext.instances :: { Instance }
+	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
+	local isServer = validationContext.isServer
+	local allowUnreviewedAssets = validationContext.allowUnreviewedAssets
+
+	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
+
+	local success: boolean, reasons: any
+
+	success, reasons = validateSingleInstance(instances)
+	if not success then
+		return false, reasons
+	end
+
+	local instance = instances[1]
+
+	local schema = createMeshPartAccessorySchema(assetInfo.attachmentNames)
+
+	success, reasons = validateInstanceTree(schema, instance)
+	if not success then
+		return false, reasons
+	end
+
+	if getFFlagUGCValidationNameCheck() and isServer then
+		success, reasons = validateAccessoryName(instance)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	local handle = instance:FindFirstChild("Handle") :: MeshPart
+	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(handle, "MeshId", validationContext)
+	if not getEditableMeshSuccess then
+		return false, { "Failed to load mesh data" }
+	end
+
+	local textureId = handle.TextureID
+	local getEditableImageSuccess, editableImage
+	if textureId ~= "" then
+		getEditableImageSuccess, editableImage = getEditableImageFromContext(handle, "TextureID", validationContext)
+		if not getEditableImageSuccess then
+			return false, { "Failed to load texture data" }
+		end
+	end
+
+	local meshSizeSuccess, meshSize = pcall(getMeshSize, editableMesh)
+	if not meshSizeSuccess then
+		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartAccessory_FailedToLoadMesh)
+		return false, { "Failed to read mesh" }
+	end
+
+	local meshScale = handle.Size / meshSize
+	local attachment = getAttachment(handle, assetInfo.attachmentNames)
+	assert(attachment)
+
+	local boundsInfo = assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
+
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	reasonsAccumulator:updateReasons(validateMaterials(instance))
+
+	reasonsAccumulator:updateReasons(validateProperties(instance))
+
+	reasonsAccumulator:updateReasons(validateTags(instance))
+
+	reasonsAccumulator:updateReasons(validateAttributes(instance))
+
+	reasonsAccumulator:updateReasons(validateTextureSize(editableImage, true, validationContext))
+
+	if getFFlagUGCValidateThumbnailConfiguration() then
+		reasonsAccumulator:updateReasons(validateThumbnailConfiguration(instance, handle, editableMesh, meshScale))
+	end
+
+	local checkModeration = not isServer
+	if allowUnreviewedAssets then
+		checkModeration = false
+	end
+	if checkModeration then
+		reasonsAccumulator:updateReasons(validateModeration(instance, {}))
+	end
+
+	reasonsAccumulator:updateReasons(
+		validateMeshBounds(
+			handle,
+			attachment,
+			editableMesh,
+			meshScale,
+			boundsInfo,
+			assetTypeEnum.Name,
+			validationContext
+		)
+	)
+
+	reasonsAccumulator:updateReasons(validateMeshTriangles(editableMesh, nil, validationContext))
+
+	if game:GetFastFlag("UGCValidateMeshVertColors") then
+		reasonsAccumulator:updateReasons(validateMeshVertColors(editableMesh, false, validationContext))
+	end
+
+	reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance))
+
+	if getFFlagUGCValidateAccessoriesScaleType() then
+		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
+		if partScaleType and partScaleType:IsA("StringValue") then
+			reasonsAccumulator:updateReasons(validateScaleType(partScaleType))
+		end
+	end
+
+	return reasonsAccumulator:getFinalResults()
+end
+
+local function DEPRECATED_validateMeshPartAccessory(
 	instances: { Instance },
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean?,
@@ -142,4 +262,8 @@ local function validateMeshPartAccessory(
 	return reasonsAccumulator:getFinalResults()
 end
 
-return validateMeshPartAccessory
+if getFFlagUseUGCValidationContext() then
+	return validateMeshPartAccessory :: any
+else
+	return DEPRECATED_validateMeshPartAccessory :: any
+end

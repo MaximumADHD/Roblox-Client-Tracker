@@ -20,8 +20,6 @@ local LOC_KEY = "IAPExperience.PurchaseError.%s"
 
 local ErrorPrompt = Roact.Component:extend(script.Name)
 
-local getEnableErrorPromptNewIcon = require(IAPExperienceRoot.Flags.getEnableErrorPromptNewIcon)
-
 type Props = {
 	anchorPoint: Vector2?,
 	position: UDim2?,
@@ -221,7 +219,7 @@ function ErrorPrompt:renderAlert(locMap: { [string]: string })
 		position = props.position,
 		screenSize = props.screenSize,
 		title = self:getErrorTitle(locMap, props.errorType, props.flowType),
-		titleIcon = getEnableErrorPromptNewIcon() and getErrorTitleIcon(props.errorType) or Images[ERROR_ICON],
+		titleIcon = getErrorTitleIcon(props.errorType),
 		bodyText = self:getErrorMessage(locMap, props.errorType),
 		buttonStackInfo = {
 			buttons = {

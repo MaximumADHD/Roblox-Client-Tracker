@@ -6,6 +6,7 @@ local Packages = UIBlox.Parent
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
+local validateColorToken = require(UIBlox.Core.Style.Validator.validateColorToken)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 
 local Roact = require(Packages.Roact)
@@ -24,7 +25,7 @@ StyledTextLabel.validateProps = t.strictInterface({
 	-- The Font table from the style palette
 	fontStyle = t.union(validateFontInfo, validateTypographyInfo),
 	-- The color table from the style palette
-	colorStyle = validateColorInfo,
+	colorStyle = t.union(validateColorInfo, validateColorToken),
 	-- Controls the truncation of the text displayed in this text label
 	textTruncate = t.optional(t.EnumItem),
 	-- Determines the horizontal alignment of rendered text

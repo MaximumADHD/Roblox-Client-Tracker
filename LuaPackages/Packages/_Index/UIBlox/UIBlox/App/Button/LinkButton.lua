@@ -20,8 +20,9 @@ local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
-local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
+local withCursor = require(App.SelectionCursor.withCursor)
+local CursorType = require(App.SelectionCursor.CursorType)
 local RoactGamepad = require(Packages.RoactGamepad)
 local Focusable = RoactGamepad.Focusable
 
@@ -130,12 +131,19 @@ function LinkButton:init()
 end
 
 function LinkButton:render()
-	return withSelectionCursorProvider(function(getSelectionCursor)
-		return self:renderWithSelectionCursorProvider(getSelectionCursor)
-	end)
+	if UIBloxConfig.migrateToNewSelectionCursor then
+		return withCursor(function(context)
+			local cursor = context.getCursorByType(CursorType.RoundedRectNoInset)
+			return self:renderWithSelectionCursorProvider(nil, cursor)
+		end)
+	else
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursorProvider(getSelectionCursor)
+		end)
+	end
 end
 
-function LinkButton:renderWithSelectionCursorProvider(getSelectionCursor)
+function LinkButton:renderWithSelectionCursorProvider(getSelectionCursor, cursor)
 	return withStyle(function(style)
 		local currentState = self.props[LinkButton.debugProps.controlState] or self.state.controlState
 
@@ -173,10 +181,12 @@ function LinkButton:renderWithSelectionCursorProvider(getSelectionCursor)
 		local minSize = Vector2.new(textWidth + minPaddingX * 2, fontSize + minPaddingY * 2)
 
 		local selectionCursor = nil
-		if self.props.selectionCursorKind ~= nil then
-			selectionCursor = getSelectionCursor(self.props.selectionCursorKind)
-		elseif UIBloxConfig.linkButtonUseSelectionImage then
-			selectionCursor = getSelectionCursor(CursorKind.RoundedRectNoInset)
+		if UIBloxConfig.migrateToNewSelectionCursor then
+			selectionCursor = cursor
+		else
+			if self.props.selectionCursorKind ~= nil then
+				selectionCursor = getSelectionCursor(self.props.selectionCursorKind)
+			end
 		end
 
 		return Roact.createElement(

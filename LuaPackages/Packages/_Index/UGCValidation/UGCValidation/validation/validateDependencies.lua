@@ -8,6 +8,7 @@
 
 local root = script.Parent.Parent
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagDebugUGCDisableRCCOwnershipCheck = require(root.flags.getFFlagDebugUGCDisableRCCOwnershipCheck)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 local getFFlagUGCValidateAssetStatusNameChange = require(root.flags.getFFlagUGCValidateAssetStatusNameChange)
@@ -146,7 +147,12 @@ local function validateModerationRCC(
 	return reasonsAccumulator:getFinalResults()
 end
 
-local function validateAssetCreatorsRCC(
+local function validateAssetCreatorsRCC(contentIdMap: any, validationContext: Types.ValidationContext)
+	assert(validationContext.isServer, "isServer must be true for validateAssetCreatorsRCC")
+	return validateAssetCreator(contentIdMap, validationContext)
+end
+
+local function DEPRECATED_validateAssetCreatorsRCC(
 	restrictedUserIds: Types.RestrictedUserIds?,
 	contentIdMap: any,
 	universeId: number
@@ -155,6 +161,65 @@ local function validateAssetCreatorsRCC(
 end
 
 local function validateDependencies(
+	instance: Instance,
+	validationContext: Types.ValidationContext?
+): (boolean, { string }?)
+	local isServer = if validationContext then validationContext.isServer else nil
+	local allowUnreviewedAssets = if validationContext then validationContext.allowUnreviewedAssets else nil
+	local restrictedUserIds = if validationContext then validationContext.restrictedUserIds else nil
+	local universeId = if validationContext then validationContext.universeId else nil
+
+	local contentIdMap = {}
+	local contentIds = {}
+
+	local parseSuccess, parseReasons = ParseContentIds.parseWithErrorCheck(
+		contentIds,
+		contentIdMap,
+		instance,
+		nil,
+		Constants.CONTENT_ID_REQUIRED_FIELDS
+	)
+	if not parseSuccess then
+		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_ParseFailure)
+		return false, parseReasons
+	end
+
+	if isServer then
+		validateExistance(contentIdMap)
+	end
+
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	if not getFFlagDebugUGCDisableRCCOwnershipCheck() then
+		if isServer then
+			-- This block will check user and universe permissions without considering moderation
+			-- This is from in experience creation, assets may not be moderated yet
+			if FFlagValidateUserAndUniverseNoModeration and universeId then
+				reasonsAccumulator:updateReasons(
+					validateAssetCreatorsRCC(contentIdMap, validationContext :: Types.ValidationContext)
+				)
+			else
+				reasonsAccumulator:updateReasons(
+					validateModerationRCC(restrictedUserIds :: Types.RestrictedUserIds, contentIdMap)
+				)
+			end
+		end
+	end
+
+	if not getFFlagUGCValidateBodyPartsModeration() then
+		local checkModeration = not isServer
+		if allowUnreviewedAssets then
+			checkModeration = false
+		end
+		if checkModeration then
+			reasonsAccumulator:updateReasons(validateModeration(instance, validationContext))
+		end
+	end
+
+	return reasonsAccumulator:getFinalResults()
+end
+
+local function DEPRECATED_validateDependencies(
 	instance: Instance,
 	isServer: boolean?,
 	allowUnreviewedAssets: boolean?,
@@ -187,7 +252,9 @@ local function validateDependencies(
 			-- This block will check user and universe permissions without considering moderation
 			-- This is from in experience creation, assets may not be moderated yet
 			if FFlagValidateUserAndUniverseNoModeration and universeId then
-				reasonsAccumulator:updateReasons(validateAssetCreatorsRCC(restrictedUserIds, contentIdMap, universeId))
+				reasonsAccumulator:updateReasons(
+					DEPRECATED_validateAssetCreatorsRCC(restrictedUserIds, contentIdMap, universeId)
+				)
 			else
 				reasonsAccumulator:updateReasons(
 					validateModerationRCC(restrictedUserIds :: Types.RestrictedUserIds, contentIdMap)
@@ -209,4 +276,8 @@ local function validateDependencies(
 	return reasonsAccumulator:getFinalResults()
 end
 
-return validateDependencies
+if getFFlagUseUGCValidationContext() then
+	return validateDependencies :: any
+else
+	return DEPRECATED_validateDependencies :: any
+end

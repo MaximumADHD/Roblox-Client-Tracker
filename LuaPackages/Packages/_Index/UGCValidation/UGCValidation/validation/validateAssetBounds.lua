@@ -7,6 +7,7 @@
 local root = script.Parent.Parent
 
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateMinBoundsOnlyMesh = require(root.flags.getFFlagUGCValidateMinBoundsOnlyMesh)
 local getFFlagUGCValidationRefactorAssetTraversal = require(root.flags.getFFlagUGCValidationRefactorAssetTraversal)
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
@@ -343,6 +344,106 @@ end
 local function validateAssetBounds(
 	fullBodyAssets: Types.AllBodyParts?,
 	inst: Instance?,
+	validationContext: Types.ValidationContext?
+): (boolean, { string }?)
+	local assetTypeEnum = if validationContext then validationContext.assetTypeEnum else nil
+	if getFFlagUGCValidateFullBody() then
+		local isSingleInstance = inst and assetTypeEnum
+		assert((nil ~= fullBodyAssets) ~= (nil ~= isSingleInstance)) -- one, but not both, should have a value
+	end
+
+	local minMaxBounds: Types.BoundsData = {}
+
+	if getFFlagUGCValidateFullBody() and fullBodyAssets then
+		if getFFlagUGCValidationRefactorAssetTraversal() then
+			AssetTraversalUtils.traverseHierarchy(
+				fullBodyAssets,
+				nil,
+				nil,
+				nil,
+				CFrame.new(),
+				fullBody.root,
+				fullBody,
+				minMaxBounds
+			)
+		else
+			traverseHierarchy(fullBodyAssets, nil, nil, nil, CFrame.new(), fullBody.root, fullBody, minMaxBounds)
+		end
+	elseif Enum.AssetType.DynamicHead == assetTypeEnum :: Enum.AssetType then
+		if getFFlagUGCValidationRefactorAssetTraversal() then
+			AssetTraversalUtils.calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds)
+		else
+			calculateBounds(assetTypeEnum, inst :: MeshPart, CFrame.new(), minMaxBounds)
+		end
+	else
+		local hierarchy = assetHierarchy[assetTypeEnum :: Enum.AssetType]
+		if getFFlagUGCValidationRefactorAssetTraversal() then
+			AssetTraversalUtils.traverseHierarchy(
+				nil,
+				inst :: Folder,
+				assetTypeEnum,
+				nil,
+				CFrame.new(),
+				hierarchy.root,
+				hierarchy,
+				minMaxBounds
+			)
+		else
+			traverseHierarchy(
+				nil,
+				inst :: Folder,
+				assetTypeEnum,
+				nil,
+				CFrame.new(),
+				hierarchy.root,
+				hierarchy,
+				minMaxBounds
+			)
+		end
+	end
+
+	local success, reasons, scaleType = getScaleType(fullBodyAssets, inst, assetTypeEnum)
+	if not success then
+		return success, reasons
+	end
+
+	local assetInfo = if not getFFlagUGCValidateFullBody() then Constants.ASSET_TYPE_INFO[assetTypeEnum] else nil
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	local minSize, maxSize
+	if getFFlagUGCValidateFullBody() then
+		if fullBodyAssets then
+			minSize, maxSize = ConstantsInterface.calculateFullBodyBounds(scaleType :: string)
+		else
+			minSize = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds[scaleType].minSize
+			maxSize = Constants.ASSET_TYPE_INFO[assetTypeEnum].bounds[scaleType].maxSize
+		end
+	end
+
+	reasonsAccumulator:updateReasons(
+		validateMinBoundsInternal(
+			if getFFlagUGCValidateMinBoundsOnlyMesh()
+				then minMaxBounds.maxMeshCorner :: Vector3 - minMaxBounds.minMeshCorner :: Vector3
+				else minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3,
+			if getFFlagUGCValidateFullBody() then minSize else assetInfo.bounds[scaleType].minSize,
+			assetTypeEnum
+		)
+	)
+
+	reasonsAccumulator:updateReasons(
+		validateMaxBoundsInternal(
+			minMaxBounds.maxOverall :: Vector3 - minMaxBounds.minOverall :: Vector3,
+			if getFFlagUGCValidateFullBody() then maxSize else assetInfo.bounds[scaleType].maxSize,
+			assetTypeEnum
+		)
+	)
+
+	return reasonsAccumulator:getFinalResults()
+end
+
+local function DEPRECATED_validateAssetBounds(
+	fullBodyAssets: Types.AllBodyParts?,
+	inst: Instance?,
 	assetTypeEnum: Enum.AssetType?,
 	_isServer: boolean?
 ): (boolean, { string }?)
@@ -440,4 +541,8 @@ local function validateAssetBounds(
 	return reasonsAccumulator:getFinalResults()
 end
 
-return validateAssetBounds
+if getFFlagUseUGCValidationContext() then
+	return validateAssetBounds :: any
+else
+	return DEPRECATED_validateAssetBounds :: any
+end

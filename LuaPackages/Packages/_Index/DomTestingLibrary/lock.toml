@@ -8,7 +8,7 @@ dependencies = [
     "JestGetType JestGetType 3.5.0 url+https://github.com/roblox/jest-roblox",
     "JestGlobals JestGlobals 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "LuauRegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "LuauRegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "PrettyFormat PrettyFormat 3.5.0 url+https://github.com/roblox/jest-roblox",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",

@@ -13,6 +13,7 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getEngineFeatureUGCValidateGetInactiveControls =
 	require(root.flags.getEngineFeatureUGCValidateGetInactiveControls)
@@ -25,6 +26,7 @@ local UGCValidateFacsDataOperationalThreshold = game:DefineFastInt("UGCValidateF
 	* 1e-3
 local setupDynamicHead = require(root.util.setupDynamicHead)
 local Thumbnailer = require(root.util.Thumbnailer)
+local Types = require(root.util.Types)
 
 local requiredActiveFACSControls = {
 	"LipsTogether",
@@ -138,6 +140,79 @@ end
 
 local function validateDynamicHeadData(
 	meshPartHead: MeshPart,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	if not getEngineFeatureEngineUGCValidateBodyParts() then
+		return true
+	end
+
+	local isServer = validationContext.isServer
+	local skipSnapshot = validationContext.skipSnapshot
+
+	do
+		local retrievedMeshData, testsPassed = pcall(function()
+			return UGCValidationService:ValidateDynamicHeadMesh(meshPartHead.MeshId)
+		end)
+
+		if not retrievedMeshData then
+			return downloadFailure(isServer)
+		end
+
+		if not testsPassed then
+			Analytics.reportFailure(Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh)
+			return false,
+				{
+					`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is not correctly set-up to be a dynamic head mesh as it has no FACS information`,
+				}
+		end
+	end
+
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	if getEngineFeatureUGCValidateGetInactiveControls() and getFFlagUGCValidateTestInactiveControls() then
+		local commandExecuted, missingControlsOrErrorMessage, inactiveControls = pcall(function()
+			return UGCValidationService:GetDynamicHeadMeshInactiveControls(
+				meshPartHead.MeshId,
+				requiredActiveFACSControls
+			)
+		end)
+
+		if not commandExecuted then
+			local errorMessage = missingControlsOrErrorMessage
+			if string.find(errorMessage, "Download Error") == 1 then
+				return downloadFailure(isServer)
+			end
+			assert(false, errorMessage) --any other error to download error is a code problem
+		end
+
+		local missingControls = missingControlsOrErrorMessage
+
+		local doAllControlsExist = #missingControls == 0
+		local areAllControlsActive = #inactiveControls == 0
+		if not doAllControlsExist or not areAllControlsActive then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls
+			)
+
+			reasonsAccumulator:updateReasons(doAllControlsExist, {
+				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is missing FACS controls: {table.concat(missingControls, ", ")}`,
+			})
+			reasonsAccumulator:updateReasons(areAllControlsActive, {
+				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) has inactive FACS controls: {table.concat(inactiveControls, ", ")}`,
+			})
+		end
+	end
+
+	if EngineFeatureGCValidateCompareTextureOverlap and not skipSnapshot then
+		local succ, errorMessage = checkFACSDataOperational(meshPartHead, isServer)
+		reasonsAccumulator:updateReasons(succ, errorMessage)
+	end
+
+	return reasonsAccumulator:getFinalResults()
+end
+
+local function DEPRECATED_validateDynamicHeadData(
+	meshPartHead: MeshPart,
 	isServer: boolean?,
 	skipSnapshot: boolean?
 ): (boolean, { string }?)
@@ -207,4 +282,8 @@ local function validateDynamicHeadData(
 	return reasonsAccumulator:getFinalResults()
 end
 
-return validateDynamicHeadData
+if getFFlagUseUGCValidationContext() then
+	return validateDynamicHeadData :: any
+else
+	return DEPRECATED_validateDynamicHeadData :: any
+end

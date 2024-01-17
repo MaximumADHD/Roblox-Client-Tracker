@@ -156,6 +156,8 @@ local function ShortcutBar(providedProps: ShortcutBarProps): React.ReactElement?
 			})
 		end
 		return React.createElement("Frame", {
+			Position = props.position,
+			AnchorPoint = props.anchorPoint,
 			Size = UDim2.fromOffset(0, 0),
 			BorderSizePixel = 0,
 			BackgroundColor3 = style.Theme.UIMuted.Color,

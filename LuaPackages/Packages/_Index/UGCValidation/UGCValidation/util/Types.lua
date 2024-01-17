@@ -13,4 +13,21 @@ export type BoundsData = {
 	minOverall: Vector3?,
 	maxOverall: Vector3?,
 }
+export type EditableMeshes = { [Instance]: { [string]: EditableMesh } }
+export type EditableImages = { [Instance]: { [string]: EditableImage } }
+export type ValidationContext = {
+	fullBodyData: FullBodyData?,
+	instances: { Instance }?,
+	assetTypeEnum: Enum.AssetType?,
+	allowUnreviewedAssets: boolean?,
+	restrictedUserIds: RestrictedUserIds?,
+	isServer: boolean?,
+	token: string?,
+	universeId: number?,
+	isAsync: boolean?,
+	skipSnapshot: boolean?,
+	editableMeshes: EditableMeshes,
+	editableImages: EditableImages,
+	allowEditableInstances: boolean?,
+}
 return Types

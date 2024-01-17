@@ -6,6 +6,7 @@
 
 local root = script.Parent.Parent
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
 local getFFlagUGCValidationResetPhysicsData = require(root.flags.getFFlagUGCValidationResetPhysicsData)
 
@@ -36,7 +37,8 @@ end
 -- checks will use some child parts without checking they exist as they assume this check has been done
 local function validateAllAssetsWithSchema(
 	fullBodyData: Types.FullBodyData,
-	requiredTopLevelFolders: { string }
+	requiredTopLevelFolders: { string },
+	validationContext: Types.ValidationContext?
 ): boolean
 	for _, instancesAndType in fullBodyData do
 		if Enum.AssetType.DynamicHead == instancesAndType.assetTypeEnum then
@@ -44,8 +46,10 @@ local function validateAllAssetsWithSchema(
 			if not result then
 				return false
 			end
-			local validationResult =
-				validateWithSchema(createDynamicHeadMeshPartSchema(), instancesAndType.allSelectedInstances[1])
+			local validationResult = validateWithSchema(
+				createDynamicHeadMeshPartSchema(validationContext),
+				instancesAndType.allSelectedInstances[1]
+			)
 			if not validationResult.success then
 				return false
 			end
@@ -56,7 +60,7 @@ local function validateAllAssetsWithSchema(
 					return false
 				end
 				local validationResult = validateWithSchema(
-					createLimbsAndTorsoSchema(instancesAndType.assetTypeEnum, folderName),
+					createLimbsAndTorsoSchema(instancesAndType.assetTypeEnum, folderName, validationContext),
 					folderInst
 				)
 				if not validationResult.success then
@@ -103,6 +107,30 @@ end
 
 local function validateInstanceHierarchy(
 	fullBodyData: Types.FullBodyData,
+	requiredTopLevelFolders: { string },
+	validationContext: Types.ValidationContext?
+): (boolean, { string }?)
+	local isServer = if validationContext then validationContext.isServer else nil
+	if not validateCorrectAssetTypesExist(fullBodyData) then
+		local errorMsg = "Full body check did not receive the correct set of body part Asset Types"
+		Analytics.reportFailure(Analytics.ErrorType.validateFullBody_IncorrectAssetTypeSet)
+		if isServer then
+			-- this is a code issue, where the wrong set of assets have been sent, this is not a fault on the UGC creator
+			error(errorMsg)
+		end
+		return false, { errorMsg }
+	end
+
+	if not validateAllAssetsWithSchema(fullBodyData, requiredTopLevelFolders, validationContext) then
+		Analytics.reportFailure(Analytics.ErrorType.validateFullBody_InstancesMissing)
+		-- don't need more detailed error, as this is a check which has been done for each individual asset
+		return false, { "Instances are missing or incorrectly named" }
+	end
+	return true
+end
+
+local function DEPRECATED_validateInstanceHierarchy(
+	fullBodyData: Types.FullBodyData,
 	isServer: boolean?,
 	requiredTopLevelFolders: { string }
 ): (boolean, { string }?)
@@ -133,10 +161,13 @@ local function resetAllPhysicsData(fullBodyData: Types.FullBodyData)
 	end
 end
 
-local function validateFullBody(fullBodyData: Types.FullBodyData, isServer: boolean?): (boolean, { string }?)
+local function validateFullBody(validationContext: Types.ValidationContext): (boolean, { string }?)
 	if not getFFlagUGCValidateFullBody() then
 		return true
 	end
+	assert(validationContext.fullBodyData ~= nil, "fullBodyData required in validationContext for validateFullBody")
+	local fullBodyData = validationContext.fullBodyData :: Types.FullBodyData
+	local isServer = validationContext.isServer
 
 	local requiredTopLevelFolders: { string } = {
 		Constants.FOLDER_NAMES.R15ArtistIntent,
@@ -146,7 +177,7 @@ local function validateFullBody(fullBodyData: Types.FullBodyData, isServer: bool
 		table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
 	end
 
-	local success, reasons = validateInstanceHierarchy(fullBodyData, isServer, requiredTopLevelFolders)
+	local success, reasons = validateInstanceHierarchy(fullBodyData, requiredTopLevelFolders, validationContext)
 	if not success then
 		return false, reasons
 	end
@@ -159,9 +190,44 @@ local function validateFullBody(fullBodyData: Types.FullBodyData, isServer: bool
 		local allBodyParts: Types.AllBodyParts = createAllBodyPartsTable(folderName, fullBodyData)
 		assert(allBodyParts) -- if validateInstanceHierarchy() has passed, this should not have any problems
 
+		reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, validationContext))
+	end
+	return reasonsAccumulator:getFinalResults()
+end
+
+local function DEPRECATED_validateFullBody(fullBodyData: Types.FullBodyData, isServer: boolean?): (boolean, { string }?)
+	if not getFFlagUGCValidateFullBody() then
+		return true
+	end
+
+	local requiredTopLevelFolders: { string } = {
+		Constants.FOLDER_NAMES.R15ArtistIntent,
+	}
+	if isServer then
+		-- in Studio these folders are automatically added just before upload
+		table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
+	end
+
+	local success, reasons = DEPRECATED_validateInstanceHierarchy(fullBodyData, isServer, requiredTopLevelFolders)
+	if not success then
+		return false, reasons
+	end
+
+	resetAllPhysicsData(fullBodyData)
+
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	for _, folderName in requiredTopLevelFolders do
+		local allBodyParts: Types.AllBodyParts = createAllBodyPartsTable(folderName, fullBodyData)
+		assert(allBodyParts) -- if DEPRECATED_validateInstanceHierarchy() has passed, this should not have any problems
+
 		reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, nil, isServer))
 	end
 	return reasonsAccumulator:getFinalResults()
 end
 
-return validateFullBody
+if getFFlagUseUGCValidationContext() then
+	return validateFullBody :: any
+else
+	return DEPRECATED_validateFullBody :: any
+end

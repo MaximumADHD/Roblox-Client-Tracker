@@ -20,6 +20,8 @@ local VerticalScrollView = require(App.Container.VerticalScrollView)
 local Images = require(App.ImageSet.Images)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(App.SelectionImage.CursorKind)
+local withCursor = require(App.SelectionCursor.withCursor)
+local CursorType = require(App.SelectionCursor.CursorType)
 local setDefault = require(UIBlox.Utility.setDefault)
 
 local Cell = require(script.Parent.Cell)
@@ -189,41 +191,78 @@ function BaseMenu:render()
 			background = self.props.background,
 		})
 
-		local cursorKind
-		if mergedProps.hasRoundBottom and mergedProps.hasRoundTop then
-			cursorKind = CursorKind.RoundedRectNoInset
-		elseif mergedProps.hasRoundBottom then
-			cursorKind = CursorKind.BulletDown
-		elseif mergedProps.hasRoundTop then
-			cursorKind = CursorKind.BulletUp
+		if UIBloxConfig.migrateToNewSelectionCursor then
+			local cursorType
+			if mergedProps.hasRoundBottom and mergedProps.hasRoundTop then
+				cursorType = CursorType.RoundedRectNoInset
+			elseif mergedProps.hasRoundBottom then
+				cursorType = CursorType.BulletDown
+			elseif mergedProps.hasRoundTop then
+				cursorType = CursorType.BulletUp
+			else
+				cursorType = CursorType.Square
+			end
+
+			children["cell " .. index] = withCursor(function(context)
+				local selectionCursor = context.getCursorByType(cursorType)
+				mergedProps = Cryo.Dictionary.join(mergedProps, {
+					selectionCursor = selectionCursor,
+					selectionOrder = self.props.selectionOrder,
+				})
+				return Roact.createElement(RoactGamepad.Focusable.Frame, {
+					Size = UDim2.new(self.props.width, UDim.new(0, self.props.elementHeight)),
+					BackgroundTransparency = 1,
+					LayoutOrder = index,
+					[Roact.Ref] = self.gamepadRefs[index],
+					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
+					NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
+					inputBindings = {
+						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated, {
+							key = cellProps.inputBindingKey,
+						}),
+					},
+					SelectionImageObject = selectionCursor,
+				}, {
+					Cell = Roact.createElement(Cell, mergedProps),
+				})
+			end)
 		else
-			cursorKind = CursorKind.Square
-		end
+			local cursorKind
+			if mergedProps.hasRoundBottom and mergedProps.hasRoundTop then
+				cursorKind = CursorKind.RoundedRectNoInset
+			elseif mergedProps.hasRoundBottom then
+				cursorKind = CursorKind.BulletDown
+			elseif mergedProps.hasRoundTop then
+				cursorKind = CursorKind.BulletUp
+			else
+				cursorKind = CursorKind.Square
+			end
 
-		mergedProps = Cryo.Dictionary.join(mergedProps, {
-			cursorKind = cursorKind,
-			selectionOrder = self.props.selectionOrder,
-		})
-
-		children["cell " .. index] = withSelectionCursorProvider(function(getSelectionCursor)
-			return Roact.createElement(RoactGamepad.Focusable.Frame, {
-				Size = UDim2.new(self.props.width, UDim.new(0, self.props.elementHeight)),
-				BackgroundTransparency = 1,
-				LayoutOrder = index,
-
-				[Roact.Ref] = self.gamepadRefs[index],
-				NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
-				NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
-				inputBindings = {
-					Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated, {
-						key = cellProps.inputBindingKey,
-					}),
-				},
-				SelectionImageObject = getSelectionCursor(cursorKind),
-			}, {
-				Cell = Roact.createElement(Cell, mergedProps),
+			mergedProps = Cryo.Dictionary.join(mergedProps, {
+				cursorKind = cursorKind,
+				selectionOrder = self.props.selectionOrder,
 			})
-		end)
+
+			children["cell " .. index] = withSelectionCursorProvider(function(getSelectionCursor)
+				return Roact.createElement(RoactGamepad.Focusable.Frame, {
+					Size = UDim2.new(self.props.width, UDim.new(0, self.props.elementHeight)),
+					BackgroundTransparency = 1,
+					LayoutOrder = index,
+
+					[Roact.Ref] = self.gamepadRefs[index],
+					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
+					NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
+					inputBindings = {
+						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated, {
+							key = cellProps.inputBindingKey,
+						}),
+					},
+					SelectionImageObject = getSelectionCursor(cursorKind),
+				}, {
+					Cell = Roact.createElement(Cell, mergedProps),
+				})
+			end)
+		end
 	end
 
 	children.layout = Roact.createElement("UIListLayout", {

@@ -4,6 +4,7 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFFlagUGCValidateMoveDynamicHeadTest = require(root.flags.getFFlagUGCValidateMoveDynamicHeadTest)
 local getFFlagUGCValidateDynamicHeadMoodClient = require(root.flags.getFFlagUGCValidateDynamicHeadMoodClient)
@@ -56,7 +57,48 @@ local function validateDynamicHeadMesh(meshPartHead: MeshPart, isServer: boolean
 	return true
 end
 
-local function validateDynamicHeadMeshPartFormat(
+local function validateDynamicHeadMeshPartFormat(validationContext: Types.ValidationContext): (boolean, { string }?)
+	assert(
+		validationContext.instances ~= nil,
+		"instances required in validationContext for validateDynamicHeadMeshPartFormat"
+	)
+	local allSelectedInstances = validationContext.instances :: { Instance }
+	local isServer = validationContext.isServer
+
+	local result, failureReasons = validateSingleInstance(allSelectedInstances)
+	if not result then
+		return result, failureReasons
+	end
+
+	local inst = allSelectedInstances[1]
+	result, failureReasons =
+		validateMeshPartBodyPart(inst, createDynamicHeadMeshPartSchema(validationContext), validationContext)
+	-- return if failure at this point, as the above function could've found whole Instances or meshes to be missing
+	-- carrying on would mean later functions called could not assume all Instances and meshes/textures are present
+	if not result then
+		return false, failureReasons
+	end
+
+	if
+		(isServer and getFFlagUGCValidateDynamicHeadMoodRCC())
+		or (not isServer and getFFlagUGCValidateDynamicHeadMoodClient())
+	then
+		-- TODO: refactor to take in a context table after FFlagUseThumbnailerUtil is cleaned up
+		result, failureReasons =
+			validateDynamicHeadMood(inst :: MeshPart, if nil ~= isServer then isServer :: boolean else false)
+		if not result then
+			return false, failureReasons
+		end
+	end
+
+	if getFFlagUGCValidateMoveDynamicHeadTest() then
+		return validateDynamicHeadData(inst :: MeshPart, validationContext)
+	else
+		return validateDynamicHeadMesh(inst :: MeshPart, isServer)
+	end
+end
+
+local function DEPRECATED_validateDynamicHeadMeshPartFormat(
 	allSelectedInstances: { Instance },
 	isServer: boolean?,
 	allowUnreviewedAssets: boolean?,
@@ -102,4 +144,8 @@ local function validateDynamicHeadMeshPartFormat(
 	end
 end
 
-return validateDynamicHeadMeshPartFormat
+if getFFlagUseUGCValidationContext() then
+	return validateDynamicHeadMeshPartFormat :: any
+else
+	return DEPRECATED_validateDynamicHeadMeshPartFormat :: any
+end

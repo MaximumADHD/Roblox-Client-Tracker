@@ -15,8 +15,6 @@ local FitFrameVertical = FitFrame.FitFrameVertical
 local ModalTitle = require(ModalRoot.ModalTitle)
 local ModalWindow = require(ModalRoot.ModalWindow)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local PartialPageModal = Roact.PureComponent:extend("PartialPageModal")
 
 local MARGIN = 24
@@ -83,11 +81,6 @@ function PartialPageModal:render()
 		position = self.props.position,
 		anchorPoint = self.props.anchorPoint,
 	}, {
-		UISizeConstraint = if UIBloxConfig.partialPageModalSizeLimit
-			then Roact.createElement("UISizeConstraint", {
-				MaxSize = Vector2.new(math.huge, self.props.screenSize.Y - MARGIN * 2),
-			})
-			else nil,
 		TitleContainer = Roact.createElement(ModalTitle, {
 			title = self.props.title,
 			titleBackgroundImageProps = self.props.titleBackgroundImageProps,

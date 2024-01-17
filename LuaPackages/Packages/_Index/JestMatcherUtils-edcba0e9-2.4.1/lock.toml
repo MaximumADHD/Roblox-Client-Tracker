@@ -9,5 +9,5 @@ dependencies = [
     "JestGetType JestGetType 2.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
     "PrettyFormat PrettyFormat 2.4.1 url+https://github.com/roblox/jest-roblox",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]

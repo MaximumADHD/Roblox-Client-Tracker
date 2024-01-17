@@ -11,6 +11,7 @@ local getFIntMeshDivisionFullExtended = require(root.flags.getFIntMeshDivisionFu
 local getFIntMeshDivisionMedium = require(root.flags.getFIntMeshDivisionMedium)
 local getFIntMeshDivisionNarrow = require(root.flags.getFIntMeshDivisionNarrow)
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagUGCValidationAdjustLegBounds = require(root.flags.getFFlagUGCValidationAdjustLegBounds)
 local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
@@ -867,6 +868,7 @@ Constants.MESH_CONTENT_ID_FIELDS = {
 	SpecialMesh = { "MeshId" },
 	MeshPart = { "MeshId" },
 	WrapTarget = { "CageMeshId" },
+	WrapLayer = if getFFlagUseUGCValidationContext() then { "CageMeshId", "ReferenceMeshId" } else nil,
 }
 
 Constants.TEXTURE_CONTENT_ID_FIELDS = {

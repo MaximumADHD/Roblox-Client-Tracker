@@ -5,6 +5,7 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagMoveToolboxCodeToUGCValidation = require(root.flags.getFFlagMoveToolboxCodeToUGCValidation)
 
 local validateMeshPartBodyPart = require(root.validation.validateMeshPartBodyPart)
@@ -127,7 +128,68 @@ local function validateR6Folder(inst: Instance)
 	return reasonsAccumulator:getFinalResults()
 end
 
-local function validateLimbsAndTorso(
+local function validateLimbsAndTorso(validationContext: Types.ValidationContext): (boolean, { string }?)
+	assert(validationContext.instances ~= nil, "instances required in validationContext for validateLimbsAndTorso")
+	local allSelectedInstances = validationContext.instances :: { Instance }
+
+	assert(
+		validationContext.assetTypeEnum ~= nil,
+		"assetTypeEnum required in validationContext for validateLimbsAndTorso"
+	)
+	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
+	local isServer = validationContext.isServer
+
+	local requiredTopLevelFolders: { string } = {
+		if getFFlagMoveToolboxCodeToUGCValidation()
+			then Constants.FOLDER_NAMES.R15ArtistIntent
+			else DEPRECATED_R15ArtistIntentFolderName,
+	}
+	if isServer then
+		-- in Studio these folders are automatically added just before upload
+		table.insert(
+			requiredTopLevelFolders,
+			if getFFlagMoveToolboxCodeToUGCValidation()
+				then Constants.FOLDER_NAMES.R15Fixed
+				else DEPRECATED_R15FixedFolderName
+		)
+		table.insert(
+			requiredTopLevelFolders,
+			if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName
+		)
+	end
+
+	if not areTopLevelFoldersCorrect(allSelectedInstances, requiredTopLevelFolders) then
+		Analytics.reportFailure(Analytics.ErrorType.validateLimbsAndTorso_TopLevelFolders)
+		return false,
+			{ "Incorrect hierarchy selection, folders required: " .. table.concat(requiredTopLevelFolders, ", ") }
+	end
+
+	for _, folderName in requiredTopLevelFolders do
+		local inst = getInstance(allSelectedInstances, folderName) :: Instance
+		local result
+		local reasons
+
+		if
+			folderName
+			== (if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName)
+		then
+			result, reasons = validateR6Folder(inst)
+		else
+			result, reasons = validateMeshPartBodyPart(
+				inst,
+				createLimbsAndTorsoSchema(assetTypeEnum, folderName, validationContext),
+				validationContext
+			)
+		end
+		if not result then
+			return result, reasons
+		end
+	end
+
+	return validateFolderAssetIdsMatch(allSelectedInstances, requiredTopLevelFolders)
+end
+
+local function DEPRECATED_validateLimbsAndTorso(
 	allSelectedInstances: { Instance },
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean?,
@@ -189,4 +251,8 @@ local function validateLimbsAndTorso(
 	return validateFolderAssetIdsMatch(allSelectedInstances, requiredTopLevelFolders)
 end
 
-return validateLimbsAndTorso
+if getFFlagUseUGCValidationContext() then
+	return validateLimbsAndTorso :: any
+else
+	return DEPRECATED_validateLimbsAndTorso :: any
+end

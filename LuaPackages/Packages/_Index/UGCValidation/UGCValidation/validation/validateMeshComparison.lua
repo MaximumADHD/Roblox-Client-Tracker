@@ -6,12 +6,15 @@
 
 local root = script.Parent.Parent
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+
+local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 
 local ParseContentIds = require(root.util.ParseContentIds)
 local getMeshMinMax = require(root.util.getMeshMinMax)
 
-type MeshInputData = { id: string, scale: Vector3?, context: string }
+type MeshInputData = { editableMesh: EditableMesh?, id: string, scale: Vector3?, context: string }
 
 local function formatError(mesh: MeshInputData, otherMesh: MeshInputData, maxDiff: number)
 	local function getContext(data: MeshInputData)
@@ -27,6 +30,35 @@ local function formatError(mesh: MeshInputData, otherMesh: MeshInputData, maxDif
 end
 
 local function validateMeshComparison(
+	mesh: MeshInputData,
+	otherMesh: MeshInputData,
+	maxDiff: number,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	local success, failureReasons, meshMinOpt, meshMaxOpt =
+		getMeshMinMax(mesh.editableMesh, mesh.scale, validationContext)
+	if not success then
+		return success, failureReasons
+	end
+	local meshMin = meshMinOpt :: Vector3
+	local meshMax = meshMaxOpt :: Vector3
+
+	local successOther, failureReasonsOther, meshMinOptOther, meshMaxOptOther =
+		getMeshMinMax(otherMesh.editableMesh, otherMesh.scale, validationContext)
+	if not successOther then
+		return successOther, failureReasonsOther
+	end
+	local otherMeshMin = meshMinOptOther :: Vector3
+	local otherMeshMax = meshMaxOptOther :: Vector3
+
+	if (meshMin - otherMeshMin).Magnitude > maxDiff or (meshMax - otherMeshMax).Magnitude > maxDiff then
+		Analytics.reportFailure(Analytics.ErrorType.validateMeshComparison)
+		return false, { formatError(mesh, otherMesh, maxDiff) }
+	end
+	return true
+end
+
+local function DEPRECATED_validateMeshComparison(
 	mesh: MeshInputData,
 	otherMesh: MeshInputData,
 	maxDiff: number,
@@ -54,4 +86,8 @@ local function validateMeshComparison(
 	return true
 end
 
-return validateMeshComparison
+if getFFlagUseUGCValidationContext() then
+	return validateMeshComparison :: any
+else
+	return DEPRECATED_validateMeshComparison :: any
+end

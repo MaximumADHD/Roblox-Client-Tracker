@@ -15,10 +15,7 @@ local SubscriptionPurchaseFlowState = require(SubscriptionPurchase.SubscriptionP
 local Animator = require(IAPExperienceRoot.Generic.Animator)
 local PurchaseErrorPrompt = require(IAPExperienceRoot.Generic.PurchaseErrorPrompt)
 
-local getEnableSubscriptionCompactTitle = require(IAPExperienceRoot.Flags.getEnableSubscriptionCompactTitle)
-local SubscriptionPurchasePrompt = if getEnableSubscriptionCompactTitle()
-	then require(IAPExperienceRoot.Subscription.SubscriptionPurchasePrompt)
-	else require(IAPExperienceRoot.Subscription.DeprecatedSubscriptionPurchasePrompt)
+local SubscriptionPurchasePrompt =require(IAPExperienceRoot.Subscription.SubscriptionPurchasePrompt)
 
 local getEnableSubscriptionPurchaseInstrumentation =
 	require(IAPExperienceRoot.Flags.getEnableSubscriptionPurchaseInstrumentation)

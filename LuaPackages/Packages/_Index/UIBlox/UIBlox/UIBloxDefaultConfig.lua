@@ -1,12 +1,6 @@
 return {
-	-- This fixes slider behavior when they are within a SurfaceGui instead of a ScreenGui
-	allowSlidersToWorkInSurfaceGuis = false,
-
 	-- New color palettes of color system 1.1
 	useNewThemeColorPalettes = false,
-
-	-- Link button use uiblox selecton image
-	linkButtonUseSelectionImage = false,
 
 	-- Work around automatic size bug in StatGroup
 	useStatGroupManualSize = false,
@@ -22,9 +16,6 @@ return {
 
 	-- Enable IconButton to calculate size based on token values
 	useTokensSizeInIconButton = false,
-
-	-- Adds a UISizeLimit to PartialPageModal.lua
-	partialPageModalSizeLimit = false,
 
 	-- enable tokens for action bar
 	enableActionBarTokens = false,
@@ -43,6 +34,9 @@ return {
 
 	-- Use new selection cursor in related components
 	useNewSelectionCursor = false,
+
+	-- Migrate selection image to new selection cursor
+	migrateToNewSelectionCursor = false,
 
 	-- Set zindex on ResponsiveCell
 	setZIndexOnGridCells = false,

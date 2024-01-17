@@ -6,5 +6,5 @@ source = "url+https://github.com/roblox/graphql-lua"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]

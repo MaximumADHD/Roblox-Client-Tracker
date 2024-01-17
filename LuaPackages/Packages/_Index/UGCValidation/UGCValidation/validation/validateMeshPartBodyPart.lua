@@ -8,6 +8,7 @@ local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
 local getFFlagUGCValidationResetPhysicsData = require(root.flags.getFFlagUGCValidationResetPhysicsData)
 local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
@@ -35,6 +36,82 @@ local resetPhysicsData = require(root.util.resetPhysicsData)
 local Types = require(root.util.Types)
 
 local function validateMeshPartBodyPart(
+	inst: Instance,
+	schema: any,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	local isServer = validationContext.isServer
+	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
+	local allowUnreviewedAssets = validationContext.allowUnreviewedAssets
+
+	-- do this ASAP
+	if getFFlagUGCValidationResetPhysicsData() then
+		resetPhysicsData({ inst })
+	end
+
+	local validationResult = validateWithSchema(schema, inst)
+	if not validationResult.success then
+		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartBodyPart_ValidateWithSchema)
+		return false, { validationResult.message }
+	end
+
+	if not getFFlagDebugUGCDisableSurfaceAppearanceTests() then
+		local result, failureReasons = validateSurfaceAppearances(inst)
+		if not result then
+			return result, failureReasons
+		end
+	end
+
+	do
+		local result, failureReasons = validateDependencies(inst, validationContext)
+		if not result then
+			return result, failureReasons
+		end
+	end
+
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, validationContext))
+
+	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, validationContext))
+
+	reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, validationContext))
+
+	reasonsAccumulator:updateReasons(validateDescendantMeshMetrics(inst, validationContext))
+
+	reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, validationContext))
+
+	reasonsAccumulator:updateReasons(validateHSR(inst))
+
+	-- TODO: refactor to take in a context table after FFlagUseThumbnailerUtil is cleaned up
+	reasonsAccumulator:updateReasons(validateAssetTransparency(inst, assetTypeEnum, isServer))
+
+	reasonsAccumulator:updateReasons(validateMaterials(inst))
+
+	reasonsAccumulator:updateReasons(validateProperties(inst))
+
+	if getFFlagUGCValidateBodyPartsCollisionFidelity() then
+		reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst))
+	end
+
+	reasonsAccumulator:updateReasons(validateTags(inst))
+
+	reasonsAccumulator:updateReasons(validateAttributes(inst))
+
+	if getFFlagUGCValidateBodyPartsModeration() then
+		local checkModeration = not isServer
+		if allowUnreviewedAssets then
+			checkModeration = false
+		end
+		if checkModeration then
+			reasonsAccumulator:updateReasons(validateModeration(inst, validationContext))
+		end
+	end
+
+	return reasonsAccumulator:getFinalResults()
+end
+
+local function DEPRECATED_validateMeshPartBodyPart(
 	inst: Instance,
 	schema: any,
 	assetTypeEnum: Enum.AssetType,
@@ -110,4 +187,8 @@ local function validateMeshPartBodyPart(
 	return reasonsAccumulator:getFinalResults()
 end
 
-return validateMeshPartBodyPart
+if getFFlagUseUGCValidationContext() then
+	return validateMeshPartBodyPart :: any
+else
+	return DEPRECATED_validateMeshPartBodyPart :: any
+end

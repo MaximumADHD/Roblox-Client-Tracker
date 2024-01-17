@@ -1,6 +1,7 @@
 --!nonstrict
 local root = script.Parent.Parent
 
+local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
@@ -32,7 +33,10 @@ local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
 local getAttachment = require(root.util.getAttachment)
 local getMeshSize = require(root.util.getMeshSize)
+local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
+local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationLayeredAndRigidLists = require(root.flags.getFFlagUGCValidationLayeredAndRigidLists)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
@@ -49,7 +53,282 @@ local function buildAllowedAssetTypeIdSet()
 	return allowedAssetTypeIdSet
 end
 
-local function validateLayeredClothingAccessory(
+local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
+	local instances = validationContext.instances
+	local assetTypeEnum = validationContext.assetTypeEnum
+	local isServer = validationContext.isServer
+	local allowUnreviewedAssets = validationContext.allowUnreviewedAssets
+
+	if getFFlagUGCValidationLayeredAndRigidLists() then
+		if not RigidOrLayeredAllowed.isLayeredClothingAllowed(assetTypeEnum) then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateLayeredClothingAccessory_AssetTypeNotAllowedAsLayeredClothing
+			)
+			return false, { "Asset type cannot be validated as Layered Clothing" }
+		end
+	else
+		local allowedAssetTypeIdSet = buildAllowedAssetTypeIdSet()
+		if not allowedAssetTypeIdSet[assetTypeEnum.Value] then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateLayeredClothingAccessory_AssetTypeNotAllowedAsLayeredClothing
+			)
+			return false, { "Asset type cannot be validated as Layered Clothing" }
+		end
+	end
+
+	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
+
+	local success: boolean, reasons: any
+
+	success, reasons = validateSingleInstance(instances)
+	if not success then
+		return false, reasons
+	end
+
+	local instance = instances[1]
+
+	local schema = createLayeredClothingSchema(assetInfo.attachmentNames)
+
+	success, reasons = validateInstanceTree(schema, instance)
+	if not success then
+		return false, reasons
+	end
+
+	if getFFlagUGCValidationNameCheck() and isServer then
+		success, reasons = validateAccessoryName(instance)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	local handle = instance:FindFirstChild("Handle") :: MeshPart
+	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(handle, "MeshId", validationContext)
+	if not getEditableMeshSuccess then
+		return false, { "Failed to load mesh data" }
+	end
+
+	local textureId = handle.TextureID
+	local getEditableImageSuccess, editableImage
+	if textureId ~= "" then
+		getEditableImageSuccess, editableImage = getEditableImageFromContext(handle, "TextureID", validationContext)
+		if not getEditableImageSuccess then
+			return false, { "Failed to load texture data" }
+		end
+	end
+
+	local meshSizeSuccess, meshSize = pcall(getMeshSize, editableMesh)
+	if not meshSizeSuccess then
+		Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_FailedToLoadMesh)
+		return false, { "Failed to read mesh" }
+	end
+
+	local meshScale = handle.Size / meshSize
+	local attachment = getAttachment(handle, assetInfo.attachmentNames)
+
+	local boundsInfo = Constants.LC_BOUNDS
+	if assetInfo.layeredClothingBounds and assetInfo.layeredClothingBounds[attachment.Name] then
+		boundsInfo = assetInfo.layeredClothingBounds[attachment.Name]
+	end
+
+	local failedReason: any = {}
+	local validationResult = true
+	reasons = {}
+	success, failedReason = validateMaterials(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateProperties(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateTags(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateAttributes(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateTextureSize(editableImage, true, validationContext)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	if getFFlagUGCValidateAccessoriesScaleType() then
+		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
+		if partScaleType and partScaleType:IsA("StringValue") then
+			success, failedReason = validateScaleType(partScaleType)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+	end
+
+	if getFFlagUGCValidateThumbnailConfiguration() then
+		success, failedReason = validateThumbnailConfiguration(instance, handle, editableMesh, meshScale)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+	end
+
+	do
+		local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
+
+		if wrapLayer == nil then
+			Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_NoWrapLayer)
+			table.insert(reasons, "Could not find WrapLayer!")
+			validationResult = false
+		else
+			success, failedReason = validateHSR(wrapLayer)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+	end
+
+	local checkModeration = not isServer
+	if allowUnreviewedAssets then
+		checkModeration = false
+	end
+	if checkModeration then
+		success, failedReason = validateModeration(instance, {})
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+	end
+
+	success, failedReason = validateMeshBounds(
+		handle,
+		attachment,
+		editableMesh,
+		meshScale,
+		boundsInfo,
+		assetTypeEnum.Name,
+		validationContext
+	)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateMeshTriangles(editableMesh, nil, validationContext)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	if game:GetFastFlag("UGCValidateMeshVertColors") then
+		success, failedReason = validateMeshVertColors(editableMesh, false, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+	end
+
+	if game:GetFastFlag("UGCLCQualityReplaceLua") then
+		success, failedReason = validateUVSpace(editableMesh)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+	end
+
+	if game:GetFastFlag("UGCLCQualityValidation") then
+		local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
+		local innerCageId = wrapLayer.ReferenceMeshId
+		local outerCageId = wrapLayer.CageMeshId
+
+		local getInnerCageSuccess, innerCageEditableMesh =
+			getEditableMeshFromContext(wrapLayer, "ReferenceMeshId", validationContext)
+		if not getInnerCageSuccess then
+			return false, { "Failed to load mesh data" }
+		end
+
+		local getOuterCageSuccess, outerCageEditableMesh =
+			getEditableMeshFromContext(wrapLayer, "CageMeshId", validationContext)
+		if not getOuterCageSuccess then
+			return false, { "Failed to load mesh data" }
+		end
+
+		if innerCageId == "" then
+			Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_NoInnerCageId)
+			table.insert(reasons, "InnerCages must contain valid MeshId.")
+			validationResult = false
+		elseif outerCageId == "" then
+			Analytics.reportFailure(Analytics.ErrorType.validateLayeredClothingAccessory_NoOuterCageId)
+			table.insert(reasons, "OuterCages must contain valid MeshId.")
+			validationResult = false
+		else
+			success, failedReason = validateOverlappingVertices(innerCageEditableMesh, "InnerCage", validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+
+			success, failedReason = validateOverlappingVertices(outerCageEditableMesh, "OuterCage", validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+
+			success, failedReason = validateMisMatchUV(innerCageEditableMesh, outerCageEditableMesh)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+
+			success, failedReason =
+				validateCageMeshIntersection(innerCageEditableMesh, outerCageEditableMesh, editableMesh)
+			if not success then
+				table.insert(reasons, "" .. table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
+				validationResult = false
+			end
+
+			success, failedReason =
+				validateCageNonManifoldAndHoles(innerCageEditableMesh, "InnerCage", validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
+				validationResult = false
+			end
+
+			success, failedReason =
+				validateCageNonManifoldAndHoles(outerCageEditableMesh, "OuterCage", validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n\n")) -- extra line to split the potential multiple reaons
+				validationResult = false
+			end
+
+			success, failedReason = validateFullBodyCageDeletion(innerCageEditableMesh, "InnerCage", validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+
+			success, failedReason = validateFullBodyCageDeletion(outerCageEditableMesh, "OuterCage", validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+	end
+
+	return validationResult, reasons
+end
+
+local function DEPRECATED_validateLayeredClothingAccessory(
 	instances: { Instance },
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean?,
@@ -311,4 +590,8 @@ local function validateLayeredClothingAccessory(
 	return validationResult, reasons
 end
 
-return validateLayeredClothingAccessory
+if getFFlagUseUGCValidationContext() then
+	return validateLayeredClothingAccessory :: any
+else
+	return DEPRECATED_validateLayeredClothingAccessory :: any
+end

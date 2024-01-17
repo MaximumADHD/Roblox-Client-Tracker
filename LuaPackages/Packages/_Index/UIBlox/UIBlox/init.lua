@@ -396,6 +396,7 @@ local function initializeLibrary(configs)
 				then require(script.App.Style.Validator.validateThemeNew)
 				else require(script.App.Style.Validator.validateTheme),
 			validateColorInfo = require(script.Core.Style.Validator.validateColorInfo),
+			validateColorToken = require(script.Core.Style.Validator.validateColorToken),
 		},
 		-- Used for updating the style in consumer who would have previously
 		-- used `_context` to access the style object

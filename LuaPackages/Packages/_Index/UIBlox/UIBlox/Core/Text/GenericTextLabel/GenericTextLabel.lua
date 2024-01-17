@@ -13,6 +13,7 @@ local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
+local validateColorToken = require(UIBlox.Core.Style.Validator.validateColorToken)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local GenericTextLabel = Roact.PureComponent:extend("GenericTextLabel")
@@ -27,7 +28,7 @@ GenericTextLabel.validateProps = t.interface({
 	fontStyle = t.union(validateFontInfo, validateTypographyInfo),
 
 	-- The color table from the style palette
-	colorStyle = validateColorInfo,
+	colorStyle = t.union(validateColorInfo, validateColorToken),
 
 	-- Whether the TextLabel is Fluid Sizing between the font's min and default sizes (optional)
 	fluidSizing = t.optional(t.boolean),
@@ -47,7 +48,7 @@ function GenericTextLabel:render()
 	return withStyle(function(stylePalette)
 		local font = self.props.fontStyle
 		local color = self.props.colorStyle
-		local textColor = color.Color
+		local textColor = color.Color or color.Color3
 		local textTransparency = color.Transparency
 
 		local baseSize = stylePalette.Font.BaseSize

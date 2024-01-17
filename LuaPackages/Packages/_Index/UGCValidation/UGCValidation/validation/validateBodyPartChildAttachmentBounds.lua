@@ -2,12 +2,15 @@
 
 local root = script.Parent.Parent
 
+local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local prettyPrintVector3 = require(root.util.prettyPrintVector3)
 local floatEquals = require(root.util.floatEquals)
+
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 
 -- this function relies on validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua to catch meshes not built at the origin
 local function validateInMeshSpace(att: Attachment, part: MeshPart, boundsInfoMeshSpace: any): (boolean, { string }?)
@@ -85,6 +88,33 @@ end
 
 local function validateBodyPartChildAttachmentBounds(
 	inst: Instance,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	local assetTypeEnum = validationContext.assetTypeEnum
+	local isServer = validationContext.isServer
+
+	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
+	assert(assetInfo)
+
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	reasonsAccumulator:updateReasons(validateAttachmentRotation(inst))
+
+	if Enum.AssetType.DynamicHead == assetTypeEnum then
+		reasonsAccumulator:updateReasons(checkAll(inst :: MeshPart, isServer, assetInfo.subParts.Head))
+	else
+		for subPartName, partData in pairs(assetInfo.subParts) do
+			local meshHandle: MeshPart? = (inst:FindFirstChild(subPartName) :: MeshPart)
+			assert(meshHandle)
+
+			reasonsAccumulator:updateReasons(checkAll(meshHandle :: MeshPart, isServer, partData))
+		end
+	end
+	return reasonsAccumulator:getFinalResults()
+end
+
+local function DEPRECATED_validateBodyPartChildAttachmentBounds(
+	inst: Instance,
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean?
 ): (boolean, { string }?)
@@ -108,4 +138,8 @@ local function validateBodyPartChildAttachmentBounds(
 	return reasonsAccumulator:getFinalResults()
 end
 
-return validateBodyPartChildAttachmentBounds
+if getFFlagUseUGCValidationContext() then
+	return validateBodyPartChildAttachmentBounds :: any
+else
+	return DEPRECATED_validateBodyPartChildAttachmentBounds :: any
+end

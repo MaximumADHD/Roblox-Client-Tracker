@@ -1,6 +1,7 @@
 --!nonstrict
 local root = script.Parent.Parent
 
+local Types = require(root.util.Types)
 local Constants = require(root.Constants)
 
 local validateInstanceTree = require(root.validation.validateInstanceTree)
@@ -21,12 +22,170 @@ local validateScaleType = require(root.validation.validateScaleType)
 
 local createAccessorySchema = require(root.util.createAccessorySchema)
 local getAttachment = require(root.util.getAttachment)
+local getAccessoryScale = require(root.util.getAccessoryScale)
 
+local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
+local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
+
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
+local FFlagLegacyAccessoryCheckAvatarPartScaleType =
+	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
 
-local function validateLegacyAccessory(
+local function validateLegacyAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
+	local instances = validationContext.instances
+	local assetTypeEnum = validationContext.assetTypeEnum
+	local isServer = validationContext.isServer
+	local allowUnreviewedAssets = validationContext.allowUnreviewedAssets
+
+	local assetInfo = Constants.ASSET_TYPE_INFO[assetTypeEnum]
+
+	local success: boolean, reasons: any
+
+	success, reasons = validateSingleInstance(instances)
+	if not success then
+		return false, reasons
+	end
+
+	local instance = instances[1]
+
+	local schema = createAccessorySchema(assetInfo.attachmentNames)
+
+	success, reasons = validateInstanceTree(schema, instance)
+	if not success then
+		return false, reasons
+	end
+
+	if getFFlagUGCValidationNameCheck() and isServer then
+		success, reasons = validateAccessoryName(instance)
+		if not success then
+			return false, reasons
+		end
+	end
+
+	local handle = instance:FindFirstChild("Handle") :: Part
+	local mesh = handle:FindFirstChildOfClass("SpecialMesh") :: SpecialMesh
+	local meshScale = mesh.Scale
+	local attachment = getAttachment(handle, assetInfo.attachmentNames)
+
+	local boundsInfo = assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
+
+	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(mesh, "MeshId", validationContext)
+	if not getEditableMeshSuccess then
+		return false, { "Failed to load mesh data" }
+	end
+
+	local getEditableImageSuccess, editableImage = getEditableImageFromContext(mesh, "TextureId", validationContext)
+	if not getEditableImageSuccess then
+		return false, { "Failed to load texture data" }
+	end
+
+	local failedReason: any = {}
+	local validationResult = true
+	reasons = {}
+	success, failedReason = validateMaterials(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateProperties(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateTags(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateAttributes(instance)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateTextureSize(editableImage, nil, validationContext)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	if getFFlagUGCValidateAccessoriesScaleType() then
+		local partScaleType = handle:FindFirstChild("AvatarPartScaleType")
+		if partScaleType and partScaleType:IsA("StringValue") then
+			success, failedReason = validateScaleType(partScaleType)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
+		end
+	end
+
+	if getFFlagUGCValidateThumbnailConfiguration() then
+		success, failedReason = validateThumbnailConfiguration(instance, handle, editableMesh, meshScale)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+	end
+
+	local checkModeration = not isServer
+	if allowUnreviewedAssets then
+		checkModeration = false
+	end
+	if checkModeration then
+		success, failedReason = validateModeration(instance, {})
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+	end
+
+	if FFlagLegacyAccessoryCheckAvatarPartScaleType and handle:FindFirstChild("AvatarPartScaleType") then
+		local accessoryScale = getAccessoryScale(handle, attachment)
+		boundsInfo = {
+			size = boundsInfo.size / accessoryScale,
+			offset = if boundsInfo.offset then boundsInfo.offset / accessoryScale else nil,
+		}
+	end
+
+	success, failedReason = validateMeshBounds(
+		handle,
+		attachment,
+		editableMesh,
+		meshScale,
+		boundsInfo,
+		assetTypeEnum.Name,
+		validationContext
+	)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	success, failedReason = validateMeshTriangles(editableMesh, nil, validationContext)
+	if not success then
+		table.insert(reasons, table.concat(failedReason, "\n"))
+		validationResult = false
+	end
+
+	if game:GetFastFlag("UGCValidateMeshVertColors") then
+		success, failedReason = validateMeshVertColors(editableMesh, false, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+	end
+
+	return validationResult, reasons
+end
+
+local function DEPRECATED_validateLegacyAccessory(
 	instances: { Instance },
 	assetTypeEnum: Enum.AssetType,
 	isServer: boolean?,
@@ -147,6 +306,13 @@ local function validateLegacyAccessory(
 		table.insert(reasons, "Mesh must contain valid MeshId")
 		validationResult = false
 	else
+		if FFlagLegacyAccessoryCheckAvatarPartScaleType and handle:FindFirstChild("AvatarPartScaleType") then
+			local accessoryScale = getAccessoryScale(handle, attachment)
+			boundsInfo = {
+				size = boundsInfo.size / accessoryScale,
+				offset = if boundsInfo.offset then boundsInfo.offset / accessoryScale else nil,
+			}
+		end
 		success, failedReason =
 			validateMeshBounds(handle, attachment, meshId, meshScale, boundsInfo, assetTypeEnum.Name)
 		if not success then
@@ -171,4 +337,8 @@ local function validateLegacyAccessory(
 	return validationResult, reasons
 end
 
-return validateLegacyAccessory
+if getFFlagUseUGCValidationContext() then
+	return validateLegacyAccessory :: any
+else
+	return DEPRECATED_validateLegacyAccessory :: any
+end

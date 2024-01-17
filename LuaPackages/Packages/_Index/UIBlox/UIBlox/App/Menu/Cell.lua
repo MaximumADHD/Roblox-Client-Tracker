@@ -72,7 +72,7 @@ Cell.validateProps = t.strictInterface({
 	leftPaddingOffset = t.optional(t.number),
 	layoutOrder = t.integer,
 	setButtonRef = t.optional(t.union(t.callback, t.table)),
-	cursorKind = t.optional(CursorKind.isEnumValue),
+	cursorKind = if UIBloxConfig.migrateToNewSelectionCursor then nil else t.optional(CursorKind.isEnumValue),
 	-- If the background asset behind the element is visible or not
 	isElementBackgroundVisible = t.optional(t.boolean),
 	-- Add offset to the left of the divider separating cells
@@ -106,6 +106,8 @@ Cell.validateProps = t.strictInterface({
 	background = t.optional(validateColorInfo),
 
 	selectionOrder = t.optional(t.number),
+	-- Optional selection cursor
+	selectionCursor = if UIBloxConfig.migrateToNewSelectionCursor then t.optional(t.any) else nil,
 })
 
 Cell.defaultProps = {
@@ -304,7 +306,9 @@ function Cell:renderWithSelectionCursor(getSelectionCursor)
 					BorderSizePixel = 0,
 					[Roact.Ref] = self.props.setButtonRef,
 					[Roact.Event.Activated] = self.props.onActivated,
-					SelectionImageObject = getSelectionCursor(self.props.cursorKind),
+					SelectionImageObject = if UIBloxConfig.migrateToNewSelectionCursor
+						then self.props.selectionCursor
+						else getSelectionCursor(self.props.cursorKind),
 					SelectionOrder = self.props.selectionOrder,
 				},
 				children = {
