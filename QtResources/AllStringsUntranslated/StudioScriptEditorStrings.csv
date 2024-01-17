@@ -17,7 +17,6 @@ Studio.App.ScriptingCmd.INVOKEMLCOMPLETION,,Invoke AI-assisted scripting,Invoke 
 Studio.App.ScriptingCmd.INVOKEMLCOMPLETIONTooltip,,Attempt to generate autocompleted code using machine learning,Attempt to generate autocompleted code using machine learning
 Studio.App.ScriptingCmd.SENDEXPLAINCODEPROMPT,,Explain Code,Explain Code
 Studio.App.ScriptingCmd.SENDEXPLAINCODEPROMPTTooltip,,Ask our AI Assistant to explain your selected code,Ask our AI Assistant to explain your selected code
-Studio.App.ScriptingCmd.SENDEXPLAINCODEPROMPT.ChatInput,,Explain this code.,Explain this code.
 Studio.App.ScriptingCmd.DISPLAYCHATPROMPT,,AI Code Assistance,AI Code Assistance
 Studio.App.ScriptingCmd.DISPLAYCHATPROMPTTooltip,,Ask our chatbot a question about your code,Ask our chatbot a question about your code
 Studio.App.ScriptingCmd.REPLACETooltip,,Replace text in an open script,Replace text in an open script

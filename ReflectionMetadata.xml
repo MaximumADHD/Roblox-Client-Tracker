@@ -1145,7 +1145,6 @@
             <Properties>
                 <string name="Name">ForceLimitMode</string>
                 <string name="summary">Selects the mode for force limit. Options Uniform or Per-component</string>
-                <bool name="FFlag">SimAlignPositionVectorForceLimit</bool>
             </Properties>
         </Item>
       </Item>
@@ -3496,7 +3495,7 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">DeathStyle</string>
-            <string name="FFlag">AvatarJointUpgrade</string>
+            <string name="FFlag">EnableDeathStyle</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
@@ -3507,20 +3506,8 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-            <string name="Name">HumanoidStateMachineMode</string>
-            <string name="FFlag">EnableStateMachineModes2</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
             <string name="Name">LuaCharacterController</string>
             <string name="FFlag">EnableLuaCharacterController</string>
-          </Properties>
-        </Item>
-        <Item class="ReflectionMetadataMember">
-          <Properties>
-            <string name="Name">AnimationCompositorMode</string>
-            <string name="FFlag">EnableAnimationCompositorMode</string>
           </Properties>
         </Item>
       </Item>
@@ -5137,7 +5124,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ControllerPartSensor</string>
-        <string name="FFlag">SimHumanoidPhysics</string>
         <string name="ClassCategory">Avatar</string>
         <string name="ExplorerOrder">20</string>
         <string name="PreferredParent">BasePart</string>
@@ -5146,7 +5132,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">BuoyancySensor</string>
-        <string name="FFlag">SimHumanoidPhysics</string>
         <string name="ClassCategory">Avatar</string>
         <string name="ExplorerOrder">20</string>
         <string name="PreferredParent">BasePart</string>
@@ -5156,16 +5141,13 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ControllerManager</string>
-        <string name="FFlag">SimHumanoidPhysics</string>
         <string name="ClassCategory">Avatar</string>
         <string name="ExplorerOrder">20</string>
-        <string name="PreferredParent">Humanoid</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">GroundController</string>
-        <string name="FFlag">SimHumanoidPhysics</string>
         <string name="ClassCategory">Avatar</string>
         <string name="ExplorerOrder">20</string>
         <string name="PreferredParent">ControllerManager</string>
@@ -5174,7 +5156,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">AirController</string>
-        <string name="FFlag">SimHumanoidPhysics</string>
         <string name="ClassCategory">Avatar</string>
         <string name="ExplorerOrder">20</string>
         <string name="PreferredParent">ControllerManager</string>
@@ -5183,7 +5164,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">ClimbController</string>
-        <string name="FFlag">SimHumanoidPhysics</string>
         <string name="ClassCategory">Avatar</string>
         <string name="ExplorerOrder">20</string>
         <string name="PreferredParent">ControllerManager</string>
@@ -5192,7 +5172,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">SwimController</string>
-        <string name="FFlag">SimHumanoidPhysics</string>
         <string name="ClassCategory">Avatar</string>
         <string name="ExplorerOrder">20</string>
         <string name="PreferredParent">ControllerManager</string>
@@ -7512,31 +7491,26 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SelectionGroup</string>
-            <string name="FFlag">GamepadUISelectionGroup</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SelectionBehaviorUp</string>
-            <string name="FFlag">GamepadUISelectionGroup</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SelectionBehaviorDown</string>
-            <string name="FFlag">GamepadUISelectionGroup</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SelectionBehaviorLeft</string>
-            <string name="FFlag">GamepadUISelectionGroup</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SelectionBehaviorRight</string>
-            <string name="FFlag">GamepadUISelectionGroup</string>
           </Properties>
         </Item>
       </Item>
@@ -7599,7 +7573,6 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">SelectionOrder</string>
-            <string name="FFlag">GamepadUISelectionOrder</string>
           </Properties>
         </Item>
 

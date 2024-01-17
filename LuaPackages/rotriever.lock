@@ -18,7 +18,7 @@ dependencies = [
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "GraphQLTag GraphqlTag 2.12.6 url+https://github.com/roblox/graphql-tag-lua",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "LuauRegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "LuauRegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RobloxRequests RobloxRequests 0.1.0 url+https://github.com/thisdot/roblox-requests",
@@ -37,7 +37,7 @@ dependencies = [
     "Jest Jest 3.5.0 url+https://github.com/roblox/jest-roblox",
     "JestGlobals JestGlobals 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "LuauRegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "LuauRegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 url+https://github.com/roblox/react-testing-library-lua",
@@ -104,7 +104,7 @@ dependencies = [
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "GraphqlToolsUtils Utils 0.3.1 url+https://github.com/roblox/graphql-tools-lua",
     "HttpRequest HttpRequest 1.1.1 url+https://github.com/roblox/http-request",
-    "IAPExperience IAPExperience 599eda41 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience dcc3c594 git+https://github.com/roblox/iapexperience#master",
     "InGameMenuDependencies InGameMenuDependencies 5dd650f7 git+https://github.com/roblox/in-game-menu-dependencies#master",
     "InputHandlers InputHandlers 1.3.0 url+https://github.com/roblox/focus-navigation",
     "Jest Jest 3.5.0 url+https://github.com/roblox/jest-roblox",
@@ -152,8 +152,8 @@ dependencies = [
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "TagUtils TagUtils 0.1.0 url+https://github.com/roblox/luau-tag-utils",
     "Thumbnailing Thumbnailing 8d8b0358 git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.10.4 url+https://github.com/roblox/ugc-validation",
-    "UIBlox UIBlox 60474ce6 git+https://github.com/roblox/uiblox#master",
+    "UGCValidation UGCValidation 1.10.5 url+https://github.com/roblox/ugc-validation",
+    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 73abf03d git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 url+https://github.com/roblox/usage-tracker-lua",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
@@ -238,7 +238,7 @@ dependencies = [
     "JestGetType JestGetType 3.5.0 url+https://github.com/roblox/jest-roblox",
     "JestGlobals JestGlobals 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "LuauRegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "LuauRegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "PrettyFormat PrettyFormat 3.5.0 url+https://github.com/roblox/jest-roblox",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
@@ -284,7 +284,7 @@ dependencies = [
     "JestMessageUtil JestMessageUtil 2.4.1 url+https://github.com/roblox/jest-roblox",
     "JestSnapshot JestSnapshot 2.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 2.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
@@ -301,7 +301,7 @@ dependencies = [
     "JestUtil JestUtil 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
 ]
 
@@ -322,7 +322,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
-    "UIBlox UIBlox 60474ce6 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -344,7 +344,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
-    "UIBlox UIBlox 60474ce6 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -374,7 +374,7 @@ source = "url+https://github.com/roblox/graphql-lua"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -410,7 +410,7 @@ dependencies = [
 [[package]]
 name = "IAPExperience"
 version = "1.0.0"
-commit = "599eda41b526a21468d57b8bb8df8178db4078cf"
+commit = "dcc3c594087719846a22404e1448f6003495420b"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
@@ -419,7 +419,7 @@ dependencies = [
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoactGamepad <patched> RoactGamepad 0.5.12 url+https://github.com/roblox/roact-gamepad",
-    "UIBlox UIBlox 60474ce6 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -438,7 +438,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
-    "UIBlox UIBlox 60474ce6 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -506,7 +506,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "PrettyFormat PrettyFormat 3.5.0 url+https://github.com/roblox/jest-roblox",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
     "Throat Throat 3.5.0 url+https://github.com/roblox/jest-roblox",
 ]
@@ -525,7 +525,7 @@ dependencies = [
     "JestValidate JestValidate 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
 ]
 
@@ -582,7 +582,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "PrettyFormat PrettyFormat 3.5.0 url+https://github.com/roblox/jest-roblox",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
 ]
 
@@ -625,7 +625,7 @@ dependencies = [
     "JestUtil JestUtil 2.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
     "PrettyFormat PrettyFormat 2.4.1 url+https://github.com/roblox/jest-roblox",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -640,7 +640,7 @@ dependencies = [
     "JestUtil JestUtil 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "PrettyFormat PrettyFormat 3.5.0 url+https://github.com/roblox/jest-roblox",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -698,7 +698,7 @@ commit = "4e9c44282c6baaceeda7587f2d1b5a51661c3faa"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -708,7 +708,7 @@ commit = "f75d20120774e44ac4562de9efeca8040db87ded"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -748,7 +748,7 @@ dependencies = [
     "JestGetType JestGetType 2.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
     "PrettyFormat PrettyFormat 2.4.1 url+https://github.com/roblox/jest-roblox",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -762,7 +762,7 @@ dependencies = [
     "JestGetType JestGetType 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "PrettyFormat PrettyFormat 3.5.0 url+https://github.com/roblox/jest-roblox",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -782,7 +782,7 @@ dependencies = [
     "JestTypes JestTypes 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "PrettyFormat PrettyFormat 3.5.0 url+https://github.com/roblox/jest-roblox",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
 ]
 
@@ -933,7 +933,7 @@ commit = "4e9c44282c6baaceeda7587f2d1b5a51661c3faa"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -943,7 +943,7 @@ commit = "f75d20120774e44ac4562de9efeca8040db87ded"
 source = "url+https://github.com/roblox/jest-roblox"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -957,7 +957,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
     "Picomatch <patched> Picomatch 0.3.1 url+https://github.com/roblox/picomatch-lua",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 2.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
@@ -972,7 +972,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Picomatch <patched> Picomatch 0.3.1 url+https://github.com/roblox/picomatch-lua",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
 ]
 
@@ -1273,7 +1273,7 @@ source = "url+https://github.com/roblox/picomatch-lua"
 dependencies = [
     "LuauPolyfill LuauPolyfill 0.4.2 url+https://github.com/roblox/luau-polyfill",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -1293,7 +1293,7 @@ dependencies = [
     "JestGetType JestGetType 2.4.1 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 0.3.4 url+https://github.com/roblox/luau-polyfill",
     "ReactIs ReactIs 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 2.4.1 url+https://github.com/roblox/jest-roblox",
 ]
 
@@ -1307,7 +1307,7 @@ dependencies = [
     "JestGetType JestGetType 3.5.0 url+https://github.com/roblox/jest-roblox",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "ReactIs ReactIs 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
 ]
 
@@ -1348,14 +1348,14 @@ source = "git+https://github.com/roblox/purchase-prompt-deps#master"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "IAPExperience IAPExperience 599eda41 git+https://github.com/roblox/iapexperience#master",
+    "IAPExperience IAPExperience dcc3c594 git+https://github.com/roblox/iapexperience#master",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "PolicyProvider roblox/lua-roact-policy-provider 045503a9 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
-    "UIBlox UIBlox 60474ce6 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 73abf03d git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1516,8 +1516,8 @@ dependencies = [
 
 [[package]]
 name = "RegExp"
-version = "0.2.0"
-commit = "3ee565fcba0662d51275f017613ee74571bafbd7"
+version = "0.2.1"
+commit = "a424ed4563c3c72022a3acb6a614636c8c381571"
 source = "url+https://github.com/roblox/luau-regexp"
 
 [[package]]
@@ -1597,7 +1597,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
 ]
 
 [[package]]
@@ -1962,7 +1962,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 02a3ea83 git+https://github.com/roblox/rodux-friends#v4.0.0",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 60474ce6 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -2060,8 +2060,8 @@ dependencies = ["Collections Collections 1.2.3 url+https://github.com/roblox/lua
 
 [[package]]
 name = "UGCValidation"
-version = "1.10.4"
-commit = "ddba87242b3a0d4db0eeada523702a671ad8c331"
+version = "1.10.5"
+commit = "77f83ac4e5aefdcd2ec97f280ced77513ef64857"
 source = "url+https://github.com/roblox/ugc-validation"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
@@ -2071,7 +2071,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "60474ce64871607ab9bf3da890ad4cf073c85dbf"
+commit = "67ced905c420e83a06484e9f54d7da7177d08d0c"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
@@ -2149,7 +2149,7 @@ source = "url+https://github.com/roblox/graphql-tools-lua"
 dependencies = [
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
-    "LuauRegExp RegExp 0.2.0 url+https://github.com/roblox/luau-regexp",
+    "LuauRegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
 ]
 

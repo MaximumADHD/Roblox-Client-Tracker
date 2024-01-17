@@ -31,6 +31,7 @@ name = "AbuseReporting"
 version = "0.1.0"
 dependencies = [
     "Cryo Cryo 0.1.0",
+    "DsaIllegalContentReporting DsaIllegalContentReporting 0.1.0",
     "FocusNavigationUtils FocusNavigationUtils 0.1.0",
     "HttpRequest HttpRequest 0.1.0",
     "InputHandlers InputHandlers 0.1.0",
@@ -735,6 +736,7 @@ dependencies = [
     "PlayerContextualMenu PlayerContextualMenu 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
@@ -832,11 +834,13 @@ dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
     "GameIconRodux GameIconRodux 0.1.0",
+    "GameProductInfoRodux GameProductInfoRodux 0.1.0",
     "Http Http 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "PlaceInfoRodux PlaceInfoRodux 0.1.0",
+    "PlayabilityRodux PlayabilityRodux 0.1.0",
     "Promise Promise 0.1.0",
     "Result Result 0.1.0",
     "Rodux Rodux 0.1.0",
@@ -904,14 +908,23 @@ dependencies = [
 name = "GameLaunch"
 version = "0.1.0"
 dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
     "Cryo Cryo 0.1.0",
+    "ExperienceAnalytics ExperienceAnalytics 0.1.0",
     "ExperienceService ExperienceService 0.1.0",
+    "GameVotesRodux GameVotesRodux 0.1.0",
     "Http Http 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "LoggingProtocol LoggingProtocol 0.1.0",
     "PlayabilityRodux PlayabilityRodux 0.1.0",
+    "React React 0.1.0",
+    "RoactServiceTags RoactServiceTags 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "SplashScreenManager SplashScreenManager 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]
 
@@ -932,7 +945,11 @@ dependencies = [
 name = "GameTile"
 version = "0.1.0"
 dependencies = [
+    "AppChat AppChat 0.1.0",
+    "CentralOverlay CentralOverlay 0.1.0",
+    "Cryo Cryo 0.1.0",
     "DiscoveryOtaPatch DiscoveryOtaPatch 0.1.0",
+    "Http Http 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
@@ -940,6 +957,10 @@ dependencies = [
     "Otter Otter 0.1.0",
     "React React 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RobloxAppAssets RobloxAppAssets 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
@@ -1794,7 +1815,6 @@ dependencies = [
     "Dash Dash 0.1.0",
     "InputType InputType 0.1.0",
     "JestGlobals JestGlobals 0.1.0",
-    "Localization Localization 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
@@ -1852,7 +1872,6 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "TestUtils TestUtils 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
-    "UniversalAppPolicy UniversalAppPolicy 0.1.0",
 ]
 
 [[package]]
@@ -2163,9 +2182,12 @@ dependencies = [
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
+    "React React 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "TestUtils TestUtils 0.1.0",
     "enumerate enumerate 0.1.0",
     "t t 0.1.0",
     "tutils tutils 0.1.0",
@@ -2452,6 +2474,7 @@ dependencies = [
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
     "TenFootUiCommon TenFootUiCommon 0.1.0",
     "TenFootUiTesting TenFootUiTesting 0.1.0",
     "TestUtils TestUtils 0.1.0",

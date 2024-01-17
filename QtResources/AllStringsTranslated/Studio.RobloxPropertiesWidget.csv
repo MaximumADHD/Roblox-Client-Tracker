@@ -149,7 +149,7 @@ Studio.RobloxPropertiesWidget.AddTagPopup.NoTagsCreated,,,No tags have been crea
 Studio.RobloxPropertiesWidget.AddTagPopup.CreateTagFmt1,,,Create tag: %1,Create tag: %1,,Tag erstellen: %1,Crear etiqueta: %1,Créer un tag : %1,,,タグ作成: %1,태그 만들기: %1,Criar marcador: %1,,,,,创建标签：%1,创建标签：%1,建立標籤：%1
 Studio.RobloxPropertiesWidget.Category.Connections,,,Connections,Connections,,Verbindungen,Conexiones,Connexions,,Connessioni,接続,연결,Conexões,,,,,连接,连接,連線
 Studio.RobloxPropertiesWidget.Category.Interactions,,,Interactions,Interactions,,Interaktionen,Interacciones,Interactions,,Interazione,交流,상호 작용,Interações,,,,,互动,互动,互動
-Studio.RobloxPropertiesWidget.Category.Metering,,,Metering,Metering,,Messung,Medición,Comptage,,Misurazione,計測,미터링,Medição,,,,,计量,计量,計量
+Studio.RobloxPropertiesWidget.Category.Metering,,,Metering,Metering,,Messung,Medición,Comptage,,Misurazione,計測,측정,Medição,,,,,计量,计量,計量
 Studio.RobloxPropertiesWidget.Category.Permissions,,,Permissions,Permissions,,Berechtigungen,Permisos,Permissions,,Autorizzazioni,権限,권한,Permissões,,,,,权限,权限,權限
 Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,Aufnahme,Grabando,Enregistrement,,Registrazione,記録,기록,Gravação,,,,,记录,记录,錄製
 Studio.RobloxPropertiesWidget.Category.Scripting,,,Scripting,Scripting,,Scripting,Scripting,Scripting,,,スクリプト作成,스크립팅,Scripting,,,,,脚本,脚本,指令碼化

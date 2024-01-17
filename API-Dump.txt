@@ -847,6 +847,7 @@ Class Camera : Instance [NotReplicated]
 	Event Camera.FirstPersonTransition(entering: boolean) {LocalUserSecurity}
 	Event Camera.InterpolationFinished()
 Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function CaptureService:CaptureScreenshot(onCaptureReady: (...any) -> ...any) -> ()
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:GetCaptureSizeAsync(captureContentId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
@@ -995,10 +996,12 @@ Class Collaborator : Instance [NotCreatable]
 	Property Collaborator.CollaboratorColor: number
 	Property Collaborator.CurDocGUID: string
 	Property Collaborator.CurScriptLineNumber: number
+	Property Collaborator.IsIdle: boolean
 	Property Collaborator.Status: Enum.CollaboratorStatus [Hidden] [NotScriptable]
 	Property Collaborator.UserId: number
 	Property Collaborator.Username: string
 Class CollaboratorsService : Instance [NotCreatable] [Service]
+	Event CollaboratorsService.CollaboratorIdleUpdate(collaboratorId: number, isIdle: boolean) {RobloxSecurity} [Hidden]
 	Event CollaboratorsService.CollaboratorInstanceCreatedSignal(collaboratorId: number) {RobloxSecurity} [Hidden]
 	Event CollaboratorsService.CollaboratorInstanceDestroyedSignal(collaboratorId: number) {RobloxSecurity} [Hidden]
 	Event CollaboratorsService.CollaboratorStatusUpdateRequestedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxSecurity} [Hidden]
@@ -1577,6 +1580,7 @@ Class DraftsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function DraftsService:RestoreScripts(scripts: { Instance }) -> () {RobloxScriptSecurity}
 	Function DraftsService:ShowDiffsAgainstBase(scripts: { Instance }) -> () {RobloxScriptSecurity}
 	Function DraftsService:ShowDiffsAgainstServer(scripts: { Instance }) -> () {RobloxScriptSecurity}
+	Function DraftsService:ShowSourceDiffsAgainstCurrent(sources: { any }, scripts: { Instance }) -> () {RobloxScriptSecurity}
 	Function DraftsService:UpdateToLatestVersion(scripts: { Instance }) -> () {RobloxScriptSecurity} [Yields]
 	Event DraftsService.CommitStatusChanged(script: Instance, status: Enum.DraftStatusCode) {RobloxScriptSecurity}
 	Event DraftsService.DraftAdded(script: Instance) {RobloxScriptSecurity}
@@ -4083,6 +4087,8 @@ Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Event PlayerScripts.TouchMovementModeRegistered() {RobloxScriptSecurity}
 Class PlayerViewService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PlayerViewService:GetDeviceCameraCFrame(player: Player? = nil) -> CFrame
+	Function PlayerViewService:OnCameraCFrameReplicationRequest() -> () {RobloxScriptSecurity}
+	Function PlayerViewService:UpdateDeviceCFrame(player: Player? = nil, cframe: CFrame? = CFrame?.new(), timestamp: number? = 0) -> () {RobloxScriptSecurity}
 Class Players : Instance [NotCreatable] [Service]
 	Property Players.CharacterAutoLoads: boolean [NotReplicated]
 	Property Players.UseStrafingAnimations: boolean [NotScriptable]
@@ -4531,7 +4537,7 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptContext:GetLuauHeapInstanceReferenceReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetLuauHeapMemoryReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetScriptProfilingData() -> string {RobloxScriptSecurity}
-	Function ScriptContext:SaveScriptProfilingData(filename: string) -> () {RobloxScriptSecurity}
+	Function ScriptContext:SaveScriptProfilingData(jsonString: string, filename: string) -> string {RobloxScriptSecurity}
 	Function ScriptContext:SetTimeout(seconds: number) -> () {PluginSecurity}
 	Function ScriptContext:StartScriptProfiling(frequency: number?) -> () {RobloxScriptSecurity}
 	Function ScriptContext:StopScriptProfiling() -> string {RobloxScriptSecurity}
@@ -4933,7 +4939,6 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.DevComputerCameraMovementMode: Enum.DevComputerCameraMovementMode
 	Property StarterPlayer.DevTouchCameraMovementMode: Enum.DevTouchCameraMovementMode
 	Property StarterPlayer.AllowCustomAnimations: boolean {✏️RobloxScriptSecurity} [Hidden]
-	Property StarterPlayer.AnimationCompositorMode: Enum.AnimationCompositorMode [NotBrowsable]
 	Property StarterPlayer.AvatarJointUpgrade: Enum.AvatarJointUpgrade [NotReplicated] [NotBrowsable]
 	Property StarterPlayer.AvatarJointUpgrade_Serialized: Enum.AvatarJointUpgrade [Hidden] [NotScriptable]
 	Property StarterPlayer.CharacterMaxSlopeAngle: number
@@ -4967,7 +4972,6 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.DevComputerMovementMode: Enum.DevComputerMovementMode
 	Property StarterPlayer.DevTouchMovementMode: Enum.DevTouchMovementMode
 	Property StarterPlayer.EnableMouseLockOption: boolean
-	Property StarterPlayer.HumanoidStateMachineMode: Enum.HumanoidStateMachineMode [NotBrowsable]
 	Property StarterPlayer.LuaCharacterController: Enum.CharacterControlMode [NotBrowsable]
 	Property StarterPlayer.HealthDisplayDistance: number
 	Property StarterPlayer.NameDisplayDistance: number
@@ -5671,6 +5675,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:RegisterUGCValidationFunction(setFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ResetCollisionFidelity(meshPart: Instance, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
+	Function UGCValidationService:ResetCollisionFidelityWithEditableMeshDataLua(meshPart: MeshPart, editableMesh: EditableMesh, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
 	Function UGCValidationService:SetMeshIdBlocking(meshPart: Instance, meshId: string) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateCageMeshIntersection(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageNonManifoldAndHoles(meshId: string) -> ...any {RobloxScriptSecurity} [Yields]
@@ -6296,10 +6301,6 @@ Enum AnimationClipFromVideoStatus
 	EnumItem AnimationClipFromVideoStatus.Cancelled : 11
 	EnumItem AnimationClipFromVideoStatus.ErrorMultiplePeople : 12
 	EnumItem AnimationClipFromVideoStatus.ErrorUploadingVideo : 2001
-Enum AnimationCompositorMode
-	EnumItem AnimationCompositorMode.Default : 0
-	EnumItem AnimationCompositorMode.Enabled : 1
-	EnumItem AnimationCompositorMode.Disabled : 2
 Enum AnimationPriority
 	EnumItem AnimationPriority.Idle : 0
 	EnumItem AnimationPriority.Movement : 1
@@ -7312,11 +7313,6 @@ Enum HumanoidHealthDisplayType
 Enum HumanoidRigType
 	EnumItem HumanoidRigType.R6 : 0
 	EnumItem HumanoidRigType.R15 : 1
-Enum HumanoidStateMachineMode
-	EnumItem HumanoidStateMachineMode.Default : 0
-	EnumItem HumanoidStateMachineMode.Legacy : 1
-	EnumItem HumanoidStateMachineMode.NoStateMachine : 2
-	EnumItem HumanoidStateMachineMode.LuaStateMachine : 3
 Enum HumanoidStateType
 	EnumItem HumanoidStateType.FallingDown : 0
 	EnumItem HumanoidStateType.Ragdoll : 1
