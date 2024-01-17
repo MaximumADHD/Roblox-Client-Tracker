@@ -5,4 +5,7 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["GameTile"]["GameTile"])
 
+export type ExperienceFooterProps = Package.ExperienceFooterProps
+
+
 return Package

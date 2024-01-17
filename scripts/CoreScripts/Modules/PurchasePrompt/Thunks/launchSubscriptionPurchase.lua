@@ -11,8 +11,6 @@ local Network = require(Root.Services.Network)
 local Thunk = require(Root.Thunk)
 local hideWindow = require(Root.Thunks.hideWindow)
 
-local GetFFlagEnableNativeSubscriptionPurchase = require(Root.Flags.GetFFlagEnableNativeSubscriptionPurchase)
-
 local requiredServices = {
 	ExternalSettings,
 	Network,
@@ -26,25 +24,17 @@ local function launchSubscriptionPurchase()
 
 		if externalSettings.isStudio() then
 			store:dispatch(PurchaseCompleteRecieved())
-			if GetFFlagEnableNativeSubscriptionPurchase() then
-				store:dispatch(hideWindow())
-				return nil
-			else
-				return store:dispatch(SetWindowState(WindowState.Hidden))
-			end
-		end
-
-		if GetFFlagEnableNativeSubscriptionPurchase() then
-			performSubscriptionPurchase(network, store:getState().promptRequest.id)
-			:catch(function(errorReason)
-				store:dispatch(ErrorOccurred(errorReason))
-			end)
-			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 			store:dispatch(hideWindow())
 			return nil
-		else
-			return nil
 		end
+
+		performSubscriptionPurchase(network, store:getState().promptRequest.id)
+		:catch(function(errorReason)
+			store:dispatch(ErrorOccurred(errorReason))
+		end)
+		store:dispatch(SetPromptState(PromptState.UpsellInProgress))
+		store:dispatch(hideWindow())
+		return nil
 	end)
 	
 end

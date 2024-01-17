@@ -18,8 +18,8 @@ return {
 		OfflineFriendListItem = function(props)
 			return React.createElement(FriendListItem, {
 				userId = "12345678",
-				userName = "@user name",
-				combinedName = "display name",
+				userName = "user name",
+				combinedName = "combined name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
 				itemListIndex = 1,
@@ -30,8 +30,8 @@ return {
 		OnlineFriendListItem = function(props)
 			return React.createElement(FriendListItem, {
 				userId = "11111111",
-				userName = "@user name",
-				combinedName = "display name",
+				userName = "user name",
+				combinedName = "combined name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
 				itemListIndex = 1,
@@ -42,8 +42,8 @@ return {
 		InStudioFriendListItem = function(props)
 			return React.createElement(FriendListItem, {
 				userId = "22222222",
-				userName = "@user name",
-				combinedName = "display name",
+				userName = "user name",
+				combinedName = "combined name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
 				itemListIndex = 1,
@@ -54,8 +54,8 @@ return {
 		InGameFriendListItem = function(props)
 			return React.createElement(FriendListItem, {
 				userId = "33333333",
-				userName = "@user name",
-				combinedName = "display name",
+				userName = "user name",
+				combinedName = "combined name",
 				dismissCallback = function() end,
 				showDivider = props.controls.showDivider,
 				searchQueryString = "",
@@ -97,8 +97,8 @@ return {
 			byUserId = {
 				["12345678"] = {
 					id = "12345678",
-					username = "@user name",
-					combinedName = "display name",
+					username = "user name",
+					combinedName = "combined name",
 					hasVerifiedBadge = false,
 				},
 			},

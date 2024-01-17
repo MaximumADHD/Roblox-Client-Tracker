@@ -26,8 +26,6 @@ local useDispatch = dependencies.Hooks.useDispatch
 local UIBlox = dependencies.UIBlox
 local useStyle = UIBlox.Core.Style.useStyle
 
-local GetFFlagPeekViewEnableSnapToViewState = dependencies.GetFFlagPeekViewEnableSnapToViewState
-
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 
@@ -349,7 +347,6 @@ local function ContactListContainer()
 				closeSignal = closePeekViewSignal.current,
 				elasticBehavior = Enum.ElasticBehavior.Never,
 				peekViewState = expectedPeekViewState,
-				snapToSameViewStateOnIdle = if GetFFlagPeekViewEnableSnapToViewState() then true else nil,
 				viewStateChanged = viewStateChanged,
 			}, {
 				Content = contactListContainerContent,

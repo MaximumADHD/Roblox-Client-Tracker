@@ -18,6 +18,9 @@ return function()
 	local ApolloClientTestUtils = GraphQLServer.ApolloClientTestUtils
 	local mockApolloClient = ApolloClientTestUtils.mockApolloClient
 
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
 	local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -50,33 +53,37 @@ return function()
 				ApolloProvider = Roact.createElement(ApolloProvider, {
 					client = client,
 				}, {
-					CallHistoryItem = Roact.createElement(CallHistoryItem, {
-						callRecord = {
-							callId = "test_call_id",
-							callerId = callerId,
-							participants = {
-								{
-									userId = 1,
-									displayName = "testuser_0",
-									userName = "testuser_0",
+					LocalizationProvider = Roact.createElement(LocalizationProvider, {
+						localization = Localization.new("en-us"),
+					}, {
+						CallHistoryItem = Roact.createElement(CallHistoryItem, {
+							callRecord = {
+								callId = "test_call_id",
+								callerId = callerId,
+								participants = {
+									{
+										userId = 1,
+										displayName = "testuser_0",
+										userName = "testuser_0",
+									},
+									{
+										userId = 2,
+										displayName = "testuser_1",
+										userName = "testuser_1",
+									},
 								},
-								{
-									userId = 2,
-									displayName = "testuser_1",
-									userName = "testuser_1",
-								},
+								status = status,
+								startUtc = startUtc,
+								endUtc = endUtc,
+								universeId = 123,
+								placeId = 456,
 							},
-							status = status,
-							startUtc = startUtc,
-							endUtc = endUtc,
-							universeId = 123,
-							placeId = 456,
-						},
-						isSuggestedUser = false,
-						layoutOrder = 1,
-						localUserId = localUserId,
-						showDivider = true,
-						dismissCallback = function() end,
+							isSuggestedUser = false,
+							layoutOrder = 1,
+							localUserId = localUserId,
+							showDivider = true,
+							dismissCallback = function() end,
+						}),
 					}),
 				}),
 			}),
@@ -95,13 +102,10 @@ return function()
 		local instance = Roact.mount(element, folder)
 		local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 		local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
-		if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
-			expect(usernameElement.Text).toBe("@testuser_1")
-			expect(displayNameElement.Text).toBe("testuser_1")
-		else
-			expect(usernameElement.Text).toBe("")
-			expect(displayNameElement.Text).toBe("")
-		end
+
+		expect(usernameElement.Text).toBe("@testuser_1")
+		expect(displayNameElement.Text).toBe("testuser_1")
+
 		Roact.unmount(instance)
 	end)
 
@@ -120,13 +124,8 @@ return function()
 			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
 
-			if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
-				expect(usernameElement.Text).toBe("@testuser_1")
-				expect(displayNameElement.Text).toBe("testuser_1")
-			else
-				expect(usernameElement.Text).toBe("")
-				expect(displayNameElement.Text).toBe("")
-			end
+			expect(usernameElement.Text).toBe("@testuser_1")
+			expect(displayNameElement.Text).toBe("testuser_1")
 
 			expect(string.sub(statusElement.Text, 1, 6)).toBe("Missed")
 			Roact.unmount(instance)
@@ -146,13 +145,8 @@ return function()
 			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
 
-			if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
-				expect(usernameElement.Text).toBe("@testuser_1")
-				expect(displayNameElement.Text).toBe("testuser_1")
-			else
-				expect(usernameElement.Text).toBe("")
-				expect(displayNameElement.Text).toBe("")
-			end
+			expect(usernameElement.Text).toBe("@testuser_1")
+			expect(displayNameElement.Text).toBe("testuser_1")
 
 			expect(string.sub(statusElement.Text, 1, 8)).toBe("Incoming")
 			Roact.unmount(instance)
@@ -172,13 +166,8 @@ return function()
 			local usernameElement: TextLabel = folder:FindFirstChild("Username", true) :: TextLabel
 			local displayNameElement: TextLabel = folder:FindFirstChild("DisplayName", true) :: TextLabel
 
-			if game:GetFastFlag("ApolloClientUserProfileReadPolicy") then
-				expect(usernameElement.Text).toBe("@testuser_0")
-				expect(displayNameElement.Text).toBe("testuser_0")
-			else
-				expect(usernameElement.Text).toBe("")
-				expect(displayNameElement.Text).toBe("")
-			end
+			expect(usernameElement.Text).toBe("@testuser_0")
+			expect(displayNameElement.Text).toBe("testuser_0")
 
 			expect(string.sub(statusElement.Text, 1, 8)).toBe("Outgoing")
 			Roact.unmount(instance)

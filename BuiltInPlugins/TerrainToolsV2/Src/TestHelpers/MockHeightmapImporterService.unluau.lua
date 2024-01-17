@@ -3,10 +3,10 @@ local var0 = require(script.Parent.Parent.Parent.Packages.Framework).Util.Signal
 local var1 = {}
 var1.__index = var1
 function var1.new()
-   local var1873 = {}
-   var1873.ProgressUpdate = var0.new()
-   var1873.ColormapHasUnknownPixels = var0.new()
-   return setmetatable(var1873, var1)
+   local var1877 = {}
+   var1877.ProgressUpdate = var0.new()
+   var1877.ColormapHasUnknownPixels = var0.new()
+   return setmetatable(var1877, var1)
 end
 
 function var1.IsA(arg1, arg2)

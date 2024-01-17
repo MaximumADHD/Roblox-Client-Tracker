@@ -2,7 +2,7 @@
 return function(arg1, arg2, arg3, arg4)
    local var0 = arg2:Dot(arg4)
    if var0 == 0 then
-      return nilnil,
+      return arg10,
    end
    local var1 = arg3 - arg1:Dot(arg4) / var0
    local var2 = arg2 * var1

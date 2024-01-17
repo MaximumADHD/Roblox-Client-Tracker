@@ -27,10 +27,10 @@ function var23.init(arg1)
    arg1.ctrlHeld = false
    arg1.dragging = false
    function arg1.updateSize(arg1)
-      local var120 = {}
-      var120.AbsoluteSize = arg1.AbsoluteSize
-      var120.AbsolutePosition = arg1.AbsolutePosition
-      arg1:setState(var120)
+      local var346 = {}
+      var346.AbsoluteSize = arg1.AbsoluteSize
+      var346.AbsolutePosition = arg1.AbsolutePosition
+      arg1:setState(var346)
    end
    
    function arg1.inputChanged(arg1, arg2)
@@ -42,10 +42,10 @@ function var23.init(arg1)
          local var0 = ((arg2.Position.X - arg1.state.AbsolutePosition.X) / var3 - var2) * (1 - var1)
          var0 = math.clamp(var2 + var0, 0, 1)
          if arg1.ctrlHeld then
-            local var157 = 0
-            if var157 < arg2.Position.Z then
-               var157 = var0
-               var0.SetHorizontalScrollZoom(var157, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
+            local var383 = 0
+            if var383 < arg2.Position.Z then
+               var383 = var0
+               var0.SetHorizontalScrollZoom(var383, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
             end
             local var1 = 0
             if arg2.Position.Z < var1 then
@@ -82,9 +82,9 @@ function var23.init(arg1)
    
    function arg1.getPlayheadPositionX()
       local var0 = arg1.props
-      local var60 = var7
-      var60 = var0.Playhead
-      return arg1.getTrackPadding() * 0.5 + var60.getScaledKeyframePosition(var60, var0.StartTick, var0.EndTick, arg1.state.AbsoluteSize or Vector2.new().X - arg1.getTrackPadding())
+      local var472 = var7
+      var472 = var0.Playhead
+      return arg1.getTrackPadding() * 0.5 + var472.getScaledKeyframePosition(var472, var0.StartTick, var0.EndTick, arg1.state.AbsoluteSize or Vector2.new().X - arg1.getTrackPadding())
    end
    
    function arg1.stepAnimation(arg1)
@@ -171,139 +171,139 @@ function var23.render(arg1)
       local var0 = false
    end
    local var10 = true
-   local var227 = {}
-   var227.BackgroundTransparency = 1
-   var227.ZIndex = var0.ZIndex
-   var227.LayoutOrder = var0.LayoutOrder
-   var227.Size = var0.Size
+   local var639 = {}
+   var639.BackgroundTransparency = 1
+   var639.ZIndex = var0.ZIndex
+   var639.LayoutOrder = var0.LayoutOrder
+   var639.Size = var0.Size
    var1.Change.AbsoluteSize = arg1.updateSize
    var1.Event.InputBegan = arg1.inputBegan
    var1.Event.InputEnded = arg1.inputEnded
    var1.Event.MouseLeave = arg1.stopDragging
-   local var245 = {}
-   local var249 = {}
-   var249.FillDirection = Enum.FillDirection.Vertical
-   var249.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var249.SortOrder = Enum.SortOrder.LayoutOrder
-   var249.VerticalAlignment = Enum.VerticalAlignment.Top
-   var245.Layout = var1.createElement("UIListLayout", var249)
-   local var258 = {}
-   var258.StartTick = var2
-   var258.EndTick = var3
-   var258.LastTick = var0.LastTick
-   var258.SnapMode = var0.SnapMode
-   var258.TrackPadding = var9
-   var258.FrameRate = var0.FrameRate
-   var258.ShowAsSeconds = var4
-   var258.LayoutOrder = 0
-   var258.ParentSize = var7
-   var258.ParentPosition = var8
-   var258.StepAnimation = arg1.stepAnimation
-   var258.SnapToNearestKeyframe = var0.SnapToNearestKeyframe
-   var258.SnapToNearestFrame = var0.SnapToNearestFrame
-   var258.AnimationData = var0.AnimationData
-   var258.Playhead = var6
-   var258.ZIndex = 2
-   var258.EditorMode = var0.EditorMode
-   var258.OnToggleEditorClicked = arg1.toggleEditorClicked
-   var245.TimelineContainer = var1.createElement(var11, var258)
+   local var657 = {}
+   local var661 = {}
+   var661.FillDirection = Enum.FillDirection.Vertical
+   var661.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var661.SortOrder = Enum.SortOrder.LayoutOrder
+   var661.VerticalAlignment = Enum.VerticalAlignment.Top
+   var657.Layout = var1.createElement("UIListLayout", var661)
+   local var670 = {}
+   var670.StartTick = var2
+   var670.EndTick = var3
+   var670.LastTick = var0.LastTick
+   var670.SnapMode = var0.SnapMode
+   var670.TrackPadding = var9
+   var670.FrameRate = var0.FrameRate
+   var670.ShowAsSeconds = var4
+   var670.LayoutOrder = 0
+   var670.ParentSize = var7
+   var670.ParentPosition = var8
+   var670.StepAnimation = arg1.stepAnimation
+   var670.SnapToNearestKeyframe = var0.SnapToNearestKeyframe
+   var670.SnapToNearestFrame = var0.SnapToNearestFrame
+   var670.AnimationData = var0.AnimationData
+   var670.Playhead = var6
+   var670.ZIndex = 2
+   var670.EditorMode = var0.EditorMode
+   var670.OnToggleEditorClicked = arg1.toggleEditorClicked
+   var657.TimelineContainer = var1.createElement(var11, var670)
    if true then
-      local var269 = {}
-      var269.ShowEvents = var5
-      var269.StartTick = var2
-      var269.EndTick = var3
-      var269.TrackPadding = var9
-      var269.TopTrackIndex = var0.TopTrackIndex
-      var269.Size = UDim2.new(1, 0, 1, var6.TIMELINE_HEIGHT - var6.SCROLL_BAR_SIZE)
-      var269.ShowAsSeconds = var4
-      var269.IsChannelAnimation = var0.IsChannelAnimation
-      var269.ColorsPosition = var0.ColorsPosition
-      var269.ZIndex = 1
-      var269.OnInputChanged = arg1.inputChanged
-      local var0 = var1.createElement(var9, var269) or nil
+      local var681 = {}
+      var681.ShowEvents = var5
+      var681.StartTick = var2
+      var681.EndTick = var3
+      var681.TrackPadding = var9
+      var681.TopTrackIndex = var0.TopTrackIndex
+      var681.Size = UDim2.new(1, 0, 1, var6.TIMELINE_HEIGHT - var6.SCROLL_BAR_SIZE)
+      var681.ShowAsSeconds = var4
+      var681.IsChannelAnimation = var0.IsChannelAnimation
+      var681.ColorsPosition = var0.ColorsPosition
+      var681.ZIndex = 1
+      var681.OnInputChanged = arg1.inputChanged
+      local var0 = var1.createElement(var9, var681) or nil
    end
-   var245.DopeSheetController = nil
+   var657.DopeSheetController = nil
    if var10 then
-      local var290 = {}
-      var290.ShowEvents = var5
-      var290.StartTick = var2
-      var290.EndTick = var3
-      var290.TrackPadding = var9
-      var290.Size = UDim2.new(1, 0, 1, var6.TIMELINE_HEIGHT - var6.SCROLL_BAR_SIZE)
-      var290.ShowAsSeconds = var4
-      var290.Playhead = var6
-      var290.ZIndex = 1
-      var290.OnInputChanged = arg1.inputChanged
-      local var0 = var1.createElement(var10, var290) or nil
+      local var702 = {}
+      var702.ShowEvents = var5
+      var702.StartTick = var2
+      var702.EndTick = var3
+      var702.TrackPadding = var9
+      var702.Size = UDim2.new(1, 0, 1, var6.TIMELINE_HEIGHT - var6.SCROLL_BAR_SIZE)
+      var702.ShowAsSeconds = var4
+      var702.Playhead = var6
+      var702.ZIndex = 1
+      var702.OnInputChanged = arg1.inputChanged
+      local var0 = var1.createElement(var10, var702) or nil
    end
-   var245.CurveEditorController = nil
+   var657.CurveEditorController = nil
    if var0.CannotPasteError then
-      local var311 = {}
-      var311.Text = var0.Localization:getText("Toast", "CannotPasteError")
-      var311.OnClose = var0.CloseCannotPasteToast
-      local var0 = var1.createElement(var14, var311) or nil
+      local var723 = {}
+      var723.Text = var0.Localization:getText("Toast", "CannotPasteError")
+      var723.OnClose = var0.CloseCannotPasteToast
+      local var0 = var1.createElement(var14, var723) or nil
    end
-   var245.CannotPasteToast = nil
-   local var325 = {}
-   local var329 = {}
-   var329.Position = UDim2.new(0.5, 0, 0, var6.TIMELINE_HEIGHT)
-   var329.DominantAxis = Enum.DominantAxis.Width
-   var329.Weight = 1
-   var329.Padding = 0
-   var329.ZIndex = 2
-   local var341 = var1.createElement(var5, var329)
-   var325.TimelineBorder = var341
-   var341 = false
-   if var341 then
-      local var345 = {}
-      var345.Position = UDim2.new(0, arg1.getPlayheadPositionX(), 0, 0)
-      var345.AnchorPoint = Vector2.new(0.5, 0)
-      var345.Height = var7.Y
-      var345.ShowHead = true
-      var345.HeadSize = UDim2.new(0, 5, 0, 5)
-      var345.ZIndex = 3
-      var345.Thickness = 1
-      local var0 = var1.createElement(var13, var345)
+   var657.CannotPasteToast = nil
+   local var737 = {}
+   local var741 = {}
+   var741.Position = UDim2.new(0.5, 0, 0, var6.TIMELINE_HEIGHT)
+   var741.DominantAxis = Enum.DominantAxis.Width
+   var741.Weight = 1
+   var741.Padding = 0
+   var741.ZIndex = 2
+   local var753 = var1.createElement(var5, var741)
+   var737.TimelineBorder = var753
+   var753 = false
+   if var753 then
+      local var757 = {}
+      var757.Position = UDim2.new(0, arg1.getPlayheadPositionX(), 0, 0)
+      var757.AnchorPoint = Vector2.new(0.5, 0)
+      var757.Height = var7.Y
+      var757.ShowHead = true
+      var757.HeadSize = UDim2.new(0, 5, 0, 5)
+      var757.ZIndex = 3
+      var757.Thickness = 1
+      local var0 = var1.createElement(var13, var757)
    end
-   var325.Scrubber = var341
-   local var371 = {}
-   var371.Size = UDim2.new(0, var7.X - var6.SCROLL_BAR_PADDING + 1, 0, var6.SCROLL_BAR_SIZE)
-   var371.Position = UDim2.new(0, 0, 1, var6.SCROLL_BAR_SIZE)
-   var371.Direction = var12.HORIZONTAL
-   var371.ZIndex = 4
-   var371.LayoutOrder = 2
-   var371.ContainerSize = Vector2.new(var7.X, var7.Y)
-   var371.AdjustScrollZoom = var0.SetHorizontalScrollZoom
-   var371.Scroll = var0.HorizontalScroll
-   var371.Zoom = var0.HorizontalZoom
-   var371.Min = var8.X + 1
-   local var402 = var1.createElement(var12, var371)
-   var325.HorizontalZoomBar = var402
-   var402 = var10
-   if var402 then
-      local var406 = {}
-      var406.Size = UDim2.new(0, var6.SCROLL_BAR_SIZE, 0, var7.Y - var6.SCROLL_BAR_SIZE - var6.SCROLL_BAR_PADDING - var6.TIMELINE_HEIGHT + 1)
-      var406.Position = UDim2.new(1, 0, 0, var6.TIMELINE_HEIGHT)
-      var406.Direction = var12.VERTICAL
-      var406.ZIndex = 4
-      var406.LayoutOrder = 2
-      var406.ContainerSize = Vector2.new(var7.X, var7.Y - var6.SCROLL_BAR_SIZE - var6.TIMELINE_HEIGHT)
-      var406.AdjustScrollZoom = var0.SetVerticalScrollZoom
-      var406.Scroll = var0.VerticalScroll
-      var406.Zoom = var0.VerticalZoom
-      var406.Min = var8.Y + var6.TIMELINE_HEIGHT + 1
-      local var0 = var1.createElement(var12, var406)
+   var737.Scrubber = var753
+   local var783 = {}
+   var783.Size = UDim2.new(0, var7.X - var6.SCROLL_BAR_PADDING + 1, 0, var6.SCROLL_BAR_SIZE)
+   var783.Position = UDim2.new(0, 0, 1, var6.SCROLL_BAR_SIZE)
+   var783.Direction = var12.HORIZONTAL
+   var783.ZIndex = 4
+   var783.LayoutOrder = 2
+   var783.ContainerSize = Vector2.new(var7.X, var7.Y)
+   var783.AdjustScrollZoom = var0.SetHorizontalScrollZoom
+   var783.Scroll = var0.HorizontalScroll
+   var783.Zoom = var0.HorizontalZoom
+   var783.Min = var8.X + 1
+   local var814 = var1.createElement(var12, var783)
+   var737.HorizontalZoomBar = var814
+   var814 = var10
+   if var814 then
+      local var818 = {}
+      var818.Size = UDim2.new(0, var6.SCROLL_BAR_SIZE, 0, var7.Y - var6.SCROLL_BAR_SIZE - var6.SCROLL_BAR_PADDING - var6.TIMELINE_HEIGHT + 1)
+      var818.Position = UDim2.new(1, 0, 0, var6.TIMELINE_HEIGHT)
+      var818.Direction = var12.VERTICAL
+      var818.ZIndex = 4
+      var818.LayoutOrder = 2
+      var818.ContainerSize = Vector2.new(var7.X, var7.Y - var6.SCROLL_BAR_SIZE - var6.TIMELINE_HEIGHT)
+      var818.AdjustScrollZoom = var0.SetVerticalScrollZoom
+      var818.Scroll = var0.VerticalScroll
+      var818.Zoom = var0.VerticalZoom
+      var818.Min = var8.Y + var6.TIMELINE_HEIGHT + 1
+      local var0 = var1.createElement(var12, var818)
    end
-   var325.VerticalZoomBar = var402
-   local var455 = {}
-   function var455.OnKeyPressed(arg1)
-      local var458 = {}
-      var458.AbsoluteSize = arg1.AbsoluteSize
-      var458.AbsolutePosition = arg1.AbsolutePosition
-      arg1:setState(var458)
+   var737.VerticalZoomBar = var814
+   local var867 = {}
+   function var867.OnKeyPressed(arg1)
+      local var870 = {}
+      var870.AbsoluteSize = arg1.AbsoluteSize
+      var870.AbsolutePosition = arg1.AbsolutePosition
+      arg1:setState(var870)
    end
    
-   function var455.OnKeyReleased(arg1, arg2)
+   function var867.OnKeyReleased(arg1, arg2)
       local var0 = arg1.props
       local var1 = var0.HorizontalZoom
       local var2 = var0.HorizontalScroll
@@ -312,10 +312,10 @@ function var23.render(arg1)
          local var0 = ((arg2.Position.X - arg1.state.AbsolutePosition.X) / var3 - var2) * (1 - var1)
          var0 = math.clamp(var2 + var0, 0, 1)
          if arg1.ctrlHeld then
-            local var495 = 0
-            if var495 < arg2.Position.Z then
-               var495 = var0
-               var0.SetHorizontalScrollZoom(var495, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
+            local var907 = 0
+            if var907 < arg2.Position.Z then
+               var907 = var0
+               var0.SetHorizontalScrollZoom(var907, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
             end
             local var1 = 0
             if arg2.Position.Z < var1 then
@@ -342,24 +342,24 @@ function var23.render(arg1)
       end
    end
    
-   var325.KeyboardListener = var1.createElement(var4, var455)
-   var245.IgnoreLayout = var1.createElement("Folder", {}, var325)
-   return var1.createElement("Frame", var227, var245)
+   var737.KeyboardListener = var1.createElement(var4, var867)
+   var657.IgnoreLayout = var1.createElement("Folder", {}, var737)
+   return var1.createElement("Frame", var639, var657)
 end
 
-local var774 = {}
-var774.Analytics = var3.Analytics
-var774.Localization = var3.Localization
-local var777 = var3.Mouse
-var774.Mouse = var777
-var23 = var3.withContext(var774)(var23)
-function var777(arg1)
+local var1186 = {}
+var1186.Analytics = var3.Analytics
+var1186.Localization = var3.Localization
+local var1189 = var3.Mouse
+var1186.Mouse = var1189
+var23 = var3.withContext(var1186)(var23)
+function var1189(arg1)
    local var0 = {}
    function var0.CloseCannotPasteToast(arg1)
-      local var589 = {}
-      var589.AbsoluteSize = arg1.AbsoluteSize
-      var589.AbsolutePosition = arg1.AbsolutePosition
-      arg1:setState(var589)
+      local var1001 = {}
+      var1001.AbsoluteSize = arg1.AbsoluteSize
+      var1001.AbsolutePosition = arg1.AbsolutePosition
+      arg1:setState(var1001)
    end
    
    function var0.SetHorizontalScrollZoom(arg1, arg2)
@@ -371,10 +371,10 @@ function var777(arg1)
          local var0 = ((arg2.Position.X - arg1.state.AbsolutePosition.X) / var3 - var2) * (1 - var1)
          var0 = math.clamp(var2 + var0, 0, 1)
          if arg1.ctrlHeld then
-            local var626 = 0
-            if var626 < arg2.Position.Z then
-               var626 = var0
-               var0.SetHorizontalScrollZoom(var626, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
+            local var1038 = 0
+            if var1038 < arg2.Position.Z then
+               var1038 = var0
+               var0.SetHorizontalScrollZoom(var1038, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
             end
             local var1 = 0
             if arg2.Position.Z < var1 then
@@ -411,9 +411,9 @@ function var777(arg1)
    
    function var0.SnapToNearestKeyframe()
       local var0 = arg1.props
-      local var715 = var7
-      var715 = var0.Playhead
-      return arg1.getTrackPadding() * 0.5 + var715.getScaledKeyframePosition(var715, var0.StartTick, var0.EndTick, arg1.state.AbsoluteSize or Vector2.new().X - arg1.getTrackPadding())
+      local var1127 = var7
+      var1127 = var0.Playhead
+      return arg1.getTrackPadding() * 0.5 + var1127.getScaledKeyframePosition(var1127, var0.StartTick, var0.EndTick, arg1.state.AbsoluteSize or Vector2.new().X - arg1.getTrackPadding())
    end
    
    function var0.SnapToNearestFrame(arg1)
@@ -464,4 +464,4 @@ return require(var0.Packages.RoactRodux).connect(function(arg1)
    var0.SnapMode = arg1.Status.SnapMode
    var0.ReadOnly = arg1.Status.ReadOnly
    return var0
-end, var777)(var23)
+end, var1189)(var23)

@@ -37,8 +37,9 @@ local CALL_DIALOG_DISPLAY_ORDER = 8
 
 local CANCEL_TEXT_KEY = "Feature.SettingsHub.Action.Cancel"
 local BLOCK_TEXT_KEY = "Feature.SettingsHub.Action.Block"
-local BLOCK_TITLE_KEY = "Feature.SettingsHub.Heading.BlockUser"
+local BLOCK_TITLE_KEY = "Feature.Call.Label.Block"
 local UNFRIEND_TEXT_KEY = "FriendPlayerPrompt.Label.Unfriend"
+local UNFRIEND_TITLE_KEY = "Feature.Call.Label.Unfriend"
 local BODY_KEY = "Feature.SettingsHub.Message.BlockConfirmation"
 
 local function PlayerMenuContainer()
@@ -113,7 +114,7 @@ local function PlayerMenuContainer()
 				else (FriendAction.Block :: any).rawValue()
 		then
 			setTitle(RobloxTranslator:FormatByKey(BLOCK_TITLE_KEY, {
-				DisplayName = friend.combinedName,
+				combinedName = friend.combinedName,
 			}))
 			setButtonName(RobloxTranslator:FormatByKey(BLOCK_TEXT_KEY))
 		elseif
@@ -122,7 +123,9 @@ local function PlayerMenuContainer()
 				then FriendAction.Unfriend
 				else (FriendAction.Unfriend :: any).rawValue()
 		then
-			setTitle("Unfriend " .. friend.combinedName) -- TODO: Unfriend {DisplayName} localization needed
+			setTitle(RobloxTranslator:FormatByKey(UNFRIEND_TITLE_KEY, {
+				combinedName = friend.combinedName,
+			}))
 			setButtonName(RobloxTranslator:FormatByKey(UNFRIEND_TEXT_KEY))
 		end
 	end, { dialogType, friend.combinedName })

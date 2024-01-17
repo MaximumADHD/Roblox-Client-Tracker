@@ -16,6 +16,30 @@ function var3.GetScriptBackupChunks(arg1, arg2)
    return var1
 end
 
+function var3.HasScriptBackup(arg1, arg2)
+   local var0 = arg2:GetAttribute(var2.AttributeChunkCountName)
+   if var0 then
+      if var0 == 0 then
+         return false
+      end
+   end
+   return false
+   return true
+end
+
+function var3.RemoveScriptBackupChunks(arg1, arg2)
+   local var0 = arg2:GetAttribute(var2.AttributeChunkCountName)
+   if not var0 then
+   end
+   arg2:SetAttribute(var2.AttributeChunkCountName, nil)
+   arg2:SetAttribute(var2.InitialIssueCountName, nil)
+   local var1 = var0
+   local var2 = 1
+   local var71 = var2
+   var71 = 1
+   arg2:SetAttribute(var71.AttributeChunkNameBase ... tostring(var71), nil)
+end
+
 function var3.DidSourceChange(arg1, arg2, arg3)
    if not arg3 then
       arg3 = arg1:GetScriptBackupChunks(arg2)
@@ -24,12 +48,12 @@ function var3.DidSourceChange(arg1, arg2, arg3)
       return false
    end
    local var0 = var1:GetEditorSource(arg2)
-   local var57 = arg3
-   local var58 = nil
-   local var59 = nil
-   local var2 = "" ... var61
-   var58 = var0
-   var0 = string.gsub(var58, "\r\n", "\n")
+   local var91 = arg3
+   local var92 = nil
+   local var93 = nil
+   local var2 = "" ... var95
+   var92 = var0
+   var0 = string.gsub(var92, "\r\n", "\n")
    var2 = string.gsub(var2, "\r\n", "\n")
    if var0 == "gsub" then
       return false
@@ -76,19 +100,26 @@ end
 function var3.SplitIntoChunks(arg1, arg2)
    local var0 = {}
    local var1 = arg2
-   local var149 = var2
-   local var150 = var149.CharacterLimit
-   while var150 < string.len(var1) do
-      local var159 = var2.CharacterLimit
-      local var0 = (var0 + 1) * var159
-      var159 = var0
-      table.insert(var159, string.sub(var1, var0 * var2.CharacterLimit + 1, var0))
+   local var183 = var2
+   local var184 = var183.CharacterLimit
+   while var184 < string.len(var1) do
+      local var193 = var2.CharacterLimit
+      local var0 = (var0 + 1) * var193
+      var193 = var0
+      table.insert(var193, string.sub(var1, var0 * var2.CharacterLimit + 1, var0))
       var1 = string.sub(var1, var0 + 1, string.len(var1))
    end
-   var150 = var0
-   var149 = var1
-   table.insert(var150, var149)
+   var184 = var0
+   var183 = var1
+   table.insert(var184, var183)
    return var0
+end
+
+function var3.GetScriptSourceFromChunks(arg1, arg2)
+   local var0 = arg1:GetScriptBackupChunks(arg2)
+   local var1 = var0
+   local var2 = 1
+   return "" ... var0[1]
 end
 
 return var3

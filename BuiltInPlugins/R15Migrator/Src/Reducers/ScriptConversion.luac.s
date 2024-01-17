@@ -119,6 +119,28 @@ PROTO_10:
   CALL R2 2 -1
   RETURN R2 -1
 
+PROTO_11:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"backedupScripts"}]
+  GETTABLEKS R5 R1 K2 ["backedupScripts"]
+  SETTABLEKS R5 R4 K2 ["backedupScripts"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_12:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"backedupScripts"}]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K2 ["backedupScripts"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -139,7 +161,7 @@ MAIN:
   GETTABLEKS R5 R3 K10 ["SaveInterface"]
   CALL R4 1 1
   GETTABLEKS R5 R1 K11 ["createReducer"]
-  DUPTABLE R6 K23 [{"diagnostics", "completedScripts", "selection", "expansion", "initialIssueCounts", "revertedScripts", "filter", "replaceRules", "replaceProgress", "messageKey", "processResult"}]
+  DUPTABLE R6 K24 [{"diagnostics", "completedScripts", "selection", "expansion", "initialIssueCounts", "revertedScripts", "filter", "replaceRules", "replaceProgress", "messageKey", "processResult", "backedupScripts"}]
   NEWTABLE R7 0 0
   SETTABLEKS R7 R6 K12 ["diagnostics"]
   NEWTABLE R7 0 0
@@ -154,86 +176,94 @@ MAIN:
   SETTABLEKS R7 R6 K17 ["revertedScripts"]
   LOADNIL R7
   SETTABLEKS R7 R6 K18 ["filter"]
-  GETTABLEKS R7 R4 K24 ["getScriptConversionRules"]
+  GETTABLEKS R7 R4 K25 ["getScriptConversionRules"]
   CALL R7 0 1
   JUMPIF R7 [+54]
   NEWTABLE R7 0 5
-  DUPTABLE R8 K28 [{"FromText", "ToText", "Enabled"}]
-  LOADK R9 K29 ["Left Arm"]
-  SETTABLEKS R9 R8 K25 ["FromText"]
-  LOADK R9 K30 [""]
-  SETTABLEKS R9 R8 K26 ["ToText"]
+  DUPTABLE R8 K29 [{"FromText", "ToText", "Enabled"}]
+  LOADK R9 K30 ["Left Arm"]
+  SETTABLEKS R9 R8 K26 ["FromText"]
+  LOADK R9 K31 [""]
+  SETTABLEKS R9 R8 K27 ["ToText"]
   LOADB R9 1
-  SETTABLEKS R9 R8 K27 ["Enabled"]
-  DUPTABLE R9 K28 [{"FromText", "ToText", "Enabled"}]
-  LOADK R10 K31 ["Right Arm"]
-  SETTABLEKS R10 R9 K25 ["FromText"]
-  LOADK R10 K30 [""]
-  SETTABLEKS R10 R9 K26 ["ToText"]
+  SETTABLEKS R9 R8 K28 ["Enabled"]
+  DUPTABLE R9 K29 [{"FromText", "ToText", "Enabled"}]
+  LOADK R10 K32 ["Right Arm"]
+  SETTABLEKS R10 R9 K26 ["FromText"]
+  LOADK R10 K31 [""]
+  SETTABLEKS R10 R9 K27 ["ToText"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K27 ["Enabled"]
-  DUPTABLE R10 K28 [{"FromText", "ToText", "Enabled"}]
-  LOADK R11 K32 ["Left Leg"]
-  SETTABLEKS R11 R10 K25 ["FromText"]
-  LOADK R11 K30 [""]
-  SETTABLEKS R11 R10 K26 ["ToText"]
+  SETTABLEKS R10 R9 K28 ["Enabled"]
+  DUPTABLE R10 K29 [{"FromText", "ToText", "Enabled"}]
+  LOADK R11 K33 ["Left Leg"]
+  SETTABLEKS R11 R10 K26 ["FromText"]
+  LOADK R11 K31 [""]
+  SETTABLEKS R11 R10 K27 ["ToText"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K27 ["Enabled"]
-  DUPTABLE R11 K28 [{"FromText", "ToText", "Enabled"}]
-  LOADK R12 K33 ["Right Leg"]
-  SETTABLEKS R12 R11 K25 ["FromText"]
-  LOADK R12 K30 [""]
-  SETTABLEKS R12 R11 K26 ["ToText"]
+  SETTABLEKS R11 R10 K28 ["Enabled"]
+  DUPTABLE R11 K29 [{"FromText", "ToText", "Enabled"}]
+  LOADK R12 K34 ["Right Leg"]
+  SETTABLEKS R12 R11 K26 ["FromText"]
+  LOADK R12 K31 [""]
+  SETTABLEKS R12 R11 K27 ["ToText"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K27 ["Enabled"]
-  DUPTABLE R12 K28 [{"FromText", "ToText", "Enabled"}]
-  LOADK R13 K34 ["Torso"]
-  SETTABLEKS R13 R12 K25 ["FromText"]
-  LOADK R13 K30 [""]
-  SETTABLEKS R13 R12 K26 ["ToText"]
+  SETTABLEKS R12 R11 K28 ["Enabled"]
+  DUPTABLE R12 K29 [{"FromText", "ToText", "Enabled"}]
+  LOADK R13 K35 ["Torso"]
+  SETTABLEKS R13 R12 K26 ["FromText"]
+  LOADK R13 K31 [""]
+  SETTABLEKS R13 R12 K27 ["ToText"]
   LOADB R13 1
-  SETTABLEKS R13 R12 K27 ["Enabled"]
+  SETTABLEKS R13 R12 K28 ["Enabled"]
   SETLIST R7 R8 5 [1]
   SETTABLEKS R7 R6 K19 ["replaceRules"]
   LOADNIL R7
   SETTABLEKS R7 R6 K20 ["replaceProgress"]
-  LOADK R7 K30 [""]
+  LOADK R7 K31 [""]
   SETTABLEKS R7 R6 K21 ["messageKey"]
   NEWTABLE R7 0 0
   SETTABLEKS R7 R6 K22 ["processResult"]
-  DUPTABLE R7 K46 [{"SetDiagnostics", "SetFilter", "SetScriptSelection", "SetScriptExpansion", "SetCompletedScripts", "SetInitialIssueCounts", "SetRevertedScripts", "SetReplaceRules", "SetReplaceProgress", "SetProgressBarMessageKey", "SetProcessResult"}]
-  DUPCLOSURE R8 K47 [PROTO_0]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K23 ["backedupScripts"]
+  DUPTABLE R7 K49 [{"SetDiagnostics", "SetFilter", "SetScriptSelection", "SetScriptExpansion", "SetCompletedScripts", "SetInitialIssueCounts", "SetRevertedScripts", "SetReplaceRules", "SetReplaceProgress", "SetProgressBarMessageKey", "SetProcessResult", "SetScriptBackups", "ResetScriptBackups"}]
+  DUPCLOSURE R8 K50 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K35 ["SetDiagnostics"]
-  DUPCLOSURE R8 K48 [PROTO_1]
+  SETTABLEKS R8 R7 K36 ["SetDiagnostics"]
+  DUPCLOSURE R8 K51 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K36 ["SetFilter"]
-  DUPCLOSURE R8 K49 [PROTO_2]
+  SETTABLEKS R8 R7 K37 ["SetFilter"]
+  DUPCLOSURE R8 K52 [PROTO_2]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K37 ["SetScriptSelection"]
-  DUPCLOSURE R8 K50 [PROTO_3]
+  SETTABLEKS R8 R7 K38 ["SetScriptSelection"]
+  DUPCLOSURE R8 K53 [PROTO_3]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K38 ["SetScriptExpansion"]
-  DUPCLOSURE R8 K51 [PROTO_4]
+  SETTABLEKS R8 R7 K39 ["SetScriptExpansion"]
+  DUPCLOSURE R8 K54 [PROTO_4]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K39 ["SetCompletedScripts"]
-  DUPCLOSURE R8 K52 [PROTO_5]
+  SETTABLEKS R8 R7 K40 ["SetCompletedScripts"]
+  DUPCLOSURE R8 K55 [PROTO_5]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K40 ["SetInitialIssueCounts"]
-  DUPCLOSURE R8 K53 [PROTO_6]
+  SETTABLEKS R8 R7 K41 ["SetInitialIssueCounts"]
+  DUPCLOSURE R8 K56 [PROTO_6]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K41 ["SetRevertedScripts"]
-  DUPCLOSURE R8 K54 [PROTO_7]
+  SETTABLEKS R8 R7 K42 ["SetRevertedScripts"]
+  DUPCLOSURE R8 K57 [PROTO_7]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K42 ["SetReplaceRules"]
-  DUPCLOSURE R8 K55 [PROTO_8]
+  SETTABLEKS R8 R7 K43 ["SetReplaceRules"]
+  DUPCLOSURE R8 K58 [PROTO_8]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K43 ["SetReplaceProgress"]
-  DUPCLOSURE R8 K56 [PROTO_9]
+  SETTABLEKS R8 R7 K44 ["SetReplaceProgress"]
+  DUPCLOSURE R8 K59 [PROTO_9]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K44 ["SetProgressBarMessageKey"]
-  DUPCLOSURE R8 K57 [PROTO_10]
+  SETTABLEKS R8 R7 K45 ["SetProgressBarMessageKey"]
+  DUPCLOSURE R8 K60 [PROTO_10]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K45 ["SetProcessResult"]
+  SETTABLEKS R8 R7 K46 ["SetProcessResult"]
+  DUPCLOSURE R8 K61 [PROTO_11]
+  CAPTURE VAL R2
+  SETTABLEKS R8 R7 K47 ["SetScriptBackups"]
+  DUPCLOSURE R8 K62 [PROTO_12]
+  CAPTURE VAL R2
+  SETTABLEKS R8 R7 K48 ["ResetScriptBackups"]
   CALL R5 2 1
   RETURN R5 1

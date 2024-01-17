@@ -9,7 +9,8 @@ local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFla
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 
 local isCamEnabledForUserAndPlace = function(): boolean
-	if not GetFFlagAvatarChatServiceEnabled() then
+	-- Disable the avatar chat feature check if executing in a test environment
+	if not GetFFlagAvatarChatServiceEnabled() or _G.__TESTEZ_RUNNING_TEST__ then
 		return false
 	end
 	local ok: boolean, clientFeatures: number = pcall(AvatarChatService.GetClientFeaturesAsync, AvatarChatService)

@@ -63,7 +63,6 @@ local ERROR_ICON = "icons/status/error_large"
 local DELAYED_INPUT_SEC = 2.5
 
 local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMessage", false)
-local FFlagPauseGameExploitFix = game:DefineFastFlag("PauseGameExploitFix", false)
 local FFlagPurchaseWithGamePausedFix = game:DefineFastFlag("PurchaseWithGamePausedFix", false)
 
 local function isRelevantRequestType(requestType, purchaseFlow)
@@ -117,7 +116,7 @@ function ProductPurchaseContainer:init()
 	end
 
 	self.canConfirmInput = function()
-		if FFlagPauseGameExploitFix and Players.LocalPlayer.GameplayPaused then
+		if Players.LocalPlayer.GameplayPaused then
 			return false
 		end
 		-- check == false because isAnimating == nil is used for when its not even shown
@@ -375,12 +374,8 @@ function ProductPurchaseContainer:render()
 			buyItemControllerIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
 			cancelControllerIcon = self.props.isGamepadEnabled and BUTTON_B_ICON or nil,
 
-			buyItemActivated = FFlagPauseGameExploitFix
-				and self.confirmButtonPressed
-				or self.getConfirmButtonAction(promptState, requestType, purchaseError),
-			cancelPurchaseActivated = FFlagPauseGameExploitFix
-				and self.cancelButtonPressed
-				or self.getCancelButtonAction(promptState, requestType),
+			buyItemActivated = self.confirmButtonPressed,
+			cancelPurchaseActivated = self.cancelButtonPressed,
 			
 			isLuobu = self.state.isLuobu,
 		})
@@ -402,12 +397,8 @@ function ProductPurchaseContainer:render()
 			buyItemControllerIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
 			cancelControllerIcon = self.props.isGamepadEnabled and BUTTON_B_ICON or nil,
 
-			buyItemActivated = FFlagPauseGameExploitFix
-				and self.confirmButtonPressed
-				or self.getConfirmButtonAction(promptState, requestType, purchaseError),
-			cancelPurchaseActivated = FFlagPauseGameExploitFix
-				and self.cancelButtonPressed
-				or self.getCancelButtonAction(promptState, requestType),
+			buyItemActivated = self.confirmButtonPressed,
+			cancelPurchaseActivated = self.cancelButtonPressed,
 			
 			isLuobu = self.state.isLuobu,
 		})
@@ -423,9 +414,7 @@ function ProductPurchaseContainer:render()
 						buttons = {
 							{
 								props = {
-									onActivated = FFlagPauseGameExploitFix
-										and self.cancelButtonPressed
-										or self.getCancelButtonAction(promptState, requestType),
+									onActivated = self.cancelButtonPressed,
 									text = localeMap.cancelText,
 									inputIcon = self.props.isGamepadEnabled and BUTTON_B_ICON or nil,
 								},
@@ -433,9 +422,7 @@ function ProductPurchaseContainer:render()
 							{
 								buttonType = ButtonType.PrimarySystem,
 								props = {
-									onActivated = FFlagPauseGameExploitFix
-										and self.confirmButtonPressed
-										or self.getConfirmButtonAction(promptState, requestType, purchaseError),
+									onActivated = self.confirmButtonPressed,
 									text = localeMap.okText,
 									inputIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
 								},
@@ -459,9 +446,7 @@ function ProductPurchaseContainer:render()
 							{
 								buttonType = ButtonType.PrimarySystem,
 								props = {
-									onActivated = FFlagPauseGameExploitFix
-										and self.confirmButtonPressed
-										or self.getConfirmButtonAction(promptState, requestType, purchaseError),
+									onActivated = self.confirmButtonPressed,
 									text = localeMap.okText,
 									inputIcon = self.props.isGamepadEnabled and BUTTON_A_ICON or nil,
 								},

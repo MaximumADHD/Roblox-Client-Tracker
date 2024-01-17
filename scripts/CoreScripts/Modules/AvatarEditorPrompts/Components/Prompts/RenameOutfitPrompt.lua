@@ -37,7 +37,7 @@ RenameOutfitNamePrompt.validateProps = t.strictInterface({
 	performRenameOutfit = t.callback,
 
 	-- AvatarEditorPromptsPolicy
-	showCustomCostumeNames = t.boolean,
+	showCustomOutfitNames = t.boolean,
 })
 
 function RenameOutfitNamePrompt:init()
@@ -58,8 +58,8 @@ function RenameOutfitNamePrompt:init()
 end
 
 function RenameOutfitNamePrompt:render()
-	if not self.props.showCustomCostumeNames then
-		-- showCustomCostumeNames could be false because a developer called AvatarEditorService:PromptRenameOutfit()
+	if not self.props.showCustomOutfitNames then
+		-- showCustomOutfitNames could be false because a developer called AvatarEditorService:PromptRenameOutfit()
 		-- even though the user should not be able to name their costumes.
 		return Roact.createElement(InteractiveAlert, {
 			title = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.DisabledRenameOutfitPromptTitle"),
@@ -138,7 +138,7 @@ RenameOutfitNamePrompt = RoactRodux.connect(mapStateToProps, mapDispatchToProps)
 
 RenameOutfitNamePrompt = AvatarEditorPromptsPolicy.connect(function(appPolicy, props)
 	return {
-		showCustomCostumeNames = appPolicy.getCustomCostumeNames(),
+		showCustomOutfitNames = appPolicy.getCustomOutfitNames(),
 	}
 end)(RenameOutfitNamePrompt)
 

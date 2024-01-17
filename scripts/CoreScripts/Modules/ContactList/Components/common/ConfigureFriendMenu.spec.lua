@@ -8,6 +8,9 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
 	local Reducer = require(script.Parent.Parent.Parent.Reducer)
 	local ConfigureFriendMenu = require(script.Parent.ConfigureFriendMenu)
 
@@ -28,11 +31,13 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(
-				UIBlox.Core.Style.Provider,
-				{},
-				{ ConfigureFriendMenu = Roact.createElement(ConfigureFriendMenu) }
-			),
+			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					ConfigureFriendMenu = Roact.createElement(ConfigureFriendMenu),
+				}),
+			}),
 		})
 
 		local folder = Instance.new("Folder")

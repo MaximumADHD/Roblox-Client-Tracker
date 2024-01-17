@@ -36,6 +36,15 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["props"]
+  GETUPVAL R1 1
+  GETTABLEKS R2 R0 K1 ["selection"]
+  GETTABLEKS R3 R0 K2 ["ScriptConversionContext"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_4:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K0 ["onRevertClicked"]
@@ -47,9 +56,13 @@ PROTO_3:
   NEWCLOSURE R1 P2
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K2 ["onConvertClicked"]
+  NEWCLOSURE R1 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K3 ["revertEnabled"]
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Localization"]
   GETTABLEKS R3 R1 K2 ["LayoutOrder"]
@@ -110,16 +123,24 @@ PROTO_4:
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 4
-  DUPTABLE R17 K46 [{"Size", "Text", "OnClick", "LayoutOrder"}]
-  GETTABLEKS R18 R4 K47 ["RevertButtonSize"]
+  DUPTABLE R17 K47 [{"Size", "Text", "OnClick", "StyleModifier", "LayoutOrder"}]
+  GETTABLEKS R18 R4 K48 ["RevertButtonSize"]
   SETTABLEKS R18 R17 K4 ["Size"]
-  LOADK R20 K48 ["ScriptConversion"]
-  LOADK R21 K49 ["Revert"]
-  NAMECALL R18 R2 K50 ["getText"]
+  LOADK R20 K49 ["ScriptConversion"]
+  LOADK R21 K50 ["Revert"]
+  NAMECALL R18 R2 K51 ["getText"]
   CALL R18 3 1
   SETTABLEKS R18 R17 K44 ["Text"]
-  GETTABLEKS R18 R0 K51 ["openDialog"]
+  GETTABLEKS R18 R0 K52 ["openDialog"]
   SETTABLEKS R18 R17 K45 ["OnClick"]
+  GETTABLEKS R19 R0 K53 ["revertEnabled"]
+  CALL R19 0 1
+  JUMPIF R19 [+4]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K54 ["Disabled"]
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K46 ["StyleModifier"]
   NAMECALL R18 R6 K26 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K2 ["LayoutOrder"]
@@ -128,15 +149,15 @@ PROTO_4:
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 4
-  DUPTABLE R17 K46 [{"Size", "Text", "OnClick", "LayoutOrder"}]
-  GETTABLEKS R18 R4 K52 ["ConvertButtonSize"]
+  DUPTABLE R17 K55 [{"Size", "Text", "OnClick", "LayoutOrder"}]
+  GETTABLEKS R18 R4 K56 ["ConvertButtonSize"]
   SETTABLEKS R18 R17 K4 ["Size"]
-  LOADK R20 K48 ["ScriptConversion"]
-  LOADK R21 K53 ["Convert"]
-  NAMECALL R18 R2 K50 ["getText"]
+  LOADK R20 K49 ["ScriptConversion"]
+  LOADK R21 K57 ["Convert"]
+  NAMECALL R18 R2 K51 ["getText"]
   CALL R18 3 1
   SETTABLEKS R18 R17 K44 ["Text"]
-  GETTABLEKS R18 R0 K54 ["onConvertClicked"]
+  GETTABLEKS R18 R0 K58 ["onConvertClicked"]
   SETTABLEKS R18 R17 K45 ["OnClick"]
   NAMECALL R18 R6 K26 ["getNextOrder"]
   CALL R18 1 1
@@ -148,7 +169,7 @@ PROTO_4:
   CALL R7 3 -1
   RETURN R7 -1
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R4 0
   GETUPVAL R5 1
   MOVE R6 R0
@@ -159,7 +180,7 @@ PROTO_5:
   CALL R4 -1 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R3 0
   GETUPVAL R4 1
   MOVE R5 R0
@@ -169,7 +190,7 @@ PROTO_6:
   CALL R3 -1 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   DUPTABLE R1 K2 [{"ReplaceWithRules", "RevertScripts"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
@@ -180,6 +201,13 @@ PROTO_7:
   CAPTURE UPVAL U1
   SETTABLEKS R2 R1 K1 ["RevertScripts"]
   RETURN R1 1
+
+PROTO_9:
+  DUPTABLE R2 K1 [{"selection"}]
+  GETTABLEKS R4 R0 K2 ["ScriptConversion"]
+  GETTABLEKS R3 R4 K0 ["selection"]
+  SETTABLEKS R3 R2 K0 ["selection"]
+  RETURN R2 1
 
 MAIN:
   PREPVARARGS 0
@@ -230,48 +258,58 @@ MAIN:
   GETTABLEKS R12 R13 K19 ["Util"]
   GETTABLEKS R11 R12 K20 ["showDialog"]
   CALL R10 1 1
-  GETTABLEKS R11 R1 K21 ["UI"]
-  GETTABLEKS R12 R11 K22 ["Pane"]
-  GETTABLEKS R13 R11 K23 ["Button"]
-  GETTABLEKS R14 R1 K19 ["Util"]
-  GETTABLEKS R15 R14 K24 ["LayoutOrderIterator"]
-  GETTABLEKS R16 R2 K25 ["PureComponent"]
-  LOADK R18 K26 ["ScriptConversionPaneFooter"]
-  NAMECALL R16 R16 K27 ["extend"]
-  CALL R16 2 1
-  DUPCLOSURE R17 K28 [PROTO_3]
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R15 R0 K10 ["Src"]
+  GETTABLEKS R14 R15 K19 ["Util"]
+  GETTABLEKS R13 R14 K21 ["ScriptHistory"]
+  GETTABLEKS R12 R13 K22 ["selectionHasScriptBackups"]
+  CALL R11 1 1
+  GETTABLEKS R12 R1 K23 ["UI"]
+  GETTABLEKS R13 R12 K24 ["Pane"]
+  GETTABLEKS R14 R12 K25 ["Button"]
+  GETTABLEKS R15 R1 K19 ["Util"]
+  GETTABLEKS R16 R15 K26 ["StyleModifier"]
+  GETTABLEKS R17 R15 K27 ["LayoutOrderIterator"]
+  GETTABLEKS R18 R2 K28 ["PureComponent"]
+  LOADK R20 K29 ["ScriptConversionPaneFooter"]
+  NAMECALL R18 R18 K30 ["extend"]
+  CALL R18 2 1
+  DUPCLOSURE R19 K31 [PROTO_4]
   CAPTURE VAL R10
   CAPTURE VAL R7
-  SETTABLEKS R17 R16 K29 ["init"]
-  DUPCLOSURE R17 K30 [PROTO_4]
-  CAPTURE VAL R15
+  CAPTURE VAL R11
+  SETTABLEKS R19 R18 K32 ["init"]
+  DUPCLOSURE R19 K33 [PROTO_5]
+  CAPTURE VAL R17
   CAPTURE VAL R2
-  CAPTURE VAL R12
-  CAPTURE VAL R8
   CAPTURE VAL R13
-  SETTABLEKS R17 R16 K31 ["render"]
-  GETTABLEKS R17 R4 K32 ["withContext"]
-  DUPTABLE R18 K37 [{"Analytics", "Plugin", "Localization", "Stylizer", "ScriptConversionContext"}]
-  GETTABLEKS R19 R4 K33 ["Analytics"]
-  SETTABLEKS R19 R18 K33 ["Analytics"]
-  GETTABLEKS R19 R4 K34 ["Plugin"]
-  SETTABLEKS R19 R18 K34 ["Plugin"]
-  GETTABLEKS R19 R4 K35 ["Localization"]
-  SETTABLEKS R19 R18 K35 ["Localization"]
-  GETTABLEKS R19 R4 K36 ["Stylizer"]
-  SETTABLEKS R19 R18 K36 ["Stylizer"]
-  SETTABLEKS R9 R18 K18 ["ScriptConversionContext"]
-  CALL R17 1 1
-  MOVE R18 R16
-  CALL R17 1 1
-  MOVE R16 R17
-  DUPCLOSURE R17 K38 [PROTO_7]
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  SETTABLEKS R19 R18 K34 ["render"]
+  GETTABLEKS R19 R4 K35 ["withContext"]
+  DUPTABLE R20 K40 [{"Analytics", "Plugin", "Localization", "Stylizer", "ScriptConversionContext"}]
+  GETTABLEKS R21 R4 K36 ["Analytics"]
+  SETTABLEKS R21 R20 K36 ["Analytics"]
+  GETTABLEKS R21 R4 K37 ["Plugin"]
+  SETTABLEKS R21 R20 K37 ["Plugin"]
+  GETTABLEKS R21 R4 K38 ["Localization"]
+  SETTABLEKS R21 R20 K38 ["Localization"]
+  GETTABLEKS R21 R4 K39 ["Stylizer"]
+  SETTABLEKS R21 R20 K39 ["Stylizer"]
+  SETTABLEKS R9 R20 K18 ["ScriptConversionContext"]
+  CALL R19 1 1
+  MOVE R20 R18
+  CALL R19 1 1
+  MOVE R18 R19
+  DUPCLOSURE R19 K41 [PROTO_8]
   CAPTURE VAL R5
   CAPTURE VAL R6
-  GETTABLEKS R18 R3 K39 ["connect"]
-  LOADNIL R19
-  MOVE R20 R17
-  CALL R18 2 1
-  MOVE R19 R16
-  CALL R18 1 -1
-  RETURN R18 -1
+  DUPCLOSURE R20 K42 [PROTO_9]
+  GETTABLEKS R21 R3 K43 ["connect"]
+  MOVE R22 R20
+  MOVE R23 R19
+  CALL R21 2 1
+  MOVE R22 R18
+  CALL R21 1 -1
+  RETURN R21 -1

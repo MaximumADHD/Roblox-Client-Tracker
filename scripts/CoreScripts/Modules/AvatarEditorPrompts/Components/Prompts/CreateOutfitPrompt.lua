@@ -35,12 +35,12 @@ CreateOutfitPrompt.validateProps = t.strictInterface({
 	performCreateOutfit = t.callback,
 
 	-- AvatarEditorPromptsPolicy
-	showCustomCostumeNames = t.boolean,
+	showCustomOutfitNames = t.boolean,
 })
 
 function CreateOutfitPrompt:render()
 	local onConfirm
-	if self.props.showCustomCostumeNames then
+	if self.props.showCustomOutfitNames then
 		onConfirm = self.props.createOutfitConfirmed
 	else
 		onConfirm = self.props.performCreateOutfit
@@ -101,7 +101,7 @@ CreateOutfitPrompt = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Cre
 
 CreateOutfitPrompt = AvatarEditorPromptsPolicy.connect(function(appPolicy, props)
 	return {
-		showCustomCostumeNames = appPolicy.getCustomCostumeNames(),
+		showCustomOutfitNames = appPolicy.getCustomOutfitNames(),
 	}
 end)(CreateOutfitPrompt)
 

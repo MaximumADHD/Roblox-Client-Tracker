@@ -9,6 +9,9 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
 	local Reducer = require(script.Parent.Parent.Reducer)
 	local PlayerMenuContainer = require(script.Parent.PlayerMenuContainer)
 
@@ -30,7 +33,11 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				PlayerMenuContainer = Roact.createElement(PlayerMenuContainer),
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					PlayerMenuContainer = Roact.createElement(PlayerMenuContainer),
+				}),
 			}),
 		})
 

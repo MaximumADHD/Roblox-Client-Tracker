@@ -5,7 +5,7 @@ local Rodux = require(CorePackages.Rodux)
 local UIBlox = require(CorePackages.UIBlox)
 local Dash = require(CorePackages.Packages.Dash)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
-local Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
+local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 UIBlox.init(require(CorePackages.Workspace.Packages.RobloxAppUIBloxConfig))
 

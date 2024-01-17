@@ -28,13 +28,6 @@ local Keyboard = require(script:WaitForChild("Keyboard"))
 local Gamepad = require(script:WaitForChild("Gamepad"))
 local DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
 
-local FFlagUserHideControlsWhenMenuOpen do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserHideControlsWhenMenuOpen")
-	end)
-	FFlagUserHideControlsWhenMenuOpen = success and result
-end
-
 local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
@@ -114,20 +107,6 @@ function ControlModule.new()
 
 	self.touchControlFrame = nil
 	self.currentTorsoAngle = 0
-
-	if FFlagUserHideControlsWhenMenuOpen then
-		GuiService.MenuOpened:Connect(function()
-			if self.touchControlFrame and self.touchControlFrame.Visible then
-				self.touchControlFrame.Visible = false
-			end
-		end)
-
-		GuiService.MenuClosed:Connect(function()
-			if self.touchControlFrame then
-				self.touchControlFrame.Visible = true
-			end
-		end)
-	end
 
 	self.vehicleController = VehicleController.new(CONTROL_ACTION_PRIORITY)
 

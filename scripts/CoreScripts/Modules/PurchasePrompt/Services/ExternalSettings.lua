@@ -9,8 +9,6 @@ local GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt
 
 local FFlagPPXboxPromptNative = game:DefineFastFlag("PPXboxPromptNative", false)
 
-local GetFFlagCLI37642 = require(Root.Flags.GetFFlagCLI37642)
-
 local ExternalSettings = {}
 
 function ExternalSettings.new()
@@ -70,10 +68,6 @@ function ExternalSettings.new()
 
 	function service.FFlagPPXboxPromptNative()
 		return FFlagPPXboxPromptNative
-	end
-
-	function service.GetFFlagCLI37642()
-		return GetFFlagCLI37642()
 	end
 
 	return service

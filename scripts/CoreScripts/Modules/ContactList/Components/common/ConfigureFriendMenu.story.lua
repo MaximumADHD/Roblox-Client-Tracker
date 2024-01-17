@@ -4,6 +4,14 @@ local Roact = require(CorePackages.Roact)
 
 return {
 	name = "ConfigureFriendMenu",
-	summary = "Menu That Lets You Configure Friend Options",
+	summary = "Menu accessed from user row in the contact list.",
 	story = Roact.createElement(ConfigureFriendMenu),
+	state = {
+		PlayerMenu = {
+			friend = {
+				userId = 1,
+				combinedName = "Roblox User",
+			},
+		},
+	},
 }

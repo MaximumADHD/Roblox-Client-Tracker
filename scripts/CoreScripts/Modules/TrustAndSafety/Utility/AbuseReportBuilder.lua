@@ -21,6 +21,7 @@ local GetFFlagReportAnythingEnableAdReport = require(CorePackages.Workspace.Pack
 local GetFFlagGetHumanoidDescription = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGetHumanoidDescription
 local GetFFlagRAEnableCircleRegion = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRAEnableCircleRegion
 local GetFFlagReportAnythingAbuseVectorRenameEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagReportAnythingAbuseVectorRenameEnabled
+local GetFFlagReportAnythingIncludeDiscardStatsInReport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagReportAnythingIncludeDiscardStatsInReport
 
 
 local getHumanoidDescription = require(script.Parent.GetHumanoidDescription).getHumanoidDescription
@@ -35,7 +36,15 @@ type IdentifiedAvatar = {
 		maxY: number
 	},
 	hitRate: number,
-	convexHull: {SerializedVector2}
+	convexHull: {SerializedVector2},
+	--[[
+		Only present if GetFFlagReportAnythingIncludeDiscardStatsInReport() is true
+		[1] = wasSkipped - 1 if the avatar was skipped due to too many points discarded, 0 otherwise
+		[2] = total - number of points checked
+		[3] = offScreenDiscardCount
+		[4] = tooCloseDiscardCount
+	]]
+	pointProcessingStats: {number}?
 }
 
 type IdentifiedAd = {
@@ -158,6 +167,16 @@ local transformIdentifiedAvatars = function(identifiedAvatars: AvatarIDResults)
 			hitRate = identifiedAvatar.hitRate,
 			convexHull = transformVectorArray(identifiedAvatar.convexHull)
 		}
+
+		if GetFFlagReportAnythingIncludeDiscardStatsInReport() and identifiedAvatar.pointProcessingStats ~= nil then
+			outputArray[#outputArray].pointProcessingStats = {
+				if identifiedAvatar.pointProcessingStats.wasSkipped then 1 else 0,
+				identifiedAvatar.pointProcessingStats.total,
+				identifiedAvatar.pointProcessingStats.offScreenDiscardCount,
+				identifiedAvatar.pointProcessingStats.tooCloseDiscardCount,
+			}
+		end
+
 	end
 
 	return outputArray

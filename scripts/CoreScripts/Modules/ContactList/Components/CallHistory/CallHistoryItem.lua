@@ -13,14 +13,23 @@ local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.Sha
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local GetFFlagIrisEnumerateCleanupEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisEnumerateCleanupEnabled
+local GetFFlagIrisUseLocalizationProvider =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local useDispatch = dependencies.Hooks.useDispatch
 local UIBlox = dependencies.UIBlox
 local dependencyArray = dependencies.Hooks.dependencyArray
 local getStandardSizeAvatarHeadShotRbxthumb = dependencies.getStandardSizeAvatarHeadShotRbxthumb
+
+local useLocalization
+local RobloxTranslator
+if GetFFlagIrisUseLocalizationProvider() then
+	useLocalization = dependencies.Hooks.useLocalization
+else
+	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
 
 local useSelector = dependencies.Hooks.useSelector
 
@@ -78,11 +87,11 @@ end
 
 local function getCallStatusText(callRecord, localUserId)
 	if getIsMissedCall(callRecord, localUserId) then
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.Missed")
+		return "Feature.Call.Label.Missed"
 	elseif callRecord.callerId == localUserId then
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.Outgoing")
+		return "Feature.Call.Label.Outgoing"
 	else
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.Incoming")
+		return "Feature.Call.Label.Incoming"
 	end
 end
 
@@ -118,7 +127,7 @@ local function getAbsoluteDiffDays(currentTimestamp, recordTimestamp, localeId)
 	return diffDays
 end
 
-local function getTimestampText(endUtc)
+local function getTimestampText(endUtc, yesterdayLabel)
 	local currentTimestamp = DateTime.now()
 	local recordTimestamp = DateTime.fromUnixTimestampMillis(endUtc)
 	local localeId = LocalizationService.RobloxLocaleId
@@ -128,7 +137,7 @@ local function getTimestampText(endUtc)
 	if diffDays == 0 then -- same day
 		return recordTimestamp:FormatLocalTime("LT", localeId)
 	elseif diffDays == 1 then -- yesterday
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.Yesterday")
+		return yesterdayLabel
 	elseif diffDays < 7 then -- within a week
 		return recordTimestamp:FormatLocalTime("dddd", localeId)
 	else -- more than a week
@@ -166,6 +175,20 @@ local function CallHistoryItem(props: Props)
 			combinedName = combinedName,
 		}
 		userName = UserProfiles.Formatters.formatUsername(userName)
+	end
+
+	local callStatusLabel
+	local yesterdayLabel
+	if GetFFlagIrisUseLocalizationProvider() then
+		local localized = useLocalization({
+			callStatusLabel = getCallStatusText(callRecord, localUserId),
+			yesterdayLabel = "Feature.Call.Label.Yesterday",
+		})
+		callStatusLabel = localized.callStatusLabel
+		yesterdayLabel = localized.yesterdayLabel
+	else
+		callStatusLabel = RobloxTranslator:FormatByKey(getCallStatusText(callRecord, localUserId))
+		yesterdayLabel = RobloxTranslator:FormatByKey("Feature.Call.Label.Yesterday")
 	end
 
 	local analytics = useAnalytics()
@@ -344,7 +367,7 @@ local function CallHistoryItem(props: Props)
 					BackgroundTransparency = 1,
 					BorderSizePixel = 0,
 					Font = font.CaptionBody.Font,
-					Text = getCallStatusText(callRecord, localUserId) .. " • " .. getTimestampText(callRecord.endUtc),
+					Text = callStatusLabel .. " • " .. getTimestampText(callRecord.endUtc, yesterdayLabel),
 					TextColor3 = theme.TextDefault.Color,
 					TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
 					TextTransparency = theme.TextDefault.Transparency,

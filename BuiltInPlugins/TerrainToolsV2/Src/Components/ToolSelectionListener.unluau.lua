@@ -30,16 +30,16 @@ function var4.render(arg1)
 end
 
 fun22 = var2.withContext
-local var1011 = {}
-var1011.Analytics = var2.Analytics
-local var1013 = require(var0.Src.ContextItems).PluginActivationController
-var1011.PluginActivationController = var1013
-var4 = fun22(var1011)(var4)
-function var1013(arg1, arg2)
+local var1005 = {}
+var1005.Analytics = var2.Analytics
+local var1007 = require(var0.Src.ContextItems).PluginActivationController
+var1005.PluginActivationController = var1007
+var4 = fun22(var1005)(var4)
+function var1007(arg1, arg2)
    local var0 = {}
    var0.currentTab = arg1.Tools.currentTab
    var0.currentTool = arg1.Tools.currentTool
    return var0
 end
 
-return require(var0.Packages.RoactRodux).connect(var1013, nil)(var4)
+return require(var0.Packages.RoactRodux).connect(var1007, nil)(var4)

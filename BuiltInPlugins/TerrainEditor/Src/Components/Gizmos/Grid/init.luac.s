@@ -181,7 +181,7 @@ PROTO_0:
   GETTABLEKS R12 R13 K35 ["createElement"]
   LOADK R13 K44 ["Folder"]
   NEWTABLE R14 0 0
-  DUPTABLE R15 K49 [{"Lines", "LinesOnTop", "LinesPerpendicular", "linesOnTopPerpendicular"}]
+  DUPTABLE R15 K49 [{"Lines", "LinesOnTop", "LinesPerpendicular", "LinesOnTopPerpendicular"}]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K35 ["createElement"]
   LOADK R17 K44 ["Folder"]
@@ -209,7 +209,7 @@ PROTO_0:
   NEWTABLE R18 0 0
   MOVE R19 R9
   CALL R16 3 1
-  SETTABLEKS R16 R15 K48 ["linesOnTopPerpendicular"]
+  SETTABLEKS R16 R15 K48 ["LinesOnTopPerpendicular"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K42 ["Grid"]
   GETUPVAL R12 6

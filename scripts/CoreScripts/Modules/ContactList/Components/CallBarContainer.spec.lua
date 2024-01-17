@@ -8,6 +8,9 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
 	local Reducer = require(script.Parent.Parent.Reducer)
 	local CallBarContainer = require(script.Parent.CallBarContainer)
 
@@ -42,8 +45,12 @@ return function()
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store,
 		}, {
-			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				CallBarContainer = Roact.createElement(CallBarContainer),
+			LocalizationProvider = Roact.createElement(LocalizationProvider, {
+				localization = Localization.new("en-us"),
+			}, {
+				StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
+					CallBarContainer = Roact.createElement(CallBarContainer),
+				}),
 			}),
 		})
 

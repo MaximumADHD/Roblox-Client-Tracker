@@ -26,9 +26,6 @@ local SubscriptionPurchaseOverlay = require(script.Parent.SubscriptionPurchaseOv
 
 local SubscriptionPurchaseContainer = Roact.Component:extend(script.Name)
 
-local GetFFLagUseCoreScriptsRootProviderForSubscriptionPurchase =
-	require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForSubscriptionPurchase)
-
 local SELECTION_GROUP_NAME = "SubscriptionPurchaseContainer"
 
 function SubscriptionPurchaseContainer:init()
@@ -100,18 +97,14 @@ function SubscriptionPurchaseContainer:render()
 		return nil
 	end
 	
-	if GetFFLagUseCoreScriptsRootProviderForSubscriptionPurchase() then
-		return Roact.createElement(CoreScriptsRootProvider, {}, {
-			FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
-				selectionGroupName = SELECTION_GROUP_NAME,
-				focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
-			}, {
-				SubscriptionPurchaseContainer = self:createElement(),
-			}),
-		})
-	else
-		return self:createElement()
-	end
+	return Roact.createElement(CoreScriptsRootProvider, {}, {
+		FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
+			selectionGroupName = SELECTION_GROUP_NAME,
+			focusNavigableSurfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.CentralOverlay,
+		}, {
+			SubscriptionPurchaseContainer = self:createElement(),
+		}),
+	})
 end
 
 SubscriptionPurchaseContainer = connectToStore(function(state)

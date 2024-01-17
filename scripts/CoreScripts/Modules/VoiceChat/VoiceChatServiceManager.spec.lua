@@ -397,7 +397,6 @@ return function()
 			end
 
 			it("Doesn't show place prompt if universe is not enabled for voice", function()
-				local earlyOutFlag = game:SetFastFlagForTesting("VCPromptEarlyOut", true)
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
 					universePlaceVoiceEnabledSettings = {
@@ -416,7 +415,6 @@ return function()
 				expect(VoiceChatServiceManager:userAndPlaceCanUseVoice("12345")).toBe(false)
 				waitForEvents.act()
 				expect(mock).never.toHaveBeenCalled()
-				game:SetFastFlagForTesting("VCPromptEarlyOut", earlyOutFlag)
 			end)
 		end)
 

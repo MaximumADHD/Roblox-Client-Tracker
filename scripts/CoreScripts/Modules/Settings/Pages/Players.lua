@@ -126,7 +126,6 @@ end
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local FFlagExtendedExpMenuPortraitLayout = require(RobloxGui.Modules.Flags.FFlagExtendedExpMenuPortraitLayout)
-local getFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
 local getFFlagPlayerListApolloClientEnabled = require(RobloxGui.Modules.Flags.getFFlagPlayerListApolloClientEnabled)
 local getIsUserProfileOnPlayersListEnabled = require(RobloxGui.Modules.Flags.getIsUserProfileOnPlayersListEnabled)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
@@ -1878,8 +1877,7 @@ local function Initialize()
 		end
 	end
 
-	if getFFlagEnableVoiceChatPlayersList()
-		and game:GetEngineFeature("VoiceChatSupported")
+	if game:GetEngineFeature("VoiceChatSupported")
 		and not voiceChatServiceConnected
 	then
 		VoiceChatServiceManager:asyncInit():andThen(function()
@@ -1987,18 +1985,16 @@ local function Initialize()
 			reportPlayer:Destroy()
 		end
 
-		if getFFlagEnableVoiceChatPlayersList() then
-			local muteStatus = buttons:FindFirstChild("MuteStatusButton")
-			if muteStatus then
-				if GuiService.SelectedCoreObject == muteStatus then
-					if UserInputService.GamepadEnabled then
-						GuiService.SelectedCoreObject = shareGameButton
-					else
-						GuiService.SelectedCoreObject = nil
-					end
+		local muteStatus = buttons:FindFirstChild("MuteStatusButton")
+		if muteStatus then
+			if GuiService.SelectedCoreObject == muteStatus then
+				if UserInputService.GamepadEnabled then
+					GuiService.SelectedCoreObject = shareGameButton
+				else
+					GuiService.SelectedCoreObject = nil
 				end
-				muteStatus:Destroy()
 			end
+			muteStatus:Destroy()
 		end
 
 		local blockButton = buttons:FindFirstChild("BlockButton")

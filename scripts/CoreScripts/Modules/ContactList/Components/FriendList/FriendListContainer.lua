@@ -391,7 +391,6 @@ local function FriendListContainer(props: Props)
 					itemListIndex = i,
 					isSuggestedUser = false,
 				})
-				-- end
 			end
 
 			if nextPageCursor ~= nil then

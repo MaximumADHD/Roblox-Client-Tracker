@@ -37,7 +37,7 @@ DeleteOutfitPrompt.validateProps = t.strictInterface({
 	signalDeleteOutfitPermissionDenied = t.callback,
 
 	-- AvatarEditorPromptsPolicy
-	showCustomCostumeNames = t.boolean,
+	showCustomOutfitNames = t.boolean,
 })
 
 function DeleteOutfitPrompt:init()
@@ -63,7 +63,7 @@ end
 
 function DeleteOutfitPrompt:render()
 	local text
-	if self.props.showCustomCostumeNames then
+	if self.props.showCustomOutfitNames then
 		text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.DeleteOutfitPromptText", {
 			RBX_NAME = self.props.outfitName,
 		})
@@ -124,7 +124,7 @@ DeleteOutfitPrompt = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Del
 
 DeleteOutfitPrompt = AvatarEditorPromptsPolicy.connect(function(appPolicy, props)
 	return {
-		showCustomCostumeNames = appPolicy.getCustomCostumeNames(),
+		showCustomOutfitNames = appPolicy.getCustomOutfitNames(),
 	}
 end)(DeleteOutfitPrompt)
 

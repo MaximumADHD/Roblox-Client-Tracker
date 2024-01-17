@@ -39,6 +39,8 @@ local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnab
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+local GetFFlagSelfViewCameraSettings = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewCameraSettings
+
 
 -------------- CONSTANTS --------------
 -- DEPRECATED Remove with FixGraphicsQuality
@@ -2894,7 +2896,7 @@ local function Initialize()
 			cameraPermissionGrantedListener = nil
 		end
 	end
-	if FFlagAvatarChatCoreScriptSupport then
+	if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfViewCameraSettings() then
 		local callback = function(response)
 			this.VideoOptionsEnabled = response.hasCameraPermissions
 		end
@@ -3069,7 +3071,7 @@ local function Initialize()
 			this.startVolume = GameSettings.MasterVolume
 		end
 
-		if FFlagAvatarChatCoreScriptSupport and this.VideoOptionsEnabled then
+		if (FFlagAvatarChatCoreScriptSupport or GetFFlagSelfViewCameraSettings()) and this.VideoOptionsEnabled then
 			if game:GetEngineFeature("VideoCaptureService") then
 				updateCameraDevices()
 				setupVideoCameraDeviceChangedListener()
@@ -3082,7 +3084,7 @@ local function Initialize()
 	this.CloseSettingsPage = function()
 		this.PageOpen = false
 		teardownDeviceChangedListener()
-		if FFlagAvatarChatCoreScriptSupport then
+		if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfViewCameraSettings() then
 			if game:GetEngineFeature("VideoCaptureService") then
 				teardownVideoCameraDeviceChangedListener()
 			end

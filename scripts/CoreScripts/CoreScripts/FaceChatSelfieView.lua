@@ -68,6 +68,7 @@ local FFlagSelfViewAdaptToScreenOrientationChange = game:DefineFastFlag("SelfVie
 local FFlagSelfViewImprovedUpdateCloneTriggering = game:DefineFastFlag("SelfViewImprovedUpdateCloneTriggering", false)
 local FFlagSelfViewCameraDefaultButtonInViewPort = game:DefineFastFlag("SelfViewCameraDefaultButtonInViewPort", false)
 local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
+local FFlagSelfViewHumanoidNilCheck = game:DefineFastFlag("SelfViewHumanoidNilCheck", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -1708,11 +1709,24 @@ function getAnimator(character, timeOut)
 	local humanoid = nil
 	if timeOut > 0 then
 		if FFlagSelfViewLookUpHumanoidByType then
-			local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
-			if maybeHumanoid:IsA("Humanoid") then
-				humanoid = maybeHumanoid
+			if FFlagSelfViewHumanoidNilCheck then
+				local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+				if maybeHumanoid then
+					if maybeHumanoid:IsA("Humanoid") then
+						humanoid = maybeHumanoid
+					else
+						humanoid = character:FindFirstChildWhichIsA("Humanoid")
+					end
+				else
+					humanoid = character:FindFirstChildWhichIsA("Humanoid")
+				end
 			else
-				humanoid = character:FindFirstChildWhichIsA("Humanoid")
+				local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+				if maybeHumanoid:IsA("Humanoid") then
+					humanoid = maybeHumanoid
+				else
+					humanoid = character:FindFirstChildWhichIsA("Humanoid")
+				end
 			end
 		else
 			humanoid = character:WaitForChild("Humanoid", timeOut)

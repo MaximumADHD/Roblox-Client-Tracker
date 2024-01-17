@@ -11,10 +11,11 @@ local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundG
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local GetFFlagCallBarNameFallback = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCallBarNameFallback
+local GetFFlagIrisUseLocalizationProvider =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local ContactList = RobloxGui.Modules.ContactList
 
@@ -33,6 +34,14 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local useStyle = UIBlox.Core.Style.useStyle
 
 local useSelector = dependencies.Hooks.useSelector
+
+local useLocalization
+local RobloxTranslator
+if GetFFlagIrisUseLocalizationProvider() then
+	useLocalization = dependencies.Hooks.useLocalization
+else
+	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -87,23 +96,23 @@ local function getTextFromCallStatus(status: string, instanceId: string)
 			then RoduxCall.Enums.Status.Connecting
 			else RoduxCall.Enums.Status.Connecting.rawValue()
 	then
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.Calling")
+		return "Feature.Call.Label.Calling"
 	elseif
 		status
 		== if FFlagUseRoduxCall18
 			then RoduxCall.Enums.Status.Teleporting
 			else RoduxCall.Enums.Status.Teleporting.rawValue()
 	then
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.Teleporting")
+		return "Feature.Call.Label.Teleporting"
 	elseif
 		status
 		== if FFlagUseRoduxCall18 then RoduxCall.Enums.Status.Active else RoduxCall.Enums.Status.Active.rawValue()
 	then
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.RobloxCall")
+		return "Feature.Call.Label.RobloxCall"
 	elseif
 		status == if FFlagUseRoduxCall18 then RoduxCall.Enums.Status.Idle else RoduxCall.Enums.Status.Idle.rawValue()
 	then
-		return RobloxTranslator:FormatByKey("Feature.Call.Label.CallEnded")
+		return "Feature.Call.Label.CallEnded"
 	else
 		error("Invalid status for call bar: " .. status .. ".")
 	end
@@ -162,7 +171,15 @@ local function CallBar(passedProps: Props)
 		image = getStandardSizeAvatarHeadShotRbxthumb(otherParticipantId)
 	end
 
-	local callStatusText = getTextFromCallStatus(callStatus, instanceId)
+	local callStatusText
+	if GetFFlagIrisUseLocalizationProvider() then
+		local localized = useLocalization({
+			callStatusLabel = getTextFromCallStatus(callStatus, instanceId),
+		})
+		callStatusText = localized.callStatusLabel
+	else
+		callStatusText = RobloxTranslator:FormatByKey(getTextFromCallStatus(callStatus, instanceId))
+	end
 
 	local isCallEndedInInstance = callStatus
 			== (if FFlagUseRoduxCall18 then RoduxCall.Enums.Status.Idle else RoduxCall.Enums.Status.Idle.rawValue())

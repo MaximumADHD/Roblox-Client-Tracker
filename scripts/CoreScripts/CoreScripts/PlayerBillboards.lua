@@ -41,7 +41,6 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
-local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
@@ -174,20 +173,11 @@ local function initBubbleChat()
 				return
 			end
 
-			if GetFFlagBubbleChatDuplicateMessagesFix() then
-				local id = tostring(messageData.ID)
-				if chatStore:getState().messages[id] then
-					chatStore:dispatch(SetMessageText(id, messageData.Message))
-				else
-					chatStore:dispatch(AddMessageFromEvent(messageData))
-				end
+			local id = tostring(messageData.ID)
+			if chatStore:getState().messages[id] then
+				chatStore:dispatch(SetMessageText(id, messageData.Message))
 			else
-				if messageData.FromSpeaker == Players.LocalPlayer.Name then
-					local id = tostring(messageData.ID)
-					chatStore:dispatch(SetMessageText(id, messageData.Message))
-				else
-					chatStore:dispatch(AddMessageFromEvent(messageData))
-				end
+				chatStore:dispatch(AddMessageFromEvent(messageData))
 			end
 		end)
 	end))

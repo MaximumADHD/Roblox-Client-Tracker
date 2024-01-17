@@ -39,12 +39,12 @@ UpdateOutfitPrompt.validateProps = t.strictInterface({
 	performUpdateOutfit = t.callback,
 
 	-- AvatarEditorPromptsPolicy
-	showCustomCostumeNames = t.boolean,
+	showCustomOutfitNames = t.boolean,
 })
 
 function UpdateOutfitPrompt:render()
 	local bodyText
-	if self.props.showCustomCostumeNames then
+	if self.props.showCustomOutfitNames then
 		bodyText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.UpdateOutfitPromptText", {
 			RBX_NAME = self.props.outfitName,
 		})
@@ -105,7 +105,7 @@ UpdateOutfitPrompt = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Upd
 
 UpdateOutfitPrompt = AvatarEditorPromptsPolicy.connect(function(appPolicy, props)
 	return {
-		showCustomCostumeNames = appPolicy.getCustomCostumeNames(),
+		showCustomOutfitNames = appPolicy.getCustomOutfitNames(),
 	}
 end)(UpdateOutfitPrompt)
 

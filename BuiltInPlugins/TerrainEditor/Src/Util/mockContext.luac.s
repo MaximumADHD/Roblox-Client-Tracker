@@ -1,21 +1,23 @@
 PROTO_0:
   FASTCALL1 TYPE R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["table"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["Expected story to be a table"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["provideMockContext"]
+  MOVE R3 R1
+  JUMPIF R3 [+1]
+  GETUPVAL R3 1
   MOVE R4 R0
-  GETIMPORT R3 K1 [type]
-  CALL R3 1 1
-  JUMPIFEQKS R3 K2 ["table"] [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K3 [+4]
-  LOADK R3 K3 ["Expected story to be a table"]
-  GETIMPORT R1 K5 [assert]
-  CALL R1 2 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["provideMockContext"]
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R1 2 -1
-  RETURN R1 -1
+  CALL R2 2 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0

@@ -10,6 +10,9 @@ return function()
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
+	local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
+	local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local ContactList = RobloxGui.Modules.ContactList
@@ -46,14 +49,18 @@ return function()
 			store = store,
 		}, {
 			StyleProvider = Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-				FriendListItem = Roact.createElement(FriendListItem, {
-					userId = "12345678",
-					userName = "user name",
-					combinedName = "display name",
-					dismissCallback = function() end,
-					showDivider = true,
-					itemListIndex = 1,
-					isSuggestedUser = false,
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					FriendListItem = Roact.createElement(FriendListItem, {
+						userId = "12345678",
+						userName = "user name",
+						combinedName = "display name",
+						dismissCallback = function() end,
+						showDivider = true,
+						itemListIndex = 1,
+						isSuggestedUser = false,
+					}),
 				}),
 			}),
 		})

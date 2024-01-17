@@ -102,13 +102,13 @@ local function CallDialogContainer(passedProps: Props)
 						then ErrorType.CalleeIsInAnotherCall
 						else (ErrorType.CalleeIsInAnotherCall :: any).rawValue()
 				then
-					local calleeDisplayName = params.callInfo.calleeDisplayName
+					local calleeCombinedName = params.callInfo.calleeCombinedName
 					dispatch(
 						OpenOrUpdateDialog(
 							RobloxTranslator:FormatByKey("Feature.Call.Error.Title.FriendBusy"),
 							RobloxTranslator:FormatByKey(
 								"Feature.Call.Error.Description.FriendBusy",
-								{ calleeCombinedName = calleeDisplayName }
+								{ calleeCombinedName = calleeCombinedName }
 							)
 						)
 					)

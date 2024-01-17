@@ -10,8 +10,8 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local RoduxCall = dependencies.RoduxCall
 
-local activeUtc = os.time()
-local createdUtc = os.time()
+local activeUtc = os.time() * 1000
+local createdUtc = os.time() * 1000
 
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 

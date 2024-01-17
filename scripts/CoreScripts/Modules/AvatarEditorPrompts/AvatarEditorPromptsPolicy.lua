@@ -10,7 +10,7 @@ local AvatarEditorPromptPolicy = PolicyProvider.withGetPolicyImplementation(impl
 
 AvatarEditorPromptPolicy.Mapper = function(policy)
 	return {
-		getCustomCostumeNames = function()
+		getCustomOutfitNames = function()
 			if policy.CustomCostumeNames ~= nil then
 				return policy.CustomCostumeNames
 			else

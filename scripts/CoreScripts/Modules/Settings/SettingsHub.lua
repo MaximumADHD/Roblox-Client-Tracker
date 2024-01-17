@@ -156,7 +156,6 @@ local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForCh
 local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local GetFFlagEnableVoiceChatPlayersList = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatPlayersList)
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
@@ -783,8 +782,7 @@ local function CreateSettingsHub()
 	local voiceChatServiceConnected = false
 	local voiceEnabled = false
 	local function setupVoiceListeners()
-		if GetFFlagEnableVoiceChatPlayersList()
-			and game:GetEngineFeature("VoiceChatSupported")
+		if game:GetEngineFeature("VoiceChatSupported")
 			and not voiceChatServiceConnected
 		then
 			voiceChatServiceConnected = true

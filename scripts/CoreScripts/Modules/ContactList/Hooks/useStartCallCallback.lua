@@ -6,7 +6,7 @@ local Players = game:GetService("Players")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceChatServiceManager
 
 local React = require(CorePackages.Packages.React)
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
@@ -18,7 +18,7 @@ local dependencies = require(ContactList.dependencies)
 local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
 
-local CanMakeCallWithModal = require(ContactList.Hooks.CanMakeCallWithModal)
+local CanMakeCallWithModal
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local Pages = require(ContactList.Enums.Pages)
@@ -29,7 +29,12 @@ local localPlayer = Players.LocalPlayer :: Player
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local GetFFlagSeparateVoiceEnabledErrors =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeparateVoiceEnabledErrors
+local GetFFlagIrisRefactorStartCall = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisRefactorStartCall
 
+if not GetFFlagIrisRefactorStartCall() then
+	VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+	CanMakeCallWithModal = require(ContactList.Hooks.CanMakeCallWithModal)
+end
 return function(
 	tag,
 	userId,
@@ -43,6 +48,10 @@ return function(
 	local validateToMakeCall
 	if not GetFFlagSeparateVoiceEnabledErrors() then
 		validateToMakeCall = React.useCallback(function()
+			if GetFFlagIrisRefactorStartCall() and CanMakeCallWithModal == nil then
+				CanMakeCallWithModal = require(ContactList.Hooks.CanMakeCallWithModal)
+			end
+
 			local canMakeCall, action = CanMakeCallWithModal()
 			if not canMakeCall then
 				dispatch(action)
@@ -70,6 +79,9 @@ return function(
 			SoundManager:PlaySound_old(Sounds.Select.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 		end
 
+		if GetFFlagIrisRefactorStartCall() and VoiceChatServiceManager == nil then
+			VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+		end
 		local isMuted = if VoiceChatServiceManager.localMuted ~= nil then VoiceChatServiceManager.localMuted else true
 		local isCamEnabled = if FaceAnimatorService:IsStarted()
 			then FaceAnimatorService.VideoAnimationEnabled

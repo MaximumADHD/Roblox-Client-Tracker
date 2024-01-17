@@ -5,6 +5,8 @@ local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
 local GetFFlagIrisEnumerateCleanupEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisEnumerateCleanupEnabled
+local GetFFlagIrisUseLocalizationProvider =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 
 local BaseMenu = UIBlox.App.Menu.BaseMenu
 local Images = UIBlox.App.ImageSet.Images
@@ -12,13 +14,20 @@ local useStyle = UIBlox.Core.Style.useStyle
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local dependencies = require(ContactList.dependencies)
 local useSelector = dependencies.Hooks.useSelector
 
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local FriendAction = require(ContactList.Enums.FriendAction)
+
+local useLocalization
+local RobloxTranslator
+if GetFFlagIrisUseLocalizationProvider() then
+	useLocalization = dependencies.Hooks.useLocalization
+else
+	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
 
 local function ConfigureFriendMenu(props)
 	local analytics = useAnalytics()
@@ -41,11 +50,27 @@ local function ConfigureFriendMenu(props)
 		end
 	end)
 
+	local localized
+	if GetFFlagIrisUseLocalizationProvider() then
+		localized = useLocalization({
+			blockLabel = {
+				"Feature.Call.Label.Block",
+				combinedName = combinedName,
+			},
+			unfriendLabel = {
+				"Feature.Call.Label.Unfriend",
+				combinedName = combinedName,
+			},
+		})
+	end
+
 	return Roact.createElement(BaseMenu, {
 		buttonProps = {
 			{
 				icon = Images["icons/actions/block"],
-				text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.Block") .. " " .. combinedName,
+				text = if GetFFlagIrisUseLocalizationProvider()
+					then localized.blockLabel
+					else RobloxTranslator:FormatByKey("Feature.Call.Label.Block", { combinedName = combinedName }),
 				onActivated = function()
 					analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuBlockClicked, {
 						eventTimestampMs = os.time() * 1000,
@@ -60,7 +85,12 @@ local function ConfigureFriendMenu(props)
 			},
 			{
 				icon = Images["icons/actions/friends/friendRemove"],
-				text = RobloxTranslator:FormatByKey("FriendPlayerPrompt.Label.Unfriend") .. " " .. combinedName,
+				text = if GetFFlagIrisUseLocalizationProvider()
+					then localized.unfriendLabel
+					else RobloxTranslator:FormatByKey(
+						"Feature.Call.Label.Unfriend",
+						{ combinedName = combinedName }
+					),
 				onActivated = function()
 					analytics.fireEvent(EventNamesEnum.PhoneBookPlayerMenuUnfriendClicked, {
 						eventTimestampMs = os.time() * 1000,

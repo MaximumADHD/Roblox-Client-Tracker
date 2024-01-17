@@ -1,12 +1,19 @@
 PROTO_0:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ProcessService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
   LOADK R0 K0 ["TerrainEditorLuaToolbarName"]
   RETURN R0 1
 
-PROTO_1:
+PROTO_2:
   LOADK R0 K0 ["Editor"]
   RETURN R0 1
 
-PROTO_2:
+PROTO_3:
   MOVE R3 R0
   MOVE R4 R1
   MOVE R5 R2
@@ -15,7 +22,7 @@ PROTO_2:
   CALL R3 4 -1
   RETURN R3 -1
 
-PROTO_3:
+PROTO_4:
   MOVE R3 R0
   MOVE R4 R1
   MOVE R5 R2
@@ -31,76 +38,125 @@ MAIN:
   GETTABLEKS R2 R3 K4 ["Parent"]
   GETTABLEKS R1 R2 K5 ["main"]
   CALL R0 1 1
-  GETIMPORT R3 K3 [script]
-  GETTABLEKS R2 R3 K4 ["Parent"]
-  GETTABLEKS R1 R2 K4 ["Parent"]
-  GETIMPORT R2 K1 [require]
-  GETTABLEKS R5 R1 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Util"]
-  GETTABLEKS R3 R4 K8 ["DebugFlags"]
-  CALL R2 1 1
-  GETIMPORT R5 K3 [script]
-  GETTABLEKS R4 R5 K4 ["Parent"]
-  GETTABLEKS R3 R4 K4 ["Parent"]
-  GETIMPORT R4 K1 [require]
-  GETTABLEKS R6 R3 K9 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["TestLoader"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K11 ["launch"]
-  LOADK R6 K12 ["TerrainEditor"]
-  GETTABLEKS R7 R3 K6 ["Src"]
-  CALL R5 2 0
-  GETTABLEKS R5 R2 K13 ["RunningUnderCLI"]
-  CALL R5 0 1
-  JUMPIF R5 [+7]
-  GETIMPORT R5 K15 [game]
-  LOADK R7 K16 ["EnableTerrainEditor2"]
-  NAMECALL R5 R5 K17 ["GetFastFlag"]
+  GETIMPORT R1 K7 [game]
+  LOADK R3 K8 ["TestService"]
+  NAMECALL R1 R1 K9 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K3 [script]
+  LOADK R4 K10 ["TerrainEditor"]
+  NAMECALL R2 R2 K11 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETIMPORT R3 K13 [pcall]
+  DUPCLOSURE R4 K14 [PROTO_0]
+  CALL R3 1 2
+  JUMPIFNOT R3 [+91]
+  GETIMPORT R6 K1 [require]
+  GETTABLEKS R9 R2 K15 ["Packages"]
+  GETTABLEKS R8 R9 K16 ["Dev"]
+  GETTABLEKS R7 R8 K17 ["Jest"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K18 ["runCLI"]
+  GETIMPORT R6 K20 [_G]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K21 ["__ROACT_17_MOCK_SCHEDULER__"]
+  GETIMPORT R6 K20 [_G]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K22 ["__ROACT_17_INLINE_ACT__"]
+  GETIMPORT R6 K7 [game]
+  LOADK R8 K23 ["DebugAvatarPreviewerTestPathPattern"]
+  LOADK R9 K24 [""]
+  NAMECALL R6 R6 K25 ["DefineFastString"]
+  CALL R6 3 1
+  MOVE R7 R5
+  GETTABLEKS R8 R2 K26 ["Src"]
+  DUPTABLE R9 K30 [{"verbose", "ci", "testPathPattern"}]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K27 ["verbose"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K28 ["ci"]
+  JUMPIFNOTEQKS R6 K24 [""] [+3]
+  LOADNIL R10
+  JUMP [+1]
+  MOVE R10 R6
+  SETTABLEKS R10 R9 K29 ["testPathPattern"]
+  NEWTABLE R10 0 1
+  GETTABLEKS R11 R2 K26 ["Src"]
+  SETLIST R10 R11 1 [1]
+  CALL R7 3 1
+  NAMECALL R7 R7 K31 ["awaitStatus"]
+  CALL R7 1 2
+  JUMPIFNOTEQKS R7 K32 ["Resolved"] [+15]
+  GETTABLEKS R10 R8 K33 ["results"]
+  GETTABLEKS R9 R10 K34 ["numFailedTestSuites"]
+  LOADN R10 0
+  JUMPIFLT R10 R9 [+8]
+  GETTABLEKS R10 R8 K33 ["results"]
+  GETTABLEKS R9 R10 K35 ["numFailedTests"]
+  LOADN R10 0
+  JUMPIFNOTLT R10 R9 [+16]
+  JUMPIFNOTEQKS R7 K36 ["Rejected"] [+5]
+  GETIMPORT R9 K38 [print]
+  MOVE R10 R8
+  CALL R9 1 0
+  LOADK R11 K39 ["Jest 3 test run failed"]
+  NAMECALL R9 R1 K40 ["Error"]
+  CALL R9 2 0
+  LOADN R11 1
+  NAMECALL R9 R4 K41 ["ExitAsync"]
+  CALL R9 2 0
+  RETURN R0 0
+  LOADN R11 0
+  NAMECALL R9 R4 K41 ["ExitAsync"]
+  CALL R9 2 0
+  RETURN R0 0
+  GETIMPORT R5 K7 [game]
+  LOADK R7 K42 ["EnableTerrainEditor2"]
+  NAMECALL R5 R5 K43 ["GetFastFlag"]
   CALL R5 2 1
   JUMPIF R5 [+1]
   RETURN R0 0
   GETIMPORT R5 K1 [require]
-  GETTABLEKS R7 R1 K18 ["PluginLoader"]
-  GETTABLEKS R6 R7 K19 ["PluginLoaderBuilder"]
+  GETTABLEKS R7 R2 K44 ["PluginLoader"]
+  GETTABLEKS R6 R7 K45 ["PluginLoaderBuilder"]
   CALL R5 1 1
-  GETTABLEKS R9 R1 K6 ["Src"]
-  GETTABLEKS R8 R9 K20 ["Resources"]
-  GETTABLEKS R7 R8 K21 ["Localization"]
-  GETTABLEKS R6 R7 K22 ["SourceStrings"]
-  GETTABLEKS R10 R1 K6 ["Src"]
-  GETTABLEKS R9 R10 K20 ["Resources"]
-  GETTABLEKS R8 R9 K21 ["Localization"]
-  GETTABLEKS R7 R8 K23 ["LocalizedStrings"]
-  DUPTABLE R8 K33 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-  GETIMPORT R9 K34 [plugin]
-  SETTABLEKS R9 R8 K24 ["plugin"]
-  LOADK R9 K12 ["TerrainEditor"]
-  SETTABLEKS R9 R8 K25 ["pluginName"]
-  SETTABLEKS R7 R8 K26 ["translationResourceTable"]
-  SETTABLEKS R6 R8 K27 ["fallbackResourceTable"]
+  GETTABLEKS R9 R2 K26 ["Src"]
+  GETTABLEKS R8 R9 K46 ["Resources"]
+  GETTABLEKS R7 R8 K47 ["Localization"]
+  GETTABLEKS R6 R7 K48 ["SourceStrings"]
+  GETTABLEKS R10 R2 K26 ["Src"]
+  GETTABLEKS R9 R10 K46 ["Resources"]
+  GETTABLEKS R8 R9 K47 ["Localization"]
+  GETTABLEKS R7 R8 K49 ["LocalizedStrings"]
+  DUPTABLE R8 K59 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
+  GETIMPORT R9 K60 [plugin]
+  SETTABLEKS R9 R8 K50 ["plugin"]
+  LOADK R9 K10 ["TerrainEditor"]
+  SETTABLEKS R9 R8 K51 ["pluginName"]
+  SETTABLEKS R7 R8 K52 ["translationResourceTable"]
+  SETTABLEKS R6 R8 K53 ["fallbackResourceTable"]
   LOADNIL R9
-  SETTABLEKS R9 R8 K28 ["overrideLocaleId"]
+  SETTABLEKS R9 R8 K54 ["overrideLocaleId"]
   LOADNIL R9
-  SETTABLEKS R9 R8 K29 ["localizationNamespace"]
-  DUPCLOSURE R9 K35 [PROTO_0]
-  SETTABLEKS R9 R8 K30 ["getToolbarName"]
-  DUPTABLE R9 K41 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
-  DUPCLOSURE R10 K42 [PROTO_1]
-  SETTABLEKS R10 R9 K36 ["getName"]
-  DUPCLOSURE R10 K43 [PROTO_2]
-  SETTABLEKS R10 R9 K37 ["getDescription"]
-  LOADK R10 K44 ["rbxlocaltheme://TerrainEditor"]
-  SETTABLEKS R10 R9 K38 ["icon"]
+  SETTABLEKS R9 R8 K55 ["localizationNamespace"]
+  DUPCLOSURE R9 K61 [PROTO_1]
+  SETTABLEKS R9 R8 K56 ["getToolbarName"]
+  DUPTABLE R9 K67 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
+  DUPCLOSURE R10 K68 [PROTO_2]
+  SETTABLEKS R10 R9 K62 ["getName"]
+  DUPCLOSURE R10 K69 [PROTO_3]
+  SETTABLEKS R10 R9 K63 ["getDescription"]
+  LOADK R10 K70 ["rbxlocaltheme://TerrainEditor"]
+  SETTABLEKS R10 R9 K64 ["icon"]
   LOADNIL R10
-  SETTABLEKS R10 R9 K39 ["text"]
+  SETTABLEKS R10 R9 K65 ["text"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K40 ["clickableWhenViewportHidden"]
-  SETTABLEKS R9 R8 K31 ["buttonInfo"]
-  DUPTABLE R9 K49 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R10 K12 ["TerrainEditor"]
-  SETTABLEKS R10 R9 K45 ["id"]
-  GETIMPORT R10 K52 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R11 K56 [Enum.InitialDockState.Left]
+  SETTABLEKS R10 R9 K66 ["clickableWhenViewportHidden"]
+  SETTABLEKS R9 R8 K57 ["buttonInfo"]
+  DUPTABLE R9 K75 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+  LOADK R10 K10 ["TerrainEditor"]
+  SETTABLEKS R10 R9 K71 ["id"]
+  GETIMPORT R10 K78 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R11 K82 [Enum.InitialDockState.Left]
   LOADB R12 1
   LOADB R13 0
   LOADN R14 64
@@ -108,22 +164,22 @@ MAIN:
   LOADN R16 64
   LOADN R17 200
   CALL R10 7 1
-  SETTABLEKS R10 R9 K46 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R10 K57 [PROTO_3]
-  SETTABLEKS R10 R9 K47 ["getDockTitle"]
-  GETIMPORT R10 K60 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R10 R9 K48 ["zIndexBehavior"]
-  SETTABLEKS R9 R8 K32 ["dockWidgetInfo"]
-  GETTABLEKS R9 R5 K61 ["build"]
+  SETTABLEKS R10 R9 K72 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R10 K83 [PROTO_4]
+  SETTABLEKS R10 R9 K73 ["getDockTitle"]
+  GETIMPORT R10 K86 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R10 R9 K74 ["zIndexBehavior"]
+  SETTABLEKS R9 R8 K58 ["dockWidgetInfo"]
+  GETTABLEKS R9 R5 K87 ["build"]
   MOVE R10 R8
   CALL R9 1 1
-  GETTABLEKS R10 R9 K62 ["pluginLoader"]
-  NAMECALL R10 R10 K63 ["waitForUserInteraction"]
+  GETTABLEKS R10 R9 K88 ["pluginLoader"]
+  NAMECALL R10 R10 K89 ["waitForUserInteraction"]
   CALL R10 1 1
   JUMPIF R10 [+1]
   RETURN R0 0
   MOVE R11 R0
-  GETIMPORT R12 K34 [plugin]
+  GETIMPORT R12 K60 [plugin]
   MOVE R13 R9
   CALL R11 2 0
   RETURN R0 0

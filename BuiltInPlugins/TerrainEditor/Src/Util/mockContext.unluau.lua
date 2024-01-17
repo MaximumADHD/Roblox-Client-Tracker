@@ -16,10 +16,12 @@ local var13 = var6
 local var14 = var7
 local var15 = var8
 local var16 = require(var0.Src.Controllers.ToolController).mock(var7, var8, var5, var6, var9)
-return function(arg1)
+return function(arg1, arg2)
    if type(arg1) == "table" then
       local var0 = false
    end
    assert(true, "Expected story to be a table")
-   return var2.provideMockContext(var10, arg1)
+   local var74 = var2
+   var74 = arg2
+   return var74.provideMockContext(var74 or var10, arg1)
 end

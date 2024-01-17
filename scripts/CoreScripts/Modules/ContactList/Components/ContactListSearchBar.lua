@@ -4,7 +4,6 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Packages.Cryo)
 local React = require(CorePackages.Packages.React)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 
@@ -14,6 +13,17 @@ local Colors = UIBlox.App.Style.Colors
 local Images = UIBlox.App.ImageSet.Images
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local useStyle = UIBlox.Core.Style.useStyle
+
+local GetFFlagIrisUseLocalizationProvider =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
+
+local useLocalization
+local RobloxTranslator
+if GetFFlagIrisUseLocalizationProvider() then
+	useLocalization = dependencies.Hooks.useLocalization
+else
+	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
 
 export type Props = {
 	layoutOrder: number?,
@@ -44,6 +54,16 @@ local ContactListSearchBar = function(passedProps)
 			props.onSearchChanged(instance.Text)
 		end
 	end, { props.onSearchChanged })
+
+	local searchFriendsLabel
+	if GetFFlagIrisUseLocalizationProvider() then
+		local localized = useLocalization({
+			searchFriendsLabel = "Feature.Call.Prompt.SearchFriends",
+		})
+		searchFriendsLabel = localized.searchFriendsLabel
+	else
+		searchFriendsLabel = RobloxTranslator:FormatByKey("Feature.Call.Prompt.SearchFriends")
+	end
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, -48, 0, props.searchBarHeight),
@@ -83,7 +103,7 @@ local ContactListSearchBar = function(passedProps)
 			Font = font.Body.Font,
 			LayoutOrder = 2,
 			PlaceholderColor3 = Color3.fromHex("#696A6B"),
-			PlaceholderText = RobloxTranslator:FormatByKey("Feature.Call.Prompt.SearchFriends"),
+			PlaceholderText = searchFriendsLabel,
 			Text = props.searchText,
 			TextColor3 = Colors.White,
 			TextSize = font.BaseSize * font.Body.RelativeSize,

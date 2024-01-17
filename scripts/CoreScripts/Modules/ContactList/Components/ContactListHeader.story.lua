@@ -5,6 +5,7 @@ local Pages = require(script.Parent.Parent.Enums.Pages)
 local ContactListHeader = require(script.Parent.ContactListHeader)
 
 return {
+	summary = "Header for pages in the contact list.",
 	stories = {
 		ContactListHeaderFriendList = function(props)
 			return React.createElement(ContactListHeader, {

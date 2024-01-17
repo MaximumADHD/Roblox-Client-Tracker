@@ -23,10 +23,6 @@ local function initiateSubscriptionPurchase(subscriptionId)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 		local externalSettings = services[ExternalSettings]
-
-		if externalSettings.GetFFlagCLI37642() == false then
-			return nil
-		end
 		
 		if hasPendingRequest(store:getState()) then
 			return nil

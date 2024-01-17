@@ -12,19 +12,19 @@ function var7.render(arg1)
    local var1 = var0.Localization
    local var2 = var0.OnConfirm
    local var3 = var0.OnClose
-   local var415 = {}
-   var415.Style = "AcceptCancel"
-   var415.Modal = true
-   var415.Title = var1:getText("ScriptConversion", "RevertingScripts")
-   var415.MinContentSize = var0.Stylizer.MinContentSize
-   local var424 = {}
-   var424.Key = "Confirm"
-   var424.Text = var1:getText("ScriptConversion", "Confirm")
-   local var430 = {}
-   var430.Key = "Cancel"
-   var430.Text = var1:getText("ScriptConversion", "Cancel")
-   var415.Buttons = {}
-   function var415.OnButtonPressed(arg1)
+   local var29 = {}
+   var29.Style = "AcceptCancel"
+   var29.Modal = true
+   var29.Title = var1:getText("ScriptConversion", "RevertingScripts")
+   var29.MinContentSize = var0.Stylizer.MinContentSize
+   local var38 = {}
+   var38.Key = "Confirm"
+   var38.Text = var1:getText("ScriptConversion", "Confirm")
+   local var44 = {}
+   var44.Key = "Cancel"
+   var44.Text = var1:getText("ScriptConversion", "Cancel")
+   var29.Buttons = {}
+   function var29.OnButtonPressed(arg1)
       if arg1 == "Confirm" then
          if var2 then
             var2()
@@ -35,17 +35,17 @@ function var7.render(arg1)
       end
    end
    
-   var415.OnClose = var3
-   local var441 = {}
-   local var445 = {}
-   var445.Text = var1:getText("ScriptConversion", "RevertWarning")
-   var445.TextWrapped = true
-   var441.Contents = var1.createElement(var5, var445)
-   return var1.createElement(var6, var415, var441)
+   var29.OnClose = var3
+   local var55 = {}
+   local var59 = {}
+   var59.Text = var1:getText("ScriptConversion", "RevertWarning")
+   var59.TextWrapped = true
+   var55.Contents = var1.createElement(var5, var59)
+   return var1.createElement(var6, var29, var55)
 end
 
-local var454 = {}
-var454.Localization = var3.Localization
-var454.Stylizer = var3.Stylizer
-var7 = var3.withContext(var454)(var7)
+local var68 = {}
+var68.Localization = var3.Localization
+var68.Stylizer = var3.Stylizer
+var7 = var3.withContext(var68)(var7)
 return var7
