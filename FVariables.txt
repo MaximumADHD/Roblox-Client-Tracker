@@ -1540,10 +1540,8 @@
 [C++] DFIntClusterSenderMaxJoinBandwidthBpsScaling
 [C++] DFIntClusterSenderMaxUpdateBandwidthBps
 [C++] DFIntClusterSenderMaxUpdateBandwidthBpsScaling
-[C++] DFIntCodecMaxIncomingFrames
 [C++] DFIntCodecMaxIncomingPackets
 [C++] DFIntCodecMaxOutgoingFrames
-[C++] DFIntCodecMaxOutgoingPackets
 [C++] DFIntCollectedProbeDataThrottleHundrethsPercent
 [C++] DFIntCollectibleItemInExperiencePurchaseRolloutPercentage
 [C++] DFIntCollectNumOfPrimitivesRate
@@ -6554,7 +6552,6 @@
 [C++] FFlagVideoCaptureUseWeakThis
 [C++] FFlagVideoCMCDAddVisibility
 [C++] FFlagVideoCMCDReportSessionId
-[C++] FFlagVideoCodecUseSPSCQueue
 [C++] FFlagVideoCollectVisibilityDuration
 [C++] FFlagVideoDataJob2Service
 [C++] FFlagVideoDownloadFailMetrics
