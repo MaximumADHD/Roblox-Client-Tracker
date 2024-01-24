@@ -372,8 +372,6 @@ GrassShadowPS_00000000,Fragment
 GrassShadowPS_00000040,Fragment
 GrassShadowVS_00000000,Vertex
 GrassShadowVS_00000040,Vertex
-GrassShadowVS_02000000,Vertex
-GrassShadowVS_02000040,Vertex
 GrassVS,Vertex
 GrassVSDepth,Vertex
 GrassVSPrecise,Vertex

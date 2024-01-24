@@ -9397,7 +9397,6 @@
         <string name="ExplorerOrder">51</string>
         <string name="ExplorerImageIndex">75</string>
         <string name="summary">Same as RemoteEvents but events are sent unreliably (neither reliably nor ordered).</string>
-        <bool name="FFlag">UnreliableEventsStudioAwareness</bool>
       </Properties>
       <Item class="ReflectionMetadataFunctions">
         <Item class="ReflectionMetadataMember">

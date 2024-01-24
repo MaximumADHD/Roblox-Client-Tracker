@@ -1001,11 +1001,12 @@ Class Collaborator : Instance [NotCreatable]
 	Property Collaborator.UserId: number
 	Property Collaborator.Username: string
 Class CollaboratorsService : Instance [NotCreatable] [Service]
+	Function CollaboratorsService:GetCollaboratorsList() -> { Instance } {RobloxScriptSecurity}
 	Event CollaboratorsService.CollaboratorIdleUpdate(collaboratorId: number, isIdle: boolean) {RobloxSecurity} [Hidden]
-	Event CollaboratorsService.CollaboratorInstanceCreatedSignal(collaboratorId: number) {RobloxSecurity} [Hidden]
-	Event CollaboratorsService.CollaboratorInstanceDestroyedSignal(collaboratorId: number) {RobloxSecurity} [Hidden]
-	Event CollaboratorsService.CollaboratorStatusUpdateRequestedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxSecurity} [Hidden]
-	Event CollaboratorsService.CollaboratorStatusUpdatedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxSecurity} [Hidden]
+	Event CollaboratorsService.CollaboratorInstanceCreatedSignal(collaboratorId: number) {RobloxScriptSecurity} [Hidden]
+	Event CollaboratorsService.CollaboratorInstanceDestroyedSignal(collaboratorId: number) {RobloxScriptSecurity} [Hidden]
+	Event CollaboratorsService.CollaboratorStatusUpdateRequestedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxScriptSecurity} [Hidden]
+	Event CollaboratorsService.CollaboratorStatusUpdatedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxScriptSecurity} [Hidden]
 Class CollectionService : Instance [NotCreatable] [Service]
 	Function CollectionService:AddTag(instance: Instance, tag: string) -> ()
 	Function CollectionService:GetAllTags() -> { any } {🧬Safe}
@@ -3554,6 +3555,7 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.CSGPropertyData: CSGPropertyData {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.ChildData: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.ChildData2: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property PartOperation.DCDPropertyData: CSGPropertyData {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.FormFactor: Enum.FormFactor {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.InitialSize: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.MeshData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
@@ -4087,6 +4089,7 @@ Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Event PlayerScripts.TouchMovementModeRegistered() {RobloxScriptSecurity}
 Class PlayerViewService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PlayerViewService:GetDeviceCameraCFrame(player: Player? = nil) -> CFrame
+	Function PlayerViewService:GetDeviceCameraCFrameForSelfView() -> CFrame {RobloxScriptSecurity}
 	Function PlayerViewService:OnCameraCFrameReplicationRequest() -> () {RobloxScriptSecurity}
 	Function PlayerViewService:UpdateDeviceCFrame(player: Player? = nil, cframe: CFrame? = CFrame?.new(), timestamp: number? = 0) -> () {RobloxScriptSecurity}
 Class Players : Instance [NotCreatable] [Service]
@@ -4473,6 +4476,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function RunService:BindToRenderStep(name: string, priority: number, function: (...any) -> ...any) -> ()
 	Function RunService:GetCoreScriptVersion() -> string {RobloxScriptSecurity}
 	Function RunService:GetRobloxClientChannel() -> string {RobloxScriptSecurity}
+	Function RunService:GetRobloxGuiFocused() -> boolean {RobloxScriptSecurity}
 	Function RunService:GetRobloxVersion() -> string {RobloxScriptSecurity}
 	Function RunService:IsClient() -> boolean {🧬Safe}
 	Function RunService:IsEdit() -> boolean {PluginSecurity} {🧬Safe}
@@ -4494,6 +4498,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event RunService.PreRender(deltaTimeRender: number)
 	Event RunService.PreSimulation(deltaTimeSim: number)
 	Event RunService.RenderStepped(deltaTime: number)
+	Event RunService.RobloxGuiFocusedChanged(isRobloxGuiFocused: boolean) {RobloxScriptSecurity}
 	Event RunService.Stepped(time: number, deltaTime: number)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
@@ -5823,6 +5828,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property UserGameSettings.CameraYInverted: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.ChatTranslationEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.ChatTranslationFTUXShown: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property UserGameSettings.ChatTranslationLocale: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.ChatTranslationToggleEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.ChatVisible: boolean {RobloxScriptSecurity}
 	Property UserGameSettings.CompletedTutorials: string {RobloxScriptSecurity} [Hidden] [NotScriptable]

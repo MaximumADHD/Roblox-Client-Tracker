@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AppChatTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/social/test-suites/app-chat-test-suite/src"
+    }
+  }
+}

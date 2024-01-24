@@ -98,8 +98,8 @@ dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DataLoader DataLoader 0.2.0 url+https://github.com/roblox/data-loader-lua",
     "DeveloperTools DeveloperTools 0.2.7 url+https://github.com/roblox/developer-tools",
-    "ExperienceChat ExperienceChat 30a4e07c git+https://github.com/roblox/lua-experience-chat#v4.2.6",
-    "ExperienceChat_New ExperienceChat 90731c09 git+https://github.com/roblox/lua-experience-chat#v4.2.7",
+    "ExperienceChat ExperienceChat 90731c09 git+https://github.com/roblox/lua-experience-chat#v4.2.7",
+    "ExperienceChat_New ExperienceChat e673569d git+https://github.com/roblox/lua-experience-chat#v4.2.9",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "GraphqlToolsUtils Utils 0.3.1 url+https://github.com/roblox/graphql-tools-lua",
@@ -111,7 +111,7 @@ dependencies = [
     "JestBenchmark JestBenchmark 3.5.0 url+https://github.com/roblox/jest-roblox",
     "JestGlobals JestGlobals 2.4.1 url+https://github.com/roblox/jest-roblox",
     "JestGlobals3 JestGlobals 3.5.0 url+https://github.com/roblox/jest-roblox",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps e9c84ba5 git+https://github.com/roblox/lua-social-libraries-deps#master",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 4fdfe4b6 git+https://github.com/roblox/lua-social-libraries-deps#master",
     "LuauPolyfill LuauPolyfill 0.4.2 url+https://github.com/roblox/luau-polyfill",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Merge Merge 0.3.1 url+https://github.com/roblox/graphql-tools-lua",
@@ -138,7 +138,7 @@ dependencies = [
     "Rhodium Rhodium 0.5.0 url+https://github.com/roblox/rhodium",
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactAppExperiment RoactAppExperiment 0.4.1 url+https://github.com/roblox/roact-app-experiment",
-    "RoactGamepad <patched> RoactGamepad 0.5.12 url+https://github.com/roblox/roact-gamepad",
+    "RoactGamepad <patched> RoactGamepad 0.5.13 url+https://github.com/roblox/roact-gamepad",
     "RoactNavigation <patched> RoactNavigation 0.5.7 url+https://github.com/roblox/roact-navigation",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
@@ -153,7 +153,7 @@ dependencies = [
     "TagUtils TagUtils 0.1.0 url+https://github.com/roblox/luau-tag-utils",
     "Thumbnailing Thumbnailing 8d8b0358 git+https://github.com/roblox/thumbnailing#main",
     "UGCValidation UGCValidation 1.10.5 url+https://github.com/roblox/ugc-validation",
-    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d203e3e2 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 73abf03d git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 url+https://github.com/roblox/usage-tracker-lua",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
@@ -307,28 +307,6 @@ dependencies = [
 
 [[package]]
 name = "ExperienceChat"
-version = "4.2.6"
-commit = "30a4e07c746d4e15715f6cc157dddf800cfdf2f6"
-source = "git+https://github.com/roblox/lua-experience-chat#v4.2.6"
-dependencies = [
-    "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
-    "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
-    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
-    "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> React 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "ReactIs <patched> ReactIs 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "ReactRoblox <patched> ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
-    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
-    "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
-    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
-]
-
-[[package]]
-name = "ExperienceChat"
 version = "4.2.7"
 commit = "90731c09f9fbae73b95df556184af6ff10bdb811"
 source = "git+https://github.com/roblox/lua-experience-chat#v4.2.7"
@@ -344,7 +322,29 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
-    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d203e3e2 git+https://github.com/roblox/uiblox#master",
+    "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
+    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
+]
+
+[[package]]
+name = "ExperienceChat"
+version = "4.2.9"
+commit = "e673569d0b7f35073264999ec847b1782b59cbc6"
+source = "git+https://github.com/roblox/lua-experience-chat#v4.2.9"
+dependencies = [
+    "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
+    "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
+    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
+    "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
+    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
+    "React <patched> React 17.0.1 url+https://github.com/roblox/roact-alignment",
+    "ReactIs <patched> ReactIs 17.0.1 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox <patched> ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
+    "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
+    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
+    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
+    "UIBlox UIBlox d203e3e2 git+https://github.com/roblox/uiblox#master",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -418,8 +418,8 @@ dependencies = [
     "ReactOtter ReactOtter 1.1.0 url+https://github.com/roblox/otter",
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "RoactGamepad <patched> RoactGamepad 0.5.12 url+https://github.com/roblox/roact-gamepad",
-    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
+    "RoactGamepad <patched> RoactGamepad 0.5.13 url+https://github.com/roblox/roact-gamepad",
+    "UIBlox UIBlox d203e3e2 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -438,7 +438,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
-    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d203e3e2 git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -989,7 +989,7 @@ dependencies = [
 [[package]]
 name = "LuaSocialLibrariesDeps"
 version = "1.1.7"
-commit = "e9c84ba5c742ae8c736b6c91449a816be37cc16f"
+commit = "4fdfe4b6ce5a99df3ad3240b59dc0b42dbd12fac"
 source = "git+https://github.com/roblox/lua-social-libraries-deps#master"
 dependencies = [
     "CollisionMatchers 2D-Collision-Matchers 89b7a343 git+https://github.com/roblox/2d-collision-matchers#v1.0.1",
@@ -1007,7 +1007,7 @@ dependencies = [
     "NetworkingGames NetworkingGames 05d37b25 git+https://github.com/roblox/networking-games#v1.2.0",
     "NetworkingPremiumFeatures NetworkingPremiumFeatures 1.15.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingPresence NetworkingPresence 1.15.0 url+https://github.com/roblox/lua-app-networking",
-    "NetworkingShareLinks NetworkingShareLinks 4050a50a git+https://github.com/roblox/networking-sharelinks#v1.3.1",
+    "NetworkingShareLinks NetworkingShareLinks 30ecb2a1 git+https://github.com/roblox/networking-sharelinks#v1.3.2",
     "NetworkingSquads NetworkingSquads 1.15.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 url+https://github.com/roblox/lua-app-networking",
     "NetworkingUsers NetworkingUsers 5eb39145 git+https://github.com/roblox/networking-users#v1.2.1",
@@ -1199,9 +1199,9 @@ source = "git+https://github.com/roblox/networking-sharelinks#v1.1.1"
 
 [[package]]
 name = "NetworkingShareLinks"
-version = "1.2.0"
-commit = "4050a50a1783dbe80f24eff4da19dc66f0e53ca2"
-source = "git+https://github.com/roblox/networking-sharelinks#v1.3.1"
+version = "1.3.2"
+commit = "30ecb2a12feddc59629a50666eda0c1151da78af"
+source = "git+https://github.com/roblox/networking-sharelinks#v1.3.2"
 
 [[package]]
 name = "NetworkingSquads"
@@ -1355,7 +1355,7 @@ dependencies = [
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
-    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d203e3e2 git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder 73abf03d git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1577,8 +1577,8 @@ dependencies = [
 
 [[package]]
 name = "RoactGamepad"
-version = "0.5.12"
-commit = "8ea840572a4912cf208b8f5b828520257d80f061"
+version = "0.5.13"
+commit = "6042b1f53f2e1fffe63cde202fe221517ddf7ec5"
 source = "url+https://github.com/roblox/roact-gamepad"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
@@ -1962,7 +1962,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 02a3ea83 git+https://github.com/roblox/rodux-friends#v4.0.0",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 67ced905 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox d203e3e2 git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -2071,7 +2071,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "67ced905c420e83a06484e9f54d7da7177d08d0c"
+commit = "d203e3e2492e466d9e4efb02999bfadf38238015"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
@@ -2084,7 +2084,7 @@ dependencies = [
     "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
     "ReactOtter ReactOtter 1.1.0 url+https://github.com/roblox/otter",
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RoactGamepad <patched> RoactGamepad 0.5.12 url+https://github.com/roblox/roact-gamepad",
+    "RoactGamepad <patched> RoactGamepad 0.5.13 url+https://github.com/roblox/roact-gamepad",
     "UsageTracker UsageTracker 0.1.1 url+https://github.com/roblox/usage-tracker-lua",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",

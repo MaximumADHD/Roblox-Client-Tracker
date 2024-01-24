@@ -155,6 +155,8 @@ Studio.App.RobloxRibbonMainWindow.Service,,Service,Service
 Studio.App.RobloxRibbonMainWindow.InsertFromServiceSelection,,Insert service from a service selection,Insert service from a service selection
 Studio.App.RBXMainWindow.OpenFlagEditor,,Open Flag Editor,Open Flag Editor
 Studio.App.RBXMainWindow.AddUIElements,,Add UI elements,Add UI elements
+Studio.App.RBXMainWindow.StyleEditor,Editor that modifies the properties (appearance) of UI and 3D parts,Style Editor,Style Editor
+Studio.App.RBXMainWindow.OpenStyleEditor,Tooltip that displays when opening the Style Editor that edits StyleSheet and StyleRule instances,"Create, remove, and modify styles","Create, remove, and modify styles"
 Studio.App.RBXMainWindow.Editor,,Editor,Editor
 Studio.App.RBXMainWindow.AddRemoveAndModifyTerrain,,"Add, remove, and modify terrain","Add, remove, and modify terrain"
 Studio.App.RBXMainWindow.TerrainEditor,,Terrain Editor,Terrain Editor

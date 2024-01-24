@@ -680,18 +680,11 @@ TableView {
                 GameTableViewText {
                     id: _typeText
                     text: {
-                        if (FFlagCOLLAB2781FixTeamCreateStatusChildPlaces)
-                        {
-                            if (!model || !model.isRootPlace) {
-                                return "";
-                            }
+                        if (!model || !model.isRootPlace) {
+                            return "";
+                        }
 
-                            return model.teamCreateEnabled ? qsTr("Studio.App.ListView.TeamCreateOn") : qsTr("Studio.App.ListView.TeamCreateOff");
-                        }
-                        else
-                        {
-                            return model && model.teamCreateEnabled ? qsTr("Studio.App.ListView.TeamCreateOn") : qsTr("Studio.App.ListView.TeamCreateOff");
-                        }
+                        return model.teamCreateEnabled ? qsTr("Studio.App.ListView.TeamCreateOn") : qsTr("Studio.App.ListView.TeamCreateOff");
                     }
                 }
                 Component {

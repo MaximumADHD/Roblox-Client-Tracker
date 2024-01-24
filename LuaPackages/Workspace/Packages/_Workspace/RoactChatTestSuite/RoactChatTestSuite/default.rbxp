@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "RoactChatTestSuite",
-    "tree": {
-      "$path": "../../../../../../../modules/social/test-suites/roact-chat-test-suite/src"
-    }
-  }
-}
