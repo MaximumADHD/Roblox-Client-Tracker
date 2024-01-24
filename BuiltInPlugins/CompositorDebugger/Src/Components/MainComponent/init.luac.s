@@ -99,21 +99,22 @@ PROTO_5:
   GETTABLEKS R10 R1 K15 ["DebugData"]
   GETUPVAL R11 0
   CALL R11 0 1
-  JUMPIFNOT R11 [+18]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K16 ["FilterCrossFade"]
-  JUMPIFNOT R11 [+14]
-  JUMPIFNOT R10 [+13]
+  JUMPIF R11 [+3]
+  GETUPVAL R11 1
+  CALL R11 0 1
+  JUMPIFNOT R11 [+16]
+  JUMPIFNOT R10 [+15]
   GETUPVAL R11 2
-  GETTABLEKS R12 R10 K17 ["children"]
-  GETTABLEKS R13 R1 K18 ["LayerFilters"]
-  CALL R11 2 2
+  GETTABLEKS R12 R10 K16 ["children"]
+  GETTABLEKS R13 R1 K17 ["LayerFilters"]
+  GETTABLEKS R14 R1 K18 ["ActiveLayersFilter"]
+  CALL R11 3 2
   JUMPIFNOT R12 [+6]
   GETUPVAL R13 3
   MOVE R14 R10
   CALL R13 1 1
   MOVE R10 R13
-  SETTABLEKS R11 R10 K17 ["children"]
+  SETTABLEKS R11 R10 K16 ["children"]
   NEWTABLE R11 0 2
   GETUPVAL R13 0
   CALL R13 0 1
@@ -181,7 +182,7 @@ PROTO_5:
   GETUPVAL R14 4
   GETTABLEKS R13 R14 K19 ["createElement"]
   GETUPVAL R14 8
-  DUPTABLE R15 K47 [{"LayoutOrder", "LayerData", "History", "WriteIndex", "ExpandedSections", "Overrides", "ShowRawPayload"}]
+  DUPTABLE R15 K48 [{"LayoutOrder", "LayerData", "History", "LastTimestamp", "WriteIndex", "ExpandedSections", "Overrides", "ShowRawPayload"}]
   GETUPVAL R17 0
   CALL R17 0 1
   JUMPIFNOT R17 [+2]
@@ -197,100 +198,108 @@ PROTO_5:
   JUMP [+1]
   LOADNIL R16
   SETTABLEKS R16 R15 K44 ["History"]
+  GETTABLEKS R16 R1 K45 ["LastTimestamp"]
+  SETTABLEKS R16 R15 K45 ["LastTimestamp"]
   GETUPVAL R17 9
   CALL R17 0 1
   JUMPIFNOT R17 [+3]
-  GETTABLEKS R16 R1 K45 ["WriteIndex"]
+  GETTABLEKS R16 R1 K46 ["WriteIndex"]
   JUMP [+1]
   LOADNIL R16
-  SETTABLEKS R16 R15 K45 ["WriteIndex"]
+  SETTABLEKS R16 R15 K46 ["WriteIndex"]
   SETTABLEKS R7 R15 K7 ["ExpandedSections"]
   SETTABLEKS R6 R15 K6 ["Overrides"]
   GETUPVAL R17 9
   CALL R17 0 1
   JUMPIFNOT R17 [+4]
-  GETUPVAL R17 1
-  GETTABLEKS R16 R17 K46 ["ShowRawPayload"]
+  GETUPVAL R17 10
+  GETTABLEKS R16 R17 K47 ["ShowRawPayload"]
   JUMP [+1]
   LOADNIL R16
-  SETTABLEKS R16 R15 K46 ["ShowRawPayload"]
+  SETTABLEKS R16 R15 K47 ["ShowRawPayload"]
   CALL R13 2 -1
   SETLIST R11 R12 -1 [1]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K19 ["createElement"]
   GETUPVAL R13 5
   NEWTABLE R14 2 0
-  GETIMPORT R15 K49 [UDim2.fromScale]
+  GETIMPORT R15 K50 [UDim2.fromScale]
   LOADN R16 1
   LOADN R17 1
   CALL R15 2 1
   SETTABLEKS R15 R14 K33 ["Size"]
   GETUPVAL R17 4
-  GETTABLEKS R16 R17 K50 ["Change"]
-  GETTABLEKS R15 R16 K51 ["AbsoluteSize"]
-  GETTABLEKS R16 R0 K52 ["onAbsoluteSizeChanged"]
+  GETTABLEKS R16 R17 K51 ["Change"]
+  GETTABLEKS R15 R16 K52 ["AbsoluteSize"]
+  GETTABLEKS R16 R0 K53 ["onAbsoluteSizeChanged"]
   SETTABLE R16 R14 R15
-  DUPTABLE R15 K55 [{"CompositorSelector", "MainSplitPane"}]
-  GETUPVAL R17 4
-  GETTABLEKS R16 R17 K19 ["createElement"]
-  GETUPVAL R17 10
-  CALL R16 1 1
-  SETTABLEKS R16 R15 K53 ["CompositorSelector"]
+  DUPTABLE R15 K56 [{"CompositorSelector", "MainSplitPane"}]
   GETUPVAL R17 4
   GETTABLEKS R16 R17 K19 ["createElement"]
   GETUPVAL R17 11
-  DUPTABLE R18 K58 [{"MinSizes", "InitialSizes", "Layout"}]
-  SETTABLEKS R8 R18 K56 ["MinSizes"]
-  SETTABLEKS R9 R18 K57 ["InitialSizes"]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K54 ["CompositorSelector"]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K19 ["createElement"]
+  GETUPVAL R17 12
+  DUPTABLE R18 K59 [{"MinSizes", "InitialSizes", "Layout"}]
+  SETTABLEKS R8 R18 K57 ["MinSizes"]
+  SETTABLEKS R9 R18 K58 ["InitialSizes"]
   SETTABLEKS R4 R18 K21 ["Layout"]
   MOVE R19 R11
   CALL R16 3 1
-  SETTABLEKS R16 R15 K54 ["MainSplitPane"]
+  SETTABLEKS R16 R15 K55 ["MainSplitPane"]
   CALL R12 3 -1
   RETURN R12 -1
 
 PROTO_6:
-  DUPTABLE R1 K10 [{"DebugData", "LayerMap", "Overrides", "History", "WriteIndex", "Adornments", "ExpandedSections", "LayerFilters", "HistoryField", "SelectedLayer"}]
+  DUPTABLE R1 K12 [{"DebugData", "History", "LastTimestamp", "LayerMap", "Overrides", "WriteIndex", "ActiveLayersFilter", "Adornments", "ExpandedSections", "HistoryField", "LayerFilters", "SelectedLayer"}]
   GETTABLEKS R3 R0 K0 ["DebugData"]
   GETTABLEKS R2 R3 K0 ["DebugData"]
   SETTABLEKS R2 R1 K0 ["DebugData"]
-  GETTABLEKS R3 R0 K0 ["DebugData"]
-  GETTABLEKS R2 R3 K1 ["LayerMap"]
-  SETTABLEKS R2 R1 K1 ["LayerMap"]
-  GETTABLEKS R3 R0 K0 ["DebugData"]
-  GETTABLEKS R2 R3 K2 ["Overrides"]
-  SETTABLEKS R2 R1 K2 ["Overrides"]
   GETUPVAL R3 0
   CALL R3 0 1
   JUMPIFNOT R3 [+5]
   GETTABLEKS R3 R0 K0 ["DebugData"]
-  GETTABLEKS R2 R3 K3 ["History"]
+  GETTABLEKS R2 R3 K1 ["History"]
   JUMP [+1]
   LOADNIL R2
-  SETTABLEKS R2 R1 K3 ["History"]
+  SETTABLEKS R2 R1 K1 ["History"]
+  GETTABLEKS R3 R0 K0 ["DebugData"]
+  GETTABLEKS R2 R3 K2 ["LastTimestamp"]
+  SETTABLEKS R2 R1 K2 ["LastTimestamp"]
+  GETTABLEKS R3 R0 K0 ["DebugData"]
+  GETTABLEKS R2 R3 K3 ["LayerMap"]
+  SETTABLEKS R2 R1 K3 ["LayerMap"]
+  GETTABLEKS R3 R0 K0 ["DebugData"]
+  GETTABLEKS R2 R3 K4 ["Overrides"]
+  SETTABLEKS R2 R1 K4 ["Overrides"]
   GETUPVAL R3 0
   CALL R3 0 1
   JUMPIFNOT R3 [+5]
   GETTABLEKS R3 R0 K0 ["DebugData"]
-  GETTABLEKS R2 R3 K4 ["WriteIndex"]
+  GETTABLEKS R2 R3 K5 ["WriteIndex"]
   JUMP [+1]
   LOADNIL R2
-  SETTABLEKS R2 R1 K4 ["WriteIndex"]
-  GETTABLEKS R3 R0 K11 ["Status"]
-  GETTABLEKS R2 R3 K5 ["Adornments"]
-  SETTABLEKS R2 R1 K5 ["Adornments"]
-  GETTABLEKS R3 R0 K11 ["Status"]
-  GETTABLEKS R2 R3 K6 ["ExpandedSections"]
-  SETTABLEKS R2 R1 K6 ["ExpandedSections"]
-  GETTABLEKS R3 R0 K11 ["Status"]
-  GETTABLEKS R2 R3 K7 ["LayerFilters"]
-  SETTABLEKS R2 R1 K7 ["LayerFilters"]
-  GETTABLEKS R3 R0 K11 ["Status"]
-  GETTABLEKS R2 R3 K8 ["HistoryField"]
-  SETTABLEKS R2 R1 K8 ["HistoryField"]
-  GETTABLEKS R3 R0 K11 ["Status"]
-  GETTABLEKS R2 R3 K9 ["SelectedLayer"]
-  SETTABLEKS R2 R1 K9 ["SelectedLayer"]
+  SETTABLEKS R2 R1 K5 ["WriteIndex"]
+  GETTABLEKS R3 R0 K13 ["Status"]
+  GETTABLEKS R2 R3 K6 ["ActiveLayersFilter"]
+  SETTABLEKS R2 R1 K6 ["ActiveLayersFilter"]
+  GETTABLEKS R3 R0 K13 ["Status"]
+  GETTABLEKS R2 R3 K7 ["Adornments"]
+  SETTABLEKS R2 R1 K7 ["Adornments"]
+  GETTABLEKS R3 R0 K13 ["Status"]
+  GETTABLEKS R2 R3 K8 ["ExpandedSections"]
+  SETTABLEKS R2 R1 K8 ["ExpandedSections"]
+  GETTABLEKS R3 R0 K13 ["Status"]
+  GETTABLEKS R2 R3 K9 ["HistoryField"]
+  SETTABLEKS R2 R1 K9 ["HistoryField"]
+  GETTABLEKS R3 R0 K13 ["Status"]
+  GETTABLEKS R2 R3 K10 ["LayerFilters"]
+  SETTABLEKS R2 R1 K10 ["LayerFilters"]
+  GETTABLEKS R3 R0 K13 ["Status"]
+  GETTABLEKS R2 R3 K11 ["SelectedLayer"]
+  SETTABLEKS R2 R1 K11 ["SelectedLayer"]
   RETURN R1 1
 
 PROTO_7:
@@ -398,19 +407,23 @@ MAIN:
   GETTABLEKS R29 R0 K34 ["LuaFlags"]
   GETTABLEKS R28 R29 K36 ["GetFFlagCrossFadeFilter"]
   CALL R27 1 1
-  GETTABLEKS R28 R1 K37 ["PureComponent"]
-  LOADK R30 K38 ["MainComponent"]
-  NAMECALL R28 R28 K39 ["extend"]
-  CALL R28 2 1
-  DUPCLOSURE R29 K40 [PROTO_2]
-  SETTABLEKS R29 R28 K41 ["init"]
-  DUPCLOSURE R29 K42 [PROTO_3]
-  SETTABLEKS R29 R28 K43 ["didMount"]
-  DUPCLOSURE R29 K44 [PROTO_4]
-  SETTABLEKS R29 R28 K45 ["willUnmount"]
-  DUPCLOSURE R29 K46 [PROTO_5]
+  GETIMPORT R28 K5 [require]
+  GETTABLEKS R30 R0 K34 ["LuaFlags"]
+  GETTABLEKS R29 R30 K37 ["GetFFlagActiveLayersFilter"]
+  CALL R28 1 1
+  GETTABLEKS R29 R1 K38 ["PureComponent"]
+  LOADK R31 K39 ["MainComponent"]
+  NAMECALL R29 R29 K40 ["extend"]
+  CALL R29 2 1
+  DUPCLOSURE R30 K41 [PROTO_2]
+  SETTABLEKS R30 R29 K42 ["init"]
+  DUPCLOSURE R30 K43 [PROTO_3]
+  SETTABLEKS R30 R29 K44 ["didMount"]
+  DUPCLOSURE R30 K45 [PROTO_4]
+  SETTABLEKS R30 R29 K46 ["willUnmount"]
+  DUPCLOSURE R30 K47 [PROTO_5]
   CAPTURE VAL R27
-  CAPTURE VAL R21
+  CAPTURE VAL R28
   CAPTURE VAL R25
   CAPTURE VAL R8
   CAPTURE VAL R1
@@ -419,27 +432,28 @@ MAIN:
   CAPTURE VAL R17
   CAPTURE VAL R16
   CAPTURE VAL R26
+  CAPTURE VAL R21
   CAPTURE VAL R15
   CAPTURE VAL R18
-  SETTABLEKS R29 R28 K47 ["render"]
-  MOVE R29 R5
-  DUPTABLE R30 K48 [{"Analytics", "Stylizer"}]
-  SETTABLEKS R6 R30 K12 ["Analytics"]
-  SETTABLEKS R9 R30 K16 ["Stylizer"]
-  CALL R29 1 1
-  MOVE R30 R28
-  CALL R29 1 1
-  MOVE R28 R29
-  DUPCLOSURE R29 K49 [PROTO_6]
+  SETTABLEKS R30 R29 K48 ["render"]
+  MOVE R30 R5
+  DUPTABLE R31 K49 [{"Analytics", "Stylizer"}]
+  SETTABLEKS R6 R31 K12 ["Analytics"]
+  SETTABLEKS R9 R31 K16 ["Stylizer"]
+  CALL R30 1 1
+  MOVE R31 R29
+  CALL R30 1 1
+  MOVE R29 R30
+  DUPCLOSURE R30 K50 [PROTO_6]
   CAPTURE VAL R26
-  DUPCLOSURE R30 K50 [PROTO_9]
+  DUPCLOSURE R31 K51 [PROTO_9]
   CAPTURE VAL R13
   CAPTURE VAL R23
-  GETTABLEKS R31 R2 K51 ["connect"]
-  MOVE R32 R29
+  GETTABLEKS R32 R2 K52 ["connect"]
   MOVE R33 R30
-  CALL R31 2 1
-  MOVE R32 R28
-  CALL R31 1 1
-  MOVE R28 R31
-  RETURN R28 1
+  MOVE R34 R31
+  CALL R32 2 1
+  MOVE R33 R29
+  CALL R32 1 1
+  MOVE R29 R32
+  RETURN R29 1

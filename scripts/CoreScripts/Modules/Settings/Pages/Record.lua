@@ -6,7 +6,9 @@
 		Description: Takes care of the Record Tab in Settings Menu
 --]]
 -------------- SERVICES --------------
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GuiService = game:GetService("GuiService")
 local TextService = game:GetService("TextService")
@@ -14,6 +16,8 @@ local VRService = game:GetService("VRService")
 
 ----------- UTILITIES --------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
+local AnalyticsEnums = require(CorePackages.Workspace.Packages.SocialLuaAnalytics).Analytics.Enums
+local EventNames = require(CorePackages.Workspace.Packages.Screenshots).Analytics.EventNames
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
@@ -22,6 +26,12 @@ local PageInstance = nil
 
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
+local FFlagLogRecordActivations = game:DefineFastFlag("LogRecordActivations", false)
+
+local Contexts = AnalyticsEnums.Contexts
+local EventTypes = AnalyticsEnums.EventTypes
+
+local EVENT_STREAM_TARGET = "mobile"
 
 ----------- CLASS DECLARATION --------------
 
@@ -131,6 +141,14 @@ local function Initialize()
 		local recordButtonRow, recordButton = utility:AddButtonRow(this, "RecordButton", "Record Video", UDim2.new(0, 300, 0, 44), closeSettingsFunc)
 		recordButtonRow.LayoutOrder = 6
 		recordButton.MouseButton1Click:connect(function()
+			if FFlagLogRecordActivations then
+				AnalyticsService:SendEventDeferred(
+					EVENT_STREAM_TARGET,
+					Contexts.Screenshots,
+					EventTypes.ButtonClick,
+					{ btn = if not isRecordingVideo then EventNames.CapturesLegacyVideoRecordActivated else EventNames.CapturesLegacyVideoRecordDeactivated }
+				)
+			end
 			recordingEvent:Fire(not isRecordingVideo)
 		end)
 

@@ -60,8 +60,6 @@ local FFlagFixNonSelfCalls = game:DefineFastFlag("FixNonSelfCalls", false)
 local FFlagAlwaysSetupVoiceListeners = game:DefineFastFlag("AlwaysSetupVoiceListeners", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
 local FFlagOverwriteIsMutedLocally = game:DefineFastFlag("OverwriteIsMutedLocally", false)
-local FFlagVoiceMuteUnmuteAnalytics = game:DefineFastFlag("VoiceMuteUnmuteAnalytics", false)
-local FFlagVoiceMuteUnmuteSelfAnalytics = game:DefineFastFlag("VoiceMuteUnmuteSelfAnalytics", false)
 local FFlagHideVoiceUIUntilInputExists = game:DefineFastFlag("HideVoiceUIUntilInputExists", false)
 local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermissionsAnalytics", false)
 local FFlagVoiceChatEnableIrisMuteStateFix = game:DefineFastFlag("VoiceChatEnableIrisMuteStateFix", false)
@@ -1272,7 +1270,7 @@ function VoiceChatServiceManager:ToggleMutePlayer(userId: number, context: strin
 		end
 	end
 
-	if FFlagVoiceMuteUnmuteAnalytics and context then
+	if context then
 		self.Analytics:reportVoiceMuteIndividual(
 			self:JoinWithVoiceMuteData({
 				targetUserId = tonumber(userId),
@@ -1312,7 +1310,7 @@ function VoiceChatServiceManager:MuteAll(muteState: boolean, context: string)
 	end
 	self.muteAllChanged:Fire(muteState)
 
-	if FFlagVoiceMuteUnmuteAnalytics and context then
+	if context then
 		self.Analytics:reportVoiceMuteGroup(
 			self:JoinWithVoiceMuteData({
 				groupType = VoiceConstants.VOICE_GROUP_TYPE.ALL,
@@ -1351,7 +1349,7 @@ function VoiceChatServiceManager:ToggleMuteSome(userIds: { number }, muteState: 
 		end
 	end
 
-	if FFlagVoiceMuteUnmuteAnalytics and groupType and context then
+	if groupType and context then
 		self.Analytics:reportVoiceMuteGroup(
 			self:JoinWithVoiceMuteData({
 				groupType = groupType,
@@ -1755,7 +1753,7 @@ function VoiceChatServiceManager:ToggleMic(context: string?)
 		self.talkingChanged:Fire(self.isTalking)
 	end
 
-	if FFlagVoiceMuteUnmuteSelfAnalytics and context then
+	if context then
 		self.Analytics:reportVoiceMuteSelf(
 			self:JoinWithVoiceMuteData({
 				context = context,

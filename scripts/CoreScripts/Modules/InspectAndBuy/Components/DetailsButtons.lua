@@ -16,7 +16,6 @@ local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local tutils = require(CorePackages.tutils)
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
-local FFlagFixInspectAndBuyPremiumPrice = game:DefineFastFlag("FixInspectAndBuyPremiumPrice", false)
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local GetCollectibleItemInInspectAndBuyEnabled =
 	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
@@ -69,24 +68,13 @@ local function getBuyText(itemInfo, locale, collectibleQuantityLimitReached, col
 		buyText = RobloxTranslator:FormatByKeyForLocale(OFFSALE_KEY, locale)
 	elseif itemInfo.isForSale then
 		if itemInfo.premiumPricing ~= nil then
-			if FFlagFixInspectAndBuyPremiumPrice then
-				if (Players.LocalPlayer :: Player).MembershipType == Enum.MembershipType.Premium then
-					buyText = itemInfo.premiumPricing.premiumPriceInRobux
-				else
-					if itemInfo.price == nil then
-						buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
-					else
-						buyText = itemInfo.price
-					end
-				end
+			if (Players.LocalPlayer :: Player).MembershipType == Enum.MembershipType.Premium then
+				buyText = itemInfo.premiumPricing.premiumPriceInRobux
 			else
-				if
-					itemInfo.price == nil
-					and (Players.LocalPlayer :: Player).MembershipType ~= Enum.MembershipType.Premium
-				then
+				if itemInfo.price == nil then
 					buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
 				else
-					buyText = itemInfo.premiumPricing.premiumPriceInRobux
+					buyText = itemInfo.price
 				end
 			end
 		else

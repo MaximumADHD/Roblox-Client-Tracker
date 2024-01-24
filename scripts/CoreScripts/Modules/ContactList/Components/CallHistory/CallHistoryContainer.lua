@@ -150,7 +150,7 @@ local function CallHistoryContainer(props: Props)
 	local noRecordsComponent = React.useMemo(function()
 		local message
 		if status == RetrievalStatus.Failed then
-			message = RobloxTranslator:FormatByKey("Feature.Call.Error.Title.GenericLong")
+			message = RobloxTranslator:FormatByKey("Feature.Call.Error.Description.Generic")
 		else
 			message = RobloxTranslator:FormatByKey("Feature.Call.Prompt.FirstCall")
 		end

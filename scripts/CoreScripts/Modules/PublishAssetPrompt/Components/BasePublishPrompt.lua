@@ -25,8 +25,7 @@ local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 
 local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
 local httpImpl = httpRequest(HttpRbxApiService :: any)
-local GetGameNameAndDescription =
-	require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 
 local LocalPlayer = Players.LocalPlayer
 

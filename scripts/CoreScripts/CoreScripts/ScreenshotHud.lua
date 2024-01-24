@@ -26,7 +26,7 @@ local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsP
 local Promise = require(CorePackages.Promise)
 
 local FFlagScreenshotHudGuiVisibilityApi = game:DefineFastFlag("ScreenshotHudGuiVisibilityApiForScreenshotHud", false)
-local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
 
 if not GetFFlagScreenshotHudApi() then

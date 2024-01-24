@@ -7,6 +7,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
+local getFFlagUseCameraDevicesListener = require(RobloxGui.Modules.Flags.getFFlagUseCameraDevicesListener)
+local cameraDevicesHelper = require(RobloxGui.Modules.Settings.cameraDevicesHelper)
 
 local isCamEnabledForUserAndPlace = function(): boolean
 	-- Disable the avatar chat feature check if executing in a test environment
@@ -26,7 +28,12 @@ local isCamEnabledForUserAndPlace = function(): boolean
 
 	if getFFlagEnableAlwaysAvailableCamera() then
 		-- If user does not have a eligible camera device, cam cannot be enabled
-		local cameraDevices = VideoCaptureService:GetCameraDevices()
+		local cameraDevices
+		if getFFlagUseCameraDevicesListener() then
+			cameraDevices = cameraDevicesHelper.GetDevices()
+		else
+			cameraDevices = VideoCaptureService:GetCameraDevices()
+		end
 		local eligibleCameraDeviceConnected = not Cryo.isEmpty(cameraDevices)
 		return placeCamEnabled and userCamEligible and userCamEnabled and eligibleCameraDeviceConnected
 	end

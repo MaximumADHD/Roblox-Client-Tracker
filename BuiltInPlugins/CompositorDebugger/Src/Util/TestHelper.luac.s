@@ -332,26 +332,31 @@ PROTO_12:
   GETIMPORT R10 K19 [table.insert]
   CALL R10 2 0
   FORNLOOP R6
-  RETURN R5 1
+  MOVE R6 R5
+  LENGTH R9 R5
+  GETTABLE R8 R5 R9
+  GETTABLEKS R7 R8 K1 ["timestamp"]
+  RETURN R6 2
 
 PROTO_13:
-  DUPTABLE R5 K3 [{"History", "WriteIndex", "HistoryField"}]
-  GETUPVAL R6 0
-  MOVE R7 R0
-  MOVE R8 R1
-  MOVE R9 R2
-  MOVE R10 R3
-  MOVE R11 R4
-  CALL R6 5 1
-  SETTABLEKS R6 R5 K0 ["History"]
-  ADDK R6 R3 K4 [1]
-  SETTABLEKS R6 R5 K1 ["WriteIndex"]
-  DUPTABLE R6 K8 [{"id", "section", "field"}]
-  SETTABLEKS R0 R6 K5 ["id"]
-  SETTABLEKS R1 R6 K6 ["section"]
-  SETTABLEKS R2 R6 K7 ["field"]
-  SETTABLEKS R6 R5 K2 ["HistoryField"]
-  RETURN R5 1
+  GETUPVAL R5 0
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  MOVE R10 R4
+  CALL R5 5 2
+  DUPTABLE R7 K4 [{"History", "LastTimestamp", "WriteIndex", "HistoryField"}]
+  SETTABLEKS R5 R7 K0 ["History"]
+  SETTABLEKS R6 R7 K1 ["LastTimestamp"]
+  ADDK R8 R3 K5 [1]
+  SETTABLEKS R8 R7 K2 ["WriteIndex"]
+  DUPTABLE R8 K9 [{"id", "section", "field"}]
+  SETTABLEKS R0 R8 K6 ["id"]
+  SETTABLEKS R1 R8 K7 ["section"]
+  SETTABLEKS R2 R8 K8 ["field"]
+  SETTABLEKS R8 R7 K3 ["HistoryField"]
+  RETURN R7 1
 
 PROTO_14:
   GETUPVAL R3 0

@@ -34,6 +34,8 @@ local GetFFlagSeparateVoiceEnabledErrors =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeparateVoiceEnabledErrors
 local GetFFlagIrisUniverseAgeCheckError =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUniverseAgeCheckError
+local GetFFlagIrisReservedServerCheckError =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisReservedServerCheckError
 
 local CALL_DIALOG_DISPLAY_ORDER = 8
 
@@ -193,6 +195,14 @@ local function CallDialogContainer(passedProps: Props)
 							else (ErrorType.UniverseAgeIsNotValid :: any).rawValue()
 				then
 					warn("Experience must be at least one week old to place a call")
+				elseif
+					GetFFlagIrisReservedServerCheckError()
+					and params.errorType
+						== if GetFFlagIrisEnumerateCleanupEnabled()
+							then ErrorType.ReservedServerAccessCodeIsNotProvided
+							else (ErrorType.ReservedServerAccessCodeIsNotProvided :: any).rawValue()
+				then
+					warn("Reserved server access code was not provided via OnCallInviteInvoked callback")
 				end
 			end
 		end)

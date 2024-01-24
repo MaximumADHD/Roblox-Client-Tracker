@@ -23,7 +23,7 @@ local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)
 local Constants = require(ShareGame.Constants)
 local ShareInviteLink = require(ShareGame.Components.ShareInviteLink)
-local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 
 local BackButton = require(ShareGame.Components.BackButton)
 

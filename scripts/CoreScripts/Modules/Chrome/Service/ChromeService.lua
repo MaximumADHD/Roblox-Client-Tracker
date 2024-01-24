@@ -25,7 +25,7 @@ local GetFFlagEnableChromeDefaultOpen = require(script.Parent.Parent.Flags.GetFF
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 
-local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 1.5
+local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 2.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
 local CHROME_INTERACTED_KEY = "ChromeInteracted"
 local CHROME_SEEN_COUNT_KEY = "ChromeSeenCount"

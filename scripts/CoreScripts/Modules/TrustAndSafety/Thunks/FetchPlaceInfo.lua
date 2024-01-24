@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
 
 local httpImpl = httpRequest(HttpRbxApiService)

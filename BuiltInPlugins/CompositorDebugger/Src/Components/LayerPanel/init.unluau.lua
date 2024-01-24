@@ -14,30 +14,31 @@ local var11 = require(var10.Constants)
 local var12 = require(var10.debugFlags)
 local var13 = require(var0.LuaFlags.GetFFlagTestRefactoring)
 local var14 = game:DefineFastFlag("CDFixSwitchToTab", false)
-local var15 = require(var0.Src.Types)
-local var16 = require(var0.Packages.React).PureComponent:extend("LayerPanel")
-function var16.init(arg1)
-   local var60 = {}
-   var60.selectedTab = var11.LAYER_TABS.LayerData
-   arg1.state = var60
+local var15 = require(var0.LuaFlags.GetFFlagFixHistory)
+local var16 = require(var0.Src.Types)
+local var17 = require(var0.Packages.React).PureComponent:extend("LayerPanel")
+function var17.init(arg1)
+   local var64 = {}
+   var64.selectedTab = var11.LAYER_TABS.LayerData
+   arg1.state = var64
    function arg1.switchToTab(arg1)
-      local var66 = {}
-      var66.selectedTab = arg1
-      arg1:setState(var66)
+      local var70 = {}
+      var70.selectedTab = arg1
+      arg1:setState(var70)
    end
    
 end
 
-function var16.isVisualizationEnabled(arg1, arg2)
+function var17.isVisualizationEnabled(arg1, arg2)
    local var0 = {}
    var0.Blend1D = true
-   local var72 = true
-   var0.Blend2D = var72
-   var72 = arg2
-   return var72 and var0[arg2.className]
+   local var76 = true
+   var0.Blend2D = var76
+   var76 = arg2
+   return var76 and var0[arg2.className]
 end
 
-function var16.didUpdate(arg1, arg2)
+function var17.didUpdate(arg1, arg2)
    local var0 = arg1.props
    local var1 = arg1.state
    local var2 = var0.HistoryField and var0.HistoryField.id and var0.HistoryField.section and var0.HistoryField.field
@@ -50,14 +51,14 @@ function var16.didUpdate(arg1, arg2)
                      arg1.switchToTab(var11.LAYER_TABS.LayerData)
                   else
                      arg1:switchToTab(var11.LAYER_TABS.LayerData)
-                     local var112 = {}
-                     var112.selectedTab = var11.LAYER_TABS.LayerData
-                     arg1:setState(var112)
+                     local var116 = {}
+                     var116.selectedTab = var11.LAYER_TABS.LayerData
+                     arg1:setState(var116)
                   end
                else
-                  local var117 = {}
-                  var117.selectedTab = var11.LAYER_TABS.LayerData
-                  arg1:setState(var117)
+                  local var121 = {}
+                  var121.selectedTab = var11.LAYER_TABS.LayerData
+                  arg1:setState(var121)
                end
             end
          end
@@ -70,14 +71,14 @@ function var16.didUpdate(arg1, arg2)
                arg1.switchToTab(var11.LAYER_TABS.LayerData)
             else
                arg1:switchToTab(var11.LAYER_TABS.LayerData)
-               local var140 = {}
-               var140.selectedTab = var11.LAYER_TABS.LayerData
-               arg1:setState(var140)
+               local var144 = {}
+               var144.selectedTab = var11.LAYER_TABS.LayerData
+               arg1:setState(var144)
             end
          else
-            local var145 = {}
-            var145.selectedTab = var11.LAYER_TABS.LayerData
-            arg1:setState(var145)
+            local var149 = {}
+            var149.selectedTab = var11.LAYER_TABS.LayerData
+            arg1:setState(var149)
          end
       end
    end
@@ -92,9 +93,9 @@ function var16.didUpdate(arg1, arg2)
                      end
                      arg1:switchToTab(var11.LAYER_TABS.History)
                   end
-                  local var174 = {}
-                  var174.selectedTab = var11.LAYER_TABS.History
-                  arg1:setState(var174)
+                  local var178 = {}
+                  var178.selectedTab = var11.LAYER_TABS.History
+                  arg1:setState(var178)
                end
             end
          end
@@ -105,9 +106,9 @@ function var16.didUpdate(arg1, arg2)
          end
          arg1:switchToTab(var11.LAYER_TABS.History)
       end
-      local var190 = {}
-      var190.selectedTab = var11.LAYER_TABS.History
-      arg1:setState(var190)
+      local var194 = {}
+      var194.selectedTab = var11.LAYER_TABS.History
+      arg1:setState(var194)
    end
 end
 
@@ -124,14 +125,14 @@ local function fun4(arg1, arg2)
                      arg1.switchToTab(var11.LAYER_TABS.LayerData)
                   else
                      arg1:switchToTab(var11.LAYER_TABS.LayerData)
-                     local var231 = {}
-                     var231.selectedTab = var11.LAYER_TABS.LayerData
-                     arg1:setState(var231)
+                     local var235 = {}
+                     var235.selectedTab = var11.LAYER_TABS.LayerData
+                     arg1:setState(var235)
                   end
                else
-                  local var236 = {}
-                  var236.selectedTab = var11.LAYER_TABS.LayerData
-                  arg1:setState(var236)
+                  local var240 = {}
+                  var240.selectedTab = var11.LAYER_TABS.LayerData
+                  arg1:setState(var240)
                end
             end
          end
@@ -144,14 +145,14 @@ local function fun4(arg1, arg2)
                arg1.switchToTab(var11.LAYER_TABS.LayerData)
             else
                arg1:switchToTab(var11.LAYER_TABS.LayerData)
-               local var259 = {}
-               var259.selectedTab = var11.LAYER_TABS.LayerData
-               arg1:setState(var259)
+               local var263 = {}
+               var263.selectedTab = var11.LAYER_TABS.LayerData
+               arg1:setState(var263)
             end
          else
-            local var264 = {}
-            var264.selectedTab = var11.LAYER_TABS.LayerData
-            arg1:setState(var264)
+            local var268 = {}
+            var268.selectedTab = var11.LAYER_TABS.LayerData
+            arg1:setState(var268)
          end
       end
    end
@@ -166,9 +167,9 @@ local function fun4(arg1, arg2)
                      end
                      arg1:switchToTab(var11.LAYER_TABS.History)
                   end
-                  local var293 = {}
-                  var293.selectedTab = var11.LAYER_TABS.History
-                  arg1:setState(var293)
+                  local var297 = {}
+                  var297.selectedTab = var11.LAYER_TABS.History
+                  arg1:setState(var297)
                end
             end
          end
@@ -179,13 +180,13 @@ local function fun4(arg1, arg2)
          end
          arg1:switchToTab(var11.LAYER_TABS.History)
       end
-      local var309 = {}
-      var309.selectedTab = var11.LAYER_TABS.History
-      arg1:setState(var309)
+      local var313 = {}
+      var313.selectedTab = var11.LAYER_TABS.History
+      arg1:setState(var313)
    end
 end
 
-function var16.render(arg1, arg2)
+function var17.render(arg1, arg2)
    local var0 = arg1.props
    local var1 = arg1.state
    local var2 = var0.HistoryField and var0.HistoryField.id and var0.HistoryField.section and var0.HistoryField.field
@@ -198,14 +199,14 @@ function var16.render(arg1, arg2)
                      arg1.switchToTab(var11.LAYER_TABS.LayerData)
                   else
                      arg1:switchToTab(var11.LAYER_TABS.LayerData)
-                     local var231 = {}
-                     var231.selectedTab = var11.LAYER_TABS.LayerData
-                     arg1:setState(var231)
+                     local var235 = {}
+                     var235.selectedTab = var11.LAYER_TABS.LayerData
+                     arg1:setState(var235)
                   end
                else
-                  local var236 = {}
-                  var236.selectedTab = var11.LAYER_TABS.LayerData
-                  arg1:setState(var236)
+                  local var240 = {}
+                  var240.selectedTab = var11.LAYER_TABS.LayerData
+                  arg1:setState(var240)
                end
             end
          end
@@ -218,14 +219,14 @@ function var16.render(arg1, arg2)
                arg1.switchToTab(var11.LAYER_TABS.LayerData)
             else
                arg1:switchToTab(var11.LAYER_TABS.LayerData)
-               local var259 = {}
-               var259.selectedTab = var11.LAYER_TABS.LayerData
-               arg1:setState(var259)
+               local var263 = {}
+               var263.selectedTab = var11.LAYER_TABS.LayerData
+               arg1:setState(var263)
             end
          else
-            local var264 = {}
-            var264.selectedTab = var11.LAYER_TABS.LayerData
-            arg1:setState(var264)
+            local var268 = {}
+            var268.selectedTab = var11.LAYER_TABS.LayerData
+            arg1:setState(var268)
          end
       end
    end
@@ -240,9 +241,9 @@ function var16.render(arg1, arg2)
                      end
                      arg1:switchToTab(var11.LAYER_TABS.History)
                   end
-                  local var293 = {}
-                  var293.selectedTab = var11.LAYER_TABS.History
-                  arg1:setState(var293)
+                  local var297 = {}
+                  var297.selectedTab = var11.LAYER_TABS.History
+                  arg1:setState(var297)
                end
             end
          end
@@ -253,24 +254,24 @@ function var16.render(arg1, arg2)
          end
          arg1:switchToTab(var11.LAYER_TABS.History)
       end
-      local var309 = {}
-      var309.selectedTab = var11.LAYER_TABS.History
-      arg1:setState(var309)
+      local var313 = {}
+      var313.selectedTab = var11.LAYER_TABS.History
+      arg1:setState(var313)
    end
 end
 
 fun4 = var2.withContext
-local var314 = {}
-var314.Analytics = var2.Analytics
-var314.Localization = var2.Localization
-var314.Stylizer = var1.Style.Stylizer
-var16 = fun4(var314)(var16)
-var16 = require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
+local var318 = {}
+var318.Analytics = var2.Analytics
+var318.Localization = var2.Localization
+var318.Stylizer = var1.Style.Stylizer
+var17 = fun4(var318)(var17)
+var17 = require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.HistoryField = arg1.Status.HistoryField
    return var0
 end, function(arg1)
    return {}
-end)(var16)
-var16.Visualizers = require(script.Visualizers)
-return var16
+end)(var17)
+var17.Visualizers = require(script.Visualizers)
+return var17

@@ -24,11 +24,13 @@ PROTO_2:
 PROTO_3:
   GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K2 [{"History", "WriteIndex"}]
-  GETTABLEKS R5 R1 K3 ["history"]
+  DUPTABLE R4 K3 [{"History", "WriteIndex", "LastTimestamp"}]
+  GETTABLEKS R5 R1 K4 ["history"]
   SETTABLEKS R5 R4 K0 ["History"]
-  GETTABLEKS R5 R1 K4 ["writeIndex"]
+  GETTABLEKS R5 R1 K5 ["writeIndex"]
   SETTABLEKS R5 R4 K1 ["WriteIndex"]
+  GETTABLEKS R5 R1 K6 ["lastTimestamp"]
+  SETTABLEKS R5 R4 K2 ["LastTimestamp"]
   CALL R2 2 -1
   RETURN R2 -1
 

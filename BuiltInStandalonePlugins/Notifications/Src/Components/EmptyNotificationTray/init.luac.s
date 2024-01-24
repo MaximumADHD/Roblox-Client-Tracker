@@ -31,7 +31,7 @@ PROTO_1:
   RETURN R0 1
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K13 ["OnLoadError"]
-  JUMPIFNOT R0 [+149]
+  JUMPIFNOT R0 [+142]
   DUPTABLE R0 K15 [{"ErrorState"}]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K3 ["createElement"]
@@ -127,29 +127,23 @@ PROTO_1:
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K47 ["Event"]
   GETTABLEKS R8 R9 K48 ["MouseButton1Click"]
-  GETUPVAL R10 4
-  CALL R10 0 1
-  JUMPIFNOT R10 [+2]
-  GETUPVAL R9 5
-  JUMP [+3]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K49 ["OnRetry"]
+  GETUPVAL R9 4
   SETTABLE R9 R7 R8
   CALL R5 2 1
   SETTABLEKS R5 R4 K21 ["RefreshButton"]
   CALL R1 3 1
   SETTABLEKS R1 R0 K14 ["ErrorState"]
   RETURN R0 1
-  DUPTABLE R0 K51 [{"EmptyState"}]
+  DUPTABLE R0 K50 [{"EmptyState"}]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K3 ["createElement"]
   LOADK R2 K16 ["Frame"]
   NEWTABLE R3 1 0
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K17 ["Tag"]
-  LOADK R5 K52 ["Component-EmptyNotificationTray-Centering"]
+  LOADK R5 K51 ["Component-EmptyNotificationTray-Centering"]
   SETTABLE R5 R3 R4
-  DUPTABLE R4 K54 [{"EmptyImage", "TextLabel"}]
+  DUPTABLE R4 K53 [{"EmptyImage", "TextLabel"}]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K3 ["createElement"]
   LOADK R6 K23 ["ImageLabel"]
@@ -157,7 +151,7 @@ PROTO_1:
   LOADN R8 1
   SETTABLEKS R8 R7 K24 ["LayoutOrder"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K53 ["EmptyImage"]
+  SETTABLEKS R5 R4 K52 ["EmptyImage"]
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K3 ["createElement"]
   LOADK R6 K37 ["TextLabel"]
@@ -166,7 +160,7 @@ PROTO_1:
   SETTABLEKS R8 R7 K24 ["LayoutOrder"]
   GETUPVAL R8 3
   LOADK R10 K38 ["EmptyNotificationTray"]
-  LOADK R11 K55 ["NoNewNotifications"]
+  LOADK R11 K54 ["NoNewNotifications"]
   NAMECALL R8 R8 K40 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K41 ["Text"]
@@ -177,7 +171,7 @@ PROTO_1:
   CALL R5 2 1
   SETTABLEKS R5 R4 K37 ["TextLabel"]
   CALL R1 3 1
-  SETTABLEKS R1 R0 K50 ["EmptyState"]
+  SETTABLEKS R1 R0 K49 ["EmptyState"]
   RETURN R0 1
 
 PROTO_2:
@@ -199,7 +193,6 @@ PROTO_2:
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
   CAPTURE VAL R2
   NEWTABLE R5 0 2
   GETTABLEKS R6 R0 K4 ["Loading"]
@@ -238,15 +231,8 @@ MAIN:
   GETTABLEKS R3 R4 K9 ["Localization"]
   GETTABLEKS R4 R2 K10 ["UI"]
   GETTABLEKS R5 R4 K11 ["LoadingIndicator"]
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R10 R0 K12 ["Src"]
-  GETTABLEKS R9 R10 K13 ["Util"]
-  GETTABLEKS R8 R9 K14 ["SharedFlags"]
-  GETTABLEKS R7 R8 K15 ["getFFlagFixNotificationReloadError"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K16 [PROTO_2]
+  DUPCLOSURE R6 K12 [PROTO_2]
   CAPTURE VAL R3
   CAPTURE VAL R1
   CAPTURE VAL R5
-  CAPTURE VAL R6
-  RETURN R7 1
+  RETURN R6 1

@@ -1,4 +1,18 @@
 PROTO_0:
+  DUPTABLE R0 K4 [{"selection", "animations", "status", "processResult"}]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K0 ["selection"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K1 ["animations"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["Status"]
+  GETTABLEKS R1 R2 K6 ["NotStarted"]
+  SETTABLEKS R1 R0 K2 ["status"]
+  LOADK R1 K7 [""]
+  SETTABLEKS R1 R0 K3 ["processResult"]
+  RETURN R0 1
+
+PROTO_1:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
@@ -9,7 +23,7 @@ PROTO_0:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
@@ -20,7 +34,7 @@ PROTO_1:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
@@ -31,7 +45,7 @@ PROTO_2:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
@@ -41,6 +55,16 @@ PROTO_3:
   SETTABLEKS R5 R4 K2 ["processResult"]
   CALL R2 2 -1
   RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Dictionary"]
+  GETTABLEKS R1 R2 K1 ["join"]
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R3 0 1
+  CALL R1 2 -1
+  RETURN R1 -1
 
 MAIN:
   PREPVARARGS 0
@@ -62,29 +86,27 @@ MAIN:
   GETIMPORT R4 K4 [require]
   GETTABLEKS R5 R3 K11 ["constants"]
   CALL R4 1 1
-  GETTABLEKS R5 R1 K12 ["createReducer"]
-  DUPTABLE R6 K17 [{"selection", "animations", "status", "processResult"}]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K13 ["selection"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K14 ["animations"]
-  GETTABLEKS R8 R4 K18 ["Status"]
-  GETTABLEKS R7 R8 K19 ["NotStarted"]
-  SETTABLEKS R7 R6 K15 ["status"]
-  LOADK R7 K20 [""]
-  SETTABLEKS R7 R6 K16 ["processResult"]
-  DUPTABLE R7 K25 [{"SetSelection", "SetAnimations", "SetStatus", "SetReplaceProcessResult"}]
-  DUPCLOSURE R8 K26 [PROTO_0]
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R4
+  GETTABLEKS R6 R1 K13 ["createReducer"]
+  MOVE R7 R5
+  CALL R7 0 1
+  DUPTABLE R8 K19 [{"SetSelection", "SetAnimations", "SetStatus", "SetReplaceProcessResult", "ResetAllAnimationConversion"}]
+  DUPCLOSURE R9 K20 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K21 ["SetSelection"]
-  DUPCLOSURE R8 K27 [PROTO_1]
+  SETTABLEKS R9 R8 K14 ["SetSelection"]
+  DUPCLOSURE R9 K21 [PROTO_2]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K22 ["SetAnimations"]
-  DUPCLOSURE R8 K28 [PROTO_2]
+  SETTABLEKS R9 R8 K15 ["SetAnimations"]
+  DUPCLOSURE R9 K22 [PROTO_3]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K23 ["SetStatus"]
-  DUPCLOSURE R8 K29 [PROTO_3]
+  SETTABLEKS R9 R8 K16 ["SetStatus"]
+  DUPCLOSURE R9 K23 [PROTO_4]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K24 ["SetReplaceProcessResult"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  SETTABLEKS R9 R8 K17 ["SetReplaceProcessResult"]
+  DUPCLOSURE R9 K24 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  SETTABLEKS R9 R8 K18 ["ResetAllAnimationConversion"]
+  CALL R6 2 -1
+  RETURN R6 -1

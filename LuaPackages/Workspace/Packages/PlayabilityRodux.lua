@@ -5,4 +5,8 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["PlayabilityRodux"]["PlayabilityRodux"])
 
+export type PlayabilityStatus = Package.PlayabilityStatus
+export type PlayabilityStatusEnum = Package.PlayabilityStatusEnum
+
+
 return Package

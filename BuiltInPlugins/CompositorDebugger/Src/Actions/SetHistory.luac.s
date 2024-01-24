@@ -1,8 +1,9 @@
 PROTO_0:
-  DUPTABLE R2 K2 [{"history", "writeIndex"}]
-  SETTABLEKS R0 R2 K0 ["history"]
-  SETTABLEKS R1 R2 K1 ["writeIndex"]
-  RETURN R2 1
+  DUPTABLE R3 K3 [{"history", "writeIndex", "lastTimestamp"}]
+  SETTABLEKS R0 R3 K0 ["history"]
+  SETTABLEKS R1 R3 K1 ["writeIndex"]
+  SETTABLEKS R2 R3 K2 ["lastTimestamp"]
+  RETURN R3 1
 
 MAIN:
   PREPVARARGS 0

@@ -449,10 +449,7 @@ return function()
 				expect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
 
 				local ToastContainer = CoreGui:FindFirstChild("ToastContainer", true)
-				local FFlagVoiceChatPromptFrameNewCopyEnabled2 = game:GetFastFlag("VoiceChatPromptFrameNewCopyEnabled2")
-				local expectedToastText = if FFlagVoiceChatPromptFrameNewCopyEnabled2
-					then "Unable to access Microphone"
-					else "Voice Chat Unavailable"
+				local expectedToastText = "Unable to access Microphone"
 
 				expect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
 					expectedToastText

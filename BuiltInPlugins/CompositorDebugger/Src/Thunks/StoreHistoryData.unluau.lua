@@ -9,17 +9,18 @@ local var6 = require(var0.Src.Types)
 return function(arg1, arg2)
    return function(arg1)
       local var0 = arg1:getState().DebugData
-      local var1 = {}
-      var1.timestamp = os.clock()
-      var1.payload = arg1
-      var1.layerMap = arg2
+      local var1 = os.clock()
+      local var2 = {}
+      var2.timestamp = var1
+      var2.payload = arg1
+      var2.layerMap = arg2
       local var38 = var0.WriteIndex
-      var0.WriteIndex = var1
+      var0.WriteIndex = var2
       local var43 = var5
       var43 = var1(var0.History)
-      local var49 = var4(var43, 1 + var38 % var43.HISTORY_FRAMES)
+      local var50 = var4(var43, 1 + var38 % var43.HISTORY_FRAMES, var1)
       arg1:dispatch()
-      local var4 = var3(arg1, arg2)
+      local var5 = var3(arg1, arg2)
       arg1:dispatch()
    end
 end

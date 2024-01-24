@@ -4,6 +4,7 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Roact = require(CorePackages.Roact)
 local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
 local UserLibConstants = require(CorePackages.Workspace.Packages.UserLib).Utils.Constants
+local FFlagStopReadingThumbsOutOfStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagStopReadingThumbsOutOfStore
 
 local getRbxthumbWithTypeSizeAndOptions = require(CorePackages.Workspace.Packages.UserLib).Utils.getRbxthumbWithTypeSizeAndOptions
 
@@ -130,13 +131,21 @@ function ConversationThumbnail:render()
 			if localPlayer then
 				localUserId = tostring(localPlayer.UserId)
 			end
-			if localUserId and user.id == localUserId then
+
+			if FFlagStopReadingThumbsOutOfStore then
 				local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE]
 				thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType, numberSize)
 			else
-				thumbnailImage = user.thumbnails and user.thumbnails[THUMBNAIL_IMAGE_TYPE]
-					and user.thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE]
+				if localUserId and user.id == localUserId then
+					local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE]
+					thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType, numberSize)
+				else
+					thumbnailImage = user.DEPRECATED_thumbnails and user.DEPRECATED_thumbnails[THUMBNAIL_IMAGE_TYPE]
+						and user.DEPRECATED_thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE]
+				end
 			end
+
+
 		end
 		if not thumbnailImage then
 			thumbnailImage = DEFAULT_THUMBNAIL_ICON

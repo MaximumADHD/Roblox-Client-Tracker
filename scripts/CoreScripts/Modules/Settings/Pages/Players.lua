@@ -51,7 +51,7 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
-local FFlagShowAddFriendButtonForXboxUA = game:DefineFastFlag("ShowAddFriendButtonForXboxUA", false)
+local FFlagUpdateFriendLabelOnChange = game:DefineFastFlag("UpdateFriendLabelOnChange", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local isRoactAbuseReportMenuEnabled = require(RobloxGui.Modules.TrustAndSafety.isRoactAbuseReportMenuEnabled)
 
@@ -114,7 +114,6 @@ local FULL_SIZE_SHARE_GAME_BUTTON_SIZE = UDim2.new(1, -10, 0, BUTTON_ROW_HEIGHT)
 local HALF_SIZE_SHARE_GAME_BUTTON_SIZE = UDim2.new(0.5, -10, 0, BUTTON_ROW_HEIGHT)
 
 ------------ Variables -------------------
-local platform = UserInputService:GetPlatform()
 local PageInstance = nil
 local localPlayer = PlayersService.LocalPlayer
 while not localPlayer do
@@ -256,19 +255,9 @@ local function Initialize()
 				end
 			end
 
-			if FFlagShowAddFriendButtonForXboxUA then
-				if not (platform == Enum.Platform.XBoxOne and game:GetEngineFeature("XboxUniversalApp") == false) then
-					friendLabel, friendLabelText = utility:MakeStyledButton("FriendStatus", "Add Friend", UDim2.new(0, 182, 0, Theme.ButtonHeight), addFriendFunc)
-					friendLabelText.ZIndex = 3
-					friendLabelText.Position = friendLabelText.Position + UDim2.new(0,0,0,1)
-				end
-			else
-				if platform ~= Enum.Platform.XBoxOne then
-					friendLabel, friendLabelText = utility:MakeStyledButton("FriendStatus", "Add Friend", UDim2.new(0, 182, 0, Theme.ButtonHeight), addFriendFunc)
-					friendLabelText.ZIndex = 3
-					friendLabelText.Position = friendLabelText.Position + UDim2.new(0,0,0,1)
-				end
-			end
+			friendLabel, friendLabelText = utility:MakeStyledButton("FriendStatus", "Add Friend", UDim2.new(0, 182, 0, Theme.ButtonHeight), addFriendFunc)
+			friendLabelText.ZIndex = 3
+			friendLabelText.Position = friendLabelText.Position + UDim2.new(0,0,0,1)
 		end
 
 		if friendLabel then
@@ -372,25 +361,6 @@ local function Initialize()
 	local playersFriends = {}
 	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Players")
 
-	local function friendStatusCreate(playerLabel, player)
-		local friendLabelParent = nil
-		if playerLabel then
-			friendLabelParent = playerLabel:FindFirstChild("RightSideButtons")
-		end
-
-		if friendLabelParent then
-			-- remove any previous friend status labels
-			for _, item in pairs(friendLabelParent:GetChildren()) do
-				if item and item.Name == "FriendStatus" then
-					if GuiService.SelectedCoreObject == item then
-						GuiService.SelectedCoreObject = shareGameButton
-					end
-					item:Destroy()
-				end
-			end
-		end
-	end
-
 	local function resizeFriendButton(parent, player, isPortrait, wasIsPortrait)
 		local friendLabel = parent:FindFirstChild("FriendStatus")
 		if friendLabel and isPortrait == wasIsPortrait then
@@ -423,6 +393,30 @@ local function Initialize()
 			friendLabel.LayoutOrder = 5
 			friendLabel.Selectable = true
 			friendLabel.Parent = parent
+		end
+	end
+
+	local function friendStatusCreate(playerLabel, player)
+		local friendLabelParent = nil
+		if playerLabel then
+			friendLabelParent = playerLabel:FindFirstChild("RightSideButtons")
+		end
+
+		if friendLabelParent then
+			-- remove any previous friend status labels
+			for _, item in pairs(friendLabelParent:GetChildren()) do
+				if item and item.Name == "FriendStatus" then
+					if GuiService.SelectedCoreObject == item then
+						GuiService.SelectedCoreObject = shareGameButton
+					end
+					item:Destroy()
+				end
+			end
+
+			if FFlagUpdateFriendLabelOnChange then
+				-- create a new friend label with updated status
+				resizeFriendButton(friendLabelParent, player, utility:IsPortrait(), nil)
+			end
 		end
 	end
 

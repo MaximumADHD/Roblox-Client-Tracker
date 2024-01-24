@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent.Parent._Workspace
 
-local Package = require(PackageIndex["JestGlobals"]["JestGlobals"])
+local Package = require(PackageIndex["JestGlobals3"]["JestGlobals3"])
 
 return Package

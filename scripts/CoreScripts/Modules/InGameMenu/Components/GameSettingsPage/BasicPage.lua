@@ -5,7 +5,9 @@ local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 local VRService = game:GetService("VRService")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local UserInputService = game:GetService("UserInputService")
 
+local platform = UserInputService:GetPlatform()
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -55,6 +57,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
+local GetFFlagAlwaysShowVRToggle = require(Flags.GetFFlagAlwaysShowVRToggle)
 
 local EnableNewComfortSettingsUI = game:GetEngineFeature("VRMoreComfortSettings")
 
@@ -131,7 +134,7 @@ end
 function BasicPage:renderWithSelectionCursor(getSelectionCursor)
 	local getNextLayoutOrder = createLayoutOrderGenerator()
 	local showInputOutputAudioDevices = self.state.voiceChatEnabled and not self.props.isVRAppBuild()
-	local showVRToggle = (self.state.vrActive or UserGameSettings.HasEverUsedVR) and not self.props.isVRAppBuild()
+	local showVRToggle = if GetFFlagAlwaysShowVRToggle() then platform == Enum.Platform.Windows or platform == Enum.Platform.UWP else (self.state.vrActive or UserGameSettings.HasEverUsedVR) and not self.props.isVRAppBuild()
 
 	return Roact.createElement(Page, {
 		pageTitle = self.props.pageTitle,

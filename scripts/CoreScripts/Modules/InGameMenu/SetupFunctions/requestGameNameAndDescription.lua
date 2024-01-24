@@ -8,7 +8,7 @@ local SetGameNameAndDescription = require(InGameMenu.Actions.SetGameNameAndDescr
 
 local httpImpl = require(InGameMenu.Network.httpRequest)(HttpRbxApiService)
 
-local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 
 local function requestGameNameAndDescription(store)
 	if game.GameId == 0 then

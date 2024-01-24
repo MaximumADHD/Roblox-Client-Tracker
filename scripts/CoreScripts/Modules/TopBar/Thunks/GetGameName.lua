@@ -14,7 +14,7 @@ local Thunks = script.Parent
 local TopBar = Thunks.Parent
 local SetGameName = require(TopBar.Actions.SetGameName)
 
-local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 
 return function(store)
 	if game.GameId == 0 then

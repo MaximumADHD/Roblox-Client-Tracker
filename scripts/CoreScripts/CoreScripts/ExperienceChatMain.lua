@@ -26,6 +26,7 @@ local getFFlagAddApolloClientToExperienceChat = require(RobloxGui.Modules.Flags.
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
+local getFFlagRenderVoiceBubbleAfterAsyncInit = require(RobloxGui.Modules.Flags.getFFlagRenderVoiceBubbleAfterAsyncInit)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
 local getIconVoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.getIconVoiceIndicator)
@@ -37,6 +38,8 @@ local selfViewListenerChanged
 local displayCameraDeniedToast
 local isCamEnabledForUserAndPlace
 local isCameraOnlyUser
+local isVoiceServiceInitialized
+
 if FFlagAvatarChatCoreScriptSupport then
 	onClickedCameraIndicator = require(RobloxGui.Modules.VoiceChat.Components.onClickedCameraIndicator)
 	getPermissions = require(RobloxGui.Modules.VoiceChat.Components.getPermissions)
@@ -52,6 +55,10 @@ if FFlagAvatarChatCoreScriptSupport then
 
 	if getFFlagEnableAlwaysAvailableCamera() then
 		isCameraOnlyUser = require(RobloxGui.Modules.Settings.isCameraOnlyUser)
+	end
+
+	if getFFlagRenderVoiceBubbleAfterAsyncInit() then
+		isVoiceServiceInitialized = require(RobloxGui.Modules.VoiceChat.Components.isVoiceServiceInitialized)
 	end
 end
 
@@ -86,9 +93,11 @@ if FFlagEnableSetCoreGuiEnabledExpChat then
 	end)
 end
 
-local createdDefaultChannels 
+local createdDefaultChannels
+local validateLegacyBubbleChatSettings
 if GetFFlagConsolidateBubbleChat() then
-	createdDefaultChannels = TextChatService.ChatVersion == Enum.ChatVersion.TextChatService 
+	createdDefaultChannels = TextChatService.ChatVersion == Enum.ChatVersion.TextChatService
+	validateLegacyBubbleChatSettings = require(RobloxGui.Modules.InGameChat.BubbleChat.Types).IChatSettings
 else
 	createdDefaultChannels = TextChatService.CreateDefaultTextChannels
 end
@@ -105,6 +114,8 @@ ExperienceChat.mountClientApp({
 	selfViewListenerChanged = if selfViewListenerChanged then selfViewListenerChanged else nil,
 	defaultTargetTextChannel = if createdDefaultChannels then findTextChannel("RBXGeneral") else nil,
 	defaultSystemTextChannel = if createdDefaultChannels then findTextChannel("RBXSystem") else nil,
+	validateLegacyBubbleChatSettings = if validateLegacyBubbleChatSettings then validateLegacyBubbleChatSettings else nil,
+	isVoiceServiceInitialized = if isVoiceServiceInitialized then isVoiceServiceInitialized else nil,
 	translator = RobloxTranslator :: any,
 	parent = screenGui,
 })

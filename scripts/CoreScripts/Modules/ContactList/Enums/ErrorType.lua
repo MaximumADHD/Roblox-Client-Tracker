@@ -18,6 +18,7 @@ if GetFFlagIrisEnumerateCleanupEnabled() then
 		UniverseIsNotVoiceEnabled = "UniverseIsNotVoiceEnabled" :: "UniverseIsNotVoiceEnabled",
 		CallerIsNotVoiceEnabled = "CallerIsNotVoiceEnabled" :: "CallerIsNotVoiceEnabled",
 		UniverseAgeIsNotValid = "UniverseAgeIsNotValid" :: "UniverseAgeIsNotValid",
+		ReservedServerAccessCodeIsNotProvided = "ReservedServerAccessCodeIsNotProvided" :: "ReservedServerAccessCodeIsNotProvided",
 	}
 
 	return ErrorType
@@ -29,5 +30,6 @@ else
 		UniverseIsNotVoiceEnabled = "UniverseIsNotVoiceEnabled",
 		CallerIsNotVoiceEnabled = "CallerIsNotVoiceEnabled",
 		UniverseAgeIsNotValid = "UniverseAgeIsNotValid",
+		ReservedServerAccessCodeIsNotProvided = "ReservedServerAccessCodeIsNotProvided",
 	})
 end

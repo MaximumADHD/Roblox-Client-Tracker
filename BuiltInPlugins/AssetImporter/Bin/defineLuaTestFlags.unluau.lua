@@ -3,6 +3,5 @@ game:DefineFastFlag("ChooseAnimationForRestPose", true)
 game:DefineFastFlag("ShowRigSettingsNoJoints", true)
 game:DefineFastFlag("HideAnimationSettingForGltf", true)
 game:DefineFastFlag("AinStatusesV2Release", true)
-game:DefineFastFlag("ImporterOpensAvatarPreviewer2", true)
 game:DefineFastFlag("ImporterOpensAvatarPreviewerBetaCheck", true)
 return nil

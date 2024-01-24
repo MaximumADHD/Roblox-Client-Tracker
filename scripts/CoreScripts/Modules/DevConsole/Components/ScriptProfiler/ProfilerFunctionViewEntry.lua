@@ -127,7 +127,7 @@ function ProfilerFunctionViewEntry:render()
 
     local totalDuration = func.TotalDuration / self.props.average
 
-    local isNative = getNativeFlag(data, func, true)
+    local isNative = getNativeFlag(data, func)
 
     local totalDurationText
     if percentageRatio then
@@ -151,11 +151,11 @@ function ProfilerFunctionViewEntry:render()
         name = name .. " <native>"
     end
 
-    local sourceName = getSourceName(data, func, true)
+    local sourceName = getSourceName(data, func)
     sourceName = if not sourceName or #sourceName == 0 then name else sourceName
 
     local hoverText = sourceName :: string
-    local lineNumber = getLine(data, func, true)
+    local lineNumber = getLine(data, func)
     if lineNumber and lineNumber >= 1 then
         hoverText = string.format(TOOLTIP_FORMAT, sourceName, tostring(lineNumber))
     end

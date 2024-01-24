@@ -18,9 +18,6 @@ return function()
 	local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 	local act = ReactRoblox.act
 
-	local GetFFlagLuaAppNewShareSheet =
-		require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).Flags.GetFFlagLuaAppNewShareSheet
-
 	local NetworkingShareLinks = dependencies.NetworkingShareLinks
 
 
@@ -134,18 +131,10 @@ return function()
 		expect(generateLink).never.toHaveBeenCalled()
 		expect(mockAnalytics.onShareButtonClick).toHaveBeenCalledTimes(1)
 
-		if GetFFlagLuaAppNewShareSheet() then
-			expect(externalContentSharingProtocol.shareUrl).toHaveBeenCalledTimes(1)
-			expect(externalContentSharingProtocol.shareUrl).toHaveBeenCalledWith(externalContentSharingProtocol, {
-				url = STORE_URL,
-				context = "V1Menu",
-			})
-		else
-			expect(externalContentSharingProtocol.shareText).toHaveBeenCalledTimes(1)
-			expect(externalContentSharingProtocol.shareText).toHaveBeenCalledWith(externalContentSharingProtocol, {
-				text = STORE_URL,
-				context = "V1Menu",
-			})
-		end
+		expect(externalContentSharingProtocol.shareUrl).toHaveBeenCalledTimes(1)
+		expect(externalContentSharingProtocol.shareUrl).toHaveBeenCalledWith(externalContentSharingProtocol, {
+			url = STORE_URL,
+			context = "V1Menu",
+		})
 	end)
 end

@@ -1,4 +1,13 @@
 PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getTaggedData"]
+  CALL R0 0 2
+  DUPTABLE R2 K3 [{"adapted", "adaptedWithScripts"}]
+  SETTABLEKS R0 R2 K1 ["adapted"]
+  SETTABLEKS R1 R2 K2 ["adaptedWithScripts"]
+  RETURN R2 1
+
+PROTO_1:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
@@ -10,6 +19,20 @@ PROTO_0:
   SETTABLEKS R5 R4 K3 ["adaptedWithScripts"]
   CALL R2 2 -1
   RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Dictionary"]
+  GETTABLEKS R1 R2 K1 ["join"]
+  MOVE R2 R0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["getTaggedData"]
+  CALL R4 0 2
+  DUPTABLE R3 K5 [{"adapted", "adaptedWithScripts"}]
+  SETTABLEKS R4 R3 K3 ["adapted"]
+  SETTABLEKS R5 R3 K4 ["adaptedWithScripts"]
+  CALL R1 2 -1
+  RETURN R1 -1
 
 MAIN:
   PREPVARARGS 0
@@ -30,21 +53,31 @@ MAIN:
   GETIMPORT R4 K4 [require]
   GETTABLEKS R5 R3 K10 ["SetAdapted"]
   CALL R4 1 1
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Util"]
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R7 R5 K12 ["AdapterTagging"]
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K13 ["getTaggedData"]
-  CALL R7 0 2
-  GETTABLEKS R9 R1 K14 ["createReducer"]
-  DUPTABLE R10 K17 [{"adapted", "adaptedWithScripts"}]
-  SETTABLEKS R7 R10 K15 ["adapted"]
-  SETTABLEKS R8 R10 K16 ["adaptedWithScripts"]
-  NEWTABLE R11 1 0
-  GETTABLEKS R12 R4 K18 ["name"]
-  DUPCLOSURE R13 K19 [PROTO_0]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R3 K11 ["ResetAllAdapter"]
+  CALL R5 1 1
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Util"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R6 K13 ["AdapterTagging"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K14 [PROTO_0]
+  CAPTURE VAL R7
+  GETTABLEKS R9 R1 K15 ["createReducer"]
+  GETTABLEKS R11 R7 K16 ["getTaggedData"]
+  CALL R11 0 2
+  DUPTABLE R10 K19 [{"adapted", "adaptedWithScripts"}]
+  SETTABLEKS R11 R10 K17 ["adapted"]
+  SETTABLEKS R12 R10 K18 ["adaptedWithScripts"]
+  NEWTABLE R11 2 0
+  GETTABLEKS R12 R4 K20 ["name"]
+  DUPCLOSURE R13 K21 [PROTO_1]
   CAPTURE VAL R2
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K20 ["name"]
+  DUPCLOSURE R13 K22 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R7
   SETTABLE R13 R11 R12
   CALL R9 2 1
   RETURN R9 1

@@ -39,6 +39,7 @@ local ANON_LABEL = "<anonymous>"
 local FFlagScriptProfilerNativeFrames = game:DefineFastFlag("ScriptProfilerNativeFrames", false)
 local FFlagScriptProfilerSetRoot = game:DefineFastFlag("ScriptProfilerSetRoot", false)
 local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
+local FFlagScriptProfilerSetTerminalRootFix = game:DefineFastFlag("ScriptProfilerSetTerminalRootFix", false)
 
 local ProfilerViewEntryComponent = Roact.PureComponent:extend("ProfilerViewEntry")
 
@@ -79,17 +80,17 @@ local function BorderedCellLabel(props: BorderedCellLabelProps)
 	})
 end
 
-local function getNodeName(props: any, usingV2FormatFlag: boolean): string
+local function getNodeName(props: any): string
 	local depth = props.depth
-	local data = props.data
+	local data = props.data :: ProfilerData.RootDataFormat
 	local functionId = props.functionId
 
-	local func = if usingV2FormatFlag then data.Functions[functionId] else nil
+	local func = data.Functions[functionId]
 
-	local isNative = getNativeFlag(data, func, usingV2FormatFlag)
+	local isNative = getNativeFlag(data, func)
 
 	local defaultName = if depth == 0 then ROOT_LABEL else ANON_LABEL
-	local name = if usingV2FormatFlag then props.nodeName else data.Name
+	local name = props.nodeName
 	name = if not name or #name == 0 then defaultName else name
 
 	if FFlagScriptProfilerNativeFrames and isNative then
@@ -141,86 +142,69 @@ function ProfilerViewEntryComponent:init()
 			return
 		end
 
-		self.props.dispatchSetScriptProfilerRoot(self.props.nodeId, getNodeName(self.props, self.props.usingV2FormatFlag))
+		self.props.dispatchSetScriptProfilerRoot(self.props.nodeId, getNodeName(self.props))
 	end
 end
 
-function ProfilerViewEntryComponent:renderChildren(childData, usingV2FormatFlag: boolean)
+function ProfilerViewEntryComponent:renderChildren(childData)
 	local children = {}
 	if self.state.expanded then
 		local percentageRatio = self.props.percentageRatio
-		local totalDuration = getDurations(self.props.data, self.props.nodeId, usingV2FormatFlag)
+		local totalDuration = getDurations(self.props.data, self.props.nodeId)
 		local childDepth = self.props.depth + 1
 		local average = self.props.average
 		local searchTerm = self.props.searchTerm
 		local searchFilter = self.props.searchFilter
 
-		if usingV2FormatFlag then
-			local rootData = self.props.data :: ProfilerData.RootDataFormat
+		local rootData = self.props.data :: ProfilerData.RootDataFormat
 
-			if childData then
-				for functionId, nodeId in pairs(childData) do
+		if childData then
+			for functionId, nodeId in pairs(childData) do
 
-					if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[nodeId] then
-						continue
-					end
-
-					local node = rootData.Nodes[nodeId]
-					local func = rootData.Functions[functionId]
-					local childTotalDuration = getDurations(rootData, nodeId, usingV2FormatFlag)
-					children[functionId] = Roact.createElement(ProfilerViewEntry, {
-						layoutOrder = (totalDuration - childTotalDuration) * 1e6, -- Sort by reverse duration
-						depth = childDepth,
-						data = rootData,
-						nodeId = nodeId,
-						functionId = functionId,
-						nodeName = func.Name,
-						average = average,
-						usingV2FormatFlag = usingV2FormatFlag,
-						percentageRatio = percentageRatio,
-						searchTerm = searchTerm,
-						searchFilter = searchFilter,
-					})
+				if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[nodeId] then
+					continue
 				end
-			elseif self.props.depth == 0 then
-				-- Since this is the "root node", childData should be nil, instead generate children from Category root IDs
-				assert(childData == nil)
 
-				for index, category in rootData.Categories do
-
-					if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[category.NodeId] then
-						continue
-					end
-
-					local node = rootData.Nodes[category.NodeId]
-					local childTotalDuration = getDurations(rootData, category.NodeId, usingV2FormatFlag)
-
-					children[index] = Roact.createElement(ProfilerViewEntry, {
-						layoutOrder = (totalDuration - childTotalDuration) * 1e6, -- Sort by reverse duration
-						depth = childDepth,
-						data = rootData,
-						nodeId = category.NodeId,
-						functionId = nil,
-						nodeName = category.Name,
-						average = average,
-						usingV2FormatFlag = usingV2FormatFlag,
-						percentageRatio = percentageRatio,
-						searchTerm = searchTerm,
-						searchFilter = searchFilter,
-					})
-				end
-			end
-		elseif childData then
-			for key, data in pairs(childData) do
-				children[key] = Roact.createElement(ProfilerViewEntry, {
-					layoutOrder = (totalDuration - data.TotalDuration) * 1e6, -- Sort by reverse duration
+				local node = rootData.Nodes[nodeId]
+				local func = rootData.Functions[functionId]
+				local childTotalDuration = getDurations(rootData, nodeId)
+				children[functionId] = Roact.createElement(ProfilerViewEntry, {
+					layoutOrder = (totalDuration - childTotalDuration) * 1e6, -- Sort by reverse duration
 					depth = childDepth,
-					data = data,
-					nodeId = 0,
-					functionId = 0,
+					data = rootData,
+					nodeId = nodeId,
+					functionId = functionId,
+					nodeName = func.Name,
 					average = average,
-					usingV2FormatFlag = usingV2FormatFlag,
-					percentageRatio = percentageRatio
+					percentageRatio = percentageRatio,
+					searchTerm = searchTerm,
+					searchFilter = searchFilter,
+				})
+			end
+		elseif (FFlagScriptProfilerSetTerminalRootFix and self.props.nodeId == 0) or (not FFlagScriptProfilerSetTerminalRootFix and self.props.depth == 0) then
+			-- Since this is the "root node", childData should be nil, instead generate children from Category root IDs
+			assert(childData == nil)
+
+			for index, category in rootData.Categories do
+
+				if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[category.NodeId] then
+					continue
+				end
+
+				local node = rootData.Nodes[category.NodeId]
+				local childTotalDuration = getDurations(rootData, category.NodeId)
+
+				children[index] = Roact.createElement(ProfilerViewEntry, {
+					layoutOrder = (totalDuration - childTotalDuration) * 1e6, -- Sort by reverse duration
+					depth = childDepth,
+					data = rootData,
+					nodeId = category.NodeId,
+					functionId = nil,
+					nodeName = category.Name,
+					average = average,
+					percentageRatio = percentageRatio,
+					searchTerm = searchTerm,
+					searchFilter = searchFilter,
 				})
 			end
 		end
@@ -247,26 +231,24 @@ function ProfilerViewEntryComponent:render()
 
 	local props = self.props
 
-	local usingV2FormatFlag = props.usingV2FormatFlag
-
 	local size = props.size or UDim2.new(1, 0, 0, ENTRY_HEIGHT)
 	local depth = props.depth
 	local layoutOrder = props.layoutOrder or 0
 	local offset = depth * DEPTH_INDENT
 	local percentageRatio = props.percentageRatio
-	local data = props.data
+	local data = props.data :: ProfilerData.RootDataFormat
 
 	local nodeId = props.nodeId
 	local functionId = props.functionId
-	local func = if usingV2FormatFlag then data.Functions[functionId] else nil
-	local node = if usingV2FormatFlag then data.Nodes[nodeId] else nil
+	local func = data.Functions[functionId]
+	local node = data.Nodes[nodeId]
 
-	local totalDuration, selfDuration = getDurations(data, nodeId, usingV2FormatFlag)
+	local totalDuration, selfDuration = getDurations(data, nodeId)
 
 	totalDuration /= self.props.average
 	selfDuration /= self.props.average
 
-	local childData = standardizeChildren(data, node, usingV2FormatFlag)
+	local childData = standardizeChildren(data, node)
 
 	local totalDurationText, selfDurationText
 	if percentageRatio then
@@ -285,13 +267,13 @@ function ProfilerViewEntryComponent:render()
 
 	local values = {totalDurationText, selfDurationText}
 
-	local name = getNodeName(props, usingV2FormatFlag)
+	local name = getNodeName(props)
 
-	local sourceName = getSourceName(data, func, usingV2FormatFlag)
+	local sourceName = getSourceName(data, func)
 	sourceName = if not sourceName or #sourceName == 0 then name else sourceName
 
 	local hoverText = sourceName :: string
-	local lineNumber = getLine(data, func, usingV2FormatFlag)
+	local lineNumber = getLine(data, func)
 	if lineNumber and lineNumber >= 1 then
 		hoverText = string.format(TOOLTIP_FORMAT, sourceName, tostring(lineNumber))
 	end
@@ -335,7 +317,7 @@ function ProfilerViewEntryComponent:render()
 			}),
 			values = Roact.createFragment(self:renderValues(values)),
 		}),
-		children = Roact.createFragment(self:renderChildren(childData, usingV2FormatFlag))
+		children = Roact.createFragment(self:renderChildren(childData))
 	})
 end
 

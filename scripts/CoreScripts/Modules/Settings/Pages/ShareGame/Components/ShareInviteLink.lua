@@ -22,8 +22,6 @@ local RoduxNetworking = dependencies.RoduxNetworking
 local NetworkStatus = RoduxNetworking.Enum.NetworkStatus
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
-local GetFFlagLuaAppNewShareSheet =
-	require(CorePackages.Workspace.Packages.ExternalContentSharingProtocol).Flags.GetFFlagLuaAppNewShareSheet
 local ShareInviteLink = Roact.PureComponent:extend("ShareInviteLink")
 
 local CONTENTS_LEFT_RIGHT_PADDING = 12
@@ -38,10 +36,6 @@ local platform = UserInputService:GetPlatform()
 export type Props = {
 	isDesktopClient: boolean,
 	externalContentSharingProtocol: {
-		shareText: (any, {
-			text: string,
-			context:string,
-		}) -> (),
 		shareUrl: (any, {
 			url: string,
 			context:string,
@@ -67,17 +61,10 @@ function ShareInviteLink:init()
 	self.displayShareSheet = function(config: { shortUrl: string })
 		local props: InternalProps = self.props
 		if props.externalContentSharingProtocol then
-			if GetFFlagLuaAppNewShareSheet() then
-				props.externalContentSharingProtocol:shareUrl({
-					url = config.shortUrl,
-					context = MENU_VERSION_CONST
-				})
-			else
-				props.externalContentSharingProtocol:shareText({
-					text = config.shortUrl,
-					context = MENU_VERSION_CONST
-				})
-			end
+			props.externalContentSharingProtocol:shareUrl({
+				url = config.shortUrl,
+				context = MENU_VERSION_CONST
+			})
 
 			if props.isDesktopClient then
 				self:setState({ show_copied_text = true })

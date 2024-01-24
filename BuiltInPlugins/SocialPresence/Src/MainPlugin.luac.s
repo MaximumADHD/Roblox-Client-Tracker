@@ -80,7 +80,7 @@ PROTO_6:
   SETTABLEKS R4 R3 K12 ["stringResourceTable"]
   GETUPVAL R4 4
   SETTABLEKS R4 R3 K13 ["translationResourceTable"]
-  LOADK R4 K16 ["Social Presence"]
+  LOADK R4 K16 ["SocialPresence"]
   SETTABLEKS R4 R3 K14 ["pluginName"]
   CALL R2 1 1
   SETTABLEKS R2 R0 K17 ["localization"]
@@ -117,9 +117,9 @@ PROTO_7:
   NAMECALL R7 R7 K18 ["getText"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K9 ["Tooltip"]
-  LOADK R7 K20 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
+  LOADNIL R7
   SETTABLEKS R7 R6 K10 ["Icon"]
-  GETTABLEKS R7 R0 K21 ["toggleEnabled"]
+  GETTABLEKS R7 R0 K20 ["toggleEnabled"]
   SETTABLEKS R7 R6 K11 ["OnClick"]
   LOADB R7 1
   SETTABLEKS R7 R6 K12 ["ClickableWhenViewportHidden"]

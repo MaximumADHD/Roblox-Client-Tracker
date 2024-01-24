@@ -14,7 +14,7 @@ local Thunks = script.Parent
 local AvatarEditorPrompts = Thunks.Parent
 local GameNameFetched = require(AvatarEditorPrompts.Actions.GameNameFetched)
 
-local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GetGameNameAndDescription
+local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 
 return function(store)
 	if game.GameId == 0 then

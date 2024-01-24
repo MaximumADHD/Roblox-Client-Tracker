@@ -2,6 +2,5 @@
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainSmoothToolFix", false)
 game:DefineFastFlag("TerrainEditorFixQuickWait", false)
-game:DefineFastFlag("TerrainEditorFixStudioTheme", false)
 game:DefineFastFlag("TerrainEditorUseTerrainChannels", false)
 return nil

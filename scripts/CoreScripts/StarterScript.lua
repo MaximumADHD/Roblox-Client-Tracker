@@ -59,7 +59,6 @@ local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLay
 local GetFFlagRtMessaging = require(RobloxGui.Modules.Flags.GetFFlagRtMessaging)
 local GetFFlagContactListClientEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagContactListClientEnabled)
 local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6", false)
-local getFFlagEnableApolloClientInExperience = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagEnableApolloClientInExperience
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 local GetFFlagIrisAlwaysOnTopEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisAlwaysOnTopEnabled
 local GetFFlagEnableSocialContextToast = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSocialContextToast
@@ -112,6 +111,13 @@ if GetFFlagConsolidateBubbleChat() then
 	local ExperienceChat = require(CorePackages.ExperienceChat)
 	local GlobalFlags = (ExperienceChat.GlobalFlags :: any)
 	GlobalFlags.ConsolidateBubbleChat = true
+end
+
+local getFFlagRenderVoiceBubbleAfterAsyncInit = require(RobloxGui.Modules.Flags.getFFlagRenderVoiceBubbleAfterAsyncInit)
+if getFFlagRenderVoiceBubbleAfterAsyncInit() then
+	local ExperienceChat = require(CorePackages.ExperienceChat)
+	local GlobalFlags = (ExperienceChat.GlobalFlags :: any)
+	GlobalFlags.RenderVoiceBubbleAfterAsyncInit = true
 end
 
 -- Since prop validation can be expensive in certain scenarios, you can enable
@@ -359,9 +365,7 @@ if GetFFlagEnableSoundTelemetry() or GetFFlagEnableSoundSessionTelemetry() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/SoundTelemetry", script.Parent)
 end
 
-if getFFlagEnableApolloClientInExperience() then
-	coroutine.wrap(safeRequire)(CoreGuiModules.ApolloClient)
-end
+coroutine.wrap(safeRequire)(CoreGuiModules.ApolloClient)
 
 if GetFFlagContactListClientEnabled() then
 	initify(CoreGuiModules.ContactList)
@@ -399,4 +403,9 @@ if GetFFlagTenFootUiAchievements() then
 	local InExpAchievementManager = require(CorePackages.Workspace.Packages.Achievements).InExpAchievementManager
 	local achievementManager = InExpAchievementManager.new()
 	achievementManager:startUp()
+end
+
+local GetFFlagPlayerViewRemoteEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewRemoteEnabled)
+if GetFFlagPlayerViewRemoteEnabled() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerView", RobloxGui)
 end

@@ -3,7 +3,7 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local TeleportService = game:GetService("TeleportService")
 
 local GamesMultigetPlaceDetails =
-	require(CorePackages.Workspace.Packages.GameDetailRodux).Requests.GamesMultigetPlaceDetails
+	require(CorePackages.Workspace.Packages.GameDetailRodux).GamesByPlaceId.GamesMultigetPlaceDetails
 
 local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
 local httpImpl = httpRequest(HttpRbxApiService :: any)

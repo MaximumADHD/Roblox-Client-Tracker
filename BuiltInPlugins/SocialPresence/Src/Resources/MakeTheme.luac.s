@@ -28,8 +28,23 @@ MAIN:
   GETTABLEKS R2 R1 K7 ["Style"]
   GETTABLEKS R4 R2 K8 ["Themes"]
   GETTABLEKS R3 R4 K9 ["StudioTheme"]
-  NEWTABLE R4 0 0
-  DUPCLOSURE R5 K10 [PROTO_0]
+  GETTABLEKS R4 R2 K10 ["StyleKey"]
+  DUPTABLE R5 K13 [{"userThumbnail", "activityRing"}]
+  DUPTABLE R6 K19 [{"background", "avatarBackground", "maskImage", "loadingImage", "loadFailureImage"}]
+  GETTABLEKS R7 R4 K20 ["MainBackground"]
+  SETTABLEKS R7 R6 K14 ["background"]
+  GETTABLEKS R7 R4 K21 ["SecondaryContrast"]
+  SETTABLEKS R7 R6 K15 ["avatarBackground"]
+  LOADK R7 K22 ["rbxasset://textures/StudioSharedUI/avatarMask.png"]
+  SETTABLEKS R7 R6 K16 ["maskImage"]
+  LOADK R7 K23 ["rbxasset://textures/StudioSharedUI/default_user.png"]
+  SETTABLEKS R7 R6 K17 ["loadingImage"]
+  LOADK R7 K24 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
+  SETTABLEKS R7 R6 K18 ["loadFailureImage"]
+  SETTABLEKS R6 R5 K11 ["userThumbnail"]
+  LOADK R6 K25 ["rbxasset://textures/SocialPresence/ActivityRing.png"]
+  SETTABLEKS R6 R5 K12 ["activityRing"]
+  DUPCLOSURE R6 K26 [PROTO_0]
   CAPTURE VAL R3
-  CAPTURE VAL R4
-  RETURN R5 1
+  CAPTURE VAL R5
+  RETURN R6 1

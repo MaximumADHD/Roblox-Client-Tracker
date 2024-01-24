@@ -2,83 +2,46 @@ local ProfilerData = require(script.Parent.ProfilerDataFormatV2)
 
 local ProfilerUtil = {}
 
-function ProfilerUtil.getDurations(_data: any, nodeId: number, usingV2FormatFlag: boolean)
-    if usingV2FormatFlag then
-        local data = _data :: ProfilerData.RootDataFormat
-        if nodeId > 0 then
-            local node = data.Nodes[nodeId]
-            assert(node ~= nil)
+type FunctionId = ProfilerData.FunctionId
+type NodeId = ProfilerData.NodeId
+type RootDataFormat = ProfilerData.RootDataFormat
+type Node = ProfilerData.Node
+type Function = ProfilerData.Function
 
-            local totalDuration = node.TotalDuration
-            local selfDuration = node.Duration
-            return totalDuration, selfDuration
-        else
-            -- Assume root "node", calculate total duration from category roots
-            local totalDuration = 0
+function ProfilerUtil.getDurations(data: RootDataFormat, nodeId: NodeId)
+    if nodeId > 0 then
+        local node = data.Nodes[nodeId]
+        assert(node ~= nil)
 
-            for _, category: ProfilerData.Category in data.Categories do
-                totalDuration += data.Nodes[category.NodeId].TotalDuration
-            end
-
-            return totalDuration, 0
-        end
+        local totalDuration = node.TotalDuration
+        local selfDuration = node.Duration
+        return totalDuration, selfDuration
     else
-        return _data.TotalDuration, _data.Duration
+        -- Assume root "node", calculate total duration from category roots
+        local totalDuration = 0
+
+        for _, category: ProfilerData.Category in data.Categories do
+            totalDuration += data.Nodes[category.NodeId].TotalDuration
+        end
+
+        return totalDuration, 0
     end
 end
 
-function ProfilerUtil.getSourceName(data, func: ProfilerData.Function?, usingV2FormatFlag: boolean): string?
-    if usingV2FormatFlag then
-        if func then
-            return func.Source
-        else
-            return nil
-        end
-    else
-        return data.Source
-    end
+function ProfilerUtil.getSourceName(data: RootDataFormat, func: Function?): string?
+    return func and func.Source
 end
 
-function ProfilerUtil.getLine(data, func: ProfilerData.Function?, usingV2FormatFlag: boolean): number?
-    if usingV2FormatFlag then
-        if func then
-            return func.Line
-        else
-            return nil
-        end
-    else
-        return data.Line
-    end
+function ProfilerUtil.getLine(data: RootDataFormat, func: Function?): number?
+    return func and func.Line
 end
 
-function ProfilerUtil.getNativeFlag(data, func: ProfilerData.Function?, usingV2FormatFlag: boolean): boolean
-    if usingV2FormatFlag then
-        if func then
-            return func.IsNative or false
-        else
-            return false
-        end
-    else
-        return data.IsNative or false
-    end
+function ProfilerUtil.getNativeFlag(data: RootDataFormat, func: Function?): boolean
+    return (func and func.IsNative) or false
 end
 
-function ProfilerUtil.standardizeChildren(data, node: ProfilerData.Node?, usingV2FormatFlag: boolean): any
-    local childData = {}
-    if usingV2FormatFlag then
-        return node and node.Children
-    else
-        local children = data.Children
-        if children then
-            for k, v in pairs(children) do
-                childData["k" .. k] = v
-            end
-        end
-        for i, v in ipairs(data) do
-            childData["i" .. i] = v
-        end
-    end
-    return childData
+function ProfilerUtil.standardizeChildren(data: RootDataFormat, node: Node?): {[FunctionId]: NodeId}?
+    return node and node.Children
 end
 
 function ProfilerUtil.formatSessionLength(len: number?): string?

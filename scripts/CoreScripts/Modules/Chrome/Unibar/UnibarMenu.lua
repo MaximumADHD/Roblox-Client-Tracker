@@ -19,6 +19,10 @@ local useChromeMenuStatus = require(Chrome.Hooks.useChromeMenuStatus)
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
 local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local PlayerListInitialVisibleState = require(RobloxGui.Modules.PlayerList.PlayerListInitialVisibleState)
+
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
@@ -38,6 +42,11 @@ function configureUnibar(viewportInfo)
 	if GetFFlagUnibarRespawn() then
 		-- append to end of nine-dot
 		table.insert(nineDot, "respawn")
+	end
+
+	-- insert leaderboard into MRU if it's shown on startup
+	if PlayerListInitialVisibleState() then
+		ChromeService:setRecentlyUsed("leaderboard", true)
 	end
 
 	if EnabledPinnedChat and not viewportInfo.tinyPortrait then

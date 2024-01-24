@@ -8,14 +8,18 @@ return function()
 
 	local ProfilerViewEntry = require(script.Parent.ProfilerViewEntry)
 
-	-- FIXME: CLI-85584 A small test sample needs to be added
-	-- local TEST_DATA = ScriptContext:DeserializeScriptProfilerString(require(script.Parent.TestData))
+	local TEST_DATA = ScriptContext:DeserializeScriptProfilerString(require(script.Parent.TestData))
+
+	-- CLI-94090 remove when roblox-cli 602 is retired from testing
+	if not TEST_DATA.Version then
+		return
+	end
 
 	it("should create and destroy without errors", function()
 		local store = Store.new(function()
 			return {
 				MainView = {
-					currTabIndex = 0
+					currTabIndex = 0,
 				},
 			}
 		end)
@@ -27,15 +31,15 @@ return function()
 				ProfilerViewEntry = Roact.createElement(ProfilerViewEntry, {
 					layoutOrder = 0,
 					depth = 0,
-					data = {
-						TotalDuration = 5,
-						Duration = 1,
-						Name = ""
-					},
+					data = TEST_DATA,
+					nodeId = 0,
+					functionId = 0,
 					percentageRatio = nil,
 					average = 1,
-				})
-			})
+					searchFilter = {},
+					usingV2FormatFlag = true,
+				}),
+			}),
 		})
 
 		local instance = Roact.mount(element)

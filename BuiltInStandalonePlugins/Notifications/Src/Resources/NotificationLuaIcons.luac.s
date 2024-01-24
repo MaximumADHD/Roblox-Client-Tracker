@@ -1,24 +1,47 @@
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 0 18
-  LOADK R1 K0 ["CampaignFilledNeutral"]
-  LOADK R2 K1 ["CheckFilledPositive"]
-  LOADK R3 K2 ["CreateFilledEmphasis"]
-  LOADK R4 K3 ["CreateFilledWarning"]
-  LOADK R5 K4 ["EditOffFilledNegative"]
-  LOADK R6 K5 ["ErrorFilledError"]
-  LOADK R7 K6 ["HappyFilledNeutral"]
-  LOADK R8 K7 ["NotificationBell"]
-  LOADK R9 K8 ["NotificationSettings"]
-  LOADK R10 K9 ["PlayArrowFilledEmphasis"]
-  LOADK R11 K10 ["PlayArrowFilledWarning"]
-  LOADK R12 K11 ["PlayDisabledFilledNegative"]
-  LOADK R13 K12 ["TranslateFilledNeutral"]
-  LOADK R14 K13 ["UpdateFilledEmphasis"]
-  LOADK R15 K14 ["UpdateFilledNegative"]
-  LOADK R16 K15 ["UpdateFilledPositive"]
-  SETLIST R0 R1 16 [1]
-  LOADK R1 K16 ["UpdateFilledWarning"]
-  LOADK R2 K17 ["WarningFilledWarning"]
-  SETLIST R0 R1 2 [17]
-  RETURN R0 1
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Src"]
+  GETTABLEKS R4 R5 K6 ["Util"]
+  GETTABLEKS R3 R4 K7 ["SharedFlags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagCollaborationNeutralNotificationIcons"]
+  CALL R1 1 1
+  NEWTABLE R2 0 18
+  LOADK R3 K9 ["CampaignFilledNeutral"]
+  LOADK R4 K10 ["CheckFilledPositive"]
+  LOADK R5 K11 ["CreateFilledEmphasis"]
+  LOADK R6 K12 ["CreateFilledWarning"]
+  LOADK R7 K13 ["EditOffFilledNegative"]
+  LOADK R8 K14 ["ErrorFilledError"]
+  LOADK R9 K15 ["HappyFilledNeutral"]
+  LOADK R10 K16 ["NotificationBell"]
+  LOADK R11 K17 ["NotificationSettings"]
+  LOADK R12 K18 ["PlayArrowFilledEmphasis"]
+  LOADK R13 K19 ["PlayArrowFilledWarning"]
+  LOADK R14 K20 ["PlayDisabledFilledNegative"]
+  LOADK R15 K21 ["TranslateFilledNeutral"]
+  LOADK R16 K22 ["UpdateFilledEmphasis"]
+  LOADK R17 K23 ["UpdateFilledNegative"]
+  LOADK R18 K24 ["UpdateFilledPositive"]
+  SETLIST R2 R3 16 [1]
+  LOADK R3 K25 ["UpdateFilledWarning"]
+  LOADK R4 K26 ["WarningFilledWarning"]
+  SETLIST R2 R3 2 [17]
+  MOVE R3 R1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+14]
+  FASTCALL2K TABLE_INSERT R2 K27 [+5]
+  MOVE R4 R2
+  LOADK R5 K27 ["CreateFilledNeutral"]
+  GETIMPORT R3 K30 [table.insert]
+  CALL R3 2 0
+  FASTCALL2K TABLE_INSERT R2 K31 [+5]
+  MOVE R4 R2
+  LOADK R5 K31 ["PlayArrowFilledNeutral"]
+  GETIMPORT R3 K30 [table.insert]
+  CALL R3 2 0
+  RETURN R2 1

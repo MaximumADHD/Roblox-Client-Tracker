@@ -41,6 +41,7 @@ local cloneStreamTrack = nil
 local EngineFeatureAvatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled = game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 local EngineFeatureAnimatorAndADFRefactorInternal = game:GetEngineFeature("AnimatorAndADFRefactorInternal")
+local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerViewRemoteEventSupport")
 local FacialAnimationStreamingService = game:GetService("FacialAnimationStreamingServiceV2")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CollectionService = game:GetService("CollectionService")
@@ -2688,12 +2689,37 @@ function startRenderStepped(player)
 						debugPrint("Self View: no neck found")
 					end
 
-					if GetFFlagIrisGyroEnabled() and trackerData ~= nil then
-						local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
-						local x, y, z = trackerData:ToEulerAnglesXYZ()
-						-- Cam orientation will be an inverse of the head rotation
-						local angle = CFrame.Angles(-x * camOrientationWeight, -y * camOrientationWeight, -z * camOrientationWeight)
-						viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
+					if GetFFlagIrisGyroEnabled() and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport) then
+						if EngineFeaturePlayerViewRemoteEventSupport then
+							local cframe = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView()
+							local boundingBox = cframe.Position
+							local x, y, z = cframe:ToEulerAnglesYXZ()
+							local rotation = CFrame.fromEulerAnglesYXZ(x, y, z)
+							local distanceRatio = 0
+
+							if boundingBox.Z > 0.0 then
+								distanceRatio = math.clamp(0.5 - (boundingBox.Z * 3), -0.5, 0.5)
+							end
+
+							local distance = -(boundsSize.Z + 1)
+							-- Round to 2 decimal points
+							local offset = Vector3.new(0, 0.105, math.floor((distance + (distanceRatio * distance)) * 100) / 100)
+
+							viewportCamera.CFrame = viewportCamera.CFrame:lerp(
+								CFrame.lookAt(rotation * (center + offset), centerLowXimpact),
+								0.5
+							)
+						else
+							local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
+							local x, y, z = trackerData:ToEulerAnglesXYZ()
+							-- Cam orientation will be an inverse of the head rotation
+							local angle = CFrame.Angles(
+								-x * camOrientationWeight,
+								-y * camOrientationWeight,
+								-z * camOrientationWeight
+							)
+							viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
+						end
 					else
 						if FFlagSelfViewChecks2 then
 							local offset = Vector3.new(0, (headHeight * 0.25), -((boundsSize.Z) + 1))

@@ -43,7 +43,6 @@ local GetFFlagLuaVoiceChatAnalyticsBanMessageV2 =
 	require(RobloxGui.Modules.Flags.GetFFlagLuaVoiceChatAnalyticsBanMessageV2)
 local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
-local FFlagVoiceChatPromptFrameNewCopyEnabled2 = game:DefineFastFlag("VoiceChatPromptFrameNewCopyEnabled2", false)
 local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
 
 local RobloxTranslator
@@ -68,12 +67,8 @@ local VoiceChatPromptFrame = Roact.PureComponent:extend("VoiceChatPromptFrame")
 local PromptTitle = {
 	[PromptType.None] = "",
 	[PromptType.NotAudible] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.NotAudible"),
-	[PromptType.Permission] = if FFlagVoiceChatPromptFrameNewCopyEnabled2
-		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.MicrophonePermission")
-		else RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Permission"),
-	[PromptType.Retry] = if FFlagVoiceChatPromptFrameNewCopyEnabled2
-		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.MicrophonePermission")
-		else RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Permission"),
+	[PromptType.Permission] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.MicrophonePermission"),
+	[PromptType.Retry] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.MicrophonePermission"),
 	[PromptType.Place] = "Exceeds Max Players",
 	[PromptType.User] = "Not Eligible for Voice",
 	[PromptType.VoiceChatSuspendedTemporaryAvatarChat] = RobloxTranslator:FormatByKey(
@@ -96,9 +91,7 @@ local PromptTitle = {
 local PromptSubTitle = {
 	[PromptType.None] = "",
 	[PromptType.NotAudible] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.NotAudible"),
-	[PromptType.Permission] = if FFlagVoiceChatPromptFrameNewCopyEnabled2
-		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.MicrophonePermission")
-		else RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Permission"),
+	[PromptType.Permission] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.MicrophonePermission"),
 	[PromptType.Retry] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.Retry"),
 	[PromptType.Place] = "Spatial voice is only available for places with Max Players of 30 or less.",
 	[PromptType.User] = "This account is not eligible to use Spatial Voice.",

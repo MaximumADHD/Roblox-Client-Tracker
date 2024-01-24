@@ -36,6 +36,7 @@ local isCameraOnlyUser = require(RobloxGui.Modules.Settings.isCameraOnlyUser)
 
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
+local getFFlagLegacyConnectingMicStateFix = require(RobloxGui.Modules.Flags.getFFlagLegacyConnectingMicStateFix)
 
 local AvatarChatUISettings = Constants.AVATAR_CHAT_UI_SETTINGS
 
@@ -181,9 +182,16 @@ end
 function ControlsBubble:shouldShowMicOffIndicator()
 	if self.props.isLocalPlayer then
 		-- If the local player has not given mic permissions to their device, we show the muted icon.
-		local noPermissions = not (self.state.microphoneEnabled and self.props.hasMicPermissions)
+		local noPermissions
+		if getFFlagLegacyConnectingMicStateFix() then
+			noPermissions = not self.props.hasMicPermissions
+		else
+			noPermissions = not (self.state.microphoneEnabled and self.props.hasMicPermissions)
+		end
+		
 		local micMuted = self.props.voiceState == Constants.VOICE_STATE.MUTED
 			or self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED
+
 		if noPermissions or micMuted then
 			return true
 		end

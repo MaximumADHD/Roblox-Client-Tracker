@@ -1,7 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local VRService = game:GetService("VRService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -19,17 +18,12 @@ local LayoutValuesProvider = LayoutValues.Provider
 local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
-
-local FFlagFixPlayerListOpenOnLaunch = game:DefineFastFlag("FixPlayerListOpenOnLaunch", false)
+local PlayerListInitialVisibleState = require(PlayerList.PlayerListInitialVisibleState)
 
 local PlayerListSwitcher = Roact.PureComponent:extend("PlayerListSwitcher")
 
 function PlayerListSwitcher:didMount()
-	if FFlagFixPlayerListOpenOnLaunch then
-		self.props.setPlayerListVisible(not self.props.isSmallTouchDevice and not VRService.VREnabled and not TenFootInterface:IsEnabled())
-	else
-		self.props.setPlayerListVisible(not self.props.isSmallTouchDevice and not VRService.VREnabled)
-	end
+	self.props.setPlayerListVisible(PlayerListInitialVisibleState())
 end
 
 function PlayerListSwitcher:wrapWithUiModeStyleProvider(children) 

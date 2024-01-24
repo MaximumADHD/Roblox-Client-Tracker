@@ -6,6 +6,8 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
+local getFFlagUseCameraDevicesListener = require(RobloxGui.Modules.Flags.getFFlagUseCameraDevicesListener)
+local cameraDevicesHelper = require(RobloxGui.Modules.Settings.cameraDevicesHelper)
 
 -- A camera only user is one that only has access to camera UI in the experience
 local isCameraOnlyUser = function(): boolean
@@ -26,7 +28,13 @@ local isCameraOnlyUser = function(): boolean
 	local userMicEnabled = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserAudio)
 	local userMicEligible = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserAudioEligible)
 
-	local cameraDevices = VideoCaptureService:GetCameraDevices()
+	local cameraDevices
+	if getFFlagUseCameraDevicesListener() then
+		cameraDevices = cameraDevicesHelper.GetDevices()
+	else
+		cameraDevices = VideoCaptureService:GetCameraDevices()
+	end
+
 	-- If user has no eligible camera devices, then the user cannot be camera only
 	if Cryo.isEmpty(cameraDevices) then
 		return false

@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("EnableUGCUploadFlowAnalytics3", false)
+game:DefineFastFlag("EnableUGCUploadFlowAnalytics4", false)
 return function()
-   return game:GetFastFlag("EnableUGCUploadFlowAnalytics3")
+   return game:GetFastFlag("EnableUGCUploadFlowAnalytics4")
 end

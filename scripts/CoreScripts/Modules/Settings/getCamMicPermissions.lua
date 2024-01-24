@@ -45,6 +45,7 @@ local getFFlagUseCameraDeviceGrantedSignal = require(RobloxGui.Modules.Flags.get
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAnalyticsForCameraDevicePermissions = require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
 local FFlagCheckCameraAvailabilityBeforePermissions = game:DefineFastFlag("CheckCameraAvailabilityBeforePermissions", false)
+local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
 
 local AvatarChatService : any = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 
@@ -71,6 +72,10 @@ local function removePermissionsBasedOnUserSetting(allowedSettings: AllowedSetti
 	end
 
 	if not allowedSettings.isVoiceEnabled and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) then
+		permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+	end
+
+	if FFlagSkipVoicePermissionCheck and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) then
 		permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
 	end
 
@@ -225,6 +230,10 @@ type CachedResult = {
 }
 
 local function tryGetCachedResults(permsToCheck) : CachedResult?
+	if FFlagSkipVoicePermissionCheck then
+		hasMicPermissions = true
+	end
+
 	if hasCameraPermissions == nil or hasMicPermissions == nil then
 		return nil
 	end

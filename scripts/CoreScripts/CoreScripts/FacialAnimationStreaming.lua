@@ -36,6 +36,7 @@ local FFlagFacialAnimationStreamingDisableLipsyncForVRUser = game:DefineFastFlag
 game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",false)
 game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
 game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateWhenCreatingTrack", false)
+local FFlagFacialAnimationStreamingCheckPauseStateAfterEmote2 = game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateAfterEmote2", false)
 local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
@@ -187,6 +188,20 @@ local function resumeStreamingAnimationForPlayer(player)
 	end
 end
 
+local function updateStreamTrackStatus()
+	local localPlayer = Players.LocalPlayer
+	if not localPlayer then
+		return
+	end
+
+	local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
+	if shouldPlayStreamTrack then
+		resumeStreamingAnimationForPlayer(localPlayer)
+	else
+		pauseStreamingAnimationForPlayer(localPlayer)
+	end
+end
+
 local function handleEmote(player, emoteTrack, isChatTriggered)
 	playerTrace(string.format("handleEmote {isChatTriggered:%s}", tostring(isChatTriggered)), player)
 	if emoteTrack then
@@ -201,7 +216,17 @@ local function handleEmote(player, emoteTrack, isChatTriggered)
 			-- clear observer
 			clearConnection(player, Connections.EmoteFinished)
 			-- resume streaming animations
-			resumeStreamingAnimationForPlayer(player)
+			--shouldPlayStreamTrack check here so it does not increase the weight of the stream track if mic/ cam not on and so then idle anims work after emote played
+			if FFlagFacialAnimationStreamingCheckPauseStateAfterEmote2 then
+				local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
+				if shouldPlayStreamTrack then
+					resumeStreamingAnimationForPlayer(player)
+				else
+					pauseStreamingAnimationForPlayer(player)
+				end
+			else
+				resumeStreamingAnimationForPlayer(player)
+			end
 		end)
 	end
 end
@@ -757,20 +782,6 @@ local function onThrottleUpdate(allowed, optedIn, serviceState)
 		elseif optedIn then
 			TrackerMenu:showPrompt(TrackerPromptType.FeatureDisabled)
 		end
-	end
-end
-
-local function updateStreamTrackStatus()
-	local localPlayer = Players.LocalPlayer
-	if not localPlayer then
-		return
-	end
-
-	local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
-	if shouldPlayStreamTrack then
-		resumeStreamingAnimationForPlayer(localPlayer)
-	else
-		pauseStreamingAnimationForPlayer(localPlayer)
 	end
 end
 
