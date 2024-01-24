@@ -111,6 +111,13 @@ local testFont = {
 	CaptionSubHeader = font,
 	CaptionBody = font,
 	Footer = font,
+	HeadingLarge = font,
+	HeadingSmall = font,
+	TitleLarge = font,
+	BodyLarge = font,
+	CaptionLarge = font,
+	BodySmall = font,
+	CaptionSmall = font,
 }
 
 local testSettings = {

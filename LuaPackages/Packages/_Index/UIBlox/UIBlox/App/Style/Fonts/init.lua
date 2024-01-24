@@ -4,7 +4,7 @@ export type Font = {
 	RelativeMinSize: number,
 }
 
-export type FontPalette = {
+export type FontPaletteOld = {
 	BaseSize: number,
 	Title: Font,
 	Header1: Font,
@@ -16,5 +16,17 @@ export type FontPalette = {
 	CaptionBody: Font,
 	Footer: Font,
 }
+
+export type FontPaletteNew = FontPaletteOld & {
+	HeadingLarge: Font,
+	HeadingSmall: Font,
+	TitleLarge: Font,
+	BodyLarge: Font,
+	CaptionLarge: Font,
+	BodySmall: Font,
+	CaptionSmall: Font,
+}
+
+export type FontPalette = FontPaletteOld | FontPaletteNew
 
 return {}

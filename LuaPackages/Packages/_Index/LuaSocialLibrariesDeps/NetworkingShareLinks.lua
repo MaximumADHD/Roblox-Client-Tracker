@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["NetworkingShareLinks-a5a705c8-4050a50a"]["NetworkingShareLinks"])
+local Package = require(PackageIndex["NetworkingShareLinks-3abfa7a8-30ecb2a1"]["NetworkingShareLinks"])
 
 return Package

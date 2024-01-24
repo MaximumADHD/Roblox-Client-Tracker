@@ -32,6 +32,9 @@ local getContentStyle = require(Core.Button.getContentStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local useCursorByType = require(App.SelectionCursor.useCursorByType)
+local CursorType = require(App.SelectionCursor.CursorType)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local INNER_PADDING = 12
 local LIST_PADDING = 4
@@ -117,7 +120,9 @@ local function Pillv2(props: Props)
 	local text = props.text or ""
 	local onActivated = props.onActivated
 
-	local selectionCursor = useSelectionCursor(CursorKind.SmallPill)
+	local selectionCursor = if UIBloxConfig.migrateToNewSelectionCursor
+		then useCursorByType(CursorType.SmallPill)
+		else useSelectionCursor(CursorKind.SmallPill)
 
 	local textStateColorMap = if isSelected then SELECTED_TEXT_STATE_COLOR else TEXT_STATE_COLOR
 	local buttonStateColorMap = if isSelected then SELECTED_BUTTON_STATE_COLOR else BUTTON_STATE_COLOR

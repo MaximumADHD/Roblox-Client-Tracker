@@ -3,11 +3,16 @@ local LocalizationService = game:GetService("LocalizationService")
 local GuiService = game:GetService("GuiService")
 
 local Translations = script.Parent
+local Constants = require(Translations.Constants)
 local GeneratedTranslations = require(Translations.GeneratedTranslations)
 
 local function createUIBloxLocalizationTable(parent)
+	if GuiService:FindFirstChild(Constants.LOCALIZATION_TABLE_NAME) then
+		return
+	end
+
 	local UIBloxLocalization = Instance.new("LocalizationTable")
-	UIBloxLocalization.Name = "UIBloxLocalization"
+	UIBloxLocalization.Name = Constants.LOCALIZATION_TABLE_NAME
 	UIBloxLocalization.Archivable = false
 	UIBloxLocalization.SourceLocaleId = "en-us"
 	UIBloxLocalization:SetEntries(GeneratedTranslations)

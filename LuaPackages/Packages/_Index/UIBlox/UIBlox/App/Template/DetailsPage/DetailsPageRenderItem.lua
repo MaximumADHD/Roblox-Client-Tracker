@@ -6,6 +6,9 @@ local Packages = UIBlox.Parent
 local GuiService = game:GetService("GuiService")
 local useSelectionCursor = require(UIBlox.App.SelectionImage.useSelectionCursor)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
+local useCursorByType = require(App.SelectionCursor.useCursorByType)
+local CursorType = require(App.SelectionCursor.CursorType)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DetailsPageTypes = require(DetailsPage.Types)
 type DetailsPageRenderItem = DetailsPageTypes.DetailsPageRenderItem
@@ -53,7 +56,9 @@ local function DetailsPageRenderItem(props: Props)
 		return nil
 	end, { safeArea, itemPadding } :: { any })
 
-	local cursor = useSelectionCursor(CursorKind.Invisible)
+	local cursor = if UIBloxConfig.migrateToNewSelectionCursor
+		then useCursorByType(CursorType.Invisible)
+		else useSelectionCursor(CursorKind.Invisible)
 
 	return React.createElement("CanvasGroup", {
 		key = item.key,

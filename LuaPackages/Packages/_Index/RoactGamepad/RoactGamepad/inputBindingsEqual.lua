@@ -10,9 +10,11 @@ local function inputBindingsEqual(bindings1, bindings2)
 			return false
 		end
 
-		if binding1.kind ~= binding2.kind
+		if
+			binding1.kind ~= binding2.kind
 			or binding1.keyCode ~= binding2.keyCode
-			or binding1.action ~= binding2.action then
+			or binding1.action ~= binding2.action
+		then
 			return false
 		end
 

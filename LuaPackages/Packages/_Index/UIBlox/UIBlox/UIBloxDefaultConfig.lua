@@ -50,4 +50,10 @@ return {
 	-- do not mount the Details Page Header Action Bar when the Sticky ActionBar
 	-- active
 	hideHeaderActionBarWhenStickyBarActive = false,
+
+	-- Use RobloxGuiFocusedChanged event to respond to blur and loading of GenericButton
+	useRobloxGuiFocusedChangedEventInGenericButton = false,
+
+	-- In ResponsiveGrid, don't default displayLines to nil. Instead use an empty range
+	responsiveGridDisplayLinesNonNil = false,
 }

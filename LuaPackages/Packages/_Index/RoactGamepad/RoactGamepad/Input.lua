@@ -64,11 +64,7 @@ end
 local function getInputEvent(action, matchInput)
 	return function(inputObject)
 		if matchInput(inputObject) then
-			debugPrint("[EVENT] Process input: ",
-				inputObject.KeyCode,
-				"-",
-				inputObject.UserInputState
-			)
+			debugPrint("[EVENT] Process input: ", inputObject.KeyCode, "-", inputObject.UserInputState)
 			action(inputObject)
 		end
 	end
@@ -103,7 +99,6 @@ end
 
 -- Returns a function that can be called to disconnect from the event
 local function connectToEvent(binding, engineInterface)
-
 	local function matchesBindingKeyCode(inputObject)
 		if Config.DebugKeyboardBindings then
 			local keyboardKeyCodes = Config.DebugKeyboardBindings[binding.keyCode] or {}
@@ -171,8 +166,10 @@ end
 
 local function makeInputBinding(kind)
 	return function(keyCode, action, meta)
-		assert(typeof(keyCode) == "EnumItem" and keyCode.EnumType == Enum.KeyCode,
-			"Invalid argument #1: expected a member of Enum.KeyCode")
+		assert(
+			typeof(keyCode) == "EnumItem" and keyCode.EnumType == Enum.KeyCode,
+			"Invalid argument #1: expected a member of Enum.KeyCode"
+		)
 		assert(typeof(action) == "function", "Invalid argument #2: expected a function")
 
 		return {
@@ -207,5 +204,5 @@ return {
 		onEnd = makeInputBinding(InputBindingKind.End),
 		onStep = makeInputBinding(InputBindingKind.Step),
 		onMoveStep = onMoveStepInputBinding,
-	}
+	},
 }

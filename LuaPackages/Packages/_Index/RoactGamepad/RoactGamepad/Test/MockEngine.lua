@@ -63,7 +63,7 @@ end
 
 local function wrapDisconnector(disconnect)
 	return {
-		Disconnect = disconnect
+		Disconnect = disconnect,
 	}
 end
 
@@ -171,8 +171,10 @@ function MockEngine:simulateInput(inputObject)
 		UserInputType = Enum.UserInputType.Gamepad1,
 	}, inputObject)
 
-	assert(typeof(inputObject.KeyCode) == "EnumItem" and inputObject.KeyCode.EnumType == Enum.KeyCode,
-		"Invalid inputObject.KeyCode: expected a member of Enum.KeyCode")
+	assert(
+		typeof(inputObject.KeyCode) == "EnumItem" and inputObject.KeyCode.EnumType == Enum.KeyCode,
+		"Invalid inputObject.KeyCode: expected a member of Enum.KeyCode"
+	)
 	assert(VALID_INPUT_TYPES[inputObject.UserInputType], "Invalid inputObject.UserInputType")
 
 	-- Simulate navigational actions by jumping to relevant neighbors
@@ -201,10 +203,10 @@ function MockEngine:simulateInput(inputObject)
 		end)
 
 		if index == nil then
-			error(("Invalid InputObject: KeyCode %s is not possible on %s"):format(
-				tostring(keyCode),
-				tostring(gamepadId)
-			), 2)
+			error(
+				("Invalid InputObject: KeyCode %s is not possible on %s"):format(tostring(keyCode), tostring(gamepadId)),
+				2
+			)
 		end
 
 		for key, value in pairs(inputObject) do
@@ -226,8 +228,10 @@ function MockEngine:renderStep(deltaTime)
 end
 
 function MockEngine:connectGamepad(id)
-	assert(typeof(id) == "EnumItem" and id.EnumType == Enum.UserInputType,
-		"Invalid argument #1: expected a member of Enum.UserInputType")
+	assert(
+		typeof(id) == "EnumItem" and id.EnumType == Enum.UserInputType,
+		"Invalid argument #1: expected a member of Enum.UserInputType"
+	)
 
 	self.__connectedGamepads[id] = true
 	self:__initializeGamepadState(id)
@@ -236,8 +240,10 @@ function MockEngine:connectGamepad(id)
 end
 
 function MockEngine:disconnectGamepad(id)
-	assert(typeof(id) == "EnumItem" and id.EnumType == Enum.UserInputType,
-		"Invalid argument #1: expected a member of Enum.UserInputType")
+	assert(
+		typeof(id) == "EnumItem" and id.EnumType == Enum.UserInputType,
+		"Invalid argument #1: expected a member of Enum.UserInputType"
+	)
 
 	self.__connectedGamepads[id] = nil
 	self.__gamepadDisconnected:fire(id)

@@ -21,4 +21,24 @@ local FontPalette = t.strictInterface({
 	Footer = Font,
 })
 
-return FontPalette
+local FontPaletteNew = t.strictInterface({
+	BaseSize = t.numberMinExclusive(0),
+	Title = Font,
+	Header1 = Font,
+	Header2 = Font,
+	SubHeader1 = Font,
+	Body = Font,
+	CaptionHeader = Font,
+	CaptionSubHeader = Font,
+	CaptionBody = Font,
+	Footer = Font,
+	HeadingLarge = Font,
+	HeadingSmall = Font,
+	TitleLarge = Font,
+	BodyLarge = Font,
+	CaptionLarge = Font,
+	BodySmall = Font,
+	CaptionSmall = Font,
+})
+
+return t.union(FontPalette, FontPaletteNew)

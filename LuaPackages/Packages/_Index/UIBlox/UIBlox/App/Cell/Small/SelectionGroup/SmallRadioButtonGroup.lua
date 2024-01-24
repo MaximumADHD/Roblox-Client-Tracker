@@ -13,6 +13,9 @@ local t = require(Packages.t)
 
 local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
+local withCursor = require(App.SelectionCursor.withCursor)
+local CursorType = require(App.SelectionCursor.CursorType)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local SmallRadioButtonCell = require(UIBlox.App.Cell.Small.SelectionGroup.SmallRadioButtonCell)
 
@@ -68,8 +71,8 @@ function SmallRadioButtonGroup:render()
 		Padding = UDim.new(0, 1),
 	})
 	for index, button in ipairs(self.props.items) do
-		smallRadioButtonCellGroup["smallRadioButtonCell" .. button.id] = withSelectionCursorProvider(
-			function(getSelectionCursor)
+		if UIBloxConfig.migrateToNewSelectionCursor then
+			smallRadioButtonCellGroup["smallRadioButtonCell" .. button.id] = withCursor(function(context)
 				return Roact.createElement(RoactGamepad.Focusable[SmallRadioButtonCell], {
 					id = button.id,
 					text = button.text,
@@ -82,10 +85,29 @@ function SmallRadioButtonGroup:render()
 					[Roact.Ref] = self.gamepadRefs[index],
 					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
 					NextSelectionDown = index < #self.props.items and self.gamepadRefs[index + 1] or nil,
-					SelectionImageObject = getSelectionCursor(CursorKind.SelectionCell),
+					SelectionImageObject = context.getCursorByType(CursorType.SelectionCell),
 				})
-			end
-		)
+			end)
+		else
+			smallRadioButtonCellGroup["smallRadioButtonCell" .. button.id] = withSelectionCursorProvider(
+				function(getSelectionCursor)
+					return Roact.createElement(RoactGamepad.Focusable[SmallRadioButtonCell], {
+						id = button.id,
+						text = button.text,
+						onActivated = self.props.onActivated,
+						isSelected = self.props.selectedValue == button.id,
+						isDisabled = button.isDisabled,
+						layoutOrder = index,
+						useDefaultControlState = self.props.useDefaultControlState,
+
+						[Roact.Ref] = self.gamepadRefs[index],
+						NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
+						NextSelectionDown = index < #self.props.items and self.gamepadRefs[index + 1] or nil,
+						SelectionImageObject = getSelectionCursor(CursorKind.SelectionCell),
+					})
+				end
+			)
+		end
 	end
 
 	local gamepadEnabled = self.props.items and #self.props.items > 0

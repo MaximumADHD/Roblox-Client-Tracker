@@ -42,7 +42,7 @@ local function createFocusableCache()
 				result = ("%s\n\t%s -> %s"):format(result, tostring(key), tostring(componentClass))
 			end
 			return result .. "\n}"
-		end
+		end,
 	})
 
 	return focusableComponentCache

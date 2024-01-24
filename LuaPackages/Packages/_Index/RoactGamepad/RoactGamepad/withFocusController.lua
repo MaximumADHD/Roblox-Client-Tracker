@@ -23,7 +23,7 @@ end
 
 local function withFocusController(render)
 	return Roact.createElement(FocusControllerConsumer, {
-		render = render
+		render = render,
 	})
 end
 

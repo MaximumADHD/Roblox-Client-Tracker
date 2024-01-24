@@ -23,7 +23,7 @@ local function createRefCache()
 				result = ("%s\n\t%s -> %s"):format(result, tostring(key), tostring(ref))
 			end
 			return result .. "\n}"
-		end
+		end,
 	})
 
 	return refCache

@@ -221,10 +221,6 @@ local function initializeLibrary(configs)
 			DefaultMetricsGridView = require(script.App.Grid.DefaultMetricsGridView),
 		}),
 
-		Pill = strict({
-			SmallPill = require(script.App.Pill.SmallPill),
-		}),
-
 		Tile = strict({
 			MenuTile = require(script.App.Tile.MenuTile.MenuTile),
 			PlayerTile = require(script.App.Tile.PlayerTile.PlayerTile),
@@ -355,6 +351,8 @@ local function initializeLibrary(configs)
 			CursorProvider = require(script.App.SelectionCursor.CursorProvider),
 			useCursor = require(script.App.SelectionCursor.useCursor),
 			withCursor = require(script.App.SelectionCursor.withCursor),
+			useCursorByType = require(script.App.SelectionCursor.useCursorByType),
+			CursorType = require(script.App.SelectionCursor.CursorType),
 		}),
 
 		Template = strict({

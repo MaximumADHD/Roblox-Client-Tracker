@@ -13,7 +13,6 @@ local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local ShimmerPanel = require(App.Loading.ShimmerPanel)
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
-local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
 
 export type ItemStyleProps = {
 	-- Spacing between icon and label
@@ -37,8 +36,6 @@ export type ItemProps = {
 	useTextAsIcon: boolean?,
 	-- Callback when item is activated
 	onActivated: (() -> ())?,
-	-- Cursor to show when selected
-	cursorKind: any,
 	-- Item is in loading state
 	isLoading: boolean?,
 	-- Styles of name item
@@ -115,7 +112,6 @@ local function NameItem(props: InnerItemProps)
 	local labelText = itemProps.labelText
 	local useTextAsIcon = itemProps.useTextAsIcon
 	local onActivated = itemProps.onActivated
-	local cursorKind = itemProps.cursorKind
 	local isLoading = if itemProps.isLoading ~= nil then itemProps.isLoading else false
 
 	local styleProps = Cryo.Dictionary.join(itemStyleDefaults, itemProps.styleProps or {})
@@ -125,7 +121,6 @@ local function NameItem(props: InnerItemProps)
 	local labelTypography = styleProps.labelTypography
 	local labelColorStyle = styleProps.labelColorStyle
 
-	local selectionImageObject = if not isLoading and cursorKind then useSelectionCursor(cursorKind) else nil
 	local showIcon = if not isLoading and icon then true else false
 	local isActive = if not isLoading and onActivated then true else false
 
@@ -175,7 +170,6 @@ local function NameItem(props: InnerItemProps)
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 		Selectable = if isActive then true else false,
-		SelectionImageObject = selectionImageObject,
 		[React.Event.Activated] = if isActive then onActivated else nil,
 	}, {
 		ListLayout = React.createElement("UIListLayout", {

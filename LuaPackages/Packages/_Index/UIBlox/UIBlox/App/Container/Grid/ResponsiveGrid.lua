@@ -4,6 +4,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ResponsiveRow = require(UIBlox.Core.Layout.Responsive.ResponsiveRow)
 local useResponsiveLayout = require(UIBlox.Core.Layout.Responsive.useResponsiveLayout)
@@ -73,9 +74,11 @@ local function useCellAbsoluteHeight(propRelativeHeight: UDim?, kind: string?)
 	end, { columns, gutter, verticalGutter, margin, relativeHeight } :: { any })
 end
 
+local EMPTY_RANGE = NumberRange.new(0, 0)
+local displayLinesDefault = if UIBloxConfig.responsiveGridDisplayLinesNonNil then EMPTY_RANGE else nil
+
 local function ResponsiveGrid(props: Props, ref: React.Ref<Frame>)
-	-- TODO actual type is `NumberRange?`
-	local displayLines, setDisplayLines = React.useState(nil :: any)
+	local displayLines: NumberRange?, setDisplayLines: (NumberRange?) -> () = React.useState(displayLinesDefault)
 	local getCellAbsoluteHeight = useCellAbsoluteHeight(props.relativeHeight, props.kind)
 
 	local updateDisplayLines = React.useCallback(function(absolutePosition, absoluteSize)
@@ -88,7 +91,7 @@ local function ResponsiveGrid(props: Props, ref: React.Ref<Frame>)
 				return setDisplayLines(NumberRange.new(firstLine, firstLine + lineCount - 1))
 			end
 		end
-		return setDisplayLines(nil)
+		return setDisplayLines(displayLinesDefault)
 	end, { getCellAbsoluteHeight, props.absoluteWindowTop, props.absoluteWindowHeight, setDisplayLines } :: { any })
 
 	local useRefProps: usePropertiesHook = if props.enableDeferredRefPropEvents

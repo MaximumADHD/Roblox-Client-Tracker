@@ -24,9 +24,11 @@ function FocusControllerInternal.new()
 		rootRef = nil,
 		engineInterface = nil,
 		captureFocusOnInitialize = false,
+		moveFocusToOnInitialize = nil,
 		inputDisconnectors = {},
 		boundInputs = {},
 		focusedLeaf = nil,
+		inProgressFocus = nil,
 	}, FocusControllerInternal)
 
 	return self
@@ -38,7 +40,8 @@ end
 
 function FocusControllerInternal:moveFocusTo(ref)
 	if self.engineInterface == nil then
-		error("FocusController is not connected to a component hierarchy!", 2)
+		self.moveFocusToOnInitialize = ref
+		return
 	end
 
 	debugPrint("[FOCUS] Move focus to", ref)
@@ -196,6 +199,14 @@ function FocusControllerInternal:setFocusedLeaf(node)
 	self.focusedLeaf = node
 end
 
+function FocusControllerInternal:setInProgressFocus(node)
+	self.inProgressFocus = node
+end
+
+function FocusControllerInternal:isInProgressFocus(node)
+	return self.inProgressFocus == node
+end
+
 -- Prints a human-readable version of the node tree.
 function FocusControllerInternal:debugPrintTree()
 	if not debugPrint.isEnabled then
@@ -261,7 +272,9 @@ function FocusControllerInternal:initialize(engineInterface)
 	-- If the engineInterface is already set, then this FocusController was
 	-- probably also assigned to another tree
 	if self.engineInterface ~= nil then
-		error("FocusController cannot be initialized more than once; make sure you are not passing it to multiple components")
+		error(
+			"FocusController cannot be initialized more than once; make sure you are not passing it to multiple components"
+		)
 	end
 
 	self.engineInterface = engineInterface
@@ -321,6 +334,10 @@ function FocusControllerInternal:initialize(engineInterface)
 
 	if self.captureFocusOnInitialize then
 		self:captureFocus()
+	end
+
+	if self.moveFocusToOnInitialize then
+		self:moveFocusTo(self.moveFocusToOnInitialize)
 	end
 end
 

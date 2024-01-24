@@ -39,19 +39,22 @@ local function checkFocusManager(props)
 	return true
 end
 
-local focusableValidateProps = t.intersection(t.interface({
-	parentFocusNode = t.optional(t.table),
-	focusController = t.optional(t.table),
-	innerRef = t.optional(t.table),
+local focusableValidateProps = t.intersection(
+	t.interface({
+		parentFocusNode = t.optional(t.table),
+		focusController = t.optional(t.table),
+		innerRef = t.optional(t.table),
 
-	restorePreviousChildFocus = t.boolean,
-	inputBindings = t.table,
-	defaultChild = t.optional(t.table),
+		restorePreviousChildFocus = t.boolean,
+		inputBindings = t.table,
+		defaultChild = t.optional(t.table),
 
-	onFocusGained = t.optional(t.callback),
-	onFocusLost = t.optional(t.callback),
-	onFocusChanged = t.optional(t.callback),
-}), checkFocusManager)
+		onFocusGained = t.optional(t.callback),
+		onFocusLost = t.optional(t.callback),
+		onFocusChanged = t.optional(t.callback),
+	}),
+	checkFocusManager
+)
 
 local focusableDefaultProps = {
 	restorePreviousChildFocus = false,
@@ -128,7 +131,7 @@ local function asFocusable(innerComponent)
 				if self:getFocusControllerInternal():needsDescendantAddedRefocus() then
 					self:setState(function(state)
 						return {
-							needsDescendantAddedRefocusCounter = state.needsDescendantAddedRefocusCounter + 1
+							needsDescendantAddedRefocusCounter = state.needsDescendantAddedRefocusCounter + 1,
 						}
 					end)
 				end
@@ -143,7 +146,7 @@ local function asFocusable(innerComponent)
 				if self:getFocusControllerInternal():needsDescendantRemovedRefocus() then
 					self:setState(function(state)
 						return {
-							needsDescendantRemovedRefocusCounter = state.needsDescendantRemovedRefocusCounter + 1
+							needsDescendantRemovedRefocusCounter = state.needsDescendantRemovedRefocusCounter + 1,
 						}
 					end)
 				end
@@ -247,12 +250,7 @@ local function asFocusable(innerComponent)
 				[Roact.Event.DescendantRemoving] = self.refreshFocusOnDescendantRemoved,
 			}
 
-			innerProps = Cryo.Dictionary.join(
-				childDefaultNavProps,
-				self.props,
-				rootNavProps,
-				nonHostProps
-			)
+			innerProps = Cryo.Dictionary.join(childDefaultNavProps, self.props, rootNavProps, nonHostProps)
 		else
 			innerProps = Cryo.Dictionary.join(
 				childDefaultNavProps,

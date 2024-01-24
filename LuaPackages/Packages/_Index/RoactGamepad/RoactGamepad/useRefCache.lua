@@ -12,7 +12,7 @@ local createRefCache = require(script.Parent.createRefCache)
 type Ref = { current: any }
 
 export type RefCache = {
-	[any]: Ref
+	[any]: Ref,
 }
 
 local function useRefCache(): RefCache

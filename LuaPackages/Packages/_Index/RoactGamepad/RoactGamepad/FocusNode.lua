@@ -122,7 +122,10 @@ function FocusNode:focus()
 	if not focusController:isInitialized() then
 		return -- The focus controller may have been torn down after delay
 	end
-
+	-- Focusing may take time if we have a default child that does not yet exist
+	-- If the focus is moved to some other element during the process of focusing
+	-- this element, we will need to abort this.
+	focusController:setInProgressFocus(self)
 	local children = focusController:getChildren(self)
 	if Cryo.isEmpty(children) then
 		focusController:setSelection(self.ref:getValue())
@@ -149,7 +152,11 @@ function FocusNode:focus()
 					debugPrint("[FOCUS] Default child specified is not valid. Wait for it to be assigned...")
 					self.timeout = now + DEFAULT_TIMEOUT
 				end
-				task.delay(0, self.focus, self)
+				task.delay(0, function()
+					if focusController:isInProgressFocus(self) then
+						self:focus()
+					end
+				end)
 			end
 		-- If there's no previous selection to restore and no default child to focus, just focus whatever we can
 		else
@@ -164,6 +171,7 @@ function FocusNode:focus()
 			else
 				-- Set ourselves as the focusedLeaf so that when our descendants are added we will refocus on them.
 				focusController:setFocusedLeaf(self)
+				focusController:setInProgressFocus(nil)
 			end
 		end
 	end

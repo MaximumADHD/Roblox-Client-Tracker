@@ -14,7 +14,7 @@ local function createSpy(inner)
 
 	self.value = function(...)
 		self.callCount = self.callCount + 1
-		self.values = {...}
+		self.values = { ... }
 		self.valuesLength = select("#", ...)
 
 		if inner ~= nil then
@@ -28,16 +28,16 @@ local function createSpy(inner)
 		local len = select("#", ...)
 
 		if self.valuesLength ~= len then
-			error(("Expected %d arguments, but was called with %d arguments"):format(
-				self.valuesLength,
-				len
-			), 2)
+			error(("Expected %d arguments, but was called with %d arguments"):format(self.valuesLength, len), 2)
 		end
 
 		for i = 1, len do
 			local expected = select(i, ...)
 
-			assert(self.values[i] == expected, "value differs; got " .. tostring(self.values[i]) .. ", expected " .. tostring(expected))
+			assert(
+				self.values[i] == expected,
+				"value differs; got " .. tostring(self.values[i]) .. ", expected " .. tostring(expected)
+			)
 		end
 	end
 

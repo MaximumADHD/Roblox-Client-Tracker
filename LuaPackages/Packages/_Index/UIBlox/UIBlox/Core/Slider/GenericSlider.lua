@@ -10,10 +10,13 @@ local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local Gamepad = require(Packages.RoactGamepad)
 local ImageSetComponent = require(CoreRoot.ImageSet.ImageSetComponent)
+local useCursorByType = require(UIBloxRoot.App.SelectionCursor.useCursorByType)
+local CursorType = require(UIBloxRoot.App.SelectionCursor.CursorType)
 
 local lerp = require(UIBloxRoot.Utility.lerp)
 local CursorKind = require(UIBloxRoot.App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(UIBloxRoot.App.SelectionImage.withSelectionCursorProvider)
+local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 
 local PLUGINGUI_INPUT_CAPTURER_ZINDEX = 100000
 local SLIDER_HEIGHT = 36
@@ -84,6 +87,9 @@ GenericSlider.validateProps = t.strictInterface({
 	customKnobHeight = t.optional(t.number),
 	customKnobBorderColor = t.optional(t.Color3),
 	customKnobBorderSize = t.optional(t.number),
+	-- Selection cursors
+	selectedCursor = if UIBloxConfig.migrateToNewSelectionCursor then t.optional(t.any) else nil,
+	unselectedCursor = if UIBloxConfig.migrateToNewSelectionCursor then t.optional(t.any) else nil,
 })
 
 GenericSlider.defaultProps = {
@@ -332,8 +338,11 @@ function GenericSlider:renderUpperKnob(knobPositionUpper, knobIsSelected, isTwoK
 		NextSelectionRight = knobIsSelected and self.upperKnobRef or nil,
 		NextSelectionUp = knobIsSelected and self.upperKnobRef or nil,
 		NextSelectionDown = knobIsSelected and self.upperKnobRef or nil,
-		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob)
-			or getSelectionCursor(CursorKind.UnselectedKnob),
+		SelectionImageObject = knobIsSelected and (if UIBloxConfig.migrateToNewSelectionCursor
+			then self.props.selectedCursor
+			else getSelectionCursor(CursorKind.SelectedKnob)) or (if UIBloxConfig.migrateToNewSelectionCursor
+			then self.props.unselectedCursor
+			else getSelectionCursor(CursorKind.UnselectedKnob)),
 		[Roact.Ref] = self.upperKnobRef,
 		[Roact.Event.InputBegan] = function(rbx, inputObject)
 			if self.props.isDisabled then
@@ -412,8 +421,11 @@ function GenericSlider:renderLowerKnob(knobPositionLower, knobIsSelected, isTwoK
 			or nil,
 		NextSelectionUp = knobIsSelected and self.lowerKnobRef or nil,
 		NextSelectionDown = knobIsSelected and self.lowerKnobRef or nil,
-		SelectionImageObject = knobIsSelected and getSelectionCursor(CursorKind.SelectedKnob)
-			or getSelectionCursor(CursorKind.UnselectedKnob),
+		SelectionImageObject = knobIsSelected and (if UIBloxConfig.migrateToNewSelectionCursor
+			then self.props.selectedCursor
+			else getSelectionCursor(CursorKind.SelectedKnob)) or (if UIBloxConfig.migrateToNewSelectionCursor
+			then self.props.unselectedCursor
+			else getSelectionCursor(CursorKind.UnselectedKnob)),
 		[Roact.Ref] = self.lowerKnobRef,
 		[Roact.Event.InputBegan] = function(rbx, inputObject)
 			if self.props.isDisabled then
@@ -783,6 +795,14 @@ function GenericSlider:hasTwoKnobs()
 end
 
 return Roact.forwardRef(function(props, ref)
+	local selectedCursor = useCursorByType(CursorType.SelectedKnob)
+	local unselectedCursor = useCursorByType(CursorType.UnselectedKnob)
+	if UIBloxConfig.migrateToNewSelectionCursor then
+		props = Cryo.Dictionary.join({
+			selectedCursor = selectedCursor,
+			unselectedCursor = unselectedCursor,
+		}, props)
+	end
 	return Roact.createElement(
 		GenericSlider,
 		Cryo.Dictionary.join(props, {

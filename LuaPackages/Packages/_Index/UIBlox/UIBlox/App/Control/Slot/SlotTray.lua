@@ -18,6 +18,9 @@ local TileSlot = require(script.Parent.TileSlot)
 local useStyle = require(Core.Style.useStyle)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local useSelectionCursor = require(App.SelectionImage.useSelectionCursor)
+local useCursorByType = require(App.SelectionCursor.useCursorByType)
+local CursorType = require(App.SelectionCursor.CursorType)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DEFAULT_SLOT_SIZE = 48
 local INNER_PADDING = 12
@@ -184,7 +187,9 @@ local function SlotTray(props: Props)
 	local canvasWidth = #props.slots * DEFAULT_SLOT_SIZE + (#props.slots - 1) * INNER_PADDING + OUTER_PADDING * 2
 
 	local style = useStyle()
-	local selectionCursor = useSelectionCursor(CursorKind.RoundedSlot)
+	local selectionCursor = if UIBloxConfig.migrateToNewSelectionCursor
+		then useCursorByType(CursorType.RoundedSlot)
+		else useSelectionCursor(CursorKind.RoundedSlot)
 
 	assert(validateProps(props))
 	local theme = style.Theme
