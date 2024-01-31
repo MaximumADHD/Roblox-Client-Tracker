@@ -220,3 +220,4 @@ Studio.Common.Action.Value,,Value,Value
 Studio.Common.Action.Yes,,Yes,Yes
 Studio.Common.Action.Next,,Next,Next
 Studio.Docking.PlaceholerPanelText,QtitanDocking: The text that will be displayed in placeholder panels,Empty Docking Area,Empty Docking Area
+Studio.App.ResetModifiedProperty1,Menu action to reset a property to its default,Reset %1 to Default,Reset %1 to Default

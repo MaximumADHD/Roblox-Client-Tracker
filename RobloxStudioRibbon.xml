@@ -187,7 +187,8 @@
           </ActionGroup>
         </MenuPopupButton>
         <addaction name="materialManagerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip" width="32" height="32" />
-        <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" modernIcon="ColorPicker" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
+        <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" modernIcon="ColorPicker" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32" />
+        <addaction fflag="EnableTextureGenerator" name="textureGeneratorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool" style="textundericon" width="32" height="32" />
         <addseparator visible="false"/>
         <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.GroupShort" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
           <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16" />
@@ -412,6 +413,7 @@
 
         <addaction fflag="COLLAB4260ActivityFeed" name="toggleStudioActivityFeedAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip" modernIcon="ActivityFeed" ischeckable="true" />
         <addaction fflag="AICOChatBot" name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
+        <addaction fflag="EnableTextureGenerator" name="textureGeneratorAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool"/>
 
       </Group>
       <Group name="Actions" text="Studio.App.RobloxRibbonMainWindow.Actions" modernIcon="ViewSelector" icon=":/RibbonBar/images/RibbonIcons/View/View-Selector.png" width="32" height="32">

@@ -317,6 +317,7 @@ Studio.App.RibbonUpdatesBar.StudioNotifications,,Creator Notifications,Creator N
 Studio.App.RibbonUpdatesBar.StudioNotifications.ToolTip,,Receive important updates about your creations all in one place,Receive important updates about your creations all in one place
 Studio.App.RobloxRibbonMainWindow.CompositorDebugger,,Compositor Debugger,Compositor Debugger
 Studio.App.RobloxRibbonMainWindow.CompositorDebuggerTooltip,,Connect to an animation compositor graph to see its layers and their properties in real time,Connect to an animation compositor graph to see its layers and their properties in real time
+Studio.App.RobloxRibbonMainWindow.TextureGenerator,,Texture Generator,Texture Generator
 Studio.App.RobloxRibbonMainWindow.Part,,Part,Part
 Studio.App.RobloxRibbonMainWindow.PlacePartWorkspace,,Place a part into the workspace,Place a part into the workspace
 Studio.App.RobloxRibbonMainWindow.Block,,Block,Block

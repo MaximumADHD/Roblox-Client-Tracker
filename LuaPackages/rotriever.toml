@@ -54,7 +54,7 @@ QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.3.1"
 GraphqlToolsUtils = { target = "github.com/Roblox/graphql-tools-lua", version = "0.3.1", package = "Utils" }
 DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
-UGCValidation = "github.com/roblox/ugc-validation@1.10.5"
+UGCValidation = "github.com/roblox/ugc-validation@1.11.1"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
 RoduxFriends = { git = "https://github.com/Roblox/rodux-friends", rev = "v4.2.3" }
@@ -89,10 +89,10 @@ UsageTracker = "github.com/roblox/usage-tracker-lua@0.1.1"
 # Patch all dependencies (git or otherwise) upon rodux to the flagged indirection package,
 # which will ensure that we always use only one rodux version
 [config.patch."https://github.com/roblox/rodux"]
-Rodux = { git = "https://github.com/roblox/rodux", rev = "v3.1.0" }
+Rodux = { git = "https://github.com/roblox/rodux-upgrade", rev = "main" }
 
 [config.patch_git."https://github.com/roblox/rodux"]
-Rodux = { git = "https://github.com/roblox/rodux", rev = "v3.1.0" }
+Rodux = { git = "https://github.com/roblox/rodux-upgrade", rev = "main" }
 
 [config.patch."https://github.com/roblox/roblox-lua-promise"]
 Promise = { git = "github.com/Roblox/promise-upgrade", rev = "v0.1.0", package = "Promise" }
@@ -140,4 +140,4 @@ Picomatch = "github.com/roblox/picomatch-lua@0.3.1"
 
 # Patching over a dependency of ReactTestingLibrary remove when mirrored in artifactory
 [config.patch."github.com/roblox/dom-testing-library-lua"]
-DomTestingLibrary = { git = "github.com/roblox/dom-testing-library-lua", rev = "d9b6c762c95e0bc296bd41f0ab25995d4fbbd5a6" }
+DomTestingLibrary = { git = "github.com/roblox/dom-testing-library-lua", rev = "main" }

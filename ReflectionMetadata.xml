@@ -6636,6 +6636,15 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">VRService</string>
+        <string name="ExplorerOrder">1000</string>
+        <token name="ServiceVisibility">2</token>
+        <string name="FFlag">VRServiceStudioExplorer</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">DebuggerManager</string>
         <!-- string name="ExplorerOrder">1010</string-->
 

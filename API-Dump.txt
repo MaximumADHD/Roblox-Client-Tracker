@@ -300,6 +300,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
 	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } [Yields]
+	Function AssetService:GetAudioMetadataAsync(idList: { any }) -> { any } [Yields]
 	Function AssetService:GetBundleDetailsAsync(bundleId: number) -> { [string]: any } [Yields]
 	Function AssetService:GetBundleDetailsSync(bundleId: number) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetService:GetCreatorAssetID(creationID: number) -> number [Yields] [Deprecated]
@@ -596,6 +597,7 @@ Class RootImportData : BaseImportData [NotCreatable] [NotReplicated]
 	Property RootImportData.InvertNegativeFaces: boolean
 	Property RootImportData.MergeMeshes: boolean
 	Property RootImportData.PolygonCount: number [ReadOnly]
+	Property RootImportData.PreferredUploadId: number
 	Property RootImportData.RestPose: Enum.RestPose
 	Property RootImportData.RigScale: Enum.RigScale
 	Property RootImportData.RigType: Enum.RigType
@@ -849,6 +851,7 @@ Class Camera : Instance [NotReplicated]
 Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CaptureService:CaptureScreenshot(onCaptureReady: (...any) -> ...any) -> ()
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
+	Function CaptureService:GetCaptureFilePathAsync(captureContentId: string) -> string {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureSizeAsync(captureContentId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
@@ -863,7 +866,7 @@ Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event CaptureService.CaptureEnded()
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any })
 	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, contentIds: { any }) {RobloxScriptSecurity}
-	Event CaptureService.OpenShareCapturePrompt(promptId: number, contentId: string, capturePath: string, launchData: string) {RobloxScriptSecurity}
+	Event CaptureService.OpenShareCapturePrompt(promptId: number, contentId: string, launchData: string) {RobloxScriptSecurity}
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function ChangeHistoryService:FinishRecording(identifier: string, operation: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) -> () {PluginSecurity}
@@ -1002,11 +1005,11 @@ Class Collaborator : Instance [NotCreatable]
 	Property Collaborator.Username: string
 Class CollaboratorsService : Instance [NotCreatable] [Service]
 	Function CollaboratorsService:GetCollaboratorsList() -> { Instance } {RobloxScriptSecurity}
-	Event CollaboratorsService.CollaboratorIdleUpdate(collaboratorId: number, isIdle: boolean) {RobloxSecurity} [Hidden]
-	Event CollaboratorsService.CollaboratorInstanceCreatedSignal(collaboratorId: number) {RobloxScriptSecurity} [Hidden]
-	Event CollaboratorsService.CollaboratorInstanceDestroyedSignal(collaboratorId: number) {RobloxScriptSecurity} [Hidden]
+	Event CollaboratorsService.CollaboratorIdleUpdate(collaboratorId: number, isIdle: boolean) {RobloxScriptSecurity}
+	Event CollaboratorsService.CollaboratorInstanceCreatedSignal(collaboratorId: number) {RobloxScriptSecurity}
+	Event CollaboratorsService.CollaboratorInstanceDestroyedSignal(collaboratorId: number) {RobloxScriptSecurity}
 	Event CollaboratorsService.CollaboratorStatusUpdateRequestedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxScriptSecurity} [Hidden]
-	Event CollaboratorsService.CollaboratorStatusUpdatedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxScriptSecurity} [Hidden]
+	Event CollaboratorsService.CollaboratorStatusUpdatedSignal(collaboratorId: number, newStatus: Enum.CollaboratorStatus) {RobloxScriptSecurity}
 Class CollectionService : Instance [NotCreatable] [Service]
 	Function CollectionService:AddTag(instance: Instance, tag: string) -> ()
 	Function CollectionService:GetAllTags() -> { any } {🧬Safe}
@@ -2347,6 +2350,8 @@ Class Path2D : GuiBase [NotReplicated]
 	Property Path2D.Thickness: number {RobloxScriptSecurity}
 	Property Path2D.Transparency: number {RobloxScriptSecurity}
 	Property Path2D.Visible: boolean {RobloxScriptSecurity}
+	Property Path2D.ZIndex: number {RobloxScriptSecurity}
+	Function Path2D:GetBoundingRect2D() -> Rect {RobloxScriptSecurity}
 	Function Path2D:GetControlPoints() -> { any } {RobloxScriptSecurity}
 	Function Path2D:GetPositionOnCurve(t: number) -> UDim2 {RobloxScriptSecurity}
 	Function Path2D:GetPositionOnCurveArcLength(t: number) -> UDim2 {RobloxScriptSecurity}
@@ -3063,8 +3068,6 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Callback MarketplaceService.ProcessReceipt(receiptInfo: { [string]: any }) -> Enum.ProductPurchaseDecision
 Class MaterialGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function MaterialGenerationService:GenerateMaterialVariantsAsync(prompt: string, samples: number) -> { Instance } {RobloxScriptSecurity} [Yields]
-	Function MaterialGenerationService:GetAccountingBalanceAsync() -> number {RobloxScriptSecurity} [Yields]
-	Function MaterialGenerationService:RefillAccountingBalanceAsync() -> number {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:StartSession() -> MaterialGenerationSession {RobloxScriptSecurity}
 	Function MaterialGenerationService:UploadMaterialVariantsAsync(materialVaraints: { Instance }) -> () {RobloxScriptSecurity} [Yields]
 Class MaterialGenerationSession : Instance [NotCreatable] [NotReplicated]
@@ -5232,7 +5235,7 @@ Class StudioWidget : StudioObjectBase [NotCreatable] [NotReplicated]
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property StudioPublishService.PublishLocked: boolean {RobloxScriptSecurity}
 	Function StudioPublishService:ClearUploadNames() -> () {RobloxScriptSecurity}
-	Function StudioPublishService:PublishAs(universeId: number, placeId: number, groupId: number, isPublish: boolean, publishParameters: any) -> () {RobloxScriptSecurity}
+	Function StudioPublishService:PublishAs(universeId: number, placeId: number, groupId: number, isPublish: boolean, publishParameters: any, willRetryOnConflict: boolean? = false) -> () {RobloxScriptSecurity}
 	Function StudioPublishService:PublishThenTurnOnTeamCreate() -> () {RobloxScriptSecurity}
 	Function StudioPublishService:RefreshDocumentDisplayName() -> () {RobloxScriptSecurity}
 	Function StudioPublishService:SetTeamCreateOnPublishInfo(shouldTurnOnTcOnPublish: boolean, newPlaceName: string) -> () {RobloxScriptSecurity}
@@ -5576,6 +5579,13 @@ Class TextSource : Instance [NotCreatable]
 	Property TextSource.UserIdReplicated: number [Hidden] [NotScriptable]
 Class TextureGenerationMeshHandler : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TextureGenerationMeshHandler:PrepareInstancesForTexturingAsync(instances: { Instance }, unwrapMode: Enum.TextureGenerationMeshHandlerUnwrapMode) -> string {RobloxScriptSecurity} [Yields]
+Class TextureGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function TextureGenerationService:CancelGenerationRequestAsync(jobUuid: string) -> () {RobloxScriptSecurity} [Yields]
+	Function TextureGenerationService:GenerateTextureAsync(previewUuid: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function TextureGenerationService:GetQuotasAsync() -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function TextureGenerationService:PreviewTextureAsync(meshObj: string, prompt: string, options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Event TextureGenerationService.GenerationNotificationSignal(notificationData: { [string]: any }) {RobloxScriptSecurity}
+	Event TextureGenerationService.PreviewNotificationSignal(notificationData: { [string]: any }) {RobloxScriptSecurity}
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ThirdPartyUserService:GetUserPlatformId() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetUserPlatformName() -> string {RobloxScriptSecurity}
@@ -5983,11 +5993,11 @@ Class UserNotificationPayloadParameterValue : Instance
 	Property UserNotificationPayloadParameterValue.StringValue: string
 Class UserService : Instance [NotCreatable] [Service]
 	Function UserService:GetUserInfosByUserIdsAsync(userIds: { any }) -> { any } [Yields]
-Class VRService : Instance [NotCreatable] [Service]
+Class VRService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property VRService.AutomaticScaling: Enum.VRScaling [NotReplicated]
 	Property VRService.DidPointerHit: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property VRService.FadeOutViewOnCollision: boolean
-	Property VRService.GuiInputUserCFrame: Enum.UserCFrame
+	Property VRService.FadeOutViewOnCollision: boolean [NotReplicated]
+	Property VRService.GuiInputUserCFrame: Enum.UserCFrame [NotReplicated]
 	Property VRService.LaserDistance: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.PointerHitCFrame: CFrame {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.QuestASWState: boolean {RobloxScriptSecurity} [Hidden]
@@ -6698,10 +6708,10 @@ Enum ClientAnimatorThrottlingMode
 	EnumItem ClientAnimatorThrottlingMode.Disabled : 1
 	EnumItem ClientAnimatorThrottlingMode.Enabled : 2
 Enum CollaboratorStatus
-	EnumItem CollaboratorStatus.Editing3D : 0
-	EnumItem CollaboratorStatus.Scripting : 1
-	EnumItem CollaboratorStatus.PrivateScripting : 2
-	EnumItem CollaboratorStatus.None : 3
+	EnumItem CollaboratorStatus.None : 0
+	EnumItem CollaboratorStatus.Editing3D : 1
+	EnumItem CollaboratorStatus.Scripting : 2
+	EnumItem CollaboratorStatus.PrivateScripting : 3
 Enum CollisionFidelity
 	EnumItem CollisionFidelity.Default : 0
 	EnumItem CollisionFidelity.Hull : 1
@@ -7813,6 +7823,12 @@ Enum ModelStreamingMode
 	EnumItem ModelStreamingMode.Persistent : 2
 	EnumItem ModelStreamingMode.PersistentPerPlayer : 3
 	EnumItem ModelStreamingMode.Nonatomic : 4
+Enum ModerationStatus
+	EnumItem ModerationStatus.ReviewedApproved : 1
+	EnumItem ModerationStatus.ReviewedRejected : 2
+	EnumItem ModerationStatus.NotReviewed : 3
+	EnumItem ModerationStatus.NotApplicable : 4
+	EnumItem ModerationStatus.Invalid : 5
 Enum ModifierKey
 	EnumItem ModifierKey.Shift : 0
 	EnumItem ModifierKey.Ctrl : 1

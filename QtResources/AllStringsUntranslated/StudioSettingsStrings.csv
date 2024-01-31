@@ -145,3 +145,7 @@ Studio.App.BetaFeatures.StudioNotifications,,Notification Overhaul,Notification 
 Studio.App.BetaFeatures.StudioNotificationsDescription,,Improves UI and expands functionality of Studio Notifications,Improves UI and expands functionality of Studio Notifications
 Studio.App.BetaFeatures.UIListLayoutFlexTitle,,UIListLayout Flex Features,UIListLayout Flex Features
 Studio.App.BetaFeatures.UIListLayoutFlexDescription,,Add flexible layout options to UIListLayout.,Add flexible layout options to UIListLayout.
+Studio.App.BetaFeatures.TerrainEditorTitle,,Terrain Editor,Terrain Editor
+Studio.App.BetaFeatures.TerrainEditorDescription,,Updates the Terrain Editor with a new and improved UI.,Updates the Terrain Editor with a new and improved UI.
+Studio.App.BetaFeatures.FasterPlaySoloTitle,,Faster Play Solo,Faster Play Solo
+Studio.App.BetaFeatures.FasterPlaySoloDescription,,Streamlines Play Solo for faster loading performance.,Streamlines Play Solo for faster loading performance.

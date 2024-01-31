@@ -83,6 +83,7 @@ Studio.App.RobloxRibbonMainWindow.WatchTheHighlightedVariables,,Watch the highli
 Studio.App.RobloxRibbonMainWindow.JoinSurfaces,,Join Surfaces,Join Surfaces
 Studio.App.RobloxRibbonMainWindow.PivotGroup,,Pivot,Pivot
 Studio.App.RobloxRibbonMainWindow.AlignToolGroup,,Alignment,Alignment
+Studio.App.RobloxRibbonMainWindow.TextureGenerator,,Texture Generator,Texture Generator
 Studio.App.RobloxQuickAccessConfig.AdvancedCustomization,,Advanced Customization,Advanced Customization
 Studio.App.RobloxQuickAccessConfig.SomeAlreadyAvailable,,One or more of the selected actions are already available in the Quick Access Bar and could not be re-added.,One or more of the selected actions are already available in the Quick Access Bar and could not be re-added.
 Studio.App.RobloxQuickAccessConfig.ChangesToSettings,,"You have made changes to your settings.

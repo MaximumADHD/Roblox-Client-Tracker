@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "NextDataExpirationTimeRodux",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/next-data-expiration-time-rodux/src"
+    }
+  }
+}
