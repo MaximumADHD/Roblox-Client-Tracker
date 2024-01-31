@@ -12,6 +12,8 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 local ParseContentIds = {}
 
 -- rbxassetid://1234
@@ -112,7 +114,9 @@ local function parseContentId(contentIds, contentIdMap, allResults, object, fiel
 		end
 
 		if
-			getFFlagUseUGCValidationContext() and hasInExpCreatedEditableInstance(object, fieldName, validationContext)
+			getFFlagUseUGCValidationContext()
+			and getEngineFeatureUGCValidateEditableMeshAndImage()
+			and hasInExpCreatedEditableInstance(object, fieldName, validationContext)
 		then
 			if allResults then
 				table.insert(allResults, { fieldName = fieldName, instance = object })

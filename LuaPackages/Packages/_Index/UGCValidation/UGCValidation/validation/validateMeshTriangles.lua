@@ -9,19 +9,28 @@ local Constants = require(root.Constants)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 -- ensures accessory mesh does not have more triangles than Constants.MAX_HAT_TRIANGLES
 local function validateMeshTriangles(
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	maxTriangles: number?,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
 
 	if game:GetFastFlag("UGCLCQualityReplaceLua") and getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-		local success, result = pcall(function()
-			return UGCValidationService:ValidateEditableMeshTriangles(editableMesh)
-		end)
+		local success, result
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			success, result = pcall(function()
+				return UGCValidationService:ValidateEditableMeshTriangles(meshInfo.editableMesh)
+			end)
+		else
+			success, result = pcall(function()
+				return UGCValidationService:ValidateMeshTriangles(meshInfo.contentId)
+			end)
+		end
 
 		if not success then
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshTriangles_FailedToExecute)
@@ -39,9 +48,16 @@ local function validateMeshTriangles(
 			return false, { "Your mesh exceeds the max triangle limit for UGC upload requirements." }
 		end
 	else
-		local success, triangles = pcall(function()
-			return UGCValidationService:GetEditableMeshTriCount(editableMesh)
-		end)
+		local success, triangles
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			success, triangles = pcall(function()
+				return UGCValidationService:GetEditableMeshTriCount(meshInfo.editableMesh)
+			end)
+		else
+			success, triangles = pcall(function()
+				return UGCValidationService:GetMeshTriCount(meshInfo.contentId)
+			end)
+		end
 
 		maxTriangles = if nil ~= maxTriangles then maxTriangles else Constants.MAX_HAT_TRIANGLES
 		if not success then
@@ -117,8 +133,4 @@ local function DEPRECATED_validateMeshTriangles(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateMeshTriangles :: any
-else
-	return DEPRECATED_validateMeshTriangles :: any
-end
+return if getFFlagUseUGCValidationContext() then validateMeshTriangles else DEPRECATED_validateMeshTriangles :: never

@@ -3,6 +3,8 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Types = require(root.util.Types)
 
@@ -10,25 +12,43 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local function validateTextureSize(
-	editableImage: EditableImage,
+	textureInfo: Types.TextureInfo,
 	allowNoTexture: boolean?,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
 
-	if not editableImage then
-		if allowNoTexture then
-			return true
-		else
-			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_InvalidTextureId)
-			return false, { "Mesh must contain valid TextureId" }
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		if not textureInfo.editableImage then
+			if allowNoTexture then
+				return true
+			else
+				Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_InvalidTextureId)
+				return false, { "Mesh must contain valid TextureId" }
+			end
+		end
+	else
+		if textureInfo.contentId == "" then
+			if allowNoTexture then
+				return true
+			else
+				Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_InvalidTextureId)
+				return false, { "Mesh must contain valid TextureId" }
+			end
 		end
 	end
 
 	if game:GetFastFlag("UGCLCQualityReplaceLua") then
-		local success, result = pcall(function()
-			return UGCValidationService:ValidateEditableImageSize(editableImage)
-		end)
+		local success, result
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			success, result = pcall(function()
+				return UGCValidationService:ValidateEditableImageSize(textureInfo.editableImage)
+			end)
+		else
+			success, result = pcall(function()
+				return UGCValidationService:ValidateTextureSize(textureInfo.contentId)
+			end)
+		end
 
 		if not success then
 			if nil ~= isServer and isServer then
@@ -46,9 +66,16 @@ local function validateTextureSize(
 			return false, { "Your textures exceeds the max texture size limit for UGC upload requirements." }
 		end
 	else
-		local success, imageSize = pcall(function()
-			return UGCValidationService:GetEditableImageSize(editableImage)
-		end)
+		local success, imageSize
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			success, imageSize = pcall(function()
+				return UGCValidationService:GetEditableImageSize(textureInfo.editableImage)
+			end)
+		else
+			success, imageSize = pcall(function()
+				return UGCValidationService:GetTextureSize(textureInfo.contentId)
+			end)
+		end
 
 		if not success then
 			if nil ~= isServer and isServer then
@@ -143,8 +170,4 @@ local function DEPRECATED_validateTextureSize(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateTextureSize :: any
-else
-	return DEPRECATED_validateTextureSize :: any
-end
+return if getFFlagUseUGCValidationContext() then validateTextureSize else DEPRECATED_validateTextureSize :: never

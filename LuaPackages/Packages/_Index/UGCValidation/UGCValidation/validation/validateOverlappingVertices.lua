@@ -3,21 +3,30 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Types = require(root.util.Types)
 
 local Analytics = require(root.Analytics)
 
 local function validateOverlappingVertices(
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	meshType: string,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
 
-	local success, result = pcall(function()
-		return UGCValidationService:ValidateEditableMeshOverlappingVertices(editableMesh)
-	end)
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = pcall(function()
+			return UGCValidationService:ValidateEditableMeshOverlappingVertices(meshInfo.editableMesh)
+		end)
+	else
+		success, result = pcall(function()
+			return UGCValidationService:ValidateOverlappingVertices(meshInfo.contentId)
+		end)
+	end
 
 	if not success then
 		if nil ~= isServer and isServer then
@@ -68,8 +77,6 @@ local function DEPRECATED_validateOverlappingVertices(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateOverlappingVertices :: any
-else
-	return DEPRECATED_validateOverlappingVertices :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateOverlappingVertices
+	else DEPRECATED_validateOverlappingVertices :: never

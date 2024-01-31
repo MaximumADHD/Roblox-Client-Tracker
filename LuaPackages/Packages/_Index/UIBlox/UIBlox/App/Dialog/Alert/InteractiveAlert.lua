@@ -1,4 +1,8 @@
 --!nonstrict
+-- If you are using an interactive alert for in experience Core UI, it is important to take the possibility of users being tricked into confirming the prompt into account.
+-- In the past, prompts which have appeared immediately and allowed users to immediately confirm the prompt have been victims of click jacking attacks of various types.
+-- To prevent this sort of exploit, you can use the delayInputSeconds property on GenericButton (by including this property in the buttonProps). You can search for examples like the CreateAssetPrompt.
+
 local AlertRoot = script.Parent
 local DialogRoot = AlertRoot.Parent
 local AppRoot = DialogRoot.Parent

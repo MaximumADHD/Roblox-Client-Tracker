@@ -30,4 +30,21 @@ export type ValidationContext = {
 	editableImages: EditableImages,
 	allowEditableInstances: boolean?,
 }
+
+export type MeshInfo = {
+	editableMesh: EditableMesh?, --TODO: remove ? when removing EngineFeatureUGCValidateEditableMeshAndImage
+	contentId: string?,
+	fullName: string,
+	fieldName: string,
+	scale: Vector3?,
+	context: string?,
+}
+
+export type TextureInfo = {
+	editableImage: EditableImage?, --TODO: remove ? when removing EngineFeatureUGCValidateEditableMeshAndImage
+	contentId: string?,
+	fullName: string,
+	fieldName: string,
+}
+
 return Types

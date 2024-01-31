@@ -233,8 +233,4 @@ local function DEPRECATED_validateAssetCreator(
 	return reasonsAccumulator:getFinalResults()
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateAssetCreator :: any
-else
-	return DEPRECATED_validateAssetCreator :: any
-end
+return if getFFlagUseUGCValidationContext() then validateAssetCreator else DEPRECATED_validateAssetCreator :: never

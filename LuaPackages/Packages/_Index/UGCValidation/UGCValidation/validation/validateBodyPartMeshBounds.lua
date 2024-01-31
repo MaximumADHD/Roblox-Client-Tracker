@@ -17,13 +17,55 @@ local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
-local function getMeshInfo(inst: Instance, validationContext: Types.ValidationContext): (boolean, any?)
-	if inst:IsA("WrapTarget") then
-		return getEditableMeshFromContext(inst, "CageMeshId", validationContext)
-	elseif inst:IsA("MeshPart") then
-		return getEditableMeshFromContext(inst, "MeshId", validationContext)
+local function getMeshInfoHelper(
+	inst: Instance,
+	fieldName: string,
+	contentId: string,
+	meshScale: Vector3,
+	contextName: string,
+	validationContext: Types.ValidationContext
+): (boolean, Types.MeshInfo)
+	local meshInfo = {
+		fullName = inst:GetFullName(),
+		contentId = contentId,
+		fieldName = fieldName,
+		context = contextName,
+		scale = meshScale,
+	} :: Types.MeshInfo
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		local success, editableMesh = getEditableMeshFromContext(inst, fieldName, validationContext)
+		if not success then
+			return false, meshInfo
+		end
+
+		meshInfo.editableMesh = editableMesh
 	end
+
+	return true, meshInfo
+end
+
+local function getMeshInfo(
+	inst: Instance,
+	meshScale: Vector3,
+	validationContext: Types.ValidationContext
+): (boolean, Types.MeshInfo?)
+	if inst:IsA("WrapTarget") then
+		return getMeshInfoHelper(
+			inst,
+			"CageMeshId",
+			(inst :: WrapTarget).CageMeshId,
+			meshScale,
+			inst.ClassName,
+			validationContext
+		)
+	elseif inst:IsA("MeshPart") then
+		return getMeshInfoHelper(inst, "MeshId", (inst :: MeshPart).MeshId, meshScale, inst.Name, validationContext)
+	end
+
 	return false
 end
 
@@ -40,26 +82,25 @@ local function validateWrapTargetComparison(
 	meshScale: Vector3,
 	meshHandle: MeshPart,
 	validationContext: Types.ValidationContext
-)
-	local getMeshInfoSuccess, editableMesh = getMeshInfo(meshHandle, validationContext)
+): (boolean, { string }?)
+	local getMeshInfoSuccess, meshInfo = getMeshInfo(meshHandle, meshScale, validationContext)
 	if not getMeshInfoSuccess then
 		return false, { "Failed to load mesh data" }
 	end
 
 	local wrapTarget = meshHandle:FindFirstChildWhichIsA("WrapTarget")
 	assert(wrapTarget, "Missing WrapTarget child for " .. meshHandle.Name)
-	local getOtherMeshInfoSuccess, wrapEditableMesh = getMeshInfo(wrapTarget, validationContext)
+	local getOtherMeshInfoSuccess, wrapMeshInfo = getMeshInfo(wrapTarget, meshScale, validationContext)
 	if not getOtherMeshInfoSuccess then
 		return false, { "Failed to load mesh data" }
 	end
 
-	local mesh = { editableMesh = editableMesh :: EditableMesh, scale = meshScale, context = meshHandle.Name }
-	local otherMesh = {
-		editableMesh = wrapEditableMesh :: EditableMesh,
-		scale = meshScale,
-		context = wrapTarget.ClassName,
-	}
-	return validateMeshComparison(mesh, otherMesh, Constants.RenderVsWrapMeshMaxDiff, validationContext)
+	return validateMeshComparison(
+		meshInfo :: Types.MeshInfo,
+		wrapMeshInfo :: Types.MeshInfo,
+		Constants.RenderVsWrapMeshMaxDiff,
+		validationContext
+	)
 end
 
 local function DEPRECATED_validateWrapTargetComparison(meshScale: Vector3, meshHandle: MeshPart, isServer: boolean?)
@@ -76,18 +117,28 @@ local function DEPRECATED_validateWrapTargetComparison(meshScale: Vector3, meshH
 		scale = meshScale,
 		context = wrapTarget.ClassName,
 	}
-	return validateMeshComparison(mesh, otherMesh, Constants.RenderVsWrapMeshMaxDiff, isServer)
+	return (validateMeshComparison :: any)(mesh, otherMesh, Constants.RenderVsWrapMeshMaxDiff, isServer)
 end
 
 local function calculateMeshSize(
 	meshHandle: MeshPart,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?, Vector3?)
-	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(meshHandle, "MeshId", validationContext)
-	if not getEditableMeshSuccess then
-		return false, { "Failed to load mesh data" }
+	local meshInfo = {
+		fullName = meshHandle:GetFullName(),
+		fieldName = "MeshId",
+		contentId = meshHandle.MeshId,
+	} :: Types.MeshInfo
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(meshHandle, "MeshId", validationContext)
+		if not getEditableMeshSuccess then
+			return false, { "Failed to load mesh data" }
+		end
+
+		meshInfo.editableMesh = editableMesh
 	end
-	local success, meshSize = pcall(getMeshSize, editableMesh)
+	local success, meshSize = pcall(getMeshSize, meshInfo)
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateBodyPartMeshBounds_FailedToLoadMesh)
 		local errorMessage = "Failed to read mesh"
@@ -103,7 +154,7 @@ local function calculateMeshSize(
 end
 
 local function DEPRECATED_calculateMeshSize(meshHandle: MeshPart, isServer: boolean?): (boolean, { string }?, Vector3?)
-	local success, meshSize = pcall(getMeshSize, meshHandle.MeshId)
+	local success, meshSize = pcall(getMeshSize :: any, meshHandle.MeshId)
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateBodyPartMeshBounds_FailedToLoadMesh)
 		local errorMessage = "Failed to read mesh"
@@ -192,8 +243,6 @@ local function DEPRECATED_validateBodyPartMeshBounds(
 	return reasonsAccumulator:getFinalResults()
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateBodyPartMeshBounds :: any
-else
-	return DEPRECATED_validateBodyPartMeshBounds :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateBodyPartMeshBounds
+	else DEPRECATED_validateBodyPartMeshBounds :: never

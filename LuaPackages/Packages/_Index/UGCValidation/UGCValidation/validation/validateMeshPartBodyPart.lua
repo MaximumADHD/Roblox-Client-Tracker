@@ -43,10 +43,14 @@ local function validateMeshPartBodyPart(
 	local isServer = validationContext.isServer
 	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
 	local allowUnreviewedAssets = validationContext.allowUnreviewedAssets
+	local restrictedUserIds = validationContext.restrictedUserIds
 
 	-- do this ASAP
 	if getFFlagUGCValidationResetPhysicsData() then
-		resetPhysicsData({ inst })
+		local success, errorMessage = resetPhysicsData({ inst }, validationContext)
+		if not success then
+			return false, { errorMessage }
+		end
 	end
 
 	local validationResult = validateWithSchema(schema, inst)
@@ -104,7 +108,7 @@ local function validateMeshPartBodyPart(
 			checkModeration = false
 		end
 		if checkModeration then
-			reasonsAccumulator:updateReasons(validateModeration(inst, validationContext))
+			reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds))
 		end
 	end
 
@@ -122,7 +126,7 @@ local function DEPRECATED_validateMeshPartBodyPart(
 ): (boolean, { string }?)
 	-- do this ASAP
 	if getFFlagUGCValidationResetPhysicsData() then
-		resetPhysicsData({ inst })
+		(resetPhysicsData :: any)({ inst })
 	end
 
 	local validationResult = validateWithSchema(schema, inst)
@@ -139,8 +143,13 @@ local function DEPRECATED_validateMeshPartBodyPart(
 	end
 
 	do
-		local result, failureReasons =
-			validateDependencies(inst, isServer, allowUnreviewedAssets, restrictedUserIds, universeId)
+		local result, failureReasons = (validateDependencies :: any)(
+			inst,
+			isServer,
+			allowUnreviewedAssets,
+			restrictedUserIds,
+			universeId
+		)
 		if not result then
 			return result, failureReasons
 		end
@@ -148,15 +157,15 @@ local function DEPRECATED_validateMeshPartBodyPart(
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
-	reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, assetTypeEnum, isServer))
+	reasonsAccumulator:updateReasons((validateBodyPartMeshBounds :: any)(inst, assetTypeEnum, isServer))
 
-	reasonsAccumulator:updateReasons(validateBodyPartChildAttachmentBounds(inst, assetTypeEnum, isServer))
+	reasonsAccumulator:updateReasons((validateBodyPartChildAttachmentBounds :: any)(inst, assetTypeEnum, isServer))
 
-	reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, assetTypeEnum, isServer))
+	reasonsAccumulator:updateReasons((validateAssetBounds :: any)(nil, inst, assetTypeEnum, isServer))
 
-	reasonsAccumulator:updateReasons(validateDescendantMeshMetrics(inst, assetTypeEnum, isServer))
+	reasonsAccumulator:updateReasons((validateDescendantMeshMetrics :: any)(inst, assetTypeEnum, isServer))
 
-	reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, isServer))
+	reasonsAccumulator:updateReasons((validateDescendantTextureMetrics :: any)(inst, isServer))
 
 	reasonsAccumulator:updateReasons(validateHSR(inst))
 
@@ -180,15 +189,13 @@ local function DEPRECATED_validateMeshPartBodyPart(
 			checkModeration = false
 		end
 		if checkModeration then
-			reasonsAccumulator:updateReasons(validateModeration(inst, restrictedUserIds))
+			reasonsAccumulator:updateReasons((validateModeration :: any)(inst, restrictedUserIds))
 		end
 	end
 
 	return reasonsAccumulator:getFinalResults()
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateMeshPartBodyPart :: any
-else
-	return DEPRECATED_validateMeshPartBodyPart :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateMeshPartBodyPart
+	else DEPRECATED_validateMeshPartBodyPart :: never

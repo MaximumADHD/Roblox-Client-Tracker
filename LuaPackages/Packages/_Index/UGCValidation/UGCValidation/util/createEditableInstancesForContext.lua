@@ -33,7 +33,7 @@ local function getOrCreateEditableInstances(
 
 				local success, result = pcall(function(): any
 					if editableInstanceType == "EditableMesh" then
-						return AssetService:CreateEditableMeshAsync(contentId)
+						return AssetService:CreateEditableMeshStripSkinningAsync(contentId)
 					else
 						return AssetService:CreateEditableImageAsync(contentId)
 					end

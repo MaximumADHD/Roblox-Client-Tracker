@@ -4,21 +4,33 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Types = require(root.util.Types)
 
 local Analytics = require(root.Analytics)
 
 local function validateMeshVertexColors(
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	checkTransparency: boolean,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
 
-	local success, result = pcall(function()
-		return UGCValidationService:ValidateEditableMeshVertColors(editableMesh, checkTransparency) -- ValidateMeshVertColors() checks the color as well as the alpha transparency
-	end)
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = pcall(function()
+			return UGCValidationService:ValidateEditableMeshVertColors(
+				meshInfo.editableMesh :: EditableMesh,
+				checkTransparency
+			) -- ValidateMeshVertColors() checks the color as well as the alpha transparency
+		end)
+	else
+		success, result = pcall(function()
+			return UGCValidationService:ValidateMeshVertColors(meshInfo.contentId :: string, checkTransparency) -- ValidateMeshVertColors() checks the color as well as the alpha transparency
+		end)
+	end
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateMeshVertexColors_FailedToLoadMesh)
@@ -38,9 +50,9 @@ local function validateMeshVertexColors(
 			{
 				string.format(
 					"%s.%s ( %s ) Your mesh has non-neutral vertex color values, which violates UGC upload requirements.",
-					editableMesh:GetAttribute("SourceFullName"),
-					editableMesh:GetAttribute("FieldName"),
-					editableMesh:GetAttribute("ContentId")
+					meshInfo.fullName,
+					meshInfo.fieldName,
+					if meshInfo.contentId then meshInfo.contentId else "empty id"
 				),
 			}
 	end
@@ -78,8 +90,6 @@ local function DEPRECATED_validateMeshVertexColors(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateMeshVertexColors :: any
-else
-	return DEPRECATED_validateMeshVertexColors :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateMeshVertexColors
+	else DEPRECATED_validateMeshVertexColors :: never

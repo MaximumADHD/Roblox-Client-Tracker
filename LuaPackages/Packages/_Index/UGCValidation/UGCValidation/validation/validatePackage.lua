@@ -69,11 +69,12 @@ local function DEPRECATED_validatePackage(
 		return false, parseReasons
 	end
 
-	return validateAssetCreator(contentIdMap, isServer, restrictedUserIds :: Types.RestrictedUserIds, token :: string)
+	return (validateAssetCreator :: any)(
+		contentIdMap,
+		isServer,
+		restrictedUserIds :: Types.RestrictedUserIds,
+		token :: string
+	)
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validatePackage :: any
-else
-	return DEPRECATED_validatePackage :: any
-end
+return if getFFlagUseUGCValidationContext() then validatePackage else DEPRECATED_validatePackage :: never

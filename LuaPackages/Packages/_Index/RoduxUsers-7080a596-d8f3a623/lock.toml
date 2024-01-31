@@ -6,7 +6,7 @@ source = "git+https://github.com/roblox/rodux-users#v1.4.1"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "FriendsNetworking NetworkingFriends 2.11.0 url+https://github.com/roblox/networking-friends",
-    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
+    "Rodux <patched> RoduxFlaggedUpgrade b7d08f02 git+https://github.com/roblox/rodux-upgrade#main",
     "RoduxNetworking RoduxNetworking 3.2.1 url+https://github.com/roblox/rodux-networking",
     "UsersNetworking roblox/networking-users 6616f72f git+https://github.com/roblox/networking-users#v1.0.0",
 ]

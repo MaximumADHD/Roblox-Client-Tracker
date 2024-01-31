@@ -7,14 +7,18 @@ local FFlagUGCValidationAddThumbnailFrustumCheckingv2 =
 
 local root = script.Parent.Parent
 
+local Types = require(root.util.Types)
+
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Analytics = require(root.Analytics)
 
 local function validateThumbnailConfiguration(
 	accessory: Instance,
 	handle: BasePart,
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	meshScale: Vector3
 ): (boolean, { string }?)
 	local thumbnailConfiguration = accessory:FindFirstChild("ThumbnailConfiguration")
@@ -35,9 +39,26 @@ local function validateThumbnailConfiguration(
 			local handleCF = target.CFrame
 			local thumbnailCameraValue = thumbnailConfiguration:FindFirstChild("ThumbnailCameraValue") :: CFrameValue
 			local cameraCF = handleCF * thumbnailCameraValue.Value
-			if UGCValidationService:CheckMeshInCameraFrustum(editableMesh, meshScale, handleCF, cameraCF) == false then
-				Analytics.reportFailure(Analytics.ErrorType.validateThumbnailConfiguration_OutsideView)
-				return false, { "Item must be fully within view of thumbnail camera" }
+			if getEngineFeatureUGCValidateEditableMeshAndImage() then
+				if
+					UGCValidationService:CheckEditableMeshInCameraFrustum(
+						meshInfo.editableMesh,
+						meshScale,
+						handleCF,
+						cameraCF
+					) == false
+				then
+					Analytics.reportFailure(Analytics.ErrorType.validateThumbnailConfiguration_OutsideView)
+					return false, { "Item must be fully within view of thumbnail camera" }
+				end
+			else
+				if
+					UGCValidationService:CheckMeshInCameraFrustum(meshInfo.contentId, meshScale, handleCF, cameraCF)
+					== false
+				then
+					Analytics.reportFailure(Analytics.ErrorType.validateThumbnailConfiguration_OutsideView)
+					return false, { "Item must be fully within view of thumbnail camera" }
+				end
 			end
 		end
 	end
@@ -79,8 +100,6 @@ local function DEPRECATED_validateThumbnailConfiguration(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateThumbnailConfiguration :: any
-else
-	return DEPRECATED_validateThumbnailConfiguration :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateThumbnailConfiguration
+	else DEPRECATED_validateThumbnailConfiguration :: never

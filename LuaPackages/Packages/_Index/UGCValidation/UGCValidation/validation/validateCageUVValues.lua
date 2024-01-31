@@ -15,13 +15,15 @@ local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidat
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getEngineFeatureEngineValidateUVValuesInReference =
 	require(root.flags.getEngineFeatureEngineUGCValidateUVValuesInReference)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Analytics = require(root.Analytics)
 
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local function validateCageUVValues(
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	wrapTarget: WrapTarget,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
@@ -39,17 +41,27 @@ local function validateCageUVValues(
 		"WrapTarget is not parented to a MeshPart"
 	)
 
-	local success, result = pcall(function()
-		return UGCValidationService:ValidateEditableMeshUVValuesInReference(referenceUVValues, editableMesh)
-	end)
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = pcall(function()
+			return UGCValidationService:ValidateEditableMeshUVValuesInReference(
+				referenceUVValues,
+				meshInfo.editableMesh
+			)
+		end)
+	else
+		success, result = pcall(function()
+			return UGCValidationService:ValidateUVValuesInReference(referenceUVValues, meshInfo.contentId)
+		end)
+	end
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateCageUVValues_FailedToLoadMesh)
 		local errorMsg = string.format(
 			"Failed to read mesh %s.%s ( %s )",
 			wrapTarget:GetFullName(),
-			editableMesh:GetAttribute("FieldName"),
-			editableMesh:GetAttribute("ContentId")
+			meshInfo.fieldName,
+			if meshInfo.contentId then meshInfo.contentId else "empty id"
 		)
 		if isServer then
 			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
@@ -67,8 +79,8 @@ local function validateCageUVValues(
 				string.format(
 					"%s.%s ( %s ) has a UV value that is unexpected",
 					wrapTarget:GetFullName(),
-					editableMesh:GetAttribute("FieldName"),
-					editableMesh:GetAttribute("ContentId")
+					meshInfo.fieldName,
+					if meshInfo.contentId then meshInfo.contentId else "empty id"
 				),
 			}
 	end
@@ -126,8 +138,4 @@ local function DEPRECATED_validateCageUVValues(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateCageUVValues :: any
-else
-	return DEPRECATED_validateCageUVValues :: any
-end
+return if getFFlagUseUGCValidationContext() then validateCageUVValues else DEPRECATED_validateCageUVValues :: never

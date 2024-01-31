@@ -2,10 +2,19 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local Types = require(root.util.Types)
 
-local function getMeshSize(editableMesh: EditableMesh)
-	local verts = UGCValidationService:GetEditableMeshVerts(editableMesh)
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+
+local function getMeshSize(meshInfo: Types.MeshInfo)
+	local verts
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		verts = UGCValidationService:GetEditableMeshVerts(meshInfo.editableMesh)
+	else
+		verts = UGCValidationService:GetMeshVerts(meshInfo.contentId)
+	end
 
 	local minX, maxX = math.huge, -math.huge
 	local minY, maxY = math.huge, -math.huge
@@ -44,8 +53,4 @@ local function DEPRECATED_getMeshSize(meshId: string)
 	return Vector3.new(maxX - minX, maxY - minY, maxZ - minZ)
 end
 
-if getFFlagUseUGCValidationContext() then
-	return getMeshSize :: any
-else
-	return DEPRECATED_getMeshSize :: any
-end
+return if getFFlagUseUGCValidationContext() then getMeshSize else DEPRECATED_getMeshSize :: never

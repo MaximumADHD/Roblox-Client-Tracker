@@ -17,6 +17,7 @@ local Constants = require(Style.Constants)
 local StyleTypes = require(script.Parent.StyleTypes)
 local TokenPackage = require(script.Parent.Tokens)
 local StyleContext = require(UIBlox.Core.Style.StyleContext)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local getTokens = TokenPackage.getTokens
 local validateTokens = TokenPackage.validateTokens
@@ -58,7 +59,7 @@ local defaultStyle: StyleProps = {
 local function AppStyleProvider(props: Props)
 	local style: StyleProps = Object.assign({}, defaultStyle, props.style)
 	local themeName, setThemeName = React.useState(style.themeName)
-	local tokens: Tokens = getTokens(style.deviceType, themeName) :: Tokens
+	local tokens: Tokens = getTokens(style.deviceType, themeName, UIBloxConfig.useTokensWithScale) :: Tokens
 
 	-- TODO: Add additional validation for tokens here to make it safe. We can remove the call after design token stuff is fully stable.
 	assert(validateTokens(tokens), "Invalid tokens!")

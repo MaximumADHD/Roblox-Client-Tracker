@@ -7,6 +7,6 @@ dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "NetworkingAccountInformation NetworkingAccountInformation 0.6.3 url+https://github.com/roblox/lua-app-networking",
     "NetworkingUserSettings NetworkingUserSettings 0.7.0 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> Rodux b59cc9dd git+https://github.com/roblox/rodux#v3.1.0",
+    "Rodux <patched> RoduxFlaggedUpgrade b7d08f02 git+https://github.com/roblox/rodux-upgrade#main",
     "RoduxNetworking RoduxNetworking 3.2.1 url+https://github.com/roblox/rodux-networking",
 ]

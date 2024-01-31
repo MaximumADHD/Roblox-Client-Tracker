@@ -138,8 +138,6 @@ local function DEPRECATED_validateBodyPartChildAttachmentBounds(
 	return reasonsAccumulator:getFinalResults()
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateBodyPartChildAttachmentBounds :: any
-else
-	return DEPRECATED_validateBodyPartChildAttachmentBounds :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateBodyPartChildAttachmentBounds
+	else DEPRECATED_validateBodyPartChildAttachmentBounds :: never

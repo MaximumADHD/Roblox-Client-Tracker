@@ -3,8 +3,6 @@ local root = script.Parent
 
 local Cryo = require(root.Parent.Cryo)
 
-local getFFlagMoveToolboxCodeToUGCValidation = require(root.flags.getFFlagMoveToolboxCodeToUGCValidation)
-
 local getFIntMeshDivision = require(root.flags.getFIntMeshDivision)
 local getFIntMeshDivisionFull = require(root.flags.getFIntMeshDivisionFull)
 local getFIntMeshDivisionFullExtended = require(root.flags.getFIntMeshDivisionFullExtended)
@@ -16,8 +14,6 @@ local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCVali
 local getFFlagUGCValidationAdjustLegBounds = require(root.flags.getFFlagUGCValidationAdjustLegBounds)
 local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
-local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
-local getFFlagUGCValidationLayeredAndRigidLists = require(root.flags.getFFlagUGCValidationLayeredAndRigidLists)
 local getFFlagUGCValidateRestrictAttachmentPositions =
 	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
 
@@ -79,64 +75,60 @@ Constants.R15_BODY_PARTS = {
 	"RightHand",
 }
 
-if getFFlagMoveToolboxCodeToUGCValidation() then
-	Constants.UGC_BODY_PARTS = {
-		"Head",
-		"UpperTorso",
-		"LowerTorso",
-		"LeftUpperLeg",
-		"LeftLowerLeg",
-		"LeftHand",
-		"RightUpperArm",
-		"RightLowerArm",
-		"RightHand",
-		"LeftUpperArm",
-		"LeftLowerArm",
-		"LeftFoot",
-		"RightUpperLeg",
-		"RightLowerLeg",
-		"RightFoot",
-		"EyebrowAccessory",
-		"EyelashAccessory",
-		"HairAccessory",
-	}
+Constants.UGC_BODY_PARTS = {
+	"Head",
+	"UpperTorso",
+	"LowerTorso",
+	"LeftUpperLeg",
+	"LeftLowerLeg",
+	"LeftHand",
+	"RightUpperArm",
+	"RightLowerArm",
+	"RightHand",
+	"LeftUpperArm",
+	"LeftLowerArm",
+	"LeftFoot",
+	"RightUpperLeg",
+	"RightLowerLeg",
+	"RightFoot",
+	"EyebrowAccessory",
+	"EyelashAccessory",
+	"HairAccessory",
+}
 
-	Constants.UGC_BODY_PART_NAMES_TO_ASSET_TYPE = {
-		Head = Enum.AssetType.DynamicHead,
-		UpperTorso = Enum.AssetType.Torso,
-		LowerTorso = Enum.AssetType.Torso,
-		LeftUpperArm = Enum.AssetType.LeftArm,
-		LeftLowerArm = Enum.AssetType.LeftArm,
-		LeftHand = Enum.AssetType.LeftArm,
-		RightUpperArm = Enum.AssetType.RightArm,
-		RightLowerArm = Enum.AssetType.RightArm,
-		RightHand = Enum.AssetType.RightArm,
-		LeftUpperLeg = Enum.AssetType.LeftLeg,
-		LeftLowerLeg = Enum.AssetType.LeftLeg,
-		LeftFoot = Enum.AssetType.LeftLeg,
-		RightUpperLeg = Enum.AssetType.RightLeg,
-		RightLowerLeg = Enum.AssetType.RightLeg,
-		RightFoot = Enum.AssetType.RightLeg,
-		EyebrowAccessory = Enum.AssetType.EyebrowAccessory,
-		EyelashAccessory = Enum.AssetType.EyelashAccessory,
-		HairAccessory = Enum.AssetType.HairAccessory,
-	}
+Constants.UGC_BODY_PART_NAMES_TO_ASSET_TYPE = {
+	Head = Enum.AssetType.DynamicHead,
+	UpperTorso = Enum.AssetType.Torso,
+	LowerTorso = Enum.AssetType.Torso,
+	LeftUpperArm = Enum.AssetType.LeftArm,
+	LeftLowerArm = Enum.AssetType.LeftArm,
+	LeftHand = Enum.AssetType.LeftArm,
+	RightUpperArm = Enum.AssetType.RightArm,
+	RightLowerArm = Enum.AssetType.RightArm,
+	RightHand = Enum.AssetType.RightArm,
+	LeftUpperLeg = Enum.AssetType.LeftLeg,
+	LeftLowerLeg = Enum.AssetType.LeftLeg,
+	LeftFoot = Enum.AssetType.LeftLeg,
+	RightUpperLeg = Enum.AssetType.RightLeg,
+	RightLowerLeg = Enum.AssetType.RightLeg,
+	RightFoot = Enum.AssetType.RightLeg,
+	EyebrowAccessory = Enum.AssetType.EyebrowAccessory,
+	EyelashAccessory = Enum.AssetType.EyelashAccessory,
+	HairAccessory = Enum.AssetType.HairAccessory,
+}
 
-	Constants.ASSET_TYPES_THAT_SKIP_FOLDER = {
-		Enum.AssetType.DynamicHead,
-		Enum.AssetType.EyebrowAccessory,
-		Enum.AssetType.EyelashAccessory,
-		Enum.AssetType.HairAccessory,
-	}
-end
+Constants.ASSET_TYPES_THAT_SKIP_FOLDER = {
+	Enum.AssetType.DynamicHead,
+	Enum.AssetType.EyebrowAccessory,
+	Enum.AssetType.EyelashAccessory,
+	Enum.AssetType.HairAccessory,
+}
 
-if getFFlagMoveToolboxCodeToUGCValidation() or getFFlagUGCValidateFullBody() then
-	Constants.FOLDER_NAMES = {
-		R6 = "R6",
-		R15ArtistIntent = "R15ArtistIntent",
-		R15Fixed = "R15Fixed",
-	}
-end
+Constants.FOLDER_NAMES = {
+	R6 = "R6",
+	R15ArtistIntent = "R15ArtistIntent",
+	R15Fixed = "R15Fixed",
+}
 
 Constants.EXTRA_BANNED_NAMES = {
 	"Head",
@@ -179,7 +171,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.Hat] = {
 			size = Vector3.new(3, 4, 3),
 		},
 	},
-	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
+	rigidAllowed = true,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.HairAccessory] = {
@@ -190,7 +182,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.HairAccessory] = {
 			offset = Vector3.new(0, -0.5, 0.25),
 		},
 	},
-	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
+	rigidAllowed = true,
 }
 
 local FACE_BOUNDS = { size = Vector3.new(3, 2, 2) }
@@ -200,7 +192,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.FaceAccessory] = {
 		FaceFrontAttachment = FACE_BOUNDS,
 		FaceCenterAttachment = FACE_BOUNDS,
 	},
-	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
+	rigidAllowed = true,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.NeckAccessory] = {
@@ -208,7 +200,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.NeckAccessory] = {
 	bounds = {
 		NeckAttachment = { size = Vector3.new(3, 3, 2) },
 	},
-	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
+	rigidAllowed = true,
 }
 
 local SHOULDER_BOUNDS = { size = Vector3.new(3, 3, 3) }
@@ -227,7 +219,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.ShoulderAccessory] = {
 		LeftShoulderAttachment = SHOULDER_BOUNDS,
 		RightShoulderAttachment = SHOULDER_BOUNDS,
 	},
-	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
+	rigidAllowed = true,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.FrontAccessory] = {
@@ -235,7 +227,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.FrontAccessory] = {
 	bounds = {
 		BodyFrontAttachment = { size = Vector3.new(3, 3, 3) },
 	},
-	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
+	rigidAllowed = true,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.BackAccessory] = {
@@ -246,7 +238,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.BackAccessory] = {
 			offset = Vector3.new(0, 0, 0.75),
 		},
 	},
-	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
+	rigidAllowed = true,
 }
 
 local WAIST_BOUNDS = {
@@ -264,7 +256,7 @@ Constants.ASSET_TYPE_INFO[Enum.AssetType.WaistAccessory] = {
 		WaistFrontAttachment = WAIST_BOUNDS,
 		WaistCenterAttachment = WAIST_BOUNDS,
 	},
-	rigidAllowed = if getFFlagUGCValidationLayeredAndRigidLists() then true else nil,
+	rigidAllowed = true,
 }
 
 Constants.ASSET_TYPE_INFO[Enum.AssetType.TShirtAccessory] = {

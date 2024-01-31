@@ -16,11 +16,13 @@ local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineF
 local getEngineFeatureEngineUGCValidateCalculateUniqueUV =
 	require(root.flags.getEngineFeatureEngineUGCValidateCalculateUniqueUV)
 local getFIntUniqueUVTolerance = require(root.flags.getFIntUniqueUVTolerance)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local function validateCageUVs(
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	wrapTarget: WrapTarget,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
@@ -38,35 +40,82 @@ local function validateCageUVs(
 	local testPassed
 	local uniqueUVCount
 	if getEngineFeatureEngineUGCValidateCalculateUniqueUV() then
-		testExecutedSuccessfully, testPassed = pcall(function()
-			uniqueUVCount = UGCValidationService:CalculateEditableMeshUniqueUVCount(editableMesh)
-			return math.abs(uniqueUVCount - requiredUVCount) <= getFIntUniqueUVTolerance()
-		end)
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			testExecutedSuccessfully, testPassed = pcall(function()
+				uniqueUVCount =
+					UGCValidationService:CalculateEditableMeshUniqueUVCount(meshInfo.editableMesh :: EditableMesh)
+				return math.abs(uniqueUVCount - requiredUVCount) <= getFIntUniqueUVTolerance()
+			end)
+		else
+			testExecutedSuccessfully, testPassed = pcall(function()
+				uniqueUVCount = UGCValidationService:CalculateUniqueUVCount(meshInfo.contentId :: string)
+				return math.abs(uniqueUVCount - requiredUVCount) <= getFIntUniqueUVTolerance()
+			end)
+		end
 	else
-		testExecutedSuccessfully, testPassed = pcall(function()
-			for tolIter = 0, getFIntUniqueUVTolerance() do
-				if UGCValidationService:ValidateEditableMeshUniqueUVCount(editableMesh, requiredUVCount + tolIter) then
-					return true
-				end
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			testExecutedSuccessfully, testPassed = pcall(function()
+				for tolIter = 0, getFIntUniqueUVTolerance() do
+					if
+						UGCValidationService:ValidateEditableMeshUniqueUVCount(
+							meshInfo.editableMesh :: EditableMesh,
+							requiredUVCount + tolIter
+						)
+					then
+						return true
+					end
 
-				if 0 == tolIter or (requiredUVCount - tolIter) < 0 then
-					continue
-				end
+					if 0 == tolIter or (requiredUVCount - tolIter) < 0 then
+						continue
+					end
 
-				if UGCValidationService:ValidateEditableMeshUniqueUVCount(editableMesh, requiredUVCount - tolIter) then
-					return true
+					if
+						UGCValidationService:ValidateEditableMeshUniqueUVCount(
+							meshInfo.editableMesh :: EditableMesh,
+							requiredUVCount - tolIter
+						)
+					then
+						return true
+					end
 				end
-			end
-			return false
-		end)
+				return false
+			end)
+		else
+			testExecutedSuccessfully, testPassed = pcall(function()
+				for tolIter = 0, getFIntUniqueUVTolerance() do
+					if
+						UGCValidationService:ValidateUniqueUVCount(
+							meshInfo.contentId :: string,
+							requiredUVCount + tolIter
+						)
+					then
+						return true
+					end
+
+					if 0 == tolIter or (requiredUVCount - tolIter) < 0 then
+						continue
+					end
+
+					if
+						UGCValidationService:ValidateUniqueUVCount(
+							meshInfo.contentId :: string,
+							requiredUVCount - tolIter
+						)
+					then
+						return true
+					end
+				end
+				return false
+			end)
+		end
 	end
 
 	if not testExecutedSuccessfully then
 		local errorMsg = string.format(
 			"Failed to read mesh %s.%s ( %s )",
 			wrapTarget:GetFullName(),
-			editableMesh:GetAttribute("FieldName"),
-			editableMesh:GetAttribute("ContentId")
+			meshInfo.fieldName,
+			if meshInfo.contentId then meshInfo.contentId else "empty id"
 		)
 		if isServer then
 			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
@@ -86,8 +135,8 @@ local function validateCageUVs(
 					string.format(
 						"%s.%s ( %s ) should have %d unique UVs, but has %d",
 						wrapTarget:GetFullName(),
-						editableMesh:GetAttribute("FieldName"),
-						editableMesh:GetAttribute("ContentId"),
+						meshInfo.fieldName,
+						if meshInfo.contentId then meshInfo.contentId else "empty id",
 						requiredUVCount,
 						uniqueUVCount
 					),
@@ -98,8 +147,8 @@ local function validateCageUVs(
 					string.format(
 						"%s.%s ( %s ) should have %d unique UVs",
 						wrapTarget:GetFullName(),
-						editableMesh:GetAttribute("FieldName"),
-						editableMesh:GetAttribute("ContentId"),
+						meshInfo.fieldName,
+						if meshInfo.contentId then meshInfo.contentId else "empty id",
 						requiredUVCount
 					),
 				}
@@ -193,8 +242,4 @@ local function DEPRECATED_validateCageUVs(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateCageUVs :: any
-else
-	return DEPRECATED_validateCageUVs :: any
-end
+return if getFFlagUseUGCValidationContext() then validateCageUVs else DEPRECATED_validateCageUVs :: never

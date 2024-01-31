@@ -4,27 +4,51 @@ local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
 
+local Types = require(root.util.Types)
+
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local function validateCageMeshIntersection(
-	innerCageEditableMesh: EditableMesh,
-	outerCageEditableMesh: EditableMesh,
-	editableMesh: EditableMesh
+	innerCageMeshInfo: Types.MeshInfo,
+	outerCageMeshInfo: Types.MeshInfo,
+	meshInfo: Types.MeshInfo
 ): (boolean, { string }?)
-	if not editableMesh then
-		Analytics.reportFailure(Analytics.ErrorType.validateCageMeshIntersection_InvalidRefMeshId)
-		return false, { "Mesh must contain valid MeshId for CageMeshIntersection checks." }
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		if not meshInfo.editableMesh then
+			Analytics.reportFailure(Analytics.ErrorType.validateCageMeshIntersection_InvalidRefMeshId)
+			return false, { "Mesh must contain valid MeshId for CageMeshIntersection checks." }
+		end
+	else
+		if meshInfo.contentId == "" then
+			Analytics.reportFailure(Analytics.ErrorType.validateCageMeshIntersection_InvalidRefMeshId)
+			return false, { "Mesh must contain valid MeshId for CageMeshIntersection checks." }
+		end
 	end
 
-	local success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances = pcall(
-		function()
-			return UGCValidationService:ValidateEditableMeshCageMeshIntersection(
-				innerCageEditableMesh,
-				outerCageEditableMesh,
-				editableMesh
-			)
-		end
-	)
+	local success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances = pcall(
+			function()
+				return UGCValidationService:ValidateEditableMeshCageMeshIntersection(
+					innerCageMeshInfo.editableMesh,
+					outerCageMeshInfo.editableMesh,
+					meshInfo.editableMesh
+				)
+			end
+		)
+	else
+		success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances = pcall(
+			function()
+				return UGCValidationService:ValidateCageMeshIntersection(
+					innerCageMeshInfo.contentId,
+					outerCageMeshInfo.contentId,
+					meshInfo.contentId
+				)
+			end
+		)
+	end
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateCageMeshIntersection_FailedToExecute)
@@ -116,8 +140,6 @@ local function DEPRECATED_validateCageMeshIntersection(
 	return result, reasons
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateCageMeshIntersection :: any
-else
-	return DEPRECATED_validateCageMeshIntersection :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateCageMeshIntersection
+	else DEPRECATED_validateCageMeshIntersection :: never

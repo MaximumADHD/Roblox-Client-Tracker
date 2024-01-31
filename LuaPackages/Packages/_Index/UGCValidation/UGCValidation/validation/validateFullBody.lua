@@ -152,12 +152,28 @@ local function DEPRECATED_validateInstanceHierarchy(
 	return true
 end
 
-local function resetAllPhysicsData(fullBodyData: Types.FullBodyData)
+local function resetAllPhysicsData(validationContext: Types.ValidationContext)
+	if not getFFlagUGCValidationResetPhysicsData() then
+		return
+	end
+	local fullBodyData = validationContext.fullBodyData :: Types.FullBodyData
+
+	for _, instancesAndType in fullBodyData do
+		local success, errorMessage = resetPhysicsData(instancesAndType.allSelectedInstances, validationContext)
+		if not success then
+			return false, { errorMessage }
+		end
+	end
+
+	return true
+end
+
+local function DEPRECATED_resetAllPhysicsData(fullBodyData: Types.FullBodyData)
 	if not getFFlagUGCValidationResetPhysicsData() then
 		return
 	end
 	for _, instancesAndType in fullBodyData do
-		resetPhysicsData(instancesAndType.allSelectedInstances)
+		(resetPhysicsData :: any)(instancesAndType.allSelectedInstances)
 	end
 end
 
@@ -182,7 +198,10 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 		return false, reasons
 	end
 
-	resetAllPhysicsData(fullBodyData)
+	success, reasons = resetAllPhysicsData(validationContext)
+	if not success then
+		return false, reasons
+	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
@@ -213,7 +232,7 @@ local function DEPRECATED_validateFullBody(fullBodyData: Types.FullBodyData, isS
 		return false, reasons
 	end
 
-	resetAllPhysicsData(fullBodyData)
+	DEPRECATED_resetAllPhysicsData(fullBodyData)
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
@@ -221,13 +240,9 @@ local function DEPRECATED_validateFullBody(fullBodyData: Types.FullBodyData, isS
 		local allBodyParts: Types.AllBodyParts = createAllBodyPartsTable(folderName, fullBodyData)
 		assert(allBodyParts) -- if DEPRECATED_validateInstanceHierarchy() has passed, this should not have any problems
 
-		reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, nil, isServer))
+		reasonsAccumulator:updateReasons((validateAssetBounds :: any)(allBodyParts, nil, nil, isServer))
 	end
 	return reasonsAccumulator:getFinalResults()
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateFullBody :: any
-else
-	return DEPRECATED_validateFullBody :: any
-end
+return if getFFlagUseUGCValidationContext() then validateFullBody else DEPRECATED_validateFullBody :: never

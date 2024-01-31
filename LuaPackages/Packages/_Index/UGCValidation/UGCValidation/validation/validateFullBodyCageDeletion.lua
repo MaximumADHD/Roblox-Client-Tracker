@@ -6,17 +6,26 @@ local Types = require(root.util.Types)
 local Analytics = require(root.Analytics)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local function validateFullBodyCageDeletion(
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	meshType: string,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
 
-	local success, result = pcall(function()
-		return UGCValidationService:ValidateEditableMeshFullBodyCageDeletion(editableMesh)
-	end)
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = pcall(function()
+			return UGCValidationService:ValidateEditableMeshFullBodyCageDeletion(meshInfo.editableMesh)
+		end)
+	else
+		success, result = pcall(function()
+			return UGCValidationService:ValidateFullBodyCageDeletion(meshInfo.contentId)
+		end)
+	end
 
 	if not success then
 		if nil ~= isServer and isServer then
@@ -67,8 +76,6 @@ local function DEPRECATED_validateFullBodyCageDeletion(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateFullBodyCageDeletion :: any
-else
-	return DEPRECATED_validateFullBodyCageDeletion :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateFullBodyCageDeletion
+	else DEPRECATED_validateFullBodyCageDeletion :: never

@@ -97,8 +97,6 @@ local function DEPRECATED_validateLegacyAccessoryMeshPartAssetFormat(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateLegacyAccessoryMeshPartAssetFormat :: any
-else
-	return DEPRECATED_validateLegacyAccessoryMeshPartAssetFormat :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateLegacyAccessoryMeshPartAssetFormat
+	else DEPRECATED_validateLegacyAccessoryMeshPartAssetFormat :: never

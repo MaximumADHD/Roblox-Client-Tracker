@@ -44,9 +44,6 @@ return {
 	-- Use the new features of ShortcutBar for responding to last input type and fadeout
 	useInputResponsiveShortcutBarChanges = false,
 
-	-- Use tokens for StatGroup
-	useTokensStatGroup = false,
-
 	-- do not mount the Details Page Header Action Bar when the Sticky ActionBar
 	-- active
 	hideHeaderActionBarWhenStickyBarActive = false,
@@ -56,4 +53,7 @@ return {
 
 	-- In ResponsiveGrid, don't default displayLines to nil. Instead use an empty range
 	responsiveGridDisplayLinesNonNil = false,
+
+	-- Use general design tokens with `scale` parameter to adapt to different platforms
+	useTokensWithScale = false,
 }

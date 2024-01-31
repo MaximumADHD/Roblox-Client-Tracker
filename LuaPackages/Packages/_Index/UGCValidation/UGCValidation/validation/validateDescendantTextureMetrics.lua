@@ -16,6 +16,8 @@ local ParseContentIds = require(root.util.ParseContentIds)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local function validateDescendantTextureMetrics(
 	rootInstance: Instance,
@@ -27,13 +29,22 @@ local function validateDescendantTextureMetrics(
 
 	local sizeAlreadyTested = {}
 	for _, data in allTextures do
-		local getEditableImageSuccess, editableImage =
-			getEditableImageFromContext(data.instance, data.fieldName, validationContext)
-		if not getEditableImageSuccess then
-			return false, { "Failed to load texture data" }
+		local textureInfo = {
+			fullName = data.instance:GetFullName(),
+			fieldName = data.fieldName,
+			contentId = data.instance[data.fieldName],
+		} :: Types.TextureInfo
+
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			local getEditableImageSuccess, editableImage =
+				getEditableImageFromContext(data.instance, data.fieldName, validationContext)
+			if not getEditableImageSuccess then
+				return false, { "Failed to load texture data" }
+			end
+			textureInfo.editableImage = editableImage
 		end
 		if not sizeAlreadyTested[data.id] then
-			reasonsAccumulator:updateReasons(validateTextureSize(editableImage, nil, validationContext))
+			reasonsAccumulator:updateReasons(validateTextureSize(textureInfo, nil, validationContext))
 			if data.id then
 				sizeAlreadyTested[data.id] = true
 			end
@@ -54,7 +65,7 @@ local function DEPRECATED_validateDescendantTextureMetrics(
 	local sizeAlreadyTested = {}
 	for _, data in allTextures do
 		if not sizeAlreadyTested[data.id] then
-			reasonsAccumulator:updateReasons(validateTextureSize(data.instance[data.fieldName], nil, isServer))
+			reasonsAccumulator:updateReasons((validateTextureSize :: any)(data.instance[data.fieldName], nil, isServer))
 			sizeAlreadyTested[data.id] = true
 		end
 	end
@@ -62,8 +73,6 @@ local function DEPRECATED_validateDescendantTextureMetrics(
 	return reasonsAccumulator:getFinalResults()
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateDescendantTextureMetrics :: any
-else
-	return DEPRECATED_validateDescendantTextureMetrics :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateDescendantTextureMetrics
+	else DEPRECATED_validateDescendantTextureMetrics :: never

@@ -6,7 +6,6 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
-local getFFlagMoveToolboxCodeToUGCValidation = require(root.flags.getFFlagMoveToolboxCodeToUGCValidation)
 
 local validateMeshPartBodyPart = require(root.validation.validateMeshPartBodyPart)
 local validateTags = require(root.validation.validateTags)
@@ -59,11 +58,6 @@ local function compareFolderInfo(fromFolder: any, toFolder: any): (boolean, { st
 	return reasonsAccumulator:getFinalResults()
 end
 
--- Remove with FFlagMoveToolboxCodeToUGCValidation
-local DEPRECATED_R15ArtistIntentFolderName = "R15ArtistIntent"
-local DEPRECATED_R15FixedFolderName = "R15Fixed"
-local DEPRECATED_R6FolderName = "R6"
-
 local function validateFolderAssetIdsMatch(
 	allSelectedInstances: { Instance },
 	requiredTopLevelFolders: { string }
@@ -76,10 +70,7 @@ local function validateFolderAssetIdsMatch(
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	for _, folderName in requiredTopLevelFolders do
-		if
-			folderName
-			== (if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName)
-		then
+		if folderName == Constants.FOLDER_NAMES.R6 then
 			continue
 		end
 
@@ -115,7 +106,7 @@ local function validateR6Folder(inst: Instance)
 	if #(inst:GetChildren()) > 0 then
 		Analytics.reportFailure(Analytics.ErrorType.validateLimbsAndTorso_R6FolderHasChildren)
 		reasonsAccumulator:updateReasons(false, {
-			`{if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName} Folder should have no children!`,
+			`{Constants.FOLDER_NAMES.R6} Folder should have no children!`,
 		})
 	end
 
@@ -139,23 +130,11 @@ local function validateLimbsAndTorso(validationContext: Types.ValidationContext)
 	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
 	local isServer = validationContext.isServer
 
-	local requiredTopLevelFolders: { string } = {
-		if getFFlagMoveToolboxCodeToUGCValidation()
-			then Constants.FOLDER_NAMES.R15ArtistIntent
-			else DEPRECATED_R15ArtistIntentFolderName,
-	}
+	local requiredTopLevelFolders: { string } = { Constants.FOLDER_NAMES.R15ArtistIntent }
 	if isServer then
 		-- in Studio these folders are automatically added just before upload
-		table.insert(
-			requiredTopLevelFolders,
-			if getFFlagMoveToolboxCodeToUGCValidation()
-				then Constants.FOLDER_NAMES.R15Fixed
-				else DEPRECATED_R15FixedFolderName
-		)
-		table.insert(
-			requiredTopLevelFolders,
-			if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName
-		)
+		table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
+		table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R6)
 	end
 
 	if not areTopLevelFoldersCorrect(allSelectedInstances, requiredTopLevelFolders) then
@@ -169,10 +148,7 @@ local function validateLimbsAndTorso(validationContext: Types.ValidationContext)
 		local result
 		local reasons
 
-		if
-			folderName
-			== (if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName)
-		then
+		if folderName == Constants.FOLDER_NAMES.R6 then
 			result, reasons = validateR6Folder(inst)
 		else
 			result, reasons = validateMeshPartBodyPart(
@@ -197,23 +173,11 @@ local function DEPRECATED_validateLimbsAndTorso(
 	restrictedUserIds: Types.RestrictedUserIds?,
 	universeId: number?
 ): (boolean, { string }?)
-	local requiredTopLevelFolders: { string } = {
-		if getFFlagMoveToolboxCodeToUGCValidation()
-			then Constants.FOLDER_NAMES.R15ArtistIntent
-			else DEPRECATED_R15ArtistIntentFolderName,
-	}
+	local requiredTopLevelFolders: { string } = { Constants.FOLDER_NAMES.R15ArtistIntent }
 	if isServer then
 		-- in Studio these folders are automatically added just before upload
-		table.insert(
-			requiredTopLevelFolders,
-			if getFFlagMoveToolboxCodeToUGCValidation()
-				then Constants.FOLDER_NAMES.R15Fixed
-				else DEPRECATED_R15FixedFolderName
-		)
-		table.insert(
-			requiredTopLevelFolders,
-			if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName
-		)
+		table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R15Fixed)
+		table.insert(requiredTopLevelFolders, Constants.FOLDER_NAMES.R6)
 	end
 
 	if not areTopLevelFoldersCorrect(allSelectedInstances, requiredTopLevelFolders) then
@@ -227,13 +191,10 @@ local function DEPRECATED_validateLimbsAndTorso(
 		local result
 		local reasons
 
-		if
-			folderName
-			== (if getFFlagMoveToolboxCodeToUGCValidation() then Constants.FOLDER_NAMES.R6 else DEPRECATED_R6FolderName)
-		then
+		if folderName == Constants.FOLDER_NAMES.R6 then
 			result, reasons = validateR6Folder(inst)
 		else
-			result, reasons = validateMeshPartBodyPart(
+			result, reasons = (validateMeshPartBodyPart :: any)(
 				inst,
 				createLimbsAndTorsoSchema(assetTypeEnum, folderName),
 				assetTypeEnum,
@@ -251,8 +212,4 @@ local function DEPRECATED_validateLimbsAndTorso(
 	return validateFolderAssetIdsMatch(allSelectedInstances, requiredTopLevelFolders)
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateLimbsAndTorso :: any
-else
-	return DEPRECATED_validateLimbsAndTorso :: any
-end
+return if getFFlagUseUGCValidationContext() then validateLimbsAndTorso else DEPRECATED_validateLimbsAndTorso :: never

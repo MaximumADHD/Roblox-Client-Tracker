@@ -9,19 +9,28 @@ local Analytics = require(root.Analytics)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureEngineUGCValidateMeshTriangleArea =
 	require(root.flags.getEngineFeatureEngineUGCValidateMeshTriangleArea)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local UGCValidationService = game:GetService("UGCValidationService")
 
 local function validateMeshTriangleArea(
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = if validationContext then validationContext.isServer else nil
 
 	if getEngineFeatureEngineUGCValidateMeshTriangleArea() then
-		local success, result = pcall(function()
-			return UGCValidationService:ValidateEditableMeshTriangleArea(editableMesh)
-		end)
+		local success, result
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			success, result = pcall(function()
+				return UGCValidationService:ValidateEditableMeshTriangleArea(meshInfo.editableMesh)
+			end)
+		else
+			success, result = pcall(function()
+				return UGCValidationService:validateMeshTriangleArea(meshInfo.contentId)
+			end)
+		end
 
 		if not success then
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshTriangleArea_FailedToLoadMesh)
@@ -37,9 +46,9 @@ local function validateMeshTriangleArea(
 				{
 					string.format(
 						"%s.%s ( %s ) contained an invalid triangle which contained no area in 3D space",
-						editableMesh:GetAttribute("SourceFullName"),
-						editableMesh:GetAttribute("FieldName"),
-						editableMesh:GetAttribute("ContentId")
+						meshInfo.fullName,
+						meshInfo.fieldName,
+						if meshInfo.contentId then meshInfo.contentId else "empty id"
 					),
 				}
 		end
@@ -85,8 +94,6 @@ local function DEPRECATED_validateMeshTriangleArea(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateMeshTriangleArea :: any
-else
-	return DEPRECATED_validateMeshTriangleArea :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateMeshTriangleArea
+	else DEPRECATED_validateMeshTriangleArea :: never

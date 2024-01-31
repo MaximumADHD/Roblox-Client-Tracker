@@ -43,7 +43,12 @@ local function DEPRECATED_validateLayeredClothingAccessoryMeshPartAssetFormat(
 ): (boolean, { string }?)
 	local success: boolean, reasons: { string }?
 
-	success, reasons = validateLayeredClothingAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+	success, reasons = (validateLayeredClothingAccessory :: any)(
+		instances,
+		assetTypeEnum,
+		isServer,
+		allowUnreviewedAssets
+	)
 	if not success then
 		return false, reasons
 	end
@@ -61,8 +66,6 @@ local function DEPRECATED_validateLayeredClothingAccessoryMeshPartAssetFormat(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateLayeredClothingAccessoryMeshPartAssetFormat :: any
-else
-	return DEPRECATED_validateLayeredClothingAccessoryMeshPartAssetFormat :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateLayeredClothingAccessoryMeshPartAssetFormat
+	else DEPRECATED_validateLayeredClothingAccessoryMeshPartAssetFormat :: never

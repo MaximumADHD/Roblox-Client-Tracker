@@ -5,6 +5,7 @@ local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 local t = require(Packages.t)
 local TokenPackageIndexMap = dependencies.TokenPackageIndexMap
+local GetTokenGenerators = dependencies.GetTokenGenerators
 local Validators = dependencies.SchemaPackage.Validators
 
 local Types = require(script.Types)
@@ -27,8 +28,33 @@ local function getTokenPackageIndex(deviceType: DeviceType, themeName: ThemeName
 	return themeModule
 end
 
+local function getPlatformScale(deviceType: DeviceType)
+	-- Platform scale will be from engine API as soon as it's ready.
+	-- For now scale values are hard-coded, and only console uses 1.5
+	-- differently according to design specs.
+	if deviceType == Constants.DeviceType.Console then
+		return 1.5
+	end
+	return 1
+end
+
 return {
-	getTokens = function(deviceType: DeviceType, themeName: ThemeName | string): Types.Tokens
+	getTokens = function(
+		deviceType: DeviceType,
+		themeName: ThemeName | string,
+		useCommonTokens: boolean?
+	): Types.Tokens
+		if useCommonTokens then
+			local tokenGenerators = GetTokenGenerators(themeName) or GetTokenGenerators(Constants.DefaultThemeName)
+			local scale = getPlatformScale(deviceType)
+
+			return {
+				Global = require(tokenGenerators.Global)(scale),
+				Semantic = require(tokenGenerators.Semantic)(scale),
+				Component = require(tokenGenerators.Component)(scale),
+			} :: Types.Tokens
+		end
+
 		local packageIndex = getTokenPackageIndex(deviceType, themeName)
 		return {
 			Global = require(packageIndex.Global),

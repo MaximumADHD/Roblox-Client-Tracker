@@ -4,12 +4,23 @@ local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local Types = require(root.util.Types)
 
-local function validateUVSpace(editableMesh: EditableMesh): (boolean, { string }?)
-	local success, result = pcall(function()
-		return UGCValidationService:ValidateEditableMeshUVSpace(editableMesh)
-	end)
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+
+local function validateUVSpace(meshInfo: Types.MeshInfo): (boolean, { string }?)
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = pcall(function()
+			return UGCValidationService:ValidateEditableMeshUVSpace(meshInfo.editableMesh)
+		end)
+	else
+		success, result = pcall(function()
+			return UGCValidationService:ValidateUVSpace(meshInfo.contentId)
+		end)
+	end
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateUVSpace_FailedToExecute)
@@ -48,8 +59,4 @@ local function DEPRECATED_validateUVSpace(meshId: string): (boolean, { string }?
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateUVSpace :: any
-else
-	return DEPRECATED_validateUVSpace :: any
-end
+return if getFFlagUseUGCValidationContext() then validateUVSpace else DEPRECATED_validateUVSpace :: never

@@ -7,8 +7,6 @@ local Promise = require(root.Parent.Promise)
 
 local APIUtil = require(root.util.APIUtil)
 
-local FFlagUGCValidationFixBundlesMetadataFetch = game:DefineFastFlag("UGCValidationFixBundlesMetadataFetch", false)
-
 export type AssetTypeSettings = {
 	minimumQuantity: number,
 	maximumQuantity: number,
@@ -42,21 +40,11 @@ local BundlesMetadata = {}
 
 -- Returns a Promise to BundlesMetadata
 function BundlesMetadata.fetch()
-	if FFlagUGCValidationFixBundlesMetadataFetch then
-		return Promise.try(function()
-			return HttpService:JSONDecode(
-				HttpRbxApiService:GetAsyncFullUrl(
-					`https://itemconfiguration.{APIUtil.getBaseDomain()}/v1/bundles/metadata`
-				)
-			)
-		end)
-	else
-		return Promise.try(function()
-			return HttpRbxApiService:GetAsyncFullUrl(
-				`https://itemconfiguration.{APIUtil.getBaseDomain()}/v1/bundles/metadata`
-			)
-		end)
-	end
+	return Promise.try(function()
+		return HttpService:JSONDecode(
+			HttpRbxApiService:GetAsyncFullUrl(`https://itemconfiguration.{APIUtil.getBaseDomain()}/v1/bundles/metadata`)
+		)
+	end)
 end
 
 function BundlesMetadata.mock(): BundlesMetadata

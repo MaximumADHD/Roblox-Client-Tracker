@@ -222,7 +222,7 @@ local function validateBundleReadyForUpload(
 				destroyEditableInstances(validationContext)
 			end
 		else
-			success, problems = validateInternal(
+			success, problems = (validateInternal :: any)(
 				false, -- isAsync
 				{ piece.instance },
 				piece.assetType,
@@ -275,17 +275,31 @@ local function validateBundleReadyForUpload(
 
 				local success, failures
 				local fullBodyData = createFullBodyData(response.pieces)
-				if getFFlagUseUGCValidationContext() then
-					local validationContext = {
-						fullBodyData = fullBodyData :: Types.FullBodyData,
-						isServer = false,
-						editableMeshes = {},
-						editableImages = {},
-						allowEditableInstances,
-					} :: Types.ValidationContext
-					success, failures = validateFullBody(validationContext)
+
+				local instances = {}
+				for _, instancesAndType in fullBodyData do
+					for _, instance in instancesAndType.allSelectedInstances do
+						table.insert(instances, instance)
+					end
+				end
+
+				local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
+				if not createSuccess then
+					failures = result
+					success = false
 				else
-					success, failures = validateFullBody(fullBodyData, false)
+					if getFFlagUseUGCValidationContext() then
+						local validationContext = {
+							fullBodyData = fullBodyData :: Types.FullBodyData,
+							isServer = false,
+							editableMeshes = result.editableMeshes :: Types.EditableMeshes,
+							editableImages = result.editableImages :: Types.EditableImages,
+							allowEditableInstances,
+						} :: Types.ValidationContext
+						success, failures = validateFullBody(validationContext)
+					else
+						success, failures = (validateFullBody :: any)(fullBodyData, false)
+					end
 				end
 
 				if not success then

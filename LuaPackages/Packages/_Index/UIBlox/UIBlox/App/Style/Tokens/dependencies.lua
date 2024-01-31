@@ -8,6 +8,8 @@ local t = require(Packages.t)
 local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
 local Constants = require(Style.Constants)
 
+type ThemeName = Constants.ThemeName
+
 local function getThemePackageIndex(deviceType)
 	return {
 		[Constants.ThemeName.Light:lower()] = RbxDesignFoundations.tokens[deviceType].Light,
@@ -25,6 +27,16 @@ return {
 		-- Fallback to the default even though it's currently unknown as long as the DeviceType is valid
 		[Constants.DeviceType.Unknown] = getThemePackageIndex("Desktop"),
 	},
+	GetTokenGenerators = function(themeName: ThemeName | string)
+		local theme = themeName:lower()
+		if theme == Constants.ThemeName.Dark:lower() then
+			return RbxDesignFoundations.tokens.Common.Dark
+		elseif theme == Constants.ThemeName.Light:lower() then
+			return RbxDesignFoundations.tokens.Common.Light
+		else
+			return nil
+		end
+	end,
 	SchemaPackage = {
 		Validators = {
 			Global = require(RbxDesignFoundations.tokens.Schema.Validators.validateGlobal)(t),

@@ -282,8 +282,6 @@ local function DEPRECATED_validateDynamicHeadData(
 	return reasonsAccumulator:getFinalResults()
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateDynamicHeadData :: any
-else
-	return DEPRECATED_validateDynamicHeadData :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateDynamicHeadData
+	else DEPRECATED_validateDynamicHeadData :: never

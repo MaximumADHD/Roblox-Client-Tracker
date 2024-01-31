@@ -111,7 +111,7 @@ local function DEPRECATED_validateDynamicHeadMeshPartFormat(
 	end
 
 	local inst = allSelectedInstances[1]
-	result, failureReasons = validateMeshPartBodyPart(
+	result, failureReasons = (validateMeshPartBodyPart :: any)(
 		inst,
 		createDynamicHeadMeshPartSchema(),
 		Enum.AssetType.DynamicHead,
@@ -138,14 +138,12 @@ local function DEPRECATED_validateDynamicHeadMeshPartFormat(
 	end
 
 	if getFFlagUGCValidateMoveDynamicHeadTest() then
-		return validateDynamicHeadData(inst :: MeshPart, isServer)
+		return (validateDynamicHeadData :: any)(inst :: MeshPart, isServer)
 	else
 		return validateDynamicHeadMesh(inst :: MeshPart, isServer)
 	end
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateDynamicHeadMeshPartFormat :: any
-else
-	return DEPRECATED_validateDynamicHeadMeshPartFormat :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateDynamicHeadMeshPartFormat
+	else DEPRECATED_validateDynamicHeadMeshPartFormat :: never

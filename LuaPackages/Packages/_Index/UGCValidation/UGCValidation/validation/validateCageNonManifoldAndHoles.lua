@@ -2,14 +2,25 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
+local Types = require(root.util.Types)
+
 local Analytics = require(root.Analytics)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
-local function validateCageNonManifoldAndHoles(editableMesh: EditableMesh, meshType: string): (boolean, { string }?)
-	local success, checkNonManifold, checkCageHoles = pcall(function()
-		return UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(editableMesh)
-	end)
+local function validateCageNonManifoldAndHoles(meshInfo: Types.MeshInfo, meshType: string): (boolean, { string }?)
+	local success, checkNonManifold, checkCageHoles
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, checkNonManifold, checkCageHoles = pcall(function()
+			return UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(meshInfo.editableMesh)
+		end)
+	else
+		success, checkNonManifold, checkCageHoles = pcall(function()
+			return UGCValidationService:ValidateCageNonManifoldAndHoles(meshInfo.contentId)
+		end)
+	end
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateCageNonManifoldAndHoles_FailedToExecute)
@@ -66,8 +77,6 @@ local function DEPRECATED_validateCageNonManifoldAndHoles(meshId: string, meshTy
 	return result, reasons
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateCageNonManifoldAndHoles :: any
-else
-	return DEPRECATED_validateCageNonManifoldAndHoles :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateCageNonManifoldAndHoles
+	else DEPRECATED_validateCageNonManifoldAndHoles :: never

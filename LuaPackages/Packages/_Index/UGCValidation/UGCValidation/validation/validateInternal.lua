@@ -40,7 +40,7 @@ local function DEPRECATED_validateBodyPartInternal(
 	assert(ConstantsInterface.isBodyPart(assetTypeEnum)) --checking in the calling function, so must be true
 
 	if Enum.AssetType.DynamicHead == assetTypeEnum then
-		return validateDynamicHeadMeshPartFormat(
+		return (validateDynamicHeadMeshPartFormat :: any)(
 			instances,
 			isServer,
 			allowUnreviewedAssets,
@@ -48,7 +48,7 @@ local function DEPRECATED_validateBodyPartInternal(
 			universeId
 		)
 	end
-	return validateLimbsAndTorso(
+	return (validateLimbsAndTorso :: any)(
 		instances,
 		assetTypeEnum,
 		isServer,
@@ -112,31 +112,32 @@ local function DEPRECATED_validateInternal(
 	end
 
 	if getFFlagAddUGCValidationForPackage() and assetTypeEnum == Enum.AssetType.Model then
-		return validatePackage(instances, isServer, restrictedUserIds, token)
+		return (validatePackage :: any)(instances, isServer, restrictedUserIds, token)
 	end
 
 	if getFFlagUGCValidationMeshPartAccessoryUploads() then
 		local accessory = instances[1]
 		if isMeshPartAccessory(accessory) then
 			if isLayeredClothing(accessory) then
-				return validateLayeredClothingAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+				return (validateLayeredClothingAccessory :: any)(
+					instances,
+					assetTypeEnum,
+					isServer,
+					allowUnreviewedAssets
+				)
 			else
-				return validateMeshPartAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+				return (validateMeshPartAccessory :: any)(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
 			end
 		else
-			return validateLegacyAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+			return (validateLegacyAccessory :: any)(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
 		end
 	else
 		if isLayeredClothing(instances[1]) then
-			return validateLayeredClothingAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+			return (validateLayeredClothingAccessory :: any)(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
 		else
-			return validateLegacyAccessory(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
+			return (validateLegacyAccessory :: any)(instances, assetTypeEnum, isServer, allowUnreviewedAssets)
 		end
 	end
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateInternal :: any
-else
-	return DEPRECATED_validateInternal :: any
-end
+return if getFFlagUseUGCValidationContext() then validateInternal else DEPRECATED_validateInternal :: never

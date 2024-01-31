@@ -6,6 +6,8 @@ local root = script.Parent.Parent
 local Types = require(root.util.Types)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Analytics = require(root.Analytics)
 
@@ -50,7 +52,7 @@ end
 local function validateMeshBounds(
 	handle: BasePart,
 	attachment: Attachment,
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	meshScale: Vector3,
 	boundsInfo: any,
 	name: string,
@@ -62,15 +64,28 @@ local function validateMeshBounds(
 	local boundsCF = handle.CFrame * attachment.CFrame * CFrame.new(boundsOffset)
 
 	if game:GetFastFlag("UGCLCQualityReplaceLua") then
-		local success, result = pcall(function()
-			return UGCValidationService:ValidateEditableMeshBounds(
-				editableMesh,
-				meshScale,
-				boundsOffset,
-				attachment.CFrame,
-				handle.CFrame
-			)
-		end)
+		local success, result
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			success, result = pcall(function()
+				return UGCValidationService:ValidateEditableMeshBounds(
+					meshInfo.editableMesh,
+					meshScale,
+					boundsOffset,
+					attachment.CFrame,
+					handle.CFrame
+				)
+			end)
+		else
+			success, result = pcall(function()
+				return UGCValidationService:ValidateMeshBounds(
+					meshInfo.contentId,
+					meshScale,
+					boundsOffset,
+					attachment.CFrame,
+					handle.CFrame
+				)
+			end)
+		end
 
 		if not success then
 			if nil ~= isServer and isServer then
@@ -88,9 +103,16 @@ local function validateMeshBounds(
 			return false, getErrors(name, boundsSize, attachment)
 		end
 	else
-		local success, verts = pcall(function()
-			return UGCValidationService:GetEditableMeshVerts(editableMesh)
-		end)
+		local success, verts
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			success, verts = pcall(function()
+				return UGCValidationService:GetEditableMeshVerts(meshInfo.editableMesh)
+			end)
+		else
+			success, verts = pcall(function()
+				return UGCValidationService:GetMeshVerts(meshInfo.contentId)
+			end)
+		end
 
 		if not success then
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_FailedToLoadMesh)
@@ -182,8 +204,4 @@ local function DEPRECATED_validateMeshBounds(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateMeshBounds :: any
-else
-	return DEPRECATED_validateMeshBounds :: any
-end
+return if getFFlagUseUGCValidationContext() then validateMeshBounds else DEPRECATED_validateMeshBounds :: never

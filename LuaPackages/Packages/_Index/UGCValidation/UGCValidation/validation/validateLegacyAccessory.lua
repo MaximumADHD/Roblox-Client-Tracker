@@ -33,6 +33,8 @@ local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationN
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 local FFlagLegacyAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("LegacyAccessoryCheckAvatarPartScaleType", false)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local function validateLegacyAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
@@ -67,19 +69,39 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 	local handle = instance:FindFirstChild("Handle") :: Part
 	local mesh = handle:FindFirstChildOfClass("SpecialMesh") :: SpecialMesh
+	local meshInfo = {
+		fullName = mesh:GetFullName(),
+		fieldName = "MeshId",
+		contentId = mesh.MeshId,
+	} :: Types.MeshInfo
+
 	local meshScale = mesh.Scale
 	local attachment = getAttachment(handle, assetInfo.attachmentNames)
 
 	local boundsInfo = assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
 
-	local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(mesh, "MeshId", validationContext)
-	if not getEditableMeshSuccess then
-		return false, { "Failed to load mesh data" }
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(mesh, "MeshId", validationContext)
+		if not getEditableMeshSuccess then
+			return false, { "Failed to load mesh data" }
+		end
+
+		meshInfo.editableMesh = editableMesh
 	end
 
-	local getEditableImageSuccess, editableImage = getEditableImageFromContext(mesh, "TextureId", validationContext)
-	if not getEditableImageSuccess then
-		return false, { "Failed to load texture data" }
+	local textureInfo = {
+		fullName = mesh:GetFullName(),
+		fieldName = "TextureId",
+		contentId = mesh.TextureId,
+	} :: Types.TextureInfo
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		local getEditableImageSuccess, editableImage = getEditableImageFromContext(mesh, "TextureId", validationContext)
+		if not getEditableImageSuccess then
+			return false, { "Failed to load texture data" }
+		end
+
+		textureInfo.editableImage = editableImage
 	end
 
 	local failedReason: any = {}
@@ -109,7 +131,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		validationResult = false
 	end
 
-	success, failedReason = validateTextureSize(editableImage, nil, validationContext)
+	success, failedReason = validateTextureSize(textureInfo, nil, validationContext)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
@@ -127,7 +149,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	end
 
 	if getFFlagUGCValidateThumbnailConfiguration() then
-		success, failedReason = validateThumbnailConfiguration(instance, handle, editableMesh, meshScale)
+		success, failedReason = validateThumbnailConfiguration(instance, handle, meshInfo, meshScale)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
@@ -154,28 +176,21 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		}
 	end
 
-	success, failedReason = validateMeshBounds(
-		handle,
-		attachment,
-		editableMesh,
-		meshScale,
-		boundsInfo,
-		assetTypeEnum.Name,
-		validationContext
-	)
+	success, failedReason =
+		validateMeshBounds(handle, attachment, meshInfo, meshScale, boundsInfo, assetTypeEnum.Name, validationContext)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
 	end
 
-	success, failedReason = validateMeshTriangles(editableMesh, nil, validationContext)
+	success, failedReason = validateMeshTriangles(meshInfo, nil, validationContext)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
 	end
 
 	if game:GetFastFlag("UGCValidateMeshVertColors") then
-		success, failedReason = validateMeshVertColors(editableMesh, false, validationContext)
+		success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
@@ -265,7 +280,7 @@ local function DEPRECATED_validateLegacyAccessory(
 		validationResult = false
 	end
 
-	success, failedReason = validateTextureSize(textureId)
+	success, failedReason = (validateTextureSize :: any)(textureId)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
 		validationResult = false
@@ -295,7 +310,7 @@ local function DEPRECATED_validateLegacyAccessory(
 		checkModeration = false
 	end
 	if checkModeration then
-		success, failedReason = validateModeration(instance, {})
+		success, failedReason = (validateModeration :: any)(instance, {})
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
@@ -313,21 +328,27 @@ local function DEPRECATED_validateLegacyAccessory(
 				offset = if boundsInfo.offset then boundsInfo.offset / accessoryScale else nil,
 			}
 		end
-		success, failedReason =
-			validateMeshBounds(handle, attachment, meshId, meshScale, boundsInfo, assetTypeEnum.Name)
+		success, failedReason = (validateMeshBounds :: any)(
+			handle,
+			attachment,
+			meshId,
+			meshScale,
+			boundsInfo,
+			assetTypeEnum.Name
+		)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
 		end
 
-		success, failedReason = validateMeshTriangles(meshId)
+		success, failedReason = (validateMeshTriangles :: any)(meshId)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
 		end
 
 		if game:GetFastFlag("UGCValidateMeshVertColors") then
-			success, failedReason = validateMeshVertColors(meshId, false)
+			success, failedReason = (validateMeshVertColors :: any)(meshId, false)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
@@ -337,8 +358,6 @@ local function DEPRECATED_validateLegacyAccessory(
 	return validationResult, reasons
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateLegacyAccessory :: any
-else
-	return DEPRECATED_validateLegacyAccessory :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateLegacyAccessory
+	else DEPRECATED_validateLegacyAccessory :: never

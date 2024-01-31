@@ -541,8 +541,4 @@ local function DEPRECATED_validateAssetBounds(
 	return reasonsAccumulator:getFinalResults()
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateAssetBounds :: any
-else
-	return DEPRECATED_validateAssetBounds :: any
-end
+return if getFFlagUseUGCValidationContext() then validateAssetBounds else DEPRECATED_validateAssetBounds :: never

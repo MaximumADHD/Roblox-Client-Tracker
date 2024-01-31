@@ -9,19 +9,28 @@ local Types = require(root.util.Types)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureEngineUGCValidateCageUVTriangleArea =
 	require(root.flags.getEngineFeatureEngineUGCValidateCageUVTriangleArea)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Analytics = require(root.Analytics)
 
 local function validateCageUVTriangleArea(
-	editableMesh: EditableMesh,
+	meshInfo: Types.MeshInfo,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
 
 	if getEngineFeatureEngineUGCValidateCageUVTriangleArea() then
-		local success, result = pcall(function()
-			return UGCValidationService:ValidateEditableMeshCageUVTriangleArea(editableMesh)
-		end)
+		local success, result
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			success, result = pcall(function()
+				return UGCValidationService:ValidateEditableMeshCageUVTriangleArea(meshInfo.editableMesh)
+			end)
+		else
+			success, result = pcall(function()
+				return UGCValidationService:ValidateCageUVTriangleArea(meshInfo.contentId)
+			end)
+		end
 
 		if not success then
 			if isServer then
@@ -37,9 +46,9 @@ local function validateCageUVTriangleArea(
 				{
 					string.format(
 						"%s.%s ( %s ) contained an invalid triangle which contained no area",
-						editableMesh:GetAttribute("SourceFullName"),
-						editableMesh:GetAttribute("FieldName"),
-						editableMesh:GetAttribute("ContentId")
+						meshInfo.fullName,
+						meshInfo.fieldName,
+						if meshInfo.contentId then meshInfo.contentId else "empty id"
 					),
 				}
 		end
@@ -85,8 +94,6 @@ local function DEPRECATED_validateCageUVTriangleArea(
 	return true
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateCageUVTriangleArea :: any
-else
-	return DEPRECATED_validateCageUVTriangleArea :: any
-end
+return if getFFlagUseUGCValidationContext()
+	then validateCageUVTriangleArea
+	else DEPRECATED_validateCageUVTriangleArea :: never

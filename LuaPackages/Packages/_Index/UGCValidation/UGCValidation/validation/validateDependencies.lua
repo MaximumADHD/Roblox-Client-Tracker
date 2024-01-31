@@ -157,7 +157,13 @@ local function DEPRECATED_validateAssetCreatorsRCC(
 	contentIdMap: any,
 	universeId: number
 )
-	return validateAssetCreator(contentIdMap, true --[[isServer]], restrictedUserIds or {}, "" --[[token]], universeId)
+	return (validateAssetCreator :: any)(
+		contentIdMap,
+		true, --[[isServer]]
+		restrictedUserIds or {},
+		"", --[[token]]
+		universeId
+	)
 end
 
 local function validateDependencies(
@@ -212,7 +218,7 @@ local function validateDependencies(
 			checkModeration = false
 		end
 		if checkModeration then
-			reasonsAccumulator:updateReasons(validateModeration(instance, validationContext))
+			reasonsAccumulator:updateReasons(validateModeration(instance, restrictedUserIds))
 		end
 	end
 
@@ -269,15 +275,11 @@ local function DEPRECATED_validateDependencies(
 			checkModeration = false
 		end
 		if checkModeration then
-			reasonsAccumulator:updateReasons(validateModeration(instance, restrictedUserIds))
+			reasonsAccumulator:updateReasons((validateModeration :: any)(instance, restrictedUserIds))
 		end
 	end
 
 	return reasonsAccumulator:getFinalResults()
 end
 
-if getFFlagUseUGCValidationContext() then
-	return validateDependencies :: any
-else
-	return DEPRECATED_validateDependencies :: any
-end
+return if getFFlagUseUGCValidationContext() then validateDependencies else DEPRECATED_validateDependencies :: never
