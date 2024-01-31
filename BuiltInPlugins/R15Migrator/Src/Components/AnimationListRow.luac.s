@@ -31,7 +31,7 @@ PROTO_2:
   GETTABLEKS R4 R5 K2 ["FailedSerialization"]
   JUMPIFNOTEQ R0 R4 [+9]
   GETTABLEKS R4 R1 K3 ["FailedIcon"]
-  LOADK R7 K4 ["UploadAnimation"]
+  LOADK R7 K4 ["AnimationStatus"]
   MOVE R8 R0
   NAMECALL R5 R2 K5 ["getText"]
   CALL R5 3 -1
@@ -41,7 +41,7 @@ PROTO_2:
   JUMPIFNOTEQ R0 R4 [+13]
   GETTABLEKS R4 R1 K3 ["FailedIcon"]
   GETIMPORT R5 K9 [string.format]
-  LOADK R8 K4 ["UploadAnimation"]
+  LOADK R8 K4 ["AnimationStatus"]
   MOVE R9 R0
   NAMECALL R6 R2 K5 ["getText"]
   CALL R6 3 1
@@ -52,31 +52,22 @@ PROTO_2:
   GETTABLEKS R4 R5 K10 ["FailedToGetProductInfo"]
   JUMPIFNOTEQ R0 R4 [+9]
   GETTABLEKS R4 R1 K3 ["FailedIcon"]
-  LOADK R7 K4 ["UploadAnimation"]
+  LOADK R7 K4 ["AnimationStatus"]
   MOVE R8 R0
   NAMECALL R5 R2 K5 ["getText"]
   CALL R5 3 -1
   RETURN R4 -1
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K11 ["RobloxOwnedAnimation"]
-  JUMPIFNOTEQ R0 R4 [+9]
-  GETTABLEKS R4 R1 K12 ["WarningIcon"]
-  LOADK R7 K4 ["UploadAnimation"]
-  MOVE R8 R0
-  NAMECALL R5 R2 K5 ["getText"]
-  CALL R5 3 -1
-  RETURN R4 -1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K13 ["Published"]
+  GETTABLEKS R4 R5 K11 ["Published"]
   JUMPIFNOTEQ R0 R4 [+4]
   LOADNIL R4
   LOADNIL R5
   RETURN R4 2
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K14 ["Done"]
+  GETTABLEKS R4 R5 K12 ["Done"]
   JUMPIFNOTEQ R0 R4 [+9]
-  GETTABLEKS R4 R1 K15 ["DoneIcon"]
-  LOADK R7 K4 ["UploadAnimation"]
+  GETTABLEKS R4 R1 K13 ["DoneIcon"]
+  LOADK R7 K4 ["AnimationStatus"]
   MOVE R8 R0
   NAMECALL R5 R2 K5 ["getText"]
   CALL R5 3 -1
@@ -332,7 +323,7 @@ MAIN:
   GETTABLEKS R17 R18 K21 ["AnimationConversion"]
   GETTABLEKS R16 R17 K22 ["constants"]
   CALL R15 1 1
-  GETTABLEKS R14 R15 K23 ["UploadStatus"]
+  GETTABLEKS R14 R15 K23 ["AnimationStatus"]
   GETTABLEKS R15 R2 K24 ["PureComponent"]
   LOADK R17 K25 ["AnimationListRow"]
   NAMECALL R15 R15 K26 ["extend"]

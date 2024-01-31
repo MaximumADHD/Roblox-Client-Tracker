@@ -1,8 +1,7 @@
 PROTO_0:
   NEWTABLE R1 0 2
   DUPTABLE R2 K2 [{"Label", "Value"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["Filename"]
+  LOADK R3 K3 ["Filename"]
   SETTABLEKS R3 R2 K0 ["Label"]
   GETTABLEKS R4 R0 K4 ["File"]
   JUMPIFNOT R4 [+5]
@@ -12,8 +11,7 @@ PROTO_0:
   LOADK R3 K6 [""]
   SETTABLEKS R3 R2 K1 ["Value"]
   DUPTABLE R3 K2 [{"Label", "Value"}]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K7 ["Dimensions"]
+  LOADK R4 K7 ["Dimensions"]
   SETTABLEKS R4 R3 K0 ["Label"]
   LOADK R5 K8 ["%*x%*px"]
   GETTABLEKS R7 R0 K9 ["Width"]
@@ -35,7 +33,5 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Src"]
   GETTABLEKS R2 R3 K7 ["Types"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["MetadataItem"]
-  DUPCLOSURE R3 K9 [PROTO_0]
-  CAPTURE VAL R2
-  RETURN R3 1
+  DUPCLOSURE R2 K8 [PROTO_0]
+  RETURN R2 1

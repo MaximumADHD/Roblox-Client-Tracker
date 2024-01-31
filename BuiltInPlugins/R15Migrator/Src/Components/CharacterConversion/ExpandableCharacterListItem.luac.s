@@ -4,60 +4,60 @@ PROTO_0:
   GETTABLEKS R3 R1 K2 ["Expanded"]
   GETTABLEKS R4 R1 K3 ["Selected"]
   GETTABLEKS R5 R1 K4 ["RenderContent"]
-  GETTABLEKS R6 R2 K5 ["BackgroundColor"]
+  LOADNIL R6
   LOADNIL R7
   LOADNIL R8
   JUMPIFNOT R4 [+5]
-  LOADK R8 K6 ["BorderBox"]
-  GETTABLEKS R7 R2 K7 ["SelectedBorderColor"]
-  GETTABLEKS R6 R2 K8 ["SelectedColor"]
-  GETTABLEKS R9 R1 K9 ["LayoutOrder"]
+  LOADK R8 K5 ["BorderBox"]
+  GETTABLEKS R7 R2 K6 ["SelectedBorderColor"]
+  GETTABLEKS R6 R2 K7 ["SelectedColor"]
+  GETTABLEKS R9 R1 K8 ["LayoutOrder"]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K10 ["new"]
+  GETTABLEKS R10 R11 K9 ["new"]
   CALL R10 0 1
   GETUPVAL R12 1
-  GETTABLEKS R11 R12 K11 ["createElement"]
+  GETTABLEKS R11 R12 K10 ["createElement"]
   GETUPVAL R12 2
-  DUPTABLE R13 K19 [{"BorderColor", "BackgroundColor3", "Style", "AutomaticSize", "Layout", "LayoutOrder", "HorizontalAlignment", "VerticalAlignment"}]
-  SETTABLEKS R7 R13 K12 ["BorderColor"]
-  SETTABLEKS R6 R13 K13 ["BackgroundColor3"]
-  SETTABLEKS R8 R13 K14 ["Style"]
-  GETIMPORT R14 K22 [Enum.AutomaticSize.Y]
-  SETTABLEKS R14 R13 K15 ["AutomaticSize"]
-  GETIMPORT R14 K25 [Enum.FillDirection.Vertical]
-  SETTABLEKS R14 R13 K16 ["Layout"]
-  SETTABLEKS R9 R13 K9 ["LayoutOrder"]
-  GETIMPORT R14 K27 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R14 R13 K17 ["HorizontalAlignment"]
-  GETIMPORT R14 K29 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R14 R13 K18 ["VerticalAlignment"]
-  DUPTABLE R14 K32 [{"Header", "Container"}]
-  NAMECALL R17 R10 K33 ["getNextOrder"]
+  DUPTABLE R13 K18 [{"BorderColor", "BackgroundColor3", "Style", "AutomaticSize", "Layout", "LayoutOrder", "HorizontalAlignment", "VerticalAlignment"}]
+  SETTABLEKS R7 R13 K11 ["BorderColor"]
+  SETTABLEKS R6 R13 K12 ["BackgroundColor3"]
+  SETTABLEKS R8 R13 K13 ["Style"]
+  GETIMPORT R14 K21 [Enum.AutomaticSize.Y]
+  SETTABLEKS R14 R13 K14 ["AutomaticSize"]
+  GETIMPORT R14 K24 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K15 ["Layout"]
+  SETTABLEKS R9 R13 K8 ["LayoutOrder"]
+  GETIMPORT R14 K26 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R14 R13 K16 ["HorizontalAlignment"]
+  GETIMPORT R14 K28 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R14 R13 K17 ["VerticalAlignment"]
+  DUPTABLE R14 K31 [{"Header", "Container"}]
+  NAMECALL R17 R10 K32 ["getNextOrder"]
   CALL R17 1 -1
-  NAMECALL R15 R0 K34 ["renderHeader"]
+  NAMECALL R15 R0 K33 ["renderHeader"]
   CALL R15 -1 1
-  SETTABLEKS R15 R14 K30 ["Header"]
+  SETTABLEKS R15 R14 K29 ["Header"]
   JUMPIFNOT R3 [+27]
   GETUPVAL R16 1
-  GETTABLEKS R15 R16 K11 ["createElement"]
+  GETTABLEKS R15 R16 K10 ["createElement"]
   GETUPVAL R16 2
-  DUPTABLE R17 K36 [{"LayoutOrder", "AutomaticSize", "Padding"}]
-  NAMECALL R18 R10 K33 ["getNextOrder"]
+  DUPTABLE R17 K35 [{"LayoutOrder", "AutomaticSize", "Padding"}]
+  NAMECALL R18 R10 K32 ["getNextOrder"]
   CALL R18 1 1
-  SETTABLEKS R18 R17 K9 ["LayoutOrder"]
-  GETIMPORT R18 K38 [Enum.AutomaticSize.XY]
-  SETTABLEKS R18 R17 K15 ["AutomaticSize"]
-  GETTABLEKS R19 R2 K39 ["Content"]
-  GETTABLEKS R18 R19 K35 ["Padding"]
-  SETTABLEKS R18 R17 K35 ["Padding"]
-  DUPTABLE R18 K40 [{"Content"}]
+  SETTABLEKS R18 R17 K8 ["LayoutOrder"]
+  GETIMPORT R18 K37 [Enum.AutomaticSize.XY]
+  SETTABLEKS R18 R17 K14 ["AutomaticSize"]
+  GETTABLEKS R19 R2 K38 ["Content"]
+  GETTABLEKS R18 R19 K34 ["Padding"]
+  SETTABLEKS R18 R17 K34 ["Padding"]
+  DUPTABLE R18 K39 [{"Content"}]
   MOVE R19 R5
   CALL R19 0 1
-  SETTABLEKS R19 R18 K39 ["Content"]
+  SETTABLEKS R19 R18 K38 ["Content"]
   CALL R15 3 1
   JUMP [+1]
   LOADNIL R15
-  SETTABLEKS R15 R14 K31 ["Container"]
+  SETTABLEKS R15 R14 K30 ["Container"]
   CALL R11 3 -1
   RETURN R11 -1
 

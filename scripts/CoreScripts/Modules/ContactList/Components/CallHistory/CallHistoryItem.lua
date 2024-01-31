@@ -11,8 +11,6 @@ local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundG
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
-local GetFFlagIrisEnumerateCleanupEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisEnumerateCleanupEnabled
 local GetFFlagIrisUseLocalizationProvider =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 
@@ -77,12 +75,7 @@ export type Props = {
 }
 
 local function getIsMissedCall(callRecord, localUserId)
-	if GetFFlagIrisEnumerateCleanupEnabled() then
-		return callRecord.callerId ~= localUserId and callRecord.status ~= CallState.Finished
-	else
-		return callRecord.callerId ~= localUserId
-			and (CallState :: any).fromRawValue(callRecord.status) ~= CallState.Finished
-	end
+	return callRecord.callerId ~= localUserId and callRecord.status ~= CallState.Finished
 end
 
 local function getCallStatusText(callRecord, localUserId)

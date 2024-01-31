@@ -15,25 +15,30 @@
 	`-- bar (ModuleScript)
 ]]
 
+local FFlagRemoveLuaInitify = game:DefineFastFlag("RemoveLuaInitify", false)
+
 local function initify(rbx: Instance)
-	local init = rbx:FindFirstChild("init")
+	if not FFlagRemoveLuaInitify then
+		local init = rbx:FindFirstChild("init")
 
-	if init then
-		init.Name = rbx.Name
-		init.Parent = rbx.Parent
-
-		for _, child in ipairs(rbx:GetChildren()) do
-			child.Parent = init
+		if init then
+			init.Name = rbx.Name
+			init.Parent = rbx.Parent
+	
+			for _, child in ipairs(rbx:GetChildren()) do
+				child.Parent = init
+			end
+	
+			rbx:Destroy()
+			rbx = init
 		end
-
-		rbx:Destroy()
-		rbx = init
+	
+		for _, child in ipairs(rbx:GetChildren()) do
+			initify(child)
+		end
+	
+		return rbx
 	end
-
-	for _, child in ipairs(rbx:GetChildren()) do
-		initify(child)
-	end
-
 	return rbx
 end
 

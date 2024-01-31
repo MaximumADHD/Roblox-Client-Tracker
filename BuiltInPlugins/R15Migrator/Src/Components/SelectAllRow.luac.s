@@ -21,55 +21,53 @@ PROTO_0:
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K11 ["createElement"]
   GETUPVAL R12 2
-  DUPTABLE R13 K17 [{"BackgroundColor3", "Size", "LayoutOrder", "HorizontalAlignment", "VerticalAlignment", "Layout", "Padding", "Spacing"}]
-  GETTABLEKS R14 R2 K18 ["BackgroundColor"]
-  SETTABLEKS R14 R13 K12 ["BackgroundColor3"]
-  GETIMPORT R14 K20 [UDim2.new]
+  DUPTABLE R13 K16 [{"Size", "LayoutOrder", "HorizontalAlignment", "VerticalAlignment", "Layout", "Padding", "Spacing"}]
+  GETIMPORT R14 K18 [UDim2.new]
   LOADN R15 1
   LOADN R16 0
   LOADN R17 0
   MOVE R18 R7
   CALL R14 4 1
-  SETTABLEKS R14 R13 K13 ["Size"]
+  SETTABLEKS R14 R13 K12 ["Size"]
   SETTABLEKS R4 R13 K4 ["LayoutOrder"]
-  GETIMPORT R14 K23 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R14 R13 K14 ["HorizontalAlignment"]
-  GETIMPORT R14 K25 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R14 R13 K15 ["VerticalAlignment"]
-  GETIMPORT R14 K28 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R14 R13 K16 ["Layout"]
+  GETIMPORT R14 K21 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R14 R13 K13 ["HorizontalAlignment"]
+  GETIMPORT R14 K23 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R14 R13 K14 ["VerticalAlignment"]
+  GETIMPORT R14 K26 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R14 R13 K15 ["Layout"]
   SETTABLEKS R5 R13 K5 ["Padding"]
   SETTABLEKS R6 R13 K6 ["Spacing"]
-  DUPTABLE R14 K31 [{"Checkbox", "SelectAllLabel"}]
+  DUPTABLE R14 K29 [{"Checkbox", "SelectAllLabel"}]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K11 ["createElement"]
   GETUPVAL R16 3
-  DUPTABLE R17 K34 [{"LayoutOrder", "Checked", "OnClick"}]
-  NAMECALL R18 R10 K35 ["getNextOrder"]
+  DUPTABLE R17 K32 [{"LayoutOrder", "Checked", "OnClick"}]
+  NAMECALL R18 R10 K33 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K4 ["LayoutOrder"]
-  SETTABLEKS R8 R17 K32 ["Checked"]
-  SETTABLEKS R9 R17 K33 ["OnClick"]
+  SETTABLEKS R8 R17 K30 ["Checked"]
+  SETTABLEKS R9 R17 K31 ["OnClick"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K29 ["Checkbox"]
+  SETTABLEKS R15 R14 K27 ["Checkbox"]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K11 ["createElement"]
   GETUPVAL R16 4
-  DUPTABLE R17 K39 [{"LayoutOrder", "Text", "Style", "AutomaticSize"}]
-  NAMECALL R18 R10 K35 ["getNextOrder"]
+  DUPTABLE R17 K37 [{"LayoutOrder", "Text", "Style", "AutomaticSize"}]
+  NAMECALL R18 R10 K33 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K4 ["LayoutOrder"]
-  LOADK R20 K40 ["ScriptConversion"]
-  LOADK R21 K41 ["SelectAll"]
-  NAMECALL R18 R3 K42 ["getText"]
+  LOADK R20 K38 ["ScriptConversion"]
+  LOADK R21 K39 ["SelectAll"]
+  NAMECALL R18 R3 K40 ["getText"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K36 ["Text"]
-  GETTABLEKS R18 R2 K43 ["TextConfig"]
-  SETTABLEKS R18 R17 K37 ["Style"]
-  GETIMPORT R18 K45 [Enum.AutomaticSize.XY]
-  SETTABLEKS R18 R17 K38 ["AutomaticSize"]
+  SETTABLEKS R18 R17 K34 ["Text"]
+  GETTABLEKS R18 R2 K41 ["TextConfig"]
+  SETTABLEKS R18 R17 K35 ["Style"]
+  GETIMPORT R18 K43 [Enum.AutomaticSize.XY]
+  SETTABLEKS R18 R17 K36 ["AutomaticSize"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K30 ["SelectAllLabel"]
+  SETTABLEKS R15 R14 K28 ["SelectAllLabel"]
   CALL R11 3 -1
   RETURN R11 -1
 

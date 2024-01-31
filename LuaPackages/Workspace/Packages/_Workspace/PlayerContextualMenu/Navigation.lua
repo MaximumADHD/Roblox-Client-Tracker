@@ -9,6 +9,7 @@ export type Action = Package.Action
 export type RouteState = Package.RouteState
 export type NavigationState = Package.NavigationState
 export type NavigationObject = Package.NavigationObject
+export type ScreenProps = Package.ScreenProps
 
 
 return Package

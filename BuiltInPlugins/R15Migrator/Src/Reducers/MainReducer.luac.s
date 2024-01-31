@@ -1,3 +1,10 @@
+PROTO_0:
+  GETTABLEKS R2 R1 K0 ["type"]
+  JUMPIFNOTEQKS R2 K1 ["SetAvatarType"] [+4]
+  GETTABLEKS R2 R1 K2 ["avatarType"]
+  RETURN R2 1
+  RETURN R0 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -29,10 +36,12 @@ MAIN:
   GETTABLEKS R6 R7 K10 ["Adapter"]
   CALL R5 1 1
   GETTABLEKS R6 R1 K11 ["combineReducers"]
-  DUPTABLE R7 K12 [{"AnimationConversion", "CharacterConversion", "ScriptConversion", "Adapter"}]
+  DUPTABLE R7 K13 [{"AnimationConversion", "CharacterConversion", "ScriptConversion", "Adapter", "AvatarType"}]
   SETTABLEKS R2 R7 K7 ["AnimationConversion"]
   SETTABLEKS R3 R7 K8 ["CharacterConversion"]
   SETTABLEKS R4 R7 K9 ["ScriptConversion"]
   SETTABLEKS R5 R7 K10 ["Adapter"]
+  DUPCLOSURE R8 K14 [PROTO_0]
+  SETTABLEKS R8 R7 K12 ["AvatarType"]
   CALL R6 1 1
   RETURN R6 1

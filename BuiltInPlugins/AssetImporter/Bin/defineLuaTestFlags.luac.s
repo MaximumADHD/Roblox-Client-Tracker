@@ -6,22 +6,22 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["ShowRigSettingsNoJoints"]
+  LOADK R2 K4 ["HideAnimationSettingForGltf"]
   LOADB R3 1
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K5 ["HideAnimationSettingForGltf"]
+  LOADK R2 K5 ["AinStatusesV2Release"]
   LOADB R3 1
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K6 ["AinStatusesV2Release"]
+  LOADK R2 K6 ["ImporterOpensAvatarPreviewerBetaCheck"]
   LOADB R3 1
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K7 ["ImporterOpensAvatarPreviewerBetaCheck"]
+  LOADK R2 K7 ["AssetImportUseUploadId"]
   LOADB R3 1
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

@@ -30,15 +30,15 @@ PROTO_1:
   LOADK R10 K8 ["Title"]
   NAMECALL R7 R3 K6 ["getText"]
   CALL R7 3 1
-  LOADK R10 K9 ["Upgrades"]
+  LOADK R10 K9 ["UpgradeSettings"]
   LOADK R11 K10 ["ActionButton"]
   NAMECALL R8 R3 K6 ["getText"]
   CALL R8 3 1
-  LOADK R11 K9 ["Upgrades"]
+  LOADK R11 K9 ["UpgradeSettings"]
   LOADK R12 K11 ["LearnMore"]
   NAMECALL R9 R3 K6 ["getText"]
   CALL R9 3 1
-  LOADK R12 K9 ["Upgrades"]
+  LOADK R12 K9 ["UpgradeSettings"]
   LOADK R13 K12 ["LearnMoreLink"]
   NAMECALL R10 R3 K6 ["getText"]
   CALL R10 3 1

@@ -8,19 +8,19 @@ local var5 = require(var0.Src.Components.ReplaceOptionsPane)
 local var6 = var2.PureComponent:extend("ReplacementRulesExpandablePane")
 function var6.render(arg1)
    local var0 = arg1.props
+   local var1 = var0.Stylizer
    local var32 = {}
-   var32.BackgroundColor = var0.Stylizer.BackgroundColor
    var32.Size = var0.Size
    var32.Style = "Section"
    var32.LayoutOrder = var0.LayoutOrder
    var32.Text = "Replacement Rules"
    var32.Expanded = true
-   local var37 = {}
-   var37.ReplaceOptionsPane = var2.createElement(var5)
-   return var2.createElement(var4, var32, var37)
+   local var36 = {}
+   var36.ReplaceOptionsPane = var2.createElement(var5)
+   return var2.createElement(var4, var32, var36)
 end
 
-local var44 = {}
-var44.Stylizer = var3.Stylizer
-var6 = var3.withContext(var44)(var6)
+local var43 = {}
+var43.Stylizer = var3.Stylizer
+var6 = var3.withContext(var43)(var6)
 return var6

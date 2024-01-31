@@ -21,7 +21,7 @@ var3.State = var50
 var3.IgnoreWater = false
 var3.IgnoreParts = true
 var34.Defaults = {}
-var34.Id = var2.Categories.BrushSettings
+var34.Id = var2.Category.BrushSettings
 var34.Schema = require(var0.Src.Schemas.Settings.Brush)
 local var62 = {}
 var62.Id = var4.Brush
@@ -33,7 +33,7 @@ var66.Id = var4.Plane
 local var68 = {}
 var68.Type = var4.Plane
 var66.Schema = var68
-local var10 = var1:new(var2.Tools.Smooth, var2.ToolCategories.Edit, {}, {})
+local var10 = var1:new(var2.Tool.Smooth, var2.Tab.Edit, {}, {})
 function var10.saveForm(arg1, arg2)
    local var78 = var1
    var78 = arg1

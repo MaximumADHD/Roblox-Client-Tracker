@@ -61,67 +61,65 @@ PROTO_2:
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K5 ["createElement"]
   GETUPVAL R6 2
-  DUPTABLE R7 K17 [{"BackgroundColor3", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
-  GETTABLEKS R8 R2 K18 ["BackgroundColor"]
-  SETTABLEKS R8 R7 K13 ["BackgroundColor3"]
-  GETIMPORT R8 K22 [Enum.FillDirection.Vertical]
-  SETTABLEKS R8 R7 K14 ["Layout"]
-  GETIMPORT R8 K24 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R8 R7 K15 ["HorizontalAlignment"]
-  GETIMPORT R8 K26 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R8 R7 K16 ["VerticalAlignment"]
-  DUPTABLE R8 K30 [{"Instructions", "MainView", "Footer"}]
+  DUPTABLE R7 K16 [{"Layout", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R8 K20 [Enum.FillDirection.Vertical]
+  SETTABLEKS R8 R7 K13 ["Layout"]
+  GETIMPORT R8 K22 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R8 R7 K14 ["HorizontalAlignment"]
+  GETIMPORT R8 K24 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R8 R7 K15 ["VerticalAlignment"]
+  DUPTABLE R8 K28 [{"Instructions", "MainView", "Footer"}]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
   GETUPVAL R10 4
-  DUPTABLE R11 K34 [{"LayoutOrder", "Message", "Height"}]
-  NAMECALL R12 R4 K35 ["getNextOrder"]
+  DUPTABLE R11 K32 [{"LayoutOrder", "Message", "Height"}]
+  NAMECALL R12 R4 K33 ["getNextOrder"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K31 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K29 ["LayoutOrder"]
   LOADK R14 K10 ["CharacterConversion"]
-  LOADK R15 K27 ["Instructions"]
+  LOADK R15 K25 ["Instructions"]
   NAMECALL R12 R3 K12 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K32 ["Message"]
-  GETTABLEKS R12 R2 K36 ["InstructionsHeight"]
-  SETTABLEKS R12 R11 K33 ["Height"]
+  SETTABLEKS R12 R11 K30 ["Message"]
+  GETTABLEKS R12 R2 K34 ["InstructionsHeight"]
+  SETTABLEKS R12 R11 K31 ["Height"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K27 ["Instructions"]
+  SETTABLEKS R9 R8 K25 ["Instructions"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
   GETUPVAL R10 5
-  DUPTABLE R11 K38 [{"LayoutOrder", "Size"}]
-  NAMECALL R12 R4 K35 ["getNextOrder"]
+  DUPTABLE R11 K36 [{"LayoutOrder", "Size"}]
+  NAMECALL R12 R4 K33 ["getNextOrder"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K31 ["LayoutOrder"]
-  GETIMPORT R12 K40 [UDim2.new]
+  SETTABLEKS R12 R11 K29 ["LayoutOrder"]
+  GETIMPORT R12 K38 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 1
-  GETTABLEKS R18 R2 K41 ["FooterHeight"]
+  GETTABLEKS R18 R2 K39 ["FooterHeight"]
   MINUS R17 R18
-  GETTABLEKS R18 R2 K36 ["InstructionsHeight"]
+  GETTABLEKS R18 R2 K34 ["InstructionsHeight"]
   SUB R16 R17 R18
   CALL R12 4 1
-  SETTABLEKS R12 R11 K37 ["Size"]
+  SETTABLEKS R12 R11 K35 ["Size"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K28 ["MainView"]
+  SETTABLEKS R9 R8 K26 ["MainView"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
   GETUPVAL R10 6
-  DUPTABLE R11 K38 [{"LayoutOrder", "Size"}]
-  NAMECALL R12 R4 K35 ["getNextOrder"]
+  DUPTABLE R11 K36 [{"LayoutOrder", "Size"}]
+  NAMECALL R12 R4 K33 ["getNextOrder"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K31 ["LayoutOrder"]
-  GETIMPORT R12 K40 [UDim2.new]
+  SETTABLEKS R12 R11 K29 ["LayoutOrder"]
+  GETIMPORT R12 K38 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
-  GETTABLEKS R16 R2 K41 ["FooterHeight"]
+  GETTABLEKS R16 R2 K39 ["FooterHeight"]
   CALL R12 4 1
-  SETTABLEKS R12 R11 K37 ["Size"]
+  SETTABLEKS R12 R11 K35 ["Size"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K29 ["Footer"]
+  SETTABLEKS R9 R8 K27 ["Footer"]
   CALL R5 3 -1
   RETURN R5 -1
 

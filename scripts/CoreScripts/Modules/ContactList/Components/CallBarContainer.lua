@@ -34,8 +34,6 @@ local CallAction = RoduxCall.Enums.CallAction
 local Components = script.Parent
 local CallBar = require(Components.CallBar)
 
-local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
-
 local CALL_BAR_SIZE = Vector2.new(200, 44)
 local CALL_BAR_PADDING = 4
 local CALL_BAR_MARGIN = 12
@@ -173,11 +171,7 @@ local function CallBarContainer(passedProps: Props)
 				)
 			end
 
-			if FFlagUseRoduxCall18 then
-				dispatch(RoduxCall.Actions.UpdateCall(params))
-			else
-				dispatch(RoduxCall.Actions.ConnectingCall(params))
-			end
+			dispatch(RoduxCall.Actions.UpdateCall(params))
 		end)
 
 		local teleportingCallConn = props.callProtocol:listenToHandleTeleportingCall(function(params)
@@ -191,11 +185,7 @@ local function CallBarContainer(passedProps: Props)
 		end)
 
 		local activeCallConn = props.callProtocol:listenToHandleActiveCall(function(params)
-			if FFlagUseRoduxCall18 then
-				dispatch(RoduxCall.Actions.UpdateCall(params))
-			else
-				dispatch(RoduxCall.Actions.StartCall(params))
-			end
+			dispatch(RoduxCall.Actions.UpdateCall(params))
 		end)
 
 		local transferCallTeleportJoinConn = props.callProtocol:listenToHandleTransferCallTeleportJoin(function()
@@ -233,23 +223,10 @@ local function CallBarContainer(passedProps: Props)
 	end
 
 	React.useEffect(function()
-		local isVisible = currentCallStatus
-				== (if FFlagUseRoduxCall18
-					then RoduxCall.Enums.Status.Connecting
-					else RoduxCall.Enums.Status.Connecting.rawValue())
-			or currentCallStatus == (if FFlagUseRoduxCall18
-				then RoduxCall.Enums.Status.Teleporting
-				else RoduxCall.Enums.Status.Teleporting.rawValue())
-			or currentCallStatus == (if FFlagUseRoduxCall18
-				then RoduxCall.Enums.Status.Active
-				else RoduxCall.Enums.Status.Active.rawValue())
-			or (
-				currentCallStatus
-					== (if FFlagUseRoduxCall18
-						then RoduxCall.Enums.Status.Idle
-						else RoduxCall.Enums.Status.Idle.rawValue())
-				and game.JobId == instanceId
-			)
+		local isVisible = currentCallStatus == RoduxCall.Enums.Status.Connecting
+			or currentCallStatus == RoduxCall.Enums.Status.Teleporting
+			or currentCallStatus == RoduxCall.Enums.Status.Active
+			or (currentCallStatus == RoduxCall.Enums.Status.Idle and game.JobId == instanceId)
 
 		if IrisUnibarEnabled() then
 			if isVisible then
@@ -307,25 +284,21 @@ local function CallBarContainer(passedProps: Props)
 
 	React.useEffect(function()
 		local endCallConn = props.callProtocol:listenToHandleEndCall(function(params)
-			if params.callAction == if FFlagUseRoduxCall18 then CallAction.Cancel else CallAction.Cancel.rawValue() then
+			if params.callAction == CallAction.Cancel then
 				SoundManager:StopSound(Sounds.Ringtone.Name)
 				if GetFFlagSoundManagerRefactor() then
 					SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
 				else
 					SoundManager:PlaySound_old(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 				end
-			elseif
-				params.callAction == if FFlagUseRoduxCall18 then CallAction.Decline else CallAction.Decline.rawValue()
-			then
+			elseif params.callAction == CallAction.Decline then
 				SoundManager:StopSound(Sounds.Ringtone.Name)
 				if GetFFlagSoundManagerRefactor() then
 					SoundManager:PlaySound(Sounds.CallDecline.Name, { Volume = 0.5 }, SoundGroups.Iris)
 				else
 					SoundManager:PlaySound_old(Sounds.CallDecline.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 				end
-			elseif
-				params.callAction == if FFlagUseRoduxCall18 then CallAction.Finish else CallAction.Finish.rawValue()
-			then
+			elseif params.callAction == CallAction.Finish then
 				if GetFFlagSoundManagerRefactor() then
 					SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
 				else

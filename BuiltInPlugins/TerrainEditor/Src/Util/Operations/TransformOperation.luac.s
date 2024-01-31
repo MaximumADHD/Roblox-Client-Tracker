@@ -273,7 +273,7 @@ MAIN:
   GETTABLEKS R7 R0 K6 ["Src"]
   GETTABLEKS R6 R7 K12 ["Types"]
   CALL R5 1 1
-  GETTABLEKS R6 R5 K13 ["Categories"]
+  GETTABLEKS R6 R5 K13 ["Category"]
   GETTABLEKS R7 R5 K14 ["SelectionSettings"]
   GETTABLEKS R8 R5 K15 ["TransformMode"]
   GETTABLEKS R9 R5 K16 ["TransformSettings"]

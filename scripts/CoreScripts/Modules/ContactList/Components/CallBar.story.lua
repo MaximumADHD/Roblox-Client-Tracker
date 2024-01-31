@@ -22,8 +22,6 @@ local GraphQLServer = require(CorePackages.Workspace.Packages.GraphQLServer)
 local ApolloClientTestUtils = GraphQLServer.ApolloClientTestUtils
 local mockApolloClient = ApolloClientTestUtils.mockApolloClient
 
-local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
-
 local client = mockApolloClient({})
 local function writeNameQuery(userId: string, username: string)
 	UserProfiles.Mutations.writeNamesQuery({
@@ -61,9 +59,7 @@ return {
 	state = {
 		Call = {
 			currentCall = {
-				status = if FFlagUseRoduxCall18
-					then RoduxCall.Enums.Status.Active
-					else RoduxCall.Enums.Status.Active.rawValue(),
+				status = RoduxCall.Enums.Status.Active,
 				callerId = 11111111,
 				calleeId = 12345678,
 				placeId = 789,

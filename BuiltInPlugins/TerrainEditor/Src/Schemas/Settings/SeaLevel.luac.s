@@ -179,7 +179,7 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Src"]
   GETTABLEKS R3 R4 K9 ["Types"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K10 ["Categories"]
+  GETTABLEKS R3 R2 K10 ["Category"]
   GETTABLEKS R4 R2 K11 ["SeaLevelSettings"]
   GETTABLEKS R5 R2 K12 ["Storage"]
   GETTABLEKS R6 R3 K11 ["SeaLevelSettings"]

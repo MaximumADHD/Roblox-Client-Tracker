@@ -65,6 +65,9 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	onNameUpdated = t.callback,
 	canSubmit = t.callback,
 	onSubmit = t.callback,
+	enableInputDelayed = t.optional(t.boolean),
+	isDelayedInput = t.optional(t.boolean),
+	delayInputSeconds = t.optional(t.number),
 
 	-- Mapped state
 	guid = t.any,
@@ -285,6 +288,9 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 								buttonType = ButtonType.PrimarySystem,
 								props = {
 									isDisabled = not self.props.canSubmit(),
+									isDelayedInput = self.props.isDelayedInput,
+									enableInputDelayed = self.props.enableInputDelayed,
+									delayInputSeconds = self.props.delayInputSeconds,
 									onActivated = self.confirmAndUpload,
 									text = localized[SUBMIT_TEXT],
 								},

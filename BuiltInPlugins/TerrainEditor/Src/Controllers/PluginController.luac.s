@@ -254,7 +254,7 @@ MAIN:
   GETTABLEKS R5 R6 K12 ["Types"]
   CALL R4 1 1
   GETTABLEKS R5 R4 K13 ["BrushSettings"]
-  GETTABLEKS R6 R4 K14 ["Categories"]
+  GETTABLEKS R6 R4 K14 ["Category"]
   GETTABLEKS R7 R4 K15 ["PlaneLock"]
   GETTABLEKS R8 R4 K16 ["SelectionSettings"]
   GETTABLEKS R9 R4 K17 ["TransformMode"]

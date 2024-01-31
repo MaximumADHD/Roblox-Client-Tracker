@@ -107,10 +107,10 @@ MAIN:
   GETTABLEKS R5 R0 K8 ["Src"]
   GETTABLEKS R4 R5 K12 ["Types"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K13 ["Categories"]
+  GETTABLEKS R4 R3 K13 ["Category"]
   GETTABLEKS R5 R3 K14 ["ClearSettings"]
-  GETTABLEKS R6 R3 K15 ["ToolCategories"]
-  GETTABLEKS R7 R3 K16 ["Tools"]
+  GETTABLEKS R6 R3 K15 ["Tab"]
+  GETTABLEKS R7 R3 K16 ["Tool"]
   NEWTABLE R8 0 1
   DUPTABLE R9 K20 [{"Defaults", "Id", "Schema"}]
   NEWTABLE R10 0 0

@@ -46,8 +46,6 @@ local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local useStartCallCallback = require(ContactList.Hooks.useStartCallCallback)
 local Pages = require(ContactList.Enums.Pages)
 
-local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
-
 local rng = Random.new()
 
 export type Props = {
@@ -152,9 +150,7 @@ local function FriendListItem(props: Props)
 			lastLocation = presence.lastLocation
 		else
 			userPresenceType = if props.userPresenceType
-				then if FFlagUseRoduxCall18
-					then EnumPresenceType[props.userPresenceType]
-					else EnumPresenceType.fromRawValue(props.userPresenceType)
+				then EnumPresenceType[props.userPresenceType]
 				else EnumPresenceType.Offline
 			lastLocation = props.lastLocation or ""
 		end

@@ -27,7 +27,6 @@ local SelfViewAPI = require(Modules.SelfView.publicApi)
 local toggleSelfViewSignal = require(Modules.SelfView.toggleSelfViewSignal)
 local Analytics = require(Modules.SelfView.Analytics).new()
 local GetFFlagLocalMutedNilFix = require(Modules.Flags.GetFFlagLocalMutedNilFix)
-local GetFFlagMicHandlingParity = require(Modules.Flags.GetFFlagMicHandlingParity)
 local VoiceConstants = require(Modules.VoiceChat.Constants)
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
@@ -79,19 +78,10 @@ function ControlsBubble:init()
 				return
 			end
 
-			if GetFFlagMicHandlingParity() then
-				if self.props.voiceState == Constants.VOICE_STATE.ERROR then
-					VoiceChatServiceManager:RejoinPreviousChannel()
-				elseif self.props.voiceState == Constants.VOICE_STATE.CONNECTING then
-					VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
-				else
-					Analytics:setLastCtx("bubbleChatToggle")
-					VoiceChatServiceManager:ToggleMic("LegacyBubbleChatToggle")
-
-					self:setState({
-						microphoneEnabled = not VoiceChatServiceManager.localMuted,
-					})
-				end
+			if self.props.voiceState == Constants.VOICE_STATE.ERROR then
+				VoiceChatServiceManager:RejoinPreviousChannel()
+			elseif self.props.voiceState == Constants.VOICE_STATE.CONNECTING then
+				VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 			else
 				Analytics:setLastCtx("bubbleChatToggle")
 				VoiceChatServiceManager:ToggleMic("LegacyBubbleChatToggle")

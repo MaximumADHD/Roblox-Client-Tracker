@@ -135,11 +135,15 @@ var178.FramePadding = 3
 var178.TextMargin = 2
 var4.Note = var178
 var4:add("BrushSizeRenderer")
-local var24 = {}
-var24.LabelWidth = 20
-var24.LockButtonWidth = 26
-var24.RowHeight = 24
-var24.Locked = var2.Locked
-var24.Unlocked = var2.Unlocked
-var4.BrushSizeRenderer = var24
+local var187 = {}
+var187.LabelWidth = 20
+var187.LockButtonWidth = 26
+var187.RowHeight = 24
+var187.Locked = var2.Locked
+var187.Unlocked = var2.Unlocked
+var4.BrushSizeRenderer = var187
+var4:add("MultiSelectionRenderer")
+local var25 = {}
+var25.Spacing = 4
+var4.MultiSelectionRenderer = var25
 return {}

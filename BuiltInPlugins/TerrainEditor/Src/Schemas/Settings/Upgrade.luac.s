@@ -39,10 +39,10 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Src"]
   GETTABLEKS R3 R4 K9 ["Types"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K10 ["Categories"]
+  GETTABLEKS R3 R2 K10 ["Category"]
   GETTABLEKS R4 R2 K11 ["Storage"]
-  GETTABLEKS R5 R2 K12 ["Upgrades"]
-  GETTABLEKS R6 R3 K12 ["Upgrades"]
+  GETTABLEKS R5 R2 K12 ["UpgradeSettings"]
+  GETTABLEKS R6 R3 K12 ["UpgradeSettings"]
   GETIMPORT R7 K14 [game]
   LOADK R9 K15 ["Shorelines_LearnMoreUrl"]
   NAMECALL R7 R7 K16 ["GetFastString"]

@@ -274,7 +274,7 @@ PROTO_7:
   GETTABLEKS R10 R6 K1 ["Id"]
   SETTABLEKS R10 R9 K1 ["Id"]
   GETTABLEKS R10 R0 K6 ["_localization"]
-  LOADK R12 K7 ["Categories"]
+  LOADK R12 K7 ["Category"]
   GETTABLEKS R13 R6 K1 ["Id"]
   NAMECALL R10 R10 K8 ["getText"]
   CALL R10 3 1

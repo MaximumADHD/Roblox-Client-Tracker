@@ -6,23 +6,21 @@ PROTO_0:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K4 ["createElement"]
   GETUPVAL R6 1
-  DUPTABLE R7 K9 [{"BackgroundColor", "Size", "Style", "LayoutOrder", "Text", "Expanded"}]
-  GETTABLEKS R8 R3 K5 ["BackgroundColor"]
-  SETTABLEKS R8 R7 K5 ["BackgroundColor"]
+  DUPTABLE R7 K8 [{"Size", "Style", "LayoutOrder", "Text", "Expanded"}]
   SETTABLEKS R4 R7 K3 ["Size"]
-  LOADK R8 K10 ["Section"]
-  SETTABLEKS R8 R7 K6 ["Style"]
+  LOADK R8 K9 ["Section"]
+  SETTABLEKS R8 R7 K5 ["Style"]
   SETTABLEKS R2 R7 K1 ["LayoutOrder"]
-  LOADK R8 K11 ["Replacement Rules"]
-  SETTABLEKS R8 R7 K7 ["Text"]
+  LOADK R8 K10 ["Replacement Rules"]
+  SETTABLEKS R8 R7 K6 ["Text"]
   LOADB R8 1
-  SETTABLEKS R8 R7 K8 ["Expanded"]
-  DUPTABLE R8 K13 [{"ReplaceOptionsPane"}]
+  SETTABLEKS R8 R7 K7 ["Expanded"]
+  DUPTABLE R8 K12 [{"ReplaceOptionsPane"}]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K4 ["createElement"]
   GETUPVAL R10 2
   CALL R9 1 1
-  SETTABLEKS R9 R8 K12 ["ReplaceOptionsPane"]
+  SETTABLEKS R9 R8 K11 ["ReplaceOptionsPane"]
   CALL R5 3 -1
   RETURN R5 -1
 

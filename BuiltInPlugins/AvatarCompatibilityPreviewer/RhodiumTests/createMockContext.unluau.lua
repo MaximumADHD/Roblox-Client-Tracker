@@ -6,10 +6,10 @@ local var3 = require(var0.Src.Util.DEPRECATED_PlacesServiceWrapper)
 local var4 = require(var0.Src.Resources.MakeTheme)
 local var5 = require(var0.Src.Util.SelectionWrapper)
 local var6 = require(var0.Src.Components.PlacesServiceContext)
-local var7 = require(var0.Src.Util.UGCValidationContext)
+local var7 = require(var0.Src.Util.DEPRECATED_UGCValidationContext)
 local var8 = require(var0.Src.Resources.createAnalyticsHandlers)
 local var9 = require(var0.Src.Flags.getFFlagAvatarPreviewerTestingScreen)
-local var10 = require(var0.Src.Flags.getFFlagAvatarPreviewerUGCValidationNotice)
+local var10 = require(var0.Src.Flags.getFFlagAvatarPreviewerUGCWarningsCache)
 local var11 = var2.TestHelpers.Instances.MockAnalyticsService
 local var12 = var2.TestHelpers.Instances.MockSelectionService
 local var13 = var2.TestHelpers.Instances.MockPlugin
@@ -37,7 +37,7 @@ return function()
       local var0 = var3.mock()
       table.insert()
    end
-   if var10() then
+   if not var10() then
       var90 = var5
       local var0 = var7.mockNeverReturns()
       table.insert()

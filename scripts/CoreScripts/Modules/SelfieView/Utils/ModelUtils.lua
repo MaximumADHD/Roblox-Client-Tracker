@@ -6,6 +6,7 @@ local FFlagSelfViewMakeClonePartsNonTransparent = game:DefineFastFlag("SelfViewM
 local FFlagSelfViewMakeClonePartsNonTransparent2 = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent2", false)
 local FFlagSanitizeSelfViewStrict2 = game:DefineFastFlag("SanitizeSelfViewStrict2", false)
 local EngineFeatureAvatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
+local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 
 --we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
 --so for triggering dirty on DescendantAdded or DescendantRemoving we only trigger it for things which make a visual difference
@@ -91,9 +92,22 @@ local function getAnimator(character: Model, timeOut: number): Animator?
 
 	local humanoid: Humanoid? = nil
 	if timeOut > 0 then
-		humanoid = character:WaitForChild("Humanoid", timeOut) :: Humanoid
+		if FFlagSelfViewLookUpHumanoidByType then
+			local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+			if maybeHumanoid:IsA("Humanoid") then
+				humanoid = maybeHumanoid
+			else
+				humanoid = character:FindFirstChildWhichIsA("Humanoid")
+			end
+		else
+			humanoid = character:WaitForChild("Humanoid", timeOut) :: Humanoid
+		end
 	else
-		humanoid = character:FindFirstChild("Humanoid") :: Humanoid
+		if FFlagSelfViewLookUpHumanoidByType then
+			humanoid = character:FindFirstChildWhichIsA("Humanoid")
+		else
+			humanoid = character:FindFirstChild("Humanoid") :: Humanoid
+		end
 	end
 
 	if humanoid ~= nil then

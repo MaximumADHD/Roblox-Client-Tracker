@@ -17,7 +17,7 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["Util"]
   GETTABLEKS R4 R5 K11 ["createUnimplemented"]
   CALL R3 1 1
-  DUPTABLE R4 K18 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "swapEquippedItemsByIndex", "avatarAssets"}]
+  DUPTABLE R4 K19 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "DEPRECATED_swapEquippedItemsByIndex", "avatarAssets"}]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R4 K12 ["equippedItems"]
   MOVE R5 R3
@@ -33,22 +33,26 @@ MAIN:
   CALL R5 1 1
   SETTABLEKS R5 R4 K15 ["removeAllEquippedItems"]
   MOVE R5 R3
-  LOADK R6 K16 ["swapEquippedItemsByIndex"]
+  LOADK R6 K16 ["moveEquippedItemsToIndex"]
   CALL R5 1 1
-  SETTABLEKS R5 R4 K16 ["swapEquippedItemsByIndex"]
-  DUPTABLE R5 K24 [{"accessories", "animation", "clothing", "emotion", "patches"}]
+  SETTABLEKS R5 R4 K16 ["moveEquippedItemsToIndex"]
+  MOVE R5 R3
+  LOADK R6 K17 ["DEPRECATED_swapEquippedItemsByIndex"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K17 ["DEPRECATED_swapEquippedItemsByIndex"]
+  DUPTABLE R5 K25 [{"accessories", "animation", "clothing", "emotion", "patches"}]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K19 ["accessories"]
+  SETTABLEKS R6 R5 K20 ["accessories"]
   LOADNIL R6
-  SETTABLEKS R6 R5 K20 ["animation"]
+  SETTABLEKS R6 R5 K21 ["animation"]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K21 ["clothing"]
+  SETTABLEKS R6 R5 K22 ["clothing"]
   LOADNIL R6
-  SETTABLEKS R6 R5 K22 ["emotion"]
+  SETTABLEKS R6 R5 K23 ["emotion"]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K23 ["patches"]
-  SETTABLEKS R5 R4 K17 ["avatarAssets"]
-  GETTABLEKS R5 R1 K25 ["createContext"]
+  SETTABLEKS R6 R5 K24 ["patches"]
+  SETTABLEKS R5 R4 K18 ["avatarAssets"]
+  GETTABLEKS R5 R1 K26 ["createContext"]
   MOVE R6 R4
   CALL R5 1 -1
   RETURN R5 -1

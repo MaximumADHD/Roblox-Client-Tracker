@@ -13,34 +13,34 @@ function var8.render(arg1)
    local var1 = var0.Localization
    local var2 = var0.Stylizer
    local var3 = var7.new()
-   local var331 = {}
-   var331.Layout = Enum.FillDirection.Horizontal
-   var331.HorizontalAlignment = Enum.HorizontalAlignment.Right
-   var331.VerticalAlignment = Enum.VerticalAlignment.Top
-   var331.LayoutOrder = var0.LayoutOrder
-   var331.AutomaticSize = Enum.AutomaticSize.XY
-   var331.Spacing = var2.Spacing
-   var331.Padding = var2.Padding
-   local var338 = {}
-   local var342 = {}
-   var342.Style = "Round"
-   var342.Text = var1:getText("PublishingBlockedAction", "Close")
-   var342.Size = var2.CloseButtonSize
-   var342.OnClick = var0.OnClose
-   var342.LayoutOrder = var3:getNextOrder()
-   var338.Close = var2.createElement(var6, var342)
-   local var355 = {}
-   var355.Style = "RoundPrimary"
-   var355.Text = var1:getText("PublishingBlockedAction", "GoTo")
-   var355.Size = var2.GoToButtonSize
-   var355.OnClick = var0.OnOpen
-   var355.LayoutOrder = var3:getNextOrder()
-   var338.GoTo = var2.createElement(var6, var355)
-   return var2.createElement(var5, var331, var338)
+   local var332 = {}
+   var332.Layout = Enum.FillDirection.Horizontal
+   var332.HorizontalAlignment = Enum.HorizontalAlignment.Right
+   var332.VerticalAlignment = Enum.VerticalAlignment.Top
+   var332.LayoutOrder = var0.LayoutOrder
+   var332.AutomaticSize = Enum.AutomaticSize.XY
+   var332.Spacing = var2.Spacing
+   var332.Padding = var2.Padding
+   local var339 = {}
+   local var343 = {}
+   var343.Style = "Round"
+   var343.Text = var1:getText("PublishingBlockedAction", "Close")
+   var343.Size = var2.CloseButtonSize
+   var343.OnClick = var0.OnClose
+   var343.LayoutOrder = var3:getNextOrder()
+   var339.Close = var2.createElement(var6, var343)
+   local var356 = {}
+   var356.Style = "RoundPrimary"
+   var356.Text = var1:getText("PublishingBlockedAction", "GoTo")
+   var356.Size = var2.GoToButtonSize
+   var356.OnClick = var0.OnOpen
+   var356.LayoutOrder = var3:getNextOrder()
+   var339.GoTo = var2.createElement(var6, var356)
+   return var2.createElement(var5, var332, var339)
 end
 
-local var367 = {}
-var367.Stylizer = var3.Stylizer
-var367.Localization = var3.Localization
-var8 = var3.withContext(var367)(var8)
+local var368 = {}
+var368.Stylizer = var3.Stylizer
+var368.Localization = var3.Localization
+var8 = var3.withContext(var368)(var8)
 return var8

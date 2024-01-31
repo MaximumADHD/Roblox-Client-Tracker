@@ -4,7 +4,7 @@ local var1 = require(script.Parent.BaseTool)
 local var2 = require(var0.Src.Util.Operations.PaintOperation)
 local var3 = require(var0.Src.Types)
 local var4 = var3.BrushSettings
-local var5 = var3.Categories
+local var5 = var3.Category
 local var6 = var3.Gizmo
 local var7 = var3.MaterialSettings
 local var42 = {}
@@ -41,7 +41,7 @@ var81.Id = var6.Plane
 local var83 = {}
 var83.Type = var6.Plane
 var81.Schema = var83
-local var13 = var1:new(var3.Tools.Paint, var3.ToolCategories.Edit, {}, {})
+local var13 = var1:new(var3.Tool.Paint, var3.Tab.Edit, {}, {})
 function var13.init(arg1, arg2, arg3)
    local var94 = var1
    var94 = arg1

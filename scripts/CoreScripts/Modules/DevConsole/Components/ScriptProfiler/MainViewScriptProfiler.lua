@@ -14,6 +14,10 @@ local ProfilerView = require(script.Parent.ProfilerView)
 local ProfilerFunctionsView = require(script.Parent.ProfilerFunctionsView)
 local ProfilerData = require(script.Parent.ProfilerDataFormatV2)
 
+local ProfilerUtil = require(script.Parent.ProfilerUtil)
+local getPluginFlag = ProfilerUtil.getPluginFlag
+local getDurations = ProfilerUtil.getDurations
+
 local Actions = script.Parent.Parent.Parent.Actions
 local SetScriptProfilerState = require(Actions.SetScriptProfilerState)
 
@@ -29,6 +33,7 @@ local BACKGROUND_COLOR = Constants.Color.UnselectedGray
 local TESTING_DATA = nil -- Assign this to override the data for testing
 
 local LIVE_UPDATE_TEXT = "Live"
+local SHOW_PLUGINS_TEXT = "Plugins"
 
 local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfiler")
 
@@ -37,6 +42,7 @@ local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientRe
 local FFlagScriptProfilerFrequencyControl = game:DefineFastFlag("ScriptProfilerFrequencyControl", false)
 local FFlagScriptProfilerTimedProfiling = game:DefineFastFlag("ScriptProfilerTimedProfiling", false)
 local FFlagScriptProfilerFunctionsView = game:DefineFastFlag("ScriptProfilerFunctionsView", false)
+local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 local FFlagScriptProfilerAverages = game:DefineFastFlag("ScriptProfilerAverages", false)
 local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
 
@@ -111,6 +117,38 @@ local function generateSearchFilters(state, searchTerm: string): (SearchFilterTy
 	return searchFilterFuncs, searchFilterNodes
 end
 
+local function generatePluginDurationOffsets(data: ProfilerData.RootDataFormat?): {[number]: number, Total: number?}
+	if data then
+		assert(data.Version == 2)
+
+		local offsets = table.create(#data.Categories, 0) :: {[number]: number, Total: number}
+
+		local total = 0
+		for index, category in data.Categories do
+			local node = data.Nodes[category.NodeId]
+			local offset = 0
+			local childData = ProfilerUtil.standardizeChildren(data, node)
+			if childData then
+				for functionId, nodeId in pairs(childData) do
+					local func = data.Functions[functionId]
+
+					if getPluginFlag(data, data.Functions[functionId]) then
+						offset -= getDurations(data, nodeId)
+					end
+				end
+			end
+
+			offsets[index] = offset
+			total += offset
+		end
+
+		offsets.Total = total
+		return offsets
+	end
+
+	return {}
+end
+
 function MainViewScriptProfiler:getActiveState()
 	return self.props.isClientView, if self.props.isClientView then self.props.client else self.props.server
 end
@@ -127,8 +165,15 @@ function MainViewScriptProfiler:UpdateState(isClient, newState)
 	end
 end
 
-function MainViewScriptProfiler:init()
+local function OnNewProfilingData(state, data: ProfilerData.RootDataFormat?)
+	state.data = data
 
+	if FFlagScriptProfilerShowPlugins then
+		state.pluginOffsets = generatePluginDurationOffsets(data)
+	end
+end
+
+function MainViewScriptProfiler:init()
 	local function StartScriptProfiling(isClient, state)
 		if FFlagScriptProfilerFrequencyControl then
 			if isClient then
@@ -151,7 +196,7 @@ function MainViewScriptProfiler:init()
 		end
 	end
 
-	local function StopScriptProfiling(isClient)
+	local function StopScriptProfiling(isClient): ProfilerData.RootDataFormat?
 		if isClient then
 			local data = ScriptContext:StopScriptProfiling() :: any
 			return ScriptContext:DeserializeScriptProfilerString(data)
@@ -171,8 +216,10 @@ function MainViewScriptProfiler:init()
 			local data = StopScriptProfiling(isClient)
 
 			local newState = table.clone(state)
+
 			newState.isProfiling = false
-			newState.data = data
+			OnNewProfilingData(newState, data)
+
 			self:UpdateState(isClient, newState)
 		end
 	end
@@ -208,7 +255,7 @@ function MainViewScriptProfiler:init()
 				if isClient then
 					local newState = table.clone(state)
 					local dataString = ScriptContext:GetScriptProfilingData()
-					newState.data = ScriptContext:DeserializeScriptProfilerString(dataString)
+					OnNewProfilingData(newState, ScriptContext:DeserializeScriptProfilerString(dataString))
 
 					self:UpdateState(isClient, newState)
 				else
@@ -258,7 +305,7 @@ function MainViewScriptProfiler:init()
 
 		local newState = table.clone(state)
 		newState.isProfiling = false
-		newState.data = data
+		OnNewProfilingData(newState, data)
 
 		if FFlagScriptProfilerTimedProfiling then
 			if state.timedProfilingThread then
@@ -373,6 +420,8 @@ function MainViewScriptProfiler:init()
 
 		if boxName == LIVE_UPDATE_TEXT then
 			newState.liveUpdate = newValue
+		elseif boxName == SHOW_PLUGINS_TEXT then
+			newState.showPlugins = newValue
 		end
 
 		self:UpdateState(isClientView, newState)
@@ -408,7 +457,7 @@ function MainViewScriptProfiler:didMount()
 
 	self.statsConnector = self.props.ServerProfilingData:Signal():Connect(function(data)
 		local newState = table.clone(self.props.server)
-		newState.data = data
+		OnNewProfilingData(newState, data)
 		self:UpdateState(false, newState)
 	end)
 end
@@ -475,6 +524,10 @@ function MainViewScriptProfiler:render()
 	local checkBoxStates = {}
 	if FFlagScriptProfilerLiveUpdate then
 		checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate, }
+	end
+
+	if FFlagScriptProfilerShowPlugins then
+		checkBoxStates[2] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins, }
 	end
 
 	return Roact.createElement("Frame", {
@@ -590,6 +643,8 @@ function MainViewScriptProfiler:render()
 			rootNode = rootNode,
 			rootNodeName = rootNodeName,
 			average = state.average,
+			showPlugins = state.showPlugins or not FFlagScriptProfilerShowPlugins,
+			pluginOffsets = state.pluginOffsets,
 		})
 	})
 end

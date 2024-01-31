@@ -195,101 +195,99 @@ PROTO_10:
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K7 ["createElement"]
   GETUPVAL R8 2
-  DUPTABLE R9 K21 [{"BackgroundColor3", "BorderSizePixel", "Layout", "HorizontalAlignment", "VerticalAlignment", "ForwardRef"}]
-  GETTABLEKS R10 R4 K22 ["BackgroundColor"]
-  SETTABLEKS R10 R9 K15 ["BackgroundColor3"]
+  DUPTABLE R9 K20 [{"BorderSizePixel", "Layout", "HorizontalAlignment", "VerticalAlignment", "ForwardRef"}]
   LOADN R10 0
-  SETTABLEKS R10 R9 K16 ["BorderSizePixel"]
-  GETIMPORT R10 K26 [Enum.FillDirection.Vertical]
-  SETTABLEKS R10 R9 K17 ["Layout"]
-  GETIMPORT R10 K28 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R10 R9 K18 ["HorizontalAlignment"]
-  GETIMPORT R10 K30 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R10 R9 K19 ["VerticalAlignment"]
-  GETTABLEKS R10 R0 K31 ["ref"]
-  SETTABLEKS R10 R9 K20 ["ForwardRef"]
-  DUPTABLE R10 K36 [{"Instructions", "ReplacementRulesExpandablePane", "ScriptConversionExpandablePane", "ReplaceProgressBar"}]
+  SETTABLEKS R10 R9 K15 ["BorderSizePixel"]
+  GETIMPORT R10 K24 [Enum.FillDirection.Vertical]
+  SETTABLEKS R10 R9 K16 ["Layout"]
+  GETIMPORT R10 K26 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R10 R9 K17 ["HorizontalAlignment"]
+  GETIMPORT R10 K28 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R10 R9 K18 ["VerticalAlignment"]
+  GETTABLEKS R10 R0 K29 ["ref"]
+  SETTABLEKS R10 R9 K19 ["ForwardRef"]
+  DUPTABLE R10 K34 [{"Instructions", "ReplacementRulesExpandablePane", "ScriptConversionExpandablePane", "ReplaceProgressBar"}]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K7 ["createElement"]
   GETUPVAL R12 4
-  DUPTABLE R13 K41 [{"LayoutOrder", "Message", "Height", "LinkMap"}]
-  NAMECALL R14 R6 K42 ["getNextOrder"]
+  DUPTABLE R13 K39 [{"LayoutOrder", "Message", "Height", "LinkMap"}]
+  NAMECALL R14 R6 K40 ["getNextOrder"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K37 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K35 ["LayoutOrder"]
   GETUPVAL R15 5
   CALL R15 0 1
   JUMPIFNOT R15 [+9]
   LOADK R19 K12 ["ScriptConversion"]
-  LOADK R20 K32 ["Instructions"]
+  LOADK R20 K30 ["Instructions"]
   NAMECALL R17 R5 K14 ["getText"]
   CALL R17 3 1
   MOVE R15 R17
-  LOADK R16 K43 ["
+  LOADK R16 K41 ["
 {link}"]
   CONCAT R14 R15 R16
   JUMP [+5]
   LOADK R16 K12 ["ScriptConversion"]
-  LOADK R17 K32 ["Instructions"]
+  LOADK R17 K30 ["Instructions"]
   NAMECALL R14 R5 K14 ["getText"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K38 ["Message"]
-  GETTABLEKS R14 R4 K44 ["InstructionsHeight"]
-  SETTABLEKS R14 R13 K39 ["Height"]
+  SETTABLEKS R14 R13 K36 ["Message"]
+  GETTABLEKS R14 R4 K42 ["InstructionsHeight"]
+  SETTABLEKS R14 R13 K37 ["Height"]
   NEWTABLE R14 1 0
-  DUPTABLE R15 K47 [{"LinkText", "LinkCallback"}]
+  DUPTABLE R15 K45 [{"LinkText", "LinkCallback"}]
   LOADK R18 K12 ["ScriptConversion"]
-  LOADK R19 K48 ["LearnMore"]
+  LOADK R19 K46 ["LearnMore"]
   NAMECALL R16 R5 K14 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K45 ["LinkText"]
-  DUPCLOSURE R16 K49 [PROTO_9]
+  SETTABLEKS R16 R15 K43 ["LinkText"]
+  DUPCLOSURE R16 K47 [PROTO_9]
   CAPTURE UPVAL U6
   CAPTURE UPVAL U7
-  SETTABLEKS R16 R15 K46 ["LinkCallback"]
-  SETTABLEKS R15 R14 K50 ["{link}"]
-  SETTABLEKS R14 R13 K40 ["LinkMap"]
+  SETTABLEKS R16 R15 K44 ["LinkCallback"]
+  SETTABLEKS R15 R14 K48 ["{link}"]
+  SETTABLEKS R14 R13 K38 ["LinkMap"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K32 ["Instructions"]
+  SETTABLEKS R11 R10 K30 ["Instructions"]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K7 ["createElement"]
   GETUPVAL R12 8
-  DUPTABLE R13 K52 [{"LayoutOrder", "HeaderSize"}]
-  NAMECALL R14 R6 K42 ["getNextOrder"]
+  DUPTABLE R13 K50 [{"LayoutOrder", "HeaderSize"}]
+  NAMECALL R14 R6 K40 ["getNextOrder"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K37 ["LayoutOrder"]
-  GETTABLEKS R14 R4 K53 ["ExpandablePaneHeaderSize"]
-  SETTABLEKS R14 R13 K51 ["HeaderSize"]
+  SETTABLEKS R14 R13 K35 ["LayoutOrder"]
+  GETTABLEKS R14 R4 K51 ["ExpandablePaneHeaderSize"]
+  SETTABLEKS R14 R13 K49 ["HeaderSize"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K33 ["ReplacementRulesExpandablePane"]
+  SETTABLEKS R11 R10 K31 ["ReplacementRulesExpandablePane"]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K7 ["createElement"]
   GETUPVAL R12 9
-  DUPTABLE R13 K55 [{"LayoutOrder", "HeaderSize", "ContentSize"}]
-  NAMECALL R14 R6 K42 ["getNextOrder"]
+  DUPTABLE R13 K53 [{"LayoutOrder", "HeaderSize", "ContentSize"}]
+  NAMECALL R14 R6 K40 ["getNextOrder"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K37 ["LayoutOrder"]
-  GETTABLEKS R14 R4 K53 ["ExpandablePaneHeaderSize"]
-  SETTABLEKS R14 R13 K51 ["HeaderSize"]
-  NAMECALL R14 R0 K56 ["getScriptExpandablePaneSize"]
+  SETTABLEKS R14 R13 K35 ["LayoutOrder"]
+  GETTABLEKS R14 R4 K51 ["ExpandablePaneHeaderSize"]
+  SETTABLEKS R14 R13 K49 ["HeaderSize"]
+  NAMECALL R14 R0 K54 ["getScriptExpandablePaneSize"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K54 ["ContentSize"]
+  SETTABLEKS R14 R13 K52 ["ContentSize"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K34 ["ScriptConversionExpandablePane"]
+  SETTABLEKS R11 R10 K32 ["ScriptConversionExpandablePane"]
   JUMPIFNOT R3 [+16]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K7 ["createElement"]
   GETUPVAL R12 10
-  DUPTABLE R13 K58 [{"Text", "Progress"}]
-  LOADK R16 K59 ["ProgressBar"]
+  DUPTABLE R13 K56 [{"Text", "Progress"}]
+  LOADK R16 K57 ["ProgressBar"]
   MOVE R17 R2
   NAMECALL R14 R5 K14 ["getText"]
   CALL R14 3 1
   SETTABLEKS R14 R13 K10 ["Text"]
-  SETTABLEKS R3 R13 K57 ["Progress"]
+  SETTABLEKS R3 R13 K55 ["Progress"]
   CALL R11 2 1
   JUMP [+1]
   LOADNIL R11
-  SETTABLEKS R11 R10 K35 ["ReplaceProgressBar"]
+  SETTABLEKS R11 R10 K33 ["ReplaceProgressBar"]
   CALL R7 3 -1
   RETURN R7 -1
 

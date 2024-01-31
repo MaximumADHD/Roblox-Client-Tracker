@@ -53,7 +53,7 @@ PROTO_0:
   CALL R8 -1 0
   GETUPVAL R8 11
   CALL R8 0 1
-  JUMPIFNOT R8 [+9]
+  JUMPIF R8 [+9]
   MOVE R9 R7
   GETUPVAL R11 12
   GETTABLEKS R10 R11 K11 ["mockNeverReturns"]
@@ -119,7 +119,7 @@ MAIN:
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K11 ["Src"]
   GETTABLEKS R10 R11 K12 ["Util"]
-  GETTABLEKS R9 R10 K19 ["UGCValidationContext"]
+  GETTABLEKS R9 R10 K19 ["DEPRECATED_UGCValidationContext"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K11 ["Src"]
@@ -134,7 +134,7 @@ MAIN:
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K11 ["Src"]
   GETTABLEKS R13 R14 K21 ["Flags"]
-  GETTABLEKS R12 R13 K23 ["getFFlagAvatarPreviewerUGCValidationNotice"]
+  GETTABLEKS R12 R13 K23 ["getFFlagAvatarPreviewerUGCWarningsCache"]
   CALL R11 1 1
   GETTABLEKS R14 R2 K24 ["TestHelpers"]
   GETTABLEKS R13 R14 K25 ["Instances"]

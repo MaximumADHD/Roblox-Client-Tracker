@@ -22,7 +22,6 @@ local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
 local Pages = require(ContactList.Enums.Pages)
 local dependencies = require(ContactList.dependencies)
 local NetworkingCall = dependencies.NetworkingCall
-local RoduxCall = dependencies.RoduxCall
 local dependencyArray = dependencies.Hooks.dependencyArray
 local useDispatch = dependencies.Hooks.useDispatch
 local UIBlox = dependencies.UIBlox
@@ -38,8 +37,6 @@ local NoItemView = require(ContactList.Components.common.NoItemView)
 local Constants = require(ContactList.Components.common.Constants)
 
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
-
-local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
 
 local Players = game:GetService("Players")
 local localPlayer = Players.LocalPlayer
@@ -123,10 +120,6 @@ local function CallHistoryContainer(props: Props)
 		getCallRecords({}, "")
 
 		return function()
-			if not FFlagUseRoduxCall18 then
-				dispatch(RoduxCall.Actions.ClearCallRecords())
-			end
-
 			setCallRecords({})
 			setNextPageCursor("")
 		end

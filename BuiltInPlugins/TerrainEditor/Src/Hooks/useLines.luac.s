@@ -123,8 +123,8 @@ MAIN:
   GETTABLEKS R8 R0 K10 ["Src"]
   GETTABLEKS R7 R8 K13 ["Types"]
   CALL R6 1 1
-  GETTABLEKS R7 R6 K14 ["Categories"]
-  GETTABLEKS R8 R6 K15 ["Tools"]
+  GETTABLEKS R7 R6 K14 ["Category"]
+  GETTABLEKS R8 R6 K15 ["Tool"]
   GETTABLEKS R9 R6 K16 ["TransformMode"]
   GETTABLEKS R10 R6 K17 ["TransformSettings"]
   GETIMPORT R11 K19 [game]

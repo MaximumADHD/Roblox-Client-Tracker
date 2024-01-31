@@ -26,8 +26,6 @@ return function()
 
 	local Constants = require(RobloxGui.Modules.Common.Constants)
 
-	local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
-
 	beforeAll(function(c: any)
 		local RemoteGetServerType = Instance.new("RemoteFunction")
 		RemoteGetServerType.Name = "GetServerType"
@@ -71,9 +69,7 @@ return function()
 					},
 				},
 				currentCall = {
-					status = if FFlagUseRoduxCall18
-						then RoduxCall.Enums.Status.Active
-						else RoduxCall.Enums.Status.Active.rawValue(),
+					status = RoduxCall.Enums.Status.Active,
 					callerId = 11111111,
 					calleeId = 12345678,
 					placeId = 789,

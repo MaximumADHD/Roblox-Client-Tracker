@@ -311,4 +311,12 @@ MAIN:
   GETTABLEKS R10 R3 K154 ["Unlocked"]
   SETTABLEKS R10 R9 K154 ["Unlocked"]
   SETTABLE R9 R6 R8
+  LOADK R10 K156 ["MultiSelectionRenderer"]
+  NAMECALL R8 R5 K14 ["add"]
+  CALL R8 2 0
+  GETTABLEKS R8 R5 K156 ["MultiSelectionRenderer"]
+  DUPTABLE R9 K157 [{"Spacing"}]
+  LOADN R10 4
+  SETTABLEKS R10 R9 K50 ["Spacing"]
+  SETTABLE R9 R6 R8
   RETURN R6 1

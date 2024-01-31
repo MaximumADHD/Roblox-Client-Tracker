@@ -37,8 +37,6 @@ return function()
 	local NetworkingCall = dependencies.NetworkingCall
 	local PresenceModel = dependencies.RoduxPresence.Models.Presence
 
-	local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
-
 	beforeAll(function(c: any)
 		c.mockFindFriendsFromUserId = function(nextPageCursor)
 			return {
@@ -60,16 +58,12 @@ return function()
 				suggestedCallees = {
 					{
 						userId = 0,
-						userPresenceType = if FFlagUseRoduxCall18
-							then EnumPresenceType.Online
-							else EnumPresenceType.Online.rawValue(),
+						userPresenceType = EnumPresenceType.Online,
 						lastLocation = "Roblox Connect",
 					},
 					{
 						userId = 1,
-						userPresenceType = if FFlagUseRoduxCall18
-							then EnumPresenceType.Offline
-							else EnumPresenceType.Offline.rawValue(),
+						userPresenceType = EnumPresenceType.Offline,
 						lastLocation = "Iris (Staging)",
 					},
 				},

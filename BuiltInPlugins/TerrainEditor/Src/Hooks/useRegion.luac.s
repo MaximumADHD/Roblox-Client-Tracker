@@ -711,11 +711,11 @@ MAIN:
   GETTABLEKS R17 R0 K13 ["Src"]
   GETTABLEKS R16 R17 K26 ["Types"]
   CALL R15 1 1
-  GETTABLEKS R16 R15 K27 ["Categories"]
+  GETTABLEKS R16 R15 K27 ["Category"]
   GETTABLEKS R17 R15 K28 ["OperationSource"]
   GETTABLEKS R18 R15 K29 ["SeaLevelSettings"]
   GETTABLEKS R19 R15 K30 ["SelectionSettings"]
-  GETTABLEKS R20 R15 K31 ["Tools"]
+  GETTABLEKS R20 R15 K31 ["Tool"]
   GETTABLEKS R21 R15 K32 ["TransformSettings"]
   GETIMPORT R22 K34 [game]
   LOADK R24 K35 ["StudioService"]

@@ -46,8 +46,6 @@ end
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
-
 local localPlayer = Players.LocalPlayer
 local localUserId: number = localPlayer and localPlayer.UserId or 0
 
@@ -90,28 +88,13 @@ local function formatDuration(duration: number): string
 end
 
 local function getTextFromCallStatus(status: string, instanceId: string)
-	if
-		status
-		== if FFlagUseRoduxCall18
-			then RoduxCall.Enums.Status.Connecting
-			else RoduxCall.Enums.Status.Connecting.rawValue()
-	then
+	if status == RoduxCall.Enums.Status.Connecting then
 		return "Feature.Call.Label.Calling"
-	elseif
-		status
-		== if FFlagUseRoduxCall18
-			then RoduxCall.Enums.Status.Teleporting
-			else RoduxCall.Enums.Status.Teleporting.rawValue()
-	then
+	elseif status == RoduxCall.Enums.Status.Teleporting then
 		return "Feature.Call.Label.Teleporting"
-	elseif
-		status
-		== if FFlagUseRoduxCall18 then RoduxCall.Enums.Status.Active else RoduxCall.Enums.Status.Active.rawValue()
-	then
+	elseif status == RoduxCall.Enums.Status.Active then
 		return "Feature.Call.Label.RobloxCall"
-	elseif
-		status == if FFlagUseRoduxCall18 then RoduxCall.Enums.Status.Idle else RoduxCall.Enums.Status.Idle.rawValue()
-	then
+	elseif status == RoduxCall.Enums.Status.Idle then
 		return "Feature.Call.Label.CallEnded"
 	else
 		error("Invalid status for call bar: " .. status .. ".")
@@ -181,15 +164,10 @@ local function CallBar(passedProps: Props)
 		callStatusText = RobloxTranslator:FormatByKey(getTextFromCallStatus(callStatus, instanceId))
 	end
 
-	local isCallEndedInInstance = callStatus
-			== (if FFlagUseRoduxCall18 then RoduxCall.Enums.Status.Idle else RoduxCall.Enums.Status.Idle.rawValue())
-		and game.JobId == instanceId
+	local isCallEndedInInstance = callStatus == RoduxCall.Enums.Status.Idle and game.JobId == instanceId
 
-	local isActionButtonEnabled = callStatus
-			== (if FFlagUseRoduxCall18 then RoduxCall.Enums.Status.Active else RoduxCall.Enums.Status.Active.rawValue())
-		or callStatus == (if FFlagUseRoduxCall18
-			then RoduxCall.Enums.Status.Connecting
-			else RoduxCall.Enums.Status.Connecting.rawValue())
+	local isActionButtonEnabled = callStatus == RoduxCall.Enums.Status.Active
+		or callStatus == RoduxCall.Enums.Status.Connecting
 		or isCallEndedInInstance
 
 	local actionButtonCallback = React.useCallback(function()
@@ -197,22 +175,14 @@ local function CallBar(passedProps: Props)
 		if isCallEndedInInstance then
 			teleportToRootPlace()
 			isRetry = true
-		elseif
-			callStatus
-			== if FFlagUseRoduxCall18 then RoduxCall.Enums.Status.Active else RoduxCall.Enums.Status.Active.rawValue()
-		then
+		elseif callStatus == RoduxCall.Enums.Status.Active then
 			if GetFFlagSoundManagerRefactor() then
 				SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
 			else
 				SoundManager:PlaySound_old(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
 			end
 			props.callProtocol:finishCall(callId)
-		elseif
-			callStatus
-			== if FFlagUseRoduxCall18
-				then RoduxCall.Enums.Status.Connecting
-				else RoduxCall.Enums.Status.Connecting.rawValue()
-		then
+		elseif callStatus == RoduxCall.Enums.Status.Connecting then
 			props.callProtocol:cancelCall(callId)
 		end
 
@@ -255,7 +225,7 @@ local function CallBar(passedProps: Props)
 	})
 
 	local combinedName = ""
-	if FFlagUseRoduxCall18 and GetFFlagCallBarNameFallback() then
+	if GetFFlagCallBarNameFallback() then
 		local selectOtherParticipantName = React.useCallback(function(state: any)
 			local currentCall = state.Call.currentCall
 			if currentCall then
@@ -355,12 +325,7 @@ local function CallBar(passedProps: Props)
 				BorderSizePixel = 0,
 				Font = font.Footer.Font,
 				LayoutOrder = 2,
-				Text = if callStatus
-						== if FFlagUseRoduxCall18
-							then RoduxCall.Enums.Status.Active
-							else RoduxCall.Enums.Status.Active.rawValue()
-					then currentCallDuration
-					else callStatusText,
+				Text = if callStatus == RoduxCall.Enums.Status.Active then currentCallDuration else callStatusText,
 				TextColor3 = Colors.White,
 				TextSize = font.BaseSize * font.Footer.RelativeSize,
 				TextTransparency = 0.4,
@@ -369,10 +334,7 @@ local function CallBar(passedProps: Props)
 			}),
 		}),
 
-		ActionButton = if callStatus
-				~= if FFlagUseRoduxCall18
-					then RoduxCall.Enums.Status.Failed
-					else RoduxCall.Enums.Status.Failed.rawValue()
+		ActionButton = if callStatus ~= RoduxCall.Enums.Status.Failed
 			then React.createElement("ImageButton", {
 				Position = UDim2.fromOffset(0, 0),
 				Active = isActionButtonEnabled,

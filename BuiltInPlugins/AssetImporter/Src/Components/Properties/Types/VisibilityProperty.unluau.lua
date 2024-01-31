@@ -7,20 +7,20 @@ local var4 = var2.Style.Stylizer
 local var5 = var2.UI.ToggleButton
 return function(arg1)
    if var0 then
-      local var77 = {}
-      var77.OnClick = arg1.OnToggleItem
-      var77.Size = arg1.Size
-      var77.LayoutOrder = arg1.LayoutOrder
-      var77.Selected = arg1.Value
-      var77.Stylizer = var4
-      var77.Style = "EyeIcon"
-      return var3.createElement(var5, var77)
+      local var109 = {}
+      var109.OnClick = arg1.OnToggleItem
+      var109.Size = arg1.Size
+      var109.LayoutOrder = arg1.LayoutOrder
+      var109.Selected = arg1.Value
+      var109.Stylizer = var4
+      var109.Style = "EyeIcon"
+      return var3.createElement(var5, var109)
    end
-   local var88 = {}
-   var88.OnClick = arg1.OnToggleItem
-   var88.Size = arg1.Size
-   var88.LayoutOrder = arg1.LayoutOrder
-   var88.Selected = arg1.Value
-   var88.Stylizer = var4
-   return var3.createElement(var5, var88)
+   local var120 = {}
+   var120.OnClick = arg1.OnToggleItem
+   var120.Size = arg1.Size
+   var120.LayoutOrder = arg1.LayoutOrder
+   var120.Selected = arg1.Value
+   var120.Stylizer = var4
+   return var3.createElement(var5, var120)
 end

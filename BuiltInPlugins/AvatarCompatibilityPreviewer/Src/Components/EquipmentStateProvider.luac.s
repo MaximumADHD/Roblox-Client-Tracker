@@ -35,6 +35,64 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
+  LOADB R2 0
+  GETUPVAL R3 0
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+7]
+  GETUPVAL R3 0
+  LENGTH R4 R0
+  JUMPIFLE R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["Starting index out of range"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  LOADB R2 0
+  GETUPVAL R3 1
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+7]
+  GETUPVAL R3 1
+  LENGTH R4 R0
+  JUMPIFLE R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["New index out of range"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETIMPORT R1 K6 [table.clone]
+  MOVE R2 R0
+  CALL R1 1 1
+  MOVE R0 R1
+  GETIMPORT R1 K8 [table.remove]
+  MOVE R2 R0
+  GETUPVAL R3 0
+  CALL R1 2 1
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K9 [+4]
+  LOADK R4 K9 ["Removed item is invalid even though we checked bounds"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  MOVE R5 R1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R2 K11 [table.insert]
+  CALL R2 3 0
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R2 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R2 0
   CALL R2 0 1
   JUMPIFNOT R2 [+3]
@@ -78,31 +136,46 @@ PROTO_4:
   CAPTURE VAL R4
   NEWTABLE R9 0 0
   CALL R7 2 1
+  GETUPVAL R9 8
+  JUMPIFNOT R9 [+2]
+  LOADNIL R8
+  JUMP [+8]
   GETUPVAL R9 3
   GETTABLEKS R8 R9 K4 ["useCallback"]
   NEWCLOSURE R9 P2
   CAPTURE VAL R4
   NEWTABLE R10 0 0
   CALL R8 2 1
-  GETUPVAL R9 8
-  MOVE R10 R3
-  CALL R9 1 1
-  DUPTABLE R10 K10 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "swapEquippedItemsByIndex", "avatarAssets"}]
-  SETTABLEKS R3 R10 K2 ["equippedItems"]
-  SETTABLEKS R5 R10 K5 ["addEquippedItem"]
-  SETTABLEKS R6 R10 K6 ["removeEquippedItem"]
-  SETTABLEKS R7 R10 K7 ["removeAllEquippedItems"]
-  SETTABLEKS R8 R10 K8 ["swapEquippedItemsByIndex"]
-  SETTABLEKS R9 R10 K9 ["avatarAssets"]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K11 ["createElement"]
-  GETUPVAL R13 9
-  GETTABLEKS R12 R13 K12 ["Provider"]
-  DUPTABLE R13 K14 [{"value"}]
-  SETTABLEKS R10 R13 K13 ["value"]
-  GETTABLEKS R14 R0 K15 ["children"]
-  CALL R11 3 -1
-  RETURN R11 -1
+  GETUPVAL R10 8
+  JUMPIFNOT R10 [+9]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K4 ["useCallback"]
+  NEWCLOSURE R10 P3
+  CAPTURE VAL R4
+  NEWTABLE R11 0 0
+  CALL R9 2 1
+  JUMP [+1]
+  LOADNIL R9
+  GETUPVAL R10 9
+  MOVE R11 R3
+  CALL R10 1 1
+  DUPTABLE R11 K11 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "DEPRECATED_swapEquippedItemsByIndex", "avatarAssets"}]
+  SETTABLEKS R3 R11 K2 ["equippedItems"]
+  SETTABLEKS R5 R11 K5 ["addEquippedItem"]
+  SETTABLEKS R6 R11 K6 ["removeEquippedItem"]
+  SETTABLEKS R7 R11 K7 ["removeAllEquippedItems"]
+  SETTABLEKS R9 R11 K8 ["moveEquippedItemsToIndex"]
+  SETTABLEKS R8 R11 K9 ["DEPRECATED_swapEquippedItemsByIndex"]
+  SETTABLEKS R10 R11 K10 ["avatarAssets"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K12 ["createElement"]
+  GETUPVAL R14 10
+  GETTABLEKS R13 R14 K13 ["Provider"]
+  DUPTABLE R14 K15 [{"value"}]
+  SETTABLEKS R11 R14 K14 ["value"]
+  GETTABLEKS R15 R0 K16 ["children"]
+  CALL R12 3 -1
+  RETURN R12 -1
 
 MAIN:
   PREPVARARGS 0
@@ -146,34 +219,37 @@ MAIN:
   GETIMPORT R8 K4 [require]
   GETTABLEKS R11 R0 K7 ["Src"]
   GETTABLEKS R10 R11 K12 ["Hooks"]
-  GETTABLEKS R9 R10 K16 ["useSerializedEffect"]
+  GETTABLEKS R9 R10 K16 ["useSerializedState"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
   GETTABLEKS R12 R0 K7 ["Src"]
   GETTABLEKS R11 R12 K12 ["Hooks"]
-  GETTABLEKS R10 R11 K17 ["useSerializedState"]
+  GETTABLEKS R10 R11 K17 ["useUserCatalogFolder"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
   GETTABLEKS R13 R0 K7 ["Src"]
-  GETTABLEKS R12 R13 K12 ["Hooks"]
-  GETTABLEKS R11 R12 K18 ["useUserCatalogFolder"]
+  GETTABLEKS R12 R13 K18 ["Flags"]
+  GETTABLEKS R11 R12 K19 ["getFFlagAvatarPreviewerNewDraggableTileList"]
   CALL R10 1 1
-  GETIMPORT R11 K4 [require]
-  GETTABLEKS R14 R0 K7 ["Src"]
-  GETTABLEKS R13 R14 K19 ["Flags"]
-  GETTABLEKS R12 R13 K20 ["getFFlagAvatarPreviewerUGCAvatarServiceContext"]
-  CALL R11 1 1
-  MOVE R12 R11
-  CALL R12 0 1
-  DUPCLOSURE R13 K21 [PROTO_4]
-  CAPTURE VAL R11
-  CAPTURE VAL R10
+  MOVE R11 R10
+  CALL R11 0 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K7 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Flags"]
+  GETTABLEKS R13 R14 K20 ["getFFlagAvatarPreviewerUGCAvatarServiceContext"]
+  CALL R12 1 1
+  MOVE R13 R12
+  CALL R13 0 1
+  DUPCLOSURE R14 K21 [PROTO_6]
   CAPTURE VAL R12
+  CAPTURE VAL R9
+  CAPTURE VAL R13
   CAPTURE VAL R1
   CAPTURE VAL R3
-  CAPTURE VAL R9
+  CAPTURE VAL R8
   CAPTURE VAL R6
   CAPTURE VAL R7
+  CAPTURE VAL R11
   CAPTURE VAL R5
   CAPTURE VAL R2
-  RETURN R13 1
+  RETURN R14 1

@@ -45,6 +45,8 @@ return function()
 					searchFilter = {},
 					rootNode = 0,
 					rootNodeName = nil,
+					showPlugins = true,
+					pluginOffsets = { Total = 0, },
 				}),
 			}),
 		})

@@ -37,7 +37,8 @@ return function()
 					percentageRatio = nil,
 					average = 1,
 					searchFilter = {},
-					usingV2FormatFlag = true,
+					showPlugins = true,
+					pluginOffsets = { Total = 0, },
 				}),
 			}),
 		})

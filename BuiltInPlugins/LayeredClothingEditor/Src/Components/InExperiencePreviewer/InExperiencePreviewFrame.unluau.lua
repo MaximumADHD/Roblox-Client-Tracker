@@ -21,18 +21,18 @@ end
 
 function var5.render(arg1)
    local var0 = arg1.props
+   local var208 = {}
+   var208.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   local var210 = {}
    local var214 = {}
-   var214.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   local var216 = {}
-   local var220 = {}
-   var220.PreviewAvatars = var0.PreviewContext:getAvatars()
-   var220.SelectedIndex = arg1.state.index
-   var220.Size = var0.Stylizer.Size
-   var220.Position = UDim2.fromScale(0.5, 1)
-   var220.AnchorPoint = Vector2.new(0.5, 1)
-   var220.Capacity = 3
-   var216.AvatarSelection = var1.createElement(var3, var220)
-   return var1.createElement("ScreenGui", var214, var216)
+   var214.PreviewAvatars = var0.PreviewContext:getAvatars()
+   var214.SelectedIndex = arg1.state.index
+   var214.Size = var0.Stylizer.Size
+   var214.Position = UDim2.fromScale(0.5, 1)
+   var214.AnchorPoint = Vector2.new(0.5, 1)
+   var214.Capacity = 3
+   var210.AvatarSelection = var1.createElement(var3, var214)
+   return var1.createElement("ScreenGui", var208, var210)
 end
 
 local function fun6(arg1)
@@ -50,8 +50,8 @@ function var5.willUnmount(arg1)
 end
 
 fun6 = var4.withContext
-local var240 = {}
-var240.Stylizer = var4.Stylizer
-var240.PreviewContext = var2.Contexts.PreviewContext
-var5 = fun6(var240)(var5)
+local var234 = {}
+var234.Stylizer = var4.Stylizer
+var234.PreviewContext = var2.Contexts.PreviewContext
+var5 = fun6(var234)(var5)
 return var5

@@ -2,7 +2,7 @@
 local var0 = script:FindFirstAncestor("TerrainEditor")
 local var1 = require(script.Parent.BaseTool)
 local var2 = require(var0.Src.Types)
-local var3 = var2.Categories
+local var3 = var2.Category
 local var4 = var2.FillMode
 local var5 = var2.Gizmo
 local var6 = var2.MaterialSettings
@@ -23,7 +23,7 @@ var51.Type = var5.Region
 var51.Wireframe = false
 var51.Rotation = false
 var49.Schema = var51
-local var13 = var1:new(var2.Tools.SeaLevel, var2.ToolCategories.Edit, {}, {})
+local var13 = var1:new(var2.Tool.SeaLevel, var2.Tab.Edit, {}, {})
 function var13.init(arg1, arg2, arg3)
    local var64 = var1
    var64 = arg1

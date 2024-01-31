@@ -368,7 +368,7 @@ MAIN:
   CALL R8 1 1
   GETTABLEKS R9 R8 K17 ["BrushShape"]
   GETTABLEKS R10 R8 K18 ["BrushSettings"]
-  GETTABLEKS R11 R8 K19 ["Categories"]
+  GETTABLEKS R11 R8 K19 ["Category"]
   GETTABLEKS R12 R8 K20 ["MaterialMode"]
   GETTABLEKS R13 R8 K21 ["MaterialSettings"]
   DUPCLOSURE R14 K22 [PROTO_3]

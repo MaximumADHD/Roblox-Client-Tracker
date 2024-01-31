@@ -1,0 +1,167 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["use"]
+  CALL R2 0 1
+  JUMPIFNOT R0 [+6]
+  LOADK R5 K1 ["Collaborator"]
+  LOADK R6 K2 ["Idle"]
+  NAMECALL R3 R2 K3 ["getText"]
+  CALL R3 3 -1
+  RETURN R3 -1
+  JUMPIF R1 [+6]
+  LOADK R5 K1 ["Collaborator"]
+  LOADK R6 K4 ["Workspace"]
+  NAMECALL R3 R2 K3 ["getText"]
+  CALL R3 3 -1
+  RETURN R3 -1
+  GETIMPORT R3 K7 [string.format]
+  LOADK R6 K1 ["Collaborator"]
+  LOADK R7 K8 ["Editing"]
+  NAMECALL R4 R2 K3 ["getText"]
+  CALL R4 3 1
+  MOVE R5 R1
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["createElement"]
+  GETUPVAL R5 2
+  NEWTABLE R6 8 0
+  LOADK R7 K3 ["RoundBox"]
+  SETTABLEKS R7 R6 K4 ["Style"]
+  GETTABLEKS R8 R1 K5 ["collaboratorItem"]
+  GETTABLEKS R7 R8 K6 ["size"]
+  SETTABLEKS R7 R6 K7 ["Size"]
+  LOADN R7 8
+  SETTABLEKS R7 R6 K8 ["Padding"]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R8 R1 K5 ["collaboratorItem"]
+  GETTABLEKS R7 R8 K9 ["hoveredBackground"]
+  JUMPIF R7 [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K10 ["BackgroundColor3"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K11 ["Event"]
+  GETTABLEKS R7 R8 K12 ["MouseEnter"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R3
+  SETTABLE R8 R6 R7
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K11 ["Event"]
+  GETTABLEKS R7 R8 K13 ["MouseLeave"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R3
+  SETTABLE R8 R6 R7
+  DUPTABLE R7 K17 [{"Icon", "UsernameLabel", "EditingLabel"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K20 [{"Size", "Id", "RingColor"}]
+  GETTABLEKS R12 R1 K5 ["collaboratorItem"]
+  GETTABLEKS R11 R12 K21 ["thumbnailSize"]
+  SETTABLEKS R11 R10 K7 ["Size"]
+  GETTABLEKS R11 R0 K18 ["Id"]
+  SETTABLEKS R11 R10 K18 ["Id"]
+  GETTABLEKS R11 R0 K22 ["Color"]
+  SETTABLEKS R11 R10 K19 ["RingColor"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["Icon"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K28 [{"Text", "TextSize", "TextXAlignment", "TextYAlignment", "Position"}]
+  GETTABLEKS R11 R0 K29 ["Username"]
+  SETTABLEKS R11 R10 K23 ["Text"]
+  LOADN R11 18
+  SETTABLEKS R11 R10 K24 ["TextSize"]
+  GETIMPORT R11 K32 [Enum.TextXAlignment.Left]
+  SETTABLEKS R11 R10 K25 ["TextXAlignment"]
+  GETIMPORT R11 K34 [Enum.TextYAlignment.Top]
+  SETTABLEKS R11 R10 K26 ["TextYAlignment"]
+  GETTABLEKS R12 R1 K5 ["collaboratorItem"]
+  GETTABLEKS R11 R12 K35 ["usernamePosition"]
+  SETTABLEKS R11 R10 K27 ["Position"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["UsernameLabel"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K37 [{"RichText", "Style", "Text", "TextSize", "TextXAlignment", "Position"}]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K36 ["RichText"]
+  LOADK R11 K38 ["SubText"]
+  SETTABLEKS R11 R10 K4 ["Style"]
+  GETUPVAL R11 5
+  GETTABLEKS R12 R0 K39 ["IsIdle"]
+  GETTABLEKS R13 R0 K40 ["Location"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K23 ["Text"]
+  LOADN R11 14
+  SETTABLEKS R11 R10 K24 ["TextSize"]
+  GETIMPORT R11 K32 [Enum.TextXAlignment.Left]
+  SETTABLEKS R11 R10 K25 ["TextXAlignment"]
+  GETTABLEKS R12 R1 K5 ["collaboratorItem"]
+  GETTABLEKS R11 R12 K41 ["subtitlePosition"]
+  SETTABLEKS R11 R10 K27 ["Position"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K16 ["EditingLabel"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["Localization"]
+  GETTABLEKS R6 R2 K10 ["Style"]
+  GETTABLEKS R5 R6 K11 ["Stylizer"]
+  GETTABLEKS R6 R2 K12 ["UI"]
+  GETTABLEKS R7 R6 K13 ["Pane"]
+  GETTABLEKS R8 R6 K14 ["TextLabel"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R13 R0 K15 ["Src"]
+  GETTABLEKS R12 R13 K16 ["Components"]
+  GETTABLEKS R11 R12 K17 ["Thumbnails"]
+  GETTABLEKS R10 R11 K18 ["CollaboratorActivityThumbnail"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K19 [PROTO_0]
+  CAPTURE VAL R4
+  DUPCLOSURE R11 K20 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  RETURN R11 1

@@ -21,74 +21,72 @@ PROTO_1:
   CALL R2 3 1
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K1 ["Stylizer"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["createElement"]
-  LOADK R5 K3 ["ImageLabel"]
-  DUPTABLE R6 K9 [{"Image", "Size", "BackgroundColor3", "BackgroundTransparency", "BorderSizePixel"}]
-  SETTABLEKS R2 R6 K4 ["Image"]
-  GETIMPORT R7 K12 [UDim2.fromScale]
-  LOADN R8 1
-  LOADN R9 1
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K5 ["Size"]
-  GETTABLEKS R8 R3 K13 ["userThumbnail"]
-  GETTABLEKS R7 R8 K14 ["avatarBackground"]
-  SETTABLEKS R7 R6 K6 ["BackgroundColor3"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K7 ["BackgroundTransparency"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K8 ["BorderSizePixel"]
-  DUPTABLE R7 K16 [{"Mask"}]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K2 ["createElement"]
-  GETUPVAL R9 3
-  DUPTABLE R10 K18 [{"Image", "ImageColor3", "Size", "BackgroundTransparency"}]
-  GETTABLEKS R12 R3 K13 ["userThumbnail"]
-  GETTABLEKS R11 R12 K19 ["maskImage"]
-  SETTABLEKS R11 R10 K4 ["Image"]
-  GETTABLEKS R12 R3 K13 ["userThumbnail"]
-  GETTABLEKS R11 R12 K20 ["background"]
-  SETTABLEKS R11 R10 K17 ["ImageColor3"]
-  GETIMPORT R11 K12 [UDim2.fromScale]
-  LOADN R12 1
+  LOADN R6 1
+  GETTABLEKS R8 R3 K3 ["userThumbnail"]
+  GETTABLEKS R7 R8 K4 ["avatarSizeRatio"]
+  SUB R5 R6 R7
+  DIVK R4 R5 K2 [2]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R6 3
+  LOADNIL R7
+  DUPTABLE R8 K8 [{"ActivityRing", "Avatar"}]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K12 [{"Image", "ImageColor3", "Size"}]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K1 ["Stylizer"]
+  GETTABLEKS R12 R13 K13 ["activityRing"]
+  SETTABLEKS R12 R11 K9 ["Image"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K14 ["RingColor"]
+  SETTABLEKS R12 R11 K10 ["ImageColor3"]
+  GETIMPORT R12 K17 [UDim2.fromScale]
   LOADN R13 1
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K5 ["Size"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K7 ["BackgroundTransparency"]
-  DUPTABLE R11 K22 [{"ActivityRing"}]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K2 ["createElement"]
-  GETUPVAL R13 3
-  DUPTABLE R14 K25 [{"Image", "ImageColor3", "Size", "AnchorPoint", "Position"}]
-  GETUPVAL R17 1
-  GETTABLEKS R16 R17 K1 ["Stylizer"]
-  GETTABLEKS R15 R16 K26 ["activityRing"]
-  SETTABLEKS R15 R14 K4 ["Image"]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K27 ["RingColor"]
-  SETTABLEKS R15 R14 K17 ["ImageColor3"]
-  GETIMPORT R15 K12 [UDim2.fromScale]
-  LOADK R16 K28 [1.4]
-  LOADK R17 K28 [1.4]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K5 ["Size"]
-  GETIMPORT R15 K31 [Vector2.new]
-  LOADK R16 K32 [0.5]
-  LOADK R17 K32 [0.5]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K23 ["AnchorPoint"]
-  GETIMPORT R15 K12 [UDim2.fromScale]
-  LOADK R16 K32 [0.5]
-  LOADK R17 K32 [0.5]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K24 ["Position"]
+  LOADN R14 1
   CALL R12 2 1
-  SETTABLEKS R12 R11 K21 ["ActivityRing"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K15 ["Mask"]
-  CALL R4 3 -1
-  RETURN R4 -1
+  SETTABLEKS R12 R11 K11 ["Size"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K6 ["ActivityRing"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  LOADK R10 K18 ["ImageLabel"]
+  DUPTABLE R11 K22 [{"Image", "Size", "Position", "BackgroundColor3", "BackgroundTransparency"}]
+  SETTABLEKS R2 R11 K9 ["Image"]
+  GETIMPORT R12 K17 [UDim2.fromScale]
+  GETTABLEKS R14 R3 K3 ["userThumbnail"]
+  GETTABLEKS R13 R14 K4 ["avatarSizeRatio"]
+  GETTABLEKS R15 R3 K3 ["userThumbnail"]
+  GETTABLEKS R14 R15 K4 ["avatarSizeRatio"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K11 ["Size"]
+  GETIMPORT R12 K17 [UDim2.fromScale]
+  MOVE R13 R4
+  MOVE R14 R4
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K19 ["Position"]
+  GETTABLEKS R13 R3 K3 ["userThumbnail"]
+  GETTABLEKS R12 R13 K23 ["avatarBackground"]
+  SETTABLEKS R12 R11 K20 ["BackgroundColor3"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K21 ["BackgroundTransparency"]
+  DUPTABLE R12 K25 [{"Corner"}]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K5 ["createElement"]
+  LOADK R14 K26 ["UICorner"]
+  DUPTABLE R15 K28 [{"CornerRadius"}]
+  GETIMPORT R16 K31 [UDim.new]
+  LOADK R17 K32 [0.5]
+  LOADN R18 0
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K27 ["CornerRadius"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K24 ["Corner"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K7 ["Avatar"]
+  CALL R5 3 -1
+  RETURN R5 -1
 
 PROTO_2:
   GETTABLEKS R1 R0 K0 ["props"]
@@ -120,6 +118,7 @@ PROTO_2:
   CAPTURE VAL R1
   CAPTURE UPVAL U0
   CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
   SETTABLEKS R15 R14 K13 ["RenderContents"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K11 ["AutoThumbnail"]
@@ -147,29 +146,32 @@ MAIN:
   GETTABLEKS R5 R4 K11 ["withContext"]
   GETTABLEKS R7 R2 K12 ["UI"]
   GETTABLEKS R6 R7 K13 ["Image"]
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R11 R0 K14 ["Src"]
-  GETTABLEKS R10 R11 K15 ["Components"]
-  GETTABLEKS R9 R10 K16 ["Thumbnails"]
-  GETTABLEKS R8 R9 K17 ["AutoThumbnail"]
-  CALL R7 1 1
-  GETTABLEKS R8 R1 K18 ["Component"]
-  GETIMPORT R11 K1 [script]
-  GETTABLEKS R10 R11 K19 ["Name"]
-  NAMECALL R8 R8 K20 ["extend"]
-  CALL R8 2 1
-  DUPCLOSURE R9 K21 [PROTO_0]
-  SETTABLEKS R9 R8 K22 ["getThumbnail"]
-  DUPCLOSURE R9 K23 [PROTO_2]
+  GETTABLEKS R8 R2 K12 ["UI"]
+  GETTABLEKS R7 R8 K14 ["Pane"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Components"]
+  GETTABLEKS R10 R11 K17 ["Thumbnails"]
+  GETTABLEKS R9 R10 K18 ["AutoThumbnail"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K19 ["Component"]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K20 ["Name"]
+  NAMECALL R9 R9 K21 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K22 [PROTO_0]
+  SETTABLEKS R10 R9 K23 ["getThumbnail"]
+  DUPCLOSURE R10 K24 [PROTO_2]
   CAPTURE VAL R1
+  CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R6
-  SETTABLEKS R9 R8 K24 ["render"]
-  MOVE R9 R5
-  DUPTABLE R10 K25 [{"Stylizer"}]
-  SETTABLEKS R3 R10 K9 ["Stylizer"]
-  CALL R9 1 1
-  MOVE R10 R8
-  CALL R9 1 1
-  MOVE R8 R9
-  RETURN R8 1
+  SETTABLEKS R10 R9 K25 ["render"]
+  MOVE R10 R5
+  DUPTABLE R11 K26 [{"Stylizer"}]
+  SETTABLEKS R3 R11 K9 ["Stylizer"]
+  CALL R10 1 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

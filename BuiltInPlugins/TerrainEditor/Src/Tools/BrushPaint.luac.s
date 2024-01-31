@@ -174,14 +174,14 @@ MAIN:
   CALL R5 1 1
   GETTABLEKS R6 R5 K17 ["BrushSettings"]
   GETTABLEKS R7 R5 K18 ["BrushShape"]
-  GETTABLEKS R8 R5 K19 ["Categories"]
+  GETTABLEKS R8 R5 K19 ["Category"]
   GETTABLEKS R9 R5 K20 ["Gizmo"]
   GETTABLEKS R10 R5 K21 ["MaterialMode"]
   GETTABLEKS R11 R5 K22 ["MaterialSettings"]
   GETTABLEKS R12 R5 K23 ["PivotPosition"]
   GETTABLEKS R13 R5 K24 ["Snapping"]
-  GETTABLEKS R14 R5 K25 ["ToolCategories"]
-  GETTABLEKS R15 R5 K26 ["Tools"]
+  GETTABLEKS R14 R5 K25 ["Tab"]
+  GETTABLEKS R15 R5 K26 ["Tool"]
   NEWTABLE R16 0 2
   DUPTABLE R17 K30 [{"Defaults", "Id", "Schema"}]
   NEWTABLE R18 8 0

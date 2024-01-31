@@ -2,10 +2,11 @@ local Immutable = require(script.Parent.Parent.Immutable)
 
 local SetScriptProfilerState = require(script.Parent.Parent.Actions.SetScriptProfilerState)
 local SetScriptProfilerRoot = require(script.Parent.Parent.Actions.SetScriptProfilerRoot)
+local ProfilerData = require(script.Parent.Parent.Components.ScriptProfiler.ProfilerDataFormatV2)
 
 type SessionState = {
 	isProfiling: boolean,
-	data: {}?,
+	data: ProfilerData.RootDataFormat?,
 	frequency: number,
 
 	timedProfilingThread: thread?,
@@ -26,6 +27,9 @@ type SessionState = {
 
 	liveUpdate: boolean,
 	liveUpdateThread: thread?,
+
+	showPlugins: boolean,
+	pluginOffsets: {[number]: number, Total: number?},
 }
 
 export type State = {
@@ -45,14 +49,16 @@ return function(state: State?, action: {[string]: any}): State
 					isFunctionsView = false, average = 0, searchTerm = "",
 					searchFilterGraph = {}, searchFilterFlat = {},
 					rootNode = 0, rootNodeName = nil,
-					liveUpdate = false, liveUpdateThread = nil, },
+					liveUpdate = false, liveUpdateThread = nil,
+					showPlugins = false, pluginOffsets = {}, },
 		server = { isProfiling = false, data = nil, frequency = 1000,
 					timedProfilingThread = nil, timedProfilingTimerThread = nil,
 					timedProfilingDuration = 0, timedProfilingCountdown = 0,
 					isFunctionsView = false, average = 0, searchTerm = "",
 					searchFilterGraph = {}, searchFilterFlat = {},
 					rootNode = 0, rootNodeName = nil,
-					liveUpdate = false, liveUpdateThread = nil, },
+					liveUpdate = false, liveUpdateThread = nil,
+					showPlugins = false, pluginOffsets = {}, },
 	}
 
 	if action.type == SetScriptProfilerState.name then

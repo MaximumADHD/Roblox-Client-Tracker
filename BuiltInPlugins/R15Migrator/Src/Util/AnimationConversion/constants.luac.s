@@ -21,7 +21,7 @@ MAIN:
   SETTABLEKS R3 R2 K8 ["AnimationInstance"]
   LOADN R3 4
   SETTABLEKS R3 R2 K9 ["AssetIdString"]
-  DUPTABLE R3 K17 [{"Uploading", "FailedSerialization", "FailedToGetProductInfo", "FailedWithErrorCode", "RobloxOwnedAnimation", "Published", "Done"}]
+  DUPTABLE R3 K16 [{"Uploading", "FailedSerialization", "FailedToGetProductInfo", "FailedWithErrorCode", "Published", "Done"}]
   LOADN R4 1
   SETTABLEKS R4 R3 K11 ["Uploading"]
   LOADK R4 K12 ["FailedSerialization"]
@@ -30,13 +30,11 @@ MAIN:
   SETTABLEKS R4 R3 K13 ["FailedToGetProductInfo"]
   LOADK R4 K14 ["FailedWithErrorCode"]
   SETTABLEKS R4 R3 K14 ["FailedWithErrorCode"]
-  LOADK R4 K15 ["RobloxOwnedAnimation"]
-  SETTABLEKS R4 R3 K15 ["RobloxOwnedAnimation"]
-  LOADK R4 K16 ["Published"]
-  SETTABLEKS R4 R3 K16 ["Published"]
+  LOADK R4 K15 ["Published"]
+  SETTABLEKS R4 R3 K15 ["Published"]
   LOADK R4 K4 ["Done"]
   SETTABLEKS R4 R3 K4 ["Done"]
-  SETTABLEKS R1 R0 K18 ["Status"]
-  SETTABLEKS R2 R0 K19 ["AssetType"]
-  SETTABLEKS R3 R0 K20 ["UploadStatus"]
+  SETTABLEKS R1 R0 K17 ["Status"]
+  SETTABLEKS R2 R0 K18 ["AssetType"]
+  SETTABLEKS R3 R0 K19 ["AnimationStatus"]
   RETURN R0 1

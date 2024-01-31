@@ -65,6 +65,8 @@ local FFlagFixMissingPermissionsAnalytics = game:DefineFastFlag("FixMissingPermi
 local FFlagVoiceChatEnableIrisMuteStateFix = game:DefineFastFlag("VoiceChatEnableIrisMuteStateFix", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
 local FFlagFixNewAudioAPIEcho = game:DefineFastFlag("FFlagFixNewAudioAPIEcho", false)
+local FFlagUpdateDeviceInputPlayerChanged = game:DefineFastFlag("UpdateDeviceInputPlayerChanged", false)
+local FFlagSetActiveWhenConnecting = game:DefineFastFlag("SetActiveWhenConnecting", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
@@ -1024,6 +1026,15 @@ function VoiceChatServiceManager:reportBanMessage(eventType: string)
 	)
 end
 
+function VoiceChatServiceManager:SetAndSyncActive(device: AudioDeviceInput, newActive: boolean)
+	-- Sets the device.Active property and sends a mute event to the server if needed
+	device.Active = newActive
+	local SendMuteEvent = self:GetSendMuteEvent()
+	if SendMuteEvent and device.Player == PlayersService.LocalPlayer then
+		SendMuteEvent:FireServer(newActive)
+	end
+end
+
 function VoiceChatServiceManager:CreateAudioDeviceData(device: AudioDeviceInput): AudioDeviceData
 	local out = {}
 	local isLocalPlayer = device.Player == PlayersService.LocalPlayer
@@ -1037,6 +1048,13 @@ function VoiceChatServiceManager:CreateAudioDeviceData(device: AudioDeviceInput)
 
 		if device.Player and self.mutedPlayers[device.Player.UserId] then
 			device.Active = false
+		end
+	end
+
+	if FFlagSetActiveWhenConnecting then
+		if device.Active and isLocalPlayer and self.localMuted == nil then
+			-- If the player is still in the connecting state, set active to false
+			self:SetAndSyncActive(device, false)
 		end
 	end
 
@@ -1071,8 +1089,22 @@ function VoiceChatServiceManager:CreateAudioDeviceData(device: AudioDeviceInput)
 	end
 
 	out.onPlayerChanged = device:GetPropertyChangedSignal("Player"):Connect(function()
-		-- We don't care if a non-active user leaves/joins. They don't have voice
-		-- TODO: Handle the case where Device.Player is changed
+		if FFlagUpdateDeviceInputPlayerChanged then
+			isLocalPlayer = device.Player == PlayersService.LocalPlayer
+			if isLocalPlayer then
+				if FFlagSetActiveWhenConnecting and device.Active and self.localMuted == nil then
+					-- If the player is still in the connecting state, set active to false
+					self:SetAndSyncActive(device, false)
+				elseif self.localMuted ~= nil and self.localMuted ~= not device.Active then
+					log:debug("Mismatch between LocalMuted and device.Active")
+					self:SetAndSyncActive(device, not self.localMuted)
+				end
+			else
+				if self.muteAll or (device.Player and self.mutedPlayers[device.Player.UserId]) then
+					device.Active = false
+				end
+			end
+		end
 		self:UpdateAudioDeviceInputDebugger()
 	end)
 

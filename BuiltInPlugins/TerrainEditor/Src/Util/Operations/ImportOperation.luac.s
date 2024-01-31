@@ -246,7 +246,7 @@ MAIN:
   GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K14 ["Types"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K15 ["Categories"]
+  GETTABLEKS R4 R3 K15 ["Category"]
   GETTABLEKS R5 R3 K16 ["HeightmapSettings"]
   GETTABLEKS R6 R3 K17 ["SelectionSettings"]
   GETIMPORT R7 K5 [require]

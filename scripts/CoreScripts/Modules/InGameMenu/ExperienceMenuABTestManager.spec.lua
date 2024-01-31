@@ -22,7 +22,7 @@ local isV3Valid = false
 local isControlsValid = false
 local isModernizationValid = false
 local isChromeValid = true
-local isReportAbuseV2Valid = true
+local isReportAbuseV2Valid = false
 
 return function()
 	describe("lifecycle", function()

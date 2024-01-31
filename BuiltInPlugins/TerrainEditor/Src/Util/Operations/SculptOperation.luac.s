@@ -1218,7 +1218,7 @@ MAIN:
   GETTABLEKS R11 R10 K20 ["BrushMode"]
   GETTABLEKS R12 R10 K21 ["BrushSettings"]
   GETTABLEKS R13 R10 K22 ["BrushShape"]
-  GETTABLEKS R14 R10 K23 ["Categories"]
+  GETTABLEKS R14 R10 K23 ["Category"]
   GETTABLEKS R15 R10 K24 ["MaterialSettings"]
   GETIMPORT R16 K5 [require]
   GETTABLEKS R19 R0 K6 ["Src"]

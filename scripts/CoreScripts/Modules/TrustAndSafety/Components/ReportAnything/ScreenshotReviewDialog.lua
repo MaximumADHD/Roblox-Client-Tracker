@@ -10,7 +10,6 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local HeaderBar = UIBlox.App.Bar.HeaderBar
 local IconButton = UIBlox.App.Button.IconButton
 local IconSize = UIBlox.App.ImageSet.Enum.IconSize
-local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetButton
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local useStyle = UIBlox.Core.Style.useStyle
@@ -141,7 +140,7 @@ local function ScreenshotReviewDialog(props: Props)
 					onRestart = props.onRestart,
 				}),
 			}),
-			RestartDialogMask = isShowRestartDialog and React.createElement(ImageSetLabel, {
+			RestartDialogMask = isShowRestartDialog and React.createElement(ImageSetButton, {
 				Size = UDim2.fromScale(1, 1),
 				BackgroundTransparency = 0.2,
 				BackgroundColor3 = theme.BackgroundUIDefault.Color,
@@ -155,7 +154,7 @@ local function ScreenshotReviewDialog(props: Props)
 				ScaleType = Assets.Images.RoundedRect.ScaleType,
 				SliceCenter = Assets.Images.RoundedRect.SliceCenter,
 			}, {}),
-			ScreenshotDialog = React.createElement(ImageSetLabel, {
+			ScreenshotDialog = React.createElement(ImageSetButton, {
 				Active = true, -- block input to the background overlay
 				Size = UDim2.fromScale(1, 1),
 				AnchorPoint = Vector2.new(0.5, 0.5),

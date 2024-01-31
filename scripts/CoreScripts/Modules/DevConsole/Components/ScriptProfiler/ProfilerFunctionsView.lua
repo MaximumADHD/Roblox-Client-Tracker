@@ -6,6 +6,7 @@ local ProfilerUtil = require(script.Parent.ProfilerUtil)
 
 local getDurations = ProfilerUtil.getDurations
 local formatSessionLength = ProfilerUtil.formatSessionLength
+local getPluginFlag = ProfilerUtil.getPluginFlag
 
 local Components = script.Parent.Parent.Parent.Components
 local HeaderButton = require(Components.HeaderButton)
@@ -34,6 +35,7 @@ function ProfilerView:renderChildren()
     local totalDuration = getDurations(data, 0)
     local children = {}
     local searchFilter = self.props.searchFilter
+    local showPlugins = self.props.showPlugins
 
     local average = 1
 
@@ -45,6 +47,10 @@ function ProfilerView:renderChildren()
     for index, func in ipairs(data.Functions) do
 
         if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[index] then
+            continue
+        end
+
+        if not showPlugins and getPluginFlag(data, func) then
             continue
         end
 

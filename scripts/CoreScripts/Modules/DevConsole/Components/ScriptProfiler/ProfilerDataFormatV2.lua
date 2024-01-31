@@ -13,6 +13,7 @@ export type Function = {
     Line: number?,
     TotalDuration: number,
     IsNative: boolean?,
+    IsPlugin: boolean?,
 }
 
 export type Node = {

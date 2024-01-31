@@ -34,6 +34,7 @@ local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjec
 local MenuBackButton = require(RobloxGui.Modules.Settings.Components.MenuBackButton)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
+local ScreenshotsPolicy  = require(CorePackages.Workspace.Packages.Screenshots).ScreenshotsPolicy
 
 
 local Theme = require(script.Parent.Theme)
@@ -148,7 +149,6 @@ if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	GameInviteConstants = GameInvitePackage.GameInviteConstants
 end
 
-local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
 local ScreenshotsApp = require(RobloxGui.Modules.Screenshots.ScreenshotsApp)
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
@@ -156,6 +156,7 @@ local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForCh
 local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local FFlagAddCapturesGuacPolicy = require(CorePackages.Workspace.Packages.Screenshots).Flags.FFlagAddCapturesGuacPolicy
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
@@ -3342,7 +3343,13 @@ local function CreateSettingsHub()
 		end
 	end
 
-	if Screenshots.Flags.FFlagScreenshotsFeaturesEnabledForAll or GetShowCapturesTab() then
+	local eligibleForCapturesFeature = false
+	if FFlagAddCapturesGuacPolicy then
+		local policy = ScreenshotsPolicy.PolicyImplementation.read()
+		eligibleForCapturesFeature  = if policy then ScreenshotsPolicy.Mapper(policy).eligibleForCapturesFeature() else false
+	end
+
+	if eligibleForCapturesFeature or GetShowCapturesTab() then
 		local ShotsPageWrapper = require(RobloxGui.Modules.Settings.Pages.ShotsPageWrapper)
 
 		this.ScreenshotsApp = ScreenshotsApp

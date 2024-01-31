@@ -44,6 +44,7 @@ local MINIMUM_MIDDLE_SIZE_PIXELS = 200
 local LABEL_HEIGHT = 15
 local LABEL_TEXT_SIZE = 12
 local DISCLAIMER_TEXT_SIZE = 12
+local DELAYED_INPUT_ANIM_SEC = 3
 
 local NAME_TEXT = "name"
 local DESCRIPTION_TEXT = "description"
@@ -73,6 +74,7 @@ local LayeredAssetTypes = {
 local PublishAssetPrompt = script.Parent.Parent
 local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
 local FFlagSendConsentDeniedOnCancel = game:DefineFastFlag("SendConsentDeniedOnCancel", false)
+local FFlagDelayAssetCreatePrompt = game:DefineFastFlag("DelayAssetCreatePrompt", false)
 local EngineFeatureEnableEmotePublish = game:GetEngineFeature("EnableEmotePublish")
 
 local PublishAssetPromptSingleStep = Roact.PureComponent:extend("PublishAssetPromptSingleStep")
@@ -344,10 +346,18 @@ function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 				},
 				{
 					buttonType = ButtonType.PrimarySystem,
-					props = {
-						onActivated = self.confirmAndUpload,
-						text = localized[SUBMIT_TEXT],
-					},
+					props = if FFlagDelayAssetCreatePrompt
+						then {
+							onActivated = self.confirmAndUpload,
+							text = localized[SUBMIT_TEXT],
+							isDelayedInput = true,
+							enableInputDelayed = true,
+							delayInputSeconds = DELAYED_INPUT_ANIM_SEC,
+						}
+						else {
+							onActivated = self.confirmAndUpload,
+							text = localized[SUBMIT_TEXT],
+						},
 					isDefaultChild = false,
 				},
 			},

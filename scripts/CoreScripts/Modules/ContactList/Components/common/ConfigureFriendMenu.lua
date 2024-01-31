@@ -3,8 +3,6 @@ local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
-local GetFFlagIrisEnumerateCleanupEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisEnumerateCleanupEnabled
 local GetFFlagIrisUseLocalizationProvider =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 
@@ -76,11 +74,7 @@ local function ConfigureFriendMenu(props)
 						eventTimestampMs = os.time() * 1000,
 						friendUserId = friendUserId,
 					})
-					props.initiateConfirmation(
-						if GetFFlagIrisEnumerateCleanupEnabled()
-							then FriendAction.Block
-							else (FriendAction.Block :: any).rawValue()
-					)
+					props.initiateConfirmation(FriendAction.Block)
 				end,
 			},
 			{
@@ -96,11 +90,7 @@ local function ConfigureFriendMenu(props)
 						eventTimestampMs = os.time() * 1000,
 						friendUserId = friendUserId,
 					})
-					props.initiateConfirmation(
-						if GetFFlagIrisEnumerateCleanupEnabled()
-							then FriendAction.Unfriend
-							else (FriendAction.Unfriend :: any).rawValue()
-					)
+					props.initiateConfirmation(FriendAction.Unfriend)
 				end,
 			},
 		},

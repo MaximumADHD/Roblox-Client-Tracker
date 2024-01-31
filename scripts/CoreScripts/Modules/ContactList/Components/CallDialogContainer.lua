@@ -6,8 +6,6 @@ local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Roact)
 local Cryo = require(CorePackages.Packages.Cryo)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
-local GetFFlagIrisEnumerateCleanupEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisEnumerateCleanupEnabled
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -86,24 +84,14 @@ local function CallDialogContainer(passedProps: Props)
 		local callMessageConn = props.callProtocol:listenToHandleCallMessage(function(params)
 			if params.messageType == CallProtocol.Enums.MessageType.CallError.rawValue() then
 				-- Show error dialog
-				if
-					params.errorType
-					== if GetFFlagIrisEnumerateCleanupEnabled()
-						then ErrorType.CallerIsInAnotherCall
-						else (ErrorType.CallerIsInAnotherCall :: any).rawValue()
-				then
+				if params.errorType == ErrorType.CallerIsInAnotherCall then
 					dispatch(
 						OpenOrUpdateDialog(
 							RobloxTranslator:FormatByKey("Feature.Call.Error.Title.CouldntMakeCall"),
 							RobloxTranslator:FormatByKey("Feature.Call.Error.Description.AlreadyInCall")
 						)
 					)
-				elseif
-					params.errorType
-					== if GetFFlagIrisEnumerateCleanupEnabled()
-						then ErrorType.CalleeIsInAnotherCall
-						else (ErrorType.CalleeIsInAnotherCall :: any).rawValue()
-				then
+				elseif params.errorType == ErrorType.CalleeIsInAnotherCall then
 					local calleeCombinedName = params.callInfo.calleeCombinedName
 					dispatch(
 						OpenOrUpdateDialog(
@@ -115,11 +103,8 @@ local function CallDialogContainer(passedProps: Props)
 						)
 					)
 				elseif
-					GetFFlagIrisEnumerateCleanupEnabled()
-					and (
-						params.errorType == ErrorType.UniverseIsNotVoiceEnabled
-						or params.errorType == ErrorType.PlaceIsNotVoiceEnabled
-					)
+					params.errorType == ErrorType.UniverseIsNotVoiceEnabled
+					or params.errorType == ErrorType.PlaceIsNotVoiceEnabled
 				then
 					dispatch(
 						OpenOrUpdateDialog(
@@ -137,33 +122,7 @@ local function CallDialogContainer(passedProps: Props)
 						})
 					end
 				elseif
-					not GetFFlagIrisEnumerateCleanupEnabled()
-					and (
-						params.errorType == (ErrorType.UniverseIsNotVoiceEnabled :: any).rawValue()
-						or params.errorType == (ErrorType.PlaceIsNotVoiceEnabled :: any).rawValue()
-					)
-				then
-					dispatch(
-						OpenOrUpdateDialog(
-							RobloxTranslator:FormatByKey("Feature.Call.Error.Title.ExperienceError"),
-							RobloxTranslator:FormatByKey("Feature.Call.Description.ExperienceError")
-						)
-					)
-
-					if GetFFlagSeparateVoiceEnabledErrors() then
-						analytics.fireEvent(EventNamesEnum.PhoneBookCallFriendFailed, {
-							eventTimestampMs = os.time() * 1000,
-							calleeUserId = params.callInfo.calleeId,
-							callerUserId = params.callInfo.callerId,
-							errorMsg = "Universe or place is not voice enabled.",
-						})
-					end
-				elseif
-					GetFFlagSeparateVoiceEnabledErrors()
-					and params.errorType
-						== if GetFFlagIrisEnumerateCleanupEnabled()
-							then ErrorType.CallerIsNotVoiceEnabled
-							else (ErrorType.CallerIsNotVoiceEnabled :: any).rawValue()
+					GetFFlagSeparateVoiceEnabledErrors() and params.errorType == ErrorType.CallerIsNotVoiceEnabled
 				then
 					dispatch(
 						OpenOrUpdateDialog(
@@ -187,20 +146,11 @@ local function CallDialogContainer(passedProps: Props)
 				end
 
 				-- Print out error message
-				if
-					GetFFlagIrisUniverseAgeCheckError()
-					and params.errorType
-						== if GetFFlagIrisEnumerateCleanupEnabled()
-							then ErrorType.UniverseAgeIsNotValid
-							else (ErrorType.UniverseAgeIsNotValid :: any).rawValue()
-				then
+				if GetFFlagIrisUniverseAgeCheckError() and params.errorType == ErrorType.UniverseAgeIsNotValid then
 					warn("Experience must be at least one week old to place a call")
 				elseif
 					GetFFlagIrisReservedServerCheckError()
-					and params.errorType
-						== if GetFFlagIrisEnumerateCleanupEnabled()
-							then ErrorType.ReservedServerAccessCodeIsNotProvided
-							else (ErrorType.ReservedServerAccessCodeIsNotProvided :: any).rawValue()
+					and params.errorType == ErrorType.ReservedServerAccessCodeIsNotProvided
 				then
 					warn("Reserved server access code was not provided via OnCallInviteInvoked callback")
 				end

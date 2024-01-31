@@ -65,7 +65,7 @@ local validVersion = {
 	[MENU_VERSION_CHROME_ENUM.UNIBAR] = not GetFFlagDisableChromeUnibar,
 	[MENU_VERSION_CHROME_ENUM.PINNED_CHAT] = not GetFFlagDisableChromePinnedChat,
 	[MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN] = not GetFFlagDisableChromeDefaultOpen,
-	[REPORT_ABUSE_MENU_VERSION_V2] = true,
+	[REPORT_ABUSE_MENU_VERSION_V2] = false,
 }
 
 local ExperienceMenuABTestManager = {}

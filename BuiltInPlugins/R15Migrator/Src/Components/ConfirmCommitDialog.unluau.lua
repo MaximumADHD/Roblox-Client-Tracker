@@ -12,19 +12,19 @@ function var7.render(arg1)
    local var1 = var0.Localization
    local var2 = var0.OnConfirm
    local var3 = var0.OnClose
-   local var415 = {}
-   var415.Style = "AcceptCancel"
-   var415.Modal = true
-   var415.Title = var1:getText("ScriptConversion", "CommittingScripts")
-   var415.MinContentSize = var0.Stylizer.MinContentSize
-   local var424 = {}
-   var424.Key = "Confirm"
-   var424.Text = var1:getText("ScriptConversion", "Confirm")
-   local var430 = {}
-   var430.Key = "Cancel"
-   var430.Text = var1:getText("ScriptConversion", "Cancel")
-   var415.Buttons = {}
-   function var415.OnButtonPressed(arg1)
+   local var336 = {}
+   var336.Style = "AcceptCancel"
+   var336.Modal = true
+   var336.Title = var1:getText("ScriptConversion", "CommittingScripts")
+   var336.MinContentSize = var0.Stylizer.MinContentSize
+   local var345 = {}
+   var345.Key = "Confirm"
+   var345.Text = var1:getText("ScriptConversion", "Confirm")
+   local var351 = {}
+   var351.Key = "Cancel"
+   var351.Text = var1:getText("ScriptConversion", "Cancel")
+   var336.Buttons = {}
+   function var336.OnButtonPressed(arg1)
       if arg1 == "Confirm" then
          if var2 then
             var2()
@@ -35,17 +35,17 @@ function var7.render(arg1)
       end
    end
    
-   var415.OnClose = var3
-   local var441 = {}
-   local var445 = {}
-   var445.Text = var1:getText("ScriptConversion", "CommitWarning")
-   var445.TextWrapped = true
-   var441.Contents = var1.createElement(var5, var445)
-   return var1.createElement(var6, var415, var441)
+   var336.OnClose = var3
+   local var362 = {}
+   local var366 = {}
+   var366.Text = var1:getText("ScriptConversion", "CommitWarning")
+   var366.TextWrapped = true
+   var362.Contents = var1.createElement(var5, var366)
+   return var1.createElement(var6, var336, var362)
 end
 
-local var454 = {}
-var454.Localization = var3.Localization
-var454.Stylizer = var3.Stylizer
-var7 = var3.withContext(var454)(var7)
+local var375 = {}
+var375.Localization = var3.Localization
+var375.Stylizer = var3.Stylizer
+var7 = var3.withContext(var375)(var7)
 return var7

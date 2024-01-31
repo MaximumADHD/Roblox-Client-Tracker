@@ -99,6 +99,7 @@ local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local GetFFlagChatTranslationSettingEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationSettingEnabled)
 local GetFStringChatTranslationLayerName = require(RobloxGui.Modules.Flags.GetFStringChatTranslationLayerName)
 local GetFFlagChatTranslationLaunchEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationLaunchEnabled)
+local GetFFlagChatTranslationHoldoutEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationHoldoutEnabled)
 
 local ChatTranslationSettingsMoved = game:GetEngineFeature("TextChatServiceSettingsSaved")
 
@@ -1355,6 +1356,21 @@ local function Initialize()
 		if game:GetEngineFeature("EnableTCSChatTranslation") then
 			if GetFFlagChatTranslationSettingEnabled() then
 				if GetFFlagChatTranslationLaunchEnabled() then
+					if GetFFlagChatTranslationHoldoutEnabled() then
+						local layerName = GetFStringChatTranslationLayerName()
+						local layerData = getChatTranslationLayerData(layerName)
+	
+						if not layerData.ChatTranslationEnabled then
+							if ChatTranslationSettingsMoved then
+								GameSettings.ChatTranslationEnabled = false
+							else
+								pcall(function ()
+									TextChatService.ChatTranslationEnabled = false
+								end)
+							end
+						end
+					end
+
 					createChatTranslationOption()
 				else
 					local layerName = GetFStringChatTranslationLayerName()

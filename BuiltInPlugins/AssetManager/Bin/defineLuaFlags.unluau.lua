@@ -5,4 +5,5 @@ game:DefineFastFlag("EnableAssetManagerSortButton", false)
 game:DefineFastFlag("AssetManagerUseEventIngest", false)
 game:DefineFastFlag("AssetManagerVideoPreviewFix", false)
 game:DefineFastFlag("AssetManagerMigrateAliasesEndpoint", false)
+game:DefineFastFlag("AssetManagerToggleWidgetFix", false)
 return nil

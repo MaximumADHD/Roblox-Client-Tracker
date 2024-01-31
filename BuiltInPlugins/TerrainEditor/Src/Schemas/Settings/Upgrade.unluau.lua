@@ -2,8 +2,8 @@
 local var0 = script:FindFirstAncestor("TerrainEditor")
 local var1 = require(var0.Src.Util.ApplyById)
 local var2 = require(var0.Src.Types)
-local var3 = var2.Upgrades
-local var4 = var2.Categories.Upgrades
+local var3 = var2.UpgradeSettings
+local var4 = var2.Category.UpgradeSettings
 local var5 = game:GetFastString("Shorelines_LearnMoreUrl")
 local var6 = {}
 var3.Shorelines = var2.Storage.LocalSession

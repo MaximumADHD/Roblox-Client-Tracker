@@ -2,7 +2,7 @@
 local var0 = require(script.Parent.TelemetryProtocol)
 local var1 = {}
 var1.eventName = "StudioTutorialExtraAction"
-local var180 = var0.TelemetryBackends.EventIngest
+local var9 = var0.TelemetryBackends.EventIngest
 var1.backends = {}
 var1.throttlingPercentage = var0.ONE_HUNDRED_PERCENT
 local var3 = 3

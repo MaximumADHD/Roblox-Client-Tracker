@@ -13,8 +13,6 @@ game:DefineFastFlag("MoodsRemoveWaitForChild", false)
 game:DefineFastFlag("MoodsAnimatorAddedFix", false)
 game:DefineFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator", false)
 
-local FFlagSwitchMoodPriorityWhileStreaming = game:DefineFastFlag("SwitchMoodPriorityWhileStreaming", false)
-
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 local LocalPlayer = Players.LocalPlayer
@@ -227,11 +225,7 @@ end
 local function updateCharacterMoodOnAnimatorAdded(character, moodAnimation, humanoid, animator)
 	-- play mood animation
 	currentMoodTrack = animator:LoadAnimation(currentMoodAnimationInstance)
-	if FFlagSwitchMoodPriorityWhileStreaming then
-		currentMoodTrack.Priority = currentMoodTrackPriority
-	else
-		currentMoodTrack.Priority = Enum.AnimationPriority.Core
-	end
+	currentMoodTrack.Priority = currentMoodTrackPriority
 
 	if currentEmoteTrack == nil then
 		currentMoodTrack:Play()
@@ -311,11 +305,7 @@ local function updateCharacterMood(character, moodAnimation)
 	
 		-- play mood animation
 		currentMoodTrack = animator:LoadAnimation(currentMoodAnimationInstance)
-		if FFlagSwitchMoodPriorityWhileStreaming then
-			currentMoodTrack.Priority = currentMoodTrackPriority
-		else
-			currentMoodTrack.Priority = Enum.AnimationPriority.Core
-		end
+		currentMoodTrack.Priority = currentMoodTrackPriority
 	
 		if currentEmoteTrack == nil then
 			currentMoodTrack:Play()
@@ -523,27 +513,25 @@ local function onCharacterAdded(player, character)
 		end
 	end)
 
-	if FFlagSwitchMoodPriorityWhileStreaming then
-		connections[Connection.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
-			if descendant:IsA("Animator") then
-				onAnimatorAdded(descendant)
-			end
-		end)
-		local animator = character:FindFirstChildWhichIsA("Animator", true)
-		if animator then
-			onAnimatorAdded(animator)
+	connections[Connection.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
+		if descendant:IsA("Animator") then
+			onAnimatorAdded(descendant)
 		end
-
-		connections[Connection.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
-			if descendant:IsA("Animator") then
-				if game:GetFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator") then
-					onAnimatorRemoving(player, descendant)
-				else
-					onAnimatorRemoving_Deprecated(descendant)
-				end
-			end
-		end)
+	end)
+	local animator = character:FindFirstChildWhichIsA("Animator", true)
+	if animator then
+		onAnimatorAdded(animator)
 	end
+
+	connections[Connection.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
+		if descendant:IsA("Animator") then
+			if game:GetFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator") then
+				onAnimatorRemoving(player, descendant)
+			else
+				onAnimatorRemoving_Deprecated(descendant)
+			end
+		end
+	end)
 end
 
 local function onCharacterRemoving(character)

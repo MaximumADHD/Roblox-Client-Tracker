@@ -23,8 +23,6 @@ local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local ConfigureFriendMenu = require(ContactList.Components.common.ConfigureFriendMenu)
 local FriendAction = require(ContactList.Enums.FriendAction)
 local UpdateLastFriend = require(ContactList.Actions.UpdateLastFriend)
-local GetFFlagIrisEnumerateCleanupEnabled =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisEnumerateCleanupEnabled
 
 local useStyle = UIBlox.Core.Style.useStyle
 local withStyle = UIBlox.Style.withStyle
@@ -57,32 +55,18 @@ local function PlayerMenuContainer()
 		return state.PlayerMenu.friend
 	end)
 
-	local dialogType, setDialogType = React.useState(
-		if GetFFlagIrisEnumerateCleanupEnabled()
-			then FriendAction.NoAction
-			else (FriendAction.NoAction :: any).rawValue()
-	)
+	local dialogType, setDialogType = React.useState(FriendAction.NoAction)
 	local containerSize, setContainerSize = React.useState(Vector2.new(0, 0))
 	local title, setTitle = React.useState("")
 	local buttonName, setButtonName = React.useState("")
 
 	local confirmDelete = React.useCallback(function()
-		if
-			dialogType
-			== if GetFFlagIrisEnumerateCleanupEnabled()
-				then FriendAction.Block
-				else (FriendAction.Block :: any).rawValue()
-		then
+		if dialogType == FriendAction.Block then
 			dispatch(BlockPlayer({
 				UserId = friend.userId,
 			}))
 			dispatch(UpdateLastFriend(friend.userId))
-		elseif
-			dialogType
-			== if GetFFlagIrisEnumerateCleanupEnabled()
-				then FriendAction.Unfriend
-				else (FriendAction.Unfriend :: any).rawValue()
-		then
+		elseif dialogType == FriendAction.Unfriend then
 			local request = UnfriendTargetUserId.API({
 				currentUserId = localUserId,
 				targetUserId = friend.userId,
@@ -107,22 +91,12 @@ local function PlayerMenuContainer()
 	end, { dialogType, friend.userId })
 
 	React.useEffect(function()
-		if
-			dialogType
-			== if GetFFlagIrisEnumerateCleanupEnabled()
-				then FriendAction.Block
-				else (FriendAction.Block :: any).rawValue()
-		then
+		if dialogType == FriendAction.Block then
 			setTitle(RobloxTranslator:FormatByKey(BLOCK_TITLE_KEY, {
 				combinedName = friend.combinedName,
 			}))
 			setButtonName(RobloxTranslator:FormatByKey(BLOCK_TEXT_KEY))
-		elseif
-			dialogType
-			== if GetFFlagIrisEnumerateCleanupEnabled()
-				then FriendAction.Unfriend
-				else (FriendAction.Unfriend :: any).rawValue()
-		then
+		elseif dialogType == FriendAction.Unfriend then
 			setTitle(RobloxTranslator:FormatByKey(UNFRIEND_TITLE_KEY, {
 				combinedName = friend.combinedName,
 			}))
@@ -156,11 +130,7 @@ local function PlayerMenuContainer()
 								text = RobloxTranslator:FormatByKey(CANCEL_TEXT_KEY),
 								onActivated = function()
 									dispatch(CloseCFM())
-									setDialogType(
-										if GetFFlagIrisEnumerateCleanupEnabled()
-											then FriendAction.NoAction
-											else (FriendAction.NoAction :: any).rawValue()
-									)
+									setDialogType(FriendAction.NoAction)
 								end,
 							},
 						},
@@ -171,11 +141,7 @@ local function PlayerMenuContainer()
 								onActivated = function()
 									confirmDelete()
 									dispatch(CloseCFM())
-									setDialogType(
-										if GetFFlagIrisEnumerateCleanupEnabled()
-											then FriendAction.NoAction
-											else (FriendAction.NoAction :: any).rawValue()
-									)
+									setDialogType(FriendAction.NoAction)
 								end,
 							},
 						},
@@ -206,19 +172,10 @@ local function PlayerMenuContainer()
 				Text = "",
 				[React.Event.Activated] = function()
 					dispatch(CloseCFM())
-					setDialogType(
-						if GetFFlagIrisEnumerateCleanupEnabled()
-							then FriendAction.NoAction
-							else (FriendAction.NoAction :: any).rawValue()
-					)
+					setDialogType(FriendAction.NoAction)
 				end,
 			}),
-			PlayerMenu = if dialogType
-					== if GetFFlagIrisEnumerateCleanupEnabled()
-						then FriendAction.NoAction
-						else (FriendAction.NoAction :: any).rawValue()
-				then cfMenu
-				else confirmationMenu,
+			PlayerMenu = if dialogType == FriendAction.NoAction then cfMenu else confirmationMenu,
 		}),
 	})
 end

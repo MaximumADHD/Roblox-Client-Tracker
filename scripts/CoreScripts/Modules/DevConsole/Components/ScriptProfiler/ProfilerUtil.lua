@@ -40,6 +40,10 @@ function ProfilerUtil.getNativeFlag(data: RootDataFormat, func: Function?): bool
     return (func and func.IsNative) or false
 end
 
+function ProfilerUtil.getPluginFlag(data: RootDataFormat, func: ProfilerData.Function?): boolean
+    return (func and func.IsPlugin) or false
+end
+
 function ProfilerUtil.standardizeChildren(data: RootDataFormat, node: Node?): {[FunctionId]: NodeId}?
     return node and node.Children
 end

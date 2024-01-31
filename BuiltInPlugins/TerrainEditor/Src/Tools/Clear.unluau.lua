@@ -2,13 +2,13 @@
 local var0 = script:FindFirstAncestor("TerrainEditor")
 local var1 = require(script.Parent.BaseTool)
 local var2 = require(var0.Src.Types)
-local var3 = var2.Categories
+local var3 = var2.Category
 local var4 = var2.ClearSettings
 local var24 = {}
 var24.Defaults = {}
 var24.Id = var3.ClearSettings
 var24.Schema = require(var0.Src.Schemas.Settings.Clear)
-local var6 = var1:new(var2.Tools.Clear, var2.ToolCategories.Create, {}, {})
+local var6 = var1:new(var2.Tool.Clear, var2.Tab.Create, {}, {})
 function var6.init(arg1, arg2, arg3)
    local var37 = var1
    var37 = arg1

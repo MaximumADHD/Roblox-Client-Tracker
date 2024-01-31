@@ -12,7 +12,7 @@ local var9 = require(script.Water)
 local var10 = var0.Src.Util.Generation
 local var11 = require(var10.NoisySeed)
 local var12 = require(var10.Perlin)
-local var13 = require(var0.Src.Types).Biomes
+local var13 = require(var0.Src.Types).Biome
 return function(arg1, arg2, arg3)
    var13.Arctic = var1(arg1, arg3)
    var13.Canyons = var2(arg1, arg2, arg3)

@@ -9,6 +9,7 @@ local getDurations = ProfilerUtil.getDurations
 local getSourceName = ProfilerUtil.getSourceName
 local getLine = ProfilerUtil.getLine
 local getNativeFlag = ProfilerUtil.getNativeFlag
+local getPluginFlag = ProfilerUtil.getPluginFlag
 local standardizeChildren = ProfilerUtil.standardizeChildren
 
 local Components = script.Parent.Parent.Parent.Components
@@ -36,6 +37,7 @@ local TOOLTIP_FORMAT = "%s:%s"
 local ROOT_LABEL = "<root>"
 local ANON_LABEL = "<anonymous>"
 
+local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
 local FFlagScriptProfilerNativeFrames = game:DefineFastFlag("ScriptProfilerNativeFrames", false)
 local FFlagScriptProfilerSetRoot = game:DefineFastFlag("ScriptProfilerSetRoot", false)
 local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
@@ -88,10 +90,15 @@ local function getNodeName(props: any): string
 	local func = data.Functions[functionId]
 
 	local isNative = getNativeFlag(data, func)
+	local isPlugin = getPluginFlag(data, func)
 
 	local defaultName = if depth == 0 then ROOT_LABEL else ANON_LABEL
 	local name = props.nodeName
 	name = if not name or #name == 0 then defaultName else name
+
+	if FFlagScriptProfilerPluginAnnotation and isPlugin then
+		name = name .. " <plugin>"
+	end
 
 	if FFlagScriptProfilerNativeFrames and isNative then
 		name = name .. " <native>"
@@ -155,6 +162,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 		local average = self.props.average
 		local searchTerm = self.props.searchTerm
 		local searchFilter = self.props.searchFilter
+		local showPlugins = self.props.showPlugins
 
 		local rootData = self.props.data :: ProfilerData.RootDataFormat
 
@@ -167,6 +175,11 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 
 				local node = rootData.Nodes[nodeId]
 				local func = rootData.Functions[functionId]
+
+				if not showPlugins and getPluginFlag(rootData, func) then
+					continue
+				end
+
 				local childTotalDuration = getDurations(rootData, nodeId)
 				children[functionId] = Roact.createElement(ProfilerViewEntry, {
 					layoutOrder = (totalDuration - childTotalDuration) * 1e6, -- Sort by reverse duration
@@ -179,6 +192,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 					percentageRatio = percentageRatio,
 					searchTerm = searchTerm,
 					searchFilter = searchFilter,
+					showPlugins = showPlugins,
 				})
 			end
 		elseif (FFlagScriptProfilerSetTerminalRootFix and self.props.nodeId == 0) or (not FFlagScriptProfilerSetTerminalRootFix and self.props.depth == 0) then
@@ -194,6 +208,11 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 				local node = rootData.Nodes[category.NodeId]
 				local childTotalDuration = getDurations(rootData, category.NodeId)
 
+				local pluginOffset = self.props.pluginOffsets[index]
+				if not showPlugins then
+					childTotalDuration -= pluginOffset
+				end
+
 				children[index] = Roact.createElement(ProfilerViewEntry, {
 					layoutOrder = (totalDuration - childTotalDuration) * 1e6, -- Sort by reverse duration
 					depth = childDepth,
@@ -205,6 +224,8 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 					percentageRatio = percentageRatio,
 					searchTerm = searchTerm,
 					searchFilter = searchFilter,
+					showPlugins = showPlugins,
+					pluginOffset = pluginOffset,
 				})
 			end
 		end
@@ -237,6 +258,7 @@ function ProfilerViewEntryComponent:render()
 	local offset = depth * DEPTH_INDENT
 	local percentageRatio = props.percentageRatio
 	local data = props.data :: ProfilerData.RootDataFormat
+	local showPlugins = props.showPlugins
 
 	local nodeId = props.nodeId
 	local functionId = props.functionId
@@ -249,6 +271,15 @@ function ProfilerViewEntryComponent:render()
 	selfDuration /= self.props.average
 
 	local childData = standardizeChildren(data, node)
+
+	if not showPlugins then
+		if nodeId == 0 then
+			local pluginOffsets = self.props.pluginOffsets
+			totalDuration -= pluginOffsets.Total or 0
+		else
+			totalDuration -= self.props.pluginOffset or 0
+		end
+	end
 
 	local totalDurationText, selfDurationText
 	if percentageRatio then

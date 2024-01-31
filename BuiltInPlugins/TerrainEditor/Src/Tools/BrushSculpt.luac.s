@@ -144,11 +144,11 @@ MAIN:
   GETTABLEKS R6 R5 K17 ["BrushMode"]
   GETTABLEKS R7 R5 K18 ["BrushSettings"]
   GETTABLEKS R8 R5 K19 ["BrushShape"]
-  GETTABLEKS R9 R5 K20 ["Categories"]
+  GETTABLEKS R9 R5 K20 ["Category"]
   GETTABLEKS R10 R5 K21 ["Gizmo"]
   GETTABLEKS R11 R5 K22 ["MaterialSettings"]
-  GETTABLEKS R12 R5 K23 ["ToolCategories"]
-  GETTABLEKS R13 R5 K24 ["Tools"]
+  GETTABLEKS R12 R5 K23 ["Tab"]
+  GETTABLEKS R13 R5 K24 ["Tool"]
   NEWTABLE R14 0 2
   DUPTABLE R15 K28 [{"Defaults", "Id", "Schema"}]
   NEWTABLE R16 16 0

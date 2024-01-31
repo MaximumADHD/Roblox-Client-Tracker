@@ -1045,7 +1045,7 @@ MAIN:
   NAMECALL R25 R25 K41 ["extend"]
   CALL R25 2 1
   GETIMPORT R26 K1 [game]
-  LOADK R28 K42 ["StudioUsePublishInProgressScreen"]
+  LOADK R28 K42 ["StudioUsePublishInProgressScreen2"]
   NAMECALL R26 R26 K43 ["GetFastFlag"]
   CALL R26 2 1
   DUPCLOSURE R27 K44 [PROTO_1]

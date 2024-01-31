@@ -326,7 +326,7 @@ MAIN:
   GETTABLEKS R9 R6 K16 ["constants"]
   CALL R8 1 1
   GETTABLEKS R9 R8 K17 ["AssetType"]
-  GETTABLEKS R10 R8 K18 ["UploadStatus"]
+  GETTABLEKS R10 R8 K18 ["AnimationStatus"]
   GETTABLEKS R12 R0 K11 ["Src"]
   GETTABLEKS R11 R12 K19 ["Actions"]
   GETIMPORT R12 K5 [require]

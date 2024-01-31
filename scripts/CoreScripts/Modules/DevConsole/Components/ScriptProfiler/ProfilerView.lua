@@ -49,6 +49,8 @@ function ProfilerView:renderChildren()
 		average = average,
 		searchTerm = self.props.searchTerm,
 		searchFilter = self.props.searchFilter,
+		showPlugins = self.props.showPlugins,
+		pluginOffsets = self.props.pluginOffsets,
 		percentageRatio = if self.props.showAsPercentages
 			then totalDuration / 100
 			else nil

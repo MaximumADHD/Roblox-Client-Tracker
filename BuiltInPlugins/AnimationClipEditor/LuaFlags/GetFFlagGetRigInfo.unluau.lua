@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("ACEGetRigInfo", false)
+game:DefineFastFlag("ACEGetRigInfo2", false)
 return function()
-   return game:GetFastFlag("ACEGetRigInfo")
+   return game:GetFastFlag("ACEGetRigInfo2")
 end

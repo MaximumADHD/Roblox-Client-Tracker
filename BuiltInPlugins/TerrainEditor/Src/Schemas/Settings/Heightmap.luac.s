@@ -158,7 +158,7 @@ MAIN:
   GETTABLEKS R4 R5 K8 ["Util"]
   GETTABLEKS R3 R4 K9 ["ApplyById"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K10 ["Categories"]
+  GETTABLEKS R3 R1 K10 ["Category"]
   GETTABLEKS R4 R1 K11 ["HeightmapSettings"]
   GETTABLEKS R5 R1 K12 ["Storage"]
   GETTABLEKS R6 R3 K11 ["HeightmapSettings"]

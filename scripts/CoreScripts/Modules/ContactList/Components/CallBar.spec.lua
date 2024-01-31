@@ -22,15 +22,11 @@ return function()
 	local CallBar = require(script.Parent.CallBar)
 	local Reducer = require(script.Parent.Parent.Reducer)
 
-	local FFlagUseRoduxCall18 = game:GetFastFlag("UseRoduxCall18")
-
 	it("should mount and unmount without errors", function()
 		local store = Rodux.Store.new(Reducer, {
 			Call = {
 				currentCall = {
-					status = if FFlagUseRoduxCall18
-						then RoduxCall.Enums.Status.Active
-						else RoduxCall.Enums.Status.Active.rawValue(),
+					status = RoduxCall.Enums.Status.Active,
 					callerId = 11111111,
 					calleeId = 12345678,
 					placeId = 789,

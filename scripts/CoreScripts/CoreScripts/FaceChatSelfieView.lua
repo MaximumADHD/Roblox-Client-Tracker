@@ -53,7 +53,6 @@ local FFlagSelfViewMakeClonePartsNonTransparent = game:DefineFastFlag("SelfViewM
 local FFlagSelfViewMakeClonePartsNonTransparent2 = game:DefineFastFlag("SelfViewMakeClonePartsNonTransparent2", false)
 local FFlagSelfViewCleanupImprovements = game:DefineFastFlag("SelfViewCleanupImprovements", false)
 local FFlagSelfViewDontHideOnSwapCharacter = game:DefineFastFlag("SelfViewDontHideOnSwapCharacter", false)
-local FFlagSelfViewCleanupOnClosing = game:DefineFastFlag("SelfViewCleanupOnClosing", false)
 local FFlagAvatarChatSelfViewShowDefaultCursor = game:DefineFastFlag("AvatarChatSelfViewShowDefaultCursor", false)
 local FFlagFaceChatSelfieViewShowOutlinedMicrophoneWhenIdle = game:DefineFastFlag("FaceChatSelfieViewShowOutlinedMicrophoneWhenIdle", false)
 local FFlagDisableSelfViewReactingToSetCoreGuiEnabled = game:DefineFastFlag("DisableSelfViewReactingToSetCoreGuiEnabled", false)
@@ -1221,37 +1220,25 @@ local function createViewport()
 			frame.Visible = false
 
 			if FFlagSelfViewCleanupImprovements then
-				if FFlagSelfViewCleanupOnClosing then
-					if cloneStreamTrack then
-						local onTrackStoppedConnection = nil
-						local tempCloneStreamTrack = cloneStreamTrack
-						local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
-						onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
-							tempCloneStreamTrack:Destroy()
+				if cloneStreamTrack then
+					local onTrackStoppedConnection = nil
+					local tempCloneStreamTrack = cloneStreamTrack
+					local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
+					onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
+						tempCloneStreamTrack:Destroy()
 
-							if tempNewTrackerStreamAnimation then
-								tempNewTrackerStreamAnimation:Destroy()
-							end
+						if tempNewTrackerStreamAnimation then
+							tempNewTrackerStreamAnimation:Destroy()
+						end
 
-							onTrackStoppedConnection:Disconnect()
-						end)
+						onTrackStoppedConnection:Disconnect()
+					end)
 
-						cloneStreamTrack:Stop(0.0)
-						cloneStreamTrack = nil
-					elseif newTrackerStreamAnimation then
-						newTrackerStreamAnimation:Destroy()
-						newTrackerStreamAnimation = nil
-					end
-				else
-					if cloneStreamTrack then
-						cloneStreamTrack:Stop()
-						cloneStreamTrack:Destroy()
-						cloneStreamTrack = nil
-					end
-					if newTrackerStreamAnimation then
-						newTrackerStreamAnimation:Destroy()
-						newTrackerStreamAnimation = nil
-					end
+					cloneStreamTrack:Stop(0.0)
+					cloneStreamTrack = nil
+				elseif newTrackerStreamAnimation then
+					newTrackerStreamAnimation:Destroy()
+					newTrackerStreamAnimation = nil
 				end
 			end
 
@@ -1283,53 +1270,51 @@ local function createViewport()
 		showSelfView(not isOpen)
 	end)
 
-	if game:GetEngineFeature("EnableSelfViewToggleApi") then
-		if selfViewVisibleConnection then
-			selfViewVisibleConnection:Disconnect()
-			selfViewVisibleConnection = nil
-		end
-		if selfViewHiddenConnection then
-			selfViewHiddenConnection:Disconnect()
-			selfViewHiddenConnection = nil
-		end
-		selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
-			-- Calling showSelfView when self view is already visible is no-op
-			if not isOpen then
-				-- use current position
-				local newSelfViewPosition = nil
-				local anchorPoint = nil
-				if selfViewPosition == Enum.SelfViewPosition.TopLeft then
-					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(0, 0)
-				elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
-					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(1, 0)
-				elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
-					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(0, 1)
-				elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
-					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
-					anchorPoint = Vector2.new(1, 1)
-				end
-				showSelfView(true, newSelfViewPosition, anchorPoint)
-				if newSelfViewPosition ~= nil then
-					local value = frame.AbsolutePosition.X .. "," .. frame.AbsolutePosition.Y
-					AppStorageService:SetItem("SelfViewPosition", value)
-				end
-			end
-		end)
-		selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
-			-- Calling hideSelfView when self view is not visible is no-op
-			if isOpen then
-				if getFFlagEnableAlwaysAvailableCamera() and mountedOnOpenTooltipInstance then
-					-- If we have mounted a tooltip and the developer calls this API, we want to unmount the tooltip
-					mountedOnOpenTooltipInstance.unmount()
-					mountedOnOpenTooltipInstance = nil
-				end
-				showSelfView(false)
-			end
-		end)
+	if selfViewVisibleConnection then
+		selfViewVisibleConnection:Disconnect()
+		selfViewVisibleConnection = nil
 	end
+	if selfViewHiddenConnection then
+		selfViewHiddenConnection:Disconnect()
+		selfViewHiddenConnection = nil
+	end
+	selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
+		-- Calling showSelfView when self view is already visible is no-op
+		if not isOpen then
+			-- use current position
+			local newSelfViewPosition = nil
+			local anchorPoint = nil
+			if selfViewPosition == Enum.SelfViewPosition.TopLeft then
+				newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
+				anchorPoint = Vector2.new(0, 0)
+			elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
+				newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
+				anchorPoint = Vector2.new(1, 0)
+			elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
+				newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
+				anchorPoint = Vector2.new(0, 1)
+			elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
+				newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
+				anchorPoint = Vector2.new(1, 1)
+			end
+			showSelfView(true, newSelfViewPosition, anchorPoint)
+			if newSelfViewPosition ~= nil then
+				local value = frame.AbsolutePosition.X .. "," .. frame.AbsolutePosition.Y
+				AppStorageService:SetItem("SelfViewPosition", value)
+			end
+		end
+	end)
+	selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
+		-- Calling hideSelfView when self view is not visible is no-op
+		if isOpen then
+			if getFFlagEnableAlwaysAvailableCamera() and mountedOnOpenTooltipInstance then
+				-- If we have mounted a tooltip and the developer calls this API, we want to unmount the tooltip
+				mountedOnOpenTooltipInstance.unmount()
+				mountedOnOpenTooltipInstance = nil
+			end
+			showSelfView(false)
+		end
+	end)
 
 	uiCorner = Instance.new("UICorner")
 	uiCorner.Parent = closeButton

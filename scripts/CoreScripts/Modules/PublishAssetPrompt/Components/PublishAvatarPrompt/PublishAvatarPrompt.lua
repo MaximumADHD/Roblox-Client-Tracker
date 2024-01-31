@@ -19,6 +19,7 @@ local ObjectViewport = require(Components.Common.ObjectViewport)
 
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
+local DELAYED_INPUT_ANIM_SEC = 3
 
 local NAME_METADATA_STRING = "avatarName"
 
@@ -136,6 +137,9 @@ function PublishAvatarPrompt:render()
 		onNameUpdated = self.onNameUpdated,
 		canSubmit = self.canSubmit,
 		onSubmit = self.onSubmit,
+		enableInputDelayed = true,
+		isDelayedInput = true,
+		delayInputSeconds = DELAYED_INPUT_ANIM_SEC,
 	})
 end
 

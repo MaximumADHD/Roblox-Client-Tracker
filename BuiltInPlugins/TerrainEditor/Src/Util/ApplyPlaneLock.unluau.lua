@@ -3,7 +3,7 @@ local var0 = script:FindFirstAncestor("TerrainEditor")
 local var1 = require(var0.Src.Util.getPlaneIntersection)
 local var2 = require(var0.Src.Types)
 local var3 = var2.BrushSettings
-local var4 = var2.Categories
+local var4 = var2.Category
 local var5 = var2.PlaneLock
 return function(arg1, arg2, arg3)
    local var0 = arg3.Origin.Position
