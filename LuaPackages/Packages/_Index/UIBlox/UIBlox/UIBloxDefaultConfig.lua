@@ -56,4 +56,7 @@ return {
 
 	-- Use general design tokens with `scale` parameter to adapt to different platforms
 	useTokensWithScale = false,
+
+	-- Indicate whether mapping for existing Font names are enabled
+	enableFontNameMapping = false,
 }

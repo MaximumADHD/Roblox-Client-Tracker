@@ -3,19 +3,21 @@ local Style = Themes.Parent
 
 local Constants = require(Style.Constants)
 local validateFont = require(Style.Validator.validateFont)
+local FontLoader = require(script.Parent.FontLoader)
+local StyleTypes = require(Style.StyleTypes)
 
-local FONT_MAP = {
-	[Constants.FontName.Gotham:lower()] = require(script.Parent.Gotham),
-}
-
-return function(fontName)
+return function(fontName, enableFontNameMapping: boolean?, tokens: StyleTypes.Tokens)
+	local fontLoader = FontLoader.new(enableFontNameMapping, tokens)
+	local fontMap = {
+		[Constants.FontName.Gotham:lower()] = fontLoader:loadFont(),
+	}
 	local mappedFont
 	if fontName ~= nil and #fontName > 0 then
-		mappedFont = FONT_MAP[fontName:lower()]
+		mappedFont = fontMap[fontName:lower()]
 	end
 
 	if mappedFont == nil then
-		mappedFont = FONT_MAP[Constants.DefaultFontName:lower()]
+		mappedFont = fontMap[Constants.DefaultFontName:lower()]
 	end
 
 	assert(validateFont(mappedFont))

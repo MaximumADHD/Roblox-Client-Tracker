@@ -15,6 +15,7 @@ if not ok then
 end
 
 local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
+local NewCursorProvider = UIBlox.App.SelectionCursor.CursorProvider
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 local StyleConstants = UIBlox.App.Style.Constants
 local LightTheme = StyleConstants.ThemeName.Light
@@ -42,7 +43,9 @@ local function StoryMiddleware(story)
 				style = themes[storyProps.theme],
 			}, {
 				CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
-					Child = Roact.createElement(story, storyProps),
+					NewCursorProvider = Roact.createElement(NewCursorProvider, {}, {
+						Child = Roact.createElement(story, storyProps),
+					}),
 				}),
 			}),
 		})

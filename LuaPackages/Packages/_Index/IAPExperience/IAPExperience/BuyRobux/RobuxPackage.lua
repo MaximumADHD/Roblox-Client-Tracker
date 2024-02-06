@@ -15,6 +15,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local withStyle = UIBlox.Core.Style.withStyle
 local DarkTheme = UIBlox.App.Style.Themes.DarkTheme
 local ImageSetButton = UIBlox.Core.ImageSet.ImageSetButton
+local useCursor = UIBlox.App.SelectionCursor.useCursor
 
 local RoactGamepad = require(Packages.RoactGamepad)
 
@@ -24,6 +25,8 @@ local FitTextLabel = RoactFitComponents.FitTextLabel
 
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
 local formatNumber = require(IAPExperienceRoot.Utility.formatNumber)
+
+local getEnableRobuxPageNewSelectionCursor = require(IAPExperienceRoot.Flags.getEnableRobuxPageNewSelectionCursor)
 
 local RobuxPackage = Roact.Component:extend(script.Name)
 
@@ -57,7 +60,7 @@ type Props = {
 	nextSelectionRight: React.Ref<any>?,
 }
 
-local function renderWithProviders(props: Props, locMap, stylePalette, getSelectionCursor)
+local function renderWithProviders(props: Props, locMap, stylePalette, getSelectionCursor, cursor)
 	if props.robuxAmount == nil then
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -86,7 +89,9 @@ local function renderWithProviders(props: Props, locMap, stylePalette, getSelect
 
 			Image = nil,
 
-			SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
+			SelectionImageObject = if getEnableRobuxPageNewSelectionCursor()
+				then cursor
+				else getSelectionCursor(CursorKind.RoundedRect),
 
 			[Roact.Ref] = props.forwardRef,
 
@@ -243,6 +248,7 @@ local function renderWithProviders(props: Props, locMap, stylePalette, getSelect
 end
 
 return function(props: Props)
+	local cursor = if getEnableRobuxPageNewSelectionCursor() then useCursor(UDim.new(0, CORNER_SIZE)) else nil
 	return Roact.createElement(MultiTextLocalizer, {
 		keys = {
 			moreRobux = {
@@ -258,7 +264,7 @@ return function(props: Props)
 					if props.scale == nil then
 						props.scale = 0.65
 					end
-					return renderWithProviders(props, locMap, stylePalette, getSelectionCursor)
+					return renderWithProviders(props, locMap, stylePalette, getSelectionCursor, cursor)
 				end)
 			end)
 		end,
