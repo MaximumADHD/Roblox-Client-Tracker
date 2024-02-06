@@ -35,7 +35,6 @@ local Players = game:GetService("Players")
 ----------- UTILITIES --------------
 
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
-local GetFFlagSurveyUserIdFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSurveyUserIdFix
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 local GetFFlagEnableStyleProviderCleanUp =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
@@ -242,12 +241,8 @@ local function Initialize()
 						customProps = { chromeSeenCount = chromeSeenCount }
 					end
 
-					if GetFFlagSurveyUserIdFix() then
-						local localUserId = tostring(Players.LocalPlayer.UserId)
-						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps})
-					else
-						MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, customProps = customProps})
-					end
+					local localUserId = tostring(Players.LocalPlayer.UserId)
+					MessageBus.publish(Constants.OnSurveyEventDescriptor, {eventType = Constants.SurveyEventType, userId = localUserId, customProps = customProps})
 				end,
 			}),
 		}

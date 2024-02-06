@@ -19,8 +19,6 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
 local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
-local FFlagEnableSyncAudioWithVoiceChatMuteState = game:DefineFastFlag("EnableSyncAudioWithVoiceChatMuteState", false)
-local FFlagEnableFacialAnimationKickPlayerWhenServerDisabled = game:DefineFastFlag("EnableFacialAnimationKickPlayerWhenServerDisabled", false)
 local FFlagFacialAnimationStreamingServiceUsePlayerThrottling = game:GetEngineFeature("FacialAnimationStreamingServiceUsePlayerThrottling")
 local FFlagFacialAnimationStreamingServiceRequireVoiceChat = game:GetEngineFeature("FacialAnimationStreamingServiceRequireVoiceChat")
 local FFlagLoadStreamAnimationReplaceErrorsWithTelemetry = game:GetEngineFeature("LoadStreamAnimationReplaceErrorsWithTelemetryFeature")
@@ -589,38 +587,34 @@ function InitializeVoiceChat()
 
 	if VoiceChatServiceManager then
 		VoiceChatServiceManager:asyncInit():catch(function(error)
-			if FFlagEnableSyncAudioWithVoiceChatMuteState and FFlagFacialAnimationStreamingServiceRequireVoiceChat then
+			if FFlagFacialAnimationStreamingServiceRequireVoiceChat then
 				log:trace("Disabling audio processing when VoiceChat fails (possibly denied mic permission)")
 				FaceAnimatorService.AudioAnimationEnabled = false
 			end
 		end):finally(onCompletion)
 
-		if FFlagEnableSyncAudioWithVoiceChatMuteState then
-			-- Sync VoiceChat mute status with FaceAnimatorService.AudioAnimationEnabled
-			voiceChatMuteConnection = VoiceChatServiceManager.muteChanged.Event:connect(function(muted)
-				log:trace("Syncing audio processing with VoiceChat mute changed: muted="..tostring(muted))
-				FaceAnimatorService.AudioAnimationEnabled = not muted
-			end)
+		-- Sync VoiceChat mute status with FaceAnimatorService.AudioAnimationEnabled
+		voiceChatMuteConnection = VoiceChatServiceManager.muteChanged.Event:connect(function(muted)
+			log:trace("Syncing audio processing with VoiceChat mute changed: muted="..tostring(muted))
+			FaceAnimatorService.AudioAnimationEnabled = not muted
+		end)
 
-			-- Initially set audio enable to false until VoiceChat mic is enabled
-			local initialAudioEnabled = false
-			if VoiceChatServiceManager.localMuted ~= nil then
-				log:trace("Syncing audio processing with VoiceChat mute status: muted="..tostring(VoiceChatServiceManager.localMuted))
-				initialAudioEnabled = not VoiceChatServiceManager.localMuted
-			end
-			FaceAnimatorService.AudioAnimationEnabled = initialAudioEnabled
+		-- Initially set audio enable to false until VoiceChat mic is enabled
+		local initialAudioEnabled = false
+		if VoiceChatServiceManager.localMuted ~= nil then
+			log:trace("Syncing audio processing with VoiceChat mute status: muted="..tostring(VoiceChatServiceManager.localMuted))
+			initialAudioEnabled = not VoiceChatServiceManager.localMuted
 		end
+		FaceAnimatorService.AudioAnimationEnabled = initialAudioEnabled
 	elseif false == FFlagFacialAnimationStreamingServiceRequireVoiceChat then
 			onCompletion()
 	end
 end
 
 function CleanupVoiceChat()
-	if FFlagEnableSyncAudioWithVoiceChatMuteState then
-		if voiceChatMuteConnection then
-			voiceChatMuteConnection:Disconnect()
-			voiceChatMuteConnection = nil
-		end
+	if voiceChatMuteConnection then
+		voiceChatMuteConnection:Disconnect()
+		voiceChatMuteConnection = nil
 	end
 end
 
@@ -777,9 +771,7 @@ local function onThrottleUpdate(allowed, optedIn, serviceState)
 	else
 		CleanupFacialAnimationStreaming()
 
-		if FFlagEnableFacialAnimationKickPlayerWhenServerDisabled then
-			Players.LocalPlayer:Kick(PlaceUnavailableMessage)
-		elseif optedIn then
+		if optedIn then
 			TrackerMenu:showPrompt(TrackerPromptType.FeatureDisabled)
 		end
 	end

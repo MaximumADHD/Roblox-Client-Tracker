@@ -50,19 +50,22 @@ PROTO_0:
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K14 ["ClearAdapterSetup"]
   CALL R8 0 0
-  GETIMPORT R8 K16 [game]
-  LOADK R10 K17 ["Workspace"]
-  NAMECALL R8 R8 K18 ["GetService"]
+  GETUPVAL R8 2
+  NAMECALL R8 R8 K15 ["removeAllTags"]
+  CALL R8 1 0
+  GETIMPORT R8 K17 [game]
+  LOADK R10 K18 ["Workspace"]
+  NAMECALL R8 R8 K19 ["GetService"]
   CALL R8 2 1
-  GETIMPORT R10 K22 [Enum.AvatarUnificationMode.Disabled]
-  NAMECALL R8 R8 K23 ["SetAvatarUnificationMode"]
+  GETIMPORT R10 K23 [Enum.AvatarUnificationMode.Disabled]
+  NAMECALL R8 R8 K24 ["SetAvatarUnificationMode"]
   CALL R8 2 0
-  GETUPVAL R10 2
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K24 ["getTaggedData"]
+  GETUPVAL R10 3
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K25 ["getAdapterData"]
   CALL R11 0 -1
   CALL R10 -1 -1
-  NAMECALL R8 R0 K25 ["dispatch"]
+  NAMECALL R8 R0 K26 ["dispatch"]
   CALL R8 -1 0
   RETURN R0 0
 
@@ -76,27 +79,28 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R2 R0 K3 ["Src"]
-  GETTABLEKS R1 R2 K4 ["Util"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R3 R1 K7 ["AdapterTagging"]
-  CALL R2 1 1
-  GETTABLEKS R4 R0 K3 ["Src"]
-  GETTABLEKS R3 R4 K8 ["Actions"]
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R3 K9 ["SetAdapted"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K4 ["Src"]
+  GETTABLEKS R1 R2 K5 ["Util"]
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R4 R1 K8 ["PublishTagging"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K9 ["AdapterTagging"]
+  GETTABLEKS R4 R0 K4 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Actions"]
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R5 R3 K11 ["SetAdapted"]
   CALL R4 1 1
-  GETTABLEKS R6 R0 K3 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Modules"]
-  GETIMPORT R6 K6 [require]
-  GETTABLEKS R7 R5 K11 ["NpcManager"]
+  GETTABLEKS R6 R0 K4 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Modules"]
+  GETIMPORT R6 K7 [require]
+  GETTABLEKS R7 R5 K13 ["NpcManager"]
   CALL R6 1 1
-  DUPCLOSURE R7 K12 [PROTO_1]
+  DUPCLOSURE R7 K14 [PROTO_1]
   CAPTURE VAL R6
-  CAPTURE VAL R4
   CAPTURE VAL R2
+  CAPTURE VAL R4
   RETURN R7 1

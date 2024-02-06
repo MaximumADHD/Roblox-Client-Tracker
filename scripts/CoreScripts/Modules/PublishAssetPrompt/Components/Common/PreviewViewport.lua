@@ -8,6 +8,7 @@
 local AnimationClipProvider = game:GetService("AnimationClipProvider")
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
 
@@ -22,14 +23,22 @@ local IconSize = UIBlox.App.ImageSet.Enum.IconSize
 local Button = UIBlox.App.Button.Button
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local StandardButtonSize = UIBlox.App.Button.Enum.StandardButtonSize
+local ShortcutBar = UIBlox.App.Navigation.ShortcutBar
+local InputType = UIBlox.Core.Enums.InputType
+local getInputGroup = require(CorePackages.Workspace.Packages.InputType).getInputGroup
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
+local InputTypeConstants = require(CorePackages.Workspace.Packages.InputType).InputTypeConstants
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local InteractionFrame = require(script.Parent.InteractionFrame)
 local Constants = require(script.Parent.Parent.Parent.Constants)
 
-local UIBloxImages = UIBlox.App.ImageSet.Images
-local PreviewShrinkIcon = UIBloxImages["icons/actions/previewShrink"]
+local Images = UIBlox.App.ImageSet.Images
+local PreviewShrinkIcon = Images["icons/actions/previewShrink"]
+
+local FFlagUIBloxUseInputResponsiveShortcutBarChanges =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxUseInputResponsiveShortcutBarChanges
 
 local CAMERA_FOV = 30
 local INITIAL_ZOOM_FACTOR = 1
@@ -58,9 +67,15 @@ PreviewViewport.validateProps = t.strictInterface({
 	closePreviewView = t.callback,
 })
 
+local function isGamepadInput(inputType)
+	local inputGroup = getInputGroup(inputType)
+	return inputGroup == InputTypeConstants.Gamepad
+end
+
 function PreviewViewport:init()
 	self:setState({
 		loadingState = LoadingState.LOADING,
+		isGamepad = isGamepadInput(UserInputService:GetLastInputType()),
 	})
 
 	self.ref = Roact.createRef()
@@ -340,6 +355,46 @@ local localized = {
 
 function PreviewViewport:render()
 	local loadingState = self.state.loadingState
+	-- TODO: AVBURST-13893 Still missing Touch control icons
+	local toolTipItems = {
+		{
+			icon = {
+				[InputType.MouseAndKeyboard] = Images["icons/controls/mouse/scroll"],
+				[InputType.Gamepad] = Images["icons/controls/keys/xboxRSVertical"],
+			},
+			-- TODO: AVBURST-12954
+			text = "Zoom",
+		},
+		{
+			icon = {
+				[InputType.MouseAndKeyboard] = Images["icons/controls/mouse/clickLeft"],
+				[InputType.Gamepad] = Images["icons/controls/keys/xboxRSHorizontal"],
+			},
+			-- TODO: AVBURST-12954
+			text = "Rotate",
+		},
+		{
+			icon = {
+				[InputType.MouseAndKeyboard] = Images["icons/controls/mouse/clickRight"],
+			},
+			-- TODO: AVBURST-12954
+			text = "Pan",
+		},
+		{
+			icon = {
+				[InputType.Gamepad] = Images["icons/controls/keys/xboxY"],
+			},
+			-- TODO: AVBURST-12954
+			text = "Reset View",
+		},
+		{
+			icon = {
+				[InputType.Gamepad] = Images["icons/controls/keys/xboxB"],
+			},
+			-- TODO: AVBURST-12954
+			text = "Close",
+		},
+	}
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(1, 1),
@@ -355,18 +410,27 @@ function PreviewViewport:render()
 			self.absolutePosition = rbx.absolutePosition + topLeftInset
 		end,
 	}, {
+		LastInputTypeConnection = Roact.createElement(ExternalEventConnection, {
+			event = UserInputService.LastInputTypeChanged,
+			callback = function(lastInputType)
+				self:setState({
+					isGamepad = isGamepadInput(lastInputType),
+				})
+			end,
+		}) or nil,
 
 		-- TODO: move buttons to a superview
-		ResetViewButton = (loadingState == LoadingState.SUCCESSFULLY_LOADED) and Roact.createElement(Button, {
-			buttonType = ButtonType.PrimarySystem,
-			standardSize = StandardButtonSize.XSmall,
-			position = UDim2.new(0, 20, 1, -20),
-			anchorPoint = Vector2.new(0, 1),
-			text = localized.resetViewButtonText,
-			onActivated = function()
-				self:resetCameraPosition()
-			end,
-		}),
+		ResetViewButton = (loadingState == LoadingState.SUCCESSFULLY_LOADED and not self.state.isGamepad)
+			and Roact.createElement(Button, {
+				buttonType = ButtonType.PrimarySystem,
+				standardSize = StandardButtonSize.XSmall,
+				position = UDim2.new(0, 20, 1, -20),
+				anchorPoint = Vector2.new(0, 1),
+				text = localized.resetViewButtonText,
+				onActivated = function()
+					self:resetCameraPosition()
+				end,
+			}),
 
 		ShrinkPreviewButton = Roact.createElement(IconButton, {
 			position = UDim2.new(1, -20, 1, -20),
@@ -377,6 +441,15 @@ function PreviewViewport:render()
 				self.props.closePreviewView()
 			end,
 		}),
+
+		TooltipHint = if FFlagUIBloxUseInputResponsiveShortcutBarChanges
+			then Roact.createElement(ShortcutBar, {
+				position = UDim2.fromScale(0.5, 0.9),
+				anchorPoint = Vector2.new(0.5, 1),
+				transitionDelaySeconds = 2,
+				items = toolTipItems,
+			})
+			else nil,
 
 		ShimmerFrame = (loadingState == LoadingState.LOADING) and Roact.createElement(ShimmerPanel, {
 			Size = UDim2.fromScale(1, 1),

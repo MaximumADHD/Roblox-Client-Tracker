@@ -9,13 +9,15 @@ local CommonModules = CoreGuiModules:FindFirstChild("Common")
 
 local avatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
 local avatarJointUpgradeDefaultOn = game:GetEngineFeature("AvatarJointUpgradeDefaultOnFeature")
-local jointUpgradeActive = false
-if avatarJointUpgrade then
-	if avatarJointUpgradeDefaultOn then
-		jointUpgradeActive = StarterPlayer.AvatarJointUpgrade ~= Enum.AvatarJointUpgrade.Disabled
-	else
-		jointUpgradeActive = StarterPlayer.AvatarJointUpgrade == Enum.AvatarJointUpgrade.Enabled
+local function jointUpgradeActive()
+	if avatarJointUpgrade then
+		if avatarJointUpgradeDefaultOn then
+			return StarterPlayer.AvatarJointUpgrade ~= Enum.AvatarJointUpgrade.Disabled
+		else
+			return StarterPlayer.AvatarJointUpgrade == Enum.AvatarJointUpgrade.Enabled
+		end
 	end
+	return false
 end
 
 local Rigging = require(CommonModules:FindFirstChild("RagdollRigging"))
@@ -28,7 +30,7 @@ local function getDefaultDeathType()
 		[Enum.DeathStyle.NonGraphic] = "Ragdoll",
 		[Enum.DeathStyle.Scriptable] = "Scriptable",
 	}
-	local deathType = jointUpgradeActive and deathStyleMap[StarterPlayer.DeathStyle] or "Classic"
+	local deathType = jointUpgradeActive() and deathStyleMap[StarterPlayer.DeathStyle] or "Classic"
 
 	if not game:GetEngineFeature("PolicyInfoForServerRobloxOnlyAsyncEnabled") then
 		return game:DefineFastString("DeathTypeValue", deathType)
@@ -41,7 +43,7 @@ local function getDefaultDeathType()
 	if policyServiceDefaultAvatarDeathType == nil then
 		error("PolicyService did not have death type policy")
 	end
-	if jointUpgradeActive then
+	if jointUpgradeActive() then
 		if policyServiceDefaultAvatarDeathType == "Ragdoll" and StarterPlayer.DeathStyle ~= Enum.DeathStyle.Scriptable then
 			-- Policy service returns either "Classic" or "Ragdoll". "Ragdoll" implies we cannot show a graphic death (no dismemberment, no high-fidelity realism).
 			-- So we'll use whatever DeathStyle the developer set, but override it to be NonGraphic when necessary.
@@ -63,7 +65,18 @@ DeathTypeValue.Name = "DeathType"
 DeathTypeValue.Value = deathType
 DeathTypeValue.Parent = RobloxReplicatedStorage
 
-if not jointUpgradeActive and (deathType :: any) ~= "Ragdoll" then
+if avatarJointUpgrade then
+	StarterPlayer:GetPropertyChangedSignal("AvatarJointUpgrade"):Connect(function()
+		deathType = getDefaultDeathType()
+		DeathTypeValue.Value = deathType
+	end)
+	StarterPlayer:GetPropertyChangedSignal("DeathStyle"):Connect(function()
+		deathType = getDefaultDeathType()
+		DeathTypeValue.Value = deathType
+	end)
+end
+
+if not avatarJointUpgrade and (deathType :: any) ~= "Ragdoll" then
 	return -- Previously everything below was in support of ragdoll death. But now we'll want to always add ragdoll joints.
 end
 
@@ -91,6 +104,9 @@ if not avatarJointUpgrade then
 end
 
 HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid: Humanoid)
+	if not jointUpgradeActive() and (deathType :: any) ~= "Ragdoll" then
+		return
+	end
 	local characterRemovingConn
 	local function disconnect()
 		characterRemovingConn:Disconnect()
@@ -111,7 +127,7 @@ HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid: Hu
 
 	-- Server creates ragdoll joints on spawn to allow for seamless transition even if death is
 	-- initiated on the client. The Motor6Ds keep them inactive until they are disabled.
-	Rigging.createRagdollJoints(character, humanoid.RigType, jointUpgradeActive)
+	Rigging.createRagdollJoints(character, humanoid.RigType, jointUpgradeActive())
 	riggedPlayerHumanoids[player] = humanoid
 
 	if avatarJointUpgrade then
@@ -120,7 +136,7 @@ HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid: Hu
 			riggedPlayerHumanoids[player] = nil
 
 			local character = humanoid.Parent
-			if jointUpgradeActive then
+			if jointUpgradeActive() then
 				if deathType == "Scriptable" then
 					return
 				end

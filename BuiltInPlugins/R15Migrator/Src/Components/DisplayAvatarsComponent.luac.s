@@ -67,42 +67,42 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["ContextServices"]
-  GETTABLEKS R5 R2 K9 ["Style"]
-  GETTABLEKS R4 R5 K10 ["Stylizer"]
-  GETTABLEKS R5 R2 K11 ["UI"]
-  GETTABLEKS R6 R5 K12 ["Pane"]
-  GETTABLEKS R7 R5 K13 ["Image"]
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R5 R2 K10 ["Style"]
+  GETTABLEKS R4 R5 K11 ["Stylizer"]
+  GETTABLEKS R5 R2 K12 ["UI"]
+  GETTABLEKS R6 R5 K13 ["Pane"]
+  GETTABLEKS R7 R5 K14 ["Image"]
   GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K2 ["Parent"]
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R10 R8 K14 ["PreviewModelComponent"]
+  GETTABLEKS R8 R9 K15 ["Parent"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R8 K16 ["PreviewModelComponent"]
   CALL R9 1 1
-  GETTABLEKS R10 R1 K15 ["PureComponent"]
-  LOADK R12 K16 ["DisplayAvatarsComponent"]
-  NAMECALL R10 R10 K17 ["extend"]
+  GETTABLEKS R10 R1 K17 ["PureComponent"]
+  LOADK R12 K18 ["DisplayAvatarsComponent"]
+  NAMECALL R10 R10 K19 ["extend"]
   CALL R10 2 1
-  DUPCLOSURE R11 K18 [PROTO_0]
+  DUPCLOSURE R11 K20 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R9
   CAPTURE VAL R7
-  SETTABLEKS R11 R10 K19 ["render"]
-  GETTABLEKS R11 R3 K20 ["withContext"]
-  DUPTABLE R12 K21 [{"Stylizer"}]
-  SETTABLEKS R4 R12 K10 ["Stylizer"]
+  SETTABLEKS R11 R10 K21 ["render"]
+  GETTABLEKS R11 R3 K22 ["withContext"]
+  DUPTABLE R12 K23 [{"Stylizer"}]
+  SETTABLEKS R4 R12 K11 ["Stylizer"]
   CALL R11 1 1
   MOVE R12 R10
   CALL R11 1 1

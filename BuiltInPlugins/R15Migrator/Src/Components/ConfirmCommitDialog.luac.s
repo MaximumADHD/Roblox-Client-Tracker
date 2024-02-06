@@ -74,37 +74,37 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["ContextServices"]
-  GETTABLEKS R4 R2 K9 ["UI"]
-  GETTABLEKS R5 R4 K10 ["TextLabel"]
-  GETTABLEKS R6 R4 K11 ["StyledDialog"]
-  GETTABLEKS R7 R1 K12 ["PureComponent"]
-  LOADK R9 K13 ["ConfirmCommitDialog"]
-  NAMECALL R7 R7 K14 ["extend"]
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R2 K10 ["UI"]
+  GETTABLEKS R5 R4 K11 ["TextLabel"]
+  GETTABLEKS R6 R4 K12 ["StyledDialog"]
+  GETTABLEKS R7 R1 K13 ["PureComponent"]
+  LOADK R9 K14 ["ConfirmCommitDialog"]
+  NAMECALL R7 R7 K15 ["extend"]
   CALL R7 2 1
-  DUPCLOSURE R8 K15 [PROTO_1]
+  DUPCLOSURE R8 K16 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R5
-  SETTABLEKS R8 R7 K16 ["render"]
-  GETTABLEKS R8 R3 K17 ["withContext"]
-  DUPTABLE R9 K20 [{"Localization", "Stylizer"}]
-  GETTABLEKS R10 R3 K18 ["Localization"]
-  SETTABLEKS R10 R9 K18 ["Localization"]
-  GETTABLEKS R10 R3 K19 ["Stylizer"]
-  SETTABLEKS R10 R9 K19 ["Stylizer"]
+  SETTABLEKS R8 R7 K17 ["render"]
+  GETTABLEKS R8 R3 K18 ["withContext"]
+  DUPTABLE R9 K21 [{"Localization", "Stylizer"}]
+  GETTABLEKS R10 R3 K19 ["Localization"]
+  SETTABLEKS R10 R9 K19 ["Localization"]
+  GETTABLEKS R10 R3 K20 ["Stylizer"]
+  SETTABLEKS R10 R9 K20 ["Stylizer"]
   CALL R8 1 1
   MOVE R9 R7
   CALL R8 1 1

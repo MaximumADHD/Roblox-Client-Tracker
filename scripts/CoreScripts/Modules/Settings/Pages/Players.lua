@@ -52,6 +52,7 @@ local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local FFlagUpdateFriendLabelOnChange = game:DefineFastFlag("UpdateFriendLabelOnChange", false)
+local FFlagFixPlayersExtremeTruncation = game:DefineFastFlag("FixPlayersExtremeTruncation", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 local isRoactAbuseReportMenuEnabled = require(RobloxGui.Modules.TrustAndSafety.isRoactAbuseReportMenuEnabled)
 
@@ -104,6 +105,7 @@ local BUTTON_ROW_HEIGHT = PLAYER_ROW_HEIGHT
 local USERNAME_POSITION = 0.5
 local USERNAME_POSITION_PORTRAIT = 0.275
 local RIGHT_SIDE_BUTTON_PAD = -4
+local LABEL_POSX = 60
 
 if Theme.UIBloxThemeEnabled then
 	RIGHT_SIDE_BUTTON_PAD = -12
@@ -925,7 +927,7 @@ local function Initialize()
 		textLabel.FontSize = hasSecondRow and Theme.fontSize(Enum.FontSize.Size36, "DisplayName") or Theme.fontSize(Enum.FontSize.Size24, "DisplayName")
 		textLabel.TextColor3 = Color3.new(1, 1, 1)
 		textLabel.BackgroundTransparency = 1
-		textLabel.Position = hasSecondRow and UDim2.new(0, 60, 0.5, -10) or UDim2.new(0, 60, .5, 0)
+		textLabel.Position = hasSecondRow and UDim2.new(0, LABEL_POSX, 0.5, -10) or UDim2.new(0, LABEL_POSX, .5, 0)
 		textLabel.Size = UDim2.new(0, 0, 0, 0)
 		textLabel.ZIndex = 3
 		textLabel.Parent = frame
@@ -941,7 +943,7 @@ local function Initialize()
 			secondRow.FontSize = Theme.fontSize(Enum.FontSize.Size24, "Username")
 			secondRow.TextColor3 = Color3.fromRGB(162, 162, 162)
 			secondRow.BackgroundTransparency = 1
-			secondRow.Position = UDim2.new(0, 60, .5, 12)
+			secondRow.Position = UDim2.new(0, LABEL_POSX, .5, 12)
 			secondRow.Size = UDim2.new(0, 0, 0, 0)
 			secondRow.ZIndex = 3
 			secondRow.Parent = frame
@@ -962,7 +964,10 @@ local function Initialize()
 			if not shouldShowMuteToggles then
 				frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
 			end
-			if GetFFlagInviteTextTruncateFix() then
+			if FFlagFixPlayersExtremeTruncation then
+				textLabel.Size = UDim2.new(1, -LABEL_POSX, 0, 0)
+				textLabel.TextTruncate = Enum.TextTruncate.AtEnd
+			elseif GetFFlagInviteTextTruncateFix() then
 				textLabel.Size = UDim2.new(0.5, 0, 0, 0)
 				textLabel.TextTruncate = Enum.TextTruncate.AtEnd
 			end
@@ -1035,7 +1040,7 @@ local function Initialize()
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
 
-		textLabel.Size = UDim2.new(0.5, 0, 0, 0)
+		textLabel.Size = if FFlagFixPlayersExtremeTruncation then UDim2.new(1, -LABEL_POSX, 0, 0) else UDim2.new(0.5, 0, 0, 0)
 		textLabel.TextTruncate = Enum.TextTruncate.AtEnd
 		textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 		textLabel.AutoLocalize = false
@@ -1661,8 +1666,6 @@ local function Initialize()
 					local parent = frame:FindFirstChild("RightSideButtons")
 
 					if FFlagExtendedExpMenuPortraitLayout then
-						local LABEL_POSX = 60
-
 						local firstRow = frame:FindFirstChild("DisplayNameLabel")
 						local secondRow = frame:FindFirstChild("NameLabel")
 						local rightSideListLayout = parent and parent:FindFirstChild("RightSideListLayout")

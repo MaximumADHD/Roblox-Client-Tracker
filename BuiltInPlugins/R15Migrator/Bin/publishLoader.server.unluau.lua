@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent
+local var0 = script:FindFirstAncestor("R15Migrator")
 local var1 = require(var0.Src.Util.DebugFlags)
 if not require(var0.Src.Util.shouldPluginRun)() then
 end
@@ -16,20 +16,20 @@ var3.fallbackResourceTable = var0.Src.Resources.Localization.SourceStrings
 var3.overrideLocaleId = nil
 var3.localizationNamespace = nil
 var3.noToolbar = true
-local var228 = {}
-local function fun4()
+local var82 = {}
+local function fun0()
    return var2.OnPublishAttempt
 end
 
-function var228.StudioPublishService.OnPublishAttempt()
+function var82.StudioPublishService.OnPublishAttempt()
    return var2.OnPublishAttempt
 end
 
-var3.extraTriggers = var228
-fun4 = var3
-local var5 = require(var0.PluginLoader.PluginLoaderBuilder).build(fun4)
+var3.extraTriggers = var82
+fun0 = var3
+local var5 = require(var0.PluginLoader.PluginLoaderBuilder).build(fun0)
 if not var5.pluginLoader:waitForUserInteraction() then
 end
-local var237 = script
-var237 = var5
-require(var237.Parent.publishMain)(plugin, var237)
+local var91 = script
+var91 = var5
+require(var91.Parent.publishMain)(plugin, var91)

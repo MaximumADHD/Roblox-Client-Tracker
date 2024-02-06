@@ -9,7 +9,7 @@ local PublishAssetPrompts = script.Parent.Parent
 local OpenPublishAvatarPrompt = require(PublishAssetPrompts.Actions.OpenPublishAvatarPrompt)
 local PromptType = require(PublishAssetPrompts.PromptType)
 
-return function(humanoidModel: Model, guid: string, scopes: any)
+return function(humanoidModel: Model?, guid: string, scopes: any)
 	return function(store)
 		store:dispatch(OpenPublishAvatarPrompt(PromptType.PublishAvatar, humanoidModel, guid, scopes))
 	end

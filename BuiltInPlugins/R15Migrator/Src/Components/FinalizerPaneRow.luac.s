@@ -138,40 +138,40 @@ PROTO_2:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["ContextServices"]
-  GETTABLEKS R4 R2 K9 ["UI"]
-  GETTABLEKS R5 R4 K10 ["TextLabel"]
-  GETTABLEKS R6 R4 K11 ["Pane"]
-  GETTABLEKS R7 R2 K12 ["Util"]
-  GETTABLEKS R8 R7 K13 ["LayoutOrderIterator"]
-  GETTABLEKS R9 R1 K14 ["PureComponent"]
-  LOADK R11 K15 ["FinalizerPaneRow"]
-  NAMECALL R9 R9 K16 ["extend"]
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R2 K10 ["UI"]
+  GETTABLEKS R5 R4 K11 ["TextLabel"]
+  GETTABLEKS R6 R4 K12 ["Pane"]
+  GETTABLEKS R7 R2 K13 ["Util"]
+  GETTABLEKS R8 R7 K14 ["LayoutOrderIterator"]
+  GETTABLEKS R9 R1 K15 ["PureComponent"]
+  LOADK R11 K16 ["FinalizerPaneRow"]
+  NAMECALL R9 R9 K17 ["extend"]
   CALL R9 2 1
-  DUPCLOSURE R10 K17 [PROTO_1]
-  SETTABLEKS R10 R9 K18 ["init"]
-  DUPCLOSURE R10 K19 [PROTO_2]
+  DUPCLOSURE R10 K18 [PROTO_1]
+  SETTABLEKS R10 R9 K19 ["init"]
+  DUPCLOSURE R10 K20 [PROTO_2]
   CAPTURE VAL R8
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R5
-  SETTABLEKS R10 R9 K20 ["render"]
-  GETTABLEKS R10 R3 K21 ["withContext"]
-  DUPTABLE R11 K23 [{"Stylizer"}]
-  GETTABLEKS R12 R3 K22 ["Stylizer"]
-  SETTABLEKS R12 R11 K22 ["Stylizer"]
+  SETTABLEKS R10 R9 K21 ["render"]
+  GETTABLEKS R10 R3 K22 ["withContext"]
+  DUPTABLE R11 K24 [{"Stylizer"}]
+  GETTABLEKS R12 R3 K23 ["Stylizer"]
+  SETTABLEKS R12 R11 K23 ["Stylizer"]
   CALL R10 1 1
   MOVE R11 R9
   CALL R10 1 1

@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("R15Migrator")
 local var1 = require(var0.Src.Util.findAllInServices)
 local var2 = require(var0.Src.Util.ScriptHistory.ChunkUtil)
 return function()
@@ -8,5 +8,5 @@ return function()
    end)
    local var1 = nil
    local var2 = nil
-   var2:RemoveScriptBackupChunks(var27)
+   var2:RemoveScriptBackupChunks(var26)
 end

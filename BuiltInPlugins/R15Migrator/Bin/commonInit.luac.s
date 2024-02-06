@@ -4,29 +4,30 @@ PROTO_0:
   RETURN R0 0
   LOADB R0 1
   SETUPVAL R0 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Util"]
-  GETTABLEKS R2 R3 K7 ["DebugFlags"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["DebugFlags"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["EnableRoactConfigs"]
+  GETTABLEKS R2 R1 K9 ["EnableRoactConfigs"]
   CALL R2 0 1
   JUMPIFNOT R2 [+20]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Roact"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K11 ["setGlobalConfig"]
-  DUPTABLE R4 K15 [{"elementTracing", "propValidation", "typeChecks"}]
+  GETTABLEKS R3 R2 K12 ["setGlobalConfig"]
+  DUPTABLE R4 K16 [{"elementTracing", "propValidation", "typeChecks"}]
   LOADB R5 1
-  SETTABLEKS R5 R4 K12 ["elementTracing"]
+  SETTABLEKS R5 R4 K13 ["elementTracing"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K13 ["propValidation"]
+  SETTABLEKS R5 R4 K14 ["propValidation"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K14 ["typeChecks"]
+  SETTABLEKS R5 R4 K15 ["typeChecks"]
   CALL R3 1 0
   RETURN R0 0
 

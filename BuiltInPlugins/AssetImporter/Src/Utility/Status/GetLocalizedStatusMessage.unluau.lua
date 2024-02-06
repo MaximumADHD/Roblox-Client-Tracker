@@ -24,18 +24,16 @@ var3.FacsUnrecognizedFacsError = "FacsUnrecognizedFACSError2"
 var3.FacsMax3CorrectivesError = "FacsMax3CorrectivesError3"
 var3.FacsFrameExtraCharsWarning = "FacsFrameExtraCharsWarning1"
 var3.NoRefMeshForCageWithSuggestionWarning = "NoRefMeshForCageWithSuggestionWarning1"
-var3.NoRefMeshForCageWithSuggestionV1Warning = "NoRefMeshForCageWithSuggestionV1Warning1"
-var3.CageNameHasTypoV1Warning = "CageNameHasTypoV1Warning1"
 var3.CageNameHasTypoWarning = "CageNameHasTypoWarning1"
 return function(arg1, arg2, arg3, arg4)
-   local var43 = var3
-   local var44 = var43[arg2]
-   var43 = arg1
-   local var1 = var2(var43, "Statuses", var47, arg4)
+   local var41 = var3
+   local var42 = var41[arg2]
+   var41 = arg1
+   local var1 = var2(var41, "Statuses", var45, arg4)
    if not var1 then
-      local var55 = {}
-      var55.type = arg2
-      var1 = arg1:getText("Statuses", string.format("Default%s1", arg3), var55)
+      local var53 = {}
+      var53.type = arg2
+      var1 = arg1:getText("Statuses", string.format("Default%s1", arg3), var53)
    end
    return var1
 end

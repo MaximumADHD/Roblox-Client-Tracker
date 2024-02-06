@@ -197,30 +197,20 @@ PROTO_10:
   RETURN R0 0
 
 PROTO_11:
-  GETUPVAL R6 0
-  LOADK R7 K0 ["exportAnimation"]
-  DUPTABLE R8 K6 [{"animationType", "hasFacs", "assetId", "guid", "delete"}]
-  SETTABLEKS R2 R8 K1 ["animationType"]
-  SETTABLEKS R1 R8 K2 ["hasFacs"]
-  SETTABLEKS R3 R8 K3 ["assetId"]
+  GETUPVAL R5 0
+  LOADK R6 K0 ["exportAnimation"]
+  DUPTABLE R7 K5 [{"animationType", "hasFacs", "assetId", "guid"}]
+  SETTABLEKS R2 R7 K1 ["animationType"]
+  SETTABLEKS R1 R7 K2 ["hasFacs"]
+  SETTABLEKS R3 R7 K3 ["assetId"]
   JUMPIFNOT R4 [+5]
-  GETIMPORT R9 K9 [string.lower]
-  MOVE R10 R4
-  CALL R9 1 1
+  GETIMPORT R8 K8 [string.lower]
+  MOVE R9 R4
+  CALL R8 1 1
   JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K4 ["guid"]
-  GETUPVAL R10 1
-  CALL R10 0 1
-  JUMPIFNOT R10 [+5]
-  GETUPVAL R10 2
-  CALL R10 0 1
-  JUMPIFNOT R10 [+2]
-  MOVE R9 R5
-  JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K5 ["delete"]
-  CALL R6 2 0
+  LOADNIL R8
+  SETTABLEKS R8 R7 K4 ["guid"]
+  CALL R5 2 0
   RETURN R0 0
 
 PROTO_12:
@@ -734,8 +724,6 @@ PROTO_44:
   SETTABLEKS R6 R5 K6 ["onUserChoseSelectedModelForAnimImport"]
   NEWCLOSURE R6 P10
   CAPTURE VAL R1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
   SETTABLEKS R6 R5 K7 ["onExportAnimation"]
   NEWCLOSURE R6 P11
   CAPTURE VAL R1
@@ -857,14 +845,8 @@ MAIN:
   GETTABLEKS R5 R1 K12 ["LuaFlags"]
   GETTABLEKS R4 R5 K13 ["GetFFlagDeleteOnPublishAnimation"]
   CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R6 R1 K12 ["LuaFlags"]
-  GETTABLEKS R5 R6 K14 ["GetFFlagMigrationAnalytics"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K15 [PROTO_0]
-  DUPCLOSURE R6 K16 [PROTO_44]
+  DUPCLOSURE R4 K14 [PROTO_0]
+  DUPCLOSURE R5 K15 [PROTO_44]
   CAPTURE VAL R2
   CAPTURE VAL R0
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  RETURN R6 1
+  RETURN R5 1

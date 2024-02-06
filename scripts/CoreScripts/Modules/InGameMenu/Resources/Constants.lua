@@ -121,6 +121,12 @@ local Constants = {
 		[Enum.UserInputType.Touch] = InputTypes.Touch,
 	},
 
+	FramerateCaps = {
+		30,
+		60,
+		144,
+		240, -- Anything higher than this will cause weird issues with physics events, as the physics engine runs at 240Hz (CREATORBUG-5874)
+	},
 
 	OnSurveyEventDescriptor = {
 		mid = MessageBus.getMessageId("Game", "openSurvey"),

@@ -70,27 +70,27 @@ PROTO_2:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Actions"]
-  GETTABLEKS R2 R3 K7 ["SetProcessResult"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Actions"]
+  GETTABLEKS R2 R3 K8 ["SetProcessResult"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Util"]
-  GETTABLEKS R4 R5 K9 ["ScriptHistory"]
-  GETTABLEKS R3 R4 K10 ["undoRevert"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K10 ["ScriptHistory"]
+  GETTABLEKS R3 R4 K11 ["undoRevert"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Util"]
-  GETTABLEKS R4 R5 K11 ["ScriptConversionProgressTracker"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K12 ["ScriptConversionProgressTracker"]
   CALL R3 1 1
-  DUPCLOSURE R4 K12 [PROTO_2]
+  DUPCLOSURE R4 K13 [PROTO_2]
   CAPTURE VAL R3
   CAPTURE VAL R2
   CAPTURE VAL R1

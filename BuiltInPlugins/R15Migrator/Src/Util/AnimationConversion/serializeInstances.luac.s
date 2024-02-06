@@ -79,18 +79,17 @@ MAIN:
   LOADK R3 K4 ["StudioAssetService"]
   NAMECALL R1 R1 K3 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R6 K6 [script]
-  GETTABLEKS R5 R6 K7 ["Parent"]
-  GETTABLEKS R4 R5 K7 ["Parent"]
-  GETTABLEKS R3 R4 K7 ["Parent"]
-  GETTABLEKS R2 R3 K7 ["Parent"]
-  GETTABLEKS R3 R2 K8 ["Packages"]
-  GETIMPORT R6 K10 [require]
-  GETTABLEKS R7 R3 K11 ["Framework"]
+  GETIMPORT R2 K6 [script]
+  LOADK R4 K7 ["R15Migrator"]
+  NAMECALL R2 R2 K8 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K9 ["Packages"]
+  GETIMPORT R6 K11 [require]
+  GETTABLEKS R7 R3 K12 ["Framework"]
   CALL R6 1 1
-  GETTABLEKS R5 R6 K12 ["Util"]
-  GETTABLEKS R4 R5 K13 ["Promise"]
-  DUPCLOSURE R5 K14 [PROTO_3]
+  GETTABLEKS R5 R6 K13 ["Util"]
+  GETTABLEKS R4 R5 K14 ["Promise"]
+  DUPCLOSURE R5 K15 [PROTO_3]
   CAPTURE VAL R4
   CAPTURE VAL R0
   CAPTURE VAL R1

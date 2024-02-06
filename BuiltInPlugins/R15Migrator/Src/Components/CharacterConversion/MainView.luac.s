@@ -86,62 +86,61 @@ PROTO_3:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
   CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K10 ["Util"]
-  GETTABLEKS R5 R6 K11 ["ItemState"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["ItemState"]
   CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K12 ["Components"]
-  GETTABLEKS R7 R8 K13 ["CharacterConversion"]
-  GETTABLEKS R6 R7 K14 ["CharacterList"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Components"]
+  GETTABLEKS R7 R8 K14 ["CharacterConversion"]
+  GETTABLEKS R6 R7 K15 ["CharacterList"]
   CALL R5 1 1
-  GETTABLEKS R6 R1 K15 ["ContextServices"]
-  GETTABLEKS R7 R2 K16 ["PureComponent"]
-  LOADK R9 K17 ["ModelConversionMainView"]
-  NAMECALL R7 R7 K18 ["extend"]
+  GETTABLEKS R6 R1 K16 ["ContextServices"]
+  GETTABLEKS R7 R2 K17 ["PureComponent"]
+  LOADK R9 K18 ["ModelConversionMainView"]
+  NAMECALL R7 R7 K19 ["extend"]
   CALL R7 2 1
-  DUPCLOSURE R8 K19 [PROTO_0]
-  SETTABLEKS R8 R7 K20 ["getChildItems"]
-  DUPCLOSURE R8 K21 [PROTO_1]
+  DUPCLOSURE R8 K20 [PROTO_0]
+  SETTABLEKS R8 R7 K21 ["getChildItems"]
+  DUPCLOSURE R8 K22 [PROTO_1]
   CAPTURE VAL R4
-  SETTABLEKS R8 R7 K22 ["getItems"]
-  DUPCLOSURE R8 K23 [PROTO_2]
+  SETTABLEKS R8 R7 K23 ["getItems"]
+  DUPCLOSURE R8 K24 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R5
-  SETTABLEKS R8 R7 K24 ["render"]
-  GETTABLEKS R8 R6 K25 ["withContext"]
-  DUPTABLE R9 K29 [{"Plugin", "Localization", "Stylizer"}]
-  GETTABLEKS R10 R6 K26 ["Plugin"]
-  SETTABLEKS R10 R9 K26 ["Plugin"]
-  GETTABLEKS R10 R6 K27 ["Localization"]
-  SETTABLEKS R10 R9 K27 ["Localization"]
-  GETTABLEKS R10 R6 K28 ["Stylizer"]
-  SETTABLEKS R10 R9 K28 ["Stylizer"]
+  SETTABLEKS R8 R7 K25 ["render"]
+  GETTABLEKS R8 R6 K26 ["withContext"]
+  DUPTABLE R9 K30 [{"Plugin", "Localization", "Stylizer"}]
+  GETTABLEKS R10 R6 K27 ["Plugin"]
+  SETTABLEKS R10 R9 K27 ["Plugin"]
+  GETTABLEKS R10 R6 K28 ["Localization"]
+  SETTABLEKS R10 R9 K28 ["Localization"]
+  GETTABLEKS R10 R6 K29 ["Stylizer"]
+  SETTABLEKS R10 R9 K29 ["Stylizer"]
   CALL R8 1 1
   MOVE R9 R7
   CALL R8 1 1
   MOVE R7 R8
-  DUPCLOSURE R8 K30 [PROTO_3]
-  GETTABLEKS R9 R3 K31 ["connect"]
+  DUPCLOSURE R8 K31 [PROTO_3]
+  GETTABLEKS R9 R3 K32 ["connect"]
   MOVE R10 R8
   CALL R9 1 1
   MOVE R10 R7

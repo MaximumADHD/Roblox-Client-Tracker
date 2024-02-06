@@ -16,10 +16,10 @@ return function(arg1, arg2)
    if 1 <= var0 then
       local var42 = {}
       var42.Minutes = var0
-      var42.Seconds = math.floor(arg1 / 10) * 10
+      var42.Seconds = math.floor(arg1 / 10) * 10 % 60
       return arg2:getText("Time", "MinutesAndSeconds", var42)
    end
-   local var51 = {}
-   var51.Seconds = arg1
-   return arg2:getText("Time", "Seconds", var51)
+   local var52 = {}
+   var52.Seconds = arg1
+   return arg2:getText("Time", "Seconds", var52)
 end

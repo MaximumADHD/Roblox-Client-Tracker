@@ -1,6 +1,6 @@
 PROTO_0:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["getTaggedData"]
+  GETTABLEKS R0 R1 K0 ["getAdapterData"]
   CALL R0 0 2
   DUPTABLE R2 K3 [{"adapted", "adaptedWithScripts"}]
   SETTABLEKS R0 R2 K1 ["adapted"]
@@ -26,7 +26,7 @@ PROTO_2:
   GETTABLEKS R1 R2 K1 ["join"]
   MOVE R2 R0
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["getTaggedData"]
+  GETTABLEKS R4 R5 K2 ["getAdapterData"]
   CALL R4 0 2
   DUPTABLE R3 K5 [{"adapted", "adaptedWithScripts"}]
   SETTABLEKS R4 R3 K3 ["adapted"]
@@ -36,48 +36,48 @@ PROTO_2:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Rodux"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Cryo"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
   CALL R2 1 1
-  GETTABLEKS R4 R0 K8 ["Src"]
-  GETTABLEKS R3 R4 K9 ["Actions"]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R5 R3 K10 ["SetAdapted"]
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Actions"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R3 K11 ["SetAdapted"]
   CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R6 R3 K11 ["ResetAllAdapter"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R3 K12 ["ResetAllAdapter"]
   CALL R5 1 1
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Util"]
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R8 R6 K13 ["AdapterTagging"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K14 [PROTO_0]
-  CAPTURE VAL R7
-  GETTABLEKS R9 R1 K15 ["createReducer"]
-  GETTABLEKS R11 R7 K16 ["getTaggedData"]
-  CALL R11 0 2
-  DUPTABLE R10 K19 [{"adapted", "adaptedWithScripts"}]
-  SETTABLEKS R11 R10 K17 ["adapted"]
-  SETTABLEKS R12 R10 K18 ["adaptedWithScripts"]
-  NEWTABLE R11 2 0
-  GETTABLEKS R12 R4 K20 ["name"]
-  DUPCLOSURE R13 K21 [PROTO_1]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Modules"]
+  GETTABLEKS R7 R8 K14 ["NpcManager"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K15 [PROTO_0]
+  CAPTURE VAL R6
+  GETTABLEKS R8 R1 K16 ["createReducer"]
+  GETTABLEKS R10 R6 K17 ["getAdapterData"]
+  CALL R10 0 2
+  DUPTABLE R9 K20 [{"adapted", "adaptedWithScripts"}]
+  SETTABLEKS R10 R9 K18 ["adapted"]
+  SETTABLEKS R11 R9 K19 ["adaptedWithScripts"]
+  NEWTABLE R10 2 0
+  GETTABLEKS R11 R4 K21 ["name"]
+  DUPCLOSURE R12 K22 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLE R13 R11 R12
-  GETTABLEKS R12 R5 K20 ["name"]
-  DUPCLOSURE R13 K22 [PROTO_2]
+  SETTABLE R12 R10 R11
+  GETTABLEKS R11 R5 K21 ["name"]
+  DUPCLOSURE R12 K23 [PROTO_2]
   CAPTURE VAL R2
-  CAPTURE VAL R7
-  SETTABLE R13 R11 R12
-  CALL R9 2 1
-  RETURN R9 1
+  CAPTURE VAL R6
+  SETTABLE R12 R10 R11
+  CALL R8 2 1
+  RETURN R8 1

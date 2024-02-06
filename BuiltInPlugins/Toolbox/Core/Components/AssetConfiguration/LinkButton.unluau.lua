@@ -8,19 +8,19 @@ local var5 = var3.ContextServices
 local var6 = var3.Util.GetTextSize
 local var7 = var2.PureComponent:extend("LinkButton")
 function var7.init(arg1, arg2)
-   local var27 = {}
-   var27.hovered = false
-   arg1.state = var27
+   local var143 = {}
+   var143.hovered = false
+   arg1.state = var143
    function arg1.onMouseEnter(arg1, arg2, arg3)
-      local var33 = {}
-      var33.hovered = true
-      arg1:setState(var33)
+      local var149 = {}
+      var149.hovered = true
+      arg1:setState(var149)
    end
    
    function arg1.onMouseLeave(arg1, arg2, arg3)
-      local var40 = {}
-      var40.hovered = false
-      arg1:setState(var40)
+      local var156 = {}
+      var156.hovered = false
+      arg1:setState(var156)
    end
    
    function arg1.onActivated(arg1)
@@ -31,88 +31,88 @@ function var7.init(arg1, arg2)
    
 end
 
-local function fun4(arg1)
+local function fun10(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer.linkButton
    local var2 = var6(var0.Text, nil, nil, Vector2.new(9999, 9999))
-   local var65 = {}
-   var65.Size = var0.Size
-   var65.BackgroundTransparency = 1
-   var65.BorderSizePixel = 0
-   var65.LayoutOrder = var0.LayoutOrder
-   local var70 = {}
-   local var74 = {}
-   var74.Size = UDim2.new(0, var2.X, 0, var2.Y)
-   var74.BackgroundTransparency = 1
-   var74.BorderSizePixel = 0
-   var74.Text = var0.Text
-   var74.TextSize = var0.TextSize
-   var74.Font = var4.FONT
-   var74.TextScaled = true
-   var74.TextColor3 = var1.textColor
-   var74.TextXAlignment = Enum.TextXAlignment.Left
-   var74.TextYAlignment = Enum.TextYAlignment.Center
+   local var181 = {}
+   var181.Size = var0.Size
+   var181.BackgroundTransparency = 1
+   var181.BorderSizePixel = 0
+   var181.LayoutOrder = var0.LayoutOrder
+   local var186 = {}
+   local var190 = {}
+   var190.Size = UDim2.new(0, var2.X, 0, var2.Y)
+   var190.BackgroundTransparency = 1
+   var190.BorderSizePixel = 0
+   var190.Text = var0.Text
+   var190.TextSize = var0.TextSize
+   var190.Font = var4.FONT
+   var190.TextScaled = true
+   var190.TextColor3 = var1.textColor
+   var190.TextXAlignment = Enum.TextXAlignment.Left
+   var190.TextYAlignment = Enum.TextYAlignment.Center
    var2.Event.MouseEnter = arg1.onMouseEnter
    var2.Event.MouseLeave = arg1.onMouseLeave
    var2.Event.Activated = arg1.onActivated
-   local var103 = {}
+   local var219 = {}
    local var3 = arg1.state.hovered
    if var3 then
-      local var108 = {}
-      var108.AnchorPoint = Vector2.new(0, 1)
-      var108.Position = UDim2.new(0, 0, 1, 0)
-      var108.Size = UDim2.new(0, var2.X, 0, 1)
-      var108.BackgroundColor3 = var1.textColor
-      var108.BorderSizePixel = 0
-      local var0 = var2.createElement("Frame", var108)
+      local var224 = {}
+      var224.AnchorPoint = Vector2.new(0, 1)
+      var224.Position = UDim2.new(0, 0, 1, 0)
+      var224.Size = UDim2.new(0, var2.X, 0, 1)
+      var224.BackgroundColor3 = var1.textColor
+      var224.BorderSizePixel = 0
+      local var0 = var2.createElement("Frame", var224)
    end
-   var103.UnderLine = var3
-   var70.Link = var2.createElement("TextButton", var74, var103)
-   return var2.createElement("Frame", var65, var70)
+   var219.UnderLine = var3
+   var186.Link = var2.createElement("TextButton", var190, var219)
+   return var2.createElement("Frame", var181, var186)
 end
 
 function var7.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer.linkButton
    local var2 = var6(var0.Text, nil, nil, Vector2.new(9999, 9999))
-   local var65 = {}
-   var65.Size = var0.Size
-   var65.BackgroundTransparency = 1
-   var65.BorderSizePixel = 0
-   var65.LayoutOrder = var0.LayoutOrder
-   local var70 = {}
-   local var74 = {}
-   var74.Size = UDim2.new(0, var2.X, 0, var2.Y)
-   var74.BackgroundTransparency = 1
-   var74.BorderSizePixel = 0
-   var74.Text = var0.Text
-   var74.TextSize = var0.TextSize
-   var74.Font = var4.FONT
-   var74.TextScaled = true
-   var74.TextColor3 = var1.textColor
-   var74.TextXAlignment = Enum.TextXAlignment.Left
-   var74.TextYAlignment = Enum.TextYAlignment.Center
+   local var181 = {}
+   var181.Size = var0.Size
+   var181.BackgroundTransparency = 1
+   var181.BorderSizePixel = 0
+   var181.LayoutOrder = var0.LayoutOrder
+   local var186 = {}
+   local var190 = {}
+   var190.Size = UDim2.new(0, var2.X, 0, var2.Y)
+   var190.BackgroundTransparency = 1
+   var190.BorderSizePixel = 0
+   var190.Text = var0.Text
+   var190.TextSize = var0.TextSize
+   var190.Font = var4.FONT
+   var190.TextScaled = true
+   var190.TextColor3 = var1.textColor
+   var190.TextXAlignment = Enum.TextXAlignment.Left
+   var190.TextYAlignment = Enum.TextYAlignment.Center
    var2.Event.MouseEnter = arg1.onMouseEnter
    var2.Event.MouseLeave = arg1.onMouseLeave
    var2.Event.Activated = arg1.onActivated
-   local var103 = {}
+   local var219 = {}
    local var3 = arg1.state.hovered
    if var3 then
-      local var108 = {}
-      var108.AnchorPoint = Vector2.new(0, 1)
-      var108.Position = UDim2.new(0, 0, 1, 0)
-      var108.Size = UDim2.new(0, var2.X, 0, 1)
-      var108.BackgroundColor3 = var1.textColor
-      var108.BorderSizePixel = 0
-      local var0 = var2.createElement("Frame", var108)
+      local var224 = {}
+      var224.AnchorPoint = Vector2.new(0, 1)
+      var224.Position = UDim2.new(0, 0, 1, 0)
+      var224.Size = UDim2.new(0, var2.X, 0, 1)
+      var224.BackgroundColor3 = var1.textColor
+      var224.BorderSizePixel = 0
+      local var0 = var2.createElement("Frame", var224)
    end
-   var103.UnderLine = var3
-   var70.Link = var2.createElement("TextButton", var74, var103)
-   return var2.createElement("Frame", var65, var70)
+   var219.UnderLine = var3
+   var186.Link = var2.createElement("TextButton", var190, var219)
+   return var2.createElement("Frame", var181, var186)
 end
 
-fun4 = var5.withContext
-local var130 = {}
-var130.Stylizer = var5.Stylizer
-var7 = fun4(var130)(var7)
+fun10 = var5.withContext
+local var246 = {}
+var246.Stylizer = var5.Stylizer
+var7 = fun10(var246)(var7)
 return var7

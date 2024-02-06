@@ -13,33 +13,33 @@ local function fun0(arg1)
       local var0 = var1.primaryClusterColor or var1.clusterColor
    end
    local var5 = var1.clusterColor
-   local var149 = {}
-   var149.BackgroundColor3 = var5
-   var149.ZIndex = var3
-   var149.Position = var0.Position
-   var149.AnchorPoint = Vector2.new(0, 0.5)
-   var149.BorderSizePixel = 0
-   var149.Size = var2
-   local var155 = {}
-   local var159 = {}
-   var159.BackgroundColor3 = var5
-   var159.Position = UDim2.new(0, 0, 0.5, 0)
-   var159.ZIndex = var3
-   var159.Size = var4
-   var159.BorderSizePixel = 0
-   var159.AnchorPoint = Vector2.new(0.5, 0.5)
-   var159.Rotation = 45
-   var155.LeftDiamond = var1.createElement("Frame", var159)
+   local var170 = {}
+   var170.BackgroundColor3 = var5
+   var170.ZIndex = var3
+   var170.Position = var0.Position
+   var170.AnchorPoint = Vector2.new(0, 0.5)
+   var170.BorderSizePixel = 0
+   var170.Size = var2
    local var176 = {}
-   var176.BackgroundColor3 = var5
-   var176.Position = UDim2.new(1, 0, 0.5, 0)
-   var176.ZIndex = var3
-   var176.Size = var4
-   var176.BorderSizePixel = 0
-   var176.AnchorPoint = Vector2.new(0.5, 0.5)
-   var176.Rotation = 45
-   var155.RightDiamond = var1.createElement("Frame", var176)
-   return var1.createElement("Frame", var149, var155)
+   local var180 = {}
+   var180.BackgroundColor3 = var5
+   var180.Position = UDim2.new(0, 0, 0.5, 0)
+   var180.ZIndex = var3
+   var180.Size = var4
+   var180.BorderSizePixel = 0
+   var180.AnchorPoint = Vector2.new(0.5, 0.5)
+   var180.Rotation = 45
+   var176.LeftDiamond = var1.createElement("Frame", var180)
+   local var197 = {}
+   var197.BackgroundColor3 = var5
+   var197.Position = UDim2.new(1, 0, 0.5, 0)
+   var197.ZIndex = var3
+   var197.Size = var4
+   var197.BorderSizePixel = 0
+   var197.AnchorPoint = Vector2.new(0.5, 0.5)
+   var197.Rotation = 45
+   var176.RightDiamond = var1.createElement("Frame", var197)
+   return var1.createElement("Frame", var170, var176)
 end
 
 function var3.render(arg1)
@@ -52,37 +52,37 @@ function var3.render(arg1)
       local var0 = var1.primaryClusterColor or var1.clusterColor
    end
    local var5 = var1.clusterColor
-   local var149 = {}
-   var149.BackgroundColor3 = var5
-   var149.ZIndex = var3
-   var149.Position = var0.Position
-   var149.AnchorPoint = Vector2.new(0, 0.5)
-   var149.BorderSizePixel = 0
-   var149.Size = var2
-   local var155 = {}
-   local var159 = {}
-   var159.BackgroundColor3 = var5
-   var159.Position = UDim2.new(0, 0, 0.5, 0)
-   var159.ZIndex = var3
-   var159.Size = var4
-   var159.BorderSizePixel = 0
-   var159.AnchorPoint = Vector2.new(0.5, 0.5)
-   var159.Rotation = 45
-   var155.LeftDiamond = var1.createElement("Frame", var159)
+   local var170 = {}
+   var170.BackgroundColor3 = var5
+   var170.ZIndex = var3
+   var170.Position = var0.Position
+   var170.AnchorPoint = Vector2.new(0, 0.5)
+   var170.BorderSizePixel = 0
+   var170.Size = var2
    local var176 = {}
-   var176.BackgroundColor3 = var5
-   var176.Position = UDim2.new(1, 0, 0.5, 0)
-   var176.ZIndex = var3
-   var176.Size = var4
-   var176.BorderSizePixel = 0
-   var176.AnchorPoint = Vector2.new(0.5, 0.5)
-   var176.Rotation = 45
-   var155.RightDiamond = var1.createElement("Frame", var176)
-   return var1.createElement("Frame", var149, var155)
+   local var180 = {}
+   var180.BackgroundColor3 = var5
+   var180.Position = UDim2.new(0, 0, 0.5, 0)
+   var180.ZIndex = var3
+   var180.Size = var4
+   var180.BorderSizePixel = 0
+   var180.AnchorPoint = Vector2.new(0.5, 0.5)
+   var180.Rotation = 45
+   var176.LeftDiamond = var1.createElement("Frame", var180)
+   local var197 = {}
+   var197.BackgroundColor3 = var5
+   var197.Position = UDim2.new(1, 0, 0.5, 0)
+   var197.ZIndex = var3
+   var197.Size = var4
+   var197.BorderSizePixel = 0
+   var197.AnchorPoint = Vector2.new(0.5, 0.5)
+   var197.Rotation = 45
+   var176.RightDiamond = var1.createElement("Frame", var197)
+   return var1.createElement("Frame", var170, var176)
 end
 
 fun0 = var2.withContext
-local var191 = {}
-var191.Stylizer = var2.Stylizer
-var3 = fun0(var191)(var3)
+local var212 = {}
+var212.Stylizer = var2.Stylizer
+var3 = fun0(var212)(var3)
 return var3

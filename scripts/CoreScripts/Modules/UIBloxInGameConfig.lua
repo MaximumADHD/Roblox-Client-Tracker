@@ -9,4 +9,6 @@ return {
 	enableNewMenuLayout = UIBloxFlags.GetFFlagUIBloxEnableNewMenuLayout(),
 	destroyLaserPointersOnUnmount = SharedFlags.GetFFlagHideExperienceLoadingJudder(),
 	useRobloxGuiFocusedChangedEventInGenericButton = UIBloxFlags.FFlagUIBloxUseRobloxGuiFocused,
+	useInputResponsiveShortcutBarChanges = UIBloxFlags.FFlagUIBloxUseInputResponsiveShortcutBarChanges,
+	enableFontNameMapping = UIBloxFlags.GetUIBloxEnableFontNameMapping(),
 }

@@ -29,6 +29,7 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
 local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
+local GetFFlagNewUnibarIA = require(Chrome.Flags.GetFFlagNewUnibarIA)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 
 type Array<T> = { [number]: T }
@@ -43,13 +44,26 @@ function configureUnibar(viewportInfo)
 		-- append to end of nine-dot
 		table.insert(nineDot, "respawn")
 	end
+	if GetFFlagNewUnibarIA() then
+		-- prepend trust_and_safety to nine-dot menu
+		table.insert(nineDot, 1, "trust_and_safety")
+	end
 
 	-- insert leaderboard into MRU if it's shown on startup
 	if PlayerListInitialVisibleState() then
 		ChromeService:setRecentlyUsed("leaderboard", true)
 	end
+	-- insert trust and safety into MRU, prioritize over leaderboard
+	if GetFFlagNewUnibarIA() and not ChromeService:isMostRecentlyUsed("trust_and_safety") then
+		ChromeService:setRecentlyUsed("trust_and_safety", true)
+	end
 
-	if EnabledPinnedChat and not viewportInfo.tinyPortrait then
+	if GetFFlagNewUnibarIA() then
+		ChromeService:configureMenu({
+			{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
+			{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
+		})
+	elseif EnabledPinnedChat and not viewportInfo.tinyPortrait then
 		ChromeService:removeRecentlyUsed("chat")
 		ChromeService:configureMenu({
 			{ "trust_and_safety" },
@@ -71,16 +85,19 @@ function configureUnibar(viewportInfo)
 	ChromeService:configureSubMenu("nine_dot", nineDot)
 end
 
-local priorTinyPortrait = nil
+if GetFFlagNewUnibarIA() then
+	configureUnibar({ tinyPortrait = false })
+else
+	local priorTinyPortrait = nil
 
-ViewportUtil.viewport:connect(function(viewportInfo)
-	local tinyPortrait = viewportInfo.tinyPortrait
-	-- reconfigure only when tiny portrait updates
-	if tinyPortrait ~= priorTinyPortrait then
-		configureUnibar(viewportInfo)
-		priorTinyPortrait = tinyPortrait
-	end
-end, true)
+	ViewportUtil.viewport:connect(function(viewportInfo)
+		local tinyPortrait = viewportInfo.tinyPortrait
+		if tinyPortrait ~= priorTinyPortrait then
+			configureUnibar(viewportInfo)
+			priorTinyPortrait = tinyPortrait
+		end
+	end, true)
+end
 
 export type IconDividerProps = {
 	toggleTransition: any?,

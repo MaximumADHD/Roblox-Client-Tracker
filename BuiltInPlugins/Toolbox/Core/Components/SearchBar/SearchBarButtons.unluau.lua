@@ -7,20 +7,20 @@ local var4 = require(var0.Core.Util.Images)
 local var5 = require(var1.Framework).ContextServices
 local var6 = var2.PureComponent:extend("SearchBar")
 function var6.init(arg1)
-   local var29 = {}
-   var29.isSearchButtonHovered = false
-   var29.isClearButtonHovered = false
-   arg1.state = var29
+   local var320 = {}
+   var320.isSearchButtonHovered = false
+   var320.isClearButtonHovered = false
+   arg1.state = var320
    function arg1.onClearButtonHovered()
-      local var33 = {}
-      var33.isClearButtonHovered = true
-      arg1:setState(var33)
+      local var324 = {}
+      var324.isClearButtonHovered = true
+      arg1:setState(var324)
    end
    
    function arg1.onClearButtonHoverEnded()
-      local var37 = {}
-      var37.isClearButtonHovered = false
-      arg1:setState(var37)
+      local var328 = {}
+      var328.isClearButtonHovered = false
+      arg1:setState(var328)
    end
    
    function arg1.onClearButtonClicked()
@@ -29,20 +29,20 @@ function var6.init(arg1)
    end
    
    function arg1.onSearchButtonHovered()
-      local var46 = {}
-      var46.isSearchButtonHovered = true
-      arg1:setState(var46)
+      local var337 = {}
+      var337.isSearchButtonHovered = true
+      arg1:setState(var337)
    end
    
    function arg1.onSearchButtonHoverEnded()
-      local var50 = {}
-      var50.isSearchButtonHovered = false
-      arg1:setState(var50)
+      local var341 = {}
+      var341.isSearchButtonHovered = false
+      arg1:setState(var341)
    end
    
 end
 
-local function fun6(arg1)
+local function fun28(arg1)
    local var0 = arg1.props
    local var1 = arg1.state
    local var2 = var0.showSearchButton
@@ -57,76 +57,76 @@ local function fun6(arg1)
    var3 = var4
    local var5 = var3.SEARCH_BAR_BUTTON_INSET
    local var6 = var0.Stylizer.searchBar
-   local var73 = {}
-   var73.AnchorPoint = Vector2.new(1, 0)
-   var73.Position = UDim2.new(1, 0, 0, 0)
-   var73.Size = UDim2.new(0, var3, 1, 0)
-   var73.BackgroundTransparency = 1
-   local var91 = {}
+   local var364 = {}
+   var364.AnchorPoint = Vector2.new(1, 0)
+   var364.Position = UDim2.new(1, 0, 0, 0)
+   var364.Size = UDim2.new(0, var3, 1, 0)
+   var364.BackgroundTransparency = 1
+   local var382 = {}
    local var7 = var0.showClearButton
    if var7 then
-      local var96 = {}
-      var96.AnchorPoint = Vector2.new(0, 0)
-      var96.Position = UDim2.new(0, var5, 0, var5)
-      var96.Size = UDim2.new(0, var4 - 2 * var5, 1, 2 * var5)
-      var96.BackgroundTransparency = 1
+      local var387 = {}
+      var387.AnchorPoint = Vector2.new(0, 0)
+      var387.Position = UDim2.new(0, var5, 0, var5)
+      var387.Size = UDim2.new(0, var4 - 2 * var5, 1, 2 * var5)
+      var387.BackgroundTransparency = 1
       var2.Event.MouseEnter = arg1.onClearButtonHovered
       var2.Event.MouseMoved = arg1.onClearButtonHovered
       var2.Event.MouseLeave = arg1.onClearButtonHoverEnded
       var2.Event.MouseButton1Down = arg1.onClearButtonClicked
-      local var134 = {}
-      local var138 = {}
-      var138.AnchorPoint = Vector2.new(0.5, 0.5)
-      var138.Position = UDim2.new(0.5, 0, 0.5, 0)
-      var138.Size = UDim2.new(0, var3.SEARCH_BAR_BUTTON_ICON_SIZE, 0, var3.SEARCH_BAR_BUTTON_ICON_SIZE)
-      var138.BackgroundTransparency = 1
+      local var425 = {}
+      local var429 = {}
+      var429.AnchorPoint = Vector2.new(0.5, 0.5)
+      var429.Position = UDim2.new(0.5, 0, 0.5, 0)
+      var429.Size = UDim2.new(0, var3.SEARCH_BAR_BUTTON_ICON_SIZE, 0, var3.SEARCH_BAR_BUTTON_ICON_SIZE)
+      var429.BackgroundTransparency = 1
       if var1.isClearButtonHovered then
          local var0 = var4.CLEAR_ICON_HOVER or var4.CLEAR_ICON
       end
-      var138.Image = var4.CLEAR_ICON
-      var138.ImageColor3 = var6.clearButton.imageColor
-      var134.ImageLabel = var2.createElement("ImageLabel", var138)
-      local var0 = var2.createElement("ImageButton", var96, var134)
+      var429.Image = var4.CLEAR_ICON
+      var429.ImageColor3 = var6.clearButton.imageColor
+      var425.ImageLabel = var2.createElement("ImageLabel", var429)
+      local var0 = var2.createElement("ImageButton", var387, var425)
    end
-   var91.ClearButton = var7
+   var382.ClearButton = var7
    var7 = var2
    if var7 then
-      local var172 = {}
-      var172.AnchorPoint = Vector2.new(0, 0)
-      var172.Position = UDim2.new(0, var4, 0, 1)
-      var172.Size = UDim2.new(0, 1, 1, 65534)
-      var172.BackgroundColor3 = var6.divideLineColor
-      var172.BorderSizePixel = 0
-      local var0 = var2.createElement("Frame", var172)
+      local var463 = {}
+      var463.AnchorPoint = Vector2.new(0, 0)
+      var463.Position = UDim2.new(0, var4, 0, 1)
+      var463.Size = UDim2.new(0, 1, 1, 65534)
+      var463.BackgroundColor3 = var6.divideLineColor
+      var463.BorderSizePixel = 0
+      local var0 = var2.createElement("Frame", var463)
    end
-   var91.Line = var7
+   var382.Line = var7
    var7 = var2
    if var7 then
-      local var195 = {}
-      var195.AnchorPoint = Vector2.new(1, 0)
-      var195.Position = UDim2.new(1, var5, 0, var5)
-      var195.Size = UDim2.new(0, var4 - 2 * var5, 1, 2 * var5)
-      var195.BackgroundTransparency = 1
+      local var486 = {}
+      var486.AnchorPoint = Vector2.new(1, 0)
+      var486.Position = UDim2.new(1, var5, 0, var5)
+      var486.Size = UDim2.new(0, var4 - 2 * var5, 1, 2 * var5)
+      var486.BackgroundTransparency = 1
       var2.Event.MouseEnter = arg1.onSearchButtonHovered
       var2.Event.MouseMoved = arg1.onSearchButtonHovered
       var2.Event.MouseLeave = arg1.onSearchButtonHoverEnded
       var2.Event.MouseButton1Down = var0.onSearchButtonClicked
-      local var232 = {}
-      local var236 = {}
-      var236.AnchorPoint = Vector2.new(0.5, 0.5)
-      var236.Position = UDim2.new(0.5, 0, 0.5, 0)
-      var236.Size = UDim2.new(0, var3.SEARCH_BAR_BUTTON_ICON_SIZE, 0, var3.SEARCH_BAR_BUTTON_ICON_SIZE)
-      var236.BackgroundTransparency = 1
-      var236.Image = var4.SEARCH_ICON
+      local var523 = {}
+      local var527 = {}
+      var527.AnchorPoint = Vector2.new(0.5, 0.5)
+      var527.Position = UDim2.new(0.5, 0, 0.5, 0)
+      var527.Size = UDim2.new(0, var3.SEARCH_BAR_BUTTON_ICON_SIZE, 0, var3.SEARCH_BAR_BUTTON_ICON_SIZE)
+      var527.BackgroundTransparency = 1
+      var527.Image = var4.SEARCH_ICON
       if var1.isSearchButtonHovered then
          local var0 = var6.searchButton.imageSelectedColor or var6.searchButton.imageColor
       end
-      var236.ImageColor3 = var6.searchButton.imageColor
-      var232.ImageLabel = var2.createElement("ImageLabel", var236)
-      local var0 = var2.createElement("ImageButton", var195, var232)
+      var527.ImageColor3 = var6.searchButton.imageColor
+      var523.ImageLabel = var2.createElement("ImageLabel", var527)
+      local var0 = var2.createElement("ImageButton", var486, var523)
    end
-   var91.SearchButton = var7
-   return var2.createElement("Frame", var73, var91)
+   var382.SearchButton = var7
+   return var2.createElement("Frame", var364, var382)
 end
 
 function var6.render(arg1)
@@ -144,80 +144,80 @@ function var6.render(arg1)
    var3 = var4
    local var5 = var3.SEARCH_BAR_BUTTON_INSET
    local var6 = var0.Stylizer.searchBar
-   local var73 = {}
-   var73.AnchorPoint = Vector2.new(1, 0)
-   var73.Position = UDim2.new(1, 0, 0, 0)
-   var73.Size = UDim2.new(0, var3, 1, 0)
-   var73.BackgroundTransparency = 1
-   local var91 = {}
+   local var364 = {}
+   var364.AnchorPoint = Vector2.new(1, 0)
+   var364.Position = UDim2.new(1, 0, 0, 0)
+   var364.Size = UDim2.new(0, var3, 1, 0)
+   var364.BackgroundTransparency = 1
+   local var382 = {}
    local var7 = var0.showClearButton
    if var7 then
-      local var96 = {}
-      var96.AnchorPoint = Vector2.new(0, 0)
-      var96.Position = UDim2.new(0, var5, 0, var5)
-      var96.Size = UDim2.new(0, var4 - 2 * var5, 1, 2 * var5)
-      var96.BackgroundTransparency = 1
+      local var387 = {}
+      var387.AnchorPoint = Vector2.new(0, 0)
+      var387.Position = UDim2.new(0, var5, 0, var5)
+      var387.Size = UDim2.new(0, var4 - 2 * var5, 1, 2 * var5)
+      var387.BackgroundTransparency = 1
       var2.Event.MouseEnter = arg1.onClearButtonHovered
       var2.Event.MouseMoved = arg1.onClearButtonHovered
       var2.Event.MouseLeave = arg1.onClearButtonHoverEnded
       var2.Event.MouseButton1Down = arg1.onClearButtonClicked
-      local var134 = {}
-      local var138 = {}
-      var138.AnchorPoint = Vector2.new(0.5, 0.5)
-      var138.Position = UDim2.new(0.5, 0, 0.5, 0)
-      var138.Size = UDim2.new(0, var3.SEARCH_BAR_BUTTON_ICON_SIZE, 0, var3.SEARCH_BAR_BUTTON_ICON_SIZE)
-      var138.BackgroundTransparency = 1
+      local var425 = {}
+      local var429 = {}
+      var429.AnchorPoint = Vector2.new(0.5, 0.5)
+      var429.Position = UDim2.new(0.5, 0, 0.5, 0)
+      var429.Size = UDim2.new(0, var3.SEARCH_BAR_BUTTON_ICON_SIZE, 0, var3.SEARCH_BAR_BUTTON_ICON_SIZE)
+      var429.BackgroundTransparency = 1
       if var1.isClearButtonHovered then
          local var0 = var4.CLEAR_ICON_HOVER or var4.CLEAR_ICON
       end
-      var138.Image = var4.CLEAR_ICON
-      var138.ImageColor3 = var6.clearButton.imageColor
-      var134.ImageLabel = var2.createElement("ImageLabel", var138)
-      local var0 = var2.createElement("ImageButton", var96, var134)
+      var429.Image = var4.CLEAR_ICON
+      var429.ImageColor3 = var6.clearButton.imageColor
+      var425.ImageLabel = var2.createElement("ImageLabel", var429)
+      local var0 = var2.createElement("ImageButton", var387, var425)
    end
-   var91.ClearButton = var7
+   var382.ClearButton = var7
    var7 = var2
    if var7 then
-      local var172 = {}
-      var172.AnchorPoint = Vector2.new(0, 0)
-      var172.Position = UDim2.new(0, var4, 0, 1)
-      var172.Size = UDim2.new(0, 1, 1, 65534)
-      var172.BackgroundColor3 = var6.divideLineColor
-      var172.BorderSizePixel = 0
-      local var0 = var2.createElement("Frame", var172)
+      local var463 = {}
+      var463.AnchorPoint = Vector2.new(0, 0)
+      var463.Position = UDim2.new(0, var4, 0, 1)
+      var463.Size = UDim2.new(0, 1, 1, 65534)
+      var463.BackgroundColor3 = var6.divideLineColor
+      var463.BorderSizePixel = 0
+      local var0 = var2.createElement("Frame", var463)
    end
-   var91.Line = var7
+   var382.Line = var7
    var7 = var2
    if var7 then
-      local var195 = {}
-      var195.AnchorPoint = Vector2.new(1, 0)
-      var195.Position = UDim2.new(1, var5, 0, var5)
-      var195.Size = UDim2.new(0, var4 - 2 * var5, 1, 2 * var5)
-      var195.BackgroundTransparency = 1
+      local var486 = {}
+      var486.AnchorPoint = Vector2.new(1, 0)
+      var486.Position = UDim2.new(1, var5, 0, var5)
+      var486.Size = UDim2.new(0, var4 - 2 * var5, 1, 2 * var5)
+      var486.BackgroundTransparency = 1
       var2.Event.MouseEnter = arg1.onSearchButtonHovered
       var2.Event.MouseMoved = arg1.onSearchButtonHovered
       var2.Event.MouseLeave = arg1.onSearchButtonHoverEnded
       var2.Event.MouseButton1Down = var0.onSearchButtonClicked
-      local var232 = {}
-      local var236 = {}
-      var236.AnchorPoint = Vector2.new(0.5, 0.5)
-      var236.Position = UDim2.new(0.5, 0, 0.5, 0)
-      var236.Size = UDim2.new(0, var3.SEARCH_BAR_BUTTON_ICON_SIZE, 0, var3.SEARCH_BAR_BUTTON_ICON_SIZE)
-      var236.BackgroundTransparency = 1
-      var236.Image = var4.SEARCH_ICON
+      local var523 = {}
+      local var527 = {}
+      var527.AnchorPoint = Vector2.new(0.5, 0.5)
+      var527.Position = UDim2.new(0.5, 0, 0.5, 0)
+      var527.Size = UDim2.new(0, var3.SEARCH_BAR_BUTTON_ICON_SIZE, 0, var3.SEARCH_BAR_BUTTON_ICON_SIZE)
+      var527.BackgroundTransparency = 1
+      var527.Image = var4.SEARCH_ICON
       if var1.isSearchButtonHovered then
          local var0 = var6.searchButton.imageSelectedColor or var6.searchButton.imageColor
       end
-      var236.ImageColor3 = var6.searchButton.imageColor
-      var232.ImageLabel = var2.createElement("ImageLabel", var236)
-      local var0 = var2.createElement("ImageButton", var195, var232)
+      var527.ImageColor3 = var6.searchButton.imageColor
+      var523.ImageLabel = var2.createElement("ImageLabel", var527)
+      local var0 = var2.createElement("ImageButton", var486, var523)
    end
-   var91.SearchButton = var7
-   return var2.createElement("Frame", var73, var91)
+   var382.SearchButton = var7
+   return var2.createElement("Frame", var364, var382)
 end
 
-fun6 = var5.withContext
-local var268 = {}
-var268.Stylizer = var5.Stylizer
-var6 = fun6(var268)(var6)
+fun28 = var5.withContext
+local var559 = {}
+var559.Stylizer = var5.Stylizer
+var6 = fun28(var559)(var6)
 return var6

@@ -15,7 +15,6 @@ local CURRENT_REQUEST_TYPE = "POST"
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
 local OpenCloudService = game:GetService("OpenCloudService")
-local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
 function returnInvalidArgumentError(msg : string) : any 
@@ -157,29 +156,6 @@ function verifyParameters(parameters) : any
     return nil
 end
 
-function verifyPlayerOnServer(playerInstance: Player) : any
-    local res = verifyPlayer(playerInstance)
-    if res ~= nil then
-        return res
-    end
-
-    local players = Players:GetPlayers()
-    for _, player in ipairs(players) do
-        if player.UserId == playerInstance.UserId then
-            return nil
-        end
-    end
-
-    return returnInvalidArgumentError("Player not found on server.")
-end
-
-function verifyPlayer(playerInstance : Player) : any
-    if typeof(playerInstance) ~= INSTANCE_NAME  or playerInstance.ClassName ~= PLAYER_CLASSNAME then
-        return returnInvalidArgumentError("user argument not a Player instance.")
-    end
-    return nil
-end
-
 function verifyNumber(numberArgument) : any
     if typeof(numberArgument) ~= NUMBER_TYPE then
         return returnInvalidArgumentError("Argument not a number.")
@@ -212,18 +188,16 @@ end
 
 function userNotification(args : any)
     -- verify user argument.
-	if args[USER] == nil then
-		return returnInvalidArgumentError("user argument was not provided.")
-	end
-
-	local check = verifyPlayerOnServer(args[USER])
-	if check ~= nil then
-		return check
-	end
+    if args[USER] ~= nil then
+        local check = verifyNumber(args[USER])
+        if check ~= nil then
+            return check
+        end
+    end
 
     -- verify userNotification argument.
     if args[USER_NOTIFICATION] ~= nil then
-        check = verifyUserNotification(args[USER_NOTIFICATION])
+        local check = verifyUserNotification(args[USER_NOTIFICATION])
         if check ~= nil then
             return check
         end
@@ -231,7 +205,7 @@ function userNotification(args : any)
 
     local bodyString = HttpService:JSONEncode(args[USER_NOTIFICATION])
 
-    return OpenCloudService:HttpRequestAsync({[URL] = createUserNotificationUrl(args[USER].UserId, args[USER_NOTIFICATION]), [REQUEST_TYPE]=CURRENT_REQUEST_TYPE, [BODY] = bodyString})
+    return OpenCloudService:HttpRequestAsync({[URL] = createUserNotificationUrl(args[USER], args[USER_NOTIFICATION]), [REQUEST_TYPE]=CURRENT_REQUEST_TYPE, [BODY] = bodyString})
 end
 
 OpenCloudService:RegisterOpenCloud(OPEN_CLOUD_V2, USER_NOTIFICATION, userNotification)

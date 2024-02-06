@@ -11,4 +11,5 @@ var0.TerrainCacheMaxRadius = 500
 var0.TerrainCacheMultiplier = 5
 var0.TerrainCacheUpdateThreshold = 0.9
 var0.VoxelResolution = 4
+var0.MaxRegion = 16384
 return var0

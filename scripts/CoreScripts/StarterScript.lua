@@ -72,6 +72,7 @@ local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUs
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
+local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -408,4 +409,8 @@ end
 local GetFFlagPlayerViewRemoteEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewRemoteEnabled)
 if GetFFlagPlayerViewRemoteEnabled() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerView", RobloxGui)
+end
+
+if FFlagEnableSendCameraAccessAnalytics then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/SendCameraAccessAnalytics", RobloxGui)
 end

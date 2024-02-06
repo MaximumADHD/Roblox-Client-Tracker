@@ -103,6 +103,8 @@ local GetFFlagChatTranslationHoldoutEnabled = require(RobloxGui.Modules.Flags.Ge
 
 local ChatTranslationSettingsMoved = game:GetEngineFeature("TextChatServiceSettingsSaved")
 
+local GameBasicSettingsFramerateCap = game:GetEngineFeature("GameBasicSettingsFramerateCap")
+
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local Constants = require(RobloxGui:WaitForChild("Modules"):WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
@@ -165,7 +167,6 @@ local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags
 local GetFFlagEnableAudioOutputDevice = require(RobloxGui.Modules.Flags.GetFFlagEnableAudioOutputDevice)
 local FFlagHideEmptyInputDeviceSelector = game:DefineFastFlag("HideEmptyInputDeviceSelector", false)
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
-local GetFFlagSupportsOverscanPolicy = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportsOverscanPolicy
 local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGameSettingsCameraModeFixEnabled
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
@@ -224,6 +225,10 @@ local function reportSettingsForAnalytics()
 	stringTable["show_performance_stats"] = tostring(GameSettings.PerformanceStatsVisible)
 	stringTable["volume"] = tostring( math.floor((GameSettings.MasterVolume * 10) + 0.5) )
 	stringTable["gfx_quality_level"] = tostring(settings().Rendering.QualityLevel)
+	if GameBasicSettingsFramerateCap then
+		stringTable["framerate_cap"] = tostring(GameSettings.FramerateCap)
+	end
+
 	stringTable["fullscreen_enabled"] = tostring(GameSettings:InFullScreen())
 	stringTable["microprofiler_enabled"] = tostring(GameSettings.OnScreenProfilerEnabled)
 	stringTable["microprofiler_webserver_enabled"] = tostring(GameSettings.MicroProfilerWebServerEnabled)
@@ -375,6 +380,42 @@ local function Initialize()
 
 		this.GraphicsQualityFrame.LayoutOrder = if GetFFlagChatTranslationSettingEnabled() then 11 else 10
 		this.GraphicsQualitySlider:SetMinStep(1)
+
+		------------------ FPS Cap GUI Setup  ------------------
+		if GameBasicSettingsFramerateCap then
+			-- VR is uncapped
+			if not VRService.VREnabled then
+				local framerateCaps = table.clone(Constants.FramerateCaps)
+				local framerateCapsToText = {RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Default")}
+
+				for _, framerate in framerateCaps do
+					table.insert(framerateCapsToText, tostring(framerate))
+				end
+
+				table.insert(framerateCaps, 1, -1)
+
+				this.FramerateCapFrame, this.FramerateCapLabel, this.FramerateCapMode =
+					utility:AddNewRow(
+						this,
+						RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MaximumFramerate"),
+						"Selector",
+						framerateCapsToText,
+						table.find(framerateCaps, GameSettings.FramerateCap)
+					)
+				this.FramerateCapFrame.LayoutOrder = 12
+
+				this.FramerateCapMode.IndexChanged:Connect(function(newIndex)
+					local oldValue = GameSettings.FramerateCap
+					GameSettings.FramerateCap = tonumber(framerateCaps[newIndex])
+
+					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+						reportSettingsChangeForAnalytics("framerate_cap", oldValue, GameSettings.FramerateCap)
+					end
+
+					reportSettingsForAnalytics()
+				end)
+			end
+		end
 
 		------------------------------------------------------
 		------------------------- Connection Setup ----------------------------
@@ -2409,15 +2450,11 @@ local function Initialize()
 			-- FIXME: Cyclic module dependency, cast to any to appease typechecker
 			local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub) :: any
 			local overscan
-			if GetFFlagSupportsOverscanPolicy() then
-				if _G.IsLegacyAppShell then
-					overscan = require(RobloxGui.Modules.Shell.Components.Overscan.Overscan)
-				else
-					overscan = require(RobloxGui.Modules.Shell.Components.Overscan10ft.Overscan)
-					overscan = require(RobloxGui.Modules.Settings.Components.OverscanWrapper)(overscan)
-				end
-			else
+			if _G.IsLegacyAppShell then
 				overscan = require(RobloxGui.Modules.Shell.Components.Overscan.Overscan)
+			else
+				overscan = require(RobloxGui.Modules.Shell.Components.Overscan10ft.Overscan)
+				overscan = require(RobloxGui.Modules.Settings.Components.OverscanWrapper)(overscan)
 			end
 			local roact = require(RobloxGui.Modules.Common.Roact)
 			local overscanComponent = nil
@@ -3019,14 +3056,8 @@ local function Initialize()
 		createMicroProfilerOptions()
 	end
 
-	if GetFFlagSupportsOverscanPolicy() then
-		if isTenFootInterface and getAppFeaturePolicies().getSupportsOverscan() then
-			createOverscanOption()
-		end
-	else
-		if isTenFootInterface then
-			createOverscanOption()
-		end
+	if isTenFootInterface and getAppFeaturePolicies().getSupportsOverscan() then
+		createOverscanOption()
 	end
 
 	-- dev console option only shows for place/group place owners

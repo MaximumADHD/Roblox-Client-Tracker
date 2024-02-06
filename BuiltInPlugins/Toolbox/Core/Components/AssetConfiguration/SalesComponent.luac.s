@@ -48,108 +48,108 @@ PROTO_3:
   RETURN R1 -1
 
 PROTO_4:
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R1 R4 K1 ["Stylizer"]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R5 R4 K2 ["Title"]
-  GETTABLEKS R6 R4 K3 ["NewAssetStatus"]
-  GETTABLEKS R7 R4 K4 ["CurrentAssetStatus"]
-  GETTABLEKS R8 R4 K5 ["AssetTypeEnum"]
-  GETTABLEKS R9 R1 K6 ["assetConfig"]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K7 ["isMarketplaceAsset"]
-  MOVE R12 R8
-  CALL R11 1 1
-  JUMPIFNOT R11 [+2]
-  LOADK R10 K8 ["Marketplace"]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Stylizer"]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R3 R2 K2 ["Title"]
+  GETTABLEKS R4 R2 K3 ["NewAssetStatus"]
+  GETTABLEKS R5 R2 K4 ["CurrentAssetStatus"]
+  GETTABLEKS R6 R2 K5 ["AssetTypeEnum"]
+  GETTABLEKS R7 R1 K6 ["assetConfig"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["isMarketplaceAsset"]
+  MOVE R10 R6
+  CALL R9 1 1
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K8 ["Marketplace"]
   JUMP [+1]
-  LOADK R10 K9 ["Catalog"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K7 ["isMarketplaceAsset"]
-  MOVE R13 R8
-  CALL R12 1 1
-  JUMPIFNOT R12 [+2]
-  LOADK R11 K10 ["developer"]
+  LOADK R8 K9 ["Catalog"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["isMarketplaceAsset"]
+  MOVE R11 R6
+  CALL R10 1 1
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K10 ["developer"]
   JUMP [+1]
-  LOADK R11 K11 ["user"]
-  GETTABLEKS R12 R4 K12 ["Localization"]
-  LOADK R14 K13 ["AssetConfigSales"]
-  LOADK R15 K14 ["Target"]
-  DUPTABLE R16 K16 [{"market", "user"}]
-  SETTABLEKS R10 R16 K15 ["market"]
-  SETTABLEKS R11 R16 K11 ["user"]
-  NAMECALL R12 R12 K17 ["getText"]
-  CALL R12 4 1
-  GETTABLEKS R13 R4 K18 ["CanChangeSalesStatus"]
-  GETTABLEKS R14 R9 K19 ["labelTextColor"]
-  GETTABLEKS R15 R4 K20 ["LayoutOrder"]
-  GETUPVAL R17 1
-  GETTABLEKS R16 R17 K21 ["new"]
-  CALL R16 0 1
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K22 ["createElement"]
-  GETUPVAL R18 3
-  DUPTABLE R19 K23 [{"Title", "LayoutOrder"}]
-  SETTABLEKS R5 R19 K2 ["Title"]
-  SETTABLEKS R15 R19 K20 ["LayoutOrder"]
-  DUPTABLE R20 K26 [{"ToggleButton", "Label"}]
-  GETUPVAL R22 2
-  GETTABLEKS R21 R22 K22 ["createElement"]
-  GETUPVAL R22 4
-  DUPTABLE R23 K31 [{"Disabled", "LayoutOrder", "OnClick", "Selected", "Size"}]
-  NOT R24 R13
-  SETTABLEKS R24 R23 K27 ["Disabled"]
-  NAMECALL R24 R16 K32 ["getNextOrder"]
-  CALL R24 1 1
-  SETTABLEKS R24 R23 K20 ["LayoutOrder"]
-  GETTABLEKS R24 R0 K33 ["onToggle"]
-  SETTABLEKS R24 R23 K28 ["OnClick"]
-  GETUPVAL R25 0
-  GETTABLEKS R24 R25 K34 ["isOnSale"]
-  MOVE R25 R6
-  CALL R24 1 1
-  SETTABLEKS R24 R23 K29 ["Selected"]
-  GETIMPORT R24 K36 [UDim2.new]
+  LOADK R9 K11 ["user"]
+  GETTABLEKS R10 R2 K12 ["Localization"]
+  LOADK R12 K13 ["AssetConfigSales"]
+  LOADK R13 K14 ["Target"]
+  DUPTABLE R14 K16 [{"market", "user"}]
+  SETTABLEKS R8 R14 K15 ["market"]
+  SETTABLEKS R9 R14 K11 ["user"]
+  NAMECALL R10 R10 K17 ["getText"]
+  CALL R10 4 1
+  GETTABLEKS R11 R2 K18 ["CanChangeSalesStatus"]
+  GETTABLEKS R12 R7 K19 ["labelTextColor"]
+  GETTABLEKS R13 R2 K20 ["LayoutOrder"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K21 ["new"]
+  CALL R14 0 1
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K22 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K23 [{"Title", "LayoutOrder"}]
+  SETTABLEKS R3 R17 K2 ["Title"]
+  SETTABLEKS R13 R17 K20 ["LayoutOrder"]
+  DUPTABLE R18 K26 [{"ToggleButton", "Label"}]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K22 ["createElement"]
+  GETUPVAL R20 4
+  DUPTABLE R21 K31 [{"Disabled", "LayoutOrder", "OnClick", "Selected", "Size"}]
+  NOT R22 R11
+  SETTABLEKS R22 R21 K27 ["Disabled"]
+  NAMECALL R22 R14 K32 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K20 ["LayoutOrder"]
+  GETTABLEKS R22 R0 K33 ["onToggle"]
+  SETTABLEKS R22 R21 K28 ["OnClick"]
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K34 ["isOnSale"]
+  MOVE R23 R4
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K29 ["Selected"]
+  GETIMPORT R22 K36 [UDim2.new]
+  LOADN R23 0
+  LOADN R24 40
   LOADN R25 0
-  LOADN R26 40
-  LOADN R27 0
-  LOADN R28 24
-  CALL R24 4 1
-  SETTABLEKS R24 R23 K30 ["Size"]
-  CALL R21 2 1
-  SETTABLEKS R21 R20 K24 ["ToggleButton"]
-  GETUPVAL R22 2
-  GETTABLEKS R21 R22 K22 ["createElement"]
-  LOADK R22 K37 ["TextLabel"]
-  DUPTABLE R23 K45 [{"Size", "BackgroundTransparency", "TextColor3", "BorderSizePixel", "Font", "TextSize", "Text", "TextXAlignment", "LayoutOrder"}]
-  GETIMPORT R24 K36 [UDim2.new]
-  LOADN R25 1
-  LOADN R26 0
-  LOADN R27 0
-  LOADN R28 24
-  CALL R24 4 1
-  SETTABLEKS R24 R23 K30 ["Size"]
-  LOADN R24 1
-  SETTABLEKS R24 R23 K38 ["BackgroundTransparency"]
-  SETTABLEKS R14 R23 K39 ["TextColor3"]
+  LOADN R26 24
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K30 ["Size"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K24 ["ToggleButton"]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K22 ["createElement"]
+  LOADK R20 K37 ["TextLabel"]
+  DUPTABLE R21 K45 [{"Size", "BackgroundTransparency", "TextColor3", "BorderSizePixel", "Font", "TextSize", "Text", "TextXAlignment", "LayoutOrder"}]
+  GETIMPORT R22 K36 [UDim2.new]
+  LOADN R23 1
   LOADN R24 0
-  SETTABLEKS R24 R23 K40 ["BorderSizePixel"]
-  GETUPVAL R25 5
-  GETTABLEKS R24 R25 K46 ["FONT"]
-  SETTABLEKS R24 R23 K41 ["Font"]
-  GETUPVAL R25 5
-  GETTABLEKS R24 R25 K47 ["FONT_SIZE_SMALL"]
-  SETTABLEKS R24 R23 K42 ["TextSize"]
-  SETTABLEKS R12 R23 K43 ["Text"]
-  GETIMPORT R24 K50 [Enum.TextXAlignment.Left]
-  SETTABLEKS R24 R23 K44 ["TextXAlignment"]
-  NAMECALL R24 R16 K32 ["getNextOrder"]
-  CALL R24 1 1
-  SETTABLEKS R24 R23 K20 ["LayoutOrder"]
-  CALL R21 2 1
-  SETTABLEKS R21 R20 K25 ["Label"]
-  CALL R17 3 -1
-  RETURN R17 -1
+  LOADN R25 0
+  LOADN R26 24
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K30 ["Size"]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K38 ["BackgroundTransparency"]
+  SETTABLEKS R12 R21 K39 ["TextColor3"]
+  LOADN R22 0
+  SETTABLEKS R22 R21 K40 ["BorderSizePixel"]
+  GETUPVAL R23 5
+  GETTABLEKS R22 R23 K46 ["FONT"]
+  SETTABLEKS R22 R21 K41 ["Font"]
+  GETUPVAL R23 5
+  GETTABLEKS R22 R23 K47 ["FONT_SIZE_SMALL"]
+  SETTABLEKS R22 R21 K42 ["TextSize"]
+  SETTABLEKS R10 R21 K43 ["Text"]
+  GETIMPORT R22 K50 [Enum.TextXAlignment.Left]
+  SETTABLEKS R22 R21 K44 ["TextXAlignment"]
+  NAMECALL R22 R14 K32 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K20 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K25 ["Label"]
+  CALL R15 3 -1
+  RETURN R15 -1
 
 MAIN:
   PREPVARARGS 0
@@ -191,33 +191,48 @@ MAIN:
   GETTABLEKS R15 R9 K19 ["AssetConfigConstants"]
   CALL R14 1 1
   GETTABLEKS R15 R10 K20 ["withLocalization"]
-  GETTABLEKS R16 R2 K21 ["PureComponent"]
-  LOADK R18 K22 ["SalesComponent"]
-  NAMECALL R16 R16 K23 ["extend"]
-  CALL R16 2 1
-  DUPCLOSURE R17 K24 [PROTO_1]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R20 R0 K13 ["Core"]
+  GETTABLEKS R19 R20 K14 ["Util"]
+  GETTABLEKS R18 R19 K21 ["SharedFlags"]
+  GETTABLEKS R17 R18 K22 ["getFFlagToolboxCleanupLegacyContext"]
+  CALL R16 1 1
+  GETTABLEKS R17 R2 K23 ["PureComponent"]
+  LOADK R19 K24 ["SalesComponent"]
+  NAMECALL R17 R17 K25 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K26 [PROTO_1]
   CAPTURE VAL R13
   CAPTURE VAL R14
-  SETTABLEKS R17 R16 K25 ["init"]
-  DUPCLOSURE R17 K26 [PROTO_3]
+  SETTABLEKS R18 R17 K27 ["init"]
+  MOVE R18 R16
+  CALL R18 0 1
+  JUMPIF R18 [+4]
+  DUPCLOSURE R18 K28 [PROTO_3]
   CAPTURE VAL R15
-  SETTABLEKS R17 R16 K27 ["render"]
-  DUPCLOSURE R17 K28 [PROTO_4]
+  SETTABLEKS R18 R17 K29 ["render"]
+  MOVE R19 R16
+  CALL R19 0 1
+  JUMPIFNOT R19 [+2]
+  LOADK R18 K29 ["render"]
+  JUMP [+1]
+  LOADK R18 K30 ["renderContent"]
+  DUPCLOSURE R19 K31 [PROTO_4]
   CAPTURE VAL R13
   CAPTURE VAL R11
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R12
-  SETTABLEKS R17 R16 K29 ["renderContent"]
-  MOVE R17 R4
-  DUPTABLE R18 K32 [{"Stylizer", "Localization"}]
-  GETTABLEKS R19 R3 K30 ["Stylizer"]
-  SETTABLEKS R19 R18 K30 ["Stylizer"]
-  GETTABLEKS R19 R3 K31 ["Localization"]
-  SETTABLEKS R19 R18 K31 ["Localization"]
-  CALL R17 1 1
-  MOVE R18 R16
-  CALL R17 1 1
-  MOVE R16 R17
-  RETURN R16 1
+  SETTABLE R19 R17 R18
+  MOVE R18 R4
+  DUPTABLE R19 K34 [{"Stylizer", "Localization"}]
+  GETTABLEKS R20 R3 K32 ["Stylizer"]
+  SETTABLEKS R20 R19 K32 ["Stylizer"]
+  GETTABLEKS R20 R3 K33 ["Localization"]
+  SETTABLEKS R20 R19 K33 ["Localization"]
+  CALL R18 1 1
+  MOVE R19 R17
+  CALL R18 1 1
+  MOVE R17 R18
+  RETURN R17 1

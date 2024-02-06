@@ -71,34 +71,34 @@ PROTO_2:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Cryo"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["Framework"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K9 ["ContextServices"]
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Resources"]
-  GETTABLEKS R6 R7 K12 ["MakeTheme"]
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Resources"]
+  GETTABLEKS R6 R7 K13 ["MakeTheme"]
   CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Util"]
-  GETTABLEKS R7 R8 K14 ["DebugFlags"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Util"]
+  GETTABLEKS R7 R8 K15 ["DebugFlags"]
   CALL R6 1 1
-  DUPCLOSURE R7 K15 [PROTO_2]
+  DUPCLOSURE R7 K16 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R5

@@ -154,54 +154,54 @@ PROTO_5:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K9 ["UI"]
-  GETTABLEKS R5 R4 K10 ["Pane"]
-  GETTABLEKS R6 R4 K11 ["TextLabel"]
-  GETTABLEKS R8 R0 K12 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Components"]
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R10 R7 K14 ["CharacterConversion"]
-  GETTABLEKS R9 R10 K15 ["Footer"]
+  GETTABLEKS R4 R1 K10 ["UI"]
+  GETTABLEKS R5 R4 K11 ["Pane"]
+  GETTABLEKS R6 R4 K12 ["TextLabel"]
+  GETTABLEKS R8 R0 K13 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Components"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R7 K15 ["CharacterConversion"]
+  GETTABLEKS R9 R10 K16 ["Footer"]
   CALL R8 1 1
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R11 R7 K14 ["CharacterConversion"]
-  GETTABLEKS R10 R11 K16 ["MainView"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R7 K15 ["CharacterConversion"]
+  GETTABLEKS R10 R11 K17 ["MainView"]
   CALL R9 1 1
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R11 R7 K17 ["TabInstructions"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R7 K18 ["TabInstructions"]
   CALL R10 1 1
-  GETIMPORT R11 K4 [require]
-  GETTABLEKS R14 R0 K12 ["Src"]
-  GETTABLEKS R13 R14 K18 ["Thunks"]
-  GETTABLEKS R12 R13 K19 ["LoadCharacterMetadata"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K13 ["Src"]
+  GETTABLEKS R13 R14 K19 ["Thunks"]
+  GETTABLEKS R12 R13 K20 ["LoadCharacterMetadata"]
   CALL R11 1 1
-  GETTABLEKS R12 R1 K20 ["Util"]
-  GETTABLEKS R13 R12 K21 ["LayoutOrderIterator"]
-  GETTABLEKS R14 R2 K22 ["PureComponent"]
-  LOADK R16 K23 ["CharacterConversionPane"]
-  NAMECALL R14 R14 K24 ["extend"]
+  GETTABLEKS R12 R1 K21 ["Util"]
+  GETTABLEKS R13 R12 K22 ["LayoutOrderIterator"]
+  GETTABLEKS R14 R2 K23 ["PureComponent"]
+  LOADK R16 K24 ["CharacterConversionPane"]
+  NAMECALL R14 R14 K25 ["extend"]
   CALL R14 2 1
-  DUPCLOSURE R15 K25 [PROTO_0]
-  SETTABLEKS R15 R14 K26 ["hasCharacters"]
-  DUPCLOSURE R15 K27 [PROTO_1]
-  SETTABLEKS R15 R14 K28 ["didMount"]
-  DUPCLOSURE R15 K29 [PROTO_2]
+  DUPCLOSURE R15 K26 [PROTO_0]
+  SETTABLEKS R15 R14 K27 ["hasCharacters"]
+  DUPCLOSURE R15 K28 [PROTO_1]
+  SETTABLEKS R15 R14 K29 ["didMount"]
+  DUPCLOSURE R15 K30 [PROTO_2]
   CAPTURE VAL R13
   CAPTURE VAL R2
   CAPTURE VAL R5
@@ -209,27 +209,27 @@ MAIN:
   CAPTURE VAL R10
   CAPTURE VAL R9
   CAPTURE VAL R8
-  SETTABLEKS R15 R14 K30 ["render"]
-  GETTABLEKS R16 R1 K31 ["ContextServices"]
-  GETTABLEKS R15 R16 K32 ["withContext"]
-  DUPTABLE R16 K36 [{"Analytics", "Stylizer", "Localization"}]
-  GETTABLEKS R18 R1 K31 ["ContextServices"]
-  GETTABLEKS R17 R18 K33 ["Analytics"]
-  SETTABLEKS R17 R16 K33 ["Analytics"]
-  GETTABLEKS R18 R1 K31 ["ContextServices"]
-  GETTABLEKS R17 R18 K34 ["Stylizer"]
-  SETTABLEKS R17 R16 K34 ["Stylizer"]
-  GETTABLEKS R18 R1 K31 ["ContextServices"]
-  GETTABLEKS R17 R18 K35 ["Localization"]
-  SETTABLEKS R17 R16 K35 ["Localization"]
+  SETTABLEKS R15 R14 K31 ["render"]
+  GETTABLEKS R16 R1 K32 ["ContextServices"]
+  GETTABLEKS R15 R16 K33 ["withContext"]
+  DUPTABLE R16 K37 [{"Analytics", "Stylizer", "Localization"}]
+  GETTABLEKS R18 R1 K32 ["ContextServices"]
+  GETTABLEKS R17 R18 K34 ["Analytics"]
+  SETTABLEKS R17 R16 K34 ["Analytics"]
+  GETTABLEKS R18 R1 K32 ["ContextServices"]
+  GETTABLEKS R17 R18 K35 ["Stylizer"]
+  SETTABLEKS R17 R16 K35 ["Stylizer"]
+  GETTABLEKS R18 R1 K32 ["ContextServices"]
+  GETTABLEKS R17 R18 K36 ["Localization"]
+  SETTABLEKS R17 R16 K36 ["Localization"]
   CALL R15 1 1
   MOVE R16 R14
   CALL R15 1 1
   MOVE R14 R15
-  DUPCLOSURE R15 K37 [PROTO_3]
-  DUPCLOSURE R16 K38 [PROTO_5]
+  DUPCLOSURE R15 K38 [PROTO_3]
+  DUPCLOSURE R16 K39 [PROTO_5]
   CAPTURE VAL R11
-  GETTABLEKS R17 R3 K39 ["connect"]
+  GETTABLEKS R17 R3 K40 ["connect"]
   MOVE R18 R15
   MOVE R19 R16
   CALL R17 2 1

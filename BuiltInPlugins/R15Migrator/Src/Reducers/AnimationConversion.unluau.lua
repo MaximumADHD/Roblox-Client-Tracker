@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("R15Migrator")
 local var1 = require(var0.Packages.Cryo)
 local var2 = require(var0.Src.Util.AnimationConversion.constants)
 local function var3()

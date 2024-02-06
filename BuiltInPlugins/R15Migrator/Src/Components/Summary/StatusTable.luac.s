@@ -97,53 +97,56 @@ PROTO_1:
   GETTABLEKS R2 R1 K1 ["Rows"]
   GETTABLEKS R3 R1 K2 ["Title"]
   GETTABLEKS R4 R1 K3 ["LayoutOrder"]
-  GETTABLEKS R5 R1 K4 ["Localization"]
-  GETTABLEKS R6 R1 K5 ["Stylizer"]
-  GETTABLEKS R7 R6 K6 ["RowHeight"]
-  GETTABLEKS R8 R6 K7 ["ColumnOffset"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K8 ["createElement"]
-  GETUPVAL R10 1
-  DUPTABLE R11 K13 [{"Size", "Rows", "RowHeight", "ColumnHeaderHeight", "Columns", "CellComponent", "LayoutOrder"}]
-  GETIMPORT R12 K16 [UDim2.new]
-  LOADN R13 1
-  LOADN R14 0
+  GETTABLEKS R5 R1 K4 ["OnClick"]
+  GETTABLEKS R6 R1 K5 ["Localization"]
+  GETTABLEKS R7 R1 K6 ["Stylizer"]
+  GETTABLEKS R8 R7 K7 ["RowHeight"]
+  GETTABLEKS R9 R7 K8 ["ColumnOffset"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  GETUPVAL R11 1
+  DUPTABLE R12 K16 [{"Size", "Rows", "RowHeight", "ColumnHeaderHeight", "Columns", "CellComponent", "LayoutOrder", "OnSelectRow", "OnSortChange"}]
+  GETIMPORT R13 K19 [UDim2.new]
+  LOADN R14 1
   LOADN R15 0
-  LENGTH R18 R2
-  ADDK R17 R18 K17 [1]
-  GETTABLEKS R18 R6 K6 ["RowHeight"]
-  MUL R16 R17 R18
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K9 ["Size"]
-  SETTABLEKS R2 R11 K1 ["Rows"]
-  SETTABLEKS R7 R11 K6 ["RowHeight"]
-  SETTABLEKS R7 R11 K10 ["ColumnHeaderHeight"]
-  NEWTABLE R12 0 2
-  DUPTABLE R13 K20 [{"Name", "Width"}]
-  SETTABLEKS R3 R13 K18 ["Name"]
-  GETIMPORT R14 K22 [UDim.new]
-  LOADN R15 1
-  MINUS R16 R8
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K19 ["Width"]
-  DUPTABLE R14 K20 [{"Name", "Width"}]
-  LOADK R17 K23 ["StatusTable"]
-  LOADK R18 K24 ["Status"]
-  NAMECALL R15 R5 K25 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K18 ["Name"]
-  GETIMPORT R15 K22 [UDim.new]
   LOADN R16 0
-  MOVE R17 R8
+  LENGTH R19 R2
+  ADDK R18 R19 K20 [1]
+  GETTABLEKS R19 R7 K7 ["RowHeight"]
+  MUL R17 R18 R19
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K10 ["Size"]
+  SETTABLEKS R2 R12 K1 ["Rows"]
+  SETTABLEKS R8 R12 K7 ["RowHeight"]
+  SETTABLEKS R8 R12 K11 ["ColumnHeaderHeight"]
+  NEWTABLE R13 0 2
+  DUPTABLE R14 K23 [{"Name", "Width"}]
+  SETTABLEKS R3 R14 K21 ["Name"]
+  GETIMPORT R15 K25 [UDim.new]
+  LOADN R16 1
+  MINUS R17 R9
   CALL R15 2 1
-  SETTABLEKS R15 R14 K19 ["Width"]
-  SETLIST R12 R13 2 [1]
-  SETTABLEKS R12 R11 K11 ["Columns"]
-  GETUPVAL R12 2
-  SETTABLEKS R12 R11 K12 ["CellComponent"]
-  SETTABLEKS R4 R11 K3 ["LayoutOrder"]
-  CALL R9 2 -1
-  RETURN R9 -1
+  SETTABLEKS R15 R14 K22 ["Width"]
+  DUPTABLE R15 K23 [{"Name", "Width"}]
+  LOADK R18 K26 ["StatusTable"]
+  LOADK R19 K27 ["Status"]
+  NAMECALL R16 R6 K28 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K21 ["Name"]
+  GETIMPORT R16 K25 [UDim.new]
+  LOADN R17 0
+  MOVE R18 R9
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K22 ["Width"]
+  SETLIST R13 R14 2 [1]
+  SETTABLEKS R13 R12 K12 ["Columns"]
+  GETUPVAL R13 2
+  SETTABLEKS R13 R12 K13 ["CellComponent"]
+  SETTABLEKS R4 R12 K3 ["LayoutOrder"]
+  SETTABLEKS R5 R12 K14 ["OnSelectRow"]
+  SETTABLEKS R5 R12 K15 ["OnSortChange"]
+  CALL R10 2 -1
+  RETURN R10 -1
 
 MAIN:
   PREPVARARGS 0

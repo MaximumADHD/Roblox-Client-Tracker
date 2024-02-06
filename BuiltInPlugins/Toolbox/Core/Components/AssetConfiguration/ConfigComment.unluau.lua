@@ -16,84 +16,84 @@ function var8.init(arg1, arg2)
    
 end
 
-local function fun2(arg1)
+local function fun21(arg1)
    local var0 = arg1.props
    local var1 = var0.ToggleCallback
-   local var261 = {}
-   var261.Size = UDim2.new(1, 0, 0, var0.TotalHeight)
-   var261.BackgroundTransparency = 1
-   var261.BorderSizePixel = 0
-   var261.LayoutOrder = var0.LayoutOrder
-   local var270 = {}
-   local var274 = {}
-   var274.FillDirection = Enum.FillDirection.Horizontal
-   var274.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var274.VerticalAlignment = Enum.VerticalAlignment.Top
-   var274.SortOrder = Enum.SortOrder.LayoutOrder
-   var274.Padding = UDim.new(0, 0)
-   var270.UIListLayout = var2.createElement("UIListLayout", var274)
-   local var287 = {}
-   var287.Size = UDim2.new(0, var6.TITLE_GUTTER_WIDTH, 1, 0)
-   var287.BackgroundTransparency = 1
-   var287.BorderSizePixel = 0
-   var287.Text = var0.Title
-   var287.TextXAlignment = Enum.TextXAlignment.Left
-   var287.TextYAlignment = Enum.TextYAlignment.Top
-   var287.TextSize = var5.FONT_SIZE_TITLE
-   var287.TextColor3 = arg1.props.Stylizer.publishAsset.titleTextColor
-   var287.Font = var5.FONT
-   var287.LayoutOrder = 1
-   var270.Title = var2.createElement("TextLabel", var287)
-   local var309 = {}
-   var309.Disabled = var0.CommentEnabled
-   var309.LayoutOrder = 2
-   var309.OnClick = arg1.toggleCallback
-   var309.Selected = var0.CommentOn
-   var309.Size = UDim2.new(0, 40, 0, 24)
-   var270.ToggleButton = var2.createElement(var7, var309)
-   return var2.createElement("Frame", var261, var270)
+   local var695 = {}
+   var695.Size = UDim2.new(1, 0, 0, var0.TotalHeight)
+   var695.BackgroundTransparency = 1
+   var695.BorderSizePixel = 0
+   var695.LayoutOrder = var0.LayoutOrder
+   local var704 = {}
+   local var708 = {}
+   var708.FillDirection = Enum.FillDirection.Horizontal
+   var708.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var708.VerticalAlignment = Enum.VerticalAlignment.Top
+   var708.SortOrder = Enum.SortOrder.LayoutOrder
+   var708.Padding = UDim.new(0, 0)
+   var704.UIListLayout = var2.createElement("UIListLayout", var708)
+   local var721 = {}
+   var721.Size = UDim2.new(0, var6.TITLE_GUTTER_WIDTH, 1, 0)
+   var721.BackgroundTransparency = 1
+   var721.BorderSizePixel = 0
+   var721.Text = var0.Title
+   var721.TextXAlignment = Enum.TextXAlignment.Left
+   var721.TextYAlignment = Enum.TextYAlignment.Top
+   var721.TextSize = var5.FONT_SIZE_TITLE
+   var721.TextColor3 = arg1.props.Stylizer.publishAsset.titleTextColor
+   var721.Font = var5.FONT
+   var721.LayoutOrder = 1
+   var704.Title = var2.createElement("TextLabel", var721)
+   local var743 = {}
+   var743.Disabled = var0.CommentEnabled
+   var743.LayoutOrder = 2
+   var743.OnClick = arg1.toggleCallback
+   var743.Selected = var0.CommentOn
+   var743.Size = UDim2.new(0, 40, 0, 24)
+   var704.ToggleButton = var2.createElement(var7, var743)
+   return var2.createElement("Frame", var695, var704)
 end
 
 function var8.render(arg1)
    local var0 = arg1.props
    local var1 = var0.ToggleCallback
-   local var261 = {}
-   var261.Size = UDim2.new(1, 0, 0, var0.TotalHeight)
-   var261.BackgroundTransparency = 1
-   var261.BorderSizePixel = 0
-   var261.LayoutOrder = var0.LayoutOrder
-   local var270 = {}
-   local var274 = {}
-   var274.FillDirection = Enum.FillDirection.Horizontal
-   var274.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var274.VerticalAlignment = Enum.VerticalAlignment.Top
-   var274.SortOrder = Enum.SortOrder.LayoutOrder
-   var274.Padding = UDim.new(0, 0)
-   var270.UIListLayout = var2.createElement("UIListLayout", var274)
-   local var287 = {}
-   var287.Size = UDim2.new(0, var6.TITLE_GUTTER_WIDTH, 1, 0)
-   var287.BackgroundTransparency = 1
-   var287.BorderSizePixel = 0
-   var287.Text = var0.Title
-   var287.TextXAlignment = Enum.TextXAlignment.Left
-   var287.TextYAlignment = Enum.TextYAlignment.Top
-   var287.TextSize = var5.FONT_SIZE_TITLE
-   var287.TextColor3 = arg1.props.Stylizer.publishAsset.titleTextColor
-   var287.Font = var5.FONT
-   var287.LayoutOrder = 1
-   var270.Title = var2.createElement("TextLabel", var287)
-   local var309 = {}
-   var309.Disabled = var0.CommentEnabled
-   var309.LayoutOrder = 2
-   var309.OnClick = arg1.toggleCallback
-   var309.Selected = var0.CommentOn
-   var309.Size = UDim2.new(0, 40, 0, 24)
-   var270.ToggleButton = var2.createElement(var7, var309)
-   return var2.createElement("Frame", var261, var270)
+   local var695 = {}
+   var695.Size = UDim2.new(1, 0, 0, var0.TotalHeight)
+   var695.BackgroundTransparency = 1
+   var695.BorderSizePixel = 0
+   var695.LayoutOrder = var0.LayoutOrder
+   local var704 = {}
+   local var708 = {}
+   var708.FillDirection = Enum.FillDirection.Horizontal
+   var708.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var708.VerticalAlignment = Enum.VerticalAlignment.Top
+   var708.SortOrder = Enum.SortOrder.LayoutOrder
+   var708.Padding = UDim.new(0, 0)
+   var704.UIListLayout = var2.createElement("UIListLayout", var708)
+   local var721 = {}
+   var721.Size = UDim2.new(0, var6.TITLE_GUTTER_WIDTH, 1, 0)
+   var721.BackgroundTransparency = 1
+   var721.BorderSizePixel = 0
+   var721.Text = var0.Title
+   var721.TextXAlignment = Enum.TextXAlignment.Left
+   var721.TextYAlignment = Enum.TextYAlignment.Top
+   var721.TextSize = var5.FONT_SIZE_TITLE
+   var721.TextColor3 = arg1.props.Stylizer.publishAsset.titleTextColor
+   var721.Font = var5.FONT
+   var721.LayoutOrder = 1
+   var704.Title = var2.createElement("TextLabel", var721)
+   local var743 = {}
+   var743.Disabled = var0.CommentEnabled
+   var743.LayoutOrder = 2
+   var743.OnClick = arg1.toggleCallback
+   var743.Selected = var0.CommentOn
+   var743.Size = UDim2.new(0, 40, 0, 24)
+   var704.ToggleButton = var2.createElement(var7, var743)
+   return var2.createElement("Frame", var695, var704)
 end
 
-fun2 = var3.withContext
-local var321 = {}
-var321.Stylizer = var3.Stylizer
-var8 = fun2(var321)(var8)
+fun21 = var3.withContext
+local var755 = {}
+var755.Stylizer = var3.Stylizer
+var8 = fun21(var755)(var8)
 return var8

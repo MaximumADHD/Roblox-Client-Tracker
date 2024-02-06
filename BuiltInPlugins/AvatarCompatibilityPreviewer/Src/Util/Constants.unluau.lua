@@ -101,7 +101,12 @@ var2.FACE_CONTROLS_PROPERTIES = {
 var2.LIMBS = var0
 local var317 = require(script:FindFirstAncestor("AvatarCompatibilityPreviewer").Packages.Cryo).List
 var317 = var0
-local var12 = "Handle"
-local var13 = "HumanoidRootPart"
+local var320 = "Handle"
+local var321 = "HumanoidRootPart"
 var2.ALL_ALLOWED_PART_NAMES = var317.join(var317, {})
+local var323 = {}
+var323.BodyPoints = "AvatarPreviewerEditingBodyPoints"
+var323.Toolbar = "AvatarPreviewerEditingToolbar"
+var2.EDITING_TOOLS_GUI_NAMES = var323
+var2.DEFAULT_CAMERA_ANGLE = CFrame.lookAt(Vector3.new(-5.2, 1, -9.2), Vector3.new(0.5, -1.2, 0.85))
 return var2

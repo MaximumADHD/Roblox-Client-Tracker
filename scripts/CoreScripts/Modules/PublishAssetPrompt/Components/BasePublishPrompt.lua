@@ -36,6 +36,7 @@ local ItemInfoList = require(CorePackages.Workspace.Packages.ItemDetails).ItemIn
 local LeaveCreationAlert = require(script.Parent.LeaveCreationAlert)
 local Constants = require(script.Parent.Parent.Constants)
 local PreviewViewport = require(Components.Common.PreviewViewport)
+local ValidationErrorModal = require(Components.ValidationErrorModal)
 
 local NAME_HEIGHT_PIXELS = 30
 local DISCLAIMER_HEIGHT_PIXELS = 50
@@ -72,6 +73,7 @@ BasePublishPrompt.validateProps = t.strictInterface({
 	-- Mapped state
 	guid = t.any,
 	scopes = t.any,
+	errorMessage = t.optional(t.string),
 
 	-- Mapped dispatch functions
 	closePrompt = t.callback,
@@ -308,6 +310,12 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 					cancelClosePrompt = self.cancelClosePrompt,
 				})
 				else nil,
+			ValidationErrorAlert = if self.props.errorMessage
+				then Roact.createElement(ValidationErrorModal, {
+					screenSize = self.props.screenSize,
+					closePrompt = self.closePrompt,
+				})
+				else nil,
 			PreviewFrame = self.props.showingPreviewView and Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = theme.BackgroundUIDefault.Color,
@@ -350,6 +358,7 @@ local function mapStateToProps(state)
 	return {
 		guid = state.promptRequest.promptInfo.guid,
 		scopes = state.promptRequest.promptInfo.scopes,
+		errorMessage = state.promptRequest.promptInfo.errorMessage,
 	}
 end
 

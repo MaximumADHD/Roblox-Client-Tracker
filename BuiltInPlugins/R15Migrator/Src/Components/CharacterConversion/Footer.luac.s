@@ -204,74 +204,73 @@ PROTO_7:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
   CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K10 ["Thunks"]
-  GETTABLEKS R5 R6 K11 ["ConvertCharacters"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Thunks"]
+  GETTABLEKS R5 R6 K12 ["ConvertCharacters"]
   CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K10 ["Thunks"]
-  GETTABLEKS R6 R7 K12 ["RevertCharacters"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Thunks"]
+  GETTABLEKS R6 R7 K13 ["RevertCharacters"]
   CALL R5 1 1
-  GETTABLEKS R6 R1 K13 ["ContextServices"]
-  GETTABLEKS R7 R1 K14 ["UI"]
-  GETTABLEKS R8 R7 K15 ["Pane"]
-  GETTABLEKS R9 R7 K16 ["Button"]
-  GETTABLEKS R10 R7 K17 ["Separator"]
-  GETTABLEKS R11 R7 K18 ["TextLabel"]
-  GETTABLEKS R12 R1 K19 ["Util"]
-  GETTABLEKS R13 R12 K20 ["LayoutOrderIterator"]
-  GETTABLEKS R14 R2 K21 ["PureComponent"]
-  LOADK R16 K22 ["CharacterConversionPaneFooter"]
-  NAMECALL R14 R14 K23 ["extend"]
+  GETTABLEKS R6 R1 K14 ["ContextServices"]
+  GETTABLEKS R7 R1 K15 ["UI"]
+  GETTABLEKS R8 R7 K16 ["Pane"]
+  GETTABLEKS R9 R7 K17 ["Button"]
+  GETTABLEKS R10 R7 K18 ["Separator"]
+  GETTABLEKS R11 R7 K19 ["TextLabel"]
+  GETTABLEKS R12 R1 K20 ["Util"]
+  GETTABLEKS R13 R12 K21 ["LayoutOrderIterator"]
+  GETTABLEKS R14 R2 K22 ["PureComponent"]
+  LOADK R16 K23 ["CharacterConversionPaneFooter"]
+  NAMECALL R14 R14 K24 ["extend"]
   CALL R14 2 1
-  DUPCLOSURE R15 K24 [PROTO_2]
-  SETTABLEKS R15 R14 K25 ["init"]
-  DUPCLOSURE R15 K26 [PROTO_3]
+  DUPCLOSURE R15 K25 [PROTO_2]
+  SETTABLEKS R15 R14 K26 ["init"]
+  DUPCLOSURE R15 K27 [PROTO_3]
   CAPTURE VAL R13
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R10
   CAPTURE VAL R11
   CAPTURE VAL R9
-  SETTABLEKS R15 R14 K27 ["render"]
-  GETTABLEKS R15 R6 K28 ["withContext"]
-  DUPTABLE R16 K33 [{"Analytics", "Plugin", "Localization", "Stylizer"}]
-  GETTABLEKS R17 R6 K29 ["Analytics"]
-  SETTABLEKS R17 R16 K29 ["Analytics"]
-  GETTABLEKS R17 R6 K30 ["Plugin"]
-  SETTABLEKS R17 R16 K30 ["Plugin"]
-  GETTABLEKS R17 R6 K31 ["Localization"]
-  SETTABLEKS R17 R16 K31 ["Localization"]
-  GETTABLEKS R17 R6 K32 ["Stylizer"]
-  SETTABLEKS R17 R16 K32 ["Stylizer"]
+  SETTABLEKS R15 R14 K28 ["render"]
+  GETTABLEKS R15 R6 K29 ["withContext"]
+  DUPTABLE R16 K34 [{"Analytics", "Plugin", "Localization", "Stylizer"}]
+  GETTABLEKS R17 R6 K30 ["Analytics"]
+  SETTABLEKS R17 R16 K30 ["Analytics"]
+  GETTABLEKS R17 R6 K31 ["Plugin"]
+  SETTABLEKS R17 R16 K31 ["Plugin"]
+  GETTABLEKS R17 R6 K32 ["Localization"]
+  SETTABLEKS R17 R16 K32 ["Localization"]
+  GETTABLEKS R17 R6 K33 ["Stylizer"]
+  SETTABLEKS R17 R16 K33 ["Stylizer"]
   CALL R15 1 1
   MOVE R16 R14
   CALL R15 1 1
   MOVE R14 R15
-  DUPCLOSURE R15 K34 [PROTO_4]
-  DUPCLOSURE R16 K35 [PROTO_7]
+  DUPCLOSURE R15 K35 [PROTO_4]
+  DUPCLOSURE R16 K36 [PROTO_7]
   CAPTURE VAL R4
   CAPTURE VAL R5
-  GETTABLEKS R17 R3 K36 ["connect"]
+  GETTABLEKS R17 R3 K37 ["connect"]
   MOVE R18 R15
   MOVE R19 R16
   CALL R17 2 1

@@ -1,4 +1,3 @@
-local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessage")
 
 local placeLaunchErrors = {
 	Enum.ConnectionError.PlacelaunchCustomMessage,
@@ -15,11 +14,8 @@ local placeLaunchErrors = {
 	Enum.ConnectionError.PlacelaunchRestricted,
 	Enum.ConnectionError.PlacelaunchUnauthorized,
 	Enum.ConnectionError.PlacelaunchUserLeft,
+	Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized
 }
-
-if enableUserPrivacyUnauthorizedMessage then 
-	table.insert(placeLaunchErrors, Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized)
-end
 
 -- all connection errors
 return {

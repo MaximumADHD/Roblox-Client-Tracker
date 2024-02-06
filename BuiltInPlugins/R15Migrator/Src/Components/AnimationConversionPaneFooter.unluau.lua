@@ -1,34 +1,28 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("R15Migrator")
 local var1 = require(var0.Packages.Framework)
 local var2 = require(var0.Packages.Roact)
-local var3 = var1.UI
-local var4 = var3.Pane
-local var5 = var3.Separator
-local var6 = var3.TextLabel
-local var7 = var1.Util.LayoutOrderIterator
-local var8 = var1.ContextServices
-local var9 = require(var0.Src.Components.ReplaceRevertButtons)
-local var10 = var2.PureComponent:extend("AnimationConversionPaneFooter")
-function var10.render(arg1)
+local var3 = var1.UI.Pane
+local var4 = var1.ContextServices
+local var5 = require(var0.Src.Components.ReplaceRevertButtons)
+local var6 = var2.PureComponent:extend("AnimationConversionPaneFooter")
+function var6.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var2 = var0.Localization
-   local var356 = {}
-   var356.Size = var0.Size
-   var356.LayoutOrder = var0.LayoutOrder
-   var356.Layout = Enum.FillDirection.Vertical
-   var356.HorizontalAlignment = Enum.HorizontalAlignment.Right
-   var356.VerticalAlignment = Enum.VerticalAlignment.Bottom
-   var356.Spacing = var1.Spacing
-   var356.Padding = var1.Padding
-   local var362 = {}
-   var362.Buttons = var2.createElement(var9)
-   return var2.createElement(var4, var356, var362)
+   local var361 = {}
+   var361.Size = var0.Size
+   var361.LayoutOrder = var0.LayoutOrder
+   var361.Layout = Enum.FillDirection.Vertical
+   var361.HorizontalAlignment = Enum.HorizontalAlignment.Right
+   var361.VerticalAlignment = Enum.VerticalAlignment.Bottom
+   var361.Spacing = var1.Spacing
+   var361.Padding = var1.Padding
+   local var367 = {}
+   var367.Buttons = var2.createElement(var5)
+   return var2.createElement(var3, var361, var367)
 end
 
-local var369 = {}
-var369.Stylizer = var8.Stylizer
-var369.Localization = var8.Localization
-var10 = var8.withContext(var369)(var10)
-return var10
+local var374 = {}
+var374.Stylizer = var4.Stylizer
+var6 = var4.withContext(var374)(var6)
+return var6

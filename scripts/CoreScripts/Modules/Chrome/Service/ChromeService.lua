@@ -19,9 +19,9 @@ local Types = require(script.Parent.Types)
 
 local GetFFlagEnableUnibarSneakPeak = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagEnableUnibarMaxDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
-local GetFFlagSelfViewMultiTouchFix = require(script.Parent.Parent.Flags.GetFFlagSelfViewMultiTouchFix)
 local GetFFlagEnableChromeEscapeFix = require(script.Parent.Parent.Flags.GetFFlagEnableChromeEscapeFix)
 local GetFFlagEnableChromeDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableChromeDefaultOpen)
+local GetFFlagNewUnibarIA = require(script.Parent.Parent.Flags.GetFFlagNewUnibarIA)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 
@@ -338,7 +338,7 @@ function ChromeService:updateScreenSize(
 			mostRecentlyUsedSlots = 2
 		end
 
-		if EnabledPinnedChat then
+		if EnabledPinnedChat and not GetFFlagNewUnibarIA() then
 			mostRecentlyUsedSlots = math.max(0, mostRecentlyUsedSlots - 1)
 		end
 	else
@@ -926,17 +926,11 @@ function ChromeService:gesture(
 	connection: { current: RBXScriptConnection? }?,
 	inputObject: InputObject?
 )
-	if GetFFlagSelfViewMultiTouchFix() then
-		if self._integrations[componentId] then
-			self._dragConnection[componentId] = {
-				connection = connection,
-				inputObject = inputObject,
-			}
-		end
-	else
-		if self._integrations[componentId] then
-			self._dragConnection[componentId] = connection
-		end
+	if self._integrations[componentId] then
+		self._dragConnection[componentId] = {
+			connection = connection,
+			inputObject = inputObject,
+		}
 	end
 end
 

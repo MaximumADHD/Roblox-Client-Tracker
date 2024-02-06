@@ -8,9 +8,9 @@ local var5 = require(var0.Core.Components.DropdownMenu)
 local var6 = var2.PureComponent:extend("AssetTypeSelector")
 function var6.init(arg1, arg2)
    function arg1.onItemClicked(arg1)
-      local var32 = {}
-      var32.dropDownIndex = arg1
-      arg1:setState(var32)
+      local var259 = {}
+      var259.dropDownIndex = arg1
+      arg1:setState(var259)
       if arg1.props.assetTypeEnum ~= Enum.AssetType.Plugin then
          if arg1.props.assetTypeEnum == "setState" then
             if arg1.props.onAssetTypeSelected then
@@ -51,92 +51,92 @@ function var6.getFirstSelectableIndex(arg1)
    end
 end
 
-local function fun3(arg1)
+local function fun9(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var104 = {}
-   var104.BackgroundTransparency = 1
-   var104.Size = UDim2.new(0, var0.width, 0, var0.height)
-   var104.Position = var0.Position
-   var104.Active = true
-   local var114 = {}
-   local var118 = {}
-   var118.BackgroundTransparency = 1
-   var118.Position = UDim2.new(0, 0, 0, 65508)
-   var118.Size = UDim2.new(1, 0, 0, 24)
-   var118.TextColor3 = var1.typeSelection.selector.title
-   var118.TextSize = 16
-   var118.Font = var3.FONT
-   var118.Text = "Choose asset type"
-   var118.TextXAlignment = Enum.TextXAlignment.Left
-   var114.Title = var2.createElement("TextLabel", var118)
-   local var144 = {}
-   var144.Position = UDim2.new(0.5, var0.width / 2, 0, 0)
-   var144.Size = UDim2.new(1, 0, 1, 0)
-   var144.selectedDropDownIndex = arg1.state.dropDownIndex
-   var144.visibleDropDOwnCount = 5
-   var144.items = arg1.props.items
-   var144.rowHeight = 24
-   var144.fontSize = 20
-   var144.onItemClicked = arg1.onItemClicked
-   var114.Dropdown = var2.createElement(var5, var144)
-   local var170 = {}
-   var170.BackgroundTransparency = 1
-   var170.Position = UDim2.new(0, 0, 1, 0)
-   var170.Size = UDim2.new(1, 0, 0, 18)
-   var170.TextColor3 = var1.typeSelection.selector.description
-   var170.TextSize = 12
-   var170.Font = var3.FONT
-   var170.Text = "Once published, this model can be shared in Marketplace"
-   var170.TextXAlignment = Enum.TextXAlignment.Left
-   var114.Description = var2.createElement("TextLabel", var170)
-   return var2.createElement("Frame", var104, var114)
+   local var331 = {}
+   var331.BackgroundTransparency = 1
+   var331.Size = UDim2.new(0, var0.width, 0, var0.height)
+   var331.Position = var0.Position
+   var331.Active = true
+   local var341 = {}
+   local var345 = {}
+   var345.BackgroundTransparency = 1
+   var345.Position = UDim2.new(0, 0, 0, 65508)
+   var345.Size = UDim2.new(1, 0, 0, 24)
+   var345.TextColor3 = var1.typeSelection.selector.title
+   var345.TextSize = 16
+   var345.Font = var3.FONT
+   var345.Text = "Choose asset type"
+   var345.TextXAlignment = Enum.TextXAlignment.Left
+   var341.Title = var2.createElement("TextLabel", var345)
+   local var371 = {}
+   var371.Position = UDim2.new(0.5, var0.width / 2, 0, 0)
+   var371.Size = UDim2.new(1, 0, 1, 0)
+   var371.selectedDropDownIndex = arg1.state.dropDownIndex
+   var371.visibleDropDOwnCount = 5
+   var371.items = arg1.props.items
+   var371.rowHeight = 24
+   var371.fontSize = 20
+   var371.onItemClicked = arg1.onItemClicked
+   var341.Dropdown = var2.createElement(var5, var371)
+   local var397 = {}
+   var397.BackgroundTransparency = 1
+   var397.Position = UDim2.new(0, 0, 1, 0)
+   var397.Size = UDim2.new(1, 0, 0, 18)
+   var397.TextColor3 = var1.typeSelection.selector.description
+   var397.TextSize = 12
+   var397.Font = var3.FONT
+   var397.Text = "Once published, this model can be shared in Marketplace"
+   var397.TextXAlignment = Enum.TextXAlignment.Left
+   var341.Description = var2.createElement("TextLabel", var397)
+   return var2.createElement("Frame", var331, var341)
 end
 
 function var6.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var104 = {}
-   var104.BackgroundTransparency = 1
-   var104.Size = UDim2.new(0, var0.width, 0, var0.height)
-   var104.Position = var0.Position
-   var104.Active = true
-   local var114 = {}
-   local var118 = {}
-   var118.BackgroundTransparency = 1
-   var118.Position = UDim2.new(0, 0, 0, 65508)
-   var118.Size = UDim2.new(1, 0, 0, 24)
-   var118.TextColor3 = var1.typeSelection.selector.title
-   var118.TextSize = 16
-   var118.Font = var3.FONT
-   var118.Text = "Choose asset type"
-   var118.TextXAlignment = Enum.TextXAlignment.Left
-   var114.Title = var2.createElement("TextLabel", var118)
-   local var144 = {}
-   var144.Position = UDim2.new(0.5, var0.width / 2, 0, 0)
-   var144.Size = UDim2.new(1, 0, 1, 0)
-   var144.selectedDropDownIndex = arg1.state.dropDownIndex
-   var144.visibleDropDOwnCount = 5
-   var144.items = arg1.props.items
-   var144.rowHeight = 24
-   var144.fontSize = 20
-   var144.onItemClicked = arg1.onItemClicked
-   var114.Dropdown = var2.createElement(var5, var144)
-   local var170 = {}
-   var170.BackgroundTransparency = 1
-   var170.Position = UDim2.new(0, 0, 1, 0)
-   var170.Size = UDim2.new(1, 0, 0, 18)
-   var170.TextColor3 = var1.typeSelection.selector.description
-   var170.TextSize = 12
-   var170.Font = var3.FONT
-   var170.Text = "Once published, this model can be shared in Marketplace"
-   var170.TextXAlignment = Enum.TextXAlignment.Left
-   var114.Description = var2.createElement("TextLabel", var170)
-   return var2.createElement("Frame", var104, var114)
+   local var331 = {}
+   var331.BackgroundTransparency = 1
+   var331.Size = UDim2.new(0, var0.width, 0, var0.height)
+   var331.Position = var0.Position
+   var331.Active = true
+   local var341 = {}
+   local var345 = {}
+   var345.BackgroundTransparency = 1
+   var345.Position = UDim2.new(0, 0, 0, 65508)
+   var345.Size = UDim2.new(1, 0, 0, 24)
+   var345.TextColor3 = var1.typeSelection.selector.title
+   var345.TextSize = 16
+   var345.Font = var3.FONT
+   var345.Text = "Choose asset type"
+   var345.TextXAlignment = Enum.TextXAlignment.Left
+   var341.Title = var2.createElement("TextLabel", var345)
+   local var371 = {}
+   var371.Position = UDim2.new(0.5, var0.width / 2, 0, 0)
+   var371.Size = UDim2.new(1, 0, 1, 0)
+   var371.selectedDropDownIndex = arg1.state.dropDownIndex
+   var371.visibleDropDOwnCount = 5
+   var371.items = arg1.props.items
+   var371.rowHeight = 24
+   var371.fontSize = 20
+   var371.onItemClicked = arg1.onItemClicked
+   var341.Dropdown = var2.createElement(var5, var371)
+   local var397 = {}
+   var397.BackgroundTransparency = 1
+   var397.Position = UDim2.new(0, 0, 1, 0)
+   var397.Size = UDim2.new(1, 0, 0, 18)
+   var397.TextColor3 = var1.typeSelection.selector.description
+   var397.TextSize = 12
+   var397.Font = var3.FONT
+   var397.Text = "Once published, this model can be shared in Marketplace"
+   var397.TextXAlignment = Enum.TextXAlignment.Left
+   var341.Description = var2.createElement("TextLabel", var397)
+   return var2.createElement("Frame", var331, var341)
 end
 
-fun3 = var4.withContext
-local var194 = {}
-var194.Stylizer = var4.Stylizer
-var6 = fun3(var194)(var6)
+fun9 = var4.withContext
+local var421 = {}
+var421.Stylizer = var4.Stylizer
+var6 = fun9(var421)(var6)
 return var6

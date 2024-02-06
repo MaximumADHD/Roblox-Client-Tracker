@@ -7,32 +7,32 @@ local var4 = {}
 var4.name = "UserAndGroupFilter"
 var4.summary = "A live Search Bar for users and groups"
 function {}.story()
-   local var781 = {}
-   local var785 = {}
-   function var785.OnDeleteCreatorPill()
+   local var853 = {}
+   local var857 = {}
+   function var857.OnDeleteCreatorPill()
       print("onDeleteCreatorPill")
    end
    
-   function var785.OnSearchUpdate()
+   function var857.OnSearchUpdate()
       print("onDeleteCreatorPill")
    end
    
-   function var785.OnSelectCreator()
+   function var857.OnSelectCreator()
       print("onDeleteCreatorPill")
    end
    
-   local var793 = {}
-   var793.Name = "Selected Username"
-   var793.Id = 123
-   var793.Type = Enum.CreatorType.User
-   var785.SelectedUsers = {}
+   local var865 = {}
+   var865.Name = "Selected Username"
+   var865.Id = 123
+   var865.Type = Enum.CreatorType.User
+   var857.SelectedUsers = {}
    local var1 = {}
    var1.Name = "Selected Group name"
    var1.Id = 123
    var1.Type = Enum.CreatorType.Group
-   var785.SelectedGroups = {}
-   var781.UserAndGroupFilter = var1.createElement(var2, var785)
-   return var1.createElement(var3, {}, var781)
+   var857.SelectedGroups = {}
+   var853.UserAndGroupFilter = var1.createElement(var2, var857)
+   return var1.createElement(var3, {}, var853)
 end
 
 var4.stories = {}

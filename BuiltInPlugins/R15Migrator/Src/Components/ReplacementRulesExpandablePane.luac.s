@@ -1,66 +1,56 @@
 PROTO_0:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["LayoutOrder"]
-  GETTABLEKS R3 R1 K2 ["Stylizer"]
-  GETTABLEKS R4 R1 K3 ["Size"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["createElement"]
-  GETUPVAL R6 1
-  DUPTABLE R7 K8 [{"Size", "Style", "LayoutOrder", "Text", "Expanded"}]
-  SETTABLEKS R4 R7 K3 ["Size"]
-  LOADK R8 K9 ["Section"]
-  SETTABLEKS R8 R7 K5 ["Style"]
-  SETTABLEKS R2 R7 K1 ["LayoutOrder"]
-  LOADK R8 K10 ["Replacement Rules"]
-  SETTABLEKS R8 R7 K6 ["Text"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K7 ["Expanded"]
-  DUPTABLE R8 K12 [{"ReplaceOptionsPane"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K4 ["createElement"]
-  GETUPVAL R10 2
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K11 ["ReplaceOptionsPane"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  GETTABLEKS R3 R1 K2 ["Size"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K7 [{"Size", "Style", "LayoutOrder", "Text", "Expanded"}]
+  SETTABLEKS R3 R6 K2 ["Size"]
+  LOADK R7 K8 ["Section"]
+  SETTABLEKS R7 R6 K4 ["Style"]
+  SETTABLEKS R2 R6 K1 ["LayoutOrder"]
+  LOADK R7 K9 ["Replacement Rules"]
+  SETTABLEKS R7 R6 K5 ["Text"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K6 ["Expanded"]
+  DUPTABLE R7 K11 [{"ReplaceOptionsPane"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 2
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K10 ["ReplaceOptionsPane"]
+  CALL R4 3 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K8 ["ContextServices"]
-  GETTABLEKS R4 R1 K9 ["UI"]
-  GETTABLEKS R5 R4 K10 ["SimpleExpandablePane"]
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K12 ["Components"]
-  GETTABLEKS R7 R8 K13 ["ReplaceOptionsPane"]
-  CALL R6 1 1
-  GETTABLEKS R7 R2 K14 ["PureComponent"]
-  LOADK R9 K15 ["ReplacementRulesExpandablePane"]
-  NAMECALL R7 R7 K16 ["extend"]
-  CALL R7 2 1
-  DUPCLOSURE R8 K17 [PROTO_0]
+  GETTABLEKS R3 R1 K9 ["UI"]
+  GETTABLEKS R4 R3 K10 ["SimpleExpandablePane"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["ReplaceOptionsPane"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K14 ["PureComponent"]
+  LOADK R8 K15 ["ReplacementRulesExpandablePane"]
+  NAMECALL R6 R6 K16 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K17 [PROTO_0]
   CAPTURE VAL R2
+  CAPTURE VAL R4
   CAPTURE VAL R5
-  CAPTURE VAL R6
-  SETTABLEKS R8 R7 K18 ["render"]
-  GETTABLEKS R8 R3 K19 ["withContext"]
-  DUPTABLE R9 K21 [{"Stylizer"}]
-  GETTABLEKS R10 R3 K20 ["Stylizer"]
-  SETTABLEKS R10 R9 K20 ["Stylizer"]
-  CALL R8 1 1
-  MOVE R9 R7
-  CALL R8 1 1
-  MOVE R7 R8
-  RETURN R7 1
+  SETTABLEKS R7 R6 K18 ["render"]
+  RETURN R6 1

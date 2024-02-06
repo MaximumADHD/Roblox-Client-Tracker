@@ -43,184 +43,184 @@ PROTO_3:
   RETURN R1 -1
 
 PROTO_4:
-  GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R4 R0 K1 ["state"]
-  GETTABLEKS R1 R3 K2 ["Stylizer"]
-  GETTABLEKS R5 R4 K3 ["copied"]
-  GETTABLEKS R6 R3 K4 ["YPos"]
-  GETTABLEKS R7 R3 K5 ["AssetId"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K6 ["createElement"]
-  LOADK R9 K7 ["Frame"]
-  DUPTABLE R10 K12 [{"BackgroundTransparency", "Position", "AnchorPoint", "Size"}]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K8 ["BackgroundTransparency"]
-  GETIMPORT R11 K15 [UDim2.new]
-  LOADK R12 K16 [0.5]
-  LOADN R13 0
-  LOADN R14 0
-  MOVE R15 R6
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K9 ["Position"]
-  GETIMPORT R11 K18 [Vector2.new]
-  LOADK R12 K16 [0.5]
-  LOADN R13 0
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K10 ["AnchorPoint"]
-  GETIMPORT R11 K15 [UDim2.new]
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  GETTABLEKS R4 R2 K3 ["copied"]
+  GETTABLEKS R5 R1 K4 ["YPos"]
+  GETTABLEKS R6 R1 K5 ["AssetId"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["createElement"]
+  LOADK R8 K7 ["Frame"]
+  DUPTABLE R9 K12 [{"BackgroundTransparency", "Position", "AnchorPoint", "Size"}]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K8 ["BackgroundTransparency"]
+  GETIMPORT R10 K15 [UDim2.new]
+  LOADK R11 K16 [0.5]
   LOADN R12 0
-  LOADN R13 111
-  LOADN R14 0
-  LOADN R15 24
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K11 ["Size"]
-  DUPTABLE R11 K21 [{"LayoutContainer", "CopiedLabel"}]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K6 ["createElement"]
-  LOADK R13 K7 ["Frame"]
-  DUPTABLE R14 K22 [{"BackgroundTransparency", "Size"}]
+  LOADN R13 0
+  MOVE R14 R5
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K9 ["Position"]
+  GETIMPORT R10 K18 [Vector2.new]
+  LOADK R11 K16 [0.5]
+  LOADN R12 0
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K10 ["AnchorPoint"]
+  GETIMPORT R10 K15 [UDim2.new]
+  LOADN R11 0
+  LOADN R12 111
+  LOADN R13 0
+  LOADN R14 24
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K11 ["Size"]
+  DUPTABLE R10 K21 [{"LayoutContainer", "CopiedLabel"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K6 ["createElement"]
+  LOADK R12 K7 ["Frame"]
+  DUPTABLE R13 K22 [{"BackgroundTransparency", "Size"}]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K8 ["BackgroundTransparency"]
+  GETIMPORT R14 K15 [UDim2.new]
   LOADN R15 1
-  SETTABLEKS R15 R14 K8 ["BackgroundTransparency"]
-  GETIMPORT R15 K15 [UDim2.new]
-  LOADN R16 1
-  LOADN R17 0
-  LOADN R18 1
-  LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K11 ["Size"]
-  DUPTABLE R15 K26 [{"UIListLayout", "IDLabel", "CopyButton"}]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K6 ["createElement"]
-  LOADK R17 K23 ["UIListLayout"]
-  DUPTABLE R18 K32 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
-  GETIMPORT R19 K35 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R19 R18 K27 ["FillDirection"]
-  GETIMPORT R19 K37 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R19 R18 K28 ["HorizontalAlignment"]
-  GETIMPORT R19 K38 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R19 R18 K29 ["VerticalAlignment"]
-  GETIMPORT R19 K40 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R19 R18 K30 ["SortOrder"]
-  GETIMPORT R19 K42 [UDim.new]
-  LOADN R20 0
-  LOADN R21 5
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K31 ["Padding"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K23 ["UIListLayout"]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K6 ["createElement"]
-  LOADK R17 K43 ["TextLabel"]
-  DUPTABLE R18 K50 [{"BackgroundTransparency", "Font", "Text", "TextColor3", "TextSize", "Size", "TextYAlignment", "TextXAlignment", "LayoutOrder"}]
-  LOADN R19 1
-  SETTABLEKS R19 R18 K8 ["BackgroundTransparency"]
-  GETUPVAL R20 1
-  GETTABLEKS R19 R20 K51 ["FONT"]
-  SETTABLEKS R19 R18 K44 ["Font"]
-  LOADK R20 K52 ["ID: "]
-  MOVE R21 R7
-  CONCAT R19 R20 R21
-  SETTABLEKS R19 R18 K45 ["Text"]
-  GETTABLEKS R20 R1 K53 ["uploadResult"]
-  GETTABLEKS R19 R20 K54 ["idText"]
-  SETTABLEKS R19 R18 K46 ["TextColor3"]
-  GETUPVAL R20 1
-  GETTABLEKS R19 R20 K55 ["FONT_SIZE_MEDIUM"]
-  SETTABLEKS R19 R18 K47 ["TextSize"]
-  GETIMPORT R19 K15 [UDim2.new]
-  LOADN R20 0
-  LOADN R21 86
-  LOADN R22 1
-  LOADN R23 0
-  CALL R19 4 1
-  SETTABLEKS R19 R18 K11 ["Size"]
-  GETIMPORT R19 K56 [Enum.TextYAlignment.Center]
-  SETTABLEKS R19 R18 K48 ["TextYAlignment"]
-  GETIMPORT R19 K57 [Enum.TextXAlignment.Center]
-  SETTABLEKS R19 R18 K49 ["TextXAlignment"]
-  LOADN R19 1
-  SETTABLEKS R19 R18 K39 ["LayoutOrder"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K24 ["IDLabel"]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K6 ["createElement"]
-  LOADK R17 K58 ["ImageButton"]
-  NEWTABLE R18 8 0
-  GETIMPORT R19 K15 [UDim2.new]
-  LOADN R20 0
-  LOADN R21 20
-  LOADN R22 0
-  LOADN R23 20
-  CALL R19 4 1
-  SETTABLEKS R19 R18 K11 ["Size"]
-  LOADK R19 K59 ["rbxasset://textures/StudioToolbox/AssetConfig/copy_2x.png"]
-  SETTABLEKS R19 R18 K60 ["Image"]
-  GETTABLEKS R20 R1 K53 ["uploadResult"]
-  GETTABLEKS R19 R20 K61 ["buttonColor"]
-  SETTABLEKS R19 R18 K62 ["ImageColor3"]
-  LOADN R19 1
-  SETTABLEKS R19 R18 K8 ["BackgroundTransparency"]
-  LOADN R19 2
-  SETTABLEKS R19 R18 K39 ["LayoutOrder"]
-  GETUPVAL R21 0
-  GETTABLEKS R20 R21 K63 ["Event"]
-  GETTABLEKS R19 R20 K64 ["MouseButton1Click"]
-  GETTABLEKS R20 R0 K65 ["onCopyClicked"]
-  SETTABLE R20 R18 R19
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K25 ["CopyButton"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K19 ["LayoutContainer"]
-  MOVE R12 R5
-  JUMPIFNOT R12 [+67]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K6 ["createElement"]
-  LOADK R13 K43 ["TextLabel"]
-  DUPTABLE R14 K66 [{"BackgroundTransparency", "Font", "Text", "TextColor3", "TextSize", "Size", "AnchorPoint", "Position", "TextYAlignment", "TextXAlignment"}]
-  LOADN R15 1
-  SETTABLEKS R15 R14 K8 ["BackgroundTransparency"]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K51 ["FONT"]
-  SETTABLEKS R15 R14 K44 ["Font"]
-  GETTABLEKS R15 R3 K67 ["Localization"]
-  LOADK R17 K68 ["AssetConfigUpload"]
-  LOADK R18 K69 ["IDCopied"]
-  NAMECALL R15 R15 K70 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K45 ["Text"]
-  GETTABLEKS R16 R1 K53 ["uploadResult"]
-  GETTABLEKS R15 R16 K71 ["greenText"]
-  SETTABLEKS R15 R14 K46 ["TextColor3"]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K55 ["FONT_SIZE_MEDIUM"]
-  SETTABLEKS R15 R14 K47 ["TextSize"]
-  GETIMPORT R15 K15 [UDim2.new]
   LOADN R16 0
-  LOADN R17 64
-  LOADN R18 1
+  LOADN R17 1
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K11 ["Size"]
+  DUPTABLE R14 K26 [{"UIListLayout", "IDLabel", "CopyButton"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K6 ["createElement"]
+  LOADK R16 K23 ["UIListLayout"]
+  DUPTABLE R17 K32 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder", "Padding"}]
+  GETIMPORT R18 K35 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R18 R17 K27 ["FillDirection"]
+  GETIMPORT R18 K37 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R18 R17 K28 ["HorizontalAlignment"]
+  GETIMPORT R18 K38 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R18 R17 K29 ["VerticalAlignment"]
+  GETIMPORT R18 K40 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R18 R17 K30 ["SortOrder"]
+  GETIMPORT R18 K42 [UDim.new]
   LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K11 ["Size"]
-  GETIMPORT R15 K18 [Vector2.new]
-  LOADN R16 0
-  LOADK R17 K16 [0.5]
+  LOADN R20 5
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K31 ["Padding"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K10 ["AnchorPoint"]
-  GETIMPORT R15 K15 [UDim2.new]
-  LOADN R16 0
-  LOADN R17 116
-  LOADK R18 K16 [0.5]
+  SETTABLEKS R15 R14 K23 ["UIListLayout"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K6 ["createElement"]
+  LOADK R16 K43 ["TextLabel"]
+  DUPTABLE R17 K50 [{"BackgroundTransparency", "Font", "Text", "TextColor3", "TextSize", "Size", "TextYAlignment", "TextXAlignment", "LayoutOrder"}]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K8 ["BackgroundTransparency"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K51 ["FONT"]
+  SETTABLEKS R18 R17 K44 ["Font"]
+  LOADK R19 K52 ["ID: "]
+  MOVE R20 R6
+  CONCAT R18 R19 R20
+  SETTABLEKS R18 R17 K45 ["Text"]
+  GETTABLEKS R19 R3 K53 ["uploadResult"]
+  GETTABLEKS R18 R19 K54 ["idText"]
+  SETTABLEKS R18 R17 K46 ["TextColor3"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K55 ["FONT_SIZE_MEDIUM"]
+  SETTABLEKS R18 R17 K47 ["TextSize"]
+  GETIMPORT R18 K15 [UDim2.new]
   LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K9 ["Position"]
-  GETIMPORT R15 K56 [Enum.TextYAlignment.Center]
-  SETTABLEKS R15 R14 K48 ["TextYAlignment"]
-  GETIMPORT R15 K57 [Enum.TextXAlignment.Center]
-  SETTABLEKS R15 R14 K49 ["TextXAlignment"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K20 ["CopiedLabel"]
-  CALL R8 3 -1
-  RETURN R8 -1
+  LOADN R20 86
+  LOADN R21 1
+  LOADN R22 0
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K11 ["Size"]
+  GETIMPORT R18 K56 [Enum.TextYAlignment.Center]
+  SETTABLEKS R18 R17 K48 ["TextYAlignment"]
+  GETIMPORT R18 K57 [Enum.TextXAlignment.Center]
+  SETTABLEKS R18 R17 K49 ["TextXAlignment"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K39 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K24 ["IDLabel"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K6 ["createElement"]
+  LOADK R16 K58 ["ImageButton"]
+  NEWTABLE R17 8 0
+  GETIMPORT R18 K15 [UDim2.new]
+  LOADN R19 0
+  LOADN R20 20
+  LOADN R21 0
+  LOADN R22 20
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K11 ["Size"]
+  LOADK R18 K59 ["rbxasset://textures/StudioToolbox/AssetConfig/copy_2x.png"]
+  SETTABLEKS R18 R17 K60 ["Image"]
+  GETTABLEKS R19 R3 K53 ["uploadResult"]
+  GETTABLEKS R18 R19 K61 ["buttonColor"]
+  SETTABLEKS R18 R17 K62 ["ImageColor3"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K8 ["BackgroundTransparency"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K39 ["LayoutOrder"]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K63 ["Event"]
+  GETTABLEKS R18 R19 K64 ["MouseButton1Click"]
+  GETTABLEKS R19 R0 K65 ["onCopyClicked"]
+  SETTABLE R19 R17 R18
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K25 ["CopyButton"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K19 ["LayoutContainer"]
+  MOVE R11 R4
+  JUMPIFNOT R11 [+67]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K6 ["createElement"]
+  LOADK R12 K43 ["TextLabel"]
+  DUPTABLE R13 K66 [{"BackgroundTransparency", "Font", "Text", "TextColor3", "TextSize", "Size", "AnchorPoint", "Position", "TextYAlignment", "TextXAlignment"}]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K8 ["BackgroundTransparency"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K51 ["FONT"]
+  SETTABLEKS R14 R13 K44 ["Font"]
+  GETTABLEKS R14 R1 K67 ["Localization"]
+  LOADK R16 K68 ["AssetConfigUpload"]
+  LOADK R17 K69 ["IDCopied"]
+  NAMECALL R14 R14 K70 ["getText"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K45 ["Text"]
+  GETTABLEKS R15 R3 K53 ["uploadResult"]
+  GETTABLEKS R14 R15 K71 ["greenText"]
+  SETTABLEKS R14 R13 K46 ["TextColor3"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K55 ["FONT_SIZE_MEDIUM"]
+  SETTABLEKS R14 R13 K47 ["TextSize"]
+  GETIMPORT R14 K15 [UDim2.new]
+  LOADN R15 0
+  LOADN R16 64
+  LOADN R17 1
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K11 ["Size"]
+  GETIMPORT R14 K18 [Vector2.new]
+  LOADN R15 0
+  LOADK R16 K16 [0.5]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K10 ["AnchorPoint"]
+  GETIMPORT R14 K15 [UDim2.new]
+  LOADN R15 0
+  LOADN R16 116
+  LOADK R17 K16 [0.5]
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K9 ["Position"]
+  GETIMPORT R14 K56 [Enum.TextYAlignment.Center]
+  SETTABLEKS R14 R13 K48 ["TextYAlignment"]
+  GETIMPORT R14 K57 [Enum.TextXAlignment.Center]
+  SETTABLEKS R14 R13 K49 ["TextXAlignment"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K20 ["CopiedLabel"]
+  CALL R7 3 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0
@@ -251,28 +251,43 @@ MAIN:
   CALL R9 1 1
   GETTABLEKS R8 R9 K17 ["ContextServices"]
   GETTABLEKS R9 R8 K18 ["withContext"]
-  GETTABLEKS R10 R3 K19 ["PureComponent"]
-  LOADK R12 K20 ["CopyID"]
-  NAMECALL R10 R10 K21 ["extend"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K22 [PROTO_1]
+  GETIMPORT R10 K9 [require]
+  GETTABLEKS R14 R0 K11 ["Core"]
+  GETTABLEKS R13 R14 K12 ["Util"]
+  GETTABLEKS R12 R13 K19 ["SharedFlags"]
+  GETTABLEKS R11 R12 K20 ["getFFlagToolboxCleanupLegacyContext"]
+  CALL R10 1 1
+  GETTABLEKS R11 R3 K21 ["PureComponent"]
+  LOADK R13 K22 ["CopyID"]
+  NAMECALL R11 R11 K23 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K24 [PROTO_1]
   CAPTURE VAL R1
-  SETTABLEKS R11 R10 K23 ["init"]
-  DUPCLOSURE R11 K24 [PROTO_3]
+  SETTABLEKS R12 R11 K25 ["init"]
+  MOVE R12 R10
+  CALL R12 0 1
+  JUMPIF R12 [+4]
+  DUPCLOSURE R12 K26 [PROTO_3]
   CAPTURE VAL R7
-  SETTABLEKS R11 R10 K25 ["render"]
-  DUPCLOSURE R11 K26 [PROTO_4]
+  SETTABLEKS R12 R11 K27 ["render"]
+  MOVE R13 R10
+  CALL R13 0 1
+  JUMPIFNOT R13 [+2]
+  LOADK R12 K27 ["render"]
+  JUMP [+1]
+  LOADK R12 K28 ["renderContent"]
+  DUPCLOSURE R13 K29 [PROTO_4]
   CAPTURE VAL R3
   CAPTURE VAL R5
-  SETTABLEKS R11 R10 K27 ["renderContent"]
-  MOVE R11 R9
-  DUPTABLE R12 K30 [{"Stylizer", "Localization"}]
-  GETTABLEKS R13 R8 K28 ["Stylizer"]
-  SETTABLEKS R13 R12 K28 ["Stylizer"]
-  GETTABLEKS R13 R8 K29 ["Localization"]
-  SETTABLEKS R13 R12 K29 ["Localization"]
-  CALL R11 1 1
-  MOVE R12 R10
-  CALL R11 1 1
-  MOVE R10 R11
-  RETURN R10 1
+  SETTABLE R13 R11 R12
+  MOVE R12 R9
+  DUPTABLE R13 K32 [{"Stylizer", "Localization"}]
+  GETTABLEKS R14 R8 K30 ["Stylizer"]
+  SETTABLEKS R14 R13 K30 ["Stylizer"]
+  GETTABLEKS R14 R8 K31 ["Localization"]
+  SETTABLEKS R14 R13 K31 ["Localization"]
+  CALL R12 1 1
+  MOVE R13 R11
+  CALL R12 1 1
+  MOVE R11 R12
+  RETURN R11 1

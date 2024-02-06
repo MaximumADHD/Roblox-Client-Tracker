@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("R15Migrator")
 local var1 = require(var0.Packages.Roact)
 local var2 = require(var0.Packages.Framework)
 local var3 = var2.UI

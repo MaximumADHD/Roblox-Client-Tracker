@@ -12,7 +12,6 @@ local Rigging = require(CommonModules:FindFirstChild("RagdollRigging"))
 local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
 
 local avatarJointUpgrade = game:GetEngineFeature("AvatarJointUpgradeFeature")
-local avatarJointUpgradeDefaultOn = game:GetEngineFeature("AvatarJointUpgradeDefaultOnFeature")
 
 local localPlayer = Players.LocalPlayer
 if not localPlayer then
@@ -21,17 +20,8 @@ if not localPlayer then
 end
 
 local DeathTypeValue = RobloxReplicatedStorage:WaitForChild("DeathType", math.huge)
--- initialize jointUpgradeActive here, since we need to wait for the value of StarterPlayer.AvatarJointUpgrade to replicate
-local jointUpgradeActive = false
-if avatarJointUpgrade then
-	if avatarJointUpgradeDefaultOn then
-		jointUpgradeActive = StarterPlayer.AvatarJointUpgrade ~= Enum.AvatarJointUpgrade.Disabled
-	else
-		jointUpgradeActive = StarterPlayer.AvatarJointUpgrade == Enum.AvatarJointUpgrade.Enabled
-	end
-end
 
-if not DeathTypeValue or (not jointUpgradeActive and (DeathTypeValue.Value :: any) ~= "Ragdoll") then
+if not DeathTypeValue or (not avatarJointUpgrade and (DeathTypeValue.Value :: any) ~= "Ragdoll") then
 	return -- Something's wrong. Don't bother locally modifying the character
 end
 
@@ -61,7 +51,7 @@ local function onOwnedHumanoidDeath(character, humanoid)
 	-- to assign us network ownership of before we would start simulating and replicating physics
 	-- data for it, creating an additional round trip hitch on our end for our own character.
 
-	if jointUpgradeActive then
+	if avatarJointUpgrade then
 		if DeathTypeValue.Value ~= "Scriptable" then
 			Rigging.disableMotors(character, humanoid.RigType)
 			if DeathTypeValue.Value == "Classic" then -- ClassicBreakApart
@@ -88,9 +78,7 @@ local function onOwnedHumanoidDeath(character, humanoid)
 		if animator then
 			animator:ApplyJointVelocities(motors)
 		end
-	end
-
-	if not avatarJointUpgrade then
+		
 		-- Tell the server that we started simulating our ragdoll
 		remote:FireServer(humanoid)
 
@@ -115,7 +103,7 @@ HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
 		-- Assume death is final
 		disconnect()
 		-- Any character: handle fade out on death
-		if not jointUpgradeActive or DeathTypeValue.Value == "Ragdoll" then -- NonGraphic death
+		if DeathTypeValue.Value == "Ragdoll" then -- NonGraphic death
 			delay(2.0, function()
 				-- fade into the mist...
 				Rigging.disableParticleEmittersAndFadeOut(character, 0.4)

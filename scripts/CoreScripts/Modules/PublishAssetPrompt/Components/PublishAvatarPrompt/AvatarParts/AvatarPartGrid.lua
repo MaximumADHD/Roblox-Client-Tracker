@@ -2,7 +2,6 @@
 	Grid layout of the Avatar Part Viewports.
 	Meant to preview the 6 main parts of a Published Avatar Body
 ]]
--- TODO: AVBURST-13427 Add Spec tests
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)

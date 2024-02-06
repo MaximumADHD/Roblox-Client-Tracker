@@ -1,0 +1,48 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"SelectionChanged", "_selection"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K0 ["SelectionChanged"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K1 ["_selection"]
+  GETUPVAL R2 1
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K5 [setmetatable]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["_selection"]
+  RETURN R1 1
+
+PROTO_2:
+  SETTABLEKS R1 R0 K0 ["_selection"]
+  GETTABLEKS R2 R0 K1 ["SelectionChanged"]
+  NAMECALL R2 R2 K2 ["Fire"]
+  CALL R2 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K4 ["Packages"]
+  GETTABLEKS R1 R2 K5 ["DraggerFramework"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R4 R1 K8 ["Utility"]
+  GETTABLEKS R3 R4 K9 ["Signal"]
+  CALL R2 1 1
+  NEWTABLE R3 4 0
+  SETTABLEKS R3 R3 K10 ["__index"]
+  DUPCLOSURE R4 K11 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K12 ["new"]
+  DUPCLOSURE R4 K13 [PROTO_1]
+  SETTABLEKS R4 R3 K14 ["Get"]
+  DUPCLOSURE R4 K15 [PROTO_2]
+  SETTABLEKS R4 R3 K16 ["Set"]
+  RETURN R3 1

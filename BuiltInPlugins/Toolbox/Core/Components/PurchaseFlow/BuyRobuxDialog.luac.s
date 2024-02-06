@@ -61,6 +61,67 @@ PROTO_0:
 
 PROTO_1:
   GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+92]
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["OnButtonClicked"]
+  GETTABLEKS R3 R1 K2 ["OnClose"]
+  GETTABLEKS R4 R1 K3 ["Thumbnail"]
+  GETTABLEKS R5 R1 K4 ["Name"]
+  GETTABLEKS R6 R1 K5 ["Creator"]
+  GETTABLEKS R7 R1 K6 ["Cost"]
+  GETTABLEKS R8 R1 K7 ["Balance"]
+  SUB R9 R7 R8
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETUPVAL R11 2
+  DUPTABLE R12 K12 [{"Buttons", "OnButtonClicked", "OnClose", "Title", "Prompt", "Thumbnail", "Balance"}]
+  NEWTABLE R13 0 2
+  DUPTABLE R14 K15 [{"Key", "Text"}]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K13 ["Key"]
+  GETTABLEKS R15 R1 K16 ["Localization"]
+  LOADK R17 K17 ["Purchase"]
+  LOADK R18 K18 ["Cancel"]
+  NAMECALL R15 R15 K19 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K14 ["Text"]
+  DUPTABLE R15 K21 [{"Key", "Text", "Style"}]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K13 ["Key"]
+  GETTABLEKS R16 R1 K16 ["Localization"]
+  LOADK R18 K17 ["Purchase"]
+  LOADK R19 K22 ["BuyRobux"]
+  NAMECALL R16 R16 K19 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K14 ["Text"]
+  LOADK R16 K23 ["RoundPrimary"]
+  SETTABLEKS R16 R15 K20 ["Style"]
+  SETLIST R13 R14 2 [1]
+  SETTABLEKS R13 R12 K9 ["Buttons"]
+  SETTABLEKS R2 R12 K1 ["OnButtonClicked"]
+  SETTABLEKS R3 R12 K2 ["OnClose"]
+  GETTABLEKS R13 R1 K16 ["Localization"]
+  LOADK R15 K17 ["Purchase"]
+  LOADK R16 K24 ["InsufficientTitle"]
+  NAMECALL R13 R13 K19 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K10 ["Title"]
+  GETTABLEKS R13 R1 K16 ["Localization"]
+  LOADK R15 K17 ["Purchase"]
+  LOADK R16 K25 ["InsufficientPrompt"]
+  DUPTABLE R17 K29 [{"robux", "name", "creator"}]
+  SETTABLEKS R9 R17 K26 ["robux"]
+  SETTABLEKS R5 R17 K27 ["name"]
+  SETTABLEKS R6 R17 K28 ["creator"]
+  NAMECALL R13 R13 K19 ["getText"]
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K11 ["Prompt"]
+  SETTABLEKS R4 R12 K3 ["Thumbnail"]
+  SETTABLEKS R8 R12 K7 ["Balance"]
+  CALL R10 2 -1
+  RETURN R10 -1
+  GETUPVAL R1 3
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U1
@@ -96,21 +157,28 @@ MAIN:
   GETTABLEKS R8 R9 K15 ["ContextHelper"]
   CALL R7 1 1
   GETTABLEKS R8 R7 K16 ["withLocalization"]
-  GETTABLEKS R9 R2 K17 ["PureComponent"]
-  LOADK R11 K18 ["BuyRobuxDialog"]
-  NAMECALL R9 R9 K19 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K20 [PROTO_1]
-  CAPTURE VAL R8
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R13 R0 K8 ["Core"]
+  GETTABLEKS R12 R13 K14 ["Util"]
+  GETTABLEKS R11 R12 K17 ["SharedFlags"]
+  GETTABLEKS R10 R11 K18 ["getFFlagToolboxCleanupLegacyContext"]
+  CALL R9 1 1
+  GETTABLEKS R10 R2 K19 ["PureComponent"]
+  LOADK R12 K20 ["BuyRobuxDialog"]
+  NAMECALL R10 R10 K21 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K22 [PROTO_1]
+  CAPTURE VAL R9
   CAPTURE VAL R2
   CAPTURE VAL R4
-  SETTABLEKS R10 R9 K21 ["render"]
-  MOVE R10 R6
-  DUPTABLE R11 K23 [{"Localization"}]
-  GETTABLEKS R12 R5 K22 ["Localization"]
-  SETTABLEKS R12 R11 K22 ["Localization"]
-  CALL R10 1 1
-  MOVE R11 R9
-  CALL R10 1 1
-  MOVE R9 R10
-  RETURN R9 1
+  CAPTURE VAL R8
+  SETTABLEKS R11 R10 K23 ["render"]
+  MOVE R11 R6
+  DUPTABLE R12 K25 [{"Localization"}]
+  GETTABLEKS R13 R5 K24 ["Localization"]
+  SETTABLEKS R13 R12 K24 ["Localization"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

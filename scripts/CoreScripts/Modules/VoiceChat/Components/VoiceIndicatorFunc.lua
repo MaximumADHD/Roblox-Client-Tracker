@@ -24,7 +24,6 @@ local useVoiceState = require(RobloxGui.Modules.VoiceChat.Hooks.useVoiceState)
 local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 
-local GetFFlagEnableChromeMicShimmer = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableChromeMicShimmer)
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 
 if GetFFlagRemoveInGameChatBubbleChatReferences() then
@@ -101,7 +100,7 @@ local function VoiceIndicator(props: VoiceIndicatorProps)
 
 	local isTalking = voiceState == Constants.VOICE_STATE.TALKING
 	local isConnecting = voiceState == Constants.VOICE_STATE.CONNECTING
-	local showShimmer = GetFFlagEnableChromeMicShimmer() and props.showConnectingShimmer == true
+	local showShimmer = props.showConnectingShimmer == true
 	local shimmerGradientRef = React.useRef(nil :: UIGradient?)
 
 	React.useEffect(function()

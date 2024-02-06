@@ -1,0 +1,48 @@
+PROTO_0:
+  DUPTABLE R0 K1 [{"selectedTab"}]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["selectedTab"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"selectedTab"}]
+  GETTABLEKS R5 R1 K2 ["selectedTab"]
+  SETTABLEKS R5 R4 K2 ["selectedTab"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Cryo"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Actions"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R3 K10 ["SetSelectedTab"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K11 [PROTO_0]
+  GETTABLEKS R6 R1 K12 ["createReducer"]
+  DUPTABLE R7 K14 [{"selectedTab"}]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K13 ["selectedTab"]
+  NEWTABLE R8 1 0
+  GETTABLEKS R9 R4 K15 ["name"]
+  DUPCLOSURE R10 K16 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLE R10 R8 R9
+  CALL R6 2 1
+  RETURN R6 1

@@ -14,6 +14,8 @@ local OpenPublishAvatarPrompt = require(Root.Actions.OpenPublishAvatarPrompt)
 local CloseOpenPrompt = require(Root.Actions.CloseOpenPrompt)
 local OpenResultModal = require(Root.Actions.OpenResultModal)
 local CloseResultModal = require(Root.Actions.CloseResultModal)
+local OpenValidationErrorModal = require(Root.Actions.OpenValidationErrorModal)
+local SetHumanoidModel = require(Root.Actions.SetHumanoidModel)
 
 local EMPTY_STATE = {
 	promptInfo = {}, -- Contains all data required by the prompt that is currently being shown
@@ -47,6 +49,14 @@ local PromptRequestReducer = Rodux.createReducer(EMPTY_STATE, {
 		})
 	end,
 
+	[SetHumanoidModel.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			promptInfo = Cryo.Dictionary.join(state.promptInfo, {
+				humanoidModel = action.humanoidModel,
+			}),
+		})
+	end,
+
 	[CloseOpenPrompt.name] = function(state, _action: CloseOpenPrompt.Action)
 		if Cryo.isEmpty(state.queue) then
 			return {
@@ -54,7 +64,6 @@ local PromptRequestReducer = Rodux.createReducer(EMPTY_STATE, {
 				queue = state.queue,
 			}
 		end
-
 		return Cryo.Dictionary.join(state, {
 			promptInfo = state.queue[1],
 			queue = Cryo.List.removeIndex(state.queue, 1),
@@ -71,6 +80,15 @@ local PromptRequestReducer = Rodux.createReducer(EMPTY_STATE, {
 	[CloseResultModal.name] = function(state, _action)
 		return Cryo.Dictionary.join(state, {
 			resultModalType = Cryo.None,
+		})
+	end,
+
+	[OpenValidationErrorModal.name] = function(state, action)
+		-- This modal should appear on top during a publish prompt
+		return Cryo.Dictionary.join(state, {
+			promptInfo = Cryo.Dictionary.join(state.promptInfo, {
+				errorMessage = action.errorMessage,
+			}),
 		})
 	end,
 } :: ReducerType)

@@ -140,16 +140,17 @@ PROTO_6:
   GETTABLEKS R4 R5 K4 ["Parent"]
   GETTABLEKS R3 R4 K5 ["defineLuaFlags"]
   CALL R2 1 0
-  GETIMPORT R4 K3 [script]
-  GETTABLEKS R3 R4 K4 ["Parent"]
-  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETIMPORT R2 K3 [script]
+  LOADK R4 K6 ["R15Migrator"]
+  NAMECALL R2 R2 K7 ["FindFirstAncestor"]
+  CALL R2 2 1
   GETIMPORT R3 K1 [require]
-  GETTABLEKS R5 R2 K6 ["Packages"]
-  GETTABLEKS R4 R5 K7 ["Roact"]
+  GETTABLEKS R5 R2 K8 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Roact"]
   CALL R3 1 1
   GETIMPORT R4 K1 [require]
-  GETTABLEKS R6 R2 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["PublishBlockedPlugin"]
+  GETTABLEKS R6 R2 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["PublishBlockedPlugin"]
   CALL R4 1 1
   LOADNIL R5
   LOADNIL R6
@@ -158,25 +159,25 @@ PROTO_6:
   CAPTURE VAL R3
   CAPTURE REF R6
   GETIMPORT R8 K1 [require]
-  GETTABLEKS R10 R2 K6 ["Packages"]
-  GETTABLEKS R9 R10 K10 ["Framework"]
+  GETTABLEKS R10 R2 K8 ["Packages"]
+  GETTABLEKS R9 R10 K12 ["Framework"]
   CALL R8 1 1
-  GETTABLEKS R9 R8 K11 ["ContextServices"]
-  GETTABLEKS R11 R9 K12 ["Localization"]
-  GETTABLEKS R10 R11 K13 ["new"]
-  DUPTABLE R11 K17 [{"pluginName", "stringResourceTable", "translationResourceTable"}]
-  GETTABLEKS R12 R2 K18 ["Name"]
-  SETTABLEKS R12 R11 K14 ["pluginName"]
-  GETTABLEKS R15 R2 K8 ["Src"]
-  GETTABLEKS R14 R15 K19 ["Resources"]
-  GETTABLEKS R13 R14 K12 ["Localization"]
-  GETTABLEKS R12 R13 K20 ["SourceStrings"]
-  SETTABLEKS R12 R11 K15 ["stringResourceTable"]
-  GETTABLEKS R15 R2 K8 ["Src"]
-  GETTABLEKS R14 R15 K19 ["Resources"]
-  GETTABLEKS R13 R14 K12 ["Localization"]
-  GETTABLEKS R12 R13 K21 ["LocalizedStrings"]
-  SETTABLEKS R12 R11 K16 ["translationResourceTable"]
+  GETTABLEKS R9 R8 K13 ["ContextServices"]
+  GETTABLEKS R11 R9 K14 ["Localization"]
+  GETTABLEKS R10 R11 K15 ["new"]
+  DUPTABLE R11 K19 [{"pluginName", "stringResourceTable", "translationResourceTable"}]
+  GETTABLEKS R12 R2 K20 ["Name"]
+  SETTABLEKS R12 R11 K16 ["pluginName"]
+  GETTABLEKS R15 R2 K10 ["Src"]
+  GETTABLEKS R14 R15 K21 ["Resources"]
+  GETTABLEKS R13 R14 K14 ["Localization"]
+  GETTABLEKS R12 R13 K22 ["SourceStrings"]
+  SETTABLEKS R12 R11 K17 ["stringResourceTable"]
+  GETTABLEKS R15 R2 K10 ["Src"]
+  GETTABLEKS R14 R15 K21 ["Resources"]
+  GETTABLEKS R13 R14 K14 ["Localization"]
+  GETTABLEKS R12 R13 K23 ["LocalizedStrings"]
+  SETTABLEKS R12 R11 K18 ["translationResourceTable"]
   CALL R10 1 1
   NEWCLOSURE R11 P1
   CAPTURE REF R6
@@ -205,12 +206,12 @@ PROTO_6:
   CAPTURE VAL R10
   CAPTURE REF R5
   CAPTURE REF R6
-  GETTABLEKS R14 R2 K18 ["Name"]
-  SETTABLEKS R14 R0 K18 ["Name"]
+  GETTABLEKS R14 R2 K20 ["Name"]
+  SETTABLEKS R14 R0 K20 ["Name"]
   MOVE R14 R11
   CALL R14 0 0
-  GETTABLEKS R15 R1 K23 ["signals"]
-  GETTABLEKS R14 R15 K22 ["StudioPublishService.OnPublishAttempt"]
+  GETTABLEKS R15 R1 K25 ["signals"]
+  GETTABLEKS R14 R15 K24 ["StudioPublishService.OnPublishAttempt"]
   NEWCLOSURE R16 P4
   CAPTURE VAL R3
   CAPTURE VAL R4
@@ -219,7 +220,7 @@ PROTO_6:
   CAPTURE VAL R10
   CAPTURE REF R5
   CAPTURE REF R6
-  NAMECALL R14 R14 K24 ["Connect"]
+  NAMECALL R14 R14 K26 ["Connect"]
   CALL R14 2 0
   CLOSEUPVALS R5
   RETURN R0 0

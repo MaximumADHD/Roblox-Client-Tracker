@@ -699,75 +699,75 @@ PROTO_25:
   RETURN R1 -1
 
 PROTO_26:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R3 R0 K1 ["state"]
-  GETTABLEKS R5 R2 K2 ["AssetInfo"]
-  GETTABLEKS R4 R5 K3 ["Asset"]
-  GETGLOBAL R5 K4 ["audioDetailsWithDefaults"]
-  GETTABLEKS R7 R2 K2 ["AssetInfo"]
-  GETTABLEKS R6 R7 K5 ["AudioDetails"]
-  CALL R5 1 1
-  GETTABLEKS R8 R2 K2 ["AssetInfo"]
-  GETTABLEKS R7 R8 K6 ["Creator"]
-  JUMPIFNOT R7 [+7]
-  GETTABLEKS R8 R2 K2 ["AssetInfo"]
-  GETTABLEKS R7 R8 K6 ["Creator"]
-  GETTABLEKS R6 R7 K7 ["Name"]
-  JUMPIF R6 [+1]
-  LOADK R6 K8 ["---"]
-  GETTABLEKS R7 R5 K9 ["Type"]
-  GETTABLEKS R8 R2 K10 ["width"]
-  GETUPVAL R9 0
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R4 R1 K2 ["AssetInfo"]
+  GETTABLEKS R3 R4 K3 ["Asset"]
+  GETGLOBAL R4 K4 ["audioDetailsWithDefaults"]
+  GETTABLEKS R6 R1 K2 ["AssetInfo"]
+  GETTABLEKS R5 R6 K5 ["AudioDetails"]
+  CALL R4 1 1
+  GETTABLEKS R7 R1 K2 ["AssetInfo"]
+  GETTABLEKS R6 R7 K6 ["Creator"]
+  JUMPIFNOT R6 [+7]
+  GETTABLEKS R7 R1 K2 ["AssetInfo"]
+  GETTABLEKS R6 R7 K6 ["Creator"]
+  GETTABLEKS R5 R6 K7 ["Name"]
+  JUMPIF R5 [+1]
+  LOADK R5 K8 ["---"]
+  GETTABLEKS R6 R4 K9 ["Type"]
+  GETTABLEKS R7 R1 K10 ["width"]
+  GETUPVAL R8 0
+  MOVE R9 R6
+  JUMPIFNOT R7 [+2]
   MOVE R10 R7
-  JUMPIFNOT R8 [+2]
-  MOVE R11 R8
   JUMP [+1]
-  LOADN R11 0
-  CALL R9 2 1
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K11 ["Generator"]
-  DUPTABLE R11 K27 [{"Columns", "ExpandedHeight", "OnHoverChanged", "RenderExpandedContent", "RenderIcon", "TitleSize", "AssetInfo", "CanInsertAsset", "InsertAsset", "IsExpanded", "LayoutOrder", "LogImpression", "OnExpanded", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig"}]
-  GETTABLEKS R12 R0 K28 ["getColumns"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K12 ["Columns"]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K29 ["AUDIO_ROW"]
-  GETTABLEKS R12 R13 K30 ["EXPANDED_ROW_HEIGHT"]
-  SETTABLEKS R12 R11 K13 ["ExpandedHeight"]
-  GETTABLEKS R12 R0 K31 ["onHoverChanged"]
-  SETTABLEKS R12 R11 K14 ["OnHoverChanged"]
-  GETTABLEKS R12 R0 K32 ["renderExpandedContent"]
-  SETTABLEKS R12 R11 K15 ["RenderExpandedContent"]
-  GETTABLEKS R12 R0 K33 ["renderIcon"]
-  SETTABLEKS R12 R11 K16 ["RenderIcon"]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K29 ["AUDIO_ROW"]
-  GETTABLEKS R14 R15 K34 ["COLUMNS"]
-  GETTABLEKS R13 R14 K35 ["TITLE"]
-  GETTABLE R12 R9 R13
-  SETTABLEKS R12 R11 K17 ["TitleSize"]
-  GETTABLEKS R12 R2 K2 ["AssetInfo"]
-  SETTABLEKS R12 R11 K2 ["AssetInfo"]
-  GETTABLEKS R12 R2 K18 ["CanInsertAsset"]
-  SETTABLEKS R12 R11 K18 ["CanInsertAsset"]
-  GETTABLEKS R12 R2 K19 ["InsertAsset"]
-  SETTABLEKS R12 R11 K19 ["InsertAsset"]
-  GETTABLEKS R12 R2 K20 ["IsExpanded"]
-  SETTABLEKS R12 R11 K20 ["IsExpanded"]
-  GETTABLEKS R12 R2 K21 ["LayoutOrder"]
-  SETTABLEKS R12 R11 K21 ["LayoutOrder"]
-  GETTABLEKS R12 R2 K22 ["LogImpression"]
-  SETTABLEKS R12 R11 K22 ["LogImpression"]
-  GETTABLEKS R12 R2 K23 ["OnExpanded"]
-  SETTABLEKS R12 R11 K23 ["OnExpanded"]
-  GETTABLEKS R12 R2 K24 ["OnAssetPreviewButtonClicked"]
-  SETTABLEKS R12 R11 K24 ["OnAssetPreviewButtonClicked"]
-  GETTABLEKS R12 R2 K25 ["ParentAbsoluteSize"]
-  SETTABLEKS R12 R11 K25 ["ParentAbsoluteSize"]
-  GETTABLEKS R12 R2 K26 ["TryOpenAssetConfig"]
-  SETTABLEKS R12 R11 K26 ["TryOpenAssetConfig"]
-  CALL R10 1 -1
-  RETURN R10 -1
+  LOADN R10 0
+  CALL R8 2 1
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K11 ["Generator"]
+  DUPTABLE R10 K27 [{"Columns", "ExpandedHeight", "OnHoverChanged", "RenderExpandedContent", "RenderIcon", "TitleSize", "AssetInfo", "CanInsertAsset", "InsertAsset", "IsExpanded", "LayoutOrder", "LogImpression", "OnExpanded", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig"}]
+  GETTABLEKS R11 R0 K28 ["getColumns"]
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K12 ["Columns"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K29 ["AUDIO_ROW"]
+  GETTABLEKS R11 R12 K30 ["EXPANDED_ROW_HEIGHT"]
+  SETTABLEKS R11 R10 K13 ["ExpandedHeight"]
+  GETTABLEKS R11 R0 K31 ["onHoverChanged"]
+  SETTABLEKS R11 R10 K14 ["OnHoverChanged"]
+  GETTABLEKS R11 R0 K32 ["renderExpandedContent"]
+  SETTABLEKS R11 R10 K15 ["RenderExpandedContent"]
+  GETTABLEKS R11 R0 K33 ["renderIcon"]
+  SETTABLEKS R11 R10 K16 ["RenderIcon"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K29 ["AUDIO_ROW"]
+  GETTABLEKS R13 R14 K34 ["COLUMNS"]
+  GETTABLEKS R12 R13 K35 ["TITLE"]
+  GETTABLE R11 R8 R12
+  SETTABLEKS R11 R10 K17 ["TitleSize"]
+  GETTABLEKS R11 R1 K2 ["AssetInfo"]
+  SETTABLEKS R11 R10 K2 ["AssetInfo"]
+  GETTABLEKS R11 R1 K18 ["CanInsertAsset"]
+  SETTABLEKS R11 R10 K18 ["CanInsertAsset"]
+  GETTABLEKS R11 R1 K19 ["InsertAsset"]
+  SETTABLEKS R11 R10 K19 ["InsertAsset"]
+  GETTABLEKS R11 R1 K20 ["IsExpanded"]
+  SETTABLEKS R11 R10 K20 ["IsExpanded"]
+  GETTABLEKS R11 R1 K21 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K21 ["LayoutOrder"]
+  GETTABLEKS R11 R1 K22 ["LogImpression"]
+  SETTABLEKS R11 R10 K22 ["LogImpression"]
+  GETTABLEKS R11 R1 K23 ["OnExpanded"]
+  SETTABLEKS R11 R10 K23 ["OnExpanded"]
+  GETTABLEKS R11 R1 K24 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R11 R10 K24 ["OnAssetPreviewButtonClicked"]
+  GETTABLEKS R11 R1 K25 ["ParentAbsoluteSize"]
+  SETTABLEKS R11 R10 K25 ["ParentAbsoluteSize"]
+  GETTABLEKS R11 R1 K26 ["TryOpenAssetConfig"]
+  SETTABLEKS R11 R10 K26 ["TryOpenAssetConfig"]
+  CALL R9 1 -1
+  RETURN R9 -1
 
 PROTO_27:
   DUPTABLE R2 K3 [{"additionalAudioSearchInfo", "audioSearchInfo", "creator"}]
@@ -963,22 +963,28 @@ MAIN:
   GETTABLEKS R37 R38 K53 ["SharedFlags"]
   GETTABLEKS R36 R37 K54 ["getFFlagToolboxRefactorAudioConstantsForItemRow"]
   CALL R35 1 1
-  GETTABLEKS R36 R2 K55 ["PureComponent"]
-  LOADK R38 K56 ["AudioRow"]
-  NAMECALL R36 R36 K57 ["extend"]
-  CALL R36 2 1
-  DUPCLOSURE R37 K58 [PROTO_0]
-  SETGLOBAL R37 K59 ["secondsToMinuteString"]
-  DUPTABLE R37 K62 [{"Artist", "MusicAlbum"}]
-  LOADK R38 K63 ["---"]
-  SETTABLEKS R38 R37 K60 ["Artist"]
-  LOADK R38 K63 ["---"]
-  SETTABLEKS R38 R37 K61 ["MusicAlbum"]
-  DUPCLOSURE R38 K64 [PROTO_1]
+  GETIMPORT R36 K6 [require]
+  GETTABLEKS R40 R0 K15 ["Core"]
+  GETTABLEKS R39 R40 K16 ["Util"]
+  GETTABLEKS R38 R39 K53 ["SharedFlags"]
+  GETTABLEKS R37 R38 K55 ["getFFlagToolboxCleanupLegacyContext"]
+  CALL R36 1 1
+  GETTABLEKS R37 R2 K56 ["PureComponent"]
+  LOADK R39 K57 ["AudioRow"]
+  NAMECALL R37 R37 K58 ["extend"]
+  CALL R37 2 1
+  DUPCLOSURE R38 K59 [PROTO_0]
+  SETGLOBAL R38 K60 ["secondsToMinuteString"]
+  DUPTABLE R38 K63 [{"Artist", "MusicAlbum"}]
+  LOADK R39 K64 ["---"]
+  SETTABLEKS R39 R38 K61 ["Artist"]
+  LOADK R39 K64 ["---"]
+  SETTABLEKS R39 R38 K62 ["MusicAlbum"]
+  DUPCLOSURE R39 K65 [PROTO_1]
   CAPTURE VAL R5
-  CAPTURE VAL R37
-  SETGLOBAL R38 K65 ["audioDetailsWithDefaults"]
-  DUPCLOSURE R38 K66 [PROTO_22]
+  CAPTURE VAL R38
+  SETGLOBAL R39 K66 ["audioDetailsWithDefaults"]
+  DUPCLOSURE R39 K67 [PROTO_22]
   CAPTURE VAL R5
   CAPTURE VAL R9
   CAPTURE VAL R33
@@ -988,53 +994,62 @@ MAIN:
   CAPTURE VAL R29
   CAPTURE VAL R6
   CAPTURE VAL R28
-  SETTABLEKS R38 R36 K67 ["init"]
-  DUPCLOSURE R38 K68 [PROTO_23]
-  SETTABLEKS R38 R36 K69 ["didUpdate"]
-  DUPCLOSURE R38 K70 [PROTO_25]
+  SETTABLEKS R39 R37 K68 ["init"]
+  DUPCLOSURE R39 K69 [PROTO_23]
+  SETTABLEKS R39 R37 K70 ["didUpdate"]
+  MOVE R39 R36
+  CALL R39 0 1
+  JUMPIF R39 [+4]
+  DUPCLOSURE R39 K71 [PROTO_25]
   CAPTURE VAL R31
-  SETTABLEKS R38 R36 K71 ["render"]
-  DUPCLOSURE R38 K72 [PROTO_26]
+  SETTABLEKS R39 R37 K72 ["render"]
+  MOVE R40 R36
+  CALL R40 0 1
+  JUMPIFNOT R40 [+2]
+  LOADK R39 K72 ["render"]
+  JUMP [+1]
+  LOADK R39 K73 ["renderContent"]
+  DUPCLOSURE R40 K74 [PROTO_26]
   CAPTURE VAL R34
   CAPTURE VAL R26
   CAPTURE VAL R9
-  SETTABLEKS R38 R36 K73 ["renderContent"]
-  MOVE R38 R12
-  DUPTABLE R39 K79 [{"AssetAnalytics", "Stylizer", "Localization", "Plugin", "Settings", "Network"}]
-  SETTABLEKS R21 R39 K74 ["AssetAnalytics"]
-  GETTABLEKS R40 R11 K75 ["Stylizer"]
-  SETTABLEKS R40 R39 K75 ["Stylizer"]
-  GETTABLEKS R40 R11 K76 ["Localization"]
-  SETTABLEKS R40 R39 K76 ["Localization"]
-  GETTABLEKS R40 R11 K77 ["Plugin"]
-  SETTABLEKS R40 R39 K77 ["Plugin"]
-  SETTABLEKS R23 R39 K37 ["Settings"]
-  SETTABLEKS R24 R39 K78 ["Network"]
-  CALL R38 1 1
-  MOVE R39 R36
-  CALL R38 1 1
-  MOVE R36 R38
-  DUPCLOSURE R38 K80 [PROTO_27]
-  DUPCLOSURE R39 K81 [PROTO_29]
+  SETTABLE R40 R37 R39
+  MOVE R39 R12
+  DUPTABLE R40 K80 [{"AssetAnalytics", "Stylizer", "Localization", "Plugin", "Settings", "Network"}]
+  SETTABLEKS R21 R40 K75 ["AssetAnalytics"]
+  GETTABLEKS R41 R11 K76 ["Stylizer"]
+  SETTABLEKS R41 R40 K76 ["Stylizer"]
+  GETTABLEKS R41 R11 K77 ["Localization"]
+  SETTABLEKS R41 R40 K77 ["Localization"]
+  GETTABLEKS R41 R11 K78 ["Plugin"]
+  SETTABLEKS R41 R40 K78 ["Plugin"]
+  SETTABLEKS R23 R40 K37 ["Settings"]
+  SETTABLEKS R24 R40 K79 ["Network"]
+  CALL R39 1 1
+  MOVE R40 R37
+  CALL R39 1 1
+  MOVE R37 R39
+  DUPCLOSURE R39 K81 [PROTO_27]
+  DUPCLOSURE R40 K82 [PROTO_29]
   CAPTURE VAL R22
-  GETTABLEKS R40 R3 K82 ["connect"]
-  MOVE R41 R38
+  GETTABLEKS R41 R3 K83 ["connect"]
   MOVE R42 R39
-  CALL R40 2 1
-  MOVE R41 R36
-  CALL R40 1 1
-  MOVE R36 R40
-  MOVE R40 R7
-  MOVE R41 R36
-  CALL R40 1 1
-  MOVE R36 R40
-  NEWCLOSURE R40 P8
+  MOVE R43 R40
+  CALL R41 2 1
+  MOVE R42 R37
+  CALL R41 1 1
+  MOVE R37 R41
+  MOVE R41 R7
+  MOVE R42 R37
+  CALL R41 1 1
+  MOVE R37 R41
+  NEWCLOSURE R41 P8
   CAPTURE VAL R2
-  CAPTURE REF R36
-  SETGLOBAL R40 K83 ["TypedAudioRow"]
-  DUPTABLE R40 K86 [{"Component", "Generator"}]
-  SETTABLEKS R36 R40 K84 ["Component"]
-  GETGLOBAL R41 K83 ["TypedAudioRow"]
-  SETTABLEKS R41 R40 K85 ["Generator"]
-  CLOSEUPVALS R36
-  RETURN R40 1
+  CAPTURE REF R37
+  SETGLOBAL R41 K84 ["TypedAudioRow"]
+  DUPTABLE R41 K87 [{"Component", "Generator"}]
+  SETTABLEKS R37 R41 K85 ["Component"]
+  GETGLOBAL R42 K84 ["TypedAudioRow"]
+  SETTABLEKS R42 R41 K86 ["Generator"]
+  CLOSEUPVALS R37
+  RETURN R41 1

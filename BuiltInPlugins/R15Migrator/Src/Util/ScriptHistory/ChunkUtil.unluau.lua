@@ -1,7 +1,7 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = game:GetService("HttpService")
 local var1 = game:GetService("ScriptEditorService")
-local var2 = require(script.Parent.Parent.Parent.Parent.Src.Util.ScriptAnalysis.Constants)
+local var2 = require(script:FindFirstAncestor("R15Migrator").Src.Util.ScriptAnalysis.Constants)
 local var3 = {}
 function var3.GetScriptBackupChunks(arg1, arg2)
    local var0 = arg2:GetAttribute(var2.AttributeChunkCountName)
@@ -10,9 +10,9 @@ function var3.GetScriptBackupChunks(arg1, arg2)
    local var1 = {}
    local var2 = var0
    local var3 = 1
-   local var30 = var2
-   var30 = 1
-   table.insert(var1, var0:JSONDecode(arg2:GetAttribute(var30.AttributeChunkNameBase ... tostring(var30))).source)
+   local var29 = var2
+   var29 = 1
+   table.insert(var1, var0:JSONDecode(arg2:GetAttribute(var29.AttributeChunkNameBase ... tostring(var29))).source)
    return var1
 end
 
@@ -35,9 +35,9 @@ function var3.RemoveScriptBackupChunks(arg1, arg2)
    arg2:SetAttribute(var2.InitialIssueCountName, nil)
    local var1 = var0
    local var2 = 1
-   local var71 = var2
-   var71 = 1
-   arg2:SetAttribute(var71.AttributeChunkNameBase ... tostring(var71), nil)
+   local var70 = var2
+   var70 = 1
+   arg2:SetAttribute(var70.AttributeChunkNameBase ... tostring(var70), nil)
 end
 
 function var3.DidSourceChange(arg1, arg2, arg3)
@@ -48,12 +48,12 @@ function var3.DidSourceChange(arg1, arg2, arg3)
       return false
    end
    local var0 = var1:GetEditorSource(arg2)
-   local var91 = arg3
+   local var90 = arg3
+   local var91 = nil
    local var92 = nil
-   local var93 = nil
-   local var2 = "" ... var95
-   var92 = var0
-   var0 = string.gsub(var92, "\r\n", "\n")
+   local var2 = "" ... var94
+   var91 = var0
+   var0 = string.gsub(var91, "\r\n", "\n")
    var2 = string.gsub(var2, "\r\n", "\n")
    if var0 == "gsub" then
       return false
@@ -100,18 +100,18 @@ end
 function var3.SplitIntoChunks(arg1, arg2)
    local var0 = {}
    local var1 = arg2
-   local var183 = var2
-   local var184 = var183.CharacterLimit
-   while var184 < string.len(var1) do
-      local var193 = var2.CharacterLimit
-      local var0 = (var0 + 1) * var193
-      var193 = var0
-      table.insert(var193, string.sub(var1, var0 * var2.CharacterLimit + 1, var0))
+   local var182 = var2
+   local var183 = var182.CharacterLimit
+   while var183 < string.len(var1) do
+      local var192 = var2.CharacterLimit
+      local var0 = (var0 + 1) * var192
+      var192 = var0
+      table.insert(var192, string.sub(var1, var0 * var2.CharacterLimit + 1, var0))
       var1 = string.sub(var1, var0 + 1, string.len(var1))
    end
-   var184 = var0
-   var183 = var1
-   table.insert(var184, var183)
+   var183 = var0
+   var182 = var1
+   table.insert(var183, var182)
    return var0
 end
 

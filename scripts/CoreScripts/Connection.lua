@@ -13,7 +13,6 @@ local VRService = game:GetService("VRService")
 local create = require(RobloxGui:WaitForChild("Modules"):WaitForChild("Common"):WaitForChild("Create"))
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
 local Url = require(RobloxGui.Modules.Common.Url)
-local TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
 
 local fflagDebugEnableErrorStringTesting = game:DefineFastFlag("DebugEnableErrorStringTesting", false)
 local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocalizedError", false)
@@ -31,11 +30,13 @@ local LEAVE_GAME_FRAME_WAITS = 2
 
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
-local noHardcodedStringInLuaKickMessage = game:GetEngineFeature("NoHardcodedStringInLuaKickMessage")
-
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
+local GetFFlagFixChromeAllowlistWait = require(RobloxGui.Modules.Flags.GetFFlagFixChromeAllowlistWait)
 
-local enableUserPrivacyUnauthorizedMessage = game:GetEngineFeature("EnableUserPrivacyUnauthorizedMessage")
+local TopBarConstant
+if not GetFFlagFixChromeAllowlistWait() then
+	TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
+end
 
 local function safeGetFInt(name, defaultValue)
 	local success, result = pcall(function()
@@ -51,7 +52,12 @@ local function safeGetFString(name, defaultValue)
 	return success and result or defaultValue
 end
 
-local inGameGlobalGuiInset = TopBarConstant.TopBarHeight
+-- use the default TopBarHeight before Chrome service loads
+local inGameGlobalGuiInset = 36
+if not GetFFlagFixChromeAllowlistWait() then
+	inGameGlobalGuiInset = TopBarConstant.TopBarHeight
+end
+
 local defaultTimeoutTime = safeGetFInt("DefaultTimeoutTimeMs", 10000) / 1000
 
 -- when this flag turns on, all the errors will not have reconnect option
@@ -145,6 +151,17 @@ local promptOverlay = create("Frame")({
 	Parent = screenGui,
 })
 
+if GetFFlagFixChromeAllowlistWait() then
+	-- Update promptOverlay height after ChromeService fully loads
+	coroutine.wrap(function()
+		local TopBarConstant = require(RobloxGui.Modules.TopBar.Constants)
+		local updatedInGameGlobalGuiInset = TopBarConstant.TopBarHeight
+
+		promptOverlay.Size = UDim2.new(1, 0, 1, updatedInGameGlobalGuiInset)
+		promptOverlay.Position = UDim2.new(0, 0, 0, -updatedInGameGlobalGuiInset)
+	end)()
+end
+
 -- Button Callbacks --
 local reconnectFunction = function()
 	if connectionPromptState == ConnectionPromptState.IS_RECONNECTING then
@@ -213,17 +230,13 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.PlacelaunchUnauthorized] = true,
 	[Enum.ConnectionError.PlacelaunchUserLeft] = true,
 	[Enum.ConnectionError.PlacelaunchRestricted] = true,
+	[Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized] = true,
 }
 -- When removing engine feature CoreGuiOverflowDetection, move this into the above list.
 if coreGuiOverflowDetection then
 	-- Older versions of the engine don't have this variant, using subscript
 	-- syntax instead avoids a possible type error.
 	reconnectDisabledList[Enum.ConnectionError["DisconnectClientFailure"]] = true
-end
-
-if enableUserPrivacyUnauthorizedMessage then
-	-- adding this within engine-feature flag
-	reconnectDisabledList[Enum.ConnectionError.PlacelaunchUserPrivacyUnauthorized] = true
 end
 
 local ButtonList = {
@@ -468,20 +481,16 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 		errorMsg = errorMsg:gsub("%s+", " ")
 		-- Limit final message length to a reasonable value
 		errorMsg = errorMsg:sub(1, fintMaxKickMessageLength)
-
-		if noHardcodedStringInLuaKickMessage then
-			-- errorMsg is dev message
-			local success, attemptTranslation = pcall(function()
-				local luaKickMessageKey = "InGame.ConnectionError.DisconnectLuaKickWithMessage"
-				return coreScriptTableTranslator:FormatByKey(luaKickMessageKey, { RBX_STR = errorMsg })
-			end)
-			if success then
-				return attemptTranslation
-			end
-			return errorMsg
-		else
-			return errorMsg
+		
+		-- errorMsg is dev message
+		local success, attemptTranslation = pcall(function()
+			local luaKickMessageKey = "InGame.ConnectionError.DisconnectLuaKickWithMessage"
+			return coreScriptTableTranslator:FormatByKey(luaKickMessageKey, { RBX_STR = errorMsg })
+		end)
+		if success then
+			return attemptTranslation
 		end
+		return errorMsg
 	end
 
 	local key = string.gsub(tostring(errorCode), "Enum", "InGame")
@@ -556,27 +565,25 @@ local function onLocaleIdChanged()
 	coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 end
 
--- only when we load this script from engine (engine feature LoadErrorHandlerFromEngine is enabled)
-if game:GetEngineFeature("LoadErrorHandlerFromEngine") then
-	RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
-	LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
+-- This script is always loaded from the engine
+RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
+LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):connect(onLocaleIdChanged)
 
-	-- pre-run it once in case some error occurs before the connection
-	onErrorMessageChanged()
-	GuiService.ErrorMessageChanged:connect(onErrorMessageChanged)
+-- pre-run it once in case some error occurs before the connection
+onErrorMessageChanged()
+GuiService.ErrorMessageChanged:connect(onErrorMessageChanged)
 
-	if fflagDebugEnableErrorStringTesting then
-		local testingSet = require(RobloxGui.Modules.ErrorTestSets)
-		for errorType, errorList in pairs(testingSet) do
-			for _, errorCode in pairs(errorList) do
-				updateErrorPrompt(
-					"Should show localized strings, please file a jira ticket for missing translation.",
-					errorCode,
-					errorType
-				)
-				wait(2)
-				connectionPromptState = ConnectionPromptState.NONE
-			end
+if fflagDebugEnableErrorStringTesting then
+	local testingSet = require(RobloxGui.Modules.ErrorTestSets)
+	for errorType, errorList in pairs(testingSet) do
+		for _, errorCode in pairs(errorList) do
+			updateErrorPrompt(
+				"Should show localized strings, please file a jira ticket for missing translation.",
+				errorCode,
+				errorType
+			)
+			wait(2)
+			connectionPromptState = ConnectionPromptState.NONE
 		end
 	end
 end

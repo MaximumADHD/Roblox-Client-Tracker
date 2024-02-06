@@ -164,33 +164,33 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K8 ["ContextServices"]
-  GETTABLEKS R4 R1 K9 ["UI"]
-  GETTABLEKS R5 R4 K10 ["Pane"]
-  GETTABLEKS R6 R4 K11 ["TextWithLinks"]
-  GETTABLEKS R7 R4 K12 ["LinkText"]
-  GETTABLEKS R8 R4 K13 ["TextLabel"]
-  GETTABLEKS R9 R1 K14 ["Util"]
-  GETTABLEKS R10 R9 K15 ["LayoutOrderIterator"]
-  GETTABLEKS R12 R1 K16 ["SharedFlags"]
-  GETTABLEKS R11 R12 K17 ["getFFlagAssetPreviewContentAttribution"]
-  GETTABLEKS R12 R2 K18 ["PureComponent"]
-  LOADK R14 K19 ["TabInstructions"]
-  NAMECALL R12 R12 K20 ["extend"]
+  GETTABLEKS R3 R1 K9 ["ContextServices"]
+  GETTABLEKS R4 R1 K10 ["UI"]
+  GETTABLEKS R5 R4 K11 ["Pane"]
+  GETTABLEKS R6 R4 K12 ["TextWithLinks"]
+  GETTABLEKS R7 R4 K13 ["LinkText"]
+  GETTABLEKS R8 R4 K14 ["TextLabel"]
+  GETTABLEKS R9 R1 K15 ["Util"]
+  GETTABLEKS R10 R9 K16 ["LayoutOrderIterator"]
+  GETTABLEKS R12 R1 K17 ["SharedFlags"]
+  GETTABLEKS R11 R12 K18 ["getFFlagAssetPreviewContentAttribution"]
+  GETTABLEKS R12 R2 K19 ["PureComponent"]
+  LOADK R14 K20 ["TabInstructions"]
+  NAMECALL R12 R12 K21 ["extend"]
   CALL R12 2 1
-  DUPCLOSURE R13 K21 [PROTO_0]
+  DUPCLOSURE R13 K22 [PROTO_0]
   CAPTURE VAL R10
   CAPTURE VAL R11
   CAPTURE VAL R2
@@ -198,11 +198,11 @@ MAIN:
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R7
-  SETTABLEKS R13 R12 K22 ["render"]
-  GETTABLEKS R13 R3 K23 ["withContext"]
-  DUPTABLE R14 K25 [{"Stylizer"}]
-  GETTABLEKS R15 R3 K24 ["Stylizer"]
-  SETTABLEKS R15 R14 K24 ["Stylizer"]
+  SETTABLEKS R13 R12 K23 ["render"]
+  GETTABLEKS R13 R3 K24 ["withContext"]
+  DUPTABLE R14 K26 [{"Stylizer"}]
+  GETTABLEKS R15 R3 K25 ["Stylizer"]
+  SETTABLEKS R15 R14 K25 ["Stylizer"]
   CALL R13 1 1
   MOVE R14 R12
   CALL R13 1 1

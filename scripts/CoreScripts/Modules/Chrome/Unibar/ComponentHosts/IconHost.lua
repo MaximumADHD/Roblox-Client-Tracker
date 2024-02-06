@@ -19,7 +19,6 @@ local ChromeService = require(Chrome.Service)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Chrome.Service.Types)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
-local GetFFlagSelfViewMultiTouchFix = require(Chrome.Flags.GetFFlagSelfViewMultiTouchFix)
 local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
@@ -218,10 +217,8 @@ function TooltipButton(props: TooltipButtonProps)
 
 			if not connection.current then
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
-					if GetFFlagSelfViewMultiTouchFix() then
-						if shouldRejectMultiTouch(inputObj, inputChangedObj) then
-							return
-						end
+					if shouldRejectMultiTouch(inputObj, inputChangedObj) then
+						return
 					end
 
 					local inputPosition = inputChangedObj.Position
@@ -237,11 +234,7 @@ function TooltipButton(props: TooltipButtonProps)
 							ChromeService:storeChromeInteracted()
 						end
 						ChromeService:toggleWindow(props.integration.id)
-						if GetFFlagSelfViewMultiTouchFix() then
-							ChromeService:gesture(props.integration.id, connection, inputObj)
-						else
-							ChromeService:gesture(props.integration.id, connection)
-						end
+						ChromeService:gesture(props.integration.id, connection, inputObj)
 					end
 				end)
 			end

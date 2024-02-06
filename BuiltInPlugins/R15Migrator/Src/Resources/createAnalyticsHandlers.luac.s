@@ -460,45 +460,45 @@ PROTO_15:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Cryo"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Cryo"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K7 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Util"]
-  GETTABLEKS R3 R4 K9 ["AnalyticsGlobals"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["AnalyticsGlobals"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K7 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Util"]
-  GETTABLEKS R4 R5 K10 ["DebugFlags"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K11 ["DebugFlags"]
   CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K7 ["Src"]
-  GETTABLEKS R6 R7 K8 ["Util"]
-  GETTABLEKS R5 R6 K11 ["ScriptStatusUtil"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Util"]
+  GETTABLEKS R5 R6 K12 ["ScriptStatusUtil"]
   CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R9 R0 K7 ["Src"]
-  GETTABLEKS R8 R9 K8 ["Util"]
-  GETTABLEKS R7 R8 K12 ["ScriptAnalysis"]
-  GETTABLEKS R6 R7 K13 ["Constants"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K9 ["Util"]
+  GETTABLEKS R7 R8 K13 ["ScriptAnalysis"]
+  GETTABLEKS R6 R7 K14 ["Constants"]
   CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R9 R0 K7 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Modules"]
-  GETTABLEKS R7 R8 K15 ["NpcManager"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Modules"]
+  GETTABLEKS R7 R8 K16 ["NpcManager"]
   CALL R6 1 1
-  GETIMPORT R7 K17 [game]
-  LOADK R9 K18 ["HttpService"]
-  NAMECALL R7 R7 K19 ["GetService"]
+  GETIMPORT R7 K18 [game]
+  LOADK R9 K19 ["HttpService"]
+  NAMECALL R7 R7 K20 ["GetService"]
   CALL R7 2 1
-  DUPCLOSURE R8 K20 [PROTO_15]
+  DUPCLOSURE R8 K21 [PROTO_15]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R7

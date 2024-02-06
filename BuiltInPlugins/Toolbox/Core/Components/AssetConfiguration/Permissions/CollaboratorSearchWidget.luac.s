@@ -352,165 +352,165 @@ PROTO_10:
   RETURN R0 0
 
 PROTO_11:
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R5 R4 K1 ["SearchData"]
-  GETTABLEKS R1 R4 K2 ["Stylizer"]
-  GETTABLEKS R6 R5 K3 ["SearchText"]
-  GETUPVAL R7 0
-  MOVE R8 R5
-  GETTABLEKS R9 R4 K4 ["Permissions"]
-  GETTABLEKS R10 R4 K5 ["GroupMetadata"]
-  CALL R7 3 1
-  GETTABLEKS R9 R5 K6 ["localUserFriends"]
-  GETUPVAL R10 1
-  JUMPIFEQ R9 R10 [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  LOADN R9 255
-  GETTABLEKS R10 R4 K5 ["GroupMetadata"]
-  JUMPIFNOT R10 [+9]
-  GETIMPORT R10 K8 [pairs]
-  GETTABLEKS R11 R4 K5 ["GroupMetadata"]
-  CALL R10 1 3
-  FORGPREP_NEXT R10
-  ADDK R9 R9 K9 [1]
-  FORGLOOP R10 2 [-2]
-  GETTABLEKS R11 R4 K4 ["Permissions"]
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["SearchData"]
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  GETTABLEKS R4 R2 K3 ["SearchText"]
+  GETUPVAL R5 0
+  MOVE R6 R2
+  GETTABLEKS R7 R1 K4 ["Permissions"]
+  GETTABLEKS R8 R1 K5 ["GroupMetadata"]
+  CALL R5 3 1
+  GETTABLEKS R7 R2 K6 ["localUserFriends"]
+  GETUPVAL R8 1
+  JUMPIFEQ R7 R8 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  LOADN R7 255
+  GETTABLEKS R8 R1 K5 ["GroupMetadata"]
+  JUMPIFNOT R8 [+9]
+  GETIMPORT R8 K8 [pairs]
+  GETTABLEKS R9 R1 K5 ["GroupMetadata"]
+  CALL R8 1 3
+  FORGPREP_NEXT R8
+  ADDK R7 R7 K9 [1]
+  FORGLOOP R8 2 [-2]
+  GETTABLEKS R9 R1 K4 ["Permissions"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K10 ["UserSubjectKey"]
+  GETTABLE R8 R9 R10
+  JUMPIFNOT R8 [+13]
+  GETIMPORT R8 K8 [pairs]
+  GETTABLEKS R11 R1 K4 ["Permissions"]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K10 ["UserSubjectKey"]
-  GETTABLE R10 R11 R12
-  JUMPIFNOT R10 [+13]
-  GETIMPORT R10 K8 [pairs]
-  GETTABLEKS R13 R4 K4 ["Permissions"]
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K10 ["UserSubjectKey"]
-  GETTABLE R11 R13 R14
-  CALL R10 1 3
-  FORGPREP_NEXT R10
-  ADDK R9 R9 K9 [1]
-  FORGLOOP R10 2 [-2]
-  LOADN R11 200
-  JUMPIFLE R11 R9 [+2]
-  LOADB R10 0 +1
-  LOADB R10 1
-  NEWCLOSURE R11 P0
+  GETTABLE R9 R11 R12
+  CALL R8 1 3
+  FORGPREP_NEXT R8
+  ADDK R7 R7 K9 [1]
+  FORGLOOP R8 2 [-2]
+  LOADN R9 200
+  JUMPIFLE R9 R7 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  NEWCLOSURE R9 P0
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
-  CAPTURE VAL R4
-  GETUPVAL R12 4
-  MOVE R13 R6
-  MOVE R14 R7
-  GETTABLEKS R15 R4 K11 ["Localization"]
-  CALL R12 3 1
-  GETTABLEKS R13 R4 K11 ["Localization"]
-  LOADK R15 K12 ["AssetConfigPackagePermissions"]
-  LOADK R16 K13 ["TooManyCollaboratorsText"]
-  DUPTABLE R17 K15 [{"maxNumCollaborators"}]
-  LOADN R18 200
-  SETTABLEKS R18 R17 K14 ["maxNumCollaborators"]
-  NAMECALL R13 R13 K16 ["getText"]
-  CALL R13 4 1
-  GETUPVAL R15 5
-  GETTABLEKS R14 R15 K17 ["createElement"]
-  LOADK R15 K18 ["Frame"]
-  DUPTABLE R16 K22 [{"AutomaticSize", "BackgroundTransparency", "LayoutOrder"}]
-  GETIMPORT R17 K25 [Enum.AutomaticSize.XY]
-  SETTABLEKS R17 R16 K19 ["AutomaticSize"]
-  LOADN R17 1
-  SETTABLEKS R17 R16 K20 ["BackgroundTransparency"]
-  GETTABLEKS R17 R4 K21 ["LayoutOrder"]
-  SETTABLEKS R17 R16 K21 ["LayoutOrder"]
-  DUPTABLE R17 K29 [{"UIListLayout", "Title", "CollaboratorSearchBar"}]
-  GETUPVAL R19 5
-  GETTABLEKS R18 R19 K17 ["createElement"]
-  LOADK R19 K26 ["UIListLayout"]
-  DUPTABLE R20 K32 [{"SortOrder", "Padding"}]
-  GETIMPORT R21 K33 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R21 R20 K30 ["SortOrder"]
-  GETIMPORT R21 K36 [UDim.new]
-  LOADN R22 0
-  LOADN R23 24
-  CALL R21 2 1
-  SETTABLEKS R21 R20 K31 ["Padding"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K26 ["UIListLayout"]
-  GETUPVAL R19 5
-  GETTABLEKS R18 R19 K17 ["createElement"]
-  LOADK R19 K37 ["TextLabel"]
-  DUPTABLE R20 K43 [{"AutomaticSize", "LayoutOrder", "Text", "TextXAlignment", "BackgroundTransparency", "Font", "TextSize", "TextColor3"}]
-  GETIMPORT R21 K25 [Enum.AutomaticSize.XY]
-  SETTABLEKS R21 R20 K19 ["AutomaticSize"]
-  LOADN R21 0
-  SETTABLEKS R21 R20 K21 ["LayoutOrder"]
-  GETTABLEKS R21 R4 K11 ["Localization"]
-  LOADK R23 K12 ["AssetConfigPackagePermissions"]
-  LOADK R24 K44 ["ShareWith"]
-  NAMECALL R21 R21 K16 ["getText"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K38 ["Text"]
-  GETIMPORT R21 K46 [Enum.TextXAlignment.Left]
-  SETTABLEKS R21 R20 K39 ["TextXAlignment"]
-  LOADN R21 1
-  SETTABLEKS R21 R20 K20 ["BackgroundTransparency"]
-  GETUPVAL R22 6
-  GETTABLEKS R21 R22 K47 ["FONT"]
-  SETTABLEKS R21 R20 K40 ["Font"]
-  GETUPVAL R22 6
-  GETTABLEKS R21 R22 K48 ["FONT_SIZE_TITLE"]
-  SETTABLEKS R21 R20 K41 ["TextSize"]
-  GETTABLEKS R23 R1 K49 ["assetConfig"]
-  GETTABLEKS R22 R23 K50 ["packagePermissions"]
-  GETTABLEKS R21 R22 K51 ["subTextColor"]
-  SETTABLEKS R21 R20 K42 ["TextColor3"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K27 ["Title"]
-  GETUPVAL R19 5
-  GETTABLEKS R18 R19 K17 ["createElement"]
-  GETUPVAL R19 7
-  DUPTABLE R20 K62 [{"LayoutOrder", "Enabled", "HeaderHeight", "ErrorText", "DefaultText", "NoResultsText", "LoadingMore", "onSearchRequested", "onTextChanged", "OnItemClicked", "Results"}]
-  LOADN R21 1
-  SETTABLEKS R21 R20 K21 ["LayoutOrder"]
-  GETTABLEKS R21 R4 K52 ["Enabled"]
-  JUMPIFNOT R21 [+1]
-  NOT R21 R10
-  SETTABLEKS R21 R20 K52 ["Enabled"]
-  LOADN R21 25
-  SETTABLEKS R21 R20 K53 ["HeaderHeight"]
-  JUMPIFNOT R10 [+2]
-  MOVE R21 R13
-  JUMPIF R21 [+1]
-  LOADNIL R21
-  SETTABLEKS R21 R20 K54 ["ErrorText"]
-  GETTABLEKS R21 R4 K11 ["Localization"]
-  LOADK R23 K12 ["AssetConfigPackagePermissions"]
-  LOADK R24 K63 ["SearchbarDefault"]
-  NAMECALL R21 R21 K16 ["getText"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K55 ["DefaultText"]
-  GETTABLEKS R21 R4 K11 ["Localization"]
-  LOADK R23 K12 ["AssetConfigPackagePermissions"]
-  LOADK R24 K64 ["NoResults"]
-  NAMECALL R21 R21 K16 ["getText"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K56 ["NoResultsText"]
-  SETTABLEKS R8 R20 K57 ["LoadingMore"]
-  NEWCLOSURE R21 P1
-  CAPTURE VAL R4
+  CAPTURE VAL R1
+  GETUPVAL R10 4
+  MOVE R11 R4
+  MOVE R12 R5
+  GETTABLEKS R13 R1 K11 ["Localization"]
+  CALL R10 3 1
+  GETTABLEKS R11 R1 K11 ["Localization"]
+  LOADK R13 K12 ["AssetConfigPackagePermissions"]
+  LOADK R14 K13 ["TooManyCollaboratorsText"]
+  DUPTABLE R15 K15 [{"maxNumCollaborators"}]
+  LOADN R16 200
+  SETTABLEKS R16 R15 K14 ["maxNumCollaborators"]
+  NAMECALL R11 R11 K16 ["getText"]
+  CALL R11 4 1
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K17 ["createElement"]
+  LOADK R13 K18 ["Frame"]
+  DUPTABLE R14 K22 [{"AutomaticSize", "BackgroundTransparency", "LayoutOrder"}]
+  GETIMPORT R15 K25 [Enum.AutomaticSize.XY]
+  SETTABLEKS R15 R14 K19 ["AutomaticSize"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K20 ["BackgroundTransparency"]
+  GETTABLEKS R15 R1 K21 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K21 ["LayoutOrder"]
+  DUPTABLE R15 K29 [{"UIListLayout", "Title", "CollaboratorSearchBar"}]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K17 ["createElement"]
+  LOADK R17 K26 ["UIListLayout"]
+  DUPTABLE R18 K32 [{"SortOrder", "Padding"}]
+  GETIMPORT R19 K33 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R19 R18 K30 ["SortOrder"]
+  GETIMPORT R19 K36 [UDim.new]
+  LOADN R20 0
+  LOADN R21 24
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K31 ["Padding"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K26 ["UIListLayout"]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K17 ["createElement"]
+  LOADK R17 K37 ["TextLabel"]
+  DUPTABLE R18 K43 [{"AutomaticSize", "LayoutOrder", "Text", "TextXAlignment", "BackgroundTransparency", "Font", "TextSize", "TextColor3"}]
+  GETIMPORT R19 K25 [Enum.AutomaticSize.XY]
+  SETTABLEKS R19 R18 K19 ["AutomaticSize"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K21 ["LayoutOrder"]
+  GETTABLEKS R19 R1 K11 ["Localization"]
+  LOADK R21 K12 ["AssetConfigPackagePermissions"]
+  LOADK R22 K44 ["ShareWith"]
+  NAMECALL R19 R19 K16 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K38 ["Text"]
+  GETIMPORT R19 K46 [Enum.TextXAlignment.Left]
+  SETTABLEKS R19 R18 K39 ["TextXAlignment"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K20 ["BackgroundTransparency"]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K47 ["FONT"]
+  SETTABLEKS R19 R18 K40 ["Font"]
+  GETUPVAL R20 6
+  GETTABLEKS R19 R20 K48 ["FONT_SIZE_TITLE"]
+  SETTABLEKS R19 R18 K41 ["TextSize"]
+  GETTABLEKS R21 R3 K49 ["assetConfig"]
+  GETTABLEKS R20 R21 K50 ["packagePermissions"]
+  GETTABLEKS R19 R20 K51 ["subTextColor"]
+  SETTABLEKS R19 R18 K42 ["TextColor3"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K27 ["Title"]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K17 ["createElement"]
+  GETUPVAL R17 7
+  DUPTABLE R18 K62 [{"LayoutOrder", "Enabled", "HeaderHeight", "ErrorText", "DefaultText", "NoResultsText", "LoadingMore", "onSearchRequested", "onTextChanged", "OnItemClicked", "Results"}]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K21 ["LayoutOrder"]
+  GETTABLEKS R19 R1 K52 ["Enabled"]
+  JUMPIFNOT R19 [+1]
+  NOT R19 R8
+  SETTABLEKS R19 R18 K52 ["Enabled"]
+  LOADN R19 25
+  SETTABLEKS R19 R18 K53 ["HeaderHeight"]
+  JUMPIFNOT R8 [+2]
+  MOVE R19 R11
+  JUMPIF R19 [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K54 ["ErrorText"]
+  GETTABLEKS R19 R1 K11 ["Localization"]
+  LOADK R21 K12 ["AssetConfigPackagePermissions"]
+  LOADK R22 K63 ["SearchbarDefault"]
+  NAMECALL R19 R19 K16 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K55 ["DefaultText"]
+  GETTABLEKS R19 R1 K11 ["Localization"]
+  LOADK R21 K12 ["AssetConfigPackagePermissions"]
+  LOADK R22 K64 ["NoResults"]
+  NAMECALL R19 R19 K16 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K56 ["NoResultsText"]
+  SETTABLEKS R6 R18 K57 ["LoadingMore"]
+  NEWCLOSURE R19 P1
+  CAPTURE VAL R1
   CAPTURE VAL R0
-  SETTABLEKS R21 R20 K58 ["onSearchRequested"]
-  NEWCLOSURE R21 P2
-  CAPTURE VAL R4
+  SETTABLEKS R19 R18 K58 ["onSearchRequested"]
+  NEWCLOSURE R19 P2
+  CAPTURE VAL R1
   CAPTURE VAL R0
-  SETTABLEKS R21 R20 K59 ["onTextChanged"]
-  NEWCLOSURE R21 P3
-  CAPTURE VAL R11
+  SETTABLEKS R19 R18 K59 ["onTextChanged"]
+  NEWCLOSURE R19 P3
+  CAPTURE VAL R9
   CAPTURE UPVAL U8
-  SETTABLEKS R21 R20 K60 ["OnItemClicked"]
-  SETTABLEKS R12 R20 K61 ["Results"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K28 ["CollaboratorSearchBar"]
-  CALL R14 3 -1
-  RETURN R14 -1
+  SETTABLEKS R19 R18 K60 ["OnItemClicked"]
+  SETTABLEKS R10 R18 K61 ["Results"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K28 ["CollaboratorSearchBar"]
+  CALL R12 3 -1
+  RETURN R12 -1
 
 PROTO_12:
   DUPTABLE R2 K1 [{"SearchData"}]
@@ -584,53 +584,68 @@ MAIN:
   GETTABLEKS R21 R22 K25 ["ContextServices"]
   GETTABLEKS R20 R21 K27 ["NetworkContext"]
   CALL R19 1 1
-  GETTABLEKS R20 R14 K28 ["UseViewKey"]
-  DUPCLOSURE R21 K29 [PROTO_0]
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R24 R0 K9 ["Core"]
+  GETTABLEKS R23 R24 K10 ["Util"]
+  GETTABLEKS R22 R23 K28 ["SharedFlags"]
+  GETTABLEKS R21 R22 K29 ["getFFlagToolboxCleanupLegacyContext"]
+  CALL R20 1 1
+  GETTABLEKS R21 R14 K30 ["UseViewKey"]
+  DUPCLOSURE R22 K31 [PROTO_0]
   CAPTURE VAL R14
-  DUPCLOSURE R22 K30 [PROTO_1]
+  DUPCLOSURE R23 K32 [PROTO_1]
   CAPTURE VAL R6
-  DUPCLOSURE R23 K31 [PROTO_3]
+  DUPCLOSURE R24 K33 [PROTO_3]
   CAPTURE VAL R14
-  CAPTURE VAL R21
-  DUPCLOSURE R24 K32 [PROTO_4]
+  CAPTURE VAL R22
+  DUPCLOSURE R25 K34 [PROTO_4]
   CAPTURE VAL R14
   CAPTURE VAL R3
   CAPTURE VAL R15
   CAPTURE VAL R7
   CAPTURE VAL R9
-  GETTABLEKS R25 R3 K33 ["PureComponent"]
-  LOADK R27 K34 ["CollaboratorSearchWidget"]
-  NAMECALL R25 R25 K35 ["extend"]
-  CALL R25 2 1
-  DUPCLOSURE R26 K36 [PROTO_6]
+  GETTABLEKS R26 R3 K35 ["PureComponent"]
+  LOADK R28 K36 ["CollaboratorSearchWidget"]
+  NAMECALL R26 R26 K37 ["extend"]
+  CALL R26 2 1
+  MOVE R27 R20
+  CALL R27 0 1
+  JUMPIF R27 [+4]
+  DUPCLOSURE R27 K38 [PROTO_6]
   CAPTURE VAL R11
-  SETTABLEKS R26 R25 K37 ["render"]
-  DUPCLOSURE R26 K38 [PROTO_11]
-  CAPTURE VAL R23
+  SETTABLEKS R27 R26 K39 ["render"]
+  MOVE R28 R20
+  CALL R28 0 1
+  JUMPIFNOT R28 [+2]
+  LOADK R27 K39 ["render"]
+  JUMP [+1]
+  LOADK R27 K40 ["renderContent"]
+  DUPCLOSURE R28 K41 [PROTO_11]
+  CAPTURE VAL R24
   CAPTURE VAL R6
   CAPTURE VAL R14
   CAPTURE VAL R2
-  CAPTURE VAL R24
+  CAPTURE VAL R25
   CAPTURE VAL R3
   CAPTURE VAL R8
   CAPTURE VAL R13
-  CAPTURE VAL R20
-  SETTABLEKS R26 R25 K39 ["renderContent"]
-  DUPCLOSURE R26 K40 [PROTO_12]
-  MOVE R27 R18
-  DUPTABLE R28 K44 [{"Stylizer", "Localization", "Network"}]
-  GETTABLEKS R29 R17 K41 ["Stylizer"]
-  SETTABLEKS R29 R28 K41 ["Stylizer"]
-  GETTABLEKS R29 R17 K42 ["Localization"]
-  SETTABLEKS R29 R28 K42 ["Localization"]
-  SETTABLEKS R19 R28 K43 ["Network"]
-  CALL R27 1 1
-  MOVE R28 R25
-  CALL R27 1 1
-  MOVE R25 R27
-  GETTABLEKS R27 R4 K45 ["connect"]
-  MOVE R28 R26
-  CALL R27 1 1
-  MOVE R28 R25
-  CALL R27 1 -1
-  RETURN R27 -1
+  CAPTURE VAL R21
+  SETTABLE R28 R26 R27
+  DUPCLOSURE R27 K42 [PROTO_12]
+  MOVE R28 R18
+  DUPTABLE R29 K46 [{"Stylizer", "Localization", "Network"}]
+  GETTABLEKS R30 R17 K43 ["Stylizer"]
+  SETTABLEKS R30 R29 K43 ["Stylizer"]
+  GETTABLEKS R30 R17 K44 ["Localization"]
+  SETTABLEKS R30 R29 K44 ["Localization"]
+  SETTABLEKS R19 R29 K45 ["Network"]
+  CALL R28 1 1
+  MOVE R29 R26
+  CALL R28 1 1
+  MOVE R26 R28
+  GETTABLEKS R28 R4 K47 ["connect"]
+  MOVE R29 R27
+  CALL R28 1 1
+  MOVE R29 R26
+  CALL R28 1 -1
+  RETURN R28 -1

@@ -3,9 +3,9 @@ local var0 = require(script.Parent.CodeBlock)
 local var1 = {}
 var1.__index = var1
 function var1.new()
-   local var39 = {}
-   var39._root = var0.new(1, 1)
-   return setmetatable(var39, var1)
+   local var55 = {}
+   var55._root = var0.new(1, 1)
+   return setmetatable(var55, var1)
 end
 
 function var1.GetRoot(arg1)
@@ -14,14 +14,14 @@ end
 
 function var1.TraverseBF(arg1, arg2)
    local var0 = {}
-   local var53 = arg1._root
+   local var69 = arg1._root
    while 0 < var0 do
       local var0 = var0[1]
       table.remove(var0, 1)
-      local var62 = ipairs(var0.Children)
-      table.insert(var0, var64)
-      var62 = arg2
-      var62(var0)
+      local var78 = ipairs(var0.Children)
+      table.insert(var0, var80)
+      var78 = arg2
+      var78(var0)
    end
 end
 

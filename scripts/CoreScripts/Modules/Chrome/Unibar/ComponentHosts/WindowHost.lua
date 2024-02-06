@@ -18,7 +18,6 @@ local ChromeTypes = require(Chrome.Service.Types)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 local FFlagSelfViewFixes = require(Chrome.Flags.GetFFlagSelfViewFixes)()
-local GetFFlagSelfViewMultiTouchFix = require(Chrome.Flags.GetFFlagSelfViewMultiTouchFix)
 local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
 
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
@@ -80,13 +79,9 @@ local WindowHost = function(props: WindowHostProps)
 	React.useEffect(function()
 		local storedConnection: { current: RBXScriptConnection? }? = nil
 		local originalInputObj: InputObject? = nil
-		if GetFFlagSelfViewMultiTouchFix() then
-			local dragConnection: any = ChromeService:dragConnection(props.integration.id)
-			storedConnection = dragConnection.connection
-			originalInputObj = dragConnection.inputObject
-		else
-			storedConnection = ChromeService:dragConnection(props.integration.id)
-		end
+		local dragConnection: any = ChromeService:dragConnection(props.integration.id)
+		storedConnection = dragConnection.connection
+		originalInputObj = dragConnection.inputObject
 		assert(windowRef.current ~= nil)
 		assert(windowRef.current.Parent ~= nil)
 
@@ -119,10 +114,8 @@ local WindowHost = function(props: WindowHostProps)
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
 					local inputPosition = inputChangedObj.Position
 
-					if GetFFlagSelfViewMultiTouchFix() then
-						if shouldRejectMultiTouch(originalInputObj, inputChangedObj) then
-							return
-						end
+					if shouldRejectMultiTouch(originalInputObj, inputChangedObj) then
+						return
 					end
 
 					local delta = inputPosition - dragStartPosition
@@ -197,10 +190,8 @@ local WindowHost = function(props: WindowHostProps)
 				}
 				frame.Position = UDim2.fromOffset(newPosition.X, newPosition.Y)
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
-					if GetFFlagSelfViewMultiTouchFix() then
-						if shouldRejectMultiTouch(inputObj, inputChangedObj) then
-							return
-						end
+					if shouldRejectMultiTouch(inputObj, inputChangedObj) then
+						return
 					end
 
 					setDragging(true)

@@ -20,11 +20,11 @@ function var5.init(arg1)
    
 end
 
-local function fun4(arg1)
+local function fun9(arg1)
    local var0 = arg1.props.Localization
-   local var48 = {}
-   var48.PromptText = var0:getText("Dialog", "PromotePrompt1")
-   var48.Size = UDim2.new(0, var3.PROMPT_SIZE.Width.Offset, 0, 180)
+   local var131 = {}
+   var131.PromptText = var0:getText("Dialog", "PromotePrompt1")
+   var131.Size = UDim2.new(0, var3.PROMPT_SIZE.Width.Offset, 0, 180)
    local var1 = {}
    var1.Key = false
    var1.Text = var0:getText("Dialog", "Cancel")
@@ -33,22 +33,22 @@ local function fun4(arg1)
    var2.Key = true
    var2.Text = var0:getText("Dialog", "Confirm")
    var2.Style = "RoundPrimary"
-   var48.Buttons = {}
-   function var48.OnButtonClicked()
+   var131.Buttons = {}
+   function var131.OnButtonClicked()
       if arg1.props.OnPromote then
          arg1.props.OnPromote()
       end
    end
    
-   var48.OnClose = arg1.onClose
-   return var1.createElement(var4, var48)
+   var131.OnClose = arg1.onClose
+   return var1.createElement(var4, var131)
 end
 
 function var5.render(arg1)
    local var0 = arg1.props.Localization
-   local var48 = {}
-   var48.PromptText = var0:getText("Dialog", "PromotePrompt1")
-   var48.Size = UDim2.new(0, var3.PROMPT_SIZE.Width.Offset, 0, 180)
+   local var131 = {}
+   var131.PromptText = var0:getText("Dialog", "PromotePrompt1")
+   var131.Size = UDim2.new(0, var3.PROMPT_SIZE.Width.Offset, 0, 180)
    local var1 = {}
    var1.Key = false
    var1.Text = var0:getText("Dialog", "Cancel")
@@ -57,19 +57,19 @@ function var5.render(arg1)
    var2.Key = true
    var2.Text = var0:getText("Dialog", "Confirm")
    var2.Style = "RoundPrimary"
-   var48.Buttons = {}
-   function var48.OnButtonClicked()
+   var131.Buttons = {}
+   function var131.OnButtonClicked()
       if arg1.props.OnPromote then
          arg1.props.OnPromote()
       end
    end
    
-   var48.OnClose = arg1.onClose
-   return var1.createElement(var4, var48)
+   var131.OnClose = arg1.onClose
+   return var1.createElement(var4, var131)
 end
 
-fun4 = var2.withContext
-local var85 = {}
-var85.Localization = var2.Localization
-var5 = fun4(var85)(var5)
+fun9 = var2.withContext
+local var168 = {}
+var168.Localization = var2.Localization
+var5 = fun9(var168)(var5)
 return var5

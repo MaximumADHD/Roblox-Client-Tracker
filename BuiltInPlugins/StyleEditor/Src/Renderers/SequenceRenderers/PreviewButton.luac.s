@@ -1,0 +1,50 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["TextButton"]
+  NEWTABLE R3 4 0
+  LOADK R4 K2 [""]
+  SETTABLEKS R4 R3 K3 ["Text"]
+  GETTABLEKS R4 R0 K4 ["ForwardRef"]
+  SETTABLEKS R4 R3 K5 ["ref"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K6 ["Event"]
+  GETTABLEKS R4 R5 K7 ["Activated"]
+  GETTABLEKS R5 R0 K8 ["OnClick"]
+  SETTABLE R5 R3 R4
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["Tag"]
+  LOADK R5 K10 ["SequencePreviewButton X-Corner X-Stroke"]
+  SETTABLE R5 R3 R4
+  DUPTABLE R4 K12 [{"Gradient"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K13 ["UIGradient"]
+  DUPTABLE R7 K16 [{"Color", "Transparency"}]
+  GETTABLEKS R8 R0 K14 ["Color"]
+  SETTABLEKS R8 R7 K14 ["Color"]
+  GETTABLEKS R8 R0 K15 ["Transparency"]
+  SETTABLEKS R8 R7 K15 ["Transparency"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["Gradient"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Src"]
+  GETTABLEKS R3 R4 K8 ["Types"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R3 1

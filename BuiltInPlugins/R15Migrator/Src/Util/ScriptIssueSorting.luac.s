@@ -122,32 +122,32 @@ PROTO_4:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["deepCopy"]
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K7 ["Util"]
-  GETTABLEKS R5 R6 K10 ["ScriptAnalysis"]
-  GETTABLEKS R4 R5 K11 ["Constants"]
+  GETTABLEKS R3 R1 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["deepCopy"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K8 ["Util"]
+  GETTABLEKS R5 R6 K11 ["ScriptAnalysis"]
+  GETTABLEKS R4 R5 K12 ["Constants"]
   CALL R3 1 1
   NEWTABLE R4 4 0
-  DUPCLOSURE R5 K12 [PROTO_0]
+  DUPCLOSURE R5 K13 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLEKS R5 R4 K13 ["addScriptIssue"]
-  DUPCLOSURE R5 K14 [PROTO_1]
-  SETTABLEKS R5 R4 K15 ["sortSelectionForConversion"]
-  DUPCLOSURE R5 K16 [PROTO_3]
+  SETTABLEKS R5 R4 K14 ["addScriptIssue"]
+  DUPCLOSURE R5 K15 [PROTO_1]
+  SETTABLEKS R5 R4 K16 ["sortSelectionForConversion"]
+  DUPCLOSURE R5 K17 [PROTO_3]
   CAPTURE VAL R3
-  SETTABLEKS R5 R4 K17 ["sortScriptItemsByRange"]
-  DUPCLOSURE R5 K18 [PROTO_4]
+  SETTABLEKS R5 R4 K18 ["sortScriptItemsByRange"]
+  DUPCLOSURE R5 K19 [PROTO_4]
   CAPTURE VAL R2
-  SETTABLEKS R5 R4 K19 ["sortDiagListForConversion"]
+  SETTABLEKS R5 R4 K20 ["sortDiagListForConversion"]
   RETURN R4 1

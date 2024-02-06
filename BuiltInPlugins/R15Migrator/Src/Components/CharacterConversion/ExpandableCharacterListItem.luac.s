@@ -233,40 +233,39 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["ContextServices"]
-  GETTABLEKS R4 R3 K9 ["withContext"]
-  GETTABLEKS R5 R2 K10 ["UI"]
-  GETTABLEKS R6 R5 K11 ["Pane"]
-  GETTABLEKS R7 R5 K12 ["Tooltip"]
-  GETTABLEKS R8 R5 K13 ["Image"]
-  GETTABLEKS R9 R5 K14 ["TextLabel"]
-  GETTABLEKS R10 R5 K15 ["Checkbox"]
-  GETTABLEKS R11 R2 K16 ["Util"]
-  GETTABLEKS R12 R11 K17 ["LayoutOrderIterator"]
-  GETTABLEKS R13 R11 K18 ["StyleModifier"]
-  GETTABLEKS R14 R1 K19 ["PureComponent"]
-  LOADK R16 K20 ["ExpandableCharacterListItem"]
-  NAMECALL R14 R14 K21 ["extend"]
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETTABLEKS R5 R2 K11 ["UI"]
+  GETTABLEKS R6 R5 K12 ["Pane"]
+  GETTABLEKS R7 R5 K13 ["Tooltip"]
+  GETTABLEKS R8 R5 K14 ["Image"]
+  GETTABLEKS R9 R5 K15 ["TextLabel"]
+  GETTABLEKS R10 R5 K16 ["Checkbox"]
+  GETTABLEKS R11 R2 K17 ["Util"]
+  GETTABLEKS R12 R11 K18 ["LayoutOrderIterator"]
+  GETTABLEKS R13 R11 K19 ["StyleModifier"]
+  GETTABLEKS R14 R1 K20 ["PureComponent"]
+  LOADK R16 K21 ["ExpandableCharacterListItem"]
+  NAMECALL R14 R14 K22 ["extend"]
   CALL R14 2 1
-  DUPCLOSURE R15 K22 [PROTO_0]
+  DUPCLOSURE R15 K23 [PROTO_0]
   CAPTURE VAL R12
   CAPTURE VAL R1
   CAPTURE VAL R6
-  SETTABLEKS R15 R14 K23 ["render"]
-  DUPCLOSURE R15 K24 [PROTO_1]
+  SETTABLEKS R15 R14 K24 ["render"]
+  DUPCLOSURE R15 K25 [PROTO_1]
   CAPTURE VAL R12
   CAPTURE VAL R1
   CAPTURE VAL R6
@@ -275,13 +274,13 @@ MAIN:
   CAPTURE VAL R13
   CAPTURE VAL R9
   CAPTURE VAL R7
-  SETTABLEKS R15 R14 K25 ["renderHeader"]
+  SETTABLEKS R15 R14 K26 ["renderHeader"]
   MOVE R15 R4
-  DUPTABLE R16 K28 [{"Stylizer", "Localization"}]
-  GETTABLEKS R17 R3 K26 ["Stylizer"]
-  SETTABLEKS R17 R16 K26 ["Stylizer"]
-  GETTABLEKS R17 R3 K27 ["Localization"]
-  SETTABLEKS R17 R16 K27 ["Localization"]
+  DUPTABLE R16 K29 [{"Stylizer", "Localization"}]
+  GETTABLEKS R17 R3 K27 ["Stylizer"]
+  SETTABLEKS R17 R16 K27 ["Stylizer"]
+  GETTABLEKS R17 R3 K28 ["Localization"]
+  SETTABLEKS R17 R16 K28 ["Localization"]
   CALL R15 1 1
   MOVE R16 R14
   CALL R15 1 1

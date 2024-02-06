@@ -27,25 +27,25 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R2 R0 K3 ["Src"]
-  GETTABLEKS R1 R2 K4 ["Actions"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R3 R1 K7 ["ResetAllAnimationConversion"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K4 ["Src"]
+  GETTABLEKS R1 R2 K5 ["Actions"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R3 R1 K8 ["ResetAllAnimationConversion"]
   CALL R2 1 1
-  GETIMPORT R3 K6 [require]
-  GETTABLEKS R4 R1 K8 ["ResetAllCharacterConversion"]
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R4 R1 K9 ["ResetAllCharacterConversion"]
   CALL R3 1 1
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R1 K9 ["ResetAllScriptConversion"]
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R5 R1 K10 ["ResetAllScriptConversion"]
   CALL R4 1 1
-  GETIMPORT R5 K6 [require]
-  GETTABLEKS R6 R1 K10 ["ResetAllAdapter"]
+  GETIMPORT R5 K7 [require]
+  GETTABLEKS R6 R1 K11 ["ResetAllAdapter"]
   CALL R5 1 1
-  DUPCLOSURE R6 K11 [PROTO_1]
+  DUPCLOSURE R6 K12 [PROTO_1]
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R4

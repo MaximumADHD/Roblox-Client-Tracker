@@ -652,27 +652,26 @@ MAIN:
   LOADK R2 K2 ["ScriptEditorService"]
   NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R5 K5 [script]
-  GETTABLEKS R4 R5 K6 ["Parent"]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETTABLEKS R4 R1 K7 ["Src"]
-  GETTABLEKS R3 R4 K8 ["Util"]
-  GETTABLEKS R2 R3 K9 ["ScriptAnalysis"]
-  GETIMPORT R3 K11 [require]
-  GETTABLEKS R4 R2 K12 ["StringUtil"]
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["R15Migrator"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETTABLEKS R4 R1 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Util"]
+  GETTABLEKS R2 R3 K10 ["ScriptAnalysis"]
+  GETIMPORT R3 K12 [require]
+  GETTABLEKS R4 R2 K13 ["StringUtil"]
   CALL R3 1 1
-  GETIMPORT R4 K11 [require]
-  GETTABLEKS R5 R2 K13 ["StatementParser"]
+  GETIMPORT R4 K12 [require]
+  GETTABLEKS R5 R2 K14 ["StatementParser"]
   CALL R4 1 1
-  GETIMPORT R5 K11 [require]
-  GETTABLEKS R6 R2 K14 ["CodeBlock"]
+  GETIMPORT R5 K12 [require]
+  GETTABLEKS R6 R2 K15 ["CodeBlock"]
   CALL R5 1 1
-  GETIMPORT R6 K11 [require]
-  GETTABLEKS R7 R2 K15 ["BlockTree"]
+  GETIMPORT R6 K12 [require]
+  GETTABLEKS R7 R2 K16 ["BlockTree"]
   CALL R6 1 1
-  DUPCLOSURE R7 K16 [PROTO_12]
+  DUPCLOSURE R7 K17 [PROTO_12]
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R3

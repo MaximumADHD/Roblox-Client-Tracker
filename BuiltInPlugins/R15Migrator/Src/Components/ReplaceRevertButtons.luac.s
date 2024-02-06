@@ -186,63 +186,63 @@ PROTO_7:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K9 ["UI"]
-  GETTABLEKS R5 R4 K10 ["Pane"]
-  GETTABLEKS R6 R4 K11 ["Button"]
-  GETTABLEKS R7 R1 K12 ["Util"]
-  GETTABLEKS R8 R7 K13 ["StyleModifier"]
-  GETTABLEKS R9 R7 K14 ["LayoutOrderIterator"]
-  GETTABLEKS R10 R1 K15 ["ContextServices"]
-  GETIMPORT R11 K4 [require]
-  GETTABLEKS R14 R0 K16 ["Src"]
-  GETTABLEKS R13 R14 K17 ["Contexts"]
-  GETTABLEKS R12 R13 K18 ["NetworkInterface"]
+  GETTABLEKS R4 R1 K10 ["UI"]
+  GETTABLEKS R5 R4 K11 ["Pane"]
+  GETTABLEKS R6 R4 K12 ["Button"]
+  GETTABLEKS R7 R1 K13 ["Util"]
+  GETTABLEKS R8 R7 K14 ["StyleModifier"]
+  GETTABLEKS R9 R7 K15 ["LayoutOrderIterator"]
+  GETTABLEKS R10 R1 K16 ["ContextServices"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K17 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Contexts"]
+  GETTABLEKS R12 R13 K19 ["NetworkInterface"]
   CALL R11 1 1
-  GETIMPORT R12 K4 [require]
-  GETTABLEKS R15 R0 K16 ["Src"]
-  GETTABLEKS R14 R15 K17 ["Contexts"]
-  GETTABLEKS R13 R14 K19 ["ScriptConversionContext"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K17 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Contexts"]
+  GETTABLEKS R13 R14 K20 ["ScriptConversionContext"]
   CALL R12 1 1
-  GETTABLEKS R15 R0 K16 ["Src"]
-  GETTABLEKS R14 R15 K12 ["Util"]
-  GETTABLEKS R13 R14 K20 ["AnimationConversion"]
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R15 R13 K21 ["constants"]
+  GETTABLEKS R15 R0 K17 ["Src"]
+  GETTABLEKS R14 R15 K13 ["Util"]
+  GETTABLEKS R13 R14 K21 ["AnimationConversion"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R13 K22 ["constants"]
   CALL R14 1 1
-  GETTABLEKS R15 R14 K22 ["AssetType"]
-  GETTABLEKS R17 R0 K16 ["Src"]
-  GETTABLEKS R16 R17 K23 ["Thunks"]
-  GETIMPORT R17 K4 [require]
-  GETTABLEKS R18 R16 K24 ["ConvertAnimation"]
+  GETTABLEKS R15 R14 K23 ["AssetType"]
+  GETTABLEKS R17 R0 K17 ["Src"]
+  GETTABLEKS R16 R17 K24 ["Thunks"]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R18 R16 K25 ["ConvertAnimation"]
   CALL R17 1 1
-  GETIMPORT R18 K4 [require]
-  GETTABLEKS R19 R16 K25 ["UploadTestAnimations"]
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R19 R16 K26 ["UploadTestAnimations"]
   CALL R18 1 1
-  GETTABLEKS R19 R2 K26 ["PureComponent"]
-  LOADK R21 K27 ["ReplaceRevertButtons"]
-  NAMECALL R19 R19 K28 ["extend"]
+  GETTABLEKS R19 R2 K27 ["PureComponent"]
+  LOADK R21 K28 ["ReplaceRevertButtons"]
+  NAMECALL R19 R19 K29 ["extend"]
   CALL R19 2 1
-  GETIMPORT R20 K30 [game]
-  LOADK R22 K31 ["DebugUploadTestAnimations"]
-  NAMECALL R20 R20 K32 ["GetFastFlag"]
+  GETIMPORT R20 K31 [game]
+  LOADK R22 K32 ["DebugUploadTestAnimations"]
+  NAMECALL R20 R20 K33 ["GetFastFlag"]
   CALL R20 2 1
-  DUPCLOSURE R21 K33 [PROTO_3]
+  DUPCLOSURE R21 K34 [PROTO_3]
   CAPTURE VAL R20
   CAPTURE VAL R15
   CAPTURE VAL R9
@@ -250,26 +250,26 @@ MAIN:
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R8
-  SETTABLEKS R21 R19 K34 ["render"]
-  DUPCLOSURE R21 K35 [PROTO_6]
+  SETTABLEKS R21 R19 K35 ["render"]
+  DUPCLOSURE R21 K36 [PROTO_6]
   CAPTURE VAL R17
   CAPTURE VAL R18
-  DUPCLOSURE R22 K36 [PROTO_7]
-  GETTABLEKS R23 R10 K37 ["withContext"]
-  DUPTABLE R24 K41 [{"Analytics", "Stylizer", "Localization", "NetworkInterface", "ScriptConversionContext"}]
-  GETTABLEKS R25 R10 K38 ["Analytics"]
-  SETTABLEKS R25 R24 K38 ["Analytics"]
-  GETTABLEKS R25 R10 K39 ["Stylizer"]
-  SETTABLEKS R25 R24 K39 ["Stylizer"]
-  GETTABLEKS R25 R10 K40 ["Localization"]
-  SETTABLEKS R25 R24 K40 ["Localization"]
-  SETTABLEKS R11 R24 K18 ["NetworkInterface"]
-  SETTABLEKS R12 R24 K19 ["ScriptConversionContext"]
+  DUPCLOSURE R22 K37 [PROTO_7]
+  GETTABLEKS R23 R10 K38 ["withContext"]
+  DUPTABLE R24 K42 [{"Analytics", "Stylizer", "Localization", "NetworkInterface", "ScriptConversionContext"}]
+  GETTABLEKS R25 R10 K39 ["Analytics"]
+  SETTABLEKS R25 R24 K39 ["Analytics"]
+  GETTABLEKS R25 R10 K40 ["Stylizer"]
+  SETTABLEKS R25 R24 K40 ["Stylizer"]
+  GETTABLEKS R25 R10 K41 ["Localization"]
+  SETTABLEKS R25 R24 K41 ["Localization"]
+  SETTABLEKS R11 R24 K19 ["NetworkInterface"]
+  SETTABLEKS R12 R24 K20 ["ScriptConversionContext"]
   CALL R23 1 1
   MOVE R24 R19
   CALL R23 1 1
   MOVE R19 R23
-  GETTABLEKS R23 R3 K42 ["connect"]
+  GETTABLEKS R23 R3 K43 ["connect"]
   MOVE R24 R22
   MOVE R25 R21
   CALL R23 2 1

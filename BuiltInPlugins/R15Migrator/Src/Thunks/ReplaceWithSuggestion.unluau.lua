@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("R15Migrator")
 local var1 = require(var0.Src.Actions.SetProcessResult)
 local var2 = require(var0.Src.Util.ScriptReplacement)
 return function(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)

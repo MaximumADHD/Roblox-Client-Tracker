@@ -59,7 +59,7 @@ function PublishAvatarPrompt:init()
 
 	-- Prompt can submit as long as name is valid
 	self.canSubmit = function(): boolean
-		return self.state.isNameValid
+		return self.state.isNameValid and self.props.humanoidModel ~= nil
 	end
 
 	self.onSubmit = function()
@@ -83,7 +83,7 @@ function PublishAvatarPrompt:init()
 end
 
 function PublishAvatarPrompt:renderPromptBody()
-	-- Note it's nice to use LocalPlayer.Character.Humanoid.HumanoidDescription for debugging
+	local isLoading = self.props.humanoidModel == nil
 	return Roact.createFragment({
 		UIListLayout = Roact.createElement("UIListLayout", {
 			Padding = PADDING,
@@ -98,16 +98,19 @@ function PublishAvatarPrompt:renderPromptBody()
 		EmbeddedPreview = Roact.createElement(ObjectViewport, {
 			openPreviewView = self.openPreviewView,
 			model = self.props.humanoidModel,
+			isLoading = isLoading,
 			useFullBodyCameraSettings = true,
 			fieldOfView = CAMERA_FOV,
 			LayoutOrder = 1,
 		}),
-		AvatarPartGrid = Roact.createElement(AvatarPartGrid, {
-			humanoidModel = self.props.humanoidModel,
-			name = self.state.name,
-			LayoutOrder = 2,
-			screenSize = self.props.screenSize,
-		}),
+		AvatarPartGrid = if not isLoading
+			then Roact.createElement(AvatarPartGrid, {
+				humanoidModel = self.props.humanoidModel,
+				name = self.state.name,
+				LayoutOrder = 2,
+				screenSize = self.props.screenSize,
+			})
+			else nil,
 	})
 end
 

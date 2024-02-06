@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent.Src.Actions
+local var0 = script:FindFirstAncestor("R15Migrator").Src.Actions
 local var1 = require(var0.ResetAllAnimationConversion)
 local var2 = require(var0.ResetAllCharacterConversion)
 local var3 = require(var0.ResetAllScriptConversion)

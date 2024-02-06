@@ -169,62 +169,62 @@ PROTO_3:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
   CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Packages"]
-  GETTABLEKS R5 R6 K9 ["Dash"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Dash"]
   CALL R4 1 1
-  GETTABLEKS R5 R4 K10 ["join"]
-  GETTABLEKS R6 R4 K11 ["keys"]
-  GETTABLEKS R7 R1 K12 ["ContextServices"]
-  GETTABLEKS R8 R1 K13 ["UI"]
-  GETTABLEKS R9 R8 K14 ["SimpleExpandablePane"]
-  GETTABLEKS R10 R8 K15 ["Pane"]
-  GETTABLEKS R11 R8 K16 ["TextLabel"]
-  GETTABLEKS R12 R1 K17 ["Util"]
-  GETTABLEKS R13 R12 K18 ["LayoutOrderIterator"]
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R17 R0 K19 ["Src"]
-  GETTABLEKS R16 R17 K20 ["Components"]
-  GETTABLEKS R15 R16 K21 ["ScriptIssueTreeView"]
+  GETTABLEKS R5 R4 K11 ["join"]
+  GETTABLEKS R6 R4 K12 ["keys"]
+  GETTABLEKS R7 R1 K13 ["ContextServices"]
+  GETTABLEKS R8 R1 K14 ["UI"]
+  GETTABLEKS R9 R8 K15 ["SimpleExpandablePane"]
+  GETTABLEKS R10 R8 K16 ["Pane"]
+  GETTABLEKS R11 R8 K17 ["TextLabel"]
+  GETTABLEKS R12 R1 K18 ["Util"]
+  GETTABLEKS R13 R12 K19 ["LayoutOrderIterator"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K20 ["Src"]
+  GETTABLEKS R16 R17 K21 ["Components"]
+  GETTABLEKS R15 R16 K22 ["ScriptIssueTreeView"]
   CALL R14 1 1
-  GETIMPORT R15 K4 [require]
-  GETTABLEKS R18 R0 K19 ["Src"]
-  GETTABLEKS R17 R18 K20 ["Components"]
-  GETTABLEKS R16 R17 K22 ["ScriptConversionPaneHeader"]
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K20 ["Src"]
+  GETTABLEKS R17 R18 K21 ["Components"]
+  GETTABLEKS R16 R17 K23 ["ScriptConversionPaneHeader"]
   CALL R15 1 1
-  GETIMPORT R16 K4 [require]
-  GETTABLEKS R19 R0 K19 ["Src"]
-  GETTABLEKS R18 R19 K20 ["Components"]
-  GETTABLEKS R17 R18 K23 ["ScriptConversionPaneFooter"]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K20 ["Src"]
+  GETTABLEKS R18 R19 K21 ["Components"]
+  GETTABLEKS R17 R18 K24 ["ScriptConversionPaneFooter"]
   CALL R16 1 1
-  GETTABLEKS R17 R2 K24 ["PureComponent"]
-  LOADK R19 K25 ["ScriptConversionExpandablePane"]
-  NAMECALL R17 R17 K26 ["extend"]
+  GETTABLEKS R17 R2 K25 ["PureComponent"]
+  LOADK R19 K26 ["ScriptConversionExpandablePane"]
+  NAMECALL R17 R17 K27 ["extend"]
   CALL R17 2 1
-  DUPCLOSURE R18 K27 [PROTO_1]
+  DUPCLOSURE R18 K28 [PROTO_1]
   CAPTURE VAL R6
   CAPTURE VAL R2
   CAPTURE VAL R10
   CAPTURE VAL R5
   CAPTURE VAL R11
-  SETTABLEKS R18 R17 K28 ["init"]
-  DUPCLOSURE R18 K29 [PROTO_2]
+  SETTABLEKS R18 R17 K29 ["init"]
+  DUPCLOSURE R18 K30 [PROTO_2]
   CAPTURE VAL R13
   CAPTURE VAL R2
   CAPTURE VAL R9
@@ -232,19 +232,19 @@ MAIN:
   CAPTURE VAL R15
   CAPTURE VAL R14
   CAPTURE VAL R16
-  SETTABLEKS R18 R17 K30 ["render"]
-  GETTABLEKS R18 R7 K31 ["withContext"]
-  DUPTABLE R19 K34 [{"Stylizer", "Localization"}]
-  GETTABLEKS R20 R7 K32 ["Stylizer"]
-  SETTABLEKS R20 R19 K32 ["Stylizer"]
-  GETTABLEKS R20 R7 K33 ["Localization"]
-  SETTABLEKS R20 R19 K33 ["Localization"]
+  SETTABLEKS R18 R17 K31 ["render"]
+  GETTABLEKS R18 R7 K32 ["withContext"]
+  DUPTABLE R19 K35 [{"Stylizer", "Localization"}]
+  GETTABLEKS R20 R7 K33 ["Stylizer"]
+  SETTABLEKS R20 R19 K33 ["Stylizer"]
+  GETTABLEKS R20 R7 K34 ["Localization"]
+  SETTABLEKS R20 R19 K34 ["Localization"]
   CALL R18 1 1
   MOVE R19 R17
   CALL R18 1 1
   MOVE R17 R18
-  DUPCLOSURE R18 K35 [PROTO_3]
-  GETTABLEKS R19 R3 K36 ["connect"]
+  DUPCLOSURE R18 K36 [PROTO_3]
+  GETTABLEKS R19 R3 K37 ["connect"]
   MOVE R20 R18
   CALL R19 1 1
   MOVE R20 R17

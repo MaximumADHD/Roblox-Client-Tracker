@@ -12,6 +12,7 @@ local withStyle = UIBlox.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local t = require(CorePackages.Packages.t)
 local UIBloxImages = UIBlox.App.ImageSet.Images
+local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
 local CameraUtility = require(CorePackages.Thumbnailing).CameraUtility
@@ -32,8 +33,9 @@ local DROP_SHADOW_POSITION = UDim2.new(0.5, 0, 1, 0)
 local ObjectViewport = Roact.PureComponent:extend("ObjectViewport")
 
 ObjectViewport.validateProps = t.strictInterface({
-	model = t.instanceOf("Model"),
+	model = t.optional(t.instanceOf("Model")),
 	fieldOfView = t.optional(t.number),
+	isLoading = t.optional(t.boolean),
 	-- Consider changing how we determine the camera view if other assets need different behavior
 	useFullBodyCameraSettings = t.optional(t.boolean),
 	openPreviewView = t.optional(t.callback),
@@ -101,65 +103,85 @@ end
 function ObjectViewport:didMount()
 	self.isMounted = true
 	task.spawn(function()
-		self:setupViewport()
+		if not self.props.isLoading then
+			self:setupViewport()
+		end
 	end)
+end
+
+function ObjectViewport:didUpdate(prevProps)
+	local shouldSetupViewport = prevProps.isLoading and not self.props.isLoading
+	if shouldSetupViewport then
+		task.spawn(function()
+			self:setupViewport()
+		end)
+	end
 end
 
 function ObjectViewport:render()
 	return withStyle(function(style)
 		local theme = style.Theme
-		return Roact.createElement("Frame", {
-			BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-			BackgroundTransparency = 0,
-			-- Extend X width due to padding in BasePublishPrompt to make the gradient take the whole prompt width
-			Size = UDim2.new(1, Constants.PromptSidePadding * 2, 0, VIEWPORT_HEIGHT),
-			Position = UDim2.fromScale(0.5, 0.5),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			LayoutOrder = self.props.LayoutOrder,
-		}, {
-			ViewportFrame = Roact.createElement("ViewportFrame", {
-				BackgroundTransparency = 1,
-				Size = UDim2.fromScale(1, 1),
+		if not self.props.isLoading then
+			return Roact.createElement("Frame", {
+				BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+				BackgroundTransparency = 0,
+				-- Extend X width due to padding in BasePublishPrompt to make the gradient take the whole prompt width
+				Size = UDim2.new(1, Constants.PromptSidePadding * 2, 0, VIEWPORT_HEIGHT),
 				Position = UDim2.fromScale(0.5, 0.5),
 				AnchorPoint = Vector2.new(0.5, 0.5),
-				LightColor = Constants.ViewportLightColor,
-				Ambient = Constants.ViewportLightAmbient,
-				LightDirection = Constants.ViewportLightDirection,
-				CurrentCamera = self.camera,
+				LayoutOrder = self.props.LayoutOrder,
 			}, {
-				WorldModel = Roact.createElement("WorldModel", {
-					[Roact.Ref] = self.worldModelRef,
+				ViewportFrame = Roact.createElement("ViewportFrame", {
+					BackgroundTransparency = 1,
+					Size = UDim2.fromScale(1, 1),
+					Position = UDim2.fromScale(0.5, 0.5),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					LightColor = Constants.ViewportLightColor,
+					Ambient = Constants.ViewportLightAmbient,
+					LightDirection = Constants.ViewportLightDirection,
+					CurrentCamera = self.camera,
+				}, {
+					WorldModel = Roact.createElement("WorldModel", {
+						[Roact.Ref] = self.worldModelRef,
+					}),
 				}),
-			}),
-			ExpandPreviewButton = self.props.openPreviewView and Roact.createElement(IconButton, {
-				position = UDim2.new(1, -Constants.PromptSidePadding, 1, 0),
-				anchorPoint = Vector2.new(1, 1),
-				icon = PreviewExpandIcon,
-				iconSize = IconSize.Medium,
-				onActivated = self.props.openPreviewView,
-			}),
-			Gradient = Roact.createElement("UIGradient", {
-				Rotation = 90,
-				Color = ColorSequence.new({
-					ColorSequenceKeypoint.new(0, theme.BackgroundMuted.Color),
-					ColorSequenceKeypoint.new(1, theme.BackgroundMuted.Color),
+				ExpandPreviewButton = self.props.openPreviewView and Roact.createElement(IconButton, {
+					position = UDim2.new(1, -Constants.PromptSidePadding, 1, 0),
+					anchorPoint = Vector2.new(1, 1),
+					icon = PreviewExpandIcon,
+					iconSize = IconSize.Medium,
+					onActivated = self.props.openPreviewView,
 				}),
-				Transparency = NumberSequence.new({
-					NumberSequenceKeypoint.new(0, 1),
-					NumberSequenceKeypoint.new(0.7, 0.75),
-					NumberSequenceKeypoint.new(1, 1),
+				Gradient = Roact.createElement("UIGradient", {
+					Rotation = 90,
+					Color = ColorSequence.new({
+						ColorSequenceKeypoint.new(0, theme.BackgroundMuted.Color),
+						ColorSequenceKeypoint.new(1, theme.BackgroundMuted.Color),
+					}),
+					Transparency = NumberSequence.new({
+						NumberSequenceKeypoint.new(0, 1),
+						NumberSequenceKeypoint.new(0.7, 0.75),
+						NumberSequenceKeypoint.new(1, 1),
+					}),
 				}),
-			}),
-			DropShadow = Roact.createElement(ImageSetLabel, {
-				Position = DROP_SHADOW_POSITION,
-				AnchorPoint = Vector2.new(0.5, 1),
-				Image = DropShadow,
-				BackgroundTransparency = 1,
-				ImageTransparency = 0.5,
-				Size = DROP_SHADOW_SIZE,
-				ZIndex = 0,
-			}),
-		})
+				DropShadow = Roact.createElement(ImageSetLabel, {
+					Position = DROP_SHADOW_POSITION,
+					AnchorPoint = Vector2.new(0.5, 1),
+					Image = DropShadow,
+					BackgroundTransparency = 1,
+					ImageTransparency = 0.5,
+					Size = DROP_SHADOW_SIZE,
+					ZIndex = 0,
+				}),
+			})
+		else
+			return Roact.createElement(ShimmerPanel, {
+				Size = UDim2.new(1, Constants.PromptSidePadding * 2, 0, VIEWPORT_HEIGHT),
+				Position = UDim2.fromScale(0.5, 0.5),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				LayoutOrder = self.props.LayoutOrder,
+			})
+		end
 	end)
 end
 

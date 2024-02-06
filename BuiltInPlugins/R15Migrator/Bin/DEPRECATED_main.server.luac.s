@@ -11,19 +11,20 @@ MAIN:
   GETTABLEKS R2 R3 K8 ["Parent"]
   GETTABLEKS R1 R2 K9 ["main"]
   CALL R0 1 1
-  GETIMPORT R3 K7 [script]
-  GETTABLEKS R2 R3 K8 ["Parent"]
-  GETTABLEKS R1 R2 K8 ["Parent"]
+  GETIMPORT R1 K7 [script]
+  LOADK R3 K10 ["R15Migrator"]
+  NAMECALL R1 R1 K11 ["FindFirstAncestor"]
+  CALL R1 2 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R1 K10 ["Src"]
-  GETTABLEKS R4 R5 K11 ["Util"]
-  GETTABLEKS R3 R4 K12 ["shouldPluginRun"]
+  GETTABLEKS R5 R1 K12 ["Src"]
+  GETTABLEKS R4 R5 K13 ["Util"]
+  GETTABLEKS R3 R4 K14 ["shouldPluginRun"]
   CALL R2 1 1
   MOVE R3 R2
   CALL R3 0 1
   JUMPIF R3 [+1]
   RETURN R0 0
   MOVE R3 R0
-  GETIMPORT R4 K14 [plugin]
+  GETIMPORT R4 K16 [plugin]
   CALL R3 1 0
   RETURN R0 0
