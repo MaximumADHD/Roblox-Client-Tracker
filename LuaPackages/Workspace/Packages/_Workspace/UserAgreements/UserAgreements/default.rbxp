@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UserAgreements",
+    "tree": {
+      "$path": "../../../../../../../modules/user-agreements/src"
+    }
+  }
+}

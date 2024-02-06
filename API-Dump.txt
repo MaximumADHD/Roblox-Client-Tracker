@@ -954,6 +954,7 @@ Class ClickDetector : Instance
 Class DragDetector : ClickDetector
 	Property DragDetector.DragStyle: Enum.DragDetectorDragStyle
 	Property DragDetector.Enabled: boolean
+	Property DragDetector.PermissionPolicy: Enum.DragDetectorPermissionPolicy
 	Property DragDetector.ResponseStyle: Enum.DragDetectorResponseStyle
 	Property DragDetector.RunLocally: boolean
 	Property DragDetector.TrackballRadialPullFactor: number
@@ -985,6 +986,7 @@ Class DragDetector : ClickDetector
 	Function DragDetector:GetReferenceFrame() -> CFrame
 	Function DragDetector:RestartDrag() -> ()
 	Function DragDetector:SetDragStyleFunction(function: (...any) -> ...any) -> ()
+	Function DragDetector:SetPermissionPolicyFunction(function: (...any) -> ...any) -> ()
 	Event DragDetector.DragContinue(playerWhoDragged: Player, cursorRay: Ray, viewFrame: CFrame, vrInputFrame: CFrame?, isModeSwitchKeyDown: boolean)
 	Event DragDetector.DragEnd(playerWhoDragged: Player)
 	Event DragDetector.DragStart(playerWhoDragged: Player, cursorRay: Ray, viewFrame: CFrame, hitFrame: CFrame, clickedPart: BasePart, vrInputFrame: CFrame?, isModeSwitchKeyDown: boolean)
@@ -995,16 +997,17 @@ Class Clouds : Instance
 	Property Clouds.Enabled: boolean
 Class ClusterPacketCache : Instance [NotCreatable] [Service] [NotReplicated]
 Class Collaborator : Instance [NotCreatable]
-	Property Collaborator.CFrame: CFrame
-	Property Collaborator.CollaboratorColor: number
-	Property Collaborator.CurDocGUID: string
-	Property Collaborator.CurScriptLineNumber: number
-	Property Collaborator.IsIdle: boolean
-	Property Collaborator.Status: Enum.CollaboratorStatus [Hidden] [NotScriptable]
-	Property Collaborator.UserId: number
-	Property Collaborator.Username: string
+	Property Collaborator.CFrame: CFrame [Hidden]
+	Property Collaborator.CollaboratorColor: number [Hidden]
+	Property Collaborator.CurDocGUID: string [Hidden]
+	Property Collaborator.CurScriptLineNumber: number [Hidden]
+	Property Collaborator.IsIdle: boolean [Hidden]
+	Property Collaborator.Status: Enum.CollaboratorStatus [Hidden]
+	Property Collaborator.UserId: number [Hidden]
+	Property Collaborator.Username: string [Hidden]
 Class CollaboratorsService : Instance [NotCreatable] [Service]
 	Function CollaboratorsService:GetCollaboratorsList() -> { Instance } {RobloxScriptSecurity}
+	Function CollaboratorsService:RequestFlyToCollaborator(collaboratorId: number) -> () {RobloxScriptSecurity}
 	Event CollaboratorsService.CollaboratorIdleUpdate(collaboratorId: number, isIdle: boolean) {RobloxScriptSecurity}
 	Event CollaboratorsService.CollaboratorInstanceCreatedSignal(collaboratorId: number) {RobloxScriptSecurity}
 	Event CollaboratorsService.CollaboratorInstanceDestroyedSignal(collaboratorId: number) {RobloxScriptSecurity}
@@ -1117,7 +1120,7 @@ Class HingeConstraint : Constraint
 	Property HingeConstraint.AngularResponsiveness: number
 	Property HingeConstraint.AngularSpeed: number
 	Property HingeConstraint.ServoMaxTorque: number
-	Property HingeConstraint.SoftlockServoUponReachingTarget: boolean
+	Property HingeConstraint.SoftlockServoUponReachingTarget: boolean [Deprecated]
 	Property HingeConstraint.TargetAngle: number
 Class LineForce : Constraint
 	Property LineForce.ApplyAtCenterOfMass: boolean
@@ -1170,7 +1173,7 @@ Class SlidingBallConstraint : Constraint [NotCreatable]
 	Property SlidingBallConstraint.Velocity: number
 	Property SlidingBallConstraint.LinearResponsiveness: number
 	Property SlidingBallConstraint.ServoMaxForce: number
-	Property SlidingBallConstraint.SoftlockServoUponReachingTarget: boolean
+	Property SlidingBallConstraint.SoftlockServoUponReachingTarget: boolean [Deprecated]
 	Property SlidingBallConstraint.Speed: number
 	Property SlidingBallConstraint.TargetPosition: number
 	Property SlidingBallConstraint.ActuatorType: Enum.ActuatorType
@@ -1185,7 +1188,7 @@ Class CylindricalConstraint : SlidingBallConstraint
 	Property CylindricalConstraint.AngularResponsiveness: number
 	Property CylindricalConstraint.AngularSpeed: number
 	Property CylindricalConstraint.ServoMaxTorque: number
-	Property CylindricalConstraint.SoftlockAngularServoUponReachingTarget: boolean
+	Property CylindricalConstraint.SoftlockAngularServoUponReachingTarget: boolean [Deprecated]
 	Property CylindricalConstraint.TargetAngle: number
 	Property CylindricalConstraint.RotationAxisVisible: boolean
 	Property CylindricalConstraint.AngularActuatorType: Enum.ActuatorType
@@ -1414,8 +1417,6 @@ Class DataModelSession : Instance [NotCreatable]
 	Property DataModelSession.SessionId: string {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Event DataModelSession.CurrentDataModelTypeAboutToChange(dataModelType: Enum.StudioDataModelType) {RobloxScriptSecurity}
 	Event DataModelSession.CurrentDataModelTypeChanged() {RobloxScriptSecurity}
-	Event DataModelSession.DataModelCreated(gameStateType: Enum.StudioDataModelType) {RobloxScriptSecurity}
-	Event DataModelSession.DataModelWillBeDestroyed(gameStateType: Enum.StudioDataModelType) {RobloxScriptSecurity}
 Class DataStoreGetOptions : Instance [NotReplicated]
 	Property DataStoreGetOptions.UseCache: boolean
 Class DataStoreIncrementOptions : Instance [NotReplicated]
@@ -2352,13 +2353,17 @@ Class Path2D : GuiBase [NotReplicated]
 	Property Path2D.Visible: boolean {RobloxScriptSecurity}
 	Property Path2D.ZIndex: number {RobloxScriptSecurity}
 	Function Path2D:GetBoundingRect2D() -> Rect {RobloxScriptSecurity}
+	Function Path2D:GetControlPoint(index: number) -> Path2DControlPoint {RobloxScriptSecurity}
 	Function Path2D:GetControlPoints() -> { any } {RobloxScriptSecurity}
 	Function Path2D:GetPositionOnCurve(t: number) -> UDim2 {RobloxScriptSecurity}
 	Function Path2D:GetPositionOnCurveArcLength(t: number) -> UDim2 {RobloxScriptSecurity}
 	Function Path2D:GetSegmentCount() -> number {RobloxScriptSecurity}
 	Function Path2D:GetTangentOnCurve(t: number) -> Vector2 {RobloxScriptSecurity}
 	Function Path2D:GetTangentOnCurveArcLength(t: number) -> Vector2 {RobloxScriptSecurity}
+	Function Path2D:InsertControlPoint(index: number, point: Path2DControlPoint) -> () {RobloxScriptSecurity}
+	Function Path2D:RemoveControlPoint(index: number) -> () {RobloxScriptSecurity}
 	Function Path2D:SetControlPoints(controlPoints: { any }) -> () {RobloxScriptSecurity}
+	Function Path2D:UpdateControlPoint(index: number, point: Path2DControlPoint) -> () {RobloxScriptSecurity}
 Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GuiService.AutoSelectGuiEnabled: boolean
 	Property GuiService.CoreEffectFolder: Folder? {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -3920,6 +3925,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property PhysicsSettings.ShowFluidForcesForSelectedOrHoveredMechanisms: boolean {RobloxScriptSecurity}
 	Property PhysicsSettings.SolverConvergenceMetricType: Enum.SolverConvergenceMetricType {RobloxScriptSecurity}
 	Property PhysicsSettings.SolverConvergenceVisualizationMode: Enum.SolverConvergenceVisualizationMode {RobloxScriptSecurity}
+	Property PhysicsSettings.TorqueDrawScale: number {RobloxScriptSecurity}
 	Property PhysicsSettings.UseCSGv2: boolean
 	Property PhysicsSettings.AllowSleep: boolean
 	Property PhysicsSettings.PhysicsEnvironmentalThrottle: Enum.EnviromentalPhysicsThrottle
@@ -4035,6 +4041,7 @@ Class Player : Instance
 	Function Player:SetAccountAge(accountAge: number) -> () {PluginSecurity}
 	Function Player:SetBlockListInitialized() -> () {RobloxScriptSecurity}
 	Function Player:SetCharacterAppearanceJson(jsonBlob: string) -> () {RobloxScriptSecurity}
+	Function Player:SetChatTranslationSettingsLocaleId(locale: string) -> () {RobloxScriptSecurity}
 	Function Player:SetExperienceSettingsLocaleId(locale: string) -> () {RobloxScriptSecurity}
 	Function Player:SetMembershipType(membershipType: Enum.MembershipType) -> () {RobloxScriptSecurity}
 	Function Player:SetModerationAccessKey(moderationAccessKey: string) -> () {RobloxScriptSecurity}
@@ -4053,6 +4060,7 @@ Class Player : Instance
 	Event Player.Kill() {LocalUserSecurity} [Hidden]
 	Event Player.OnTeleport(teleportState: Enum.TeleportState, placeId: number, spawnName: string)
 	Event Player.OnTeleportInternal(teleportState: Enum.TeleportState, teleportInfo: { [string]: any }, customLoadingScreen: Instance) {RobloxSecurity} [Hidden]
+	Event Player.PlayerChatTranslationSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
 	Event Player.PlayerExperienceSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
 	Event Player.ReceivedJoinTelemetry(details: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event Player.RemoteFriendRequestSignal(otherUserId: number, eventType: Enum.FriendRequestEvent) {RobloxScriptSecurity} [Hidden]
@@ -5058,6 +5066,16 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.CameraAdaptiveSpeed: boolean {RobloxScriptSecurity}
 	Property Studio.CameraTweenFocus: boolean {RobloxScriptSecurity}
 	Property Studio.FreeCameraSpeedScroll: boolean {RobloxScriptSecurity}
+	Property Studio.DraggerActiveColor: Color3 {RobloxScriptSecurity}
+	Property Studio.DraggerMajorGridIncrement: number {RobloxScriptSecurity}
+	Property Studio.DraggerMaxSoftSnaps: number {RobloxScriptSecurity}
+	Property Studio.DraggerPassiveColor: Color3 {RobloxScriptSecurity}
+	Property Studio.DraggerShowHoverRuler: boolean {RobloxScriptSecurity}
+	Property Studio.DraggerShowMeasurement: boolean {RobloxScriptSecurity}
+	Property Studio.DraggerShowTargetSnap: boolean {RobloxScriptSecurity}
+	Property Studio.DraggerSoftSnapMarginFactor: number {RobloxScriptSecurity}
+	Property Studio.DraggerSummonMarginFactor: number {RobloxScriptSecurity}
+	Property Studio.DraggerTiltRotateDuration: number {RobloxScriptSecurity}
 	Property Studio.DefaultScriptFileDir: QDir
 	Property Studio.IconOverrideDir: QDir {RobloxScriptSecurity}
 	Property Studio.LocalAssetsFolder: QDir {✏️RobloxScriptSecurity}
@@ -5845,6 +5863,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property UserGameSettings.ComputerCameraMovementChanged: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property UserGameSettings.ComputerMovementChanged: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property UserGameSettings.DefaultCameraID: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property UserGameSettings.FramerateCap: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.Fullscreen: boolean {RobloxScriptSecurity}
 	Property UserGameSettings.GamepadCameraSensitivity: number
 	Property UserGameSettings.HasEverUsedVR: boolean {RobloxScriptSecurity}
@@ -7022,6 +7041,10 @@ Enum DragDetectorDragStyle
 	EnumItem DragDetectorDragStyle.RotateTrackball : 6
 	EnumItem DragDetectorDragStyle.Scriptable : 7
 	EnumItem DragDetectorDragStyle.BestForDevice : 8
+Enum DragDetectorPermissionPolicy
+	EnumItem DragDetectorPermissionPolicy.Nobody : 0
+	EnumItem DragDetectorPermissionPolicy.Everybody : 1
+	EnumItem DragDetectorPermissionPolicy.Scriptable : 2
 Enum DragDetectorResponseStyle
 	EnumItem DragDetectorResponseStyle.Geometric : 0
 	EnumItem DragDetectorResponseStyle.Physical : 1

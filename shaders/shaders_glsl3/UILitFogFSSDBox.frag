@@ -23,102 +23,100 @@ out vec4 _entryPointOutput;
 void main()
 {
     vec4 f0;
-    do
+    if (CB2[0].y < 0.5)
     {
-        if (CB2[0].y < 0.5)
+        f0 = texture(DiffuseMapTexture, VARYING0);
+    }
+    else
+    {
+        vec4 f1;
+        if (CB2[0].y < 1.5)
         {
-            f0 = texture(DiffuseMapTexture, VARYING0);
-            break;
+            f1 = vec4(1.0, 1.0, 1.0, texture(DiffuseMapTexture, VARYING0).x);
         }
         else
         {
-            if (CB2[0].y < 1.5)
+            vec4 f2;
+            if (CB2[0].y < 2.5)
             {
-                f0 = vec4(1.0, 1.0, 1.0, texture(DiffuseMapTexture, VARYING0).x);
-                break;
+                vec4 f3 = texture(DiffuseMapTexture, VARYING0);
+                float f4 = f3.w;
+                vec3 f5 = f3.xyz / vec3(f4);
+                bvec3 f6 = bvec3(f4 == 0.0);
+                f2 = vec4(vec3(f6.x ? vec3(0.0).x : f5.x, f6.y ? vec3(0.0).y : f5.y, f6.z ? vec3(0.0).z : f5.z), f4);
             }
             else
             {
-                if (CB2[0].y < 2.5)
+                vec4 f7;
+                if (CB2[0].y < 3.5)
                 {
-                    vec4 f1 = texture(DiffuseMapTexture, VARYING0);
-                    float f2 = f1.w;
-                    vec3 f3 = f1.xyz / vec3(f2);
-                    bvec3 f4 = bvec3(f2 == 0.0);
-                    f0 = vec4(vec3(f4.x ? vec3(0.0).x : f3.x, f4.y ? vec3(0.0).y : f3.y, f4.z ? vec3(0.0).z : f3.z), f2);
-                    break;
+                    float f8 = VARYING0.x * 0.5;
+                    float f9 = VARYING0.y * 0.3333333432674407958984375;
+                    vec2 f10 = vec2(f8, f9);
+                    vec2 f11 = f10;
+                    f11.y = f9 + 0.666666686534881591796875;
+                    vec2 f12 = f10;
+                    f12.x = f8 + 0.5;
+                    vec2 f13 = f12;
+                    f13.y = f9 + 0.666666686534881591796875;
+                    f7 = vec4((vec4(texture(DiffuseMapTexture, vec2(VARYING0.x, VARYING0.y * 0.666666686534881591796875)).x, texture(DiffuseMapTexture, f11).x, texture(DiffuseMapTexture, f13).x, 1.0) * mat4(vec4(1.16429996490478515625, 0.0, 1.59580004215240478515625, -0.8705999851226806640625), vec4(1.16429996490478515625, -0.391730010509490966796875, -0.812900006771087646484375, 0.52960002422332763671875), vec4(1.16429996490478515625, 2.0169999599456787109375, 0.0, -1.0813000202178955078125), vec4(0.0, 0.0, 0.0, 1.0))).xyz, 1.0);
                 }
                 else
                 {
-                    if (CB2[0].y < 3.5)
-                    {
-                        float f5 = VARYING0.x * 0.5;
-                        float f6 = VARYING0.y * 0.3333333432674407958984375;
-                        vec2 f7 = vec2(f5, f6);
-                        vec2 f8 = f7;
-                        f8.y = f6 + 0.666666686534881591796875;
-                        vec2 f9 = f7;
-                        f9.x = f5 + 0.5;
-                        vec2 f10 = f9;
-                        f10.y = f6 + 0.666666686534881591796875;
-                        f0 = vec4((vec4(texture(DiffuseMapTexture, vec2(VARYING0.x, VARYING0.y * 0.666666686534881591796875)).x, texture(DiffuseMapTexture, f8).x, texture(DiffuseMapTexture, f10).x, 1.0) * mat4(vec4(1.16429996490478515625, 0.0, 1.59580004215240478515625, -0.8705999851226806640625), vec4(1.16429996490478515625, -0.391730010509490966796875, -0.812900006771087646484375, 0.52960002422332763671875), vec4(1.16429996490478515625, 2.0169999599456787109375, 0.0, -1.0813000202178955078125), vec4(0.0, 0.0, 0.0, 1.0))).xyz, 1.0);
-                        break;
-                    }
-                    else
-                    {
-                        f0 = texture(DiffuseMapTexture, VARYING0);
-                        break;
-                    }
+                    f7 = texture(DiffuseMapTexture, VARYING0);
                 }
+                f2 = f7;
             }
+            f1 = f2;
         }
-    } while(false);
-    vec4 f11 = VARYING1 * f0;
-    vec2 f12 = abs(vec2((VARYING0.x * CB3[0].x) + CB3[0].y, (VARYING0.y * CB3[0].z) + CB3[0].w)) - CB3[1].xy;
-    float f13 = length(max(f12, vec2(0.0))) + min(max(f12.x, f12.y), 0.0);
-    float f14 = (f11.w * clamp(CB3[1].z - f13, 0.0, 1.0)) * clamp(f13 - CB3[1].w, 0.0, 1.0);
-    vec4 f15 = f11;
-    f15.w = f14;
-    vec4 f16 = f15;
-    f16.w = f14;
-    vec3 f17 = f16.xyz * f16.xyz;
-    vec4 f18 = f16;
-    f18.x = f17.x;
+        f0 = f1;
+    }
+    vec4 f14 = VARYING1 * f0;
+    vec2 f15 = abs(vec2((VARYING0.x * CB3[0].x) + CB3[0].y, (VARYING0.y * CB3[0].z) + CB3[0].w)) - CB3[1].xy;
+    float f16 = length(max(f15, vec2(0.0))) + min(max(f15.x, f15.y), 0.0);
+    float f17 = (f14.w * clamp(CB3[1].z - f16, 0.0, 1.0)) * clamp(f16 - CB3[1].w, 0.0, 1.0);
+    vec4 f18 = f14;
+    f18.w = f17;
     vec4 f19 = f18;
-    f19.y = f17.y;
-    vec4 f20 = f19;
-    f20.z = f17.z;
-    float f21 = clamp(dot(step(CB0[24].xyz, abs(VARYING3 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
-    vec3 f22 = VARYING3.yzx - (VARYING3.yzx * f21);
-    vec4 f23 = vec4(clamp(f21, 0.0, 1.0));
-    vec4 f24 = mix(texture(LightMapTexture, f22), vec4(0.0), f23);
-    vec4 f25 = mix(texture(LightGridSkylightTexture, f22), vec4(1.0), f23);
-    vec4 f26 = texture(ShadowMapTexture, VARYING4.xy);
-    vec3 f27 = mix(f20.xyz * CB2[0].w, (min((f24.xyz * (f24.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f25.x)), vec3(CB0[21].w)) + (VARYING2 * ((1.0 - ((step(f26.x, VARYING4.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING4.z - 0.5)), 0.0, 1.0)) * f26.y)) * f25.y))) * f20.xyz, vec3(CB2[0].z));
-    vec4 f28 = f20;
-    f28.x = f27.x;
-    vec4 f29 = f28;
-    f29.y = f27.y;
-    vec4 f30 = f29;
-    f30.z = f27.z;
-    float f31 = clamp(exp2((CB0[18].z * length(VARYING5)) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
-    vec3 f32 = textureLod(PrefilteredEnvTexture, vec4(-VARYING5, 0.0).xyz, max(CB0[18].y, f31) * 5.0).xyz;
-    bvec3 f33 = bvec3(!(CB0[18].w == 0.0));
-    vec3 f34 = mix(vec3(f33.x ? CB0[19].xyz.x : f32.x, f33.y ? CB0[19].xyz.y : f32.y, f33.z ? CB0[19].xyz.z : f32.z), f30.xyz, vec3(f31));
-    vec4 f35 = f30;
-    f35.x = f34.x;
-    vec4 f36 = f35;
-    f36.y = f34.y;
-    vec4 f37 = f36;
-    f37.z = f34.z;
-    vec3 f38 = sqrt(clamp(f37.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
-    vec4 f39 = f37;
-    f39.x = f38.x;
+    f19.w = f17;
+    vec3 f20 = f19.xyz * f19.xyz;
+    vec4 f21 = f19;
+    f21.x = f20.x;
+    vec4 f22 = f21;
+    f22.y = f20.y;
+    vec4 f23 = f22;
+    f23.z = f20.z;
+    float f24 = clamp(dot(step(CB0[24].xyz, abs(VARYING3 - CB0[23].xyz)), vec3(1.0)), 0.0, 1.0);
+    vec3 f25 = VARYING3.yzx - (VARYING3.yzx * f24);
+    vec4 f26 = vec4(clamp(f24, 0.0, 1.0));
+    vec4 f27 = mix(texture(LightMapTexture, f25), vec4(0.0), f26);
+    vec4 f28 = mix(texture(LightGridSkylightTexture, f25), vec4(1.0), f26);
+    vec4 f29 = texture(ShadowMapTexture, VARYING4.xy);
+    vec3 f30 = mix(f23.xyz * CB2[0].w, (min((f27.xyz * (f27.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f28.x)), vec3(CB0[21].w)) + (VARYING2 * ((1.0 - ((step(f29.x, VARYING4.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING4.z - 0.5)), 0.0, 1.0)) * f29.y)) * f28.y))) * f23.xyz, vec3(CB2[0].z));
+    vec4 f31 = f23;
+    f31.x = f30.x;
+    vec4 f32 = f31;
+    f32.y = f30.y;
+    vec4 f33 = f32;
+    f33.z = f30.z;
+    float f34 = clamp(exp2((CB0[18].z * length(VARYING5)) + CB0[18].x) - CB0[18].w, 0.0, 1.0);
+    vec3 f35 = textureLod(PrefilteredEnvTexture, vec4(-VARYING5, 0.0).xyz, max(CB0[18].y, f34) * 5.0).xyz;
+    bvec3 f36 = bvec3(!(CB0[18].w == 0.0));
+    vec3 f37 = mix(vec3(f36.x ? CB0[19].xyz.x : f35.x, f36.y ? CB0[19].xyz.y : f35.y, f36.z ? CB0[19].xyz.z : f35.z), f33.xyz, vec3(f34));
+    vec4 f38 = f33;
+    f38.x = f37.x;
+    vec4 f39 = f38;
+    f39.y = f37.y;
     vec4 f40 = f39;
-    f40.y = f38.y;
-    vec4 f41 = f40;
-    f41.z = f38.z;
-    _entryPointOutput = f41;
+    f40.z = f37.z;
+    vec3 f41 = sqrt(clamp(f40.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
+    vec4 f42 = f40;
+    f42.x = f41.x;
+    vec4 f43 = f42;
+    f43.y = f41.y;
+    vec4 f44 = f43;
+    f44.z = f41.z;
+    _entryPointOutput = f44;
 }
 
 //$$ShadowMapTexture=s1

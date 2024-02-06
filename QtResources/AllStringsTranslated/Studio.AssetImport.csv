@@ -1,3 +1,3 @@
-Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.AssetImport.TextureFilePickerCaption,,,Open Texture File,Open Texture File,,Textur-Datei öffnen,Abrir archivo de textura,Ouvrir le fichier de textures,,Apri File Texture,テクスチャファイルを開く,텍스처 파일 열기,Abrir arquivo de textura,,,,,打开纹理文件,打开纹理文件,開啟紋理檔案
-Studio.AssetImport.ImportFilePickerCaption,,,Open FBX or OBJ File,Open FBX or OBJ File,,FBX- oder OBJ-Datei öffnen,Abrir archivo FBX u OBJ,Ouvrir le fichier FBX ou OBJ,,Apri file FBX o OBJ,FBX または OBJ ファイルを開く,FBX 또는 OBJ 파일 열기,Abrir arquivo FBX ou OBJ,,,,,打开 FBX 或 OBJ 文件,打开 FBX 或 OBJ 文件,開啟 FBX 或 OBJ 檔案
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.AssetImport.TextureFilePickerCaption,,,Open Texture File,Open Texture File,,Textur-Datei öffnen,Abrir archivo de textura,Ouvrir le fichier de textures,,Apri File Texture,テクスチャファイルを開く,텍스처 파일 열기,,Abrir arquivo de textura,,,,,打开纹理文件,打开纹理文件,開啟紋理檔案
+Studio.AssetImport.ImportFilePickerCaption,,,Open FBX or OBJ File,Open FBX or OBJ File,,FBX- oder OBJ-Datei öffnen,Abrir archivo FBX u OBJ,Ouvrir le fichier FBX ou OBJ,,Apri file FBX o OBJ,FBX または OBJ ファイルを開く,FBX 또는 OBJ 파일 열기,,Abrir arquivo FBX ou OBJ,,,,,打开 FBX 或 OBJ 文件,打开 FBX 或 OBJ 文件,開啟 FBX 或 OBJ 檔案

@@ -1,6 +1,6 @@
-Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.FontSelection.FontWeightStatus.Procedural,,,%1 (procedural),%1 (procedural),,%1 (prozedural),%1 (de procedimiento),%1 (procédural),,%1 (procedurale),%1（手続き中）,%1(절차적),%1 (processual),,,,,%1（过程）,%1（过程）,%1（漸進式）
-Studio.FontSelection.FontWeightStatus.Unavailable,,,%1 (unavailable),%1 (unavailable),,%1 (nicht verfügbar),%1 (no disponible),%1 (indisponible),,%1 (non disponibile),%1 （使用できません）,%1(사용할 수 없음),%1 (indisponível),,,,,%1（无法使用）,%1（无法使用）,%1（無法使用）
-Studio.FontSelection.Action.CopyID,,,Copy ID,Copy ID,,ID kopieren,Copiar ID,Copier l'ID,,Copia ID,ID をコピー,ID 복사,Copiar ID,,,,,复制 ID,复制 ID,複製 ID
-Studio.FontSelection.MoreFonts,,,More Fonts:,More Fonts:,,Mehr Schriftarten:,Más tipos de letra:,Plus de polices :,,Più caratteri:,その他のフォント:,더 많은 폰트:,Mais fontes:,,,,,更多字体：,更多字体：,更多字型：
-Studio.FontSelection.AddMoreFonts,,,Add More Fonts,Add More Fonts,,Mehr Schriftarten hinzufügen,Añadir más tipos de letra,Ajouter plus de polices,,Aggiungi più caratteri,フォントをさらに追加,더 많은 폰트 추가,Adicionar mais fontes,,,,,新增更多字体,新增更多字体,新增更多字型
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.FontSelection.FontWeightStatus.Procedural,,,%1 (procedural),%1 (procedural),,%1 (prozedural),%1 (de procedimiento),%1 (procédural),,%1 (procedurale),%1（手続き中）,%1(절차적),,%1 (processual),,,,,%1（过程）,%1（过程）,%1（漸進式）
+Studio.FontSelection.FontWeightStatus.Unavailable,,,%1 (unavailable),%1 (unavailable),,%1 (nicht verfügbar),%1 (no disponible),%1 (indisponible),,%1 (non disponibile),%1 （使用できません）,%1(사용할 수 없음),,%1 (indisponível),,,,,%1（无法使用）,%1（无法使用）,%1（無法使用）
+Studio.FontSelection.Action.CopyID,,,Copy ID,Copy ID,,ID kopieren,Copiar ID,Copier l'ID,,Copia ID,ID をコピー,ID 복사,,Copiar ID,,,,,复制 ID,复制 ID,複製 ID
+Studio.FontSelection.MoreFonts,,,More Fonts:,More Fonts:,,Mehr Schriftarten:,Más tipos de letra:,Plus de polices :,,Più caratteri:,その他のフォント:,더 많은 폰트:,,Mais fontes:,,,,,更多字体：,更多字体：,更多字型：
+Studio.FontSelection.AddMoreFonts,,,Add More Fonts,Add More Fonts,,Mehr Schriftarten hinzufügen,Añadir más tipos de letra,Ajouter plus de polices,,Aggiungi più caratteri,フォントをさらに追加,더 많은 폰트 추가,,Adicionar mais fontes,,,,,新增更多字体,新增更多字体,新增更多字型

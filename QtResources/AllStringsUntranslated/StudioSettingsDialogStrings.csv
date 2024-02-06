@@ -85,9 +85,9 @@ Studio.App.SettingsCategory.StudioTools,,Tools,Tools
 Studio.App.Property.ShowHoverOver,,Show Hover Over,Show Hover Over
 Studio.App.Property.AnimateHoverOver,,Animate Hover Over,Animate Hover Over
 Studio.App.Property.HoverAnimateSpeed,,Hover Animate Speed,Hover Animate Speed
-Studio.App.Property.SelectColor,,Select Color,Select Color
+Studio.App.Property.SelectColor,,Selection Color,Selection Color
 Studio.App.Property.HoverOverColor,,Hover Over Color,Hover Over Color
-Studio.App.Property.ActiveColor,,Active Color,Active Color
+Studio.App.Property.ActiveColor,,Active Selection Color,Active Selection Color
 Studio.App.Property.ActiveHoverOverColor,,Active Hover Over Color,Active Hover Over Color
 Studio.App.Property.PhysicalDraggersSelectScopeByDefault,,Physical Draggers Select Scope (Alt-click) By Default,Physical Draggers Select Scope (Alt-click) By Default
 Studio.App.PropertyTooltip.PhysicalDraggersSelectScopeByDefault,,"When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior.","When using the Physical draggers, toggle if a single click selects the Model or a scope by default.  Alt-click to toggle behavior."
@@ -310,4 +310,28 @@ Studio.App.PropertyItems.DefaultTheme,,Default,Default
 Studio.App.SettingsHeader.ScriptEditor,,Script Editor,Script Editor
 Studio.App.SettingsCategory.General,,General,General
 Studio.App.SettingsCategory.Theme,,Theme,Theme
+Studio.App.SettingsHeader.Selection,,Selection,Selection
+Studio.App.Property.DraggerActiveColor,,Active Dragger Color,Active Dragger Color
+Studio.App.PropertyTooltip.DraggerActiveColor,,Color used by the draggers to display snaps while actively dragging.,Color used by the draggers to display snaps while actively dragging.
+Studio.App.Property.DraggerPassiveColor,,Passive Dragger Color,Passive Dragger Color
+Studio.App.PropertyTooltip.DraggerPassiveColor,,Color used by the draggers to display passive elements such as grids and guides.,Color used by the draggers to display passive elements such as grids and guides.
 Studio.App.Property.DisableCSGv3ForPlugins,,Enable Legacy CSG for Plugins,Enable Legacy CSG for Plugins
+Studio.App.SettingsCategory.DraggerBehavior,,Dragger Behavior,Dragger Behavior
+Studio.App.SettingsCategory.DraggerVisualization,,Dragger Visualization,Dragger Visualization
+Studio.App.SettingsCategory.SelectionVisualization,,Selection Visualization,Selection Visualization
+Studio.App.Property.DraggerShowTargetSnap,,Show Snap Targets,Show Snap Targets
+Studio.App.PropertyTooltip.DraggerShowTargetSnap,,Show how the dragged object is being snapped to the target via visual guides.,Show how the dragged object is being snapped to the target via visual guides.
+Studio.App.Property.DraggerShowHoverRuler,,Show Hover Ruler,Show Hover Ruler
+Studio.App.PropertyTooltip.DraggerShowHoverRuler,,Show a ruler measuring how large the hovered object is.,Show a ruler measuring how large the hovered object is.
+Studio.App.Property.DraggerShowMeasurement,,Show Numeric Measurements,Show Numeric Measurements
+Studio.App.PropertyTooltip.DraggerShowMeasurement,,Show a numeric display of the distance dragged when using draggers.,Show a numeric display of the distance dragged when using draggers.
+Studio.App.Property.DraggerMajorGridIncrement,,Major Grid Line Every...,Major Grid Line Every...
+Studio.App.PropertyTooltip.DraggerMajorGridIncrement,,How frequently to display a major grid line in grids and rulers.,How frequently to display a major grid line in grids and rulers.
+Studio.App.Property.DraggerTiltRotateDuration,,Tilt/Rotate Animation Duration,Tilt/Rotate Animation Duration
+Studio.App.PropertyTooltip.DraggerTiltRotateDuration,,How long the animation when pressing T/R while dragging should last. Enter 0 for no animation.,How long the animation when pressing T/R while dragging should last. Enter 0 for no animation.
+Studio.App.Property.DraggerMaxSoftSnaps,,Move/Scale Max Soft Snaps,Move/Scale Max Soft Snaps
+Studio.App.PropertyTooltip.DraggerMaxSoftSnaps,,How many potential soft snaps to show in each direction when scaling or moving along an axis. Enter 0 for no soft snaps.,How many potential soft snaps to show in each direction when scaling or moving along an axis. Enter 0 for no soft snaps.
+Studio.App.Property.DraggerSoftSnapMarginFactor,,Soft Snap Margin Multiplier,Soft Snap Margin Multiplier
+Studio.App.PropertyTooltip.DraggerSoftSnapMarginFactor,,Fine tune how agressively drags soft snap to geometry. Enter 0 for no soft snaps.,Fine tune how agressively drags soft snap to geometry. Enter 0 for no soft snaps.
+Studio.App.Property.DraggerSummonMarginFactor,,Summon Snap Margin Multiplier,Summon Snap Margin Multiplier
+Studio.App.PropertyTooltip.DraggerSummonMarginFactor,,Fine tune how agressively the pivot snaps to hotspots on the edges of the target part when summoning. Enter 0 for no snapping of the summoned pivot.,Fine tune how agressively the pivot snaps to hotspots on the edges of the target part when summoning. Enter 0 for no snapping of the summoned pivot.

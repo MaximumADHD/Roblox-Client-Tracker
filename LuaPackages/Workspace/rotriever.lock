@@ -1042,6 +1042,7 @@ dependencies = [
     "React React 0.1.0",
     "Roact RoactCompat 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
     "RobloxAppAssets RobloxAppAssets 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
@@ -2886,6 +2887,26 @@ dependencies = [
 [[package]]
 name = "UrlBuilder"
 version = "0.1.0"
+
+[[package]]
+name = "UserAgreements"
+version = "0.1.0"
+dependencies = [
+    "CentralOverlay CentralOverlay 0.1.0",
+    "Http Http 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Loggers Loggers 0.1.0",
+    "React React 0.1.0",
+    "RoactServiceTags RoactServiceTags 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "UniversalAppPolicy UniversalAppPolicy 0.1.0",
+]
 
 [[package]]
 name = "UserLib"

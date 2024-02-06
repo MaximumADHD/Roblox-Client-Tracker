@@ -9,6 +9,8 @@ Studio.App.RobloxScriptDoc.ScriptDeleted1,,%1 has been deleted from the server,%
 Studio.App.RobloxScriptDoc.ShowInExplorer,,Show in Explorer,Show in Explorer
 Studio.App.RobloxScriptDoc.DockTab,,Dock Tab,Dock Tab
 Studio.App.PlayModifiedScriptController.AlwaysSave,,Always Save,Always Save
+Studio.App.PlayModifiedScriptController.FailToApplyChange,,Fail to apply change from play test for %1 because: %2,Fail to apply change from play test for %1 because: %2
+Studio.App.PlayModifiedScriptController.FailToFindInstance,,Fail to find script instance to apply,Fail to find script instance to apply
 Studio.App.PlayModifiedScriptController.KeepTheseChanges,,You've made script changes while playing.  Would you like to keep these changes?,You've made script changes while playing.  Would you like to keep these changes?
 Studio.App.ScriptingHostAppServices.UsageExceeded,,Daily AI Code completion usage exceeded. Please try again tomorrow.,Daily AI Code completion usage exceeded. Please try again tomorrow.
 Studio.App.ScriptingHostAppServices.ResponseChatFiltered,,No code suggestion received. Response was caught by the text filter.,No code suggestion received. Response was caught by the text filter.

@@ -1,3 +1,4 @@
+// TODO: Remove file with FFlagStudioNoQmlAtLogin
 import QtQuick 2.6
 import QtQuick.Controls 1.5
 import ".."
@@ -55,13 +56,13 @@ StackView {
 
     Connections {
         target: startPageQmlController
-        onStartPageModelsInitialized: {
+        onDeprecated_startPageModelsInitialized: {
             createStartPageComponent();
         }
-        onShowStartPageRequested: {
+        onDeprecated_showStartPageRequested: {
             showStartPage();
         }
-        onShowLoginPageRequested: {
+        onDeprecated_showLoginPageRequested: {
             replaceCurrentView(loginPage);
         }
     }

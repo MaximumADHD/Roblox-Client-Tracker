@@ -1,3 +1,4 @@
+// TODO: Remove file with FFlagStudioNoQmlAtLogin
 import QtQuick 2.6
 import QtGraphicalEffects 1.0
 import ".."
@@ -110,7 +111,7 @@ Rectangle {
             anchors.topMargin: 24
             anchors.bottomMargin: 15
             height: paintedHeight
-            text: startPageQmlController.getVersionString()
+            text: startPageQmlController.DEPRECATED_getVersionString()
             color: userPreferences.theme.style("StartPage LoginPage versionText")
             font.pixelSize: 12
             renderType: userPreferences.theme.style("CommonStyle textRenderType")
@@ -121,7 +122,7 @@ Rectangle {
 
     Connections {
         target: startPageQmlController
-        onUpdateUserFacingTextRequested: {
+        onDeprecated_updateUserFacingTextRequested: {
             statusText.text = userFacingText;
         }
     }
