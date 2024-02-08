@@ -3671,7 +3671,6 @@
 [C++] DFLogTrackTeamCreateSaveMD5HashOutput
 [C++] DFLogTxBwStatLog
 [C++] DFLogVersionHistory
-[C++] DFLogVideoCaptureTrace
 [C++] DFLogVideoFrame
 [C++] DFLogVideoFrameTrace
 [C++] DFLogVideoMetrics

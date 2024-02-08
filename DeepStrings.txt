@@ -67,6 +67,7 @@ AAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWWWWWWWWWWWWWWWWWWWWWWWNNNNNNNNN
 AAACertificateServices.crl0
+AAACertificateServices.crl04
 AAACertificateServices.crl06
 AAAEB11E38B9D871882A8E559
 AAAEC11E38B9D871882A8E559
@@ -10935,7 +10936,7 @@ CC583B11E29A3DBD856014A660
 CCCC0C1CCCCCCCCCCCCCC2CC345CCCCCCCC6CCCC789
 CCCCCCCCCCCCCCC
 CCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCACCBv
+CCCCCCCCCCCCCCCCCCCCCCCCACCB6
 CCCCCCCCCCCCCCCCCCCCCCCCCC
 CCCCCCCCCCCCCDC
 CCCCCCCCCCCCCDCCCCCCC0123CCCCCCCCCC
@@ -13592,8 +13593,8 @@ Corporation
 Corporation.
 Corporation\Roblox
 Corporation\Roblox\FilteredExceptionCrash
-Corporation0
-Corporation1
+CORPORATION0
+CORPORATION1
 Correction
 Correctives
 CorrectivesLogic
@@ -16482,7 +16483,6 @@ DeviceAction
 DeviceBased
 DeviceCache
 DeviceCFrame
-DeviceChanged
 DeviceD3D11
 DeviceD3D11Error
 DeviceD3D11InternalDriverError
@@ -16687,9 +16687,6 @@ DigestAlgorithm_init_bio
 DigestedData_do_final
 DigiCertAssuredIDRootCA.crl0
 DigiCertAssuredIDRootCA.crt0E
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crl0S
-DigiCertTrustedG4CodeSigningRSA4096SHA3842021CA1.crt0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crl0
 DigiCertTrustedG4RSA4096SHA256TimeStampingCA.crt0
 DigiCertTrustedRootG4.crl0
@@ -27890,6 +27887,7 @@ MEAA_NHHPEBVQMimeData
 MEAA_NHPEBVQMimeData
 MEAA_NPEAV1
 MEAA_NPEAVQEvent
+MEAA_NPEAVQOb
 MEAA_NPEAVQObject
 MEAA_NPEAVQTreeWidgetItem
 MEAAPEAV12
@@ -30529,7 +30527,6 @@ OneMinuteActiveTC
 OnEmitRequested
 OnEncoderConfigurationChanged
 OnePerButton
-OnErrorThreadSafe
 OneTimePassword
 OnFoldingRangeResponse
 OnFormattingResponse
@@ -30849,7 +30846,6 @@ OrFirstTier
 OrFunction
 Organizaci
 Organization
-Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -39145,6 +39141,10 @@ SecondsSinceLastPong
 SecondsSinceLastPong_
 SecondsTo_
 SecretTransformationEnabled
+SectigoPublicCodeSigningCAR36.crl0y
+SectigoPublicCodeSigningCAR36.crt0
+SectigoPublicCodeSigningRootR46.crl0
+SectigoPublicCodeSigningRootR46.p7c0
 SectionClicked
 SectionHidden
 SectionResizeMode
@@ -40976,6 +40976,7 @@ SliderValueDecreaseButtonClicked
 SliderValueIncreaseButtonClicked
 SlidingBallConstraint
 SlidingWindowMinFilter
+SLifecycleManager
 Slingshot.png
 SlingshotTexture.png
 SlopeOfBweHighLossFunc
@@ -53490,14 +53491,11 @@ VideoCaptureNoServiceErrors
 VideoCaptureOrientationDeg
 VideoCaptureResolutionX
 VideoCaptureResolutionY
-VideoCaptureSerivce
 VideoCaptureService
 VideoCaptureServiceEnabled
 VideoCaptureStatusOverPlaytimeThrottleHundrethsPercent
 VideoCaptureStopNotPassStream
 VideoCaptureStreamNotFoundErrors
-VideoCaptureTrace
-VideoCaptureTrace]
 VideoCaptureUseWeakThis
 VideoChangeLadder
 VideoChannel
