@@ -28,35 +28,35 @@ end
 
 local function fun5(arg1)
    local var0 = arg1.props
-   local var57 = {}
-   var57.selectedObject = var0.selectedObject
-   var57.pixelDimensions = var0.pixelDimensions
-   function var57.onClose()
+   local var58 = {}
+   var58.selectedObject = var0.selectedObject
+   var58.pixelDimensions = var0.pixelDimensions
+   function var58.onClose()
    end
    
-   var57.sliceRect = arg1.state.sliceRect
-   var57.revertSliceRect = var0.sliceRect
-   return var1.createElement(var4, var57)
+   var58.sliceRect = arg1.state.sliceRect
+   var58.revertSliceRect = var0.sliceRect
+   return var1.createElement(var4, var58)
 end
 
 function var5.render(arg1)
    local var0 = arg1.props
-   local var57 = {}
-   var57.selectedObject = var0.selectedObject
-   var57.pixelDimensions = var0.pixelDimensions
-   function var57.onClose()
+   local var58 = {}
+   var58.selectedObject = var0.selectedObject
+   var58.pixelDimensions = var0.pixelDimensions
+   function var58.onClose()
    end
    
-   var57.sliceRect = arg1.state.sliceRect
-   var57.revertSliceRect = var0.sliceRect
-   return var1.createElement(var4, var57)
+   var58.sliceRect = arg1.state.sliceRect
+   var58.revertSliceRect = var0.sliceRect
+   return var1.createElement(var4, var58)
 end
 
 fun5 = var2.withContext
-local var63 = {}
-var63.Analytics = var2.Analytics
-var63.Localization = var2.Localization
-var63.Stylizer = var2.Stylizer
-var63.Mouse = var2.Mouse
-var5 = fun5(var63)(var5)
+local var64 = {}
+var64.Analytics = var2.Analytics
+var64.Localization = var2.Localization
+var64.Stylizer = var2.Stylizer
+var64.Mouse = var2.Mouse
+var5 = fun5(var64)(var5)
 return var5

@@ -602,9 +602,7 @@ PROTO_39:
   RETURN R4 1
 
 PROTO_40:
-  JUMPIFNOT R3 [+1]
-  JUMP [+1]
-  LOADK R3 K0 ["Asset"]
+  ORK R3 R3 K0 ["Asset"]
   LOADK R4 K1 ["rbxthumb://type=%s&id=%d&w=%d&h=%d"]
   MOVE R6 R3
   FASTCALL1 TONUMBER R0 [+3]

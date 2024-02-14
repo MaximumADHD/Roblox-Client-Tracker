@@ -19,7 +19,6 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
 local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
-local FFlagFacialAnimationStreamingServiceUsePlayerThrottling = game:GetEngineFeature("FacialAnimationStreamingServiceUsePlayerThrottling")
 local FFlagFacialAnimationStreamingServiceRequireVoiceChat = game:GetEngineFeature("FacialAnimationStreamingServiceRequireVoiceChat")
 local FFlagLoadStreamAnimationReplaceErrorsWithTelemetry = game:GetEngineFeature("LoadStreamAnimationReplaceErrorsWithTelemetryFeature")
 local FFlagFaceAnimatorDisableVideoByDefault = game:DefineFastFlag("FaceAnimatorDisableVideoByDefault", false)
@@ -29,8 +28,6 @@ local FFlagFacialAnimationStreamingServiceFixAnimatorSetup = game:DefineFastFlag
 local FFlagFacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled = game:DefineFastFlag("FacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled", false)
 local DFFlagSystemUtilCheckSSE41 = game:GetEngineFeature("SystemUtilCheckSSE41")
 local FFlagFacialAnimationStreamingClearTrackImprovementsV2 = game:DefineFastFlag("FacialAnimationStreamingClearTrackImprovementsV2", false)
-local FFlagFacialAnimationStreamingPauseTrackWhenAllOff = game:DefineFastFlag("FacialAnimationStreamingPauseTrackWhenAllOff", false)
-local FFlagFacialAnimationStreamingDisableLipsyncForVRUser = game:DefineFastFlag("FacialAnimationStreamingDisableLipsyncForVRUser", false)
 game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",false)
 game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
 game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateWhenCreatingTrack", false)
@@ -57,7 +54,6 @@ local LOCAL_STORAGE_KEY_UX_CAMERA_PERFORMANCE_TIMESTAMP = "CameraPerformanceUXUn
 
 FaceAnimatorService.FlipHeadOrientation = true
 
-local AvatarChatConstants = require(RobloxGui.Modules.Common.AvatarChatConstants)
 local EmoteHelper = require(RobloxGui.Modules.Emote.EmoteHelper)
 local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
@@ -408,18 +404,6 @@ local function playerUpdate(player)
 
 	clearAllConnections(player)
 
-	if FFlagFacialAnimationStreamingDisableLipsyncForVRUser then
-		--not doing lipsync for local player for now if he/she is in VR as we currently have an issue in nexus vr places for users in VR
-		--and overall need to test in VR more.
-		if VRService.VREnabled then
-			if player.UserId == Players.LocalPlayer.UserId then
-				log:trace("no lipsync for user in VR for now")
-				return
-			end
-		end
-	end
-
-
 	if setupPlayer then
 		if FFlagFacialAnimationStreamingServiceFixAnimatorSetup and playerAnimations[player.UserId] then
 			playerTrace("Player already setup", player)
@@ -743,15 +727,13 @@ function CleanupFacialAnimationStreaming()
 		trackerErrorConnection = nil
 	end
 
-	if FFlagFacialAnimationStreamingPauseTrackWhenAllOff then
-		if audioAnimationToggledConnection then
-			audioAnimationToggledConnection:Disconnect()
-			audioAnimationToggledConnection = nil
-		end
-		if videoAnimationToggledConnection then
-			videoAnimationToggledConnection:Disconnect()
-			videoAnimationToggledConnection = nil
-		end
+	if audioAnimationToggledConnection then
+		audioAnimationToggledConnection:Disconnect()
+		audioAnimationToggledConnection = nil
+	end
+	if videoAnimationToggledConnection then
+		videoAnimationToggledConnection:Disconnect()
+		videoAnimationToggledConnection = nil
 	end
 
 	if FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable then
@@ -796,28 +778,19 @@ local function updateWithServiceState(settings)
 			or FacialAnimationStreamingService:IsVideoEnabled(settings)
 
 		if isAudioOrVideoEnabled and FacialAnimationStreamingService:IsPlaceEnabled(settings) then
-			if FFlagFacialAnimationStreamingServiceUsePlayerThrottling then
-				local ThrottleUpdateEvent = RobloxReplicatedStorage:WaitForChild(AvatarChatConstants.ThrottleUpdateEventName, math.huge)
-				ThrottleUpdateEvent.OnClientEvent:Connect(function(allowed, optedIn)
-					onThrottleUpdate(allowed, optedIn, settings)
-				end)
-			else
-				onThrottleUpdate(true, true, settings)
-			end
+			onThrottleUpdate(true, true, settings)
 		else
 			CleanupFacialAnimationStreaming()
 		end
 	end
 end
 
-if FFlagFacialAnimationStreamingPauseTrackWhenAllOff then
-	audioAnimationToggledConnection = FaceAnimatorService:GetPropertyChangedSignal("AudioAnimationEnabled"):Connect(function()
-		updateStreamTrackStatus()
-	end)
-	videoAnimationToggledConnection = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"):Connect(function()
-		updateStreamTrackStatus()
-	end)
-end
+audioAnimationToggledConnection = FaceAnimatorService:GetPropertyChangedSignal("AudioAnimationEnabled"):Connect(function()
+	updateStreamTrackStatus()
+end)
+videoAnimationToggledConnection = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"):Connect(function()
+	updateStreamTrackStatus()
+end)
 
 -- Listen for service state
 if GetFFlagAvatarChatServiceEnabled() then

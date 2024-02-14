@@ -30,6 +30,7 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
 local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagNewUnibarIA = require(Chrome.Flags.GetFFlagNewUnibarIA)
+local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 
 type Array<T> = { [number]: T }
@@ -49,16 +50,30 @@ function configureUnibar(viewportInfo)
 		table.insert(nineDot, 1, "trust_and_safety")
 	end
 
-	-- insert leaderboard into MRU if it's shown on startup
+	-- insert leaderboard into MRU if it's shown on startup and not already a pin
 	if PlayerListInitialVisibleState() then
-		ChromeService:setRecentlyUsed("leaderboard", true)
+		if not GetFFlagEnableChromePinIntegrations() or not ChromeService:isUserPinned("leaderboard") then
+			ChromeService:setRecentlyUsed("leaderboard", true)
+		end
 	end
-	-- insert trust and safety into MRU, prioritize over leaderboard
-	if GetFFlagNewUnibarIA() and not ChromeService:isMostRecentlyUsed("trust_and_safety") then
+
+	-- insert trust and safety into MRU/pin, prioritize over leaderboard
+	if
+		GetFFlagNewUnibarIA()
+		and GetFFlagEnableChromePinIntegrations()
+		and not ChromeService:isUserPinned("trust_and_safety")
+	then
+		ChromeService:setUserPin("trust_and_safety", true)
+	elseif GetFFlagNewUnibarIA() and not ChromeService:isMostRecentlyUsed("trust_and_safety") then
 		ChromeService:setRecentlyUsed("trust_and_safety", true)
 	end
 
-	if GetFFlagNewUnibarIA() then
+	if GetFFlagNewUnibarIA() and GetFFlagEnableChromePinIntegrations() then
+		ChromeService:configureMenu({
+			{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
+			{ ChromeService.Key.UserPinned, ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },
+		})
+	elseif GetFFlagNewUnibarIA() then
 		ChromeService:configureMenu({
 			{ "selfie_view", "toggle_mic_mute", "chat", "dummy_window", "dummy_window_2" },
 			{ ChromeService.Key.MostRecentlyUsed, "nine_dot", "chrome_toggle" },

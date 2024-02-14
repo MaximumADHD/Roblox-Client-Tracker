@@ -23,15 +23,15 @@ local function fun12(arg1)
    if var4 then
       local var0 = var1.ErrorIcon or var1.WarningIcon
    end
-   local var587 = {}
-   var587.Size = UDim2.fromOffset(var3, var3)
-   var587.Style = var1.WarningIcon
-   var587.LayoutOrder = var0.LayoutOrder
-   local var592 = {}
-   local var596 = {}
-   var596.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
-   var592.Tooltip = var1.createElement(var5, var596)
-   return var1.createElement(var6, var587, var592)
+   local var579 = {}
+   var579.Size = UDim2.fromOffset(var3, var3)
+   var579.Style = var1.WarningIcon
+   var579.LayoutOrder = var0.LayoutOrder
+   local var584 = {}
+   local var588 = {}
+   var588.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
+   var584.Tooltip = var1.createElement(var5, var588)
+   return var1.createElement(var6, var579, var584)
 end
 
 function var8.render(arg1)
@@ -49,20 +49,20 @@ function var8.render(arg1)
    if var4 then
       local var0 = var1.ErrorIcon or var1.WarningIcon
    end
-   local var587 = {}
-   var587.Size = UDim2.fromOffset(var3, var3)
-   var587.Style = var1.WarningIcon
-   var587.LayoutOrder = var0.LayoutOrder
-   local var592 = {}
-   local var596 = {}
-   var596.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
-   var592.Tooltip = var1.createElement(var5, var596)
-   return var1.createElement(var6, var587, var592)
+   local var579 = {}
+   var579.Size = UDim2.fromOffset(var3, var3)
+   var579.Style = var1.WarningIcon
+   var579.LayoutOrder = var0.LayoutOrder
+   local var584 = {}
+   local var588 = {}
+   var588.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
+   var584.Tooltip = var1.createElement(var5, var588)
+   return var1.createElement(var6, var579, var584)
 end
 
 fun12 = var3.withContext
-local var604 = {}
-var604.Localization = var3.Localization
-var604.Stylizer = var3.Stylizer
-var8 = fun12(var604)(var8)
+local var596 = {}
+var596.Localization = var3.Localization
+var596.Stylizer = var3.Stylizer
+var8 = fun12(var596)(var8)
 return var8

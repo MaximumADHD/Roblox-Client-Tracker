@@ -30,7 +30,10 @@ local function getDefaultDeathType()
 		[Enum.DeathStyle.NonGraphic] = "Ragdoll",
 		[Enum.DeathStyle.Scriptable] = "Scriptable",
 	}
-	local deathType = jointUpgradeActive() and deathStyleMap[StarterPlayer.DeathStyle] or "Classic"
+	local deathType = "Classic"
+	if jointUpgradeActive() and game:GetEngineFeature("EnableDeathStyleFeature") then
+		deathType = deathStyleMap[StarterPlayer.DeathStyle]
+	end
 
 	if not game:GetEngineFeature("PolicyInfoForServerRobloxOnlyAsyncEnabled") then
 		return game:DefineFastString("DeathTypeValue", deathType)

@@ -7,7 +7,7 @@ local var4 = var2.UI.Pane
 local var5 = require(var0.Src.Actions.ExampleAction)
 local var6 = require(var0.Src.Reducers.ExampleReducer)
 local var7 = var1.PureComponent:extend("ExampleRoactRoduxComponent")
-local function fun0(arg1)
+local function fun9(arg1)
    return var1.createElement(var4)
 end
 
@@ -15,12 +15,12 @@ function var7.render(arg1)
    return var1.createElement(var4)
 end
 
-fun0 = var3.withContext
-local var43 = {}
-var43.Analytics = var3.Analytics
-var43.Localization = var3.Localization
-var43.Stylizer = var2.Style.Stylizer
-var7 = fun0(var43)(var7)
+fun9 = var3.withContext
+local var988 = {}
+var988.Analytics = var3.Analytics
+var988.Localization = var3.Localization
+var988.Stylizer = var2.Style.Stylizer
+var7 = fun9(var988)(var7)
 return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.DefaultStateObject = arg1.DefaultStateObject

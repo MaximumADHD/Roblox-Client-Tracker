@@ -5,7 +5,4 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["GameLaunch"]["GameLaunch"])
 
-export type PlayButtonLaunchGame = Package.PlayButtonLaunchGame
-
-
 return Package

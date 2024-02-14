@@ -16,7 +16,6 @@ var3.Uploading = 1
 var3.FailedSerialization = "FailedSerialization"
 var3.FailedToGetProductInfo = "FailedToGetProductInfo"
 var3.FailedWithErrorCode = "FailedWithErrorCode"
-var3.Published = "Published"
 var3.Done = "Done"
 var0.Status = var1
 var0.AssetType = var2

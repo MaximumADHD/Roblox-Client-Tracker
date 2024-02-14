@@ -86,7 +86,7 @@ function FlashingDot:didMount()
 			hasMicPermissions = response.hasMicPermissions,
 		})
 	end
-	getCamMicPermissions(callback)
+	getCamMicPermissions(callback, nil, nil, "FlashingDot.didMount")
 	self.checkNewVisibility()
 end
 

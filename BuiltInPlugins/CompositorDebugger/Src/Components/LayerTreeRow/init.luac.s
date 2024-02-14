@@ -142,13 +142,13 @@ PROTO_4:
   LOADN R30 1
   LOADN R31 0
   CALL R27 4 1
-  LOADB R28 0
-  GETTABLEKS R29 R4 K29 ["className"]
-  JUMPIFNOTEQKS R29 K30 ["ClipLayer"] [+7]
-  GETTABLEKS R29 R4 K31 ["state"]
-  JUMPIFNOTEQKNIL R29 [+2]
-  LOADB R28 0 +1
-  LOADB R28 1
+  GETTABLEKS R28 R4 K29 ["state"]
+  JUMPIFNOT R28 [+9]
+  GETTABLEKS R29 R4 K29 ["state"]
+  GETTABLEKS R28 R29 K30 ["timePositionNormalized"]
+  JUMPIFNOT R28 [+4]
+  GETTABLEKS R29 R4 K29 ["state"]
+  GETTABLEKS R28 R29 K31 ["length"]
   LOADNIL R29
   JUMPIFNOTEQKN R5 K4 [0] [+16]
   GETUPVAL R30 0
@@ -199,7 +199,7 @@ PROTO_4:
   GETTABLEKS R37 R12 K48 ["Y"]
   GETTABLEKS R36 R37 K49 ["Offset"]
   CALL R32 4 1
-  DUPTABLE R33 K55 [{"Spacer", "Toggle", "LeftIcon", "Name", "Weight", "Timestamp", "Adornment", "Detach"}]
+  DUPTABLE R33 K55 [{"Spacer", "Toggle", "LeftIcon", "Name", "Weight", "Timestamp", "Adornment"}]
   GETUPVAL R35 2
   GETTABLEKS R34 R35 K56 ["createElement"]
   GETUPVAL R35 3
@@ -404,24 +404,24 @@ PROTO_4:
   GETUPVAL R35 2
   GETTABLEKS R34 R35 K56 ["createElement"]
   GETUPVAL R35 7
-  DUPTABLE R36 K107 [{"Size", "LayoutOrder", "TimePosition", "Length", "Font", "TextColor", "BarColor", "BarBorder", "BarBackground"}]
+  DUPTABLE R36 K107 [{"Size", "LayoutOrder", "TimePercentage", "Length", "Font", "TextColor", "BarColor", "BarBorder", "BarBackground"}]
   SETTABLEKS R27 R36 K9 ["Size"]
   LOADN R37 9
   SETTABLEKS R37 R36 K57 ["LayoutOrder"]
-  GETTABLEKS R38 R4 K31 ["state"]
-  GETTABLEKS R37 R38 K108 ["timePosition"]
-  SETTABLEKS R37 R36 K102 ["TimePosition"]
-  GETTABLEKS R38 R4 K31 ["state"]
-  GETTABLEKS R37 R38 K109 ["length"]
+  GETTABLEKS R38 R4 K29 ["state"]
+  GETTABLEKS R37 R38 K30 ["timePositionNormalized"]
+  SETTABLEKS R37 R36 K102 ["TimePercentage"]
+  GETTABLEKS R38 R4 K29 ["state"]
+  GETTABLEKS R37 R38 K31 ["length"]
   SETTABLEKS R37 R36 K103 ["Length"]
   SETTABLEKS R31 R36 K45 ["Font"]
   SETTABLEKS R29 R36 K84 ["TextColor"]
   SETTABLEKS R30 R36 K104 ["BarColor"]
   GETTABLEKS R38 R2 K42 ["TimeBar"]
-  GETTABLEKS R37 R38 K110 ["Border"]
+  GETTABLEKS R37 R38 K108 ["Border"]
   SETTABLEKS R37 R36 K105 ["BarBorder"]
   GETTABLEKS R38 R2 K42 ["TimeBar"]
-  GETTABLEKS R37 R38 K111 ["Background"]
+  GETTABLEKS R37 R38 K109 ["Background"]
   SETTABLEKS R37 R36 K106 ["BarBackground"]
   CALL R34 2 1
   JUMP [+13]
@@ -444,7 +444,7 @@ PROTO_4:
   LOADN R37 10
   SETTABLEKS R37 R36 K57 ["LayoutOrder"]
   SETTABLEKS R32 R36 K9 ["Size"]
-  GETTABLEKS R37 R0 K112 ["onToggleAdornment"]
+  GETTABLEKS R37 R0 K110 ["onToggleAdornment"]
   SETTABLEKS R37 R36 K59 ["OnPress"]
   DUPTABLE R37 K63 [{"Button"}]
   GETUPVAL R39 2
@@ -470,17 +470,17 @@ PROTO_4:
   JUMPIFNOT R18 [+2]
   MOVE R41 R19
   JUMP [+2]
-  GETTABLEKS R41 R24 K113 ["InactiveColor"]
+  GETTABLEKS R41 R24 K111 ["InactiveColor"]
   SETTABLEKS R41 R40 K76 ["ImageColor3"]
   JUMPIFNOT R18 [+3]
-  GETTABLEKS R41 R24 K114 ["ActiveTransparency"]
+  GETTABLEKS R41 R24 K112 ["ActiveTransparency"]
   JUMP [+2]
-  GETTABLEKS R41 R24 K115 ["InactiveTransparency"]
-  SETTABLEKS R41 R40 K116 ["ImageTransparency"]
+  GETTABLEKS R41 R24 K113 ["InactiveTransparency"]
+  SETTABLEKS R41 R40 K114 ["ImageTransparency"]
   GETUPVAL R43 2
   GETTABLEKS R42 R43 K81 ["Event"]
   GETTABLEKS R41 R42 K82 ["Activated"]
-  GETTABLEKS R42 R0 K112 ["onToggleAdornment"]
+  GETTABLEKS R42 R0 K110 ["onToggleAdornment"]
   SETTABLE R42 R40 R41
   CALL R38 2 1
   SETTABLEKS R38 R37 K62 ["Button"]
@@ -488,58 +488,11 @@ PROTO_4:
   JUMP [+1]
   LOADNIL R34
   SETTABLEKS R34 R33 K54 ["Adornment"]
-  GETUPVAL R35 8
-  JUMPIF R35 [+67]
-  JUMPIFNOTEQKN R5 K4 [0] [+66]
   GETUPVAL R35 2
   GETTABLEKS R34 R35 K56 ["createElement"]
   GETUPVAL R35 3
-  DUPTABLE R36 K60 [{"LayoutOrder", "Size", "OnPress"}]
-  LOADN R37 10
-  SETTABLEKS R37 R36 K57 ["LayoutOrder"]
-  SETTABLEKS R32 R36 K9 ["Size"]
-  GETTABLEKS R38 R0 K0 ["props"]
-  GETTABLEKS R37 R38 K117 ["OnDetach"]
-  SETTABLEKS R37 R36 K59 ["OnPress"]
-  DUPTABLE R37 K63 [{"Button"}]
-  GETUPVAL R39 2
-  GETTABLEKS R38 R39 K56 ["createElement"]
-  LOADK R39 K64 ["ImageButton"]
-  NEWTABLE R40 8 0
-  GETTABLEKS R41 R25 K9 ["Size"]
-  SETTABLEKS R41 R40 K9 ["Size"]
-  GETIMPORT R41 K68 [UDim2.fromScale]
-  LOADK R42 K69 [0.5]
-  LOADK R43 K69 [0.5]
-  CALL R41 2 1
-  SETTABLEKS R41 R40 K17 ["Position"]
-  GETIMPORT R41 K71 [Vector2.new]
-  LOADK R42 K69 [0.5]
-  LOADK R43 K69 [0.5]
-  CALL R41 2 1
-  SETTABLEKS R41 R40 K72 ["AnchorPoint"]
-  LOADN R41 1
-  SETTABLEKS R41 R40 K73 ["BackgroundTransparency"]
-  GETTABLEKS R41 R25 K74 ["Image"]
-  SETTABLEKS R41 R40 K74 ["Image"]
-  SETTABLEKS R29 R40 K76 ["ImageColor3"]
-  GETUPVAL R43 2
-  GETTABLEKS R42 R43 K81 ["Event"]
-  GETTABLEKS R41 R42 K82 ["Activated"]
-  GETTABLEKS R43 R0 K0 ["props"]
-  GETTABLEKS R42 R43 K117 ["OnDetach"]
-  SETTABLE R42 R40 R41
-  CALL R38 2 1
-  SETTABLEKS R38 R37 K62 ["Button"]
-  CALL R34 3 1
-  JUMP [+1]
-  LOADNIL R34
-  SETTABLEKS R34 R33 K25 ["Detach"]
-  GETUPVAL R35 2
-  GETTABLEKS R34 R35 K56 ["createElement"]
-  GETUPVAL R35 3
-  GETUPVAL R36 9
-  DUPTABLE R37 K122 [{"LayoutOrder", "Size", "Position", "Style", "Layout", "HorizontalAlignment", "BackgroundColor3", "Padding", "Spacing"}]
+  GETUPVAL R36 8
+  DUPTABLE R37 K119 [{"LayoutOrder", "Size", "Position", "Style", "Layout", "HorizontalAlignment", "BackgroundColor3", "Padding", "Spacing"}]
   JUMPIFNOT R10 [+2]
   LOADN R38 2
   JUMP [+1]
@@ -547,24 +500,24 @@ PROTO_4:
   SETTABLEKS R38 R37 K57 ["LayoutOrder"]
   SETTABLEKS R12 R37 K9 ["Size"]
   SETTABLEKS R13 R37 K17 ["Position"]
-  LOADK R38 K123 ["Box"]
-  SETTABLEKS R38 R37 K118 ["Style"]
+  LOADK R38 K120 ["Box"]
+  SETTABLEKS R38 R37 K115 ["Style"]
   JUMPIFNOT R9 [+2]
   LOADNIL R38
   JUMP [+2]
-  GETIMPORT R38 K126 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R38 R37 K119 ["Layout"]
+  GETIMPORT R38 K123 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R38 R37 K116 ["Layout"]
   JUMPIFNOT R9 [+2]
   LOADNIL R38
   JUMP [+2]
-  GETIMPORT R38 K127 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R38 R37 K120 ["HorizontalAlignment"]
-  GETTABLEKS R38 R2 K111 ["Background"]
-  SETTABLEKS R38 R37 K121 ["BackgroundColor3"]
+  GETIMPORT R38 K124 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R38 R37 K117 ["HorizontalAlignment"]
+  GETTABLEKS R38 R2 K109 ["Background"]
+  SETTABLEKS R38 R37 K118 ["BackgroundColor3"]
   SETTABLEKS R23 R37 K23 ["Padding"]
   GETTABLEKS R38 R2 K93 ["Spacing"]
   SETTABLEKS R38 R37 K93 ["Spacing"]
-  GETTABLEKS R38 R1 K128 ["WrapperProps"]
+  GETTABLEKS R38 R1 K125 ["WrapperProps"]
   CALL R36 2 1
   MOVE R37 R33
   CALL R34 3 -1
@@ -612,55 +565,49 @@ MAIN:
   GETIMPORT R22 K5 [script]
   GETTABLEKS R21 R22 K31 ["Timestamp"]
   CALL R20 1 1
-  GETIMPORT R21 K1 [game]
-  LOADK R23 K32 ["CDRemoveDisconnect"]
-  LOADB R24 0
-  NAMECALL R21 R21 K33 ["DefineFastFlag"]
-  CALL R21 3 1
+  GETIMPORT R21 K9 [require]
+  GETTABLEKS R23 R1 K32 ["LuaFlags"]
+  GETTABLEKS R22 R23 K33 ["GetFFlagActiveLayersFilter"]
+  CALL R21 1 1
   GETIMPORT R22 K9 [require]
-  GETTABLEKS R24 R1 K34 ["LuaFlags"]
-  GETTABLEKS R23 R24 K35 ["GetFFlagActiveLayersFilter"]
+  GETTABLEKS R24 R1 K28 ["Src"]
+  GETTABLEKS R23 R24 K34 ["Types"]
   CALL R22 1 1
-  GETIMPORT R23 K9 [require]
-  GETTABLEKS R25 R1 K28 ["Src"]
-  GETTABLEKS R24 R25 K36 ["Types"]
-  CALL R23 1 1
-  GETTABLEKS R24 R2 K37 ["PureComponent"]
-  LOADK R26 K38 ["LayerTreeRow"]
-  NAMECALL R24 R24 K39 ["extend"]
-  CALL R24 2 1
-  DUPCLOSURE R25 K40 [PROTO_2]
+  GETTABLEKS R23 R2 K35 ["PureComponent"]
+  LOADK R25 K36 ["LayerTreeRow"]
+  NAMECALL R23 R23 K37 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K38 [PROTO_2]
   CAPTURE VAL R2
-  SETTABLEKS R25 R24 K41 ["init"]
-  DUPCLOSURE R25 K42 [PROTO_3]
+  SETTABLEKS R24 R23 K39 ["init"]
+  DUPCLOSURE R24 K40 [PROTO_3]
   CAPTURE VAL R19
-  SETTABLEKS R25 R24 K43 ["getContents"]
-  DUPCLOSURE R25 K44 [PROTO_4]
+  SETTABLEKS R24 R23 K41 ["getContents"]
+  DUPCLOSURE R24 K42 [PROTO_4]
   CAPTURE VAL R0
-  CAPTURE VAL R22
+  CAPTURE VAL R21
   CAPTURE VAL R2
   CAPTURE VAL R16
   CAPTURE VAL R15
   CAPTURE VAL R12
   CAPTURE VAL R17
   CAPTURE VAL R20
-  CAPTURE VAL R21
   CAPTURE VAL R13
-  SETTABLEKS R25 R24 K45 ["render"]
-  DUPTABLE R25 K47 [{"ExpandableRoot"}]
-  LOADB R26 1
-  SETTABLEKS R26 R25 K46 ["ExpandableRoot"]
-  SETTABLEKS R25 R24 K48 ["defaultProps"]
-  MOVE R25 R5
-  DUPTABLE R26 K49 [{"Analytics", "Localization", "Stylizer"}]
-  SETTABLEKS R6 R26 K15 ["Analytics"]
-  SETTABLEKS R7 R26 K16 ["Localization"]
-  SETTABLEKS R8 R26 K18 ["Stylizer"]
-  CALL R25 1 1
-  MOVE R26 R24
-  CALL R25 1 1
-  MOVE R24 R25
-  MOVE R25 R10
-  MOVE R26 R24
-  CALL R25 1 -1
-  RETURN R25 -1
+  SETTABLEKS R24 R23 K43 ["render"]
+  DUPTABLE R24 K45 [{"ExpandableRoot"}]
+  LOADB R25 1
+  SETTABLEKS R25 R24 K44 ["ExpandableRoot"]
+  SETTABLEKS R24 R23 K46 ["defaultProps"]
+  MOVE R24 R5
+  DUPTABLE R25 K47 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R6 R25 K15 ["Analytics"]
+  SETTABLEKS R7 R25 K16 ["Localization"]
+  SETTABLEKS R8 R25 K18 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  MOVE R24 R10
+  MOVE R25 R23
+  CALL R24 1 -1
+  RETURN R24 -1

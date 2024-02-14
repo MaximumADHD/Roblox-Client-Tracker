@@ -2,6 +2,8 @@
 -- CorePackages version
 local LocalizationService = game:GetService("LocalizationService")
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local t = InGameMenuDependencies.t
@@ -9,6 +11,11 @@ local Roact = InGameMenuDependencies.Roact
 
 local InGameMenu = script.Parent.Parent
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
+
+local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
+if GetFFlagSwitchInExpTranslationsPackage() then
+	return require(CorePackages.Workspace.Packages.Localization).LocalizationConsumer
+end
 
 local LocalizationRoactContext = require(script.Parent.LocalizationRoactContext)
 

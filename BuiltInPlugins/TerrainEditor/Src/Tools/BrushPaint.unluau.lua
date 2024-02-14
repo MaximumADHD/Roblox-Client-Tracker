@@ -1,110 +1,121 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = script:FindFirstAncestor("TerrainEditor")
-local var1 = require(script.Parent.BaseTool)
-local var2 = require(var0.Src.Util.Operations.PaintOperation)
-local var3 = require(var0.Src.Types)
-local var4 = var3.BrushSettings
-local var5 = var3.Category
-local var6 = var3.Gizmo
-local var7 = var3.MaterialSettings
-local var42 = {}
-var4.BrushShape = var3.BrushShape.Sphere
-local var47 = {}
-var47.Height = 6
-var47.Locked = true
-var47.Size = 6
-var4.BrushSize = var47
-var4.PivotPosition = var3.PivotPosition.Center
-var4.Snapping = var3.Snapping.Off
-local var56 = {}
-var56.Position = Vector3.new(0, 0, 0)
-var4.State = var56
-var4.IgnoreWater = false
-var4.IgnoreParts = true
-var42.Defaults = {}
-var42.Id = var5.BrushSettings
-var42.Schema = require(var0.Src.Schemas.Settings.Brush)
-local var67 = {}
-var7.MaterialMode = var3.MaterialMode.Paint
-var7.SourceMaterial = Enum.Material.Grass
-var7.TargetMaterial = Enum.Material.Grass
-var67.Defaults = {}
-var67.Id = var5.MaterialSettings
-var67.Schema = require(var0.Src.Schemas.Settings.Material)
-local var77 = {}
-var77.Id = var6.Brush
-local var79 = {}
-var79.Type = var6.Brush
-var77.Schema = var79
+local var1 = require(var0.Packages.Dash)
+local var2 = require(script.Parent.BaseTool)
+local var3 = require(var0.Src.Util.Operations.PaintOperation)
+local var4 = require(var0.Src.Types)
+local var5 = var4.BrushSettings
+local var6 = var4.Category
+local var7 = var4.Gizmo
+local var8 = var4.MaterialSettings
+local var46 = {}
+var5.BrushShape = var4.BrushShape.Sphere
+local var51 = {}
+var51.Height = 6
+var51.Locked = true
+var51.Size = 6
+var5.BrushSize = var51
+var5.PivotPosition = var4.PivotPosition.Center
+var5.Snapping = var4.Snapping.Off
+local var60 = {}
+var60.Position = Vector3.new(0, 0, 0)
+var5.State = var60
+var5.IgnoreWater = false
+var5.IgnoreParts = true
+var46.Defaults = {}
+var46.Id = var6.BrushSettings
+var46.Schema = require(var0.Src.Schemas.Settings.Brush)
+local var71 = {}
+var8.MaterialMode = var4.MaterialMode.Paint
+var8.SourceMaterial = Enum.Material.Grass
+var8.TargetMaterial = Enum.Material.Grass
+var71.Defaults = {}
+var71.Id = var6.MaterialSettings
+var71.Schema = require(var0.Src.Schemas.Settings.Material)
 local var81 = {}
-var81.Id = var6.Plane
+var81.Id = var7.Brush
 local var83 = {}
-var83.Type = var6.Plane
+var83.Type = var7.Brush
 var81.Schema = var83
-local var13 = var1:new(var3.Tool.Paint, var3.Tab.Edit, {}, {})
-function var13.init(arg1, arg2, arg3)
-   local var94 = var1
-   var94 = arg1
-   var94.init(var94, arg2, arg3)
-   local var104 = {}
-   local var105 = {}
-   var105.AllowAir = true
-   var104.Schema = var105
-   var7.SourceMaterial = var104
+local var85 = {}
+var85.Id = var7.Plane
+local var87 = {}
+var87.Type = var7.Plane
+var85.Schema = var87
+local var14 = var2:new(var4.Tool.Paint, var4.Tab.Edit, {}, {})
+function var14.init(arg1, arg2, arg3)
+   local var98 = var2
+   var98 = arg1
+   var98.init(var98, arg2, arg3)
+   local var108 = {}
+   local var109 = {}
+   var109.AllowAir = true
+   var108.Schema = var109
+   var8.SourceMaterial = var108
    local var3 = {}
    local var4 = {}
    var4.AllowAir = true
    var3.Schema = var4
-   var7.TargetMaterial = var3
-   var5.TransformSettings = {}
+   var8.TargetMaterial = var3
+   var6.TransformSettings = {}
    arg1._overrides = {}
 end
 
-function var13.saveForm(arg1, arg2)
-   local var114 = var1
-   var114 = arg1
-   var114.saveForm(var114, arg2)
+function var14.saveForm(arg1, arg2)
+   local var118 = var2
+   var118 = arg1
+   var118.saveForm(var118, arg2)
    if arg1._operation then
       local var0 = arg1:getPayload()
       arg1._operation:updatePayload()
    end
 end
 
-function var13.saveGizmos(arg1, arg2)
-   local var124 = var1
-   var124 = arg1
-   var124.saveGizmos(var124, arg2)
+function var14.saveGizmos(arg1, arg2)
+   local var128 = var2
+   var128 = arg1
+   var128.saveGizmos(var128, arg2)
    if arg1._operation then
       local var0 = arg1:getPayload()
       arg1._operation:updatePayload()
    end
 end
 
-function var13.activate(arg1)
-   local var133 = var1
-   var133 = arg1
-   var133.activate(var133)
+function var14.startOperation(arg1, arg2)
+   arg1._operation = var3("Paint", arg1._services)
+   local var145 = {}
+   local var147 = arg1:getPayload()
+   var145.Payload = var147
+   var147 = arg2
+   local var0 = var1.join(var145, var147)
+   arg1._operation:start()
+end
+
+function var14.activate(arg1)
+   local var151 = var2
+   var151 = arg1
+   var151.activate(var151)
    arg1._mouseDownConnection = arg1._shortcutController.MouseDownAction:Connect(function(arg1, arg2, arg3)
-      local var143 = var1
-      var143 = arg1
-      var143.init(var143, arg2, arg3)
-      local var153 = {}
-      local var154 = {}
-      var154.AllowAir = true
-      var153.Schema = var154
-      var7.SourceMaterial = var153
+      local var161 = var2
+      var161 = arg1
+      var161.init(var161, arg2, arg3)
+      local var171 = {}
+      local var172 = {}
+      var172.AllowAir = true
+      var171.Schema = var172
+      var8.SourceMaterial = var171
       local var3 = {}
       local var4 = {}
       var4.AllowAir = true
       var3.Schema = var4
-      var7.TargetMaterial = var3
-      var5.TransformSettings = {}
+      var8.TargetMaterial = var3
+      var6.TransformSettings = {}
       arg1._overrides = {}
    end)
    arg1._mouseUpConnection = arg1._shortcutController:getMouse().Button1Up:Connect(function(arg1, arg2)
-      local var166 = var1
-      var166 = arg1
-      var166.saveForm(var166, arg2)
+      local var184 = var2
+      var184 = arg1
+      var184.saveForm(var184, arg2)
       if arg1._operation then
          local var0 = arg1:getPayload()
          arg1._operation:updatePayload()
@@ -112,10 +123,10 @@ function var13.activate(arg1)
    end)
 end
 
-function var13.deactivate(arg1)
-   local var177 = var1
-   var177 = arg1
-   var177.deactivate(var177)
+function var14.deactivate(arg1)
+   local var195 = var2
+   var195 = arg1
+   var195.deactivate(var195)
    arg1._mouseDownConnection:Disconnect()
    arg1._mouseUpConnection:Disconnect()
    if arg1._operation then
@@ -125,4 +136,4 @@ function var13.deactivate(arg1)
    end
 end
 
-return var13
+return var14

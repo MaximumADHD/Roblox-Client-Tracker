@@ -2568,7 +2568,6 @@ PROTO_32:
   GETUPVAL R2 8
   GETUPVAL R3 9
   SETTABLEKS R3 R2 K6 ["Parent"]
-  GETUPVAL R2 8
   GETGLOBAL R2 K13 ["createSelectionPart"]
   CALL R2 0 0
   GETGLOBAL R2 K14 ["renderSelection"]

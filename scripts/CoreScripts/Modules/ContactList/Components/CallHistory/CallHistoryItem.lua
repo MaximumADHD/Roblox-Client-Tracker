@@ -9,7 +9,6 @@ local React = require(CorePackages.Packages.React)
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
-local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local GetFFlagIrisUseLocalizationProvider =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
@@ -222,18 +221,10 @@ local function CallHistoryItem(props: Props)
 
 	local onHovered = React.useCallback(function(_: any, inputObject: InputObject?)
 		if inputObject and inputObject.UserInputType == Enum.UserInputType.MouseMovement then
-			if GetFFlagSoundManagerRefactor() then
-				SoundManager:PlaySound(Sounds.Hover.Name, {
-					Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
-					PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
-				}, SoundGroups.Iris)
-			else
-				SoundManager:PlaySound_old(Sounds.Hover.Name, {
-					Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
-					PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
-					SoundGroup = SoundGroups.Iris,
-				})
-			end
+			SoundManager:PlaySound(Sounds.Hover.Name, {
+				Volume = 0.5 + rng:NextNumber(-0.25, 0.25),
+				PlaybackSpeed = 1 + rng:NextNumber(-0.5, 0.5),
+			}, SoundGroups.Iris)
 		end
 	end, {})
 

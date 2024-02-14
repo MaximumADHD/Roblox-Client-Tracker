@@ -4,9 +4,9 @@ local var1 = require(var0.Packages.Roact)
 local var2 = require(var0.Core.Components.TabSet)
 local var3 = var1.PureComponent:extend("TabTestWrapper")
 function var3.init(arg1)
-   local var322 = {}
-   var322.currentTab = "Marketplace"
-   arg1.state = var322
+   local var328 = {}
+   var328.currentTab = "Marketplace"
+   arg1.state = var328
    function arg1.changeTab()
       local var0 = {}
       var0.currentTab = arg1
@@ -16,22 +16,22 @@ function var3.init(arg1)
 end
 
 function var3.render(arg1, arg2)
-   local var331 = {}
-   var331.Size = UDim2.new(1, 0, 1, 0)
-   var331.Position = UDim2.new()
-   var331.CurrentWidth = 565.5
-   var331.CurrentTab = arg1.state.currentTab
-   local var344 = {}
-   var344.Image = "rbxasset://textures/StudioToolbox/Tabs/Shop.png"
-   var344.Key = "Marketplace"
-   var344.Text = "Marketplace"
+   local var337 = {}
+   var337.Size = UDim2.new(1, 0, 1, 0)
+   var337.Position = UDim2.new()
+   var337.CurrentWidth = 565.5
+   var337.CurrentTab = arg1.state.currentTab
+   local var350 = {}
+   var350.Image = "rbxasset://textures/StudioToolbox/Tabs/Shop.png"
+   var350.Key = "Marketplace"
+   var350.Text = "Marketplace"
    local var1 = {}
    var1.Image = "rbxasset://textures/StudioToolbox/Tabs/Shop.png"
    var1.Key = "Inventory"
    var1.Text = "Inventory"
-   var331.Tabs = {}
-   var331.onTabSelected = arg1.changeTab
-   return var1.createElement(var2, var331)
+   var337.Tabs = {}
+   var337.onTabSelected = arg1.changeTab
+   return var1.createElement(var2, var337)
 end
 
 return var3

@@ -8,7 +8,7 @@ local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).Deferre
 local JestGlobals = require(CorePackages.JestGlobals)
 local expect = JestGlobals.expect
 
-local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
+local VoiceConstants = require(CorePackages.Workspace.Packages.VoiceChat).Constants
 local VOICE_STATE = VoiceConstants.VOICE_STATE
 local Players = game:GetService("Players")
 

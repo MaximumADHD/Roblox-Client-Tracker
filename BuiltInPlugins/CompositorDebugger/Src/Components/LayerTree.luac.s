@@ -38,17 +38,7 @@ PROTO_3:
   GETTABLEKS R6 R7 K1 ["SetSelectedLayer"]
   MOVE R7 R4
   CALL R6 1 0
-  GETUPVAL R6 1
-  CALL R6 0 1
-  JUMPIF R6 [+6]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K0 ["props"]
-  GETTABLEKS R6 R7 K2 ["ClearHistoryField"]
-  CALL R6 0 0
-  FORGLOOP R1 2 [-17]
-  GETUPVAL R1 1
-  CALL R1 0 1
-  JUMPIFNOT R1 [+6]
+  FORGLOOP R1 2 [-8]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["props"]
   GETTABLEKS R1 R2 K2 ["ClearHistoryField"]
@@ -78,7 +68,6 @@ PROTO_4:
   SETTABLEKS R1 R0 K7 ["onToggleAdornment"]
   NEWCLOSURE R1 P3
   CAPTURE VAL R0
-  CAPTURE UPVAL U1
   SETTABLEKS R1 R0 K8 ["onSelect"]
   RETURN R0 0
 
@@ -183,16 +172,8 @@ PROTO_9:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K3 ["createElement"]
   GETUPVAL R5 1
-  DUPTABLE R6 K16 [{"Size", "RootItems", "Expansion", "Selection", "Style", "GetItemId", "RowComponent", "RowProps", "RowHeight", "OnExpansionChange", "OnSelectionChange", "ScrollingDirection"}]
-  GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+3]
+  DUPTABLE R6 K15 [{"Size", "RootItems", "Expansion", "Selection", "GetItemId", "RowComponent", "RowProps", "RowHeight", "OnExpansionChange", "OnSelectionChange", "ScrollingDirection"}]
   GETTABLEKS R7 R2 K4 ["Size"]
-  JUMP [+5]
-  GETIMPORT R7 K19 [UDim2.fromScale]
-  LOADN R8 1
-  LOADN R9 1
-  CALL R7 2 1
   SETTABLEKS R7 R6 K4 ["Size"]
   NEWTABLE R7 0 1
   MOVE R8 R3
@@ -202,36 +183,26 @@ PROTO_9:
   SETTABLEKS R7 R6 K6 ["Expansion"]
   GETTABLEKS R7 R1 K7 ["Selection"]
   SETTABLEKS R7 R6 K7 ["Selection"]
-  GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+2]
-  LOADNIL R7
-  JUMP [+1]
-  LOADK R7 K20 ["BorderBox"]
-  SETTABLEKS R7 R6 K8 ["Style"]
-  GETTABLEKS R7 R0 K21 ["getItemId"]
-  SETTABLEKS R7 R6 K9 ["GetItemId"]
-  GETUPVAL R7 3
-  SETTABLEKS R7 R6 K10 ["RowComponent"]
-  DUPTABLE R7 K25 [{"GetItemId", "Adornments", "OnToggleAdornment", "OnDetach"}]
-  GETTABLEKS R8 R0 K21 ["getItemId"]
-  SETTABLEKS R8 R7 K9 ["GetItemId"]
-  GETTABLEKS R8 R2 K22 ["Adornments"]
-  SETTABLEKS R8 R7 K22 ["Adornments"]
-  GETTABLEKS R8 R0 K26 ["onToggleAdornment"]
-  SETTABLEKS R8 R7 K23 ["OnToggleAdornment"]
-  GETTABLEKS R9 R0 K1 ["props"]
-  GETTABLEKS R8 R9 K27 ["DetachCompositor"]
-  SETTABLEKS R8 R7 K24 ["OnDetach"]
-  SETTABLEKS R7 R6 K11 ["RowProps"]
+  GETTABLEKS R7 R0 K16 ["getItemId"]
+  SETTABLEKS R7 R6 K8 ["GetItemId"]
+  GETUPVAL R7 2
+  SETTABLEKS R7 R6 K9 ["RowComponent"]
+  DUPTABLE R7 K19 [{"GetItemId", "Adornments", "OnToggleAdornment"}]
+  GETTABLEKS R8 R0 K16 ["getItemId"]
+  SETTABLEKS R8 R7 K8 ["GetItemId"]
+  GETTABLEKS R8 R2 K17 ["Adornments"]
+  SETTABLEKS R8 R7 K17 ["Adornments"]
+  GETTABLEKS R8 R0 K20 ["onToggleAdornment"]
+  SETTABLEKS R8 R7 K18 ["OnToggleAdornment"]
+  SETTABLEKS R7 R6 K10 ["RowProps"]
   LOADN R7 26
-  SETTABLEKS R7 R6 K12 ["RowHeight"]
-  GETTABLEKS R7 R0 K28 ["onExpand"]
-  SETTABLEKS R7 R6 K13 ["OnExpansionChange"]
-  GETTABLEKS R7 R0 K29 ["onSelect"]
-  SETTABLEKS R7 R6 K14 ["OnSelectionChange"]
-  GETIMPORT R7 K32 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R7 R6 K15 ["ScrollingDirection"]
+  SETTABLEKS R7 R6 K11 ["RowHeight"]
+  GETTABLEKS R7 R0 K21 ["onExpand"]
+  SETTABLEKS R7 R6 K12 ["OnExpansionChange"]
+  GETTABLEKS R7 R0 K22 ["onSelect"]
+  SETTABLEKS R7 R6 K13 ["OnSelectionChange"]
+  GETIMPORT R7 K25 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R7 R6 K14 ["ScrollingDirection"]
   NEWTABLE R7 0 0
   CALL R4 3 -1
   RETURN R4 -1
@@ -251,13 +222,6 @@ PROTO_11:
   RETURN R0 0
 
 PROTO_12:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  CALL R1 0 -1
-  CALL R0 -1 0
-  RETURN R0 0
-
-PROTO_13:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
@@ -265,8 +229,8 @@ PROTO_13:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_14:
-  DUPTABLE R1 K3 [{"ClearHistoryField", "DetachCompositor", "SetSelectedLayer"}]
+PROTO_13:
+  DUPTABLE R1 K2 [{"ClearHistoryField", "SetSelectedLayer"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
@@ -274,11 +238,7 @@ PROTO_14:
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  SETTABLEKS R2 R1 K1 ["DetachCompositor"]
-  NEWCLOSURE R2 P2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U2
-  SETTABLEKS R2 R1 K2 ["SetSelectedLayer"]
+  SETTABLEKS R2 R1 K1 ["SetSelectedLayer"]
   RETURN R1 1
 
 MAIN:
@@ -336,53 +296,42 @@ MAIN:
   GETTABLEKS R24 R0 K20 ["Src"]
   GETTABLEKS R23 R24 K30 ["Types"]
   CALL R22 1 1
-  GETIMPORT R23 K5 [require]
-  GETTABLEKS R25 R0 K31 ["LuaFlags"]
-  GETTABLEKS R24 R25 K32 ["GetFFlagTestRefactoring"]
-  CALL R23 1 1
-  GETIMPORT R24 K5 [require]
-  GETTABLEKS R26 R0 K31 ["LuaFlags"]
-  GETTABLEKS R25 R26 K33 ["GetFFlagCrossFadeFilter"]
-  CALL R24 1 1
-  GETTABLEKS R25 R1 K34 ["PureComponent"]
-  LOADK R27 K35 ["LayerTree"]
-  NAMECALL R25 R25 K36 ["extend"]
-  CALL R25 2 1
-  DUPCLOSURE R26 K37 [PROTO_4]
+  GETTABLEKS R23 R1 K31 ["PureComponent"]
+  LOADK R25 K32 ["LayerTree"]
+  NAMECALL R23 R23 K33 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K34 [PROTO_4]
   CAPTURE VAL R10
-  CAPTURE VAL R23
-  SETTABLEKS R26 R25 K38 ["init"]
-  DUPCLOSURE R26 K39 [PROTO_7]
+  SETTABLEKS R24 R23 K35 ["init"]
+  DUPCLOSURE R24 K36 [PROTO_7]
   CAPTURE VAL R21
-  SETGLOBAL R26 K40 ["updateTreeViewItems"]
-  DUPCLOSURE R26 K41 [PROTO_8]
+  SETGLOBAL R24 K37 ["updateTreeViewItems"]
+  DUPCLOSURE R24 K38 [PROTO_8]
   CAPTURE VAL R10
-  SETTABLEKS R26 R25 K42 ["getDerivedStateFromProps"]
-  DUPCLOSURE R26 K43 [PROTO_9]
+  SETTABLEKS R24 R23 K39 ["getDerivedStateFromProps"]
+  DUPCLOSURE R24 K40 [PROTO_9]
   CAPTURE VAL R1
   CAPTURE VAL R12
-  CAPTURE VAL R24
   CAPTURE VAL R17
-  SETTABLEKS R26 R25 K44 ["render"]
-  MOVE R26 R5
-  DUPTABLE R27 K45 [{"Analytics", "Localization", "Stylizer"}]
-  SETTABLEKS R6 R27 K12 ["Analytics"]
-  SETTABLEKS R7 R27 K13 ["Localization"]
-  SETTABLEKS R8 R27 K15 ["Stylizer"]
-  CALL R26 1 1
-  MOVE R27 R25
-  CALL R26 1 1
-  MOVE R25 R26
-  DUPCLOSURE R26 K46 [PROTO_10]
-  DUPCLOSURE R27 K47 [PROTO_14]
+  SETTABLEKS R24 R23 K41 ["render"]
+  MOVE R24 R5
+  DUPTABLE R25 K42 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R6 R25 K12 ["Analytics"]
+  SETTABLEKS R7 R25 K13 ["Localization"]
+  SETTABLEKS R8 R25 K15 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  DUPCLOSURE R24 K43 [PROTO_10]
+  DUPCLOSURE R25 K44 [PROTO_13]
   CAPTURE VAL R15
-  CAPTURE VAL R19
   CAPTURE VAL R14
-  GETTABLEKS R28 R2 K48 ["connect"]
-  MOVE R29 R26
-  MOVE R30 R27
-  CALL R28 2 1
-  MOVE R29 R25
-  CALL R28 1 1
-  MOVE R25 R28
-  RETURN R25 1
+  GETTABLEKS R26 R2 K45 ["connect"]
+  MOVE R27 R24
+  MOVE R28 R25
+  CALL R26 2 1
+  MOVE R27 R23
+  CALL R26 1 1
+  MOVE R23 R26
+  RETURN R23 1

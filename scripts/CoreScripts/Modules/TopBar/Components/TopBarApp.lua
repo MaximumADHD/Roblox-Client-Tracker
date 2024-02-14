@@ -30,6 +30,9 @@ local BadgeOver13 = require(Presentation.BadgeOver13)
 
 local Chrome = script.Parent.Parent.Parent.Chrome
 
+local ExperienceMenuABTestManager = require(script.Parent.Parent.Parent.ExperienceMenuABTestManager)
+local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.Parent.IsExperienceMenuABTestEnabled)
+local OnboardingTooltip = require(Chrome.Onboarding.OnboardingTooltip)
 local ChromeEnabled = require(Chrome.Enabled)
 local UnibarConstants = require(Chrome.Unibar.Constants)
 
@@ -314,6 +317,8 @@ function TopBarApp:renderWithStyle(style)
 				end,
 			}) or nil,
 		}),
+
+		UnibarOnboarding = if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:shouldShowFTUX() then Roact.createElement(OnboardingTooltip) else nil,
 
 		UnibarLeftFrame = Unibar
 				and unibarAlignment == Enum.HorizontalAlignment.Left

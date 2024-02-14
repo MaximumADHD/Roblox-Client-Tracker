@@ -22,6 +22,9 @@ return {
 	DIVIDER_CELL_WIDTH = 5,
 	ICON_SIZE = 36,
 	SUB_MENU_ROW_HEIGHT = 56,
+	PIN_ICON_SIZE = UDim2.new(0, 18, 0, 18),
+	PIN_BUTTON_SIZE = 40,
+	PIN_RIGHT_PADDING = 13,
 	MENU_ANIMATION_SPRING = {
 		dampingRatio = 1.1,
 		frequency = 1 / 0.15, -- @150ms size anim

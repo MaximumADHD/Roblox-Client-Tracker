@@ -17,7 +17,7 @@ local ParticipantRemoved = require(script.Parent.Actions.ParticipantRemoved)
 local PlayerRemoved = require(script.Parent.Actions.PlayerRemoved)
 
 local VoiceChatServiceManager = require(script.Parent.VoiceChatServiceManager).default
-local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
+local VoiceConstants = require(CorePackages.Workspace.Packages.VoiceChat).Constants
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
 if GetFFlagRemoveInGameChatBubbleChatReferences() then

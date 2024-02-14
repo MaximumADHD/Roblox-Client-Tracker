@@ -12,33 +12,33 @@ function var1.getToolbarName()
    return "Alignment"
 end
 
-local var25 = {}
-function var25.getName()
+local var66 = {}
+function var66.getName()
    return "AlignTool"
 end
 
-function var25.getDescription()
+function var66.getDescription()
    return ""
 end
 
-var25.icon = ""
-var25.text = nil
-var25.clickableWhenViewportHidden = true
-var1.buttonInfo = var25
-local var31 = {}
-var31.id = "AlignmentTool"
-var31.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, false, 300, 250, 175, 250)
-function var31.getDockTitle(arg1, arg2, arg3)
+var66.icon = ""
+var66.text = nil
+var66.clickableWhenViewportHidden = true
+var1.buttonInfo = var66
+local var72 = {}
+var72.id = "AlignmentTool"
+var72.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, false, 300, 250, 175, 250)
+function var72.getDockTitle(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Plugin", "WindowTitle")
 end
 
-local var51 = Enum.ZIndexBehavior.Sibling
-var31.zIndexBehavior = var51
-var1.dockWidgetInfo = var31
-var51 = var1
-local var5 = require(var0.PluginLoader.PluginLoaderBuilder).build(var51)
+local var92 = Enum.ZIndexBehavior.Sibling
+var72.zIndexBehavior = var92
+var1.dockWidgetInfo = var72
+var92 = var1
+local var5 = require(var0.PluginLoader.PluginLoaderBuilder).build(var92)
 if not var5.pluginLoader:waitForUserInteraction() then
 end
-local var58 = script
-var58 = var5
-require(var58.Parent.main)(plugin, var58)
+local var99 = script
+var99 = var5
+require(var99.Parent.main)(plugin, var99)

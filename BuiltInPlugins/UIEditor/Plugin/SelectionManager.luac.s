@@ -137,7 +137,7 @@ PROTO_9:
 
 PROTO_10:
   GETIMPORT R1 K1 [game]
-  LOADK R3 K2 ["EnablePathEditor"]
+  LOADK R3 K2 ["UIEditorAvoidEditingPath2D"]
   NAMECALL R1 R1 K3 ["GetFastFlag"]
   CALL R1 2 1
   JUMPIFNOT R1 [+16]

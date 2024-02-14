@@ -1,6 +1,4 @@
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 game:DefineFastInt("LuaVoiceChatAnalyticsPointsThrottle", 0)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUsePointsV2", false)
@@ -8,8 +6,6 @@ game:DefineFastFlag("LuaVoiceChatAnalyticsUseCounterV2", false)
 game:DefineFastFlag("LuaVoiceChatAnalyticsUseEventsV2", false)
 game:DefineFastFlag("LuaVoiceChatAnalyticsBanMessage", true)
 game:DefineFastFlag("LuaVoiceChatReconnectMissedSequence", false)
-local GetFFlagLuaVoiceChatAnalyticsBanMessageV2 =
-	require(RobloxGui.Modules.Flags.GetFFlagLuaVoiceChatAnalyticsBanMessageV2)
 
 type EventStreamFn = (AnalyticsService, string, string, string, { [string]: any }) -> ()
 type DiagFn = (AnalyticsService, string, number) -> ()
@@ -21,7 +17,7 @@ export type VoiceMuteIndividualArgs = {
 	targetUserId: number,
 	channelId: string,
 	context: string,
-	muted: boolean
+	muted: boolean,
 }
 
 export type VoiceMuteGroupArgs = {
@@ -30,7 +26,7 @@ export type VoiceMuteGroupArgs = {
 	channelId: string,
 	context: string,
 	groupType: string,
-	muted: boolean
+	muted: boolean,
 }
 
 export type VoiceMuteSelfArgs = {
@@ -38,7 +34,7 @@ export type VoiceMuteSelfArgs = {
 	clientSessionId: string,
 	channelId: string,
 	context: string,
-	muted: boolean
+	muted: boolean,
 }
 
 -- Only providing types for functions we might use
@@ -70,7 +66,13 @@ type AnalyticsWrapperMeta = {
 
 	_report: (AnalyticsWrapper, string, string, string?, { [string]: any }) -> (),
 	reportVoiceChatJoinResult: (AnalyticsWrapper, boolean, string, LogLevel?) -> (),
-	reportBanMessageEventV2: (AnalyticsWrapper, eventType: string, banReason: number, userId: number, voiceSessionId: string) -> (),
+	reportBanMessageEventV2: (
+		AnalyticsWrapper,
+		eventType: string,
+		banReason: number,
+		userId: number,
+		voiceSessionId: string
+	) -> (),
 	reportBanMessageEvent: (AnalyticsWrapper, string) -> (),
 	reportReconnectDueToMissedSequence: (AnalyticsWrapper) -> (),
 	reportOutOfOrderSequence: (AnalyticsWrapper) -> (),
@@ -80,7 +82,7 @@ type AnalyticsWrapperMeta = {
 	reportDeniedNudge: (AnalyticsWrapper, number, string) -> (),
 	reportVoiceMuteIndividual: (AnalyticsWrapper, VoiceMuteIndividualArgs) -> (),
 	reportVoiceMuteGroup: (AnalyticsWrapper, VoiceMuteGroupArgs) -> (),
-	reportVoiceMuteSelf: (AnalyticsWrapper, VoiceMuteSelfArgs) -> ()
+	reportVoiceMuteSelf: (AnalyticsWrapper, VoiceMuteSelfArgs) -> (),
 }
 
 -- Replace this when Luau supports it
@@ -165,14 +167,12 @@ function Analytics:reportBanMessageEvent(event: string)
 end
 
 function Analytics:reportBanMessageEventV2(eventType: string, banReason: number, userId: number, voiceSessionId: string)
-	if GetFFlagLuaVoiceChatAnalyticsBanMessageV2() then
-		self:_report("voiceChat", "reportBanEvent", nil, {
-			eventType = eventType,
-			banReason = banReason,
-			userId = userId,
-			voiceSessionId = voiceSessionId
-		})
-	end
+	self:_report("voiceChat", "reportBanEvent", nil, {
+		eventType = eventType,
+		banReason = banReason,
+		userId = userId,
+		voiceSessionId = voiceSessionId,
+	})
 end
 
 function Analytics:reportReconnectDueToMissedSequence()
@@ -236,7 +236,7 @@ function Analytics:reportVoiceMuteIndividual(args: VoiceMuteIndividualArgs)
 		target_user_id = args.targetUserId,
 		channel_id = args.channelId,
 		context = args.context,
-		muted = args.muted
+		muted = args.muted,
 	})
 end
 
@@ -247,7 +247,7 @@ function Analytics:reportVoiceMuteGroup(args: VoiceMuteGroupArgs)
 		channel_id = args.channelId,
 		context = args.context,
 		group_type = args.groupType,
-		muted = args.muted
+		muted = args.muted,
 	})
 end
 
@@ -257,7 +257,7 @@ function Analytics:reportVoiceMuteSelf(args: VoiceMuteSelfArgs)
 		client_session_id = args.clientSessionId,
 		channel_id = args.channelId,
 		context = args.context,
-		muted = args.muted
+		muted = args.muted,
 	})
 end
 

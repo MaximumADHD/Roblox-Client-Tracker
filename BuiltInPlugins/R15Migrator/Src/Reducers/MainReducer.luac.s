@@ -40,14 +40,20 @@ MAIN:
   GETTABLEKS R8 R9 K8 ["Parent"]
   GETTABLEKS R7 R8 K13 ["PanelSelection"]
   CALL R6 1 1
-  GETTABLEKS R7 R1 K14 ["combineReducers"]
-  DUPTABLE R8 K16 [{"AnimationConversion", "CharacterConversion", "ScriptConversion", "Adapter", "PanelSelection", "AvatarType"}]
-  SETTABLEKS R2 R8 K9 ["AnimationConversion"]
-  SETTABLEKS R3 R8 K10 ["CharacterConversion"]
-  SETTABLEKS R4 R8 K11 ["ScriptConversion"]
-  SETTABLEKS R5 R8 K12 ["Adapter"]
-  SETTABLEKS R6 R8 K13 ["PanelSelection"]
-  DUPCLOSURE R9 K17 [PROTO_0]
-  SETTABLEKS R9 R8 K15 ["AvatarType"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K8 ["Parent"]
+  GETTABLEKS R8 R9 K14 ["DataDisplay"]
   CALL R7 1 1
-  RETURN R7 1
+  GETTABLEKS R8 R1 K15 ["combineReducers"]
+  DUPTABLE R9 K17 [{"AnimationConversion", "CharacterConversion", "ScriptConversion", "Adapter", "PanelSelection", "DataDisplay", "AvatarType"}]
+  SETTABLEKS R2 R9 K9 ["AnimationConversion"]
+  SETTABLEKS R3 R9 K10 ["CharacterConversion"]
+  SETTABLEKS R4 R9 K11 ["ScriptConversion"]
+  SETTABLEKS R5 R9 K12 ["Adapter"]
+  SETTABLEKS R6 R9 K13 ["PanelSelection"]
+  SETTABLEKS R7 R9 K14 ["DataDisplay"]
+  DUPCLOSURE R10 K18 [PROTO_0]
+  SETTABLEKS R10 R9 K16 ["AvatarType"]
+  CALL R8 1 1
+  RETURN R8 1

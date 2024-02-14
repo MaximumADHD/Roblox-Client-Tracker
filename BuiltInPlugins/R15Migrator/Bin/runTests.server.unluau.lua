@@ -26,21 +26,21 @@ if not var2.RunningUnderCLI() then
       var3.showTimingInfo = false
       var3.testNamePattern = nil
       var3.extraEnvironment = {}
-      local var76 = " Tests ------"
-      print("----- All " ... var1.Name ... var76)
-      local var79 = script
-      require(var79.Parent.defineLuaFlags)
-      var79 = var1.Src
-      var79 = var1
-      var76 = var3
-      var0.TestBootstrap:run({}, var79, var76)
+      local var93 = " Tests ------"
+      print("----- All " ... var1.Name ... var93)
+      local var96 = script
+      require(var96.Parent.defineLuaFlags)
+      var96 = var1.Src
+      var96 = var1
+      var93 = var3
+      var0.TestBootstrap:run({}, var96, var93)
       print("----------------------------------")
       if var2.RunDeveloperFrameworkTests() then
          print("")
          print("----- All DeveloperFramework Tests ------")
-         local var92 = var3.TestHelpers
-         var92 = var0
-         var92.runFrameworkTests(var92, var1)
+         local var109 = var3.TestHelpers
+         var109 = var0
+         var109.runFrameworkTests(var109, var1)
          print("----------------------------------")
       end
    end
@@ -48,11 +48,11 @@ end
 if var0 then
    var3 = require(var1.Packages.Framework)
 end
-local var105 = require(var1.Packages.Dev.TestEZ)
-local var5 = var105.Reporters
+local var122 = require(var1.Packages.Dev.TestEZ)
+local var5 = var122.Reporters
 local var6 = var5.TextReporter
 if _G.TEAMCITY then
-   var5 = var105.Reporters.TeamCityReporter
+   var5 = var122.Reporters.TeamCityReporter
    if not var5 then
       var5 = var6
    end
@@ -62,21 +62,21 @@ local var7 = {}
 var7.showTimingInfo = false
 var7.testNamePattern = nil
 var7.extraEnvironment = {}
-local var121 = " Tests ------"
-print("----- All " ... var1.Name ... var121)
-local var124 = script
-require(var124.Parent.defineLuaFlags)
-var124 = var1.Src
-var124 = var5
-var121 = var7
-var105.TestBootstrap:run({}, var124, var121)
+local var138 = " Tests ------"
+print("----- All " ... var1.Name ... var138)
+local var141 = script
+require(var141.Parent.defineLuaFlags)
+var141 = var1.Src
+var141 = var5
+var138 = var7
+var122.TestBootstrap:run({}, var141, var138)
 print("----------------------------------")
 if var2.RunDeveloperFrameworkTests() then
    print("")
    print("----- All DeveloperFramework Tests ------")
-   local var137 = var3.TestHelpers
-   var137 = var105
-   var137.runFrameworkTests(var137, var5)
+   local var154 = var3.TestHelpers
+   var154 = var122
+   var154.runFrameworkTests(var154, var5)
    print("----------------------------------")
 end
 if var2.RunningUnderCLI() then

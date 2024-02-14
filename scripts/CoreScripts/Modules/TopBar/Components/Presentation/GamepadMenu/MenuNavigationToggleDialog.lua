@@ -3,6 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local LocalizationService = game:GetService("LocalizationService")
 local UserInputService = game:GetService("UserInputService")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
@@ -10,7 +11,14 @@ local useExternalEvent = UIBlox.Core.Hooks.useExternalEvent
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
 local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
 
-local Localization = require(CoreGui.RobloxGui.Modules.InGameMenu.Localization.Localization)
+local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
+
+local Localization : any
+if GetFFlagSwitchInExpTranslationsPackage() then
+	Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+else
+	Localization = require(CoreGui.RobloxGui.Modules.InGameMenu.Localization.Localization)
+end
 
 local FFlagLocalizeMenuNavigationToggleDialog =
 	require(CoreGui.RobloxGui.Modules.TopBar.Flags.FFlagLocalizeMenuNavigationToggleDialog)

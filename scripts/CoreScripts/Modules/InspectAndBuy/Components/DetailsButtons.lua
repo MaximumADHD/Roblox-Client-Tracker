@@ -19,6 +19,8 @@ local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagE
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local GetCollectibleItemInInspectAndBuyEnabled =
 	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
+local GetFFlagIBGateUGC4ACollectibleAssetsBundles =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBGateUGC4ACollectibleAssetsBundles)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -223,6 +225,13 @@ function DetailsButtons:render()
 		end
 	end
 
+	local hideBuyButton
+	if GetFFlagIBGateUGC4ACollectibleAssetsBundles() then
+		hideBuyButton = UtilityFunctions.isUnlimitedCollectibleAsset(itemType, assetInfo)
+			or UtilityFunctions.isLimitedBundle(itemType, assetInfo)
+			or UtilityFunctions.isUnlimitedCollectibleBundle(itemType, assetInfo)
+	end
+
 	local showControllerBar = GetFFlagUseInspectAndBuyControllerBar()
 		and self.props.detailsInformation.viewingDetails -- only show when item menu is open
 		and self.props.gamepadEnabled
@@ -264,18 +273,20 @@ function DetailsButtons:render()
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(5, 5, 120, 20),
 		}),
-		BuyButton = Roact.createElement(BuyButton, {
-			itemType = itemType,
-			itemId = itemId,
-			showRobuxIcon = showRobuxIcon,
-			forSale = forSale,
-			buyText = buyText,
-			buyButtonRef = self.buyButtonRef,
-			collectibleItemId = collectibleItemId,
-			collectibleLowestAvailableResaleProductId = collectibleLowestAvailableResaleProductId,
-			collectibleLowestAvailableResaleItemInstanceId = collectibleLowestAvailableResaleItemInstanceId,
-			collectibleLowestResalePrice = collectibleLowestResalePrice,
-		}),
+		BuyButton = if GetFFlagIBGateUGC4ACollectibleAssetsBundles() and hideBuyButton
+			then nil
+			else Roact.createElement(BuyButton, {
+				itemType = itemType,
+				itemId = itemId,
+				showRobuxIcon = showRobuxIcon,
+				forSale = forSale,
+				buyText = buyText,
+				buyButtonRef = self.buyButtonRef,
+				collectibleItemId = collectibleItemId,
+				collectibleLowestAvailableResaleProductId = collectibleLowestAvailableResaleProductId,
+				collectibleLowestAvailableResaleItemInstanceId = collectibleLowestAvailableResaleItemInstanceId,
+				collectibleLowestResalePrice = collectibleLowestResalePrice,
+			}),
 	})
 end
 

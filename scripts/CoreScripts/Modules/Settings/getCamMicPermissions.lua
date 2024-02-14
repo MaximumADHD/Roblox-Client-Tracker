@@ -29,6 +29,7 @@ local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsP
 local getVoiceCameraAccountSettings = require(CoreGui.RobloxGui.Modules.Settings.getVoiceCameraAccountSettings)
 local getPlaceVoiceCameraEnabled = require(CoreGui.RobloxGui.Modules.Settings.getPlaceVoiceCameraEnabled)
 local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
+local MicrophoneDevicePermissionsLogging = require(CoreGui.RobloxGui.Modules.Settings.Resources.MicrophoneDevicePermissionsLogging)
 
 local Promise = require(CorePackages.Promise)
 
@@ -44,6 +45,7 @@ local getFFlagPermissionsEarlyOutStallsQueue = require(RobloxGui.Modules.Flags.g
 local getFFlagUseCameraDeviceGrantedSignal = require(RobloxGui.Modules.Flags.getFFlagUseCameraDeviceGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAnalyticsForCameraDevicePermissions = require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
+local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local FFlagCheckCameraAvailabilityBeforePermissions = game:DefineFastFlag("CheckCameraAvailabilityBeforePermissions", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
 
@@ -92,7 +94,7 @@ local function removePermissionsBasedOnUserSetting(allowedSettings: AllowedSetti
 	return permissionsToCheck
 end
 
-local function requestPermissions(allowedSettings : AllowedSettings, callback, invokeNextRequest, permsToCheck, shouldNotRequestPerms:boolean?)
+local function requestPermissions(allowedSettings : AllowedSettings, callback, invokeNextRequest, permsToCheck, shouldNotRequestPerms:boolean?, context: string?)
 	local cacheCamera = true
 	local cacheMic = true
 	if FFlagAvatarChatCoreScriptSupport or GetFFlagSelfieViewEnabled() then
@@ -159,6 +161,12 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 			invokeNextRequest()
 			return hasPermissionsResult
 		else
+			if getFFlagMicrophoneDevicePermissionsPromptLogging() and checkingMic and context then
+				MicrophoneDevicePermissionsLogging:logPromptImpression({
+					didAuthorize = false,
+					uiContext = context :: string
+				});
+			end
 			-- Requesting any permissions that have not been given yet.
 			return PermissionsProtocol:requestPermissions(permissionsToCheck):andThen(function(requestPermissionsResult)
 				-- If the return value is a table, that means permissions have different values.
@@ -204,6 +212,13 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 							didAuthorize = didAuthorize,
 						})
 					end
+				end
+
+				if getFFlagMicrophoneDevicePermissionsPromptLogging() and checkingMic and context then
+					MicrophoneDevicePermissionsLogging:logPromptInteraction({
+						didAuthorize = hasMicPermissions :: boolean,
+						uiContext = context :: string
+					});
 				end
 
 				-- Remove with AVBURST-12354 once the C++ side fixes this.
@@ -257,7 +272,8 @@ end
 
 -- TODO Make callback required with removal of FFlagUpdateCamMicPermissioning
 -- If shouldNotRequestPerms is true, we only obtain the current state of device permissions instead of requesting them.
-local function getCamMicPermissions(callback, permissionsToRequest: Array<string>?, shouldNotRequestPerms: boolean?)
+-- When called, please include context parameter--it is used for telemetry.
+local function getCamMicPermissions(callback, permissionsToRequest: Array<string>?, shouldNotRequestPerms: boolean?, context: string?)
 	local permsToCheck: Array<string> = {}
 	if permissionsToRequest then
 		permsToCheck = permissionsToRequest
@@ -274,9 +290,9 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 			local nextRequest = requestPermissionsQueue[1]
 			table.remove(requestPermissionsQueue, 1)
 			if getFFlagDecoupleHasAndRequestPermissions() then
-				getCamMicPermissions(nextRequest.callback, nextRequest.permissionsToRequest, nextRequest.shouldNotRequestPerms)
+				getCamMicPermissions(nextRequest.callback, nextRequest.permissionsToRequest, nextRequest.shouldNotRequestPerms, nextRequest.context)
 			else
-				getCamMicPermissions(nextRequest.callback, nextRequest.permsToCheck)
+				getCamMicPermissions(nextRequest.callback, nextRequest.permsToCheck, nil, nextRequest.context)
 			end
 		end
 	end
@@ -296,6 +312,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 			callback = callback,
 			permissionsToRequest = permissionsToRequest,
 			shouldNotRequestPerms = getFFlagDecoupleHasAndRequestPermissions() and shouldNotRequestPerms,
+			context = context
 		})
 
 		return
@@ -324,7 +341,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 					end)
 				end
 			end):andThen(function(allowedSettings)
-				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck, shouldNotRequestPerms)
+				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck, shouldNotRequestPerms, context)
 			end)
 		else
 			local placeSettingsPromise = Promise.new(function(resolve, _)
@@ -360,7 +377,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 				}
 				return combinedAllowedSettings
 			end):andThen(function(allowedSettings)
-				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck, shouldNotRequestPerms)
+				requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck, shouldNotRequestPerms, context)
 			end)
 		end
 	else
@@ -374,7 +391,7 @@ local function getCamMicPermissions(callback, permissionsToRequest: Array<string
 			}
 			resolve(allowedSettings)
 		end):andThen(function(allowedSettings)
-			requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck)
+			requestPermissions(allowedSettings, callback, invokeNextRequest, permsToCheck, nil, context)
 		end)
 	end
 end

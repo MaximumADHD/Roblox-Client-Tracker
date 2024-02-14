@@ -1,5 +1,5 @@
-game:DefineFastFlag("SwitchInExpTranslationsPackage", false)
+game:DefineFastFlag("SwitchInExpTranslationsPackage2", false)
 
 return function()
-	return game:GetFastFlag("SwitchInExpTranslationsPackage")
+	return game:GetFastFlag("SwitchInExpTranslationsPackage2")
 end

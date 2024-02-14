@@ -9,9 +9,9 @@ local var6 = require(var0.Src.Components.PluginDetails.ListItem)
 local var7 = require(var0.Packages.Framework).ContextServices
 local var8 = require(var0.Packages.FitFrame).FitFrameVertical
 local var9 = var1.Component:extend("PluginDetailsView")
-local var97 = {}
-var97.Size = UDim2.new(1, 0, 1, 0)
-var9.defaultProps = var97
+local var57 = {}
+var57.Size = UDim2.new(1, 0, 1, 0)
+var9.defaultProps = var57
 function var9.init(arg1)
    arg1.scrollLayoutRef = var1.createRef()
    arg1.scrollRef = var1.createRef()
@@ -22,9 +22,9 @@ function var9.init(arg1)
          if not var0 then
          end
       end
-      local var124 = var1.CanvasSize
-      var124 = UDim.new(0, var0.AbsoluteContentSize.Y)
-      var1.CanvasSize = UDim2.new(var124.X, var124)
+      local var84 = var1.CanvasSize
+      var84 = UDim.new(0, var0.AbsoluteContentSize.Y)
+      var1.CanvasSize = UDim2.new(var84.X, var84)
    end
    
 end
@@ -36,91 +36,91 @@ end
 local function fun6(arg1)
    local var0 = arg1.props.Localization
    local var1 = arg1.props.Stylizer
-   local var151 = {}
-   var151.BackgroundColor3 = var1.BackgroundColor
-   var151.BorderSizePixel = 0
-   var151.Size = arg1.props.Size
+   local var111 = {}
+   var111.BackgroundColor3 = var1.BackgroundColor
+   var111.BorderSizePixel = 0
+   var111.Size = arg1.props.Size
+   local var114 = {}
+   local var118 = {}
+   var118.PaddingBottom = UDim.new(0, 40)
+   var118.PaddingLeft = UDim.new(0, 40)
+   var118.PaddingRight = UDim.new(0, 40)
+   var114.Padding = var1.createElement("UIPadding", var118)
+   local var135 = {}
+   var135.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var135.Padding = UDim.new(0, 20)
+   var135.SortOrder = Enum.SortOrder.LayoutOrder
+   var135.VerticalAlignment = Enum.VerticalAlignment.Top
+   var114.Layout = var1.createElement("UIListLayout", var135)
+   local var147 = {}
+   var147.BackgroundTransparency = 1
+   var147.LayoutOrder = 2
+   var147.width = UDim.new(1, 0)
    local var154 = {}
    local var158 = {}
-   var158.PaddingBottom = UDim.new(0, 40)
-   var158.PaddingLeft = UDim.new(0, 40)
-   var158.PaddingRight = UDim.new(0, 40)
-   var154.Padding = var1.createElement("UIPadding", var158)
-   local var175 = {}
-   var175.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var175.Padding = UDim.new(0, 20)
-   var175.SortOrder = Enum.SortOrder.LayoutOrder
-   var175.VerticalAlignment = Enum.VerticalAlignment.Top
-   var154.Layout = var1.createElement("UIListLayout", var175)
-   local var187 = {}
-   var187.BackgroundTransparency = 1
-   var187.LayoutOrder = 2
-   var187.width = UDim.new(1, 0)
-   local var194 = {}
-   local var198 = {}
-   var198.assetId = arg1.props.assetId
-   var198.name = arg1.props.pluginData.name
-   var198.LayoutOrder = 1
-   var194.DetailsTopBar = var1.createElement(var3, var198)
-   local var205 = {}
-   var205.LayoutOrder = 2
-   var205.BorderSizePixel = 0
-   var205.BackgroundColor3 = var1.BorderColor
-   var205.Size = UDim2.new(1, 0, 0, 1)
-   var194.Border = var1.createElement("Frame", var205)
-   var154.PlugnEntryContainer = var1.createElement(var8, var187, var194)
-   local var220 = {}
-   var220.BackgroundTransparency = 1
-   var220.LayoutOrder = 3
-   var220.CanvasSize = UDim2.new(1, 0, 0, 0)
-   var220.Position = UDim2.new(0, 200, 0, 0)
-   var220.TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png"
-   var220.MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png"
-   var220.BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"
-   var220.ScrollBarImageColor3 = var1.ScrollbarColor
-   var220.ScrollBarThickness = var1.ScrollbarSize
-   var220.ScrollBarImageTransparency = var1.ScrollbarTransparency
-   var220.Size = UDim2.new(1, 0, 1, 40 + var2.DETAILS_THUMBNAIL_SIZE)
+   var158.assetId = arg1.props.assetId
+   var158.name = arg1.props.pluginData.name
+   var158.LayoutOrder = 1
+   var154.DetailsTopBar = var1.createElement(var3, var158)
+   local var165 = {}
+   var165.LayoutOrder = 2
+   var165.BorderSizePixel = 0
+   var165.BackgroundColor3 = var1.BorderColor
+   var165.Size = UDim2.new(1, 0, 0, 1)
+   var154.Border = var1.createElement("Frame", var165)
+   var114.PlugnEntryContainer = var1.createElement(var8, var147, var154)
+   local var180 = {}
+   var180.BackgroundTransparency = 1
+   var180.LayoutOrder = 3
+   var180.CanvasSize = UDim2.new(1, 0, 0, 0)
+   var180.Position = UDim2.new(0, 200, 0, 0)
+   var180.TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png"
+   var180.MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png"
+   var180.BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"
+   var180.ScrollBarImageColor3 = var1.ScrollbarColor
+   var180.ScrollBarThickness = var1.ScrollbarSize
+   var180.ScrollBarImageTransparency = var1.ScrollbarTransparency
+   var180.Size = UDim2.new(1, 0, 1, 40 + var2.DETAILS_THUMBNAIL_SIZE)
    var1.Ref = arg1.scrollRef
-   local var250 = {}
-   local var254 = {}
-   var254.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var254.SortOrder = Enum.SortOrder.LayoutOrder
-   var254.VerticalAlignment = Enum.VerticalAlignment.Top
+   local var210 = {}
+   local var214 = {}
+   var214.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var214.SortOrder = Enum.SortOrder.LayoutOrder
+   var214.VerticalAlignment = Enum.VerticalAlignment.Top
    var1.Change.AbsoluteContentSize = arg1.resizeScrollingFrameCanvas
    var1.Ref = arg1.scrollLayoutRef
-   var250.Layout = var1.createElement("UIListLayout", var254)
-   local var269 = {}
-   var269.BackgroundTransparency = 1
-   var269.contentPadding = UDim.new(0, 20)
-   var269.width = UDim.new(1, 0)
-   local var279 = {}
-   local var282 = next(arg1.props.httpPermissions)
-   if var282 then
-      local var286 = {}
-      var286.LayoutOrder = 3
-      function var286.renderContent(arg1)
+   var210.Layout = var1.createElement("UIListLayout", var214)
+   local var229 = {}
+   var229.BackgroundTransparency = 1
+   var229.contentPadding = UDim.new(0, 20)
+   var229.width = UDim.new(1, 0)
+   local var239 = {}
+   local var242 = next(arg1.props.httpPermissions)
+   if var242 then
+      local var246 = {}
+      var246.LayoutOrder = 3
+      function var246.renderContent(arg1)
          local var0 = arg1.scrollLayoutRef.current
          local var1 = arg1.scrollRef.current
          if var1 then
             if not var0 then
             end
          end
-         local var301 = var1.CanvasSize
-         var301 = UDim.new(0, var0.AbsoluteContentSize.Y)
-         var1.CanvasSize = UDim2.new(var301.X, var301)
+         local var261 = var1.CanvasSize
+         var261 = UDim.new(0, var0.AbsoluteContentSize.Y)
+         var1.CanvasSize = UDim2.new(var261.X, var261)
       end
       
-      var286.theme = var1
-      var286.title = var0:getText("Details", "HttpRequests")
-      local var0 = var1.createElement(var6, var286)
+      var246.theme = var1
+      var246.title = var0:getText("Details", "HttpRequests")
+      local var0 = var1.createElement(var6, var246)
    end
-   var279.HttpRequestPermissionContainer = var282
+   var239.HttpRequestPermissionContainer = var242
    local var3 = next(arg1.props.scriptInjectionPermissions)
    if var3 then
-      local var315 = {}
-      var315.LayoutOrder = 4
-      function var315.renderContent(arg1)
+      local var275 = {}
+      var275.LayoutOrder = 4
+      function var275.renderContent(arg1)
          arg1.scrollLayoutRef = var1.createRef()
          arg1.scrollRef = var1.createRef()
          function arg1.resizeScrollingFrameCanvas(arg1)
@@ -130,111 +130,111 @@ local function fun6(arg1)
                if not var0 then
                end
             end
-            local var337 = var1.CanvasSize
-            var337 = UDim.new(0, var0.AbsoluteContentSize.Y)
-            var1.CanvasSize = UDim2.new(var337.X, var337)
+            local var297 = var1.CanvasSize
+            var297 = UDim.new(0, var0.AbsoluteContentSize.Y)
+            var1.CanvasSize = UDim2.new(var297.X, var297)
          end
          
       end
       
-      var315.theme = var1
-      var315.title = var0:getText("Details", "ScriptInjection")
-      local var0 = var1.createElement(var6, var315)
+      var275.theme = var1
+      var275.title = var0:getText("Details", "ScriptInjection")
+      local var0 = var1.createElement(var6, var275)
    end
-   var279.ScriptInjectionPermissionContainer = var3
-   var250.Content = var1.createElement(var8, var269, var279)
-   var154.ScrollingFrame = var1.createElement("ScrollingFrame", var220, var250)
-   return var1.createElement("Frame", var151, var154)
+   var239.ScriptInjectionPermissionContainer = var3
+   var210.Content = var1.createElement(var8, var229, var239)
+   var114.ScrollingFrame = var1.createElement("ScrollingFrame", var180, var210)
+   return var1.createElement("Frame", var111, var114)
 end
 
 function var9.render(arg1)
    local var0 = arg1.props.Localization
    local var1 = arg1.props.Stylizer
-   local var151 = {}
-   var151.BackgroundColor3 = var1.BackgroundColor
-   var151.BorderSizePixel = 0
-   var151.Size = arg1.props.Size
+   local var111 = {}
+   var111.BackgroundColor3 = var1.BackgroundColor
+   var111.BorderSizePixel = 0
+   var111.Size = arg1.props.Size
+   local var114 = {}
+   local var118 = {}
+   var118.PaddingBottom = UDim.new(0, 40)
+   var118.PaddingLeft = UDim.new(0, 40)
+   var118.PaddingRight = UDim.new(0, 40)
+   var114.Padding = var1.createElement("UIPadding", var118)
+   local var135 = {}
+   var135.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var135.Padding = UDim.new(0, 20)
+   var135.SortOrder = Enum.SortOrder.LayoutOrder
+   var135.VerticalAlignment = Enum.VerticalAlignment.Top
+   var114.Layout = var1.createElement("UIListLayout", var135)
+   local var147 = {}
+   var147.BackgroundTransparency = 1
+   var147.LayoutOrder = 2
+   var147.width = UDim.new(1, 0)
    local var154 = {}
    local var158 = {}
-   var158.PaddingBottom = UDim.new(0, 40)
-   var158.PaddingLeft = UDim.new(0, 40)
-   var158.PaddingRight = UDim.new(0, 40)
-   var154.Padding = var1.createElement("UIPadding", var158)
-   local var175 = {}
-   var175.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var175.Padding = UDim.new(0, 20)
-   var175.SortOrder = Enum.SortOrder.LayoutOrder
-   var175.VerticalAlignment = Enum.VerticalAlignment.Top
-   var154.Layout = var1.createElement("UIListLayout", var175)
-   local var187 = {}
-   var187.BackgroundTransparency = 1
-   var187.LayoutOrder = 2
-   var187.width = UDim.new(1, 0)
-   local var194 = {}
-   local var198 = {}
-   var198.assetId = arg1.props.assetId
-   var198.name = arg1.props.pluginData.name
-   var198.LayoutOrder = 1
-   var194.DetailsTopBar = var1.createElement(var3, var198)
-   local var205 = {}
-   var205.LayoutOrder = 2
-   var205.BorderSizePixel = 0
-   var205.BackgroundColor3 = var1.BorderColor
-   var205.Size = UDim2.new(1, 0, 0, 1)
-   var194.Border = var1.createElement("Frame", var205)
-   var154.PlugnEntryContainer = var1.createElement(var8, var187, var194)
-   local var220 = {}
-   var220.BackgroundTransparency = 1
-   var220.LayoutOrder = 3
-   var220.CanvasSize = UDim2.new(1, 0, 0, 0)
-   var220.Position = UDim2.new(0, 200, 0, 0)
-   var220.TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png"
-   var220.MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png"
-   var220.BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"
-   var220.ScrollBarImageColor3 = var1.ScrollbarColor
-   var220.ScrollBarThickness = var1.ScrollbarSize
-   var220.ScrollBarImageTransparency = var1.ScrollbarTransparency
-   var220.Size = UDim2.new(1, 0, 1, 40 + var2.DETAILS_THUMBNAIL_SIZE)
+   var158.assetId = arg1.props.assetId
+   var158.name = arg1.props.pluginData.name
+   var158.LayoutOrder = 1
+   var154.DetailsTopBar = var1.createElement(var3, var158)
+   local var165 = {}
+   var165.LayoutOrder = 2
+   var165.BorderSizePixel = 0
+   var165.BackgroundColor3 = var1.BorderColor
+   var165.Size = UDim2.new(1, 0, 0, 1)
+   var154.Border = var1.createElement("Frame", var165)
+   var114.PlugnEntryContainer = var1.createElement(var8, var147, var154)
+   local var180 = {}
+   var180.BackgroundTransparency = 1
+   var180.LayoutOrder = 3
+   var180.CanvasSize = UDim2.new(1, 0, 0, 0)
+   var180.Position = UDim2.new(0, 200, 0, 0)
+   var180.TopImage = "rbxasset://textures/StudioToolbox/ScrollBarTop.png"
+   var180.MidImage = "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png"
+   var180.BottomImage = "rbxasset://textures/StudioToolbox/ScrollBarBottom.png"
+   var180.ScrollBarImageColor3 = var1.ScrollbarColor
+   var180.ScrollBarThickness = var1.ScrollbarSize
+   var180.ScrollBarImageTransparency = var1.ScrollbarTransparency
+   var180.Size = UDim2.new(1, 0, 1, 40 + var2.DETAILS_THUMBNAIL_SIZE)
    var1.Ref = arg1.scrollRef
-   local var250 = {}
-   local var254 = {}
-   var254.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var254.SortOrder = Enum.SortOrder.LayoutOrder
-   var254.VerticalAlignment = Enum.VerticalAlignment.Top
+   local var210 = {}
+   local var214 = {}
+   var214.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var214.SortOrder = Enum.SortOrder.LayoutOrder
+   var214.VerticalAlignment = Enum.VerticalAlignment.Top
    var1.Change.AbsoluteContentSize = arg1.resizeScrollingFrameCanvas
    var1.Ref = arg1.scrollLayoutRef
-   var250.Layout = var1.createElement("UIListLayout", var254)
-   local var269 = {}
-   var269.BackgroundTransparency = 1
-   var269.contentPadding = UDim.new(0, 20)
-   var269.width = UDim.new(1, 0)
-   local var279 = {}
-   local var282 = next(arg1.props.httpPermissions)
-   if var282 then
-      local var286 = {}
-      var286.LayoutOrder = 3
-      function var286.renderContent(arg1)
+   var210.Layout = var1.createElement("UIListLayout", var214)
+   local var229 = {}
+   var229.BackgroundTransparency = 1
+   var229.contentPadding = UDim.new(0, 20)
+   var229.width = UDim.new(1, 0)
+   local var239 = {}
+   local var242 = next(arg1.props.httpPermissions)
+   if var242 then
+      local var246 = {}
+      var246.LayoutOrder = 3
+      function var246.renderContent(arg1)
          local var0 = arg1.scrollLayoutRef.current
          local var1 = arg1.scrollRef.current
          if var1 then
             if not var0 then
             end
          end
-         local var301 = var1.CanvasSize
-         var301 = UDim.new(0, var0.AbsoluteContentSize.Y)
-         var1.CanvasSize = UDim2.new(var301.X, var301)
+         local var261 = var1.CanvasSize
+         var261 = UDim.new(0, var0.AbsoluteContentSize.Y)
+         var1.CanvasSize = UDim2.new(var261.X, var261)
       end
       
-      var286.theme = var1
-      var286.title = var0:getText("Details", "HttpRequests")
-      local var0 = var1.createElement(var6, var286)
+      var246.theme = var1
+      var246.title = var0:getText("Details", "HttpRequests")
+      local var0 = var1.createElement(var6, var246)
    end
-   var279.HttpRequestPermissionContainer = var282
+   var239.HttpRequestPermissionContainer = var242
    local var3 = next(arg1.props.scriptInjectionPermissions)
    if var3 then
-      local var315 = {}
-      var315.LayoutOrder = 4
-      function var315.renderContent(arg1)
+      local var275 = {}
+      var275.LayoutOrder = 4
+      function var275.renderContent(arg1)
          arg1.scrollLayoutRef = var1.createRef()
          arg1.scrollRef = var1.createRef()
          function arg1.resizeScrollingFrameCanvas(arg1)
@@ -244,30 +244,30 @@ function var9.render(arg1)
                if not var0 then
                end
             end
-            local var337 = var1.CanvasSize
-            var337 = UDim.new(0, var0.AbsoluteContentSize.Y)
-            var1.CanvasSize = UDim2.new(var337.X, var337)
+            local var297 = var1.CanvasSize
+            var297 = UDim.new(0, var0.AbsoluteContentSize.Y)
+            var1.CanvasSize = UDim2.new(var297.X, var297)
          end
          
       end
       
-      var315.theme = var1
-      var315.title = var0:getText("Details", "ScriptInjection")
-      local var0 = var1.createElement(var6, var315)
+      var275.theme = var1
+      var275.title = var0:getText("Details", "ScriptInjection")
+      local var0 = var1.createElement(var6, var275)
    end
-   var279.ScriptInjectionPermissionContainer = var3
-   var250.Content = var1.createElement(var8, var269, var279)
-   var154.ScrollingFrame = var1.createElement("ScrollingFrame", var220, var250)
-   return var1.createElement("Frame", var151, var154)
+   var239.ScriptInjectionPermissionContainer = var3
+   var210.Content = var1.createElement(var8, var229, var239)
+   var114.ScrollingFrame = var1.createElement("ScrollingFrame", var180, var210)
+   return var1.createElement("Frame", var111, var114)
 end
 
 fun6 = var7.withContext
-local var348 = {}
-var348.Localization = var7.Localization
-local var350 = var7.Stylizer
-var348.Stylizer = var350
-var9 = fun6(var348)(var9)
-function var350(arg1, arg2)
+local var308 = {}
+var308.Localization = var7.Localization
+local var310 = var7.Stylizer
+var308.Stylizer = var310
+var9 = fun6(var308)(var9)
+function var310(arg1, arg2)
    local var0 = arg1.Management.plugins
    local var1 = arg1.PluginPermissions[arg2.assetId]
    local var2 = {}
@@ -286,4 +286,4 @@ function var350(arg1, arg2)
    return var2
 end
 
-return require(var0.Packages.RoactRodux).connect(var350, nil)(var9)
+return require(var0.Packages.RoactRodux).connect(var310, nil)(var9)

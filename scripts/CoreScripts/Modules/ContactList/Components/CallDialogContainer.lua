@@ -30,8 +30,6 @@ local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 
 local GetFFlagSeparateVoiceEnabledErrors =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeparateVoiceEnabledErrors
-local GetFFlagIrisUniverseAgeCheckError =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUniverseAgeCheckError
 local GetFFlagIrisReservedServerCheckError =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisReservedServerCheckError
 
@@ -146,7 +144,7 @@ local function CallDialogContainer(passedProps: Props)
 				end
 
 				-- Print out error message
-				if GetFFlagIrisUniverseAgeCheckError() and params.errorType == ErrorType.UniverseAgeIsNotValid then
+				if params.errorType == ErrorType.UniverseAgeIsNotValid then
 					warn("Experience must be at least one week old to place a call")
 				elseif
 					GetFFlagIrisReservedServerCheckError()

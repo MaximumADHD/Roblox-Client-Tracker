@@ -20,13 +20,12 @@ PROTO_0:
   GETUPVAL R7 4
   NEWTABLE R8 0 0
   DUPTABLE R9 K9 [{"Dragger", "Region"}]
-  GETTABLEKS R11 R0 K0 ["Tool"]
-  GETUPVAL R13 5
-  GETTABLEKS R12 R13 K10 ["Mock"]
-  JUMPIFEQ R11 R12 [+8]
+  GETTABLEKS R12 R1 K10 ["DraggerContext"]
+  GETTABLEKS R11 R12 K11 ["Mock"]
+  JUMPIF R11 [+7]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K6 ["createElement"]
-  GETUPVAL R11 6
+  GETUPVAL R11 5
   MOVE R12 R1
   CALL R10 2 1
   JUMP [+1]
@@ -34,30 +33,30 @@ PROTO_0:
   SETTABLEKS R10 R9 K7 ["Dragger"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K6 ["createElement"]
-  GETUPVAL R11 7
-  DUPTABLE R12 K20 [{"Adornee", "AlwaysOnTop", "Color", "LineThickness", "Lines", "Scale", "Size", "Transform", "Transparency", "Wireframe"}]
-  SETTABLEKS R5 R12 K11 ["Adornee"]
+  GETUPVAL R11 6
+  DUPTABLE R12 K21 [{"Adornee", "AlwaysOnTop", "Color", "LineThickness", "Lines", "Scale", "Size", "Transform", "Transparency", "Wireframe"}]
+  SETTABLEKS R5 R12 K12 ["Adornee"]
   LOADB R13 1
-  SETTABLEKS R13 R12 K12 ["AlwaysOnTop"]
+  SETTABLEKS R13 R12 K13 ["AlwaysOnTop"]
   GETTABLEKS R14 R0 K3 ["Schema"]
-  GETTABLEKS R13 R14 K13 ["Color"]
+  GETTABLEKS R13 R14 K14 ["Color"]
   JUMPIF R13 [+6]
-  GETIMPORT R13 K23 [Color3.new]
+  GETIMPORT R13 K24 [Color3.new]
   LOADN R14 1
   LOADN R15 1
   LOADN R16 1
   CALL R13 3 1
-  SETTABLEKS R13 R12 K13 ["Color"]
-  LOADK R13 K24 [0.1]
-  SETTABLEKS R13 R12 K14 ["LineThickness"]
-  SETTABLEKS R4 R12 K15 ["Lines"]
-  SETTABLEKS R3 R12 K16 ["Scale"]
-  GETTABLEKS R13 R2 K17 ["Size"]
-  SETTABLEKS R13 R12 K17 ["Size"]
-  GETTABLEKS R13 R2 K18 ["Transform"]
-  SETTABLEKS R13 R12 K18 ["Transform"]
-  LOADK R13 K25 [0.9]
-  SETTABLEKS R13 R12 K19 ["Transparency"]
+  SETTABLEKS R13 R12 K14 ["Color"]
+  LOADK R13 K25 [0.1]
+  SETTABLEKS R13 R12 K15 ["LineThickness"]
+  SETTABLEKS R4 R12 K16 ["Lines"]
+  SETTABLEKS R3 R12 K17 ["Scale"]
+  GETTABLEKS R13 R2 K18 ["Size"]
+  SETTABLEKS R13 R12 K18 ["Size"]
+  GETTABLEKS R13 R2 K19 ["Transform"]
+  SETTABLEKS R13 R12 K19 ["Transform"]
+  LOADK R13 K26 [0.9]
+  SETTABLEKS R13 R12 K20 ["Transparency"]
   GETTABLEKS R14 R0 K3 ["Schema"]
   GETTABLEKS R13 R14 K5 ["Wireframe"]
   SETTABLEKS R13 R12 K5 ["Wireframe"]
@@ -115,7 +114,6 @@ MAIN:
   CAPTURE VAL R11
   CAPTURE VAL R3
   CAPTURE VAL R5
-  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R7
   RETURN R14 1

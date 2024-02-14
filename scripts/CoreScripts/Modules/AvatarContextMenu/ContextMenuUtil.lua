@@ -30,9 +30,6 @@ local AvatarMenuModules = CoreGuiModules:WaitForChild("AvatarContextMenu")
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
 
--- FLAGS
-local FFlagFixAvatarContextMenuVR = game:DefineFastFlag("FixAvatarContextMenuVR", false)
-
 type Theme = ThemeHandler.Theme
 
 local LocalPlayer = PlayersService.LocalPlayer
@@ -90,25 +87,14 @@ function ContextMenuUtil:DisablePlayerMovement()
         return Enum.ContextActionResult.Sink
     end
 
-	if FFlagFixAvatarContextMenuVR then
-		ContextActionService:BindCoreActionAtPriority(STOP_MOVEMENT_ACTION_NAME, noOpFunc, false, Enum.ContextActionPriority.Low.Value,
-			Enum.PlayerActions.CharacterForward,
-			Enum.PlayerActions.CharacterBackward,
-			Enum.PlayerActions.CharacterLeft,
-			Enum.PlayerActions.CharacterRight,
-			Enum.PlayerActions.CharacterJump,
-			Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4
-		)
-	else
-		ContextActionService:BindCoreAction(STOP_MOVEMENT_ACTION_NAME, noOpFunc, false,
-			Enum.PlayerActions.CharacterForward,
-			Enum.PlayerActions.CharacterBackward,
-			Enum.PlayerActions.CharacterLeft,
-			Enum.PlayerActions.CharacterRight,
-			Enum.PlayerActions.CharacterJump,
-			Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4
-		)
-	end
+	ContextActionService:BindCoreActionAtPriority(STOP_MOVEMENT_ACTION_NAME, noOpFunc, false, Enum.ContextActionPriority.Low.Value,
+		Enum.PlayerActions.CharacterForward,
+		Enum.PlayerActions.CharacterBackward,
+		Enum.PlayerActions.CharacterLeft,
+		Enum.PlayerActions.CharacterRight,
+		Enum.PlayerActions.CharacterJump,
+		Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4
+	)
 end
 
 function ContextMenuUtil:EnablePlayerMovement()

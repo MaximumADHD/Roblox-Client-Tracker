@@ -9,6 +9,7 @@ local APP_STORAGE_KEY = "InGameMenuState"
 local CHROME_SEEN_COUNT_KEY = "ChromeSeenCount"
 local GetFFlagEnableUnibarMaxDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
+local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)
 
 local storeRoot: any
 local loaded = false
@@ -146,6 +147,20 @@ local function getChromeSeenCount(): number
 	return 0
 end
 
+local function getValue(key: string): any
+	if GetFFlagEnableChromeFTUX() then
+		local value = load(key, localPlayerSelector)
+		return value
+	end
+	return nil
+end
+
+local function deleteValue(key: string)
+	if GetFFlagEnableChromeFTUX() then
+		store(key, nil, localPlayerSelector)
+	end
+end
+
 return {
 	isEnabled = function()
 		return hasEngineSupport
@@ -172,4 +187,6 @@ return {
 	getChromeSeenCount = function()
 		return getChromeSeenCount()
 	end,
+	getValue = getValue,
+	deleteValue = deleteValue,
 }

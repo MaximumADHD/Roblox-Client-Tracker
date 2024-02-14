@@ -14,11 +14,11 @@ return function(arg1, arg2)
       var2.timestamp = var1
       var2.payload = arg1
       var2.layerMap = arg2
-      local var38 = var0.WriteIndex
+      local var97 = var0.WriteIndex
       var0.WriteIndex = var2
-      local var43 = var5
-      var43 = var1(var0.History)
-      local var50 = var4(var43, 1 + var38 % var43.HISTORY_FRAMES, var1)
+      local var102 = var5
+      var102 = var1(var0.History)
+      local var109 = var4(var102, 1 + var97 % var102.HISTORY_FRAMES, var1)
       arg1:dispatch()
       local var5 = var3(arg1, arg2)
       arg1:dispatch()

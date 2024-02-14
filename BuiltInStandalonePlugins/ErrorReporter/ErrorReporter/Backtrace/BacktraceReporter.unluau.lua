@@ -12,9 +12,9 @@ local var9 = game:GetService("RunService"):IsStudio()
 local var10 = {}
 var10.__index = var10
 function var10.new(arg1)
-   local var112 = var3
-   var112 = arg1
-   local var114 = var112.IBacktraceReporter(var112)
+   local var42 = var3
+   var42 = arg1
+   local var44 = var42.IBacktraceReporter(var42)
    assert()
    if arg1.accessToken > 0 then
       local var0 = false
@@ -27,19 +27,19 @@ function var10.new(arg1)
    var2._processErrorReportMethod = arg1.processErrorReportMethod
    var2._generateLogMethod = arg1.generateLogMethod
    var2._sharedAttributes = {}
-   local var130 = {}
-   var2._sharedAnnotations = var130
-   local var131 = arg1.logIntervalInSeconds
-   var2._logIntervalInSeconds = var130
+   local var60 = {}
+   var2._sharedAnnotations = var60
+   local var61 = arg1.logIntervalInSeconds
+   var2._logIntervalInSeconds = var60
    var2._lastLogTime = 0
    var2._isEnabled = true
-   var131 = var2
-   setmetatable(var131, var10)
+   var61 = var2
+   setmetatable(var61, var10)
    var2._errorQueue = var5.new(function(arg1, arg2, arg3)
       local var0 = arg2.backtraceReport
-      local var143 = {}
-      var143.ErrorCount = arg3
-      var0:addAttributes(var143)
+      local var73 = {}
+      var73.ErrorCount = arg3
+      var0:addAttributes(var73)
       var2:sendErrorReport(var0, arg2.log)
    end, arg1.queueOptions)
    if not _G.__TESTEZ_RUNNING_TEST__ then
@@ -49,11 +49,11 @@ function var10.new(arg1)
 end
 
 function var10.getUploadUrl(arg1, arg2)
-   local var164 = {}
-   local var165 = arg1._accessToken
-   var164.token = var165
-   var165 = arg2
-   return var6.composeUrl("https://upload.crashes.rbxinfra.com", "post", var2.Dictionary.join(var164, var165))
+   local var94 = {}
+   local var95 = arg1._accessToken
+   var94.token = var95
+   var95 = arg2
+   return var6.composeUrl("https://upload.crashes.rbxinfra.com", "post", var2.Dictionary.join(var94, var95))
 end
 
 function var10.sendErrorReport(arg1, arg2, arg3)
@@ -63,23 +63,23 @@ function var10.sendErrorReport(arg1, arg2, arg3)
    end
    if not pcall(function(arg1, arg2, arg3)
       local var0 = arg2.backtraceReport
-      local var182 = {}
-      var182.ErrorCount = arg3
-      var0:addAttributes(var182)
+      local var112 = {}
+      var112.ErrorCount = arg3
+      var0:addAttributes(var112)
       var2:sendErrorReport(var0, arg2.log)
    end) then
       warn("Cannot convert report to JSON")
    end
-   local var191 = {}
-   var191.format = "json"
+   local var121 = {}
+   var121.format = "json"
    local var1 = {}
    var1.Content-Type = "application/json"
-   local var2 = arg1._networking:post(arg1:getUploadUrl(var191), var199, var1)
+   local var2 = arg1._networking:post(arg1:getUploadUrl(var121), var129, var1)
    var2 = arg1._networking:parseJson(var2)
    var2:andThen(function(arg1)
-      local var208 = var3
-      var208 = arg1
-      local var210 = var208.IBacktraceReporter(var208)
+      local var138 = var3
+      var138 = arg1
+      local var140 = var138.IBacktraceReporter(var138)
       assert()
       if arg1.accessToken > 0 then
          local var0 = false
@@ -92,19 +92,19 @@ function var10.sendErrorReport(arg1, arg2, arg3)
       var2._processErrorReportMethod = arg1.processErrorReportMethod
       var2._generateLogMethod = arg1.generateLogMethod
       var2._sharedAttributes = {}
-      local var226 = {}
-      var2._sharedAnnotations = var226
-      local var227 = arg1.logIntervalInSeconds
-      var2._logIntervalInSeconds = var226
+      local var156 = {}
+      var2._sharedAnnotations = var156
+      local var157 = arg1.logIntervalInSeconds
+      var2._logIntervalInSeconds = var156
       var2._lastLogTime = 0
       var2._isEnabled = true
-      var227 = var2
-      setmetatable(var227, var10)
+      var157 = var2
+      setmetatable(var157, var10)
       var2._errorQueue = var5.new(function(arg1, arg2, arg3)
          local var0 = arg2.backtraceReport
-         local var239 = {}
-         var239.ErrorCount = arg3
-         var0:addAttributes(var239)
+         local var169 = {}
+         var169.ErrorCount = arg3
+         var0:addAttributes(var169)
          var2:sendErrorReport(var0, arg2.log)
       end, arg1.queueOptions)
       if not _G.__TESTEZ_RUNNING_TEST__ then
@@ -124,8 +124,8 @@ function var10._generateLog(arg1)
       if true then
          arg1._lastLogTime = tick()
          if pcall(arg1._generateLogMethod) then
-            if type(var274) == "string" then
-               if 0 < var277 then
+            if type(var204) == "string" then
+               if 0 < var207 then
                   return 
                end
             end
@@ -136,16 +136,16 @@ function var10._generateLog(arg1)
 end
 
 function var10._generateErrorReport(arg1, arg2, arg3, arg4)
-   local var284 = var4
-   var284 = arg2
-   local var1 = var284.fromMessageAndStack(var284, arg3)
+   local var214 = var4
+   var214 = arg2
+   local var1 = var214.fromMessageAndStack(var214, arg3)
    var1:addAttributes(arg1._sharedAttributes)
    var1:addAnnotations(arg1._sharedAnnotations)
    if type(arg4) == "string" then
       if arg4 == "" then
-         local var295 = {}
-         var295.stackDetails = arg4
-         var1:addAnnotations(var295)
+         local var225 = {}
+         var225.stackDetails = arg4
+         var1:addAnnotations(var225)
       end
    end
    return var1
@@ -183,15 +183,15 @@ function var10.reportErrorDeferred(arg1, arg2, arg3, arg4, arg5)
 end
 
 function var10.updateSharedAttributes(arg1, arg2)
-   local var357 = var2
-   var357 = arg2
-   local var0 = var357.Dictionary.join(arg1._sharedAttributes, var357)
+   local var287 = var2
+   var287 = arg2
+   local var0 = var287.Dictionary.join(arg1._sharedAttributes, var287)
    local var1 = var8(var0)
    if not var1 then
-      local var365 = _G
-      if var365.__TESTEZ_RUNNING_TEST__ then
-         var365 = var1
-         assert(var365, var367)
+      local var295 = _G
+      if var295.__TESTEZ_RUNNING_TEST__ then
+         var295 = var1
+         assert(var295, var297)
       else
       end
    end
@@ -199,20 +199,20 @@ function var10.updateSharedAttributes(arg1, arg2)
 end
 
 function var10.updateSharedAnnotations(arg1, arg2)
-   local var371 = var2
-   var371 = arg2
-   local var0 = var371.Dictionary.join(arg1._sharedAnnotations, var371)
+   local var301 = var2
+   var301 = arg2
+   local var0 = var301.Dictionary.join(arg1._sharedAnnotations, var301)
    local var1 = var7(var0)
    if not var1 then
       if not var9 then
-         local var380 = _G
-         if var380.__TESTEZ_RUNNING_TEST__ then
-            var380 = var1
-            assert(var380, var382)
+         local var310 = _G
+         if var310.__TESTEZ_RUNNING_TEST__ then
+            var310 = var1
+            assert(var310, var312)
          else
          end
       end
-      assert(var1, var385)
+      assert(var1, var315)
    end
    arg1._sharedAnnotations = var0
 end

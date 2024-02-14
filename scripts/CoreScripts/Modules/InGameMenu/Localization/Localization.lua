@@ -1,11 +1,20 @@
 --!nonstrict
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local CorePackages = game:GetService("CorePackages")
+
 local LocaleTables = script.Parent.Locales
 local LocalizationContext = require(script.Parent.LocalizationContext)
+
+local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
+if GetFFlagSwitchInExpTranslationsPackage() then
+	return require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+end
 
 local function loadTables(locale)
 	local relevantLanguages = LocalizationContext.getRelevantLanguages(locale)
 	local translations = {}
-	for _,language in ipairs(relevantLanguages) do
+	for _, language in ipairs(relevantLanguages) do
 		local languageTable = LocaleTables:FindFirstChild(language)
 		if languageTable then
 			translations[language] = require(languageTable)
@@ -18,7 +27,6 @@ local Localization = {}
 Localization.__index = Localization
 
 function Localization.new(locale)
-
 	local self = {
 		locale = locale,
 	}

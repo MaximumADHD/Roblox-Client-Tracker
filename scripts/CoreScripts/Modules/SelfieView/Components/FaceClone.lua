@@ -11,7 +11,6 @@ local cloneStreamTrack: AnimationStreamTrack? = nil
 local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled =
 	game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
 
-local FFlagSelfViewImprovedUpdateCloneTriggering = game:DefineFastFlag("SelfViewImprovedUpdateCloneTriggering", false)
 local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
@@ -456,17 +455,15 @@ local function characterAdded(character)
 	clearObserver(Observer.HeadSize)
 	clearObserver(Observer.Color)
 
-	if FFlagSelfViewImprovedUpdateCloneTriggering then
-		local humanoid = nil
-		if FFlagSelfViewLookUpHumanoidByType then
-			humanoid = character:FindFirstChildWhichIsA("Humanoid")
-		else
-			humanoid = character:FindFirstChild("Humanoid") :: Humanoid
-		end
+	local humanoid = nil
+	if FFlagSelfViewLookUpHumanoidByType then
+		humanoid = character:FindFirstChildWhichIsA("Humanoid")
+	else
+		humanoid = character:FindFirstChild("Humanoid") :: Humanoid
+	end
 
-		if humanoid then
-			addHumanoidStateChangedObserver(humanoid)
-		end
+	if humanoid then
+		addHumanoidStateChangedObserver(humanoid)
 	end
 
 	-- listen for updates on the original character's structure
@@ -477,23 +474,19 @@ local function characterAdded(character)
 			updateCachedHeadColor(headRef)
 		end
 
-		if FFlagSelfViewImprovedUpdateCloneTriggering then
-			if FFlagSelfViewLookUpHumanoidByType then
-				if descendant:IsA("Humanoid") then
-					local humanoid = descendant
-					addHumanoidStateChangedObserver(humanoid)
-				end
-			else
-				if descendant.Name == "Humanoid" or descendant:IsA("Humanoid") then
-					local humanoid = descendant
-					addHumanoidStateChangedObserver(humanoid)
-				end
-			end
-
-			if ModelUtils.shouldMarkCloneDirtyForDescendant(descendant) then
-				setCloneDirty(true)
+		if FFlagSelfViewLookUpHumanoidByType then
+			if descendant:IsA("Humanoid") then
+				local humanoid = descendant
+				addHumanoidStateChangedObserver(humanoid)
 			end
 		else
+			if descendant.Name == "Humanoid" or descendant:IsA("Humanoid") then
+				local humanoid = descendant
+				addHumanoidStateChangedObserver(humanoid)
+			end
+		end
+
+		if ModelUtils.shouldMarkCloneDirtyForDescendant(descendant) then
 			setCloneDirty(true)
 		end
 	end)
@@ -505,14 +498,9 @@ local function characterAdded(character)
 					return
 				end
 			end
-			if not FFlagSelfViewImprovedUpdateCloneTriggering then
-				setCloneDirty(true)
-			end
 
-			if FFlagSelfViewImprovedUpdateCloneTriggering then
-				if ModelUtils.shouldMarkCloneDirtyForDescendant(descendant) then
-					setCloneDirty(true)
-				end
+			if ModelUtils.shouldMarkCloneDirtyForDescendant(descendant) then
+				setCloneDirty(true)
 			end
 		end
 	end)
@@ -579,17 +567,15 @@ local function onCharacterAdded(character: Model)
 	else
 		ReInit(LocalPlayer)
 	end
-	if FFlagSelfViewImprovedUpdateCloneTriggering then
-		clearObserver(Observer.HumanoidStateChanged)
-		local humanoid = nil
-		if FFlagSelfViewLookUpHumanoidByType then
-			humanoid = character:FindFirstChildWhichIsA("Humanoid")
-		else
-			humanoid = character:FindFirstChild("Humanoid") :: Humanoid
-		end
-		if humanoid then
-			addHumanoidStateChangedObserver(humanoid)
-		end
+	clearObserver(Observer.HumanoidStateChanged)
+	local humanoid = nil
+	if FFlagSelfViewLookUpHumanoidByType then
+		humanoid = character:FindFirstChildWhichIsA("Humanoid")
+	else
+		humanoid = character:FindFirstChild("Humanoid") :: Humanoid
+	end
+	if humanoid then
+		addHumanoidStateChangedObserver(humanoid)
 	end
 end
 
@@ -886,9 +872,7 @@ local function Initialize(player: Player, passedWrapperFrame: Frame?): (() -> ()
 	Players.PlayerAdded:Connect(playerAdded)
 	Players.PlayerRemoving:Connect(function(player)
 		if player == LocalPlayer then
-			if FFlagSelfViewImprovedUpdateCloneTriggering then
-				clearObserver(Observer.HumanoidStateChanged)
-			end
+			clearObserver(Observer.HumanoidStateChanged)
 			clearObserver(Observer.CharacterAdded)
 			clearObserver(Observer.CharacterRemoving)
 			clearClone()

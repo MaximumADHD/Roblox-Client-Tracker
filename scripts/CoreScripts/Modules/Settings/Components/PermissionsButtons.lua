@@ -280,7 +280,7 @@ function PermissionsButtons:getPermissions()
 			hasMicPermissions = response.hasMicPermissions,
 		})
 	end
-	getCamMicPermissions(callback)
+	getCamMicPermissions(callback, nil, nil, "PermissionsButtons.getPermissions")
 end
 
 --[[
@@ -292,7 +292,7 @@ function PermissionsButtons:getMicPermission()
 			hasMicPermissions = response.hasMicPermissions,
 		})
 	end
-	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.MICROPHONE_ACCESS :: string })
+	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.MICROPHONE_ACCESS :: string }, nil, "PermissionsButtons.getMicPermission")
 end
 
 --[[

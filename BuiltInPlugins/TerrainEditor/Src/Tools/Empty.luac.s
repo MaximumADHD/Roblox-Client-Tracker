@@ -103,31 +103,33 @@ PROTO_3:
   NEWTABLE R5 1 0
   GETUPVAL R7 2
   GETTABLEKS R6 R7 K2 ["Shorelines"]
-  DUPTABLE R7 K7 [{"Hidden", "Label", "Schema", "Value"}]
-  GETTABLEKS R9 R2 K8 ["Terrain"]
+  DUPTABLE R7 K8 [{"Hidden", "Label", "Layout", "Schema", "Value"}]
+  GETTABLEKS R9 R2 K9 ["Terrain"]
   NOT R8 R9
   JUMPIF R8 [+6]
-  GETTABLEKS R9 R2 K8 ["Terrain"]
-  NAMECALL R9 R9 K9 ["CanShorelinesBeUpgraded"]
+  GETTABLEKS R9 R2 K9 ["Terrain"]
+  NAMECALL R9 R9 K10 ["CanShorelinesBeUpgraded"]
   CALL R9 1 1
   NOT R8 R9
   SETTABLEKS R8 R7 K3 ["Hidden"]
-  LOADK R8 K10 [""]
+  LOADK R8 K11 [""]
   SETTABLEKS R8 R7 K4 ["Label"]
-  DUPTABLE R8 K12 [{"OnClick"}]
+  GETIMPORT R8 K15 [Enum.FillDirection.Vertical]
+  SETTABLEKS R8 R7 K5 ["Layout"]
+  DUPTABLE R8 K17 [{"OnClick"}]
   NEWCLOSURE R9 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U3
   CAPTURE UPVAL U2
   CAPTURE VAL R2
   CAPTURE UPVAL U1
-  SETTABLEKS R9 R8 K11 ["OnClick"]
-  SETTABLEKS R8 R7 K5 ["Schema"]
+  SETTABLEKS R9 R8 K16 ["OnClick"]
+  SETTABLEKS R8 R7 K6 ["Schema"]
   LOADB R8 1
-  SETTABLEKS R8 R7 K6 ["Value"]
+  SETTABLEKS R8 R7 K7 ["Value"]
   SETTABLE R7 R5 R6
   SETTABLE R5 R3 R4
-  SETTABLEKS R3 R0 K13 ["_overrides"]
+  SETTABLEKS R3 R0 K18 ["_overrides"]
   RETURN R0 0
 
 PROTO_4:

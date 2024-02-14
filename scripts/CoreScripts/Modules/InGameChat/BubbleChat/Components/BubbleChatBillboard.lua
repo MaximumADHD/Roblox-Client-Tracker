@@ -582,7 +582,7 @@ function BubbleChatBillboard:getPermissions()
 			hasMicPermissions = response.hasMicPermissions,
 		})
 	end
-	return getCamMicPermissions(callback)
+	return getCamMicPermissions(callback, nil, nil, "BubbleChatBillboard.getPermissions")
 end
 
 --[[
@@ -594,7 +594,7 @@ function BubbleChatBillboard:getMicPermission()
 			hasMicPermissions = response.hasMicPermissions,
 		})
 	end
-	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.MICROPHONE_ACCESS :: string })
+	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.MICROPHONE_ACCESS :: string }, nil, "BubbleChatBillboard.getMicPermission")
 end
 
 --[[

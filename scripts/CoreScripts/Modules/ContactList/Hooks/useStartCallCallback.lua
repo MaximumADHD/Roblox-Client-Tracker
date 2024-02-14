@@ -26,7 +26,6 @@ type PagesType = Pages.PagesType
 
 local localPlayer = Players.LocalPlayer :: Player
 
-local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 local GetFFlagSeparateVoiceEnabledErrors =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeparateVoiceEnabledErrors
 local GetFFlagIrisRefactorStartCall = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisRefactorStartCall
@@ -73,11 +72,7 @@ return function(
 			return
 		end
 
-		if GetFFlagSoundManagerRefactor() then
-			SoundManager:PlaySound(Sounds.Select.Name, { Volume = 0.5 }, SoundGroups.Iris)
-		else
-			SoundManager:PlaySound_old(Sounds.Select.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-		end
+		SoundManager:PlaySound(Sounds.Select.Name, { Volume = 0.5 }, SoundGroups.Iris)
 
 		if GetFFlagIrisRefactorStartCall() and VoiceChatServiceManager == nil then
 			VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default

@@ -72,7 +72,7 @@ PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["ChangeHistoryService"]
   LOADK R2 K1 ["Upgrade Shorelines"]
-  NAMECALL R0 R0 K2 ["AddWaypoint"]
+  NAMECALL R0 R0 K2 ["SetWaypoint"]
   CALL R0 2 0
   GETUPVAL R0 1
   GETUPVAL R2 0

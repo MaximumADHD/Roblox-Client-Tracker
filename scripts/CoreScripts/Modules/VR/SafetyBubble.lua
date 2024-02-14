@@ -19,7 +19,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Util = require(RobloxGui.Modules.Settings.Utility)
 local MAX_SAFETY_DIST = require(RobloxGui.Modules.Flags.FIntSafetyBubbleRadius) -- this is using a 2d distance
 local MAX_TRANSPARENCY = require(RobloxGui.Modules.Flags.FIntSafetyBubbleTransparencyPercent) * 0.01 -- how transparent do we get
-local FFlagVRSafetyBubblePrimaryPartBugFix = game:DefineFastFlag("VRSafetyBubblePrimaryPartBugFix", false)
 
 local UPDATE_CADENCE = 0.2
 
@@ -292,19 +291,14 @@ function SafetyBubble:update(dt)
 		
 		local character = self.subjects[subIdx].character
 		local dist = 0
-		if FFlagVRSafetyBubblePrimaryPartBugFix then
-			if character.PrimaryPart then
-				local playerPos = Vector3.new(character:GetPrimaryPartCFrame().p.x,userHeadCameraCF.Position.Y,character:GetPrimaryPartCFrame().p.z)
-				dist = (playerPos - userHeadCameraCF.Position).Magnitude
-			else
-				local playerCFrame, size = character:GetBoundingBox()
-				dist = (playerCFrame.Position - userHeadCameraCF.Position).Magnitude
-				--deduct the scaled depth of the body of the other character from dist
-				dist = dist - size.Z
-			end
-		else
+		if character.PrimaryPart then
 			local playerPos = Vector3.new(character:GetPrimaryPartCFrame().p.x,userHeadCameraCF.Position.Y,character:GetPrimaryPartCFrame().p.z)
 			dist = (playerPos - userHeadCameraCF.Position).Magnitude
+		else
+			local playerCFrame, size = character:GetBoundingBox()
+			dist = (playerCFrame.Position - userHeadCameraCF.Position).Magnitude
+			--deduct the scaled depth of the body of the other character from dist
+			dist = dist - size.Z
 		end
 		
 		if dist < safetyRadius then

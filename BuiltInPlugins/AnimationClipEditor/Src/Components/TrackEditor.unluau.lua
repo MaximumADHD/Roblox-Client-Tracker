@@ -266,44 +266,44 @@ function var23.render(arg1)
       local var0 = var1.createElement(var13, var757)
    end
    var737.Scrubber = var753
-   local var789 = {}
-   var789.Size = UDim2.new(0, var7.X - var6.SCROLL_BAR_PADDING + 1, 0, var6.SCROLL_BAR_SIZE)
-   var789.Position = UDim2.new(0, 0, 1, var6.SCROLL_BAR_SIZE)
-   var789.Direction = var12.HORIZONTAL
-   var789.ZIndex = 4
-   var789.LayoutOrder = 2
-   var789.ContainerSize = Vector2.new(var7.X, var7.Y)
-   var789.AdjustScrollZoom = var0.SetHorizontalScrollZoom
-   var789.Scroll = var0.HorizontalScroll
-   var789.Zoom = var0.HorizontalZoom
-   var789.Min = var8.X + 1
-   local var29 = var1.createElement(var12, var789)
-   var737.HorizontalZoomBar = var29
-   var29 = var10
-   if var29 then
-      local var33 = {}
-      var33.Size = UDim2.new(0, var6.SCROLL_BAR_SIZE, 0, var7.Y - var6.SCROLL_BAR_SIZE - var6.SCROLL_BAR_PADDING - var6.TIMELINE_HEIGHT + 1)
-      var33.Position = UDim2.new(1, 0, 0, var6.TIMELINE_HEIGHT)
-      var33.Direction = var12.VERTICAL
-      var33.ZIndex = 4
-      var33.LayoutOrder = 2
-      var33.ContainerSize = Vector2.new(var7.X, var7.Y - var6.SCROLL_BAR_SIZE - var6.TIMELINE_HEIGHT)
-      var33.AdjustScrollZoom = var0.SetVerticalScrollZoom
-      var33.Scroll = var0.VerticalScroll
-      var33.Zoom = var0.VerticalZoom
-      var33.Min = var8.Y + var6.TIMELINE_HEIGHT + 1
-      local var0 = var1.createElement(var12, var33)
+   local var783 = {}
+   var783.Size = UDim2.new(0, var7.X - var6.SCROLL_BAR_PADDING + 1, 0, var6.SCROLL_BAR_SIZE)
+   var783.Position = UDim2.new(0, 0, 1, var6.SCROLL_BAR_SIZE)
+   var783.Direction = var12.HORIZONTAL
+   var783.ZIndex = 4
+   var783.LayoutOrder = 2
+   var783.ContainerSize = Vector2.new(var7.X, var7.Y)
+   var783.AdjustScrollZoom = var0.SetHorizontalScrollZoom
+   var783.Scroll = var0.HorizontalScroll
+   var783.Zoom = var0.HorizontalZoom
+   var783.Min = var8.X + 1
+   local var814 = var1.createElement(var12, var783)
+   var737.HorizontalZoomBar = var814
+   var814 = var10
+   if var814 then
+      local var818 = {}
+      var818.Size = UDim2.new(0, var6.SCROLL_BAR_SIZE, 0, var7.Y - var6.SCROLL_BAR_SIZE - var6.SCROLL_BAR_PADDING - var6.TIMELINE_HEIGHT + 1)
+      var818.Position = UDim2.new(1, 0, 0, var6.TIMELINE_HEIGHT)
+      var818.Direction = var12.VERTICAL
+      var818.ZIndex = 4
+      var818.LayoutOrder = 2
+      var818.ContainerSize = Vector2.new(var7.X, var7.Y - var6.SCROLL_BAR_SIZE - var6.TIMELINE_HEIGHT)
+      var818.AdjustScrollZoom = var0.SetVerticalScrollZoom
+      var818.Scroll = var0.VerticalScroll
+      var818.Zoom = var0.VerticalZoom
+      var818.Min = var8.Y + var6.TIMELINE_HEIGHT + 1
+      local var0 = var1.createElement(var12, var818)
    end
-   var737.VerticalZoomBar = var29
-   local var82 = {}
-   function var82.OnKeyPressed(arg1)
-      local var85 = {}
-      var85.AbsoluteSize = arg1.AbsoluteSize
-      var85.AbsolutePosition = arg1.AbsolutePosition
-      arg1:setState(var85)
+   var737.VerticalZoomBar = var814
+   local var867 = {}
+   function var867.OnKeyPressed(arg1)
+      local var870 = {}
+      var870.AbsoluteSize = arg1.AbsoluteSize
+      var870.AbsolutePosition = arg1.AbsolutePosition
+      arg1:setState(var870)
    end
    
-   function var82.OnKeyReleased(arg1, arg2)
+   function var867.OnKeyReleased(arg1, arg2)
       local var0 = arg1.props
       local var1 = var0.HorizontalZoom
       local var2 = var0.HorizontalScroll
@@ -312,10 +312,10 @@ function var23.render(arg1)
          local var0 = ((arg2.Position.X - arg1.state.AbsolutePosition.X) / var3 - var2) * (1 - var1)
          var0 = math.clamp(var2 + var0, 0, 1)
          if arg1.ctrlHeld then
-            local var122 = 0
-            if var122 < arg2.Position.Z then
-               var122 = var0
-               var0.SetHorizontalScrollZoom(var122, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
+            local var907 = 0
+            if var907 < arg2.Position.Z then
+               var907 = var0
+               var0.SetHorizontalScrollZoom(var907, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
             end
             local var1 = 0
             if arg2.Position.Z < var1 then
@@ -342,24 +342,24 @@ function var23.render(arg1)
       end
    end
    
-   var737.KeyboardListener = var1.createElement(var4, var82)
+   var737.KeyboardListener = var1.createElement(var4, var867)
    var657.IgnoreLayout = var1.createElement("Folder", {}, var737)
    return var1.createElement("Frame", var639, var657)
 end
 
-local var401 = {}
-var401.Analytics = var3.Analytics
-var401.Localization = var3.Localization
-local var404 = var3.Mouse
-var401.Mouse = var404
-var23 = var3.withContext(var401)(var23)
-function var404(arg1)
+local var1186 = {}
+var1186.Analytics = var3.Analytics
+var1186.Localization = var3.Localization
+local var1189 = var3.Mouse
+var1186.Mouse = var1189
+var23 = var3.withContext(var1186)(var23)
+function var1189(arg1)
    local var0 = {}
    function var0.CloseCannotPasteToast(arg1)
-      local var216 = {}
-      var216.AbsoluteSize = arg1.AbsoluteSize
-      var216.AbsolutePosition = arg1.AbsolutePosition
-      arg1:setState(var216)
+      local var1001 = {}
+      var1001.AbsoluteSize = arg1.AbsoluteSize
+      var1001.AbsolutePosition = arg1.AbsolutePosition
+      arg1:setState(var1001)
    end
    
    function var0.SetHorizontalScrollZoom(arg1, arg2)
@@ -371,10 +371,10 @@ function var404(arg1)
          local var0 = ((arg2.Position.X - arg1.state.AbsolutePosition.X) / var3 - var2) * (1 - var1)
          var0 = math.clamp(var2 + var0, 0, 1)
          if arg1.ctrlHeld then
-            local var253 = 0
-            if var253 < arg2.Position.Z then
-               var253 = var0
-               var0.SetHorizontalScrollZoom(var253, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
+            local var1038 = 0
+            if var1038 < arg2.Position.Z then
+               var1038 = var0
+               var0.SetHorizontalScrollZoom(var1038, math.clamp(var1 + var6.ZOOM_INCREMENT, 0, 1))
             end
             local var1 = 0
             if arg2.Position.Z < var1 then
@@ -411,9 +411,9 @@ function var404(arg1)
    
    function var0.SnapToNearestKeyframe()
       local var0 = arg1.props
-      local var342 = var7
-      var342 = var0.Playhead
-      return arg1.getTrackPadding() * 0.5 + var342.getScaledKeyframePosition(var342, var0.StartTick, var0.EndTick, arg1.state.AbsoluteSize or Vector2.new().X - arg1.getTrackPadding())
+      local var1127 = var7
+      var1127 = var0.Playhead
+      return arg1.getTrackPadding() * 0.5 + var1127.getScaledKeyframePosition(var1127, var0.StartTick, var0.EndTick, arg1.state.AbsoluteSize or Vector2.new().X - arg1.getTrackPadding())
    end
    
    function var0.SnapToNearestFrame(arg1)
@@ -464,4 +464,4 @@ return require(var0.Packages.RoactRodux).connect(function(arg1)
    var0.SnapMode = arg1.Status.SnapMode
    var0.ReadOnly = arg1.Status.ReadOnly
    return var0
-end, var404)(var23)
+end, var1189)(var23)

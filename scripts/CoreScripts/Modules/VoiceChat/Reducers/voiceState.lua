@@ -8,7 +8,7 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local Rodux = require(CorePackages.Packages.Rodux)
 local VOICE_STATE
 if FFlagEnableVoiceChatStorybookFix() then
-	VOICE_STATE = require(CorePackages.AppTempCommon.VoiceChat.Constants).VOICE_STATE
+	VOICE_STATE = require(CorePackages.Workspace.Packages.VoiceChat).Constants.VOICE_STATE
 else
 	VOICE_STATE = require(script.Parent.Parent.VoiceChatServiceManager).default.VOICE_STATE
 end

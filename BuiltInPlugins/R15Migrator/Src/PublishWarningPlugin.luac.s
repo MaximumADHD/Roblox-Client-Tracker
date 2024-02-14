@@ -1,0 +1,66 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["OnCancel"]
+  GETTABLEKS R3 R1 K2 ["OnContinue"]
+  GETTABLEKS R4 R1 K3 ["Localization"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["provide"]
+  NEWTABLE R6 0 3
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["new"]
+  GETIMPORT R8 K7 [plugin]
+  CALL R7 1 1
+  GETUPVAL R8 2
+  CALL R8 0 1
+  MOVE R9 R4
+  SETLIST R6 R7 3 [1]
+  NEWTABLE R7 0 1
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K8 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K9 [{"OnCancel", "OnContinue"}]
+  SETTABLEKS R2 R10 K1 ["OnCancel"]
+  SETTABLEKS R3 R10 K2 ["OnContinue"]
+  CALL R8 2 -1
+  SETLIST R7 R8 -1 [1]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Resources"]
+  GETTABLEKS R4 R5 K10 ["MakeTheme"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Components"]
+  GETTABLEKS R6 R7 K12 ["PublishWarning"]
+  GETTABLEKS R5 R6 K13 ["PublishWarningDialog"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K14 ["PureComponent"]
+  LOADK R7 K15 ["PublishWarningPlugin"]
+  NAMECALL R5 R5 K16 ["extend"]
+  CALL R5 2 1
+  GETTABLEKS R6 R2 K17 ["ContextServices"]
+  GETTABLEKS R7 R6 K18 ["Plugin"]
+  DUPCLOSURE R8 K19 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R8 R5 K20 ["render"]
+  RETURN R5 1

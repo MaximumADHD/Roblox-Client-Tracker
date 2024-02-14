@@ -8,10 +8,10 @@ local var5 = var4.Pane
 local var6 = var4.TextLabel
 return function(arg1)
    var1.Tag = "X-Fit X-PadL"
-   local var65 = {}
-   local var69 = {}
-   var69.Text = var3.use():getText("Plugin", "Text")
+   local var28 = {}
+   local var32 = {}
+   var32.Text = var3.use():getText("Plugin", "Text")
    var1.Tag = "Title X-Fit"
-   var65.Text = var1.createElement(var6, var69)
-   return var1.createElement(var5, {}, var65)
+   var28.Text = var1.createElement(var6, var32)
+   return var1.createElement(var5, {}, var28)
 end

@@ -1,7 +1,6 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local GuiService = game:GetService("GuiService")
 
 local React = require(CorePackages.Packages.React)
 local Cryo = require(CorePackages.Packages.Cryo)
@@ -13,7 +12,6 @@ local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local GetFFlagCallBarNameFallback = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCallBarNameFallback
 local GetFFlagIrisUseLocalizationProvider =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
-local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -22,7 +20,6 @@ local ContactList = RobloxGui.Modules.ContactList
 local dependencies = require(ContactList.dependencies)
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
-local IrisUnibarEnabled = require(ContactList.IrisUnibarEnabled)
 
 local UIBlox = dependencies.UIBlox
 local RoduxCall = dependencies.RoduxCall
@@ -52,10 +49,8 @@ local localUserId: number = localPlayer and localPlayer.UserId or 0
 export type Props = {
 	callProtocol: CallProtocol.CallProtocolModule | nil,
 	size: Vector2,
-	-- TODO (timothyhsu): Remove once IrisUnibarEnabled is flipped
-	callBarRef: (any) -> () | nil,
 	activeUtc: number,
-	position: any,
+	position: React.Binding<UDim2> | UDim2,
 }
 
 local PROFILE_SIZE = 36
@@ -176,11 +171,7 @@ local function CallBar(passedProps: Props)
 			teleportToRootPlace()
 			isRetry = true
 		elseif callStatus == RoduxCall.Enums.Status.Active then
-			if GetFFlagSoundManagerRefactor() then
-				SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
-			else
-				SoundManager:PlaySound_old(Sounds.HangUp.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-			end
+			SoundManager:PlaySound(Sounds.HangUp.Name, { Volume = 0.5 }, SoundGroups.Iris)
 			props.callProtocol:finishCall(callId)
 		elseif callStatus == RoduxCall.Enums.Status.Connecting then
 			props.callProtocol:cancelCall(callId)
@@ -255,14 +246,11 @@ local function CallBar(passedProps: Props)
 
 	return React.createElement("Frame", {
 		Size = UDim2.fromOffset(props.size.X, props.size.Y),
-		Position = if IrisUnibarEnabled()
-			then props.position
-			else UDim2.new(0.5, 0, 0, -(props.size.Y + GuiService:GetGuiInset().Y)),
-		AnchorPoint = if IrisUnibarEnabled() then Vector2.new(0, 0) else Vector2.new(0.5, 0),
+		Position = props.position,
+		AnchorPoint = Vector2.new(0, 0),
 		BackgroundColor3 = theme.BackgroundMuted.Color,
 		BackgroundTransparency = theme.BackgroundMuted.Transparency,
 		BorderSizePixel = 0,
-		ref = if not IrisUnibarEnabled() then props.callBarRef else nil,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0.5, 0),

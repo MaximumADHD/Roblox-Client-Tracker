@@ -17,11 +17,16 @@ local GetFFlagDisableChromeUnibar = require(script.Parent.Parent.Flags.GetFFlagD
 local GetFFlagDisableChromePinnedChat = require(script.Parent.Parent.Flags.GetFFlagDisableChromePinnedChat)()
 local GetFFlagDisableChromeDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagDisableChromeDefaultOpen)()
 
+local GetFFlagDisableChromeFollowupUnibar = require(script.Parent.Parent.Flags.GetFFlagDisableChromeFollowupUnibar)()
+local GetFFlagDisableChromeFollowupFTUX = require(script.Parent.Parent.Flags.GetFFlagDisableChromeFollowupFTUX)()
+local GetFFlagDisableChromeFollowupOcclusion = require(script.Parent.Parent.Flags.GetFFlagDisableChromeFollowupOcclusion)()
+
 local isV2Valid = false
 local isV3Valid = false
 local isControlsValid = false
 local isModernizationValid = false
-local isChromeValid = true
+local isChromeValid = false
+local isChromeFollowupValid = true
 local isReportAbuseV2Valid = false
 
 return function()
@@ -426,6 +431,101 @@ return function()
 			end
 		end)
 
+		it("returns chrome (follow-up) for user in the variant, if not disabled", function()
+			if IsExperienceMenuABTestEnabled() and isChromeFollowupValid then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeFollowupVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeFollowupUnibar then ExperienceMenuABTestManager.default.chromeFollowupVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeFollowupUnibar then ExperienceMenuABTestManager.default.chromeFollowupVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeFollowupUnibar)
+				expect(manager:shouldPinChat()).toBe(not GetFFlagDisableChromeFollowupUnibar)
+				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeFollowupUnibar)
+				expect(manager:shouldShowFTUX()).toBe(false)
+				expect(manager:isMenuModernizationEnabled()).toBe(false)
+				expect(manager:areMenuControlsEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
+			end
+		end)
+
+		it("returns chrome (follow-up) FTUX for user in the variant, if not disabled", function()
+			if IsExperienceMenuABTestEnabled() and isChromeFollowupValid then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeFTUXVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeFollowupFTUX then ExperienceMenuABTestManager.default.chromeFTUXVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeFollowupFTUX then ExperienceMenuABTestManager.default.chromeFTUXVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeFollowupFTUX)
+				expect(manager:shouldPinChat()).toBe(not GetFFlagDisableChromeFollowupFTUX)
+				expect(manager:shouldDefaultOpen()).toBe(false)
+				expect(manager:shouldShowFTUX()).toBe(not GetFFlagDisableChromeFollowupFTUX)
+				expect(manager:isMenuModernizationEnabled()).toBe(false)
+				expect(manager:areMenuControlsEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
+			end
+		end)
+
+		it("returns chrome (follow-up) occlusion for user in the variant, if not disabled", function()
+			if IsExperienceMenuABTestEnabled() and isChromeFollowupValid then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = { menuVersion = ExperienceMenuABTestManager.default.chromeOcclusionVersionId() },
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be chrome, unless disabled
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeFollowupOcclusion then ExperienceMenuABTestManager.default.chromeOcclusionVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is controls
+				expect(manager:getVersion()).toBe(if not GetFFlagDisableChromeFollowupOcclusion then ExperienceMenuABTestManager.default.chromeOcclusionVersionId() else ExperienceMenuABTestManager.default.v1VersionId())
+				expect(manager:isChromeEnabled()).toBe(not GetFFlagDisableChromeFollowupOcclusion)
+				expect(manager:shouldPinChat()).toBe(not GetFFlagDisableChromeFollowupOcclusion)
+				expect(manager:shouldDefaultOpen()).toBe(not GetFFlagDisableChromeFollowupOcclusion)
+				expect(manager:shouldShowFTUX()).toBe(false)
+				expect(manager:isMenuModernizationEnabled()).toBe(false)
+				expect(manager:areMenuControlsEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
+			end
+		end)
 
 		it("returns default menu if ixp service is not providing valid value", function()
 			if IsExperienceMenuABTestEnabled() then

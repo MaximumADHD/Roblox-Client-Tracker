@@ -18,7 +18,7 @@ end
 
 function var0.getBoundingBox(arg1)
    if arg1._draggerContext:shouldUseLocalSpace() then
-      return arg1._transform.TransformVector3.new(),Vector3.new(),
+      return arg1:getLocalBoundingBox()
    end
    return CFrame.new(arg1._transform.Transform.Position)Vector3.new(),Vector3.new(),
 end

@@ -20,11 +20,15 @@ local GetFFlagDisableChromeUnibar = require(script.Parent.Flags.GetFFlagDisableC
 local GetFFlagDisableChromePinnedChat = require(script.Parent.Flags.GetFFlagDisableChromePinnedChat)()
 local GetFFlagDisableChromeDefaultOpen = require(script.Parent.Flags.GetFFlagDisableChromeDefaultOpen)()
 
+local GetFFlagDisableChromeFollowupUnibar = require(script.Parent.Flags.GetFFlagDisableChromeFollowupUnibar)()
+local GetFFlagDisableChromeFollowupFTUX = require(script.Parent.Flags.GetFFlagDisableChromeFollowupFTUX)()
+local GetFFlagDisableChromeFollowupOcclusion = require(script.Parent.Flags.GetFFlagDisableChromeFollowupOcclusion)()
+
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
-local TEST_VERSION = "t8" -- bump on new A/B campaigns
+local TEST_VERSION = "t9" -- bump on new A/B campaigns
 local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
@@ -50,6 +54,11 @@ local MENU_VERSION_CHROME_ENUM = {
 	DEFAULT_OPEN = "v6.3"..TEST_VERSION,
 }
 
+local MENU_VERSION_CHROME_FOLLOWUP_ENUM = {
+	UNIBAR = "v7.1"..TEST_VERSION,
+	FTUX = "v7.2"..TEST_VERSION,
+	OCCLUSION = "v7.3"..TEST_VERSION,
+}
 
 local validVersion = {
 	[DEFAULT_MENU_VERSION] = true,
@@ -61,11 +70,13 @@ local validVersion = {
 	[MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED] = true,
 	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = false,
 	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = false,
-	-- Invalidate Unibar test variants if the respective disable flag is turned on
 	[MENU_VERSION_CHROME_ENUM.UNIBAR] = not GetFFlagDisableChromeUnibar,
 	[MENU_VERSION_CHROME_ENUM.PINNED_CHAT] = not GetFFlagDisableChromePinnedChat,
 	[MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN] = not GetFFlagDisableChromeDefaultOpen,
 	[REPORT_ABUSE_MENU_VERSION_V2] = false,
+	[MENU_VERSION_CHROME_FOLLOWUP_ENUM.UNIBAR] = not GetFFlagDisableChromeFollowupUnibar,
+	[MENU_VERSION_CHROME_FOLLOWUP_ENUM.FTUX] = not GetFFlagDisableChromeFollowupFTUX,
+	[MENU_VERSION_CHROME_FOLLOWUP_ENUM.OCCLUSION] = not GetFFlagDisableChromeFollowupOcclusion,
 }
 
 local ExperienceMenuABTestManager = {}
@@ -140,6 +151,18 @@ end
 
 function ExperienceMenuABTestManager.chromeDefaultOpenVersionId()
 	return MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN
+end
+
+function ExperienceMenuABTestManager.chromeFollowupVersionId()
+	return MENU_VERSION_CHROME_FOLLOWUP_ENUM.UNIBAR
+end
+
+function ExperienceMenuABTestManager.chromeFTUXVersionId()
+	return MENU_VERSION_CHROME_FOLLOWUP_ENUM.FTUX
+end
+
+function ExperienceMenuABTestManager.chromeOcclusionVersionId()
+	return MENU_VERSION_CHROME_FOLLOWUP_ENUM.OCCLUSION
 end
 
 function parseCountData(data)
@@ -235,15 +258,33 @@ function ExperienceMenuABTestManager:isChromeEnabled()
 		end
 	end
 
+	for _, version in MENU_VERSION_CHROME_FOLLOWUP_ENUM do 
+		if self:getVersion() == version then
+			return true
+		end
+	end
+
 	return false
 end
 
 function ExperienceMenuABTestManager:shouldPinChat()
+	-- All variants in follow up Unibar test have pinned chat
+	for _, version in MENU_VERSION_CHROME_FOLLOWUP_ENUM do 
+		if self:getVersion() == version then
+			return true
+		end
+	end 
+
 	return self:getVersion() == MENU_VERSION_CHROME_ENUM.PINNED_CHAT
 end
 
 function ExperienceMenuABTestManager:shouldDefaultOpen()
-	return self:getVersion() == MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN
+	-- All non-FTUX variants in follow up Unibar test have "Default Open"
+	return self:getVersion() == MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN or self:getVersion() == MENU_VERSION_CHROME_FOLLOWUP_ENUM.UNIBAR or self:getVersion() == MENU_VERSION_CHROME_FOLLOWUP_ENUM.OCCLUSION
+end
+
+function ExperienceMenuABTestManager:shouldShowFTUX()
+	return self:getVersion() == MENU_VERSION_CHROME_FOLLOWUP_ENUM.FTUX
 end
 
 -- this is called on the assumption that IXP layers are initialized

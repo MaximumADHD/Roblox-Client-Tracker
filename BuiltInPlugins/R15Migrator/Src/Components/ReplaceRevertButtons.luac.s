@@ -11,6 +11,12 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["revertAnimation"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["ScriptConversionContext"]
+  CALL R0 1 0
   RETURN R0 0
 
 PROTO_2:
@@ -33,116 +39,119 @@ PROTO_3:
   GETTABLEKS R5 R1 K4 ["NetworkInterface"]
   LOADNIL R6
   GETUPVAL R7 0
-  JUMPIFNOT R7 [+22]
+  JUMPIFNOT R7 [+26]
   LOADN R7 0
-  GETIMPORT R8 K6 [pairs]
-  MOVE R9 R2
-  CALL R8 1 3
-  FORGPREP_NEXT R8
-  ADDK R7 R7 K7 [1]
+  MOVE R8 R2
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  ADDK R7 R7 K5 [1]
   LOADN R13 1
   JUMPIFNOTLT R13 R7 [+3]
   LOADB R6 0
-  JUMP [+10]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K8 ["LocalAsset"]
-  NAMECALL R13 R12 K9 ["IsA"]
-  CALL R13 2 1
-  JUMPIFNOT R13 [+1]
+  JUMP [+15]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K6 ["getAnimationAssetInfo"]
+  MOVE R14 R11
+  CALL R13 1 1
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K7 ["LocalAsset"]
+  NAMECALL R14 R13 K8 ["IsA"]
+  CALL R14 2 1
+  JUMPIFNOT R14 [+1]
   LOADB R6 1
-  FORGLOOP R8 2 [-15]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K10 ["new"]
+  FORGLOOP R8 1 [-20]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K9 ["new"]
   CALL R7 0 1
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K11 ["createElement"]
   GETUPVAL R9 4
-  DUPTABLE R10 K17 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "AutomaticSize"}]
-  GETIMPORT R11 K21 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R11 R10 K12 ["Layout"]
-  GETIMPORT R11 K23 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R11 R10 K13 ["HorizontalAlignment"]
-  GETIMPORT R11 K25 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R11 R10 K14 ["VerticalAlignment"]
-  GETTABLEKS R11 R3 K15 ["Spacing"]
-  SETTABLEKS R11 R10 K15 ["Spacing"]
-  GETIMPORT R11 K27 [Enum.AutomaticSize.XY]
-  SETTABLEKS R11 R10 K16 ["AutomaticSize"]
-  DUPTABLE R11 K31 [{"DebugButton", "Revert", "Replace"}]
+  GETTABLEKS R8 R9 K10 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K16 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Spacing", "AutomaticSize"}]
+  GETIMPORT R11 K20 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R11 R10 K11 ["Layout"]
+  GETIMPORT R11 K22 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R11 R10 K12 ["HorizontalAlignment"]
+  GETIMPORT R11 K24 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R11 R10 K13 ["VerticalAlignment"]
+  GETTABLEKS R11 R3 K14 ["Spacing"]
+  SETTABLEKS R11 R10 K14 ["Spacing"]
+  GETIMPORT R11 K26 [Enum.AutomaticSize.XY]
+  SETTABLEKS R11 R10 K15 ["AutomaticSize"]
+  DUPTABLE R11 K30 [{"DebugButton", "Revert", "Replace"}]
   GETUPVAL R13 0
   JUMPIFNOT R13 [+33]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K11 ["createElement"]
-  GETUPVAL R13 5
-  DUPTABLE R14 K37 [{"Text", "Size", "OnClick", "StyleModifier", "LayoutOrder"}]
-  LOADK R15 K38 ["Debug"]
-  SETTABLEKS R15 R14 K32 ["Text"]
-  GETTABLEKS R15 R3 K39 ["ButtonSize"]
-  SETTABLEKS R15 R14 K33 ["Size"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K36 [{"Text", "Size", "OnClick", "StyleModifier", "LayoutOrder"}]
+  LOADK R15 K37 ["Debug"]
+  SETTABLEKS R15 R14 K31 ["Text"]
+  GETTABLEKS R15 R3 K38 ["ButtonSize"]
+  SETTABLEKS R15 R14 K32 ["Size"]
   NEWCLOSURE R15 P0
   CAPTURE VAL R2
   CAPTURE VAL R0
   CAPTURE VAL R5
-  SETTABLEKS R15 R14 K34 ["OnClick"]
+  SETTABLEKS R15 R14 K33 ["OnClick"]
   JUMPIF R6 [+4]
-  GETUPVAL R16 6
-  GETTABLEKS R15 R16 K40 ["Disabled"]
+  GETUPVAL R16 7
+  GETTABLEKS R15 R16 K39 ["Disabled"]
   JUMP [+1]
   LOADNIL R15
-  SETTABLEKS R15 R14 K35 ["StyleModifier"]
-  NAMECALL R15 R7 K41 ["getNextOrder"]
+  SETTABLEKS R15 R14 K34 ["StyleModifier"]
+  NAMECALL R15 R7 K40 ["getNextOrder"]
   CALL R15 1 1
-  SETTABLEKS R15 R14 K36 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K35 ["LayoutOrder"]
   CALL R12 2 1
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K28 ["DebugButton"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K11 ["createElement"]
-  GETUPVAL R13 5
-  DUPTABLE R14 K43 [{"Style", "Text", "Size", "OnClick", "StyleModifier", "LayoutOrder"}]
-  LOADK R15 K44 ["Round"]
-  SETTABLEKS R15 R14 K42 ["Style"]
-  LOADK R17 K45 ["AnimationConversion"]
-  LOADK R18 K29 ["Revert"]
-  NAMECALL R15 R4 K46 ["getText"]
+  SETTABLEKS R12 R11 K27 ["DebugButton"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K42 [{"Style", "Text", "Size", "OnClick", "LayoutOrder"}]
+  LOADK R15 K43 ["Round"]
+  SETTABLEKS R15 R14 K41 ["Style"]
+  LOADK R17 K44 ["AnimationConversion"]
+  LOADK R18 K28 ["Revert"]
+  NAMECALL R15 R4 K45 ["getText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K32 ["Text"]
-  GETTABLEKS R15 R3 K39 ["ButtonSize"]
-  SETTABLEKS R15 R14 K33 ["Size"]
-  DUPCLOSURE R15 K47 [PROTO_1]
-  SETTABLEKS R15 R14 K34 ["OnClick"]
-  GETUPVAL R16 6
-  GETTABLEKS R15 R16 K40 ["Disabled"]
-  SETTABLEKS R15 R14 K35 ["StyleModifier"]
-  NAMECALL R15 R7 K41 ["getNextOrder"]
+  SETTABLEKS R15 R14 K31 ["Text"]
+  GETTABLEKS R15 R3 K38 ["ButtonSize"]
+  SETTABLEKS R15 R14 K32 ["Size"]
+  NEWCLOSURE R15 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R15 R14 K33 ["OnClick"]
+  NAMECALL R15 R7 K40 ["getNextOrder"]
   CALL R15 1 1
-  SETTABLEKS R15 R14 K36 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K35 ["LayoutOrder"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K29 ["Revert"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K11 ["createElement"]
-  GETUPVAL R13 5
-  DUPTABLE R14 K48 [{"Style", "Text", "Size", "OnClick", "LayoutOrder"}]
-  LOADK R15 K49 ["RoundPrimary"]
-  SETTABLEKS R15 R14 K42 ["Style"]
-  LOADK R17 K45 ["AnimationConversion"]
-  LOADK R18 K30 ["Replace"]
-  NAMECALL R15 R4 K46 ["getText"]
+  SETTABLEKS R12 R11 K28 ["Revert"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K42 [{"Style", "Text", "Size", "OnClick", "LayoutOrder"}]
+  LOADK R15 K46 ["RoundPrimary"]
+  SETTABLEKS R15 R14 K41 ["Style"]
+  LOADK R17 K44 ["AnimationConversion"]
+  LOADK R18 K29 ["Replace"]
+  NAMECALL R15 R4 K45 ["getText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K32 ["Text"]
-  GETTABLEKS R15 R3 K39 ["ButtonSize"]
-  SETTABLEKS R15 R14 K33 ["Size"]
+  SETTABLEKS R15 R14 K31 ["Text"]
+  GETTABLEKS R15 R3 K38 ["ButtonSize"]
+  SETTABLEKS R15 R14 K32 ["Size"]
   NEWCLOSURE R15 P2
   CAPTURE VAL R0
   CAPTURE VAL R5
   CAPTURE VAL R1
-  SETTABLEKS R15 R14 K34 ["OnClick"]
-  NAMECALL R15 R7 K41 ["getNextOrder"]
+  SETTABLEKS R15 R14 K33 ["OnClick"]
+  NAMECALL R15 R7 K40 ["getNextOrder"]
   CALL R15 1 1
-  SETTABLEKS R15 R14 K36 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K35 ["LayoutOrder"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K30 ["Replace"]
+  SETTABLEKS R12 R11 K29 ["Replace"]
   CALL R8 3 -1
   RETURN R8 -1
 
@@ -157,6 +166,14 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R2 0
   GETUPVAL R3 1
   MOVE R4 R0
@@ -165,8 +182,8 @@ PROTO_5:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_6:
-  DUPTABLE R1 K2 [{"convertAnimation", "uploadTestAnimations"}]
+PROTO_7:
+  DUPTABLE R1 K3 [{"convertAnimation", "revertAnimation", "uploadTestAnimations"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
@@ -174,10 +191,14 @@ PROTO_6:
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  SETTABLEKS R2 R1 K1 ["uploadTestAnimations"]
+  SETTABLEKS R2 R1 K1 ["revertAnimation"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["uploadTestAnimations"]
   RETURN R1 1
 
-PROTO_7:
+PROTO_8:
   DUPTABLE R2 K1 [{"selection"}]
   GETTABLEKS R4 R0 K2 ["AnimationConversion"]
   GETTABLEKS R3 R4 K0 ["selection"]
@@ -223,56 +244,64 @@ MAIN:
   GETTABLEKS R14 R15 K13 ["Util"]
   GETTABLEKS R13 R14 K21 ["AnimationConversion"]
   GETIMPORT R14 K5 [require]
-  GETTABLEKS R15 R13 K22 ["constants"]
+  GETTABLEKS R15 R13 K22 ["AnimationConversionManager"]
   CALL R14 1 1
-  GETTABLEKS R15 R14 K23 ["AssetType"]
-  GETTABLEKS R17 R0 K17 ["Src"]
-  GETTABLEKS R16 R17 K24 ["Thunks"]
-  GETIMPORT R17 K5 [require]
-  GETTABLEKS R18 R16 K25 ["ConvertAnimation"]
-  CALL R17 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R16 R13 K23 ["constants"]
+  CALL R15 1 1
+  GETTABLEKS R16 R15 K24 ["AssetType"]
+  GETTABLEKS R18 R0 K17 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Thunks"]
   GETIMPORT R18 K5 [require]
-  GETTABLEKS R19 R16 K26 ["UploadTestAnimations"]
+  GETTABLEKS R19 R17 K26 ["ConvertAnimation"]
   CALL R18 1 1
-  GETTABLEKS R19 R2 K27 ["PureComponent"]
-  LOADK R21 K28 ["ReplaceRevertButtons"]
-  NAMECALL R19 R19 K29 ["extend"]
-  CALL R19 2 1
-  GETIMPORT R20 K31 [game]
-  LOADK R22 K32 ["DebugUploadTestAnimations"]
-  NAMECALL R20 R20 K33 ["GetFastFlag"]
-  CALL R20 2 1
-  DUPCLOSURE R21 K34 [PROTO_3]
-  CAPTURE VAL R20
-  CAPTURE VAL R15
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R20 R17 K27 ["UploadTestAnimations"]
+  CALL R19 1 1
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R21 R17 K28 ["RevertAnimation"]
+  CALL R20 1 1
+  GETTABLEKS R21 R2 K29 ["PureComponent"]
+  LOADK R23 K30 ["ReplaceRevertButtons"]
+  NAMECALL R21 R21 K31 ["extend"]
+  CALL R21 2 1
+  GETIMPORT R22 K33 [game]
+  LOADK R24 K34 ["DebugUploadTestAnimations"]
+  NAMECALL R22 R22 K35 ["GetFastFlag"]
+  CALL R22 2 1
+  DUPCLOSURE R23 K36 [PROTO_3]
+  CAPTURE VAL R22
+  CAPTURE VAL R14
+  CAPTURE VAL R16
   CAPTURE VAL R9
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R8
-  SETTABLEKS R21 R19 K35 ["render"]
-  DUPCLOSURE R21 K36 [PROTO_6]
-  CAPTURE VAL R17
+  SETTABLEKS R23 R21 K37 ["render"]
+  DUPCLOSURE R23 K38 [PROTO_7]
   CAPTURE VAL R18
-  DUPCLOSURE R22 K37 [PROTO_7]
-  GETTABLEKS R23 R10 K38 ["withContext"]
-  DUPTABLE R24 K42 [{"Analytics", "Stylizer", "Localization", "NetworkInterface", "ScriptConversionContext"}]
-  GETTABLEKS R25 R10 K39 ["Analytics"]
-  SETTABLEKS R25 R24 K39 ["Analytics"]
-  GETTABLEKS R25 R10 K40 ["Stylizer"]
-  SETTABLEKS R25 R24 K40 ["Stylizer"]
-  GETTABLEKS R25 R10 K41 ["Localization"]
-  SETTABLEKS R25 R24 K41 ["Localization"]
-  SETTABLEKS R11 R24 K19 ["NetworkInterface"]
-  SETTABLEKS R12 R24 K20 ["ScriptConversionContext"]
-  CALL R23 1 1
-  MOVE R24 R19
-  CALL R23 1 1
-  MOVE R19 R23
-  GETTABLEKS R23 R3 K43 ["connect"]
-  MOVE R24 R22
-  MOVE R25 R21
-  CALL R23 2 1
-  MOVE R24 R19
-  CALL R23 1 -1
-  RETURN R23 -1
+  CAPTURE VAL R20
+  CAPTURE VAL R19
+  DUPCLOSURE R24 K39 [PROTO_8]
+  GETTABLEKS R25 R10 K40 ["withContext"]
+  DUPTABLE R26 K44 [{"Analytics", "Stylizer", "Localization", "NetworkInterface", "ScriptConversionContext"}]
+  GETTABLEKS R27 R10 K41 ["Analytics"]
+  SETTABLEKS R27 R26 K41 ["Analytics"]
+  GETTABLEKS R27 R10 K42 ["Stylizer"]
+  SETTABLEKS R27 R26 K42 ["Stylizer"]
+  GETTABLEKS R27 R10 K43 ["Localization"]
+  SETTABLEKS R27 R26 K43 ["Localization"]
+  SETTABLEKS R11 R26 K19 ["NetworkInterface"]
+  SETTABLEKS R12 R26 K20 ["ScriptConversionContext"]
+  CALL R25 1 1
+  MOVE R26 R21
+  CALL R25 1 1
+  MOVE R21 R25
+  GETTABLEKS R25 R3 K45 ["connect"]
+  MOVE R26 R24
+  MOVE R27 R23
+  CALL R25 2 1
+  MOVE R26 R21
+  CALL R25 1 -1
+  RETURN R25 -1

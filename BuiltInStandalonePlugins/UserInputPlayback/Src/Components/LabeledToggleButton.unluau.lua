@@ -8,47 +8,47 @@ local var5 = var4.TextLabel
 local var6 = var4.ToggleButton
 local var7 = var2.Util.StyleModifier
 local var8 = var1.PureComponent:extend("LabeledToggleButton")
-local var296 = {}
-var296.Disabled = false
-var296.Selected = false
-var8.defaultProps = var296
+local var211 = {}
+var211.Disabled = false
+var211.Selected = false
+var8.defaultProps = var211
 function var8.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var306 = {}
-   var306.Size = var1.ComponentSize
-   var306.AutomaticSize = Enum.AutomaticSize.X
-   var306.Layout = Enum.FillDirection.Horizontal
-   var306.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var306.VerticalAlignment = Enum.VerticalAlignment.Center
-   local var312 = {}
-   var312.Left = var1.LeftInsetPx
-   var306.Padding = var312
-   var306.Spacing = var1.PaddingPx
-   var306.LayoutOrder = var0.LayoutOrder
-   local var316 = {}
-   local var320 = {}
-   var320.OnClick = var0.OnClick
-   var320.Size = var1.ToggleSize
-   var320.Selected = var0.Selected
-   var320.AnchorPoint = Vector2.new(0, 0.5)
-   var320.Disabled = var0.Disabled
-   var316.ToggleButton = var1.createElement(var6, var320)
-   local var333 = {}
-   var333.Size = UDim2.fromScale(0, 0)
-   var333.AutomaticSize = Enum.AutomaticSize.XY
-   var333.Text = var0.Text
-   var333.TextXAlignment = Enum.TextXAlignment.Left
-   var333.TextYAlignment = Enum.TextYAlignment.Center
+   local var221 = {}
+   var221.Size = var1.ComponentSize
+   var221.AutomaticSize = Enum.AutomaticSize.X
+   var221.Layout = Enum.FillDirection.Horizontal
+   var221.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var221.VerticalAlignment = Enum.VerticalAlignment.Center
+   local var227 = {}
+   var227.Left = var1.LeftInsetPx
+   var221.Padding = var227
+   var221.Spacing = var1.PaddingPx
+   var221.LayoutOrder = var0.LayoutOrder
+   local var231 = {}
+   local var235 = {}
+   var235.OnClick = var0.OnClick
+   var235.Size = var1.ToggleSize
+   var235.Selected = var0.Selected
+   var235.AnchorPoint = Vector2.new(0, 0.5)
+   var235.Disabled = var0.Disabled
+   var231.ToggleButton = var1.createElement(var6, var235)
+   local var248 = {}
+   var248.Size = UDim2.fromScale(0, 0)
+   var248.AutomaticSize = Enum.AutomaticSize.XY
+   var248.Text = var0.Text
+   var248.TextXAlignment = Enum.TextXAlignment.Left
+   var248.TextYAlignment = Enum.TextYAlignment.Center
    if var0.Disabled then
       local var0 = var7.Disabled or nil
    end
-   var333.StyleModifier = nil
-   var316.TextLabel = var1.createElement(var5, var333)
-   return var1.createElement(var4.Pane, var306, var316)
+   var248.StyleModifier = nil
+   var231.TextLabel = var1.createElement(var5, var248)
+   return var1.createElement(var4.Pane, var221, var231)
 end
 
-local var351 = {}
-var351.Stylizer = var3.Stylizer
-var8 = var3.withContext(var351)(var8)
+local var266 = {}
+var266.Stylizer = var3.Stylizer
+var8 = var3.withContext(var266)(var8)
 return var8

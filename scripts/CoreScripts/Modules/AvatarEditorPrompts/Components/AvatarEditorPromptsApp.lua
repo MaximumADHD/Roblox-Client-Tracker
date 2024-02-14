@@ -30,13 +30,8 @@ local PromptType = require(AvatarEditorPrompts.PromptType)
 
 local ScreenSizeUpdated = require(AvatarEditorPrompts.Actions.ScreenSizeUpdated)
 
-local FFlagAvatarEditorServiceDisplayOrderFix = game:DefineFastFlag("AvatarEditorServiceDisplayOrderFix", false)
-
 --Displays behind the InGameMenu so that developers can't block interaction with the InGameMenu by constantly prompting.
-local AVATAR_PROMPTS_DISPLAY_ORDER = 0
-if FFlagAvatarEditorServiceDisplayOrderFix then
-	AVATAR_PROMPTS_DISPLAY_ORDER = -1
-end
+local AVATAR_PROMPTS_DISPLAY_ORDER = -1
 
 local GAMEPAD_INPUT_TYPES = {
 	[Enum.UserInputType.Gamepad1] = true,

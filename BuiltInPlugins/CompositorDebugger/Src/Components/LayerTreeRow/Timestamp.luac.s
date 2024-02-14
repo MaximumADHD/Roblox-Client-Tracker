@@ -62,13 +62,18 @@ PROTO_1:
   GETUPVAL R6 1
   DUPTABLE R7 K19 [{"Size", "BackgroundColor"}]
   GETIMPORT R8 K21 [UDim2.fromScale]
-  MOVE R9 R0
+  MOVE R10 R0
+  LOADN R11 0
+  LOADN R12 1
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R9 K24 [math.clamp]
+  CALL R9 3 1
   LOADN R10 1
   CALL R8 2 1
   SETTABLEKS R8 R7 K5 ["Size"]
   GETUPVAL R10 2
   GETTABLEKS R9 R10 K9 ["props"]
-  GETTABLEKS R8 R9 K22 ["BarColor"]
+  GETTABLEKS R8 R9 K25 ["BarColor"]
   SETTABLEKS R8 R7 K1 ["BackgroundColor"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K17 ["Progress"]
@@ -88,50 +93,59 @@ PROTO_2:
 PROTO_3:
   GETTABLEKS R1 R0 K0 ["props"]
   LOADNIL R2
-  GETTABLEKS R4 R1 K2 ["TimePosition"]
+  GETTABLEKS R4 R1 K2 ["Length"]
   ORK R3 R4 K1 [0]
-  GETTABLEKS R5 R1 K3 ["Length"]
-  ORK R4 R5 K1 [0]
+  GETTABLEKS R5 R1 K3 ["TimePercentage"]
+  JUMPIFNOT R5 [+10]
+  GETTABLEKS R6 R1 K3 ["TimePercentage"]
+  MUL R5 R6 R3
+  LOADN R6 0
+  MOVE R7 R3
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R4 K6 [math.clamp]
+  CALL R4 3 1
+  JUMP [+1]
+  LOADN R4 0
   LOADN R5 0
-  JUMPIFNOTLT R5 R4 [+46]
-  GETIMPORT R5 K6 [string.format]
-  LOADK R6 K7 ["%s / %s"]
-  GETTABLEKS R7 R0 K8 ["formatTime"]
-  MOVE R8 R3
+  JUMPIFNOTLT R5 R3 [+47]
+  GETIMPORT R5 K9 [string.format]
+  LOADK R6 K10 ["%s / %s"]
+  GETTABLEKS R7 R0 K11 ["formatTime"]
+  MOVE R8 R4
   CALL R7 1 1
-  GETTABLEKS R8 R0 K8 ["formatTime"]
-  MOVE R9 R4
+  GETTABLEKS R8 R0 K11 ["formatTime"]
+  MOVE R9 R3
   CALL R8 1 -1
   CALL R5 -1 1
-  DUPTABLE R6 K11 [{"ProgressBar", "TextLabel"}]
-  GETTABLEKS R7 R0 K12 ["createLoadingBar"]
-  DIV R8 R3 R4
+  DUPTABLE R6 K14 [{"ProgressBar", "TextLabel"}]
+  GETTABLEKS R7 R0 K15 ["createLoadingBar"]
+  GETTABLEKS R8 R1 K3 ["TimePercentage"]
   CALL R7 1 1
-  SETTABLEKS R7 R6 K9 ["ProgressBar"]
+  SETTABLEKS R7 R6 K12 ["ProgressBar"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K13 ["createElement"]
+  GETTABLEKS R7 R8 K16 ["createElement"]
   GETUPVAL R8 1
-  DUPTABLE R9 K19 [{"TextColor", "Font", "Text", "TextXAlignment", "ZIndex"}]
-  GETTABLEKS R10 R1 K14 ["TextColor"]
-  SETTABLEKS R10 R9 K14 ["TextColor"]
-  GETTABLEKS R10 R1 K15 ["Font"]
-  SETTABLEKS R10 R9 K15 ["Font"]
-  SETTABLEKS R5 R9 K16 ["Text"]
-  GETIMPORT R10 K22 [Enum.TextXAlignment.Center]
-  SETTABLEKS R10 R9 K17 ["TextXAlignment"]
+  DUPTABLE R9 K22 [{"TextColor", "Font", "Text", "TextXAlignment", "ZIndex"}]
+  GETTABLEKS R10 R1 K17 ["TextColor"]
+  SETTABLEKS R10 R9 K17 ["TextColor"]
+  GETTABLEKS R10 R1 K18 ["Font"]
+  SETTABLEKS R10 R9 K18 ["Font"]
+  SETTABLEKS R5 R9 K19 ["Text"]
+  GETIMPORT R10 K25 [Enum.TextXAlignment.Center]
+  SETTABLEKS R10 R9 K20 ["TextXAlignment"]
   LOADN R10 2
-  SETTABLEKS R10 R9 K18 ["ZIndex"]
+  SETTABLEKS R10 R9 K21 ["ZIndex"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K10 ["TextLabel"]
+  SETTABLEKS R7 R6 K13 ["TextLabel"]
   MOVE R2 R6
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K13 ["createElement"]
+  GETTABLEKS R5 R6 K16 ["createElement"]
   GETUPVAL R6 2
-  DUPTABLE R7 K25 [{"Size", "LayoutOrder"}]
-  GETTABLEKS R8 R1 K23 ["Size"]
-  SETTABLEKS R8 R7 K23 ["Size"]
-  GETTABLEKS R8 R1 K24 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K24 ["LayoutOrder"]
+  DUPTABLE R7 K28 [{"Size", "LayoutOrder"}]
+  GETTABLEKS R8 R1 K26 ["Size"]
+  SETTABLEKS R8 R7 K26 ["Size"]
+  GETTABLEKS R8 R1 K27 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K27 ["LayoutOrder"]
   MOVE R8 R2
   CALL R5 3 -1
   RETURN R5 -1

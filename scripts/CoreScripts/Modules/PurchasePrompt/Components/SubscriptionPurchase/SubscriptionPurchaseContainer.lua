@@ -28,6 +28,8 @@ local SubscriptionPurchaseContainer = Roact.Component:extend(script.Name)
 
 local SELECTION_GROUP_NAME = "SubscriptionPurchaseContainer"
 
+local GetFFlagFixPlayerGuiSelectionBugOnPromptExit = require(Root.Flags.GetFFlagFixPlayerGuiSelectionBugOnPromptExit)
+
 function SubscriptionPurchaseContainer:init()
 	self.state = {
 		screenSize = Vector2.new(0, 0),
@@ -40,11 +42,42 @@ function SubscriptionPurchaseContainer:init()
 			})
 		end
 	end
+	if GetFFlagFixPlayerGuiSelectionBugOnPromptExit() then
+		self.savedSelectedCoreObject = nil
+		self.endPurchase = function()
+			self:restoreSelectedObject()
+			self.props.completeRequest()
+		end
+	end
+end
+
+function SubscriptionPurchaseContainer:saveSelectedObject()
+	if not GetFFlagFixPlayerGuiSelectionBugOnPromptExit() then
+		return
+	end
+
+	self.savedSelectedCoreObject = GuiService.SelectedCoreObject
+	GuiService.SelectedCoreObject = nil
+end
+
+function SubscriptionPurchaseContainer:restoreSelectedObject()
+	if not GetFFlagFixPlayerGuiSelectionBugOnPromptExit() then
+		return
+	end
+
+	-- We want to restore the selected object if the saved version is either nil or a descendant of CoreGui
+	if self.savedSelectedCoreObject == nil or self.savedSelectedCoreObject:IsDescendantOf(CoreGui) then
+		GuiService.SelectedCoreObject = self.savedSelectedCoreObject
+	end
 end
 
 function SubscriptionPurchaseContainer:createElement()
 	local props = self.props
 	local state = self.state
+
+	if GetFFlagFixPlayerGuiSelectionBugOnPromptExit() then
+		self:saveSelectedObject()
+	end
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -72,8 +105,7 @@ function SubscriptionPurchaseContainer:createElement()
 			isTestingMode = props.subscriptionPurchaseInfo.IsTestingMode,
 
 			promptSubscriptionPurchase = props.promptSubscriptionPurchase,
-			endPurchase = props.completeRequest,
-
+			endPurchase = if GetFFlagFixPlayerGuiSelectionBugOnPromptExit() then self.endPurchase else props.completeRequest,
 			onAnalyticEvent = props.onAnalyticEvent,
 		}),
 		-- UIBlox components do not have Modal == true to fix FPS interaction with modals
@@ -92,11 +124,9 @@ function SubscriptionPurchaseContainer:createElement()
 end
 
 function SubscriptionPurchaseContainer:render()
-
 	if self.props.requestType ~= RequestType.Subscription then
 		return nil
 	end
-	
 	return Roact.createElement(CoreScriptsRootProvider, {}, {
 		FocusNavigationEffects = React.createElement(FocusNavigationEffects, {
 			selectionGroupName = SELECTION_GROUP_NAME,

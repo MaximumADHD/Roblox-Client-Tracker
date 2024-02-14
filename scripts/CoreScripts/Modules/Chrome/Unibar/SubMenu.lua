@@ -8,6 +8,8 @@ local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
+local Images = UIBlox.App.ImageSet.Images
 
 local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
@@ -22,10 +24,14 @@ local useChromeMenuItems = require(Chrome.Hooks.useChromeMenuItems)
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
 
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
+local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
 local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
+-- TODO replace with final icons
+local PIN_ICON = Images["icons/actions/edit/add"]
+local UNPIN_ICON = Images["icons/actions/edit/remove"]
 
 type Table = { [any]: any }
 
@@ -42,7 +48,13 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		Transparency = 1,
 	}
 
+	local currenlyPinned = if GetFFlagEnableChromePinIntegrations() then ChromeService:isUserPinned(props.id) else nil
+	local pinDisabled = if GetFFlagEnableChromePinIntegrations()
+		then ChromeService:areUserPinsFull() and not currenlyPinned
+		else nil
+
 	local highlightColor, setHighlightColor = React.useBinding(defaultBgColor)
+	local pinHighlightColor, setPinHighlightColor = React.useBinding(defaultBgColor)
 
 	local stateChange = React.useCallback(function(_, newState)
 		if newState == ControlState.Pressed then
@@ -54,22 +66,19 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		end
 	end)
 
-	return React.createElement(Interactable, {
-		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
-		BorderSizePixel = 0,
-		BackgroundTransparency = highlightColor:map(function(v)
-			return v.Transparency
-		end),
-		BackgroundColor3 = highlightColor:map(function(v)
-			return v.Color
-		end),
-		SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
-		[React.Event.Activated] = props.activated,
-		LayoutOrder = props.order,
-		onStateChanged = stateChange,
-	}, {
+	local pinStateChange = React.useCallback(function(_, newState)
+		if newState == ControlState.Pressed then
+			setPinHighlightColor(theme.BackgroundOnPress)
+		elseif newState == ControlState.Hover then
+			setPinHighlightColor(theme.BackgroundOnHover)
+		else
+			setPinHighlightColor(defaultBgColor)
+		end
+	end)
+
+	local rowFragment = React.createElement(React.Fragment, nil, {
 		UIPadding = React.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, 24),
+			PaddingLeft = if GetFFlagEnableChromePinIntegrations() then UDim.new(0, 12) else UDim.new(0, 24),
 			PaddingRight = UDim.new(0, 8),
 		}),
 
@@ -91,12 +100,88 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			text = props.integration.label,
 			textTruncate = Enum.TextTruncate.AtEnd,
 			textXAlignment = Enum.TextXAlignment.Left,
+			fluidSizing = if GetFFlagEnableChromePinIntegrations() then false else true,
+			richText = if GetFFlagEnableChromePinIntegrations() then false else true,
 		}),
+	})
+
+	return React.createElement(Interactable, {
+		Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
+		BorderSizePixel = 0,
+		BackgroundTransparency = highlightColor:map(function(v)
+			return v.Transparency
+		end),
+		BackgroundColor3 = highlightColor:map(function(v)
+			return v.Color
+		end),
+		SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
+		[React.Event.Activated] = props.activated,
+		LayoutOrder = props.order,
+		onStateChanged = stateChange,
+	}, {
+		RowLabel = if GetFFlagEnableChromePinIntegrations()
+			then React.createElement("Frame", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+				LayoutOrder = props.order,
+			}, {
+				rowFragment,
+			})
+			else rowFragment,
+		UserPin = if GetFFlagEnableChromePinIntegrations()
+			then React.createElement(Interactable, {
+				Size = UDim2.new(0, Constants.PIN_BUTTON_SIZE, 0, Constants.PIN_BUTTON_SIZE),
+				AnchorPoint = Vector2.new(0, 0.5),
+				Position = UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING, 0.5, 0),
+				BorderSizePixel = 0,
+				SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
+				isDisabled = pinDisabled,
+				[React.Event.Activated] = function()
+					pinActivated(props.id)
+				end,
+				BackgroundTransparency = pinHighlightColor:map(function(v)
+					return v.Transparency
+				end),
+				BackgroundColor3 = pinHighlightColor:map(function(v)
+					return v.Color
+				end),
+				LayoutOrder = 2,
+				onStateChanged = pinStateChange,
+			}, {
+				UICorner = React.createElement("UICorner", {
+					CornerRadius = UDim.new(0, 8),
+				}),
+				UserPinIcon = React.createElement(ImageSetLabel, {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					BackgroundTransparency = 1,
+					Image = if currenlyPinned then UNPIN_ICON else PIN_ICON,
+					Size = Constants.PIN_ICON_SIZE,
+					ImageColor3 = style.Theme.IconEmphasis.Color,
+					ImageTransparency = if pinDisabled
+						then style.Theme.UIEmphasis.Transparency
+						else style.Theme.IconEmphasis.Transparency,
+				}),
+			})
+			else nil,
 	})
 end
 
 function isLeft(alignment)
 	return alignment == Enum.HorizontalAlignment.Left
+end
+
+function pinActivated(componentId)
+	if not GetFFlagEnableChromePinIntegrations() then
+		return
+	end
+
+	if ChromeService:isUserPinned(componentId) then
+		ChromeService:removeUserPin(componentId)
+	else
+		ChromeService:setUserPin(componentId)
+	end
 end
 
 function SubMenu(props: SubMenuProps)

@@ -1,14 +1,17 @@
 local Players = game:GetService("Players")
+local GetFStringInGameMenuChromeForcedUserIds = require(script.Parent.GetFStringInGameMenuChromeForcedUserIds)
+local GetFIntInGameMenuChromeAllowlistTimeout = require(script.Parent.GetFIntInGameMenuChromeAllowlistTimeout)
 game:DefineFastFlag("UnibarRespawn", false)
 
 return function()
 	local localPlayer = Players.LocalPlayer
-	while not localPlayer do
+	local timeoutTick = tick() + GetFIntInGameMenuChromeAllowlistTimeout()
+	while not localPlayer and tick() < timeoutTick do
 		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
 		localPlayer = Players.LocalPlayer
 	end
 
-	local forcedUserIds = game:GetFastString("InGameMenuChromeForcedUserIds")
+	local forcedUserIds = GetFStringInGameMenuChromeForcedUserIds()
 	for forcedUserIdString in forcedUserIds:gmatch("%d+") do
 		if localPlayer and tonumber(forcedUserIdString) == localPlayer.UserId then
 			return true

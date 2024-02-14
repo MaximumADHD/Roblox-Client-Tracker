@@ -23,6 +23,7 @@ return function()
 
 	local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 	local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
+	local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 
 	local noop = function() end
 	local stub = function(val)
@@ -489,6 +490,146 @@ return function()
 				else
 					expect(mock).never.toHaveBeenCalled()
 				end
+			end)
+
+			it("shows correct ban modal for ban reason 7 when calling userAndPlaceCanUseVoice", function()
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager.policyMapper = mockPolicyMapper
+				VoiceChatServiceManager.runService = runServiceStub
+				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
+					universePlaceVoiceEnabledSettings = {
+						isUniverseEnabledForVoice = true,
+						isPlaceEnabledForVoice = false,
+					},
+					voiceSettings = {
+						isVoiceEnabled = false,
+						isBanned = true,
+						bannedUntil = { Seconds = 1 },
+						banReason = 7,
+					},
+					isBanned = true,
+					bannedUntil = { Seconds = 1 },
+					banReason = 7,
+					informedOfBan = false,
+				})
+
+				local mock, mockFn = jest.fn()
+
+				act(function()
+					VoiceChatServiceManager:userAndPlaceCanUseVoice()
+					VoiceChatServiceManager:createPromptInstance(noop)
+					VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
+				end)
+				waitForEvents.act()
+
+				if GetFFlagUpdateNudgeV3VoiceBanUI() then
+					expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
+				else
+					expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+				end
+			end)
+
+			it("shows correct ban modal for ban reason 7 when calling ShowPlayerModeratedMessage", function()
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager.policyMapper = mockPolicyMapper
+				VoiceChatServiceManager.runService = runServiceStub
+				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
+					universePlaceVoiceEnabledSettings = {
+						isUniverseEnabledForVoice = true,
+						isPlaceEnabledForVoice = false,
+					},
+					voiceSettings = {
+						isVoiceEnabled = false,
+						isBanned = true,
+						bannedUntil = { Seconds = 1 },
+						banReason = 7,
+					},
+					isBanned = true,
+					bannedUntil = { Seconds = 1 },
+					banReason = 7,
+					informedOfBan = false,
+				})
+
+				local mock, mockFn = jest.fn()
+
+				act(function()
+					VoiceChatServiceManager:ShowPlayerModeratedMessage()
+					VoiceChatServiceManager:createPromptInstance(noop)
+					VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
+				end)
+				waitForEvents.act()
+
+				if GetFFlagUpdateNudgeV3VoiceBanUI() then
+					expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.VoiceChatSuspendedTemporaryB)
+				else
+					expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+				end
+			end)
+
+			it("shows correct ban modal for ban reason not equal to 7 when calling ShowPlayerModeratedMessage", function()
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager.policyMapper = mockPolicyMapper
+				VoiceChatServiceManager.runService = runServiceStub
+				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
+					universePlaceVoiceEnabledSettings = {
+						isUniverseEnabledForVoice = true,
+						isPlaceEnabledForVoice = false,
+					},
+					voiceSettings = {
+						isVoiceEnabled = false,
+						isBanned = true,
+						bannedUntil = { Seconds = 1 },
+						banReason = 6,
+					},
+					isBanned = true,
+					bannedUntil = { Seconds = 1 },
+					banReason = 6,
+					informedOfBan = false,
+				})
+
+				local mock, mockFn = jest.fn()
+
+				act(function()
+					VoiceChatServiceManager:ShowPlayerModeratedMessage()
+					VoiceChatServiceManager:createPromptInstance(noop)
+					VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
+				end)
+				waitForEvents.act()
+
+				expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.VoiceChatSuspendedTemporary)
+			end)
+
+			it("shows correct ban modal for ban reason not equal to 7 when calling userAndPlaceCanUseVoice", function()
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager.policyMapper = mockPolicyMapper
+				VoiceChatServiceManager.runService = runServiceStub
+				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
+					universePlaceVoiceEnabledSettings = {
+						isUniverseEnabledForVoice = true,
+						isPlaceEnabledForVoice = false,
+					},
+					voiceSettings = {
+						isVoiceEnabled = false,
+						isBanned = true,
+						bannedUntil = { Seconds = 1 },
+						banReason = 6,
+					},
+					isBanned = true,
+					bannedUntil = { Seconds = 1 },
+					banReason = 6,
+					informedOfBan = false,
+				})
+
+				local mock, mockFn = jest.fn()
+
+				act(function()
+					VoiceChatServiceManager:ShowPlayerModeratedMessage()
+					VoiceChatServiceManager:createPromptInstance(noop)
+					VoiceChatServiceManager.promptSignal.Event:Connect(mockFn)
+				end)
+				waitForEvents.act()
+
+				expect(mock).toHaveBeenCalledWith(VoiceChatPromptType.VoiceChatSuspendedTemporary)
 			end)
 		end)
 

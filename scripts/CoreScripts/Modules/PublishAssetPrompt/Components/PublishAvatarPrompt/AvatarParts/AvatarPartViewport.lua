@@ -46,7 +46,8 @@ end
 
 -- Showing off a non Head body part uses a mannequin that the part is added onto
 function AvatarPartViewport:addBodyPartMannequinToViewport()
-	local useR15, useR15NewNames, mannequin = MannequinUtility.CreateBodyPartMannequin(self.props.asset)
+	local useR15, useR15NewNames, mannequin =
+		MannequinUtility.CreateBodyPartMannequin(self.props.asset, --[[parentToWorkspace]] false)
 	local faceRight, focusPartNames =
 		MannequinUtility.SetupBodyPartMannequin(useR15, useR15NewNames, mannequin, self.props.asset)
 	mannequin.Parent = self.modelRef:getValue()

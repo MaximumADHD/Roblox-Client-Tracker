@@ -30,7 +30,7 @@ if getFFlagDoNotPromptCameraPermissionsOnMount() then
 			callback(response.hasCameraPermissions, response.hasMicPermissions)
 		end
 
-		getCamMicPermissions(promiseCallback, permissionsToRequest, shouldNotRequestPerms)
+		getCamMicPermissions(promiseCallback, permissionsToRequest, shouldNotRequestPerms, "ExperienceChat.getPermissions")
 	end
 end
 

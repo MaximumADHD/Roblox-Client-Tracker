@@ -1,12 +1,7 @@
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["PlayerEmulatorRibbonOpeningFixEnabled"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["PlayerEmulatorDropdownOpenedStateTrackingEnabled"]
+  LOADK R2 K2 ["PlayerEmulatorDropdownOpenedStateTrackingEnabled"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

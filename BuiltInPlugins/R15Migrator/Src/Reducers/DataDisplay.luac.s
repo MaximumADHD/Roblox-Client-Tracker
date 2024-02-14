@@ -1,0 +1,48 @@
+PROTO_0:
+  DUPTABLE R0 K1 [{"sortSelection"}]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["sortSelection"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"sortSelection"}]
+  GETTABLEKS R5 R1 K2 ["sortSelection"]
+  SETTABLEKS R5 R4 K2 ["sortSelection"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Actions"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R3 K11 ["SetSortSelection"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_0]
+  GETTABLEKS R6 R1 K13 ["createReducer"]
+  DUPTABLE R7 K15 [{"sortSelection"}]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K14 ["sortSelection"]
+  NEWTABLE R8 1 0
+  GETTABLEKS R9 R4 K16 ["name"]
+  DUPCLOSURE R10 K17 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLE R10 R8 R9
+  CALL R6 2 1
+  RETURN R6 1

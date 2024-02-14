@@ -30,6 +30,8 @@ local PremiumUpsellContainer = Roact.Component:extend(script.Name)
 
 local SELECTION_GROUP_NAME = "PremiumUpsellContainer"
 
+local GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium = require(Root.Flags.GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium)
+
 function PremiumUpsellContainer:init()
 	self.state = {
 		screenSize = Vector2.new(0, 0),
@@ -42,6 +44,33 @@ function PremiumUpsellContainer:init()
 			})
 		end
 	end
+	if GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium() then
+		self.savedSelectedCoreObject = nil
+		self.endPurchase = function()
+			self:restoreSelectedObject()
+			self.props.completeRequest()
+		end
+	end
+end
+
+function PremiumUpsellContainer:saveSelectedObject()
+	if not GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium() then
+		return
+	end
+
+	self.savedSelectedCoreObject = GuiService.SelectedCoreObject
+	GuiService.SelectedCoreObject = nil
+end
+
+function PremiumUpsellContainer:restoreSelectedObject()
+	if not GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium() then
+		return
+	end
+
+	-- We want to restore the selected object if the saved version is either nil or a descendant of CoreGui
+	if self.savedSelectedCoreObject == nil or self.savedSelectedCoreObject:IsDescendantOf(CoreGui) then
+		GuiService.SelectedCoreObject = self.savedSelectedCoreObject
+	end
 end
 
 function PremiumUpsellContainer:createElement()
@@ -50,6 +79,10 @@ function PremiumUpsellContainer:createElement()
 
 	if props.requestType ~= RequestType.Premium then
 		return nil
+	end
+
+	if GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium() then
+		self:saveSelectedObject()
 	end
 
 	return Roact.createElement("Frame", {
@@ -70,7 +103,7 @@ function PremiumUpsellContainer:createElement()
 			isGamepadEnabled = props.isGamepadEnabled,
 
 			promptPremiumPurchase = props.promptPremiumPurchase,
-			endPurchase = props.completeRequest,
+			endPurchase = if GetFFlagFixPlayerGuiSelectionBugOnPromptExitPremium() then self.endPurchase else props.completeRequest,
 
 			onAnalyticEvent = props.onAnalyticEvent,
 		}),

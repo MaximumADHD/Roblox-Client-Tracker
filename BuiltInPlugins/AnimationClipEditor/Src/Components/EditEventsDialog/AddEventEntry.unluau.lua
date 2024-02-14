@@ -20,43 +20,43 @@ function var5.init(arg1)
    
 end
 
-local function fun3(arg1)
+local function fun0(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var0.PaddingLeft
    local var3 = var1.dialogTheme
-   local var57 = {}
-   var57.Size = var0.Size
-   var57.BackgroundTransparency = 1
-   var57.AutoButtonColor = false
+   local var12 = {}
+   var12.Size = var0.Size
+   var12.BackgroundTransparency = 1
+   var12.AutoButtonColor = false
    var2.Event.Activated = var0.OnAddEvent
    var2.Event.MouseEnter = arg1.mouseEnter
    var2.Event.MouseLeave = arg1.mouseLeave
-   local var72 = {}
-   local var76 = {}
-   var76.PaddingLeft = var2
-   var76.PaddingRight = var0.PaddingRight
-   var76.PaddingTop = UDim.new(0, 2)
-   var76.PaddingBottom = UDim.new(0, 2)
-   var72.Padding = var2.createElement("UIPadding", var76)
-   local var89 = {}
-   var89.Size = UDim2.new(1, var3.TRACKLIST_BUTTON_SIZE, 1, 0)
-   var89.Text = arg1.props.Localization:getText("Title", "AddEvent")
-   var89.TextColor3 = var3.subTextColor
-   var89.Font = var1.font
-   var89.TextSize = var3.textSize
-   var89.TextXAlignment = Enum.TextXAlignment.Left
-   var89.BackgroundTransparency = 1
-   var72.Label = var2.createElement("TextLabel", var89)
-   local var111 = {}
-   var111.Size = var0
-   var111.AnchorPoint = Vector2.new(0.5, 0.5)
-   var111.Position = UDim2.new(0, var2.Offset / 2, 0.5, 0)
-   var111.BackgroundTransparency = 1
-   var111.Image = var3.addImage
-   var111.ImageColor3 = var3.subTextColor
-   var72.AddImage = var2.createElement("ImageLabel", var111)
-   return var2.createElement("ImageButton", var57, var72)
+   local var27 = {}
+   local var31 = {}
+   var31.PaddingLeft = var2
+   var31.PaddingRight = var0.PaddingRight
+   var31.PaddingTop = UDim.new(0, 2)
+   var31.PaddingBottom = UDim.new(0, 2)
+   var27.Padding = var2.createElement("UIPadding", var31)
+   local var44 = {}
+   var44.Size = UDim2.new(1, var3.TRACKLIST_BUTTON_SIZE, 1, 0)
+   var44.Text = arg1.props.Localization:getText("Title", "AddEvent")
+   var44.TextColor3 = var3.subTextColor
+   var44.Font = var1.font
+   var44.TextSize = var3.textSize
+   var44.TextXAlignment = Enum.TextXAlignment.Left
+   var44.BackgroundTransparency = 1
+   var27.Label = var2.createElement("TextLabel", var44)
+   local var66 = {}
+   var66.Size = var0
+   var66.AnchorPoint = Vector2.new(0.5, 0.5)
+   var66.Position = UDim2.new(0, var2.Offset / 2, 0.5, 0)
+   var66.BackgroundTransparency = 1
+   var66.Image = var3.addImage
+   var66.ImageColor3 = var3.subTextColor
+   var27.AddImage = var2.createElement("ImageLabel", var66)
+   return var2.createElement("ImageButton", var12, var27)
 end
 
 function var5.render(arg1)
@@ -64,44 +64,44 @@ function var5.render(arg1)
    local var1 = var0.Stylizer
    local var2 = var0.PaddingLeft
    local var3 = var1.dialogTheme
-   local var57 = {}
-   var57.Size = var0.Size
-   var57.BackgroundTransparency = 1
-   var57.AutoButtonColor = false
+   local var12 = {}
+   var12.Size = var0.Size
+   var12.BackgroundTransparency = 1
+   var12.AutoButtonColor = false
    var2.Event.Activated = var0.OnAddEvent
    var2.Event.MouseEnter = arg1.mouseEnter
    var2.Event.MouseLeave = arg1.mouseLeave
-   local var72 = {}
-   local var76 = {}
-   var76.PaddingLeft = var2
-   var76.PaddingRight = var0.PaddingRight
-   var76.PaddingTop = UDim.new(0, 2)
-   var76.PaddingBottom = UDim.new(0, 2)
-   var72.Padding = var2.createElement("UIPadding", var76)
-   local var89 = {}
-   var89.Size = UDim2.new(1, var3.TRACKLIST_BUTTON_SIZE, 1, 0)
-   var89.Text = arg1.props.Localization:getText("Title", "AddEvent")
-   var89.TextColor3 = var3.subTextColor
-   var89.Font = var1.font
-   var89.TextSize = var3.textSize
-   var89.TextXAlignment = Enum.TextXAlignment.Left
-   var89.BackgroundTransparency = 1
-   var72.Label = var2.createElement("TextLabel", var89)
-   local var111 = {}
-   var111.Size = var0
-   var111.AnchorPoint = Vector2.new(0.5, 0.5)
-   var111.Position = UDim2.new(0, var2.Offset / 2, 0.5, 0)
-   var111.BackgroundTransparency = 1
-   var111.Image = var3.addImage
-   var111.ImageColor3 = var3.subTextColor
-   var72.AddImage = var2.createElement("ImageLabel", var111)
-   return var2.createElement("ImageButton", var57, var72)
+   local var27 = {}
+   local var31 = {}
+   var31.PaddingLeft = var2
+   var31.PaddingRight = var0.PaddingRight
+   var31.PaddingTop = UDim.new(0, 2)
+   var31.PaddingBottom = UDim.new(0, 2)
+   var27.Padding = var2.createElement("UIPadding", var31)
+   local var44 = {}
+   var44.Size = UDim2.new(1, var3.TRACKLIST_BUTTON_SIZE, 1, 0)
+   var44.Text = arg1.props.Localization:getText("Title", "AddEvent")
+   var44.TextColor3 = var3.subTextColor
+   var44.Font = var1.font
+   var44.TextSize = var3.textSize
+   var44.TextXAlignment = Enum.TextXAlignment.Left
+   var44.BackgroundTransparency = 1
+   var27.Label = var2.createElement("TextLabel", var44)
+   local var66 = {}
+   var66.Size = var0
+   var66.AnchorPoint = Vector2.new(0.5, 0.5)
+   var66.Position = UDim2.new(0, var2.Offset / 2, 0.5, 0)
+   var66.BackgroundTransparency = 1
+   var66.Image = var3.addImage
+   var66.ImageColor3 = var3.subTextColor
+   var27.AddImage = var2.createElement("ImageLabel", var66)
+   return var2.createElement("ImageButton", var12, var27)
 end
 
-fun3 = var4.withContext
-local var130 = {}
-var130.Stylizer = var4.Stylizer
-var130.Localization = var4.Localization
-var130.Mouse = var4.Mouse
-var5 = fun3(var130)(var5)
+fun0 = var4.withContext
+local var85 = {}
+var85.Stylizer = var4.Stylizer
+var85.Localization = var4.Localization
+var85.Mouse = var4.Mouse
+var5 = fun0(var85)(var5)
 return var5

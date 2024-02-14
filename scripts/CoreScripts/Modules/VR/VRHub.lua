@@ -22,9 +22,6 @@ local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
 
 local SafetyBubble = require(script.Parent.SafetyBubble)
-local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
-	or game:GetEngineFeature("EnableMaquettesSupport")
-local FFlagVRControllerModelsSetByDevFix = game:DefineFastFlag("VRControllerModelsSetByDevFix", false)
 local GetFFlagHideExperienceLoadingJudder =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagHideExperienceLoadingJudder
 
@@ -41,9 +38,7 @@ VRHub.LaserPointer = nil
 VRHub.ControllerModelsEnabled = false
 VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
-if FFlagVRControllerModelsSetByDevFix then
-	VRHub.ControllerModelsEnabledSetByDeveloper = true
-end
+VRHub.ControllerModelsEnabledSetByDeveloper = true
 
 if GetFFlagHideExperienceLoadingJudder() then
 	VRHub.isFPSAtTarget = SplashScreenManager.isFPSAtTarget()
@@ -86,14 +81,10 @@ local function enableControllerModels(enabled)
 		end
 	end
 end
-local enableControllerModelsSetByDeveloper = false -- Cleanup when we remove FFlagVRControllerModelsSetByDevFix
+
 StarterGui:RegisterSetCore("VREnableControllerModels", function(enabled)
-	if FFlagVRControllerModelsSetByDevFix then
-		enabled = if enabled then true else false
-		VRHub.ControllerModelsEnabledSetByDeveloper = enabled
-	else
-		enableControllerModelsSetByDeveloper = true
-	end
+	enabled = if enabled then true else false
+	VRHub.ControllerModelsEnabledSetByDeveloper = enabled
 	enableControllerModels(enabled)
 end)
 
@@ -166,13 +157,7 @@ local function onVREnabledChanged()
 				VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
 			end
 		end
-		if FFlagVRControllerModelsSetByDevFix then
-			enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
-		else
-			if not enableControllerModelsSetByDeveloper then
-				enableControllerModels(true)
-			end
-		end
+		enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
 		RunService:BindToRenderStep(vrUpdateRenderstepName, Enum.RenderPriority.Last.Value, onRenderSteppedLast)
 
 		if VRHub.LaserPointer then
@@ -180,7 +165,7 @@ local function onVREnabledChanged()
 		end
 		UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
 
-		VRHub.SafetyBubble = SafetyBubbleEnabled and SafetyBubble.new() or nil
+		VRHub.SafetyBubble = SafetyBubble.new()
 
 		-- this is the equivalent of MouseButton1 in VR
 		ContextActionService:BindCoreActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
@@ -203,18 +188,10 @@ local function onVRSessionStateChanged()
 	if VRService.VRSessionState == Enum.VRSessionState.Focused then
 		if VRHub.LaserPointer and VRHub.LaserPointer.Mode.Disabled then
 			VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
-			if FFlagVRControllerModelsSetByDevFix then
-				enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
-			else
-				enableControllerModels(true)
-			end
+			enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
 		end
 		if not VRHub.ControllerModelsEnabled then
-			if FFlagVRControllerModelsSetByDevFix then
-				enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
-			else
-				enableControllerModels(true)
-			end
+			enableControllerModels(VRHub.ControllerModelsEnabledSetByDeveloper)
 		end
 	else
 		if VRHub.LaserPointer and VRHub.LaserPointer.Mode.Navigation then

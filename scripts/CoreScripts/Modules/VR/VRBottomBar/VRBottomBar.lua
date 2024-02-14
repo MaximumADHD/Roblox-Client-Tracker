@@ -49,21 +49,14 @@ local BackpackScript = require(RobloxGui.Modules.BackpackScript)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local StarterPlayer = game:GetService("StarterPlayer")
 
-local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
-
 local EngineFeatureEnableVRBottomBarWorksBehindObjects = game:GetEngineFeature("EnableVRBottomBarWorksBehindObjects")
 
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
-local FFlagVRBottomBarUsePositionConfig = require(RobloxGui.Modules.Flags.FFlagVRBottomBarUsePositionConfig)
 local FFlagVRBottomBarDebugPositionConfig = require(RobloxGui.Modules.Flags.FFlagVRBottomBarDebugPositionConfig)
 local FIntVRBottomBarPositionOffsetVerticalNumber = require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetVerticalNumber)
 local FIntVRBottomBarPositionOffsetDepthNumber = require(RobloxGui.Modules.Flags.FIntVRBottomBarPositionOffsetDepthNumber)
-local FFlagVRBottomBarEnableMoreMenu = require(RobloxGui.Modules.Flags.FFlagVRBottomBarEnableMoreMenu)
 local FFlagVRBottomBarHighlightedLeaveGameIcon = require(RobloxGui.Modules.Flags.FFlagVRBottomBarHighlightedLeaveGameIcon)
 local FFlagVRBottomBarNoCurvature = game:DefineFastFlag("VRBottomBarNoCurvature", false)
-local FFlagVRBottomBarFixMoreMenuPosition = game:DefineFastFlag("VRBottomBarFixMoreMenuPosition", false)
-
-local UsePositionConfig = FFlagVRBottomBarUsePositionConfig or FFlagVRBottomBarDebugPositionConfig or FFlagVRBottomBarEnableMoreMenu
 
 local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
 local GetFFlagHideExperienceLoadingJudder =
@@ -87,8 +80,8 @@ end
 local LOOKAWAY_Y_THRESHOLD = -0.2
 
 local OFFSET = {
-	Y = UsePositionConfig and FIntVRBottomBarPositionOffsetVerticalNumber/100 or -1.7,
-	Z = UsePositionConfig and FIntVRBottomBarPositionOffsetDepthNumber/100 or -0.2
+	Y = FIntVRBottomBarPositionOffsetVerticalNumber/100,
+	Z = FIntVRBottomBarPositionOffsetDepthNumber/100
 }
 
 local BASE_PART_SIZE = 0.2 + OFFSET.Z/10
@@ -115,9 +108,7 @@ local MainMenu =
 		VRHub:SetShowTopBar(true)
 		if not InGameMenu.getOpen() then
 			InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
-			if FFlagVRBottomBarEnableMoreMenu then
-				VRHub:SetShowMoreMenu(false)
-			end
+			VRHub:SetShowMoreMenu(false)
 		else
 			InGameMenu.closeInGameMenu()
 		end
@@ -253,9 +244,7 @@ local LeaveGame =
 	iconOff = "rbxasset://textures/ui/MenuBar/icon_leave.png",
 	onActivated = function()
 		VRHub:SetShowTopBar(true)
-		if FFlagVRBottomBarEnableMoreMenu then
-			VRHub:SetShowMoreMenu(false)
-		end
+		VRHub:SetShowMoreMenu(false)
 		if InGameMenu then
 			-- Should open root menu to trigger InGameMenu open event before open GameLeave page
 			if not InGameMenu.getOpen() then
@@ -449,7 +438,7 @@ function VRBottomBar:init()
 	})
 
 	self.onShowTopBarChanged = function()
-		if FFlagVRBottomBarEnableMoreMenu and not VRHub.ShowTopBar then
+		if not VRHub.ShowTopBar then
 			VRHub:SetShowMoreMenu(false)
 		end
 		self:setState({
@@ -558,9 +547,8 @@ function VRBottomBar:init()
 			local bottomBarCFrame = CFrame.new(bottomBarPosition, userHeadCameraCF.Position)
 
 			local basePartSize = 0.2 + self.state.zOffset / 10 -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
-			if FFlagVRBottomBarFixMoreMenuPosition then
-				basePartSize = basePartSize * scaleGuiDistance
-			end
+			basePartSize = basePartSize * scaleGuiDistance
+
 			local xOffset = FFlagVRBottomBarDebugPositionConfig and (#self.state.itemList - 3) / 2 * basePartSize
 				or (#self.state.itemList - 2.5) / 2 * basePartSize
 			local bottomBarOffsetCFrame = CFrame.new(-xOffset * cameraHeadScale, basePartSize/2 * cameraHeadScale, -PANEL3D_SIZE_Z/2)
@@ -618,17 +606,8 @@ function VRBottomBar:updateItems()
 	local showEmotesIcon = emotesEnabled and not (StarterPlayer.UserEmotesEnabled and self.emotesLoaded == false)
 	local showBackpackIcon = backpackEnabled and self.backpackHasItems
 
-	if showEmotesIcon and not FFlagVRBottomBarEnableMoreMenu then
-		table.insert(enabledItems, Emotes)
-	end
-	if showBackpackIcon and not FFlagVRBottomBarEnableMoreMenu then
-		table.insert(enabledItems, BackpackIcon)
-	end
 	if chatEnabled then
 		table.insert(enabledItems, Chat)
-	end
-	if playerListEnabled and not FFlagVRBottomBarEnableMoreMenu then
-		table.insert(enabledItems, PlayerList)
 	end
 
 	if FFlagVRMoveVoiceIndicatorToBottomBar and self.props.voiceEnabled then
@@ -637,12 +616,10 @@ function VRBottomBar:updateItems()
 
 	table.insert(enabledItems, SeparatorIcon)
 
-	if SafetyBubbleEnabled then
-		if VRHub.SafetyBubble and VRHub.SafetyBubble.enabled then
-			table.insert(enabledItems, SafetyOn)
-		else
-			table.insert(enabledItems, SafetyOff)
-		end
+	if VRHub.SafetyBubble and VRHub.SafetyBubble.enabled then
+		table.insert(enabledItems, SafetyOn)
+	else
+		table.insert(enabledItems, SafetyOff)
 	end
 
 	if FFlagVRBottomBarHighlightedLeaveGameIcon then
@@ -656,19 +633,17 @@ function VRBottomBar:updateItems()
 	end
 
 	local enabledMoreItems = {}
-	if FFlagVRBottomBarEnableMoreMenu then
-		if showEmotesIcon then
-			table.insert(enabledMoreItems, MoreEmotes)
-		end
-		if playerListEnabled then
-			table.insert(enabledMoreItems, MoreLeaderboard)
-		end
-		if showBackpackIcon then
-			table.insert(enabledMoreItems, MoreInventory)
-		end
-		if #enabledMoreItems > 0 then
-			table.insert(enabledItems, MoreButton)
-		end
+	if showEmotesIcon then
+		table.insert(enabledMoreItems, MoreEmotes)
+	end
+	if playerListEnabled then
+		table.insert(enabledMoreItems, MoreLeaderboard)
+	end
+	if showBackpackIcon then
+		table.insert(enabledMoreItems, MoreInventory)
+	end
+	if #enabledMoreItems > 0 then
+		table.insert(enabledItems, MoreButton)
 	end
 
 	return enabledItems, enabledMoreItems
@@ -676,10 +651,7 @@ end
 
 -- VRBottomBar implements two UIBlox components
 function VRBottomBar:renderWithStyle(style)
-	local basePartSize = 0.2
-	if UsePositionConfig then
-		basePartSize = 0.2 + self.state.zOffset/10  -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
-	end
+	local basePartSize = 0.2 + self.state.zOffset/10  -- Use constant when remove FFlagVRBottomBarDebugPositionConfig
 	basePartSize = basePartSize * scaleGuiDistance
 
 	local itemList = self.state.itemList
@@ -688,18 +660,17 @@ function VRBottomBar:renderWithStyle(style)
 	local selection = FFlagVRBottomBarDebugPositionConfig and 7 or 1
 	if not self.state.vrMenuOpen then
 		selection = FFlagVRBottomBarDebugPositionConfig and 9 or 3
-	elseif FFlagVRBottomBarEnableMoreMenu and self.state.moreMenuOpen and #moreItemList > 0 then
+	elseif self.state.moreMenuOpen and #moreItemList > 0 then
 		selection = #itemList
 	end
 
 	return Roact.createFragment({
 		BottomBarPanel3D = Roact.createElement(Panel3D, {
-			alignedPanel = if self.state.userGui and not UsePositionConfig then self.state.userGui:getPanel() else nil,
 			panelName = "BottomBar",
 			partSize = Vector2.new((#itemList - 1) * basePartSize, basePartSize),
 			virtualScreenSize = Vector2.new((#itemList - 1) * 50, 50),
-			offset = self.state.vrMenuOpen and CFrame.new(0, UsePositionConfig and 0 or -1.5, 0) or CFrame.new(0, UsePositionConfig and -0.5 or -2, 0),
-			offsetCallback = UsePositionConfig and self.bottomBarPanelOffsetCallback or nil,
+			offset = self.state.vrMenuOpen and CFrame.new(0, 0, 0) or CFrame.new(0, -0.5, 0),
+			offsetCallback = self.bottomBarPanelOffsetCallback,
 			lerp = true,
 			tilt = 0,
 			anchoring = VRConstants.AnchoringTypes.Head,
@@ -731,7 +702,7 @@ function VRBottomBar:renderWithStyle(style)
 				}),
 			}),
 		}),
-		MoreMenuPanel3D = (FFlagVRBottomBarEnableMoreMenu and self.state.moreMenuOpen) and Roact.createElement(Panel3D, {
+		MoreMenuPanel3D = self.state.moreMenuOpen and Roact.createElement(Panel3D, {
 			panelName = "MoreMenu",
 			partSize = Vector2.new(5 * basePartSize, #moreItemList * basePartSize),
 			virtualScreenSize = Vector2.new(250, (#moreItemList * 56 + 8)),
@@ -775,7 +746,7 @@ function VRBottomBar:renderWithStyle(style)
 			event = VRHub.ShowTopBarChanged.Event,
 			callback = self.onShowTopBarChanged,
 		}),
-		ShowMoreMenuChanged = FFlagVRBottomBarEnableMoreMenu and Roact.createElement(ExternalEventConnection, {
+		ShowMoreMenuChanged = Roact.createElement(ExternalEventConnection, {
 			event = VRHub.ShowMoreMenuChanged.Event,
 			callback = self.onShowMoreMenuChanged,
 		}),
@@ -783,7 +754,7 @@ function VRBottomBar:renderWithStyle(style)
 			event = StarterGui.CoreGuiChangedSignal,
 			callback = self.updateItemListState,
 		}),
-		SafetyBubbleToggled = SafetyBubbleEnabled and VRHub.SafetyBubble and Roact.createElement(ExternalEventConnection, {
+		SafetyBubbleToggled = VRHub.SafetyBubble and Roact.createElement(ExternalEventConnection, {
 			event = VRHub.SafetyBubble.Toggled.Event,
 			callback = self.updateItemListState,
 		}),
@@ -826,13 +797,13 @@ function VRBottomBar:didUpdate(prevProps, prevState)
 		end
 	end
 
-	if FFlagVRBottomBarEnableMoreMenu and self.state.moreMenuOpen and #self.state.moreItemList == 0 then
+	if self.state.moreMenuOpen and #self.state.moreItemList == 0 then
 		VRHub:SetShowMoreMenu(false)
 	end
 
 	if FFlagVRMoveVoiceIndicatorToBottomBar and prevProps.voiceEnabled ~= self.props.voiceEnabled then
 		self.updateItemListState()
-	elseif UsePositionConfig and (prevState.yOffset ~= self.state.yOffset or prevState.zOffset ~= self.state.zOffset) then
+	elseif prevState.yOffset ~= self.state.yOffset or prevState.zOffset ~= self.state.zOffset then
 		-- Remove state.yOffset and state.zOffset when remove FFlagVRBottomBarDebugPositionConfig
 		self.updateItemListState()
 	end

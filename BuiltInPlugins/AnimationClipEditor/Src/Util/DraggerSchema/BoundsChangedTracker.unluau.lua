@@ -2,11 +2,11 @@
 local var0 = {}
 var0.__index = var0
 function var0.new(arg1, arg2)
-   local var462 = {}
-   var462._handler = arg2
-   var462._draggerContext = arg1
-   var462._boundsChanged = arg2
-   return setmetatable(var462, var0)
+   local var478 = {}
+   var478._handler = arg2
+   var478._draggerContext = arg1
+   var478._boundsChanged = arg2
+   return setmetatable(var478, var0)
 end
 
 function var0.install(arg1)

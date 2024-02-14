@@ -10,26 +10,26 @@ function var3.getNotifications(arg1, arg2)
       var1 = var0
    end
    local var2 = {}
-   local var23 = 12
-   local var24 = 1
-   local var25 = 1 + var1
-   local var26 = var2
-   local var29 = (var25) % var2
-   local var30 = var29 + 1
-   var26 = var25
-   var30 = var2
-   var29 = var26[var30](var26)
-   table.insert(var30, var29)
+   local var442 = 12
+   local var443 = 1
+   local var444 = 1 + var1
+   local var445 = var2
+   local var448 = (var444) % var2
+   local var449 = var448 + 1
+   var445 = var444
+   var449 = var2
+   var448 = var445[var449](var445)
+   table.insert(var449, var448)
    var1.new(function(arg1, arg2)
       task.spawn(function()
          arg1()
       end)
    end):await()
    local var6 = {}
-   local var43 = {}
-   var43.creatorStreamNotifications = var2
-   var43.nextCursor = tostring(var1 + 12)
-   var6.responseBody = var43
+   local var462 = {}
+   var462.creatorStreamNotifications = var2
+   var462.nextCursor = tostring(var1 + 12)
+   var6.responseBody = var462
    var6.responseCode = 200
    return var6
 end

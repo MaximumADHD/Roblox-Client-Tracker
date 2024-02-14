@@ -128,10 +128,21 @@ PROTO_3:
   GETIMPORT R2 K12 [os.clock]
   CALL R2 0 1
   SETTABLEKS R2 R0 K13 ["_startTime"]
-  GETTABLEKS R2 R0 K14 ["Started"]
-  NAMECALL R2 R2 K15 ["Fire"]
+  GETTABLEKS R2 R1 K14 ["cycles"]
+  SETTABLEKS R2 R0 K15 ["_cycles"]
+  GETTABLEKS R2 R1 K16 ["Synchronous"]
+  SETTABLEKS R2 R0 K17 ["_Synchronous"]
+  GETTABLEKS R2 R0 K18 ["Started"]
+  NAMECALL R2 R2 K19 ["Fire"]
   CALL R2 1 0
-  GETIMPORT R2 K18 [task.spawn]
+  GETTABLEKS R2 R0 K15 ["_cycles"]
+  JUMPIF R2 [+3]
+  GETTABLEKS R2 R0 K17 ["_Synchronous"]
+  JUMPIFNOT R2 [+4]
+  NAMECALL R2 R0 K20 ["_runOperation"]
+  CALL R2 1 0
+  RETURN R0 0
+  GETIMPORT R2 K23 [task.spawn]
   NEWCLOSURE R3 P0
   CAPTURE VAL R0
   CALL R2 1 0
@@ -346,17 +357,22 @@ PROTO_30:
 
 PROTO_31:
   PREPVARARGS 1
-  GETIMPORT R1 K2 [os.clock]
+  GETTABLEKS R1 R0 K0 ["_cycles"]
+  JUMPIF R1 [+3]
+  GETTABLEKS R1 R0 K1 ["_Synchronous"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETIMPORT R1 K4 [os.clock]
   CALL R1 0 1
-  GETIMPORT R2 K5 [task.wait]
+  GETIMPORT R2 K7 [task.wait]
   GETVARARGS R3 -1
   CALL R2 -1 0
-  GETIMPORT R2 K2 [os.clock]
+  GETIMPORT R2 K4 [os.clock]
   CALL R2 0 1
-  GETTABLEKS R4 R0 K6 ["_yieldTime"]
+  GETTABLEKS R4 R0 K8 ["_yieldTime"]
   SUB R5 R2 R1
   ADD R3 R4 R5
-  SETTABLEKS R3 R0 K6 ["_yieldTime"]
+  SETTABLEKS R3 R0 K8 ["_yieldTime"]
   RETURN R0 0
 
 PROTO_32:
@@ -429,13 +445,13 @@ PROTO_35:
   CALL R2 0 1
   NAMECALL R3 R0 K7 ["didError"]
   CALL R3 1 1
-  JUMPIF R3 [+73]
+  JUMPIF R3 [+85]
   GETTABLEKS R3 R0 K8 ["_wasCanceled"]
   JUMPIFNOT R3 [+6]
   GETTABLEKS R5 R0 K9 ["_onCancelFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 0
-  JUMP [+64]
+  JUMP [+76]
   GETTABLEKS R3 R0 K10 ["_isPaused"]
   JUMPIFNOT R3 [+17]
   JUMPIF R1 [+9]
@@ -444,35 +460,42 @@ PROTO_35:
   GETTABLEKS R5 R0 K11 ["_onPauseFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 1
-  JUMPIFNOT R3 [+51]
+  JUMPIFNOT R3 [+63]
   LOADB R1 1
   GETTABLEKS R5 R0 K12 ["_timeBetweenPauseChecks"]
   NAMECALL R3 R0 K3 ["_yield"]
   CALL R3 2 0
-  JUMP [+43]
+  JUMP [+55]
   JUMPIFNOT R1 [+9]
   GETTABLEKS R3 R0 K13 ["_onResumeFunc"]
   JUMPIFNOT R3 [+6]
   GETTABLEKS R5 R0 K13 ["_onResumeFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 1
-  JUMPIFNOT R3 [+34]
+  JUMPIFNOT R3 [+46]
   LOADB R1 0
   GETTABLEKS R5 R0 K14 ["_onStepFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 3
-  JUMPIFNOT R3 [+27]
+  JUMPIFNOT R3 [+39]
   JUMPIFNOT R5 [+4]
   MOVE R8 R5
   NAMECALL R6 R0 K15 ["_setProgress"]
   CALL R6 2 0
-  JUMPIFNOT R4 [+21]
-  GETTABLEKS R6 R0 K16 ["_budget"]
+  GETTABLEKS R6 R0 K16 ["_cycles"]
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R0 K16 ["_cycles"]
+  SUBK R6 R6 K17 [1]
+  SETTABLEKS R6 R0 K16 ["_cycles"]
+  JUMPIFNOT R4 [+25]
+  GETTABLEKS R6 R0 K16 ["_cycles"]
+  JUMPIFEQKN R6 K18 [0] [+22]
+  GETTABLEKS R6 R0 K19 ["_budget"]
   JUMPIFNOT R6 [+8]
   GETIMPORT R7 K6 [os.clock]
   CALL R7 0 1
   SUB R6 R7 R2
-  GETTABLEKS R7 R0 K16 ["_budget"]
+  GETTABLEKS R7 R0 K19 ["_budget"]
   JUMPIFNOTLT R7 R6 [+10]
   GETTABLEKS R8 R0 K2 ["_timeBetweenSteps"]
   NAMECALL R6 R0 K3 ["_yield"]
@@ -480,19 +503,19 @@ PROTO_35:
   GETIMPORT R6 K6 [os.clock]
   CALL R6 0 1
   MOVE R2 R6
-  JUMPBACK [-77]
+  JUMPBACK [-89]
   LOADB R3 1
-  SETTABLEKS R3 R0 K17 ["_hasFinished"]
+  SETTABLEKS R3 R0 K20 ["_hasFinished"]
   LOADB R3 0
-  SETTABLEKS R3 R0 K18 ["_isRunning"]
+  SETTABLEKS R3 R0 K21 ["_isRunning"]
   GETIMPORT R3 K6 [os.clock]
   CALL R3 0 1
-  SETTABLEKS R3 R0 K19 ["_endTime"]
-  GETTABLEKS R5 R0 K20 ["_onFinishFunc"]
+  SETTABLEKS R3 R0 K22 ["_endTime"]
+  GETTABLEKS R5 R0 K23 ["_onFinishFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 0
-  GETTABLEKS R3 R0 K21 ["Finished"]
-  NAMECALL R3 R3 K22 ["Fire"]
+  GETTABLEKS R3 R0 K24 ["Finished"]
+  NAMECALL R3 R3 K25 ["Fire"]
   CALL R3 1 0
   RETURN R0 0
 

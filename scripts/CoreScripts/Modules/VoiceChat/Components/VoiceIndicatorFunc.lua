@@ -77,6 +77,7 @@ type VoiceIndicatorProps = {
 	iconTransparency: any?,
 	onClicked: any?,
 	size: UDim2?,
+	selectable: boolean?,
 	userId: number | string,
 	disable: boolean?,
 	showConnectingShimmer: boolean?
@@ -93,6 +94,7 @@ end
 local function VoiceIndicator(props: VoiceIndicatorProps)
 	local voiceState = useVoiceState(props.userId, props.disable or false)
 	local level, setLevel = React.useBinding(0)
+	local selectable = if props.selectable ~= nil then props.selectable else true
 	local voiceStateBinding, setVoiceStateBinding = React.useBinding(voiceState)
 	local voiceStateAndLevel = useJoinBinding({ voiceStateBinding, level })
 	local renderStepName = React.useRef(GenerateGUID()).current or ""
@@ -152,6 +154,7 @@ local function VoiceIndicator(props: VoiceIndicatorProps)
 		BorderSizePixel = 0,
 		Image = imageMapFunc,
 		ImageTransparency = imageTransparency,
+		Selectable = selectable,
 		SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
 		Visible = visible,
 		[Roact.Event.Activated] = props.onClicked,

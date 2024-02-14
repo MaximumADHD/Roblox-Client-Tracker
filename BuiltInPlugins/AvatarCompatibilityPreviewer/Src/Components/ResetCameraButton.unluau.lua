@@ -12,26 +12,26 @@ local var9 = require(var0.Src.Resources.Theme)
 return function(arg1)
    local var0 = var8:use("ResetCameraButton")
    local var1 = UDim.new(0, var0.Spacing)
-   local var173 = {}
-   var173.AnchorPoint = Vector2.new(1, 0)
-   var173.LayoutOrder = arg1.LayoutOrder
-   var173.Position = var0.Position
-   var173.OnClick = var2.useContext(var3).resetCamera
-   var173.Style = "Round"
-   var173.Size = var0.Size + UDim2.fromOffset(var0.Spacing, var0.Spacing)
-   var173.ZIndex = 2
-   local var189 = {}
-   local var193 = {}
-   var193.PaddingLeft = var1
-   var193.PaddingRight = var1
-   var193.PaddingTop = var1
-   var193.PaddingBottom = var1
-   var189.Spacing = var2.createElement("UIPadding", var193)
+   local var178 = {}
+   var178.AnchorPoint = Vector2.new(1, 0)
+   var178.LayoutOrder = arg1.LayoutOrder
+   var178.Position = var0.Position
+   var178.OnClick = var2.useContext(var3).resetCamera
+   var178.Style = "Round"
+   var178.Size = var0.Size + UDim2.fromOffset(var0.Spacing, var0.Spacing)
+   var178.ZIndex = 2
+   local var194 = {}
    local var198 = {}
-   var198.Image = var0.Image
-   var189.Icon = var2.createElement(var6, var198)
-   local var204 = {}
-   var204.Text = "Reset Camera"
-   var189.Tooltip = var2.createElement(var7, var204)
-   return var2.createElement(var5, var173, var189)
+   var198.PaddingLeft = var1
+   var198.PaddingRight = var1
+   var198.PaddingTop = var1
+   var198.PaddingBottom = var1
+   var194.Spacing = var2.createElement("UIPadding", var198)
+   local var203 = {}
+   var203.Image = var0.Image
+   var194.Icon = var2.createElement(var6, var203)
+   local var209 = {}
+   var209.Text = "Reset Camera"
+   var194.Tooltip = var2.createElement(var7, var209)
+   return var2.createElement(var5, var178, var194)
 end

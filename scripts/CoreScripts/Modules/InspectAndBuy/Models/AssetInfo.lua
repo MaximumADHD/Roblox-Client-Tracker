@@ -34,6 +34,8 @@ local FFlagEnableRestrictedAssetSaleLocationInspectAndBuy
 	= require(CoreGui.RobloxGui.Modules.Flags.FFlagEnableRestrictedAssetSaleLocationInspectAndBuy)
 
 local GetCollectibleItemInInspectAndBuyEnabled = require(script.Parent.Parent.Flags.GetCollectibleItemInInspectAndBuyEnabled)
+local GetFFlagIBGateUGC4ACollectibleAssetsBundles = require(script.Parent.Parent.Flags.GetFFlagIBGateUGC4ACollectibleAssetsBundles)
+
 
 local AssetInfo = {}
 
@@ -97,6 +99,7 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 			newAsset.collectibleLowestAvailableResaleProductId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleProductId or ""
 			newAsset.collectibleLowestAvailableResaleItemInstanceId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleItemInstanceId or ""
 			newAsset.collectibleQuantityLimitPerUser = assetInfo.CollectiblesItemDetails.CollectibleQuantityLimitPerUser or 0
+			newAsset.collectibleIsLimited = if GetFFlagIBGateUGC4ACollectibleAssetsBundles() then assetInfo.CollectiblesItemDetails.IsLimited else nil
 		end
 	elseif FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
 		newAsset.isForSale = assetInfo.IsForSale and assetInfo.CanBeSoldInThisGame

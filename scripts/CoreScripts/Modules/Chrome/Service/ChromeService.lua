@@ -18,16 +18,18 @@ local AvailabilitySignal = utils.AvailabilitySignal
 local Types = require(script.Parent.Types)
 
 local GetFFlagEnableUnibarSneakPeak = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarSneakPeak)
+local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)
 local GetFFlagEnableUnibarMaxDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableUnibarMaxDefaultOpen)
 local GetFFlagEnableChromeEscapeFix = require(script.Parent.Parent.Flags.GetFFlagEnableChromeEscapeFix)
 local GetFFlagEnableChromeDefaultOpen = require(script.Parent.Parent.Flags.GetFFlagEnableChromeDefaultOpen)
 local GetFFlagNewUnibarIA = require(script.Parent.Parent.Flags.GetFFlagNewUnibarIA)
+local GetFFlagEnableChromePinIntegrations = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinIntegrations)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 
 local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 2.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
-local CHROME_INTERACTED_KEY = "ChromeInteracted"
+local CHROME_INTERACTED_KEY = "ChromeInteracted2"
 local CHROME_SEEN_COUNT_KEY = "ChromeSeenCount"
 local MAX_CHROME_SEEN_COUNT = 3
 
@@ -42,6 +44,7 @@ ChromeService.MenuStatus = { Closed = 0, Open = 1 }
 ChromeService.IntegrationStatus = { None = 0, Icon = 1, Window = 2 }
 ChromeService.Key = {
 	MostRecentlyUsed = "MRU",
+	UserPinned = if GetFFlagEnableChromePinIntegrations then "UP" else nil,
 }
 
 export type UnibarLayoutInfo = {
@@ -76,7 +79,7 @@ export type ChromeService = {
 	toggleSubMenu: (ChromeService, subMenuId: Types.IntegrationId) -> (),
 	currentSubMenu: (ChromeService) -> ObservableSubMenu,
 	toggleOpen: (ChromeService) -> (),
-	open: (ChromeService) -> (),
+	open: (ChromeService, preventFocusCapture: boolean?) -> (),
 	close: (ChromeService) -> (),
 	getLastInputToOpenMenu: (ChromeService) -> Enum.UserInputType,
 	status: (ChromeService) -> ObservableMenuStatus,
@@ -113,6 +116,11 @@ export type ChromeService = {
 	setRecentlyUsed: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
 	removeRecentlyUsed: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
 	rebuildMostRecentlyUsed: (ChromeService) -> (),
+	isUserPinned: (ChromeService, componentId: Types.IntegrationId) -> boolean,
+	setUserPin: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
+	removeUserPin: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
+	rebuildUserPins: (ChromeService) -> (),
+	areUserPinsFull: (ChromeService) -> boolean,
 	storeChromeInteracted: (ChromeService) -> (),
 	storeChromeSeen: (ChromeService) -> (),
 	activate: (ChromeService, componentId: Types.IntegrationId) -> (),
@@ -163,7 +171,8 @@ export type ChromeService = {
 	_totalNotifications: utils.NotifySignal,
 	_mostRecentlyUsedFullRecord: { Types.IntegrationId },
 	_mostRecentlyUsed: Types.IntegrationIdList,
-	_mostRecentlyUsedLimit: number,
+	_userPins: Types.IntegrationIdList,
+	_mostRecentlyUsedAndPinnedLimit: number,
 	_notificationIndicator: ObservableIntegration,
 	_lastDisplayedNotificationTick: number,
 	_lastDisplayedNotificationId: Types.IntegrationId,
@@ -231,7 +240,8 @@ function ChromeService.new(): ChromeService
 	self._totalNotifications = NotifySignal.new(true)
 	self._mostRecentlyUsedFullRecord = {}
 	self._mostRecentlyUsed = {}
-	self._mostRecentlyUsedLimit = 1
+	self._userPins = {}
+	self._mostRecentlyUsedAndPinnedLimit = 1
 	self._localization = Localization.new(localeId)
 	self._localizedLabelKeys = {}
 
@@ -327,29 +337,32 @@ function ChromeService:updateScreenSize(
 	-- Upon screen viewport resize:
 
 	-- 1) Configured the number of most recently used slots
-	local mostRecentlyUsedSlots = 0
+	local mostRecentlyUsedAndPinnedSlots = 0
 
 	if isMobileDevice then
 		if isTinyPortrait then
-			mostRecentlyUsedSlots = 0
+			mostRecentlyUsedAndPinnedSlots = 0
 		elseif isPortrait then
-			mostRecentlyUsedSlots = 1
+			mostRecentlyUsedAndPinnedSlots = 1
 		else
-			mostRecentlyUsedSlots = 2
+			mostRecentlyUsedAndPinnedSlots = 2
 		end
 
 		if EnabledPinnedChat and not GetFFlagNewUnibarIA() then
-			mostRecentlyUsedSlots = math.max(0, mostRecentlyUsedSlots - 1)
+			mostRecentlyUsedAndPinnedSlots = math.max(0, mostRecentlyUsedAndPinnedSlots - 1)
 		end
 	else
-		mostRecentlyUsedSlots = 4
+		mostRecentlyUsedAndPinnedSlots = 4
 	end
 
-	-- 2) Repopulate most recently list if the slot count changes
-
-	if mostRecentlyUsedSlots ~= self._mostRecentlyUsedLimit then
+	-- 2) Repopulate most recently and user pin lists if the slot count changes
+	if mostRecentlyUsedAndPinnedSlots ~= self._mostRecentlyUsedAndPinnedLimit then
 		-- only run if slot count changes; limit updates
-		self._mostRecentlyUsedLimit = mostRecentlyUsedSlots
+		self._mostRecentlyUsedAndPinnedLimit = mostRecentlyUsedAndPinnedSlots
+
+		if GetFFlagEnableChromePinIntegrations() then
+			self:rebuildUserPins()
+		end
 		self:rebuildMostRecentlyUsed()
 	end
 
@@ -362,10 +375,15 @@ function ChromeService:rebuildMostRecentlyUsed()
 
 	local i = #self._mostRecentlyUsedFullRecord
 	if i > 0 then
+		local srcStartIndex = i - self._mostRecentlyUsedAndPinnedLimit + 1
+		if GetFFlagEnableChromePinIntegrations() then
+			srcStartIndex = i - self._mostRecentlyUsedAndPinnedLimit + #self._userPins + 1
+		end
+
 		-- slice a subset of the full record to repopulate slots
 		table.move(
 			self._mostRecentlyUsedFullRecord, -- src
-			math.max(1, i - self._mostRecentlyUsedLimit + 1), -- src start index
+			math.max(1, srcStartIndex), -- src start index
 			i, -- src end index
 			1, -- dst insert index
 			self._mostRecentlyUsed -- dst
@@ -374,6 +392,25 @@ function ChromeService:rebuildMostRecentlyUsed()
 
 	self:updateMenuList()
 	self:updateNotificationTotals()
+end
+
+function ChromeService:rebuildUserPins()
+	if GetFFlagEnableChromePinIntegrations() and self._mostRecentlyUsedAndPinnedLimit < #self._userPins then
+		local newUserPins = {}
+		local i = #self._userPins
+		table.move(
+			self._userPins, -- src
+			math.max(1, i - self._mostRecentlyUsedAndPinnedLimit + 1), -- src start index
+			i, -- src end index
+			1, -- dst insert index
+			newUserPins -- dst
+		)
+
+		self._userPins = newUserPins
+
+		self:updateMenuList()
+		self:updateNotificationTotals()
+	end
 end
 
 function ChromeService:updateWindowSizeSignals()
@@ -484,14 +521,21 @@ function ChromeService:toggleOpen()
 	end
 end
 
-function ChromeService:open()
+function ChromeService:open(preventFocusCapture: boolean?)
 	local menuStatus: ObservableMenuStatus = self._status
 
 	if menuStatus:get() == ChromeService.MenuStatus.Closed then
 		menuStatus:set(ChromeService.MenuStatus.Open)
 		self._lastDisplayedNotificationId = ""
 		self._notificationIndicator:set(nil)
-		self._lastInputToOpenMenu = UserInputService:GetLastInputType()
+
+		if GetFFlagEnableChromeFTUX() then
+			self._lastInputToOpenMenu = if preventFocusCapture
+				then Enum.UserInputType.Touch
+				else UserInputService:GetLastInputType()
+		else
+			self._lastInputToOpenMenu = UserInputService:GetLastInputType()
+		end
 	end
 end
 
@@ -758,6 +802,9 @@ function ChromeService:updateMenuList()
 			if v == ChromeService.Key.MostRecentlyUsed then
 				-- If MostRecentlyUsed special key, substitute for the MostRecentlyUsed array
 				collectMenu(self._mostRecentlyUsed, parent, windowList)
+			elseif GetFFlagEnableChromePinIntegrations() and v == ChromeService.Key.UserPinned then
+				-- If UserPinned special key, substitute for the UserPinned array
+				collectMenu(self._userPins, parent, windowList)
 			elseif type(v) == "table" then
 				-- A list (non-string item) is a group of items that require visual dividers to bookend
 				if not #parent.children then
@@ -987,8 +1034,18 @@ function ChromeService:removeRecentlyUsed(componentId: Types.IntegrationId)
 end
 function ChromeService:setRecentlyUsed(componentId: Types.IntegrationId, force: boolean?)
 	if force or (self:withinCurrentSubmenu(componentId) and not self:isMostRecentlyUsed(componentId)) then
+		-- if integration is pinned by user, do not set it to an MRU slot
+		if GetFFlagEnableChromePinIntegrations() and self:isUserPinned(componentId) then
+			return
+		end
+
 		table.insert(self._mostRecentlyUsed, componentId)
-		while self._mostRecentlyUsedLimit >= 0 and #self._mostRecentlyUsed > self._mostRecentlyUsedLimit do
+		local maxMostRecentlyUsedSlots = self._mostRecentlyUsedAndPinnedLimit
+		if GetFFlagEnableChromePinIntegrations() then
+			maxMostRecentlyUsedSlots = self._mostRecentlyUsedAndPinnedLimit - #self._userPins
+		end
+
+		while self._mostRecentlyUsedAndPinnedLimit >= 0 and #self._mostRecentlyUsed > maxMostRecentlyUsedSlots do
 			table.remove(self._mostRecentlyUsed, 1)
 		end
 		self:updateMenuList()
@@ -1002,6 +1059,40 @@ function ChromeService:setRecentlyUsed(componentId: Types.IntegrationId, force: 
 		end
 		table.insert(self._mostRecentlyUsedFullRecord, componentId)
 	end
+end
+
+function ChromeService:isUserPinned(componentId: Types.IntegrationId)
+	return GetFFlagEnableChromePinIntegrations() and table.find(self._userPins, componentId) ~= nil
+end
+
+function ChromeService:removeUserPin(componentId: Types.IntegrationId)
+	if not GetFFlagEnableChromePinIntegrations() then
+		return
+	end
+
+	local idx = table.find(self._userPins, componentId)
+	if idx then
+		table.remove(self._userPins, idx)
+	end
+
+	self:updateMenuList()
+	self:updateNotificationTotals()
+end
+
+function ChromeService:setUserPin(componentId: Types.IntegrationId, force: boolean?)
+	if
+		(force or (self:withinCurrentSubmenu(componentId) and not self:isUserPinned(componentId)))
+		and #self._userPins < self._mostRecentlyUsedAndPinnedLimit
+		and GetFFlagEnableChromePinIntegrations()
+	then
+		table.insert(self._userPins, componentId)
+
+		self:removeRecentlyUsed(componentId)
+	end
+end
+
+function ChromeService:areUserPinsFull()
+	return GetFFlagEnableChromePinIntegrations() and self._mostRecentlyUsedAndPinnedLimit <= #self._userPins
 end
 
 function ChromeService:windowPosition(componentId: Types.IntegrationId)
@@ -1029,6 +1120,10 @@ function ChromeService:activate(componentId: Types.IntegrationId)
 
 		if GetFFlagEnableUnibarSneakPeak() then
 			self:storeChromeInteracted()
+		end
+
+		if GetFFlagEnableChromeFTUX() then
+			LocalStore.storeForLocalPlayer(componentId, true)
 		end
 
 		if integrationActivated then

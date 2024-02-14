@@ -9,8 +9,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GenerateDummy = require(script.Parent.Parent.Utility.GenerateDummy)
 local currentCamera = workspace.CurrentCamera :: Camera
 
-local SafetyBubbleEnabled = require(RobloxGui.Modules.Flags.FFlagSafetyBubbleEnabled)
-
 -- Define the minimum and maximum transparency values
 local MAX_SAFETY_DIST = require(RobloxGui.Modules.Flags.FIntSafetyBubbleRadius)
 local MAX_TRANSPARENCY = require(RobloxGui.Modules.Flags.FIntSafetyBubbleTransparencyPercent) * 0.01
@@ -51,10 +49,6 @@ local function calculateTransparency(player, safetyBubbleEnabled)
 end
 
 function EnableSafetyBubbleDummy()
-	if not SafetyBubbleEnabled then
-		return
-	end
-
 	initDummy()
 
 	local function onStep()

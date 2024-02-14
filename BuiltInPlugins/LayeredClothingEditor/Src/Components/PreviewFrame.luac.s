@@ -1,10 +1,6 @@
 PROTO_0:
-  JUMPIFNOT R1 [+1]
-  JUMP [+1]
-  LOADK R1 K0 [""]
-  JUMPIFNOT R0 [+1]
-  JUMP [+1]
-  LOADK R0 K0 [""]
+  ORK R1 R1 K0 [""]
+  ORK R0 R0 K0 [""]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K1 ["props"]
   GETTABLEKS R2 R3 K2 ["SetSelectedTab"]

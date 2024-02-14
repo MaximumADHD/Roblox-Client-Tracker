@@ -11,7 +11,6 @@ local var8 = require(var7.DetachCompositor)
 local var9 = require(var7.ParseDebugData)
 local var10 = require(var1.Src.Util.Constants)
 local var11 = require(var1.Src.Types)
-local var12 = game:DefineFastFlag("CDAdornments", false)
 local function fun0(arg1, arg2)
    local var0 = arg1:FindFirstChild(arg2)
    if var0 then
@@ -25,7 +24,7 @@ local function fun0(arg1, arg2)
    return var1
 end
 
-local function var13(arg1, arg2)
+local function var12(arg1, arg2)
    local var0 = arg1:FindFirstChild(arg2)
    if var0 then
       if not var0:IsA("BindableEvent") then

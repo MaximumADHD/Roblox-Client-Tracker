@@ -7,51 +7,51 @@ local var4 = var2.UI.SplitPane
 local var5 = require(var0.Src.Types)
 local var6 = var1.PureComponent:extend("MainSplitPane")
 function var6.init(arg1)
-   local var140 = {}
-   var140.sizes = arg1.props.InitialSizes
-   arg1.state = var140
+   local var128 = {}
+   var128.sizes = arg1.props.InitialSizes
+   arg1.state = var128
    function arg1.onSizesChange(arg1)
-      local var145 = {}
-      var145.sizes = arg1
-      arg1:setState(var145)
+      local var133 = {}
+      var133.sizes = arg1
+      arg1:setState(var133)
    end
    
 end
 
 local function fun3(arg1)
    local var0 = arg1.props
-   local var154 = {}
-   var154.Size = UDim2.fromScale(1, 1)
-   var154.Sizes = arg1.state.sizes
-   var154.OnSizesChange = arg1.onSizesChange
-   var154.MinSizes = var0.MinSizes
-   var154.PaneStyle = "BorderBox"
-   var154.BarStyle = "BorderBox"
-   var154.UseScale = true
-   var154.ClampSize = true
-   var154.Layout = var0.Layout
-   return var1.createElement(var4, var154, var0.children)
+   local var142 = {}
+   var142.Size = UDim2.fromScale(1, 1)
+   var142.Sizes = arg1.state.sizes
+   var142.OnSizesChange = arg1.onSizesChange
+   var142.MinSizes = var0.MinSizes
+   var142.PaneStyle = "BorderBox"
+   var142.BarStyle = "BorderBox"
+   var142.UseScale = true
+   var142.ClampSize = true
+   var142.Layout = var0.Layout
+   return var1.createElement(var4, var142, var0.children)
 end
 
 function var6.render(arg1)
    local var0 = arg1.props
-   local var154 = {}
-   var154.Size = UDim2.fromScale(1, 1)
-   var154.Sizes = arg1.state.sizes
-   var154.OnSizesChange = arg1.onSizesChange
-   var154.MinSizes = var0.MinSizes
-   var154.PaneStyle = "BorderBox"
-   var154.BarStyle = "BorderBox"
-   var154.UseScale = true
-   var154.ClampSize = true
-   var154.Layout = var0.Layout
-   return var1.createElement(var4, var154, var0.children)
+   local var142 = {}
+   var142.Size = UDim2.fromScale(1, 1)
+   var142.Sizes = arg1.state.sizes
+   var142.OnSizesChange = arg1.onSizesChange
+   var142.MinSizes = var0.MinSizes
+   var142.PaneStyle = "BorderBox"
+   var142.BarStyle = "BorderBox"
+   var142.UseScale = true
+   var142.ClampSize = true
+   var142.Layout = var0.Layout
+   return var1.createElement(var4, var142, var0.children)
 end
 
 fun3 = var3.withContext
-local var168 = {}
-var168.Analytics = var3.Analytics
-var168.Localization = var3.Localization
-var168.Stylizer = var2.Style.Stylizer
-var6 = fun3(var168)(var6)
+local var156 = {}
+var156.Analytics = var3.Analytics
+var156.Localization = var3.Localization
+var156.Stylizer = var2.Style.Stylizer
+var6 = fun3(var156)(var6)
 return var6

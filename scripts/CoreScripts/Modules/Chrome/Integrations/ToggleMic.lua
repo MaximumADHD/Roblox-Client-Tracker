@@ -10,6 +10,8 @@ local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndic
 local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalytics)
 local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
 
+local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)
+
 local ChromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
 
@@ -54,6 +56,7 @@ local muteSelf = ChromeService:register({
 					userId = tostring((Players.LocalPlayer :: Player).UserId),
 					hideOnError = false,
 					iconStyle = "MicLight",
+					selectable = if GetFFlagEnableChromeFTUX() then false else nil,
 					size = ICON_SIZE,
 					showConnectingShimmer = true,
 				}) :: any,

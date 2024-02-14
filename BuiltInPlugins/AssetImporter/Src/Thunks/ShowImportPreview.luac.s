@@ -17,7 +17,7 @@ PROTO_0:
   GETUPVAL R5 1
   CALL R5 0 1
   JUMPIFNOT R5 [+4]
-  NAMECALL R4 R1 K2 ["GetPreviewInstance"]
+  NAMECALL R4 R1 K2 ["GetPreview"]
   CALL R4 1 1
   JUMP [+6]
   GETUPVAL R4 0

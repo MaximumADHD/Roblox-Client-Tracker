@@ -63,23 +63,11 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K2 ["PlayerEmulatorRibbonOpeningFixEnabled"]
-  NAMECALL R1 R1 K3 ["GetFastFlag"]
-  CALL R1 2 1
-  JUMPIFNOT R1 [+10]
   GETUPVAL R1 0
-  DUPTABLE R3 K5 [{"active"}]
-  GETTABLEKS R4 R0 K6 ["Enabled"]
-  SETTABLEKS R4 R3 K4 ["active"]
-  NAMECALL R1 R1 K7 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
-  GETUPVAL R1 0
-  DUPTABLE R3 K9 [{"enabled"}]
-  GETTABLEKS R4 R0 K6 ["Enabled"]
-  SETTABLEKS R4 R3 K8 ["enabled"]
-  NAMECALL R1 R1 K7 ["setState"]
+  DUPTABLE R3 K1 [{"active"}]
+  GETTABLEKS R4 R0 K2 ["Enabled"]
+  SETTABLEKS R4 R3 K0 ["active"]
+  NAMECALL R1 R1 K3 ["setState"]
   CALL R1 2 0
   RETURN R0 0
 

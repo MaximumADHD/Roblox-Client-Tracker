@@ -10,7 +10,6 @@ local Signal = require(CorePackages.Workspace.Packages.AppCommonLib).Signal
 local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
-local GetFFlagSoundManagerRefactor = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSoundManagerRefactor
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -114,14 +113,7 @@ local function ContactListContainer()
 							})
 							dispatch(SetCurrentPage(Pages.CallHistory))
 
-							if GetFFlagSoundManagerRefactor() then
-								SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-							else
-								SoundManager:PlaySound_old(
-									Sounds.Swipe.Name,
-									{ Volume = 0.5, SoundGroup = SoundGroups.Iris }
-								)
-							end
+							SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
 						else
 							dispatch(
 								OpenOrUpdateDialog(
@@ -168,11 +160,7 @@ local function ContactListContainer()
 
 	local dismissCallback = React.useCallback(function()
 		if not isSmallScreen and contactListContainerRef.current then
-			if GetFFlagSoundManagerRefactor() then
-				SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-			else
-				SoundManager:PlaySound_old(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-			end
+			SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
 			pcall(function()
 				contactListContainerRef.current:TweenPosition(
 					UDim2.new(0, -DOCKED_WIDTH, 0, PHONEBOOK_CONTAINER_TOP_MARGIN),
@@ -236,11 +224,7 @@ local function ContactListContainer()
 				SocialService:InvokeIrisInvitePromptClosed(localPlayer)
 			end
 
-			if GetFFlagSoundManagerRefactor() then
-				SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
-			else
-				SoundManager:PlaySound_old(Sounds.Swipe.Name, { Volume = 0.5, SoundGroup = SoundGroups.Iris })
-			end
+			SoundManager:PlaySound(Sounds.Swipe.Name, { Volume = 0.5 }, SoundGroups.Iris)
 		end
 
 		setExpectedPeekViewState(viewState)

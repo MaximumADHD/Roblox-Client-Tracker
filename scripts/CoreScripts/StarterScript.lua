@@ -70,6 +70,7 @@ local FFlagAdPortalTeleportPromptLua = game:DefineFastFlag("AdPortalTeleportProm
 
 local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
+local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
@@ -294,6 +295,10 @@ if GetFFlagScreenshotHudApi() and not PolicyService:IsSubjectToChinaPolicies() t
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenshotHud", RobloxGui)
 end
 
+if getFFlagMicrophoneDevicePermissionsPromptLogging() then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/MicrophoneDevicePermissionsLoggingInitializer", RobloxGui)
+end
+
 if game:GetEngineFeature("VoiceChatSupported") and GetFFlagEnableVoiceDefaultChannel() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceDefaultChannel", RobloxGui)
 end
@@ -356,6 +361,16 @@ if game:GetEngineFeature("PortalAdPrompt") then
 	if FFlagAdPortalTeleportPromptLua then
 		ScriptContext:AddCoreScriptLocal("CoreScripts/AdTeleportPrompt", RobloxGui)
 	end
+end
+
+if game:GetEngineFeature("EnableAdsEudsaStaticDisclosure") then
+	coroutine.wrap(function()
+		local AdsEudsaInit = safeRequire(CorePackages.Workspace.Packages.AdsEudsa)
+
+		if AdsEudsaInit and AdsEudsaInit.starterScript then
+			AdsEudsaInit.starterScript()
+		end
+	end)()
 end
 
 if game:GetEngineFeature("EnableVoiceAttention") then

@@ -15,7 +15,7 @@ local var0 = {
    "RightUpperArm", 
    "RightLowerArm"
 }
-local var216 = "RightHand"
+local var183 = "RightHand"
 local var2 = {}
 var2.SOURCE_BUILTIN = "builtin"
 var2.SOURCE_INSTANCE = "instance"
@@ -46,17 +46,17 @@ Enum.AssetType.SweaterAccessory = Enum.AccessoryType.Sweater
 Enum.AssetType.TShirtAccessory = Enum.AccessoryType.TShirt
 Enum.AssetType.WaistAccessory = Enum.AccessoryType.Waist
 var2.ASSET_TYPE_TO_ACCESSORY_TYPE = {}
-local var280 = "LeftCheekPuff"
-local var281 = "LeftCheekRaiser"
-local var282 = "LeftDimpler"
-local var296 = "MouthLeft"
-local var297 = "MouthRight"
-local var298 = "Pucker"
+local var247 = "LeftCheekPuff"
+local var248 = "LeftCheekRaiser"
+local var249 = "LeftDimpler"
+local var263 = "MouthLeft"
+local var264 = "MouthRight"
+local var265 = "Pucker"
 local var9 = "RightUpperLipRaiser"
 local var10 = "TongueDown"
 local var11 = "TongueOut"
-local var315 = "TongueUp"
-local var316 = "UpperLipSuck"
+local var282 = "TongueUp"
+local var283 = "UpperLipSuck"
 var2.FACE_CONTROLS_PROPERTIES = { 
    "ChinRaiser", 
    "ChinRaiserUpperLip", 
@@ -99,14 +99,14 @@ var2.FACE_CONTROLS_PROPERTIES = {
    "RightOuterBrowRaiser"
 }
 var2.LIMBS = var0
-local var317 = require(script:FindFirstAncestor("AvatarCompatibilityPreviewer").Packages.Cryo).List
-var317 = var0
-local var320 = "Handle"
-local var321 = "HumanoidRootPart"
-var2.ALL_ALLOWED_PART_NAMES = var317.join(var317, {})
-local var323 = {}
-var323.BodyPoints = "AvatarPreviewerEditingBodyPoints"
-var323.Toolbar = "AvatarPreviewerEditingToolbar"
-var2.EDITING_TOOLS_GUI_NAMES = var323
+local var284 = require(script:FindFirstAncestor("AvatarCompatibilityPreviewer").Packages.Cryo).List
+var284 = var0
+local var287 = "Handle"
+local var288 = "HumanoidRootPart"
+var2.ALL_ALLOWED_PART_NAMES = var284.join(var284, {})
+local var290 = {}
+var290.BodyPoints = "AvatarPreviewerEditingBodyPoints"
+var290.Toolbar = "AvatarPreviewerEditingToolbar"
+var2.EDITING_TOOLS_GUI_NAMES = var290
 var2.DEFAULT_CAMERA_ANGLE = CFrame.lookAt(Vector3.new(-5.2, 1, -9.2), Vector3.new(0.5, -1.2, 0.85))
 return var2

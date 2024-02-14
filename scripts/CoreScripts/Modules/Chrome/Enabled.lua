@@ -1,10 +1,10 @@
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(script.Parent.Parent.ExperienceMenuABTestManager)
 local GetFFlagFixChromeAllowlistWait = require(script.Parent.Parent.Flags.GetFFlagFixChromeAllowlistWait)
+local GetFStringInGameMenuChromeForcedUserIds = require(script.Parent.Flags.GetFStringInGameMenuChromeForcedUserIds)
+local GetFIntInGameMenuChromeAllowlistTimeout = require(script.Parent.Flags.GetFIntInGameMenuChromeAllowlistTimeout)
 
 game:DefineFastFlag("EnableInGameMenuChrome", false)
-game:DefineFastString("InGameMenuChromeForcedUserIds", "")
-game:DefineFastInt("InGameMenuChromeAllowlistTimeout", 5)
 
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
@@ -17,7 +17,7 @@ return function()
 
 	-- Determine localPlayer unless it takes longer than timeout
 	local localPlayer = Players.LocalPlayer
-	local timeoutTick = tick() + game:GetFastInt("InGameMenuChromeAllowlistTimeout")
+	local timeoutTick = tick() + GetFIntInGameMenuChromeAllowlistTimeout()
 
 	if GetFFlagFixChromeAllowlistWait() then
 		while not localPlayer and tick() < timeoutTick do
@@ -31,7 +31,7 @@ return function()
 		end
 	end
 
-	local forcedUserIds = game:GetFastString("InGameMenuChromeForcedUserIds")
+	local forcedUserIds = GetFStringInGameMenuChromeForcedUserIds()
 	for forcedUserIdString in forcedUserIds:gmatch("%d+") do
 		if localPlayer and tonumber(forcedUserIdString) == localPlayer.UserId then
 			return true

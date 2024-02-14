@@ -12,7 +12,7 @@ return function(arg1, arg2, arg3, arg4)
       else
          arg4:report("InstallPluginFromWebFailure", var3, arg1)
       end
-      local var0 = var1(var3, var275, var276)
+      local var0 = var1(var3, var8, var9)
       arg3:dispatch()
    end
 end

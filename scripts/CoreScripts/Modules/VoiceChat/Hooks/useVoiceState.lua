@@ -14,7 +14,7 @@
 
 	Usage:
 
-		local VOICE_STATE = require(CorePackages.AppTempCommon.VoiceChat.Constants).VOICE_STATE
+		local VOICE_STATE = require(CorePackages.Workspace.Packages.VoiceChat).Constants.VOICE_STATE
 
 		function Widget(props)
 			local voiceState = useVoiceState(props.userId)
@@ -35,7 +35,7 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local BlockedStatusChanged = BlockingUtility:GetBlockedStatusChangedEvent()
 local VoiceChatServiceManager = require(script.Parent.Parent.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
-local VoiceConstants = require(CorePackages.AppTempCommon.VoiceChat.Constants)
+local VoiceConstants = require(CorePackages.Workspace.Packages.VoiceChat).Constants
 local VOICE_STATE = VoiceConstants.VOICE_STATE
 
 local localPlayer = Players.LocalPlayer

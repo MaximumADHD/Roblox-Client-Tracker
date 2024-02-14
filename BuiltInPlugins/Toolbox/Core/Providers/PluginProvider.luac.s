@@ -1,9 +1,21 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["oneChild"]
-  GETTABLEKS R3 R0 K1 ["props"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["Children"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  LOADK R4 K0 ["%* is marked for removal and cannot be used"]
+  GETIMPORT R7 K2 [script]
+  GETTABLEKS R6 R7 K3 ["Name"]
+  NAMECALL R4 R4 K4 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  FASTCALL2 ASSERT R2 R3 [+3]
+  GETIMPORT R1 K6 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K7 ["oneChild"]
+  GETTABLEKS R3 R0 K8 ["props"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["Children"]
   GETTABLE R2 R3 R4
   CALL R1 1 -1
   RETURN R1 -1
@@ -18,11 +30,18 @@ MAIN:
   GETIMPORT R2 K5 [require]
   GETTABLEKS R3 R1 K6 ["Roact"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K7 ["PureComponent"]
-  LOADK R5 K8 ["PluginProvider"]
-  NAMECALL R3 R3 K9 ["extend"]
-  CALL R3 2 1
-  DUPCLOSURE R4 K10 [PROTO_0]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K7 ["Core"]
+  GETTABLEKS R6 R7 K8 ["Util"]
+  GETTABLEKS R5 R6 K9 ["SharedFlags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagToolboxFinallyRemoveLegacyContext"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K11 ["PureComponent"]
+  LOADK R6 K12 ["PluginProvider"]
+  NAMECALL R4 R4 K13 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R3
   CAPTURE VAL R2
-  SETTABLEKS R4 R3 K11 ["render"]
-  RETURN R3 1
+  SETTABLEKS R5 R4 K15 ["render"]
+  RETURN R4 1

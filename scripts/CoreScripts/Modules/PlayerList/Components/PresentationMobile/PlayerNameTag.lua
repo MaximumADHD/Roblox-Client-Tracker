@@ -19,7 +19,6 @@ local usePlayerCombinedName = require(PlayerList.Hooks.usePlayerCombinedName)
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 
-local getFFlagPlayerListApolloClientEnabled = require(RobloxGui.Modules.Flags.getFFlagPlayerListApolloClientEnabled)
 local getIsUserProfileOnLeaderboardEnabled = require(RobloxGui.Modules.Flags.getIsUserProfileOnLeaderboardEnabled)
 local FFlagRefactorPlayerNameTag = require(PlayerList.Flags.FFlagRefactorPlayerNameTag)
 
@@ -62,7 +61,7 @@ type Props = {
 
 if not FFlagRefactorPlayerNameTag then
 	function PlayerNameTag:init()
-		if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled() then
+		if getIsUserProfileOnLeaderboardEnabled() then
 			self:setState({
 				name = self.props.player.DisplayName,
 			})
@@ -101,7 +100,7 @@ function PlayerNameTag:render()
 			BackgroundTransparency = 1,
 			Text = if FFlagRefactorPlayerNameTag
 				then self.props.name
-				else if getFFlagPlayerListApolloClientEnabled() and getIsUserProfileOnLeaderboardEnabled()
+				else if getIsUserProfileOnLeaderboardEnabled()
 					then self.state.name
 					else self.props.player.DisplayName,
 			TextTruncate = Enum.TextTruncate.AtEnd,

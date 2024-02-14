@@ -199,15 +199,9 @@ PROTO_5:
 
 PROTO_6:
   DUPTABLE R3 K3 [{"fromPart", "toPart", "isEnabled"}]
-  JUMPIFNOT R0 [+2]
-  MOVE R4 R0
-  JUMP [+1]
-  LOADK R4 K4 [""]
+  ORK R4 R0 K4 [""]
   SETTABLEKS R4 R3 K0 ["fromPart"]
-  JUMPIFNOT R1 [+2]
-  MOVE R4 R1
-  JUMP [+1]
-  LOADK R4 K4 [""]
+  ORK R4 R1 K4 [""]
   SETTABLEKS R4 R3 K1 ["toPart"]
   SETTABLEKS R2 R3 K2 ["isEnabled"]
   GETUPVAL R4 0

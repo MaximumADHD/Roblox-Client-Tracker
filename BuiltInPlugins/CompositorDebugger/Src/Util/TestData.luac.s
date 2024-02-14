@@ -94,9 +94,9 @@ MAIN:
   LOADN R12 1
   SETTABLEKS R12 R11 K39 ["speed"]
   SETTABLEKS R11 R10 K15 ["props"]
-  DUPTABLE R11 K44 [{"timePosition", "length"}]
+  DUPTABLE R11 K44 [{"timePositionNormalized", "length"}]
   LOADN R12 0
-  SETTABLEKS R12 R11 K42 ["timePosition"]
+  SETTABLEKS R12 R11 K42 ["timePositionNormalized"]
   LOADN R12 5
   SETTABLEKS R12 R11 K43 ["length"]
   SETTABLEKS R11 R10 K32 ["state"]
@@ -123,9 +123,9 @@ MAIN:
   LOADN R13 1
   SETTABLEKS R13 R12 K39 ["speed"]
   SETTABLEKS R12 R11 K15 ["props"]
-  DUPTABLE R12 K44 [{"timePosition", "length"}]
-  LOADN R13 2
-  SETTABLEKS R13 R12 K42 ["timePosition"]
+  DUPTABLE R12 K44 [{"timePositionNormalized", "length"}]
+  LOADK R13 K27 [0.5]
+  SETTABLEKS R13 R12 K42 ["timePositionNormalized"]
   LOADN R13 4
   SETTABLEKS R13 R12 K43 ["length"]
   SETTABLEKS R12 R11 K32 ["state"]
@@ -203,9 +203,9 @@ MAIN:
   LOADN R13 1
   SETTABLEKS R13 R12 K39 ["speed"]
   SETTABLEKS R12 R11 K15 ["props"]
-  DUPTABLE R12 K44 [{"timePosition", "length"}]
+  DUPTABLE R12 K44 [{"timePositionNormalized", "length"}]
   LOADN R13 0
-  SETTABLEKS R13 R12 K42 ["timePosition"]
+  SETTABLEKS R13 R12 K42 ["timePositionNormalized"]
   LOADN R13 5
   SETTABLEKS R13 R12 K43 ["length"]
   SETTABLEKS R12 R11 K32 ["state"]
@@ -235,9 +235,9 @@ MAIN:
   LOADN R14 1
   SETTABLEKS R14 R13 K39 ["speed"]
   SETTABLEKS R13 R12 K15 ["props"]
-  DUPTABLE R13 K44 [{"timePosition", "length"}]
-  LOADN R14 2
-  SETTABLEKS R14 R13 K42 ["timePosition"]
+  DUPTABLE R13 K44 [{"timePositionNormalized", "length"}]
+  LOADK R14 K27 [0.5]
+  SETTABLEKS R14 R13 K42 ["timePositionNormalized"]
   LOADN R14 4
   SETTABLEKS R14 R13 K43 ["length"]
   SETTABLEKS R13 R12 K32 ["state"]
@@ -328,11 +328,11 @@ MAIN:
   LOADN R11 1
   SETTABLEKS R11 R10 K39 ["speed"]
   SETTABLEKS R10 R9 K15 ["props"]
-  DUPTABLE R10 K101 [{"length", "timePosition"}]
+  DUPTABLE R10 K101 [{"length", "timePositionNormalized"}]
   LOADN R11 4
   SETTABLEKS R11 R10 K43 ["length"]
-  LOADN R11 2
-  SETTABLEKS R11 R10 K42 ["timePosition"]
+  LOADK R11 K27 [0.5]
+  SETTABLEKS R11 R10 K42 ["timePositionNormalized"]
   SETTABLEKS R10 R9 K32 ["state"]
   NEWTABLE R10 2 0
   DUPCLOSURE R11 K102 [PROTO_4]
@@ -674,9 +674,9 @@ MAIN:
   GETTABLEN R6 R7 2
   SETTABLEKS R6 R5 K120 ["LayerData"]
   SETTABLEKS R5 R4 K92 ["blend2DLayerView"]
-  DUPTABLE R5 K44 [{"timePosition", "length"}]
-  LOADN R6 2
-  SETTABLEKS R6 R5 K42 ["timePosition"]
+  DUPTABLE R5 K44 [{"timePositionNormalized", "length"}]
+  LOADK R6 K27 [0.5]
+  SETTABLEKS R6 R5 K42 ["timePositionNormalized"]
   LOADN R6 4
   SETTABLEKS R6 R5 K43 ["length"]
   SETTABLEKS R5 R4 K32 ["state"]

@@ -1,82 +1,109 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = script:FindFirstAncestor("TerrainEditor")
-local var1 = require(script.Parent.BaseTool)
-local var2 = var0.Src.Schemas.Settings
-local var3 = require(var2.Transform)
-local var4 = var0.Src.Util
-local var5 = require(var4.ConvertTransformToRegion)
-local var6 = require(var4.SettingsHelper)
-local var7 = require(var0.Src.Util.Operations.GenerateOperation)
-local var8 = require(var0.Src.Types)
-local var9 = var8.Biome
-local var10 = var8.BiomeSettings
-local var11 = var8.Category
-local var12 = var8.Gizmo
-local var13 = var8.SelectionSettings
-local var14 = var8.Tab
-local var15 = var8.Tool
-local var16 = var8.TransformMode
-local var17 = var8.TransformSettings
-local var18 = require(var0.Src.Flags.getFFlagTerrainEditorGenerateTransform)
-local var54 = {}
-var54.Defaults = {}
-var54.Id = var11.SelectionSettings
-var54.Schema = require(var2.Selection)
-local var57 = {}
-var9.Mountains = true
-var9.Hills = true
-local var65 = var9.Plains
-local var66 = true
-var9.Plains = var66
-var10.Biomes = {}
-var10.BiomeBlending = 0.25
-var10.BiomeSize = 100
-var10.Caves = true
-var10.Seed = 618033988
-var57.Defaults = {}
-var57.Id = var11.BiomeSettings
-var57.Schema = require(var2.Biome)
-local var77 = {}
-var77.Id = var12.Region
-local var79 = {}
-var79.Type = var12.Region
-var79.Wireframe = false
-var79.Rotation = false
-var77.Schema = var79
-var65 = {}
-var66 = {}
-local var23 = var1:new(var15.Generate, var14.Create, var65, var66)
-function var23.init(arg1, arg2, arg3)
-   local var90 = var1
-   var90 = arg1
-   var90.init(var90, arg2, arg3)
+local var1 = require(var0.Packages.Dash)
+local var2 = require(script.Parent.BaseTool)
+local var3 = var0.Src.Schemas.Settings
+local var4 = require(var3.Transform)
+local var5 = var0.Src.Util
+local var6 = require(var5.ConvertTransformToRegion)
+local var7 = require(var5.SettingsHelper)
+local var8 = require(var0.Src.Util.Operations.GenerateOperation)
+local var9 = require(var0.Src.Types)
+local var10 = var9.Biome
+local var11 = var9.BiomeSettings
+local var12 = var9.Category
+local var13 = var9.Gizmo
+local var14 = var9.SelectionSettings
+local var15 = var9.Tab
+local var16 = var9.Tool
+local var17 = var9.TransformMode
+local var18 = var9.TransformSettings
+local var19 = require(var0.Src.Flags.getFFlagTerrainEditorGenerateTransform)
+local var254 = {}
+var254.Defaults = {}
+var254.Id = var12.SelectionSettings
+var254.Schema = require(var3.Selection)
+local var257 = {}
+var10.Mountains = true
+var10.Hills = true
+local var265 = var10.Plains
+local var266 = true
+var10.Plains = var266
+var11.Biomes = {}
+var11.BiomeBlending = 0.25
+var11.BiomeSize = 100
+var11.Caves = true
+var11.Seed = 618033988
+var257.Defaults = {}
+var257.Id = var12.BiomeSettings
+var257.Schema = require(var3.Biome)
+local var277 = {}
+var277.Id = var13.Region
+local var279 = {}
+var279.Type = var13.Region
+var279.Wireframe = false
+var279.Rotation = false
+var277.Schema = var279
+var265 = {}
+var266 = {}
+local var24 = var2:new(var16.Generate, var15.Create, var265, var266)
+function var24.startOperation(arg1, arg2)
+   local var0 = arg1:getPayload()
+   arg1._region = var6(var0[var12.SelectionSettings][var14.Transform], var0[var12.SelectionSettings][var14.Size], true)
+   local var316 = arg1._services
+   arg1._terrainRegion = var316.Terrain:CopyRegion(arg1._region)
+   var316 = arg1._localization:getText("Operations", "GenerateName")
+   arg1._operation = var8(var316, arg1._localization:getText("Operations", "GenerateDescription"), arg1._services, function()
+      if var19() then
+         local var340 = arg1
+         var340 = Region3int16.new(arg1._region.Min, arg1._region.Max - Vector3int16.new(1, 1, 1))
+         arg1._services.Terrain:PasteRegion(arg1._terrainRegion, arg1._region.Min, true)
+         var18.TerrainRegion = var340._services.Terrain:CopyRegion(var340)
+         var18.TerrainRegionSize = var0[var12.SelectionSettings][var14.Size]
+         var18.TerrainRegionTransform = var0[var12.SelectionSettings][var14.Transform]
+         var18.TransformMode = var17.Import
+         var7.Set(var12.TransformSettings, var4.Storage, arg1._pluginController, {})
+         arg1._toolController.selectTabAndTool(var15.Edit, var16.Transform)
+      end
+   end)
+   local var399 = {}
+   var399.Payload = var0
+   local var1 = var1.join(var399, arg2)
+   arg1._operation:start()
+   arg1.OnOperationChanged:Fire()
+end
+
+function var24.init(arg1, arg2, arg3)
+   local var408 = var2
+   var408 = arg1
+   var408.init(var408, arg2, arg3)
    local var1 = {}
    var1.Hidden = false
    var1.Label = ""
-   local var103 = {}
-   function var103.OnClick()
-      if arg1() then
-         local var120 = var5
-         var120 = Region3int16.new(var5._region.Min, var5._region.Max - Vector3int16.new(1, 1, 1))
-         var5._services.Terrain:PasteRegion(var5._terrainRegion, var5._region.Min, true)
-         var18.TerrainRegion = var120._services.Terrain:CopyRegion(var120)
-         var18.TerrainRegionSize = var6[var13.SelectionSettings][var3.Size]
-         var18.TerrainRegionTransform = var6[var13.SelectionSettings][var3.Transform]
+   local var421 = {}
+   function var421.OnClick()
+      if var19() then
+         local var438 = arg1
+         var438 = Region3int16.new(arg1._region.Min, arg1._region.Max - Vector3int16.new(1, 1, 1))
+         arg1._services.Terrain:PasteRegion(arg1._terrainRegion, arg1._region.Min, true)
+         var18.TerrainRegion = var438._services.Terrain:CopyRegion(var438)
+         var18.TerrainRegionSize = var0[var12.SelectionSettings][var14.Size]
+         var18.TerrainRegionTransform = var0[var12.SelectionSettings][var14.Transform]
          var18.TransformMode = var17.Import
-         var11.Set(var13.TransformSettings, var7.Storage, var5._pluginController, {})
-         var5._toolController.selectTabAndTool(var16.Edit, var14.Transform)
+         var7.Set(var12.TransformSettings, var4.Storage, arg1._pluginController, {})
+         arg1._toolController.selectTabAndTool(var15.Edit, var16.Transform)
       end
    end
    
-   var1.Schema = var103
+   var1.Schema = var421
    var1.Value = true
-   var10.Generate = var1
-   var11.BiomeSettings = {}
+   var11.Generate = var1
+   var12.BiomeSettings = {}
    arg1._overrides = {}
 end
 
-function var23.operation(arg1)
+function var24.operation(arg1)
    return arg1._operation
 end
 
-return var23
+return var24

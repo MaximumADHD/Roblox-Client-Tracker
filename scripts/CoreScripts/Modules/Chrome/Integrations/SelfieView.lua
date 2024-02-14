@@ -2,6 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ChromeService = require(script.Parent.Parent.Service)
+local LocalStore = require(script.Parent.Parent.Service.LocalStore)
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local StarterGui = game:GetService("StarterGui")
@@ -9,6 +10,7 @@ local StarterGui = game:GetService("StarterGui")
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
 local FFlagSelfViewFixes = require(script.Parent.Parent.Flags.GetFFlagSelfViewFixes)()
+local FFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)()
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -44,6 +46,9 @@ local selfieViewChromeIntegration = ChromeService:register({
 	startingWindowPosition = startingWindowPosition,
 	initialAvailability = AvailabilitySignalState.Unavailable,
 	activated = function()
+		if FFlagEnableChromeFTUX then
+			LocalStore.storeForLocalPlayer(ID, true)
+		end
 		ChromeService:toggleWindow(ID)
 	end,
 	draggable = true,
