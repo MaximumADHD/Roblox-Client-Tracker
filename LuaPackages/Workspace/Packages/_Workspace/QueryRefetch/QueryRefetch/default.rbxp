@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "QueryRefetch",
+    "tree": {
+      "$path": "../../../../../../../modules/roblox-app/query-refetch/src"
+    }
+  }
+}

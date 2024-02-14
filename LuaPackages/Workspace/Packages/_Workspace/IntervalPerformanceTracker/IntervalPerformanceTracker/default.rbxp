@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "IntervalPerformanceTracker",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/interval-performance-tracker/src"
+    }
+  }
+}

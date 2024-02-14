@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AppChatNetworking",
+    "tree": {
+      "$path": "../../../../../../../modules/social/app-chat-networking/src"
+    }
+  }
+}

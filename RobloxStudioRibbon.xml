@@ -305,8 +305,8 @@
       <Group name="Rig" text="Studio.Common.Action.Rig" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" width="32" height="32">
         <addaction name="rigBuilderAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.RigBuilder" icon=":/RibbonBar/images/RibbonIcons/Avatar/rigbuilder_blue.png" modernIcon="BuildRig" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip" width="32" height="32" />
       </Group>
-      <Group name="Preview" fflag="AvatarPreviewerToolbarButton" text="Studio.Common.Action.Preview" modernIcon="AvatarPreviewer" width="32" height="32">
-        <addaction name="avatarPreviewerAction" fflag="AvatarPreviewerToolbarButton" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AvatarPreviewer" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
+      <Group name="Preview" text="Studio.Common.Action.Preview" modernIcon="AvatarPreviewer" width="32" height="32">
+        <addaction name="avatarPreviewerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AvatarPreviewer" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
       </Group>
       <Group name="Animation" text="Studio.Common.Action.Animation" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" width="32" height="32">
         <addaction name="animationEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.AnimationEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip" width="32" height="32" />

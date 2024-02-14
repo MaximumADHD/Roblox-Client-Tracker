@@ -109,8 +109,6 @@ Studio.App.BetaFeatures.NotchedScreenSupportTitle,,Notched Screen Support,Notche
 Studio.App.BetaFeatures.NotchedScreenSupportDescription,,"Add new emulation devices with non-rectangular aka ""notched"" screens.","Add new emulation devices with non-rectangular aka ""notched"" screens."
 Studio.App.BetaFeatures.NewExplorerFilteringTitle,,Advanced Explorer Filtering,Advanced Explorer Filtering
 Studio.App.BetaFeatures.NewExplorerFilteringDescription,,"Search by properties, tags, parents, and more.","Search by properties, tags, parents, and more."
-Studio.App.BetaFeatures.ContextualServiceVisibilityTitle,,Explorer Services Cleanup,Explorer Services Cleanup
-Studio.App.BetaFeatures.ContextualServiceVisibilityDescription,,"Uncommon services like TestService are no longer visible by default, but can be added through the Insert Service menu.","Uncommon services like TestService are no longer visible by default, but can be added through the Insert Service menu."
 Studio.App.BetaFeatures.AICOTitle,,AI-Powered Code Completion,AI-Powered Code Completion
 Studio.App.BetaFeatures.AICODescription,,"AI-Powered code completion in Studio Script Editor. Based on existing script and/or comments, AI code suggestion will be triggered automatically.","AI-Powered code completion in Studio Script Editor. Based on existing script and/or comments, AI code suggestion will be triggered automatically."
 Studio.App.BetaFeatures.ConversationalAITitleUpdated2,,Assistant Preview,Assistant Preview

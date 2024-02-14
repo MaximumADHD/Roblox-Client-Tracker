@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UserSafetyTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/trust-and-safety/test-suites/user-safety-test-suite/src"
+    }
+  }
+}

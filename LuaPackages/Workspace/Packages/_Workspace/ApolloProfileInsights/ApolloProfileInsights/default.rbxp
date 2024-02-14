@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ApolloProfileInsights",
+    "tree": {
+      "$path": "../../../../../../../modules/social/apollo/apollo-profile-insights/src"
+    }
+  }
+}

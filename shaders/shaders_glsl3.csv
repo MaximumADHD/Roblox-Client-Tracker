@@ -36,14 +36,11 @@ BokehNearCoCNoUnrollFS,Fragment
 CheapBokehFS,Fragment
 CheapBokehNoUnrollFS,Fragment
 CheckerboardDepthFS,Fragment
-Clouds2dFS,Fragment
 CloudsBsmFS,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
 CloudsDist2dFS,Fragment
 CloudsDistFS,Fragment
-CloudsFS,Fragment
-CloudsGenReflectionMapFS,Fragment
 CloudsReprojectFilterFS,Fragment
 CloudsSunCoverFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
@@ -362,9 +359,6 @@ GlassVS_04001406,Vertex
 GrassFS,Fragment
 GrassHQFS,Fragment
 GrassHQFSShadowed,Fragment
-GrassHQVS,Vertex
-GrassHQVSDepth,Vertex
-GrassHQVSShadowed,Vertex
 GrassHQVSWind,Vertex
 GrassHQVSWindDepth,Vertex
 GrassHQVSWindShadowed,Vertex

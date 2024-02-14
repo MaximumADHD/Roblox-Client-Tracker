@@ -78,6 +78,8 @@ Class Accoutrement : Instance
 Class Accessory : Accoutrement
 	Property Accessory.AccessoryType: Enum.AccessoryType
 Class Hat : Accoutrement [Deprecated]
+Class ActivityHistoryService : Instance [NotCreatable] [Service] [NotReplicated]
+	Event ActivityHistoryService.onEventNotificationReceived()
 Class AdPortal : Instance
 	Property AdPortal.Status: Enum.AdUnitStatus [ReadOnly]
 	Property AdPortal.PortalInvalidReason: string [ReadOnly] [NotScriptable]
@@ -87,6 +89,7 @@ Class AdPortal : Instance
 Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:GetAdTeleportInfo() -> ...any {RobloxScriptSecurity}
 	Function AdService:GetReportAdInfo() -> { any } {RobloxScriptSecurity}
+	Function AdService:HideEudsaDisclosure() -> () {RobloxScriptSecurity}
 	Function AdService:ReturnToPublisherExperience(adTeleportMethod: Enum.AdTeleportMethod) -> () {RobloxScriptSecurity}
 	Function AdService:ShowVideoAd() -> () [Deprecated]
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
@@ -96,6 +99,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.ReportTeleportSignal(ad_instance_name: string, encrypted_ad_tracking_data: string, encryption_metadata: string, teleport_type: string, teleport_source_universe_id: number, teleport_source_place_id: number, teleport_dest_place_id: number) {RobloxSecurity} [Hidden]
 	Event AdService.ServeAdResponseSignal(uuid: string, response: string, isError: boolean) {RobloxSecurity} [Hidden]
 	Event AdService.ServeAdSignal(uuid: string, request: string) {RobloxSecurity} [Hidden]
+	Event AdService.ShowStaticEudsaDisclosure() {RobloxScriptSecurity}
 	Event AdService.VideoAdClosed(adShown: boolean) [Deprecated]
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [Service] [Deprecated]
@@ -1007,7 +1011,10 @@ Class Collaborator : Instance [NotCreatable]
 	Property Collaborator.Username: string [Hidden]
 Class CollaboratorsService : Instance [NotCreatable] [Service]
 	Function CollaboratorsService:GetCollaboratorsList() -> { Instance } {RobloxScriptSecurity}
+	Function CollaboratorsService:GetSelectionHighlightsEnabled() -> boolean {RobloxScriptSecurity}
 	Function CollaboratorsService:RequestFlyToCollaborator(collaboratorId: number) -> () {RobloxScriptSecurity}
+	Function CollaboratorsService:ToggleSelectionHighlights(showHighlights: boolean) -> () {RobloxScriptSecurity}
+	Function CollaboratorsService:ToggleTeamCreate(on: boolean) -> () {RobloxScriptSecurity}
 	Event CollaboratorsService.CollaboratorIdleUpdate(collaboratorId: number, isIdle: boolean) {RobloxScriptSecurity}
 	Event CollaboratorsService.CollaboratorInstanceCreatedSignal(collaboratorId: number) {RobloxScriptSecurity}
 	Event CollaboratorsService.CollaboratorInstanceDestroyedSignal(collaboratorId: number) {RobloxScriptSecurity}
@@ -1339,6 +1346,7 @@ Class ControllerManager : Instance
 	Property ControllerManager.RootPart: BasePart?
 	Property ControllerManager.FacingDirection: Vector3
 	Property ControllerManager.MovingDirection: Vector3
+	Property ControllerManager.UpDirection: Vector3
 Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ConversationalAIAcceptanceService:AlternativeAssetSelected(requestId: string, previousAssetId: number, assetId: number) -> () {RobloxScriptSecurity}
@@ -3915,9 +3923,14 @@ Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property PhysicsSettings.AreWorldCoordsShown: boolean
 	Property PhysicsSettings.DisableCSGv2: boolean
 	Property PhysicsSettings.DisableCSGv3ForPlugins: boolean
+	Property PhysicsSettings.DrawConstraintsNetForce: boolean {RobloxScriptSecurity}
+	Property PhysicsSettings.DrawContactsNetForce: boolean {RobloxScriptSecurity}
+	Property PhysicsSettings.DrawTotalNetForce: boolean {RobloxScriptSecurity}
+	Property PhysicsSettings.EnableForceVisualizationSmoothing: boolean {RobloxScriptSecurity}
 	Property PhysicsSettings.FluidForceDrawScale: number {RobloxScriptSecurity}
 	Property PhysicsSettings.ForceCSGv2: boolean [Hidden] [NotReplicated]
 	Property PhysicsSettings.ForceDrawScale: number {RobloxScriptSecurity}
+	Property PhysicsSettings.ForceVisualizationSmoothingSteps: number {RobloxScriptSecurity}
 	Property PhysicsSettings.IsInterpolationThrottleShown: boolean
 	Property PhysicsSettings.IsReceiveAgeShown: boolean
 	Property PhysicsSettings.IsTreeShown: boolean
@@ -4308,6 +4321,7 @@ Class SunRaysEffect : PostEffect
 	Property SunRaysEffect.Intensity: number
 	Property SunRaysEffect.Spread: number
 Class ProcessInstancePhysicsService : Instance [NotCreatable] [Service]
+Class ProjectFolderService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ProximityPrompt : Instance
 	Property ProximityPrompt.ActionText: string
 	Property ProximityPrompt.ClickablePrompt: boolean
@@ -6014,9 +6028,10 @@ Class UserService : Instance [NotCreatable] [Service]
 	Function UserService:GetUserInfosByUserIdsAsync(userIds: { any }) -> { any } [Yields]
 Class VRService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property VRService.AutomaticScaling: Enum.VRScaling [NotReplicated]
-	Property VRService.DidPointerHit: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property VRService.AvatarGestures: boolean [NotBrowsable]
 	Property VRService.FadeOutViewOnCollision: boolean [NotReplicated]
 	Property VRService.GuiInputUserCFrame: Enum.UserCFrame [NotReplicated]
+	Property VRService.DidPointerHit: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.LaserDistance: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.PointerHitCFrame: CFrame {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.QuestASWState: boolean {RobloxScriptSecurity} [Hidden]
@@ -6155,7 +6170,6 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function VirtualUser:StopRecording() -> string {LocalUserSecurity}
 	Function VirtualUser:TypeKey(key: string) -> () {LocalUserSecurity}
 Class VisibilityCheckDispatcher : Instance [NotCreatable] [Service]
-Class VisibilityService : Instance [NotCreatable] [Service]
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property VoiceChatInternal.VoiceChatState: Enum.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
@@ -6193,7 +6207,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Event VoiceChatInternal.StateChanged(old: Enum.VoiceChatState, new: Enum.VoiceChatState) [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property VoiceChatService.EnableDefaultVoice: boolean {PluginSecurity}
-	Property VoiceChatService.UseAudioApi: Enum.AudioApiRollout {PluginSecurity} [NotBrowsable]
+	Property VoiceChatService.UseAudioApi: Enum.AudioApiRollout {PluginSecurity}
 	Property VoiceChatService.UseNewAudioApi: boolean {RobloxScriptSecurity} [Hidden]
 	Property VoiceChatService.UseNewControlPaths: boolean {RobloxSecurity} [Hidden]
 	Property VoiceChatService.UseNewJoinFlow: boolean {RobloxSecurity} [Hidden]

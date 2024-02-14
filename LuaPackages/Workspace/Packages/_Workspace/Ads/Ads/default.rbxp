@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Ads",
+    "tree": {
+      "$path": "../../../../../../../modules/economy/ads/src"
+    }
+  }
+}

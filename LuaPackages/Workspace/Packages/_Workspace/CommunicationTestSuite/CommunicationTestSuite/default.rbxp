@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CommunicationTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/communication/communication-test-suite/src"
+    }
+  }
+}

@@ -29,11 +29,8 @@ Blur1FS,Fragment
 Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
-Clouds2dFS,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
-CloudsFS,Fragment
-CloudsGenReflectionMapFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
 CloudsWind2dFS,Fragment
@@ -214,7 +211,6 @@ GlassVS_04001006,Vertex
 GlassVS_04001406,Vertex
 GrassFS,Fragment
 GrassHQFS,Fragment
-GrassHQVS,Vertex
 GrassHQVSWind,Vertex
 GrassVS,Vertex
 GrassVSPrecise,Vertex

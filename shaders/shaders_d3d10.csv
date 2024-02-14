@@ -30,14 +30,11 @@ Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
 CheckerboardDepthFS,Fragment
-Clouds2dFS,Fragment
 CloudsBsmFS,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
 CloudsDist2dFS,Fragment
 CloudsDistFS,Fragment
-CloudsFS,Fragment
-CloudsGenReflectionMapFS,Fragment
 CloudsReprojectFilterFS,Fragment
 CloudsSunCoverFS,Fragment
 CloudsVS,Vertex
@@ -488,11 +485,7 @@ GrassHQFS,Fragment
 GrassHQFSShadowed,Fragment
 GrassHQFSShadowedFSM,Fragment
 GrassHQFSShadowedFSMAo,Fragment
-GrassHQVS,Vertex
-GrassHQVSDepth,Vertex
-GrassHQVSPreciseShadowedFSM,Vertex
 GrassHQVSPreciseWindShadowedFSM,Vertex
-GrassHQVSShadowed,Vertex
 GrassHQVSWind,Vertex
 GrassHQVSWindDepth,Vertex
 GrassHQVSWindShadowed,Vertex
