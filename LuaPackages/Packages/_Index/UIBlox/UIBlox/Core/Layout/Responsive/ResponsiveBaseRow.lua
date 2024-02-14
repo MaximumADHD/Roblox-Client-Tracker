@@ -7,6 +7,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ResponsiveLayoutContext = require(Responsive.ResponsiveLayoutContext)
 local ResponsiveLayoutConfigReader = require(Responsive.ResponsiveLayoutConfigReader)
@@ -47,6 +48,8 @@ ResponsiveBaseRow.validateProps = t.strictInterface({
 	-- Height of each cell, relative to its width.
 	-- If not provided, `AutomaticSize` will be used.
 	relativeHeight = t.optional(t.UDim),
+	-- Ref pointing to scrolling frame
+	scrollingFrameRef = t.optional(t.table),
 	[Roact.Children] = t.optional(t.table),
 	gridBasicRowRef = t.optional(t.union(t.table, t.callback)),
 })
@@ -123,6 +126,9 @@ function ResponsiveBaseRow:renderChildren(scrollable, margin, gutter, verticalGu
 				AutomaticCanvasSize = self.props.pages and Enum.AutomaticSize.None or Enum.AutomaticSize.X,
 				Selectable = self.props.selectable,
 				ClipsDescendants = self.props.clipsDescendants,
+				[Roact.Ref] = if UIBloxConfig.responsiveBaseRowScrollingFrameRef
+					then self.props.scrollingFrameRef
+					else nil,
 			}, children),
 		}
 	else

@@ -4,6 +4,8 @@ local MannequinUtility = {}
 
 local InsertService = game:GetService("InsertService")
 
+local FFlagMannequinUtilityParentOption = require(script.Parent.FFlagMannequinUtilityParentOption)
+
 type ObjectsFormat = {
 	[number]: Folder,
 }
@@ -11,6 +13,8 @@ type ObjectsFormat = {
 local R6_MANNEQUIN_CONTENT_ID = "rbxasset://models/Thumbnails/Mannequins/R6.rbxm"
 local R15_MANNEQUIN_CONTENT_ID = "rbxasset://models/Thumbnails/Mannequins/R15.rbxm"
 local RTHRO_MANNEQUIN_CONTENT_ID = "rbxasset://models/Thumbnails/Mannequins/Rthro.rbxm"
+
+local DEFAULT_PARENT_MANNEQUIN_TO_WORKSPACE = true
 
 local BODYPART_FOLDER_NAMES = {
 	R6 = true,
@@ -89,33 +93,46 @@ for name, _ in pairs(MannequinUtility.CharacterPartNames.R15) do
 	MannequinUtility.CharacterPartNames.All[name] = true
 end
 
-local function loadMannequin(contentId): Model
+local function loadMannequin(contentId, parentToWorkspace: boolean?): Model
+	if FFlagMannequinUtilityParentOption then
+		if parentToWorkspace == nil then
+			parentToWorkspace = DEFAULT_PARENT_MANNEQUIN_TO_WORKSPACE
+		end
+	end
+
 	local mannequin = InsertService:LoadLocalAsset(contentId) :: Model
 	local humanoid = mannequin:FindFirstChild("Humanoid") :: Humanoid
 	assert(humanoid, "Assert Humanoid is not nil to silence type checker")
 	humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
-	mannequin.Parent = workspace
+
+	if FFlagMannequinUtilityParentOption then
+		if parentToWorkspace then
+			mannequin.Parent = workspace
+		end
+	else
+		mannequin.Parent = workspace
+	end
 
 	return mannequin
 end
 
-function MannequinUtility.LoadR15Mannequin(): Model
-	return loadMannequin(R15_MANNEQUIN_CONTENT_ID)
+function MannequinUtility.LoadR15Mannequin(parentToWorkspace: boolean?): Model
+	return loadMannequin(R15_MANNEQUIN_CONTENT_ID, parentToWorkspace)
 end
 
-function MannequinUtility.LoadR6Mannequin(): Model
-	return loadMannequin(R6_MANNEQUIN_CONTENT_ID)
+function MannequinUtility.LoadR6Mannequin(parentToWorkspace: boolean?): Model
+	return loadMannequin(R6_MANNEQUIN_CONTENT_ID, parentToWorkspace)
 end
 
-function MannequinUtility.LoadRthroMannequin(): Model
-	return loadMannequin(RTHRO_MANNEQUIN_CONTENT_ID)
+function MannequinUtility.LoadRthroMannequin(parentToWorkspace: boolean?): Model
+	return loadMannequin(RTHRO_MANNEQUIN_CONTENT_ID, parentToWorkspace)
 end
 
-function MannequinUtility.LoadMannequinForScaleType(scaleType): Model
+function MannequinUtility.LoadMannequinForScaleType(scaleType, parentToWorkspace: boolean?): Model
 	if scaleType == "Classic" then
-		return MannequinUtility.LoadR15Mannequin()
+		return MannequinUtility.LoadR15Mannequin(parentToWorkspace)
 	else
-		return MannequinUtility.LoadRthroMannequin()
+		return MannequinUtility.LoadRthroMannequin(parentToWorkspace)
 	end
 end
 
@@ -152,9 +169,13 @@ end
 	Where R15ArtistIntent, R15, R6 are Folder Instances. It's expected at least one Folder should have the
 	body parts as children and at least one of these Folders is present.
 	This function just loads the mannequin model appropriate for the objects without inserting the new body part
+	The parentToWorkspace option defaults to true if not provided.
 	returns useR15, useR15NewNames, mannequin to be used for SetupBodyPartMannequin
 ]]
-function MannequinUtility.CreateBodyPartMannequin(objects: ObjectsFormat): (boolean, boolean, Model)
+function MannequinUtility.CreateBodyPartMannequin(
+	objects: ObjectsFormat,
+	parentToWorkspace: boolean?
+): (boolean, boolean, Model)
 	local useR15 = false
 	local useR15NewNames = false
 	local bodyPartProportion = "Classic"
@@ -182,9 +203,9 @@ function MannequinUtility.CreateBodyPartMannequin(objects: ObjectsFormat): (bool
 
 	local mannequin
 	if useR15 then
-		mannequin = MannequinUtility.LoadMannequinForScaleType(bodyPartProportion)
+		mannequin = MannequinUtility.LoadMannequinForScaleType(bodyPartProportion, parentToWorkspace)
 	else
-		mannequin = MannequinUtility.LoadR6Mannequin()
+		mannequin = MannequinUtility.LoadR6Mannequin(parentToWorkspace)
 	end
 	local humanoid = mannequin:FindFirstChildOfClass("Humanoid") :: Humanoid
 

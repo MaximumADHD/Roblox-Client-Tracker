@@ -15,7 +15,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> RoduxFlaggedUpgrade b7d08f02 git+https://github.com/roblox/rodux-upgrade#main",
-    "UIBlox UIBlox 5a528565 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 4e6a7bde git+https://github.com/roblox/uiblox#master",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]

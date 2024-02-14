@@ -7,8 +7,6 @@
 
 	Pills can be used directly or via a PillGroup.
 ]]
-local TextService = game:GetService("TextService")
-
 local Control = script.Parent.Parent
 local App = Control.Parent
 local UIBlox = App.Parent
@@ -35,6 +33,7 @@ local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
 local useCursorByType = require(App.SelectionCursor.useCursorByType)
 local CursorType = require(App.SelectionCursor.CursorType)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local INNER_PADDING = 12
 local LIST_PADDING = 4
@@ -142,7 +141,7 @@ local function Pillv2(providedProps: Props)
 	local iconSize = getIconSize(IconSize.Small)
 	local baseSize = font.BaseSize
 	local fontSize = font.CaptionHeader.RelativeSize * baseSize
-	local textBounds = TextService:GetTextSize(text, fontSize, font.CaptionHeader.Font, Vector2.new(10000, 10000)).X
+	local textBounds = GetTextSize(text, fontSize, font.CaptionHeader.Font, Vector2.new(10000, 10000)).X
 
 	local pillWidth = textBounds + (INNER_PADDING * 2)
 	local textAreaSize = MAX_BUTTON_WIDTH - (INNER_PADDING * 2)

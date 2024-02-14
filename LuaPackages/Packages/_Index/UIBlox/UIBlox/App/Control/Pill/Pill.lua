@@ -1,6 +1,4 @@
 --!nonstrict
-local TextService = game:GetService("TextService")
-
 local Control = script.Parent.Parent
 local App = Control.Parent
 local UIBlox = App.Parent
@@ -21,6 +19,7 @@ local getContentStyle = require(Core.Button.getContentStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local ShimmerPanel = require(UIBlox.App.Loading.ShimmerPanel)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local INNER_PADDING = 12
 local LIST_PADDING = 4
@@ -88,7 +87,7 @@ function Pill:render()
 		local iconSize = getIconSize(IconSize.Small)
 		local baseSize = font.BaseSize
 		local fontSize = font.CaptionHeader.RelativeSize * baseSize
-		local textBounds = TextService:GetTextSize(text, fontSize, font.CaptionHeader.Font, Vector2.new(10000, 10000)).X
+		local textBounds = GetTextSize(text, fontSize, font.CaptionHeader.Font, Vector2.new(10000, 10000)).X
 
 		local pillWidth = textBounds + (INNER_PADDING * 2)
 		local textAreaSize = MAX_BUTTON_WIDTH - ((INNER_PADDING * 2) + LIST_PADDING + iconSize)

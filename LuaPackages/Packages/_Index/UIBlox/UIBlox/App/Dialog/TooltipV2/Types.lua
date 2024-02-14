@@ -20,6 +20,10 @@ export type TooltipPublicProps = {
 	textAlignment: Enum.TextXAlignment?,
 	-- props to be passed to button (if present)
 	buttonProps: { [string]: any }?,
+	-- background color for tooltip box and caret
+	backgroundColor: Color3?,
+	-- background transparency for tooltip box and caret
+	backgroundTransparency: number?,
 	-- array of hotkey keycodes to be passed to keyLabel
 	hotkeyCodes: { KeyLabelTypes.FlexibleKeyCode }?,
 	-- render function to be rendered underneath the text
@@ -38,6 +42,10 @@ export type TooltipPublicProps = {
 	PaddingRight: number?,
 	-- padding between list elements (relative padding is not supported due to AutomaticSize)
 	listPadding: number?,
+	-- close callback, will display the close button in the tooltip
+	onClose: (() -> ())?,
+	-- ensure the tooltip content has a minimum width provided
+	minContentWidth: number?,
 }
 
 -- values controlled by animation

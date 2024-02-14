@@ -66,6 +66,8 @@ ResponsiveRow.validateProps = t.strictInterface({
 	-- Returns the relative order of this item in the row.
 	-- Values for multiple breakpoints can be returned as table with breakpoint names as keys (`"default"` as fallback), and the size/order as value.
 	getCellOrder = t.optional(t.callback),
+	-- Ref pointing to scrolling frame in [[ResponsiveBaseRow]]
+	scrollingFrameRef = t.optional(t.table),
 	forwardedRef = t.optional(t.union(t.table, t.callback)),
 })
 
@@ -290,6 +292,9 @@ function ResponsiveRow:render()
 					then math.max(self.props.displayLines.Min - 1, 0)
 					else nil,
 				relativeHeight = self.props.relativeHeight,
+				scrollingFrameRef = if UIBloxConfig.responsiveBaseRowScrollingFrameRef
+					then self.props.scrollingFrameRef
+					else nil,
 				[Roact.Ref] = self.props.forwardedRef,
 			}, children)
 		end,

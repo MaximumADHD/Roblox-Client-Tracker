@@ -83,6 +83,12 @@ local Constants = {
 	-- size of caret image
 	CARET_SIZE = CARET_SIZE,
 
+	-- close button image size
+	CLOSE_BUTTON_SIZE = 24,
+
+	-- close button frame padding
+	CLOSE_BUTTON_PADDING = 4,
+
 	-- dropshadow constants
 	DropShadow = {
 		Small = SMALL_DROPSHADOW_CONSTS,

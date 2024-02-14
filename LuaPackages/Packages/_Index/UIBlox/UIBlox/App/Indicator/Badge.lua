@@ -1,6 +1,4 @@
 --!nonstrict
-local TextService = game:GetService("TextService")
-
 local Indicator = script.Parent
 local App = Indicator.Parent
 local UIBlox = App.Parent
@@ -10,6 +8,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 
@@ -80,8 +79,7 @@ function Badge:render()
 		local baseSize = stylePalette.Font.BaseSize
 		local fontSize = font.CaptionBody.RelativeSize * baseSize
 
-		local textBounds =
-			TextService:GetTextSize(badgeText, fontSize, font.CaptionBody.Font, Vector2.new(10000, 10000)).X
+		local textBounds = GetTextSize(badgeText, fontSize, font.CaptionBody.Font, Vector2.new(10000, 10000)).X
 		local badgeWidth = textBounds + (TEXT_PADDING * 2) + (INNER_PADDING * 2)
 		if badgeWidth < BADGE_MIN_WIDTH then
 			badgeWidth = BADGE_MIN_WIDTH

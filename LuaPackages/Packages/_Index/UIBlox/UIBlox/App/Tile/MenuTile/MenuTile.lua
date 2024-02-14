@@ -1,6 +1,4 @@
 --!nonstrict
-local TextService = game:GetService("TextService")
-
 local MenuTileRoot = script.Parent
 local Tile = MenuTileRoot.Parent
 local App = Tile.Parent
@@ -32,6 +30,7 @@ local divideTransparency = require(UIBlox.Utility.divideTransparency)
 local withCursor = require(App.SelectionCursor.withCursor)
 local CursorType = require(App.SelectionCursor.CursorType)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local FULLY_TRANSPARENT = 1
 local LIST_PADDING = UDim.new(0, 12)
@@ -174,7 +173,7 @@ function MenuTile:render()
 			then titleFont.RelativeSize * stylePalette.Font.BaseSize
 			else titleFont.FontSize
 		local titleTextOneLineSizeY =
-			TextService:GetTextSize(title, titleFontSize, titleFont.Font, Vector2.new(100, titleFontSize)).Y
+			GetTextSize(title, titleFontSize, titleFont.Font, Vector2.new(100, titleFontSize)).Y
 
 		local selectionCursor = if UIBloxConfig.migrateToNewSelectionCursor
 			then cursor

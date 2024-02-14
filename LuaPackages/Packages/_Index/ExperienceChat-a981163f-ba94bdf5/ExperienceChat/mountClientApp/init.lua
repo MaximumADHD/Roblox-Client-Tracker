@@ -92,7 +92,7 @@ local function watchPlayersService(config, store)
 
 	local allPlayerCharacterConns = {}
 	local function onPlayerAdded(player: Player)
-		Logger:debug("Player added: {} {}", player.Name, tostring(player.UserId))
+		Logger:trace("Player added: {} {}", player.Name, tostring(player.UserId))
 
 		local hasVerifiedBadge = if FFlagShowVerifiedBadgeInNewChat() and isPlayerVerified(player) then true else nil
 		store:dispatch(PlayerAdded(player.UserId, player.Name, player.DisplayName, hasVerifiedBadge))
@@ -215,7 +215,7 @@ local function watchPlayersService(config, store)
 
 	-- When player leaves, remove them from cache
 	Players.PlayerRemoving:Connect(function(player)
-		Logger:debug("Player removed: {} {}", player.Name, tostring(player.UserId))
+		Logger:trace("Player removed: {} {}", player.Name, tostring(player.UserId))
 		store:dispatch(PlayerRemoved(player.UserId))
 
 		local currPlayerCharacterConns = allPlayerCharacterConns[player.UserId]

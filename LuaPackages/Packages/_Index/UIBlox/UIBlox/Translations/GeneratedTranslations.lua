@@ -57,9 +57,9 @@ return {
 			["pt-br"] = "{inputLabel} (opcional)",
 			["ru"] = "{inputLabel} (необязательно)",
 			["th-th"] = "{inputLabel} (ไม่จำเป็น)",
-			["zh-cn"] = "",
+			["zh-cn"] = "{inputLabel}（可选）",
 			["zh-tw"] = "",
-			["zh-cjv"] = "",
+			["zh-cjv"] = "{inputLabel}（可选）",
 		},
 	},
 }

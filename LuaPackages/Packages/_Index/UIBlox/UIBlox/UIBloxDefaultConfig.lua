@@ -54,9 +54,18 @@ return {
 	-- In ResponsiveGrid, don't default displayLines to nil. Instead use an empty range
 	responsiveGridDisplayLinesNonNil = false,
 
+	-- Use SurfaceGuiWithAdornee for Panel3D
+	refactorPanel3D = false,
+
 	-- Use general design tokens with `scale` parameter to adapt to different platforms
 	useTokensWithScale = false,
 
 	-- Indicate whether mapping for existing Font names are enabled
 	enableFontNameMapping = false,
+
+	-- Add a ref that points to ScrollingFrame in ResponsiveBaseRow
+	responsiveBaseRowScrollingFrameRef = false,
+
+	-- Use GetTextBoundsAsync instead of GetTextSize to guarantee a correct result
+	useGetTextBoundsAsync = false,
 }

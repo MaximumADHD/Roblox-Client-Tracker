@@ -12,6 +12,8 @@ local Roact = require(Packages.Roact)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 local GetEngineFeatureSafe = require(UIBlox.Core.Utility.GetEngineFeatureSafe)
+local SurfaceGuiWithAdornee = require(CoreRoot.Spatial.SurfaceGuiWithAdornee)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 -- Storybooks
 local DEFAULT_VR_PANEL_SIZE_X = 10
@@ -41,51 +43,74 @@ local defaultProps: Props = {
 local function Panel3D(providedProps: Props)
 	local props = Object.assign({}, defaultProps, providedProps)
 
-	local basePart: Constants.Ref<Part?> = React.useRef(nil)
-	local surfaceGui: Constants.Ref<SurfaceGui?> = React.useRef(nil)
-	local folder: Constants.Ref<Folder?> = React.useRef(nil)
+	if UIBloxConfig.refactorPanel3D then
+		local adorneeSize, adorneeCFrame = usePanel3DRenderStep(props, nil :: any) -- Remove "nil :: any" with refactorPanel3D
 
-	usePanel3DRenderStep(props, basePart)
+		return React.createElement(SurfaceGuiWithAdornee, {
+			name = props.panelName,
+			detached = true,
+			adorneeProps = {
+				Size = adorneeSize,
+				CFrame = adorneeCFrame,
+				Parent = props.parent,
+			},
+			surfaceGuiProps = {
+				Enabled = not props.hidden,
+				CanvasSize = props.virtualScreenSize,
+				Shape = if useCurvedPanel and (props.curvature :: number) ~= 0
+					then Enum.SurfaceGuiShape.CurvedHorizontally
+					else nil,
+				HorizontalCurvature = if useCurvedPanel then props.curvature else nil,
+				ZOffset = props.zOffset,
+			},
+		}, props.children)
+	else
+		local basePart: Constants.Ref<Part?> = React.useRef(nil)
+		local surfaceGui: Constants.Ref<SurfaceGui?> = React.useRef(nil)
+		local folder: Constants.Ref<Folder?> = React.useRef(nil)
 
-	return React.createElement("Folder", {
-		ref = folder,
-		Archivable = false,
-	}, {
-		WorkspacePortal = React.createElement(Roact.Portal, {
-			target = props.parent,
+		usePanel3DRenderStep(props, basePart)
+
+		return React.createElement("Folder", {
+			ref = folder,
+			Archivable = false,
 		}, {
-			GUIPart = if props.hidden
-				then nil
-				else React.createElement("Part", {
-					Name = props.panelName .. "_Part",
-					ref = basePart,
-					Anchored = true,
-					CFrame = props.offset * CFrame.Angles(math.rad(props.tilt), 0, 0),
-					Size = Vector3.new(props.partSize.X, props.partSize.Y, 0.05),
-					Transparency = 1,
-					Color = Color3.new(0, 0, 0),
-					CanCollide = false,
-					CanTouch = false,
-				}),
-		}),
-		AppUI = React.createElement("SurfaceGui", {
-			Name = props.panelName .. "_SurfaceGui",
-			ref = surfaceGui,
-			Adornee = basePart,
-			Active = true,
-			Enabled = not props.hidden,
-			CanvasSize = props.virtualScreenSize,
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			LightInfluence = 0,
-			children = props.children,
-			AlwaysOnTop = props.alwaysOnTop,
-			Shape = if useCurvedPanel and (props.curvature :: number) ~= 0
-				then Enum.SurfaceGuiShape.CurvedHorizontally
-				else nil,
-			HorizontalCurvature = if useCurvedPanel then props.curvature else nil,
-			ZOffset = props.zOffset,
-		}),
-	})
+			WorkspacePortal = React.createElement(Roact.Portal, {
+				target = props.parent,
+			}, {
+				GUIPart = if props.hidden
+					then nil
+					else React.createElement("Part", {
+						Name = props.panelName .. "_Part",
+						ref = basePart,
+						Anchored = true,
+						CFrame = props.offset * CFrame.Angles(math.rad(props.tilt), 0, 0),
+						Size = Vector3.new(props.partSize.X, props.partSize.Y, 0.05),
+						Transparency = 1,
+						Color = Color3.new(0, 0, 0),
+						CanCollide = false,
+						CanTouch = false,
+					}),
+			}),
+			AppUI = React.createElement("SurfaceGui", {
+				Name = props.panelName .. "_SurfaceGui",
+				ref = surfaceGui,
+				Adornee = basePart,
+				Active = true,
+				Enabled = not props.hidden,
+				CanvasSize = props.virtualScreenSize,
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				LightInfluence = 0,
+				children = props.children,
+				AlwaysOnTop = props.alwaysOnTop,
+				Shape = if useCurvedPanel and (props.curvature :: number) ~= 0
+					then Enum.SurfaceGuiShape.CurvedHorizontally
+					else nil,
+				HorizontalCurvature = if useCurvedPanel then props.curvature else nil,
+				ZOffset = props.zOffset,
+			}),
+		}) :: any
+	end
 end
 
 return Panel3D

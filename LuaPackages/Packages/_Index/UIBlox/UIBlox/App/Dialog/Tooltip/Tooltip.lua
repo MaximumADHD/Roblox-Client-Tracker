@@ -25,8 +25,14 @@ Tooltip.validateProps = t.strictInterface({
 	bodyText = t.string,
 	-- Tooltip header content
 	headerText = t.optional(t.string),
+	-- Background color for tooltip box and caret
+	backgroundColor = t.optional(t.Color3),
+	-- Background transparency for tooltip box and caret
+	backgroundTransparency = t.optional(t.number),
 	-- Callback to dismiss tooltip
 	onDismiss = t.optional(t.callback),
+	-- Close callback. Will show a close button in the tooltip
+	onClose = t.optional(t.callback),
 	-- App screen size. Used with `triggerPosition` and `triggerSize` together to calculate tooltip's responsiveness.
 	-- If `screenSize` is not available, pass `position` prop to set manually.
 	screenSize = t.optional(t.Vector2),
@@ -47,6 +53,8 @@ Tooltip.validateProps = t.strictInterface({
 	forceClickTriggerPoint = t.optional(t.boolean),
 	-- If tooltip renders as a direct child of trigger point, set it to `true` to make sure position calculation correct.
 	isDirectChild = t.optional(t.boolean),
+	-- Custom min width independent from header or body text length
+	minContentWidth = t.optional(t.number),
 })
 
 Tooltip.defaultProps = {

@@ -7,6 +7,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
@@ -110,6 +111,8 @@ ResponsiveCarousel.validateProps = t.strictInterface({
 	-- Allowed for backwards compatibility only.
 	-- See `FreeFlowCarousel` for details.
 	loadNext = t.optional(t.callback),
+	-- Ref pointing to scrolling frame in [[ResponsiveBaseRow]]
+	scrollingFrameRef = t.optional(t.table),
 
 	carouselRef = t.optional(t.table),
 })
@@ -250,6 +253,9 @@ function ResponsiveCarousel:render()
 				keyExtractor = self.props.keyExtractor or self.props.identifier,
 				getCellColspan = self.props.getCellColspan,
 				getCellOrder = self.props.getCellOrder,
+				scrollingFrameRef = if UIBloxConfig.responsiveBaseRowScrollingFrameRef
+					then self.props.scrollingFrameRef
+					else nil,
 			}),
 		})
 	end)

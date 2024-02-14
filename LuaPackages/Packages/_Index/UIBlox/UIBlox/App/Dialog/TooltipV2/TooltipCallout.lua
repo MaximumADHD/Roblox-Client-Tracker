@@ -23,6 +23,9 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 local Consts = require(Tooltip.Constants)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local TooltipOrientation = require(Dialog.Tooltip.Enum.TooltipOrientation)
+local IconButton = require(UIBlox.App.Button.IconButton)
+local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
+local Images = require(UIBlox.App.ImageSet.Images)
 
 -- return elementwise product of two vectors
 local function product(v1: Vector2, v2: Vector2)
@@ -112,6 +115,7 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 
 	local theme = stylePalette.Theme
 	local font = stylePalette.Font
+	local settings = stylePalette.Settings
 
 	local baseSize: number = font.BaseSize
 	local headerFont = font.CaptionHeader
@@ -126,8 +130,13 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 	local headerSize
 	if props.headerText then
 		local maxHeaderSize = Vector2.new(maxContentWidth, 2 * headerTextSize)
-		headerSize = GetTextSize(props.headerText, headerTextSize, headerFont.Font, maxHeaderSize)
-		-- for some reason luau doen't know about Vector2:Min
+		local headerContainerWidth: Vector2 = maxHeaderSize
+		if props.onClose then
+			headerContainerWidth = headerContainerWidth - Vector2.new(Consts.CLOSE_BUTTON_SIZE, 0)
+		end
+
+		headerSize = GetTextSize(props.headerText, headerTextSize, headerFont.Font, headerContainerWidth)
+		-- for some reason luau doesn't know about Vector2:Min
 		headerSize = (headerSize :: any):Min(maxHeaderSize)
 		contentWidth = math.max(contentWidth, headerSize.X)
 	end
@@ -136,6 +145,10 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 	if props.bodyText then
 		bodySize = GetTextSize(props.bodyText, baseSize * bodyFont.RelativeSize, bodyFont.Font, sizeConstraint)
 		contentWidth = math.max(contentWidth, bodySize.X)
+	end
+
+	if props.minContentWidth then
+		contentWidth = math.max(contentWidth, props.minContentWidth)
 	end
 
 	local hotkeyContainer
@@ -229,6 +242,10 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		Consts.CARET_DISTANCE + math.min(0, caretOffset) + distanceOffset
 	) + props.contentOffsetVector
 
+	local backgroundColor = props.backgroundColor or theme.UIDefault.Color
+	local backgroundTransparency = (props.backgroundTransparency or theme.UIDefault.Transparency)
+		* settings.PreferredTransparency
+
 	return React.createElement("CanvasGroup", {
 		GroupTransparency = props.transparency,
 		Position = vectorToPosition(canvasPosition),
@@ -245,8 +262,8 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 			BackgroundTransparency = 1,
 			Size = Consts.CARET_SIZE,
 			Rotation = Consts.CARET_ROTATION[props.orientation],
-			ImageColor3 = theme.UIDefault.Color,
-			ImageTransparency = theme.UIDefault.Transparency,
+			ImageColor3 = backgroundColor,
+			ImageTransparency = backgroundTransparency,
 			ZIndex = 2,
 		}),
 		DropShadow = React.createElement(ImageSetLabel, {
@@ -263,8 +280,8 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		Box = React.createElement("Frame", {
 			AutomaticSize = Enum.AutomaticSize.XY,
 			Position = vectorToPosition(boxPosition),
-			BackgroundColor3 = theme.UIDefault.Color,
-			BackgroundTransparency = theme.UIDefault.Transparency,
+			BackgroundColor3 = backgroundColor,
+			BackgroundTransparency = backgroundTransparency,
 			-- AnchorPoint = getContentAnchorPoint(props.orientation),
 			[React.Change.AbsoluteSize] = function(rbx: GuiObject)
 				setBoxSize(rbx.AbsoluteSize)
@@ -317,6 +334,25 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 				lineHeight = 1,
 			}),
 			Additional = additionalContent,
+		}),
+		CloseButton = props.onClose ~= nil and React.createElement("Frame", {
+			BackgroundTransparency = 1,
+			ZIndex = 3,
+			Size = UDim2.fromOffset(Consts.CLOSE_BUTTON_SIZE, Consts.CLOSE_BUTTON_SIZE),
+			Position = UDim2.new(
+				1,
+				-(Consts.CLOSE_BUTTON_SIZE + Consts.CLOSE_BUTTON_PADDING * 2),
+				0,
+				Consts.CLOSE_BUTTON_SIZE / 2
+			),
+		}, {
+			Button = React.createElement(IconButton, {
+				backgroundTransparency = 1,
+				icon = Images["icons/navigation/close"],
+				iconSize = IconSize.Small,
+				size = UDim2.new(1, 0, 1, 0),
+				onActivated = props.onClose,
+			}),
 		}),
 	})
 end

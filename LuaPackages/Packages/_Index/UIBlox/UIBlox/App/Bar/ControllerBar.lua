@@ -62,10 +62,14 @@ function ControllerBar.calculateHintRatios(leftHint, rightHints)
 	local hintSizeSum = 0
 	local mergedHints = Cryo.List.join({ leftHint }, rightHints or {})
 	for _, hint in ipairs(mergedHints) do
-		-- using 17 as font size and font enum 2 as font (just placeholders,
+		-- using 17 as font size and font enum ArialBold as font (just placeholders,
 		-- these values don't matter for relative size calculations)
-		hintSizes[hint.text] =
-			GetTextSize(hint.text, 17, 2, Vector2.new(BIG_ENOUGH_NOT_TO_WRAP, BIG_ENOUGH_NOT_TO_WRAP)).X
+		hintSizes[hint.text] = GetTextSize(
+			hint.text,
+			17,
+			Enum.Font.ArialBold,
+			Vector2.new(BIG_ENOUGH_NOT_TO_WRAP, BIG_ENOUGH_NOT_TO_WRAP)
+		).X
 
 		hintSizeSum = hintSizeSum + hintSizes[hint.text]
 		-- add icon size and padding for within each hint

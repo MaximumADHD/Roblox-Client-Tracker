@@ -313,7 +313,7 @@ function BubbleChatBillboard:render()
 	local chatSettings = self.state.savedChatSettings
 
 	if not adorneeInstance then
-		Logger:debug("No adornee for {}", self.state.shortId)
+		Logger:trace("No adornee for {}", self.state.shortId)
 		return
 	end
 
@@ -322,7 +322,7 @@ function BubbleChatBillboard:render()
 	-- instances around. This approach means nothing exists in the DM
 	-- when there are no messages.
 	if not self.state.isInsideRenderDistance then
-		Logger:debug("Not in range for {}", self.state.shortId)
+		Logger:trace("Not in range for {}", self.state.shortId)
 		return
 	end
 

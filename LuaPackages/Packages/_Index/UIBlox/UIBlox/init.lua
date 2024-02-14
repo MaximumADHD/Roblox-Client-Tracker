@@ -65,6 +65,10 @@ local function initializeLibrary(configs)
 			Interactable = require(script.Core.Control.Interactable),
 		}),
 
+		Spatial = strict({
+			SurfaceGuiWithAdornee = require(script.Core.Spatial.SurfaceGuiWithAdornee),
+		}),
+
 		Style = strict({
 			Provider = require(script.Core.Style.StyleProvider),
 			withStyle = require(script.Core.Style.withStyle),

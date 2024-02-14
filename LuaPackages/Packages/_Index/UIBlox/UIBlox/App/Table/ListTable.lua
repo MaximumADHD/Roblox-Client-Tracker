@@ -24,6 +24,9 @@ ListTable.validateProps = t.strictInterface({
 	-- The Size of the list table.
 	-- If it's no set, the list table will size itself to the parent container.
 	size = t.optional(t.UDim2),
+	-- Whether dividers will be shown between cells.
+	-- If it's not set, dividers are added by default.
+	showDividers = t.optional(t.boolean),
 	-- The AnchorPoint of the list table
 	anchorPoint = t.optional(t.Vector2),
 	-- The Position of the list table
@@ -34,6 +37,10 @@ ListTable.validateProps = t.strictInterface({
 	-- Array of cell components
 	cells = t.array(t.table),
 })
+
+ListTable.defaultProps = {
+	showDividers = true,
+}
 
 function ListTable:render()
 	return withStyle(function(style)
@@ -65,6 +72,7 @@ function ListTable:render()
 		local cells = self.props.cells
 		for index, value in ipairs(cells) do
 			local key = "Cell " .. index
+			local shouldShowDivider = self.props.showDividers and index < #cells
 			children[key] = Roact.createElement("Frame", {
 				LayoutOrder = index,
 				Size = UDim2.fromScale(1, 0),
@@ -73,7 +81,7 @@ function ListTable:render()
 				AutomaticSize = Enum.AutomaticSize.Y,
 			}, {
 				Content = value,
-				Divider = index < #cells and Roact.createElement("Frame", {
+				Divider = shouldShowDivider and Roact.createElement("Frame", {
 					Size = UDim2.new(1, -DIVIDER_START_OFFSET, 0, 1),
 					Position = UDim2.new(0, DIVIDER_START_OFFSET, 1, -1),
 					BorderSizePixel = 0,

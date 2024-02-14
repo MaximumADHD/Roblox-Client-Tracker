@@ -1,7 +1,5 @@
 --!nonstrict
 local Packages = script.Parent.Parent.Parent.Parent
-local TextService = game:GetService("TextService")
-
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
@@ -12,6 +10,7 @@ local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponen
 local Controllable = require(Packages.UIBlox.Core.Control.Controllable)
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 local GetEngineFeatureSafe = require(Packages.UIBlox.Core.Utility.GetEngineFeatureSafe)
+local GetTextSize = require(Packages.UIBlox.Core.Text.GetTextSize)
 
 local FitTextLabel = require(Packages.FitFrame).FitTextLabel
 local FitFrameHorizontal = require(Packages.FitFrame).FitFrameHorizontal
@@ -116,7 +115,7 @@ function InputButton:render()
 		if self.props.size then
 			local size = self.props.size
 			local frameSize = Vector2.new(size.X.Offset - SELECTION_BUTTON_SIZE - HORIZONTAL_PADDING, size.Y.Offset)
-			local touchZoneWidth = TextService:GetTextSize(self.props.text, fontSize, font.Body.Font, frameSize).X
+			local touchZoneWidth = GetTextSize(self.props.text, fontSize, font.Body.Font, frameSize).X
 			if not EngineFeatureTextBoundsRoundUp and touchZoneWidth > 0 then
 				-- GetTextSize documentation recommends to add a pixel of padding to the result to ensure no text is cut off
 				-- Only add that extra padding if there is text to display
