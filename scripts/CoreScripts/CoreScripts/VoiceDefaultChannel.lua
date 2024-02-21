@@ -14,8 +14,8 @@ local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChan
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
 local FFlagDefaulChannelDontWaitOnCharacter = game:DefineFastFlag("DefaultChannelDontWaitOnCharacter", false)
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
+local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsingAudioAPI", false)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
-local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
@@ -69,41 +69,39 @@ end
 
 if EnableDefaultVoiceAvailable and FFlagDefaultChannelEnableDefaultVoice then
 	local VoiceChatService = game:FindService("VoiceChatService")
-
-	if not VoiceChatService then
-		log:info("VoiceChatService not found. Assuming default values.")
-	elseif not VoiceChatService.EnableDefaultVoice then
-		log:debug("Default channel is disabled.")
-		if GetFFlagEnableLuaVoiceChatAnalytics() then
-			Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+	if FFlagAlwaysJoinWhenUsingAudioAPI then
+		if not VoiceChatService then
+			log:info("VoiceChatService not found. Assuming default values.")
+			-- We only don't want to early out when the new audio API is enabled
+		elseif not VoiceChatService.EnableDefaultVoice and not VoiceChatService.UseNewAudioApi then
+			log:debug("Default channel is disabled.")
+			if GetFFlagEnableLuaVoiceChatAnalytics() then
+				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+			end
+			return
 		end
-		return
+	else
+		if not VoiceChatService then
+			log:info("VoiceChatService not found. Assuming default values.")
+		elseif not VoiceChatService.EnableDefaultVoice then
+			log:debug("Default channel is disabled.")
+			if GetFFlagEnableLuaVoiceChatAnalytics() then
+				Analytics:reportVoiceChatJoinResult(false, "defaultDisabled")
+			end
+			return
+		end
 	end
 end
 
-if GetFFlagIrisSettingsEnabled() then
-	CallProtocol:getCallState():andThen(function(params)
-		-- If call exist, use the muted state from CallProtocol
-		local defaultMuted = if
-				params.status ~= CallProtocolEnums.CallStatus.Idle.rawValue()
-				and params.status ~= CallProtocolEnums.CallStatus.Ringing.rawValue()
-			then params.muted
-			else FFlagDebugDefaultChannelStartMuted
-		VoiceChatServiceManager:asyncInit():andThen(function()
-			local joinInProgress = initializeDefaultChannel(defaultMuted)
-			if joinInProgress == false then
-				VoiceChatServiceManager:InitialJoinFailedPrompt()
-			end
-		end):catch(function()
-			-- If voice chat doesn't initialize, silently halt rather than throwing
-			-- a unresolved promise error. Don't report an event since the manager
-			-- will handle that.
-			log:info("VoiceChatServiceManager did not initialize")
-		end)
-	end)
-else
+CallProtocol:getCallState():andThen(function(params)
+	-- If call exist, use the muted state from CallProtocol
+	local defaultMuted = if
+			params.status ~= CallProtocolEnums.CallStatus.Idle.rawValue()
+			and params.status ~= CallProtocolEnums.CallStatus.Ringing.rawValue()
+		then params.muted
+		else FFlagDebugDefaultChannelStartMuted
 	VoiceChatServiceManager:asyncInit():andThen(function()
-		local joinInProgress = initializeDefaultChannel(FFlagDebugDefaultChannelStartMuted)
+		local joinInProgress = initializeDefaultChannel(defaultMuted)
 		if joinInProgress == false then
 			VoiceChatServiceManager:InitialJoinFailedPrompt()
 		end
@@ -113,4 +111,4 @@ else
 		-- will handle that.
 		log:info("VoiceChatServiceManager did not initialize")
 	end)
-end
+end)

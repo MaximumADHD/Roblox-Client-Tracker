@@ -64,89 +64,87 @@ PROTO_5:
   NEWTABLE R8 2 0
   GETUPVAL R11 4
   GETTABLEKS R10 R11 K10 ["EDITING_TOOLS_GUI_NAMES"]
-  GETTABLEKS R9 R10 K11 ["Toolbar"]
+  GETTABLEKS R9 R10 K11 ["EditingToolbar"]
   GETUPVAL R11 2
   GETTABLEKS R10 R11 K8 ["createElement"]
   GETUPVAL R12 5
-  GETTABLEKS R11 R12 K11 ["Toolbar"]
-  DUPTABLE R12 K14 [{"InitialPosition", "VerticalItems"}]
-  LOADK R13 K15 ["Top"]
-  SETTABLEKS R13 R12 K12 ["InitialPosition"]
+  GETTABLEKS R11 R12 K12 ["Toolbar"]
+  DUPTABLE R12 K15 [{"InitialPosition", "VerticalItems"}]
+  LOADK R13 K16 ["Top"]
+  SETTABLEKS R13 R12 K13 ["InitialPosition"]
   NEWTABLE R13 0 3
-  DUPTABLE R14 K21 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
-  LOADK R15 K22 ["Button"]
-  SETTABLEKS R15 R14 K16 ["Type"]
-  LOADK R17 K23 ["EditingTools"]
-  LOADK R18 K24 ["JointTool"]
-  NAMECALL R15 R1 K25 ["getText"]
+  DUPTABLE R14 K22 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
+  LOADK R15 K23 ["Button"]
+  SETTABLEKS R15 R14 K17 ["Type"]
+  LOADK R17 K24 ["EditingTools"]
+  LOADK R18 K25 ["JointTool"]
+  NAMECALL R15 R1 K26 ["getText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K17 ["Tooltip"]
-  LOADK R16 K26 ["%*/joint_tool.png"]
-  LOADK R18 K27 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large"]
-  NAMECALL R16 R16 K28 ["format"]
+  SETTABLEKS R15 R14 K18 ["Tooltip"]
+  LOADK R16 K27 ["%*/joint_tool.png"]
+  LOADK R18 K28 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large"]
+  NAMECALL R16 R16 K29 ["format"]
   CALL R16 2 1
   MOVE R15 R16
-  SETTABLEKS R15 R14 K18 ["Icon"]
-  JUMPIFEQKS R2 K29 ["joint"] [+2]
+  SETTABLEKS R15 R14 K19 ["Icon"]
+  JUMPIFEQKS R2 K30 ["joint"] [+2]
   LOADB R15 0 +1
   LOADB R15 1
-  SETTABLEKS R15 R14 K19 ["Selected"]
+  SETTABLEKS R15 R14 K20 ["Selected"]
   NEWCLOSURE R15 P1
   CAPTURE VAL R3
-  SETTABLEKS R15 R14 K20 ["OnClick"]
-  DUPTABLE R15 K21 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
-  LOADK R16 K22 ["Button"]
-  SETTABLEKS R16 R15 K16 ["Type"]
-  LOADK R18 K23 ["EditingTools"]
-  LOADK R19 K30 ["CageTool"]
-  NAMECALL R16 R1 K25 ["getText"]
+  SETTABLEKS R15 R14 K21 ["OnClick"]
+  DUPTABLE R15 K22 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
+  LOADK R16 K23 ["Button"]
+  SETTABLEKS R16 R15 K17 ["Type"]
+  LOADK R18 K24 ["EditingTools"]
+  LOADK R19 K31 ["CageTool"]
+  NAMECALL R16 R1 K26 ["getText"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K17 ["Tooltip"]
-  LOADK R17 K31 ["%*/cage_tool.png"]
-  LOADK R19 K27 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large"]
-  NAMECALL R17 R17 K28 ["format"]
+  SETTABLEKS R16 R15 K18 ["Tooltip"]
+  LOADK R17 K32 ["%*/cage_tool.png"]
+  LOADK R19 K28 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large"]
+  NAMECALL R17 R17 K29 ["format"]
   CALL R17 2 1
   MOVE R16 R17
-  SETTABLEKS R16 R15 K18 ["Icon"]
-  JUMPIFEQKS R2 K32 ["cage"] [+2]
+  SETTABLEKS R16 R15 K19 ["Icon"]
+  JUMPIFEQKS R2 K33 ["cage"] [+2]
   LOADB R16 0 +1
   LOADB R16 1
-  SETTABLEKS R16 R15 K19 ["Selected"]
+  SETTABLEKS R16 R15 K20 ["Selected"]
   NEWCLOSURE R16 P2
   CAPTURE VAL R3
-  SETTABLEKS R16 R15 K20 ["OnClick"]
-  DUPTABLE R16 K21 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
-  LOADK R17 K22 ["Button"]
-  SETTABLEKS R17 R16 K16 ["Type"]
-  LOADK R19 K23 ["EditingTools"]
-  LOADK R20 K33 ["AttachmentsTool"]
-  NAMECALL R17 R1 K25 ["getText"]
+  SETTABLEKS R16 R15 K21 ["OnClick"]
+  DUPTABLE R16 K22 [{"Type", "Tooltip", "Icon", "Selected", "OnClick"}]
+  LOADK R17 K23 ["Button"]
+  SETTABLEKS R17 R16 K17 ["Type"]
+  LOADK R19 K24 ["EditingTools"]
+  LOADK R20 K34 ["AttachmentsTool"]
+  NAMECALL R17 R1 K26 ["getText"]
   CALL R17 3 1
-  SETTABLEKS R17 R16 K17 ["Tooltip"]
-  LOADK R18 K34 ["%*/attachments_tool.png"]
-  LOADK R20 K27 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large"]
-  NAMECALL R18 R18 K28 ["format"]
+  SETTABLEKS R17 R16 K18 ["Tooltip"]
+  LOADK R18 K35 ["%*/attachments_tool.png"]
+  LOADK R20 K28 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large"]
+  NAMECALL R18 R18 K29 ["format"]
   CALL R18 2 1
   MOVE R17 R18
-  SETTABLEKS R17 R16 K18 ["Icon"]
+  SETTABLEKS R17 R16 K19 ["Icon"]
   JUMPIFEQKS R2 K5 ["attachments"] [+2]
   LOADB R17 0 +1
   LOADB R17 1
-  SETTABLEKS R17 R16 K19 ["Selected"]
+  SETTABLEKS R17 R16 K20 ["Selected"]
   NEWCLOSURE R17 P3
   CAPTURE VAL R3
-  SETTABLEKS R17 R16 K20 ["OnClick"]
+  SETTABLEKS R17 R16 K21 ["OnClick"]
   SETLIST R13 R14 3 [1]
-  SETTABLEKS R13 R12 K13 ["VerticalItems"]
+  SETTABLEKS R13 R12 K14 ["VerticalItems"]
   CALL R10 2 1
   SETTABLE R10 R8 R9
-  JUMPIFNOTEQKS R2 K5 ["attachments"] [+15]
+  JUMPIFNOTEQKS R2 K5 ["attachments"] [+12]
   GETUPVAL R10 2
   GETTABLEKS R9 R10 K8 ["createElement"]
   GETUPVAL R10 6
-  DUPTABLE R11 K37 [{"symmetrical", "worldModel"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K35 ["symmetrical"]
+  DUPTABLE R11 K37 [{"worldModel"}]
   GETTABLEKS R12 R0 K36 ["worldModel"]
   SETTABLEKS R12 R11 K36 ["worldModel"]
   CALL R9 2 1

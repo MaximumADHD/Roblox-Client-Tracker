@@ -4,7 +4,6 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 
-local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local GetFFlagSubscriptionFailureUX = require(RobloxGui.Modules.Flags.GetFFlagSubscriptionFailureUX)
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
@@ -118,7 +117,7 @@ local initVoice = function(chatStore)
 			elseif not participantState.subscriptionCompleted then
 				voiceState = VOICE_STATE.CONNECTING
 			elseif participantState.isMutedLocally then
-				voiceState = GetFFlagEnableVoiceChatLocalMuteUI() and VOICE_STATE.LOCAL_MUTED or VOICE_STATE.MUTED
+				voiceState = VOICE_STATE.LOCAL_MUTED
 			elseif participantState.isMuted then
 				voiceState = VOICE_STATE.MUTED
 			elseif participantState.isSignalActive then

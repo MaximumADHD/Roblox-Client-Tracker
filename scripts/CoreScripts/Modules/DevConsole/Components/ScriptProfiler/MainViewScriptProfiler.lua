@@ -13,6 +13,7 @@ local DropDown = require(Components.DropDown)
 local ProfilerView = require(script.Parent.ProfilerView)
 local ProfilerFunctionsView = require(script.Parent.ProfilerFunctionsView)
 local ProfilerData = require(script.Parent.ProfilerDataFormatV2)
+local ProfilerExportView = require(script.Parent.ProfilerExportView)
 
 local ProfilerUtil = require(script.Parent.ProfilerUtil)
 local getPluginFlag = ProfilerUtil.getPluginFlag
@@ -44,6 +45,7 @@ local FFlagScriptProfilerTimedProfiling = game:DefineFastFlag("ScriptProfilerTim
 local FFlagScriptProfilerFunctionsView = game:DefineFastFlag("ScriptProfilerFunctionsView", false)
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 local FFlagScriptProfilerAverages = game:DefineFastFlag("ScriptProfilerAverages", false)
+local FFlagScriptProfilerExport = game:DefineFastFlag("ScriptProfilerExport", false)
 local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
 
 local FFlagScriptProfilerLiveUpdate = game:DefineFastFlag("ScriptProfilerLiveUpdate", false)
@@ -165,11 +167,12 @@ function MainViewScriptProfiler:UpdateState(isClient, newState)
 	end
 end
 
-local function OnNewProfilingData(state, data: ProfilerData.RootDataFormat?)
-	state.data = data
+local function OnNewProfilingData(state, jsonString: string?)
+	state.serializedData = jsonString
+	state.data = ScriptContext:DeserializeScriptProfilerString(jsonString :: string) -- Temporary type cast to work around type-checker until RIDL defintion is updated.
 
 	if FFlagScriptProfilerShowPlugins then
-		state.pluginOffsets = generatePluginDurationOffsets(data)
+		state.pluginOffsets = generatePluginDurationOffsets(state.data)
 	end
 end
 
@@ -196,10 +199,10 @@ function MainViewScriptProfiler:init()
 		end
 	end
 
-	local function StopScriptProfiling(isClient): ProfilerData.RootDataFormat?
+	local function StopScriptProfiling(isClient): string?
 		if isClient then
-			local data = ScriptContext:StopScriptProfiling() :: any
-			return ScriptContext:DeserializeScriptProfilerString(data)
+			local data = ScriptContext:StopScriptProfiling()
+			return data
 		else
 			local clientReplicator = getClientReplicator()
 			if clientReplicator then
@@ -213,12 +216,13 @@ function MainViewScriptProfiler:init()
 		local state = self:getState(isClient)
 
 		if state.isProfiling then
-			local data = StopScriptProfiling(isClient)
+			local jsonString = StopScriptProfiling(isClient)
 
 			local newState = table.clone(state)
 
 			newState.isProfiling = false
-			OnNewProfilingData(newState, data)
+
+			OnNewProfilingData(newState, jsonString)
 
 			self:UpdateState(isClient, newState)
 		end
@@ -254,8 +258,9 @@ function MainViewScriptProfiler:init()
 			if state.liveUpdate then
 				if isClient then
 					local newState = table.clone(state)
-					local dataString = ScriptContext:GetScriptProfilingData()
-					OnNewProfilingData(newState, ScriptContext:DeserializeScriptProfilerString(dataString))
+					local jsonString = ScriptContext:GetScriptProfilingData()
+
+					OnNewProfilingData(newState, jsonString)
 
 					self:UpdateState(isClient, newState)
 				else
@@ -301,11 +306,12 @@ function MainViewScriptProfiler:init()
 	self.onEndProfile = function ()
 		local isClientView, state = self:getActiveState()
 
-		local data = StopScriptProfiling(isClientView)
+		local jsonString = StopScriptProfiling(isClientView)
 
 		local newState = table.clone(state)
 		newState.isProfiling = false
-		OnNewProfilingData(newState, data)
+
+		OnNewProfilingData(newState, jsonString)
 
 		if FFlagScriptProfilerTimedProfiling then
 			if state.timedProfilingThread then
@@ -455,9 +461,11 @@ function MainViewScriptProfiler:didMount()
 		utilTabHeight = utilSize.Y.Offset
 	})
 
-	self.statsConnector = self.props.ServerProfilingData:Signal():Connect(function(data)
+	self.statsConnector = self.props.ServerProfilingData:Signal():Connect(function(jsonString)
 		local newState = table.clone(self.props.server)
-		OnNewProfilingData(newState, data)
+
+		OnNewProfilingData(newState, jsonString)
+
 		self:UpdateState(false, newState)
 	end)
 end
@@ -502,7 +510,6 @@ function MainViewScriptProfiler:render()
 	local size = self.props.size
 	local formFactor = self.props.formFactor
 	local tabList = self.props.tabList
-	local scriptFilters = self.props.serverTypeFilters
 
 	local isClientView, state = self:getActiveState()
 
@@ -528,6 +535,43 @@ function MainViewScriptProfiler:render()
 
 	if FFlagScriptProfilerShowPlugins then
 		checkBoxStates[2] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins, }
+	end
+
+	if self.props.isExporting then
+		return Roact.createElement("Frame", {
+			Size = size,
+			BackgroundColor3 = Constants.Color.BaseGray,
+			BackgroundTransparency = 1,
+			LayoutOrder = 3,
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, PADDING),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}),
+
+			UtilAndTab = Roact.createElement(UtilAndTab, {
+				windowWidth = size.X.Offset,
+				formFactor = formFactor,
+				tabList = tabList,
+				layoutOrder = 1,
+
+				refForParent = self.utilRef,
+				onHeightChanged = self.onUtilTabHeightChanged,
+
+				onClientButton = self.onClientButton,
+				onServerButton = self.onServerButton,
+			}, {
+				-- Exit export and return to profiler
+				Roact.createElement(BoxButton, {
+					text = "Exit",
+					onClicked = self.props.dispatchFinishedExporting,
+				}),
+			}),
+
+			ExportView = Roact.createElement(ProfilerExportView, {
+				size = UDim2.new(1, 0, 1, -utilTabHeight),
+			}),
+		})
 	end
 
 	return Roact.createElement("Frame", {
@@ -624,6 +668,11 @@ function MainViewScriptProfiler:render()
 				end,
 			}) :: any,
 
+			if not FFlagScriptProfilerExport then nil else Roact.createElement(BoxButton, {
+				text = "Export",
+				onClicked = self.props.dispatchStartExport,
+			}) :: any,
+
 			if not FFlagScriptProfilerFunctionsView then nil else Roact.createElement(DropDown, {
 				buttonSize = UDim2.new(0, SMALL_DV_BUTTON_WIDTH, 0, SMALL_FRAME_HEIGHT),
 				dropDownList = DATA_VIEW_DROPDOWN_NAMES,
@@ -653,6 +702,7 @@ local function mapStateToProps(state, props)
 	return {
 		isClientView = state.ScriptProfiler.isClientView,
 		usePercentages = state.ScriptProfiler.usePercentages,
+		isExporting = state.ScriptProfiler.isExporting,
 
 		client = state.ScriptProfiler.client,
 		server = state.ScriptProfiler.server,
@@ -663,6 +713,14 @@ local function mapDispatchToProps(dispatch)
 	return {
 		dispatchSetScriptProfilerState = function(isClientView, usePercentages, clientSessionState, serverSessionState)
 			dispatch(SetScriptProfilerState(isClientView, usePercentages, clientSessionState, serverSessionState))
+		end,
+
+		dispatchStartExport = function()
+			dispatch(SetScriptProfilerState(nil, nil, nil, nil, true))
+		end,
+
+		dispatchFinishedExporting = function()
+			dispatch(SetScriptProfilerState(nil, nil, nil, nil, false))
 		end,
 	}
 end

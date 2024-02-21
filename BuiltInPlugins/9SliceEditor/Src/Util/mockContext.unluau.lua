@@ -4,11 +4,11 @@ local var1 = require(var0.Packages.Framework)
 local var2 = var1.TestHelpers
 local var3 = var1.ContextServices
 local var4 = {}
-local var37 = var3.Analytics.mock()
-local var38 = var3.Localization
-local var7 = var38.mock()
-var38 = require(var0.Src.Resources.MakeTheme)
-local var8 = var38(true)
+local var18 = var3.Analytics.mock()
+local var19 = var3.Localization
+local var7 = var19.mock()
+var19 = require(var0.Src.Resources.MakeTheme)
+local var8 = var19(true)
 return function(arg1)
    if type(arg1) == "table" then
       local var0 = false

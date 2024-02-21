@@ -6,7 +6,10 @@ local ProfilerData = require(script.Parent.Parent.Components.ScriptProfiler.Prof
 
 type SessionState = {
 	isProfiling: boolean,
+
 	data: ProfilerData.RootDataFormat?,
+	serializedData: string?,
+
 	frequency: number,
 
 	timedProfilingThread: thread?,
@@ -35,6 +38,7 @@ type SessionState = {
 export type State = {
 	isClientView: boolean,
 	usePercentages: boolean,
+	isExporting: boolean,
 	client: SessionState,
 	server: SessionState,
 }
@@ -43,7 +47,8 @@ return function(state: State?, action: {[string]: any}): State
 	local scriptProfilerState = state or {
 		isClientView = true,
 		usePercentages = false,
-		client = { isProfiling = false, data = nil, frequency = 1000,
+		isExporting = false,
+		client = { isProfiling = false, data = nil, serializedData = nil, frequency = 1000,
 					timedProfilingThread = nil, timedProfilingTimerThread = nil,
 					timedProfilingDuration = 0, timedProfilingCountdown = 0,
 					isFunctionsView = false, average = 0, searchTerm = "",
@@ -51,7 +56,7 @@ return function(state: State?, action: {[string]: any}): State
 					rootNode = 0, rootNodeName = nil,
 					liveUpdate = false, liveUpdateThread = nil,
 					showPlugins = false, pluginOffsets = {}, },
-		server = { isProfiling = false, data = nil, frequency = 1000,
+		server = { isProfiling = false, data = nil, serializedData = nil, frequency = 1000,
 					timedProfilingThread = nil, timedProfilingTimerThread = nil,
 					timedProfilingDuration = 0, timedProfilingCountdown = 0,
 					isFunctionsView = false, average = 0, searchTerm = "",
@@ -65,6 +70,7 @@ return function(state: State?, action: {[string]: any}): State
 		local update = {
 			isClientView = action.isClientView,
 			usePercentages = action.usePercentages,
+			isExporting = action.isExporting,
 			client = action.clientSessionState,
 			server = action.serverSessionState,
 		}

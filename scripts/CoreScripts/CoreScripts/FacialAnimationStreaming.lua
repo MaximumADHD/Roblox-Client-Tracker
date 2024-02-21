@@ -19,7 +19,6 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
 local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
-local FFlagFacialAnimationStreamingServiceRequireVoiceChat = game:GetEngineFeature("FacialAnimationStreamingServiceRequireVoiceChat")
 local FFlagLoadStreamAnimationReplaceErrorsWithTelemetry = game:GetEngineFeature("LoadStreamAnimationReplaceErrorsWithTelemetryFeature")
 local FFlagFaceAnimatorDisableVideoByDefault = game:DefineFastFlag("FaceAnimatorDisableVideoByDefault", false)
 local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeature("FaceAnimatorNotifyLODRecommendCameraInputDisable")
@@ -32,7 +31,6 @@ game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",fal
 game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
 game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateWhenCreatingTrack", false)
 local FFlagFacialAnimationStreamingCheckPauseStateAfterEmote2 = game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateAfterEmote2", false)
-local GetFFlagIrisSettingsEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisSettingsEnabled
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
@@ -394,13 +392,8 @@ end
 local function playerUpdate(player)
 	playerTrace("Player update", player)
 
-	-- Setup the player animation if streaming is enabled, and:
-	-- if player is local
-	-- OR
-	-- if player is remote and joined in voice chat as well.
-	local isLocal = Players.LocalPlayer.UserId == player.UserId
-	local joinedVoiceChat = ( false == FFlagFacialAnimationStreamingServiceRequireVoiceChat ) or playerJoinedChat[player.UserId]
-	local setupPlayer = playerJoinedGame[player.UserId] and ( isLocal or joinedVoiceChat )
+	-- Setup the player animation
+	local setupPlayer = playerJoinedGame[player.UserId]
 
 	clearAllConnections(player)
 
@@ -571,10 +564,7 @@ function InitializeVoiceChat()
 
 	if VoiceChatServiceManager then
 		VoiceChatServiceManager:asyncInit():catch(function(error)
-			if FFlagFacialAnimationStreamingServiceRequireVoiceChat then
-				log:trace("Disabling audio processing when VoiceChat fails (possibly denied mic permission)")
-				FaceAnimatorService.AudioAnimationEnabled = false
-			end
+			log:trace("VoiceChat:asyncInit failed (possibly denied mic permission)")
 		end):finally(onCompletion)
 
 		-- Sync VoiceChat mute status with FaceAnimatorService.AudioAnimationEnabled
@@ -590,8 +580,8 @@ function InitializeVoiceChat()
 			initialAudioEnabled = not VoiceChatServiceManager.localMuted
 		end
 		FaceAnimatorService.AudioAnimationEnabled = initialAudioEnabled
-	elseif false == FFlagFacialAnimationStreamingServiceRequireVoiceChat then
-			onCompletion()
+	else
+		onCompletion()
 	end
 end
 
@@ -659,12 +649,6 @@ function InitializeFacialAnimationStreaming(settings)
 		end)
 	end
 
-	if FFlagFaceAnimatorDisableVideoByDefault and not GetFFlagIrisSettingsEnabled() then -- could be 1 liner, but easier to remove flag later this way
-		-- At start, turn off video until user turns it on manually.
-		-- This is what Settings should use to re-enable camera when user presses camera button.
-		FaceAnimatorService.VideoAnimationEnabled = false
-	end
-
 	if FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable then
 		-- Handle prompts from FaceAnimatorService
 		trackerPromptConnection = FaceAnimatorService.TrackerPrompt:Connect(function(prompt)
@@ -680,31 +664,26 @@ function InitializeFacialAnimationStreaming(settings)
 		end)
 	end
 
-	if GetFFlagIrisSettingsEnabled() then
-		CallProtocol:getCallState():andThen(function(params)
-			if not facialAnimationStreamingInited then
-				return
-			end
+	CallProtocol:getCallState():andThen(function(params)
+		if not facialAnimationStreamingInited then
+			return
+		end
 
-			if
-				params.status ~= CallProtocolEnums.CallStatus.Idle.rawValue()
-				and params.status ~= CallProtocolEnums.CallStatus.Ringing.rawValue()
-			then
-				-- If call exist, respect the cam settings for calling
-				FaceAnimatorService.VideoAnimationEnabled = params.camEnabled
-			elseif FFlagFaceAnimatorDisableVideoByDefault then
-				-- At start, turn off video until user turns it on manually.
-				-- This is what Settings should use to re-enable camera when user presses camera button.
-				FaceAnimatorService.VideoAnimationEnabled = false
-			end
+		if
+			params.status ~= CallProtocolEnums.CallStatus.Idle.rawValue()
+			and params.status ~= CallProtocolEnums.CallStatus.Ringing.rawValue()
+		then
+			-- If call exist, respect the cam settings for calling
+			FaceAnimatorService.VideoAnimationEnabled = params.camEnabled
+		elseif FFlagFaceAnimatorDisableVideoByDefault then
+			-- At start, turn off video until user turns it on manually.
+			-- This is what Settings should use to re-enable camera when user presses camera button.
+			FaceAnimatorService.VideoAnimationEnabled = false
+		end
 
-			InitializeVoiceChat()
-			heartbeatStats.Initialize()
-		end)
-	else
 		InitializeVoiceChat()
 		heartbeatStats.Initialize()
-	end
+	end)
 end
 
 function CleanupFacialAnimationStreaming()

@@ -18,7 +18,6 @@ local VoiceChatService = game:GetService("VoiceChatService")
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
-local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local GetFFlagEnableVoiceMicPromptToastFix = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMicPromptToastFix)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
 local GetFFlagEnableErrorIconFix = require(RobloxGui.Modules.Flags.GetFFlagEnableErrorIconFix)
@@ -51,6 +50,7 @@ local GetFFlagVoiceUseAudioRoutingAPI = require(RobloxGui.Modules.Flags.GetFFlag
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local GetFFlagShowMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagShowMuteToggles)
+local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local FFlagFixNonSelfCalls = game:DefineFastFlag("FixNonSelfCalls", false)
 local FFlagAlwaysSetupVoiceListeners = game:DefineFastFlag("AlwaysSetupVoiceListeners", false)
@@ -94,6 +94,7 @@ local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetSer
 local FFlagEasierUnmutingPassMuteStatus = game:DefineFastFlag("EasierUnmutingPassMuteStatus", false)
 local ExperienceChat = if FFlagEasierUnmutingPassMuteStatus then require(CorePackages.ExperienceChat) else nil
 
+local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol.default
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
 local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
@@ -126,6 +127,7 @@ local MIN_VOICE_CHAT_API_VERSION_LOCAL_MIC_ACTIVITY = Constants.MIN_VOICE_CHAT_A
 local MIN_VOICE_CHAT_API_VERSION = Constants.MIN_VOICE_CHAT_API_VERSION
 local WATCHED_NAMESPACES = Constants.WATCHED_NAMESPACES
 local WATCHED_MESSAGE_TYPES = Constants.WATCHED_MESSAGE_TYPES
+local PERMISSION_STATE = Constants.PERMISSION_STATE
 type WatchedMessageTypes = VoiceChat.WatchedMessageTypes
 type EventTable = { [WatchedMessageTypes]: BindableEvent }
 type AudioDeviceData = {
@@ -170,6 +172,7 @@ local VoiceChatServiceManager = {
 	previousSessionId = nil,
 	voiceEnabled = false,
 	VOICE_STATE = VOICE_STATE,
+	permissionState = if GetFFlagJoinWithoutMicPermissions() then PERMISSION_STATE.IDLE else nil,
 	isBanned = false,
 	bannedUntil = nil,
 	errorText = nil,
@@ -726,8 +729,26 @@ function VoiceChatServiceManager:requestMicPermission()
 	local permissions = { PermissionsProtocol.Permissions.MICROPHONE_ACCESS }
 
 	local promiseStart
-	if FFlagSkipVoicePermissionCheck then
-		log:debug("Skipping mic permission")
+	if GetFFlagJoinWithoutMicPermissions() then
+		log:debug("Requesting device permission")
+		local success, result = self.PermissionsService:hasPermissions(permissions):await()
+		if success then
+			if result.status == PermissionsProtocol.Status.AUTHORIZED then
+				self.permissionState = PERMISSION_STATE.LISTEN_AND_TALK
+			elseif result.missingPermissions then
+				self.permissionState = PERMISSION_STATE.PENDING_MIC
+			elseif result.deniedPermissions then
+				self.permissionState = PERMISSION_STATE.LISTEN_ONLY
+			else
+				log:error("PermissionsService returned unknown permission state. Defaulting to listen only.")
+				self.permissionState = PERMISSION_STATE.LISTEN_ONLY
+			end
+		else
+			-- We pretend permission is denied if something wrong happens
+			log:error("PermissionsService call failed.")
+			self.permissionState = PERMISSION_STATE.LISTEN_ONLY
+		end
+		log:debug("Joining without mic permissions. Permission State: {}", self.permissionState)
 		promiseStart = Promise.resolve()
 	elseif FFlagAvatarChatCoreScriptSupport then
 		--[[
@@ -750,7 +771,7 @@ function VoiceChatServiceManager:requestMicPermission()
 
 	self.permissionPromise = promiseStart
 		:andThen(function(permissionResponse)
-			if FFlagSkipVoicePermissionCheck then
+			if GetFFlagJoinWithoutMicPermissions() then
 				return Promise.resolve()
 			end
 			if not permissionResponse and not permissionResponse.status then
@@ -938,6 +959,24 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 					then function()
 						self.Analytics:reportAcknowledgedNudge(self:GetNudgeAnalyticsData())
 					end
+					elseif
+						GetFFlagJoinWithoutMicPermissions() and promptType == VoiceChatPromptType.Permission
+					then function()
+						local settingsAppAvailable = LinkingProtocol:supportsSwitchToSettingsApp():await()
+						log:debug("Settings app available: {}", settingsAppAvailable)
+						if settingsAppAvailable then
+							log:debug("Switching to settings app")
+							LinkingProtocol:switchToSettingsApp()
+								:andThen(function()
+									log:debug("Successfully switched to settings app")
+								end)
+								:catch(function()
+									log:error("Error switching to settings app")
+								end)
+						else
+							log:debug("Current platform does not support switching to settings app")
+						end
+					end
 					elseif isUpdatedBanModalB then function()
 						self:reportBanMessage("Understood")
 						self.Analytics:reportBanMessageEvent("Understood")
@@ -986,7 +1025,11 @@ function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 		local userEligible = GetFFlagEnableVoiceMicPromptToastFix() and self.userEligible
 		if self.voiceEnabled or userEligible then
 			-- we already checked and requested permissions above. If we got here then Mic permissions were denied.
-			if FFlagAvatarChatCoreScriptSupport then
+			if GetFFlagJoinWithoutMicPermissions() then
+				if self.permissionState == PERMISSION_STATE.LISTEN_ONLY then
+					self:showPrompt(VoiceChatPromptType.Permission)
+				end
+			elseif FFlagAvatarChatCoreScriptSupport then
 				if FFlagFixMissingPermissionsAnalytics then
 					self:_reportJoinFailed("missingPermissions")
 				end
@@ -1452,7 +1495,7 @@ function VoiceChatServiceManager:ParticipantStateToIcon(participantState, level)
 	if not participantState.subscriptionCompleted then
 		voiceState = VOICE_STATE.CONNECTING
 	elseif participantState.isMutedLocally then
-		voiceState = GetFFlagEnableVoiceChatLocalMuteUI() and VOICE_STATE.LOCAL_MUTED or VOICE_STATE.MUTED
+		voiceState = VOICE_STATE.LOCAL_MUTED
 	elseif participantState.isMuted then
 		voiceState = VOICE_STATE.MUTED
 	elseif participantState.isSignalActive then
@@ -1767,6 +1810,24 @@ function VoiceChatServiceManager:ToggleMic(context: string?)
 	if self.localMuted == nil then
 		-- Not connected, so don't try and toggle anything.
 		return
+	end
+
+	if GetFFlagJoinWithoutMicPermissions() then
+		if self.permissionState == PERMISSION_STATE.PENDING_MIC then
+			log:debug("In pending mic mode, requesting permission")
+			self.getPermissionsFunction(function(params)
+				self.permissionState = if params.hasMicPermissions
+					then PERMISSION_STATE.LISTEN_AND_TALK
+					else PERMISSION_STATE.LISTEN_ONLY
+				log:debug("Got permissions, setting state to {}", self.permissionState)
+				self:ToggleMic(context)
+			end, { PermissionsProtocol.Permissions.MICROPHONE_ACCESS }, false)
+			return
+		elseif self.permissionState == PERMISSION_STATE.LISTEN_ONLY then
+			log:debug("User tried to unmute despite being in listen only mode")
+			self:showPrompt(VoiceChatPromptType.Permission)
+			return
+		end
 	end
 
 	if GetFFlagVoiceUseAudioRoutingAPI() then

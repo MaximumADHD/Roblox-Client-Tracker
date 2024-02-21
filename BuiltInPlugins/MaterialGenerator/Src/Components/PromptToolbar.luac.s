@@ -1,0 +1,110 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["isDisabled"]
+  JUMPIF R1 [+2]
+  GETTABLEKS R1 R0 K1 ["isGenerating"]
+  GETTABLEKS R3 R0 K1 ["isGenerating"]
+  JUMPIFEQKB R3 TRUE [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETUPVAL R3 0
+  LOADK R5 K2 ["PromptToolbar"]
+  NAMECALL R3 R3 K3 ["use"]
+  CALL R3 2 1
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K3 ["use"]
+  CALL R4 1 1
+  LOADK R5 K4 [""]
+  JUMPIF R2 [+6]
+  LOADK R8 K2 ["PromptToolbar"]
+  LOADK R9 K5 ["GenerateButton"]
+  NAMECALL R6 R4 K6 ["getText"]
+  CALL R6 3 1
+  MOVE R5 R6
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["omit"]
+  MOVE R7 R0
+  NEWTABLE R8 0 4
+  LOADK R9 K0 ["isDisabled"]
+  LOADK R10 K1 ["isGenerating"]
+  LOADK R11 K8 ["onClick"]
+  LOADK R12 K9 ["onGenerate"]
+  SETLIST R8 R9 4 [1]
+  CALL R6 2 1
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K10 ["createElement"]
+  GETUPVAL R8 4
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K11 ["join"]
+  MOVE R10 R6
+  DUPTABLE R11 K13 [{"OnClick"}]
+  GETTABLEKS R12 R0 K8 ["onClick"]
+  SETTABLEKS R12 R11 K12 ["OnClick"]
+  CALL R9 2 1
+  DUPTABLE R10 K14 [{"GenerateButton"}]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K10 ["createElement"]
+  GETUPVAL R12 5
+  DUPTABLE R13 K20 [{"AnchorPoint", "Position", "Size", "Text", "isDisabled", "isLoading", "onClick"}]
+  GETIMPORT R14 K23 [Vector2.new]
+  LOADN R15 1
+  LOADK R16 K24 [0.5]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K15 ["AnchorPoint"]
+  GETIMPORT R14 K27 [UDim2.fromScale]
+  LOADN R15 1
+  LOADK R16 K24 [0.5]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K16 ["Position"]
+  GETTABLEKS R14 R3 K28 ["GenerateButtonSize"]
+  SETTABLEKS R14 R13 K17 ["Size"]
+  SETTABLEKS R5 R13 K18 ["Text"]
+  SETTABLEKS R1 R13 K0 ["isDisabled"]
+  SETTABLEKS R2 R13 K19 ["isLoading"]
+  GETTABLEKS R14 R0 K9 ["onGenerate"]
+  SETTABLEKS R14 R13 K8 ["onClick"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K5 ["GenerateButton"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["MaterialGenerator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["Localization"]
+  GETTABLEKS R6 R4 K12 ["Stylizer"]
+  GETTABLEKS R8 R2 K13 ["UI"]
+  GETTABLEKS R7 R8 K14 ["Pane"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K15 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Components"]
+  GETTABLEKS R9 R10 K17 ["LoadingButton"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Resources"]
+  GETTABLEKS R10 R11 K19 ["Theme"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K20 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  RETURN R10 1

@@ -1,0 +1,186 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOTEQKS R0 K1 [""] [+6]
+  GETIMPORT R1 K3 [warn]
+  LOADK R2 K4 ["Empty prompt text"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K0 ["current"]
+  GETUPVAL R1 1
+  JUMPIFNOTEQKS R0 K1 [""] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOT R0 [+3]
+  NAMECALL R1 R0 K1 ["CaptureFocus"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["Prompt"]
+  NAMECALL R1 R1 K1 ["use"]
+  CALL R1 2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["useContext"]
+  GETUPVAL R3 2
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K3 ["generateMaterialVariants"]
+  GETTABLEKS R4 R2 K4 ["isGenerating"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["useRef"]
+  LOADNIL R6
+  CALL R5 1 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["useRef"]
+  LOADK R7 K6 [""]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K7 ["current"]
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  FASTCALL2K ASSERT R9 K8 [+4]
+  LOADK R10 K8 ["promptText should not be nil"]
+  GETIMPORT R8 K10 [assert]
+  CALL R8 2 0
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K11 ["useState"]
+  LOADB R9 0
+  CALL R8 1 2
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K12 ["useCallback"]
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  NEWTABLE R12 0 1
+  MOVE R13 R3
+  SETLIST R12 R13 1 [1]
+  CALL R10 2 1
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K12 ["useCallback"]
+  NEWCLOSURE R12 P1
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  NEWTABLE R13 0 0
+  CALL R11 2 1
+  GETUPVAL R12 3
+  NAMECALL R12 R12 K1 ["use"]
+  CALL R12 1 1
+  GETTABLEKS R13 R0 K13 ["isDisabled"]
+  JUMPIF R13 [+3]
+  MOVE R13 R4
+  JUMPIF R13 [+1]
+  NOT R13 R8
+  GETTABLEKS R15 R0 K13 ["isDisabled"]
+  OR R14 R15 R4
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K14 ["createElement"]
+  GETUPVAL R16 4
+  DUPTABLE R17 K19 [{"BackgroundColor", "LayoutOrder", "Padding", "Size"}]
+  GETTABLEKS R18 R1 K15 ["BackgroundColor"]
+  SETTABLEKS R18 R17 K15 ["BackgroundColor"]
+  GETTABLEKS R18 R0 K16 ["LayoutOrder"]
+  SETTABLEKS R18 R17 K16 ["LayoutOrder"]
+  GETTABLEKS R18 R1 K17 ["Padding"]
+  SETTABLEKS R18 R17 K17 ["Padding"]
+  GETTABLEKS R18 R0 K18 ["Size"]
+  SETTABLEKS R18 R17 K18 ["Size"]
+  DUPTABLE R18 K21 [{"PromptTextInput"}]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K14 ["createElement"]
+  GETUPVAL R20 5
+  DUPTABLE R21 K31 [{"BottomComponent", "BottomComponentProps", "Disabled", "MultiLine", "OnEnter", "OnTextChanged", "PlaceholderText", "ForwardRef", "Size", "Text"}]
+  GETUPVAL R22 6
+  SETTABLEKS R22 R21 K22 ["BottomComponent"]
+  DUPTABLE R22 K34 [{"Size", "isDisabled", "isGenerating", "onClick", "onGenerate"}]
+  GETTABLEKS R23 R1 K35 ["PromptToolbarSize"]
+  SETTABLEKS R23 R22 K18 ["Size"]
+  SETTABLEKS R13 R22 K13 ["isDisabled"]
+  SETTABLEKS R4 R22 K4 ["isGenerating"]
+  NEWCLOSURE R23 P2
+  CAPTURE VAL R5
+  SETTABLEKS R23 R22 K32 ["onClick"]
+  SETTABLEKS R10 R22 K33 ["onGenerate"]
+  SETTABLEKS R22 R21 K23 ["BottomComponentProps"]
+  SETTABLEKS R14 R21 K24 ["Disabled"]
+  GETTABLEKS R22 R1 K25 ["MultiLine"]
+  SETTABLEKS R22 R21 K25 ["MultiLine"]
+  SETTABLEKS R10 R21 K26 ["OnEnter"]
+  SETTABLEKS R11 R21 K27 ["OnTextChanged"]
+  GETIMPORT R25 K37 [script]
+  GETTABLEKS R24 R25 K38 ["Name"]
+  LOADK R25 K39 ["PromptPlaceholderText"]
+  NAMECALL R22 R12 K40 ["getText"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K28 ["PlaceholderText"]
+  SETTABLEKS R5 R21 K29 ["ForwardRef"]
+  GETIMPORT R22 K43 [UDim2.fromScale]
+  LOADN R23 1
+  LOADN R24 1
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K18 ["Size"]
+  SETTABLEKS R7 R21 K30 ["Text"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K20 ["PromptTextInput"]
+  CALL R15 3 -1
+  RETURN R15 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["MaterialGenerator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["Localization"]
+  GETTABLEKS R5 R3 K11 ["Stylizer"]
+  GETTABLEKS R6 R1 K12 ["UI"]
+  GETTABLEKS R7 R6 K13 ["Pane"]
+  GETTABLEKS R8 R6 K14 ["TextInput"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Components"]
+  GETTABLEKS R10 R11 K17 ["PromptToolbar"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K15 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Util"]
+  GETTABLEKS R11 R12 K19 ["GenerationContext"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K15 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Resources"]
+  GETTABLEKS R12 R13 K21 ["Theme"]
+  CALL R11 1 1
+  DUPCLOSURE R12 K22 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  RETURN R12 1

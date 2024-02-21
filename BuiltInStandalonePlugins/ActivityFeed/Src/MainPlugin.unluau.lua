@@ -19,9 +19,9 @@ local var16 = require(var15.ExampleComponent)
 local var17 = require(var15.ExampleRoactRoduxComponent)
 local var18 = var1.PureComponent:extend("MainPlugin")
 function var18.init(arg1, arg2)
-   local var179 = {}
-   var179.enabled = false
-   arg1.state = var179
+   local var57 = {}
+   var57.enabled = false
+   arg1.state = var57
    function arg1.toggleEnabled(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
@@ -37,24 +37,24 @@ function var18.init(arg1, arg2)
    end
    
    function arg1.onRestore()
-      local var192 = {}
-      var192.enabled = false
-      arg1:setState(var192)
+      local var70 = {}
+      var70.enabled = false
+      arg1:setState(var70)
    end
    
    function arg1.onWidgetEnabledChanged(arg1)
-      local var197 = {}
-      var197.enabled = arg1
-      arg1:setState(var197)
+      local var75 = {}
+      var75.enabled = arg1
+      arg1:setState(var75)
    end
    
-   local var206 = var2.thunkMiddleware
+   local var84 = var2.thunkMiddleware
    arg1.store = var2.Store.new(var11, nil, {}, nil)
-   local var212 = {}
-   var212.stringResourceTable = var13
-   var212.translationResourceTable = var14
-   var212.pluginName = "ActivityFeed"
-   arg1.localization = var7.Localization.new(var212)
+   local var90 = {}
+   var90.stringResourceTable = var13
+   var90.translationResourceTable = var14
+   var90.pluginName = "ActivityFeed"
+   arg1.localization = var7.Localization.new(var90)
    arg1.analytics = var7.Analytics.new(function()
       return {}
    end, {})
@@ -62,54 +62,54 @@ end
 
 function var18.renderButtons(arg1, arg2)
    local var0 = {}
-   local var231 = {}
-   var231.Toolbar = arg2
-   var231.Active = arg1.state.enabled
-   var231.Title = "activity_feed_button"
-   var231.Tooltip = arg1.localization:getText("Plugin", "Description")
-   var231.Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png"
-   var231.OnClick = arg1.toggleEnabled
-   var231.ClickableWhenViewportHidden = true
-   var0.Toggle = var1.createElement(var6, var231)
+   local var109 = {}
+   var109.Toolbar = arg2
+   var109.Active = arg1.state.enabled
+   var109.Title = "activity_feed_button"
+   var109.Tooltip = arg1.localization:getText("Plugin", "Description")
+   var109.Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png"
+   var109.OnClick = arg1.toggleEnabled
+   var109.ClickableWhenViewportHidden = true
+   var0.Toggle = var1.createElement(var6, var109)
    return var0
 end
 
 function var18.render(arg1)
    local var0 = arg1.props.Plugin
-   local var250 = var8
-   var250 = var0
-   local var256 = var10.new(arg1.store)
-   local var261 = var9.new(var0:getMouse())
-   local var263 = var12()
-   local var264 = arg1.localization
-   local var265 = arg1.analytics
-   local var266 = {}
-   local var270 = {}
-   var270.Title = "ActivityFeed"
-   function var270.RenderButtons(arg1)
+   local var128 = var8
+   var128 = var0
+   local var134 = var10.new(arg1.store)
+   local var139 = var9.new(var0:getMouse())
+   local var141 = var12()
+   local var142 = arg1.localization
+   local var143 = arg1.analytics
+   local var144 = {}
+   local var148 = {}
+   var148.Title = "ActivityFeed"
+   function var148.RenderButtons(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
       return var0
    end
    
-   var266.Toolbar = var1.createElement(var5, var270)
-   local var280 = {}
-   var280.Id = "ActivityFeed"
-   var280.Enabled = arg1.state.enabled
-   var280.Title = arg1.localization:getText("Plugin", "Name")
-   var280.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var280.InitialDockState = Enum.InitialDockState.Bottom
-   var280.Size = Vector2.new(640, 480)
-   var280.MinSize = Vector2.new(250, 200)
-   var280.OnClose = arg1.onClose
-   var280.ShouldRestore = true
-   var280.OnWidgetRestored = arg1.onRestore
+   var144.Toolbar = var1.createElement(var5, var148)
+   local var158 = {}
+   var158.Id = "ActivityFeed"
+   var158.Enabled = arg1.state.enabled
+   var158.Title = arg1.localization:getText("Plugin", "Name")
+   var158.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var158.InitialDockState = Enum.InitialDockState.Bottom
+   var158.Size = Vector2.new(640, 480)
+   var158.MinSize = Vector2.new(250, 200)
+   var158.OnClose = arg1.onClose
+   var158.ShouldRestore = true
+   var158.OnWidgetRestored = arg1.onRestore
    var1.Change.Enabled = arg1.onWidgetEnabledChanged
-   local var304 = {}
-   var304.ExampleComponent = var1.createElement(var16)
-   var304.ExampleRoactRoduxComponent = var1.createElement(var17)
-   var266.MainWidget = var1.createElement(var4, var280, var304)
-   return var7.provide({ var250.new(var250) }, var266)
+   local var182 = {}
+   var182.ExampleComponent = var1.createElement(var16)
+   var182.ExampleRoactRoduxComponent = var1.createElement(var17)
+   var144.MainWidget = var1.createElement(var4, var158, var182)
+   return var7.provide({ var128.new(var128) }, var144)
 end
 
 return var18

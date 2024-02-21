@@ -157,15 +157,17 @@ PROTO_5:
   GETTABLEKS R6 R0 K3 ["updateEtaSignal"]
   SETLIST R3 R4 3 [1]
   CALL R1 2 1
-  DUPTABLE R2 K5 [{"startAutoSetupAsync"}]
+  DUPTABLE R2 K6 [{"startAutoSetupAsync", "autoSetupClickedSignal"}]
   SETTABLEKS R1 R2 K4 ["startAutoSetupAsync"]
+  GETTABLEKS R3 R0 K5 ["autoSetupClickedSignal"]
+  SETTABLEKS R3 R2 K5 ["autoSetupClickedSignal"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K6 ["createElement"]
+  GETTABLEKS R3 R4 K7 ["createElement"]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K7 ["Provider"]
-  DUPTABLE R5 K9 [{"value"}]
-  SETTABLEKS R2 R5 K8 ["value"]
-  GETTABLEKS R6 R0 K10 ["children"]
+  GETTABLEKS R4 R5 K8 ["Provider"]
+  DUPTABLE R5 K10 [{"value"}]
+  SETTABLEKS R2 R5 K9 ["value"]
+  GETTABLEKS R6 R0 K11 ["children"]
   CALL R3 3 -1
   RETURN R3 -1
 
@@ -202,15 +204,17 @@ PROTO_7:
   GETTABLEKS R5 R0 K2 ["signal"]
   SETLIST R4 R5 1 [1]
   CALL R2 2 1
-  DUPTABLE R3 K4 [{"startAutoSetupAsync"}]
+  DUPTABLE R3 K5 [{"startAutoSetupAsync", "autoSetupClickedSignal"}]
   SETTABLEKS R2 R3 K3 ["startAutoSetupAsync"]
+  GETTABLEKS R4 R0 K4 ["autoSetupClickedSignal"]
+  SETTABLEKS R4 R3 K4 ["autoSetupClickedSignal"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["createElement"]
+  GETTABLEKS R4 R5 K6 ["createElement"]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K6 ["Provider"]
-  DUPTABLE R6 K8 [{"value"}]
-  SETTABLEKS R3 R6 K7 ["value"]
-  GETTABLEKS R7 R0 K9 ["children"]
+  GETTABLEKS R5 R6 K7 ["Provider"]
+  DUPTABLE R6 K9 [{"value"}]
+  SETTABLEKS R3 R6 K8 ["value"]
+  GETTABLEKS R7 R0 K10 ["children"]
   CALL R4 3 -1
   RETURN R4 -1
 
@@ -264,21 +268,23 @@ MAIN:
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R10
-  DUPTABLE R12 K26 [{"startAutoSetupAsync"}]
+  DUPTABLE R12 K27 [{"startAutoSetupAsync", "autoSetupClickedSignal"}]
   SETTABLEKS R11 R12 K25 ["startAutoSetupAsync"]
-  GETTABLEKS R13 R2 K27 ["createContext"]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K26 ["autoSetupClickedSignal"]
+  GETTABLEKS R13 R2 K28 ["createContext"]
   MOVE R14 R12
   CALL R13 1 1
-  DUPCLOSURE R14 K28 [PROTO_5]
+  DUPCLOSURE R14 K29 [PROTO_5]
   CAPTURE VAL R2
   CAPTURE VAL R13
-  DUPCLOSURE R15 K29 [PROTO_7]
+  DUPCLOSURE R15 K30 [PROTO_7]
   CAPTURE VAL R2
   CAPTURE VAL R13
-  DUPTABLE R16 K32 [{"Context", "MockProviders"}]
-  SETTABLEKS R13 R16 K30 ["Context"]
-  DUPTABLE R17 K35 [{"Success", "FailsOnce"}]
-  SETTABLEKS R14 R17 K33 ["Success"]
-  SETTABLEKS R15 R17 K34 ["FailsOnce"]
-  SETTABLEKS R17 R16 K31 ["MockProviders"]
+  DUPTABLE R16 K33 [{"Context", "MockProviders"}]
+  SETTABLEKS R13 R16 K31 ["Context"]
+  DUPTABLE R17 K36 [{"Success", "FailsOnce"}]
+  SETTABLEKS R14 R17 K34 ["Success"]
+  SETTABLEKS R15 R17 K35 ["FailsOnce"]
+  SETTABLEKS R17 R16 K32 ["MockProviders"]
   RETURN R16 1

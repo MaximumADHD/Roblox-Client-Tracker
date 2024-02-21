@@ -49,6 +49,7 @@ local VRService = game:GetService("VRService")
 local FFlagSelfViewCameraDefaultButtonInViewPort = game:DefineFastFlag("SelfViewCameraDefaultButtonInViewPort", false)
 local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 local FFlagSelfViewHumanoidNilCheck = game:DefineFastFlag("SelfViewHumanoidNilCheck", false)
+local FFlagSelfViewMoreNilChecks = game:DefineFastFlag("SelfViewMoreNilChecks", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -92,6 +93,7 @@ local GetFFlagSelfViewPositionDragFixEnabled = require(CorePackages.Workspace.Pa
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 local FFlagMockFTUXAlwaysAvailableCameraUser = game:DefineFastFlag("MockOpenSelfViewForCameraUser", false)
@@ -196,8 +198,13 @@ local isVoiceConnecting = true
 local cloneCamUpdatePosEvery = 1
 local hasCameraPermissions = false
 local hasMicPermissions = false
+local voiceChatServiceEnabled = false
 local function getShouldShowMicButton()
-	if getFFlagEnableAlwaysAvailableCamera() then
+	if GetFFlagJoinWithoutMicPermissions() then
+		-- This makes sure that the mic button is still shown when the user is connecting to voice chat, but hidden when the user gets banned
+		return voiceChatServiceEnabled
+			and (not VoiceChatServiceManager:VoiceChatEnded() or isVoiceConnecting)
+	elseif getFFlagEnableAlwaysAvailableCamera() then
 		return hasMicPermissions
 	else
 		return hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
@@ -293,7 +300,7 @@ local TYPES_TRIGGERING_DIRTY_ON_ADDREMOVE = {
 	SurfaceAppearance = "SurfaceAppearance",
 }
 
-log:trace("Self View 02-01-2024__1!!")
+log:trace("Self View 02-14-2024__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -557,6 +564,9 @@ function initVoiceChatServiceManager()
 			:andThen(function()
 				local voiceService = VoiceChatServiceManager:getService()
 				if voiceService then
+					if GetFFlagJoinWithoutMicPermissions() then
+						voiceChatServiceEnabled = true
+					end
 					--trigger opening self view here (too) so it shows mic button (, too, if cam also enabled), needed here again to show both buttons on self view showing on place start
 					displaySelfieViewByDefault()
 				voiceService.StateChanged:Connect(function(_oldState, newState)
@@ -608,10 +618,16 @@ end
 function getMicPermission()
 	local callback = function(response)
 		hasMicPermissions = response.hasMicPermissions
-
-		if hasMicPermissions and not vCInitialized then
-			initVoiceChatServiceManager()
-			vCInitialized = true
+		if GetFFlagJoinWithoutMicPermissions() then
+			if not vCInitialized then
+				initVoiceChatServiceManager()
+				vCInitialized = true
+			end
+		else
+			if hasMicPermissions and not vCInitialized then
+				initVoiceChatServiceManager()
+				vCInitialized = true
+			end
 		end
 	end
 	getCamMicPermissions(callback, { PermissionsProtocol.Permissions.MICROPHONE_ACCESS :: string }, nil, "FaceChatSelfieView.getMicPermission")
@@ -1817,7 +1833,11 @@ local function updateClone(player)
 	local orgHead = getHead(character)
 
 	clone = character:Clone()
-
+	
+	if FFlagSelfViewMoreNilChecks and clone == nil then
+		return
+	end
+	
 	--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
 	removeTagsFromSelfViewClone(clone)
 
@@ -1896,32 +1916,33 @@ local function updateClone(player)
 			--it does not return the visual mesh's bounding box
 			--and hence is then too small for some heads (like Piggy)
 			local head = getHead(clone)
-			local headTargetCFrame = CFrameUtility.CalculateTargetCFrame(head.CFrame)
-			local minHeadExtent, maxHeadExtent = CharacterUtility.CalculateHeadExtents(clone, headTargetCFrame)
-			local oMin, oMax = Vector3.new(minHeadExtent.X, minHeadExtent.Y, minHeadExtent.Z), Vector3.new(maxHeadExtent.X, maxHeadExtent.Y, maxHeadExtent.Z)
-			boundsSize = (oMax-oMin)
+			if not FFlagSelfViewMoreNilChecks or head then
+				local headTargetCFrame = CFrameUtility.CalculateTargetCFrame(head.CFrame)
+				local minHeadExtent, maxHeadExtent = CharacterUtility.CalculateHeadExtents(clone, headTargetCFrame)
+				local oMin, oMax = Vector3.new(minHeadExtent.X, minHeadExtent.Y, minHeadExtent.Z), Vector3.new(maxHeadExtent.X, maxHeadExtent.Y, maxHeadExtent.Z)
+				boundsSize = (oMax-oMin)
 
-			headHeight = head.Size.Y
-			local width = math.min(boundsSize.X, boundsSize.Y)
-			width = math.min(boundsSize.X, boundsSize.Z)
+				headHeight = head.Size.Y
+				local width = math.min(boundsSize.X, boundsSize.Y)
+				width = math.min(boundsSize.X, boundsSize.Z)
 
-			local dummyModel = Instance.new("Model")
-			dummyModel.Parent = clone
-			local head = getHead(clone)
-			character.Archivable = true
-			headClone = head:Clone()
-			headClone.CanCollide = false
-			headClone.Parent = dummyModel
+				local dummyModel = Instance.new("Model")
+				dummyModel.Parent = clone
+				character.Archivable = true
+				headClone = head:Clone()
+				headClone.CanCollide = false
+				headClone.Parent = dummyModel
 
-			headCloneNeck = getNeck(clone, headClone)
-			local rootPart = headClone
-			headCloneRootFrame = rootPart.CFrame
-			headClone:Destroy()
-			local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
-			viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
-			viewportCamera.Focus = headCloneRootFrame
-			character.Archivable = previousArchivableValue
-			dummyModel:Destroy()
+				headCloneNeck = getNeck(clone, headClone)
+				local rootPart = headClone
+				headCloneRootFrame = rootPart.CFrame
+				headClone:Destroy()
+				local center = headCloneRootFrame.Position + headCloneRootFrame.LookVector * (width * DEFAULT_CAM_DISTANCE)
+				viewportCamera.CFrame = CFrame.lookAt(center + DEFAULT_SELF_VIEW_CAM_OFFSET, headCloneRootFrame.Position)
+				viewportCamera.Focus = headCloneRootFrame
+				character.Archivable = previousArchivableValue
+				dummyModel:Destroy()
+			end
 		else
 			--when no head was found which is a Part or MeshPart:
 			--basic fallback to focus the avatar in the viewportframe

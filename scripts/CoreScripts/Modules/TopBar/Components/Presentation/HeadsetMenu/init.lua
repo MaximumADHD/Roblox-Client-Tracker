@@ -12,8 +12,7 @@ local Components = script.Parent.Parent
 local TopBar = Components.Parent
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
 
-local Modules = CoreGui.RobloxGui.Modules
-local isSubjectToDesktopPolicies = require(Modules.InGameMenu.isSubjectToDesktopPolicies)
+local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
 
 local DisconnectedDialog = require(script.DisconnectedDialog)
 

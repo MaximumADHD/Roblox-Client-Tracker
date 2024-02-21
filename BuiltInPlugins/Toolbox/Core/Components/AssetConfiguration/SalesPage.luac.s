@@ -86,106 +86,106 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R2 R3 K1 ["Stylizer"]
-  GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R4 R3 K2 ["layoutOrder"]
-  GETTABLEKS R5 R3 K3 ["size"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K4 ["createElement"]
-  GETUPVAL R7 1
-  NEWTABLE R8 8 0
-  SETTABLEKS R5 R8 K5 ["Size"]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K6 ["BackgroundTransparency"]
-  LOADN R9 0
-  SETTABLEKS R9 R8 K7 ["BorderSizePixel"]
-  SETTABLEKS R4 R8 K8 ["LayoutOrder"]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Stylizer"]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R3 R2 K2 ["layoutOrder"]
+  GETTABLEKS R4 R2 K3 ["size"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 1
+  NEWTABLE R7 8 0
+  SETTABLEKS R4 R7 K5 ["Size"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K6 ["BackgroundTransparency"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K7 ["BorderSizePixel"]
+  SETTABLEKS R3 R7 K8 ["LayoutOrder"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K9 ["Ref"]
+  GETTABLEKS R9 R0 K10 ["frameRef"]
+  SETTABLE R9 R7 R8
+  DUPTABLE R8 K13 [{"Padding", "Body"}]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K9 ["Ref"]
-  GETTABLEKS R10 R0 K10 ["frameRef"]
-  SETTABLE R10 R8 R9
-  DUPTABLE R9 K13 [{"Padding", "Body"}]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K4 ["createElement"]
-  LOADK R11 K14 ["UIPadding"]
-  DUPTABLE R12 K19 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R13 K22 [UDim.new]
-  LOADN R14 0
-  LOADN R15 30
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K15 ["PaddingTop"]
-  GETIMPORT R13 K22 [UDim.new]
-  LOADN R14 0
-  LOADN R15 30
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K16 ["PaddingBottom"]
-  GETIMPORT R13 K22 [UDim.new]
-  LOADN R14 0
-  GETUPVAL R15 2
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K17 ["PaddingLeft"]
-  GETIMPORT R13 K22 [UDim.new]
-  LOADN R14 0
-  GETUPVAL R15 2
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K18 ["PaddingRight"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K11 ["Padding"]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K4 ["createElement"]
-  GETUPVAL R11 3
-  DUPTABLE R12 K32 [{"OnLinkClicked", "Text", "LinkText", "LinkPlaceholder", "AutomaticSize", "TextXAlignment", "HorizontalAlignment", "MaxWidth", "TextProps"}]
-  GETTABLEKS R13 R0 K33 ["openCreatorDashboardConfigureLink"]
-  SETTABLEKS R13 R12 K23 ["OnLinkClicked"]
-  GETTABLEKS R14 R0 K0 ["props"]
-  GETTABLEKS R13 R14 K34 ["Localization"]
-  LOADK R15 K35 ["General"]
-  LOADK R16 K36 ["CreatorDashboardLinkMessage"]
-  DUPTABLE R17 K38 [{"creatorDashboardLink"}]
-  LOADK R18 K39 ["{creatorDashboardLink}"]
-  SETTABLEKS R18 R17 K37 ["creatorDashboardLink"]
-  NAMECALL R13 R13 K40 ["getText"]
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K24 ["Text"]
-  GETTABLEKS R14 R0 K0 ["props"]
-  GETTABLEKS R13 R14 K34 ["Localization"]
-  LOADK R15 K35 ["General"]
-  LOADK R16 K41 ["CreatorDashboard"]
-  DUPTABLE R17 K38 [{"creatorDashboardLink"}]
-  LOADK R18 K39 ["{creatorDashboardLink}"]
-  SETTABLEKS R18 R17 K37 ["creatorDashboardLink"]
-  NAMECALL R13 R13 K40 ["getText"]
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K25 ["LinkText"]
-  LOADK R13 K39 ["{creatorDashboardLink}"]
-  SETTABLEKS R13 R12 K26 ["LinkPlaceholder"]
-  GETIMPORT R13 K44 [Enum.AutomaticSize.Y]
-  SETTABLEKS R13 R12 K27 ["AutomaticSize"]
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  LOADK R10 K14 ["UIPadding"]
+  DUPTABLE R11 K19 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R12 K22 [UDim.new]
+  LOADN R13 0
+  LOADN R14 30
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K15 ["PaddingTop"]
+  GETIMPORT R12 K22 [UDim.new]
+  LOADN R13 0
+  LOADN R14 30
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K16 ["PaddingBottom"]
+  GETIMPORT R12 K22 [UDim.new]
+  LOADN R13 0
+  GETUPVAL R14 2
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K17 ["PaddingLeft"]
+  GETIMPORT R12 K22 [UDim.new]
+  LOADN R13 0
+  GETUPVAL R14 2
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K18 ["PaddingRight"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K11 ["Padding"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K32 [{"OnLinkClicked", "Text", "LinkText", "LinkPlaceholder", "AutomaticSize", "TextXAlignment", "HorizontalAlignment", "MaxWidth", "TextProps"}]
+  GETTABLEKS R12 R0 K33 ["openCreatorDashboardConfigureLink"]
+  SETTABLEKS R12 R11 K23 ["OnLinkClicked"]
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R12 R13 K34 ["Localization"]
+  LOADK R14 K35 ["General"]
+  LOADK R15 K36 ["CreatorDashboardLinkMessage"]
+  DUPTABLE R16 K38 [{"creatorDashboardLink"}]
+  LOADK R17 K39 ["{creatorDashboardLink}"]
+  SETTABLEKS R17 R16 K37 ["creatorDashboardLink"]
+  NAMECALL R12 R12 K40 ["getText"]
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K24 ["Text"]
+  GETTABLEKS R13 R0 K0 ["props"]
+  GETTABLEKS R12 R13 K34 ["Localization"]
+  LOADK R14 K35 ["General"]
+  LOADK R15 K41 ["CreatorDashboard"]
+  DUPTABLE R16 K38 [{"creatorDashboardLink"}]
+  LOADK R17 K39 ["{creatorDashboardLink}"]
+  SETTABLEKS R17 R16 K37 ["creatorDashboardLink"]
+  NAMECALL R12 R12 K40 ["getText"]
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K25 ["LinkText"]
+  LOADK R12 K39 ["{creatorDashboardLink}"]
+  SETTABLEKS R12 R11 K26 ["LinkPlaceholder"]
+  GETIMPORT R12 K44 [Enum.AutomaticSize.Y]
+  SETTABLEKS R12 R11 K27 ["AutomaticSize"]
+  GETIMPORT R12 K46 [Enum.TextXAlignment.Center]
+  SETTABLEKS R12 R11 K28 ["TextXAlignment"]
+  GETIMPORT R12 K47 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R12 R11 K29 ["HorizontalAlignment"]
+  GETUPVAL R12 4
+  SETTABLEKS R12 R11 K30 ["MaxWidth"]
+  DUPTABLE R12 K51 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextXAlignment"}]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K6 ["BackgroundTransparency"]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K52 ["FONT"]
+  SETTABLEKS R13 R12 K48 ["Font"]
+  GETTABLEKS R13 R1 K53 ["TextColor"]
+  SETTABLEKS R13 R12 K49 ["TextColor3"]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K54 ["FONT_SIZE_TITLE"]
+  SETTABLEKS R13 R12 K50 ["TextSize"]
   GETIMPORT R13 K46 [Enum.TextXAlignment.Center]
   SETTABLEKS R13 R12 K28 ["TextXAlignment"]
-  GETIMPORT R13 K47 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R13 R12 K29 ["HorizontalAlignment"]
-  GETUPVAL R13 4
-  SETTABLEKS R13 R12 K30 ["MaxWidth"]
-  DUPTABLE R13 K51 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextXAlignment"}]
-  LOADN R14 1
-  SETTABLEKS R14 R13 K6 ["BackgroundTransparency"]
-  GETUPVAL R15 5
-  GETTABLEKS R14 R15 K52 ["FONT"]
-  SETTABLEKS R14 R13 K48 ["Font"]
-  GETTABLEKS R14 R2 K53 ["TextColor"]
-  SETTABLEKS R14 R13 K49 ["TextColor3"]
-  GETUPVAL R15 5
-  GETTABLEKS R14 R15 K54 ["FONT_SIZE_TITLE"]
-  SETTABLEKS R14 R13 K50 ["TextSize"]
-  GETIMPORT R14 K46 [Enum.TextXAlignment.Center]
-  SETTABLEKS R14 R13 K28 ["TextXAlignment"]
-  SETTABLEKS R13 R12 K31 ["TextProps"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K12 ["Body"]
-  CALL R6 3 -1
-  RETURN R6 -1
+  SETTABLEKS R12 R11 K31 ["TextProps"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K12 ["Body"]
+  CALL R5 3 -1
+  RETURN R5 -1
 
 PROTO_7:
   GETUPVAL R3 0

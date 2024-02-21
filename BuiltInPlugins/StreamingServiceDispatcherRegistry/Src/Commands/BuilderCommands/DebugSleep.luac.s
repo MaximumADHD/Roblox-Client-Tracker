@@ -23,7 +23,7 @@ PROTO_0:
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ConvAIAddDraftModeForSceneCreate"]
+  LOADK R2 K2 ["ConvAIAddDraftModeForSceneCreate2"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   DUPCLOSURE R1 K4 [PROTO_0]

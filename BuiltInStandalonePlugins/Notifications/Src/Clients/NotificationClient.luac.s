@@ -123,36 +123,49 @@ PROTO_5:
   MOVE R5 R6
   CONCAT R3 R4 R5
   CALL R1 2 1
-  DUPTABLE R2 K7 [{"NotificationChannel"}]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K8 ["Studio"]
-  GETTABLEKS R3 R4 K9 ["rawValue"]
+  NEWTABLE R2 0 0
+  GETUPVAL R3 2
   CALL R3 0 1
-  SETTABLEKS R3 R2 K6 ["NotificationChannel"]
-  DUPTABLE R3 K14 [{"Url", "Body", "Method", "Headers"}]
-  SETTABLEKS R1 R3 K10 ["Url"]
-  GETUPVAL R4 3
-  MOVE R6 R2
-  NAMECALL R4 R4 K15 ["JSONEncode"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K11 ["Body"]
-  LOADK R4 K16 ["PUT"]
-  SETTABLEKS R4 R3 K12 ["Method"]
-  NEWTABLE R4 1 0
-  LOADK R5 K17 ["application/json"]
-  SETTABLEKS R5 R4 K18 ["Content-Type"]
-  SETTABLEKS R4 R3 K13 ["Headers"]
+  JUMPIFNOT R3 [+12]
+  NEWTABLE R3 1 0
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K6 ["Studio"]
+  GETTABLEKS R4 R5 K7 ["rawValue"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K8 ["notification-channel"]
+  MOVE R2 R3
+  JUMP [+10]
+  DUPTABLE R3 K10 [{"NotificationChannel"}]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K6 ["Studio"]
+  GETTABLEKS R4 R5 K7 ["rawValue"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K9 ["NotificationChannel"]
+  MOVE R2 R3
+  DUPTABLE R3 K15 [{"Url", "Body", "Method", "Headers"}]
+  SETTABLEKS R1 R3 K11 ["Url"]
   GETUPVAL R4 4
-  GETUPVAL R6 4
-  MOVE R8 R3
-  NAMECALL R6 R6 K19 ["request"]
-  CALL R6 2 -1
-  NAMECALL R4 R4 K20 ["handleRetry"]
-  CALL R4 -1 1
-  DUPCLOSURE R6 K21 [PROTO_4]
-  NAMECALL R4 R4 K22 ["catch"]
+  MOVE R6 R2
+  NAMECALL R4 R4 K16 ["JSONEncode"]
   CALL R4 2 1
-  NAMECALL R4 R4 K23 ["await"]
+  SETTABLEKS R4 R3 K12 ["Body"]
+  LOADK R4 K17 ["PUT"]
+  SETTABLEKS R4 R3 K13 ["Method"]
+  NEWTABLE R4 1 0
+  LOADK R5 K18 ["application/json"]
+  SETTABLEKS R5 R4 K19 ["Content-Type"]
+  SETTABLEKS R4 R3 K14 ["Headers"]
+  GETUPVAL R4 5
+  GETUPVAL R6 5
+  MOVE R8 R3
+  NAMECALL R6 R6 K20 ["request"]
+  CALL R6 2 -1
+  NAMECALL R4 R4 K21 ["handleRetry"]
+  CALL R4 -1 1
+  DUPCLOSURE R6 K22 [PROTO_4]
+  NAMECALL R4 R4 K23 ["catch"]
+  CALL R4 2 1
+  NAMECALL R4 R4 K24 ["await"]
   CALL R4 1 -1
   RETURN R4 -1
 
@@ -188,29 +201,36 @@ MAIN:
   NAMECALL R6 R6 K18 ["GetService"]
   CALL R6 2 1
   GETIMPORT R7 K4 [require]
-  GETTABLEKS R10 R0 K20 ["Src"]
-  GETTABLEKS R9 R10 K21 ["Enums"]
-  GETTABLEKS R8 R9 K22 ["NotificationChannel"]
+  GETTABLEKS R11 R0 K20 ["Src"]
+  GETTABLEKS R10 R11 K21 ["Util"]
+  GETTABLEKS R9 R10 K22 ["SharedFlags"]
+  GETTABLEKS R8 R9 K23 ["getFFlagNotificationsMarkAllAsRead"]
   CALL R7 1 1
-  DUPCLOSURE R8 K23 [PROTO_1]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K20 ["Src"]
+  GETTABLEKS R10 R11 K24 ["Enums"]
+  GETTABLEKS R9 R10 K25 ["NotificationChannel"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K26 [PROTO_1]
   CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  DUPCLOSURE R10 K27 [PROTO_3]
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  DUPCLOSURE R11 K28 [PROTO_5]
+  CAPTURE VAL R6
+  CAPTURE VAL R2
   CAPTURE VAL R7
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  DUPCLOSURE R9 K24 [PROTO_3]
-  CAPTURE VAL R6
-  CAPTURE VAL R2
+  CAPTURE VAL R8
   CAPTURE VAL R5
   CAPTURE VAL R4
-  DUPCLOSURE R10 K25 [PROTO_5]
-  CAPTURE VAL R6
-  CAPTURE VAL R2
-  CAPTURE VAL R7
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  DUPTABLE R11 K29 [{"getNotifications", "markNotificationRead", "markAllNotificationsRead"}]
-  SETTABLEKS R8 R11 K26 ["getNotifications"]
-  SETTABLEKS R9 R11 K27 ["markNotificationRead"]
-  SETTABLEKS R10 R11 K28 ["markAllNotificationsRead"]
-  RETURN R11 1
+  DUPTABLE R12 K32 [{"getNotifications", "markNotificationRead", "markAllNotificationsRead"}]
+  SETTABLEKS R9 R12 K29 ["getNotifications"]
+  SETTABLEKS R10 R12 K30 ["markNotificationRead"]
+  SETTABLEKS R11 R12 K31 ["markAllNotificationsRead"]
+  RETURN R12 1

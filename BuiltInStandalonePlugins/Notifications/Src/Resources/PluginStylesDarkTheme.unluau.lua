@@ -6,9 +6,9 @@ var1.NotificationStatusDisabledIcon = "rbxasset://studio_svg_textures/Lua/Notifi
 var1.NotificationStatusUnreadIcon = "rbxasset://studio_svg_textures/Lua/Notifications/Dark/Standard/NotificationBadgeUnread.png"
 var1.NotificationEmptyTrayIcon = "rbxasset://studio_svg_textures/Lua/Notifications/Dark/SI-Standard/Celebration.png"
 var1.NotificationErrorIcon = "rbxasset://studio_svg_textures/Lua/Notifications/Dark/SI-Standard/Oof.png"
-local var25 = ipairs(require(var0.Src.Resources.NotificationLuaIcons))
-local var3 = `{var27}`
+local var201 = ipairs(require(var0.Src.Resources.NotificationLuaIcons))
+local var3 = `{var203}`
 var3 = `rbxasset://studio_svg_textures/Lua/Notifications/Dark/Large/%*.png`
 var3 = var3
-var25 = require(var0.Packages.Framework).Styling.createStyleSheet
-return var25("NotificationsPluginDarkTheme", {}, var1)
+var201 = require(var0.Packages.Framework).Styling.createStyleSheet
+return var201("NotificationsPluginDarkTheme", {}, var1)

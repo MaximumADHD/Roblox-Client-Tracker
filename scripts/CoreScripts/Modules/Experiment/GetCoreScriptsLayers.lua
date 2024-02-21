@@ -1,5 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
+local FFlagEnableCapturesDesktopExperiment = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableCapturesDesktopExperiment
+local FStringCapturesIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringCapturesIXPLayer
 local GetFFlagShareInviteLinkContextMenuABTestEnabled = require(script.Parent.Parent.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
 local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
 local GetFStringLargerRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLargerRobuxUpsellIxpLayer
@@ -67,6 +69,10 @@ return function()
 
 	if GetFFlagUXForCameraPerformanceIXPEnabled() then
 		table.insert(layers, GetFStringUXForCameraPerformanceIXPLayerName())
+	end
+
+	if FFlagEnableCapturesDesktopExperiment then
+		table.insert(layers, FStringCapturesIXPLayer)
 	end
 
 	return layers

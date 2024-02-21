@@ -19,15 +19,17 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local BadgeOver12 = require(script.Parent.BadgeOver12)
 
 local VRHub = require(RobloxGui.Modules.VR.VRHub)
 
-local isSubjectToDesktopPolicies = require(RobloxGui.Modules.InGameMenu.isSubjectToDesktopPolicies)
+local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
 
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local GetFFlagChangeTopbarHeightCalculation = require(script.Parent.Parent.Parent.Flags.GetFFlagChangeTopbarHeightCalculation)
 local FFlagEnableChromeBackwardsSignalAPI = require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
+local GetFFlagAddOver12TopBarBadge = require(script.Parent.Parent.Parent.Parent.Flags.GetFFlagAddOver12TopBarBadge)
 
 local Components = script.Parent.Parent
 local Actions = Components.Parent.Actions
@@ -57,6 +59,8 @@ local DEFAULT_DELAY_TIME = if tooltipEnabled then 0.65 else 0.4
 local MENU_TOOLTIP_LABEL = "CoreScripts.TopBar.RobloxMenu"
 local MENU_TOOLTIP_FALLBACK = "Roblox Menu"
 local MENU_HOTKEYS = { Enum.KeyCode.Escape }
+local BADGE_INDENT = 1
+local BADGE_OFFSET = 4
 
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 
@@ -65,6 +69,7 @@ MenuIcon.validateProps = t.strictInterface({
 	setGamepadMenuOpen = t.callback,
 	iconScale = t.optional(t.number),
 	onAreaChanged = t.optional(t.callback),
+	showBadgeOver12 = t.optional(t.boolean),
 })
 
 function MenuIcon:init()
@@ -109,7 +114,7 @@ function MenuIcon:init()
 			self:setState({
 				isHovering = true,
 			})
-			
+
 			delay(DEFAULT_DELAY_TIME, function()
 				if self.state.isHovering and not self.state.clickLatched then
 					self:setState({
@@ -173,6 +178,10 @@ function MenuIcon:render()
 		callback = self.showTopBarCallback,
 	})
 
+	local badgeOver12 = if GetFFlagAddOver12TopBarBadge() and self.props.showBadgeOver12 then Roact.createElement(BadgeOver12, {
+		position = if ChromeEnabled() then UDim2.new(0, BADGE_INDENT, 1, -(Constants.TopBarButtonPadding + BADGE_INDENT)) else UDim2.new(0, -BADGE_OFFSET, 1, BADGE_OFFSET)
+	}) else nil
+
 	if tooltipEnabled then
 		local tooltipText = MENU_TOOLTIP_FALLBACK
 		pcall(function()
@@ -205,6 +214,7 @@ function MenuIcon:render()
 				[Roact.Change.AbsoluteSize] = onChange,
 				[Roact.Change.AbsolutePosition] = onChange,
 			}, {
+				BadgeOver12 = badgeOver12,
 				Background = background,
 				ShowTopBarListener = showTopBarListener,
 			})
@@ -218,6 +228,7 @@ function MenuIcon:render()
 			[Roact.Change.AbsoluteSize] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
 			[Roact.Change.AbsolutePosition] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled()) then onAreaChanged else nil,
 		}, {
+			BadgeOver12 = badgeOver12,
 			Background = background,
 			ShowTopBarListener = showTopBarListener,
 		})

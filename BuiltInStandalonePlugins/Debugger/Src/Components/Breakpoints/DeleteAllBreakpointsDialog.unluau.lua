@@ -10,43 +10,43 @@ local var7 = var1.PureComponent:extend("DeleteAllBreakpointsDialog")
 function var7.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
-   local var28 = {}
-   var28.Style = "AcceptCancel"
-   var28.Enabled = var0.Enabled
-   var28.Modal = true
-   var28.Title = var1:getText("BreakpointsWindow", "DeleteAll")
-   var28.MinContentSize = Vector2.new(300, 100)
-   local var41 = {}
-   var41.Key = "Yes"
-   var41.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupYes")
-   local var47 = {}
-   var47.Key = "No"
-   var47.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupNo")
-   var28.Buttons = {}
-   function var28.OnButtonPressed(arg1)
+   local var71 = {}
+   var71.Style = "AcceptCancel"
+   var71.Enabled = var0.Enabled
+   var71.Modal = true
+   var71.Title = var1:getText("BreakpointsWindow", "DeleteAll")
+   var71.MinContentSize = Vector2.new(300, 100)
+   local var84 = {}
+   var84.Key = "Yes"
+   var84.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupYes")
+   local var90 = {}
+   var90.Key = "No"
+   var90.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupNo")
+   var71.Buttons = {}
+   function var71.OnButtonPressed(arg1)
       if arg1 == "Yes" then
          var0.DeleteAllBreakpoints()
       end
       var0.CloseDialog()
    end
    
-   function var28.OnClose()
+   function var71.OnClose()
       var0.CloseDialog()
    end
    
-   local var60 = {}
-   local var64 = {}
-   var64.BackgroundTransparency = 1
-   var64.TextSize = 20
-   var64.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupText")
-   var64.TextColor3 = Color3.new(1, 1, 1)
-   var64.Size = UDim2.fromScale(1, 1)
-   var64.Position = UDim2.fromScale(0, 0)
-   var60.Contents = var1.createElement(var4, var64)
-   return var1.createElement(var5, var28, var60)
+   local var103 = {}
+   local var107 = {}
+   var107.BackgroundTransparency = 1
+   var107.TextSize = 20
+   var107.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupText")
+   var107.TextColor3 = Color3.new(1, 1, 1)
+   var107.Size = UDim2.fromScale(1, 1)
+   var107.Position = UDim2.fromScale(0, 0)
+   var103.Contents = var1.createElement(var4, var107)
+   return var1.createElement(var5, var71, var103)
 end
 
-local var87 = {}
-var87.Localization = var6.Localization
-var7 = var6.withContext(var87)(var7)
+local var130 = {}
+var130.Localization = var6.Localization
+var7 = var6.withContext(var130)(var7)
 return var7

@@ -71,7 +71,7 @@ PROTO_2:
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
   LOADK R13 K18 ["Path2D"]
-  DUPTABLE R14 K22 [{"Color", "Thickness", "ref"}]
+  DUPTABLE R14 K23 [{"Color", "Thickness", "ref", "Transparency"}]
   GETTABLEKS R15 R1 K19 ["Color"]
   JUMPIF R15 [+2]
   GETTABLEKS R15 R2 K19 ["Color"]
@@ -80,9 +80,13 @@ PROTO_2:
   JUMPIF R15 [+2]
   GETTABLEKS R15 R2 K20 ["Thickness"]
   SETTABLEKS R15 R14 K20 ["Thickness"]
-  GETTABLEKS R16 R0 K23 ["pathRefs"]
+  GETTABLEKS R16 R0 K24 ["pathRefs"]
   GETTABLEN R15 R16 1
   SETTABLEKS R15 R14 K21 ["ref"]
+  GETTABLEKS R15 R2 K22 ["Transparency"]
+  JUMPIF R15 [+2]
+  GETTABLEKS R15 R1 K22 ["Transparency"]
+  SETTABLEKS R15 R14 K22 ["Transparency"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K16 ["ForegroundLine"]
   CALL R8 3 1
@@ -98,94 +102,31 @@ PROTO_2:
   LOADN R13 1
   CALL R11 2 1
   SETTABLEKS R11 R10 K11 ["Size"]
-  SUBK R11 R3 K24 [1]
+  SUBK R11 R3 K25 [1]
   SETTABLEKS R11 R10 K2 ["ZIndex"]
-  NEWTABLE R11 0 4
-  GETTABLEKS R12 R2 K25 ["ContrastColor"]
-  JUMPIFNOT R12 [+29]
+  DUPTABLE R11 K27 [{"ContrastPath"}]
+  GETTABLEKS R12 R2 K28 ["ContrastColor"]
+  JUMPIFNOT R12 [+30]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
   LOADK R13 K18 ["Path2D"]
-  DUPTABLE R14 K26 [{"Position", "Color", "Thickness", "ref"}]
-  GETIMPORT R15 K28 [UDim2.fromOffset]
-  LOADN R16 255
-  LOADN R17 0
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K6 ["Position"]
-  GETTABLEKS R15 R2 K25 ["ContrastColor"]
+  DUPTABLE R14 K23 [{"Color", "Thickness", "ref", "Transparency"}]
+  GETTABLEKS R15 R2 K28 ["ContrastColor"]
   SETTABLEKS R15 R14 K19 ["Color"]
-  GETTABLEKS R15 R1 K20 ["Thickness"]
-  JUMPIF R15 [+2]
-  GETTABLEKS R15 R2 K20 ["Thickness"]
-  SETTABLEKS R15 R14 K20 ["Thickness"]
-  GETTABLEKS R16 R0 K23 ["pathRefs"]
-  GETTABLEN R15 R16 2
-  SETTABLEKS R15 R14 K21 ["ref"]
-  CALL R12 2 1
-  GETTABLEKS R13 R2 K25 ["ContrastColor"]
-  JUMPIFNOT R13 [+29]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K3 ["createElement"]
-  LOADK R14 K18 ["Path2D"]
-  DUPTABLE R15 K26 [{"Position", "Color", "Thickness", "ref"}]
-  GETIMPORT R16 K28 [UDim2.fromOffset]
-  LOADN R17 0
-  LOADN R18 255
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K6 ["Position"]
-  GETTABLEKS R16 R2 K25 ["ContrastColor"]
-  SETTABLEKS R16 R15 K19 ["Color"]
   GETTABLEKS R16 R1 K20 ["Thickness"]
   JUMPIF R16 [+2]
   GETTABLEKS R16 R2 K20 ["Thickness"]
-  SETTABLEKS R16 R15 K20 ["Thickness"]
-  GETTABLEKS R17 R0 K23 ["pathRefs"]
-  GETTABLEN R16 R17 3
-  SETTABLEKS R16 R15 K21 ["ref"]
-  CALL R13 2 1
-  GETTABLEKS R14 R2 K25 ["ContrastColor"]
-  JUMPIFNOT R14 [+29]
-  GETUPVAL R15 0
-  GETTABLEKS R14 R15 K3 ["createElement"]
-  LOADK R15 K18 ["Path2D"]
-  DUPTABLE R16 K26 [{"Position", "Color", "Thickness", "ref"}]
-  GETIMPORT R17 K28 [UDim2.fromOffset]
-  LOADN R18 0
-  LOADN R19 1
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K6 ["Position"]
-  GETTABLEKS R17 R2 K25 ["ContrastColor"]
-  SETTABLEKS R17 R16 K19 ["Color"]
-  GETTABLEKS R17 R1 K20 ["Thickness"]
-  JUMPIF R17 [+2]
-  GETTABLEKS R17 R2 K20 ["Thickness"]
-  SETTABLEKS R17 R16 K20 ["Thickness"]
-  GETTABLEKS R18 R0 K23 ["pathRefs"]
-  GETTABLEN R17 R18 4
-  SETTABLEKS R17 R16 K21 ["ref"]
-  CALL R14 2 1
-  GETTABLEKS R15 R2 K25 ["ContrastColor"]
-  JUMPIFNOT R15 [+29]
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K3 ["createElement"]
-  LOADK R16 K18 ["Path2D"]
-  DUPTABLE R17 K26 [{"Position", "Color", "Thickness", "ref"}]
-  GETIMPORT R18 K28 [UDim2.fromOffset]
-  LOADN R19 1
-  LOADN R20 0
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K6 ["Position"]
-  GETTABLEKS R18 R2 K25 ["ContrastColor"]
-  SETTABLEKS R18 R17 K19 ["Color"]
-  GETTABLEKS R18 R1 K20 ["Thickness"]
-  JUMPIF R18 [+2]
-  GETTABLEKS R18 R2 K20 ["Thickness"]
-  SETTABLEKS R18 R17 K20 ["Thickness"]
-  GETTABLEKS R19 R0 K23 ["pathRefs"]
-  GETTABLEN R18 R19 5
-  SETTABLEKS R18 R17 K21 ["ref"]
-  CALL R15 2 1
-  SETLIST R11 R12 4 [1]
+  ADDK R15 R16 K25 [1]
+  SETTABLEKS R15 R14 K20 ["Thickness"]
+  GETTABLEKS R16 R0 K24 ["pathRefs"]
+  GETTABLEN R15 R16 2
+  SETTABLEKS R15 R14 K21 ["ref"]
+  GETTABLEKS R15 R2 K22 ["Transparency"]
+  JUMPIF R15 [+2]
+  GETTABLEKS R15 R1 K22 ["Transparency"]
+  SETTABLEKS R15 R14 K22 ["Transparency"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K26 ["ContrastPath"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K9 ["Background"]
   CALL R4 3 -1
@@ -227,25 +168,25 @@ MAIN:
   LOADK R9 K15 ["Line"]
   NAMECALL R7 R7 K16 ["extend"]
   CALL R7 2 1
-  DUPTABLE R8 K18 [{"Position"}]
-  GETIMPORT R9 K21 [UDim2.fromOffset]
-  LOADN R10 0
-  LOADN R11 0
-  CALL R9 2 1
+  DUPTABLE R8 K19 [{"Position", "Transparency"}]
+  GETIMPORT R9 K22 [UDim2.new]
+  CALL R9 0 1
   SETTABLEKS R9 R8 K17 ["Position"]
-  SETTABLEKS R8 R7 K22 ["defaultProps"]
-  DUPCLOSURE R8 K23 [PROTO_1]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K18 ["Transparency"]
+  SETTABLEKS R8 R7 K23 ["defaultProps"]
+  DUPCLOSURE R8 K24 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K24 ["init"]
-  DUPCLOSURE R8 K25 [PROTO_2]
+  SETTABLEKS R8 R7 K25 ["init"]
+  DUPCLOSURE R8 K26 [PROTO_2]
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K26 ["render"]
-  DUPCLOSURE R8 K27 [PROTO_3]
-  SETTABLEKS R8 R7 K28 ["didMount"]
-  DUPCLOSURE R8 K29 [PROTO_4]
-  SETTABLEKS R8 R7 K30 ["didUpdate"]
+  SETTABLEKS R8 R7 K27 ["render"]
+  DUPCLOSURE R8 K28 [PROTO_3]
+  SETTABLEKS R8 R7 K29 ["didMount"]
+  DUPCLOSURE R8 K30 [PROTO_4]
+  SETTABLEKS R8 R7 K31 ["didUpdate"]
   MOVE R8 R5
-  DUPTABLE R9 K31 [{"Stylizer"}]
+  DUPTABLE R9 K32 [{"Stylizer"}]
   SETTABLEKS R6 R9 K13 ["Stylizer"]
   CALL R8 1 1
   MOVE R9 R7

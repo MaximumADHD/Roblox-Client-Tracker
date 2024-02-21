@@ -1,0 +1,67 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TerrainEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["Category"]
+  NEWTABLE R3 16 0
+  GETTABLEKS R4 R2 K9 ["BiomeSettings"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K10 ["Biome"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R2 K11 ["BrushSettings"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K12 ["Brush"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R2 K13 ["ClearSettings"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K14 ["Clear"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R2 K15 ["HeightmapSettings"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K16 ["Heightmap"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R2 K17 ["MaterialSettings"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K18 ["Material"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R2 K19 ["SeaLevelSettings"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K20 ["SeaLevel"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R2 K21 ["SelectionSettings"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K22 ["Selection"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R2 K23 ["TransformSettings"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K24 ["Transform"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  GETTABLEKS R4 R2 K25 ["UpgradeSettings"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K26 ["Upgrade"]
+  CALL R5 1 1
+  SETTABLE R5 R3 R4
+  RETURN R3 1

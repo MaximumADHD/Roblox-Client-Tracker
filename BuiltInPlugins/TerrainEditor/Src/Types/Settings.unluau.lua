@@ -117,5 +117,6 @@ local var18 = {}
 var18.Global = "Global"
 var18.LocalPersistent = "LocalPersistent"
 var18.LocalSession = "LocalSession"
+var18.LocalSubform = "LocalSubform"
 var5.Storage = var18
 return var5

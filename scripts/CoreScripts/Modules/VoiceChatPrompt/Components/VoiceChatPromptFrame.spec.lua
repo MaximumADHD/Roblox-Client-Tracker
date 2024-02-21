@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local CoreGui = game:GetService("CoreGui")
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local VoiceChatPromptFrame = require(script.Parent.VoiceChatPromptFrame)
@@ -13,6 +15,8 @@ return function()
 	local PromptType = require(script.Parent.Parent.PromptType)
 
 	local Localization = require(CorePackages.Workspace.Packages.RobloxAppLocales).Localization
+
+	local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 
 	local AnalyticsMockStub = {
 		reportBanMessageEvent = function(str) end,
@@ -67,7 +71,7 @@ return function()
 		end)
 
 		it("should display updated ban modal when signal is passed in", function()
-			local oldValue = game:SetFastFlagForTesting("UpdateNudgeV3VoiceBanUI", true)
+			local oldValue = game:SetFastFlagForTesting("UpdateNudgeV3VoiceBanUI2", true)
 
 			local signal = Instance.new("BindableEvent")
 
@@ -106,10 +110,10 @@ return function()
 			})
 			jestExpect(incorrectNudgeLabel).toBeDefined()
 
-			local micUseSuspendedLabel = RhodiumHelpers.findFirstInstance(instance, {
-				text = localization:Format("Feature.SettingsHub.Prompt.MicUseSuspended"),
+			local voiceChatSuspendedLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.VoiceChatSuspended"),
 			})
-			jestExpect(micUseSuspendedLabel).toBeDefined()
+			jestExpect(voiceChatSuspendedLabel).toBeDefined()
 
 			local updatedVoiceBanLabel1 = RhodiumHelpers.findFirstInstance(instance, {
 				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.TemporaryVoiceBan1"),
@@ -129,11 +133,11 @@ return function()
 			jestExpect(xMinuteSuspensionLabel).toBeDefined()
 
 			Roact.unmount(instance)
-			game:SetFastFlagForTesting("UpdateNudgeV3VoiceBanUI", oldValue)
+			game:SetFastFlagForTesting("UpdateNudgeV3VoiceBanUI2", oldValue)
 		end)
 
 		it("should call onPrimaryActivated and onSecondaryActivated correctly", function()
-			local oldValue = game:SetFastFlagForTesting("UpdateNudgeV3VoiceBanUI", true)
+			local oldValue = game:SetFastFlagForTesting("UpdateNudgeV3VoiceBanUI2", true)
 
 			local signal = Instance.new("BindableEvent")
 
@@ -192,7 +196,45 @@ return function()
 			jestExpect(vcsMock).toHaveBeenCalledWith("Denied")
 
 			Roact.unmount(instance)
-			game:SetFastFlagForTesting("UpdateNudgeV3VoiceBanUI", oldValue)
+			game:SetFastFlagForTesting("UpdateNudgeV3VoiceBanUI2", oldValue)
+		end)
+
+		it("should display feedback toast correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.VoiceToxicityFeedbackToast)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local feedbackToastSubtitleKey = if GetFFlagUpdateNudgeV3VoiceBanUI()
+				then "Feature.SettingsHub.Prompt.Subtitle.ThanksForLettingUsKnow"
+				else "Feature.SettingsHub.Prompt.Subtitle.ThankYouForFeedback"
+
+			local feedbackToastTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.ThankYouForFeedback"),
+			})
+			local feedbackToastSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format(feedbackToastSubtitleKey),
+			})
+
+			jestExpect(feedbackToastTitle).toBeDefined()
+			jestExpect(feedbackToastSubtitle).toBeDefined()
+
+			Roact.unmount(instance)
 		end)
 	end)
 end

@@ -1,10 +1,10 @@
 PROTO_0:
   DUPTABLE R0 K6 [{"Move", "AddPoint", "AddTangent", "Done", "DeletePoint", "DeletePoint2"}]
-  LOADK R1 K7 ["1"]
+  LOADK R1 K7 ["s"]
   SETTABLEKS R1 R0 K0 ["Move"]
-  LOADK R1 K8 ["2"]
+  LOADK R1 K8 ["p"]
   SETTABLEKS R1 R0 K1 ["AddPoint"]
-  LOADK R1 K9 ["3"]
+  LOADK R1 K9 ["t"]
   SETTABLEKS R1 R0 K2 ["AddTangent"]
   LOADK R1 K10 ["return"]
   SETTABLEKS R1 R0 K3 ["Done"]

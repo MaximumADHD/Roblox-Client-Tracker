@@ -30,8 +30,8 @@ local var1 = {
    Enum.Material.SmoothPlastic, 
    Enum.Material.Snow
 }
-local var68 = Enum.Material.Ice
-local var69 = Enum.Material.LeafyGrass
+local var50 = Enum.Material.Ice
+local var51 = Enum.Material.LeafyGrass
 local var4 = Enum.Material.Wood
 local var5 = Enum.Material.WoodPlanks
 local var6 = {}

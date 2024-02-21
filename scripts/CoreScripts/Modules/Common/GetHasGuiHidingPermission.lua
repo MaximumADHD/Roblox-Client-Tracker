@@ -15,23 +15,8 @@ return function(isStudio, localPlayer, permissionsModule)
 			return
 		end
 
-		if isStudio then
-			resolve(true)
-			return
-		end
-
 		if not localPlayer then
 			reject("Invalid local player")
-			return
-		end
-
-		if not permissionsModule then
-			reject("Invalid permissions module")
-			return
-		end
-
-		if permissionsModule.CanPlayerManagePlaceAsync(localPlayer) then
-			resolve(true)
 			return
 		end
 

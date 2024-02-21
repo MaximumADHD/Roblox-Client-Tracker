@@ -1,14 +1,38 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+29]
   GETUPVAL R1 1
-  DUPTABLE R2 K2 [{"notificationClient"}]
-  GETUPVAL R3 2
-  SETTABLEKS R3 R2 K1 ["notificationClient"]
-  DUPTABLE R3 K4 [{"NotificationTray"}]
-  GETUPVAL R5 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 2
+  NEWTABLE R2 0 0
+  NEWTABLE R3 0 1
+  GETUPVAL R5 1
   GETTABLEKS R4 R5 K0 ["createElement"]
   GETUPVAL R5 3
+  DUPTABLE R6 K2 [{"notificationClient"}]
+  GETUPVAL R7 4
+  SETTABLEKS R7 R6 K1 ["notificationClient"]
+  DUPTABLE R7 K4 [{"NotificationTray"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K0 ["createElement"]
+  GETUPVAL R9 5
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K3 ["NotificationTray"]
+  CALL R4 3 -1
+  SETLIST R3 R4 -1 [1]
+  CALL R0 3 -1
+  RETURN R0 -1
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 3
+  DUPTABLE R2 K2 [{"notificationClient"}]
+  GETUPVAL R3 4
+  SETTABLEKS R3 R2 K1 ["notificationClient"]
+  DUPTABLE R3 K4 [{"NotificationTray"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 5
   CALL R4 1 1
   SETTABLEKS R4 R3 K3 ["NotificationTray"]
   CALL R0 3 -1
@@ -36,12 +60,25 @@ MAIN:
   CALL R3 1 1
   GETIMPORT R4 K4 [require]
   GETTABLEKS R7 R0 K7 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Components"]
-  GETTABLEKS R5 R6 K13 ["NotificationTray"]
+  GETTABLEKS R6 R7 K10 ["Contexts"]
+  GETTABLEKS R5 R6 K12 ["MenuVisibleProvider"]
   CALL R4 1 1
-  DUPCLOSURE R5 K14 [PROTO_0]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K7 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Components"]
+  GETTABLEKS R6 R7 K14 ["NotificationTray"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R10 R0 K7 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Util"]
+  GETTABLEKS R8 R9 K16 ["SharedFlags"]
+  GETTABLEKS R7 R8 K17 ["getFFlagNotificationsMarkAllAsRead"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K18 [PROTO_0]
+  CAPTURE VAL R6
   CAPTURE VAL R1
+  CAPTURE VAL R4
   CAPTURE VAL R3
   CAPTURE VAL R2
-  CAPTURE VAL R4
-  RETURN R5 1
+  CAPTURE VAL R5
+  RETURN R7 1

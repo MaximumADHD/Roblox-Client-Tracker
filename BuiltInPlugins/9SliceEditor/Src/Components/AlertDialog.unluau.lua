@@ -24,65 +24,65 @@ local function fun2(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var0.Localization
-   local var59 = {}
-   var59.Style = "Alert"
-   var59.Enabled = arg1.state.enabled
-   var59.Title = var2:getText("AlertDialog", var0.TitleKey)
-   local var68 = {}
-   var68.Key = "ok"
-   var68.Text = var2:getText("AlertDialog", "OkButtonText")
-   var59.Buttons = {}
-   var59.OnButtonPressed = arg1.closeDialog
-   var59.OnClose = var0.OnClose
-   var59.MinContentSize = var1.PopupMessageSize
-   var59.Modal = true
-   local var78 = {}
-   local var82 = {}
-   var82.Size = UDim2.fromScale(0.95, 1)
-   var82.AnchorPoint = Vector2.new(0.5, 0)
-   var82.Position = UDim2.fromScale(0.5, 0)
-   var82.Text = var2:getText("AlertDialog", var0.MessageKey, var0.MessageKeyFormatTable)
-   var82.TextColor = var1.TextColor
-   var82.TextWrapped = true
-   var82.TextSize = var1.TextSize
-   var82.TextXAlignment = Enum.TextXAlignment.Left
-   var78.Label = var1.createElement(var5, var82)
-   return var1.createElement(var6, var59, var78)
+   local var7 = {}
+   var7.Style = "Alert"
+   var7.Enabled = arg1.state.enabled
+   var7.Title = var2:getText("AlertDialog", var0.TitleKey)
+   local var16 = {}
+   var16.Key = "ok"
+   var16.Text = var2:getText("AlertDialog", "OkButtonText")
+   var7.Buttons = {}
+   var7.OnButtonPressed = arg1.closeDialog
+   var7.OnClose = var0.OnClose
+   var7.MinContentSize = var1.PopupMessageSize
+   var7.Modal = true
+   local var26 = {}
+   local var30 = {}
+   var30.Size = UDim2.fromScale(0.95, 1)
+   var30.AnchorPoint = Vector2.new(0.5, 0)
+   var30.Position = UDim2.fromScale(0.5, 0)
+   var30.Text = var2:getText("AlertDialog", var0.MessageKey, var0.MessageKeyFormatTable)
+   var30.TextColor = var1.TextColor
+   var30.TextWrapped = true
+   var30.TextSize = var1.TextSize
+   var30.TextXAlignment = Enum.TextXAlignment.Left
+   var26.Label = var1.createElement(var5, var30)
+   return var1.createElement(var6, var7, var26)
 end
 
 function var7.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var0.Localization
-   local var59 = {}
-   var59.Style = "Alert"
-   var59.Enabled = arg1.state.enabled
-   var59.Title = var2:getText("AlertDialog", var0.TitleKey)
-   local var68 = {}
-   var68.Key = "ok"
-   var68.Text = var2:getText("AlertDialog", "OkButtonText")
-   var59.Buttons = {}
-   var59.OnButtonPressed = arg1.closeDialog
-   var59.OnClose = var0.OnClose
-   var59.MinContentSize = var1.PopupMessageSize
-   var59.Modal = true
-   local var78 = {}
-   local var82 = {}
-   var82.Size = UDim2.fromScale(0.95, 1)
-   var82.AnchorPoint = Vector2.new(0.5, 0)
-   var82.Position = UDim2.fromScale(0.5, 0)
-   var82.Text = var2:getText("AlertDialog", var0.MessageKey, var0.MessageKeyFormatTable)
-   var82.TextColor = var1.TextColor
-   var82.TextWrapped = true
-   var82.TextSize = var1.TextSize
-   var82.TextXAlignment = Enum.TextXAlignment.Left
-   var78.Label = var1.createElement(var5, var82)
-   return var1.createElement(var6, var59, var78)
+   local var7 = {}
+   var7.Style = "Alert"
+   var7.Enabled = arg1.state.enabled
+   var7.Title = var2:getText("AlertDialog", var0.TitleKey)
+   local var16 = {}
+   var16.Key = "ok"
+   var16.Text = var2:getText("AlertDialog", "OkButtonText")
+   var7.Buttons = {}
+   var7.OnButtonPressed = arg1.closeDialog
+   var7.OnClose = var0.OnClose
+   var7.MinContentSize = var1.PopupMessageSize
+   var7.Modal = true
+   local var26 = {}
+   local var30 = {}
+   var30.Size = UDim2.fromScale(0.95, 1)
+   var30.AnchorPoint = Vector2.new(0.5, 0)
+   var30.Position = UDim2.fromScale(0.5, 0)
+   var30.Text = var2:getText("AlertDialog", var0.MessageKey, var0.MessageKeyFormatTable)
+   var30.TextColor = var1.TextColor
+   var30.TextWrapped = true
+   var30.TextSize = var1.TextSize
+   var30.TextXAlignment = Enum.TextXAlignment.Left
+   var26.Label = var1.createElement(var5, var30)
+   return var1.createElement(var6, var7, var26)
 end
 
 fun2 = var3.withContext
-local var106 = {}
-var106.Localization = var3.Localization
-var106.Stylizer = var3.Stylizer
-var7 = fun2(var106)(var7)
+local var54 = {}
+var54.Localization = var3.Localization
+var54.Stylizer = var3.Stylizer
+var7 = fun2(var54)(var7)
 return var7

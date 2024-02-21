@@ -11,13 +11,13 @@ function var6.render(arg1)
    if var0.relativeTo == "createElement" then
       local var0 = var1.ActiveInstance
    end
-   local var187 = {}
-   var187.target = var2
-   local var189 = {}
-   local var194 = {}
-   var194.Elements = var4(var0.objects, var0.space, var0.axes, var0.mode, nil)
-   var189.AlignToolPreviewUI = var3.createElement("Folder", {}, var194)
-   return var3.createElement(var3.Portal, var187, var189)
+   local var46 = {}
+   var46.target = var2
+   local var48 = {}
+   local var53 = {}
+   var53.Elements = var4(var0.objects, var0.space, var0.axes, var0.mode, nil)
+   var48.AlignToolPreviewUI = var3.createElement("Folder", {}, var53)
+   return var3.createElement(var3.Portal, var46, var48)
 end
 
 return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)

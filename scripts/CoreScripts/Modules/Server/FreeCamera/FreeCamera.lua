@@ -44,8 +44,17 @@ do
     FFlagUserExitFreecamBreaksWithShiftlock = success and result
 end
 
+local FFlagUserShowGuiHideToggles
+do
+    local success, result = pcall(function()
+        return UserSettings():IsUserFeatureEnabled("UserShowGuiHideToggles")
+    end)
+    FFlagUserShowGuiHideToggles = success and result
+end
+
 ------------------------------------------------------------------------
 
+local FREECAM_ENABLED_ATTRIBUTE_NAME = "FreecamEnabled"
 local TOGGLE_INPUT_PRIORITY = Enum.ContextActionPriority.Low.Value
 local INPUT_PRIORITY = Enum.ContextActionPriority.High.Value
 local FREECAM_MACRO_KB = {Enum.KeyCode.LeftShift, Enum.KeyCode.P}
@@ -406,6 +415,10 @@ local PlayerState = {} do
 end
 
 local function StartFreecam()
+	if FFlagUserShowGuiHideToggles then
+		script:SetAttribute(FREECAM_ENABLED_ATTRIBUTE_NAME, true)
+	end
+
 	local cameraCFrame = Camera.CFrame
 	cameraRot = Vector2.new(cameraCFrame:toEulerAnglesYXZ())
 	cameraPos = cameraCFrame.p
@@ -421,6 +434,10 @@ local function StartFreecam()
 end
 
 local function StopFreecam()
+	if FFlagUserShowGuiHideToggles then
+		script:SetAttribute(FREECAM_ENABLED_ATTRIBUTE_NAME, false)
+	end
+
 	Input.StopCapture()
 	RunService:UnbindFromRenderStep("Freecam")
 	PlayerState.Pop()
@@ -459,4 +476,28 @@ do
 	end
 
 	ContextActionService:BindActionAtPriority("FreecamToggle", HandleActivationInput, false, TOGGLE_INPUT_PRIORITY, FREECAM_MACRO_KB[#FREECAM_MACRO_KB])
+
+	if FFlagUserShowGuiHideToggles then
+		script:SetAttribute(FREECAM_ENABLED_ATTRIBUTE_NAME, enabled)
+		script:GetAttributeChangedSignal(FREECAM_ENABLED_ATTRIBUTE_NAME):Connect(function()
+			local attributeValue = script:GetAttribute(FREECAM_ENABLED_ATTRIBUTE_NAME)
+
+			if typeof(attributeValue) ~= "boolean" then
+				script:SetAttribute(FREECAM_ENABLED_ATTRIBUTE_NAME, enabled)
+				return
+			end
+
+			-- If the attribute's value and `enabled` var don't match, pick attribute value as 
+			-- source of truth
+			if attributeValue ~= enabled then
+				if attributeValue then
+					StartFreecam()
+					enabled = true
+				else
+					StopFreecam()
+					enabled = false
+				end
+			end
+		end)
+	end
 end

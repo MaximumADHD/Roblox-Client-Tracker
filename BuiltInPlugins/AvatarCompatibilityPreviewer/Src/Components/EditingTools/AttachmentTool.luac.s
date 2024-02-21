@@ -49,17 +49,19 @@ PROTO_2:
   FASTCALL2 ASSERT R3 R4 [+3]
   GETIMPORT R2 K5 [assert]
   CALL R2 2 0
-  DUPTABLE R2 K9 [{"name", "getCFrame", "onChange"}]
-  GETTABLEKS R3 R1 K10 ["Name"]
+  DUPTABLE R2 K10 [{"name", "limb", "getCFrame", "onChange"}]
+  GETTABLEKS R3 R1 K11 ["Name"]
   SETTABLEKS R3 R2 K6 ["name"]
+  GETTABLEKS R3 R1 K12 ["Parent"]
+  SETTABLEKS R3 R2 K7 ["limb"]
   NEWCLOSURE R3 P0
   CAPTURE UPVAL U0
   CAPTURE REF R1
-  SETTABLEKS R3 R2 K7 ["getCFrame"]
+  SETTABLEKS R3 R2 K8 ["getCFrame"]
   NEWCLOSURE R3 P1
   CAPTURE REF R1
   CAPTURE UPVAL U0
-  SETTABLEKS R3 R2 K8 ["onChange"]
+  SETTABLEKS R3 R2 K9 ["onChange"]
   CLOSEUPVALS R1
   RETURN R2 1
 
@@ -257,14 +259,12 @@ PROTO_5:
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["createElement"]
   GETUPVAL R3 2
-  DUPTABLE R4 K5 [{"name", "worldModel", "points", "symmetrical"}]
-  LOADK R5 K6 ["AttachmentTool"]
+  DUPTABLE R4 K4 [{"name", "worldModel", "points"}]
+  LOADK R5 K5 ["AttachmentTool"]
   SETTABLEKS R5 R4 K2 ["name"]
   GETTABLEKS R5 R0 K0 ["worldModel"]
   SETTABLEKS R5 R4 K0 ["worldModel"]
   SETTABLEKS R1 R4 K3 ["points"]
-  GETTABLEKS R5 R0 K4 ["symmetrical"]
-  SETTABLEKS R5 R4 K4 ["symmetrical"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -285,19 +285,26 @@ MAIN:
   GETTABLEKS R3 R4 K11 ["BodyPointsTool"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Util"]
-  GETTABLEKS R4 R5 K13 ["Constants"]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K9 ["Components"]
+  GETTABLEKS R6 R7 K10 ["EditingTools"]
+  GETTABLEKS R5 R6 K11 ["BodyPointsTool"]
+  GETTABLEKS R4 R5 K12 ["Types"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K14 ["Types"]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Util"]
+  GETTABLEKS R5 R6 K14 ["Constants"]
   CALL R4 1 1
-  DUPCLOSURE R5 K15 [PROTO_4]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_4]
   CAPTURE VAL R1
-  CAPTURE VAL R3
-  DUPCLOSURE R6 K16 [PROTO_5]
-  CAPTURE VAL R5
+  CAPTURE VAL R4
+  DUPCLOSURE R7 K16 [PROTO_5]
+  CAPTURE VAL R6
   CAPTURE VAL R1
   CAPTURE VAL R2
-  RETURN R6 1
+  RETURN R7 1

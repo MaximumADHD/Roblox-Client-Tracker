@@ -9,16 +9,22 @@ PROTO_0:
   JUMPIFNOT R1 [+2]
   LOADB R1 0
   RETURN R1 1
-  GETIMPORT R1 K8 [game]
-  LOADK R3 K9 ["EnablePathEditor"]
-  NAMECALL R1 R1 K10 ["GetFastFlag"]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K7 ["IsRunning"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  GETIMPORT R1 K9 [game]
+  LOADK R3 K10 ["EnablePathEditor"]
+  NAMECALL R1 R1 K11 ["GetEngineFeature"]
   CALL R1 2 1
   JUMPIF R1 [+2]
   LOADB R1 0
   RETURN R1 1
-  GETIMPORT R1 K8 [game]
-  LOADK R3 K11 ["Path2DControlPointAtomicClass"]
-  NAMECALL R1 R1 K10 ["GetFastFlag"]
+  GETIMPORT R1 K9 [game]
+  LOADK R3 K12 ["Path2DControlPointAtomicClass4"]
+  NAMECALL R1 R1 K13 ["GetFastFlag"]
   CALL R1 2 1
   JUMPIF R1 [+2]
   LOADB R1 0
@@ -28,5 +34,10 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

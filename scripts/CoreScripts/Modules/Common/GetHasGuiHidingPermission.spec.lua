@@ -37,17 +37,13 @@ return function()
 			local success, result =
 				GetHasGuiHidingPermission(true, playerNoGroup, playerPermissionsAllow):timeout(5):await()
 			expect(success).toBe(true)
-			expect(result).toBe(featureSupported)
+			
+			if not featureSupported then
+				expect(result).toBe(false)
+			end
 		end)
 
 		if game:GetEngineFeature("GuiHidingApiSupport") then
-			it("should return true in studio regardless of player group/permissions", function()
-				local success, result =
-					GetHasGuiHidingPermission(true, playerNoGroup, playerPermissionsDisallow):timeout(5):await()
-				expect(success).toBe(true)
-				expect(result).toBe(true)
-			end)
-
 			it("should return false for a player not in the required group and without manage permissions", function()
 				local success, result =
 					GetHasGuiHidingPermission(false, playerNoGroup, playerPermissionsDisallow):timeout(5):await()
@@ -58,13 +54,6 @@ return function()
 			it("should return true if player is in the correct group, regardless of manage permissions", function()
 				local success, result =
 					GetHasGuiHidingPermission(false, playerGuiHideGroup, playerPermissionsDisallow):timeout(5):await()
-				expect(success).toBe(true)
-				expect(result).toBe(true)
-			end)
-
-			it("should return true if player has manage permissions, regardless of group", function()
-				local success, result =
-					GetHasGuiHidingPermission(false, playerNoGroup, playerPermissionsAllow):timeout(5):await()
 				expect(success).toBe(true)
 				expect(result).toBe(true)
 			end)

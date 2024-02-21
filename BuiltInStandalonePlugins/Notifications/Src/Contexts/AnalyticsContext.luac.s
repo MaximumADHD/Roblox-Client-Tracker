@@ -71,6 +71,12 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["MarkAllAsReadClicked"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
   GETUPVAL R1 0
   LOADK R2 K0 ["NotificationTrayOpened"]
   DUPTABLE R3 K2 [{"bellUnseen"}]
@@ -78,11 +84,11 @@ PROTO_4:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  DUPTABLE R2 K4 [{"notificationClicked", "markAllAsRead", "settingsButtonClicked", "trayOpened"}]
+  DUPTABLE R2 K5 [{"notificationClicked", "markAllAsRead", "settingsButtonClicked", "markAllAsReadClicked", "trayOpened"}]
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
   CAPTURE UPVAL U1
@@ -95,7 +101,10 @@ PROTO_5:
   SETTABLEKS R3 R2 K2 ["settingsButtonClicked"]
   NEWCLOSURE R3 P4
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K3 ["trayOpened"]
+  SETTABLEKS R3 R2 K3 ["markAllAsReadClicked"]
+  NEWCLOSURE R3 P5
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K4 ["trayOpened"]
   RETURN R2 1
 
 MAIN:
@@ -123,7 +132,7 @@ MAIN:
   GETTABLEKS R7 R8 K12 ["Clients"]
   GETTABLEKS R6 R7 K13 ["NotificationClient"]
   CALL R5 1 1
-  DUPCLOSURE R6 K14 [PROTO_5]
+  DUPCLOSURE R6 K14 [PROTO_6]
   CAPTURE VAL R3
   CAPTURE VAL R4
   SETGLOBAL R6 K15 ["createAnalyticsHandler"]

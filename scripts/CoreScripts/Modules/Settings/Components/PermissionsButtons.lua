@@ -42,6 +42,7 @@ local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.Ge
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
+local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 
 if GetFFlagRemoveInGameChatBubbleChatReferences() then
 	displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
@@ -346,6 +347,9 @@ function PermissionsButtons:render()
 	local shouldShowMicButtons = self.state.hasMicPermissions
 	if GetFFlagUpdateSelfieViewOnBan() then
 		shouldShowMicButtons = self.state.hasMicPermissions and not VoiceChatServiceManager:VoiceChatEnded()
+	end
+	if GetFFlagJoinWithoutMicPermissions() then
+		shouldShowMicButtons = self.state.voiceServiceInitialized and not VoiceChatServiceManager:VoiceChatEnded()
 	end
 	local shouldShowCameraButtons = self.state.hasCameraPermissions
 	if getFFlagDoNotPromptCameraPermissionsOnMount() then

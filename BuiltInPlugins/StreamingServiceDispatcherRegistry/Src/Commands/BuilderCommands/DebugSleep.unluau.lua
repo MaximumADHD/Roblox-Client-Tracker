@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = game:GetFastFlag("ConvAIAddDraftModeForSceneCreate")
+local var0 = game:GetFastFlag("ConvAIAddDraftModeForSceneCreate2")
 return function(arg1)
    assert(var0, "debugSleep: FFlagConvAIAddDraftModeForSceneCreate is not enabled!")
    if arg1 then

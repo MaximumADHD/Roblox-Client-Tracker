@@ -70,6 +70,7 @@ local FFlagTopBarUseNewBadge = game:DefineFastFlag("TopBarUseNewBadge", false)
 local FFlagControlBetaBadgeWithGuac = game:DefineFastFlag("ControlBetaBadgeWithGuac", false)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
+local GetFFlagAddOver12TopBarBadge = require(script.Parent.Parent.Parent.Flags.GetFFlagAddOver12TopBarBadge)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
@@ -93,6 +94,7 @@ TopBarApp.validateProps = t.strictInterface({
 
 	setScreenSize = t.callback,
 	setKeepOutArea = t.callback,
+	showBadgeOver12 = t.optional(t.boolean),
 })
 
 function TopBarApp:init()
@@ -227,6 +229,7 @@ function TopBarApp:renderWithStyle(style)
 			MenuIcon = Roact.createElement(MenuIcon, {
 				iconScale = if self.props.menuOpen then 1.25 else 1,
 				layoutOrder = 1,
+				showBadgeOver12 = if GetFFlagAddOver12TopBarBadge() then self.props.showBadgeOver12 else nil,
 			}),
 		}),
 
@@ -495,6 +498,7 @@ function TopBarApp:renderWithStyle(style)
 
 				MenuIcon = not isNewTiltIconEnabled() and Roact.createElement(MenuIcon, {
 					layoutOrder = 1,
+					showBadgeOver12 = if GetFFlagAddOver12TopBarBadge() then self.props.showBadgeOver12 else nil,
 				}),
 
 				BackIcon = not chromeEnabled and GetFFlagEnableTeleportBackButton() and Roact.createElement(BackIcon, {
@@ -562,6 +566,7 @@ end
 local TopBarAppWithPolicy = TopBarAppPolicy.connect(function(appPolicy, props)
 	return {
 		displayBetaBadge = appPolicy.getDisplayVoiceBetaBadge(),
+		showBadgeOver12 = if GetFFlagAddOver12TopBarBadge() then appPolicy.showBadgeOver12() else nil,
 	}
 end)(TopBarApp)
 

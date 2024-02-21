@@ -13,28 +13,28 @@ local var10 = var7.TextLabel
 local var11 = var7.Separator
 local var12 = require(var0.Src.Thunks.UpdatePlugin)
 local var13 = var1.PureComponent:extend("UpdateOverview")
-local var299 = {}
-var299.LayoutOrder = 1
-var299.data = nil
-var13.defaultProps = var299
+local var1129 = {}
+var1129.LayoutOrder = 1
+var1129.data = nil
+var13.defaultProps = var1129
 function var13.init(arg1)
    local var0 = arg1.props
    local var1 = var0.plugin
    local var2 = var0.updateAvailable
    local var3 = tostring(var0.data.assetId)
-   local var310 = {}
-   var310.checked = var0.data.autoUpdateEnabled
-   var310.lastModified = var0.data.updated
-   arg1.state = var310
+   local var1140 = {}
+   var1140.checked = var0.data.autoUpdateEnabled
+   var1140.lastModified = var0.data.updated
+   arg1.state = var1140
    function arg1.onClick()
-      local var322 = arg1
-      local var0 = var322.state.checked
-      var322 = tonumber(var3)
-      game:GetService("PluginManagementService"):SetAutoUpdate(var322, var0)
-      local var329 = {}
-      var329.checked = var0
-      var329.lastModified = var0.data.updated
-      arg1:setState(var329)
+      local var1153 = arg1
+      local var0 = var1153.state.checked
+      var1153 = tonumber(var3)
+      game:GetService("PluginManagementService"):SetAutoUpdate(var1153, var0)
+      local var1160 = {}
+      var1160.checked = var0
+      var1160.lastModified = var0.data.updated
+      arg1:setState(var1160)
       if var0 then
          if var2 then
             var0.Analytics:report("TryUpdatePlugin", var0.data.assetId)
@@ -45,134 +45,134 @@ function var13.init(arg1)
    
 end
 
-local function fun9(arg1)
+local function fun29(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
    local var2 = var0.Stylizer
-   local var356 = {}
-   var356.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var356.LayoutOrder = var0.LayoutOrder
-   var356.Layout = Enum.FillDirection.Horizontal
-   var356.Position = UDim2.fromOffset(0, 0)
-   var356.Size = UDim2.new(1, 0, 0, var4.PLUGIN_UPDATE_HEIGHT)
-   var356.Spacing = 10
-   var356.Style = "Box"
-   local var372 = {}
-   local var376 = {}
-   var376.AutomaticSize = Enum.AutomaticSize.XY
-   var376.Layout = Enum.FillDirection.Horizontal
-   var376.LayoutOrder = 1
-   var376.Spacing = 10
-   var376.Style = "Box"
-   local var382 = {}
-   local var386 = {}
-   var386.AutomaticSize = Enum.AutomaticSize.XY
-   var386.Checked = arg1.state.checked
-   var386.Disabled = false
-   var386.Font = var2.Font
-   var386.LayoutOrder = 1
-   var386.OnClick = arg1.onClick
-   var382.UpdateCheckbox = var1.createElement(var9, var386)
-   local var398 = {}
-   var398.AutomaticSize = Enum.AutomaticSize.XY
-   var398.Font = var2.Font
-   var398.LayoutOrder = 2
-   var398.Text = var1:getText("PluginEntry", "AutoUpdateText")
-   var398.TextSize = 16
-   var398.TextXAlignment = Enum.TextXAlignment.Left
-   var382.UpdateText = var1.createElement(var10, var398)
-   var372.UpdatePane = var1.createElement(var8, var376, var382)
-   local var413 = {}
-   var413.DominantAxis = Enum.DominantAxis.Height
-   var413.LayoutOrder = 2
-   var413.Style = var2.Separator
-   var372.Separator = var1.createElement(var11, var413)
-   local var421 = {}
-   var421.Font = var2.Font
-   var421.LayoutOrder = 3
-   var421.Size = UDim2.fromScale(0.5, 1)
-   local var430 = {}
-   var430.date = arg1.state.lastModified
-   var421.Text = var1:getText("PluginEntry", "AutoUpdateEntry", var430)
-   var421.TextSize = 16
-   var421.TextXAlignment = Enum.TextXAlignment.Left
-   var372.LastUpdatedText = var1.createElement(var10, var421)
-   return var1.createElement(var8, var356, var372)
+   local var1207 = {}
+   var1207.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var1207.LayoutOrder = var0.LayoutOrder
+   var1207.Layout = Enum.FillDirection.Horizontal
+   var1207.Position = UDim2.fromOffset(0, 0)
+   var1207.Size = UDim2.new(1, 0, 0, var4.PLUGIN_UPDATE_HEIGHT)
+   var1207.Spacing = 10
+   var1207.Style = "Box"
+   local var1224 = {}
+   local var1228 = {}
+   var1228.AutomaticSize = Enum.AutomaticSize.XY
+   var1228.Layout = Enum.FillDirection.Horizontal
+   var1228.LayoutOrder = 1
+   var1228.Spacing = 10
+   var1228.Style = "Box"
+   local var1234 = {}
+   local var1238 = {}
+   var1238.AutomaticSize = Enum.AutomaticSize.XY
+   var1238.Checked = arg1.state.checked
+   var1238.Disabled = false
+   var1238.Font = var2.Font
+   var1238.LayoutOrder = 1
+   var1238.OnClick = arg1.onClick
+   var1234.UpdateCheckbox = var1.createElement(var9, var1238)
+   local var1251 = {}
+   var1251.AutomaticSize = Enum.AutomaticSize.XY
+   var1251.Font = var2.Font
+   var1251.LayoutOrder = 2
+   var1251.Text = var1:getText("PluginEntry", "AutoUpdateText")
+   var1251.TextSize = 16
+   var1251.TextXAlignment = Enum.TextXAlignment.Left
+   var1234.UpdateText = var1.createElement(var10, var1251)
+   var1224.UpdatePane = var1.createElement(var8, var1228, var1234)
+   local var1273 = {}
+   var1273.DominantAxis = Enum.DominantAxis.Height
+   var1273.LayoutOrder = 2
+   var1273.Style = var2.Separator
+   var1224.Separator = var1.createElement(var11, var1273)
+   local var1284 = {}
+   var1284.Font = var2.Font
+   var1284.LayoutOrder = 3
+   var1284.Size = UDim2.fromScale(0.5, 1)
+   local var1294 = {}
+   var1294.date = arg1.state.lastModified
+   var1284.Text = var1:getText("PluginEntry", "AutoUpdateEntry", var1294)
+   var1284.TextSize = 16
+   var1284.TextXAlignment = Enum.TextXAlignment.Left
+   var1224.LastUpdatedText = var1.createElement(var10, var1284)
+   return var1.createElement(var8, var1207, var1224)
 end
 
 function var13.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
    local var2 = var0.Stylizer
-   local var356 = {}
-   var356.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var356.LayoutOrder = var0.LayoutOrder
-   var356.Layout = Enum.FillDirection.Horizontal
-   var356.Position = UDim2.fromOffset(0, 0)
-   var356.Size = UDim2.new(1, 0, 0, var4.PLUGIN_UPDATE_HEIGHT)
-   var356.Spacing = 10
-   var356.Style = "Box"
-   local var372 = {}
-   local var376 = {}
-   var376.AutomaticSize = Enum.AutomaticSize.XY
-   var376.Layout = Enum.FillDirection.Horizontal
-   var376.LayoutOrder = 1
-   var376.Spacing = 10
-   var376.Style = "Box"
-   local var382 = {}
-   local var386 = {}
-   var386.AutomaticSize = Enum.AutomaticSize.XY
-   var386.Checked = arg1.state.checked
-   var386.Disabled = false
-   var386.Font = var2.Font
-   var386.LayoutOrder = 1
-   var386.OnClick = arg1.onClick
-   var382.UpdateCheckbox = var1.createElement(var9, var386)
-   local var398 = {}
-   var398.AutomaticSize = Enum.AutomaticSize.XY
-   var398.Font = var2.Font
-   var398.LayoutOrder = 2
-   var398.Text = var1:getText("PluginEntry", "AutoUpdateText")
-   var398.TextSize = 16
-   var398.TextXAlignment = Enum.TextXAlignment.Left
-   var382.UpdateText = var1.createElement(var10, var398)
-   var372.UpdatePane = var1.createElement(var8, var376, var382)
-   local var413 = {}
-   var413.DominantAxis = Enum.DominantAxis.Height
-   var413.LayoutOrder = 2
-   var413.Style = var2.Separator
-   var372.Separator = var1.createElement(var11, var413)
-   local var421 = {}
-   var421.Font = var2.Font
-   var421.LayoutOrder = 3
-   var421.Size = UDim2.fromScale(0.5, 1)
-   local var430 = {}
-   var430.date = arg1.state.lastModified
-   var421.Text = var1:getText("PluginEntry", "AutoUpdateEntry", var430)
-   var421.TextSize = 16
-   var421.TextXAlignment = Enum.TextXAlignment.Left
-   var372.LastUpdatedText = var1.createElement(var10, var421)
-   return var1.createElement(var8, var356, var372)
+   local var1207 = {}
+   var1207.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var1207.LayoutOrder = var0.LayoutOrder
+   var1207.Layout = Enum.FillDirection.Horizontal
+   var1207.Position = UDim2.fromOffset(0, 0)
+   var1207.Size = UDim2.new(1, 0, 0, var4.PLUGIN_UPDATE_HEIGHT)
+   var1207.Spacing = 10
+   var1207.Style = "Box"
+   local var1224 = {}
+   local var1228 = {}
+   var1228.AutomaticSize = Enum.AutomaticSize.XY
+   var1228.Layout = Enum.FillDirection.Horizontal
+   var1228.LayoutOrder = 1
+   var1228.Spacing = 10
+   var1228.Style = "Box"
+   local var1234 = {}
+   local var1238 = {}
+   var1238.AutomaticSize = Enum.AutomaticSize.XY
+   var1238.Checked = arg1.state.checked
+   var1238.Disabled = false
+   var1238.Font = var2.Font
+   var1238.LayoutOrder = 1
+   var1238.OnClick = arg1.onClick
+   var1234.UpdateCheckbox = var1.createElement(var9, var1238)
+   local var1251 = {}
+   var1251.AutomaticSize = Enum.AutomaticSize.XY
+   var1251.Font = var2.Font
+   var1251.LayoutOrder = 2
+   var1251.Text = var1:getText("PluginEntry", "AutoUpdateText")
+   var1251.TextSize = 16
+   var1251.TextXAlignment = Enum.TextXAlignment.Left
+   var1234.UpdateText = var1.createElement(var10, var1251)
+   var1224.UpdatePane = var1.createElement(var8, var1228, var1234)
+   local var1273 = {}
+   var1273.DominantAxis = Enum.DominantAxis.Height
+   var1273.LayoutOrder = 2
+   var1273.Style = var2.Separator
+   var1224.Separator = var1.createElement(var11, var1273)
+   local var1284 = {}
+   var1284.Font = var2.Font
+   var1284.LayoutOrder = 3
+   var1284.Size = UDim2.fromScale(0.5, 1)
+   local var1294 = {}
+   var1294.date = arg1.state.lastModified
+   var1284.Text = var1:getText("PluginEntry", "AutoUpdateEntry", var1294)
+   var1284.TextSize = 16
+   var1284.TextXAlignment = Enum.TextXAlignment.Left
+   var1224.LastUpdatedText = var1.createElement(var10, var1284)
+   return var1.createElement(var8, var1207, var1224)
 end
 
-fun9 = var5.withContext
-local var439 = {}
-var439.Analytics = var5.Analytics
-var439.Localization = var5.Localization
-var439.Plugin = var5.Plugin
-var439.Stylizer = var5.Stylizer
-var13 = fun9(var439)(var13)
+fun29 = var5.withContext
+local var1304 = {}
+var1304.Analytics = var5.Analytics
+var1304.Localization = var5.Localization
+var1304.Plugin = var5.Plugin
+var1304.Stylizer = var5.Stylizer
+var13 = fun29(var1304)(var13)
 return require(var0.Packages.RoactRodux).connect(nil, function(arg1)
    local var0 = {}
    function var0.UpdatePlugin()
-      local var456 = arg1
-      local var0 = var456.state.checked
-      var456 = tonumber(var3)
-      game:GetService("PluginManagementService"):SetAutoUpdate(var456, var0)
-      local var463 = {}
-      var463.checked = var0
-      var463.lastModified = var0.data.updated
-      arg1:setState(var463)
+      local var1324 = arg1
+      local var0 = var1324.state.checked
+      var1324 = tonumber(var3)
+      game:GetService("PluginManagementService"):SetAutoUpdate(var1324, var0)
+      local var1337 = {}
+      var1337.checked = var0
+      var1337.lastModified = var0.data.updated
+      arg1:setState(var1337)
       if var0 then
          if var2 then
             var0.Analytics:report("TryUpdatePlugin", var0.data.assetId)

@@ -10,119 +10,112 @@ local var7 = require(var5.SetLayerFilter)
 local var8 = require(var0.Src.Util.Constants)
 local var9 = var2.UI.showContextMenu
 local var10 = require(var0.Src.Types)
-local var11 = require(var0.LuaFlags.GetFFlagActiveLayersFilter)
-local var12 = var1.PureComponent:extend("SettingsButton")
-function var12.init(arg1)
+local var11 = var1.PureComponent:extend("SettingsButton")
+function var11.init(arg1)
    function arg1.toggleCrossFadeFilter()
       local var0 = arg1.props
       local var1 = var0.LayerFilters
       var1.CrossFade = var1.CrossFade
       var0.SetLayerFilter("CrossFade", var1.CrossFade)
-      local var60 = var8.SETTINGS
-      var60 = var1
-      var0.Plugin:get():SetSetting(var60.LayerFilters, var60)
+      local var56 = var8.SETTINGS
+      var56 = var1
+      var0.Plugin:get():SetSetting(var56.LayerFilters, var56)
    end
    
    function arg1.toggleActiveLayersFilter()
       local var0 = arg1.props.ActiveLayersFilter
-      local var73 = arg1.props
-      var73 = var0
-      var73.SetActiveLayersFilter(var73)
-      local var76 = var8.SETTINGS
-      var76 = var0
-      arg1.props.Plugin:get():SetSetting(var76.ActiveLayersFilter, var76)
+      local var69 = arg1.props
+      var69 = var0
+      var69.SetActiveLayersFilter(var69)
+      local var72 = var8.SETTINGS
+      var72 = var0
+      arg1.props.Plugin:get():SetSetting(var72.ActiveLayersFilter, var72)
    end
    
    function arg1.onButtonClicked()
       local var0 = arg1.props
       local var1 = var0.Localization
-      local var2 = {}
-      local var86 = {}
-      var86.Id = "ToggleCrossFade"
-      var86.Text = var1:getText("Settings", "ToggleCrossFade")
-      var86.Checked = arg1.props.LayerFilters.CrossFade
-      local var97 = arg1
-      local var98 = var97.toggleCrossFadeFilter
-      var86.OnItemClicked = var98
-      if var11() then
-         local var101 = {}
-         var101.Id = "ToggleActiveLayers"
-         var101.Text = var1:getText("Settings", "ToggleActiveLayers")
-         var101.Checked = arg1.props.ActiveLayersFilter
-         var101.OnItemClicked = arg1.toggleActiveLayersFilter
-         var98 = var2
-         table.insert(var98, var101)
-      end
-      var98 = var0.Plugin:get()
-      var97 = var2
-      var9(var98, var97)
+      local var82 = {}
+      var82.Id = "ToggleCrossFade"
+      var82.Text = var1:getText("Settings", "ToggleCrossFade")
+      var82.Checked = arg1.props.LayerFilters.CrossFade
+      var82.OnItemClicked = arg1.toggleCrossFadeFilter
+      local var95 = {}
+      var95.Id = "ToggleActiveLayers"
+      var95.Text = var1:getText("Settings", "ToggleActiveLayers")
+      var95.Checked = arg1.props.ActiveLayersFilter
+      local var105 = arg1.toggleActiveLayersFilter
+      var95.OnItemClicked = var105
+      var95 = var0.Plugin:get()
+      var105 = {}
+      var9(var95, var105)
    end
    
 end
 
 local function fun4(arg1)
    local var0 = arg1.props.Stylizer
-   local var120 = {}
-   var120.Size = var0.Size
-   var120.Position = UDim2.fromScale(1, 0.5)
-   var120.AnchorPoint = Vector2.new(1, 0.5)
-   var120.BackgroundTransparency = 1
-   var120.Image = var0.Image
-   var120.ImageColor3 = var0.Color
+   local var113 = {}
+   var113.Size = var0.Size
+   var113.Position = UDim2.fromScale(1, 0.5)
+   var113.AnchorPoint = Vector2.new(1, 0.5)
+   var113.BackgroundTransparency = 1
+   var113.Image = var0.Image
+   var113.ImageColor3 = var0.Color
    var1.Event.Activated = arg1.onButtonClicked
-   return var1.createElement("ImageButton", var120)
+   return var1.createElement("ImageButton", var113)
 end
 
-function var12.render(arg1)
+function var11.render(arg1)
    local var0 = arg1.props.Stylizer
-   local var120 = {}
-   var120.Size = var0.Size
-   var120.Position = UDim2.fromScale(1, 0.5)
-   var120.AnchorPoint = Vector2.new(1, 0.5)
-   var120.BackgroundTransparency = 1
-   var120.Image = var0.Image
-   var120.ImageColor3 = var0.Color
+   local var113 = {}
+   var113.Size = var0.Size
+   var113.Position = UDim2.fromScale(1, 0.5)
+   var113.AnchorPoint = Vector2.new(1, 0.5)
+   var113.BackgroundTransparency = 1
+   var113.Image = var0.Image
+   var113.ImageColor3 = var0.Color
    var1.Event.Activated = arg1.onButtonClicked
-   return var1.createElement("ImageButton", var120)
+   return var1.createElement("ImageButton", var113)
 end
 
 fun4 = var3.withContext
-local var138 = {}
-var138.Analytics = var3.Analytics
-var138.Localization = var3.Localization
-var138.Plugin = var3.Plugin
-local var142 = var2.Style
-var138.Stylizer = var142.Stylizer
-var12 = fun4(var138)(var12)
-function var142(arg1, arg2)
+local var131 = {}
+var131.Analytics = var3.Analytics
+var131.Localization = var3.Localization
+var131.Plugin = var3.Plugin
+local var135 = var2.Style
+var131.Stylizer = var135.Stylizer
+var11 = fun4(var131)(var11)
+function var135(arg1, arg2)
    local var0 = {}
    var0.ActiveLayersFilter = arg1.Status.ActiveLayersFilter
    var0.LayerFilters = arg1.Status.LayerFilters
    return var0
 end
 
-var12 = require(var0.Packages.RoactRodux).connect(var142, function(arg1)
+var11 = require(var0.Packages.RoactRodux).connect(var135, function(arg1)
    local var0 = {}
    function var0.SetActiveLayersFilter()
       local var0 = arg1.props
       local var1 = var0.LayerFilters
       var1.CrossFade = var1.CrossFade
       var0.SetLayerFilter("CrossFade", var1.CrossFade)
-      local var168 = var8.SETTINGS
-      var168 = var1
-      var0.Plugin:get():SetSetting(var168.LayerFilters, var168)
+      local var161 = var8.SETTINGS
+      var161 = var1
+      var0.Plugin:get():SetSetting(var161.LayerFilters, var161)
    end
    
    function var0.SetLayerFilter()
       local var0 = arg1.props.ActiveLayersFilter
-      local var181 = arg1.props
-      var181 = var0
-      var181.SetActiveLayersFilter(var181)
-      local var184 = var8.SETTINGS
-      var184 = var0
-      arg1.props.Plugin:get():SetSetting(var184.ActiveLayersFilter, var184)
+      local var174 = arg1.props
+      var174 = var0
+      var174.SetActiveLayersFilter(var174)
+      local var177 = var8.SETTINGS
+      var177 = var0
+      arg1.props.Plugin:get():SetSetting(var177.ActiveLayersFilter, var177)
    end
    
    return var0
-end)(var12)
-return var12
+end)(var11)
+return var11

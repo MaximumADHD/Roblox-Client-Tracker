@@ -1,0 +1,29 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = script:FindFirstAncestor("MaterialGenerator")
+local var1 = require(var0.Packages.ReactUtils).createUnimplemented
+local var2 = require(var0.Src.Types)
+local var3 = {}
+var3.promptGroups = {}
+local var19 = {}
+var3.materialStates = var19
+var19 = var1
+local var21 = var19("addMaterials")
+var3.addMaterials = var21
+var21 = var1
+local var23 = var21("removeMaterial")
+var3.removeMaterial = var23
+var23 = var1
+local var25 = var23("removeAllMaterials")
+var3.removeAllMaterials = var25
+var25 = var1
+local var27 = var25("hasBaseMaterial")
+var3.hasBaseMaterial = var27
+var27 = var1
+local var29 = var27("markHasBaseMaterial")
+var3.markHasBaseMaterial = var29
+var29 = var1
+local var31 = var29("getMaterialStatus")
+var3.getMaterialStatus = var31
+var31 = var1
+var3.setMaterialStatus = var31("setMaterialStatus")
+return require(var0.Packages.React).createContext(var3)

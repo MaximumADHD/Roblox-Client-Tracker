@@ -38,11 +38,15 @@ local success, result = pcall(function()
 end)
 local FFlagUseNotificationsLocalization = success and result
 
+local FFlagLogAcceptFriendshipEvent = game:DefineFastFlag("LogAcceptFriendshipEvent", false)
+
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
 local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
+
+local FFlagNotificationsNoLongerRequireControllerState = game:DefineFastFlag("NotificationsNoLongerRequireControllerState", false)
 
 local function LocalizedGetString(key, rtv)
 	pcall(function()
@@ -754,6 +758,11 @@ local function sendFriendNotification(fromPlayer)
 				AnalyticsService:ReportCounter("NotificationScript-RequestFriendship")
 				AnalyticsService:TrackEvent("Game", "RequestFriendship", "NotificationScript")
 
+				if FFlagLogAcceptFriendshipEvent then
+					AnalyticsService:ReportCounter("NotificationScript-AcceptFriendship")
+					AnalyticsService:TrackEvent("Game", "AcceptFriendship", "NotificationScript")
+				end
+						
 				LocalPlayer:RequestFriendship(fromPlayer)
 			else
 				AnalyticsService:ReportCounter("NotificationScript-RevokeFriendship")
@@ -1076,35 +1085,38 @@ local function onPreferredTransparencyChanged()
 end
 GameSettings:GetPropertyChangedSignal("PreferredTransparency"):connect(onPreferredTransparencyChanged)
 
-local Platform = UserInputService:GetPlatform()
-local Modules = RobloxGui:FindFirstChild("Modules")
-local CSMModule = Modules:FindFirstChild("ControllerStateManager")
-if Modules and not CSMModule then
-	local ShellModules = Modules:FindFirstChild("Shell")
-	if ShellModules then
-		CSMModule = ShellModules:FindFirstChild("ControllerStateManager")
+
+if not FFlagNotificationsNoLongerRequireControllerState then
+	local Platform = UserInputService:GetPlatform()
+	local Modules = RobloxGui:FindFirstChild("Modules")
+	local CSMModule = Modules:FindFirstChild("ControllerStateManager")
+	if Modules and not CSMModule then
+		local ShellModules = Modules:FindFirstChild("Shell")
+		if ShellModules then
+			CSMModule = ShellModules:FindFirstChild("ControllerStateManager")
+		end
 	end
-end
 
-if Platform == Enum.Platform.XBoxOne then
-	-- Platform hook for controller connection events
-	-- Displays overlay to user on controller connection lost
-	local PlatformService = nil
-	pcall(function()
-		PlatformService = game:GetService("PlatformService")
-	end)
-	if PlatformService and CSMModule then
-		local controllerStateManager = require(CSMModule)
-		if controllerStateManager then
-			controllerStateManager:Initialize()
+	if Platform == Enum.Platform.XBoxOne then
+		-- Platform hook for controller connection events
+		-- Displays overlay to user on controller connection lost
+		local PlatformService = nil
+		pcall(function()
+			PlatformService = game:GetService("PlatformService")
+		end)
+		if PlatformService and CSMModule then
+			local controllerStateManager = require(CSMModule)
+			if controllerStateManager then
+				controllerStateManager:Initialize()
 
-			if not game:IsLoaded() then
-				game.Loaded:Wait()
+				if not game:IsLoaded() then
+					game.Loaded:Wait()
+				end
+
+				-- retro check in case of controller disconnect while loading
+				-- for now, gamepad1 is always mapped to the active user
+				controllerStateManager:CheckUserConnected()
 			end
-
-			-- retro check in case of controller disconnect while loading
-			-- for now, gamepad1 is always mapped to the active user
-			controllerStateManager:CheckUserConnected()
 		end
 	end
 end

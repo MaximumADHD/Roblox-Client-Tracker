@@ -854,212 +854,188 @@ PROTO_28:
   GETTABLEKS R4 R5 K4 ["ShowRecentSearchesInAutoComplete"]
   JUMP [+1]
   LOADNIL R4
-  LOADNIL R5
-  GETUPVAL R6 2
-  CALL R6 0 1
-  JUMPIFNOT R6 [+18]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K5 ["getTabForCategoryName"]
-  GETTABLEKS R8 R1 K6 ["categoryName"]
-  CALL R7 1 1
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K7 ["MARKETPLACE"]
-  JUMPIFEQ R7 R8 [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  GETUPVAL R7 4
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K5 ["getTabForCategoryName"]
+  GETTABLEKS R7 R1 K6 ["categoryName"]
+  CALL R6 1 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K7 ["MARKETPLACE"]
+  JUMPIFEQ R6 R7 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETUPVAL R7 3
   GETTABLEKS R8 R1 K8 ["IXP"]
   CALL R7 1 1
-  OR R5 R7 R6
-  DUPTABLE R6 K24 [{"LayoutOrder", "OnInputBegan", "OnTextBoxFocusGained", "OnInputEnded", "OnSearchRequested", "OnTextChanged", "OnSearchOptionsToggled", "SearchIsFiltered", "ShowSearchButton", "ShowFilterButton", "ShowSearchIcon", "PlaceholderText", "SearchTerm", "Style", "Width"}]
-  GETTABLEKS R7 R1 K9 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K9 ["LayoutOrder"]
-  GETTABLEKS R7 R0 K25 ["onInputBegan"]
-  SETTABLEKS R7 R6 K10 ["OnInputBegan"]
-  GETUPVAL R8 1
-  CALL R8 0 1
-  JUMPIFNOT R8 [+3]
-  GETTABLEKS R7 R0 K26 ["onTextBoxFocusGained"]
+  OR R6 R7 R5
+  DUPTABLE R7 K24 [{"LayoutOrder", "OnInputBegan", "OnTextBoxFocusGained", "OnInputEnded", "OnSearchRequested", "OnTextChanged", "OnSearchOptionsToggled", "SearchIsFiltered", "ShowSearchButton", "ShowFilterButton", "ShowSearchIcon", "PlaceholderText", "SearchTerm", "Style", "Width"}]
+  GETTABLEKS R8 R1 K9 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
+  GETTABLEKS R8 R0 K25 ["onInputBegan"]
+  SETTABLEKS R8 R7 K10 ["OnInputBegan"]
+  GETUPVAL R9 1
+  CALL R9 0 1
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R8 R0 K26 ["onTextBoxFocusGained"]
   JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K11 ["OnTextBoxFocusGained"]
-  GETTABLEKS R7 R0 K27 ["onInputEnded"]
-  SETTABLEKS R7 R6 K12 ["OnInputEnded"]
-  GETTABLEKS R7 R0 K28 ["onSearchRequested"]
-  SETTABLEKS R7 R6 K13 ["OnSearchRequested"]
-  GETTABLEKS R7 R0 K29 ["onSearchTextChanged"]
-  SETTABLEKS R7 R6 K14 ["OnTextChanged"]
-  GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+3]
-  GETTABLEKS R7 R1 K15 ["OnSearchOptionsToggled"]
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K15 ["OnSearchOptionsToggled"]
-  GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+3]
-  GETTABLEKS R7 R1 K16 ["SearchIsFiltered"]
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K16 ["SearchIsFiltered"]
-  GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+2]
-  LOADB R7 0
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K17 ["ShowSearchButton"]
-  SETTABLEKS R5 R6 K18 ["ShowFilterButton"]
-  GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+2]
-  LOADB R7 1
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K19 ["ShowSearchIcon"]
-  GETTABLEKS R7 R1 K30 ["Localization"]
-  LOADK R9 K31 ["General"]
-  LOADK R10 K32 ["SearchBarDefaultText"]
-  NAMECALL R7 R7 K33 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K20 ["PlaceholderText"]
-  SETTABLEKS R3 R6 K21 ["SearchTerm"]
-  LOADK R7 K34 ["ToolboxSearchBar"]
-  SETTABLEKS R7 R6 K22 ["Style"]
-  GETTABLEKS R7 R1 K23 ["Width"]
-  SETTABLEKS R7 R6 K23 ["Width"]
-  GETUPVAL R8 5
-  GETTABLEKS R7 R8 K35 ["createElement"]
-  LOADK R8 K36 ["Frame"]
-  DUPTABLE R9 K39 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-  LOADN R10 1
-  SETTABLEKS R10 R9 K37 ["BackgroundTransparency"]
-  LOADN R10 1
-  SETTABLEKS R10 R9 K9 ["LayoutOrder"]
-  GETIMPORT R10 K42 [UDim2.new]
-  LOADN R11 0
-  GETTABLEKS R12 R1 K23 ["Width"]
-  LOADN R13 1
-  LOADN R14 0
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K38 ["Size"]
-  DUPTABLE R10 K47 [{"TutorialStroke", "TutorialCorner", "SearchBar", "AutocompleteDropdown"}]
-  GETUPVAL R12 0
-  CALL R12 0 1
-  JUMPIFNOT R12 [+26]
-  GETTABLEKS R12 R1 K48 ["hasTutorialLimits"]
-  JUMPIFNOT R12 [+23]
-  GETTABLEKS R12 R1 K49 ["searchTerm"]
-  JUMPIFNOTEQKS R12 K50 [""] [+20]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K35 ["createElement"]
-  LOADK R12 K51 ["UIStroke"]
-  DUPTABLE R13 K54 [{"Thickness", "Color"}]
-  GETTABLEKS R15 R2 K55 ["asset"]
-  GETTABLEKS R14 R15 K56 ["strokeThickness"]
-  SETTABLEKS R14 R13 K52 ["Thickness"]
-  GETTABLEKS R15 R2 K55 ["asset"]
-  GETTABLEKS R14 R15 K57 ["strokeColor"]
-  SETTABLEKS R14 R13 K53 ["Color"]
-  CALL R11 2 1
-  JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K43 ["TutorialStroke"]
-  GETUPVAL R12 0
-  CALL R12 0 1
-  JUMPIFNOT R12 [+21]
-  GETTABLEKS R12 R1 K48 ["hasTutorialLimits"]
-  JUMPIFNOT R12 [+18]
-  GETTABLEKS R12 R1 K49 ["searchTerm"]
-  JUMPIFNOTEQKS R12 K50 [""] [+15]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K35 ["createElement"]
-  LOADK R12 K58 ["UICorner"]
-  DUPTABLE R13 K60 [{"CornerRadius"}]
-  GETIMPORT R14 K62 [UDim.new]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K11 ["OnTextBoxFocusGained"]
+  GETTABLEKS R8 R0 K27 ["onInputEnded"]
+  SETTABLEKS R8 R7 K12 ["OnInputEnded"]
+  GETTABLEKS R8 R0 K28 ["onSearchRequested"]
+  SETTABLEKS R8 R7 K13 ["OnSearchRequested"]
+  GETTABLEKS R8 R0 K29 ["onSearchTextChanged"]
+  SETTABLEKS R8 R7 K14 ["OnTextChanged"]
+  GETTABLEKS R8 R1 K15 ["OnSearchOptionsToggled"]
+  SETTABLEKS R8 R7 K15 ["OnSearchOptionsToggled"]
+  GETTABLEKS R8 R1 K16 ["SearchIsFiltered"]
+  SETTABLEKS R8 R7 K16 ["SearchIsFiltered"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K17 ["ShowSearchButton"]
+  SETTABLEKS R6 R7 K18 ["ShowFilterButton"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K19 ["ShowSearchIcon"]
+  GETTABLEKS R8 R1 K30 ["Localization"]
+  LOADK R10 K31 ["General"]
+  LOADK R11 K32 ["SearchBarDefaultText"]
+  NAMECALL R8 R8 K33 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K20 ["PlaceholderText"]
+  SETTABLEKS R3 R7 K21 ["SearchTerm"]
+  LOADK R8 K34 ["ToolboxSearchBar"]
+  SETTABLEKS R8 R7 K22 ["Style"]
+  GETTABLEKS R8 R1 K23 ["Width"]
+  SETTABLEKS R8 R7 K23 ["Width"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K35 ["createElement"]
+  LOADK R9 K36 ["Frame"]
+  DUPTABLE R10 K39 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K37 ["BackgroundTransparency"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  GETIMPORT R11 K42 [UDim2.new]
+  LOADN R12 0
+  GETTABLEKS R13 R1 K23 ["Width"]
+  LOADN R14 1
   LOADN R15 0
-  LOADN R16 3
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K59 ["CornerRadius"]
-  CALL R11 2 1
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K38 ["Size"]
+  DUPTABLE R11 K47 [{"TutorialStroke", "TutorialCorner", "SearchBar", "AutocompleteDropdown"}]
+  GETUPVAL R13 0
+  CALL R13 0 1
+  JUMPIFNOT R13 [+26]
+  GETTABLEKS R13 R1 K48 ["hasTutorialLimits"]
+  JUMPIFNOT R13 [+23]
+  GETTABLEKS R13 R1 K49 ["searchTerm"]
+  JUMPIFNOTEQKS R13 K50 [""] [+20]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  LOADK R13 K51 ["UIStroke"]
+  DUPTABLE R14 K54 [{"Thickness", "Color"}]
+  GETTABLEKS R16 R2 K55 ["asset"]
+  GETTABLEKS R15 R16 K56 ["strokeThickness"]
+  SETTABLEKS R15 R14 K52 ["Thickness"]
+  GETTABLEKS R16 R2 K55 ["asset"]
+  GETTABLEKS R15 R16 K57 ["strokeColor"]
+  SETTABLEKS R15 R14 K53 ["Color"]
+  CALL R12 2 1
   JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K44 ["TutorialCorner"]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K35 ["createElement"]
-  GETUPVAL R12 6
-  MOVE R13 R6
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K45 ["SearchBar"]
-  GETUPVAL R12 1
-  CALL R12 0 1
-  JUMPIFNOT R12 [+53]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K43 ["TutorialStroke"]
+  GETUPVAL R13 0
+  CALL R13 0 1
+  JUMPIFNOT R13 [+21]
+  GETTABLEKS R13 R1 K48 ["hasTutorialLimits"]
+  JUMPIFNOT R13 [+18]
+  GETTABLEKS R13 R1 K49 ["searchTerm"]
+  JUMPIFNOTEQKS R13 K50 [""] [+15]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  LOADK R13 K58 ["UICorner"]
+  DUPTABLE R14 K60 [{"CornerRadius"}]
+  GETIMPORT R15 K62 [UDim.new]
+  LOADN R16 0
+  LOADN R17 3
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K59 ["CornerRadius"]
+  CALL R12 2 1
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K44 ["TutorialCorner"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  GETUPVAL R13 5
+  MOVE R14 R7
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K45 ["SearchBar"]
+  GETUPVAL R13 1
+  CALL R13 0 1
+  JUMPIFNOT R13 [+53]
   JUMPIFNOT R4 [+52]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K35 ["createElement"]
-  GETUPVAL R12 7
-  DUPTABLE R13 K69 [{"Hide", "Items", "OnFocusLost", "OnItemActivated", "OnRenderItem", "Priority", "Style", "Width"}]
-  GETTABLEKS R16 R0 K2 ["state"]
-  GETTABLEKS R15 R16 K70 ["showAutocompleteResults"]
-  NOT R14 R15
-  JUMPIF R14 [+9]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K69 [{"Hide", "Items", "OnFocusLost", "OnItemActivated", "OnRenderItem", "Priority", "Style", "Width"}]
   GETTABLEKS R17 R0 K2 ["state"]
-  GETTABLEKS R16 R17 K71 ["dropdownMenuRenderItems"]
-  LENGTH R15 R16
-  JUMPIFEQKN R15 K72 [1] [+2]
-  LOADB R14 0 +1
-  LOADB R14 1
-  SETTABLEKS R14 R13 K63 ["Hide"]
-  GETTABLEKS R15 R0 K2 ["state"]
-  GETTABLEKS R14 R15 K71 ["dropdownMenuRenderItems"]
-  SETTABLEKS R14 R13 K64 ["Items"]
-  GETTABLEKS R14 R0 K73 ["closeAutocomplete"]
-  SETTABLEKS R14 R13 K65 ["OnFocusLost"]
-  GETTABLEKS R14 R0 K74 ["onItemActivated"]
-  SETTABLEKS R14 R13 K66 ["OnItemActivated"]
-  GETTABLEKS R14 R0 K75 ["onAutocompleteRenderItem"]
-  SETTABLEKS R14 R13 K67 ["OnRenderItem"]
-  LOADN R14 2
-  SETTABLEKS R14 R13 K68 ["Priority"]
-  LOADK R14 K76 ["ToolboxSearchBarDropdown"]
-  SETTABLEKS R14 R13 K22 ["Style"]
-  GETTABLEKS R14 R1 K23 ["Width"]
-  SETTABLEKS R14 R13 K23 ["Width"]
-  CALL R11 2 1
-  JUMP [+47]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K35 ["createElement"]
-  GETUPVAL R12 7
-  DUPTABLE R13 K69 [{"Hide", "Items", "OnFocusLost", "OnItemActivated", "OnRenderItem", "Priority", "Style", "Width"}]
+  GETTABLEKS R16 R17 K70 ["showAutocompleteResults"]
+  NOT R15 R16
+  JUMPIF R15 [+9]
+  GETTABLEKS R18 R0 K2 ["state"]
+  GETTABLEKS R17 R18 K71 ["dropdownMenuRenderItems"]
+  LENGTH R16 R17
+  JUMPIFEQKN R16 K72 [1] [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  SETTABLEKS R15 R14 K63 ["Hide"]
   GETTABLEKS R16 R0 K2 ["state"]
-  GETTABLEKS R15 R16 K70 ["showAutocompleteResults"]
-  NOT R14 R15
-  JUMPIF R14 [+7]
-  GETTABLEKS R16 R1 K77 ["autocompleteResults"]
-  LENGTH R15 R16
-  JUMPIFEQKN R15 K78 [0] [+2]
-  LOADB R14 0 +1
-  LOADB R14 1
-  SETTABLEKS R14 R13 K63 ["Hide"]
-  GETTABLEKS R14 R1 K77 ["autocompleteResults"]
-  SETTABLEKS R14 R13 K64 ["Items"]
-  GETTABLEKS R14 R0 K73 ["closeAutocomplete"]
-  SETTABLEKS R14 R13 K65 ["OnFocusLost"]
-  GETTABLEKS R14 R0 K74 ["onItemActivated"]
-  SETTABLEKS R14 R13 K66 ["OnItemActivated"]
-  GETTABLEKS R14 R0 K75 ["onAutocompleteRenderItem"]
-  SETTABLEKS R14 R13 K67 ["OnRenderItem"]
-  LOADN R14 2
-  SETTABLEKS R14 R13 K68 ["Priority"]
-  LOADK R14 K76 ["ToolboxSearchBarDropdown"]
-  SETTABLEKS R14 R13 K22 ["Style"]
-  GETTABLEKS R14 R1 K23 ["Width"]
-  SETTABLEKS R14 R13 K23 ["Width"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K46 ["AutocompleteDropdown"]
-  CALL R7 3 -1
-  RETURN R7 -1
+  GETTABLEKS R15 R16 K71 ["dropdownMenuRenderItems"]
+  SETTABLEKS R15 R14 K64 ["Items"]
+  GETTABLEKS R15 R0 K73 ["closeAutocomplete"]
+  SETTABLEKS R15 R14 K65 ["OnFocusLost"]
+  GETTABLEKS R15 R0 K74 ["onItemActivated"]
+  SETTABLEKS R15 R14 K66 ["OnItemActivated"]
+  GETTABLEKS R15 R0 K75 ["onAutocompleteRenderItem"]
+  SETTABLEKS R15 R14 K67 ["OnRenderItem"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K68 ["Priority"]
+  LOADK R15 K76 ["ToolboxSearchBarDropdown"]
+  SETTABLEKS R15 R14 K22 ["Style"]
+  GETTABLEKS R15 R1 K23 ["Width"]
+  SETTABLEKS R15 R14 K23 ["Width"]
+  CALL R12 2 1
+  JUMP [+47]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K35 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K69 [{"Hide", "Items", "OnFocusLost", "OnItemActivated", "OnRenderItem", "Priority", "Style", "Width"}]
+  GETTABLEKS R17 R0 K2 ["state"]
+  GETTABLEKS R16 R17 K70 ["showAutocompleteResults"]
+  NOT R15 R16
+  JUMPIF R15 [+7]
+  GETTABLEKS R17 R1 K77 ["autocompleteResults"]
+  LENGTH R16 R17
+  JUMPIFEQKN R16 K78 [0] [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  SETTABLEKS R15 R14 K63 ["Hide"]
+  GETTABLEKS R15 R1 K77 ["autocompleteResults"]
+  SETTABLEKS R15 R14 K64 ["Items"]
+  GETTABLEKS R15 R0 K73 ["closeAutocomplete"]
+  SETTABLEKS R15 R14 K65 ["OnFocusLost"]
+  GETTABLEKS R15 R0 K74 ["onItemActivated"]
+  SETTABLEKS R15 R14 K66 ["OnItemActivated"]
+  GETTABLEKS R15 R0 K75 ["onAutocompleteRenderItem"]
+  SETTABLEKS R15 R14 K67 ["OnRenderItem"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K68 ["Priority"]
+  LOADK R15 K76 ["ToolboxSearchBarDropdown"]
+  SETTABLEKS R15 R14 K22 ["Style"]
+  GETTABLEKS R15 R1 K23 ["Width"]
+  SETTABLEKS R15 R14 K23 ["Width"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K46 ["AutocompleteDropdown"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
 PROTO_29:
   MOVE R2 R0
@@ -1274,17 +1250,11 @@ MAIN:
   CALL R26 1 1
   NEWTABLE R27 0 0
   DUPCLOSURE R28 K43 [PROTO_0]
-  GETIMPORT R29 K11 [require]
-  GETTABLEKS R33 R2 K14 ["Core"]
-  GETTABLEKS R32 R33 K15 ["Util"]
-  GETTABLEKS R31 R32 K37 ["SharedFlags"]
-  GETTABLEKS R30 R31 K44 ["getFFlagEnableUpdatedToolboxSearchBarIcons"]
-  CALL R29 1 1
-  GETTABLEKS R30 R4 K45 ["PureComponent"]
-  LOADK R32 K46 ["SearchBarWithAutocomplete"]
-  NAMECALL R30 R30 K47 ["extend"]
-  CALL R30 2 1
-  DUPCLOSURE R31 K48 [PROTO_23]
+  GETTABLEKS R29 R4 K44 ["PureComponent"]
+  LOADK R31 K45 ["SearchBarWithAutocomplete"]
+  NAMECALL R29 R29 K46 ["extend"]
+  CALL R29 2 1
+  DUPCLOSURE R30 K47 [PROTO_23]
   CAPTURE VAL R22
   CAPTURE VAL R27
   CAPTURE VAL R24
@@ -1293,73 +1263,66 @@ MAIN:
   CAPTURE VAL R23
   CAPTURE VAL R6
   CAPTURE VAL R7
-  SETTABLEKS R31 R30 K49 ["init"]
-  DUPCLOSURE R31 K50 [PROTO_25]
+  SETTABLEKS R30 R29 K48 ["init"]
+  DUPCLOSURE R30 K49 [PROTO_25]
   CAPTURE VAL R8
   CAPTURE VAL R22
   CAPTURE VAL R0
   CAPTURE VAL R7
   CAPTURE VAL R1
-  SETTABLEKS R31 R30 K51 ["didMount"]
-  DUPCLOSURE R31 K52 [PROTO_26]
-  SETTABLEKS R31 R30 K53 ["willUnmount"]
-  DUPCLOSURE R31 K54 [PROTO_27]
-  SETTABLEKS R31 R30 K55 ["didUpdate"]
-  DUPCLOSURE R31 K56 [PROTO_28]
+  SETTABLEKS R30 R29 K50 ["didMount"]
+  DUPCLOSURE R30 K51 [PROTO_26]
+  SETTABLEKS R30 R29 K52 ["willUnmount"]
+  DUPCLOSURE R30 K53 [PROTO_27]
+  SETTABLEKS R30 R29 K54 ["didUpdate"]
+  DUPCLOSURE R30 K55 [PROTO_28]
   CAPTURE VAL R26
   CAPTURE VAL R22
-  CAPTURE VAL R29
   CAPTURE VAL R7
   CAPTURE VAL R25
   CAPTURE VAL R4
   CAPTURE VAL R15
   CAPTURE VAL R14
-  SETTABLEKS R31 R30 K57 ["render"]
-  MOVE R31 R17
-  DUPTABLE R32 K63 [{"Localization", "Network", "Plugin", "Stylizer", "IXP"}]
-  GETTABLEKS R33 R16 K58 ["Localization"]
-  SETTABLEKS R33 R32 K58 ["Localization"]
-  SETTABLEKS R19 R32 K59 ["Network"]
-  MOVE R34 R22
-  CALL R34 0 1
-  JUMPIFNOT R34 [+3]
-  GETTABLEKS R33 R16 K60 ["Plugin"]
+  SETTABLEKS R30 R29 K56 ["render"]
+  MOVE R30 R17
+  DUPTABLE R31 K62 [{"Localization", "Network", "Plugin", "Stylizer", "IXP"}]
+  GETTABLEKS R32 R16 K57 ["Localization"]
+  SETTABLEKS R32 R31 K57 ["Localization"]
+  SETTABLEKS R19 R31 K58 ["Network"]
+  MOVE R33 R22
+  CALL R33 0 1
+  JUMPIFNOT R33 [+3]
+  GETTABLEKS R32 R16 K59 ["Plugin"]
   JUMP [+1]
-  LOADNIL R33
-  SETTABLEKS R33 R32 K60 ["Plugin"]
-  MOVE R34 R22
-  CALL R34 0 1
-  JUMPIF R34 [+3]
-  MOVE R34 R26
-  CALL R34 0 1
-  JUMPIFNOT R34 [+3]
-  GETTABLEKS R33 R16 K61 ["Stylizer"]
+  LOADNIL R32
+  SETTABLEKS R32 R31 K59 ["Plugin"]
+  MOVE R33 R22
+  CALL R33 0 1
+  JUMPIF R33 [+3]
+  MOVE R33 R26
+  CALL R33 0 1
+  JUMPIFNOT R33 [+3]
+  GETTABLEKS R32 R16 K60 ["Stylizer"]
   JUMP [+1]
-  LOADNIL R33
-  SETTABLEKS R33 R32 K61 ["Stylizer"]
-  MOVE R34 R29
-  CALL R34 0 1
-  JUMPIFNOT R34 [+2]
-  MOVE R33 R18
-  JUMP [+1]
-  LOADNIL R33
-  SETTABLEKS R33 R32 K62 ["IXP"]
-  CALL R31 1 1
-  MOVE R32 R30
-  CALL R31 1 1
-  MOVE R30 R31
-  DUPCLOSURE R31 K64 [PROTO_29]
+  LOADNIL R32
+  SETTABLEKS R32 R31 K60 ["Stylizer"]
+  SETTABLEKS R18 R31 K61 ["IXP"]
+  CALL R30 1 1
+  MOVE R31 R29
+  CALL R30 1 1
+  MOVE R29 R30
+  DUPCLOSURE R30 K63 [PROTO_29]
   CAPTURE VAL R20
   CAPTURE VAL R7
   CAPTURE VAL R24
   CAPTURE VAL R26
-  DUPCLOSURE R32 K65 [PROTO_32]
+  DUPCLOSURE R31 K64 [PROTO_32]
   CAPTURE VAL R11
   CAPTURE VAL R9
-  GETTABLEKS R33 R5 K66 ["connect"]
+  GETTABLEKS R32 R5 K65 ["connect"]
+  MOVE R33 R30
   MOVE R34 R31
-  MOVE R35 R32
-  CALL R33 2 1
-  MOVE R34 R30
-  CALL R33 1 -1
-  RETURN R33 -1
+  CALL R32 2 1
+  MOVE R33 R29
+  CALL R32 1 -1
+  RETURN R32 -1

@@ -52,7 +52,7 @@ MAIN:
   GETTABLEKS R4 R5 K8 ["BuilderNameMap"]
   CALL R3 1 1
   GETIMPORT R4 K10 [game]
-  LOADK R6 K11 ["ConvAIAddDraftModeForSceneCreate"]
+  LOADK R6 K11 ["ConvAIAddDraftModeForSceneCreate2"]
   NAMECALL R4 R4 K12 ["GetFastFlag"]
   CALL R4 2 1
   DUPCLOSURE R5 K13 [PROTO_0]

@@ -33,12 +33,12 @@ function var5.willUnmount(arg1)
 end
 
 function var5.render(arg1)
-   local var235 = {}
-   var235.BackgroundTransparency = 1
-   var235.Size = UDim2.new(1, 0, 1, 0)
+   local var65 = {}
+   var65.BackgroundTransparency = 1
+   var65.Size = UDim2.new(1, 0, 1, 0)
    var3.Event.MouseMoved = arg1.mouseMoved
    var3.Event.MouseLeave = arg1.mouseLeave
-   return var3.createElement("Frame", var235, arg1.props[var3.Children])
+   return var3.createElement("Frame", var65, arg1.props[var3.Children])
 end
 
 return require(var2.Packages.RoactRodux).connect(function(arg1, arg2)

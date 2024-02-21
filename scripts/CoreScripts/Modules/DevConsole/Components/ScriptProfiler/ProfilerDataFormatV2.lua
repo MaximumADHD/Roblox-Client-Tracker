@@ -27,6 +27,8 @@ export type RootDataFormat = {
     Nodes: {Node},
     Functions: {Function},
     Version: number,
+    SessionStartTime: number?, -- Unix timestamp in milliseconds
+    SessionEndTime: number?,   -- Unit timestamp in milliseconds
 }
 
 return nil

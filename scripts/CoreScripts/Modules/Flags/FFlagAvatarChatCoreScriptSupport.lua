@@ -5,4 +5,4 @@ local GetFFlagSelfieViewEnabled = require(script.Parent.Parent.SelfieView.Flags.
 
 return (FFlagAvatarChatCoreScriptSupport5 or FFlagAvatarChatCoreScriptSupport6)
 	and game:GetEngineFeature("FacialAnimationStreaming2")
-	and game:GetEngineFeature("CoreGuiTypeSelfViewPresent") and not GetFFlagSelfieViewEnabled()
+	and not GetFFlagSelfieViewEnabled()

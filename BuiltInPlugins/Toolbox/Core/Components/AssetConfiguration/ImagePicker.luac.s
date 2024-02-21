@@ -34,45 +34,45 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETTABLEKS R3 R0 K0 ["state"]
-  GETTABLEKS R4 R0 K1 ["props"]
-  GETTABLEKS R5 R4 K2 ["IconFile"]
-  GETTABLEKS R6 R4 K3 ["ThumbnailStatus"]
-  GETTABLEKS R7 R3 K4 ["hovered"]
-  LOADNIL R8
-  LOADB R9 1
-  JUMPIFEQKS R6 K5 ["Completed"] [+5]
-  JUMPIFEQKNIL R6 [+2]
+  GETTABLEKS R1 R0 K0 ["state"]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R3 R2 K2 ["IconFile"]
+  GETTABLEKS R4 R2 K3 ["ThumbnailStatus"]
+  GETTABLEKS R5 R1 K4 ["hovered"]
+  LOADNIL R6
+  LOADB R7 1
+  JUMPIFEQKS R4 K5 ["Completed"] [+5]
+  JUMPIFEQKNIL R4 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  MOVE R9 R5
+  JUMPIF R9 [+6]
+  MOVE R9 R7
+  JUMPIFNOT R9 [+4]
+  JUMPIFEQKNIL R3 [+2]
   LOADB R9 0 +1
   LOADB R9 1
-  MOVE R11 R7
-  JUMPIF R11 [+6]
-  MOVE R11 R9
-  JUMPIFNOT R11 [+4]
-  JUMPIFEQKNIL R5 [+2]
-  LOADB R11 0 +1
-  LOADB R11 1
-  NOT R10 R11
-  JUMPIFNOT R5 [+9]
-  GETTABLEKS R11 R4 K6 ["Localization"]
-  LOADK R13 K7 ["AssetConfigPreview"]
-  LOADK R14 K8 ["Preview"]
-  NAMECALL R11 R11 K9 ["getText"]
-  CALL R11 3 1
-  MOVE R8 R11
+  NOT R8 R9
+  JUMPIFNOT R3 [+9]
+  GETTABLEKS R9 R2 K6 ["Localization"]
+  LOADK R11 K7 ["AssetConfigPreview"]
+  LOADK R12 K8 ["Preview"]
+  NAMECALL R9 R9 K9 ["getText"]
+  CALL R9 3 1
+  MOVE R6 R9
   JUMP [+11]
-  JUMPIFNOT R6 [+9]
-  GETTABLEKS R11 R4 K6 ["Localization"]
-  LOADK R13 K3 ["ThumbnailStatus"]
-  MOVE R14 R6
-  NAMECALL R11 R11 K9 ["getText"]
-  CALL R11 3 1
-  MOVE R8 R11
+  JUMPIFNOT R4 [+9]
+  GETTABLEKS R9 R2 K6 ["Localization"]
+  LOADK R11 K3 ["ThumbnailStatus"]
+  MOVE R12 R4
+  NAMECALL R9 R9 K9 ["getText"]
+  CALL R9 3 1
+  MOVE R6 R9
   JUMP [+1]
-  LOADK R8 K10 [""]
-  MOVE R11 R8
-  MOVE R12 R10
-  RETURN R11 2
+  LOADK R6 K10 [""]
+  MOVE R9 R6
+  MOVE R10 R8
+  RETURN R9 2
 
 PROTO_4:
   GETUPVAL R2 0

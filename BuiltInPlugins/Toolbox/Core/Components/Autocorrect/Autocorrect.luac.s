@@ -46,111 +46,111 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R3 R2 K1 ["Localization"]
-  GETTABLEKS R4 R2 K2 ["CorrectionState"]
-  GETTABLEKS R5 R2 K3 ["CurrentQuery"]
-  GETTABLEKS R6 R2 K4 ["CorrectedQuery"]
-  GETTABLEKS R7 R2 K5 ["UserQuery"]
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R3 R1 K2 ["CorrectionState"]
+  GETTABLEKS R4 R1 K3 ["CurrentQuery"]
+  GETTABLEKS R5 R1 K4 ["CorrectedQuery"]
+  GETTABLEKS R6 R1 K5 ["UserQuery"]
+  LOADNIL R7
   LOADNIL R8
   LOADNIL R9
   LOADNIL R10
   LOADNIL R11
   LOADNIL R12
-  LOADNIL R13
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K6 ["AutocorrectResponseState"]
-  GETTABLEKS R14 R15 K7 ["CorrectionAvailable"]
-  JUMPIFNOTEQ R4 R14 [+13]
-  LOADK R8 K8 ["DidYouMean"]
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K9 ["QuerySource"]
-  GETTABLEKS R9 R14 K4 ["CorrectedQuery"]
-  MOVE R10 R5
-  MOVE R13 R6
-  GETUPVAL R14 1
-  GETTABLEKS R12 R14 K10 ["WARNING_TEXT_COLOR"]
+  GETTABLEKS R14 R15 K6 ["AutocorrectResponseState"]
+  GETTABLEKS R13 R14 K7 ["CorrectionAvailable"]
+  JUMPIFNOTEQ R3 R13 [+13]
+  LOADK R7 K8 ["DidYouMean"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K9 ["QuerySource"]
+  GETTABLEKS R8 R13 K4 ["CorrectedQuery"]
+  MOVE R9 R4
+  MOVE R12 R5
+  GETUPVAL R13 1
+  GETTABLEKS R11 R13 K10 ["WARNING_TEXT_COLOR"]
   JUMP [+19]
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K6 ["AutocorrectResponseState"]
-  GETTABLEKS R14 R15 K11 ["CorrectionAccepted"]
-  JUMPIFNOTEQ R4 R14 [+10]
-  LOADK R8 K12 ["SearchInsteadFor"]
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K9 ["QuerySource"]
-  GETTABLEKS R9 R14 K13 ["ReversionToUserQuery"]
-  MOVE R11 R5
-  MOVE R13 R7
+  GETTABLEKS R14 R15 K6 ["AutocorrectResponseState"]
+  GETTABLEKS R13 R14 K11 ["CorrectionAccepted"]
+  JUMPIFNOTEQ R3 R13 [+10]
+  LOADK R7 K12 ["SearchInsteadFor"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K9 ["QuerySource"]
+  GETTABLEKS R8 R13 K13 ["ReversionToUserQuery"]
+  MOVE R10 R4
+  MOVE R12 R6
   JUMP [+3]
-  LOADNIL R14
-  CLOSEUPVALS R9
-  RETURN R14 1
-  DUPTABLE R14 K20 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Size", "VerticalAlignment"}]
-  GETIMPORT R15 K23 [Enum.AutomaticSize.XY]
-  SETTABLEKS R15 R14 K14 ["AutomaticSize"]
-  GETIMPORT R15 K25 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R15 R14 K15 ["HorizontalAlignment"]
-  GETIMPORT R15 K28 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R15 R14 K16 ["Layout"]
-  GETTABLEKS R15 R2 K17 ["LayoutOrder"]
-  SETTABLEKS R15 R14 K17 ["LayoutOrder"]
-  GETIMPORT R15 K31 [UDim2.new]
-  LOADN R16 1
+  LOADNIL R13
+  CLOSEUPVALS R8
+  RETURN R13 1
+  DUPTABLE R13 K20 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Size", "VerticalAlignment"}]
+  GETIMPORT R14 K23 [Enum.AutomaticSize.XY]
+  SETTABLEKS R14 R13 K14 ["AutomaticSize"]
+  GETIMPORT R14 K25 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R14 R13 K15 ["HorizontalAlignment"]
+  GETIMPORT R14 K28 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R14 R13 K16 ["Layout"]
+  GETTABLEKS R14 R1 K17 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K17 ["LayoutOrder"]
+  GETIMPORT R14 K31 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
   LOADN R17 0
   LOADN R18 0
-  LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K18 ["Size"]
-  GETIMPORT R15 K33 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R15 R14 K19 ["VerticalAlignment"]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K30 ["new"]
-  CALL R15 0 1
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K34 ["createElement"]
-  GETUPVAL R17 4
-  MOVE R18 R14
-  DUPTABLE R19 K37 [{"Message", "Suggestion"}]
-  GETUPVAL R21 3
-  GETTABLEKS R20 R21 K34 ["createElement"]
-  GETUPVAL R21 5
-  DUPTABLE R22 K40 [{"AutomaticSize", "LayoutOrder", "Text", "TextColor"}]
-  GETIMPORT R23 K23 [Enum.AutomaticSize.XY]
-  SETTABLEKS R23 R22 K14 ["AutomaticSize"]
-  NAMECALL R23 R15 K41 ["getNextOrder"]
-  CALL R23 1 1
-  SETTABLEKS R23 R22 K17 ["LayoutOrder"]
-  LOADK R28 K42 ["General"]
-  MOVE R29 R8
-  NAMECALL R26 R3 K43 ["getText"]
-  CALL R26 3 1
-  MOVE R24 R26
-  LOADK R25 K44 [" "]
-  CONCAT R23 R24 R25
-  SETTABLEKS R23 R22 K38 ["Text"]
-  SETTABLEKS R12 R22 K39 ["TextColor"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K35 ["Message"]
-  GETUPVAL R21 3
-  GETTABLEKS R20 R21 K34 ["createElement"]
-  GETUPVAL R21 6
-  DUPTABLE R22 K46 [{"LayoutOrder", "Text", "OnClick"}]
-  NAMECALL R23 R15 K41 ["getNextOrder"]
-  CALL R23 1 1
-  SETTABLEKS R23 R22 K17 ["LayoutOrder"]
-  SETTABLEKS R13 R22 K38 ["Text"]
-  NEWCLOSURE R23 P0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K18 ["Size"]
+  GETIMPORT R14 K33 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R14 R13 K19 ["VerticalAlignment"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K30 ["new"]
+  CALL R14 0 1
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K34 ["createElement"]
+  GETUPVAL R16 4
+  MOVE R17 R13
+  DUPTABLE R18 K37 [{"Message", "Suggestion"}]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K34 ["createElement"]
+  GETUPVAL R20 5
+  DUPTABLE R21 K40 [{"AutomaticSize", "LayoutOrder", "Text", "TextColor"}]
+  GETIMPORT R22 K23 [Enum.AutomaticSize.XY]
+  SETTABLEKS R22 R21 K14 ["AutomaticSize"]
+  NAMECALL R22 R14 K41 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K17 ["LayoutOrder"]
+  LOADK R27 K42 ["General"]
+  MOVE R28 R7
+  NAMECALL R25 R2 K43 ["getText"]
+  CALL R25 3 1
+  MOVE R23 R25
+  LOADK R24 K44 [" "]
+  CONCAT R22 R23 R24
+  SETTABLEKS R22 R21 K38 ["Text"]
+  SETTABLEKS R11 R21 K39 ["TextColor"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K35 ["Message"]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K34 ["createElement"]
+  GETUPVAL R20 6
+  DUPTABLE R21 K46 [{"LayoutOrder", "Text", "OnClick"}]
+  NAMECALL R22 R14 K41 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K17 ["LayoutOrder"]
+  SETTABLEKS R12 R21 K38 ["Text"]
+  NEWCLOSURE R22 P0
   CAPTURE VAL R0
-  CAPTURE REF R13
+  CAPTURE REF R12
+  CAPTURE REF R8
   CAPTURE REF R9
   CAPTURE REF R10
-  CAPTURE REF R11
-  SETTABLEKS R23 R22 K45 ["OnClick"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K36 ["Suggestion"]
-  CALL R16 3 -1
-  CLOSEUPVALS R9
-  RETURN R16 -1
+  SETTABLEKS R22 R21 K45 ["OnClick"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K36 ["Suggestion"]
+  CALL R15 3 -1
+  CLOSEUPVALS R8
+  RETURN R15 -1
 
 PROTO_4:
   GETUPVAL R4 0

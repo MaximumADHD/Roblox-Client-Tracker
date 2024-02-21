@@ -1,13 +1,26 @@
 PROTO_0:
-  GETIMPORT R4 K1 [game]
-  LOADK R6 K2 ["Path2DControlPointAtomicClass"]
-  NAMECALL R4 R4 K3 ["GetFastFlag"]
-  CALL R4 2 1
-  JUMPIF R4 [+3]
-  NEWTABLE R4 0 0
-  RETURN R4 1
-  NEWTABLE R4 0 0
-  RETURN R4 1
+  GETIMPORT R3 K1 [game]
+  LOADK R5 K2 ["Path2DControlPointAtomicClass4"]
+  NAMECALL R3 R3 K3 ["GetFastFlag"]
+  CALL R3 2 1
+  JUMPIF R3 [+3]
+  NEWTABLE R3 0 0
+  RETURN R3 1
+  JUMPIF R0 [+4]
+  GETIMPORT R3 K6 [Path2DControlPoint.new]
+  CALL R3 0 -1
+  RETURN R3 -1
+  JUMPIF R2 [+5]
+  GETIMPORT R3 K6 [Path2DControlPoint.new]
+  MOVE R4 R0
+  CALL R3 1 -1
+  RETURN R3 -1
+  GETIMPORT R3 K6 [Path2DControlPoint.new]
+  MOVE R4 R0
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1
 
 MAIN:
   PREPVARARGS 0

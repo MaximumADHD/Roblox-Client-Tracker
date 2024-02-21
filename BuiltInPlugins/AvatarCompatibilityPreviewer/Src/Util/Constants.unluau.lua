@@ -106,7 +106,9 @@ local var288 = "HumanoidRootPart"
 var2.ALL_ALLOWED_PART_NAMES = var284.join(var284, {})
 local var290 = {}
 var290.BodyPoints = "AvatarPreviewerEditingBodyPoints"
-var290.Toolbar = "AvatarPreviewerEditingToolbar"
+var290.EditingToolbar = "AvatarPreviewerEditingToolbar"
+var290.BodyPointsToolToolbar = "AvatarPreviewerBodyPointsToolToolbar"
 var2.EDITING_TOOLS_GUI_NAMES = var290
+var2.MULTI_SELECT_PHONY_TARGET = "MultiSelectPhony"
 var2.DEFAULT_CAMERA_ANGLE = CFrame.lookAt(Vector3.new(-5.2, 1, -9.2), Vector3.new(0.5, -1.2, 0.85))
 return var2

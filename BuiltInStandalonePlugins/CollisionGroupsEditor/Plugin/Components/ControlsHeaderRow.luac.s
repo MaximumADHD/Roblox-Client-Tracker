@@ -64,190 +64,218 @@ PROTO_4:
   GETTABLEKS R2 R1 K1 ["Localization"]
   GETTABLEKS R4 R1 K2 ["Stylizer"]
   GETTABLEKS R3 R4 K3 ["ControlsHeaderRow"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["createElement"]
-  GETUPVAL R5 1
-  DUPTABLE R6 K10 [{"Size", "Padding", "Spacing", "LayoutOrder", "Layout"}]
-  GETTABLEKS R7 R3 K5 ["Size"]
-  SETTABLEKS R7 R6 K5 ["Size"]
-  GETTABLEKS R7 R3 K6 ["Padding"]
-  SETTABLEKS R7 R6 K6 ["Padding"]
-  GETTABLEKS R7 R3 K7 ["Spacing"]
-  SETTABLEKS R7 R6 K7 ["Spacing"]
-  GETTABLEKS R7 R1 K8 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K8 ["LayoutOrder"]
-  GETIMPORT R7 K14 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R7 R6 K9 ["Layout"]
-  DUPTABLE R7 K17 [{"TextButtonPane", "GroupButtonsPane"}]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K4 ["createElement"]
-  LOADK R9 K18 ["Frame"]
-  NEWTABLE R10 8 0
-  GETTABLEKS R12 R3 K15 ["TextButtonPane"]
-  GETTABLEKS R11 R12 K5 ["Size"]
-  SETTABLEKS R11 R10 K5 ["Size"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K19 ["BackgroundTransparency"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K8 ["LayoutOrder"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K20 ["Change"]
-  GETTABLEKS R11 R12 K21 ["AbsoluteSize"]
-  GETTABLEKS R12 R0 K22 ["updateButtonFlexSize"]
-  SETTABLE R12 R10 R11
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K23 ["Ref"]
-  GETTABLEKS R12 R0 K24 ["textButtonPaneRef"]
-  SETTABLE R12 R10 R11
-  DUPTABLE R11 K27 [{"Layout", "ToggleViewButton", "AddGroupButton"}]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K4 ["createElement"]
-  LOADK R13 K28 ["UIListLayout"]
-  DUPTABLE R14 K30 [{"SortOrder", "FillDirection"}]
-  GETIMPORT R15 K31 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R15 R14 K29 ["SortOrder"]
-  GETIMPORT R15 K14 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R15 R14 K12 ["FillDirection"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K9 ["Layout"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K4 ["createElement"]
+  LOADB R4 1
+  LOADB R5 1
+  GETUPVAL R6 0
+  JUMPIFNOT R6 [+26]
+  GETTABLEKS R6 R1 K4 ["Groups"]
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  GETTABLEKS R11 R10 K5 ["UISelected"]
+  JUMPIFNOT R11 [+16]
+  GETTABLEKS R11 R10 K6 ["Name"]
   GETUPVAL R13 1
-  DUPTABLE R14 K33 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
-  GETIMPORT R15 K36 [UDim2.new]
-  LOADN R16 0
-  GETTABLEKS R18 R0 K37 ["state"]
-  GETTABLEKS R17 R18 K38 ["buttonSize"]
-  LOADN R18 1
-  LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K5 ["Size"]
-  LOADN R15 1
-  SETTABLEKS R15 R14 K8 ["LayoutOrder"]
-  GETIMPORT R15 K14 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R15 R14 K9 ["Layout"]
-  GETIMPORT R15 K40 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R15 R14 K32 ["HorizontalAlignment"]
-  DUPTABLE R15 K42 [{"Button"}]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K4 ["createElement"]
-  GETUPVAL R17 2
-  DUPTABLE R18 K46 [{"Style", "Text", "Size", "OnClick"}]
-  LOADK R19 K47 ["Round"]
-  SETTABLEKS R19 R18 K43 ["Style"]
-  GETTABLEKS R20 R1 K48 ["ToggleListView"]
-  JUMPIFNOT R20 [+6]
-  LOADK R21 K49 ["Actions"]
-  LOADK R22 K50 ["TableView"]
-  NAMECALL R19 R2 K51 ["getText"]
-  CALL R19 3 1
+  GETTABLEKS R12 R13 K7 ["CursorGroupName"]
+  JUMPIFNOTEQ R11 R12 [+3]
+  LOADB R5 0
+  JUMP [+9]
+  GETTABLEKS R11 R10 K6 ["Name"]
+  JUMPIFNOTEQKS R11 K8 ["Default"] [+6]
+  LOADB R4 0
+  LOADB R5 0
+  JUMP [+2]
+  FORGLOOP R6 2 [-20]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K15 [{"Size", "Padding", "Spacing", "LayoutOrder", "Layout"}]
+  GETTABLEKS R9 R3 K10 ["Size"]
+  SETTABLEKS R9 R8 K10 ["Size"]
+  GETTABLEKS R9 R3 K11 ["Padding"]
+  SETTABLEKS R9 R8 K11 ["Padding"]
+  GETTABLEKS R9 R3 K12 ["Spacing"]
+  SETTABLEKS R9 R8 K12 ["Spacing"]
+  GETTABLEKS R9 R1 K13 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
+  GETIMPORT R9 K19 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R9 R8 K14 ["Layout"]
+  DUPTABLE R9 K22 [{"TextButtonPane", "GroupButtonsPane"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  LOADK R11 K23 ["Frame"]
+  NEWTABLE R12 8 0
+  GETTABLEKS R14 R3 K20 ["TextButtonPane"]
+  GETTABLEKS R13 R14 K10 ["Size"]
+  SETTABLEKS R13 R12 K10 ["Size"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K24 ["BackgroundTransparency"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K13 ["LayoutOrder"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K25 ["Change"]
+  GETTABLEKS R13 R14 K26 ["AbsoluteSize"]
+  GETTABLEKS R14 R0 K27 ["updateButtonFlexSize"]
+  SETTABLE R14 R12 R13
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K28 ["Ref"]
+  GETTABLEKS R14 R0 K29 ["textButtonPaneRef"]
+  SETTABLE R14 R12 R13
+  DUPTABLE R13 K32 [{"Layout", "ToggleViewButton", "AddGroupButton"}]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K9 ["createElement"]
+  LOADK R15 K33 ["UIListLayout"]
+  DUPTABLE R16 K35 [{"SortOrder", "FillDirection"}]
+  GETIMPORT R17 K36 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R17 R16 K34 ["SortOrder"]
+  GETIMPORT R17 K19 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R17 R16 K17 ["FillDirection"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K14 ["Layout"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K9 ["createElement"]
+  GETUPVAL R15 3
+  DUPTABLE R16 K38 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
+  GETIMPORT R17 K41 [UDim2.new]
+  LOADN R18 0
+  GETTABLEKS R20 R0 K42 ["state"]
+  GETTABLEKS R19 R20 K43 ["buttonSize"]
+  LOADN R20 1
+  LOADN R21 0
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K10 ["Size"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K13 ["LayoutOrder"]
+  GETIMPORT R17 K19 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R17 R16 K14 ["Layout"]
+  GETIMPORT R17 K45 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R17 R16 K37 ["HorizontalAlignment"]
+  DUPTABLE R17 K47 [{"Button"}]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K9 ["createElement"]
+  GETUPVAL R19 4
+  DUPTABLE R20 K51 [{"Style", "Text", "Size", "OnClick"}]
+  LOADK R21 K52 ["Round"]
+  SETTABLEKS R21 R20 K48 ["Style"]
+  GETTABLEKS R22 R1 K53 ["ToggleListView"]
+  JUMPIFNOT R22 [+6]
+  LOADK R23 K54 ["Actions"]
+  LOADK R24 K55 ["TableView"]
+  NAMECALL R21 R2 K56 ["getText"]
+  CALL R21 3 1
   JUMP [+5]
-  LOADK R21 K49 ["Actions"]
-  LOADK R22 K52 ["ListView"]
-  NAMECALL R19 R2 K51 ["getText"]
-  CALL R19 3 1
-  SETTABLEKS R19 R18 K44 ["Text"]
-  GETIMPORT R19 K54 [UDim2.fromOffset]
-  GETTABLEKS R21 R0 K37 ["state"]
-  GETTABLEKS R20 R21 K38 ["buttonSize"]
-  GETTABLEKS R21 R3 K55 ["ButtonHeight"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K5 ["Size"]
-  GETTABLEKS R19 R1 K56 ["OnViewModeToggled"]
-  SETTABLEKS R19 R18 K45 ["OnClick"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K41 ["Button"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K25 ["ToggleViewButton"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K4 ["createElement"]
-  GETUPVAL R13 1
-  DUPTABLE R14 K33 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
-  GETIMPORT R15 K36 [UDim2.new]
-  LOADN R16 1
-  GETTABLEKS R19 R0 K37 ["state"]
-  GETTABLEKS R18 R19 K38 ["buttonSize"]
-  MINUS R17 R18
+  LOADK R23 K54 ["Actions"]
+  LOADK R24 K57 ["ListView"]
+  NAMECALL R21 R2 K56 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K49 ["Text"]
+  GETIMPORT R21 K59 [UDim2.fromOffset]
+  GETTABLEKS R23 R0 K42 ["state"]
+  GETTABLEKS R22 R23 K43 ["buttonSize"]
+  GETTABLEKS R23 R3 K60 ["ButtonHeight"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K10 ["Size"]
+  GETTABLEKS R21 R1 K61 ["OnViewModeToggled"]
+  SETTABLEKS R21 R20 K50 ["OnClick"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K46 ["Button"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K30 ["ToggleViewButton"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K9 ["createElement"]
+  GETUPVAL R15 3
+  DUPTABLE R16 K38 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
+  GETIMPORT R17 K41 [UDim2.new]
   LOADN R18 1
-  LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K5 ["Size"]
-  LOADN R15 2
-  SETTABLEKS R15 R14 K8 ["LayoutOrder"]
-  GETIMPORT R15 K14 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R15 R14 K9 ["Layout"]
-  GETIMPORT R15 K40 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R15 R14 K32 ["HorizontalAlignment"]
-  DUPTABLE R15 K42 [{"Button"}]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K4 ["createElement"]
-  GETUPVAL R17 3
-  DUPTABLE R18 K60 [{"Groups", "OnGroupAdded", "OnEditingChanged"}]
-  GETTABLEKS R19 R1 K57 ["Groups"]
-  SETTABLEKS R19 R18 K57 ["Groups"]
-  GETTABLEKS R19 R1 K58 ["OnGroupAdded"]
-  SETTABLEKS R19 R18 K58 ["OnGroupAdded"]
-  GETTABLEKS R19 R0 K61 ["onEditingChanged"]
-  SETTABLEKS R19 R18 K59 ["OnEditingChanged"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K41 ["Button"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K26 ["AddGroupButton"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K15 ["TextButtonPane"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K4 ["createElement"]
-  GETUPVAL R9 1
-  DUPTABLE R10 K33 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
-  GETTABLEKS R11 R3 K62 ["GroupButtonsPaneSize"]
-  SETTABLEKS R11 R10 K5 ["Size"]
-  LOADN R11 2
-  SETTABLEKS R11 R10 K8 ["LayoutOrder"]
-  GETIMPORT R11 K14 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R11 R10 K9 ["Layout"]
-  GETIMPORT R11 K64 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R11 R10 K32 ["HorizontalAlignment"]
-  DUPTABLE R11 K67 [{"RenameButton", "DeleteButton"}]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K4 ["createElement"]
-  GETUPVAL R13 4
-  DUPTABLE R14 K69 [{"Style", "OnClick", "TooltipMessage", "LayoutOrder"}]
-  LOADK R15 K70 ["Rename"]
-  SETTABLEKS R15 R14 K43 ["Style"]
-  GETTABLEKS R15 R1 K71 ["OnGroupRenamed"]
-  SETTABLEKS R15 R14 K45 ["OnClick"]
-  GETTABLEKS R15 R1 K1 ["Localization"]
-  LOADK R17 K72 ["Tooltip"]
-  LOADK R18 K70 ["Rename"]
-  NAMECALL R15 R15 K51 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K68 ["TooltipMessage"]
-  LOADN R15 1
-  SETTABLEKS R15 R14 K8 ["LayoutOrder"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K65 ["RenameButton"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K4 ["createElement"]
-  GETUPVAL R13 4
-  DUPTABLE R14 K69 [{"Style", "OnClick", "TooltipMessage", "LayoutOrder"}]
-  LOADK R15 K73 ["Delete"]
-  SETTABLEKS R15 R14 K43 ["Style"]
-  GETTABLEKS R15 R1 K74 ["OnGroupDeleted"]
-  SETTABLEKS R15 R14 K45 ["OnClick"]
-  GETTABLEKS R15 R1 K1 ["Localization"]
-  LOADK R17 K72 ["Tooltip"]
-  LOADK R18 K73 ["Delete"]
-  NAMECALL R15 R15 K51 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K68 ["TooltipMessage"]
-  LOADN R15 2
-  SETTABLEKS R15 R14 K8 ["LayoutOrder"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K66 ["DeleteButton"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K16 ["GroupButtonsPane"]
-  CALL R4 3 -1
-  RETURN R4 -1
+  GETTABLEKS R21 R0 K42 ["state"]
+  GETTABLEKS R20 R21 K43 ["buttonSize"]
+  MINUS R19 R20
+  LOADN R20 1
+  LOADN R21 0
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K10 ["Size"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K13 ["LayoutOrder"]
+  GETIMPORT R17 K19 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R17 R16 K14 ["Layout"]
+  GETIMPORT R17 K45 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R17 R16 K37 ["HorizontalAlignment"]
+  DUPTABLE R17 K47 [{"Button"}]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K9 ["createElement"]
+  GETUPVAL R19 5
+  DUPTABLE R20 K64 [{"Groups", "OnGroupAdded", "OnEditingChanged"}]
+  GETTABLEKS R21 R1 K4 ["Groups"]
+  SETTABLEKS R21 R20 K4 ["Groups"]
+  GETTABLEKS R21 R1 K62 ["OnGroupAdded"]
+  SETTABLEKS R21 R20 K62 ["OnGroupAdded"]
+  GETTABLEKS R21 R0 K65 ["onEditingChanged"]
+  SETTABLEKS R21 R20 K63 ["OnEditingChanged"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K46 ["Button"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K31 ["AddGroupButton"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K20 ["TextButtonPane"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K38 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
+  GETTABLEKS R13 R3 K66 ["GroupButtonsPaneSize"]
+  SETTABLEKS R13 R12 K10 ["Size"]
+  LOADN R13 2
+  SETTABLEKS R13 R12 K13 ["LayoutOrder"]
+  GETIMPORT R13 K19 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R13 R12 K14 ["Layout"]
+  GETIMPORT R13 K68 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R13 R12 K37 ["HorizontalAlignment"]
+  DUPTABLE R13 K71 [{"RenameButton", "DeleteButton"}]
+  JUMPIFNOT R4 [+26]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K9 ["createElement"]
+  GETUPVAL R15 6
+  DUPTABLE R16 K73 [{"Style", "OnClick", "TooltipMessage", "LayoutOrder"}]
+  LOADK R17 K74 ["Rename"]
+  SETTABLEKS R17 R16 K48 ["Style"]
+  GETTABLEKS R17 R1 K75 ["OnGroupRenamed"]
+  SETTABLEKS R17 R16 K50 ["OnClick"]
+  GETTABLEKS R17 R1 K1 ["Localization"]
+  LOADK R19 K76 ["Tooltip"]
+  LOADK R20 K74 ["Rename"]
+  NAMECALL R17 R17 K56 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K72 ["TooltipMessage"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K13 ["LayoutOrder"]
+  CALL R14 2 1
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K69 ["RenameButton"]
+  JUMPIFNOT R5 [+26]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K9 ["createElement"]
+  GETUPVAL R15 6
+  DUPTABLE R16 K73 [{"Style", "OnClick", "TooltipMessage", "LayoutOrder"}]
+  LOADK R17 K77 ["Delete"]
+  SETTABLEKS R17 R16 K48 ["Style"]
+  GETTABLEKS R17 R1 K78 ["OnGroupDeleted"]
+  SETTABLEKS R17 R16 K50 ["OnClick"]
+  GETTABLEKS R17 R1 K1 ["Localization"]
+  LOADK R19 K76 ["Tooltip"]
+  LOADK R20 K77 ["Delete"]
+  NAMECALL R17 R17 K56 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K72 ["TooltipMessage"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K13 ["LayoutOrder"]
+  CALL R14 2 1
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K70 ["DeleteButton"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K21 ["GroupButtonsPane"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -288,24 +316,30 @@ MAIN:
   LOADK R13 K17 ["ControlsHeaderRow"]
   NAMECALL R11 R11 K18 ["extend"]
   CALL R11 2 1
-  DUPCLOSURE R12 K19 [PROTO_3]
+  GETIMPORT R12 K20 [game]
+  LOADK R14 K21 ["SelectionCollisionGroup"]
+  NAMECALL R12 R12 K22 ["GetFastFlag"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K23 [PROTO_3]
   CAPTURE VAL R1
   CAPTURE VAL R9
-  SETTABLEKS R12 R11 K20 ["init"]
-  DUPCLOSURE R12 K21 [PROTO_4]
+  SETTABLEKS R13 R11 K24 ["init"]
+  DUPCLOSURE R13 K25 [PROTO_4]
+  CAPTURE VAL R12
+  CAPTURE VAL R9
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R10
-  SETTABLEKS R12 R11 K22 ["render"]
-  GETTABLEKS R12 R3 K23 ["withContext"]
-  DUPTABLE R13 K25 [{"Stylizer", "Localization"}]
-  GETTABLEKS R14 R3 K24 ["Stylizer"]
-  SETTABLEKS R14 R13 K24 ["Stylizer"]
-  SETTABLEKS R4 R13 K9 ["Localization"]
-  CALL R12 1 1
-  MOVE R13 R11
-  CALL R12 1 1
-  MOVE R11 R12
+  SETTABLEKS R13 R11 K26 ["render"]
+  GETTABLEKS R13 R3 K27 ["withContext"]
+  DUPTABLE R14 K29 [{"Stylizer", "Localization"}]
+  GETTABLEKS R15 R3 K28 ["Stylizer"]
+  SETTABLEKS R15 R14 K28 ["Stylizer"]
+  SETTABLEKS R4 R14 K9 ["Localization"]
+  CALL R13 1 1
+  MOVE R14 R11
+  CALL R13 1 1
+  MOVE R11 R13
   RETURN R11 1

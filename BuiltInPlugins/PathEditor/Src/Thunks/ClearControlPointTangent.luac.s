@@ -20,34 +20,42 @@ PROTO_0:
   CALL R5 1 1
   GETTABLE R7 R3 R2
   GETTABLE R6 R7 R5
-  GETIMPORT R7 K8 [Vector2.zero]
+  GETIMPORT R7 K8 [UDim2.new]
+  CALL R7 0 1
   JUMPIFNOTEQ R6 R7 [+2]
   RETURN R1 1
   GETUPVAL R8 3
-  CALL R8 0 -1
-  NAMECALL R6 R0 K9 ["dispatch"]
+  LOADK R9 K9 ["Removed Tangent"]
+  CALL R8 1 -1
+  NAMECALL R6 R0 K10 ["dispatch"]
   CALL R6 -1 0
   GETTABLE R6 R3 R2
-  GETIMPORT R7 K8 [Vector2.zero]
+  GETIMPORT R7 K8 [UDim2.new]
+  CALL R7 0 1
   SETTABLE R7 R6 R5
   GETTABLE R7 R4 R2
-  GETTABLEKS R6 R7 K10 ["Sharp"]
-  JUMPIF R6 [+5]
+  GETTABLEKS R6 R7 K11 ["Sharp"]
+  JUMPIF R6 [+6]
   GETUPVAL R8 4
-  CALL R8 0 -1
-  NAMECALL R6 R0 K9 ["dispatch"]
+  MOVE R9 R2
+  CALL R8 1 -1
+  NAMECALL R6 R0 K10 ["dispatch"]
   CALL R6 -1 0
   GETTABLEKS R6 R1 K3 ["SelectedObject"]
   MOVE R8 R3
-  NAMECALL R6 R6 K11 ["SetControlPoints"]
+  NAMECALL R6 R6 K12 ["SetControlPoints"]
   CALL R6 2 0
   GETUPVAL R6 2
-  GETTABLEKS R7 R1 K12 ["SelectedTangentSide"]
+  GETTABLEKS R7 R1 K13 ["SelectedTangentSide"]
   JUMPIFNOTEQ R6 R7 [+7]
   GETUPVAL R8 5
   LOADNIL R9
   CALL R8 1 -1
-  NAMECALL R6 R0 K9 ["dispatch"]
+  NAMECALL R6 R0 K10 ["dispatch"]
+  CALL R6 -1 0
+  GETUPVAL R8 3
+  CALL R8 0 -1
+  NAMECALL R6 R0 K10 ["dispatch"]
   CALL R6 -1 0
   RETURN R0 0
 
@@ -74,7 +82,7 @@ MAIN:
   GETIMPORT R2 K4 [require]
   GETTABLEKS R5 R0 K5 ["Src"]
   GETTABLEKS R4 R5 K7 ["Thunks"]
-  GETTABLEKS R3 R4 K8 ["AddWaypoint"]
+  GETTABLEKS R3 R4 K8 ["RecordChangeHistory"]
   CALL R2 1 1
   GETIMPORT R3 K4 [require]
   GETTABLEKS R6 R0 K5 ["Src"]

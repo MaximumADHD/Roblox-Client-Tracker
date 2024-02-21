@@ -14,7 +14,9 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["PathReducer"]
   CALL R2 1 1
   GETTABLEKS R3 R1 K8 ["combineReducers"]
-  DUPTABLE R4 K9 [{"PathReducer"}]
+  DUPTABLE R4 K10 [{"ChangeHistoryServiceRecording", "PathReducer"}]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K9 ["ChangeHistoryServiceRecording"]
   SETTABLEKS R2 R4 K7 ["PathReducer"]
   CALL R3 1 1
   RETURN R3 1

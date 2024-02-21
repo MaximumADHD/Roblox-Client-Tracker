@@ -272,11 +272,11 @@ MAIN:
   NAMECALL R2 R2 K6 ["GetFastFlag"]
   CALL R2 2 1
   GETIMPORT R3 K1 [game]
-  LOADK R5 K7 ["ConvAIAddDraftModeForSceneCreate"]
+  LOADK R5 K7 ["ConvAIAddDraftModeForSceneCreate2"]
   NAMECALL R3 R3 K6 ["GetFastFlag"]
   CALL R3 2 1
   GETIMPORT R4 K1 [game]
-  LOADK R6 K8 ["ConvAIMenu_Attrib"]
+  LOADK R6 K8 ["ConvAIMenu_Attrib2"]
   NAMECALL R4 R4 K6 ["GetFastFlag"]
   CALL R4 2 1
   DUPTABLE R5 K15 [{"assetCacheMap", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata"}]

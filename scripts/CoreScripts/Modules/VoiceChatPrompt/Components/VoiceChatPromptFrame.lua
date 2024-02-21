@@ -77,7 +77,7 @@ local PromptTitle = {
 		"Feature.SettingsHub.Prompt.MicUseSuspended"
 	),
 	[PromptType.VoiceChatSuspendedTemporaryB] = RobloxTranslator:FormatByKey(
-		"Feature.SettingsHub.Prompt.MicUseSuspended"
+		"Feature.SettingsHub.Prompt.VoiceChatSuspended"
 	),
 	[PromptType.VoiceChatSuspendedPermanent] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.VoiceChatSuspended"
@@ -118,9 +118,9 @@ local PromptSubTitle = {
 	[PromptType.VoiceToxicityToast] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.Subtitle.VoiceToxicityToast"
 	),
-	[PromptType.VoiceToxicityFeedbackToast] = RobloxTranslator:FormatByKey(
-		"Feature.SettingsHub.Prompt.Subtitle.ThankYouForFeedback"
-	),
+	[PromptType.VoiceToxicityFeedbackToast] = if GetFFlagUpdateNudgeV3VoiceBanUI()
+		then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.ThanksForLettingUsKnow")
+		else RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.ThankYouForFeedback"),
 	[PromptType.VoiceChatSuspendedTemporaryToast] = function(dateTime)
 		return RobloxTranslator:FormatByKey(
 			"Feature.SettingsHub.Description.ChatWithVoiceDisabledUntil",
@@ -253,6 +253,11 @@ function VoiceChatPromptFrame:init()
 					iconImage = Images["icons/status/alert"],
 					toastTitle = toastTitle,
 					toastSubtitle = toastSubtitle,
+					onActivated = function()
+						if self.props.onPrimaryActivated then
+							self.props.onPrimaryActivated()
+						end
+					end,
 					onDismissed = function() end,
 				},
 			})

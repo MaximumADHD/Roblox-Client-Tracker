@@ -129,11 +129,15 @@ local SETTINGS_MENU_LAYOUT_ORDER = {
 	["MicroProfilerFrame"] = 81,
 	-- More camera
 	["CameraInvertedFrame"] = 90,
-	CAMERA_DEVICE_FRAME_KEY = 91,
+	[CAMERA_DEVICE_FRAME_KEY] = 91,
 	-- VR, Dev Console, Special
 	["VREnabledFrame"] = 100,
 	["DeveloperConsoleButton"] = 101,
 	["UiToggleRow"] = 200,
+	["UiToggleRowCustom"] = 200, -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true
+	["UiToggleRowBillboards"] = 201,
+	["UiToggleRowNameplates"] = 202,
+	["FreecamToggleRow"] = 203,
 	["InformationFrame"] = 999, -- Reserved to be last
 }
 -------- CHAT TRANSLATION ----------
@@ -203,7 +207,6 @@ local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
 local UseMicroProfiler = (isMobileClient or isDesktopClient) and canUseMicroProfiler
 
-local GetFFlagEnableVoiceChatDeviceChangeDebounce = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatDeviceChangeDebounce)
 local GetFIntVoiceChatDeviceChangeDebounceDelay = require(RobloxGui.Modules.Flags.GetFIntVoiceChatDeviceChangeDebounceDelay)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
@@ -214,6 +217,7 @@ local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.
 local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGameSettingsCameraModeFixEnabled
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
+local FFlagUserShowGuiHideToggles = game:DefineFastFlag("UserShowGuiHideToggles", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -2539,12 +2543,9 @@ local function Initialize()
 			-- FIXME: Cyclic module dependency, cast to any to appease typechecker
 			local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub) :: any
 			local overscan
-			if _G.IsLegacyAppShell then
-				overscan = require(RobloxGui.Modules.Shell.Components.Overscan.Overscan)
-			else
-				overscan = require(RobloxGui.Modules.Shell.Components.Overscan10ft.Overscan)
-				overscan = require(RobloxGui.Modules.Settings.Components.OverscanWrapper)(overscan)
-			end
+			overscan = require(RobloxGui.Modules.Shell.Components.Overscan10ft.Overscan)
+			overscan = require(RobloxGui.Modules.Settings.Components.OverscanWrapper)(overscan)
+
 			local roact = require(RobloxGui.Modules.Common.Roact)
 			local overscanComponent = nil
 
@@ -2635,41 +2636,114 @@ local function Initialize()
 			end)
 		end
 	end
-
+	
 	local function createUiToggleOptions()
-		local uiToggleOptions = {
-			"All visible",
-			"Hide nameplates/bubble chat",
-		}
-		this.uiToggleRow, this.uiToggleFrame, this.uiToggleSelector =
-			utility:AddNewRow(this, "BillboardGui Visibility", "Selector", uiToggleOptions, 1)
-		this.uiToggleRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["UiToggleRow"]
+		if FFlagUserShowGuiHideToggles then
+			local selectorTypes = {
+				{ label = "Custom", type = Enum.GuiType.Custom, layoutOrderKey = "UiToggleRowCustom" },
+				{ label = "CustomBillboards", type = Enum.GuiType.CustomBillboards, layoutOrderKey = "UiToggleRowBillboards" },
+				{ label = "PlayerNameplates", type = Enum.GuiType.PlayerNameplates, layoutOrderKey = "UiToggleRowNameplates" },
+			}
+			local onLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.On")
+			local offLabel = RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Off")
 
-		this.uiToggleSelector.IndexChanged:connect(
-			function(newIndex)
-				GuiService:ToggleGuiIsVisibleIfAllowed(Enum.GuiType.PlayerNameplates)
+			this.uiToggleSelectors = {}
+
+			for idx, selectorType in selectorTypes do
+				local label = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.GuiVisibility.ShowGuiType", {
+					GuiType = selectorType.label,
+				})
+				local row, frame, selector = utility:AddNewRow(this, label, "Selector", { onLabel, offLabel }, 1)
+				row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER[selectorType.layoutOrderKey]
+
+				selector.IndexChanged:Connect(function(newIndex)
+					local prevIndex = if GuiService:GetGuiIsVisible(selectorType.type) then 1 else 2
+
+					if prevIndex ~= newIndex then
+						GuiService:ToggleGuiIsVisibleIfAllowed(selectorType.type)
+					end
+				end)
+
+				this.uiToggleSelectors[selectorType.label] = {
+					label = label,
+					type = selectorType.type,
+					row = row,
+					frame = frame,
+					selector = selector,
+				}
 			end
-		)
+
+			local freecamLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.GuiVisibility.Freecam")
+			this.freecamRow, this.freecamFrame, this.freecamSelector = utility:AddNewRow(this, freecamLabel, "Selector", { offLabel, onLabel }, 1)
+			this.freecamRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["FreecamToggleRow"]
+
+			this.freecamSelector.IndexChanged:Connect(function(newIndex)
+				local enabled = newIndex == 2
+				local freecamScript = LocalPlayer:FindFirstChild("FreecamScript", true)
+				if not freecamScript then
+					warn("Freecam not present")
+					return
+				end
+
+				freecamScript:SetAttribute("FreecamEnabled", enabled)
+			end)
+		else
+			local uiToggleOptions = {
+				"All visible",
+				"Hide nameplates/bubble chat",
+			}
+			this.uiToggleRow, this.uiToggleFrame, this.uiToggleSelector =
+				utility:AddNewRow(this, "BillboardGui Visibility", "Selector", uiToggleOptions, 1)
+			this.uiToggleRow.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["UiToggleRow"]
+
+			this.uiToggleSelector.IndexChanged:connect(
+				function(newIndex)
+					GuiService:ToggleGuiIsVisibleIfAllowed(Enum.GuiType.PlayerNameplates)
+				end
+			)
+		end
 	end
 
 	local function updateUiToggleSelection()
-		-- If the toggle doesn't exist, we probably don't have permission to change this
-		if not this.uiToggleSelector then
-			return
-		end
+		if FFlagUserShowGuiHideToggles then
+			-- If the toggle doesn't exist, we probably don't have permission to change this
+			if not this.uiToggleSelectors then
+				return
+			end
 
-		local newIndex
-		if GuiService:GetGuiIsVisible(Enum.GuiType.PlayerNameplates) then
-			newIndex = 1
+			for _, selector in this.uiToggleSelectors do
+				local newIndex = if GuiService:GetGuiIsVisible(selector.type) then 1 else 2
+
+				if newIndex ~= selector.selector:GetSelectedIndex() then
+					selector.selector:SetSelectionIndex(newIndex)
+				end
+			end
+
+			local freecamScript = LocalPlayer:FindFirstChild("FreecamScript", true)
+			if freecamScript then
+				local enabled = freecamScript:GetAttribute("FreecamEnabled")
+				local index = if enabled then 2 else 1
+				this.freecamSelector:SetSelectionIndex(index)
+			end
 		else
-			newIndex = 2
-		end
+			-- If the toggle doesn't exist, we probably don't have permission to change this
+			if not this.uiToggleSelector then
+				return
+			end
 
-		if newIndex == this.uiToggleSelector:GetSelectedIndex() then
-			return
-		end
+			local newIndex
+			if GuiService:GetGuiIsVisible(Enum.GuiType.PlayerNameplates) then
+				newIndex = 1
+			else
+				newIndex = 2
+			end
 
-		this.uiToggleSelector:SetSelectionIndex(newIndex)
+			if newIndex == this.uiToggleSelector:GetSelectedIndex() then
+				return
+			end
+
+			this.uiToggleSelector:SetSelectionIndex(newIndex)
+		end
 	end
 
 	local function isValidDeviceList(deviceNames, deviceGuids, index)
@@ -2759,15 +2833,11 @@ local function Initialize()
 					return
 				end
 
-				local debounceEnabled = GetFFlagEnableVoiceChatDeviceChangeDebounce()
-				local changeDevice = not debounceEnabled
+				local currentInvocation = indexChangedInvocations + 1
+				indexChangedInvocations = currentInvocation
+				wait(indexChangedDelay)
+				local changeDevice = currentInvocation == indexChangedInvocations
 
-				if debounceEnabled then
-					local currentInvocation = indexChangedInvocations + 1
-					indexChangedInvocations = currentInvocation
-					wait(indexChangedDelay)
-					changeDevice = currentInvocation == indexChangedInvocations
-				end
 				if changeDevice then
 					indexChangedInvocations = 0
 					this[deviceType.."DeviceInfo"] = {

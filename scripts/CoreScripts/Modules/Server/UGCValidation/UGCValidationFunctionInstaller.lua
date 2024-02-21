@@ -17,13 +17,17 @@ local function UGCValidationFunction(args)
     local token = args["token"]
     local universeId = args["universeId"]
 
+    local bypassFlags = {
+        skipSnapshot = true,
+    }
+
     local success, reasons
 
     if FFlagMoveUGCValidationFunction then
         if fullBodyData then
             success, reasons = UGCValidation.validateFullBody(fullBodyData, isServer, EngineFeatureUGCValidateEditableMeshAndImage --[[allowEditableInstances]])
         else
-            success, reasons = UGCValidation.validate(objectInstances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, token, universeId, EngineFeatureUGCValidateEditableMeshAndImage --[[allowEditableInstances]])
+            success, reasons = UGCValidation.validate(objectInstances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, token, universeId, EngineFeatureUGCValidateEditableMeshAndImage --[[allowEditableInstances]], bypassFlags)
         end
     else
         success, reasons = UGCValidation.validate(objectInstances, assetTypeEnum, isServer, allowUnreviewedAssets, restrictedUserIds, token)

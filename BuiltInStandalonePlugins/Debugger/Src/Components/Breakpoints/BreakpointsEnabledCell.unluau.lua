@@ -17,11 +17,11 @@ function var10.init(arg1)
    
    function arg1.onBreakpointIconClicked()
       local var0 = arg1.props.Row
-      local var47 = var0.item
-      local var51 = var4
-      var51 = game:GetService("MetaBreakpointManager"):GetBreakpointById(var47.id)
-      var47 = var0
-      var51.setBreakpointRowEnabled(var51, var47, arg1.props.Analytics, "LuaBreakpointsTable.BreakpointIconClicked", arg1.props.CurrentConnectionId)
+      local var52 = var0.item
+      local var56 = var4
+      var56 = game:GetService("MetaBreakpointManager"):GetBreakpointById(var52.id)
+      var52 = var0
+      var56.setBreakpointRowEnabled(var56, var52, arg1.props.Analytics, "LuaBreakpointsTable.BreakpointIconClicked", arg1.props.CurrentConnectionId)
    end
    
 end
@@ -69,75 +69,75 @@ function var10.render(arg1)
    end
    local var6 = var2.Arrow.Size
    if true then
-      local var142 = {}
-      var142.Top = var2.CellPadding.Top
-      var142.Left = var5
-      var142.Right = var2.CellPadding.Right
-      var142.Bottom = var2.CellPadding.Bottom
-      local var1 = var142 or var2.CellPadding
+      local var147 = {}
+      var147.Top = var2.CellPadding.Top
+      var147.Left = var5
+      var147.Right = var2.CellPadding.Right
+      var147.Bottom = var2.CellPadding.Bottom
+      local var1 = var147 or var2.CellPadding
    end
-   local var158 = {}
-   var158.Style = "Box"
-   var158.BackgroundColor3 = var0.BackgroundColor
-   var158.BorderSizePixel = 1
-   var158.BorderColor3 = var2.Border
-   var158.Size = UDim2.new(var0.Width.Scale, var0.Width.Offset, 1, 0)
-   var158.ClipsDescendants = true
-   local var172 = {}
-   local var176 = {}
-   var176.Layout = Enum.FillDirection.Horizontal
-   var176.LayoutOrder = 0
-   var176.Padding = var2.CellPadding
-   var176.Spacing = var2.CellSpacing
-   var176.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var176.AutomaticSize = Enum.AutomaticSize.XY
-   local var182 = {}
+   local var163 = {}
+   var163.Style = "Box"
+   var163.BackgroundColor3 = var0.BackgroundColor
+   var163.BorderSizePixel = 1
+   var163.BorderColor3 = var2.Border
+   var163.Size = UDim2.new(var0.Width.Scale, var0.Width.Offset, 1, 0)
+   var163.ClipsDescendants = true
+   local var177 = {}
+   local var181 = {}
+   var181.Layout = Enum.FillDirection.Horizontal
+   var181.LayoutOrder = 0
+   var181.Padding = var2.CellPadding
+   var181.Spacing = var2.CellSpacing
+   var181.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var181.AutomaticSize = Enum.AutomaticSize.XY
+   local var187 = {}
    if var3 then
-      local var186 = {}
-      var186.LayoutOrder = 0
-      var186.Size = UDim2.new(0, var6, 0, var6)
-      var186.BackgroundTransparency = 1
-      var186.Image = var2.Arrow.Image
-      local var197 = var2.Arrow
-      var186.ImageColor3 = var197.Color
-      var197 = var6
-      var186.ImageRectSize = Vector2.new(var197, var6)
+      local var191 = {}
+      var191.LayoutOrder = 0
+      var191.Size = UDim2.new(0, var6, 0, var6)
+      var191.BackgroundTransparency = 1
+      var191.Image = var2.Arrow.Image
+      local var202 = var2.Arrow
+      var191.ImageColor3 = var202.Color
+      var202 = var6
+      var191.ImageRectSize = Vector2.new(var202, var6)
       if var0.CellProps.Expansion[var1.item] then
          local var0 = var2.Arrow.ExpandedOffset or var2.Arrow.CollapsedOffset
       end
-      var186.ImageRectOffset = var2.Arrow.CollapsedOffset
+      var191.ImageRectOffset = var2.Arrow.CollapsedOffset
       var1.Event.Activated = arg1.onToggle
-      local var1 = var1.createElement("ImageButton", var186) or nil
+      local var1 = var1.createElement("ImageButton", var191) or nil
    end
-   local var216 = nil
-   var182.Toggle = var216
-   var216 = var3
-   if var216 then
-      local var220 = {}
-      var220.Text = "(x" ... var1.item.children ... ")"
-      var220.BackgroundTransparency = 1
-      var220.LayoutOrder = 1
-      var220.Size = UDim2.new(0, var3.ICON_SIZE, 0, var3.ICON_SIZE)
-      local var0 = var1.createElement(var9, var220)
+   local var221 = nil
+   var187.Toggle = var221
+   var221 = var3
+   if var221 then
+      local var225 = {}
+      var225.Text = "(x" ... var1.item.children ... ")"
+      var225.BackgroundTransparency = 1
+      var225.LayoutOrder = 1
+      var225.Size = UDim2.new(0, var3.ICON_SIZE, 0, var3.ICON_SIZE)
+      local var0 = var1.createElement(var9, var225)
    end
-   var182.ChildCountIndicator = var216
-   local var241 = {}
-   var241.LayoutOrder = 2
-   var241.OnPress = arg1.onBreakpointIconClicked
-   var241.AutomaticSize = Enum.AutomaticSize.XY
-   local var245 = {}
-   local var249 = {}
-   var249.Size = UDim2.new(0, var3.ICON_SIZE, 0, var3.ICON_SIZE)
-   var249.Image = var11(var1)
-   var245.BreakpointIcon = var1.createElement(var8, var249)
-   var182.BreakpointIconPane = var1.createElement(var7, var241, var245)
-   var172.Left = var1.createElement(var7, var176, var182)
-   return var1.createElement(var7, var158, var172)
+   var187.ChildCountIndicator = var221
+   local var246 = {}
+   var246.LayoutOrder = 2
+   var246.OnPress = arg1.onBreakpointIconClicked
+   var246.AutomaticSize = Enum.AutomaticSize.XY
+   local var250 = {}
+   local var254 = {}
+   var254.Size = UDim2.new(0, var3.ICON_SIZE, 0, var3.ICON_SIZE)
+   var254.Image = var11(var1)
+   var250.BreakpointIcon = var1.createElement(var8, var254)
+   var187.BreakpointIconPane = var1.createElement(var7, var246, var250)
+   var177.Left = var1.createElement(var7, var181, var187)
+   return var1.createElement(var7, var163, var177)
 end
 
-local var263 = {}
-var263.Analytics = var5.Analytics
-var10 = var5.withContext(var263)(var10)
+local var268 = {}
+var268.Analytics = var5.Analytics
+var10 = var5.withContext(var268)(var10)
 var10 = require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.CurrentConnectionId = arg1.Common.currentDebuggerConnectionId

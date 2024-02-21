@@ -16,7 +16,6 @@ local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
 
 local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
-local GetVoiceRecordingIndicatorsCameraFix = require(Modules.Flags.GetVoiceRecordingIndicatorsCameraFix)
 local FFlagAvatarChatCoreScriptSupport = require(Modules.Flags.FFlagAvatarChatCoreScriptSupport)
 local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(CoreGui.RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
@@ -47,7 +46,7 @@ function FlashingDot:init()
 		local isUsingMic = VoiceChatServiceManager.localMuted ~= nil and not VoiceChatServiceManager.localMuted
 		-- @TODO: Remove VideoCaptureService.Active when FaceAnimatorService.VideoAnimationEnabled gives correct values for voice-enabled experiences
 		-- Note that we have to add VideoCaptureService.Active here because FaceAnimatorService.VideoAnimationEnabled returns true for voice-enabled experiences
-		local isUsingCamera = FaceAnimatorService.VideoAnimationEnabled and if GetVoiceRecordingIndicatorsCameraFix() then VideoCaptureService.Active else true
+		local isUsingCamera = FaceAnimatorService.VideoAnimationEnabled and VideoCaptureService.Active
 		if getFFlagDoNotPromptCameraPermissionsOnMount() then
 			-- FaceAnimatorService.VideoAnimationEnabled is giving correct values now
 			isUsingCamera = FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled

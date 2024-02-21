@@ -10,8 +10,7 @@ local InGameMenuPolicy = PolicyProvider.withGetPolicyImplementation(implementati
 local GetFIntEducationalPopupDisplayMaxCount = require(
 	script.Parent.Parent.Flags.GetFIntEducationalPopupDisplayMaxCount)
 
-local isSubjectToDesktopPolicies = require(
-	script.Parent.isSubjectToDesktopPolicies)
+local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
 
 local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
 

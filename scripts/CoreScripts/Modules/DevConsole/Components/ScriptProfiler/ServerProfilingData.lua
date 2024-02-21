@@ -12,7 +12,7 @@ function ServerProfilingData.new()
 	setmetatable(self, ServerProfilingData)
 
 	self._serverStatsUpdated = Signal.new()
-	self._serverStatsData = {}
+	self._serverStatsData = ""
 	self._lastUpdateTime = 0
 	self._isRunning = false
 	return self
@@ -35,7 +35,7 @@ function ServerProfilingData:start()
 	if clientReplicator and not self._statsListenerConnection then
 		self._statsListenerConnection = clientReplicator.StatsReceived:connect(function(stats)
 			if stats and stats.ServerScriptProfilingData and #stats.ServerScriptProfilingData > 0 then
-				self._serverStatsData = ScriptContext:DeserializeScriptProfilerString(stats.ServerScriptProfilingData)
+				self._serverStatsData = stats.ServerScriptProfilingData
 				self._serverStatsUpdated:Fire(self._serverStatsData)
 			end
 		end)

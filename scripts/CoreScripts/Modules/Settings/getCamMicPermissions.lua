@@ -45,6 +45,7 @@ local getFFlagPermissionsEarlyOutStallsQueue = require(RobloxGui.Modules.Flags.g
 local getFFlagUseCameraDeviceGrantedSignal = require(RobloxGui.Modules.Flags.getFFlagUseCameraDeviceGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAnalyticsForCameraDevicePermissions = require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
+local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local FFlagCheckCameraAvailabilityBeforePermissions = game:DefineFastFlag("CheckCameraAvailabilityBeforePermissions", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
@@ -68,13 +69,21 @@ export type AllowedSettings = {
 
 -- Do not request permissions if the user has not enabled them
 -- in their roblox account settings.
-local function removePermissionsBasedOnUserSetting(allowedSettings: AllowedSettings, permissionsToCheck: Array<string>): Array<string>
+local function removePermissionsBasedOnUserSetting(allowedSettings: AllowedSettings, permissionsToCheck: Array<string>, shouldNotRequestPerms: boolean?): Array<string>
 	if not allowedSettings.isCameraEnabled and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) then
 		permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS)
 	end
 
-	if not allowedSettings.isVoiceEnabled and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) then
-		permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+	if GetFFlagJoinWithoutMicPermissions() then
+		if not allowedSettings.isVoiceEnabled and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+			or shouldNotRequestPerms == nil then
+			permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+		end
+	-- We want to ignore any mic permissions checks when shouldNotRequestPerms unset
+	else
+		if not allowedSettings.isVoiceEnabled and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) then
+			permissionsToCheck = Cryo.List.removeValue(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS)
+		end
 	end
 
 	if FFlagSkipVoicePermissionCheck and Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) then
@@ -102,7 +111,7 @@ local function requestPermissions(allowedSettings : AllowedSettings, callback, i
 		cacheMic = Cryo.List.find(permsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) ~= nil
 	end
 
-	local permissionsToCheck = removePermissionsBasedOnUserSetting(allowedSettings, permsToCheck)
+	local permissionsToCheck = removePermissionsBasedOnUserSetting(allowedSettings, permsToCheck, shouldNotRequestPerms)
 	local checkingCamera = Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.CAMERA_ACCESS) ~= nil
 	local checkingMic = Cryo.List.find(permissionsToCheck, PermissionsProtocol.Permissions.MICROPHONE_ACCESS) ~= nil
 

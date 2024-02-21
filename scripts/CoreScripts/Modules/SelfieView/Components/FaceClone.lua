@@ -8,9 +8,6 @@ local CFrameUtility = require(CorePackages.Thumbnailing).CFrameUtility
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
 
-local EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled =
-	game:GetEngineFeature("LoadStreamAnimationForSelfieViewApiEnabled")
-
 local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
@@ -154,15 +151,10 @@ local function syncTrack(animator: Animator, track: AnimationTrack)
 	if track.Animation and track.Animation:IsA("Animation") then
 		--regular animation sync handled further below
 	elseif track.Animation and track.Animation:IsA("TrackerStreamAnimation") then
-		if EngineFeatureHasFeatureLoadStreamAnimationForSelfieViewApiEnabled then
-			newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
-			assert(newTrackerStreamAnimation ~= nil)
-			cloneStreamTrack =
-				animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, LocalPlayer)
-			cloneTrack = cloneStreamTrack
-		else
-			cloneTrack = animator:LoadStreamAnimation(track.Animation)
-		end
+		newTrackerStreamAnimation = Instance.new("TrackerStreamAnimation")
+		assert(newTrackerStreamAnimation ~= nil)
+		cloneStreamTrack = animator:LoadStreamAnimationForSelfieView_deprecated(newTrackerStreamAnimation, LocalPlayer)
+		cloneTrack = cloneStreamTrack
 	else
 		warn("No animation to clone in SelfView")
 	end

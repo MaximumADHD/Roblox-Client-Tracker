@@ -152,28 +152,48 @@ PROTO_12:
   RETURN R0 0
 
 PROTO_13:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"cannotConfigureSelectionDialogVisible"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K0 ["cannotConfigureSelectionDialogVisible"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"cannotConfigureSelectionDialogVisible"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["cannotConfigureSelectionDialogVisible"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_15:
   GETTABLEKS R2 R1 K0 ["Plugin"]
-  DUPTABLE R3 K3 [{"enabled", "uiDmLoaded"}]
+  DUPTABLE R3 K4 [{"enabled", "uiDmLoaded", "cannotConfigureSelectionDialogVisible"}]
   LOADB R4 0
   SETTABLEKS R4 R3 K1 ["enabled"]
   LOADB R4 0
   SETTABLEKS R4 R3 K2 ["uiDmLoaded"]
-  SETTABLEKS R3 R0 K4 ["state"]
-  GETTABLEKS R3 R2 K5 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R4 R3 K6 ["DataModelSessionStarted"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K3 ["cannotConfigureSelectionDialogVisible"]
+  SETTABLEKS R3 R0 K5 ["state"]
+  GETTABLEKS R3 R2 K6 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R4 R3 K7 ["DataModelSessionStarted"]
   NEWCLOSURE R6 P0
   CAPTURE VAL R0
-  NAMECALL R4 R4 K7 ["Connect"]
+  NAMECALL R4 R4 K8 ["Connect"]
   CALL R4 2 0
-  GETTABLEKS R4 R3 K8 ["DataModelSessionEnded"]
+  GETTABLEKS R4 R3 K9 ["DataModelSessionEnded"]
   NEWCLOSURE R6 P1
   CAPTURE VAL R0
-  NAMECALL R4 R4 K7 ["Connect"]
+  NAMECALL R4 R4 K8 ["Connect"]
   CALL R4 2 0
-  GETTABLEKS R4 R3 K9 ["FocusedDataModelSession"]
+  GETTABLEKS R4 R3 K10 ["FocusedDataModelSession"]
   JUMPIFNOT R4 [+4]
-  DUPCLOSURE R6 K10 [PROTO_4]
-  NAMECALL R4 R0 K11 ["setState"]
+  DUPCLOSURE R6 K11 [PROTO_4]
+  NAMECALL R4 R0 K12 ["setState"]
   CALL R4 2 0
   NEWCLOSURE R4 P3
   CAPTURE VAL R0
@@ -181,51 +201,57 @@ PROTO_13:
   NEWCLOSURE R5 P4
   CAPTURE VAL R0
   CAPTURE VAL R2
-  SETTABLEKS R5 R0 K12 ["toggleEnabled"]
+  SETTABLEKS R5 R0 K13 ["toggleEnabled"]
   NEWCLOSURE R5 P5
   CAPTURE VAL R0
   CAPTURE VAL R2
-  SETTABLEKS R5 R0 K13 ["onClose"]
+  SETTABLEKS R5 R0 K14 ["onClose"]
   NEWCLOSURE R5 P6
   CAPTURE VAL R0
   CAPTURE VAL R2
-  SETTABLEKS R5 R0 K14 ["onRestore"]
+  SETTABLEKS R5 R0 K15 ["onRestore"]
   NEWCLOSURE R5 P7
   CAPTURE VAL R0
   CAPTURE VAL R2
-  SETTABLEKS R5 R0 K15 ["onWidgetEnabledChanged"]
-  LOADK R7 K16 ["PollGuiEnabled"]
+  SETTABLEKS R5 R0 K16 ["onWidgetEnabledChanged"]
+  LOADK R7 K17 ["PollGuiEnabled"]
   NEWCLOSURE R8 P8
   CAPTURE VAL R2
   CAPTURE VAL R0
-  NAMECALL R5 R2 K17 ["OnInvoke"]
+  NAMECALL R5 R2 K18 ["OnInvoke"]
   CALL R5 3 1
-  SETTABLEKS R5 R0 K18 ["trackPollGuiEnabled"]
+  SETTABLEKS R5 R0 K19 ["trackPollGuiEnabled"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K19 ["Localization"]
-  GETTABLEKS R5 R6 K20 ["new"]
-  DUPTABLE R6 K24 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETTABLEKS R6 R7 K20 ["Localization"]
+  GETTABLEKS R5 R6 K21 ["new"]
+  DUPTABLE R6 K25 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R7 1
-  SETTABLEKS R7 R6 K21 ["stringResourceTable"]
+  SETTABLEKS R7 R6 K22 ["stringResourceTable"]
   GETUPVAL R7 2
-  SETTABLEKS R7 R6 K22 ["translationResourceTable"]
-  LOADK R7 K25 ["CGE"]
-  SETTABLEKS R7 R6 K23 ["pluginName"]
+  SETTABLEKS R7 R6 K23 ["translationResourceTable"]
+  LOADK R7 K26 ["CGE"]
+  SETTABLEKS R7 R6 K24 ["pluginName"]
   CALL R5 1 1
-  SETTABLEKS R5 R0 K26 ["localization"]
+  SETTABLEKS R5 R0 K27 ["localization"]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K27 ["Analytics"]
-  GETTABLEKS R5 R6 K20 ["new"]
-  DUPCLOSURE R6 K28 [PROTO_11]
+  GETTABLEKS R6 R7 K28 ["Analytics"]
+  GETTABLEKS R5 R6 K21 ["new"]
+  DUPCLOSURE R6 K29 [PROTO_11]
   NEWTABLE R7 0 0
   CALL R5 2 1
-  SETTABLEKS R5 R0 K29 ["analytics"]
+  SETTABLEKS R5 R0 K30 ["analytics"]
   NEWCLOSURE R5 P10
   CAPTURE VAL R0
-  SETTABLEKS R5 R0 K30 ["onAttemptModifyInPlayMode"]
+  SETTABLEKS R5 R0 K31 ["onAttemptModifyInPlayMode"]
+  NEWCLOSURE R5 P11
+  CAPTURE VAL R0
+  SETTABLEKS R5 R0 K32 ["onCannotConfigureSelection"]
+  NEWCLOSURE R5 P12
+  CAPTURE VAL R0
+  SETTABLEKS R5 R0 K33 ["onCloseCannotConfigureSelectionDialog"]
   RETURN R0 0
 
-PROTO_14:
+PROTO_16:
   GETTABLEKS R3 R0 K0 ["state"]
   GETTABLEKS R2 R3 K1 ["enabled"]
   DUPTABLE R3 K3 [{"Toggle"}]
@@ -259,14 +285,14 @@ PROTO_14:
   SETTABLEKS R4 R3 K2 ["Toggle"]
   RETURN R3 1
 
-PROTO_15:
+PROTO_17:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["renderButtons"]
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_16:
+PROTO_18:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
@@ -344,22 +370,36 @@ PROTO_16:
   GETTABLEKS R11 R12 K20 ["Enabled"]
   GETTABLEKS R12 R0 K40 ["onWidgetEnabledChanged"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K42 [{"Gui"}]
+  DUPTABLE R11 K43 [{"Gui", "CannotConfigureSelectionDialog"}]
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K13 ["createElement"]
   GETUPVAL R13 8
-  DUPTABLE R14 K45 [{"plugin", "OnAttemptModifyInPlayMode"}]
-  SETTABLEKS R3 R14 K43 ["plugin"]
-  GETTABLEKS R15 R0 K46 ["onAttemptModifyInPlayMode"]
-  SETTABLEKS R15 R14 K44 ["OnAttemptModifyInPlayMode"]
+  DUPTABLE R14 K47 [{"plugin", "OnAttemptModifyInPlayMode", "OnCannotConfigureSelection"}]
+  SETTABLEKS R3 R14 K44 ["plugin"]
+  GETTABLEKS R15 R0 K48 ["onAttemptModifyInPlayMode"]
+  SETTABLEKS R15 R14 K45 ["OnAttemptModifyInPlayMode"]
+  GETTABLEKS R15 R0 K49 ["onCannotConfigureSelection"]
+  SETTABLEKS R15 R14 K46 ["OnCannotConfigureSelection"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K41 ["Gui"]
+  GETTABLEKS R12 R2 K50 ["cannotConfigureSelectionDialogVisible"]
+  JUMPIFNOT R12 [+13]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K13 ["createElement"]
+  GETUPVAL R13 9
+  DUPTABLE R14 K51 [{"Enabled", "OnClose"}]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K20 ["Enabled"]
+  GETTABLEKS R15 R0 K52 ["onCloseCannotConfigureSelectionDialog"]
+  SETTABLEKS R15 R14 K35 ["OnClose"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K42 ["CannotConfigureSelectionDialog"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K11 ["MainWidget"]
   CALL R5 2 -1
   RETURN R5 -1
 
-PROTO_17:
+PROTO_19:
   GETTABLEKS R1 R0 K0 ["trackPollGuiEnabled"]
   NAMECALL R1 R1 K1 ["Disconnect"]
   CALL R1 1 0
@@ -402,20 +442,23 @@ MAIN:
   GETIMPORT R15 K8 [require]
   GETTABLEKS R16 R14 K24 ["Gui"]
   CALL R15 1 1
-  GETTABLEKS R16 R2 K25 ["PureComponent"]
-  LOADK R18 K26 ["MainPlugin"]
-  NAMECALL R16 R16 K27 ["extend"]
-  CALL R16 2 1
-  DUPCLOSURE R17 K28 [PROTO_13]
+  GETIMPORT R16 K8 [require]
+  GETTABLEKS R17 R14 K25 ["CannotConfigureSelectionDialog"]
+  CALL R16 1 1
+  GETTABLEKS R17 R2 K26 ["PureComponent"]
+  LOADK R19 K27 ["MainPlugin"]
+  NAMECALL R17 R17 K28 ["extend"]
+  CALL R17 2 1
+  DUPCLOSURE R18 K29 [PROTO_15]
   CAPTURE VAL R8
   CAPTURE VAL R12
   CAPTURE VAL R13
-  SETTABLEKS R17 R16 K29 ["init"]
-  DUPCLOSURE R17 K30 [PROTO_14]
+  SETTABLEKS R18 R17 K30 ["init"]
+  DUPCLOSURE R18 K31 [PROTO_16]
   CAPTURE VAL R2
   CAPTURE VAL R6
-  SETTABLEKS R17 R16 K31 ["renderButtons"]
-  DUPCLOSURE R17 K32 [PROTO_16]
+  SETTABLEKS R18 R17 K32 ["renderButtons"]
+  DUPCLOSURE R18 K33 [PROTO_18]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
@@ -425,7 +468,8 @@ MAIN:
   CAPTURE VAL R5
   CAPTURE VAL R0
   CAPTURE VAL R15
-  SETTABLEKS R17 R16 K33 ["render"]
-  DUPCLOSURE R17 K34 [PROTO_17]
-  SETTABLEKS R17 R16 K35 ["willUnmount"]
-  RETURN R16 1
+  CAPTURE VAL R16
+  SETTABLEKS R18 R17 K34 ["render"]
+  DUPCLOSURE R18 K35 [PROTO_19]
+  SETTABLEKS R18 R17 K36 ["willUnmount"]
+  RETURN R17 1

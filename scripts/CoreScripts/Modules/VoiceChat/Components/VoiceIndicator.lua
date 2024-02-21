@@ -23,7 +23,6 @@ local ReactIs = require(CorePackages.Packages.ReactIs)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 
-local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 
 local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
@@ -72,32 +71,17 @@ function VoiceIndicator:init()
 		local voiceState = values[1] :: string
 		local level = values[2] :: number
 
-		if GetFFlagEnableVoiceChatLocalMuteUI() then
-			if voiceState == Constants.VOICE_STATE.MUTED or voiceState == Constants.VOICE_STATE.LOCAL_MUTED then
-				return VoiceChatServiceManager:GetIcon("Muted", self.props.iconStyle)
-			elseif voiceState == Constants.VOICE_STATE.CONNECTING then
-				return VoiceChatServiceManager:GetIcon("Connecting", self.props.iconStyle)
-			elseif voiceState == Constants.VOICE_STATE.INACTIVE then
-				return VoiceChatServiceManager:GetIcon("Unmuted0", self.props.iconStyle)
-			elseif voiceState == Constants.VOICE_STATE.TALKING then
-				local roundedLevel = 20 * math.floor(0.5 + 5 * level)
-				return VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), self.props.iconStyle)
-			else
-				return VoiceChatServiceManager:GetIcon("Error", self.props.iconStyle)
-			end
+		if voiceState == Constants.VOICE_STATE.MUTED or voiceState == Constants.VOICE_STATE.LOCAL_MUTED then
+			return VoiceChatServiceManager:GetIcon("Muted", self.props.iconStyle)
+		elseif voiceState == Constants.VOICE_STATE.CONNECTING then
+			return VoiceChatServiceManager:GetIcon("Connecting", self.props.iconStyle)
+		elseif voiceState == Constants.VOICE_STATE.INACTIVE then
+			return VoiceChatServiceManager:GetIcon("Unmuted0", self.props.iconStyle)
+		elseif voiceState == Constants.VOICE_STATE.TALKING then
+			local roundedLevel = 20 * math.floor(0.5 + 5 * level)
+			return VoiceChatServiceManager:GetIcon("Unmuted" .. tostring(roundedLevel), self.props.iconStyle)
 		else
-			if voiceState == Constants.VOICE_STATE.MUTED then
-				return self:getIcon("Muted")
-			elseif voiceState == Constants.VOICE_STATE.CONNECTING then
-				return self:getIcon("Connecting")
-			elseif voiceState == Constants.VOICE_STATE.INACTIVE then
-				return self:getIcon("Unmuted0")
-			elseif voiceState == Constants.VOICE_STATE.TALKING then
-				local roundedLevel = 20 * math.floor(0.5 + 5 * level)
-				return self:getIcon("Unmuted" .. tostring(roundedLevel))
-			else
-				return self:getIcon("Error")
-			end
+			return VoiceChatServiceManager:GetIcon("Error", self.props.iconStyle)
 		end
 	end)
 end
@@ -109,11 +93,7 @@ function VoiceIndicator:renderWithSelectionCursor(getSelectionCursor)
 		return nil
 	end
 
-	local imageTransparency = (
-		self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED and GetFFlagEnableVoiceChatLocalMuteUI()
-	)
-			and 0.5
-		or 0
+	local imageTransparency = self.props.voiceState == Constants.VOICE_STATE.LOCAL_MUTED and 0.5 or 0
 
 	if self.props.iconTransparency then
 		local t = imageTransparency

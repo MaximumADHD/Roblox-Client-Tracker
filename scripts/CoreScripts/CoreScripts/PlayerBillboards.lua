@@ -41,7 +41,6 @@ local GameTranslator = require(RobloxGui.Modules.GameTranslator)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStore)
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
-local GetFFlagEnableVoiceChatLocalMuteUI = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatLocalMuteUI)
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
@@ -367,7 +366,7 @@ local function initVoiceChat()
 			if not participantState.subscriptionCompleted then
 				voiceState = Constants.VOICE_STATE.CONNECTING
 			elseif participantState.isMutedLocally then
-				voiceState = GetFFlagEnableVoiceChatLocalMuteUI() and Constants.VOICE_STATE.LOCAL_MUTED or Constants.VOICE_STATE.MUTED
+				voiceState = Constants.VOICE_STATE.LOCAL_MUTED
 			elseif participantState.isMuted then
 				voiceState = Constants.VOICE_STATE.MUTED
 			elseif participantState.isSignalActive then

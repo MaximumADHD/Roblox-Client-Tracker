@@ -13,19 +13,19 @@ function var7.init(arg1)
       if not arg2 then
          if var0.AnimationData then
             local var0 = var0.FrameRate
-            local var378 = var3.parseTime(arg1.Text, var0)
-            local var387 = math.clamp(var379, 0, var2.TICK_FREQUENCY * var2.MAX_ANIMATION_LENGTH)
-            local var1 = var387
+            local var53 = var3.parseTime(arg1.Text, var0)
+            local var62 = math.clamp(var54, 0, var2.TICK_FREQUENCY * var2.MAX_ANIMATION_LENGTH)
+            local var1 = var62
             if var0.EndTick < var1 then
-               var387 = var0.UpdateEditingLength
-               var387(var1)
+               var62 = var0.UpdateEditingLength
+               var62(var1)
             end
-            local var390 = var3
-            var390 = var1
-            local var394 = var390.formatTime(var390, var0, var0.ShowAsTime)
-            arg1.Text = var394
-            var394 = var0.StepAnimation
-            var394(var1)
+            local var65 = var3
+            var65 = var1
+            local var69 = var65.formatTime(var65, var0, var0.ShowAsTime)
+            arg1.Text = var69
+            var69 = var0.StepAnimation
+            var69(var1)
          end
       end
    end
@@ -37,75 +37,75 @@ function var7.init(arg1)
          if var1 then
             local var0 = var0.FrameRate
             local var1 = var1.Metadata
-            local var410 = var3.parseTime(arg1.Text, var0)
+            local var85 = var3.parseTime(arg1.Text, var0)
             var1 = math.clamp(var1, math.max(var1.EndTick, var2.TICK_FREQUENCY), var2.MAX_ANIMATION_LENGTH)
-            local var421 = var3
-            var421 = var1
-            local var425 = var421.formatTime(var421, var0, var0.ShowAsTime)
-            arg1.Text = var425
-            var425 = var0.UpdateEditingLength
-            var425(var1)
+            local var96 = var3
+            var96 = var1
+            local var100 = var96.formatTime(var96, var0, var0.ShowAsTime)
+            arg1.Text = var100
+            var100 = var0.UpdateEditingLength
+            var100(var1)
          end
       end
    end
    
 end
 
-local function fun6(arg1)
+local function fun3(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var0.ShowAsTime
    local var3 = var0.FrameRate
-   local var440 = {}
-   var440.BackgroundTransparency = 1
-   var440.Size = UDim2.new(0, var2.TIME_DISPLAY_WIDTH, 1, 0)
-   var440.LayoutOrder = var0.LayoutOrder
-   local var450 = {}
-   local var454 = {}
-   var454.FillDirection = Enum.FillDirection.Horizontal
-   var454.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var454.SortOrder = Enum.SortOrder.LayoutOrder
-   var454.VerticalAlignment = Enum.VerticalAlignment.Center
-   var450.Layout = var1.createElement("UIListLayout", var454)
-   local var463 = {}
-   var463.Size = UDim2.new(0, 40, 1, 65530)
-   local var470 = var3
-   var470 = var0.Playhead
-   var463.Text = var470.formatTime(var470, var3, var2)
-   var463.TextXAlignment = Enum.TextXAlignment.Left
-   var463.LayoutOrder = 0
-   var463.ClearTextOnFocus = false
-   var463.FocusChanged = arg1.setCurrentTime
-   local var479 = {}
-   local var483 = {}
-   var483.TextKey = "CurrentFrameBox"
-   var479.Tooltip = var1.createElement(var6, var483)
-   var450.CurrentFrameBox = var1.createElement(var5, var463, var479)
-   local var490 = {}
-   var490.Text = "/"
-   var490.TextSize = var1.textBox.textSize
-   var490.Font = var1.font
-   var490.Size = UDim2.new(0, 12, 1, 0)
-   var490.BackgroundTransparency = 1
-   var490.LayoutOrder = 1
-   var490.TextColor3 = var1.playbackTheme.iconColor
-   var450.DividerLabel = var1.createElement("TextLabel", var490)
-   local var507 = {}
-   var507.Size = UDim2.new(0, 40, 1, 65530)
-   local var514 = var3
-   var514 = var0.EditingLength
-   var507.Text = var514.formatTime(var514, var3, var2)
-   var507.TextXAlignment = Enum.TextXAlignment.Left
-   var507.LayoutOrder = 2
-   var507.ClearTextOnFocus = false
-   var507.FocusChanged = arg1.setEndTime
-   var507.ReadOnly = var0.ReadOnly
-   local var523 = {}
-   local var527 = {}
-   var527.TextKey = "EndFrameBox"
-   var523.Tooltip = var1.createElement(var6, var527)
-   var450.EndFrameBox = var1.createElement(var5, var507, var523)
-   return var1.createElement("Frame", var440, var450)
+   local var115 = {}
+   var115.BackgroundTransparency = 1
+   var115.Size = UDim2.new(0, var2.TIME_DISPLAY_WIDTH, 1, 0)
+   var115.LayoutOrder = var0.LayoutOrder
+   local var125 = {}
+   local var129 = {}
+   var129.FillDirection = Enum.FillDirection.Horizontal
+   var129.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var129.SortOrder = Enum.SortOrder.LayoutOrder
+   var129.VerticalAlignment = Enum.VerticalAlignment.Center
+   var125.Layout = var1.createElement("UIListLayout", var129)
+   local var138 = {}
+   var138.Size = UDim2.new(0, 40, 1, 65530)
+   local var145 = var3
+   var145 = var0.Playhead
+   var138.Text = var145.formatTime(var145, var3, var2)
+   var138.TextXAlignment = Enum.TextXAlignment.Left
+   var138.LayoutOrder = 0
+   var138.ClearTextOnFocus = false
+   var138.FocusChanged = arg1.setCurrentTime
+   local var154 = {}
+   local var158 = {}
+   var158.TextKey = "CurrentFrameBox"
+   var154.Tooltip = var1.createElement(var6, var158)
+   var125.CurrentFrameBox = var1.createElement(var5, var138, var154)
+   local var165 = {}
+   var165.Text = "/"
+   var165.TextSize = var1.textBox.textSize
+   var165.Font = var1.font
+   var165.Size = UDim2.new(0, 12, 1, 0)
+   var165.BackgroundTransparency = 1
+   var165.LayoutOrder = 1
+   var165.TextColor3 = var1.playbackTheme.iconColor
+   var125.DividerLabel = var1.createElement("TextLabel", var165)
+   local var182 = {}
+   var182.Size = UDim2.new(0, 40, 1, 65530)
+   local var189 = var3
+   var189 = var0.EditingLength
+   var182.Text = var189.formatTime(var189, var3, var2)
+   var182.TextXAlignment = Enum.TextXAlignment.Left
+   var182.LayoutOrder = 2
+   var182.ClearTextOnFocus = false
+   var182.FocusChanged = arg1.setEndTime
+   var182.ReadOnly = var0.ReadOnly
+   local var198 = {}
+   local var202 = {}
+   var202.TextKey = "EndFrameBox"
+   var198.Tooltip = var1.createElement(var6, var202)
+   var125.EndFrameBox = var1.createElement(var5, var182, var198)
+   return var1.createElement("Frame", var115, var125)
 end
 
 function var7.render(arg1)
@@ -113,60 +113,60 @@ function var7.render(arg1)
    local var1 = var0.Stylizer
    local var2 = var0.ShowAsTime
    local var3 = var0.FrameRate
-   local var440 = {}
-   var440.BackgroundTransparency = 1
-   var440.Size = UDim2.new(0, var2.TIME_DISPLAY_WIDTH, 1, 0)
-   var440.LayoutOrder = var0.LayoutOrder
-   local var450 = {}
-   local var454 = {}
-   var454.FillDirection = Enum.FillDirection.Horizontal
-   var454.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var454.SortOrder = Enum.SortOrder.LayoutOrder
-   var454.VerticalAlignment = Enum.VerticalAlignment.Center
-   var450.Layout = var1.createElement("UIListLayout", var454)
-   local var463 = {}
-   var463.Size = UDim2.new(0, 40, 1, 65530)
-   local var470 = var3
-   var470 = var0.Playhead
-   var463.Text = var470.formatTime(var470, var3, var2)
-   var463.TextXAlignment = Enum.TextXAlignment.Left
-   var463.LayoutOrder = 0
-   var463.ClearTextOnFocus = false
-   var463.FocusChanged = arg1.setCurrentTime
-   local var479 = {}
-   local var483 = {}
-   var483.TextKey = "CurrentFrameBox"
-   var479.Tooltip = var1.createElement(var6, var483)
-   var450.CurrentFrameBox = var1.createElement(var5, var463, var479)
-   local var490 = {}
-   var490.Text = "/"
-   var490.TextSize = var1.textBox.textSize
-   var490.Font = var1.font
-   var490.Size = UDim2.new(0, 12, 1, 0)
-   var490.BackgroundTransparency = 1
-   var490.LayoutOrder = 1
-   var490.TextColor3 = var1.playbackTheme.iconColor
-   var450.DividerLabel = var1.createElement("TextLabel", var490)
-   local var507 = {}
-   var507.Size = UDim2.new(0, 40, 1, 65530)
-   local var514 = var3
-   var514 = var0.EditingLength
-   var507.Text = var514.formatTime(var514, var3, var2)
-   var507.TextXAlignment = Enum.TextXAlignment.Left
-   var507.LayoutOrder = 2
-   var507.ClearTextOnFocus = false
-   var507.FocusChanged = arg1.setEndTime
-   var507.ReadOnly = var0.ReadOnly
-   local var523 = {}
-   local var527 = {}
-   var527.TextKey = "EndFrameBox"
-   var523.Tooltip = var1.createElement(var6, var527)
-   var450.EndFrameBox = var1.createElement(var5, var507, var523)
-   return var1.createElement("Frame", var440, var450)
+   local var115 = {}
+   var115.BackgroundTransparency = 1
+   var115.Size = UDim2.new(0, var2.TIME_DISPLAY_WIDTH, 1, 0)
+   var115.LayoutOrder = var0.LayoutOrder
+   local var125 = {}
+   local var129 = {}
+   var129.FillDirection = Enum.FillDirection.Horizontal
+   var129.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var129.SortOrder = Enum.SortOrder.LayoutOrder
+   var129.VerticalAlignment = Enum.VerticalAlignment.Center
+   var125.Layout = var1.createElement("UIListLayout", var129)
+   local var138 = {}
+   var138.Size = UDim2.new(0, 40, 1, 65530)
+   local var145 = var3
+   var145 = var0.Playhead
+   var138.Text = var145.formatTime(var145, var3, var2)
+   var138.TextXAlignment = Enum.TextXAlignment.Left
+   var138.LayoutOrder = 0
+   var138.ClearTextOnFocus = false
+   var138.FocusChanged = arg1.setCurrentTime
+   local var154 = {}
+   local var158 = {}
+   var158.TextKey = "CurrentFrameBox"
+   var154.Tooltip = var1.createElement(var6, var158)
+   var125.CurrentFrameBox = var1.createElement(var5, var138, var154)
+   local var165 = {}
+   var165.Text = "/"
+   var165.TextSize = var1.textBox.textSize
+   var165.Font = var1.font
+   var165.Size = UDim2.new(0, 12, 1, 0)
+   var165.BackgroundTransparency = 1
+   var165.LayoutOrder = 1
+   var165.TextColor3 = var1.playbackTheme.iconColor
+   var125.DividerLabel = var1.createElement("TextLabel", var165)
+   local var182 = {}
+   var182.Size = UDim2.new(0, 40, 1, 65530)
+   local var189 = var3
+   var189 = var0.EditingLength
+   var182.Text = var189.formatTime(var189, var3, var2)
+   var182.TextXAlignment = Enum.TextXAlignment.Left
+   var182.LayoutOrder = 2
+   var182.ClearTextOnFocus = false
+   var182.FocusChanged = arg1.setEndTime
+   var182.ReadOnly = var0.ReadOnly
+   local var198 = {}
+   local var202 = {}
+   var202.TextKey = "EndFrameBox"
+   var198.Tooltip = var1.createElement(var6, var202)
+   var125.EndFrameBox = var1.createElement(var5, var182, var198)
+   return var1.createElement("Frame", var115, var125)
 end
 
-fun6 = var4.withContext
-local var532 = {}
-var532.Stylizer = var4.Stylizer
-var7 = fun6(var532)(var7)
+fun3 = var4.withContext
+local var207 = {}
+var207.Stylizer = var4.Stylizer
+var7 = fun3(var207)(var7)
 return var7

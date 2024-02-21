@@ -15,7 +15,7 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R4 R1 K10 ["join"]
   MOVE R5 R3
-  DUPTABLE R6 K14 [{"dispatchWorldClick", "getMouseTarget", "SelectionInfo"}]
+  DUPTABLE R6 K15 [{"dispatchWorldClick", "getMouseTarget", "FreeformDragger", "SelectionInfo"}]
   GETIMPORT R7 K5 [require]
   GETIMPORT R9 K1 [script]
   GETTABLEKS R8 R9 K11 ["dispatchWorldClick"]
@@ -28,8 +28,13 @@ MAIN:
   SETTABLEKS R7 R6 K12 ["getMouseTarget"]
   GETIMPORT R7 K5 [require]
   GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K13 ["SelectionInfo"]
+  GETTABLEKS R8 R9 K13 ["FreeformDragger"]
   CALL R7 1 1
-  SETTABLEKS R7 R6 K13 ["SelectionInfo"]
+  SETTABLEKS R7 R6 K13 ["FreeformDragger"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K14 ["SelectionInfo"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K14 ["SelectionInfo"]
   CALL R4 2 -1
   RETURN R4 -1

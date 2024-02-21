@@ -29,20 +29,20 @@ end
 var3.translationResourceTable = var0.Src.Resources.Localization.LocalizedStrings
 var3.fallbackResourceTable = var0.Src.Resources.Localization.SourceStrings
 var3.buttonInfo = var2
-local var69 = {}
-var69.id = "VisualizationModes"
-var69.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
-function var69.getDockTitle(arg1, arg2, arg3)
+local var68 = {}
+var68.id = "VisualizationModes"
+var68.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
+function var68.getDockTitle(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Plugin", "Name")
 end
 
-local var89 = Enum.ZIndexBehavior.Sibling
-var69.zIndexBehavior = var89
-var3.dockWidgetInfo = var69
-var89 = var3
-local var6 = require(var0.Packages.PluginLoader.PluginLoaderBuilder).build(var89)
+local var88 = Enum.ZIndexBehavior.Sibling
+var68.zIndexBehavior = var88
+var3.dockWidgetInfo = var68
+var88 = var3
+local var6 = require(var0.Packages.PluginLoader.PluginLoaderBuilder).build(var88)
 if not var6.pluginLoader:waitForUserInteraction() then
 end
-local var96 = script
-var96 = var6
-require(var96.Parent.main)(plugin, var96)
+local var95 = script
+var95 = var6
+require(var95.Parent.main)(plugin, var95)

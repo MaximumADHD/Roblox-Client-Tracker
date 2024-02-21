@@ -16,11 +16,11 @@ function var7.render(arg1)
 end
 
 fun9 = var3.withContext
-local var988 = {}
-var988.Analytics = var3.Analytics
-var988.Localization = var3.Localization
-var988.Stylizer = var2.Style.Stylizer
-var7 = fun9(var988)(var7)
+local var579 = {}
+var579.Analytics = var3.Analytics
+var579.Localization = var3.Localization
+var579.Stylizer = var2.Style.Stylizer
+var7 = fun9(var579)(var7)
 return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.DefaultStateObject = arg1.DefaultStateObject

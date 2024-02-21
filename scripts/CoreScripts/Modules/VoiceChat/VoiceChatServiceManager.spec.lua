@@ -8,6 +8,9 @@ return function()
 	local Promise = require(CorePackages.Promise)
 	local Cryo = require(CorePackages.Cryo)
 
+	local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
+	local Constants = VoiceChat.Constants
+
 	local CoreGui = game:GetService("CoreGui")
 	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 	local HttpService = game:GetService("HttpService")
@@ -23,6 +26,7 @@ return function()
 
 	local GetFFlagAlwaysMountVoicePrompt = require(RobloxGui.Modules.Flags.GetFFlagAlwaysMountVoicePrompt)
 	local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
+	local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 	local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 
 	local noop = function() end
@@ -299,7 +303,36 @@ return function()
 			expect(deepEqual(VoiceChatServiceManager.participants, {})).toBe(true)
 		end)
 
-		if not game:GetFastFlag("DebugSkipVoicePermissionCheck") then
+		if GetFFlagJoinWithoutMicPermissions() then
+			it("requestMicPermission still resolves when a malformed response is given", function()
+				PermissionServiceStub.hasPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED }, Promise.reject)
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					VoiceChatServiceStub,
+					HTTPServiceStub,
+					PermissionServiceStub,
+					nil,
+					nil,
+					nil,
+					getPermissionsFunction()
+				)
+				expectToResolve(VoiceChatServiceManager:requestMicPermission())
+			end)
+
+			it("requestMicPermission rejects when permissions protocol response is denied", function()
+				PermissionServiceStub.hasPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
+				PermissionServiceStub.requestPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					VoiceChatServiceStub,
+					HTTPServiceStub,
+					PermissionServiceStub,
+					nil,
+					nil,
+					nil,
+					getPermissionsFunction(PermissionsProtocol.Status.DENIED)
+				)
+				expectToResolve(VoiceChatServiceManager:requestMicPermission())
+			end)
+		else
 			it("requestMicPermission throws when a malformed response is given", function()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 					VoiceChatServiceStub,
@@ -328,19 +361,36 @@ return function()
 			end)
 		end
 
-		it("requestMicPermission resolves when permissions protocol response is approved", function()
-			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-				VoiceChatServiceStub,
-				HTTPServiceStub,
-				PermissionServiceStub,
-				nil,
-				nil,
-				nil,
-				getPermissionsFunction(PermissionsProtocol.Status.AUTHORIZED)
-			)
-			PermissionServiceStub.requestPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.AUTHORIZED })
-			expectToResolve(VoiceChatServiceManager:requestMicPermission())
-		end)
+		if GetFFlagJoinWithoutMicPermissions() then
+			it("requestMicPermission resolves when permissions protocol response is approved for join without voice permission", function()
+				PermissionServiceStub.hasPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.AUTHORIZED })
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					VoiceChatServiceStub,
+					HTTPServiceStub,
+					PermissionServiceStub,
+					nil,
+					nil,
+					nil,
+					getPermissionsFunction(PermissionsProtocol.Status.AUTHORIZED)
+				)
+				expectToResolve(VoiceChatServiceManager:requestMicPermission())
+				expect(VoiceChatServiceManager.permissionState).toBe(Constants.PERMISSION_STATE.LISTEN_AND_TALK)
+			end)
+		else
+			it("requestMicPermission resolves when permissions protocol response is approved", function()
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					VoiceChatServiceStub,
+					HTTPServiceStub,
+					PermissionServiceStub,
+					nil,
+					nil,
+					nil,
+					getPermissionsFunction(PermissionsProtocol.Status.AUTHORIZED)
+				)
+				PermissionServiceStub.requestPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.AUTHORIZED })
+				expectToResolve(VoiceChatServiceManager:requestMicPermission())
+			end)
+		end
 
 		describe("permission prompt", function()
 			local newContent
@@ -429,33 +479,34 @@ return function()
 				game:SetFastFlagForTesting("EnableUniveralVoiceToasts", oldToasts)
 				game:SetFastFlagForTesting("EnableVoiceMicPromptToastFix", oldToastsFix)
 			end)
+			if not GetFFlagJoinWithoutMicPermissions() then
+				it("shows correct prompt when user does not give voice permission", function()
+					VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+						VoiceChatServiceStub,
+						HTTPServiceStub,
+						PermissionServiceStub,
+						nil,
+						nil,
+						nil,
+						getPermissionsFunction(PermissionsProtocol.Status.DENIED)
+					)
+					VoiceChatServiceManager.policyMapper = mockPolicyMapper
+					VoiceChatServiceManager.userEligible = true
+					PermissionServiceStub.hasPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
+					act(function()
+						VoiceChatServiceManager:CheckAndShowPermissionPrompt()
+					end)
+					waitForEvents.act()
+					expect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
 
-			it("shows correct prompt when user does not give voice permission", function()
-				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-					VoiceChatServiceStub,
-					HTTPServiceStub,
-					PermissionServiceStub,
-					nil,
-					nil,
-					nil,
-					getPermissionsFunction(PermissionsProtocol.Status.DENIED)
-				)
-				VoiceChatServiceManager.policyMapper = mockPolicyMapper
-				VoiceChatServiceManager.userEligible = true
-				PermissionServiceStub.hasPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
-				act(function()
-					VoiceChatServiceManager:CheckAndShowPermissionPrompt()
+					local ToastContainer = CoreGui:FindFirstChild("ToastContainer", true)
+					local expectedToastText = "Unable to access Microphone"
+
+					expect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
+						expectedToastText
+					)
 				end)
-				waitForEvents.act()
-				expect(CoreGui.RobloxVoiceChatPromptGui).never.toBeNil()
-
-				local ToastContainer = CoreGui:FindFirstChild("ToastContainer", true)
-				local expectedToastText = "Unable to access Microphone"
-
-				expect(ToastContainer.Toast.ToastFrame.ToastMessageFrame.ToastTextFrame.ToastTitle.Text).toBe(
-					expectedToastText
-				)
-			end)
+			end
 
 			it("shows or does not show toast when user is voice banned and has acknowledged ban", function()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)

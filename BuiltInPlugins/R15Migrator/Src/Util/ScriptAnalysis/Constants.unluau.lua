@@ -16,4 +16,5 @@ var8.Error = "Error"
 var8.None = "None"
 var0.ScriptStatus = var8
 var0.ReferenceKey = "Reference"
+var0.ScriptBackupTag = "R15MigratorScriptHasBackup"
 return var0

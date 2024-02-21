@@ -6,28 +6,33 @@ PROTO_0:
   JUMPIFNOTEQKS R2 K3 ["Move"] [+2]
   RETURN R0 0
   GETTABLEKS R2 R1 K2 ["Path2DToolMode"]
-  JUMPIFNOTEQKS R2 K4 ["AddTangent"] [+28]
+  JUMPIFNOTEQKS R2 K4 ["AddTangent"] [+34]
+  GETUPVAL R4 0
+  LOADK R5 K5 ["Removed Tangents"]
+  CALL R4 1 -1
+  NAMECALL R2 R0 K6 ["dispatch"]
+  CALL R2 -1 0
+  GETUPVAL R4 1
+  GETUPVAL R5 2
+  LOADK R6 K7 ["Left"]
+  GETIMPORT R7 K10 [Vector2.zero]
+  LOADB R8 0
+  LOADB R9 0
+  CALL R4 5 -1
+  NAMECALL R2 R0 K6 ["dispatch"]
+  CALL R2 -1 0
+  GETUPVAL R4 1
+  GETUPVAL R5 2
+  LOADK R6 K11 ["Right"]
+  GETIMPORT R7 K10 [Vector2.zero]
+  LOADB R8 0
+  LOADB R9 0
+  CALL R4 5 -1
+  NAMECALL R2 R0 K6 ["dispatch"]
+  CALL R2 -1 0
   GETUPVAL R4 0
   CALL R4 0 -1
-  NAMECALL R2 R0 K5 ["dispatch"]
-  CALL R2 -1 0
-  GETUPVAL R4 1
-  GETUPVAL R5 2
-  LOADK R6 K6 ["Left"]
-  GETIMPORT R7 K9 [Vector2.zero]
-  LOADB R8 0
-  LOADB R9 0
-  CALL R4 5 -1
-  NAMECALL R2 R0 K5 ["dispatch"]
-  CALL R2 -1 0
-  GETUPVAL R4 1
-  GETUPVAL R5 2
-  LOADK R6 K10 ["Right"]
-  GETIMPORT R7 K9 [Vector2.zero]
-  LOADB R8 0
-  LOADB R9 0
-  CALL R4 5 -1
-  NAMECALL R2 R0 K5 ["dispatch"]
+  NAMECALL R2 R0 K6 ["dispatch"]
   CALL R2 -1 0
   RETURN R0 0
 
@@ -47,17 +52,15 @@ MAIN:
   GETTABLEKS R2 R0 K3 ["Src"]
   GETTABLEKS R1 R2 K4 ["Thunks"]
   GETIMPORT R2 K6 [require]
-  GETTABLEKS R5 R0 K3 ["Src"]
-  GETTABLEKS R4 R5 K4 ["Thunks"]
-  GETTABLEKS R3 R4 K7 ["AddWaypoint"]
+  GETTABLEKS R3 R1 K7 ["RemoveControlPoint"]
   CALL R2 1 1
   GETIMPORT R3 K6 [require]
-  GETTABLEKS R4 R1 K8 ["RemoveControlPoint"]
+  GETTABLEKS R4 R1 K8 ["SetControlPointTangent"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R1 K9 ["SetControlPointTangent"]
+  GETTABLEKS R5 R1 K9 ["RecordChangeHistory"]
   CALL R4 1 1
   DUPCLOSURE R5 K10 [PROTO_1]
-  CAPTURE VAL R2
   CAPTURE VAL R4
+  CAPTURE VAL R3
   RETURN R5 1

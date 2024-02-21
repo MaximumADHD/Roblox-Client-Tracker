@@ -1,3 +1,13 @@
+--!nonstrict
+local FFlagUsePackagifiedIXPServiceWrapper = game:DefineFastFlag("UsePackagifiedIXPServiceWrapper", false)
+
+if FFlagUsePackagifiedIXPServiceWrapper then
+	--TODO: Remove the nonstrict at the top of the file when FFlagUsePackagifiedIXPServiceWrapper is removed
+	local CorePackages = game:GetService("CorePackages")
+	local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
+	return IXPServiceWrapper
+end
+
 --[[
 	A wrapper for IXPService that is intended to be used by in-game code (i.e. StarterScript)
 	Prefer the functions on this Module rather than invoking IXPService directly

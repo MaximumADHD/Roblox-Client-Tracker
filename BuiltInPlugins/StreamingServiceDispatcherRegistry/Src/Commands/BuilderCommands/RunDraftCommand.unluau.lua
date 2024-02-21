@@ -4,7 +4,7 @@ local var1 = script.Parent.Parent.Parent.Parent
 local var2 = require(var1.Src.Utils.Utils)
 local var3 = require(var1.Src.Types)
 local var4 = require(script.Parent.BuilderNameMap)
-local var5 = game:GetFastFlag("ConvAIAddDraftModeForSceneCreate")
+local var5 = game:GetFastFlag("ConvAIAddDraftModeForSceneCreate2")
 return function(arg1)
    assert(var5, "runDraftCommand: FFlagConvAIAddDraftModeForSceneCreate is not enabled!")
    if not var2.isDraftModeEnabled(arg1.requestId) then

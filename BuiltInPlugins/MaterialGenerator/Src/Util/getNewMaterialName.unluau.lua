@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("MaterialGenerator")
 local function fun0(arg1)
    arg1 = arg1:lower()
    arg1 = arg1:gsub("[ _](%a)", string.upper)
@@ -10,32 +10,32 @@ end
 
 local function var1(arg1, arg2)
    local var0 = {}
-   local var46 = arg2
-   local var47 = nil
-   local var48 = nil
-   local var51 = string.lower(var50)
-   local var52 = true
-   string.lower(var50) = var52
-   var47 = arg1
-   local var4 = string.lower(var47)
+   local var22 = arg2
+   local var23 = nil
+   local var24 = nil
+   local var27 = string.lower(var26)
+   local var28 = true
+   string.lower(var26) = var28
+   var23 = arg1
+   local var4 = string.lower(var23)
    if not var0[var4] then
       return arg1
    end
    local var5 = 0 + 1
-   var51 = var4
-   var52 = var5
-   while var0[string.format("%s %0d", var51, var52)] do
+   var27 = var4
+   var28 = var5
+   while var0[string.format("%s %0d", var27, var28)] do
    end
    return string.format("%s %0d", arg1, var5)
 end
 
 return function(arg1, arg2)
-   local var69 = arg1
-   var69 = var69:lower()
-   var69 = var69:gsub("[ _](%a)", string.upper)
-   var69 = var69:gsub("^%a", string.upper)
-   local var83 = var69:gsub("%p", "")
-   var69 = var83
-   var83 = var69
-   return var1(var83, arg2 or {})
+   local var45 = arg1
+   var45 = var45:lower()
+   var45 = var45:gsub("[ _](%a)", string.upper)
+   var45 = var45:gsub("^%a", string.upper)
+   local var59 = var45:gsub("%p", "")
+   var45 = var59
+   var59 = var45
+   return var1(var59, arg2 or {})
 end

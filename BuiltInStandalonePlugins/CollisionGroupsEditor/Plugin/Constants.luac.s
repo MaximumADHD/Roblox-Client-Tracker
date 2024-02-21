@@ -29,31 +29,33 @@ MAIN:
   LOADN R1 85
   LOADN R2 34
   CALL R0 2 1
-  DUPTABLE R1 K13 [{"GroupCountMax", "GroupRowHeight", "GroupRowWidth", "ControlsHeaderButtonWidth", "GroupLabelFixedSize", "GroupListRowHeight", "GridCellWidth", "GridHeaderLabelSize", "GridCellSize", "CalculateTableSize"}]
+  DUPTABLE R1 K14 [{"CursorGroupName", "GroupCountMax", "GroupRowHeight", "GroupRowWidth", "ControlsHeaderButtonWidth", "GroupLabelFixedSize", "GroupListRowHeight", "GridCellWidth", "GridHeaderLabelSize", "GridCellSize", "CalculateTableSize"}]
+  LOADK R2 K15 ["StudioSelectable"]
+  SETTABLEKS R2 R1 K3 ["CursorGroupName"]
   LOADN R2 32
-  SETTABLEKS R2 R1 K3 ["GroupCountMax"]
+  SETTABLEKS R2 R1 K4 ["GroupCountMax"]
   LOADN R2 35
-  SETTABLEKS R2 R1 K4 ["GroupRowHeight"]
+  SETTABLEKS R2 R1 K5 ["GroupRowHeight"]
   LOADN R2 120
-  SETTABLEKS R2 R1 K5 ["GroupRowWidth"]
+  SETTABLEKS R2 R1 K6 ["GroupRowWidth"]
   LOADN R2 106
-  SETTABLEKS R2 R1 K6 ["ControlsHeaderButtonWidth"]
+  SETTABLEKS R2 R1 K7 ["ControlsHeaderButtonWidth"]
   GETIMPORT R2 K2 [UDim2.fromOffset]
   LOADN R3 120
   LOADN R4 35
   CALL R2 2 1
-  SETTABLEKS R2 R1 K7 ["GroupLabelFixedSize"]
+  SETTABLEKS R2 R1 K8 ["GroupLabelFixedSize"]
   LOADN R2 24
-  SETTABLEKS R2 R1 K8 ["GroupListRowHeight"]
+  SETTABLEKS R2 R1 K9 ["GroupListRowHeight"]
   LOADN R2 85
-  SETTABLEKS R2 R1 K9 ["GridCellWidth"]
+  SETTABLEKS R2 R1 K10 ["GridCellWidth"]
   GETIMPORT R2 K2 [UDim2.fromOffset]
   LOADN R3 86
   LOADN R4 35
   CALL R2 2 1
-  SETTABLEKS R2 R1 K10 ["GridHeaderLabelSize"]
-  SETTABLEKS R0 R1 K11 ["GridCellSize"]
-  DUPCLOSURE R2 K14 [PROTO_0]
+  SETTABLEKS R2 R1 K11 ["GridHeaderLabelSize"]
+  SETTABLEKS R0 R1 K12 ["GridCellSize"]
+  DUPCLOSURE R2 K16 [PROTO_0]
   CAPTURE VAL R0
-  SETTABLEKS R2 R1 K12 ["CalculateTableSize"]
+  SETTABLEKS R2 R1 K13 ["CalculateTableSize"]
   RETURN R1 1

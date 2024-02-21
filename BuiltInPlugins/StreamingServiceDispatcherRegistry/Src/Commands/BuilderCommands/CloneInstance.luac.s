@@ -117,7 +117,7 @@ MAIN:
   NAMECALL R5 R5 K14 ["GetFastFlag"]
   CALL R5 2 1
   GETIMPORT R6 K1 [game]
-  LOADK R8 K15 ["ConvAIAddDraftModeForSceneCreate"]
+  LOADK R8 K15 ["ConvAIAddDraftModeForSceneCreate2"]
   NAMECALL R6 R6 K14 ["GetFastFlag"]
   CALL R6 2 1
   GETIMPORT R7 K1 [game]

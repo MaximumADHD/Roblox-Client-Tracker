@@ -1,6 +1,7 @@
 --!nonstrict
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
+local CorePackages = game:GetService("CorePackages")
 
 local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(script.Parent.ExperienceMenuABTestManager)
@@ -13,7 +14,7 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local FFlagDisableNewIGMinDUA = game:DefineFastFlag("DisableNewIGMinDUA", false)
 
-local isSubjectToDesktopPolicies = require(script.Parent.InGameMenu.isSubjectToDesktopPolicies)
+local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
 
 return function()
 	-- new IGM is always on in VR

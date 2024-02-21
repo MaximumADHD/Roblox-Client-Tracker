@@ -102,6 +102,12 @@ if getFFlagDoNotPromptCameraPermissionsOnMount() then
 	ExperienceChat.GlobalFlags.DoNotPromptCameraPermissionsOnMount = true
 end
 
+local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
+if GetFFlagJoinWithoutMicPermissions() then
+	local ExperienceChat = require(CorePackages.ExperienceChat)
+	ExperienceChat.GlobalFlags.JoinWithoutMicPermissions = true
+end
+
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 if getFFlagEnableAlwaysAvailableCamera() then
 	local ExperienceChat = require(CorePackages.ExperienceChat)
@@ -399,9 +405,7 @@ end
 if FFlagCoreScriptsGlobalEffects then
 	-- Mounts a react root that persists while the user is in-experience.
 	-- This allows us to use react-based listeners that trigger effects
-	if not _G.IsLegacyAppShell then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptsGlobalEffects", script.Parent)
-	end
+	ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptsGlobalEffects", script.Parent)
 end
 
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
