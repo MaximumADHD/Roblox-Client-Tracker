@@ -5,6 +5,8 @@ local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidat
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
 local getFFlagUGCValidateFixAccessories = require(root.flags.getFFlagUGCValidateFixAccessories)
 local getFFlagUGCValidateHandleRestrictedUserIds = require(root.flags.getFFlagUGCValidateHandleRestrictedUserIds)
+local getEngineFeatureUGCValidateEditableMeshAndImage =
+	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Promise = require(root.Parent.Promise)
 
@@ -197,29 +199,37 @@ local function validateBundleReadyForUpload(
 		local success, problems
 		if getFFlagUseUGCValidationContext() then
 			local instances = { piece.instance }
-			local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
-			-- assuming isServer is false
-			if not createSuccess then
-				problems = result
-				success = false
+			local validationContext = {
+				instances = instances :: { Instance },
+				assetTypeEnum = piece.assetType :: Enum.AssetType,
+				allowUnreviewedAssets = false,
+				restrictedUserIds = if getFFlagUGCValidateHandleRestrictedUserIds()
+					then getRestrictedUserTable()
+					else {},
+				isServer = false,
+				isAsync = false,
+				allowEditableInstances = allowEditableInstances,
+			} :: Types.ValidationContext
+
+			if getEngineFeatureUGCValidateEditableMeshAndImage() then
+				local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
+				-- assuming isServer is false
+				if not createSuccess then
+					problems = result
+					success = false
+				else
+					validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+					validationContext.editableImages = result.editableImages :: Types.EditableImages
+
+					success, problems = validateInternal(validationContext)
+
+					destroyEditableInstances(
+						validationContext.editableMeshes :: Types.EditableMeshes,
+						validationContext.editableImages :: Types.EditableImages
+					)
+				end
 			else
-				local validationContext = {
-					instances = instances :: { Instance },
-					assetTypeEnum = piece.assetType :: Enum.AssetType,
-					allowUnreviewedAssets = false,
-					restrictedUserIds = if getFFlagUGCValidateHandleRestrictedUserIds()
-						then getRestrictedUserTable()
-						else {},
-					isServer = false,
-					isAsync = false,
-					editableMeshes = result.editableMeshes :: Types.EditableMeshes,
-					editableImages = result.editableImages :: Types.EditableImages,
-					allowEditableInstances = allowEditableInstances,
-				} :: Types.ValidationContext
-
 				success, problems = validateInternal(validationContext)
-
-				destroyEditableInstances(validationContext)
 			end
 		else
 			success, problems = (validateInternal :: any)(
@@ -276,30 +286,42 @@ local function validateBundleReadyForUpload(
 				local success, failures
 				local fullBodyData = createFullBodyData(response.pieces)
 
-				local instances = {}
-				for _, instancesAndType in fullBodyData do
-					for _, instance in instancesAndType.allSelectedInstances do
-						table.insert(instances, instance)
-					end
-				end
+				if getFFlagUseUGCValidationContext() then
+					local validationContext = {
+						fullBodyData = fullBodyData :: Types.FullBodyData,
+						isServer = false,
+						allowEditableInstances,
+					} :: Types.ValidationContext
 
-				local createSuccess, result = createEditableInstancesForContext(instances, allowEditableInstances)
-				if not createSuccess then
-					failures = result
-					success = false
-				else
-					if getFFlagUseUGCValidationContext() then
-						local validationContext = {
-							fullBodyData = fullBodyData :: Types.FullBodyData,
-							isServer = false,
-							editableMeshes = result.editableMeshes :: Types.EditableMeshes,
-							editableImages = result.editableImages :: Types.EditableImages,
-							allowEditableInstances,
-						} :: Types.ValidationContext
-						success, failures = validateFullBody(validationContext)
+					if getEngineFeatureUGCValidateEditableMeshAndImage() then
+						local instances = {}
+						for _, instancesAndType in fullBodyData do
+							for _, instance in instancesAndType.allSelectedInstances do
+								table.insert(instances, instance)
+							end
+						end
+
+						local createSuccess, result =
+							createEditableInstancesForContext(instances, allowEditableInstances)
+						if not createSuccess then
+							failures = result
+							success = false
+						else
+							validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+							validationContext.editableImages = result.editableImages :: Types.EditableImages
+
+							success, failures = validateFullBody(validationContext)
+
+							destroyEditableInstances(
+								validationContext.editableMeshes :: Types.EditableMeshes,
+								validationContext.editableImages :: Types.EditableImages
+							)
+						end
 					else
-						success, failures = (validateFullBody :: any)(fullBodyData, false)
+						success, failures = validateFullBody(validationContext)
 					end
+				else
+					success, failures = (validateFullBody :: any)(fullBodyData, false)
 				end
 
 				if not success then

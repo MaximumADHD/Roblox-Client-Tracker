@@ -2,4 +2,4 @@
 name = "Rodux"
 version = "3.2.0"
 commit = "7ee23111cb6f1e21176d9772c943d3626aebfc6a"
-source = "url+https://github.com/roblox/rodux"
+source = "git+https://github.com/roblox/rodux#v3.2.0"

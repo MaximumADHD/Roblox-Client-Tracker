@@ -147,7 +147,7 @@ local function validateDynamicHeadData(
 	end
 
 	local isServer = validationContext.isServer
-	local skipSnapshot = validationContext.skipSnapshot
+	local skipSnapshot = if validationContext.bypassFlags then validationContext.bypassFlags.skipSnapshot else false
 
 	do
 		local retrievedMeshData, testsPassed = pcall(function()

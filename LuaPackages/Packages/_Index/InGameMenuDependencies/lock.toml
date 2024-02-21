@@ -11,7 +11,7 @@ dependencies = [
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> RoduxFlaggedUpgrade b7d08f02 git+https://github.com/roblox/rodux-upgrade#main",
+    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "UIBlox UIBlox 4e6a7bde git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]

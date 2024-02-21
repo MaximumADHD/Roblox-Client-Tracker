@@ -190,7 +190,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 			table.insert(reasons, "Could not find WrapLayer!")
 			validationResult = false
 		else
-			success, failedReason = validateHSR(wrapLayer)
+			success, failedReason = validateHSR(wrapLayer, validationContext)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false
@@ -468,7 +468,7 @@ local function DEPRECATED_validateLayeredClothingAccessory(
 			table.insert(reasons, "Could not find WrapLayer!")
 			validationResult = false
 		else
-			success, failedReason = validateHSR(wrapLayer)
+			success, failedReason = (validateHSR :: any)(wrapLayer)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
 				validationResult = false

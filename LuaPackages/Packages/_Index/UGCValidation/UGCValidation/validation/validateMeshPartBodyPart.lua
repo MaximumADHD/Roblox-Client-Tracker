@@ -43,6 +43,7 @@ local function validateMeshPartBodyPart(
 	local isServer = validationContext.isServer
 	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
 	local allowUnreviewedAssets = validationContext.allowUnreviewedAssets
+	local skipSnapshot = if validationContext.bypassFlags then validationContext.bypassFlags.skipSnapshot else false
 	local restrictedUserIds = validationContext.restrictedUserIds
 
 	-- do this ASAP
@@ -85,10 +86,12 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateDescendantTextureMetrics(inst, validationContext))
 
-	reasonsAccumulator:updateReasons(validateHSR(inst))
+	reasonsAccumulator:updateReasons(validateHSR(inst, validationContext))
 
 	-- TODO: refactor to take in a context table after FFlagUseThumbnailerUtil is cleaned up
-	reasonsAccumulator:updateReasons(validateAssetTransparency(inst, assetTypeEnum, isServer))
+	if not skipSnapshot then
+		reasonsAccumulator:updateReasons(validateAssetTransparency(inst, assetTypeEnum, isServer))
+	end
 
 	reasonsAccumulator:updateReasons(validateMaterials(inst))
 
@@ -167,7 +170,7 @@ local function DEPRECATED_validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons((validateDescendantTextureMetrics :: any)(inst, isServer))
 
-	reasonsAccumulator:updateReasons(validateHSR(inst))
+	reasonsAccumulator:updateReasons((validateHSR :: any)(inst))
 
 	reasonsAccumulator:updateReasons(validateAssetTransparency(inst, assetTypeEnum, isServer))
 

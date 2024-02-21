@@ -13,8 +13,20 @@ export type BoundsData = {
 	minOverall: Vector3?,
 	maxOverall: Vector3?,
 }
-export type EditableMeshes = { [Instance]: { [string]: EditableMesh } }
-export type EditableImages = { [Instance]: { [string]: EditableImage } }
+export type EditableMeshInfo = {
+	instance: EditableMesh,
+	created: boolean,
+}
+export type EditableImageInfo = {
+	instance: EditableImage,
+	created: boolean,
+}
+export type BypassFlags = {
+	skipSnapshot: boolean?,
+	skipValidateHSR: boolean?,
+}
+export type EditableMeshes = { [Instance]: { [string]: EditableMeshInfo } }
+export type EditableImages = { [Instance]: { [string]: EditableImageInfo } }
 export type ValidationContext = {
 	fullBodyData: FullBodyData?,
 	instances: { Instance }?,
@@ -25,10 +37,10 @@ export type ValidationContext = {
 	token: string?,
 	universeId: number?,
 	isAsync: boolean?,
-	skipSnapshot: boolean?,
-	editableMeshes: EditableMeshes,
-	editableImages: EditableImages,
+	editableMeshes: EditableMeshes?,
+	editableImages: EditableImages?,
 	allowEditableInstances: boolean?,
+	bypassFlags: BypassFlags?,
 }
 
 export type MeshInfo = {

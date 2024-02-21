@@ -7,7 +7,7 @@ dependencies = [
     "FriendsNetworking NetworkingFriends 2.11.0 url+https://github.com/roblox/networking-friends",
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "NetworkingBlocking NetworkingBlocking 1.15.0 url+https://github.com/roblox/lua-app-networking",
-    "Rodux <patched> RoduxFlaggedUpgrade b7d08f02 git+https://github.com/roblox/rodux-upgrade#main",
+    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxNetworking RoduxNetworking 3.2.1 url+https://github.com/roblox/rodux-networking",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",

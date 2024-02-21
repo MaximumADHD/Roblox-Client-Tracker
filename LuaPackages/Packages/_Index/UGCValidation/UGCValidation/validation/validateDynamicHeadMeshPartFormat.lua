@@ -64,6 +64,7 @@ local function validateDynamicHeadMeshPartFormat(validationContext: Types.Valida
 	)
 	local allSelectedInstances = validationContext.instances :: { Instance }
 	local isServer = validationContext.isServer
+	local skipSnapshot = if validationContext.bypassFlags then validationContext.bypassFlags.skipSnapshot else false
 
 	local result, failureReasons = validateSingleInstance(allSelectedInstances)
 	if not result then
@@ -80,8 +81,10 @@ local function validateDynamicHeadMeshPartFormat(validationContext: Types.Valida
 	end
 
 	if
-		(isServer and getFFlagUGCValidateDynamicHeadMoodRCC())
-		or (not isServer and getFFlagUGCValidateDynamicHeadMoodClient())
+		(
+			(isServer and getFFlagUGCValidateDynamicHeadMoodRCC())
+			or (not isServer and getFFlagUGCValidateDynamicHeadMoodClient())
+		) and not skipSnapshot
 	then
 		-- TODO: refactor to take in a context table after FFlagUseThumbnailerUtil is cleaned up
 		result, failureReasons =
