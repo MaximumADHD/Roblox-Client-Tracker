@@ -1,7 +1,5 @@
 Key,Context,Source,en-us
-Studio.App.IdeDoc.ConnectingtoServer,Roblox IDE Doc,Connecting to server...,Connecting to server...
 Studio.App.IdeDoc.LoadingPlacePleaseWait,Roblox IDE Doc,Loading Place. Please wait...,Loading Place. Please wait...
-Studio.App.IdeDoc.CloudTestFetchConfigFailed,Roblox IDE Doc,Cannot fetch team test launch config.,Cannot fetch team test launch config.
 Studio.App.IdeDoc.CannotOpenFileForRead,Roblox IDE Doc,Cannot open place file for read.,Cannot open place file for read.
 Studio.App.CommandLine.InvalidArgument2,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2
 Studio.App.DataModelLifeCycle.CannotOpenFileForRead,Failed to open file during open place process,Cannot open place file for reading.,Cannot open place file for reading.

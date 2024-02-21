@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AuthenticationStatus",
+    "tree": {
+      "$path": "../../../../../../../modules/roblox-app/authentication-status/src"
+    }
+  }
+}

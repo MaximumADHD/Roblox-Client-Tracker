@@ -437,12 +437,10 @@ Item {
                 text: qsTr("Studio.App.GameGridViewWithHeader.Refresh")
                 onClicked: {
                     gameTableView.subPlaceParentIndex = -1;
-                    if (FFlagStartPageSortOnRefresh) {
-                        // Only these two sorts are supported by the backend; on refresh, items will not be returned in order
-                        // for other sort options.
-                        if (gameTableView.currentSort !==  qsTr("Studio.App.ListView.ExperienceName") && gameTableView.currentSort !== qsTr("Studio.App.ListView.DateCreated")) {
-                            gameTableView.currentSort = ""; // Hides the sort arrow
-                        }
+                    // Only these two sorts are supported by the backend; on refresh, items will not be returned in order
+                    // for other sort options.
+                    if (gameTableView.currentSort !==  qsTr("Studio.App.ListView.ExperienceName") && gameTableView.currentSort !== qsTr("Studio.App.ListView.DateCreated")) {
+                        gameTableView.currentSort = ""; // Hides the sort arrow
                     }
                     gameGridViewWithHeader.controller.handleSuggestedRefresh()
                 }
@@ -507,7 +505,7 @@ Item {
             Item {
                 id: _groupGamesComboBoxContainer
                 // Text + dropdown + some padding between the two
-                width: FFlagFixOwnerLabelWidth ? ownerTextMetrics.width + 10 + groupGamesComboBox.width : 275
+                width: ownerTextMetrics.width + 10 + groupGamesComboBox.width
                 height: gameTabBarLowerRowItemHeight
 
                 anchors.left: parent.left

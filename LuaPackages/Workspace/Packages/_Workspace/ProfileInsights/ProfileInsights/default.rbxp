@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ProfileInsights",
+    "tree": {
+      "$path": "../../../../../../../modules/social/profile-insights/src"
+    }
+  }
+}

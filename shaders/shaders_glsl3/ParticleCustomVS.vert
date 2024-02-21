@@ -78,9 +78,14 @@ void main()
                 }
                 else
                 {
-                    vec3 v21 = normalize(cross(v18, vec3(0.0, 1.0, 0.0)));
-                    v20 = normalize(cross(v21, v18));
-                    v19 = v21;
+                    float v21 = v18.y;
+                    float v22 = v18.z;
+                    vec3 v23 = vec3(-v22, 0.0, v18.x);
+                    vec3 v24 = vec3(0.0, v22, -v21);
+                    bvec3 v25 = bvec3(abs(v21) < 0.9900000095367431640625);
+                    vec3 v26 = normalize(vec3(v25.x ? v23.x : v24.x, v25.y ? v23.y : v24.y, v25.z ? v23.z : v24.z));
+                    v20 = normalize(cross(v26, v18));
+                    v19 = v26;
                 }
                 v17 = (v0 + (vec4(v19, 0.0) * dot(v1, v13.xy))) + (vec4(v20, 0.0) * dot(v1, v13.zw));
             }
@@ -92,46 +97,46 @@ void main()
         }
         v14 = v15;
     }
-    vec4 v22 = v14 + (CB0[10] * CB1[1].x);
-    mat4 v23 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 v24 = v14 * v23;
-    vec3 v25 = vec3(0.0);
-    v25.x = TEXCOORD2.x;
-    vec3 v26 = v25;
-    v26.y = TEXCOORD2.y;
-    vec3 v27 = v26;
-    v27.y = 1.0 - TEXCOORD2.y;
-    vec3 v28 = v27;
-    v28.z = length(CB0[11].xyz - v22.xyz);
-    vec4 v29 = v22 * v23;
-    vec4 v30 = v24;
-    v30.z = (v29.z * v24.w) / v29.w;
-    vec2 v31 = (TEXCOORD4 + ((TEXCOORD2 * (CB1[2].z - 1.0)) + vec2(0.5))) * CB1[2].xy;
-    vec2 v32 = v31;
-    v32.y = 1.0 - v31.y;
-    vec2 v33 = vec2(1.0) / CB1[3].zw;
-    vec2 v34 = v28.xy * v33;
-    float v35 = v34.x;
-    vec3 v36 = v28;
-    v36.x = v35;
-    float v37 = v34.y;
-    vec3 v38 = v36;
-    v38.y = v37;
-    float v39 = v33.x;
-    vec3 v40 = v38;
-    v40.x = v35 + (mod(TEXCOORD7.x, CB1[3].z) * v39);
-    float v41 = v33.y;
-    vec3 v42 = v40;
-    v42.y = v37 + (floor(TEXCOORD7.x / CB1[3].z) * v41);
-    vec2 v43 = v38.xy;
-    v43.x = v35 + (mod(TEXCOORD7.y, CB1[3].z) * v39);
-    vec2 v44 = v43;
-    v44.y = v37 + (floor(TEXCOORD7.y / CB1[3].z) * v41);
-    gl_Position = v30;
-    VARYING0 = v42;
+    vec4 v27 = v14 + (CB0[10] * CB1[1].x);
+    mat4 v28 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v29 = v14 * v28;
+    vec3 v30 = vec3(0.0);
+    v30.x = TEXCOORD2.x;
+    vec3 v31 = v30;
+    v31.y = TEXCOORD2.y;
+    vec3 v32 = v31;
+    v32.y = 1.0 - TEXCOORD2.y;
+    vec3 v33 = v32;
+    v33.z = length(CB0[11].xyz - v27.xyz);
+    vec4 v34 = v27 * v28;
+    vec4 v35 = v29;
+    v35.z = (v34.z * v29.w) / v34.w;
+    vec2 v36 = (TEXCOORD4 + ((TEXCOORD2 * (CB1[2].z - 1.0)) + vec2(0.5))) * CB1[2].xy;
+    vec2 v37 = v36;
+    v37.y = 1.0 - v36.y;
+    vec2 v38 = vec2(1.0) / CB1[3].zw;
+    vec2 v39 = v33.xy * v38;
+    float v40 = v39.x;
+    vec3 v41 = v33;
+    v41.x = v40;
+    float v42 = v39.y;
+    vec3 v43 = v41;
+    v43.y = v42;
+    float v44 = v38.x;
+    vec3 v45 = v43;
+    v45.x = v40 + (mod(TEXCOORD7.x, CB1[3].z) * v44);
+    float v46 = v38.y;
+    vec3 v47 = v45;
+    v47.y = v42 + (floor(TEXCOORD7.x / CB1[3].z) * v46);
+    vec2 v48 = v43.xy;
+    v48.x = v40 + (mod(TEXCOORD7.y, CB1[3].z) * v44);
+    vec2 v49 = v48;
+    v49.y = v42 + (floor(TEXCOORD7.y / CB1[3].z) * v46);
+    gl_Position = v35;
+    VARYING0 = v47;
     VARYING1 = TEXCOORD3 * 0.0039215688593685626983642578125;
-    VARYING2 = v32;
-    VARYING3 = v44;
+    VARYING2 = v37;
+    VARYING3 = v49;
     VARYING4 = TEXCOORD7.z;
 }
 

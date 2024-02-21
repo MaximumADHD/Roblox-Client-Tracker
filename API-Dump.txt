@@ -66,6 +66,7 @@ Class AccessoryDescription : Instance [NotBrowsable]
 Class AccountService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AccountService:DeviceIntegrityAvailable() -> boolean {RobloxScriptSecurity}
 	Function AccountService:GetDeviceIntegrityToken(data: string) -> string {RobloxScriptSecurity}
+	Function AccountService:GetDeviceIntegrityTokenYield(data: string) -> string {RobloxScriptSecurity} [Yields]
 Class Accoutrement : Instance
 	Property Accoutrement.BackendAccoutrementState: number [Hidden] [NotScriptable]
 	Property Accoutrement.AttachmentForward: Vector3 [Hidden] [NotReplicated]
@@ -2303,6 +2304,7 @@ Class WireframeHandleAdornment : HandleAdornment
 	Function WireframeHandleAdornment:AddLine(from: Vector3, to: Vector3) -> ()
 	Function WireframeHandleAdornment:AddLines(points: { any }) -> ()
 	Function WireframeHandleAdornment:AddPath(points: { any }, loop: boolean) -> ()
+	Function WireframeHandleAdornment:AddText(point: Vector3, text: string, size: number? = 12) -> ()
 	Function WireframeHandleAdornment:Clear() -> ()
 Class ParabolaAdornment : PVAdornment
 	Property ParabolaAdornment.A: number {RobloxScriptSecurity} [Hidden]
@@ -2351,27 +2353,30 @@ Class SelectionPartLasso : SelectionLasso [Deprecated]
 	Property SelectionPartLasso.Part: BasePart? [Deprecated]
 Class SelectionPointLasso : SelectionLasso [Deprecated]
 	Property SelectionPointLasso.Point: Vector3 [Deprecated]
-Class Path2D : GuiBase [NotReplicated]
+Class Path2D : GuiBase [NotBrowsable]
+	Property Path2D.ControlPointLeftTangent: UDim2 {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
+	Property Path2D.ControlPointPosition: UDim2 {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
+	Property Path2D.ControlPointRightTangent: UDim2 {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Property Path2D.SelectedControlPoint: number {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Property Path2D.AbsoluteSize: Vector2 {RobloxScriptSecurity} [ReadOnly]
-	Property Path2D.Color: Color3 {RobloxScriptSecurity}
-	Property Path2D.Position: UDim2 {RobloxScriptSecurity}
+	Property Path2D.Color: Color3
+	Property Path2D.Position: UDim2
+	Property Path2D.PropertiesSerialize: BinaryString {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property Path2D.Thickness: number {RobloxScriptSecurity}
 	Property Path2D.Transparency: number {RobloxScriptSecurity}
-	Property Path2D.Visible: boolean {RobloxScriptSecurity}
-	Property Path2D.ZIndex: number {RobloxScriptSecurity}
+	Property Path2D.Visible: boolean
+	Property Path2D.ZIndex: number
 	Function Path2D:GetBoundingRect2D() -> Rect {RobloxScriptSecurity}
-	Function Path2D:GetControlPoint(index: number) -> Path2DControlPoint {RobloxScriptSecurity}
-	Function Path2D:GetControlPoints() -> { any } {RobloxScriptSecurity}
-	Function Path2D:GetPositionOnCurve(t: number) -> UDim2 {RobloxScriptSecurity}
-	Function Path2D:GetPositionOnCurveArcLength(t: number) -> UDim2 {RobloxScriptSecurity}
+	Function Path2D:GetControlPoint(index: number) -> Path2DControlPoint
+	Function Path2D:GetControlPoints() -> { any }
+	Function Path2D:GetPositionOnCurve(t: number) -> UDim2
+	Function Path2D:GetPositionOnCurveArcLength(t: number) -> UDim2
 	Function Path2D:GetSegmentCount() -> number {RobloxScriptSecurity}
-	Function Path2D:GetTangentOnCurve(t: number) -> Vector2 {RobloxScriptSecurity}
-	Function Path2D:GetTangentOnCurveArcLength(t: number) -> Vector2 {RobloxScriptSecurity}
-	Function Path2D:InsertControlPoint(index: number, point: Path2DControlPoint) -> () {RobloxScriptSecurity}
-	Function Path2D:RemoveControlPoint(index: number) -> () {RobloxScriptSecurity}
-	Function Path2D:SetControlPoints(controlPoints: { any }) -> () {RobloxScriptSecurity}
-	Function Path2D:UpdateControlPoint(index: number, point: Path2DControlPoint) -> () {RobloxScriptSecurity}
+	Function Path2D:GetTangentOnCurve(t: number) -> Vector2
+	Function Path2D:GetTangentOnCurveArcLength(t: number) -> Vector2
+	Function Path2D:InsertControlPoint(index: number, point: Path2DControlPoint) -> ()
+	Function Path2D:RemoveControlPoint(index: number) -> ()
+	Function Path2D:SetControlPoints(controlPoints: { any }) -> ()
+	Function Path2D:UpdateControlPoint(index: number, point: Path2DControlPoint) -> ()
 Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GuiService.AutoSelectGuiEnabled: boolean
 	Property GuiService.CoreEffectFolder: Folder? {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -3578,6 +3583,7 @@ Class PartOperation : TriangleMeshPart
 	Property PartOperation.MeshData2: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.PhysicsData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property PartOperation.SerializedCSGTree: SharedString [Hidden] [NotReplicated] [NotScriptable]
+	Property PartOperation.SerializedOperationGraph: SharedString [Hidden] [NotReplicated] [NotScriptable]
 	Property PartOperation.TriangleCount: number [ReadOnly]
 	Property PartOperation.UsePartColor: boolean
 	Function PartOperation:SubstituteGeometry(source: Instance) -> ()
@@ -4562,7 +4568,7 @@ Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property ScriptContext.ScriptsDisabled: boolean {LocalUserSecurity} [Hidden]
 	Function ScriptContext:AddCoreScriptLocal(name: string, parent: Instance) -> () {RobloxScriptSecurity}
 	Function ScriptContext:ClearScriptProfilingData() -> () {RobloxScriptSecurity}
-	Function ScriptContext:DeserializeScriptProfilerString(jsonString: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
+	Function ScriptContext:DeserializeScriptProfilerString(jsonString: string?) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetCoverageStats() -> { any } {RobloxScriptSecurity}
 	Function ScriptContext:GetLuauHeapInstanceReferenceReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function ScriptContext:GetLuauHeapMemoryReport(target: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
@@ -5046,6 +5052,7 @@ Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:RegisterCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterContextCollector(collectorName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterSequentialCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
+	Function StreamingService:RunSandboxedCode(code: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function StreamingService:SetEphemeralVariable(key: string, value: any, timeToLive: number? = -1) -> () {RobloxScriptSecurity}
 	Function StreamingService:SetPluginInfoCallback(function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterCommand(commandName: string) -> () {RobloxScriptSecurity}
@@ -5134,6 +5141,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Enable Temporary Tabs: boolean
 	Property Studio.Enable Temporary Tabs In Explorer: boolean
 	Property Studio.Enable Type Hover: boolean {RobloxScriptSecurity}
+	Property Studio.EnableCodeAssist: boolean {RobloxScriptSecurity}
 	Property Studio.EnableIndentationRulers: boolean {RobloxScriptSecurity}
 	Property Studio.EnableOnTypeAutocomplete: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Studio.Font: QFont
@@ -5277,7 +5285,7 @@ Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StudioPublishService.GameNameUpdated(name: string) {RobloxScriptSecurity}
 	Event StudioPublishService.GamePublishCancelled() {RobloxScriptSecurity}
 	Event StudioPublishService.GamePublishFinished(success: boolean, gameId: number, message: string, reason: Enum.StudioPlaceUpdateFailureReason) {RobloxScriptSecurity}
-	Event StudioPublishService.OnPublishAttempt() {RobloxScriptSecurity}
+	Event StudioPublishService.OnPublishAttempt(isPublishAs: boolean) {RobloxScriptSecurity}
 	Event StudioPublishService.OnSaveOrPublishPlaceToRoblox(showGameSelect: boolean, isPublish: boolean, closeMode: Enum.StudioCloseMode) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioSdkService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5395,9 +5403,6 @@ Class Team : Instance
 Class TeamCreateData : Instance [NotCreatable] [Service]
 	Property TeamCreateData.InitialCameraCFrame: CFrame {RobloxSecurity} [Hidden] [NotScriptable]
 Class TeamCreatePublishService : Instance [NotCreatable] [Service]
-	Event TeamCreatePublishService.TeamCreatePublishResult(publishSuccessful: boolean, statusCode: number, errMessage: string, rawMessage: string) {RobloxSecurity} [Hidden]
-	Event TeamCreatePublishService.TeamCreateReplicatedMessage(messageType: Enum.MessageType, failureMessage: string, statusCode: number, isPublish: boolean, authorName: string) {RobloxSecurity} [Hidden]
-	Event TeamCreatePublishService.TeamCreateSaveResult(saveSuccessful: boolean, statusCode: number, errMessage: string, rawMessage: string) {RobloxSecurity} [Hidden]
 Class TeamCreateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TeamCreateService:CloseGameIfUserDoesntHavePerms() -> () {RobloxScriptSecurity}
 	Event TeamCreateService.ToggleManageCollaborators() {RobloxScriptSecurity}
@@ -5726,6 +5731,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:SetMeshIdBlocking(meshPart: Instance, meshId: string) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateCageMeshIntersection(innerCageMeshId: string, outerCageMeshId: string, refMeshId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageNonManifoldAndHoles(meshId: string) -> ...any {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:ValidateCageUVCoincident(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateCageUVTriangleArea(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateDynamicHeadEditableMesh(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateDynamicHeadMesh(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
@@ -5734,6 +5740,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateEditableMeshBounds(editableMesh: EditableMesh, meshScale: Vector3, boundsOffset: Vector3, attachmentCF: CFrame, handleCF: CFrame) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshCageMeshIntersection(innerCage: EditableMesh, outerCage: EditableMesh, refMesh: EditableMesh) -> ...any {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshCageNonManifoldAndHoles(editableMesh: EditableMesh) -> ...any {RobloxScriptSecurity}
+	Function UGCValidationService:ValidateEditableMeshCageUVCoincident(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshCageUVTriangleArea(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshFullBodyCageDeletion(editableMesh: EditableMesh) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateEditableMeshMisMatchUV(innerCage: EditableMesh, outerCage: EditableMesh) -> boolean {RobloxScriptSecurity}

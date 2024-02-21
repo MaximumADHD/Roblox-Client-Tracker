@@ -1,0 +1,4 @@
+Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.PlaceSessionConfiguration.ConnectingtoServer,,,Connecting to server...,Connecting to server...,,,Conectando al servidor...,,,,サーバーに接続中...,,,Conectando ao servidor...,,,,,,,
+Studio.PlaceSessionConfiguration.InvalidArgument2,,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2,,,Lanzar tarea %1 requiere un %2 válido,,,,,,,Iniciar tarefa %1 requer %2 válido,,,,,,,
+Studio.PlaceSessionConfiguration.CloudTestFetchConfigFailed,,,Cannot fetch team test launch config.,Cannot fetch team test launch config.,,,No se puede recuperar la configuración de lanzamiento de la prueba de equipo.,,,,チームテスト始動環境設定を取得できません。,,,Não é possível obter a configuração de lançamento de teste em equipe.,,,,,,,

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CommunicationsContactConsent",
+    "tree": {
+      "$path": "../../../../../../../modules/social/communications-contact-consent/src"
+    }
+  }
+}

@@ -83,7 +83,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.leftMargin: 4
-        anchors.rightMargin: FFlagFixSearchBarTextOverlap ? clearIcon.width + 12 + 16 + 12 + 12 + 4 : 0
+        anchors.rightMargin: clearIcon.width + 12 + 16 + 12 + 12 + 4
         placeholderText: qsTr("Studio.Common.Action.Search")
         font.pixelSize: 16
         font.weight: userPreferences.theme.style("CommonStyle fontWeight")

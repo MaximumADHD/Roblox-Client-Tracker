@@ -131,6 +131,7 @@ dependencies = [
     "React React 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
     "UIBlox UIBlox 0.1.0",
 ]
 
@@ -260,6 +261,7 @@ dependencies = [
     "AppChatNetworking AppChatNetworking 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
+    "CommunicationsContactConsent CommunicationsContactConsent 0.1.0",
     "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
     "ExperienceAnalytics ExperienceAnalytics 0.1.0",
@@ -283,6 +285,7 @@ dependencies = [
     "Promise Promise 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
+    "RegExp RegExp 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
@@ -300,6 +303,7 @@ dependencies = [
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
     "SocialLuaAnalytics SocialLuaAnalytics 0.1.0",
+    "Squads Squads 0.1.0",
     "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
     "Time Time 0.1.0",
@@ -319,8 +323,10 @@ name = "AppChatNetworking"
 version = "0.1.0"
 dependencies = [
     "Http Http 0.1.0",
+    "HttpRequest HttpRequest 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Loggers Loggers 0.1.0",
     "RoduxNetworking RoduxNetworking 0.1.0",
 ]
 
@@ -337,7 +343,6 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.1.0",
     "Promise Promise 0.1.0",
     "Result Result 0.1.0",
-    "RoactUtils RoactUtils 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "tutils tutils 0.1.0",
 ]
@@ -368,6 +373,17 @@ dependencies = [
     "MessageBus MessageBus 0.1.0",
     "Promise Promise 0.1.0",
     "t t 0.1.0",
+]
+
+[[package]]
+name = "AuthenticationStatus"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "Rodux Rodux 0.1.0",
 ]
 
 [[package]]
@@ -453,6 +469,14 @@ dependencies = [
 [[package]]
 name = "CollisionMatchers2D"
 version = "0.1.0"
+
+[[package]]
+name = "CommunicationsContactConsent"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+]
 
 [[package]]
 name = "CommunicationTestSuite"
@@ -552,7 +576,6 @@ name = "ContactsToast"
 version = "0.1.0"
 dependencies = [
     "Analytics Analytics 0.1.0",
-    "ContactImporter ContactImporter 0.1.0",
     "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
     "Enumerate enumerate 0.1.0",
@@ -1391,6 +1414,10 @@ version = "0.1.0"
 dependencies = ["UnitTestHelpers UnitTestHelpers 0.1.0"]
 
 [[package]]
+name = "IxpServiceWrapper"
+version = "0.1.0"
+
+[[package]]
 name = "JestConfigs"
 version = "0.1.0"
 dependencies = [
@@ -1832,6 +1859,20 @@ name = "PremiumUpsellDeps"
 version = "0.1.0"
 
 [[package]]
+name = "ProfileInsights"
+version = "0.1.0"
+dependencies = [
+    "ApolloProfileInsights ApolloProfileInsights 0.1.0",
+    "GraphQLServer GraphQLServer 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
+    "React React 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "UserProfiles UserProfiles 0.1.0",
+]
+
+[[package]]
 name = "ProfileQRCode"
 version = "0.1.0"
 dependencies = [
@@ -1948,6 +1989,10 @@ name = "RecordPlayback"
 version = "0.1.0"
 
 [[package]]
+name = "RegExp"
+version = "0.1.0"
+
+[[package]]
 name = "Result"
 version = "0.1.0"
 
@@ -2042,7 +2087,6 @@ version = "0.1.0"
 [[package]]
 name = "RobloxAppEnums"
 version = "0.1.0"
-dependencies = ["SharedFlags SharedFlags 0.1.0"]
 
 [[package]]
 name = "RobloxAppEvents"
@@ -2183,6 +2227,7 @@ dependencies = [
     "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
     "ExternalContentSharingProtocol ExternalContentSharingProtocol 0.1.0",
+    "IXPServiceWrapper IxpServiceWrapper 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
@@ -2351,6 +2396,7 @@ dependencies = [
     "EditProfile EditProfile 0.1.0",
     "InvisibleMode InvisibleMode 0.1.0",
     "PlayerContextualMenu PlayerContextualMenu 0.1.0",
+    "ProfileInsights ProfileInsights 0.1.0",
     "ProfileQRCode ProfileQRCode 0.1.0",
     "QRCodeDisplay QRCodeDisplay 0.1.0",
     "Screenshots Screenshots 0.1.0",
@@ -2997,18 +3043,23 @@ version = "0.1.0"
 name = "UserAgreements"
 version = "0.1.0"
 dependencies = [
+    "AuthenticationStatus AuthenticationStatus 0.1.0",
     "CentralOverlay CentralOverlay 0.1.0",
     "Http Http 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Loggers Loggers 0.1.0",
+    "Promise Promise 0.1.0",
     "React React 0.1.0",
     "RoactServiceTags RoactServiceTags 0.1.0",
+    "RoactServices RoactServices 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
+    "TenFootUiTesting TenFootUiTesting 0.1.0",
+    "TestUtils TestUtils 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "UniversalAppPolicy UniversalAppPolicy 0.1.0",
 ]

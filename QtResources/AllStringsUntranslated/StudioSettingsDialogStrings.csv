@@ -240,7 +240,7 @@ Studio.App.SettingsCategory.NetworkDiagnostics,,Diagnostics,Diagnostics
 Studio.App.Property.PrintStreamInstanceQuota,,Print Stream Instance Quota,Print Stream Instance Quota
 Studio.App.Property.PrintPhysicsErrors,,Print PhysicsErrors,Print PhysicsErrors
 Studio.App.Property.PrintJoinSizeBreakdown,,Print Join Size Breakdown,Print Join Size Breakdown
-Studio.App.Property.IncomingReplicationLag,,Incoming Replication Lag,Incoming Replication Lag
+Studio.App.Property.IncomingReplicationLag,,Incoming Replication Lag (seconds),Incoming Replication Lag (seconds)
 Studio.App.SettingsCategory.NetworkAdvanced,,Advanced,Advanced
 Studio.App.Property.RandomizeJoinInstanceOrder,,Randomize Test Join Order,Randomize Test Join Order
 Studio.App.SettingsHeader.Rendering,,Rendering,Rendering
@@ -275,6 +275,8 @@ Studio.App.Property.NewUniversesTeamCreateDisabled,,File > New creates a place w
 Studio.App.Property.EnableTeamCreateToggle,,Display Team Create toggle when creating a new experience,Display Team Create toggle when creating a new experience
 Studio.App.Property.AutoCommitLockedScriptsOnSave,,Automatically commit locked scripts when you save or publish to Roblox,Automatically commit locked scripts when you save or publish to Roblox
 Studio.App.Property.AutomaticTriggerAICO,Automatically trigger AI Code Completion.,Suggest Code Automatically,Suggest Code Automatically
+Studio.App.Property.AutomaticTriggerAICOFullRelease,Automatically trigger AI Code Completion.,Auto-trigger,Auto-trigger
+Studio.App.Property.EnableCodeAssist,Enables code assist feature.,Enable Code-Assist,Enable Code-Assist
 Studio.App.Property.EnableIndentationRulers,Draw markers for indentation in Script Editor,Enable Indentation Rulers,Enable Indentation Rulers
 Studio.App.Property.ScriptEditorIndentationRulerColor,Color for indentation markers in Script Editor,Indentation Ruler Color,Indentation Ruler Color
 Studio.App.PropertyTooltip.Rulers,,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.,Vertical lines drawn at the specified column numbers. These can be used as a guide to code length limits.
@@ -310,6 +312,7 @@ Studio.App.PropertyItems.DefaultTheme,,Default,Default
 Studio.App.SettingsHeader.ScriptEditor,,Script Editor,Script Editor
 Studio.App.SettingsCategory.General,,General,General
 Studio.App.SettingsCategory.Theme,,Theme,Theme
+Studio.App.SettingsCategory.CodeAssist,,Code Assist,Code Assist
 Studio.App.SettingsHeader.Selection,,Selection,Selection
 Studio.App.Property.DraggerActiveColor,,Active Dragger Color,Active Dragger Color
 Studio.App.PropertyTooltip.DraggerActiveColor,,Color used by the draggers to display snaps while actively dragging.,Color used by the draggers to display snaps while actively dragging.

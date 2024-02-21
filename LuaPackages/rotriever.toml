@@ -43,6 +43,7 @@ ReactRoblox = "github.com/Roblox/roact-alignment@17.0.1"
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 VirtualizedList = "github.com/roblox/virtualized-list-lua@1.4.3"
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
+RegExp = "github.com/Roblox/luau-regexp@0.2.1"
 RoduxNetworking = "github.com/Roblox/rodux-networking@3.1.1"
 NetworkingGames = "github.com/Roblox/networking-games@1.2.0"
 NetworkingSquads = "github.com/roblox/lua-app-networking@1.9.0"
@@ -54,7 +55,7 @@ QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.3.1"
 GraphqlToolsUtils = { target = "github.com/Roblox/graphql-tools-lua", version = "0.3.1", package = "Utils" }
 DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
-UGCValidation = "github.com/roblox/ugc-validation@1.11.1"
+UGCValidation = "github.com/roblox/ugc-validation@1.11.2"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
 RoduxFriends = { git = "https://github.com/Roblox/rodux-friends", rev = "v4.2.3" }
@@ -89,10 +90,10 @@ UsageTracker = "github.com/roblox/usage-tracker-lua@0.1.1"
 # Patch all dependencies (git or otherwise) upon rodux to the flagged indirection package,
 # which will ensure that we always use only one rodux version
 [config.patch."https://github.com/roblox/rodux"]
-Rodux = { git = "https://github.com/roblox/rodux-upgrade", rev = "main" }
+Rodux = { git = "https://github.com/roblox/rodux", rev = "v3.2.0" }
 
 [config.patch_git."https://github.com/roblox/rodux"]
-Rodux = { git = "https://github.com/roblox/rodux-upgrade", rev = "main" }
+Rodux = { git = "https://github.com/roblox/rodux", rev = "v3.2.0" }
 
 [config.patch."https://github.com/roblox/roblox-lua-promise"]
 Promise = { git = "github.com/Roblox/promise-upgrade", rev = "v0.1.0", package = "Promise" }

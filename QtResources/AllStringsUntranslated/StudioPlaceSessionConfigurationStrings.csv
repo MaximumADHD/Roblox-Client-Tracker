@@ -1,0 +1,4 @@
+Key,Context,Source,en-us
+Studio.PlaceSessionConfiguration.ConnectingtoServer,Roblox IDE Doc,Connecting to server...,Connecting to server...
+Studio.PlaceSessionConfiguration.CloudTestFetchConfigFailed,Roblox IDE Doc,Cannot fetch team test launch config.,Cannot fetch team test launch config.
+Studio.PlaceSessionConfiguration.InvalidArgument2,,Launch Task %1 requires valid %2,Launch Task %1 requires valid %2

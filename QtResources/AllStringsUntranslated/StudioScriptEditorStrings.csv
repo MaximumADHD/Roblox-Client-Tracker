@@ -107,3 +107,14 @@ Studio.App.DocumentationView.HideCodeSample,,Hide Code Example,Hide Code Example
 Studio.App.FindDialog.LineNumber1,,Line number (1-%1):,Line number (1-%1):
 Studio.App.ScriptComboBox.RunACommand,,Run a command,Run a command
 Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip,,Invalid arguments to Color3 constructor,Invalid arguments to Color3 constructor
+Studio.App.ScriptEditor.DisclaimerHeader,,<b>Code Assist is enabled for scripting</b>,<b>Code Assist is enabled for scripting</b>
+Studio.App.ScriptEditor.DisclaimerMessage2,,"Code Assist is your coding companion, it will offer you code suggestions to accelerate your work. You must accept the <a href='%1'>Supplemental Terms</a> and <a href='%2'>Privacy Policy</a> to start using this feature","Code Assist is your coding companion, it will offer you code suggestions to accelerate your work. You must accept the <a href='%1'>Supplemental Terms</a> and <a href='%2'>Privacy Policy</a> to start using this feature"
+Studio.App.ScriptEditor.RejectButton,,Don't accept,Don't accept
+Studio.App.ScriptEditor.AcceptButton,,Accept Terms and Policy,Accept Terms and Policy
+Studio.App.ScriptEditor.AcceptedHeader,,<b>You can now start using Code Assist</b>,<b>You can now start using Code Assist</b>
+Studio.App.ScriptEditor.RejectedHeader,,<b>Code Assist is disabled</b>,<b>Code Assist is disabled</b>
+Studio.App.ScriptEditor.AcceptedBody1,,Add a couple of code lines to set some context and start typing a comment or push %1 anytime to get code suggestions. You can modify this behavior in Settings.,Add a couple of code lines to set some context and start typing a comment or push %1 anytime to get code suggestions. You can modify this behavior in Settings.
+Studio.App.ScriptEditor.RejectedBody,,"You won’t be able to use code suggestions in your scripts, enable Code Assist anytime from Script Editor Settings.","You won’t be able to use code suggestions in your scripts, enable Code Assist anytime from Script Editor Settings."
+Studio.App.ScriptEditor.SettingsButton,,Go to Settings,Go to Settings
+Studio.App.ScriptEditor.OKButton,,OK,OK
+Studio.App.ScriptEditor.CloseButton,,Close,Close

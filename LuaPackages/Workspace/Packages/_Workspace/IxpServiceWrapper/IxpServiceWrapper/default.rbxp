@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "IxpServiceWrapper",
+    "tree": {
+      "$path": "../../../../../../../modules/core-scripts/ixp-service-wrapper/src"
+    }
+  }
+}

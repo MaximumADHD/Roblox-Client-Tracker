@@ -4070,6 +4070,16 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">Path2D</string>
+        <string name="ExplorerOrder">31</string>
+        <string name="ClassCategory">GUI</string>
+        <string name="PreferredParent">GuiBase2d</string>
+        <bool name="FFlag">Path2DEnabled14</bool>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">TweenBase</string>
         <string name="Browsable">false</string>
       </Properties>
