@@ -42819,7 +42819,6 @@ Studio.App.Category.Tools
 Studio.App.Category.Undo
 Studio.App.Category.Video
 Studio.App.Category.Visualization
-Studio.App.ChatSessionHandler
 Studio.App.ChatSessionHandler.All
 Studio.App.ChatSessionHandler.TeamChat
 Studio.App.ClientServerToggleFTUE.ClientServerToggle
@@ -55943,7 +55942,7 @@ WILDCARDMATCH
 WilError_03
 WillReturn
 Win32HardwareSleepListener
-Win64.613.35682
+Win64.613.35660
 WinchEnabled
 WinchForce
 WinchResponsiveness
