@@ -338,3 +338,8 @@ Studio.App.Property.DraggerSoftSnapMarginFactor,,Soft Snap Margin Multiplier,Sof
 Studio.App.PropertyTooltip.DraggerSoftSnapMarginFactor,,Fine tune how agressively drags soft snap to geometry. Enter 0 for no soft snaps.,Fine tune how agressively drags soft snap to geometry. Enter 0 for no soft snaps.
 Studio.App.Property.DraggerSummonMarginFactor,,Summon Snap Margin Multiplier,Summon Snap Margin Multiplier
 Studio.App.PropertyTooltip.DraggerSummonMarginFactor,,Fine tune how agressively the pivot snaps to hotspots on the edges of the target part when summoning. Enter 0 for no snapping of the summoned pivot.,Fine tune how agressively the pivot snaps to hotspots on the edges of the target part when summoning. Enter 0 for no snapping of the summoned pivot.
+Studio.App.Property.LoadAllBuiltinPluginsInTestMode,,Load All Built-In Plugins in Test Mode,Load All Built-In Plugins in Test Mode
+Studio.App.Property.LoadAllBuiltinPluginsInTestModeTooltip,,"Load All Built-In Plugins when running in test modes, this will allow full edit-time functionality in test modes, but may slow down test mode startup times.","Load All Built-In Plugins when running in test modes, this will allow full edit-time functionality in test modes, but may slow down test mode startup times."
+Studio.App.Category.Test,,Test,Test
+Studio.App.Property.LoadUserPluginsInTestMode,,Load User Plugins in Test mode,Load User Plugins in Test mode
+Studio.App.Property.LoadUserPluginsInTestModeTooltip,,"Load User Plugins when running in test modes, unchecking this box may improve test mode startup time.","Load User Plugins when running in test modes, unchecking this box may improve test mode startup time."

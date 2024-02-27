@@ -592,6 +592,11 @@
             }
         },
         {
+            "BreakpointMarker": {
+                "Default": "#FF4444"
+            }
+        },
+        {
             "ChatIncomingBgColor": {
                 "Default": "#EAEAEA"
             }

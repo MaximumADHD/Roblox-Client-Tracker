@@ -109,6 +109,18 @@
                     "$path": ".robloxrc"
                 }
             },
+            "httpRequest": {
+                "$path": "httpRequest.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "httpRequest.spec": {
+                "$path": "httpRequest.spec.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
             "PerfUtils": {
                 "$path": "PerfUtils.lua",
                 ".robloxrc": {
@@ -123,6 +135,12 @@
             },
             "FocusNavigationEffectsWrapper": {
                 "$path": "FocusNavigationEffectsWrapper.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },
+            "InExperienceCapabilities": {
+                "$path": "InExperienceCapabilities.lua",
                 ".robloxrc": {
                     "$path": ".robloxrc"
                 }

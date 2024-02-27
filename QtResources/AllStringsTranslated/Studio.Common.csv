@@ -40,7 +40,7 @@ Studio.Common.Action.Yes,,,Yes,Yes,,Ja,Sí,Oui,,Sì,はい,예,,Sim,Да,,,,是,
 Studio.Common.Action.Continue,,,Continue,Continue,,Fortfahren,Continuar,Continuer,,Continua,続ける,계속,,Continuar,Продолжить,,,,继续,继续,繼續
 Studio.Common.Action.Redo,,,Redo,Redo,,Wiederholen,Rehacer,Refaire,,Ripeti,やり直す,다시 실행,,Refazer,Вернуть,,,,恢复,恢复,重做
 Studio.Common.Action.Undo,,,Undo,Undo,,Rückgängig,Deshacer,Annuler,,Annulla,取り消す,실행 취소,,Desfazer,Отменить,,,,撤消,撤消,復原
-Studio.Common.Action.Update,,,Update,Update,,Aktualisieren,Actualizar,Mettre à jour,,Aggiorna,アップデート,업데이트,,Atualizar,Обновить,,,,更新,更新,更新
+Studio.Common.Action.Update,,,Update,Update,,Aktualisieren,Actualizar,Mettre à jour,,Aggiorna,更新,업데이트,,Atualizar,Обновить,,,,更新,更新,更新
 Studio.Common.Action.Reset,,,Reset,Reset,,Zurücksetzen,Restablecer,Réinitialiser,,Reimposta,再設定,재설정,,Reiniciar,Сбросить,,,,重置,重置,重置
 Studio.Common.Action.Fill,,,Fill,Fill,,Füllen,Llenar,Remplir,,Riempi,埋める,채우기,,Preencher,Заполнить,,,,填充,填充,填滿
 Studio.Common.Action.Goto,,,Goto,Goto,,Gehe zu,Ir a,Aller à,,Vai a,別ページに移動,이동,,Ir para,Перейти,,,,前往,前往,前往

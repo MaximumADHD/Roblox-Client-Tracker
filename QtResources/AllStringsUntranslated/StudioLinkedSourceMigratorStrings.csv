@@ -1,0 +1,6 @@
+Key,Context,Source,en-us
+Studio.App.LinkedSourceMigrator.Title,,LinkedSource Migrator,LinkedSource Migrator
+Studio.App.LinkedSourceMigrator.Description,,"LinkedSources are being deprecated, do you want to convert them?","LinkedSources are being deprecated, do you want to convert them?"
+Studio.App.LinkedSourceMigrator.Details,,These LinkedSource scripts will be converted to embedded scripts:,These LinkedSource scripts will be converted to embedded scripts:
+Studio.App.LinkedSourceMigrator.MigrateButton,,Convert,Convert
+Studio.App.LinkedSourceMigrator.FailedDescription,,"These LinkedSources failed to load and have not been migrated, please try again later:","These LinkedSources failed to load and have not been migrated, please try again later:"

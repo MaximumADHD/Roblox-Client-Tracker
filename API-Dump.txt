@@ -315,6 +315,9 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:RegisterUGCValidationFunction(function: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function AssetService:SavePlaceAsync() -> () [Yields]
 	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields]
+	Event AssetService.AudioMetadataFailedResponse(requestid: number) {RobloxScriptSecurity}
+	Event AssetService.AudioMetadataRequest(requestid: number, request: { any }) {RobloxScriptSecurity}
+	Event AssetService.AudioMetadataResponse(requestid: number, response: { any }) {RobloxScriptSecurity}
 	Event AssetService.OpenCreateResultModal(resultType: Enum.PromptCreateAssetResult) {RobloxScriptSecurity}
 	Event AssetService.OpenPublishResultModal(resultType: Enum.PromptPublishAssetResult) {RobloxScriptSecurity}
 Class Atmosphere : Instance
@@ -651,12 +654,14 @@ Class RemoteEvent : BaseRemoteEvent
 	Function RemoteEvent:FireClient(player: Player, arguments: ...any) -> ()
 	Function RemoteEvent:FireServer(arguments: ...any) -> ()
 	Event RemoteEvent.OnClientEvent(arguments: ...any)
+	Event RemoteEvent.OnRemoteServerEvent(arguments: ...any) {RobloxSecurity} [Hidden]
 	Event RemoteEvent.OnServerEvent(player: Player, arguments: ...any)
 Class UnreliableRemoteEvent : BaseRemoteEvent
 	Function UnreliableRemoteEvent:FireAllClients(arguments: ...any) -> ()
 	Function UnreliableRemoteEvent:FireClient(player: Player, arguments: ...any) -> ()
 	Function UnreliableRemoteEvent:FireServer(arguments: ...any) -> ()
 	Event UnreliableRemoteEvent.OnClientEvent(arguments: ...any)
+	Event UnreliableRemoteEvent.OnRemoteServerEvent(arguments: ...any) {RobloxSecurity} [Hidden]
 	Event UnreliableRemoteEvent.OnServerEvent(player: Player, arguments: ...any)
 Class BaseWrap : Instance [NotCreatable]
 	Property BaseWrap.CageMeshId: string {✏️PluginSecurity}
@@ -2353,7 +2358,7 @@ Class SelectionPartLasso : SelectionLasso [Deprecated]
 	Property SelectionPartLasso.Part: BasePart? [Deprecated]
 Class SelectionPointLasso : SelectionLasso [Deprecated]
 	Property SelectionPointLasso.Point: Vector3 [Deprecated]
-Class Path2D : GuiBase [NotBrowsable]
+Class Path2D : GuiBase
 	Property Path2D.ControlPointLeftTangent: UDim2 {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Property Path2D.ControlPointPosition: UDim2 {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Property Path2D.ControlPointRightTangent: UDim2 {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
@@ -2361,13 +2366,14 @@ Class Path2D : GuiBase [NotBrowsable]
 	Property Path2D.Color: Color3
 	Property Path2D.Position: UDim2
 	Property Path2D.PropertiesSerialize: BinaryString {RobloxScriptSecurity} [Hidden] [NotScriptable]
-	Property Path2D.Thickness: number {RobloxScriptSecurity}
+	Property Path2D.Thickness: number
 	Property Path2D.Transparency: number {RobloxScriptSecurity}
 	Property Path2D.Visible: boolean
 	Property Path2D.ZIndex: number
 	Function Path2D:GetBoundingRect2D() -> Rect {RobloxScriptSecurity}
 	Function Path2D:GetControlPoint(index: number) -> Path2DControlPoint
 	Function Path2D:GetControlPoints() -> { any }
+	Function Path2D:GetLength() -> number {RobloxScriptSecurity}
 	Function Path2D:GetPositionOnCurve(t: number) -> UDim2
 	Function Path2D:GetPositionOnCurveArcLength(t: number) -> UDim2
 	Function Path2D:GetSegmentCount() -> number {RobloxScriptSecurity}
@@ -2994,7 +3000,7 @@ Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property BaseScript.Disabled: boolean
 	Property BaseScript.Enabled: boolean [NotReplicated]
 	Property BaseScript.RunContext: Enum.RunContext {✏️PluginSecurity}
-	Property BaseScript.LinkedSource: string
+	Property BaseScript.LinkedSource: string [Deprecated]
 Class CoreScript : BaseScript [NotCreatable] [NotReplicated]
 Class Script : BaseScript
 	Property Script.Source: string {PluginSecurity}
@@ -3002,7 +3008,7 @@ Class Script : BaseScript
 Class LocalScript : Script
 Class ModuleScript : LuaSourceContainer
 	Property ModuleScript.Confidential: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
-	Property ModuleScript.LinkedSource: string
+	Property ModuleScript.LinkedSource: string [Deprecated]
 	Property ModuleScript.Source: string {PluginSecurity}
 Class LuaWebService : Instance [NotCreatable] [Service]
 Class LuauScriptAnalyzerService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3019,6 +3025,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:GetRobuxBalance() -> number {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:GetSubscriptionProductInfoAsync(subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptionId: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function MarketplaceService:GetUserSubscriptionDetailsAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:GetUserSubscriptionPaymentHistoryAsync(user: Player, subscriptionId: string) -> { any } [Yields]
 	Function MarketplaceService:GetUserSubscriptionStatusAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:PerformPurchase(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectibleItemId: string? = "", collectibleProductId: string? = "", idempotencyKey: string? = "", purchaseAuthToken: string? = "") -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -3304,6 +3311,11 @@ Class NoCollisionConstraint : Instance
 	Property NoCollisionConstraint.Enabled: boolean
 	Property NoCollisionConstraint.Part0: BasePart?
 	Property NoCollisionConstraint.Part1: BasePart?
+Class Noise : Instance [NotReplicated]
+	Property Noise.NoiseType: Enum.NoiseType {RobloxScriptSecurity}
+	Property Noise.Seed: number {RobloxScriptSecurity}
+	Function Noise:SampleDirectional(position: Vector3, direction: Vector3) -> number {RobloxScriptSecurity}
+	Function Noise:SampleUniform(position: Vector3) -> number {RobloxScriptSecurity}
 Class NotificationService : Instance [NotCreatable] [Service]
 	Property NotificationService.IsLuaChatEnabled: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property NotificationService.IsLuaGameDetailsEnabled: boolean {RobloxScriptSecurity} [ReadOnly]
@@ -4366,6 +4378,7 @@ Class ProximityPromptService : Instance [Service] [NotBrowsable]
 	Event ProximityPromptService.PromptTriggered(prompt: ProximityPrompt, playerWhoTriggered: Player)
 Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PublishService:CreateAssetAndWaitForAssetId(instances: { Instance }, operationId: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, name: string, description: string, expectedPrice: number? = 0) -> number {RobloxScriptSecurity} [Yields]
+	Function PublishService:CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsync(serializedInstance: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, assetId: number, name: string, description: string, token: string, contentType: string, expectedPrice: number? = 0) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PublishService:PublishCageMeshAsync(wrap: Instance, cageType: Enum.CageType) -> string {RobloxScriptSecurity} [Yields]
 	Function PublishService:PublishDescendantAssets(instance: Instance) -> boolean {RobloxScriptSecurity}
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
@@ -5097,6 +5110,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.DraggerSoftSnapMarginFactor: number {RobloxScriptSecurity}
 	Property Studio.DraggerSummonMarginFactor: number {RobloxScriptSecurity}
 	Property Studio.DraggerTiltRotateDuration: number {RobloxScriptSecurity}
+	Property Studio.LoadAllBuiltinPluginsInRunModes: boolean {RobloxScriptSecurity}
+	Property Studio.LoadUserPluginsInRunModes: boolean {RobloxScriptSecurity}
 	Property Studio.DefaultScriptFileDir: QDir
 	Property Studio.IconOverrideDir: QDir {RobloxScriptSecurity}
 	Property Studio.LocalAssetsFolder: QDir {✏️RobloxScriptSecurity}
@@ -5614,8 +5629,9 @@ Class TextSource : Instance [NotCreatable]
 	Property TextSource.CanSend: boolean
 	Property TextSource.UserId: number [ReadOnly]
 	Property TextSource.UserIdReplicated: number [Hidden] [NotScriptable]
-Class TextureGenerationMeshHandler : Instance [NotCreatable] [Service] [NotReplicated]
-	Function TextureGenerationMeshHandler:PrepareInstancesForTexturingAsync(instances: { Instance }, unwrapMode: Enum.TextureGenerationMeshHandlerUnwrapMode) -> string {RobloxScriptSecurity} [Yields]
+Class TextureGenerationPartGroup : Instance [NotCreatable] [NotReplicated]
+	Function TextureGenerationPartGroup:GetInstances() -> { Instance } {RobloxScriptSecurity}
+	Function TextureGenerationPartGroup:GetMeshIdsHash() -> string {RobloxScriptSecurity}
 Class TextureGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function TextureGenerationService:CancelGenerationRequestAsync(jobUuid: string) -> () {RobloxScriptSecurity} [Yields]
 	Function TextureGenerationService:GenerateTextureAsync(previewUuid: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -6034,15 +6050,15 @@ Class UserNotificationPayloadParameterValue : Instance
 Class UserService : Instance [NotCreatable] [Service]
 	Function UserService:GetUserInfosByUserIdsAsync(userIds: { any }) -> { any } [Yields]
 Class VRService : Instance [NotCreatable] [Service] [NotBrowsable]
-	Property VRService.AutomaticScaling: Enum.VRScaling [NotReplicated]
+	Property VRService.AutomaticScaling: Enum.VRScaling
 	Property VRService.AvatarGestures: boolean [NotBrowsable]
-	Property VRService.FadeOutViewOnCollision: boolean [NotReplicated]
+	Property VRService.FadeOutViewOnCollision: boolean
 	Property VRService.GuiInputUserCFrame: Enum.UserCFrame [NotReplicated]
 	Property VRService.DidPointerHit: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.LaserDistance: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.PointerHitCFrame: CFrame {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property VRService.QuestASWState: boolean {RobloxScriptSecurity} [Hidden]
-	Property VRService.QuestDisplayRefreshRate: number {RobloxScriptSecurity} [Hidden]
+	Property VRService.QuestASWState: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property VRService.QuestDisplayRefreshRate: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property VRService.ThirdPersonFollowCamEnabled: boolean [ReadOnly]
 	Property VRService.VRDeviceAvailable: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property VRService.VRDeviceName: string {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -7903,6 +7919,8 @@ Enum NetworkStatus
 	EnumItem NetworkStatus.Unknown : 0
 	EnumItem NetworkStatus.Connected : 1
 	EnumItem NetworkStatus.Disconnected : 2
+Enum NoiseType
+	EnumItem NoiseType.SimplexGabor : 0
 Enum NormalId
 	EnumItem NormalId.Right : 0
 	EnumItem NormalId.Top : 1
@@ -8420,6 +8438,7 @@ Enum StudioCloseMode
 	EnumItem StudioCloseMode.None : 0
 	EnumItem StudioCloseMode.CloseStudio : 1
 	EnumItem StudioCloseMode.CloseDoc : 2
+	EnumItem StudioCloseMode.LogOut : 3
 Enum StudioDataModelType
 	EnumItem StudioDataModelType.Edit : 0
 	EnumItem StudioDataModelType.PlayClient : 1
@@ -8609,6 +8628,7 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.OnboardingCover : 132
 	EnumItem StudioStyleGuideColor.OnboardingHighlight : 133
 	EnumItem StudioStyleGuideColor.OnboardingShadow : 134
+	EnumItem StudioStyleGuideColor.BreakpointMarker : 136
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1
@@ -8619,11 +8639,23 @@ Enum Style
 	EnumItem Style.AlternatingSupports : 0
 	EnumItem Style.BridgeStyleSupports : 1
 	EnumItem Style.NoSupports : 2
+Enum SubscriptionExpirationReason
+	EnumItem SubscriptionExpirationReason.ProductInactive : 0
+	EnumItem SubscriptionExpirationReason.ProductDeleted : 1
+	EnumItem SubscriptionExpirationReason.SubscriberCancelled : 2
+	EnumItem SubscriptionExpirationReason.SubscriberRefunded : 3
+	EnumItem SubscriptionExpirationReason.Lapsed : 4
 Enum SubscriptionPaymentStatus
 	EnumItem SubscriptionPaymentStatus.Paid : 0
 	EnumItem SubscriptionPaymentStatus.Refunded : 1
 Enum SubscriptionPeriod
 	EnumItem SubscriptionPeriod.Month : 0
+Enum SubscriptionState
+	EnumItem SubscriptionState.NeverSubscribed : 0
+	EnumItem SubscriptionState.SubscribedWillRenew : 1
+	EnumItem SubscriptionState.SubscribedWillNotRenew : 2
+	EnumItem SubscriptionState.SubscribedRenewalPaymentPending : 3
+	EnumItem SubscriptionState.Expired : 4
 Enum SurfaceConstraint
 	EnumItem SurfaceConstraint.None : 0
 	EnumItem SurfaceConstraint.Hinge : 1
@@ -8742,10 +8774,6 @@ Enum TextYAlignment
 	EnumItem TextYAlignment.Top : 0
 	EnumItem TextYAlignment.Center : 1
 	EnumItem TextYAlignment.Bottom : 2
-Enum TextureGenerationMeshHandlerUnwrapMode
-	EnumItem TextureGenerationMeshHandlerUnwrapMode.Never : 0
-	EnumItem TextureGenerationMeshHandlerUnwrapMode.Always : 1
-	EnumItem TextureGenerationMeshHandlerUnwrapMode.WhenInvalidUVsDetected : 2
 Enum TextureMode
 	EnumItem TextureMode.Stretch : 0
 	EnumItem TextureMode.Wrap : 1

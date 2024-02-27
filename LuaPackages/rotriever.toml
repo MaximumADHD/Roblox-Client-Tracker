@@ -12,7 +12,7 @@ Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1", pack
 Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
 RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.4.1"
-RoactNavigation = "github.com/roblox/roact-navigation@0.5.7"
+RoactNavigation = "github.com/roblox/roact-navigation@0.5.8"
 Cryo = "github.com/roblox/cryo@1.0"
 Dash = "github.com/roblox/dash@0.1"
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
@@ -105,7 +105,7 @@ Promise = { git = "github.com/Roblox/promise-upgrade", rev = "v0.1.0", package =
 Promise = { git = "github.com/Roblox/promise-upgrade", rev = "v0.1.0", package = "Promise" }
 
 [config.patch."https://github.com/roblox/roact-navigation"]
-RoactNavigation = "github.com/roblox/roact-navigation@0.5.7"
+RoactNavigation = "github.com/roblox/roact-navigation@0.5.8"
 
 # Cryo - flagged upgrade
 [config.patch."github.com/roblox/cryo"]
