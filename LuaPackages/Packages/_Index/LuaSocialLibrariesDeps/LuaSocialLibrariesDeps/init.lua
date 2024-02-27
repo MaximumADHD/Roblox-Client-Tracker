@@ -1,6 +1,5 @@
 local LuaSocialLibrariesDeps = script.Parent
 
-local FFlagUseRoduxUsers14 = game:DefineFastFlag("UseRoduxUsers14", false)
 local FFlagUseSocialLibraries310 = game:DefineFastFlag("UseSocialLibraries310", false)
 
 return {
@@ -10,12 +9,7 @@ return {
 	RoduxNetworking = require(LuaSocialLibrariesDeps.RoduxNetworking),
 	llama = require(LuaSocialLibrariesDeps.llama),
 	RoduxAliases = require(LuaSocialLibrariesDeps.RoduxAliases),
-	RoduxUsers = if FFlagUseRoduxUsers14
-		then require(LuaSocialLibrariesDeps.RoduxUsers_v14)
-		else require(LuaSocialLibrariesDeps.RoduxUsers),
-	RoduxUsers_v13 = if FFlagUseRoduxUsers14
-		then require(LuaSocialLibrariesDeps.RoduxUsers_v14)
-		else require(LuaSocialLibrariesDeps.RoduxUsers_v13),
+	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
 	RoduxFriends = require(LuaSocialLibrariesDeps.RoduxFriends),
 	RoduxPresence = require(LuaSocialLibrariesDeps.RoduxPresence),
 	RoduxGames = require(LuaSocialLibrariesDeps.RoduxGames),

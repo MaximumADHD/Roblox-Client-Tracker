@@ -79,25 +79,35 @@ local function getChildNavigation(navigation, childKey, getCurrentParentNavigati
 
 	if requestedChild and requestedChild.isFirstRouteInParent() == isFirstRouteInParent then
 		-- Update cache value for requestedChild because child's state has changed
-		children[childKey] = Object.assign(table.clone(requestedChild), actionHelpers, {
-			state = childRoute,
-			router = childRouter,
-			actions = actionCreators,
-			getParam = createParamGetter(childRoute),
-		})
-
-		return children[childKey]
-	else
-		-- No cached value for requestedChild. Create a new entry.
-		local childSubscriber = getEventManager(childKey)
-
-		children[childKey] = Object.assign(table.clone(actionHelpers), {
+		local child -- `child` is captured in the closure below, so it needs to be pre-declared
+		child = Object.assign(table.clone(requestedChild), actionHelpers, {
 			state = childRoute,
 			router = childRouter,
 			actions = actionCreators,
 			getParam = createParamGetter(childRoute),
 			getChildNavigation = function(grandChildKey)
-				return getChildNavigation(children[childKey], grandChildKey, function()
+				return getChildNavigation(child, grandChildKey, function()
+					local nav = getCurrentParentNavigation()
+					return if nav then nav.getChildNavigation(childKey) else nil
+				end)
+			end,
+		})
+
+		children[childKey] = child
+
+		return child
+	else
+		-- No cached value for requestedChild. Create a new entry.
+		local childSubscriber = getEventManager(childKey)
+
+		local child -- `child` is captured in the closure below, so it needs to be pre-declared
+		child = Object.assign(table.clone(actionHelpers), {
+			state = childRoute,
+			router = childRouter,
+			actions = actionCreators,
+			getParam = createParamGetter(childRoute),
+			getChildNavigation = function(grandChildKey)
+				return getChildNavigation(child, grandChildKey, function()
 					local nav = getCurrentParentNavigation()
 					return if nav then nav.getChildNavigation(childKey) else nil
 				end)
@@ -134,7 +144,9 @@ local function getChildNavigation(navigation, childKey, getCurrentParentNavigati
 			emit = childSubscriber.emit,
 		})
 
-		return children[childKey]
+		children[childKey] = child
+
+		return child
 	end
 end
 
