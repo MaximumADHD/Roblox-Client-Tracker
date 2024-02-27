@@ -19,7 +19,7 @@ PROTO_0:
   GETIMPORT R2 K5 [require]
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K9 ["Src"]
-  GETTABLEKS R3 R4 K10 ["MainPlugin"]
+  GETTABLEKS R3 R4 K10 ["VisualizationModesPlugin"]
   CALL R2 1 1
   GETTABLEKS R3 R0 K11 ["createElement"]
   MOVE R4 R2

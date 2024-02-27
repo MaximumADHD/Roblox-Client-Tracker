@@ -42,6 +42,7 @@ local FFlagScriptProfilerNativeFrames = game:DefineFastFlag("ScriptProfilerNativ
 local FFlagScriptProfilerSetRoot = game:DefineFastFlag("ScriptProfilerSetRoot", false)
 local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
 local FFlagScriptProfilerSetTerminalRootFix = game:DefineFastFlag("ScriptProfilerSetTerminalRootFix", false)
+local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead", false)
 
 local ProfilerViewEntryComponent = Roact.PureComponent:extend("ProfilerViewEntry")
 
@@ -163,13 +164,20 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 		local searchTerm = self.props.searchTerm
 		local searchFilter = self.props.searchFilter
 		local showPlugins = self.props.showPlugins
+		local showGC = self.props.showGC
+		local gcNodeOffsets = self.props.gcNodeOffsets
 
 		local rootData = self.props.data :: ProfilerData.RootDataFormat
+		local gcFuncId = rootData.GCFuncId
 
 		if childData then
 			for functionId, nodeId in pairs(childData) do
 
 				if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[nodeId] then
+					continue
+				end
+
+				if FFlagScriptProfilerHideGCOverhead and not showGC and functionId == gcFuncId then
 					continue
 				end
 
@@ -193,6 +201,8 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 					searchTerm = searchTerm,
 					searchFilter = searchFilter,
 					showPlugins = showPlugins,
+					showGC = showGC,
+					gcNodeOffsets = gcNodeOffsets,
 				})
 			end
 		elseif (FFlagScriptProfilerSetTerminalRootFix and self.props.nodeId == 0) or (not FFlagScriptProfilerSetTerminalRootFix and self.props.depth == 0) then
@@ -209,8 +219,14 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 				local childTotalDuration = getDurations(rootData, category.NodeId)
 
 				local pluginOffset = self.props.pluginOffsets[index]
+				local pluginGCOffset = self.props.pluginGCOffsets[index]
+
 				if not showPlugins then
 					childTotalDuration -= pluginOffset
+
+					if FFlagScriptProfilerHideGCOverhead and showGC then
+						childTotalDuration -= pluginGCOffset
+					end
 				end
 
 				children[index] = Roact.createElement(ProfilerViewEntry, {
@@ -226,6 +242,9 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 					searchFilter = searchFilter,
 					showPlugins = showPlugins,
 					pluginOffset = pluginOffset,
+					pluginGCOffset = pluginGCOffset,
+					showGC = showGC,
+					gcNodeOffsets = gcNodeOffsets,
 				})
 			end
 		end
@@ -259,6 +278,7 @@ function ProfilerViewEntryComponent:render()
 	local percentageRatio = props.percentageRatio
 	local data = props.data :: ProfilerData.RootDataFormat
 	local showPlugins = props.showPlugins
+	local showGC = props.showGC
 
 	local nodeId = props.nodeId
 	local functionId = props.functionId
@@ -276,8 +296,26 @@ function ProfilerViewEntryComponent:render()
 		if nodeId == 0 then
 			local pluginOffsets = self.props.pluginOffsets
 			totalDuration -= pluginOffsets.Total or 0
+
+			if FFlagScriptProfilerHideGCOverhead and showGC then
+				totalDuration -= self.props.pluginGCOffsets.Total or 0
+			end
 		else
 			totalDuration -= self.props.pluginOffset or 0
+
+			if FFlagScriptProfilerHideGCOverhead and showGC then
+				totalDuration -= self.props.pluginGCOffset or 0
+			end
+		end
+	end
+
+	if FFlagScriptProfilerHideGCOverhead and not showGC then
+		local gcNodeOffsets = props.gcNodeOffsets
+
+		if nodeId == 0 then
+			totalDuration -= gcNodeOffsets.Total or 0
+		else
+			totalDuration -= gcNodeOffsets[nodeId] or 0
 		end
 	end
 

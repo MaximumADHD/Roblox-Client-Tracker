@@ -1,3 +1,5 @@
+-- DEPRECATED
+-- TODO: Remove this file with FFlagRemoveAppTempCommonTemp
 --!nonstrict
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local CorePackages = game:GetService("CorePackages")

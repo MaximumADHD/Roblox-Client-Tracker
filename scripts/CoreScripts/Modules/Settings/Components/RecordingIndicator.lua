@@ -6,6 +6,7 @@ local RunService = game:GetService("RunService")
 local Roact = require(CorePackages.Roact)
 local Otter = require(CorePackages.Otter)
 local t = require(CorePackages.Packages.t)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local SPRING_PARAMS = {
@@ -78,7 +79,7 @@ function RecordingIndicator:render()
 		AutomaticSize = Enum.AutomaticSize.XY,
 		Visible = self.props.hasMicPermissions,
 		TextSize = if self.props.isSmallTouchScreen then 10 else 12,
-		Font = Enum.Font.GothamMedium,
+		Font = AppFonts.default:getMedium(),
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextYAlignment = Enum.TextYAlignment.Center,
 		TextColor3 = Color3.fromRGB(255, 255, 255),

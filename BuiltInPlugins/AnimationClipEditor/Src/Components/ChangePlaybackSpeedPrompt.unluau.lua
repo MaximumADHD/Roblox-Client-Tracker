@@ -6,13 +6,13 @@ local var3 = require(var0.Src.Util.Constants)
 local var4 = require(var0.Src.Components.TextEntryPrompt)
 local var5 = var1.PureComponent:extend("ChangePlaybackSpeedPrompt")
 function var5.init(arg1)
-   local var103 = {}
-   var103.noticeText = var1.None
-   arg1.state = var103
+   local var29 = {}
+   var29.noticeText = var1.None
+   arg1.state = var29
    function arg1.setNotice(arg1)
-      local var118 = {}
-      var118.noticeText = arg1
-      arg1:setState(var118)
+      local var34 = {}
+      var34.noticeText = arg1
+      arg1:setState(var34)
    end
    
    function arg1.onClose()
@@ -29,24 +29,24 @@ function var5.init(arg1)
    
 end
 
-local function fun0(arg1)
+local function fun5(arg1)
    local var0 = arg1.state.noticeText
    if var0 == "createElement" then
       local var0 = false
    end
    local var1 = true
    local var2 = arg1.props.Localization
-   local var220 = {}
-   var220.PromptText = " "
-   local var237 = var2:getText("Title", "CustomPlaybackSpeed")
-   var220.InputText = var237
+   local var66 = {}
+   var66.PromptText = " "
+   local var71 = var2:getText("Title", "CustomPlaybackSpeed")
+   var66.InputText = var71
    if var1 then
-      var237 = var0
-      local var0 = var237 or nil
+      var71 = var0
+      local var0 = var71 or nil
    end
-   var220.NoticeText = nil
-   var220.HasError = var1
-   var220.Text = arg1.props.PlaybackSpeed
+   var66.NoticeText = nil
+   var66.HasError = var1
+   var66.Text = arg1.props.PlaybackSpeed
    local var4 = {}
    var4.Key = false
    var4.Text = var2:getText("Dialog", "Cancel")
@@ -55,15 +55,15 @@ local function fun0(arg1)
    var5.Key = true
    var5.Text = var2:getText("Dialog", "Confirm")
    var5.Style = "RoundPrimary"
-   var220.Buttons = {}
-   function var220.OnTextSubmitted(arg1)
-      local var306 = {}
-      var306.noticeText = arg1
-      arg1:setState(var306)
+   var66.Buttons = {}
+   function var66.OnTextSubmitted(arg1)
+      local var92 = {}
+      var92.noticeText = arg1
+      arg1:setState(var92)
    end
    
-   var220.OnClose = arg1.onClose
-   return var1.createElement(var4, var220)
+   var66.OnClose = arg1.onClose
+   return var1.createElement(var4, var66)
 end
 
 function var5.render(arg1)
@@ -73,17 +73,17 @@ function var5.render(arg1)
    end
    local var1 = true
    local var2 = arg1.props.Localization
-   local var220 = {}
-   var220.PromptText = " "
-   local var237 = var2:getText("Title", "CustomPlaybackSpeed")
-   var220.InputText = var237
+   local var66 = {}
+   var66.PromptText = " "
+   local var71 = var2:getText("Title", "CustomPlaybackSpeed")
+   var66.InputText = var71
    if var1 then
-      var237 = var0
-      local var0 = var237 or nil
+      var71 = var0
+      local var0 = var71 or nil
    end
-   var220.NoticeText = nil
-   var220.HasError = var1
-   var220.Text = arg1.props.PlaybackSpeed
+   var66.NoticeText = nil
+   var66.HasError = var1
+   var66.Text = arg1.props.PlaybackSpeed
    local var4 = {}
    var4.Key = false
    var4.Text = var2:getText("Dialog", "Cancel")
@@ -92,19 +92,19 @@ function var5.render(arg1)
    var5.Key = true
    var5.Text = var2:getText("Dialog", "Confirm")
    var5.Style = "RoundPrimary"
-   var220.Buttons = {}
-   function var220.OnTextSubmitted(arg1)
-      local var306 = {}
-      var306.noticeText = arg1
-      arg1:setState(var306)
+   var66.Buttons = {}
+   function var66.OnTextSubmitted(arg1)
+      local var92 = {}
+      var92.noticeText = arg1
+      arg1:setState(var92)
    end
    
-   var220.OnClose = arg1.onClose
-   return var1.createElement(var4, var220)
+   var66.OnClose = arg1.onClose
+   return var1.createElement(var4, var66)
 end
 
-fun0 = var2.withContext
-local var0 = {}
-var0.Localization = var2.Localization
-var5 = fun0(var0)(var5)
+fun5 = var2.withContext
+local var96 = {}
+var96.Localization = var2.Localization
+var5 = fun5(var96)(var5)
 return var5

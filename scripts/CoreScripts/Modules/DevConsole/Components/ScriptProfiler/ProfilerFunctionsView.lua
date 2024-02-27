@@ -36,6 +36,8 @@ function ProfilerView:renderChildren()
     local children = {}
     local searchFilter = self.props.searchFilter
     local showPlugins = self.props.showPlugins
+    local showGC = self.props.showGC
+    local gcFunctionOffsets = self.props.gcFunctionOffsets
 
     local average = 1
 
@@ -60,6 +62,7 @@ function ProfilerView:renderChildren()
             functionId = index,
             nodeName = func.Name,
             average = average,
+            gcOffset = if not showGC then gcFunctionOffsets[index] else 0,
             percentageRatio = if self.props.showAsPercentages then
                 totalDuration / 100 else nil
         })

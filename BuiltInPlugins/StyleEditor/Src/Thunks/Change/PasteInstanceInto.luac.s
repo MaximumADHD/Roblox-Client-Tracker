@@ -1,0 +1,60 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Clone"]
+  CALL R0 1 1
+  GETUPVAL R1 1
+  SETTABLEKS R1 R0 K1 ["Parent"]
+  GETIMPORT R1 K5 [Enum.FinishRecordingOperation.Commit]
+  RETURN R1 1
+
+PROTO_1:
+  NAMECALL R2 R0 K0 ["getState"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K1 ["Clipboard"]
+  GETTABLEKS R3 R4 K2 ["Instance"]
+  JUMPIF R3 [+1]
+  RETURN R0 0
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K3 [+4]
+  LOADK R6 K3 ["expecting valid instance"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  GETTABLEKS R4 R1 K6 ["recordChange"]
+  DUPTABLE R5 K10 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R6 K11 ["StyleEditor/PasteInstanceInto"]
+  SETTABLEKS R6 R5 K7 ["Name"]
+  LOADK R6 K12 ["StyleEditor - Paste Instance"]
+  SETTABLEKS R6 R5 K8 ["DisplayName"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U0
+  SETTABLEKS R6 R5 K9 ["DoChange"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Reducers"]
+  GETTABLEKS R2 R3 K7 ["RootReducer"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Thunks"]
+  GETTABLEKS R3 R4 K9 ["Types"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K10 [PROTO_2]
+  RETURN R3 1

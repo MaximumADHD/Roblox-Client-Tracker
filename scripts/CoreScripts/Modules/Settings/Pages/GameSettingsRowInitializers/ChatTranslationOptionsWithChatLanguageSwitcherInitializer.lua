@@ -16,6 +16,9 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
+
+-- Flags
+local FFlagFixChatLanguageSwitcherLabel = game:DefineFastFlag("FixChatLanguageSwitcherLabel", false)
 local GetFStringChatTranslationEnabledLocales = require(RobloxGui.Modules.Flags.GetFStringChatTranslationEnabledLocales)
 local ChatTranslationSettingsMoved = game:GetEngineFeature("TextChatServiceSettingsSaved")
 
@@ -51,8 +54,14 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
                 -- during final evaluation so the log will show it
             end
             log:warning("GameSettings chat language selector initialization failed to get all required information; defaulting to unavailable for the remainder of this session. Error message: " .. errorMsg)
-            menu.ChatLanguageSelectorFrame, menu.ChatLanguageSelectorLabel, menu.ChatLanguageSelectorMode =
-                utility:AddNewRow(menu, "Chat Language", "DropDown", {"Unavailable"}, 1)
+            if FFlagFixChatLanguageSwitcherLabel then
+                menu.ChatLanguageSelectorFrame, menu.ChatLanguageSelectorLabel, menu.ChatLanguageSelectorMode =
+                    utility:AddNewRow(menu, "Chat Translation Language", "DropDown", {"Unavailable"}, 1)
+            else
+                menu.ChatLanguageSelectorFrame, menu.ChatLanguageSelectorLabel, menu.ChatLanguageSelectorMode =
+                    utility:AddNewRow(menu, "Chat Language", "DropDown", {"Unavailable"}, 1)
+            end
+
             menu.ChatLanguageSelectorFrame.LayoutOrder = layoutOrderTable["ChatLanguageSelectorFrame"]
         end
 
@@ -103,8 +112,13 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
         local chatLocaleToReport = indexToLocaleMapping[startIndex]
 
         -- Chat language selection dropdown
-        menu.ChatLanguageSelectorFrame, menu.ChatLanguageSelectorLabel, menu.ChatLanguageSelectorMode =
-            utility:AddNewRow(menu, "Chat Language", "DropDown", chatLanguageOptions, startIndex)
+        if FFlagFixChatLanguageSwitcherLabel then
+            menu.ChatLanguageSelectorFrame, menu.ChatLanguageSelectorLabel, menu.ChatLanguageSelectorMode =
+                utility:AddNewRow(menu, "Chat Translation Language", "DropDown", chatLanguageOptions, startIndex)
+        else
+            menu.ChatLanguageSelectorFrame, menu.ChatLanguageSelectorLabel, menu.ChatLanguageSelectorMode =
+                utility:AddNewRow(menu, "Chat Language", "DropDown", chatLanguageOptions, startIndex)
+        end
         menu.ChatLanguageSelectorFrame.LayoutOrder = layoutOrderTable["ChatLanguageSelectorFrame"]
 
         local function onChatSelectionIndexUpdated(newIndex)

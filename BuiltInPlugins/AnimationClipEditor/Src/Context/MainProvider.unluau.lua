@@ -7,7 +7,7 @@ local var4 = require(var0.Packages.Framework).ContextServices
 local var5 = require(var0.Src.Util.DebugFlags)
 local var6 = var1.PureComponent:extend("MainProvider")
 function var6.render(arg1)
-   local var87 = arg1.props.analytics
+   local var138 = arg1.props.analytics
    local var0 = arg1.props.focusGui and var4.Focus.new(arg1.props.focusGui)
    local var1 = arg1.props.plugin and var4.Plugin.new(arg1.props.plugin)
    local var2 = arg1.props.localization
@@ -17,8 +17,8 @@ function var6.render(arg1)
    local var6 = arg1.props.pluginActions
    local var7 = arg1.props.signals
    local var8 = arg1.props.calloutController
-   var87 = arg1.props[var1.Children]
-   return var4.provide({}, var87)
+   var138 = arg1.props[var1.Children]
+   return var4.provide({}, var138)
 end
 
 return var6

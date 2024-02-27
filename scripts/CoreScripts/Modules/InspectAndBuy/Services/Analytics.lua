@@ -2,8 +2,13 @@
 
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Cryo = require(CorePackages.Cryo)
-local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 
 local Analytics = {}
 
@@ -19,7 +24,9 @@ function Analytics.new(inspecteeUid, ctx)
 
 	setmetatable(service, Analytics)
 
-	service.eventStream = EventStream.new()
+	service.eventStream = if GetFFlagRemoveAppTempCommonTemp()
+		then EventStream.new(AnalyticsService)
+		else DEPRECATED_EventStream.new()
 	service.pid = tostring(game.PlaceId)
 	service.uid = tostring(Players.LocalPlayer.UserId)
 	service.feature = "inspectAndBuy"

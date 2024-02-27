@@ -82,8 +82,10 @@ return function()
 	local VoiceChatServiceManager
 
 	local TableUtilities = require(game:GetService("CorePackages").AppTempCommon.LuaApp.TableUtilities)
+	local tutils = require(CorePackages.tutils)
+	local GetFFlagLuaAppReplaceTableUtilities = TableUtilities.GetFFlagLuaAppReplaceTableUtilities
 
-	local deepEqual = TableUtilities.DeepEqual
+	local deepEqual = if GetFFlagLuaAppReplaceTableUtilities() then tutils.deepEqual else TableUtilities.DeepEqual
 
 	local HTTPServiceStub = {
 		GetAsyncFullUrlCB = noop,

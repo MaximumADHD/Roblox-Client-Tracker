@@ -1,5 +1,5 @@
-game:DefineFastFlag("IBGateUGC4ACollectibleAssetsBundles", false)
+game:DefineFastFlag("IBGateUGC4ACollectibleAssetsBundles1", false)
 
 return function()
-	return game:GetFastFlag("IBGateUGC4ACollectibleAssetsBundles")
+	return game:GetFastFlag("IBGateUGC4ACollectibleAssetsBundles1")
 end

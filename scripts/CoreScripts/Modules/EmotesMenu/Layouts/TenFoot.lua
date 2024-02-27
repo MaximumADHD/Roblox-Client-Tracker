@@ -1,3 +1,5 @@
+local CorePackages = game:GetService("CorePackages")
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 return {
     EmotesWheelMinSize = Vector2.new(320, 320),
     EmotesWheelMaxSize = Vector2.new(640, 640),
@@ -9,17 +11,17 @@ return {
     ErrorFrameMinSize = Vector2.new(336, 56),
     ErrorFrameMaxSize = Vector2.new(432, 72),
 
-    ErrorTextFont = Enum.Font.Gotham,
+    ErrorTextFont = AppFonts.default:getDefault(),
     ErrorTextSize = 48,
 
     ErrorIcon = "rbxasset://textures/ui/Emotes/ErrorIcon.png",
     ErrorIconOffset = 10,
 
     MiddleTextSize = 48,
-    MiddleTextFont = Enum.Font.Gotham,
+    MiddleTextFont = AppFonts.default:getDefault(),
 
     SlotNumberTextSize = 48,
-    SlotNumberFont = Enum.Font.Gotham,
+    SlotNumberFont = AppFonts.default:getDefault(),
 
     CircleBackground = "rbxasset://textures/ui/Emotes/TenFoot/CircleBackground.png",
 

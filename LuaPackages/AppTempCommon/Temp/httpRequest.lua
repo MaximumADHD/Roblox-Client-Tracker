@@ -1,3 +1,5 @@
+-- DEPRECATED
+-- TODO: Remove this file with FFlagRemoveAppTempCommonTemp
 local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
 

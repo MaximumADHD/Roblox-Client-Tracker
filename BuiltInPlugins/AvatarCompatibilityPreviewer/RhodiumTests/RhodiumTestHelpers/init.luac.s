@@ -724,84 +724,86 @@ PROTO_42:
   NAMECALL R4 R4 K6 ["GetChildren"]
   CALL R4 1 3
   FORGPREP R4
-  DUPTABLE R11 K9 [{"yPosition", "preview"}]
-  GETTABLEKS R13 R8 K10 ["AbsolutePosition"]
-  GETTABLEKS R12 R13 K11 ["Y"]
+  DUPTABLE R11 K10 [{"yPosition", "instance", "preview"}]
+  GETTABLEKS R13 R8 K11 ["AbsolutePosition"]
+  GETTABLEKS R12 R13 K12 ["Y"]
   SETTABLEKS R12 R11 K7 ["yPosition"]
+  SETTABLEKS R8 R11 K8 ["instance"]
   GETUPVAL R13 1
   CALL R13 0 1
   JUMPIFNOT R13 [+20]
   GETUPVAL R16 2
-  GETTABLEKS R15 R16 K12 ["getByTestId"]
+  GETTABLEKS R15 R16 K13 ["getByTestId"]
   MOVE R16 R8
-  LOADK R17 K13 ["EquippedItemPreview"]
+  LOADK R17 K14 ["EquippedItemPreview"]
   CALL R15 2 1
-  GETTABLEKS R14 R15 K14 ["Inner"]
-  GETTABLEKS R13 R14 K15 ["Preview"]
-  LOADK R16 K16 ["ImageLabel"]
-  NAMECALL R14 R13 K17 ["IsA"]
+  GETTABLEKS R14 R15 K15 ["Inner"]
+  GETTABLEKS R13 R14 K16 ["Preview"]
+  LOADK R16 K17 ["ImageLabel"]
+  NAMECALL R14 R13 K18 ["IsA"]
   CALL R14 2 1
   JUMPIFNOT R14 [+3]
-  GETTABLEKS R12 R13 K18 ["Image"]
+  GETTABLEKS R12 R13 K19 ["Image"]
   JUMP [+17]
   MOVE R12 R13
   JUMP [+15]
-  GETTABLEKS R15 R8 K19 ["BoxContent"]
-  GETTABLEKS R14 R15 K14 ["Inner"]
-  GETTABLEKS R13 R14 K15 ["Preview"]
-  LOADK R16 K16 ["ImageLabel"]
-  NAMECALL R14 R13 K17 ["IsA"]
+  GETTABLEKS R15 R8 K20 ["BoxContent"]
+  GETTABLEKS R14 R15 K15 ["Inner"]
+  GETTABLEKS R13 R14 K16 ["Preview"]
+  LOADK R16 K17 ["ImageLabel"]
+  NAMECALL R14 R13 K18 ["IsA"]
   CALL R14 2 1
   JUMPIFNOT R14 [+3]
-  GETTABLEKS R12 R13 K18 ["Image"]
+  GETTABLEKS R12 R13 K19 ["Image"]
   JUMP [+1]
   MOVE R12 R13
-  SETTABLEKS R12 R11 K8 ["preview"]
+  SETTABLEKS R12 R11 K9 ["preview"]
   FASTCALL2 TABLE_INSERT R3 R11 [+4]
   MOVE R10 R3
-  GETIMPORT R9 K22 [table.insert]
+  GETIMPORT R9 K23 [table.insert]
   CALL R9 2 0
-  FORGLOOP R4 2 [-54]
+  FORGLOOP R4 2 [-56]
   NEWTABLE R4 0 0
-  GETTABLEKS R6 R2 K23 ["OtherEquipment"]
-  GETTABLEKS R5 R6 K24 ["Scroller"]
+  GETTABLEKS R6 R2 K24 ["OtherEquipment"]
+  GETTABLEKS R5 R6 K25 ["Scroller"]
   NAMECALL R5 R5 K6 ["GetChildren"]
   CALL R5 1 3
   FORGPREP R5
-  LOADK R12 K25 ["Frame"]
-  NAMECALL R10 R9 K17 ["IsA"]
+  LOADK R12 K26 ["Frame"]
+  NAMECALL R10 R9 K18 ["IsA"]
   CALL R10 2 1
-  JUMPIFNOT R10 [+28]
-  DUPTABLE R12 K9 [{"yPosition", "preview"}]
-  GETTABLEKS R14 R9 K10 ["AbsolutePosition"]
-  GETTABLEKS R13 R14 K11 ["Y"]
+  JUMPIFNOT R10 [+30]
+  DUPTABLE R12 K10 [{"yPosition", "instance", "preview"}]
+  GETTABLEKS R14 R9 K11 ["AbsolutePosition"]
+  GETTABLEKS R13 R14 K12 ["Y"]
   SETTABLEKS R13 R12 K7 ["yPosition"]
-  GETTABLEKS R15 R9 K14 ["Inner"]
-  GETTABLEKS R14 R15 K15 ["Preview"]
-  LOADK R17 K16 ["ImageLabel"]
-  NAMECALL R15 R14 K17 ["IsA"]
+  SETTABLEKS R9 R12 K8 ["instance"]
+  GETTABLEKS R15 R9 K15 ["Inner"]
+  GETTABLEKS R14 R15 K16 ["Preview"]
+  LOADK R17 K17 ["ImageLabel"]
+  NAMECALL R15 R14 K18 ["IsA"]
   CALL R15 2 1
   JUMPIFNOT R15 [+3]
-  GETTABLEKS R13 R14 K18 ["Image"]
+  GETTABLEKS R13 R14 K19 ["Image"]
   JUMP [+1]
   MOVE R13 R14
-  SETTABLEKS R13 R12 K8 ["preview"]
+  SETTABLEKS R13 R12 K9 ["preview"]
   FASTCALL2 TABLE_INSERT R4 R12 [+4]
   MOVE R11 R4
-  GETIMPORT R10 K22 [table.insert]
+  GETIMPORT R10 K23 [table.insert]
   CALL R10 2 0
-  FORGLOOP R5 2 [-34]
-  GETIMPORT R5 K27 [table.sort]
+  FORGLOOP R5 2 [-36]
+  GETIMPORT R5 K28 [table.sort]
   MOVE R6 R3
   MOVE R7 R1
   CALL R5 2 0
-  GETIMPORT R5 K27 [table.sort]
+  GETIMPORT R5 K28 [table.sort]
   MOVE R6 R4
   MOVE R7 R1
   CALL R5 2 0
-  DUPTABLE R5 K30 [{"layeredClothing", "otherEquipment"}]
-  SETTABLEKS R3 R5 K28 ["layeredClothing"]
-  SETTABLEKS R4 R5 K29 ["otherEquipment"]
+  DUPTABLE R5 K31 [{"layeredClothing", "otherEquipment"}]
+  SETTABLEKS R3 R5 K29 ["layeredClothing"]
+  SETTABLEKS R4 R5 K30 ["otherEquipment"]
   RETURN R5 1
 
 PROTO_43:
@@ -917,7 +919,7 @@ PROTO_52:
   GETUPVAL R4 1
   SETTABLEKS R4 R3 K9 ["Parent"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K10 ["createRoot"]
+  GETTABLEKS R4 R5 K10 ["createBlockingRoot"]
   MOVE R5 R3
   CALL R4 1 1
   GETUPVAL R5 3

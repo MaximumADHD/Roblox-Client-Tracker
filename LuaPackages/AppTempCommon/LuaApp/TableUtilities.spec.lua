@@ -1,3 +1,5 @@
+-- APPFDN-1897 LuaAppReplaceTableUtilities TODO: Clean up this file
+
 return function()
 	local CorePackages = game:GetService("CorePackages")
 	local t = require(CorePackages.Packages.t)
@@ -6,6 +8,10 @@ return function()
 	local expect = JestGlobals.expect
 
 	local TableUtilities = require(script.Parent.TableUtilities)
+
+	if TableUtilities.GetFFlagLuaAppReplaceTableUtilities() then
+		return
+	end
 
 	describe("alias wrapper", function()
 		it("SHOULD have all required fields", function()
@@ -19,6 +25,7 @@ return function()
 				RecursiveToString = t.callback,
 				ShallowEqual = t.callback,
 				TableDifference = t.callback,
+				GetFFlagLuaAppReplaceTableUtilities = t.callback
 			})
 			assert(interface(TableUtilities))
 		end)

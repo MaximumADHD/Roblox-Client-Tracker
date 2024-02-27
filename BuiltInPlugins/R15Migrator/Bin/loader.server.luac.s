@@ -79,75 +79,92 @@ MAIN:
   GETTABLEKS R8 R9 K11 ["Util"]
   GETTABLEKS R7 R8 K22 ["checkPublishLock"]
   CALL R6 1 1
-  GETIMPORT R7 K1 [game]
-  LOADK R9 K23 ["StudioPublishService"]
-  NAMECALL R7 R7 K24 ["GetService"]
-  CALL R7 2 1
-  MOVE R8 R6
-  CALL R8 0 0
-  DUPTABLE R8 K35 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
-  GETIMPORT R9 K36 [plugin]
-  SETTABLEKS R9 R8 K25 ["plugin"]
-  LOADK R9 K6 ["R15Migrator"]
-  SETTABLEKS R9 R8 K26 ["pluginName"]
-  SETTABLEKS R4 R8 K27 ["translationResourceTable"]
-  SETTABLEKS R3 R8 K28 ["fallbackResourceTable"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K29 ["overrideLocaleId"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K30 ["localizationNamespace"]
-  DUPCLOSURE R9 K37 [PROTO_0]
-  SETTABLEKS R9 R8 K31 ["getToolbarName"]
-  DUPTABLE R9 K42 [{"getName", "getDescription", "icon", "text"}]
-  DUPCLOSURE R10 K43 [PROTO_1]
-  SETTABLEKS R10 R9 K38 ["getName"]
-  DUPCLOSURE R10 K44 [PROTO_2]
-  SETTABLEKS R10 R9 K39 ["getDescription"]
-  LOADK R10 K45 ["http://www.roblox.com/asset/?id=12399871436"]
-  SETTABLEKS R10 R9 K40 ["icon"]
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K11 ["Util"]
+  GETTABLEKS R8 R9 K23 ["PluginSettings"]
+  CALL R7 1 1
+  GETIMPORT R8 K1 [game]
+  LOADK R10 K24 ["StudioPublishService"]
+  NAMECALL R8 R8 K25 ["GetService"]
+  CALL R8 2 1
+  MOVE R9 R6
+  CALL R9 0 0
+  DUPTABLE R9 K36 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
+  GETIMPORT R10 K37 [plugin]
+  SETTABLEKS R10 R9 K26 ["plugin"]
+  LOADK R10 K6 ["R15Migrator"]
+  SETTABLEKS R10 R9 K27 ["pluginName"]
+  SETTABLEKS R4 R9 K28 ["translationResourceTable"]
+  SETTABLEKS R3 R9 K29 ["fallbackResourceTable"]
   LOADNIL R10
-  SETTABLEKS R10 R9 K41 ["text"]
-  SETTABLEKS R9 R8 K32 ["buttonInfo"]
-  DUPTABLE R9 K51 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "name", "zIndexBehavior"}]
-  LOADK R10 K6 ["R15Migrator"]
-  SETTABLEKS R10 R9 K46 ["id"]
-  GETIMPORT R10 K54 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R11 K58 [Enum.InitialDockState.Left]
-  LOADB R12 0
-  LOADB R13 1
-  LOADN R14 252
-  LOADN R15 128
-  LOADN R16 252
-  LOADN R17 128
-  CALL R10 7 1
-  SETTABLEKS R10 R9 K47 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R10 K59 [PROTO_3]
-  SETTABLEKS R10 R9 K48 ["getDockTitle"]
-  LOADK R10 K6 ["R15Migrator"]
-  SETTABLEKS R10 R9 K49 ["name"]
-  GETIMPORT R10 K62 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R10 R9 K50 ["zIndexBehavior"]
-  SETTABLEKS R9 R8 K33 ["dockWidgetInfo"]
-  NEWTABLE R9 1 0
-  DUPCLOSURE R10 K63 [PROTO_4]
-  CAPTURE VAL R7
-  SETTABLEKS R10 R9 K64 ["StudioPublishService.OnPublishAttempt"]
-  SETTABLEKS R9 R8 K34 ["extraTriggers"]
-  GETTABLEKS R9 R5 K65 ["build"]
-  MOVE R10 R8
-  CALL R9 1 1
-  GETTABLEKS R10 R9 K66 ["pluginLoader"]
-  NAMECALL R10 R10 K67 ["waitForUserInteraction"]
+  SETTABLEKS R10 R9 K30 ["overrideLocaleId"]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K31 ["localizationNamespace"]
+  DUPCLOSURE R10 K38 [PROTO_0]
+  SETTABLEKS R10 R9 K32 ["getToolbarName"]
+  DUPTABLE R10 K43 [{"getName", "getDescription", "icon", "text"}]
+  DUPCLOSURE R11 K44 [PROTO_1]
+  SETTABLEKS R11 R10 K39 ["getName"]
+  DUPCLOSURE R11 K45 [PROTO_2]
+  SETTABLEKS R11 R10 K40 ["getDescription"]
+  LOADK R11 K46 ["http://www.roblox.com/asset/?id=12399871436"]
+  SETTABLEKS R11 R10 K41 ["icon"]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K42 ["text"]
+  SETTABLEKS R10 R9 K33 ["buttonInfo"]
+  DUPTABLE R10 K52 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "name", "zIndexBehavior"}]
+  LOADK R11 K6 ["R15Migrator"]
+  SETTABLEKS R11 R10 K47 ["id"]
+  GETIMPORT R11 K55 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R12 K59 [Enum.InitialDockState.Left]
+  GETTABLEKS R13 R7 K60 ["InitiallyEnabled"]
+  GETIMPORT R15 K37 [plugin]
+  GETIMPORT R17 K1 [game]
+  GETTABLEKS R16 R17 K61 ["GameId"]
+  NAMECALL R13 R13 K62 ["getBooleanSetting"]
+  CALL R13 3 1
+  LOADB R14 1
+  LOADN R15 252
+  LOADN R16 128
+  LOADN R17 252
+  LOADN R18 128
+  CALL R11 7 1
+  SETTABLEKS R11 R10 K48 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R11 K63 [PROTO_3]
+  SETTABLEKS R11 R10 K49 ["getDockTitle"]
+  LOADK R11 K6 ["R15Migrator"]
+  SETTABLEKS R11 R10 K50 ["name"]
+  GETIMPORT R11 K66 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K51 ["zIndexBehavior"]
+  SETTABLEKS R10 R9 K34 ["dockWidgetInfo"]
+  NEWTABLE R10 1 0
+  DUPCLOSURE R11 K67 [PROTO_4]
+  CAPTURE VAL R8
+  SETTABLEKS R11 R10 K68 ["StudioPublishService.OnPublishAttempt"]
+  SETTABLEKS R10 R9 K35 ["extraTriggers"]
+  GETTABLEKS R10 R7 K60 ["InitiallyEnabled"]
+  GETIMPORT R12 K37 [plugin]
+  GETIMPORT R14 K1 [game]
+  GETTABLEKS R13 R14 K61 ["GameId"]
+  LOADNIL R14
+  NAMECALL R10 R10 K69 ["setSetting"]
+  CALL R10 4 0
+  GETTABLEKS R10 R5 K70 ["build"]
+  MOVE R11 R9
   CALL R10 1 1
-  JUMPIF R10 [+1]
-  RETURN R0 0
-  GETIMPORT R11 K9 [require]
-  GETIMPORT R14 K5 [script]
-  GETTABLEKS R13 R14 K68 ["Parent"]
-  GETTABLEKS R12 R13 K69 ["main"]
+  GETTABLEKS R11 R10 K71 ["pluginLoader"]
+  NAMECALL R11 R11 K72 ["waitForUserInteraction"]
   CALL R11 1 1
-  MOVE R12 R11
-  GETIMPORT R13 K36 [plugin]
-  MOVE R14 R9
-  CALL R12 2 0
+  JUMPIF R11 [+1]
+  RETURN R0 0
+  GETIMPORT R12 K9 [require]
+  GETIMPORT R15 K5 [script]
+  GETTABLEKS R14 R15 K73 ["Parent"]
+  GETTABLEKS R13 R14 K74 ["main"]
+  CALL R12 1 1
+  MOVE R13 R12
+  GETIMPORT R14 K37 [plugin]
+  MOVE R15 R10
+  CALL R13 2 0
   RETURN R0 0

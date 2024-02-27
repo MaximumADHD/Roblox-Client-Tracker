@@ -35,15 +35,18 @@ local TESTING_DATA = nil -- Assign this to override the data for testing
 
 local LIVE_UPDATE_TEXT = "Live"
 local SHOW_PLUGINS_TEXT = "Plugins"
+local SHOW_GC_TEXT = "GC"
 
 local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfiler")
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
 local FFlagScriptProfilerFrequencyControl = game:DefineFastFlag("ScriptProfilerFrequencyControl", false)
+local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead", false)
 local FFlagScriptProfilerTimedProfiling = game:DefineFastFlag("ScriptProfilerTimedProfiling", false)
 local FFlagScriptProfilerFunctionsView = game:DefineFastFlag("ScriptProfilerFunctionsView", false)
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
+local FFlagScriptProfilerSimpleUI = game:DefineFastFlag("ScriptProfilerSimpleUI", false)
 local FFlagScriptProfilerAverages = game:DefineFastFlag("ScriptProfilerAverages", false)
 local FFlagScriptProfilerExport = game:DefineFastFlag("ScriptProfilerExport", false)
 local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
@@ -60,6 +63,7 @@ local function annotateSearchFilterNodes(data: ProfilerData.RootDataFormat, sear
 	local node = data.Nodes[nodeId]
 
 	if not node.Children then
+		searchFilterNodes[nodeId] = (funcId > 0 and searchFilterFuncs[funcId]) or parentIsMatch
 		return funcId > 0 and searchFilterFuncs[funcId]
 	end
 
@@ -119,36 +123,100 @@ local function generateSearchFilters(state, searchTerm: string): (SearchFilterTy
 	return searchFilterFuncs, searchFilterNodes
 end
 
-local function generatePluginDurationOffsets(data: ProfilerData.RootDataFormat?): {[number]: number, Total: number?}
+local function generatePluginDurationOffsets(gcNodeOffsets: {[number]: number, Total: number?}, data: ProfilerData.RootDataFormat?): ({[number]: number, Total: number?}, {[number]: number, Total: number?})
 	if data then
 		assert(data.Version == 2)
 
 		local offsets = table.create(#data.Categories, 0) :: {[number]: number, Total: number}
+		local gcOffsets = table.create(#data.Categories, 0) :: {[number]: number, Total: number}
 
 		local total = 0
+		local gcTotal = 0
 		for index, category in data.Categories do
 			local node = data.Nodes[category.NodeId]
+
 			local offset = 0
-			local childData = ProfilerUtil.standardizeChildren(data, node)
+			local gcOffset = 0
+
+			local childData = node.Children
 			if childData then
 				for functionId, nodeId in pairs(childData) do
 					local func = data.Functions[functionId]
 
 					if getPluginFlag(data, data.Functions[functionId]) then
 						offset -= getDurations(data, nodeId)
+
+						if FFlagScriptProfilerHideGCOverhead and #gcNodeOffsets > 0 then
+							gcOffset += gcNodeOffsets[nodeId]
+						end
 					end
 				end
 			end
 
 			offsets[index] = offset
+			gcOffsets[index] = gcOffset
 			total += offset
+			gcTotal += gcOffset
 		end
 
 		offsets.Total = total
-		return offsets
+		gcOffsets.Total = total
+		return offsets, gcOffsets
 	end
 
-	return {}
+	return {}, {}
+end
+
+local function getGCOverhead(funcOffsets: {number}, nodeOffsets: {number}, data: ProfilerData.RootDataFormat, nodeId: ProfilerData.NodeId, gcFuncId: ProfilerData.FunctionId): number
+	local node = data.Nodes[nodeId]
+	local total = 0
+
+	if node.Children then
+		for funcId, nodeId in pairs(node.Children) do
+
+			local gc
+			if funcId == gcFuncId then
+				gc = data.Nodes[nodeId].TotalDuration
+			else
+				gc = getGCOverhead(funcOffsets, nodeOffsets, data, nodeId, gcFuncId)
+			end
+
+			funcOffsets[funcId] += gc
+			nodeOffsets[nodeId] = gc
+			total += gc
+		end
+	end
+
+	return total
+end
+
+local function generateGCOverheadOffsets(data: ProfilerData.RootDataFormat?): ({number}, {[number]: number, Total: number?})
+	if data and data.GCFuncId then
+
+		local gcFuncId = data.GCFuncId
+
+
+		local funcOffsets = table.create(#data.Functions, 0)
+		local nodeOffsets = table.create(#data.Nodes, 0) :: {[number]: number, Total: number?}
+
+		local total = 0
+
+		for index, category in data.Categories do
+
+			local nodeId = category.NodeId
+
+			local gc = getGCOverhead(funcOffsets, nodeOffsets, data, nodeId, gcFuncId)
+			total += gc
+
+			nodeOffsets[nodeId] = gc
+		end
+
+		nodeOffsets.Total = total
+
+		return funcOffsets, nodeOffsets
+	end
+
+	return {}, {}
 end
 
 function MainViewScriptProfiler:getActiveState()
@@ -171,8 +239,12 @@ local function OnNewProfilingData(state, jsonString: string?)
 	state.serializedData = jsonString
 	state.data = ScriptContext:DeserializeScriptProfilerString(jsonString :: string) -- Temporary type cast to work around type-checker until RIDL defintion is updated.
 
+	if FFlagScriptProfilerHideGCOverhead then
+		state.gcFunctionOffsets, state.gcNodeOffsets = generateGCOverheadOffsets(state.data)
+	end
+
 	if FFlagScriptProfilerShowPlugins then
-		state.pluginOffsets = generatePluginDurationOffsets(state.data)
+		state.pluginOffsets, state.pluginGCOffsets = generatePluginDurationOffsets(state.gcNodeOffsets, state.data)
 	end
 end
 
@@ -428,6 +500,8 @@ function MainViewScriptProfiler:init()
 			newState.liveUpdate = newValue
 		elseif boxName == SHOW_PLUGINS_TEXT then
 			newState.showPlugins = newValue
+		elseif boxName == SHOW_GC_TEXT then
+			newState.showGC = newValue
 		end
 
 		self:UpdateState(isClientView, newState)
@@ -452,6 +526,7 @@ function MainViewScriptProfiler:init()
 
 	self.state = {
 		utilTabHeight = 0,
+		showSimpleUI = true,
 	}
 end
 
@@ -506,6 +581,138 @@ local function formatTimer(secs: number?): string
 	return ""
 end
 
+function MainViewScriptProfiler:renderUtilButtons(state, simpleUIformFactor, showSimpleUI)
+	local isProfiling = state.isProfiling
+
+	local elements = {} :: {}
+
+	-- Start/Stop Profiling
+	table.insert(
+		elements,
+		Roact.createElement(BoxButton, {
+			text = isProfiling and "Stop" or "Start",
+			onClicked = isProfiling and self.onEndProfile or self.onBeginProfile,
+		})
+	)
+
+	-- Switch Units Button
+	if not showSimpleUI then
+		table.insert(
+			elements,
+			Roact.createElement(BoxButton, {
+				text = if self.props.usePercentages then "Unit: %" else "Unit: ms",
+				onClicked = self.toggleUnits,
+			})
+		)
+	end
+
+	-- Change Sampling Frequency Button
+	-- Since frequency is specified only when starting a new profiling session,
+	-- this button is inactive while profiling.
+	if FFlagScriptProfilerFrequencyControl and not showSimpleUI then
+		table.insert(
+			elements,
+			Roact.createElement("TextButton", {
+				Text = "Freq: " .. formatFreq(state.frequency),
+				TextSize = TEXT_SIZE,
+				TextColor3 = TEXT_COLOR,
+				Font = FONT,
+
+				AutoButtonColor = true,
+				BackgroundColor3 = if isProfiling then Constants.Color.InactiveBox else BACKGROUND_COLOR,
+				BackgroundTransparency = 0,
+
+				[Roact.Event.Activated] = function()
+					if not isProfiling then
+						self.toggleFrequency()
+					end
+				end,
+			})
+		)
+	end
+
+	if FFlagScriptProfilerTimedProfiling and not showSimpleUI then
+		table.insert(
+			elements,
+			Roact.createElement("TextButton", {
+				Text = "Time"
+					.. formatTimer(if isProfiling then state.timedProfilingCountdown else state.timedProfilingDuration),
+				TextSize = TEXT_SIZE,
+				TextColor3 = TEXT_COLOR,
+				Font = FONT,
+
+				AutoButtonColor = true,
+				BackgroundColor3 = if isProfiling then Constants.Color.InactiveBox else BACKGROUND_COLOR,
+				BackgroundTransparency = 0,
+
+				[Roact.Event.Activated] = function()
+					if not isProfiling then
+						self.toggleTimedProfiling()
+					end
+				end,
+			})
+		)
+	end
+
+	if FFlagScriptProfilerAverages and not showSimpleUI then
+		table.insert(
+			elements,
+			Roact.createElement("TextButton", {
+				Text = "Average" .. formatTimer(state.average),
+				TextSize = TEXT_SIZE,
+				TextColor3 = TEXT_COLOR,
+				Font = FONT,
+
+				AutoButtonColor = true,
+				BackgroundColor3 = BACKGROUND_COLOR,
+				BackgroundTransparency = 0,
+
+				[Roact.Event.Activated] = function()
+					if not isProfiling then
+						self.toggleAverage()
+					end
+				end,
+			})
+		)
+	end
+
+	if FFlagScriptProfilerExport and not showSimpleUI then
+		table.insert(
+			elements,
+			Roact.createElement(BoxButton, {
+				text = "Export",
+				onClicked = self.props.dispatchStartExport,
+			})
+		)
+	end
+
+	if FFlagScriptProfilerFunctionsView and not showSimpleUI then
+		table.insert(
+			elements,
+			Roact.createElement(DropDown, {
+				buttonSize = UDim2.new(0, SMALL_DV_BUTTON_WIDTH, 0, SMALL_FRAME_HEIGHT),
+				dropDownList = DATA_VIEW_DROPDOWN_NAMES,
+				selectedIndex = state.isFunctionsView and 2 or 1,
+				onSelection = self.dataViewDropDownCallback,
+			})
+		)
+	end
+
+	if simpleUIformFactor then
+		table.insert(
+			elements,
+			Roact.createElement(BoxButton, {
+				text = if showSimpleUI then "More..." else "Less...",
+				onClicked = function()
+					self:setState({ showSimpleUI = not self.state.showSimpleUI })
+				end,
+			})
+		)
+	end
+
+	return elements
+end
+
 function MainViewScriptProfiler:render()
 	local size = self.props.size
 	local formFactor = self.props.formFactor
@@ -515,7 +722,6 @@ function MainViewScriptProfiler:render()
 
 	local isProfiling = state.isProfiling
 	local profilingData = state.data
-	local frequency = state.frequency
 	local usePercentages = self.props.usePercentages
 	local isFunctionsView = state.isFunctionsView
 	local rootNode = state.rootNode
@@ -529,12 +735,19 @@ function MainViewScriptProfiler:render()
 	end
 
 	local checkBoxStates = {}
+	local tmpCheckboxIndex = 1 -- Temporary, remove with each flag that uses checkboxes; ensures that each flagged entry does not depend on the others being enabled
 	if FFlagScriptProfilerLiveUpdate then
-		checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate, }
+		checkBoxStates[tmpCheckboxIndex] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate, }
 	end
 
 	if FFlagScriptProfilerShowPlugins then
-		checkBoxStates[2] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins, }
+		tmpCheckboxIndex += 1
+		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins, }
+	end
+
+	if FFlagScriptProfilerHideGCOverhead then
+		tmpCheckboxIndex += 1
+		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_GC_TEXT, state = state.showGC, }
 	end
 
 	if self.props.isExporting then
@@ -574,6 +787,11 @@ function MainViewScriptProfiler:render()
 		})
 	end
 
+	local simpleUIformFactor = formFactor == Constants.FormFactor.Small
+	local showSimpleUI = FFlagScriptProfilerSimpleUI and simpleUIformFactor and self.state.showSimpleUI
+
+	local utilButtons = self:renderUtilButtons(state, simpleUIformFactor, showSimpleUI)
+
 	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundColor3 = Constants.Color.BaseGray,
@@ -603,83 +821,7 @@ function MainViewScriptProfiler:render()
 
 			onSearchTermChanged = self.onSearchTermChanged,
 			searchTerm = state.searchTerm,
-		}, {
-			-- Start/Stop Profiling
-			Roact.createElement(BoxButton, {
-				text = isProfiling and "Stop" or "Start",
-				onClicked = isProfiling and self.onEndProfile or self.onBeginProfile
-			}),
-			-- Switch Units Button
-			Roact.createElement(BoxButton, {
-				text = if usePercentages then "Unit: %" else "Unit: ms",
-				onClicked = self.toggleUnits,
-			}),
-			-- Change Sampling Frequency Button
-			-- Since frequency is specified only when starting a new profiling session,
-			-- this button is inactive while profiling.
-			if not FFlagScriptProfilerFrequencyControl then nil else Roact.createElement("TextButton", {
-				Text = "Freq: " .. formatFreq(frequency),
-				TextSize = TEXT_SIZE,
-				TextColor3 = TEXT_COLOR,
-				Font = FONT,
-
-				AutoButtonColor = true,
-				BackgroundColor3 = if isProfiling then Constants.Color.InactiveBox else BACKGROUND_COLOR,
-				BackgroundTransparency = 0,
-
-				[Roact.Event.Activated] = function()
-					if not isProfiling then
-						self.toggleFrequency()
-					end
-				end,
-			}) :: any,
-
-			if not FFlagScriptProfilerTimedProfiling then nil else Roact.createElement("TextButton", {
-				Text = "Time" .. formatTimer(if isProfiling then state.timedProfilingCountdown else state.timedProfilingDuration),
-				TextSize = TEXT_SIZE,
-				TextColor3 = TEXT_COLOR,
-				Font = FONT,
-
-				AutoButtonColor = true,
-				BackgroundColor3 = if isProfiling then Constants.Color.InactiveBox else BACKGROUND_COLOR,
-				BackgroundTransparency = 0,
-
-				[Roact.Event.Activated] = function()
-					if not isProfiling then
-						self.toggleTimedProfiling()
-					end
-				end,
-			}) :: any,
-
-			if not FFlagScriptProfilerAverages then nil else Roact.createElement("TextButton", {
-				Text = "Average" .. formatTimer(state.average),
-				TextSize = TEXT_SIZE,
-				TextColor3 = TEXT_COLOR,
-				Font = FONT,
-
-				AutoButtonColor = true,
-				BackgroundColor3 = BACKGROUND_COLOR,
-				BackgroundTransparency = 0,
-
-				[Roact.Event.Activated] = function()
-					if not isProfiling then
-						self.toggleAverage()
-					end
-				end,
-			}) :: any,
-
-			if not FFlagScriptProfilerExport then nil else Roact.createElement(BoxButton, {
-				text = "Export",
-				onClicked = self.props.dispatchStartExport,
-			}) :: any,
-
-			if not FFlagScriptProfilerFunctionsView then nil else Roact.createElement(DropDown, {
-				buttonSize = UDim2.new(0, SMALL_DV_BUTTON_WIDTH, 0, SMALL_FRAME_HEIGHT),
-				dropDownList = DATA_VIEW_DROPDOWN_NAMES,
-				selectedIndex = isFunctionsView and 2 or 1,
-				onSelection = self.dataViewDropDownCallback,
-			}) :: any,
-		}),
+		}, utilButtons),
 
 		ProfilerView = Roact.createElement(if isFunctionsView then ProfilerFunctionsView else ProfilerView, {
 			size = UDim2.new(1, 0, 1, -utilTabHeight),
@@ -694,6 +836,10 @@ function MainViewScriptProfiler:render()
 			average = state.average,
 			showPlugins = state.showPlugins or not FFlagScriptProfilerShowPlugins,
 			pluginOffsets = state.pluginOffsets,
+			showGC = state.showGC or not FFlagScriptProfilerHideGCOverhead,
+			gcFunctionOffsets = state.gcFunctionOffsets,
+			gcNodeOffsets = state.gcNodeOffsets,
+			pluginGCOffsets = state.pluginGCOffsets,
 		})
 	})
 end

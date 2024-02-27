@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local RoactUtils = require(CorePackages.Workspace.Packages.RoactUtils)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local e = React.createElement
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -59,7 +60,7 @@ return function(props: Props)
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.fromScale(0.5, 0.5),
 			Text = "13+",
-			Font = Enum.Font.GothamBold,
+			Font = AppFonts.default:getBold(),
 			TextSize = 12,
 			BackgroundColor3 = style.Theme.TextEmphasis.Color,
 			BackgroundTransparency = if isHoveredOrPressed then 0.25 else style.Theme.TextEmphasis.Transparency,

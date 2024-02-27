@@ -55,13 +55,6 @@ local OnboardingTooltipAnchor = React.forwardRef(function(props, ref)
 					AutomaticSize = Enum.AutomaticSize.Y,
 					BackgroundTransparency = 1,
 				}, {
-					FooterLayout = React.createElement("UIListLayout", {
-						VerticalAlignment = Enum.VerticalAlignment.Center,
-						FillDirection = Enum.FillDirection.Horizontal,
-						HorizontalFlex = "SpaceBetween",
-						ItemLineAlignment = "Stretch",
-						SortOrder = Enum.SortOrder.LayoutOrder,
-					}),
 					Label = React.createElement(StyledTextLabel, {
 						layoutOrder = 1,
 						fontStyle = style.Font.Footer,
@@ -69,6 +62,7 @@ local OnboardingTooltipAnchor = React.forwardRef(function(props, ref)
 						text = if showLabels then tostring(step) .. " / " .. tostring(maxSteps) else "",
 						textTruncate = Enum.TextTruncate.AtEnd,
 						textXAlignment = Enum.TextXAlignment.Left,
+						size = UDim2.fromScale(0.5, 1),
 					}),
 					Button = React.createElement(Button, {
 						buttonType = ButtonType.PrimarySystem,
@@ -79,6 +73,8 @@ local OnboardingTooltipAnchor = React.forwardRef(function(props, ref)
 						end,
 						text = if step == maxSteps then completeLabel else onboardingStep.buttonText,
 						size = UDim2.new(1, 0, 0, 36),
+						anchorPoint = Vector2.new(1, 0),
+						position = UDim2.new(1, 0, 0, 0),
 					}) or nil,
 				}),
 			})

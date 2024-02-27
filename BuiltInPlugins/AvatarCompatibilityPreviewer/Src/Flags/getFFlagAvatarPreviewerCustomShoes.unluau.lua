@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("AvatarPreviewerCustomShoes2", false)
+game:DefineFastFlag("AvatarPreviewerCustomShoes3", false)
 return function()
-   return game:GetFastFlag("AvatarPreviewerCustomShoes2")
+   return game:GetFastFlag("AvatarPreviewerCustomShoes3")
 end

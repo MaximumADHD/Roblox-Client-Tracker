@@ -54,18 +54,18 @@ end
 
 function var9.render(arg1)
    local var0 = {}
-   local var261 = var5.Plugin.new(arg1.plugin)
-   local var269 = var5.Localization.mock()
-   local var276 = var5.Mouse.new(arg1.plugin:GetMouse())
-   local var277 = var8
-   local var282 = var5.Focus.new(arg1.target)
+   local var751 = var5.Plugin.new(arg1.plugin)
+   local var759 = var5.Localization.mock()
+   local var766 = var5.Mouse.new(arg1.plugin:GetMouse())
+   local var767 = var8
+   local var772 = var5.Focus.new(arg1.target)
    local var5 = var5.Store.new(arg1.store)
    var6.new(arg1.api) = var0
-   local var290 = var7.new()
+   local var780 = var7.new()
    table.insert()
-   local var292 = var5
-   var292 = var0
-   return var292.provide(var292, arg1.props[var1.Children])
+   local var782 = var5
+   var782 = var0
+   return var782.provide(var782, arg1.props[var1.Children])
 end
 
 return var9

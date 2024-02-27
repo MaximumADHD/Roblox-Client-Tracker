@@ -10,27 +10,27 @@ local var7 = var5.ContextServices
 local var8 = require(var0.Src.Components.TextBox)
 local var9 = var1.PureComponent:extend("NumberBox")
 function var9.init(arg1)
-   local var64 = {}
-   var64.focused = false
-   arg1.state = var64
+   local var41 = {}
+   var41.focused = false
+   arg1.state = var41
    function arg1.getTextWidth(arg1, arg2)
-      local var71 = var2
-      var71 = arg1
-      return var71.getTextWidth(var71, arg2.trackTheme.textSize, arg2.font)
+      local var48 = var2
+      var48 = arg1
+      return var48.getTextWidth(var48, arg2.trackTheme.textSize, arg2.font)
    end
    
    function arg1.focusChanged(arg1, arg2, arg3)
-      local var80 = {}
-      var80.focused = arg2
-      arg1:setState(var80)
+      local var57 = {}
+      var57.focused = arg2
+      arg1:setState(var57)
       if not arg2 then
          if arg3 then
             local var0 = tonumber(arg1.Text)
             if var0 then
                if arg1.props.SetNumber then
-                  local var90 = arg1.props
-                  var90 = var0
-                  local var0 = var90.SetNumber(var90)
+                  local var67 = arg1.props
+                  var67 = var0
+                  local var0 = var67.SetNumber(var67)
                   if var0 then
                      arg1.Text = arg1:formatNumber(var0)
                      arg1.Text = arg1.props.Number
@@ -46,17 +46,17 @@ function var9.init(arg1)
    
    function arg1.onDragMoved(arg1)
       if arg1.props.OnDragMoved then
-         local var114 = arg1.props
-         var114 = arg1
-         var114.OnDragMoved(var114)
+         local var91 = arg1.props
+         var91 = arg1
+         var91.OnDragMoved(var91)
       end
    end
    
    function arg1.onDragBegan(arg1)
       if arg1.props.OnDragBegan then
-         local var121 = arg1.props
-         var121 = arg1
-         var121.OnDragBegan(var121)
+         local var98 = arg1.props
+         var98 = arg1
+         var98.OnDragBegan(var98)
       end
    end
    
@@ -79,73 +79,73 @@ local function fun6(arg1)
    end
    local var6 = var2.defaultBorder
    local var7 = arg1.getTextWidth(var4, var1) + 12
-   local var165 = {}
-   var165.Style = "BorderBox"
-   var165.Size = var0.Size
-   var165.Position = var0.Position
-   var165.ZIndex = 2
-   var165.AnchorPoint = var0.AnchorPoint
-   var165.BackgroundColor3 = var2.backgroundColor
-   var165.BorderColor3 = var6
-   var165.LayoutOrder = var0.LayoutOrder
-   local var169 = {}
-   local var173 = {}
-   var173.SortOrder = Enum.SortOrder.LayoutOrder
-   var173.FillDirection = Enum.FillDirection.Horizontal
-   var169.Layout = var1.createElement("UIListLayout", var173)
-   local var180 = {}
-   var180.Style = "BorderBox"
-   var180.Size = UDim2.new(0, var7, 1, 0)
-   var180.BackgroundColor3 = var3.shadedBackgroundColor
-   var180.BorderColor3 = var6
-   var180.LayoutOrder = 1
-   local var190 = {}
-   local var194 = {}
-   var194.Size = UDim2.new(1, 0, 1, 0)
-   var194.BackgroundTransparency = 1
-   var194.ZIndex = 2
-   var194.Text = var4
-   var194.Font = var1.font
-   local var204 = var3.textSize
-   var194.TextSize = var204
-   var204 = var0.Color
-   var194.TextColor3 = var204 or var3.textColor
-   var194.TextXAlignment = Enum.TextXAlignment.Center
-   var190.NameLabel = var1.createElement("TextLabel", var194)
+   local var142 = {}
+   var142.Style = "BorderBox"
+   var142.Size = var0.Size
+   var142.Position = var0.Position
+   var142.ZIndex = 2
+   var142.AnchorPoint = var0.AnchorPoint
+   var142.BackgroundColor3 = var2.backgroundColor
+   var142.BorderColor3 = var6
+   var142.LayoutOrder = var0.LayoutOrder
+   local var146 = {}
+   local var150 = {}
+   var150.SortOrder = Enum.SortOrder.LayoutOrder
+   var150.FillDirection = Enum.FillDirection.Horizontal
+   var146.Layout = var1.createElement("UIListLayout", var150)
+   local var157 = {}
+   var157.Style = "BorderBox"
+   var157.Size = UDim2.new(0, var7, 1, 0)
+   var157.BackgroundColor3 = var3.shadedBackgroundColor
+   var157.BorderColor3 = var6
+   var157.LayoutOrder = 1
+   local var167 = {}
+   local var171 = {}
+   var171.Size = UDim2.new(1, 0, 1, 0)
+   var171.BackgroundTransparency = 1
+   var171.ZIndex = 2
+   var171.Text = var4
+   var171.Font = var1.font
+   local var181 = var3.textSize
+   var171.TextSize = var181
+   var181 = var0.Color
+   var171.TextColor3 = var181 or var3.textColor
+   var171.TextXAlignment = Enum.TextXAlignment.Center
+   var167.NameLabel = var1.createElement("TextLabel", var171)
+   local var189 = {}
+   var189.Size = UDim2.new(0, 5, 1, 65534)
+   var189.Position = UDim2.new(1, 0, 0.5, 0)
+   var189.AnchorPoint = Vector2.new(1, 0.5)
+   var189.BackgroundColor3 = var3.shadedBackgroundColor
+   var189.BorderSizePixel = 0
+   var167.LeftBorderOverlay = var1.createElement("Frame", var189)
    local var212 = {}
    var212.Size = UDim2.new(0, 5, 1, 65534)
    var212.Position = UDim2.new(1, 0, 0.5, 0)
-   var212.AnchorPoint = Vector2.new(1, 0.5)
-   var212.BackgroundColor3 = var3.shadedBackgroundColor
+   var212.AnchorPoint = Vector2.new(0, 0.5)
+   var212.BackgroundColor3 = var2.backgroundColor
    var212.BorderSizePixel = 0
-   var190.LeftBorderOverlay = var1.createElement("Frame", var212)
-   local var235 = {}
-   var235.Size = UDim2.new(0, 5, 1, 65534)
-   var235.Position = UDim2.new(1, 0, 0.5, 0)
-   var235.AnchorPoint = Vector2.new(0, 0.5)
-   var235.BackgroundColor3 = var2.backgroundColor
-   var235.BorderSizePixel = 0
-   var190.RightBorderOverlay = var1.createElement("Frame", var235)
+   var167.RightBorderOverlay = var1.createElement("Frame", var212)
    if not var5 then
-      local var258 = {}
-      var258.Size = UDim2.new(1, 0, 1, 0)
-      var258.Cursor = "SizeEW"
-      var258.OnDragMoved = arg1.onDragMoved
-      var258.OnDragBegan = arg1.onDragBegan
-      local var0 = var1.createElement(var4, var258) or nil
+      local var235 = {}
+      var235.Size = UDim2.new(1, 0, 1, 0)
+      var235.Cursor = "SizeEW"
+      var235.OnDragMoved = arg1.onDragMoved
+      var235.OnDragBegan = arg1.onDragBegan
+      local var0 = var1.createElement(var4, var235) or nil
    end
-   var190.DragArea = nil
-   var169.LabelFrame = var1.createElement(var6, var180, var190)
-   local var276 = {}
-   var276.Size = UDim2.new(1, var7, 1, 0)
-   var276.Text = arg1:formatNumber(var0.Number)
-   var276.TextXAlignment = Enum.TextXAlignment.Left
-   var276.ReadOnly = var5
-   var276.LayoutOrder = 2
-   var276.ClearTextOnFocus = false
-   var276.FocusChanged = arg1.focusChanged
-   var169.TextBox = var1.createElement(var8, var276)
-   return var1.createElement(var6, var165, var169)
+   var167.DragArea = nil
+   var146.LabelFrame = var1.createElement(var6, var157, var167)
+   local var253 = {}
+   var253.Size = UDim2.new(1, var7, 1, 0)
+   var253.Text = arg1:formatNumber(var0.Number)
+   var253.TextXAlignment = Enum.TextXAlignment.Left
+   var253.ReadOnly = var5
+   var253.LayoutOrder = 2
+   var253.ClearTextOnFocus = false
+   var253.FocusChanged = arg1.focusChanged
+   var146.TextBox = var1.createElement(var8, var253)
+   return var1.createElement(var6, var142, var146)
 end
 
 function var9.render(arg1)
@@ -160,77 +160,77 @@ function var9.render(arg1)
    end
    local var6 = var2.defaultBorder
    local var7 = arg1.getTextWidth(var4, var1) + 12
-   local var165 = {}
-   var165.Style = "BorderBox"
-   var165.Size = var0.Size
-   var165.Position = var0.Position
-   var165.ZIndex = 2
-   var165.AnchorPoint = var0.AnchorPoint
-   var165.BackgroundColor3 = var2.backgroundColor
-   var165.BorderColor3 = var6
-   var165.LayoutOrder = var0.LayoutOrder
-   local var169 = {}
-   local var173 = {}
-   var173.SortOrder = Enum.SortOrder.LayoutOrder
-   var173.FillDirection = Enum.FillDirection.Horizontal
-   var169.Layout = var1.createElement("UIListLayout", var173)
-   local var180 = {}
-   var180.Style = "BorderBox"
-   var180.Size = UDim2.new(0, var7, 1, 0)
-   var180.BackgroundColor3 = var3.shadedBackgroundColor
-   var180.BorderColor3 = var6
-   var180.LayoutOrder = 1
-   local var190 = {}
-   local var194 = {}
-   var194.Size = UDim2.new(1, 0, 1, 0)
-   var194.BackgroundTransparency = 1
-   var194.ZIndex = 2
-   var194.Text = var4
-   var194.Font = var1.font
-   local var204 = var3.textSize
-   var194.TextSize = var204
-   var204 = var0.Color
-   var194.TextColor3 = var204 or var3.textColor
-   var194.TextXAlignment = Enum.TextXAlignment.Center
-   var190.NameLabel = var1.createElement("TextLabel", var194)
+   local var142 = {}
+   var142.Style = "BorderBox"
+   var142.Size = var0.Size
+   var142.Position = var0.Position
+   var142.ZIndex = 2
+   var142.AnchorPoint = var0.AnchorPoint
+   var142.BackgroundColor3 = var2.backgroundColor
+   var142.BorderColor3 = var6
+   var142.LayoutOrder = var0.LayoutOrder
+   local var146 = {}
+   local var150 = {}
+   var150.SortOrder = Enum.SortOrder.LayoutOrder
+   var150.FillDirection = Enum.FillDirection.Horizontal
+   var146.Layout = var1.createElement("UIListLayout", var150)
+   local var157 = {}
+   var157.Style = "BorderBox"
+   var157.Size = UDim2.new(0, var7, 1, 0)
+   var157.BackgroundColor3 = var3.shadedBackgroundColor
+   var157.BorderColor3 = var6
+   var157.LayoutOrder = 1
+   local var167 = {}
+   local var171 = {}
+   var171.Size = UDim2.new(1, 0, 1, 0)
+   var171.BackgroundTransparency = 1
+   var171.ZIndex = 2
+   var171.Text = var4
+   var171.Font = var1.font
+   local var181 = var3.textSize
+   var171.TextSize = var181
+   var181 = var0.Color
+   var171.TextColor3 = var181 or var3.textColor
+   var171.TextXAlignment = Enum.TextXAlignment.Center
+   var167.NameLabel = var1.createElement("TextLabel", var171)
+   local var189 = {}
+   var189.Size = UDim2.new(0, 5, 1, 65534)
+   var189.Position = UDim2.new(1, 0, 0.5, 0)
+   var189.AnchorPoint = Vector2.new(1, 0.5)
+   var189.BackgroundColor3 = var3.shadedBackgroundColor
+   var189.BorderSizePixel = 0
+   var167.LeftBorderOverlay = var1.createElement("Frame", var189)
    local var212 = {}
    var212.Size = UDim2.new(0, 5, 1, 65534)
    var212.Position = UDim2.new(1, 0, 0.5, 0)
-   var212.AnchorPoint = Vector2.new(1, 0.5)
-   var212.BackgroundColor3 = var3.shadedBackgroundColor
+   var212.AnchorPoint = Vector2.new(0, 0.5)
+   var212.BackgroundColor3 = var2.backgroundColor
    var212.BorderSizePixel = 0
-   var190.LeftBorderOverlay = var1.createElement("Frame", var212)
-   local var235 = {}
-   var235.Size = UDim2.new(0, 5, 1, 65534)
-   var235.Position = UDim2.new(1, 0, 0.5, 0)
-   var235.AnchorPoint = Vector2.new(0, 0.5)
-   var235.BackgroundColor3 = var2.backgroundColor
-   var235.BorderSizePixel = 0
-   var190.RightBorderOverlay = var1.createElement("Frame", var235)
+   var167.RightBorderOverlay = var1.createElement("Frame", var212)
    if not var5 then
-      local var258 = {}
-      var258.Size = UDim2.new(1, 0, 1, 0)
-      var258.Cursor = "SizeEW"
-      var258.OnDragMoved = arg1.onDragMoved
-      var258.OnDragBegan = arg1.onDragBegan
-      local var0 = var1.createElement(var4, var258) or nil
+      local var235 = {}
+      var235.Size = UDim2.new(1, 0, 1, 0)
+      var235.Cursor = "SizeEW"
+      var235.OnDragMoved = arg1.onDragMoved
+      var235.OnDragBegan = arg1.onDragBegan
+      local var0 = var1.createElement(var4, var235) or nil
    end
-   var190.DragArea = nil
-   var169.LabelFrame = var1.createElement(var6, var180, var190)
-   local var276 = {}
-   var276.Size = UDim2.new(1, var7, 1, 0)
-   var276.Text = arg1:formatNumber(var0.Number)
-   var276.TextXAlignment = Enum.TextXAlignment.Left
-   var276.ReadOnly = var5
-   var276.LayoutOrder = 2
-   var276.ClearTextOnFocus = false
-   var276.FocusChanged = arg1.focusChanged
-   var169.TextBox = var1.createElement(var8, var276)
-   return var1.createElement(var6, var165, var169)
+   var167.DragArea = nil
+   var146.LabelFrame = var1.createElement(var6, var157, var167)
+   local var253 = {}
+   var253.Size = UDim2.new(1, var7, 1, 0)
+   var253.Text = arg1:formatNumber(var0.Number)
+   var253.TextXAlignment = Enum.TextXAlignment.Left
+   var253.ReadOnly = var5
+   var253.LayoutOrder = 2
+   var253.ClearTextOnFocus = false
+   var253.FocusChanged = arg1.focusChanged
+   var146.TextBox = var1.createElement(var8, var253)
+   return var1.createElement(var6, var142, var146)
 end
 
 fun6 = var7.withContext
-local var292 = {}
-var292.Stylizer = var7.Stylizer
-var9 = fun6(var292)(var9)
+local var269 = {}
+var269.Stylizer = var7.Stylizer
+var9 = fun6(var269)(var9)
 return var9

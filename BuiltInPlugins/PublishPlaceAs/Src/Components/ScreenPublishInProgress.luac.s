@@ -519,7 +519,7 @@ MAIN:
   NAMECALL R18 R18 K31 ["GetFastInt"]
   CALL R18 2 1
   GETIMPORT R19 K4 [game]
-  LOADK R21 K33 ["StudioReworkSavePlaceDialog4"]
+  LOADK R21 K33 ["StudioReworkSavePlaceDialog5"]
   NAMECALL R19 R19 K34 ["GetFastFlag"]
   CALL R19 2 1
   LOADN R20 0

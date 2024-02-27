@@ -4,7 +4,9 @@ local UIBlox = require(CorePackages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local Colors = require(InspectAndBuyFolder.Colors)
+local Constants = require(InspectAndBuyFolder.Constants)
 local SetDetailsInformation = require(InspectAndBuyFolder.Actions.SetDetailsInformation)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
@@ -12,6 +14,8 @@ local LimitedLabel = require(InspectAndBuyFolder.Components.LimitedLabel)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
+local GetFFlagIBEnableCollectiblesSystemSupport =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 
 local LIMITED_ITEM_IMAGE = "icons/status/item/limited"
 
@@ -34,6 +38,23 @@ function AssetCard:render()
 		render = function(views)
 			local viewMapping = views[view]
 			local isCollectibles = GetFFlagDisplayCollectiblesIcon() and UtilityFunctions.isCollectibles(assetInfo)
+
+			-- Based on the asset information, determine if the limited and
+			-- unique icons need to be displayed on the asset card.
+			local showLimitedIcon
+			local showUniqueIcon
+			local limitedLabelFrameSize
+			if GetFFlagIBEnableCollectiblesSystemSupport() then
+				showLimitedIcon = UtilityFunctions.hasLimitedQuantity(assetInfo)
+				showUniqueIcon = assetInfo.isLimitedUnique or assetInfo.collectibleIsLimited
+
+				-- Double the offset if the item is limited and unique and will show both icons.
+				local imageSizeOffset = if showUniqueIcon
+					then Constants.LimitedIconFrameSizeXOffset * 2
+					else Constants.LimitedIconFrameSizeXOffset
+				limitedLabelFrameSize =
+					UDim2.new(0, imageSize.X + imageSizeOffset, 0, imageSize.Y + Constants.LimitedIconFrameSizeYOffset)
+			end
 
 			return Roact.createElement("ImageButton", {
 				BackgroundTransparency = 0,
@@ -74,7 +95,7 @@ function AssetCard:render()
 						TextYAlignment = Enum.TextYAlignment.Center,
 						TextSize = 12,
 						TextScaled = true,
-						Font = Enum.Font.Gotham,
+						Font = AppFonts.default:getDefault(),
 						TextColor3 = Color3.new(1, 1, 1),
 					}, {
 						UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
@@ -102,15 +123,20 @@ function AssetCard:render()
 					ImageColor3 = Colors.Green,
 				}),
 				-- Adding an icon for ugc limited items.
-				LimitedLabel = isCollectibles and Roact.createElement(LimitedLabel, {
-					frameSize = UDim2.new(0, imageSize.X + 18, 0, imageSize.Y + 4),
-					framePosition = UDim2.new(0, 16, 0, assetCardSizeX - imageSize.Y - 20),
-					imageSize = UDim2.new(0, imageSize.X, 0, imageSize.Y),
-					imagePosition = UDim2.new(0, 5, 0, 2),
-					textSize = UDim2.new(0, imageSize.X, 0, imageSize.Y),
-					textPosition = UDim2.new(0, 5 + imageSize.X, 0, 2),
-					text = "#",
-				})
+				LimitedLabel = (
+					if GetFFlagIBEnableCollectiblesSystemSupport() then showLimitedIcon else isCollectibles
+				)
+					and Roact.createElement(LimitedLabel, {
+						frameSize = if GetFFlagIBEnableCollectiblesSystemSupport()
+							then limitedLabelFrameSize
+							else UDim2.new(0, imageSize.X + 18, 0, imageSize.Y + 4),
+						framePosition = UDim2.new(0, 16, 0, assetCardSizeX - imageSize.Y - 20),
+						imageSize = UDim2.new(0, imageSize.X, 0, imageSize.Y),
+						imagePosition = UDim2.new(0, 5, 0, 2),
+						textSize = UDim2.new(0, imageSize.X, 0, imageSize.Y),
+						textPosition = UDim2.new(0, 5 + imageSize.X, 0, 2),
+						text = if GetFFlagIBEnableCollectiblesSystemSupport() and not showUniqueIcon then nil else "#",
+					}),
 			})
 		end,
 	})

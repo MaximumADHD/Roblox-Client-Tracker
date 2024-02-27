@@ -71,6 +71,7 @@ local FFlagControlBetaBadgeWithGuac = game:DefineFastFlag("ControlBetaBadgeWithG
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local GetFFlagAddOver12TopBarBadge = require(script.Parent.Parent.Parent.Flags.GetFFlagAddOver12TopBarBadge)
+local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Parent.Chrome.Flags.GetFFlagEnableChromeFTUX)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
@@ -321,7 +322,7 @@ function TopBarApp:renderWithStyle(style)
 			}) or nil,
 		}),
 
-		UnibarOnboarding = if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:shouldShowFTUX() then Roact.createElement(OnboardingTooltip) else nil,
+		UnibarOnboarding = if GetFFlagEnableChromeFTUX() then Roact.createElement(OnboardingTooltip) else nil,
 
 		UnibarLeftFrame = Unibar
 				and unibarAlignment == Enum.HorizontalAlignment.Left

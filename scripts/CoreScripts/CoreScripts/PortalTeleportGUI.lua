@@ -6,6 +6,7 @@ local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local AdService = game:GetService("AdService")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 
 -- Constants
 local FADE_IN_TIME = 0.5
@@ -23,6 +24,7 @@ local pi = math.pi
 -- Modules
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 -- UI objects
 local teleportEffectGui = Instance.new("ScreenGui")
@@ -81,7 +83,7 @@ textLabel.ZIndex = 2
 textLabel.AnchorPoint = Vector2.new(.5, .5)
 textLabel.Size = UDim2.new(.6, 0, 0, 48)
 textLabel.Position = UDim2.new(.5, 0, .5, 0)
-textLabel.Font = Enum.Font.Gotham
+textLabel.Font = AppFonts.default:getDefault()
 textLabel.TextScaled = true
 textLabel.Parent = teleportEffectGui
 

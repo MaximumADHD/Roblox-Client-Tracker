@@ -36,6 +36,7 @@ local ProfilerFunctionViewEntry = Roact.PureComponent:extend("ProfilerFunctionVi
 
 local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
 local FFlagScriptProfilerNativeFrames = game:DefineFastFlag("ScriptProfilerNativeFrames", false)
+local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead", false)
 
 type BorderedCellLabelProps = {
     text: string,
@@ -128,6 +129,10 @@ function ProfilerFunctionViewEntry:render()
     local func = data.Functions[functionId]
 
     local totalDuration = func.TotalDuration / self.props.average
+
+    if FFlagScriptProfilerHideGCOverhead then
+        totalDuration -= self.props.gcOffset
+    end
 
     local isNative = getNativeFlag(data, func)
     local isPlugin = getPluginFlag(data, func)

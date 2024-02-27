@@ -12,6 +12,8 @@
 	        MaxBubbles = 5,
 	    })
 ]]
+local CorePackages = game:GetService("CorePackages")
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 return {
 	-- The amount of time, in seconds, to wait before a bubble fades out.
@@ -25,7 +27,7 @@ return {
 	BackgroundColor3 = Color3.fromRGB(250, 250, 250),
 	TextColor3 = Color3.fromRGB(57, 59, 61),
 	TextSize = 16,
-	Font = Enum.Font.GothamMedium,
+	Font = AppFonts.default:getMedium(),
 	Transparency = 0.1,
 	CornerEnabled = true, -- In case devs are concerned with UICorner performance issues, they can just disable those
 	CornerRadius = UDim.new(0, 12),

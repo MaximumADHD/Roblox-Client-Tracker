@@ -7,31 +7,31 @@ local function fun0(arg1, arg2)
 end
 
 local var1 = {}
-local var17 = nil
-local var18 = "RunTests"
+local var47 = nil
+local var48 = "RunTests"
 function var1.RunTests(arg1, arg2)
    return function()
       return game:GetService("ProcessService")
    end
 end
 
-local var25 = nil
-local var26 = "RunRhodiumTests"
+local var55 = nil
+local var56 = "RunRhodiumTests"
 function var1.RunRhodiumTests(arg1, arg2)
    return function()
       return game:GetService("ProcessService")
    end
 end
 
-local var33 = nil
-local var34 = "LogRoduxEvents"
+local var63 = nil
+local var64 = "LogRoduxEvents"
 function var1.LogRoduxEvents(arg1, arg2)
    return function()
       return game:GetService("ProcessService")
    end
 end
 
-local var42 = "LogAnalytics"
+local var72 = "LogAnalytics"
 function var1.LogAnalytics(arg1, arg2)
    return function()
       return game:GetService("ProcessService")

@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local InspectAndBuyFolder = script.Parent.Parent
 local Colors = require(InspectAndBuyFolder.Colors)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
@@ -51,7 +52,7 @@ function DetailsDescription:render()
 		TextYAlignment = Enum.TextYAlignment.Top,
 		TextSize = TEXT_SIZE_SMALL,
 		TextWrapped = true,
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		TextColor3 = Colors.White,
 		[Roact.Ref] = self.descriptionRef,
 	})
@@ -60,7 +61,7 @@ end
 function DetailsDescription:calculateSize()
 	if self.descriptionRef.current and self.props.assetInfo then
 		local size = TextService:GetTextSize(self.description,
-			TEXT_SIZE_SMALL, Enum.Font.Gotham, Vector2.new(self.descriptionRef.current.AbsoluteSize.X, 5000)).Y
+			TEXT_SIZE_SMALL, AppFonts.default:getDefault(), Vector2.new(self.descriptionRef.current.AbsoluteSize.X, 5000)).Y
 		if not FFlagAssetDetailsUseAutomaticCanvasSize then
 			self.descriptionRef.current.Parent.CanvasSize = UDim2.new(1, 0, 0, DETAILS_SIZES + size)
 		end

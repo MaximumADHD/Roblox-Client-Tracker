@@ -49,7 +49,6 @@ local IsExperienceMenuABTestEnabled = require(CoreGuiModules.IsExperienceMenuABT
 local ExperienceMenuABTestManager = require(CoreGuiModules.ExperienceMenuABTestManager)
 local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
 local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.ShareGame.NewInviteMenuExperimentManager)
-local GetFFlagEnableSoundTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundTelemetry)
 local GetFFlagEnableSoundSessionTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundSessionTelemetry)
 local GetFFlagReportAnythingAnnotationIXP = require(CoreGuiModules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local TrustAndSafetyIXPManager = require(RobloxGui.Modules.TrustAndSafety.TrustAndSafetyIXPManager)
@@ -62,7 +61,6 @@ local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6",
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 local GetFFlagIrisAlwaysOnTopEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisAlwaysOnTopEnabled
 local GetFFlagEnableSocialContextToast = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSocialContextToast
-local GetFFlagTenFootUiAchievements = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagTenFootUiAchievements
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
 local FFlagCoreScriptsGlobalEffects = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreScriptsGlobalEffects
@@ -383,7 +381,7 @@ if game:GetEngineFeature("EnableVoiceAttention") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceAttention", script.Parent)
 end
 
-if GetFFlagEnableSoundTelemetry() or GetFFlagEnableSoundSessionTelemetry() then
+if GetFFlagEnableSoundSessionTelemetry() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/SoundTelemetry", script.Parent)
 end
 
@@ -419,11 +417,9 @@ if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/GameInviteModalGUI", script.Parent)
 end
 
-if GetFFlagTenFootUiAchievements() then
-	local InExpAchievementManager = require(CorePackages.Workspace.Packages.Achievements).InExpAchievementManager
-	local achievementManager = InExpAchievementManager.new()
-	achievementManager:startUp()
-end
+local InExpAchievementManager = require(CorePackages.Workspace.Packages.Achievements).InExpAchievementManager
+local achievementManager = InExpAchievementManager.new()
+achievementManager:startUp()
 
 local GetFFlagPlayerViewRemoteEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewRemoteEnabled)
 if GetFFlagPlayerViewRemoteEnabled() then

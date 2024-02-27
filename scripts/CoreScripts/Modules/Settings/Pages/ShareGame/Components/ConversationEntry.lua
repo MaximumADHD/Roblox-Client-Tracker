@@ -1,6 +1,7 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
@@ -12,7 +13,12 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 
 local ConversationDetails = require(ShareGame.Components.ConversationDetails)
 local ConversationThumbnail = require(ShareGame.Components.ConversationThumbnail)
-local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
+
 local InviteButton = require(ShareGame.Components.InviteButton)
 
 local Constants = require(ShareGame.Constants)
@@ -29,7 +35,9 @@ local CONTENTS_PADDING = 12
 local ConversationEntry = Roact.PureComponent:extend("ConversationEntry")
 
 function ConversationEntry:init()
-	self.eventStream = EventStream.new()
+	self.eventStream = if GetFFlagRemoveAppTempCommonTemp()
+		then EventStream.new(AnalyticsService)
+		else DEPRECATED_EventStream.new()
 
 	self.onInvite = function()
 		local inviteStatus = self.props.inviteStatus
@@ -58,7 +66,7 @@ function ConversationEntry:init()
 				analytics:onActivatedInviteSent(localPlayer.UserId, results.conversationId, participants)
 			end
 
-			local onReject = function() end	
+			local onReject = function() end
 			inviteUser(users[1].id):andThen(onSuccess, onReject)
 		end
 	end

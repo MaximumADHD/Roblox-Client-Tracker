@@ -19,6 +19,7 @@ local log = require(RobloxGuiModules.Logger):new(script.Name)
 local RobloxTranslator = require(RobloxGuiModules.RobloxTranslator)
 local VoiceChatServiceManager = require(RobloxGuiModules.VoiceChat.VoiceChatServiceManager).default
 local Constants = require(RobloxGuiModules.VoiceChat.Constants)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local GetFFlagVoiceUserAgencyEnableIXP = require(RobloxGuiModules.Flags.GetFFlagVoiceUserAgencyEnableIXP)
 local GetFStringVoiceUserAgencyIXPLayerName = require(RobloxGuiModules.Flags.GetFStringVoiceUserAgencyIXPLayerName)
@@ -203,7 +204,7 @@ local function showUserAgencyPrompt()
 		Name = "MuteAllButton",
 		BorderSizePixel = 0,
 		Size = UDim2.new(0.5, -6, 0, 36),
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.JoinMuted"),
 		TextSize = 16,
 		BackgroundColor3 = Color3.fromRGB(57, 59, 61),
@@ -230,7 +231,7 @@ local function showUserAgencyPrompt()
 		Name = "UnmuteAllButton",
 		BorderSizePixel = 0,
 		Size = UDim2.new(0.5, -6, 0, 36),
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.JoinUnmuted"),
 		TextSize = 16,
 		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
@@ -295,7 +296,7 @@ local function showUserAgencyPrompt()
 
 	local checkboxTextLabel = create("TextLabel")({
 		Name = "CheckboxTextLabel",
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		Text = CHECKBOX_TEXT,
 		TextColor3 = Color3.fromRGB(190, 190, 190),
 		TextSize = CHECKBOX_TEXT_SIZE,
@@ -308,7 +309,7 @@ local function showUserAgencyPrompt()
 	local checkboxTextSize = TextService:GetTextSize(
 		CHECKBOX_TEXT,
 		CHECKBOX_TEXT_SIZE,
-		Enum.Font.Gotham,
+		AppFonts.default:getDefault(),
 		Vector2.new(CHECKBOX_TEXTLABEL_INITIAL_WIDTH, 24)
 	)
 	checkboxTextLabel.Size = UDim2.new(0, checkboxTextSize.X + 10, 0, 24)
@@ -343,7 +344,7 @@ local function showUserAgencyPrompt()
 
 		create("TextLabel")({
 			Name = "Title",
-			Font = Enum.Font.GothamBold,
+			Font = AppFonts.default:getBold(),
 			Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceUserAgency.JoinUnmuted.Title"),
 			TextSize = 20,
 			TextWrapped = true,
@@ -356,7 +357,7 @@ local function showUserAgencyPrompt()
 
 		create("TextLabel")({
 			Name = "Lower",
-			Font = Enum.Font.Gotham,
+			Font = AppFonts.default:getDefault(),
 			Text = FFlagVoiceUserAgencyAdjustDescriptionText and RobloxTranslator:FormatByKey(
 				"Feature.SettingsHub.Prompt.VoiceUserAgency.JoinUnmuted.Description"
 			) or RobloxTranslator:FormatByKey("Feature.SettingsHub.VoiceUserAgency.JoinUnmuted.Description"),

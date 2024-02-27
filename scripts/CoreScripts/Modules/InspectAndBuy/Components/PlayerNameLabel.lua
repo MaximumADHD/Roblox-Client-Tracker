@@ -5,6 +5,7 @@ local Players = game:GetService("Players")
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local Colors = require(InspectAndBuyFolder.Colors)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
@@ -46,7 +47,7 @@ function PlayerNameLabel:render()
 				TextScaled = true,
 				Text = playerNameText,
 				TextSize = 36,
-				Font = Enum.Font.GothamBlack,
+				Font = AppFonts.default:getBlack(),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				LayoutOrder = 2,
 			}, {

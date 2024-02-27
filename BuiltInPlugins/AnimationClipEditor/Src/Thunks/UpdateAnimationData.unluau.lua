@@ -28,24 +28,24 @@ return function(arg1)
       var2.setEndTick(arg1)
       local var5 = arg1.Metadata.EndTick
       local var6 = arg1
-      local var93 = ipairs(var6.Events.Keyframes)
+      local var116 = ipairs(var6.Events.Keyframes)
       if var5 < var6 then
          arg1.Metadata.EndTick = var6
          var5 = var6
       end
       var2.validateKeyframeNames(arg1)
-      local var101 = var5(arg1)
+      local var124 = var5(arg1)
       arg1:dispatch()
       if var3 ~= var5 then
-         var101 = var3
-         var1 = math.clamp(var1, var101, var5)
+         var124 = var3
+         var1 = math.clamp(var1, var124, var5)
       end
       local var9 = var6(var1)
       arg1:dispatch()
       local var10 = var5 - var3
       if var2 < var10 then
          var6 = var10
-         local var113 = var8(var6)
+         local var136 = var8(var6)
          arg1:dispatch()
          local var0 = math.ceil((var10) * var3.LENGTH_PADDING)
          local var1 = var4.End - var4.Start

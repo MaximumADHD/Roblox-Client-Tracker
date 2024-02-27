@@ -68,17 +68,18 @@ function var6.Generator(arg1, arg2, arg3, arg4)
    var110.Type = "Material"
    var4.Schema = var110
    local var6 = {}
+   var6.Disabled = arg2[var3.Heightmap] or arg2[var3.Heightmap].Image
    var6.Id = var3.Import
    var6.Layout = Enum.FillDirection.Vertical
    local var7 = {}
    var7.Label = var0:getText(var5, var3.Import)
    var7.Type = "Button"
    var6.Schema = var7
-   local var124 = {}
-   var124.Category = var5
-   var124.Data = arg2
-   var124.Overrides = arg4
-   return var2(arg1, {}, var124)
+   local var134 = {}
+   var134.Category = var5
+   var134.Data = arg2
+   var134.Overrides = arg4
+   return var2(arg1, {}, var134)
 end
 
 return var6

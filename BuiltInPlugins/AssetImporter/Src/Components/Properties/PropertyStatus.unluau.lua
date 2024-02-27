@@ -8,7 +8,7 @@ local var5 = var4.Tooltip
 local var6 = var4.Image
 local var7 = require(var0.Src.Resources.StatusLevel)
 local var8 = var1.PureComponent:extend("PropertyStatus")
-local function fun12(arg1)
+local function fun8(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var0.StatusLevel
@@ -23,15 +23,15 @@ local function fun12(arg1)
    if var4 then
       local var0 = var1.ErrorIcon or var1.WarningIcon
    end
-   local var579 = {}
-   var579.Size = UDim2.fromOffset(var3, var3)
-   var579.Style = var1.WarningIcon
-   var579.LayoutOrder = var0.LayoutOrder
-   local var584 = {}
-   local var588 = {}
-   var588.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
-   var584.Tooltip = var1.createElement(var5, var588)
-   return var1.createElement(var6, var579, var584)
+   local var407 = {}
+   var407.Size = UDim2.fromOffset(var3, var3)
+   var407.Style = var1.WarningIcon
+   var407.LayoutOrder = var0.LayoutOrder
+   local var412 = {}
+   local var416 = {}
+   var416.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
+   var412.Tooltip = var1.createElement(var5, var416)
+   return var1.createElement(var6, var407, var412)
 end
 
 function var8.render(arg1)
@@ -49,20 +49,20 @@ function var8.render(arg1)
    if var4 then
       local var0 = var1.ErrorIcon or var1.WarningIcon
    end
-   local var579 = {}
-   var579.Size = UDim2.fromOffset(var3, var3)
-   var579.Style = var1.WarningIcon
-   var579.LayoutOrder = var0.LayoutOrder
-   local var584 = {}
-   local var588 = {}
-   var588.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
-   var584.Tooltip = var1.createElement(var5, var588)
-   return var1.createElement(var6, var579, var584)
+   local var407 = {}
+   var407.Size = UDim2.fromOffset(var3, var3)
+   var407.Style = var1.WarningIcon
+   var407.LayoutOrder = var0.LayoutOrder
+   local var412 = {}
+   local var416 = {}
+   var416.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
+   var412.Tooltip = var1.createElement(var5, var416)
+   return var1.createElement(var6, var407, var412)
 end
 
-fun12 = var3.withContext
-local var596 = {}
-var596.Localization = var3.Localization
-var596.Stylizer = var3.Stylizer
-var8 = fun12(var596)(var8)
+fun8 = var3.withContext
+local var424 = {}
+var424.Localization = var3.Localization
+var424.Stylizer = var3.Stylizer
+var8 = fun8(var424)(var8)
 return var8

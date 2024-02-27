@@ -3,7 +3,6 @@ local var0 = script:FindFirstAncestor("AnimationClipEditor")
 local var1 = require(var0.Src.Actions.SetBoneVisualization)
 local var2 = require(var0.Src.Util.RigUtils)
 local var3 = require(var0.Src.Util.RigVisualization)
-local var4 = require(var0.LuaFlags.GetFFlagRigVisualization)
 return function()
    return function(arg1)
       local var0 = arg1:getState()
@@ -15,17 +14,11 @@ return function()
             end
          end
       end
-      local var36 = var1(var1)
+      local var32 = var1(var1)
       arg1:dispatch()
-      if var4() then
-         local var40 = var3
-         var40 = var2
-         var36 = var1
-         var40.updateMicrobones(var40, var36)
-      end
-      local var42 = var2
-      var42 = var2
-      var36 = var1
-      var42.updateMicrobones(var42, var36)
+      local var34 = var3
+      var34 = var2
+      var32 = var1
+      var34.updateMicrobones(var34, var32)
    end
 end

@@ -20,19 +20,19 @@ if var1.RunTests() then
    print("----- All " ... script.Parent.Parent.Name ... " Tests ------")
    function()
       local var0 = var0.Packages
-      local var39 = require(var0.Packages.Dev.TestEZ)
-      local var43 = var39.Reporters.TextReporter
-      local var45 = _G.TEAMCITY
-      if var45 then
-         var0 = var39.Reporters.TeamCityReporter
+      local var81 = require(var0.Packages.Dev.TestEZ)
+      local var85 = var81.Reporters.TextReporter
+      local var87 = _G.TEAMCITY
+      if var87 then
+         var0 = var81.Reporters.TeamCityReporter
          if not var0 then
-            var0 = var43
+            var0 = var85
          end
       end
-      var0 = var43
-      var45 = var0.Src
-      var45 = var0
-      require(var0.Dev.TestEZ).TestBootstrap:run({}, var45)
+      var0 = var85
+      var87 = var0.Src
+      var87 = var0
+      require(var0.Dev.TestEZ).TestBootstrap:run({}, var87)
    end()
    print("----------------------------------")
 end
@@ -49,20 +49,20 @@ if var1.RunRhodiumTests() then
       var2.Name = "Dummy"
       local var3 = var2.HumanoidRootPart
       var3.Anchored = true
-      local var88 = require(var0.Packages.Dev.TestEZ)
-      local var92 = var88.Reporters.TextReporter
-      local var94 = _G.TEAMCITY
-      if var94 then
-         var3 = var88.Reporters.TeamCityReporter
+      local var130 = require(var0.Packages.Dev.TestEZ)
+      local var134 = var130.Reporters.TextReporter
+      local var136 = _G.TEAMCITY
+      if var136 then
+         var3 = var130.Reporters.TeamCityReporter
          if not var3 then
-            var3 = var92
+            var3 = var134
          end
       end
-      var3 = var92
+      var3 = var134
       require(var0.RhodiumTests.TestHelpers).init(plugin)
-      var94 = var0.RhodiumTests
-      var94 = var3
-      var0.TestBootstrap:run({}, var94, false, true)
+      var136 = var0.RhodiumTests
+      var136 = var3
+      var0.TestBootstrap:run({}, var136, false, true)
       var2:Destroy()
    end()
    print("----------------------------------")

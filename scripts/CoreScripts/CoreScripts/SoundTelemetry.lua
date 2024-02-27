@@ -7,8 +7,6 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local GetFFlagEnableSoundSessionTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundSessionTelemetry)
 local GetFIntSoundSessionTelemetryThrottle = require(CoreGuiModules.Flags.GetFIntSoundSessionTelemetryThrottle)
-local GetFFlagEnableSoundTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundTelemetry)
-local GetFIntSoundTelemetryThrottlingPercentage = require(CoreGuiModules.Flags.GetFIntSoundTelemetryThrottlingPercentage)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 game:DefineFastFlag("SoundSessionTelemetryInitialDMTraverse", false)
 
@@ -20,19 +18,6 @@ type TelemetryEventConfig = LoggingProtocol.TelemetryEventConfig
 
 local AggregatedData = require(CoreGuiModules.AggregatedData)
 local PlayingSounds = require(CoreGuiModules.PlayingSounds)
-
-local myConfig : TelemetryEventConfig = {
-	eventName = "SoundTelemetryTracking",
-	backends = {
-		LoggingProtocol.TelemetryBackends.EventIngest, -- Sends to SuperSet
-	},
-	throttlingPercentage = 10000, -- 100%
-	
-	-- the following 3 fields are for static documentation generation purposes only
-	lastUpdated = { 23, 14, 3 }, -- March 14, 2023
-	description = [[ Hopefully we will get some logging of in-experience music ]],
-	links = "https://roblox.atlassian.net/wiki/spaces/MUS/pages/1895989494/Music+Telemetry+Instrumentation+Tech+Spec",
-}
 
 local sessionEventConfig : TelemetryEventConfig = {
 	eventName = "SoundSessionPlayback",
@@ -47,25 +32,7 @@ local sessionEventConfig : TelemetryEventConfig = {
 	links = "https://roblox.atlassian.net/wiki/spaces/MUS/pages/2065826132/Scaled+Analytics+Tech+Spec",
 }
 
-local myStandardizedFields = {
-	myLoggingProtocol.StandardizedFields.addPlaceId,
-	myLoggingProtocol.StandardizedFields.addUniverseId,
-	myLoggingProtocol.StandardizedFields.addSessionId,
-}
-
-local MIN_MUSIC_LENGTH = 6 -- Sounds with length greater than 6 seconds are considered as "Music" (vs Sound Effect)
 local trackedSounds : { [Sound] : { any } } = {} -- Tracks ALL sounds, including sound effects.
-
-local enableThrottledTelemetry = GetFFlagEnableSoundTelemetry() and (math.random(0, 10000)) < GetFIntSoundTelemetryThrottlingPercentage()
-
--- Only consider developer-uploaded sounds, not ambient experience sounds (eg. footfalls from walking around)
-local function isRbxAssetId(soundId: string)
-	return soundId:find("rbxassetid://")
-end
-
-local function isMusic(sound: Sound)
-	return isRbxAssetId(tostring(sound.SoundId)) and sound.TimeLength > MIN_MUSIC_LENGTH
-end
 
 local aggregatedData: any = AggregatedData.new()
 local playingSounds = PlayingSounds.new(aggregatedData)
@@ -121,84 +88,38 @@ local function isAudible(sound: Sound)
 	return masterVolume * groupVolume * volume * attenuationFactor > volumeThreshold
 end
 
-local function logTelemetryEvent(sound: Sound, eventName: string, numTimesLooped: number?)
-	-- Throttle number of clients sending events
-	if enableThrottledTelemetry then
-		if isMusic(sound) then
-			local groupVolume = if sound.SoundGroup then sound.SoundGroup.Volume else 1 -- 1 if not part of a group
-			local loopCount = if eventName == "DidLoop" then numTimesLooped else 0 -- 0 if not looped
-		
-			myLoggingProtocol:logRobloxTelemetryEvent(
-				myConfig,
-				myStandardizedFields,
-				{
-					assetId = sound.SoundId,
-					debugId = sound:GetDebugId(10),
-					soundEvent = eventName,
-					volume = sound.Volume,
-					groupVolume = groupVolume,
-					masterVolume = UserGameSettings.MasterVolume,
-					length = sound.TimeLength,
-					playbackSpeed = sound.PlaybackSpeed,
-					timePosition = sound.TimePosition,
-					loopCount = loopCount,
-					-- Luau FIXME: IsSpatial and RollOffGain are read-only properties on the Sound instance,
-					-- so unsure why these were flagged with TypeError: Key 'RollOffGain' not found in class 'Sound'
-					isSpatial = (sound:: any).IsSpatial,
-					attenuationFactor = (sound:: any).RollOffGain,
-				}
-			)
-		end
-	end
-end
-
 
 local function onPlayed(sound: Sound)
-	logTelemetryEvent(sound, "Played")
-
 	if GetFFlagEnableSoundSessionTelemetry() and isAudible(sound) then 
 		playingSounds:addSound(sound.SoundId, sound:GetDebugId(10))
 	end
 end
 
 local function onPaused(sound: Sound)
-	logTelemetryEvent(sound, "Paused")
-	
 	if GetFFlagEnableSoundSessionTelemetry() then 
 		playingSounds:removeSound(sound.SoundId, sound:GetDebugId(10))
 	end
 end
 
 local function onStopped(sound: Sound)
-	logTelemetryEvent(sound, "Stopped")
-	
 	if GetFFlagEnableSoundSessionTelemetry() then 
 		playingSounds:removeSound(sound.SoundId, sound:GetDebugId(10))
 	end
 end
-
 
 local function onEnded(sound: Sound)
-	logTelemetryEvent(sound, "Ended")
-	
 	if GetFFlagEnableSoundSessionTelemetry() then 
 		playingSounds:removeSound(sound.SoundId, sound:GetDebugId(10))
 	end
 end
 
-
 local function onResumed(sound: Sound)
-	logTelemetryEvent(sound, "Resumed")
-
 	if GetFFlagEnableSoundSessionTelemetry() and isAudible(sound) then 
 		playingSounds:addSound(sound.SoundId, sound:GetDebugId(10))
 	end
 end
 
-
 local function onLooped(sound: Sound, numTimesLooped: number)
-	logTelemetryEvent(sound, "DidLoop", numTimesLooped)
-
 	if GetFFlagEnableSoundSessionTelemetry() then 
 		playingSounds:loopSound(sound.SoundId, sound:GetDebugId(10))
 	end
@@ -264,9 +185,7 @@ local function hookupSoundEvents(sound: Sound)
 
 end
 
-local shouldHookupSoundEvents = GetFFlagEnableSoundSessionTelemetry() or enableThrottledTelemetry
-
-if shouldHookupSoundEvents then
+if GetFFlagEnableSoundSessionTelemetry() then
 	if game:GetFastFlag("SoundSessionTelemetryInitialDMTraverse") then 
 		for _, instance in ipairs(game:GetDescendants()) do
 			if instance:IsA("Sound") and not trackedSounds[instance :: Sound] then
@@ -284,9 +203,7 @@ if shouldHookupSoundEvents then
 			end
 		end)
 	end
-end
 
-if GetFFlagEnableSoundSessionTelemetry() then
 	game.Close:Connect(function() 
 		aggregateEndSessionData()
 	end)

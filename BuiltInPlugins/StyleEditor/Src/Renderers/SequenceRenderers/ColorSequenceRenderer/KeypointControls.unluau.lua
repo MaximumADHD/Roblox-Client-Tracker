@@ -7,7 +7,7 @@ local var4 = var3.ContextServices
 local var5 = var3.UI.IconButton
 local var6 = var3.UI.Pane
 local var7 = require(var0.Packages.Dash).join
-local var8 = require(var0.Src.Util.MenuHelpers)
+local var8 = require(var0.Src.Resources.ModernIcons)
 local var9 = require(var0.Src.Renderers.SequenceRenderers.LabelCell)
 local var10 = require(var0.Src.Renderers.ColorRenderer)
 local var11 = require(var0.Src.Types)
@@ -58,7 +58,7 @@ return function(arg1)
    local var136 = {}
    var136.LayoutOrder = 3
    var136.TooltipText = var0:getText("Control", "DeleteTooltip")
-   var136.LeftIcon = var8.Icons.delete
+   var136.LeftIcon = var8.delete()
    var136.Disabled = arg1.IsKeypointFixed
    var136.OnClick = arg1.OnDelete
    var104.Delete = var1.createElement(var5, var136)

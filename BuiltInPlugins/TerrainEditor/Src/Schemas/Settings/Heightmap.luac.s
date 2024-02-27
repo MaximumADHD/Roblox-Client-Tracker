@@ -118,28 +118,39 @@ PROTO_2:
   LOADK R12 K19 ["Material"]
   SETTABLEKS R12 R11 K6 ["Type"]
   SETTABLEKS R11 R10 K2 ["Schema"]
-  DUPTABLE R11 K11 [{"Id", "Layout", "Schema"}]
+  DUPTABLE R11 K21 [{"Disabled", "Id", "Layout", "Schema"}]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K5 ["Heightmap"]
+  GETTABLE R13 R1 R14
+  NOT R12 R13
+  JUMPIF R12 [+7]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K5 ["Heightmap"]
+  GETTABLE R14 R1 R15
+  GETTABLEKS R13 R14 K8 ["Image"]
+  NOT R12 R13
+  SETTABLEKS R12 R11 K20 ["Disabled"]
   GETUPVAL R13 1
-  GETTABLEKS R12 R13 K20 ["Import"]
+  GETTABLEKS R12 R13 K22 ["Import"]
   SETTABLEKS R12 R11 K1 ["Id"]
   GETIMPORT R12 K16 [Enum.FillDirection.Vertical]
   SETTABLEKS R12 R11 K10 ["Layout"]
-  DUPTABLE R12 K22 [{"Label", "Type"}]
+  DUPTABLE R12 K24 [{"Label", "Type"}]
   GETUPVAL R15 2
   GETUPVAL R17 1
-  GETTABLEKS R16 R17 K20 ["Import"]
-  NAMECALL R13 R4 K23 ["getText"]
+  GETTABLEKS R16 R17 K22 ["Import"]
+  NAMECALL R13 R4 K25 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K21 ["Label"]
-  LOADK R13 K24 ["Button"]
+  SETTABLEKS R13 R12 K23 ["Label"]
+  LOADK R13 K26 ["Button"]
   SETTABLEKS R13 R12 K6 ["Type"]
   SETTABLEKS R12 R11 K2 ["Schema"]
   SETLIST R7 R8 4 [1]
-  DUPTABLE R8 K28 [{"Category", "Data", "Overrides"}]
+  DUPTABLE R8 K30 [{"Category", "Data", "Overrides"}]
   GETUPVAL R9 2
-  SETTABLEKS R9 R8 K25 ["Category"]
-  SETTABLEKS R1 R8 K26 ["Data"]
-  SETTABLEKS R3 R8 K27 ["Overrides"]
+  SETTABLEKS R9 R8 K27 ["Category"]
+  SETTABLEKS R1 R8 K28 ["Data"]
+  SETTABLEKS R3 R8 K29 ["Overrides"]
   CALL R5 3 -1
   RETURN R5 -1
 

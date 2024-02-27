@@ -33,6 +33,11 @@ type SessionState = {
 
 	showPlugins: boolean,
 	pluginOffsets: {[number]: number, Total: number?},
+
+	showGC: boolean,
+	gcFunctionOffsets: {number},
+	gcNodeOffsets: {[number]: number, Total: number?},
+	pluginGCOffsets: {[number]: number, Total: number?},
 }
 
 export type State = {
@@ -55,7 +60,9 @@ return function(state: State?, action: {[string]: any}): State
 					searchFilterGraph = {}, searchFilterFlat = {},
 					rootNode = 0, rootNodeName = nil,
 					liveUpdate = false, liveUpdateThread = nil,
-					showPlugins = false, pluginOffsets = {}, },
+					showPlugins = false, pluginOffsets = {},
+					showGC = false, gcFunctionOffsets = {}, gcNodeOffsets = {},
+					pluginGCOffsets = {}, },
 		server = { isProfiling = false, data = nil, serializedData = nil, frequency = 1000,
 					timedProfilingThread = nil, timedProfilingTimerThread = nil,
 					timedProfilingDuration = 0, timedProfilingCountdown = 0,
@@ -63,7 +70,9 @@ return function(state: State?, action: {[string]: any}): State
 					searchFilterGraph = {}, searchFilterFlat = {},
 					rootNode = 0, rootNodeName = nil,
 					liveUpdate = false, liveUpdateThread = nil,
-					showPlugins = false, pluginOffsets = {}, },
+					showPlugins = false, pluginOffsets = {},
+					showGC = false, gcFunctionOffsets = {}, gcNodeOffsets = {},
+					pluginGCOffsets = {}, },
 	}
 
 	if action.type == SetScriptProfilerState.name then

@@ -39,6 +39,9 @@ return function()
 					searchFilter = {},
 					showPlugins = true,
 					pluginOffsets = { Total = 0, },
+					pluginGCOffsets = { Total = 0, },
+					gcNodeOffsets = { Total = 0, },
+					showGC = false,
 				}),
 			}),
 		})

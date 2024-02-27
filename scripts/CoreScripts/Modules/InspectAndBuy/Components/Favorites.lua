@@ -3,6 +3,7 @@ local CorePackages = game:GetService("CorePackages")
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local GetAssetFavoriteCount = require(InspectAndBuyFolder.Thunks.GetAssetFavoriteCount)
 local GetBundleFavoriteCount = require(InspectAndBuyFolder.Thunks.GetBundleFavoriteCount)
@@ -84,7 +85,7 @@ function Favorites:render()
 			Position = UDim2.new(0, FAVORITES_SIZE + 5, 0, 0),
 			BackgroundTransparency = 1,
 			Text = self.numFavorites or "",
-			Font = Enum.Font.Gotham,
+			Font = AppFonts.default:getDefault(),
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextSize = 12,
 			TextColor3 = Color3.new(1, 1, 1),

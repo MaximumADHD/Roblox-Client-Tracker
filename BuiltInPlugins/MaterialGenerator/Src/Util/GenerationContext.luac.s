@@ -13,28 +13,38 @@ MAIN:
   GETTABLEKS R3 R4 K8 ["ReactUtils"]
   CALL R2 1 1
   GETTABLEKS R3 R2 K9 ["createUnimplemented"]
-  DUPTABLE R4 K17 [{"session", "isGenerating", "currentPromptText", "errorMessage", "popError", "generateMaterialVariants", "uploadMaterialVariant"}]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K10 ["session"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K11 ["isGenerating"]
-  LOADK R5 K18 [""]
-  SETTABLEKS R5 R4 K12 ["currentPromptText"]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K13 ["errorMessage"]
-  MOVE R5 R3
-  LOADK R6 K14 ["popError"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K14 ["popError"]
-  MOVE R5 R3
-  LOADK R6 K15 ["generateMaterialVariants"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K15 ["generateMaterialVariants"]
-  MOVE R5 R3
-  LOADK R6 K16 ["uploadMaterialVariant"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K16 ["uploadMaterialVariant"]
-  GETTABLEKS R5 R1 K19 ["createContext"]
-  MOVE R6 R4
-  CALL R5 1 1
-  RETURN R5 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Types"]
+  CALL R4 1 1
+  DUPTABLE R5 K21 [{"session", "isGenerating", "lastGeneratedPromptText", "promptText", "setPromptText", "errorMessage", "popError", "generateMaterialVariants", "uploadMaterialVariant"}]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K12 ["session"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K13 ["isGenerating"]
+  LOADK R6 K22 [""]
+  SETTABLEKS R6 R5 K14 ["lastGeneratedPromptText"]
+  LOADK R6 K22 [""]
+  SETTABLEKS R6 R5 K15 ["promptText"]
+  MOVE R6 R3
+  LOADK R7 K16 ["setPromptText"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K16 ["setPromptText"]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K17 ["errorMessage"]
+  MOVE R6 R3
+  LOADK R7 K18 ["popError"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K18 ["popError"]
+  MOVE R6 R3
+  LOADK R7 K19 ["generateMaterialVariants"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K19 ["generateMaterialVariants"]
+  MOVE R6 R3
+  LOADK R7 K20 ["uploadMaterialVariant"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K20 ["uploadMaterialVariant"]
+  GETTABLEKS R6 R1 K23 ["createContext"]
+  MOVE R7 R5
+  CALL R6 1 1
+  RETURN R6 1

@@ -31,6 +31,9 @@ local RefinedFeedbackBar = require(FeedbackModule.Components.RefinedFeedbackBar)
 local FeedbackSubmissionToast = require(FeedbackModule.Components.FeedbackSubmissionToast)
 local HelpModal = require(FeedbackModule.Components.HelpModal)
 
+-- Flags
+local FFlagEnableFeedbackModeBottomBarTextFixes = game:DefineFastFlag("EnableFeedbackModeBottomBarTextFixes", false)
+
 local FeedbackApp = Roact.PureComponent:extend("FeedbackApp")
 
 FeedbackApp.validateProps = t.strictInterface({
@@ -58,9 +61,9 @@ function FeedbackApp:render()
 				FeedbackReportDialog = Roact.createElement(FeedbackReportDialog),
 			}),
 			RefinedFeedbackBar = withLocalization({
-				-- TODO: Request translation for "Feedback Mode" into its own label and substitute the key here
-				-- Currently this will display "Feedback"
-				feedbackBarText = "CoreScripts.Feedback.EntryPoint.MenuLabel",
+				feedbackBarText = if FFlagEnableFeedbackModeBottomBarTextFixes
+					then "CoreScripts.Feedback.FeedbackBar.MainLabel"
+					else "CoreScripts.Feedback.EntryPoint.MenuLabel",
 			})(function(localized)
 				return withStyle(function(style)
 					local fonts: { BaseSize: number, Body: { RelativeSize: number } } = style.Font

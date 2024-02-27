@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -43,7 +44,7 @@ function NoInventoryNotice:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0.8, 0, 0.3, 0),
 			LayoutOrder = 2,
-			Font = Enum.Font.Gotham,
+			Font = AppFonts.default:getDefault(),
 			Text = RobloxTranslator:FormatByKeyForLocale(NO_INVENTORY_KEY, locale),
 			TextScaled = true,
 			TextColor3 = Colors.White,

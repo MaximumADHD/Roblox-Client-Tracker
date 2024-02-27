@@ -10,6 +10,8 @@ local TweenService = game:GetService("TweenService")
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local CorePackages = game:GetService("CorePackages")
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local RobloxTranslator = require(CoreGuiModules.RobloxTranslator)
 local create = require(CoreGuiModules.Common.Create)
@@ -88,7 +90,7 @@ local function build()
 	
 			create "TextLabel" {
 				Name = "Label",
-				Font = Enum.Font.GothamBold,
+				Font = AppFonts.default:getBold(),
 				Text = FFlagLocalizeGameplayPaused and RobloxTranslator:FormatByKey("InGame.GameplayPaused.Title")
 					or "Gameplay Paused",
 				TextSize = 22,
@@ -104,7 +106,7 @@ local function build()
 	
 		create "TextLabel" {
 			Name = "Lower",
-			Font = Enum.Font.Gotham,
+			Font = AppFonts.default:getDefault(),
 			Text = FFlagLocalizeGameplayPaused and RobloxTranslator:FormatByKey("InGame.GameplayPaused.Body")
 				or "Gameplay has been paused: please wait while the game content loads.",
 			TextColor3 = Color3.fromRGB(190, 190, 190),

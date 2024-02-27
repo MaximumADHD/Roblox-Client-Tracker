@@ -7,6 +7,7 @@ local LocalPlayer = Players.LocalPlayer
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
@@ -151,14 +152,14 @@ function PlayerEntry:getPlayerNameFont(layoutValues, style)
 	local isLocalPlayer = self.props.player == LocalPlayer
 	if isLocalPlayer then
 		return {
-			Font = Enum.Font.GothamMedium,
+			Font = AppFonts.default:getMedium(),
 			Size = style.Font.CaptionHeader.RelativeSize * style.Font.BaseSize,
 			MinSize = style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 		}
 	end
 
 	return {
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		Size = style.Font.CaptionBody.RelativeSize * style.Font.BaseSize,
 		MinSize = style.Font.Footer.RelativeMinSize * style.Font.BaseSize,
 	}

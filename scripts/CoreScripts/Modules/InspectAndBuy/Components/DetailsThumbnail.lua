@@ -13,6 +13,8 @@ local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
+local GetFFlagIBEnableCollectiblesSystemSupport =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
 
@@ -61,6 +63,30 @@ function DetailsThumbnail:render()
 		render = function(views)
 			local viewMapping = views[view]
 			local isCollectibles = GetFFlagDisplayCollectiblesIcon() and UtilityFunctions.isCollectibles(assetInfo)
+
+			local showLimitedIcon
+			local showUniqueIcon
+			local limitedLabelFrameSize
+			local limitedText
+			-- Based on the asset information, determine if the limited and
+			-- unique icons need to be displayed on the asset card.
+			if GetFFlagIBEnableCollectiblesSystemSupport() and assetInfo then
+				showLimitedIcon = UtilityFunctions.hasLimitedQuantity(assetInfo)
+				showUniqueIcon = assetInfo.isLimitedUnique or assetInfo.collectibleIsLimited
+
+				local imageSizeOffset = if showUniqueIcon
+					then Constants.LimitedIconFrameSizeXOffset * 2
+					else Constants.LimitedIconFrameSizeXOffset
+				limitedLabelFrameSize =
+					UDim2.new(0, imageSize.X + imageSizeOffset, 0, imageSize.Y + Constants.LimitedIconFrameSizeYOffset)
+
+				if showUniqueIcon then
+					limitedText = "#" .. "    " .. RobloxTranslator:FormatByKeyForLocale(LIMITED_ITEM, locale)
+				else
+					limitedText = "    " .. RobloxTranslator:FormatByKeyForLocale(LIMITED_ITEM, locale)
+				end
+			end
+
 			return Roact.createElement("Frame", {
 				Position = viewMapping.DetailsThumbnailFramePosition,
 				Size = UDim2.new(
@@ -87,15 +113,22 @@ function DetailsThumbnail:render()
 					}),
 				}),
 				-- Adding an icon for ugc limited items.
-				LimitedLabel = isCollectibles and Roact.createElement(LimitedLabel, {
-					frameSize = UDim2.new(0, imageSize.X + 18, 0, imageSize.Y + 6),
-					framePosition = UDim2.new(0, 0, 0, Constants.DetailsThumbnailFrameHeight - imageSize.Y - 8),
-					imageSize = UDim2.new(0, imageSize.X, 0, imageSize.Y),
-					imagePosition = UDim2.new(0, 4, 0, 3),
-					textSize = UDim2.new(0, 4 + imageSize.X, 0, imageSize.Y),
-					textPosition = UDim2.new(0, 5 + imageSize.X, 0, 3),
-					text = "#" .. "    " .. RobloxTranslator:FormatByKeyForLocale(LIMITED_ITEM, locale),
-				})
+				LimitedLabel = (
+					if GetFFlagIBEnableCollectiblesSystemSupport() then showLimitedIcon else isCollectibles
+				)
+					and Roact.createElement(LimitedLabel, {
+						frameSize = if GetFFlagIBEnableCollectiblesSystemSupport()
+							then limitedLabelFrameSize
+							else UDim2.new(0, imageSize.X + 18, 0, imageSize.Y + 6),
+						framePosition = UDim2.new(0, 0, 0, Constants.DetailsThumbnailFrameHeight - imageSize.Y - 8),
+						imageSize = UDim2.new(0, imageSize.X, 0, imageSize.Y),
+						imagePosition = UDim2.new(0, 4, 0, 3),
+						textSize = UDim2.new(0, 4 + imageSize.X, 0, imageSize.Y),
+						textPosition = UDim2.new(0, 5 + imageSize.X, 0, 3),
+						text = if GetFFlagIBEnableCollectiblesSystemSupport()
+							then limitedText
+							else "#" .. "    " .. RobloxTranslator:FormatByKeyForLocale(LIMITED_ITEM, locale),
+					}),
 			})
 		end,
 	})

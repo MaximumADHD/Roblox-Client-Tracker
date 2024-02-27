@@ -3,6 +3,7 @@ local CoreGui = game:GetService("CoreGui")
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local Colors = require(InspectAndBuyFolder.Colors)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 
@@ -41,7 +42,7 @@ function Notification:render()
 			TextScaled = true,
 			TextSize = 12,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			Font = Enum.Font.Gotham,
+			Font = AppFonts.default:getDefault(),
 			Text = RobloxTranslator:FormatByKeyForLocale(noticeKey, locale),
 		}, {
 			UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {

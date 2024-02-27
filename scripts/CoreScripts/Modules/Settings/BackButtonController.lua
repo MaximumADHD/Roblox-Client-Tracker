@@ -6,10 +6,15 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local Promise = require(CorePackages.Promise)
 local Roact = require(CorePackages.Roact)
-local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
-local httpImpl = httpRequest(HttpRbxApiService)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
+	then require(RobloxGui.Modules.Common.httpRequest)
+	else require(CorePackages.AppTempCommon.Temp.httpRequest)
+local httpImpl = httpRequest(HttpRbxApiService)
+
 local RobloxTranslator = require(RobloxGui.Modules:WaitForChild("RobloxTranslator"))
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 

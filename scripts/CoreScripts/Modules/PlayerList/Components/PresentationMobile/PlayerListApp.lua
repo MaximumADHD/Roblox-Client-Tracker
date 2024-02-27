@@ -5,6 +5,7 @@ local Players = game:GetService("Players")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Otter = require(CorePackages.Otter)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -161,7 +162,7 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 			Size = UDim2.new(1, 0, 0, HEADER_SIZE_Y),
 			Position = UDim2.new(0, 0, 0, 0),
 			BackgroundTransparency = 1,
-			Font = Enum.Font.GothamBold,
+			Font = AppFonts.default:getBold(),
 			Visible = contentVisible and not dropDownVisible,
 			TextSize = 22,
 			TextColor3 = Color3.fromRGB(240, 240, 240),

@@ -282,7 +282,7 @@ PROTO_12:
   GETTABLEKS R5 R6 K3 ["useContext"]
   GETUPVAL R6 3
   CALL R5 1 1
-  GETTABLEKS R6 R5 K7 ["currentPromptText"]
+  GETTABLEKS R6 R5 K7 ["lastGeneratedPromptText"]
   GETTABLEKS R7 R5 K8 ["isGenerating"]
   GETUPVAL R10 4
   GETTABLEKS R9 R10 K9 ["Plugin"]

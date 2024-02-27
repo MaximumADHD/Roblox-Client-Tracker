@@ -28,8 +28,8 @@ local Constants = {
 	},
 
 	AssetTypeIdStringToHumanoidDescriptionProp = {
-		[tostring(Enum.AssetType.TShirt.Value)]  = "GraphicTShirt",
-		[tostring(Enum.AssetType.Hat.Value)]  = "HatAccessory",
+		[tostring(Enum.AssetType.TShirt.Value)] = "GraphicTShirt",
+		[tostring(Enum.AssetType.Hat.Value)] = "HatAccessory",
 		[tostring(Enum.AssetType.Shirt.Value)] = "Shirt",
 		[tostring(Enum.AssetType.Pants.Value)] = "Pants",
 		[tostring(Enum.AssetType.Head.Value)] = "Head",
@@ -211,6 +211,9 @@ Constants.MoodAnimationAssetTypeId = "78"
 Constants.DynamicHeadAssetTypeId = "79"
 
 Constants.DetailsThumbnailFrameHeight = 250
+
+Constants.LimitedIconFrameSizeXOffset = 9
+Constants.LimitedIconFrameSizeYOffset = 4
 
 Constants.DynamicHeadAssetTypes = {
 	[tostring(Enum.AssetType.EyebrowAccessory.Value)] = true,

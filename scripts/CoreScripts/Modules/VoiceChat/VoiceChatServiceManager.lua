@@ -62,6 +62,7 @@ local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermiss
 local FFlagFixNewAudioAPIEcho = game:DefineFastFlag("FFlagFixNewAudioAPIEcho", false)
 local FFlagUpdateDeviceInputPlayerChanged = game:DefineFastFlag("UpdateDeviceInputPlayerChanged", false)
 local FFlagSetActiveWhenConnecting = game:DefineFastFlag("SetActiveWhenConnecting", false)
+local FFlagHideUIWhenVoiceDefaultDisabled = game:DefineFastFlag("HideUIWhenVoiceDefaultDisabled", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
@@ -825,6 +826,10 @@ function VoiceChatServiceManager:canUseServiceAsync()
 			if game:GetEngineFeature("VoiceChatEnabledRccProperties") and GetFFlagEnableVoiceRccCheck() then
 				if not game:IsLoaded() then
 					game.Loaded:Wait()
+				end
+				if FFlagHideUIWhenVoiceDefaultDisabled and not VoiceChatService.UseNewAudioApi and not VoiceChatService.EnableDefaultVoice then
+					reject()
+					return
 				end
 				if
 					not VoiceChatService.VoiceChatEnabledForUniverseOnRcc

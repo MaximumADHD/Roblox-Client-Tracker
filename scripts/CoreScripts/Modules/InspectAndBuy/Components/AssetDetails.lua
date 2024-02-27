@@ -5,6 +5,7 @@ local Players = game:GetService("Players")
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local DetailsText = require(InspectAndBuyFolder.Components.DetailsText)
 local DetailsThumbnail = require(InspectAndBuyFolder.Components.DetailsThumbnail)
 local DetailsDescription = require(InspectAndBuyFolder.Components.DetailsDescription)
@@ -293,7 +294,7 @@ function AssetDetails:render()
 								locale,
 								{ QUANTITY = tostring(ownedInstances) }
 							),
-							Font = Enum.Font.Gotham,
+							Font = AppFonts.default:getDefault(),
 							TextSize = 12,
 							TextColor3 = Color3.new(1, 1, 1),
 							BackgroundTransparency = 1,

@@ -8,5 +8,6 @@ return function()
    local var1 = {}
    var1.Focus = var0[var2.Focus.Key]
    var1.Localization = var0[var2.Localization.Key]
+   var1.Plugin = var0[var2.Plugin.Key]
    return var1
 end

@@ -19,6 +19,7 @@ local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 
 local VoiceBetaBadge = Roact.PureComponent:extend("MenuIcon")
@@ -271,7 +272,7 @@ function VoiceBetaBadge:render()
 				}, {
 					Button = Roact.createElement("TextButton", {
 						Text = RobloxTranslator:FormatByKey("InGame.CommonUI.Badge.BadgeText"),
-						Font = Enum.Font.GothamBold,
+						Font = AppFonts.default:getBold(),
 						TextSize = 8,
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,

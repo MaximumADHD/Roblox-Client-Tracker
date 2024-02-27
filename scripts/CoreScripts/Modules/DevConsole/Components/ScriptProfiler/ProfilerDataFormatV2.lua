@@ -29,6 +29,7 @@ export type RootDataFormat = {
     Version: number,
     SessionStartTime: number?, -- Unix timestamp in milliseconds
     SessionEndTime: number?,   -- Unit timestamp in milliseconds
+    GCFuncId: FunctionId,
 }
 
 return nil

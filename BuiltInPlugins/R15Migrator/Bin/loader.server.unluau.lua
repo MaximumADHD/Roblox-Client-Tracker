@@ -9,57 +9,59 @@ if not var1.RunTests() then
    if var1.RunningUnderCLI() then
    end
 end
-local var78 = var0.Src.Util
-local var3 = game:GetService("StudioPublishService")
-var78 = require(var78.checkPublishLock)
-var78()
-local var4 = {}
-var4.plugin = plugin
-var4.pluginName = "R15Migrator"
-var4.translationResourceTable = var0.Src.Resources.Localization.LocalizedStrings
-var4.fallbackResourceTable = var0.Src.Resources.Localization.SourceStrings
-var4.overrideLocaleId = nil
-var4.localizationNamespace = nil
-function var4.getToolbarName(arg1, arg2, arg3)
+local var83 = var0.Src.Util
+local var3 = require(var83.PluginSettings)
+local var4 = game:GetService("StudioPublishService")
+var83 = require(var0.Src.Util.checkPublishLock)
+var83()
+local var5 = {}
+var5.plugin = plugin
+var5.pluginName = "R15Migrator"
+var5.translationResourceTable = var0.Src.Resources.Localization.LocalizedStrings
+var5.fallbackResourceTable = var0.Src.Resources.Localization.SourceStrings
+var5.overrideLocaleId = nil
+var5.localizationNamespace = nil
+function var5.getToolbarName(arg1, arg2, arg3)
    return "AvatarUnification"
 end
 
-local var94 = {}
-function var94.getName(arg1, arg2, arg3)
+local var99 = {}
+function var99.getName(arg1, arg2, arg3)
    return "r15_migration_button"
 end
 
-function var94.getDescription(arg1, arg2, arg3)
+function var99.getDescription(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Plugin", "Description")
 end
 
-var94.icon = "http://www.roblox.com/asset/?id=12399871436"
-var94.text = nil
-var4.buttonInfo = var94
-local var110 = {}
-var110.id = "R15Migrator"
-var110.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, false, true, 508, 640, 508, 640)
-function var110.getDockTitle(arg1, arg2, arg3)
+var99.icon = "http://www.roblox.com/asset/?id=12399871436"
+var99.text = nil
+var5.buttonInfo = var99
+local var115 = {}
+var115.id = "R15Migrator"
+var115.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left, var3.InitiallyEnabled:getBooleanSetting(plugin, game.GameId), true, 508, 640, 508, 640)
+function var115.getDockTitle(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Plugin", "Name")
 end
 
-var110.name = "R15Migrator"
-var110.zIndexBehavior = Enum.ZIndexBehavior.Sibling
-var4.dockWidgetInfo = var110
-local var132 = {}
+var115.name = "R15Migrator"
+var115.zIndexBehavior = Enum.ZIndexBehavior.Sibling
+var5.dockWidgetInfo = var115
+local var142 = {}
 local function fun4()
-   return var3.OnPublishAttempt
+   return var4.OnPublishAttempt
 end
 
-function var132.StudioPublishService.OnPublishAttempt()
-   return var3.OnPublishAttempt
+function var142.StudioPublishService.OnPublishAttempt()
+   return var4.OnPublishAttempt
 end
 
-var4.extraTriggers = var132
-fun4 = var4
-local var8 = require(var0.PluginLoader.PluginLoaderBuilder).build(fun4)
-if not var8.pluginLoader:waitForUserInteraction() then
+var5.extraTriggers = var142
+var3.InitiallyEnabled:setSetting(plugin, game.GameId, nil)
+fun4 = var5
+local var9 = require(var0.PluginLoader.PluginLoaderBuilder).build(fun4)
+if not var9.pluginLoader:waitForUserInteraction() then
 end
-local var141 = script
-var141 = var8
-require(var141.Parent.main)(plugin, var141)
+local var157 = script
+var157 = var9
+require(var157.Parent.main)(plugin, var157)

@@ -4,6 +4,7 @@ local GuiService = game:GetService("GuiService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local InspectAndBuyFolder = script.Parent.Parent
 local Colors = require(InspectAndBuyFolder.Colors)
 local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
@@ -103,7 +104,7 @@ function BuyButton:render()
 			BackgroundTransparency = 1,
 			Size = size,
 			Text = buyText,
-			Font = Enum.Font.Gotham,
+			Font = AppFonts.default:getDefault(),
 			TextSize = TEXT_SIZE,
 			TextColor3 = Colors.White,
 			TextTransparency = transparencyOverride,
@@ -132,7 +133,7 @@ function BuyButton:getBuyButtonTextSize(buyText)
 		local buyButtonTextSize = TextService:GetTextSize(
 			buyText,
 			TEXT_SIZE,
-			Enum.Font.Gotham,
+			AppFonts.default:getDefault(),
 			Vector2.new(self.props.buyButtonRef.current.AbsoluteSize.X, 5000)
 		)
 		self.props.buyButtonRef.Size = UDim2.new(0, 1, 0, buyButtonTextSize.Y)

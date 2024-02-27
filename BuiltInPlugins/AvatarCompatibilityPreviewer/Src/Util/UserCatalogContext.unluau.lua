@@ -7,4 +7,8 @@ function var2.addNewItem(arg1, arg2)
    error("Calling default addNewItem")
 end
 
+function var2.removeItem()
+   error("Calling default removeItem")
+end
+
 return require(var0.Packages.React).createContext(var2)

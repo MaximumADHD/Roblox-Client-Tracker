@@ -6,6 +6,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Cryo = require(CorePackages.Cryo)
 local UIBlox = require(CorePackages.UIBlox)
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local Notification = require(InspectAndBuyFolder.Components.Notification)
@@ -19,6 +20,8 @@ local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionI
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
 local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
+local GetFFlagIBEnableCollectiblesSystemSupport =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 
 local PremiumIcon = UIBloxImages["icons/status/premium"]
 local BY_KEY = "InGame.InspectMenu.Label.By"
@@ -75,13 +78,14 @@ function DetailsText:render()
 	local layeredClothingOnR6 = Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
 		and self.props.localPlayerModel
 		and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
+	local isLimited = assetInfo.isLimited or (GetFFlagIBEnableCollectiblesSystemSupport() and assetInfo.isLimitedUnique)
 
 	local noticeKey = nil
 	if multipleBundles then
 		noticeKey = Constants.NotificationKeys.MultipleBundleNoticeKey
 	elseif partOfBundle then
 		noticeKey = Constants.NotificationKeys.SingleBundleNoticeKey
-	elseif assetInfo.isLimited then
+	elseif isLimited then
 		noticeKey = Constants.NotificationKeys.LimitedItemNoticeKey
 	elseif layeredClothingOnR6 then
 		noticeKey = Constants.NotificationKeys.LayeredClothingOnR6Key
@@ -130,7 +134,7 @@ function DetailsText:render()
 						TextYAlignment = Enum.TextYAlignment.Center,
 						TextScaled = true,
 						TextSize = TITLE_TEXT_SIZE,
-						Font = Enum.Font.GothamBold,
+						Font = AppFonts.default:getBold(),
 						TextColor3 = Colors.White,
 					}, {
 						UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
@@ -146,7 +150,7 @@ function DetailsText:render()
 					TextYAlignment = Enum.TextYAlignment.Center,
 					TextScaled = true,
 					TextSize = TITLE_TEXT_SIZE,
-					Font = Enum.Font.GothamBold,
+					Font = AppFonts.default:getBold(),
 					TextColor3 = Colors.White,
 				}, {
 					UITextSizeConstraint = Roact.createElement("UITextSizeConstraint", {
@@ -171,7 +175,7 @@ function DetailsText:render()
 									locale,
 									{ CREATOR = self.creator }
 								),
-								Font = Enum.Font.Gotham,
+								Font = AppFonts.default:getDefault(),
 								TextScaled = false,
 								TextSize = TEXT_SIZE_SMALL,
 								TextColor3 = Colors.White,

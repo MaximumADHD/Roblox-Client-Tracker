@@ -4,6 +4,12 @@ PROTO_0:
   CALL R2 1 0
   RETURN R0 0
 
+PROTO_1:
+  GETIMPORT R0 K1 [error]
+  LOADK R1 K2 ["Calling default removeItem"]
+  CALL R0 1 0
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -18,12 +24,14 @@ MAIN:
   GETTABLEKS R4 R0 K8 ["Src"]
   GETTABLEKS R3 R4 K9 ["Types"]
   CALL R2 1 1
-  DUPTABLE R3 K12 [{"equippableItems", "addNewItem"}]
+  DUPTABLE R3 K13 [{"equippableItems", "addNewItem", "removeItem"}]
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K10 ["equippableItems"]
-  DUPCLOSURE R4 K13 [PROTO_0]
+  DUPCLOSURE R4 K14 [PROTO_0]
   SETTABLEKS R4 R3 K11 ["addNewItem"]
-  GETTABLEKS R4 R1 K14 ["createContext"]
+  DUPCLOSURE R4 K15 [PROTO_1]
+  SETTABLEKS R4 R3 K12 ["removeItem"]
+  GETTABLEKS R4 R1 K16 ["createContext"]
   MOVE R5 R3
   CALL R4 1 1
   RETURN R4 1

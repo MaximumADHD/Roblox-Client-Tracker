@@ -32,7 +32,6 @@ local connectToStore = require(Root.connectToStore)
 local ExternalEventConnection = require(Root.Components.Connection.ExternalEventConnection)
 
 local GetFFLagUseCoreScriptsRootProviderForUpsellModal = require(Root.Flags.GetFFLagUseCoreScriptsRootProviderForUpsellModal)
-local FFlagFixUiHighlightNavigationAfterRobuxUpsell = game:DefineFastFlag("FixUiHighlightNavigationAfterRobuxUpsell", false)
 
 local RobuxUpsellOverlay = require(script.Parent.RobuxUpsellOverlay)
 
@@ -173,9 +172,7 @@ RobuxUpsellContainer = connectToStore(
 				return dispatch(initiatePurchasePrecheck())
 			end,
 			completeRequest = function()
-				if FFlagFixUiHighlightNavigationAfterRobuxUpsell then
-					GuiService.SelectedCoreObject = nil
-				end
+				GuiService.SelectedCoreObject = nil
 				return dispatch(completeRequest())
 			end,
 			onAnalyticEvent = function(name, data)

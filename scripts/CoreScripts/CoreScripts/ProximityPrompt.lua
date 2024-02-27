@@ -2,12 +2,14 @@
 local UserInputService = game:GetService("UserInputService")
 local ProximityPromptService = game:GetService("ProximityPromptService")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local CoreUtility = require(RobloxGui.Modules.CoreUtility)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
 local FFlagProximityPromptGamepadIcons = require(RobloxGui.Modules.Flags.FFlagProximityPromptGamepadIcons)
@@ -230,7 +232,7 @@ local function createPrompt(prompt, inputType, gui)
 
 	local actionText = Instance.new("TextLabel")
 	actionText.Name = "ActionText"
-	actionText.Font = Enum.Font.GothamMedium
+	actionText.Font = AppFonts.default:getMedium()
 	actionText.TextSize = 19
 	actionText.BackgroundTransparency = 1
 	actionText.TextTransparency = 1
@@ -243,7 +245,7 @@ local function createPrompt(prompt, inputType, gui)
 
 	local objectText = Instance.new("TextLabel")
 	objectText.Name = "ObjectText"
-	objectText.Font = Enum.Font.GothamMedium
+	objectText.Font = AppFonts.default:getMedium()
 	objectText.TextSize = 14
 	objectText.BackgroundTransparency = 1
 	objectText.TextTransparency = 1
@@ -379,7 +381,7 @@ local function createPrompt(prompt, inputType, gui)
 			buttonText.Name = "ButtonText"
 			buttonText.Position = UDim2.fromOffset(0, -1)
 			buttonText.Size = UDim2.fromScale(1, 1)
-			buttonText.Font = Enum.Font.GothamMedium
+			buttonText.Font = AppFonts.default:getMedium()
 
 			local buttonTextSize = KeyCodeToFontSize[prompt.KeyboardKeyCode]
 			if buttonTextSize == nil then

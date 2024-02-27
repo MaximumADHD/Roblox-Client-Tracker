@@ -17,6 +17,7 @@ local root = script.Parent.Parent
 local Types = require(root.Types)
 local getSizeSpringFromSettings = require(root.Helpers.getSizeSpringFromSettings)
 local getTransparencySpringFromSettings = require(root.Helpers.getTransparencySpringFromSettings)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
@@ -157,7 +158,7 @@ function ChatBubbleDistant:render()
 						Text = "…",
 						TextColor3 = chatSettings.TextColor3,
 						TextTransparency = self.transparency,
-						Font = Enum.Font.GothamBlack,
+						Font = AppFonts.default:getBlack(),
 						TextScaled = true,
 						Size = UDim2.new(1, -extraWidth, 1, 0),
 						LayoutOrder = 2,

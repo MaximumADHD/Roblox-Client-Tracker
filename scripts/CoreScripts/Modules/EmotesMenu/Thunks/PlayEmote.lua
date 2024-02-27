@@ -2,6 +2,7 @@
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -13,7 +14,12 @@ local Actions = EmotesMenu.Actions
 
 local Analytics = require(EmotesMenu.Analytics)
 local Constants = require(EmotesMenu.Constants)
-local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
+
 local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
 local MaybeSendEmoteFailureAnalyticsFromPlayer =
 	require(CoreGui.RobloxGui.Modules.EmotesMenu.Utility.MaybeSendEmoteFailureAnalyticsFromPlayer)
@@ -24,7 +30,9 @@ local ShowError = require(Actions.ShowError)
 
 local EngineFeaturePlayEmoteAndGetAnimTrackByIdApiEnabled = game:GetEngineFeature("PlayEmoteAndGetAnimTrackByIdApiEnabled")
 
-local EmotesAnalytics = Analytics.new():withEventStream(EventStream.new())
+local EmotesAnalytics = Analytics.new():withEventStream(
+	if GetFFlagRemoveAppTempCommonTemp() then EventStream.new(AnalyticsService) else DEPRECATED_EventStream.new()
+)
 
 local function handlePlayFailure(store, errorType, slotNumber, emoteAssetId)
 	if errorType then

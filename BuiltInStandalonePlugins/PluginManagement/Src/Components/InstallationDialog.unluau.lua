@@ -34,23 +34,23 @@ function var10.didUpdate(arg1)
    end
 end
 
-local function fun4(arg1)
+local function fun3(arg1)
    local var0 = arg1.props.Localization
    local var1 = arg1.props
    var1 = arg1.state.hasDataLoaded
    if var1 then
-      local var137 = {}
-      var137.Title = var0:getText("DialogTitle", "InstallPlugin")
-      local var143 = {}
-      var143.Key = true
-      var143.Text = var0:getText("Dialog", "Ok")
-      var143.Style = "RoundPrimary"
-      var137.Buttons = {}
-      var137.Resizable = false
-      var137.MinContentSize = Vector2.new(400, 120)
-      var137.OnButtonPressed = var1.OnButtonClicked
-      var137.OnClose = arg1.props.OnClose
-      local var1 = var3.createElement(var9, var137, arg1.props[var3.Children])
+      local var104 = {}
+      var104.Title = var0:getText("DialogTitle", "InstallPlugin")
+      local var110 = {}
+      var110.Key = true
+      var110.Text = var0:getText("Dialog", "Ok")
+      var110.Style = "RoundPrimary"
+      var104.Buttons = {}
+      var104.Resizable = false
+      var104.MinContentSize = Vector2.new(400, 120)
+      var104.OnButtonPressed = var1.OnButtonClicked
+      var104.OnClose = arg1.props.OnClose
+      local var1 = var3.createElement(var9, var104, arg1.props[var3.Children])
    end
    return var1
 end
@@ -60,26 +60,26 @@ function var10.render(arg1)
    local var1 = arg1.props
    var1 = arg1.state.hasDataLoaded
    if var1 then
-      local var137 = {}
-      var137.Title = var0:getText("DialogTitle", "InstallPlugin")
-      local var143 = {}
-      var143.Key = true
-      var143.Text = var0:getText("Dialog", "Ok")
-      var143.Style = "RoundPrimary"
-      var137.Buttons = {}
-      var137.Resizable = false
-      var137.MinContentSize = Vector2.new(400, 120)
-      var137.OnButtonPressed = var1.OnButtonClicked
-      var137.OnClose = arg1.props.OnClose
-      local var1 = var3.createElement(var9, var137, arg1.props[var3.Children])
+      local var104 = {}
+      var104.Title = var0:getText("DialogTitle", "InstallPlugin")
+      local var110 = {}
+      var110.Key = true
+      var110.Text = var0:getText("Dialog", "Ok")
+      var110.Style = "RoundPrimary"
+      var104.Buttons = {}
+      var104.Resizable = false
+      var104.MinContentSize = Vector2.new(400, 120)
+      var104.OnButtonPressed = var1.OnButtonClicked
+      var104.OnClose = arg1.props.OnClose
+      local var1 = var3.createElement(var9, var104, arg1.props[var3.Children])
    end
    return var1
 end
 
-fun4 = var7.withContext
-local var160 = {}
-var160.Localization = var7.Localization
-var10 = fun4(var160)(var10)
+fun3 = var7.withContext
+local var127 = {}
+var127.Localization = var7.Localization
+var10 = fun3(var127)(var10)
 return require(var2.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.info = arg1.PluginInfo.plugins[arg2.pluginId]

@@ -6,7 +6,12 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Promise = require(CorePackages.Promise)
-local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
+
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
+	then require(RobloxGui.Modules.Common.httpRequest)
+	else require(CorePackages.AppTempCommon.Temp.httpRequest)
 
 local httpImpl = httpRequest(HttpRbxApiService)
 

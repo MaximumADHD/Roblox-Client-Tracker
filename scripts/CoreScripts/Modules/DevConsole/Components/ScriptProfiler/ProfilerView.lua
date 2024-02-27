@@ -51,6 +51,9 @@ function ProfilerView:renderChildren()
 		searchFilter = self.props.searchFilter,
 		showPlugins = self.props.showPlugins,
 		pluginOffsets = self.props.pluginOffsets,
+		showGC = self.props.showGC,
+		gcNodeOffsets = self.props.gcNodeOffsets,
+		pluginGCOffsets = self.props.pluginGCOffsets,
 		percentageRatio = if self.props.showAsPercentages
 			then totalDuration / 100
 			else nil

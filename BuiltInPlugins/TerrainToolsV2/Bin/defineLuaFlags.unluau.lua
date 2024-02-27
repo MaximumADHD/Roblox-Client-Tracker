@@ -3,4 +3,5 @@ game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainSmoothToolFix", false)
 game:DefineFastFlag("TerrainEditorFixQuickWait", false)
 game:DefineFastFlag("TerrainEditorUseTerrainChannels", false)
+game:DefineFastFlag("ShorelinesRemoveDialog", false)
 return nil

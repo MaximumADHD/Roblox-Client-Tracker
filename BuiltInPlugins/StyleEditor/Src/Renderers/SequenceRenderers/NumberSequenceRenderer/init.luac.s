@@ -71,24 +71,24 @@ PROTO_6:
   LOADNIL R2
   LOADK R3 K2 ["Error: invalid number"]
   RETURN R2 2
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K4 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K5 ["number"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K6 [+4]
+  LOADK R4 K6 ["expecting a number"]
+  GETIMPORT R2 K8 [assert]
+  CALL R2 2 0
   LOADN R2 0
   JUMPIFLT R1 R2 [+4]
   LOADN R2 1
   JUMPIFNOTLT R2 R1 [+4]
   LOADNIL R2
-  LOADK R3 K3 ["Error: number out of range, expecting 0 < num < 1"]
+  LOADK R3 K9 ["Error: number out of range, expecting 0 < num < 1"]
   RETURN R2 2
-  FASTCALL1 TYPEOF R1 [+3]
-  MOVE R5 R1
-  GETIMPORT R4 K5 [typeof]
-  CALL R4 1 1
-  JUMPIFEQKS R4 K6 ["number"] [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K7 [+4]
-  LOADK R4 K7 ["expecting a number"]
-  GETIMPORT R2 K9 [assert]
-  CALL R2 2 0
   GETIMPORT R2 K11 [pcall]
   NEWCLOSURE R3 P0
   CAPTURE VAL R1
@@ -508,20 +508,31 @@ PROTO_21:
   GETTABLEKS R28 R11 K9 ["keypoints"]
   ADDK R29 R25 K24 [1]
   GETTABLE R27 R28 R29
-  LOADK R29 K25 ["SequenceLine_"]
-  MOVE R30 R25
-  LOADK R31 K26 ["_"]
-  ADDK R32 R25 K24 [1]
-  CONCAT R28 R29 R32
-  GETUPVAL R30 9
-  GETTABLEKS R29 R30 K12 ["createElement"]
-  GETUPVAL R30 12
-  DUPTABLE R31 K30 [{"StartKeypoint", "EndKeypoint", "PlotAbsoluteSize"}]
-  SETTABLEKS R26 R31 K27 ["StartKeypoint"]
-  SETTABLEKS R27 R31 K28 ["EndKeypoint"]
-  SETTABLEKS R9 R31 K29 ["PlotAbsoluteSize"]
-  CALL R29 2 1
-  SETTABLE R29 R22 R28
+  GETTABLEKS R29 R11 K11 ["selectedIndex"]
+  JUMPIFEQ R29 R25 [+2]
+  LOADB R28 0 +1
+  LOADB R28 1
+  GETTABLEKS R30 R11 K11 ["selectedIndex"]
+  ADDK R31 R25 K24 [1]
+  JUMPIFEQ R30 R31 [+2]
+  LOADB R29 0 +1
+  LOADB R29 1
+  LOADK R31 K25 ["SequenceLine_"]
+  MOVE R32 R25
+  LOADK R33 K26 ["_"]
+  ADDK R34 R25 K24 [1]
+  CONCAT R30 R31 R34
+  GETUPVAL R32 9
+  GETTABLEKS R31 R32 K12 ["createElement"]
+  GETUPVAL R32 12
+  DUPTABLE R33 K32 [{"StartKeypoint", "EndKeypoint", "PlotAbsoluteSize", "StartKeypointSelected", "EndKeypointSelected"}]
+  SETTABLEKS R26 R33 K27 ["StartKeypoint"]
+  SETTABLEKS R27 R33 K28 ["EndKeypoint"]
+  SETTABLEKS R9 R33 K29 ["PlotAbsoluteSize"]
+  SETTABLEKS R28 R33 K30 ["StartKeypointSelected"]
+  SETTABLEKS R29 R33 K31 ["EndKeypointSelected"]
+  CALL R31 2 1
+  SETTABLE R31 R22 R30
   FORNLOOP R23
   JUMPIFNOTEQKNIL R7 [+2]
   LOADB R23 0 +1
@@ -532,139 +543,139 @@ PROTO_21:
   NEWTABLE R26 1 0
   GETUPVAL R28 9
   GETTABLEKS R27 R28 K15 ["Tag"]
-  LOADK R28 K31 ["X-Fill"]
+  LOADK R28 K33 ["X-Fill"]
   SETTABLE R28 R26 R27
-  DUPTABLE R27 K35 [{"NumberSequenceInput", "Tooltip", "NumberSequenceModal"}]
+  DUPTABLE R27 K37 [{"NumberSequenceInput", "Tooltip", "NumberSequenceModal"}]
   GETUPVAL R29 9
   GETTABLEKS R28 R29 K12 ["createElement"]
   GETUPVAL R29 14
   NEWTABLE R30 8 0
-  GETTABLEKS R31 R0 K36 ["Disabled"]
-  SETTABLEKS R31 R30 K36 ["Disabled"]
+  GETTABLEKS R31 R0 K38 ["Disabled"]
+  SETTABLEKS R31 R30 K38 ["Disabled"]
   GETUPVAL R31 15
-  SETTABLEKS R31 R30 K37 ["LeadingComponent"]
-  DUPTABLE R31 K42 [{"OnClick", "ForwardRef", "Color", "Transparency"}]
-  SETTABLEKS R13 R31 K38 ["OnClick"]
-  SETTABLEKS R2 R31 K39 ["ForwardRef"]
+  SETTABLEKS R31 R30 K39 ["LeadingComponent"]
+  DUPTABLE R31 K44 [{"OnClick", "ForwardRef", "Color", "Transparency"}]
+  SETTABLEKS R13 R31 K40 ["OnClick"]
+  SETTABLEKS R2 R31 K41 ["ForwardRef"]
   GETUPVAL R32 16
-  SETTABLEKS R32 R31 K40 ["Color"]
+  SETTABLEKS R32 R31 K42 ["Color"]
   GETTABLEKS R32 R0 K0 ["Value"]
-  SETTABLEKS R32 R31 K41 ["Transparency"]
-  SETTABLEKS R31 R30 K43 ["LeadingComponentProps"]
-  SETTABLEKS R20 R30 K44 ["OnFocusLost"]
-  SETTABLEKS R21 R30 K45 ["OnTextChanged"]
-  GETTABLEKS R32 R0 K46 ["AutomaticSize"]
+  SETTABLEKS R32 R31 K43 ["Transparency"]
+  SETTABLEKS R31 R30 K45 ["LeadingComponentProps"]
+  SETTABLEKS R20 R30 K46 ["OnFocusLost"]
+  SETTABLEKS R21 R30 K47 ["OnTextChanged"]
+  GETTABLEKS R32 R0 K48 ["AutomaticSize"]
   JUMPIFNOT R32 [+10]
-  GETIMPORT R31 K48 [UDim2.new]
+  GETIMPORT R31 K50 [UDim2.new]
   LOADN R32 1
   LOADN R33 0
   LOADN R34 0
-  GETTABLEKS R36 R0 K50 ["MinimumHeight"]
-  ORK R35 R36 K49 [24]
+  GETTABLEKS R36 R0 K52 ["MinimumHeight"]
+  ORK R35 R36 K51 [24]
   CALL R31 4 1
   JUMP [+5]
-  GETIMPORT R31 K52 [UDim2.fromScale]
+  GETIMPORT R31 K54 [UDim2.fromScale]
   LOADN R32 1
   LOADN R33 1
   CALL R31 2 1
-  SETTABLEKS R31 R30 K53 ["Size"]
-  SETTABLEKS R5 R30 K54 ["Text"]
+  SETTABLEKS R31 R30 K55 ["Size"]
+  SETTABLEKS R5 R30 K56 ["Text"]
   GETUPVAL R32 9
   GETTABLEKS R31 R32 K15 ["Tag"]
   JUMPIFNOT R23 [+2]
-  LOADK R32 K55 ["PropertyCellError"]
+  LOADK R32 K57 ["PropertyCellError"]
   JUMP [+1]
   LOADNIL R32
   SETTABLE R32 R30 R31
   CALL R28 2 1
-  SETTABLEKS R28 R27 K32 ["NumberSequenceInput"]
+  SETTABLEKS R28 R27 K34 ["NumberSequenceInput"]
   GETUPVAL R29 9
   GETTABLEKS R28 R29 K12 ["createElement"]
   GETUPVAL R29 17
-  DUPTABLE R30 K57 [{"Enabled", "Text"}]
-  SETTABLEKS R23 R30 K56 ["Enabled"]
-  ORK R31 R7 K58 [""]
-  SETTABLEKS R31 R30 K54 ["Text"]
+  DUPTABLE R30 K59 [{"Enabled", "Text"}]
+  SETTABLEKS R23 R30 K58 ["Enabled"]
+  ORK R31 R7 K60 [""]
+  SETTABLEKS R31 R30 K56 ["Text"]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K33 ["Tooltip"]
+  SETTABLEKS R28 R27 K35 ["Tooltip"]
   GETUPVAL R29 9
   GETTABLEKS R28 R29 K12 ["createElement"]
   GETUPVAL R29 18
-  DUPTABLE R30 K63 [{"Open", "MaxSize", "MinSize", "ObjectRef", "OnFocusLost"}]
-  SETTABLEKS R3 R30 K59 ["Open"]
+  DUPTABLE R30 K65 [{"Open", "MaxSize", "MinSize", "ObjectRef", "OnFocusLost"}]
+  SETTABLEKS R3 R30 K61 ["Open"]
   GETIMPORT R31 K21 [Vector2.new]
   LOADN R32 32
   LOADN R33 19
   CALL R31 2 1
-  SETTABLEKS R31 R30 K60 ["MaxSize"]
+  SETTABLEKS R31 R30 K62 ["MaxSize"]
   GETIMPORT R31 K21 [Vector2.new]
   LOADN R32 88
   LOADN R33 225
   CALL R31 2 1
-  SETTABLEKS R31 R30 K61 ["MinSize"]
-  SETTABLEKS R2 R30 K62 ["ObjectRef"]
-  SETTABLEKS R14 R30 K44 ["OnFocusLost"]
-  DUPTABLE R31 K65 [{"Container"}]
+  SETTABLEKS R31 R30 K63 ["MinSize"]
+  SETTABLEKS R2 R30 K64 ["ObjectRef"]
+  SETTABLEKS R14 R30 K46 ["OnFocusLost"]
+  DUPTABLE R31 K67 [{"Container"}]
   GETUPVAL R33 9
   GETTABLEKS R32 R33 K12 ["createElement"]
   GETUPVAL R33 13
   NEWTABLE R34 1 0
   GETUPVAL R36 9
   GETTABLEKS R35 R36 K15 ["Tag"]
-  LOADK R36 K66 ["X-Pad X-ColumnM X-FitY"]
+  LOADK R36 K68 ["X-Pad X-ColumnM X-FitY"]
   SETTABLE R36 R34 R35
-  DUPTABLE R35 K69 [{"Plot", "KeypointControls"}]
+  DUPTABLE R35 K71 [{"Plot", "KeypointControls"}]
   GETUPVAL R37 9
   GETTABLEKS R36 R37 K12 ["createElement"]
   GETUPVAL R37 13
   NEWTABLE R38 8 0
   LOADB R39 1
-  SETTABLEKS R39 R38 K70 ["Active"]
+  SETTABLEKS R39 R38 K72 ["Active"]
   LOADN R39 1
-  SETTABLEKS R39 R38 K71 ["LayoutOrder"]
-  GETIMPORT R39 K48 [UDim2.new]
+  SETTABLEKS R39 R38 K73 ["LayoutOrder"]
+  GETIMPORT R39 K50 [UDim2.new]
   LOADN R40 1
   LOADN R41 0
   LOADN R42 0
   LOADN R43 200
   CALL R39 4 1
-  SETTABLEKS R39 R38 K53 ["Size"]
-  SETTABLEKS R1 R38 K39 ["ForwardRef"]
-  SETTABLEKS R19 R38 K38 ["OnClick"]
+  SETTABLEKS R39 R38 K55 ["Size"]
+  SETTABLEKS R1 R38 K41 ["ForwardRef"]
+  SETTABLEKS R19 R38 K40 ["OnClick"]
   GETUPVAL R40 9
   GETTABLEKS R39 R40 K15 ["Tag"]
-  LOADK R40 K72 ["Contrast X-Clip"]
+  LOADK R40 K74 ["Contrast X-Clip"]
   SETTABLE R40 R38 R39
   GETUPVAL R41 9
-  GETTABLEKS R40 R41 K73 ["Change"]
-  GETTABLEKS R39 R40 K74 ["AbsoluteSize"]
+  GETTABLEKS R40 R41 K75 ["Change"]
+  GETTABLEKS R39 R40 K76 ["AbsoluteSize"]
   NEWCLOSURE R40 P13
   CAPTURE VAL R10
   SETTABLE R40 R38 R39
   MOVE R39 R22
   CALL R36 3 1
-  SETTABLEKS R36 R35 K67 ["Plot"]
+  SETTABLEKS R36 R35 K69 ["Plot"]
   GETUPVAL R37 9
   GETTABLEKS R36 R37 K12 ["createElement"]
   GETUPVAL R37 19
-  DUPTABLE R38 K80 [{"Keypoint", "IsKeypointFixed", "OnEdit", "OnDelete", "OnSave", "LayoutOrder"}]
-  GETTABLEKS R39 R11 K81 ["getSelectedKeypoint"]
+  DUPTABLE R38 K82 [{"Keypoint", "IsKeypointFixed", "OnEdit", "OnDelete", "OnSave", "LayoutOrder"}]
+  GETTABLEKS R39 R11 K83 ["getSelectedKeypoint"]
   CALL R39 0 1
-  SETTABLEKS R39 R38 K75 ["Keypoint"]
-  GETTABLEKS R39 R11 K82 ["isFixedKeypointSelected"]
+  SETTABLEKS R39 R38 K77 ["Keypoint"]
+  GETTABLEKS R39 R11 K84 ["isFixedKeypointSelected"]
   CALL R39 0 1
-  SETTABLEKS R39 R38 K76 ["IsKeypointFixed"]
-  SETTABLEKS R16 R38 K77 ["OnEdit"]
-  SETTABLEKS R15 R38 K78 ["OnDelete"]
-  SETTABLEKS R14 R38 K79 ["OnSave"]
+  SETTABLEKS R39 R38 K78 ["IsKeypointFixed"]
+  SETTABLEKS R16 R38 K79 ["OnEdit"]
+  SETTABLEKS R15 R38 K80 ["OnDelete"]
+  SETTABLEKS R14 R38 K81 ["OnSave"]
   LOADN R39 2
-  SETTABLEKS R39 R38 K71 ["LayoutOrder"]
+  SETTABLEKS R39 R38 K73 ["LayoutOrder"]
   CALL R36 2 1
-  SETTABLEKS R36 R35 K68 ["KeypointControls"]
+  SETTABLEKS R36 R35 K70 ["KeypointControls"]
   CALL R32 3 1
-  SETTABLEKS R32 R31 K64 ["Container"]
+  SETTABLEKS R32 R31 K66 ["Container"]
   CALL R28 3 1
-  SETTABLEKS R28 R27 K34 ["NumberSequenceModal"]
+  SETTABLEKS R28 R27 K36 ["NumberSequenceModal"]
   CALL R24 3 -1
   RETURN R24 -1
 

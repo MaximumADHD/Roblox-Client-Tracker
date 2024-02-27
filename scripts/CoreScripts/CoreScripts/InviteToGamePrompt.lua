@@ -19,7 +19,12 @@ local FFlagLuaEnableGameInviteModalInvitePrompt = game:DefineFastFlag("LuaEnable
 
 local IXPServiceWrapper = require(Modules.Common.IXPServiceWrapper)
 local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
-local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
+
 local InviteToGameAnalytics = require(CorePackages.Workspace.Packages.GameInvite).GameInviteAnalytics
 local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
 
@@ -34,7 +39,11 @@ if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 end
 
 local inviteToGameAnalytics = InviteToGameAnalytics.new()
-	:withEventStream(EventStream.new())
+	:withEventStream(
+		if GetFFlagRemoveAppTempCommonTemp()
+			then EventStream.new(AnalyticsService) :: any
+			else DEPRECATED_EventStream.new() :: any
+	)
 	:withDiag(Diag.new(AnalyticsService))
 	:withButtonName(InviteToGameAnalytics.ButtonName.ModalPrompt)
 

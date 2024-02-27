@@ -28,6 +28,8 @@ return function()
 			average = 1,
 			sessionLength = sessionLength,
 			searchFilter = {},
+			gcFunctionOffsets = {},
+			showGC = true,
 		})
 
 		local instance = Roact.mount(element)

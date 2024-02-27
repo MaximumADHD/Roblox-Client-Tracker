@@ -9,6 +9,7 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Constants = require(Modules.Common.Constants)
 local Theme = require(Modules.Settings.Theme)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local InviteEvents = require(CorePackages.Workspace.Packages.GameInvite).GameInviteEvents
 local ShareGameConstants = require(ShareGame.Constants)
 local PresenceUtil = require(ShareGame.PresenceUtil)
@@ -170,7 +171,7 @@ return function(props: Props)
 					Text = user.displayName,
 					TextSize = TEXT_SIZE,
 					TextColor3 = Constants.COLORS.WHITE,
-					Font = Enum.Font.GothamMedium,
+					Font = AppFonts.default:getMedium(),
 					BackgroundTransparency = 1,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					LayoutOrder = 2,
@@ -181,7 +182,7 @@ return function(props: Props)
 				Text = "@" .. user.name,
 				TextSize = TEXT_SIZE,
 				TextColor3 = Constants.COLORS.PUMICE,
-				Font = Enum.Font.Gotham,
+				Font = AppFonts.default:getDefault(),
 				BackgroundTransparency = 1,
 				TextXAlignment = Enum.TextXAlignment.Left,
 			}),

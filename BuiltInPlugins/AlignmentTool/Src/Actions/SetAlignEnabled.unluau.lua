@@ -1,7 +1,7 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var29 = require(script.Parent.Parent.Parent.Packages.Framework).Util
-var29 = var29.Action
-return var29(script.Name, function(arg1, arg2)
+local var8 = require(script.Parent.Parent.Parent.Packages.Framework).Util
+var8 = var8.Action
+return var8(script.Name, function(arg1, arg2)
    if type(arg1) == "boolean" then
       local var0 = false
    end

@@ -4,6 +4,7 @@ local ContextActionService = game:GetService("ContextActionService")
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local InspectAndBuyFolder = script.Parent.Parent
 local Colors = require(InspectAndBuyFolder.Colors)
 local Constants = require(InspectAndBuyFolder.Constants)
@@ -121,7 +122,7 @@ function TryOnButton:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 			Text = RobloxTranslator:FormatByKeyForLocale(tryOnTextKey, locale),
-			Font = Enum.Font.Gotham,
+			Font = AppFonts.default:getDefault(),
 			TextSize = TEXT_SIZE,
 			TextColor3 = Colors.White,
 			TextTransparency = layeredClothingOnR6 and 0.5 or 0,

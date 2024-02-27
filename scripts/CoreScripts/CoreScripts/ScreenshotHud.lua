@@ -20,13 +20,19 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
+	then require(RobloxGui.Modules.Common.httpRequest)
+	else require(CorePackages.AppTempCommon.Temp.httpRequest)
+
 local httpImpl = httpRequest(HttpRbxApiService)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 local Promise = require(CorePackages.Promise)
 
 local FFlagScreenshotHudGuiVisibilityApi = game:DefineFastFlag("ScreenshotHudGuiVisibilityApiForScreenshotHud", false)
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
 
 if not GetFFlagScreenshotHudApi() then
@@ -64,9 +70,8 @@ local DELAY_SECONDS = 0.2 -- in second
 
 --[[ FFlags ]]
 --
-local GetFFlagAllowUsernameOverlayInScreenshotHud = require(
-	RobloxGui.Modules.Flags.GetFFlagAllowUsernameOverlayInScreenshotHud
-)
+local GetFFlagAllowUsernameOverlayInScreenshotHud =
+	require(RobloxGui.Modules.Flags.GetFFlagAllowUsernameOverlayInScreenshotHud)
 
 -- [[ Variables ]]
 --
@@ -139,7 +144,7 @@ local function createTextLabel(text, props, parent)
 
 	textLabel.BackgroundTransparency = 1
 	textLabel.BorderSizePixel = 0
-	textLabel.Font = Enum.Font.GothamMedium
+	textLabel.Font = AppFonts.default:getMedium()
 	textLabel.Position = UDim2.new(0, 0, 0, 0)
 	textLabel.Size = UDim2.new(1, 0, 1, 0)
 	textLabel.TextColor3 = Color3.new(1, 1, 1)
@@ -335,9 +340,11 @@ local function fetchExperienceName()
 end
 
 local function checkOrRequestExternalStoragePermissions()
-	return PermissionsProtocol.default:checkOrRequestPermissions({
+	return PermissionsProtocol.default
+		:checkOrRequestPermissions({
 			PermissionsProtocol.Permissions.WRITE_MEDIA_STORAGE,
-		}):andThen(function(permissionResponseStatus)
+		})
+		:andThen(function(permissionResponseStatus)
 			local permissionGranted = permissionResponseStatus == PermissionsProtocol.Status.AUTHORIZED
 			return permissionGranted and Promise.resolve() or Promise.reject()
 		end)

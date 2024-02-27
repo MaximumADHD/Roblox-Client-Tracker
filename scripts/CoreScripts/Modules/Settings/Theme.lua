@@ -4,6 +4,7 @@ local CoreGui = game:GetService('CoreGui')
 local GuiService = game:GetService("GuiService")
 local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local UIBlox = require(CorePackages.UIBlox)
 local UIBloxImages = UIBlox.App.ImageSet.Images
@@ -39,7 +40,7 @@ local fontSizeMap = {
 }
 
 local nullColor = Color3.fromRGB(0, 0, 0);
-local nullFont: any? = Enum.Font.Gotham
+local nullFont: any? = AppFonts.default:getDefault()
 local nullFontSize: any? = fontSizeMap[Enum.FontSize.Size24]
 local nullTextSize: any? = 20
 
@@ -86,12 +87,12 @@ local AppTheme = {
 local AppFont = {
 	-- TODO Gotham is a temporary font, should be switched to new one when available
 	Confirmation_Font = {
-		Font = Enum.Font.GothamBold,
+		Font = AppFonts.default:getBold(),
 		RelativeSize = fontSizeMap[Enum.FontSize.Size36],
 		TextSize = 36 * nominalSizeFactor,
 	},
 	Button_Font = {
-		Font = Enum.Font.GothamMedium,
+		Font = AppFonts.default:getMedium(),
 		RelativeSize = fontSizeMap[Enum.FontSize.Size24],
 		TextSize = 18,
 	},
@@ -100,60 +101,60 @@ local AppFont = {
 	},
 	DisplayName = {
 		RelativeSize = Enum.FontSize.Size18,
-		Font = Enum.Font.GothamMedium,
+		Font = AppFonts.default:getMedium(),
 	},
 	Settings_Font = {
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 	},
 	Help_Title_Font = {
-		Font = Enum.Font.GothamMedium,
+		Font = AppFonts.default:getMedium(),
 		RelativeSize = fontSizeMap[Enum.FontSize.Size18],
 	},
 	Help_Text_Font = {
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		RelativeSize = fontSizeMap[Enum.FontSize.Size18],
 		TextSize = 18 * nominalSizeFactor,
 	},
 	Help_Gamepad_Font = {
-		Font = Enum.Font.GothamMedium,
+		Font = AppFonts.default:getMedium(),
 	},
 	Help_Touch_Font = {
-		Font = Enum.Font.GothamBold,
+		Font = AppFonts.default:getBold(),
 		RelativeSize = fontSizeMap[Enum.FontSize.Size14],
 	},
 	Game_Settings_Font = {
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		RelativeSize = fontSizeMap[Enum.FontSize.Size24],
 	},
 	Conversation_Details_Font = {
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		TextSize = 16 * nominalSizeFactor,
 	},
 	Utility_Text_Font = {
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		TextSize = 18,
 	},
 	Utility_Text_Small_Font = {
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		TextSize = 16 * nominalSizeFactor,
 	},
 	Utility_Row_Small_Font = {
-		Font = Enum.Font.Gotham,
+		Font = AppFonts.default:getDefault(),
 		TextSize = 16 * nominalSizeFactor,
 	},
 	Utility_Row_Font = {
-		Font = Enum.Font.GothamMedium,
+		Font = AppFonts.default:getMedium(),
 		TextSize = 16 * nominalSizeFactor,
 	},
 	Back_Button_Font = {
-		Font = Enum.Font.GothamSemibold,
+		Font = AppFonts.default:getSemibold(),
 		TextSize = 24 * nominalSizeFactor,
 	},
 	Semibold_Font = {
-		Font = Enum.Font.GothamSemibold,
+		Font = AppFonts.default:getSemibold(),
 	},
 	Bold_Font = {
-		Font = Enum.Font.GothamMedium,
+		Font = AppFonts.default:getMedium(),
 	}
 }
 

@@ -39,7 +39,13 @@ local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInvit
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 
 local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
-local httpRequest = require(AppTempCommon.Temp.httpRequest)
+
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
+	then require(Modules.Common.httpRequest)
+	else require(AppTempCommon.Temp.httpRequest)
+
 local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
 
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus

@@ -34,10 +34,12 @@ PROTO_3:
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K5 ["createFragment"]
   DUPTABLE R8 K8 [{"ShoresUpdater", "ProgressDialog"}]
+  GETUPVAL R10 1
+  JUMPIF R10 [+37]
   JUMPIFNOT R5 [+36]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K9 ["createElement"]
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   DUPTABLE R11 K15 [{"Title", "SubText", "ActionText", "OnActionButtonClicked", "OnDismissButtonClicked"}]
   LOADK R14 K16 ["UpgradeShorelines"]
   LOADK R15 K17 ["SuggestionTitle"]
@@ -67,7 +69,7 @@ PROTO_3:
   JUMPIFNOT R6 [+27]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K9 ["createElement"]
-  GETUPVAL R10 2
+  GETUPVAL R10 3
   DUPTABLE R11 K23 [{"Title", "SubText", "Progress", "OnCancelButtonClicked"}]
   LOADK R14 K16 ["UpgradeShorelines"]
   LOADK R15 K10 ["Title"]
@@ -138,30 +140,35 @@ MAIN:
   GETTABLEKS R10 R11 K15 ["Util"]
   GETTABLEKS R9 R10 K16 ["ShorelineController"]
   CALL R8 1 1
-  GETTABLEKS R9 R2 K17 ["PureComponent"]
-  LOADK R11 K18 ["ShorelineDialog"]
-  NAMECALL R9 R9 K19 ["extend"]
+  GETIMPORT R9 K18 [game]
+  LOADK R11 K19 ["ShorelinesRemoveDialog"]
+  NAMECALL R9 R9 K20 ["GetFastFlag"]
   CALL R9 2 1
-  DUPCLOSURE R10 K20 [PROTO_3]
+  GETTABLEKS R10 R2 K21 ["PureComponent"]
+  LOADK R12 K22 ["ShorelineDialog"]
+  NAMECALL R10 R10 K23 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K24 [PROTO_3]
   CAPTURE VAL R2
+  CAPTURE VAL R9
   CAPTURE VAL R7
   CAPTURE VAL R6
-  SETTABLEKS R10 R9 K21 ["render"]
-  MOVE R10 R5
-  DUPTABLE R11 K24 [{"Analytics", "Localization", "ShorelineController"}]
-  GETTABLEKS R12 R4 K22 ["Analytics"]
-  SETTABLEKS R12 R11 K22 ["Analytics"]
-  GETTABLEKS R12 R4 K23 ["Localization"]
-  SETTABLEKS R12 R11 K23 ["Localization"]
-  SETTABLEKS R8 R11 K16 ["ShorelineController"]
-  CALL R10 1 1
-  MOVE R11 R9
-  CALL R10 1 1
-  MOVE R9 R10
-  GETTABLEKS R10 R1 K25 ["connect"]
-  DUPCLOSURE R11 K26 [PROTO_4]
-  DUPCLOSURE R12 K27 [PROTO_5]
-  CALL R10 2 1
-  MOVE R11 R9
-  CALL R10 1 -1
-  RETURN R10 -1
+  SETTABLEKS R11 R10 K25 ["render"]
+  MOVE R11 R5
+  DUPTABLE R12 K28 [{"Analytics", "Localization", "ShorelineController"}]
+  GETTABLEKS R13 R4 K26 ["Analytics"]
+  SETTABLEKS R13 R12 K26 ["Analytics"]
+  GETTABLEKS R13 R4 K27 ["Localization"]
+  SETTABLEKS R13 R12 K27 ["Localization"]
+  SETTABLEKS R8 R12 K16 ["ShorelineController"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  GETTABLEKS R11 R1 K29 ["connect"]
+  DUPCLOSURE R12 K30 [PROTO_4]
+  DUPCLOSURE R13 K31 [PROTO_5]
+  CALL R11 2 1
+  MOVE R12 R10
+  CALL R11 1 -1
+  RETURN R11 -1

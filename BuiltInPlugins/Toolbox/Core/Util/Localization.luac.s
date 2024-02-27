@@ -5,7 +5,10 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -33,15 +36,15 @@ PROTO_1:
   SETTABLEKS R2 R1 K11 ["_externalLocaleIdChangedConnection"]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K12 ["_content"]
-  GETUPVAL R2 1
+  GETUPVAL R2 2
   CALL R2 0 1
   SETTABLEKS R2 R1 K13 ["_signal"]
-  GETUPVAL R2 2
+  GETUPVAL R2 3
   GETTABLEKS R3 R1 K12 ["_content"]
   LOADK R4 K20 ["content"]
   CALL R2 2 1
   SETTABLEKS R2 R1 K12 ["_content"]
-  GETUPVAL R4 3
+  GETUPVAL R4 4
   FASTCALL2 SETMETATABLE R1 R4 [+4]
   MOVE R3 R1
   GETIMPORT R2 K22 [setmetatable]
@@ -92,7 +95,10 @@ PROTO_4:
   RETURN R1 1
 
 PROTO_5:
-  GETUPVAL R2 0
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIF R1 [+3]
+  GETUPVAL R2 1
   CALL R2 0 1
   NOT R1 R2
   LOADK R3 K0 ["%* is marked for removal and cannot be used"]
@@ -104,7 +110,7 @@ PROTO_5:
   FASTCALL2 ASSERT R1 R2 [+3]
   GETIMPORT R0 K6 [assert]
   CALL R0 2 0
-  GETUPVAL R1 1
+  GETUPVAL R1 2
   GETTABLEKS R0 R1 K7 ["new"]
   DUPTABLE R1 K11 [{"getLocaleId", "getTranslator", "localeIdChanged"}]
   DUPCLOSURE R2 K12 [PROTO_2]
@@ -133,7 +139,10 @@ PROTO_8:
   RETURN R1 1
 
 PROTO_9:
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -145,7 +154,7 @@ PROTO_9:
   FASTCALL2 ASSERT R2 R3 [+3]
   GETIMPORT R1 K6 [assert]
   CALL R1 2 0
-  GETUPVAL R2 1
+  GETUPVAL R2 2
   GETTABLEKS R1 R2 K7 ["new"]
   DUPTABLE R2 K11 [{"getLocaleId", "getTranslator", "localeIdChanged"}]
   NEWCLOSURE R3 P0
@@ -173,7 +182,10 @@ PROTO_11:
   RETURN R1 -1
 
 PROTO_12:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -185,7 +197,7 @@ PROTO_12:
   FASTCALL2 ASSERT R3 R4 [+3]
   GETIMPORT R2 K6 [assert]
   CALL R2 2 0
-  GETUPVAL R3 1
+  GETUPVAL R3 2
   GETTABLEKS R2 R3 K7 ["new"]
   DUPTABLE R3 K11 [{"getLocaleId", "getTranslator", "localeIdChanged"}]
   NEWCLOSURE R4 P0
@@ -203,7 +215,10 @@ PROTO_12:
 
 PROTO_13:
   PREPVARARGS 1
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -222,7 +237,10 @@ PROTO_13:
   RETURN R1 -1
 
 PROTO_14:
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -238,7 +256,10 @@ PROTO_14:
   RETURN R1 1
 
 PROTO_15:
-  GETUPVAL R5 0
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIF R4 [+3]
+  GETUPVAL R5 1
   CALL R5 0 1
   NOT R4 R5
   LOADK R6 K0 ["%* is marked for removal and cannot be used"]
@@ -259,7 +280,10 @@ PROTO_15:
   RETURN R3 -1
 
 PROTO_16:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -286,7 +310,10 @@ PROTO_16:
   RETURN R4 -1
 
 PROTO_17:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -307,7 +334,10 @@ PROTO_17:
   RETURN R2 -1
 
 PROTO_18:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -328,7 +358,10 @@ PROTO_18:
   RETURN R2 -1
 
 PROTO_19:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -349,7 +382,10 @@ PROTO_19:
   RETURN R2 -1
 
 PROTO_20:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -370,7 +406,10 @@ PROTO_20:
   RETURN R2 -1
 
 PROTO_21:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -390,7 +429,10 @@ PROTO_21:
   RETURN R2 -1
 
 PROTO_22:
-  GETUPVAL R6 0
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
   CALL R6 0 1
   NOT R5 R6
   LOADK R7 K0 ["%* is marked for removal and cannot be used"]
@@ -412,7 +454,10 @@ PROTO_22:
   RETURN R4 -1
 
 PROTO_23:
-  GETUPVAL R6 0
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
   CALL R6 0 1
   NOT R5 R6
   LOADK R7 K0 ["%* is marked for removal and cannot be used"]
@@ -434,7 +479,10 @@ PROTO_23:
   RETURN R4 -1
 
 PROTO_24:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -454,7 +502,10 @@ PROTO_24:
   RETURN R2 -1
 
 PROTO_25:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -474,7 +525,10 @@ PROTO_25:
   RETURN R2 -1
 
 PROTO_26:
-  GETUPVAL R5 0
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIF R4 [+3]
+  GETUPVAL R5 1
   CALL R5 0 1
   NOT R4 R5
   LOADK R6 K0 ["%* is marked for removal and cannot be used"]
@@ -495,7 +549,10 @@ PROTO_26:
   RETURN R3 -1
 
 PROTO_27:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -515,7 +572,10 @@ PROTO_27:
   RETURN R2 -1
 
 PROTO_28:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -535,7 +595,10 @@ PROTO_28:
   RETURN R2 -1
 
 PROTO_29:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -555,7 +618,10 @@ PROTO_29:
   RETURN R2 -1
 
 PROTO_30:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -575,7 +641,10 @@ PROTO_30:
   RETURN R2 -1
 
 PROTO_31:
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -597,7 +666,10 @@ PROTO_31:
   RETURN R0 0
 
 PROTO_32:
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -613,7 +685,10 @@ PROTO_32:
   RETURN R1 1
 
 PROTO_33:
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -625,7 +700,7 @@ PROTO_33:
   FASTCALL2 ASSERT R2 R3 [+3]
   GETIMPORT R1 K6 [assert]
   CALL R1 2 0
-  GETUPVAL R2 1
+  GETUPVAL R2 0
   CALL R2 0 1
   JUMPIFNOT R2 [+2]
   LOADK R1 K7 [""]
@@ -648,7 +723,10 @@ PROTO_33:
   RETURN R2 -1
 
 PROTO_34:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -675,7 +753,10 @@ PROTO_34:
   RETURN R2 1
 
 PROTO_35:
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -698,7 +779,10 @@ PROTO_35:
   RETURN R1 1
 
 PROTO_36:
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -717,7 +801,10 @@ PROTO_36:
   RETURN R1 -1
 
 PROTO_37:
-  GETUPVAL R4 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+3]
+  GETUPVAL R4 1
   CALL R4 0 1
   NOT R3 R4
   LOADK R5 K0 ["%* is marked for removal and cannot be used"]
@@ -729,14 +816,14 @@ PROTO_37:
   FASTCALL2 ASSERT R3 R4 [+3]
   GETIMPORT R2 K6 [assert]
   CALL R2 2 0
-  GETUPVAL R4 1
+  GETUPVAL R4 2
   GETTABLEKS R3 R4 K7 ["Dictionary"]
   GETTABLEKS R2 R3 K8 ["join"]
   GETTABLEKS R3 R0 K9 ["_content"]
   MOVE R4 R1
   CALL R2 2 1
   SETTABLEKS R2 R0 K9 ["_content"]
-  GETUPVAL R2 2
+  GETUPVAL R2 3
   GETTABLEKS R3 R0 K9 ["_content"]
   LOADK R4 K10 ["content"]
   CALL R2 2 1
@@ -748,7 +835,10 @@ PROTO_37:
   RETURN R0 0
 
 PROTO_38:
-  GETUPVAL R5 0
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIF R4 [+3]
+  GETUPVAL R5 1
   CALL R5 0 1
   NOT R4 R5
   LOADK R6 K0 ["%* is marked for removal and cannot be used"]
@@ -763,7 +853,7 @@ PROTO_38:
   NAMECALL R3 R0 K7 ["_getTranslator"]
   CALL R3 1 1
   JUMPIF R3 [+10]
-  GETUPVAL R5 1
+  GETUPVAL R5 2
   GETTABLEKS R4 R5 K8 ["shouldDebugWarnings"]
   CALL R4 0 1
   JUMPIFNOT R4 [+5]
@@ -777,7 +867,7 @@ PROTO_38:
   NAMECALL R4 R0 K12 ["_safeLocalizeInner"]
   CALL R4 4 2
   JUMPIF R4 [+112]
-  GETUPVAL R7 1
+  GETUPVAL R7 2
   GETTABLEKS R6 R7 K8 ["shouldDebugWarnings"]
   CALL R6 0 1
   JUMPIFNOT R6 [+17]
@@ -797,7 +887,7 @@ PROTO_38:
   NAMECALL R6 R0 K19 ["_getDefaultTranslator"]
   CALL R6 1 1
   JUMPIF R6 [+10]
-  GETUPVAL R8 1
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K8 ["shouldDebugWarnings"]
   CALL R7 0 1
   JUMPIFNOT R7 [+5]
@@ -813,7 +903,7 @@ PROTO_38:
   MOVE R4 R7
   MOVE R5 R8
   JUMPIF R4 [+24]
-  GETUPVAL R8 1
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K8 ["shouldDebugWarnings"]
   CALL R7 0 1
   JUMPIFNOT R7 [+17]
@@ -832,7 +922,7 @@ PROTO_38:
   CALL R7 -1 0
   MOVE R5 R1
   JUMP [+15]
-  GETUPVAL R8 1
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K8 ["shouldDebugWarnings"]
   CALL R7 0 1
   JUMPIFNOT R7 [+10]
@@ -856,7 +946,7 @@ PROTO_38:
   JUMPIFNOT R4 [+2]
   MOVE R5 R8
   RETURN R5 1
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   GETTABLEKS R9 R10 K8 ["shouldDebugWarnings"]
   CALL R9 0 1
   JUMPIFNOT R9 [+8]
@@ -877,7 +967,10 @@ PROTO_39:
   RETURN R0 -1
 
 PROTO_40:
-  GETUPVAL R6 0
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
   CALL R6 0 1
   NOT R5 R6
   LOADK R7 K0 ["%* is marked for removal and cannot be used"]
@@ -898,7 +991,10 @@ PROTO_40:
   RETURN R4 -1
 
 PROTO_41:
-  GETUPVAL R3 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R3 1
   CALL R3 0 1
   NOT R2 R3
   LOADK R4 K0 ["%* is marked for removal and cannot be used"]
@@ -1458,49 +1554,49 @@ PROTO_41:
   SETTABLEKS R5 R4 K282 ["Report"]
   SETTABLEKS R4 R3 K24 ["RightClickMenu"]
   NEWTABLE R4 8 0
-  GETUPVAL R7 1
+  GETUPVAL R7 2
   GETTABLEKS R6 R7 K291 ["ASSET_STATUS"]
   GETTABLEKS R5 R6 K292 ["ReviewPending"]
   LOADK R8 K37 ["Studio.Toolbox.General.AllModels"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLE R6 R4 R5
-  GETUPVAL R7 1
+  GETUPVAL R7 2
   GETTABLEKS R6 R7 K291 ["ASSET_STATUS"]
   GETTABLEKS R5 R6 K294 ["Moderated"]
   LOADK R8 K39 ["FreeModels"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLE R6 R4 R5
-  GETUPVAL R7 1
+  GETUPVAL R7 2
   GETTABLEKS R6 R7 K291 ["ASSET_STATUS"]
   GETTABLEKS R5 R6 K296 ["ReviewApproved"]
   LOADK R8 K41 ["FreeDecals"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLE R6 R4 R5
-  GETUPVAL R7 1
+  GETUPVAL R7 2
   GETTABLEKS R6 R7 K291 ["ASSET_STATUS"]
   GETTABLEKS R5 R6 K298 ["OnSale"]
   LOADK R8 K43 ["FreeMeshes"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLE R6 R4 R5
-  GETUPVAL R7 1
+  GETUPVAL R7 2
   GETTABLEKS R6 R7 K291 ["ASSET_STATUS"]
   GETTABLEKS R5 R6 K300 ["OffSale"]
   LOADK R8 K45 ["FreeAudio"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLE R6 R4 R5
-  GETUPVAL R7 1
+  GETUPVAL R7 2
   GETTABLEKS R6 R7 K291 ["ASSET_STATUS"]
   GETTABLEKS R5 R6 K302 ["DelayedRelease"]
   LOADK R8 K47 ["FreeFonts"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLE R6 R4 R5
-  GETUPVAL R7 1
+  GETUPVAL R7 2
   GETTABLEKS R6 R7 K291 ["ASSET_STATUS"]
   GETTABLEKS R5 R6 K304 ["Free"]
   LOADK R8 K49 ["PaidPlugins"]
@@ -1525,7 +1621,7 @@ PROTO_41:
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K309 ["PremiumBenefits"]
-  GETUPVAL R6 2
+  GETUPVAL R6 3
   JUMPIFNOT R6 [+9]
   LOADK R7 K61 ["MyPlugins"]
   DUPTABLE R8 K319 [{"creatorDashboardLink"}]
@@ -1536,7 +1632,7 @@ PROTO_41:
   JUMP [+1]
   LOADNIL R5
   SETTABLEKS R5 R4 K310 ["CreatorDashboardLinkMessage"]
-  GETUPVAL R6 2
+  GETUPVAL R6 3
   JUMPIFNOT R6 [+5]
   LOADK R7 K65 ["MyVideo"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
@@ -1665,7 +1761,7 @@ PROTO_41:
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K379 ["Copy"]
-  GETUPVAL R7 3
+  GETUPVAL R7 4
   JUMPIFNOT R7 [+5]
   LOADK R8 K140 ["Studio.Toolbox.General.CategoryCreationsWaistAccessory"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
@@ -1677,7 +1773,7 @@ PROTO_41:
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K381 ["Comments"]
-  GETUPVAL R7 4
+  GETUPVAL R7 5
   CALL R7 0 1
   JUMPIFNOT R7 [+5]
   LOADK R8 K142 ["Studio.Toolbox.General.CategoryCreationsTShirtAccessory"]
@@ -1839,7 +1935,7 @@ PROTO_41:
   CALL R8 2 1
   SETTABLE R8 R6 R7
   GETIMPORT R7 K483 [Enum.AssetType.Torso]
-  GETUPVAL R9 5
+  GETUPVAL R9 6
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
   LOADK R10 K228 ["White"]
@@ -1849,7 +1945,7 @@ PROTO_41:
   LOADNIL R8
   SETTABLE R8 R6 R7
   GETIMPORT R7 K486 [Enum.AssetType.RightArm]
-  GETUPVAL R9 5
+  GETUPVAL R9 6
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
   LOADK R10 K231 [{"BGText", "White", "Black", "None"}]
@@ -1859,7 +1955,7 @@ PROTO_41:
   LOADNIL R8
   SETTABLE R8 R6 R7
   GETIMPORT R7 K489 [Enum.AssetType.LeftArm]
-  GETUPVAL R9 5
+  GETUPVAL R9 6
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
   LOADK R10 K234 ["Studio.Toolbox.General.FooterButtonBlackName"]
@@ -1869,7 +1965,7 @@ PROTO_41:
   LOADNIL R8
   SETTABLE R8 R6 R7
   GETIMPORT R7 K492 [Enum.AssetType.LeftLeg]
-  GETUPVAL R9 5
+  GETUPVAL R9 6
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
   LOADK R10 K237 ["Studio.Toolbox.General.SearchBarCreatorText"]
@@ -1879,7 +1975,7 @@ PROTO_41:
   LOADNIL R8
   SETTABLE R8 R6 R7
   GETIMPORT R7 K495 [Enum.AssetType.RightLeg]
-  GETUPVAL R9 5
+  GETUPVAL R9 6
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
   LOADK R10 K240 ["Studio.Toolbox.General.InfoBannerText"]
@@ -1889,7 +1985,7 @@ PROTO_41:
   LOADNIL R8
   SETTABLE R8 R6 R7
   GETIMPORT R7 K498 [Enum.AssetType.DynamicHead]
-  GETUPVAL R9 5
+  GETUPVAL R9 6
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
   LOADK R10 K243 ["LinkText"]
@@ -1899,7 +1995,7 @@ PROTO_41:
   LOADNIL R8
   SETTABLE R8 R6 R7
   GETIMPORT R7 K501 [Enum.AssetType.EyebrowAccessory]
-  GETUPVAL R9 5
+  GETUPVAL R9 6
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
   LOADK R10 K246 ["link"]
@@ -1909,7 +2005,7 @@ PROTO_41:
   LOADNIL R8
   SETTABLE R8 R6 R7
   GETIMPORT R7 K504 [Enum.AssetType.EyelashAccessory]
-  GETUPVAL R9 5
+  GETUPVAL R9 6
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
   LOADK R10 K249 ["Studio.Toolbox.General.NoPluginsFound.TextLine2"]
@@ -1983,7 +2079,7 @@ PROTO_41:
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K535 ["Back"]
-  GETUPVAL R7 6
+  GETUPVAL R7 7
   JUMPIFNOT R7 [+9]
   LOADK R8 K29 ["PurchaseFlow"]
   DUPTABLE R9 K319 [{"creatorDashboardLink"}]
@@ -1994,7 +2090,7 @@ PROTO_41:
   JUMP [+1]
   LOADNIL R6
   SETTABLEKS R6 R5 K536 ["CreatorDashboardMessage"]
-  GETUPVAL R7 6
+  GETUPVAL R7 7
   JUMPIFNOT R7 [+5]
   LOADK R8 K65 ["MyVideo"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
@@ -2014,28 +2110,28 @@ PROTO_41:
   SETTABLEKS R6 R5 K544 ["Restore"]
   SETTABLEKS R5 R4 K548 ["VersionsHistory"]
   NEWTABLE R5 4 0
-  GETUPVAL R8 1
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K549 ["SIDE_TABS"]
   GETTABLEKS R6 R7 K26 ["Sales"]
   LOADK R9 K38 ["Studio.Toolbox.General.CategoryModels"]
   NAMECALL R7 R0 K34 ["_safeLocalize"]
   CALL R7 2 1
   SETTABLE R7 R5 R6
-  GETUPVAL R8 1
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K549 ["SIDE_TABS"]
   GETTABLEKS R6 R7 K551 ["Versions"]
   LOADK R9 K40 ["Studio.Toolbox.General.CategoryDecals"]
   NAMECALL R7 R0 K34 ["_safeLocalize"]
   CALL R7 2 1
   SETTABLE R7 R5 R6
-  GETUPVAL R8 1
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K549 ["SIDE_TABS"]
   GETTABLEKS R6 R7 K553 ["General"]
   LOADK R9 K42 ["Studio.Toolbox.General.CategoryMeshes"]
   NAMECALL R7 R0 K34 ["_safeLocalize"]
   CALL R7 2 1
   SETTABLE R7 R5 R6
-  GETUPVAL R8 1
+  GETUPVAL R8 2
   GETTABLEKS R7 R8 K549 ["SIDE_TABS"]
   GETTABLEKS R6 R7 K555 ["Permissions"]
   LOADK R9 K44 ["Studio.Toolbox.General.CategoryAudio"]
@@ -2051,7 +2147,7 @@ PROTO_41:
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K561 ["Terms"]
-  GETUPVAL R6 4
+  GETUPVAL R6 5
   CALL R6 0 1
   JUMPIFNOT R6 [+2]
   LOADNIL R5
@@ -2076,7 +2172,7 @@ PROTO_41:
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K571 ["OnlyMe"]
-  GETUPVAL R6 7
+  GETUPVAL R6 8
   CALL R6 0 1
   JUMPIFNOT R6 [+2]
   LOADNIL R5
@@ -2218,7 +2314,7 @@ PROTO_41:
   CALL R5 2 1
   SETTABLEKS R5 R4 K630 ["InstructionText2"]
   SETTABLEKS R4 R3 K30 ["ScriptWarning"]
-  GETUPVAL R4 8
+  GETUPVAL R4 9
   JUMPIFNOT R4 [+55]
   DUPTABLE R4 K639 [{"Success", "Failure", "DialogText", "Information", "CancelButton", "GrantButton"}]
   LOADK R7 K128 ["Studio.Toolbox.General.CategoryCreationsHair"]
@@ -2264,7 +2360,10 @@ PROTO_41:
   RETURN R0 0
 
 PROTO_42:
-  GETUPVAL R7 0
+  GETUPVAL R6 0
+  CALL R6 0 1
+  JUMPIF R6 [+3]
+  GETUPVAL R7 1
   CALL R7 0 1
   NOT R6 R7
   LOADK R8 K0 ["%* is marked for removal and cannot be used"]
@@ -2285,7 +2384,7 @@ PROTO_42:
   FORGPREP_NEXT R8
   GETTABLE R13 R12 R4
   GETTABLE R14 R7 R13
-  GETUPVAL R17 1
+  GETUPVAL R17 2
   GETTABLEKS R16 R17 K10 ["Dictionary"]
   GETTABLEKS R15 R16 K11 ["join"]
   MOVE R16 R12
@@ -2364,109 +2463,140 @@ MAIN:
   GETTABLEKS R18 R19 K27 ["getFFlagToolboxStoreRename"]
   CALL R17 1 1
   DUPCLOSURE R18 K28 [PROTO_1]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R9
   CAPTURE VAL R11
   CAPTURE VAL R14
   SETTABLEKS R18 R14 K29 ["new"]
   DUPCLOSURE R18 K30 [PROTO_5]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R14
   SETTABLEKS R18 R14 K31 ["createDummyLocalization"]
   DUPCLOSURE R18 K32 [PROTO_9]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R14
   SETTABLEKS R18 R14 K33 ["createTestCustomLocaleLocalization"]
   DUPCLOSURE R18 K34 [PROTO_12]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R14
   SETTABLEKS R18 R14 K35 ["createTestRealLocaleLocalization"]
   DUPCLOSURE R18 K36 [PROTO_13]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K37 ["subscribe"]
   DUPCLOSURE R18 K38 [PROTO_14]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K39 ["getLocalizedContent"]
   DUPCLOSURE R18 K40 [PROTO_15]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K41 ["getSalesMessage"]
   DUPCLOSURE R18 K42 [PROTO_16]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K43 ["getLocalizedVoteText"]
   DUPCLOSURE R18 K44 [PROTO_17]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K45 ["getLocalizedCategories"]
   DUPCLOSURE R18 K46 [PROTO_18]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K47 ["getLocalizedSorts"]
   DUPCLOSURE R18 K48 [PROTO_19]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K49 ["getLocalizedSuggestions"]
   DUPCLOSURE R18 K50 [PROTO_20]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K51 ["getLocalizedFooter"]
   DUPCLOSURE R18 K52 [PROTO_21]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K53 ["getLocalizedTooManyCollaborators"]
   DUPCLOSURE R18 K54 [PROTO_22]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K55 ["getLocalizedBuyPrompt"]
   DUPCLOSURE R18 K56 [PROTO_23]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K57 ["getLocalizedInsufficientFundsPrompt"]
   DUPCLOSURE R18 K58 [PROTO_24]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K59 ["getPurchaseFailedDetails"]
   DUPCLOSURE R18 K60 [PROTO_25]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K61 ["getPurchaseSuccessDetails"]
   DUPCLOSURE R18 K62 [PROTO_26]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K63 ["getScriptConfirmation"]
   DUPCLOSURE R18 K64 [PROTO_27]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K65 ["getMaxTags"]
   DUPCLOSURE R18 K66 [PROTO_28]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K67 ["getThumbnailStatus"]
   DUPCLOSURE R18 K68 [PROTO_29]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K69 ["getUploadWithFee"]
   DUPCLOSURE R18 K70 [PROTO_30]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K71 ["getGroupPermissionLockedTooltip"]
   DUPCLOSURE R18 K72 [PROTO_31]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K73 ["destroy"]
   DUPCLOSURE R18 K74 [PROTO_32]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K75 ["_getDefaultLocaleId"]
   DUPCLOSURE R18 K76 [PROTO_33]
-  CAPTURE VAL R6
   CAPTURE VAL R13
+  CAPTURE VAL R6
   SETTABLEKS R18 R14 K77 ["_getLocaleId"]
   DUPCLOSURE R18 K78 [PROTO_34]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K79 ["_getTranslator"]
   DUPCLOSURE R18 K80 [PROTO_35]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K81 ["_getFallbackTranslator"]
   DUPCLOSURE R18 K82 [PROTO_36]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K83 ["_getDefaultTranslator"]
   DUPCLOSURE R18 K84 [PROTO_37]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R11
   SETTABLEKS R18 R14 K85 ["_update"]
   DUPCLOSURE R18 K86 [PROTO_38]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R10
   SETTABLEKS R18 R14 K87 ["_safeLocalize"]
   DUPCLOSURE R18 K88 [PROTO_40]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   SETTABLEKS R18 R14 K89 ["_safeLocalizeInner"]
   DUPCLOSURE R18 K90 [PROTO_41]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R12
   CAPTURE VAL R3
@@ -2478,6 +2608,7 @@ MAIN:
   CAPTURE VAL R2
   SETTABLEKS R18 R14 K91 ["_recalculateContent"]
   DUPCLOSURE R18 K92 [PROTO_42]
+  CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R8
   SETTABLEKS R18 R14 K93 ["_localizeTable"]

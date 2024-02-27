@@ -21,6 +21,8 @@ local VALUE_CELL_WIDTH = Constants.LuauHeapFormatting.ValueCellWidth
 local CELL_PADDING = Constants.LuauHeapFormatting.CellPadding
 local VALUE_PADDING = Constants.LuauHeapFormatting.ValuePadding
 
+local FFlagLuauHeapExpandableEllipsis = game:DefineFastFlag("LuauHeapExpandableEllipsis", false)
+
 local LuauHeapViewEntry = Roact.PureComponent:extend("LuauHeapViewEntry")
 
 type BorderedCellLabelProps = {
@@ -50,6 +52,7 @@ end
 function LuauHeapViewEntry:init()
 	self.state = {
 		expanded = self.props.depth == 0,
+		expandedEllipsis = false,
 		showTooltip = false,
 		tooltipPos = UDim2.fromOffset(0, 0),
 	}
@@ -60,6 +63,12 @@ function LuauHeapViewEntry:init()
 				expanded = not oldState.expanded,
 			}
 		end)
+	end
+
+	self.onExpandEllipsis = function()
+		self:setState({
+			expandedEllipsis = true,
+		})
 	end
 
 	self.onMouseEnter = function(_, x, y)
@@ -91,7 +100,13 @@ function LuauHeapViewEntry:renderChildren(
 		return {}
 	end
 
-	local hasChildrenToShow = #childData or (compareData and #compareData)
+	local hasChildrenToShow
+
+	if FFlagLuauHeapExpandableEllipsis then
+		hasChildrenToShow = #childData ~= 0 or (compareData ~= nil and #compareData ~= 0)
+	else
+		hasChildrenToShow = (#childData or (compareData and #compareData)) :: any -- have to cast the old check, which kind of shows the issue
+	end
 
 	if not hasChildrenToShow then
 		return {}
@@ -107,37 +122,79 @@ function LuauHeapViewEntry:renderChildren(
 
 	local lastKey = 0
 
-	for key, data in ipairs(childData) do
-		local compare = nil
-
-		if compareData then
-			for ck, cv in ipairs(compareData) do
-				if data.Name == cv.Name then
-					compare = cv
-					break
+	if FFlagLuauHeapExpandableEllipsis then
+		local function getCompareInfo(data): LuauHeapTypes.HeapReportGraphEntry?
+			if compareData then
+				for ck, cv in ipairs(compareData) do
+					if data.Name == cv.Name then
+						return cv
+					end
 				end
 			end
+			return nil
 		end
 
-		-- Filter out small nodes (TODO: configuration button)
-		if data.TotalSize < 2 * 1024 then
-			totalSkipSize += data.TotalSize
+		local minChildrenToStartFiltering = 4
+		local childFilterSizeThreshold = 128
 
-			if compare then
-				totalSkipSizeCompare += compare.TotalSize
+		for key, data in ipairs(childData) do
+			local compare = getCompareInfo(data)
+
+			-- Filter out small nodes if there are more than a certain amount of them.
+			-- While this does mean that N small children will be displayed, but N+1 children of the same size are collapsed,
+			-- the list can be expanded by clicking on '...' so it's not a big issue in practice
+			if data.TotalSize <= childFilterSizeThreshold and #childData > minChildrenToStartFiltering and not self.state.expandedEllipsis then
+				totalSkipSize += data.TotalSize
+
+				if compare then
+					totalSkipSizeCompare += compare.TotalSize
+				end
+
+				continue
 			end
 
-			continue
+			lastKey += 1
+
+			children[lastKey] = Roact.createElement(LuauHeapViewEntry, {
+				layoutOrder = (totalSize - data.TotalSize), -- Sort by reverse size
+				depth = childDepth,
+				data = data,
+				compare = compare,
+			})
 		end
+	else
+		for key, data in ipairs(childData) do
+			local compare = nil
 
-		lastKey += 1
+			if compareData then
+				for ck, cv in ipairs(compareData) do
+					if data.Name == cv.Name then
+						compare = cv
+						break
+					end
+				end
+			end
 
-		children[lastKey] = Roact.createElement(LuauHeapViewEntry, {
-			layoutOrder = (totalSize - data.TotalSize), -- Sort by reverse size
-			depth = childDepth,
-			data = data,
-			compare = compare,
-		})
+			-- Filter out small nodes (TODO: configuration button)
+			if data.TotalSize < 2 * 1024 then
+				totalSkipSize += data.TotalSize
+
+				if compare then
+					totalSkipSizeCompare += compare.TotalSize
+				end
+
+				continue
+			end
+
+			lastKey += 1
+
+			children[lastKey] = Roact.createElement(LuauHeapViewEntry, {
+				layoutOrder = (totalSize - data.TotalSize), -- Sort by reverse size
+				depth = childDepth,
+				data = data,
+				compare = compare,
+			})
+		end
 	end
 
 	-- Add entry corresponding to skipped small size entries
@@ -161,6 +218,7 @@ function LuauHeapViewEntry:renderChildren(
 					Children = {},
 				}
 				else nil,
+			customButtonPress = if FFlagLuauHeapExpandableEllipsis then self.onExpandEllipsis else nil,
 		})
 	end
 
@@ -264,6 +322,14 @@ function LuauHeapViewEntry:render()
 
 	local nameWidth = UDim.new(1 - VALUE_CELL_WIDTH * #values, -(CELL_PADDING + offset))
 
+	local isExpandable
+	local onButtonPress
+
+	if FFlagLuauHeapExpandableEllipsis then
+		isExpandable = #data.Children ~= 0 or (compare ~= nil and #compare.Children ~= 0) or props.customButtonPress ~= nil
+		onButtonPress = if props.customButtonPress then props.customButtonPress else self.onButtonPress
+	end
+
 	return Roact.createElement("Frame", {
 		Size = size,
 		BackgroundTransparency = 1,
@@ -288,8 +354,8 @@ function LuauHeapViewEntry:render()
 			size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
 			inset = offset,
 			isExpanded = self.state.expanded,
-			isExpandable = #data.Children ~= 0 or (compare and #compare.Children ~= 0),
-			onButtonPress = self.onButtonPress,
+			isExpandable = if FFlagLuauHeapExpandableEllipsis then isExpandable else (#data.Children ~= 0 or (compare and #compare.Children ~= 0)),
+			onButtonPress = if FFlagLuauHeapExpandableEllipsis then onButtonPress else (self.onButtonPress),
 			onMouseEnter = self.onMouseEnter,
 			onMouseLeave = self.onMouseLeave,
 			onMouseMove = self.onMouseMove,

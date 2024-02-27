@@ -1,7 +1,7 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var178 = require(script.Parent.Parent.Parent.Packages.Framework).Util
-var178 = var178.Action
-return var178(script.Name, function(arg1)
+local var109 = require(script.Parent.Parent.Parent.Packages.Framework).Util
+var109 = var109.Action
+return var109(script.Name, function(arg1)
    if type(arg1) == "table" then
       local var0 = false
    end

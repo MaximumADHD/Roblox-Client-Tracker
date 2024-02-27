@@ -31,119 +31,107 @@ MAIN:
   GETTABLEKS R6 R0 K5 ["Core"]
   GETTABLEKS R5 R6 K6 ["Util"]
   GETTABLEKS R4 R5 K7 ["SharedFlags"]
-  GETTABLEKS R3 R4 K9 ["getFFlagToolboxTutorialLimits"]
+  GETTABLEKS R3 R4 K9 ["getFFlagToolboxContextualRecommendations"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R7 R0 K5 ["Core"]
-  GETTABLEKS R6 R7 K6 ["Util"]
-  GETTABLEKS R5 R6 K7 ["SharedFlags"]
-  GETTABLEKS R4 R5 K10 ["getFFlagToolboxContextualRecommendations"]
-  CALL R3 1 1
-  GETTABLEKS R4 R0 K11 ["Packages"]
+  GETTABLEKS R3 R0 K10 ["Packages"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R3 K11 ["Rodux"]
+  CALL R4 1 1
   GETIMPORT R5 K4 [require]
-  GETTABLEKS R6 R4 K12 ["Rodux"]
-  CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R9 R0 K5 ["Core"]
-  GETTABLEKS R8 R9 K6 ["Util"]
-  GETTABLEKS R7 R8 K13 ["DebugFlags"]
-  CALL R6 1 1
   GETTABLEKS R8 R0 K5 ["Core"]
-  GETTABLEKS R7 R8 K14 ["Reducers"]
+  GETTABLEKS R7 R8 K6 ["Util"]
+  GETTABLEKS R6 R7 K12 ["DebugFlags"]
+  CALL R5 1 1
+  GETTABLEKS R7 R0 K5 ["Core"]
+  GETTABLEKS R6 R7 K13 ["Reducers"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R6 K14 ["Assets"]
+  CALL R7 1 1
   GETIMPORT R8 K4 [require]
-  GETTABLEKS R9 R7 K15 ["Assets"]
+  GETTABLEKS R9 R6 K15 ["ContextualAssetsReducer"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
-  GETTABLEKS R10 R7 K16 ["ContextualAssetsReducer"]
+  GETTABLEKS R10 R6 K16 ["Groups"]
   CALL R9 1 1
   GETIMPORT R10 K4 [require]
-  GETTABLEKS R11 R7 K17 ["Groups"]
+  GETTABLEKS R11 R6 K17 ["Autocomplete"]
   CALL R10 1 1
   GETIMPORT R11 K4 [require]
-  GETTABLEKS R12 R7 K18 ["Autocomplete"]
+  GETTABLEKS R12 R6 K18 ["NetworkErrors"]
   CALL R11 1 1
   GETIMPORT R12 K4 [require]
-  GETTABLEKS R13 R7 K19 ["NetworkErrors"]
+  GETTABLEKS R13 R6 K19 ["PageInfo"]
   CALL R12 1 1
   GETIMPORT R13 K4 [require]
-  GETTABLEKS R14 R7 K20 ["PageInfo"]
+  GETTABLEKS R14 R6 K20 ["ReducerLogger"]
   CALL R13 1 1
   GETIMPORT R14 K4 [require]
-  GETTABLEKS R15 R7 K21 ["ReducerLogger"]
+  GETTABLEKS R15 R6 K21 ["Sound"]
   CALL R14 1 1
   GETIMPORT R15 K4 [require]
-  GETTABLEKS R16 R7 K22 ["Sound"]
+  GETTABLEKS R16 R6 K22 ["VotingReducer"]
   CALL R15 1 1
   GETIMPORT R16 K4 [require]
-  GETTABLEKS R17 R7 K23 ["VotingReducer"]
+  GETTABLEKS R17 R6 K23 ["TutorialLimitsReducer"]
   CALL R16 1 1
   GETIMPORT R17 K4 [require]
-  GETTABLEKS R18 R7 K24 ["TutorialLimitsReducer"]
+  GETTABLEKS R18 R6 K24 ["LiveSearch"]
   CALL R17 1 1
   GETIMPORT R18 K4 [require]
-  GETTABLEKS R19 R7 K25 ["LiveSearch"]
+  GETTABLEKS R19 R6 K25 ["Favorite"]
   CALL R18 1 1
   GETIMPORT R19 K4 [require]
-  GETTABLEKS R20 R7 K26 ["Favorite"]
+  GETTABLEKS R20 R6 K26 ["RolesReducer"]
   CALL R19 1 1
   GETIMPORT R20 K4 [require]
-  GETTABLEKS R21 R7 K27 ["RolesReducer"]
+  GETTABLEKS R21 R6 K27 ["ItemTagsReducer"]
   CALL R20 1 1
   GETIMPORT R21 K4 [require]
-  GETTABLEKS R22 R7 K28 ["ItemTagsReducer"]
+  GETTABLEKS R22 R6 K28 ["Purchase"]
   CALL R21 1 1
   GETIMPORT R22 K4 [require]
-  GETTABLEKS R23 R7 K29 ["Purchase"]
+  GETTABLEKS R23 R6 K10 ["Packages"]
   CALL R22 1 1
   GETIMPORT R23 K4 [require]
-  GETTABLEKS R24 R7 K11 ["Packages"]
+  GETTABLEKS R24 R6 K29 ["TryInStudio"]
   CALL R23 1 1
   GETIMPORT R24 K4 [require]
-  GETTABLEKS R25 R7 K30 ["TryInStudio"]
+  GETTABLEKS R25 R6 K30 ["HomeConfiguration"]
   CALL R24 1 1
-  GETIMPORT R25 K4 [require]
-  GETTABLEKS R26 R7 K31 ["HomeConfiguration"]
+  GETTABLEKS R25 R4 K31 ["combineReducers"]
+  DUPTABLE R26 K49 [{"assets", "autocompleteResults", "contextualAssets", "groups", "homeConfiguration", "networkErrors", "pageInfo", "sound", "voting", "liveSearch", "favorite", "roles", "itemTags", "purchase", "packages", "tryInStudio", "tutorialLimits"}]
+  SETTABLEKS R7 R26 K32 ["assets"]
+  SETTABLEKS R10 R26 K33 ["autocompleteResults"]
+  MOVE R28 R2
+  CALL R28 0 1
+  JUMPIFNOT R28 [+2]
+  MOVE R27 R8
+  JUMP [+1]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K34 ["contextualAssets"]
+  MOVE R28 R1
+  CALL R28 0 1
+  JUMPIFNOT R28 [+2]
+  MOVE R27 R9
+  JUMP [+1]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K35 ["groups"]
+  SETTABLEKS R24 R26 K36 ["homeConfiguration"]
+  SETTABLEKS R11 R26 K37 ["networkErrors"]
+  SETTABLEKS R12 R26 K38 ["pageInfo"]
+  SETTABLEKS R14 R26 K39 ["sound"]
+  SETTABLEKS R15 R26 K40 ["voting"]
+  SETTABLEKS R17 R26 K41 ["liveSearch"]
+  SETTABLEKS R18 R26 K42 ["favorite"]
+  SETTABLEKS R19 R26 K43 ["roles"]
+  SETTABLEKS R20 R26 K44 ["itemTags"]
+  SETTABLEKS R21 R26 K45 ["purchase"]
+  SETTABLEKS R22 R26 K46 ["packages"]
+  SETTABLEKS R23 R26 K47 ["tryInStudio"]
+  SETTABLEKS R16 R26 K48 ["tutorialLimits"]
   CALL R25 1 1
-  GETTABLEKS R26 R5 K32 ["combineReducers"]
-  DUPTABLE R27 K50 [{"assets", "autocompleteResults", "contextualAssets", "groups", "homeConfiguration", "networkErrors", "pageInfo", "sound", "voting", "liveSearch", "favorite", "roles", "itemTags", "purchase", "packages", "tryInStudio", "tutorialLimits"}]
-  SETTABLEKS R8 R27 K33 ["assets"]
-  SETTABLEKS R11 R27 K34 ["autocompleteResults"]
-  MOVE R29 R3
-  CALL R29 0 1
-  JUMPIFNOT R29 [+2]
-  MOVE R28 R9
-  JUMP [+1]
-  LOADNIL R28
-  SETTABLEKS R28 R27 K35 ["contextualAssets"]
-  MOVE R29 R1
-  CALL R29 0 1
-  JUMPIFNOT R29 [+2]
-  MOVE R28 R10
-  JUMP [+1]
-  LOADNIL R28
-  SETTABLEKS R28 R27 K36 ["groups"]
-  SETTABLEKS R25 R27 K37 ["homeConfiguration"]
-  SETTABLEKS R12 R27 K38 ["networkErrors"]
-  SETTABLEKS R13 R27 K39 ["pageInfo"]
-  SETTABLEKS R15 R27 K40 ["sound"]
-  SETTABLEKS R16 R27 K41 ["voting"]
-  SETTABLEKS R18 R27 K42 ["liveSearch"]
-  SETTABLEKS R19 R27 K43 ["favorite"]
-  SETTABLEKS R20 R27 K44 ["roles"]
-  SETTABLEKS R21 R27 K45 ["itemTags"]
-  SETTABLEKS R22 R27 K46 ["purchase"]
-  SETTABLEKS R23 R27 K47 ["packages"]
-  SETTABLEKS R24 R27 K48 ["tryInStudio"]
-  MOVE R29 R2
-  CALL R29 0 1
-  JUMPIFNOT R29 [+2]
-  MOVE R28 R17
-  JUMP [+1]
-  LOADNIL R28
-  SETTABLEKS R28 R27 K49 ["tutorialLimits"]
-  CALL R26 1 1
-  DUPCLOSURE R27 K51 [PROTO_0]
-  CAPTURE VAL R6
-  CAPTURE VAL R14
-  CAPTURE VAL R26
-  RETURN R27 1
+  DUPCLOSURE R26 K50 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  CAPTURE VAL R25
+  RETURN R26 1

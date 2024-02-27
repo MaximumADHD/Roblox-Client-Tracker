@@ -21,6 +21,8 @@ local GetCollectibleItemInInspectAndBuyEnabled =
 	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 local GetFFlagIBGateUGC4ACollectibleAssetsBundles =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBGateUGC4ACollectibleAssetsBundles)
+local GetFFlagIBEnableCollectiblesSystemSupport =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -42,6 +44,8 @@ end
 
 local function getBuyText(itemInfo, locale, collectibleQuantityLimitReached, collectibleLowestResalePrice)
 	local buyText
+	local isLimited: boolean = itemInfo.isLimited
+		or (GetFFlagIBEnableCollectiblesSystemSupport() and itemInfo.isLimitedUnique)
 
 	if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and collectibleLowestResalePrice then
 		buyText = RobloxTranslator:FormatByKeyForLocale(
@@ -64,9 +68,9 @@ local function getBuyText(itemInfo, locale, collectibleQuantityLimitReached, col
 		buyText = itemInfo.price
 	elseif itemInfo.owned then
 		buyText = RobloxTranslator:FormatByKeyForLocale(OWNED_KEY, locale)
-	elseif itemInfo.isLimited then
+	elseif isLimited then
 		buyText = RobloxTranslator:FormatByKeyForLocale(LIMITED_KEY, locale)
-	elseif not itemInfo.isForSale and not itemInfo.isLimited then
+	elseif not itemInfo.isForSale and not isLimited then
 		buyText = RobloxTranslator:FormatByKeyForLocale(OFFSALE_KEY, locale)
 	elseif itemInfo.isForSale then
 		if itemInfo.premiumPricing ~= nil then
@@ -128,7 +132,9 @@ function DetailsButtons:render()
 	local locale = self.props.locale
 	local assetInfo = self.props.assetInfo
 	local bundleInfo = self.props.bundleInfo
-	local isLimited = assetInfo.isLimited or false
+	local isLimited = assetInfo.isLimited
+		or (GetFFlagIBEnableCollectiblesSystemSupport() and assetInfo.isLimitedUnique)
+		or false
 	local showRobuxIcon = false
 	local showTryOn = false
 	local creatorId = assetInfo and assetInfo.creatorId or 0
@@ -158,10 +164,11 @@ function DetailsButtons:render()
 		else
 			itemType = Constants.ItemType.Asset
 			itemId = assetInfo.assetId
-			if
-				GetCollectibleItemInInspectAndBuyEnabled()
-				and assetInfo.productType == Constants.ProductType.CollectibleItem
-			then
+			local isLimitedCollectible = if GetFFlagIBEnableCollectiblesSystemSupport()
+				then UtilityFunctions.isLimitedCollectible(assetInfo)
+				else (assetInfo.productType == Constants.ProductType.CollectibleItem)
+
+			if GetCollectibleItemInInspectAndBuyEnabled() and isLimitedCollectible then
 				-- isForSale bit for Collectible Items is already computed in GetProductInfo() where sale location
 				-- and remaining stock are already taken into account.
 				forSale = assetInfo.isForSale

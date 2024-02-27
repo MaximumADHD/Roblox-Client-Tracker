@@ -19,25 +19,25 @@ return function(arg1)
    if not var1 then
       var2 = var5:use():getText("PromptToolbar", "GenerateButton")
    end
-   local var180 = var1
-   var180 = arg1
-   local var183 = "isDisabled"
-   local var184 = "isGenerating"
-   local var185 = "onClick"
-   local var186 = "onGenerate"
-   local var191 = var1
-   var191 = var180.omit(var180, {})
-   local var193 = {}
-   var193.OnClick = arg1.onClick
-   local var196 = {}
-   local var200 = {}
-   var200.AnchorPoint = Vector2.new(1, 0.5)
-   var200.Position = UDim2.fromScale(1, 0.5)
-   var200.Size = var6:use("PromptToolbar").GenerateButtonSize
-   var200.Text = var2
-   var200.isDisabled = var0
-   var200.isLoading = var1
-   var200.onClick = arg1.onGenerate
-   var196.GenerateButton = var3.createElement(var8, var200)
-   return var3.createElement(var7, var191.join(var191, var193), var196)
+   local var127 = var1
+   var127 = arg1
+   local var130 = "isDisabled"
+   local var131 = "isGenerating"
+   local var132 = "onClick"
+   local var133 = "onGenerate"
+   local var138 = var1
+   var138 = var127.omit(var127, {})
+   local var140 = {}
+   var140.OnClick = arg1.onClick
+   local var143 = {}
+   local var147 = {}
+   var147.AnchorPoint = Vector2.new(1, 0.5)
+   var147.Position = UDim2.fromScale(1, 0.5)
+   var147.Size = var6:use("PromptToolbar").GenerateButtonSize
+   var147.Text = var2
+   var147.isDisabled = var0
+   var147.isLoading = var1
+   var147.onClick = arg1.onGenerate
+   var143.GenerateButton = var3.createElement(var8, var147)
+   return var3.createElement(var7, var138.join(var138, var140), var143)
 end

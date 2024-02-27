@@ -47,6 +47,9 @@ return function()
 					rootNodeName = nil,
 					showPlugins = true,
 					pluginOffsets = { Total = 0, },
+					pluginGCOffsets = { Total = 0, },
+					gcNodeOffsets = {},
+					showGC = false,
 				}),
 			}),
 		})

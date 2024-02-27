@@ -35,6 +35,8 @@ return function()
 					nodeName = "TestFunc",
 					average = 1,
 					percentageRatio = nil,
+					gcOffset = 0,
+					showGC = false,
 				}),
 			}),
 		})

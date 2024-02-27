@@ -34,8 +34,9 @@ local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.Share
 local MenuBackButton = require(RobloxGui.Modules.Settings.Components.MenuBackButton)
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
+local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local ScreenshotsPolicy  = require(CorePackages.Workspace.Packages.Screenshots).ScreenshotsPolicy
-
+local InExperienceCapabilities = require(RobloxGui.Modules.Common.InExperienceCapabilities)
 
 local Theme = require(script.Parent.Theme)
 
@@ -88,6 +89,7 @@ local GetFFlagFix10ftMenuGap = require(RobloxGui.Modules.Settings.Flags.GetFFlag
 local GetFFlagFixSettingsHubVRBackgroundError =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixSettingsHubVRBackgroundError)
 local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetFFlagRightAlignMicText)
 local GetFFlagFixResumeSourceAnalytics =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixResumeSourceAnalytics)
+local GetFFlagShouldInitWithFirstPageWithTabHeader =  require(RobloxGui.Modules.Settings.Flags.GetFFlagShouldInitWithFirstPageWithTabHeader)
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 
 --[[ SERVICES ]]
@@ -1535,7 +1537,7 @@ local function CreateSettingsHub()
 				Visible = false,
 				Position = UDim2.new(0,60,0,0),
 				TextSize = 12,
-				Font = Enum.Font.GothamMedium,
+				Font = AppFonts.default:getMedium(),
 				Size = UDim2.fromScale(1, 1),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
@@ -1744,6 +1746,7 @@ local function CreateSettingsHub()
 			if FFlagPreventHiddenSwitchPage and this:GetVisibility() == false then
 				return
 			end
+
 			this:AddToMenuStack(this.Pages.CurrentPage)
 			this.HubBar.Visible = false
 			removeBottomBarBindings()
@@ -1771,16 +1774,18 @@ local function CreateSettingsHub()
 
 		local leaveGameText = "Leave"
 
-		if Theme.UseIconButtons then
-			addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, buttonX,
-				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
-			)
-		else
-			addBottomBarButtonOld("LeaveGame", leaveGameText, buttonX,
-				"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
-				leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}, leaveGameFunc
-			)
+		if InExperienceCapabilities.canNavigateHome then
+			if Theme.UseIconButtons then
+				addBottomBarIconButton("LeaveGame", "icons/actions/leave", leaveGameText, buttonX,
+					"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
+					leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}
+				)
+			else
+				addBottomBarButtonOld("LeaveGame", leaveGameText, buttonX,
+					"rbxasset://textures/ui/Settings/Help/LeaveIcon.png", UDim2.new(0.5,isTenFootInterface and -160 or -130,0.5,-25),
+					leaveGameFunc, {Enum.KeyCode.L, Enum.KeyCode.ButtonX}, leaveGameFunc
+				)
+			end
 		end
 
 
@@ -2535,6 +2540,25 @@ local function CreateSettingsHub()
 		end
 	end
 
+	function this:GetFirstPageWithTabHeader()
+		-- find page with tab position one.
+		local firstPageWithTabHeader = nil
+		for page, _ in pairs(this.Pages.PageTable) do
+			local header = page:GetTabHeader()
+			if header ~= nil and page.TabPosition == 1 then
+				firstPageWithTabHeader = page
+				break
+			end
+		end
+
+		if firstPageWithTabHeader == nil then
+			error("No page with tab header found")
+			return nil
+		end
+
+		return firstPageWithTabHeader
+	end
+
 	function this:InitInPage(pageToSwitchTo)
 		-- make sure all pages are in right position
 		local newPagePos = pageToSwitchTo.TabPosition
@@ -2917,7 +2941,11 @@ local function CreateSettingsHub()
 				removeBottomBarBindings()
 				this:SwitchToPage(customStartPage, nil, 1, true)
 			else
-				this:SwitchToPage(this.PlayersPage, nil, 1, true)
+				if GetFFlagShouldInitWithFirstPageWithTabHeader() then
+					this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1, true)
+				else
+					this:SwitchToPage(this.PlayersPage, nil, 1, true)
+				end
 			end
 
 			playerList:HideTemp('SettingsMenu', true)
@@ -3269,7 +3297,10 @@ local function CreateSettingsHub()
 	end
 
 	this.ResetCharacterPage:SetHub(this)
-	this.LeaveGamePage:SetHub(this)
+
+	if InExperienceCapabilities.canNavigateHome then
+		this.LeaveGamePage:SetHub(this)
+	end
 
 	-- full page initialization
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
@@ -3300,15 +3331,17 @@ local function CreateSettingsHub()
 		this.RecordPage:SetHub(this)
 	end
 
-	this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
-	this.PlayersPage:SetHub(this)
+	if InExperienceCapabilities.canListPeopleInSameServer then
+		this.PlayersPage = require(RobloxGui.Modules.Settings.Pages.Players)
+		this.PlayersPage:SetHub(this)
+	end
 
 	if isSubjectToDesktopPolicies() then
 		this.ExitModalPage = require(RobloxGui.Modules.Settings.Pages.ExitModal)
 		this.ExitModalPage:SetHub(this)
 	end
 
-	if isSubjectToDesktopPolicies() then
+	if isSubjectToDesktopPolicies() and InExperienceCapabilities.canNavigateHome then
 		this.LeaveGameToHomePage = require(RobloxGui.Modules.Settings.Pages.LeaveGameToHome)
 		this.LeaveGameToHomePage:SetHub(this)
 	end
@@ -3323,10 +3356,14 @@ local function CreateSettingsHub()
 			-- Create the embedded Roact app for the ShareGame page
 			-- This is accomplished via a Roact Portal into the ShareGame page frame
 			local CorePackages = game:GetService("CorePackages")
-			local EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+			local GetFFlagRemoveAppTempCommonTemp = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+			local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
+			local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 			local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
 
-			local eventStream = EventStream.new()
+			local eventStream = if GetFFlagRemoveAppTempCommonTemp()
+				then EventStream.new(AnalyticsService)
+				else DEPRECATED_EventStream.new()
 			local inviteToGameAnalytics = InviteToGameAnalytics.new()
 				:withEventStream(eventStream)
 				:withDiag(Diag.new(AnalyticsService))
@@ -3360,9 +3397,16 @@ local function CreateSettingsHub()
 	end
 
 	-- page registration
-	this:AddPage(this.PlayersPage)
+	if this.PlayersPage then
+		this:AddPage(this.PlayersPage)
+	end
+
 	this:AddPage(this.ResetCharacterPage)
-	this:AddPage(this.LeaveGamePage)
+
+	if this.LeaveGamePage then
+		this:AddPage(this.LeaveGamePage)
+	end
+
 	this:AddPage(this.GameSettingsPage)
 
 	if this.ShotsPage then
@@ -3391,7 +3435,11 @@ local function CreateSettingsHub()
 		this:AddPage(this.LeaveGameToHomePage)
 	end
 
-	this:InitInPage(this.PlayersPage)
+	if GetFFlagShouldInitWithFirstPageWithTabHeader() then
+		this:InitInPage(this:GetFirstPageWithTabHeader())
+	else
+		this:InitInPage(this.PlayersPage)
+	end
 
 	-- hook up to necessary signals
 
@@ -3399,7 +3447,11 @@ local function CreateSettingsHub()
 	GuiService.ShowLeaveConfirmation:connect(function()
 		if #this.MenuStack == 0 then
 			this:SetVisibility(true, nil, nil, nil, Constants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
-			this:SwitchToPage(this.PlayerPage, nil, 1)
+			if GetFFlagShouldInitWithFirstPageWithTabHeader() then
+				this:SwitchToPage(this:GetFirstPageWithTabHeader(), nil, 1)
+			else
+				this:SwitchToPage(this.PlayersPage, nil, 1)
+			end
 		else
 			this:PopMenu(false, true)
 		end

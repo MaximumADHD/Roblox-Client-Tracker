@@ -23,7 +23,12 @@ local InviteEvents = require(CorePackages.Workspace.Packages.GameInvite).GameInv
 local InviteStatus = ShareGameConstants.InviteStatus
 local RobloxTranslator = require(ShareGame.getTranslator)()
 
-local httpRequest = require(CorePackages.AppTempCommon.Temp.httpRequest)
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local httpRequest: any = if GetFFlagRemoveAppTempCommonTemp()
+	then require(Modules.Common.httpRequest)
+	else require(CorePackages.AppTempCommon.Temp.httpRequest)
+
 local InviteUserIdToPlaceId = require(ShareGame.Thunks.InviteUserIdToPlaceId)
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 local InviteUserIdToPlaceIdCustomized = require(ShareGame.Thunks.InviteUserIdToPlaceIdCustomized)

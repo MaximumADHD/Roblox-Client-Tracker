@@ -51,7 +51,7 @@ local OnboardingTooltip = function(props)
 	local localized = useLocalization({
 		onboardHeader = "CoreScripts.FTUX.Onboard.Header",
 		onboardBody = "CoreScripts.FTUX.Onboard.Body",
-		michHeader = "CoreScripts.FTUX.Mic.Header",
+		micHeader = "CoreScripts.FTUX.Mic.Header",
 		micBody = "CoreScripts.FTUX.Mic.Body",
 		selfViewHeader = "CoreScripts.FTUX.SelfView.Header",
 		selfViewBody = "CoreScripts.FTUX.SelfView.Body",
@@ -59,6 +59,7 @@ local OnboardingTooltip = function(props)
 		toolsBody = "CoreScripts.FTUX.Tools.Body",
 		completeLabel = "Feature.SettingsHub.Prompt.GotIt",
 		next = "CoreScripts.VRFTUX.Action.Next",
+		showMe = "CoreScripts.FTUX.Onboard.ShowMe",
 	})
 
 	local onboardingSteps = React.useMemo(function()
@@ -88,7 +89,7 @@ local OnboardingTooltip = function(props)
 				end,
 				headerText = localized.onboardHeader,
 				bodyText = localized.onboardBody,
-				buttonText = localized.next,
+				buttonText = localized.showMe,
 			},
 
 			{
@@ -384,12 +385,14 @@ local OnboardingTooltip = function(props)
 			setCurrentStep(nextStepIndex)
 			timestamp.current = os.time()
 
-			OnboardingAnalytics.displayEvent({
-				id = step.id,
-				deliver_timestamp = timestamp.current,
-				step = nextStepIndex,
-				maxSteps = #onboardingSteps,
-			})
+			if step then
+				OnboardingAnalytics.displayEvent({
+					id = step.id,
+					deliver_timestamp = timestamp.current,
+					step = nextStepIndex,
+					maxSteps = #onboardingSteps,
+				})
+			end
 		end)(setCurrentStep)
 	end, { target, currentStep, setCurrentStep, ChromeService, onboardingSteps, LocalStore })
 

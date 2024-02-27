@@ -11,6 +11,8 @@ local Promise = require(LuaApp.Promise)
 local Result = require(LuaApp.Result)
 
 local TableUtilities = require(LuaApp.TableUtilities)
+local tutils = require(CorePackages.tutils)
+local GetFFlagLuaAppReplaceTableUtilities = TableUtilities.GetFFlagLuaAppReplaceTableUtilities
 
 local THUMBNAIL_PAGE_COUNT = 20
 local THUMBNAIL_SIZE = 150
@@ -65,7 +67,8 @@ local function fetchSubdividedThumbnailsArray(networkImpl, store, thumbnailToken
 		local remainingUnfinalizedThumbnails = unfinalizedThumbnails
 
 		for retryCount = 1, RETRY_MAX_COUNT do
-			if TableUtilities.FieldCount(remainingUnfinalizedThumbnails) == 0 then
+			local remainingUnfinalizedThumbnailsCount = if GetFFlagLuaAppReplaceTableUtilities() then tutils.fieldCount(remainingUnfinalizedThumbnails) else TableUtilities.FieldCount(remainingUnfinalizedThumbnails)
+			if remainingUnfinalizedThumbnailsCount == 0 then
 				return -- Bail out, we're done!
 			end
 

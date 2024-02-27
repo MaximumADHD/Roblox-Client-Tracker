@@ -14,7 +14,12 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-local httpRequest = require(AppTempCommon.Temp.httpRequest)
+
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
+	then require(Modules.Common.httpRequest)
+	else require(AppTempCommon.Temp.httpRequest)
 
 local ShareGamePageFrame = require(ShareGame.Components.ShareGamePageFrame)
 local Constants = require(ShareGame.Constants)

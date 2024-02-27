@@ -1,0 +1,50 @@
+PROTO_0:
+  GETIMPORT R4 K2 [string.format]
+  LOADK R5 K3 ["toolbox-service/v1/inventory/user/%d/%d"]
+  MOVE R6 R1
+  GETTABLEKS R7 R2 K4 ["Value"]
+  CALL R4 3 1
+  JUMPIFNOT R3 [+4]
+  DUPTABLE R5 K6 [{"cursor"}]
+  SETTABLEKS R3 R5 K5 ["cursor"]
+  JUMP [+1]
+  LOADNIL R5
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["composeUrl"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["APIS_URL"]
+  MOVE R8 R4
+  MOVE R9 R5
+  CALL R6 3 1
+  MOVE R13 R6
+  NAMECALL R11 R0 K9 ["get"]
+  CALL R11 2 1
+  LOADN R12 5
+  NAMECALL R9 R0 K10 ["handleRetry"]
+  CALL R9 3 -1
+  NAMECALL R7 R0 K11 ["parseJson"]
+  CALL R7 -1 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R4 R1 K7 ["RobloxAPI"]
+  GETTABLEKS R3 R4 K8 ["Url"]
+  GETTABLEKS R2 R3 K9 ["new"]
+  CALL R2 0 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Types"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K12 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R4 1

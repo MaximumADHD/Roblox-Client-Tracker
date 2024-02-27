@@ -28,7 +28,13 @@ local withStyle = UIBlox.Style.withStyle
 
 local AppTempCommon = CorePackages:WaitForChild("AppTempCommon")
 local CoreScriptTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
-local httpRequest = require(AppTempCommon.Temp.httpRequest)
+
+local GetFFlagRemoveAppTempCommonTemp =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
+local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
+	then require(Modules.Common.httpRequest)
+	else require(AppTempCommon.Temp.httpRequest)
+
 local networking = httpRequest(HttpRbxApiService)
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)

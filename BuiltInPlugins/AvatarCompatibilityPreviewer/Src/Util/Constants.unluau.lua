@@ -15,7 +15,7 @@ local var0 = {
    "RightUpperArm", 
    "RightLowerArm"
 }
-local var183 = "RightHand"
+local var185 = "RightHand"
 local var2 = {}
 var2.SOURCE_BUILTIN = "builtin"
 var2.SOURCE_INSTANCE = "instance"
@@ -46,17 +46,17 @@ Enum.AssetType.SweaterAccessory = Enum.AccessoryType.Sweater
 Enum.AssetType.TShirtAccessory = Enum.AccessoryType.TShirt
 Enum.AssetType.WaistAccessory = Enum.AccessoryType.Waist
 var2.ASSET_TYPE_TO_ACCESSORY_TYPE = {}
-local var247 = "LeftCheekPuff"
-local var248 = "LeftCheekRaiser"
-local var249 = "LeftDimpler"
-local var263 = "MouthLeft"
-local var264 = "MouthRight"
-local var265 = "Pucker"
+local var249 = "LeftCheekPuff"
+local var250 = "LeftCheekRaiser"
+local var251 = "LeftDimpler"
+local var265 = "MouthLeft"
+local var266 = "MouthRight"
+local var267 = "Pucker"
 local var9 = "RightUpperLipRaiser"
 local var10 = "TongueDown"
 local var11 = "TongueOut"
-local var282 = "TongueUp"
-local var283 = "UpperLipSuck"
+local var284 = "TongueUp"
+local var285 = "UpperLipSuck"
 var2.FACE_CONTROLS_PROPERTIES = { 
    "ChinRaiser", 
    "ChinRaiserUpperLip", 
@@ -99,16 +99,23 @@ var2.FACE_CONTROLS_PROPERTIES = {
    "RightOuterBrowRaiser"
 }
 var2.LIMBS = var0
-local var284 = require(script:FindFirstAncestor("AvatarCompatibilityPreviewer").Packages.Cryo).List
-var284 = var0
-local var287 = "Handle"
-local var288 = "HumanoidRootPart"
-var2.ALL_ALLOWED_PART_NAMES = var284.join(var284, {})
-local var290 = {}
-var290.BodyPoints = "AvatarPreviewerEditingBodyPoints"
-var290.EditingToolbar = "AvatarPreviewerEditingToolbar"
-var290.BodyPointsToolToolbar = "AvatarPreviewerBodyPointsToolToolbar"
-var2.EDITING_TOOLS_GUI_NAMES = var290
+local var286 = require(script:FindFirstAncestor("AvatarCompatibilityPreviewer").Packages.Cryo).List
+var286 = var0
+local var289 = "Handle"
+local var290 = "HumanoidRootPart"
+var2.ALL_ALLOWED_PART_NAMES = var286.join(var286, {})
+local var292 = {}
+var292.BodyPoints = "AvatarPreviewerEditingBodyPoints"
+var292.EditingToolbar = "AvatarPreviewerEditingToolbar"
+var292.BodyPointsToolToolbar = "AvatarPreviewerBodyPointsToolToolbar"
+var2.EDITING_TOOLS_GUI_NAMES = var292
 var2.MULTI_SELECT_PHONY_TARGET = "MultiSelectPhony"
 var2.DEFAULT_CAMERA_ANGLE = CFrame.lookAt(Vector3.new(-5.2, 1, -9.2), Vector3.new(0.5, -1.2, 0.85))
+local var15 = {}
+var15.Face = 1
+var15.Shoes = 2
+var15.Bottoms = 3
+var15.Tops = 4
+var15.Outerwear = 5
+var2.PREFERRED_LAYERS = var15
 return var2
