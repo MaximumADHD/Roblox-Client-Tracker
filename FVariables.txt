@@ -4899,7 +4899,6 @@
 [C++] FFlagEnableSocialPresence
 [C++] FFlagEnableSocialServiceIrisInviteV3
 [Lua] FFlagEnableSoundSessionTelemetry5
-[Lua] FFlagEnableSoundTelemetry3
 [C++] FFlagEnableSTFSMTeardown
 [C++] FFlagEnableStudioNotifications3
 [C++] FFlagEnableStudioPlacePublishTelemetry
@@ -7445,7 +7444,6 @@
 [C++] FIntSmoothVoxelsBetaFeatureRoleSet
 [C++] FIntSmoothVoxelsBetaFeatureRolloutPercent
 [Lua] FIntSoundSessionTelemetryThrottle
-[Lua] FIntSoundTelemetryThrottlingPercentage
 [C++] FIntSpeedCountCap
 [C++] FIntSpeedTestPeriodMillis
 [C++] FIntSSAOMipLevels
