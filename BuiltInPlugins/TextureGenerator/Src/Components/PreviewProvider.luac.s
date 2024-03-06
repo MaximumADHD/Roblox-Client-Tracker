@@ -1,0 +1,109 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  NEWTABLE R2 0 0
+  CALL R1 1 2
+  GETUPVAL R3 1
+  MOVE R4 R2
+  CALL R3 1 1
+  GETUPVAL R4 2
+  MOVE R5 R2
+  CALL R4 1 1
+  GETUPVAL R5 3
+  MOVE R6 R2
+  CALL R5 1 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["useState"]
+  NEWTABLE R7 0 0
+  CALL R6 1 2
+  GETUPVAL R8 4
+  MOVE R9 R7
+  CALL R8 1 1
+  GETUPVAL R9 5
+  CALL R9 0 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K0 ["useState"]
+  LOADN R11 0
+  CALL R10 1 2
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K0 ["useState"]
+  LOADN R13 0
+  CALL R12 1 2
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K1 ["createElement"]
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K2 ["Provider"]
+  DUPTABLE R16 K4 [{"value"}]
+  DUPTABLE R17 K19 [{"previews", "addOrUpdatePreview", "updatePreview", "removePreview", "addError", "popError", "getTopError", "removeErrorById", "modelToPreview", "addOrUpdateModelToPreview", "quota", "setQuota", "total", "setTotal"}]
+  SETTABLEKS R1 R17 K5 ["previews"]
+  SETTABLEKS R3 R17 K6 ["addOrUpdatePreview"]
+  SETTABLEKS R4 R17 K7 ["updatePreview"]
+  SETTABLEKS R5 R17 K8 ["removePreview"]
+  GETTABLEKS R18 R9 K9 ["addError"]
+  SETTABLEKS R18 R17 K9 ["addError"]
+  GETTABLEKS R18 R9 K10 ["popError"]
+  SETTABLEKS R18 R17 K10 ["popError"]
+  GETTABLEKS R18 R9 K11 ["getTopError"]
+  SETTABLEKS R18 R17 K11 ["getTopError"]
+  GETTABLEKS R18 R9 K12 ["removeErrorById"]
+  SETTABLEKS R18 R17 K12 ["removeErrorById"]
+  SETTABLEKS R6 R17 K13 ["modelToPreview"]
+  SETTABLEKS R8 R17 K14 ["addOrUpdateModelToPreview"]
+  SETTABLEKS R10 R17 K15 ["quota"]
+  SETTABLEKS R11 R17 K16 ["setQuota"]
+  SETTABLEKS R12 R17 K17 ["total"]
+  SETTABLEKS R13 R17 K18 ["setTotal"]
+  SETTABLEKS R17 R16 K3 ["value"]
+  GETTABLEKS R17 R0 K20 ["children"]
+  CALL R14 3 -1
+  RETURN R14 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TextureGenerator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["PreviewsContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Hooks"]
+  GETTABLEKS R4 R5 K12 ["useAddOrUpdateModelToPreview"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Hooks"]
+  GETTABLEKS R5 R6 K13 ["useAddOrUpdatePreview"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Hooks"]
+  GETTABLEKS R6 R7 K14 ["useErrorStates"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K11 ["Hooks"]
+  GETTABLEKS R7 R8 K15 ["useRemovePreview"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K11 ["Hooks"]
+  GETTABLEKS R8 R9 K16 ["useUpdatePreview"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K17 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  RETURN R8 1

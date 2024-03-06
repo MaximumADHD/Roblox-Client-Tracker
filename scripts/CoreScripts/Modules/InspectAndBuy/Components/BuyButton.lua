@@ -11,6 +11,7 @@ local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
+local GetFFlagIBEnableLimitedItemBugFixAndAlignment = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
 
 local TEXT_SIZE = 16
 local MIN_SIZE = 32
@@ -103,7 +104,7 @@ function BuyButton:render()
 		BuyText = Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
 			Size = size,
-			Text = buyText,
+			Text = if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then tostring(buyText) else buyText,
 			Font = AppFonts.default:getDefault(),
 			TextSize = TEXT_SIZE,
 			TextColor3 = Colors.White,
@@ -131,7 +132,7 @@ end
 function BuyButton:getBuyButtonTextSize(buyText)
 	if self.props.buyButtonRef.current then
 		local buyButtonTextSize = TextService:GetTextSize(
-			buyText,
+			if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then tostring(buyText) else buyText,
 			TEXT_SIZE,
 			AppFonts.default:getDefault(),
 			Vector2.new(self.props.buyButtonRef.current.AbsoluteSize.X, 5000)

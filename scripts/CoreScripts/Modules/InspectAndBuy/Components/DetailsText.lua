@@ -22,7 +22,8 @@ local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBu
 local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
-
+local GetFFlagIBEnableLimitedItemBugFixAndAlignment =
+require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
 local PremiumIcon = UIBloxImages["icons/status/premium"]
 local BY_KEY = "InGame.InspectMenu.Label.By"
 local TEXT_SIZE_SMALL = 12
@@ -78,14 +79,15 @@ function DetailsText:render()
 	local layeredClothingOnR6 = Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
 		and self.props.localPlayerModel
 		and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
-	local isLimited = assetInfo.isLimited or (GetFFlagIBEnableCollectiblesSystemSupport() and assetInfo.isLimitedUnique)
+	local isLimited1Point0 = assetInfo.isLimited or (GetFFlagIBEnableCollectiblesSystemSupport() and assetInfo.isLimitedUnique)
+	isLimited1Point0 = if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then UtilityFunctions.isLimited1Point0(assetInfo) else isLimited1Point0
 
 	local noticeKey = nil
 	if multipleBundles then
 		noticeKey = Constants.NotificationKeys.MultipleBundleNoticeKey
 	elseif partOfBundle then
 		noticeKey = Constants.NotificationKeys.SingleBundleNoticeKey
-	elseif isLimited then
+	elseif isLimited1Point0 then
 		noticeKey = Constants.NotificationKeys.LimitedItemNoticeKey
 	elseif layeredClothingOnR6 then
 		noticeKey = Constants.NotificationKeys.LayeredClothingOnR6Key

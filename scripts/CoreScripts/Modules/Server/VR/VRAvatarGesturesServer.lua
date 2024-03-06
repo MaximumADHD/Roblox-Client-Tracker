@@ -1,0 +1,228 @@
+--!nonstrict
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local Players = game:GetService("Players")
+local VRService = game:GetService("VRService")
+local AvatarUtil = require(RobloxGui.Modules.Common.AvatarUtil)
+local ConnectionUtil = require(RobloxGui.Modules.Common.ConnectionUtil)
+
+-- flag to enable immersion mode for all player including non VR for testing purposes
+local FFlagDebugImmersionModeNonVR = game:DefineFastFlag("DebugImmersionModeNonVR", false)
+
+local VRAvatarGesturesServer = {}
+VRAvatarGesturesServer.__index = VRAvatarGesturesServer
+
+function VRAvatarGesturesServer.new()
+	local self: any = setmetatable({}, VRAvatarGesturesServer)
+
+	self.connections = ConnectionUtil.new()
+
+	-- track changes to the API
+	self.connections:connect(VRService:GetPropertyChangedSignal("AvatarGestures"), function() self:onAvatarGesturesChanged() end)
+	if VRService.AvatarGestures then self:onAvatarGesturesChanged() end
+
+	return self
+end
+
+function VRAvatarGesturesServer:onAvatarGesturesChanged()
+	if VRService.AvatarGestures then
+		-- if we're not connected to the avatar utility, connect to track avatar changes
+		if not self.avatarUtil then
+			self.avatarUtil = AvatarUtil.new()
+
+			local function onPlayerAdded(player)
+				self.avatarUtil:connectPlayerCharacterChanges(player, function(character)
+					self:onCharacterChanged(character)
+				end)
+			end
+
+			self.connections:connect(Players.PlayerAdded, onPlayerAdded)
+			for i, player in pairs(Players:GetPlayers()) do
+				onPlayerAdded(player)
+			end
+		else
+			-- already connected to avatarUtil, manually trigger change callback to reenable IK on existing characters
+			for _, player in pairs(Players:GetPlayers()) do
+				if player.Character then
+					self:onCharacterChanged(player.Character)
+				end
+			end
+		end
+	else
+		-- delete IK and parts
+		for _, player in pairs(Players:GetPlayers()) do
+			if player.Character then
+				local humanoid = player.Character:FindFirstChild("Humanoid")
+				if humanoid then
+					local ikControlNames = { "VRIKLeftHand", "VRIKRightHand", "VRIKHead" }
+					for _, ikName in pairs(ikControlNames) do
+						local ikControl = humanoid:FindFirstChild(ikName)
+
+						if ikControl then
+							ikControl:Destroy()
+						end
+					end
+				end
+
+				local partNames = { "VRGesturesLeftHand", "VRGesturesRightHand", "VRGesturesHead" }
+				for _, partName in pairs(partNames) do
+					local part = player.Character:FindFirstChild(partName)
+
+					if part then
+						part:Destroy()
+					end
+				end
+			end
+		end
+	end
+end
+
+function VRAvatarGesturesServer:findOrCreateColliders(partName, character)
+	local player = Players:GetPlayerFromCharacter(character)
+	-- Create collider part
+	local colliderName = "VRGestures" .. partName
+	local vrCollider = character:FindFirstChild(colliderName)
+	if not vrCollider then
+		vrCollider = Instance.new("Part")
+		vrCollider.Name = colliderName
+		vrCollider.Transparency = 1
+		vrCollider.CanCollide = false
+		vrCollider.Parent = character
+		vrCollider:SetNetworkOwner(player)
+	end
+
+	-- Add collider attachment
+	local colliderAttachment = vrCollider:FindFirstChild(colliderName .. "Attachment")
+	if not colliderAttachment then
+		colliderAttachment = Instance.new("Attachment")
+		colliderAttachment.Name = colliderName .. "Attachment"
+
+		colliderAttachment.Parent = vrCollider
+	end
+
+	local alignPosition = vrCollider:FindFirstChild(colliderName .. "AlignPosition")
+	if not alignPosition then
+		alignPosition = Instance.new("AlignPosition")
+		alignPosition.Name = colliderName .. "AlignPosition"
+		alignPosition.Mode = Enum.PositionAlignmentMode.OneAttachment
+		alignPosition.Attachment0 = colliderAttachment
+		alignPosition.RigidityEnabled = true
+		alignPosition.Parent = vrCollider
+	end
+
+	local alignOrientation = vrCollider:FindFirstChild(colliderName .. "AlignOrientation")
+	if not alignOrientation then
+		alignOrientation = Instance.new("AlignOrientation")
+		alignOrientation.Name = colliderName .. "AlignOrientation"
+		alignOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+		alignOrientation.Attachment0 = colliderAttachment
+		alignOrientation.RigidityEnabled = true
+		alignOrientation.Parent = vrCollider
+	end
+
+	-- Size and place collider based on the character
+	local part = character:FindFirstChild(partName)
+	if part then
+		vrCollider.Size = part.Size
+		vrCollider.CFrame = part.CFrame
+		alignPosition.Position = part.Position
+		alignOrientation.CFrame = part.CFrame
+	else
+		vrCollider.Size = Vector3.new(1, 1, 1)
+		vrCollider.CFrame = character.WorldPivot
+		alignPosition.Position = character.WorldPivot.Position
+		alignOrientation.CFrame = character.WorldPivot
+	end
+	
+	-- IK control so that the hands follow the collider
+	local humanoid = character:FindFirstChild("Humanoid")
+	if humanoid then
+		local ikControlName = "VRIK" .. partName
+		local ikControl = humanoid:FindFirstChild(ikControlName)
+
+		if not ikControl then
+			ikControl = Instance.new("IKControl")
+			ikControl.Name = ikControlName
+		end
+
+		ikControl.SmoothTime = 0.1
+		ikControl.Parent = humanoid
+		ikControl.Target = vrCollider
+	end
+end
+
+
+function VRAvatarGesturesServer:createHandCollider(side, character)
+	self:findOrCreateColliders(side .. "Hand", character)
+    local part = character:FindFirstChild(side .. "Hand")
+	
+	-- IK control
+	local humanoid = character:FindFirstChild("Humanoid")
+	if humanoid then
+		local ikControlName = "VRIK" .. side .. "Hand"
+		local ikControl = humanoid:FindFirstChild(ikControlName)
+		
+		if ikControl then
+			ikControl.Type = Enum.IKControlType.Transform
+
+			local ikRoot = character:FindFirstChild(side .. "UpperArm")
+			if ikRoot then
+				-- IKControl needs a reset if the character's proportions may have changed
+				ikControl.ChainRoot = part
+				coroutine.wrap(function()
+					task.wait(0.1)
+					ikControl.ChainRoot = ikRoot
+				end)()
+			end
+
+			if part then
+				ikControl.EndEffector = part
+			end
+			ikControl.Priority = 1
+		end
+	end
+
+	if part then
+		local constraint = part:FindFirstChild("RagdollBallSocket")
+		if constraint then
+			constraint.LimitsEnabled = false
+		end
+	end
+end
+
+function VRAvatarGesturesServer:createHeadCollider(character)
+	self:findOrCreateColliders("Head", character)
+    local part = character:FindFirstChild("Head")
+	
+	-- IK control
+	local humanoid = character:FindFirstChild("Humanoid")
+	if humanoid then
+		local ikControlName = "VRIKHead"
+		local ikControl = humanoid:FindFirstChild(ikControlName)
+
+		if ikControl then
+			ikControl.Type = Enum.IKControlType.Rotation
+
+			local ikRoot = character:FindFirstChild("UpperTorso")
+			if ikRoot then
+				ikControl.ChainRoot = ikRoot
+			end
+
+			if part then
+				ikControl.EndEffector = part
+			end
+		end
+	end
+end
+
+-- Makes all of the parts necessary for displaying avatar gestures
+function VRAvatarGesturesServer:onCharacterChanged(character)
+	-- create instances if they don't exist yet
+	local player = Players:GetPlayerFromCharacter(character)
+	if (player.VREnabled or FFlagDebugImmersionModeNonVR) and VRService.AvatarGestures then
+		self:createHandCollider("Left", character)
+		self:createHandCollider("Right", character)
+		self:createHeadCollider(character)
+	end
+end
+
+return VRAvatarGesturesServer

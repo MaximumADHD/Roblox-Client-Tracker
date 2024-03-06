@@ -1192,22 +1192,14 @@ PROTO_15:
   LOADNIL R83
   SETTABLEKS R83 R82 K143 ["Sharing"]
   MOVE R83 R47
-  JUMPIFNOT R83 [+72]
+  JUMPIFNOT R83 [+63]
   GETUPVAL R84 10
   GETTABLEKS R83 R84 K89 ["createElement"]
   GETUPVAL R84 34
   DUPTABLE R85 K281 [{"AssetType", "Title", "CopyEnabled", "CopyOn", "CopyWarning", "PackageOn", "isPackageAsset", "ToggleCallback", "LayoutOrder", "IsAssetPublic", "IsAudio", "IsVideo", "canChangeSalesStatus", "currentAssetStatus", "onStatusChange"}]
   SETTABLEKS R19 R85 K24 ["AssetType"]
-  GETUPVAL R87 35
-  CALL R87 0 1
-  JUMPIFNOT R87 [+6]
   LOADK R88 K222 ["General"]
   LOADK R89 K26 [Enum.AssetType.Audio]
-  NAMECALL R86 R69 K81 ["getText"]
-  CALL R86 3 1
-  JUMP [+5]
-  LOADK R88 K222 ["General"]
-  LOADK R89 K27 ["Video"]
   NAMECALL R86 R69 K81 ["getText"]
   CALL R86 3 1
   SETTABLEKS R86 R85 K131 ["Title"]
@@ -1247,41 +1239,126 @@ PROTO_15:
   SETTABLEKS R58 R85 K68 ["onStatusChange"]
   CALL R83 2 1
   SETTABLEKS R83 R82 K144 ["Copy"]
-  JUMPIFNOT R74 [+102]
-  JUMPIFNOT R75 [+101]
+  JUMPIFNOT R74 [+225]
+  JUMPIFNOT R75 [+224]
+  GETUPVAL R84 35
+  CALL R84 0 1
+  JUMPIFNOT R84 [+120]
+  GETUPVAL R84 10
+  GETTABLEKS R83 R84 K89 ["createElement"]
+  GETUPVAL R84 17
+  DUPTABLE R85 K283 [{"AutomaticSize", "LayoutOrder", "Padding"}]
+  GETIMPORT R86 K285 [Enum.AutomaticSize.Y]
+  SETTABLEKS R86 R85 K199 ["AutomaticSize"]
+  NAMECALL R86 R70 K180 ["getNextOrder"]
+  CALL R86 1 1
+  SETTABLEKS R86 R85 K3 ["LayoutOrder"]
+  DUPTABLE R86 K185 [{"Bottom"}]
+  LOADN R87 20
+  SETTABLEKS R87 R86 K184 ["Bottom"]
+  SETTABLEKS R86 R85 K127 ["Padding"]
+  DUPTABLE R86 K287 [{"PriceRedirectTitledFrame"}]
+  GETUPVAL R88 10
+  GETTABLEKS R87 R88 K89 ["createElement"]
+  GETUPVAL R88 26
+  DUPTABLE R89 K289 [{"Title", "TitleWidth"}]
+  LOADK R92 K222 ["General"]
+  LOADK R93 K34 ["typeof"]
+  NAMECALL R90 R69 K81 ["getText"]
+  CALL R90 3 1
+  SETTABLEKS R90 R89 K131 ["Title"]
+  GETUPVAL R92 2
+  GETTABLEKS R91 R92 K292 ["TITLE_GUTTER_WIDTH"]
+  LOADN R92 10
+  SUB R90 R91 R92
+  SETTABLEKS R90 R89 K288 ["TitleWidth"]
+  DUPTABLE R90 K294 [{"LinkOrMessage"}]
+  GETTABLEKS R93 R2 K272 ["assetId"]
+  FASTCALL1 TYPEOF R93 [+2]
+  GETIMPORT R92 K35 [typeof]
+  CALL R92 1 1
+  JUMPIFNOTEQKS R92 K295 ["number"] [+23]
+  GETUPVAL R92 10
+  GETTABLEKS R91 R92 K89 ["createElement"]
+  GETUPVAL R92 36
+  DUPTABLE R93 K297 [{"AutomaticSize", "OnClick", "Text"}]
+  GETIMPORT R94 K207 [Enum.AutomaticSize.XY]
+  SETTABLEKS R94 R93 K199 ["AutomaticSize"]
+  GETTABLEKS R94 R0 K298 ["onClickConfigurePriceUrl"]
+  SETTABLEKS R94 R93 K296 ["OnClick"]
+  LOADK R96 K82 ["AssetConfig"]
+  LOADK R97 K43 ["onCategoryChange"]
+  NAMECALL R94 R69 K81 ["getText"]
+  CALL R94 3 1
+  SETTABLEKS R94 R93 K107 ["Text"]
+  CALL R91 2 1
+  JUMP [+42]
+  GETUPVAL R92 10
+  GETTABLEKS R91 R92 K89 ["createElement"]
+  GETUPVAL R92 37
+  DUPTABLE R93 K301 [{"AutomaticSize", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment"}]
+  GETIMPORT R94 K285 [Enum.AutomaticSize.Y]
+  SETTABLEKS R94 R93 K199 ["AutomaticSize"]
+  GETIMPORT R94 K182 [UDim2.new]
+  LOADN R95 1
+  LOADN R96 0
+  LOADN R97 0
+  LOADN R98 0
+  CALL R94 4 1
+  SETTABLEKS R94 R93 K2 ["Size"]
+  LOADK R96 K82 ["AssetConfig"]
+  LOADK R97 K46 ["toggleCopy"]
+  NAMECALL R94 R69 K81 ["getText"]
+  CALL R94 3 1
+  SETTABLEKS R94 R93 K107 ["Text"]
+  GETTABLEKS R94 R71 K303 ["distributionQuotaTextColor"]
+  SETTABLEKS R94 R93 K300 ["TextColor"]
+  GETUPVAL R95 18
+  GETTABLEKS R94 R95 K304 ["FONT_SIZE_LARGE"]
+  SETTABLEKS R94 R93 K204 ["TextSize"]
+  LOADB R94 1
+  SETTABLEKS R94 R93 K90 ["TextWrapped"]
+  GETIMPORT R94 K211 [Enum.TextXAlignment.Left]
+  SETTABLEKS R94 R93 K202 ["TextXAlignment"]
+  CALL R91 2 1
+  SETTABLEKS R91 R90 K293 ["LinkOrMessage"]
+  CALL R87 3 1
+  SETTABLEKS R87 R86 K286 ["PriceRedirectTitledFrame"]
+  CALL R83 3 1
+  JUMP [+102]
   GETUPVAL R84 10
   GETTABLEKS R83 R84 K89 ["createElement"]
   GETUPVAL R84 26
-  DUPTABLE R85 K285 [{"LayoutOrder", "Title", "TitleWidth"}]
+  DUPTABLE R85 K305 [{"LayoutOrder", "Title", "TitleWidth"}]
   NAMECALL R86 R70 K180 ["getNextOrder"]
   CALL R86 1 1
   SETTABLEKS R86 R85 K3 ["LayoutOrder"]
   LOADK R88 K222 ["General"]
-  LOADK R89 K30 [Enum.AssetType.Model]
+  LOADK R89 K34 ["typeof"]
   NAMECALL R86 R69 K81 ["getText"]
   CALL R86 3 1
   SETTABLEKS R86 R85 K131 ["Title"]
   GETUPVAL R88 2
-  GETTABLEKS R87 R88 K288 ["TITLE_GUTTER_WIDTH"]
+  GETTABLEKS R87 R88 K292 ["TITLE_GUTTER_WIDTH"]
   LOADN R88 10
   SUB R86 R87 R88
-  SETTABLEKS R86 R85 K284 ["TitleWidth"]
-  DUPTABLE R86 K290 [{"LinkOrMessage"}]
+  SETTABLEKS R86 R85 K288 ["TitleWidth"]
+  DUPTABLE R86 K294 [{"LinkOrMessage"}]
   GETTABLEKS R89 R2 K272 ["assetId"]
   FASTCALL1 TYPEOF R89 [+2]
   GETIMPORT R88 K35 [typeof]
   CALL R88 1 1
-  JUMPIFNOTEQKS R88 K291 ["number"] [+23]
+  JUMPIFNOTEQKS R88 K295 ["number"] [+23]
   GETUPVAL R88 10
   GETTABLEKS R87 R88 K89 ["createElement"]
   GETUPVAL R88 36
-  DUPTABLE R89 K293 [{"AutomaticSize", "OnClick", "Text"}]
+  DUPTABLE R89 K297 [{"AutomaticSize", "OnClick", "Text"}]
   GETIMPORT R90 K207 [Enum.AutomaticSize.XY]
   SETTABLEKS R90 R89 K199 ["AutomaticSize"]
-  GETTABLEKS R90 R0 K294 ["onClickConfigurePriceUrl"]
-  SETTABLEKS R90 R89 K292 ["OnClick"]
+  GETTABLEKS R90 R0 K298 ["onClickConfigurePriceUrl"]
+  SETTABLEKS R90 R89 K296 ["OnClick"]
   LOADK R92 K82 ["AssetConfig"]
-  LOADK R93 K39 ["onNameChange"]
+  LOADK R93 K43 ["onCategoryChange"]
   NAMECALL R90 R69 K81 ["getText"]
   CALL R90 3 1
   SETTABLEKS R90 R89 K107 ["Text"]
@@ -1290,8 +1367,8 @@ PROTO_15:
   GETUPVAL R88 10
   GETTABLEKS R87 R88 K89 ["createElement"]
   GETUPVAL R88 37
-  DUPTABLE R89 K297 [{"AutomaticSize", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment"}]
-  GETIMPORT R90 K299 [Enum.AutomaticSize.Y]
+  DUPTABLE R89 K301 [{"AutomaticSize", "Size", "Text", "TextColor", "TextSize", "TextWrapped", "TextXAlignment"}]
+  GETIMPORT R90 K285 [Enum.AutomaticSize.Y]
   SETTABLEKS R90 R89 K199 ["AutomaticSize"]
   GETIMPORT R90 K182 [UDim2.new]
   LOADN R91 1
@@ -1301,21 +1378,21 @@ PROTO_15:
   CALL R90 4 1
   SETTABLEKS R90 R89 K2 ["Size"]
   LOADK R92 K82 ["AssetConfig"]
-  LOADK R93 K44 ["onGenreSelected"]
+  LOADK R93 K46 ["toggleCopy"]
   NAMECALL R90 R69 K81 ["getText"]
   CALL R90 3 1
   SETTABLEKS R90 R89 K107 ["Text"]
-  GETTABLEKS R90 R71 K301 ["distributionQuotaTextColor"]
-  SETTABLEKS R90 R89 K296 ["TextColor"]
+  GETTABLEKS R90 R71 K303 ["distributionQuotaTextColor"]
+  SETTABLEKS R90 R89 K300 ["TextColor"]
   GETUPVAL R91 18
-  GETTABLEKS R90 R91 K302 ["FONT_SIZE_LARGE"]
+  GETTABLEKS R90 R91 K304 ["FONT_SIZE_LARGE"]
   SETTABLEKS R90 R89 K204 ["TextSize"]
   LOADB R90 1
   SETTABLEKS R90 R89 K90 ["TextWrapped"]
   GETIMPORT R90 K211 [Enum.TextXAlignment.Left]
   SETTABLEKS R90 R89 K202 ["TextXAlignment"]
   CALL R87 2 1
-  SETTABLEKS R87 R86 K289 ["LinkOrMessage"]
+  SETTABLEKS R87 R86 K293 ["LinkOrMessage"]
   CALL R83 3 1
   JUMP [+1]
   LOADNIL R83
@@ -1325,17 +1402,17 @@ PROTO_15:
   GETUPVAL R84 10
   GETTABLEKS R83 R84 K89 ["createElement"]
   GETUPVAL R84 38
-  DUPTABLE R85 K312 [{"AssetTypeEnum", "AllowedAssetTypesForRelease", "AllowedAssetTypesForFree", "NewAssetStatus", "Price", "MinPrice", "MaxPrice", "FeeRate", "IsPriceValid", "OnPriceChange", "LayoutOrder"}]
+  DUPTABLE R85 K315 [{"AssetTypeEnum", "AllowedAssetTypesForRelease", "AllowedAssetTypesForFree", "NewAssetStatus", "Price", "MinPrice", "MaxPrice", "FeeRate", "IsPriceValid", "OnPriceChange", "LayoutOrder"}]
   SETTABLEKS R19 R85 K243 ["AssetTypeEnum"]
-  SETTABLEKS R54 R85 K303 ["AllowedAssetTypesForRelease"]
-  SETTABLEKS R55 R85 K304 ["AllowedAssetTypesForFree"]
-  SETTABLEKS R56 R85 K305 ["NewAssetStatus"]
-  SETTABLEKS R59 R85 K306 ["Price"]
-  SETTABLEKS R60 R85 K307 ["MinPrice"]
-  SETTABLEKS R61 R85 K308 ["MaxPrice"]
-  SETTABLEKS R62 R85 K309 ["FeeRate"]
-  SETTABLEKS R63 R85 K310 ["IsPriceValid"]
-  SETTABLEKS R64 R85 K311 ["OnPriceChange"]
+  SETTABLEKS R54 R85 K306 ["AllowedAssetTypesForRelease"]
+  SETTABLEKS R55 R85 K307 ["AllowedAssetTypesForFree"]
+  SETTABLEKS R56 R85 K308 ["NewAssetStatus"]
+  SETTABLEKS R59 R85 K309 ["Price"]
+  SETTABLEKS R60 R85 K310 ["MinPrice"]
+  SETTABLEKS R61 R85 K311 ["MaxPrice"]
+  SETTABLEKS R62 R85 K312 ["FeeRate"]
+  SETTABLEKS R63 R85 K313 ["IsPriceValid"]
+  SETTABLEKS R64 R85 K314 ["OnPriceChange"]
   NAMECALL R86 R70 K180 ["getNextOrder"]
   CALL R86 1 1
   SETTABLEKS R86 R85 K3 ["LayoutOrder"]
@@ -1347,22 +1424,22 @@ PROTO_15:
   GETUPVAL R84 10
   GETTABLEKS R83 R84 K89 ["createElement"]
   GETUPVAL R84 39
-  DUPTABLE R85 K317 [{"BasePrices", "InitialBaseMoney", "LayoutOrder", "OnPriceSelected", "Selectable", "TotalHeight"}]
+  DUPTABLE R85 K320 [{"BasePrices", "InitialBaseMoney", "LayoutOrder", "OnPriceSelected", "Selectable", "TotalHeight"}]
   GETUPVAL R87 40
-  GETTABLEKS R86 R87 K318 ["basePrices"]
-  SETTABLEKS R86 R85 K313 ["BasePrices"]
+  GETTABLEKS R86 R87 K321 ["basePrices"]
+  SETTABLEKS R86 R85 K316 ["BasePrices"]
   GETUPVAL R89 40
-  GETTABLEKS R88 R89 K318 ["basePrices"]
+  GETTABLEKS R88 R89 K321 ["basePrices"]
   GETTABLEN R87 R88 1
-  GETTABLEKS R86 R87 K319 ["BasePriceMoney"]
-  SETTABLEKS R86 R85 K314 ["InitialBaseMoney"]
+  GETTABLEKS R86 R87 K322 ["BasePriceMoney"]
+  SETTABLEKS R86 R85 K317 ["InitialBaseMoney"]
   NAMECALL R86 R70 K180 ["getNextOrder"]
   CALL R86 1 1
   SETTABLEKS R86 R85 K3 ["LayoutOrder"]
-  DUPCLOSURE R86 K320 [PROTO_14]
-  SETTABLEKS R86 R85 K315 ["OnPriceSelected"]
+  DUPCLOSURE R86 K323 [PROTO_14]
+  SETTABLEKS R86 R85 K318 ["OnPriceSelected"]
   LOADB R86 1
-  SETTABLEKS R86 R85 K316 ["Selectable"]
+  SETTABLEKS R86 R85 K319 ["Selectable"]
   LOADN R86 70
   SETTABLEKS R86 R85 K216 ["TotalHeight"]
   CALL R83 2 1
@@ -1375,7 +1452,7 @@ PROTO_15:
   GETUPVAL R84 10
   GETTABLEKS R83 R84 K89 ["createElement"]
   GETUPVAL R84 41
-  DUPTABLE R85 K323 [{"Title", "TotalHeight", "PackageEnabled", "PackageOn", "PackageWarningText", "ToggleCallback", "LayoutOrder"}]
+  DUPTABLE R85 K326 [{"Title", "TotalHeight", "PackageEnabled", "PackageOn", "PackageWarningText", "ToggleCallback", "LayoutOrder"}]
   LOADK R88 K222 ["General"]
   LOADK R89 K148 ["Package"]
   NAMECALL R86 R69 K81 ["getText"]
@@ -1383,9 +1460,9 @@ PROTO_15:
   SETTABLEKS R86 R85 K131 ["Title"]
   LOADN R86 80
   SETTABLEKS R86 R85 K216 ["TotalHeight"]
-  SETTABLEKS R16 R85 K321 ["PackageEnabled"]
+  SETTABLEKS R16 R85 K324 ["PackageEnabled"]
   SETTABLEKS R17 R85 K276 ["PackageOn"]
-  SETTABLEKS R18 R85 K322 ["PackageWarningText"]
+  SETTABLEKS R18 R85 K325 ["PackageWarningText"]
   SETTABLEKS R38 R85 K277 ["ToggleCallback"]
   NAMECALL R86 R70 K180 ["getNextOrder"]
   CALL R86 1 1
@@ -1399,16 +1476,16 @@ PROTO_15:
   GETUPVAL R84 10
   GETTABLEKS R83 R84 K89 ["createElement"]
   GETUPVAL R84 42
-  DUPTABLE R85 K326 [{"Title", "TotalHeight", "CommentEnabled", "CommentOn", "ToggleCallback", "LayoutOrder"}]
+  DUPTABLE R85 K329 [{"Title", "TotalHeight", "CommentEnabled", "CommentOn", "ToggleCallback", "LayoutOrder"}]
   LOADK R88 K222 ["General"]
-  LOADK R89 K71 ["maxPrice"]
+  LOADK R89 K74 ["onPriceChange"]
   NAMECALL R86 R69 K81 ["getText"]
   CALL R86 3 1
   SETTABLEKS R86 R85 K131 ["Title"]
   LOADN R86 80
   SETTABLEKS R86 R85 K216 ["TotalHeight"]
-  SETTABLEKS R13 R85 K324 ["CommentEnabled"]
-  SETTABLEKS R14 R85 K325 ["CommentOn"]
+  SETTABLEKS R13 R85 K327 ["CommentEnabled"]
+  SETTABLEKS R14 R85 K328 ["CommentOn"]
   SETTABLEKS R37 R85 K277 ["ToggleCallback"]
   NAMECALL R86 R70 K180 ["getNextOrder"]
   CALL R86 1 1
@@ -1421,7 +1498,7 @@ PROTO_15:
   GETUPVAL R84 10
   GETTABLEKS R83 R84 K89 ["createElement"]
   GETUPVAL R84 43
-  DUPTABLE R85 K328 [{"Title", "TotalHeight", "DeleteLocal", "ToggleCallback", "LayoutOrder"}]
+  DUPTABLE R85 K331 [{"Title", "TotalHeight", "DeleteLocal", "ToggleCallback", "LayoutOrder"}]
   LOADK R88 K222 ["General"]
   LOADK R89 K150 ["DeleteLocal"]
   NAMECALL R86 R69 K81 ["getText"]
@@ -1533,13 +1610,13 @@ MAIN:
   GETTABLEKS R16 R1 K7 ["Core"]
   GETTABLEKS R15 R16 K8 ["Util"]
   GETTABLEKS R14 R15 K15 ["SharedFlags"]
-  GETTABLEKS R13 R14 K22 ["getFFlagToolboxStoreRename"]
+  GETTABLEKS R13 R14 K22 ["getFFlagToolboxEnableFiatFully"]
   CALL R12 1 1
   GETIMPORT R13 K11 [require]
   GETTABLEKS R17 R1 K7 ["Core"]
   GETTABLEKS R16 R17 K8 ["Util"]
   GETTABLEKS R15 R16 K15 ["SharedFlags"]
-  GETTABLEKS R14 R15 K23 ["getFFlagToolboxEnableFiatFully"]
+  GETTABLEKS R14 R15 K23 ["getFFlagToolboxAddPaddingToPriceRedirect"]
   CALL R13 1 1
   GETIMPORT R14 K11 [require]
   GETTABLEKS R15 R3 K24 ["Roact"]
@@ -1714,7 +1791,7 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R31
   CAPTURE VAL R14
-  CAPTURE VAL R13
+  CAPTURE VAL R12
   CAPTURE VAL R22
   CAPTURE VAL R28
   CAPTURE VAL R30
@@ -1738,7 +1815,7 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R49
   CAPTURE VAL R45
-  CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R23
   CAPTURE VAL R20
   CAPTURE VAL R53

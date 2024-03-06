@@ -10,10 +10,7 @@ return function(arg1, arg2)
             local var0 = false
          end
          assert(true)
-         if game:GetFastFlag("TagEditorImprovements2") then
-            return var0(arg2.text)
-         end
-         return arg2.text:lower()
+         return var0(arg2.text)
          return arg1
          if arg2.type == "ToggleIconPicker" then
             if not arg2.tag then

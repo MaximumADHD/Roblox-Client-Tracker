@@ -8,10 +8,10 @@ return function(arg1, arg2)
       local var0 = false
    end
    assert(true, "A function must be provided to create an Action")
-   local var16 = {}
-   var16.name = arg1
-   local var17 = {}
-   function var17.__call(arg1, ...)
+   local var97 = {}
+   var97.name = arg1
+   local var98 = {}
+   function var98.__call(arg1, ...)
       local var0 = arg2(...)
       if type(var0) == "table" then
          local var0 = false
@@ -21,5 +21,5 @@ return function(arg1, arg2)
       return var0
    end
    
-   return setmetatable(var16, var17)
+   return setmetatable(var97, var98)
 end

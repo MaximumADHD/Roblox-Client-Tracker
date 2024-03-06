@@ -869,8 +869,8 @@ MAIN:
   NAMECALL R8 R8 K18 ["HasInternalPermission"]
   CALL R8 1 1
   GETIMPORT R9 K8 [game]
-  LOADK R11 K19 ["SelectionCollisionGroup"]
-  NAMECALL R9 R9 K20 ["GetFastFlag"]
+  LOADK R11 K19 ["PluginsUseStudioSelectable"]
+  NAMECALL R9 R9 K20 ["GetEngineFeature"]
   CALL R9 2 1
   LOADNIL R10
   LOADNIL R11

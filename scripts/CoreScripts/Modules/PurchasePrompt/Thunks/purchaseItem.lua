@@ -66,7 +66,7 @@ local function purchaseItem()
 
 		local isPlayerPremium = state.accountInfo.membershipType == 4
 		local salePrice = getPlayerPrice(state.productInfo, isPlayerPremium)
-		if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and requestCollectibleItemInstanceId and requestCollectibleItemInstanceId ~= '' then
+		if requestCollectibleItemInstanceId and requestCollectibleItemInstanceId ~= '' then
 			salePrice = expectedPrice
 		end
 		local assetTypeId = state.productInfo.assetTypeId
@@ -78,7 +78,7 @@ local function purchaseItem()
 
 		analytics.signalProductPurchaseConfirmed(productId, state.requestType)
 
-		if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and requestCollectibleItemInstanceId and requestCollectibleItemInstanceId ~= '' then
+		if requestCollectibleItemInstanceId and requestCollectibleItemInstanceId ~= '' then
 			return performPurchaseV2(network, infoType, productId, salePrice, requestId, isRobloxPurchase, requestCollectibleItemId, requestCollectibleProductId, idempotencyKey, purchaseAuthToken, requestCollectibleItemInstanceId)
 			:andThen(function(result)
 				--[[
@@ -94,7 +94,7 @@ local function purchaseItem()
 			:catch(function(errorReason)
 				if errorReason == PurchaseError.TwoFactorNeeded then
 					analytics.signalTwoSVSettingsErrorShown(productId, infoType)
-			
+
 					if platform == Enum.Platform.Windows or platform == Enum.Platform.OSX then
 						errorReason = PurchaseError.TwoFactorNeededSettings
 					end
@@ -130,7 +130,7 @@ local function purchaseItem()
 				:catch(function(errorReason)
 					if errorReason == PurchaseError.TwoFactorNeeded then
 						analytics.signalTwoSVSettingsErrorShown(productId, infoType)
-				
+
 						if platform == Enum.Platform.Windows or platform == Enum.Platform.OSX then
 							errorReason = PurchaseError.TwoFactorNeededSettings
 						end

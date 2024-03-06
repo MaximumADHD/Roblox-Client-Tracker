@@ -3,13 +3,6 @@ local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local ApiFetchUsersPresences = require(CorePackages.Workspace.Packages.UserLib).Thunks.ApiFetchUsersPresences
---[[
-	FIXME(dbanks)
-	2023/12/14
-	Remove with FFlagStopReadingThumbsOutOfStore
-]]
-local DEPRECATED_StoreUsersThumbnail =
-	require(CorePackages.Workspace.Packages.UserLib).Thunks.DEPRECATED_StoreUsersThumbnail
 local UsersGetFriends = Requests.UsersGetFriends
 
 local FetchUserFriendsStarted = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsStarted
@@ -17,7 +10,6 @@ local FetchUserFriendsFailed = require(CorePackages.Workspace.Packages.LegacyFri
 local FetchUserFriendsCompleted = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsCompleted
 local UserModel = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 local UpdateUsers = require(CorePackages.Workspace.Packages.UserLib).Thunks.UpdateUsers
-local FFlagStopReadingThumbsOutOfStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagStopReadingThumbsOutOfStore
 
 return function(requestImpl, userId, thumbnailRequest, userSort): any
 	return function(store)
@@ -43,10 +35,6 @@ return function(requestImpl, userId, thumbnailRequest, userSort): any
 				return fetchedUserIds
 			end)
 			:andThen(function(userIds)
-				if not FFlagStopReadingThumbsOutOfStore then
-					-- Asynchronously fetch friend thumbnails so we don't block display of UI
-					store:dispatch(DEPRECATED_StoreUsersThumbnail(userIds, thumbnailRequest))
-				end
 				return store:dispatch(ApiFetchUsersPresences(requestImpl, userIds))
 			end)
 			:andThen(function(result)

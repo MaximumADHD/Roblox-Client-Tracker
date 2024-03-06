@@ -37,107 +37,101 @@ PROTO_1:
   GETTABLEKS R2 R3 K0 ["Analytics"]
   GETTABLEKS R1 R2 K1 ["mock"]
   CALL R1 0 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["new"]
-  GETTABLEKS R3 R0 K3 ["networking"]
-  CALL R2 1 1
-  DUPTABLE R3 K19 [{"plugin", "mouse", "store", "theme", "devFrameworkThemeItem", "localization", "analytics", "networking", "imageUploader", "terrain", "pluginActivationController", "terrainImporter", "terrainGeneration", "seaLevel", "shorelineController", "smoothVoxelsController"}]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K20 ["Plugin"]
-  GETTABLEKS R4 R5 K2 ["new"]
-  GETTABLEKS R5 R0 K4 ["plugin"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K4 ["plugin"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K21 ["Mouse"]
-  GETTABLEKS R4 R5 K2 ["new"]
-  GETTABLEKS R5 R0 K5 ["mouse"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K5 ["mouse"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K22 ["Store"]
-  GETTABLEKS R4 R5 K2 ["new"]
-  GETTABLEKS R5 R0 K6 ["store"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K6 ["store"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K23 ["DEPRECATED_Theme"]
-  GETTABLEKS R4 R5 K2 ["new"]
-  GETTABLEKS R5 R0 K7 ["theme"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K7 ["theme"]
+  DUPTABLE R2 K17 [{"plugin", "mouse", "store", "theme", "devFrameworkThemeItem", "localization", "analytics", "networking", "terrain", "pluginActivationController", "terrainImporter", "terrainGeneration", "seaLevel", "shorelineController", "smoothVoxelsController"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K18 ["Plugin"]
+  GETTABLEKS R3 R4 K19 ["new"]
+  GETTABLEKS R4 R0 K2 ["plugin"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K2 ["plugin"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K20 ["Mouse"]
+  GETTABLEKS R3 R4 K19 ["new"]
+  GETTABLEKS R4 R0 K3 ["mouse"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K3 ["mouse"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K21 ["Store"]
+  GETTABLEKS R3 R4 K19 ["new"]
+  GETTABLEKS R4 R0 K4 ["store"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K4 ["store"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K22 ["DEPRECATED_Theme"]
+  GETTABLEKS R3 R4 K19 ["new"]
+  GETTABLEKS R4 R0 K5 ["theme"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K5 ["theme"]
+  GETUPVAL R3 2
+  LOADB R4 1
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K6 ["devFrameworkThemeItem"]
+  GETTABLEKS R3 R0 K7 ["localization"]
+  SETTABLEKS R3 R2 K7 ["localization"]
+  SETTABLEKS R1 R2 K8 ["analytics"]
+  GETTABLEKS R3 R0 K9 ["networking"]
+  SETTABLEKS R3 R2 K9 ["networking"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K23 ["Terrain"]
+  GETTABLEKS R3 R4 K19 ["new"]
+  GETTABLEKS R4 R0 K10 ["terrain"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K10 ["terrain"]
   GETUPVAL R4 3
-  LOADB R5 1
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K8 ["devFrameworkThemeItem"]
-  GETTABLEKS R4 R0 K9 ["localization"]
-  SETTABLEKS R4 R3 K9 ["localization"]
-  SETTABLEKS R1 R3 K10 ["analytics"]
-  GETTABLEKS R4 R0 K3 ["networking"]
-  SETTABLEKS R4 R3 K3 ["networking"]
-  SETTABLEKS R2 R3 K11 ["imageUploader"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K24 ["Terrain"]
-  GETTABLEKS R4 R5 K2 ["new"]
-  GETTABLEKS R5 R0 K12 ["terrain"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K12 ["terrain"]
-  GETUPVAL R5 4
-  GETTABLEKS R4 R5 K2 ["new"]
-  GETTABLEKS R5 R0 K4 ["plugin"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K13 ["pluginActivationController"]
-  GETUPVAL R5 5
-  GETTABLEKS R4 R5 K2 ["new"]
-  DUPTABLE R5 K26 [{"terrain", "localization", "analytics", "imageUploader", "userId"}]
-  GETTABLEKS R6 R0 K12 ["terrain"]
-  SETTABLEKS R6 R5 K12 ["terrain"]
-  GETTABLEKS R6 R0 K9 ["localization"]
-  SETTABLEKS R6 R5 K9 ["localization"]
-  SETTABLEKS R1 R5 K10 ["analytics"]
-  SETTABLEKS R2 R5 K11 ["imageUploader"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K25 ["userId"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K14 ["terrainImporter"]
-  GETUPVAL R5 6
-  GETTABLEKS R4 R5 K2 ["new"]
-  DUPTABLE R5 K27 [{"terrain", "localization", "analytics"}]
-  GETTABLEKS R6 R0 K12 ["terrain"]
-  SETTABLEKS R6 R5 K12 ["terrain"]
-  GETTABLEKS R6 R0 K9 ["localization"]
-  SETTABLEKS R6 R5 K9 ["localization"]
-  SETTABLEKS R1 R5 K10 ["analytics"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K15 ["terrainGeneration"]
-  GETUPVAL R5 7
-  GETTABLEKS R4 R5 K2 ["new"]
-  DUPTABLE R5 K28 [{"terrain", "localization"}]
-  GETTABLEKS R6 R0 K12 ["terrain"]
-  SETTABLEKS R6 R5 K12 ["terrain"]
-  GETTABLEKS R6 R0 K9 ["localization"]
-  SETTABLEKS R6 R5 K9 ["localization"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K16 ["seaLevel"]
-  GETUPVAL R5 8
-  GETTABLEKS R4 R5 K2 ["new"]
-  MOVE R5 R1
-  GETTABLEKS R6 R0 K4 ["plugin"]
-  GETTABLEKS R7 R0 K6 ["store"]
-  GETTABLEKS R8 R0 K12 ["terrain"]
-  LOADB R9 1
-  CALL R4 5 1
-  SETTABLEKS R4 R3 K17 ["shorelineController"]
-  GETUPVAL R5 9
-  GETTABLEKS R4 R5 K2 ["new"]
-  MOVE R5 R1
-  GETTABLEKS R6 R0 K4 ["plugin"]
-  GETTABLEKS R7 R0 K6 ["store"]
-  GETTABLEKS R8 R0 K12 ["terrain"]
-  LOADB R9 1
-  CALL R4 5 1
-  SETTABLEKS R4 R3 K18 ["smoothVoxelsController"]
-  RETURN R3 1
+  GETTABLEKS R3 R4 K19 ["new"]
+  GETTABLEKS R4 R0 K2 ["plugin"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K11 ["pluginActivationController"]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K19 ["new"]
+  DUPTABLE R4 K25 [{"terrain", "localization", "analytics", "userId"}]
+  GETTABLEKS R5 R0 K10 ["terrain"]
+  SETTABLEKS R5 R4 K10 ["terrain"]
+  GETTABLEKS R5 R0 K7 ["localization"]
+  SETTABLEKS R5 R4 K7 ["localization"]
+  SETTABLEKS R1 R4 K8 ["analytics"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K24 ["userId"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K12 ["terrainImporter"]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K19 ["new"]
+  DUPTABLE R4 K26 [{"terrain", "localization", "analytics"}]
+  GETTABLEKS R5 R0 K10 ["terrain"]
+  SETTABLEKS R5 R4 K10 ["terrain"]
+  GETTABLEKS R5 R0 K7 ["localization"]
+  SETTABLEKS R5 R4 K7 ["localization"]
+  SETTABLEKS R1 R4 K8 ["analytics"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K13 ["terrainGeneration"]
+  GETUPVAL R4 6
+  GETTABLEKS R3 R4 K19 ["new"]
+  DUPTABLE R4 K27 [{"terrain", "localization"}]
+  GETTABLEKS R5 R0 K10 ["terrain"]
+  SETTABLEKS R5 R4 K10 ["terrain"]
+  GETTABLEKS R5 R0 K7 ["localization"]
+  SETTABLEKS R5 R4 K7 ["localization"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K14 ["seaLevel"]
+  GETUPVAL R4 7
+  GETTABLEKS R3 R4 K19 ["new"]
+  MOVE R4 R1
+  GETTABLEKS R5 R0 K2 ["plugin"]
+  GETTABLEKS R6 R0 K4 ["store"]
+  GETTABLEKS R7 R0 K10 ["terrain"]
+  LOADB R8 1
+  CALL R3 5 1
+  SETTABLEKS R3 R2 K15 ["shorelineController"]
+  GETUPVAL R4 8
+  GETTABLEKS R3 R4 K19 ["new"]
+  MOVE R4 R1
+  GETTABLEKS R5 R0 K2 ["plugin"]
+  GETTABLEKS R6 R0 K4 ["store"]
+  GETTABLEKS R7 R0 K10 ["terrain"]
+  LOADB R8 1
+  CALL R3 5 1
+  SETTABLEKS R3 R2 K16 ["smoothVoxelsController"]
+  RETURN R2 1
 
 PROTO_2:
   GETTABLEKS R2 R1 K0 ["smoothVoxelsController"]
@@ -158,23 +152,20 @@ PROTO_2:
   GETTABLEKS R2 R1 K6 ["pluginActivationController"]
   NAMECALL R2 R2 K1 ["destroy"]
   CALL R2 1 0
-  GETTABLEKS R2 R1 K7 ["imageUploader"]
+  GETTABLEKS R2 R1 K7 ["localization"]
   NAMECALL R2 R2 K1 ["destroy"]
   CALL R2 1 0
-  GETTABLEKS R2 R1 K8 ["localization"]
+  GETTABLEKS R2 R1 K8 ["devFrameworkThemeItem"]
   NAMECALL R2 R2 K1 ["destroy"]
   CALL R2 1 0
-  GETTABLEKS R2 R1 K9 ["devFrameworkThemeItem"]
+  GETTABLEKS R2 R1 K9 ["theme"]
   NAMECALL R2 R2 K1 ["destroy"]
   CALL R2 1 0
-  GETTABLEKS R2 R1 K10 ["theme"]
-  NAMECALL R2 R2 K1 ["destroy"]
+  GETTABLEKS R2 R0 K10 ["store"]
+  NAMECALL R2 R2 K11 ["destruct"]
   CALL R2 1 0
-  GETTABLEKS R2 R0 K11 ["store"]
-  NAMECALL R2 R2 K12 ["destruct"]
-  CALL R2 1 0
-  GETTABLEKS R2 R0 K13 ["plugin"]
-  NAMECALL R2 R2 K14 ["Destroy"]
+  GETTABLEKS R2 R0 K12 ["plugin"]
+  NAMECALL R2 R2 K13 ["Destroy"]
   CALL R2 1 0
   RETURN R0 0
 
@@ -355,17 +346,12 @@ MAIN:
   GETTABLEKS R21 R22 K23 ["Util"]
   GETTABLEKS R20 R21 K30 ["SmoothVoxelsController"]
   CALL R19 1 1
-  GETIMPORT R20 K4 [require]
-  GETTABLEKS R23 R0 K10 ["Src"]
-  GETTABLEKS R22 R23 K23 ["Util"]
-  GETTABLEKS R21 R22 K31 ["ImageUploader"]
-  CALL R20 1 1
-  GETTABLEKS R21 R2 K32 ["PureComponent"]
-  GETIMPORT R24 K1 [script]
-  GETTABLEKS R23 R24 K33 ["Name"]
-  NAMECALL R21 R21 K34 ["extend"]
-  CALL R21 2 1
-  DUPCLOSURE R22 K35 [PROTO_0]
+  GETTABLEKS R20 R2 K31 ["PureComponent"]
+  GETIMPORT R23 K1 [script]
+  GETTABLEKS R22 R23 K32 ["Name"]
+  NAMECALL R20 R20 K33 ["extend"]
+  CALL R20 2 1
+  DUPCLOSURE R21 K34 [PROTO_0]
   CAPTURE VAL R7
   CAPTURE VAL R3
   CAPTURE VAL R10
@@ -373,10 +359,9 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R8
   CAPTURE VAL R6
-  SETTABLEKS R22 R21 K36 ["createMocks"]
-  DUPCLOSURE R22 K37 [PROTO_1]
+  SETTABLEKS R21 R20 K35 ["createMocks"]
+  DUPCLOSURE R21 K36 [PROTO_1]
   CAPTURE VAL R4
-  CAPTURE VAL R20
   CAPTURE VAL R5
   CAPTURE VAL R12
   CAPTURE VAL R13
@@ -385,21 +370,21 @@ MAIN:
   CAPTURE VAL R17
   CAPTURE VAL R18
   CAPTURE VAL R19
-  SETTABLEKS R22 R21 K38 ["createMockContextItems"]
-  DUPCLOSURE R22 K39 [PROTO_2]
-  SETTABLEKS R22 R21 K40 ["cleanupMocks"]
-  DUPCLOSURE R22 K41 [PROTO_3]
-  CAPTURE VAL R21
-  SETTABLEKS R22 R21 K42 ["init"]
-  DUPCLOSURE R22 K43 [PROTO_4]
-  CAPTURE VAL R21
-  SETTABLEKS R22 R21 K44 ["willUnmount"]
-  DUPCLOSURE R22 K45 [PROTO_5]
+  SETTABLEKS R21 R20 K37 ["createMockContextItems"]
+  DUPCLOSURE R21 K38 [PROTO_2]
+  SETTABLEKS R21 R20 K39 ["cleanupMocks"]
+  DUPCLOSURE R21 K40 [PROTO_3]
+  CAPTURE VAL R20
+  SETTABLEKS R21 R20 K41 ["init"]
+  DUPCLOSURE R21 K42 [PROTO_4]
+  CAPTURE VAL R20
+  SETTABLEKS R21 R20 K43 ["willUnmount"]
+  DUPCLOSURE R21 K44 [PROTO_5]
   CAPTURE VAL R4
   CAPTURE VAL R2
-  SETTABLEKS R22 R21 K46 ["render"]
-  DUPCLOSURE R22 K47 [PROTO_6]
+  SETTABLEKS R21 R20 K45 ["render"]
+  DUPCLOSURE R21 K46 [PROTO_6]
   CAPTURE VAL R2
-  CAPTURE VAL R21
-  SETTABLEKS R22 R21 K48 ["createElementWithMockContext"]
-  RETURN R21 1
+  CAPTURE VAL R20
+  SETTABLEKS R21 R20 K47 ["createElementWithMockContext"]
+  RETURN R20 1

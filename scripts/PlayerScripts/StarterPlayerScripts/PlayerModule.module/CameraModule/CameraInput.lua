@@ -32,6 +32,14 @@ do
 	FFlagUserResetTouchStateOnMenuOpen = success and result
 end
 
+local FFlagUserClearPanOnCameraDisable
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserClearPanOnCameraDisable")
+	end)
+	FFlagUserClearPanOnCameraDisable = success and result
+end
+
 -- right mouse button up & down events
 local rmbDown, rmbUp do
 	local rmbDownBindable = Instance.new("BindableEvent")
@@ -255,6 +263,10 @@ do
 						device[k] *= 0 -- Mul by zero to preserve vector types
 					end
 				end
+			end
+			
+			if FFlagUserClearPanOnCameraDisable then
+				resetPanInputCount()
 			end
 		end
 

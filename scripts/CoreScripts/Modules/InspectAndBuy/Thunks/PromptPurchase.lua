@@ -19,7 +19,7 @@ local function PromptPurchase(itemId, itemType, collectibleItemId, collectibleLo
 
 		store:dispatch(SetItemBeingPurchased(itemId, itemType))
 
-		if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and collectibleLowestAvailableResaleProductId ~= nil then
+		if collectibleLowestAvailableResaleProductId ~= nil then
 			MarketplaceService:PromptCollectiblesPurchase(Players.LocalPlayer :: Player, itemId, collectibleItemId, collectibleLowestAvailableResaleItemInstanceId, collectibleLowestAvailableResaleProductId, collectibleLowestResalePrice)
 		elseif itemType == Constants.ItemType.Bundle then
 			MarketplaceService:PromptBundlePurchase(Players.LocalPlayer :: Player, itemId)

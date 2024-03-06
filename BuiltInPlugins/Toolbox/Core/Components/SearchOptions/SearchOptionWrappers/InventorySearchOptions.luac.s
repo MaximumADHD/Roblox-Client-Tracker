@@ -497,7 +497,7 @@ PROTO_23:
   SETTABLEKS R32 R31 K10 ["OnClose"]
   SETTABLEKS R18 R31 K11 ["OnReset"]
   DUPTABLE R32 K15 [{"CreatorAndGroup", "SortBy"}]
-  JUMPIFNOT R16 [+187]
+  JUMPIFNOT R16 [+183]
   GETUPVAL R34 12
   GETTABLEKS R33 R34 K8 ["createElement"]
   GETUPVAL R34 14
@@ -600,20 +600,18 @@ PROTO_23:
   GETUPVAL R42 12
   GETTABLEKS R41 R42 K8 ["createElement"]
   GETUPVAL R42 19
-  DUPTABLE R43 K67 [{"IsSearching", "LayoutOrder", "OnDeleteCreatorPill", "OnSearchUpdate", "OnSelectCreator", "CreatorResults", "SearchTerm", "SelectedUsers", "SelectedGroups"}]
-  GETTABLEKS R44 R3 K68 ["isSearching"]
-  SETTABLEKS R44 R43 K59 ["IsSearching"]
+  DUPTABLE R43 K66 [{"LayoutOrder", "OnDeleteCreatorPill", "OnSearchUpdate", "OnSelectCreator", "CreatorResults", "SearchTerm", "SelectedUsers", "SelectedGroups"}]
   NAMECALL R44 R28 K22 ["getNextOrder"]
   CALL R44 1 1
   SETTABLEKS R44 R43 K17 ["LayoutOrder"]
-  SETTABLEKS R26 R43 K60 ["OnDeleteCreatorPill"]
-  SETTABLEKS R25 R43 K61 ["OnSearchUpdate"]
-  SETTABLEKS R24 R43 K62 ["OnSelectCreator"]
-  GETTABLEKS R44 R3 K69 ["results"]
-  SETTABLEKS R44 R43 K63 ["CreatorResults"]
-  SETTABLEKS R5 R43 K64 ["SearchTerm"]
-  SETTABLEKS R15 R43 K65 ["SelectedUsers"]
-  SETTABLEKS R9 R43 K66 ["SelectedGroups"]
+  SETTABLEKS R26 R43 K59 ["OnDeleteCreatorPill"]
+  SETTABLEKS R25 R43 K60 ["OnSearchUpdate"]
+  SETTABLEKS R24 R43 K61 ["OnSelectCreator"]
+  GETTABLEKS R44 R3 K67 ["results"]
+  SETTABLEKS R44 R43 K62 ["CreatorResults"]
+  SETTABLEKS R5 R43 K63 ["SearchTerm"]
+  SETTABLEKS R15 R43 K64 ["SelectedUsers"]
+  SETTABLEKS R9 R43 K65 ["SelectedGroups"]
   CALL R41 2 1
   SETTABLEKS R41 R40 K45 ["SearchBar"]
   CALL R37 3 1
@@ -625,29 +623,29 @@ PROTO_23:
   GETUPVAL R34 12
   GETTABLEKS R33 R34 K8 ["createElement"]
   GETUPVAL R34 14
-  DUPTABLE R35 K71 [{"Header", "HideLowerSeparator", "LayoutOrder"}]
+  DUPTABLE R35 K69 [{"Header", "HideLowerSeparator", "LayoutOrder"}]
   LOADK R38 K19 ["General"]
-  LOADK R39 K72 ["SearchOptionSort"]
+  LOADK R39 K70 ["SearchOptionSort"]
   NAMECALL R36 R1 K21 ["getText"]
   CALL R36 3 1
   SETTABLEKS R36 R35 K16 ["Header"]
   LOADB R36 1
-  SETTABLEKS R36 R35 K70 ["HideLowerSeparator"]
+  SETTABLEKS R36 R35 K68 ["HideLowerSeparator"]
   NAMECALL R36 R28 K22 ["getNextOrder"]
   CALL R36 1 1
   SETTABLEKS R36 R35 K17 ["LayoutOrder"]
-  DUPTABLE R36 K74 [{"RadioButtons"}]
+  DUPTABLE R36 K72 [{"RadioButtons"}]
   GETUPVAL R38 12
   GETTABLEKS R37 R38 K8 ["createElement"]
   GETUPVAL R38 20
-  DUPTABLE R39 K78 [{"Buttons", "CurrentSelectedKey", "OnClick", "SelectedKey"}]
-  SETTABLEKS R17 R39 K75 ["Buttons"]
-  SETTABLEKS R11 R39 K76 ["CurrentSelectedKey"]
+  DUPTABLE R39 K76 [{"Buttons", "CurrentSelectedKey", "OnClick", "SelectedKey"}]
+  SETTABLEKS R17 R39 K73 ["Buttons"]
+  SETTABLEKS R11 R39 K74 ["CurrentSelectedKey"]
   SETTABLEKS R12 R39 K27 ["OnClick"]
-  GETTABLEKS R40 R2 K79 ["uiSortIntent"]
-  SETTABLEKS R40 R39 K77 ["SelectedKey"]
+  GETTABLEKS R40 R2 K77 ["uiSortIntent"]
+  SETTABLEKS R40 R39 K75 ["SelectedKey"]
   CALL R37 2 1
-  SETTABLEKS R37 R36 K73 ["RadioButtons"]
+  SETTABLEKS R37 R36 K71 ["RadioButtons"]
   CALL R33 3 1
   SETTABLEKS R33 R32 K14 ["SortBy"]
   CALL R29 3 -1

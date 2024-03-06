@@ -81,19 +81,19 @@ local function fun4(arg1)
 end
 
 local function var12(arg1, arg2, arg3, arg4, arg5)
-   local var277 = {}
-   var277.baseMaterial = tostring(arg3)
-   var277.description = tostring(arg2)
-   local var286 = tostring(arg5)
-   var277.materialPattern = var286
-   var286 = var8:getText("CreateMaterial", "Description", var277)
-   var6.streamText(arg1.requestId, string.format("\n%s\n", var286))
+   local var282 = {}
+   var282.baseMaterial = tostring(arg3)
+   var282.description = tostring(arg2)
+   local var291 = tostring(arg5)
+   var282.materialPattern = var291
+   var291 = var8:getText("CreateMaterial", "Description", var282)
+   var6.streamText(arg1.requestId, string.format("\n%s\n", var291))
    if type(arg2) == "string" then
       local var0 = false
    end
    assert(true, "Bad materialDescription")
    assert(true, "Bad amount")
-   local var307 = 4
+   local var312 = 4
    return var4.try(function(arg1, arg2)
       if arg2:IsA("MaterialVariant") then
          return arg2.Name
@@ -127,8 +127,8 @@ end
 
 return function(arg1)
    local var0 = arg1.arguments
-   local var356 = type(var0.materialDescription)
-   if var356 == "string" then
+   local var361 = type(var0.materialDescription)
+   if var361 == "string" then
       local var0 = false
    end
    assert(true, "Bad request.materialDescription")

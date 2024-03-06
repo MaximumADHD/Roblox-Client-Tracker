@@ -4,13 +4,13 @@ PROTO_0:
   LOADK R4 K3 ["TagEditorIconPickerSearchReset"]
   NAMECALL R2 R2 K4 ["GetFastFlag"]
   CALL R2 2 1
-  JUMPIFNOT R2 [+43]
+  JUMPIFNOT R2 [+30]
   GETTABLEKS R2 R1 K5 ["type"]
   JUMPIFNOTEQKS R2 K6 ["ToggleIconPicker"] [+3]
   LOADK R2 K0 [""]
   RETURN R2 1
   GETTABLEKS R2 R1 K5 ["type"]
-  JUMPIFNOTEQKS R2 K7 ["SetIconSearch"] [+64]
+  JUMPIFNOTEQKS R2 K7 ["SetIconSearch"] [+51]
   GETTABLEKS R5 R1 K8 ["text"]
   FASTCALL1 TYPEOF R5 [+2]
   GETIMPORT R4 K10 [typeof]
@@ -21,23 +21,14 @@ PROTO_0:
   FASTCALL1 ASSERT R3 [+2]
   GETIMPORT R2 K13 [assert]
   CALL R2 1 0
-  GETIMPORT R2 K2 [game]
-  LOADK R4 K14 ["TagEditorImprovements2"]
-  NAMECALL R2 R2 K4 ["GetFastFlag"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+5]
   GETUPVAL R2 0
   GETTABLEKS R3 R1 K8 ["text"]
-  CALL R2 1 -1
-  RETURN R2 -1
-  GETTABLEKS R2 R1 K8 ["text"]
-  NAMECALL R2 R2 K15 ["lower"]
   CALL R2 1 -1
   RETURN R2 -1
   RETURN R0 1
   GETTABLEKS R2 R1 K5 ["type"]
   JUMPIFNOTEQKS R2 K6 ["ToggleIconPicker"] [+6]
-  GETTABLEKS R2 R1 K16 ["tag"]
+  GETTABLEKS R2 R1 K14 ["tag"]
   JUMPIF R2 [+2]
   LOADK R2 K0 [""]
   RETURN R2 1

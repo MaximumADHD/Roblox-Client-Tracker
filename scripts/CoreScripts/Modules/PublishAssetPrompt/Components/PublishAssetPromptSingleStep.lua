@@ -74,7 +74,6 @@ local LayeredAssetTypes = {
 local PublishAssetPrompt = script.Parent.Parent
 local GetFFlagValidateDescription = require(PublishAssetPrompt.GetFFlagValidateDescription)
 local FFlagSendConsentDeniedOnCancel = game:DefineFastFlag("SendConsentDeniedOnCancel", false)
-local FFlagDelayAssetCreatePrompt = game:DefineFastFlag("DelayAssetCreatePrompt", false)
 local EngineFeatureEnableEmotePublish = game:GetEngineFeature("EnableEmotePublish")
 
 local PublishAssetPromptSingleStep = Roact.PureComponent:extend("PublishAssetPromptSingleStep")
@@ -346,18 +345,13 @@ function PublishAssetPromptSingleStep:renderAlertLocalized(localized)
 				},
 				{
 					buttonType = ButtonType.PrimarySystem,
-					props = if FFlagDelayAssetCreatePrompt
-						then {
-							onActivated = self.confirmAndUpload,
-							text = localized[SUBMIT_TEXT],
-							isDelayedInput = true,
-							enableInputDelayed = true,
-							delayInputSeconds = DELAYED_INPUT_ANIM_SEC,
-						}
-						else {
-							onActivated = self.confirmAndUpload,
-							text = localized[SUBMIT_TEXT],
-						},
+					props = {
+						onActivated = self.confirmAndUpload,
+						text = localized[SUBMIT_TEXT],
+						isDelayedInput = true,
+						enableInputDelayed = true,
+						delayInputSeconds = DELAYED_INPUT_ANIM_SEC,
+					},
 					isDefaultChild = false,
 				},
 			},

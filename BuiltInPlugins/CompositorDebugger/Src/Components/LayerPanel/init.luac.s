@@ -282,7 +282,7 @@ PROTO_5:
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K13 ["LAYER_TABS"]
   GETTABLEKS R17 R18 K20 ["History"]
-  JUMPIFNOTEQ R16 R17 [+48]
+  JUMPIFNOTEQ R16 R17 [+40]
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K27 ["createElement"]
   GETUPVAL R16 3
@@ -302,15 +302,11 @@ PROTO_5:
   GETUPVAL R20 2
   GETTABLEKS R19 R20 K27 ["createElement"]
   GETUPVAL R20 6
-  DUPTABLE R21 K66 [{"History", "HistoryField", "LastTimestamp", "WriteIndex"}]
-  GETTABLEKS R22 R2 K20 ["History"]
-  SETTABLEKS R22 R21 K20 ["History"]
+  DUPTABLE R21 K65 [{"FrameBuffer", "HistoryField"}]
+  GETTABLEKS R22 R2 K64 ["FrameBuffer"]
+  SETTABLEKS R22 R21 K64 ["FrameBuffer"]
   GETTABLEKS R22 R2 K6 ["HistoryField"]
   SETTABLEKS R22 R21 K6 ["HistoryField"]
-  GETTABLEKS R22 R2 K64 ["LastTimestamp"]
-  SETTABLEKS R22 R21 K64 ["LastTimestamp"]
-  GETTABLEKS R22 R2 K65 ["WriteIndex"]
-  SETTABLEKS R22 R21 K65 ["WriteIndex"]
   CALL R19 2 1
   SETTABLEKS R19 R18 K62 ["HistoryGraph"]
   CALL R15 3 1
@@ -325,7 +321,7 @@ PROTO_5:
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K27 ["createElement"]
   GETUPVAL R16 5
-  DUPTABLE R17 K68 [{"Size", "LayoutOrder", "LayerData", "RawMode"}]
+  DUPTABLE R17 K67 [{"Size", "LayoutOrder", "LayerData", "RawMode"}]
   GETIMPORT R18 K54 [UDim2.new]
   LOADN R19 1
   LOADN R20 0
@@ -339,7 +335,7 @@ PROTO_5:
   SETTABLEKS R18 R17 K42 ["LayoutOrder"]
   SETTABLEKS R5 R17 K4 ["LayerData"]
   LOADB R18 1
-  SETTABLEKS R18 R17 K67 ["RawMode"]
+  SETTABLEKS R18 R17 K66 ["RawMode"]
   CALL R15 2 1
   JUMP [+1]
   LOADNIL R15

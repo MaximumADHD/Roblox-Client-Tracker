@@ -24,7 +24,7 @@ PROTO_1:
 PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
-  JUMPIFNOT R0 [+21]
+  JUMPIFNOT R0 [+14]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["Get"]
   CALL R2 0 1
@@ -32,20 +32,14 @@ PROTO_2:
   GETTABLEKS R4 R5 K2 ["enteredText"]
   NAMECALL R2 R2 K3 ["AddTag"]
   CALL R2 2 0
-  GETUPVAL R2 2
-  JUMPIFNOT R2 [+5]
   GETTABLEKS R2 R1 K4 ["openTagMenu"]
   LOADNIL R3
   CALL R2 1 0
-  JUMP [+4]
-  GETTABLEKS R2 R1 K4 ["openTagMenu"]
-  LOADK R3 K5 [""]
-  CALL R2 1 0
   GETUPVAL R2 0
-  DUPTABLE R4 K7 [{"editing", "enteredText"}]
+  DUPTABLE R4 K6 [{"editing", "enteredText"}]
   LOADB R5 0
-  SETTABLEKS R5 R4 K6 ["editing"]
-  LOADK R5 K5 [""]
+  SETTABLEKS R5 R4 K5 ["editing"]
+  LOADK R5 K7 [""]
   SETTABLEKS R5 R4 K2 ["enteredText"]
   NAMECALL R2 R2 K8 ["setState"]
   CALL R2 2 0
@@ -73,7 +67,6 @@ PROTO_3:
   NEWCLOSURE R1 P2
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
   SETTABLEKS R1 R0 K10 ["endEditing"]
   RETURN R0 0
 
@@ -161,25 +154,25 @@ PROTO_6:
   LOADB R14 1
   SETTABLEKS R14 R13 K31 ["ClipsDescendants"]
   SETTABLEKS R6 R13 K32 ["Style"]
-  DUPTABLE R14 K45 [{"AddIcon", "TextLabel", "TextInput", "TextInput2"}]
+  DUPTABLE R14 K44 [{"AddIcon", "TextLabel", "TextInput"}]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K11 ["createElement"]
   GETUPVAL R16 4
-  DUPTABLE R17 K48 [{"LayoutOrder", "Size", "Image", "ImageColor3"}]
-  NAMECALL R18 R4 K49 ["getNextOrder"]
+  DUPTABLE R17 K47 [{"LayoutOrder", "Size", "Image", "ImageColor3"}]
+  NAMECALL R18 R4 K48 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K13 ["LayoutOrder"]
-  GETTABLEKS R18 R2 K50 ["IconSize"]
+  GETTABLEKS R18 R2 K49 ["IconSize"]
   SETTABLEKS R18 R17 K12 ["Size"]
-  LOADK R18 K51 ["rbxasset://textures/TagEditor/Insert.png"]
-  SETTABLEKS R18 R17 K46 ["Image"]
+  LOADK R18 K50 ["rbxasset://textures/TagEditor/Insert.png"]
+  SETTABLEKS R18 R17 K45 ["Image"]
   GETTABLEKS R20 R0 K7 ["state"]
   GETTABLEKS R19 R20 K8 ["hovered"]
   JUMPIFNOT R19 [+3]
-  GETTABLEKS R18 R2 K52 ["IconColorHover"]
+  GETTABLEKS R18 R2 K51 ["IconColorHover"]
   JUMP [+2]
-  GETTABLEKS R18 R2 K53 ["IconColor"]
-  SETTABLEKS R18 R17 K47 ["ImageColor3"]
+  GETTABLEKS R18 R2 K52 ["IconColor"]
+  SETTABLEKS R18 R17 K46 ["ImageColor3"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K41 ["AddIcon"]
   GETTABLEKS R17 R0 K7 ["state"]
@@ -189,91 +182,55 @@ PROTO_6:
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K11 ["createElement"]
   GETUPVAL R16 5
-  DUPTABLE R17 K56 [{"Size", "Style", "LayoutOrder", "Text", "TextXAlignment"}]
-  GETTABLEKS R18 R2 K57 ["TextInputSize"]
+  DUPTABLE R17 K55 [{"Size", "Style", "LayoutOrder", "Text", "TextXAlignment"}]
+  GETTABLEKS R18 R2 K56 ["TextInputSize"]
   SETTABLEKS R18 R17 K12 ["Size"]
   GETTABLEKS R20 R0 K7 ["state"]
   GETTABLEKS R19 R20 K8 ["hovered"]
   JUMPIFNOT R19 [+2]
-  LOADK R18 K58 ["ButtonTextHover"]
+  LOADK R18 K57 ["ButtonTextHover"]
   JUMP [+1]
-  LOADK R18 K59 ["ButtonText"]
+  LOADK R18 K58 ["ButtonText"]
   SETTABLEKS R18 R17 K32 ["Style"]
-  NAMECALL R18 R4 K49 ["getNextOrder"]
+  NAMECALL R18 R4 K48 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K13 ["LayoutOrder"]
-  LOADK R20 K60 ["Info"]
-  LOADK R21 K61 ["CreateNewTag"]
-  NAMECALL R18 R3 K62 ["getText"]
+  LOADK R20 K59 ["Info"]
+  LOADK R21 K60 ["CreateNewTag"]
+  NAMECALL R18 R3 K61 ["getText"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K54 ["Text"]
-  GETIMPORT R18 K63 [Enum.TextXAlignment.Left]
-  SETTABLEKS R18 R17 K55 ["TextXAlignment"]
+  SETTABLEKS R18 R17 K53 ["Text"]
+  GETIMPORT R18 K62 [Enum.TextXAlignment.Left]
+  SETTABLEKS R18 R17 K54 ["TextXAlignment"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K42 ["TextLabel"]
-  GETUPVAL R15 6
-  JUMPIFNOT R15 [+42]
   GETTABLEKS R16 R0 K7 ["state"]
   GETTABLEKS R15 R16 K9 ["editing"]
   JUMPIFNOT R15 [+37]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K11 ["createElement"]
-  GETUPVAL R16 7
-  DUPTABLE R17 K69 [{"Size", "LayoutOrder", "ShouldFocus", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
-  GETTABLEKS R18 R2 K57 ["TextInputSize"]
+  GETUPVAL R16 6
+  DUPTABLE R17 K68 [{"Size", "LayoutOrder", "ShouldFocus", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
+  GETTABLEKS R18 R2 K56 ["TextInputSize"]
   SETTABLEKS R18 R17 K12 ["Size"]
-  NAMECALL R18 R4 K49 ["getNextOrder"]
+  NAMECALL R18 R4 K48 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K13 ["LayoutOrder"]
   LOADB R18 1
-  SETTABLEKS R18 R17 K64 ["ShouldFocus"]
-  GETTABLEKS R18 R0 K70 ["textBoxRef"]
-  SETTABLEKS R18 R17 K65 ["ForwardRef"]
-  LOADK R20 K60 ["Info"]
-  LOADK R21 K61 ["CreateNewTag"]
-  NAMECALL R18 R3 K62 ["getText"]
+  SETTABLEKS R18 R17 K63 ["ShouldFocus"]
+  GETTABLEKS R18 R0 K69 ["textBoxRef"]
+  SETTABLEKS R18 R17 K64 ["ForwardRef"]
+  LOADK R20 K59 ["Info"]
+  LOADK R21 K60 ["CreateNewTag"]
+  NAMECALL R18 R3 K61 ["getText"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K66 ["PlaceholderText"]
-  GETTABLEKS R18 R0 K71 ["onTextChanged"]
-  SETTABLEKS R18 R17 K67 ["OnTextChanged"]
-  GETTABLEKS R18 R0 K72 ["endEditing"]
-  SETTABLEKS R18 R17 K68 ["OnFocusLost"]
+  SETTABLEKS R18 R17 K65 ["PlaceholderText"]
+  GETTABLEKS R18 R0 K70 ["onTextChanged"]
+  SETTABLEKS R18 R17 K66 ["OnTextChanged"]
+  GETTABLEKS R18 R0 K71 ["endEditing"]
+  SETTABLEKS R18 R17 K67 ["OnFocusLost"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K43 ["TextInput"]
-  GETUPVAL R16 6
-  NOT R15 R16
-  JUMPIFNOT R15 [+49]
-  GETTABLEKS R16 R0 K7 ["state"]
-  GETTABLEKS R15 R16 K9 ["editing"]
-  JUMPIFNOT R15 [+44]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K11 ["createElement"]
-  GETUPVAL R16 7
-  DUPTABLE R17 K74 [{"Size", "LayoutOrder", "TextWrapped", "ShouldFocus", "TextXAlignment", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
-  GETTABLEKS R18 R2 K57 ["TextInputSize"]
-  SETTABLEKS R18 R17 K12 ["Size"]
-  NAMECALL R18 R4 K49 ["getNextOrder"]
-  CALL R18 1 1
-  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
-  LOADB R18 1
-  SETTABLEKS R18 R17 K73 ["TextWrapped"]
-  LOADB R18 1
-  SETTABLEKS R18 R17 K64 ["ShouldFocus"]
-  GETIMPORT R18 K63 [Enum.TextXAlignment.Left]
-  SETTABLEKS R18 R17 K55 ["TextXAlignment"]
-  GETTABLEKS R18 R0 K70 ["textBoxRef"]
-  SETTABLEKS R18 R17 K65 ["ForwardRef"]
-  LOADK R20 K60 ["Info"]
-  LOADK R21 K61 ["CreateNewTag"]
-  NAMECALL R18 R3 K62 ["getText"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K66 ["PlaceholderText"]
-  GETTABLEKS R18 R0 K71 ["onTextChanged"]
-  SETTABLEKS R18 R17 K67 ["OnTextChanged"]
-  GETTABLEKS R18 R0 K72 ["endEditing"]
-  SETTABLEKS R18 R17 K68 ["OnFocusLost"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K44 ["TextInput2"]
   CALL R11 3 1
   SETTABLEKS R11 R10 K20 ["Pane"]
   CALL R7 3 -1
@@ -335,46 +292,40 @@ MAIN:
   GETTABLEKS R16 R0 K18 ["Src"]
   GETTABLEKS R15 R16 K20 ["TagManager"]
   CALL R14 1 1
-  GETIMPORT R15 K22 [game]
-  LOADK R17 K23 ["TagEditorImprovements2"]
-  NAMECALL R15 R15 K24 ["GetFastFlag"]
+  GETTABLEKS R15 R1 K21 ["Component"]
+  LOADK R17 K22 ["NewTagTextInput"]
+  NAMECALL R15 R15 K23 ["extend"]
   CALL R15 2 1
-  GETTABLEKS R16 R1 K25 ["Component"]
-  LOADK R18 K26 ["NewTagTextInput"]
-  NAMECALL R16 R16 K27 ["extend"]
-  CALL R16 2 1
-  DUPCLOSURE R17 K28 [PROTO_3]
+  DUPCLOSURE R16 K24 [PROTO_3]
   CAPTURE VAL R1
   CAPTURE VAL R14
-  CAPTURE VAL R15
-  SETTABLEKS R17 R16 K29 ["init"]
-  DUPCLOSURE R17 K30 [PROTO_6]
+  SETTABLEKS R16 R15 K25 ["init"]
+  DUPCLOSURE R16 K26 [PROTO_6]
   CAPTURE VAL R12
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R6
   CAPTURE VAL R9
   CAPTURE VAL R10
-  CAPTURE VAL R15
   CAPTURE VAL R8
-  SETTABLEKS R17 R16 K31 ["render"]
-  GETTABLEKS R17 R4 K32 ["withContext"]
-  DUPTABLE R18 K35 [{"Stylizer", "Localization"}]
-  GETTABLEKS R19 R4 K33 ["Stylizer"]
-  SETTABLEKS R19 R18 K33 ["Stylizer"]
-  GETTABLEKS R19 R4 K34 ["Localization"]
-  SETTABLEKS R19 R18 K34 ["Localization"]
-  CALL R17 1 1
-  MOVE R18 R16
-  CALL R17 1 1
-  MOVE R16 R17
-  DUPCLOSURE R17 K36 [PROTO_7]
-  DUPCLOSURE R18 K37 [PROTO_9]
+  SETTABLEKS R16 R15 K27 ["render"]
+  GETTABLEKS R16 R4 K28 ["withContext"]
+  DUPTABLE R17 K31 [{"Stylizer", "Localization"}]
+  GETTABLEKS R18 R4 K29 ["Stylizer"]
+  SETTABLEKS R18 R17 K29 ["Stylizer"]
+  GETTABLEKS R18 R4 K30 ["Localization"]
+  SETTABLEKS R18 R17 K30 ["Localization"]
+  CALL R16 1 1
+  MOVE R17 R15
+  CALL R16 1 1
+  MOVE R15 R16
+  DUPCLOSURE R16 K32 [PROTO_7]
+  DUPCLOSURE R17 K33 [PROTO_9]
   CAPTURE VAL R13
-  GETTABLEKS R19 R2 K38 ["connect"]
+  GETTABLEKS R18 R2 K34 ["connect"]
+  MOVE R19 R16
   MOVE R20 R17
-  MOVE R21 R18
-  CALL R19 2 1
-  MOVE R20 R16
-  CALL R19 1 -1
-  RETURN R19 -1
+  CALL R18 2 1
+  MOVE R19 R15
+  CALL R18 1 -1
+  RETURN R18 -1

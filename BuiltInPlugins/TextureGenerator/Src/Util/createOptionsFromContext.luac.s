@@ -1,0 +1,57 @@
+PROTO_0:
+  DUPTABLE R1 K2 [{"promptMasking", "smartUVUnwrap"}]
+  GETTABLEKS R2 R0 K0 ["promptMasking"]
+  SETTABLEKS R2 R1 K0 ["promptMasking"]
+  GETTABLEKS R2 R0 K1 ["smartUVUnwrap"]
+  SETTABLEKS R2 R1 K1 ["smartUVUnwrap"]
+  GETTABLEKS R2 R0 K3 ["randomizeSeed"]
+  JUMPIF R2 [+4]
+  GETTABLEKS R2 R0 K4 ["seed"]
+  SETTABLEKS R2 R1 K4 ["seed"]
+  GETTABLEKS R2 R0 K5 ["rotation"]
+  GETIMPORT R4 K8 [CFrame.new]
+  CALL R4 0 -1
+  NAMECALL R2 R2 K9 ["FuzzyEq"]
+  CALL R2 -1 1
+  JUMPIF R2 [+26]
+  GETTABLEKS R2 R0 K5 ["rotation"]
+  NAMECALL R2 R2 K10 ["ToEulerAnglesYXZ"]
+  CALL R2 1 3
+  FASTCALL1 MATH_DEG R2 [+3]
+  MOVE R7 R2
+  GETIMPORT R6 K13 [math.deg]
+  CALL R6 1 1
+  FASTCALL1 MATH_DEG R3 [+3]
+  MOVE R8 R3
+  GETIMPORT R7 K13 [math.deg]
+  CALL R7 1 1
+  FASTCALL1 MATH_DEG R4 [+3]
+  MOVE R9 R4
+  GETIMPORT R8 K13 [math.deg]
+  CALL R8 1 1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R5 K15 [Vector3.new]
+  CALL R5 3 1
+  SETTABLEKS R5 R1 K5 ["rotation"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TextureGenerator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K4 ["Src"]
+  GETTABLEKS R1 R2 K5 ["Util"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R3 R1 K8 ["Constants"]
+  CALL R2 1 1
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R4 R1 K9 ["OptionsContext"]
+  CALL R3 1 1
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R6 R0 K4 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Types"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K11 [PROTO_0]
+  RETURN R5 1

@@ -27,12 +27,31 @@ PROTO_2:
   GETTABLEKS R2 R3 K1 ["join"]
   MOVE R3 R0
   DUPTABLE R4 K3 [{"animations"}]
-  GETTABLEKS R5 R1 K2 ["animations"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["Dictionary"]
+  GETTABLEKS R5 R6 K1 ["join"]
+  GETTABLEKS R6 R0 K2 ["animations"]
+  NEWTABLE R7 1 0
+  GETTABLEKS R8 R1 K4 ["id"]
+  GETTABLEKS R9 R1 K5 ["animation"]
+  SETTABLE R9 R7 R8
+  CALL R5 2 1
   SETTABLEKS R5 R4 K2 ["animations"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_3:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"animations"}]
+  GETTABLEKS R5 R1 K2 ["animations"]
+  SETTABLEKS R5 R4 K2 ["animations"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
@@ -43,7 +62,7 @@ PROTO_3:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_4:
+PROTO_5:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["Dictionary"]
   GETTABLEKS R1 R2 K1 ["join"]
@@ -78,19 +97,22 @@ MAIN:
   GETTABLEKS R6 R1 K14 ["createReducer"]
   MOVE R7 R5
   CALL R7 0 1
-  DUPTABLE R8 K19 [{"SetSelection", "SetAnimations", "SetStatus", "ResetAllAnimationConversion"}]
-  DUPCLOSURE R9 K20 [PROTO_1]
+  DUPTABLE R8 K20 [{"SetSelection", "SetAnimation", "SetAnimations", "SetStatus", "ResetAllAnimationConversion"}]
+  DUPCLOSURE R9 K21 [PROTO_1]
   CAPTURE VAL R2
   SETTABLEKS R9 R8 K15 ["SetSelection"]
-  DUPCLOSURE R9 K21 [PROTO_2]
+  DUPCLOSURE R9 K22 [PROTO_2]
   CAPTURE VAL R2
-  SETTABLEKS R9 R8 K16 ["SetAnimations"]
-  DUPCLOSURE R9 K22 [PROTO_3]
+  SETTABLEKS R9 R8 K16 ["SetAnimation"]
+  DUPCLOSURE R9 K23 [PROTO_3]
   CAPTURE VAL R2
-  SETTABLEKS R9 R8 K17 ["SetStatus"]
-  DUPCLOSURE R9 K23 [PROTO_4]
+  SETTABLEKS R9 R8 K17 ["SetAnimations"]
+  DUPCLOSURE R9 K24 [PROTO_4]
+  CAPTURE VAL R2
+  SETTABLEKS R9 R8 K18 ["SetStatus"]
+  DUPCLOSURE R9 K25 [PROTO_5]
   CAPTURE VAL R2
   CAPTURE VAL R5
-  SETTABLEKS R9 R8 K18 ["ResetAllAnimationConversion"]
+  SETTABLEKS R9 R8 K19 ["ResetAllAnimationConversion"]
   CALL R6 2 -1
   RETURN R6 -1

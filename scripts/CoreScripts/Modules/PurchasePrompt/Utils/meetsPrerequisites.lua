@@ -21,16 +21,16 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty,
 	end
 
 	-- Resale cases should have precedence over the following conditions.
-	if (not game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") or expectedPrice == nil) and not (productInfo.IsForSale or productInfo.IsPublicDomain) then
+	if (expectedPrice == nil) and not (productInfo.IsForSale or productInfo.IsPublicDomain) then
 		return false, PurchaseError.NotForSale
 	end
 
-	if (not game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") or expectedPrice == nil) and externalSettings.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
+	if (expectedPrice == nil) and externalSettings.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
 			and productInfo.CanBeSoldInThisGame == false then
 		return false, PurchaseError.NotForSaleHere
 	end
 
-	if (not game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") or expectedPrice == nil) and (isCollectibleItem or productInfo.IsLimited or productInfo.IsLimitedUnique) then
+	if (expectedPrice == nil) and (isCollectibleItem or productInfo.IsLimited or productInfo.IsLimitedUnique) then
 		if productInfo.Remaining == nil or productInfo.Remaining == 0 then
 			return false, PurchaseError.Limited
 		end

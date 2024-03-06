@@ -12,20 +12,20 @@ local var9 = require(var1.Core.Util.ToolboxUtilities)
 local var10 = require(var1.Core.Components.TooltipWrapper)
 local var11 = var3.PureComponent:extend("VerifiedCreatorBadge")
 function var11.init(arg1, arg2)
-   local var503 = {}
-   var503.isHovered = false
-   arg1.state = var503
+   local var962 = {}
+   var962.isHovered = false
+   arg1.state = var962
    function arg1.onMouseEnter()
-      local var506 = {}
-      var506.isHovered = true
-      arg1:setState(var506)
+      local var965 = {}
+      var965.isHovered = true
+      arg1:setState(var965)
       arg1.props.Modal.onTooltipTriggered(arg2.assetId, var6.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
    end
    
    function arg1.onMouseLeave()
-      local var519 = {}
-      var519.isHovered = false
-      arg1:setState(var519)
+      local var978 = {}
+      var978.isHovered = false
+      arg1:setState(var978)
    end
    
    function arg1.onActivated()
@@ -39,65 +39,65 @@ end
 local function fun7(arg1)
    local var0 = arg1.props
    local var1 = arg1.state.isHovered
-   local var561 = {}
-   var561.AnchorPoint = var0.AnchorPoint
-   var561.Position = var0.Position
-   var561.LayoutOrder = var0.LayoutOrder
-   var561.BackgroundTransparency = 1
-   var561.Size = UDim2.fromOffset(13, 13)
-   var561.Image = var8.WARNING_ICON_SMALL
-   var561.ImageColor3 = var0.Stylizer.asset.icon.warningColor
-   var561.ZIndex = 2
+   local var1020 = {}
+   var1020.AnchorPoint = var0.AnchorPoint
+   var1020.Position = var0.Position
+   var1020.LayoutOrder = var0.LayoutOrder
+   var1020.BackgroundTransparency = 1
+   var1020.Size = UDim2.fromOffset(13, 13)
+   var1020.Image = var8.WARNING_ICON_SMALL
+   var1020.ImageColor3 = var0.Stylizer.asset.icon.warningColor
+   var1020.ZIndex = 2
    var3.Event.Activated = arg1.onActivated
    var3.Event.MouseEnter = arg1.onMouseEnter
    local var2 = var3.Event
    var2.MouseLeave = arg1.onMouseLeave
-   local var581 = {}
+   local var1040 = {}
    var2 = var1
    if var2 then
-      local var585 = {}
-      var585.Text = var0.Localization:getText("General", "UnverifiedCreatorBadgeTooltipText")
-      var585.canShowCurrentTooltip = var0.Modal.modalStatus:canShowCurrentTooltip(var0.assetId, var6.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
-      var585.isHovered = var1
-      local var0 = var3.createElement(var10, var585)
+      local var1044 = {}
+      var1044.Text = var0.Localization:getText("General", "UnverifiedCreatorBadgeTooltipText")
+      var1044.canShowCurrentTooltip = var0.Modal.modalStatus:canShowCurrentTooltip(var0.assetId, var6.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
+      var1044.isHovered = var1
+      local var0 = var3.createElement(var10, var1044)
    end
-   var581.TooltipWrapper = var2
-   return var3.createElement("ImageButton", var561, var581)
+   var1040.TooltipWrapper = var2
+   return var3.createElement("ImageButton", var1020, var1040)
 end
 
 function var11.render(arg1)
    local var0 = arg1.props
    local var1 = arg1.state.isHovered
-   local var561 = {}
-   var561.AnchorPoint = var0.AnchorPoint
-   var561.Position = var0.Position
-   var561.LayoutOrder = var0.LayoutOrder
-   var561.BackgroundTransparency = 1
-   var561.Size = UDim2.fromOffset(13, 13)
-   var561.Image = var8.WARNING_ICON_SMALL
-   var561.ImageColor3 = var0.Stylizer.asset.icon.warningColor
-   var561.ZIndex = 2
+   local var1020 = {}
+   var1020.AnchorPoint = var0.AnchorPoint
+   var1020.Position = var0.Position
+   var1020.LayoutOrder = var0.LayoutOrder
+   var1020.BackgroundTransparency = 1
+   var1020.Size = UDim2.fromOffset(13, 13)
+   var1020.Image = var8.WARNING_ICON_SMALL
+   var1020.ImageColor3 = var0.Stylizer.asset.icon.warningColor
+   var1020.ZIndex = 2
    var3.Event.Activated = arg1.onActivated
    var3.Event.MouseEnter = arg1.onMouseEnter
    local var2 = var3.Event
    var2.MouseLeave = arg1.onMouseLeave
-   local var581 = {}
+   local var1040 = {}
    var2 = var1
    if var2 then
-      local var585 = {}
-      var585.Text = var0.Localization:getText("General", "UnverifiedCreatorBadgeTooltipText")
-      var585.canShowCurrentTooltip = var0.Modal.modalStatus:canShowCurrentTooltip(var0.assetId, var6.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
-      var585.isHovered = var1
-      local var0 = var3.createElement(var10, var585)
+      local var1044 = {}
+      var1044.Text = var0.Localization:getText("General", "UnverifiedCreatorBadgeTooltipText")
+      var1044.canShowCurrentTooltip = var0.Modal.modalStatus:canShowCurrentTooltip(var0.assetId, var6.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
+      var1044.isHovered = var1
+      local var0 = var3.createElement(var10, var1044)
    end
-   var581.TooltipWrapper = var2
-   return var3.createElement("ImageButton", var561, var581)
+   var1040.TooltipWrapper = var2
+   return var3.createElement("ImageButton", var1020, var1040)
 end
 
 fun7 = var4.withContext
-local var588 = {}
-var588.Localization = var4.Localization
-var588.Stylizer = var4.Stylizer
-var588.Modal = require(var1.Core.ContextServices.ModalContext)
-var11 = fun7(var588)(var11)
+local var1047 = {}
+var1047.Localization = var4.Localization
+var1047.Stylizer = var4.Stylizer
+var1047.Modal = require(var1.Core.ContextServices.ModalContext)
+var11 = fun7(var1047)(var11)
 return var11

@@ -6,12 +6,10 @@ local Colors = require(Modules.Common.Constants).COLORS
 local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
 local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local UserLibConstants = UserLib.Utils.Constants
-local FFlagStopReadingThumbsOutOfStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagStopReadingThumbsOutOfStore
 
 local getRbxthumbWithTypeSizeAndOptions = require(CorePackages.Workspace.Packages.UserLib).Utils.getRbxthumbWithTypeSizeAndOptions
 
 local THUMBNAIL_IMAGE_SIZE = Constants.InviteAvatarThumbnailSize
-local THUMBNAIL_IMAGE_TYPE = Constants.InviteAvatarThumbnailType
 
 local DEFAULT_THUMBNAIL_ICON = "rbxasset://textures/ui/LuaApp/graphic/ph-avatar-portrait.png"
 
@@ -31,23 +29,8 @@ return function(props: Props)
 	local thumbnailImage
 
 	if user then
-		if FFlagStopReadingThumbsOutOfStore then
-			local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE :: UserLib.RbxThumbnailSize]
-			thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType :: UserLib.RbxthumbType, numberSize)
-		else
-			local localUserId
-			local localPlayer = game:GetService("Players").LocalPlayer
-			if localPlayer then
-				localUserId = tostring(localPlayer.UserId)
-			end
-			if localUserId and user.id == localUserId then
-				local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE :: UserLib.RbxThumbnailSize]
-				thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType :: UserLib.RbxthumbType, numberSize)
-			else
-				thumbnailImage = user.DEPRECATED_thumbnails and user.DEPRECATED_thumbnails[THUMBNAIL_IMAGE_TYPE]
-				and user.DEPRECATED_thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE]
-			end
-		end
+		local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE :: UserLib.RbxThumbnailSize]
+		thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType :: UserLib.RbxthumbType, numberSize)
 	end
 	if not thumbnailImage then
 		thumbnailImage = DEFAULT_THUMBNAIL_ICON

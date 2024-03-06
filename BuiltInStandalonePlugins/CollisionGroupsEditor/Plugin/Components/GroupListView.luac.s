@@ -238,8 +238,8 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R4 R3 K12 ["ContextServices"]
   GETIMPORT R5 K1 [game]
-  LOADK R7 K13 ["SelectionCollisionGroup"]
-  NAMECALL R5 R5 K14 ["GetFastFlag"]
+  LOADK R7 K13 ["PluginsUseStudioSelectable"]
+  NAMECALL R5 R5 K14 ["GetEngineFeature"]
   CALL R5 2 1
   GETIMPORT R6 K1 [game]
   LOADK R8 K15 ["CursorGroupHelp"]

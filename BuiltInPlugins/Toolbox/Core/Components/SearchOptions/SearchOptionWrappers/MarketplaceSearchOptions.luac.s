@@ -35,22 +35,11 @@ PROTO_2:
   SETTABLEKS R1 R5 K2 ["extraSearchDetails"]
   NAMECALL R3 R3 K4 ["setState"]
   CALL R3 2 0
-  GETUPVAL R3 1
-  JUMPIFNOT R3 [+7]
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K5 ["debouncedUserSearch"]
   MOVE R4 R0
   MOVE R5 R1
   CALL R3 2 0
-  RETURN R0 0
-  GETTABLEKS R3 R2 K6 ["isSearching"]
-  JUMPIF R3 [+9]
-  GETTABLEKS R4 R2 K7 ["Network"]
-  GETTABLEKS R3 R4 K8 ["networkInterface"]
-  GETTABLEKS R4 R2 K9 ["userSearch"]
-  MOVE R5 R3
-  MOVE R6 R0
-  CALL R4 2 0
   RETURN R0 0
 
 PROTO_3:
@@ -129,16 +118,13 @@ PROTO_8:
   CALL R1 1 1
   SETTABLEKS R1 R0 K3 ["state"]
   GETUPVAL R1 1
-  JUMPIFNOT R1 [+7]
-  GETUPVAL R1 2
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
-  GETUPVAL R3 3
+  GETUPVAL R3 2
   CALL R1 2 1
   SETTABLEKS R1 R0 K4 ["debouncedUserSearch"]
   NEWCLOSURE R1 P2
   CAPTURE VAL R0
-  CAPTURE UPVAL U1
   SETTABLEKS R1 R0 K5 ["updateUserSearch"]
   NEWCLOSURE R1 P3
   CAPTURE VAL R0
@@ -288,39 +274,32 @@ PROTO_13:
   NEWTABLE R2 0 0
   LOADNIL R3
   GETTABLEKS R4 R0 K1 ["liveSearch"]
-  JUMPIFNOT R4 [+24]
-  DUPTABLE R4 K5 [{"searchTerm", "isSearching", "results"}]
+  JUMPIFNOT R4 [+14]
+  DUPTABLE R4 K4 [{"searchTerm", "results"}]
   GETTABLEKS R6 R0 K1 ["liveSearch"]
   GETTABLEKS R5 R6 K2 ["searchTerm"]
   SETTABLEKS R5 R4 K2 ["searchTerm"]
-  GETUPVAL R6 0
-  JUMPIFNOT R6 [+2]
-  LOADNIL R5
-  JUMP [+4]
   GETTABLEKS R6 R0 K1 ["liveSearch"]
-  GETTABLEKS R5 R6 K3 ["isSearching"]
-  SETTABLEKS R5 R4 K3 ["isSearching"]
-  GETTABLEKS R6 R0 K1 ["liveSearch"]
-  GETTABLEKS R5 R6 K4 ["results"]
-  SETTABLEKS R5 R4 K4 ["results"]
+  GETTABLEKS R5 R6 K3 ["results"]
+  SETTABLEKS R5 R4 K3 ["results"]
   MOVE R3 R4
-  GETTABLEKS R5 R2 K6 ["creator"]
+  GETTABLEKS R5 R2 K5 ["creator"]
   JUMPIFNOT R5 [+5]
-  GETTABLEKS R5 R2 K6 ["creator"]
-  GETTABLEKS R4 R5 K7 ["Name"]
+  GETTABLEKS R5 R2 K5 ["creator"]
+  GETTABLEKS R4 R5 K6 ["Name"]
   JUMP [+1]
-  LOADK R4 K8 [""]
-  DUPTABLE R5 K13 [{"categoryName", "includeUnverifiedCreators", "initialCreatorName", "liveSearchData"}]
-  GETTABLEKS R6 R2 K9 ["categoryName"]
+  LOADK R4 K7 [""]
+  DUPTABLE R5 K12 [{"categoryName", "includeUnverifiedCreators", "initialCreatorName", "liveSearchData"}]
+  GETTABLEKS R6 R2 K8 ["categoryName"]
   JUMPIF R6 [+5]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K14 ["DEFAULT"]
-  GETTABLEKS R6 R7 K15 ["name"]
-  SETTABLEKS R6 R5 K9 ["categoryName"]
-  GETTABLEKS R6 R2 K10 ["includeUnverifiedCreators"]
-  SETTABLEKS R6 R5 K10 ["includeUnverifiedCreators"]
-  SETTABLEKS R4 R5 K11 ["initialCreatorName"]
-  SETTABLEKS R3 R5 K12 ["liveSearchData"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K13 ["DEFAULT"]
+  GETTABLEKS R6 R7 K14 ["name"]
+  SETTABLEKS R6 R5 K8 ["categoryName"]
+  GETTABLEKS R6 R2 K9 ["includeUnverifiedCreators"]
+  SETTABLEKS R6 R5 K9 ["includeUnverifiedCreators"]
+  SETTABLEKS R4 R5 K10 ["initialCreatorName"]
+  SETTABLEKS R3 R5 K11 ["liveSearchData"]
   RETURN R5 1
 
 PROTO_14:
@@ -425,28 +404,23 @@ MAIN:
   GETTABLEKS R21 R22 K32 ["SearchOptionsTypes"]
   CALL R20 1 1
   GETIMPORT R21 K34 [game]
-  LOADK R23 K35 ["ToolboxFixLiveSearchDebounce"]
-  NAMECALL R21 R21 K36 ["GetFastFlag"]
+  LOADK R23 K35 ["ToolboxLiveSearchDebounceWait"]
+  NAMECALL R21 R21 K36 ["GetFastInt"]
   CALL R21 2 1
-  GETIMPORT R22 K34 [game]
-  LOADK R24 K37 ["ToolboxLiveSearchDebounceWait"]
-  NAMECALL R22 R22 K38 ["GetFastInt"]
+  GETTABLEKS R22 R2 K37 ["PureComponent"]
+  LOADK R24 K38 ["MarketplaceSearchOptions"]
+  NAMECALL R22 R22 K39 ["extend"]
   CALL R22 2 1
-  GETTABLEKS R23 R2 K39 ["PureComponent"]
-  LOADK R25 K40 ["MarketplaceSearchOptions"]
-  NAMECALL R23 R23 K41 ["extend"]
-  CALL R23 2 1
-  DUPCLOSURE R24 K42 [PROTO_8]
+  DUPCLOSURE R23 K40 [PROTO_8]
   CAPTURE VAL R6
-  CAPTURE VAL R21
   CAPTURE VAL R7
-  CAPTURE VAL R22
-  SETTABLEKS R24 R23 K43 ["init"]
-  DUPCLOSURE R24 K44 [PROTO_9]
-  SETTABLEKS R24 R23 K45 ["didMount"]
-  DUPCLOSURE R24 K46 [PROTO_11]
-  SETTABLEKS R24 R23 K47 ["didUpdate"]
-  DUPCLOSURE R24 K48 [PROTO_12]
+  CAPTURE VAL R21
+  SETTABLEKS R23 R22 K41 ["init"]
+  DUPCLOSURE R23 K42 [PROTO_9]
+  SETTABLEKS R23 R22 K43 ["didMount"]
+  DUPCLOSURE R23 K44 [PROTO_11]
+  SETTABLEKS R23 R22 K45 ["didUpdate"]
+  DUPCLOSURE R23 K46 [PROTO_12]
   CAPTURE VAL R18
   CAPTURE VAL R16
   CAPTURE VAL R2
@@ -455,26 +429,25 @@ MAIN:
   CAPTURE VAL R15
   CAPTURE VAL R12
   CAPTURE VAL R6
-  SETTABLEKS R24 R23 K49 ["render"]
-  MOVE R24 R9
-  DUPTABLE R25 K52 [{"Localization", "Settings", "Network"}]
-  GETTABLEKS R26 R8 K50 ["Localization"]
-  SETTABLEKS R26 R25 K50 ["Localization"]
-  SETTABLEKS R10 R25 K16 ["Settings"]
-  SETTABLEKS R11 R25 K51 ["Network"]
-  CALL R24 1 1
-  MOVE R25 R23
-  CALL R24 1 1
-  MOVE R23 R24
-  DUPCLOSURE R24 K53 [PROTO_13]
-  CAPTURE VAL R21
+  SETTABLEKS R23 R22 K47 ["render"]
+  MOVE R23 R9
+  DUPTABLE R24 K50 [{"Localization", "Settings", "Network"}]
+  GETTABLEKS R25 R8 K48 ["Localization"]
+  SETTABLEKS R25 R24 K48 ["Localization"]
+  SETTABLEKS R10 R24 K16 ["Settings"]
+  SETTABLEKS R11 R24 K49 ["Network"]
+  CALL R23 1 1
+  MOVE R24 R22
+  CALL R23 1 1
+  MOVE R22 R23
+  DUPCLOSURE R23 K51 [PROTO_13]
   CAPTURE VAL R19
-  DUPCLOSURE R25 K54 [PROTO_15]
+  DUPCLOSURE R24 K52 [PROTO_15]
   CAPTURE VAL R17
-  GETTABLEKS R26 R3 K55 ["connect"]
+  GETTABLEKS R25 R3 K53 ["connect"]
+  MOVE R26 R23
   MOVE R27 R24
-  MOVE R28 R25
-  CALL R26 2 1
-  MOVE R27 R23
-  CALL R26 1 -1
-  RETURN R26 -1
+  CALL R25 2 1
+  MOVE R26 R22
+  CALL R25 1 -1
+  RETURN R25 -1

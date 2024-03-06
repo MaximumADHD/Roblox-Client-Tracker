@@ -213,8 +213,8 @@ MAIN:
   NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
   GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["SelectionCollisionGroup"]
-  NAMECALL R1 R1 K5 ["GetFastFlag"]
+  LOADK R3 K4 ["PluginsUseStudioSelectable"]
+  NAMECALL R1 R1 K5 ["GetEngineFeature"]
   CALL R1 2 1
   GETIMPORT R2 K7 [require]
   GETIMPORT R5 K9 [script]

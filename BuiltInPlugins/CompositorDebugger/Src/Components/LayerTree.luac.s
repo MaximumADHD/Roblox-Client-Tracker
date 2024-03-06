@@ -148,7 +148,7 @@ PROTO_7:
 
 PROTO_8:
   GETGLOBAL R2 K0 ["updateTreeViewItems"]
-  GETTABLEKS R3 R0 K1 ["DebugData"]
+  GETTABLEKS R3 R0 K1 ["FramePayload"]
   GETTABLEKS R4 R1 K2 ["Expansion"]
   CALL R2 2 1
   GETIMPORT R3 K4 [next]
@@ -168,7 +168,7 @@ PROTO_8:
 PROTO_9:
   GETTABLEKS R1 R0 K0 ["state"]
   GETTABLEKS R2 R0 K1 ["props"]
-  GETTABLEKS R3 R2 K2 ["DebugData"]
+  GETTABLEKS R3 R2 K2 ["FramePayload"]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K3 ["createElement"]
   GETUPVAL R5 1

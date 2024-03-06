@@ -59,43 +59,41 @@ PROTO_2:
   LOADK R7 K9 ["No scaling type info chosen"]
   GETIMPORT R5 K11 [assert]
   CALL R5 2 0
-  GETTABLEKS R5 R0 K12 ["Humanoid"]
-  LOADK R7 K13 ["BodyProportionScale"]
-  NAMECALL R5 R5 K14 ["FindFirstChild"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K12 ["setAvatarPartScaleTypeValueObjects"]
+  MOVE R6 R0
+  MOVE R7 R3
+  CALL R5 2 0
+  GETTABLEKS R5 R0 K13 ["Humanoid"]
+  LOADK R7 K14 ["BodyTypeScale"]
+  NAMECALL R5 R5 K15 ["FindFirstChild"]
   CALL R5 2 1
   LOADB R7 0
   JUMPIFEQKNIL R5 [+5]
-  LOADK R9 K15 ["NumberValue"]
-  NAMECALL R7 R5 K16 ["IsA"]
+  LOADK R9 K16 ["NumberValue"]
+  NAMECALL R7 R5 K17 ["IsA"]
   CALL R7 2 1
-  FASTCALL2K ASSERT R7 K17 [+4]
-  LOADK R8 K17 ["Couldn't find BodyProportionScale"]
+  FASTCALL2K ASSERT R7 K18 [+4]
+  LOADK R8 K18 ["Couldn't find BodyTypeScale"]
   GETIMPORT R6 K11 [assert]
   CALL R6 2 0
-  GETTABLEKS R6 R4 K13 ["BodyProportionScale"]
-  SETTABLEKS R6 R5 K18 ["Value"]
-  GETTABLEKS R6 R0 K12 ["Humanoid"]
-  LOADK R8 K19 ["BodyTypeScale"]
-  NAMECALL R6 R6 K14 ["FindFirstChild"]
+  GETTABLEKS R6 R4 K14 ["BodyTypeScale"]
+  SETTABLEKS R6 R5 K19 ["Value"]
+  GETTABLEKS R6 R0 K13 ["Humanoid"]
+  LOADK R8 K20 ["BodyProportionScale"]
+  NAMECALL R6 R6 K15 ["FindFirstChild"]
   CALL R6 2 1
   LOADB R8 0
   JUMPIFEQKNIL R6 [+5]
-  LOADK R10 K15 ["NumberValue"]
-  NAMECALL R8 R6 K16 ["IsA"]
+  LOADK R10 K16 ["NumberValue"]
+  NAMECALL R8 R6 K17 ["IsA"]
   CALL R8 2 1
-  FASTCALL2K ASSERT R8 K20 [+4]
-  LOADK R9 K20 ["Couldn't find BodyTypeScale"]
+  FASTCALL2K ASSERT R8 K21 [+4]
+  LOADK R9 K21 ["Couldn't find BodyProportionScale"]
   GETIMPORT R7 K11 [assert]
   CALL R7 2 0
-  GETTABLEKS R7 R4 K19 ["BodyTypeScale"]
-  SETTABLEKS R7 R6 K18 ["Value"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K21 ["allAvatarPartScaleTypeValueObjects"]
-  MOVE R8 R0
-  CALL R7 1 3
-  FORGPREP R7
-  SETTABLEKS R3 R11 K18 ["Value"]
-  FORGLOOP R7 2 [-3]
+  GETTABLEKS R7 R4 K20 ["BodyProportionScale"]
+  SETTABLEKS R7 R6 K19 ["Value"]
   RETURN R0 0
 
 PROTO_3:

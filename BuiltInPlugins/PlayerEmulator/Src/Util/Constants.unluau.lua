@@ -6,4 +6,5 @@ var0.POLICY_SETTING_KEY = "PlayerEmulator_PolicySetting"
 var0.COUNTRY_REGION_SETTING_KEY = "PlayerEmulator_CountryRegionSetting"
 var0.LOCALEID_SETTING_KEY = "PlayerEmulator_LocaleIdSetting"
 var0.PLUGIN_WIDGET_STATE = "PlayerEmulator_PluginWidgetState"
+var0.PSEUDOLOCALIZATION_ENABLED_SETTING_KEY = "PlayerEmulator_PseudolocalizationEnabledSetting"
 return var0

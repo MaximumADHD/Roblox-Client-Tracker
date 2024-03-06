@@ -12,9 +12,9 @@ local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).
 
 local FFlagDebugDefaultChannelStartMuted = game:DefineFastFlag("DebugDefaultChannelStartMuted", true)
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
-local FFlagDefaulChannelDontWaitOnCharacter = game:DefineFastFlag("DefaultChannelDontWaitOnCharacter", false)
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
 local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsingAudioAPI", false)
+local FFlagDefaultChannelDontWaitOnCharacterWithAudioApi = game:DefineFastFlag("DefaultChannelDontWaitOnCharacterWithAudioApi", false)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 
@@ -28,16 +28,18 @@ if GetFFlagRemoveInGameChatBubbleChatReferences() then
 end
 local Analytics = require(RobloxGui.Modules.VoiceChat.Analytics).new()
 
-local function initializeDefaultChannel(defaultMuted)
-	local VoiceChatService = VoiceChatServiceManager:getService()
+local VoiceChatService = game:GetService("VoiceChatService")
 
-	if not VoiceChatService then
+local function initializeDefaultChannel(defaultMuted)
+	local VoiceChatInternal = VoiceChatServiceManager:getService()
+
+	if not VoiceChatInternal then
 		return nil
 	end
 
 	log:info("Joining default channel")
 
-	local success = VoiceChatService:JoinByGroupIdToken("default", defaultMuted)
+	local success = VoiceChatInternal:JoinByGroupIdToken("default", defaultMuted)
 	
 	if GetFFlagEnableLuaVoiceChatAnalytics() then
 		if success then
@@ -58,7 +60,7 @@ if NotificationServiceIsConnectedAvailable and FFlagUseNotificationServiceIsConn
 	log:debug("NotificationService connected")
 end
 
-if not FFlagDefaulChannelDontWaitOnCharacter then
+if not FFlagDefaultChannelDontWaitOnCharacterWithAudioApi or not VoiceChatService.UseNewAudioApi then
 	if not Players.LocalPlayer.Character then
 		Players.LocalPlayer.CharacterAdded:Wait()
 		log:debug("Player character loaded")

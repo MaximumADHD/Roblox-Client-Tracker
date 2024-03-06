@@ -1,0 +1,25 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["CreatePartGroup"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+4]
+  NAMECALL R2 R1 K1 ["GetMeshIdsHash"]
+  CALL R2 1 1
+  JUMPIF R2 [+1]
+  LOADK R2 K2 [""]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TextureGenerator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["TextureGenerationService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  DUPCLOSURE R2 K8 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

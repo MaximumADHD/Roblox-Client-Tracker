@@ -37,19 +37,20 @@ PROTO_2:
   CALL R5 3 -1
   RETURN R4 -1
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["FailedWithErrorCode"]
-  JUMPIFNOTEQ R0 R4 [+13]
+  GETTABLEKS R4 R5 K6 ["FailedWithError"]
+  JUMPIFNOTEQ R0 R4 [+15]
   GETTABLEKS R4 R1 K3 ["FailedIcon"]
   GETIMPORT R5 K9 [string.format]
   LOADK R8 K4 ["AnimationStatus"]
   MOVE R9 R0
+  DUPTABLE R10 K11 [{"error"}]
+  SETTABLEKS R3 R10 K10 ["error"]
   NAMECALL R6 R2 K5 ["getText"]
-  CALL R6 3 1
-  MOVE R7 R3
-  CALL R5 2 -1
+  CALL R6 4 -1
+  CALL R5 -1 -1
   RETURN R4 -1
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K10 ["FailedToGetProductInfo"]
+  GETTABLEKS R4 R5 K12 ["FailedToGetProductInfo"]
   JUMPIFNOTEQ R0 R4 [+9]
   GETTABLEKS R4 R1 K3 ["FailedIcon"]
   LOADK R7 K4 ["AnimationStatus"]
@@ -58,9 +59,9 @@ PROTO_2:
   CALL R5 3 -1
   RETURN R4 -1
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K11 ["Done"]
+  GETTABLEKS R4 R5 K13 ["Done"]
   JUMPIFNOTEQ R0 R4 [+9]
-  GETTABLEKS R4 R1 K12 ["DoneIcon"]
+  GETTABLEKS R4 R1 K14 ["DoneIcon"]
   LOADK R7 K4 ["AnimationStatus"]
   MOVE R8 R0
   NAMECALL R5 R2 K5 ["getText"]

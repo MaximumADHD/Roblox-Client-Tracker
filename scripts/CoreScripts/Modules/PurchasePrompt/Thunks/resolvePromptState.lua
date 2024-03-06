@@ -78,7 +78,7 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 		local robuxBalance = balanceInfo.robux
 		local isPlayerPremium = accountInfo.isPremium
 		local price = getPlayerProductInfoPrice(productInfo, isPlayerPremium)
-		if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and expectedPrice ~= nil then
+		if expectedPrice ~= nil then
 			price = expectedPrice
 		end
 		local platform = UserInputService:GetPlatform()
@@ -91,7 +91,7 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 			local paymentPlatform
 			if GetFFlagEnableQuestPaymentPlatformType() then
 				paymentPlatform = getPaymentPlatform(platform)
-			else 
+			else
 				local isAmazon = getHasAmazonUserAgent()
 				local isLuobu = GetFFlagEnableLuobuInGameUpsell()
 				paymentPlatform =  getPaymentFromPlatformLegacy(platform, isLuobu, isAmazon)

@@ -1,0 +1,44 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["GetQuotasAsync"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETIMPORT R2 K1 [pcall]
+  DUPCLOSURE R3 K2 [PROTO_0]
+  CAPTURE UPVAL U0
+  CALL R2 1 2
+  JUMPIFNOT R2 [+7]
+  FASTCALL1 TYPEOF R3 [+3]
+  MOVE R5 R3
+  GETIMPORT R4 K4 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K5 ["table"] [+6]
+  GETIMPORT R4 K7 [warn]
+  LOADK R5 K8 ["Error getting quotas:"]
+  MOVE R6 R3
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K9 ["setQuota"]
+  GETTABLEKS R5 R3 K10 ["generationQuota"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K11 ["setTotal"]
+  GETTABLEKS R5 R3 K12 ["generationTotal"]
+  CALL R4 1 0
+  GETTABLEKS R4 R1 K9 ["setQuota"]
+  GETTABLEKS R5 R3 K13 ["previewQuota"]
+  CALL R4 1 0
+  GETTABLEKS R4 R1 K11 ["setTotal"]
+  GETTABLEKS R5 R3 K14 ["previewTotal"]
+  CALL R4 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["TextureGenerationService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_1]
+  CAPTURE VAL R0
+  RETURN R1 1

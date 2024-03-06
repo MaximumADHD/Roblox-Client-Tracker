@@ -103,7 +103,7 @@ MAIN:
   GETTABLEKS R6 R7 K15 ["StreamCache"]
   CALL R5 1 1
   GETIMPORT R6 K1 [game]
-  LOADK R8 K16 ["CAPAddStreamIdToRichTextContent"]
+  LOADK R8 K16 ["CAPAddStreamIdToRichTextContent2"]
   NAMECALL R6 R6 K17 ["GetFastFlag"]
   CALL R6 2 1
   DUPCLOSURE R7 K18 [PROTO_3]

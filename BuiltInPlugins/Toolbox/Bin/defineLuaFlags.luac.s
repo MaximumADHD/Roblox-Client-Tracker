@@ -46,92 +46,77 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K12 ["ToolboxDoNotTryInStudioPlayMode"]
+  LOADK R2 K12 ["DisableUGCBodyUploadValidation1"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K13 ["DisableUGCBodyUploadValidation1"]
+  LOADK R2 K13 ["ShowSaveToRobloxOnStudioAssetService"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K14 ["ShowSaveToRobloxOnStudioAssetService"]
+  LOADK R2 K14 ["AssetConfigCopyHandleCFrame"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K15 ["AssetConfigCopyHandleCFrame"]
+  LOADK R2 K15 ["ToolboxVideoConfigSharing2"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K16 ["ToolboxVideoConfigSharing2"]
+  LOADK R2 K16 ["ToolboxVideoUsePermissionInsertion"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K17 ["ToolboxVideoUsePermissionInsertion"]
+  LOADK R2 K17 ["ToolboxDoNotCallInsertionEndpointForAvatarAssets"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K18 ["ToolboxDoNotCallInsertionEndpointForAvatarAssets"]
+  LOADK R2 K18 ["ToolboxVideoTestUseLocalAudioFile"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K19 ["ToolboxVideoTestUseLocalAudioFile"]
+  LOADK R2 K19 ["ToolboxLiveSearchDebounceWait"]
+  LOADK R3 K20 [0.25]
+  NAMECALL R0 R0 K21 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K22 ["ToolboxUGCAccessoryUploadRequest2"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K20 ["ToolboxFixLiveSearchDebounce"]
+  LOADK R2 K23 ["ToolboxAccessoryNameFix"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K21 ["ToolboxLiveSearchDebounceWait"]
-  LOADK R3 K22 [0.25]
-  NAMECALL R0 R0 K23 ["DefineFastInt"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K24 ["ToolboxUGCAccessoryUploadRequest2"]
+  LOADK R2 K24 ["UpdateAssetUploadResultBundleConfigureLink2"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K25 ["ToolboxAccessoryNameFix"]
+  LOADK R2 K25 ["EnableUGCBundleUnknownMeshPartFiltering"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K26 ["UpdateAssetUploadResultBundleConfigureLink2"]
+  LOADK R2 K26 ["ToolboxUseToolboxServiceForGroupAnimations"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K27 ["EnableUGCBundleUnknownMeshPartFiltering"]
+  LOADK R2 K27 ["AICOChatBotFindVariationFix"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K28 ["ToolboxUseCmwForAssetUploadLink"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K29 ["ToolboxUseAssetPermissionsApiForCanManage"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K30 ["ToolboxUseToolboxServiceForGroupAnimations"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K31 ["AICOChatBotFindVariationFix"]
+  LOADK R2 K28 ["IsAssetCommentDisabled"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

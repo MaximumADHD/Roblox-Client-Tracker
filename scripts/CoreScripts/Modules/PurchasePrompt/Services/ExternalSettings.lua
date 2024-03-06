@@ -7,8 +7,6 @@ local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell
 local GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt
 	= require(Root.Flags.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt)
 
-local FFlagPPXboxPromptNative = game:DefineFastFlag("PPXboxPromptNative", false)
-
 local ExternalSettings = {}
 
 function ExternalSettings.new()
@@ -64,10 +62,6 @@ function ExternalSettings.new()
 
 	function service.GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
 		return GetFFlagEnableRestrictedAssetSaleLocationPurchasePrompt()
-	end
-
-	function service.FFlagPPXboxPromptNative()
-		return FFlagPPXboxPromptNative
 	end
 
 	return service

@@ -216,159 +216,139 @@ PROTO_0:
   GETUPVAL R8 1
   MOVE R9 R6
   CALL R7 2 1
-  LOADNIL R8
-  LOADNIL R9
-  GETUPVAL R10 13
-  JUMPIFNOT R10 [+17]
-  GETUPVAL R12 14
-  GETTABLEKS R11 R12 K54 ["Networking"]
+  GETUPVAL R9 13
+  GETTABLEKS R8 R9 K1 ["new"]
+  GETUPVAL R9 14
+  CALL R8 1 1
+  GETIMPORT R9 K55 [require]
+  GETUPVAL R13 15
+  GETTABLEKS R12 R13 K56 ["Src"]
+  GETTABLEKS R11 R12 K57 ["Util"]
+  GETTABLEKS R10 R11 K58 ["getTerrain"]
+  CALL R9 1 1
+  CALL R9 0 1
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K59 ["Terrain"]
   GETTABLEKS R10 R11 K1 ["new"]
-  DUPTABLE R11 K56 [{"isInternal"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K55 ["isInternal"]
+  MOVE R11 R9
   CALL R10 1 1
-  MOVE R8 R10
-  GETUPVAL R11 15
-  GETTABLEKS R10 R11 K1 ["new"]
-  MOVE R11 R8
-  CALL R10 1 1
-  MOVE R9 R10
-  GETUPVAL R11 16
-  GETTABLEKS R10 R11 K1 ["new"]
-  GETUPVAL R11 17
-  CALL R10 1 1
-  GETIMPORT R11 K58 [require]
-  GETUPVAL R15 18
-  GETTABLEKS R14 R15 K59 ["Src"]
-  GETTABLEKS R13 R14 K60 ["Util"]
-  GETTABLEKS R12 R13 K61 ["getTerrain"]
+  GETUPVAL R12 16
+  GETTABLEKS R11 R12 K1 ["new"]
+  GETUPVAL R12 1
   CALL R11 1 1
-  CALL R11 0 1
-  GETUPVAL R14 6
-  GETTABLEKS R13 R14 K62 ["Terrain"]
+  GETUPVAL R13 17
   GETTABLEKS R12 R13 K1 ["new"]
-  MOVE R13 R11
+  DUPTABLE R13 K62 [{"localization", "analytics"}]
+  SETTABLEKS R5 R13 K60 ["localization"]
+  SETTABLEKS R8 R13 K61 ["analytics"]
   CALL R12 1 1
-  GETUPVAL R14 19
+  GETUPVAL R14 18
   GETTABLEKS R13 R14 K1 ["new"]
-  GETUPVAL R14 1
+  DUPTABLE R14 K64 [{"terrain", "localization", "analytics"}]
+  SETTABLEKS R9 R14 K63 ["terrain"]
+  SETTABLEKS R5 R14 K60 ["localization"]
+  SETTABLEKS R8 R14 K61 ["analytics"]
   CALL R13 1 1
-  GETUPVAL R15 20
+  GETUPVAL R15 19
   GETTABLEKS R14 R15 K1 ["new"]
-  DUPTABLE R15 K66 [{"localization", "analytics", "imageUploader"}]
-  SETTABLEKS R5 R15 K63 ["localization"]
-  SETTABLEKS R10 R15 K64 ["analytics"]
-  SETTABLEKS R9 R15 K65 ["imageUploader"]
+  DUPTABLE R15 K65 [{"terrain", "localization"}]
+  SETTABLEKS R9 R15 K63 ["terrain"]
+  SETTABLEKS R5 R15 K60 ["localization"]
   CALL R14 1 1
-  GETUPVAL R16 21
-  GETTABLEKS R15 R16 K1 ["new"]
-  DUPTABLE R16 K68 [{"terrain", "localization", "analytics"}]
-  SETTABLEKS R11 R16 K67 ["terrain"]
-  SETTABLEKS R5 R16 K63 ["localization"]
-  SETTABLEKS R10 R16 K64 ["analytics"]
-  CALL R15 1 1
-  GETUPVAL R17 22
+  GETUPVAL R15 20
+  CALL R15 0 1
+  GETUPVAL R17 21
   GETTABLEKS R16 R17 K1 ["new"]
-  DUPTABLE R17 K69 [{"terrain", "localization"}]
-  SETTABLEKS R11 R17 K67 ["terrain"]
-  SETTABLEKS R5 R17 K63 ["localization"]
-  CALL R16 1 1
-  GETUPVAL R17 23
+  CALL R16 0 1
+  GETUPVAL R19 6
+  GETTABLEKS R18 R19 K66 ["CalloutController"]
+  GETTABLEKS R17 R18 K1 ["new"]
   CALL R17 0 1
-  GETUPVAL R19 24
-  GETTABLEKS R18 R19 K1 ["new"]
-  CALL R18 0 1
+  LOADK R20 K67 ["ColormapCallout"]
+  LOADK R21 K68 ["Title"]
+  NAMECALL R18 R5 K28 ["getText"]
+  CALL R18 3 1
+  LOADK R21 K67 ["ColormapCallout"]
+  LOADK R22 K69 ["Description"]
+  NAMECALL R19 R5 K28 ["getText"]
+  CALL R19 3 1
+  LOADK R22 K70 ["TerrainToolsColormapCallout"]
+  MOVE R23 R18
+  MOVE R24 R19
+  LOADK R25 K71 ["https://developer.roblox.com/en-us/articles/importing-terrain-data"]
+  NAMECALL R20 R17 K72 ["defineCallout"]
+  CALL R20 5 0
+  LOADK R20 K73 ["LiveEditCallout"]
+  LOADK R21 K68 ["Title"]
+  NAMECALL R18 R5 K28 ["getText"]
+  CALL R18 3 1
+  LOADK R21 K73 ["LiveEditCallout"]
+  LOADK R22 K69 ["Description"]
+  NAMECALL R19 R5 K28 ["getText"]
+  CALL R19 3 1
+  LOADK R22 K74 ["TerrainToolsLiveEditCallout"]
+  MOVE R23 R18
+  MOVE R24 R19
+  LOADK R25 K75 ["https://devforum.roblox.com/t/improvements-to-the-terrain-editor/2344311"]
+  NAMECALL R20 R17 K72 ["defineCallout"]
+  CALL R20 5 0
+  LOADK R20 K76 ["FillCallout"]
+  LOADK R21 K68 ["Title"]
+  NAMECALL R18 R5 K28 ["getText"]
+  CALL R18 3 1
+  LOADK R21 K76 ["FillCallout"]
+  LOADK R22 K69 ["Description"]
+  NAMECALL R19 R5 K28 ["getText"]
+  CALL R19 3 1
+  LOADK R22 K77 ["TerrainToolsFillCallout"]
+  MOVE R23 R18
+  MOVE R24 R19
+  LOADK R25 K75 ["https://devforum.roblox.com/t/improvements-to-the-terrain-editor/2344311"]
+  NAMECALL R20 R17 K72 ["defineCallout"]
+  CALL R20 5 0
+  LOADNIL R18
+  GETUPVAL R19 22
+  JUMPIFNOT R19 [+11]
   GETUPVAL R21 6
-  GETTABLEKS R20 R21 K70 ["CalloutController"]
+  GETTABLEKS R20 R21 K78 ["ShorelineController"]
   GETTABLEKS R19 R20 K1 ["new"]
-  CALL R19 0 1
-  LOADK R22 K71 ["ColormapCallout"]
-  LOADK R23 K72 ["Title"]
-  NAMECALL R20 R5 K28 ["getText"]
-  CALL R20 3 1
-  LOADK R23 K71 ["ColormapCallout"]
-  LOADK R24 K73 ["Description"]
-  NAMECALL R21 R5 K28 ["getText"]
-  CALL R21 3 1
-  LOADK R24 K74 ["TerrainToolsColormapCallout"]
-  MOVE R25 R20
-  MOVE R26 R21
-  LOADK R27 K75 ["https://developer.roblox.com/en-us/articles/importing-terrain-data"]
-  NAMECALL R22 R19 K76 ["defineCallout"]
-  CALL R22 5 0
-  LOADK R22 K77 ["LiveEditCallout"]
-  LOADK R23 K72 ["Title"]
-  NAMECALL R20 R5 K28 ["getText"]
-  CALL R20 3 1
-  LOADK R23 K77 ["LiveEditCallout"]
-  LOADK R24 K73 ["Description"]
-  NAMECALL R21 R5 K28 ["getText"]
-  CALL R21 3 1
-  LOADK R24 K78 ["TerrainToolsLiveEditCallout"]
-  MOVE R25 R20
-  MOVE R26 R21
-  LOADK R27 K79 ["https://devforum.roblox.com/t/improvements-to-the-terrain-editor/2344311"]
-  NAMECALL R22 R19 K76 ["defineCallout"]
-  CALL R22 5 0
-  LOADK R22 K80 ["FillCallout"]
-  LOADK R23 K72 ["Title"]
-  NAMECALL R20 R5 K28 ["getText"]
-  CALL R20 3 1
-  LOADK R23 K80 ["FillCallout"]
-  LOADK R24 K73 ["Description"]
-  NAMECALL R21 R5 K28 ["getText"]
-  CALL R21 3 1
-  LOADK R24 K81 ["TerrainToolsFillCallout"]
-  MOVE R25 R20
-  MOVE R26 R21
-  LOADK R27 K79 ["https://devforum.roblox.com/t/improvements-to-the-terrain-editor/2344311"]
-  NAMECALL R22 R19 K76 ["defineCallout"]
-  CALL R22 5 0
-  LOADNIL R20
-  GETUPVAL R21 25
-  JUMPIFNOT R21 [+11]
-  GETUPVAL R23 6
-  GETTABLEKS R22 R23 K82 ["ShorelineController"]
-  GETTABLEKS R21 R22 K1 ["new"]
-  MOVE R22 R10
-  GETUPVAL R23 1
-  MOVE R24 R2
-  MOVE R25 R12
-  CALL R21 4 1
-  MOVE R20 R21
-  LOADNIL R21
-  GETUPVAL R22 26
-  JUMPIFNOT R22 [+11]
-  GETUPVAL R24 6
-  GETTABLEKS R23 R24 K83 ["SmoothVoxelsController"]
-  GETTABLEKS R22 R23 K1 ["new"]
+  MOVE R20 R8
+  GETUPVAL R21 1
+  MOVE R22 R2
   MOVE R23 R10
-  GETUPVAL R24 1
-  MOVE R25 R2
-  MOVE R26 R12
-  CALL R22 4 1
-  MOVE R21 R22
-  DUPTABLE R22 K99 [{"plugin", "mouse", "store", "theme", "devFrameworkThemeItem", "localization", "analytics", "networking", "imageUploader", "imageLoader", "terrain", "pluginActivationController", "pluginActionsController", "terrainImporter", "terrainGeneration", "seaLevel", "calloutController", "shorelineController", "smoothVoxelsController"}]
-  SETTABLEKS R0 R22 K84 ["plugin"]
-  SETTABLEKS R1 R22 K85 ["mouse"]
-  SETTABLEKS R3 R22 K86 ["store"]
-  SETTABLEKS R4 R22 K87 ["theme"]
-  SETTABLEKS R17 R22 K88 ["devFrameworkThemeItem"]
-  SETTABLEKS R5 R22 K63 ["localization"]
-  SETTABLEKS R10 R22 K64 ["analytics"]
-  SETTABLEKS R8 R22 K89 ["networking"]
-  SETTABLEKS R9 R22 K65 ["imageUploader"]
-  SETTABLEKS R18 R22 K90 ["imageLoader"]
-  SETTABLEKS R12 R22 K67 ["terrain"]
-  SETTABLEKS R13 R22 K91 ["pluginActivationController"]
-  SETTABLEKS R7 R22 K92 ["pluginActionsController"]
-  SETTABLEKS R14 R22 K93 ["terrainImporter"]
-  SETTABLEKS R15 R22 K94 ["terrainGeneration"]
-  SETTABLEKS R16 R22 K95 ["seaLevel"]
-  SETTABLEKS R19 R22 K96 ["calloutController"]
-  SETTABLEKS R20 R22 K97 ["shorelineController"]
-  SETTABLEKS R21 R22 K98 ["smoothVoxelsController"]
-  RETURN R22 1
+  CALL R19 4 1
+  MOVE R18 R19
+  LOADNIL R19
+  GETUPVAL R20 23
+  JUMPIFNOT R20 [+11]
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K79 ["SmoothVoxelsController"]
+  GETTABLEKS R20 R21 K1 ["new"]
+  MOVE R21 R8
+  GETUPVAL R22 1
+  MOVE R23 R2
+  MOVE R24 R10
+  CALL R20 4 1
+  MOVE R19 R20
+  DUPTABLE R20 K94 [{"plugin", "mouse", "store", "theme", "devFrameworkThemeItem", "localization", "analytics", "imageLoader", "terrain", "pluginActivationController", "pluginActionsController", "terrainImporter", "terrainGeneration", "seaLevel", "calloutController", "shorelineController", "smoothVoxelsController"}]
+  SETTABLEKS R0 R20 K80 ["plugin"]
+  SETTABLEKS R1 R20 K81 ["mouse"]
+  SETTABLEKS R3 R20 K82 ["store"]
+  SETTABLEKS R4 R20 K83 ["theme"]
+  SETTABLEKS R15 R20 K84 ["devFrameworkThemeItem"]
+  SETTABLEKS R5 R20 K60 ["localization"]
+  SETTABLEKS R8 R20 K61 ["analytics"]
+  SETTABLEKS R16 R20 K85 ["imageLoader"]
+  SETTABLEKS R10 R20 K63 ["terrain"]
+  SETTABLEKS R11 R20 K86 ["pluginActivationController"]
+  SETTABLEKS R7 R20 K87 ["pluginActionsController"]
+  SETTABLEKS R12 R20 K88 ["terrainImporter"]
+  SETTABLEKS R13 R20 K89 ["terrainGeneration"]
+  SETTABLEKS R14 R20 K90 ["seaLevel"]
+  SETTABLEKS R17 R20 K91 ["calloutController"]
+  SETTABLEKS R18 R20 K92 ["shorelineController"]
+  SETTABLEKS R19 R20 K93 ["smoothVoxelsController"]
+  RETURN R20 1
 
 PROTO_1:
   GETUPVAL R0 0
@@ -559,19 +539,14 @@ PROTO_6:
   GETIMPORT R28 K11 [require]
   GETTABLEKS R31 R2 K21 ["Src"]
   GETTABLEKS R30 R31 K23 ["Util"]
-  GETTABLEKS R29 R30 K39 ["ImageUploader"]
+  GETTABLEKS R29 R30 K39 ["ImageLoader"]
   CALL R28 1 1
   GETIMPORT R29 K11 [require]
   GETTABLEKS R32 R2 K21 ["Src"]
-  GETTABLEKS R31 R32 K23 ["Util"]
-  GETTABLEKS R30 R31 K40 ["ImageLoader"]
+  GETTABLEKS R31 R32 K40 ["Components"]
+  GETTABLEKS R30 R31 K41 ["TerrainTools"]
   CALL R29 1 1
-  GETIMPORT R30 K11 [require]
-  GETTABLEKS R33 R2 K21 ["Src"]
-  GETTABLEKS R32 R33 K41 ["Components"]
-  GETTABLEKS R31 R32 K42 ["TerrainTools"]
-  CALL R30 1 1
-  NEWCLOSURE R31 P0
+  NEWCLOSURE R30 P0
   CAPTURE VAL R10
   CAPTURE VAL R0
   CAPTURE VAL R12
@@ -585,9 +560,6 @@ PROTO_6:
   CAPTURE VAL R22
   CAPTURE VAL R4
   CAPTURE VAL R23
-  CAPTURE VAL R3
-  CAPTURE VAL R17
-  CAPTURE VAL R28
   CAPTURE VAL R11
   CAPTURE VAL R16
   CAPTURE VAL R2
@@ -596,20 +568,20 @@ PROTO_6:
   CAPTURE VAL R26
   CAPTURE VAL R27
   CAPTURE VAL R20
-  CAPTURE VAL R29
+  CAPTURE VAL R28
   CAPTURE VAL R5
   CAPTURE VAL R6
-  DUPCLOSURE R32 K43 [PROTO_2]
-  NEWCLOSURE R33 P2
-  CAPTURE VAL R31
+  DUPCLOSURE R31 K42 [PROTO_2]
+  NEWCLOSURE R32 P2
+  CAPTURE VAL R30
   CAPTURE VAL R1
   CAPTURE VAL R8
-  CAPTURE VAL R30
+  CAPTURE VAL R29
   CAPTURE VAL R7
   CAPTURE VAL R0
-  CAPTURE VAL R32
-  MOVE R34 R33
-  CALL R34 0 0
+  CAPTURE VAL R31
+  MOVE R33 R32
+  CALL R33 0 0
   RETURN R0 0
 
 MAIN:

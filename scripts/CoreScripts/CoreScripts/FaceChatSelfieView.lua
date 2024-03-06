@@ -50,6 +50,7 @@ local FFlagSelfViewCameraDefaultButtonInViewPort = game:DefineFastFlag("SelfView
 local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
 local FFlagSelfViewHumanoidNilCheck = game:DefineFastFlag("SelfViewHumanoidNilCheck", false)
 local FFlagSelfViewMoreNilChecks = game:DefineFastFlag("SelfViewMoreNilChecks", false)
+local FFlagSelfViewAvoidErrorOnWrongFaceControlsParenting = game:DefineFastFlag("SelfViewAvoidErrorOnWrongFaceControlsParenting", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -300,7 +301,7 @@ local TYPES_TRIGGERING_DIRTY_ON_ADDREMOVE = {
 	SurfaceAppearance = "SurfaceAppearance",
 }
 
-log:trace("Self View 02-14-2024__1!!")
+log:trace("Self View 02-27-2024__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -1657,7 +1658,15 @@ function getHead(character)
 	--lookup for dynamic heads
 	local faceControls = getFaceControls(character)
 	if faceControls ~= nil then
-		head = faceControls.Parent
+		if FFlagSelfViewAvoidErrorOnWrongFaceControlsParenting then
+			if faceControls.Parent then
+				if faceControls.Parent.ClassName == "MeshPart" or faceControls.Parent.ClassName == "Part" then
+					head = faceControls.Parent
+				end
+			end
+		else
+			head = faceControls.Parent
+		end
 	end
 
 	--fallback lookup attempts in case non dynamic head avatar

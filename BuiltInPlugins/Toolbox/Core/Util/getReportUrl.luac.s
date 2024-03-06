@@ -5,28 +5,15 @@ PROTO_0:
   GETTABLEKS R3 R4 K1 ["convertAssetTypeValueToEnum"]
   MOVE R4 R1
   CALL R3 1 1
-  LOADNIL R4
-  GETUPVAL R5 2
-  CALL R5 0 1
-  JUMPIFNOT R5 [+2]
-  LOADK R4 K2 ["%s/abusereport/asset?id=%s"]
-  JUMP [+9]
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K3 ["LIBRARY_REPORT_ASSET_TYPES"]
-  GETTABLE R5 R6 R3
-  JUMPIFNOTEQKB R5 TRUE [+3]
-  LOADK R4 K4 ["%s/abusereport/library?id=%s&source=Studio"]
-  JUMP [+1]
-  LOADK R4 K2 ["%s/abusereport/asset?id=%s"]
-  GETIMPORT R5 K7 [string.format]
-  MOVE R6 R4
-  MOVE R7 R2
-  GETUPVAL R8 4
-  MOVE R10 R0
-  NAMECALL R8 R8 K8 ["urlEncode"]
-  CALL R8 2 -1
-  CALL R5 -1 -1
-  RETURN R5 -1
+  GETIMPORT R4 K4 [string.format]
+  LOADK R5 K5 ["%s/abusereport/asset?id=%s"]
+  MOVE R6 R2
+  GETUPVAL R7 2
+  MOVE R9 R0
+  NAMECALL R7 R7 K6 ["urlEncode"]
+  CALL R7 2 -1
+  CALL R4 -1 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -42,24 +29,16 @@ MAIN:
   GETTABLEKS R4 R5 K7 ["Parent"]
   GETTABLEKS R3 R4 K7 ["Parent"]
   GETTABLEKS R2 R3 K7 ["Parent"]
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R7 R2 K10 ["Core"]
-  GETTABLEKS R6 R7 K11 ["Util"]
-  GETTABLEKS R5 R6 K12 ["SharedFlags"]
-  GETTABLEKS R4 R5 K13 ["getFFlagToolboxRedirectToGenericReportPage"]
-  CALL R3 1 1
-  GETTABLEKS R5 R2 K10 ["Core"]
-  GETTABLEKS R4 R5 K11 ["Util"]
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R6 R4 K14 ["AssetConfigConstants"]
+  GETTABLEKS R4 R2 K8 ["Core"]
+  GETTABLEKS R3 R4 K9 ["Util"]
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R5 R3 K12 ["AssetConfigConstants"]
+  CALL R4 1 1
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R6 R3 K13 ["EnumConvert"]
   CALL R5 1 1
-  GETIMPORT R6 K9 [require]
-  GETTABLEKS R7 R4 K15 ["EnumConvert"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K16 [PROTO_0]
+  DUPCLOSURE R6 K14 [PROTO_0]
   CAPTURE VAL R0
-  CAPTURE VAL R6
-  CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R1
-  RETURN R7 1
+  RETURN R6 1

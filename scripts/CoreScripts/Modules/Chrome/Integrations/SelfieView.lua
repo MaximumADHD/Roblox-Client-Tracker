@@ -11,6 +11,7 @@ local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
 local FFlagSelfViewFixes = require(script.Parent.Parent.Flags.GetFFlagSelfViewFixes)()
 local FFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)()
+local FFlagFixSelfViewPopin = game:DefineFastFlag("FixSelfViewPopin", false)
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -101,7 +102,12 @@ local updateAvailability = function(): ()
 		return
 	end
 
-	if FaceAnimatorService.VideoAnimationEnabled or FaceAnimatorService.AudioAnimationEnabled then
+	local shouldPin = if FFlagFixSelfViewPopin
+		then FaceAnimatorService:IsStarted()
+			and (FaceAnimatorService.VideoAnimationEnabled or FaceAnimatorService.AudioAnimationEnabled)
+		else FaceAnimatorService.VideoAnimationEnabled or FaceAnimatorService.AudioAnimationEnabled
+
+	if shouldPin then
 		selfieViewChromeIntegration.availability:pinned()
 		return
 	end

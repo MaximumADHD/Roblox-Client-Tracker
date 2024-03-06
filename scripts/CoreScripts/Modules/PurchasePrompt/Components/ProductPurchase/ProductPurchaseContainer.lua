@@ -86,7 +86,7 @@ function ProductPurchaseContainer:init()
 			self:setState({
 				isLuobu = true,
 			})
-		end 
+		end
 	end)()
 
 	self.changeScreenSize = function(rbx)
@@ -233,7 +233,7 @@ function ProductPurchaseContainer:didMount()
 end
 
 function ProductPurchaseContainer:willUpdate(nextProps)
-    if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and self.props.expectedPrice ~= nextProps.expectedPrice then
+    if self.props.expectedPrice ~= nextProps.expectedPrice then
         self:setState({})
     end
 end
@@ -318,7 +318,7 @@ function ProductPurchaseContainer:getMessageKeysFromPromptState()
 			if FFlagPPTwoFactorLogOutMessage then
 				messageKey = "CoreScripts.PurchasePrompt.PurchaseFailed.Enable2SVLogout"
 			end
-			
+
 			return {
 				messageText = { key = messageKey, },
 				okText = { key = SETTINGS_LOCALE_KEY },
@@ -376,7 +376,7 @@ function ProductPurchaseContainer:render()
 
 			buyItemActivated = self.confirmButtonPressed,
 			cancelPurchaseActivated = self.cancelButtonPressed,
-			
+
 			isLuobu = self.state.isLuobu,
 		})
 	elseif promptState == PromptState.RobuxUpsell
@@ -399,11 +399,11 @@ function ProductPurchaseContainer:render()
 
 			buyItemActivated = self.confirmButtonPressed,
 			cancelPurchaseActivated = self.cancelButtonPressed,
-			
+
 			isLuobu = self.state.isLuobu,
 		})
 	elseif (promptState == PromptState.Error
-			and purchaseError == PurchaseError.TwoFactorNeededSettings) or 
+			and purchaseError == PurchaseError.TwoFactorNeededSettings) or
 			isGenericChallengeResponse(purchaseError) then
 		prompt = Roact.createElement(MultiTextLocalizer, {
 			locKeys = self:getMessageKeysFromPromptState(),

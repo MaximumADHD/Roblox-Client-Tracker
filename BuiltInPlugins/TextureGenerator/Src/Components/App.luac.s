@@ -1,0 +1,71 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  DUPTABLE R2 K2 [{"providers"}]
+  NEWTABLE R3 0 3
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  CALL R4 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 3
+  CALL R5 1 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["createElement"]
+  GETUPVAL R7 4
+  CALL R6 1 -1
+  SETLIST R3 R4 -1 [1]
+  SETTABLEKS R3 R2 K1 ["providers"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["createElement"]
+  GETUPVAL R4 5
+  CALL R3 1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TextureGenerator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ReactUtils"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["ContextStack"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["GenerationsProvider"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Components"]
+  GETTABLEKS R6 R7 K13 ["OptionsProvider"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K11 ["Components"]
+  GETTABLEKS R7 R8 K14 ["PreviewProvider"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K11 ["Components"]
+  GETTABLEKS R9 R10 K15 ["Screens"]
+  GETTABLEKS R8 R9 K16 ["GenerationScreen"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K17 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  RETURN R8 1

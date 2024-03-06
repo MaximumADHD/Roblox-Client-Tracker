@@ -1,6 +1,5 @@
 --[[
 	Init script to allow us to use the PublishAssetPrompt folder as a module.
-	See StarterScript.lua's calls to "initify".
 ]]
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")

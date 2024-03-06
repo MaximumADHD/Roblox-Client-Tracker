@@ -1,62 +1,62 @@
 PROTO_0:
-  DUPTABLE R2 K31 [{"Started", "Paused", "Resumed", "Canceled", "Finished", "ProgressChanged", "_name", "_description", "_onStartFunc", "_onStepFunc", "_onPauseFunc", "_onResumeFunc", "_onCancelFunc", "_onFinishFunc", "_onErrorFunc", "_budget", "_timeBetweenSteps", "_timeBetweenPauseChecks", "_options", "_canCancel", "_canPause", "_hasStarted", "_isPaused", "_wasCanceled", "_hasFinished", "_isRunning", "_operationProgress", "_errorMessage", "_startTime", "_endTime", "_yieldTime"}]
+  DUPTABLE R2 K32 [{"Started", "Paused", "Resumed", "Canceled", "Finished", "ProgressChanged", "_name", "_description", "_onStartFunc", "_onStepFunc", "_onPauseFunc", "_onResumeFunc", "_onCancelFunc", "_onFinishFunc", "_onErrorFunc", "_budget", "_timeBetweenSteps", "_timeBetweenPauseChecks", "_options", "_canCancel", "_canPause", "_hasStarted", "_isPaused", "_wasCanceled", "_hasFinished", "_isRunning", "_operationProgress", "_errorMessage", "_steps", "_startTime", "_endTime", "_yieldTime"}]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K32 ["new"]
+  GETTABLEKS R3 R4 K33 ["new"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K0 ["Started"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K32 ["new"]
+  GETTABLEKS R3 R4 K33 ["new"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K1 ["Paused"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K32 ["new"]
+  GETTABLEKS R3 R4 K33 ["new"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K2 ["Resumed"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K32 ["new"]
+  GETTABLEKS R3 R4 K33 ["new"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K3 ["Canceled"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K32 ["new"]
+  GETTABLEKS R3 R4 K33 ["new"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K4 ["Finished"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K32 ["new"]
+  GETTABLEKS R3 R4 K33 ["new"]
   CALL R3 0 1
   SETTABLEKS R3 R2 K5 ["ProgressChanged"]
-  GETTABLEKS R3 R0 K33 ["Name"]
+  GETTABLEKS R3 R0 K34 ["Name"]
   SETTABLEKS R3 R2 K6 ["_name"]
-  GETTABLEKS R3 R0 K34 ["Description"]
+  GETTABLEKS R3 R0 K35 ["Description"]
   SETTABLEKS R3 R2 K7 ["_description"]
-  GETTABLEKS R3 R0 K35 ["OnStart"]
+  GETTABLEKS R3 R0 K36 ["OnStart"]
   SETTABLEKS R3 R2 K8 ["_onStartFunc"]
-  GETTABLEKS R3 R0 K36 ["OnStep"]
+  GETTABLEKS R3 R0 K37 ["OnStep"]
   SETTABLEKS R3 R2 K9 ["_onStepFunc"]
-  GETTABLEKS R3 R0 K37 ["OnPause"]
+  GETTABLEKS R3 R0 K38 ["OnPause"]
   SETTABLEKS R3 R2 K10 ["_onPauseFunc"]
-  GETTABLEKS R3 R0 K38 ["OnResume"]
+  GETTABLEKS R3 R0 K39 ["OnResume"]
   SETTABLEKS R3 R2 K11 ["_onResumeFunc"]
-  GETTABLEKS R3 R0 K39 ["OnCancel"]
+  GETTABLEKS R3 R0 K40 ["OnCancel"]
   SETTABLEKS R3 R2 K12 ["_onCancelFunc"]
-  GETTABLEKS R3 R0 K40 ["OnFinish"]
+  GETTABLEKS R3 R0 K41 ["OnFinish"]
   SETTABLEKS R3 R2 K13 ["_onFinishFunc"]
-  GETTABLEKS R3 R0 K41 ["OnError"]
+  GETTABLEKS R3 R0 K42 ["OnError"]
   SETTABLEKS R3 R2 K14 ["_onErrorFunc"]
-  GETTABLEKS R3 R0 K42 ["Budget"]
+  GETTABLEKS R3 R0 K43 ["Budget"]
   SETTABLEKS R3 R2 K15 ["_budget"]
-  GETTABLEKS R4 R0 K44 ["TimeBetweenSteps"]
-  ORK R3 R4 K43 [0]
+  GETTABLEKS R4 R0 K45 ["TimeBetweenSteps"]
+  ORK R3 R4 K44 [0]
   SETTABLEKS R3 R2 K16 ["_timeBetweenSteps"]
-  GETTABLEKS R4 R0 K46 ["TimeBetweenPauseChecks"]
-  ORK R3 R4 K45 [0.1]
+  GETTABLEKS R4 R0 K47 ["TimeBetweenPauseChecks"]
+  ORK R3 R4 K46 [0.1]
   SETTABLEKS R3 R2 K17 ["_timeBetweenPauseChecks"]
   NEWTABLE R3 0 0
   SETTABLEKS R3 R2 K18 ["_options"]
-  GETTABLEKS R4 R0 K48 ["AllowCancel"]
-  ORK R3 R4 K47 [False]
+  GETTABLEKS R4 R0 K49 ["AllowCancel"]
+  ORK R3 R4 K48 [False]
   SETTABLEKS R3 R2 K19 ["_canCancel"]
-  GETTABLEKS R4 R0 K49 ["AllowPause"]
-  ORK R3 R4 K47 [False]
+  GETTABLEKS R4 R0 K50 ["AllowPause"]
+  ORK R3 R4 K48 [False]
   SETTABLEKS R3 R2 K20 ["_canPause"]
   LOADB R3 0
   SETTABLEKS R3 R2 K21 ["_hasStarted"]
@@ -73,14 +73,16 @@ PROTO_0:
   LOADNIL R3
   SETTABLEKS R3 R2 K27 ["_errorMessage"]
   LOADN R3 0
-  SETTABLEKS R3 R2 K28 ["_startTime"]
+  SETTABLEKS R3 R2 K28 ["_steps"]
   LOADN R3 0
-  SETTABLEKS R3 R2 K29 ["_endTime"]
+  SETTABLEKS R3 R2 K29 ["_startTime"]
   LOADN R3 0
-  SETTABLEKS R3 R2 K30 ["_yieldTime"]
+  SETTABLEKS R3 R2 K30 ["_endTime"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K31 ["_yieldTime"]
   GETUPVAL R3 1
   FASTCALL2 SETMETATABLE R2 R3 [+3]
-  GETIMPORT R1 K51 [setmetatable]
+  GETIMPORT R1 K52 [setmetatable]
   CALL R1 2 1
   RETURN R1 1
 
@@ -330,6 +332,21 @@ PROTO_27:
   RETURN R0 0
 
 PROTO_28:
+  GETTABLEKS R2 R0 K0 ["_steps"]
+  JUMPIFNOTEQKN R2 K1 [0] [+3]
+  LOADN R1 1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K0 ["_steps"]
+  RETURN R1 1
+
+PROTO_29:
+  GETIMPORT R2 K2 [os.clock]
+  CALL R2 0 1
+  GETTABLEKS R3 R0 K3 ["_startTime"]
+  SUB R1 R2 R3
+  RETURN R1 1
+
+PROTO_30:
   GETTABLEKS R1 R0 K0 ["_hasFinished"]
   JUMPIF R1 [+2]
   LOADN R1 0
@@ -339,11 +356,11 @@ PROTO_28:
   SUB R1 R2 R3
   RETURN R1 1
 
-PROTO_29:
+PROTO_31:
   GETTABLEKS R1 R0 K0 ["_yieldTime"]
   RETURN R1 1
 
-PROTO_30:
+PROTO_32:
   GETTABLEKS R1 R0 K0 ["_hasFinished"]
   JUMPIF R1 [+2]
   LOADN R1 0
@@ -355,7 +372,7 @@ PROTO_30:
   SUB R1 R2 R3
   RETURN R1 1
 
-PROTO_31:
+PROTO_33:
   PREPVARARGS 1
   GETTABLEKS R1 R0 K0 ["_cycles"]
   JUMPIF R1 [+3]
@@ -375,7 +392,7 @@ PROTO_31:
   SETTABLEKS R3 R0 K8 ["_yieldTime"]
   RETURN R0 0
 
-PROTO_32:
+PROTO_34:
   NAMECALL R2 R0 K0 ["didError"]
   CALL R2 1 1
   JUMPIFNOT R2 [+1]
@@ -396,7 +413,7 @@ PROTO_32:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_33:
+PROTO_35:
   GETIMPORT R0 K2 [table.pack]
   GETUPVAL R1 1
   GETUPVAL R3 2
@@ -407,7 +424,7 @@ PROTO_33:
   SETUPVAL R0 0
   RETURN R0 0
 
-PROTO_34:
+PROTO_36:
   JUMPIF R1 [+2]
   LOADB R2 0
   RETURN R2 1
@@ -433,7 +450,7 @@ PROTO_34:
   CLOSEUPVALS R2
   RETURN R5 1
 
-PROTO_35:
+PROTO_37:
   GETTABLEKS R3 R0 K0 ["_onStartFunc"]
   NAMECALL R1 R0 K1 ["_runCallback"]
   CALL R1 2 0
@@ -445,13 +462,13 @@ PROTO_35:
   CALL R2 0 1
   NAMECALL R3 R0 K7 ["didError"]
   CALL R3 1 1
-  JUMPIF R3 [+85]
+  JUMPIF R3 [+90]
   GETTABLEKS R3 R0 K8 ["_wasCanceled"]
   JUMPIFNOT R3 [+6]
   GETTABLEKS R5 R0 K9 ["_onCancelFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 0
-  JUMP [+76]
+  JUMP [+81]
   GETTABLEKS R3 R0 K10 ["_isPaused"]
   JUMPIFNOT R3 [+17]
   JUMPIF R1 [+9]
@@ -460,42 +477,45 @@ PROTO_35:
   GETTABLEKS R5 R0 K11 ["_onPauseFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 1
-  JUMPIFNOT R3 [+63]
+  JUMPIFNOT R3 [+68]
   LOADB R1 1
   GETTABLEKS R5 R0 K12 ["_timeBetweenPauseChecks"]
   NAMECALL R3 R0 K3 ["_yield"]
   CALL R3 2 0
-  JUMP [+55]
+  JUMP [+60]
   JUMPIFNOT R1 [+9]
   GETTABLEKS R3 R0 K13 ["_onResumeFunc"]
   JUMPIFNOT R3 [+6]
   GETTABLEKS R5 R0 K13 ["_onResumeFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 1
-  JUMPIFNOT R3 [+46]
+  JUMPIFNOT R3 [+51]
   LOADB R1 0
   GETTABLEKS R5 R0 K14 ["_onStepFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 3
+  GETTABLEKS R6 R0 K15 ["_steps"]
+  ADDK R6 R6 K16 [1]
+  SETTABLEKS R6 R0 K15 ["_steps"]
   JUMPIFNOT R3 [+39]
   JUMPIFNOT R5 [+4]
   MOVE R8 R5
-  NAMECALL R6 R0 K15 ["_setProgress"]
+  NAMECALL R6 R0 K17 ["_setProgress"]
   CALL R6 2 0
-  GETTABLEKS R6 R0 K16 ["_cycles"]
+  GETTABLEKS R6 R0 K18 ["_cycles"]
   JUMPIFNOT R6 [+5]
-  GETTABLEKS R6 R0 K16 ["_cycles"]
-  SUBK R6 R6 K17 [1]
-  SETTABLEKS R6 R0 K16 ["_cycles"]
+  GETTABLEKS R6 R0 K18 ["_cycles"]
+  SUBK R6 R6 K16 [1]
+  SETTABLEKS R6 R0 K18 ["_cycles"]
   JUMPIFNOT R4 [+25]
-  GETTABLEKS R6 R0 K16 ["_cycles"]
-  JUMPIFEQKN R6 K18 [0] [+22]
-  GETTABLEKS R6 R0 K19 ["_budget"]
+  GETTABLEKS R6 R0 K18 ["_cycles"]
+  JUMPIFEQKN R6 K19 [0] [+22]
+  GETTABLEKS R6 R0 K20 ["_budget"]
   JUMPIFNOT R6 [+8]
   GETIMPORT R7 K6 [os.clock]
   CALL R7 0 1
   SUB R6 R7 R2
-  GETTABLEKS R7 R0 K19 ["_budget"]
+  GETTABLEKS R7 R0 K20 ["_budget"]
   JUMPIFNOTLT R7 R6 [+10]
   GETTABLEKS R8 R0 K2 ["_timeBetweenSteps"]
   NAMECALL R6 R0 K3 ["_yield"]
@@ -503,19 +523,19 @@ PROTO_35:
   GETIMPORT R6 K6 [os.clock]
   CALL R6 0 1
   MOVE R2 R6
-  JUMPBACK [-89]
+  JUMPBACK [-94]
   LOADB R3 1
-  SETTABLEKS R3 R0 K20 ["_hasFinished"]
+  SETTABLEKS R3 R0 K21 ["_hasFinished"]
   LOADB R3 0
-  SETTABLEKS R3 R0 K21 ["_isRunning"]
+  SETTABLEKS R3 R0 K22 ["_isRunning"]
   GETIMPORT R3 K6 [os.clock]
   CALL R3 0 1
-  SETTABLEKS R3 R0 K22 ["_endTime"]
-  GETTABLEKS R5 R0 K23 ["_onFinishFunc"]
+  SETTABLEKS R3 R0 K23 ["_endTime"]
+  GETTABLEKS R5 R0 K24 ["_onFinishFunc"]
   NAMECALL R3 R0 K1 ["_runCallback"]
   CALL R3 2 0
-  GETTABLEKS R3 R0 K24 ["Finished"]
-  NAMECALL R3 R3 K25 ["Fire"]
+  GETTABLEKS R3 R0 K25 ["Finished"]
+  NAMECALL R3 R3 K26 ["Fire"]
   CALL R3 1 0
   RETURN R0 0
 
@@ -600,17 +620,21 @@ MAIN:
   DUPCLOSURE R7 K69 [PROTO_27]
   SETTABLEKS R7 R6 K70 ["_setProgress"]
   DUPCLOSURE R7 K71 [PROTO_28]
-  SETTABLEKS R7 R6 K72 ["getTimeTaken"]
+  SETTABLEKS R7 R6 K72 ["getStepsTaken"]
   DUPCLOSURE R7 K73 [PROTO_29]
-  SETTABLEKS R7 R6 K74 ["getYieldTime"]
+  SETTABLEKS R7 R6 K74 ["getCurrentTimeTaken"]
   DUPCLOSURE R7 K75 [PROTO_30]
-  SETTABLEKS R7 R6 K76 ["getWorkTime"]
+  SETTABLEKS R7 R6 K76 ["getTimeTaken"]
   DUPCLOSURE R7 K77 [PROTO_31]
-  SETTABLEKS R7 R6 K78 ["_yield"]
+  SETTABLEKS R7 R6 K78 ["getYieldTime"]
   DUPCLOSURE R7 K79 [PROTO_32]
-  SETTABLEKS R7 R6 K80 ["_handleError"]
-  DUPCLOSURE R7 K81 [PROTO_34]
-  SETTABLEKS R7 R6 K82 ["_runCallback"]
-  DUPCLOSURE R7 K83 [PROTO_35]
-  SETTABLEKS R7 R6 K84 ["_runOperation"]
+  SETTABLEKS R7 R6 K80 ["getWorkTime"]
+  DUPCLOSURE R7 K81 [PROTO_33]
+  SETTABLEKS R7 R6 K82 ["_yield"]
+  DUPCLOSURE R7 K83 [PROTO_34]
+  SETTABLEKS R7 R6 K84 ["_handleError"]
+  DUPCLOSURE R7 K85 [PROTO_36]
+  SETTABLEKS R7 R6 K86 ["_runCallback"]
+  DUPCLOSURE R7 K87 [PROTO_37]
+  SETTABLEKS R7 R6 K88 ["_runOperation"]
   RETURN R6 1

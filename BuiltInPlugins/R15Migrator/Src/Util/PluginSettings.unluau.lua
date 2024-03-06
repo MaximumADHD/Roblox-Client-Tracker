@@ -9,6 +9,10 @@ function var1.new(arg1)
 end
 
 function var1.getSetting(arg1, arg2, arg3)
+   if arg3 == 0 then
+      if arg3 == 0 then
+      end
+   end
    return arg2:GetSetting(tostring(arg3) ... arg1.settingName)
 end
 
@@ -20,6 +24,10 @@ function var1.getBooleanSetting(arg1, arg2, arg3)
 end
 
 function var1.setSetting(arg1, arg2, arg3, arg4)
+   if arg3 == 0 then
+      if arg3 == 0 then
+      end
+   end
    local var35 = tostring(arg3)
    var35 = arg4
    arg2:SetSetting(var35 ... arg1.settingName, var35)

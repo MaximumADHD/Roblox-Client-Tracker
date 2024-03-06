@@ -57,7 +57,7 @@ local function MarketplaceServiceEventConnector(props)
 		return MarketplaceService.PromptCollectiblesPurchaseRequested;
 	end
 	local promptCollectiblesPurchaseConnection;
-	if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and pcall(checkPromptCollectiblesPurchaseRequestedEventExists) then
+	if pcall(checkPromptCollectiblesPurchaseRequestedEventExists) then
 		promptCollectiblesPurchaseConnection = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptCollectiblesPurchaseRequested,
 			callback = onPromptCollectiblesPurchaseRequest,

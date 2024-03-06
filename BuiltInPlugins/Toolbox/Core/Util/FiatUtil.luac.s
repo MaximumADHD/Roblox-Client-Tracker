@@ -1,0 +1,125 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["([^,]+),?"]
+  NAMECALL R0 R0 K1 ["gmatch"]
+  CALL R0 2 3
+  FORGPREP R0
+  GETIMPORT R6 K4 [Enum.AssetType]
+  GETTABLE R5 R6 R3
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["ENABLED_ASSET_TYPES"]
+  GETTABLEKS R7 R5 K6 ["Name"]
+  LOADB R8 1
+  SETTABLE R8 R6 R7
+  FORGLOOP R0 1 [-11]
+  RETURN R0 0
+
+PROTO_1:
+  MOVE R1 R0
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R1 R0 K0 ["quantity"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R3 R0 K0 ["quantity"]
+  GETTABLEKS R2 R3 K1 ["significand"]
+  JUMPIFEQKN R2 K2 [0] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_2:
+  JUMPIFNOTEQKS R0 K0 ["USD"] [+3]
+  LOADK R1 K1 ["$"]
+  RETURN R1 1
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["isFree"]
+  MOVE R3 R0
+  CALL R2 1 1
+  JUMPIFNOT R2 [+9]
+  JUMPIFNOT R1 [+6]
+  LOADK R4 K1 ["General"]
+  LOADK R5 K2 ["Free"]
+  NAMECALL R2 R1 K3 ["getText"]
+  CALL R2 3 1
+  RETURN R2 1
+  LOADK R2 K2 ["Free"]
+  RETURN R2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["stringFromCurrencyCode"]
+  GETTABLEKS R3 R0 K5 ["currencyCode"]
+  CALL R2 1 1
+  GETTABLEKS R5 R0 K6 ["quantity"]
+  GETTABLEKS R4 R5 K7 ["significand"]
+  LOADN R6 10
+  GETTABLEKS R8 R0 K6 ["quantity"]
+  GETTABLEKS R7 R8 K8 ["exponent"]
+  POW R5 R6 R7
+  MUL R3 R4 R5
+  GETIMPORT R4 K11 [string.format]
+  LOADK R5 K12 ["%s%.2f"]
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Core"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["DebugFlags"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Core"]
+  GETTABLEKS R4 R5 K9 ["Types"]
+  GETTABLEKS R3 R4 K10 ["MarketplaceFiatServiceTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Core"]
+  GETTABLEKS R6 R7 K7 ["Util"]
+  GETTABLEKS R5 R6 K11 ["SharedFlags"]
+  GETTABLEKS R4 R5 K12 ["getFFlagToolboxAddFiatPricesIntoAssetTile"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Core"]
+  GETTABLEKS R7 R8 K7 ["Util"]
+  GETTABLEKS R6 R7 K11 ["SharedFlags"]
+  GETTABLEKS R5 R6 K13 ["getFStringToolboxFiatMonetizableAssetTypesCSV"]
+  CALL R4 1 1
+  NEWTABLE R5 4 0
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K14 ["ENABLED_ASSET_TYPES"]
+  MOVE R6 R3
+  CALL R6 0 1
+  JUMPIFNOT R6 [+21]
+  MOVE R6 R4
+  CALL R6 0 1
+  GETIMPORT R7 K16 [pcall]
+  DUPCLOSURE R8 K17 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CALL R7 1 2
+  JUMPIF R7 [+12]
+  GETTABLEKS R9 R1 K18 ["shouldDebugWarnings"]
+  CALL R9 0 1
+  JUMPIFNOT R9 [+8]
+  GETIMPORT R9 K20 [warn]
+  LOADK R10 K21 ["Fiat error: Asset Type was not found for getFStringToolboxFiatMonetizableAssetTypesCSV: %s"]
+  MOVE R12 R8
+  NAMECALL R10 R10 K22 ["format"]
+  CALL R10 2 -1
+  CALL R9 -1 0
+  DUPCLOSURE R6 K23 [PROTO_1]
+  SETTABLEKS R6 R5 K24 ["isFree"]
+  DUPCLOSURE R6 K25 [PROTO_2]
+  SETTABLEKS R6 R5 K26 ["stringFromCurrencyCode"]
+  DUPCLOSURE R6 K27 [PROTO_3]
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K28 ["displayStringFromMoney"]
+  RETURN R5 1

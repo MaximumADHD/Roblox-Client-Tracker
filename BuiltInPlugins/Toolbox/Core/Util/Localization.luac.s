@@ -1739,349 +1739,342 @@ PROTO_41:
   SETTABLEKS R6 R5 K373 ["PackageDetails"]
   SETTABLEKS R5 R4 K24 ["RightClickMenu"]
   SETTABLEKS R4 R3 K27 ["PackagePermissions"]
-  NEWTABLE R4 64 0
-  DUPTABLE R5 K390 [{"Title", "Description", "Ownership", "Genre", "Copy", "Package", "Comments", "DistributeOnMarketplace", "LearnMore", "Me", "AssetType", "Sharing", "Tags", "TermsOfUse", "AssetTextDisplay"}]
-  LOADK R8 K135 ["CreationsShoulderAccessories"]
+  DUPTABLE R4 K405 [{"PublishAsset", "PreviewArea", "Footer", "Override", "Import", "Upload", "UploadResult", "VersionsHistory", "SideTabs", "DistributeAgreement", "Terms", "PublicSharingInformation", "MustShare", "AnyoneOnRoblox", "OnlyMe", "Apply", "Cancel", "Error", "NetworkError", "GetAssetFailed", "Discard", "Close", "DiscardMessage", "Insert", "Install", "Loading", "Update", "Installed", "InstallSuccess", "InstallFailure", "Installing", "NoTagFound"}]
+  DUPTABLE R5 K420 [{"Title", "Description", "Ownership", "Genre", "Copy", "Package", "Comments", "DistributeOnMarketplace", "LearnMore", "Me", "AssetType", "Sharing", "Tags", "TermsOfUse", "AssetTextDisplay"}]
+  LOADK R8 K165 ["CreationsGroupFaceAccessories"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K325 ["Title"]
-  LOADK R8 K136 ["Studio.Toolbox.General.CategoryCreationsFrontAccessory"]
+  LOADK R8 K166 ["Studio.Toolbox.General.CategoryCreationsGroupNeckAccessory"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K376 ["Description"]
-  LOADK R8 K137 ["CreationsFrontAccessories"]
+  SETTABLEKS R6 R5 K406 ["Description"]
+  LOADK R8 K167 ["CreationsGroupNeckAccessories"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K377 ["Ownership"]
-  LOADK R8 K138 ["Studio.Toolbox.General.CategoryCreationsBackAccessory"]
+  SETTABLEKS R6 R5 K407 ["Ownership"]
+  LOADK R8 K168 ["Studio.Toolbox.General.CategoryCreationsGroupShoulderAccessory"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K378 ["Genre"]
-  LOADK R8 K139 ["CreationsBackAccessories"]
+  SETTABLEKS R6 R5 K408 ["Genre"]
+  LOADK R8 K169 ["CreationsGroupShoulderAccessories"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K379 ["Copy"]
+  SETTABLEKS R6 R5 K409 ["Copy"]
   GETUPVAL R7 4
   JUMPIFNOT R7 [+5]
-  LOADK R8 K140 ["Studio.Toolbox.General.CategoryCreationsWaistAccessory"]
+  LOADK R8 K170 ["Studio.Toolbox.General.CategoryCreationsGroupFrontAccessory"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
   JUMPIF R6 [+1]
   LOADNIL R6
-  SETTABLEKS R6 R5 K380 ["Package"]
-  LOADK R8 K141 ["CreationsWaistAccessories"]
+  SETTABLEKS R6 R5 K410 ["Package"]
+  LOADK R8 K171 ["CreationsGroupFrontAccessories"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K381 ["Comments"]
-  GETUPVAL R7 5
-  CALL R7 0 1
-  JUMPIFNOT R7 [+5]
-  LOADK R8 K142 ["Studio.Toolbox.General.CategoryCreationsTShirtAccessory"]
+  SETTABLEKS R6 R5 K411 ["Comments"]
+  LOADK R8 K172 ["Studio.Toolbox.General.CategoryCreationsGroupBackAccessory"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  JUMP [+4]
-  LOADK R8 K143 ["CreationsTShirtAccessories"]
+  SETTABLEKS R6 R5 K412 ["DistributeOnMarketplace"]
+  LOADK R8 K173 ["CreationsGroupBackAccessories"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K382 ["DistributeOnMarketplace"]
-  LOADK R8 K144 ["Studio.Toolbox.General.CategoryCreationsShirtAccessory"]
+  SETTABLEKS R6 R5 K413 ["LearnMore"]
+  LOADK R8 K174 ["Studio.Toolbox.General.CategoryCreationsGroupWaistAccessory"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K383 ["LearnMore"]
-  LOADK R8 K145 ["CreationsShirtAccessories"]
+  SETTABLEKS R6 R5 K414 ["Me"]
+  LOADK R8 K175 ["CreationsGroupWaistAccessories"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K384 ["Me"]
-  LOADK R8 K146 ["Studio.Toolbox.General.CategoryCreationsPantsAccessory"]
+  SETTABLEKS R6 R5 K415 ["AssetType"]
+  LOADK R8 K176 ["Studio.Toolbox.General.CategoryCreationsGroupTShirtAccessory"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K385 ["AssetType"]
-  LOADK R8 K147 ["CreationsPantsAccessories"]
+  SETTABLEKS R6 R5 K416 ["Sharing"]
+  LOADK R8 K177 ["CreationsGroupTShirtAccessories"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K386 ["Sharing"]
-  LOADK R8 K148 ["Studio.Toolbox.General.CategoryCreationsJacketAccessory"]
+  SETTABLEKS R6 R5 K417 ["Tags"]
+  LOADK R8 K178 ["Studio.Toolbox.General.CategoryCreationsGroupShirtAccessory"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K387 ["Tags"]
-  LOADK R8 K149 ["CreationsJacketAccessories"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K388 ["TermsOfUse"]
+  SETTABLEKS R6 R5 K418 ["TermsOfUse"]
   NEWTABLE R6 64 0
-  GETIMPORT R7 K408 [Enum.AssetType.Model]
-  LOADK R10 K153 ["CreationsShortsAccessories"]
+  GETIMPORT R7 K437 [Enum.AssetType.Model]
+  LOADK R10 K182 ["Studio.Toolbox.General.CategoryCreationsGroupJacketAccessory"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K411 [Enum.AssetType.Decal]
-  LOADK R10 K156 ["Studio.Toolbox.General.CategoryCreationsRightShoeAccessory"]
+  GETIMPORT R7 K440 [Enum.AssetType.Decal]
+  LOADK R10 K185 ["CreationsGroupSweaterAccessories"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K414 [Enum.AssetType.Mesh]
-  LOADK R10 K159 ["CreationsDressSkirtAccessories"]
+  GETIMPORT R7 K443 [Enum.AssetType.Mesh]
+  LOADK R10 K188 ["Studio.Toolbox.General.CategoryCreationsGroupLeftShoeAccessory"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K417 [Enum.AssetType.Audio]
-  LOADK R10 K162 ["Studio.Toolbox.General.CategoryCreationsGroupHair"]
+  GETIMPORT R7 K446 [Enum.AssetType.Audio]
+  LOADK R10 K191 ["CreationsGroupRightShoeAccessories"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K420 [Enum.AssetType.Hat]
-  LOADK R10 K165 ["CreationsGroupFaceAccessories"]
+  GETIMPORT R7 K449 [Enum.AssetType.Hat]
+  LOADK R10 K194 ["IntroText"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K423 [Enum.AssetType.TShirt]
-  LOADK R10 K168 ["Studio.Toolbox.General.CategoryCreationsGroupShoulderAccessory"]
+  GETIMPORT R7 K452 [Enum.AssetType.TShirt]
+  LOADK R10 K197 ["Weapon"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K426 [Enum.AssetType.Shirt]
-  LOADK R10 K171 ["CreationsGroupFrontAccessories"]
+  GETIMPORT R7 K455 [Enum.AssetType.Shirt]
+  LOADK R10 K200 [{"IntroText", "NPC", "Vehicle", "Weapon", "Building", "Light"}]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K429 [Enum.AssetType.Pants]
-  LOADK R10 K174 ["Studio.Toolbox.General.CategoryCreationsGroupWaistAccessory"]
+  GETIMPORT R7 K458 [Enum.AssetType.Pants]
+  LOADK R10 K203 ["Studio.Toolbox.General.SuggestionsVehicle"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K432 [Enum.AssetType.Plugin]
-  LOADK R10 K177 ["CreationsGroupTShirtAccessories"]
+  GETIMPORT R7 K461 [Enum.AssetType.Plugin]
+  LOADK R10 K206 ["Studio.Toolbox.General.SuggestionsLight"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K435 [Enum.AssetType.HairAccessory]
-  LOADK R10 K180 ["Studio.Toolbox.General.CategoryCreationsGroupPantsAccessory"]
+  GETIMPORT R7 K464 [Enum.AssetType.HairAccessory]
+  LOADK R10 K209 ["MostTaken"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K438 [Enum.AssetType.FaceAccessory]
-  LOADK R10 K183 ["CreationsGroupJacketAccessories"]
+  GETIMPORT R7 K467 [Enum.AssetType.FaceAccessory]
+  LOADK R10 K212 ["Ratings"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K441 [Enum.AssetType.NeckAccessory]
-  LOADK R10 K186 ["Studio.Toolbox.General.CategoryCreationsGroupShortsAccessory"]
+  GETIMPORT R7 K470 [Enum.AssetType.NeckAccessory]
+  LOADK R10 K215 ["Studio.Toolbox.General.SortByRelevance"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K444 [Enum.AssetType.ShoulderAccessory]
-  LOADK R10 K189 ["CreationsGroupLeftShoeAccessories"]
+  GETIMPORT R7 K473 [Enum.AssetType.ShoulderAccessory]
+  LOADK R10 K218 ["Studio.Toolbox.General.SortByUpdated"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K447 [Enum.AssetType.FrontAccessory]
-  LOADK R10 K192 ["Studio.Toolbox.General.CategoryCreationsGroupDressSkirtAccessory"]
+  GETIMPORT R7 K476 [Enum.AssetType.FrontAccessory]
+  LOADK R10 K221 ["VotesText"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K450 [Enum.AssetType.BackAccessory]
-  LOADK R10 K195 ["NPC"]
+  GETIMPORT R7 K479 [Enum.AssetType.BackAccessory]
+  LOADK R10 K224 ["Studio.Toolbox.General.VotingVotesText"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K453 [Enum.AssetType.WaistAccessory]
-  LOADK R10 K198 ["Building"]
+  GETIMPORT R7 K482 [Enum.AssetType.WaistAccessory]
+  LOADK R10 K227 ["BGText"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K456 [Enum.AssetType.TShirtAccessory]
-  LOADK R10 K201 ["Studio.Toolbox.General.SuggestionsIntroText"]
+  GETIMPORT R7 K485 [Enum.AssetType.TShirtAccessory]
+  LOADK R10 K230 ["None"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K459 [Enum.AssetType.ShirtAccessory]
-  LOADK R10 K204 ["Studio.Toolbox.General.SuggestionsWeapon"]
+  GETIMPORT R7 K488 [Enum.AssetType.ShirtAccessory]
+  LOADK R10 K233 ["Studio.Toolbox.General.FooterButtonWhiteName"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K462 [Enum.AssetType.PantsAccessory]
-  LOADK R10 K207 ["ByText"]
+  GETIMPORT R7 K491 [Enum.AssetType.PantsAccessory]
+  LOADK R10 K236 ["Studio.Toolbox.General.SearchBarDefaultText"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K465 [Enum.AssetType.JacketAccessory]
-  LOADK R10 K210 ["Favorites"]
+  GETIMPORT R7 K494 [Enum.AssetType.JacketAccessory]
+  LOADK R10 K239 ["Studio.Toolbox.General.EndorseBadgeTooltipText"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K468 [Enum.AssetType.SweaterAccessory]
-  LOADK R10 K213 [{"ByText", "Relevance", "MostTaken", "Favorites", "Updated", "Ratings"}]
+  GETIMPORT R7 K497 [Enum.AssetType.SweaterAccessory]
+  LOADK R10 K242 ["TextLine2"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K471 [Enum.AssetType.ShortsAccessory]
-  LOADK R10 K216 ["Studio.Toolbox.General.SortByMostTaken"]
+  GETIMPORT R7 K500 [Enum.AssetType.ShortsAccessory]
+  LOADK R10 K245 ["Studio.Toolbox.General.NoPluginsFound.TextLine1"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K474 [Enum.AssetType.LeftShoeAccessory]
-  LOADK R10 K219 ["Studio.Toolbox.General.SortByRatings"]
+  GETIMPORT R7 K503 [Enum.AssetType.LeftShoeAccessory]
+  LOADK R10 K248 ["{link}"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K477 [Enum.AssetType.RightShoeAccessory]
-  LOADK R10 K222 [{"VoteText", "VotesText"}]
+  GETIMPORT R7 K506 [Enum.AssetType.RightShoeAccessory]
+  LOADK R10 K251 ["SearchResultsKeyword"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K480 [Enum.AssetType.DressSkirtAccessory]
-  LOADK R10 K225 [{"HasScripts"}]
+  GETIMPORT R7 K509 [Enum.AssetType.DressSkirtAccessory]
+  LOADK R10 K254 ["Studio.Toolbox.General.SearchResults"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K483 [Enum.AssetType.Torso]
-  GETUPVAL R9 6
+  GETIMPORT R7 K512 [Enum.AssetType.Torso]
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
-  LOADK R10 K228 ["White"]
+  LOADK R10 K1 ["script"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K486 [Enum.AssetType.RightArm]
-  GETUPVAL R9 6
+  GETIMPORT R7 K515 [Enum.AssetType.RightArm]
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
-  LOADK R10 K231 [{"BGText", "White", "Black", "None"}]
+  LOADK R10 K4 ["format"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K489 [Enum.AssetType.LeftArm]
-  GETUPVAL R9 6
+  GETIMPORT R7 K518 [Enum.AssetType.LeftArm]
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
-  LOADK R10 K234 ["Studio.Toolbox.General.FooterButtonBlackName"]
+  LOADK R10 K7 ["ToolboxToolbarName"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K492 [Enum.AssetType.LeftLeg]
-  GETUPVAL R9 6
+  GETIMPORT R7 K521 [Enum.AssetType.LeftLeg]
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
-  LOADK R10 K237 ["Studio.Toolbox.General.SearchBarCreatorText"]
+  LOADK R10 K10 ["Suggestions"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K495 [Enum.AssetType.RightLeg]
-  GETUPVAL R9 6
+  GETIMPORT R7 K524 [Enum.AssetType.RightLeg]
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
-  LOADK R10 K240 ["Studio.Toolbox.General.InfoBannerText"]
+  LOADK R10 K13 ["HasScripts"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K498 [Enum.AssetType.DynamicHead]
-  GETUPVAL R9 6
+  GETIMPORT R7 K527 [Enum.AssetType.DynamicHead]
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
-  LOADK R10 K243 ["LinkText"]
+  LOADK R10 K16 ["SearchBarCreatorText"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K501 [Enum.AssetType.EyebrowAccessory]
-  GETUPVAL R9 6
+  GETIMPORT R7 K530 [Enum.AssetType.EyebrowAccessory]
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
-  LOADK R10 K246 ["link"]
+  LOADK R10 K19 ["InfoBannerText"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
   SETTABLE R8 R6 R7
-  GETIMPORT R7 K504 [Enum.AssetType.EyelashAccessory]
-  GETUPVAL R9 6
+  GETIMPORT R7 K533 [Enum.AssetType.EyelashAccessory]
+  GETUPVAL R9 5
   CALL R9 0 1
   JUMPIFNOT R9 [+5]
-  LOADK R10 K249 ["Studio.Toolbox.General.NoPluginsFound.TextLine2"]
+  LOADK R10 K22 ["SearchOptions"]
   NAMECALL R8 R0 K34 ["_safeLocalize"]
   CALL R8 2 1
   JUMP [+1]
   LOADNIL R8
   SETTABLE R8 R6 R7
-  SETTABLEKS R6 R5 K389 ["AssetTextDisplay"]
-  SETTABLEKS R5 R4 K506 ["PublishAsset"]
-  DUPTABLE R5 K509 [{"PreviewLabel", "Change"}]
-  LOADK R8 K254 ["Studio.Toolbox.General.SearchResults"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K507 ["PreviewLabel"]
-  LOADK R8 K255 ["Studio.Toolbox.General.SearchResultsKeyword"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K508 ["Change"]
-  SETTABLEKS R5 R4 K512 ["PreviewArea"]
-  DUPTABLE R5 K515 [{"Override", "NewAsset"}]
-  LOADK R8 K4 ["format"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K513 ["Override"]
-  LOADK R8 K5 ["assert"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K514 ["NewAsset"]
-  SETTABLEKS R5 R4 K14 ["Footer"]
-  DUPTABLE R5 K521 [{"Title", "FilterID", "AnimationID", "InvalidAnimationID"}]
-  LOADK R8 K10 ["Suggestions"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K325 ["Title"]
-  LOADK R8 K11 ["Sort"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K518 ["FilterID"]
-  LOADK R8 K12 ["Voting"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K519 ["AnimationID"]
-  LOADK R8 K13 ["HasScripts"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K520 ["InvalidAnimationID"]
-  SETTABLEKS R5 R4 K513 ["Override"]
-  DUPTABLE R5 K526 [{"Title"}]
-  LOADK R8 K15 ["SearchBarDefaultText"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K325 ["Title"]
-  SETTABLEKS R5 R4 K528 ["Import"]
-  DUPTABLE R5 K530 [{"IDCopied"}]
-  LOADK R8 K19 ["InfoBannerText"]
-  NAMECALL R6 R0 K34 ["_safeLocalize"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K529 ["IDCopied"]
-  SETTABLEKS R5 R4 K532 ["Upload"]
-  DUPTABLE R5 K537 [{"Success", "Failure", "Back", "CreatorDashboardMessage", "CreatorDashboardName"}]
+  SETTABLEKS R6 R5 K419 ["AssetTextDisplay"]
+  SETTABLEKS R5 R4 K376 ["PublishAsset"]
+  DUPTABLE R5 K537 [{"PreviewLabel", "Change"}]
   LOADK R8 K26 ["Sales"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K533 ["Success"]
+  SETTABLEKS R6 R5 K535 ["PreviewLabel"]
   LOADK R8 K27 ["PackagePermissions"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K534 ["Failure"]
-  LOADK R8 K28 ["AssetConfig"]
+  SETTABLEKS R6 R5 K536 ["Change"]
+  SETTABLEKS R5 R4 K377 ["PreviewArea"]
+  DUPTABLE R5 K541 [{"Override", "NewAsset"}]
+  LOADK R8 K30 ["ScriptWarning"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K535 ["Back"]
-  GETUPVAL R7 7
+  SETTABLEKS R6 R5 K378 ["Override"]
+  LOADK R8 K31 ["GrantAssetPermission"]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K540 ["NewAsset"]
+  SETTABLEKS R5 R4 K14 ["Footer"]
+  DUPTABLE R5 K547 [{"Title", "FilterID", "AnimationID", "InvalidAnimationID"}]
+  LOADK R8 K36 [{"AllModels"}]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K325 ["Title"]
+  LOADK R8 K37 ["Studio.Toolbox.General.AllModels"]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K544 ["FilterID"]
+  LOADK R8 K38 ["Studio.Toolbox.General.CategoryModels"]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K545 ["AnimationID"]
+  LOADK R8 K39 ["FreeModels"]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K546 ["InvalidAnimationID"]
+  SETTABLEKS R5 R4 K378 ["Override"]
+  DUPTABLE R5 K552 [{"Title"}]
+  LOADK R8 K41 ["FreeDecals"]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K325 ["Title"]
+  SETTABLEKS R5 R4 K379 ["Import"]
+  DUPTABLE R5 K555 [{"IDCopied"}]
+  LOADK R8 K44 ["Studio.Toolbox.General.CategoryAudio"]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K554 ["IDCopied"]
+  SETTABLEKS R5 R4 K380 ["Upload"]
+  DUPTABLE R5 K561 [{"Success", "Failure", "Back", "CreatorDashboardMessage", "CreatorDashboardName"}]
+  LOADK R8 K50 ["Studio.Toolbox.General.CategoryVideos"]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K557 ["Success"]
+  LOADK R8 K51 ["FreeVideo"]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K558 ["Failure"]
+  LOADK R8 K52 ["Studio.Toolbox.General.CategoryMyModels"]
+  NAMECALL R6 R0 K34 ["_safeLocalize"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K559 ["Back"]
+  GETUPVAL R7 6
   JUMPIFNOT R7 [+9]
-  LOADK R8 K29 ["PurchaseFlow"]
+  LOADK R8 K53 ["MyModels"]
   DUPTABLE R9 K319 [{"creatorDashboardLink"}]
   LOADK R10 K64 ["Studio.Toolbox.General.CategoryMyVideos"]
   SETTABLEKS R10 R9 K318 ["creatorDashboardLink"]
@@ -2089,8 +2082,8 @@ PROTO_41:
   CALL R6 3 1
   JUMP [+1]
   LOADNIL R6
-  SETTABLEKS R6 R5 K536 ["CreatorDashboardMessage"]
-  GETUPVAL R7 7
+  SETTABLEKS R6 R5 K560 ["CreatorDashboardMessage"]
+  GETUPVAL R7 6
   JUMPIFNOT R7 [+5]
   LOADK R8 K65 ["MyVideo"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
@@ -2098,86 +2091,77 @@ PROTO_41:
   JUMP [+1]
   LOADNIL R6
   SETTABLEKS R6 R5 K311 ["CreatorDashboardName"]
-  SETTABLEKS R5 R4 K542 ["UploadResult"]
-  DUPTABLE R5 K545 [{"Current", "Restore"}]
-  LOADK R8 K34 ["_safeLocalize"]
+  SETTABLEKS R5 R4 K381 ["UploadResult"]
+  DUPTABLE R5 K568 [{"Current", "Restore"}]
+  LOADK R8 K57 ["MyMeshes"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K543 ["Current"]
-  LOADK R8 K35 ["AllModels"]
+  SETTABLEKS R6 R5 K566 ["Current"]
+  LOADK R8 K58 ["Studio.Toolbox.General.CategoryMyAudio"]
   NAMECALL R6 R0 K34 ["_safeLocalize"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K544 ["Restore"]
-  SETTABLEKS R5 R4 K548 ["VersionsHistory"]
+  SETTABLEKS R6 R5 K567 ["Restore"]
+  SETTABLEKS R5 R4 K382 ["VersionsHistory"]
   NEWTABLE R5 4 0
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K549 ["SIDE_TABS"]
+  GETTABLEKS R7 R8 K571 ["SIDE_TABS"]
   GETTABLEKS R6 R7 K26 ["Sales"]
-  LOADK R9 K38 ["Studio.Toolbox.General.CategoryModels"]
+  LOADK R9 K60 ["Studio.Toolbox.General.CategoryMyPlugins"]
   NAMECALL R7 R0 K34 ["_safeLocalize"]
   CALL R7 2 1
   SETTABLE R7 R5 R6
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K549 ["SIDE_TABS"]
-  GETTABLEKS R6 R7 K551 ["Versions"]
-  LOADK R9 K40 ["Studio.Toolbox.General.CategoryDecals"]
+  GETTABLEKS R7 R8 K571 ["SIDE_TABS"]
+  GETTABLEKS R6 R7 K573 ["Versions"]
+  LOADK R9 K62 ["Studio.Toolbox.General.CategoryMyPackages"]
   NAMECALL R7 R0 K34 ["_safeLocalize"]
   CALL R7 2 1
   SETTABLE R7 R5 R6
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K549 ["SIDE_TABS"]
-  GETTABLEKS R6 R7 K553 ["General"]
-  LOADK R9 K42 ["Studio.Toolbox.General.CategoryMeshes"]
+  GETTABLEKS R7 R8 K571 ["SIDE_TABS"]
+  GETTABLEKS R6 R7 K575 ["General"]
+  LOADK R9 K64 ["Studio.Toolbox.General.CategoryMyVideos"]
   NAMECALL R7 R0 K34 ["_safeLocalize"]
   CALL R7 2 1
   SETTABLE R7 R5 R6
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K549 ["SIDE_TABS"]
-  GETTABLEKS R6 R7 K555 ["Permissions"]
-  LOADK R9 K44 ["Studio.Toolbox.General.CategoryAudio"]
+  GETTABLEKS R7 R8 K571 ["SIDE_TABS"]
+  GETTABLEKS R6 R7 K577 ["Permissions"]
+  LOADK R9 K66 ["Studio.Toolbox.General.CategoryMyAnimations"]
   NAMECALL R7 R0 K34 ["_safeLocalize"]
   CALL R7 2 1
   SETTABLE R7 R5 R6
-  SETTABLEKS R5 R4 K557 ["SideTabs"]
-  LOADK R7 K46 ["Studio.Toolbox.General.CategoryFonts"]
+  SETTABLEKS R5 R4 K383 ["SideTabs"]
+  LOADK R7 K67 ["MyAnimations"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K559 ["DistributeAgreement"]
-  LOADK R7 K48 ["Studio.Toolbox.General.CategoryPaidPlugins"]
+  SETTABLEKS R5 R4 K384 ["DistributeAgreement"]
+  LOADK R7 K68 ["Studio.Toolbox.General.CategoryMyFonts"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K561 ["Terms"]
-  GETUPVAL R6 5
+  SETTABLEKS R5 R4 K385 ["Terms"]
+  LOADK R7 K69 ["MyFonts"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K386 ["PublicSharingInformation"]
+  LOADK R7 K70 ["Studio.Toolbox.General.CategoryRecentModels"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K387 ["MustShare"]
+  LOADK R7 K71 ["RecentModels"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K388 ["AnyoneOnRoblox"]
+  LOADK R7 K72 ["Studio.Toolbox.General.CategoryRecentDecals"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K389 ["OnlyMe"]
+  GETUPVAL R6 7
   CALL R6 0 1
   JUMPIFNOT R6 [+2]
   LOADNIL R5
   JUMP [+4]
-  LOADK R7 K50 ["Studio.Toolbox.General.CategoryVideos"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K563 ["Accounts"]
-  LOADK R7 K52 ["Studio.Toolbox.General.CategoryMyModels"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K565 ["PublicSharingInformation"]
-  LOADK R7 K54 ["Studio.Toolbox.General.CategoryMyDecals"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K567 ["MustShare"]
-  LOADK R7 K56 ["Studio.Toolbox.General.CategoryMyMeshes"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K569 ["AnyoneOnRoblox"]
-  LOADK R7 K58 ["Studio.Toolbox.General.CategoryMyAudio"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K571 ["OnlyMe"]
-  GETUPVAL R6 8
-  CALL R6 0 1
-  JUMPIFNOT R6 [+2]
-  LOADNIL R5
-  JUMP [+4]
-  LOADK R7 K60 ["Studio.Toolbox.General.CategoryMyPlugins"]
+  LOADK R7 K73 ["RecentDecals"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K259 ["Apply"]
@@ -2185,177 +2169,177 @@ PROTO_41:
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K260 ["Cancel"]
-  LOADK R7 K61 ["MyPlugins"]
+  LOADK R7 K74 ["Studio.Toolbox.General.CategoryRecentMeshes"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K574 ["Error"]
-  LOADK R7 K63 ["MyPackages"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K576 ["NetworkError"]
-  LOADK R7 K65 ["MyVideo"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K578 ["GetAssetFailed"]
-  LOADK R7 K67 ["MyAnimations"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K580 ["Discard"]
-  LOADK R7 K69 ["MyFonts"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K582 ["Close"]
-  LOADK R7 K71 ["RecentModels"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K584 ["DiscardMessage"]
-  LOADK R7 K73 ["RecentDecals"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K586 ["Insert"]
+  SETTABLEKS R5 R4 K390 ["Error"]
   LOADK R7 K75 ["RecentMeshes"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K588 ["Install"]
+  SETTABLEKS R5 R4 K391 ["NetworkError"]
+  LOADK R7 K76 ["Studio.Toolbox.General.CategoryRecentAudio"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K392 ["GetAssetFailed"]
   LOADK R7 K77 ["RecentAudio"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K590 ["Loading"]
+  SETTABLEKS R5 R4 K393 ["Discard"]
+  LOADK R7 K78 ["Studio.Toolbox.General.CategoryRecentVideos"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K394 ["Close"]
   LOADK R7 K79 ["RecentVideo"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K592 ["Update"]
+  SETTABLEKS R5 R4 K395 ["DiscardMessage"]
+  LOADK R7 K80 ["Studio.Toolbox.General.CategoryRecentAnimations"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K396 ["Insert"]
   LOADK R7 K81 ["RecentAnimations"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K594 ["Installed"]
+  SETTABLEKS R5 R4 K397 ["Install"]
+  LOADK R7 K82 ["Studio.Toolbox.General.CategoryRecentFonts"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K398 ["Loading"]
   LOADK R7 K83 ["RecentFonts"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K596 ["InstallSuccess"]
+  SETTABLEKS R5 R4 K399 ["Update"]
+  LOADK R7 K84 ["Studio.Toolbox.General.CategoryGroupModels"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K400 ["Installed"]
   LOADK R7 K85 ["GroupModels"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K598 ["InstallFailure"]
+  SETTABLEKS R5 R4 K401 ["InstallSuccess"]
+  LOADK R7 K86 ["Studio.Toolbox.General.CategoryGroupDecals"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K402 ["InstallFailure"]
   LOADK R7 K87 ["GroupDecals"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K600 ["Installing"]
-  LOADK R7 K89 ["GroupMeshes"]
+  SETTABLEKS R5 R4 K403 ["Installing"]
+  LOADK R7 K88 ["Studio.Toolbox.General.CategoryGroupMeshes"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K602 ["NoTagFound"]
+  SETTABLEKS R5 R4 K404 ["NoTagFound"]
   SETTABLEKS R4 R3 K28 ["AssetConfig"]
-  DUPTABLE R4 K614 [{"Cancel", "Retry", "Buy", "BuyRobux", "FreeTitle", "BuyTitle", "InsufficientFundsTitle", "CurrentBalance", "FailedHeader", "FreeSuccessHeader", "SuccessHeader", "Free", "OK"}]
-  LOADK R7 K103 ["CreationsAudio"]
+  DUPTABLE R4 K612 [{"Cancel", "Retry", "Buy", "BuyRobux", "FreeTitle", "BuyTitle", "InsufficientFundsTitle", "CurrentBalance", "FailedHeader", "FreeSuccessHeader", "SuccessHeader", "Free", "OK"}]
+  LOADK R7 K101 ["CreationsDecals"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K260 ["Cancel"]
+  LOADK R7 K102 ["Studio.Toolbox.General.CategoryCreationsAudio"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K601 ["Retry"]
+  LOADK R7 K103 ["CreationsAudio"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K602 ["Buy"]
   LOADK R7 K104 ["Studio.Toolbox.General.CategoryCreationsMeshes"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K603 ["Retry"]
+  SETTABLEKS R5 R4 K603 ["BuyRobux"]
   LOADK R7 K105 ["CreationsMeshes"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K604 ["Buy"]
+  SETTABLEKS R5 R4 K604 ["FreeTitle"]
   LOADK R7 K106 ["Studio.Toolbox.General.CategoryCreationsPlugins"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K605 ["BuyRobux"]
+  SETTABLEKS R5 R4 K605 ["BuyTitle"]
   LOADK R7 K107 ["CreationsPlugins"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K606 ["FreeTitle"]
+  SETTABLEKS R5 R4 K606 ["InsufficientFundsTitle"]
   LOADK R7 K108 ["Studio.Toolbox.General.CategoryCreationsAnimations"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K607 ["BuyTitle"]
+  SETTABLEKS R5 R4 K607 ["CurrentBalance"]
   LOADK R7 K109 ["CreationsAnimations"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K608 ["InsufficientFundsTitle"]
+  SETTABLEKS R5 R4 K608 ["FailedHeader"]
   LOADK R7 K110 ["CreationsGroupModels"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K609 ["CurrentBalance"]
+  SETTABLEKS R5 R4 K609 ["FreeSuccessHeader"]
   LOADK R7 K111 ["CreationsGroupDecals"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K610 ["FailedHeader"]
+  SETTABLEKS R5 R4 K610 ["SuccessHeader"]
   LOADK R7 K112 ["CreationsGroupMeshes"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K611 ["FreeSuccessHeader"]
+  SETTABLEKS R5 R4 K304 ["Free"]
   LOADK R7 K113 ["CreationsGroupAudio"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K612 ["SuccessHeader"]
-  LOADK R7 K114 ["CreationsGroupPackages"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K304 ["Free"]
-  LOADK R7 K115 ["CreationsGroupPlugins"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K613 ["OK"]
+  SETTABLEKS R5 R4 K611 ["OK"]
   SETTABLEKS R4 R3 K29 ["PurchaseFlow"]
-  DUPTABLE R4 K631 [{"DontShowAgain", "InstructionText", "InstructionText2"}]
+  DUPTABLE R4 K629 [{"DontShowAgain", "InstructionText", "InstructionText2"}]
+  LOADK R7 K118 ["Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K626 ["DontShowAgain"]
+  LOADK R7 K119 ["CreationsCatalogSectionDivider"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K627 ["InstructionText"]
   LOADK R7 K120 ["Studio.Toolbox.General.CategoryCreationsHats"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K628 ["DontShowAgain"]
-  LOADK R7 K121 ["CreationsHats"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K629 ["InstructionText"]
-  LOADK R7 K122 ["Studio.Toolbox.General.CategoryCreationsTeeShirts"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K630 ["InstructionText2"]
+  SETTABLEKS R5 R4 K628 ["InstructionText2"]
   SETTABLEKS R4 R3 K30 ["ScriptWarning"]
-  GETUPVAL R4 9
+  GETUPVAL R4 8
   JUMPIFNOT R4 [+55]
-  DUPTABLE R4 K639 [{"Success", "Failure", "DialogText", "Information", "CancelButton", "GrantButton"}]
-  LOADK R7 K128 ["Studio.Toolbox.General.CategoryCreationsHair"]
-  DUPTABLE R8 K642 [{"assetId"}]
+  DUPTABLE R4 K637 [{"Success", "Failure", "DialogText", "Information", "CancelButton", "GrantButton"}]
+  LOADK R7 K126 ["Studio.Toolbox.General.CategoryCreationsPants"]
+  DUPTABLE R8 K640 [{"assetId"}]
   LOADN R9 0
-  SETTABLEKS R9 R8 K641 ["assetId"]
+  SETTABLEKS R9 R8 K639 ["assetId"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 3 1
-  SETTABLEKS R5 R4 K533 ["Success"]
+  SETTABLEKS R5 R4 K557 ["Success"]
+  LOADK R7 K129 ["CreationsHair"]
+  DUPTABLE R8 K640 [{"assetId"}]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K639 ["assetId"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K558 ["Failure"]
+  LOADK R7 K130 ["Studio.Toolbox.General.CategoryCreationsFaceAccessory"]
+  NAMECALL R5 R0 K34 ["_safeLocalize"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K633 ["DialogText"]
   LOADK R7 K131 ["CreationsFaceAccessories"]
-  DUPTABLE R8 K642 [{"assetId"}]
+  DUPTABLE R8 K646 [{"assetName", "assetId", "assetType"}]
+  LOADK R9 K135 ["CreationsShoulderAccessories"]
+  SETTABLEKS R9 R8 K644 ["assetName"]
   LOADN R9 0
-  SETTABLEKS R9 R8 K641 ["assetId"]
+  SETTABLEKS R9 R8 K639 ["assetId"]
+  LOADK R9 K136 ["Studio.Toolbox.General.CategoryCreationsFrontAccessory"]
+  SETTABLEKS R9 R8 K645 ["assetType"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 3 1
-  SETTABLEKS R5 R4 K534 ["Failure"]
-  LOADK R7 K132 ["Studio.Toolbox.General.CategoryCreationsNeckAccessory"]
+  SETTABLEKS R5 R4 K634 ["Information"]
+  LOADK R7 K137 ["CreationsFrontAccessories"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K635 ["DialogText"]
-  LOADK R7 K133 ["CreationsNeckAccessories"]
-  DUPTABLE R8 K648 [{"assetName", "assetId", "assetType"}]
-  LOADK R9 K137 ["CreationsFrontAccessories"]
-  SETTABLEKS R9 R8 K646 ["assetName"]
-  LOADN R9 0
-  SETTABLEKS R9 R8 K641 ["assetId"]
-  LOADK R9 K138 ["Studio.Toolbox.General.CategoryCreationsBackAccessory"]
-  SETTABLEKS R9 R8 K647 ["assetType"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K636 ["Information"]
-  LOADK R7 K139 ["CreationsBackAccessories"]
+  SETTABLEKS R5 R4 K635 ["CancelButton"]
+  LOADK R7 K138 ["Studio.Toolbox.General.CategoryCreationsBackAccessory"]
   NAMECALL R5 R0 K34 ["_safeLocalize"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K637 ["CancelButton"]
-  LOADK R7 K140 ["Studio.Toolbox.General.CategoryCreationsWaistAccessory"]
-  NAMECALL R5 R0 K34 ["_safeLocalize"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K638 ["GrantButton"]
+  SETTABLEKS R5 R4 K636 ["GrantButton"]
   SETTABLEKS R4 R3 K31 ["GrantAssetPermission"]
-  NAMECALL R1 R0 K653 ["_update"]
+  NAMECALL R1 R0 K651 ["_update"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -2456,160 +2440,153 @@ MAIN:
   GETTABLEKS R18 R19 K13 ["Flags"]
   GETTABLEKS R17 R18 K26 ["getFFlagToolboxAddPackageVersionDescriptions"]
   CALL R16 1 1
-  GETIMPORT R17 K12 [require]
-  GETTABLEKS R21 R0 K3 ["Core"]
-  GETTABLEKS R20 R21 K4 ["Util"]
-  GETTABLEKS R19 R20 K15 ["SharedFlags"]
-  GETTABLEKS R18 R19 K27 ["getFFlagToolboxStoreRename"]
-  CALL R17 1 1
-  DUPCLOSURE R18 K28 [PROTO_1]
+  DUPCLOSURE R17 K27 [PROTO_1]
   CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R9
   CAPTURE VAL R11
   CAPTURE VAL R14
-  SETTABLEKS R18 R14 K29 ["new"]
-  DUPCLOSURE R18 K30 [PROTO_5]
+  SETTABLEKS R17 R14 K28 ["new"]
+  DUPCLOSURE R17 K29 [PROTO_5]
   CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R14
-  SETTABLEKS R18 R14 K31 ["createDummyLocalization"]
-  DUPCLOSURE R18 K32 [PROTO_9]
+  SETTABLEKS R17 R14 K30 ["createDummyLocalization"]
+  DUPCLOSURE R17 K31 [PROTO_9]
   CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R14
-  SETTABLEKS R18 R14 K33 ["createTestCustomLocaleLocalization"]
-  DUPCLOSURE R18 K34 [PROTO_12]
+  SETTABLEKS R17 R14 K32 ["createTestCustomLocaleLocalization"]
+  DUPCLOSURE R17 K33 [PROTO_12]
   CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R14
-  SETTABLEKS R18 R14 K35 ["createTestRealLocaleLocalization"]
-  DUPCLOSURE R18 K36 [PROTO_13]
+  SETTABLEKS R17 R14 K34 ["createTestRealLocaleLocalization"]
+  DUPCLOSURE R17 K35 [PROTO_13]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K37 ["subscribe"]
-  DUPCLOSURE R18 K38 [PROTO_14]
+  SETTABLEKS R17 R14 K36 ["subscribe"]
+  DUPCLOSURE R17 K37 [PROTO_14]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K39 ["getLocalizedContent"]
-  DUPCLOSURE R18 K40 [PROTO_15]
+  SETTABLEKS R17 R14 K38 ["getLocalizedContent"]
+  DUPCLOSURE R17 K39 [PROTO_15]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K41 ["getSalesMessage"]
-  DUPCLOSURE R18 K42 [PROTO_16]
+  SETTABLEKS R17 R14 K40 ["getSalesMessage"]
+  DUPCLOSURE R17 K41 [PROTO_16]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K43 ["getLocalizedVoteText"]
-  DUPCLOSURE R18 K44 [PROTO_17]
+  SETTABLEKS R17 R14 K42 ["getLocalizedVoteText"]
+  DUPCLOSURE R17 K43 [PROTO_17]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K45 ["getLocalizedCategories"]
-  DUPCLOSURE R18 K46 [PROTO_18]
+  SETTABLEKS R17 R14 K44 ["getLocalizedCategories"]
+  DUPCLOSURE R17 K45 [PROTO_18]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K47 ["getLocalizedSorts"]
-  DUPCLOSURE R18 K48 [PROTO_19]
+  SETTABLEKS R17 R14 K46 ["getLocalizedSorts"]
+  DUPCLOSURE R17 K47 [PROTO_19]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K49 ["getLocalizedSuggestions"]
-  DUPCLOSURE R18 K50 [PROTO_20]
+  SETTABLEKS R17 R14 K48 ["getLocalizedSuggestions"]
+  DUPCLOSURE R17 K49 [PROTO_20]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K51 ["getLocalizedFooter"]
-  DUPCLOSURE R18 K52 [PROTO_21]
+  SETTABLEKS R17 R14 K50 ["getLocalizedFooter"]
+  DUPCLOSURE R17 K51 [PROTO_21]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K53 ["getLocalizedTooManyCollaborators"]
-  DUPCLOSURE R18 K54 [PROTO_22]
+  SETTABLEKS R17 R14 K52 ["getLocalizedTooManyCollaborators"]
+  DUPCLOSURE R17 K53 [PROTO_22]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K55 ["getLocalizedBuyPrompt"]
-  DUPCLOSURE R18 K56 [PROTO_23]
+  SETTABLEKS R17 R14 K54 ["getLocalizedBuyPrompt"]
+  DUPCLOSURE R17 K55 [PROTO_23]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K57 ["getLocalizedInsufficientFundsPrompt"]
-  DUPCLOSURE R18 K58 [PROTO_24]
+  SETTABLEKS R17 R14 K56 ["getLocalizedInsufficientFundsPrompt"]
+  DUPCLOSURE R17 K57 [PROTO_24]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K59 ["getPurchaseFailedDetails"]
-  DUPCLOSURE R18 K60 [PROTO_25]
+  SETTABLEKS R17 R14 K58 ["getPurchaseFailedDetails"]
+  DUPCLOSURE R17 K59 [PROTO_25]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K61 ["getPurchaseSuccessDetails"]
-  DUPCLOSURE R18 K62 [PROTO_26]
+  SETTABLEKS R17 R14 K60 ["getPurchaseSuccessDetails"]
+  DUPCLOSURE R17 K61 [PROTO_26]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K63 ["getScriptConfirmation"]
-  DUPCLOSURE R18 K64 [PROTO_27]
+  SETTABLEKS R17 R14 K62 ["getScriptConfirmation"]
+  DUPCLOSURE R17 K63 [PROTO_27]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K65 ["getMaxTags"]
-  DUPCLOSURE R18 K66 [PROTO_28]
+  SETTABLEKS R17 R14 K64 ["getMaxTags"]
+  DUPCLOSURE R17 K65 [PROTO_28]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K67 ["getThumbnailStatus"]
-  DUPCLOSURE R18 K68 [PROTO_29]
+  SETTABLEKS R17 R14 K66 ["getThumbnailStatus"]
+  DUPCLOSURE R17 K67 [PROTO_29]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K69 ["getUploadWithFee"]
-  DUPCLOSURE R18 K70 [PROTO_30]
+  SETTABLEKS R17 R14 K68 ["getUploadWithFee"]
+  DUPCLOSURE R17 K69 [PROTO_30]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K71 ["getGroupPermissionLockedTooltip"]
-  DUPCLOSURE R18 K72 [PROTO_31]
+  SETTABLEKS R17 R14 K70 ["getGroupPermissionLockedTooltip"]
+  DUPCLOSURE R17 K71 [PROTO_31]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K73 ["destroy"]
-  DUPCLOSURE R18 K74 [PROTO_32]
+  SETTABLEKS R17 R14 K72 ["destroy"]
+  DUPCLOSURE R17 K73 [PROTO_32]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K75 ["_getDefaultLocaleId"]
-  DUPCLOSURE R18 K76 [PROTO_33]
+  SETTABLEKS R17 R14 K74 ["_getDefaultLocaleId"]
+  DUPCLOSURE R17 K75 [PROTO_33]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K77 ["_getLocaleId"]
-  DUPCLOSURE R18 K78 [PROTO_34]
+  SETTABLEKS R17 R14 K76 ["_getLocaleId"]
+  DUPCLOSURE R17 K77 [PROTO_34]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K79 ["_getTranslator"]
-  DUPCLOSURE R18 K80 [PROTO_35]
+  SETTABLEKS R17 R14 K78 ["_getTranslator"]
+  DUPCLOSURE R17 K79 [PROTO_35]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K81 ["_getFallbackTranslator"]
-  DUPCLOSURE R18 K82 [PROTO_36]
+  SETTABLEKS R17 R14 K80 ["_getFallbackTranslator"]
+  DUPCLOSURE R17 K81 [PROTO_36]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K83 ["_getDefaultTranslator"]
-  DUPCLOSURE R18 K84 [PROTO_37]
+  SETTABLEKS R17 R14 K82 ["_getDefaultTranslator"]
+  DUPCLOSURE R17 K83 [PROTO_37]
   CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R11
-  SETTABLEKS R18 R14 K85 ["_update"]
-  DUPCLOSURE R18 K86 [PROTO_38]
+  SETTABLEKS R17 R14 K84 ["_update"]
+  DUPCLOSURE R17 K85 [PROTO_38]
   CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R10
-  SETTABLEKS R18 R14 K87 ["_safeLocalize"]
-  DUPCLOSURE R18 K88 [PROTO_40]
+  SETTABLEKS R17 R14 K86 ["_safeLocalize"]
+  DUPCLOSURE R17 K87 [PROTO_40]
   CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R18 R14 K89 ["_safeLocalizeInner"]
-  DUPCLOSURE R18 K90 [PROTO_41]
+  SETTABLEKS R17 R14 K88 ["_safeLocalizeInner"]
+  DUPCLOSURE R17 K89 [PROTO_41]
   CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R12
   CAPTURE VAL R3
   CAPTURE VAL R15
-  CAPTURE VAL R17
   CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R16
   CAPTURE VAL R2
-  SETTABLEKS R18 R14 K91 ["_recalculateContent"]
-  DUPCLOSURE R18 K92 [PROTO_42]
+  SETTABLEKS R17 R14 K90 ["_recalculateContent"]
+  DUPCLOSURE R17 K91 [PROTO_42]
   CAPTURE VAL R13
   CAPTURE VAL R6
   CAPTURE VAL R8
-  SETTABLEKS R18 R14 K93 ["_localizeTable"]
+  SETTABLEKS R17 R14 K92 ["_localizeTable"]
   RETURN R14 1

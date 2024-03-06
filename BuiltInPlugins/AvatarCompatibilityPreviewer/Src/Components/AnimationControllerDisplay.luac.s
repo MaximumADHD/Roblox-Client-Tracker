@@ -34,6 +34,11 @@ PROTO_2:
   LOADN R7 1
   CALL R5 2 1
   SETTABLEKS R5 R4 K3 ["AnchorPoint"]
+  GETUPVAL R6 3
+  CALL R6 0 1
+  JUMPIFNOT R6 [+3]
+  GETTABLEKS R5 R1 K4 ["Position"]
+  JUMP [+5]
   GETIMPORT R5 K13 [UDim2.fromScale]
   LOADN R6 0
   LOADN R7 1
@@ -41,6 +46,11 @@ PROTO_2:
   SETTABLEKS R5 R4 K4 ["Position"]
   GETTABLEKS R5 R1 K5 ["Padding"]
   SETTABLEKS R5 R4 K5 ["Padding"]
+  GETUPVAL R6 3
+  CALL R6 0 1
+  JUMPIFNOT R6 [+3]
+  GETTABLEKS R5 R1 K6 ["Size"]
+  JUMP [+5]
   GETIMPORT R5 K13 [UDim2.fromScale]
   LOADN R6 1
   LOADK R7 K14 [0.1]
@@ -49,7 +59,7 @@ PROTO_2:
   DUPTABLE R5 K16 [{"Slider"}]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K2 ["createElement"]
-  GETUPVAL R7 3
+  GETUPVAL R7 4
   DUPTABLE R8 K23 [{"Size", "IsPlaying", "Playhead", "OnSliderPlayheadChanged", "OnPlayPauseClicked", "ShowTime", "TrackLength"}]
   GETIMPORT R9 K13 [UDim2.fromScale]
   LOADN R10 1
@@ -111,9 +121,15 @@ MAIN:
   GETTABLEKS R7 R8 K16 ["Stylizer"]
   GETTABLEKS R9 R1 K17 ["Components"]
   GETTABLEKS R8 R9 K18 ["AnimationPlaybackSlider"]
-  DUPCLOSURE R9 K19 [PROTO_2]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K19 ["Flags"]
+  GETTABLEKS R10 R11 K20 ["getFFlagAvatarPreviewerFixSurveyOverlap"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K21 [PROTO_2]
   CAPTURE VAL R7
   CAPTURE VAL R3
   CAPTURE VAL R6
+  CAPTURE VAL R9
   CAPTURE VAL R8
-  RETURN R9 1
+  RETURN R10 1

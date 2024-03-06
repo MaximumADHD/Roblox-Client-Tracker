@@ -1,5 +1,6 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = { 
+local var0 = script.Parent.Parent.Parent
+return { 
    "CampaignFilledNeutral", 
    "CheckFilledPositive", 
    "CreateFilledEmphasis", 
@@ -14,18 +15,11 @@ local var0 = {
    "PlayArrowFilledNeutral", 
    "PlayArrowFilledWarning", 
    "PlayDisabledFilledNegative", 
+   "ThreeDots", 
    "TranslateFilledNeutral", 
+   "UpdateFilledEmphasis", 
    "UpdateFilledNegative", 
    "UpdateFilledPositive", 
-   "UpdateFilledWarning"
+   "UpdateFilledWarning", 
+   "WarningFilledWarning"
 }
-local var1 = "UpdateFilledEmphasis"
-local var27 = "UpdateFilledNegative"
-local var3 = "UpdateFilledPositive"
-local var4 = "WarningFilledWarning"
-var27 = require(script.Parent.Parent.Parent.Src.Util.SharedFlags.getFFlagNotificationsMarkAllAsRead)
-if var27() then
-   var3 = var0
-   table.insert(var3, "ThreeDots")
-end
-return var0

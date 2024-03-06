@@ -28,6 +28,15 @@ local Keyboard = require(script:WaitForChild("Keyboard"))
 local Gamepad = require(script:WaitForChild("Gamepad"))
 local DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
 
+
+local FFlagUserVRAvatarGestures
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRAvatarGestures")
+	end)
+	FFlagUserVRAvatarGestures = success and result
+end
+
 local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
@@ -45,6 +54,8 @@ local TouchJump = require(script:WaitForChild("TouchJump"))
 local VehicleController = require(script:WaitForChild("VehicleController"))
 
 local CONTROL_ACTION_PRIORITY = Enum.ContextActionPriority.Medium.Value
+local NECK_OFFSET = -0.7
+local FIRST_PERSON_THRESHOLD_DISTANCE = 5
 
 -- Mapping from movement mode and lastInputType enum values to control modules to avoid huge if elseif switching
 local movementEnumToModuleMap = {
@@ -107,6 +118,10 @@ function ControlModule.new()
 
 	self.touchControlFrame = nil
 	self.currentTorsoAngle = 0
+
+	if FFlagUserVRAvatarGestures then
+		self.inputMoveVector = Vector3.new(0,0,0)
+	end
 
 	self.vehicleController = VehicleController.new(CONTROL_ACTION_PRIORITY)
 
@@ -474,12 +489,43 @@ function ControlModule:OnRenderStepped(dt)
 		if cameraRelative then
 			moveVector = self:calculateRawMoveVector(self.humanoid, moveVector)
 		end
+
+		if FFlagUserVRAvatarGestures then
+			self.inputMoveVector = moveVector
+			if VRService.VREnabled then
+				moveVector = self:updateVRMoveVector(moveVector)
+			end
+		end
+
 		self.moveFunction(Players.LocalPlayer, moveVector, false)
 		--end
 
 		-- And make them jump if needed
 		self.humanoid.Jump = self.activeController:GetIsJumping() or (self.touchJumpController and self.touchJumpController:GetIsJumping())
 	end
+end
+
+function ControlModule:updateVRMoveVector(moveVector)
+	local curCamera = workspace.CurrentCamera :: Camera
+
+	-- movement relative to VR frustum
+	local cameraDelta = curCamera.Focus.Position - curCamera.CFrame	.Position
+	local firstPerson = cameraDelta.Magnitude < FIRST_PERSON_THRESHOLD_DISTANCE and true
+	
+	-- if the player is not moving via input in first person, follow the VRHead
+	if moveVector.Magnitude == 0 and firstPerson and VRService.AvatarGestures and self.humanoid then
+		local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head) 
+		vrHeadOffset = vrHeadOffset.Rotation + vrHeadOffset.Position * curCamera.HeadScale
+
+		-- get the position in world space and offset at the neck
+		local neck_offset = NECK_OFFSET * self.humanoid.RootPart.Size.Y / 2
+		local vrHeadWorld = curCamera.CFrame * vrHeadOffset * CFrame.new(0, neck_offset, 0)
+		
+		local moveOffset = vrHeadWorld.Position - self.humanoid.RootPart.CFrame.Position
+		return Vector3.new(moveOffset.x, 0, moveOffset.z)
+	end
+
+	return moveVector
 end
 
 function ControlModule:OnHumanoidSeated(active: boolean, currentSeatPart: BasePart)

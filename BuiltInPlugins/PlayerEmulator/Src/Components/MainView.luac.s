@@ -24,85 +24,98 @@ PROTO_0:
   LOADN R11 0
   CALL R7 4 1
   SETTABLEKS R7 R6 K7 ["Position"]
-  DUPTABLE R7 K20 [{"Padding", "Layout", "MainSwitchSection", "Separator", "LanguageSection", "CountryRegionSection", "CustomPolicySwitchSection", "PolicySection"}]
+  DUPTABLE R7 K21 [{"Padding", "Layout", "MainSwitchSection", "Separator", "LanguageSection", "PseudolocalizationSection", "CountryRegionSection", "CustomPolicySwitchSection", "PolicySection"}]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K3 ["createElement"]
-  LOADK R9 K21 ["UIPadding"]
-  DUPTABLE R10 K25 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
-  GETTABLEKS R11 R3 K26 ["MAINVIEW_PADDING_TOP"]
-  SETTABLEKS R11 R10 K22 ["PaddingTop"]
-  GETTABLEKS R11 R3 K27 ["MAINVIEW_PADDING_LEFT"]
-  SETTABLEKS R11 R10 K23 ["PaddingLeft"]
-  GETTABLEKS R11 R3 K27 ["MAINVIEW_PADDING_LEFT"]
-  SETTABLEKS R11 R10 K24 ["PaddingRight"]
+  LOADK R9 K22 ["UIPadding"]
+  DUPTABLE R10 K26 [{"PaddingTop", "PaddingLeft", "PaddingRight"}]
+  GETTABLEKS R11 R3 K27 ["MAINVIEW_PADDING_TOP"]
+  SETTABLEKS R11 R10 K23 ["PaddingTop"]
+  GETTABLEKS R11 R3 K28 ["MAINVIEW_PADDING_LEFT"]
+  SETTABLEKS R11 R10 K24 ["PaddingLeft"]
+  GETTABLEKS R11 R3 K28 ["MAINVIEW_PADDING_LEFT"]
+  SETTABLEKS R11 R10 K25 ["PaddingRight"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K12 ["Padding"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K3 ["createElement"]
-  LOADK R9 K28 ["UIListLayout"]
-  DUPTABLE R10 K31 [{"SortOrder", "FillDirection", "Padding"}]
-  GETIMPORT R11 K34 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R11 R10 K29 ["SortOrder"]
-  GETIMPORT R11 K36 [Enum.FillDirection.Vertical]
-  SETTABLEKS R11 R10 K30 ["FillDirection"]
-  GETTABLEKS R11 R3 K37 ["HORIZONTAL_LISTLAYOUT_PADDING"]
+  LOADK R9 K29 ["UIListLayout"]
+  DUPTABLE R10 K32 [{"SortOrder", "FillDirection", "Padding"}]
+  GETIMPORT R11 K35 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R11 R10 K30 ["SortOrder"]
+  GETIMPORT R11 K37 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K31 ["FillDirection"]
+  GETTABLEKS R11 R3 K38 ["HORIZONTAL_LISTLAYOUT_PADDING"]
   SETTABLEKS R11 R10 K12 ["Padding"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K13 ["Layout"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K3 ["createElement"]
   GETUPVAL R9 2
-  DUPTABLE R10 K38 [{"LayoutOrder"}]
-  NAMECALL R11 R1 K39 ["getNextOrder"]
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
   CALL R11 1 1
-  SETTABLEKS R11 R10 K33 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K14 ["MainSwitchSection"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K3 ["createElement"]
   GETUPVAL R9 3
-  DUPTABLE R10 K38 [{"LayoutOrder"}]
-  NAMECALL R11 R1 K39 ["getNextOrder"]
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
   CALL R11 1 1
-  SETTABLEKS R11 R10 K33 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K15 ["Separator"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K3 ["createElement"]
   GETUPVAL R9 4
-  DUPTABLE R10 K38 [{"LayoutOrder"}]
-  NAMECALL R11 R1 K39 ["getNextOrder"]
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
   CALL R11 1 1
-  SETTABLEKS R11 R10 K33 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K16 ["LanguageSection"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K3 ["createElement"]
   GETUPVAL R9 5
-  DUPTABLE R10 K38 [{"LayoutOrder"}]
-  NAMECALL R11 R1 K39 ["getNextOrder"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K33 ["LayoutOrder"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K17 ["CountryRegionSection"]
+  JUMPIFNOT R9 [+12]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K3 ["createElement"]
   GETUPVAL R9 6
-  DUPTABLE R10 K38 [{"LayoutOrder"}]
-  NAMECALL R11 R1 K39 ["getNextOrder"]
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
   CALL R11 1 1
-  SETTABLEKS R11 R10 K33 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K18 ["CustomPolicySwitchSection"]
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K17 ["PseudolocalizationSection"]
   GETUPVAL R9 1
   GETTABLEKS R8 R9 K3 ["createElement"]
   GETUPVAL R9 7
-  DUPTABLE R10 K38 [{"LayoutOrder"}]
-  NAMECALL R11 R1 K39 ["getNextOrder"]
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
   CALL R11 1 1
-  SETTABLEKS R11 R10 K33 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K19 ["PolicySection"]
+  SETTABLEKS R8 R7 K18 ["CountryRegionSection"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 8
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K19 ["CustomPolicySwitchSection"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 9
+  DUPTABLE R10 K39 [{"LayoutOrder"}]
+  NAMECALL R11 R1 K40 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K34 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K20 ["PolicySection"]
   CALL R4 3 -1
   RETURN R4 -1
 
@@ -144,33 +157,44 @@ MAIN:
   GETIMPORT R10 K4 [require]
   GETTABLEKS R13 R0 K14 ["Src"]
   GETTABLEKS R12 R13 K15 ["Components"]
-  GETTABLEKS R11 R12 K19 ["CountryRegionSection"]
+  GETTABLEKS R11 R12 K19 ["PseudolocalizationSection"]
   CALL R10 1 1
   GETIMPORT R11 K4 [require]
   GETTABLEKS R14 R0 K14 ["Src"]
   GETTABLEKS R13 R14 K15 ["Components"]
-  GETTABLEKS R12 R13 K20 ["PolicySection"]
+  GETTABLEKS R12 R13 K20 ["CountryRegionSection"]
   CALL R11 1 1
-  GETTABLEKS R12 R1 K21 ["PureComponent"]
-  LOADK R14 K22 ["MainView"]
-  NAMECALL R12 R12 K23 ["extend"]
-  CALL R12 2 1
-  DUPCLOSURE R13 K24 [PROTO_0]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K14 ["Src"]
+  GETTABLEKS R14 R15 K15 ["Components"]
+  GETTABLEKS R13 R14 K21 ["PolicySection"]
+  CALL R12 1 1
+  GETIMPORT R13 K23 [game]
+  LOADK R15 K24 ["EnablePseudolocalizationInPlayerEmulator"]
+  NAMECALL R13 R13 K25 ["GetFastFlag"]
+  CALL R13 2 1
+  GETTABLEKS R14 R1 K26 ["PureComponent"]
+  LOADK R16 K27 ["MainView"]
+  NAMECALL R14 R14 K28 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K29 [PROTO_0]
   CAPTURE VAL R6
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R9
+  CAPTURE VAL R13
   CAPTURE VAL R10
-  CAPTURE VAL R8
   CAPTURE VAL R11
-  SETTABLEKS R13 R12 K25 ["render"]
-  MOVE R13 R4
-  DUPTABLE R14 K27 [{"Stylizer"}]
-  GETTABLEKS R15 R3 K26 ["Stylizer"]
-  SETTABLEKS R15 R14 K26 ["Stylizer"]
-  CALL R13 1 1
-  MOVE R14 R12
-  CALL R13 1 1
-  MOVE R12 R13
-  RETURN R12 1
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  SETTABLEKS R15 R14 K30 ["render"]
+  MOVE R15 R4
+  DUPTABLE R16 K32 [{"Stylizer"}]
+  GETTABLEKS R17 R3 K31 ["Stylizer"]
+  SETTABLEKS R17 R16 K31 ["Stylizer"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  RETURN R14 1

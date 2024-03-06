@@ -217,30 +217,27 @@ PROTO_8:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["PresetController"]
-  JUMPIFNOTEQKS R0 K2 ["Save"] [+28]
+  JUMPIFNOTEQKS R0 K2 ["Save"] [+24]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K3 ["state"]
   GETTABLEKS R3 R4 K4 ["promptIntent"]
-  JUMPIFNOTEQKS R3 K5 ["Create"] [+10]
+  JUMPIFNOTEQKS R3 K5 ["Create"] [+6]
   MOVE R5 R1
   NAMECALL R3 R2 K6 ["save"]
-  CALL R3 2 0
-  MOVE R5 R1
-  NAMECALL R3 R2 K7 ["resolvePreset"]
   CALL R3 2 0
   JUMP [+11]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K3 ["state"]
   GETTABLEKS R3 R4 K4 ["promptIntent"]
-  JUMPIFNOTEQKS R3 K8 ["Rename"] [+5]
+  JUMPIFNOTEQKS R3 K7 ["Rename"] [+5]
   MOVE R5 R1
-  NAMECALL R3 R2 K9 ["rename"]
+  NAMECALL R3 R2 K8 ["rename"]
   CALL R3 2 0
   GETUPVAL R3 0
-  DUPTABLE R5 K11 [{"showNameDialog"}]
+  DUPTABLE R5 K10 [{"showNameDialog"}]
   LOADB R6 0
-  SETTABLEKS R6 R5 K10 ["showNameDialog"]
-  NAMECALL R3 R3 K12 ["setState"]
+  SETTABLEKS R6 R5 K9 ["showNameDialog"]
+  NAMECALL R3 R3 K11 ["setState"]
   CALL R3 2 0
   RETURN R0 0
 

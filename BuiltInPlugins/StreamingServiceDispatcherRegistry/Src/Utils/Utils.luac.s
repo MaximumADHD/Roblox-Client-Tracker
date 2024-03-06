@@ -2605,7 +2605,7 @@ MAIN:
   CALL R20 2 1
   MULK R19 R20 K30 [0.01]
   GETIMPORT R20 K3 [game]
-  LOADK R22 K34 ["CAPAddStreamIdToRichTextContent"]
+  LOADK R22 K34 ["CAPAddStreamIdToRichTextContent2"]
   NAMECALL R20 R20 K19 ["GetFastFlag"]
   CALL R20 2 1
   DUPTABLE R21 K41 [{"BasePart", "Model", "Attachment", "Bone", "FaceInstance", "SurfaceGui"}]

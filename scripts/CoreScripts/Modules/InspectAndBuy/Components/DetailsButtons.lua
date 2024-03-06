@@ -47,21 +47,19 @@ local function getBuyText(itemInfo, locale, collectibleQuantityLimitReached, col
 	local isLimited: boolean = itemInfo.isLimited
 		or (GetFFlagIBEnableCollectiblesSystemSupport() and itemInfo.isLimitedUnique)
 
-	if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and collectibleLowestResalePrice then
+	if collectibleLowestResalePrice then
 		buyText = RobloxTranslator:FormatByKeyForLocale(
 			FROM_RESALE_KEY,
 			locale,
 			{ PRICE = tostring(collectibleLowestResalePrice) }
 		)
 	elseif
-		game:GetEngineFeature("CollectibleItemPurchaseResellEnabled")
-		and collectibleQuantityLimitReached
+	  collectibleQuantityLimitReached
 		and itemInfo.isForSale
 	then
 		buyText = RobloxTranslator:FormatByKeyForLocale(LIMIT_REACHED_KEY, locale)
 	elseif
-		game:GetEngineFeature("CollectibleItemPurchaseResellEnabled")
-		and itemInfo.price ~= nil
+	  itemInfo.price ~= nil
 		and itemInfo.productType == Constants.ProductType.CollectibleItem
 		and itemInfo.isForSale
 	then
@@ -145,8 +143,10 @@ function DetailsButtons:render()
 	local collectibleLowestAvailableResaleProductId = nil
 	local collectibleLowestAvailableResaleItemInstanceId = nil
 	if assetInfo then
+		-- Part of Bundle buy button text
 		partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
 		partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+		-- TODO (lliu): restructure, make limited collectible be supported together
 		if partOfBundleAndOffsale then
 			bundleId = UtilityFunctions.getBundleId(assetInfo)
 			itemType = Constants.ItemType.Bundle
@@ -162,6 +162,7 @@ function DetailsButtons:render()
 				showRobuxIcon = bundleInfo[bundleId].price ~= nil and not bundleInfo[bundleId].owned and forSale
 			end
 		else
+			-- Asset + Limited collectible Buy Text
 			itemType = Constants.ItemType.Asset
 			itemId = assetInfo.assetId
 			local isLimitedCollectible = if GetFFlagIBEnableCollectiblesSystemSupport()
@@ -172,55 +173,52 @@ function DetailsButtons:render()
 				-- isForSale bit for Collectible Items is already computed in GetProductInfo() where sale location
 				-- and remaining stock are already taken into account.
 				forSale = assetInfo.isForSale
-				if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") then
-					-- we use resale for the following conditions:
-					-- 1. when there is no original instance
-					-- 2. when the user reached quantity limit
-					-- 3. when resale has a lower price than original instance
-					local resellableInstances = self.props.resellableInstances
-					local ownedInstances = resellableInstances
-						and resellableInstances[assetInfo.collectibleItemId]
-						and tutils.fieldCount(resellableInstances[assetInfo.collectibleItemId])
-					collectibleQuantityLimitReached = ownedInstances
-						and assetInfo.collectibleQuantityLimitPerUser ~= nil
-						and assetInfo.collectibleQuantityLimitPerUser > 0
-						and ownedInstances >= assetInfo.collectibleQuantityLimitPerUser
-					local resaleAvailable = assetInfo.collectibleLowestAvailableResaleProductId
-						and assetInfo.collectibleLowestAvailableResaleProductId ~= ""
-					local resaleHasLowerPrice = resaleAvailable
-						and assetInfo.price > assetInfo.collectibleLowestResalePrice
-					if resaleAvailable then
-						if not forSale or collectibleQuantityLimitReached or resaleHasLowerPrice then
-							collectibleLowestResalePrice = assetInfo.collectibleLowestResalePrice
-							collectibleLowestAvailableResaleItemInstanceId =
-								assetInfo.collectibleLowestAvailableResaleItemInstanceId
-							collectibleLowestAvailableResaleProductId =
-								assetInfo.collectibleLowestAvailableResaleProductId
-							collectibleItemId = assetInfo.collectibleItemId
-							forSale = true
-						end
-					elseif collectibleQuantityLimitReached then
-						forSale = false
+
+				-- we use resale for the following conditions:
+				-- 1. when there is no original instance
+				-- 2. when the user reached quantity limit
+				-- 3. when resale has a lower price than original instance
+				local resellableInstances = self.props.resellableInstances
+				local ownedInstances = resellableInstances
+					and resellableInstances[assetInfo.collectibleItemId]
+					and tutils.fieldCount(resellableInstances[assetInfo.collectibleItemId])
+				collectibleQuantityLimitReached = ownedInstances
+					and assetInfo.collectibleQuantityLimitPerUser ~= nil
+					and assetInfo.collectibleQuantityLimitPerUser > 0
+					and ownedInstances >= assetInfo.collectibleQuantityLimitPerUser
+				local resaleAvailable = assetInfo.collectibleLowestAvailableResaleProductId
+					and assetInfo.collectibleLowestAvailableResaleProductId ~= ""
+				local resaleHasLowerPrice = resaleAvailable
+					and assetInfo.price > assetInfo.collectibleLowestResalePrice
+				if resaleAvailable then
+					if not forSale or collectibleQuantityLimitReached or resaleHasLowerPrice then
+						collectibleLowestResalePrice = assetInfo.collectibleLowestResalePrice
+						collectibleLowestAvailableResaleItemInstanceId =
+							assetInfo.collectibleLowestAvailableResaleItemInstanceId
+						collectibleLowestAvailableResaleProductId =
+							assetInfo.collectibleLowestAvailableResaleProductId
+						collectibleItemId = assetInfo.collectibleItemId
+						forSale = true
 					end
+				elseif collectibleQuantityLimitReached then
+					forSale = false
 				end
 			else
 				forSale = assetInfo.isForSale and not assetInfo.owned and not isLimited and assetInfo.owned ~= nil
 			end
+
 			if forSale and assetInfo.price == nil and assetInfo.premiumPricing ~= nil then
 				forSale = (Players.LocalPlayer :: Player).MembershipType == Enum.MembershipType.Premium
 			end
 			buyText = getBuyText(assetInfo, locale, collectibleQuantityLimitReached, collectibleLowestResalePrice)
-			if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") then
-				showRobuxIcon = (assetInfo.price ~= nil and not assetInfo.owned and forSale)
-					or collectibleLowestResalePrice ~= nil
-					or (
-						assetInfo.price ~= nil
-						and assetInfo.productType == Constants.ProductType.CollectibleItem
-						and forSale
-					)
-			else
-				showRobuxIcon = assetInfo.price ~= nil and not assetInfo.owned and forSale
-			end
+
+			showRobuxIcon = (assetInfo.price ~= nil and not assetInfo.owned and forSale)
+				or collectibleLowestResalePrice ~= nil
+				or (
+					assetInfo.price ~= nil
+					and assetInfo.productType == Constants.ProductType.CollectibleItem
+					and forSale
+				)
 		end
 
 		showTryOn = not isAnimationAsset(assetInfo.assetTypeId)

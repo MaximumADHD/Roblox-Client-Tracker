@@ -23,50 +23,66 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  JUMPIFNOT R1 [+11]
-  GETUPVAL R1 1
-  GETUPVAL R3 0
-  NAMECALL R1 R1 K0 ["IsRecordingInProgress"]
-  CALL R1 2 1
-  JUMPIF R1 [+4]
-  GETIMPORT R1 K2 [warn]
-  LOADK R2 K3 ["StartRecordingActions failed: currentRecording is set but not running"]
-  CALL R1 1 0
-  RETURN R0 0
-  GETUPVAL R1 1
-  LOADK R3 K4 ["Assistant Actions"]
-  NAMECALL R1 R1 K5 ["TryBeginRecording"]
-  CALL R1 2 1
-  JUMPIF R1 [+5]
+  GETUPVAL R2 0
+  JUMPIFNOT R2 [+12]
+  GETUPVAL R2 1
+  GETUPVAL R4 0
+  NAMECALL R2 R2 K0 ["IsRecordingInProgress"]
+  CALL R2 2 1
+  JUMPIF R2 [+4]
   GETIMPORT R2 K2 [warn]
-  LOADK R3 K6 ["StartRecordingActions failed: TryBeginRecording returned nil"]
+  LOADK R3 K3 ["StartRecordingActions failed: currentRecording is set but not running"]
   CALL R2 1 0
-  RETURN R0 0
-  SETUPVAL R1 0
-  RETURN R0 0
+  LOADB R2 0
+  RETURN R2 1
+  GETUPVAL R3 2
+  JUMPIFNOT R3 [+2]
+  ORK R2 R1 K4 ["Assistant Actions"]
+  JUMP [+1]
+  LOADK R2 K4 ["Assistant Actions"]
+  GETUPVAL R3 1
+  MOVE R5 R2
+  NAMECALL R3 R3 K5 ["TryBeginRecording"]
+  CALL R3 2 1
+  JUMPIF R3 [+6]
+  GETIMPORT R4 K2 [warn]
+  LOADK R5 K6 ["StartRecordingActions failed: TryBeginRecording returned nil"]
+  CALL R4 1 0
+  LOADB R4 0
+  RETURN R4 1
+  SETUPVAL R3 0
+  LOADB R4 1
+  MOVE R5 R3
+  RETURN R4 2
 
 PROTO_3:
-  GETUPVAL R1 0
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETUPVAL R1 1
-  NAMECALL R1 R1 K0 ["GetCanUndo"]
-  CALL R1 1 2
-  GETIMPORT R3 K4 [Enum.FinishRecordingOperation.Append]
-  GETUPVAL R4 2
-  JUMPIFNOTEQ R4 R0 [+3]
-  JUMPIFEQKS R2 K5 ["Assistant Actions"] [+3]
-  GETIMPORT R3 K7 [Enum.FinishRecordingOperation.Commit]
-  GETUPVAL R4 1
-  GETUPVAL R6 0
-  MOVE R7 R3
-  NAMECALL R4 R4 K8 ["FinishRecording"]
-  CALL R4 3 0
-  SETUPVAL R0 2
-  LOADNIL R4
-  SETUPVAL R4 0
-  RETURN R0 0
+  GETUPVAL R2 0
+  JUMPIF R2 [+2]
+  LOADB R2 0
+  RETURN R2 1
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K0 ["GetCanUndo"]
+  CALL R2 1 2
+  GETIMPORT R4 K4 [Enum.FinishRecordingOperation.Append]
+  GETUPVAL R6 2
+  JUMPIFNOT R6 [+2]
+  ORK R5 R1 K5 ["Assistant Actions"]
+  JUMP [+1]
+  LOADK R5 K5 ["Assistant Actions"]
+  GETUPVAL R6 3
+  JUMPIFNOTEQ R6 R0 [+3]
+  JUMPIFEQ R3 R5 [+3]
+  GETIMPORT R4 K7 [Enum.FinishRecordingOperation.Commit]
+  GETUPVAL R6 1
+  GETUPVAL R8 0
+  MOVE R9 R4
+  NAMECALL R6 R6 K8 ["FinishRecording"]
+  CALL R6 3 0
+  SETUPVAL R0 3
+  LOADNIL R6
+  SETUPVAL R6 0
+  LOADB R6 1
+  RETURN R6 1
 
 PROTO_4:
   GETUPVAL R3 0
@@ -279,67 +295,73 @@ MAIN:
   LOADK R6 K8 ["ConvAIMenu_Attrib2"]
   NAMECALL R4 R4 K6 ["GetFastFlag"]
   CALL R4 2 1
-  DUPTABLE R5 K15 [{"assetCacheMap", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata"}]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K9 ["assetCacheMap"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K10 ["guidToInfo"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K11 ["chatBulletMap"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K12 ["altDataMap"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K13 ["requestRegionAdornments"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K14 ["requestMetadata"]
-  JUMPIFNOT R2 [+12]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K9 ["assetCacheMap"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K16 ["g2g"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K17 ["guid2instance"]
-  JUMPIFNOT R3 [+7]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K18 ["activeDraftGuids"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K19 ["draftModeModels"]
-  JUMPIFNOT R4 [+4]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K20 ["cachedAssetAttributionInfo"]
-  NEWTABLE R6 0 0
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K9 ["ConvAICodeRunnerTelemetry"]
+  NAMECALL R5 R5 K6 ["GetFastFlag"]
+  CALL R5 2 1
+  DUPTABLE R6 K16 [{"assetCacheMap", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata"}]
   NEWTABLE R7 0 0
-  DUPCLOSURE R8 K21 [PROTO_0]
+  SETTABLEKS R7 R6 K10 ["assetCacheMap"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K11 ["guidToInfo"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K12 ["chatBulletMap"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K13 ["altDataMap"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K14 ["requestRegionAdornments"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K15 ["requestMetadata"]
+  JUMPIFNOT R2 [+12]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K10 ["assetCacheMap"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K17 ["g2g"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K18 ["guid2instance"]
+  JUMPIFNOT R3 [+7]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K19 ["activeDraftGuids"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K20 ["draftModeModels"]
+  JUMPIFNOT R4 [+4]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K21 ["cachedAssetAttributionInfo"]
+  NEWTABLE R7 0 0
+  NEWTABLE R8 0 0
+  DUPCLOSURE R9 K22 [PROTO_0]
   CAPTURE VAL R1
-  CAPTURE VAL R6
-  SETTABLEKS R8 R5 K22 ["get"]
-  DUPCLOSURE R8 K23 [PROTO_1]
-  CAPTURE VAL R6
-  SETTABLEKS R8 R5 K24 ["set"]
-  LOADNIL R8
-  LOADNIL R9
-  NEWCLOSURE R10 P2
-  CAPTURE REF R9
-  CAPTURE VAL R0
-  SETTABLEKS R10 R5 K25 ["StartRecordingActions"]
-  NEWCLOSURE R10 P3
-  CAPTURE REF R9
-  CAPTURE VAL R0
-  CAPTURE REF R8
-  SETTABLEKS R10 R5 K26 ["EndRecordingActions"]
-  DUPCLOSURE R10 K27 [PROTO_4]
-  CAPTURE VAL R5
-  DUPCLOSURE R11 K28 [PROTO_7]
   CAPTURE VAL R7
+  SETTABLEKS R9 R6 K23 ["get"]
+  DUPCLOSURE R9 K24 [PROTO_1]
+  CAPTURE VAL R7
+  SETTABLEKS R9 R6 K25 ["set"]
+  LOADNIL R9
+  LOADNIL R10
+  NEWCLOSURE R11 P2
+  CAPTURE REF R10
+  CAPTURE VAL R0
   CAPTURE VAL R5
-  SETTABLEKS R11 R5 K29 ["GetRequestFolder"]
-  DUPCLOSURE R11 K30 [PROTO_8]
+  SETTABLEKS R11 R6 K26 ["StartRecordingActions"]
+  NEWCLOSURE R11 P3
+  CAPTURE REF R10
+  CAPTURE VAL R0
   CAPTURE VAL R5
-  SETTABLEKS R11 R5 K31 ["GetRequestMetadata"]
-  DUPCLOSURE R11 K32 [PROTO_9]
-  CAPTURE VAL R5
-  SETTABLEKS R11 R5 K33 ["SetRequestMetadata"]
-  DUPCLOSURE R11 K34 [PROTO_10]
-  SETTABLEKS R11 R5 K35 ["destroy"]
-  CLOSEUPVALS R8
-  RETURN R5 1
+  CAPTURE REF R9
+  SETTABLEKS R11 R6 K27 ["EndRecordingActions"]
+  DUPCLOSURE R11 K28 [PROTO_4]
+  CAPTURE VAL R6
+  DUPCLOSURE R12 K29 [PROTO_7]
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R12 R6 K30 ["GetRequestFolder"]
+  DUPCLOSURE R12 K31 [PROTO_8]
+  CAPTURE VAL R6
+  SETTABLEKS R12 R6 K32 ["GetRequestMetadata"]
+  DUPCLOSURE R12 K33 [PROTO_9]
+  CAPTURE VAL R6
+  SETTABLEKS R12 R6 K34 ["SetRequestMetadata"]
+  DUPCLOSURE R12 K35 [PROTO_10]
+  SETTABLEKS R12 R6 K36 ["destroy"]
+  CLOSEUPVALS R9
+  RETURN R6 1

@@ -15,6 +15,8 @@ local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBu
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
+local GetFFlagIBEnableLimitedItemBugFixAndAlignment =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
 
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
 
@@ -73,6 +75,10 @@ function DetailsThumbnail:render()
 			if GetFFlagIBEnableCollectiblesSystemSupport() and assetInfo then
 				showLimitedIcon = UtilityFunctions.hasLimitedQuantity(assetInfo)
 				showUniqueIcon = assetInfo.isLimitedUnique or assetInfo.collectibleIsLimited
+
+				if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then
+					showUniqueIcon = UtilityFunctions.isLimited1Point0_LimitedUnique(assetInfo) or UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(assetInfo)
+				end
 
 				local imageSizeOffset = if showUniqueIcon
 					then Constants.LimitedIconFrameSizeXOffset * 2

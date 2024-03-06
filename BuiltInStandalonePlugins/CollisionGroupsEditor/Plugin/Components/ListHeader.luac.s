@@ -147,8 +147,8 @@ MAIN:
   NAMECALL R10 R10 K20 ["extend"]
   CALL R10 2 1
   GETIMPORT R11 K1 [game]
-  LOADK R13 K21 ["SelectionCollisionGroup"]
-  NAMECALL R11 R11 K22 ["GetFastFlag"]
+  LOADK R13 K21 ["PluginsUseStudioSelectable"]
+  NAMECALL R11 R11 K22 ["GetEngineFeature"]
   CALL R11 2 1
   DUPCLOSURE R12 K23 [PROTO_0]
   CAPTURE VAL R11

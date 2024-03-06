@@ -78,10 +78,6 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 		return flags.EnableRestrictedAssetSaleLocationPurchasePrompt
 	end
 
-	function service.FFlagPPXboxPromptNative()
-		return flags.PPXboxPromptNative
-	end
-
 	return service
 end
 

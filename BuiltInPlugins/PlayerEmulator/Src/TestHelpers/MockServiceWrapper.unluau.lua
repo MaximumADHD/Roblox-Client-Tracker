@@ -23,24 +23,24 @@ function var10.render(arg1)
    if not var1 then
       var1 = var8.new()
    end
-   local var66 = var2
-   var66 = arg1.props.storeState
-   local var73 = var2.thunkMiddleware
-   local var83 = var9.Plugin
-   var83 = var1
-   local var85 = var83.new(var83)
-   local var86 = var9
-   local var87 = var86.Focus
-   var87 = arg1.props.focusGui or Instance.new("ScreenGui")
-   local var89 = var87.new(var87)
-   local var91 = var6()
-   var86 = var0
-   local var93 = var9.Store
-   var93 = var66.Store.new(var3(), var66, {})
-   local var9 = var93.new(var93)
-   local var96 = var5
-   var96 = var4.Networking.mock()
-   local var11 = var96.new(var96)
+   local var183 = var2
+   var183 = arg1.props.storeState
+   local var190 = var2.thunkMiddleware
+   local var200 = var9.Plugin
+   var200 = var1
+   local var202 = var200.new(var200)
+   local var203 = var9
+   local var204 = var203.Focus
+   var204 = arg1.props.focusGui or Instance.new("ScreenGui")
+   local var206 = var204.new(var204)
+   local var208 = var6()
+   var203 = var0
+   local var210 = var9.Store
+   var210 = var183.Store.new(var3(), var183, {})
+   local var9 = var210.new(var210)
+   local var213 = var5
+   var213 = var4.Networking.mock()
+   local var11 = var213.new(var213)
    local var12 = var9.Mouse.new(var1:GetMouse())
    return var9.provide({}, arg1.props[var1.Children])
 end

@@ -6,17 +6,17 @@ local var3 = require(script.Parent.TagSettingsListView)
 local var4 = require(script.Parent.TagSettingsToggleButton)
 local var5 = var1.PureComponent:extend("TagSettingsPane")
 function var5.render(arg1)
-   local var350 = {}
-   var350.Layout = Enum.FillDirection.Vertical
-   var350.VerticalAlignment = Enum.VerticalAlignment.Top
-   local var353 = {}
-   local var357 = {}
-   var357.LayoutOrder = 1
-   var353.TagSettingsToggleButton = var1.createElement(var4, var357)
-   local var363 = {}
-   var363.LayoutOrder = 2
-   var353.TagSettingsList = var1.createElement(var3, var363)
-   return var1.createElement(var2, var350, var353)
+   local var341 = {}
+   var341.Layout = Enum.FillDirection.Vertical
+   var341.VerticalAlignment = Enum.VerticalAlignment.Top
+   local var344 = {}
+   local var348 = {}
+   var348.LayoutOrder = 1
+   var344.TagSettingsToggleButton = var1.createElement(var4, var348)
+   local var354 = {}
+   var354.LayoutOrder = 2
+   var344.TagSettingsList = var1.createElement(var3, var354)
+   return var1.createElement(var2, var341, var344)
 end
 
 return var5

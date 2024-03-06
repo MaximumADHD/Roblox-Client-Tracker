@@ -5,9 +5,9 @@ local var2 = require(var0.Core.Util.Constants)
 local var3 = {}
 function var3.getAssetSize(arg1)
    local var0 = nil
-   local var651 = var1
-   var651 = arg1
-   if var651.shouldShowPrices(var651) then
+   local var640 = var1
+   var640 = arg1
+   if var640.shouldShowPrices(var640) then
       var0 = UDim2.new(0, var2.ASSET_WIDTH_NO_PADDING, 0, var2.ASSET_HEIGHT + var2.PRICE_HEIGHT)
       return var0
    end

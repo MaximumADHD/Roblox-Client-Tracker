@@ -152,12 +152,14 @@ PROTO_9:
   GETTABLEKS R5 R6 K4 ["Localization"]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K5 ["instanceName"]
-  CALL R0 6 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["Analytics"]
+  CALL R0 7 0
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K6 ["onSuggestionApplied"]
+  GETTABLEKS R0 R1 K7 ["onSuggestionApplied"]
   CALL R0 0 0
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K7 ["Analytics"]
+  GETTABLEKS R0 R1 K6 ["Analytics"]
   LOADK R2 K8 ["onScriptSuggestionApplied"]
   NAMECALL R0 R0 K9 ["getHandler"]
   CALL R0 2 1

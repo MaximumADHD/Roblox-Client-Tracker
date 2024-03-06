@@ -6,61 +6,61 @@ if not var1.RunningUnderCLI() then
       local var0 = require(var0.Packages.Dev.TestEZ)
       local var1 = var0.TestBootstrap
       local var2 = var0.Reporters.TextReporter
-      local var194 = var1.LogTestsQuiet()
-      if var194 then
+      local var189 = var1.LogTestsQuiet()
+      if var189 then
          local var0 = var0.Reporters.TextReporterQuiet
       end
       if _G.TEAMCITY then
-         var194 = var0.Reporters.TeamCityReporter
-         if not var194 then
-            var194 = var2
+         var189 = var0.Reporters.TeamCityReporter
+         if not var189 then
+            var189 = var2
          end
       end
-      var194 = var2
-      var2 = var194
+      var189 = var2
+      var2 = var189
       print("----- All " ... script.Parent.Parent.Name ... " Tests ------")
       require(script.Parent.defineLuaFlags)
-      local var212 = var0.Src
-      var212 = var2
-      var1:run({}, var212)
+      local var207 = var0.Src
+      var207 = var2
+      var1:run({}, var207)
       print("----------------------------------")
       if var1.RunDeveloperFrameworkTests() then
          print("")
          print("----- All Developer Framework Tests ------")
-         local var226 = var0.Packages._Index.DeveloperFramework.DeveloperFramework
-         var226 = var2
-         var1:run({}, var226)
+         local var221 = var0.Packages._Index.DeveloperFramework.DeveloperFramework
+         var221 = var2
+         var1:run({}, var221)
          print("----------------------------------")
       end
    end
 end
-local var234 = require(var0.Packages.Dev.TestEZ)
-local var3 = var234.TestBootstrap
-local var4 = var234.Reporters.TextReporter
-local var241 = var1.LogTestsQuiet()
-if var241 then
-   local var0 = var234.Reporters.TextReporterQuiet
+local var229 = require(var0.Packages.Dev.TestEZ)
+local var3 = var229.TestBootstrap
+local var4 = var229.Reporters.TextReporter
+local var236 = var1.LogTestsQuiet()
+if var236 then
+   local var0 = var229.Reporters.TextReporterQuiet
 end
 if _G.TEAMCITY then
-   var241 = var234.Reporters.TeamCityReporter
-   if not var241 then
-      var241 = var4
+   var236 = var229.Reporters.TeamCityReporter
+   if not var236 then
+      var236 = var4
    end
 end
-var241 = var4
-var4 = var241
+var236 = var4
+var4 = var236
 print("----- All " ... script.Parent.Parent.Name ... " Tests ------")
 require(script.Parent.defineLuaFlags)
-local var259 = var0.Src
-var259 = var4
-var3:run({}, var259)
+local var254 = var0.Src
+var254 = var4
+var3:run({}, var254)
 print("----------------------------------")
 if var1.RunDeveloperFrameworkTests() then
    print("")
    print("----- All Developer Framework Tests ------")
-   local var273 = var0.Packages._Index.DeveloperFramework.DeveloperFramework
-   var273 = var4
-   var3:run({}, var273)
+   local var268 = var0.Packages._Index.DeveloperFramework.DeveloperFramework
+   var268 = var4
+   var3:run({}, var268)
    print("----------------------------------")
 end
 if var1.RunningUnderCLI() then

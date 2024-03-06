@@ -14,7 +14,7 @@ return function(arg1, arg2, arg3)
                if var2 then
                   if arg1.Components then
                      local var0 = pairs(arg1.Components)
-                     arg2(var238)
+                     arg2(var46)
                   end
                end
             end
@@ -25,7 +25,7 @@ return function(arg1, arg2, arg3)
          if var2 then
             if arg1.Components then
                local var0 = pairs(arg1.Components)
-               arg2(var250)
+               arg2(var58)
             end
          end
       end

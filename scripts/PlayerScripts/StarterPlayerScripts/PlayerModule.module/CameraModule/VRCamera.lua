@@ -5,6 +5,15 @@
 --]]
 
 --[[ Services ]]--
+
+local FFlagUserVRAvatarGestures
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRAvatarGestures")
+	end)
+	FFlagUserVRAvatarGestures = success and result
+end
+
 local PlayersService = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -12,6 +21,8 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 -- Local private variables and constants
 local CAMERA_BLACKOUT_TIME = 0.1
 local FP_ZOOM = 0.5
+local TORSO_FORWARD_OFFSET_RATIO = 1/8
+local NECK_OFFSET = -0.7
 
 -- requires
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
@@ -28,6 +39,11 @@ function VRCamera.new()
 	self.lastUpdate = tick()
 	self.focusOffset = CFrame.new()
 	self:Reset()
+
+	if FFlagUserVRAvatarGestures then
+		self.controlModule = require(PlayersService.LocalPlayer:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
+		self.savedAutoRotate = true 
+	end
 
 	return self
 end
@@ -76,9 +92,14 @@ function VRCamera:Update(timeDelta)
 		newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
 		-- update camera cframe based on first/third person
 		if self:IsInFirstPerson() then
-			-- update camera CFrame
-			newCameraCFrame, newCameraFocus = self:UpdateFirstPersonTransform(
-				timeDelta,newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+			if FFlagUserVRAvatarGestures and VRService.AvatarGestures then
+				-- the immersion camera better aligns the player with the avatar
+				newCameraCFrame, newCameraFocus = self:UpdateImmersionCamera(
+					timeDelta,newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+			else
+				newCameraCFrame, newCameraFocus = self:UpdateFirstPersonTransform(
+					timeDelta,newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+			end
 		else -- 3rd person
 			if VRService.ThirdPersonFollowCamEnabled then
 				newCameraCFrame, newCameraFocus = self:UpdateThirdPersonFollowTransform(
@@ -139,6 +160,110 @@ function VRCamera:UpdateFirstPersonTransform(timeDelta, newCameraCFrame, newCame
 	return newCameraCFrame, newCameraFocus
 end
 
+function VRCamera:UpdateImmersionCamera(timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
+	local subjectCFrame = self:GetSubjectCFrame()
+	local curCamera = workspace.CurrentCamera :: Camera
+
+	-- character rotation details
+	local character = PlayersService.LocalPlayer.Character
+	local humanoid = self:GetHumanoid()
+	if not humanoid then
+		return curCamera.CFrame, curCamera.Focus
+	end
+	local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+	if not humanoidRootPart then 
+		return curCamera.CFrame, curCamera.Focus
+	end
+	self.characterOrientation = humanoidRootPart:FindFirstChild("CharacterAlignOrientation")
+	if not self.characterOrientation then
+		local rootAttachment = humanoidRootPart:FindFirstChild("RootAttachment")
+		if not rootAttachment then
+			return
+		end
+		self.characterOrientation= Instance.new("AlignOrientation")
+		self.characterOrientation.Name = "CharacterAlignOrientation"
+		self.characterOrientation.Mode = Enum.OrientationAlignmentMode.OneAttachment
+		self.characterOrientation.Attachment0 = rootAttachment
+		self.characterOrientation.RigidityEnabled = true
+		self.characterOrientation.Parent = humanoidRootPart
+	end
+	if self.characterOrientation.Enabled == false then
+		self.characterOrientation.Enabled = true
+	end
+
+	-- just entered first person, or need to reset camera
+	if self.needsReset then
+		self.needsReset = false
+		
+		self.savedAutoRotate = humanoid.AutoRotate
+		humanoid.AutoRotate = false
+
+		if self.NoRecenter then
+			self.NoRecenter = false
+			VRService:RecenterUserHeadCFrame()
+		end
+		
+		self:StartFadeFromBlack()
+
+		-- place the VR head at the subject's CFrame
+		newCameraCFrame = subjectCFrame
+	else
+		-- keep character rotation with torso
+		local torsoRotation = self.controlModule:GetEstimatedVRTorsoFrame()
+		self.characterOrientation.CFrame = curCamera.CFrame * torsoRotation 
+
+		-- The character continues moving for a brief moment after the moveVector stops. Continue updating the camera.
+		if self.controlModule.inputMoveVector.Magnitude > 0 then
+			self.motionDetTime = 0.1
+		end
+
+		if self.controlModule.inputMoveVector.Magnitude > 0 or self.motionDetTime > 0 then
+			self.motionDetTime -= timeDelta
+
+			-- Add an edge blur if the subject moved
+			self:StartVREdgeBlur(PlayersService.LocalPlayer)
+			
+			-- moving by input, so we should align the vrHead with the character
+			local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head) 
+			vrHeadOffset = vrHeadOffset.Rotation + vrHeadOffset.Position * curCamera.HeadScale
+			
+			-- the location of the character's body should be "below" the head. Directly below if the player is looking 
+			-- forward, but further back if they are looking down
+			local hrp = character.HumanoidRootPart
+			local neck_offset = NECK_OFFSET * hrp.Size.Y / 2
+			local neckWorld = curCamera.CFrame * vrHeadOffset * CFrame.new(0, neck_offset, 0)
+			local hrpLook = hrp.CFrame.LookVector
+			neckWorld -= Vector3.new(hrpLook.X, 0, hrpLook.Z).Unit * hrp.Size.Y * TORSO_FORWARD_OFFSET_RATIO
+			
+			-- the camera must remain stable relative to the humanoid root part or the IK calculations will look jittery
+			local goalCameraPosition = subjectPosition - neckWorld.Position + curCamera.CFrame.Position
+
+			-- maintain the Y value
+			goalCameraPosition = Vector3.new(goalCameraPosition.X, subjectPosition.Y, goalCameraPosition.Z)
+			
+			newCameraCFrame = curCamera.CFrame.Rotation + goalCameraPosition
+		else
+			-- don't change x, z position, follow the y value
+			newCameraCFrame = curCamera.CFrame.Rotation + Vector3.new(curCamera.CFrame.Position.X, subjectPosition.Y, curCamera.CFrame.Position.Z)
+		end
+		
+		local yawDelta = self:getRotation(timeDelta)
+		if math.abs(yawDelta) > 0 then
+			-- The head location in world space
+			local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head) 
+			vrHeadOffset = vrHeadOffset.Rotation + vrHeadOffset.Position * curCamera.HeadScale
+			local VRheadWorld = newCameraCFrame * vrHeadOffset
+
+			local desiredVRHeadCFrame = CFrame.new(VRheadWorld.Position) * CFrame.Angles(0, -math.rad(yawDelta * 90), 0) * VRheadWorld.Rotation
+
+			-- set the camera to place the VR head at the correct location
+			newCameraCFrame = desiredVRHeadCFrame * vrHeadOffset:Inverse()
+		end
+	end
+
+	return newCameraCFrame, newCameraCFrame * CFrame.new(0, 0, -FP_ZOOM)
+end
+
 function VRCamera:UpdateThirdPersonComfortTransform(timeDelta, newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
 	local zoom = self:GetCameraToSubjectDistance()
 	if zoom < 0.5 then
@@ -149,7 +274,12 @@ function VRCamera:UpdateThirdPersonComfortTransform(timeDelta, newCameraCFrame, 
 		-- compute delta of subject since last update
 		local player = PlayersService.LocalPlayer
 		local subjectDelta = lastSubjPos - subjectPosition
-		local moveVector = require(player:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule")):GetMoveVector()
+		local moveVector
+		if FFlagUserVRAvatarGestures then
+			self.controlModule:GetMoveVector()
+		else
+			moveVector = require(player:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule")):GetMoveVector()
+		end
 
 		-- is the subject still moving?
 		local isMoving = subjectDelta.magnitude > 0.01 or moveVector.magnitude > 0.01
@@ -240,7 +370,12 @@ function VRCamera:UpdateThirdPersonFollowTransform(timeDelta, newCameraCFrame, n
 	-- figure out if the player is moving
 	local player = PlayersService.LocalPlayer
 	local subjectDelta = lastSubjPos - subjectPosition
-	local controlModule = require(player:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
+	local controlModule
+	if FFlagUserVRAvatarGestures then
+		controlModule = self.controlModule
+	else
+		controlModule = require(player:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
+	end
 	local moveVector = controlModule:GetMoveVector()
 
 	-- while moving, slowly adjust camera so the avatar is in front of your head
@@ -290,6 +425,17 @@ function VRCamera:LeaveFirstPerson()
 	self.needsReset = true
 	if self.VRBlur then
 		self.VRBlur.Visible = false
+	end
+
+	if FFlagUserVRAvatarGestures then
+		if self.characterOrientation then
+			self.characterOrientation.Enabled = false
+
+		end
+		local humanoid = self:GetHumanoid()
+		if humanoid then
+			humanoid.AutoRotate = self.savedAutoRotate
+		end
 	end
 end
 

@@ -16,6 +16,8 @@ local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
+local GetFFlagIBEnableLimitedItemBugFixAndAlignment =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
 
 local LIMITED_ITEM_IMAGE = "icons/status/item/limited"
 
@@ -47,6 +49,9 @@ function AssetCard:render()
 			if GetFFlagIBEnableCollectiblesSystemSupport() then
 				showLimitedIcon = UtilityFunctions.hasLimitedQuantity(assetInfo)
 				showUniqueIcon = assetInfo.isLimitedUnique or assetInfo.collectibleIsLimited
+				if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then
+					showUniqueIcon = UtilityFunctions.isLimited1Point0_LimitedUnique(assetInfo) or UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(assetInfo)
+				end
 
 				-- Double the offset if the item is limited and unique and will show both icons.
 				local imageSizeOffset = if showUniqueIcon

@@ -1,0 +1,33 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = script:FindFirstAncestor("TextureGenerator")
+local var1 = require(var0.Src.Util.createUnimplemented)
+local var2 = {}
+var2.promptText = ""
+var2.randomizeSeed = true
+var2.seed = 0
+var2.rotation = CFrame.new()
+var2.smartUVUnwrap = false
+var2.promptMasking = false
+local var21 = true
+var2.validOptions = var21
+var21 = var1
+local var23 = var21("setPromptText")
+var2.setPromptText = var23
+var23 = var1
+local var25 = var23("setRandomizeSeed")
+var2.setRandomizeSeed = var25
+var25 = var1
+local var27 = var25("setSeed")
+var2.setSeed = var27
+var27 = var1
+local var29 = var27("setRotation")
+var2.setRotation = var29
+var29 = var1
+local var31 = var29("setSmartUVUnwrap")
+var2.setSmartUVUnwrap = var31
+var31 = var1
+local var33 = var31("setPromptMasking")
+var2.setPromptMasking = var33
+var33 = var1
+var2.setValidOptions = var33("setValidOptions")
+return require(var0.Packages.React).createContext(var2)

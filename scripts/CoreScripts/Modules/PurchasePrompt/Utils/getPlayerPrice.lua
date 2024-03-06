@@ -2,7 +2,7 @@ local Root = script.Parent.Parent
 
 -- Used on the data in the state
 return function(productInfo: { [any]: any }, isPlayerPremium: boolean, expectedPrice: number?)
-	if game:GetEngineFeature("CollectibleItemPurchaseResellEnabled") and expectedPrice and expectedPrice > 0 then
+	if expectedPrice and expectedPrice > 0 then
 		return expectedPrice
 	end
 	if isPlayerPremium then

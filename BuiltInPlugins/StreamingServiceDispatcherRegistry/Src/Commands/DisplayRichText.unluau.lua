@@ -5,7 +5,7 @@ local var2 = script.Parent.Parent.Parent
 local var3 = require(var2.Packages.Cryo)
 local var4 = require(var2.Src.Types)
 local var5 = require(var2.Src.Cache.StreamCache)
-local var6 = game:GetFastFlag("CAPAddStreamIdToRichTextContent")
+local var6 = game:GetFastFlag("CAPAddStreamIdToRichTextContent2")
 return function(arg1)
    local var0 = arg1.requestId
    local var1 = arg1.arguments.text.streamId

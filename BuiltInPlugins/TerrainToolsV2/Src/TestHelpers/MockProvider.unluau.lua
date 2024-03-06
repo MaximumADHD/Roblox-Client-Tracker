@@ -19,9 +19,8 @@ local var16 = require(var14.TerrainImporterInstance)
 local var17 = require(var14.TerrainSeaLevel)
 local var18 = require(var0.Src.Util.ShorelineController)
 local var19 = require(var0.Src.Util.SmoothVoxelsController)
-local var20 = require(var0.Src.Util.ImageUploader)
-local var21 = var2.PureComponent:extend(script.Name)
-function var21.createMocks()
+local var20 = var2.PureComponent:extend(script.Name)
+function var20.createMocks()
    local var0 = var7.new()
    local var1 = {}
    var1.plugin = var0
@@ -34,54 +33,50 @@ function var21.createMocks()
    return var1
 end
 
-function var21.createMockContextItems(arg1)
+function var20.createMockContextItems(arg1)
    local var0 = var4.Analytics.mock()
-   local var1 = var20.new(arg1.networking)
-   local var2 = {}
-   var2.plugin = var4.Plugin.new(arg1.plugin)
-   var2.mouse = var4.Mouse.new(arg1.mouse)
-   var2.store = var4.Store.new(arg1.store)
-   var2.theme = var5.DEPRECATED_Theme.new(arg1.theme)
-   var2.devFrameworkThemeItem = var12(true)
-   var2.localization = arg1.localization
-   var2.analytics = var0
-   var2.networking = arg1.networking
-   var2.imageUploader = var1
-   var2.terrain = var5.Terrain.new(arg1.terrain)
-   var2.pluginActivationController = var13.new(arg1.plugin)
-   local var152 = {}
-   var152.terrain = arg1.terrain
-   var152.localization = arg1.localization
-   var152.analytics = var0
-   var152.imageUploader = var1
-   var152.userId = 0
-   var2.terrainImporter = var16.new(var152)
-   local var159 = {}
-   var159.terrain = arg1.terrain
-   var159.localization = arg1.localization
-   var159.analytics = var0
-   var2.terrainGeneration = var15.new(var159)
-   local var165 = {}
-   var165.terrain = arg1.terrain
-   var165.localization = arg1.localization
-   var2.seaLevel = var17.new(var165)
-   local var169 = var18
-   var169 = var0
-   var2.shorelineController = var169.new(var169, arg1.plugin, arg1.store, arg1.terrain, true)
-   local var176 = var19
-   var176 = var0
-   var2.smoothVoxelsController = var176.new(var176, arg1.plugin, arg1.store, arg1.terrain, true)
-   return var2
+   local var1 = {}
+   var1.plugin = var4.Plugin.new(arg1.plugin)
+   var1.mouse = var4.Mouse.new(arg1.mouse)
+   var1.store = var4.Store.new(arg1.store)
+   var1.theme = var5.DEPRECATED_Theme.new(arg1.theme)
+   var1.devFrameworkThemeItem = var12(true)
+   var1.localization = arg1.localization
+   var1.analytics = var0
+   var1.networking = arg1.networking
+   var1.terrain = var5.Terrain.new(arg1.terrain)
+   var1.pluginActivationController = var13.new(arg1.plugin)
+   local var143 = {}
+   var143.terrain = arg1.terrain
+   var143.localization = arg1.localization
+   var143.analytics = var0
+   var143.userId = 0
+   var1.terrainImporter = var16.new(var143)
+   local var150 = {}
+   var150.terrain = arg1.terrain
+   var150.localization = arg1.localization
+   var150.analytics = var0
+   var1.terrainGeneration = var15.new(var150)
+   local var156 = {}
+   var156.terrain = arg1.terrain
+   var156.localization = arg1.localization
+   var1.seaLevel = var17.new(var156)
+   local var160 = var18
+   var160 = var0
+   var1.shorelineController = var160.new(var160, arg1.plugin, arg1.store, arg1.terrain, true)
+   local var167 = var19
+   var167 = var0
+   var1.smoothVoxelsController = var167.new(var167, arg1.plugin, arg1.store, arg1.terrain, true)
+   return var1
 end
 
-function var21.cleanupMocks(arg1, arg2)
+function var20.cleanupMocks(arg1, arg2)
    arg2.smoothVoxelsController:destroy()
    arg2.shorelineController:destroy()
    arg2.seaLevel:destroy()
    arg2.terrainGeneration:destroy()
    arg2.terrainImporter:destroy()
    arg2.pluginActivationController:destroy()
-   arg2.imageUploader:destroy()
    arg2.localization:destroy()
    arg2.devFrameworkThemeItem:destroy()
    arg2.theme:destroy()
@@ -89,21 +84,21 @@ function var21.cleanupMocks(arg1, arg2)
    arg1.plugin:Destroy()
 end
 
-function var21.init(arg1)
-   arg1.mocks = var21.createMocks()
-   arg1.mockItems = var21.createMockContextItems(arg1.mocks)
+function var20.init(arg1)
+   arg1.mocks = var20.createMocks()
+   arg1.mockItems = var20.createMockContextItems(arg1.mocks)
 end
 
-function var21.willUnmount(arg1)
-   var21.cleanupMocks(arg1.mocks, arg1.mockItems)
+function var20.willUnmount(arg1)
+   var20.cleanupMocks(arg1.mocks, arg1.mockItems)
    arg1.mocks = {}
    arg1.mockItems = {}
 end
 
-function var21.render(arg1)
+function var20.render(arg1)
    local var0 = arg1.mockItems.smoothVoxelsController
-   local var252 = {}
-   var252.WrappedComponent = var2.createFragment(arg1.props[var2.Children])
+   local var241 = {}
+   var241.WrappedComponent = var2.createFragment(arg1.props[var2.Children])
    return var4.provide({ 
       arg1.mockItems.plugin, 
       arg1.mockItems.mouse, 
@@ -116,10 +111,10 @@ function var21.render(arg1)
       arg1.mockItems.terrainGeneration, 
       arg1.mockItems.seaLevel, 
       arg1.mockItems.shorelineController
-   }, var252)
+   }, var241)
 end
 
-function var21.createElementWithMockContext(arg1, arg2, arg3)
+function var20.createElementWithMockContext(arg1, arg2, arg3)
    if type(arg1) == "function" then
       local var0 = false
       if type(arg1) == "table" then
@@ -130,11 +125,11 @@ function var21.createElementWithMockContext(arg1, arg2, arg3)
       end
    end
    assert(true, "MockWrapper.createElementWithMockContext passed invalid component")
-   local var282 = {}
-   local var283 = var2
-   var283 = arg1
-   var282.MyComponent = var283.createElement(var283, arg2, arg3)
-   return var2.createElement(var21, var282)
+   local var271 = {}
+   local var272 = var2
+   var272 = arg1
+   var271.MyComponent = var272.createElement(var272, arg2, arg3)
+   return var2.createElement(var20, var271)
 end
 
-return var21
+return var20

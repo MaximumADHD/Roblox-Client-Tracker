@@ -4,7 +4,6 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Roact = require(CorePackages.Roact)
 local Constants = require(Modules.Settings.Pages.ShareGame.Constants)
 local UserLibConstants = require(CorePackages.Workspace.Packages.UserLib).Utils.Constants
-local FFlagStopReadingThumbsOutOfStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagStopReadingThumbsOutOfStore
 
 local getRbxthumbWithTypeSizeAndOptions = require(CorePackages.Workspace.Packages.UserLib).Utils.getRbxthumbWithTypeSizeAndOptions
 
@@ -12,7 +11,6 @@ local BORDER_SIZE = 1
 local BORDER_COLOR = Constants.Color.GRAY3
 
 local THUMBNAIL_IMAGE_SIZE = Constants.InviteAvatarThumbnailSize
-local THUMBNAIL_IMAGE_TYPE = Constants.InviteAvatarThumbnailType
 local DEFAULT_THUMBNAIL_ICON = "rbxasset://textures/ui/LuaApp/graphic/ph-avatar-portrait.png"
 
 -- (Borrowed values from LuaChat)
@@ -125,27 +123,8 @@ function ConversationThumbnail:render()
 
 		local thumbnailImage
 		if user then
-			-- Only use rbx thumb for local user: this allows the thumbnail to update if the user changes clothes or something.
-			local localUserId
-			local localPlayer = game:GetService("Players").LocalPlayer
-			if localPlayer then
-				localUserId = tostring(localPlayer.UserId)
-			end
-
-			if FFlagStopReadingThumbsOutOfStore then
-				local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE]
-				thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType, numberSize)
-			else
-				if localUserId and user.id == localUserId then
-					local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE]
-					thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType, numberSize)
-				else
-					thumbnailImage = user.DEPRECATED_thumbnails and user.DEPRECATED_thumbnails[THUMBNAIL_IMAGE_TYPE]
-						and user.DEPRECATED_thumbnails[THUMBNAIL_IMAGE_TYPE][THUMBNAIL_IMAGE_SIZE]
-				end
-			end
-
-
+			local numberSize = UserLibConstants.RbxThumbnailSizeToNumberSize[THUMBNAIL_IMAGE_SIZE]
+			thumbnailImage = getRbxthumbWithTypeSizeAndOptions(user.id, Constants.InviteAvatarRbxthumbType, numberSize)
 		end
 		if not thumbnailImage then
 			thumbnailImage = DEFAULT_THUMBNAIL_ICON

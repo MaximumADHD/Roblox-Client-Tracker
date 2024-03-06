@@ -80,7 +80,7 @@ local function launchRobuxUpsell()
 			end
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
-		elseif upsellFlow == UpsellFlow.Mobile or (externalSettings.FFlagPPXboxPromptNative() and upsellFlow == UpsellFlow.Xbox) then
+		elseif upsellFlow == UpsellFlow.Mobile then
 			local nativeProductId = state.nativeUpsell.robuxProductId
 			local productId = state.productInfo.productId
 			local requestType = state.requestType
@@ -94,7 +94,7 @@ local function launchRobuxUpsell()
 			end
 			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 
-		elseif upsellFlow == UpsellFlow.Xbox and not externalSettings.FFlagPPXboxPromptNative() then
+		elseif upsellFlow == UpsellFlow.Xbox then
 			local nativeProductId = state.nativeUpsell.robuxProductId
 			local productId = state.productInfo.productId
 			local requestType = state.requestType

@@ -12,7 +12,11 @@ local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
 local TOUCH_TAG = "Touch"
 local GAMEPAD_TAG = "Gamepad"
 local PC_TABLE_SPACING = 4
-local TEN_FOOT_CONTROLLER_IMAGE_OFFSET = 30
+local CONTROLLER_IMAGE_OFFSET_X = 30
+local CONTROLLER_IMAGE_OFFSET_Y = 7
+local CONTROLLER_MIN_WIDTH = 270
+local CONTROLLER_WIDTH_HEIGHT_RATIO = 0.64
+local CONTROLLER_ABSOLUTE_SIZE_WIDTH_RATIO = 0.58
 local TEXT_EDGE_DISTANCE = 20
 
 -------------- SERVICES --------------
@@ -39,6 +43,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 local GetFFlagOptimizeHelpMenuInputEvent = require(RobloxGui.Modules.Flags.GetFFlagOptimizeHelpMenuInputEvent)
+local FFlagFixGamepadHelpImage = game:DefineFastFlag("FixGamepadHelpImage", false)
 
 ----------- CLASS DECLARATION --------------
 
@@ -263,8 +268,9 @@ local function Initialize()
 
 	local function createGamepadHelp(parentFrame)
 		local gamepadImage = "rbxasset://textures/ui/Settings/Help/PlatformController.png"
-		local imageSize = UDim2.new(0, 700, 0, 448)
-		local imagePosition = UDim2.new(0.5, (-imageSize.X.Offset/2) + TEN_FOOT_CONTROLLER_IMAGE_OFFSET, 0.5, -imageSize.Y.Offset/2 + 7)
+		local controllerWidth = math.max(this.Page.AbsoluteSize.X * CONTROLLER_ABSOLUTE_SIZE_WIDTH_RATIO, CONTROLLER_MIN_WIDTH)
+		local imageSize = if FFlagFixGamepadHelpImage then UDim2.new(0, controllerWidth, 0, controllerWidth * CONTROLLER_WIDTH_HEIGHT_RATIO) else UDim2.new(0, 700, 0, 448)
+		local imagePosition = UDim2.new(0.5, (-imageSize.X.Offset/2) + CONTROLLER_IMAGE_OFFSET_X, 0.5, -imageSize.Y.Offset/2 + CONTROLLER_IMAGE_OFFSET_Y)
 
 		local gamepadImageLabel = utility:Create'ImageLabel'
 		{
@@ -297,7 +303,8 @@ local function Initialize()
 				  ZIndex = 2,
 				  Parent = gamepadImageLabel,
 				  TextScaled = true,
-				  TextWrapped = true
+				  TextWrapped = true,
+				  TextTruncate = if FFlagFixGamepadHelpImage then Enum.TextTruncate.AtEnd else nil,				
 				};
 			else
 				nameLabel = utility:Create'TextLabel'{
@@ -312,7 +319,8 @@ local function Initialize()
 				  TextColor3 = Color3.new(1,1,1),
 				  Name = text .. "Label",
 				  ZIndex = 2,
-				  Parent = gamepadImageLabel
+				  Parent = gamepadImageLabel,
+				  TextTruncate = if FFlagFixGamepadHelpImage then Enum.TextTruncate.AtEnd else nil,
 				};
 			end
 
@@ -323,16 +331,26 @@ local function Initialize()
 			local distanceToCenter = math.abs(position.X.Offset)
 			local parentGui = RobloxGui or parentFrame
 
+			if FFlagFixGamepadHelpImage then
+				parentGui = parentFrame
+			end
+
 			local function updateNameLabelSize()
 				local nameLabelSizeXOffset = rightAligned and
-					RobloxGui.AbsoluteSize.X/2 + TEN_FOOT_CONTROLLER_IMAGE_OFFSET - distanceToCenter - TEXT_EDGE_DISTANCE or
-					RobloxGui.AbsoluteSize.X/2 - TEN_FOOT_CONTROLLER_IMAGE_OFFSET - distanceToCenter - TEXT_EDGE_DISTANCE
+					RobloxGui.AbsoluteSize.X/2 + CONTROLLER_IMAGE_OFFSET_X - distanceToCenter - TEXT_EDGE_DISTANCE or
+					RobloxGui.AbsoluteSize.X/2 - CONTROLLER_IMAGE_OFFSET_X - distanceToCenter - TEXT_EDGE_DISTANCE
+
+				if FFlagFixGamepadHelpImage then
+					nameLabelSizeXOffset = rightAligned and
+					parentGui.AbsoluteSize.X/2 + CONTROLLER_IMAGE_OFFSET_X - distanceToCenter or
+					parentGui.AbsoluteSize.X/2 - CONTROLLER_IMAGE_OFFSET_X - distanceToCenter
+				end
 
 				if nameLabelSizeXOffset < minSizeXOffset then
-					nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabelSizeXOffset, nameLabel.Size.Y.Scale, textVerticalSize * 2)
-					nameLabel.TextScaled = true
+					nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabelSizeXOffset, nameLabel.Size.Y.Scale, if FFlagFixGamepadHelpImage then textVerticalSize * 2 else textVerticalSize)
+					nameLabel.TextScaled = if FFlagFixGamepadHelpImage then false else true
 				else
-					nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabelSizeXOffset, nameLabel.Size.Y.Scale, textVerticalSize)
+					nameLabel.Size = UDim2.new(nameLabel.Size.X.Scale, nameLabelSizeXOffset, nameLabel.Size.Y.Scale, textVerticalSize * 2)
 					nameLabel.FontSize = gamepadFontSize
 					nameLabel.TextScaled = false
 				end
@@ -345,9 +363,10 @@ local function Initialize()
 			updateNameLabelSize()
 		end
 
-		local leftOffset = -390
-		local rightOffset = 330
-		local rightOffsetAlt = rightOffset + 50
+		local leftOffset = if FFlagFixGamepadHelpImage then (-gamepadImageLabel.Size.X.Offset / 2) - 20 else -390
+		local rightOffset = if FFlagFixGamepadHelpImage then (gamepadImageLabel.Size.X.Offset / 2) - 20 else 330
+		local rightOffsetAlt = if FFlagFixGamepadHelpImage then rightOffset + 40 else rightOffset + 50
+		local cameraOffset = -10
 
 		createGamepadLabel("Switch Tool", UDim2.new(0.5, leftOffset, 0, 15), UDim2.new(0, 100, 0, textVerticalSize), true)
 		createGamepadLabel("Game Menu Toggle", UDim2.new(0.5, leftOffset, 0.15, 10), UDim2.new(0, 164, 0, textVerticalSize), true)
@@ -358,8 +377,8 @@ local function Initialize()
 		createGamepadLabel("Roblox Menu", UDim2.new(0.5, rightOffset, 0.15, 10), UDim2.new(0, 122, 0, textVerticalSize))
 		createGamepadLabel("Back", UDim2.new(0.5, rightOffset, 0.31, 5), UDim2.new(0, 43, 0, textVerticalSize))
 		createGamepadLabel("Jump", UDim2.new(0.5, rightOffset, 0.46, 0), UDim2.new(0, 49, 0, textVerticalSize))
-		createGamepadLabel("Rotate Camera", UDim2.new(0.5, rightOffsetAlt, 0.62, -10), UDim2.new(0, 132, 0, textVerticalSize))
-		createGamepadLabel("Camera Zoom", UDim2.new(0.5, rightOffsetAlt, 0.77, -10), UDim2.new(0, 122, 0, textVerticalSize))
+		createGamepadLabel("Rotate Camera", UDim2.new(0.5, rightOffsetAlt, 0.62, cameraOffset), UDim2.new(0, 132, 0, textVerticalSize))
+		createGamepadLabel("Camera Zoom", UDim2.new(0.5, rightOffsetAlt, 0.77, cameraOffset), UDim2.new(0, 122, 0, textVerticalSize))
 		-- NOTE: On consoles we put the dev console in the settings menu. Only place
 		-- owners can see this for now.
 	end

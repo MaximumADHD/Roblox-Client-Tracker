@@ -3,6 +3,16 @@
 	TransparencyController - Manages transparency of player character at close camera-to-subject distances
 	2018 Camera Update - AllYourBlox
 --]]
+
+local FFlagUserVRAvatarGestures
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserVRAvatarGestures")
+	end)
+	FFlagUserVRAvatarGestures = success and result
+end
+
+local VRService = game:GetService("VRService")
 local MAX_TWEEN_RATE = 2.8 -- per second
 
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
@@ -168,7 +178,24 @@ function TransparencyController:Update(dt)
 		-- update transparencies 
 		if self.transparencyDirty or self.lastTransparency ~= transparency then
 			for child, _ in pairs(self.cachedParts) do
-				child.LocalTransparencyModifier = transparency
+				if FFlagUserVRAvatarGestures and VRService.VREnabled and VRService.AvatarGestures then
+					-- keep the arms visible in VR
+					local hiddenAccessories = {
+						    [Enum.AccessoryType.Hat] = true,
+    						[Enum.AccessoryType.Hair] = true,
+    						[Enum.AccessoryType.Face] = true,
+    						[Enum.AccessoryType.Eyebrow] = true,
+ 						   [Enum.AccessoryType.Eyelash] = true,
+					}
+					if (child.Parent:IsA("Accessory") and hiddenAccessories[child.Parent.AccessoryType]) or child.Name == "Head" then
+						child.LocalTransparencyModifier = transparency
+					else
+						-- body should always be visible in VR
+						child.LocalTransparencyModifier = 0
+					end
+				else
+					child.LocalTransparencyModifier = transparency
+				end
 			end
 			self.transparencyDirty = false
 			self.lastTransparency = transparency

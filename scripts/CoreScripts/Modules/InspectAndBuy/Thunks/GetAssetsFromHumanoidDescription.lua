@@ -54,6 +54,17 @@ local function GetAssetsFromHumanoidDescription(humanoidDescription, isForLocalP
 			for _, asset in ipairs(assets) do
 				coroutine.wrap(function()
 					store:dispatch(GetProductInfo(asset.assetId))
+					--[[
+						TODO (lliu):
+							1. Get if an asset belongs to a bundle via v1/assets/{bid}/bundles
+									[FixMe in the future]: Backend doesn't provide a batch API to get if an assets belongs to a bundle, thus, we need to send multiple requests
+							2. Get if a bundle is a limited bundle & collectibleItemId via above api
+							3. Get bundle's lowestPrice economy info via collectibleItemId via marketplace-items/v1/items/details
+							4. Deprecate the way to use MarketplaceService:GetProductInfo via economy v2/assets/{itemId}/details.
+									Because this way doesn't support both bundles and assets.
+									Enable the deprecation after all assets migrate to collectible system
+					--]]
+
 					if FFlagAttributionInInspectAndBuy then
 						--[[
 							FIXME(dbanks)

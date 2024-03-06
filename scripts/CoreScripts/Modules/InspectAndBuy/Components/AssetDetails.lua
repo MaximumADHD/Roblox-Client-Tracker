@@ -34,6 +34,8 @@ local GetCollectibleItemInInspectAndBuyEnabled =
 	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
+local GetFFlagIBEnableLimitedItemBugFixAndAlignment =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
 local Modules = CoreGui.RobloxGui.Modules
 local Theme = require(Modules.Settings.Theme)
 
@@ -141,8 +143,7 @@ function AssetDetails:willUpdate(nextProps)
 	end
 
 	if
-		game:GetEngineFeature("CollectibleItemPurchaseResellEnabled")
-		and UtilityFunctions.isCollectibles(self.props.assetInfo)
+		UtilityFunctions.isCollectibles(self.props.assetInfo)
 	then
 		local itemId = self.props.assetInfo.collectibleItemId
 		local prevResellableInstances = self.props.resellableInstances
@@ -222,10 +223,20 @@ function AssetDetails:render()
 				local getCollectibleResellableInstances = self.props.getCollectibleResellableInstances
 				local resellableInstances = self.props.resellableInstances
 				local localUserId = Players.LocalPlayer and Players.LocalPlayer.UserId
+				-- TODO (lliu): this method should not be called here.
+				-- Because this call is async, we basically rely on triggering re-rendering to get the data correct
 				getCollectibleResellableInstances(assetInfo.collectibleItemId, localUserId)
 				ownedInstances = resellableInstances
 					and resellableInstances[assetInfo.collectibleItemId]
 					and tutils.fieldCount(resellableInstances[assetInfo.collectibleItemId])
+				if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then
+					ownedInstances = ownedInstances or 0
+				end
+			end
+
+			local showOwnedItemLabel = isCollectibles
+			if GetFFlagIBEnableLimitedItemBugFixAndAlignment() then
+				showOwnedItemLabel = UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(assetInfo)
 			end
 
 			if GetFFlagUseInspectAndBuyControllerBar() and self.props.gamepadEnabled then
@@ -270,7 +281,7 @@ function AssetDetails:render()
 						localPlayerModel = localPlayerModel,
 					}),
 					-- Adding an owned item counter to show how many items the user owns.
-					ItemOwnedLabelContainer = isCollectibles and Roact.createElement("Frame", {
+					ItemOwnedLabelContainer = showOwnedItemLabel and Roact.createElement("Frame", {
 						Size = UDim2.new(1, 0, 0, imageSize.Y + 20),
 						BorderSizePixel = 0,
 						LayoutOrder = 3,

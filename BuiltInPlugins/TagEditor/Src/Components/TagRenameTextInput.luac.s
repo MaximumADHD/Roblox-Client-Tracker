@@ -81,11 +81,9 @@ PROTO_3:
   JUMPIFNOTEQKS R3 K3 [""] [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  GETUPVAL R5 0
-  JUMPIFNOT R5 [+39]
-  GETUPVAL R6 1
+  GETUPVAL R6 0
   GETTABLEKS R5 R6 K4 ["createElement"]
-  GETUPVAL R6 2
+  GETUPVAL R6 1
   DUPTABLE R7 K13 [{"Size", "Style", "LayoutOrder", "ShouldFocus", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
   GETTABLEKS R8 R1 K5 ["Size"]
   SETTABLEKS R8 R7 K5 ["Size"]
@@ -95,35 +93,6 @@ PROTO_3:
   SETTABLEKS R8 R7 K7 ["LayoutOrder"]
   LOADB R8 1
   SETTABLEKS R8 R7 K8 ["ShouldFocus"]
-  GETTABLEKS R8 R0 K15 ["textBoxRef"]
-  SETTABLEKS R8 R7 K9 ["ForwardRef"]
-  JUMPIFNOT R4 [+2]
-  MOVE R8 R3
-  JUMP [+1]
-  MOVE R8 R2
-  SETTABLEKS R8 R7 K10 ["PlaceholderText"]
-  GETTABLEKS R8 R0 K16 ["onTextChanged"]
-  SETTABLEKS R8 R7 K11 ["OnTextChanged"]
-  GETTABLEKS R8 R0 K17 ["onFocusLost"]
-  SETTABLEKS R8 R7 K12 ["OnFocusLost"]
-  CALL R5 2 -1
-  RETURN R5 -1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K4 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K20 [{"Size", "Style", "LayoutOrder", "TextWrapped", "ShouldFocus", "TextXAlignment", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
-  GETTABLEKS R8 R1 K5 ["Size"]
-  SETTABLEKS R8 R7 K5 ["Size"]
-  LOADK R8 K14 ["FilledRoundedBorder"]
-  SETTABLEKS R8 R7 K6 ["Style"]
-  GETTABLEKS R8 R1 K7 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K7 ["LayoutOrder"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K18 ["TextWrapped"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K8 ["ShouldFocus"]
-  GETIMPORT R8 K23 [Enum.TextXAlignment.Left]
-  SETTABLEKS R8 R7 K19 ["TextXAlignment"]
   GETTABLEKS R8 R0 K15 ["textBoxRef"]
   SETTABLEKS R8 R7 K9 ["ForwardRef"]
   JUMPIFNOT R4 [+2]
@@ -239,32 +208,27 @@ MAIN:
   GETTABLEKS R9 R0 K11 ["Src"]
   GETTABLEKS R8 R9 K13 ["TagManager"]
   CALL R7 1 1
-  GETIMPORT R8 K15 [game]
-  LOADK R10 K16 ["TagEditorImprovements2"]
-  NAMECALL R8 R8 K17 ["GetFastFlag"]
+  GETTABLEKS R8 R1 K14 ["Component"]
+  LOADK R10 K15 ["TagRenameTextInput"]
+  NAMECALL R8 R8 K16 ["extend"]
   CALL R8 2 1
-  GETTABLEKS R9 R1 K18 ["Component"]
-  LOADK R11 K19 ["TagRenameTextInput"]
-  NAMECALL R9 R9 K20 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K21 [PROTO_2]
+  DUPCLOSURE R9 K17 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R7
-  SETTABLEKS R10 R9 K22 ["init"]
-  DUPCLOSURE R10 K23 [PROTO_3]
-  CAPTURE VAL R8
+  SETTABLEKS R9 R8 K18 ["init"]
+  DUPCLOSURE R9 K19 [PROTO_3]
   CAPTURE VAL R1
   CAPTURE VAL R5
-  SETTABLEKS R10 R9 K24 ["render"]
-  DUPCLOSURE R10 K25 [PROTO_4]
-  SETTABLEKS R10 R9 K26 ["didMount"]
-  DUPCLOSURE R10 K27 [PROTO_5]
-  DUPCLOSURE R11 K28 [PROTO_10]
+  SETTABLEKS R9 R8 K20 ["render"]
+  DUPCLOSURE R9 K21 [PROTO_4]
+  SETTABLEKS R9 R8 K22 ["didMount"]
+  DUPCLOSURE R9 K23 [PROTO_5]
+  DUPCLOSURE R10 K24 [PROTO_10]
   CAPTURE VAL R6
-  GETTABLEKS R12 R2 K29 ["connect"]
+  GETTABLEKS R11 R2 K25 ["connect"]
+  MOVE R12 R9
   MOVE R13 R10
-  MOVE R14 R11
-  CALL R12 2 1
-  MOVE R13 R9
-  CALL R12 1 -1
-  RETURN R12 -1
+  CALL R11 2 1
+  MOVE R12 R8
+  CALL R11 1 -1
+  RETURN R11 -1

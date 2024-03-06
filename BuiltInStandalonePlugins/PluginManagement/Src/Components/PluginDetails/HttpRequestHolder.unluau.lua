@@ -11,20 +11,20 @@ local var8 = require(var0.Src.Util.Constants)
 local var9 = require(var0.Packages.Framework).UI.Checkbox
 local var10 = require(var0.Src.Util.truncateMiddleText)
 local var11 = var3.Component:extend("HttpRequestHolder")
-local var67 = {}
-var67.httpPermissions = {}
-var11.defaultProps = var67
+local var339 = {}
+var339.httpPermissions = {}
+var11.defaultProps = var339
 function var11.init(arg1)
    arg1.frameRef = var3.createRef()
-   local var73 = {}
-   var73.frameWidth = 0
-   arg1.state = var73
+   local var345 = {}
+   var345.frameWidth = 0
+   arg1.state = var345
    function arg1.onCheckboxActivated(arg1)
-      local var84 = arg1
-      local var85 = var84.props
-      var85 = arg1.props.API:get()
-      var84 = arg1.props.assetId
-      return var85.setPluginPermission(var85, var84, arg1)
+      local var356 = arg1
+      local var357 = var356.props
+      var357 = arg1.props.API:get()
+      var356 = arg1.props.assetId
+      return var357.setPluginPermission(var357, var356, arg1)
    end
    
    function arg1.resizeFrame()
@@ -32,18 +32,18 @@ function var11.init(arg1)
       if not var0 then
       end
       if arg1.state.frameWidth ~= var0.AbsoluteSize.X then
-         local var98 = {}
-         var98.frameWidth = var0.AbsoluteSize.X
-         arg1:setState(var98)
+         local var383 = {}
+         var383.frameWidth = var0.AbsoluteSize.X
+         arg1:setState(var383)
       end
    end
    
    function arg1.getTruncatedText(arg1, arg2)
       local var0 = ""
-      local var106 = arg1
-      local var107 = 16
-      local var108 = arg2.Font
-      local var110 = Vector2.new()
+      local var415 = arg1
+      local var417 = 16
+      local var418 = arg2.Font
+      local var421 = Vector2.new()
       local var5 = var8.SCROLLBAR_WIDTH_ADJUSTMENT
       local var6 = arg1.state.frameWidth - 16 - var5
       if 0 < var6 then
@@ -67,105 +67,105 @@ function var11.renderCheckbox(arg1, arg2, arg3, arg4)
    if arg4.data then
       local var0 = arg4.data.domain or ""
    end
-   local var147 = {}
-   var147.Checked = arg4.allowed
-   var147.LayoutOrder = arg3
-   function var147.OnClick(arg1)
-      local var157 = arg1
-      local var158 = var157.props
-      var158 = arg1.props.API:get()
-      var157 = arg1.props.assetId
-      return var158.setPluginPermission(var158, var157, arg1)
+   local var490 = {}
+   var490.Checked = arg4.allowed
+   var490.LayoutOrder = arg3
+   function var490.OnClick(arg1)
+      local var500 = arg1
+      local var501 = var500.props
+      var501 = arg1.props.API:get()
+      var500 = arg1.props.assetId
+      return var501.setPluginPermission(var501, var500, arg1)
    end
    
-   var147.Text = arg1.getTruncatedText("", arg2)
-   return var3.createElement(var9, var147)
+   var490.Text = arg1.getTruncatedText("", arg2)
+   return var3.createElement(var9, var490)
 end
 
-local function fun7(arg1)
+local function fun13(arg1)
    local var0 = arg1.props.Stylizer
    local var1 = {}
-   local var175 = pairs(arg1.props.httpPermissions)
-   local var176 = var1
-   local var181 = arg1:renderCheckbox(var0, var178, var179)
+   local var536 = pairs(arg1.props.httpPermissions)
+   local var539 = var1
+   local var549 = arg1:renderCheckbox(var0, var541, var543)
    table.insert()
-   local var186 = {}
-   var186.BackgroundTransparency = 1
-   var186.contentPadding = UDim.new(0, 20)
-   var186.LayoutOrder = arg1.props.LayoutOrder
-   var186.width = UDim.new(1, 0)
+   local var556 = {}
+   var556.BackgroundTransparency = 1
+   var556.contentPadding = UDim.new(0, 20)
+   var556.LayoutOrder = arg1.props.LayoutOrder
+   var556.width = UDim.new(1, 0)
    var3.Ref = arg1.frameRef
    var3.Change.AbsoluteSize = arg1.resizeFrame
-   local var203 = {}
-   local var207 = {}
-   var207.BackgroundTransparency = 1
-   var207.contentPadding = UDim.new(0, 8)
-   var207.LayoutOrder = 0
-   local var217 = UDim.new(1, 0)
-   var207.width = var217
-   var217 = var1
-   var203.Checkboxes = var3.createElement(var7, var207, var217)
-   local var222 = {}
-   var222.BackgroundTransparency = 1
-   var222.Font = var0.Font
-   var222.LayoutOrder = 1
-   var222.TextSize = 16
-   var222.Text = arg1.props.Localization:getText("Details", "HttpRequestInfo")
-   var222.TextXAlignment = Enum.TextXAlignment.Left
-   var222.TextColor3 = var0.InfoTextColor
-   var203.InfoText = var3.createElement(var6, var222)
-   return var3.createElement(var7, var186, var203)
+   local var577 = {}
+   local var581 = {}
+   var581.BackgroundTransparency = 1
+   var581.contentPadding = UDim.new(0, 8)
+   var581.LayoutOrder = 0
+   local var591 = UDim.new(1, 0)
+   var581.width = var591
+   var591 = var1
+   var577.Checkboxes = var3.createElement(var7, var581, var591)
+   local var596 = {}
+   var596.BackgroundTransparency = 1
+   var596.Font = var0.Font
+   var596.LayoutOrder = 1
+   var596.TextSize = 16
+   var596.Text = arg1.props.Localization:getText("Details", "HttpRequestInfo")
+   var596.TextXAlignment = Enum.TextXAlignment.Left
+   var596.TextColor3 = var0.InfoTextColor
+   var577.InfoText = var3.createElement(var6, var596)
+   return var3.createElement(var7, var556, var577)
 end
 
 function var11.render(arg1)
    local var0 = arg1.props.Stylizer
    local var1 = {}
-   local var175 = pairs(arg1.props.httpPermissions)
-   local var176 = var1
-   local var181 = arg1:renderCheckbox(var0, var178, var179)
+   local var536 = pairs(arg1.props.httpPermissions)
+   local var539 = var1
+   local var549 = arg1:renderCheckbox(var0, var541, var543)
    table.insert()
-   local var186 = {}
-   var186.BackgroundTransparency = 1
-   var186.contentPadding = UDim.new(0, 20)
-   var186.LayoutOrder = arg1.props.LayoutOrder
-   var186.width = UDim.new(1, 0)
+   local var556 = {}
+   var556.BackgroundTransparency = 1
+   var556.contentPadding = UDim.new(0, 20)
+   var556.LayoutOrder = arg1.props.LayoutOrder
+   var556.width = UDim.new(1, 0)
    var3.Ref = arg1.frameRef
    var3.Change.AbsoluteSize = arg1.resizeFrame
-   local var203 = {}
-   local var207 = {}
-   var207.BackgroundTransparency = 1
-   var207.contentPadding = UDim.new(0, 8)
-   var207.LayoutOrder = 0
-   local var217 = UDim.new(1, 0)
-   var207.width = var217
-   var217 = var1
-   var203.Checkboxes = var3.createElement(var7, var207, var217)
-   local var222 = {}
-   var222.BackgroundTransparency = 1
-   var222.Font = var0.Font
-   var222.LayoutOrder = 1
-   var222.TextSize = 16
-   var222.Text = arg1.props.Localization:getText("Details", "HttpRequestInfo")
-   var222.TextXAlignment = Enum.TextXAlignment.Left
-   var222.TextColor3 = var0.InfoTextColor
-   var203.InfoText = var3.createElement(var6, var222)
-   return var3.createElement(var7, var186, var203)
+   local var577 = {}
+   local var581 = {}
+   var581.BackgroundTransparency = 1
+   var581.contentPadding = UDim.new(0, 8)
+   var581.LayoutOrder = 0
+   local var591 = UDim.new(1, 0)
+   var581.width = var591
+   var591 = var1
+   var577.Checkboxes = var3.createElement(var7, var581, var591)
+   local var596 = {}
+   var596.BackgroundTransparency = 1
+   var596.Font = var0.Font
+   var596.LayoutOrder = 1
+   var596.TextSize = 16
+   var596.Text = arg1.props.Localization:getText("Details", "HttpRequestInfo")
+   var596.TextXAlignment = Enum.TextXAlignment.Left
+   var596.TextColor3 = var0.InfoTextColor
+   var577.InfoText = var3.createElement(var6, var596)
+   return var3.createElement(var7, var556, var577)
 end
 
-fun7 = var4.withContext
-local var235 = {}
-var235.API = require(var0.Src.ContextServices.PluginAPI2)
-var235.Localization = var4.Localization
-var235.Stylizer = var4.Stylizer
-var11 = fun7(var235)(var11)
+fun13 = var4.withContext
+local var611 = {}
+var611.API = require(var0.Src.ContextServices.PluginAPI2)
+var611.Localization = var4.Localization
+var611.Stylizer = var4.Stylizer
+var11 = fun13(var611)(var11)
 return require(var0.Packages.RoactRodux).connect(nil, function(arg1)
    local var0 = {}
    function var0.setPluginPermission(arg1)
-      local var252 = arg1
-      local var253 = var252.props
-      var253 = arg1.props.API:get()
-      var252 = arg1.props.assetId
-      return var253.setPluginPermission(var253, var252, arg1)
+      local var647 = arg1
+      local var648 = var647.props
+      var648 = arg1.props.API:get()
+      var647 = arg1.props.assetId
+      return var648.setPluginPermission(var648, var647, arg1)
    end
    
    return var0

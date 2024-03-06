@@ -215,15 +215,12 @@ PROTO_10:
   RETURN R0 1
 
 PROTO_11:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  JUMPIFNOT R0 [+25]
   GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["DebugToolboxDebugWarnings"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIF R0 [+17]
-  GETUPVAL R1 1
+  GETUPVAL R1 0
   LOADK R3 K4 ["ToolboxDebugFlags"]
   NAMECALL R1 R1 K5 ["FindFirstChild"]
   CALL R1 2 1
@@ -238,31 +235,6 @@ PROTO_11:
   RETURN R0 1
   LOADNIL R0
   RETURN R0 1
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["DebugToolboxDebugWarnings"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  JUMPIF R0 [+17]
-  GETUPVAL R1 1
-  LOADK R3 K4 ["ToolboxDebugFlags"]
-  NAMECALL R1 R1 K5 ["FindFirstChild"]
-  CALL R1 2 1
-  JUMPIF R1 [+2]
-  LOADNIL R0
-  JUMP [+9]
-  LOADK R4 K6 ["ToolboxDebugWarnings"]
-  NAMECALL R2 R1 K5 ["FindFirstChild"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+3]
-  GETTABLEKS R0 R2 K7 ["Value"]
-  JUMP [+1]
-  LOADNIL R0
-  JUMPIFEQKNIL R0 [+2]
-  RETURN R0 1
-  GETUPVAL R1 2
-  NAMECALL R1 R1 K8 ["HasInternalPermission"]
-  CALL R1 1 -1
-  RETURN R1 -1
 
 PROTO_12:
   GETIMPORT R0 K1 [game]
@@ -414,141 +386,125 @@ PROTO_17:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Toolbox"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Workspace"]
+  NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["Workspace"]
-  NAMECALL R1 R1 K7 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K5 [game]
-  LOADK R4 K8 ["StudioService"]
-  NAMECALL R2 R2 K7 ["GetService"]
-  CALL R2 2 1
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R7 R0 K11 ["Core"]
-  GETTABLEKS R6 R7 K12 ["Util"]
-  GETTABLEKS R5 R6 K13 ["SharedFlags"]
-  GETTABLEKS R4 R5 K14 ["getFFlagToolboxFixSquishOutputSpam"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K15 [PROTO_0]
-  CAPTURE VAL R1
-  DUPCLOSURE R5 K16 [PROTO_1]
-  CAPTURE VAL R1
-  DUPCLOSURE R6 K17 [PROTO_2]
-  CAPTURE VAL R1
-  NEWTABLE R7 16 0
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K18 ["DebugToolboxRunTests"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K20 [PROTO_3]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K21 ["shouldRunTests"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K22 ["DebugToolboxRunRhodiumTests"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K23 [PROTO_4]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K24 ["shouldRunRhodiumTests"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K25 ["DebugToolboxRunJest3Tests"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K26 [PROTO_5]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K27 ["shouldRunJest3Tests"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K28 ["DebugToolboxLogTestsQuiet"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K29 [PROTO_6]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K30 ["logTestsQuiet"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K31 ["DebugToolboxDisableTooltips"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K32 [PROTO_7]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K33 ["shouldDisableTooltips"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K34 ["DebugToolboxDebugUrls"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K35 [PROTO_8]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K36 ["shouldDebugUrls"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K37 ["DebugToolboxDebugState"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K38 [PROTO_9]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K39 ["shouldDebugState"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K40 ["DebugToolboxLogAnalytics"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K41 [PROTO_10]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K42 ["shouldLogAnalytics"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K43 ["DebugToolboxDebugWarnings"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K44 [PROTO_11]
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K45 ["shouldDebugWarnings"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K46 ["DebugToolboxLogSettings"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K47 [PROTO_12]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K48 ["shouldLogSettings"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K49 ["DebugToolboxUseTestCustomLocale"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K50 [PROTO_13]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K51 ["shouldUseTestCustomLocale"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K52 ["DebugToolboxUseTestRealLocaleId"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K53 [PROTO_14]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K54 ["shouldUseTestRealLocale"]
-  GETIMPORT R8 K5 [game]
-  LOADK R10 K55 ["DebugToolboxDebugOverrideAssetLoading"]
-  LOADB R11 0
-  NAMECALL R8 R8 K19 ["DefineFastFlag"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K56 [PROTO_15]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K57 ["shouldDebugOverrideAssetLoading"]
-  DUPCLOSURE R8 K58 [PROTO_16]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K59 ["getOrCreateTestCustomLocale"]
-  DUPCLOSURE R8 K60 [PROTO_17]
-  CAPTURE VAL R1
-  SETTABLEKS R8 R7 K61 ["getOrCreateTestRealLocale"]
-  RETURN R7 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  CAPTURE VAL R0
+  DUPCLOSURE R2 K5 [PROTO_1]
+  CAPTURE VAL R0
+  DUPCLOSURE R3 K6 [PROTO_2]
+  CAPTURE VAL R0
+  NEWTABLE R4 16 0
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K7 ["DebugToolboxRunTests"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K9 [PROTO_3]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K10 ["shouldRunTests"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K11 ["DebugToolboxRunRhodiumTests"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K12 [PROTO_4]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K13 ["shouldRunRhodiumTests"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K14 ["DebugToolboxRunJest3Tests"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K15 [PROTO_5]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K16 ["shouldRunJest3Tests"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K17 ["DebugToolboxLogTestsQuiet"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K18 [PROTO_6]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K19 ["logTestsQuiet"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K20 ["DebugToolboxDisableTooltips"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K21 [PROTO_7]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K22 ["shouldDisableTooltips"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K23 ["DebugToolboxDebugUrls"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K24 [PROTO_8]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K25 ["shouldDebugUrls"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K26 ["DebugToolboxDebugState"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K27 [PROTO_9]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K28 ["shouldDebugState"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K29 ["DebugToolboxLogAnalytics"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K30 [PROTO_10]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K31 ["shouldLogAnalytics"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K32 ["DebugToolboxDebugWarnings"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K33 [PROTO_11]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K34 ["shouldDebugWarnings"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K35 ["DebugToolboxLogSettings"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K36 [PROTO_12]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K37 ["shouldLogSettings"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K38 ["DebugToolboxUseTestCustomLocale"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K39 [PROTO_13]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K40 ["shouldUseTestCustomLocale"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K41 ["DebugToolboxUseTestRealLocaleId"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K42 [PROTO_14]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K43 ["shouldUseTestRealLocale"]
+  GETIMPORT R5 K1 [game]
+  LOADK R7 K44 ["DebugToolboxDebugOverrideAssetLoading"]
+  LOADB R8 0
+  NAMECALL R5 R5 K8 ["DefineFastFlag"]
+  CALL R5 3 0
+  DUPCLOSURE R5 K45 [PROTO_15]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K46 ["shouldDebugOverrideAssetLoading"]
+  DUPCLOSURE R5 K47 [PROTO_16]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K48 ["getOrCreateTestCustomLocale"]
+  DUPCLOSURE R5 K49 [PROTO_17]
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K50 ["getOrCreateTestRealLocale"]
+  RETURN R4 1

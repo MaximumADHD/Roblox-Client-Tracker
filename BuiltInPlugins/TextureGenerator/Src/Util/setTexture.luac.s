@@ -1,0 +1,31 @@
+PROTO_0:
+  JUMPIFNOTEQKNIL R1 [+2]
+  RETURN R0 0
+  LOADK R2 K0 [""]
+  SETTABLEKS R2 R0 K1 ["TextureID"]
+  LOADK R4 K2 ["SurfaceAppearance"]
+  NAMECALL R2 R0 K3 ["FindFirstChildWhichIsA"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+4]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K4 ["Parent"]
+  GETIMPORT R3 K7 [Instance.new]
+  LOADK R4 K2 ["SurfaceAppearance"]
+  CALL R3 1 1
+  SETTABLEKS R1 R3 K8 ["ColorMap"]
+  SETTABLEKS R0 R3 K4 ["Parent"]
+  GETUPVAL R4 0
+  LOADK R6 K9 ["Set Texture"]
+  NAMECALL R4 R4 K10 ["SetWaypoint"]
+  CALL R4 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ChangeHistoryService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

@@ -1,0 +1,47 @@
+PROTO_0:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["boolean"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETIMPORT R3 K5 [string.format]
+  LOADK R4 K6 ["SetHasLinkedScripts requires a boolean, not %s"]
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  CALL R3 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R1 K8 [assert]
+  CALL R1 -1 0
+  DUPTABLE R1 K10 [{"hasLinkedScripts"}]
+  SETTABLEKS R0 R1 K9 ["hasLinkedScripts"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["DisableLinkedScriptStudioEditing"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  GETIMPORT R4 K5 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K11 ["Util"]
+  GETTABLEKS R2 R3 K12 ["Action"]
+  JUMPIFNOT R0 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  MOVE R3 R2
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K13 ["Name"]
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CALL R3 2 -1
+  RETURN R3 -1

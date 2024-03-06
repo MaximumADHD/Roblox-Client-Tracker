@@ -124,42 +124,57 @@ MAIN:
   GETTABLEKS R9 R10 K18 ["EquipmentStateContext"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K10 ["Src"]
-  GETTABLEKS R11 R12 K16 ["Util"]
-  GETTABLEKS R10 R11 K19 ["createHumanoidDescriptionWithSkinTone"]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K19 ["Types"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K10 ["Src"]
   GETTABLEKS R12 R13 K16 ["Util"]
-  GETTABLEKS R11 R12 K20 ["patchHumanoidDescription"]
+  GETTABLEKS R11 R12 K20 ["createHumanoidDescriptionWithSkinTone_DEPRECATED"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K10 ["Src"]
-  GETTABLEKS R13 R14 K21 ["Hooks"]
-  GETTABLEKS R12 R13 K22 ["useOnClothingLayerOrderChanged"]
+  GETTABLEKS R13 R14 K16 ["Util"]
+  GETTABLEKS R12 R13 K21 ["patchHumanoidDescription_DEPRECATED"]
   CALL R11 1 1
-  DUPCLOSURE R12 K23 [PROTO_1]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K10 ["Src"]
+  GETTABLEKS R14 R15 K22 ["Hooks"]
+  GETTABLEKS R13 R14 K23 ["useOnClothingLayerOrderChanged"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K10 ["Src"]
+  GETTABLEKS R15 R16 K24 ["Flags"]
+  GETTABLEKS R14 R15 K25 ["getFFlagAvatarPreviewerKeepAccessoriesInCheckFace"]
+  CALL R13 1 1
+  DUPCLOSURE R14 K26 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R2
+  CAPTURE VAL R11
   CAPTURE VAL R10
-  CAPTURE VAL R9
-  DUPCLOSURE R13 K24 [PROTO_2]
+  DUPCLOSURE R15 K27 [PROTO_2]
   CAPTURE VAL R3
   CAPTURE VAL R8
-  CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R4
-  DUPTABLE R14 K29 [{"tabs", "render", "getHumanoidDescription", "getPreviewCameraModifications"}]
-  NEWTABLE R15 0 4
-  LOADK R16 K30 ["animations"]
-  LOADK R17 K31 ["clothing"]
-  LOADK R18 K32 ["accessories"]
-  LOADK R19 K33 ["body"]
-  SETLIST R15 R16 4 [1]
-  SETTABLEKS R15 R14 K25 ["tabs"]
-  SETTABLEKS R13 R14 K26 ["render"]
-  SETTABLEKS R12 R14 K27 ["getHumanoidDescription"]
-  DUPCLOSURE R15 K34 [PROTO_3]
-  SETTABLEKS R15 R14 K28 ["getPreviewCameraModifications"]
-  RETURN R14 1
+  DUPTABLE R16 K32 [{"tabs", "render", "getHumanoidDescription_DEPRECATED", "getPreviewCameraModifications"}]
+  NEWTABLE R17 0 4
+  LOADK R18 K33 ["animations"]
+  LOADK R19 K34 ["clothing"]
+  LOADK R20 K35 ["accessories"]
+  LOADK R21 K36 ["body"]
+  SETLIST R17 R18 4 [1]
+  SETTABLEKS R17 R16 K28 ["tabs"]
+  SETTABLEKS R15 R16 K29 ["render"]
+  MOVE R18 R13
+  CALL R18 0 1
+  JUMPIFNOT R18 [+2]
+  LOADNIL R17
+  JUMP [+1]
+  MOVE R17 R14
+  SETTABLEKS R17 R16 K30 ["getHumanoidDescription_DEPRECATED"]
+  DUPCLOSURE R17 K37 [PROTO_3]
+  SETTABLEKS R17 R16 K31 ["getPreviewCameraModifications"]
+  RETURN R16 1

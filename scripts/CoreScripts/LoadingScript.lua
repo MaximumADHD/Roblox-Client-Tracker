@@ -6,14 +6,6 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui:WaitForChild("Modules")
 local CorePackages = game:GetService("CorePackages")
---[[
-	NOTE: We need to initify the instance hierarchy as early as possible
-	to avoid spurious require errors. Only call require() and
-	AddCoreScriptLocal() AFTER this block.
-]]
-local initify = require(CorePackages.initify)
-initify(CorePackages)
-initify(Modules)
 
 local GetFFlagHideExperienceLoadingJudder =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagHideExperienceLoadingJudder
