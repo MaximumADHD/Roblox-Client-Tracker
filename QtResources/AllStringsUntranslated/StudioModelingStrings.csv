@@ -15,3 +15,6 @@ Studio.App.BaseDataModel.MigrateUnionsBody1,,"Do you want Studio to perform a on
 The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature.","Do you want Studio to perform a one-time migration resizing %1 unions to retain their original appearance?
 
 The migration should only be used on content created under the old scaling behavior. In particular this means you should not use the migration on new content you've been working on under the Nonuniform Unions beta feature."
+Studio.App.TextureGenerator.PreviewRequestFailed,,Preview request failed.,Preview request failed.
+Studio.App.TextureGenerator.GenerationRequestFailed,,Generation request failed.,Generation request failed.
+Studio.App.TextureGenerator.UVUnwrappingFailed,,UV unwrapping failed.,UV unwrapping failed.

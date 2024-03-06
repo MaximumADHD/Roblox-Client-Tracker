@@ -58,6 +58,7 @@ Studio.App.MainWindow.UnableToLockFileForOpen,Main Window,This file is currently
 Studio.App.MainWindow.UnableToCreateAutoSaveFile1,Main Window,"Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1"".","Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1""."
 Studio.App.MainWindow.DbarFatalBugNotice1,,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
+Studio.App.RobloxDocManager.NoScriptChanges,,No script changes.,No script changes.
 Studio.App.Restart.RestartLater,restart studio later,Restart Later,Restart Later
 Studio.App.Restart.RestartNow,restart studio right now,Restart,Restart
 Studio.App.RBXMainWindow.EnableScripts,,Enable Scripts,Enable Scripts

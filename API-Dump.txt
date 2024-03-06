@@ -64,7 +64,10 @@ Class AccessoryDescription : Instance [NotBrowsable]
 	Property AccessoryDescription.Order: number
 	Property AccessoryDescription.Puffiness: number
 Class AccountService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function AccountService:DeviceAccessTokenAvailable() -> boolean {RobloxScriptSecurity}
 	Function AccountService:DeviceIntegrityAvailable() -> boolean {RobloxScriptSecurity}
+	Function AccountService:GetCredentialsHeaders() -> string {RobloxScriptSecurity} [Yields]
+	Function AccountService:GetDeviceAccessToken() -> string {RobloxScriptSecurity} [Yields]
 	Function AccountService:GetDeviceIntegrityToken(data: string) -> string {RobloxScriptSecurity}
 	Function AccountService:GetDeviceIntegrityTokenYield(data: string) -> string {RobloxScriptSecurity} [Yields]
 Class Accoutrement : Instance
@@ -541,6 +544,7 @@ Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Backpack : Instance
 Class BadgeService : Instance [NotCreatable] [Service]
 	Function BadgeService:AwardBadge(userId: number, badgeId: number) -> boolean [Yields]
+	Function BadgeService:CheckUserBadgesAsync(userId: number, badgeIds: { any }) -> { any } [Yields]
 	Function BadgeService:GetBadgeInfoAsync(badgeId: number) -> { [string]: any } [Yields]
 	Function BadgeService:IsDisabled(badgeId: number) -> boolean [Yields] [Deprecated]
 	Function BadgeService:IsLegal(badgeId: number) -> boolean [Yields] [Deprecated]
@@ -1357,6 +1361,9 @@ Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ConversationalAIAcceptanceService:AlternativeAssetSelected(requestId: string, previousAssetId: number, assetId: number) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:AssetInserted(requestId: string, assetId: number) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:CodeRunnerActivated(requestId: string, code: string) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:CodeRunnerCompleted(requestId: string, success: boolean, errorMessage: string) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:CodeRunnerUndone(requestId: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:InstanceInserted(requestId: string) -> () {RobloxScriptSecurity}
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
@@ -1668,7 +1675,12 @@ Class ExperienceInviteOptions : Instance [NotReplicated]
 	Property ExperienceInviteOptions.LaunchData: string
 	Property ExperienceInviteOptions.PromptMessage: string
 Class ExperienceNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function ExperienceNotificationService:CanPromptOptInAsync() -> boolean [Yields]
 	Function ExperienceNotificationService:CreateUserNotificationAsync(userId: string, userNotification: UserNotification) -> Instance? [Yields]
+	Function ExperienceNotificationService:InvokeOptInPromptClosed() -> () {RobloxScriptSecurity}
+	Function ExperienceNotificationService:PromptOptIn() -> ()
+	Event ExperienceNotificationService.OptInPromptClosed()
+	Event ExperienceNotificationService.PromptOptInRequested() {RobloxScriptSecurity}
 Class ExperienceService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ExperienceService:LaunchExperience(params: { [string]: any }) -> string {RobloxScriptSecurity}
 	Function ExperienceService:LaunchExperienceFromSource(params: { [string]: any }, source: string) -> string {RobloxScriptSecurity}
@@ -2513,7 +2525,7 @@ Class HttpRequest : Instance [NotCreatable]
 	Function HttpRequest:Cancel() -> () {RobloxScriptSecurity}
 	Function HttpRequest:Start(callback: (...any) -> ...any) -> () {RobloxScriptSecurity}
 Class HttpService : Instance [NotCreatable] [Service]
-	Property HttpService.HttpEnabled: boolean {LocalUserSecurity}
+	Property HttpService.HttpEnabled: boolean {✏️LocalUserSecurity}
 	Function HttpService:GenerateGUID(wrapInCurlyBraces: boolean? = true) -> string {🧬Safe}
 	Function HttpService:GetAsync(url: string, nocache: boolean? = false, headers: any) -> string [Yields]
 	Function HttpService:GetHttpEnabled() -> boolean {RobloxScriptSecurity}
@@ -2987,7 +2999,6 @@ Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property LuaSourceContainer.HasAssociatedDrafts: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 	Property LuaSourceContainer.IsDifferentFromFileSystem: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property LuaSourceContainer.OriginalScriptGuid: string {RobloxSecurity} [Hidden] [NotScriptable]
-	Property LuaSourceContainer.RuntimeSource: string {PluginSecurity} [NotReplicated]
 	Property LuaSourceContainer.SandboxedSource: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property LuaSourceContainer.ScriptGuid: string [Hidden] [NotScriptable]
 	Property LuaSourceContainer.SyncingEditorText: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
@@ -3717,6 +3728,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.AirDensity: number
 	Property Workspace.AllowThirdPartySales: boolean [NotReplicated]
 	Property Workspace.AvatarUnificationMode: Enum.AvatarUnificationMode [NotScriptable]
+	Property Workspace.CSGAsyncDynamicCollision: Enum.CSGAsyncDynamicCollision [NotScriptable]
 	Property Workspace.ClientAnimatorThrottling: Enum.ClientAnimatorThrottlingMode
 	Property Workspace.CollisionGroupData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Workspace.CollisionGroups: string [📁 LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
@@ -4108,6 +4120,7 @@ Class PlayerEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property PlayerEmulatorService.EmulatedCountryCode: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property PlayerEmulatorService.EmulatedGameLocale: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property PlayerEmulatorService.PlayerEmulationEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property PlayerEmulatorService.PseudolocalizationEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property PlayerEmulatorService.SerializedEmulatedPolicyInfo: BinaryString {RobloxSecurity} [Hidden] [NotReplicated]
 	Function PlayerEmulatorService:GetEmulatedPolicyInfo() -> { [string]: any } {RobloxScriptSecurity}
 	Function PlayerEmulatorService:RegionCodeWillHaveAutomaticNonCustomPolicies(regionCode: string) -> boolean {RobloxScriptSecurity}
@@ -4517,6 +4530,7 @@ Class RotationCurve : Instance
 Class RtMessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property RunService.ClientGitHash: string {RobloxScriptSecurity} [ReadOnly]
+	Property RunService.RunState: Enum.RunState {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function RunService:BindToRenderStep(name: string, priority: number, function: (...any) -> ...any) -> ()
 	Function RunService:GetCoreScriptVersion() -> string {RobloxScriptSecurity}
 	Function RunService:GetRobloxClientChannel() -> string {RobloxScriptSecurity}
@@ -5633,12 +5647,16 @@ Class TextureGenerationPartGroup : Instance [NotCreatable] [NotReplicated]
 	Function TextureGenerationPartGroup:GetInstances() -> { Instance } {RobloxScriptSecurity}
 	Function TextureGenerationPartGroup:GetMeshIdsHash() -> string {RobloxScriptSecurity}
 Class TextureGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function TextureGenerationService:CancelGenerationRequestAsync(jobUuid: string) -> () {RobloxScriptSecurity} [Yields]
-	Function TextureGenerationService:GenerateTextureAsync(previewUuid: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function TextureGenerationService:CancelGenerationRequest(jobUuid: string) -> () {RobloxScriptSecurity}
+	Function TextureGenerationService:CreatePartGroup(instances: { Instance }) -> TextureGenerationPartGroup {RobloxScriptSecurity}
+	Function TextureGenerationService:GenerateTexture(previewJobId: string) -> { [string]: any } {RobloxScriptSecurity}
 	Function TextureGenerationService:GetQuotasAsync() -> { [string]: any } {RobloxScriptSecurity} [Yields]
-	Function TextureGenerationService:PreviewTextureAsync(meshObj: string, prompt: string, options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
+	Function TextureGenerationService:PreviewTexture(partGroup: TextureGenerationPartGroup, prompt: string, options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity}
 	Event TextureGenerationService.GenerationNotificationSignal(notificationData: { [string]: any }) {RobloxScriptSecurity}
 	Event TextureGenerationService.PreviewNotificationSignal(notificationData: { [string]: any }) {RobloxScriptSecurity}
+Class TextureGenerationUnwrappingRequest : Instance [NotCreatable] [NotReplicated]
+	Function TextureGenerationUnwrappingRequest:ApplyToDataModel(partGroup: TextureGenerationPartGroup) -> TextureGenerationPartGroup {RobloxScriptSecurity}
+	Function TextureGenerationUnwrappingRequest:GetPartGroup() -> TextureGenerationPartGroup {RobloxScriptSecurity}
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ThirdPartyUserService:GetUserPlatformId() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetUserPlatformName() -> string {RobloxScriptSecurity}
@@ -6234,6 +6252,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property VoiceChatService.UseNewAudioApi: boolean {RobloxScriptSecurity} [Hidden]
 	Property VoiceChatService.UseNewControlPaths: boolean {RobloxSecurity} [Hidden]
 	Property VoiceChatService.UseNewJoinFlow: boolean {RobloxSecurity} [Hidden]
+	Property VoiceChatService.UseRME: boolean {RobloxSecurity} [Hidden]
 	Property VoiceChatService.VoiceChatEnabledForPlaceOnRcc: boolean {RobloxScriptSecurity} [Hidden]
 	Property VoiceChatService.VoiceChatEnabledForUniverseOnRcc: boolean {RobloxScriptSecurity} [Hidden]
 	Function VoiceChatService:IsVoiceEnabledForUserIdAsync(userId: number) -> boolean [Yields]
@@ -6652,6 +6671,10 @@ Enum ButtonStyle
 	EnumItem ButtonStyle.RobloxRoundButton : 3
 	EnumItem ButtonStyle.RobloxRoundDefaultButton : 4
 	EnumItem ButtonStyle.RobloxRoundDropdownButton : 5
+Enum CSGAsyncDynamicCollision
+	EnumItem CSGAsyncDynamicCollision.Default : 0
+	EnumItem CSGAsyncDynamicCollision.Disabled : 1
+	EnumItem CSGAsyncDynamicCollision.Experimental : 2
 Enum CageType
 	EnumItem CageType.Inner : 0
 	EnumItem CageType.Outer : 1
@@ -7208,6 +7231,10 @@ Enum Font
 	EnumItem Font.SpecialElite : 43
 	EnumItem Font.TitilliumWeb : 44
 	EnumItem Font.Ubuntu : 45
+	EnumItem Font.BuilderSans : 46
+	EnumItem Font.BuilderSansMedium : 47
+	EnumItem Font.BuilderSansBold : 48
+	EnumItem Font.BuilderSansExtraBold : 49
 	EnumItem Font.Unknown : 100
 Enum FontSize
 	EnumItem FontSize.Size8 : 0
@@ -8279,6 +8306,10 @@ Enum RunContext
 	EnumItem RunContext.Server : 1
 	EnumItem RunContext.Client : 2
 	EnumItem RunContext.Plugin : 3
+Enum RunState
+	EnumItem RunState.Stopped : 0
+	EnumItem RunState.Running : 1
+	EnumItem RunState.Paused : 2
 Enum RuntimeUndoBehavior
 	EnumItem RuntimeUndoBehavior.Aggregate : 0
 	EnumItem RuntimeUndoBehavior.Snapshot : 1

@@ -2,10 +2,9 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-#include <AdvancedUIShadingParams.h>
+#include <UIParams.h>
 uniform vec4 CB0[57];
-uniform vec4 CB2[1];
-uniform vec4 CB3[2];
+uniform vec4 CB1[8];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
@@ -21,21 +20,21 @@ varying vec3 VARYING5;
 void main()
 {
     vec4 f0;
-    if (CB2[0].y < 0.5)
+    if (CB1[5].y < 0.5)
     {
         f0 = texture2D(DiffuseMapTexture, VARYING0);
     }
     else
     {
         vec4 f1;
-        if (CB2[0].y < 1.5)
+        if (CB1[5].y < 1.5)
         {
             f1 = vec4(1.0, 1.0, 1.0, texture2D(DiffuseMapTexture, VARYING0).x);
         }
         else
         {
             vec4 f2;
-            if (CB2[0].y < 2.5)
+            if (CB1[5].y < 2.5)
             {
                 vec4 f3 = texture2D(DiffuseMapTexture, VARYING0);
                 float f4 = f3.w;
@@ -46,7 +45,7 @@ void main()
             else
             {
                 vec4 f7;
-                if (CB2[0].y < 3.5)
+                if (CB1[5].y < 3.5)
                 {
                     float f8 = VARYING0.x * 0.5;
                     float f9 = VARYING0.y * 0.3333333432674407958984375;
@@ -70,9 +69,9 @@ void main()
         f0 = f1;
     }
     vec4 f14 = VARYING1 * f0;
-    vec2 f15 = abs(vec2((VARYING0.x * CB3[0].x) + CB3[0].y, (VARYING0.y * CB3[0].z) + CB3[0].w)) - CB3[1].xy;
+    vec2 f15 = abs(vec2((VARYING0.x * CB1[6].x) + CB1[6].y, (VARYING0.y * CB1[6].z) + CB1[6].w)) - CB1[7].xy;
     float f16 = length(max(f15, vec2(0.0))) + min(max(f15.x, f15.y), 0.0);
-    float f17 = (f14.w * clamp(CB3[1].z - f16, 0.0, 1.0)) * clamp(f16 - CB3[1].w, 0.0, 1.0);
+    float f17 = (f14.w * clamp(CB1[7].z - f16, 0.0, 1.0)) * clamp(f16 - CB1[7].w, 0.0, 1.0);
     vec4 f18 = f14;
     f18.w = f17;
     vec4 f19 = f18;
@@ -90,7 +89,7 @@ void main()
     vec4 f27 = mix(texture3D(LightMapTexture, f25), vec4(0.0), f26);
     vec4 f28 = mix(texture3D(LightGridSkylightTexture, f25), vec4(1.0), f26);
     vec4 f29 = texture2D(ShadowMapTexture, VARYING4.xy);
-    vec3 f30 = mix(f23.xyz * CB2[0].w, (min((f27.xyz * (f27.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f28.x)), vec3(CB0[21].w)) + (VARYING2 * ((1.0 - ((step(f29.x, VARYING4.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING4.z - 0.5)), 0.0, 1.0)) * f29.y)) * f28.y))) * f23.xyz, vec3(CB2[0].z));
+    vec3 f30 = mix(f23.xyz * CB1[5].w, (min((f27.xyz * (f27.w * 120.0)) + (CB0[13].xyz + (CB0[14].xyz * f28.x)), vec3(CB0[21].w)) + (VARYING2 * ((1.0 - ((step(f29.x, VARYING4.z) * clamp(CB0[29].z + (CB0[29].w * abs(VARYING4.z - 0.5)), 0.0, 1.0)) * f29.y)) * f28.y))) * f23.xyz, vec3(CB1[5].z));
     vec4 f31 = f23;
     f31.x = f30.x;
     vec4 f32 = f31;

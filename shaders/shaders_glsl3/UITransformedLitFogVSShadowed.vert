@@ -4,8 +4,7 @@
 #include <Globals.h>
 #include <UIParams.h>
 uniform vec4 CB0[57];
-uniform vec4 CB1[5];
-uniform vec4 CB2[1];
+uniform vec4 CB1[8];
 in vec4 POSITION;
 in vec2 TEXCOORD0;
 in vec4 COLOR0;
@@ -21,7 +20,7 @@ void main()
     vec4 v0 = POSITION * mat4(CB1[1], CB1[2], CB1[3], CB1[4]);
     vec4 v1 = v0 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v2 = v1;
-    v2.z = v1.z - CB2[0].x;
+    v2.z = v1.z - CB1[5].x;
     float v3 = dot(CB1[0].xyz, -CB0[16].xyz);
     vec3 v4 = v0.xyz;
     gl_Position = v2;

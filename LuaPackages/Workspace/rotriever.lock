@@ -16,6 +16,7 @@ dependencies = [
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
     "React React 0.1.0",
+    "Rhodium Rhodium 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "Rodux Rodux 0.1.0",
@@ -149,7 +150,9 @@ dependencies = [
 name = "Ads"
 version = "0.1.0"
 dependencies = [
+    "AppBlox AppBlox 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
+    "Cryo Cryo 0.1.0",
     "Localization Localization 0.1.0",
     "React React 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
@@ -273,6 +276,22 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "React React 0.1.0",
+]
+
+[[package]]
+name = "AppBlox"
+version = "0.1.0"
+dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "PeekView PeekView 0.1.0",
+    "React React 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "Style Style 0.1.0",
+    "UIBlox UIBlox 0.1.0",
 ]
 
 [[package]]
@@ -885,6 +904,7 @@ dependencies = [
     "ReactTestingLibrary ReactTestingLibrary 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
+    "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
 ]
 
@@ -1672,14 +1692,17 @@ dependencies = [
 name = "NotificationModalsManager"
 version = "0.1.0"
 dependencies = [
+    "InExperienceLocales InExperienceLocales 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
     "React React 0.1.0",
+    "ReactOtter ReactOtter 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
+    "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",
 ]
@@ -3122,6 +3145,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "UniversalExperienceNotificationsUpsell"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "NotificationModalsManager NotificationModalsManager 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RhodiumHelpers RhodiumHelpers 0.1.0",
+    "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
+    "TestUtils TestUtils 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+]
+
+[[package]]
 name = "UrlBuilder"
 version = "0.1.0"
 
@@ -3327,6 +3367,24 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
+]
+
+[[package]]
+name = "VrCompatibility"
+version = "0.1.0"
+dependencies = [
+    "Cryo Cryo 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "SplashScreenManager SplashScreenManager 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "UniversalAppPolicy UniversalAppPolicy 0.1.0",
 ]
 
 [[package]]

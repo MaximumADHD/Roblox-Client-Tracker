@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UniversalExperienceNotificationsUpsell",
+    "tree": {
+      "$path": "../../../../../../../modules/notifications/universal-experience-notifications-upsell/src"
+    }
+  }
+}

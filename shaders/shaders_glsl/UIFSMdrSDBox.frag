@@ -2,10 +2,9 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
-#include <AdvancedUIShadingParams.h>
+#include <UIParams.h>
 uniform vec4 CB0[57];
-uniform vec4 CB2[1];
-uniform vec4 CB3[2];
+uniform vec4 CB1[8];
 uniform sampler2D DiffuseMapTexture;
 
 varying vec2 VARYING0;
@@ -14,21 +13,21 @@ varying vec4 VARYING1;
 void main()
 {
     vec4 f0;
-    if (CB2[0].y < 0.5)
+    if (CB1[5].y < 0.5)
     {
         f0 = texture2D(DiffuseMapTexture, VARYING0);
     }
     else
     {
         vec4 f1;
-        if (CB2[0].y < 1.5)
+        if (CB1[5].y < 1.5)
         {
             f1 = vec4(1.0, 1.0, 1.0, texture2D(DiffuseMapTexture, VARYING0).x);
         }
         else
         {
             vec4 f2;
-            if (CB2[0].y < 2.5)
+            if (CB1[5].y < 2.5)
             {
                 vec4 f3 = texture2D(DiffuseMapTexture, VARYING0);
                 float f4 = f3.w;
@@ -39,7 +38,7 @@ void main()
             else
             {
                 vec4 f7;
-                if (CB2[0].y < 3.5)
+                if (CB1[5].y < 3.5)
                 {
                     float f8 = VARYING0.x * 0.5;
                     float f9 = VARYING0.y * 0.3333333432674407958984375;
@@ -63,10 +62,10 @@ void main()
         f0 = f1;
     }
     vec4 f14 = VARYING1 * f0;
-    vec2 f15 = abs(vec2((VARYING0.x * CB3[0].x) + CB3[0].y, (VARYING0.y * CB3[0].z) + CB3[0].w)) - CB3[1].xy;
+    vec2 f15 = abs(vec2((VARYING0.x * CB1[6].x) + CB1[6].y, (VARYING0.y * CB1[6].z) + CB1[6].w)) - CB1[7].xy;
     float f16 = length(max(f15, vec2(0.0))) + min(max(f15.x, f15.y), 0.0);
     vec4 f17 = f14;
-    f17.w = (f14.w * clamp(CB3[1].z - f16, 0.0, 1.0)) * clamp(f16 - CB3[1].w, 0.0, 1.0);
+    f17.w = (f14.w * clamp(CB1[7].z - f16, 0.0, 1.0)) * clamp(f16 - CB1[7].w, 0.0, 1.0);
     vec3 f18 = sqrt(clamp((f17.xyz * f17.xyz) * CB0[20].y, vec3(0.0), vec3(1.0)));
     vec4 f19 = f17;
     f19.x = f18.x;

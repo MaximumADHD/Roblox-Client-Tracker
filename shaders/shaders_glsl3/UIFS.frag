@@ -1,6 +1,8 @@
 #version 150
 
-uniform vec4 CB2[1];
+#extension GL_ARB_shading_language_include : require
+#include <UIParams.h>
+uniform vec4 CB1[8];
 uniform sampler2D DiffuseMapTexture;
 
 in vec2 VARYING0;
@@ -10,21 +12,21 @@ out vec4 _entryPointOutput;
 void main()
 {
     vec4 f0;
-    if (CB2[0].y < 0.5)
+    if (CB1[5].y < 0.5)
     {
         f0 = texture(DiffuseMapTexture, VARYING0);
     }
     else
     {
         vec4 f1;
-        if (CB2[0].y < 1.5)
+        if (CB1[5].y < 1.5)
         {
             f1 = vec4(1.0, 1.0, 1.0, texture(DiffuseMapTexture, VARYING0).x);
         }
         else
         {
             vec4 f2;
-            if (CB2[0].y < 2.5)
+            if (CB1[5].y < 2.5)
             {
                 vec4 f3 = texture(DiffuseMapTexture, VARYING0);
                 float f4 = f3.w;
@@ -35,7 +37,7 @@ void main()
             else
             {
                 vec4 f7;
-                if (CB2[0].y < 3.5)
+                if (CB1[5].y < 3.5)
                 {
                     float f8 = VARYING0.x * 0.5;
                     float f9 = VARYING0.y * 0.3333333432674407958984375;
