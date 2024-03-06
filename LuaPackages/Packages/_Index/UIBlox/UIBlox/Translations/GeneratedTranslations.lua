@@ -58,7 +58,7 @@ return {
 			["ru"] = "{inputLabel} (необязательно)",
 			["th-th"] = "{inputLabel} (ไม่จำเป็น)",
 			["zh-cn"] = "{inputLabel}（可选）",
-			["zh-tw"] = "",
+			["zh-tw"] = "{inputLabel}（選填）",
 			["zh-cjv"] = "{inputLabel}（可选）",
 		},
 	},

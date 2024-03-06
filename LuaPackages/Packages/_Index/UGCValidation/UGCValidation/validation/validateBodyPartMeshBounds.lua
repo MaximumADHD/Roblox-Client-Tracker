@@ -128,12 +128,19 @@ local function calculateMeshSize(
 		fullName = meshHandle:GetFullName(),
 		fieldName = "MeshId",
 		contentId = meshHandle.MeshId,
+		context = meshHandle.Name,
 	} :: Types.MeshInfo
 
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
 		local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(meshHandle, "MeshId", validationContext)
 		if not getEditableMeshSuccess then
-			return false, { "Failed to load mesh data" }
+			return false,
+				{
+					string.format(
+						"Mesh for '%s' failed to load. Make sure the mesh exists and try again.",
+						meshInfo.fullName
+					),
+				}
 		end
 
 		meshInfo.editableMesh = editableMesh

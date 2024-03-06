@@ -66,14 +66,30 @@ local function validateMeshTriangles(
 				-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
 				-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
 				-- which would mean the asset failed validation
-				error("Failed to load mesh data")
+				error(
+					string.format(
+						"Failed to load model mesh %s. Make sure the mesh exists and try again.",
+						meshInfo.fullName
+					)
+				)
 			end
-			return false, { "Failed to load mesh data" }
+			return false,
+				{
+					string.format(
+						"Failed to load model mesh %s. Make sure the mesh exists and try again.",
+						meshInfo.fullName
+					),
+				}
 		elseif triangles > maxTriangles :: number then
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshTriangles_TooManyTriangles)
 			return false,
 				{
-					string.format("Mesh has %d triangles, but the limit is %d", triangles, maxTriangles :: number),
+					string.format(
+						"Model mesh %s resolution of %d is higher than max support value of %d. You need to retopologize your model and try again.",
+						meshInfo.fullName,
+						triangles,
+						maxTriangles :: number
+					),
 				}
 		end
 	end

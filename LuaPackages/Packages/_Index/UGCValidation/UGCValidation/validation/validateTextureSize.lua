@@ -24,7 +24,13 @@ local function validateTextureSize(
 				return true
 			else
 				Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_InvalidTextureId)
-				return false, { "Mesh must contain valid TextureId" }
+				return false,
+					{
+						string.format(
+							"Invalid textureID used in mesh '%s'. Make sure the texture exists and try again.",
+							textureInfo.fullName
+						),
+					}
 			end
 		end
 	else
@@ -33,7 +39,13 @@ local function validateTextureSize(
 				return true
 			else
 				Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_InvalidTextureId)
-				return false, { "Mesh must contain valid TextureId" }
+				return false,
+					{
+						string.format(
+							"Invalid textureID used in mesh '%s'. Make sure the texture exists and try again.",
+							textureInfo.fullName
+						),
+					}
 			end
 		end
 	end
@@ -82,18 +94,30 @@ local function validateTextureSize(
 				-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
 				-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
 				-- which would mean the asset failed validation
-				error("Failed to load texture data " .. tostring(imageSize))
+				error(
+					string.format(
+						"Failed to load texture data for '%s'. Make sure the texture exists and try again.",
+						textureInfo.fullName
+					)
+				)
 			end
 			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_FailedToLoadTexture)
-			return false, { "Failed to load texture data", imageSize } :: { any }
+			return false,
+				{
+					string.format(
+						"Failed to load texture data for '%s'. Make sure the texture exists and try again.",
+						textureInfo.fullName
+					),
+				} :: { any }
 		elseif imageSize.X > Constants.MAX_TEXTURE_SIZE or imageSize.Y > Constants.MAX_TEXTURE_SIZE then
 			Analytics.reportFailure(Analytics.ErrorType.validateTextureSize_TextureTooBig)
 			return false,
 				{
 					string.format(
-						"Texture size is %dx%d px, but the limit is %dx%d px",
+						"Texture resolution %dx%d px found in '%s' is higher than max size supported value of %dx%d px. You need to reduce the texture resolution",
 						imageSize.X,
 						imageSize.Y,
+						textureInfo.fullName,
 						Constants.MAX_TEXTURE_SIZE,
 						Constants.MAX_TEXTURE_SIZE
 					),

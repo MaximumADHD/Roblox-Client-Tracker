@@ -112,10 +112,8 @@ local function validateCageUVs(
 
 	if not testExecutedSuccessfully then
 		local errorMsg = string.format(
-			"Failed to read mesh %s.%s ( %s )",
-			wrapTarget:GetFullName(),
-			meshInfo.fieldName,
-			if meshInfo.contentId then meshInfo.contentId else "empty id"
+			"Failed to execute UV check for '%s'. Make sure the UV map exists and try again.",
+			wrapTarget:GetFullName()
 		)
 		if isServer then
 			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
@@ -129,30 +127,17 @@ local function validateCageUVs(
 
 	if not testPassed then
 		Analytics.reportFailure(Analytics.ErrorType.validateCageUVs_TestPassed)
-		if getEngineFeatureEngineUGCValidateCalculateUniqueUV() then
-			return false,
-				{
-					string.format(
-						"%s.%s ( %s ) should have %d unique UVs, but has %d",
-						wrapTarget:GetFullName(),
-						meshInfo.fieldName,
-						if meshInfo.contentId then meshInfo.contentId else "empty id",
-						requiredUVCount,
-						uniqueUVCount
-					),
-				}
-		else
-			return false,
-				{
-					string.format(
-						"%s.%s ( %s ) should have %d unique UVs",
-						wrapTarget:GetFullName(),
-						meshInfo.fieldName,
-						if meshInfo.contentId then meshInfo.contentId else "empty id",
-						requiredUVCount
-					),
-				}
-		end
+		return false,
+			{
+				string.format(
+					"%s.%s ( %s ) should have %d unique UVs, but has %d. Please make sure the mesh has the required number of unique UVs and try again.",
+					wrapTarget:GetFullName(),
+					meshInfo.fieldName,
+					if meshInfo.contentId then meshInfo.contentId else "",
+					requiredUVCount,
+					uniqueUVCount
+				),
+			}
 	end
 	return true
 end

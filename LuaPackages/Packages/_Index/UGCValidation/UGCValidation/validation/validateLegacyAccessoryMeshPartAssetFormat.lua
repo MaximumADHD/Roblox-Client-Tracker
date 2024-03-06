@@ -21,7 +21,7 @@ local function validateLegacyAccessoryMeshPartAssetFormat(
 	local isServer = validationContext.isServer
 	local success: boolean, reasons: { string }?
 
-	success, reasons = validateSingleInstance(instances)
+	success, reasons = validateSingleInstance(instances, validationContext)
 	if not success then
 		return false, reasons
 	end
@@ -63,7 +63,7 @@ local function DEPRECATED_validateLegacyAccessoryMeshPartAssetFormat(
 ): (boolean, { string }?)
 	local success: boolean, reasons: { string }?
 
-	success, reasons = validateSingleInstance(instances)
+	success, reasons = (validateSingleInstance :: any)(instances)
 	if not success then
 		return false, reasons
 	end

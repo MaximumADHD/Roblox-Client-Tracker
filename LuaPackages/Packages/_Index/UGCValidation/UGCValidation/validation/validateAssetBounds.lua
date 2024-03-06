@@ -267,7 +267,15 @@ local function getScaleType(
 	end)
 	if not result then
 		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_InconsistentAvatarPartScaleType)
-		return false, { "All MeshParts must have the same Value in their AvatarPartScaleType child" }, nil
+		if getFFlagUseUGCValidationContext() then
+			return false,
+				{
+					"All MeshParts must have the same value in their AvatarPartScaleType child. Please verify the values match.",
+				},
+				nil
+		else
+			return false, { "All MeshParts must have the same Value in their AvatarPartScaleType child" }, nil
+		end
 	end
 
 	if getFFlagUGCValidateAccessoriesScaleType() then
@@ -294,21 +302,37 @@ local function validateMinBoundsInternal(
 	local isMeshBigEnough = assetSize.X >= minSize.X and assetSize.Y >= minSize.Y and assetSize.Z >= minSize.Z
 	if not isMeshBigEnough then
 		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooSmall)
-		return false,
-			{
-				if getFFlagUGCValidateFullBody() and not assetTypeEnum
-					then string.format(
-						"Full body size is [%s], which is too small! Min size is [%s]",
-						prettyPrintVector3(assetSize),
-						prettyPrintVector3(minSize)
-					)
-					else string.format(
-						"Asset size is [%s], which is too small! Min size for %s is [%s]",
-						prettyPrintVector3(assetSize),
-						(assetTypeEnum :: Enum.AssetType).Name,
-						prettyPrintVector3(minSize)
-					),
-			}
+		if getFFlagUseUGCValidationContext() then
+			return false,
+				{
+					if getFFlagUGCValidateFullBody() and not assetTypeEnum
+						then string.format(
+							"Full body size is smaller than the min allowed bounding size of '%s'. You need to scale up or remodel the asset.",
+							prettyPrintVector3(minSize)
+						)
+						else string.format(
+							"%s asset size is smaller than the min allowed bounding size of '%s'. You need to scale up or remodel the asset.",
+							(assetTypeEnum :: Enum.AssetType).Name,
+							prettyPrintVector3(minSize)
+						),
+				}
+		else
+			return false,
+				{
+					if getFFlagUGCValidateFullBody() and not assetTypeEnum
+						then string.format(
+							"Full body size is [%s], which is too small! Min size is [%s]",
+							prettyPrintVector3(assetSize),
+							prettyPrintVector3(minSize)
+						)
+						else string.format(
+							"Asset size is [%s], which is too small! Min size for %s is [%s]",
+							prettyPrintVector3(assetSize),
+							(assetTypeEnum :: Enum.AssetType).Name,
+							prettyPrintVector3(minSize)
+						),
+				}
+		end
 	end
 	return true
 end
@@ -322,21 +346,37 @@ local function validateMaxBoundsInternal(
 
 	if not isMeshSmallEnough then
 		Analytics.reportFailure(Analytics.ErrorType.validateAssetBounds_AssetSizeTooBig)
-		return false,
-			{
-				if getFFlagUGCValidateFullBody() and not assetTypeEnum
-					then string.format(
-						"Full body size is [%s], which is too big! Max size is [%s]",
-						prettyPrintVector3(assetSize),
-						prettyPrintVector3(maxSize)
-					)
-					else string.format(
-						"Asset size is [%s], which is too big! Max size for %s is [%s]",
-						prettyPrintVector3(assetSize),
-						(assetTypeEnum :: Enum.AssetType).Name,
-						prettyPrintVector3(maxSize)
-					),
-			}
+		if getFFlagUseUGCValidationContext() then
+			return false,
+				{
+					if getFFlagUGCValidateFullBody() and not assetTypeEnum
+						then string.format(
+							"Full body size is larger than the max allowed bounding size of '%s'. You need to scale down or remodel the asset.",
+							prettyPrintVector3(maxSize)
+						)
+						else string.format(
+							"%s asset size is larger than the max allowed bounding size of '%s'. You need to scale down or remodel the asset.",
+							(assetTypeEnum :: Enum.AssetType).Name,
+							prettyPrintVector3(maxSize)
+						),
+				}
+		else
+			return false,
+				{
+					if getFFlagUGCValidateFullBody() and not assetTypeEnum
+						then string.format(
+							"Full body size is [%s], which is too big! Max size is [%s]",
+							prettyPrintVector3(assetSize),
+							prettyPrintVector3(maxSize)
+						)
+						else string.format(
+							"Asset size is [%s], which is too big! Max size for %s is [%s]",
+							prettyPrintVector3(assetSize),
+							(assetTypeEnum :: Enum.AssetType).Name,
+							prettyPrintVector3(maxSize)
+						),
+				}
+		end
 	end
 	return true
 end

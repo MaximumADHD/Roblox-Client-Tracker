@@ -38,11 +38,11 @@ end
 local function validateAllAssetsWithSchema(
 	fullBodyData: Types.FullBodyData,
 	requiredTopLevelFolders: { string },
-	validationContext: Types.ValidationContext?
+	validationContext: Types.ValidationContext
 ): boolean
 	for _, instancesAndType in fullBodyData do
 		if Enum.AssetType.DynamicHead == instancesAndType.assetTypeEnum then
-			local result = validateSingleInstance(instancesAndType.allSelectedInstances)
+			local result = validateSingleInstance(instancesAndType.allSelectedInstances, validationContext)
 			if not result then
 				return false
 			end
@@ -61,6 +61,40 @@ local function validateAllAssetsWithSchema(
 				end
 				local validationResult = validateWithSchema(
 					createLimbsAndTorsoSchema(instancesAndType.assetTypeEnum, folderName, validationContext),
+					folderInst
+				)
+				if not validationResult.success then
+					return false
+				end
+			end
+		end
+	end
+	return true
+end
+
+local function DEPRECATED_validateAllAssetsWithSchema(
+	fullBodyData: Types.FullBodyData,
+	requiredTopLevelFolders: { string }
+): boolean
+	for _, instancesAndType in fullBodyData do
+		if Enum.AssetType.DynamicHead == instancesAndType.assetTypeEnum then
+			local result = (validateSingleInstance :: any)(instancesAndType.allSelectedInstances)
+			if not result then
+				return false
+			end
+			local validationResult =
+				validateWithSchema(createDynamicHeadMeshPartSchema(), instancesAndType.allSelectedInstances[1])
+			if not validationResult.success then
+				return false
+			end
+		else
+			for _, folderName in requiredTopLevelFolders do
+				local folderInst = getInstance(instancesAndType.allSelectedInstances, folderName)
+				if not folderInst then
+					return false
+				end
+				local validationResult = validateWithSchema(
+					createLimbsAndTorsoSchema(instancesAndType.assetTypeEnum, folderName),
 					folderInst
 				)
 				if not validationResult.success then
@@ -108,11 +142,12 @@ end
 local function validateInstanceHierarchy(
 	fullBodyData: Types.FullBodyData,
 	requiredTopLevelFolders: { string },
-	validationContext: Types.ValidationContext?
+	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = if validationContext then validationContext.isServer else nil
 	if not validateCorrectAssetTypesExist(fullBodyData) then
-		local errorMsg = "Full body check did not receive the correct set of body part Asset Types"
+		local errorMsg =
+			"Full body check did not receive the correct set of body part Asset Types (i.e. Head, Torso, LeftArm, RightArm, LeftLeg, RightLeg). Make sure the body model is valid and try again."
 		Analytics.reportFailure(Analytics.ErrorType.validateFullBody_IncorrectAssetTypeSet)
 		if isServer then
 			-- this is a code issue, where the wrong set of assets have been sent, this is not a fault on the UGC creator
@@ -124,7 +159,7 @@ local function validateInstanceHierarchy(
 	if not validateAllAssetsWithSchema(fullBodyData, requiredTopLevelFolders, validationContext) then
 		Analytics.reportFailure(Analytics.ErrorType.validateFullBody_InstancesMissing)
 		-- don't need more detailed error, as this is a check which has been done for each individual asset
-		return false, { "Instances are missing or incorrectly named" }
+		return false, { "R15 body is missing parts. Make sure the body follows the R15 schema specification." }
 	end
 	return true
 end
@@ -144,7 +179,7 @@ local function DEPRECATED_validateInstanceHierarchy(
 		return false, { errorMsg }
 	end
 
-	if not validateAllAssetsWithSchema(fullBodyData, requiredTopLevelFolders) then
+	if not DEPRECATED_validateAllAssetsWithSchema(fullBodyData, requiredTopLevelFolders) then
 		Analytics.reportFailure(Analytics.ErrorType.validateFullBody_InstancesMissing)
 		-- don't need more detailed error, as this is a check which has been done for each individual asset
 		return false, { "Instances are missing or incorrectly named" }

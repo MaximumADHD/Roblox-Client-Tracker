@@ -49,7 +49,7 @@ export type MeshInfo = {
 	fullName: string,
 	fieldName: string,
 	scale: Vector3?,
-	context: string?,
+	context: string,
 }
 
 export type TextureInfo = {

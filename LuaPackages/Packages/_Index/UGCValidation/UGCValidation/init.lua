@@ -396,7 +396,8 @@ UGCValidation.util.isRigidAccessoryAllowed = RigidOrLayeredAllowed.isRigidAccess
 function UGCValidation.validateFullBody(
 	fullBodyData: Types.FullBodyData,
 	isServer: boolean?,
-	allowEditableInstances: boolean?
+	allowEditableInstances: boolean?,
+	bypassFlags: Types.BypassFlags?
 ): (boolean, { string }?)
 	Analytics.setMetadata({
 		entrypoint = "validateFullBody",
@@ -428,6 +429,7 @@ function UGCValidation.validateFullBody(
 			fullBodyData = fullBodyData :: Types.FullBodyData,
 			isServer = isServer :: boolean,
 			allowEditableInstances = allowEditableInstances :: boolean,
+			bypassFlags = bypassFlags,
 		} :: Types.ValidationContext
 
 		if getEngineFeatureUGCValidateEditableMeshAndImage() then

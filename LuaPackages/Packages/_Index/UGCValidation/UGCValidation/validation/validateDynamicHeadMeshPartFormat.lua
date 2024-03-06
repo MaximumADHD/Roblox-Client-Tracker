@@ -66,7 +66,7 @@ local function validateDynamicHeadMeshPartFormat(validationContext: Types.Valida
 	local isServer = validationContext.isServer
 	local skipSnapshot = if validationContext.bypassFlags then validationContext.bypassFlags.skipSnapshot else false
 
-	local result, failureReasons = validateSingleInstance(allSelectedInstances)
+	local result, failureReasons = validateSingleInstance(allSelectedInstances, validationContext)
 	if not result then
 		return result, failureReasons
 	end
@@ -108,7 +108,7 @@ local function DEPRECATED_validateDynamicHeadMeshPartFormat(
 	restrictedUserIds: Types.RestrictedUserIds?,
 	universeId: number?
 ): (boolean, { string }?)
-	local result, failureReasons = validateSingleInstance(allSelectedInstances)
+	local result, failureReasons = (validateSingleInstance :: any)(allSelectedInstances)
 	if not result then
 		return result, failureReasons
 	end

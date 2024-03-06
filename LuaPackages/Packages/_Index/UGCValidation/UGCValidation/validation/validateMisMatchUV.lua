@@ -14,6 +14,8 @@ local function validateMisMatchUV(
 	innerCageMeshInfo: Types.MeshInfo,
 	outerCageMeshInfo: Types.MeshInfo
 ): (boolean, { string }?)
+	assert(innerCageMeshInfo.context == outerCageMeshInfo.context)
+
 	local success, result
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
 		success, result = pcall(function()
@@ -30,14 +32,23 @@ local function validateMisMatchUV(
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateMisMatchUV_FailedToExecute)
-		return false, { "Failed to execute validateMisMatchUV check" }
+		return false,
+			{
+				string.format(
+					"Failed to execute UV mismatch check for '%s'. Make sure UV map exists and try again.",
+					innerCageMeshInfo.context
+				),
+			}
 	end
 
 	if not result then
 		Analytics.reportFailure(Analytics.ErrorType.validateMisMatchUV_UVMismatch)
 		return false,
 			{
-				"Inner and Outer cage UV mismatched. Original cage template should be used and no modification to the UV map.",
+				string.format(
+					"Inner and Outer cage UV for '%s' are mismatched. The Roblox provided cage template should be used to create inner and outer cages with no modifications to the UV map.",
+					innerCageMeshInfo.context
+				),
 			}
 	end
 

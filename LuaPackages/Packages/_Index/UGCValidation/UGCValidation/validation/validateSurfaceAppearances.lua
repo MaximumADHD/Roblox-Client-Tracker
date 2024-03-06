@@ -11,6 +11,8 @@ local Analytics = require(root.Analytics)
 
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+
 local function validateSurfaceAppearances(instance: Instance): (boolean, { string }?)
 	-- full tree of instance + descendants
 	local allDescendants: { Instance } = instance:GetDescendants()
@@ -26,18 +28,34 @@ local function validateSurfaceAppearances(instance: Instance): (boolean, { strin
 		local meshPartHasTexture = (descendant :: MeshPart).TextureID ~= ""
 		local surfaceAppearance = descendant:FindFirstChildWhichIsA("SurfaceAppearance")
 
-		if meshPartHasTexture then
-			if surfaceAppearance then
-				Analytics.reportFailure(Analytics.ErrorType.validateSurfaceAppearances_MeshPartHasTexture)
+		if getFFlagUseUGCValidationContext() then
+			if meshPartHasTexture then
+				if surfaceAppearance then
+					Analytics.reportFailure(Analytics.ErrorType.validateSurfaceAppearances_MeshPartHasTexture)
+					reasonsAccumulator:updateReasons(false, {
+						`TextureID and SurfaceAppearance are both defined for MeshPart ({(descendant :: Instance):GetFullName()}). Publishing will only use SurfaceApperance.`,
+					})
+				end
+			elseif not surfaceAppearance then
+				Analytics.reportFailure(Analytics.ErrorType.validateSurfaceAppearances_MissingSurfaceAppearance)
 				reasonsAccumulator:updateReasons(false, {
-					`SurfaceAppearance's parent ({(descendant :: Instance):GetFullName()}) must have an empty TextureID`,
+					`({(descendant :: Instance):GetFullName()}) has an empty TextureID and no child SurfaceAppearance instance. You need to define at least one of them.`,
 				})
 			end
-		elseif not surfaceAppearance then
-			Analytics.reportFailure(Analytics.ErrorType.validateSurfaceAppearances_MissingSurfaceAppearance)
-			reasonsAccumulator:updateReasons(false, {
-				`({(descendant :: Instance):GetFullName()}) has an empty TextureID, so must have a child SurfaceAppearance`,
-			})
+		else
+			if meshPartHasTexture then
+				if surfaceAppearance then
+					Analytics.reportFailure(Analytics.ErrorType.validateSurfaceAppearances_MeshPartHasTexture)
+					reasonsAccumulator:updateReasons(false, {
+						`SurfaceAppearance's parent ({(descendant :: Instance):GetFullName()}) must have an empty TextureID`,
+					})
+				end
+			elseif not surfaceAppearance then
+				Analytics.reportFailure(Analytics.ErrorType.validateSurfaceAppearances_MissingSurfaceAppearance)
+				reasonsAccumulator:updateReasons(false, {
+					`({(descendant :: Instance):GetFullName()}) has an empty TextureID, so must have a child SurfaceAppearance`,
+				})
+			end
 		end
 	end
 

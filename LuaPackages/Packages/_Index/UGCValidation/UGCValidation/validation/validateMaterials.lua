@@ -21,11 +21,11 @@ local function validateMaterials(instance: Instance): (boolean, { string }?)
 		for material in pairs(Constants.MATERIAL_WHITELIST) do
 			table.insert(acceptedMaterialNames, material.Name)
 		end
-		table.insert(reasons, "Invalid materials for")
+		table.insert(reasons, "Invalid material setup for")
 		for _, name in pairs(materialFailures) do
 			table.insert(reasons, name)
 		end
-		table.insert(reasons, "Accepted materials are " .. table.concat(acceptedMaterialNames, ", "))
+		table.insert(reasons, "Accepted values are: " .. table.concat(acceptedMaterialNames, ", "))
 		Analytics.reportFailure(Analytics.ErrorType.validateMaterials)
 		return false, reasons
 	end

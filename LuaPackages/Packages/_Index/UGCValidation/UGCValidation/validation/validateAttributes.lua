@@ -3,6 +3,8 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+
 -- Root instances have a special allowed attribute to make them unique.
 -- This is because the validation result is stored on a per asset hash basis.
 -- Since validation also depends on who the creator is (for permission to use certain assets)
@@ -41,7 +43,17 @@ local function validateAttributes(instance: Instance): (boolean, { string }?)
 
 	if #attributesFailures > 0 then
 		local reasons = {}
-		table.insert(reasons, "The following instances contained attributes:")
+		if getFFlagUseUGCValidationContext() then
+			table.insert(
+				reasons,
+				string.format(
+					"'%s' contains attributes in its properties that are not allowed. You need to remove the following attributes: ",
+					instance.Name
+				)
+			)
+		else
+			table.insert(reasons, "The following instances contained attributes:")
+		end
 		for _, name in pairs(attributesFailures) do
 			table.insert(reasons, name)
 		end

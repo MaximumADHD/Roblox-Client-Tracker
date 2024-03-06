@@ -146,7 +146,7 @@ function EmptyState:render()
 							Text = self.props.titleProps.titleText,
 							TextXAlignment = Enum.TextXAlignment.Center,
 							TextYAlignment = Enum.TextYAlignment.Center,
-							Font = Enum.Font.GothamBlack,
+							Font = style.Font.Title.Font,
 							TextSize = style.Font.Header1.RelativeSize * style.Font.BaseSize,
 							TextColor3 = style.Theme.TextEmphasis.Color,
 							TextTransparency = style.Theme.TextEmphasis.Transparency,

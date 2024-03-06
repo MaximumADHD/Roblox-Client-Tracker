@@ -14,6 +14,7 @@ local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCVali
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+
 local ParseContentIds = {}
 
 -- rbxassetid://1234
@@ -128,10 +129,22 @@ local function parseContentId(contentIds, contentIdMap, allResults, object, fiel
 
 	local id = tryGetAssetIdFromContentIdInternal(contentId)
 	if id == nil then
-		return false,
-			{
-				string.format("Could not parse ContentId %s in %s.%s", contentId, object:GetFullName(), fieldName),
-			}
+		if getFFlagUseUGCValidationContext() then
+			return false,
+				{
+					string.format(
+						"Could not parse ContentId %s in %s.%s. Please make sure you are using a valid URL with a valid ID.",
+						contentId,
+						object:GetFullName(),
+						fieldName
+					),
+				}
+		else
+			return false,
+				{
+					string.format("Could not parse ContentId %s in %s.%s", contentId, object:GetFullName(), fieldName),
+				}
+		end
 	end
 
 	-- do not check the same asset ID multiple times

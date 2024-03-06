@@ -18,7 +18,7 @@ local function validatePackage(validationContext: Types.ValidationContext): (boo
 	local allSelectedInstances = validationContext.instances :: { Instance }
 	local restrictedUserIds = validationContext.restrictedUserIds
 
-	local result, failureReasons = validateSingleInstance(allSelectedInstances)
+	local result, failureReasons = validateSingleInstance(allSelectedInstances, validationContext)
 	if not result then
 		return result, failureReasons
 	end
@@ -31,12 +31,18 @@ local function validatePackage(validationContext: Types.ValidationContext): (boo
 		return true
 	end
 
-	local parseSuccess, parseReasons =
+	local parseSuccess =
 		ParseContentIds.parseWithErrorCheck(contentIds, contentIdMap, instance, Constants.PACKAGE_CONTENT_ID_FIELDS)
 
 	if not parseSuccess then
 		Analytics.reportFailure(Analytics.ErrorType.validatePackage_FailedToParse)
-		return false, parseReasons
+		return false,
+			{
+				string.format(
+					"Failed to parse package data for model '%s'. Make sure the packageId is valid and try again.",
+					instance:GetFullName()
+				),
+			}
 	end
 
 	return validateAssetCreator(contentIdMap, validationContext :: Types.ValidationContext)
@@ -48,7 +54,7 @@ local function DEPRECATED_validatePackage(
 	restrictedUserIds: Types.RestrictedUserIds?,
 	token: string?
 ): (boolean, { string }?)
-	local result, failureReasons = validateSingleInstance(allSelectedInstances)
+	local result, failureReasons = (validateSingleInstance :: any)(allSelectedInstances)
 	if not result then
 		return result, failureReasons
 	end

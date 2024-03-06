@@ -24,14 +24,23 @@ local function validateUVSpace(meshInfo: Types.MeshInfo): (boolean, { string }?)
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateUVSpace_FailedToExecute)
-		return false, { "Failed to execute validateUVSpace check" }
+		return false,
+			{
+				string.format(
+					"Failed to execute validateUVSpace check on '%s'. Make sure the UV maps exists and try again.",
+					meshInfo.fullName
+				),
+			}
 	end
 
 	if not result then
 		Analytics.reportFailure(Analytics.ErrorType.validateUVSpace_InvalidUVSpace)
 		return false,
 			{
-				"Your mesh has UVs defined outside 0-1 space. This can lead to texturing discrepancies and violates UGC upload requirements.",
+				string.format(
+					"Detected modified UV values for '%s'. The original UV map for this model can't be altered.",
+					meshInfo.fullName
+				),
 			}
 	end
 

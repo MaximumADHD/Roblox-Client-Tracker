@@ -63,6 +63,7 @@ local function initializeLibrary(configs)
 				SelectionMode = require(script.Core.Control.Enum.SelectionMode),
 			}),
 			Interactable = require(script.Core.Control.Interactable),
+			InteractableList = require(script.Core.Control.InteractableList),
 		}),
 
 		Spatial = strict({
@@ -334,7 +335,6 @@ local function initializeLibrary(configs)
 				Placement = require(script.App.Navigation.Enum.Placement),
 			}),
 			SystemBar = require(script.App.Navigation.SystemBar),
-			IABottomBar = require(script.App.Navigation.IABottomBar.IABottomBar),
 			PrimaryNavBar = strict({
 				ContextBar = require(script.App.Navigation.PrimaryNavBar.ContextBar),
 				IconTab = require(script.App.Navigation.PrimaryNavBar.IconTab),

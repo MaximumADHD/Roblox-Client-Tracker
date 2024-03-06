@@ -23,7 +23,11 @@ local function validateHSR(inst: Instance, validationContext: Types.ValidationCo
 			continue
 		end
 		Analytics.reportFailure(Analytics.ErrorType.validateHSR_HSRDataNotReady)
-		reasonsAccumulator:updateReasons(false, { `HSR data not ready for {obj:GetFullName()}!` })
+		if getFFlagUseUGCValidationContext() then
+			reasonsAccumulator:updateReasons(false, { `Missing HSR data for {obj:GetFullName()}. Please, try again.` })
+		else
+			reasonsAccumulator:updateReasons(false, { `HSR data not ready for {obj:GetFullName()}!` })
+		end
 	end
 	return reasonsAccumulator:getFinalResults()
 end

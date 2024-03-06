@@ -97,7 +97,10 @@ local function validateAssetCreator(
 
 	if count > maxAssetIdSize then
 		Analytics.reportFailure(Analytics.ErrorType.validateAssetCreator_TooManyDependencies)
-		return false, { "Too many mesh/texture dependencies" }
+		return false,
+			{
+				"Upload of model has too many children assets (Meshes, Textures, etc.) and cannot be processed as is. You need to rearrange the model.",
+			}
 	end
 
 	local assetIdList = {}
@@ -127,7 +130,8 @@ local function validateAssetCreator(
 
 	if not complete then
 		Analytics.reportFailure(Analytics.ErrorType.validateAssetCreator_FailedToLoad)
-		return false, { "Failed to load asset detail" }
+		return false,
+			{ "Failed to load detailed information for model assets. Make sure all model assets exist and try again." }
 	end
 
 	for _, response in responses do
@@ -138,7 +142,7 @@ local function validateAssetCreator(
 			end
 			local data = contentIdMap[instanceId]
 			local failureMessage = string.format(
-				"%s.%s ( %s ) is not owned by the experience creator or player",
+				"%s.%s ( %s ) being used is not owned by the experience creator or player. You can only publish assets that you own.",
 				data.instance:GetFullName(),
 				data.fieldName,
 				instanceId

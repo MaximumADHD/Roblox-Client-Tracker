@@ -33,7 +33,12 @@ local function validateExistance(contentIdMap: any)
 			-- loading a mesh/texture can fail for many reasons, therefore we throw an error here, which means that the validation of this asset
 			-- will be run again, rather than returning false. This is because we can't conclusively say it failed. It's inconclusive. This throwing
 			-- of an error should only happen when validation is called from RCC
-			error("Failed to load asset")
+			error(
+				string.format(
+					"Failed to load children assets (Meshes, Textures, etc.) for '%s'. Make sure the assets exist and try again.",
+					data.instance.Name
+				)
+			)
 		end
 	end
 end
@@ -56,7 +61,14 @@ end
 local function validateCreatorId(idsHashTable, creatorId, instance, fieldName, id): (boolean, { string }?)
 	if not idsHashTable[tonumber(creatorId)] then
 		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsRestrictedUserId)
-		return false, { `{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the developer` }
+		if getFFlagUseUGCValidationContext() then
+			return false,
+				{
+					`{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the current user. You can only validate assets that you or a group you belong to owns.`,
+				}
+		else
+			return false, { `{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the developer` }
+		end
 	end
 	return true
 end
@@ -69,7 +81,13 @@ local function validateModerationState(moderationState, instance, fieldName, id)
 		-- throw an error here, which means that the validation of this asset will be run again, rather than returning false. This is because we can't
 		-- conclusively say it failed. It's inconclusive / in-progress, so we need to try again later
 		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsReviewing)
-		error("Asset is under review")
+		if getFFlagUseUGCValidationContext() then
+			error(
+				"Failed to load asset {instance:GetFullName()}.{fieldName} ( {id} ) that is still going through the review process. Please, wait for a notification of completion from the review process and try again."
+			)
+		else
+			error("Asset is under review")
+		end
 	end
 
 	local isApproved = if getFFlagUGCValidateAssetStatusNameChange()
@@ -78,7 +96,14 @@ local function validateModerationState(moderationState, instance, fieldName, id)
 
 	if not isApproved then
 		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsNotApproved)
-		return false, { `{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the developer` }
+		if getFFlagUseUGCValidationContext() then
+			return false,
+				{
+					`{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the current user. You can only validate assets that you or a group you belong to owns.`,
+				}
+		else
+			return false, { `{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the developer` }
+		end
 	end
 
 	return true

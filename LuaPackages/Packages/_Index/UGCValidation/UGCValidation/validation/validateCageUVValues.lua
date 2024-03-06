@@ -58,10 +58,8 @@ local function validateCageUVValues(
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateCageUVValues_FailedToLoadMesh)
 		local errorMsg = string.format(
-			"Failed to read mesh %s.%s ( %s )",
-			wrapTarget:GetFullName(),
-			meshInfo.fieldName,
-			if meshInfo.contentId then meshInfo.contentId else "empty id"
+			"Failed to load UVs for '%s'. Make sure the UV map exists and try again.",
+			wrapTarget:GetFullName()
 		)
 		if isServer then
 			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
@@ -77,10 +75,8 @@ local function validateCageUVValues(
 		return false,
 			{
 				string.format(
-					"%s.%s ( %s ) has a UV value that is unexpected",
-					wrapTarget:GetFullName(),
-					meshInfo.fieldName,
-					if meshInfo.contentId then meshInfo.contentId else "empty id"
+					"Found invalid UV value outside [0, 1] range for '%s'. You need to edit the UV map to fix this issue.",
+					wrapTarget:GetFullName()
 				),
 			}
 	end

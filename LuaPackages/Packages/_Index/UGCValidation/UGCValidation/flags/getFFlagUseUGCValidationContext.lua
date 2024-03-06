@@ -1,7 +1,7 @@
 --!strict
 
-game:DefineFastFlag("UseUGCValidationContext2", false)
+game:DefineFastFlag("UseUGCValidationContext3", false)
 
 return function()
-	return game:GetFastFlag("UseUGCValidationContext2")
+	return game:GetFastFlag("UseUGCValidationContext3")
 end

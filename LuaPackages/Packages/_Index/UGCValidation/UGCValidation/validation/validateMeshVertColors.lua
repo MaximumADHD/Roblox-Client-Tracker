@@ -34,7 +34,10 @@ local function validateMeshVertexColors(
 
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateMeshVertexColors_FailedToLoadMesh)
-		local message = "Failed to execute validateMeshVertexColors check"
+		local message = string.format(
+			"Failed to load vertex color map for model mesh %s. Make sure it exists and try again.",
+			meshInfo.fullName
+		)
 		if nil ~= isServer and isServer then
 			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
 			-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
@@ -49,10 +52,9 @@ local function validateMeshVertexColors(
 		return false,
 			{
 				string.format(
-					"%s.%s ( %s ) Your mesh has non-neutral vertex color values, which violates UGC upload requirements.",
+					"Invalid vertex color found in mesh model '%s'. You need to edit the color map to be all white %s and try again.",
 					meshInfo.fullName,
-					meshInfo.fieldName,
-					if meshInfo.contentId then meshInfo.contentId else "empty id"
+					if checkTransparency then "with no transarency" else ""
 				),
 			}
 	end

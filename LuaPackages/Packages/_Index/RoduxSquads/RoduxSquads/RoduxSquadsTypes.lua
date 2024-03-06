@@ -43,6 +43,10 @@ export type ExperienceInviteByCreated = {
 	[number]: ExperienceInviteModel,
 }
 
+export type NavigationTopBar = {
+	topBarOpacity: number,
+}
+
 export type NotificationToast = {
 	[number]: NotificationToastModel,
 }
@@ -135,6 +139,12 @@ export type ExperienceInviteRespondedAction = {
 		inviteId: string,
 		userId: number,
 		response: boolean,
+	},
+}
+
+export type NavigationTopBarUpdatedAction = {
+	payload: {
+		topBarOpacity: number,
 	},
 }
 

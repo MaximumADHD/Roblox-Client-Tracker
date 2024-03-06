@@ -28,7 +28,13 @@ local function validateThumbnailConfiguration(
 		local thumbnailCameraTarget = thumbnailConfiguration:FindFirstChild("ThumbnailCameraTarget") :: ObjectValue
 		if thumbnailCameraTarget.Value ~= handle then
 			Analytics.reportFailure(Analytics.ErrorType.validateThumbnailConfiguration_InvalidTarget)
-			return false, { string.format("ThumbnailCameraTarget.Value must be %s", handle:GetFullName()) }
+			return false,
+				{
+					string.format(
+						"Invalid target asset for thumbnail generation. Expected it to be '%s'.",
+						handle:GetFullName()
+					),
+				}
 		end
 		-- check the frustum of the camera when taking snapshots now
 		if
@@ -49,7 +55,13 @@ local function validateThumbnailConfiguration(
 					) == false
 				then
 					Analytics.reportFailure(Analytics.ErrorType.validateThumbnailConfiguration_OutsideView)
-					return false, { "Item must be fully within view of thumbnail camera" }
+					return false,
+						{
+							string.format(
+								"Asset '%s' is positioned outside the thumbnail camera view. You need to reposition the asset at the center of the camera view and try again.",
+								meshInfo.fullName
+							),
+						}
 				end
 			else
 				if
@@ -57,7 +69,13 @@ local function validateThumbnailConfiguration(
 					== false
 				then
 					Analytics.reportFailure(Analytics.ErrorType.validateThumbnailConfiguration_OutsideView)
-					return false, { "Item must be fully within view of thumbnail camera" }
+					return false,
+						{
+							string.format(
+								"Asset '%s' is positioned outside the thumbnail camera view. You need to reposition the asset at the center of the camera view and try again.",
+								meshInfo.fullName
+							),
+						}
 				end
 			end
 		end

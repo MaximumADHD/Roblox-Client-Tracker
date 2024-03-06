@@ -11,7 +11,6 @@ local getEngineFeatureUGCValidateEditableMeshAndImage =
 
 local function validateFullBodyCageDeletion(
 	meshInfo: Types.MeshInfo,
-	meshType: string,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
@@ -32,16 +31,32 @@ local function validateFullBodyCageDeletion(
 			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
 			-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
 			-- which would mean the asset failed validation
-			error("Failed to execute validateFullBodyCageDeletion check")
+			error(
+				string.format(
+					"Failed to execute body cage detection for '%s'. Make sure the cage mesh exists and try again.",
+					meshInfo.fullName
+				)
+			)
 		end
 		Analytics.reportFailure(Analytics.ErrorType.validateFullBodyCageDeletion_FailedToExecute)
-		return false, { "Failed to execute validateFullBodyCageDeletion check" }
+		return false,
+			{
+				string.format(
+					"Failed to execute cage detection for '%s'. Make sure the cage mesh exists and try again.",
+					meshInfo.fullName
+				),
+			}
 	end
 
 	if not result then
 		Analytics.reportFailure(Analytics.ErrorType.validateFullBodyCageDeletion_GeometryRemoved)
 		return false,
-			{ string.format("Some %s geometry has been removed. This will result in layering issues.", meshType) }
+			{
+				string.format(
+					"Missing cage for '%s'. You need to provide a cage mesh for each of the 15 body parts making up the R15 body.",
+					meshInfo.fullName
+				),
+			}
 	end
 
 	return true

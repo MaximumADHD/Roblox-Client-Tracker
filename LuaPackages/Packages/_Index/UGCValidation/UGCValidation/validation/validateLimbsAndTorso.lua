@@ -52,7 +52,13 @@ local function compareFolderInfo(fromFolder: any, toFolder: any): (boolean, { st
 	for key, val in fromFolder do
 		if nil == toFolder[key] or toFolder[key] ~= val then
 			Analytics.reportFailure(Analytics.ErrorType.validateLimbsAndTorso_FolderInfoMismatch)
-			reasonsAccumulator:updateReasons(false, { `{key} has a different value in different folders` })
+			if getFFlagUseUGCValidationContext() then
+				reasonsAccumulator:updateReasons(false, {
+					`Attribute {key} has a different values in different children folders. You need to use the same value in all folders.`,
+				})
+			else
+				reasonsAccumulator:updateReasons(false, { `{key} has a different value in different folders` })
+			end
 		end
 	end
 	return reasonsAccumulator:getFinalResults()
@@ -100,7 +106,29 @@ local function validateFolderAssetIdsMatch(
 	return reasonsAccumulator:getFinalResults()
 end
 
-local function validateR6Folder(inst: Instance)
+local function validateR6Folder(inst: Instance, assetTypeEnum: Enum.AssetType)
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	if #(inst:GetChildren()) > 0 then
+		Analytics.reportFailure(Analytics.ErrorType.validateLimbsAndTorso_R6FolderHasChildren)
+		reasonsAccumulator:updateReasons(false, {
+			string.format(
+				`Deprecated R6 folder for '%s' should be empty. You need to clear that folder and try again.`,
+				assetTypeEnum.Name
+			),
+		})
+	end
+
+	reasonsAccumulator:updateReasons(validateTags(inst))
+
+	reasonsAccumulator:updateReasons(validateProperties(inst))
+
+	reasonsAccumulator:updateReasons(validateAttributes(inst))
+
+	return reasonsAccumulator:getFinalResults()
+end
+
+local function DEPRECATED_validateR6Folder(inst: Instance)
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	if #(inst:GetChildren()) > 0 then
@@ -140,7 +168,10 @@ local function validateLimbsAndTorso(validationContext: Types.ValidationContext)
 	if not areTopLevelFoldersCorrect(allSelectedInstances, requiredTopLevelFolders) then
 		Analytics.reportFailure(Analytics.ErrorType.validateLimbsAndTorso_TopLevelFolders)
 		return false,
-			{ "Incorrect hierarchy selection, folders required: " .. table.concat(requiredTopLevelFolders, ", ") }
+			{
+				"Incorrect hierarchy for asset with the following missing folders: "
+					.. table.concat(requiredTopLevelFolders, ", "),
+			}
 	end
 
 	for _, folderName in requiredTopLevelFolders do
@@ -149,7 +180,7 @@ local function validateLimbsAndTorso(validationContext: Types.ValidationContext)
 		local reasons
 
 		if folderName == Constants.FOLDER_NAMES.R6 then
-			result, reasons = validateR6Folder(inst)
+			result, reasons = validateR6Folder(inst, assetTypeEnum)
 		else
 			result, reasons = validateMeshPartBodyPart(
 				inst,
@@ -192,7 +223,7 @@ local function DEPRECATED_validateLimbsAndTorso(
 		local reasons
 
 		if folderName == Constants.FOLDER_NAMES.R6 then
-			result, reasons = validateR6Folder(inst)
+			result, reasons = DEPRECATED_validateR6Folder(inst)
 		else
 			result, reasons = (validateMeshPartBodyPart :: any)(
 				inst,

@@ -12,7 +12,6 @@ local Analytics = require(root.Analytics)
 
 local function validateOverlappingVertices(
 	meshInfo: Types.MeshInfo,
-	meshType: string,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
@@ -33,16 +32,32 @@ local function validateOverlappingVertices(
 			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
 			-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
 			-- which would mean the asset failed validation
-			error(string.format("Failed to execute validateOverlappingVertices check for %s", meshType))
+			error(
+				string.format(
+					"Failed to execute overlapping mesh vertex check for '%s'. Make sure mesh exists and try again.",
+					meshInfo.fullName
+				)
+			)
 		end
 		Analytics.reportFailure(Analytics.ErrorType.validateOverlappingVertices_FailedToExecute)
-		return false, { string.format("Failed to execute validateOverlappingVertices check for %s", meshType) }
+		return false,
+			{
+				string.format(
+					"Failed to execute overlapping mesh vertex check for '%s'. Make sure mesh exists and try again.",
+					meshInfo.fullName
+				),
+			}
 	end
 
 	if not result then
 		Analytics.reportFailure(Analytics.ErrorType.validateOverlappingVertices_OverlappingVertices)
 		return false,
-			{ string.format("%s has multiple vertices sharing identical or near-identical positions.", meshType) }
+			{
+				string.format(
+					"Detected two or more vertices in model mesh '%s' sharing near identical positions. You need to position vertices further apart from each other.",
+					meshInfo.fullName
+				),
+			}
 	end
 
 	return true

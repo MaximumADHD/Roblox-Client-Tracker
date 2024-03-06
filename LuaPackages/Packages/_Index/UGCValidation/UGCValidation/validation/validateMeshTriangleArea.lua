@@ -35,9 +35,20 @@ local function validateMeshTriangleArea(
 		if not success then
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshTriangleArea_FailedToLoadMesh)
 			if isServer then
-				error("Failed to load mesh data")
+				error(
+					string.format(
+						"Failed to load model mesh %s. Make sure mesh exists and try again.",
+						meshInfo.fullName
+					)
+				)
 			end
-			return false, { "Failed to load mesh data" }
+			return false,
+				{
+					string.format(
+						"Failed to load model mesh %s. Make sure mesh exists and try again.",
+						meshInfo.fullName
+					),
+				}
 		end
 
 		if not result then
@@ -45,10 +56,8 @@ local function validateMeshTriangleArea(
 			return false,
 				{
 					string.format(
-						"%s.%s ( %s ) contained an invalid triangle which contained no area in 3D space",
-						meshInfo.fullName,
-						meshInfo.fieldName,
-						if meshInfo.contentId then meshInfo.contentId else "empty id"
+						"Detected zero-area triangle in model mesh %s. You need to edit the mesh to remove zero-area triangles.",
+						meshInfo.fullName
 					),
 				}
 		end

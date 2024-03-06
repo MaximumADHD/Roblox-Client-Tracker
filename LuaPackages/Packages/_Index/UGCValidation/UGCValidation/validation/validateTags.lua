@@ -16,7 +16,7 @@ local function validateTags(instance: Instance): (boolean, { string }?)
 	end
 
 	if #hasTags > 0 then
-		local reasons = { "The following objects contain CollectionService tags:" }
+		local reasons = { "Found the following instance tags which are not allowed:" }
 		for _, obj in ipairs(hasTags) do
 			table.insert(reasons, obj:GetFullName())
 		end

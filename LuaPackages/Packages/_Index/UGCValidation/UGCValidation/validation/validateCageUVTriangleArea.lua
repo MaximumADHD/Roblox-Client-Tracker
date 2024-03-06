@@ -34,10 +34,21 @@ local function validateCageUVTriangleArea(
 
 		if not success then
 			if isServer then
-				error("Failed to load mesh data")
+				error(
+					string.format(
+						"Failed to load UVs for '%s'. Make sure the model has a valid UV map and try again.",
+						meshInfo.fullName
+					)
+				)
 			end
 			Analytics.reportFailure(Analytics.ErrorType.validateCageUVTriangleArea_FailedToLoadMesh)
-			return false, { "Failed to load mesh data" }
+			return false,
+				{
+					string.format(
+						"Failed to load UVs for '%s'. Make sure the model has a valid UV map and try again.",
+						meshInfo.fullName
+					),
+				}
 		end
 
 		if not result then
@@ -45,10 +56,8 @@ local function validateCageUVTriangleArea(
 			return false,
 				{
 					string.format(
-						"%s.%s ( %s ) contained an invalid triangle which contained no area",
-						meshInfo.fullName,
-						meshInfo.fieldName,
-						if meshInfo.contentId then meshInfo.contentId else "empty id"
+						"Detected zero-area triangle in UV map of '%s'. You need to edit the UV map to fix this issue.",
+						meshInfo.fullName
 					),
 				}
 		end

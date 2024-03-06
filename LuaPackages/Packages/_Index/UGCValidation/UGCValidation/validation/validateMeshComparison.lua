@@ -27,7 +27,12 @@ local function formatError(mesh: Types.MeshInfo, otherMesh: Types.MeshInfo, maxD
 	local context = getContext(mesh)
 	local otherContext = getContext(otherMesh)
 
-	return string.format("%s is more than %.2f different in size to %s", context, maxDiff, otherContext)
+	return string.format(
+		"%s is more than max difference %.2f in size compared to the other mesh %s. You need to edit the model to adjust its size",
+		context,
+		maxDiff,
+		otherContext
+	)
 end
 
 local function DEPRECATED_formatError(mesh: MeshInputData, otherMesh: MeshInputData, maxDiff: number)

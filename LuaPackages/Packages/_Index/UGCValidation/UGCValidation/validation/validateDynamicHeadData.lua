@@ -48,8 +48,14 @@ local requiredActiveFACSControls = {
 	"EyesLookDown",
 }
 
-local function downloadFailure(isServer: boolean?): (boolean, { string }?)
-	local errorMessage = "Failed to retrieve mesh data to validate dynamic head"
+local function downloadFailure(isServer: boolean?, name: string?): (boolean, { string }?)
+	local errorMessage
+	if getFFlagUseUGCValidationContext() then
+		errorMessage =
+			string.format("Failed to load model for dynamic head '%s'. Make sure model exists and try again.", name)
+	else
+		errorMessage = "Failed to retrieve mesh data to validate dynamic head"
+	end
 	if isServer then
 		-- ValidateDynamicHead() failed retriving mesh data, meaning the tests on the mesh couldn't proceed, therefore we throw an error here,
 		-- which means that the validation of this asset will be run again, rather than returning false. This is because we can't conclusively
@@ -155,15 +161,29 @@ local function validateDynamicHeadData(
 		end)
 
 		if not retrievedMeshData then
-			return downloadFailure(isServer)
+			if getFFlagUseUGCValidationContext() then
+				return downloadFailure(isServer, meshPartHead.Name)
+			else
+				return downloadFailure(isServer)
+			end
 		end
 
 		if not testsPassed then
 			Analytics.reportFailure(Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh)
-			return false,
-				{
-					`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is not correctly set-up to be a dynamic head mesh as it has no FACS information`,
-				}
+			if getFFlagUseUGCValidationContext() then
+				return false,
+					{
+						string.format(
+							"Failed validation for dynamic head '%s' due to missing FACS information. You need to provide FACS controls for at least 17 poses (see documentation).",
+							meshPartHead.Name
+						),
+					}
+			else
+				return false,
+					{
+						`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is not correctly set-up to be a dynamic head mesh as it has no FACS information`,
+					}
+			end
 		end
 	end
 
@@ -180,7 +200,11 @@ local function validateDynamicHeadData(
 		if not commandExecuted then
 			local errorMessage = missingControlsOrErrorMessage
 			if string.find(errorMessage, "Download Error") == 1 then
-				return downloadFailure(isServer)
+				if getFFlagUseUGCValidationContext() then
+					return downloadFailure(isServer, meshPartHead.Name)
+				else
+					return downloadFailure(isServer)
+				end
 			end
 			assert(false, errorMessage) --any other error to download error is a code problem
 		end

@@ -27,7 +27,20 @@ local function truncate(number)
 	return math.floor(number * 100) / 100
 end
 
-local function getErrors(name: string, v: Vector3, attachment: Attachment): { string }
+local function getErrors(name: string, assetType: string, v: Vector3): { string }
+	return {
+		string.format(
+			"%s has size larger than max allowed bounding size. The max size for type %s is [%.2f, %.2f, %.2f]",
+			name,
+			assetType,
+			truncate(v.X),
+			truncate(v.Y),
+			truncate(v.Z)
+		),
+	}
+end
+
+local function DEPRECATED_getErrors(name: string, v: Vector3, attachment: Attachment): { string }
 	if FFlagTruncateMeshBoundsErrorMessage then
 		return {
 			"Mesh is too large!",
@@ -100,7 +113,7 @@ local function validateMeshBounds(
 
 		if not result then
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge)
-			return false, getErrors(name, boundsSize, attachment)
+			return false, getErrors(meshInfo.context :: string, name, boundsSize)
 		end
 	else
 		local success, verts
@@ -120,16 +133,27 @@ local function validateMeshBounds(
 				-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
 				-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
 				-- which would mean the asset failed validation
-				error("Failed to read mesh")
+				error(
+					string.format(
+						"Failed to load body part mesh %s. Make sure body part exists and try again.",
+						meshInfo.fullName
+					)
+				)
 			end
-			return false, { "Failed to read mesh" }
+			return false,
+				{
+					string.format(
+						"Failed to load body part mesh %s. Make sure body part exists and try again.",
+						meshInfo.fullName
+					),
+				}
 		end
 
 		for _, vertPos in pairs(verts) do
 			local worldPos = handle.CFrame:PointToWorldSpace(vertPos * meshScale)
 			if not pointInBounds(worldPos, boundsCF, boundsSize) then
 				Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge)
-				return false, getErrors(name, boundsSize, attachment)
+				return false, getErrors(meshInfo.context :: string, name, boundsSize)
 			end
 		end
 	end
@@ -174,7 +198,7 @@ local function DEPRECATED_validateMeshBounds(
 
 		if not result then
 			Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge)
-			return false, getErrors(name, boundsSize, attachment)
+			return false, DEPRECATED_getErrors(name, boundsSize, attachment)
 		end
 	else
 		local success, verts = pcall(function()
@@ -196,7 +220,7 @@ local function DEPRECATED_validateMeshBounds(
 			local worldPos = handle.CFrame:PointToWorldSpace(vertPos * meshScale)
 			if not pointInBounds(worldPos, boundsCF, boundsSize) then
 				Analytics.reportFailure(Analytics.ErrorType.validateMeshBounds_TooLarge)
-				return false, getErrors(name, boundsSize, attachment)
+				return false, DEPRECATED_getErrors(name, boundsSize, attachment)
 			end
 		end
 	end

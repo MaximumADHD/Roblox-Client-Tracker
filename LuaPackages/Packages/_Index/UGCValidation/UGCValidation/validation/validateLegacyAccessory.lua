@@ -46,7 +46,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 	local success: boolean, reasons: any
 
-	success, reasons = validateSingleInstance(instances)
+	success, reasons = validateSingleInstance(instances, validationContext)
 	if not success then
 		return false, reasons
 	end
@@ -73,6 +73,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		fullName = mesh:GetFullName(),
 		fieldName = "MeshId",
 		contentId = mesh.MeshId,
+		context = instance.Name,
 	} :: Types.MeshInfo
 
 	local meshScale = mesh.Scale
@@ -80,13 +81,35 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 
 	local boundsInfo = assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
 
+	local validationResult = true
+	reasons = {}
+
+	local hasMeshContent = meshInfo.contentId ~= nil and meshInfo.contentId ~= ""
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
 		local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(mesh, "MeshId", validationContext)
 		if not getEditableMeshSuccess then
-			return false, { "Failed to load mesh data" }
+			if not meshInfo.contentId then
+				hasMeshContent = false
+				validationResult = false
+				table.insert(reasons, {
+					string.format(
+						"Missing meshId on legacy accessory '%s'. Make sure you are using a valid meshId and try again.\n",
+						instance.Name
+					),
+				})
+			else
+				return false,
+					{
+						string.format(
+							"Failed to load mesh for legacy accessory '%s'. Make sure mesh exists and try again.",
+							instance.Name
+						),
+					}
+			end
 		end
 
 		meshInfo.editableMesh = editableMesh
+		hasMeshContent = true
 	end
 
 	local textureInfo = {
@@ -98,15 +121,37 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
 		local getEditableImageSuccess, editableImage = getEditableImageFromContext(mesh, "TextureId", validationContext)
 		if not getEditableImageSuccess then
-			return false, { "Failed to load texture data" }
+			return false,
+				{
+					string.format(
+						"Failed to load texture for legacy accessory '%s'. Make sure texture exists and try again.",
+						instance.Name
+					),
+				}
 		end
 
 		textureInfo.editableImage = editableImage
+	else
+		if isServer then
+			local textureSuccess
+			local meshSuccess
+			local _canLoadFailedReason: any = {}
+			textureSuccess, _canLoadFailedReason = validateCanLoad(mesh.TextureId)
+			meshSuccess, _canLoadFailedReason = validateCanLoad(mesh.MeshId)
+			if not textureSuccess or not meshSuccess then
+				-- Failure to load assets should be treated as "inconclusive".
+				-- Validation didn't succeed or fail, we simply couldn't run validation because the assets couldn't be loaded.
+				error(
+					string.format(
+						"Failed to load children assets (Meshes, Textures, etc.) for '%s'. Make sure the assets exist and try again.",
+						instance.Name
+					)
+				)
+			end
+		end
 	end
 
 	local failedReason: any = {}
-	local validationResult = true
-	reasons = {}
 	success, failedReason = validateMaterials(instance)
 	if not success then
 		table.insert(reasons, table.concat(failedReason, "\n"))
@@ -168,32 +213,41 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 		end
 	end
 
-	if FFlagLegacyAccessoryCheckAvatarPartScaleType and handle:FindFirstChild("AvatarPartScaleType") then
-		local accessoryScale = getAccessoryScale(handle, attachment)
-		boundsInfo = {
-			size = boundsInfo.size / accessoryScale,
-			offset = if boundsInfo.offset then boundsInfo.offset / accessoryScale else nil,
-		}
-	end
+	if hasMeshContent then
+		if FFlagLegacyAccessoryCheckAvatarPartScaleType and handle:FindFirstChild("AvatarPartScaleType") then
+			local accessoryScale = getAccessoryScale(handle, attachment)
+			boundsInfo = {
+				size = boundsInfo.size / accessoryScale,
+				offset = if boundsInfo.offset then boundsInfo.offset / accessoryScale else nil,
+			}
+		end
 
-	success, failedReason =
-		validateMeshBounds(handle, attachment, meshInfo, meshScale, boundsInfo, assetTypeEnum.Name, validationContext)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
-	end
-
-	success, failedReason = validateMeshTriangles(meshInfo, nil, validationContext)
-	if not success then
-		table.insert(reasons, table.concat(failedReason, "\n"))
-		validationResult = false
-	end
-
-	if game:GetFastFlag("UGCValidateMeshVertColors") then
-		success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
+		success, failedReason = validateMeshBounds(
+			handle,
+			attachment,
+			meshInfo,
+			meshScale,
+			boundsInfo,
+			assetTypeEnum.Name,
+			validationContext
+		)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false
+		end
+
+		success, failedReason = validateMeshTriangles(meshInfo, nil, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+
+		if game:GetFastFlag("UGCValidateMeshVertColors") then
+			success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
+			if not success then
+				table.insert(reasons, table.concat(failedReason, "\n"))
+				validationResult = false
+			end
 		end
 	end
 
@@ -210,7 +264,7 @@ local function DEPRECATED_validateLegacyAccessory(
 
 	local success: boolean, reasons: any
 
-	success, reasons = validateSingleInstance(instances)
+	success, reasons = (validateSingleInstance :: any)(instances)
 	if not success then
 		return false, reasons
 	end

@@ -57,7 +57,11 @@ local function validateMeshPartBodyPart(
 	local validationResult = validateWithSchema(schema, inst)
 	if not validationResult.success then
 		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartBodyPart_ValidateWithSchema)
-		return false, { validationResult.message }
+		return false,
+			{
+				string.format("Body part '%s' does not follow R15 schema. The specific issues are: ", inst.Name),
+				validationResult.message,
+			}
 	end
 
 	if not getFFlagDebugUGCDisableSurfaceAppearanceTests() then

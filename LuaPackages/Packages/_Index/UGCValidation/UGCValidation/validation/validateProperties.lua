@@ -8,6 +8,8 @@ local Constants = require(root.Constants)
 
 local valueToString = require(root.util.valueToString)
 
+local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+
 local EPSILON = 1e-5
 
 local function floatEq(a: number, b: number)
@@ -52,23 +54,47 @@ local function validateProperties(instance): (boolean, { string }?)
 
 					if not propExists then
 						Analytics.reportFailure(Analytics.ErrorType.validateProperties_PropertyDoesNotExist)
-						return false,
-							{
-								string.format("Property %s does not exist on type %s", propName, object.ClassName),
-							}
+						if getFFlagUseUGCValidationContext() then
+							return false,
+								{
+									string.format(
+										"Property '%s' does not exist on type '%s'. Delete the property and try again.",
+										propName,
+										object.ClassName
+									),
+								}
+						else
+							return false,
+								{
+									string.format("Property %s does not exist on type %s", propName, object.ClassName),
+								}
+						end
 					end
 
 					if not propEq(propValue, expectedValue) then
 						Analytics.reportFailure(Analytics.ErrorType.validateProperties_PropertyMismatch)
-						return false,
-							{
-								string.format(
-									"Expected %s.%s to be %s",
-									object:GetFullName(),
-									propName,
-									valueToString(expectedValue)
-								),
-							}
+						if getFFlagUseUGCValidationContext() then
+							return false,
+								{
+									string.format(
+										"Tying to access property '%s.%s' using the incorrect type for it. Expected '%s' to be '%s'.",
+										object:GetFullName(),
+										propName,
+										propName,
+										valueToString(expectedValue)
+									),
+								}
+						else
+							return false,
+								{
+									string.format(
+										"Expected %s.%s to be %s",
+										object:GetFullName(),
+										propName,
+										valueToString(expectedValue)
+									),
+								}
+						end
 					end
 				end
 			end

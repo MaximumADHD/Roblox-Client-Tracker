@@ -38,7 +38,7 @@ local getEngineFeatureUGCValidateEditableMeshAndImage =
 local function validateIsSkinned(obj: MeshPart, isServer: boolean?): (boolean, { string }?)
 	if not obj.HasSkinnedMesh then
 		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_NoSkinningInfo)
-		return false, { `{obj.Name}.MeshId does not contain skinning information!` }
+		return false, { `Missing skinning data for {obj.Name}.MeshId. You need to skin your model.` }
 	end
 
 	if not getEngineFeatureEngineUGCValidateBodyParts() then
@@ -65,7 +65,8 @@ local function validateIsSkinned(obj: MeshPart, isServer: boolean?): (boolean, {
 	-- HasSkinnedMesh should never disagree with the result of UGCValidationService:ValidateSkinnedMesh(). This indicates
 	-- a bug in the code, which needs to be fixed. We are only checking both here out of an abundance of caution
 	if not testsPassed then
-		local errorMessage = `MeshPart {obj.Name} has HasSkinnedMesh true, but has a mesh without skinning information`
+		local errorMessage =
+			`Detected mismatch between model and skinned data for {obj.Name}. You need to re-skin your model to fix this issue.`
 		if isServer then
 			error(errorMessage)
 		end
@@ -96,7 +97,12 @@ local function validateTotalAssetTriangles(
 				local getEditableMeshSuccess, editableMesh =
 					getEditableMeshFromContext(data.instance, data.fieldName, validationContext)
 				if not getEditableMeshSuccess then
-					return false, `Failed to load mesh data for {data.instance.Name}.{data.fieldName} ({data.id})`
+					Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_FailedToLoadMesh)
+					return false,
+						string.format(
+							"Failed to load mesh for '%s'. Make sure mesh exists and try again.",
+							data.instance.Name
+						)
 				end
 
 				success, triangles = pcall(function()
@@ -109,8 +115,11 @@ local function validateTotalAssetTriangles(
 			end
 
 			if not success then
-				Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_FailedToLoadMesh)
-				return false, `Failed to load mesh data for {data.instance.Name}.{data.fieldName} ({data.id})`
+				return false,
+					string.format(
+						"Failed to execute check for triangle face information for mesh '%s'. Make sure mesh exists and try again.",
+						data.instance.Name
+					)
 			end
 			result = result + triangles
 		end
@@ -130,7 +139,15 @@ local function validateTotalAssetTriangles(
 	end
 	if totalAssetTriangles :: number > maxTriangleCount then
 		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_TooManyTriangles)
-		return false, { `{assetTypeEnum.Name} cannot have more than {maxTriangleCount} triangles in render meshes` }
+		return false,
+			{
+				string.format(
+					"Mesh resolution of '%d' for '%s' is higher than max supported number of triangles '%d'. You need to retopologize your model to reduce the triangle count.",
+					totalAssetTriangles :: number,
+					assetTypeEnum.Name,
+					maxTriangleCount
+				),
+			}
 	end
 	return true
 end
@@ -199,7 +216,14 @@ local function validateMeshIsAtOrigin(
 	local Tol = 0.001
 	if meshCenter.Magnitude > Tol then
 		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_TooFarFromOrigin)
-		return false, { `Mesh for MeshPart {meshInfo.fullName} has been built too far from the origin` }
+		return false,
+			{
+				string.format(
+					"Bounds for the mesh '%s' are not centered at the origin. The max allowed distance is '%f'",
+					meshInfo.fullName,
+					Tol
+				),
+			}
 	end
 	return true
 end
@@ -246,19 +270,24 @@ local function validateDescendantMeshMetrics(
 			fullName = data.instance:GetFullName(),
 			fieldName = data.fieldName,
 			contentId = data.instance[data.fieldName],
+			context = data.instance.Name,
 		} :: Types.MeshInfo
 
 		if getEngineFeatureUGCValidateEditableMeshAndImage() then
 			local getEditableMeshSuccess, editableMesh =
 				getEditableMeshFromContext(data.instance, data.fieldName, validationContext)
 			if not getEditableMeshSuccess then
-				return false, { "Failed to load mesh data" }
+				return false,
+					{
+						string.format(
+							"Failed to load mesh for '%s'. Make sure mesh exists and try again.",
+							data.instance.Name
+						),
+					}
 			end
 
 			meshInfo.editableMesh = editableMesh
 		end
-
-		local errorString = string.format("%s.%s ( %s )", data.instance:GetFullName(), data.fieldName, data.id)
 
 		if data.instance.ClassName == "MeshPart" then
 			assert(data.fieldName == "MeshId")
@@ -275,9 +304,9 @@ local function validateDescendantMeshMetrics(
 			end
 		elseif data.instance.ClassName == "WrapTarget" then
 			assert(data.fieldName == "CageMeshId")
-
+			meshInfo.fullName = meshInfo.fullName .. "OuterCage"
 			if getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-				reasonsAccumulator:updateReasons(validateFullBodyCageDeletion(meshInfo, errorString, validationContext))
+				reasonsAccumulator:updateReasons(validateFullBodyCageDeletion(meshInfo, validationContext))
 			end
 
 			reasonsAccumulator:updateReasons(validateCageUVs(meshInfo, data.instance :: WrapTarget, validationContext))
@@ -298,7 +327,7 @@ local function validateDescendantMeshMetrics(
 		end
 
 		if getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-			reasonsAccumulator:updateReasons(validateOverlappingVertices(meshInfo, errorString, validationContext))
+			reasonsAccumulator:updateReasons(validateOverlappingVertices(meshInfo, validationContext))
 		end
 	end
 

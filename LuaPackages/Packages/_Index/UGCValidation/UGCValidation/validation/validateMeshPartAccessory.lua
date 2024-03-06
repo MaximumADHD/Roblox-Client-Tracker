@@ -50,7 +50,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 	local success: boolean, reasons: any
 
-	success, reasons = validateSingleInstance(instances)
+	success, reasons = validateSingleInstance(instances, validationContext)
 	if not success then
 		return false, reasons
 	end
@@ -76,15 +76,38 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		fullName = handle:GetFullName(),
 		fieldName = "MeshId",
 		contentId = handle.MeshId,
+		context = instance.Name,
 	} :: Types.MeshInfo
 
+	local reasonsAccumulator = FailureReasonsAccumulator.new()
+
+	local hasMeshContent = meshInfo.contentId ~= nil and meshInfo.contentId ~= ""
 	if getEngineFeatureUGCValidateEditableMeshAndImage() then
 		local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(handle, "MeshId", validationContext)
 		if not getEditableMeshSuccess then
-			return false, { "Failed to load mesh data" }
+			if not meshInfo.contentId then
+				hasMeshContent = false
+				Analytics.reportFailure(Analytics.ErrorType.validateMeshPartAccessory_NoMeshId)
+				reasonsAccumulator:updateReasons(false, {
+					string.format(
+						"Accessory MeshPart '%s' must contain a valid meshId. Make sure the mesh referred to by the meshId exists and try again.",
+						handle:GetFullName()
+					),
+				})
+			else
+				Analytics.reportFailure(Analytics.ErrorType.validateMeshPartAccessory_FailedToLoadMesh)
+				return false,
+					{
+						string.format(
+							"Failed to load mesh for accessory '%s'. Make sure mesh exists and try again.",
+							instance.Name
+						),
+					}
+			end
 		end
 
 		meshInfo.editableMesh = editableMesh
+		hasMeshContent = true
 	end
 
 	local textureId = handle.TextureID
@@ -99,17 +122,49 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		if textureId ~= "" then
 			getEditableImageSuccess, editableImage = getEditableImageFromContext(handle, "TextureID", validationContext)
 			if not getEditableImageSuccess then
-				return false, { "Failed to load texture data" }
+				return false,
+					{
+						string.format(
+							"Failed to load texture for accessory '%s'. Make sure texture exists and try again.",
+							instance.Name
+						),
+					}
 			end
 
 			textureInfo.editableImage = editableImage
+		end
+	else
+		if isServer then
+			local textureSuccess = true
+			local meshSuccess
+			local _canLoadFailedReason: any = {}
+			if textureId ~= "" then
+				textureSuccess, _canLoadFailedReason = validateCanLoad(textureId)
+			end
+			meshSuccess, _canLoadFailedReason = validateCanLoad(handle.MeshId)
+			if not textureSuccess or not meshSuccess then
+				-- Failure to load assets should be treated as "inconclusive".
+				-- Validation didn't succeed or fail, we simply couldn't run validation because the assets couldn't be loaded.
+				error(
+					string.format(
+						"Failed to load children assets (Meshes, Textures, etc.) for '%s'. Make sure the assets exist and try again.",
+						instance.Name
+					)
+				)
+			end
 		end
 	end
 
 	local meshSizeSuccess, meshSize = pcall(getMeshSize, meshInfo)
 	if not meshSizeSuccess then
 		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartAccessory_FailedToLoadMesh)
-		return false, { "Failed to read mesh" }
+		return false,
+			{
+				string.format(
+					"Failed to load mesh for accessory '%s'. Make sure mesh exists and try again.",
+					instance.Name
+				),
+			}
 	end
 
 	local meshScale = handle.Size / meshSize
@@ -117,8 +172,6 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	assert(attachment)
 
 	local boundsInfo = assert(assetInfo.bounds[attachment.Name], "Could not find bounds for " .. attachment.Name)
-
-	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	reasonsAccumulator:updateReasons(validateMaterials(instance))
 
@@ -142,14 +195,24 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 		reasonsAccumulator:updateReasons(validateModeration(instance, {}))
 	end
 
-	reasonsAccumulator:updateReasons(
-		validateMeshBounds(handle, attachment, meshInfo, meshScale, boundsInfo, assetTypeEnum.Name, validationContext)
-	)
+	if hasMeshContent then
+		reasonsAccumulator:updateReasons(
+			validateMeshBounds(
+				handle,
+				attachment,
+				meshInfo,
+				meshScale,
+				boundsInfo,
+				assetTypeEnum.Name,
+				validationContext
+			)
+		)
 
-	reasonsAccumulator:updateReasons(validateMeshTriangles(meshInfo, nil, validationContext))
+		reasonsAccumulator:updateReasons(validateMeshTriangles(meshInfo, nil, validationContext))
 
-	if game:GetFastFlag("UGCValidateMeshVertColors") then
-		reasonsAccumulator:updateReasons(validateMeshVertColors(meshInfo, false, validationContext))
+		if game:GetFastFlag("UGCValidateMeshVertColors") then
+			reasonsAccumulator:updateReasons(validateMeshVertColors(meshInfo, false, validationContext))
+		end
 	end
 
 	reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance))
@@ -174,7 +237,7 @@ local function DEPRECATED_validateMeshPartAccessory(
 
 	local success: boolean, reasons: any
 
-	success, reasons = validateSingleInstance(instances)
+	success, reasons = (validateSingleInstance :: any)(instances)
 	if not success then
 		return false, reasons
 	end

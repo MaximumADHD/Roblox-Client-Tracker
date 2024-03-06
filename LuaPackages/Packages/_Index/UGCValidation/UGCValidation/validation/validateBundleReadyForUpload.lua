@@ -94,7 +94,8 @@ local function validateBundleReadyForUpload(
 	allowedBundleTypeSettings: BundlesMetadata.AllowedBundleTypeSettings,
 	bundleType: createUGCBodyPartFolders.BundleType,
 	progressCallback: ((AvatarValidationResponse) -> ())?,
-	allowEditableInstances: boolean?
+	allowEditableInstances: boolean?,
+	bypassFlags: Types.BypassFlags?
 )
 	progressCallback = progressCallback or function() end
 	assert(progressCallback ~= nil, "Luau")
@@ -209,6 +210,7 @@ local function validateBundleReadyForUpload(
 				isServer = false,
 				isAsync = false,
 				allowEditableInstances = allowEditableInstances,
+				bypassFlags = bypassFlags,
 			} :: Types.ValidationContext
 
 			if getEngineFeatureUGCValidateEditableMeshAndImage() then
@@ -290,7 +292,8 @@ local function validateBundleReadyForUpload(
 					local validationContext = {
 						fullBodyData = fullBodyData :: Types.FullBodyData,
 						isServer = false,
-						allowEditableInstances,
+						allowEditableInstances = allowEditableInstances,
+						bypassFlags = bypassFlags,
 					} :: Types.ValidationContext
 
 					if getEngineFeatureUGCValidateEditableMeshAndImage() then

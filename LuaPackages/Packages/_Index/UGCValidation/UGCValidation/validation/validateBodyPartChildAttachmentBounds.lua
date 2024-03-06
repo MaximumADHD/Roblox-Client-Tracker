@@ -25,17 +25,31 @@ local function validateInMeshSpace(att: Attachment, part: MeshPart, boundsInfoMe
 			or posMeshSpace[dimension] > (maxMeshSpace :: any)[dimension]
 		then
 			Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_InvalidAttachmentPosition)
-			return false,
-				{
-					string.format(
-						"Attachment (%s) in %s, is at [%s] but must be within [%s] to [%s]",
-						att.Name,
-						part.Name,
-						prettyPrintVector3(att.CFrame.Position),
-						prettyPrintVector3(minMeshSpace * meshHalfSize),
-						prettyPrintVector3(maxMeshSpace * meshHalfSize)
-					),
-				}
+			if getFFlagUseUGCValidationContext() then
+				return false,
+					{
+						string.format(
+							"Attachment (%s) in %s is placed at a position [%s] that is outside the valid range of ([%s] to [%s]). You need to adjust the attachment position.",
+							att.Name,
+							part.Name,
+							prettyPrintVector3(att.CFrame.Position),
+							prettyPrintVector3(minMeshSpace * meshHalfSize),
+							prettyPrintVector3(maxMeshSpace * meshHalfSize)
+						),
+					}
+			else
+				return false,
+					{
+						string.format(
+							"Attachment (%s) in %s, is at [%s] but must be within [%s] to [%s]",
+							att.Name,
+							part.Name,
+							prettyPrintVector3(att.CFrame.Position),
+							prettyPrintVector3(minMeshSpace * meshHalfSize),
+							prettyPrintVector3(maxMeshSpace * meshHalfSize)
+						),
+					}
+			end
 		end
 	end
 	return true
@@ -76,10 +90,19 @@ local function validateAttachmentRotation(inst: Instance): (boolean, { string }?
 		local x, y, z = desc.CFrame:ToOrientation()
 		if not floatEquals(x, 0) or not floatEquals(y, 0) or not floatEquals(z, 0) then
 			Analytics.reportFailure(Analytics.ErrorType.validateBodyPartChildAttachmentBounds_AttachmentRotated)
-			reasonsAccumulator:updateReasons(
-				false,
-				{ `RigAttachment {(desc.Parent :: Instance).Name}.{desc.Name} should not be rotated!` }
-			)
+			if getFFlagUseUGCValidationContext() then
+				reasonsAccumulator:updateReasons(false, {
+					string.format(
+						"Detected rotation in rig attachment '%s'. You must reset all rotation values for this attachment to zero.",
+						desc:GetFullName()
+					),
+				})
+			else
+				reasonsAccumulator:updateReasons(
+					false,
+					{ `RigAttachment {(desc.Parent :: Instance).Name}.{desc.Name} should not be rotated!` }
+				)
+			end
 		end
 	end
 
