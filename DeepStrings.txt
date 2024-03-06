@@ -34580,6 +34580,7 @@ PxTbVRXx\n`Pd
 PyJlf7IHZQpFHohBe
 QAbstractAnimation
 QAbstractButton
+QAbstractIt
 QAbstractItemDelegate
 QAbstractItemModel
 QAbstractItemView
@@ -55899,7 +55900,7 @@ WildcardCount
 WilError_03
 WillReturn
 Win32HardwareSleepListener
-Win64.614.45564
+Win64.614.45704
 WinchEnabled
 WinchForce
 WinchResponsiveness
