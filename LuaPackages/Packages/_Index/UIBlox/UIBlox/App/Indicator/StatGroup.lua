@@ -11,8 +11,9 @@ local Images = require(App.ImageSet.Images)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local useStyle = require(Core.Style.useStyle)
 local Fonts = require(App.Style.Fonts)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local RATING_ICON = "icons/status/games/rating_small"
 local PLAYERS_ICON = "icons/status/games/people-playing_small"
@@ -53,8 +54,17 @@ local function renderStatItem(containerProps, icon, text, stylePalette, textWidt
 			AnchorPoint = Vector2.new(0, 0.5),
 		}),
 		Label = React.createElement("TextLabel", {
-			Size = UDim2.new(0, if textWidth then textWidth else 0, 1, 0),
-			AutomaticSize = if textWidth then nil else Enum.AutomaticSize.X,
+			Size = UDim2.new(
+				0,
+				if textWidth then textWidth else 0,
+				if UIBloxConfig.useAutomaticSizeYInStatGroup then 0 else 1,
+				0
+			),
+			AutomaticSize = if textWidth
+				then (if UIBloxConfig.useAutomaticSizeYInStatGroup then Enum.AutomaticSize.Y else nil)
+				else (if UIBloxConfig.useAutomaticSizeYInStatGroup
+					then Enum.AutomaticSize.XY
+					else Enum.AutomaticSize.X),
 			BackgroundTransparency = 1,
 			Text = text,
 			Font = font.Body.Font,
@@ -90,11 +100,8 @@ local function StatGroup(props: Props)
 
 	local spacingGap = stylePalette.Tokens.Global.Space_100
 
-	local ratingTextWidth, playingTextWidth
-	if UIBloxConfig.useStatGroupManualSize then
-		ratingTextWidth = useTextWidth(props.ratingText, stylePalette.Font)
-		playingTextWidth = useTextWidth(props.playingText, stylePalette.Font)
-	end
+	local ratingTextWidth = useTextWidth(props.ratingText, stylePalette.Font)
+	local playingTextWidth = useTextWidth(props.playingText, stylePalette.Font)
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -107,16 +114,20 @@ local function StatGroup(props: Props)
 			Padding = UDim.new(0, spacingGap),
 		}),
 		RatingStats = renderStatItem({
-			Size = UDim2.new(0, 0, 1, 0),
-			AutomaticSize = Enum.AutomaticSize.X,
+			Size = UDim2.new(0, 0, if UIBloxConfig.useAutomaticSizeYInStatGroup then 0 else 1, 0),
+			AutomaticSize = if UIBloxConfig.useAutomaticSizeYInStatGroup
+				then Enum.AutomaticSize.XY
+				else Enum.AutomaticSize.X,
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,
 		}, RATING_ICON, props.ratingText, stylePalette, ratingTextWidth),
 
 		PlayingStats = if props.playingText ~= nil
 			then renderStatItem({
-				Size = UDim2.new(0, 0, 1, 0),
-				AutomaticSize = Enum.AutomaticSize.X,
+				Size = UDim2.new(0, 0, if UIBloxConfig.useAutomaticSizeYInStatGroup then 0 else 1, 0),
+				AutomaticSize = if UIBloxConfig.useAutomaticSizeYInStatGroup
+					then Enum.AutomaticSize.XY
+					else Enum.AutomaticSize.X,
 				BackgroundTransparency = 1,
 				LayoutOrder = 2,
 			}, PLAYERS_ICON, props.playingText, stylePalette, playingTextWidth)

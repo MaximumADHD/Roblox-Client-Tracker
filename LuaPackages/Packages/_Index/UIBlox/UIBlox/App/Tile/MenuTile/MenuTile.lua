@@ -11,6 +11,7 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local Badge = require(App.Indicator.Badge)
+local BadgeStates = require(App.Indicator.Enum.BadgeStates)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
@@ -72,7 +73,7 @@ MenuTile.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.number),
 
 	-- Value displayed in the badge.
-	badgeValue = t.optional(t.union(t.string, t.number)),
+	badgeValue = t.optional(t.union(t.string, t.number, BadgeStates.isEnumValue)),
 	-- Image that will be shown in the middle of the menu tile.
 	icon = t.optional(validateImage),
 	-- Text displayed below the image.

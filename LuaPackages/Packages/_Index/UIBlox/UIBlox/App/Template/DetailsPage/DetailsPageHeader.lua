@@ -19,10 +19,6 @@ local t = require(Packages.t)
 
 local DetailsPageTitleContent = require(DetailsPage.DetailsPageTitleContent)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local EnableTextButtonsInActionBar = UIBloxConfig.enableTextButtonsInActionBar
-local EnableActionBarTokens = UIBloxConfig.enableActionBarTokens
-
 local DROP_SHADOW_IMAGE = "component_assets/dropshadow_thumbnail_28"
 local DROP_SHADOW_HEIGHT = 28
 
@@ -44,8 +40,8 @@ local ACTION_BAR_HEIGHT = 48
 DetailsPageHeader.defaultProps = {
 	thumbnailHeight = 200,
 	thumbnailAspectRatio = Vector2.new(1, 1),
-	actionBarHeight = if EnableActionBarTokens then ACTION_BAR_HEIGHT else nil,
-	actionBarWidth = if EnableActionBarTokens then ACTIONBAR_WIDTH else nil,
+	actionBarHeight = ACTION_BAR_HEIGHT,
+	actionBarWidth = ACTIONBAR_WIDTH,
 }
 
 DetailsPageHeader.validateProps = t.strictInterface({
@@ -62,8 +58,8 @@ DetailsPageHeader.validateProps = t.strictInterface({
 	bottomMargin = t.optional(t.number),
 	gradientHeight = t.optional(t.number),
 	thumbnailShadowHeight = t.optional(t.number),
-	actionBarHeight = if EnableActionBarTokens then t.optional(t.number) else nil,
-	actionBarWidth = if EnableActionBarTokens then t.optional(t.number) else nil,
+	actionBarHeight = t.optional(t.number),
+	actionBarWidth = t.optional(t.number),
 
 	actionBarProps = t.optional(ActionBar.validateProps),
 
@@ -145,19 +141,17 @@ function DetailsPageHeader:renderDesktopMode(style)
 				LayoutOrder = 2,
 			}),
 			ActonBarFrame = Roact.createElement("Frame", {
-				Size = if EnableActionBarTokens
-					then UDim2.fromOffset(self.props.actionBarWidth, self.props.actionBarHeight)
-					else UDim2.fromOffset(ACTIONBAR_WIDTH, ACTION_BAR_HEIGHT),
+				Size = UDim2.fromOffset(self.props.actionBarWidth, self.props.actionBarHeight),
 				BackgroundTransparency = 1,
 				LayoutOrder = 3,
 			}, {
 				ActionBar = self.props.actionBarProps and Roact.createElement(ActionBar, {
 					button = self.props.actionBarProps.button,
 					icons = self.props.actionBarProps.icons,
-					iconSize = if EnableActionBarTokens then self.props.actionBarProps.iconSize else nil,
-					buttonHeight = if EnableActionBarTokens then self.props.actionBarProps.buttonHeight else nil,
-					buttonPadding = if EnableActionBarTokens then self.props.actionBarProps.buttonPadding else nil,
-					textButtons = if EnableTextButtonsInActionBar then self.props.actionBarProps.textButtons else nil,
+					iconSize = self.props.actionBarProps.iconSize,
+					buttonHeight = self.props.actionBarProps.buttonHeight,
+					buttonPadding = self.props.actionBarProps.buttonPadding,
+					textButtons = self.props.actionBarProps.textButtons,
 					enableButtonAtStart = true,
 					marginOverride = {
 						left = 0,

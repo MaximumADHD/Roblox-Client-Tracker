@@ -19,5 +19,5 @@ return t.strictInterface({
 	Font = t.EnumItem,
 	FontSize = t.numberMinExclusive(0),
 	LineHeight = t.numberMinExclusive(0),
-	LetterSpacing = t.numberMin(0),
+	LetterSpacing = t.number,
 })

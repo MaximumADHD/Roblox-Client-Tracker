@@ -26,7 +26,6 @@ local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
 local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
-local EnableTextButtonsInActionBar = UIBloxConfig.enableTextButtonsInActionBar
 local withCursor = require(UIBlox.App.SelectionCursor.withCursor)
 
 local CORNER_RADIUS = UDim.new(0, 8)
@@ -127,21 +126,16 @@ function TextButton:init()
 end
 
 function TextButton:render()
-	if EnableTextButtonsInActionBar then
-		return withStyle(function(style)
-			return withSelectionCursorProvider(function(getSelectionCursor)
-				if UIBloxConfig.useNewSelectionCursor then
-					return withCursor(function(context)
-						return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
-					end)
-				else
-					return self:renderWithProviders(style, getSelectionCursor)
-				end
-			end)
-		end)
-	end
 	return withStyle(function(style)
-		return self:renderWithProviders(style)
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			if UIBloxConfig.useNewSelectionCursor then
+				return withCursor(function(context)
+					return self:renderWithProviders(style, getSelectionCursor, context.getCursor)
+				end)
+			else
+				return self:renderWithProviders(style, getSelectionCursor)
+			end
+		end)
 	end)
 end
 
@@ -162,10 +156,8 @@ function TextButton:renderWithProviders(style, getSelectionCursor, getCursor)
 	local manipulatedText = self.props.richText and cleanRichTextTags(self.props.text) or self.props.text
 	local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
 
-	local showBackground = EnableTextButtonsInActionBar and self.props.showBackground
-	local backgroundColor = if EnableTextButtonsInActionBar
-		then (self.props.backgroundColor or style.Theme["UIMuted"])
-		else nil
+	local showBackground = self.props.showBackground
+	local backgroundColor = self.props.backgroundColor or style.Theme["UIMuted"]
 
 	local verticalPadding = self.props.verticalPadding
 	local horizontalPadding = self.props.horizontalPadding

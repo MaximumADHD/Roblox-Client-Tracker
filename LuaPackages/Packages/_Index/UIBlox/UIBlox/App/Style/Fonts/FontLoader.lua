@@ -9,7 +9,7 @@ local StyleTypes = require(Style.StyleTypes)
 
 local FONT_CONFIG = {
 	BASE_SIZE = 16,
-	FACTOR = 1.2,
+	FACTOR = 1.26,
 }
 
 local FontLoader = {}
@@ -34,39 +34,45 @@ function FontLoader:loadFont()
 	local fontWithToken = {
 		BaseSize = baseSize * nominalSizeFactor,
 		HeadingLarge = {
-			Font = Enum.Font.GothamBlack,
+			-- selene: allow(incorrect_standard_library_use)
+			Font = Enum.Font.BuilderSansBold,
 			RelativeSize = tokens.Global.Size_350 / baseSize,
 			RelativeMinSize = tokens.Global.Size_300 / baseSize,
 		},
 		HeadingSmall = {
-			Font = Enum.Font.GothamMedium,
+			-- selene: allow(incorrect_standard_library_use)
+			Font = Enum.Font.BuilderSansBold,
 			RelativeSize = tokens.Global.Size_250 / baseSize,
 			RelativeMinSize = tokens.Global.Size_200 / baseSize,
 		},
 		TitleLarge = {
-			Font = Enum.Font.GothamMedium,
+			-- selene: allow(incorrect_standard_library_use)
+			Font = Enum.Font.BuilderSansBold,
 			RelativeSize = tokens.Global.Size_200 / baseSize,
 			RelativeMinSize = tokens.Global.Size_150 / baseSize,
 		},
 		BodyLarge = {
-			Font = Enum.Font.Gotham,
+			-- selene: allow(incorrect_standard_library_use)
+			Font = Enum.Font.BuilderSans,
 			RelativeSize = tokens.Global.Size_200 / baseSize,
 			RelativeMinSize = tokens.Global.Size_150 / baseSize,
 		},
 		CaptionLarge = {
-			Font = Enum.Font.GothamMedium,
+			-- selene: allow(incorrect_standard_library_use)
+			Font = Enum.Font.BuilderSansMedium,
 			RelativeSize = tokens.Global.Size_150 / baseSize,
 			RelativeMinSize = tokens.Global.Size_100 / baseSize,
 		},
 		BodySmall = {
-			Font = Enum.Font.Gotham,
+			-- selene: allow(incorrect_standard_library_use)
+			Font = Enum.Font.BuilderSans,
 			RelativeSize = tokens.Global.Size_150 / baseSize,
 			RelativeMinSize = tokens.Global.Size_100 / baseSize,
 		},
 		CaptionSmall = {
-			Font = Enum.Font.GothamMedium,
-			-- TODO: We don't have token Global.Size_125(10) yet, use FontSize_25(10) temporarily
-			RelativeSize = tokens.Global.FontSize_25 / baseSize,
+			-- selene: allow(incorrect_standard_library_use)
+			Font = Enum.Font.BuilderSansMedium,
+			RelativeSize = tokens.Global.Size_125 / baseSize,
 			RelativeMinSize = tokens.Global.Size_100 / baseSize,
 		},
 	}

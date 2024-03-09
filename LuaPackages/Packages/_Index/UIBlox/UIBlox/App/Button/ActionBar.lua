@@ -23,13 +23,8 @@ local getPageMargin = require(App.Container.getPageMargin)
 local StyleConstants = require(App.Style.Constants)
 
 local ActionBar = Roact.PureComponent:extend("ActionBar")
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
-local EnableTextButtonsInActionBar = UIBloxConfig.enableTextButtonsInActionBar
-local EnableActionBarTokens = UIBloxConfig.enableActionBarTokens
 
 local BUTTON_PADDING = 12
-local BUTTON_HEIGHT = 48
-local ICON_SIZE = 36
 
 function ActionBar:init()
 	self.buttonRefs = RoactGamepad.createRefCache()
@@ -108,11 +103,9 @@ ActionBar.validateProps = t.strictInterface({
 	frameRef = t.optional(t.table),
 
 	-- textButtons: A table of button tables that contain props that TextButton allow.
-	textButtons = if EnableTextButtonsInActionBar
-		then t.optional(t.array(t.strictInterface({
-			props = TextButton.validateProps,
-		})))
-		else nil,
+	textButtons = t.optional(t.array(t.strictInterface({
+		props = TextButton.validateProps,
+	}))),
 })
 
 ActionBar.defaultProps = {
@@ -146,10 +139,8 @@ function ActionBar:render()
 		end
 
 		local textNumber = 0
-		if EnableTextButtonsInActionBar then
-			if self.props.textButtons and #self.props.textButtons then
-				textNumber = #self.props.textButtons
-			end
+		if self.props.textButtons and #self.props.textButtons then
+			textNumber = #self.props.textButtons
 		end
 
 		local buttonNumber = self.props.button ~= nil and 1 or 0
@@ -168,9 +159,7 @@ function ActionBar:render()
 
 				local gamepadFrameProps = {
 					key = "Button" .. tostring(iconButtonIndex),
-					Size = if EnableActionBarTokens
-						then UDim2.fromOffset(self.props.iconSize, self.props.iconSize)
-						else UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+					Size = UDim2.fromOffset(self.props.iconSize, self.props.iconSize),
 					BackgroundTransparency = 1,
 					[Roact.Ref] = self.buttonRefs[iconButtonIndex],
 					NextSelectionUp = nil,
@@ -193,7 +182,7 @@ function ActionBar:render()
 			end
 		end
 
-		if EnableTextButtonsInActionBar and (textNumber ~= 0) then
+		if textNumber ~= 0 then
 			for textButtonKey, textButton in ipairs(self.props.textButtons) do
 				local textButtonIndex = (if isButtonAtStart then textButtonKey + buttonNumber else textButtonKey)
 					+ iconNumber
@@ -204,9 +193,7 @@ function ActionBar:render()
 
 				local gamepadFrameProps = {
 					key = "Button" .. tostring(textButtonIndex),
-					Size = if EnableActionBarTokens
-						then UDim2.fromOffset(0, self.props.iconSize)
-						else UDim2.fromOffset(0, ICON_SIZE),
+					Size = UDim2.fromOffset(0, self.props.iconSize),
 					AutomaticSize = Enum.AutomaticSize.X,
 					BackgroundTransparency = 1,
 					[Roact.Ref] = self.buttonRefs[textButtonIndex],
@@ -231,12 +218,10 @@ function ActionBar:render()
 		end
 
 		if buttonNumber ~= 0 then
-			local buttonSize = if EnableActionBarTokens
-				then UDim2.fromOffset(
-					contentWidth - iconNumber * (self.props.iconSize + self.props.buttonPadding),
-					self.props.buttonHeight
-				)
-				else UDim2.fromOffset(contentWidth - iconNumber * (ICON_SIZE + BUTTON_PADDING), BUTTON_HEIGHT)
+			local buttonSize = UDim2.fromOffset(
+				contentWidth - iconNumber * (self.props.iconSize + self.props.buttonPadding),
+				self.props.buttonHeight
+			)
 			local buttonIndex = isButtonAtStart and 1 or iconNumber + 1
 
 			local newProps = {
@@ -280,9 +265,7 @@ function ActionBar:render()
 
 		return Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
 			BackgroundTransparency = 1,
-			minimumSize = if EnableActionBarTokens
-				then UDim2.new(1, 0, 0, self.props.buttonHeight)
-				else UDim2.new(1, 0, 0, BUTTON_HEIGHT),
+			minimumSize = UDim2.new(1, 0, 0, self.props.buttonHeight),
 			FillDirection = Enum.FillDirection.Horizontal,
 			HorizontalAlignment = self.props.horizontalAlignment,
 			VerticalAlignment = Enum.VerticalAlignment.Center,

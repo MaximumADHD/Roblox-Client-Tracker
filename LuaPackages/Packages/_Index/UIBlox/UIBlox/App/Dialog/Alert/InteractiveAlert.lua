@@ -51,6 +51,8 @@ InteractiveAlert.validateProps = t.strictInterface({
 	titleContent = t.optional(t.callback),
 	-- Body message text of the `Alert`
 	bodyText = t.optional(t.string),
+	-- Allows body text to include rich text formatting
+	richText = t.optional(t.boolean),
 	-- Function that returns a Roact element to render. Use this for checkboxes and other custom components.
 	-- The content will render between the bodyText (if any) and buttons (if any)
 	middleContent = t.optional(t.callback),
@@ -148,6 +150,7 @@ function InteractiveAlert:render()
 						fontStyle = font.Body,
 						LayoutOrder = 1,
 						Text = self.props.bodyText,
+						RichText = self.props.richText,
 						TextSize = fontSize,
 						TextXAlignment = Enum.TextXAlignment.Center,
 						Size = UDim2.new(1, 0, 0, fullTextHeight),

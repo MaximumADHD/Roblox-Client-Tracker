@@ -2,12 +2,6 @@ return {
 	-- New color palettes of color system 1.1
 	useNewThemeColorPalettes = false,
 
-	-- Work around automatic size bug in StatGroup
-	useStatGroupManualSize = false,
-
-	-- Allow UIBlox TextButtons to be shown after Icon Buttons in the ActionBar
-	enableTextButtonsInActionBar = false,
-
 	-- Indicate whether to enable the new layout for menu/cell
 	enableNewMenuLayout = false,
 
@@ -16,9 +10,6 @@ return {
 
 	-- Enable IconButton to calculate size based on token values
 	useTokensSizeInIconButton = false,
-
-	-- enable tokens for action bar
-	enableActionBarTokens = false,
 
 	-- enable trace level log
 	enableTraceLevelLog = false,
@@ -44,6 +35,9 @@ return {
 	-- Use the new features of ShortcutBar for responding to last input type and fadeout
 	useInputResponsiveShortcutBarChanges = false,
 
+	-- Have StatGroup use vertical AutomaticSize instead of filling its parent
+	useAutomaticSizeYInStatGroup = false,
+
 	-- do not mount the Details Page Header Action Bar when the Sticky ActionBar
 	-- active
 	hideHeaderActionBarWhenStickyBarActive = false,
@@ -68,4 +62,7 @@ return {
 
 	-- Use GetTextBoundsAsync instead of GetTextSize to guarantee a correct result
 	useGetTextBoundsAsync = false,
+
+	-- Support ControlState.Selected in the hover controller for TooltipV2
+	supportControlStateSelectedForTooltipHover = false,
 }

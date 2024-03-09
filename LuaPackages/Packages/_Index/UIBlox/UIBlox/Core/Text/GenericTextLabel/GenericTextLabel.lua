@@ -50,6 +50,7 @@ function GenericTextLabel:render()
 		local color = self.props.colorStyle
 		local textColor = color.Color or color.Color3
 		local textTransparency = color.Transparency
+		local richText = self.props.RichText
 
 		local baseSize = stylePalette.Font.BaseSize
 
@@ -92,6 +93,7 @@ function GenericTextLabel:render()
 			TextWrapped = self.props.TextWrapped == nil and true or self.props.TextWrapped,
 			TextScaled = isFluidSizing,
 			BackgroundTransparency = 1,
+			RichText = richText,
 		})
 
 		return Roact.createElement(

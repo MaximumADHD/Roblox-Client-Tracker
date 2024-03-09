@@ -59,12 +59,14 @@ local defaultStyle: StyleProps = {
 local function AppStyleProvider(props: Props)
 	local style: StyleProps = Object.assign({}, defaultStyle, props.style)
 	local themeName, setThemeName = React.useState(style.themeName)
-	local tokens: Tokens = getTokens(style.deviceType, themeName, UIBloxConfig.useTokensWithScale) :: Tokens
+	local enableFontNameMapping = UIBloxConfig.enableFontNameMapping
+	local tokens: Tokens =
+		getTokens(style.deviceType, themeName, UIBloxConfig.useTokensWithScale, enableFontNameMapping) :: Tokens
 
 	-- TODO: Add additional validation for tokens here to make it safe. We can remove the call after design token stuff is fully stable.
 	assert(validateTokens(tokens), "Invalid tokens!")
 	local appStyle: AppStyle = {
-		Font = getFontFromName(style.fontName, UIBloxConfig.enableFontNameMapping, tokens),
+		Font = getFontFromName(style.fontName, enableFontNameMapping, tokens),
 		Theme = getThemeFromName(themeName),
 		Tokens = tokens,
 		Settings = if style.settings

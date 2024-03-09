@@ -12,6 +12,8 @@ local Consts = require(Tooltip.Constants)
 local TooltipController = require(Tooltip.TooltipController)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local function HoverController(props: Types.HoverControllerProps)
 	local active, setActive = React.useState(false)
 	local lastEndHover = React.useRef(tick())
@@ -30,7 +32,10 @@ local function HoverController(props: Types.HoverControllerProps)
 			setActive(false)
 			return
 		end
-		if newState == ControlState.Hover then
+		if
+			newState == ControlState.Hover
+			or (UIBloxConfig.supportControlStateSelectedForTooltipHover and newState == ControlState.Selected)
+		then
 			local prevTick = lastEndHover.current
 			delay(delayTime, function()
 				-- check that we have not lost hover since the change was initiated
@@ -38,7 +43,10 @@ local function HoverController(props: Types.HoverControllerProps)
 					setActive(true)
 				end
 			end)
-		elseif oldState == ControlState.Hover then
+		elseif
+			oldState == ControlState.Hover
+			or (UIBloxConfig.supportControlStateSelectedForTooltipHover and oldState == ControlState.Selected)
+		then
 			lastEndHover.current = tick()
 			setActive(false)
 		end

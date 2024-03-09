@@ -144,7 +144,6 @@ local function initializeLibrary(configs)
 			LinkButton = require(script.App.Button.LinkButton),
 			IconButton = require(script.App.Button.IconButton),
 			ActionBar = require(script.App.Button.ActionBar),
-			LogoTray = require(script.App.Button.LogoTray),
 		}),
 
 		Cell = strict({
@@ -384,6 +383,8 @@ local function initializeLibrary(configs)
 
 	UIBlox.UnitTestHelpers = {
 		MockContentProvider = require(script.UnitTestHelpers.MockContentProvider),
+		mockStyleComponent = require(script.Utility.mockStyleComponent),
+		testWithStyledComponent = require(script.UnitTestHelpers.testWithStyledComponent),
 	}
 
 	UIBlox.Style = {

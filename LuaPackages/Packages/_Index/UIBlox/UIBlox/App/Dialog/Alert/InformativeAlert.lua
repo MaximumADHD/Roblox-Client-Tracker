@@ -40,6 +40,8 @@ InformativeAlert.validateProps = t.strictInterface({
 	titleIcon = t.optional(t.union(t.table, t.string)),
 	-- Body message text of the `Alert`
 	bodyText = t.optional(t.string),
+	-- Enable rich text formatting for body text
+	richText = t.optional(t.boolean),
 })
 
 function InformativeAlert:render()
@@ -106,6 +108,7 @@ function InformativeAlert:render()
 					TextSize = fontSize,
 					TextXAlignment = Enum.TextXAlignment.Center,
 					Size = UDim2.new(1, 0, 0, fullTextHeight),
+					RichText = self.props.richText,
 				})
 			end,
 		})

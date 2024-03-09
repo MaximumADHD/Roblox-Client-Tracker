@@ -12,8 +12,6 @@ local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypog
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
-local DEFAULT_LINE_HEIGHT = 1.4
-
 --[[
 	At this point this is just a wrapper for the GenericTextLabel for external use
 ]]
@@ -45,6 +43,7 @@ StyledTextLabel.validateProps = t.strictInterface({
 	-- Determines whether resizing occurs based on child content
 	automaticSize = t.optional(t.EnumItem),
 	lineHeight = t.optional(t.number),
+	clipsDescendants = t.optional(t.boolean),
 })
 
 StyledTextLabel.defaultProps = {
@@ -53,6 +52,8 @@ StyledTextLabel.defaultProps = {
 	richText = true,
 	fluidSizing = true,
 	automaticSize = Enum.AutomaticSize.None,
+	lineHeight = 1.4,
+	clipsDescendants = false,
 }
 
 function StyledTextLabel:render()
@@ -70,7 +71,8 @@ function StyledTextLabel:render()
 		LayoutOrder = self.props.layoutOrder,
 		RichText = self.props.richText,
 		AutomaticSize = self.props.automaticSize,
-		LineHeight = self.props.lineHeight or DEFAULT_LINE_HEIGHT,
+		LineHeight = self.props.lineHeight,
+		ClipsDescendants = self.props.clipsDescendants,
 	})
 end
 

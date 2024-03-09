@@ -42,10 +42,12 @@ return {
 	getTokens = function(
 		deviceType: DeviceType,
 		themeName: ThemeName | string,
-		useCommonTokens: boolean?
+		useCommonTokens: boolean?,
+		enableTokenNameMapping: boolean?
 	): Types.Tokens
 		if useCommonTokens then
-			local tokenGenerators = GetTokenGenerators(themeName) or GetTokenGenerators(Constants.DefaultThemeName)
+			local tokenGenerators = GetTokenGenerators(themeName, enableTokenNameMapping)
+				or GetTokenGenerators(Constants.DefaultThemeName, enableTokenNameMapping)
 			local scale = getPlatformScale(deviceType)
 
 			return {

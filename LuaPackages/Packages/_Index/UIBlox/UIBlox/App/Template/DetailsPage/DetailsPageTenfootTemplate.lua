@@ -13,9 +13,6 @@ local useDetailsPageRenderItems = require(DetailsPage.Hooks.useDetailsPageRender
 local useAnimateFullscreen = require(DetailsPage.Hooks.useAnimateFullscreen)
 local DetailsPageRenderItem = require(DetailsPage.DetailsPageRenderItem)
 
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
-local EnableActionBarTokens = UIBloxConfig.enableActionBarTokens
-
 local Overlay = require(App.Dialog.Overlay.Overlay)
 local LoadableImage = require(App.Loading.LoadableImage)
 
@@ -194,8 +191,8 @@ local function DetailsPageTenfootTemplate(props: Props)
 			deviceType = props.deviceType,
 			thumbnailShadowHeight = tokens.thumbnailShadowHeight,
 			gradientHeight = tokens.headerGradientHeight,
-			actionBarHeight = if EnableActionBarTokens then tokens.actionBarHeight else nil,
-			actionBarWidth = if EnableActionBarTokens then tokens.actionBarWidth else nil,
+			actionBarHeight = tokens.actionBarHeight,
+			actionBarWidth = tokens.actionBarWidth,
 			itemPadding = tokens.thumbnailMargin,
 			bottomMargin = tokens.headerBottomMargin,
 		})
