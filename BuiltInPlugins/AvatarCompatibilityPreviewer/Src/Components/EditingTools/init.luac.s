@@ -21,13 +21,13 @@ PROTO_2:
 
 PROTO_3:
   GETUPVAL R0 0
-  LOADK R1 K0 ["cage"]
+  LOADK R1 K0 ["attachments"]
   CALL R0 1 0
   RETURN R0 0
 
 PROTO_4:
   GETUPVAL R0 0
-  LOADK R1 K0 ["attachments"]
+  LOADK R1 K0 ["cage"]
   CALL R0 1 0
   RETURN R0 0
 
@@ -98,17 +98,17 @@ PROTO_5:
   LOADK R16 K23 ["Button"]
   SETTABLEKS R16 R15 K17 ["Type"]
   LOADK R18 K24 ["EditingTools"]
-  LOADK R19 K31 ["CageTool"]
+  LOADK R19 K31 ["AttachmentsTool"]
   NAMECALL R16 R1 K26 ["getText"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K18 ["Tooltip"]
-  LOADK R17 K32 ["%*/cage_tool.png"]
+  LOADK R17 K32 ["%*/attachments_tool.png"]
   LOADK R19 K28 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large"]
   NAMECALL R17 R17 K29 ["format"]
   CALL R17 2 1
   MOVE R16 R17
   SETTABLEKS R16 R15 K19 ["Icon"]
-  JUMPIFEQKS R2 K33 ["cage"] [+2]
+  JUMPIFEQKS R2 K5 ["attachments"] [+2]
   LOADB R16 0 +1
   LOADB R16 1
   SETTABLEKS R16 R15 K20 ["Selected"]
@@ -119,17 +119,17 @@ PROTO_5:
   LOADK R17 K23 ["Button"]
   SETTABLEKS R17 R16 K17 ["Type"]
   LOADK R19 K24 ["EditingTools"]
-  LOADK R20 K34 ["AttachmentsTool"]
+  LOADK R20 K33 ["CageTool"]
   NAMECALL R17 R1 K26 ["getText"]
   CALL R17 3 1
   SETTABLEKS R17 R16 K18 ["Tooltip"]
-  LOADK R18 K35 ["%*/attachments_tool.png"]
+  LOADK R18 K34 ["%*/cage_tool.png"]
   LOADK R20 K28 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large"]
   NAMECALL R18 R18 K29 ["format"]
   CALL R18 2 1
   MOVE R17 R18
   SETTABLEKS R17 R16 K19 ["Icon"]
-  JUMPIFEQKS R2 K5 ["attachments"] [+2]
+  JUMPIFEQKS R2 K35 ["cage"] [+2]
   LOADB R17 0 +1
   LOADB R17 1
   SETTABLEKS R17 R16 K20 ["Selected"]
@@ -148,11 +148,25 @@ PROTO_5:
   GETTABLEKS R12 R0 K36 ["worldModel"]
   SETTABLEKS R12 R11 K36 ["worldModel"]
   CALL R9 2 1
+  JUMP [+24]
+  GETUPVAL R10 7
+  CALL R10 0 1
+  JUMPIFNOT R10 [+17]
+  JUMPIFNOTEQKS R2 K35 ["cage"] [+16]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K8 ["createElement"]
+  GETUPVAL R10 8
+  DUPTABLE R11 K40 [{"Dummy", "WorldModel"}]
+  GETTABLEKS R12 R0 K41 ["dummy"]
+  SETTABLEKS R12 R11 K38 ["Dummy"]
+  GETTABLEKS R12 R0 K36 ["worldModel"]
+  SETTABLEKS R12 R11 K39 ["WorldModel"]
+  CALL R9 2 1
   JUMP [+4]
-  GETIMPORT R9 K39 [error]
-  LOADK R10 K40 ["prtodo: Other tools"]
+  GETIMPORT R9 K43 [error]
+  LOADK R10 K44 ["prtodo: Other tools"]
   CALL R9 1 1
-  SETTABLEKS R9 R8 K41 ["Tool"]
+  SETTABLEKS R9 R8 K45 ["Tool"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -188,20 +202,32 @@ MAIN:
   GETTABLEKS R7 R8 K14 ["AttachmentTool"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K10 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Flags"]
-  GETTABLEKS R8 R9 K16 ["getFFlagAvatarPreviewerEditingTools"]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K15 ["CageEditing"]
+  GETTABLEKS R8 R9 K16 ["CageToolsManager"]
   CALL R7 1 1
-  GETTABLEKS R9 R1 K17 ["ContextServices"]
-  GETTABLEKS R8 R9 K18 ["Localization"]
-  GETTABLEKS R10 R1 K17 ["ContextServices"]
-  GETTABLEKS R9 R10 K19 ["Plugin"]
-  DUPCLOSURE R10 K20 [PROTO_5]
-  CAPTURE VAL R7
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Flags"]
+  GETTABLEKS R9 R10 K18 ["getFFlagAvatarPreviewerEditingTools"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Flags"]
+  GETTABLEKS R10 R11 K19 ["getFFlagAvatarPreviewerCageEditingTools"]
+  CALL R9 1 1
+  GETTABLEKS R11 R1 K20 ["ContextServices"]
+  GETTABLEKS R10 R11 K21 ["Localization"]
+  GETTABLEKS R12 R1 K20 ["ContextServices"]
+  GETTABLEKS R11 R12 K22 ["Plugin"]
+  DUPCLOSURE R12 K23 [PROTO_5]
   CAPTURE VAL R8
+  CAPTURE VAL R10
   CAPTURE VAL R2
-  CAPTURE VAL R9
+  CAPTURE VAL R11
   CAPTURE VAL R4
   CAPTURE VAL R3
   CAPTURE VAL R6
-  RETURN R10 1
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  RETURN R12 1

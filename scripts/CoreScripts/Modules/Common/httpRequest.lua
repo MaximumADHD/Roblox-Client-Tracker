@@ -1,9 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
 
-local LuaApp = CorePackages.AppTempCommon.LuaApp
-
-local Promise = require(LuaApp.Promise)
+local Promise = require(CorePackages.Packages.Promise)
 
 local DEFAULT_THROTTLING_PRIORITY = Enum.ThrottlingPriority.Extreme
 local DEFAULT_POST_ASYNC_CONTENT_TYPE = Enum.HttpContentType.ApplicationJson

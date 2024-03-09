@@ -52,51 +52,57 @@ var10.Voxel = "Voxel"
 var1.Snapping = "Snapping"
 var0.Snapping = var10
 local var11 = {}
-local var55 = var2.Add
-local var56 = var2.Subtract
+var11.Mountain = "Mountain"
+var1.TerrainType = "TerrainType"
+var0.TerrainType = var11
+local var12 = {}
+local var58 = var2.Add
+local var59 = var2.Subtract
 var1.BrushMode = {}
-local var59 = var3.Sphere
-local var60 = var3.Cube
-local var61 = var3.Cylinder
+local var62 = var3.Sphere
+local var63 = var3.Cube
+local var64 = var3.Cylinder
 var1.BrushShape = {}
-local var64 = var4.Fill
-local var65 = var4.Replace
+local var67 = var4.Fill
+local var68 = var4.Replace
 var1.FillMode = {}
-local var68 = var6.Auto
-local var69 = var6.Fixed
+local var71 = var6.Auto
+local var72 = var6.Fixed
 var1.FlattenPlane = {}
-local var72 = var5.Erode
-local var73 = var5.Grow
-local var74 = var5.Both
+local var75 = var5.Erode
+local var76 = var5.Grow
+local var77 = var5.Both
 var1.FlattenMode = {}
-local var77 = var7.Bottom
-local var78 = var7.Center
-local var79 = var7.Top
+local var80 = var7.Bottom
+local var81 = var7.Center
+local var82 = var7.Top
 var1.PivotPosition = {}
-local var82 = var8.Off
-local var83 = var8.Auto
-local var84 = var8.Manual
+local var85 = var8.Off
+local var86 = var8.Auto
+local var87 = var8.Manual
 var1.PlaneLock = {}
-local var87 = var9.Paint
-local var88 = var9.Replace
+local var90 = var9.Paint
+local var91 = var9.Replace
 var1.MaterialMode = {}
-local var89 = var1.Snapping
-local var91 = var10.Off
+local var94 = var10.Off
 local var34 = var10.Voxel
 var1.Snapping = {}
-var89 = require(script:FindFirstAncestor("TerrainEditor").Src.Flags.getFFlagTerrainEditorBrushSizeSnapping)
-local var35 = var89()
-if var35 then
-   table.insert(var11[var1.Snapping], var10.BrushSize)
+local var97 = var1.TerrainType
+local var99 = var11.Mountain
+var1.TerrainType = {}
+var97 = require(script:FindFirstAncestor("TerrainEditor").Src.Flags.getFFlagTerrainEditorBrushSizeSnapping)
+local var37 = var97()
+if var37 then
+   table.insert(var12[var1.Snapping], var10.BrushSize)
 end
-var35 = var0
-local var36 = nil
-local var37 = nil
-assert(var11[var34], `Expected editor enum index for {var34}`)
-local var38 = var10.BrushSize
+var37 = var0
+local var38 = nil
 local var39 = nil
-local var40 = nil
-assert(table.find(var11[var34], var113), `Expected index for enum value {var34}`)
-var0.EnumTypeIndices = var11
+assert(var12[var34], `Expected editor enum index for {var34}`)
+local var40 = var10.BrushSize
+local var41 = nil
+local var42 = nil
+assert(table.find(var12[var34], var119), `Expected index for enum value {var34}`)
+var0.EnumTypeIndices = var12
 var0.EnumType = var1
 return var0

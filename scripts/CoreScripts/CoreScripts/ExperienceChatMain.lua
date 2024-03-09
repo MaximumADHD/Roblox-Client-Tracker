@@ -96,7 +96,7 @@ end
 local createdDefaultChannels
 local validateLegacyBubbleChatSettings
 if GetFFlagConsolidateBubbleChat() then
-	createdDefaultChannels = TextChatService.ChatVersion == Enum.ChatVersion.TextChatService
+	createdDefaultChannels = TextChatService.ChatVersion == Enum.ChatVersion.TextChatService and TextChatService.CreateDefaultTextChannels
 	validateLegacyBubbleChatSettings = require(RobloxGui.Modules.InGameChat.BubbleChat.Types).IChatSettings
 else
 	createdDefaultChannels = TextChatService.CreateDefaultTextChannels

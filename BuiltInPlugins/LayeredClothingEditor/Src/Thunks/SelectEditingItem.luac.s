@@ -274,10 +274,8 @@ MAIN:
   GETTABLEKS R3 R0 K5 ["Packages"]
   GETTABLEKS R2 R3 K6 ["Cryo"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["LuaMeshEditingModule"]
-  CALL R2 1 1
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["LuaMeshEditingModule"]
   GETIMPORT R3 K4 [require]
   GETTABLEKS R5 R0 K5 ["Packages"]
   GETTABLEKS R4 R5 K8 ["AvatarToolsShared"]

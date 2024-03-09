@@ -34,6 +34,12 @@ local MILLISECONDS_PER_SECOND = 1000
 local MILLISECONDS_PER_DAY = 24 * 60 * 60 * MILLISECONDS_PER_SECOND
 local MILLISECONDS_PER_WEEK = MILLISECONDS_PER_DAY * 7
 
+local FOCUS_INSET_ADJUSTMENT = 6
+local FOCUS_BORDER_WIDTH = 3
+local FOCUS_GRADIENT_ROTATION_SPEED = 2
+ -- corner_radius should be inset_adjustment + inner object corner radius (8px for players page)
+local FOCUS_CORNER_RADIUS = UDim.new(0, 14)
+
 ------------- SERVICES ----------------
 local HttpService = game:GetService("HttpService")
 local UserInputService = game:GetService("UserInputService")
@@ -44,6 +50,7 @@ local RobloxGui = CoreGui:FindFirstChild("RobloxGui")
 local ContextActionService = game:GetService("ContextActionService")
 local VRService = game:GetService("VRService")
 local Workspace = game:GetService("Workspace")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 --------------- FLAGS ----------------
 
@@ -55,6 +62,7 @@ local FFlagUseNotificationsLocalization = success and result
 local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSettingsHubButtonCanBeDisabled)
 local FFlagSettingsMenuUseHardwareSafeArea = game:DefineFastFlag("SettingsMenuUseHardwareSafeArea", false)
 local GetFFlagFix10ftMenuAddFriend = require(Settings.Flags.GetFFlagFix10ftMenuAddFriend)
+local GetFFlagAddAnimatedFocusState = require(Settings.Flags.GetFFlagAddAnimatedFocusState)
 
 ------------------ Modules --------------------
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
@@ -732,6 +740,72 @@ local function AddButtonRow(pageToAddTo, name, text, size, clickFunc, hubRef)
 	button.AnchorPoint = Vector2.new(1, 0)
 	button.Position = UDim2.new(1, -20, 0, 0)
 	return row, button, textLabel, setRowRef
+end
+
+-- adds a SelectionImageObject to instance to act as a focusState based off of UIBlox CursorKind.RoundedRect
+-- focus state is unbound when instance is un-parented
+local function MakeRoundedRectFocusState(instance, renderStepName)
+	if not GetFFlagAddAnimatedFocusState() or not Theme.UIBloxThemeEnabled then
+		return
+	end
+
+
+	local focusState = Util.Create("Frame")({
+		BackgroundTransparency = 1,
+		Size = UDim2.new(1, FOCUS_INSET_ADJUSTMENT * 2, 1, FOCUS_INSET_ADJUSTMENT * 2),
+		Position = UDim2.fromOffset(-FOCUS_INSET_ADJUSTMENT, -FOCUS_INSET_ADJUSTMENT),
+	})
+
+	Util.Create("UICorner") ({
+		CornerRadius = FOCUS_CORNER_RADIUS,
+		Parent = focusState,
+	})
+
+	local stroke = Util.Create("UIStroke")({
+		Color = Theme.selectionCursor.AnimatedColor,
+		Transparency = 0,
+		Thickness = FOCUS_BORDER_WIDTH,
+		Parent = focusState,
+	})
+
+	local gradient = Util.Create("UIGradient")({
+		Rotation = 0,
+		Color = Theme.selectionCursor.GradientColorSequence,
+		Transparency = Theme.selectionCursor.GradientTransparencySequence,
+		Parent = stroke,
+	})
+
+	RunService:BindToRenderStep(renderStepName, Enum.RenderPriority.Last.Value, function()
+		local rotation = gradient.Rotation + FOCUS_GRADIENT_ROTATION_SPEED
+		local color = Theme.selectionCursor.GradientColorSequence
+		local transparency = Theme.selectionCursor.GradientTransparencySequence
+
+		-- When ReducedMotion is enabled, instead of a rotating gradient,
+		-- the border fades between the first and last color in the sequence.
+		if UserGameSettings.ReducedMotion then
+			local position = (math.sin(math.rad(rotation)) + 1) / 2
+
+			local c0 = color.Keypoints[1].Value
+			local c1 = color.Keypoints[#color.Keypoints].Value
+			color = ColorSequence.new(c0:lerp(c1, position))
+
+			local t0 = transparency.Keypoints[1].Value
+			local t1 = transparency.Keypoints[#transparency.Keypoints].Value
+			transparency = NumberSequence.new(t0 + (t1 - t0) * position)
+		end
+
+		gradient.Rotation = rotation
+		gradient.Color = color
+		gradient.Transparency = transparency
+	end)
+
+	instance.AncestryChanged:Connect(function(child, parent)
+		if not parent then
+			RunService:UnbindFromRenderStep(renderStepName)
+		end
+	end)
+
+	instance.SelectionImageObject = focusState
 end
 
 local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
@@ -3268,6 +3342,10 @@ end
 
 function moduleApiTable:AddButtonRow(pageToAddTo, name, text, size, clickFunc, hubRef)
 	return AddButtonRow(pageToAddTo, name, text, size, clickFunc, hubRef)
+end
+
+function moduleApiTable:MakeFocusState(instance, renderStepName)
+	return MakeRoundedRectFocusState(instance, renderStepName)
 end
 
 function moduleApiTable:CreateSignal()

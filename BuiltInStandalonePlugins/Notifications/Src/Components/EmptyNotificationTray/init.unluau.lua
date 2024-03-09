@@ -10,13 +10,13 @@ return function(arg1)
    local var1 = var1.useCallback(function()
       arg1.OnRetry(true)
    end, {})
-   local var159 = arg1.Loading
-   local var160 = arg1.OnLoadError
-   local var165 = {}
-   var165.LayoutOrder = arg1.LayoutOrder
-   local var168 = var1.Tag
+   local var31 = arg1.Loading
+   local var32 = arg1.OnLoadError
+   local var37 = {}
+   var37.LayoutOrder = arg1.LayoutOrder
+   local var40 = var1.Tag
    var1.Tag = "Component-EmptyNotificationTray"
-   var168 = var1.useMemo(function()
+   var40 = var1.useMemo(function()
       if arg1.Loading then
          local var0 = {}
          local var36 = {}
@@ -61,17 +61,17 @@ return function(arg1)
       end
       local var0 = {}
       var1.Tag = "Component-EmptyNotificationTray-Centering"
-      local var136 = {}
-      local var140 = {}
-      var140.LayoutOrder = 1
-      var136.EmptyImage = var1.createElement("ImageLabel", var140)
-      local var146 = {}
-      var146.LayoutOrder = 2
-      var146.Text = var0:getText("EmptyNotificationTray", "NoNewNotifications")
+      local var8 = {}
+      local var12 = {}
+      var12.LayoutOrder = 1
+      var8.EmptyImage = var1.createElement("ImageLabel", var12)
+      local var18 = {}
+      var18.LayoutOrder = 2
+      var18.Text = var0:getText("EmptyNotificationTray", "NoNewNotifications")
       var1.Tag = "Component-EmptyNotificationTray-SubText"
-      var136.TextLabel = var1.createElement("TextLabel", var146)
-      var0.EmptyState = var1.createElement("Frame", {}, var136)
+      var8.TextLabel = var1.createElement("TextLabel", var18)
+      var0.EmptyState = var1.createElement("Frame", {}, var8)
       return var0
    end, {})
-   return var1.createElement("Frame", var165, var168)
+   return var1.createElement("Frame", var37, var40)
 end

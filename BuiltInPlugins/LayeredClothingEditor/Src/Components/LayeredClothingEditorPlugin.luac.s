@@ -435,10 +435,8 @@ MAIN:
   GETTABLEKS R7 R1 K9 ["Packages"]
   GETTABLEKS R6 R7 K13 ["AvatarToolsShared"]
   CALL R5 1 1
-  GETIMPORT R6 K8 [require]
-  GETTABLEKS R8 R1 K9 ["Packages"]
-  GETTABLEKS R7 R8 K14 ["LuaMeshEditingModule"]
-  CALL R6 1 1
+  GETTABLEKS R7 R1 K9 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["LuaMeshEditingModule"]
   GETIMPORT R7 K8 [require]
   GETTABLEKS R9 R6 K15 ["Tools"]
   GETTABLEKS R8 R9 K16 ["PointTool"]

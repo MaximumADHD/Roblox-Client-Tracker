@@ -30,6 +30,7 @@ local ACTION_TRIGGER_LATCHED = 10000
 
 local TEST_VERSION = "t9" -- bump on new A/B campaigns
 local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
+local CONSOLE_MODERNIZATION_TEST_VERSION = "m1"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
@@ -46,6 +47,7 @@ local MENU_VERSION_MODERNIZATION_ENUM = {
 	MODERNIZED = "v5.1"..TEST_VERSION,
 	BIG_TEXT = "v5.2"..TEST_VERSION,
 	STICKY_BAR = "v5.3"..TEST_VERSION,
+	CONSOLE = "v5.4"..CONSOLE_MODERNIZATION_TEST_VERSION
 }
 
 local MENU_VERSION_CHROME_ENUM = {
@@ -70,6 +72,7 @@ local validVersion = {
 	[MENU_VERSION_MODERNIZATION_ENUM.MODERNIZED] = true,
 	[MENU_VERSION_MODERNIZATION_ENUM.BIG_TEXT] = false,
 	[MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR] = false,
+	[MENU_VERSION_MODERNIZATION_ENUM.CONSOLE] = true,
 	[MENU_VERSION_CHROME_ENUM.UNIBAR] = not GetFFlagDisableChromeUnibar,
 	[MENU_VERSION_CHROME_ENUM.PINNED_CHAT] = not GetFFlagDisableChromePinnedChat,
 	[MENU_VERSION_CHROME_ENUM.DEFAULT_OPEN] = not GetFFlagDisableChromeDefaultOpen,
@@ -139,6 +142,10 @@ end
 
 function ExperienceMenuABTestManager.modernizationStickyBarVersionId()
 	return MENU_VERSION_MODERNIZATION_ENUM.STICKY_BAR
+end
+
+function ExperienceMenuABTestManager.consoleModernizationVersionId()
+	return MENU_VERSION_MODERNIZATION_ENUM.CONSOLE
 end
 
 function ExperienceMenuABTestManager.chromeVersionId()

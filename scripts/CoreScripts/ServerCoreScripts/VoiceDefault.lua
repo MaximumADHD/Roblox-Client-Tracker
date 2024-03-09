@@ -1,3 +1,4 @@
+local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local VoiceChatService = game:GetService("VoiceChatService")
 local SoundService = game:GetService("SoundService")
@@ -5,12 +6,13 @@ local FFlagDebugLogVoiceDefault = game:DefineFastFlag("DebugLogVoiceDefault", fa
 local FFlagSetNewDeviceToFalse = game:DefineFastFlag("SetNewDeviceToFalse", false)
 local FFlagFixNewPlayerCheck = game:DefineFastFlag("FixNewPlayerCheck", false)
 local FFlagOnlyMakeInputsForVoiceUsers = game:DefineFastFlag("OnlyMakeInputsForVoiceUsers", false)
+local FFlagSendLikelySpeakingUsers = game:DefineFastFlag("SendLikelySpeakingUsers", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("VoiceDefaultUseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 
 local function log(...)
 	if FFlagDebugLogVoiceDefault then
-		print(...)
+		print("[VoiceDefault]", ...)
 	end
 end
 type AudioDeviceConnections = {
@@ -120,7 +122,6 @@ local function createAudioDevice(forPlayer: Player)
 			return
 		end
 	end
-	-- TODO: Check to make sure that the player has voice enabled before we create an AudioDeviceInput for them
 	local input = Instance.new("AudioDeviceInput")
 	input.Player = forPlayer
 	input.Parent = forPlayer
@@ -216,5 +217,31 @@ if (VoiceChatService :: any).UseNewAudioApi then
 		else
 			log("Attempting to set Active property for user", player, "without saved AudioDeviceInput")
 		end
+	end)
+end
+
+if FFlagSendLikelySpeakingUsers then
+	-- We use an unreliable event here because it isn't a big deal if a user doesn't see the latest likely speaking users
+	local SendLikelySpeakingUsers = Instance.new("UnreliableRemoteEvent")
+	SendLikelySpeakingUsers.Name = "SendLikelySpeakingUsers"
+	SendLikelySpeakingUsers.Parent = RobloxReplicatedStorage
+	local likelySpeakingPlayers: {[number]: boolean} = {}
+	log("Setting up likely speaking users")
+	Players.PlayerAdded:Connect(function(player)
+		local ok, result = pcall(function()
+			return VoiceChatService:IsVoiceEnabledForUserIdAsync(player.UserId)
+		end)
+		if ok and result then
+			log("Sending likely speaking user for ", player.Name)
+			likelySpeakingPlayers[player.UserId] = true
+			-- Is there a way to lower priority on this?
+			SendLikelySpeakingUsers:FireAllClients(likelySpeakingPlayers)
+		elseif not ok then
+			log("Error getting voice enabled status: ", result, " for ", player.Name)
+		end
+	end)
+	Players.PlayerRemoving:Connect(function(player)
+		-- We don't need to send any events here. This is only to stop likelySpeakingPlayers from growing excessively large
+		likelySpeakingPlayers[player.UserId] = nil
 	end)
 end

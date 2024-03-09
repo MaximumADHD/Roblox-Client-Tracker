@@ -5,9 +5,10 @@ local Players = game:GetService("Players")
 
 local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Roact)
+local GetFFlagIrisUseLocalizationProvider =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ContactList = RobloxGui.Modules.ContactList
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local BlockPlayer = require(RobloxGui.Modules.PlayerList.Thunks.BlockPlayer)
 
 local dependencies = require(ContactList.dependencies)
@@ -17,10 +18,18 @@ local UIBlox = dependencies.UIBlox
 local useSelector = dependencies.Hooks.useSelector
 local useDispatch = dependencies.Hooks.useDispatch
 
+local useLocalization
+local RobloxTranslator
+if GetFFlagIrisUseLocalizationProvider() then
+	useLocalization = dependencies.Hooks.useLocalization
+else
+	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
+
 local CloseCFM = require(ContactList.Actions.CloseCFM)
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
-local ConfigureFriendMenu = require(ContactList.Components.common.ConfigureFriendMenu)
+local ConfigureFriendMenu = require(ContactList.Components.ContactListCommon.ConfigureFriendMenu)
 local FriendAction = require(ContactList.Enums.FriendAction)
 local UpdateLastFriend = require(ContactList.Actions.UpdateLastFriend)
 
@@ -33,10 +42,10 @@ local localPlayer = Players.LocalPlayer
 local localUserId: number = localPlayer and localPlayer.UserId or 0
 local CALL_DIALOG_DISPLAY_ORDER = 8
 
-local CANCEL_TEXT_KEY = "Feature.SettingsHub.Action.Cancel"
-local BLOCK_TEXT_KEY = "Feature.SettingsHub.Action.Block"
+local CANCEL_TEXT_KEY = "Feature.Friends.Label.Cancel"
+local BLOCK_TEXT_KEY = "Feature.Friends.Action.Block"
 local BLOCK_TITLE_KEY = "Feature.Call.Label.Block"
-local UNFRIEND_TEXT_KEY = "FriendPlayerPrompt.Label.Unfriend"
+local UNFRIEND_TEXT_KEY = "Feature.Friends.Action.Unfriend"
 local UNFRIEND_TITLE_KEY = "Feature.Call.Label.Unfriend"
 local BODY_KEY = "Feature.SettingsHub.Message.BlockConfirmation"
 
@@ -54,6 +63,18 @@ local function PlayerMenuContainer()
 	local friend = useSelector(function(state)
 		return state.PlayerMenu.friend
 	end)
+
+	local localized
+	if GetFFlagIrisUseLocalizationProvider() then
+		localized = useLocalization({
+			blockTitle = { BLOCK_TITLE_KEY, combinedName = friend.combinedName },
+			blockAction = BLOCK_TEXT_KEY,
+			unfriendTitle = { UNFRIEND_TITLE_KEY, combinedName = friend.combinedName },
+			unfriendAction = UNFRIEND_TEXT_KEY,
+			cancelAction = CANCEL_TEXT_KEY,
+			confirmationDescription = { BODY_KEY, DISPLAY_NAME = friend.combinedName, RBX_NAME = friend.userName },
+		})
+	end
 
 	local dialogType, setDialogType = React.useState(FriendAction.NoAction)
 	local containerSize, setContainerSize = React.useState(Vector2.new(0, 0))
@@ -91,16 +112,26 @@ local function PlayerMenuContainer()
 	end, { dialogType, friend.userId })
 
 	React.useEffect(function()
-		if dialogType == FriendAction.Block then
-			setTitle(RobloxTranslator:FormatByKey(BLOCK_TITLE_KEY, {
-				combinedName = friend.combinedName,
-			}))
-			setButtonName(RobloxTranslator:FormatByKey(BLOCK_TEXT_KEY))
-		elseif dialogType == FriendAction.Unfriend then
-			setTitle(RobloxTranslator:FormatByKey(UNFRIEND_TITLE_KEY, {
-				combinedName = friend.combinedName,
-			}))
-			setButtonName(RobloxTranslator:FormatByKey(UNFRIEND_TEXT_KEY))
+		if GetFFlagIrisUseLocalizationProvider() then
+			if dialogType == FriendAction.Block then
+				setTitle(localized.blockTitle)
+				setButtonName(localized.blockAction)
+			elseif dialogType == FriendAction.Unfriend then
+				setTitle(localized.unfriendTitle)
+				setButtonName(localized.unfriendAction)
+			end
+		else
+			if dialogType == FriendAction.Block then
+				setTitle(RobloxTranslator:FormatByKey(BLOCK_TITLE_KEY, {
+					combinedName = friend.combinedName,
+				}))
+				setButtonName(RobloxTranslator:FormatByKey(BLOCK_TEXT_KEY))
+			elseif dialogType == FriendAction.Unfriend then
+				setTitle(RobloxTranslator:FormatByKey(UNFRIEND_TITLE_KEY, {
+					combinedName = friend.combinedName,
+				}))
+				setButtonName(RobloxTranslator:FormatByKey(UNFRIEND_TEXT_KEY))
+			end
 		end
 	end, { dialogType, friend.combinedName })
 
@@ -118,16 +149,20 @@ local function PlayerMenuContainer()
 		return withStyle(function(style)
 			return Roact.createElement(InteractiveAlert, {
 				title = title,
-				bodyText = RobloxTranslator:FormatByKey(BODY_KEY, {
-					["DISPLAY_NAME"] = friend.combinedName,
-					["RBX_NAME"] = friend.userName,
-				}),
+				bodyText = if GetFFlagIrisUseLocalizationProvider()
+					then localized.confirmationDescription
+					else RobloxTranslator:FormatByKey(BODY_KEY, {
+						["DISPLAY_NAME"] = friend.combinedName,
+						["RBX_NAME"] = friend.userName,
+					}),
 				buttonStackInfo = {
 					buttons = {
 						{
 							buttonType = ButtonType.Secondary,
 							props = {
-								text = RobloxTranslator:FormatByKey(CANCEL_TEXT_KEY),
+								text = if GetFFlagIrisUseLocalizationProvider()
+									then localized.cancelAction
+									else RobloxTranslator:FormatByKey(CANCEL_TEXT_KEY),
 								onActivated = function()
 									dispatch(CloseCFM())
 									setDialogType(FriendAction.NoAction)

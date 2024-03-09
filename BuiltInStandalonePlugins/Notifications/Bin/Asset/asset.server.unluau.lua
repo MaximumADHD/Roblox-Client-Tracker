@@ -8,8 +8,6 @@ local var2 = require(var0.Packages.TestLoader)
 var2.launch("Notifications", var0.Src)
 if var2.isCli() then
 end
-if not game:GetFastFlag("EnableStudioNotifications3") then
-end
 local var3 = plugin.MultipleDocumentInterfaceInstance
 local var4 = nil
 local function fun0()

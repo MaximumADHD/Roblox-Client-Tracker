@@ -9,9 +9,13 @@ local BUTTON_SLICE = Rect.new(8, 6, 46, 44)
 local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local Theme = require(Modules.Settings.Theme)
 
+local GetFFlagInviteFriendsDesignUpdates = require(Modules.Settings.Flags.GetFFlagInviteFriendsDesignUpdates)
+
 local DROPSHADOW_SIZE = {
-	Left = 4, Right = 4,
-	Top = 2, Bottom = 6,
+	Left = 4,
+	Right = 4,
+	Top = 2,
+	Bottom = 6,
 }
 
 local RectangleButton = Roact.PureComponent:extend("RectangleButton")
@@ -38,15 +42,18 @@ function RectangleButton:render()
 
 	local buttonImage = self.state.isHovering and BUTTON_IMAGE_ACTIVE or BUTTON_IMAGE
 
-	-- Insert padding so that child elements of this component are positioned
-	-- inside the button as expected. This is to offset the dropshadow
-	-- extending outside the button bounds.
-	children["UIPadding"] = Roact.createElement("UIPadding", {
-		PaddingLeft = UDim.new(0, DROPSHADOW_SIZE.Left),
-		PaddingRight = UDim.new(0, DROPSHADOW_SIZE.Right),
-		PaddingTop = UDim.new(0, DROPSHADOW_SIZE.Top),
-		PaddingBottom = UDim.new(0, DROPSHADOW_SIZE.Bottom),
-	})
+	if not GetFFlagInviteFriendsDesignUpdates() or not Theme.UIBloxThemeEnabled then
+		-- This is just needed if the button contains a drop shadow.
+		-- Insert padding so that child elements of this component are positioned
+		-- inside the button as expected. This is to offset the dropshadow
+		-- extending outside the button bounds.
+		children["UIPadding"] = Roact.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, DROPSHADOW_SIZE.Left),
+			PaddingRight = UDim.new(0, DROPSHADOW_SIZE.Right),
+			PaddingTop = UDim.new(0, DROPSHADOW_SIZE.Top),
+			PaddingBottom = UDim.new(0, DROPSHADOW_SIZE.Bottom),
+		})
+	end
 
 	if Theme.UIBloxThemeEnabled then
 		local borderColor = "DefaultButtonStroke"
@@ -75,28 +82,27 @@ function RectangleButton:render()
 		Visible = visible,
 
 		[Roact.Event.InputBegan] = function()
-			self:setState({isHovering = true})
+			self:setState({ isHovering = true })
 		end,
 		[Roact.Event.InputEnded] = function()
-			self:setState({isHovering = false})
+			self:setState({ isHovering = false })
 		end,
 
 		[Roact.Event.Activated] = function()
 			if onClick then
-				self:setState({isHovering = false})
+				self:setState({ isHovering = false })
 				onClick()
 			end
 		end,
 	}, {
 		ButtonBackground = not Theme.UIBloxThemeEnabled and Roact.createElement("ImageLabel", {
 			BackgroundTransparency = 1,
-			Position = UDim2.new(
-				0, -DROPSHADOW_SIZE.Left,
-				0, -DROPSHADOW_SIZE.Top
-			),
+			Position = UDim2.new(0, -DROPSHADOW_SIZE.Left, 0, -DROPSHADOW_SIZE.Top),
 			Size = UDim2.new(
-				1, DROPSHADOW_SIZE.Left + DROPSHADOW_SIZE.Right,
-				1, DROPSHADOW_SIZE.Top + DROPSHADOW_SIZE.Bottom
+				1,
+				DROPSHADOW_SIZE.Left + DROPSHADOW_SIZE.Right,
+				1,
+				DROPSHADOW_SIZE.Top + DROPSHADOW_SIZE.Bottom
 			),
 			Image = buttonImage,
 			ScaleType = Enum.ScaleType.Slice,
@@ -105,15 +111,11 @@ function RectangleButton:render()
 		}, children),
 		ButtonBackgroundUIBlox = Theme.UIBloxThemeEnabled and Roact.createElement("ImageLabel", {
 			BackgroundColor3 = Theme.color(if self.state.isHovering then "DefaultButtonHover" else "DefaultButton"),
-			BackgroundTransparency = Theme.transparency(if self.state.isHovering then "DefaultButtonHover" else "DefaultButton"),
-			Position = UDim2.new(
-				0,0,
-				0,0
+			BackgroundTransparency = Theme.transparency(
+				if self.state.isHovering then "DefaultButtonHover" else "DefaultButton"
 			),
-			Size = UDim2.new(
-				1, 0,
-				1, 0
-			),
+			Position = UDim2.new(0, 0, 0, 0),
+			Size = UDim2.new(1, 0, 1, 0),
 			ZIndex = zIndex,
 		}, children),
 	})

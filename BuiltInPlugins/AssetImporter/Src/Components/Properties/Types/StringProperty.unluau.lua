@@ -10,34 +10,34 @@ local var7 = require(var0.Src.Flags.getFFlagAssetImportFixPropertyLength)
 return function(arg1)
    if arg1.Editable == "Editable" then
       if not arg1.Editable then
-         local var232 = {}
-         var232.LayoutOrder = arg1.LayoutOrder
-         var232.Size = arg1.Size
-         var232.SuffixLength = 20
-         var232.Text = arg1.Value
-         var232.TextXAlignment = Enum.TextXAlignment.Left
-         local var238 = {}
-         local var242 = {}
-         var242.Text = arg1.Value
-         var238.Tooltip = var1.createElement(var5, var242)
-         return var1.createElement(var6, var232, var238)
+         local var30 = {}
+         var30.LayoutOrder = arg1.LayoutOrder
+         var30.Size = arg1.Size
+         var30.SuffixLength = 20
+         var30.Text = arg1.Value
+         var30.TextXAlignment = Enum.TextXAlignment.Left
+         local var36 = {}
+         local var40 = {}
+         var40.Text = arg1.Value
+         var36.Tooltip = var1.createElement(var5, var40)
+         return var1.createElement(var6, var30, var36)
       end
    end
    if var7() then
-      local var251 = {}
-      var251.Size = arg1.Size
-      var251.LayoutOrder = arg1.LayoutOrder
-      local var258 = {}
-      var258.AutomaticSize = Enum.AutomaticSize.None
-      var258.OnTextChanged = arg1.OnSetItem
-      var258.Text = arg1.Value
-      local var0 = var1.createElement(var4, var258)
-      return var1.createElement(var3, var251, {})
+      local var49 = {}
+      var49.Size = arg1.Size
+      var49.LayoutOrder = arg1.LayoutOrder
+      local var56 = {}
+      var56.AutomaticSize = Enum.AutomaticSize.None
+      var56.OnTextChanged = arg1.OnSetItem
+      var56.Text = arg1.Value
+      local var0 = var1.createElement(var4, var56)
+      return var1.createElement(var3, var49, {})
    end
-   local var267 = {}
-   var267.LayoutOrder = arg1.LayoutOrder
-   var267.OnTextChanged = arg1.OnSetItem
-   var267.Size = arg1.Size
-   var267.Text = arg1.Value
-   return var1.createElement(var4, var267)
+   local var65 = {}
+   var65.LayoutOrder = arg1.LayoutOrder
+   var65.OnTextChanged = arg1.OnSetItem
+   var65.Size = arg1.Size
+   var65.Text = arg1.Value
+   return var1.createElement(var4, var65)
 end

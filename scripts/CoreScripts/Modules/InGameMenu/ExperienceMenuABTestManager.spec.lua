@@ -25,6 +25,7 @@ local isV2Valid = false
 local isV3Valid = false
 local isControlsValid = false
 local isModernizationValid = false
+local isConsoleModernizationValid = true
 local isChromeValid = false
 local isChromeFollowupValid = true
 local isReportAbuseV2Valid = false
@@ -303,6 +304,43 @@ return function()
 			end
 		end)
 
+		it("returns menu modernization for user in the console modernization variant", function()
+			if IsExperienceMenuABTestEnabled() and isConsoleModernizationValid then
+				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })
+				ixpServiceWrapperMock.IsEnabled = Mock.MagicMock.new({ returnValue = true })
+				ixpServiceWrapperMock.GetLayerData = Mock.MagicMock.new({
+					returnValue = {
+						menuVersion = ExperienceMenuABTestManager.default.consoleModernizationVersionId(),
+					},
+				})
+
+				local manager = ExperienceMenuABTestManager.new(ixpServiceWrapperMock)
+				expect(manager).toMatchObject({ _ixpServiceWrapper = expect.anything() })
+
+				-- when ixp layers are registered, test manager is initialized
+				manager:initialize()
+
+				-- version should now be version modernization
+				expect(manager:getVersion()).toBe(
+				ExperienceMenuABTestManager.default.consoleModernizationVersionId()
+				)
+
+				-- beginning of second session
+				manager:initialize()
+
+				-- on second session, we will read from the cache which is modernization
+				expect(manager:getVersion()).toBe(
+				ExperienceMenuABTestManager.default.consoleModernizationVersionId()
+				)
+				expect(manager:isMenuModernizationEnabled()).toBe(true)
+				expect(manager:isChromeEnabled()).toBe(false)
+				expect(manager:isV2MenuEnabled()).toBe(false)
+
+				expect(manager:shouldShowBiggerText()).toBe(false)
+				expect(manager:shouldShowStickyBar()).toBe(false)
+			end
+		end)
+		
 		it("returns report abuse V2 for user in the variant", function()
 			if IsExperienceMenuABTestEnabled() and isReportAbuseV2Valid then
 				local ixpServiceWrapperMock = Mock.MagicMock.new({ name = "IXPServiceWrapper" })

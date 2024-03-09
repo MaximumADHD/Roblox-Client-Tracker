@@ -43,6 +43,7 @@ local GetFFlagVoiceBanShowToastOnSubsequentJoins =
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
 local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
+local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 
 local RobloxTranslator
 if FFlagEnableVoiceChatStorybookFix() then
@@ -91,6 +92,8 @@ local PromptTitle = {
 	[PromptType.VoiceChatSuspendedTemporaryToast] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.MicUseSuspended"
 	),
+	[PromptType.VoiceConsentDeclinedToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.ChangeYourMind"),
+	[PromptType.VoiceConsentAcceptedToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChat"),
 }
 local PromptSubTitle = {
 	[PromptType.None] = "",
@@ -127,6 +130,12 @@ local PromptSubTitle = {
 			{ dateTime = dateTime }
 		)
 	end,
+	[PromptType.VoiceConsentDeclinedToast] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.Subtitle.JoinVoiceLater"
+	),
+	[PromptType.VoiceConsentAcceptedToast] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.Subtitle.MuteAnyoneAnytime"
+	),
 }
 
 if runService:IsStudio() then
@@ -157,6 +166,10 @@ end
 
 local function PromptTypeIsModal(promptType)
 	return PromptTypeIsBan(promptType) or IsModalNudge(promptType)
+end
+
+local function PromptTypeIsVoiceConsent(promptType)
+	return promptType == PromptType.VoiceConsentDeclinedToast or promptType == PromptType.VoiceConsentAcceptedToast
 end
 
 local function ShouldShowBannedUntil(promptType)
@@ -246,11 +259,14 @@ function VoiceChatPromptFrame:init()
 				end
 			end
 
+			local iconImage = if GetFFlagEnableInExpVoiceUpsell() and PromptTypeIsVoiceConsent(promptType)
+				then Images["icons/controls/headphone"]
+				else Images["icons/status/alert"]
 			self:setState({
 				showPrompt = true,
 				promptType = promptType,
 				toastContent = {
-					iconImage = Images["icons/status/alert"],
+					iconImage = iconImage,
 					toastTitle = toastTitle,
 					toastSubtitle = toastSubtitle,
 					onActivated = function()

@@ -7,7 +7,7 @@ local CorePackages = game:GetService("CorePackages")
 local MarketplaceService = game:GetService("MarketplaceService")
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
-local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
+local Promise = require(CorePackages.Packages.Promise)
 local Url = require(CorePackages.Workspace.Packages.Http).Url
 
 local DEVELOPER_URL = string.format("https://develop.%s", Url.DOMAIN)

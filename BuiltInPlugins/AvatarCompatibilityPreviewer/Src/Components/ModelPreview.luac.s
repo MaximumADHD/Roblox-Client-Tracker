@@ -138,15 +138,12 @@ PROTO_4:
   CALL R0 0 0
   GETUPVAL R0 2
   CALL R0 0 1
-  JUMPIFNOT R0 [+55]
-  GETUPVAL R0 6
-  CALL R0 0 1
-  JUMPIFNOT R0 [+34]
-  GETUPVAL R1 7
+  JUMPIFNOT R0 [+52]
+  GETUPVAL R1 6
   GETTABLEKS R0 R1 K16 ["InitialCameraPosition"]
   JUMPIFNOTEQKNIL R0 [+2]
   RETURN R0 0
-  GETUPVAL R3 7
+  GETUPVAL R3 6
   GETTABLEKS R2 R3 K16 ["InitialCameraPosition"]
   JUMPIFNOTEQKNIL R2 [+2]
   LOADB R1 0 +1
@@ -156,7 +153,7 @@ PROTO_4:
   FASTCALL2 ASSERT R1 R2 [+3]
   GETIMPORT R0 K7 [assert]
   CALL R0 2 0
-  GETUPVAL R3 7
+  GETUPVAL R3 6
   GETTABLEKS R2 R3 K18 ["SetInitialCameraPosition"]
   JUMPIFNOTEQKNIL R2 [+2]
   LOADB R1 0 +1
@@ -166,7 +163,7 @@ PROTO_4:
   GETIMPORT R0 K7 [assert]
   CALL R0 2 0
   GETUPVAL R0 4
-  GETUPVAL R2 7
+  GETUPVAL R2 6
   GETTABLEKS R1 R2 K16 ["InitialCameraPosition"]
   SETTABLEKS R1 R0 K13 ["CFrame"]
   GETUPVAL R0 4
@@ -174,11 +171,11 @@ PROTO_4:
   NAMECALL R0 R0 K20 ["GetPropertyChangedSignal"]
   CALL R0 2 1
   NEWCLOSURE R2 P0
-  CAPTURE UPVAL U7
+  CAPTURE UPVAL U6
   CAPTURE UPVAL U4
   NAMECALL R0 R0 K21 ["Connect"]
   CALL R0 2 1
-  SETUPVAL R0 8
+  SETUPVAL R0 7
   RETURN R0 0
 
 PROTO_5:
@@ -200,7 +197,6 @@ PROTO_6:
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
   CAPTURE REF R1
   CALL R2 1 0
   NEWCLOSURE R2 P1
@@ -329,7 +325,6 @@ PROTO_9:
   CAPTURE UPVAL U3
   CAPTURE VAL R4
   CAPTURE VAL R6
-  CAPTURE UPVAL U6
   CAPTURE VAL R0
   NEWTABLE R9 0 1
   GETUPVAL R11 5
@@ -351,53 +346,59 @@ PROTO_9:
   GETTABLEKS R12 R0 K26 ["ResetCameraSignal"]
   SETLIST R10 R11 2 [1]
   CALL R8 2 0
-  JUMPIFNOT R2 [+79]
+  JUMPIFNOT R2 [+87]
   GETUPVAL R9 2
   GETTABLEKS R8 R9 K27 ["createElement"]
-  GETUPVAL R9 7
-  DUPTABLE R10 K41 [{"Camera", "Model", "FocusPosition", "FocusDirection", "Size", "Ambient", "LightColor", "LightDirection", "PanSpeedMultiplier", "ShouldClone", "RecenterModelOnUpdate", "RecenterCameraOnUpdate", "Static", "ResetCameraPosition", "OnViewModelLoaded"}]
+  GETUPVAL R9 6
+  DUPTABLE R10 K42 [{"Camera", "Model", "FocusPosition", "FocusDirection", "Size", "Ambient", "EnableSky", "LightColor", "LightDirection", "PanSpeedMultiplier", "ShouldClone", "RecenterModelOnUpdate", "RecenterCameraOnUpdate", "Static", "ResetCameraPosition", "OnViewModelLoaded"}]
   SETTABLEKS R4 R10 K13 ["Camera"]
   SETTABLEKS R2 R10 K3 ["Model"]
   GETTABLEKS R14 R0 K3 ["Model"]
   GETTABLEKS R13 R14 K4 ["PrimaryPart"]
   GETTABLEKS R12 R13 K19 ["CFrame"]
-  GETTABLEKS R11 R12 K42 ["Position"]
+  GETTABLEKS R11 R12 K43 ["Position"]
   SETTABLEKS R11 R10 K28 ["FocusPosition"]
   GETTABLEKS R14 R0 K3 ["Model"]
   GETTABLEKS R13 R14 K4 ["PrimaryPart"]
   GETTABLEKS R12 R13 K19 ["CFrame"]
-  GETTABLEKS R11 R12 K43 ["LookVector"]
+  GETTABLEKS R11 R12 K44 ["LookVector"]
   SETTABLEKS R11 R10 K29 ["FocusDirection"]
-  GETIMPORT R11 K46 [UDim2.fromScale]
+  GETIMPORT R11 K47 [UDim2.fromScale]
   LOADN R12 1
   LOADN R13 1
   CALL R11 2 1
   SETTABLEKS R11 R10 K30 ["Size"]
   GETTABLEKS R11 R1 K31 ["Ambient"]
   SETTABLEKS R11 R10 K31 ["Ambient"]
-  GETTABLEKS R11 R1 K32 ["LightColor"]
-  SETTABLEKS R11 R10 K32 ["LightColor"]
-  GETTABLEKS R11 R1 K33 ["LightDirection"]
-  SETTABLEKS R11 R10 K33 ["LightDirection"]
-  GETTABLEKS R11 R1 K34 ["PanSpeedMultiplier"]
-  SETTABLEKS R11 R10 K34 ["PanSpeedMultiplier"]
+  GETUPVAL R12 7
+  JUMPIFNOT R12 [+3]
+  GETTABLEKS R11 R1 K32 ["EnableSky"]
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K32 ["EnableSky"]
+  GETTABLEKS R11 R1 K33 ["LightColor"]
+  SETTABLEKS R11 R10 K33 ["LightColor"]
+  GETTABLEKS R11 R1 K34 ["LightDirection"]
+  SETTABLEKS R11 R10 K34 ["LightDirection"]
+  GETTABLEKS R11 R1 K35 ["PanSpeedMultiplier"]
+  SETTABLEKS R11 R10 K35 ["PanSpeedMultiplier"]
   LOADB R11 0
-  SETTABLEKS R11 R10 K35 ["ShouldClone"]
+  SETTABLEKS R11 R10 K36 ["ShouldClone"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K36 ["RecenterModelOnUpdate"]
+  SETTABLEKS R11 R10 K37 ["RecenterModelOnUpdate"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K37 ["RecenterCameraOnUpdate"]
-  GETTABLEKS R11 R0 K38 ["Static"]
-  SETTABLEKS R11 R10 K38 ["Static"]
+  SETTABLEKS R11 R10 K38 ["RecenterCameraOnUpdate"]
+  GETTABLEKS R11 R0 K39 ["Static"]
+  SETTABLEKS R11 R10 K39 ["Static"]
   GETUPVAL R12 5
   CALL R12 0 1
   JUMPIFNOT R12 [+4]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K47 ["DEFAULT_CAMERA_ANGLE"]
+  GETTABLEKS R11 R12 K48 ["DEFAULT_CAMERA_ANGLE"]
   JUMP [+1]
   LOADNIL R11
-  SETTABLEKS R11 R10 K39 ["ResetCameraPosition"]
-  SETTABLEKS R7 R10 K40 ["OnViewModelLoaded"]
+  SETTABLEKS R11 R10 K40 ["ResetCameraPosition"]
+  SETTABLEKS R7 R10 K41 ["OnViewModelLoaded"]
   CALL R8 2 1
   RETURN R8 1
   LOADNIL R8
@@ -440,20 +441,17 @@ MAIN:
   GETTABLEKS R8 R9 K17 ["Flags"]
   GETTABLEKS R7 R8 K19 ["getFFlagAvatarPreviewerCameraTiltAndState"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Src"]
-  GETTABLEKS R9 R10 K17 ["Flags"]
-  GETTABLEKS R8 R9 K20 ["getFFlagAvatarPreviewerFixBrokenTests"]
-  CALL R7 1 1
-  GETTABLEKS R8 R1 K21 ["UI"]
-  GETTABLEKS R9 R1 K22 ["SharedFlags"]
-  GETTABLEKS R10 R9 K23 ["getFFlagDevFrameworkBetterInit"]
-  CALL R10 0 1
-  JUMPIFNOT R10 [+3]
-  GETTABLEKS R11 R8 K24 ["AssetRenderModel"]
+  GETTABLEKS R7 R1 K20 ["UI"]
+  GETTABLEKS R8 R1 K21 ["SharedFlags"]
+  GETTABLEKS R9 R8 K22 ["getFFlagDevFrameworkBetterInit"]
+  CALL R9 0 1
+  JUMPIFNOT R9 [+3]
+  GETTABLEKS R10 R7 K23 ["AssetRenderModel"]
   JUMP [+4]
-  GETTABLEKS R12 R1 K25 ["StudioUI"]
-  GETTABLEKS R11 R12 K24 ["AssetRenderModel"]
+  GETTABLEKS R11 R1 K24 ["StudioUI"]
+  GETTABLEKS R10 R11 K23 ["AssetRenderModel"]
+  GETTABLEKS R11 R8 K25 ["getFFlagDevFrameworkAssetRenderModelEnableSky"]
+  CALL R11 0 1
   GETTABLEKS R13 R1 K26 ["ContextServices"]
   GETTABLEKS R12 R13 K27 ["Stylizer"]
   GETIMPORT R13 K5 [require]
@@ -477,7 +475,7 @@ MAIN:
   CAPTURE VAL R13
   CAPTURE VAL R3
   CAPTURE VAL R6
-  CAPTURE VAL R7
+  CAPTURE VAL R10
   CAPTURE VAL R11
   GETTABLEKS R17 R2 K33 ["memo"]
   MOVE R18 R16

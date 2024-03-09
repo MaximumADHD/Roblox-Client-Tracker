@@ -612,14 +612,15 @@ PROTO_12:
   GETTABLEKS R23 R24 K110 ["EditingToolbar"]
   GETUPVAL R24 32
   CALL R24 0 1
-  JUMPIFNOT R24 [+10]
+  JUMPIFNOT R24 [+12]
   GETUPVAL R24 33
-  JUMPIFNOT R24 [+8]
+  JUMPIFNOT R24 [+10]
   GETUPVAL R25 1
   GETTABLEKS R24 R25 K23 ["createElement"]
   GETUPVAL R25 34
-  DUPTABLE R26 K112 [{"worldModel"}]
-  SETTABLEKS R6 R26 K111 ["worldModel"]
+  DUPTABLE R26 K113 [{"dummy", "worldModel"}]
+  SETTABLEKS R16 R26 K111 ["dummy"]
+  SETTABLEKS R6 R26 K112 ["worldModel"]
   CALL R24 2 1
   SETTABLE R24 R22 R23
   GETUPVAL R23 28
@@ -628,69 +629,69 @@ PROTO_12:
   GETUPVAL R24 1
   GETTABLEKS R23 R24 K23 ["createElement"]
   GETUPVAL R24 35
-  DUPTABLE R25 K114 [{"providers"}]
+  DUPTABLE R25 K115 [{"providers"}]
   NEWTABLE R26 0 2
   GETUPVAL R28 1
   GETTABLEKS R27 R28 K23 ["createElement"]
   GETUPVAL R29 36
-  GETTABLEKS R28 R29 K115 ["Provider"]
-  DUPTABLE R29 K118 [{"openPalette", "value"}]
+  GETTABLEKS R28 R29 K116 ["Provider"]
+  DUPTABLE R29 K119 [{"openPalette", "value"}]
   LOADN R30 3
-  SETTABLEKS R30 R29 K116 ["openPalette"]
-  DUPTABLE R30 K123 [{"openPalette", "resetCamera", "stage", "dummyPreviewLocked", "incrementDummyPreviewLock", "decrementDummyPreviewLock"}]
-  SETTABLEKS R12 R30 K116 ["openPalette"]
-  SETTABLEKS R18 R30 K119 ["resetCamera"]
+  SETTABLEKS R30 R29 K117 ["openPalette"]
+  DUPTABLE R30 K124 [{"openPalette", "resetCamera", "stage", "dummyPreviewLocked", "incrementDummyPreviewLock", "decrementDummyPreviewLock"}]
+  SETTABLEKS R12 R30 K117 ["openPalette"]
+  SETTABLEKS R18 R30 K120 ["resetCamera"]
   SETTABLEKS R5 R30 K4 ["stage"]
   LOADN R32 0
   JUMPIFLT R32 R19 [+2]
   LOADB R31 0 +1
   LOADB R31 1
-  SETTABLEKS R31 R30 K120 ["dummyPreviewLocked"]
-  GETTABLEKS R31 R20 K124 ["increment"]
-  SETTABLEKS R31 R30 K121 ["incrementDummyPreviewLock"]
-  GETTABLEKS R31 R20 K125 ["decrement"]
-  SETTABLEKS R31 R30 K122 ["decrementDummyPreviewLock"]
-  SETTABLEKS R30 R29 K117 ["value"]
+  SETTABLEKS R31 R30 K121 ["dummyPreviewLocked"]
+  GETTABLEKS R31 R20 K125 ["increment"]
+  SETTABLEKS R31 R30 K122 ["incrementDummyPreviewLock"]
+  GETTABLEKS R31 R20 K126 ["decrement"]
+  SETTABLEKS R31 R30 K123 ["decrementDummyPreviewLock"]
+  SETTABLEKS R30 R29 K118 ["value"]
   CALL R27 2 1
   GETUPVAL R29 1
   GETTABLEKS R28 R29 K23 ["createElement"]
   GETUPVAL R30 37
-  GETTABLEKS R29 R30 K115 ["Provider"]
+  GETTABLEKS R29 R30 K116 ["Provider"]
   CALL R28 1 -1
   SETLIST R26 R27 -1 [1]
-  SETTABLEKS R26 R25 K113 ["providers"]
+  SETTABLEKS R26 R25 K114 ["providers"]
   MOVE R26 R22
   CALL R23 3 -1
   RETURN R23 -1
   GETUPVAL R24 1
   GETTABLEKS R23 R24 K23 ["createElement"]
   GETUPVAL R24 38
-  DUPTABLE R25 K114 [{"providers"}]
+  DUPTABLE R25 K115 [{"providers"}]
   NEWTABLE R26 0 2
-  DUPTABLE R27 K127 [{"provider", "value"}]
+  DUPTABLE R27 K128 [{"provider", "value"}]
   GETUPVAL R29 36
-  GETTABLEKS R28 R29 K115 ["Provider"]
-  SETTABLEKS R28 R27 K126 ["provider"]
-  DUPTABLE R28 K123 [{"openPalette", "resetCamera", "stage", "dummyPreviewLocked", "incrementDummyPreviewLock", "decrementDummyPreviewLock"}]
-  SETTABLEKS R12 R28 K116 ["openPalette"]
-  SETTABLEKS R18 R28 K119 ["resetCamera"]
+  GETTABLEKS R28 R29 K116 ["Provider"]
+  SETTABLEKS R28 R27 K127 ["provider"]
+  DUPTABLE R28 K124 [{"openPalette", "resetCamera", "stage", "dummyPreviewLocked", "incrementDummyPreviewLock", "decrementDummyPreviewLock"}]
+  SETTABLEKS R12 R28 K117 ["openPalette"]
+  SETTABLEKS R18 R28 K120 ["resetCamera"]
   SETTABLEKS R5 R28 K4 ["stage"]
   LOADN R30 0
   JUMPIFLT R30 R19 [+2]
   LOADB R29 0 +1
   LOADB R29 1
-  SETTABLEKS R29 R28 K120 ["dummyPreviewLocked"]
-  GETTABLEKS R29 R20 K124 ["increment"]
-  SETTABLEKS R29 R28 K121 ["incrementDummyPreviewLock"]
-  GETTABLEKS R29 R20 K125 ["decrement"]
-  SETTABLEKS R29 R28 K122 ["decrementDummyPreviewLock"]
-  SETTABLEKS R28 R27 K117 ["value"]
-  DUPTABLE R28 K128 [{"provider"}]
+  SETTABLEKS R29 R28 K121 ["dummyPreviewLocked"]
+  GETTABLEKS R29 R20 K125 ["increment"]
+  SETTABLEKS R29 R28 K122 ["incrementDummyPreviewLock"]
+  GETTABLEKS R29 R20 K126 ["decrement"]
+  SETTABLEKS R29 R28 K123 ["decrementDummyPreviewLock"]
+  SETTABLEKS R28 R27 K118 ["value"]
+  DUPTABLE R28 K129 [{"provider"}]
   GETUPVAL R30 37
-  GETTABLEKS R29 R30 K115 ["Provider"]
-  SETTABLEKS R29 R28 K126 ["provider"]
+  GETTABLEKS R29 R30 K116 ["Provider"]
+  SETTABLEKS R29 R28 K127 ["provider"]
   SETLIST R26 R27 2 [1]
-  SETTABLEKS R26 R25 K113 ["providers"]
+  SETTABLEKS R26 R25 K114 ["providers"]
   MOVE R26 R22
   CALL R23 3 -1
   RETURN R23 -1

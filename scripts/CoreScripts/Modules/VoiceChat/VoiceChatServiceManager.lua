@@ -1,6 +1,5 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
-local MemStorageService = game:GetService("MemStorageService")
 local PlayersService = game:GetService("Players")
 local Collections = game:GetService("CollectionService")
 local Promise = require(CorePackages.Promise)
@@ -25,8 +24,6 @@ local GetFFlagDeferredBlockStatusChange = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local GetFFlagOldMenuUseSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuUseSpeakerIcons)
 local GetFFlagClearVoiceStateOnRejoin = require(RobloxGui.Modules.Flags.GetFFlagClearVoiceStateOnRejoin)
-local GetFFlagSkipRedundantVoiceCheck =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSkipRedundantVoiceCheck
 local GetFFlagEnableVoiceRccCheck = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceRccCheck)
 local GetFFlagClearUserFromRecentVoiceDataOnLeave =
 	require(RobloxGui.Modules.Flags.GetFFlagClearUserFromRecentVoiceDataOnLeave)
@@ -65,6 +62,7 @@ local FFlagSetActiveWhenConnecting = game:DefineFastFlag("SetActiveWhenConnectin
 local FFlagHideUIWhenVoiceDefaultDisabled = game:DefineFastFlag("HideUIWhenVoiceDefaultDisabled", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
+local FFlagReceiveLikelySpeakingUsers = game:DefineFastFlag("DebugReceiveLikelySpeakingUsers", false)
 local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
@@ -80,8 +78,6 @@ local GetUserSettings = VoiceChat.GetUserSettings
 local GetInformedOfBan = VoiceChat.GetInformedOfBan
 local PostInformedOfBan = VoiceChat.PostInformedOfBan
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
-local SKIP_VOICE_CHECK_KEY = Constants.SKIP_VOICE_CHECK_KEY
-local SKIP_VOICE_CHECK_UNIVERSE_KEY = Constants.SKIP_VOICE_CHECK_UNIVERSE_KEY
 local BAN_REASON = VoiceConstants.BAN_REASON
 
 local Analytics = require(script.Parent.Analytics)
@@ -164,6 +160,7 @@ local VoiceChatServiceManager = {
 	userAgencySelected = if GetFFlagShowMuteToggles() then Instance.new("BindableEvent") else nil,
 	audioDeviceInputAdded = if FFlagHideVoiceUIUntilInputExists then Instance.new("BindableEvent") else nil,
 	sendMuteEvent = nil,
+	LikelySpeakingUsersEvent = nil,
 	muteAll = false,
 	mutedPlayers = {} :: { [number]: boolean },
 	talkingChanged = Instance.new("BindableEvent"),
@@ -332,6 +329,17 @@ function VoiceChatServiceManager:asyncInit()
 	end
 
 	if not self.initPromise then
+		if FFlagReceiveLikelySpeakingUsers then
+			if not self.LikelySpeakingUsersEvent then
+				local LikelySpeakingUsersEvent = self:GetLikelySpeakingUsersEvent()
+				if LikelySpeakingUsersEvent then
+					log:trace("Connecting to likely speaking users")
+					LikelySpeakingUsersEvent.OnClientEvent:Connect(function(likelySpeakingUsers)
+						log:trace("New Likely Speaking Users: {}", HttpService:JSONEncode(likelySpeakingUsers))
+					end)
+				end
+			end
+		end
 		-- Don't keep creating new promises every time asyncInit is called
 		self.initPromise = self:_asyncInit()
 	end
@@ -573,16 +581,6 @@ function VoiceChatServiceManager:resolveAvatarChatUserAndPlaceSettings()
 end
 
 function VoiceChatServiceManager:userAndPlaceCanUseVoice()
-	if
-		GetFFlagSkipRedundantVoiceCheck()
-		and MemStorageService:GetItem(SKIP_VOICE_CHECK_UNIVERSE_KEY) == tostring(game.GameId)
-		and MemStorageService:GetItem(SKIP_VOICE_CHECK_KEY) == "true"
-	then
-		log:debug("Skipping Voice check due to cached value")
-		MemStorageService:RemoveItem(SKIP_VOICE_CHECK_KEY)
-		MemStorageService:RemoveItem(SKIP_VOICE_CHECK_UNIVERSE_KEY)
-		return false
-	end
 	local result: VoiceChatPlaceAndUserSettings = if GetFFlagAvatarChatServiceEnabled()
 			and GetFFlagVoiceChatServiceManagerUseAvatarChat()
 		then self:resolveAvatarChatUserAndPlaceSettings()
@@ -1807,6 +1805,13 @@ function VoiceChatServiceManager:GetSendMuteEvent(): RemoteEvent | nil
 		self.SendMuteEvent = RobloxReplicatedStorage:WaitForChild("SetUserActive", 10) :: RemoteEvent | nil
 	end
 	return self.SendMuteEvent
+end
+
+function VoiceChatServiceManager:GetLikelySpeakingUsersEvent(): RemoteEvent | nil
+	if not self.LikelySpeakingUsersEvent then
+		self.LikelySpeakingUsersEvent = RobloxReplicatedStorage:WaitForChild("SendLikelySpeakingUsers", 3) :: RemoteEvent | nil
+	end
+	return self.LikelySpeakingUsersEvent
 end
 
 -- Do not pass context if the call is not the result of user action

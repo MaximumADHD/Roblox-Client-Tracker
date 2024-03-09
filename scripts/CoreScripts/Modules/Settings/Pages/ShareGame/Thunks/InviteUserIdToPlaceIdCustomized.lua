@@ -1,12 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 local InviteEvents = require(CorePackages.Workspace.Packages.GameInvite).GameInviteEvents
 
-local Promise = require(AppTempCommon.LuaApp.Promise)
+local Promise = require(CorePackages.Packages.Promise)
 
 local ReceivedUserInviteStatus = require(ShareGame.Actions.ReceivedUserInviteStatus)
 local Constants = require(ShareGame.Constants)

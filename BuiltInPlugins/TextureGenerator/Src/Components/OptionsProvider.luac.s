@@ -36,30 +36,36 @@ PROTO_1:
   GETTABLEKS R13 R14 K0 ["useState"]
   LOADB R14 1
   CALL R13 1 2
-  DUPTABLE R15 K20 [{"promptText", "randomizeSeed", "seed", "rotation", "smartUVUnwrap", "promptMasking", "validOptions", "setPromptText", "setRandomizeSeed", "setSeed", "setRotation", "setSmartUVUnwrap", "setPromptMasking", "setValidOptions"}]
-  SETTABLEKS R1 R15 K6 ["promptText"]
-  SETTABLEKS R3 R15 K7 ["randomizeSeed"]
-  SETTABLEKS R5 R15 K8 ["seed"]
-  SETTABLEKS R7 R15 K9 ["rotation"]
-  SETTABLEKS R9 R15 K10 ["smartUVUnwrap"]
-  SETTABLEKS R11 R15 K11 ["promptMasking"]
-  SETTABLEKS R13 R15 K12 ["validOptions"]
-  SETTABLEKS R2 R15 K13 ["setPromptText"]
-  SETTABLEKS R4 R15 K14 ["setRandomizeSeed"]
-  SETTABLEKS R6 R15 K15 ["setSeed"]
-  SETTABLEKS R8 R15 K16 ["setRotation"]
-  SETTABLEKS R10 R15 K17 ["setSmartUVUnwrap"]
-  SETTABLEKS R12 R15 K18 ["setPromptMasking"]
-  SETTABLEKS R14 R15 K19 ["setValidOptions"]
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K21 ["createElement"]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K22 ["Provider"]
-  DUPTABLE R18 K24 [{"value"}]
-  SETTABLEKS R15 R18 K23 ["value"]
-  GETTABLEKS R19 R0 K25 ["children"]
-  CALL R16 3 -1
-  RETURN R16 -1
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K0 ["useState"]
+  LOADB R16 1
+  CALL R15 1 2
+  DUPTABLE R17 K22 [{"promptText", "randomizeSeed", "seed", "rotation", "smartUVUnwrap", "promptMasking", "validRotation", "validSeed", "setPromptText", "setRandomizeSeed", "setSeed", "setRotation", "setSmartUVUnwrap", "setPromptMasking", "setValidRotation", "setValidSeed"}]
+  SETTABLEKS R1 R17 K6 ["promptText"]
+  SETTABLEKS R3 R17 K7 ["randomizeSeed"]
+  SETTABLEKS R5 R17 K8 ["seed"]
+  SETTABLEKS R7 R17 K9 ["rotation"]
+  SETTABLEKS R9 R17 K10 ["smartUVUnwrap"]
+  SETTABLEKS R11 R17 K11 ["promptMasking"]
+  SETTABLEKS R13 R17 K12 ["validRotation"]
+  SETTABLEKS R15 R17 K13 ["validSeed"]
+  SETTABLEKS R2 R17 K14 ["setPromptText"]
+  SETTABLEKS R4 R17 K15 ["setRandomizeSeed"]
+  SETTABLEKS R6 R17 K16 ["setSeed"]
+  SETTABLEKS R8 R17 K17 ["setRotation"]
+  SETTABLEKS R10 R17 K18 ["setSmartUVUnwrap"]
+  SETTABLEKS R12 R17 K19 ["setPromptMasking"]
+  SETTABLEKS R14 R17 K20 ["setValidRotation"]
+  SETTABLEKS R16 R17 K21 ["setValidSeed"]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K23 ["createElement"]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K24 ["Provider"]
+  DUPTABLE R20 K26 [{"value"}]
+  SETTABLEKS R17 R20 K25 ["value"]
+  GETTABLEKS R21 R0 K27 ["children"]
+  CALL R18 3 -1
+  RETURN R18 -1
 
 MAIN:
   PREPVARARGS 0

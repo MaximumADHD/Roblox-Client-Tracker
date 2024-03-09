@@ -15,20 +15,24 @@ PROTO_0:
   GETTABLEKS R6 R7 K5 ["SetupUnificationScripts"]
   MOVE R7 R5
   CALL R6 1 0
-  FORGLOOP R1 2 [-6]
-  GETUPVAL R3 3
+  GETUPVAL R6 3
+  MOVE R8 R5
+  NAMECALL R6 R6 K6 ["addTag"]
+  CALL R6 2 0
+  FORGLOOP R1 2 [-11]
+  GETUPVAL R3 4
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K6 ["getAdapterData"]
+  GETTABLEKS R4 R5 K7 ["getAdapterData"]
   CALL R4 0 -1
   CALL R3 -1 -1
-  NAMECALL R1 R0 K7 ["dispatch"]
+  NAMECALL R1 R0 K8 ["dispatch"]
   CALL R1 -1 0
-  GETIMPORT R1 K9 [game]
-  LOADK R3 K10 ["Workspace"]
-  NAMECALL R1 R1 K11 ["GetService"]
+  GETIMPORT R1 K10 [game]
+  LOADK R3 K11 ["Workspace"]
+  NAMECALL R1 R1 K12 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R3 K15 [Enum.AvatarUnificationMode.Enabled]
-  NAMECALL R1 R1 K16 ["SetAvatarUnificationMode"]
+  GETIMPORT R3 K16 [Enum.AvatarUnificationMode.Enabled]
+  NAMECALL R1 R1 K17 ["SetAvatarUnificationMode"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -38,6 +42,7 @@ PROTO_1:
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
   RETURN R1 1
 
 MAIN:
@@ -52,18 +57,23 @@ MAIN:
   GETTABLEKS R4 R1 K8 ["PublishTagging"]
   CALL R3 1 1
   GETTABLEKS R2 R3 K9 ["AdapterTagging"]
-  GETTABLEKS R4 R0 K4 ["Src"]
-  GETTABLEKS R3 R4 K10 ["Actions"]
   GETIMPORT R4 K7 [require]
-  GETTABLEKS R5 R3 K11 ["SetAdapted"]
+  GETTABLEKS R5 R1 K10 ["QuickAccessTagging"]
   CALL R4 1 1
-  GETTABLEKS R6 R0 K4 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Modules"]
-  GETIMPORT R6 K7 [require]
-  GETTABLEKS R7 R5 K13 ["NpcManager"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K14 [PROTO_1]
+  GETTABLEKS R3 R4 K11 ["CharactersConvertedToR15Tagging"]
+  GETTABLEKS R5 R0 K4 ["Src"]
+  GETTABLEKS R4 R5 K12 ["Actions"]
+  GETIMPORT R5 K7 [require]
+  GETTABLEKS R6 R4 K13 ["SetAdapted"]
+  CALL R5 1 1
+  GETTABLEKS R7 R0 K4 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Modules"]
+  GETIMPORT R7 K7 [require]
+  GETTABLEKS R8 R6 K15 ["NpcManager"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K16 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R7
   CAPTURE VAL R2
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  RETURN R7 1
+  CAPTURE VAL R5
+  RETURN R8 1

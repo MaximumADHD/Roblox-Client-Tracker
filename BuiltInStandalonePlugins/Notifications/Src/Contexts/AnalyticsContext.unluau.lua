@@ -6,24 +6,24 @@ local var3 = require(var0.Src.Clients.NotificationClient)
 function createAnalyticsHandler(arg1)
    local function var0(arg1, arg2)
       arg2 = arg2 or {}
-      local var32 = {}
-      var32.studioSid = arg1:GetSessionId()
-      var32.clientId = arg1:GetClientId()
-      local var40 = game.PlaceId
-      var32.placeId = var40
-      var40 = arg2
-      arg1:SendEventDeferred("studio", "NotificationTray", arg1, var1.Dictionary.join(var32, var40))
+      local var173 = {}
+      var173.studioSid = arg1:GetSessionId()
+      var173.clientId = arg1:GetClientId()
+      local var181 = game.PlaceId
+      var173.placeId = var181
+      var181 = arg2
+      arg1:SendEventDeferred("studio", "NotificationTray", arg1, var1.Dictionary.join(var173, var181))
    end
    
    local var1 = {}
    function var1.notificationClicked(arg1, arg2)
-      local var53 = {}
-      var53.id = var2(arg1, "notificationId")
-      var53.type = var2(arg1, "creatorStreamNotificationContent", "clickAction")
-      var53.clickAction = var2(arg1, "notificationType")
-      var53.read = var2(arg1, "read")
-      var53.trayIndex = arg2
-      var0("NotificationClicked", var53)
+      local var194 = {}
+      var194.id = var2(arg1, "notificationId")
+      var194.type = var2(arg1, "creatorStreamNotificationContent", "clickAction")
+      var194.clickAction = var2(arg1, "notificationType")
+      var194.read = var2(arg1, "read")
+      var194.trayIndex = arg2
+      var0("NotificationClicked", var194)
    end
    
    function var1.markAllAsRead()
@@ -39,9 +39,9 @@ function createAnalyticsHandler(arg1)
    end
    
    function var1.trayOpened(arg1)
-      local var80 = {}
-      var80.bellUnseen = arg1
-      var0("NotificationTrayOpened", var80)
+      local var221 = {}
+      var221.bellUnseen = arg1
+      var0("NotificationTrayOpened", var221)
    end
    
    return var1

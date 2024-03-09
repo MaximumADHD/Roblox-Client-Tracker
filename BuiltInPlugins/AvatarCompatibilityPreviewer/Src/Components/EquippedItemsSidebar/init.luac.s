@@ -83,22 +83,23 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  GETUPVAL R2 1
-  DUPTABLE R3 K3 [{"ItemData", "Size"}]
-  SETTABLEKS R0 R3 K1 ["ItemData"]
-  GETIMPORT R4 K6 [UDim2.fromScale]
-  LOADN R5 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K4 [{"ItemData", "Size", "IsDragging"}]
+  SETTABLEKS R0 R4 K1 ["ItemData"]
+  GETIMPORT R5 K7 [UDim2.fromScale]
   LOADN R6 1
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K2 ["Size"]
-  CALL R1 2 1
+  LOADN R7 1
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K2 ["Size"]
+  SETTABLEKS R1 R4 K3 ["IsDragging"]
+  CALL R2 2 1
   FASTCALL1 TOSTRING R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K8 [tostring]
-  CALL R2 1 1
-  RETURN R1 2
+  MOVE R4 R0
+  GETIMPORT R3 K9 [tostring]
+  CALL R3 1 1
+  RETURN R2 2
 
 PROTO_4:
   DUPTABLE R1 K1 [{"ItemData"}]
@@ -213,87 +214,94 @@ PROTO_5:
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K8 ["createElement"]
   GETUPVAL R16 9
-  NEWTABLE R17 4 0
+  NEWTABLE R17 8 0
   GETIMPORT R18 K43 [Enum.AutomaticSize.Y]
   SETTABLEKS R18 R17 K42 ["AutomaticSize"]
+  GETUPVAL R19 10
+  CALL R19 0 1
+  JUMPIFNOT R19 [+3]
+  GETIMPORT R18 K46 [Enum.HorizontalAlignment.Right]
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K44 ["HorizontalAlignment"]
   GETIMPORT R18 K37 [Enum.FillDirection.Vertical]
   SETTABLEKS R18 R17 K28 ["Layout"]
   GETTABLEKS R18 R2 K38 ["SidebarSpacing"]
   SETTABLEKS R18 R17 K29 ["Spacing"]
   GETUPVAL R20 2
-  GETTABLEKS R19 R20 K44 ["Change"]
-  GETTABLEKS R18 R19 K45 ["AbsoluteSize"]
+  GETTABLEKS R19 R20 K47 ["Change"]
+  GETTABLEKS R18 R19 K48 ["AbsoluteSize"]
   NEWCLOSURE R19 P1
   CAPTURE VAL R9
   SETTABLE R19 R17 R18
-  DUPTABLE R18 K48 [{"ResetCameraButton", "LayeredClothingEquipment"}]
+  DUPTABLE R18 K51 [{"ResetCameraButton", "LayeredClothingEquipment"}]
   GETUPVAL R20 2
   GETTABLEKS R19 R20 K8 ["createElement"]
-  GETUPVAL R20 10
-  DUPTABLE R21 K49 [{"LayoutOrder"}]
+  GETUPVAL R20 11
+  DUPTABLE R21 K52 [{"LayoutOrder"}]
   NAMECALL R22 R6 K13 ["getNextOrder"]
   CALL R22 1 1
   SETTABLEKS R22 R21 K10 ["LayoutOrder"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K46 ["ResetCameraButton"]
+  SETTABLEKS R19 R18 K49 ["ResetCameraButton"]
   GETUPVAL R20 5
   CALL R20 0 1
   JUMPIFNOT R20 [+25]
   GETUPVAL R20 2
   GETTABLEKS R19 R20 K8 ["createElement"]
-  GETUPVAL R20 11
-  DUPTABLE R21 K55 [{"cellSize", "layoutOrder", "tiles", "render", "move"}]
+  GETUPVAL R20 12
+  DUPTABLE R21 K58 [{"cellSize", "layoutOrder", "tiles", "render", "move"}]
   GETTABLEKS R22 R2 K14 ["CellSize"]
-  SETTABLEKS R22 R21 K50 ["cellSize"]
+  SETTABLEKS R22 R21 K53 ["cellSize"]
   NAMECALL R22 R6 K13 ["getNextOrder"]
   CALL R22 1 1
-  SETTABLEKS R22 R21 K51 ["layoutOrder"]
-  SETTABLEKS R4 R21 K52 ["tiles"]
-  DUPCLOSURE R22 K56 [PROTO_3]
+  SETTABLEKS R22 R21 K54 ["layoutOrder"]
+  SETTABLEKS R4 R21 K55 ["tiles"]
+  DUPCLOSURE R22 K59 [PROTO_3]
   CAPTURE UPVAL U2
   CAPTURE UPVAL U8
-  SETTABLEKS R22 R21 K53 ["render"]
-  SETTABLEKS R10 R21 K54 ["move"]
+  SETTABLEKS R22 R21 K56 ["render"]
+  SETTABLEKS R10 R21 K57 ["move"]
   CALL R19 2 1
   JUMP [+26]
   GETUPVAL R20 2
   GETTABLEKS R19 R20 K8 ["createElement"]
-  GETUPVAL R20 12
-  DUPTABLE R21 K62 [{"LayoutOrder", "TileComponent", "TileList", "Capacity", "Size", "GetTileProps", "OnOrderChanged"}]
+  GETUPVAL R20 13
+  DUPTABLE R21 K65 [{"LayoutOrder", "TileComponent", "TileList", "Capacity", "Size", "GetTileProps", "OnOrderChanged"}]
   NAMECALL R22 R6 K13 ["getNextOrder"]
   CALL R22 1 1
   SETTABLEKS R22 R21 K10 ["LayoutOrder"]
   GETUPVAL R22 8
-  SETTABLEKS R22 R21 K57 ["TileComponent"]
-  SETTABLEKS R4 R21 K58 ["TileList"]
+  SETTABLEKS R22 R21 K60 ["TileComponent"]
+  SETTABLEKS R4 R21 K61 ["TileList"]
   LENGTH R22 R4
-  SETTABLEKS R22 R21 K59 ["Capacity"]
+  SETTABLEKS R22 R21 K62 ["Capacity"]
   SETTABLEKS R7 R21 K11 ["Size"]
-  DUPCLOSURE R22 K63 [PROTO_4]
-  SETTABLEKS R22 R21 K60 ["GetTileProps"]
-  SETTABLEKS R10 R21 K61 ["OnOrderChanged"]
+  DUPCLOSURE R22 K66 [PROTO_4]
+  SETTABLEKS R22 R21 K63 ["GetTileProps"]
+  SETTABLEKS R10 R21 K64 ["OnOrderChanged"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K47 ["LayeredClothingEquipment"]
+  SETTABLEKS R19 R18 K50 ["LayeredClothingEquipment"]
   CALL R15 3 1
   SETTABLEKS R15 R14 K39 ["Contents"]
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K8 ["createElement"]
-  GETUPVAL R16 13
-  DUPTABLE R17 K66 [{"AutomaticSize", "AutoSizeCanvas", "AutomaticCanvasSize", "LayoutOrder", "Layout", "Spacing", "Size"}]
-  GETIMPORT R18 K67 [Enum.AutomaticSize.X]
+  GETUPVAL R16 14
+  DUPTABLE R17 K69 [{"AutomaticSize", "AutoSizeCanvas", "AutomaticCanvasSize", "LayoutOrder", "Layout", "Spacing", "Size"}]
+  GETIMPORT R18 K70 [Enum.AutomaticSize.X]
   SETTABLEKS R18 R17 K42 ["AutomaticSize"]
   LOADB R18 0
-  SETTABLEKS R18 R17 K64 ["AutoSizeCanvas"]
+  SETTABLEKS R18 R17 K67 ["AutoSizeCanvas"]
   GETIMPORT R18 K43 [Enum.AutomaticSize.Y]
-  SETTABLEKS R18 R17 K65 ["AutomaticCanvasSize"]
+  SETTABLEKS R18 R17 K68 ["AutomaticCanvasSize"]
   NAMECALL R18 R6 K13 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K10 ["LayoutOrder"]
   GETIMPORT R18 K37 [Enum.FillDirection.Vertical]
   SETTABLEKS R18 R17 K28 ["Layout"]
-  GETTABLEKS R18 R2 K68 ["ItemSpacing"]
+  GETTABLEKS R18 R2 K71 ["ItemSpacing"]
   SETTABLEKS R18 R17 K29 ["Spacing"]
-  GETIMPORT R18 K69 [UDim2.new]
+  GETIMPORT R18 K72 [UDim2.new]
   LOADN R19 0
   GETTABLEKS R22 R2 K14 ["CellSize"]
   GETTABLEKS R21 R22 K18 ["X"]
@@ -369,34 +377,40 @@ MAIN:
   GETIMPORT R12 K5 [require]
   GETTABLEKS R15 R0 K12 ["Src"]
   GETTABLEKS R14 R15 K23 ["Flags"]
-  GETTABLEKS R13 R14 K24 ["getFFlagAvatarPreviewerNewDraggableTileList"]
+  GETTABLEKS R13 R14 K24 ["getFFlagAvatarPreviewerAlignResetCameraButton"]
   CALL R12 1 1
-  GETTABLEKS R13 R1 K25 ["UI"]
-  GETTABLEKS R14 R13 K19 ["DraggableTileList"]
-  GETTABLEKS R15 R13 K26 ["Pane"]
-  GETTABLEKS R16 R13 K27 ["ScrollingFrame"]
-  GETTABLEKS R18 R1 K15 ["Util"]
-  GETTABLEKS R17 R18 K28 ["LayoutOrderIterator"]
-  GETTABLEKS R19 R1 K29 ["ContextServices"]
-  GETTABLEKS R18 R19 K30 ["Analytics"]
-  GETTABLEKS R20 R1 K29 ["ContextServices"]
-  GETTABLEKS R19 R20 K31 ["Stylizer"]
-  DUPCLOSURE R20 K32 [PROTO_0]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K12 ["Src"]
+  GETTABLEKS R15 R16 K23 ["Flags"]
+  GETTABLEKS R14 R15 K25 ["getFFlagAvatarPreviewerNewDraggableTileList"]
+  CALL R13 1 1
+  GETTABLEKS R14 R1 K26 ["UI"]
+  GETTABLEKS R15 R14 K19 ["DraggableTileList"]
+  GETTABLEKS R16 R14 K27 ["Pane"]
+  GETTABLEKS R17 R14 K28 ["ScrollingFrame"]
+  GETTABLEKS R19 R1 K15 ["Util"]
+  GETTABLEKS R18 R19 K29 ["LayoutOrderIterator"]
+  GETTABLEKS R20 R1 K30 ["ContextServices"]
+  GETTABLEKS R19 R20 K31 ["Analytics"]
+  GETTABLEKS R21 R1 K30 ["ContextServices"]
+  GETTABLEKS R20 R21 K32 ["Stylizer"]
+  DUPCLOSURE R21 K33 [PROTO_0]
   CAPTURE VAL R5
   CAPTURE VAL R6
-  DUPCLOSURE R21 K33 [PROTO_5]
-  CAPTURE VAL R18
+  DUPCLOSURE R22 K34 [PROTO_5]
   CAPTURE VAL R19
+  CAPTURE VAL R20
   CAPTURE VAL R2
   CAPTURE VAL R7
-  CAPTURE VAL R17
-  CAPTURE VAL R12
+  CAPTURE VAL R18
+  CAPTURE VAL R13
   CAPTURE VAL R9
-  CAPTURE VAL R20
+  CAPTURE VAL R21
   CAPTURE VAL R3
-  CAPTURE VAL R15
+  CAPTURE VAL R16
+  CAPTURE VAL R12
   CAPTURE VAL R4
   CAPTURE VAL R8
-  CAPTURE VAL R14
-  CAPTURE VAL R16
-  RETURN R21 1
+  CAPTURE VAL R15
+  CAPTURE VAL R17
+  RETURN R22 1

@@ -4,6 +4,8 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
+local GetFFlagInviteFriendsDesignUpdates = require(RobloxGui.Modules.Settings.Flags.GetFFlagInviteFriendsDesignUpdates)
+
 local SHARE_TEXT_FONT = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
 local SHARE_TEXT_SIZE = Theme.textSize(19)
 local HOVERED_BACKGROUND_COLOR = Color3.fromRGB(222, 225, 227)
@@ -24,6 +26,23 @@ function ShareButton:render()
 	local isEnabled = self.props.isEnabled
 	local text = self.props.text
 
+	local children = {}
+	if GetFFlagInviteFriendsDesignUpdates() and Theme.UIBloxThemeEnabled then
+		children["Border"] = Roact.createElement("UIStroke", {
+			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+			Color = if self.state.isHovering and isEnabled then HOVERED_BACKGROUND_COLOR else BACKGROUND_COLOR,
+			Thickness = Theme.DefaultStokeThickness,
+			Transparency = if isEnabled then 0 else 0.5,
+		})
+		children["UICorner"] = Roact.createElement("UICorner", {
+			CornerRadius = Theme.DefaultCornerRadius,
+		})
+	else
+		children["UICorner"] = Roact.createElement("UICorner", {
+			CornerRadius = UDim.new(0, 4),
+		})
+	end
+
 	return Roact.createElement("TextButton", {
 		LayoutOrder = layoutOrder,
 		Size = size,
@@ -32,7 +51,7 @@ function ShareButton:render()
 		Font = SHARE_TEXT_FONT,
 		AutoButtonColor = false,
 		BackgroundColor3 = if self.state.isHovering and isEnabled then HOVERED_BACKGROUND_COLOR else BACKGROUND_COLOR,
-		BorderSizePixel = 0,
+		BorderSizePixel = if GetFFlagInviteFriendsDesignUpdates() then nil else 0,
 		Transparency = if isEnabled then 0 else 0.5,
 
 		[Roact.Event.Activated] = function()
@@ -46,11 +65,7 @@ function ShareButton:render()
 		[Roact.Event.InputEnded] = function()
 			self:setState({ isHovering = false })
 		end,
-	}, {
-		Corner = Roact.createElement("UICorner", {
-			CornerRadius = UDim.new(0, 4),
-		}),
-	})
+	}, children)
 end
 
 return ShareButton

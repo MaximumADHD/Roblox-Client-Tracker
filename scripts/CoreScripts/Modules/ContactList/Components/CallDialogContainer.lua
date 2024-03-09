@@ -28,8 +28,6 @@ local CloseDialog = require(ContactList.Actions.CloseDialog)
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 
-local GetFFlagSeparateVoiceEnabledErrors =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeparateVoiceEnabledErrors
 local GetFFlagIrisReservedServerCheckError =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisReservedServerCheckError
 
@@ -111,17 +109,13 @@ local function CallDialogContainer(passedProps: Props)
 						)
 					)
 
-					if GetFFlagSeparateVoiceEnabledErrors() then
-						analytics.fireEvent(EventNamesEnum.PhoneBookCallFriendFailed, {
-							eventTimestampMs = os.time() * 1000,
-							calleeUserId = params.callInfo.calleeId,
-							callerUserId = params.callInfo.callerId,
-							errorMsg = "Universe or place is not voice enabled.",
-						})
-					end
-				elseif
-					GetFFlagSeparateVoiceEnabledErrors() and params.errorType == ErrorType.CallerIsNotVoiceEnabled
-				then
+					analytics.fireEvent(EventNamesEnum.PhoneBookCallFriendFailed, {
+						eventTimestampMs = os.time() * 1000,
+						calleeUserId = params.callInfo.calleeId,
+						callerUserId = params.callInfo.callerId,
+						errorMsg = "Universe or place is not voice enabled.",
+					})
+				elseif params.errorType == ErrorType.CallerIsNotVoiceEnabled then
 					dispatch(
 						OpenOrUpdateDialog(
 							RobloxTranslator:FormatByKey("Feature.Call.Modal.EnableChatVoiceTitle"),

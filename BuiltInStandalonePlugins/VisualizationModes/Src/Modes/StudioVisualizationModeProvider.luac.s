@@ -1,0 +1,135 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_root"]
+  NAMECALL R0 R0 K1 ["unmount"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R1 4 0
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K1 [setmetatable]
+  CALL R0 2 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["new"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K3 ["_maid"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K4 ["Localization"]
+  GETTABLEKS R1 R2 K2 ["new"]
+  DUPTABLE R2 K8 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R3 3
+  SETTABLEKS R3 R2 K5 ["stringResourceTable"]
+  GETUPVAL R3 4
+  SETTABLEKS R3 R2 K6 ["translationResourceTable"]
+  LOADK R3 K9 ["VisualizationModes"]
+  SETTABLEKS R3 R2 K7 ["pluginName"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K10 ["_localization"]
+  GETUPVAL R2 5
+  GETTABLEKS R1 R2 K11 ["createRoot"]
+  GETTABLEKS R2 R0 K3 ["_maid"]
+  GETIMPORT R4 K13 [Instance.new]
+  LOADK R5 K14 ["Folder"]
+  CALL R4 1 -1
+  NAMECALL R2 R2 K15 ["add"]
+  CALL R2 -1 -1
+  CALL R1 -1 1
+  SETTABLEKS R1 R0 K16 ["_root"]
+  GETTABLEKS R1 R0 K16 ["_root"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K17 ["provide"]
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R0 K10 ["_localization"]
+  SETLIST R4 R5 1 [1]
+  DUPTABLE R5 K19 [{"StudioVisualizationModes"}]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K20 ["createPortal"]
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K21 ["createElement"]
+  GETUPVAL R8 7
+  DUPTABLE R9 K23 [{"Plugin", "Localization"}]
+  GETIMPORT R10 K25 [plugin]
+  SETTABLEKS R10 R9 K22 ["Plugin"]
+  GETTABLEKS R10 R0 K10 ["_localization"]
+  SETTABLEKS R10 R9 K4 ["Localization"]
+  CALL R7 2 1
+  GETUPVAL R8 8
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K18 ["StudioVisualizationModes"]
+  CALL R3 2 -1
+  NAMECALL R1 R1 K26 ["render"]
+  CALL R1 -1 0
+  GETTABLEKS R1 R0 K3 ["_maid"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K27 ["giveTask"]
+  CALL R1 2 0
+  RETURN R0 1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["_maid"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["VisualizationModes"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["ReactRoblox"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Maid"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Modes"]
+  GETTABLEKS R5 R6 K13 ["StudioVisualizationModes"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K15 ["ContextServices"]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Resources"]
+  GETTABLEKS R8 R9 K17 ["Localization"]
+  GETTABLEKS R7 R8 K18 ["SourceStrings"]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Resources"]
+  GETTABLEKS R9 R10 K17 ["Localization"]
+  GETTABLEKS R8 R9 K19 ["LocalizedStrings"]
+  GETIMPORT R9 K21 [game]
+  LOADK R11 K22 ["VisualizationModeService"]
+  NAMECALL R9 R9 K23 ["GetService"]
+  CALL R9 2 1
+  NEWTABLE R10 4 0
+  LOADK R11 K24 ["StudioVisualizationModeProvider"]
+  SETTABLEKS R11 R10 K25 ["ClassName"]
+  SETTABLEKS R10 R10 K26 ["__index"]
+  DUPCLOSURE R11 K27 [PROTO_1]
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  SETTABLEKS R11 R10 K28 ["new"]
+  DUPCLOSURE R11 K29 [PROTO_2]
+  SETTABLEKS R11 R10 K30 ["destroy"]
+  RETURN R10 1

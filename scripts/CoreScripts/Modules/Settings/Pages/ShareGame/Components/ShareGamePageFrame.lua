@@ -13,7 +13,10 @@ local Promise = require(CorePackages.Promise)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
-local GetFFlagShareInviteLinkContextMenuV1Enabled = require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
+local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
+local GetFFlagInviteFriendsDesignUpdates = require(Modules.Settings.Flags.GetFFlagInviteFriendsDesignUpdates)
+local GetFFlagShareInviteLinkContextMenuV1Enabled =
+	require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -36,6 +39,10 @@ local SetGameInfoCreated = require(ShareGame.Actions.SetGameInfoCreated)
 
 local USER_LIST_PADDING = 10
 local SHARE_INVITE_LINK_HEIGHT = 44
+if GetFFlagInviteFriendsDesignUpdates() and GetFFlagEnableNewInviteMenu() then
+	USER_LIST_PADDING = 16
+	SHARE_INVITE_LINK_HEIGHT = 52
+end
 
 local ShareGamePageFrame = Roact.PureComponent:extend("ShareGamePageFrame")
 
@@ -50,13 +57,15 @@ function ShareGamePageFrame:init()
 end
 
 function ShareGamePageFrame:shouldShowInviteLink(gameInfo)
-	if GetFFlagShareInviteLinkContextMenuV1Enabled()
+	if
+		GetFFlagShareInviteLinkContextMenuV1Enabled()
 		and self.state.serverType == CommonConstants.STANDARD_SERVER
-		and utility:IsExperienceOlderThanOneWeek(gameInfo) then
-			return true
-		end
+		and utility:IsExperienceOlderThanOneWeek(gameInfo)
+	then
+		return true
+	end
 
-		return false
+	return false
 end
 
 function ShareGamePageFrame:didMount()
@@ -66,10 +75,9 @@ function ShareGamePageFrame:didMount()
 			Promise.try(function()
 				local serverTypeRemote = RobloxReplicatedStorage:WaitForChild("GetServerType", math.huge)
 				return serverTypeRemote:InvokeServer()
+			end):andThen(function(serverType)
+				self:setState({ serverType = serverType })
 			end)
-				:andThen(function(serverType)
-					self:setState({ serverType = serverType })
-				end)
 		end
 	end
 end
@@ -122,20 +130,19 @@ function ShareGamePageFrame:render()
 			iconType = iconType,
 			analytics = analytics,
 		}),
-		ShareInviteLink = showInviteLink
-			and Roact.createElement(ShareInviteLink, {
-				position = UDim2.new(0, 0, 0, listPositionOffset),
-				analytics = analytics,
-				deviceLayout = deviceLayout,
-				size = UDim2.new(1, 0, 0, SHARE_INVITE_LINK_HEIGHT),
-				layoutOrder = 1,
-				zIndex = zIndex
-			})
-			or nil,
+		ShareInviteLink = showInviteLink and Roact.createElement(ShareInviteLink, {
+			position = UDim2.new(0, 0, 0, listPositionOffset),
+			analytics = analytics,
+			deviceLayout = deviceLayout,
+			size = UDim2.new(1, 0, 0, SHARE_INVITE_LINK_HEIGHT),
+			layoutOrder = 1,
+			zIndex = zIndex,
+		}) or nil,
 		ConversationList = Roact.createElement(ConversationList, {
 			analytics = analytics,
 			size = UDim2.new(1, 0, 1, layoutSpecific.EXTEND_BOTTOM_SIZE - USER_LIST_PADDING + listHeightOffset),
-			topPadding = showInviteLink and USER_LIST_PADDING + SHARE_INVITE_LINK_HEIGHT + listPositionOffset or USER_LIST_PADDING,
+			topPadding = showInviteLink and USER_LIST_PADDING + SHARE_INVITE_LINK_HEIGHT + listPositionOffset
+				or USER_LIST_PADDING,
 			layoutOrder = showInviteLink and 2 or 1,
 			zIndex = zIndex,
 			searchText = searchText,
@@ -146,23 +153,20 @@ function ShareGamePageFrame:render()
 end
 
 if GetFFlagShareInviteLinkContextMenuV1Enabled() then
-	ShareGamePageFrame = RoactRodux.connect(
-		function(state)
-			return {
-				gameInfo = state.GameInfo
-			}
-		end,
-		function(dispatch)
-			return {
-				fetchGameInfo = function()
-					local httpImpl = httpRequest(HttpRbxApiService)
-					GetGameNameAndDescription(httpImpl, game.GameId):andThen(function(result)
-						dispatch(SetGameInfoCreated(result.Created))
-					end)
-				end
-			}
-		end
-	)(ShareGamePageFrame)
+	ShareGamePageFrame = RoactRodux.connect(function(state)
+		return {
+			gameInfo = state.GameInfo,
+		}
+	end, function(dispatch)
+		return {
+			fetchGameInfo = function()
+				local httpImpl = httpRequest(HttpRbxApiService)
+				GetGameNameAndDescription(httpImpl, game.GameId):andThen(function(result)
+					dispatch(SetGameInfoCreated(result.Created))
+				end)
+			end,
+		}
+	end)(ShareGamePageFrame)
 end
 
 return ShareGamePageFrame

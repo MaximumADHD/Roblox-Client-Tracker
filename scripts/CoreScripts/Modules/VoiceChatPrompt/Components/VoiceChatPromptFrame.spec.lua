@@ -236,5 +236,73 @@ return function()
 
 			Roact.unmount(instance)
 		end)
+
+		it("should display voice consent declined toast correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.VoiceConsentDeclinedToast)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local feedbackToastTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.ChangeYourMind"),
+			})
+			local feedbackToastSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.JoinVoiceLater"),
+			})
+
+			jestExpect(feedbackToastTitle).toBeDefined()
+			jestExpect(feedbackToastSubtitle).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
+
+		it("should display voice consent accepted toast correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.VoiceConsentAcceptedToast)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local feedbackToastTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.JoinedVoiceChat"),
+			})
+			local feedbackToastSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.MuteAnyoneAnytime"),
+			})
+
+			jestExpect(feedbackToastTitle).toBeDefined()
+			jestExpect(feedbackToastSubtitle).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
 	end)
 end

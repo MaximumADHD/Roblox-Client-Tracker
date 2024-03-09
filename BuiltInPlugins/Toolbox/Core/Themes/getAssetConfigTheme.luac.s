@@ -338,7 +338,7 @@ PROTO_0:
   GETTABLEKS R5 R6 K158 ["LinkText"]
   SETTABLEKS R5 R4 K153 ["link"]
   SETTABLEKS R4 R3 K159 ["uploadResult"]
-  DUPTABLE R4 K164 [{"thumbnailBorderColor", "buttonSelectedColor", "buttonDefaultColor", "textColor", "dimmedTextColor"}]
+  DUPTABLE R4 K164 [{"thumbnailBorderColor", "buttonSelectedColor", "buttonDefaultColor", "textColor", "dimmedTextColor", "errorColor"}]
   GETIMPORT R5 K156 [Color3.fromRGB]
   LOADN R6 117
   LOADN R7 117
@@ -363,6 +363,9 @@ PROTO_0:
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K17 ["DimmedText"]
   SETTABLEKS R5 R4 K163 ["dimmedTextColor"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K15 ["ErrorText"]
+  SETTABLEKS R5 R4 K5 ["errorColor"]
   SETTABLEKS R4 R3 K165 ["versions"]
   GETUPVAL R5 3
   CALL R5 0 1

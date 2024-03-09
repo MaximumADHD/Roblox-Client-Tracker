@@ -7,15 +7,17 @@ PROTO_0:
   LOADK R3 K0 ["Invalid buffer size, should be > 0"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
-  DUPTABLE R2 K6 [{"__buffer", "__size", "__writeIndex"}]
+  DUPTABLE R2 K7 [{"__buffer", "__size", "__writeIndex", "__firstIndex"}]
   NEWTABLE R3 0 0
   SETTABLEKS R3 R2 K3 ["__buffer"]
   SETTABLEKS R0 R2 K4 ["__size"]
   LOADN R3 1
   SETTABLEKS R3 R2 K5 ["__writeIndex"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K6 ["__firstIndex"]
   GETUPVAL R3 0
   FASTCALL2 SETMETATABLE R2 R3 [+3]
-  GETIMPORT R1 K8 [setmetatable]
+  GETIMPORT R1 K9 [setmetatable]
   CALL R1 2 1
   RETURN R1 1
 
@@ -33,23 +35,39 @@ PROTO_1:
   FORGLOOP R2 2 [-4]
   GETTABLEKS R2 R0 K3 ["__writeIndex"]
   SETTABLEKS R2 R1 K3 ["__writeIndex"]
+  GETTABLEKS R2 R0 K4 ["__firstIndex"]
+  SETTABLEKS R2 R1 K4 ["__firstIndex"]
   RETURN R1 1
 
 PROTO_2:
-  GETTABLEKS R2 R0 K0 ["__buffer"]
+  GETTABLEKS R1 R0 K0 ["__size"]
+  RETURN R1 1
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["__firstIndex"]
+  JUMPIF R2 [+5]
+  GETTABLEKS R2 R0 K1 ["__writeIndex"]
+  SETTABLEKS R2 R0 K0 ["__firstIndex"]
+  JUMP [+14]
+  GETTABLEKS R2 R0 K0 ["__firstIndex"]
+  GETTABLEKS R3 R0 K1 ["__writeIndex"]
+  JUMPIFNOTEQ R2 R3 [+9]
+  GETTABLEKS R4 R0 K0 ["__firstIndex"]
+  GETTABLEKS R5 R0 K3 ["__size"]
+  MOD R3 R4 R5
+  ADDK R2 R3 K2 [1]
+  SETTABLEKS R2 R0 K0 ["__firstIndex"]
+  GETTABLEKS R2 R0 K4 ["__buffer"]
   GETTABLEKS R3 R0 K1 ["__writeIndex"]
   SETTABLE R1 R2 R3
-  GETTABLEKS R2 R0 K1 ["__writeIndex"]
-  ADDK R2 R2 K2 [1]
-  SETTABLEKS R2 R0 K1 ["__writeIndex"]
-  GETTABLEKS R2 R0 K1 ["__writeIndex"]
-  GETTABLEKS R3 R0 K3 ["__size"]
-  JUMPIFNOTLT R3 R2 [+4]
-  LOADN R2 1
+  GETTABLEKS R4 R0 K1 ["__writeIndex"]
+  GETTABLEKS R5 R0 K3 ["__size"]
+  MOD R3 R4 R5
+  ADDK R2 R3 K2 [1]
   SETTABLEKS R2 R0 K1 ["__writeIndex"]
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   FASTCALL1 GETMETATABLE R0 [+3]
   MOVE R4 R0
   GETIMPORT R3 K1 [getmetatable]
@@ -57,57 +75,62 @@ PROTO_3:
   GETTABLE R2 R3 R1
   JUMPIFEQKNIL R2 [+2]
   RETURN R2 1
+  JUMPIFNOTEQKS R1 K2 ["last"] [+3]
+  GETTABLEN R3 R0 1
+  RETURN R3 1
+  JUMPIFNOTEQKS R1 K3 ["first"] [+8]
+  GETTABLEKS R4 R0 K4 ["__buffer"]
+  GETTABLEKS R6 R0 K6 ["__firstIndex"]
+  ORK R5 R6 K5 [1]
+  GETTABLE R3 R4 R5
+  RETURN R3 1
   FASTCALL1 TYPE R1 [+3]
-  MOVE R6 R1
-  GETIMPORT R5 K3 [type]
-  CALL R5 1 1
-  JUMPIFEQKS R5 K4 ["number"] [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  GETIMPORT R5 K7 [string.format]
-  LOADK R6 K8 ["Invalid index type (%s, must be number)"]
-  FASTCALL1 TYPE R1 [+3]
-  MOVE R8 R1
-  GETIMPORT R7 K3 [type]
-  CALL R7 1 1
-  CALL R5 2 -1
-  FASTCALL ASSERT [+2]
-  GETIMPORT R3 K10 [assert]
-  CALL R3 -1 0
-  GETTABLEKS R4 R0 K11 ["__writeIndex"]
+  MOVE R4 R1
+  GETIMPORT R3 K8 [type]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K9 ["number"] [+14]
+  GETTABLEKS R4 R0 K10 ["__writeIndex"]
   SUB R3 R4 R1
   LOADN R4 1
   JUMPIFNOTLT R3 R4 [+4]
-  GETTABLEKS R4 R0 K12 ["__size"]
+  GETTABLEKS R4 R0 K11 ["__size"]
   ADD R3 R3 R4
-  GETTABLEKS R5 R0 K13 ["__buffer"]
+  GETTABLEKS R5 R0 K4 ["__buffer"]
   GETTABLE R4 R5 R3
   RETURN R4 1
-
-PROTO_4:
-  NEWTABLE R2 0 0
-  LOADN R3 0
-  LOADN R6 1
-  GETTABLEKS R8 R0 K0 ["__size"]
-  FASTCALL2 MATH_MIN R8 R1 [+4]
-  MOVE R9 R1
-  GETIMPORT R7 K3 [math.min]
-  CALL R7 2 1
-  MOVE R4 R7
-  LOADN R5 1
-  FORNPREP R4
-  SUB R7 R1 R3
-  GETTABLE R8 R0 R6
-  SETTABLE R8 R2 R7
-  ADDK R3 R3 K4 [1]
-  FORNLOOP R4
-  SETTABLEKS R1 R0 K0 ["__size"]
-  SETTABLEKS R2 R0 K5 ["__buffer"]
-  LOADN R4 1
-  SETTABLEKS R4 R0 K6 ["__writeIndex"]
-  RETURN R0 0
+  LOADNIL R3
+  RETURN R3 1
 
 PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  MOVE R3 R1
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K1 ["__size"]
+  FASTCALL2 MATH_MAX R4 R1 [+4]
+  MOVE R5 R1
+  GETIMPORT R3 K4 [math.max]
+  CALL R3 2 1
+  GETTABLEKS R4 R0 K5 ["__firstIndex"]
+  JUMPIFEQKNIL R4 [+22]
+  GETTABLEKS R4 R0 K5 ["__firstIndex"]
+  LOADN R7 1
+  MOVE R5 R3
+  LOADN R6 1
+  FORNPREP R5
+  GETTABLEKS R11 R0 K6 ["__buffer"]
+  GETTABLE R10 R11 R4
+  NAMECALL R8 R2 K7 ["push"]
+  CALL R8 2 0
+  GETTABLEKS R9 R0 K1 ["__size"]
+  MOD R8 R4 R9
+  ADDK R4 R8 K8 [1]
+  GETTABLEKS R8 R0 K9 ["__writeIndex"]
+  JUMPIFEQ R4 R8 [+2]
+  FORNLOOP R5
+  RETURN R2 1
+
+PROTO_6:
   LOADK R2 K0 ["Buffer:
 "]
   LOADN R5 1
@@ -134,9 +157,17 @@ PROTO_5:
   GETTABLEKS R6 R0 K10 ["__writeIndex"]
   CALL R4 2 1
   CONCAT R2 R3 R4
+  MOVE R3 R2
+  GETIMPORT R4 K4 [string.format]
+  LOADK R5 K11 ["FirstIndex: %d
+"]
+  GETTABLEKS R7 R0 K13 ["__firstIndex"]
+  ORK R6 R7 K12 [-1]
+  CALL R4 2 1
+  CONCAT R2 R3 R4
   MOVE R3 R1
   JUMPIF R3 [+2]
-  GETIMPORT R3 K12 [print]
+  GETIMPORT R3 K15 [print]
   MOVE R4 R3
   MOVE R5 R2
   CALL R4 1 0
@@ -156,11 +187,14 @@ MAIN:
   CAPTURE VAL R1
   SETTABLEKS R2 R1 K7 ["clone"]
   DUPCLOSURE R2 K8 [PROTO_2]
-  SETTABLEKS R2 R1 K9 ["push"]
+  SETTABLEKS R2 R1 K9 ["getSize"]
   DUPCLOSURE R2 K10 [PROTO_3]
-  SETTABLEKS R2 R1 K11 ["__index"]
+  SETTABLEKS R2 R1 K11 ["push"]
   DUPCLOSURE R2 K12 [PROTO_4]
-  SETTABLEKS R2 R1 K13 ["resize"]
+  SETTABLEKS R2 R1 K13 ["__index"]
   DUPCLOSURE R2 K14 [PROTO_5]
-  SETTABLEKS R2 R1 K15 ["dump"]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K15 ["resize"]
+  DUPCLOSURE R2 K16 [PROTO_6]
+  SETTABLEKS R2 R1 K17 ["dump"]
   RETURN R1 1

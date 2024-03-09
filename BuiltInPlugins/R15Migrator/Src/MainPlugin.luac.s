@@ -515,8 +515,6 @@ PROTO_18:
   CALL R4 1 -1
   NAMECALL R2 R2 K44 ["dispatch"]
   CALL R2 -1 0
-  GETTABLEKS R2 R0 K7 ["startScan"]
-  CALL R2 0 0
   RETURN R0 0
 
 PROTO_19:
@@ -562,7 +560,7 @@ PROTO_20:
   GETTABLEKS R1 R0 K0 ["state"]
   GETTABLEKS R2 R1 K1 ["scanComplete"]
   GETTABLEKS R3 R0 K2 ["isR15ConvertedExperience"]
-  JUMPIFNOT R3 [+27]
+  JUMPIFNOT R3 [+32]
   DUPTABLE R3 K5 [{"MainView", "LoadingScreen"}]
   JUMPIFNOT R2 [+11]
   GETUPVAL R5 0
@@ -575,22 +573,25 @@ PROTO_20:
   JUMP [+1]
   LOADNIL R4
   SETTABLEKS R4 R3 K3 ["MainView"]
-  JUMPIF R2 [+6]
+  JUMPIF R2 [+11]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K6 ["createElement"]
   GETUPVAL R5 2
-  CALL R4 1 1
+  DUPTABLE R6 K11 [{"StartScan"}]
+  GETTABLEKS R7 R0 K12 ["startScan"]
+  SETTABLEKS R7 R6 K10 ["StartScan"]
+  CALL R4 2 1
   JUMP [+1]
   LOADNIL R4
   SETTABLEKS R4 R3 K4 ["LoadingScreen"]
   RETURN R3 1
-  DUPTABLE R3 K11 [{"InitialFlow"}]
+  DUPTABLE R3 K14 [{"InitialFlow"}]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K6 ["createElement"]
   GETUPVAL R5 3
   NEWTABLE R6 0 0
   CALL R4 2 1
-  SETTABLEKS R4 R3 K10 ["InitialFlow"]
+  SETTABLEKS R4 R3 K13 ["InitialFlow"]
   RETURN R3 1
 
 PROTO_21:

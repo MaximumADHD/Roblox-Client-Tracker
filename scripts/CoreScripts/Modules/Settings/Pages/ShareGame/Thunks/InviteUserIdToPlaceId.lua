@@ -7,7 +7,7 @@ local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
 local ApiSendGameInvite = require(AppTempCommon.LuaApp.Thunks.ApiSendGameInvite)
 local ApiFetchPlaceInfos = require(CorePackages.Workspace.Packages.PlaceInfoRodux).Thunks.ApiFetchPlaceInfos
-local Promise = require(AppTempCommon.LuaApp.Promise)
+local Promise = require(CorePackages.Packages.Promise)
 
 local ReceivedUserInviteStatus = require(ShareGame.Actions.ReceivedUserInviteStatus)
 local Constants = require(ShareGame.Constants)

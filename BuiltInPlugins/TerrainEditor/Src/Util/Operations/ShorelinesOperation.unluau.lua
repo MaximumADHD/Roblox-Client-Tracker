@@ -1,11 +1,11 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = require(script:FindFirstAncestor("TerrainEditor").Src.Util.Operations.BaseOperation)
 return function(arg1, arg2, arg3, arg4)
-   local var1055 = {}
-   var1055.AllowCancel = true
-   var1055.Description = arg2
-   var1055.Name = arg1
-   function var1055.OnCancel(arg1, arg2)
+   local var1060 = {}
+   var1060.AllowCancel = true
+   var1060.Description = arg2
+   var1060.Name = arg1
+   function var1060.OnCancel(arg1, arg2)
       assert(arg1.State, "Tried to step without starting first.")
       local var0 = arg1.State
       arg3(arg4.Terrain and arg4.Terrain:CanShorelinesBeUpgraded())
@@ -15,17 +15,17 @@ return function(arg1, arg2, arg3, arg4)
       return truevar0.Percent,
    end
    
-   function var1055.OnFinish()
+   function var1060.OnFinish()
       arg3.ShorelineUpgraderService:Cancel()
       arg4(arg3.Terrain and arg3.Terrain:CanShorelinesBeUpgraded())
    end
    
-   function var1055.OnStart(arg1)
+   function var1060.OnStart(arg1)
       assert(arg3.State, "Tried to update the state without it existing.")
       arg3.State.Percent = arg1
    end
    
-   function var1055.OnStep(arg1, arg2)
+   function var1060.OnStep(arg1, arg2)
       arg4.ShorelineUpgraderService:Start()
       arg4.ShorelineUpgraderService.Status:Connect(function(arg1)
          assert(arg3.State, "Tried to update the state without it existing.")
@@ -36,5 +36,5 @@ return function(arg1, arg2, arg3, arg4)
       arg1.State = var0
    end
    
-   return var0.new(var1055)
+   return var0.new(var1060)
 end

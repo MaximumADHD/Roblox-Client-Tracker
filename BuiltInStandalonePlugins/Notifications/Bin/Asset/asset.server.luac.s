@@ -72,16 +72,10 @@ MAIN:
   CALL R4 0 1
   JUMPIFNOT R4 [+1]
   RETURN R0 0
-  GETIMPORT R4 K16 [game]
-  LOADK R6 K17 ["EnableStudioNotifications3"]
-  NAMECALL R4 R4 K18 ["GetFastFlag"]
-  CALL R4 2 1
-  JUMPIF R4 [+1]
-  RETURN R0 0
   GETIMPORT R5 K1 [plugin]
-  GETTABLEKS R4 R5 K19 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R4 R5 K15 ["MultipleDocumentInterfaceInstance"]
   LOADNIL R5
-  DUPCLOSURE R6 K20 [PROTO_0]
+  DUPCLOSURE R6 K16 [PROTO_0]
   NEWCLOSURE R7 P1
   CAPTURE VAL R2
   CAPTURE VAL R4

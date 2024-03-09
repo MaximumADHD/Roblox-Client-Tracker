@@ -23,16 +23,15 @@ local var20 = require(var1.Src.Actions.SetSelectedKeyframes)
 local var21 = require(var1.Src.Actions.SetLegacyAnimationInstances)
 local var22 = require(var1.Src.Actions.SetSelectedTrackInstances)
 local var23 = require(var1.LuaFlags.GetFFlagAnimSavesMigration)
-local var24 = require(var1.LuaFlags.GetFFlagMigrationDialog)
 return function(arg1, arg2)
    return function(arg1, arg2)
-      local var0 = var10:GetTags(arg1.animation)
-      local var1 = var10:GetTags(arg2.animation)
+      local var0 = var10:GetTags(arg1)
+      local var1 = var10:GetTags(arg2)
       local var2 = var0[1] and tonumber(var0[1])
       local var3 = var1[1] and tonumber(var1[1])
       if not var2 then
          if not var3 then
-            if arg2.animation.Name > arg1.animation.Name then
+            if arg2.Name > arg1.Name then
                local var0 = false
             end
             return true

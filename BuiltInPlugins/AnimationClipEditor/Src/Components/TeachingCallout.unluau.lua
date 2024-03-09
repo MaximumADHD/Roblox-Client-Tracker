@@ -22,26 +22,26 @@ end
 
 local function fun5(arg1)
    local var0 = arg1.props.Offset or Vector2.new(0, 0)
-   local var176 = {}
-   var176.BackgroundTransparency = 1
-   var176.Position = UDim2.new(0, var0.X, 0, var0.Y)
-   var176.Size = UDim2.new(1, 0, 1, 0)
+   local var203 = {}
+   var203.BackgroundTransparency = 1
+   var203.Position = UDim2.new(0, var0.X, 0, var0.Y)
+   var203.Size = UDim2.new(1, 0, 1, 0)
    var1.Ref = arg1.targetRef
-   return var1.createElement("Frame", var176)
+   return var1.createElement("Frame", var203)
 end
 
 function var2.render(arg1)
    local var0 = arg1.props.Offset or Vector2.new(0, 0)
-   local var176 = {}
-   var176.BackgroundTransparency = 1
-   var176.Position = UDim2.new(0, var0.X, 0, var0.Y)
-   var176.Size = UDim2.new(1, 0, 1, 0)
+   local var203 = {}
+   var203.BackgroundTransparency = 1
+   var203.Position = UDim2.new(0, var0.X, 0, var0.Y)
+   var203.Size = UDim2.new(1, 0, 1, 0)
    var1.Ref = arg1.targetRef
-   return var1.createElement("Frame", var176)
+   return var1.createElement("Frame", var203)
 end
 
 fun5 = require(var0.Packages.Framework).ContextServices.withContext
-local var194 = {}
-var194.CalloutController = require(var0.Src.Util.CalloutController)
-var2 = fun5(var194)(var2)
+local var221 = {}
+var221.CalloutController = require(var0.Src.Util.CalloutController)
+var2 = fun5(var221)(var2)
 return var2

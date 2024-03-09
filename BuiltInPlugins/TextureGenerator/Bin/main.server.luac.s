@@ -48,7 +48,7 @@ MAIN:
   GETTABLEKS R1 R2 K4 ["Parent"]
   GETTABLEKS R0 R1 K4 ["Parent"]
   GETIMPORT R1 K9 [game]
-  LOADK R3 K10 ["EnableTextureGenerator"]
+  LOADK R3 K10 ["EnableTextureGenerator2"]
   NAMECALL R1 R1 K11 ["GetFastFlag"]
   CALL R1 2 1
   JUMPIF R1 [+1]

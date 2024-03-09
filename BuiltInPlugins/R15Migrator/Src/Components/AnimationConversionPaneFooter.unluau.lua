@@ -9,20 +9,20 @@ local var6 = var2.PureComponent:extend("AnimationConversionPaneFooter")
 function var6.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var331 = {}
-   var331.Size = var0.Size
-   var331.LayoutOrder = var0.LayoutOrder
-   var331.Layout = Enum.FillDirection.Vertical
-   var331.HorizontalAlignment = Enum.HorizontalAlignment.Right
-   var331.VerticalAlignment = Enum.VerticalAlignment.Bottom
-   var331.Spacing = var1.Spacing
-   var331.Padding = var1.Padding
-   local var337 = {}
-   var337.Buttons = var2.createElement(var5)
-   return var2.createElement(var3, var331, var337)
+   local var166 = {}
+   var166.Size = var0.Size
+   var166.LayoutOrder = var0.LayoutOrder
+   var166.Layout = Enum.FillDirection.Vertical
+   var166.HorizontalAlignment = Enum.HorizontalAlignment.Right
+   var166.VerticalAlignment = Enum.VerticalAlignment.Bottom
+   var166.Spacing = var1.Spacing
+   var166.Padding = var1.Padding
+   local var172 = {}
+   var172.Buttons = var2.createElement(var5)
+   return var2.createElement(var3, var166, var172)
 end
 
-local var344 = {}
-var344.Stylizer = var4.Stylizer
-var6 = var4.withContext(var344)(var6)
+local var179 = {}
+var179.Stylizer = var4.Stylizer
+var6 = var4.withContext(var179)(var6)
 return var6

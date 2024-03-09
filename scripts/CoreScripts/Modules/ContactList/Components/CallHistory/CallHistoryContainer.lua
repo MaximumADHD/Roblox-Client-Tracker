@@ -11,13 +11,14 @@ local Roact = require(CorePackages.Roact)
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local RetrievalStatus = require(CorePackages.Workspace.Packages.Http).Enum.RetrievalStatus
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
+local GetFFlagIrisUseLocalizationProvider =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local useApolloClient = ApolloClientModule.useApolloClient
 
 local ContactList = RobloxGui.Modules.ContactList
-local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local SetCurrentPage = require(ContactList.Actions.SetCurrentPage)
 local Pages = require(ContactList.Enums.Pages)
 local dependencies = require(ContactList.dependencies)
@@ -27,14 +28,22 @@ local useDispatch = dependencies.Hooks.useDispatch
 local UIBlox = dependencies.UIBlox
 local useSelector = dependencies.Hooks.useSelector
 
+local useLocalization
+local RobloxTranslator
+if GetFFlagIrisUseLocalizationProvider() then
+	useLocalization = dependencies.Hooks.useLocalization
+else
+	RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+end
+
 local useStyle = UIBlox.Core.Style.useStyle
 local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 local CallHistoryItem = require(ContactList.Components.CallHistory.CallHistoryItem)
-local NoItemView = require(ContactList.Components.common.NoItemView)
-local Constants = require(ContactList.Components.common.Constants)
+local NoItemView = require(ContactList.Components.ContactListCommon.NoItemView)
+local Constants = require(ContactList.Components.ContactListCommon.Constants)
 
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 
@@ -54,6 +63,14 @@ local function CallHistoryContainer(props: Props)
 	local dispatch = useDispatch()
 	local style = useStyle()
 	local theme = style.Theme
+
+	local localized
+	if GetFFlagIrisUseLocalizationProvider() then
+		localized = useLocalization({
+			genericErrorLabel = "Feature.Call.Error.Description.Generic",
+			noCallsLabel = "Feature.Call.Prompt.FirstCall",
+		})
+	end
 
 	-- Using refs instead of state since state might not be updated in time.
 	-- These are set to loading and fetching to prepare for the initial fetch.
@@ -142,10 +159,18 @@ local function CallHistoryContainer(props: Props)
 
 	local noRecordsComponent = React.useMemo(function()
 		local message
-		if status == RetrievalStatus.Failed then
-			message = RobloxTranslator:FormatByKey("Feature.Call.Error.Description.Generic")
+		if GetFFlagIrisUseLocalizationProvider() then
+			if status == RetrievalStatus.Failed then
+				message = localized.genericErrorLabel
+			else
+				message = localized.noCallsLabel
+			end
 		else
-			message = RobloxTranslator:FormatByKey("Feature.Call.Prompt.FirstCall")
+			if status == RetrievalStatus.Failed then
+				message = RobloxTranslator:FormatByKey("Feature.Call.Error.Description.Generic")
+			else
+				message = RobloxTranslator:FormatByKey("Feature.Call.Prompt.FirstCall")
+			end
 		end
 
 		return React.createElement(NoItemView, {

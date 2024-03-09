@@ -258,8 +258,6 @@ local function createRigJoints(parts, rig, jointUpgradeActive)
 		rootAC.IsKinematic = true
 		parts.LowerTorso.Root:Destroy()
 		rootAC.Parent = parts.LowerTorso
-		-- Prevent the HRP from colliding with the UpperTorso
-		parts.HumanoidRootPart.CanCollide = false
 	end
 
 	for _, params in ipairs(rig) do

@@ -1,0 +1,168 @@
+PROTO_0:
+  NEWTABLE R3 4 0
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K1 [setmetatable]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K3 ["_maid"]
+  FASTCALL2K ASSERT R1 K4 [+5]
+  MOVE R4 R1
+  LOADK R5 K4 ["No tracker"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K7 ["_tracker"]
+  FASTCALL2K ASSERT R0 K8 [+5]
+  MOVE R4 R0
+  LOADK R5 K8 ["No plugin"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K9 ["_plugin"]
+  NAMECALL R3 R2 K10 ["_setupStateBinding"]
+  CALL R3 1 0
+  NAMECALL R3 R2 K11 ["_bindRemoteRequests"]
+  CALL R3 1 0
+  RETURN R2 1
+
+PROTO_1:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K2 ["string"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K3 [+4]
+  LOADK R5 K3 ["Bad visualizationModeCategoryName"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K2 ["string"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K6 [+4]
+  LOADK R5 K6 ["Bad visualizationModeName"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K7 ["boolean"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K8 [+4]
+  LOADK R5 K8 ["Bad isEnabled"]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["_tracker"]
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  NAMECALL R3 R3 K10 ["updateVisualizationModeIsEnabled"]
+  CALL R3 4 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["_maid"]
+  GETTABLEKS R3 R0 K1 ["_plugin"]
+  LOADK R5 K2 ["updateVisualizationModeIsEnabled"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K3 ["OnInvoke"]
+  CALL R3 3 -1
+  NAMECALL R1 R1 K4 ["giveTask"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_plugin"]
+  LOADK R3 K1 ["updateVisualizationModes"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K2 ["Invoke"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_plugin"]
+  LOADK R3 K1 ["updateVisualizationModes"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["_tracker"]
+  NAMECALL R4 R4 K3 ["getState"]
+  CALL R4 1 -1
+  NAMECALL R1 R1 K4 ["Invoke"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["_maid"]
+  GETTABLEKS R4 R0 K1 ["_tracker"]
+  GETTABLEKS R3 R4 K2 ["changed"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K3 ["Connect"]
+  CALL R3 2 -1
+  NAMECALL R1 R1 K4 ["giveTask"]
+  CALL R1 -1 0
+  GETTABLEKS R1 R0 K5 ["_plugin"]
+  LOADK R3 K6 ["updateVisualizationModes"]
+  GETTABLEKS R4 R0 K1 ["_tracker"]
+  NAMECALL R4 R4 K7 ["getState"]
+  CALL R4 1 -1
+  NAMECALL R1 R1 K8 ["Invoke"]
+  CALL R1 -1 0
+  GETTABLEKS R1 R0 K0 ["_maid"]
+  GETTABLEKS R3 R0 K5 ["_plugin"]
+  LOADK R5 K9 ["queryUpdateVisualizationModes"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K10 ["OnInvoke"]
+  CALL R3 3 -1
+  NAMECALL R1 R1 K4 ["giveTask"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["_maid"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["VisualizationModes"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["Maid"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Model"]
+  GETTABLEKS R4 R5 K10 ["Tracking"]
+  GETTABLEKS R3 R4 K11 ["VisualizationModeServiceTracker"]
+  CALL R2 1 1
+  NEWTABLE R3 8 0
+  SETTABLEKS R3 R3 K12 ["__index"]
+  DUPCLOSURE R4 K13 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K14 ["new"]
+  DUPCLOSURE R4 K15 [PROTO_2]
+  SETTABLEKS R4 R3 K16 ["_bindRemoteRequests"]
+  DUPCLOSURE R4 K17 [PROTO_5]
+  SETTABLEKS R4 R3 K18 ["_setupStateBinding"]
+  DUPCLOSURE R4 K19 [PROTO_6]
+  SETTABLEKS R4 R3 K20 ["destroy"]
+  RETURN R3 1

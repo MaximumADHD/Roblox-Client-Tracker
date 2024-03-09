@@ -49,61 +49,66 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETTABLEN R3 R1 1
-  GETTABLEKS R2 R3 K0 ["Children"]
-  GETTABLEKS R3 R0 K1 ["setRandomizeSeed"]
-  GETTABLEN R5 R2 1
+  GETTABLEN R4 R1 1
+  GETTABLEKS R3 R4 K0 ["Children"]
+  GETTABLEKS R4 R0 K1 ["setRandomizeSeed"]
+  GETTABLEN R6 R3 1
+  GETTABLEKS R5 R6 K2 ["Value"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K3 ["setSeed"]
+  GETTABLEN R6 R3 2
+  GETTABLEKS R5 R6 K2 ["Value"]
+  CALL R4 1 0
+  GETTABLEN R5 R3 1
   GETTABLEKS R4 R5 K2 ["Value"]
-  CALL R3 1 0
-  GETTABLEKS R3 R0 K3 ["setSeed"]
-  GETTABLEN R5 R2 2
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K4 ["setValidSeed"]
+  LOADB R5 1
+  CALL R4 1 0
+  JUMP [+5]
+  GETTABLEN R5 R3 2
+  GETTABLEKS R4 R5 K5 ["Validate"]
+  MOVE R5 R2
+  CALL R4 1 0
+  GETTABLEN R5 R3 3
   GETTABLEKS R4 R5 K2 ["Value"]
-  CALL R3 1 0
-  GETTABLEN R4 R2 1
-  GETTABLEKS R3 R4 K2 ["Value"]
-  JUMPIFNOT R3 [+4]
-  GETTABLEKS R3 R0 K4 ["setValidOptions"]
-  LOADB R4 1
-  CALL R3 1 0
-  GETTABLEN R4 R2 3
-  GETTABLEKS R3 R4 K2 ["Value"]
-  GETTABLEKS R7 R3 K7 ["X"]
-  ADDK R6 R7 K5 [180]
-  MODK R5 R6 K6 [360]
-  SUBK R4 R5 K5 [180]
-  GETTABLEKS R8 R3 K8 ["Y"]
-  ADDK R7 R8 K5 [180]
-  MODK R6 R7 K6 [360]
-  SUBK R5 R6 K5 [180]
-  GETTABLEKS R9 R3 K9 ["Z"]
-  ADDK R8 R9 K5 [180]
-  MODK R7 R8 K6 [360]
-  SUBK R6 R7 K5 [180]
-  GETIMPORT R7 K12 [CFrame.fromEulerAnglesYXZ]
-  FASTCALL1 MATH_RAD R4 [+3]
-  MOVE R9 R4
-  GETIMPORT R8 K15 [math.rad]
-  CALL R8 1 1
+  GETTABLEKS R8 R4 K8 ["X"]
+  ADDK R7 R8 K6 [180]
+  MODK R6 R7 K7 [360]
+  SUBK R5 R6 K6 [180]
+  GETTABLEKS R9 R4 K9 ["Y"]
+  ADDK R8 R9 K6 [180]
+  MODK R7 R8 K7 [360]
+  SUBK R6 R7 K6 [180]
+  GETTABLEKS R10 R4 K10 ["Z"]
+  ADDK R9 R10 K6 [180]
+  MODK R8 R9 K7 [360]
+  SUBK R7 R8 K6 [180]
+  GETIMPORT R8 K13 [CFrame.fromEulerAnglesYXZ]
   FASTCALL1 MATH_RAD R5 [+3]
   MOVE R10 R5
-  GETIMPORT R9 K15 [math.rad]
+  GETIMPORT R9 K16 [math.rad]
   CALL R9 1 1
   FASTCALL1 MATH_RAD R6 [+3]
   MOVE R11 R6
-  GETIMPORT R10 K15 [math.rad]
+  GETIMPORT R10 K16 [math.rad]
   CALL R10 1 1
-  CALL R7 3 1
-  GETTABLEKS R8 R0 K16 ["setRotation"]
-  MOVE R9 R7
-  CALL R8 1 0
-  GETTABLEKS R8 R0 K17 ["setSmartUVUnwrap"]
-  GETTABLEN R10 R2 4
-  GETTABLEKS R9 R10 K2 ["Value"]
-  CALL R8 1 0
-  GETTABLEKS R8 R0 K18 ["setPromptMasking"]
-  GETTABLEN R10 R2 5
-  GETTABLEKS R9 R10 K2 ["Value"]
-  CALL R8 1 0
+  FASTCALL1 MATH_RAD R7 [+3]
+  MOVE R12 R7
+  GETIMPORT R11 K16 [math.rad]
+  CALL R11 1 1
+  CALL R8 3 1
+  GETTABLEKS R9 R0 K17 ["setRotation"]
+  MOVE R10 R8
+  CALL R9 1 0
+  GETTABLEKS R9 R0 K18 ["setSmartUVUnwrap"]
+  GETTABLEN R11 R3 4
+  GETTABLEKS R10 R11 K2 ["Value"]
+  CALL R9 1 0
+  GETTABLEKS R9 R0 K19 ["setPromptMasking"]
+  GETTABLEN R11 R3 5
+  GETTABLEKS R10 R11 K2 ["Value"]
+  CALL R9 1 0
   RETURN R0 0
 
 PROTO_3:
@@ -111,13 +116,16 @@ PROTO_3:
   MOVE R2 R0
   GETIMPORT R1 K1 [type]
   CALL R1 1 1
-  JUMPIFEQKS R1 K2 ["number"] [+15]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["setValidOptions"]
+  JUMPIFEQKS R1 K2 ["number"] [+18]
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["setValidSeed"]
   LOADB R2 0
   CALL R1 1 0
   GETIMPORT R1 K7 [Enum.PropertyStatus.Error]
-  GETUPVAL R2 1
+  GETUPVAL R2 2
   LOADK R4 K8 ["Options"]
   LOADK R5 K9 ["SeedNotANumber"]
   NAMECALL R2 R2 K10 ["getText"]
@@ -125,22 +133,28 @@ PROTO_3:
   RETURN R1 -1
   LOADN R1 0
   JUMPIFLT R0 R1 [+6]
-  GETUPVAL R2 2
+  GETUPVAL R2 3
   GETTABLEKS R1 R2 K11 ["MAX_SEED_VALUE"]
-  JUMPIFNOTLT R1 R0 [+15]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["setValidOptions"]
+  JUMPIFNOTLT R1 R0 [+18]
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["setValidSeed"]
   LOADB R2 0
   CALL R1 1 0
   GETIMPORT R1 K7 [Enum.PropertyStatus.Error]
-  GETUPVAL R2 1
+  GETUPVAL R2 2
   LOADK R4 K8 ["Options"]
   LOADK R5 K12 ["SeedOutOfRange"]
   NAMECALL R2 R2 K10 ["getText"]
   CALL R2 3 -1
   RETURN R1 -1
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["setValidOptions"]
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["setValidSeed"]
   LOADB R2 1
   CALL R1 1 0
   GETIMPORT R1 K14 [Enum.PropertyStatus.Ok]
@@ -164,7 +178,7 @@ PROTO_4:
   CALL R1 1 1
   JUMPIFEQKS R1 K3 ["number"] [+15]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["setValidOptions"]
+  GETTABLEKS R1 R2 K6 ["setValidRotation"]
   LOADB R2 0
   CALL R1 1 0
   GETIMPORT R1 K10 [Enum.PropertyStatus.Error]
@@ -202,7 +216,7 @@ PROTO_4:
   LOADB R1 1
   JUMPIF R1 [+14]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["setValidOptions"]
+  GETTABLEKS R1 R2 K6 ["setValidRotation"]
   LOADB R2 0
   CALL R1 1 0
   GETIMPORT R1 K10 [Enum.PropertyStatus.Error]
@@ -213,7 +227,7 @@ PROTO_4:
   CALL R2 3 -1
   RETURN R1 -1
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["setValidOptions"]
+  GETTABLEKS R1 R2 K6 ["setValidRotation"]
   LOADB R2 1
   CALL R1 1 0
   GETIMPORT R1 K16 [Enum.PropertyStatus.Ok]
@@ -288,105 +302,89 @@ PROTO_6:
   RETURN R1 1
 
 PROTO_7:
-  NEWTABLE R2 0 1
-  DUPTABLE R3 K3 [{"Id", "Label", "Children"}]
-  LOADK R4 K4 ["Advanced Options"]
-  SETTABLEKS R4 R3 K0 ["Id"]
-  LOADK R6 K5 ["Options"]
-  LOADK R7 K6 ["AdvancedOptions"]
-  NAMECALL R4 R0 K7 ["getText"]
-  CALL R4 3 1
-  SETTABLEKS R4 R3 K1 ["Label"]
-  NEWTABLE R4 0 5
-  DUPTABLE R5 K10 [{"Id", "Label", "Tooltip", "Schema"}]
-  LOADK R6 K11 ["RandomizeSeed"]
-  SETTABLEKS R6 R5 K0 ["Id"]
-  LOADK R8 K5 ["Options"]
-  LOADK R9 K11 ["RandomizeSeed"]
-  NAMECALL R6 R0 K7 ["getText"]
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K1 ["Label"]
-  LOADK R8 K5 ["Options"]
-  LOADK R9 K12 ["RandomizeSeedTooltip"]
-  NAMECALL R6 R0 K7 ["getText"]
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K8 ["Tooltip"]
-  DUPTABLE R6 K14 [{"Type"}]
-  LOADK R7 K15 ["Checkbox"]
-  SETTABLEKS R7 R6 K13 ["Type"]
-  SETTABLEKS R6 R5 K9 ["Schema"]
-  DUPTABLE R6 K18 [{"Id", "Disabled", "Label", "Validate", "Schema"}]
-  LOADK R7 K19 ["Seed"]
+  NEWTABLE R3 0 1
+  DUPTABLE R4 K3 [{"Id", "Label", "Children"}]
+  LOADK R5 K4 ["Advanced Options"]
+  SETTABLEKS R5 R4 K0 ["Id"]
+  LOADK R7 K5 ["Options"]
+  LOADK R8 K6 ["AdvancedOptions"]
+  NAMECALL R5 R0 K7 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K1 ["Label"]
+  NEWTABLE R5 0 5
+  DUPTABLE R6 K10 [{"Id", "Label", "Tooltip", "Schema"}]
+  LOADK R7 K11 ["RandomizeSeed"]
   SETTABLEKS R7 R6 K0 ["Id"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K16 ["Disabled"]
   LOADK R9 K5 ["Options"]
-  LOADK R10 K19 ["Seed"]
+  LOADK R10 K11 ["RandomizeSeed"]
   NAMECALL R7 R0 K7 ["getText"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K1 ["Label"]
-  NEWCLOSURE R7 P0
-  CAPTURE VAL R1
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R7 R6 K17 ["Validate"]
+  LOADK R9 K5 ["Options"]
+  LOADK R10 K12 ["RandomizeSeedTooltip"]
+  NAMECALL R7 R0 K7 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K8 ["Tooltip"]
   DUPTABLE R7 K14 [{"Type"}]
-  LOADK R8 K20 ["Number"]
+  LOADK R8 K15 ["Checkbox"]
   SETTABLEKS R8 R7 K13 ["Type"]
   SETTABLEKS R7 R6 K9 ["Schema"]
-  DUPTABLE R7 K21 [{"Id", "Label", "Validate", "Schema"}]
-  LOADK R8 K22 ["Rotation"]
+  DUPTABLE R7 K18 [{"Id", "Disabled", "Label", "Validate", "Schema"}]
+  LOADK R8 K19 ["Seed"]
   SETTABLEKS R8 R7 K0 ["Id"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K16 ["Disabled"]
   LOADK R10 K5 ["Options"]
-  LOADK R11 K22 ["Rotation"]
+  LOADK R11 K19 ["Seed"]
   NAMECALL R8 R0 K7 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K1 ["Label"]
-  NEWCLOSURE R8 P1
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R2
   CAPTURE VAL R1
   CAPTURE VAL R0
+  CAPTURE UPVAL U0
   SETTABLEKS R8 R7 K17 ["Validate"]
-  DUPTABLE R8 K26 [{"Type", "Components", "GetValue", "GetComponents"}]
-  LOADK R9 K27 ["Vector"]
+  DUPTABLE R8 K14 [{"Type"}]
+  LOADK R9 K20 ["Number"]
   SETTABLEKS R9 R8 K13 ["Type"]
-  NEWTABLE R9 0 3
-  LOADK R10 K28 ["X"]
-  LOADK R11 K29 ["Y"]
-  LOADK R12 K30 ["Z"]
-  SETLIST R9 R10 3 [1]
-  SETTABLEKS R9 R8 K23 ["Components"]
-  DUPCLOSURE R9 K31 [PROTO_5]
-  SETTABLEKS R9 R8 K24 ["GetValue"]
-  DUPCLOSURE R9 K32 [PROTO_6]
-  SETTABLEKS R9 R8 K25 ["GetComponents"]
   SETTABLEKS R8 R7 K9 ["Schema"]
-  DUPTABLE R8 K10 [{"Id", "Label", "Tooltip", "Schema"}]
-  LOADK R9 K33 ["SmartUVUnwrap"]
+  DUPTABLE R8 K21 [{"Id", "Label", "Validate", "Schema"}]
+  LOADK R9 K22 ["Rotation"]
   SETTABLEKS R9 R8 K0 ["Id"]
   LOADK R11 K5 ["Options"]
-  LOADK R12 K33 ["SmartUVUnwrap"]
+  LOADK R12 K22 ["Rotation"]
   NAMECALL R9 R0 K7 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K1 ["Label"]
-  LOADK R11 K5 ["Options"]
-  LOADK R12 K34 ["SmartUVUnwrapTooltip"]
-  NAMECALL R9 R0 K7 ["getText"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K8 ["Tooltip"]
-  DUPTABLE R9 K14 [{"Type"}]
-  LOADK R10 K15 ["Checkbox"]
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R9 R8 K17 ["Validate"]
+  DUPTABLE R9 K26 [{"Type", "Components", "GetValue", "GetComponents"}]
+  LOADK R10 K27 ["Vector"]
   SETTABLEKS R10 R9 K13 ["Type"]
+  NEWTABLE R10 0 3
+  LOADK R11 K28 ["X"]
+  LOADK R12 K29 ["Y"]
+  LOADK R13 K30 ["Z"]
+  SETLIST R10 R11 3 [1]
+  SETTABLEKS R10 R9 K23 ["Components"]
+  DUPCLOSURE R10 K31 [PROTO_5]
+  SETTABLEKS R10 R9 K24 ["GetValue"]
+  DUPCLOSURE R10 K32 [PROTO_6]
+  SETTABLEKS R10 R9 K25 ["GetComponents"]
   SETTABLEKS R9 R8 K9 ["Schema"]
   DUPTABLE R9 K10 [{"Id", "Label", "Tooltip", "Schema"}]
-  LOADK R10 K35 ["PromptMasking"]
+  LOADK R10 K33 ["SmartUVUnwrap"]
   SETTABLEKS R10 R9 K0 ["Id"]
   LOADK R12 K5 ["Options"]
-  LOADK R13 K35 ["PromptMasking"]
+  LOADK R13 K33 ["SmartUVUnwrap"]
   NAMECALL R10 R0 K7 ["getText"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K1 ["Label"]
   LOADK R12 K5 ["Options"]
-  LOADK R13 K36 ["PromptMaskingTooltip"]
+  LOADK R13 K34 ["SmartUVUnwrapTooltip"]
   NAMECALL R10 R0 K7 ["getText"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K8 ["Tooltip"]
@@ -394,17 +392,35 @@ PROTO_7:
   LOADK R11 K15 ["Checkbox"]
   SETTABLEKS R11 R10 K13 ["Type"]
   SETTABLEKS R10 R9 K9 ["Schema"]
-  SETLIST R4 R5 5 [1]
-  SETTABLEKS R4 R3 K2 ["Children"]
-  SETLIST R2 R3 1 [1]
-  RETURN R2 1
+  DUPTABLE R10 K10 [{"Id", "Label", "Tooltip", "Schema"}]
+  LOADK R11 K35 ["PromptMasking"]
+  SETTABLEKS R11 R10 K0 ["Id"]
+  LOADK R13 K5 ["Options"]
+  LOADK R14 K35 ["PromptMasking"]
+  NAMECALL R11 R0 K7 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K1 ["Label"]
+  LOADK R13 K5 ["Options"]
+  LOADK R14 K36 ["PromptMaskingTooltip"]
+  NAMECALL R11 R0 K7 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K8 ["Tooltip"]
+  DUPTABLE R11 K14 [{"Type"}]
+  LOADK R12 K15 ["Checkbox"]
+  SETTABLEKS R12 R11 K13 ["Type"]
+  SETTABLEKS R11 R10 K9 ["Schema"]
+  SETLIST R5 R6 5 [1]
+  SETTABLEKS R5 R4 K2 ["Children"]
+  SETLIST R3 R4 1 [1]
+  RETURN R3 1
 
 PROTO_8:
   GETUPVAL R0 0
   GETUPVAL R1 1
   GETUPVAL R2 2
-  CALL R0 2 1
-  GETUPVAL R1 3
+  GETUPVAL R3 3
+  CALL R0 3 1
+  GETUPVAL R1 4
   MOVE R2 R0
   GETUPVAL R3 2
   CALL R1 2 0
@@ -414,12 +430,17 @@ PROTO_9:
   GETUPVAL R1 0
   GETUPVAL R2 1
   MOVE R3 R0
-  CALL R1 2 0
+  GETUPVAL R4 2
+  CALL R1 3 0
   RETURN R0 0
 
 PROTO_10:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["setValidOptions"]
+  GETTABLEKS R0 R1 K0 ["setValidRotation"]
+  LOADB R1 1
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["setValidSeed"]
   LOADB R1 1
   CALL R0 1 0
   RETURN R0 0
@@ -437,63 +458,70 @@ PROTO_11:
   NEWTABLE R4 0 0
   CALL R3 1 2
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K3 ["useMemo"]
-  NEWCLOSURE R6 P0
+  GETTABLEKS R5 R6 K2 ["useState"]
+  LOADN R6 0
+  CALL R5 1 2
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["useMemo"]
+  NEWCLOSURE R8 P0
   CAPTURE UPVAL U3
   CAPTURE VAL R2
   CAPTURE VAL R1
+  CAPTURE VAL R6
   CAPTURE UPVAL U4
-  NEWTABLE R7 0 1
-  MOVE R8 R1
-  SETLIST R7 R8 1 [1]
-  CALL R5 2 1
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K4 ["useCallback"]
-  NEWCLOSURE R7 P1
+  NEWTABLE R9 0 1
+  MOVE R10 R1
+  SETLIST R9 R10 1 [1]
+  CALL R7 2 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["useCallback"]
+  NEWCLOSURE R9 P1
   CAPTURE UPVAL U5
   CAPTURE VAL R1
-  NEWTABLE R8 0 1
-  MOVE R9 R1
-  SETLIST R8 R9 1 [1]
-  CALL R6 2 1
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K5 ["useEffect"]
-  NEWCLOSURE R8 P2
+  CAPTURE VAL R5
+  NEWTABLE R10 0 2
+  MOVE R11 R1
+  MOVE R12 R5
+  SETLIST R10 R11 2 [1]
+  CALL R8 2 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["useEffect"]
+  NEWCLOSURE R10 P2
   CAPTURE VAL R1
-  NEWTABLE R9 0 1
-  MOVE R10 R3
-  SETLIST R9 R10 1 [1]
-  CALL R7 2 0
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["createElement"]
-  GETUPVAL R8 6
-  DUPTABLE R9 K18 [{"AutomaticSize", "Expansion", "ExpandByDefault", "Items", "LabelHeight", "LabelWidth", "LayoutOrder", "OnChange", "OnExpansionChange", "Size", "UseScrollingFrame"}]
-  GETIMPORT R10 K21 [Enum.AutomaticSize.Y]
-  SETTABLEKS R10 R9 K7 ["AutomaticSize"]
-  SETTABLEKS R3 R9 K8 ["Expansion"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K9 ["ExpandByDefault"]
-  SETTABLEKS R5 R9 K10 ["Items"]
-  LOADN R10 24
-  SETTABLEKS R10 R9 K11 ["LabelHeight"]
-  GETIMPORT R10 K24 [UDim.new]
-  LOADN R11 0
-  LOADN R12 140
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K12 ["LabelWidth"]
-  GETTABLEKS R10 R0 K13 ["LayoutOrder"]
-  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
-  SETTABLEKS R6 R9 K14 ["OnChange"]
-  SETTABLEKS R4 R9 K15 ["OnExpansionChange"]
-  GETIMPORT R10 K27 [UDim2.fromScale]
-  LOADN R11 1
-  LOADN R12 0
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K16 ["Size"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K17 ["UseScrollingFrame"]
-  CALL R7 2 -1
-  RETURN R7 -1
+  NEWTABLE R11 0 1
+  MOVE R12 R3
+  SETLIST R11 R12 1 [1]
+  CALL R9 2 0
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K6 ["createElement"]
+  GETUPVAL R10 6
+  DUPTABLE R11 K18 [{"AutomaticSize", "Expansion", "ExpandByDefault", "Items", "LabelHeight", "LabelWidth", "LayoutOrder", "OnChange", "OnExpansionChange", "Size", "UseScrollingFrame"}]
+  GETIMPORT R12 K21 [Enum.AutomaticSize.Y]
+  SETTABLEKS R12 R11 K7 ["AutomaticSize"]
+  SETTABLEKS R3 R11 K8 ["Expansion"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K9 ["ExpandByDefault"]
+  SETTABLEKS R7 R11 K10 ["Items"]
+  LOADN R12 24
+  SETTABLEKS R12 R11 K11 ["LabelHeight"]
+  GETIMPORT R12 K24 [UDim.new]
+  LOADN R13 0
+  LOADN R14 140
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K12 ["LabelWidth"]
+  GETTABLEKS R12 R0 K13 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
+  SETTABLEKS R8 R11 K14 ["OnChange"]
+  SETTABLEKS R4 R11 K15 ["OnExpansionChange"]
+  GETIMPORT R12 K27 [UDim2.fromScale]
+  LOADN R13 1
+  LOADN R14 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K16 ["Size"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K17 ["UseScrollingFrame"]
+  CALL R9 2 -1
+  RETURN R9 -1
 
 MAIN:
   PREPVARARGS 0

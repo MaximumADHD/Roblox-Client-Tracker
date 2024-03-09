@@ -1,0 +1,151 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["state"]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R4 R2 K2 ["TextAlignment"]
+  GETIMPORT R5 K6 [Enum.TextXAlignment.Right]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K11 [{"ZIndex", "Size", "Position"}]
+  GETTABLEKS R7 R2 K8 ["ZIndex"]
+  SETTABLEKS R7 R6 K8 ["ZIndex"]
+  GETIMPORT R7 K14 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 1
+  LOADN R10 1
+  LOADN R11 0
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K9 ["Size"]
+  GETTABLEKS R7 R2 K10 ["Position"]
+  SETTABLEKS R7 R6 K10 ["Position"]
+  DUPTABLE R7 K17 [{"Tick", "Label"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K22 [{"Size", "Position", "AnchorPoint", "BorderSizePixel", "BackgroundColor", "BackgroundTransparency"}]
+  GETIMPORT R11 K14 [UDim2.new]
+  LOADN R12 0
+  GETTABLEKS R13 R2 K23 ["Width"]
+  GETTABLEKS R14 R2 K24 ["Height"]
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K9 ["Size"]
+  GETIMPORT R11 K26 [UDim2.fromScale]
+  LOADK R12 K27 [0.5]
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K10 ["Position"]
+  GETIMPORT R11 K29 [Vector2.new]
+  LOADK R12 K27 [0.5]
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K18 ["AnchorPoint"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K19 ["BorderSizePixel"]
+  GETTABLEKS R11 R2 K30 ["Color"]
+  SETTABLEKS R11 R10 K20 ["BackgroundColor"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K21 ["BackgroundTransparency"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["Tick"]
+  GETTABLEKS R9 R2 K2 ["TextAlignment"]
+  JUMPIFNOT R9 [+67]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K36 [{"AnchorPoint", "AutomaticSize", "Text", "TextSize", "TextXAlignment", "TextYAlignment", "Position", "TextColor", "ZIndex"}]
+  GETIMPORT R11 K29 [Vector2.new]
+  JUMPIFNOT R3 [+2]
+  LOADN R12 1
+  JUMP [+1]
+  LOADN R12 0
+  LOADN R13 0
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K18 ["AnchorPoint"]
+  GETIMPORT R11 K38 [Enum.AutomaticSize.XY]
+  SETTABLEKS R11 R10 K31 ["AutomaticSize"]
+  GETTABLEKS R13 R2 K15 ["Tick"]
+  JUMPIFEQKN R13 K39 [0] [+5]
+  GETTABLEKS R13 R2 K15 ["Tick"]
+  MINUS R12 R13
+  JUMP [+2]
+  GETTABLEKS R12 R2 K15 ["Tick"]
+  FASTCALL1 TOSTRING R12 [+2]
+  GETIMPORT R11 K41 [tostring]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K32 ["Text"]
+  LOADN R11 14
+  SETTABLEKS R11 R10 K33 ["TextSize"]
+  GETTABLEKS R11 R2 K2 ["TextAlignment"]
+  SETTABLEKS R11 R10 K4 ["TextXAlignment"]
+  GETIMPORT R11 K43 [Enum.TextYAlignment.Center]
+  SETTABLEKS R11 R10 K34 ["TextYAlignment"]
+  GETIMPORT R11 K14 [UDim2.new]
+  LOADN R12 0
+  JUMPIFNOT R3 [+2]
+  LOADN R13 253
+  JUMP [+1]
+  LOADN R13 3
+  LOADN R14 0
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K10 ["Position"]
+  GETTABLEKS R11 R2 K30 ["Color"]
+  SETTABLEKS R11 R10 K35 ["TextColor"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K8 ["ZIndex"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K16 ["Label"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["UI"]
+  GETTABLEKS R5 R4 K11 ["Pane"]
+  GETTABLEKS R6 R4 K12 ["TextLabel"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Types"]
+  CALL R7 1 1
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Util"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R8 K16 ["traverse"]
+  CALL R9 1 1
+  GETTABLEKS R10 R1 K17 ["PureComponent"]
+  LOADK R12 K18 ["TimelineTick"]
+  NAMECALL R10 R10 K19 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K20 [PROTO_0]
+  SETTABLEKS R11 R10 K21 ["init"]
+  DUPCLOSURE R11 K22 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K23 ["render"]
+  RETURN R10 1

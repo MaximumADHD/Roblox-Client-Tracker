@@ -221,7 +221,7 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K10 ["Src"]
   GETTABLEKS R5 R6 K11 ["Flags"]
-  GETTABLEKS R4 R5 K12 ["getFFlagTerrainEditorSubformComponent"]
+  GETTABLEKS R4 R5 K12 ["getFFlagTerrainEditorRemoveSchema"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K10 ["Src"]

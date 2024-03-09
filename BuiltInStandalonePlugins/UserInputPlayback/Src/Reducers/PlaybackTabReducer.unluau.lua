@@ -6,8 +6,8 @@ local var3 = require(var0.Src.Actions.PlaybackTab.SetCurrentRecordingDurationSec
 local var4 = require(var0.Src.Actions.PlaybackTab.SetCurrentRecordingNumEvents)
 local var5 = require(var0.Src.Actions.PlaybackTab.SetCurrentRecordingResolution)
 local var6 = require(var0.Src.Actions.PlaybackTab.SetCurrentRecordingDeviceId)
-local var46 = var0.Src.Actions
-local var7 = require(var46.PlaybackTab.SetCurrentRecordingDeviceOrientation)
+local var144 = var0.Src.Actions
+local var7 = require(var144.PlaybackTab.SetCurrentRecordingDeviceOrientation)
 local var8 = {}
 var8.selectedRecordingIndex = 1
 var8.playbackFileNameOptions = {}
@@ -18,42 +18,42 @@ var8.currentRecordingResolution = Vector2.new()
 var8.currentRecordingDeviceId = "Unknown"
 var8.currentRecordingDeviceOrientation = "Unknown"
 var8.shouldSetEmulationDevice = true
-var46 = var8
-local var62 = {}
-function var62.SetCurrentRecordingDurationSec(arg1, arg2)
-   local var67 = {}
-   var67.currentRecordingDurationSec = arg2.currentRecordingDurationSec
-   return var1(arg1, var67)
+var144 = var8
+local var160 = {}
+function var160.SetCurrentRecordingDurationSec(arg1, arg2)
+   local var165 = {}
+   var165.currentRecordingDurationSec = arg2.currentRecordingDurationSec
+   return var1(arg1, var165)
 end
 
-function var62.SetCurrentRecordingNumEvents(arg1, arg2)
-   local var74 = {}
-   var74.currentRecordingNumEvents = arg2.currentRecordingNumEvents
-   return var1(arg1, var74)
+function var160.SetCurrentRecordingNumEvents(arg1, arg2)
+   local var172 = {}
+   var172.currentRecordingNumEvents = arg2.currentRecordingNumEvents
+   return var1(arg1, var172)
 end
 
-function var62.SetCurrentRecordingResolution(arg1, arg2)
-   local var81 = {}
-   var81.currentRecordingResolution = arg2.currentRecordingResolution
-   return var1(arg1, var81)
+function var160.SetCurrentRecordingResolution(arg1, arg2)
+   local var179 = {}
+   var179.currentRecordingResolution = arg2.currentRecordingResolution
+   return var1(arg1, var179)
 end
 
-function var62.SetCurrentRecordingDeviceId(arg1, arg2)
-   local var88 = {}
-   var88.currentRecordingDeviceId = arg2.currentRecordingDeviceId
-   return var1(arg1, var88)
+function var160.SetCurrentRecordingDeviceId(arg1, arg2)
+   local var186 = {}
+   var186.currentRecordingDeviceId = arg2.currentRecordingDeviceId
+   return var1(arg1, var186)
 end
 
-function var62.SetCurrentRecordingDeviceOrientation(arg1, arg2)
-   local var95 = {}
-   var95.currentRecordingDeviceOrientation = arg2.currentRecordingDeviceOrientation
-   return var1(arg1, var95)
+function var160.SetCurrentRecordingDeviceOrientation(arg1, arg2)
+   local var193 = {}
+   var193.currentRecordingDeviceOrientation = arg2.currentRecordingDeviceOrientation
+   return var1(arg1, var193)
 end
 
-function var62.SetShouldSetEmulationDevice(arg1, arg2)
-   local var102 = {}
-   var102.shouldSetEmulationDevice = arg2.shouldSetEmulationDevice
-   return var1(arg1, var102)
+function var160.SetShouldSetEmulationDevice(arg1, arg2)
+   local var200 = {}
+   var200.shouldSetEmulationDevice = arg2.shouldSetEmulationDevice
+   return var1(arg1, var200)
 end
 
-return require(var0.Packages.Rodux).createReducer(var46, var62)
+return require(var0.Packages.Rodux).createReducer(var144, var160)

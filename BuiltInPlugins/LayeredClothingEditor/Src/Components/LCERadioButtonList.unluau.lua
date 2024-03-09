@@ -15,62 +15,62 @@ local function fun1(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var9.new()
-   local var251 = {}
-   var251.AutomaticSize = Enum.AutomaticSize.XY
-   var251.LayoutOrder = var0.LayoutOrder
-   var251.Layout = Enum.FillDirection.Vertical
-   var251.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var251.VerticalAlignment = Enum.VerticalAlignment.Top
-   var251.Spacing = var1.HeaderPadding
-   local var257 = {}
-   local var261 = {}
-   var261.TextXAlignment = Enum.TextXAlignment.Left
-   var261.TextYAlignment = Enum.TextYAlignment.Center
-   var261.Size = UDim2.new(1, 0, 0, 24)
-   var261.Text = var0.Title
-   var261.Font = var1.FontBold
-   var261.LayoutOrder = var2:getNextOrder()
-   var257.Title = var1.createElement(var5, var261)
-   local var277 = {}
-   var277.Buttons = var0.Buttons
-   var277.OnClick = var0.OnClick
-   var277.LayoutOrder = var2:getNextOrder()
-   var277.SelectedKey = var0.InitialSelectedKey
-   var257.List = var1.createElement(var6, var277)
-   return var1.createElement(var7, var251, var257)
+   local var249 = {}
+   var249.AutomaticSize = Enum.AutomaticSize.XY
+   var249.LayoutOrder = var0.LayoutOrder
+   var249.Layout = Enum.FillDirection.Vertical
+   var249.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var249.VerticalAlignment = Enum.VerticalAlignment.Top
+   var249.Spacing = var1.HeaderPadding
+   local var255 = {}
+   local var259 = {}
+   var259.TextXAlignment = Enum.TextXAlignment.Left
+   var259.TextYAlignment = Enum.TextYAlignment.Center
+   var259.Size = UDim2.new(1, 0, 0, 24)
+   var259.Text = var0.Title
+   var259.Font = var1.FontBold
+   var259.LayoutOrder = var2:getNextOrder()
+   var255.Title = var1.createElement(var5, var259)
+   local var275 = {}
+   var275.Buttons = var0.Buttons
+   var275.OnClick = var0.OnClick
+   var275.LayoutOrder = var2:getNextOrder()
+   var275.SelectedKey = var0.InitialSelectedKey
+   var255.List = var1.createElement(var6, var275)
+   return var1.createElement(var7, var249, var255)
 end
 
 function var10.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var9.new()
-   local var251 = {}
-   var251.AutomaticSize = Enum.AutomaticSize.XY
-   var251.LayoutOrder = var0.LayoutOrder
-   var251.Layout = Enum.FillDirection.Vertical
-   var251.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var251.VerticalAlignment = Enum.VerticalAlignment.Top
-   var251.Spacing = var1.HeaderPadding
-   local var257 = {}
-   local var261 = {}
-   var261.TextXAlignment = Enum.TextXAlignment.Left
-   var261.TextYAlignment = Enum.TextYAlignment.Center
-   var261.Size = UDim2.new(1, 0, 0, 24)
-   var261.Text = var0.Title
-   var261.Font = var1.FontBold
-   var261.LayoutOrder = var2:getNextOrder()
-   var257.Title = var1.createElement(var5, var261)
-   local var277 = {}
-   var277.Buttons = var0.Buttons
-   var277.OnClick = var0.OnClick
-   var277.LayoutOrder = var2:getNextOrder()
-   var277.SelectedKey = var0.InitialSelectedKey
-   var257.List = var1.createElement(var6, var277)
-   return var1.createElement(var7, var251, var257)
+   local var249 = {}
+   var249.AutomaticSize = Enum.AutomaticSize.XY
+   var249.LayoutOrder = var0.LayoutOrder
+   var249.Layout = Enum.FillDirection.Vertical
+   var249.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var249.VerticalAlignment = Enum.VerticalAlignment.Top
+   var249.Spacing = var1.HeaderPadding
+   local var255 = {}
+   local var259 = {}
+   var259.TextXAlignment = Enum.TextXAlignment.Left
+   var259.TextYAlignment = Enum.TextYAlignment.Center
+   var259.Size = UDim2.new(1, 0, 0, 24)
+   var259.Text = var0.Title
+   var259.Font = var1.FontBold
+   var259.LayoutOrder = var2:getNextOrder()
+   var255.Title = var1.createElement(var5, var259)
+   local var275 = {}
+   var275.Buttons = var0.Buttons
+   var275.OnClick = var0.OnClick
+   var275.LayoutOrder = var2:getNextOrder()
+   var275.SelectedKey = var0.InitialSelectedKey
+   var255.List = var1.createElement(var6, var275)
+   return var1.createElement(var7, var249, var255)
 end
 
 fun1 = var3.withContext
-local var282 = {}
-var282.Stylizer = var3.Stylizer
-var10 = fun1(var282)(var10)
+local var280 = {}
+var280.Stylizer = var3.Stylizer
+var10 = fun1(var280)(var10)
 return var10

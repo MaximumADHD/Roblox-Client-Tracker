@@ -10,7 +10,12 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["Style"]
   GETTABLEKS R3 R2 K9 ["StyleKey"]
-  DUPTABLE R4 K11 [{"BackgroundColor"}]
-  GETTABLEKS R5 R3 K12 ["InputFieldBackground"]
+  DUPTABLE R4 K12 [{"BackgroundColor", "ButtonSize"}]
+  GETTABLEKS R5 R3 K13 ["InputFieldBackground"]
   SETTABLEKS R5 R4 K10 ["BackgroundColor"]
+  GETIMPORT R5 K16 [UDim2.fromOffset]
+  LOADN R6 24
+  LOADN R7 24
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["ButtonSize"]
   RETURN R4 1

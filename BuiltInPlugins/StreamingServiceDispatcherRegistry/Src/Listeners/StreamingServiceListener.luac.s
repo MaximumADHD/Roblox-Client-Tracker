@@ -978,6 +978,12 @@ PROTO_18:
 
 PROTO_19:
   GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["clear"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_20:
+  GETUPVAL R1 0
   LOADK R3 K0 ["EndRequest"]
   NEWTABLE R4 1 0
   SETTABLEKS R0 R4 K1 ["requestId"]
@@ -985,7 +991,7 @@ PROTO_19:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_21:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["getActionInstance"]
@@ -1008,7 +1014,7 @@ PROTO_20:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_22:
   GETUPVAL R3 0
   MOVE R5 R0
   NAMECALL R3 R3 K0 ["getActionInstanceFromGuid"]
@@ -1025,14 +1031,14 @@ PROTO_21:
   SETTABLEKS R5 R4 K3 ["MaterialPattern"]
   RETURN R0 0
 
-PROTO_22:
+PROTO_23:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["onAction"]
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_24:
   PREPVARARGS 0
   GETUPVAL R0 0
   GETVARARGS R2 -1
@@ -1040,7 +1046,7 @@ PROTO_23:
   CALL R0 -1 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_25:
   PREPVARARGS 0
   GETUPVAL R0 0
   GETVARARGS R2 -1
@@ -1048,7 +1054,7 @@ PROTO_24:
   CALL R0 -1 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_26:
   GETUPVAL R2 0
   JUMPIFNOT R2 [+7]
   GETIMPORT R2 K2 [table.clear]
@@ -1067,7 +1073,7 @@ PROTO_25:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_27:
   DUPTABLE R3 K2 [{"requestId", "arguments"}]
   SETTABLEKS R0 R3 K0 ["requestId"]
   DUPTABLE R4 K6 [{"errorId", "errorType", "errorMessage"}]
@@ -1087,7 +1093,7 @@ PROTO_26:
   CALL R4 3 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_28:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["GetRequestMetadata"]
   MOVE R2 R0
@@ -1109,7 +1115,7 @@ PROTO_27:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_29:
   GETUPVAL R1 0
   JUMPIFNOT R1 [+16]
   GETUPVAL R4 1
@@ -1151,7 +1157,7 @@ PROTO_28:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_30:
   PREPVARARGS 0
   GETUPVAL R0 0
   GETVARARGS R2 -1
@@ -1159,7 +1165,7 @@ PROTO_29:
   CALL R0 -1 -1
   RETURN R0 -1
 
-PROTO_30:
+PROTO_31:
   MOVE R4 R1
   JUMPIF R4 [+1]
   GETUPVAL R4 0
@@ -1201,86 +1207,95 @@ PROTO_30:
   NAMECALL R5 R5 K8 ["Connect"]
   CALL R5 2 1
   SETTABLEKS R5 R0 K13 ["_requestEndedConn"]
+  GETUPVAL R5 3
+  JUMPIFNOT R5 [+10]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K14 ["SequentialCommandsFinished"]
-  NEWCLOSURE R7 P3
-  CAPTURE REF R2
-  NAMECALL R5 R5 K8 ["Connect"]
-  CALL R5 2 1
-  SETTABLEKS R5 R0 K15 ["_commandsFinished"]
-  GETTABLEKS R5 R2 K16 ["FindVariationsSignal"]
-  NEWCLOSURE R7 P4
-  CAPTURE VAL R0
-  CAPTURE UPVAL U3
+  GETTABLEKS R5 R6 K14 ["ConversationCleared"]
+  DUPCLOSURE R7 K15 [PROTO_19]
   CAPTURE UPVAL U4
   NAMECALL R5 R5 K8 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K17 ["_findVariations"]
-  GETTABLEKS R5 R2 K18 ["SetMaterialSettingsSignal"]
-  NEWCLOSURE R7 P5
-  CAPTURE VAL R0
+  SETTABLEKS R5 R0 K16 ["_conversationClearedConn"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K17 ["SequentialCommandsFinished"]
+  NEWCLOSURE R7 P4
+  CAPTURE REF R2
   NAMECALL R5 R5 K8 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K19 ["_setMaterialSettings"]
-  GETTABLEKS R5 R2 K20 ["ActionActivatedSignal"]
+  SETTABLEKS R5 R0 K18 ["_commandsFinished"]
+  GETTABLEKS R5 R2 K19 ["FindVariationsSignal"]
+  NEWCLOSURE R7 P5
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  NAMECALL R5 R5 K8 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K20 ["_findVariations"]
+  GETTABLEKS R5 R2 K21 ["SetMaterialSettingsSignal"]
   NEWCLOSURE R7 P6
   CAPTURE VAL R0
   NAMECALL R5 R5 K8 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K21 ["_onActionConnection"]
-  GETTABLEKS R5 R2 K22 ["ShiftVariationSignal"]
+  SETTABLEKS R5 R0 K22 ["_setMaterialSettings"]
+  GETTABLEKS R5 R2 K23 ["ActionActivatedSignal"]
   NEWCLOSURE R7 P7
   CAPTURE VAL R0
   NAMECALL R5 R5 K8 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K23 ["_onShiftAssetVariation"]
-  GETTABLEKS R5 R2 K24 ["ShiftToAssetIdSignal"]
+  SETTABLEKS R5 R0 K24 ["_onActionConnection"]
+  GETTABLEKS R5 R2 K25 ["ShiftVariationSignal"]
   NEWCLOSURE R7 P8
   CAPTURE VAL R0
   NAMECALL R5 R5 K8 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K25 ["_onShiftAssetToId"]
+  SETTABLEKS R5 R0 K26 ["_onShiftAssetVariation"]
+  GETTABLEKS R5 R2 K27 ["ShiftToAssetIdSignal"]
+  NEWCLOSURE R7 P9
+  CAPTURE VAL R0
+  NAMECALL R5 R5 K8 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K28 ["_onShiftAssetToId"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K10 ["RequestStarted"]
-  DUPCLOSURE R7 K26 [PROTO_25]
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  NAMECALL R5 R5 K8 ["Connect"]
-  CALL R5 2 1
-  SETTABLEKS R5 R0 K27 ["_requestStartedConnection"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K28 ["RequestError"]
   DUPCLOSURE R7 K29 [PROTO_26]
   CAPTURE UPVAL U7
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U8
   NAMECALL R5 R5 K8 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K30 ["_requestErrorConnection"]
+  SETTABLEKS R5 R0 K30 ["_requestStartedConnection"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K31 ["RequestError"]
+  DUPCLOSURE R7 K32 [PROTO_27]
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U8
+  NAMECALL R5 R5 K8 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K33 ["_requestErrorConnection"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K12 ["RequestEnded"]
-  DUPCLOSURE R7 K31 [PROTO_27]
-  CAPTURE UPVAL U6
-  NAMECALL R5 R5 K8 ["Connect"]
-  CALL R5 2 1
-  SETTABLEKS R5 R0 K32 ["_requestEndedConnection"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K14 ["SequentialCommandsFinished"]
-  DUPCLOSURE R7 K33 [PROTO_28]
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
+  DUPCLOSURE R7 K34 [PROTO_28]
   CAPTURE UPVAL U8
-  CAPTURE UPVAL U9
   NAMECALL R5 R5 K8 ["Connect"]
   CALL R5 2 1
-  SETTABLEKS R5 R0 K34 ["_sequentialCommandsFinishedConnection"]
-  NEWCLOSURE R7 P13
+  SETTABLEKS R5 R0 K35 ["_requestEndedConnection"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K17 ["SequentialCommandsFinished"]
+  DUPCLOSURE R7 K36 [PROTO_29]
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
+  NAMECALL R5 R5 K8 ["Connect"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K37 ["_sequentialCommandsFinishedConnection"]
+  NEWCLOSURE R7 P14
   CAPTURE VAL R0
-  NAMECALL R5 R1 K35 ["SetPluginInfoCallback"]
+  NAMECALL R5 R1 K38 ["SetPluginInfoCallback"]
   CALL R5 2 0
   CLOSEUPVALS R2
   RETURN R0 0
 
-PROTO_31:
+PROTO_32:
   GETTABLEKS R1 R0 K0 ["_streamConn"]
   JUMPIFNOT R1 [+8]
   GETTABLEKS R1 R0 K0 ["_streamConn"]
@@ -1302,89 +1317,98 @@ PROTO_31:
   CALL R1 1 0
   LOADNIL R1
   SETTABLEKS R1 R0 K3 ["_requestEndedConn"]
-  GETTABLEKS R1 R0 K4 ["_commandsFinished"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K4 ["_commandsFinished"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K4 ["_commandsFinished"]
-  GETTABLEKS R1 R0 K5 ["_findVariations"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K5 ["_findVariations"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K5 ["_findVariations"]
-  GETTABLEKS R1 R0 K6 ["_setMaterialSettings"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K6 ["_setMaterialSettings"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K6 ["_setMaterialSettings"]
-  GETTABLEKS R1 R0 K7 ["_onActionConnection"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K7 ["_onActionConnection"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K7 ["_onActionConnection"]
-  GETTABLEKS R1 R0 K8 ["_onShiftAssetVariation"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K8 ["_onShiftAssetVariation"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K8 ["_onShiftAssetVariation"]
-  GETTABLEKS R1 R0 K9 ["_onShiftAssetToId"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K9 ["_onShiftAssetToId"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K9 ["_onShiftAssetToId"]
-  GETTABLEKS R1 R0 K10 ["_selectionListener"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K10 ["_selectionListener"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K10 ["_selectionListener"]
-  GETTABLEKS R1 R0 K11 ["_requestStartedConnection"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K11 ["_requestStartedConnection"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K11 ["_requestStartedConnection"]
-  GETTABLEKS R1 R0 K12 ["_requestErrorConnection"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K12 ["_requestErrorConnection"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K12 ["_requestErrorConnection"]
-  GETTABLEKS R1 R0 K13 ["_requestEndedConnection"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K13 ["_requestEndedConnection"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K13 ["_requestEndedConnection"]
-  GETTABLEKS R1 R0 K14 ["_sequentialCommandsFinishedConnection"]
-  JUMPIFNOT R1 [+8]
-  GETTABLEKS R1 R0 K14 ["_sequentialCommandsFinishedConnection"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K14 ["_sequentialCommandsFinishedConnection"]
   GETUPVAL R1 0
-  NAMECALL R1 R1 K15 ["SetPluginInfoCallback"]
+  JUMPIFNOT R1 [+11]
+  GETTABLEKS R1 R0 K4 ["_conversationClearedConn"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K4 ["_conversationClearedConn"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["_conversationClearedConn"]
+  GETTABLEKS R1 R0 K5 ["_commandsFinished"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K5 ["_commandsFinished"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["_commandsFinished"]
+  GETTABLEKS R1 R0 K6 ["_findVariations"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K6 ["_findVariations"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K6 ["_findVariations"]
+  GETTABLEKS R1 R0 K7 ["_setMaterialSettings"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K7 ["_setMaterialSettings"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K7 ["_setMaterialSettings"]
+  GETTABLEKS R1 R0 K8 ["_onActionConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K8 ["_onActionConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K8 ["_onActionConnection"]
+  GETTABLEKS R1 R0 K9 ["_onShiftAssetVariation"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K9 ["_onShiftAssetVariation"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K9 ["_onShiftAssetVariation"]
+  GETTABLEKS R1 R0 K10 ["_onShiftAssetToId"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K10 ["_onShiftAssetToId"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K10 ["_onShiftAssetToId"]
+  GETTABLEKS R1 R0 K11 ["_selectionListener"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K11 ["_selectionListener"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K11 ["_selectionListener"]
+  GETTABLEKS R1 R0 K12 ["_requestStartedConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K12 ["_requestStartedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K12 ["_requestStartedConnection"]
+  GETTABLEKS R1 R0 K13 ["_requestErrorConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K13 ["_requestErrorConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K13 ["_requestErrorConnection"]
+  GETTABLEKS R1 R0 K14 ["_requestEndedConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K14 ["_requestEndedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K14 ["_requestEndedConnection"]
+  GETTABLEKS R1 R0 K15 ["_sequentialCommandsFinishedConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K15 ["_sequentialCommandsFinishedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K15 ["_sequentialCommandsFinishedConnection"]
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K16 ["SetPluginInfoCallback"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_32:
+PROTO_33:
   NEWTABLE R2 0 0
   GETUPVAL R3 0
   MOVE R4 R2
@@ -1471,99 +1495,111 @@ MAIN:
   GETTABLEKS R18 R19 K24 ["Commands"]
   GETTABLEKS R17 R18 K28 ["DisplayError"]
   CALL R16 1 1
-  GETIMPORT R17 K2 [game]
-  LOADK R19 K29 ["ConvAIIncomingLinks"]
-  NAMECALL R17 R17 K12 ["GetFastFlag"]
-  CALL R17 2 1
+  GETIMPORT R17 K18 [require]
+  GETTABLEKS R20 R10 K22 ["Src"]
+  GETTABLEKS R19 R20 K29 ["ContextCollectors"]
+  GETTABLEKS R18 R19 K30 ["RecentInstancesContext"]
+  CALL R17 1 1
   GETIMPORT R18 K2 [game]
-  LOADK R20 K30 ["ConvAIAddDraftModeForSceneCreate2"]
+  LOADK R20 K31 ["CAPRecentInstancesContext"]
   NAMECALL R18 R18 K12 ["GetFastFlag"]
   CALL R18 2 1
   GETIMPORT R19 K2 [game]
-  LOADK R21 K31 ["FixAssetVariationCaching"]
+  LOADK R21 K32 ["ConvAIIncomingLinks"]
   NAMECALL R19 R19 K12 ["GetFastFlag"]
   CALL R19 2 1
   GETIMPORT R20 K2 [game]
-  LOADK R22 K32 ["ConvAIExecuteCommandAsync"]
+  LOADK R22 K33 ["ConvAIAddDraftModeForSceneCreate2"]
   NAMECALL R20 R20 K12 ["GetFastFlag"]
   CALL R20 2 1
   GETIMPORT R21 K2 [game]
-  LOADK R23 K33 ["ConvAI_ConditionalDropdown"]
+  LOADK R23 K34 ["FixAssetVariationCaching"]
   NAMECALL R21 R21 K12 ["GetFastFlag"]
   CALL R21 2 1
   GETIMPORT R22 K2 [game]
-  LOADK R24 K34 ["ConvAIFixVariantShiftBug"]
+  LOADK R24 K35 ["ConvAIExecuteCommandAsync"]
   NAMECALL R22 R22 K12 ["GetFastFlag"]
   CALL R22 2 1
-  DUPCLOSURE R23 K35 [PROTO_0]
-  SETGLOBAL R23 K36 ["handleCachedPacketsForStream"]
-  DUPCLOSURE R23 K37 [PROTO_1]
+  GETIMPORT R23 K2 [game]
+  LOADK R25 K36 ["ConvAI_ConditionalDropdown"]
+  NAMECALL R23 R23 K12 ["GetFastFlag"]
+  CALL R23 2 1
+  GETIMPORT R24 K2 [game]
+  LOADK R26 K37 ["ConvAIFixVariantShiftBug"]
+  NAMECALL R24 R24 K12 ["GetFastFlag"]
+  CALL R24 2 1
+  DUPCLOSURE R25 K38 [PROTO_0]
+  SETGLOBAL R25 K39 ["handleCachedPacketsForStream"]
+  DUPCLOSURE R25 K40 [PROTO_1]
   CAPTURE VAL R13
   CAPTURE VAL R5
-  DUPCLOSURE R24 K38 [PROTO_2]
-  CAPTURE VAL R18
-  CAPTURE VAL R14
-  CAPTURE VAL R17
-  SETTABLEKS R24 R0 K39 ["getActionInstance"]
-  DUPCLOSURE R24 K40 [PROTO_3]
-  CAPTURE VAL R14
-  CAPTURE VAL R21
-  CAPTURE VAL R18
-  SETTABLEKS R24 R0 K41 ["getActionInstanceFromGuid"]
-  DUPCLOSURE R24 K42 [PROTO_4]
-  CAPTURE VAL R8
-  CAPTURE VAL R14
-  SETTABLEKS R24 R0 K43 ["onShiftAssetToId"]
-  DUPCLOSURE R24 K44 [PROTO_7]
-  CAPTURE VAL R8
+  DUPCLOSURE R26 K41 [PROTO_2]
+  CAPTURE VAL R20
   CAPTURE VAL R14
   CAPTURE VAL R19
+  SETTABLEKS R26 R0 K42 ["getActionInstance"]
+  DUPCLOSURE R26 K43 [PROTO_3]
+  CAPTURE VAL R14
+  CAPTURE VAL R23
+  CAPTURE VAL R20
+  SETTABLEKS R26 R0 K44 ["getActionInstanceFromGuid"]
+  DUPCLOSURE R26 K45 [PROTO_4]
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  SETTABLEKS R26 R0 K46 ["onShiftAssetToId"]
+  DUPCLOSURE R26 K47 [PROTO_7]
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  CAPTURE VAL R21
   CAPTURE VAL R13
   CAPTURE VAL R1
+  CAPTURE VAL R24
   CAPTURE VAL R22
-  CAPTURE VAL R20
   CAPTURE VAL R3
   CAPTURE VAL R7
   CAPTURE VAL R9
-  CAPTURE VAL R23
-  SETTABLEKS R24 R0 K45 ["onShiftAssetVariant"]
-  DUPCLOSURE R24 K46 [PROTO_8]
+  CAPTURE VAL R25
+  SETTABLEKS R26 R0 K48 ["onShiftAssetVariant"]
+  DUPCLOSURE R26 K49 [PROTO_8]
   CAPTURE VAL R2
   CAPTURE VAL R12
-  DUPCLOSURE R25 K47 [PROTO_10]
-  DUPCLOSURE R26 K48 [PROTO_11]
+  DUPCLOSURE R27 K50 [PROTO_10]
+  DUPCLOSURE R28 K51 [PROTO_11]
   CAPTURE VAL R0
   CAPTURE VAL R7
-  CAPTURE VAL R25
+  CAPTURE VAL R27
   CAPTURE VAL R1
-  DUPCLOSURE R27 K49 [PROTO_14]
+  DUPCLOSURE R29 K52 [PROTO_14]
   CAPTURE VAL R7
   CAPTURE VAL R11
-  CAPTURE VAL R23
-  CAPTURE VAL R26
+  CAPTURE VAL R25
+  CAPTURE VAL R28
   CAPTURE VAL R4
-  SETTABLEKS R27 R0 K50 ["onAction"]
-  DUPCLOSURE R27 K51 [PROTO_15]
+  SETTABLEKS R29 R0 K53 ["onAction"]
+  DUPCLOSURE R29 K54 [PROTO_15]
   CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R15
-  SETTABLEKS R27 R0 K52 ["getPluginInfo"]
-  DUPCLOSURE R27 K53 [PROTO_30]
+  SETTABLEKS R29 R0 K55 ["getPluginInfo"]
+  DUPCLOSURE R29 K56 [PROTO_31]
   CAPTURE VAL R3
   CAPTURE VAL R6
   CAPTURE VAL R4
+  CAPTURE VAL R18
+  CAPTURE VAL R17
   CAPTURE VAL R2
   CAPTURE VAL R12
-  CAPTURE VAL R17
+  CAPTURE VAL R19
   CAPTURE VAL R14
   CAPTURE VAL R16
   CAPTURE VAL R13
+  CAPTURE VAL R20
+  DUPCLOSURE R30 K57 [PROTO_32]
   CAPTURE VAL R18
-  DUPCLOSURE R28 K54 [PROTO_31]
   CAPTURE VAL R3
-  SETTABLEKS R28 R0 K55 ["destroy"]
-  DUPCLOSURE R28 K56 [PROTO_32]
-  CAPTURE VAL R27
+  SETTABLEKS R30 R0 K58 ["destroy"]
+  DUPCLOSURE R30 K59 [PROTO_33]
+  CAPTURE VAL R29
   CAPTURE VAL R0
-  SETTABLEKS R28 R0 K57 ["new"]
+  SETTABLEKS R30 R0 K60 ["new"]
   RETURN R0 1

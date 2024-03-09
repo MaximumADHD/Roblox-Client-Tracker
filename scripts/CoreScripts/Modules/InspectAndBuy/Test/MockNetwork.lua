@@ -5,7 +5,7 @@
 ]]
 local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
-local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
+local Promise = require(CorePackages.Packages.Promise)
 local PlayabilityStatusEnum = require(CorePackages.Workspace.Packages.PlayabilityRodux).Enums.PlayabilityStatusEnum
 
 local MOCK_ASSET_DATA = {

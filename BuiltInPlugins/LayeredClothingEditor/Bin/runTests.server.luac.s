@@ -104,17 +104,14 @@ MAIN:
   GETTABLEKS R1 R2 K6 ["Parent"]
   LOADNIL R2
   LOADNIL R3
-  JUMPIF R0 [+16]
+  JUMPIF R0 [+12]
   GETIMPORT R4 K8 [require]
   GETTABLEKS R6 R1 K9 ["Packages"]
   GETTABLEKS R5 R6 K10 ["AvatarToolsShared"]
   CALL R4 1 1
   MOVE R2 R4
-  GETIMPORT R4 K8 [require]
-  GETTABLEKS R6 R1 K9 ["Packages"]
-  GETTABLEKS R5 R6 K11 ["LuaMeshEditingModule"]
-  CALL R4 1 1
-  MOVE R3 R4
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["LuaMeshEditingModule"]
   GETIMPORT R4 K8 [require]
   GETTABLEKS R7 R1 K12 ["Src"]
   GETTABLEKS R6 R7 K13 ["Util"]
@@ -134,18 +131,15 @@ MAIN:
   CALL R9 0 1
   GETTABLEKS R10 R4 K18 ["RunRhodiumTests"]
   CALL R10 0 1
-  JUMPIFNOT R9 [+154]
-  JUMPIFNOT R0 [+16]
+  JUMPIFNOT R9 [+150]
+  JUMPIFNOT R0 [+12]
   GETIMPORT R11 K8 [require]
   GETTABLEKS R13 R1 K9 ["Packages"]
   GETTABLEKS R12 R13 K10 ["AvatarToolsShared"]
   CALL R11 1 1
   MOVE R2 R11
-  GETIMPORT R11 K8 [require]
-  GETTABLEKS R13 R1 K9 ["Packages"]
-  GETTABLEKS R12 R13 K11 ["LuaMeshEditingModule"]
-  CALL R11 1 1
-  MOVE R3 R11
+  GETTABLEKS R11 R1 K9 ["Packages"]
+  GETTABLEKS R3 R11 K11 ["LuaMeshEditingModule"]
   GETIMPORT R11 K20 [print]
   LOADK R13 K21 ["----- All "]
   GETIMPORT R18 K5 [script]

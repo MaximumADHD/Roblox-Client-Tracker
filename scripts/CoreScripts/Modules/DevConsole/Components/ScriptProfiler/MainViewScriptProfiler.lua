@@ -144,7 +144,7 @@ local function generatePluginDurationOffsets(gcNodeOffsets: {[number]: number, T
 					local func = data.Functions[functionId]
 
 					if getPluginFlag(data, data.Functions[functionId]) then
-						offset -= getDurations(data, nodeId)
+						offset += getDurations(data, nodeId)
 
 						if FFlagScriptProfilerHideGCOverhead and #gcNodeOffsets > 0 then
 							gcOffset += gcNodeOffsets[nodeId]

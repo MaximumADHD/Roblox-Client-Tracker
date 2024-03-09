@@ -9,15 +9,11 @@ local var6 = require(var4.SetCurrentScreen)
 local var7 = require(var4.UploadResult)
 local var8 = require(var4.SetAssetId)
 local var9 = require(var0.Core.Util.SerializeInstances)
-local var10 = require(var0.Core.Util.SharedFlags.getFFlagToolboxDeleteOnPublishAnimation)
-local function var11(arg1, arg2)
+local function fun0(arg1, arg2)
    local var0 = var1:FindFirstChild("AnimationClipEditor")
    local var1 = var0 and var0:FindFirstChild("animationUploadSuccess")
    if var1 then
-      if var10() then
-         var1:Fire(arg1, arg2)
-      end
-      var1:Fire(arg1)
+      var1:Fire(arg1, arg2)
    end
 end
 
@@ -26,10 +22,7 @@ return function(arg1, arg2, arg3)
       local var0 = var1:FindFirstChild("AnimationClipEditor")
       local var1 = var0 and var0:FindFirstChild("animationUploadSuccess")
       if var1 then
-         if var10() then
-            var1:Fire(arg1, arg2)
-         end
-         var1:Fire(arg1)
+         var1:Fire(arg1, arg2)
       end
    end
 end

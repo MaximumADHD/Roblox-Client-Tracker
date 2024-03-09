@@ -284,10 +284,8 @@ MAIN:
   GETTABLEKS R4 R0 K5 ["Packages"]
   GETTABLEKS R3 R4 K7 ["RoactRodux"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["LuaMeshEditingModule"]
-  CALL R3 1 1
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["LuaMeshEditingModule"]
   GETIMPORT R4 K4 [require]
   GETTABLEKS R6 R0 K5 ["Packages"]
   GETTABLEKS R5 R6 K9 ["AvatarToolsShared"]

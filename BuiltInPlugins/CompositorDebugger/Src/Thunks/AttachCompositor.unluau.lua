@@ -4,13 +4,14 @@ local var1 = script:FindFirstAncestor("CompositorDebugger")
 local var2 = var1.Src.Actions
 local var3 = require(var2.SetDebugDataEvent)
 local var4 = require(var2.SetActor)
-local var5 = require(var2.SetLayerAdornmentEvent)
-local var6 = require(var2.SetPropertyOverrideEvent)
-local var7 = var1.Src.Thunks
-local var8 = require(var7.DetachCompositor)
-local var9 = require(var7.ParseDebugData)
-local var10 = require(var1.Src.Util.Constants)
-local var11 = require(var1.Src.Types)
+local var5 = require(var2.SetDebugPoseEvent)
+local var6 = require(var2.SetLayerAdornmentEvent)
+local var7 = require(var2.SetPropertyOverrideEvent)
+local var8 = var1.Src.Thunks
+local var9 = require(var8.DetachCompositor)
+local var10 = require(var8.ParseDebugData)
+local var11 = require(var1.Src.Util.Constants)
+local var12 = require(var1.Src.Types)
 local function fun0(arg1, arg2)
    local var0 = arg1:FindFirstChild(arg2)
    if var0 then
@@ -24,7 +25,7 @@ local function fun0(arg1, arg2)
    return var1
 end
 
-local function var12(arg1, arg2)
+local function var13(arg1, arg2)
    local var0 = arg1:FindFirstChild(arg2)
    if var0 then
       if not var0:IsA("BindableEvent") then

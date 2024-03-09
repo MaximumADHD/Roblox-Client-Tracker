@@ -1,0 +1,95 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Style"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  LOADK R4 K3 ["ImageButton"]
+  NEWTABLE R5 8 0
+  GETTABLEKS R6 R1 K4 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K4 ["LayoutOrder"]
+  GETTABLEKS R6 R2 K5 ["ButtonSize"]
+  SETTABLEKS R6 R5 K6 ["Size"]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K7 ["BackgroundTransparency"]
+  GETTABLEKS R7 R1 K8 ["IsPlaying"]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R6 R2 K9 ["Pause"]
+  JUMP [+2]
+  GETTABLEKS R6 R2 K10 ["Play"]
+  SETTABLEKS R6 R5 K11 ["Image"]
+  GETTABLEKS R6 R2 K12 ["Color"]
+  SETTABLEKS R6 R5 K13 ["ImageColor3"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K14 ["Event"]
+  GETTABLEKS R6 R7 K15 ["Activated"]
+  GETTABLEKS R7 R1 K16 ["OnButtonClicked"]
+  SETTABLE R7 R5 R6
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["CompositorDebugger"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["withContext"]
+  GETTABLEKS R7 R3 K12 ["Style"]
+  GETTABLEKS R6 R7 K13 ["Stylizer"]
+  GETTABLEKS R8 R0 K14 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Actions"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R7 K16 ["SetActiveLayersFilter"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R7 K17 ["SetLayerFilter"]
+  CALL R9 1 1
+  GETTABLEKS R11 R0 K14 ["Src"]
+  GETTABLEKS R10 R11 K18 ["Util"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R12 R10 K19 ["Constants"]
+  CALL R11 1 1
+  GETTABLEKS R12 R3 K20 ["UI"]
+  GETTABLEKS R13 R12 K21 ["showContextMenu"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R16 R0 K14 ["Src"]
+  GETTABLEKS R15 R16 K22 ["Types"]
+  CALL R14 1 1
+  GETTABLEKS R15 R1 K23 ["PureComponent"]
+  LOADK R17 K24 ["PlayPauseButton"]
+  NAMECALL R15 R15 K25 ["extend"]
+  CALL R15 2 1
+  DUPCLOSURE R16 K26 [PROTO_0]
+  SETTABLEKS R16 R15 K27 ["init"]
+  DUPCLOSURE R16 K28 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R16 R15 K29 ["render"]
+  MOVE R16 R5
+  DUPTABLE R17 K33 [{"Analytics", "Localization", "Plugin"}]
+  GETTABLEKS R18 R4 K30 ["Analytics"]
+  SETTABLEKS R18 R17 K30 ["Analytics"]
+  GETTABLEKS R18 R4 K31 ["Localization"]
+  SETTABLEKS R18 R17 K31 ["Localization"]
+  GETTABLEKS R18 R4 K32 ["Plugin"]
+  SETTABLEKS R18 R17 K32 ["Plugin"]
+  CALL R16 1 1
+  MOVE R17 R15
+  CALL R16 1 1
+  MOVE R15 R16
+  RETURN R15 1

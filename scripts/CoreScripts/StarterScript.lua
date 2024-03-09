@@ -65,6 +65,7 @@ local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modul
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
+local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -412,6 +413,10 @@ end
 
 if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/GameInviteModalGUI", script.Parent)
+end
+
+if FFlagEnableExperienceNotificationPrompts then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceNotifications", script.Parent)
 end
 
 local InExpAchievementManager = require(CorePackages.Workspace.Packages.Achievements).InExpAchievementManager

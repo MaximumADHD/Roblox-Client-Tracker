@@ -15,6 +15,7 @@ local EnableInGameMenuControls = require(RobloxGui.Modules.Flags.GetFFlagEnableI
 local EnableInGameMenuModernization = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernization)
 local EnableInGameMenuModernizationBigText = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationBigText)
 local EnableInGameMenuModernizationStickyBar = require(RobloxGui.Modules.Flags.GetFFlagEnableInGameMenuModernizationStickyBar)
+local GetFFlagAddAnimatedFocusState = require(script.Parent.Flags.GetFFlagAddAnimatedFocusState)
 local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
 
@@ -433,6 +434,7 @@ if ThemeEnabled then
 		end,
 		platformNameTextSize = 18,
 		platformNameIconSize = UDim2.fromOffset(36, 36),
+		selectionCursor = if GetFFlagAddAnimatedFocusState() then AppTheme.SelectionCursor else nil,
 	}
 else
 	return {
@@ -498,5 +500,6 @@ else
 		end,
 		platformNameTextSize = 18,
 		platformNameIconSize = UDim2.fromOffset(36, 36),
+		selectionCursor = nil,
 	}
 end

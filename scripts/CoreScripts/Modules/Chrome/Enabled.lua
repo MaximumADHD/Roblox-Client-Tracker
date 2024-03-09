@@ -8,6 +8,8 @@ game:DefineFastFlag("EnableInGameMenuChrome", false)
 
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 return function()
 	if VRService.VREnabled then
@@ -40,6 +42,11 @@ return function()
 
 	if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isChromeEnabled() then
 		return true
+	end
+
+	if isTenFootInterface then
+		-- hard disable on Console so it does not show in Studio emulator, except for users in the allowlist
+		return false
 	end
 
 	return game:GetFastFlag("EnableInGameMenuChrome")

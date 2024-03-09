@@ -14,11 +14,15 @@ PROTO_1:
   MOVE R5 R3
   GETIMPORT R4 K4 [typeof]
   CALL R4 1 1
-  JUMPIFEQKS R4 K5 ["table"] [+6]
+  JUMPIFEQKS R4 K5 ["table"] [+10]
   GETIMPORT R4 K7 [warn]
   LOADK R5 K8 ["Error getting quotas:"]
   MOVE R6 R3
   CALL R4 2 0
+  GETUPVAL R4 1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+1]
+  RETURN R0 0
   GETTABLEKS R4 R0 K9 ["setQuota"]
   GETTABLEKS R5 R3 K10 ["generationQuota"]
   CALL R4 1 0
@@ -35,10 +39,20 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["TextureGenerationService"]
-  NAMECALL R0 R0 K3 ["GetService"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["TextureGenerator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_1]
-  CAPTURE VAL R0
-  RETURN R1 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["TextureGenerationService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Flags"]
+  GETTABLEKS R3 R4 K12 ["getFFlagTextureGeneratorQuotaErrorFix"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K13 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1

@@ -18,7 +18,6 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = RobloxGui.Modules.Settings.Pages.ShareGame
 
-
 local Theme = require(Modules.Settings.Theme)
 local Constants = require(ShareGame.Constants)
 local InviteEvents = require(CorePackages.Workspace.Packages.GameInvite).GameInviteEvents
@@ -35,6 +34,7 @@ local GetFFlagShareInviteLinkContextMenuV1Enabled =
 	require(Modules.Settings.Flags.GetFFlagShareInviteLinkContextMenuV1Enabled)
 local GetFFlagAbuseReportAnalyticsHasLaunchData =
 	require(Modules.Settings.Flags.GetFFlagAbuseReportAnalyticsHasLaunchData)
+local GetFFlagInviteFriendsDesignUpdates = require(Modules.Settings.Flags.GetFFlagInviteFriendsDesignUpdates)
 local GetFFlagEnableNewInviteMenu = require(Modules.Flags.GetFFlagEnableNewInviteMenu)
 local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnableNewInviteSendEndpoint)
 
@@ -205,6 +205,7 @@ function ConversationList:render()
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 		Size = size,
+		BorderSizePixel = if GetFFlagInviteFriendsDesignUpdates() then 0 else nil,
 		Position = GetFFlagShareInviteLinkContextMenuV1Enabled() and UDim2.new(0, 0, 0, topPadding) or nil,
 		CanvasSize = if newInviteMenuEnabled
 			then UDim2.new()
@@ -349,7 +350,13 @@ local connector = RoactRodux.UNSTABLE_connect2(function(state, props)
 	}
 end, function(dispatch)
 	return {
-		inviteUser = function(userId: string, analytics: any, trigger: string, inviteMessageId: string?, launchData: string?)
+		inviteUser = function(
+			userId: string,
+			analytics: any,
+			trigger: string,
+			inviteMessageId: string?,
+			launchData: string?
+		)
 			local requestImpl = httpRequest(HttpRbxApiService)
 			local placeId = tostring(game.PlaceId)
 

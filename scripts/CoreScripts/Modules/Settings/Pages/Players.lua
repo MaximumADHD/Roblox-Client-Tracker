@@ -57,6 +57,7 @@ local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local FFlagUpdateFriendLabelOnChange = game:DefineFastFlag("UpdateFriendLabelOnChange", false)
 local FFlagFixPlayersExtremeTruncation = game:DefineFastFlag("FixPlayersExtremeTruncation", false)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
+local GetFFlagAddAnimatedFocusState = require(script.Parent.Parent.Flags.GetFFlagAddAnimatedFocusState)
 local isRoactAbuseReportMenuEnabled = require(RobloxGui.Modules.TrustAndSafety.isRoactAbuseReportMenuEnabled)
 
 local GameInviteAnalyticsManager
@@ -117,6 +118,7 @@ end
 
 local FULL_SIZE_SHARE_GAME_BUTTON_SIZE = UDim2.new(1, -10, 0, BUTTON_ROW_HEIGHT)
 local HALF_SIZE_SHARE_GAME_BUTTON_SIZE = UDim2.new(0.5, -10, 0, BUTTON_ROW_HEIGHT)
+local RENDER_NAME_PREFIX = "utility-focus-state"
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -144,6 +146,7 @@ local GetFFlagMuteTogglesEnableIXP = require(RobloxGui.Modules.Settings.Flags.Ge
 local GetFStringMuteTogglesIXPLayerName = require(RobloxGui.Modules.Settings.Flags.GetFStringMuteTogglesIXPLayerName)
 local GetFFlagUseFriendsPropsInMuteToggles = require(RobloxGui.Modules.Settings.Flags.GetFFlagUseFriendsPropsInMuteToggles)
 local GetFFlagFixInviteTextVisibility = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixInviteTextVisibility)
+local GetFFlagDefaultFriendingLabelTextNonEmpty = require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
 
 local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Flags.isEngineTruncationEnabledForIngameSettings)
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
@@ -247,6 +250,9 @@ local function Initialize()
 				if friendLabel and friendLabelText and friendLabelText.Text ~= "" then
 					friendLabel.ImageTransparency = 1
 					friendLabelText.Text = ""
+					if GetFFlagDefaultFriendingLabelTextNonEmpty() then
+						friendLabelText.Text = "Add Friend"
+					end
 					if localPlayer and player then
 						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
 						AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, Constants.AnalyticsRequestFriendContext, Constants.AnalyticsRequestFriendName, {
@@ -394,6 +400,10 @@ local function Initialize()
 			friendLabel.Name = "FriendStatus"
 			friendLabel.LayoutOrder = 5
 			friendLabel.Selectable = true
+			if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+				local renderName = RENDER_NAME_PREFIX.."-friendstatuslabel-"..player.Name
+				utility:MakeFocusState(friendLabel, renderName)
+			end
 			friendLabel.Parent = parent
 		end
 	end
@@ -515,6 +525,10 @@ local function Initialize()
 			blockButton.Name = "BlockButton"
 			blockButton.LayoutOrder = 4
 			blockButton.Selectable = true
+			if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+				local renderName = RENDER_NAME_PREFIX.."-blockbutton-"..player.Name
+				utility:MakeFocusState(blockButton, renderName)
+			end
 			blockButton.Parent = parent
 		end
 		return blockButton
@@ -620,7 +634,11 @@ local function Initialize()
 			if GetFFlagOldMenuNewIcons() then
 				muteLabelText.ImageTransparency = imageTransparency
 			end
-			muteLabel.Parent = buttonParent
+			if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+				local renderName = RENDER_NAME_PREFIX.."-mutestatusbutton-"..playerStatus.userId
+				utility:MakeFocusState(muteLabel, renderName)
+			end
+			muteLabel.Parent = buttonParent			
 		end
 	end
 
@@ -861,6 +879,10 @@ local function Initialize()
 				reportButton.Position = UDim2.new(1, -260, 0, 7)
 				reportButton.LayoutOrder = 3
 				reportButton.Selectable = true
+				if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+					local renderName = RENDER_NAME_PREFIX.."-reportplayer-"..player.Name
+					utility:MakeFocusState(reportButton, renderName)
+				end
 				reportButton.Parent = rightSideButtons
 			end
 		end
@@ -1010,7 +1032,7 @@ local function Initialize()
 		frame.SelectionLost:connect(function() setIsHighlighted(false) end)
 		frame.SelectionImageObject = frame:Clone()
 
-		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled then 
+		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then 
 			local SelectionOverrideObject = utility:Create'Frame'{
 					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
 					BorderSizePixel = 0,
@@ -1023,6 +1045,11 @@ local function Initialize()
 			}
 		
 			frame.SelectionImageObject = SelectionOverrideObject
+		end
+
+		if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+			local renderName = RENDER_NAME_PREFIX.."-sharegame"
+			utility:MakeFocusState(frame, renderName)
 		end
 
 		return frame
@@ -1076,7 +1103,7 @@ local function Initialize()
 		frame.SelectionLost:connect(function() setIsHighlighted(false) end)
 		frame.SelectionImageObject = frame:Clone()
 
-		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled then 
+		if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then 
 			local SelectionOverrideObject = utility:Create'Frame'{
 					BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
 					BorderSizePixel = 0,
@@ -1089,6 +1116,11 @@ local function Initialize()
 			}
 		
 			frame.SelectionImageObject = SelectionOverrideObject
+		end
+
+		if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+			local renderName = RENDER_NAME_PREFIX.."-muteall"
+			utility:MakeFocusState(frame, renderName)
 		end
 
 		return frame
@@ -1137,6 +1169,10 @@ local function Initialize()
 		inspectButton.LayoutOrder = 2
 		inspectButton.Selectable = true
 		inspectButton.Parent = parent
+		if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+			local renderName = RENDER_NAME_PREFIX.."-inspect-"..player.Name
+			utility:MakeFocusState(inspectButton, renderName)
+		end
 	end
 
 	local function resizePlatformName(parent, consoleName, consoleUserId)

@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
-local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
+local Promise = require(CorePackages.Packages.Promise)
 local ApiFetchUsersPresences = require(CorePackages.Workspace.Packages.UserLib).Thunks.ApiFetchUsersPresences
 local UsersGetFriends = Requests.UsersGetFriends
 local FetchUserFriendsStarted = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsStarted

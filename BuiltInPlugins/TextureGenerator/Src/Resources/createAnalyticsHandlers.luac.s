@@ -1,106 +1,167 @@
 PROTO_0:
-  NEWTABLE R7 0 0
+  GETUPVAL R9 0
+  CALL R9 0 1
+  FASTCALL2K ASSERT R9 K0 [+4]
+  LOADK R10 K0 ["Telemetry is not enabled"]
+  GETIMPORT R8 K2 [assert]
+  CALL R8 2 0
   NEWTABLE R8 0 0
   MOVE R9 R1
   LOADNIL R10
   LOADNIL R11
   FORGPREP R9
-  GETTABLEKS R16 R13 K0 ["MeshId"]
-  FASTCALL2 TABLE_INSERT R7 R16 [+4]
-  MOVE R15 R7
-  GETIMPORT R14 K3 [table.insert]
-  CALL R14 2 0
-  GETTABLEKS R16 R13 K4 ["CFrame"]
+  GETTABLEKS R16 R13 K3 ["MeshId"]
   FASTCALL2 TABLE_INSERT R8 R16 [+4]
   MOVE R15 R8
-  GETIMPORT R14 K3 [table.insert]
+  GETIMPORT R14 K6 [table.insert]
   CALL R14 2 0
-  FORGLOOP R9 2 [-17]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K5 ["join"]
-  DUPTABLE R10 K15 [{"studioSid", "clientId", "placeId", "meshIds", "cFrames", "prompt", "seed", "rotation", "smartUVUnwrap"}]
-  GETUPVAL R11 1
-  NAMECALL R11 R11 K16 ["GetSessionId"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K6 ["studioSid"]
-  GETUPVAL R11 1
-  NAMECALL R11 R11 K17 ["GetClientId"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K7 ["clientId"]
-  GETIMPORT R12 K19 [game]
-  GETTABLEKS R11 R12 K20 ["PlaceId"]
-  SETTABLEKS R11 R10 K8 ["placeId"]
-  SETTABLEKS R7 R10 K9 ["meshIds"]
-  SETTABLEKS R8 R10 K10 ["cFrames"]
-  SETTABLEKS R2 R10 K11 ["prompt"]
-  SETTABLEKS R3 R10 K12 ["seed"]
-  SETTABLEKS R4 R10 K13 ["rotation"]
-  SETTABLEKS R5 R10 K14 ["smartUVUnwrap"]
-  MOVE R11 R6
-  CALL R9 2 1
+  FORGLOOP R9 2 [-9]
   GETUPVAL R10 1
-  LOADK R12 K21 ["studio"]
-  LOADK R13 K22 ["TextureGenerator"]
+  GETTABLEKS R9 R10 K7 ["join"]
+  DUPTABLE R10 K18 [{"studioSid", "clientId", "userId", "placeId", "meshIds", "prompt", "seed", "rotation", "smartUVUnwrap", "specifyFrontView"}]
+  GETUPVAL R11 2
+  NAMECALL R11 R11 K19 ["GetSessionId"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K8 ["studioSid"]
+  GETUPVAL R11 2
+  NAMECALL R11 R11 K20 ["GetClientId"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K9 ["clientId"]
+  GETUPVAL R11 3
+  NAMECALL R11 R11 K21 ["GetUserId"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K10 ["userId"]
+  GETIMPORT R12 K23 [game]
+  GETTABLEKS R11 R12 K24 ["PlaceId"]
+  SETTABLEKS R11 R10 K11 ["placeId"]
+  GETIMPORT R11 K26 [table.concat]
+  MOVE R12 R8
+  LOADK R13 K27 [","]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K12 ["meshIds"]
+  SETTABLEKS R2 R10 K13 ["prompt"]
+  SETTABLEKS R3 R10 K14 ["seed"]
+  SETTABLEKS R4 R10 K15 ["rotation"]
+  SETTABLEKS R5 R10 K16 ["smartUVUnwrap"]
+  SETTABLEKS R6 R10 K17 ["specifyFrontView"]
+  MOVE R11 R7
+  CALL R9 2 1
+  GETUPVAL R10 2
+  LOADK R12 K28 ["studio"]
+  LOADK R13 K29 ["TextureGenerator"]
   MOVE R14 R0
   MOVE R15 R9
-  NAMECALL R10 R10 K23 ["SendEventDeferred"]
+  NAMECALL R10 R10 K30 ["SendEventDeferred"]
   CALL R10 5 0
   RETURN R0 0
 
 PROTO_1:
-  GETUPVAL R6 0
-  LOADK R7 K0 ["GeneratedPreview"]
-  MOVE R8 R1
-  MOVE R9 R2
-  MOVE R10 R3
-  MOVE R11 R4
-  MOVE R12 R5
-  LOADNIL R13
-  CALL R6 7 0
-  RETURN R0 0
-
-PROTO_2:
-  GETUPVAL R6 0
-  LOADK R7 K0 ["ReceivedPreview"]
-  MOVE R8 R1
-  MOVE R9 R2
-  MOVE R10 R3
-  MOVE R11 R4
-  MOVE R12 R5
-  LOADNIL R13
-  CALL R6 7 0
-  RETURN R0 0
-
-PROTO_3:
-  GETUPVAL R6 0
-  LOADK R7 K0 ["GeneratedTexture"]
-  MOVE R8 R1
-  MOVE R9 R2
-  MOVE R10 R3
-  MOVE R11 R4
-  MOVE R12 R5
-  LOADNIL R13
-  CALL R6 7 0
-  RETURN R0 0
-
-PROTO_4:
   GETUPVAL R7 0
-  LOADK R8 K0 ["ReceivedTexture"]
+  LOADK R8 K0 ["GeneratedPreview"]
   MOVE R9 R1
   MOVE R10 R2
   MOVE R11 R3
   MOVE R12 R4
   MOVE R13 R5
-  DUPTABLE R14 K2 [{"textureId"}]
-  SETTABLEKS R6 R14 K1 ["textureId"]
-  CALL R7 7 0
+  MOVE R14 R6
+  LOADNIL R15
+  CALL R7 8 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R8 0
+  LOADK R9 K0 ["ReceivedPreview"]
+  MOVE R10 R2
+  MOVE R11 R3
+  MOVE R12 R4
+  MOVE R13 R5
+  MOVE R14 R6
+  MOVE R15 R7
+  DUPTABLE R16 K2 [{"jobId"}]
+  SETTABLEKS R1 R16 K1 ["jobId"]
+  CALL R8 8 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R8 0
+  LOADK R9 K0 ["GeneratedTexture"]
+  MOVE R10 R2
+  MOVE R11 R3
+  MOVE R12 R4
+  MOVE R13 R5
+  MOVE R14 R6
+  MOVE R15 R7
+  DUPTABLE R16 K2 [{"previewJobId"}]
+  SETTABLEKS R1 R16 K1 ["previewJobId"]
+  CALL R8 8 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R9 0
+  LOADK R10 K0 ["ReceivedTexture"]
+  MOVE R11 R2
+  MOVE R12 R3
+  MOVE R13 R4
+  MOVE R14 R5
+  MOVE R15 R6
+  MOVE R16 R7
+  DUPTABLE R17 K3 [{"jobId", "colorMapId"}]
+  SETTABLEKS R1 R17 K1 ["jobId"]
+  SETTABLEKS R8 R17 K2 ["colorMapId"]
+  CALL R9 8 0
   RETURN R0 0
 
 PROTO_5:
+  GETUPVAL R8 0
+  LOADK R9 K0 ["CancelTextureGeneration"]
+  MOVE R10 R2
+  MOVE R11 R3
+  MOVE R12 R4
+  MOVE R13 R5
+  MOVE R14 R6
+  MOVE R15 R7
+  DUPTABLE R16 K2 [{"jobId"}]
+  SETTABLEKS R1 R16 K1 ["jobId"]
+  CALL R8 8 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R9 0
+  LOADK R10 K0 ["ExportGeneratedTexture"]
+  MOVE R11 R2
+  MOVE R12 R3
+  MOVE R13 R4
+  MOVE R14 R5
+  MOVE R15 R6
+  MOVE R16 R7
+  DUPTABLE R17 K3 [{"jobId", "colorMapId"}]
+  SETTABLEKS R1 R17 K1 ["jobId"]
+  SETTABLEKS R8 R17 K2 ["colorMapId"]
+  CALL R9 8 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R9 0
+  LOADK R10 K0 ["RemoveGeneratedTexture"]
+  MOVE R11 R2
+  MOVE R12 R3
+  MOVE R13 R4
+  MOVE R14 R5
+  MOVE R15 R6
+  MOVE R16 R7
+  DUPTABLE R17 K3 [{"jobId", "colorMapId"}]
+  SETTABLEKS R1 R17 K1 ["jobId"]
+  SETTABLEKS R8 R17 K2 ["colorMapId"]
+  CALL R9 8 0
+  RETURN R0 0
+
+PROTO_8:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE VAL R0
-  DUPTABLE R2 K4 [{"GeneratedPreview", "ReceivedPreview", "GeneratedTexture", "ReceivedTexture"}]
+  CAPTURE UPVAL U2
+  DUPTABLE R2 K7 [{"GeneratedPreview", "ReceivedPreview", "GeneratedTexture", "ReceivedTexture", "CancelTextureGeneration", "ExportGeneratedTexture", "RemoveGeneratedTexture"}]
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K0 ["GeneratedPreview"]
@@ -113,6 +174,15 @@ PROTO_5:
   NEWCLOSURE R3 P4
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K3 ["ReceivedTexture"]
+  NEWCLOSURE R3 P5
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K4 ["CancelTextureGeneration"]
+  NEWCLOSURE R3 P6
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K5 ["ExportGeneratedTexture"]
+  NEWCLOSURE R3 P7
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K6 ["RemoveGeneratedTexture"]
   RETURN R2 1
 
 MAIN:
@@ -121,10 +191,21 @@ MAIN:
   LOADK R2 K2 ["TextureGenerator"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Dash"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_5]
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["StudioService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Dash"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R0 K12 ["Src"]
+  GETTABLEKS R5 R6 K13 ["Flags"]
+  GETTABLEKS R4 R5 K14 ["getFFlagTextureGeneratorTelemetry"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K15 [PROTO_8]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
   CAPTURE VAL R1
-  RETURN R2 1
+  RETURN R4 1

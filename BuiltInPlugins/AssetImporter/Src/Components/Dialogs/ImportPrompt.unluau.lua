@@ -5,11 +5,11 @@ local var2 = require(var0.Packages.Roact).PureComponent:extend("ImportPrompt")
 function var2.init(arg1)
    function arg1.promptClosed(arg1, arg2)
       if arg1.props.OnPromptClosed then
-         local var428 = arg1
-         local var429 = var428.props
-         var429 = arg1
-         var428 = arg2
-         var429.OnPromptClosed(var429, var428)
+         local var545 = arg1
+         local var546 = var545.props
+         var546 = arg1
+         var545 = arg2
+         var546.OnPromptClosed(var546, var545)
       end
    end
    
@@ -23,11 +23,11 @@ return require(var0.Packages.RoactRodux).connect(nil, function(arg1)
    local var0 = {}
    function var0.showImportPrompt(arg1, arg2)
       if arg1.props.OnPromptClosed then
-         local var442 = arg1
-         local var443 = var442.props
-         var443 = arg1
-         var442 = arg2
-         var443.OnPromptClosed(var443, var442)
+         local var559 = arg1
+         local var560 = var559.props
+         var560 = arg1
+         var559 = arg2
+         var560.OnPromptClosed(var560, var559)
       end
    end
    

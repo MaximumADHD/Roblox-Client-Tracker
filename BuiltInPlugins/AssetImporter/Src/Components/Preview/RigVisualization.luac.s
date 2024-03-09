@@ -35,37 +35,26 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  LOADNIL R1
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+13]
-  GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R2 R3 K1 ["AssetImportSession"]
-  GETTABLEKS R5 R0 K0 ["props"]
-  GETTABLEKS R4 R5 K2 ["SelectedImportItem"]
-  NAMECALL R2 R2 K3 ["GetRigVisualization"]
-  CALL R2 2 1
-  MOVE R1 R2
-  JUMP [+8]
-  GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R2 R3 K1 ["AssetImportSession"]
-  NAMECALL R2 R2 K4 ["GetRigVisualization_DEPRECATED"]
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["AssetImportSession"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["SelectedImportItem"]
+  NAMECALL R1 R1 K3 ["GetRigVisualization"]
+  CALL R1 2 1
+  NAMECALL R2 R1 K4 ["Clone"]
   CALL R2 1 1
-  MOVE R1 R2
-  NAMECALL R2 R1 K5 ["Clone"]
-  CALL R2 1 1
-  SETTABLEKS R2 R0 K6 ["viewportFrameModel"]
+  SETTABLEKS R2 R0 K5 ["viewportFrameModel"]
   GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R2 R3 K7 ["PreviewInstance"]
-  GETTABLEKS R3 R0 K8 ["centerModel"]
+  GETTABLEKS R2 R3 K6 ["PreviewInstance"]
+  GETTABLEKS R3 R0 K7 ["centerModel"]
   MOVE R4 R2
   CALL R3 1 0
-  GETTABLEKS R3 R0 K9 ["viewportFrameRef"]
-  NAMECALL R3 R3 K10 ["getValue"]
+  GETTABLEKS R3 R0 K8 ["viewportFrameRef"]
+  NAMECALL R3 R3 K9 ["getValue"]
   CALL R3 1 1
   JUMPIFNOT R3 [+4]
-  GETTABLEKS R4 R0 K6 ["viewportFrameModel"]
-  SETTABLEKS R3 R4 K11 ["Parent"]
+  GETTABLEKS R4 R0 K5 ["viewportFrameModel"]
+  SETTABLEKS R3 R4 K10 ["Parent"]
   RETURN R0 0
 
 PROTO_3:
@@ -149,24 +138,18 @@ MAIN:
   LOADK R4 K8 ["RigVisualization"]
   NAMECALL R2 R2 K9 ["extend"]
   CALL R2 2 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K10 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Flags"]
-  GETTABLEKS R4 R5 K12 ["getFFlagCinPreviewInstances"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K13 [PROTO_1]
+  DUPCLOSURE R3 K10 [PROTO_1]
   CAPTURE VAL R1
-  SETTABLEKS R4 R2 K14 ["init"]
-  DUPCLOSURE R4 K15 [PROTO_2]
-  CAPTURE VAL R3
-  SETTABLEKS R4 R2 K16 ["addViewportModel"]
-  DUPCLOSURE R4 K17 [PROTO_3]
-  SETTABLEKS R4 R2 K18 ["didUpdate"]
-  DUPCLOSURE R4 K19 [PROTO_4]
-  SETTABLEKS R4 R2 K20 ["didMount"]
-  DUPCLOSURE R4 K21 [PROTO_5]
-  SETTABLEKS R4 R2 K22 ["willUnmount"]
-  DUPCLOSURE R4 K23 [PROTO_6]
+  SETTABLEKS R3 R2 K11 ["init"]
+  DUPCLOSURE R3 K12 [PROTO_2]
+  SETTABLEKS R3 R2 K13 ["addViewportModel"]
+  DUPCLOSURE R3 K14 [PROTO_3]
+  SETTABLEKS R3 R2 K15 ["didUpdate"]
+  DUPCLOSURE R3 K16 [PROTO_4]
+  SETTABLEKS R3 R2 K17 ["didMount"]
+  DUPCLOSURE R3 K18 [PROTO_5]
+  SETTABLEKS R3 R2 K19 ["willUnmount"]
+  DUPCLOSURE R3 K20 [PROTO_6]
   CAPTURE VAL R1
-  SETTABLEKS R4 R2 K24 ["render"]
+  SETTABLEKS R3 R2 K21 ["render"]
   RETURN R2 1

@@ -88,93 +88,99 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Cryo"]
+  GETTABLEKS R2 R3 K7 ["AvatarToolsShared"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Dash"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["React"]
+  GETTABLEKS R4 R5 K9 ["Dash"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Components"]
-  GETTABLEKS R5 R6 K12 ["AnimationController"]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["React"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Components"]
-  GETTABLEKS R6 R7 K13 ["EquippedItemsSidebar"]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Components"]
+  GETTABLEKS R6 R7 K13 ["AnimationController"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K14 ["Parent"]
-  GETTABLEKS R7 R8 K15 ["StageType"]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K14 ["EquippedItemsSidebar"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K10 ["Src"]
-  GETTABLEKS R9 R10 K16 ["Util"]
-  GETTABLEKS R8 R9 K17 ["Constants"]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K15 ["Parent"]
+  GETTABLEKS R8 R9 K16 ["StageType"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K10 ["Src"]
-  GETTABLEKS R10 R11 K16 ["Util"]
-  GETTABLEKS R9 R10 K18 ["EquipmentStateContext"]
+  GETTABLEKS R11 R0 K11 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Util"]
+  GETTABLEKS R9 R10 K18 ["Constants"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R11 R0 K10 ["Src"]
-  GETTABLEKS R10 R11 K19 ["Types"]
+  GETTABLEKS R12 R0 K11 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Util"]
+  GETTABLEKS R10 R11 K19 ["EquipmentStateContext"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K16 ["Util"]
-  GETTABLEKS R11 R12 K20 ["createHumanoidDescriptionWithSkinTone_DEPRECATED"]
+  GETTABLEKS R12 R0 K11 ["Src"]
+  GETTABLEKS R11 R12 K20 ["Types"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K10 ["Src"]
-  GETTABLEKS R13 R14 K16 ["Util"]
-  GETTABLEKS R12 R13 K21 ["patchHumanoidDescription_DEPRECATED"]
+  GETTABLEKS R14 R0 K11 ["Src"]
+  GETTABLEKS R13 R14 K17 ["Util"]
+  GETTABLEKS R12 R13 K21 ["createHumanoidDescriptionWithSkinTone_DEPRECATED"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K10 ["Src"]
-  GETTABLEKS R14 R15 K22 ["Hooks"]
-  GETTABLEKS R13 R14 K23 ["useOnClothingLayerOrderChanged"]
+  GETTABLEKS R15 R0 K11 ["Src"]
+  GETTABLEKS R14 R15 K17 ["Util"]
+  GETTABLEKS R13 R14 K22 ["patchHumanoidDescription_DEPRECATED"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K10 ["Src"]
-  GETTABLEKS R15 R16 K24 ["Flags"]
-  GETTABLEKS R14 R15 K25 ["getFFlagAvatarPreviewerKeepAccessoriesInCheckFace"]
+  GETTABLEKS R16 R0 K11 ["Src"]
+  GETTABLEKS R15 R16 K23 ["Hooks"]
+  GETTABLEKS R14 R15 K24 ["useOnClothingLayerOrderChanged"]
   CALL R13 1 1
-  DUPCLOSURE R14 K26 [PROTO_1]
-  CAPTURE VAL R1
+  GETTABLEKS R15 R1 K25 ["Contexts"]
+  GETTABLEKS R14 R15 K26 ["LuaMeshEditingModuleContext"]
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K11 ["Src"]
+  GETTABLEKS R17 R18 K27 ["Flags"]
+  GETTABLEKS R16 R17 K28 ["getFFlagAvatarPreviewerKeepAccessoriesInCheckFace"]
+  CALL R15 1 1
+  DUPCLOSURE R16 K29 [PROTO_1]
   CAPTURE VAL R2
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  DUPCLOSURE R15 K27 [PROTO_2]
   CAPTURE VAL R3
-  CAPTURE VAL R8
   CAPTURE VAL R12
-  CAPTURE VAL R7
-  CAPTURE VAL R5
+  CAPTURE VAL R11
+  DUPCLOSURE R17 K30 [PROTO_2]
   CAPTURE VAL R4
-  DUPTABLE R16 K32 [{"tabs", "render", "getHumanoidDescription_DEPRECATED", "getPreviewCameraModifications"}]
-  NEWTABLE R17 0 4
-  LOADK R18 K33 ["animations"]
-  LOADK R19 K34 ["clothing"]
-  LOADK R20 K35 ["accessories"]
-  LOADK R21 K36 ["body"]
-  SETLIST R17 R18 4 [1]
-  SETTABLEKS R17 R16 K28 ["tabs"]
-  SETTABLEKS R15 R16 K29 ["render"]
-  MOVE R18 R13
-  CALL R18 0 1
-  JUMPIFNOT R18 [+2]
-  LOADNIL R17
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  DUPTABLE R18 K35 [{"tabs", "render", "getHumanoidDescription_DEPRECATED", "getPreviewCameraModifications"}]
+  NEWTABLE R19 0 4
+  LOADK R20 K36 ["animations"]
+  LOADK R21 K37 ["clothing"]
+  LOADK R22 K38 ["accessories"]
+  LOADK R23 K39 ["body"]
+  SETLIST R19 R20 4 [1]
+  SETTABLEKS R19 R18 K31 ["tabs"]
+  SETTABLEKS R17 R18 K32 ["render"]
+  MOVE R20 R15
+  CALL R20 0 1
+  JUMPIFNOT R20 [+2]
+  LOADNIL R19
   JUMP [+1]
-  MOVE R17 R14
-  SETTABLEKS R17 R16 K30 ["getHumanoidDescription_DEPRECATED"]
-  DUPCLOSURE R17 K37 [PROTO_3]
-  SETTABLEKS R17 R16 K31 ["getPreviewCameraModifications"]
-  RETURN R16 1
+  MOVE R19 R16
+  SETTABLEKS R19 R18 K33 ["getHumanoidDescription_DEPRECATED"]
+  DUPCLOSURE R19 K40 [PROTO_3]
+  SETTABLEKS R19 R18 K34 ["getPreviewCameraModifications"]
+  RETURN R18 1

@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("ToolboxAddPackageVersionDescriptions5", false)
+game:DefineFastFlag("ToolboxAddPackageVersionDescriptions6", false)
 return function()
-   return game:GetFastFlag("ToolboxAddPackageVersionDescriptions5")
+   return game:GetFastFlag("ToolboxAddPackageVersionDescriptions6")
 end

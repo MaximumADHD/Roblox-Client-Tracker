@@ -9,7 +9,17 @@ export type Action = Package.Action
 export type RouteState = Package.RouteState
 export type NavigationState = Package.NavigationState
 export type NavigationObject = Package.NavigationObject
+export type Navigator = Package.Navigator
+export type Object = Package.Object
 export type ScreenProps = Package.ScreenProps
+export type Route<NavigationOptions = Object, Params = Object> = Package.Route<NavigationOptions , Params > 
+export type RouteArray<NavigationOptions = Object, Params = Object> = Package.RouteArray<NavigationOptions , Params > 
+export type StackNavigationConfig<NavigationOptions = Object> = Package.StackNavigationConfig<NavigationOptions > 
+export type SwitchNavigationConfig<NavigationOptions = Object> = Package.SwitchNavigationConfig<NavigationOptions > 
+export type Descriptor<NavigationOptions = Object> = Package.Descriptor<NavigationOptions > 
+export type Descriptors<NavigationOptions = Object> = Package.Descriptors<NavigationOptions > 
+export type StackNavigatorViewProps<NavigationOptions = Object> = Package.StackNavigatorViewProps<NavigationOptions > 
+export type SwitchNavigatorViewProps<NavigationOptions = Object> = Package.SwitchNavigatorViewProps<NavigationOptions > 
 
 
 return Package

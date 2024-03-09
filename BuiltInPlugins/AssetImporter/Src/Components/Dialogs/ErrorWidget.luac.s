@@ -1,23 +1,23 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["values"]
-  NAMECALL R4 R2 K1 ["GetStatuses"]
-  CALL R4 1 -1
-  CALL R3 -1 1
-  LENGTH R4 R3
-  LOADN R5 1
-  JUMPIFNOTLE R5 R4 [+9]
-  LOADK R6 K2 ["Error"]
-  GETTABLEN R8 R3 1
-  GETTABLEKS R7 R8 K3 ["Type"]
-  NAMECALL R4 R0 K4 ["getText"]
-  CALL R4 3 -1
-  RETURN R4 -1
-  LOADK R6 K2 ["Error"]
-  LOADK R7 K5 ["DefaultNoStatus"]
-  NAMECALL R4 R0 K4 ["getText"]
-  CALL R4 3 -1
-  RETURN R4 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["values"]
+  NAMECALL R3 R1 K1 ["GetStatuses"]
+  CALL R3 1 -1
+  CALL R2 -1 1
+  LENGTH R3 R2
+  LOADN R4 1
+  JUMPIFNOTLE R4 R3 [+9]
+  LOADK R5 K2 ["Error"]
+  GETTABLEN R7 R2 1
+  GETTABLEKS R6 R7 K3 ["Type"]
+  NAMECALL R3 R0 K4 ["getText"]
+  CALL R3 3 -1
+  RETURN R3 -1
+  LOADK R5 K2 ["Error"]
+  LOADK R6 K5 ["DefaultNoStatus"]
+  NAMECALL R3 R0 K4 ["getText"]
+  CALL R3 3 -1
+  RETURN R3 -1
 
 PROTO_1:
   GETTABLEKS R2 R0 K0 ["props"]
@@ -138,28 +138,27 @@ PROTO_1:
   GETTABLEKS R17 R18 K4 ["createElement"]
   GETUPVAL R18 3
   DUPTABLE R19 K61 [{"Text", "TextSize", "TextXAlignment", "Size", "LayoutOrder"}]
-  GETTABLEKS R21 R2 K65 ["ImportStatuses"]
-  GETTABLEKS R22 R2 K66 ["AssetImportSession"]
-  GETUPVAL R24 4
-  GETTABLEKS R23 R24 K67 ["values"]
-  NAMECALL R24 R22 K68 ["GetStatuses"]
-  CALL R24 1 -1
-  CALL R23 -1 1
-  LENGTH R24 R23
-  LOADN R25 1
-  JUMPIFNOTLE R25 R24 [+10]
-  LOADK R26 K19 ["Error"]
-  GETTABLEN R28 R23 1
-  GETTABLEKS R27 R28 K69 ["Type"]
-  NAMECALL R24 R1 K21 ["getText"]
-  CALL R24 3 1
-  MOVE R20 R24
+  GETTABLEKS R21 R2 K65 ["AssetImportSession"]
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K66 ["values"]
+  NAMECALL R23 R21 K67 ["GetStatuses"]
+  CALL R23 1 -1
+  CALL R22 -1 1
+  LENGTH R23 R22
+  LOADN R24 1
+  JUMPIFNOTLE R24 R23 [+10]
+  LOADK R25 K19 ["Error"]
+  GETTABLEN R27 R22 1
+  GETTABLEKS R26 R27 K68 ["Type"]
+  NAMECALL R23 R1 K21 ["getText"]
+  CALL R23 3 1
+  MOVE R20 R23
   JUMP [+6]
-  LOADK R26 K19 ["Error"]
-  LOADK R27 K70 ["DefaultNoStatus"]
-  NAMECALL R24 R1 K21 ["getText"]
-  CALL R24 3 1
-  MOVE R20 R24
+  LOADK R25 K19 ["Error"]
+  LOADK R26 K69 ["DefaultNoStatus"]
+  NAMECALL R23 R1 K21 ["getText"]
+  CALL R23 3 1
+  MOVE R20 R23
   SETTABLEKS R20 R19 K16 ["Text"]
   GETTABLEKS R20 R4 K57 ["SubtextSize"]
   SETTABLEKS R20 R19 K59 ["TextSize"]
@@ -188,11 +187,9 @@ PROTO_2:
   RETURN R1 1
 
 PROTO_3:
-  DUPTABLE R1 K2 [{"AssetImportSession", "ImportStatuses"}]
-  GETTABLEKS R2 R0 K3 ["assetImportSession"]
+  DUPTABLE R1 K1 [{"AssetImportSession"}]
+  GETTABLEKS R2 R0 K2 ["assetImportSession"]
   SETTABLEKS R2 R1 K0 ["AssetImportSession"]
-  GETTABLEKS R2 R0 K4 ["importStatuses"]
-  SETTABLEKS R2 R1 K1 ["ImportStatuses"]
   RETURN R1 1
 
 MAIN:

@@ -4,4 +4,5 @@ game:DefineFastFlag("ApiProxyToUsersApiGetUserByUsernamesEnabled", false)
 game:DefineFastFlag("COLLAB2699FixSaveChangesLogic", false)
 game:DefineFastFlag("COLLAB2850_FixMcTooltips", false)
 game:DefineFastFlag("COLLAB4802_FixManageCollabLanguageBug", false)
+game:DefineFastFlag("StudioManageCollabWideBox", false)
 return nil

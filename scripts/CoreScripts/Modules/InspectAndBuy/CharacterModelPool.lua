@@ -9,7 +9,7 @@ local Players = game:GetService("Players")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local CorePackages = game:GetService("CorePackages")
 
-local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
+local Promise = require(CorePackages.Packages.Promise)
 
 local OFFSCREEN_CHARACTER_CFRAME = CFrame.new(Vector3.new(0, 150, 0))
 

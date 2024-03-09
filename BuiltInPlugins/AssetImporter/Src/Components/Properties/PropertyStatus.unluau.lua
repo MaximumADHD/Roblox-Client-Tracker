@@ -8,7 +8,7 @@ local var5 = var4.Tooltip
 local var6 = var4.Image
 local var7 = require(var0.Src.Resources.StatusLevel)
 local var8 = var1.PureComponent:extend("PropertyStatus")
-local function fun12(arg1)
+local function fun10(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var0.StatusLevel
@@ -23,15 +23,15 @@ local function fun12(arg1)
    if var4 then
       local var0 = var1.ErrorIcon or var1.WarningIcon
    end
-   local var579 = {}
-   var579.Size = UDim2.fromOffset(var3, var3)
-   var579.Style = var1.WarningIcon
-   var579.LayoutOrder = var0.LayoutOrder
-   local var584 = {}
-   local var588 = {}
-   var588.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
-   var584.Tooltip = var1.createElement(var5, var588)
-   return var1.createElement(var6, var579, var584)
+   local var477 = {}
+   var477.Size = UDim2.fromOffset(var3, var3)
+   var477.Style = var1.WarningIcon
+   var477.LayoutOrder = var0.LayoutOrder
+   local var482 = {}
+   local var486 = {}
+   var486.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
+   var482.Tooltip = var1.createElement(var5, var486)
+   return var1.createElement(var6, var477, var482)
 end
 
 function var8.render(arg1)
@@ -49,20 +49,20 @@ function var8.render(arg1)
    if var4 then
       local var0 = var1.ErrorIcon or var1.WarningIcon
    end
-   local var579 = {}
-   var579.Size = UDim2.fromOffset(var3, var3)
-   var579.Style = var1.WarningIcon
-   var579.LayoutOrder = var0.LayoutOrder
-   local var584 = {}
-   local var588 = {}
-   var588.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
-   var584.Tooltip = var1.createElement(var5, var588)
-   return var1.createElement(var6, var579, var584)
+   local var477 = {}
+   var477.Size = UDim2.fromOffset(var3, var3)
+   var477.Style = var1.WarningIcon
+   var477.LayoutOrder = var0.LayoutOrder
+   local var482 = {}
+   local var486 = {}
+   var486.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
+   var482.Tooltip = var1.createElement(var5, var486)
+   return var1.createElement(var6, var477, var482)
 end
 
-fun12 = var3.withContext
-local var596 = {}
-var596.Localization = var3.Localization
-var596.Stylizer = var3.Stylizer
-var8 = fun12(var596)(var8)
+fun10 = var3.withContext
+local var494 = {}
+var494.Localization = var3.Localization
+var494.Stylizer = var3.Stylizer
+var8 = fun10(var494)(var8)
 return var8

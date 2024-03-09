@@ -9,7 +9,6 @@ local Sounds = require(CorePackages.Workspace.Packages.SoundManager).Sounds
 local SoundGroups = require(CorePackages.Workspace.Packages.SoundManager).SoundGroups
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
-local GetFFlagCallBarNameFallback = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagCallBarNameFallback
 local GetFFlagIrisUseLocalizationProvider =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
 
@@ -215,33 +214,25 @@ local function CallBar(passedProps: Props)
 		query = UserProfiles.Queries.userProfilesCombinedNameAndUsernameByUserIds,
 	})
 
-	local combinedName = ""
-	if GetFFlagCallBarNameFallback() then
-		local selectOtherParticipantName = React.useCallback(function(state: any)
-			local currentCall = state.Call.currentCall
-			if currentCall then
-				if localUserId == currentCall.callerId then
-					return currentCall.calleeCombinedName or ""
-				else
-					return currentCall.callerCombinedName or ""
-				end
+	local selectOtherParticipantName = React.useCallback(function(state: any)
+		local currentCall = state.Call.currentCall
+		if currentCall then
+			if localUserId == currentCall.callerId then
+				return currentCall.calleeCombinedName or ""
+			else
+				return currentCall.callerCombinedName or ""
 			end
-
-			return ""
-		end)
-		local otherParticipantName = useSelector(selectOtherParticipantName)
-
-		if namesFetch.data then
-			combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, otherParticipantId)
-		elseif namesFetch.error then
-			combinedName = otherParticipantName
 		end
-	else
-		if namesFetch.data then
-			combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, otherParticipantId)
-		elseif namesFetch.error then
-			combinedName = "Name Error"
-		end
+
+		return ""
+	end)
+	local otherParticipantName = useSelector(selectOtherParticipantName)
+
+	local combinedName = ""
+	if namesFetch.data then
+		combinedName = UserProfiles.Selectors.getCombinedNameFromId(namesFetch.data, otherParticipantId)
+	elseif namesFetch.error then
+		combinedName = otherParticipantName
 	end
 
 	return React.createElement("Frame", {
