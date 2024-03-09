@@ -2,7 +2,7 @@
   "instanceHierarchy": {
     "name": "Impressions",
     "tree": {
-      "$path": "../../../../../../../modules/impressions/src"
+      "$path": "../../../../../../../modules/app-common/impressions/src"
     }
   }
 }

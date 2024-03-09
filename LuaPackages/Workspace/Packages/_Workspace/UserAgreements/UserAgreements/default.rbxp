@@ -2,7 +2,7 @@
   "instanceHierarchy": {
     "name": "UserAgreements",
     "tree": {
-      "$path": "../../../../../../../modules/user-agreements/src"
+      "$path": "../../../../../../../modules/roblox-app/user-agreements/src"
     }
   }
 }

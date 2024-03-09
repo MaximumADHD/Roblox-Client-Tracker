@@ -2,7 +2,7 @@
   "instanceHierarchy": {
     "name": "Navigation",
     "tree": {
-      "$path": "../../../../../../../modules/navigation/src"
+      "$path": "../../../../../../../modules/app-common/navigation/src"
     }
   }
 }

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "FriendsMenu",
+    "tree": {
+      "$path": "../../../../../../../modules/social/friends-menu/src"
+    }
+  }
+}

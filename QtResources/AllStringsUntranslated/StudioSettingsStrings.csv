@@ -1,5 +1,6 @@
 Key,Context,Source,en-us
-Studio.App.BetaFeatures.ConstraintVisualsTitle,,Contraint Visualization Improvements,Contraint Visualization Improvements
+Studio.App.BetaFeatures.AvatarJointUpgradeTitle,,Avatar Joint Upgrade,Avatar Joint Upgrade
+Studio.App.BetaFeatures.AvatarJointUpgradeDescription,,"Adds ragdoll constraints into avatars. Also replaces Motor6Ds with AnimationConstraints, which play animations either kinematically or with physical simulation.","Adds ragdoll constraints into avatars. Also replaces Motor6Ds with AnimationConstraints, which play animations either kinematically or with physical simulation."
 Studio.App.BetaFeatures.ConstraintVisualsDescription,,Details are shown on selected constraints even without the global Constraint Details enabled. Constraints appear translucent through occluding objects.,Details are shown on selected constraints even without the global Constraint Details enabled. Constraints appear translucent through occluding objects.
 Studio.App.BetaFeature.UpgradeShorelinesTitle,,Upgrade Shorelines,Upgrade Shorelines
 Studio.App.BetaFeature.UpgradeShorelinesDescription,,"Enable the new terrain upgrade which provides a smooth connection where water joins the shores. This upgrade also allows water edges to animate following the water's movement. After enabling the beta, you can choose to apply the shorelines upgrade for each of your places independently, through the Terrain Editor. The upgrade can be reverted with the Undo command.","Enable the new terrain upgrade which provides a smooth connection where water joins the shores. This upgrade also allows water edges to animate following the water's movement. After enabling the beta, you can choose to apply the shorelines upgrade for each of your places independently, through the Terrain Editor. The upgrade can be reverted with the Undo command."
@@ -143,6 +144,8 @@ Studio.App.BetaFeatures.UIListLayoutFlexTitle,,UIListLayout Flex Features,UIList
 Studio.App.BetaFeatures.UIListLayoutFlexDescription,,Add flexible layout options to UIListLayout.,Add flexible layout options to UIListLayout.
 Studio.App.BetaFeatures.TerrainEditorTitle,,Terrain Editor,Terrain Editor
 Studio.App.BetaFeatures.TerrainEditorDescription,,Updates the Terrain Editor with a new and improved UI.,Updates the Terrain Editor with a new and improved UI.
+Studio.App.BetaFeatures.AutoSetupTitle,,Avatar Auto-Setup Preview,Avatar Auto-Setup Preview
+Studio.App.BetaFeatures.AutoSetupDescription,,Early release of our automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Currently for in-game use only. We will remove this restriction and allow for Marketplace submission in later releases.,Early release of our automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Currently for in-game use only. We will remove this restriction and allow for Marketplace submission in later releases.
 Studio.App.BetaFeatures.FasterPlaySoloTitle,,Faster Play Solo,Faster Play Solo
 Studio.App.BetaFeatures.FasterPlaySoloDescription,,Streamlines Play Solo for faster loading performance.,Streamlines Play Solo for faster loading performance.
 Studio.App.BetaFeatures.TextureGeneratorTitle,,AI-Powered Texture Generator,AI-Powered Texture Generator
@@ -154,3 +157,5 @@ https://en.help.roblox.com/hc/articles/20121392440212","Please view the Terms an
 https://en.help.roblox.com/hc/articles/20121392440212"
 Studio.App.BetaFeatures.Path2DTitle,,Path2D Instance,Path2D Instance
 Studio.App.BetaFeatures.Path2DDescription,,Enables the new Path2D Instance and in-viewport editor for 2D splines.,Enables the new Path2D Instance and in-viewport editor for 2D splines.
+Studio.App.BetaFeatures.SimulationPauseAndStepTitle,,Simulation Pause,Simulation Pause
+Studio.App.BetaFeatures.SimulationPauseAndStepDescription,,Enables visual pausing and simulation debugging at studio run time.,Enables visual pausing and simulation debugging at studio run time.

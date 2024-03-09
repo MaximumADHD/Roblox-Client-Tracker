@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "CountryCode",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/country-code/src"
+    }
+  }
+}

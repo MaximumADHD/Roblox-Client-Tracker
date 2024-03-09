@@ -12,9 +12,9 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property Instance.Parent: Instance? [📁 LoadOnly] [NotReplicated]
 	Property Instance.PropertyStatusStudio: Enum.PropertyStatus {RobloxSecurity} [Hidden] [ReadOnly] [NotScriptable]
 	Property Instance.RobloxLocked: boolean {PluginSecurity} [Hidden]
-	Property Instance.SourceAssetId: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property Instance.SourceAssetId: number {RobloxScriptSecurity} [Hidden]
 	Property Instance.Tags: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
-	Property Instance.UniqueId: UniqueId {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property Instance.UniqueId: UniqueId {RobloxSecurity} [NotReplicated] [NotScriptable]
 	Property Instance.numExpectedDirectChildren: number [Hidden] [NotScriptable]
 	Function Instance:AddTag(tag: string) -> ()
 	Function Instance:ClearAllChildren() -> ()
@@ -243,12 +243,9 @@ Class AssetImportSession : Instance [NotCreatable] [NotReplicated]
 	Function AssetImportSession:ApplySettings() -> () {RobloxScriptSecurity}
 	Function AssetImportSession:Cancel() -> () {RobloxScriptSecurity}
 	Function AssetImportSession:CreatePresetFromData(importData: Instance) -> { [string]: any } {RobloxScriptSecurity}
-	Function AssetImportSession:GetCurrentStatusTable_DEPRECATED() -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:GetFilename() -> string {RobloxScriptSecurity}
 	Function AssetImportSession:GetImportTree() -> Instance? {RobloxScriptSecurity}
-	Function AssetImportSession:GetInstance(nodeId: number) -> Instance? {RobloxScriptSecurity}
 	Function AssetImportSession:GetRigVisualization(importDataInstance: Instance) -> Instance? {RobloxScriptSecurity}
-	Function AssetImportSession:GetRigVisualization_DEPRECATED() -> Instance? {RobloxScriptSecurity} [Deprecated]
 	Function AssetImportSession:GetStatuses() -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetImportSession:HasAnimation() -> boolean {RobloxScriptSecurity}
 	Function AssetImportSession:IsAvatar() -> boolean {RobloxScriptSecurity}
@@ -420,6 +417,7 @@ Class AudioPitchShifter : Instance [NotBrowsable]
 	Property AudioPitchShifter.Pitch: number
 	Function AudioPitchShifter:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 Class AudioPlayer : Instance [NotBrowsable]
+	Property AudioPlayer.Asset: string [📁 LoadOnly] [Hidden] [NotScriptable]
 	Property AudioPlayer.AssetId: string
 	Property AudioPlayer.AutoLoad: boolean
 	Property AudioPlayer.IsReady: boolean [ReadOnly]
@@ -433,6 +431,8 @@ Class AudioPlayer : Instance [NotBrowsable]
 	Function AudioPlayer:GetConnectedWires(pin: string) -> { any } {PluginSecurity}
 	Function AudioPlayer:Play() -> ()
 	Function AudioPlayer:Stop() -> ()
+	Event AudioPlayer.Ended()
+	Event AudioPlayer.Looped()
 Class AudioReverb : Instance [NotBrowsable]
 	Property AudioReverb.LowShelfGain: number
 	Property AudioReverb.DecayRatio: number
@@ -559,7 +559,6 @@ Class BaseImportData : Instance [NotCreatable] [NotReplicated]
 	Function BaseImportData:CreatePresetFromData() -> { [string]: any } {RobloxScriptSecurity}
 	Function BaseImportData:GetPreview() -> Instance? {RobloxScriptSecurity}
 	Function BaseImportData:GetStatuses() -> { [string]: any } {RobloxScriptSecurity}
-	Function BaseImportData:GetStatuses_DEPRECATED() -> { [string]: any } {RobloxScriptSecurity}
 	Event BaseImportData.StatusRemoved(status: { [string]: any })
 	Event BaseImportData.StatusReported(status: { [string]: any })
 Class AnimationImportData : BaseImportData [NotCreatable] [NotReplicated]
@@ -1002,8 +1001,11 @@ Class DragDetector : ClickDetector
 	Function DragDetector:SetDragStyleFunction(function: (...any) -> ...any) -> ()
 	Function DragDetector:SetPermissionPolicyFunction(function: (...any) -> ...any) -> ()
 	Event DragDetector.DragContinue(playerWhoDragged: Player, cursorRay: Ray, viewFrame: CFrame, vrInputFrame: CFrame?, isModeSwitchKeyDown: boolean)
+	Event DragDetector.DragContinueReplicate(playerWhoDragged: Player, cursorRay: Ray, viewFrame: CFrame, vrInputFrame: CFrame?, isModeSwitchKeyDown: boolean) [Hidden]
 	Event DragDetector.DragEnd(playerWhoDragged: Player)
+	Event DragDetector.DragEndReplicate(playerWhoDragged: Player) [Hidden]
 	Event DragDetector.DragStart(playerWhoDragged: Player, cursorRay: Ray, viewFrame: CFrame, hitFrame: CFrame, clickedPart: BasePart, vrInputFrame: CFrame?, isModeSwitchKeyDown: boolean)
+	Event DragDetector.DragStartReplicate(playerWhoDragged: Player, cursorRay: Ray, viewFrame: CFrame, hitFrame: CFrame, clickedPart: BasePart, vrInputFrame: CFrame?, isModeSwitchKeyDown: boolean) [Hidden]
 Class Clouds : Instance
 	Property Clouds.Cover: number
 	Property Clouds.Density: number
@@ -1012,7 +1014,8 @@ Class Clouds : Instance
 Class ClusterPacketCache : Instance [NotCreatable] [Service] [NotReplicated]
 Class Collaborator : Instance [NotCreatable]
 	Property Collaborator.CFrame: CFrame [Hidden]
-	Property Collaborator.CollaboratorColor: number [Hidden]
+	Property Collaborator.CollaboratorColor: number [Hidden] [Deprecated]
+	Property Collaborator.CollaboratorColor3: Color3 [Hidden]
 	Property Collaborator.CurDocGUID: string [Hidden]
 	Property Collaborator.CurScriptLineNumber: number [Hidden]
 	Property Collaborator.IsIdle: boolean [Hidden]
@@ -1645,6 +1648,7 @@ Class EditableImage : Instance [NotReplicated]
 	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number) -> ()
 	Function EditableImage:DrawImage(position: Vector2, image: EditableImage, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number) -> ()
+	Function EditableImage:DrawProjectionImage(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
 	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number) -> ()
 	Function EditableImage:ReadPixels(position: Vector2, size: Vector2) -> { any } [CustomLuaState] {🧬Safe}
 	Function EditableImage:Resize(size: Vector2) -> ()
@@ -1676,7 +1680,6 @@ Class ExperienceInviteOptions : Instance [NotReplicated]
 	Property ExperienceInviteOptions.PromptMessage: string
 Class ExperienceNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ExperienceNotificationService:CanPromptOptInAsync() -> boolean [Yields]
-	Function ExperienceNotificationService:CreateUserNotificationAsync(userId: string, userNotification: UserNotification) -> Instance? [Yields]
 	Function ExperienceNotificationService:InvokeOptInPromptClosed() -> () {RobloxScriptSecurity}
 	Function ExperienceNotificationService:PromptOptIn() -> ()
 	Event ExperienceNotificationService.OptInPromptClosed()
@@ -2370,11 +2373,9 @@ Class SelectionPartLasso : SelectionLasso [Deprecated]
 	Property SelectionPartLasso.Part: BasePart? [Deprecated]
 Class SelectionPointLasso : SelectionLasso [Deprecated]
 	Property SelectionPointLasso.Point: Vector3 [Deprecated]
-Class Path2D : GuiBase
-	Property Path2D.ControlPointLeftTangent: UDim2 {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Property Path2D.ControlPointPosition: UDim2 {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Property Path2D.ControlPointRightTangent: UDim2 {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
+Class Path2D : GuiBase [NotBrowsable]
 	Property Path2D.SelectedControlPoint: number {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
+	Property Path2D.SelectedControlPointData: Path2DControlPoint {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Property Path2D.Color: Color3
 	Property Path2D.Position: UDim2
 	Property Path2D.PropertiesSerialize: BinaryString {RobloxScriptSecurity} [Hidden] [NotScriptable]
@@ -2995,16 +2996,12 @@ Class LuaSettings : Instance [NotCreatable] [Settings]
 Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property LuaSourceContainer.CachedRemoteSource: string [Hidden] [NotScriptable]
 	Property LuaSourceContainer.CachedRemoteSourceLoadState: number [Hidden] [NotScriptable]
-	Property LuaSourceContainer.CurrentEditor: Instance? [NotScriptable]
 	Property LuaSourceContainer.HasAssociatedDrafts: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 	Property LuaSourceContainer.IsDifferentFromFileSystem: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property LuaSourceContainer.OriginalScriptGuid: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property LuaSourceContainer.SandboxedSource: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property LuaSourceContainer.ScriptGuid: string [Hidden] [NotScriptable]
 	Property LuaSourceContainer.SyncingEditorText: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
-	Event LuaSourceContainer.LockGrantedOrNot(granted: boolean) [Hidden]
-	Event LuaSourceContainer.LostLock() [Hidden]
-	Event LuaSourceContainer.RequestLock() [Hidden]
 	Event LuaSourceContainer.RequestScriptHash() {LocalUserSecurity} [Hidden]
 	Event LuaSourceContainer.VerifyScriptHash(hash: string) {LocalUserSecurity} [Hidden]
 Class BaseScript : LuaSourceContainer [NotCreatable]
@@ -3551,7 +3548,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:GetTerrainWireframe(cframe: CFrame, size: Vector3) -> { any } {RobloxScriptSecurity}
 	Function Terrain:GetWaterCell(x: number, y: number, z: number) -> ...any [Deprecated]
 	Function Terrain:PasteRegion(region: TerrainRegion, corner: Vector3int16, pasteEmptyCells: boolean) -> ()
-	Function Terrain:ReadVoxelChannels(region: Region3, resolution: number, channelIds: { any }) -> { [string]: any } {🧬Safe}
+	Function Terrain:ReadVoxelChannels(region: Region3, resolution: number, channelIds: { any }) -> { [string]: any } [CustomLuaState] {🧬Safe}
 	Function Terrain:ReadVoxels(region: Region3, resolution: number) -> ...any [CustomLuaState] {🧬Safe}
 	Function Terrain:ReplaceMaterial(region: Region3, resolution: number, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> ()
 	Function Terrain:ReplaceMaterialInTransform(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> () {RobloxScriptSecurity}
@@ -3566,7 +3563,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:WorldToCell(position: Vector3) -> Vector3
 	Function Terrain:WorldToCellPreferEmpty(position: Vector3) -> Vector3
 	Function Terrain:WorldToCellPreferSolid(position: Vector3) -> Vector3
-	Function Terrain:WriteVoxelChannels(region: Region3, resolution: number, channels: { [string]: any }) -> ()
+	Function Terrain:WriteVoxelChannels(region: Region3, resolution: number, channels: { [string]: any }) -> () [CustomLuaState]
 	Function Terrain:WriteVoxels(region: Region3, resolution: number, materials: { any }, occupancy: { any }) -> () [CustomLuaState]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
@@ -3724,6 +3721,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function WorldRoot:SetInsertPoint(point: Vector3, ignoreGrid: boolean? = false) -> () {RobloxScriptSecurity}
 	Function WorldRoot:Shapecast(part: BasePart, direction: Vector3, params: RaycastParams? = RaycastParams?.new()) -> RaycastResult?
 	Function WorldRoot:Spherecast(position: Vector3, radius: number, direction: Vector3, params: RaycastParams? = RaycastParams?.new()) -> RaycastResult? {🧬Safe}
+	Function WorldRoot:StepPhysics(dt: number, parts: { Instance }? = Objects?.new()) -> () {PluginSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.AirDensity: number
 	Property Workspace.AllowThirdPartySales: boolean [NotReplicated]
@@ -4494,6 +4492,7 @@ Class RenderingTest : Instance
 	Property RenderingTest.PerfTest: boolean
 	Property RenderingTest.Position: Vector3 [Hidden] [NotReplicated]
 	Property RenderingTest.QualityLevel: number
+	Property RenderingTest.RenderingTestFrameCount: number
 	Property RenderingTest.ShouldSkip: boolean
 	Property RenderingTest.Ticket: string
 	Property RenderingTest.Timeout: number
@@ -4560,6 +4559,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event RunService.Stepped(time: number, deltaTime: number)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
+	Property SafetyService.IsCaptureModeForReport: boolean {RobloxScriptSecurity}
 	Function SafetyService:TakeScreenshot(screenshotOptions: { [string]: any }) -> number {RobloxScriptSecurity}
 	Event SafetyService.FSTriggeredSignal(requestId: string, playerId: number, mac: string, args: ...any) {RobloxSecurity} [Hidden]
 	Event SafetyService.ScreenshotContentReady(screenshotJobId: number, contentId: string) {RobloxScriptSecurity}
@@ -5084,6 +5084,7 @@ Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:SetPluginInfoCallback(function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterCommand(commandName: string) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterContextCollector(collectorName: string) -> () {RobloxScriptSecurity}
+	Event StreamingService.ConversationCleared() {RobloxScriptSecurity}
 	Event StreamingService.RequestEnded(requestId: string) {RobloxScriptSecurity}
 	Event StreamingService.RequestError(requestId: string, errorType: string, errorMessage: string) {RobloxScriptSecurity}
 	Event StreamingService.RequestStarted(requestId: string, queryToProcess: string) {RobloxScriptSecurity}
@@ -5159,7 +5160,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Auto Closing Quotes: boolean
 	Property Studio.Auto Delete Closing Brackets and Quotes: boolean
 	Property Studio.Auto Indent Rule: Enum.AutoIndentRule
-	Property Studio.Automatically commit locked scripts when you save or publish to Roblox: boolean {RobloxScriptSecurity}
 	Property Studio.Automatically trigger AI Code Completion: boolean {RobloxScriptSecurity}
 	Property Studio.Enable Autocomplete: boolean
 	Property Studio.Enable Autocomplete Doc View: boolean {RobloxScriptSecurity}
@@ -6048,23 +6048,6 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event UserInputService.UserCFrameChanged(type: Enum.UserCFrame, value: CFrame) [Deprecated]
 	Event UserInputService.WindowFocusReleased()
 	Event UserInputService.WindowFocused()
-Class UserNotification : Instance
-	Property UserNotification.Id: string [ReadOnly]
-	Property UserNotification.Payload: UserNotificationPayload?
-Class UserNotificationPayload : Instance
-	Property UserNotificationPayload.AnalyticsData: UserNotificationPayloadAnalyticsData?
-	Property UserNotificationPayload.JoinExperience: UserNotificationPayloadJoinExperience?
-	Property UserNotificationPayload.MessageId: string
-	Property UserNotificationPayload.Type: string
-	Function UserNotificationPayload:GetParameters() -> any
-	Function UserNotificationPayload:SetParameters(parameters: any) -> ()
-Class UserNotificationPayloadAnalyticsData : Instance
-	Property UserNotificationPayloadAnalyticsData.Category: string
-Class UserNotificationPayloadJoinExperience : Instance
-	Property UserNotificationPayloadJoinExperience.LaunchData: string
-Class UserNotificationPayloadParameterValue : Instance
-	Property UserNotificationPayloadParameterValue.Int64Value: number
-	Property UserNotificationPayloadParameterValue.StringValue: string
 Class UserService : Instance [NotCreatable] [Service]
 	Function UserService:GetUserInfosByUserIdsAsync(userIds: { any }) -> { any } [Yields]
 Class VRService : Instance [NotCreatable] [Service] [NotBrowsable]
@@ -6168,6 +6151,11 @@ Class VideoCaptureService : Instance [NotCreatable] [Service]
 	Event VideoCaptureService.Error(cameraid: string, errorcode: string) {RobloxScriptSecurity}
 	Event VideoCaptureService.Started(cameraid: string) {RobloxScriptSecurity}
 	Event VideoCaptureService.Stopped(cameraid: string) {RobloxScriptSecurity}
+Class VideoDeviceInput : Instance [NotReplicated]
+	Property VideoDeviceInput.Active: boolean
+	Property VideoDeviceInput.CameraId: string
+	Property VideoDeviceInput.CaptureQuality: Enum.VideoDeviceCaptureQuality
+	Property VideoDeviceInput.IsReady: boolean [ReadOnly]
 Class VideoService : Instance [NotCreatable] [Service]
 Class VirtualInputManager : Instance [Service]
 	Property VirtualInputManager.AdditionalLuaState: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -6212,6 +6200,13 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function VirtualUser:TypeKey(key: string) -> () {LocalUserSecurity}
 Class VisibilityCheckDispatcher : Instance [NotCreatable] [Service]
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
+Class VisualizationMode : Instance
+	Property VisualizationMode.Enabled: boolean {RobloxScriptSecurity}
+	Property VisualizationMode.Title: string {RobloxScriptSecurity}
+Class VisualizationModeCategory : Instance
+	Property VisualizationModeCategory.Enabled: boolean {RobloxScriptSecurity}
+	Property VisualizationModeCategory.Title: string {RobloxScriptSecurity}
+Class VisualizationModeService : Instance [NotCreatable] [Service]
 Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property VoiceChatInternal.VoiceChatState: Enum.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
 	Function VoiceChatInternal:GetAndClearCallFailureMessage() -> string {RobloxScriptSecurity} [Deprecated]
@@ -7455,9 +7450,16 @@ Enum IXPLoadingStatus
 	EnumItem IXPLoadingStatus.ErrorConnection : 4
 	EnumItem IXPLoadingStatus.ErrorJsonParse : 5
 	EnumItem IXPLoadingStatus.ErrorTimedOut : 6
+Enum ImageAlphaType
+	EnumItem ImageAlphaType.Default : 1
+	EnumItem ImageAlphaType.LockCanvasAlpha : 2
+	EnumItem ImageAlphaType.LockCanvasColor : 3
 Enum ImageCombineType
 	EnumItem ImageCombineType.BlendSourceOver : 1
 	EnumItem ImageCombineType.Overwrite : 2
+	EnumItem ImageCombineType.Add : 3
+	EnumItem ImageCombineType.Multiply : 4
+	EnumItem ImageCombineType.AlphaBlend : 5
 Enum InOut
 	EnumItem InOut.Edge : 0
 	EnumItem InOut.Inset : 1
@@ -9006,6 +9008,31 @@ Enum VibrationMotor
 	EnumItem VibrationMotor.RightTrigger : 3
 	EnumItem VibrationMotor.LeftHand : 4
 	EnumItem VibrationMotor.RightHand : 5
+Enum VideoDeviceCaptureQuality
+	EnumItem VideoDeviceCaptureQuality.Default : 0
+	EnumItem VideoDeviceCaptureQuality.Low : 1
+	EnumItem VideoDeviceCaptureQuality.Medium : 2
+	EnumItem VideoDeviceCaptureQuality.High : 3
+Enum VideoError
+	EnumItem VideoError.Ok : 0
+	EnumItem VideoError.Eof : 1
+	EnumItem VideoError.EAgain : 2
+	EnumItem VideoError.BadParameter : 3
+	EnumItem VideoError.AllocFailed : 4
+	EnumItem VideoError.CodecInitFailed : 5
+	EnumItem VideoError.CodecCloseFailed : 6
+	EnumItem VideoError.DecodeFailed : 7
+	EnumItem VideoError.ParsingFailed : 8
+	EnumItem VideoError.Unsupported : 9
+	EnumItem VideoError.Generic : 10
+	EnumItem VideoError.DownloadFailed : 11
+	EnumItem VideoError.StreamNotFound : 12
+	EnumItem VideoError.EncodeFailed : 13
+	EnumItem VideoError.CreateFailed : 14
+	EnumItem VideoError.NoPermission : 15
+	EnumItem VideoError.NoService : 16
+	EnumItem VideoError.ReleaseFailed : 17
+	EnumItem VideoError.Unknown : 18
 Enum ViewMode
 	EnumItem ViewMode.None : 0
 	EnumItem ViewMode.GeometryComplexity : 1

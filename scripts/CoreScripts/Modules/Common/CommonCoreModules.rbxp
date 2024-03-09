@@ -37,6 +37,12 @@
                     "$path": ".robloxrc"
                 }
             },
+            "ConnectionUtil": {
+                "$path": "ConnectionUtil.lua",
+                ".robloxrc": {
+                    "$path": ".robloxrc"
+                }
+            },           
             "LegacyThumbnailUrls": {
                 "$path": "LegacyThumbnailUrls.lua",
                 ".robloxrc": {

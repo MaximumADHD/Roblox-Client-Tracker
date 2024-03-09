@@ -4074,7 +4074,7 @@
         <string name="ExplorerOrder">31</string>
         <string name="ClassCategory">GUI</string>
         <string name="PreferredParent">GuiBase2d</string>
-        <bool name="FFlag">Path2DEnabled14</bool>
+        <bool name="FFlag">Path2DEnabled15</bool>
       </Properties>
     </Item>
 
@@ -5500,6 +5500,12 @@
           <Properties>
             <string name="Name">Archivable</string>
             <string name="PropertyOrder">990</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">UniqueId</string>
+            <bool name="EditingDisabled">true</bool>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

@@ -200,12 +200,14 @@ Studio.Common.Action.No,,No,No
 Studio.Common.Action.OK,,OK,OK
 Studio.Common.Action.Open,,Open,Open
 Studio.Common.Action.Pause,,Pause,Pause
+Studio.Common.Action.PauseCurrent,"Pauses the currently visible workspace, namely client or server.",Pause Current,Pause Current
 Studio.Common.Action.Play,,Play,Play
 Studio.Common.Action.PublishToRobloxAs,,Publish to Roblox As...,Publish to Roblox As...
 Studio.Common.Action.Redo,,Redo,Redo
 Studio.Common.Action.Replace,,Replace,Replace
 Studio.Common.Action.ReportBug,,Report Bug,Report Bug
 Studio.Common.Action.Resume,,Resume,Resume
+Studio.Common.Action.ResumeCurrent,"Resumes the currently visible workspace, namely client or server.",Resume Current,Resume Current
 Studio.Common.Action.Rename,,Rename,Rename
 Studio.Common.Action.Reset,,Reset,Reset
 Studio.Common.Action.Retry,,Retry,Retry

@@ -90,7 +90,7 @@ Studio.RobloxPropertiesWidget.Category.Performance,,,Performance,Performance,,Le
 Studio.RobloxPropertiesWidget.Category.Physics,,,Physics,Physics,,Physik,Física,Physique,,Fisica,物理,물리,,Física,,,,,物理,物理,物理
 Studio.RobloxPropertiesWidget.Category.Pivot,,,Pivot,Pivot,,Drehpunkt,Pivote,Pivot,,Pivot,ピボット,피벗,,Pivô,,,,,枢轴,枢轴,中心點
 Studio.RobloxPropertiesWidget.Category.Plane,,,Plane,Plane,,Ebene,Plano,Plan,,Piano,平面,비행기,,Avião,,,,,平面,平面,平面
-Studio.RobloxPropertiesWidget.Category.Playback,,,Playback,Playback,,Wiedergabe,Reproducción,Relecture,,Riproduzione,プレイバック,재생,,Reprodução,,,,,回放,回放,倒轉
+Studio.RobloxPropertiesWidget.Category.Playback,,,Playback,Playback,,Wiedergabe,Reproducción,Relecture,,Riproduzione,再生,재생,,Reprodução,,,,,回放,回放,倒轉
 Studio.RobloxPropertiesWidget.Category.PrimaryPart,,,Primary Part,Primary Part,,Primärteil,Pieza principal,Partie principale,,Parte primaria,メインパーツ,기본 파트,,Parte primária,,,,,主要部件,主要部件,主要零件
 Studio.RobloxPropertiesWidget.Category.Profile,,,Profile,Profile,,Profil,Perfil,Profil,,Profilo,プロフィール,프로필,,Perfil,,,,,配置,配置,個人檔
 Studio.RobloxPropertiesWidget.Category.ProxySettings,,,Proxy Settings,Proxy Settings,,Proxy-Einstellungen,Configuración del proxy,Paramètres du proxy,,Impostazioni proxy,プロキシ設定,프록시 설정,,Configurações de proxy,,,,,代理设置,代理设置,Proxy 設定
@@ -139,7 +139,7 @@ Studio.RobloxPropertiesWidget.Category.Orientation,,,Orientation,Orientation,,Au
 Studio.RobloxPropertiesWidget.Category.DragDirections,,,Drag Directions,Drag Directions,,Richtungen ziehen,Arrastrar direcciones,Faire glisser les directions,,Direzione di trascinamento,ドラッグの方向,드래그 방향,,Arrastar direções,,,,,拖曳方向,拖曳方向,拖曳方向
 Studio.RobloxPropertiesWidget.Category.DraggedAmount,,,Dragged Amount,Dragged Amount,,Gezogener Betrag,Cantidad arrastrada,Montant glissé,,Importo trascinato,ドラッグした分,드래그한 양,,Quantidade arrastada,,,,,已拖拽数量,已拖拽数量,已拖曳數量
 Studio.RobloxPropertiesWidget.Category.DragLimits,,,Drag Limits,Drag Limits,,Zieh-Grenzen,Límites de arrastre,Limites de glissement,,Limiti di trascina,ドラッグ制限,드래그 제한,,Limites de arraste,,,,,拖曳上限,拖曳上限,拖曳上限
-Studio.RobloxPropertiesWidget.Category.ModeSwitching,,,Mode Switching,Mode Switching,,Modusumschaltung,Cambio de modo,Changer de mode,,Cambio modalità,モード切り換え,모드 전환,,Troca de modo,,,,,模式切换,模式切换,模式切換
+Studio.RobloxPropertiesWidget.Category.ModeSwitching,,,Mode Switching,Mode Switching,,Modusumschaltung,Cambio de modo,Changer de mode,,Cambio modalità,モード切りかえ,모드 전환,,Troca de modo,,,,,模式切换,模式切换,模式切換
 Studio.RobloxPropertiesWidget.Category.PhysicsResponse,,,Physics Response,Physics Response,,Physikantwort,Respuesta física,Réponse en matière de physique,,Risposta fisica,物理応答,물리적 응답,,Resposta física,,,,,物理响应,物理响应,物理回應
 Studio.RobloxPropertiesWidget.Category.Aerodynamics,,,Aerodynamics,Aerodynamics,,Aerodynamik,Aerodinámico,Aérodynamique,,Aerodinamica,空気力学,공기 역학,,Aerodinâmica,,,,,空气动力学,空气动力学,空氣動力學
 Studio.RobloxPropertiesWidget.Category.AirProperties,,,AirProperties,AirProperties,,AirProperties,AirProperties,Propriétés de l'air,,AirProperties,AirProperties,AirProperties,,Propriedades aéreas,,,,,空气属性,空气属性,AirProperties
