@@ -6347,6 +6347,7 @@
 [C++] FFlagStudioEnableVRToggle
 [C++] FFlagStudioErrorReporterFilterJunkCallstacks
 [C++] FFlagStudioExplorerCalloutCustomizedPackages
+[C++] FFlagStudioFixAutoSaveStopProblem
 [C++] FFlagStudioFixCleanupBehavior
 [C++] FFlagStudioFixClientCreatorType
 [C++] FFlagStudioFixComponentOverrideRegistration
