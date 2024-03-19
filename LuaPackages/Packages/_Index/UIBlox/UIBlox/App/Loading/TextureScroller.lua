@@ -8,7 +8,9 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
-local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
+local ReactUtils = require(Packages.ReactUtils)
+local EventConnection = ReactUtils.EventConnection
+
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 
 local function floorVector2(vector2)
@@ -123,7 +125,7 @@ function TextureScroller:render()
 				CornerRadius = cornerRadius,
 			}) or nil,
 		}),
-		renderStepped = Roact.createElement(ExternalEventConnection, {
+		renderStepped = Roact.createElement(EventConnection, {
 			callback = self.renderSteppedCallback,
 			event = RunService.renderStepped,
 		}),

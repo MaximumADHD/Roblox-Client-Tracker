@@ -4,8 +4,11 @@ local UIBloxRoot = script.Parent.Parent.Parent
 local Packages = UIBloxRoot.Parent
 
 local React = require(Packages.React)
+
+local ReactUtils = require(Packages.ReactUtils)
+local EventConnection = ReactUtils.EventConnection
+
 local useStyle = require(UIBloxRoot.Core.Style.useStyle)
-local ExternalEventConnection = require(UIBloxRoot.Utility.ExternalEventConnection)
 
 local GRADIENT_ROTATION_SPEED = 2
 
@@ -52,8 +55,8 @@ local CursorComponent = React.forwardRef(function(props: Props, ref: React.Ref<F
 				Transparency = transparency,
 			}),
 		}),
-		HeartbeatConnection = props.isVisible and React.createElement(ExternalEventConnection, {
-			event = RunService.Heartbeat,
+		HeartbeatConnection = props.isVisible and React.createElement(EventConnection, {
+			event = RunService.Heartbeat :: RBXScriptSignal,
 			callback = function(step)
 				-- TODO(UIBLOX-497): Normalize animation speed of heartbeat callback
 				local r = rotation:getValue() + GRADIENT_ROTATION_SPEED

@@ -11,11 +11,13 @@ local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local Otter = require(Packages.Otter)
 
+local ReactUtils = require(Packages.ReactUtils)
+local EventConnection = ReactUtils.EventConnection
+
 local getIconSize = require(App.ImageSet.getIconSize)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local Images = require(App.ImageSet.Images)
 local IconButton = require(App.Button.IconButton)
-local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
 local ThumbnailButton = require(MediaGallery.ThumbnailButton)
 local getShowItems = require(MediaGallery.getShowItems)
 
@@ -408,8 +410,8 @@ function MediaGalleryPreview:render()
 					}) or nil,
 				}),
 			}),
-			EventConnection = animationOn and Roact.createElement(ExternalEventConnection, {
-				event = RunService.RenderStepped,
+			EventConnection = animationOn and Roact.createElement(EventConnection, {
+				event = RunService.RenderStepped :: RBXScriptSignal,
 				callback = self.renderSteppedCallback,
 			}) or nil,
 		})

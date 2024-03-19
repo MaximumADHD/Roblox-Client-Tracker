@@ -10,8 +10,6 @@ local Roact = require(Packages.Roact)
 local FitFrame = require(Packages.FitFrame)
 local bindingValidator = require(Core.Utility.bindingValidator)
 
-local PADDING_BETWEEN_SIDE_AND_CENTER = 8
-
 local ThreeSectionBar = Roact.PureComponent:extend("ThreeSectionBar")
 ThreeSectionBar.validateProps = t.strictInterface({
 	BackgroundColor3 = t.optional(t.Color3),
@@ -26,6 +24,10 @@ ThreeSectionBar.validateProps = t.strictInterface({
 	renderCenter = t.optional(t.callback),
 	renderLeft = t.optional(t.callback),
 	renderRight = t.optional(t.callback),
+	-- Determines whether the bar height is scaled automatically
+	automaticHeight = t.optional(t.boolean),
+	-- Spacing between sections
+	sectionSpacing = t.optional(t.number),
 })
 
 ThreeSectionBar.defaultProps = {
@@ -45,6 +47,9 @@ ThreeSectionBar.defaultProps = {
 		return nil
 	end,
 	estimatedCenterWidth = math.huge,
+
+	automaticHeight = false,
+	sectionSpacing = 8,
 }
 
 function ThreeSectionBar:init()
@@ -113,6 +118,7 @@ function ThreeSectionBar:render()
 		BackgroundColor3 = self.props.BackgroundColor3,
 		BackgroundTransparency = self.props.BackgroundTransparency,
 		BorderSizePixel = 0,
+		AutomaticSize = if self.props.automaticHeight then Enum.AutomaticSize.Y else nil,
 
 		[Roact.Change.AbsoluteSize] = function(rbx)
 			self.props.onWidthChange(rbx.AbsoluteSize.X)
@@ -132,7 +138,7 @@ function ThreeSectionBar:render()
 			margin = {
 				top = 0,
 				left = self.props.marginLeft,
-				right = PADDING_BETWEEN_SIDE_AND_CENTER,
+				right = self.props.sectionSpacing,
 				bottom = 0,
 			},
 			[Roact.Change.AbsoluteSize] = function(rbx)
@@ -203,7 +209,7 @@ function ThreeSectionBar:render()
 			contentPadding = self.props.contentPaddingRight,
 			margin = {
 				top = 0,
-				left = PADDING_BETWEEN_SIDE_AND_CENTER,
+				left = self.props.sectionSpacing,
 				right = self.props.marginRight,
 				bottom = 0,
 			},

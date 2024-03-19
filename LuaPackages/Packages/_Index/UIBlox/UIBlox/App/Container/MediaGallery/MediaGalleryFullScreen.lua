@@ -9,9 +9,12 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
+
+local ReactUtils = require(Packages.ReactUtils)
+local EventConnection = ReactUtils.EventConnection
+
 local Images = require(App.ImageSet.Images)
 local IconButton = require(App.Button.IconButton)
-local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local ThumbnailButton = require(MediaGallery.ThumbnailButton)
@@ -261,7 +264,7 @@ function MediaGalleryFullScreen:renderWithProvider(style)
 				self.showNextItem
 			)
 			else nil,
-		EventConnection = showArrows and Roact.createElement(ExternalEventConnection, {
+		EventConnection = showArrows and Roact.createElement(EventConnection, {
 			event = UserInputService.InputBegan,
 			callback = self.onUserInputBegan,
 		}) or nil,

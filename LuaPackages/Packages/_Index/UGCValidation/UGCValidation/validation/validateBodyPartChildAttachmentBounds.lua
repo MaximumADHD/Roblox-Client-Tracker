@@ -11,6 +11,7 @@ local prettyPrintVector3 = require(root.util.prettyPrintVector3)
 local floatEquals = require(root.util.floatEquals)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getFFlagCheckOrientationOnAllAttachments = require(root.flags.getFFlagCheckOrientationOnAllAttachments)
 
 -- this function relies on validateMeshIsAtOrigin() in validateDescendantMeshMetrics.lua to catch meshes not built at the origin
 local function validateInMeshSpace(att: Attachment, part: MeshPart, boundsInfoMeshSpace: any): (boolean, { string }?)
@@ -82,9 +83,16 @@ local function validateAttachmentRotation(inst: Instance): (boolean, { string }?
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	for _, desc in inst:GetDescendants() do
-		local isRigAttachment = desc.ClassName == "Attachment" and string.find(desc.Name, "RigAttachment")
-		if not isRigAttachment then
-			continue
+		if getFFlagCheckOrientationOnAllAttachments() then
+			local isAttachment = desc.ClassName == "Attachment"
+			if not isAttachment then
+				continue
+			end
+		else
+			local isRigAttachment = desc.ClassName == "Attachment" and string.find(desc.Name, "RigAttachment")
+			if not isRigAttachment then
+				continue
+			end
 		end
 
 		local x, y, z = desc.CFrame:ToOrientation()
@@ -93,14 +101,14 @@ local function validateAttachmentRotation(inst: Instance): (boolean, { string }?
 			if getFFlagUseUGCValidationContext() then
 				reasonsAccumulator:updateReasons(false, {
 					string.format(
-						"Detected rotation in rig attachment '%s'. You must reset all rotation values for this attachment to zero.",
+						"Detected rotation in Attachment '%s'. You must reset all rotation values for this attachment to zero.",
 						desc:GetFullName()
 					),
 				})
 			else
 				reasonsAccumulator:updateReasons(
 					false,
-					{ `RigAttachment {(desc.Parent :: Instance).Name}.{desc.Name} should not be rotated!` }
+					{ `Attachment {(desc.Parent :: Instance).Name}.{desc.Name} should not be rotated!` }
 				)
 			end
 		end
@@ -127,7 +135,7 @@ local function validateBodyPartChildAttachmentBounds(
 		reasonsAccumulator:updateReasons(checkAll(inst :: MeshPart, isServer, assetInfo.subParts.Head))
 	else
 		for subPartName, partData in pairs(assetInfo.subParts) do
-			local meshHandle: MeshPart? = (inst:FindFirstChild(subPartName) :: MeshPart)
+			local meshHandle: MeshPart? = inst:FindFirstChild(subPartName) :: MeshPart
 			assert(meshHandle)
 
 			reasonsAccumulator:updateReasons(checkAll(meshHandle :: MeshPart, isServer, partData))
@@ -152,7 +160,7 @@ local function DEPRECATED_validateBodyPartChildAttachmentBounds(
 		reasonsAccumulator:updateReasons(checkAll(inst :: MeshPart, isServer, assetInfo.subParts.Head))
 	else
 		for subPartName, partData in pairs(assetInfo.subParts) do
-			local meshHandle: MeshPart? = (inst:FindFirstChild(subPartName) :: MeshPart)
+			local meshHandle: MeshPart? = inst:FindFirstChild(subPartName) :: MeshPart
 			assert(meshHandle)
 
 			reasonsAccumulator:updateReasons(checkAll(meshHandle :: MeshPart, isServer, partData))

@@ -4,12 +4,15 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
+
+local ReactUtils = require(Packages.ReactUtils)
+local useProperties = ReactUtils.useProperties
+local usePropertiesDeferred = ReactUtils.usePropertiesDeferred
+
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local ResponsiveRow = require(UIBlox.Core.Layout.Responsive.ResponsiveRow)
 local useResponsiveLayout = require(UIBlox.Core.Layout.Responsive.useResponsiveLayout)
-local useProperties = require(UIBlox.Utility.useProperties)
-local usePropertiesDeferred = require(UIBlox.Utility.usePropertiesDeferred)
 
 type usePropertiesHook = typeof(useProperties)
 

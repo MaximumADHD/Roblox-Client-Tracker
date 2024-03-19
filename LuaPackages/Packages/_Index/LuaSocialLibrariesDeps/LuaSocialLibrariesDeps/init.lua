@@ -1,7 +1,5 @@
 local LuaSocialLibrariesDeps = script.Parent
 
-local FFlagUseSocialLibraries310 = game:DefineFastFlag("UseSocialLibraries310", false)
-
 return {
 	CollisionMatchers = require(LuaSocialLibrariesDeps.CollisionMatchers),
 	GenericPagination = require(LuaSocialLibrariesDeps.GenericPagination),
@@ -36,7 +34,5 @@ return {
 	RoduxSquads = require(LuaSocialLibrariesDeps.RoduxSquads),
 	RoduxUserPermissions = require(LuaSocialLibrariesDeps.RoduxUserPermissions),
 	RoduxUsers = require(LuaSocialLibrariesDeps.RoduxUsers),
-	SocialLibraries = if FFlagUseSocialLibraries310
-		then require(LuaSocialLibrariesDeps.SocialLibraries_v310)
-		else require(LuaSocialLibrariesDeps.SocialLibraries_v258),
+	SocialLibraries = require(LuaSocialLibrariesDeps.SocialLibraries),
 }

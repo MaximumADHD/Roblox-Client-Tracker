@@ -16,6 +16,8 @@ local ButtonStack = require(AppRoot.Button.ButtonStack)
 local ModalTitle = require(ModalRoot.ModalTitle)
 local ModalWindow = require(ModalRoot.ModalWindow)
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+
 local FullPageModal = Roact.PureComponent:extend("FullPageModal")
 
 local MARGIN = 24
@@ -54,6 +56,7 @@ function FullPageModal:init()
 	self.state = {
 		buttonFrameSize = Vector2.new(0, 0),
 		footerContentSize = Vector2.new(0, 0),
+		titleContainerSize = Vector2.new(0, ModalTitle:GetHeight()),
 	}
 
 	self.changeButtonFrameSize = function(rbx)
@@ -71,6 +74,14 @@ function FullPageModal:init()
 			})
 		end
 	end
+
+	self.changeTitleContainerSize = function(rbx)
+		if self.state.titleContainerSize ~= rbx.AbsoluteSize then
+			self:setState({
+				titleContainerSize = rbx.AbsoluteSize,
+			})
+		end
+	end
 end
 
 function FullPageModal:render()
@@ -83,10 +94,15 @@ function FullPageModal:render()
 		TitleContainer = Roact.createElement(ModalTitle, {
 			title = self.props.title,
 			onCloseClicked = self.props.onCloseClicked,
+			onTitleSizeChanged = if UIBloxConfig.modalTitleAutomaticSizing then self.changeTitleContainerSize else nil,
 		}),
 		Content = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, -ModalTitle:GetHeight()),
-			Position = UDim2.new(0, 0, 0, ModalTitle:GetHeight()),
+			Size = if UIBloxConfig.modalTitleAutomaticSizing
+				then UDim2.new(1, 0, 1, -self.state.titleContainerSize.Y)
+				else UDim2.new(1, 0, 1, -ModalTitle:GetHeight()),
+			Position = if UIBloxConfig.modalTitleAutomaticSizing
+				then UDim2.new(0, 0, 0, self.state.titleContainerSize.Y)
+				else UDim2.new(0, 0, 0, ModalTitle:GetHeight()),
 			BackgroundTransparency = 1,
 		}, {
 			Roact.createElement("UIListLayout", {

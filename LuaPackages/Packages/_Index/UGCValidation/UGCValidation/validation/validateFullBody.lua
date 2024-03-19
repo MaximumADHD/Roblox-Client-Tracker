@@ -159,7 +159,10 @@ local function validateInstanceHierarchy(
 	if not validateAllAssetsWithSchema(fullBodyData, requiredTopLevelFolders, validationContext) then
 		Analytics.reportFailure(Analytics.ErrorType.validateFullBody_InstancesMissing)
 		-- don't need more detailed error, as this is a check which has been done for each individual asset
-		return false, { "R15 body is missing parts. Make sure the body follows the R15 schema specification." }
+		return false,
+			{
+				"Unable to run full body validation due to previous errors detected while processing individual body parts.",
+			}
 	end
 	return true
 end
@@ -182,7 +185,10 @@ local function DEPRECATED_validateInstanceHierarchy(
 	if not DEPRECATED_validateAllAssetsWithSchema(fullBodyData, requiredTopLevelFolders) then
 		Analytics.reportFailure(Analytics.ErrorType.validateFullBody_InstancesMissing)
 		-- don't need more detailed error, as this is a check which has been done for each individual asset
-		return false, { "Instances are missing or incorrectly named" }
+		return false,
+			{
+				"Unable to run full body validation due to previous errors detected while processing individual body parts",
+			}
 	end
 	return true
 end

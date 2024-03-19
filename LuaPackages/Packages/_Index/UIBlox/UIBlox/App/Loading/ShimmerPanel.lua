@@ -8,9 +8,11 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
+local ReactUtils = require(Packages.ReactUtils)
+local EventConnection = ReactUtils.EventConnection
+
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local TextureScroller = require(script.Parent.TextureScroller)
-local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
 local lerp = require(Packages.UIBlox.Utility.lerp)
 
 local PULSATE_TRANSPARENCY_DELTA = 0.1
@@ -128,7 +130,7 @@ function ShimmerPanel:render()
 				UICorner = cornerRadius ~= UDim.new(0, 0) and Roact.createElement("UICorner", {
 					CornerRadius = cornerRadius,
 				}) or nil,
-				renderStepped = Roact.createElement(ExternalEventConnection, {
+				renderStepped = Roact.createElement(EventConnection, {
 					callback = renderSteppedCallback,
 					event = RunService.renderStepped,
 				}),

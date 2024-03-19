@@ -63,6 +63,12 @@ return {
 	-- Use GetTextBoundsAsync instead of GetTextSize to guarantee a correct result
 	useGetTextBoundsAsync = false,
 
+	-- Automatically resize and wrap text in ModalTitle
+	modalTitleAutomaticSizing = false,
+
 	-- Support ControlState.Selected in the hover controller for TooltipV2
 	supportControlStateSelectedForTooltipHover = false,
+
+	-- Make expansion animation happen immediately when selection changes instead of in separate useEffect
+	mediaGalleryExpandedViewImmediateAnimation = false,
 }

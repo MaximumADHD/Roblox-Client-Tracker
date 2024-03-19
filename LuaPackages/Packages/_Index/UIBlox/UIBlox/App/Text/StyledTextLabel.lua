@@ -26,6 +26,8 @@ StyledTextLabel.validateProps = t.strictInterface({
 	colorStyle = t.union(validateColorInfo, validateColorToken),
 	-- Controls the truncation of the text displayed in this text label
 	textTruncate = t.optional(t.EnumItem),
+	-- Controls the wrapping of the text displayed in this text label
+	textWrapped = t.optional(t.boolean),
 	-- Determines the horizontal alignment of rendered text
 	textXAlignment = t.optional(t.EnumItem),
 	-- Determines the vertical alignment of rendered text
@@ -68,6 +70,7 @@ function StyledTextLabel:render()
 		TextXAlignment = self.props.textXAlignment,
 		TextYAlignment = self.props.textYAlignment,
 		TextTruncate = self.props.textTruncate,
+		TextWrapped = self.props.textWrapped,
 		LayoutOrder = self.props.layoutOrder,
 		RichText = self.props.richText,
 		AutomaticSize = self.props.automaticSize,

@@ -10,12 +10,14 @@ local Packages = UIBlox.Parent
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
 
+local ReactUtils = require(Packages.ReactUtils)
+local useDebouncedState = ReactUtils.useDebouncedState
+
 local useStyle = require(Core.Style.useStyle)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local Images = require(App.ImageSet.Images)
 local TileOverlay = require(TileRoot.SplitTile.TileOverlay)
 local StyleTypes = require(App.Style.StyleTypes)
-local useDebouncedState = require(UIBlox.Utility.useDebouncedState)
 
 local OUTLINE_THICKNESS = 1
 local CORNER_RADIUS = UDim.new(0, 8)

@@ -12,6 +12,9 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
 
+local ReactUtils = require(Packages.ReactUtils)
+local EventConnection = ReactUtils.EventConnection
+
 local Interactable = require(Core.Control.Interactable)
 
 local ControlState = require(Core.Control.Enum.ControlState)
@@ -29,7 +32,6 @@ local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypog
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 local StandardButtonSize = require(Button.Enum.StandardButtonSize)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local ExternalEventConnection = require(UIBlox.Utility.ExternalEventConnection)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
@@ -501,7 +503,7 @@ function GenericButton:renderButton(loadingProgress)
 				}),
 				HoverBackground = showHoverBackground and Roact.createElement(HoverButtonBackground) or nil,
 				EventConnection = UIBloxConfig.useRobloxGuiFocusedChangedEventInGenericButton
-						and Roact.createElement(ExternalEventConnection, {
+						and Roact.createElement(EventConnection, {
 							event = RunService.RobloxGuiFocusedChanged,
 							callback = self.onRobloxGuiFocusedChanged,
 						})

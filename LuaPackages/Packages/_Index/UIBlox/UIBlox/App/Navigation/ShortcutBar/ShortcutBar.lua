@@ -7,6 +7,11 @@ local Packages = UIBlox.Parent
 
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
+
+local ReactUtils = require(Packages.ReactUtils)
+local useDelayedActionHandler = ReactUtils.useDelayedActionHandler
+local useEventConnection = ReactUtils.useEventConnection
+
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 local useStyle = require(UIBlox.Core.Style.useStyle)
@@ -15,8 +20,6 @@ local Types = require(script.Parent.Types)
 local Shortcut = require(script.Parent.Shortcut)
 
 local useInputType = require(UIBlox.Utility.useInputType)
-local useExternalEvent = require(UIBlox.Utility.useExternalEvent)
-local useDelayedActionHandler = require(UIBlox.Utility.useDelayedActionHandler)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local NavigationUtils = require(Navigation.Utilities)
 local InputType = require(UIBlox.Enums.InputType)
@@ -109,7 +112,7 @@ local function ShortcutBar(providedProps: ShortcutBarProps): React.ReactElement?
 
 		local items, setItems = React.useState(NavigationUtils.filterItems(props.items, lastInputType))
 
-		useExternalEvent(UserInputService.InputChanged, onInputChanged)
+		useEventConnection(UserInputService.InputChanged, onInputChanged)
 		React.useEffect(function()
 			setItems(NavigationUtils.filterItems(props.items, lastInputType))
 		end, {

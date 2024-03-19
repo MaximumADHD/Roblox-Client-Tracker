@@ -9,7 +9,9 @@ local Packages = UIBloxRoot.Parent
 
 local InputType = require(UIBloxRoot.Enums.InputType)
 local React = require(Packages.React)
-local useExternalEvent = require(script.Parent.useExternalEvent)
+
+local ReactUtils = require(Packages.ReactUtils)
+local useEventConnection = ReactUtils.useEventConnection
 
 --[[
 	A map of input type to InputTypeEnums
@@ -60,7 +62,7 @@ local function useInputType(userInputServiceForTesting: any): InputType.InputTyp
 		end
 	end)
 
-	useExternalEvent(userInputService.LastInputTypeChanged, lastInputTypeChangedCallback)
+	useEventConnection(userInputService.LastInputTypeChanged, lastInputTypeChangedCallback)
 
 	-- Set initial input type state via effect, to account for possibility that it changed
 	-- between the initial render and the LastInputTypeChanged connection.

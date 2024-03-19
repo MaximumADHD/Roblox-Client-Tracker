@@ -3,9 +3,12 @@ local UIBloxRoot = script.Parent.Parent.Parent.Parent
 local Packages = UIBloxRoot.Parent
 
 local React = require(Packages.React)
+
+local ReactUtils = require(Packages.ReactUtils)
+local EventConnection = ReactUtils.EventConnection
+
 local useStyle = require(UIBloxRoot.Core.Style.useStyle)
 
-local ExternalEventConnection = require(UIBloxRoot.Utility.ExternalEventConnection)
 local RunService = game:GetService("RunService")
 
 --[[
@@ -31,7 +34,7 @@ return function()
 			Color = color,
 			Transparency = transparency,
 		}),
-		RenderSteppedConnection = React.createElement(ExternalEventConnection, {
+		RenderSteppedConnection = React.createElement(EventConnection, {
 			event = RunService.RenderStepped,
 			callback = function()
 				local rotation = rotation:getValue() + selectionCursor.GradientRotationSpeed
