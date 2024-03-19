@@ -9,19 +9,21 @@ local CoreGui = game:GetService("CoreGui")
 local ExperienceAuthService = game:GetService("ExperienceAuthService")
 local Players = game:GetService("Players")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local ContextActionService = game:GetService("ContextActionService")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-
 local UIBlox = require(CorePackages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
 local FullPageModal = UIBlox.App.Dialog.Modal.FullPageModal
 local Overlay = UIBlox.App.Dialog.Overlay
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
-local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
+local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
 
 local GetFFlagRemoveAppTempCommonTemp =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
@@ -57,6 +59,9 @@ local ATTRIBUTION_TEXT = "madeIn"
 local TYPE_TEXT = "type"
 
 local BasePublishPrompt = Roact.PureComponent:extend("BasePublishPrompt")
+local STICK_MAX_SPEED = 1000
+-- full height is more than 1 because the footer covers part of the bottom
+local FULL_HEIGHT = UDim.new(1.5, 0)
 
 BasePublishPrompt.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -86,6 +91,18 @@ BasePublishPrompt.validateProps = t.strictInterface({
 
 function BasePublishPrompt:init()
 	self.isMounted = false
+	self.swipeScrollingFrameRef = Roact.createRef()
+	self.inputState = nil
+	self.inputObject = nil
+	self.connection = nil
+
+	self.storeInput = function(actionName, inputState, inputObject)
+		self.inputState = inputState
+		self.inputObject = inputObject
+
+		return Enum.ContextActionResult.Sink
+	end
+
 	self:setState({
 		-- if showUnsavedDataWarning is false, show the prompt
 		-- if true, we are showing a warning that says data is lost when prompt is closed
@@ -127,8 +144,41 @@ function BasePublishPrompt:init()
 	end
 end
 
+function BasePublishPrompt:setUpGamepad()
+	if UserInputService.GamepadEnabled then
+		ContextActionService:UnbindCoreAction("ScrollPrompt")
+		ContextActionService:BindCoreAction("ScrollPrompt", self.storeInput, false, Enum.KeyCode.Thumbstick2)
+		self.connection = RunService.RenderStepped:Connect(function(deltaTime)
+			if self.inputState == Enum.UserInputState.Change and self.inputObject then
+				local stickInput = self.inputObject.Position
+				local swipeScrollingFrame = self.swipeScrollingFrameRef.current
+				local yPos = swipeScrollingFrame.CanvasPosition.Y
+				local stickVector = GamepadUtils.normalizeStickByDeadzone(stickInput)
+				local newYPos = yPos + deltaTime * -stickVector.Y * STICK_MAX_SPEED
+				local frameHeight = swipeScrollingFrame.AbsoluteSize.Y
+				frameHeight = frameHeight * FULL_HEIGHT.Scale + FULL_HEIGHT.Offset
+				if newYPos <= frameHeight then
+					swipeScrollingFrame.CanvasPosition = Vector2.new(0, newYPos)
+				end
+			end
+		end)
+
+		ContextActionService:UnbindCoreAction("ClosePrompt")
+		ContextActionService:BindCoreAction("ClosePrompt", self.storeInput, false, Enum.KeyCode.ButtonB)
+	end
+end
+
+function BasePublishPrompt:cleanupGamepad()
+	ContextActionService:UnbindCoreAction("ClosePrompt")
+	ContextActionService:UnbindCoreAction("ScrollPrompt")
+	if self.connection then
+		self.connection:Disconnect()
+	end
+end
+
 function BasePublishPrompt:didMount()
 	self.isMounted = true
+	self:setUpGamepad()
 	GetGameNameAndDescription(httpImpl :: any, game.GameId):andThen(function(result)
 		if self.isMounted and result.Name then
 			self:setState({
@@ -150,17 +200,16 @@ function BasePublishPrompt:renderMiddle(localized)
 		local localPlayerName = LocalPlayer.Name
 		local gameName = self.state.gameName
 		local typeData = self.props.typeData
-
 		return Roact.createFragment({
-			ScrollingFrame = Roact.createElement(RoactGamepad.Focusable.ScrollingFrame, {
+			ScrollingFrame = Roact.createElement("ScrollingFrame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, -DISCLAIMER_HEIGHT_PIXELS),
 				CanvasSize = UDim2.new(1, 0, 0, 0),
 				ScrollBarThickness = 0,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
-				defaultChild = self.nameTextBoxRef,
-				[Roact.Ref] = self.middleContentRef,
+				Selectable = false,
+				[Roact.Ref] = self.swipeScrollingFrameRef,
 			}, {
 				layout = Roact.createElement("UIListLayout", {
 					HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -190,7 +239,6 @@ function BasePublishPrompt:renderMiddle(localized)
 					Size = UDim2.new(1, 0, 0, NAME_HEIGHT_PIXELS),
 					-- TODO: Investigate previous name updated AVBURST-13016 and name moderation AVBURST-12725, for now use placeholder
 					onNameUpdated = self.props.onNameUpdated,
-					nameTextBoxRef = self.nameTextBoxRef,
 					defaultName = self.props.defaultName,
 					LayoutOrder = 2,
 				}),
@@ -207,16 +255,19 @@ function BasePublishPrompt:renderMiddle(localized)
 							infoData = localPlayerName,
 							hasVerifiedBadge = LocalPlayer.HasVerifiedBadge,
 							isLoading = localPlayerName == nil,
+							Selectable = false,
 						},
 						{
 							infoName = localized[ATTRIBUTION_TEXT],
 							infoData = gameName,
 							isLoading = gameName == nil,
+							Selectable = false,
 						},
 						{
 							infoName = localized[TYPE_TEXT],
 							infoData = typeData,
 							isLoading = typeData == nil,
+							Selectable = false,
 						},
 					},
 					LayoutOrder = 4,
@@ -281,7 +332,7 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 			PublishPrompt = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.fromScale(1, 1),
-				Visible = not self.state.showUnsavedDataWarning,
+				Visible = not self.state.showUnsavedDataWarning and not self.props.showingPreviewView,
 			}, {
 				FullPageModal = Roact.createElement(FullPageModal, {
 					title = self.props.titleText,
@@ -303,6 +354,7 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 								},
 							},
 						},
+						disableRoactGamepadButtonSelection = true,
 					},
 				}, {
 					middleContent = self:renderMiddle(localized),
@@ -356,6 +408,7 @@ function BasePublishPrompt:render()
 end
 
 function BasePublishPrompt:willUnmount()
+	self:cleanupGamepad()
 	self.isMounted = false
 end
 

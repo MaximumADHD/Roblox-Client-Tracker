@@ -712,13 +712,18 @@ MAIN:
   SETTABLEKS R35 R34 K211 ["PaddingY"]
   SETTABLEKS R34 R33 K208 ["LoadButton"]
   SETTABLEKS R33 R32 K213 ["AssetGridContainer"]
-  DUPTABLE R33 K216 [{"PublishText", "PublishButton"}]
-  DUPTABLE R34 K217 [{"Offset", "Width"}]
+  DUPTABLE R33 K217 [{"ConfirmRemovePlaceDialogSize", "PublishText", "PublishButton"}]
+  GETIMPORT R34 K58 [Vector2.new]
+  LOADN R35 144
+  LOADN R36 50
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K214 ["ConfirmRemovePlaceDialogSize"]
+  DUPTABLE R34 K218 [{"Offset", "Width"}]
   LOADN R35 70
   SETTABLEKS R35 R34 K119 ["Offset"]
   LOADN R35 250
   SETTABLEKS R35 R34 K99 ["Width"]
-  SETTABLEKS R34 R33 K214 ["PublishText"]
+  SETTABLEKS R34 R33 K215 ["PublishText"]
   DUPTABLE R34 K212 [{"Offset", "PaddingX", "PaddingY"}]
   LOADN R35 125
   SETTABLEKS R35 R34 K119 ["Offset"]
@@ -726,109 +731,109 @@ MAIN:
   SETTABLEKS R35 R34 K210 ["PaddingX"]
   LOADN R35 15
   SETTABLEKS R35 R34 K211 ["PaddingY"]
-  SETTABLEKS R34 R33 K215 ["PublishButton"]
-  SETTABLEKS R33 R32 K218 ["MainView"]
-  DUPTABLE R33 K221 [{"BackgroundColor", "ImageSize", "Padding", "Height", "TruncatedTextScale"}]
-  GETTABLEKS R34 R6 K222 ["Titlebar"]
+  SETTABLEKS R34 R33 K216 ["PublishButton"]
+  SETTABLEKS R33 R32 K219 ["MainView"]
+  DUPTABLE R33 K222 [{"BackgroundColor", "ImageSize", "Padding", "Height", "TruncatedTextScale"}]
+  GETTABLEKS R34 R6 K223 ["Titlebar"]
   SETTABLEKS R34 R33 K127 ["BackgroundColor"]
   LOADN R34 24
   SETTABLEKS R34 R33 K124 ["ImageSize"]
   LOADN R34 12
   SETTABLEKS R34 R33 K176 ["Padding"]
   LOADN R34 38
-  SETTABLEKS R34 R33 K219 ["Height"]
-  LOADK R34 K223 [0.4]
-  SETTABLEKS R34 R33 K220 ["TruncatedTextScale"]
-  SETTABLEKS R33 R32 K224 ["NavBar"]
-  DUPTABLE R33 K226 [{"Background", "Foreground", "CloseButton", "Padding"}]
-  DUPTABLE R34 K229 [{"WidthScale", "Transparency"}]
-  LOADK R35 K230 [-0.25]
-  SETTABLEKS R35 R34 K227 ["WidthScale"]
-  LOADK R35 K231 [0.75]
-  SETTABLEKS R35 R34 K228 ["Transparency"]
+  SETTABLEKS R34 R33 K220 ["Height"]
+  LOADK R34 K224 [0.4]
+  SETTABLEKS R34 R33 K221 ["TruncatedTextScale"]
+  SETTABLEKS R33 R32 K225 ["NavBar"]
+  DUPTABLE R33 K227 [{"Background", "Foreground", "CloseButton", "Padding"}]
+  DUPTABLE R34 K230 [{"WidthScale", "Transparency"}]
+  LOADK R35 K231 [-0.25]
+  SETTABLEKS R35 R34 K228 ["WidthScale"]
+  LOADK R35 K232 [0.75]
+  SETTABLEKS R35 R34 K229 ["Transparency"]
   SETTABLEKS R34 R33 K34 ["Background"]
-  DUPTABLE R34 K232 [{"WidthScale"}]
-  LOADK R35 K231 [0.75]
-  SETTABLEKS R35 R34 K227 ["WidthScale"]
+  DUPTABLE R34 K233 [{"WidthScale"}]
+  LOADK R35 K232 [0.75]
+  SETTABLEKS R35 R34 K228 ["WidthScale"]
   SETTABLEKS R34 R33 K42 ["Foreground"]
-  DUPTABLE R34 K234 [{"Size", "Images"}]
+  DUPTABLE R34 K235 [{"Size", "Images"}]
   LOADN R35 16
   SETTABLEKS R35 R34 K50 ["Size"]
-  DUPTABLE R35 K236 [{"Close"}]
-  LOADK R36 K237 ["rbxasset://textures/StudioSharedUI/close.png"]
-  SETTABLEKS R36 R35 K235 ["Close"]
-  SETTABLEKS R35 R34 K233 ["Images"]
-  SETTABLEKS R34 R33 K225 ["CloseButton"]
-  DUPTABLE R34 K239 [{"Right"}]
+  DUPTABLE R35 K237 [{"Close"}]
+  LOADK R36 K238 ["rbxasset://textures/StudioSharedUI/close.png"]
+  SETTABLEKS R36 R35 K236 ["Close"]
+  SETTABLEKS R35 R34 K234 ["Images"]
+  SETTABLEKS R34 R33 K226 ["CloseButton"]
+  DUPTABLE R34 K240 [{"Right"}]
   LOADN R35 11
-  SETTABLEKS R35 R34 K238 ["Right"]
+  SETTABLEKS R35 R34 K239 ["Right"]
   SETTABLEKS R34 R33 K176 ["Padding"]
-  SETTABLEKS R33 R32 K240 ["Overlay"]
-  DUPTABLE R33 K242 [{"Height", "Button", "Padding", "Tooltip"}]
+  SETTABLEKS R33 R32 K241 ["Overlay"]
+  DUPTABLE R33 K243 [{"Height", "Button", "Padding", "Tooltip"}]
   LOADN R34 24
-  SETTABLEKS R34 R33 K219 ["Height"]
-  DUPTABLE R34 K243 [{"Size"}]
+  SETTABLEKS R34 R33 K220 ["Height"]
+  DUPTABLE R34 K244 [{"Size"}]
   LOADN R35 24
   SETTABLEKS R35 R34 K50 ["Size"]
   SETTABLEKS R34 R33 K117 ["Button"]
   LOADN R34 15
   SETTABLEKS R34 R33 K176 ["Padding"]
-  DUPTABLE R34 K244 [{"TextSize", "Width", "Padding"}]
+  DUPTABLE R34 K245 [{"TextSize", "Width", "Padding"}]
   LOADN R35 14
   SETTABLEKS R35 R34 K70 ["TextSize"]
   LOADN R35 210
   SETTABLEKS R35 R34 K99 ["Width"]
   LOADN R35 5
   SETTABLEKS R35 R34 K176 ["Padding"]
-  SETTABLEKS R34 R33 K241 ["Tooltip"]
-  SETTABLEKS R33 R32 K245 ["TopBar"]
-  DUPTABLE R33 K248 [{"ItemPadding", "Bar"}]
+  SETTABLEKS R34 R33 K242 ["Tooltip"]
+  SETTABLEKS R33 R32 K246 ["TopBar"]
+  DUPTABLE R33 K249 [{"ItemPadding", "Bar"}]
   GETIMPORT R34 K167 [UDim.new]
   LOADN R35 0
   LOADN R36 6
   CALL R34 2 1
-  SETTABLEKS R34 R33 K246 ["ItemPadding"]
-  DUPTABLE R34 K250 [{"BackgroundColor", "Height", "Padding", "Arrow", "Button"}]
-  GETTABLEKS R35 R6 K222 ["Titlebar"]
+  SETTABLEKS R34 R33 K247 ["ItemPadding"]
+  DUPTABLE R34 K251 [{"BackgroundColor", "Height", "Padding", "Arrow", "Button"}]
+  GETTABLEKS R35 R6 K223 ["Titlebar"]
   SETTABLEKS R35 R34 K127 ["BackgroundColor"]
   LOADN R35 24
-  SETTABLEKS R35 R34 K219 ["Height"]
+  SETTABLEKS R35 R34 K220 ["Height"]
   LOADN R35 10
   SETTABLEKS R35 R34 K176 ["Padding"]
-  DUPTABLE R35 K253 [{"Expanded", "Collapsed", "Color", "Size"}]
-  SETTABLEKS R20 R35 K251 ["Expanded"]
-  SETTABLEKS R19 R35 K252 ["Collapsed"]
+  DUPTABLE R35 K254 [{"Expanded", "Collapsed", "Color", "Size"}]
+  SETTABLEKS R20 R35 K252 ["Expanded"]
+  SETTABLEKS R19 R35 K253 ["Collapsed"]
   GETTABLEKS R36 R6 K44 ["MainText"]
   SETTABLEKS R36 R35 K35 ["Color"]
   LOADN R36 9
   SETTABLEKS R36 R35 K50 ["Size"]
-  SETTABLEKS R35 R34 K249 ["Arrow"]
-  DUPTABLE R35 K243 [{"Size"}]
+  SETTABLEKS R35 R34 K250 ["Arrow"]
+  DUPTABLE R35 K244 [{"Size"}]
   LOADN R36 24
   SETTABLEKS R36 R35 K50 ["Size"]
   SETTABLEKS R35 R34 K117 ["Button"]
-  SETTABLEKS R34 R33 K247 ["Bar"]
-  SETTABLEKS R33 R32 K254 ["RecentView"]
-  DUPTABLE R33 K257 [{"Height", "Indent", "Offset", "Padding", "ColorIcon", "Arrow"}]
+  SETTABLEKS R34 R33 K248 ["Bar"]
+  SETTABLEKS R33 R32 K255 ["RecentView"]
+  DUPTABLE R33 K258 [{"Height", "Indent", "Offset", "Padding", "ColorIcon", "Arrow"}]
   LOADN R34 16
-  SETTABLEKS R34 R33 K219 ["Height"]
+  SETTABLEKS R34 R33 K220 ["Height"]
   LOADN R34 20
-  SETTABLEKS R34 R33 K255 ["Indent"]
+  SETTABLEKS R34 R33 K256 ["Indent"]
   LOADN R34 3
   SETTABLEKS R34 R33 K119 ["Offset"]
   LOADN R34 5
   SETTABLEKS R34 R33 K176 ["Padding"]
   GETTABLEKS R34 R13 K196 ["White"]
-  SETTABLEKS R34 R33 K256 ["ColorIcon"]
-  DUPTABLE R34 K253 [{"Expanded", "Collapsed", "Color", "Size"}]
-  SETTABLEKS R20 R34 K251 ["Expanded"]
-  SETTABLEKS R17 R34 K252 ["Collapsed"]
+  SETTABLEKS R34 R33 K257 ["ColorIcon"]
+  DUPTABLE R34 K254 [{"Expanded", "Collapsed", "Color", "Size"}]
+  SETTABLEKS R20 R34 K252 ["Expanded"]
+  SETTABLEKS R17 R34 K253 ["Collapsed"]
   GETTABLEKS R35 R6 K44 ["MainText"]
   SETTABLEKS R35 R34 K35 ["Color"]
   LOADN R35 9
   SETTABLEKS R35 R34 K50 ["Size"]
-  SETTABLEKS R34 R33 K249 ["Arrow"]
-  SETTABLEKS R33 R32 K258 ["TreeViewItem"]
+  SETTABLEKS R34 R33 K250 ["Arrow"]
+  SETTABLEKS R33 R32 K259 ["TreeViewItem"]
   GETTABLEKS R33 R9 K33 ["Tile"]
   SETTABLE R30 R32 R33
   GETTABLEKS R33 R9 K31 ["ListItem"]
@@ -841,11 +846,11 @@ MAIN:
   MOVE R36 R25
   CALL R34 2 1
   SETTABLE R34 R32 R33
-  GETTABLEKS R33 R9 K259 ["DropdownMenu"]
+  GETTABLEKS R33 R9 K260 ["DropdownMenu"]
   JUMPIFNOT R15 [+7]
   MOVE R34 R2
   MOVE R35 R8
-  LOADK R36 K3 ["require"]
+  LOADK R36 K4 [require]
   CALL R35 1 1
   MOVE R36 R27
   CALL R34 2 1
@@ -864,19 +869,19 @@ MAIN:
   SETTABLE R34 R32 R33
   NEWTABLE R33 2 0
   GETTABLEKS R34 R6 K146 ["TilePendingImage"]
-  LOADK R35 K4 [require]
+  LOADK R35 K5 ["Packages"]
   SETTABLE R35 R33 R34
   GETTABLEKS R34 R6 K174 ["ListItemPendingImage"]
-  LOADK R35 K5 ["Packages"]
+  LOADK R35 K6 ["Cryo"]
   SETTABLE R35 R33 R34
   NEWTABLE R34 2 0
   GETTABLEKS R35 R6 K146 ["TilePendingImage"]
-  LOADK R36 K4 [require]
+  LOADK R36 K5 ["Packages"]
   SETTABLE R36 R34 R35
   GETTABLEKS R35 R6 K174 ["ListItemPendingImage"]
-  LOADK R36 K6 ["Cryo"]
+  LOADK R36 K7 ["Dictionary"]
   SETTABLE R36 R34 R35
-  DUPCLOSURE R35 K263 [PROTO_0]
+  DUPCLOSURE R35 K264 [PROTO_0]
   CAPTURE VAL R7
   CAPTURE VAL R33
   CAPTURE VAL R34

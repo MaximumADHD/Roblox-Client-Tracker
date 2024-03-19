@@ -6,12 +6,18 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local Constants = require(InspectAndBuyFolder.Constants)
 local AvatarViewport = require(InspectAndBuyFolder.Components.AvatarViewport)
 local GetHumanoidDescriptionFromCostumeId = require(InspectAndBuyFolder.Thunks.GetHumanoidDescriptionFromCostumeId)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
 
 local TryOnViewport = Roact.PureComponent:extend("TryOnViewport")
 
 local function isPartOfBundleAndOffsale(assetInfo)
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		return assetInfo and assetInfo.parentBundleId ~= nil and not assetInfo.isForSale or false
+	end
+
 	return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
 		and not assetInfo.isForSale
 end
@@ -46,7 +52,12 @@ function TryOnViewport:didUpdate(prevProps)
 	local prevTryingOnInfo = prevProps.tryingOnInfo
 
 	if tryingOnInfo ~= prevTryingOnInfo and tryingOnInfo.tryingOn and isPartOfBundleAndOffsale(assetInfo) then
-		local bundleId = assetInfo.bundlesAssetIsIn[1]
+		local bundleId
+		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+			bundleId = assetInfo.parentBundleId
+		else
+			bundleId = assetInfo.bundlesAssetIsIn[1]
+		end
 		local costumeId = bundles[bundleId].costumeId
 
 		if costumeId then
@@ -131,7 +142,12 @@ function TryOnViewport:render()
 
 	if tryingOnInfo and tryingOnInfo.tryingOn then
 		if isPartOfBundleAndOffsale(assetInfo) then
-			local bundleId = assetInfo.bundlesAssetIsIn[1]
+			local bundleId
+			if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+				bundleId = assetInfo.parentBundleId
+			else
+				bundleId = assetInfo.bundlesAssetIsIn[1]
+			end
 			local costumeId = bundles[bundleId].costumeId
 
 			if costumeId then

@@ -8,45 +8,45 @@ local var5 = require(var0.Src.Components.PluginDetails.PluginDetailsView)
 local var6 = require(var0.Src.Util.Constants)
 local function fun0(arg1)
    return function(arg1, arg2)
-      local var854 = {}
-      var854.navigation = arg1
-      return var2.createElement(var1, var854, var3(arg1, arg2))
+      local var41 = {}
+      var41.navigation = arg1
+      return var2.createElement(var1, var41, var3(arg1, arg2))
    end
 end
 
-local function fun43(arg1, arg2)
-   local var868 = {}
-   var868.navigation = arg1
-   return var1.createElement(var4, var868)
+local function fun2(arg1, arg2)
+   local var55 = {}
+   var55.navigation = arg1
+   return var1.createElement(var4, var55)
 end
 
 function var6.APP_PAGE.Main(arg1)
    return function(arg1, arg2)
-      local var876 = {}
-      var876.navigation = arg1
-      return var2.createElement(var1, var876, var3(arg1, arg2))
+      local var63 = {}
+      var63.navigation = arg1
+      return var2.createElement(var1, var63, var3(arg1, arg2))
    end
 end
 
-local function fun46(arg1, arg2)
-   local var892 = {}
-   var892.assetId = arg1.getParam("assetId")
-   var892.navigation = arg1
-   var892.Size = UDim2.new(1, 0, 1, 0)
-   return var1.createElement(var5, var892)
+local function fun5(arg1, arg2)
+   local var79 = {}
+   var79.assetId = arg1.getParam("assetId")
+   var79.navigation = arg1
+   var79.Size = UDim2.new(1, 0, 1, 0)
+   return var1.createElement(var5, var79)
 end
 
 function var6.APP_PAGE.Detail(arg1)
    return function(arg1, arg2)
-      local var906 = {}
-      var906.navigation = arg1
-      return var2.createElement(var1, var906, var3(arg1, arg2))
+      local var93 = {}
+      var93.navigation = arg1
+      return var2.createElement(var1, var93, var3(arg1, arg2))
    end
 end
 
-local var913 = {}
-var913.routes = {}
-local var915 = var6.APP_PAGE.Main
-var913.initialRouteName = var915
-var915 = var2.createStackNavigator(var913)
-return var2.createAppContainer(var915)
+local var100 = {}
+var100.routes = {}
+local var102 = var6.APP_PAGE.Main
+var100.initialRouteName = var102
+var102 = var2.createStackNavigator(var100)
+return var2.createAppContainer(var102)

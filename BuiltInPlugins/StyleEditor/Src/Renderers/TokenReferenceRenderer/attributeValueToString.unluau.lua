@@ -34,15 +34,11 @@ function var1.Color3(arg1)
 end
 
 function var1.Font(arg1, arg2)
-   local var105 = tostring(arg1.Weight):gsub("Enum%.", "")
-   local var112 = tostring(arg1.Style):gsub("Enum%.", "")
-   local var115 = arg2.Fonts[arg1.Family]
-   if var115 then
-      local var0 = var115.Name
-   else
-      local var0 = arg1.Family:match("/([^%s/]+)%.json") or arg1.Family
+   local var0 = arg2.Fonts[arg1.Family]
+   if var0 then
+      return var0.Name
    end
-   return `{var124}(%*, {var125}`
+   return arg1.Family:match("/([^%s/]+)%.json") or arg1.Family
 end
 
 function var1.BrickColor(arg1)
@@ -50,9 +46,9 @@ function var1.BrickColor(arg1)
 end
 
 function var1.CFrame(arg1)
-   local var141 = arg1.Position
-   var141 = arg1:ToEulerAnglesXYZ()
-   return string.format("{%.3f, %.3f, %.3f}, {%.3f, %.3f, %.3f}", arg1.Position.X, arg1.Position.Y, var141.Z, var141, var143, var144)
+   local var120 = arg1.Position
+   var120 = arg1:ToEulerAnglesXYZ()
+   return string.format("{%.3f, %.3f, %.3f}, {%.3f, %.3f, %.3f}", arg1.Position.X, arg1.Position.Y, var120.Z, var120, var122, var123)
 end
 
 function var1.NumberSequence(arg1)
@@ -76,14 +72,14 @@ function var1.ColorSequence(arg1)
 end
 
 return function(arg1, arg2)
-   local var186 = var1
-   local var189 = typeof(arg1)
-   local var1 = var186[var189]
+   local var165 = var1
+   local var168 = typeof(arg1)
+   local var1 = var165[var168]
    if var1 then
-      var186 = var1
-      var189 = arg1
-      return var186(var189, arg2)
+      var165 = var1
+      var168 = arg1
+      return var165(var168, arg2)
    end
-   var189 = arg1
-   return tostring(var189)
+   var168 = arg1
+   return tostring(var168)
 end

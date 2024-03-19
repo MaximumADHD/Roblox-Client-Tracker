@@ -1,41 +1,27 @@
 PROTO_0:
-  JUMPIF R0 [+1]
-  LOADK R0 K0 ["Add a Token..."]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["SelectTokenSchema"]
-  JUMPIFEQ R1 R4 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  DUPTABLE R4 K4 [{"Name", "Value"}]
-  DUPTABLE R5 K6 [{"Schema", "Value"}]
-  GETUPVAL R6 1
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K7 ["PropertySchema"]
-  DUPTABLE R8 K9 [{"PlaceholderText"}]
-  SETTABLEKS R0 R8 K8 ["PlaceholderText"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["Schema"]
-  LOADK R6 K10 [""]
-  SETTABLEKS R6 R5 K3 ["Value"]
-  SETTABLEKS R5 R4 K2 ["Name"]
-  DUPTABLE R5 K12 [{"Actions", "Schema", "Value"}]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K13 ["MoreAction"]
-  SETTABLEKS R6 R5 K11 ["Actions"]
-  JUMPIFNOT R3 [+4]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K1 ["SelectTokenSchema"]
-  JUMP [+3]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K14 ["EmptySchema"]
-  SETTABLEKS R6 R5 K5 ["Schema"]
-  JUMPIFNOT R3 [+2]
-  MOVE R6 R2
-  JUMP [+1]
-  LOADK R6 K10 [""]
-  SETTABLEKS R6 R5 K3 ["Value"]
-  SETTABLEKS R5 R4 K3 ["Value"]
-  RETURN R4 1
+  DUPTABLE R1 K2 [{"Name", "Value"}]
+  DUPTABLE R2 K4 [{"Schema", "Value"}]
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["PropertySchema"]
+  DUPTABLE R5 K7 [{"PlaceholderText"}]
+  LOADK R6 K8 ["Add a Token..."]
+  SETTABLEKS R6 R5 K6 ["PlaceholderText"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K3 ["Schema"]
+  LOADK R3 K9 [""]
+  SETTABLEKS R3 R2 K1 ["Value"]
+  SETTABLEKS R2 R1 K0 ["Name"]
+  DUPTABLE R2 K11 [{"Actions", "Schema", "Value"}]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K12 ["MoreAction"]
+  SETTABLEKS R3 R2 K10 ["Actions"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K13 ["SelectTokenSchema"]
+  SETTABLEKS R3 R2 K3 ["Schema"]
+  SETTABLEKS R0 R2 K1 ["Value"]
+  SETTABLEKS R2 R1 K1 ["Value"]
+  RETURN R1 1
 
 PROTO_1:
   GETUPVAL R3 0
@@ -344,8 +330,8 @@ MAIN:
   CALL R10 1 1
   NEWTABLE R11 16 0
   DUPCLOSURE R12 K22 [PROTO_0]
-  CAPTURE VAL R8
   CAPTURE VAL R5
+  CAPTURE VAL R8
   CAPTURE VAL R7
   SETTABLEKS R12 R11 K23 ["getEmptyTokenRow"]
   DUPCLOSURE R12 K24 [PROTO_1]

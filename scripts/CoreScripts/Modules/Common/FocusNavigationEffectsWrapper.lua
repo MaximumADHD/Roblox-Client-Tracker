@@ -11,6 +11,9 @@ local useDeRegisterFocusNavigableSurface = FocusNavigableSurfaceRegistry.useDeRe
 local useAutoFocus = FocusNavigationUtils.useAutoFocus
 local useDescendantHasFocus = FocusNavigationUtils.useDescendantHasFocus
 
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local GetFFlagUpdateFocusNavigationEffectsProps = require(RobloxGui.Modules.Common.Flags.GetFFlagUpdateFocusNavigationEffectsProps)
+
 type FocusNavigableSurfaceIdentifier = FocusNavigationUtils.FocusNavigableSurfaceIdentifier
 
 local AUTO_FOCUS_DEBOUNCE_TIME = 0.1
@@ -18,6 +21,8 @@ local AUTO_FOCUS_DEBOUNCE_TIME = 0.1
 type Props = {
 	selectionGroupName: string?,
 	focusNavigableSurfaceIdentifier: FocusNavigableSurfaceIdentifier,
+	automaticSize: Enum.AutomaticSize?,
+	size: UDim2?,
 	children: any,
 }
 
@@ -65,12 +70,22 @@ local function FocusNavigationEffects(props: Props)
 	end, { shouldAutoFocus, autoFocus } :: { any })
 
 
-	return React.createElement("Frame", {
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-		Size = UDim2.new(1, 0, 1, 0),
-		ref = setFocusRef,
-	}, props.children)
+	if GetFFlagUpdateFocusNavigationEffectsProps() then
+		return React.createElement("Frame", {
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			AutomaticSize = props.automaticSize,
+			Size = if props.size then props.size else UDim2.new(1, 0, 1, 0),
+			ref = setFocusRef,
+		}, props.children)
+	else
+		return React.createElement("Frame", {
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Size = UDim2.new(1, 0, 1, 0),
+			ref = setFocusRef,
+		}, props.children)
+	end
 end
 
 return FocusNavigationEffects

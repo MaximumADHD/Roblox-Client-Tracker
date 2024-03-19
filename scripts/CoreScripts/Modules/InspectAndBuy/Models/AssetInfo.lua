@@ -40,6 +40,11 @@ local GetFFlagIBGateUGC4ACollectibleAssetsBundles =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBGateUGC4ACollectibleAssetsBundles)
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
+local GetFFlagIBEnableRespectSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableRespectSaleLocation)
 
 local AssetInfo = {}
 
@@ -66,9 +71,18 @@ function AssetInfo.mock()
 	self.isLimited = false
 	self.isLimitedUnique = if GetFFlagIBEnableCollectiblesSystemSupport() then false else nil
 	self.collectibleIsLimited = if GetFFlagIBEnableCollectiblesSystemSupport() then false else nil
+	-- [Deprecated] Replace bundlesAssetIsIn with parentBundleId & state.assetBundles[assetId]
 	self.bundlesAssetIsIn = {}
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		-- Assume: Each BundleAsset could only be in one collectible bundle. This is true on the date 02/23/2024
+		-- If the parentBundleId is nil, we could assume the asset is not part of bundle or the asset belongs to multiple bundles
+		-- For shared parts, we will not support limited badging nor purchasing
+		self.parentBundleId = nil
+	end
 	self.numFavorites = 0
 	self.minimumMembershipLevel = 0
+	-- Because the assets inside any bundle are not counted in the collectible system at all, this is true on the date 02/23/2024.
+	-- Thus, for assets inside any bundle, we will put the bundle's collectibleItemId, collectibleIsLimited to its assets.
 	self.collectibleItemId = ""
 	self.collectibleProductId = ""
 	self.collectibleLowestResalePrice = 0
@@ -96,9 +110,29 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 	newAsset.productId = tostring(assetInfo.ProductId)
 	if GetCollectibleItemInInspectAndBuyEnabled() and newAsset.productType == Constants.ProductType.CollectibleItem then
 		newAsset.isForSale = assetInfo.IsForSale
-			and assetInfo.Remaining > 0
+			and (assetInfo.Remaining or 0) > 0
 			and assetInfo.CanBeSoldInThisGame
 			and assetInfo.SaleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+		if GetFFlagIBEnableRespectSaleLocation() then
+			local saleLocation = assetInfo.SaleLocation
+			local isNotSpecificExperienceOnly = saleLocation
+				and (
+					saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+					and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
+				)
+			local isNotShopOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopOnly
+			-- verified: game.GameId is universe id
+			local isSpecificExperienceOnlyButInThisUniverse = saleLocation
+				and (saleLocation.SaleLocationType == Constants.SaleLocationType.ExperiencesDevApiOnly or saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById)
+				and type(saleLocation.UniverseIds) == "table"
+				and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
+			-- we should respect IsForSale and SaleLocation for collectibles
+			-- CanBeSoldInThisGame attribute is set in the Engine level, it's not provided in the API
+			newAsset.isForSale = assetInfo.IsForSale
+				and assetInfo.CanBeSoldInThisGame
+				and isNotShopOnly
+				and (isNotSpecificExperienceOnly or isSpecificExperienceOnlyButInThisUniverse)
+		end
 		newAsset.collectibleItemId = assetInfo.CollectibleItemId or ""
 		newAsset.collectibleProductId = assetInfo.CollectibleProductId or ""
 		newAsset.remaining = assetInfo.Remaining or 0
@@ -147,6 +181,34 @@ function AssetInfo.fromGetAssetBundles(assetId, bundleIds)
 	return newAsset
 end
 
+if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+	function AssetInfo.fromBundleInfo(assetId, bundleInfo)
+		local newAsset = AssetInfo.new()
+		newAsset.assetId = tostring(assetId)
+		newAsset.parentBundleId = bundleInfo.bundleId
+		newAsset.bundlesAssetIsIn = { bundleInfo.bundleId } -- TODO: Deprecated bundlesAssetIsIn
+		newAsset.collectibleItemId = bundleInfo.collectibleItemId
+		newAsset.collectibleProductId = bundleInfo.collectibleProductId
+		newAsset.collectibleLowestResalePrice = bundleInfo.collectibleLowestResalePrice
+		newAsset.collectibleLowestAvailableResaleProductId = bundleInfo.collectibleLowestAvailableResaleProductId
+		newAsset.collectibleLowestAvailableResaleItemInstanceId =
+			bundleInfo.collectibleLowestAvailableResaleItemInstanceId
+		newAsset.collectibleQuantityLimitPerUser = bundleInfo.collectibleQuantityLimitPerUser
+		newAsset.collectibleIsLimited = bundleInfo.collectibleIsLimited
+		newAsset.isForSale = bundleInfo.isForSale
+		newAsset.remaining = bundleInfo.remaining
+
+		newAsset.description = bundleInfo.description or ""
+		newAsset.productType = Constants.ProductType.CollectibleItem
+
+		if bundleInfo.price then
+			newAsset.price = bundleInfo.price
+		end
+
+		return newAsset
+	end
+end
+
 function AssetInfo.fromGetAssetFavoriteCount(assetId, numFavorites)
 	local newAsset = AssetInfo.new()
 
@@ -166,6 +228,23 @@ function AssetInfo.fromGetEconomyProductInfo(asset, isOwned, price, isForSale, p
 	end
 	newAsset.isForSale = isForSale
 	newAsset.premiumPricing = premiumPricing
+
+	return newAsset
+end
+
+function AssetInfo.fromGetItemDetails(itemDetails)
+	if not GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
+		return
+	end
+
+	local newAsset = AssetInfo.new()
+
+	newAsset.assetId = tostring(itemDetails.Id)
+	newAsset.owned = itemDetails.Owned
+	newAsset.isForSale = itemDetails.IsPurchasable
+	newAsset.price = itemDetails.Price or 0
+	newAsset.hasResellers = itemDetails.HasResellers
+	newAsset.collectibleItemId = itemDetails.CollectibleItemId
 
 	return newAsset
 end

@@ -35,7 +35,6 @@ local ANON_LABEL = "<anonymous>"
 local ProfilerFunctionViewEntry = Roact.PureComponent:extend("ProfilerFunctionViewEntry")
 
 local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
-local FFlagScriptProfilerNativeFrames = game:DefineFastFlag("ScriptProfilerNativeFrames", false)
 local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead", false)
 
 type BorderedCellLabelProps = {
@@ -159,7 +158,7 @@ function ProfilerFunctionViewEntry:render()
         name = name .. " <plugin>"
     end
 
-    if FFlagScriptProfilerNativeFrames and isNative then
+    if isNative then
         name = name .. " <native>"
     end
 

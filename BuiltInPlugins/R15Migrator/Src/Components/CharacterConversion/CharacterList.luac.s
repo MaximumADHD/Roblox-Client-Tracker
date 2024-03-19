@@ -723,14 +723,14 @@ PROTO_21:
   MOVE R17 R7
   NAMECALL R13 R0 K17 ["renderNestedItem"]
   CALL R13 4 0
-  JUMP [+28]
+  JUMP [+32]
   GETTABLEKS R13 R6 K18 ["SelectAllRow"]
-  JUMPIF R13 [+19]
+  JUMPIF R13 [+23]
   GETUPVAL R14 0
   GETTABLEKS R13 R14 K4 ["createElement"]
   GETUPVAL R14 1
-  DUPTABLE R15 K21 [{"IsChecked", "OnCheckboxClick"}]
-  GETTABLEKS R16 R0 K22 ["areAllChildrenSelected"]
+  DUPTABLE R15 K22 [{"IsChecked", "OnCheckboxClick", "OnResetPlugin"}]
+  GETTABLEKS R16 R0 K23 ["areAllChildrenSelected"]
   MOVE R17 R1
   CALL R16 1 1
   SETTABLEKS R16 R15 K19 ["IsChecked"]
@@ -738,51 +738,53 @@ PROTO_21:
   CAPTURE VAL R0
   CAPTURE VAL R1
   SETTABLEKS R16 R15 K20 ["OnCheckboxClick"]
+  GETTABLEKS R16 R4 K21 ["OnResetPlugin"]
+  SETTABLEKS R16 R15 K21 ["OnResetPlugin"]
   CALL R13 2 1
   SETTABLEKS R13 R6 K18 ["SelectAllRow"]
   MOVE R15 R12
   MOVE R16 R6
   MOVE R17 R7
-  NAMECALL R13 R0 K23 ["renderItem"]
+  NAMECALL R13 R0 K24 ["renderItem"]
   CALL R13 4 0
-  ADDK R7 R7 K24 [1]
-  FORGLOOP R8 2 [-40]
+  ADDK R7 R7 K25 [1]
+  FORGLOOP R8 2 [-44]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K4 ["createElement"]
   GETUPVAL R9 2
-  DUPTABLE R10 K33 [{"AutomaticSize", "Style", "ContentPadding", "ContentSpacing", "Size", "LayoutOrder", "Text", "Expanded", "OnExpandedChanged"}]
-  GETIMPORT R11 K35 [Enum.AutomaticSize.Y]
-  SETTABLEKS R11 R10 K25 ["AutomaticSize"]
-  LOADK R11 K36 ["Section"]
-  SETTABLEKS R11 R10 K26 ["Style"]
+  DUPTABLE R10 K34 [{"AutomaticSize", "Style", "ContentPadding", "ContentSpacing", "Size", "LayoutOrder", "Text", "Expanded", "OnExpandedChanged"}]
+  GETIMPORT R11 K36 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K26 ["AutomaticSize"]
+  LOADK R11 K37 ["Section"]
+  SETTABLEKS R11 R10 K27 ["Style"]
   LOADN R11 0
-  SETTABLEKS R11 R10 K27 ["ContentPadding"]
+  SETTABLEKS R11 R10 K28 ["ContentPadding"]
   LOADN R11 0
-  SETTABLEKS R11 R10 K28 ["ContentSpacing"]
-  GETIMPORT R11 K38 [UDim2.new]
+  SETTABLEKS R11 R10 K29 ["ContentSpacing"]
+  GETIMPORT R11 K39 [UDim2.new]
   LOADN R12 1
   LOADN R13 0
   LOADN R14 0
-  GETTABLEKS R15 R5 K39 ["RowHeight"]
+  GETTABLEKS R15 R5 K40 ["RowHeight"]
   CALL R11 4 1
-  SETTABLEKS R11 R10 K29 ["Size"]
+  SETTABLEKS R11 R10 K30 ["Size"]
   SETTABLEKS R3 R10 K10 ["LayoutOrder"]
-  GETTABLEKS R11 R1 K40 ["text"]
-  SETTABLEKS R11 R10 K30 ["Text"]
-  GETTABLEKS R14 R0 K42 ["state"]
-  GETTABLEKS R13 R14 K43 ["expanded"]
-  GETTABLEKS R14 R1 K44 ["key"]
+  GETTABLEKS R11 R1 K41 ["text"]
+  SETTABLEKS R11 R10 K31 ["Text"]
+  GETTABLEKS R14 R0 K43 ["state"]
+  GETTABLEKS R13 R14 K44 ["expanded"]
+  GETTABLEKS R14 R1 K45 ["key"]
   GETTABLE R12 R13 R14
-  ORK R11 R12 K41 [False]
-  SETTABLEKS R11 R10 K31 ["Expanded"]
+  ORK R11 R12 K42 [False]
+  SETTABLEKS R11 R10 K32 ["Expanded"]
   NEWCLOSURE R11 P1
   CAPTURE VAL R0
   CAPTURE VAL R1
   CAPTURE UPVAL U3
-  SETTABLEKS R11 R10 K32 ["OnExpandedChanged"]
+  SETTABLEKS R11 R10 K33 ["OnExpandedChanged"]
   MOVE R11 R6
   CALL R8 3 1
-  GETTABLEKS R9 R1 K44 ["key"]
+  GETTABLEKS R9 R1 K45 ["key"]
   SETTABLE R8 R2 R9
   RETURN R0 0
 

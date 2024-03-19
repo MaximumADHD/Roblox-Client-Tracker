@@ -17,6 +17,8 @@ local Thunk = require(Root.Thunk)
 
 local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
+local FFlagEnableUGC4ACollectiblePurchaseSupport = require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
+
 local requiredServices = {
 	Network,
 	ExternalSettings,
@@ -25,7 +27,7 @@ local requiredServices = {
 -- Defining fast flag only used in this file. Will be cleaned up later.
 local GetFFlagReturnNotForSaleOnInvalidBundleId = require(Root.Flags.GetFFlagReturnNotForSaleOnInvalidBundleId)
 
-local function initiateBundlePurchase(bundleId)
+local function initiateBundlePurchase(bundleId, idempotencyKey, purchaseAuthToken, collectibleItemId, collectibleItemInstanceId, collectibleProductId, expectedPrice)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
 		local externalSettings = services[ExternalSettings]
@@ -34,7 +36,11 @@ local function initiateBundlePurchase(bundleId)
 			return nil
 		end
 
-		store:dispatch(RequestBundlePurchase(bundleId))
+		if FFlagEnableUGC4ACollectiblePurchaseSupport then
+			store:dispatch(RequestBundlePurchase(bundleId, idempotencyKey, purchaseAuthToken, collectibleItemId, collectibleItemInstanceId, collectibleProductId, expectedPrice))
+		else
+			store:dispatch(RequestBundlePurchase(bundleId))
+		end
 
 		local isStudio = externalSettings.isStudio()
 		if not isStudio and Players.LocalPlayer.UserId <= 0 then
@@ -64,7 +70,8 @@ local function initiateBundlePurchase(bundleId)
 									productPurchasableDetails,
 									results.bundleDetails,
 									results.accountInfo,
-									results.balanceInfo
+									results.balanceInfo,
+									if FFlagEnableUGC4ACollectiblePurchaseSupport then expectedPrice else nil
 								))
 							end)
 					-- Otherwise, we can dispatch the NotForSale error and end early to not crash the UI
@@ -79,7 +86,8 @@ local function initiateBundlePurchase(bundleId)
 								productPurchasableDetails,
 								results.bundleDetails,
 								results.accountInfo,
-								results.balanceInfo
+								results.balanceInfo,
+								if FFlagEnableUGC4ACollectiblePurchaseSupport then expectedPrice else nil
 							))
 						end)
 				end

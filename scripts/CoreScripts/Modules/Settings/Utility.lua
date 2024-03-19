@@ -63,9 +63,14 @@ local GetFFlagSettingsHubButtonCanBeDisabled = require(Settings.Flags.GetFFlagSe
 local FFlagSettingsMenuUseHardwareSafeArea = game:DefineFastFlag("SettingsMenuUseHardwareSafeArea", false)
 local GetFFlagFix10ftMenuAddFriend = require(Settings.Flags.GetFFlagFix10ftMenuAddFriend)
 local GetFFlagAddAnimatedFocusState = require(Settings.Flags.GetFFlagAddAnimatedFocusState)
+local FFlagUseNonDeferredSliderSignal = game:DefineFastFlag("UseNonDeferredSliderSignal", false)
 
 ------------------ Modules --------------------
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxTranslator"))
+
+local CorePackages = game:GetService("CorePackages")
+local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
+local Signal = AppCommonLib.Signal
 
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
@@ -1977,7 +1982,10 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 
 	local valueChangedEvent = Instance.new("BindableEvent")
 	valueChangedEvent.Name = "ValueChanged"
-
+	local valueChangedSignal
+	if FFlagUseNonDeferredSliderSignal then
+		valueChangedSignal = Signal.new()
+	end
 	----------------- GUI SETUP ------------------------
 	this.SliderFrame = Util.Create("ImageButton")({
 		Name = "Slider",
@@ -2291,7 +2299,11 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 		showSelection()
 
 		timeAtLastInput = tick()
-		valueChangedEvent:Fire(currentStep)
+		if valueChangedSignal then
+			valueChangedSignal:fire(currentStep)
+		else
+			valueChangedEvent:Fire(currentStep)
+		end
 	end
 
 	local function isActivateEvent(inputObject)
@@ -2382,6 +2394,9 @@ local function CreateNewSlider(numOfSteps, startStep, minStep, leftLabelText, ri
 
 	--------------------- PUBLIC FACING FUNCTIONS -----------------------
 	this.ValueChanged = valueChangedEvent.Event
+	if valueChangedSignal then
+		this.ValueChanged = valueChangedSignal
+	end
 
 	function this:SetValue(newValue)
 		setCurrentStep(newValue)

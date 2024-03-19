@@ -35,18 +35,45 @@ PROTO_2:
   CALL R2 1 0
   LOADB R2 0
   RETURN R2 1
+  LOADNIL R2
   GETUPVAL R3 2
+  CALL R3 0 1
+  JUMPIFNOT R3 [+28]
+  MOVE R3 R1
+  JUMPIF R3 [+4]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K4 ["requestToRecordName"]
+  GETTABLE R3 R4 R0
+  MOVE R2 R3
+  JUMPIF R2 [+26]
+  LOADK R3 K5 ["%* %*"]
+  LOADK R5 K6 ["Assistant Actions"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K7 ["recordingActionNumber"]
+  NAMECALL R3 R3 K8 ["format"]
+  CALL R3 3 1
+  MOVE R2 R3
+  GETUPVAL R3 3
+  GETTABLEKS R4 R3 K7 ["recordingActionNumber"]
+  ADDK R4 R4 K9 [1]
+  SETTABLEKS R4 R3 K7 ["recordingActionNumber"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K4 ["requestToRecordName"]
+  SETTABLE R2 R3 R0
+  JUMP [+6]
+  GETUPVAL R3 4
+  CALL R3 0 1
   JUMPIFNOT R3 [+2]
-  ORK R2 R1 K4 ["Assistant Actions"]
+  ORK R2 R1 K6 ["Assistant Actions"]
   JUMP [+1]
-  LOADK R2 K4 ["Assistant Actions"]
+  LOADK R2 K6 ["Assistant Actions"]
   GETUPVAL R3 1
   MOVE R5 R2
-  NAMECALL R3 R3 K5 ["TryBeginRecording"]
+  NAMECALL R3 R3 K10 ["TryBeginRecording"]
   CALL R3 2 1
   JUMPIF R3 [+6]
   GETIMPORT R4 K2 [warn]
-  LOADK R5 K6 ["StartRecordingActions failed: TryBeginRecording returned nil"]
+  LOADK R5 K11 ["StartRecordingActions failed: TryBeginRecording returned nil"]
   CALL R4 1 0
   LOADB R4 0
   RETURN R4 1
@@ -60,25 +87,53 @@ PROTO_3:
   JUMPIF R2 [+2]
   LOADB R2 0
   RETURN R2 1
+  GETUPVAL R3 0
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["Luau"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
   GETUPVAL R2 1
-  NAMECALL R2 R2 K0 ["GetCanUndo"]
+  NAMECALL R2 R2 K3 ["GetCanUndo"]
   CALL R2 1 2
-  GETIMPORT R4 K4 [Enum.FinishRecordingOperation.Append]
+  GETIMPORT R4 K7 [Enum.FinishRecordingOperation.Append]
+  LOADNIL R5
   GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+11]
+  MOVE R6 R1
+  JUMPIF R6 [+4]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K8 ["requestToRecordName"]
+  GETTABLE R6 R7 R0
+  MOVE R5 R6
+  JUMPIF R5 [+9]
+  LOADB R6 0
+  RETURN R6 1
+  JUMP [+6]
+  GETUPVAL R6 4
+  CALL R6 0 1
   JUMPIFNOT R6 [+2]
-  ORK R5 R1 K5 ["Assistant Actions"]
+  ORK R5 R1 K9 ["Assistant Actions"]
   JUMP [+1]
-  LOADK R5 K5 ["Assistant Actions"]
-  GETUPVAL R6 3
+  LOADK R5 K9 ["Assistant Actions"]
+  GETUPVAL R6 5
   JUMPIFNOTEQ R6 R0 [+3]
   JUMPIFEQ R3 R5 [+3]
-  GETIMPORT R4 K7 [Enum.FinishRecordingOperation.Commit]
+  GETIMPORT R4 K11 [Enum.FinishRecordingOperation.Commit]
   GETUPVAL R6 1
   GETUPVAL R8 0
   MOVE R9 R4
-  NAMECALL R6 R6 K8 ["FinishRecording"]
+  NAMECALL R6 R6 K12 ["FinishRecording"]
   CALL R6 3 0
-  SETUPVAL R0 3
+  GETUPVAL R6 2
+  CALL R6 0 1
+  JUMPIFNOT R6 [+6]
+  GETUPVAL R6 6
+  MOVE R8 R0
+  MOVE R9 R5
+  NAMECALL R6 R6 K13 ["RecordingActionEnded"]
+  CALL R6 3 0
+  SETUPVAL R0 5
   LOADNIL R6
   SETUPVAL R6 0
   LOADB R6 1
@@ -284,84 +339,101 @@ MAIN:
   NAMECALL R1 R1 K3 ["GetService"]
   CALL R1 2 1
   GETIMPORT R2 K1 [game]
-  LOADK R4 K5 ["ConvAIIncomingLinks"]
-  NAMECALL R2 R2 K6 ["GetFastFlag"]
+  LOADK R4 K5 ["ConversationalAIAcceptanceService"]
+  NAMECALL R2 R2 K3 ["GetService"]
   CALL R2 2 1
-  GETIMPORT R3 K1 [game]
-  LOADK R5 K7 ["ConvAIAddDraftModeForSceneCreate2"]
-  NAMECALL R3 R3 K6 ["GetFastFlag"]
+  GETIMPORT R3 K7 [script]
+  LOADK R5 K8 ["StreamingServiceDispatcherRegistry"]
+  NAMECALL R3 R3 K9 ["FindFirstAncestor"]
   CALL R3 2 1
-  GETIMPORT R4 K1 [game]
-  LOADK R6 K8 ["ConvAIMenu_Attrib2"]
-  NAMECALL R4 R4 K6 ["GetFastFlag"]
-  CALL R4 2 1
-  GETIMPORT R5 K1 [game]
-  LOADK R7 K9 ["ConvAICodeRunnerTelemetry"]
-  NAMECALL R5 R5 K6 ["GetFastFlag"]
-  CALL R5 2 1
-  DUPTABLE R6 K16 [{"assetCacheMap", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata"}]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K10 ["assetCacheMap"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K11 ["guidToInfo"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K12 ["chatBulletMap"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K13 ["altDataMap"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K14 ["requestRegionAdornments"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K15 ["requestMetadata"]
-  JUMPIFNOT R2 [+12]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K10 ["assetCacheMap"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K17 ["g2g"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K18 ["guid2instance"]
-  JUMPIFNOT R3 [+7]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K19 ["activeDraftGuids"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K20 ["draftModeModels"]
-  JUMPIFNOT R4 [+4]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K21 ["cachedAssetAttributionInfo"]
-  NEWTABLE R7 0 0
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R7 R3 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Flags"]
+  GETTABLEKS R5 R6 K14 ["getFFlagConvAIMenu_Attrib"]
+  CALL R4 1 1
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R8 R3 K12 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Flags"]
+  GETTABLEKS R6 R7 K15 ["getFFlagConvAICodeRunnerTelemetry"]
+  CALL R5 1 1
+  GETIMPORT R6 K11 [require]
+  GETTABLEKS R9 R3 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Flags"]
+  GETTABLEKS R7 R8 K16 ["getFFlagCAPInstanceTrackerForUndoTelemetry"]
+  CALL R6 1 1
+  DUPTABLE R7 K27 [{"assetCacheMap", "g2g", "guid2instance", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata", "activeDraftGuids", "draftModeModels"}]
   NEWTABLE R8 0 0
-  DUPCLOSURE R9 K22 [PROTO_0]
+  SETTABLEKS R8 R7 K17 ["assetCacheMap"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K18 ["g2g"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K19 ["guid2instance"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K20 ["guidToInfo"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K21 ["chatBulletMap"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K22 ["altDataMap"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K23 ["requestRegionAdornments"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K24 ["requestMetadata"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K25 ["activeDraftGuids"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K26 ["draftModeModels"]
+  MOVE R8 R4
+  CALL R8 0 1
+  JUMPIFNOT R8 [+4]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K28 ["cachedAssetAttributionInfo"]
+  MOVE R8 R6
+  CALL R8 0 1
+  JUMPIFNOT R8 [+7]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K29 ["recordingActionNumber"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K30 ["requestToRecordName"]
+  NEWTABLE R8 0 0
+  NEWTABLE R9 0 0
+  DUPCLOSURE R10 K31 [PROTO_0]
   CAPTURE VAL R1
-  CAPTURE VAL R7
-  SETTABLEKS R9 R6 K23 ["get"]
-  DUPCLOSURE R9 K24 [PROTO_1]
-  CAPTURE VAL R7
-  SETTABLEKS R9 R6 K25 ["set"]
-  LOADNIL R9
-  LOADNIL R10
-  NEWCLOSURE R11 P2
-  CAPTURE REF R10
-  CAPTURE VAL R0
-  CAPTURE VAL R5
-  SETTABLEKS R11 R6 K26 ["StartRecordingActions"]
-  NEWCLOSURE R11 P3
-  CAPTURE REF R10
-  CAPTURE VAL R0
-  CAPTURE VAL R5
-  CAPTURE REF R9
-  SETTABLEKS R11 R6 K27 ["EndRecordingActions"]
-  DUPCLOSURE R11 K28 [PROTO_4]
-  CAPTURE VAL R6
-  DUPCLOSURE R12 K29 [PROTO_7]
   CAPTURE VAL R8
+  SETTABLEKS R10 R7 K32 ["get"]
+  DUPCLOSURE R10 K33 [PROTO_1]
+  CAPTURE VAL R8
+  SETTABLEKS R10 R7 K34 ["set"]
+  LOADNIL R10
+  LOADNIL R11
+  NEWCLOSURE R12 P2
+  CAPTURE REF R11
+  CAPTURE VAL R0
   CAPTURE VAL R6
-  SETTABLEKS R12 R6 K30 ["GetRequestFolder"]
-  DUPCLOSURE R12 K31 [PROTO_8]
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  SETTABLEKS R12 R7 K35 ["StartRecordingActions"]
+  NEWCLOSURE R12 P3
+  CAPTURE REF R11
+  CAPTURE VAL R0
   CAPTURE VAL R6
-  SETTABLEKS R12 R6 K32 ["GetRequestMetadata"]
-  DUPCLOSURE R12 K33 [PROTO_9]
-  CAPTURE VAL R6
-  SETTABLEKS R12 R6 K34 ["SetRequestMetadata"]
-  DUPCLOSURE R12 K35 [PROTO_10]
-  SETTABLEKS R12 R6 K36 ["destroy"]
-  CLOSEUPVALS R9
-  RETURN R6 1
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE REF R10
+  CAPTURE VAL R2
+  SETTABLEKS R12 R7 K36 ["EndRecordingActions"]
+  DUPCLOSURE R12 K37 [PROTO_4]
+  CAPTURE VAL R7
+  DUPCLOSURE R13 K38 [PROTO_7]
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  SETTABLEKS R13 R7 K39 ["GetRequestFolder"]
+  DUPCLOSURE R13 K40 [PROTO_8]
+  CAPTURE VAL R7
+  SETTABLEKS R13 R7 K41 ["GetRequestMetadata"]
+  DUPCLOSURE R13 K42 [PROTO_9]
+  CAPTURE VAL R7
+  SETTABLEKS R13 R7 K43 ["SetRequestMetadata"]
+  DUPCLOSURE R13 K44 [PROTO_10]
+  SETTABLEKS R13 R7 K45 ["destroy"]
+  CLOSEUPVALS R10
+  RETURN R7 1

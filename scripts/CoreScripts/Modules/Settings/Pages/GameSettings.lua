@@ -163,6 +163,7 @@ local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModul
 local GetHasGuiHidingPermission = require(RobloxGui.Modules.Common.GetHasGuiHidingPermission)
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Cryo = require(CorePackages.Cryo)
+local GfxReset = require(script.Parent.Parent.GfxReset)
 
 ------------ Variables -------------------
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
@@ -211,7 +212,6 @@ local GetFIntVoiceChatDeviceChangeDebounceDelay = require(RobloxGui.Modules.Flag
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
-local GetFFlagEnableAudioOutputDevice = require(RobloxGui.Modules.Flags.GetFFlagEnableAudioOutputDevice)
 local FFlagHideEmptyInputDeviceSelector = game:DefineFastFlag("HideEmptyInputDeviceSelector", false)
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
 local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGameSettingsCameraModeFixEnabled
@@ -292,10 +292,16 @@ end
 --------------- FLAGS ----------------
 game:DefineFastInt("V1MenuLanguageSelectionFeaturePerMillageRollout", 0)
 game:DefineFastString("V1MenuLanguageSelectionFeatureForcedUserIds", "")
+local FFlagIGMEnableGFXReset = game:DefineFastFlag("IGMEnableGFXReset", false)
 
 ----------- CLASS DECLARATION --------------
 
 local function Initialize()
+
+	if FFlagIGMEnableGFXReset then
+		GfxReset.RunGfxReset()
+	end
+
 	local settingsPageFactory = require(RobloxGui.Modules.Settings.SettingsPageFactory)
 	local this = settingsPageFactory:CreateNewPage()
 
@@ -471,6 +477,15 @@ local function Initialize()
 
 		-- DEPRECATED Remove with FixGraphicsQuality
 		function SetGraphicsQuality(newValue, automaticSettingAllowed)
+
+			if FFlagIGMEnableGFXReset then
+				local override, overrideValue = GfxReset.TemporaryOverride(newValue)
+				if override then
+					settings().Rendering.QualityLevel = overrideValue
+					return
+				end
+			end
+
 			local percentage = newValue / GRAPHICS_QUALITY_LEVELS
 			local newQualityLevel = math.floor((settings().Rendering:GetMaxQualityLevel() - 1) * percentage)
 			if newQualityLevel == 20 then
@@ -2850,7 +2865,7 @@ local function Initialize()
 
 					if this.VoiceChatOptionsEnabled then
 						VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid)
-					elseif GetFFlagEnableAudioOutputDevice() then
+					else
 						SwitchOutputDevice(deviceName, deviceGuid)
 					end
 				end
@@ -3027,7 +3042,7 @@ local function Initialize()
 		if this.VoiceChatOptionsEnabled then
 			updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Input)
 			updateVoiceChatDevices(VOICE_CHAT_DEVICE_TYPE.Output)
-		elseif GetFFlagEnableAudioOutputDevice() then
+		else
 			updateAudioOutputDevices()
 		end
 	end
@@ -3267,13 +3282,12 @@ local function Initialize()
 
 	this.OpenSettingsPage = function()
 		this.PageOpen = true
-		if this.VoiceChatOptionsEnabled or GetFFlagEnableAudioOutputDevice() then
-			-- Update device info each time user opens the menu
-			-- TODO: This should be simplified by new API
-			updateAudioOptions()
-			setupDeviceChangedListener()
-			this.startVolume = GameSettings.MasterVolume
-		end
+		
+		-- Update device info each time user opens the menu
+		-- TODO: This should be simplified by new API
+		updateAudioOptions()
+		setupDeviceChangedListener()
+		this.startVolume = GameSettings.MasterVolume
 
 		if (FFlagAvatarChatCoreScriptSupport or GetFFlagSelfViewCameraSettings()) and this.VideoOptionsEnabled then
 			if game:GetEngineFeature("VideoCaptureService") then

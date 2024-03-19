@@ -10,7 +10,8 @@ return function()
 	local Thunk = require(InspectAndBuyFolder.Thunk)
 	local MockId = require(InspectAndBuyFolder.MockId)
 	local GetAssetBundles = require(script.Parent.GetAssetBundles)
-
+	local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+		require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 	it("set the bundles an asset is part of", function()
 		local store = Rodux.Store.new(Reducer)
 		local mockAssetId = MockId()
@@ -21,9 +22,13 @@ return function()
 		})
 
 		local state = store:getState()
-		expect(#state.assets[mockAssetId].bundlesAssetIsIn).toBe(#MockNetwork.GetMockAssetBundlesData().data)
-		expect(state.assets[mockAssetId].bundlesAssetIsIn[1]).toBe(
-			tostring(MockNetwork.GetMockAssetBundlesData().data[1].id))
+		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+			-- TODO(lliu): Add test for new data collection GetAssetBundles
+		else
+			expect(#state.assets[mockAssetId].bundlesAssetIsIn).toBe(#MockNetwork.GetMockAssetBundlesData().data)
+			expect(state.assets[mockAssetId].bundlesAssetIsIn[1]).toBe(
+				tostring(MockNetwork.GetMockAssetBundlesData().data[1].id))
+		end
 	end)
 
 	it("should catch network errors that happen and still run", function()

@@ -6,6 +6,9 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
+local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
+local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
 	Network,
@@ -27,9 +30,17 @@ local function GetProductInfo(id)
 				function(results)
 					local assetInfo = AssetInfo.fromGetProductInfo(results)
 					store:dispatch(SetAssets({assetInfo}))
-				end)
+					if GetFFlagIBEnableSendCounters() then
+						store:dispatch(SendCounter(Constants.Counters.GetProduct .. Constants.CounterSuffix.RequestSucceeded))
+					end
+				end,
+				if GetFFlagIBEnableSendCounters() then function(err)
+					store:dispatch(SendCounter(Constants.Counters.GetProductInfo .. Constants.CounterSuffix.RequestRejected))
+				end else nil)
 		end)(store):catch(function(err)
-
+			if GetFFlagIBEnableSendCounters() then
+				store:dispatch(SendCounter(Constants.Counters.GetProductInfo .. Constants.CounterSuffix.RequestFailed))
+			end
 		end)
 	end)
 end

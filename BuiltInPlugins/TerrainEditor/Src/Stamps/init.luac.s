@@ -1,9 +1,13 @@
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 0 1
+  NEWTABLE R0 0 2
   GETIMPORT R1 K1 [require]
   GETIMPORT R3 K3 [script]
-  GETTABLEKS R2 R3 K4 ["MountainStamp"]
-  CALL R1 1 -1
+  GETTABLEKS R2 R3 K4 ["BaseStamp"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K5 ["MountainStamp"]
+  CALL R2 1 -1
   SETLIST R0 R1 -1 [1]
   RETURN R0 1

@@ -14,14 +14,14 @@ MAIN:
   LOADK R2 K2 ["ChatbotUIService"]
   NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R4 K5 [script]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R4 R1 K9 ["Src"]
-  GETTABLEKS R3 R4 K10 ["Types"]
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["StreamingServiceDispatcherRegistry"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Src"]
+  GETTABLEKS R3 R4 K11 ["Types"]
   CALL R2 1 1
-  DUPCLOSURE R3 K11 [PROTO_0]
+  DUPCLOSURE R3 K12 [PROTO_0]
   CAPTURE VAL R0
   RETURN R3 1

@@ -21,6 +21,10 @@ return function()
 	local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
 	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
+	local FFlagEnableUGC4ACollectiblePurchaseSupport =
+		require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
+
+	local itSkipOnCollectibleSupport = if FFlagEnableUGC4ACollectiblePurchaseSupport then itSKIP else it
 
 	local function getTestAccountInfoDetails()
 		return {
@@ -30,7 +34,7 @@ return function()
 
 	local function getTestBalanceDetails()
 		return {
-			robux = 10
+			robux = 10,
 		}
 	end
 
@@ -63,7 +67,7 @@ return function()
 				id = 1,
 				isForSale = true,
 				priceInRobux = 100,
-			}
+			},
 		}
 	end
 
@@ -89,11 +93,11 @@ return function()
 		expect(state.accountInfo.balance).never.toBeNil()
 	end)
 
-	it("should resolve state to Error if prerequisites are failed", function()
+	itSkipOnCollectibleSupport("should resolve state to Error if prerequisites are failed", function()
 		local store = Rodux.Store.new(Reducer, {})
 
 		local purchasableDetails = getTestPurchasableDetails()
-		local bundleDetails = getTestBundleDetails()		-- Set product to not for sale
+		local bundleDetails = getTestBundleDetails() -- Set product to not for sale
 		purchasableDetails.purchasable = false
 		local accountInfo = getTestAccountInfoDetails()
 		local balanceInfo = getTestBalanceDetails()

@@ -117,7 +117,6 @@ local function ConnectAssetServiceEvents(store)
 				local state = store:getState()
 				-- check that guid matches for the prompt to show related error message
 				if state and state.promptRequest.promptInfo.guid == guid then
-					--TODO: Surface error prompt
 					store:dispatch(OpenValidationErrorModal(errorMessage))
 				end
 			end)

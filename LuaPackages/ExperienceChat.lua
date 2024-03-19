@@ -1,9 +1,9 @@
---!nonstrict
 local CorePackages = game:GetService("CorePackages")
-local GetFFlagUpgradeExpChatV4_3_1 = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagUpgradeExpChatV4_3_1
+local FFlagExpChatUseNewRepository = game:DefineFastFlag("ExpChatUseNewRepository", false)
 
-if GetFFlagUpgradeExpChatV4_3_1() then
-    return require(CorePackages.Packages.ExperienceChat_New)
+if FFlagExpChatUseNewRepository then
+    return require(CorePackages.Workspace.Packages.ExpChat)
 else
-    return require(CorePackages.Packages.ExperienceChat)
+    -- so long space cowboy
+    return require(CorePackages.Packages.ExperienceChat) :: any
 end

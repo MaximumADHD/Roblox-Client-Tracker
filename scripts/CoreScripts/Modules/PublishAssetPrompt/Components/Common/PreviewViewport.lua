@@ -11,6 +11,8 @@ local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
+local ContextActionService = game:GetService("ContextActionService")
+local RunService = game:GetService("RunService")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -28,6 +30,7 @@ local InputType = UIBlox.Core.Enums.InputType
 local getInputGroup = require(CorePackages.Workspace.Packages.InputType).getInputGroup
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
 local InputTypeConstants = require(CorePackages.Workspace.Packages.InputType).InputTypeConstants
+local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
@@ -39,6 +42,8 @@ local PreviewShrinkIcon = Images["icons/actions/previewShrink"]
 
 local FFlagUIBloxUseInputResponsiveShortcutBarChanges =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxUseInputResponsiveShortcutBarChanges
+
+local FFlagPublishAvatarPromptEnabled = require(script.Parent.Parent.Parent.FFlagPublishAvatarPromptEnabled)
 
 local CAMERA_FOV = 30
 local INITIAL_ZOOM_FACTOR = 1
@@ -105,9 +110,34 @@ function PreviewViewport:init()
 		self:updateCameraPosition()
 	end
 
+	self.storeInput = function(actionName, inputState, inputObject)
+		self.inputState = inputState
+		self.inputObject = inputObject
+
+		return Enum.ContextActionResult.Sink
+	end
+
+	-- meant to be used for Gamepad only for y-axis rotation using thumbstick
+	self.rotateByRadians = function(yRads)
+		local humanoidRootPart = self.model:FindFirstChild("HumanoidRootPart")
+		-- If this is used for cases other than passing in a humanoid model, consider changing to use primary part
+		if not humanoidRootPart then
+			return
+		end
+
+		-- function takes radians to be passed into a GamepadUtils helper function, but our component uses degrees
+		local yDegreesOffset = -yRads * 180 / math.pi
+		self.cameraDegreesAngle =
+			Vector2.new(self.cameraDegreesAngle.X % 360, (self.cameraDegreesAngle.Y + yDegreesOffset) % 360)
+
+		-- self:clampOffsets doesn't need to be called here because y-axis doesn't have limits
+		self:updateCameraPosition()
+	end
+
 	self.setAngularVelocityByPixels = function(pixelVelocity) end
 
-	self.zoomToPoint = function(zoomDelta, screenPixelPoint)
+	-- If no point given, just zoom from center without changing panning
+	self.zoomToPoint = function(zoomDelta: number, screenPixelPoint: Vector2?)
 		local additionalZoomAplied = ZOOM_STEP ^ zoomDelta
 		local newZoomFactor = self.zoomFactor * additionalZoomAplied
 
@@ -117,11 +147,13 @@ function PreviewViewport:init()
 		end
 		self.zoomFactor = newZoomFactor
 
-		-- we translate screen coordinates to camera's current view coordinates with the center as (0,0)
-		local pointFromCenter = screenPixelPoint - (self.absolutePosition + self.absoluteSize / 2)
-		pointFromCenter = pointFromCenter * Vector2.new(1, -1) * -1
-		-- we change the cameraPanInPixels to keep pointFromCenter in position when zooming
-		self.cameraPanInPixels = pointFromCenter - (pointFromCenter - self.cameraPanInPixels) * additionalZoomAplied
+		if (not FFlagPublishAvatarPromptEnabled) or screenPixelPoint then
+			-- we translate screen coordinates to camera's current view coordinates with the center as (0,0)
+			local pointFromCenter = screenPixelPoint - (self.absolutePosition + self.absoluteSize / 2)
+			pointFromCenter = pointFromCenter * Vector2.new(1, -1) * -1
+			-- we change the cameraPanInPixels to keep pointFromCenter in position when zooming
+			self.cameraPanInPixels = pointFromCenter - (pointFromCenter - self.cameraPanInPixels) * additionalZoomAplied
+		end
 
 		self:clampOffsets()
 		self:updateCameraPosition()
@@ -395,6 +427,7 @@ function PreviewViewport:render()
 			text = "Close",
 		},
 	}
+
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(1, 1),
@@ -432,17 +465,22 @@ function PreviewViewport:render()
 				end,
 			}),
 
-		ShrinkPreviewButton = Roact.createElement(IconButton, {
-			position = UDim2.new(1, -20, 1, -20),
-			anchorPoint = Vector2.new(1, 1),
-			icon = PreviewShrinkIcon,
-			iconSize = IconSize.Medium,
-			onActivated = function()
-				self.props.closePreviewView()
-			end,
-		}),
+		-- if removing FFlagPublishAvatarPromptEnabled, remove self.state.isGamepad check too
+		ShrinkPreviewButton = if (not FFlagPublishAvatarPromptEnabled or not self.state.isGamepad)
+			then Roact.createElement(IconButton, {
+				position = UDim2.new(1, -20, 1, -20),
+				anchorPoint = Vector2.new(1, 1),
+				icon = PreviewShrinkIcon,
+				iconSize = IconSize.Medium,
+				onActivated = function()
+					self.props.closePreviewView()
+				end,
+			})
+			else nil,
 
 		TooltipHint = if FFlagUIBloxUseInputResponsiveShortcutBarChanges
+				and FFlagPublishAvatarPromptEnabled
+				and self.props.asset:IsA("Model")
 			then Roact.createElement(ShortcutBar, {
 				position = UDim2.fromScale(0.5, 0.9),
 				anchorPoint = Vector2.new(0.5, 1),
@@ -500,15 +538,64 @@ function PreviewViewport:render()
 	})
 end
 
+function PreviewViewport:setUpGamepad()
+	ContextActionService:UnbindCoreAction("PreviewViewportClose")
+	ContextActionService:UnbindCoreAction("PreviewViewportReset")
+	ContextActionService:UnbindCoreAction("PreviewViewportRotateAndZoom")
+
+	ContextActionService:BindCoreAction(
+		"PreviewViewportClose",
+		self.props.closePreviewView,
+		false,
+		Enum.KeyCode.ButtonB
+	)
+	local onButtonPressY = function()
+		self:resetCameraPosition()
+	end
+	ContextActionService:BindCoreAction("PreviewViewportReset", onButtonPressY, false, Enum.KeyCode.ButtonY)
+	ContextActionService:BindCoreAction(
+		"PreviewViewportRotateAndZoom",
+		self.storeInput,
+		false,
+		Enum.KeyCode.Thumbstick2
+	)
+	self.gamePadConnection = RunService.RenderStepped:Connect(function(deltaTime)
+		if self.inputState == Enum.UserInputState.Change and self.inputObject then
+			GamepadUtils.rotateAndZoom(
+				self.inputObject,
+				deltaTime,
+				self.setAngularVelocityByPixels,
+				self.rotateByRadians,
+				self.zoomToPoint
+			)
+		end
+	end)
+end
+
 function PreviewViewport:didMount()
 	local topLeftInset = GuiService:GetGuiInset()
 	self.isMounted = true
 	self.absolutePosition = self.ref.current.AbsolutePosition + topLeftInset
 	self:processAsset()
+	if FFlagPublishAvatarPromptEnabled then
+		self:setUpGamepad()
+	end
+end
+
+function PreviewViewport:cleanupGamepad()
+	ContextActionService:UnbindCoreAction("PreviewViewportClose")
+	ContextActionService:UnbindCoreAction("PreviewViewportReset")
+	ContextActionService:UnbindCoreAction("PreviewViewportRotateAndZoom")
+	if self.gamePadConnection then
+		self.gamePadConnection:Disconnect()
+	end
 end
 
 function PreviewViewport:willUnmount()
 	self.isMounted = false
+	if FFlagPublishAvatarPromptEnabled then
+		self:cleanupGamepad()
+	end
 end
 
 function PreviewViewport:didUpdate(prevProps)

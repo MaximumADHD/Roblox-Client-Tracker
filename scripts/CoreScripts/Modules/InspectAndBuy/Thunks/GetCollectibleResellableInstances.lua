@@ -5,6 +5,9 @@ local Thunk = require(InspectAndBuyFolder.Thunk)
 local Network = require(InspectAndBuyFolder.Services.Network)
 local SetCollectibleResellableInstances = require(InspectAndBuyFolder.Actions.SetCollectibleResellableInstances)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
+local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
+local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
 	Network,
@@ -24,8 +27,23 @@ local function GetCollectibleResellableInstances(collectibleItemId, userId)
 				if itemInstances then
 					store:dispatch(SetCollectibleResellableInstances(collectibleItemId, itemInstances))
 				end
-			end)
-		end)(store):catch(function(err) end)
+
+				if GetFFlagIBEnableSendCounters() then
+					if itemInstances then
+							store:dispatch(SendCounter(Constants.Counters.GetCollectibleResellableInstances .. Constants.CounterSuffix.RequestSucceeded))
+					else
+							store:dispatch(SendCounter(Constants.Counters.GetCollectibleResellableInstancesRequestSucceededWithoutResult))
+					end
+				end
+			end,
+			if GetFFlagIBEnableSendCounters() then function(err)
+				store:dispatch(SendCounter(Constants.Counters.GetCollectibleResellableInstances .. Constants.CounterSuffix.RequestRejected))
+			end else nil)
+		end)(store):catch(function(err)
+			if GetFFlagIBEnableSendCounters() then
+				store:dispatch(SendCounter(Constants.Counters.GetCollectibleResellableInstances .. Constants.CounterSuffix.RequestFailed))
+			end
+		end)
 	end)
 end
 

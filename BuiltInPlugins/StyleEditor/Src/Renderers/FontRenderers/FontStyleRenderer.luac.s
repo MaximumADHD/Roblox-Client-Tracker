@@ -1,32 +1,28 @@
 PROTO_0:
   GETUPVAL R1 0
-  JUMPIFNOT R1 [+6]
-  GETUPVAL R1 1
+  GETUPVAL R3 1
+  JUMPIFNOT R3 [+3]
   GETIMPORT R2 K3 [Enum.FontWeight.Regular]
-  SETTABLEKS R2 R1 K4 ["Weight"]
-  JUMP [+5]
-  GETUPVAL R1 1
-  GETIMPORT R2 K6 [Enum.FontWeight.Bold]
-  SETTABLEKS R2 R1 K4 ["Weight"]
+  JUMP [+2]
+  GETIMPORT R2 K5 [Enum.FontWeight.Bold]
+  SETTABLEKS R2 R1 K6 ["Weight"]
   GETUPVAL R2 2
   GETTABLEKS R1 R2 K7 ["OnChanged"]
-  GETUPVAL R2 1
+  GETUPVAL R2 0
   CALL R1 1 0
   RETURN R0 0
 
 PROTO_1:
   GETUPVAL R1 0
-  JUMPIFNOT R1 [+6]
-  GETUPVAL R1 1
+  GETUPVAL R3 1
+  JUMPIFNOT R3 [+3]
   GETIMPORT R2 K3 [Enum.FontStyle.Normal]
-  SETTABLEKS R2 R1 K4 ["Style"]
-  JUMP [+5]
-  GETUPVAL R1 1
-  GETIMPORT R2 K6 [Enum.FontStyle.Italic]
-  SETTABLEKS R2 R1 K4 ["Style"]
+  JUMP [+2]
+  GETIMPORT R2 K5 [Enum.FontStyle.Italic]
+  SETTABLEKS R2 R1 K6 ["Style"]
   GETUPVAL R2 2
   GETTABLEKS R1 R2 K7 ["OnChanged"]
-  GETUPVAL R2 1
+  GETUPVAL R2 0
   CALL R1 1 0
   RETURN R0 0
 
@@ -50,115 +46,83 @@ PROTO_2:
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K7 ["createElement"]
   GETUPVAL R9 1
-  NEWTABLE R10 2 0
-  GETIMPORT R11 K13 [UDim2.fromOffset]
-  LOADN R12 24
-  LOADN R13 24
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K14 ["Size"]
+  NEWTABLE R10 1 0
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K8 ["Tag"]
   JUMPIFNOT R3 [+5]
   GETUPVAL R12 2
-  LOADK R13 K15 ["FontStyle X-Corner X-Stroke"]
-  LOADK R14 K16 ["Selected"]
+  LOADK R13 K11 ["FontStyle X-Corner X-Stroke"]
+  LOADK R14 K12 ["Selected"]
   CALL R12 2 1
   JUMP [+1]
-  LOADK R12 K15 ["FontStyle X-Corner X-Stroke"]
+  LOADK R12 K11 ["FontStyle X-Corner X-Stroke"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K18 [{"BoldButton"}]
+  DUPTABLE R11 K14 [{"BoldButton"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K7 ["createElement"]
-  LOADK R13 K19 ["TextButton"]
-  NEWTABLE R14 8 0
-  LOADN R15 1
-  SETTABLEKS R15 R14 K20 ["BackgroundTransparency"]
-  LOADB R15 1
-  SETTABLEKS R15 R14 K21 ["RichText"]
-  GETIMPORT R15 K23 [UDim2.fromScale]
-  LOADN R16 1
-  LOADN R17 1
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K14 ["Size"]
-  LOADK R15 K24 ["<font size='18' family='rbxasset://fonts/families/SourceSansPro.json'><b>B</b></font>"]
-  SETTABLEKS R15 R14 K25 ["Text"]
+  LOADK R13 K15 ["TextButton"]
+  NEWTABLE R14 2 0
   GETUPVAL R17 0
-  GETTABLEKS R16 R17 K26 ["Event"]
-  GETTABLEKS R15 R16 K27 ["Activated"]
+  GETTABLEKS R16 R17 K16 ["Event"]
+  GETTABLEKS R15 R16 K17 ["Activated"]
   NEWCLOSURE R16 P0
-  CAPTURE VAL R3
   CAPTURE VAL R1
+  CAPTURE VAL R3
   CAPTURE VAL R0
   SETTABLE R16 R14 R15
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K8 ["Tag"]
   JUMPIFNOT R3 [+5]
   GETUPVAL R16 2
-  LOADK R17 K3 ["FontStyle"]
-  LOADK R18 K16 ["Selected"]
+  LOADK R17 K18 ["FontStyle ItemTextSize X-Fill"]
+  LOADK R18 K12 ["Selected"]
   CALL R16 2 1
   JUMP [+1]
-  LOADK R16 K3 ["FontStyle"]
+  LOADK R16 K18 ["FontStyle ItemTextSize X-Fill"]
   SETTABLE R16 R14 R15
   CALL R12 2 1
-  SETTABLEKS R12 R11 K17 ["BoldButton"]
+  SETTABLEKS R12 R11 K13 ["BoldButton"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K6 ["Bold"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K7 ["createElement"]
   GETUPVAL R9 1
-  NEWTABLE R10 2 0
-  GETIMPORT R11 K13 [UDim2.fromOffset]
-  LOADN R12 24
-  LOADN R13 24
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K14 ["Size"]
+  NEWTABLE R10 1 0
   GETUPVAL R12 0
   GETTABLEKS R11 R12 K8 ["Tag"]
   JUMPIFNOT R2 [+5]
   GETUPVAL R12 2
-  LOADK R13 K15 ["FontStyle X-Corner X-Stroke"]
-  LOADK R14 K16 ["Selected"]
+  LOADK R13 K11 ["FontStyle X-Corner X-Stroke"]
+  LOADK R14 K12 ["Selected"]
   CALL R12 2 1
   JUMP [+1]
-  LOADK R12 K15 ["FontStyle X-Corner X-Stroke"]
+  LOADK R12 K11 ["FontStyle X-Corner X-Stroke"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K29 [{"ItalicButton"}]
+  DUPTABLE R11 K20 [{"ItalicButton"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K7 ["createElement"]
-  LOADK R13 K19 ["TextButton"]
-  NEWTABLE R14 8 0
-  LOADN R15 1
-  SETTABLEKS R15 R14 K20 ["BackgroundTransparency"]
-  LOADB R15 1
-  SETTABLEKS R15 R14 K21 ["RichText"]
-  GETIMPORT R15 K23 [UDim2.fromScale]
-  LOADN R16 1
-  LOADN R17 1
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K14 ["Size"]
-  LOADK R15 K30 ["<font size='18' family='rbxasset://fonts/families/Inconsolata.json'><i>I</i></font>"]
-  SETTABLEKS R15 R14 K25 ["Text"]
+  LOADK R13 K15 ["TextButton"]
+  NEWTABLE R14 2 0
   GETUPVAL R17 0
-  GETTABLEKS R16 R17 K26 ["Event"]
-  GETTABLEKS R15 R16 K27 ["Activated"]
+  GETTABLEKS R16 R17 K16 ["Event"]
+  GETTABLEKS R15 R16 K17 ["Activated"]
   NEWCLOSURE R16 P1
-  CAPTURE VAL R2
   CAPTURE VAL R1
+  CAPTURE VAL R2
   CAPTURE VAL R0
   SETTABLE R16 R14 R15
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K8 ["Tag"]
   JUMPIFNOT R2 [+5]
   GETUPVAL R16 2
-  LOADK R17 K3 ["FontStyle"]
-  LOADK R18 K16 ["Selected"]
+  LOADK R17 K18 ["FontStyle ItemTextSize X-Fill"]
+  LOADK R18 K12 ["Selected"]
   CALL R16 2 1
   JUMP [+1]
-  LOADK R16 K3 ["FontStyle"]
+  LOADK R16 K18 ["FontStyle ItemTextSize X-Fill"]
   SETTABLE R16 R14 R15
   CALL R12 2 1
-  SETTABLEKS R12 R11 K28 ["ItalicButton"]
+  SETTABLEKS R12 R11 K19 ["ItalicButton"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K4 ["Italic"]
   CALL R4 3 -1

@@ -6,20 +6,22 @@ PROTO_0:
   GETUPVAL R1 1
   GETTABLEKS R0 R1 K3 ["createElement"]
   GETUPVAL R1 2
-  DUPTABLE R2 K5 [{"Plugin"}]
+  DUPTABLE R2 K6 [{"Plugin", "PluginLoaderContext"}]
   GETIMPORT R3 K1 [plugin]
   SETTABLEKS R3 R2 K4 ["Plugin"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K5 ["PluginLoaderContext"]
   CALL R0 2 1
   GETUPVAL R2 4
-  GETTABLEKS R1 R2 K6 ["createRoot"]
-  GETIMPORT R2 K9 [Instance.new]
-  LOADK R3 K10 ["Frame"]
+  GETTABLEKS R1 R2 K7 ["createRoot"]
+  GETIMPORT R2 K10 [Instance.new]
+  LOADK R3 K11 ["Frame"]
   CALL R2 1 -1
   CALL R1 -1 1
   SETUPVAL R1 3
   GETUPVAL R1 3
   MOVE R3 R0
-  NAMECALL R1 R1 K11 ["render"]
+  NAMECALL R1 R1 K12 ["render"]
   CALL R1 2 0
   RETURN R0 0
 

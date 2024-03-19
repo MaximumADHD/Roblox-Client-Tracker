@@ -1,59 +1,54 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.DisplayRichText
-local var1 = script.Parent.DisplaySuggestions
-local var2 = script.Parent.DisplayError
-local var3 = script.Parent.QueueRichText
-local var4 = script.Parent.BuilderCommands.Instantiate
-local var5 = script.Parent.BuilderCommands.InsertAsset
-local var6 = script.Parent.BuilderCommands.SetProperty
-local var7 = script.Parent.BuilderCommands.CreateMaterial
-local var8 = script.Parent.BuilderCommands.SetMaterial
-local var9 = script.Parent.BuilderCommands.RemoveInstance
-local var10 = script.Parent.BuilderCommands.CloneInstance
-local var11 = script.Parent.BuilderCommands.DisplayRegionAdornments
-local var12 = script.Parent.BuilderCommands.DebugBulkPublishToInventory
-local var13 = script.Parent.BuilderCommands.SetDraftMode
-local var14 = script.Parent.BuilderCommands.RunDraftCommand
-local var15 = script.Parent.BuilderCommands.DebugSleep
-local var16 = script.Parent.BuilderCommands.RunCode
-local var17 = {}
-local var360 = {}
-var0.Name = require(var0)
-var2.Name = require(var2)
-local var372 = require(var11)
-var11.Name = var372
-var372 = var5
-var360.InsertAssetInstant = require(var372)
-var360.SetPropertyInstant = require(var6)
-var17.parallel = var360
-var4.Name = require(var4)
-var5.Name = require(var5)
-var6.Name = require(var6)
+local var0 = script:FindFirstAncestor("StreamingServiceDispatcherRegistry")
+local var1 = require(var0.Src.Types)
+local var2 = var0.Src.Commands
+local var3 = var2.DisplayRichText
+local var4 = var2.DisplaySuggestions
+local var5 = var2.DisplayError
+local var6 = var2.QueueRichText
+local var7 = var2.BuilderCommands
+local var8 = var7.Instantiate
+local var9 = var7.InsertAsset
+local var10 = var7.SetProperty
+local var11 = var7.CreateMaterial
+local var12 = var7.SetMaterial
+local var13 = var7.RemoveInstance
+local var14 = var7.CloneInstance
+local var15 = var7.DisplayRegionAdornments
+local var16 = var7.DebugBulkPublishToInventory
+local var17 = var7.SetDraftMode
+local var18 = var7.RunDraftCommand
+local var19 = var7.DebugSleep
+local var20 = var7.RunCode
+local var21 = {}
+local var425 = {}
 var3.Name = require(var3)
-var7.Name = require(var7)
+var5.Name = require(var5)
+local var437 = require(var15)
+var15.Name = var437
+var437 = var9
+var425.InsertAssetInstant = require(var437)
+var425.SetPropertyInstant = require(var10)
+var425.InstantiateInstant = require(var8)
+var21.parallel = var425
+local var446 = {}
 var8.Name = require(var8)
+var9.Name = require(var9)
+var10.Name = require(var10)
+var6.Name = require(var6)
+var11.Name = require(var11)
 var12.Name = require(var12)
-local var20 = require(var1)
-var1.Name = var20
-var17.sequential = {}
-if game:GetFastFlag("ConvAIAddDraftModeForSceneCreate2") then
-   var20 = var4
-   var17.parallel.InstantiateInstant = require(var20)
-   local var414 = var17.sequential
-   var13.Name = require(var13)
-   local var419 = var17.sequential
-   var14.Name = require(var14)
-   local var2 = var17.sequential
-   var15.Name = require(var15)
+var16.Name = require(var16)
+var4.Name = require(var4)
+var13.Name = require(var13)
+var14.Name = require(var14)
+var17.Name = require(var17)
+var18.Name = require(var18)
+var19.Name = require(var19)
+var21.sequential = var446
+var446 = require(var0.Src.Flags.getFFlagConvAICodeRunner)
+if var446() then
+   local var0 = var21.sequential
+   var20.Name = require(var20)
 end
-if game:GetFastFlag("BuildCommandExpansionPT1") then
-   local var429 = var17.sequential
-   var9.Name = require(var9)
-   local var1 = var17.sequential
-   var10.Name = require(var10)
-end
-if game:GetFastFlag("ConvAICodeRunner") then
-   local var0 = var17.sequential
-   var16.Name = require(var16)
-end
-return var17
+return var21

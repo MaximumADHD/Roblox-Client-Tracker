@@ -1,0 +1,66 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createDesign"]
+  CALL R0 0 1
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  MOVE R4 R0
+  CALL R3 1 -1
+  NAMECALL R1 R1 K1 ["dispatch"]
+  CALL R1 -1 0
+  GETIMPORT R1 K5 [Enum.FinishRecordingOperation.Commit]
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R2 R1 K0 ["recordChange"]
+  DUPTABLE R3 K4 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R4 K5 ["StyleEditor/CreateDesignSheet"]
+  SETTABLEKS R4 R3 K1 ["Name"]
+  LOADK R4 K6 ["StyleEditor - Create Design Sheet"]
+  SETTABLEKS R4 R3 K2 ["DisplayName"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R4 R3 K3 ["DoChange"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPCLOSURE R0 K0 [PROTO_1]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Src"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["DesignHelpers"]
+  CALL R1 1 1
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K8 ["Actions"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R2 K9 ["Window"]
+  GETTABLEKS R4 R5 K10 ["SetDesignSheet"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K5 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Reducers"]
+  GETTABLEKS R5 R6 K12 ["RootReducer"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Thunks"]
+  GETTABLEKS R6 R7 K14 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  RETURN R6 1

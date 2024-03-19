@@ -1,8 +1,34 @@
 PROTO_0:
   GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Destroy"]
+  LOADK R2 K0 ["Folder"]
+  NAMECALL R0 R0 K1 ["IsA"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+28]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K2 ["GetChildren"]
+  CALL R0 1 3
+  FORGPREP R0
+  LOADK R7 K3 ["StyleCategory"]
+  NAMECALL R5 R4 K4 ["GetAttribute"]
+  CALL R5 2 1
+  MOVE R6 R5
+  JUMPIFNOT R6 [+4]
+  JUMPIFEQKS R5 K5 ["Themes"] [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  JUMPIFNOT R6 [+5]
+  LOADK R9 K6 ["StyleSheet"]
+  NAMECALL R7 R4 K1 ["IsA"]
+  CALL R7 2 1
+  JUMPIF R7 [+5]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["Parent"]
+  SETTABLEKS R7 R4 K7 ["Parent"]
+  FORGLOOP R0 2 [-22]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K8 ["Remove"]
   CALL R0 1 0
-  GETIMPORT R0 K4 [Enum.FinishRecordingOperation.Commit]
+  GETIMPORT R0 K12 [Enum.FinishRecordingOperation.Commit]
   RETURN R0 1
 
 PROTO_1:

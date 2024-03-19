@@ -14,6 +14,7 @@ PROTO_0:
   GETUPVAL R6 0
   SETTABLEKS R6 R5 K1 ["requestId"]
   GETUPVAL R7 2
+  CALL R7 0 1
   JUMPIFNOT R7 [+2]
   GETUPVAL R6 3
   JUMPIF R6 [+1]
@@ -35,6 +36,7 @@ PROTO_1:
   NEWTABLE R1 0 0
   SETTABLEKS R0 R1 K0 ["requestId"]
   GETUPVAL R2 0
+  CALL R2 0 1
   JUMPIFNOT R2 [+3]
   GETUPVAL R2 1
   SETTABLEKS R2 R1 K1 ["streamId"]
@@ -85,28 +87,29 @@ MAIN:
   LOADK R3 K4 ["StreamingService"]
   NAMECALL R1 R1 K3 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R5 K6 [script]
-  GETTABLEKS R4 R5 K7 ["Parent"]
-  GETTABLEKS R3 R4 K7 ["Parent"]
-  GETTABLEKS R2 R3 K7 ["Parent"]
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R2 K10 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Cryo"]
+  GETIMPORT R2 K6 [script]
+  LOADK R4 K7 ["StreamingServiceDispatcherRegistry"]
+  NAMECALL R2 R2 K8 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R5 R2 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Cryo"]
   CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R6 R2 K12 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Types"]
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R6 R2 K13 ["Src"]
+  GETTABLEKS R5 R6 K14 ["Types"]
   CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R8 R2 K12 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Cache"]
-  GETTABLEKS R6 R7 K15 ["StreamCache"]
+  GETIMPORT R5 K10 [require]
+  GETTABLEKS R8 R2 K13 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Cache"]
+  GETTABLEKS R6 R7 K16 ["StreamCache"]
   CALL R5 1 1
-  GETIMPORT R6 K1 [game]
-  LOADK R8 K16 ["CAPAddStreamIdToRichTextContent2"]
-  NAMECALL R6 R6 K17 ["GetFastFlag"]
-  CALL R6 2 1
-  DUPCLOSURE R7 K18 [PROTO_3]
+  GETIMPORT R6 K10 [require]
+  GETTABLEKS R9 R2 K13 ["Src"]
+  GETTABLEKS R8 R9 K17 ["Flags"]
+  GETTABLEKS R7 R8 K18 ["getFFlagCAPAddStreamIdToRichTextContent"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K19 [PROTO_3]
   CAPTURE VAL R3
   CAPTURE VAL R6
   CAPTURE VAL R1

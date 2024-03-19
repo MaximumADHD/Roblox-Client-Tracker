@@ -1,0 +1,119 @@
+PROTO_0:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R0 0
+  LOADNIL R2
+  NAMECALL R0 R0 K0 ["render"]
+  CALL R0 2 0
+  LOADNIL R0
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R1 K1 [plugin]
+  GETTABLEKS R0 R1 K2 ["HostDataModelTypeIsCurrent"]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["MountAssetReactTree"]
+  JUMPIFNOT R0 [+72]
+  GETIMPORT R0 K5 [require]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["Packages"]
+  GETTABLEKS R1 R2 K7 ["React"]
+  CALL R0 1 1
+  GETIMPORT R1 K5 [require]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["ReactRoblox"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["MainPlugin"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K11 ["createElement"]
+  MOVE R4 R2
+  DUPTABLE R5 K13 [{"Plugin"}]
+  GETIMPORT R6 K1 [plugin]
+  SETTABLEKS R6 R5 K12 ["Plugin"]
+  CALL R3 2 1
+  GETIMPORT R4 K16 [Instance.new]
+  LOADK R5 K17 ["ScreenGui"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K18 ["createRoot"]
+  MOVE R6 R4
+  CALL R5 1 1
+  JUMPIFNOT R5 [+4]
+  MOVE R8 R3
+  NAMECALL R6 R5 K19 ["render"]
+  CALL R6 2 0
+  GETIMPORT R6 K21 [game]
+  LOADK R8 K22 ["StarterGui"]
+  NAMECALL R6 R6 K23 ["GetService"]
+  CALL R6 2 1
+  SETTABLEKS R6 R4 K24 ["Parent"]
+  NEWCLOSURE R6 P0
+  CAPTURE REF R5
+  GETIMPORT R8 K1 [plugin]
+  GETTABLEKS R7 R8 K25 ["Unloading"]
+  MOVE R9 R6
+  NAMECALL R7 R7 K26 ["Connect"]
+  CALL R7 2 0
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K27 ["CurrentDataModelTypeAboutToChange"]
+  MOVE R9 R6
+  NAMECALL R7 R7 K26 ["Connect"]
+  CALL R7 2 0
+  CLOSEUPVALS R5
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [plugin]
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETIMPORT R0 K3 [script]
+  LOADK R2 K4 ["AssetAccess"]
+  NAMECALL R0 R0 K5 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K6 ["Bin"]
+  GETTABLEKS R1 R2 K7 ["Common"]
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R3 R1 K10 ["defineLuaFlags"]
+  CALL R2 1 0
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K11 ["Packages"]
+  GETTABLEKS R3 R4 K12 ["TestLoader"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K13 ["launch"]
+  LOADK R4 K4 ["AssetAccess"]
+  GETTABLEKS R5 R0 K14 ["Src"]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K15 ["isCli"]
+  CALL R3 0 1
+  JUMPIFNOT R3 [+1]
+  RETURN R0 0
+  GETIMPORT R3 K17 [game]
+  LOADK R5 K18 ["AssetAccessErrorMessageImprovements"]
+  NAMECALL R3 R3 K19 ["GetFastFlag"]
+  CALL R3 2 1
+  JUMPIF R3 [+1]
+  RETURN R0 0
+  GETTABLEKS R3 R2 K20 ["getDebugFlags"]
+  LOADK R4 K4 ["AssetAccess"]
+  CALL R3 1 1
+  GETIMPORT R5 K1 [plugin]
+  GETTABLEKS R4 R5 K21 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R5 R4 K22 ["FocusedDataModelSession"]
+  DUPCLOSURE R6 K23 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  GETTABLEKS R7 R5 K24 ["CurrentDataModelTypeChanged"]
+  MOVE R9 R6
+  NAMECALL R7 R7 K25 ["Connect"]
+  CALL R7 2 0
+  MOVE R7 R6
+  CALL R7 0 0
+  RETURN R0 0

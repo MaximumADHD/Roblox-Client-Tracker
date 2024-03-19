@@ -68,6 +68,9 @@ return function()
 			getGameInfoShowChatFeatures = function()
 				return true
 			end,
+			getDisplayCheckboxInVoiceConsent = function()
+				return true
+			end,
 		}
 	end
 
@@ -81,11 +84,9 @@ return function()
 	local BlockMock = Instance.new("BindableEvent")
 	local VoiceChatServiceManager
 
-	local TableUtilities = require(game:GetService("CorePackages").AppTempCommon.LuaApp.TableUtilities)
 	local tutils = require(CorePackages.tutils)
-	local GetFFlagLuaAppReplaceTableUtilities = TableUtilities.GetFFlagLuaAppReplaceTableUtilities
 
-	local deepEqual = if GetFFlagLuaAppReplaceTableUtilities() then tutils.deepEqual else TableUtilities.DeepEqual
+	local deepEqual = tutils.deepEqual
 
 	local HTTPServiceStub = {
 		GetAsyncFullUrlCB = noop,

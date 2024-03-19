@@ -1,5 +1,8 @@
 return function()
 	local Reducer = require(script.Parent.InspectAndBuyReducer)
+	local InspectAndBuyFolder = script.Parent.Parent
+	local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+		require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 	it("has the expected fields, and only the expected fields", function()
 		local state = Reducer(nil, {})
@@ -9,6 +12,7 @@ return function()
 			playerId = true,
 			playerName = true,
 			assets = true,
+			assetBundles = if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then true else nil,
 			bundles = true,
 			equippedAssets = true,
 			detailsInformation = true,

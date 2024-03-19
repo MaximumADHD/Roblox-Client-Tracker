@@ -2,14 +2,14 @@
 local var0 = game:GetService("MaterialGenerationService")
 local var1 = game:GetService("MaterialService")
 local var2 = game:GetService("ChatbotUIService")
-local var3 = script.Parent.Parent.Parent.Parent
+local var3 = script:FindFirstAncestor("StreamingServiceDispatcherRegistry")
 local var4 = require(var3.Packages.Promise)
 local var5 = require(var3.Packages.Dash)
 local var6 = require(var3.Src.Utils.Utils)
 local var7 = require(var3.Src.Types)
 local var8 = require(var3.Src.Localization.Localization)
-local var9 = game:GetFastFlag("MaterialGenErrorTextFiltered")
-local var10 = require(script.Parent.BuilderNameMap)
+local var9 = require(var3.Src.Commands.BuilderCommands.BuilderNameMap)
+local var10 = require(var3.Src.Flags.getFFlagMaterialGenErrorTextFiltered)
 local function var11(arg1)
    local var0 = var5.collectSet(var1:GetDescendants(), function(arg1, arg2)
       if arg2:IsA("MaterialVariant") then
@@ -81,19 +81,19 @@ local function fun4(arg1)
 end
 
 local function var12(arg1, arg2, arg3, arg4, arg5)
-   local var282 = {}
-   var282.baseMaterial = tostring(arg3)
-   var282.description = tostring(arg2)
-   local var291 = tostring(arg5)
-   var282.materialPattern = var291
-   var291 = var8:getText("CreateMaterial", "Description", var282)
-   var6.streamText(arg1.requestId, string.format("\n%s\n", var291))
+   local var142 = {}
+   var142.baseMaterial = tostring(arg3)
+   var142.description = tostring(arg2)
+   local var151 = tostring(arg5)
+   var142.materialPattern = var151
+   var151 = var8:getText("CreateMaterial", "Description", var142)
+   var6.streamText(arg1.requestId, string.format("\n%s\n", var151))
    if type(arg2) == "string" then
       local var0 = false
    end
    assert(true, "Bad materialDescription")
    assert(true, "Bad amount")
-   local var312 = 4
+   local var172 = 4
    return var4.try(function(arg1, arg2)
       if arg2:IsA("MaterialVariant") then
          return arg2.Name
@@ -127,28 +127,30 @@ end
 
 return function(arg1)
    local var0 = arg1.arguments
-   local var361 = type(var0.materialDescription)
-   if var361 == "string" then
+   local var221 = type(var0.materialDescription)
+   if var221 == "string" then
       local var0 = false
    end
    assert(true, "Bad request.materialDescription")
-   var0.materialId = var0.materialId or var0.instanceId
-   var10.StartRecordingActions(arg1.requestId)
-   local var1 = var0.materialDescription
-   local var2 = var0.materialPattern
-   if not var12(arg1, var1, var0.baseMaterial, var0.materialId, var2):await() then
+   local var2 = var0.materialId or var0.instanceId
+   assert(var2, "Bad request.materialId")
+   var0.materialId = var2
+   var9.StartRecordingActions(arg1.requestId)
+   local var3 = var0.materialDescription
+   local var4 = var0.materialPattern
+   if not var12(arg1, var3, var0.baseMaterial, var0.materialId, var4):await() then
       local var0 = var8:getText("CreateMaterial", "FailedToCreateMaterialImprovedError", {})
-      if var9 then
-         if string.find(tostring(var1), "text is fully filtered") then
+      if var10() then
+         if string.find(tostring(var3), "text is fully filtered") then
             var0 = var8:getText("CreateMaterial", "FailedToCreateMaterialTextFilteredError", {})
          end
       end
       var6.streamText(arg1.requestId, string.format("\n%s\n", var0))
-      var10.EndRecordingActions(arg1.requestId)
+      var9.EndRecordingActions(arg1.requestId)
    end
    if var0.materialId then
-      var2 = var1
-      var10.set(var0.materialId, var2)
+      var4 = var3
+      var9.set(var0.materialId, var4)
    end
-   var10.EndRecordingActions(arg1.requestId)
+   var9.EndRecordingActions(arg1.requestId)
 end

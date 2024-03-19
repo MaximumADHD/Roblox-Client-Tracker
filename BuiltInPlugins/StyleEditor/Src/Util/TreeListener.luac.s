@@ -52,21 +52,24 @@ PROTO_3:
   GETUPVAL R1 1
   GETTABLEKS R0 R1 K2 ["updateHierarchy"]
   GETUPVAL R1 0
-  CALL R0 1 0
+  LOADK R2 K3 ["PropertyChanged"]
+  CALL R0 2 0
   RETURN R0 0
 
 PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["updateHierarchy"]
   GETUPVAL R1 1
-  CALL R0 1 0
+  LOADK R2 K1 ["PropertyChanged"]
+  CALL R0 2 0
   RETURN R0 0
 
 PROTO_5:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["updateHierarchy"]
   GETUPVAL R1 1
-  CALL R0 1 0
+  LOADK R2 K1 ["AttributeChanged"]
+  CALL R0 2 0
   RETURN R0 0
 
 PROTO_6:
@@ -147,7 +150,9 @@ PROTO_7:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["updateHierarchy"]
   GETUPVAL R2 1
-  CALL R1 1 0
+  LOADK R3 K2 ["DescendantAdded"]
+  MOVE R4 R0
+  CALL R1 3 0
   RETURN R0 0
 
 PROTO_8:
@@ -158,7 +163,9 @@ PROTO_8:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["updateHierarchy"]
   GETUPVAL R2 1
-  CALL R1 1 0
+  LOADK R3 K2 ["DescendantRemoving"]
+  MOVE R4 R0
+  CALL R1 3 0
   RETURN R0 0
 
 PROTO_9:
@@ -169,7 +176,8 @@ PROTO_9:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K1 ["updateHierarchy"]
   GETUPVAL R1 1
-  CALL R0 1 0
+  LOADK R2 K2 ["Destroying"]
+  CALL R0 2 0
   RETURN R0 0
 
 PROTO_10:

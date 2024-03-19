@@ -10,16 +10,12 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K7 ["Util"]
   GETTABLEKS R2 R3 K8 ["enumerate"]
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Types"]
-  CALL R3 1 1
-  MOVE R4 R2
-  LOADK R5 K11 ["InstancesHaveVariant"]
-  NEWTABLE R6 0 3
-  LOADK R7 K12 ["All"]
-  LOADK R8 K13 ["Mixed"]
-  LOADK R9 K14 ["None"]
-  SETLIST R6 R7 3 [1]
-  CALL R4 2 -1
-  RETURN R4 -1
+  MOVE R3 R2
+  LOADK R4 K9 ["InstancesHaveVariant"]
+  NEWTABLE R5 0 3
+  LOADK R6 K10 ["All"]
+  LOADK R7 K11 ["Mixed"]
+  LOADK R8 K12 ["None"]
+  SETLIST R5 R6 3 [1]
+  CALL R3 2 -1
+  RETURN R3 -1

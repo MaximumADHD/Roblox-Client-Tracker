@@ -36,6 +36,12 @@ local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBu
 local GetFFlagDisplayCollectiblesIcon = require(InspectAndBuyFolder.Flags.GetFFlagDisplayCollectiblesIcon)
 local GetFFlagIBEnableLimitedItemBugFixAndAlignment =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
+local GetItemDetails = require(InspectAndBuyFolder.Thunks.GetItemDetails)
+
 local Modules = CoreGui.RobloxGui.Modules
 local Theme = require(Modules.Settings.Theme)
 
@@ -60,6 +66,10 @@ function AssetDetails:getInfoRowProps()
 	local locale = self.props.locale
 
 	local isBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		-- TODO: make sure this is extracted to a utility function when removing the flag.
+		isBundle = assetInfo.parentBundleId ~= nil
+	end
 
 	-- Creator Row
 	local creatorRow = {
@@ -134,11 +144,14 @@ function AssetDetails:init()
 end
 
 function AssetDetails:willUpdate(nextProps)
-	if self.props.assetInfo ~= nextProps.assetInfo and nextProps.assetInfo then
-		local getAssetBundles = self.props.getAssetBundles
+	if not GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		-- We don't need get bundle info anymore since we get all info at the AssetList
+		if self.props.assetInfo ~= nextProps.assetInfo and nextProps.assetInfo then
+			local getAssetBundles = self.props.getAssetBundles
 
-		if not nextProps.assetInfo.bundlesAssetIsIn then
-			getAssetBundles(nextProps.assetInfo.assetId)
+			if not nextProps.assetInfo.bundlesAssetIsIn then
+				getAssetBundles(nextProps.assetInfo.assetId)
+			end
 		end
 	end
 
@@ -166,24 +179,48 @@ function AssetDetails:didUpdate(prevProps)
 	local reportOpenDetailsPage = self.props.reportOpenDetailsPage
 	local assetInfo = self.props.assetInfo
 	local prevAssetInfo = prevProps.assetInfo
-
-	if assetInfo ~= prevAssetInfo and assetInfo and assetInfo.bundlesAssetIsIn then
+	-- It was using bundlesAssetIsIn ~= nil to check if the bundle info was obtained.
+	local assetInfoUpdated = assetInfo ~= prevAssetInfo and assetInfo and assetInfo.bundlesAssetIsIn
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		assetInfoUpdated = assetInfo and assetInfo ~= prevAssetInfo
+	end
+	if assetInfoUpdated then
 		local getEconomyProductInfo = self.props.getEconomyProductInfo
 		local bundles = self.props.bundles
 		local isBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+			isBundle = assetInfo.parentBundleId ~= nil
+		end
 		local bundleId = isBundle and UtilityFunctions.getBundleId(assetInfo)
 		local productId = isBundle and bundles[bundleId].productId or assetInfo.productId
 
 		-- TODO: Update the condition if or when we introduce L2.0 bundles
 		-- Collectible Items don't need the getEconomyProductInfo() check, as users can own multiple instances
+		-- TODO (lliu): Unlimited Items/Bundles won't be able to use this API, as this API does not support for unlimited items on the backend
 		local skipEconomyProductInfo = GetCollectibleItemInInspectAndBuyEnabled()
 			and assetInfo.productType == Constants.ProductType.CollectibleItem
 
-		if
-			(not isBundle and not skipEconomyProductInfo and assetInfo.owned == nil)
-			or (isBundle and bundles[bundleId].owned == nil)
-		then
-			getEconomyProductInfo(productId, isBundle, bundleId)
+		if  GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
+			if
+				(not isBundle and assetInfo.owned == nil)
+				or (isBundle and bundles[bundleId].owned == nil)
+			then
+				local itemId = assetInfo.assetId
+				local itemType = Enum.AvatarItemType.Asset
+				if isBundle then
+					itemId = bundleId
+					itemType = Enum.AvatarItemType.Bundle
+				end
+				self.props.getItemDetails(itemId, itemType)
+			end
+		else
+			if
+				(not isBundle and not skipEconomyProductInfo and assetInfo.owned == nil)
+				or (isBundle and bundles[bundleId].owned == nil)
+			then
+				-- This getEconomyProductInfo is v1/products/{productId} API. This is not MarketplaceService:GetProductInfo API!
+				getEconomyProductInfo(productId, isBundle, bundleId)
+			end
 		end
 	end
 
@@ -198,7 +235,11 @@ function AssetDetails:didUpdate(prevProps)
 		and assetInfo
 		and assetInfo.bundlesAssetIsIn
 
-	if (assetInfo and assetInfo.bundlesAssetIsIn and startedViewingDetails) or obtainedBundlesInfo then
+	local shouldReportOpenDetailPage = (assetInfo and assetInfo.bundlesAssetIsIn and startedViewingDetails) or obtainedBundlesInfo
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		shouldReportOpenDetailPage = startedViewingDetails
+	end
+	if shouldReportOpenDetailPage then
 		reportOpenDetailsPage(assetInfo)
 	end
 end
@@ -252,7 +293,7 @@ function AssetDetails:render()
 				BackgroundColor3 = Colors.Carbon,
 				BorderSizePixel = 0,
 				-- Do not show asset information until we know if a bundle should be shown instead.
-				Visible = detailsInformation.viewingDetails and assetInfo.bundlesAssetIsIn ~= nil,
+				Visible = if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then detailsInformation.viewingDetails else (detailsInformation.viewingDetails and assetInfo.bundlesAssetIsIn ~= nil),
 			}, {
 				DetailsButtons = Roact.createElement(DetailsButtons, {
 					localPlayerModel = localPlayerModel,
@@ -349,5 +390,8 @@ end, function(dispatch)
 		getCollectibleResellableInstances = function(collectibleItemId, userId)
 			dispatch(GetCollectibleResellableInstances(collectibleItemId, userId))
 		end,
+		getItemDetails = function(itemId, itemType)
+			dispatch(GetItemDetails(itemId, itemType))
+		end
 	}
 end)(AssetDetails)

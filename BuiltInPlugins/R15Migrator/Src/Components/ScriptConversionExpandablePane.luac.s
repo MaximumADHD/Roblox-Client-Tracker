@@ -123,7 +123,7 @@ PROTO_2:
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 5
-  DUPTABLE R17 K36 [{"LayoutOrder", "Size"}]
+  DUPTABLE R17 K42 [{"LayoutOrder", "Size", "OnResetPlugin"}]
   NAMECALL R18 R6 K37 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K2 ["LayoutOrder"]
@@ -133,10 +133,12 @@ PROTO_2:
   LOADN R21 1
   GETTABLEKS R24 R2 K40 ["HeaderHeight"]
   MINUS R23 R24
-  GETTABLEKS R24 R2 K41 ["FooterHeight"]
+  GETTABLEKS R24 R2 K43 ["FooterHeight"]
   SUB R22 R23 R24
   CALL R18 4 1
   SETTABLEKS R18 R17 K8 ["Size"]
+  GETTABLEKS R18 R1 K41 ["OnResetPlugin"]
+  SETTABLEKS R18 R17 K41 ["OnResetPlugin"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K33 ["ScriptIssueTreeView"]
   GETUPVAL R16 1
@@ -150,7 +152,7 @@ PROTO_2:
   LOADN R19 1
   LOADN R20 0
   LOADN R21 0
-  GETTABLEKS R22 R2 K41 ["FooterHeight"]
+  GETTABLEKS R22 R2 K43 ["FooterHeight"]
   CALL R18 4 1
   SETTABLEKS R18 R17 K8 ["Size"]
   CALL R15 2 1

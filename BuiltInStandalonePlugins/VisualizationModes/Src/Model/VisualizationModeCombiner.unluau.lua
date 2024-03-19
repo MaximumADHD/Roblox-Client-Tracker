@@ -7,14 +7,14 @@ local var4 = {}
 var4.__index = var4
 function var4.new(arg1)
    local var0 = setmetatable({}, var4)
-   local var26 = var1
-   var0._maid = var26.new()
-   var26 = arg1
-   var0._plugin = assert(var26, "No plugin")
+   local var179 = var1
+   var0._maid = var179.new()
+   var179 = arg1
+   var0._plugin = assert(var179, "No plugin")
    var0._state = nil
-   local var36 = var2.new()
+   local var189 = var2.new()
    var0.changed = var0._maid:add()
-   local var47 = var0._plugin:OnInvoke("updateVisualizationModes", function(arg1)
+   local var200 = var0._plugin:OnInvoke("updateVisualizationModes", function(arg1)
       var0:_setState(arg1)
    end)
    var0._maid:giveTask()

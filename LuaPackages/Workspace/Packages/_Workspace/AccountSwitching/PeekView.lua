@@ -5,4 +5,7 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 
 local Package = require(PackageIndex["PeekView"]["PeekView"])
 
+export type PeekViewDismissMethod = Package.PeekViewDismissMethod
+
+
 return Package

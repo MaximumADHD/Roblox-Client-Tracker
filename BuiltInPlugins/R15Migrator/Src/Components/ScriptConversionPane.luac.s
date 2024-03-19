@@ -264,28 +264,30 @@ PROTO_10:
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K7 ["createElement"]
   GETUPVAL R12 9
-  DUPTABLE R13 K55 [{"LayoutOrder", "HeaderSize", "ContentSize"}]
+  DUPTABLE R13 K56 [{"LayoutOrder", "HeaderSize", "ContentSize", "OnResetPlugin"}]
   NAMECALL R14 R6 K42 ["getNextOrder"]
   CALL R14 1 1
   SETTABLEKS R14 R13 K37 ["LayoutOrder"]
   GETTABLEKS R14 R4 K53 ["ExpandablePaneHeaderSize"]
   SETTABLEKS R14 R13 K51 ["HeaderSize"]
-  NAMECALL R14 R0 K56 ["getScriptExpandablePaneSize"]
+  NAMECALL R14 R0 K57 ["getScriptExpandablePaneSize"]
   CALL R14 1 1
   SETTABLEKS R14 R13 K54 ["ContentSize"]
+  GETTABLEKS R14 R1 K55 ["OnResetPlugin"]
+  SETTABLEKS R14 R13 K55 ["OnResetPlugin"]
   CALL R11 2 1
   SETTABLEKS R11 R10 K34 ["ScriptConversionExpandablePane"]
   JUMPIFNOT R3 [+16]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K7 ["createElement"]
   GETUPVAL R12 10
-  DUPTABLE R13 K58 [{"Text", "Progress"}]
-  LOADK R16 K59 ["ProgressBar"]
+  DUPTABLE R13 K59 [{"Text", "Progress"}]
+  LOADK R16 K60 ["ProgressBar"]
   MOVE R17 R2
   NAMECALL R14 R5 K14 ["getText"]
   CALL R14 3 1
   SETTABLEKS R14 R13 K10 ["Text"]
-  SETTABLEKS R3 R13 K57 ["Progress"]
+  SETTABLEKS R3 R13 K58 ["Progress"]
   CALL R11 2 1
   JUMP [+1]
   LOADNIL R11

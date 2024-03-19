@@ -2,6 +2,8 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = game:GetService("CoreGui").RobloxGui
 local Roact = require(CorePackages.Roact)
 
+local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
+
 local Constants = require(script.Parent.Parent.Constants)
 local ENTRY_HEIGHT = Constants.GeneralFormatting.DropDownEntryHeight
 local ARROW_SIZE = Constants.GeneralFormatting.DropDownArrowHeight
@@ -11,6 +13,8 @@ local OPEN_ARROW = Constants.Image.DownArrow
 local FULL_SCREEN_WIDTH = 375
 local INNER_Y_OFFSET = 8
 local INNER_X_OFFSET = 15
+
+local FFlagDevConsoleFullScreenDropDownScrollFix = game:DefineFastFlag("DevConsoleFullScreenDropDownScrollFix", false)
 
 local FullScreenDropDownButton = Roact.Component:extend("FullScreenDropDownButton")
 
@@ -33,6 +37,7 @@ function FullScreenDropDownButton:init()
 
 	self.state = {
 		selectionScreenExpanded = false,
+		guiSizeY = RobloxGui.AbsoluteSize.Y,
 	}
 end
 
@@ -86,6 +91,8 @@ function FullScreenDropDownButton:render()
 		end
 	end
 
+	local extraEntrySpace = (scrollingFrameHeight - (2 * INNER_Y_OFFSET)) - self.state.guiSizeY
+
 	return Roact.createElement("TextButton", {
 		Size = buttonSize,
 		BackgroundColor3 = Constants.Color.UnselectedGray,
@@ -95,6 +102,15 @@ function FullScreenDropDownButton:render()
 
 		[Roact.Event.Activated] = self.startDropDownView,
 	}, {
+		SizeChangeEvent = if not FFlagDevConsoleFullScreenDropDownScrollFix then nil else Roact.createElement(ExternalEventConnection, {
+			event = RobloxGui:GetPropertyChangedSignal("AbsoluteSize"),
+			callback = function()
+				self:setState({
+					guiSizeY = RobloxGui.AbsoluteSize.Y
+				})
+			end,
+		}),
+
 		text = Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, -ARROW_SIZE - ARROW_OFFSET, 1, 0),
 			Text = dropDownList[selectedIndex],
@@ -138,7 +154,7 @@ function FullScreenDropDownButton:render()
 
 						-- adding an extra entry's worth of height for easier access to last
 						-- child when trying to select last child
-						CanvasSize = UDim2.new(1, -2 * INNER_X_OFFSET, 1, ENTRY_HEIGHT),
+						CanvasSize = UDim2.new(1, -2 * INNER_X_OFFSET, 1, if FFlagDevConsoleFullScreenDropDownScrollFix then extraEntrySpace else ENTRY_HEIGHT),
 						BorderSizePixel = 0,
 
 						ScrollBarThickness = 0,

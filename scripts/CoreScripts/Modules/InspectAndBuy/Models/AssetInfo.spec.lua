@@ -2,7 +2,9 @@ return function()
     local AssetInfo = require(script.Parent.AssetInfo)
 	local Constants = require(script.Parent.Parent.Constants)
 	local CorePackages = game:GetService("CorePackages")
-
+    local InspectAndBuyFolder = script.Parent.Parent
+    local GetFFlagIBEnableRespectSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableRespectSaleLocation)
+    local GetCollectibleItemInInspectAndBuyEnabled = require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
@@ -33,7 +35,7 @@ return function()
         }
     end
 
-    local function IsSaleLocationEnabled()
+    local function _IsSaleLocationEnabled()
         return game:GetEngineFeature("CollectibleItemInInspectAndBuyEnabled")
     end
 
@@ -47,14 +49,34 @@ return function()
             local productInfo = createCollectibleItem()
             productInfo.Remaining = 0
             local assetInfo = AssetInfo.fromGetProductInfo(productInfo)
-			expect(assetInfo.isForSale).toBe(not IsSaleLocationEnabled())
+            -- Flaky test, even Engine FFlag is turned on, it should respect the mock only
+            -- using FFlag value to check assertion will cause unknown issue and flaky test.
+            -- This is a unit test, using this fflag  super hard to maintain.
+
+            -- After turn on GetFFlagIBEnableRespectSaleLocation, we will only respect the IsForSale
+            -- Remaining should not be considered on frontend.
+            if GetCollectibleItemInInspectAndBuyEnabled() and GetFFlagIBEnableRespectSaleLocation() then
+                expect(assetInfo.isForSale).toBe(true)
+            elseif GetCollectibleItemInInspectAndBuyEnabled() and not GetFFlagIBEnableRespectSaleLocation() then
+                expect(assetInfo.isForSale).toBe(false)
+            else
+                expect(assetInfo.isForSale).toBe(true)
+            end
         end)
 
         it("should mark Collectible Item as offSale if sale location is DEV_API_ONLY", function()
             local productInfo = createCollectibleItem()
             productInfo.SaleLocation.SaleLocationType = Constants.SaleLocationType.ExperiencesDevApiOnly
             local assetInfo = AssetInfo.fromGetProductInfo(productInfo)
-			expect(assetInfo.isForSale).toBe(not IsSaleLocationEnabled())
+            -- This one should be false because:
+            -- if type is ExperiencesDevApiOnly and UniverseIds is empty, it should not be allowed to purchase
+            if GetCollectibleItemInInspectAndBuyEnabled() and GetFFlagIBEnableRespectSaleLocation() then
+                expect(assetInfo.isForSale).toBe(false)
+            elseif GetCollectibleItemInInspectAndBuyEnabled() and not GetFFlagIBEnableRespectSaleLocation() then
+                expect(assetInfo.isForSale).toBe(false)
+            else
+                expect(assetInfo.isForSale).toBe(true)
+            end
         end)
     end)
 end

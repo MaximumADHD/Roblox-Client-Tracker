@@ -8,6 +8,8 @@ local Colors = require(InspectAndBuyFolder.Colors)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
 local FFlagAssetDetailsUseAutomaticCanvasSize = require(InspectAndBuyFolder.Flags.FFlagAssetDetailsUseAutomaticCanvasSize)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local TEXT_SIZE_SMALL = 16
 local DETAILS_SIZES = 451
@@ -21,6 +23,9 @@ local DetailsDescription = Roact.PureComponent:extend("DetailsDescription")
 function DetailsDescription:setText()
 	local assetInfo = self.props.assetInfo or {}
 	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		partOfBundle = assetInfo.parentBundleId ~= nil
+	end
 	local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
 	local bundleInfo = self.props.bundleInfo or {}
 

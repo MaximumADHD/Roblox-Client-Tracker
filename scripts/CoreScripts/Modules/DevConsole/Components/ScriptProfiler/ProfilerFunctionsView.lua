@@ -26,8 +26,6 @@ local VALUE_PADDING = Constants.ScriptProfilerFormatting.ValuePadding
 
 local ProfilerView = Roact.PureComponent:extend("ProfilerView")
 
-local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
-
 function ProfilerView:renderChildren()
     local data = self.props.data :: ProfilerData.RootDataFormat
     assert(data.Version == 2);
@@ -48,7 +46,7 @@ function ProfilerView:renderChildren()
 
     for index, func in ipairs(data.Functions) do
 
-        if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[index] then
+        if #searchFilter > 0 and not searchFilter[index] then
             continue
         end
 

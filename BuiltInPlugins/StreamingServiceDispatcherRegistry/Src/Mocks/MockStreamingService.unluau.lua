@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = require(script.Parent.Parent.Parent.Packages.Framework).Util.Signal
+local var0 = require(script:FindFirstAncestor("StreamingServiceDispatcherRegistry").Packages.Framework).Util.Signal
 local var1 = {}
 var1.__index = var1
 function var1.new()

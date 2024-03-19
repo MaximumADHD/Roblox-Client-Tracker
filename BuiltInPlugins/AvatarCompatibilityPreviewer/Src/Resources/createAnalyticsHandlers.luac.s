@@ -86,6 +86,19 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
+  GETUPVAL R3 0
+  LOADK R4 K0 ["AutoSetupAssetsGenerated"]
+  DUPTABLE R5 K3 [{"inputAssetId", "outputAssetIds"}]
+  SETTABLEKS R1 R5 K1 ["inputAssetId"]
+  GETIMPORT R6 K6 [table.concat]
+  MOVE R7 R2
+  LOADK R8 K7 [","]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K2 ["outputAssetIds"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R2 0
   LOADK R3 K0 ["BundlesMetadataError"]
   DUPTABLE R4 K2 [{"problem"}]
@@ -93,13 +106,13 @@ PROTO_5:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R0 0
   LOADK R1 K0 ["ChangedLayers"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R2 0
   LOADK R3 K0 ["EquipItem"]
   GETUPVAL R4 1
@@ -108,7 +121,7 @@ PROTO_7:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   GETUPVAL R2 0
   LOADK R3 K0 ["PaletteOpen"]
   DUPTABLE R4 K2 [{"paletteKey"}]
@@ -116,13 +129,13 @@ PROTO_8:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R0 0
   LOADK R1 K0 ["PluginOpen"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   GETUPVAL R2 0
   LOADK R3 K0 ["TabOpen"]
   DUPTABLE R4 K2 [{"tabKey"}]
@@ -130,7 +143,7 @@ PROTO_10:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
   GETUPVAL R2 0
   CALL R2 0 1
   JUMPIFNOT R2 [+7]
@@ -145,7 +158,7 @@ PROTO_11:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R2 0
   LOADK R3 K0 ["SelectScreenChoice"]
   DUPTABLE R4 K2 [{"choice"}]
@@ -153,23 +166,33 @@ PROTO_12:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_13:
-  GETUPVAL R2 0
-  LOADK R3 K0 ["AutoSetupSurvey"]
-  DUPTABLE R4 K4 [{"rating", "message", "problems"}]
-  GETTABLEKS R5 R1 K1 ["rating"]
-  SETTABLEKS R5 R4 K1 ["rating"]
-  GETTABLEKS R5 R1 K2 ["message"]
-  SETTABLEKS R5 R4 K2 ["message"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K5 ["keys"]
-  GETTABLEKS R6 R1 K3 ["problems"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K3 ["problems"]
-  CALL R2 2 0
+PROTO_14:
+  GETUPVAL R3 0
+  LOADK R4 K0 ["AutoSetupSurvey"]
+  DUPTABLE R5 K5 [{"rating", "message", "problems", "outputAssetIds"}]
+  GETTABLEKS R6 R1 K1 ["rating"]
+  SETTABLEKS R6 R5 K1 ["rating"]
+  GETTABLEKS R6 R1 K2 ["message"]
+  SETTABLEKS R6 R5 K2 ["message"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K6 ["keys"]
+  GETTABLEKS R7 R1 K3 ["problems"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K3 ["problems"]
+  GETUPVAL R7 2
+  CALL R7 0 1
+  JUMPIFNOT R7 [+6]
+  GETIMPORT R6 K9 [table.concat]
+  MOVE R7 R2
+  LOADK R8 K10 [","]
+  CALL R6 2 1
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K4 ["outputAssetIds"]
+  CALL R3 2 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETUPVAL R2 0
   LOADK R3 K0 ["SetStage"]
   DUPTABLE R4 K2 [{"stageKey"}]
@@ -177,13 +200,13 @@ PROTO_14:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   GETUPVAL R0 0
   LOADK R1 K0 ["TestInExperience"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_17:
   GETUPVAL R2 0
   LOADK R3 K0 ["UnequipItem"]
   GETUPVAL R4 1
@@ -192,11 +215,11 @@ PROTO_16:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_18:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  DUPTABLE R2 K15 [{"addUserItems", "autoSetupFailure", "autoSetupFinish", "bundlesMetadataError", "changedLayers", "equipItem", "openPalette", "openPlugin", "openTab", "publish", "selectScreenChoice", "sendAutoSetupSurvey", "setStage", "testInExperience", "unequipItem"}]
+  DUPTABLE R2 K16 [{"addUserItems", "autoSetupFailure", "autoSetupFinish", "autoSetupAssetsGenerated", "bundlesMetadataError", "changedLayers", "equipItem", "openPalette", "openPlugin", "openTab", "publish", "selectScreenChoice", "sendAutoSetupSurvey", "setStage", "testInExperience", "unequipItem"}]
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K0 ["addUserItems"]
@@ -206,46 +229,55 @@ PROTO_17:
   NEWCLOSURE R3 P3
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K2 ["autoSetupFinish"]
+  GETUPVAL R4 1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+3]
   NEWCLOSURE R3 P4
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K3 ["bundlesMetadataError"]
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K3 ["autoSetupAssetsGenerated"]
   NEWCLOSURE R3 P5
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K4 ["changedLayers"]
+  SETTABLEKS R3 R2 K4 ["bundlesMetadataError"]
   NEWCLOSURE R3 P6
   CAPTURE VAL R1
-  CAPTURE UPVAL U1
-  SETTABLEKS R3 R2 K5 ["equipItem"]
+  SETTABLEKS R3 R2 K5 ["changedLayers"]
   NEWCLOSURE R3 P7
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K6 ["openPalette"]
+  CAPTURE UPVAL U2
+  SETTABLEKS R3 R2 K6 ["equipItem"]
   NEWCLOSURE R3 P8
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K7 ["openPlugin"]
+  SETTABLEKS R3 R2 K7 ["openPalette"]
   NEWCLOSURE R3 P9
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K8 ["openTab"]
+  SETTABLEKS R3 R2 K8 ["openPlugin"]
   NEWCLOSURE R3 P10
-  CAPTURE UPVAL U2
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K9 ["publish"]
+  SETTABLEKS R3 R2 K9 ["openTab"]
   NEWCLOSURE R3 P11
+  CAPTURE UPVAL U3
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K10 ["selectScreenChoice"]
+  SETTABLEKS R3 R2 K10 ["publish"]
   NEWCLOSURE R3 P12
   CAPTURE VAL R1
-  CAPTURE UPVAL U0
-  SETTABLEKS R3 R2 K11 ["sendAutoSetupSurvey"]
+  SETTABLEKS R3 R2 K11 ["selectScreenChoice"]
   NEWCLOSURE R3 P13
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K12 ["setStage"]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  SETTABLEKS R3 R2 K12 ["sendAutoSetupSurvey"]
   NEWCLOSURE R3 P14
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K13 ["testInExperience"]
+  SETTABLEKS R3 R2 K13 ["setStage"]
   NEWCLOSURE R3 P15
   CAPTURE VAL R1
-  CAPTURE UPVAL U1
-  SETTABLEKS R3 R2 K14 ["unequipItem"]
+  SETTABLEKS R3 R2 K14 ["testInExperience"]
+  NEWCLOSURE R3 P16
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  SETTABLEKS R3 R2 K15 ["unequipItem"]
   RETURN R2 1
 
 MAIN:
@@ -267,9 +299,15 @@ MAIN:
   GETTABLEKS R5 R6 K9 ["Flags"]
   GETTABLEKS R4 R5 K10 ["getFFlagAvatarPreviewerAutoSetup"]
   CALL R3 1 1
-  DUPCLOSURE R4 K11 [PROTO_0]
-  DUPCLOSURE R5 K12 [PROTO_17]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Flags"]
+  GETTABLEKS R5 R6 K11 ["getFFlagAvatarPreviewerAutoSetupTelemetry"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_0]
+  DUPCLOSURE R6 K13 [PROTO_18]
   CAPTURE VAL R1
   CAPTURE VAL R4
+  CAPTURE VAL R5
   CAPTURE VAL R3
-  RETURN R5 1
+  RETURN R6 1

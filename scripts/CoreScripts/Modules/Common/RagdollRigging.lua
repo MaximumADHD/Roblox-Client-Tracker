@@ -498,17 +498,6 @@ function Rigging.createRagdollJoints(model, rigType, jointUpgradeActive)
 	end
 end
 
-function Rigging.removeRagdollJoints(model)
-	for _, descendant in pairs(model:GetDescendants()) do
-		-- Remove BallSockets and NoCollides, leave the additional Attachments
-		if (descendant:IsA("BallSocketConstraint") and descendant.Name == BALL_SOCKET_NAME)
-			or (descendant:IsA("NoCollisionConstraint") and descendant.Name == NO_COLLIDE_NAME)
-		then
-			descendant:Destroy()
-		end
-	end
-end
-
 function Rigging.disableMotors(model, rigType)
 	-- Note: We intentionally do not disable the root joint so that the mechanism root of the
 	-- character stays consistent when we break joints on the client. This avoid the need for the client to wait

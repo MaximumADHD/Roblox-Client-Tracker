@@ -6,6 +6,9 @@ local InspectAndBuyFolder = script.Parent.Parent
 local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local SetBundlesAssetIsPartOf = require(InspectAndBuyFolder.Actions.SetBundlesAssetIsPartOf)
+local SetAssetFromBundleInfo = require(InspectAndBuyFolder.Actions.SetAssetFromBundleInfo)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 return Rodux.createReducer(
 	{}
@@ -40,4 +43,14 @@ return Rodux.createReducer(
 		asset = Cryo.Dictionary.join(currentAsset, asset)
 		return Cryo.Dictionary.join(state, {[assetId] = asset })
 	end,
+
+	[SetAssetFromBundleInfo.name] = if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then function(state, action)
+		local bundleInfo = action.bundleInfo
+		local assetId = tostring(action.assetId)
+		local currentAsset = state[assetId] or {}
+		local asset = AssetInfo.fromBundleInfo(assetId, bundleInfo)
+		asset = Cryo.Dictionary.join(currentAsset, asset)
+
+		return Cryo.Dictionary.join(state, { [assetId] = asset })
+	end else nil,
 })

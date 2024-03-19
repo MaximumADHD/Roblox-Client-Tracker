@@ -6,6 +6,7 @@ local GetFFlagShareInviteLinkContextMenuABTestEnabled = require(script.Parent.Pa
 local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
 local GetFStringLargerRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLargerRobuxUpsellIxpLayer
 local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
+local GetFStringLuaAppConsoleExperienceMenuLayer = require(script.Parent.Parent.Flags.GetFStringLuaAppConsoleExperienceMenuLayer)
 local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(script.Parent.Parent.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
 local GetFFlagEnableTeleportBackButton = require(script.Parent.Parent.Flags.GetFFlagEnableTeleportBackButton)
 local GetFStringTeleportBackButtonIXPCustomLayerName = require(script.Parent.Parent.Flags.GetFStringTeleportBackButtonIXPCustomLayerName)
@@ -34,6 +35,7 @@ return function()
 		or GetFFlagEnableNewInviteMenuIXP()
 	then
 		table.insert(layers, GetFStringLuaAppExperienceMenuLayer())
+		table.insert(layers, GetFStringLuaAppConsoleExperienceMenuLayer())
 	end
 
 	if GetFStringLargerRobuxUpsellIxpLayer() then

@@ -9,8 +9,11 @@ local UIBlox = require(CorePackages.UIBlox)
 local AssetCard = require(InspectAndBuyFolder.Components.AssetCard)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
+local SetAssetFromBundleInfo = require(InspectAndBuyFolder.Actions.SetAssetFromBundleInfo)
 
 local AssetList = Roact.PureComponent:extend("AssetList")
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local CARD_PADDING = 10
 local FRAME_PADDING = 15
@@ -104,6 +107,50 @@ function AssetList:didMount()
 	self.mounted = true
 end
 
+--[[
+	We need to update the assets with the bundle information
+	so that we can display the correct bundle information in the asset card
+	when the asset is part of a bundle.
+	However, since we send requests of bundles and assets at the same time,
+	we need to make sure that the assets are loaded before we update the assets with the bundle information.
+
+	Thus, we trigger the updateAssetsFromBundles function in didUpdate lifecycle method.
+]]
+function AssetList:updateAssetsFromBundles()
+	if not GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		return
+	end
+	local bundles = self.props.bundles
+	local assetBundles = self.props.assetBundles
+	local assets = self.props.assets
+	local loadedAssetIds = Cryo.Dictionary.keys(assets)
+
+	if not bundles or Cryo.isEmpty(bundles) then
+		return
+	end
+	local bundleInfoIndex = 1
+	for _, bundleInfo in pairs(bundles) do
+		-- loop all bundles
+		local assetsIdsInBundle = bundleInfo.assetIds
+		for i = 1, #assetsIdsInBundle do
+			-- loop each asset in each bundle
+			local assetId = tostring(assetsIdsInBundle[i])
+			if not table.find(loadedAssetIds, assetId) then
+				-- make sure the assetId is loaded assets
+				continue
+			end
+			local assetBundleMapping = assetBundles[assetId] or {}
+			-- if the asset is in multiple bundles, we will only respect the first bundle for displaying
+			if #assetBundleMapping == 1 or (bundleInfoIndex == 1 and #assetBundleMapping > 1 and assets[assetId] and assets[assetId].parentBundleId == nil) then
+				-- if the asset only belongs to 1 bundle
+				-- or only consider the first bundle own the asset
+				self.props.dispatchSetAssetFromBundleInfo(assetId, bundleInfo)
+			end
+		end
+		bundleInfoIndex += 1
+	end
+end
+
 function AssetList:didUpdate(prevProps)
 	if self.props.view ~= prevProps.view then
 		self:resize()
@@ -112,6 +159,12 @@ function AssetList:didUpdate(prevProps)
 	if self.mounted and self.props.gamepadEnabled and not self.props.detailsInformation.viewingDetails
 		and self.props.visible then
 		GuiService.SelectedCoreObject = self.gridFrameRef.current:FindFirstChildWhichIsA("GuiObject")
+	end
+
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		if self.props.assetBundles ~= prevProps.assetBundles or self.props.bundles ~= prevProps.bundles then
+			self:updateAssetsFromBundles()
+		end
 	end
 end
 
@@ -149,6 +202,28 @@ local function AssetListWrapper(props)
 			return Roact.createElement(AssetList, combinedProps)
 		end
 	})
+end
+
+if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+	return RoactRodux.connect(
+		function(state, props)
+			return {
+				view = state.view,
+				visible = state.visible,
+				assets = state.assets,
+				bundles = state.bundles,
+				assetBundles = state.assetBundles,
+				detailsInformation = state.detailsInformation,
+				gamepadEnabled = state.gamepadEnabled,
+			}
+		end, function(dispatch)
+			return {
+				dispatchSetAssetFromBundleInfo = function(assetId, bundleInfo)
+					dispatch(SetAssetFromBundleInfo(assetId, bundleInfo))
+				end,
+			}
+		end
+	)(AssetListWrapper)
 end
 
 return RoactRodux.UNSTABLE_connect2(

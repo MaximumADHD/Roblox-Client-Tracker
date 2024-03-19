@@ -4,11 +4,17 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local Cryo = require(CorePackages.Cryo)
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
 
 local GetFFlagRemoveAppTempCommonTemp =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
 local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
+
+local InspectAndBuyFolder = script.Parent.Parent
+local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 
 local Analytics = {}
 
@@ -97,6 +103,50 @@ function Analytics.new(inspecteeUid, ctx)
 		}
 
 		service:report(eventName, additionalFields)
+	end
+
+	if GetFFlagIBEnableSendCounters() then
+		local function getPlatformString()
+			local platform = UserInputService:GetPlatform()
+			local platformStr = "Unknown"
+
+			if platform == Enum.Platform.Windows then
+				platformStr = "Windows"
+			elseif platform == Enum.Platform.OSX then
+				platformStr = "OSX"
+			elseif platform == Enum.Platform.IOS then
+				platformStr = "IOS"
+			elseif platform == Enum.Platform.Android then
+				local useragent = HttpService:GetUserAgent()
+				if string.find(useragent, "AmazonAppStore") then
+					platformStr = "Amazon"
+				else
+					platformStr = "Android"
+				end
+				if string.find(useragent, "OculusQuest3Store") then
+					platformStr = "Quest"
+				end
+			elseif platform == Enum.Platform.XBoxOne or platform == Enum.Platform.XBox360 then
+				platformStr = "XBox"
+			elseif platform == Enum.Platform.UWP then
+				platformStr = "UWP"
+			elseif platform == Enum.Platform.PS4 or platform == Enum.Platform.PS3 or platform == Enum.Platform.PS5 then
+				platformStr = "PlayStation"
+			end
+
+			return platformStr
+		end
+
+		service.platformStr = getPlatformString()
+
+		function service.sendCounter(eventName)
+			if RunService:IsStudio() then
+				return
+			end
+			local counterName = INSPECT_TAG .. "_" .. service.platformStr .. "_" .. eventName
+
+			AnalyticsService:ReportCounter(counterName)
+		end
 	end
 
 	return service

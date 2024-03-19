@@ -22,6 +22,8 @@ PROTO_1:
   JUMPIF R1 [+1]
   RETURN R0 0
   GETUPVAL R1 0
+  GETTABLEKS R3 R0 K5 ["DisplayName"]
+  JUMPIF R3 [+2]
   GETTABLEKS R3 R0 K3 ["Name"]
   GETTABLEKS R4 R0 K5 ["DisplayName"]
   NAMECALL R1 R1 K6 ["TryBeginRecording"]

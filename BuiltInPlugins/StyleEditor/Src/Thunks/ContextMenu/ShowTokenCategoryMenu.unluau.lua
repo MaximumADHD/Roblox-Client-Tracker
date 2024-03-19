@@ -14,18 +14,15 @@ return function()
       var41.Id = "New"
       var41.Text = arg2.Localization:getText("ContextMenu", "New")
       var41.Icon = var3.new()
-      local function fun0(arg1)
-         local var0 = var4()
-         arg1:dispatch()
-      end
-      
       function var41.OnItemClicked(arg1)
          local var0 = var4()
          arg1:dispatch()
       end
       
       var0.Children = {}
-      fun0 = var0
-      var2.showContextMenu(arg2.Plugin, fun0)
+      local var55 = var2
+      var55 = var0
+      var55.trackClicks(var55, arg2.Telemetry)
+      var2.showContextMenu(arg2.Plugin, var0)
    end
 end

@@ -1,19 +1,19 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("StreamingServiceDispatcherRegistry")
 local var1 = require(var0.Src.Utils.Utils)
 local var2 = require(var0.Src.Types)
 local var3 = require(var0.Src.Commands.BuilderCommands.BuilderNameMap)
 return function(arg1)
    local var0 = arg1.requestId
-   local var22 = var1
-   var22 = var0
-   local var25 = var3
-   var25 = var0
-   local var2 = var25.GetRequestMetadata(var25, "PlacementSize")
-   local var29 = var1
-   var29 = var0
-   var29.addConstraintVisualization(var29, var22.getRequestCFrame(var22), Vector3.new(var2.X, 0, var2.Z), true)
-   local var38 = var1
-   var38 = var0
-   var38.startConstraintVisualization(var38, true)
+   local var21 = var1
+   var21 = var0
+   local var24 = var3
+   var24 = var0
+   local var2 = var24.GetRequestMetadata(var24, "PlacementSize")
+   local var28 = var1
+   var28 = var0
+   var28.addConstraintVisualization(var28, var21.getRequestCFrame(var21), Vector3.new(var2.X, 0, var2.Z), true)
+   local var37 = var1
+   var37 = var0
+   var37.startConstraintVisualization(var37, true)
 end

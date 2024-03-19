@@ -4,6 +4,9 @@ local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
 local Network = require(InspectAndBuyFolder.Services.Network)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
+local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
+local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
 	Network,
@@ -24,9 +27,17 @@ local function GetCharacterModelFromUserId(userId, isLocalPlayer, callBack)
 			return network.getModelFromUserId(userId):andThen(
 				function(model)
 					callBack(model)
-				end)
+					if GetFFlagIBEnableSendCounters() then
+						store:dispatch(SendCounter(Constants.Counters.GetCharacterModelFromUserId .. Constants.CounterSuffix.RequestSucceeded))
+					end
+				end,
+				if GetFFlagIBEnableSendCounters() then function(err)
+					store:dispatch(SendCounter(Constants.Counters.GetCharacterModelFromUserId .. Constants.CounterSuffix.RequestRejected))
+				end else nil)
 		end)(store):catch(function(err)
-
+			if GetFFlagIBEnableSendCounters() then
+				store:dispatch(SendCounter(Constants.Counters.GetCharacterModelFromUserId .. Constants.CounterSuffix.RequestFailed))
+			end
 		end)
 	end)
 end

@@ -167,21 +167,28 @@ PROTO_3:
   LOADN R30 0
   CALL R26 4 1
   SETTABLEKS R26 R25 K31 ["Size"]
-  LOADK R26 K66 ["Do not ask me again"]
+  GETUPVAL R27 5
+  JUMPIFNOT R27 [+6]
+  LOADK R28 K12 ["Action"]
+  LOADK R29 K66 ["DontAskAgain"]
+  NAMECALL R26 R2 K14 ["getText"]
+  CALL R26 3 1
+  JUMP [+1]
+  LOADK R26 K67 ["Do not ask me again"]
   SETTABLEKS R26 R25 K52 ["Text"]
-  GETTABLEKS R27 R0 K67 ["state"]
+  GETTABLEKS R27 R0 K68 ["state"]
   GETTABLEKS R26 R27 K48 ["DontAsk"]
   SETTABLEKS R26 R25 K62 ["Checked"]
   LOADK R26 K48 ["DontAsk"]
   SETTABLEKS R26 R25 K63 ["Key"]
-  GETTABLEKS R26 R0 K68 ["onCheckboxClicked"]
+  GETTABLEKS R26 R0 K69 ["onCheckboxClicked"]
   SETTABLEKS R26 R25 K64 ["OnClick"]
   CALL R23 2 1
   SETTABLEKS R23 R22 K48 ["DontAsk"]
   GETUPVAL R24 0
   GETTABLEKS R23 R24 K17 ["createElement"]
   GETUPVAL R24 2
-  DUPTABLE R25 K69 [{"LayoutOrder", "Size", "AutomaticSize", "Layout", "HorizontalAlignment", "Spacing"}]
+  DUPTABLE R25 K70 [{"LayoutOrder", "Size", "AutomaticSize", "Layout", "HorizontalAlignment", "Spacing"}]
   LOADN R26 4
   SETTABLEKS R26 R25 K51 ["LayoutOrder"]
   GETIMPORT R26 K7 [UDim2.new]
@@ -193,54 +200,54 @@ PROTO_3:
   SETTABLEKS R26 R25 K31 ["Size"]
   GETIMPORT R26 K41 [Enum.AutomaticSize.Y]
   SETTABLEKS R26 R25 K32 ["AutomaticSize"]
-  GETIMPORT R26 K71 [Enum.FillDirection.Horizontal]
+  GETIMPORT R26 K72 [Enum.FillDirection.Horizontal]
   SETTABLEKS R26 R25 K33 ["Layout"]
-  GETIMPORT R26 K73 [Enum.HorizontalAlignment.Right]
+  GETIMPORT R26 K74 [Enum.HorizontalAlignment.Right]
   SETTABLEKS R26 R25 K35 ["HorizontalAlignment"]
   LOADN R26 8
   SETTABLEKS R26 R25 K34 ["Spacing"]
-  DUPTABLE R26 K76 [{"DismissButton", "ActionButton"}]
+  DUPTABLE R26 K77 [{"DismissButton", "ActionButton"}]
   GETUPVAL R28 0
   GETTABLEKS R27 R28 K17 ["createElement"]
-  GETUPVAL R28 5
-  DUPTABLE R29 K77 [{"LayoutOrder", "Text", "Size", "Style", "OnClick"}]
+  GETUPVAL R28 6
+  DUPTABLE R29 K78 [{"LayoutOrder", "Text", "Size", "Style", "OnClick"}]
   LOADN R30 1
   SETTABLEKS R30 R29 K51 ["LayoutOrder"]
   LOADK R32 K12 ["Action"]
-  LOADK R33 K78 ["Dismiss"]
+  LOADK R33 K79 ["Dismiss"]
   NAMECALL R30 R2 K14 ["getText"]
   CALL R30 3 1
   SETTABLEKS R30 R29 K52 ["Text"]
-  GETIMPORT R30 K80 [UDim2.fromOffset]
+  GETIMPORT R30 K81 [UDim2.fromOffset]
   LOADN R31 120
   LOADN R32 32
   CALL R30 2 1
   SETTABLEKS R30 R29 K31 ["Size"]
-  LOADK R30 K81 ["Round"]
+  LOADK R30 K82 ["Round"]
   SETTABLEKS R30 R29 K37 ["Style"]
   NEWCLOSURE R30 P0
   CAPTURE VAL R9
   CAPTURE VAL R0
   SETTABLEKS R30 R29 K64 ["OnClick"]
   CALL R27 2 1
-  SETTABLEKS R27 R26 K74 ["DismissButton"]
+  SETTABLEKS R27 R26 K75 ["DismissButton"]
   GETUPVAL R28 0
   GETTABLEKS R27 R28 K17 ["createElement"]
-  GETUPVAL R28 5
-  DUPTABLE R29 K77 [{"LayoutOrder", "Text", "Size", "Style", "OnClick"}]
+  GETUPVAL R28 6
+  DUPTABLE R29 K78 [{"LayoutOrder", "Text", "Size", "Style", "OnClick"}]
   LOADN R30 2
   SETTABLEKS R30 R29 K51 ["LayoutOrder"]
   SETTABLEKS R8 R29 K52 ["Text"]
-  GETIMPORT R30 K80 [UDim2.fromOffset]
+  GETIMPORT R30 K81 [UDim2.fromOffset]
   LOADN R31 120
   LOADN R32 32
   CALL R30 2 1
   SETTABLEKS R30 R29 K31 ["Size"]
-  LOADK R30 K82 ["RoundPrimary"]
+  LOADK R30 K83 ["RoundPrimary"]
   SETTABLEKS R30 R29 K37 ["Style"]
   SETTABLEKS R10 R29 K64 ["OnClick"]
   CALL R27 2 1
-  SETTABLEKS R27 R26 K75 ["ActionButton"]
+  SETTABLEKS R27 R26 K76 ["ActionButton"]
   CALL R23 3 1
   SETTABLEKS R23 R22 K49 ["ButtonRow"]
   CALL R19 3 -1
@@ -281,32 +288,38 @@ MAIN:
   LOADK R15 K21 ["CoreGui"]
   NAMECALL R13 R13 K22 ["GetService"]
   CALL R13 2 1
-  GETTABLEKS R14 R1 K23 ["PureComponent"]
-  LOADK R16 K24 ["SuggestionDialog"]
-  NAMECALL R14 R14 K25 ["extend"]
-  CALL R14 2 1
-  DUPTABLE R15 K27 [{"Enabled"}]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K26 ["Enabled"]
-  SETTABLEKS R15 R14 K28 ["defaultProps"]
-  DUPCLOSURE R15 K29 [PROTO_1]
-  SETTABLEKS R15 R14 K30 ["init"]
-  DUPCLOSURE R15 K31 [PROTO_3]
+  GETIMPORT R14 K20 [game]
+  LOADK R16 K23 ["TerrainToolsDontAskLocalized"]
+  LOADB R17 0
+  NAMECALL R14 R14 K24 ["DefineFastFlag"]
+  CALL R14 3 1
+  GETTABLEKS R15 R1 K25 ["PureComponent"]
+  LOADK R17 K26 ["SuggestionDialog"]
+  NAMECALL R15 R15 K27 ["extend"]
+  CALL R15 2 1
+  DUPTABLE R16 K29 [{"Enabled"}]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K28 ["Enabled"]
+  SETTABLEKS R16 R15 K30 ["defaultProps"]
+  DUPCLOSURE R16 K31 [PROTO_1]
+  SETTABLEKS R16 R15 K32 ["init"]
+  DUPCLOSURE R16 K33 [PROTO_3]
   CAPTURE VAL R1
   CAPTURE VAL R13
   CAPTURE VAL R10
   CAPTURE VAL R12
   CAPTURE VAL R9
+  CAPTURE VAL R14
   CAPTURE VAL R7
-  SETTABLEKS R15 R14 K32 ["render"]
-  MOVE R15 R5
-  DUPTABLE R16 K35 [{"Localization", "Terrain"}]
-  GETTABLEKS R17 R4 K33 ["Localization"]
-  SETTABLEKS R17 R16 K33 ["Localization"]
-  GETTABLEKS R17 R6 K34 ["Terrain"]
-  SETTABLEKS R17 R16 K34 ["Terrain"]
-  CALL R15 1 1
-  MOVE R16 R14
-  CALL R15 1 1
-  MOVE R14 R15
-  RETURN R14 1
+  SETTABLEKS R16 R15 K34 ["render"]
+  MOVE R16 R5
+  DUPTABLE R17 K37 [{"Localization", "Terrain"}]
+  GETTABLEKS R18 R4 K35 ["Localization"]
+  SETTABLEKS R18 R17 K35 ["Localization"]
+  GETTABLEKS R18 R6 K36 ["Terrain"]
+  SETTABLEKS R18 R17 K36 ["Terrain"]
+  CALL R16 1 1
+  MOVE R17 R15
+  CALL R16 1 1
+  MOVE R15 R16
+  RETURN R15 1

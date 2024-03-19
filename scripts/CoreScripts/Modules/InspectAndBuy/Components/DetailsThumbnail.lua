@@ -17,6 +17,8 @@ local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 local GetFFlagIBEnableLimitedItemBugFixAndAlignment =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
 
@@ -27,6 +29,9 @@ local function isPartOfBundleAndOffsale(assetInfo)
 	if assetInfo and assetInfo.isForSale then
 		return false
 	else
+		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+			return assetInfo and assetInfo.parentBundleId ~= nil or false
+		end
 		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1 or false
 	end
 end

@@ -15,27 +15,18 @@ PROTO_0:
   SETTABLEKS R6 R5 K5 ["VerticalAlignment"]
   LOADN R6 1
   SETTABLEKS R6 R5 K6 ["BackgroundTransparency"]
-  DUPTABLE R6 K18 [{"MainTabs", "Footer"}]
+  DUPTABLE R6 K17 [{"MainTabs"}]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K2 ["createElement"]
   GETUPVAL R8 3
-  DUPTABLE R9 K20 [{"LayoutOrder"}]
+  DUPTABLE R9 K20 [{"OnResetPlugin", "LayoutOrder"}]
+  GETTABLEKS R10 R1 K18 ["OnResetPlugin"]
+  SETTABLEKS R10 R9 K18 ["OnResetPlugin"]
   NAMECALL R10 R2 K21 ["getNextOrder"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K19 ["LayoutOrder"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K16 ["MainTabs"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R8 4
-  DUPTABLE R9 K23 [{"OnResetPlugin", "LayoutOrder"}]
-  GETTABLEKS R10 R1 K22 ["OnResetPlugin"]
-  SETTABLEKS R10 R9 K22 ["OnResetPlugin"]
-  NAMECALL R10 R2 K21 ["getNextOrder"]
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K19 ["LayoutOrder"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K17 ["Footer"]
   CALL R3 3 -1
   RETURN R3 -1
 
@@ -62,18 +53,14 @@ MAIN:
   GETIMPORT R8 K5 [require]
   GETTABLEKS R9 R7 K15 ["MainTabsView"]
   CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R7 K16 ["MainFooter"]
-  CALL R9 1 1
-  GETTABLEKS R10 R2 K17 ["PureComponent"]
-  LOADK R12 K18 ["MainView"]
-  NAMECALL R10 R10 K19 ["extend"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K20 [PROTO_0]
+  GETTABLEKS R9 R2 K16 ["PureComponent"]
+  LOADK R11 K17 ["MainView"]
+  NAMECALL R9 R9 K18 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K19 [PROTO_0]
   CAPTURE VAL R6
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R8
-  CAPTURE VAL R9
-  SETTABLEKS R11 R10 K21 ["render"]
-  RETURN R10 1
+  SETTABLEKS R10 R9 K20 ["render"]
+  RETURN R9 1

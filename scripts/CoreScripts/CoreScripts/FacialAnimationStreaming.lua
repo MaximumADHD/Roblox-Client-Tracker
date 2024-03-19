@@ -21,7 +21,6 @@ local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).
 
 local FFlagLoadStreamAnimationReplaceErrorsWithTelemetry = game:GetEngineFeature("LoadStreamAnimationReplaceErrorsWithTelemetryFeature")
 local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeature("FaceAnimatorNotifyLODRecommendCameraInputDisable")
-local FFlagFacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled = game:DefineFastFlag("FacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled", false)
 local FFlagFacialAnimationStreamingClearTrackImprovementsV2 = game:DefineFastFlag("FacialAnimationStreamingClearTrackImprovementsV2", false)
 game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",false)
 game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
@@ -741,15 +740,8 @@ local function updateWithServiceState(settings)
 			CleanupFacialAnimationStreaming()
 		end
 	else
-		local isAudioOrVideoEnabled = false == FFlagFacialAnimationStreamingServiceAvoidInitWithoutUniverseSettingsEnabled
-			or FacialAnimationStreamingService:IsAudioEnabled(settings)
-			or FacialAnimationStreamingService:IsVideoEnabled(settings)
-
-		if isAudioOrVideoEnabled and FacialAnimationStreamingService:IsPlaceEnabled(settings) then
-			onThrottleUpdate(true, true, settings)
-		else
-			CleanupFacialAnimationStreaming()
-		end
+		-- this is currently death code
+		CleanupFacialAnimationStreaming()
 	end
 end
 

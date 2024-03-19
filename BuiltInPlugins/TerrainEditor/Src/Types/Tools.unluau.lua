@@ -6,6 +6,7 @@ var1.Edit = "Edit"
 var1.None = "None"
 var0.Tab = var1
 local var2 = {}
+var2.Build = "Build"
 var2.Clear = "Clear"
 var2.Draw = "Draw"
 var2.Empty = "Empty"
@@ -21,4 +22,7 @@ var2.Sculpt = "Sculpt"
 var2.Smooth = "Smooth"
 var2.Transform = "Transform"
 var0.Tool = var2
+local var3 = {}
+var3.Mountain = "Mountain"
+var0.GenerationTool = var3
 return var0

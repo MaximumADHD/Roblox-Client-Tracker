@@ -8,8 +8,11 @@ local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local SetEquippedAssets = require(InspectAndBuyFolder.Actions.SetEquippedAssets)
 local Constants = require(InspectAndBuyFolder.Constants)
+local GetAssetBundles = require(InspectAndBuyFolder.Thunks.GetAssetBundles)
 
 local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local requiredServices = {}
 
@@ -51,19 +54,16 @@ local function GetAssetsFromHumanoidDescription(humanoidDescription, isForLocalP
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local assets = getAssetIds(humanoidDescription)
 		if not isForLocalPlayer then
+			-- TODO: Use `Promise.allSettled` instead of `store:dispatch` for `GetProductInfo` and `GetAssetBundles`
 			for _, asset in ipairs(assets) do
 				coroutine.wrap(function()
 					store:dispatch(GetProductInfo(asset.assetId))
-					--[[
-						TODO (lliu):
-							1. Get if an asset belongs to a bundle via v1/assets/{bid}/bundles
-									[FixMe in the future]: Backend doesn't provide a batch API to get if an assets belongs to a bundle, thus, we need to send multiple requests
-							2. Get if a bundle is a limited bundle & collectibleItemId via above api
-							3. Get bundle's lowestPrice economy info via collectibleItemId via marketplace-items/v1/items/details
-							4. Deprecate the way to use MarketplaceService:GetProductInfo via economy v2/assets/{itemId}/details.
-									Because this way doesn't support both bundles and assets.
-									Enable the deprecation after all assets migrate to collectible system
-					--]]
+
+					if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() and asset.parentBundleId == nil then
+						-- Because the call are made concurrently, and all the calls are made almost at the same time.
+						-- Thus, any code changes related to GetAssetBundles, we need to consider the concurrency & race condition.
+						store:dispatch(GetAssetBundles(asset.assetId))
+					end
 
 					if FFlagAttributionInInspectAndBuy then
 						--[[

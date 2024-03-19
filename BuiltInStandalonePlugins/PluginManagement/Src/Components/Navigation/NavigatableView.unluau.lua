@@ -11,7 +11,7 @@ function var4.init(arg1)
 end
 
 function var4.render(arg1)
-   local var36 = arg1.navigation
+   local var34 = arg1.navigation
    local var0 = arg1.props[var1.Children]
    return var2.provide({}, {})
 end

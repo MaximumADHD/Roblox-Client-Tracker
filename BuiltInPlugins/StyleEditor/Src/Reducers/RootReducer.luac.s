@@ -21,12 +21,18 @@ MAIN:
   GETIMPORT R4 K4 [require]
   GETTABLEKS R7 R0 K7 ["Src"]
   GETTABLEKS R6 R7 K8 ["Reducers"]
-  GETTABLEKS R5 R6 K11 ["Window"]
+  GETTABLEKS R5 R6 K11 ["SessionStats"]
   CALL R4 1 1
-  GETTABLEKS R5 R1 K12 ["combineReducers"]
-  DUPTABLE R6 K13 [{"Asset", "Clipboard", "Window"}]
-  SETTABLEKS R2 R6 K9 ["Asset"]
-  SETTABLEKS R3 R6 K10 ["Clipboard"]
-  SETTABLEKS R4 R6 K11 ["Window"]
-  CALL R5 1 -1
-  RETURN R5 -1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K7 ["Src"]
+  GETTABLEKS R7 R8 K8 ["Reducers"]
+  GETTABLEKS R6 R7 K12 ["Window"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K13 ["combineReducers"]
+  DUPTABLE R7 K14 [{"Asset", "Clipboard", "SessionStats", "Window"}]
+  SETTABLEKS R2 R7 K9 ["Asset"]
+  SETTABLEKS R3 R7 K10 ["Clipboard"]
+  SETTABLEKS R4 R7 K11 ["SessionStats"]
+  SETTABLEKS R5 R7 K12 ["Window"]
+  CALL R6 1 -1
+  RETURN R6 -1

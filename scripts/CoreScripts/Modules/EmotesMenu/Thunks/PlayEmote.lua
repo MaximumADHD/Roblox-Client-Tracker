@@ -28,8 +28,6 @@ local HideMenu = require(Actions.HideMenu)
 local HideError = require(Actions.HideError)
 local ShowError = require(Actions.ShowError)
 
-local EngineFeaturePlayEmoteAndGetAnimTrackByIdApiEnabled = game:GetEngineFeature("PlayEmoteAndGetAnimTrackByIdApiEnabled")
-
 local EmotesAnalytics = Analytics.new():withEventStream(
 	if GetFFlagRemoveAppTempCommonTemp() then EventStream.new(AnalyticsService) else DEPRECATED_EventStream.new()
 )
@@ -64,10 +62,7 @@ local function PlayEmote(emoteName, slotNumber, emoteAssetId, onEmotePlay, onEmo
 		store:dispatch(HideMenu())
 
 		local humanoid = localPlayer.Character:FindFirstChildOfClass("Humanoid")
-		local playEmoteFunction = function() return humanoid:PlayEmote(emoteName) end
-		if EngineFeaturePlayEmoteAndGetAnimTrackByIdApiEnabled then
-			playEmoteFunction = function() return humanoid:PlayEmoteAndGetAnimTrackById(emoteAssetId) end
-		end
+		local playEmoteFunction = function() return humanoid:PlayEmoteAndGetAnimTrackById(emoteAssetId) end
 
 		local success, didPlay, _animationTrack = pcall(playEmoteFunction)
 

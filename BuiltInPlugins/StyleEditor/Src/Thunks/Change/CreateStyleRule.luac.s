@@ -1,15 +1,37 @@
 PROTO_0:
-  GETIMPORT R0 K2 [Instance.new]
-  LOADK R1 K3 ["StyleRule"]
+  GETUPVAL R0 0
+  LOADN R2 1
+  LOADN R3 1
+  NAMECALL R0 R0 K0 ["sub"]
+  CALL R0 3 1
+  JUMPIFNOTEQKS R0 K1 [","] [+22]
+  GETUPVAL R0 1
+  LOADK R2 K2 ["StyleRule"]
+  NAMECALL R0 R0 K3 ["IsA"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+15]
+  GETUPVAL R0 1
+  GETUPVAL R4 1
+  GETTABLEKS R2 R4 K4 ["Selector"]
+  GETUPVAL R3 0
+  CONCAT R1 R2 R3
+  SETTABLEKS R1 R0 K4 ["Selector"]
+  GETUPVAL R0 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["Selector"]
+  SETTABLEKS R1 R0 K5 ["Name"]
+  JUMP [+13]
+  GETIMPORT R0 K8 [Instance.new]
+  LOADK R1 K2 ["StyleRule"]
   CALL R0 1 1
   GETUPVAL R1 0
-  SETTABLEKS R1 R0 K4 ["Name"]
+  SETTABLEKS R1 R0 K5 ["Name"]
   GETUPVAL R1 0
-  SETTABLEKS R1 R0 K5 ["Selector"]
+  SETTABLEKS R1 R0 K4 ["Selector"]
   GETUPVAL R1 1
-  SETTABLEKS R1 R0 K6 ["Parent"]
-  GETIMPORT R1 K10 [Enum.FinishRecordingOperation.Commit]
-  RETURN R1 1
+  SETTABLEKS R1 R0 K9 ["Parent"]
+  GETIMPORT R0 K13 [Enum.FinishRecordingOperation.Commit]
+  RETURN R0 1
 
 PROTO_1:
   GETTABLEKS R2 R1 K0 ["recordChange"]

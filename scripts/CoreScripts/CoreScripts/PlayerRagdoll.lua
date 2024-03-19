@@ -52,11 +52,9 @@ local function onOwnedHumanoidDeath(character, humanoid)
 	-- data for it, creating an additional round trip hitch on our end for our own character.
 
 	if avatarJointUpgrade then
-		if DeathTypeValue.Value ~= "Scriptable" then
+		if DeathTypeValue.Value == "Ragdoll" then
+			-- BreakJointsOnDeath is set to false, so we need to manually disable motors to ragdoll
 			Rigging.disableMotors(character, humanoid.RigType)
-			if DeathTypeValue.Value == "Classic" then -- ClassicBreakApart
-				Rigging.removeRagdollJoints(character)
-			end
 		end
 	else
 		-- With Moto6D's we needed to manually apply the Animator velocity.
@@ -103,7 +101,7 @@ HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
 		-- Assume death is final
 		disconnect()
 		-- Any character: handle fade out on death
-		if DeathTypeValue.Value == "Ragdoll" then -- NonGraphic death
+		if DeathTypeValue.Value == "Ragdoll" then
 			delay(2.0, function()
 				-- fade into the mist...
 				Rigging.disableParticleEmittersAndFadeOut(character, 0.4)

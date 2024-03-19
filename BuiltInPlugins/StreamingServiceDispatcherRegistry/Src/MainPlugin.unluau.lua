@@ -1,44 +1,46 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent
+local var0 = script:FindFirstAncestor("StreamingServiceDispatcherRegistry")
 local var1 = require(var0.Src.Commands.CommandRegistry)
 local var2 = require(var0.Src.Listeners.StreamingServiceListener)
 local var3 = require(var0.Src.ContextCollectors.DefaultContextCollector)
-local var4 = {}
-var4.__index = var4
-function var4.new()
+local var4 = require(var0.Src.Commands.BuilderCommands.BuilderNameMap)
+local var5 = require(var0.Src.Utils.Utils)
+local var6 = {}
+var6.__index = var6
+function var6.new()
    local var0 = {}
-   setmetatable(var0, var4)
+   setmetatable(var0, var6)
    return var0
 end
 
-function var4.init(arg1)
+function var6.init(arg1)
    local var0 = var1
    local var1 = game:GetService("StreamingService")
    if var1 then
-      local var31 = pairs(var0.parallel)
-      var1:RegisterCommand(var32, var33)
-      local var37 = pairs(var0.sequential)
-      var1:RegisterSequentialCommand(var38, var39)
+      local var43 = pairs(var0.parallel)
+      var1:RegisterCommand(var44, var45)
+      local var49 = pairs(var0.sequential)
+      var1:RegisterSequentialCommand(var50, var51)
       arg1.streamingServiceListener = var2.new()
       var3.register()
    end
    game:GetService("ChatbotUIService"):DisplayContent("PluginConnected", {})
 end
 
-function var4.destroy(arg1)
+function var6.destroy(arg1)
    local var0 = var1
    local var1 = game:GetService("StreamingService")
-   local var61 = pairs(var0.parallel)
-   var1:UnregisterCommand(var62)
-   local var66 = pairs(var0.sequential)
-   var1:UnregisterCommand(var67)
+   local var73 = pairs(var0.parallel)
+   var1:UnregisterCommand(var74)
+   local var78 = pairs(var0.sequential)
+   var1:UnregisterCommand(var79)
    if arg1.streamingServiceListener then
       arg1.streamingServiceListener:destroy()
       arg1.streamingServiceListener = nil
    end
-   require(var0.Src.Commands.BuilderCommands.BuilderNameMap).destroy()
-   require(var0.Src.Utils.Utils).destroy()
+   var4.destroy()
+   var5.destroy()
    var3.unregister()
 end
 
-return var4
+return var6

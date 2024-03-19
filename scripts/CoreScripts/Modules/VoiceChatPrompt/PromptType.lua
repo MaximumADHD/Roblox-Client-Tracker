@@ -16,4 +16,5 @@ return {
 	VoiceChatSuspendedTemporaryToast = "VoiceChatSuspendedTemporaryToast",
 	VoiceConsentDeclinedToast = "VoiceConsentDeclinedToast",
 	VoiceConsentAcceptedToast = "VoiceConsentAcceptedToast",
+	VoiceConsentModal = "VoiceConsentModal",
 }

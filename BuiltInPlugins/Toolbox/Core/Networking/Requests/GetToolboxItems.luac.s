@@ -166,7 +166,7 @@ PROTO_4:
   GETTABLEKS R7 R8 K12 ["isNextPageAvailable"]
   MOVE R8 R6
   CALL R7 1 1
-  JUMPIFNOT R7 [+393]
+  JUMPIFNOT R7 [+403]
   GETTABLEKS R7 R6 K13 ["nextPageCursor"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K14 ["sorts"]
@@ -324,17 +324,17 @@ PROTO_4:
   CALL R19 -1 0
   RETURN R0 0
   GETUPVAL R19 4
-  DUPTABLE R21 K72 [{"categoryName", "sortType", "keyword", "cursor", "limit", "ownerId", "creatorType", "creatorTargetId", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "minDuration", "maxDuration", "artist", "album", "tags", "uiSortIntent", "sortDirection", "includeOnlyVerifiedCreators", "searchSource", "queryParams", "querySource", "originalUserQuery", "originalCorrection"}]
+  DUPTABLE R21 K73 [{"categoryName", "sortType", "keyword", "cursor", "limit", "ownerId", "creatorType", "creatorTargetId", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "minDuration", "maxDuration", "artist", "album", "tags", "uiSortIntent", "sortDirection", "includeOnlyVerifiedCreators", "searchSource", "queryParams", "querySource", "originalUserQuery", "originalCorrection", "qualityFilterData"}]
   GETUPVAL R22 7
   SETTABLEKS R22 R21 K52 ["categoryName"]
   SETTABLEKS R9 R21 K53 ["sortType"]
   GETUPVAL R24 1
-  GETTABLEKS R23 R24 K73 ["searchTerm"]
+  GETTABLEKS R23 R24 K74 ["searchTerm"]
   ORK R22 R23 K9 [""]
   SETTABLEKS R22 R21 K54 ["keyword"]
   SETTABLEKS R7 R21 K55 ["cursor"]
   GETUPVAL R23 16
-  GETTABLEKS R22 R23 K74 ["TOOLBOX_ITEM_SEARCH_LIMIT"]
+  GETTABLEKS R22 R23 K75 ["TOOLBOX_ITEM_SEARCH_LIMIT"]
   SETTABLEKS R22 R21 K56 ["limit"]
   SETTABLEKS R10 R21 K57 ["ownerId"]
   GETUPVAL R23 1
@@ -384,7 +384,7 @@ PROTO_4:
   JUMPIFNOT R23 [+3]
   GETTABLEKS R22 R4 K64 ["album"]
   JUMP [+2]
-  GETTABLEKS R22 R4 K75 ["albumn"]
+  GETTABLEKS R22 R4 K76 ["albumn"]
   SETTABLEKS R22 R21 K64 ["album"]
   SETTABLEKS R13 R21 K65 ["tags"]
   GETUPVAL R23 10
@@ -410,8 +410,8 @@ PROTO_4:
   GETTABLEKS R22 R23 K69 ["querySource"]
   JUMPIF R22 [+7]
   GETUPVAL R24 20
-  GETTABLEKS R23 R24 K76 ["QuerySource"]
-  GETTABLEKS R22 R23 K77 ["OriginalUserQuery"]
+  GETTABLEKS R23 R24 K77 ["QuerySource"]
+  GETTABLEKS R22 R23 K78 ["OriginalUserQuery"]
   JUMP [+1]
   LOADNIL R22
   SETTABLEKS R22 R21 K69 ["querySource"]
@@ -433,7 +433,15 @@ PROTO_4:
   JUMP [+1]
   LOADNIL R22
   SETTABLEKS R22 R21 K71 ["originalCorrection"]
-  NAMECALL R19 R19 K78 ["getToolboxItems"]
+  GETUPVAL R23 21
+  CALL R23 0 1
+  JUMPIFNOT R23 [+4]
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K72 ["qualityFilterData"]
+  JUMP [+1]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K72 ["qualityFilterData"]
+  NAMECALL R19 R19 K79 ["getToolboxItems"]
   CALL R19 2 1
   NEWCLOSURE R22 P2
   CAPTURE UPVAL U9
@@ -445,13 +453,13 @@ PROTO_4:
   CAPTURE UPVAL U4
   CAPTURE UPVAL U15
   CAPTURE UPVAL U19
-  CAPTURE UPVAL U21
   CAPTURE UPVAL U22
+  CAPTURE UPVAL U23
   NEWCLOSURE R23 P3
   CAPTURE VAL R0
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U23
-  NAMECALL R20 R19 K79 ["andThen"]
+  CAPTURE UPVAL U24
+  NAMECALL R20 R19 K80 ["andThen"]
   CALL R20 3 -1
   RETURN R20 -1
   RETURN R0 0
@@ -482,6 +490,7 @@ PROTO_5:
   CAPTURE UPVAL U17
   CAPTURE UPVAL U18
   CAPTURE UPVAL U19
+  CAPTURE UPVAL U20
   RETURN R6 1
 
 MAIN:
@@ -590,7 +599,12 @@ MAIN:
   GETTABLEKS R28 R29 K35 ["Flags"]
   GETTABLEKS R27 R28 K36 ["getFFlagToolboxFixFilteringByAlbum"]
   CALL R26 1 1
-  DUPCLOSURE R27 K37 [PROTO_5]
+  GETIMPORT R27 K5 [require]
+  GETTABLEKS R30 R0 K7 ["Core"]
+  GETTABLEKS R29 R30 K35 ["Flags"]
+  GETTABLEKS R28 R29 K37 ["getFFlagQualityFiltersInToolboxSearch"]
+  CALL R27 1 1
+  DUPCLOSURE R28 K38 [PROTO_5]
   CAPTURE VAL R5
   CAPTURE VAL R17
   CAPTURE VAL R9
@@ -608,7 +622,8 @@ MAIN:
   CAPTURE VAL R26
   CAPTURE VAL R19
   CAPTURE VAL R12
+  CAPTURE VAL R27
   CAPTURE VAL R7
   CAPTURE VAL R6
   CAPTURE VAL R4
-  RETURN R27 1
+  RETURN R28 1

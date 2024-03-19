@@ -44,7 +44,7 @@ local ValidationErrorModal = function(props: Props)
 			showGradient = false,
 			ZIndex = 3,
 		}),
-		InteractiveAlert = React.createElement("Frame", {
+		InteractiveAlertWrapper = React.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
 			ZIndex = 4,

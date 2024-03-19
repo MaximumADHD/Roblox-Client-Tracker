@@ -160,26 +160,30 @@ PROTO_2:
   SETTABLEKS R23 R22 K17 ["Size"]
   LOADN R23 1
   SETTABLEKS R23 R22 K13 ["BackgroundTransparency"]
-  GETIMPORT R23 K61 [Enum.Font.GothamSemibold]
+  GETUPVAL R24 2
+  JUMPIFNOT R24 [+3]
+  GETIMPORT R23 K61 [Enum.Font.MontserratBold]
+  JUMP [+2]
+  GETIMPORT R23 K63 [Enum.Font.GothamSemibold]
   SETTABLEKS R23 R22 K53 ["Font"]
   MOVE R24 R7
-  LOADK R25 K62 ["  >"]
+  LOADK R25 K64 ["  >"]
   CONCAT R23 R24 R25
   SETTABLEKS R23 R22 K6 ["Text"]
-  GETIMPORT R23 K65 [Color3.fromHex]
-  LOADK R24 K66 ["#FFFFFF"]
+  GETIMPORT R23 K67 [Color3.fromHex]
+  LOADK R24 K68 ["#FFFFFF"]
   CALL R23 1 1
   SETTABLEKS R23 R22 K54 ["TextColor3"]
   SETTABLEKS R9 R22 K55 ["TextSize"]
   LOADB R23 1
   SETTABLEKS R23 R22 K56 ["TextWrapped"]
-  GETIMPORT R23 K68 [Enum.TextXAlignment.Left]
+  GETIMPORT R23 K70 [Enum.TextXAlignment.Left]
   SETTABLEKS R23 R22 K57 ["TextXAlignment"]
-  DUPTABLE R23 K69 [{"UIListLayout", "Padding", "Text"}]
+  DUPTABLE R23 K71 [{"UIListLayout", "Padding", "Text"}]
   GETUPVAL R25 0
   GETTABLEKS R24 R25 K11 ["createElement"]
   LOADK R25 K32 ["UIListLayout"]
-  DUPTABLE R26 K70 [{"FillDirection", "VerticalAlignment", "SortOrder"}]
+  DUPTABLE R26 K72 [{"FillDirection", "VerticalAlignment", "SortOrder"}]
   GETIMPORT R27 K45 [Enum.FillDirection.Horizontal]
   SETTABLEKS R27 R26 K37 ["FillDirection"]
   GETIMPORT R27 K48 [Enum.VerticalAlignment.Center]
@@ -190,13 +194,13 @@ PROTO_2:
   SETTABLEKS R24 R23 K32 ["UIListLayout"]
   GETUPVAL R25 0
   GETTABLEKS R24 R25 K11 ["createElement"]
-  LOADK R25 K71 ["UIPadding"]
-  DUPTABLE R26 K73 [{"PaddingLeft"}]
+  LOADK R25 K73 ["UIPadding"]
+  DUPTABLE R26 K75 [{"PaddingLeft"}]
   GETIMPORT R27 K51 [UDim.new]
   LOADN R28 0
   LOADN R29 14
   CALL R27 2 1
-  SETTABLEKS R27 R26 K72 ["PaddingLeft"]
+  SETTABLEKS R27 R26 K74 ["PaddingLeft"]
   CALL R24 2 1
   SETTABLEKS R24 R23 K41 ["Padding"]
   GETUPVAL R25 0
@@ -212,20 +216,24 @@ PROTO_2:
   SETTABLEKS R27 R26 K17 ["Size"]
   LOADN R27 1
   SETTABLEKS R27 R26 K13 ["BackgroundTransparency"]
-  GETIMPORT R27 K61 [Enum.Font.GothamSemibold]
+  GETUPVAL R28 2
+  JUMPIFNOT R28 [+3]
+  GETIMPORT R27 K61 [Enum.Font.MontserratBold]
+  JUMP [+2]
+  GETIMPORT R27 K63 [Enum.Font.GothamSemibold]
   SETTABLEKS R27 R26 K53 ["Font"]
   MOVE R28 R7
-  LOADK R29 K62 ["  >"]
+  LOADK R29 K64 ["  >"]
   CONCAT R27 R28 R29
   SETTABLEKS R27 R26 K6 ["Text"]
-  GETIMPORT R27 K65 [Color3.fromHex]
-  LOADK R28 K66 ["#FFFFFF"]
+  GETIMPORT R27 K67 [Color3.fromHex]
+  LOADK R28 K68 ["#FFFFFF"]
   CALL R27 1 1
   SETTABLEKS R27 R26 K54 ["TextColor3"]
   SETTABLEKS R9 R26 K55 ["TextSize"]
   LOADB R27 1
   SETTABLEKS R27 R26 K56 ["TextWrapped"]
-  GETIMPORT R27 K68 [Enum.TextXAlignment.Left]
+  GETIMPORT R27 K70 [Enum.TextXAlignment.Left]
   SETTABLEKS R27 R26 K57 ["TextXAlignment"]
   CALL R24 2 1
   SETTABLEKS R24 R23 K6 ["Text"]
@@ -233,8 +241,8 @@ PROTO_2:
   SETTABLEKS R20 R19 K6 ["Text"]
   GETUPVAL R21 0
   GETTABLEKS R20 R21 K11 ["createElement"]
-  LOADK R21 K74 ["ImageLabel"]
-  DUPTABLE R22 K75 [{"LayoutOrder", "Size", "BackgroundTransparency", "Image"}]
+  LOADK R21 K76 ["ImageLabel"]
+  DUPTABLE R22 K77 [{"LayoutOrder", "Size", "BackgroundTransparency", "Image"}]
   LOADN R23 2
   SETTABLEKS R23 R22 K5 ["LayoutOrder"]
   GETIMPORT R23 K16 [UDim2.new]
@@ -282,43 +290,49 @@ MAIN:
   LOADK R7 K12 ["CallToActionBanner"]
   NAMECALL R5 R5 K13 ["extend"]
   CALL R5 2 1
-  DUPTABLE R6 K16 [{"Gradient", "GradientOff"}]
-  GETIMPORT R7 K19 [ColorSequence.new]
-  NEWTABLE R8 0 2
-  GETIMPORT R9 K21 [ColorSequenceKeypoint.new]
-  LOADN R10 0
-  GETIMPORT R11 K24 [Color3.fromHex]
-  LOADK R12 K25 ["#0C2859"]
-  CALL R11 1 -1
-  CALL R9 -1 1
-  GETIMPORT R10 K21 [ColorSequenceKeypoint.new]
-  LOADN R11 1
-  GETIMPORT R12 K24 [Color3.fromHex]
-  LOADK R13 K26 ["#B8425f"]
+  GETIMPORT R6 K15 [game]
+  LOADK R8 K16 ["ToolboxRetireGotham"]
+  LOADB R9 0
+  NAMECALL R6 R6 K17 ["DefineFastFlag"]
+  CALL R6 3 1
+  DUPTABLE R7 K20 [{"Gradient", "GradientOff"}]
+  GETIMPORT R8 K23 [ColorSequence.new]
+  NEWTABLE R9 0 2
+  GETIMPORT R10 K25 [ColorSequenceKeypoint.new]
+  LOADN R11 0
+  GETIMPORT R12 K28 [Color3.fromHex]
+  LOADK R13 K29 ["#0C2859"]
   CALL R12 1 -1
-  CALL R10 -1 -1
-  SETLIST R8 R9 -1 [1]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K14 ["Gradient"]
-  GETIMPORT R7 K28 [Vector2.new]
-  LOADK R8 K29 [-0.34]
-  LOADN R9 0
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K15 ["GradientOff"]
-  SETTABLEKS R6 R5 K30 ["defaultProps"]
-  DUPCLOSURE R6 K31 [PROTO_1]
+  CALL R10 -1 1
+  GETIMPORT R11 K25 [ColorSequenceKeypoint.new]
+  LOADN R12 1
+  GETIMPORT R13 K28 [Color3.fromHex]
+  LOADK R14 K30 ["#B8425f"]
+  CALL R13 1 -1
+  CALL R11 -1 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K18 ["Gradient"]
+  GETIMPORT R8 K32 [Vector2.new]
+  LOADK R9 K33 [-0.34]
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K19 ["GradientOff"]
+  SETTABLEKS R7 R5 K34 ["defaultProps"]
+  DUPCLOSURE R7 K35 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R6 R5 K32 ["init"]
-  DUPCLOSURE R6 K33 [PROTO_2]
+  SETTABLEKS R7 R5 K36 ["init"]
+  DUPCLOSURE R7 K37 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R4
-  SETTABLEKS R6 R5 K34 ["render"]
-  DUPCLOSURE R6 K35 [PROTO_3]
+  CAPTURE VAL R6
+  SETTABLEKS R7 R5 K38 ["render"]
+  DUPCLOSURE R7 K39 [PROTO_3]
   CAPTURE VAL R2
   CAPTURE VAL R5
-  SETGLOBAL R6 K36 ["TypedCallToActionBanner"]
-  DUPTABLE R6 K39 [{"Component", "Generator"}]
-  SETTABLEKS R5 R6 K37 ["Component"]
-  GETGLOBAL R7 K36 ["TypedCallToActionBanner"]
-  SETTABLEKS R7 R6 K38 ["Generator"]
-  RETURN R6 1
+  SETGLOBAL R7 K40 ["TypedCallToActionBanner"]
+  DUPTABLE R7 K43 [{"Component", "Generator"}]
+  SETTABLEKS R5 R7 K41 ["Component"]
+  GETGLOBAL R8 K40 ["TypedCallToActionBanner"]
+  SETTABLEKS R8 R7 K42 ["Generator"]
+  RETURN R7 1

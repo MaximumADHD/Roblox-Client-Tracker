@@ -67,10 +67,12 @@ PROTO_2:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K4 ["createElement"]
   GETUPVAL R6 1
-  DUPTABLE R7 K6 [{"Size", "LayoutOrder", "Items"}]
+  DUPTABLE R7 K7 [{"OnResetPlugin", "Size", "LayoutOrder", "Items"}]
+  GETTABLEKS R8 R1 K5 ["OnResetPlugin"]
+  SETTABLEKS R8 R7 K5 ["OnResetPlugin"]
   SETTABLEKS R2 R7 K1 ["Size"]
   SETTABLEKS R3 R7 K2 ["LayoutOrder"]
-  SETTABLEKS R4 R7 K5 ["Items"]
+  SETTABLEKS R4 R7 K6 ["Items"]
   CALL R5 2 -1
   RETURN R5 -1
 

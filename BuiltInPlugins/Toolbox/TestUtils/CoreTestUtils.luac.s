@@ -57,7 +57,7 @@ PROTO_1:
 PROTO_2:
   NEWTABLE R0 1 0
   DUPCLOSURE R1 K0 [PROTO_1]
-  SETTABLEKS R1 R0 K1 ["SerializeInstances"]
+  SETTABLEKS R1 R0 K1 ["DEPRECATED_SerializeInstances"]
   NEWTABLE R1 0 1
   GETUPVAL R2 0
   DUPTABLE R3 K3 [{"StudioAssetService"}]

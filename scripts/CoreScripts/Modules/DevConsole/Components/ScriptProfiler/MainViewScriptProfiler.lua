@@ -41,17 +41,11 @@ local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfile
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
-local FFlagScriptProfilerFrequencyControl = game:DefineFastFlag("ScriptProfilerFrequencyControl", false)
 local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead", false)
-local FFlagScriptProfilerTimedProfiling = game:DefineFastFlag("ScriptProfilerTimedProfiling", false)
-local FFlagScriptProfilerFunctionsView = game:DefineFastFlag("ScriptProfilerFunctionsView", false)
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 local FFlagScriptProfilerSimpleUI = game:DefineFastFlag("ScriptProfilerSimpleUI", false)
-local FFlagScriptProfilerAverages = game:DefineFastFlag("ScriptProfilerAverages", false)
 local FFlagScriptProfilerExport = game:DefineFastFlag("ScriptProfilerExport", false)
-local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
 
-local FFlagScriptProfilerLiveUpdate = game:DefineFastFlag("ScriptProfilerLiveUpdate", false)
 local FIntScriptProfilerLiveUpdateIntervalMS = game:DefineFastInt("ScriptProfilerLiveUpdateIntervalMS", 1000)
 
 local DATA_VIEW_DROPDOWN_NAMES = { "Callgraph", "Functions", }
@@ -250,23 +244,12 @@ end
 
 function MainViewScriptProfiler:init()
 	local function StartScriptProfiling(isClient, state)
-		if FFlagScriptProfilerFrequencyControl then
-			if isClient then
-				ScriptContext:StartScriptProfiling(state.frequency)
-			else
-				local clientReplicator = getClientReplicator()
-				if clientReplicator then
-					clientReplicator:RequestServerScriptProfiling(true, state.frequency)
-				end
-			end
+		if isClient then
+			ScriptContext:StartScriptProfiling(state.frequency)
 		else
-			if isClient then
-				ScriptContext:StartScriptProfiling()
-			else
-				local clientReplicator = getClientReplicator()
-				if clientReplicator then
-					clientReplicator:RequestServerScriptProfiling(true)
-				end
+			local clientReplicator = getClientReplicator()
+			if clientReplicator then
+				clientReplicator:RequestServerScriptProfiling(true, state.frequency)
 			end
 		end
 	end
@@ -356,7 +339,7 @@ function MainViewScriptProfiler:init()
 		newState.rootNodeName = nil
 		newState.searchFilter = {}
 
-		if FFlagScriptProfilerTimedProfiling and state.timedProfilingDuration > 0 then
+		if state.timedProfilingDuration > 0 then
 			newState.timedProfilingCountdown = state.timedProfilingDuration
 
 			newState.timedProfilingThread = task.delay(state.timedProfilingDuration, function()
@@ -368,9 +351,7 @@ function MainViewScriptProfiler:init()
 			end)
 		end
 
-		if FFlagScriptProfilerLiveUpdate then
-			newState.liveUpdateThread = task.spawn(LiveUpdate, isClientView)
-		end
+		newState.liveUpdateThread = task.spawn(LiveUpdate, isClientView)
 
 		self:UpdateState(isClientView, newState)
 	end
@@ -385,23 +366,19 @@ function MainViewScriptProfiler:init()
 
 		OnNewProfilingData(newState, jsonString)
 
-		if FFlagScriptProfilerTimedProfiling then
-			if state.timedProfilingThread then
-				task.cancel(state.timedProfilingThread)
-				newState.timedProfilingThread = nil
-			end
-
-			if state.timedProfilingTimerThread then
-				task.cancel(state.timedProfilingTimerThread)
-				newState.timedProfilingTimerThread = nil
-			end
+		if state.timedProfilingThread then
+			task.cancel(state.timedProfilingThread)
+			newState.timedProfilingThread = nil
 		end
 
-		if FFlagScriptProfilerLiveUpdate then
-			if state.liveUpdateThread then
-				task.cancel(state.liveUpdateThread)
-				newState.liveUpdateThread = nil
-			end
+		if state.timedProfilingTimerThread then
+			task.cancel(state.timedProfilingTimerThread)
+			newState.timedProfilingTimerThread = nil
+		end
+
+		if state.liveUpdateThread then
+			task.cancel(state.liveUpdateThread)
+			newState.liveUpdateThread = nil
 		end
 
 		self:UpdateState(isClientView, newState)
@@ -508,10 +485,6 @@ function MainViewScriptProfiler:init()
 	end
 
 	self.onSearchTermChanged = function(newSearchTerm)
-		if not FFlagScriptProfilerSearch then
-			return
-		end
-
 		local isClientView, state = self:getActiveState()
 
 		local newState = table.clone(state)
@@ -609,7 +582,7 @@ function MainViewScriptProfiler:renderUtilButtons(state, simpleUIformFactor, sho
 	-- Change Sampling Frequency Button
 	-- Since frequency is specified only when starting a new profiling session,
 	-- this button is inactive while profiling.
-	if FFlagScriptProfilerFrequencyControl and not showSimpleUI then
+	if not showSimpleUI then
 		table.insert(
 			elements,
 			Roact.createElement("TextButton", {
@@ -631,7 +604,7 @@ function MainViewScriptProfiler:renderUtilButtons(state, simpleUIformFactor, sho
 		)
 	end
 
-	if FFlagScriptProfilerTimedProfiling and not showSimpleUI then
+	if not showSimpleUI then
 		table.insert(
 			elements,
 			Roact.createElement("TextButton", {
@@ -654,7 +627,7 @@ function MainViewScriptProfiler:renderUtilButtons(state, simpleUIformFactor, sho
 		)
 	end
 
-	if FFlagScriptProfilerAverages and not showSimpleUI then
+	if not showSimpleUI then
 		table.insert(
 			elements,
 			Roact.createElement("TextButton", {
@@ -686,7 +659,7 @@ function MainViewScriptProfiler:renderUtilButtons(state, simpleUIformFactor, sho
 		)
 	end
 
-	if FFlagScriptProfilerFunctionsView and not showSimpleUI then
+	if not showSimpleUI then
 		table.insert(
 			elements,
 			Roact.createElement(DropDown, {
@@ -736,9 +709,8 @@ function MainViewScriptProfiler:render()
 
 	local checkBoxStates = {}
 	local tmpCheckboxIndex = 1 -- Temporary, remove with each flag that uses checkboxes; ensures that each flagged entry does not depend on the others being enabled
-	if FFlagScriptProfilerLiveUpdate then
-		checkBoxStates[tmpCheckboxIndex] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate, }
-	end
+
+	checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate, }
 
 	if FFlagScriptProfilerShowPlugins then
 		tmpCheckboxIndex += 1

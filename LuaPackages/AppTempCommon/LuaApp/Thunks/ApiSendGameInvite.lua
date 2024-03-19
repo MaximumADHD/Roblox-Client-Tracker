@@ -4,15 +4,17 @@ local Players = game:GetService("Players")
 
 local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
-local ChatSendMessage = Requests.ChatSendMessage
-local ChatStartOneToOneConversation = Requests.ChatStartOneToOneConversation
+local DEPRECATED_ChatSendMessage
+	= Requests.DEPRECATED_ChatSendMessage
+
+local DEPRECATED_ChatStartOneToOneConversation = Requests.DEPRECATED_ChatStartOneToOneConversation
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 
-local ChatSendGameLinkMessage = Requests.ChatSendGameLinkMessage
+local DEPRECATED_ChatSendGameLinkMessage = Requests.DEPRECATED_ChatSendGameLinkMessage
 
 return function(networkImpl, userId, placeInfo)
 	local clientId = Players.LocalPlayer.UserId
@@ -24,10 +26,10 @@ return function(networkImpl, userId, placeInfo)
 	)
 
 	return function(store)
-		return ChatStartOneToOneConversation(networkImpl, userId, clientId):andThen(function(conversationResult)
+		return DEPRECATED_ChatStartOneToOneConversation(networkImpl, userId, clientId):andThen(function(conversationResult)
 			local conversation = conversationResult.responseBody.conversation
 
-			return ChatSendMessage(networkImpl, conversation.id, inviteTextMessage, nil, true, userId):andThen(function()
+			return DEPRECATED_ChatSendMessage(networkImpl, conversation.id, inviteTextMessage, nil, true, userId):andThen(function()
 				local function handleResult(inviteResult)
 					local data = inviteResult.responseBody
 
@@ -38,7 +40,7 @@ return function(networkImpl, userId, placeInfo)
 					}
 				end
 
-				return ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId, nil, true, userId, placeInfo.universeRootPlaceId):andThen(handleResult)
+				return DEPRECATED_ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId, nil, true, userId, placeInfo.universeRootPlaceId):andThen(handleResult)
 			end)
 		end)
 	end

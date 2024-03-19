@@ -3,6 +3,7 @@ local var0 = {}
 var0.BrickColor = require(script.BrickColorRenderer)
 var0.Color = require(script.ColorRenderer)
 var0.ColorSequence = require(script.SequenceRenderers.ColorSequenceRenderer)
+var0.Derive = require(script.DeriveRenderer)
 var0.FontFamily = require(script.FontRenderers.FontFamilyRenderer)
 var0.FontStyle = require(script.FontRenderers.FontStyleRenderer)
 var0.FontWeight = require(script.FontRenderers.FontWeightRenderer)

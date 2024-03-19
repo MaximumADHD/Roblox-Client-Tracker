@@ -270,6 +270,16 @@ Constants.ProductType = {
 	CollectibleItem = "Collectible Item",
 }
 
+Constants.ItemRestrictions = {
+	Limited = "Limited",
+	LimitedUnique = "LimitedUnique",
+	Collectible = "Collectible",
+}
+
+Constants.SaleStatus = {
+	OnSale = "OnSale",
+}
+
 Constants.SaleLocationType = {
 	Invalid = 0,
 	ShopOnly = 1,
@@ -278,6 +288,47 @@ Constants.SaleLocationType = {
 	ExperiencesById = 4,
 	ShopAndAllExperiences = 5,
 	ExperiencesDevApiOnly = 6,
+	ShopAndExperiencesById = 7,
 }
 
+Constants.CounterSuffix = {
+	RequestSucceeded = "RequestSucceeded",
+	RequestRejected = "RequestRejected",
+	RequestFailed = "RequestFailed",
+}
+Constants.Counters = {
+	CreateFavoriteForAsset = "CreateFavoriteForAsset",
+	CreateFavoriteForBundle = "CreateFavoriteForBundle",
+	DeleteFavoriteForAsset = "DeleteFavoriteForAsset",
+	DeleteFavoriteForBundle = "DeleteFavoriteForBundle",
+	GetAssetBundles = "GetAssetBundles",
+	GetAssetFavoriteCount = "GetAssetFavoriteCount",
+	GetBundleFavoriteCount = "GetBundleFavoriteCount",
+	GetCharacterModelFromUserId = "GetCharacterModelFromUserId",
+
+	GetCollectibleResellableInstances = "GetCollectibleResellableInstances",
+	GetCollectibleResellableInstancesRequestSucceededWithoutResult = "GetCollectibleResellableInstancesRequestSucceededWithoutResult",
+
+	GetEconomyProductInfo = "GetEconomyV1DeprecatedProductInfo",
+	GetExperienceInfo = "GetExperienceInfo",
+	GetExperiencePlayability = "GetExperiencePlayability",
+	GetFavoriteForAsset = "GetFavoriteForAsset",
+	GetFavoriteForBundle = "GetFavoriteForBundle",
+
+	GetItemDetails = "GetItemDetails",
+	GetItemDetailsRespondedWithUnknownItemType = "GetItemDetailsRespondedWithUnknownItemType",
+
+	GetPlayerName = "GetPlayerName",
+	GetProductInfo = "MarketplaceServiceGetProductInfo",
+	GetVersionInfo = "GetVersionInfo",
+
+	PromptLimitedCollectiblesPurchase = "PromptLimitedCollectiblesPurchase",
+	PromptBundlePurchase = "PromptBundlePurchase",
+	PromptUnlimitedCollectiblePurchase = "PromptUnlimitedCollectiblePurchase",
+	PromptRobloxPurchase = "PromptRobloxPurchase",
+	PromptPurchaseUnknownItemType = "PromptPurchaseUnknownItemType",
+
+	ItemDetailPageOpened = "ItemDetailPageOpened",
+	TryOnButtonClicked = "TryOnButtonClicked",
+}
 return Constants

@@ -90,15 +90,23 @@ MAIN:
   DUPCLOSURE R2 K5 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R0
-  DUPTABLE R3 K7 [{"LogNetworkErrors"}]
+  DUPTABLE R3 K8 [{"LogNetworkErrors", "LogTelemetry"}]
   MOVE R4 R2
-  DUPTABLE R5 K11 [{"Name", "Default", "DefaultForInternalUsers"}]
+  DUPTABLE R5 K12 [{"Name", "Default", "DefaultForInternalUsers"}]
   LOADK R6 K6 ["LogNetworkErrors"]
-  SETTABLEKS R6 R5 K8 ["Name"]
+  SETTABLEKS R6 R5 K9 ["Name"]
   LOADB R6 0
-  SETTABLEKS R6 R5 K9 ["Default"]
+  SETTABLEKS R6 R5 K10 ["Default"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K10 ["DefaultForInternalUsers"]
+  SETTABLEKS R6 R5 K11 ["DefaultForInternalUsers"]
   CALL R4 1 1
   SETTABLEKS R4 R3 K6 ["LogNetworkErrors"]
+  MOVE R4 R2
+  DUPTABLE R5 K13 [{"Name", "Default"}]
+  LOADK R6 K7 ["LogTelemetry"]
+  SETTABLEKS R6 R5 K9 ["Name"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K10 ["Default"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K7 ["LogTelemetry"]
   RETURN R3 1

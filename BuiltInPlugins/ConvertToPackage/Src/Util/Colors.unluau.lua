@@ -28,7 +28,7 @@ var0.DARK_WIDGET_SELECTED_COLOR = Color3.fromRGB(11, 90, 175)
 var0.DARK_WIDGET_HOVER_COLOR = Color3.fromRGB(66, 66, 66)
 var0.DARK_GREY_BUTTON_DEFAULT_COLOR = Color3.fromRGB(58, 58, 58)
 var0.VOTING_GREEN = Color3.fromRGB(82, 168, 70)
-local var764 = Color3.fromRGB(206, 100, 91)
-var0.VOTING_RED = var764
-var764 = require(script.Parent.Parent.Parent.Src.Util.wrapStrictTable)
-return var764(var0, "Colors")
+local var784 = Color3.fromRGB(206, 100, 91)
+var0.VOTING_RED = var784
+var784 = require(script.Parent.Parent.Parent.Src.Util.wrapStrictTable)
+return var784(var0, "Colors")

@@ -71,12 +71,6 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETUPVAL R0 0
-  LOADK R1 K0 ["MarkAllAsReadClicked"]
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_5:
   GETUPVAL R1 0
   LOADK R2 K0 ["NotificationTrayOpened"]
   DUPTABLE R3 K2 [{"bellUnseen"}]
@@ -84,11 +78,25 @@ PROTO_5:
   CALL R1 2 0
   RETURN R0 0
 
+PROTO_5:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["NotificationImpressions"]
+  DUPTABLE R3 K2 [{"notificationIds"}]
+  SETTABLEKS R0 R3 K1 ["notificationIds"]
+  CALL R1 2 0
+  RETURN R0 0
+
 PROTO_6:
+  GETUPVAL R0 0
+  LOADK R1 K0 ["MarkAllAsReadClicked"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  DUPTABLE R2 K5 [{"notificationClicked", "markAllAsRead", "settingsButtonClicked", "markAllAsReadClicked", "trayOpened"}]
+  DUPTABLE R2 K4 [{"notificationClicked", "markAllAsRead", "settingsButtonClicked", "trayOpened"}]
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
   CAPTURE UPVAL U1
@@ -101,10 +109,17 @@ PROTO_6:
   SETTABLEKS R3 R2 K2 ["settingsButtonClicked"]
   NEWCLOSURE R3 P4
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K3 ["markAllAsReadClicked"]
+  SETTABLEKS R3 R2 K3 ["trayOpened"]
+  GETUPVAL R3 2
+  CALL R3 0 1
+  JUMPIFNOT R3 [+5]
   NEWCLOSURE R3 P5
   CAPTURE VAL R1
-  SETTABLEKS R3 R2 K4 ["trayOpened"]
+  SETTABLEKS R3 R2 K5 ["logNotificationImpressions"]
+  RETURN R2 1
+  NEWCLOSURE R3 P6
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K6 ["markAllAsReadClicked"]
   RETURN R2 1
 
 MAIN:
@@ -132,12 +147,19 @@ MAIN:
   GETTABLEKS R7 R8 K12 ["Clients"]
   GETTABLEKS R6 R7 K13 ["NotificationClient"]
   CALL R5 1 1
-  DUPCLOSURE R6 K14 [PROTO_6]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K10 ["Util"]
+  GETTABLEKS R8 R9 K14 ["SharedFlags"]
+  GETTABLEKS R7 R8 K15 ["getFFlagNotificationTrayImpressions"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K16 [PROTO_7]
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETGLOBAL R6 K15 ["createAnalyticsHandler"]
-  GETTABLEKS R7 R2 K16 ["Analytics"]
-  GETTABLEKS R6 R7 K17 ["new"]
-  GETGLOBAL R7 K15 ["createAnalyticsHandler"]
-  CALL R6 1 1
-  RETURN R6 1
+  CAPTURE VAL R6
+  SETGLOBAL R7 K17 ["createAnalyticsHandler"]
+  GETTABLEKS R8 R2 K18 ["Analytics"]
+  GETTABLEKS R7 R8 K19 ["new"]
+  GETGLOBAL R8 K17 ["createAnalyticsHandler"]
+  CALL R7 1 1
+  RETURN R7 1

@@ -34,6 +34,7 @@ local Thunk = require(Root.Thunk)
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 local GetFFlagEnableInsufficientRobuxForBundleUpsellFix =
 	require(Root.Flags.GetFFlagEnableInsufficientRobuxForBundleUpsellFix)
+local FFlagEnableUGC4ACollectiblePurchaseSupport = require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
 
 local function getPurchasableStatus(productPurchasableDetails)
 	local reason = productPurchasableDetails.reason
@@ -51,12 +52,40 @@ local function getPurchasableStatus(productPurchasableDetails)
 	end
 end
 
+local function meetsBundlePrerequisites(bundleDetails)
+	local isForSale
+	local failureReason
+
+	local collectibleItemDetail = bundleDetails.collectibleItemDetail
+	local isCollectible = collectibleItemDetail
+		and collectibleItemDetail.collectibleItemId ~= nil
+		and collectibleItemDetail.collectibleItemId ~= ""
+
+	if isCollectible then
+		isForSale = (collectibleItemDetail.saleStatus == "OnSale")
+	else
+		isForSale = (bundleDetails.product and bundleDetails.product.isForSale)
+	end
+
+	if not isForSale then
+		failureReason = PurchaseError.NotForSale
+	end
+
+	return isForSale, failureReason
+end
+
 local requiredServices = {
 	Analytics,
 	Network,
 }
 
-local function resolveBundlePromptState(productPurchasableDetails, bundleDetails, accountInfo, balanceInfo)
+local function resolveBundlePromptState(
+	productPurchasableDetails,
+	bundleDetails,
+	accountInfo,
+	balanceInfo,
+	expectedPrice
+)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local state = store:getState()
 		local analytics = services[Analytics]
@@ -66,9 +95,18 @@ local function resolveBundlePromptState(productPurchasableDetails, bundleDetails
 		store:dispatch(AccountInfoReceived(accountInfo))
 		store:dispatch(BalanceInfoRecieved(balanceInfo))
 
-		local canPurchase = productPurchasableDetails.purchasable
-		local failureReason = getPurchasableStatus(productPurchasableDetails)
-		local price = productPurchasableDetails.price
+		local canPurchase
+		local failureReason
+		local price
+		if FFlagEnableUGC4ACollectiblePurchaseSupport then
+			canPurchase, failureReason = meetsBundlePrerequisites(bundleDetails)
+			price = expectedPrice
+		else
+			canPurchase = productPurchasableDetails.purchasable
+			failureReason = getPurchasableStatus(productPurchasableDetails)
+			price = productPurchasableDetails.price
+		end
+
 		local platform = UserInputService:GetPlatform()
 		local upsellFlow = getUpsellFlow(platform)
 		local canStartUpsellProcess = failureReason == PurchaseError.NotEnoughRobux

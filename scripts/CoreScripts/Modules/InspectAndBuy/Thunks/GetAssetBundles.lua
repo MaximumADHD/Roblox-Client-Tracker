@@ -8,6 +8,12 @@ local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local SetBundlesAssetIsPartOf = require(InspectAndBuyFolder.Actions.SetBundlesAssetIsPartOf)
 local GetProductInfo = require(InspectAndBuyFolder.Thunks.GetProductInfo)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+local SetAssetToBundlesMapping = require(InspectAndBuyFolder.Actions.SetAssetToBundlesMapping)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
+local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
+local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
 	Network,
@@ -29,6 +35,7 @@ local function GetAssetBundles(assetId)
 				function(results)
 					local bundleIdsAssetIsIn = {}
 					local newBundles = {}
+					-- If the asset doesn't belong to any bundle, the `results.data` equals to `[]`
 					for _, bundleInfo in pairs(results.data) do
 						local newBundle = BundleInfo.fromGetAssetBundles(bundleInfo)
 						table.insert(newBundles, newBundle)
@@ -58,10 +65,26 @@ local function GetAssetBundles(assetId)
 					end
 
 					store:dispatch(SetBundles(newBundles))
-					store:dispatch(SetBundlesAssetIsPartOf(tostring(assetId), bundleIdsAssetIsIn))
-				end)
-		end)(store):catch(function(err)
+					if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+						-- Use a new state & reducer to avoid race conditions
+						store:dispatch(SetAssetToBundlesMapping(tostring(assetId), bundleIdsAssetIsIn))
+					else
+						-- At this point the asset has not fully put inside the store yet.
+						-- Doing another save asset will cause race condition.
+						store:dispatch(SetBundlesAssetIsPartOf(tostring(assetId), bundleIdsAssetIsIn))
+					end
 
+					if GetFFlagIBEnableSendCounters() then
+						store:dispatch(SendCounter(Constants.Counters.GetAssetBundles .. Constants.CounterSuffix.RequestSucceeded))
+					end
+				end,
+				if GetFFlagIBEnableSendCounters() then function(err)
+					store:dispatch(SendCounter(Constants.Counters.GetAssetBundles .. Constants.CounterSuffix.RequestRejected))
+				end else nil)
+		end)(store):catch(function(err)
+			if GetFFlagIBEnableSendCounters() then
+				store:dispatch(SendCounter(Constants.Counters.GetAssetBundles .. Constants.CounterSuffix.RequestFailed))
+			end
 		end)
 	end)
 end

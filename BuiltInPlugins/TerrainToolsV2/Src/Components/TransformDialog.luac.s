@@ -319,7 +319,7 @@ MAIN:
   GETIMPORT R7 K8 [require]
   GETTABLEKS R10 R1 K15 ["Src"]
   GETTABLEKS R9 R10 K18 ["Util"]
-  GETTABLEKS R8 R9 K19 ["CreateMortonOrderChunks"]
+  GETTABLEKS R8 R9 K19 ["CreateSubRegions"]
   CALL R7 1 1
   GETIMPORT R8 K8 [require]
   GETTABLEKS R11 R1 K15 ["Src"]

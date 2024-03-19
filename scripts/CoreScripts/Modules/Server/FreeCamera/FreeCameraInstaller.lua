@@ -25,8 +25,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 local ServerUtil = require(RobloxGui.Modules.Server.ServerUtil)
 
-local FFlagMigratePermissionsAPI = require(RobloxGui.Modules.Common.Flags.FFlagMigratePermissionsAPI)
-
 local function Install()
 	local function WaitForChildOfClass(parent, class)
 		local child = parent:FindFirstChildOfClass(class)
@@ -65,45 +63,31 @@ local function Install()
 			return false
 		end
 
-		if FFlagMigratePermissionsAPI then 
-			local success, result = pcall(function()
-				local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
-				local url = string.format(Url.APIS_URL..apiPath)
+		local success, result = pcall(function()
+			local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
+			local url = string.format(Url.APIS_URL..apiPath)
 
-				local request = HttpService:JSONEncode(
-					{
-						requests = {
-							{
-								subject = {
-									subjectType = "User",
-									subjectId = player.UserId
-								},
-								action = "Edit", -- check to see if this player has edit permissions on this placeId
-								assetId = game.PlaceId
-							}
+			local request = HttpService:JSONEncode(
+				{
+					requests = {
+						{
+							subject = {
+								subjectType = "User",
+								subjectId = player.UserId
+							},
+							action = "Edit", -- check to see if this player has edit permissions on this placeId
+							assetId = game.PlaceId
 						}
 					}
-				)
-				local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
-				return HttpService:JSONDecode(response)
-			end)
+				}
+			)
+			local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
+			return HttpService:JSONDecode(response)
+		end)
 
-			if success then
-				result = result.results[1]
-				if result.value and result.value.status == "HasPermission" then
-					return true
-				end
-			end
-		else
-			local success, result = pcall(function()
-				local apiPath = "v1/user/%d/canmanage/%d"
-				local url = string.format(Url.DEVELOP_URL..apiPath, player.UserId, game.PlaceId)
-				-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
-				local response = HttpRbxApiService:GetAsyncFullUrl(url)
-				return HttpService:JSONDecode(response)
-			end)
-	
-			if success and result.CanManage == true then
+		if success then
+			result = result.results[1]
+			if result.value and result.value.status == "HasPermission" then
 				return true
 			end
 		end

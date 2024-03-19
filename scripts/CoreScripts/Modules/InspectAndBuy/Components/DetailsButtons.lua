@@ -23,6 +23,12 @@ local GetFFlagIBGateUGC4ACollectibleAssetsBundles =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBGateUGC4ACollectibleAssetsBundles)
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
+local FFlagIBDisableBuyButtonForUnlimitedAsset = game:DefineFastFlag("IBDisableBuyButtonForUnlimitedAsset", false)
+local FFlagIBDisableBuyButtonForUnlimitedBundle = game:DefineFastFlag("IBDisableBuyButtonForUnlimitedBundle", false)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -44,6 +50,7 @@ end
 
 local function getBuyText(itemInfo, locale, collectibleQuantityLimitReached, collectibleLowestResalePrice)
 	local buyText
+	-- isLimited is only referring to Limited 1.0 instead of Limited 2.0 or new collectibles
 	local isLimited: boolean = itemInfo.isLimited
 		or (GetFFlagIBEnableCollectiblesSystemSupport() and itemInfo.isLimitedUnique)
 
@@ -60,7 +67,7 @@ local function getBuyText(itemInfo, locale, collectibleQuantityLimitReached, col
 		buyText = RobloxTranslator:FormatByKeyForLocale(LIMIT_REACHED_KEY, locale)
 	elseif
 	  itemInfo.price ~= nil
-		and itemInfo.productType == Constants.ProductType.CollectibleItem
+		and itemInfo.productType == Constants.ProductType.CollectibleItem -- TODO (lliu): verify if we still use this to identify collectible items
 		and itemInfo.isForSale
 	then
 		buyText = itemInfo.price
@@ -97,10 +104,14 @@ end
 function DetailsButtons:didUpdate(prevProps)
 	local detailsInformation = self.props.detailsInformation
 	local gamepadEnabled = self.props.gamepadEnabled
-
-	if
-		(prevProps.assetInfo.bundlesAssetIsIn == nil and self.props.assetInfo.bundlesAssetIsIn ~= nil)
+	local bundlesObtainedAndDetailPageOpened = (prevProps.assetInfo.bundlesAssetIsIn == nil and self.props.assetInfo.bundlesAssetIsIn ~= nil)
 		and detailsInformation.viewingDetails
+
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		bundlesObtainedAndDetailPageOpened = detailsInformation.viewingDetails
+	end
+
+	if bundlesObtainedAndDetailPageOpened
 	then
 		local assetInfo = self.props.assetInfo
 		local showTryOn = not isAnimationAsset(assetInfo.assetTypeId)
@@ -145,6 +156,9 @@ function DetailsButtons:render()
 	if assetInfo then
 		-- Part of Bundle buy button text
 		partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+			partOfBundle = assetInfo.parentBundleId ~= nil
+		end
 		partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
 		-- TODO (lliu): restructure, make limited collectible be supported together
 		if partOfBundleAndOffsale then
@@ -164,16 +178,30 @@ function DetailsButtons:render()
 		else
 			-- Asset + Limited collectible Buy Text
 			itemType = Constants.ItemType.Asset
+			if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+				if partOfBundle then
+					itemType = Constants.ItemType.Bundle
+				end
+			end
 			itemId = assetInfo.assetId
 			local isLimitedCollectible = if GetFFlagIBEnableCollectiblesSystemSupport()
 				then UtilityFunctions.isLimitedCollectible(assetInfo)
 				else (assetInfo.productType == Constants.ProductType.CollectibleItem)
+
+			if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
+				isLimitedCollectible = UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(assetInfo)
+			end
 
 			if GetCollectibleItemInInspectAndBuyEnabled() and isLimitedCollectible then
 				-- isForSale bit for Collectible Items is already computed in GetProductInfo() where sale location
 				-- and remaining stock are already taken into account.
 				forSale = assetInfo.isForSale
 
+				--[[
+					TODO (lliu): this logic should not be in the frontend. Since it is here now, it should be extracted to be a proper place.
+					TODO (lliu): It's not DetailsButtons responsiblity to determine what to show up on BuyButton or prepare for purchase.
+					It should be the responsibility of the BuyButton component.
+				]]
 				-- we use resale for the following conditions:
 				-- 1. when there is no original instance
 				-- 2. when the user reached quantity limit
@@ -189,7 +217,7 @@ function DetailsButtons:render()
 				local resaleAvailable = assetInfo.collectibleLowestAvailableResaleProductId
 					and assetInfo.collectibleLowestAvailableResaleProductId ~= ""
 				local resaleHasLowerPrice = resaleAvailable
-					and assetInfo.price > assetInfo.collectibleLowestResalePrice
+					and (assetInfo.price or 0) > assetInfo.collectibleLowestResalePrice
 				if resaleAvailable then
 					if not forSale or collectibleQuantityLimitReached or resaleHasLowerPrice then
 						collectibleLowestResalePrice = assetInfo.collectibleLowestResalePrice
@@ -204,7 +232,14 @@ function DetailsButtons:render()
 					forSale = false
 				end
 			else
+				--[[
+					Code Path for unlimited collectible bundles and unlimited collectible assets
+				]]
 				forSale = assetInfo.isForSale and not assetInfo.owned and not isLimited and assetInfo.owned ~= nil
+				if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
+					-- assetInfo.owned is true or false or nil, not assetInfo.owned is sufficent, no need to check `~= nil` again
+					forSale = assetInfo.isForSale and not assetInfo.owned and not isLimited
+				end
 			end
 
 			if forSale and assetInfo.price == nil and assetInfo.premiumPricing ~= nil then
@@ -236,6 +271,41 @@ function DetailsButtons:render()
 			or UtilityFunctions.isLimitedBundle(itemType, assetInfo)
 			or UtilityFunctions.isUnlimitedCollectibleBundle(itemType, assetInfo)
 	end
+
+	if GetFFlagIBEnableCollectiblePurchaseForUnlimited() and assetInfo then
+		-- this is the only way we know if the asset is in collectible system or not
+		collectibleItemId = assetInfo.collectibleItemId
+
+		local assetBundles = self.props.assetBundles[assetInfo.assetId]
+		local belongToMultipleBundles = partOfBundle and #assetBundles > 1
+		--[[
+			One asset shared by multiple bundles is not purchasable in Inspect & Buy.
+
+			TODO: Limited Bundle is not supported right now.
+		]]
+		hideBuyButton = UtilityFunctions.isLimitedBundle(itemType, assetInfo) or belongToMultipleBundles
+	end
+
+	--[[
+		-- TODO (lliu): Remove this code block
+		These 2 flags are temporarily hiding buy button on the Inspect&Buy Page waiting for the engine&RCC release.
+		This will give us more control if we show the buy button for unlimited assets or unlimited bundles.
+		It's safe to remove this code block once the purchase funtionality in game engine is ready.
+		TEMPORARY FLAGS START
+	]]
+	if FFlagIBDisableBuyButtonForUnlimitedAsset or FFlagIBDisableBuyButtonForUnlimitedBundle then
+		if FFlagIBDisableBuyButtonForUnlimitedAsset and FFlagIBDisableBuyButtonForUnlimitedBundle then
+			hideBuyButton = hideBuyButton or UtilityFunctions.isUnlimitedCollectibleAsset(itemType, assetInfo)
+				or UtilityFunctions.isUnlimitedCollectibleBundle(itemType, assetInfo)
+		elseif FFlagIBDisableBuyButtonForUnlimitedAsset then
+			hideBuyButton = hideBuyButton or UtilityFunctions.isUnlimitedCollectibleAsset(itemType, assetInfo)
+		elseif FFlagIBDisableBuyButtonForUnlimitedBundle then
+			hideBuyButton = hideBuyButton or UtilityFunctions.isUnlimitedCollectibleBundle(itemType, assetInfo)
+		end
+	end
+	--[[
+		TEMPORARY FLAGS END
+	]]
 
 	local showControllerBar = GetFFlagUseInspectAndBuyControllerBar()
 		and self.props.detailsInformation.viewingDetails -- only show when item menu is open
@@ -306,6 +376,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
 		visible = state.visible,
 		assetInfo = state.assets[assetId] or {},
+		assetBundles = if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then state.assetBundles else nil,
 		detailsInformation = state.detailsInformation,
 		bundleInfo = state.bundles,
 		locale = state.locale,

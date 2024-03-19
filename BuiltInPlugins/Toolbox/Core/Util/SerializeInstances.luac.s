@@ -1,7 +1,7 @@
 PROTO_0:
   GETUPVAL R0 0
   GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["SerializeInstances"]
+  NAMECALL R0 R0 K0 ["DEPRECATED_SerializeInstances"]
   CALL R0 2 -1
   RETURN R0 -1
 

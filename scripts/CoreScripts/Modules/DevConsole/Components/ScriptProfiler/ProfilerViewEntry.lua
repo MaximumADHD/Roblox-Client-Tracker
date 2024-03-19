@@ -38,27 +38,20 @@ local ROOT_LABEL = "<root>"
 local ANON_LABEL = "<anonymous>"
 
 local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
-local FFlagScriptProfilerNativeFrames = game:DefineFastFlag("ScriptProfilerNativeFrames", false)
-local FFlagScriptProfilerSetRoot = game:DefineFastFlag("ScriptProfilerSetRoot", false)
-local FFlagScriptProfilerSearch = game:DefineFastFlag("ScriptProfilerSearch", false)
 local FFlagScriptProfilerSetTerminalRootFix = game:DefineFastFlag("ScriptProfilerSetTerminalRootFix", false)
 local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead", false)
 
 local ProfilerViewEntryComponent = Roact.PureComponent:extend("ProfilerViewEntry")
 
-local ProfilerViewEntry = ProfilerViewEntryComponent
-
-if FFlagScriptProfilerSetRoot then
-	local function mapDispatchToProps(dispatch)
-		return {
-			dispatchSetScriptProfilerRoot = function(nodeId: ProfilerData.NodeId, nodeName: string?)
-				dispatch(SetScriptProfilerRoot(nodeId, nodeName))
-			end,
-		}
-	end
-
-	ProfilerViewEntry  = RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(ProfilerViewEntryComponent)
+local function mapDispatchToProps(dispatch)
+	return {
+		dispatchSetScriptProfilerRoot = function(nodeId: ProfilerData.NodeId, nodeName: string?)
+			dispatch(SetScriptProfilerRoot(nodeId, nodeName))
+		end,
+	}
 end
+
+local ProfilerViewEntry  = RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(ProfilerViewEntryComponent)
 
 type BorderedCellLabelProps = {
 	text: string,
@@ -101,7 +94,7 @@ local function getNodeName(props: any): string
 		name = name .. " <plugin>"
 	end
 
-	if FFlagScriptProfilerNativeFrames and isNative then
+	if isNative then
 		name = name .. " <native>"
 	end
 
@@ -146,10 +139,6 @@ function ProfilerViewEntryComponent:init()
 
 
 	self.onMouse2Click = function ()
-		if not FFlagScriptProfilerSetRoot then
-			return
-		end
-
 		self.props.dispatchSetScriptProfilerRoot(self.props.nodeId, getNodeName(self.props))
 	end
 end
@@ -173,7 +162,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 		if childData then
 			for functionId, nodeId in pairs(childData) do
 
-				if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[nodeId] then
+				if #searchFilter > 0 and not searchFilter[nodeId] then
 					continue
 				end
 
@@ -211,7 +200,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 
 			for index, category in rootData.Categories do
 
-				if FFlagScriptProfilerSearch and #searchFilter > 0 and not searchFilter[category.NodeId] then
+				if #searchFilter > 0 and not searchFilter[category.NodeId] then
 					continue
 				end
 

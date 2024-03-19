@@ -11,6 +11,9 @@ return function()
 
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
 
+	local FFlagEnableUGC4ACollectiblePurchaseSupport =
+		require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
+
 	local meetsPrerequisites = require(script.Parent.meetsPrerequisites)
 	local defaultExternalSettings = MockExternalSettings.new(false, false, {})
 
@@ -128,6 +131,10 @@ return function()
 		local productInfo = getValidProductInfo()
 		productInfo.ProductType = "Collectible Item"
 		productInfo.Remaining = 0
+
+		if FFlagEnableUGC4ACollectiblePurchaseSupport then
+			productInfo.CollectiblesItemDetails = { IsLimited = true }
+		end
 
 		local met, errorReason = meetsPrerequisites(productInfo, false, false, defaultExternalSettings, nil)
 

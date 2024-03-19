@@ -23,6 +23,7 @@ local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
 local GetFFlagEnablePromptPurchaseRequestedV2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2)
 local GetFFlagEnablePromptPurchaseRequestedV2Take2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2Take2)
+local FFlagEnableUGC4ACollectiblePurchaseSupport = require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
 
 local function MarketplaceServiceEventConnector(props)
 	local onPurchaseRequest = props.onPurchaseRequest
@@ -35,13 +36,19 @@ local function MarketplaceServiceEventConnector(props)
 	local onRobloxPurchaseRequest = props.onRobloxPurchaseRequest
 	local onPromptCollectiblesPurchaseRequest = props.onPromptCollectiblesPurchaseRequest
 	local onSubscriptionPurchaseRequest = props.onSubscriptionPurchaseRequest
+	local onCollectibleBundlePurchaseRequest = if FFlagEnableUGC4ACollectiblePurchaseSupport
+		then props.onCollectibleBundlePurchaseRequest
+		else nil
 
 	local function checkNewEventExists()
-		return MarketplaceService.PromptPurchaseRequestedV2;
+		return MarketplaceService.PromptPurchaseRequestedV2
 	end
 
-	local promptPurchaseConnection;
-	if (GetFFlagEnablePromptPurchaseRequestedV2() or (GetFFlagEnablePromptPurchaseRequestedV2Take2() and pcall(checkNewEventExists))) then
+	local promptPurchaseConnection
+	if
+		GetFFlagEnablePromptPurchaseRequestedV2()
+		or (GetFFlagEnablePromptPurchaseRequestedV2Take2() and pcall(checkNewEventExists))
+	then
 		promptPurchaseConnection = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptPurchaseRequestedV2,
 			callback = onPurchaseRequestV2,
@@ -54,9 +61,9 @@ local function MarketplaceServiceEventConnector(props)
 	end
 
 	local function checkPromptCollectiblesPurchaseRequestedEventExists()
-		return MarketplaceService.PromptCollectiblesPurchaseRequested;
+		return MarketplaceService.PromptCollectiblesPurchaseRequested
 	end
-	local promptCollectiblesPurchaseConnection;
+	local promptCollectiblesPurchaseConnection
 	if pcall(checkPromptCollectiblesPurchaseRequestedEventExists) then
 		promptCollectiblesPurchaseConnection = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptCollectiblesPurchaseRequested,
@@ -64,9 +71,22 @@ local function MarketplaceServiceEventConnector(props)
 		})
 	end
 
+	local function checkCollectibleBundlePurchaseEventExists()
+		return MarketplaceService.PromptCollectibleBundlePurchaseRequested
+	end
+
+	local promptCollectibleBundlePurchaseConnection
+	if FFlagEnableUGC4ACollectiblePurchaseSupport and pcall(checkCollectibleBundlePurchaseEventExists) then
+		promptCollectibleBundlePurchaseConnection = Roact.createElement(ExternalEventConnection, {
+			event = MarketplaceService.PromptCollectibleBundlePurchaseRequested,
+			callback = onCollectibleBundlePurchaseRequest,
+		})
+	end
+
 	return Roact.createFragment({
 		promptPurchaseConnection,
 		promptCollectiblesPurchaseConnection,
+		promptCollectibleBundlePurchaseConnection,
 		RobloxPurchase = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptRobloxPurchaseRequested,
 			callback = onRobloxPurchaseRequest,
@@ -105,9 +125,25 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		end
 	end
 
-	local function onPurchaseRequestV2(player, assetId, equipIfPurchased, currencyType, idempotencyKey, purchaseAuthToken)
+	local function onPurchaseRequestV2(
+		player,
+		assetId,
+		equipIfPurchased,
+		currencyType,
+		idempotencyKey,
+		purchaseAuthToken
+	)
 		if player == Players.LocalPlayer then
-			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, equipIfPurchased, false, idempotencyKey, purchaseAuthToken))
+			dispatch(
+				initiatePurchase(
+					assetId,
+					Enum.InfoType.Asset,
+					equipIfPurchased,
+					false,
+					idempotencyKey,
+					purchaseAuthToken
+				)
+			)
 		end
 	end
 
@@ -127,9 +163,31 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		end
 	end
 
-	local function onPromptCollectiblesPurchaseRequest(player, assetId, collectibleItemId, collectibleItemInstanceId, collectibleProductId, expectedPrice, idempotencyKey, purchaseAuthToken)
+	local function onPromptCollectiblesPurchaseRequest(
+		player,
+		assetId,
+		collectibleItemId,
+		collectibleItemInstanceId,
+		collectibleProductId,
+		expectedPrice,
+		idempotencyKey,
+		purchaseAuthToken
+	)
 		if player == Players.LocalPlayer then
-			dispatch(initiatePurchase(assetId, Enum.InfoType.Asset, false, true, idempotencyKey, purchaseAuthToken, collectibleItemId, collectibleItemInstanceId, collectibleProductId, expectedPrice))
+			dispatch(
+				initiatePurchase(
+					assetId,
+					Enum.InfoType.Asset,
+					false,
+					true,
+					idempotencyKey,
+					purchaseAuthToken,
+					collectibleItemId,
+					collectibleItemInstanceId,
+					collectibleProductId,
+					expectedPrice
+				)
+			)
 		end
 	end
 
@@ -154,6 +212,33 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		end
 	end
 
+	local function onCollectibleBundlePurchaseRequest(
+		player,
+		bundleId,
+		collectibleItemId,
+		collectibleItemInstanceId,
+		collectibleProductId,
+		expectedPrice,
+		idempotencyKey,
+		purchaseAuthToken
+	)
+		if FFlagEnableUGC4ACollectiblePurchaseSupport then
+			if player == Players.LocalPlayer then
+				dispatch(
+					initiateBundlePurchase(
+						bundleId,
+						idempotencyKey,
+						purchaseAuthToken,
+						collectibleItemId,
+						collectibleItemInstanceId,
+						collectibleProductId,
+						expectedPrice
+					)
+				)
+			end
+		end
+	end
+
 	local function onPremiumPurchaseRequest(player)
 		if player == Players.LocalPlayer then
 			dispatch(initiatePremiumPurchase())
@@ -175,6 +260,9 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		onPremiumPurchaseRequest = onPremiumPurchaseRequest,
 		onPromptCollectiblesPurchaseRequest = onPromptCollectiblesPurchaseRequest,
 		onSubscriptionPurchaseRequest = onSubscriptionPurchaseRequest,
+		onCollectibleBundlePurchaseRequest = if FFlagEnableUGC4ACollectiblePurchaseSupport
+			then onCollectibleBundlePurchaseRequest
+			else nil,
 	}
 end)(MarketplaceServiceEventConnector)
 

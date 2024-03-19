@@ -79,6 +79,24 @@ PROTO_4:
   CALL R2 -1 0
   RETURN R1 1
 
+PROTO_5:
+  DUPTABLE R0 K3 [{"basePrice", "published", "purchasable"}]
+  DUPTABLE R1 K6 [{"currencyCode", "quantity"}]
+  LOADK R2 K7 ["USD"]
+  SETTABLEKS R2 R1 K4 ["currencyCode"]
+  DUPTABLE R2 K10 [{"significand", "exponent"}]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K8 ["significand"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K9 ["exponent"]
+  SETTABLEKS R2 R1 K5 ["quantity"]
+  SETTABLEKS R1 R0 K0 ["basePrice"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K1 ["published"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K2 ["purchasable"]
+  RETURN R0 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -169,4 +187,6 @@ MAIN:
   DUPCLOSURE R7 K53 [PROTO_4]
   CAPTURE VAL R6
   SETTABLEKS R7 R5 K54 ["convertAssetTypeToProductType"]
+  DUPCLOSURE R7 K55 [PROTO_5]
+  SETTABLEKS R7 R5 K56 ["getDefaultFiatProduct"]
   RETURN R5 1

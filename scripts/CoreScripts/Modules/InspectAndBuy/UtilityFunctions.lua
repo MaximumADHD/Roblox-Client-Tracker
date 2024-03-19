@@ -6,10 +6,19 @@ local GetFFlagIBGateUGC4ACollectibleAssetsBundles =
 local GetFFlagIBEnableCollectiblesSystemSupport =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblesSystemSupport)
 local GetFFlagIBEnableLimitedItemBugFixAndAlignment = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local UtilityFunctions = {}
 
 function UtilityFunctions.getBundleId(assetInfo)
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		if assetInfo.parentBundleId ~= nil then
+			return assetInfo.parentBundleId
+		else
+			return nil
+		end
+	end
 	if not assetInfo.bundlesAssetIsIn then
 		return nil
 	end
@@ -30,7 +39,6 @@ if GetFFlagIBGateUGC4ACollectibleAssetsBundles() or GetFFlagIBEnableCollectibles
 		local isLimitedUnique = if GetFFlagIBEnableCollectiblesSystemSupport() then assetInfo.isLimitedUnique else nil
 		local collectibleIsLimited = assetInfo.collectibleIsLimited
 
-		-- TODO: this doesnot include limited bundle yet. But it should include
 		return isLimited or isLimitedUnique or collectibleIsLimited
 	end
 
@@ -59,7 +67,6 @@ if GetFFlagIBGateUGC4ACollectibleAssetsBundles() or GetFFlagIBEnableCollectibles
 				return nil
 			end
 
-			-- TODO: Limited Bundle is not included here, but it should be
 			local collectibleIsLimited = assetInfo.collectibleIsLimited
 			return collectibleIsLimited
 		end
@@ -82,10 +89,6 @@ if GetFFlagIBGateUGC4ACollectibleAssetsBundles() or GetFFlagIBEnableCollectibles
 			return nil
 		end
 
-		-- TODO: collectibleIsLimited won't be given in the MarketplaceService:GetProductInfo
-		-- We need to call the catalog item details API to get the bundle's itemRestriction and collectionItemId
-		-- We could assume it's there
-		-- API Example: https://catalog.sitetest1.robloxlabs.com/v1/catalog/items/166098/details?itemType=Bundle
 		local hasLimitedQuantity = assetInfo.collectibleIsLimited
 		local isBundle = itemType == Constants.ItemType.Bundle
 
@@ -97,7 +100,6 @@ if GetFFlagIBGateUGC4ACollectibleAssetsBundles() or GetFFlagIBEnableCollectibles
 			return nil
 		end
 
-		-- TODO: collectibleIsLimited and Constants.ProductType won't be given in the MarketplaceService:GetProductInfo
 		local hasUnlimitedQuantity = not assetInfo.collectibleIsLimited
 		local isCollectible = assetInfo.productType == Constants.ProductType.CollectibleItem
 		local isBundle = itemType == Constants.ItemType.Bundle

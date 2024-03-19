@@ -20,28 +20,28 @@ function var2.willUnmount(arg1)
    end
 end
 
-local function fun42(arg1)
+local function fun44(arg1)
    local var0 = arg1.props.Offset or Vector2.new(0, 0)
-   local var1719 = {}
-   var1719.BackgroundTransparency = 1
-   var1719.Position = UDim2.new(0, var0.X, 0, var0.Y)
-   var1719.Size = UDim2.new(1, 0, 1, 0)
+   local var1739 = {}
+   var1739.BackgroundTransparency = 1
+   var1739.Position = UDim2.new(0, var0.X, 0, var0.Y)
+   var1739.Size = UDim2.new(1, 0, 1, 0)
    var1.Ref = arg1.targetRef
-   return var1.createElement("Frame", var1719)
+   return var1.createElement("Frame", var1739)
 end
 
 function var2.render(arg1)
    local var0 = arg1.props.Offset or Vector2.new(0, 0)
-   local var1719 = {}
-   var1719.BackgroundTransparency = 1
-   var1719.Position = UDim2.new(0, var0.X, 0, var0.Y)
-   var1719.Size = UDim2.new(1, 0, 1, 0)
+   local var1739 = {}
+   var1739.BackgroundTransparency = 1
+   var1739.Position = UDim2.new(0, var0.X, 0, var0.Y)
+   var1739.Size = UDim2.new(1, 0, 1, 0)
    var1.Ref = arg1.targetRef
-   return var1.createElement("Frame", var1719)
+   return var1.createElement("Frame", var1739)
 end
 
-fun42 = require(var0.Packages.Framework).ContextServices.withContext
-local var1737 = {}
-var1737.CalloutController = require(var0.Src.Util.CalloutController)
-var2 = fun42(var1737)(var2)
+fun44 = require(var0.Packages.Framework).ContextServices.withContext
+local var1757 = {}
+var1757.CalloutController = require(var0.Src.Util.CalloutController)
+var2 = fun44(var1757)(var2)
 return var2

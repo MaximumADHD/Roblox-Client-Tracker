@@ -21,8 +21,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(RobloxGui.Modules.Common.Url)
 game:DefineFastFlag("EnableSetUserBlocklistInitialized", false)
 
-local FFlagMigratePermissionsAPI = require(RobloxGui.Modules.Common.Flags.FFlagMigratePermissionsAPI)
-
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
 
 -- Maximum amount of follow notifications that a player is allowed to send to another player.
@@ -146,51 +144,32 @@ end
 local function getPlayerCanManage(player)
 	local canManage = false
 	if player.UserId > 0 then
-		if FFlagMigratePermissionsAPI then 
-			local success, result = pcall(function()
-				local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
-				local url = string.format(Url.APIS_URL..apiPath)
+		local success, result = pcall(function()
+			local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
+			local url = string.format(Url.APIS_URL..apiPath)
 
-				local request = HttpService:JSONEncode(
-					{
-						requests = {
-							{
-								subject = {
-									subjectType = "User",
-									subjectId = player.UserId
-								},
-								action = "Edit", -- check to see if this player has edit permissions on this placeId
-								assetId = game.PlaceId
-							}
+			local request = HttpService:JSONEncode(
+				{
+					requests = {
+						{
+							subject = {
+								subjectType = "User",
+								subjectId = player.UserId
+							},
+							action = "Edit", -- check to see if this player has edit permissions on this placeId
+							assetId = game.PlaceId
 						}
 					}
-				)
-				local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
-				return HttpService:JSONDecode(response)
-			end)
+				}
+			)
+			local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
+			return HttpService:JSONDecode(response)
+		end)
 
-			if success then
-				result = result.results[1]
-				if result.value and result.value.status == "HasPermission" then
-					canManage = true
-				end
-			end
-		else
-			local canManageSuccess, canManageResult = pcall(function()
-				local apiPath = "v1/user/%d/canmanage/%d"
-				local url = string.format(Url.DEVELOP_URL..apiPath, player.UserId, game.PlaceId)
-				return HttpRbxApiService:GetAsyncFullUrl(url)
-			end)
-			if canManageSuccess and type(canManageResult) == "string" then
-				-- API returns: {"Success":BOOLEAN,"CanManage":BOOLEAN}
-				-- Convert from JSON to a table
-				-- pcall in case of invalid JSON
-				local success, result = pcall(function()
-					return HttpService:JSONDecode(canManageResult)
-				end)
-				if success and result.CanManage == true then
-					canManage = true
-				end
+		if success then
+			result = result.results[1]
+			if result.value and result.value.status == "HasPermission" then
+				canManage = true
 			end
 		end
 	end

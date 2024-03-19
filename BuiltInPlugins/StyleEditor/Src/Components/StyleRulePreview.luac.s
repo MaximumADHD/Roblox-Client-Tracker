@@ -1,0 +1,319 @@
+PROTO_0:
+  LOADB R4 0
+  GETTABLEKS R7 R0 K0 ["X"]
+  GETTABLEKS R6 R7 K1 ["Scale"]
+  JUMPIFEQKN R6 K2 [0] [+3]
+  LOADN R5 0
+  JUMP [+2]
+  GETTABLEKS R5 R3 K0 ["X"]
+  GETTABLEKS R8 R0 K3 ["Y"]
+  GETTABLEKS R7 R8 K1 ["Scale"]
+  JUMPIFEQKN R7 K2 [0] [+3]
+  LOADN R6 0
+  JUMP [+2]
+  GETTABLEKS R6 R3 K3 ["Y"]
+  GETTABLEKS R11 R0 K3 ["Y"]
+  GETTABLEKS R10 R11 K1 ["Scale"]
+  GETTABLEKS R11 R1 K3 ["Y"]
+  MUL R9 R10 R11
+  GETTABLEKS R11 R0 K3 ["Y"]
+  GETTABLEKS R10 R11 K4 ["Offset"]
+  ADD R8 R9 R10
+  LOADN R10 2
+  MUL R9 R10 R6
+  ADD R7 R8 R9
+  GETTABLEKS R8 R1 K3 ["Y"]
+  JUMPIFLT R8 R7 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIFNOT R4 [+2]
+  GETTABLEKS R7 R1 K3 ["Y"]
+  MOVE R8 R7
+  GETIMPORT R9 K7 [Vector2.new]
+  MOVE R10 R5
+  MOVE R11 R6
+  CALL R9 2 1
+  MOVE R10 R4
+  RETURN R8 3
+
+PROTO_1:
+  DUPTABLE R1 K4 [{"padding", "maxSize", "minSize", "isOverflowing"}]
+  GETIMPORT R2 K7 [Vector2.new]
+  LOADN R3 10
+  LOADN R4 10
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K0 ["padding"]
+  GETIMPORT R2 K7 [Vector2.new]
+  LOADK R3 K8 [∞]
+  LOADK R4 K8 [∞]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K1 ["maxSize"]
+  GETIMPORT R2 K10 [Vector2.zero]
+  SETTABLEKS R2 R1 K2 ["minSize"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K3 ["isOverflowing"]
+  SETTABLEKS R1 R0 K11 ["state"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K12 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K13 ["containerRef"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R4 R0 K2 ["containerRef"]
+  GETTABLEKS R3 R4 K3 ["current"]
+  JUMPIF R3 [+1]
+  RETURN R0 0
+  GETTABLEKS R4 R1 K4 ["PreviewInstance"]
+  JUMPIFNOT R4 [+20]
+  GETTABLEKS R4 R1 K4 ["PreviewInstance"]
+  SETTABLEKS R3 R4 K5 ["Parent"]
+  GETIMPORT R4 K8 [Instance.new]
+  LOADK R5 K9 ["StyleLink"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K4 ["PreviewInstance"]
+  SETTABLEKS R5 R4 K5 ["Parent"]
+  GETTABLEKS R5 R1 K10 ["StyleRule"]
+  LOADK R7 K11 ["StyleSheet"]
+  NAMECALL R5 R5 K12 ["FindFirstAncestorWhichIsA"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["StyleSheet"]
+  GETTABLEKS R4 R2 K13 ["overrideSize"]
+  JUMPIFNOTEQKNIL R4 [+5]
+  LOADK R6 K14 ["Size"]
+  NAMECALL R4 R3 K15 ["ResetPropertyToDefault"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_3:
+  NAMECALL R1 R0 K0 ["updatePreview"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R3 R1 K0 ["PreviewInstance"]
+  GETTABLEKS R5 R0 K1 ["props"]
+  GETTABLEKS R4 R5 K0 ["PreviewInstance"]
+  JUMPIFEQ R3 R4 [+9]
+  GETTABLEKS R3 R1 K0 ["PreviewInstance"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R1 K0 ["PreviewInstance"]
+  NAMECALL R3 R3 K2 ["Remove"]
+  CALL R3 1 0
+  GETTABLEKS R4 R0 K1 ["props"]
+  GETTABLEKS R3 R4 K3 ["Expanded"]
+  JUMPIFNOT R3 [+3]
+  NAMECALL R3 R0 K4 ["updatePreview"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["PreviewInstance"]
+  JUMPIFNOT R2 [+46]
+  GETTABLEKS R2 R0 K1 ["MaxSize"]
+  GETIMPORT R3 K4 [Vector2.zero]
+  GETIMPORT R4 K6 [Vector2.new]
+  LOADN R5 10
+  LOADN R6 10
+  CALL R4 2 1
+  GETTABLEKS R6 R0 K0 ["PreviewInstance"]
+  GETTABLEKS R5 R6 K7 ["Size"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["getPredictedPreviewHeight"]
+  MOVE R7 R5
+  MOVE R8 R2
+  MOVE R9 R3
+  MOVE R10 R4
+  CALL R6 4 3
+  JUMPIFNOT R8 [+9]
+  GETIMPORT R9 K10 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 0
+  LOADN R12 0
+  GETTABLEKS R13 R2 K11 ["Y"]
+  CALL R9 4 1
+  JUMP [+3]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K12 ["None"]
+  DUPTABLE R10 K18 [{"padding", "maxSize", "minSize", "isOverflowing", "overrideSize"}]
+  SETTABLEKS R7 R10 K13 ["padding"]
+  SETTABLEKS R2 R10 K14 ["maxSize"]
+  SETTABLEKS R3 R10 K15 ["minSize"]
+  SETTABLEKS R8 R10 K16 ["isOverflowing"]
+  SETTABLEKS R9 R10 K17 ["overrideSize"]
+  RETURN R10 1
+  RETURN R1 1
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K2 ["PreviewInstance"]
+  JUMPIFNOT R4 [+153]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["createElement"]
+  GETUPVAL R4 1
+  NEWTABLE R5 8 0
+  LOADK R8 K4 ["Control"]
+  LOADK R9 K5 ["Preview"]
+  NAMECALL R6 R2 K6 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K7 ["Text"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K8 ["Expanded"]
+  SETTABLEKS R6 R5 K8 ["Expanded"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K9 ["OnExpandedChanged"]
+  SETTABLEKS R6 R5 K9 ["OnExpandedChanged"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K10 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K10 ["LayoutOrder"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K11 ["Tag"]
+  LOADK R7 K12 ["X-ColumnM X-FitY X-PadS"]
+  SETTABLE R7 R5 R6
+  DUPTABLE R6 K14 [{"Background"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["createElement"]
+  LOADK R8 K15 ["ImageLabel"]
+  NEWTABLE R9 4 0
+  GETUPVAL R10 2
+  SETTABLEKS R10 R9 K16 ["Image"]
+  GETTABLEKS R11 R0 K17 ["state"]
+  GETTABLEKS R10 R11 K18 ["overrideSize"]
+  SETTABLEKS R10 R9 K19 ["Size"]
+  GETTABLEKS R10 R0 K20 ["containerRef"]
+  SETTABLEKS R10 R9 K21 ["ref"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K11 ["Tag"]
+  GETUPVAL R11 3
+  LOADK R12 K22 ["PreviewGrid X-Middle X-Center X-Clip"]
+  GETTABLEKS R15 R0 K17 ["state"]
+  GETTABLEKS R14 R15 K23 ["isOverflowing"]
+  JUMPIF R14 [+2]
+  LOADK R13 K24 ["X-FitY"]
+  JUMP [+1]
+  LOADNIL R13
+  CALL R11 2 1
+  SETTABLE R11 R9 R10
+  DUPTABLE R10 K27 [{"UISizeConstraint", "UIPadding"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K3 ["createElement"]
+  LOADK R12 K25 ["UISizeConstraint"]
+  DUPTABLE R13 K30 [{"MaxSize", "MinSize"}]
+  GETTABLEKS R15 R0 K17 ["state"]
+  GETTABLEKS R14 R15 K31 ["maxSize"]
+  SETTABLEKS R14 R13 K28 ["MaxSize"]
+  GETTABLEKS R15 R0 K17 ["state"]
+  GETTABLEKS R14 R15 K32 ["minSize"]
+  SETTABLEKS R14 R13 K29 ["MinSize"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K25 ["UISizeConstraint"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K3 ["createElement"]
+  LOADK R12 K26 ["UIPadding"]
+  DUPTABLE R13 K37 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R14 K40 [UDim.new]
+  LOADN R15 0
+  GETTABLEKS R18 R0 K17 ["state"]
+  GETTABLEKS R17 R18 K41 ["padding"]
+  GETTABLEKS R16 R17 K42 ["X"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K33 ["PaddingLeft"]
+  GETIMPORT R14 K40 [UDim.new]
+  LOADN R15 0
+  GETTABLEKS R18 R0 K17 ["state"]
+  GETTABLEKS R17 R18 K41 ["padding"]
+  GETTABLEKS R16 R17 K42 ["X"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K34 ["PaddingRight"]
+  GETIMPORT R14 K40 [UDim.new]
+  LOADN R15 0
+  GETTABLEKS R18 R0 K17 ["state"]
+  GETTABLEKS R17 R18 K41 ["padding"]
+  GETTABLEKS R16 R17 K43 ["Y"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K35 ["PaddingTop"]
+  GETIMPORT R14 K40 [UDim.new]
+  LOADN R15 0
+  GETTABLEKS R18 R0 K17 ["state"]
+  GETTABLEKS R17 R18 K41 ["padding"]
+  GETTABLEKS R16 R17 K43 ["Y"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K36 ["PaddingBottom"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K26 ["UIPadding"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K13 ["Background"]
+  CALL R3 3 1
+  RETURN R3 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K44 ["None"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R4 R3 K9 ["withContext"]
+  GETTABLEKS R5 R3 K10 ["Localization"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Types"]
+  CALL R6 1 1
+  GETTABLEKS R8 R2 K13 ["UI"]
+  GETTABLEKS R7 R8 K14 ["ExpandablePane"]
+  GETTABLEKS R9 R2 K15 ["Styling"]
+  GETTABLEKS R8 R9 K16 ["joinTags"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K11 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Resources"]
+  GETTABLEKS R10 R11 K18 ["ModernIcons"]
+  CALL R9 1 1
+  GETTABLEKS R10 R9 K19 ["gridpattern"]
+  CALL R10 0 1
+  GETTABLEKS R11 R1 K20 ["PureComponent"]
+  LOADK R13 K21 ["StyleRulePreview"]
+  NAMECALL R11 R11 K22 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K23 [PROTO_0]
+  SETTABLEKS R12 R11 K24 ["getPredictedPreviewHeight"]
+  DUPCLOSURE R12 K25 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R12 R11 K26 ["init"]
+  DUPCLOSURE R12 K27 [PROTO_2]
+  SETTABLEKS R12 R11 K28 ["updatePreview"]
+  DUPCLOSURE R12 K29 [PROTO_3]
+  SETTABLEKS R12 R11 K30 ["didMount"]
+  DUPCLOSURE R12 K31 [PROTO_4]
+  SETTABLEKS R12 R11 K32 ["didUpdate"]
+  DUPCLOSURE R12 K33 [PROTO_5]
+  CAPTURE VAL R11
+  CAPTURE VAL R1
+  SETTABLEKS R12 R11 K34 ["getDerivedStateFromProps"]
+  DUPCLOSURE R12 K35 [PROTO_6]
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  SETTABLEKS R12 R11 K36 ["render"]
+  MOVE R12 R4
+  DUPTABLE R13 K37 [{"Localization"}]
+  SETTABLEKS R5 R13 K10 ["Localization"]
+  CALL R12 1 1
+  MOVE R13 R11
+  CALL R12 1 -1
+  RETURN R12 -1

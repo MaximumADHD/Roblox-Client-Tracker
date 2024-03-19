@@ -70,7 +70,7 @@ PROTO_2:
   GETUPVAL R3 2
   GETUPVAL R4 3
   GETUPVAL R5 4
-  DUPTABLE R6 K11 [{"audioSearchInfo", "additionalAudioSearchInfo", "includeUnverifiedCreators", "targetPage", "currentPage", "creator", "excludeGroupCreations", "searchTerm", "sortIndex", "requestReason"}]
+  DUPTABLE R6 K12 [{"audioSearchInfo", "additionalAudioSearchInfo", "includeUnverifiedCreators", "targetPage", "currentPage", "creator", "excludeGroupCreations", "searchTerm", "sortIndex", "requestReason", "qualityFilterData"}]
   GETUPVAL R7 5
   SETTABLEKS R7 R6 K1 ["audioSearchInfo"]
   GETUPVAL R7 6
@@ -94,19 +94,22 @@ PROTO_2:
   GETTABLEKS R7 R8 K8 ["searchTerm"]
   SETTABLEKS R7 R6 K8 ["searchTerm"]
   GETUPVAL R9 9
-  GETTABLEKS R8 R9 K13 ["SortIndex"]
-  ORK R7 R8 K12 [1]
+  GETTABLEKS R8 R9 K14 ["SortIndex"]
+  ORK R7 R8 K13 [1]
   SETTABLEKS R7 R6 K9 ["sortIndex"]
   GETUPVAL R8 10
-  GETTABLEKS R7 R8 K14 ["StartSearch"]
+  GETTABLEKS R7 R8 K15 ["StartSearch"]
   SETTABLEKS R7 R6 K10 ["requestReason"]
+  GETUPVAL R8 9
+  GETTABLEKS R7 R8 K11 ["qualityFilterData"]
+  SETTABLEKS R7 R6 K11 ["qualityFilterData"]
   CALL R3 3 -1
   NAMECALL R1 R1 K0 ["dispatch"]
   CALL R1 -1 0
   GETUPVAL R2 11
-  GETTABLEKS R1 R2 K15 ["onCreatorSearched"]
-  GETTABLEKS R2 R0 K16 ["Name"]
-  GETTABLEKS R3 R0 K17 ["Id"]
+  GETTABLEKS R1 R2 K16 ["onCreatorSearched"]
+  GETTABLEKS R2 R0 K17 ["Name"]
+  GETTABLEKS R3 R0 K18 ["Id"]
   CALL R1 2 0
   RETURN R0 0
 
@@ -196,7 +199,7 @@ PROTO_4:
   FASTCALL1 TYPE R7 [+2]
   GETIMPORT R6 K11 [type]
   CALL R6 1 1
-  JUMPIFNOT R6 [+228]
+  JUMPIFNOT R6 [+233]
   DUPTABLE R6 K20 [{"Name", "Id", "Type"}]
   GETUPVAL R9 2
   GETTABLEKS R8 R9 K8 ["Creator"]
@@ -308,7 +311,7 @@ PROTO_4:
   GETUPVAL R10 5
   GETUPVAL R11 6
   GETUPVAL R12 7
-  DUPTABLE R13 K46 [{"audioSearchInfo", "additionalAudioSearchInfo", "includeUnverifiedCreators", "targetPage", "currentPage", "sortIndex", "creator", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "requestReason", "searchTerm", "uiSortIntent", "sortDirection"}]
+  DUPTABLE R13 K47 [{"audioSearchInfo", "additionalAudioSearchInfo", "includeUnverifiedCreators", "targetPage", "currentPage", "sortIndex", "creator", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "requestReason", "searchTerm", "uiSortIntent", "sortDirection", "qualityFilterData"}]
   SETTABLEKS R1 R13 K35 ["audioSearchInfo"]
   SETTABLEKS R2 R13 K36 ["additionalAudioSearchInfo"]
   SETTABLEKS R3 R13 K4 ["includeUnverifiedCreators"]
@@ -317,8 +320,8 @@ PROTO_4:
   LOADN R14 0
   SETTABLEKS R14 R13 K38 ["currentPage"]
   GETUPVAL R16 2
-  GETTABLEKS R15 R16 K48 ["SortIndex"]
-  ORK R14 R15 K47 [1]
+  GETTABLEKS R15 R16 K49 ["SortIndex"]
+  ORK R14 R15 K48 [1]
   SETTABLEKS R14 R13 K39 ["sortIndex"]
   SETTABLEKS R5 R13 K40 ["creator"]
   GETUPVAL R15 15
@@ -344,7 +347,7 @@ PROTO_4:
   LOADNIL R14
   SETTABLEKS R14 R13 K33 ["groupTargetIds"]
   GETUPVAL R15 9
-  GETTABLEKS R14 R15 K49 ["StartSearch"]
+  GETTABLEKS R14 R15 K50 ["StartSearch"]
   SETTABLEKS R14 R13 K42 ["requestReason"]
   GETUPVAL R15 2
   GETTABLEKS R14 R15 K43 ["searchTerm"]
@@ -360,6 +363,9 @@ PROTO_4:
   GETUPVAL R15 2
   GETTABLEKS R14 R15 K45 ["sortDirection"]
   SETTABLEKS R14 R13 K45 ["sortDirection"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K46 ["qualityFilterData"]
+  SETTABLEKS R14 R13 K46 ["qualityFilterData"]
   CALL R10 3 -1
   NAMECALL R8 R0 K0 ["dispatch"]
   CALL R8 -1 0

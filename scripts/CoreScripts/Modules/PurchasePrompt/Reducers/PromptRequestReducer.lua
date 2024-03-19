@@ -15,6 +15,8 @@ local RequestSubscriptionPurchase = require(Root.Actions.RequestSubscriptionPurc
 local CompleteRequest = require(Root.Actions.CompleteRequest)
 local RequestType = require(Root.Enums.RequestType)
 
+local FFlagEnableUGC4ACollectiblePurchaseSupport = require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
+
 local EMPTY_STATE = { requestType = RequestType.None }
 
 local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
@@ -54,12 +56,31 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 		}
 	end,
 	[RequestBundlePurchase.name] = function(state, action)
-		return {
-			id = action.id,
-			infoType = Enum.InfoType.Bundle,
-			requestType = RequestType.Bundle,
-			isRobloxPurchase = true,
-		}
+		if FFlagEnableUGC4ACollectiblePurchaseSupport then
+			local idempotencyKey = action.idempotencyKey
+			if idempotencyKey == nil or idempotencyKey == '' then
+				idempotencyKey = HttpService:GenerateGUID(false)
+			end
+			return {
+				id = action.id,
+				infoType = Enum.InfoType.Bundle,
+				requestType = RequestType.Bundle,
+				isRobloxPurchase = true,
+				idempotencyKey = idempotencyKey,
+				purchaseAuthToken = action.purchaseAuthToken or '',
+				collectibleItemId = action.collectibleItemId or '',
+				collectibleItemInstanceId = action.collectibleItemInstanceId or '',
+				collectibleProductId = action.collectibleProductId or '',
+				expectedPrice = action.expectedPrice or 0,
+			}
+		else
+			return {
+				id = action.id,
+				infoType = Enum.InfoType.Bundle,
+				requestType = RequestType.Bundle,
+				isRobloxPurchase = true,
+			}
+		end
 	end,
 	[RequestPremiumPurchase.name] = function(state, action)
 		return {

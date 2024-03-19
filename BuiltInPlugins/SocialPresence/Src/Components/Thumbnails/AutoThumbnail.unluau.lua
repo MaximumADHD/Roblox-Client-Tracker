@@ -7,10 +7,10 @@ end
 
 local var2 = var0.Component:extend(script.Name)
 function var2.init(arg1)
-   local var91 = {}
-   var91.fetchStatus = nil
-   var91.contentId = nil
-   arg1.state = var91
+   local var29 = {}
+   var29.fetchStatus = nil
+   var29.contentId = nil
+   arg1.state = var29
    arg1.fetchingContentId = nil
    arg1.currentId = nil
    function arg1.updateThumbnail(arg1, arg2)
@@ -23,15 +23,15 @@ function var2.init(arg1)
       local var2 = "rbxthumb://type=AvatarHeadShot" ... "&id=" ... var0 ... "&w=" ... var1.X ... "&h=" ... var1.Y
       if var0 ~= arg1.currentId then
          arg1.currentId = var0
-         local var125 = {}
-         var125.fetchStatus = var1.None
-         var125.contentId = var2
-         arg1:setState(var125)
+         local var63 = {}
+         var63.fetchStatus = var1.None
+         var63.contentId = var2
+         arg1:setState(var63)
       end
       if var2 ~= arg1.state.contentId then
-         local var132 = arg1
-         var132 = var2
-         var132.loadThumbnail(var132)
+         local var70 = arg1
+         var70 = var2
+         var70.loadThumbnail(var70)
       end
    end
    

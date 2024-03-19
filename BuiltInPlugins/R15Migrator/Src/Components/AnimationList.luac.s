@@ -358,23 +358,25 @@ PROTO_12:
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K23 ["createElement"]
   GETUPVAL R17 2
-  DUPTABLE R18 K37 [{"IsChecked", "OnCheckboxClick", "RowHeight", "Padding"}]
-  NAMECALL R19 R0 K38 ["areAllSelected"]
+  DUPTABLE R18 K38 [{"IsChecked", "OnCheckboxClick", "RowHeight", "Padding", "OnResetPlugin"}]
+  NAMECALL R19 R0 K39 ["areAllSelected"]
   CALL R19 1 1
   SETTABLEKS R19 R18 K33 ["IsChecked"]
-  GETTABLEKS R19 R0 K39 ["onAllSelectedChecked"]
+  GETTABLEKS R19 R0 K40 ["onAllSelectedChecked"]
   SETTABLEKS R19 R18 K34 ["OnCheckboxClick"]
   GETTABLEKS R19 R7 K35 ["RowHeight"]
   SETTABLEKS R19 R18 K35 ["RowHeight"]
   GETTABLEKS R19 R7 K36 ["Padding"]
   SETTABLEKS R19 R18 K36 ["Padding"]
+  GETTABLEKS R19 R1 K37 ["OnResetPlugin"]
+  SETTABLEKS R19 R18 K37 ["OnResetPlugin"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K6 ["SelectAllRow"]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K23 ["createElement"]
   GETUPVAL R17 1
-  DUPTABLE R18 K40 [{"Size", "Padding"}]
-  GETIMPORT R19 K43 [UDim2.new]
+  DUPTABLE R18 K41 [{"Size", "Padding"}]
+  GETIMPORT R19 K44 [UDim2.new]
   LOADN R20 1
   LOADN R21 0
   LOADN R22 1
@@ -384,28 +386,28 @@ PROTO_12:
   SETTABLEKS R19 R18 K3 ["Size"]
   GETTABLEKS R19 R6 K36 ["Padding"]
   SETTABLEKS R19 R18 K36 ["Padding"]
-  DUPTABLE R19 K45 [{"List"}]
+  DUPTABLE R19 K46 [{"List"}]
   GETUPVAL R21 0
   GETTABLEKS R20 R21 K23 ["createElement"]
   GETUPVAL R21 3
-  DUPTABLE R22 K49 [{"Rows", "GetRowProps", "RowComponent"}]
-  SETTABLEKS R9 R22 K46 ["Rows"]
-  GETTABLEKS R23 R0 K50 ["getRowProps"]
-  SETTABLEKS R23 R22 K47 ["GetRowProps"]
+  DUPTABLE R22 K50 [{"Rows", "GetRowProps", "RowComponent"}]
+  SETTABLEKS R9 R22 K47 ["Rows"]
+  GETTABLEKS R23 R0 K51 ["getRowProps"]
+  SETTABLEKS R23 R22 K48 ["GetRowProps"]
   GETUPVAL R23 4
-  SETTABLEKS R23 R22 K48 ["RowComponent"]
+  SETTABLEKS R23 R22 K49 ["RowComponent"]
   CALL R20 2 1
-  SETTABLEKS R20 R19 K44 ["List"]
+  SETTABLEKS R20 R19 K45 ["List"]
   CALL R16 3 1
   SETTABLEKS R16 R15 K30 ["ListContianer"]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K23 ["createElement"]
   GETUPVAL R17 5
-  DUPTABLE R18 K53 [{"OnKeyPressed", "OnKeyReleased"}]
-  GETTABLEKS R19 R0 K54 ["onKeyPressed"]
-  SETTABLEKS R19 R18 K51 ["OnKeyPressed"]
-  GETTABLEKS R19 R0 K55 ["onKeyReleased"]
-  SETTABLEKS R19 R18 K52 ["OnKeyReleased"]
+  DUPTABLE R18 K54 [{"OnKeyPressed", "OnKeyReleased"}]
+  GETTABLEKS R19 R0 K55 ["onKeyPressed"]
+  SETTABLEKS R19 R18 K52 ["OnKeyPressed"]
+  GETTABLEKS R19 R0 K56 ["onKeyReleased"]
+  SETTABLEKS R19 R18 K53 ["OnKeyReleased"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K31 ["KeyboardListener"]
   CALL R12 3 -1

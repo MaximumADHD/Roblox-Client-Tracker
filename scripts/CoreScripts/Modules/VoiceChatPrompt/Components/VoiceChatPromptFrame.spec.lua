@@ -304,5 +304,51 @@ return function()
 
 			Roact.unmount(instance)
 		end)
+
+		it("should display voice consent modal correctly", function()
+			local signal = Instance.new("BindableEvent")
+
+			local analyticsMock, analyticsMockFn = jest.fn()
+			AnalyticsMockStub.reportBanMessageEvent = analyticsMockFn
+
+			local vcsMock, vcsMockFn = jest.fn()
+			VCSMStub.reportBanMessage = vcsMockFn
+
+			local element = Roact.createElement(VoiceChatPromptFrame, {
+				promptSignal = signal.Event,
+				Analytics = AnalyticsMock,
+				VoiceChatServiceManager = VCSMock,
+			})
+			local instance = Roact.mount(element)
+
+			signal:Fire(PromptType.VoiceConsentModal)
+
+			waitForEvents()
+
+			local localization = Localization.new("en-us")
+			local modalTitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Verification.Identity.Heading.V2LetsChat"),
+			})
+			local modalSubtitle = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.TurnOnVoiceChat"),
+			})
+			local turnOnLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.TurnOn"),
+			})
+			local notNowLabel = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Action.NotNow"),
+			})
+			local turnOnDisclaimer = RhodiumHelpers.findFirstInstance(instance, {
+				text = localization:Format("Feature.SettingsHub.Prompt.Subtitle.SelectingTurnOn"),
+			})
+
+			jestExpect(modalTitle).toBeDefined()
+			jestExpect(modalSubtitle).toBeDefined()
+			jestExpect(turnOnLabel).toBeDefined()
+			jestExpect(notNowLabel).toBeDefined()
+			jestExpect(turnOnDisclaimer).toBeDefined()
+
+			Roact.unmount(instance)
+		end)
 	end)
 end

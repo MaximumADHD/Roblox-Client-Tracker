@@ -1,19 +1,18 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("StreamingServiceDispatcherRegistry")
 local var1 = require(var0.Src.Utils.Utils)
 local var2 = require(var0.Src.Types)
-local var3 = require(script.Parent.BuilderNameMap)
-local var4 = game:GetFastFlag("ConvAIAddDraftModeForSceneCreate2")
+local var3 = require(var0.Src.Commands.BuilderCommands.BuilderNameMap)
 return function(arg1)
-   assert(var4, "setDraftMode: FFlagConvAIAddDraftModeForSceneCreate is not enabled!")
    local var0 = arg1.arguments
+   local var1 = true
    if var0.enabled == 1 then
-      if var0.enabled == "assert" then
+      if var0.enabled == "enabled" then
          local var0 = false
       end
       local var0 = true
    end
-   if true then
+   if var1 then
       var3.activeDraftGuids = {}
       var1.enableDraftMode(arg1.requestId)
    end

@@ -5,6 +5,8 @@ local Workspace = game:GetService("Workspace")
 local Constants = require(Root.Misc.Constants)
 local PurchaseError = require(Root.Enums.PurchaseError)
 
+local FFlagEnableUGC4ACollectiblePurchaseSupport = require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
+
 local CONTENT_RATING_13_PLUS = 1
 local ROBLOX_CREATOR = 1
 
@@ -14,10 +16,25 @@ local THIRD_PARTY_WARNING = "AllowThirdPartySales has blocked the purchase"
 
 local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty, externalSettings, expectedPrice)
 	local isCollectibleItem = productInfo.ProductType == Constants.ProductType.CollectibleItem
+	local isLimited = if FFlagEnableUGC4ACollectiblePurchaseSupport and productInfo.CollectiblesItemDetails then productInfo.CollectiblesItemDetails.IsLimited else nil
 
-	-- A user can own multiple instances of a Collectible item
-	if not isCollectibleItem and alreadyOwned then
-		return false, PurchaseError.AlreadyOwn
+	
+	if FFlagEnableUGC4ACollectiblePurchaseSupport then
+		-- A user can own multiple instances of a Limited Collectible item
+		if isCollectibleItem then
+			if not isLimited and alreadyOwned then
+				return false, PurchaseError.AlreadyOwn
+			end
+		else
+			if alreadyOwned then
+				return false, PurchaseError.AlreadyOwn
+			end
+		end
+	else
+		-- A user can own multiple instances of a Collectible item
+		if not isCollectibleItem and alreadyOwned then
+			return false, PurchaseError.AlreadyOwn
+		end
 	end
 
 	-- Resale cases should have precedence over the following conditions.
@@ -30,9 +47,17 @@ local function meetsPrerequisites(productInfo, alreadyOwned, restrictThirdParty,
 		return false, PurchaseError.NotForSaleHere
 	end
 
-	if (expectedPrice == nil) and (isCollectibleItem or productInfo.IsLimited or productInfo.IsLimitedUnique) then
-		if productInfo.Remaining == nil or productInfo.Remaining == 0 then
-			return false, PurchaseError.Limited
+	if FFlagEnableUGC4ACollectiblePurchaseSupport then
+		if (expectedPrice == nil) and ((isCollectibleItem and isLimited) or productInfo.IsLimited or productInfo.IsLimitedUnique) then
+			if productInfo.Remaining == nil or productInfo.Remaining == 0 then
+				return false, PurchaseError.Limited
+			end
+		end
+	else
+		if (expectedPrice == nil) and (isCollectibleItem or productInfo.IsLimited or productInfo.IsLimitedUnique) then
+			if productInfo.Remaining == nil or productInfo.Remaining == 0 then
+				return false, PurchaseError.Limited
+			end
 		end
 	end
 

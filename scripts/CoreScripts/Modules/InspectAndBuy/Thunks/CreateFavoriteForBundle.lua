@@ -10,6 +10,9 @@ local SetFavoriteBundle = require(InspectAndBuyFolder.Actions.SetFavoriteBundle)
 local SetBundles = require(InspectAndBuyFolder.Actions.SetBundles)
 local BundleInfo = require(InspectAndBuyFolder.Models.BundleInfo)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
+local Constants = require(InspectAndBuyFolder.Constants)
+local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 
 local requiredServices = {
 	Network,
@@ -37,14 +40,23 @@ local function CreateFavoriteForBundle(bundleId)
 					local updatedAssetInformation = BundleInfo.fromGetBundleFavoriteCount(bundleId, currentFavoriteCount + 1)
 					store:dispatch(SetBundles({updatedAssetInformation}))
 					analytics.reportFavoriteItem("Bundle", bundleId, true, true, "", currentFavoriteCount + 1)
+					if GetFFlagIBEnableSendCounters() then
+						store:dispatch(SendCounter(Constants.Counters.CreateFavoriteForBundle .. Constants.CounterSuffix.RequestSucceeded))
+					end
 					return Promise.resolve()
 				end,
 				function(err)
+					if GetFFlagIBEnableSendCounters() then
+						store:dispatch(SendCounter(Constants.Counters.CreateFavoriteForBundle .. Constants.CounterSuffix.RequestRejected))
+					end
 					return Promise.reject(tostring(err.StatusMessage))
 				end)
 		end)(store):catch(function(err)
 			local favoriteCount = store:getState().bundles[bundleId].numFavorites
 			analytics.reportFavoriteItem("Bundle", bundleId, true, false, err, favoriteCount)
+			if GetFFlagIBEnableSendCounters() then
+				store:dispatch(SendCounter(Constants.Counters.CreateFavoriteForBundle .. Constants.CounterSuffix.RequestFailed))
+			end
 		end)
 	end)
 end

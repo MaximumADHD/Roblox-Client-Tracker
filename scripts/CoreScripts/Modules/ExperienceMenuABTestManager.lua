@@ -1,12 +1,13 @@
 --!nonstrict
 --[[
 	Handles A/B testing of experience menu with IXP service
-	on the Experience.Menu layer
+	on the Experience.Menu and Experience.Menu.Console layers
 	eg. v1 = old menu, v2 = VR menu
 ]]
 
 local AppStorageService = game:GetService("AppStorageService")
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local InGameMenu = script.Parent.InGameMenu
@@ -15,6 +16,7 @@ local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
 
 local GetFStringLuaAppExperienceMenuLayer = require(script.Parent.Flags.GetFStringLuaAppExperienceMenuLayer)
+local GetFStringLuaAppConsoleExperienceMenuLayer = require(script.Parent.Flags.GetFStringLuaAppConsoleExperienceMenuLayer)
 
 local GetFFlagDisableChromeUnibar = require(script.Parent.Flags.GetFFlagDisableChromeUnibar)()
 local GetFFlagDisableChromePinnedChat = require(script.Parent.Flags.GetFFlagDisableChromePinnedChat)()
@@ -24,13 +26,16 @@ local GetFFlagDisableChromeFollowupUnibar = require(script.Parent.Flags.GetFFlag
 local GetFFlagDisableChromeFollowupFTUX = require(script.Parent.Flags.GetFFlagDisableChromeFollowupFTUX)()
 local GetFFlagDisableChromeFollowupOcclusion = require(script.Parent.Flags.GetFFlagDisableChromeFollowupOcclusion)()
 
+local GetFFlagEnableNewExperienceMenuLayer =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableNewExperienceMenuLayer
+
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
 local ACTION_TRIGGER_LATCHED = 10000
 
 local TEST_VERSION = "t9" -- bump on new A/B campaigns
 local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
-local CONSOLE_MODERNIZATION_TEST_VERSION = "m1"
+local CONSOLE_MODERNIZATION_TEST_VERSION = "m2"
 
 local DEFAULT_MENU_VERSION = "v1"..TEST_VERSION
 local MENU_VERSION_V2 = "v2"..TEST_VERSION
@@ -304,9 +309,15 @@ function ExperienceMenuABTestManager:initialize()
 	local layerFetchSuccess, layerData = pcall(function()
 		return self._ixpServiceWrapper:GetLayerData(GetFStringLuaAppExperienceMenuLayer())
 	end)
+	local consoleLayerFetchSuccess, consoleLayerData 
+	if GetFFlagEnableNewExperienceMenuLayer() then
+		consoleLayerFetchSuccess, consoleLayerData =  pcall(function()
+			return self._ixpServiceWrapper:GetLayerData(GetFStringLuaAppConsoleExperienceMenuLayer())
+		end)
+	end
 
 	-- bail if we aren't able to communicate with IXP service
-	if not layerFetchSuccess then
+	if not layerFetchSuccess and (not consoleLayerFetchSuccess or not GetFFlagEnableNewExperienceMenuLayer()) then
 		return
 	end
 
@@ -314,11 +325,31 @@ function ExperienceMenuABTestManager:initialize()
 	if not self._currentMenuVersion then
 		self._currentMenuVersion = self.getCachedVersion()
 	end
-	if layerData and (layerData.menuVersion ~= self._currentMenuVersion or self._currentMenuVersionIsDefault) then
-		pcall(function()
-			AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, layerData.menuVersion or "")
-			AppStorageService:Flush()
-		end)
+
+	if GetFFlagEnableNewExperienceMenuLayer() then
+		if layerData and consoleLayerData then
+		-- if console layer data is provided, use that to set menu version (provided normal layer data not provided)
+			if consoleLayerData.menuVersion and not layerData.menuVersion then
+				if consoleLayerData.menuVersion ~= self._currentMenuVersion or self._currentMenuVersionIsDefault then
+					pcall(function()
+						AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, consoleLayerData.menuVersion)
+						AppStorageService:Flush()
+					end)
+				end
+			elseif layerData.menuVersion ~= self._currentMenuVersion or self._currentMenuVersionIsDefault then
+				pcall(function()
+					AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, layerData.menuVersion or "")
+					AppStorageService:Flush()
+				end)
+			end
+		end
+	else
+		if layerData and (layerData.menuVersion ~= self._currentMenuVersion or self._currentMenuVersionIsDefault) then
+			pcall(function()
+				AppStorageService:SetItem(LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION, layerData.menuVersion or "")
+				AppStorageService:Flush()
+			end)
+		end
 	end
 end
 

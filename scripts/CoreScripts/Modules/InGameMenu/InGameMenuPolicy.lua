@@ -46,6 +46,14 @@ InGameMenuPolicy.Mapper = function(policy)
 		enableFullscreenTitleBar = function()
 			return policy.FullscreenTitleBarEnabled or false
 		end,
+
+		getDisplayCheckboxInVoiceConsent = function()
+			-- Default to showing the checkbox in voice consent modal
+			if policy.DisplayCheckboxInVoiceConsent == nil then
+				return true
+			end
+			return policy.DisplayCheckboxInVoiceConsent
+		end,
 	}
 end
 

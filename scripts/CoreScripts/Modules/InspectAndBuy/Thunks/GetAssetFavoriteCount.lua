@@ -6,6 +6,9 @@ local Network = require(InspectAndBuyFolder.Services.Network)
 local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local AssetInfo = require(InspectAndBuyFolder.Models.AssetInfo)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
+local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
+local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
+local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
 	Network,
@@ -29,9 +32,17 @@ local function GetAssetFavoriteCount(assetId)
 						local asset = AssetInfo.fromGetAssetFavoriteCount(assetId, numFavorites)
 						store:dispatch(SetAssets({asset}))
 					end
-				end)
+					if GetFFlagIBEnableSendCounters() then
+						store:dispatch(SendCounter(Constants.Counters.GetAssetFavoriteCount .. Constants.CounterSuffix.RequestSucceeded))
+					end
+				end,
+				if GetFFlagIBEnableSendCounters() then function(err)
+					store:dispatch(SendCounter(Constants.Counters.GetAssetFavoriteCount .. Constants.CounterSuffix.RequestRejected))
+				end else nil)
 		end)(store):catch(function(err)
-
+			if GetFFlagIBEnableSendCounters() then
+				store:dispatch(SendCounter(Constants.Counters.GetAssetFavoriteCount .. Constants.CounterSuffix.RequestFailed))
+			end
 		end)
 	end)
 end

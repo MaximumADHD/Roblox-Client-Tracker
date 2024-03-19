@@ -6,6 +6,7 @@ local View = require(Reducers.View)
 local PlayerId = require(Reducers.PlayerId)
 local PlayerName = require(Reducers.PlayerName)
 local Assets = require(Reducers.Assets)
+local AssetBundles = require(Reducers.AssetBundles)
 local Bundles = require(Reducers.Bundles)
 local EquippedAssets = require(Reducers.EquippedAssets)
 local DetailsInformation = require(Reducers.DetailsInformation)
@@ -20,6 +21,9 @@ local GamepadEnabled = require(Reducers.GamepadEnabled)
 local StoreId = require(Reducers.StoreId)
 local CollectibleResellableInstances = require(Reducers.CollectibleResellableInstances)
 local CreatingExperiences = require(Reducers.CreatingExperiences)
+local InspectAndBuyFolder = script.Parent.Parent
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 return Rodux.combineReducers({
 	view = View,
@@ -27,6 +31,7 @@ return Rodux.combineReducers({
 	playerName = PlayerName,
 	assets = Assets,
 	bundles = Bundles,
+	assetBundles = if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then AssetBundles else nil,
 	equippedAssets = EquippedAssets,
 	detailsInformation = DetailsInformation,
 	tryingOnInfo = TryingOnInfo,

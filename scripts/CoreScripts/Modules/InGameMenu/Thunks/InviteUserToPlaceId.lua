@@ -8,9 +8,9 @@ local InGameMenu = script.Parent.Parent
 local Network = InGameMenu.Network
 
 local httpRequest = require(Network.httpRequest)
-local ChatSendMessage = require(Network.Requests.ChatSendMessage)
-local ChatSendGameLinkMessage = require(Network.Requests.ChatSendGameLinkMessage)
-local ChatStartOneToOneConversation = require(Network.Requests.ChatStartOneToOneConversation)
+local DEPRECATED_ChatSendMessage = require(Network.Requests.DEPRECATED_ChatSendMessage)
+local DEPRECATED_ChatSendGameLinkMessage = require(Network.Requests.DEPRECATED_ChatSendGameLinkMessage)
+local DEPRECATED_ChatStartOneToOneConversation = require(Network.Requests.DEPRECATED_ChatStartOneToOneConversation)
 local GetPlaceInfos = require(Network.Requests.GetPlaceInfos)
 
 local networkImpl = httpRequest(HttpRbxApiService)
@@ -54,10 +54,10 @@ return function(userId, placeId)
 			local clientId = Players.LocalPlayer.UserId
 			local inviteTextMessage = string.format(INVITE_TEXT_MESSAGE, placeInfo.name)
 
-			return ChatStartOneToOneConversation(networkImpl, userId, clientId):andThen(function(conversationResult)
+			return DEPRECATED_ChatStartOneToOneConversation(networkImpl, userId, clientId):andThen(function(conversationResult)
 				local conversation = conversationResult.responseBody.conversation
-				return ChatSendMessage(networkImpl, conversation.id, inviteTextMessage):andThen(function()
-					return ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId):andThen(function(inviteResult)
+				return DEPRECATED_ChatSendMessage(networkImpl, conversation.id, inviteTextMessage):andThen(function()
+					return DEPRECATED_ChatSendGameLinkMessage(networkImpl, conversation.id, placeInfo.universeId):andThen(function(inviteResult)
 						local data = inviteResult.responseBody
 
 						local inviteSentResults = {

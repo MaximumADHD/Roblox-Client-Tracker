@@ -1,38 +1,106 @@
 PROTO_0:
-  MOVE R3 R0
-  MOVE R4 R1
-  MOVE R5 R2
-  LOADK R6 K0 ["Plugin"]
-  LOADK R7 K1 ["Button"]
-  CALL R3 4 -1
-  RETURN R3 -1
+  JUMPIFNOT R0 [+17]
+  GETUPVAL R1 0
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["Enabled"]
+  GETUPVAL R1 1
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["Enabled"]
+  GETUPVAL R1 2
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["Enabled"]
+  GETUPVAL R1 3
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["Enabled"]
+  RETURN R0 0
+  GETUPVAL R1 0
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["Enabled"]
+  GETUPVAL R1 1
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["Enabled"]
+  GETUPVAL R1 2
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["Enabled"]
+  GETUPVAL R1 3
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["Enabled"]
+  RETURN R0 0
 
 PROTO_1:
-  MOVE R3 R0
-  MOVE R4 R1
-  MOVE R5 R2
-  LOADK R6 K0 ["Plugin"]
-  LOADK R7 K1 ["Description"]
-  CALL R3 4 -1
-  RETURN R3 -1
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["pauseButtons"]
+  GETIMPORT R2 K2 [game]
+  LOADK R4 K3 ["RunService"]
+  NAMECALL R2 R2 K4 ["GetService"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K5 ["IsRunning"]
+  CALL R2 1 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
 
 PROTO_2:
-  MOVE R3 R0
-  MOVE R4 R1
-  MOVE R5 R2
-  LOADK R6 K0 ["Plugin"]
-  LOADK R7 K1 ["Toolbar"]
-  CALL R3 4 -1
-  RETURN R3 -1
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K4 ["Pause"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K5 ["pauseButtons"]
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
 
 PROTO_3:
-  MOVE R3 R0
-  MOVE R4 R1
-  MOVE R5 R2
-  LOADK R6 K0 ["Plugin"]
-  LOADK R7 K1 ["Name"]
-  CALL R3 4 -1
-  RETURN R3 -1
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K4 ["Run"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K5 ["pauseButtons"]
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["RunService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K4 ["IsEdit"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  JUMPIFNOTEQKS R0 K5 ["Pause"] [+6]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K6 ["onPause"]
+  CALL R1 0 0
+  RETURN R0 0
+  JUMPIFNOTEQKS R0 K7 ["Resume"] [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K8 ["onResume"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R0 K1 [plugin]
+  LOADK R2 K2 ["syncRunState"]
+  LOADK R3 K3 ["Pause"]
+  NAMECALL R0 R0 K4 ["Invoke"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_6:
+  GETIMPORT R0 K1 [plugin]
+  LOADK R2 K2 ["syncRunState"]
+  LOADK R3 K3 ["Resume"]
+  NAMECALL R0 R0 K4 ["Invoke"]
+  CALL R0 3 0
+  RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
@@ -51,99 +119,123 @@ MAIN:
   LOADK R2 K10 ["SimulationStep"]
   NAMECALL R0 R0 K11 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K1 [require]
-  GETTABLEKS R3 R0 K12 ["Packages"]
-  GETTABLEKS R2 R3 K13 ["TestLoader"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K14 ["launch"]
-  LOADK R3 K10 ["SimulationStep"]
-  GETTABLEKS R4 R0 K15 ["Src"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K16 ["isCli"]
-  CALL R2 0 1
+  GETIMPORT R1 K13 [plugin]
+  GETTABLEKS R2 R0 K14 ["Name"]
+  SETTABLEKS R2 R1 K14 ["Name"]
+  GETIMPORT R1 K7 [game]
+  LOADK R3 K15 ["RunService"]
+  NAMECALL R1 R1 K16 ["GetService"]
+  CALL R1 2 1
+  NAMECALL R2 R1 K17 ["IsEdit"]
+  CALL R2 1 1
   JUMPIFNOT R2 [+1]
   RETURN R0 0
-  GETIMPORT R2 K18 [plugin]
-  GETTABLEKS R3 R0 K19 ["Name"]
-  SETTABLEKS R3 R2 K19 ["Name"]
-  GETIMPORT R2 K1 [require]
-  GETTABLEKS R5 R0 K12 ["Packages"]
-  GETTABLEKS R4 R5 K20 ["PluginLoader"]
-  GETTABLEKS R3 R4 K21 ["PluginLoaderBuilder"]
-  CALL R2 1 1
-  GETTABLEKS R6 R0 K15 ["Src"]
-  GETTABLEKS R5 R6 K22 ["Resources"]
-  GETTABLEKS R4 R5 K23 ["Localization"]
-  GETTABLEKS R3 R4 K24 ["SourceStrings"]
-  GETTABLEKS R7 R0 K15 ["Src"]
-  GETTABLEKS R6 R7 K22 ["Resources"]
-  GETTABLEKS R5 R6 K23 ["Localization"]
-  GETTABLEKS R4 R5 K25 ["LocalizedStrings"]
-  DUPTABLE R5 K30 [{"getName", "getDescription", "icon", "enabled"}]
-  DUPCLOSURE R6 K31 [PROTO_0]
-  SETTABLEKS R6 R5 K26 ["getName"]
-  DUPCLOSURE R6 K32 [PROTO_1]
-  SETTABLEKS R6 R5 K27 ["getDescription"]
-  LOADK R6 K33 ["rbxlocaltheme://GameSettings"]
-  SETTABLEKS R6 R5 K28 ["icon"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K29 ["enabled"]
-  DUPTABLE R6 K39 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "getToolbarName", "buttonInfo"}]
-  GETIMPORT R7 K18 [plugin]
-  SETTABLEKS R7 R6 K17 ["plugin"]
-  LOADK R7 K10 ["SimulationStep"]
-  SETTABLEKS R7 R6 K34 ["pluginName"]
-  SETTABLEKS R4 R6 K35 ["translationResourceTable"]
-  SETTABLEKS R3 R6 K36 ["fallbackResourceTable"]
-  DUPCLOSURE R7 K40 [PROTO_2]
-  SETTABLEKS R7 R6 K37 ["getToolbarName"]
-  SETTABLEKS R5 R6 K38 ["buttonInfo"]
-  GETIMPORT R7 K7 [game]
-  LOADK R9 K41 ["RunService"]
-  NAMECALL R7 R7 K42 ["GetService"]
-  CALL R7 2 1
-  NAMECALL R8 R7 K43 ["IsEdit"]
-  CALL R8 1 1
-  JUMPIFNOT R8 [+55]
-  LOADB R8 1
-  SETTABLEKS R8 R5 K29 ["enabled"]
-  DUPTABLE R8 K48 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R9 K10 ["SimulationStep"]
-  SETTABLEKS R9 R8 K44 ["id"]
-  GETIMPORT R9 K51 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R10 K55 [Enum.InitialDockState.Bottom]
-  LOADB R11 0
-  LOADB R12 0
-  LOADN R13 128
-  LOADN R14 224
-  LOADN R15 250
-  LOADN R16 200
-  CALL R9 7 1
-  SETTABLEKS R9 R8 K45 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R9 K56 [PROTO_3]
-  SETTABLEKS R9 R8 K46 ["getDockTitle"]
-  GETIMPORT R9 K59 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R9 R8 K47 ["zIndexBehavior"]
-  SETTABLEKS R8 R6 K60 ["dockWidgetInfo"]
-  GETTABLEKS R8 R2 K61 ["build"]
-  MOVE R9 R6
-  CALL R8 1 1
-  GETTABLEKS R9 R8 K62 ["pluginLoader"]
-  NAMECALL R9 R9 K63 ["waitForUserInteraction"]
+  LOADNIL R2
+  LOADNIL R3
+  LOADNIL R4
+  LOADNIL R5
+  NEWTABLE R6 8 0
+  NEWCLOSURE R7 P0
+  CAPTURE REF R2
+  CAPTURE REF R3
+  CAPTURE REF R4
+  CAPTURE REF R5
+  SETTABLEKS R7 R6 K18 ["pauseButtons"]
+  DUPCLOSURE R7 K19 [PROTO_1]
+  CAPTURE VAL R6
+  GETIMPORT R8 K7 [game]
+  LOADK R10 K15 ["RunService"]
+  NAMECALL R8 R8 K16 ["GetService"]
+  CALL R8 2 1
+  LOADK R10 K20 ["RunState"]
+  NAMECALL R8 R8 K21 ["GetPropertyChangedSignal"]
+  CALL R8 2 1
+  MOVE R10 R7
+  NAMECALL R8 R8 K22 ["Connect"]
+  CALL R8 2 1
+  SETTABLEKS R8 R6 K23 ["checkRunState"]
+  DUPCLOSURE R8 K24 [PROTO_2]
+  CAPTURE VAL R6
+  SETTABLEKS R8 R6 K25 ["onPause"]
+  DUPCLOSURE R8 K26 [PROTO_3]
+  CAPTURE VAL R6
+  SETTABLEKS R8 R6 K27 ["onResume"]
+  DUPCLOSURE R8 K28 [PROTO_4]
+  CAPTURE VAL R6
+  SETTABLEKS R8 R6 K29 ["invokeAction"]
+  GETIMPORT R8 K13 [plugin]
+  LOADK R10 K30 ["syncRunState"]
+  GETTABLEKS R11 R6 K29 ["invokeAction"]
+  NAMECALL R8 R8 K31 ["OnInvoke"]
+  CALL R8 3 0
+  DUPCLOSURE R8 K32 [PROTO_5]
+  SETTABLEKS R8 R6 K33 ["pauseAll"]
+  DUPCLOSURE R8 K34 [PROTO_6]
+  SETTABLEKS R8 R6 K35 ["resumeAll"]
+  GETIMPORT R9 K7 [game]
+  LOADK R11 K15 ["RunService"]
+  NAMECALL R9 R9 K16 ["GetService"]
+  CALL R9 2 1
+  NAMECALL R9 R9 K36 ["IsRunning"]
   CALL R9 1 1
-  JUMPIF R9 [+1]
-  RETURN R0 0
-  GETIMPORT R10 K1 [require]
-  GETIMPORT R13 K3 [script]
-  GETTABLEKS R12 R13 K4 ["Parent"]
-  GETTABLEKS R11 R12 K64 ["main"]
-  CALL R10 1 1
-  MOVE R11 R10
-  GETIMPORT R12 K18 [plugin]
-  MOVE R13 R8
-  CALL R11 2 0
-  RETURN R0 0
-  GETTABLEKS R8 R2 K61 ["build"]
-  MOVE R9 R6
-  CALL R8 1 0
+  NOT R8 R9
+  GETIMPORT R9 K13 [plugin]
+  LOADK R11 K37 ["simulationStep"]
+  NAMECALL R9 R9 K38 ["CreateToolbar"]
+  CALL R9 2 1
+  LOADK R12 K39 ["ResumeAll"]
+  LOADK R13 K40 [""]
+  LOADK R14 K41 ["rbxlocaltheme://Resume"]
+  NAMECALL R10 R9 K42 ["CreateButton"]
+  CALL R10 4 1
+  MOVE R2 R10
+  LOADB R10 1
+  SETTABLEKS R10 R2 K43 ["ClickableWhenViewportHidden"]
+  SETTABLEKS R8 R2 K44 ["Enabled"]
+  GETTABLEKS R10 R2 K45 ["Click"]
+  GETTABLEKS R12 R6 K35 ["resumeAll"]
+  NAMECALL R10 R10 K22 ["Connect"]
+  CALL R10 2 0
+  LOADK R12 K46 ["Resume"]
+  LOADK R13 K40 [""]
+  LOADK R14 K41 ["rbxlocaltheme://Resume"]
+  NAMECALL R10 R9 K42 ["CreateButton"]
+  CALL R10 4 1
+  MOVE R3 R10
+  LOADB R10 1
+  SETTABLEKS R10 R3 K43 ["ClickableWhenViewportHidden"]
+  SETTABLEKS R8 R3 K44 ["Enabled"]
+  GETTABLEKS R10 R3 K45 ["Click"]
+  GETTABLEKS R12 R6 K27 ["onResume"]
+  NAMECALL R10 R10 K22 ["Connect"]
+  CALL R10 2 0
+  LOADK R12 K47 ["PauseAll"]
+  LOADK R13 K40 [""]
+  LOADK R14 K48 ["rbxlocaltheme://Pause"]
+  NAMECALL R10 R9 K42 ["CreateButton"]
+  CALL R10 4 1
+  MOVE R4 R10
+  LOADB R10 1
+  SETTABLEKS R10 R4 K43 ["ClickableWhenViewportHidden"]
+  NOT R10 R8
+  SETTABLEKS R10 R4 K44 ["Enabled"]
+  GETTABLEKS R10 R4 K45 ["Click"]
+  GETTABLEKS R12 R6 K33 ["pauseAll"]
+  NAMECALL R10 R10 K22 ["Connect"]
+  CALL R10 2 0
+  LOADK R12 K49 ["Pause"]
+  LOADK R13 K40 [""]
+  LOADK R14 K48 ["rbxlocaltheme://Pause"]
+  NAMECALL R10 R9 K42 ["CreateButton"]
+  CALL R10 4 1
+  MOVE R5 R10
+  LOADB R10 1
+  SETTABLEKS R10 R5 K43 ["ClickableWhenViewportHidden"]
+  NOT R10 R8
+  SETTABLEKS R10 R5 K44 ["Enabled"]
+  GETTABLEKS R10 R5 K45 ["Click"]
+  GETTABLEKS R12 R6 K25 ["onPause"]
+  NAMECALL R10 R10 K22 ["Connect"]
+  CALL R10 2 0
+  CLOSEUPVALS R2
   RETURN R0 0

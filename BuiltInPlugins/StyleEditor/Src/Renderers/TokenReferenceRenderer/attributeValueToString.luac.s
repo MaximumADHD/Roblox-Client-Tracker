@@ -74,42 +74,19 @@ PROTO_7:
   RETURN R1 -1
 
 PROTO_8:
-  GETTABLEKS R3 R0 K0 ["Weight"]
-  FASTCALL1 TOSTRING R3 [+2]
-  GETIMPORT R2 K2 [tostring]
-  CALL R2 1 1
-  LOADK R4 K3 ["Enum%."]
-  LOADK R5 K4 [""]
-  NAMECALL R2 R2 K5 ["gsub"]
-  CALL R2 3 1
-  GETTABLEKS R4 R0 K6 ["Style"]
-  FASTCALL1 TOSTRING R4 [+2]
-  GETIMPORT R3 K2 [tostring]
-  CALL R3 1 1
-  LOADK R5 K3 ["Enum%."]
-  LOADK R6 K4 [""]
-  NAMECALL R3 R3 K5 ["gsub"]
-  CALL R3 3 1
-  GETTABLEKS R5 R1 K7 ["Fonts"]
-  GETTABLEKS R6 R0 K8 ["Family"]
-  GETTABLE R4 R5 R6
-  JUMPIFNOT R4 [+3]
-  GETTABLEKS R5 R4 K9 ["Name"]
-  JUMP [+9]
-  GETTABLEKS R5 R0 K8 ["Family"]
-  LOADK R7 K10 ["/([^%s/]+)%.json"]
-  NAMECALL R5 R5 K11 ["match"]
-  CALL R5 2 1
-  JUMPIF R5 [+2]
-  GETTABLEKS R5 R0 K8 ["Family"]
-  LOADK R7 K12 ["%* (%*, %*)"]
-  MOVE R9 R5
-  MOVE R10 R2
-  MOVE R11 R3
-  NAMECALL R7 R7 K13 ["format"]
-  CALL R7 4 1
-  MOVE R6 R7
-  RETURN R6 1
+  GETTABLEKS R3 R1 K0 ["Fonts"]
+  GETTABLEKS R4 R0 K1 ["Family"]
+  GETTABLE R2 R3 R4
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R3 R2 K2 ["Name"]
+  RETURN R3 1
+  GETTABLEKS R3 R0 K1 ["Family"]
+  LOADK R5 K3 ["/([^%s/]+)%.json"]
+  NAMECALL R3 R3 K4 ["match"]
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  GETTABLEKS R3 R0 K1 ["Family"]
+  RETURN R3 1
 
 PROTO_9:
   GETTABLEKS R1 R0 K0 ["Name"]

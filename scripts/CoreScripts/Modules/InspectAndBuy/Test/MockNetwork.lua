@@ -7,6 +7,8 @@ local CorePackages = game:GetService("CorePackages")
 local Cryo = require(CorePackages.Cryo)
 local Promise = require(CorePackages.Packages.Promise)
 local PlayabilityStatusEnum = require(CorePackages.Workspace.Packages.PlayabilityRodux).Enums.PlayabilityStatusEnum
+local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
+	require(script.Parent.Parent.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
 
 local MOCK_ASSET_DATA = {
 	[1] = {
@@ -116,6 +118,13 @@ local MOCK_PRODUCT_INFO = {
 	ProductId = 18929548,
 }
 
+local MOCK_ITEM_DETAILS = {
+	Owned = true,
+	IsPurchasable = false,
+	Id = 100425207,
+	ItemType = "Asset"
+}
+
 local MOCK_ECONOMY_PRODUCT_INFO = {
 	purchasable = false,
 	reason = "InsufficientFunds",
@@ -144,6 +153,15 @@ local function getProductInfo(id)
 	local info = Cryo.Dictionary.join(MOCK_PRODUCT_INFO, { AssetId = id })
 	info.Creator.Id = 2 -- setting this to anything except 1
 	return Promise.resolve(info)
+end
+
+local function getItemDetails(itemId, itemType)
+	if not GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
+		return Promise.resolve()
+	end
+
+	local details = Cryo.Dictionary.join(MOCK_ITEM_DETAILS, { Id = itemId, ItemType = itemType })
+	return Promise.resolve(details)
 end
 
 --[[
@@ -259,6 +277,7 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getVersionInfo = networkFailure,
 			getExperiencePlayability = networkFailure,
 			getExperienceInfo = networkFailure,
+			getItemDetails = if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then networkFailure else nil,
 		}
 	else
 		mockNetworkService = {
@@ -278,6 +297,7 @@ function MockNetwork.new(shouldFail, notRobloxAuthored)
 			getVersionInfo = getVersionInfo,
 			getExperiencePlayability = getExperiencePlayability,
 			getExperienceInfo = getExperienceInfo,
+			getItemDetails = if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then getItemDetails else nil,
 		}
 	end
 

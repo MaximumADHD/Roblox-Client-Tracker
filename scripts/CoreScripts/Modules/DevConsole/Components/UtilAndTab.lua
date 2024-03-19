@@ -24,8 +24,6 @@ local CheckBoxContainer = require(Components.CheckBoxContainer)
 local TabRowContainer = require(Components.TabRowContainer)
 local SearchBar =  require(Components.SearchBar)
 
-local FFlagScriptProfilerMoreUtilAndTabSpaceForButtons = game:DefineFastFlag("ScriptProfilerMoreUtilAndTabSpaceForButtons", false)
-
 local UtilAndTab = Roact.Component:extend("UtilAndTab")
 
 function UtilAndTab:init()
@@ -123,7 +121,7 @@ function UtilAndTab:render()
 
 	local height = formFactor == Constants.FormFactor.Small and SMALL_UTIL_HEIGHT or UTIL_HEIGHT
 	local leftOffset = formFactor == Constants.FormFactor.Small and 6 or 7
-	local numButtonRows = (FFlagScriptProfilerMoreUtilAndTabSpaceForButtons and self.props[Roact.Children] and math.ceil(#self.props[Roact.Children] / 5)) or 1
+	local numButtonRows = (self.props[Roact.Children] and math.ceil(#self.props[Roact.Children] / 5)) or 1
 
 	buttons = Roact.createElement("Frame", {
 		Position = UDim2.new(1, -leftOffset * CS_BUTTON_WIDTH - PADDING, 0, 0),

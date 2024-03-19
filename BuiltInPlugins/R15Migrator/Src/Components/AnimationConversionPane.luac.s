@@ -352,14 +352,14 @@ PROTO_13:
   GETUPVAL R23 1
   GETTABLEKS R22 R23 K11 ["createElement"]
   GETUPVAL R23 6
-  DUPTABLE R24 K63 [{"Size", "Items", "Tags", "LayoutOrder"}]
+  DUPTABLE R24 K64 [{"Size", "Items", "Tags", "LayoutOrder", "OnResetPlugin"}]
   GETIMPORT R25 K37 [UDim2.new]
   LOADN R26 1
   LOADN R27 0
   LOADN R28 0
-  GETTABLEKS R32 R6 K64 ["paneSize"]
+  GETTABLEKS R32 R6 K65 ["paneSize"]
   GETTABLEKS R31 R32 K50 ["Y"]
-  GETTABLEKS R32 R2 K65 ["HeaderHeight"]
+  GETTABLEKS R32 R2 K66 ["HeaderHeight"]
   SUB R30 R31 R32
   SUB R29 R30 R8
   CALL R25 4 1
@@ -369,6 +369,8 @@ PROTO_13:
   NAMECALL R25 R9 K32 ["getNextOrder"]
   CALL R25 1 1
   SETTABLEKS R25 R24 K28 ["LayoutOrder"]
+  GETTABLEKS R25 R1 K63 ["OnResetPlugin"]
+  SETTABLEKS R25 R24 K63 ["OnResetPlugin"]
   CALL R22 2 1
   SETTABLEKS R22 R21 K57 ["List"]
   CALL R18 3 1
@@ -378,7 +380,7 @@ PROTO_13:
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K11 ["createElement"]
   GETUPVAL R15 7
-  DUPTABLE R16 K66 [{"LayoutOrder", "Size"}]
+  DUPTABLE R16 K67 [{"LayoutOrder", "Size"}]
   NAMECALL R17 R9 K32 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K28 ["LayoutOrder"]

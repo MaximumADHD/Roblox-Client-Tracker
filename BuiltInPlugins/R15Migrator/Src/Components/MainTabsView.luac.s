@@ -39,105 +39,115 @@ PROTO_3:
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K6 ["createElement"]
   GETUPVAL R8 2
-  DUPTABLE R9 K12 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "Size", "LayoutOrder", "BackgroundColor"}]
-  GETIMPORT R10 K16 [Enum.FillDirection.Horizontal]
+  DUPTABLE R9 K11 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "LayoutOrder", "BackgroundColor"}]
+  GETIMPORT R10 K15 [Enum.FillDirection.Horizontal]
   SETTABLEKS R10 R9 K7 ["Layout"]
-  GETIMPORT R10 K18 [Enum.HorizontalAlignment.Left]
+  GETIMPORT R10 K17 [Enum.HorizontalAlignment.Left]
   SETTABLEKS R10 R9 K8 ["HorizontalAlignment"]
-  GETIMPORT R10 K20 [Enum.VerticalAlignment.Top]
+  GETIMPORT R10 K19 [Enum.VerticalAlignment.Top]
   SETTABLEKS R10 R9 K9 ["VerticalAlignment"]
-  GETTABLEKS R10 R4 K10 ["Size"]
-  SETTABLEKS R10 R9 K10 ["Size"]
   SETTABLEKS R5 R9 K4 ["LayoutOrder"]
-  GETTABLEKS R10 R4 K11 ["BackgroundColor"]
-  SETTABLEKS R10 R9 K11 ["BackgroundColor"]
-  DUPTABLE R10 K23 [{"Tabs", "View"}]
+  GETTABLEKS R10 R4 K10 ["BackgroundColor"]
+  SETTABLEKS R10 R9 K10 ["BackgroundColor"]
+  DUPTABLE R10 K22 [{"Tabs", "View"}]
   JUMPIFNOT R3 [+32]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K6 ["createElement"]
   GETUPVAL R12 3
-  DUPTABLE R13 K27 [{"LayoutOrder", "Tabs", "SelectedTab", "OnTabSelected", "FillDirection", "TabComponent"}]
-  NAMECALL R14 R6 K28 ["getNextOrder"]
+  DUPTABLE R13 K26 [{"LayoutOrder", "Tabs", "SelectedTab", "OnTabSelected", "FillDirection", "TabComponent"}]
+  NAMECALL R14 R6 K27 ["getNextOrder"]
   CALL R14 1 1
   SETTABLEKS R14 R13 K4 ["LayoutOrder"]
   GETUPVAL R15 4
-  GETTABLEKS R14 R15 K29 ["getOrderedTabsData"]
+  GETTABLEKS R14 R15 K28 ["getOrderedTabsData"]
   MOVE R15 R2
   CALL R14 1 1
-  SETTABLEKS R14 R13 K21 ["Tabs"]
-  SETTABLEKS R3 R13 K24 ["SelectedTab"]
-  GETTABLEKS R14 R0 K30 ["onTabSelected"]
-  SETTABLEKS R14 R13 K25 ["OnTabSelected"]
-  GETIMPORT R14 K32 [Enum.FillDirection.Vertical]
-  SETTABLEKS R14 R13 K14 ["FillDirection"]
+  SETTABLEKS R14 R13 K20 ["Tabs"]
+  SETTABLEKS R3 R13 K23 ["SelectedTab"]
+  GETTABLEKS R14 R0 K29 ["onTabSelected"]
+  SETTABLEKS R14 R13 K24 ["OnTabSelected"]
+  GETIMPORT R14 K31 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K13 ["FillDirection"]
   GETUPVAL R14 5
-  SETTABLEKS R14 R13 K26 ["TabComponent"]
+  SETTABLEKS R14 R13 K25 ["TabComponent"]
   CALL R11 2 1
   JUMP [+1]
   LOADNIL R11
-  SETTABLEKS R11 R10 K21 ["Tabs"]
+  SETTABLEKS R11 R10 K20 ["Tabs"]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K6 ["createElement"]
   GETUPVAL R12 2
   DUPTABLE R13 K33 [{"LayoutOrder", "Size", "BackgroundColor"}]
-  NAMECALL R14 R6 K28 ["getNextOrder"]
+  NAMECALL R14 R6 K27 ["getNextOrder"]
   CALL R14 1 1
   SETTABLEKS R14 R13 K4 ["LayoutOrder"]
   GETTABLEKS R14 R4 K34 ["TabPaneSize"]
-  SETTABLEKS R14 R13 K10 ["Size"]
+  SETTABLEKS R14 R13 K32 ["Size"]
   GETTABLEKS R14 R4 K35 ["ViewBackgroundColor"]
-  SETTABLEKS R14 R13 K11 ["BackgroundColor"]
+  SETTABLEKS R14 R13 K10 ["BackgroundColor"]
   DUPTABLE R14 K40 [{"SummaryPane", "ScriptConversionPane", "CharacterConversion", "AnimationConversionPane"}]
-  JUMPIFNOT R3 [+13]
+  JUMPIFNOT R3 [+18]
   GETTABLEKS R16 R3 K41 ["Key"]
   GETUPVAL R18 4
   GETTABLEKS R17 R18 K42 ["Summary"]
-  JUMPIFNOTEQ R16 R17 [+7]
+  JUMPIFNOTEQ R16 R17 [+12]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 6
-  CALL R15 1 1
+  DUPTABLE R17 K44 [{"OnResetPlugin"}]
+  GETTABLEKS R18 R1 K43 ["OnResetPlugin"]
+  SETTABLEKS R18 R17 K43 ["OnResetPlugin"]
+  CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
   SETTABLEKS R15 R14 K36 ["SummaryPane"]
-  JUMPIFNOT R3 [+13]
+  JUMPIFNOT R3 [+18]
   GETTABLEKS R16 R3 K41 ["Key"]
   GETUPVAL R18 4
-  GETTABLEKS R17 R18 K43 ["ScriptConversion"]
-  JUMPIFNOTEQ R16 R17 [+7]
+  GETTABLEKS R17 R18 K45 ["ScriptConversion"]
+  JUMPIFNOTEQ R16 R17 [+12]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 7
-  CALL R15 1 1
+  DUPTABLE R17 K44 [{"OnResetPlugin"}]
+  GETTABLEKS R18 R1 K43 ["OnResetPlugin"]
+  SETTABLEKS R18 R17 K43 ["OnResetPlugin"]
+  CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
   SETTABLEKS R15 R14 K37 ["ScriptConversionPane"]
-  JUMPIFNOT R3 [+13]
+  JUMPIFNOT R3 [+18]
   GETTABLEKS R16 R3 K41 ["Key"]
   GETUPVAL R18 4
   GETTABLEKS R17 R18 K38 ["CharacterConversion"]
-  JUMPIFNOTEQ R16 R17 [+7]
+  JUMPIFNOTEQ R16 R17 [+12]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 8
-  CALL R15 1 1
+  DUPTABLE R17 K44 [{"OnResetPlugin"}]
+  GETTABLEKS R18 R1 K43 ["OnResetPlugin"]
+  SETTABLEKS R18 R17 K43 ["OnResetPlugin"]
+  CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
   SETTABLEKS R15 R14 K38 ["CharacterConversion"]
-  JUMPIFNOT R3 [+13]
+  JUMPIFNOT R3 [+18]
   GETTABLEKS R16 R3 K41 ["Key"]
   GETUPVAL R18 4
-  GETTABLEKS R17 R18 K44 ["AnimationConversion"]
-  JUMPIFNOTEQ R16 R17 [+7]
+  GETTABLEKS R17 R18 K46 ["AnimationConversion"]
+  JUMPIFNOTEQ R16 R17 [+12]
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 9
-  CALL R15 1 1
+  DUPTABLE R17 K44 [{"OnResetPlugin"}]
+  GETTABLEKS R18 R1 K43 ["OnResetPlugin"]
+  SETTABLEKS R18 R17 K43 ["OnResetPlugin"]
+  CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
   SETTABLEKS R15 R14 K39 ["AnimationConversionPane"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K22 ["View"]
+  SETTABLEKS R11 R10 K21 ["View"]
   CALL R7 3 -1
   RETURN R7 -1
 

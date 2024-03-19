@@ -14,6 +14,9 @@ local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 local GetExperiencePlayability = require(InspectAndBuyFolder.Thunks.GetExperiencePlayability)
 local GetExperienceInfo = require(InspectAndBuyFolder.Thunks.GetExperienceInfo)
+local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
+local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
+local Constants = require(InspectAndBuyFolder.Constants)
 
 local requiredServices = {
 	Network,
@@ -47,8 +50,18 @@ local function GetVersionInfo(assetId)
 					-- Get Experience Info
 					store:dispatch(GetExperienceInfo(creatingUniverseId))
 				end
-			end)
-		end)(store):catch(function(err) end)
+				if GetFFlagIBEnableSendCounters() then
+					store:dispatch(SendCounter(Constants.Counters.GetVersionInfo .. Constants.CounterSuffix.RequestSucceeded))
+				end
+			end,
+			if GetFFlagIBEnableSendCounters() then function(err)
+				store:dispatch(SendCounter(Constants.Counters.GetVersionInfo .. Constants.CounterSuffix.RequestRejected))
+			end else nil)
+		end)(store):catch(function(err)
+			if GetFFlagIBEnableSendCounters() then
+				store:dispatch(SendCounter(Constants.Counters.GetVersionInfo .. Constants.CounterSuffix.RequestFailed))
+			end
+		end)
 	end)
 end
 

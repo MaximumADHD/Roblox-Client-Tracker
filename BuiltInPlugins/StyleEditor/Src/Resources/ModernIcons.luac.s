@@ -73,7 +73,7 @@ MAIN:
   DUPCLOSURE R4 K10 [PROTO_3]
   CAPTURE VAL R2
   DUPCLOSURE R5 K11 [PROTO_5]
-  DUPTABLE R6 K35 [{"Standard", "Large", "Selectors", "close", "colors", "copy", "delete", "dimensions", "duplicate", "edit", "folder", "fonts", "gridpattern", "palette", "more", "new", "open", "paste", "remove", "sizes", "set", "typography", "onboarding"}]
+  DUPTABLE R6 K35 [{"Standard", "Large", "Selectors", "close", "color", "copy", "delete", "dimensions", "duplicate", "edit", "folder", "font", "gridpattern", "palette", "more", "new", "open", "paste", "remove", "size", "set", "typography", "onboarding"}]
   DUPTABLE R7 K39 [{"DesignSheet", "TokenSheet", "ThemeSheet"}]
   LOADK R9 K40 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
@@ -114,10 +114,10 @@ MAIN:
   CAPTURE VAL R11
   SETTABLEKS R8 R7 K40 ["StyleEditor"]
   SETTABLEKS R7 R6 K13 ["Large"]
-  DUPTABLE R7 K53 [{"Class", "Child", "Descendant", "GuiState", "Name", "PseudoInstance", "Tag"}]
+  DUPTABLE R7 K54 [{"Class", "Child", "Descendant", "Enumerator", "GuiState", "Name", "PseudoInstance", "Tag"}]
   LOADK R9 K40 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K54 ["UI"]
+  LOADK R11 K55 ["UI"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
@@ -126,7 +126,7 @@ MAIN:
   SETTABLEKS R8 R7 K46 ["Class"]
   LOADK R9 K40 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K55 ["StyleSheetChild"]
+  LOADK R11 K56 ["StyleSheetChild"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
@@ -135,7 +135,7 @@ MAIN:
   SETTABLEKS R8 R7 K47 ["Child"]
   LOADK R9 K40 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K56 ["StyleSheetDescendant"]
+  LOADK R11 K57 ["StyleSheetDescendant"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
@@ -144,71 +144,80 @@ MAIN:
   SETTABLEKS R8 R7 K48 ["Descendant"]
   LOADK R9 K40 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K57 ["StyleSheetGuiState"]
+  LOADK R11 K58 ["StyleSheetEnumerator"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K49 ["GuiState"]
+  SETTABLEKS R8 R7 K49 ["Enumerator"]
   LOADK R9 K40 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K58 ["StyleSheetName"]
+  LOADK R11 K59 ["StyleSheetGuiState"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K50 ["Name"]
+  SETTABLEKS R8 R7 K50 ["GuiState"]
   LOADK R9 K40 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K59 ["StyleSheetPseudoInstance"]
+  LOADK R11 K60 ["StyleSheetName"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K51 ["PseudoInstance"]
-  LOADK R9 K60 ["TagEditor"]
+  SETTABLEKS R8 R7 K51 ["Name"]
+  LOADK R9 K40 ["StyleEditor"]
   LOADK R10 K12 ["Standard"]
-  LOADK R11 K52 ["Tag"]
+  LOADK R11 K61 ["StyleSheetPseudoInstance"]
   NEWCLOSURE R8 P3
   CAPTURE VAL R2
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R11
-  SETTABLEKS R8 R7 K52 ["Tag"]
+  SETTABLEKS R8 R7 K52 ["PseudoInstance"]
+  LOADK R9 K62 ["TagEditor"]
+  LOADK R10 K12 ["Standard"]
+  LOADK R11 K53 ["Tag"]
+  NEWCLOSURE R8 P3
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  SETTABLEKS R8 R7 K53 ["Tag"]
   SETTABLEKS R7 R6 K14 ["Selectors"]
-  LOADK R8 K61 ["Navigation"]
+  LOADK R8 K63 ["Navigation"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K62 ["CloseWidget"]
+  LOADK R10 K64 ["CloseWidget"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K15 ["close"]
-  LOADK R8 K40 ["StyleEditor"]
-  LOADK R9 K13 ["Large"]
-  LOADK R10 K63 ["Color"]
-  NEWCLOSURE R7 P3
+  LOADK R8 K65 ["InsertableObjects"]
+  LOADK R9 K12 ["Standard"]
+  LOADK R10 K66 ["Color"]
+  NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K16 ["colors"]
-  LOADK R8 K64 ["Clipboard"]
+  SETTABLEKS R7 R6 K16 ["color"]
+  LOADK R8 K67 ["Clipboard"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K65 ["Copy"]
+  LOADK R10 K68 ["Copy"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K17 ["copy"]
-  LOADK R8 K60 ["TagEditor"]
+  LOADK R8 K62 ["TagEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K66 ["Tag_Delete"]
+  LOADK R10 K69 ["Tag_Delete"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
@@ -217,35 +226,35 @@ MAIN:
   SETTABLEKS R7 R6 K18 ["delete"]
   LOADK R8 K40 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K67 ["Size"]
+  LOADK R10 K70 ["Size"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K19 ["dimensions"]
-  LOADK R8 K64 ["Clipboard"]
+  LOADK R8 K67 ["Clipboard"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K68 ["Duplicate"]
+  LOADK R10 K71 ["Duplicate"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K20 ["duplicate"]
-  LOADK R8 K60 ["TagEditor"]
+  LOADK R8 K62 ["TagEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K69 ["Tag_Edit"]
+  LOADK R10 K72 ["Tag_Edit"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K21 ["edit"]
-  LOADK R8 K40 ["StyleEditor"]
+  LOADK R8 K65 ["InsertableObjects"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K70 ["Folder"]
-  NEWCLOSURE R7 P3
+  LOADK R10 K73 ["Folder"]
+  NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
@@ -253,26 +262,26 @@ MAIN:
   SETTABLEKS R7 R6 K22 ["folder"]
   LOADK R8 K40 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K71 ["Typography"]
+  LOADK R10 K74 ["Typography"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K23 ["fonts"]
+  SETTABLEKS R7 R6 K23 ["font"]
   LOADK R8 K40 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K72 ["GridPattern"]
+  LOADK R10 K75 ["GridPattern"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K24 ["gridpattern"]
-  LOADK R8 K40 ["StyleEditor"]
-  LOADK R9 K13 ["Large"]
-  LOADK R10 K63 ["Color"]
-  NEWCLOSURE R7 P3
+  LOADK R8 K65 ["InsertableObjects"]
+  LOADK R9 K12 ["Standard"]
+  LOADK R10 K66 ["Color"]
+  NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
@@ -280,7 +289,7 @@ MAIN:
   SETTABLEKS R7 R6 K25 ["palette"]
   LOADK R8 K40 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K73 ["More"]
+  LOADK R10 K76 ["More"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
@@ -289,7 +298,7 @@ MAIN:
   SETTABLEKS R7 R6 K26 ["more"]
   LOADK R8 K40 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K74 ["InsertS"]
+  LOADK R10 K77 ["InsertS"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
@@ -298,25 +307,25 @@ MAIN:
   SETTABLEKS R7 R6 K27 ["new"]
   LOADK R8 K40 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K75 ["QuickOpen"]
+  LOADK R10 K78 ["QuickOpen"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K28 ["open"]
-  LOADK R8 K64 ["Clipboard"]
+  LOADK R8 K67 ["Clipboard"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K76 ["Paste"]
+  LOADK R10 K79 ["Paste"]
   NEWCLOSURE R7 P4
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
   SETTABLEKS R7 R6 K29 ["paste"]
-  LOADK R8 K60 ["TagEditor"]
+  LOADK R8 K62 ["TagEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K77 ["Tag_Remove"]
+  LOADK R10 K80 ["Tag_Remove"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
@@ -325,16 +334,16 @@ MAIN:
   SETTABLEKS R7 R6 K30 ["remove"]
   LOADK R8 K40 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K67 ["Size"]
+  LOADK R10 K70 ["Size"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  SETTABLEKS R7 R6 K31 ["sizes"]
-  LOADK R8 K60 ["TagEditor"]
+  SETTABLEKS R7 R6 K31 ["size"]
+  LOADK R8 K62 ["TagEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K78 ["Tag_Add"]
+  LOADK R10 K81 ["Tag_Add"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8
@@ -343,7 +352,7 @@ MAIN:
   SETTABLEKS R7 R6 K32 ["set"]
   LOADK R8 K40 ["StyleEditor"]
   LOADK R9 K12 ["Standard"]
-  LOADK R10 K71 ["Typography"]
+  LOADK R10 K74 ["Typography"]
   NEWCLOSURE R7 P3
   CAPTURE VAL R2
   CAPTURE VAL R8

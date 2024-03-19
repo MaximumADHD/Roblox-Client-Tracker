@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableMenuModernizationABTest3", false)
+game:DefineFastFlag("EnableMenuModernizationABTest4", false)
 
 return function()
-	return game:GetFastFlag("EnableMenuModernizationABTest3")
+	return game:GetFastFlag("EnableMenuModernizationABTest4")
 end

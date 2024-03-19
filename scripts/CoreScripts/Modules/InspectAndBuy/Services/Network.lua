@@ -8,7 +8,11 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
 local Promise = require(CorePackages.Packages.Promise)
+local AvatarEditorService = game:GetService("AvatarEditorService")
 local Url = require(CorePackages.Workspace.Packages.Http).Url
+local InspectAndBuyFolder = script.Parent.Parent
+local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
 
 local DEVELOPER_URL = string.format("https://develop.%s", Url.DOMAIN)
 
@@ -60,6 +64,23 @@ local function getProductInfo(id)
 			resolve(result)
 		else
 			reject("Failure in getProductInfo: ", tostring(result))
+		end
+	end)
+end
+
+--[[
+	Get an asset's item details
+]]
+local function getItemDetails(itemId, itemType)
+	return Promise.new(function(resolve, reject)
+		local success, result = pcall(function()
+			return AvatarEditorService:GetItemDetails(itemId, itemType)
+		end)
+
+		if success then
+			resolve(result)
+		else
+			reject("Failure in getItemDetails: ", tostring(result))
 		end
 	end)
 end
@@ -326,6 +347,7 @@ function Network.new()
 		getVersionInfo = getVersionInfo,
 		getExperiencePlayability = getExperiencePlayability,
 		getExperienceInfo = getExperienceInfo,
+		getItemDetails = if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then getItemDetails else nil,
 	}
 
 	setmetatable(networkService, {

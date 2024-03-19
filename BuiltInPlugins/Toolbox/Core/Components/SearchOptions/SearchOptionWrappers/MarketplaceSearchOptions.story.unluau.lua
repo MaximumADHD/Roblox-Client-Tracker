@@ -8,19 +8,19 @@ local var5 = {}
 var5.name = "MarketplaceSearchOptions"
 var5.summary = "The Search Option component for Marketplace"
 function {}.story()
-   local var180 = {}
    local var184 = {}
-   function var184.OnRender(arg1, arg2)
-      local var190 = {}
-      function var190.GetSearchOptions()
+   local var188 = {}
+   function var188.OnRender(arg1, arg2)
+      local var194 = {}
+      function var194.GetSearchOptions()
       end
       
-      var190.OnClose = arg2
-      return var1.createElement(var2, var190)
+      var194.OnClose = arg2
+      return var1.createElement(var2, var194)
    end
    
-   var180.ClickToShowInteractiveStoryWrapper = var1.createElement(var3, var184)
-   return var1.createElement(var4, {}, var180)
+   var184.ClickToShowInteractiveStoryWrapper = var1.createElement(var3, var188)
+   return var1.createElement(var4, {}, var184)
 end
 
 var5.stories = {}

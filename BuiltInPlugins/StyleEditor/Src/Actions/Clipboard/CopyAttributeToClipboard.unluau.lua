@@ -1,7 +1,9 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var9 = require(script.Parent.Parent.Parent.Parent.Packages.Framework).Util
-var9 = var9.Action
-return var9(script.Name, function(arg1, arg2)
+local var0 = script.Parent.Parent.Parent.Parent
+local var1 = require(var0.Src.Types)
+local var13 = require(var0.Packages.Framework).Util
+var13 = var13.Action
+return var13(script.Name, function(arg1, arg2)
    local var0 = {}
    var0.attributeName = arg1
    var0.attributeValue = arg2

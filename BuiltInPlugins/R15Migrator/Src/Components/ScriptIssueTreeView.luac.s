@@ -387,23 +387,25 @@ PROTO_18:
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K7 ["createElement"]
   GETUPVAL R13 2
-  DUPTABLE R14 K23 [{"IsChecked", "OnCheckboxClick", "RowHeight", "Padding"}]
-  NAMECALL R15 R0 K24 ["areAllSelected"]
+  DUPTABLE R14 K24 [{"IsChecked", "OnCheckboxClick", "RowHeight", "Padding", "OnResetPlugin"}]
+  NAMECALL R15 R0 K25 ["areAllSelected"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K19 ["IsChecked"]
-  GETTABLEKS R15 R0 K25 ["onAllSelectedChecked"]
+  GETTABLEKS R15 R0 K26 ["onAllSelectedChecked"]
   SETTABLEKS R15 R14 K20 ["OnCheckboxClick"]
   GETTABLEKS R15 R7 K21 ["RowHeight"]
   SETTABLEKS R15 R14 K21 ["RowHeight"]
   GETTABLEKS R15 R7 K22 ["Padding"]
   SETTABLEKS R15 R14 K22 ["Padding"]
+  GETTABLEKS R15 R1 K23 ["OnResetPlugin"]
+  SETTABLEKS R15 R14 K23 ["OnResetPlugin"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K6 ["SelectAllRow"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K7 ["createElement"]
   GETUPVAL R13 3
-  DUPTABLE R14 K33 [{"Size", "Expansion", "Selection", "RootItems", "ScrollingDirection", "RowComponent", "RowHeight", "GetRowProps", "SortChildren"}]
-  GETIMPORT R15 K36 [UDim2.new]
+  DUPTABLE R14 K34 [{"Size", "Expansion", "Selection", "RootItems", "ScrollingDirection", "RowComponent", "RowHeight", "GetRowProps", "SortChildren"}]
+  GETIMPORT R15 K37 [UDim2.new]
   LOADN R16 1
   LOADN R17 0
   LOADN R18 1
@@ -411,34 +413,34 @@ PROTO_18:
   MINUS R19 R20
   CALL R15 4 1
   SETTABLEKS R15 R14 K3 ["Size"]
-  SETTABLEKS R3 R14 K26 ["Expansion"]
-  SETTABLEKS R2 R14 K27 ["Selection"]
-  GETTABLEKS R15 R0 K37 ["treeManager"]
-  NAMECALL R15 R15 K38 ["getItems"]
+  SETTABLEKS R3 R14 K27 ["Expansion"]
+  SETTABLEKS R2 R14 K28 ["Selection"]
+  GETTABLEKS R15 R0 K38 ["treeManager"]
+  NAMECALL R15 R15 K39 ["getItems"]
   CALL R15 1 1
   JUMPIF R15 [+2]
   NEWTABLE R15 0 0
-  SETTABLEKS R15 R14 K28 ["RootItems"]
-  GETIMPORT R15 K40 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R15 R14 K29 ["ScrollingDirection"]
+  SETTABLEKS R15 R14 K29 ["RootItems"]
+  GETIMPORT R15 K41 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R15 R14 K30 ["ScrollingDirection"]
   GETUPVAL R15 4
-  SETTABLEKS R15 R14 K30 ["RowComponent"]
+  SETTABLEKS R15 R14 K31 ["RowComponent"]
   GETTABLEKS R15 R6 K21 ["RowHeight"]
   SETTABLEKS R15 R14 K21 ["RowHeight"]
-  GETTABLEKS R15 R0 K41 ["getRowProps"]
-  SETTABLEKS R15 R14 K31 ["GetRowProps"]
-  GETTABLEKS R15 R0 K42 ["comparator"]
-  SETTABLEKS R15 R14 K32 ["SortChildren"]
+  GETTABLEKS R15 R0 K42 ["getRowProps"]
+  SETTABLEKS R15 R14 K32 ["GetRowProps"]
+  GETTABLEKS R15 R0 K43 ["comparator"]
+  SETTABLEKS R15 R14 K33 ["SortChildren"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K16 ["TreeView"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K7 ["createElement"]
   GETUPVAL R13 5
-  DUPTABLE R14 K45 [{"OnKeyPressed", "OnKeyReleased"}]
-  GETTABLEKS R15 R0 K46 ["onKeyPressed"]
-  SETTABLEKS R15 R14 K43 ["OnKeyPressed"]
-  GETTABLEKS R15 R0 K47 ["onKeyReleased"]
-  SETTABLEKS R15 R14 K44 ["OnKeyReleased"]
+  DUPTABLE R14 K46 [{"OnKeyPressed", "OnKeyReleased"}]
+  GETTABLEKS R15 R0 K47 ["onKeyPressed"]
+  SETTABLEKS R15 R14 K44 ["OnKeyPressed"]
+  GETTABLEKS R15 R0 K48 ["onKeyReleased"]
+  SETTABLEKS R15 R14 K45 ["OnKeyReleased"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K17 ["KeyboardListener"]
   CALL R8 3 -1

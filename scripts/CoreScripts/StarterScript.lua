@@ -65,7 +65,8 @@ local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modul
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
-local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts", false)
+
+local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -96,7 +97,7 @@ end
 
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 if GetFFlagJoinWithoutMicPermissions() then
-	local ExperienceChat = require(CorePackages.ExperienceChat)
+	local ExperienceChat = require(CorePackages.ExperienceChat) :: any
 	ExperienceChat.GlobalFlags.JoinWithoutMicPermissions = true
 end
 

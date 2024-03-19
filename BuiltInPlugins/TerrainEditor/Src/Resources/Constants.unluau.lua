@@ -12,4 +12,5 @@ var0.TerrainCacheMultiplier = 5
 var0.TerrainCacheUpdateThreshold = 0.9
 var0.VoxelResolution = 4
 var0.MaxRegion = 16384
+var0.MaxBuildRegion = 512
 return var0

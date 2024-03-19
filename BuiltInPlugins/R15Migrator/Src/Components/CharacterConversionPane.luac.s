@@ -88,36 +88,38 @@ PROTO_2:
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
   GETUPVAL R10 5
-  DUPTABLE R11 K36 [{"LayoutOrder", "Size"}]
+  DUPTABLE R11 K37 [{"OnResetPlugin", "LayoutOrder", "Size"}]
+  GETTABLEKS R12 R1 K35 ["OnResetPlugin"]
+  SETTABLEKS R12 R11 K35 ["OnResetPlugin"]
   NAMECALL R12 R4 K33 ["getNextOrder"]
   CALL R12 1 1
   SETTABLEKS R12 R11 K29 ["LayoutOrder"]
-  GETIMPORT R12 K38 [UDim2.new]
+  GETIMPORT R12 K39 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 1
-  GETTABLEKS R18 R2 K39 ["FooterHeight"]
+  GETTABLEKS R18 R2 K40 ["FooterHeight"]
   MINUS R17 R18
   GETTABLEKS R18 R2 K34 ["InstructionsHeight"]
   SUB R16 R17 R18
   CALL R12 4 1
-  SETTABLEKS R12 R11 K35 ["Size"]
+  SETTABLEKS R12 R11 K36 ["Size"]
   CALL R9 2 1
   SETTABLEKS R9 R8 K26 ["MainView"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
   GETUPVAL R10 6
-  DUPTABLE R11 K36 [{"LayoutOrder", "Size"}]
+  DUPTABLE R11 K41 [{"LayoutOrder", "Size"}]
   NAMECALL R12 R4 K33 ["getNextOrder"]
   CALL R12 1 1
   SETTABLEKS R12 R11 K29 ["LayoutOrder"]
-  GETIMPORT R12 K38 [UDim2.new]
+  GETIMPORT R12 K39 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
-  GETTABLEKS R16 R2 K39 ["FooterHeight"]
+  GETTABLEKS R16 R2 K40 ["FooterHeight"]
   CALL R12 4 1
-  SETTABLEKS R12 R11 K35 ["Size"]
+  SETTABLEKS R12 R11 K36 ["Size"]
   CALL R9 2 1
   SETTABLEKS R9 R8 K27 ["Footer"]
   CALL R5 3 -1

@@ -9,6 +9,8 @@ local GetAssetFavoriteCount = require(InspectAndBuyFolder.Thunks.GetAssetFavorit
 local GetBundleFavoriteCount = require(InspectAndBuyFolder.Thunks.GetBundleFavoriteCount)
 local GotCurrentFavoriteCount = require(InspectAndBuyFolder.Selectors.GotCurrentFavoriteCount)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
+local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
+	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local FAVORITES_SIZE = 16
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
@@ -22,6 +24,9 @@ local Favorites = Roact.PureComponent:extend("Favorites")
 function Favorites:setText()
 	local assetInfo = self.props.assetInfo or {}
 	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn > 0
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		partOfBundle = assetInfo.parentBundleId ~= nil
+	end
 	local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
 	local bundleInfo = self.props.bundleInfo
 
@@ -46,9 +51,18 @@ function Favorites:willUpdate(nextProps)
 
 	-- We need to check if this asset is in any bundles, so that web call
 	-- needs to be completed first.
-	if nextProps.assetInfo and nextProps.assetInfo.bundlesAssetIsIn then
+	local bundleLoaded = nextProps.assetInfo and nextProps.assetInfo.bundlesAssetIsIn
+	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+		bundleLoaded = nextProps.assetInfo
+	end
+	if bundleLoaded then
 		local assetInfo = nextProps.assetInfo
-		local partOfBundle = #assetInfo.bundlesAssetIsIn > 0
+		local partOfBundle
+		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
+			partOfBundle = assetInfo.parentBundleId ~= nil
+		else
+			partOfBundle = #assetInfo.bundlesAssetIsIn > 0
+		end
 		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
 		local gotCurrentFavoriteCount = nextProps.gotCurrentFavoriteCount
 

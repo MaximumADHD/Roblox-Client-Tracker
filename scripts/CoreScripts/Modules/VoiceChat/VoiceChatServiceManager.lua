@@ -66,6 +66,7 @@ local FFlagReceiveLikelySpeakingUsers = game:DefineFastFlag("DebugReceiveLikelyS
 local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
+local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 local Constants = VoiceChat.Constants
@@ -940,6 +941,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 				promptType == VoiceChatPromptType.VoiceToxicityModal
 				or promptType == VoiceChatPromptType.VoiceToxicityToast
 			)
+		local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell() and promptType == VoiceChatPromptType.VoiceConsentModal
 		self.voiceChatPromptInstance = Roact.mount(
 			Roact.createElement(VoiceChatPrompt, {
 				Analytics = Analytics.new(),
@@ -984,6 +986,9 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 						self:reportBanMessage("Understood")
 						self.Analytics:reportBanMessageEvent("Understood")
 					end
+					elseif isVoiceConsentModal then function()
+						self:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
+					end
 					else nil,
 				onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
 					then function()
@@ -999,6 +1004,9 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 						self:ShowVoiceToxicityFeedbackToast()
 						self:reportBanMessage("Denied")
 						self.Analytics:reportBanMessageEvent("Denied")
+					end
+					elseif isVoiceConsentModal then function()
+						self:showPrompt(VoiceChatPromptType.VoiceConsentDeclinedToast)
 					end
 					else nil,
 			}),

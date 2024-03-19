@@ -51,6 +51,8 @@ local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHum
 local FFlagSelfViewHumanoidNilCheck = game:DefineFastFlag("SelfViewHumanoidNilCheck", false)
 local FFlagSelfViewMoreNilChecks = game:DefineFastFlag("SelfViewMoreNilChecks", false)
 local FFlagSelfViewAvoidErrorOnWrongFaceControlsParenting = game:DefineFastFlag("SelfViewAvoidErrorOnWrongFaceControlsParenting", false)
+local FFlagSelfViewUpdatedCamFraming = game:DefineFastFlag("SelfViewUpdatedCamFraming", false)
+local FFlagSelfViewGetRidOfFalselyRenderedFaceDecal = game:DefineFastFlag("SelfViewGetRidOfFalselyRenderedFaceDecal", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -301,7 +303,7 @@ local TYPES_TRIGGERING_DIRTY_ON_ADDREMOVE = {
 	SurfaceAppearance = "SurfaceAppearance",
 }
 
-log:trace("Self View 02-27-2024__1!!")
+log:trace("Self View 03-11-2024__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -1633,6 +1635,17 @@ function getNeck(character, head)
 			end
 		end
 	end
+	
+	--in case no neck found it could be using AnimationConstraint, do fallback neck loockup for that
+	if FFlagSelfViewUpdatedCamFraming then
+		for _, child in descendants do
+			if child:IsA("AnimationConstraint") then
+				if child.Parent == head and (child.Attachment0.Name == "NeckRigAttachment" or child.Name == "Neck") then
+					return child
+				end
+			end
+		end
+	end
 	return nil
 end
 
@@ -1791,14 +1804,26 @@ function removeTagsFromSelfViewClone(clone)
 	local clonesTags = CollectionService:GetTags(clone)
 	for _, v in ipairs(clonesTags) do
 		--log:trace("removing tag:"..v)
-		CollectionService:RemoveTag(clone, v)
+		if FFlagSelfViewGetRidOfFalselyRenderedFaceDecal then
+			if v ~= "NoFace" then
+				CollectionService:RemoveTag(clone, v)
+			end
+		else
+			CollectionService:RemoveTag(clone, v)
+		end
 	end
 
 	for _, part in ipairs( clone:GetDescendants()) do
 		local descendantTags = CollectionService:GetTags(part)
 		for _, v2 in ipairs(descendantTags) do
-			--log:trace("removing tag:"..v2)
-			CollectionService:RemoveTag(part, v2)
+			--log:trace("removing tag2:"..v2)
+			if FFlagSelfViewGetRidOfFalselyRenderedFaceDecal then
+				if v2 ~= "NoFace" then
+					CollectionService:RemoveTag(part, v2)
+				end
+			else
+				CollectionService:RemoveTag(part, v2)
+			end
 		end
 	end
 end
@@ -2541,42 +2566,96 @@ function startRenderStepped(player)
 					else
 						debugPrint("Self View: no neck found")
 					end
+					
+					if FFlagSelfViewUpdatedCamFraming then
+						--if webcam is on (FaceAnimatorService.VideoAnimationEnabled) we use the Iris style self view cam framing
+						if FaceAnimatorService and FaceAnimatorService.VideoAnimationEnabled and GetFFlagIrisGyroEnabled() and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport) then
+							if EngineFeaturePlayerViewRemoteEventSupport then
+								local cframe = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView()
+								local boundingBox = cframe.Position
+								local x, y, z = cframe:ToEulerAnglesYXZ()
+								local rotation = CFrame.fromEulerAnglesYXZ(x, y, z)
+								local distanceRatio = 0
 
-					if GetFFlagIrisGyroEnabled() and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport) then
-						if EngineFeaturePlayerViewRemoteEventSupport then
-							local cframe = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView()
-							local boundingBox = cframe.Position
-							local x, y, z = cframe:ToEulerAnglesYXZ()
-							local rotation = CFrame.fromEulerAnglesYXZ(x, y, z)
-							local distanceRatio = 0
+								if boundingBox.Z > 0.0 then
+									distanceRatio = math.clamp(0.5 - (boundingBox.Z * 3), -0.5, 0.5)
+								end
 
-							if boundingBox.Z > 0.0 then
-								distanceRatio = math.clamp(0.5 - (boundingBox.Z * 3), -0.5, 0.5)
+								local distance = -(boundsSize.Z + 1)
+								-- Round to 2 decimal points
+								local offset = Vector3.new(0, 0.105, math.floor((distance + (distanceRatio * distance)) * 100) / 100)
+
+								viewportCamera.CFrame = viewportCamera.CFrame:lerp(
+									CFrame.lookAt(rotation * (center + offset), centerLowXimpact),
+									0.5
+								)
+							else
+								local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
+								local x, y, z = trackerData:ToEulerAnglesXYZ()
+								-- Cam orientation will be an inverse of the head rotation
+								local angle = CFrame.Angles(
+									-x * camOrientationWeight,
+									-y * camOrientationWeight,
+									-z * camOrientationWeight
+								)
+								viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
 							end
-
-							local distance = -(boundsSize.Z + 1)
-							-- Round to 2 decimal points
-							local offset = Vector3.new(0, 0.105, math.floor((distance + (distanceRatio * distance)) * 100) / 100)
-
-							viewportCamera.CFrame = viewportCamera.CFrame:lerp(
-								CFrame.lookAt(rotation * (center + offset), centerLowXimpact),
-								0.5
-							)
 						else
-							local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
-							local x, y, z = trackerData:ToEulerAnglesXYZ()
-							-- Cam orientation will be an inverse of the head rotation
-							local angle = CFrame.Angles(
-								-x * camOrientationWeight,
-								-y * camOrientationWeight,
-								-z * camOrientationWeight
-							)
-							viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
+							--self view cam framing for when webcam off (no camera tracked framing info coming in)
+							local offset = Vector3.new(0, (headHeight * 0.25) -1.25, -((boundsSize.Z) + 1) + 0.125)
+							--for supporting new movement setup we do the calc using game world avatar head
+							local character = Players.LocalPlayer.Character
+							if character then
+								local headGameWorld = character:FindFirstChild("Head")
+								if headGameWorld then
+									local hrpGameWorld = character:FindFirstChild("HumanoidRootPart")
+									if hrpGameWorld then
+										local calc = hrpGameWorld.CFrame:Inverse() * headGameWorld.CFrame
+										
+										local targetPos = Vector3.new( (calc.Position.x * 0.15) + 0.125, calc.Position.y, calc.Position.z * 0.05)
+										viewportCamera.CFrame = CFrame.lookAt(center + offset + targetPos, centerLowXimpact)				
+										viewportCamera.Focus = headClone.CFrame
+									end
+								end
+							end
 						end
 					else
-						local offset = Vector3.new(0, (headHeight * 0.25), -((boundsSize.Z) + 1))
-						viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)
-						viewportCamera.Focus = headClone.CFrame
+						if GetFFlagIrisGyroEnabled() and (trackerData ~= nil or EngineFeaturePlayerViewRemoteEventSupport) then
+							if EngineFeaturePlayerViewRemoteEventSupport then
+								local cframe = game:GetService("PlayerViewService"):GetDeviceCameraCFrameForSelfView()
+								local boundingBox = cframe.Position
+								local x, y, z = cframe:ToEulerAnglesYXZ()
+								local rotation = CFrame.fromEulerAnglesYXZ(x, y, z)
+								local distanceRatio = 0
+
+								if boundingBox.Z > 0.0 then
+									distanceRatio = math.clamp(0.5 - (boundingBox.Z * 3), -0.5, 0.5)
+								end
+
+								local distance = -(boundsSize.Z + 1)
+								-- Round to 2 decimal points
+								local offset = Vector3.new(0, 0.105, math.floor((distance + (distanceRatio * distance)) * 100) / 100)
+
+								viewportCamera.CFrame = viewportCamera.CFrame:lerp(
+									CFrame.lookAt(rotation * (center + offset), centerLowXimpact),
+									0.5
+								)
+							else
+								local offset = Vector3.new(0, 0.105, -(boundsSize.Z + 1))
+								local x, y, z = trackerData:ToEulerAnglesXYZ()
+								-- Cam orientation will be an inverse of the head rotation
+								local angle = CFrame.Angles(
+									-x * camOrientationWeight,
+									-y * camOrientationWeight,
+									-z * camOrientationWeight
+								)
+								viewportCamera.CFrame = CFrame.lookAt(angle * (center + offset), centerLowXimpact)
+							end
+						else
+							local offset = Vector3.new(0, (headHeight * 0.25), -((boundsSize.Z) + 1))
+							viewportCamera.CFrame = CFrame.lookAt(center + offset, centerLowXimpact)											
+							viewportCamera.Focus = headClone.CFrame
+						end						
 					end
 				end
 			end

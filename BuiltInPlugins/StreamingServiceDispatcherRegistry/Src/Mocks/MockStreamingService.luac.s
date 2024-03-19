@@ -21,20 +21,20 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StreamingServiceDispatcherRegistry"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["Signal"]
+  GETTABLEKS R3 R1 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["Signal"]
   NEWTABLE R3 2 0
-  SETTABLEKS R3 R3 K9 ["__index"]
-  DUPCLOSURE R4 K10 [PROTO_0]
+  SETTABLEKS R3 R3 K10 ["__index"]
+  DUPCLOSURE R4 K11 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R3
-  SETTABLEKS R4 R3 K11 ["new"]
+  SETTABLEKS R4 R3 K12 ["new"]
   RETURN R3 1
