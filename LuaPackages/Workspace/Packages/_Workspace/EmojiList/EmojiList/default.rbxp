@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "EmojiList",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/emoji-list/src"
+    }
+  }
+}

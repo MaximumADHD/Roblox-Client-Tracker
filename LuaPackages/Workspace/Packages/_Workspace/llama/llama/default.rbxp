@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "llama",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/llama/src"
+    }
+  }
+}

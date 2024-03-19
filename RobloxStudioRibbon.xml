@@ -67,7 +67,8 @@
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModePhysical" value="1" />
         </addcombobox>
         <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
-        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" />
+        <addcheckbox fflag="!StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces"/>
+        <addcheckbox fflag="StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
       </Group>
       <Group name="Terrain" text="Studio.App.RobloxRibbonMainWindow.Terrain" modernIcon="TerrainEditor" icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png" width="32" height="32">
           <addaction name="toggleTerrainToolsDockAction"
@@ -153,7 +154,8 @@
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModePhysical" value="1" />
         </addcombobox>
         <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
-        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" />
+        <addcheckbox fflag="!StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces"/>
+        <addcheckbox fflag="StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
       </Group>
       <Group name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
@@ -286,7 +288,8 @@
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModePhysical" value="1" />
         </addcombobox>
         <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
-        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" />
+        <addcheckbox fflag="!StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces"/>
+        <addcheckbox fflag="StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
       </Group>
       <Group name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>

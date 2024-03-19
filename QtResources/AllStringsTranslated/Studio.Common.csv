@@ -74,5 +74,5 @@ Studio.Common.Action.AvatarUnification,,,Avatar Unification,Avatar Unification,,
 Studio.Common.Action.PublishToRobloxAs,,,Publish to Roblox As...,Publish to Roblox As...,,Auf Roblox veröffentlichen als ...,Publicar en Roblox como...,Publier sur Roblox comme...,,Pubblicare su Roblox come...,名前をつけてRobloxに公開...,다른 이름으로 Roblox에 게시...,,Publicar na Roblox como...,,,,,发布至 Roblox 为...,发布至 Roblox 为...,發佈至 Roblox 為……
 Studio.Common.Action.SaveToRobloxAs,,,Save to Roblox As...,Save to Roblox As...,,Auf Roblox speichern als ...,Guardar en Roblox como...,Sauvegarder sur Roblox...,,Salva su Roblox come...,名前をつけてRobloxに保存...,다른 이름으로 Roblox에 저장...,,Salvar na Roblox como...,,,,,保存至 Roblox 为...,保存至 Roblox 为...,儲存至 Roblox 為……
 Studio.Common.Action.Preview,,,Setup,Setup,,Einstellungen,Configurar,Configuration,,,設定,설정,,Configuração,,,,,预览,预览,預覽
-Studio.Common.Action.PauseCurrent,,,Pause Current,Pause Current,,,Pausar actual,Pause actuelle,,,,,,,,,,,,,
-Studio.Common.Action.ResumeCurrent,,,Resume Current,Resume Current,,,Reanudar actual,Reprendre ce qui est en cours,,,,,,,,,,,,,
+Studio.Common.Action.PauseCurrent,,,Pause Current,Pause Current,,Aktuelle pausieren,Pausar actual,Pause actuelle,,,,현재 항목 일시 중지,,Pausar atual,,,,,,,
+Studio.Common.Action.ResumeCurrent,,,Resume Current,Resume Current,,Aktuelle fortsetzen,Reanudar actual,Reprendre ce qui est en cours,,,,현재 항목 재개,,Retomar atual,,,,,,,

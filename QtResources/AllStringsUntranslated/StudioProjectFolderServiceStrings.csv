@@ -1,0 +1,54 @@
+Key,Context,Source,en-us
+Studio.App.ProjectFolderService.DeduplicationError,,Lua Sync currently cannot export this project. %1 causes a path collision due to deduplication.,Lua Sync currently cannot export this project. %1 causes a path collision due to deduplication.
+Studio.App.ProjectFolderService.ImportErrorWithReason,,"Error importing ""%1"":  %2","Error importing ""%1"":  %2"
+Studio.App.ProjectFolderService.InvalidInstanceJsonError,,An Instance entry is missing the %1 field in datamodel.json.,An Instance entry is missing the %1 field in datamodel.json.
+Studio.App.ProjectFolderService.CannotDeleteFile,,Cannot delete file from Scripts directory: %1.,Cannot delete file from Scripts directory: %1.
+Studio.App.ProjectFolderService.MissingDetailsError,,No details found in instance JSON.,No details found in instance JSON.
+Studio.App.ProjectFolderService.MissingParentError,,Could not move instance (%1) because the new parent (%2) could not be found.,Could not move instance (%1) because the new parent (%2) could not be found.
+Studio.App.ProjectFolderService.InvalidUniqueIdError,,Error creating Instance. Invalid unique id (%1).,Error creating Instance. Invalid unique id (%1).
+Studio.App.ProjectFolderService.InstanceMissingParentError,,Error creating Instance (%1): parent not found.,Error creating Instance (%1): parent not found.
+Studio.App.ProjectFolderService.InvalidTypeError,,Error creating Instance (%1): Luau File Sync only supports Script and Folder types. %2 is not supported.,Error creating Instance (%1): Luau File Sync only supports Script and Folder types. %2 is not supported.
+Studio.App.ProjectFolderService.InvalidClassNameError,,Error creating Instance (%1). Can not look up class name for %2.,Error creating Instance (%1). Can not look up class name for %2.
+Studio.App.ProjectFolderService.InstanceCreationError,,Error creating Instance (%1).,Error creating Instance (%1).
+Studio.App.ProjectFolderService.MissingDmError,,Unable to setup script change detection: DataModel not found.,Unable to setup script change detection: DataModel not found.
+Studio.App.ProjectFolderService.MissingScriptEditorServiceError,,Unable to setup script change detection: ScriptEditorService not found.,Unable to setup script change detection: ScriptEditorService not found.
+Studio.App.ProjectFolderService.SelectProjectFolder,,Select Project Folder,Select Project Folder
+Studio.App.ProjectFolderService.DidntSelectFolderError,,User didn't select a folder.,User didn't select a folder.
+Studio.App.ProjectFolderService.InvalidInstancesTable,,Error reading datamodel.json content: Malformed instances table.,Error reading datamodel.json content: Malformed instances table.
+Studio.App.ProjectFolderService.InstanceCreationMissingParentError,,Could not create instance for %1 because parent wasn't found.,Could not create instance for %1 because parent wasn't found.
+Studio.App.ProjectFolderService.InstanceMoveMissingParentError,,Could not move instance for %1 because parent wasn't found.,Could not move instance for %1 because parent wasn't found.
+Studio.App.ProjectFolderService.UnsupportedRootError,,%1 has moved under an unsupported root.,%1 has moved under an unsupported root.
+Studio.App.ProjectFolderService.GetSourceMissingDmError,,Unable to get source of a script: DataModel not found.,Unable to get source of a script: DataModel not found.
+Studio.App.ProjectFolderService.GetSourceMissingSESError,,Unable to get source of a script: ScriptEditorService not found.,Unable to get source of a script: ScriptEditorService not found.
+Studio.App.ProjectFolderService.SetSourceMissingDmError,,Unable to set source of a script: DataModel not found.,Unable to set source of a script: DataModel not found.
+Studio.App.ProjectFolderService.SetSourceMissingSESError,,Unable to set source of a script: ScriptEditorService not found.,Unable to set source of a script: ScriptEditorService not found.
+Studio.App.ProjectFolderService.FileDoesNotExistError,,File does not exist.,File does not exist.
+Studio.App.ProjectFolderService.NotLuauFileError,,Source is not a luau file.,Source is not a luau file.
+Studio.App.ProjectFolderService.InvalidFolderError,,%1 could not be found or is not a folder.,%1 could not be found or is not a folder.
+Studio.App.ProjectFolderService.MissingDmJsonError,,Could not find datamodel.json.,Could not find datamodel.json.
+Studio.App.ProjectFolderService.ParsingDmJsonError,,Could not parse datamodel.json.,Could not parse datamodel.json.
+Studio.App.ProjectFolderService.InvalidInstancesArrayDmJsonError,,Error reading the datamodel.json: Must contain an instances array of instance data.,Error reading the datamodel.json: Must contain an instances array of instance data.
+Studio.App.ProjectFolderService.MissingDmAfterWarningImportError,,Could not continue with import. DataModel not found.,Could not continue with import. DataModel not found.
+Studio.App.ProjectFolderService.MissingDmAfterWarningExportError,,Could not continue with export. DataModel not found.,Could not continue with export. DataModel not found.
+Studio.App.ProjectFolderService.MissingScriptsFolderError,,Import failed: Root directory is missing scripts folder.,Import failed: Root directory is missing scripts folder.
+Studio.App.ProjectFolderService.RootPathNotAFolderError,,Root directory path is not a folder: %1.,Root directory path is not a folder: %1.
+Studio.App.ProjectFolderService.RootFolderCreationError,,Could not create root folder at: %1.,Could not create root folder at: %1.
+Studio.App.ProjectFolderService.FolderCreationError,,Unable to create folder: %1.,Unable to create folder: %1.
+Studio.App.ProjectFolderService.MultipleUsersWarning,,There are currently other users in the TeamCreate session.,There are currently other users in the TeamCreate session.
+Studio.App.ProjectFolderService.FirstUseOfDirectoryWarning,,This is your first time using directory %1.,This is your first time using directory %1.
+Studio.App.ProjectFolderService.UnexportedChangesWarningTitle,,Importing will overwrite changes in Studio,Importing will overwrite changes in Studio
+Studio.App.ProjectFolderService.UnexportedChangesWarningSubtext,,"To avoid data loss, consider saving a backup.","To avoid data loss, consider saving a backup."
+Studio.App.ProjectFolderService.UnimportedChangesWarningTitle,,Exporting will overwrite changes in the source files.,Exporting will overwrite changes in the source files.
+Studio.App.ProjectFolderService.UnimportedChangesWarningSubtext,,"To avoid data loss, consider saving a backup.","To avoid data loss, consider saving a backup."
+Studio.App.ProjectFolderService.SuccessfulExport,,Successfully finished exporting scripts to %1.,Successfully finished exporting scripts to %1.
+Studio.App.ProjectFolderService.IneligibleInstancesWarningTitle,,Ineligible Instances won't be exported,Ineligible Instances won't be exported
+Studio.App.ProjectFolderService.IneligibleInstancesWarningSubtext,,Instances containing Tags and/or attributes will be skipped.,Instances containing Tags and/or attributes will be skipped.
+Studio.App.ProjectFolderService.UnableToCreateScriptsFolderError,,Unable to create scripts folder.,Unable to create scripts folder.
+Studio.App.ProjectFolderService.EditedSinceLastImportOutput,,%1 has been edited since last import.,%1 has been edited since last import.
+Studio.App.ProjectFolderService.ExportOverwriteFileWarning,,Export will overwrite file: %1.,Export will overwrite file: %1.
+Studio.App.ProjectFolderService.FileModifiedSinceLastSyncWarning,,File modified since last sync: %1.,File modified since last sync: %1.
+Studio.App.ProjectFolderService.PathCreationError,,Error creating path.,Error creating path.
+Studio.App.ProjectFolderService.PathCreationForInstanceError,,Error creating path for instance: %1.,Error creating path for instance: %1.
+Studio.App.ProjectFolderService.PathTooLongError,,Error exporting: %1 exceeds the path limit of 255 characters.,Error exporting: %1 exceeds the path limit of 255 characters.
+Studio.App.ProjectFolderService.ImportError,,Error importing. Please try again.,Error importing. Please try again.
+Studio.App.ProjectFolderService.ExportError,,Error exporting. Please try again.,Error exporting. Please try again.

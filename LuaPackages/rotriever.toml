@@ -32,14 +32,15 @@ StringUtilities = "github.com/Roblox/string-utilities@1.0.0"
 UrlBuilder = { git = "https://github.com/Roblox/url-builder", rev = "master" }
 FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
 NetworkingFriends = "github.com/roblox/networking-friends@2.11.0"
-ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.2.9" }
-ExperienceChat_New = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.3.1" }
+EmojiList = { git = "https://github.com/Roblox/emoji-list", rev = "1.0.0", package = "EmojiList" }
+ExperienceChat = { git = "https://github.com/Roblox/lua-experience-chat", rev = "v4.3.1" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
 ReactFocusNavigation = "github.com/roblox/focus-navigation@1.3.0"
 InputHandlers = "github.com/roblox/focus-navigation@1.3.0"
 React = "github.com/Roblox/roact-alignment@17.0.1"
 ReactIs = "github.com/Roblox/roact-alignment@17.0.1"
 ReactRoblox = "github.com/Roblox/roact-alignment@17.0.1"
+ReactUtils = "github.com/Roblox/react-utils@0.3.0"
 Promise = "github.com/Roblox/roblox-lua-promise@3.3.0"
 VirtualizedList = "github.com/roblox/virtualized-list-lua@1.4.3"
 LuauPolyfill = "github.com/Roblox/luau-polyfill@0.4.0"
@@ -55,7 +56,7 @@ QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.3.1"
 GraphqlToolsUtils = { target = "github.com/Roblox/graphql-tools-lua", version = "0.3.1", package = "Utils" }
 DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
-UGCValidation = "github.com/roblox/ugc-validation@1.11.4"
+UGCValidation = "github.com/roblox/ugc-validation@1.11.5"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
 RoduxFriends = { git = "https://github.com/Roblox/rodux-friends", rev = "v4.2.3" }

@@ -7291,6 +7291,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">UIFlexItem</string>
+        <string name="ClassCategory">GUI</string>
         <string name="ExplorerOrder">130</string>
         <string name="ExplorerImageIndex">26</string>
         <string name="PreferredParent">GuiObject</string>

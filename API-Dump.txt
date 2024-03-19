@@ -103,6 +103,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.ReportTeleportSignal(ad_instance_name: string, encrypted_ad_tracking_data: string, encryption_metadata: string, teleport_type: string, teleport_source_universe_id: number, teleport_source_place_id: number, teleport_dest_place_id: number) {RobloxSecurity} [Hidden]
 	Event AdService.ServeAdResponseSignal(uuid: string, response: string, isError: boolean) {RobloxSecurity} [Hidden]
 	Event AdService.ServeAdSignal(uuid: string, request: string) {RobloxSecurity} [Hidden]
+	Event AdService.ShowDynamicEudsaDisclosure(advertiserName: string, payerName: string) {RobloxScriptSecurity}
 	Event AdService.ShowStaticEudsaDisclosure() {RobloxScriptSecurity}
 	Event AdService.VideoAdClosed(adShown: boolean) [Deprecated]
 Class AdvancedDragger : Instance
@@ -214,6 +215,7 @@ Class Animator : Instance
 	Event Animator.AnimationPlayed(animationTrack: AnimationTrack)
 	Event Animator.AnimationPlayedCoreScript(animationTrack: AnimationTrack) {RobloxScriptSecurity}
 	Event Animator.AnimationStreamTrackPlayed(animationTrack: AnimationStreamTrack) {RobloxScriptSecurity}
+	Event Animator.OnCombinedUpdate(animation: string, playState: boolean, fadeTime: number, weight: number, speed: number, timePosition: number, priority: Enum.AnimationPriority, looping: boolean, valuesUpdated: number) {RobloxSecurity} [Hidden]
 	Event Animator.OnCombinedUpdate2(animation: string, playState: boolean, fadeTime: number, weight: number, speed: number, timePosition: number, priority: Enum.AnimationPriority, valuesUpdated: number) {RobloxSecurity} [Hidden]
 	Event Animator.OnStreamingUpdated(fadeTime: number, weight: number, priority: Enum.AnimationPriority, valuesUpdated: number) {RobloxSecurity} [Hidden]
 	Event Animator.OnStreamingUpdated2(fadeTime: number, weight: number, priority: Enum.AnimationPriority, maskEnabled: boolean, valuesUpdated: number) {RobloxSecurity} [Hidden]
@@ -866,6 +868,7 @@ Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:GetCaptureFilePathAsync(captureContentId: string) -> string {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureSizeAsync(captureContentId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
+	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity}
@@ -1368,6 +1371,7 @@ Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [Not
 	Function ConversationalAIAcceptanceService:CodeRunnerCompleted(requestId: string, success: boolean, errorMessage: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:CodeRunnerUndone(requestId: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:InstanceInserted(requestId: string) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:RecordingActionEnded(requestId: string, waypointName: string) -> () {RobloxScriptSecurity}
 Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptDebuggingManagerHelper : Instance [NotCreatable] [Service]
@@ -1427,6 +1431,8 @@ Class EditableMesh : DataModelMesh [NotReplicated]
 	Function EditableMesh:SetVertexColor(vertexId: number, color: Color3) -> ()
 	Function EditableMesh:SetVertexColorAlpha(vertexId: number, alpha: number) -> ()
 	Function EditableMesh:SetVertexNormal(vertexId: number, vnormal: Vector3) -> ()
+Class RobloxEditableMesh : EditableMesh
+	Property RobloxEditableMesh.MeshDataSerialize: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class FileMesh : DataModelMesh
 	Property FileMesh.MeshId: string
 	Property FileMesh.TextureId: string
@@ -3731,6 +3737,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.CollisionGroupData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Workspace.CollisionGroups: string [📁 LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
 	Property Workspace.DataModelPlaceVersion: number [Hidden] [NotScriptable]
+	Property Workspace.DecreaseMinimumPartDensityMode: Enum.DecreaseMinimumPartDensityMode [NotScriptable]
 	Property Workspace.ExplicitAutoJoints: boolean [Hidden] [NotScriptable]
 	Property Workspace.FallenPartsDestroyHeight: number {✏️PluginSecurity}
 	Property Workspace.FilteringEnabled: boolean {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
@@ -3738,7 +3745,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.GlobalWind: Vector3
 	Property Workspace.Gravity: number
 	Property Workspace.IKControlConstraintSupport: Enum.IKControlConstraintSupport [NotScriptable]
-	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity}
+	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
 	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
@@ -4296,8 +4303,8 @@ Class PluginMenu : Instance [NotCreatable] [NotReplicated]
 Class PluginPolicyService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PluginPolicyService:GetPluginPolicy(pluginName: string) -> { [string]: any } {RobloxScriptSecurity}
 Class PluginToolbar : Instance [NotCreatable]
-	Function PluginToolbar:CreateButton(buttonId: string, tooltip: string, iconname: string, text: string? = "") -> Instance? {PluginSecurity}
-	Function PluginToolbar:CreatePopupButton(buttonId: string, tooltip: string, iconname: string, text: string? = "") -> Instance? {RobloxScriptSecurity}
+	Function PluginToolbar:CreateButton(buttonId: string, tooltip: string, iconname: string, text: string? = "") -> PluginToolbarButton {PluginSecurity}
+	Function PluginToolbar:CreatePopupButton(buttonId: string, tooltip: string, iconname: string, text: string? = "") -> PluginToolbarButton {RobloxScriptSecurity}
 Class PluginToolbarButton : Instance [NotCreatable]
 	Property PluginToolbarButton.ClickableWhenViewportHidden: boolean [📁 LoadOnly] [NotReplicated]
 	Property PluginToolbarButton.Enabled: boolean [📁 LoadOnly] [NotReplicated]
@@ -4351,6 +4358,9 @@ Class SunRaysEffect : PostEffect
 	Property SunRaysEffect.Spread: number
 Class ProcessInstancePhysicsService : Instance [NotCreatable] [Service]
 Class ProjectFolderService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function ProjectFolderService:ExportScripts(path: string) -> () {RobloxScriptSecurity} [Yields]
+	Function ProjectFolderService:ImportScripts(path: string) -> () {RobloxScriptSecurity} [Yields]
+	Function ProjectFolderService:SelectFolder() -> string {RobloxScriptSecurity} [Yields]
 Class ProximityPrompt : Instance
 	Property ProximityPrompt.ActionText: string
 	Property ProximityPrompt.ClickablePrompt: boolean
@@ -4491,6 +4501,7 @@ Class RenderingTest : Instance
 	Property RenderingTest.Orientation: Vector3 [Hidden] [NotReplicated]
 	Property RenderingTest.PerfTest: boolean
 	Property RenderingTest.Position: Vector3 [Hidden] [NotReplicated]
+	Property RenderingTest.QualityAuto: boolean
 	Property RenderingTest.QualityLevel: number
 	Property RenderingTest.RenderingTestFrameCount: number
 	Property RenderingTest.ShouldSkip: boolean
@@ -5255,11 +5266,13 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StudioAssetService:ConvertToPackageUpload(uploadUrl: string, cloneInstances: { Instance }, originalInstances: { Instance }) -> () {RobloxScriptSecurity}
+	Function StudioAssetService:DEPRECATED_SerializeInstances(instances: { Instance }) -> string {RobloxScriptSecurity} [Yields]
 	Function StudioAssetService:FireOnUGCSubmitCompleted(cancelled: boolean) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:PublishPackage(instance: Instance, publishInfo: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function StudioAssetService:RequestAvatarAutosetupAsync(meshId: string, textureId: string, progressCallback: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
-	Function StudioAssetService:SerializeInstances(instances: { Instance }) -> string {RobloxScriptSecurity} [Yields]
+	Function StudioAssetService:SerializeInstances(instances: { Instance }, groupId: number? = 0, isPackage: boolean? = false) -> string {RobloxScriptSecurity} [Yields]
 	Function StudioAssetService:ShowSaveToRoblox(instances: { Instance }, assetType: any, hasSubsequent: boolean? = false) -> () {RobloxScriptSecurity}
+	Function StudioAssetService:UpdatePublishedPackage(assetmetadata: { [string]: any }, rootInstance: Instance, isConvert: boolean? = false, addUndoWaypoint: boolean? = false) -> () {RobloxScriptSecurity}
 	Event StudioAssetService.OnConvertToPackageResult(isSuccessful: boolean, errorMessage: string) {RobloxScriptSecurity}
 	Event StudioAssetService.OnPublishPackageResult(result: { [string]: any }, errorMessage: string) {RobloxScriptSecurity}
 	Event StudioAssetService.OnSaveToRoblox(instances: { Instance }, assetType: any, hasSubsequent: boolean) {RobloxScriptSecurity}
@@ -5745,7 +5758,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:CanLoadAsset(assetId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CheckEditableMeshInCameraFrustum(editableMesh: EditableMesh, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:CheckMeshInCameraFrustum(meshId: string, meshScale: Vector3, handleWorldCF: CFrame, cameraWorldCF: CFrame) -> boolean {RobloxScriptSecurity} [Yields]
-	Function UGCValidationService:CompareTextureOverlapByteString(byteStringBaseline: string, byteStringFollowup: string) -> { any } [Yields]
+	Function UGCValidationService:CompareTextureOverlapByteString(byteStringBaseline: string, byteStringFollowup: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:CompareTextureOverlapTextureId(textureIdBaseline: string, textureIdFollowup: string) -> { any } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:FetchAssetWithFormat(url: string, assetFormat: string) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:GetDynamicHeadEditableMeshInactiveControls(editableMesh: EditableMesh, controlNames: { any }) -> ...any {RobloxScriptSecurity}
@@ -5936,6 +5949,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property UserGameSettings.PerformanceStatsVisible: boolean {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.PlayerHeight: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.PreferredTransparency: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property UserGameSettings.QualityResetLevel: number {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.RCCProfilerRecordFrameRate: number
 	Property UserGameSettings.RCCProfilerRecordTimeFrame: number
 	Property UserGameSettings.ReducedMotion: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -6331,9 +6345,12 @@ Enum ActuatorType
 	EnumItem ActuatorType.Motor : 1
 	EnumItem ActuatorType.Servo : 2
 Enum AdEventType
-	EnumItem AdEventType.VideoLoaded : 0
-	EnumItem AdEventType.VideoRemoved : 1
-	EnumItem AdEventType.UserCompletedVideo : 2
+	EnumItem AdEventType.VideoLoaded : 0 [Deprecated]
+	EnumItem AdEventType.VideoRemoved : 1 [Deprecated]
+	EnumItem AdEventType.UserCompletedVideo : 2 [Deprecated]
+	EnumItem AdEventType.RewardedAdLoaded : 3
+	EnumItem AdEventType.RewardedAdGrant : 4
+	EnumItem AdEventType.RewardedAdUnloaded : 5
 Enum AdShape
 	EnumItem AdShape.HorizontalRectangle : 1
 Enum AdTeleportMethod
@@ -6576,6 +6593,7 @@ Enum AvatarChatServiceFeature
 	EnumItem AvatarChatServiceFeature.UserVideoEligible : 64
 	EnumItem AvatarChatServiceFeature.UserVideo : 128
 	EnumItem AvatarChatServiceFeature.UserBanned : 256
+	EnumItem AvatarChatServiceFeature.UserVerifiedForVoice : 512
 Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Friend : 0
 	EnumItem AvatarContextMenuOption.Chat : 1
@@ -7011,6 +7029,10 @@ Enum DebuggerStatus
 	EnumItem DebuggerStatus.RpcError : 6
 	EnumItem DebuggerStatus.InvalidArgument : 7
 	EnumItem DebuggerStatus.ConnectionClosed : 8
+Enum DecreaseMinimumPartDensityMode
+	EnumItem DecreaseMinimumPartDensityMode.Default : 0
+	EnumItem DecreaseMinimumPartDensityMode.Disabled : 1
+	EnumItem DecreaseMinimumPartDensityMode.Enabled : 2
 Enum DevCameraOcclusionMode
 	EnumItem DevCameraOcclusionMode.Zoom : 0
 	EnumItem DevCameraOcclusionMode.Invisicam : 1
@@ -8662,6 +8684,8 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.OnboardingHighlight : 133
 	EnumItem StudioStyleGuideColor.OnboardingShadow : 134
 	EnumItem StudioStyleGuideColor.BreakpointMarker : 136
+	EnumItem StudioStyleGuideColor.DiffLineNumHover : 137
+	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackgroundHover : 138
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

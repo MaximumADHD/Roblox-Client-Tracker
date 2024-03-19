@@ -98,8 +98,8 @@ dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "DataLoader DataLoader 0.2.0 url+https://github.com/roblox/data-loader-lua",
     "DeveloperTools DeveloperTools 0.2.7 url+https://github.com/roblox/developer-tools",
-    "ExperienceChat ExperienceChat e673569d git+https://github.com/roblox/lua-experience-chat#v4.2.9",
-    "ExperienceChat_New ExperienceChat ba94bdf5 git+https://github.com/roblox/lua-experience-chat#v4.3.1",
+    "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
+    "ExperienceChat ExperienceChat ba94bdf5 git+https://github.com/roblox/lua-experience-chat#v4.3.1",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "GraphqlToolsUtils Utils 0.3.1 url+https://github.com/roblox/graphql-tools-lua",
@@ -111,7 +111,7 @@ dependencies = [
     "JestBenchmark JestBenchmark 3.5.0 url+https://github.com/roblox/jest-roblox",
     "JestGlobals JestGlobals 2.4.1 url+https://github.com/roblox/jest-roblox",
     "JestGlobals3 JestGlobals 3.5.0 url+https://github.com/roblox/jest-roblox",
-    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps b73e94aa git+https://github.com/roblox/lua-social-libraries-deps#master",
+    "LuaSocialLibrariesDeps LuaSocialLibrariesDeps ace9d77c git+https://github.com/roblox/lua-social-libraries-deps#master",
     "LuauPolyfill LuauPolyfill 0.4.2 url+https://github.com/roblox/luau-polyfill",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Merge Merge 0.3.1 url+https://github.com/roblox/graphql-tools-lua",
@@ -133,6 +133,7 @@ dependencies = [
     "ReactOtter ReactOtter 1.1.0 url+https://github.com/roblox/otter",
     "ReactRoblox ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
     "ReactTestingLibrary ReactTestingLibrary 12.2.0 url+https://github.com/roblox/react-testing-library-lua",
+    "ReactUtils ReactUtils 0.3.0 url+https://github.com/roblox/react-utils",
     "RecordPlayback RecordPlayback 0.1.1 url+https://github.com/roblox/http-service-utils",
     "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "Result roblox/lua-result c6817c84 git+https://github.com/roblox/lua-result#master",
@@ -153,8 +154,8 @@ dependencies = [
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "TagUtils TagUtils 0.1.0 url+https://github.com/roblox/luau-tag-utils",
     "Thumbnailing Thumbnailing 935c3f68 git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.11.4 url+https://github.com/roblox/ugc-validation",
-    "UIBlox UIBlox edc008f2 git+https://github.com/roblox/uiblox#master",
+    "UGCValidation UGCValidation 1.11.5 url+https://github.com/roblox/ugc-validation",
+    "UIBlox UIBlox e54eb94f git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder f569021f git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 url+https://github.com/roblox/usage-tracker-lua",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
@@ -308,28 +309,6 @@ dependencies = [
 
 [[package]]
 name = "ExperienceChat"
-version = "4.2.9"
-commit = "e673569d0b7f35073264999ec847b1782b59cbc6"
-source = "git+https://github.com/roblox/lua-experience-chat#v4.2.9"
-dependencies = [
-    "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
-    "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
-    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
-    "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> React 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "ReactIs <patched> ReactIs 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "ReactRoblox <patched> ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox edc008f2 git+https://github.com/roblox/uiblox#master",
-    "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
-    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
-]
-
-[[package]]
-name = "ExperienceChat"
 version = "4.3.1"
 commit = "ba94bdf5d649030094ba2a8d8cd19d51957ffc5b"
 source = "git+https://github.com/roblox/lua-experience-chat#v4.3.1"
@@ -345,7 +324,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox edc008f2 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox e54eb94f git+https://github.com/roblox/uiblox#master",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -420,7 +399,7 @@ dependencies = [
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoactGamepad <patched> RoactGamepad 0.5.13 url+https://github.com/roblox/roact-gamepad",
-    "UIBlox UIBlox edc008f2 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox e54eb94f git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -439,7 +418,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox edc008f2 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox e54eb94f git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -990,7 +969,7 @@ dependencies = [
 [[package]]
 name = "LuaSocialLibrariesDeps"
 version = "1.1.7"
-commit = "b73e94aa95d13690a771bed9a8d59792922107fc"
+commit = "ace9d77cb56a8c4a57a608de0030ab957c3fd109"
 source = "git+https://github.com/roblox/lua-social-libraries-deps#master"
 dependencies = [
     "CollisionMatchers 2D-Collision-Matchers 89b7a343 git+https://github.com/roblox/2d-collision-matchers#v1.0.1",
@@ -1024,8 +1003,7 @@ dependencies = [
     "RoduxSquads RoduxSquads 124dc1a2 git+https://github.com/roblox/rodux-squads#v1.12.1",
     "RoduxUserPermissions RoduxUserPermissions 0.5.0 url+https://github.com/roblox/rodux-contacts",
     "RoduxUsers RoduxUsers d8f3a623 git+https://github.com/roblox/rodux-users#v1.4.1",
-    "SocialLibraries_v258 SocialLibraries 9aaa97a5 git+https://github.com/roblox/social-libraries#v2.5.8",
-    "SocialLibraries_v310 SocialLibraries 5d5ec17c git+https://github.com/roblox/social-libraries#v3.1.0",
+    "SocialLibraries SocialLibraries 994de48b git+https://github.com/roblox/social-libraries#v3.1.3",
     "httpRequest roblox/http-request 3e68dca3 git+https://github.com/roblox/http-request#v1.1.0",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -1353,7 +1331,7 @@ dependencies = [
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox edc008f2 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox e54eb94f git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder f569021f git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1497,6 +1475,17 @@ dependencies = [
     "ReactRoblox ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
     "Scheduler Scheduler 17.0.1 url+https://github.com/roblox/roact-alignment",
     "Shared Shared 17.0.1 url+https://github.com/roblox/roact-alignment",
+]
+
+[[package]]
+name = "ReactUtils"
+version = "0.3.0"
+commit = "d99129fafdde4556570f79f3fe3bcf6e3706e2aa"
+source = "url+https://github.com/roblox/react-utils"
+dependencies = [
+    "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
+    "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
+    "ReactRoblox ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
 ]
 
 [[package]]
@@ -1902,9 +1891,9 @@ source = "url+https://github.com/roblox/signal-lua"
 
 [[package]]
 name = "SocialLibraries"
-version = "2.5.8"
-commit = "9aaa97a5e1c4b0936bc059526b7d106d6341d5c6"
-source = "git+https://github.com/roblox/social-libraries#v2.5.8"
+version = "3.1.3"
+commit = "994de48b2d5b9f11fcb82774f33e82d50c6b36d7"
+source = "git+https://github.com/roblox/social-libraries#v3.1.3"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
     "GenericPagination roblox/genericpagination 885168d0 git+https://github.com/roblox/genericpagination#master",
@@ -1920,34 +1909,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 02a3ea83 git+https://github.com/roblox/rodux-friends#v4.0.0",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox edc008f2 git+https://github.com/roblox/uiblox#master",
-    "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
-    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
-    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
-    "tutils tutils 937da4f7 git+https://github.com/roblox/tutils#master",
-]
-
-[[package]]
-name = "SocialLibraries"
-version = "3.0.0"
-commit = "5d5ec17ca4c66dffc44638573de1da3ddd4b73ba"
-source = "git+https://github.com/roblox/social-libraries#v3.1.0"
-dependencies = [
-    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
-    "GenericPagination roblox/genericpagination 885168d0 git+https://github.com/roblox/genericpagination#master",
-    "LuauPolyfill LuauPolyfill 0c4b13ff git+https://github.com/roblox/luau-polyfill#v0.3.4",
-    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
-    "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "RoactNavigation <patched> RoactNavigation 0.5.8 url+https://github.com/roblox/roact-navigation",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxFriends RoduxFriends 02a3ea83 git+https://github.com/roblox/rodux-friends#v4.0.0",
-    "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
-    "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox edc008f2 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox e54eb94f git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -2045,8 +2007,8 @@ dependencies = ["Collections Collections 1.2.3 url+https://github.com/roblox/lua
 
 [[package]]
 name = "UGCValidation"
-version = "1.11.4"
-commit = "5d5991e356fb8d9076fb87a95eff084ae87b207c"
+version = "1.11.5"
+commit = "4882c79d428b186ada265096778c9f96d7987289"
 source = "url+https://github.com/roblox/ugc-validation"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
@@ -2056,7 +2018,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "edc008f2f991a013bc678dd5e2455d97096fe729"
+commit = "e54eb94f7ab3ae638e22cf0935d0a2b51968793e"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
@@ -2069,6 +2031,7 @@ dependencies = [
     "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
     "ReactOtter ReactOtter 1.1.0 url+https://github.com/roblox/otter",
     "ReactRoblox ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
+    "ReactUtils ReactUtils 0.3.0 url+https://github.com/roblox/react-utils",
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactGamepad <patched> RoactGamepad 0.5.13 url+https://github.com/roblox/roact-gamepad",
     "Shared Shared 17.0.1 url+https://github.com/roblox/roact-alignment",

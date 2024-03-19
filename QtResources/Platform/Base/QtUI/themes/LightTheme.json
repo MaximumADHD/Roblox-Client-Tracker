@@ -574,8 +574,18 @@
             }
         },
         {
+            "DiffLineNumHover": {
+                "Default": "#FFFFFF"
+            }
+        },
+        {
             "DiffLineNumSeparatorBackground": {
                 "Default": "#D8E6FF"
+            }
+        },
+        {
+            "DiffLineNumSeparatorBackgroundHover": {
+                "Default": "#2BB1FF"
             }
         },
         {

@@ -305,6 +305,7 @@ dependencies = [
     "AppChatNetworking AppChatNetworking 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
+    "CollisionMatchers2D CollisionMatchers2D 0.1.0",
     "CommunicationsContactConsent CommunicationsContactConsent 0.1.0",
     "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
@@ -390,6 +391,16 @@ dependencies = [
     "Result Result 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "tutils tutils 0.1.0",
+]
+
+[[package]]
+name = "AppHeaderBar"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "UIBlox UIBlox 0.1.0",
 ]
 
 [[package]]
@@ -755,6 +766,7 @@ dependencies = [
 name = "DiscoveryPackagesTestSuite"
 version = "0.1.0"
 dependencies = [
+    "DiscoveryUtils DiscoveryUtils 0.1.0",
     "ExperienceAnalytics ExperienceAnalytics 0.1.0",
     "GameCollectionViews GameCollectionViews 0.1.0",
     "GameDetail GameDetail 0.1.0",
@@ -775,6 +787,16 @@ dependencies = [
 name = "DiscoveryTestHelpers"
 version = "0.1.0"
 dependencies = ["SharedFlags SharedFlags 0.1.0"]
+
+[[package]]
+name = "DiscoveryUtils"
+version = "0.1.0"
+dependencies = [
+    "ArgCheck ArgCheck 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "SystemInfoProtocol SystemInfoProtocol 0.1.0",
+]
 
 [[package]]
 name = "DsaIllegalContentReporting"
@@ -840,6 +862,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "EmojiList"
+version = "0.1.0"
+
+[[package]]
 name = "ErrorReporters"
 version = "0.1.0"
 dependencies = [
@@ -847,6 +873,30 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "t t 0.1.0",
+]
+
+[[package]]
+name = "ExpChat"
+version = "4.3.2"
+dependencies = [
+    "ApolloClient ApolloClient 0.1.0",
+    "CollisionMatchers CollisionMatchers2D 0.1.0",
+    "EmojiList EmojiList 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals 0.1.0",
+    "Lumberyak Lumberyak 0.1.0",
+    "Otter Otter 0.1.0",
+    "Promise Promise 0.1.0",
+    "React React 0.1.0",
+    "ReactIs ReactIs 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "Roact RoactCompat 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "VirtualizedList VirtualizedList 0.1.0",
+    "llama llama 0.1.0",
 ]
 
 [[package]]
@@ -1273,6 +1323,8 @@ dependencies = [
     "PlayabilityRodux PlayabilityRodux 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Rhodium Rhodium 0.1.0",
     "Roact RoactCompat 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
@@ -1347,6 +1399,7 @@ dependencies = [
     "ArgCheck ArgCheck 0.1.0",
     "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
+    "DiscoveryUtils DiscoveryUtils 0.1.0",
     "Fetch Fetch 0.1.0",
     "GraphqlHttpArtifacts GraphqlHttpArtifacts 0.1.0",
     "Http Http 0.1.0",
@@ -1920,6 +1973,8 @@ dependencies = [
     "InputType InputType 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Loggers Loggers 0.1.0",
+    "Navigation Navigation 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "ReactTestingLibrary ReactTestingLibrary 0.1.0",
@@ -1927,14 +1982,18 @@ dependencies = [
     "Roact RoactCompat 0.1.0",
     "RoactAppExperiment RoactAppExperiment 0.1.0",
     "RoactGamepad RoactGamepad 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
+    "RoactServiceTags RoactServiceTags 0.1.0",
     "RoactServices RoactServices 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "t t 0.1.0",
 ]
 
 [[package]]
@@ -2165,6 +2224,10 @@ name = "ReactTestingLibrary"
 version = "0.1.0"
 
 [[package]]
+name = "ReactUtils"
+version = "0.1.0"
+
+[[package]]
 name = "RecordPlayback"
 version = "0.1.0"
 
@@ -2332,6 +2395,7 @@ dependencies = ["SharedFlags SharedFlags 0.1.0"]
 name = "RobloxAppTestSuite"
 version = "0.1.0"
 dependencies = [
+    "AppHeaderBar AppHeaderBar 0.1.0",
     "NavigationRodux NavigationRodux 0.1.0",
     "RobloxAppToastsRodux RobloxAppToastsRodux 0.1.0",
     "RobloxAppUpdate RobloxAppUpdate 0.1.0",
@@ -2564,9 +2628,11 @@ dependencies = [
     "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
     "FormFactor FormFactor 0.1.0",
+    "IxpServiceWrapper IxpServiceWrapper 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
+    "Loggers Loggers 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
@@ -3250,6 +3316,7 @@ dependencies = [
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
     "NotificationModalsManager NotificationModalsManager 0.1.0",
+    "NotificationsCommon NotificationsCommon 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "Rhodium Rhodium 0.1.0",
@@ -3500,6 +3567,10 @@ dependencies = [
 
 [[package]]
 name = "enumerate"
+version = "0.1.0"
+
+[[package]]
+name = "llama"
 version = "0.1.0"
 
 [[package]]

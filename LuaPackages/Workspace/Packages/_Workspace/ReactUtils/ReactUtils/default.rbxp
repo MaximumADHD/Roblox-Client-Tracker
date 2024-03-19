@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ReactUtils",
+    "tree": {
+      "$path": "../../../../../../../modules/proxy-packages/react-utils/src"
+    }
+  }
+}
