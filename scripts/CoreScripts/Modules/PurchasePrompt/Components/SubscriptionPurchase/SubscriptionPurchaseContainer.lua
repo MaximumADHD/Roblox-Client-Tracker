@@ -29,6 +29,7 @@ local SubscriptionPurchaseContainer = Roact.Component:extend(script.Name)
 local SELECTION_GROUP_NAME = "SubscriptionPurchaseContainer"
 
 local GetFFlagFixPlayerGuiSelectionBugOnPromptExit = require(Root.Flags.GetFFlagFixPlayerGuiSelectionBugOnPromptExit)
+local GetFFlagEnableRobloxCreditPurchase = require(Root.Flags.GetFFlagEnableRobloxCreditPurchase)
 
 function SubscriptionPurchaseContainer:init()
 	self.state = {
@@ -79,6 +80,14 @@ function SubscriptionPurchaseContainer:createElement()
 		self:saveSelectedObject()
 	end
 
+	local primaryPaymentMethod = nil
+	local secondaryPaymentMethod = nil
+	local info = props.subscriptionPurchaseInfo
+	if GetFFlagEnableRobloxCreditPurchase() and info ~= nil then
+		primaryPaymentMethod = info.PrimaryPaymentProviderType
+		secondaryPaymentMethod = if info.AllPaymentProviderTypes then info.AllPaymentProviderTypes[2] else nil
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		[Roact.Change.AbsoluteSize] = self.changeScreenSize,
@@ -101,11 +110,16 @@ function SubscriptionPurchaseContainer:createElement()
 			description = props.subscriptionPurchaseInfo.Description,
 			itemIcon = props.subscriptionPurchaseInfo.ImageUrl,
 
+			primaryPaymentMethod = primaryPaymentMethod,
+			secondaryPaymentMethod = secondaryPaymentMethod,
+
 			isGamepadEnabled = props.isGamepadEnabled,
 			isTestingMode = props.subscriptionPurchaseInfo.IsTestingMode,
 
 			promptSubscriptionPurchase = props.promptSubscriptionPurchase,
-			endPurchase = if GetFFlagFixPlayerGuiSelectionBugOnPromptExit() then self.endPurchase else props.completeRequest,
+			endPurchase = if GetFFlagFixPlayerGuiSelectionBugOnPromptExit()
+				then self.endPurchase
+				else props.completeRequest,
 			onAnalyticEvent = props.onAnalyticEvent,
 		}),
 		-- UIBlox components do not have Modal == true to fix FPS interaction with modals
@@ -150,8 +164,8 @@ SubscriptionPurchaseContainer = connectToStore(function(state)
 	}
 end, function(dispatch)
 	return {
-		promptSubscriptionPurchase = function()
-			return dispatch(launchSubscriptionPurchase())
+		promptSubscriptionPurchase = function(paymentMethod)
+			return dispatch(launchSubscriptionPurchase(paymentMethod))
 		end,
 		completeRequest = function()
 			return dispatch(completeRequest())

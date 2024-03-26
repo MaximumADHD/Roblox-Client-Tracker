@@ -1051,7 +1051,7 @@ MAIN:
   GETTABLEKS R55 R10 K61 ["SetProgressBarInfo"]
   CALL R54 1 1
   GETIMPORT R55 K4 [require]
-  GETTABLEKS R56 R10 K62 ["GetFiatProduct"]
+  GETTABLEKS R56 R10 K62 ["SetFiatProduct"]
   CALL R55 1 1
   GETIMPORT R56 K4 [require]
   GETTABLEKS R59 R0 K5 ["Core"]

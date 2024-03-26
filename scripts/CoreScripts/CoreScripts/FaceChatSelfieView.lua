@@ -15,11 +15,8 @@
 TODO: this is just an in between state checkin for MVP preview
 this will see further refactors over the next PRs before MVP release
 bigger changes before mvp release next up:
--test print messages cleanup before MVP release
 
 *bigger changes before full version release:
--add more analytics tracking calls
--improve cam framing in viewportframe further
 (-add new SelfViewService for further customization (position, size, color, override head name (so it can use a head not named "Head", lighting settings etc))
 -potentially changing this to do the ui in roact (pros/ cons to evaluate)
 -reduce full rebuilds of clone as much as possible
@@ -53,6 +50,7 @@ local FFlagSelfViewMoreNilChecks = game:DefineFastFlag("SelfViewMoreNilChecks", 
 local FFlagSelfViewAvoidErrorOnWrongFaceControlsParenting = game:DefineFastFlag("SelfViewAvoidErrorOnWrongFaceControlsParenting", false)
 local FFlagSelfViewUpdatedCamFraming = game:DefineFastFlag("SelfViewUpdatedCamFraming", false)
 local FFlagSelfViewGetRidOfFalselyRenderedFaceDecal = game:DefineFastFlag("SelfViewGetRidOfFalselyRenderedFaceDecal", false)
+local FFlagSelfViewRemoveVPFWhenClosed = game:DefineFastFlag("SelfViewRemoveVPFWhenClosed", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -169,6 +167,7 @@ local currentTrackerMode = nil
 local cachedMode = nil
 local viewportFrame = nil
 local viewportCamera = nil
+local selfViewFrame = nil
 --fallback default value, actual value gets populated once parts found:
 local boundsSize = Vector3.new (1.1721, 1.1811, 1.1578)
 local cloneAnchor = nil
@@ -303,7 +302,7 @@ local TYPES_TRIGGERING_DIRTY_ON_ADDREMOVE = {
 	SurfaceAppearance = "SurfaceAppearance",
 }
 
-log:trace("Self View 03-11-2024__1!!")
+log:trace("Self View 03-20-2024__1!!")
 
 local observerInstances = {}
 local Observer = {
@@ -901,6 +900,15 @@ function clearClone()
 	clearCloneCharacter()
 end	
 
+function clearViewportFrame()
+	if viewportFrame then
+		viewportFrame:Destroy()
+	end
+	if selfViewFrame then
+		selfViewFrame:Destroy()
+	end
+end
+
 local function setIsOpen(shouldBeOpen)
 	debugPrint("Self View: setIsOpen(): " .. tostring(shouldBeOpen))
 	isOpen = shouldBeOpen
@@ -926,8 +934,69 @@ local function setIsOpen(shouldBeOpen)
 		indicatorCircle.Visible = debug
 
 		trackSelfViewSessionAsNeeded()
+
+		if FFlagSelfViewRemoveVPFWhenClosed then
+			clearViewportFrame()
+		end
 	end
 end	
+
+function createViewportFrame()
+	selfViewFrame = Instance.new("Frame")
+	selfViewFrame.Name = "SelfViewFrame"
+	selfViewFrame.Position = UDim2.new(0, 0, 0, 0)
+	selfViewFrame.Size = UDim2.new(1, 0, 1, 0)
+	selfViewFrame.BackgroundTransparency = 1
+	selfViewFrame.Parent = frame
+
+	viewportFrame = Instance.new("ViewportFrame")
+	viewportFrame.Position = UDim2.new(0, 0, 0, 0)
+	viewportFrame.Size = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
+	viewportFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+	viewportFrame.BorderColor3 = Color3.new(0.6, 0.5, 0.4)
+	viewportFrame.BorderSizePixel = 2
+	viewportFrame.BackgroundTransparency = BACKGROUND_TRANSPARENCY
+	viewportFrame.Parent = selfViewFrame
+
+	viewportFrame.Ambient = Color3.new(0.7529411765, 0.7098039216, 0.7137254902)
+	viewportFrame.LightColor = Color3.new(1, 0.9960784314, 0.9960784314)
+	viewportFrame.LightDirection = Vector3.new(9.5, -12, 7.5)
+	viewportFrame.BackgroundColor3 = Color3.new(0.0990616, 0.138109, 0.452827)
+	viewportFrame.IsMirrored = true
+
+	local uiCorner = Instance.new("UICorner")
+	uiCorner.Parent = selfViewFrame	
+
+	uiCorner = Instance.new("UICorner")
+	uiCorner.Parent = viewportFrame
+	
+	local uiStroke = Instance.new("UIStroke")
+	uiStroke.Parent = selfViewFrame
+	uiStroke.Thickness = 3
+	uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
+
+	uiStroke = Instance.new("UIStroke")
+	uiStroke.Parent = viewportFrame
+	uiStroke.Thickness = 2.5
+	uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
+
+	viewportCamera = Instance.new("Camera")
+
+	viewportCamera.FieldOfView = SELF_VIEW_CAMERA_FIELD_OF_VIEW
+
+	viewportFrame.CurrentCamera = viewportCamera
+	viewportCamera.Parent = viewportFrame
+
+	return viewportFrame	
+end
+
+function getViewportFrame()
+	if viewportFrame then
+		clearViewportFrame()
+	end
+	viewportFrame = createViewportFrame()
+	return viewportFrame
+end
 
 local function createViewport()
 	--TODO: this UI setup could be changed to roact setup before MVP release, to evaluate pros/ cons
@@ -1157,279 +1226,550 @@ local function createViewport()
 	camIcon.BackgroundTransparency = 1
 	camIcon.ZIndex = 2
 
-	local selfViewFrame = Instance.new("Frame")
-	selfViewFrame.Name = "SelfViewFrame"
-	selfViewFrame.Position = UDim2.new(0, 0, 0, 0)
-	selfViewFrame.Size = UDim2.new(1, 0, 1, 0)
-	selfViewFrame.BackgroundTransparency = 1
-	selfViewFrame.Parent = frame
-
-	viewportFrame = Instance.new("ViewportFrame")
-	viewportFrame.Position = UDim2.new(0, 0, 0, 0)
-	viewportFrame.Size = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
-	viewportFrame.BackgroundColor3 = Color3.new(0, 0, 0)
-	viewportFrame.BorderColor3 = Color3.new(0.6, 0.5, 0.4)
-	viewportFrame.BorderSizePixel = 2
-	viewportFrame.BackgroundTransparency = BACKGROUND_TRANSPARENCY
-	viewportFrame.Parent = selfViewFrame
-
-	viewportFrame.Ambient = Color3.new(0.7529411765, 0.7098039216, 0.7137254902)
-	viewportFrame.LightColor = Color3.new(1, 0.9960784314, 0.9960784314)
-	viewportFrame.LightDirection = Vector3.new(9.5, -12, 7.5)
-	viewportFrame.BackgroundColor3 = Color3.new(0.0990616, 0.138109, 0.452827)
-	viewportFrame.IsMirrored = true
-
-	indicatorCircle = Instance.new("ImageLabel")
-	indicatorCircle.Name = "IndicatorCircle"
-	indicatorCircle.Parent = frame
-	indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
-	indicatorCircle.Size = UDim2.new(0, 22, 0, 22)
-	indicatorCircle.Image = INDICATOR_OFF_IMAGE
-	indicatorCircle.BackgroundTransparency = 1
-	indicatorCircle.Visible = false
-	indicatorCircle.ZIndex = 4
-
-	local closeButton = Instance.new("ImageButton")
-	closeButton.Name = "CloseButton"
-	closeButton.AnchorPoint = Vector2.new(0, 0.5)
-	closeButton.Parent = frame
-	closeButton.Position = UDim2.fromOffset(0, 16)
-	closeButton.Size = UDim2.new(0, 34, 0, 34)
-	closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
-	closeButton.ImageTransparency = 1
-	closeButton.BackgroundTransparency = 1
-	closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
-	closeButton.ZIndex = 2
-
-	local closeButtonIcon = Instance.new("ImageLabel")
-	closeButtonIcon.Name = "CloseButtonIcon"
-	closeButtonIcon.Parent = closeButton
-	closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	closeButtonIcon.Position = UDim2.new(0, 17, 0, 17)
-	closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
-	closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
-	closeButtonIcon.ImageTransparency = 0
-	closeButtonIcon.BackgroundTransparency = 1
-	closeButtonIcon.ZIndex = 2
-
-	local faceIcon = Instance.new("ImageLabel")
-	faceIcon.Name = "FaceIcon"
-	faceIcon.Parent = frame
-	faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-	faceIcon.Position = UDim2.new(0, 17, 0, 17)
-	faceIcon.Size = UDim2.new(0, 32, 0, 32)
-	faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
-	faceIcon.BackgroundTransparency = 1
-	faceIcon.ZIndex = 2
-	faceIcon.Visible = false
-	faceIcon.Parent = closeButton
-
-	local function setButtonButtonsVisibility()
+	if FFlagSelfViewRemoveVPFWhenClosed then
 		if isOpen then
-			micButton.Visible = true
-			camButton.Visible = true
-			closeButton.Visible = true
+			getViewportFrame()
+		end
+		
+		indicatorCircle = Instance.new("ImageLabel")
+		indicatorCircle.Name = "IndicatorCircle"
+		indicatorCircle.Parent = frame
+		indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+		indicatorCircle.Size = UDim2.new(0, 22, 0, 22)
+		indicatorCircle.Image = INDICATOR_OFF_IMAGE
+		indicatorCircle.BackgroundTransparency = 1
+		indicatorCircle.Visible = false
+		indicatorCircle.ZIndex = 4
+
+		local closeButton = Instance.new("ImageButton")
+		closeButton.Name = "CloseButton"
+		closeButton.AnchorPoint = Vector2.new(0, 0.5)
+		closeButton.Parent = frame
+		closeButton.Position = UDim2.fromOffset(0, 16)
+		closeButton.Size = UDim2.new(0, 34, 0, 34)
+		closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
+		closeButton.ImageTransparency = 1
+		closeButton.BackgroundTransparency = 1
+		closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
+		closeButton.ZIndex = 2
+
+		local closeButtonIcon = Instance.new("ImageLabel")
+		closeButtonIcon.Name = "CloseButtonIcon"
+		closeButtonIcon.Parent = closeButton
+		closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+		closeButtonIcon.Position = UDim2.new(0, 17, 0, 17)
+		closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
+		closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
+		closeButtonIcon.ImageTransparency = 0
+		closeButtonIcon.BackgroundTransparency = 1
+		closeButtonIcon.ZIndex = 2
+
+		local faceIcon = Instance.new("ImageLabel")
+		faceIcon.Name = "FaceIcon"
+		faceIcon.Parent = frame
+		faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+		faceIcon.Position = UDim2.new(0, 17, 0, 17)
+		faceIcon.Size = UDim2.new(0, 32, 0, 32)
+		faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
+		faceIcon.BackgroundTransparency = 1
+		faceIcon.ZIndex = 2
+		faceIcon.Visible = false
+		faceIcon.Parent = closeButton
+
+		local function setButtonButtonsVisibility()
+			if isOpen then
+				micButton.Visible = true
+				camButton.Visible = true
+				closeButton.Visible = true
 		--[[
 			Allow for debugging in studio. This shows the mic option when
 			studio normally does not have this option.
 		]]
-		elseif IS_STUDIO and debug then
-			micButton.Visible = true
-			camButton.Visible = true
-			closeButton.Visible = true
-		else
-			micButton.Visible = false
-			camButton.Visible = false
-			closeButton.Visible = false
-		end
-	end
-
-	local function showSelfView(newState, position, anchorPoint)
-		setIsOpen(newState)
-		setButtonButtonsVisibility()
-
-		selfViewFrame.Visible = newState
-		bottomButtonsFrame.Visible = newState
-		closeButtonIcon.Visible = newState
-		faceIcon.Visible = not newState
-		closeButton.BackgroundTransparency = newState and 1 or 0.5
-
-		if isOpen then
-			micButton.Position = UDim2.new(0, 0, 0, 0)
-			micButton.Size = UDim2.new(0.5, -4, 1, -4)
-			micButton.ImageTransparency = 0
-
-			camButton.Position = UDim2.new(0, 0, 0, 0)
-			camButton.Size = UDim2.new(0.5, -4, 1, -4)
-			camButton.ImageTransparency = 0
-
-			indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
-
-			if position ~= nil then
-				frame.Position = position
-			end
-			if anchorPoint ~= nil then
-				frame.AnchorPoint = anchorPoint
-			end
-			frame.Active = true
-			frame.Visible = true
-
-			if shouldDisplaySelfViewTooltip("ShowSelfieViewOpenedTooltip") then
-				mountedOnOpenTooltipInstance = mountSelfViewOnOpenTooltip({
-					fallbackText = "Use your camera to make your avatar smile and move just like you",
-					translationKey = "Feature.Avatar.Message.FTUXSelfieViewOpenedTooltip",
-					anchorPoint = frame.AnchorPoint,
-					position = frame.Position,
-					size = frame.Size,
-					bottomButtonsFramePosition = bottomButtonsFrame.Position,
-					bottomButtonsFrameSize = bottomButtonsFrame.Size,
-					aspectRatio = aspectRatioConstraint.AspectRatio,
-					maxSize = sizeConstraint.MaxSize,
-					minSize = sizeConstraint.MinSize,
-					tooltipLifetime = FIntSelfViewTooltipLifetime,
-				})
-				pcall(function()
-					AppStorageService:SetItem("ShowSelfieViewOpenedTooltip", "false")
-				end)
-			end
-		else
-			micButton.Position = UDim2.new(0, 40, 0, -1)
-			micButton.Size = UDim2.new(0, 34, 0, 34)
-			micButton.ImageTransparency = 0.3
-
-			camButton.Position = UDim2.new(0, 80, 0, -1)
-			camButton.Size = UDim2.new(0, 34, 0, 34)
-			camButton.ImageTransparency = 0.3
-
-			indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
-			frame.Active = false
-			frame.Visible = false
-
-			if cloneStreamTrack then
-				local onTrackStoppedConnection = nil
-				local tempCloneStreamTrack = cloneStreamTrack
-				local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
-				onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
-					tempCloneStreamTrack:Destroy()
-
-					if tempNewTrackerStreamAnimation then
-						tempNewTrackerStreamAnimation:Destroy()
-					end
-
-					onTrackStoppedConnection:Disconnect()
-				end)
-
-				cloneStreamTrack:Stop(0.0)
-				cloneStreamTrack = nil
-			elseif newTrackerStreamAnimation then
-				newTrackerStreamAnimation:Destroy()
-				newTrackerStreamAnimation = nil
-			end	
-
-			if shouldDisplaySelfViewTooltip("ShowSelfieViewClosedTooltip") then
-				mountSelfViewOnCloseTooltip({
-					fallbackText = "You can find your camera and self-view controls here",
-					translationKey = "Feature.Avatar.Message.FTUXSelfieViewClosedTooltip",
-					tooltipLifetime = FIntSelfViewTooltipLifetime,
-				})
-				pcall(function()
-					AppStorageService:SetItem("ShowSelfieViewClosedTooltip", "false")
-				end)
+			elseif IS_STUDIO and debug then
+				micButton.Visible = true
+				camButton.Visible = true
+				closeButton.Visible = true
+			else
+				micButton.Visible = false
+				camButton.Visible = false
+				closeButton.Visible = false
 			end
 		end
 
-		bottomButtonsFrame.Visible = isOpen
-	end
+		local function showSelfView(newState, position, anchorPoint)
+			setIsOpen(newState)
+			setButtonButtonsVisibility()
 
-	globalShowSelfViewFunction = showSelfView
-
-	closeButton.Activated:Connect(function()
-		showSelfView(not isOpen)
-	end)
-
-	if toggleSelfViewSignalConnection then
-		toggleSelfViewSignalConnection:disconnect()
-	end
-	toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
-		showSelfView(not isOpen)
-	end)
-
-	if selfViewVisibleConnection then
-		selfViewVisibleConnection:Disconnect()
-		selfViewVisibleConnection = nil
-	end
-	if selfViewHiddenConnection then
-		selfViewHiddenConnection:Disconnect()
-		selfViewHiddenConnection = nil
-	end
-	selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
-		-- Calling showSelfView when self view is already visible is no-op
-		if not isOpen then
-			-- use current position
-			local newSelfViewPosition = nil
-			local anchorPoint = nil
-			if selfViewPosition == Enum.SelfViewPosition.TopLeft then
-				newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
-				anchorPoint = Vector2.new(0, 0)
-			elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
-				newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
-				anchorPoint = Vector2.new(1, 0)
-			elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
-				newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
-				anchorPoint = Vector2.new(0, 1)
-			elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
-				newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
-				anchorPoint = Vector2.new(1, 1)
+			if not FFlagSelfViewRemoveVPFWhenClosed then
+				selfViewFrame.Visible = newState
 			end
-			showSelfView(true, newSelfViewPosition, anchorPoint)
-			if newSelfViewPosition ~= nil then
-				local value = frame.AbsolutePosition.X .. "," .. frame.AbsolutePosition.Y
-				AppStorageService:SetItem("SelfViewPosition", value)
+			bottomButtonsFrame.Visible = newState
+			closeButtonIcon.Visible = newState
+			faceIcon.Visible = not newState
+			closeButton.BackgroundTransparency = newState and 1 or 0.5
+
+			if isOpen then
+				micButton.Position = UDim2.new(0, 0, 0, 0)
+				micButton.Size = UDim2.new(0.5, -4, 1, -4)
+				micButton.ImageTransparency = 0
+
+				camButton.Position = UDim2.new(0, 0, 0, 0)
+				camButton.Size = UDim2.new(0.5, -4, 1, -4)
+				camButton.ImageTransparency = 0
+
+				indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+
+				if position ~= nil then
+					frame.Position = position
+				end
+				if anchorPoint ~= nil then
+					frame.AnchorPoint = anchorPoint
+				end
+				frame.Active = true
+				frame.Visible = true
+
+				if shouldDisplaySelfViewTooltip("ShowSelfieViewOpenedTooltip") then
+					mountedOnOpenTooltipInstance = mountSelfViewOnOpenTooltip({
+						fallbackText = "Use your camera to make your avatar smile and move just like you",
+						translationKey = "Feature.Avatar.Message.FTUXSelfieViewOpenedTooltip",
+						anchorPoint = frame.AnchorPoint,
+						position = frame.Position,
+						size = frame.Size,
+						bottomButtonsFramePosition = bottomButtonsFrame.Position,
+						bottomButtonsFrameSize = bottomButtonsFrame.Size,
+						aspectRatio = aspectRatioConstraint.AspectRatio,
+						maxSize = sizeConstraint.MaxSize,
+						minSize = sizeConstraint.MinSize,
+						tooltipLifetime = FIntSelfViewTooltipLifetime,
+					})
+					pcall(function()
+						AppStorageService:SetItem("ShowSelfieViewOpenedTooltip", "false")
+					end)
+				end
+			else
+				micButton.Position = UDim2.new(0, 40, 0, -1)
+				micButton.Size = UDim2.new(0, 34, 0, 34)
+				micButton.ImageTransparency = 0.3
+
+				camButton.Position = UDim2.new(0, 80, 0, -1)
+				camButton.Size = UDim2.new(0, 34, 0, 34)
+				camButton.ImageTransparency = 0.3
+
+				indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
+				frame.Active = false
+				frame.Visible = false
+
+				if cloneStreamTrack then
+					local onTrackStoppedConnection = nil
+					local tempCloneStreamTrack = cloneStreamTrack
+					local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
+					onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
+						tempCloneStreamTrack:Destroy()
+
+						if tempNewTrackerStreamAnimation then
+							tempNewTrackerStreamAnimation:Destroy()
+						end
+
+						onTrackStoppedConnection:Disconnect()
+					end)
+
+					cloneStreamTrack:Stop(0.0)
+					cloneStreamTrack = nil
+				elseif newTrackerStreamAnimation then
+					newTrackerStreamAnimation:Destroy()
+					newTrackerStreamAnimation = nil
+				end	
+
+				if shouldDisplaySelfViewTooltip("ShowSelfieViewClosedTooltip") then
+					mountSelfViewOnCloseTooltip({
+						fallbackText = "You can find your camera and self-view controls here",
+						translationKey = "Feature.Avatar.Message.FTUXSelfieViewClosedTooltip",
+						tooltipLifetime = FIntSelfViewTooltipLifetime,
+					})
+					pcall(function()
+						AppStorageService:SetItem("ShowSelfieViewClosedTooltip", "false")
+					end)
+				end
+			end
+
+			bottomButtonsFrame.Visible = isOpen
+		end
+
+		globalShowSelfViewFunction = showSelfView
+
+		closeButton.Activated:Connect(function()
+			showSelfView(not isOpen)
+		end)
+
+		if toggleSelfViewSignalConnection then
+			toggleSelfViewSignalConnection:disconnect()
+		end
+		toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
+			showSelfView(not isOpen)
+		end)
+
+		if selfViewVisibleConnection then
+			selfViewVisibleConnection:Disconnect()
+			selfViewVisibleConnection = nil
+		end
+		if selfViewHiddenConnection then
+			selfViewHiddenConnection:Disconnect()
+			selfViewHiddenConnection = nil
+		end
+		selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
+			-- Calling showSelfView when self view is already visible is no-op
+			if not isOpen then
+				-- use current position
+				local newSelfViewPosition = nil
+				local anchorPoint = nil
+				if selfViewPosition == Enum.SelfViewPosition.TopLeft then
+					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
+					anchorPoint = Vector2.new(0, 0)
+				elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
+					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
+					anchorPoint = Vector2.new(1, 0)
+				elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
+					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
+					anchorPoint = Vector2.new(0, 1)
+				elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
+					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
+					anchorPoint = Vector2.new(1, 1)
+				end
+				showSelfView(true, newSelfViewPosition, anchorPoint)
+				if newSelfViewPosition ~= nil then
+					local value = frame.AbsolutePosition.X .. "," .. frame.AbsolutePosition.Y
+					AppStorageService:SetItem("SelfViewPosition", value)
+				end
+			end
+		end)
+		selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
+			-- Calling hideSelfView when self view is not visible is no-op
+			if isOpen then
+				if getFFlagEnableAlwaysAvailableCamera() and mountedOnOpenTooltipInstance then
+					-- If we have mounted a tooltip and the developer calls this API, we want to unmount the tooltip
+					mountedOnOpenTooltipInstance.unmount()
+					mountedOnOpenTooltipInstance = nil
+				end
+				showSelfView(false)
+			end
+		end)
+
+		uiCorner = Instance.new("UICorner")
+		uiCorner.Parent = closeButton
+
+		if not FFlagSelfViewRemoveVPFWhenClosed then
+			uiCorner = Instance.new("UICorner")
+			uiCorner.Parent = selfViewFrame
+
+			uiCorner = Instance.new("UICorner")
+			uiCorner.Parent = viewportFrame
+
+			local uiStroke = Instance.new("UIStroke")
+			uiStroke.Parent = selfViewFrame
+			uiStroke.Thickness = 3
+			uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
+
+			uiStroke = Instance.new("UIStroke")
+			uiStroke.Parent = viewportFrame
+			uiStroke.Thickness = 2.5
+			uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
+		end
+
+		createCloneAnchor()
+
+		if not FFlagSelfViewRemoveVPFWhenClosed then
+			viewportCamera = Instance.new("Camera")
+
+			viewportCamera.FieldOfView = SELF_VIEW_CAMERA_FIELD_OF_VIEW
+
+			viewportFrame.CurrentCamera = viewportCamera
+			viewportCamera.Parent = viewportFrame
+		end
+
+		if not playerScreenOrientationConnection then
+			connectToScreenOrientationChange()
+		end
+	else
+		local selfViewFrame = Instance.new("Frame")
+		selfViewFrame.Name = "SelfViewFrame"
+		selfViewFrame.Position = UDim2.new(0, 0, 0, 0)
+		selfViewFrame.Size = UDim2.new(1, 0, 1, 0)
+		selfViewFrame.BackgroundTransparency = 1
+		selfViewFrame.Parent = frame		
+
+		viewportFrame = Instance.new("ViewportFrame")
+		viewportFrame.Position = UDim2.new(0, 0, 0, 0)
+		viewportFrame.Size = UDim2.new(1, 0, 1, -(DEFAULT_BUTTONS_BAR_HEIGHT - 1))
+		viewportFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+		viewportFrame.BorderColor3 = Color3.new(0.6, 0.5, 0.4)
+		viewportFrame.BorderSizePixel = 2
+		viewportFrame.BackgroundTransparency = BACKGROUND_TRANSPARENCY
+		viewportFrame.Parent = selfViewFrame
+
+		viewportFrame.Ambient = Color3.new(0.7529411765, 0.7098039216, 0.7137254902)
+		viewportFrame.LightColor = Color3.new(1, 0.9960784314, 0.9960784314)
+		viewportFrame.LightDirection = Vector3.new(9.5, -12, 7.5)
+		viewportFrame.BackgroundColor3 = Color3.new(0.0990616, 0.138109, 0.452827)
+		viewportFrame.IsMirrored = true
+		
+		indicatorCircle = Instance.new("ImageLabel")
+		indicatorCircle.Name = "IndicatorCircle"
+		indicatorCircle.Parent = frame
+		indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+		indicatorCircle.Size = UDim2.new(0, 22, 0, 22)
+		indicatorCircle.Image = INDICATOR_OFF_IMAGE
+		indicatorCircle.BackgroundTransparency = 1
+		indicatorCircle.Visible = false
+		indicatorCircle.ZIndex = 4
+
+		local closeButton = Instance.new("ImageButton")
+		closeButton.Name = "CloseButton"
+		closeButton.AnchorPoint = Vector2.new(0, 0.5)
+		closeButton.Parent = frame
+		closeButton.Position = UDim2.fromOffset(0, 16)
+		closeButton.Size = UDim2.new(0, 34, 0, 34)
+		closeButton.Image = "rbxasset://textures/SelfView/whiteRect.png"
+		closeButton.ImageTransparency = 1
+		closeButton.BackgroundTransparency = 1
+		closeButton.BackgroundColor3 = Color3.new(0.137254, 0.137254, 0.137254)
+		closeButton.ZIndex = 2
+
+		local closeButtonIcon = Instance.new("ImageLabel")
+		closeButtonIcon.Name = "CloseButtonIcon"
+		closeButtonIcon.Parent = closeButton
+		closeButtonIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+		closeButtonIcon.Position = UDim2.new(0, 17, 0, 17)
+		closeButtonIcon.Size = UDim2.new(0, 32, 0, 32)
+		closeButtonIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_close.png"
+		closeButtonIcon.ImageTransparency = 0
+		closeButtonIcon.BackgroundTransparency = 1
+		closeButtonIcon.ZIndex = 2
+
+		local faceIcon = Instance.new("ImageLabel")
+		faceIcon.Name = "FaceIcon"
+		faceIcon.Parent = frame
+		faceIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+		faceIcon.Position = UDim2.new(0, 17, 0, 17)
+		faceIcon.Size = UDim2.new(0, 32, 0, 32)
+		faceIcon.Image = "rbxasset://textures/SelfView/SelfView_icon_faceToggle_on.png"
+		faceIcon.BackgroundTransparency = 1
+		faceIcon.ZIndex = 2
+		faceIcon.Visible = false
+		faceIcon.Parent = closeButton
+
+		local function setButtonButtonsVisibility()
+			if isOpen then
+				micButton.Visible = true
+				camButton.Visible = true
+				closeButton.Visible = true
+		--[[
+			Allow for debugging in studio. This shows the mic option when
+			studio normally does not have this option.
+		]]
+			elseif IS_STUDIO and debug then
+				micButton.Visible = true
+				camButton.Visible = true
+				closeButton.Visible = true
+			else
+				micButton.Visible = false
+				camButton.Visible = false
+				closeButton.Visible = false
 			end
 		end
-	end)
-	selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
-		-- Calling hideSelfView when self view is not visible is no-op
-		if isOpen then
-			if getFFlagEnableAlwaysAvailableCamera() and mountedOnOpenTooltipInstance then
-				-- If we have mounted a tooltip and the developer calls this API, we want to unmount the tooltip
-				mountedOnOpenTooltipInstance.unmount()
-				mountedOnOpenTooltipInstance = nil
+
+		local function showSelfView(newState, position, anchorPoint)
+			setIsOpen(newState)
+			setButtonButtonsVisibility()
+
+			if not FFlagSelfViewRemoveVPFWhenClosed then
+				selfViewFrame.Visible = newState
 			end
-			showSelfView(false)
+			bottomButtonsFrame.Visible = newState
+			closeButtonIcon.Visible = newState
+			faceIcon.Visible = not newState
+			closeButton.BackgroundTransparency = newState and 1 or 0.5
+
+			if isOpen then
+				micButton.Position = UDim2.new(0, 0, 0, 0)
+				micButton.Size = UDim2.new(0.5, -4, 1, -4)
+				micButton.ImageTransparency = 0
+
+				camButton.Position = UDim2.new(0, 0, 0, 0)
+				camButton.Size = UDim2.new(0.5, -4, 1, -4)
+				camButton.ImageTransparency = 0
+
+				indicatorCircle.Position = UDim2.new(1, -25, 0, 4)
+
+				if position ~= nil then
+					frame.Position = position
+				end
+				if anchorPoint ~= nil then
+					frame.AnchorPoint = anchorPoint
+				end
+				frame.Active = true
+				frame.Visible = true
+
+				if shouldDisplaySelfViewTooltip("ShowSelfieViewOpenedTooltip") then
+					mountedOnOpenTooltipInstance = mountSelfViewOnOpenTooltip({
+						fallbackText = "Use your camera to make your avatar smile and move just like you",
+						translationKey = "Feature.Avatar.Message.FTUXSelfieViewOpenedTooltip",
+						anchorPoint = frame.AnchorPoint,
+						position = frame.Position,
+						size = frame.Size,
+						bottomButtonsFramePosition = bottomButtonsFrame.Position,
+						bottomButtonsFrameSize = bottomButtonsFrame.Size,
+						aspectRatio = aspectRatioConstraint.AspectRatio,
+						maxSize = sizeConstraint.MaxSize,
+						minSize = sizeConstraint.MinSize,
+						tooltipLifetime = FIntSelfViewTooltipLifetime,
+					})
+					pcall(function()
+						AppStorageService:SetItem("ShowSelfieViewOpenedTooltip", "false")
+					end)
+				end
+			else
+				micButton.Position = UDim2.new(0, 40, 0, -1)
+				micButton.Size = UDim2.new(0, 34, 0, 34)
+				micButton.ImageTransparency = 0.3
+
+				camButton.Position = UDim2.new(0, 80, 0, -1)
+				camButton.Size = UDim2.new(0, 34, 0, 34)
+				camButton.ImageTransparency = 0.3
+
+				indicatorCircle.Position = UDim2.new(0, 20, 0, -10)
+				frame.Active = false
+				frame.Visible = false
+
+				if cloneStreamTrack then
+					local onTrackStoppedConnection = nil
+					local tempCloneStreamTrack = cloneStreamTrack
+					local tempNewTrackerStreamAnimation = newTrackerStreamAnimation
+					onTrackStoppedConnection = cloneStreamTrack.Stopped:Connect(function()
+						tempCloneStreamTrack:Destroy()
+
+						if tempNewTrackerStreamAnimation then
+							tempNewTrackerStreamAnimation:Destroy()
+						end
+
+						onTrackStoppedConnection:Disconnect()
+					end)
+
+					cloneStreamTrack:Stop(0.0)
+					cloneStreamTrack = nil
+				elseif newTrackerStreamAnimation then
+					newTrackerStreamAnimation:Destroy()
+					newTrackerStreamAnimation = nil
+				end	
+
+				if shouldDisplaySelfViewTooltip("ShowSelfieViewClosedTooltip") then
+					mountSelfViewOnCloseTooltip({
+						fallbackText = "You can find your camera and self-view controls here",
+						translationKey = "Feature.Avatar.Message.FTUXSelfieViewClosedTooltip",
+						tooltipLifetime = FIntSelfViewTooltipLifetime,
+					})
+					pcall(function()
+						AppStorageService:SetItem("ShowSelfieViewClosedTooltip", "false")
+					end)
+				end
+			end
+
+			bottomButtonsFrame.Visible = isOpen
 		end
-	end)
 
-	uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = closeButton
+		globalShowSelfViewFunction = showSelfView
 
-	uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = selfViewFrame
+		closeButton.Activated:Connect(function()
+			showSelfView(not isOpen)
+		end)
 
-	uiCorner = Instance.new("UICorner")
-	uiCorner.Parent = viewportFrame
+		if toggleSelfViewSignalConnection then
+			toggleSelfViewSignalConnection:disconnect()
+		end
+		toggleSelfViewSignalConnection = toggleSelfViewSignal:connect(function()
+			showSelfView(not isOpen)
+		end)
 
-	local uiStroke = Instance.new("UIStroke")
-	uiStroke.Parent = selfViewFrame
-	uiStroke.Thickness = 3
-	uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
+		if selfViewVisibleConnection then
+			selfViewVisibleConnection:Disconnect()
+			selfViewVisibleConnection = nil
+		end
+		if selfViewHiddenConnection then
+			selfViewHiddenConnection:Disconnect()
+			selfViewHiddenConnection = nil
+		end
+		selfViewVisibleConnection = SocialService.SelfViewVisible:Connect(function(selfViewPosition)
+			-- Calling showSelfView when self view is already visible is no-op
+			if not isOpen then
+				-- use current position
+				local newSelfViewPosition = nil
+				local anchorPoint = nil
+				if selfViewPosition == Enum.SelfViewPosition.TopLeft then
+					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
+					anchorPoint = Vector2.new(0, 0)
+				elseif selfViewPosition == Enum.SelfViewPosition.TopRight then
+					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 0, SELF_VIEW_POSITION_OFFSET)
+					anchorPoint = Vector2.new(1, 0)
+				elseif selfViewPosition == Enum.SelfViewPosition.BottomLeft then
+					newSelfViewPosition = UDim2.new(0, SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
+					anchorPoint = Vector2.new(0, 1)
+				elseif selfViewPosition == Enum.SelfViewPosition.BottomRight then
+					newSelfViewPosition = UDim2.new(1, -SELF_VIEW_POSITION_OFFSET, 1, -SELF_VIEW_POSITION_OFFSET)
+					anchorPoint = Vector2.new(1, 1)
+				end
+				showSelfView(true, newSelfViewPosition, anchorPoint)
+				if newSelfViewPosition ~= nil then
+					local value = frame.AbsolutePosition.X .. "," .. frame.AbsolutePosition.Y
+					AppStorageService:SetItem("SelfViewPosition", value)
+				end
+			end
+		end)
+		selfViewHiddenConnection = SocialService.SelfViewHidden:Connect(function()
+			-- Calling hideSelfView when self view is not visible is no-op
+			if isOpen then
+				if getFFlagEnableAlwaysAvailableCamera() and mountedOnOpenTooltipInstance then
+					-- If we have mounted a tooltip and the developer calls this API, we want to unmount the tooltip
+					mountedOnOpenTooltipInstance.unmount()
+					mountedOnOpenTooltipInstance = nil
+				end
+				showSelfView(false)
+			end
+		end)
 
-	uiStroke = Instance.new("UIStroke")
-	uiStroke.Parent = viewportFrame
-	uiStroke.Thickness = 2.5
-	uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
+		uiCorner = Instance.new("UICorner")
+		uiCorner.Parent = closeButton
 
-	createCloneAnchor()
+		if not FFlagSelfViewRemoveVPFWhenClosed then
+			uiCorner = Instance.new("UICorner")
+			uiCorner.Parent = selfViewFrame
 
-	viewportCamera = Instance.new("Camera")
+			uiCorner = Instance.new("UICorner")
+			uiCorner.Parent = viewportFrame
 
-	viewportCamera.FieldOfView = SELF_VIEW_CAMERA_FIELD_OF_VIEW
+			local uiStroke = Instance.new("UIStroke")
+			uiStroke.Parent = selfViewFrame
+			uiStroke.Thickness = 3
+			uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
 
-	viewportFrame.CurrentCamera = viewportCamera
-	viewportCamera.Parent = viewportFrame
+			uiStroke = Instance.new("UIStroke")
+			uiStroke.Parent = viewportFrame
+			uiStroke.Thickness = 2.5
+			uiStroke.Color = DEFAULT_SELF_VIEW_FRAME_COLOR
+		end
 
-	if not playerScreenOrientationConnection then
-		connectToScreenOrientationChange()
+		createCloneAnchor()
+
+		if not FFlagSelfViewRemoveVPFWhenClosed then
+			viewportCamera = Instance.new("Camera")
+
+			viewportCamera.FieldOfView = SELF_VIEW_CAMERA_FIELD_OF_VIEW
+
+			viewportFrame.CurrentCamera = viewportCamera
+			viewportCamera.Parent = viewportFrame
+		end
+
+		if not playerScreenOrientationConnection then
+			connectToScreenOrientationChange()
+		end
 	end
 end
 

@@ -12,6 +12,8 @@ local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionI
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
 local GetFFlagIBEnableLimitedItemBugFixAndAlignment = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
+local GetFFlagIBFixl20HasQuantityPurchase = require(InspectAndBuyFolder.Flags.GetFFlagIBFixl20HasQuantityPurchase)
+local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 
 local TEXT_SIZE = 16
 local MIN_SIZE = 32
@@ -46,6 +48,10 @@ function BuyButton:render()
 	local collectibleLowestAvailableResaleProductId = self.props.collectibleLowestAvailableResaleProductId
 	local collectibleLowestAvailableResaleItemInstanceId = self.props.collectibleLowestAvailableResaleItemInstanceId
 	local collectibleLowestResalePrice = self.props.collectibleLowestResalePrice
+	local isLimited20OrLimitedCollectible = nil
+	if GetFFlagIBFixl20HasQuantityPurchase() then
+		isLimited20OrLimitedCollectible = UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(self.props.assetInfo)
+	end
 	local size = UDim2.new(0, self:getBuyButtonTextSize(buyText), 1, 0)
 	local assetInfo = self.props.assetInfo
 	local creatorId = assetInfo and assetInfo.creatorId or 0
@@ -81,7 +87,8 @@ function BuyButton:render()
 					collectibleItemId,
 					collectibleLowestAvailableResaleProductId,
 					collectibleLowestAvailableResaleItemInstanceId,
-					collectibleLowestResalePrice
+					collectibleLowestResalePrice,
+					if GetFFlagIBFixl20HasQuantityPurchase() then isLimited20OrLimitedCollectible else nil
 				)
 			end
 		end,
@@ -162,7 +169,8 @@ end, function(dispatch)
 			collectibleItemId,
 			collectibleLowestAvailableResaleProductId,
 			collectibleLowestAvailableResaleItemInstanceId,
-			collectibleLowestResalePrice
+			collectibleLowestResalePrice,
+			isLimited20OrLimitedCollectible
 		)
 			dispatch(
 				PromptPurchase(
@@ -171,7 +179,8 @@ end, function(dispatch)
 					collectibleItemId,
 					collectibleLowestAvailableResaleProductId,
 					collectibleLowestAvailableResaleItemInstanceId,
-					collectibleLowestResalePrice
+					collectibleLowestResalePrice,
+					if GetFFlagIBFixl20HasQuantityPurchase() then isLimited20OrLimitedCollectible else nil
 				)
 			)
 		end,

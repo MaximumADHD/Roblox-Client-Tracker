@@ -1,0 +1,35 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = script.Parent.Parent.Parent.Parent
+local var1 = require(var0.Src.Resources.StyleTips)
+local var14 = require(var0.Packages.Framework).Styling
+local var3 = var14.createStyleRule
+var14 = var3
+local var17 = {}
+var17.BorderSizePixel = 1
+var17.BackgroundColor3 = "$BackgroundPaper"
+var17.BorderColor3 = "$BackgroundDefault"
+local var24 = {}
+var24.CornerRadius = UDim.new(0, var1.bubbleCornerRadius)
+local var5 = var3("::UICorner", var24)
+local var32 = {}
+var32.BackgroundColor3 = "$ActionHover"
+local var7 = var3(":hover", var32)
+local var37 = {}
+var37.PaddingLeft = UDim.new(0, 8)
+var37.PaddingRight = UDim.new(0, 8)
+var37.PaddingTop = UDim.new(0, 3)
+var37.PaddingBottom = UDim.new(0, 3)
+local var9 = var3("::UIPadding", var37)
+local var57 = {}
+var57.TextColor3 = "$TextPrimary"
+var57.TextSize = var1.normalFontSize
+var57.TextXAlignment = Enum.TextXAlignment.Left
+local var10 = var3("> #Selected", var57)
+local var64 = {}
+var64.Position = UDim2.new(1, 65496, 0, 0)
+var64.Size = UDim2.new(0, 40, 1, 0)
+var64.BorderSizePixel = 0
+var64.BackgroundTransparency = 1
+var64.Image = "$arrowdownicon"
+local var11 = var3("> #Button", var64)
+return var14(".Component-FilterDropdown", var17, {})

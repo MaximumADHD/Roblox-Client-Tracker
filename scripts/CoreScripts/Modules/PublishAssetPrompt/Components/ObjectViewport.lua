@@ -95,7 +95,7 @@ function ObjectViewport:render()
 
 			-- Rotate the camera a small amount each frame.
 			RenderSteppedConnection = Roact.createElement(ExternalEventConnection, {
-				event = RunService.RenderStepped,
+				event = RunService.RenderStepped :: RBXScriptSignal,
 				callback = function()
 					self.updateCameraRotationBinding(self.cameraRotationBinding:getValue() + OBJ_ROTATION_SPEED)
 					local newLookVector =

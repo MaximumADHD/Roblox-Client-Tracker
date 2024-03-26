@@ -1,5 +1,6 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("ToolboxM3Configuration", false)
+local var0 = require(script:FindFirstAncestor("Toolbox").Core.Util.SharedFlags.getFFlagToolboxAssetConfigUseMFS)
+game:DefineFastFlag("ToolboxM3Configuration2", false)
 return function()
-   return game:GetFastFlag("ToolboxM3Configuration")
+   return var0() and game:GetFastFlag("ToolboxM3Configuration2")
 end

@@ -16,11 +16,10 @@ local requiredServices = {
 	Network,
 }
 
-local function launchSubscriptionPurchase()
+local function launchSubscriptionPurchase(paymentMethod)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local externalSettings = services[ExternalSettings]
 		local network = services[Network]
-
 
 		if externalSettings.isStudio() then
 			store:dispatch(PurchaseCompleteRecieved())
@@ -28,15 +27,15 @@ local function launchSubscriptionPurchase()
 			return nil
 		end
 
-		performSubscriptionPurchase(network, store:getState().promptRequest.id)
-		:catch(function(errorReason)
-			store:dispatch(ErrorOccurred(errorReason))
-		end)
+		performSubscriptionPurchase(network, store:getState().promptRequest.id, paymentMethod):catch(
+			function(errorReason)
+				store:dispatch(ErrorOccurred(errorReason))
+			end
+		)
 		store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 		store:dispatch(hideWindow())
 		return nil
 	end)
-	
 end
 
 return launchSubscriptionPurchase

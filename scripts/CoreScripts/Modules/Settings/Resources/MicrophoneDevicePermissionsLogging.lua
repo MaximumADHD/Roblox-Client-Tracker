@@ -3,6 +3,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local AvatarChatService = game:GetService("AvatarChatService")
 local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
+local FStringMicrophoneDevicePermissionsLoggingEventName = game:DefineFastString("MicrophoneDevicePermissionsLoggingEventName", "microphoneDevicePermissionPrompted")
 
 export type MicrophoneDeviceLoggingConfig = {
     didAuthorize: boolean,
@@ -104,7 +105,7 @@ function MicrophoneDevicePermissionsLogging:logExperienceJoin(config)
     AnalyticsService:SendEventDeferred(
         "client",
         "voice",
-        "microphoneDevicePermissionPrompted",
+        FStringMicrophoneDevicePermissionsLoggingEventName,
         self:_getEventPayload(self.UIType.EXPERIENCE_JOIN, config)
     )
 end
@@ -117,7 +118,7 @@ function MicrophoneDevicePermissionsLogging:logPromptImpression(config)
     AnalyticsService:SendEventDeferred(
         "client",
         "voice",
-        "microphoneDevicePermissionPrompted",
+        FStringMicrophoneDevicePermissionsLoggingEventName,
         self:_getEventPayload(self.UIType.PROMPT_IMPRESSION, config)
     )
 end
@@ -130,7 +131,7 @@ function MicrophoneDevicePermissionsLogging:logPromptInteraction(config)
     AnalyticsService:SendEventDeferred(
         "client",
         "voice",
-        "microphoneDevicePermissionPrompted",
+        FStringMicrophoneDevicePermissionsLoggingEventName,
         self:_getEventPayload(self.UIType.PROMPT_INTERACTION, config)
     )
 end

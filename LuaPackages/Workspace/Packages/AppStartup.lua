@@ -6,6 +6,7 @@ local PackageIndex = script.Parent._Workspace
 local Package = require(PackageIndex["AppStartup"]["AppStartup"])
 
 export type AppStartupSequence = Package.AppStartupSequence
+export type LaunchContext = Package.LaunchContext
 
 
 return Package

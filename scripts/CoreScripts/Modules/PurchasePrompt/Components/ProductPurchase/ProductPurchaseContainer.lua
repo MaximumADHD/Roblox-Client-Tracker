@@ -2,6 +2,8 @@
 local Root = script.Parent.Parent.Parent
 local GuiService = game:GetService("GuiService")
 local ContextActionService = game:GetService("ContextActionService")
+local ExperienceAuthService = game:GetService("ExperienceAuthService")
+local AssetService = game:GetService("AssetService")
 
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
@@ -29,6 +31,7 @@ local PurchaseError = require(Root.Enums.PurchaseError)
 local hideWindow = require(Root.Thunks.hideWindow)
 local completeRequest = require(Root.Thunks.completeRequest)
 local purchaseItem = require(Root.Thunks.purchaseItem)
+local completePurchase = require(Root.Thunks.completePurchase)
 local launchRobuxUpsell = require(Root.Thunks.launchRobuxUpsell)
 local openSecuritySettings = require(Root.Thunks.openSecuritySettings)
 local initiatePurchasePrecheck = require(Root.Thunks.initiatePurchasePrecheck)
@@ -42,11 +45,13 @@ local MultiTextLocalizer = require(Root.Components.Connection.MultiTextLocalizer
 local LocalizationService = require(Root.Localization.LocalizationService)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse)
+local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
 
 local Animator = require(script.Parent.Animator)
 
 local ProductPurchaseContainer = Roact.Component:extend(script.Name)
 
+local AVATAR_NAME_KEY = "avatarName"
 local CONFIRM_BUTTON_BIND = "ProductPurchaseConfirmButtonBind"
 local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 
@@ -73,6 +78,7 @@ local function isRelevantRequestType(requestType, purchaseFlow)
 		or requestType == RequestType.Bundle
 		or requestType == RequestType.GamePass
 		or requestType == RequestType.Product
+		or (GetFFlagEnableAvatarCreationFeePurchase() and requestType == RequestType.AvatarCreationFee)
 end
 
 function ProductPurchaseContainer:init()
@@ -142,10 +148,34 @@ function ProductPurchaseContainer:init()
 		return isDoneAnimating
 	end
 
+	self.onAvatarCreationFeePurchase = function()
+		-- Avatar Creation Purchase is handled by
+		-- AvatarCreationService:PromptCreateAvatarAsync
+		-- We use ExperienceAuthService to continue the API call
+		-- as the user has confirmed their purchase here
+		local metadata = {}
+		metadata[AVATAR_NAME_KEY] = self.props.productInfo.name
+
+		local scopes = {}
+		scopes[1] = Enum.ExperienceAuthScope.CreatorAssetsCreate
+
+		ExperienceAuthService:ScopeCheckUIComplete(
+			self.props.productInfo.productId,
+			scopes,
+			Enum.ScopeCheckResult.ConsentAccepted,
+			metadata
+		)
+
+		-- TODO: AVBURST-13509 Handle underlying avatar creation prompt
+		-- being opened upon payment prompting and completion
+		self.props.completePurchase()
+	end
+
 	self.getConfirmButtonAction = function(promptState, requestType, purchaseError)
 		if promptState == PromptState.None or not isRelevantRequestType(requestType) then
 			return nil
-
+		elseif GetFFlagEnableAvatarCreationFeePurchase() and requestType == RequestType.AvatarCreationFee then
+			return self.onAvatarCreationFeePurchase
 		elseif promptState == PromptState.PromptPurchase
 				or promptState == PromptState.PurchaseInProgress then
 			return self.props.onBuy
@@ -362,6 +392,7 @@ function ProductPurchaseContainer:render()
 			screenSize = self.state.screenSize,
 
 			isDisabled = promptState == PromptState.PurchaseInProgress,
+			model = if self.props.serializedModel then AssetService:DeserializeInstance(self.props.serializedModel) else nil,
 			itemIcon = productInfo.imageUrl,
 			itemName = productInfo.name,
 			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
@@ -385,6 +416,7 @@ function ProductPurchaseContainer:render()
 			screenSize = self.state.screenSize,
 
 			isDisabled = promptState == PromptState.UpsellInProgress,
+			model = if self.props.serializedModel then AssetService:DeserializeInstance(self.props.serializedModel) else nil,
 			itemIcon = productInfo.imageUrl,
 			itemName = productInfo.name,
 			itemRobuxCost = getPlayerPrice(productInfo, accountInfo.membershipType == 4, expectedPrice),
@@ -517,6 +549,7 @@ local function mapStateToProps(state)
 		purchaseFlow = state.purchaseFlow,
 		promptState = state.promptState,
 		requestType = state.promptRequest.requestType,
+		serializedModel = state.promptRequest.serializedModel,
 		expectedPrice = state.promptRequest.expectedPrice,
 		windowState = state.windowState,
 		purchaseError = state.purchaseError,
@@ -532,6 +565,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		onBuy = function()
 			dispatch(purchaseItem())
+		end,
+		completePurchase = function()
+			dispatch(completePurchase())
 		end,
 		onScaryModalConfirm = function()
 			dispatch(launchRobuxUpsell())

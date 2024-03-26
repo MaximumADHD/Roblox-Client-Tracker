@@ -10,6 +10,7 @@ local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
 
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
 local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
+local GetFFlagIBFixl20HasQuantityPurchase = require(InspectAndBuyFolder.Flags.GetFFlagIBFixl20HasQuantityPurchase)
 
 local requiredServices = {
 	Analytics,
@@ -18,7 +19,7 @@ local requiredServices = {
 --[[
 	Reports analytics for attempting a purchase. Brings up the purchase prompt.
 ]]
-local function PromptPurchase(itemId, itemType, collectibleItemId, collectibleLowestAvailableResaleProductId, collectibleLowestAvailableResaleItemInstanceId, collectibleLowestResalePrice)
+local function PromptPurchase(itemId, itemType, collectibleItemId, collectibleLowestAvailableResaleProductId, collectibleLowestAvailableResaleItemInstanceId, collectibleLowestResalePrice, isLimited20OrLimitedCollectible)
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local analytics = services[Analytics]
 
@@ -54,9 +55,13 @@ local function PromptPurchase(itemId, itemType, collectibleItemId, collectibleLo
 		elseif itemType == Constants.ItemType.Asset then
 			--[[
 				Calling `MarketplaceService:PromptPurchase` to prompt unlimited assets in collectibles system
-				Calling `MarketplaceService:PromptRobloxPurchase` to prompt assets NOT in collectibles system
+				Calling `MarketplaceService:PromptRobloxPurchase` to prompt assets NOT in collectibles system or Limited 2.0/Limited Collectible original copies
 			]]
-			if GetFFlagIBEnableCollectiblePurchaseForUnlimited() and collectibleItemId ~= nil then
+			local isNotLimited20OrLimitedCollectible = true
+			if GetFFlagIBFixl20HasQuantityPurchase() then
+				isNotLimited20OrLimitedCollectible = not isLimited20OrLimitedCollectible
+			end
+			if GetFFlagIBEnableCollectiblePurchaseForUnlimited() and collectibleItemId ~= nil and isNotLimited20OrLimitedCollectible then
 				MarketplaceService:PromptPurchase(
 					Players.LocalPlayer :: Player,
 					itemId,

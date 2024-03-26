@@ -116,7 +116,7 @@ function PublishAssetPromptApp:render()
 		[Roact.Change.AbsoluteSize] = self.absoluteSizeChanged,
 	}, {
 		LastInputTypeConnection = Roact.createElement(ExternalEventConnection, {
-			event = UserInputService.LastInputTypeChanged,
+			event = UserInputService.LastInputTypeChanged :: RBXScriptSignal,
 			callback = function(lastInputType)
 				self:setState({
 					isGamepad = isGamepadInput(lastInputType),

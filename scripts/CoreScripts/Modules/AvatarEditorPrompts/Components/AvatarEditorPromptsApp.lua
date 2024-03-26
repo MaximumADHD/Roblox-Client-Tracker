@@ -102,7 +102,7 @@ function AvatarEditorPromptsApp:render()
 		Connection = Roact.createElement(Connection),
 
 		LastInputTypeConnection = Roact.createElement(ExternalEventConnection, {
-			event = UserInputService.LastInputTypeChanged,
+			event = UserInputService.LastInputTypeChanged :: RBXScriptSignal,
 			callback = function(lastInputType)
 				self:setState({
 					isGamepad = GAMEPAD_INPUT_TYPES[lastInputType] or false

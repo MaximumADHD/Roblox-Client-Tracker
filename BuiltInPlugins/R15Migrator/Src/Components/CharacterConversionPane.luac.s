@@ -68,60 +68,42 @@ PROTO_2:
   SETTABLEKS R8 R7 K14 ["HorizontalAlignment"]
   GETIMPORT R8 K24 [Enum.VerticalAlignment.Top]
   SETTABLEKS R8 R7 K15 ["VerticalAlignment"]
-  DUPTABLE R8 K28 [{"Instructions", "MainView", "Footer"}]
+  DUPTABLE R8 K27 [{"MainView", "Footer"}]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
   GETUPVAL R10 4
-  DUPTABLE R11 K32 [{"LayoutOrder", "Message", "Height"}]
-  NAMECALL R12 R4 K33 ["getNextOrder"]
+  DUPTABLE R11 K31 [{"OnResetPlugin", "LayoutOrder", "Size"}]
+  GETTABLEKS R12 R1 K28 ["OnResetPlugin"]
+  SETTABLEKS R12 R11 K28 ["OnResetPlugin"]
+  NAMECALL R12 R4 K32 ["getNextOrder"]
   CALL R12 1 1
   SETTABLEKS R12 R11 K29 ["LayoutOrder"]
-  LOADK R14 K10 ["CharacterConversion"]
-  LOADK R15 K25 ["Instructions"]
-  NAMECALL R12 R3 K12 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K30 ["Message"]
-  GETTABLEKS R12 R2 K34 ["InstructionsHeight"]
-  SETTABLEKS R12 R11 K31 ["Height"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K25 ["Instructions"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K5 ["createElement"]
-  GETUPVAL R10 5
-  DUPTABLE R11 K37 [{"OnResetPlugin", "LayoutOrder", "Size"}]
-  GETTABLEKS R12 R1 K35 ["OnResetPlugin"]
-  SETTABLEKS R12 R11 K35 ["OnResetPlugin"]
-  NAMECALL R12 R4 K33 ["getNextOrder"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K29 ["LayoutOrder"]
-  GETIMPORT R12 K39 [UDim2.new]
+  GETIMPORT R12 K34 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 1
-  GETTABLEKS R18 R2 K40 ["FooterHeight"]
-  MINUS R17 R18
-  GETTABLEKS R18 R2 K34 ["InstructionsHeight"]
-  SUB R16 R17 R18
+  GETTABLEKS R17 R2 K35 ["FooterHeight"]
+  MINUS R16 R17
   CALL R12 4 1
-  SETTABLEKS R12 R11 K36 ["Size"]
+  SETTABLEKS R12 R11 K30 ["Size"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K26 ["MainView"]
+  SETTABLEKS R9 R8 K25 ["MainView"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K5 ["createElement"]
-  GETUPVAL R10 6
-  DUPTABLE R11 K41 [{"LayoutOrder", "Size"}]
-  NAMECALL R12 R4 K33 ["getNextOrder"]
+  GETUPVAL R10 5
+  DUPTABLE R11 K36 [{"LayoutOrder", "Size"}]
+  NAMECALL R12 R4 K32 ["getNextOrder"]
   CALL R12 1 1
   SETTABLEKS R12 R11 K29 ["LayoutOrder"]
-  GETIMPORT R12 K39 [UDim2.new]
+  GETIMPORT R12 K34 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
-  GETTABLEKS R16 R2 K40 ["FooterHeight"]
+  GETTABLEKS R16 R2 K35 ["FooterHeight"]
   CALL R12 4 1
-  SETTABLEKS R12 R11 K36 ["Size"]
+  SETTABLEKS R12 R11 K30 ["Size"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K27 ["Footer"]
+  SETTABLEKS R9 R8 K26 ["Footer"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -186,55 +168,51 @@ MAIN:
   GETTABLEKS R10 R11 K17 ["MainView"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R11 R7 K18 ["TabInstructions"]
+  GETTABLEKS R13 R0 K13 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Thunks"]
+  GETTABLEKS R11 R12 K19 ["LoadCharacterMetadata"]
   CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K13 ["Src"]
-  GETTABLEKS R13 R14 K19 ["Thunks"]
-  GETTABLEKS R12 R13 K20 ["LoadCharacterMetadata"]
-  CALL R11 1 1
-  GETTABLEKS R12 R1 K21 ["Util"]
-  GETTABLEKS R13 R12 K22 ["LayoutOrderIterator"]
-  GETTABLEKS R14 R2 K23 ["PureComponent"]
-  LOADK R16 K24 ["CharacterConversionPane"]
-  NAMECALL R14 R14 K25 ["extend"]
-  CALL R14 2 1
-  DUPCLOSURE R15 K26 [PROTO_0]
-  SETTABLEKS R15 R14 K27 ["hasCharacters"]
-  DUPCLOSURE R15 K28 [PROTO_1]
-  SETTABLEKS R15 R14 K29 ["didMount"]
-  DUPCLOSURE R15 K30 [PROTO_2]
-  CAPTURE VAL R13
+  GETTABLEKS R11 R1 K20 ["Util"]
+  GETTABLEKS R12 R11 K21 ["LayoutOrderIterator"]
+  GETTABLEKS R13 R2 K22 ["PureComponent"]
+  LOADK R15 K23 ["CharacterConversionPane"]
+  NAMECALL R13 R13 K24 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K25 [PROTO_0]
+  SETTABLEKS R14 R13 K26 ["hasCharacters"]
+  DUPCLOSURE R14 K27 [PROTO_1]
+  SETTABLEKS R14 R13 K28 ["didMount"]
+  DUPCLOSURE R14 K29 [PROTO_2]
+  CAPTURE VAL R12
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R10
   CAPTURE VAL R9
   CAPTURE VAL R8
-  SETTABLEKS R15 R14 K31 ["render"]
-  GETTABLEKS R16 R1 K32 ["ContextServices"]
-  GETTABLEKS R15 R16 K33 ["withContext"]
-  DUPTABLE R16 K37 [{"Analytics", "Stylizer", "Localization"}]
-  GETTABLEKS R18 R1 K32 ["ContextServices"]
-  GETTABLEKS R17 R18 K34 ["Analytics"]
-  SETTABLEKS R17 R16 K34 ["Analytics"]
-  GETTABLEKS R18 R1 K32 ["ContextServices"]
-  GETTABLEKS R17 R18 K35 ["Stylizer"]
-  SETTABLEKS R17 R16 K35 ["Stylizer"]
-  GETTABLEKS R18 R1 K32 ["ContextServices"]
-  GETTABLEKS R17 R18 K36 ["Localization"]
-  SETTABLEKS R17 R16 K36 ["Localization"]
-  CALL R15 1 1
-  MOVE R16 R14
-  CALL R15 1 1
-  MOVE R14 R15
-  DUPCLOSURE R15 K38 [PROTO_3]
-  DUPCLOSURE R16 K39 [PROTO_5]
-  CAPTURE VAL R11
-  GETTABLEKS R17 R3 K40 ["connect"]
+  SETTABLEKS R14 R13 K30 ["render"]
+  GETTABLEKS R15 R1 K31 ["ContextServices"]
+  GETTABLEKS R14 R15 K32 ["withContext"]
+  DUPTABLE R15 K36 [{"Analytics", "Stylizer", "Localization"}]
+  GETTABLEKS R17 R1 K31 ["ContextServices"]
+  GETTABLEKS R16 R17 K33 ["Analytics"]
+  SETTABLEKS R16 R15 K33 ["Analytics"]
+  GETTABLEKS R17 R1 K31 ["ContextServices"]
+  GETTABLEKS R16 R17 K34 ["Stylizer"]
+  SETTABLEKS R16 R15 K34 ["Stylizer"]
+  GETTABLEKS R17 R1 K31 ["ContextServices"]
+  GETTABLEKS R16 R17 K35 ["Localization"]
+  SETTABLEKS R16 R15 K35 ["Localization"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  DUPCLOSURE R14 K37 [PROTO_3]
+  DUPCLOSURE R15 K38 [PROTO_5]
+  CAPTURE VAL R10
+  GETTABLEKS R16 R3 K39 ["connect"]
+  MOVE R17 R14
   MOVE R18 R15
-  MOVE R19 R16
-  CALL R17 2 1
-  MOVE R18 R14
-  CALL R17 1 -1
-  RETURN R17 -1
+  CALL R16 2 1
+  MOVE R17 R13
+  CALL R16 1 -1
+  RETURN R16 -1

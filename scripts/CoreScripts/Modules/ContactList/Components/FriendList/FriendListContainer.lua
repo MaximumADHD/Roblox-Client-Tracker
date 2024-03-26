@@ -531,21 +531,21 @@ local function FriendListContainer(props: Props)
 			TouchStartedUserInputConnection = props.isSmallScreen
 				and props.scrollingEnabled
 				and React.createElement(ExternalEventConnection, {
-					event = UserInputService.TouchStarted,
+					event = UserInputService.TouchStarted :: RBXScriptSignal,
 					callback = touchStarted,
 				}),
 
 			TouchMovedUserInputConnection = props.isSmallScreen
 				and props.scrollingEnabled
 				and React.createElement(ExternalEventConnection, {
-					event = UserInputService.TouchMoved,
+					event = UserInputService.TouchMoved :: RBXScriptSignal,
 					callback = touchMoved,
 				}),
 
 			TouchEndedUserInputConnection = props.isSmallScreen
 				and props.scrollingEnabled
 				and React.createElement(ExternalEventConnection, {
-					event = UserInputService.TouchEnded,
+					event = UserInputService.TouchEnded :: RBXScriptSignal,
 					callback = touchEnded,
 				}),
 		})

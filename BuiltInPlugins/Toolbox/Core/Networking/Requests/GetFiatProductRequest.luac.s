@@ -84,7 +84,7 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K6 ["Core"]
   GETTABLEKS R5 R6 K7 ["Actions"]
-  GETTABLEKS R4 R5 K12 ["GetFiatProduct"]
+  GETTABLEKS R4 R5 K12 ["SetFiatProduct"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K6 ["Core"]

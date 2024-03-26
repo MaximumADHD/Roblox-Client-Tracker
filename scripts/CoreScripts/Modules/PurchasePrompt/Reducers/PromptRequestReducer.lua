@@ -12,6 +12,7 @@ local RequestGamepassPurchase = require(Root.Actions.RequestGamepassPurchase)
 local RequestProductPurchase = require(Root.Actions.RequestProductPurchase)
 local RequestPremiumPurchase = require(Root.Actions.RequestPremiumPurchase)
 local RequestSubscriptionPurchase = require(Root.Actions.RequestSubscriptionPurchase)
+local RequestAvatarCreationFeePurchase = require(Root.Actions.RequestAvatarCreationFeePurchase)
 local CompleteRequest = require(Root.Actions.CompleteRequest)
 local RequestType = require(Root.Enums.RequestType)
 
@@ -91,6 +92,12 @@ local RequestReducer = Rodux.createReducer(EMPTY_STATE, {
 		return {
 			id = action.id,
 			requestType = RequestType.Subscription,
+		}
+	end,
+	[RequestAvatarCreationFeePurchase.name] = function(state, action)
+		return {
+			requestType = RequestType.AvatarCreationFee,
+			serializedModel = action.serializedModel,
 		}
 	end,
 	[CompleteRequest.name] = function(state, action)

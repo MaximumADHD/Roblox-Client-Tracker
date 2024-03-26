@@ -36,27 +36,27 @@ function var14.getMockGlobals(arg1)
    if not var4 then
       var4 = var3:GetMouse()
    end
-   local var79 = var2
-   var79 = var0.storeState
-   local var85 = var2.thunkMiddleware
+   local var286 = var2
+   var286 = var0.storeState
+   local var292 = var2.thunkMiddleware
    local var7 = var0.theme
    if not var7 then
       var7 = var8(true)
    end
-   local var92 = var4.PluginActions
-   var92 = var3
-   local var95 = {}
-   var95.id = "rerunLastStory"
-   var95.text = "MOCK"
+   local var299 = var4.PluginActions
+   var299 = var3
+   local var302 = {}
+   var302.id = "rerunLastStory"
+   var302.text = "MOCK"
    local var10 = {}
    var10.focusGui = var2
    var10.plugin = var3
    var10.localization = var1
    var10.theme = var7
    var10.mouse = var4
-   var10.store = var79.Store.new(var9, var79, {})
+   var10.store = var286.Store.new(var9, var286, {})
    var10.analytics = var4.Analytics.mock()
-   var10.pluginActions = var92.new(var92, {})
+   var10.pluginActions = var299.new(var299, {})
    var10.signals = var11.new(var12.SIGNAL_KEYS)
    var10.calloutController = var13.new(var5.new("CalloutService", true):asService())
    return var10

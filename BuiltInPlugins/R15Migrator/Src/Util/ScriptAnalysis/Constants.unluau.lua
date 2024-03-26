@@ -13,6 +13,7 @@ var8.Complete = "Complete"
 var8.Reverted = "Reverted"
 var8.Warning = "Warning"
 var8.Error = "Error"
+var8.VariableError = "VariableError"
 var8.None = "None"
 var0.ScriptStatus = var8
 var0.ReferenceKey = "Reference"

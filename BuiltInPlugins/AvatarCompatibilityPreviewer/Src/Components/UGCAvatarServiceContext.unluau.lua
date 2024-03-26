@@ -1,4 +1,4 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var449 = script:FindFirstAncestor("AvatarCompatibilityPreviewer").Packages
-var449 = game:GetService("UGCAvatarService")
-return require(var449.React).createContext(var449)
+local var454 = script:FindFirstAncestor("AvatarCompatibilityPreviewer").Packages
+var454 = game:GetService("UGCAvatarService")
+return require(var454.React).createContext(var454)

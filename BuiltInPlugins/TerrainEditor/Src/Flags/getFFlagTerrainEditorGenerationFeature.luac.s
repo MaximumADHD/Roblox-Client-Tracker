@@ -3,14 +3,19 @@ PROTO_0:
   LOADK R2 K2 ["TerrainEditorGenerationFeature"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
-  JUMPIFNOT R0 [+9]
+  JUMPIFNOT R0 [+16]
   GETIMPORT R0 K1 [game]
   LOADK R2 K4 ["DevFrameworkFormSubsetting"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
-  JUMPIFNOT R0 [+2]
+  JUMPIFNOT R0 [+9]
   GETUPVAL R0 0
   CALL R0 0 1
+  JUMPIFNOT R0 [+6]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K5 ["EnableNoiseClass"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
   RETURN R0 1
 
 MAIN:

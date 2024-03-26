@@ -2,6 +2,7 @@ local Root = script.Parent.Parent.Parent
 
 local Players = game:GetService("Players")
 local ContextActionService = game:GetService("ContextActionService")
+local AssetService = game:GetService("AssetService")
 
 local CorePackages = game:GetService("CorePackages")
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
@@ -17,6 +18,7 @@ local PurchaseErrorType = IAPExperience.PurchaseFlow.PurchaseErrorType
 
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
+local connectToStore = require(Root.connectToStore)
 
 local RobuxUpsellOverlay = Roact.PureComponent:extend(script.Name)
 
@@ -24,6 +26,7 @@ local CONFIRM_BUTTON_BIND = "ProductPurchaseConfirmButtonBind"
 local CANCEL_BUTTON_BIND = "ProductPurchaseCancelButtonBind"
 
 local GetFFlagDisablePurchasePromptFunctionForMaquettes = require(Root.Flags.GetFFlagDisablePurchasePromptFunctionForMaquettes)
+local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
 
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
 local getPaymentPlatform = require(Root.Utils.getPaymentPlatform)
@@ -44,6 +47,7 @@ type Props = {
 	robuxProviderId: string,
 	robuxProductId: number,
 
+	serializedModel: string?,
 	itemIcon: any,
 	itemName: string,
 	itemRobuxCost: number,
@@ -261,6 +265,7 @@ function RobuxUpsellOverlay:render()
 		isDelayedInput = true,
 		onDelayedInputComplete = self.onDelayedInputComplete,
 
+		model = if props.serializedModel then AssetService:DeserializeInstance(props.serializedModel) else nil,
 		itemIcon = props.itemIcon,
 		itemName = props.itemName,
 		itemRobuxCost = props.itemRobuxCost,
@@ -290,6 +295,19 @@ function RobuxUpsellOverlay:render()
 		eventPrefix = FLOW_NAME,
 		isQuest = GetFFlagDisablePurchasePromptFunctionForMaquettes() and getPaymentPlatform(externalSettings.getPlatform()) == PaymentPlatform.Maquettes,
 	})
+end
+
+if GetFFlagEnableAvatarCreationFeePurchase() then
+	local function mapStateToProps(state)
+		return {
+			serializedModel = state.promptRequest.serializedModel,
+		}
+	end
+
+	RobuxUpsellOverlay = connectToStore(
+		mapStateToProps,
+		nil
+	)(RobuxUpsellOverlay)
 end
 
 return RobuxUpsellOverlay

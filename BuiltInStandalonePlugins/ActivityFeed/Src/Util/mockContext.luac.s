@@ -1,4 +1,7 @@
 PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
   FASTCALL1 TYPE R0 [+3]
   MOVE R4 R0
   GETIMPORT R3 K1 [type]
@@ -10,12 +13,27 @@ PROTO_0:
   LOADK R3 K3 ["Expected story to be a table"]
   GETIMPORT R1 K5 [assert]
   CALL R1 2 0
+  DUPTABLE R1 K9 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "contextType"}]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["provideMockContext"]
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R1 2 -1
-  RETURN R1 -1
+  SETTABLEKS R2 R1 K6 ["activityHistoryClient"]
+  DUPCLOSURE R2 K10 [PROTO_0]
+  SETTABLEKS R2 R1 K7 ["showSaveOrPublishPlaceToRobloxFn"]
+  LOADK R2 K11 ["mock context"]
+  SETTABLEKS R2 R1 K8 ["contextType"]
+  DUPTABLE R2 K13 [{"ActivityHistoryProvider"}]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K14 ["createElement"]
+  GETUPVAL R4 2
+  MOVE R5 R1
+  MOVE R6 R0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K12 ["ActivityHistoryProvider"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K15 ["provideMockContext"]
+  GETUPVAL R4 4
+  MOVE R5 R2
+  CALL R3 2 -1
+  RETURN R3 -1
 
 MAIN:
   PREPVARARGS 0
@@ -25,46 +43,44 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
+  GETTABLEKS R2 R3 K6 ["React"]
   CALL R1 1 1
   GETIMPORT R2 K4 [require]
   GETTABLEKS R4 R0 K5 ["Packages"]
   GETTABLEKS R3 R4 K7 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["TestHelpers"]
-  GETTABLEKS R4 R2 K9 ["ContextServices"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Resources"]
+  GETTABLEKS R4 R5 K10 ["MakeTheme"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Clients"]
+  GETTABLEKS R5 R6 K12 ["MockActivityHistoryClient"]
+  CALL R4 1 1
   GETIMPORT R5 K4 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Reducers"]
-  GETTABLEKS R6 R7 K12 ["MainReducer"]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Contexts"]
+  GETTABLEKS R6 R7 K14 ["ActivityHistoryProvider"]
   CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Resources"]
-  GETTABLEKS R7 R8 K14 ["MakeTheme"]
-  CALL R6 1 1
-  NEWTABLE R7 0 4
-  GETTABLEKS R9 R4 K15 ["Analytics"]
-  GETTABLEKS R8 R9 K16 ["mock"]
-  CALL R8 0 1
-  GETTABLEKS R10 R4 K17 ["Localization"]
-  GETTABLEKS R9 R10 K16 ["mock"]
+  GETTABLEKS R6 R2 K15 ["TestHelpers"]
+  GETTABLEKS R7 R2 K16 ["ContextServices"]
+  NEWTABLE R8 0 3
+  GETTABLEKS R10 R7 K17 ["Analytics"]
+  GETTABLEKS R9 R10 K18 ["mock"]
   CALL R9 0 1
-  GETTABLEKS R11 R4 K18 ["Store"]
-  GETTABLEKS R10 R11 K19 ["new"]
-  GETTABLEKS R12 R1 K18 ["Store"]
-  GETTABLEKS R11 R12 K19 ["new"]
-  MOVE R12 R5
-  LOADNIL R13
-  LOADNIL R14
-  LOADNIL R15
-  CALL R11 4 -1
-  CALL R10 -1 1
-  MOVE R11 R6
+  GETTABLEKS R11 R7 K19 ["Localization"]
+  GETTABLEKS R10 R11 K18 ["mock"]
+  CALL R10 0 1
+  MOVE R11 R3
   LOADB R12 1
   CALL R11 1 -1
-  SETLIST R7 R8 -1 [1]
-  DUPCLOSURE R8 K20 [PROTO_0]
-  CAPTURE VAL R3
-  CAPTURE VAL R7
-  RETURN R8 1
+  SETLIST R8 R9 -1 [1]
+  DUPCLOSURE R9 K20 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  RETURN R9 1

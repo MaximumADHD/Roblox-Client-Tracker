@@ -41,7 +41,9 @@ local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfile
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
-local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead", false)
+local FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon = game:DefineFastFlag("ScriptProfilerFunctionsViewUseSourceInfoForAnon", false)
+local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes", false)
+local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 local FFlagScriptProfilerSimpleUI = game:DefineFastFlag("ScriptProfilerSimpleUI", false)
 local FFlagScriptProfilerExport = game:DefineFastFlag("ScriptProfilerExport", false)
@@ -103,7 +105,9 @@ local function generateSearchFilters(state, searchTerm: string): (SearchFilterTy
 	local searchFilterFuncs = table.create(#data.Functions, false)
 
 	for i, func in data.Functions do
-		if func.Name and string.find(func.Name, searchTerm, 1, true) then
+		local name = ProfilerUtil.getName(data, func)
+
+		if name and string.find(name, searchTerm, 1, true) then
 			searchFilterFuncs[i] = true
 		end
 	end
@@ -112,6 +116,23 @@ local function generateSearchFilters(state, searchTerm: string): (SearchFilterTy
 
 	for i, cat in data.Categories do
 		annotateSearchFilterNodes(data, searchFilterFuncs, searchFilterNodes, 0, cat.NodeId, false)
+	end
+
+	-- Perform matching against source name after annotating searchFilterNodes so that searching for source name works in Functions view, but not Callgraph view.
+	if FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon then
+		for i, func in data.Functions do
+			if searchFilterFuncs[i] == true then
+				continue
+			end
+
+			local name = ProfilerUtil.getName(data, func)
+			if not name then
+				local source = ProfilerUtil.getSourceName(data, func)
+				if source and string.find(source, searchTerm, 1, true) then
+					searchFilterFuncs[i] = true
+				end
+			end
+		end
 	end
 
 	return searchFilterFuncs, searchFilterNodes
@@ -240,10 +261,20 @@ local function OnNewProfilingData(state, jsonString: string?)
 	if FFlagScriptProfilerShowPlugins then
 		state.pluginOffsets, state.pluginGCOffsets = generatePluginDurationOffsets(state.gcNodeOffsets, state.data)
 	end
+
+	if FFlagScriptProfilerRememberExpandedNodes then
+		local count = #state.data.Nodes
+		local newExpandedNodes = table.create(count, false)
+		local oldExpandedNodes = state.expandedNodes
+		table.move(oldExpandedNodes, 1, count, 1, newExpandedNodes)
+		state.expandedNodes = newExpandedNodes
+	end
 end
 
 function MainViewScriptProfiler:init()
 	local function StartScriptProfiling(isClient, state)
+		table.clear(state.expandedNodes)
+
 		if isClient then
 			ScriptContext:StartScriptProfiling(state.frequency)
 		else
@@ -336,6 +367,7 @@ function MainViewScriptProfiler:init()
 		local newState = table.clone(state)
 		newState.isProfiling = true
 		newState.rootNode = 0
+		newState.rootFunc = 0
 		newState.rootNodeName = nil
 		newState.searchFilter = {}
 
@@ -698,6 +730,7 @@ function MainViewScriptProfiler:render()
 	local usePercentages = self.props.usePercentages
 	local isFunctionsView = state.isFunctionsView
 	local rootNode = state.rootNode
+	local rootFunc = state.rootFunc
 	local rootNodeName = state.rootNodeName
 
 	local utilTabHeight = self.state.utilTabHeight
@@ -804,6 +837,7 @@ function MainViewScriptProfiler:render()
 			showAsPercentages = usePercentages,
 			sessionLength = sessionLength,
 			rootNode = rootNode,
+			rootFunc = rootFunc,
 			rootNodeName = rootNodeName,
 			average = state.average,
 			showPlugins = state.showPlugins or not FFlagScriptProfilerShowPlugins,
@@ -812,6 +846,7 @@ function MainViewScriptProfiler:render()
 			gcFunctionOffsets = state.gcFunctionOffsets,
 			gcNodeOffsets = state.gcNodeOffsets,
 			pluginGCOffsets = state.pluginGCOffsets,
+			expandedNodes = if isFunctionsView then nil else state.expandedNodes
 		})
 	})
 end

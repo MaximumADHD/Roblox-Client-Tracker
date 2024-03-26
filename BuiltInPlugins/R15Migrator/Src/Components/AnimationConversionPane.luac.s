@@ -251,40 +251,22 @@ PROTO_13:
   SETTABLEKS R13 R12 K13 ["HorizontalAlignment"]
   GETIMPORT R13 K23 [Enum.VerticalAlignment.Top]
   SETTABLEKS R13 R12 K14 ["VerticalAlignment"]
-  DUPTABLE R13 K27 [{"Instructions", "Content", "Footer"}]
-  GETUPVAL R15 1
-  GETTABLEKS R14 R15 K11 ["createElement"]
-  GETUPVAL R15 3
-  DUPTABLE R16 K31 [{"LayoutOrder", "Message", "Height"}]
-  NAMECALL R17 R9 K32 ["getNextOrder"]
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K28 ["LayoutOrder"]
-  LOADK R19 K33 ["AnimationConversion"]
-  LOADK R20 K24 ["Instructions"]
-  NAMECALL R17 R3 K34 ["getText"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K29 ["Message"]
-  GETTABLEKS R17 R2 K35 ["InstructionsHeight"]
-  SETTABLEKS R17 R16 K30 ["Height"]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K24 ["Instructions"]
+  DUPTABLE R13 K26 [{"Content", "Footer"}]
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K11 ["createElement"]
   GETUPVAL R15 2
   NEWTABLE R16 8 0
-  NAMECALL R17 R9 K32 ["getNextOrder"]
+  NAMECALL R17 R9 K27 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K28 ["LayoutOrder"]
-  GETIMPORT R17 K37 [UDim2.new]
+  GETIMPORT R17 K30 [UDim2.new]
   LOADN R18 1
   LOADN R19 0
   LOADN R20 1
-  GETTABLEKS R23 R2 K38 ["FooterHeight"]
-  MINUS R22 R23
-  GETTABLEKS R23 R2 K35 ["InstructionsHeight"]
-  SUB R21 R22 R23
+  GETTABLEKS R22 R2 K31 ["FooterHeight"]
+  MINUS R21 R22
   CALL R17 4 1
-  SETTABLEKS R17 R16 K39 ["Size"]
+  SETTABLEKS R17 R16 K32 ["Size"]
   GETIMPORT R17 K19 [Enum.FillDirection.Vertical]
   SETTABLEKS R17 R16 K12 ["Layout"]
   GETIMPORT R17 K21 [Enum.HorizontalAlignment.Left]
@@ -292,107 +274,107 @@ PROTO_13:
   GETIMPORT R17 K23 [Enum.VerticalAlignment.Top]
   SETTABLEKS R17 R16 K14 ["VerticalAlignment"]
   GETUPVAL R18 1
-  GETTABLEKS R17 R18 K40 ["Ref"]
-  GETTABLEKS R18 R0 K41 ["ref"]
+  GETTABLEKS R17 R18 K33 ["Ref"]
+  GETTABLEKS R18 R0 K34 ["ref"]
   SETTABLE R18 R16 R17
-  DUPTABLE R17 K44 [{"PreviewContainer", "ListContainer"}]
+  DUPTABLE R17 K37 [{"PreviewContainer", "ListContainer"}]
   GETUPVAL R19 1
   GETTABLEKS R18 R19 K11 ["createElement"]
-  GETUPVAL R19 4
-  DUPTABLE R20 K49 [{"AutomaticSize", "LayoutOrder", "Expanded", "HeaderOverride", "OnExpandedChanged"}]
-  GETIMPORT R21 K51 [Enum.AutomaticSize.Y]
-  SETTABLEKS R21 R20 K45 ["AutomaticSize"]
-  NAMECALL R21 R9 K32 ["getNextOrder"]
+  GETUPVAL R19 3
+  DUPTABLE R20 K42 [{"AutomaticSize", "LayoutOrder", "Expanded", "HeaderOverride", "OnExpandedChanged"}]
+  GETIMPORT R21 K44 [Enum.AutomaticSize.Y]
+  SETTABLEKS R21 R20 K38 ["AutomaticSize"]
+  NAMECALL R21 R9 K27 ["getNextOrder"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K28 ["LayoutOrder"]
-  SETTABLEKS R7 R20 K46 ["Expanded"]
-  LOADK R25 K33 ["AnimationConversion"]
+  SETTABLEKS R7 R20 K39 ["Expanded"]
+  LOADK R25 K45 ["AnimationConversion"]
   LOADK R26 K6 ["Preview"]
-  NAMECALL R23 R3 K34 ["getText"]
+  NAMECALL R23 R3 K46 ["getText"]
   CALL R23 3 1
   LOADK R24 K6 ["Preview"]
-  NAMECALL R21 R0 K52 ["renderHeader"]
+  NAMECALL R21 R0 K47 ["renderHeader"]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K47 ["HeaderOverride"]
-  DUPCLOSURE R21 K53 [PROTO_11]
-  SETTABLEKS R21 R20 K48 ["OnExpandedChanged"]
-  DUPTABLE R21 K54 [{"Preview"}]
+  SETTABLEKS R21 R20 K40 ["HeaderOverride"]
+  DUPCLOSURE R21 K48 [PROTO_11]
+  SETTABLEKS R21 R20 K41 ["OnExpandedChanged"]
+  DUPTABLE R21 K49 [{"Preview"}]
   GETUPVAL R23 1
   GETTABLEKS R22 R23 K11 ["createElement"]
-  GETUPVAL R23 5
+  GETUPVAL R23 4
   CALL R22 1 1
   SETTABLEKS R22 R21 K6 ["Preview"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K42 ["PreviewContainer"]
+  SETTABLEKS R18 R17 K35 ["PreviewContainer"]
   GETUPVAL R19 1
   GETTABLEKS R18 R19 K11 ["createElement"]
-  GETUPVAL R19 4
-  DUPTABLE R20 K56 [{"AutomaticSize", "LayoutOrder", "Expanded", "ContentPadding", "HeaderOverride", "OnExpandedChanged"}]
-  GETIMPORT R21 K51 [Enum.AutomaticSize.Y]
-  SETTABLEKS R21 R20 K45 ["AutomaticSize"]
-  NAMECALL R21 R9 K32 ["getNextOrder"]
+  GETUPVAL R19 3
+  DUPTABLE R20 K51 [{"AutomaticSize", "LayoutOrder", "Expanded", "ContentPadding", "HeaderOverride", "OnExpandedChanged"}]
+  GETIMPORT R21 K44 [Enum.AutomaticSize.Y]
+  SETTABLEKS R21 R20 K38 ["AutomaticSize"]
+  NAMECALL R21 R9 K27 ["getNextOrder"]
   CALL R21 1 1
   SETTABLEKS R21 R20 K28 ["LayoutOrder"]
   GETTABLEKS R22 R6 K7 ["expanded"]
-  GETTABLEKS R21 R22 K57 ["List"]
-  SETTABLEKS R21 R20 K46 ["Expanded"]
+  GETTABLEKS R21 R22 K52 ["List"]
+  SETTABLEKS R21 R20 K39 ["Expanded"]
   LOADN R21 0
-  SETTABLEKS R21 R20 K55 ["ContentPadding"]
-  LOADK R25 K33 ["AnimationConversion"]
-  LOADK R26 K58 ["Animations"]
-  NAMECALL R23 R3 K34 ["getText"]
+  SETTABLEKS R21 R20 K50 ["ContentPadding"]
+  LOADK R25 K45 ["AnimationConversion"]
+  LOADK R26 K53 ["Animations"]
+  NAMECALL R23 R3 K46 ["getText"]
   CALL R23 3 1
-  LOADK R24 K57 ["List"]
-  NAMECALL R21 R0 K52 ["renderHeader"]
+  LOADK R24 K52 ["List"]
+  NAMECALL R21 R0 K47 ["renderHeader"]
   CALL R21 3 1
-  SETTABLEKS R21 R20 K47 ["HeaderOverride"]
-  DUPCLOSURE R21 K59 [PROTO_12]
-  SETTABLEKS R21 R20 K48 ["OnExpandedChanged"]
-  DUPTABLE R21 K60 [{"List"}]
+  SETTABLEKS R21 R20 K40 ["HeaderOverride"]
+  DUPCLOSURE R21 K54 [PROTO_12]
+  SETTABLEKS R21 R20 K41 ["OnExpandedChanged"]
+  DUPTABLE R21 K55 [{"List"}]
   GETUPVAL R23 1
   GETTABLEKS R22 R23 K11 ["createElement"]
-  GETUPVAL R23 6
-  DUPTABLE R24 K64 [{"Size", "Items", "Tags", "LayoutOrder", "OnResetPlugin"}]
-  GETIMPORT R25 K37 [UDim2.new]
+  GETUPVAL R23 5
+  DUPTABLE R24 K59 [{"Size", "Items", "Tags", "LayoutOrder", "OnResetPlugin"}]
+  GETIMPORT R25 K30 [UDim2.new]
   LOADN R26 1
   LOADN R27 0
   LOADN R28 0
-  GETTABLEKS R32 R6 K65 ["paneSize"]
-  GETTABLEKS R31 R32 K50 ["Y"]
-  GETTABLEKS R32 R2 K66 ["HeaderHeight"]
+  GETTABLEKS R32 R6 K60 ["paneSize"]
+  GETTABLEKS R31 R32 K43 ["Y"]
+  GETTABLEKS R32 R2 K61 ["HeaderHeight"]
   SUB R30 R31 R32
   SUB R29 R30 R8
   CALL R25 4 1
-  SETTABLEKS R25 R24 K39 ["Size"]
-  SETTABLEKS R4 R24 K61 ["Items"]
-  SETTABLEKS R5 R24 K62 ["Tags"]
-  NAMECALL R25 R9 K32 ["getNextOrder"]
+  SETTABLEKS R25 R24 K32 ["Size"]
+  SETTABLEKS R4 R24 K56 ["Items"]
+  SETTABLEKS R5 R24 K57 ["Tags"]
+  NAMECALL R25 R9 K27 ["getNextOrder"]
   CALL R25 1 1
   SETTABLEKS R25 R24 K28 ["LayoutOrder"]
-  GETTABLEKS R25 R1 K63 ["OnResetPlugin"]
-  SETTABLEKS R25 R24 K63 ["OnResetPlugin"]
+  GETTABLEKS R25 R1 K58 ["OnResetPlugin"]
+  SETTABLEKS R25 R24 K58 ["OnResetPlugin"]
   CALL R22 2 1
-  SETTABLEKS R22 R21 K57 ["List"]
+  SETTABLEKS R22 R21 K52 ["List"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K43 ["ListContainer"]
+  SETTABLEKS R18 R17 K36 ["ListContainer"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K25 ["Content"]
+  SETTABLEKS R14 R13 K24 ["Content"]
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K11 ["createElement"]
-  GETUPVAL R15 7
-  DUPTABLE R16 K67 [{"LayoutOrder", "Size"}]
-  NAMECALL R17 R9 K32 ["getNextOrder"]
+  GETUPVAL R15 6
+  DUPTABLE R16 K62 [{"LayoutOrder", "Size"}]
+  NAMECALL R17 R9 K27 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K28 ["LayoutOrder"]
-  GETIMPORT R17 K37 [UDim2.new]
+  GETIMPORT R17 K30 [UDim2.new]
   LOADN R18 1
   LOADN R19 0
   LOADN R20 0
-  GETTABLEKS R21 R2 K38 ["FooterHeight"]
+  GETTABLEKS R21 R2 K31 ["FooterHeight"]
   CALL R17 4 1
-  SETTABLEKS R17 R16 K39 ["Size"]
+  SETTABLEKS R17 R16 K32 ["Size"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K26 ["Footer"]
+  SETTABLEKS R14 R13 K25 ["Footer"]
   CALL R10 3 -1
   RETURN R10 -1
 
@@ -491,42 +473,39 @@ MAIN:
   GETIMPORT R17 K5 [require]
   GETTABLEKS R18 R14 K24 ["AnimationConversionPaneFooter"]
   CALL R17 1 1
-  GETIMPORT R18 K5 [require]
-  GETTABLEKS R19 R14 K25 ["TabInstructions"]
-  CALL R18 1 1
-  GETTABLEKS R21 R0 K20 ["Src"]
-  GETTABLEKS R20 R21 K16 ["Util"]
-  GETTABLEKS R19 R20 K26 ["AnimationConversion"]
-  GETIMPORT R21 K5 [require]
-  GETTABLEKS R22 R19 K27 ["constants"]
-  CALL R21 1 1
-  GETTABLEKS R20 R21 K28 ["AssetType"]
-  GETIMPORT R21 K5 [require]
-  GETTABLEKS R24 R0 K20 ["Src"]
-  GETTABLEKS R23 R24 K16 ["Util"]
-  GETTABLEKS R22 R23 K29 ["AssetIdUtil"]
-  CALL R21 1 1
-  GETTABLEKS R22 R2 K30 ["PureComponent"]
-  LOADK R24 K31 ["AnimationConversionPane"]
-  NAMECALL R22 R22 K32 ["extend"]
-  CALL R22 2 1
-  DUPCLOSURE R23 K33 [PROTO_3]
+  GETTABLEKS R20 R0 K20 ["Src"]
+  GETTABLEKS R19 R20 K16 ["Util"]
+  GETTABLEKS R18 R19 K25 ["AnimationConversion"]
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R21 R18 K26 ["constants"]
+  CALL R20 1 1
+  GETTABLEKS R19 R20 K27 ["AssetType"]
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R23 R0 K20 ["Src"]
+  GETTABLEKS R22 R23 K16 ["Util"]
+  GETTABLEKS R21 R22 K28 ["AssetIdUtil"]
+  CALL R20 1 1
+  GETTABLEKS R21 R2 K29 ["PureComponent"]
+  LOADK R23 K30 ["AnimationConversionPane"]
+  NAMECALL R21 R21 K31 ["extend"]
+  CALL R21 2 1
+  DUPCLOSURE R22 K32 [PROTO_3]
   CAPTURE VAL R4
   CAPTURE VAL R2
-  SETTABLEKS R23 R22 K34 ["init"]
-  DUPCLOSURE R23 K35 [PROTO_5]
-  SETTABLEKS R23 R22 K36 ["initRef"]
-  DUPCLOSURE R23 K37 [PROTO_6]
-  SETTABLEKS R23 R22 K38 ["didMount"]
-  DUPCLOSURE R23 K39 [PROTO_7]
-  SETTABLEKS R23 R22 K40 ["willUnmount"]
-  DUPCLOSURE R23 K41 [PROTO_8]
-  SETTABLEKS R23 R22 K42 ["didUpdate"]
-  DUPCLOSURE R23 K43 [PROTO_9]
-  CAPTURE VAL R21
+  SETTABLEKS R22 R21 K33 ["init"]
+  DUPCLOSURE R22 K34 [PROTO_5]
+  SETTABLEKS R22 R21 K35 ["initRef"]
+  DUPCLOSURE R22 K36 [PROTO_6]
+  SETTABLEKS R22 R21 K37 ["didMount"]
+  DUPCLOSURE R22 K38 [PROTO_7]
+  SETTABLEKS R22 R21 K39 ["willUnmount"]
+  DUPCLOSURE R22 K40 [PROTO_8]
+  SETTABLEKS R22 R21 K41 ["didUpdate"]
+  DUPCLOSURE R22 K42 [PROTO_9]
   CAPTURE VAL R20
-  SETTABLEKS R23 R22 K44 ["buildTags"]
-  DUPCLOSURE R23 K45 [PROTO_10]
+  CAPTURE VAL R19
+  SETTABLEKS R22 R21 K43 ["buildTags"]
+  DUPCLOSURE R22 K44 [PROTO_10]
   CAPTURE VAL R11
   CAPTURE VAL R2
   CAPTURE VAL R6
@@ -534,40 +513,39 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R12
   CAPTURE VAL R7
-  SETTABLEKS R23 R22 K46 ["renderHeader"]
-  DUPCLOSURE R23 K47 [PROTO_13]
+  SETTABLEKS R22 R21 K45 ["renderHeader"]
+  DUPCLOSURE R22 K46 [PROTO_13]
   CAPTURE VAL R11
   CAPTURE VAL R2
   CAPTURE VAL R6
-  CAPTURE VAL R18
   CAPTURE VAL R8
   CAPTURE VAL R16
   CAPTURE VAL R15
   CAPTURE VAL R17
-  SETTABLEKS R23 R22 K48 ["renderAnimationList"]
-  DUPCLOSURE R23 K49 [PROTO_14]
+  SETTABLEKS R22 R21 K47 ["renderAnimationList"]
+  DUPCLOSURE R22 K48 [PROTO_14]
   CAPTURE VAL R2
   CAPTURE VAL R6
   CAPTURE VAL R7
-  SETTABLEKS R23 R22 K50 ["renderNoAnimationsScreen"]
-  DUPCLOSURE R23 K51 [PROTO_15]
-  SETTABLEKS R23 R22 K52 ["hasAnimations"]
-  DUPCLOSURE R23 K53 [PROTO_16]
-  SETTABLEKS R23 R22 K54 ["render"]
-  DUPCLOSURE R23 K55 [PROTO_17]
-  GETTABLEKS R24 R13 K56 ["withContext"]
-  DUPTABLE R25 K59 [{"Stylizer", "Localization"}]
-  GETTABLEKS R26 R13 K57 ["Stylizer"]
-  SETTABLEKS R26 R25 K57 ["Stylizer"]
-  GETTABLEKS R26 R13 K58 ["Localization"]
-  SETTABLEKS R26 R25 K58 ["Localization"]
-  CALL R24 1 1
-  MOVE R25 R22
-  CALL R24 1 1
-  MOVE R22 R24
-  GETTABLEKS R24 R3 K60 ["connect"]
-  MOVE R25 R23
-  CALL R24 1 1
-  MOVE R25 R22
-  CALL R24 1 -1
-  RETURN R24 -1
+  SETTABLEKS R22 R21 K49 ["renderNoAnimationsScreen"]
+  DUPCLOSURE R22 K50 [PROTO_15]
+  SETTABLEKS R22 R21 K51 ["hasAnimations"]
+  DUPCLOSURE R22 K52 [PROTO_16]
+  SETTABLEKS R22 R21 K53 ["render"]
+  DUPCLOSURE R22 K54 [PROTO_17]
+  GETTABLEKS R23 R13 K55 ["withContext"]
+  DUPTABLE R24 K58 [{"Stylizer", "Localization"}]
+  GETTABLEKS R25 R13 K56 ["Stylizer"]
+  SETTABLEKS R25 R24 K56 ["Stylizer"]
+  GETTABLEKS R25 R13 K57 ["Localization"]
+  SETTABLEKS R25 R24 K57 ["Localization"]
+  CALL R23 1 1
+  MOVE R24 R21
+  CALL R23 1 1
+  MOVE R21 R23
+  GETTABLEKS R23 R3 K59 ["connect"]
+  MOVE R24 R22
+  CALL R23 1 1
+  MOVE R24 R21
+  CALL R23 1 -1
+  RETURN R23 -1

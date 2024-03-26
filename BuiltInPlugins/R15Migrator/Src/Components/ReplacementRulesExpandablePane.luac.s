@@ -12,7 +12,7 @@ PROTO_0:
   SETTABLEKS R2 R6 K1 ["LayoutOrder"]
   LOADK R7 K9 ["Replacement Rules"]
   SETTABLEKS R7 R6 K5 ["Text"]
-  LOADB R7 0
+  LOADB R7 1
   SETTABLEKS R7 R6 K6 ["Expanded"]
   DUPTABLE R7 K11 [{"ReplaceOptionsPane"}]
   GETUPVAL R9 0

@@ -374,6 +374,115 @@ PROTO_14:
   RETURN R0 0
 
 PROTO_15:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["sendEventImmediately"]
+  LOADK R4 K1 ["studio"]
+  LOADK R5 K2 ["AssetConfig"]
+  LOADK R6 K3 ["PackageNoteCreated"]
+  DUPTABLE R7 K11 [{"assetId", "assetVersionNumber", "message", "studioSid", "clientId", "placeId", "userId"}]
+  SETTABLEKS R0 R7 K4 ["assetId"]
+  SETTABLEKS R1 R7 K5 ["assetVersionNumber"]
+  SETTABLEKS R2 R7 K6 ["message"]
+  LOADNIL R9
+  GETIMPORT R10 K13 [pcall]
+  NEWCLOSURE R11 P0
+  CAPTURE REF R9
+  CAPTURE UPVAL U1
+  CALL R10 1 0
+  MOVE R8 R9
+  CLOSEUPVALS R9
+  SETTABLEKS R8 R7 K7 ["studioSid"]
+  LOADNIL R9
+  GETIMPORT R10 K13 [pcall]
+  NEWCLOSURE R11 P1
+  CAPTURE REF R9
+  CAPTURE UPVAL U1
+  CALL R10 1 0
+  MOVE R8 R9
+  CLOSEUPVALS R9
+  SETTABLEKS R8 R7 K8 ["clientId"]
+  GETUPVAL R8 2
+  CALL R8 0 1
+  SETTABLEKS R8 R7 K9 ["placeId"]
+  GETUPVAL R8 3
+  CALL R8 0 1
+  SETTABLEKS R8 R7 K10 ["userId"]
+  CALL R3 4 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["sendEventImmediately"]
+  LOADK R4 K1 ["studio"]
+  LOADK R5 K2 ["AssetConfig"]
+  LOADK R6 K3 ["PackageNoteDiscarded"]
+  DUPTABLE R7 K11 [{"assetId", "assetVersionNumber", "message", "studioSid", "clientId", "placeId", "userId"}]
+  SETTABLEKS R0 R7 K4 ["assetId"]
+  SETTABLEKS R1 R7 K5 ["assetVersionNumber"]
+  SETTABLEKS R2 R7 K6 ["message"]
+  LOADNIL R9
+  GETIMPORT R10 K13 [pcall]
+  NEWCLOSURE R11 P0
+  CAPTURE REF R9
+  CAPTURE UPVAL U1
+  CALL R10 1 0
+  MOVE R8 R9
+  CLOSEUPVALS R9
+  SETTABLEKS R8 R7 K7 ["studioSid"]
+  LOADNIL R9
+  GETIMPORT R10 K13 [pcall]
+  NEWCLOSURE R11 P1
+  CAPTURE REF R9
+  CAPTURE UPVAL U1
+  CALL R10 1 0
+  MOVE R8 R9
+  CLOSEUPVALS R9
+  SETTABLEKS R8 R7 K8 ["clientId"]
+  GETUPVAL R8 2
+  CALL R8 0 1
+  SETTABLEKS R8 R7 K9 ["placeId"]
+  GETUPVAL R8 3
+  CALL R8 0 1
+  SETTABLEKS R8 R7 K10 ["userId"]
+  CALL R3 4 0
+  RETURN R0 0
+
+PROTO_17:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
+  LOADK R2 K1 ["studio"]
+  LOADK R3 K2 ["AssetConfig"]
+  LOADK R4 K3 ["PackageNoteCanceled"]
+  DUPTABLE R5 K9 [{"assetId", "studioSid", "clientId", "placeId", "userId"}]
+  SETTABLEKS R0 R5 K4 ["assetId"]
+  LOADNIL R7
+  GETIMPORT R8 K11 [pcall]
+  NEWCLOSURE R9 P0
+  CAPTURE REF R7
+  CAPTURE UPVAL U1
+  CALL R8 1 0
+  MOVE R6 R7
+  CLOSEUPVALS R7
+  SETTABLEKS R6 R5 K5 ["studioSid"]
+  LOADNIL R7
+  GETIMPORT R8 K11 [pcall]
+  NEWCLOSURE R9 P1
+  CAPTURE REF R7
+  CAPTURE UPVAL U1
+  CALL R8 1 0
+  MOVE R6 R7
+  CLOSEUPVALS R7
+  SETTABLEKS R6 R5 K6 ["clientId"]
+  GETUPVAL R6 2
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K7 ["placeId"]
+  GETUPVAL R6 3
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K8 ["userId"]
+  CALL R1 4 0
+  RETURN R0 0
+
+PROTO_18:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["reportCounter"]
   LOADK R2 K1 ["Studio.ToolboxInsert.%s"]
@@ -386,7 +495,7 @@ PROTO_15:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_19:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["reportCounter"]
   LOADK R2 K1 ["Studio.ToolboxCategoryInsert.%s"]
@@ -399,14 +508,14 @@ PROTO_16:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_17:
+PROTO_20:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["reportCounter"]
   LOADK R1 K1 ["StudioWorkspaceInsertCounter"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_18:
+PROTO_21:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["reportCounter"]
   LOADK R2 K1 ["Studio.Upload.%s.Success"]
@@ -419,7 +528,7 @@ PROTO_18:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_22:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["reportCounter"]
   LOADK R2 K1 ["Studio.Upload.%s.Failure"]
@@ -432,21 +541,21 @@ PROTO_19:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_23:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["reportCounter"]
   LOADK R1 K1 ["Studio.ToolboxAudio.Played"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_24:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["reportCounter"]
   LOADK R1 K1 ["Studio.ToolboxAudio.Paused"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_25:
   GETUPVAL R2 0
   FASTCALL1 ASSERT R2 [+2]
   GETIMPORT R1 K1 [assert]
@@ -457,14 +566,14 @@ PROTO_22:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_26:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["reportCounter"]
   LOADK R1 K1 ["Studio.ToolboxAsset.Impression"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_27:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventDeferred"]
   LOADK R2 K1 ["studio"]
@@ -491,7 +600,7 @@ PROTO_24:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_28:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventDeferred"]
   LOADK R3 K1 ["studio"]
@@ -519,7 +628,7 @@ PROTO_25:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_29:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventDeferred"]
   LOADK R2 K1 ["studio"]
@@ -546,7 +655,7 @@ PROTO_26:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_30:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["sendEventDeferred"]
   LOADK R1 K1 ["studio"]
@@ -564,7 +673,7 @@ PROTO_27:
   CALL R0 4 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_31:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["sendEventDeferred"]
   LOADK R1 K1 ["studio"]
@@ -582,7 +691,7 @@ PROTO_28:
   CALL R0 4 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_32:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["sendEventDeferred"]
   LOADK R1 K1 ["studio"]
@@ -600,7 +709,7 @@ PROTO_29:
   CALL R0 4 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_33:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["sendEventDeferred"]
   LOADK R1 K1 ["studio"]
@@ -618,7 +727,7 @@ PROTO_30:
   CALL R0 4 0
   RETURN R0 0
 
-PROTO_31:
+PROTO_34:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["sendEventImmediately"]
   LOADK R5 K1 ["studio"]
@@ -656,7 +765,7 @@ PROTO_31:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_32:
+PROTO_35:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["sendEventImmediately"]
   LOADK R1 K1 ["studio"]
@@ -686,7 +795,7 @@ PROTO_32:
   CALL R0 4 0
   RETURN R0 0
 
-PROTO_33:
+PROTO_36:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   LOADK R2 K1 ["studio"]
@@ -717,7 +826,7 @@ PROTO_33:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_34:
+PROTO_37:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventImmediately"]
   LOADK R3 K1 ["studio"]
@@ -749,7 +858,7 @@ PROTO_34:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_35:
+PROTO_38:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   LOADK R2 K1 ["studio"]
@@ -783,7 +892,7 @@ PROTO_35:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_36:
+PROTO_39:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   LOADK R2 K1 ["studio"]
@@ -819,7 +928,7 @@ PROTO_36:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_37:
+PROTO_40:
   DUPTABLE R3 K18 [{"studioSid", "clientID", "creatorIDs", "excludeGroupCreations", "groupIDs", "isEditMode", "userID", "ptid", "placeID", "searchKeyword", "isTopKeyword", "categoryName", "includeOnlyVerifiedCreators", "assetType", "searchByCreatorID", "searchID", "sort", "toolboxTab"}]
   LOADNIL R5
   GETIMPORT R6 K20 [pcall]
@@ -891,27 +1000,33 @@ PROTO_37:
   SETTABLEKS R4 R3 K16 ["sort"]
   GETTABLEKS R4 R2 K17 ["toolboxTab"]
   SETTABLEKS R4 R3 K17 ["toolboxTab"]
+  GETTABLEKS R4 R2 K23 ["qualityFilterTags"]
+  JUMPIFNOT R4 [+8]
+  GETTABLEKS R4 R2 K23 ["qualityFilterTags"]
+  JUMPIFEQKS R4 K24 [""] [+5]
+  GETTABLEKS R4 R2 K23 ["qualityFilterTags"]
+  SETTABLEKS R4 R3 K23 ["qualityFilterTags"]
   GETUPVAL R4 5
   CALL R4 0 1
   JUMPIFNOT R4 [+16]
-  GETTABLEKS R4 R2 K23 ["previousSearchId"]
-  SETTABLEKS R4 R3 K23 ["previousSearchId"]
-  GETTABLEKS R4 R2 K24 ["querySource"]
-  SETTABLEKS R4 R3 K24 ["querySource"]
-  GETTABLEKS R4 R2 K25 ["originalUserQuery"]
-  SETTABLEKS R4 R3 K25 ["originalUserQuery"]
-  GETTABLEKS R4 R2 K26 ["originalCorrection"]
-  SETTABLEKS R4 R3 K26 ["originalCorrection"]
+  GETTABLEKS R4 R2 K25 ["previousSearchId"]
+  SETTABLEKS R4 R3 K25 ["previousSearchId"]
+  GETTABLEKS R4 R2 K26 ["querySource"]
+  SETTABLEKS R4 R3 K26 ["querySource"]
+  GETTABLEKS R4 R2 K27 ["originalUserQuery"]
+  SETTABLEKS R4 R3 K27 ["originalUserQuery"]
+  GETTABLEKS R4 R2 K28 ["originalCorrection"]
+  SETTABLEKS R4 R3 K28 ["originalCorrection"]
   GETUPVAL R5 6
-  GETTABLEKS R4 R5 K27 ["sendEventImmediately"]
-  LOADK R5 K28 ["studio"]
-  LOADK R6 K29 ["Marketplace"]
-  LOADK R7 K30 ["MarketplaceSearch"]
+  GETTABLEKS R4 R5 K29 ["sendEventImmediately"]
+  LOADK R5 K30 ["studio"]
+  LOADK R6 K31 ["Marketplace"]
+  LOADK R7 K32 ["MarketplaceSearch"]
   MOVE R8 R3
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_38:
+PROTO_41:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K0 ["sendEventImmediately"]
   LOADK R7 K1 ["studio"]
@@ -964,7 +1079,7 @@ PROTO_38:
   CALL R6 4 0
   RETURN R0 0
 
-PROTO_39:
+PROTO_42:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventImmediately"]
   LOADK R2 K1 ["studio"]
@@ -1003,7 +1118,7 @@ PROTO_39:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_40:
+PROTO_43:
   DUPTABLE R6 K10 [{"announcementButtonKey", "announcementDateKey", "announcementDescriptionKey", "announcementHeaderKey", "announcementLinkKey", "announcementLinkLocation", "clientId", "platformId", "studioSid", "userId"}]
   SETTABLEKS R0 R6 K0 ["announcementButtonKey"]
   SETTABLEKS R1 R6 K1 ["announcementDateKey"]
@@ -1043,7 +1158,7 @@ PROTO_40:
   CALL R7 4 0
   RETURN R0 0
 
-PROTO_41:
+PROTO_44:
   DUPTABLE R6 K10 [{"announcementButtonKey", "announcementDateKey", "announcementDescriptionKey", "announcementHeaderKey", "announcementLinkKey", "announcementLinkLocation", "clientId", "platformId", "studioSid", "userId"}]
   SETTABLEKS R0 R6 K0 ["announcementButtonKey"]
   SETTABLEKS R1 R6 K1 ["announcementDateKey"]
@@ -1083,7 +1198,7 @@ PROTO_41:
   CALL R7 4 0
   RETURN R0 0
 
-PROTO_42:
+PROTO_45:
   DUPTABLE R7 K11 [{"announcementButtonKey", "announcementDateKey", "announcementDescriptionKey", "announcementHeaderKey", "announcementLinkKey", "announcementLinkLocation", "durationBeforeClosed", "clientId", "platformId", "studioSid", "userId"}]
   SETTABLEKS R0 R7 K0 ["announcementButtonKey"]
   SETTABLEKS R1 R7 K1 ["announcementDateKey"]
@@ -1124,7 +1239,7 @@ PROTO_42:
   CALL R8 4 0
   RETURN R0 0
 
-PROTO_43:
+PROTO_46:
   DUPTABLE R7 K11 [{"announcementButtonKey", "announcementDateKey", "announcementDescriptionKey", "announcementHeaderKey", "announcementLinkKey", "announcementLinkLocation", "durationBeforeClosed", "clientId", "platformId", "studioSid", "userId"}]
   SETTABLEKS R0 R7 K0 ["announcementButtonKey"]
   SETTABLEKS R1 R7 K1 ["announcementDateKey"]
@@ -1165,7 +1280,7 @@ PROTO_43:
   CALL R8 4 0
   RETURN R0 0
 
-PROTO_44:
+PROTO_47:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["sendEventDeferred"]
   LOADK R4 K1 ["studio"]
@@ -1205,7 +1320,7 @@ PROTO_44:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_45:
+PROTO_48:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventDeferred"]
   LOADK R3 K1 ["studio"]
@@ -1232,7 +1347,7 @@ PROTO_45:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_46:
+PROTO_49:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["sendEventDeferred"]
   LOADK R5 K1 ["studio"]
@@ -1263,7 +1378,7 @@ PROTO_46:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_47:
+PROTO_50:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["sendEventDeferred"]
   LOADK R2 K1 ["studio"]
@@ -1286,7 +1401,7 @@ PROTO_47:
   CALL R1 4 0
   RETURN R0 0
 
-PROTO_48:
+PROTO_51:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["sendEventDeferred"]
   LOADK R3 K1 ["studio"]
@@ -1314,7 +1429,7 @@ PROTO_48:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_49:
+PROTO_52:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["sendEventDeferred"]
   LOADK R4 K1 ["studio"]
@@ -1336,7 +1451,7 @@ PROTO_49:
   CALL R3 4 0
   RETURN R0 0
 
-PROTO_50:
+PROTO_53:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["sendEventDeferred"]
   LOADK R5 K1 ["studio"]
@@ -1359,7 +1474,7 @@ PROTO_50:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_51:
+PROTO_54:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["sendEventDeferred"]
   LOADK R6 K1 ["studio"]
@@ -1383,7 +1498,7 @@ PROTO_51:
   CALL R5 4 0
   RETURN R0 0
 
-PROTO_52:
+PROTO_55:
   GETUPVAL R3 0
   CALL R3 0 1
   FASTCALL2K ASSERT R3 K0 [+4]
@@ -1422,7 +1537,7 @@ PROTO_52:
   CALL R2 4 0
   RETURN R0 0
 
-PROTO_53:
+PROTO_56:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K0 ["sendEventDeferred"]
   LOADK R7 K1 ["studio"]
@@ -1447,7 +1562,7 @@ PROTO_53:
   CALL R6 4 0
   RETURN R0 0
 
-PROTO_54:
+PROTO_57:
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K0 ["sendEventDeferred"]
   LOADK R8 K1 ["studio"]
@@ -1634,108 +1749,126 @@ MAIN:
   SETTABLEKS R19 R16 K59 ["reportDragInsertFinished"]
   DUPCLOSURE R19 K60 [PROTO_15]
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K61 ["incrementToolboxInsertCounter"]
+  CAPTURE VAL R3
+  CAPTURE VAL R12
+  CAPTURE VAL R4
+  SETTABLEKS R19 R16 K61 ["onPackageNoteCreated"]
   DUPCLOSURE R19 K62 [PROTO_16]
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K63 ["incrementToolboxCategoryInsertCounter"]
+  CAPTURE VAL R3
+  CAPTURE VAL R12
+  CAPTURE VAL R4
+  SETTABLEKS R19 R16 K63 ["onPackageNoteDiscarded"]
   DUPCLOSURE R19 K64 [PROTO_17]
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K65 ["incrementWorkspaceInsertCounter"]
+  CAPTURE VAL R3
+  CAPTURE VAL R12
+  CAPTURE VAL R4
+  SETTABLEKS R19 R16 K65 ["onPackageNoteCanceled"]
   DUPCLOSURE R19 K66 [PROTO_18]
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K67 ["incrementUploadAssetSuccess"]
+  SETTABLEKS R19 R16 K67 ["incrementToolboxInsertCounter"]
   DUPCLOSURE R19 K68 [PROTO_19]
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K69 ["incrementUploadAssetFailure"]
+  SETTABLEKS R19 R16 K69 ["incrementToolboxCategoryInsertCounter"]
   DUPCLOSURE R19 K70 [PROTO_20]
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K71 ["onSoundPlayedCounter"]
+  SETTABLEKS R19 R16 K71 ["incrementWorkspaceInsertCounter"]
   DUPCLOSURE R19 K72 [PROTO_21]
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K73 ["onSoundPausedCounter"]
+  SETTABLEKS R19 R16 K73 ["incrementUploadAssetSuccess"]
   DUPCLOSURE R19 K74 [PROTO_22]
-  CAPTURE VAL R5
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K75 ["sendResultToKibana"]
+  SETTABLEKS R19 R16 K75 ["incrementUploadAssetFailure"]
   DUPCLOSURE R19 K76 [PROTO_23]
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K77 ["incrementAssetImpressionCounter"]
+  SETTABLEKS R19 R16 K77 ["onSoundPlayedCounter"]
   DUPCLOSURE R19 K78 [PROTO_24]
   CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R17
-  SETTABLEKS R19 R16 K79 ["onAssetPreviewSelected"]
+  SETTABLEKS R19 R16 K79 ["onSoundPausedCounter"]
   DUPCLOSURE R19 K80 [PROTO_25]
+  CAPTURE VAL R5
   CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R17
-  SETTABLEKS R19 R16 K81 ["onAssetPreviewEnded"]
+  SETTABLEKS R19 R16 K81 ["sendResultToKibana"]
   DUPCLOSURE R19 K82 [PROTO_26]
   CAPTURE VAL R1
+  SETTABLEKS R19 R16 K83 ["incrementAssetImpressionCounter"]
+  DUPCLOSURE R19 K84 [PROTO_27]
+  CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R17
-  SETTABLEKS R19 R16 K83 ["onAssetInsertedFromAssetPreview"]
-  DUPCLOSURE R19 K84 [PROTO_27]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R12
-  CAPTURE VAL R17
-  SETTABLEKS R19 R16 K85 ["onPluginButtonClickOpen"]
+  SETTABLEKS R19 R16 K85 ["onAssetPreviewSelected"]
   DUPCLOSURE R19 K86 [PROTO_28]
   CAPTURE VAL R1
+  CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R12
   CAPTURE VAL R17
-  SETTABLEKS R19 R16 K87 ["onPluginButtonClickClose"]
+  SETTABLEKS R19 R16 K87 ["onAssetPreviewEnded"]
   DUPCLOSURE R19 K88 [PROTO_29]
   CAPTURE VAL R1
+  CAPTURE VAL R3
   CAPTURE VAL R4
-  CAPTURE VAL R12
   CAPTURE VAL R17
-  SETTABLEKS R19 R16 K89 ["onToolboxDisplayed"]
+  SETTABLEKS R19 R16 K89 ["onAssetInsertedFromAssetPreview"]
   DUPCLOSURE R19 K90 [PROTO_30]
   CAPTURE VAL R1
   CAPTURE VAL R4
   CAPTURE VAL R12
   CAPTURE VAL R17
-  SETTABLEKS R19 R16 K91 ["onToolboxHidden"]
+  SETTABLEKS R19 R16 K91 ["onPluginButtonClickOpen"]
   DUPCLOSURE R19 K92 [PROTO_31]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R17
+  SETTABLEKS R19 R16 K93 ["onPluginButtonClickClose"]
+  DUPCLOSURE R19 K94 [PROTO_32]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R17
+  SETTABLEKS R19 R16 K95 ["onToolboxDisplayed"]
+  DUPCLOSURE R19 K96 [PROTO_33]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R17
+  SETTABLEKS R19 R16 K97 ["onToolboxHidden"]
+  DUPCLOSURE R19 K98 [PROTO_34]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R17
-  SETTABLEKS R19 R16 K93 ["onContextMenuClicked"]
-  DUPCLOSURE R19 K94 [PROTO_32]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R17
-  SETTABLEKS R19 R16 K95 ["openedFromPluginManagement"]
-  DUPCLOSURE R19 K96 [PROTO_33]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R17
-  SETTABLEKS R19 R16 K97 ["openedExternallyByAssetType"]
-  DUPCLOSURE R19 K98 [PROTO_34]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R17
-  SETTABLEKS R19 R16 K99 ["reportAssetClicked"]
+  SETTABLEKS R19 R16 K99 ["onContextMenuClicked"]
   DUPCLOSURE R19 K100 [PROTO_35]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R17
-  CAPTURE VAL R12
-  SETTABLEKS R19 R16 K101 ["reportMeshPartFiltered"]
+  SETTABLEKS R19 R16 K101 ["openedFromPluginManagement"]
   DUPCLOSURE R19 K102 [PROTO_36]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R17
+  SETTABLEKS R19 R16 K103 ["openedExternallyByAssetType"]
+  DUPCLOSURE R19 K104 [PROTO_37]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R17
+  SETTABLEKS R19 R16 K105 ["reportAssetClicked"]
+  DUPCLOSURE R19 K106 [PROTO_38]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R17
+  CAPTURE VAL R12
+  SETTABLEKS R19 R16 K107 ["reportMeshPartFiltered"]
+  DUPCLOSURE R19 K108 [PROTO_39]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R17
-  SETTABLEKS R19 R16 K103 ["onIdVerificationIconClicked"]
-  DUPCLOSURE R19 K104 [PROTO_37]
+  SETTABLEKS R19 R16 K109 ["onIdVerificationIconClicked"]
+  DUPCLOSURE R19 K110 [PROTO_40]
   CAPTURE VAL R3
   CAPTURE VAL R9
   CAPTURE VAL R17
@@ -1743,69 +1876,45 @@ MAIN:
   CAPTURE VAL R12
   CAPTURE VAL R7
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K105 ["marketplaceSearch"]
-  DUPCLOSURE R19 K106 [PROTO_38]
+  SETTABLEKS R19 R16 K111 ["marketplaceSearch"]
+  DUPCLOSURE R19 K112 [PROTO_41]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R17
   CAPTURE VAL R4
   CAPTURE VAL R12
-  SETTABLEKS R19 R16 K107 ["marketplaceAutocompleteSearch"]
-  DUPCLOSURE R19 K108 [PROTO_39]
+  SETTABLEKS R19 R16 K113 ["marketplaceAutocompleteSearch"]
+  DUPCLOSURE R19 K114 [PROTO_42]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R17
-  SETTABLEKS R19 R16 K109 ["onToolboxWidgetInteraction"]
-  DUPCLOSURE R19 K110 [PROTO_40]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  SETTABLEKS R19 R16 K111 ["AnnouncementViewed"]
-  DUPCLOSURE R19 K112 [PROTO_41]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  SETTABLEKS R19 R16 K113 ["AnnouncementLinkClicked"]
-  DUPCLOSURE R19 K114 [PROTO_42]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  SETTABLEKS R19 R16 K115 ["AnnouncementClosed"]
+  SETTABLEKS R19 R16 K115 ["onToolboxWidgetInteraction"]
   DUPCLOSURE R19 K116 [PROTO_43]
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R1
-  SETTABLEKS R19 R16 K117 ["AnnouncementAcknowledged"]
+  SETTABLEKS R19 R16 K117 ["AnnouncementViewed"]
   DUPCLOSURE R19 K118 [PROTO_44]
-  CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETTABLEKS R19 R16 K119 ["AssetMediaItemsUpdated"]
-  MOVE R19 R6
-  CALL R19 0 1
-  JUMPIFNOT R19 [+6]
+  CAPTURE VAL R1
+  SETTABLEKS R19 R16 K119 ["AnnouncementLinkClicked"]
   DUPCLOSURE R19 K120 [PROTO_45]
-  CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETTABLEKS R19 R16 K121 ["MarketplaceListViewToggleClicked"]
-  MOVE R19 R6
-  CALL R19 0 1
-  JUMPIFNOT R19 [+6]
+  CAPTURE VAL R1
+  SETTABLEKS R19 R16 K121 ["AnnouncementClosed"]
   DUPCLOSURE R19 K122 [PROTO_46]
-  CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETTABLEKS R19 R16 K123 ["MarketplaceAssetRowExpanded"]
-  MOVE R19 R6
-  CALL R19 0 1
-  JUMPIFNOT R19 [+6]
+  CAPTURE VAL R1
+  SETTABLEKS R19 R16 K123 ["AnnouncementAcknowledged"]
   DUPCLOSURE R19 K124 [PROTO_47]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETTABLEKS R19 R16 K125 ["MarketplaceRecentSearchClicked"]
+  SETTABLEKS R19 R16 K125 ["AssetMediaItemsUpdated"]
   MOVE R19 R6
   CALL R19 0 1
   JUMPIFNOT R19 [+6]
@@ -1813,34 +1922,58 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R4
-  SETTABLEKS R19 R16 K127 ["MarketplaceSearchFilterOpened"]
-  MOVE R19 R10
+  SETTABLEKS R19 R16 K127 ["MarketplaceListViewToggleClicked"]
+  MOVE R19 R6
   CALL R19 0 1
-  JUMPIFNOT R19 [+32]
+  JUMPIFNOT R19 [+6]
   DUPCLOSURE R19 K128 [PROTO_49]
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLEKS R19 R16 K129 ["UGCBundleValidationEvent"]
+  CAPTURE VAL R4
+  SETTABLEKS R19 R16 K129 ["MarketplaceAssetRowExpanded"]
+  MOVE R19 R6
+  CALL R19 0 1
+  JUMPIFNOT R19 [+6]
   DUPCLOSURE R19 K130 [PROTO_50]
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLEKS R19 R16 K131 ["UGCUploadRequestOperationIdEvent"]
+  CAPTURE VAL R4
+  SETTABLEKS R19 R16 K131 ["MarketplaceRecentSearchClicked"]
+  MOVE R19 R6
+  CALL R19 0 1
+  JUMPIFNOT R19 [+6]
   DUPCLOSURE R19 K132 [PROTO_51]
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLEKS R19 R16 K133 ["UGCUploadAssetsEvent"]
+  CAPTURE VAL R4
+  SETTABLEKS R19 R16 K133 ["MarketplaceSearchFilterOpened"]
+  MOVE R19 R10
+  CALL R19 0 1
+  JUMPIFNOT R19 [+32]
   DUPCLOSURE R19 K134 [PROTO_52]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R19 R16 K135 ["UGCBundleValidationEvent"]
+  DUPCLOSURE R19 K136 [PROTO_53]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R19 R16 K137 ["UGCUploadRequestOperationIdEvent"]
+  DUPCLOSURE R19 K138 [PROTO_54]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R19 R16 K139 ["UGCUploadAssetsEvent"]
+  DUPCLOSURE R19 K140 [PROTO_55]
   CAPTURE VAL R11
   CAPTURE VAL R1
   CAPTURE VAL R12
   CAPTURE VAL R3
-  SETTABLEKS R19 R16 K135 ["UGCIndividualAssetUploadEvent"]
-  DUPCLOSURE R19 K136 [PROTO_53]
+  SETTABLEKS R19 R16 K141 ["UGCIndividualAssetUploadEvent"]
+  DUPCLOSURE R19 K142 [PROTO_56]
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLEKS R19 R16 K137 ["UGCUploadRequestBundleCreationStatusEvent"]
-  DUPCLOSURE R19 K138 [PROTO_54]
+  SETTABLEKS R19 R16 K143 ["UGCUploadRequestBundleCreationStatusEvent"]
+  DUPCLOSURE R19 K144 [PROTO_57]
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLEKS R19 R16 K139 ["UGCUploadGetBundleCreationStatusEvent"]
+  SETTABLEKS R19 R16 K145 ["UGCUploadGetBundleCreationStatusEvent"]
   RETURN R16 1

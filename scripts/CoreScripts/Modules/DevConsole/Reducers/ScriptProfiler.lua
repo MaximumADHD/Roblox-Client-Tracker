@@ -4,6 +4,8 @@ local SetScriptProfilerState = require(script.Parent.Parent.Actions.SetScriptPro
 local SetScriptProfilerRoot = require(script.Parent.Parent.Actions.SetScriptProfilerRoot)
 local ProfilerData = require(script.Parent.Parent.Components.ScriptProfiler.ProfilerDataFormatV2)
 
+local FFlagScriptProfilerSetRootFixSourceInfo = game:DefineFastFlag("ScriptProfilerSetRootFixSourceInfo", false)
+
 type SessionState = {
 	isProfiling: boolean,
 
@@ -25,7 +27,8 @@ type SessionState = {
 	searchFilterGraph: {boolean},
 	searchFilterFlat: {boolean},
 
-	rootNode: number,
+	rootNode: ProfilerData.NodeId,
+	rootFunc: ProfilerData.FunctionId,
 	rootNodeName: string?,
 
 	liveUpdate: boolean,
@@ -38,6 +41,8 @@ type SessionState = {
 	gcFunctionOffsets: {number},
 	gcNodeOffsets: {[number]: number, Total: number?},
 	pluginGCOffsets: {[number]: number, Total: number?},
+
+	expandedNodes: {},
 }
 
 export type State = {
@@ -58,21 +63,21 @@ return function(state: State?, action: {[string]: any}): State
 					timedProfilingDuration = 0, timedProfilingCountdown = 0,
 					isFunctionsView = false, average = 0, searchTerm = "",
 					searchFilterGraph = {}, searchFilterFlat = {},
-					rootNode = 0, rootNodeName = nil,
+					rootNode = 0, rootFunc = 0, rootNodeName = nil,
 					liveUpdate = false, liveUpdateThread = nil,
 					showPlugins = false, pluginOffsets = {},
 					showGC = false, gcFunctionOffsets = {}, gcNodeOffsets = {},
-					pluginGCOffsets = {}, },
+					pluginGCOffsets = {}, expandedNodes = {}, },
 		server = { isProfiling = false, data = nil, serializedData = nil, frequency = 1000,
 					timedProfilingThread = nil, timedProfilingTimerThread = nil,
 					timedProfilingDuration = 0, timedProfilingCountdown = 0,
 					isFunctionsView = false, average = 0, searchTerm = "",
 					searchFilterGraph = {}, searchFilterFlat = {},
-					rootNode = 0, rootNodeName = nil,
+					rootNode = 0, rootFunc = 0, rootNodeName = nil,
 					liveUpdate = false, liveUpdateThread = nil,
 					showPlugins = false, pluginOffsets = {},
 					showGC = false, gcFunctionOffsets = {}, gcNodeOffsets = {},
-					pluginGCOffsets = {}, },
+					pluginGCOffsets = {}, expandedNodes = {}, },
 	}
 
 	if action.type == SetScriptProfilerState.name then
@@ -91,9 +96,15 @@ return function(state: State?, action: {[string]: any}): State
 
 		if newState.rootNode ~= action.rootNode then
 			newState.rootNode = action.rootNode
+
+			if FFlagScriptProfilerSetRootFixSourceInfo then
+				newState.rootFunc = action.rootFunc
+			end
+
 			newState.rootNodeName = action.rootNodeName
 		else
 			newState.rootNode = 0
+			newState.rootFunc = 0
 			newState.rootNodeName = nil
 		end
 

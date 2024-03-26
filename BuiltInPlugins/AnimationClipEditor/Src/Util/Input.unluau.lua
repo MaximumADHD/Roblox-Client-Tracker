@@ -37,13 +37,13 @@ function var0.isDeleteKey(arg1)
 end
 
 function var0.isMultiSelectKey(arg1)
-   local var108 = var0
-   var108 = arg1
-   local var0 = var108.isShift(var108)
+   local var24 = var0
+   var24 = arg1
+   local var0 = var24.isShift(var24)
    if not var0 then
-      local var111 = var0
-      var111 = arg1
-      local var0 = var111.isControl(var111)
+      local var27 = var0
+      var27 = arg1
+      local var0 = var27.isControl(var27)
    end
    return var0
 end

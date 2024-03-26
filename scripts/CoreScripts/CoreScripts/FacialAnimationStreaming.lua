@@ -26,6 +26,7 @@ game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",fal
 game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
 game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateWhenCreatingTrack", false)
 game:DefineFastFlag("StopStreamTrackOnDeath", false)
+game:DefineFastFlag("FacialAnimationStreamingClearAllConnectionsFix", false)
 local FFlagFacialAnimationStreamingCheckPauseStateAfterEmote2 = game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateAfterEmote2", false)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
@@ -108,8 +109,14 @@ local function clearConnection(player, connectionType)
 end
 
 local function clearAllConnections(player)
-	for _,connectionType in ipairs(Connections) do
-		clearConnection(player, connectionType)
+	if game:GetFastFlag("FacialAnimationStreamingClearAllConnectionsFix") then
+		for _,connectionType in pairs(Connections) do
+			clearConnection(player, connectionType)
+		end
+	else
+		for _,connectionType in ipairs(Connections) do
+			clearConnection(player, connectionType)
+		end
 	end
 
 	playerConnections[player.UserId] = {}
@@ -392,7 +399,12 @@ local function onCharacterRemoving(player, character)
 	playerTrace("Player character removing", player)
 
 	-- clear previous connections
-	clearAllConnections(player)
+	if game:GetFastFlag("FacialAnimationStreamingClearAllConnectionsFix") then
+		clearConnection(player, Connections.CharacterDescendantAdded)
+		clearConnection(player, Connections.CharacterDescendantRemoving)
+	else
+		clearAllConnections(player)
+	end
 
 	clearCharacterAnimations(player)
 end

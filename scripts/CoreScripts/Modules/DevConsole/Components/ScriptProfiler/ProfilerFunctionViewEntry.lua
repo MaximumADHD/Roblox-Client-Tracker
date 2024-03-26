@@ -27,15 +27,15 @@ local VALUE_PADDING = Constants.ScriptProfilerFormatting.ValuePadding
 
 local MS_FORMAT = "%.3f"
 local PERCENT_FORMAT = "%.3f%%"
-local TOOLTIP_FORMAT = "%s:%s"
 
 local ROOT_LABEL = "<root>"
 local ANON_LABEL = "<anonymous>"
 
 local ProfilerFunctionViewEntry = Roact.PureComponent:extend("ProfilerFunctionViewEntry")
 
+local FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon = game:DefineFastFlag("ScriptProfilerFunctionsViewUseSourceInfoForAnon", false)
 local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
-local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead", false)
+local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)
 
 type BorderedCellLabelProps = {
     text: string,
@@ -130,7 +130,7 @@ function ProfilerFunctionViewEntry:render()
     local totalDuration = func.TotalDuration / self.props.average
 
     if FFlagScriptProfilerHideGCOverhead then
-        totalDuration -= self.props.gcOffset
+        totalDuration -= self.props.gcOffset or 0
     end
 
     local isNative = getNativeFlag(data, func)
@@ -154,21 +154,19 @@ function ProfilerFunctionViewEntry:render()
     local name = props.nodeName
     name = if not name or #name == 0 then defaultName else name
 
+    local hoverText = ProfilerUtil.getSourceLocationString(data, func, name)
+
+    if FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon and name == defaultName then
+        name = hoverText
+        hoverText = ""
+    end
+
     if FFlagScriptProfilerPluginAnnotation and isPlugin then
         name = name .. " <plugin>"
     end
 
     if isNative then
         name = name .. " <native>"
-    end
-
-    local sourceName = getSourceName(data, func)
-    sourceName = if not sourceName or #sourceName == 0 then name else sourceName
-
-    local hoverText = sourceName :: string
-    local lineNumber = getLine(data, func)
-    if lineNumber and lineNumber >= 1 then
-        hoverText = string.format(TOOLTIP_FORMAT, sourceName, tostring(lineNumber))
     end
 
     local nameWidth = UDim.new(1 - VALUE_CELL_WIDTH * #values, -offset)

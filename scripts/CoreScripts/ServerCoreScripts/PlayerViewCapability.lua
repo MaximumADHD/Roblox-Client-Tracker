@@ -5,6 +5,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
 
 local GetFFlagPlayerViewRemoteEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewRemoteEnabled)
+local GetFFlagPlayerViewValidateRequesteeEnabled =
+	require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewValidateRequesteeEnabled)
 
 local RequestDeviceCameraOrientationCapability = Instance.new("RemoteEvent")
 RequestDeviceCameraOrientationCapability.Name = "RequestDeviceCameraOrientationCapability"
@@ -29,9 +31,30 @@ if GetFFlagPlayerViewRemoteEnabled() then
 	ReplicateDeviceCameraCFrameRemoteEvent.Parent = RobloxReplicatedStorage
 
 	local requests = {}
+	local validUserIds = {}
+
+	if GetFFlagPlayerViewValidateRequesteeEnabled() then
+		Players.PlayerAdded:Connect(function(player)
+			validUserIds[tostring(player.UserId)] = true
+		end)
+
+		for _, player in pairs(Players:GetPlayers()) do
+			validUserIds[tostring(player.UserId)] = true
+		end
+
+		Players.PlayerRemoving:Connect(function(player)
+			local userId = tostring(player.UserId)
+			validUserIds[userId] = nil
+			requests[userId] = nil
+		end)
+	end
 
 	RequestDeviceCameraCFrameRemoteEvent.OnServerEvent:Connect(function(player, requesteeUserId)
 		local requesteeUserIdStr = tostring(requesteeUserId)
+
+		if GetFFlagPlayerViewValidateRequesteeEnabled() and validUserIds[requesteeUserIdStr] == nil then
+			return
+		end
 
 		if not requests[requesteeUserIdStr] then
 			requests[requesteeUserIdStr] = {}

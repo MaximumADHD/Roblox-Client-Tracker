@@ -30,6 +30,7 @@ local RobuxUpsellContainer = require(script.Parent.RobuxUpsell.RobuxUpsellContai
 local PremiumUpsellContainer = require(script.Parent.PremiumUpsell.PremiumUpsellContainer)
 local SubscriptionPurchaseContainer = require(script.Parent.SubscriptionPurchase.SubscriptionPurchaseContainer)
 
+local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
 local GetFFlagEnableStyleProviderCleanUp =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
 local DarkTheme = if GetFFlagEnableStyleProviderCleanUp()
@@ -53,7 +54,8 @@ function PurchasePromptApp:init()
 	local externalSettings = ExternalSettings.new()
 
 	self.state = {
-		store = Rodux.Store.new(Reducer, initialState, {
+		-- Remove store from state with FFlagEnableAvatarCreationFeePurchase
+		store = if not GetFFlagEnableAvatarCreationFeePurchase() then Rodux.Store.new(Reducer, initialState, {
 			Thunk.middleware({
 				[ABTest] = abTest,
 				[Network] = network,
@@ -61,7 +63,7 @@ function PurchasePromptApp:init()
 				[PlatformInterface] = platformInterface,
 				[ExternalSettings] = externalSettings,
 			}),
-		}),
+		}) else nil,
 		isTenFootInterface = externalSettings.isTenFootInterface(),
 	}
 end
@@ -82,7 +84,7 @@ end
 function PurchasePromptApp:render()
 	return provideRobloxLocale(function()
 		return Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.state.store,
+			store = if GetFFlagEnableAvatarCreationFeePurchase() then self.props.store else self.state.store,
 		}, {
 			StyleProvider = self:renderWithStyle({
 				LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {

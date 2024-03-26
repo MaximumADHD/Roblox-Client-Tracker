@@ -8,6 +8,7 @@ local RequestType = createEnum("RequestType", {
 	"Product",
 	"Premium",
 	"Subscription",
+	"AvatarCreationFee",
 })
 
 return RequestType

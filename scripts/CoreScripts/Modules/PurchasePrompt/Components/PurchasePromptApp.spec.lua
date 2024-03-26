@@ -1,3 +1,7 @@
+local Root = script.Parent.Parent
+local MockStore = require(Root.Test.MockStore)
+local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
+
 return function()
 	local Root = script.Parent.Parent
 
@@ -11,7 +15,14 @@ return function()
 		-- Remove this once MarketplaceService signature is updated with PromptPurchaseRequestedV2 event
         game:SetFastFlagForTesting("EnablePromptPurchaseRequestedV2", false)
 
-		local element = Roact.createElement(PurchasePromptApp)
+        local element
+        if GetFFlagEnableAvatarCreationFeePurchase() then
+			element = Roact.createElement(PurchasePromptApp, {
+				store = MockStore.getMockStore()
+			})
+		else
+			element = Roact.createElement(PurchasePromptApp)
+		end
 
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)

@@ -7,7 +7,7 @@ return function(arg1, arg2, arg3)
       arg1.showAttachmentSelectionDropdown()
       return "Ready"
    end
-   local var615 = var1
-   var615 = arg1
-   return var615.dispatchWorldClick(var615, arg2, arg3)
+   local var620 = var1
+   var620 = arg1
+   return var620.dispatchWorldClick(var620, arg2, arg3)
 end

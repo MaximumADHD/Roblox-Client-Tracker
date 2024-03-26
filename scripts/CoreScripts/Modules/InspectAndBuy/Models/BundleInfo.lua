@@ -26,6 +26,9 @@ local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
 local GetFFlagIBEnableRespectSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableRespectSaleLocation)
 
+local GetFFlagIBEnableFixForOwnedText = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForOwnedText)
+local GetFFlagIBEnableFixForSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForSaleLocation)
+
 local MockId = require(script.Parent.Parent.MockId)
 local BundleInfo = {}
 
@@ -114,12 +117,23 @@ function BundleInfo.fromGetAssetBundles(bundleInfo)
 					and ((saleLocation.saleLocationTypeId == Constants.SaleLocationType.ExperiencesDevApiOnly) or (saleLocation.saleLocationTypeId == Constants.SaleLocationType.ShopAndExperiencesById))
 					and type(saleLocation.universeIds) == "table"
 					and table.find(saleLocation.universeIds, game.GameId) ~= nil
-
+				local isNotDevApiOnly
+				if GetFFlagIBEnableFixForSaleLocation() then
+					isNotSpecificExperienceOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
+					isSpecificExperienceOnlyButInThisUniverse = saleLocation
+						and saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById
+						and type(saleLocation.UniverseIds) == "table"
+						and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
+					isNotDevApiOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+				end
 				-- we should respect isForSale and SaleLocation for collectibles
 				-- catalog API doesn't provide CanBeSoldInThisGame attribute for bundle
 				newBundle.isForSale = newBundle.isForSale
 					and isNotShopOnly
 					and (isNotSpecificExperienceOnly or isSpecificExperienceOnlyButInThisUniverse)
+				if GetFFlagIBEnableFixForSaleLocation() then
+					newBundle.isForSale = newBundle.isForSale and isNotDevApiOnly
+				end
 			end
 		end
 	end
@@ -147,6 +161,9 @@ function BundleInfo.fromGetItemDetails(itemDetails)
 	newBundle.bundleId = tostring(itemDetails.Id)
 	newBundle.owned = itemDetails.Owned
 	newBundle.isForSale = itemDetails.IsPurchasable
+	if GetFFlagIBEnableFixForOwnedText() then
+		newBundle.isForSale = itemDetails.IsPurchasable and not itemDetails.Owned
+	end
 	newBundle.price = itemDetails.Price or 0
 	newBundle.hasResellers = itemDetails.HasResellers
 	newBundle.collectibleItemId = itemDetails.CollectibleItemId

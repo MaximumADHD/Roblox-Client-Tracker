@@ -111,55 +111,57 @@ PROTO_7:
   FORGPREP R6
   JUMPIFNOT R4 [+4]
   GETTABLEKS R11 R10 K0 ["instanceName"]
-  JUMPIFNOTEQ R4 R11 [+78]
-  DUPTABLE R13 K9 [{"key", "codeText", "text", "instanceName", "range", "url", "scriptId", "suggestions", "statuses"}]
+  JUMPIFNOTEQ R4 R11 [+82]
+  DUPTABLE R13 K10 [{"key", "codeText", "text", "instanceName", "range", "url", "scriptId", "suggestions", "statuses", "issueType"}]
   MOVE R15 R1
-  LOADK R16 K10 ["."]
+  LOADK R16 K11 ["."]
   MOVE R17 R9
   CONCAT R14 R15 R17
   SETTABLEKS R14 R13 K1 ["key"]
-  GETTABLEKS R14 R10 K11 ["code"]
+  GETTABLEKS R14 R10 K12 ["code"]
   SETTABLEKS R14 R13 K2 ["codeText"]
-  GETTABLEKS R14 R10 K12 ["message"]
+  GETTABLEKS R14 R10 K13 ["message"]
   SETTABLEKS R14 R13 K3 ["text"]
   GETTABLEKS R14 R10 K0 ["instanceName"]
   SETTABLEKS R14 R13 K0 ["instanceName"]
   GETTABLEKS R14 R10 K4 ["range"]
   SETTABLEKS R14 R13 K4 ["range"]
-  GETTABLEKS R15 R10 K13 ["codeDescription"]
+  GETTABLEKS R15 R10 K14 ["codeDescription"]
   JUMPIFNOT R15 [+5]
-  GETTABLEKS R15 R10 K13 ["codeDescription"]
-  GETTABLEKS R14 R15 K14 ["href"]
+  GETTABLEKS R15 R10 K14 ["codeDescription"]
+  GETTABLEKS R14 R15 K15 ["href"]
   JUMP [+1]
-  LOADK R14 K15 [""]
+  LOADK R14 K16 [""]
   SETTABLEKS R14 R13 K5 ["url"]
   SETTABLEKS R1 R13 K6 ["scriptId"]
   GETTABLEKS R14 R10 K7 ["suggestions"]
   SETTABLEKS R14 R13 K7 ["suggestions"]
-  GETTABLEKS R15 R10 K16 ["severity"]
-  GETIMPORT R18 K18 [Enum]
-  GETTABLEKS R17 R18 K19 ["Severity"]
-  GETTABLEKS R16 R17 K20 ["Warning"]
+  GETTABLEKS R15 R10 K17 ["severity"]
+  GETIMPORT R18 K19 [Enum]
+  GETTABLEKS R17 R18 K20 ["Severity"]
+  GETTABLEKS R16 R17 K21 ["Warning"]
   JUMPIFNOTEQ R15 R16 [+11]
   NEWTABLE R14 1 0
   GETUPVAL R17 0
-  GETTABLEKS R16 R17 K21 ["ScriptStatus"]
-  GETTABLEKS R15 R16 K20 ["Warning"]
+  GETTABLEKS R16 R17 K22 ["ScriptStatus"]
+  GETTABLEKS R15 R16 K21 ["Warning"]
   LOADN R16 1
   SETTABLE R16 R14 R15
   JUMP [+9]
   NEWTABLE R14 1 0
   GETUPVAL R17 0
-  GETTABLEKS R16 R17 K21 ["ScriptStatus"]
-  GETTABLEKS R15 R16 K22 ["Error"]
+  GETTABLEKS R16 R17 K22 ["ScriptStatus"]
+  GETTABLEKS R15 R16 K23 ["Error"]
   LOADN R16 1
   SETTABLE R16 R14 R15
   SETTABLEKS R14 R13 K8 ["statuses"]
+  GETTABLEKS R14 R10 K9 ["issueType"]
+  SETTABLEKS R14 R13 K9 ["issueType"]
   FASTCALL2 TABLE_INSERT R5 R13 [+4]
   MOVE R12 R5
-  GETIMPORT R11 K25 [table.insert]
+  GETIMPORT R11 K26 [table.insert]
   CALL R11 2 0
-  FORGLOOP R6 2 [-83]
+  FORGLOOP R6 2 [-87]
   RETURN R5 1
 
 PROTO_8:
@@ -517,37 +519,16 @@ PROTO_19:
   RETURN R0 0
 
 PROTO_20:
-  GETTABLEKS R3 R0 K0 ["_selected"]
-  GETTABLEKS R4 R1 K1 ["key"]
-  GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+5]
-  NEWTABLE R2 0 0
-  SETTABLEKS R2 R0 K0 ["_selected"]
-  RETURN R0 0
-  NEWTABLE R2 1 0
+  GETTABLEKS R2 R0 K0 ["_selected"]
   GETTABLEKS R3 R1 K1 ["key"]
-  LOADB R4 1
+  GETTABLEKS R6 R0 K0 ["_selected"]
+  GETTABLEKS R7 R1 K1 ["key"]
+  GETTABLE R5 R6 R7
+  NOT R4 R5
   SETTABLE R4 R2 R3
-  SETTABLEKS R2 R0 K0 ["_selected"]
   RETURN R0 0
 
 PROTO_21:
-  JUMPIFNOT R2 [+7]
-  GETTABLEKS R3 R0 K0 ["_selected"]
-  GETTABLEKS R4 R1 K1 ["key"]
-  LOADB R5 1
-  SETTABLE R5 R3 R4
-  RETURN R0 0
-  GETTABLEKS R3 R0 K0 ["_selected"]
-  GETTABLEKS R4 R1 K1 ["key"]
-  GETTABLEKS R7 R0 K0 ["_selected"]
-  GETTABLEKS R8 R1 K1 ["key"]
-  GETTABLE R6 R7 R8
-  NOT R5 R6
-  SETTABLE R5 R3 R4
-  RETURN R0 0
-
-PROTO_22:
   LOADN R1 1
   GETTABLEKS R2 R0 K0 ["_selected"]
   LOADNIL R3
@@ -562,7 +543,7 @@ PROTO_22:
   LOADB R2 0
   RETURN R2 1
 
-PROTO_23:
+PROTO_22:
   GETTABLEKS R4 R0 K0 ["_selected"]
   GETTABLEKS R5 R1 K1 ["key"]
   GETTABLE R3 R4 R5
@@ -583,7 +564,7 @@ PROTO_23:
   SETTABLEKS R3 R0 K0 ["_selected"]
   RETURN R0 0
 
-PROTO_24:
+PROTO_23:
   GETTABLEKS R4 R0 K0 ["_selected"]
   GETTABLEKS R5 R1 K1 ["key"]
   GETTABLE R3 R4 R5
@@ -592,7 +573,7 @@ PROTO_24:
   LOADB R2 1
   RETURN R2 1
 
-PROTO_25:
+PROTO_24:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["goToScript"]
   GETTABLEKS R4 R1 K1 ["scriptId"]
@@ -601,34 +582,33 @@ PROTO_25:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_25:
   GETTABLEKS R3 R0 K0 ["_shiftDown"]
   JUMPIFNOT R3 [+5]
   MOVE R5 R1
   NAMECALL R3 R0 K1 ["shiftSelectItem"]
   CALL R3 2 0
-  JUMP [+20]
-  GETTABLEKS R3 R0 K2 ["_ctrlDown"]
-  JUMPIFNOT R3 [+6]
-  MOVE R5 R1
-  MOVE R6 R2
-  NAMECALL R3 R0 K3 ["controlSelectItem"]
-  CALL R3 3 0
   JUMP [+11]
   JUMPIFNOT R2 [+6]
   MOVE R5 R1
   MOVE R6 R2
-  NAMECALL R3 R0 K4 ["plainSelectItem"]
+  NAMECALL R3 R0 K2 ["plainSelectItem"]
   CALL R3 3 0
   JUMP [+4]
   MOVE R5 R1
-  NAMECALL R3 R0 K5 ["toggleSelectItem"]
+  NAMECALL R3 R0 K3 ["toggleSelectItem"]
   CALL R3 2 0
-  GETTABLEKS R3 R1 K6 ["key"]
-  SETTABLEKS R3 R0 K7 ["_previousSelected"]
-  GETTABLEKS R3 R0 K8 ["_onSelectedChanged"]
-  NAMECALL R3 R3 K9 ["Fire"]
+  GETTABLEKS R3 R1 K4 ["key"]
+  SETTABLEKS R3 R0 K5 ["_previousSelected"]
+  GETTABLEKS R3 R0 K6 ["_onSelectedChanged"]
+  NAMECALL R3 R3 K7 ["Fire"]
   CALL R3 1 0
+  RETURN R0 0
+
+PROTO_26:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["resetSelected"]
+  CALL R0 1 0
   RETURN R0 0
 
 PROTO_27:
@@ -638,12 +618,6 @@ PROTO_27:
   RETURN R0 0
 
 PROTO_28:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["resetSelected"]
-  CALL R0 1 0
-  RETURN R0 0
-
-PROTO_29:
   NEWTABLE R3 0 0
   NEWTABLE R4 0 0
   NAMECALL R5 R0 K0 ["getSelectionList"]
@@ -770,19 +744,17 @@ MAIN:
   DUPCLOSURE R10 K56 [PROTO_20]
   SETTABLEKS R10 R9 K57 ["toggleSelectItem"]
   DUPCLOSURE R10 K58 [PROTO_21]
-  SETTABLEKS R10 R9 K59 ["controlSelectItem"]
+  SETTABLEKS R10 R9 K59 ["hasMultiSelection"]
   DUPCLOSURE R10 K60 [PROTO_22]
-  SETTABLEKS R10 R9 K61 ["hasMultiSelection"]
+  SETTABLEKS R10 R9 K61 ["plainSelectItem"]
   DUPCLOSURE R10 K62 [PROTO_23]
-  SETTABLEKS R10 R9 K63 ["plainSelectItem"]
+  SETTABLEKS R10 R9 K63 ["itemIsSelected"]
   DUPCLOSURE R10 K64 [PROTO_24]
-  SETTABLEKS R10 R9 K65 ["itemIsSelected"]
-  DUPCLOSURE R10 K66 [PROTO_25]
   CAPTURE VAL R8
-  SETTABLEKS R10 R9 K67 ["onItemDoubleClicked"]
-  DUPCLOSURE R10 K68 [PROTO_26]
-  SETTABLEKS R10 R9 K69 ["onItemClicked"]
-  DUPCLOSURE R10 K70 [PROTO_29]
+  SETTABLEKS R10 R9 K65 ["onItemDoubleClicked"]
+  DUPCLOSURE R10 K66 [PROTO_25]
+  SETTABLEKS R10 R9 K67 ["onItemClicked"]
+  DUPCLOSURE R10 K68 [PROTO_28]
   CAPTURE VAL R1
-  SETTABLEKS R10 R9 K71 ["getRightClickContextInfo"]
+  SETTABLEKS R10 R9 K69 ["getRightClickContextInfo"]
   RETURN R9 1

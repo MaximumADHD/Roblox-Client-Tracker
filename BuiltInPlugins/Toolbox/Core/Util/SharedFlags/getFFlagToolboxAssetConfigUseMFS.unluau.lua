@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("ToolboxAssetConfigUseMFS", false)
+game:DefineFastFlag("ToolboxAssetConfigUseMFS2", false)
 return function()
-   return game:GetFastFlag("ToolboxAssetConfigUseMFS")
+   return game:GetFastFlag("ToolboxAssetConfigUseMFS2")
 end

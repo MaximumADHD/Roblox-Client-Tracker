@@ -6,8 +6,6 @@ local ProfilerData = require(script.Parent.ProfilerDataFormatV2)
 local ProfilerUtil = require(script.Parent.ProfilerUtil)
 
 local getDurations = ProfilerUtil.getDurations
-local getSourceName = ProfilerUtil.getSourceName
-local getLine = ProfilerUtil.getLine
 local getNativeFlag = ProfilerUtil.getNativeFlag
 local getPluginFlag = ProfilerUtil.getPluginFlag
 local standardizeChildren = ProfilerUtil.standardizeChildren
@@ -32,21 +30,21 @@ local VALUE_PADDING = Constants.ScriptProfilerFormatting.ValuePadding
 
 local MS_FORMAT = "%.3f"
 local PERCENT_FORMAT = "%.3f%%"
-local TOOLTIP_FORMAT = "%s:%s"
 
 local ROOT_LABEL = "<root>"
 local ANON_LABEL = "<anonymous>"
 
+local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes", false)
 local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
 local FFlagScriptProfilerSetTerminalRootFix = game:DefineFastFlag("ScriptProfilerSetTerminalRootFix", false)
-local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead", false)
+local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)
 
 local ProfilerViewEntryComponent = Roact.PureComponent:extend("ProfilerViewEntry")
 
 local function mapDispatchToProps(dispatch)
 	return {
-		dispatchSetScriptProfilerRoot = function(nodeId: ProfilerData.NodeId, nodeName: string?)
-			dispatch(SetScriptProfilerRoot(nodeId, nodeName))
+		dispatchSetScriptProfilerRoot = function(nodeId: ProfilerData.NodeId, funcId: ProfilerData.FunctionId, nodeName: string?)
+			dispatch(SetScriptProfilerRoot(nodeId, funcId, nodeName))
 		end,
 	}
 end
@@ -83,20 +81,9 @@ local function getNodeName(props: any): string
 
 	local func = data.Functions[functionId]
 
-	local isNative = getNativeFlag(data, func)
-	local isPlugin = getPluginFlag(data, func)
-
-	local defaultName = if depth == 0 then ROOT_LABEL else ANON_LABEL
+	local defaultName = if depth == 0 and functionId == 0 then ROOT_LABEL else ANON_LABEL
 	local name = props.nodeName
 	name = if not name or #name == 0 then defaultName else name
-
-	if FFlagScriptProfilerPluginAnnotation and isPlugin then
-		name = name .. " <plugin>"
-	end
-
-	if isNative then
-		name = name .. " <native>"
-	end
 
 	return name
 end
@@ -104,12 +91,16 @@ end
 function ProfilerViewEntryComponent:init()
 
 	self.state = {
-		expanded = self.props.depth == 0,
+		expanded = self.props.depth == 0 or (FFlagScriptProfilerRememberExpandedNodes and self.props.expandedNodes[self.props.nodeId]),
 		showTooltip = false,
 		tooltipPos = UDim2.fromOffset(0, 0)
 	}
 
 	self.onButtonPress = function ()
+		if FFlagScriptProfilerRememberExpandedNodes then
+			self.props.expandedNodes[self.props.nodeId] = not self.state.expanded
+		end
+
 		self:setState(function (_)
 			return {
 				expanded = not self.state.expanded
@@ -139,7 +130,7 @@ function ProfilerViewEntryComponent:init()
 
 
 	self.onMouse2Click = function ()
-		self.props.dispatchSetScriptProfilerRoot(self.props.nodeId, getNodeName(self.props))
+		self.props.dispatchSetScriptProfilerRoot(self.props.nodeId, self.props.functionId, getNodeName(self.props))
 	end
 end
 
@@ -155,6 +146,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 		local showPlugins = self.props.showPlugins
 		local showGC = self.props.showGC
 		local gcNodeOffsets = self.props.gcNodeOffsets
+		local expandedNodes = self.props.expandedNodes
 
 		local rootData = self.props.data :: ProfilerData.RootDataFormat
 		local gcFuncId = rootData.GCFuncId
@@ -192,6 +184,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 					showPlugins = showPlugins,
 					showGC = showGC,
 					gcNodeOffsets = gcNodeOffsets,
+					expandedNodes = expandedNodes,
 				})
 			end
 		elseif (FFlagScriptProfilerSetTerminalRootFix and self.props.nodeId == 0) or (not FFlagScriptProfilerSetTerminalRootFix and self.props.depth == 0) then
@@ -234,6 +227,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 					pluginGCOffset = pluginGCOffset,
 					showGC = showGC,
 					gcNodeOffsets = gcNodeOffsets,
+					expandedNodes = expandedNodes,
 				})
 			end
 		end
@@ -327,13 +321,17 @@ function ProfilerViewEntryComponent:render()
 
 	local name = getNodeName(props)
 
-	local sourceName = getSourceName(data, func)
-	sourceName = if not sourceName or #sourceName == 0 then name else sourceName
+	local hoverText = ProfilerUtil.getSourceLocationString(data, func, name)
+      
+	local isNative = getNativeFlag(data, func)
+	local isPlugin = getPluginFlag(data, func)
 
-	local hoverText = sourceName :: string
-	local lineNumber = getLine(data, func)
-	if lineNumber and lineNumber >= 1 then
-		hoverText = string.format(TOOLTIP_FORMAT, sourceName, tostring(lineNumber))
+	if FFlagScriptProfilerPluginAnnotation and isPlugin then
+		name = name .. " <plugin>"
+	end
+
+	if isNative then
+		name = name .. " <native>"
 	end
 
 	local nameWidth = UDim.new(1 - VALUE_CELL_WIDTH * #values, -offset)

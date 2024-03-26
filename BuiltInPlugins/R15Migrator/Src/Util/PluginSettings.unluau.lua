@@ -28,9 +28,9 @@ function var1.setSetting(arg1, arg2, arg3, arg4)
       if arg3 == 0 then
       end
    end
-   local var35 = tostring(arg3)
-   var35 = arg4
-   arg2:SetSetting(var35 ... arg1.settingName, var35)
+   local var38 = tostring(arg3)
+   var38 = arg4
+   arg2:SetSetting(var38 ... arg1.settingName, var38)
 end
 
 var0.InitiallyEnabled = var1.new("_initially_enabled")

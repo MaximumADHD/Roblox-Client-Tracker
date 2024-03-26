@@ -320,7 +320,7 @@ PROTO_18:
   GETTABLEKS R5 R6 K6 ["FLOW_TYPE"]
   GETTABLEKS R4 R5 K13 ["EDIT_FLOW"]
   GETTABLEKS R5 R1 K8 ["screenFlowType"]
-  JUMPIFNOTEQ R4 R5 [+136]
+  JUMPIFNOTEQ R4 R5 [+150]
   GETUPVAL R5 7
   GETTABLEKS R4 R5 K14 ["isCatalogAsset"]
   GETTABLEKS R5 R1 K15 ["assetTypeEnum"]
@@ -359,13 +359,13 @@ PROTO_18:
   GETTABLEKS R4 R5 K32 ["isMarketplaceAsset"]
   GETTABLEKS R5 R1 K15 ["assetTypeEnum"]
   CALL R4 1 1
-  JUMPIFNOT R4 [+470]
+  JUMPIFNOT R4 [+507]
   GETTABLEKS R4 R2 K33 ["copyOn"]
   GETTABLEKS R5 R2 K34 ["copyChanged"]
   JUMPIF R5 [+1]
   LOADNIL R4
   GETTABLEKS R5 R1 K35 ["configureMarketplaceItem"]
-  DUPTABLE R6 K44 [{"networkInterface", "assetId", "assetMediaUpdateData", "assetTypeEnum", "name", "description", "genres", "commentOn", "copyOn", "saleStatus", "fromPrice", "price", "iconFile", "isAssetPublic", "isConvertMarketplaceModelsToPackageEnabled"}]
+  DUPTABLE R6 K45 [{"networkInterface", "assetId", "assetMediaUpdateData", "assetTypeEnum", "name", "description", "genres", "commentOn", "copyOn", "saleStatus", "fromPrice", "price", "iconFile", "isAssetPublic", "isConvertMarketplaceModelsToPackageEnabled", "basePrice"}]
   GETTABLEKS R8 R1 K19 ["Network"]
   GETTABLEKS R7 R8 K20 ["networkInterface"]
   SETTABLEKS R7 R6 K20 ["networkInterface"]
@@ -397,30 +397,40 @@ PROTO_18:
   GETTABLEKS R7 R2 K42 ["isAssetPublic"]
   SETTABLEKS R7 R6 K42 ["isAssetPublic"]
   SETTABLEKS R3 R6 K43 ["isConvertMarketplaceModelsToPackageEnabled"]
+  GETUPVAL R8 8
+  CALL R8 0 1
+  JUMPIFNOT R8 [+8]
+  GETTABLEKS R8 R1 K46 ["fiatProduct"]
+  JUMPIFNOT R8 [+5]
+  GETTABLEKS R8 R1 K46 ["fiatProduct"]
+  GETTABLEKS R7 R8 K44 ["basePrice"]
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K44 ["basePrice"]
   CALL R5 1 0
   RETURN R0 0
   GETUPVAL R6 4
   GETTABLEKS R5 R6 K6 ["FLOW_TYPE"]
-  GETTABLEKS R4 R5 K45 ["UPLOAD_FLOW"]
+  GETTABLEKS R4 R5 K47 ["UPLOAD_FLOW"]
   GETTABLEKS R5 R1 K8 ["screenFlowType"]
-  JUMPIFNOTEQ R4 R5 [+390]
+  JUMPIFNOTEQ R4 R5 [+413]
   GETTABLEKS R4 R1 K15 ["assetTypeEnum"]
-  GETIMPORT R5 K49 [Enum.AssetType.Animation]
-  JUMPIFNOTEQ R4 R5 [+51]
-  GETUPVAL R4 8
-  GETTABLEKS R6 R1 K50 ["currentTab"]
-  NAMECALL R4 R4 K51 ["isOverride"]
+  GETIMPORT R5 K51 [Enum.AssetType.Animation]
+  JUMPIFNOTEQ R4 R5 [+60]
+  GETUPVAL R4 9
+  GETTABLEKS R6 R1 K52 ["currentTab"]
+  NAMECALL R4 R4 K53 ["isOverride"]
   CALL R4 2 1
   JUMPIFNOT R4 [+12]
-  GETTABLEKS R4 R1 K52 ["overrideAnimationAsset"]
+  GETTABLEKS R4 R1 K54 ["overrideAnimationAsset"]
   GETTABLEKS R6 R1 K19 ["Network"]
   GETTABLEKS R5 R6 K20 ["networkInterface"]
   GETTABLEKS R6 R2 K10 ["overrideAssetId"]
-  GETTABLEKS R7 R1 K53 ["instances"]
+  GETTABLEKS R7 R1 K55 ["instances"]
   CALL R4 3 0
   RETURN R0 0
-  GETTABLEKS R4 R1 K54 ["uploadAnimationAsset"]
-  DUPTABLE R5 K57 [{"networkInterface", "assetId", "name", "description", "groupId", "instance"}]
+  GETTABLEKS R4 R1 K56 ["uploadAnimationAsset"]
+  DUPTABLE R5 K60 [{"networkInterface", "assetId", "name", "description", "userId", "groupId", "instance"}]
   GETTABLEKS R7 R1 K19 ["Network"]
   GETTABLEKS R6 R7 K20 ["networkInterface"]
   SETTABLEKS R6 R5 K20 ["networkInterface"]
@@ -431,10 +441,18 @@ PROTO_18:
   GETTABLEKS R7 R2 K23 ["description"]
   ORK R6 R7 K9 [""]
   SETTABLEKS R6 R5 K23 ["description"]
-  GETTABLEKS R6 R2 K55 ["groupId"]
-  SETTABLEKS R6 R5 K55 ["groupId"]
-  GETTABLEKS R6 R1 K53 ["instances"]
-  SETTABLEKS R6 R5 K56 ["instance"]
+  GETUPVAL R7 10
+  CALL R7 0 1
+  JUMPIFNOT R7 [+3]
+  GETUPVAL R6 11
+  CALL R6 0 1
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K57 ["userId"]
+  GETTABLEKS R6 R2 K58 ["groupId"]
+  SETTABLEKS R6 R5 K58 ["groupId"]
+  GETTABLEKS R6 R1 K55 ["instances"]
+  SETTABLEKS R6 R5 K59 ["instance"]
   CALL R4 1 0
   RETURN R0 0
   GETUPVAL R5 7
@@ -442,25 +460,25 @@ PROTO_18:
   GETTABLEKS R5 R1 K15 ["assetTypeEnum"]
   CALL R4 1 1
   JUMPIFNOT R4 [+133]
-  GETTABLEKS R4 R1 K58 ["isUploadFeeEnabled"]
+  GETTABLEKS R4 R1 K61 ["isUploadFeeEnabled"]
   JUMPIFNOT R4 [+69]
-  GETTABLEKS R4 R1 K59 ["uploadCatalogItemWithFee"]
+  GETTABLEKS R4 R1 K62 ["uploadCatalogItemWithFee"]
   GETTABLEKS R6 R1 K19 ["Network"]
   GETTABLEKS R5 R6 K20 ["networkInterface"]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K2 ["state"]
   GETTABLEKS R6 R7 K22 ["name"]
-  GETTABLEKS R8 R1 K60 ["allowedAssetTypesForUpload"]
+  GETTABLEKS R8 R1 K63 ["allowedAssetTypesForUpload"]
   GETTABLEKS R9 R1 K15 ["assetTypeEnum"]
   MOVE R10 R8
   JUMPIFNOT R10 [+5]
   MOVE R10 R9
   JUMPIFNOT R10 [+3]
-  GETTABLEKS R11 R9 K61 ["Name"]
+  GETTABLEKS R11 R9 K64 ["Name"]
   GETTABLE R10 R8 R11
   MOVE R11 R10
   JUMPIFNOT R11 [+2]
-  GETTABLEKS R11 R10 K62 ["allowedFileExtensions"]
+  GETTABLEKS R11 R10 K65 ["allowedFileExtensions"]
   MOVE R12 R11
   JUMPIFNOT R12 [+6]
   LOADB R12 0
@@ -469,48 +487,48 @@ PROTO_18:
   JUMPIFNOTLT R14 R13 [+2]
   GETTABLEN R12 R11 1
   JUMPIFNOT R12 [+8]
-  GETIMPORT R13 K65 [string.gsub]
+  GETIMPORT R13 K68 [string.gsub]
   MOVE R14 R12
-  LOADK R15 K66 ["^%."]
+  LOADK R15 K69 ["^%."]
   LOADK R16 K9 [""]
   CALL R13 3 1
   MOVE R7 R13
   JUMPIF R7 [+1]
-  LOADK R7 K67 ["rbxm"]
+  LOADK R7 K70 ["rbxm"]
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K2 ["state"]
   GETTABLEKS R9 R10 K23 ["description"]
   ORK R8 R9 K9 [""]
   GETTABLEKS R9 R1 K15 ["assetTypeEnum"]
-  GETTABLEKS R10 R1 K53 ["instances"]
+  GETTABLEKS R10 R1 K55 ["instances"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K2 ["state"]
   GETTABLEKS R11 R12 K28 ["tags"]
-  GETTABLEKS R12 R2 K55 ["groupId"]
-  GETUPVAL R14 9
+  GETTABLEKS R12 R2 K58 ["groupId"]
+  GETUPVAL R14 12
   JUMPIFNOT R14 [+3]
-  GETTABLEKS R13 R1 K68 ["uploadFee"]
+  GETTABLEKS R13 R1 K71 ["uploadFee"]
   JUMP [+1]
   LOADNIL R13
   CALL R4 9 0
   RETURN R0 0
-  GETTABLEKS R4 R1 K69 ["uploadCatalogItem"]
+  GETTABLEKS R4 R1 K72 ["uploadCatalogItem"]
   GETTABLEKS R6 R1 K19 ["Network"]
   GETTABLEKS R5 R6 K20 ["networkInterface"]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K2 ["state"]
   GETTABLEKS R6 R7 K22 ["name"]
-  GETTABLEKS R8 R1 K60 ["allowedAssetTypesForUpload"]
+  GETTABLEKS R8 R1 K63 ["allowedAssetTypesForUpload"]
   GETTABLEKS R9 R1 K15 ["assetTypeEnum"]
   MOVE R10 R8
   JUMPIFNOT R10 [+5]
   MOVE R10 R9
   JUMPIFNOT R10 [+3]
-  GETTABLEKS R11 R9 K61 ["Name"]
+  GETTABLEKS R11 R9 K64 ["Name"]
   GETTABLE R10 R8 R11
   MOVE R11 R10
   JUMPIFNOT R11 [+2]
-  GETTABLEKS R11 R10 K62 ["allowedFileExtensions"]
+  GETTABLEKS R11 R10 K65 ["allowedFileExtensions"]
   MOVE R12 R11
   JUMPIFNOT R12 [+6]
   LOADB R12 0
@@ -519,65 +537,65 @@ PROTO_18:
   JUMPIFNOTLT R14 R13 [+2]
   GETTABLEN R12 R11 1
   JUMPIFNOT R12 [+8]
-  GETIMPORT R13 K65 [string.gsub]
+  GETIMPORT R13 K68 [string.gsub]
   MOVE R14 R12
-  LOADK R15 K66 ["^%."]
+  LOADK R15 K69 ["^%."]
   LOADK R16 K9 [""]
   CALL R13 3 1
   MOVE R7 R13
   JUMPIF R7 [+1]
-  LOADK R7 K67 ["rbxm"]
+  LOADK R7 K70 ["rbxm"]
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K2 ["state"]
   GETTABLEKS R9 R10 K23 ["description"]
   ORK R8 R9 K9 [""]
   GETTABLEKS R9 R1 K15 ["assetTypeEnum"]
-  GETTABLEKS R10 R1 K53 ["instances"]
+  GETTABLEKS R10 R1 K55 ["instances"]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K2 ["state"]
   GETTABLEKS R11 R12 K28 ["tags"]
   CALL R4 7 0
   RETURN R0 0
-  GETUPVAL R4 10
+  GETUPVAL R4 13
   CALL R4 0 1
   JUMPIFNOT R4 [+62]
   GETUPVAL R5 7
-  GETTABLEKS R4 R5 K70 ["isUGCBundleType"]
+  GETTABLEKS R4 R5 K73 ["isUGCBundleType"]
   GETTABLEKS R5 R1 K15 ["assetTypeEnum"]
   CALL R4 1 1
   JUMPIFNOT R4 [+55]
   LOADNIL R4
-  GETUPVAL R5 11
+  GETUPVAL R5 14
   CALL R5 0 1
   JUMPIFNOT R5 [+16]
-  GETTABLEKS R5 R2 K71 ["dataSharingChecked"]
+  GETTABLEKS R5 R2 K74 ["dataSharingChecked"]
   JUMPIFNOT R5 [+11]
   NEWTABLE R5 0 1
-  GETUPVAL R8 12
-  GETTABLEKS R7 R8 K72 ["DataSharingLicenseTypes"]
-  GETTABLEKS R6 R7 K73 ["Roblox"]
+  GETUPVAL R8 15
+  GETTABLEKS R7 R8 K75 ["DataSharingLicenseTypes"]
+  GETTABLEKS R6 R7 K76 ["Roblox"]
   SETLIST R5 R6 1 [1]
   MOVE R4 R5
   JUMP [+2]
   NEWTABLE R4 0 0
-  GETTABLEKS R5 R1 K74 ["uploadUGCBundleWithFee"]
+  GETTABLEKS R5 R1 K77 ["uploadUGCBundleWithFee"]
   GETTABLEKS R7 R1 K19 ["Network"]
   GETTABLEKS R6 R7 K20 ["networkInterface"]
-  GETTABLEKS R8 R1 K53 ["instances"]
+  GETTABLEKS R8 R1 K55 ["instances"]
   GETTABLEN R7 R8 1
   GETTABLEKS R8 R1 K15 ["assetTypeEnum"]
   GETTABLEKS R9 R2 K22 ["name"]
   GETTABLEKS R11 R2 K23 ["description"]
   ORK R10 R11 K9 [""]
-  GETTABLEKS R11 R1 K75 ["allowedBundleTypeSettings"]
-  GETTABLEKS R12 R1 K76 ["Localization"]
-  GETUPVAL R14 13
+  GETTABLEKS R11 R1 K78 ["allowedBundleTypeSettings"]
+  GETTABLEKS R12 R1 K79 ["Localization"]
+  GETUPVAL R14 16
   CALL R14 0 1
   JUMPIFNOT R14 [+3]
-  GETTABLEKS R13 R1 K68 ["uploadFee"]
+  GETTABLEKS R13 R1 K71 ["uploadFee"]
   JUMP [+1]
   LOADNIL R13
-  GETUPVAL R15 11
+  GETUPVAL R15 14
   CALL R15 0 1
   JUMPIFNOT R15 [+2]
   MOVE R14 R4
@@ -590,30 +608,30 @@ PROTO_18:
   GETTABLEKS R5 R1 K15 ["assetTypeEnum"]
   CALL R4 1 1
   JUMPIFNOT R4 [+23]
-  GETUPVAL R4 8
-  GETTABLEKS R6 R1 K50 ["currentTab"]
-  NAMECALL R4 R4 K51 ["isOverride"]
+  GETUPVAL R4 9
+  GETTABLEKS R6 R1 K52 ["currentTab"]
+  NAMECALL R4 R4 K53 ["isOverride"]
   CALL R4 2 1
   JUMPIFNOT R4 [+16]
-  GETTABLEKS R4 R1 K77 ["overrideAsset"]
+  GETTABLEKS R4 R1 K80 ["overrideAsset"]
   GETTABLEKS R6 R1 K19 ["Network"]
   GETTABLEKS R5 R6 K20 ["networkInterface"]
   GETTABLEKS R6 R2 K10 ["overrideAssetId"]
   GETTABLEKS R8 R1 K15 ["assetTypeEnum"]
-  GETTABLEKS R7 R8 K61 ["Name"]
-  GETTABLEKS R8 R1 K53 ["instances"]
+  GETTABLEKS R7 R8 K64 ["Name"]
+  GETTABLEKS R8 R1 K55 ["instances"]
   CALL R4 4 0
   RETURN R0 0
   GETTABLEKS R5 R2 K37 ["genres"]
   JUMPIF R5 [+2]
   NEWTABLE R5 0 0
   GETTABLEN R4 R5 1
-  GETIMPORT R8 K80 [Enum.Genre]
+  GETIMPORT R8 K83 [Enum.Genre]
   GETTABLE R7 R8 R4
-  GETTABLEKS R6 R7 K81 ["Value"]
-  ADDK R5 R6 K78 [1]
-  GETTABLEKS R6 R1 K82 ["uploadMarketplaceItem"]
-  DUPTABLE R7 K87 [{"networkInterface", "assetId", "assetTypeEnum", "name", "description", "genreTypeId", "copyOn", "commentOn", "packageOn", "groupId", "instances", "isMarketplaceModelsAsPackagesEnabled", "sourceInstances", "saleStatus", "price", "iconFile", "assetMediaUpdateData"}]
+  GETTABLEKS R6 R7 K84 ["Value"]
+  ADDK R5 R6 K81 [1]
+  GETTABLEKS R6 R1 K85 ["uploadMarketplaceItem"]
+  DUPTABLE R7 K90 [{"networkInterface", "assetId", "assetTypeEnum", "name", "description", "genreTypeId", "copyOn", "commentOn", "packageOn", "groupId", "instances", "isMarketplaceModelsAsPackagesEnabled", "sourceInstances", "saleStatus", "price", "iconFile", "assetMediaUpdateData", "basePrice"}]
   GETTABLEKS R9 R1 K19 ["Network"]
   GETTABLEKS R8 R9 K20 ["networkInterface"]
   SETTABLEKS R8 R7 K20 ["networkInterface"]
@@ -626,35 +644,35 @@ PROTO_18:
   GETTABLEKS R9 R2 K23 ["description"]
   ORK R8 R9 K9 [""]
   SETTABLEKS R8 R7 K23 ["description"]
-  SETTABLEKS R5 R7 K83 ["genreTypeId"]
+  SETTABLEKS R5 R7 K86 ["genreTypeId"]
   GETTABLEKS R8 R2 K33 ["copyOn"]
   SETTABLEKS R8 R7 K33 ["copyOn"]
   GETTABLEKS R8 R2 K38 ["commentOn"]
   SETTABLEKS R8 R7 K38 ["commentOn"]
-  GETUPVAL R9 14
+  GETUPVAL R9 17
   JUMPIFNOT R9 [+6]
-  GETTABLEKS R9 R2 K88 ["isPackageAsset"]
+  GETTABLEKS R9 R2 K91 ["isPackageAsset"]
   JUMPIF R9 [+3]
-  GETTABLEKS R8 R2 K84 ["packageOn"]
+  GETTABLEKS R8 R2 K87 ["packageOn"]
   JUMP [+1]
   LOADB R8 0
-  SETTABLEKS R8 R7 K84 ["packageOn"]
-  GETTABLEKS R8 R2 K55 ["groupId"]
-  SETTABLEKS R8 R7 K55 ["groupId"]
-  GETTABLEKS R8 R1 K53 ["instances"]
-  SETTABLEKS R8 R7 K53 ["instances"]
+  SETTABLEKS R8 R7 K87 ["packageOn"]
+  GETTABLEKS R8 R2 K58 ["groupId"]
+  SETTABLEKS R8 R7 K58 ["groupId"]
+  GETTABLEKS R8 R1 K55 ["instances"]
+  SETTABLEKS R8 R7 K55 ["instances"]
   JUMPIFNOT R3 [+2]
   LOADB R8 1
   JUMP [+1]
   LOADNIL R8
-  SETTABLEKS R8 R7 K85 ["isMarketplaceModelsAsPackagesEnabled"]
-  GETUPVAL R9 14
+  SETTABLEKS R8 R7 K88 ["isMarketplaceModelsAsPackagesEnabled"]
+  GETUPVAL R9 17
   JUMPIF R9 [+1]
   JUMPIFNOT R3 [+3]
-  GETTABLEKS R8 R1 K86 ["sourceInstances"]
+  GETTABLEKS R8 R1 K89 ["sourceInstances"]
   JUMP [+1]
   LOADNIL R8
-  SETTABLEKS R8 R7 K86 ["sourceInstances"]
+  SETTABLEKS R8 R7 K89 ["sourceInstances"]
   GETTABLEKS R8 R2 K24 ["status"]
   SETTABLEKS R8 R7 K39 ["saleStatus"]
   GETTABLEKS R8 R2 K26 ["price"]
@@ -663,6 +681,16 @@ PROTO_18:
   SETTABLEKS R8 R7 K41 ["iconFile"]
   GETTABLEKS R8 R2 K36 ["assetMediaUpdateData"]
   SETTABLEKS R8 R7 K36 ["assetMediaUpdateData"]
+  GETUPVAL R9 8
+  CALL R9 0 1
+  JUMPIFNOT R9 [+8]
+  GETTABLEKS R9 R1 K46 ["fiatProduct"]
+  JUMPIFNOT R9 [+5]
+  GETTABLEKS R9 R1 K46 ["fiatProduct"]
+  GETTABLEKS R8 R9 K44 ["basePrice"]
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K44 ["basePrice"]
   CALL R6 1 0
   RETURN R0 0
 
@@ -784,13 +812,16 @@ PROTO_21:
   CAPTURE UPVAL U11
   CAPTURE UPVAL U12
   CAPTURE UPVAL U13
-  NEWCLOSURE R2 P1
-  CAPTURE UPVAL U0
   CAPTURE UPVAL U14
   CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U17
+  CAPTURE UPVAL U18
   NEWCLOSURE R3 P2
   CAPTURE UPVAL U0
-  CAPTURE UPVAL U14
+  CAPTURE UPVAL U17
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["props"]
   GETTABLEKS R4 R5 K1 ["changeTable"]
@@ -802,7 +833,7 @@ PROTO_21:
   JUMPIFNOTEQKNIL R6 [+2]
   LOADB R5 0 +1
   LOADB R5 1
-  GETUPVAL R6 9
+  GETUPVAL R6 12
   CALL R6 0 1
   JUMPIFNOT R6 [+6]
   GETUPVAL R8 0
@@ -824,7 +855,7 @@ PROTO_21:
   GETTABLEKS R6 R7 K6 ["assetConfigData"]
   GETTABLEKS R7 R6 K7 ["Id"]
   LOADNIL R8
-  GETUPVAL R9 14
+  GETUPVAL R9 17
   CALL R9 0 1
   JUMPIFNOT R9 [+8]
   GETTABLEKS R9 R4 K8 ["VersionItemSelect"]
@@ -920,27 +951,44 @@ PROTO_26:
   RETURN R0 0
 
 PROTO_27:
-  JUMPIFNOTEQKS R1 K0 ["yes"] [+23]
-  GETUPVAL R4 0
+  JUMPIFNOTEQKS R1 K0 ["yes"] [+48]
+  GETUPVAL R2 0
+  JUMPIFNOT R2 [+23]
+  GETUPVAL R4 1
   GETTABLEKS R3 R4 K1 ["props"]
-  GETTABLEKS R2 R3 K2 ["Focus"]
-  NAMECALL R2 R2 K3 ["get"]
+  GETTABLEKS R2 R3 K2 ["changeTable"]
+  JUMPIFNOT R2 [+17]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["props"]
+  GETTABLEKS R3 R4 K2 ["changeTable"]
+  GETTABLEKS R2 R3 K3 ["VersionDescriptionSave"]
+  JUMPIFNOT R2 [+9]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K4 ["onPackageNoteCanceled"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["props"]
+  GETTABLEKS R3 R4 K5 ["assetId"]
+  CALL R2 1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["props"]
+  GETTABLEKS R2 R3 K6 ["Focus"]
+  NAMECALL R2 R2 K7 ["get"]
   CALL R2 1 1
   LOADB R3 0
-  SETTABLEKS R3 R2 K4 ["Enabled"]
-  GETIMPORT R3 K6 [game]
-  LOADK R5 K7 ["StudioAssetService"]
-  NAMECALL R3 R3 K8 ["GetService"]
+  SETTABLEKS R3 R2 K8 ["Enabled"]
+  GETIMPORT R3 K10 [game]
+  LOADK R5 K11 ["StudioAssetService"]
+  NAMECALL R3 R3 K12 ["GetService"]
   CALL R3 2 1
   LOADB R5 1
-  NAMECALL R3 R3 K9 ["FireOnUGCSubmitCompleted"]
+  NAMECALL R3 R3 K13 ["FireOnUGCSubmitCompleted"]
   CALL R3 2 0
   RETURN R0 0
-  GETUPVAL R2 0
-  DUPTABLE R4 K11 [{"isShowChangeDiscardMessageBox"}]
+  GETUPVAL R2 1
+  DUPTABLE R4 K15 [{"isShowChangeDiscardMessageBox"}]
   LOADB R5 0
-  SETTABLEKS R5 R4 K10 ["isShowChangeDiscardMessageBox"]
-  NAMECALL R2 R2 K12 ["setState"]
+  SETTABLEKS R5 R4 K14 ["isShowChangeDiscardMessageBox"]
+  NAMECALL R2 R2 K16 ["setState"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -1238,17 +1286,37 @@ PROTO_39:
   SETTABLEKS R2 R5 K1 ["status"]
   NAMECALL R3 R3 K14 ["setState"]
   CALL R3 2 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["props"]
-  GETTABLEKS R3 R4 K15 ["makeChangeRequest"]
-  LOADK R4 K16 ["AssetConfigCopy"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K5 ["props"]
-  GETTABLEKS R7 R8 K18 ["assetConfigData"]
-  GETTABLEKS R6 R7 K19 ["IsCopyingAllowed"]
-  ORK R5 R6 K17 [False]
-  MOVE R6 R0
-  CALL R3 3 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["props"]
+  GETTABLEKS R5 R6 K16 ["assetConfigData"]
+  GETTABLEKS R4 R5 K17 ["IsCopyingAllowed"]
+  ORK R3 R4 K15 [False]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["props"]
+  GETTABLEKS R4 R5 K18 ["fiatProduct"]
+  JUMPIFNOT R4 [+22]
+  GETUPVAL R4 5
+  CALL R4 0 1
+  JUMPIFNOT R4 [+9]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["props"]
+  GETTABLEKS R4 R5 K6 ["assetTypeEnum"]
+  GETIMPORT R5 K22 [Enum.AssetType.Plugin]
+  JUMPIFNOTEQ R4 R5 [+4]
+  GETUPVAL R4 6
+  CALL R4 0 1
+  JUMPIFNOT R4 [+7]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["props"]
+  GETTABLEKS R4 R5 K18 ["fiatProduct"]
+  GETTABLEKS R3 R4 K23 ["purchasable"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["props"]
+  GETTABLEKS R4 R5 K24 ["makeChangeRequest"]
+  LOADK R5 K25 ["AssetConfigCopy"]
+  MOVE R6 R3
+  MOVE R7 R0
+  CALL R4 3 0
   RETURN R0 0
 
 PROTO_40:
@@ -1296,6 +1364,39 @@ PROTO_43:
   JUMPIFNOTEQ R3 R0 [+3]
   JUMPIFNOTEQKNIL R3 [+2]
   MOVE R4 R0
+  GETUPVAL R5 1
+  JUMPIFNOT R5 [+46]
+  JUMPIFNOT R2 [+45]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["state"]
+  GETTABLEKS R5 R6 K2 ["versionsRootItems"]
+  JUMPIFNOT R5 [+39]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["state"]
+  GETTABLEKS R6 R7 K2 ["versionsRootItems"]
+  GETTABLE R5 R6 R3
+  JUMPIFNOT R5 [+32]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["state"]
+  GETTABLEKS R7 R8 K2 ["versionsRootItems"]
+  GETTABLE R6 R7 R3
+  GETTABLEKS R5 R6 K3 ["descriptionColumn"]
+  JUMPIFNOT R5 [+23]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["state"]
+  GETTABLEKS R8 R9 K2 ["versionsRootItems"]
+  GETTABLE R7 R8 R3
+  GETTABLEKS R6 R7 K3 ["descriptionColumn"]
+  GETTABLEKS R5 R6 K4 ["versionDescription"]
+  JUMPIFEQ R1 R5 [+12]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K5 ["onPackageNoteDiscarded"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["props"]
+  GETTABLEKS R6 R7 K7 ["assetId"]
+  MOVE R7 R3
+  MOVE R8 R1
+  CALL R5 3 0
   JUMPIF R2 [+27]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K0 ["state"]
@@ -1310,7 +1411,7 @@ PROTO_43:
   GETTABLEKS R5 R6 K4 ["versionDescription"]
   JUMPIFEQ R1 R5 [+9]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["versionsSaveInput"]
+  GETTABLEKS R5 R6 K8 ["versionsSaveInput"]
   MOVE R6 R1
   MOVE R7 R3
   MOVE R8 R4
@@ -1318,9 +1419,9 @@ PROTO_43:
   RETURN R0 0
   JUMPIFNOT R4 [+7]
   GETUPVAL R5 0
-  DUPTABLE R7 K6 [{"versionsOpenInputKey"}]
+  DUPTABLE R7 K9 [{"versionsOpenInputKey"}]
   SETTABLEKS R4 R7 K1 ["versionsOpenInputKey"]
-  NAMECALL R5 R5 K7 ["setState"]
+  NAMECALL R5 R5 K10 ["setState"]
   CALL R5 2 0
   RETURN R0 0
 
@@ -1986,10 +2087,13 @@ PROTO_62:
   CAPTURE UPVAL U4
   CAPTURE UPVAL U12
   CAPTURE UPVAL U13
-  CAPTURE UPVAL U1
   CAPTURE UPVAL U14
-  CAPTURE UPVAL U3
   CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U17
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U18
   CAPTURE UPVAL U0
   CAPTURE UPVAL U2
   CAPTURE VAL R1
@@ -2007,7 +2111,9 @@ PROTO_62:
   CAPTURE VAL R0
   SETTABLEKS R2 R0 K74 ["onMessageBoxClosed"]
   NEWCLOSURE R2 P13
+  CAPTURE UPVAL U19
   CAPTURE VAL R0
+  CAPTURE UPVAL U20
   SETTABLEKS R2 R0 K75 ["tryCloseAssetConfig"]
   NEWCLOSURE R2 P14
   CAPTURE VAL R0
@@ -2019,7 +2125,7 @@ PROTO_62:
   SETTABLEKS R3 R0 K77 ["onDescChange"]
   NEWCLOSURE R3 P17
   CAPTURE VAL R0
-  CAPTURE UPVAL U16
+  CAPTURE UPVAL U21
   SETTABLEKS R3 R0 K78 ["onTagsChange"]
   NEWCLOSURE R3 P18
   CAPTURE VAL R0
@@ -2027,7 +2133,7 @@ PROTO_62:
   NEWCLOSURE R3 P19
   CAPTURE VAL R0
   SETTABLEKS R3 R0 K80 ["onPriceChange"]
-  GETUPVAL R3 17
+  GETUPVAL R3 22
   CALL R3 0 1
   JUMPIFNOT R3 [+4]
   NEWCLOSURE R3 P20
@@ -2035,15 +2141,15 @@ PROTO_62:
   SETTABLEKS R3 R0 K81 ["onCategoryChange"]
   NEWCLOSURE R3 P21
   CAPTURE VAL R0
-  CAPTURE UPVAL U18
-  CAPTURE UPVAL U19
+  CAPTURE UPVAL U23
+  CAPTURE UPVAL U24
   SETTABLEKS R3 R0 K82 ["onAccessChange"]
   NEWCLOSURE R3 P22
   CAPTURE VAL R0
   CAPTURE UPVAL U4
-  CAPTURE UPVAL U18
+  CAPTURE UPVAL U23
   SETTABLEKS R3 R0 K83 ["onGenreChange"]
-  GETUPVAL R3 14
+  GETUPVAL R3 17
   CALL R3 0 1
   JUMPIFNOT R3 [+4]
   NEWCLOSURE R3 P23
@@ -2051,10 +2157,12 @@ PROTO_62:
   SETTABLEKS R3 R0 K84 ["onDataConsentCheckboxClick"]
   NEWCLOSURE R3 P24
   CAPTURE VAL R0
-  CAPTURE UPVAL U20
+  CAPTURE UPVAL U25
   CAPTURE UPVAL U5
   CAPTURE UPVAL U4
   CAPTURE UPVAL U0
+  CAPTURE UPVAL U12
+  CAPTURE UPVAL U26
   SETTABLEKS R3 R0 K85 ["toggleCopy"]
   NEWCLOSURE R3 P25
   CAPTURE VAL R0
@@ -2071,9 +2179,11 @@ PROTO_62:
   SETTABLEKS R3 R0 K88 ["toggleDeleteLocal"]
   GETUPVAL R4 2
   CALL R4 0 1
-  JUMPIFNOT R4 [+3]
+  JUMPIFNOT R4 [+5]
   NEWCLOSURE R3 P28
   CAPTURE VAL R0
+  CAPTURE UPVAL U19
+  CAPTURE UPVAL U20
   JUMP [+1]
   LOADNIL R3
   SETTABLEKS R3 R0 K89 ["versionsOnDescClicked"]
@@ -2082,8 +2192,8 @@ PROTO_62:
   JUMPIFNOT R4 [+5]
   NEWCLOSURE R3 P29
   CAPTURE VAL R0
-  CAPTURE UPVAL U21
-  CAPTURE UPVAL U22
+  CAPTURE UPVAL U27
+  CAPTURE UPVAL U28
   JUMP [+1]
   LOADNIL R3
   SETTABLEKS R3 R0 K90 ["versionsSaveInput"]
@@ -2152,7 +2262,7 @@ PROTO_62:
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   CAPTURE VAL R1
-  CAPTURE UPVAL U23
+  CAPTURE UPVAL U29
   SETTABLEKS R3 R0 K101 ["getPublishingRequirements"]
   NEWCLOSURE R3 P41
   CAPTURE VAL R0
@@ -2173,7 +2283,7 @@ PROTO_62:
   NEWCLOSURE R3 P44
   CAPTURE VAL R0
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U24
+  CAPTURE UPVAL U30
   SETTABLEKS R3 R0 K105 ["getMessageBoxProps"]
   RETURN R0 0
 
@@ -5210,533 +5320,552 @@ MAIN:
   GETTABLEKS R21 R22 K30 ["getFFlagToolboxM3Configuration"]
   CALL R20 1 1
   GETIMPORT R21 K1 [game]
-  LOADK R23 K31 ["StudioService"]
-  NAMECALL R21 R21 K3 ["GetService"]
+  LOADK R23 K31 ["ToolboxSendPackageVersionNoteTelemetry"]
+  NAMECALL R21 R21 K10 ["GetFastFlag"]
   CALL R21 2 1
-  GETIMPORT R22 K17 [require]
-  GETTABLEKS R25 R1 K7 ["Core"]
-  GETTABLEKS R24 R25 K8 ["Util"]
-  GETTABLEKS R23 R24 K32 ["getUserId"]
-  CALL R22 1 1
-  GETTABLEKS R23 R1 K33 ["Packages"]
-  GETIMPORT R24 K17 [require]
-  GETTABLEKS R25 R23 K34 ["Roact"]
-  CALL R24 1 1
+  GETIMPORT R22 K1 [game]
+  LOADK R24 K32 ["StudioService"]
+  NAMECALL R22 R22 K3 ["GetService"]
+  CALL R22 2 1
+  GETIMPORT R23 K17 [require]
+  GETTABLEKS R26 R1 K7 ["Core"]
+  GETTABLEKS R25 R26 K8 ["Util"]
+  GETTABLEKS R24 R25 K33 ["getUserId"]
+  CALL R23 1 1
+  GETTABLEKS R24 R1 K34 ["Packages"]
   GETIMPORT R25 K17 [require]
-  GETTABLEKS R26 R23 K35 ["RoactRodux"]
+  GETTABLEKS R26 R24 K35 ["Roact"]
   CALL R25 1 1
   GETIMPORT R26 K17 [require]
-  GETTABLEKS R27 R23 K36 ["Cryo"]
+  GETTABLEKS R27 R24 K36 ["RoactRodux"]
   CALL R26 1 1
-  GETTABLEKS R28 R1 K7 ["Core"]
-  GETTABLEKS R27 R28 K37 ["Components"]
-  GETTABLEKS R28 R27 K38 ["AssetConfiguration"]
-  GETIMPORT R29 K17 [require]
-  GETTABLEKS R30 R28 K39 ["PreviewArea"]
-  CALL R29 1 1
-  GETIMPORT R30 K17 [require]
-  GETTABLEKS R31 R28 K40 ["PublishAsset"]
-  CALL R30 1 1
+  GETIMPORT R27 K17 [require]
+  GETTABLEKS R28 R24 K37 ["Cryo"]
+  CALL R27 1 1
+  GETIMPORT R28 K17 [require]
+  GETTABLEKS R30 R2 K38 ["Analytics"]
+  GETTABLEKS R29 R30 K38 ["Analytics"]
+  CALL R28 1 1
+  GETTABLEKS R30 R1 K7 ["Core"]
+  GETTABLEKS R29 R30 K39 ["Components"]
+  GETTABLEKS R30 R29 K40 ["AssetConfiguration"]
   GETIMPORT R31 K17 [require]
-  GETTABLEKS R32 R28 K41 ["AssetConfigFooter"]
+  GETTABLEKS R32 R30 K41 ["PreviewArea"]
   CALL R31 1 1
   GETIMPORT R32 K17 [require]
-  GETTABLEKS R33 R28 K42 ["Versions"]
+  GETTABLEKS R33 R30 K42 ["PublishAsset"]
   CALL R32 1 1
   GETIMPORT R33 K17 [require]
-  GETTABLEKS R34 R28 K43 ["SalesPage"]
+  GETTABLEKS R34 R30 K43 ["AssetConfigFooter"]
   CALL R33 1 1
   GETIMPORT R34 K17 [require]
-  GETTABLEKS R36 R28 K44 ["Permissions"]
-  GETTABLEKS R35 R36 K44 ["Permissions"]
+  GETTABLEKS R35 R30 K44 ["Versions"]
   CALL R34 1 1
   GETIMPORT R35 K17 [require]
-  GETTABLEKS R36 R28 K45 ["WarningDialog"]
+  GETTABLEKS R36 R30 K45 ["SalesPage"]
   CALL R35 1 1
   GETIMPORT R36 K17 [require]
-  GETTABLEKS R37 R28 K46 ["StyledConfirmDialog"]
+  GETTABLEKS R38 R30 K46 ["Permissions"]
+  GETTABLEKS R37 R38 K46 ["Permissions"]
   CALL R36 1 1
   GETIMPORT R37 K17 [require]
-  GETTABLEKS R38 R28 K47 ["OverrideAsset"]
+  GETTABLEKS R38 R30 K47 ["WarningDialog"]
   CALL R37 1 1
   GETIMPORT R38 K17 [require]
-  GETTABLEKS R40 R27 K48 ["MessageBox"]
-  GETTABLEKS R39 R40 K48 ["MessageBox"]
+  GETTABLEKS R39 R30 K48 ["StyledConfirmDialog"]
   CALL R38 1 1
   GETIMPORT R39 K17 [require]
-  GETTABLEKS R40 R2 K49 ["AssetPermissionUtil"]
+  GETTABLEKS R40 R30 K49 ["OverrideAsset"]
   CALL R39 1 1
   GETIMPORT R40 K17 [require]
-  GETTABLEKS R41 R2 K50 ["ContextHelper"]
+  GETTABLEKS R42 R29 K50 ["MessageBox"]
+  GETTABLEKS R41 R42 K50 ["MessageBox"]
   CALL R40 1 1
   GETIMPORT R41 K17 [require]
-  GETTABLEKS R42 R2 K51 ["Images"]
+  GETTABLEKS R42 R2 K51 ["AssetPermissionUtil"]
   CALL R41 1 1
   GETIMPORT R42 K17 [require]
-  GETTABLEKS R43 R2 K52 ["AssetConfigConstants"]
+  GETTABLEKS R43 R2 K52 ["ContextHelper"]
   CALL R42 1 1
   GETIMPORT R43 K17 [require]
-  GETTABLEKS R44 R2 K53 ["Constants"]
+  GETTABLEKS R44 R2 K53 ["Images"]
   CALL R43 1 1
   GETIMPORT R44 K17 [require]
-  GETTABLEKS R45 R2 K54 ["ScreenSetup"]
+  GETTABLEKS R45 R2 K54 ["AssetConfigConstants"]
   CALL R44 1 1
   GETIMPORT R45 K17 [require]
-  GETTABLEKS R46 R2 K55 ["AssetConfigUtil"]
+  GETTABLEKS R46 R2 K55 ["Constants"]
   CALL R45 1 1
   GETIMPORT R46 K17 [require]
-  GETTABLEKS R47 R2 K56 ["fixUpPreValidation"]
+  GETTABLEKS R47 R2 K56 ["ScreenSetup"]
   CALL R46 1 1
   GETIMPORT R47 K17 [require]
-  GETTABLEKS R48 R2 K57 ["PublishUtil"]
+  GETTABLEKS R48 R2 K57 ["AssetConfigUtil"]
   CALL R47 1 1
   GETIMPORT R48 K17 [require]
-  GETTABLEKS R49 R2 K58 ["TagsUtil"]
+  GETTABLEKS R49 R2 K58 ["fixUpPreValidation"]
   CALL R48 1 1
   GETIMPORT R49 K17 [require]
-  GETTABLEKS R50 R2 K59 ["getAllowedAssetTypeEnums"]
+  GETTABLEKS R50 R2 K59 ["PublishUtil"]
   CALL R49 1 1
   GETIMPORT R50 K17 [require]
-  GETTABLEKS R51 R2 K60 ["FiatUtil"]
+  GETTABLEKS R51 R2 K60 ["TagsUtil"]
   CALL R50 1 1
-  LOADNIL R51
+  GETIMPORT R51 K17 [require]
+  GETTABLEKS R52 R2 K61 ["getAllowedAssetTypeEnums"]
+  CALL R51 1 1
+  GETIMPORT R52 K17 [require]
+  GETTABLEKS R53 R2 K62 ["FiatUtil"]
+  CALL R52 1 1
+  LOADNIL R53
   JUMPIFNOT R7 [+6]
-  GETIMPORT R52 K17 [require]
-  GETTABLEKS R53 R2 K61 ["getIsIXPVariableEnabled"]
-  CALL R52 1 1
-  MOVE R51 R52
-  GETIMPORT R52 K17 [require]
-  GETTABLEKS R53 R23 K62 ["Framework"]
-  CALL R52 1 1
-  GETTABLEKS R54 R52 K8 ["Util"]
-  GETTABLEKS R53 R54 K63 ["deepCopy"]
-  GETTABLEKS R55 R52 K8 ["Util"]
-  GETTABLEKS R54 R55 K64 ["deepEqual"]
-  GETTABLEKS R55 R52 K65 ["Dash"]
-  GETTABLEKS R56 R55 K66 ["slice"]
-  GETIMPORT R57 K17 [require]
-  GETTABLEKS R61 R1 K7 ["Core"]
-  GETTABLEKS R60 R61 K67 ["Networking"]
-  GETTABLEKS R59 R60 K68 ["Requests"]
-  GETTABLEKS R58 R59 K69 ["MakeChangeRequest"]
-  CALL R57 1 1
-  GETTABLEKS R59 R1 K7 ["Core"]
-  GETTABLEKS R58 R59 K70 ["Types"]
+  GETIMPORT R54 K17 [require]
+  GETTABLEKS R55 R2 K63 ["getIsIXPVariableEnabled"]
+  CALL R54 1 1
+  MOVE R53 R54
+  GETIMPORT R54 K17 [require]
+  GETTABLEKS R55 R24 K64 ["Framework"]
+  CALL R54 1 1
+  GETTABLEKS R56 R54 K8 ["Util"]
+  GETTABLEKS R55 R56 K65 ["deepCopy"]
+  GETTABLEKS R57 R54 K8 ["Util"]
+  GETTABLEKS R56 R57 K66 ["deepEqual"]
+  GETTABLEKS R57 R54 K67 ["Dash"]
+  GETTABLEKS R58 R57 K68 ["slice"]
   GETIMPORT R59 K17 [require]
-  GETTABLEKS R60 R58 K71 ["AssetMediaTypes"]
+  GETTABLEKS R63 R1 K7 ["Core"]
+  GETTABLEKS R62 R63 K69 ["Networking"]
+  GETTABLEKS R61 R62 K70 ["Requests"]
+  GETTABLEKS R60 R61 K71 ["MakeChangeRequest"]
   CALL R59 1 1
-  GETIMPORT R60 K17 [require]
-  GETTABLEKS R61 R58 K72 ["AssetSubTypes"]
-  CALL R60 1 1
+  GETTABLEKS R61 R1 K7 ["Core"]
+  GETTABLEKS R60 R61 K72 ["Types"]
   GETIMPORT R61 K17 [require]
-  GETTABLEKS R62 R58 K73 ["ConfigTypes"]
+  GETTABLEKS R62 R60 K73 ["AssetMediaTypes"]
   CALL R61 1 1
-  GETTABLEKS R64 R1 K7 ["Core"]
-  GETTABLEKS R63 R64 K67 ["Networking"]
-  GETTABLEKS R62 R63 K68 ["Requests"]
+  GETIMPORT R62 K17 [require]
+  GETTABLEKS R63 R60 K74 ["AssetSubTypes"]
+  CALL R62 1 1
   GETIMPORT R63 K17 [require]
-  GETTABLEKS R64 R62 K74 ["IdVerificationStatusRequest"]
+  GETTABLEKS R64 R60 K75 ["ConfigTypes"]
   CALL R63 1 1
-  GETIMPORT R64 K17 [require]
-  GETTABLEKS R65 R62 K75 ["PremiumStatusRequest"]
-  CALL R64 1 1
+  GETTABLEKS R66 R1 K7 ["Core"]
+  GETTABLEKS R65 R66 K69 ["Networking"]
+  GETTABLEKS R64 R65 K70 ["Requests"]
   GETIMPORT R65 K17 [require]
-  GETTABLEKS R66 R62 K76 ["CreationBanStatusRequest"]
+  GETTABLEKS R66 R64 K76 ["IdVerificationStatusRequest"]
   CALL R65 1 1
   GETIMPORT R66 K17 [require]
-  GETTABLEKS R67 R62 K77 ["CanPublishUnlimitedItemsRequest"]
+  GETTABLEKS R67 R64 K77 ["PremiumStatusRequest"]
   CALL R66 1 1
   GETIMPORT R67 K17 [require]
-  GETTABLEKS R68 R62 K78 ["UploadCatalogItemRequest"]
+  GETTABLEKS R68 R64 K78 ["CreationBanStatusRequest"]
   CALL R67 1 1
   GETIMPORT R68 K17 [require]
-  GETTABLEKS R69 R62 K79 ["ConfigureCatalogItemRequest"]
+  GETTABLEKS R69 R64 K79 ["CanPublishUnlimitedItemsRequest"]
   CALL R68 1 1
   GETIMPORT R69 K17 [require]
-  GETTABLEKS R70 R62 K80 ["GetAssetDetailsRequest"]
+  GETTABLEKS R70 R64 K80 ["UploadCatalogItemRequest"]
   CALL R69 1 1
   GETIMPORT R70 K17 [require]
-  GETTABLEKS R71 R62 K81 ["GetAssetItemTagsRequest"]
+  GETTABLEKS R71 R64 K81 ["ConfigureCatalogItemRequest"]
   CALL R70 1 1
   GETIMPORT R71 K17 [require]
-  GETTABLEKS R72 R62 K82 ["PostRevertVersionRequest"]
+  GETTABLEKS R72 R64 K82 ["GetAssetDetailsRequest"]
   CALL R71 1 1
   GETIMPORT R72 K17 [require]
-  GETTABLEKS R73 R62 K83 ["PostVersionDescriptionRequest"]
+  GETTABLEKS R73 R64 K83 ["GetAssetItemTagsRequest"]
   CALL R72 1 1
   GETIMPORT R73 K17 [require]
-  GETTABLEKS R74 R62 K84 ["PatchAssetRequest"]
+  GETTABLEKS R74 R64 K84 ["PostRevertVersionRequest"]
   CALL R73 1 1
   GETIMPORT R74 K17 [require]
-  GETTABLEKS R75 R62 K85 ["PostUploadAssetRequest"]
+  GETTABLEKS R75 R64 K85 ["PostVersionDescriptionRequest"]
   CALL R74 1 1
   GETIMPORT R75 K17 [require]
-  GETTABLEKS R76 R62 K86 ["PostOverrideAssetRequest"]
+  GETTABLEKS R76 R64 K86 ["PatchAssetRequest"]
   CALL R75 1 1
   GETIMPORT R76 K17 [require]
-  GETTABLEKS R77 R62 K87 ["PostUploadAnimationRequest"]
+  GETTABLEKS R77 R64 K87 ["PostUploadAssetRequest"]
   CALL R76 1 1
   GETIMPORT R77 K17 [require]
-  GETTABLEKS R78 R62 K88 ["PostOverrideAnimationRequest"]
+  GETTABLEKS R78 R64 K88 ["PostOverrideAssetRequest"]
   CALL R77 1 1
   GETIMPORT R78 K17 [require]
-  GETTABLEKS R79 R62 K89 ["GetIsVerifiedCreatorRequest"]
+  GETTABLEKS R79 R64 K89 ["PostUploadAnimationRequest"]
   CALL R78 1 1
   GETIMPORT R79 K17 [require]
-  GETTABLEKS R80 R62 K90 ["PostPackageMetadataRequest"]
+  GETTABLEKS R80 R64 K90 ["PostOverrideAnimationRequest"]
   CALL R79 1 1
   GETIMPORT R80 K17 [require]
-  GETTABLEKS R81 R62 K91 ["GetPackageCollaboratorsRequest"]
+  GETTABLEKS R81 R64 K91 ["GetIsVerifiedCreatorRequest"]
   CALL R80 1 1
   GETIMPORT R81 K17 [require]
-  GETTABLEKS R82 R62 K92 ["PutPackagePermissionsRequest"]
+  GETTABLEKS R82 R64 K92 ["PostPackageMetadataRequest"]
   CALL R81 1 1
   GETIMPORT R82 K17 [require]
-  GETTABLEKS R83 R62 K93 ["PostAssetCheckPermissions"]
+  GETTABLEKS R83 R64 K93 ["GetPackageCollaboratorsRequest"]
   CALL R82 1 1
   GETIMPORT R83 K17 [require]
-  GETTABLEKS R84 R62 K94 ["GetMarketplaceInfoRequest"]
+  GETTABLEKS R84 R64 K94 ["PutPackagePermissionsRequest"]
   CALL R83 1 1
   GETIMPORT R84 K17 [require]
-  GETTABLEKS R85 R62 K95 ["AvatarAssetsGetUploadFeeRequest"]
+  GETTABLEKS R85 R64 K95 ["PostAssetCheckPermissions"]
   CALL R84 1 1
   GETIMPORT R85 K17 [require]
-  GETTABLEKS R86 R62 K96 ["UGCBundleTypeGetUploadFeeRequest"]
+  GETTABLEKS R86 R64 K96 ["GetMarketplaceInfoRequest"]
   CALL R85 1 1
   GETIMPORT R86 K17 [require]
-  GETTABLEKS R87 R62 K97 ["AvatarAssetsUploadRequest"]
+  GETTABLEKS R87 R64 K97 ["AvatarAssetsGetUploadFeeRequest"]
   CALL R86 1 1
   GETIMPORT R87 K17 [require]
-  GETTABLEKS R88 R62 K98 ["UGCBundleUploadRequest"]
+  GETTABLEKS R88 R64 K98 ["UGCBundleTypeGetUploadFeeRequest"]
   CALL R87 1 1
   GETIMPORT R88 K17 [require]
-  GETTABLEKS R89 R62 K99 ["PatchMakeAssetPublicRequest"]
+  GETTABLEKS R89 R64 K99 ["AvatarAssetsUploadRequest"]
   CALL R88 1 1
   GETIMPORT R89 K17 [require]
-  GETTABLEKS R90 R62 K100 ["GetAssetPermissionsRequest"]
+  GETTABLEKS R90 R64 K100 ["UGCBundleUploadRequest"]
   CALL R89 1 1
   GETIMPORT R90 K17 [require]
-  GETTABLEKS R91 R62 K101 ["GetPublishingRequirementsRequest"]
+  GETTABLEKS R91 R64 K101 ["PatchMakeAssetPublicRequest"]
   CALL R90 1 1
   GETIMPORT R91 K17 [require]
-  GETTABLEKS R92 R62 K102 ["GetAssetMediaMetadataArrayRequest"]
+  GETTABLEKS R92 R64 K102 ["GetAssetPermissionsRequest"]
   CALL R91 1 1
   GETIMPORT R92 K17 [require]
-  GETTABLEKS R93 R62 K103 ["UGCAccessoryUploadRequest"]
+  GETTABLEKS R93 R64 K103 ["GetPublishingRequirementsRequest"]
   CALL R92 1 1
   GETIMPORT R93 K17 [require]
-  GETTABLEKS R94 R62 K104 ["GetVersionsHistoryRequest"]
+  GETTABLEKS R94 R64 K104 ["GetAssetMediaMetadataArrayRequest"]
   CALL R93 1 1
   GETIMPORT R94 K17 [require]
-  GETTABLEKS R95 R62 K105 ["GetFiatProductRequest"]
+  GETTABLEKS R95 R64 K105 ["UGCAccessoryUploadRequest"]
   CALL R94 1 1
   GETIMPORT R95 K17 [require]
-  GETTABLEKS R98 R1 K7 ["Core"]
-  GETTABLEKS R97 R98 K106 ["Actions"]
-  GETTABLEKS R96 R97 K107 ["ClearChange"]
+  GETTABLEKS R96 R64 K106 ["GetVersionsHistoryRequest"]
   CALL R95 1 1
   GETIMPORT R96 K17 [require]
-  GETTABLEKS R99 R1 K7 ["Core"]
-  GETTABLEKS R98 R99 K106 ["Actions"]
-  GETTABLEKS R97 R98 K108 ["SetAssetConfigTab"]
+  GETTABLEKS R97 R64 K107 ["GetFiatProductRequest"]
   CALL R96 1 1
   GETIMPORT R97 K17 [require]
   GETTABLEKS R100 R1 K7 ["Core"]
-  GETTABLEKS R99 R100 K106 ["Actions"]
-  GETTABLEKS R98 R99 K109 ["UpdateAssetConfigStore"]
+  GETTABLEKS R99 R100 K108 ["Actions"]
+  GETTABLEKS R98 R99 K109 ["ClearChange"]
   CALL R97 1 1
   GETIMPORT R98 K17 [require]
   GETTABLEKS R101 R1 K7 ["Core"]
-  GETTABLEKS R100 R101 K106 ["Actions"]
-  GETTABLEKS R99 R100 K110 ["SetDescendantPermissions"]
+  GETTABLEKS R100 R101 K108 ["Actions"]
+  GETTABLEKS R99 R100 K110 ["SetAssetConfigTab"]
   CALL R98 1 1
   GETIMPORT R99 K17 [require]
   GETTABLEKS R102 R1 K7 ["Core"]
-  GETTABLEKS R101 R102 K106 ["Actions"]
-  GETTABLEKS R100 R101 K111 ["UploadResult"]
+  GETTABLEKS R101 R102 K108 ["Actions"]
+  GETTABLEKS R100 R101 K111 ["UpdateAssetConfigStore"]
   CALL R99 1 1
   GETIMPORT R100 K17 [require]
   GETTABLEKS R103 R1 K7 ["Core"]
-  GETTABLEKS R102 R103 K112 ["Thunks"]
-  GETTABLEKS R101 R102 K113 ["GetGroupMetadata"]
+  GETTABLEKS R102 R103 K108 ["Actions"]
+  GETTABLEKS R101 R102 K112 ["SetDescendantPermissions"]
   CALL R100 1 1
   GETIMPORT R101 K17 [require]
   GETTABLEKS R104 R1 K7 ["Core"]
-  GETTABLEKS R103 R104 K112 ["Thunks"]
-  GETTABLEKS R102 R103 K114 ["GetGroupRoleInfo"]
+  GETTABLEKS R103 R104 K108 ["Actions"]
+  GETTABLEKS R102 R103 K113 ["UploadResult"]
   CALL R101 1 1
   GETIMPORT R102 K17 [require]
   GETTABLEKS R105 R1 K7 ["Core"]
-  GETTABLEKS R104 R105 K112 ["Thunks"]
-  GETTABLEKS R103 R104 K115 ["GetUsername"]
+  GETTABLEKS R104 R105 K114 ["Thunks"]
+  GETTABLEKS R103 R104 K115 ["GetGroupMetadata"]
   CALL R102 1 1
-  GETTABLEKS R103 R40 K116 ["withLocalization"]
+  GETIMPORT R103 K17 [require]
+  GETTABLEKS R106 R1 K7 ["Core"]
+  GETTABLEKS R105 R106 K114 ["Thunks"]
+  GETTABLEKS R104 R105 K116 ["GetGroupRoleInfo"]
+  CALL R103 1 1
   GETIMPORT R104 K17 [require]
   GETTABLEKS R107 R1 K7 ["Core"]
-  GETTABLEKS R106 R107 K117 ["ContextServices"]
-  GETTABLEKS R105 R106 K118 ["IXPContext"]
+  GETTABLEKS R106 R107 K114 ["Thunks"]
+  GETTABLEKS R105 R106 K117 ["GetUsername"]
   CALL R104 1 1
-  GETIMPORT R105 K17 [require]
-  GETTABLEKS R108 R1 K7 ["Core"]
-  GETTABLEKS R107 R108 K117 ["ContextServices"]
-  GETTABLEKS R106 R107 K119 ["NetworkContext"]
-  CALL R105 1 1
+  GETTABLEKS R105 R42 K118 ["withLocalization"]
   GETIMPORT R106 K17 [require]
-  GETTABLEKS R107 R23 K62 ["Framework"]
+  GETTABLEKS R109 R1 K7 ["Core"]
+  GETTABLEKS R108 R109 K119 ["ContextServices"]
+  GETTABLEKS R107 R108 K120 ["IXPContext"]
   CALL R106 1 1
-  GETTABLEKS R107 R106 K117 ["ContextServices"]
-  GETTABLEKS R108 R107 K120 ["withContext"]
-  GETTABLEKS R110 R106 K121 ["UI"]
-  GETTABLEKS R109 R110 K122 ["LoadingIndicator"]
-  GETTABLEKS R111 R106 K121 ["UI"]
-  GETTABLEKS R110 R111 K123 ["Container"]
-  GETTABLEKS R111 R24 K124 ["PureComponent"]
-  LOADK R113 K125 ["AssetConfig"]
-  NAMECALL R111 R111 K126 ["extend"]
-  CALL R111 2 1
-  MOVE R113 R9
-  CALL R113 0 1
-  JUMPIFNOT R113 [+5]
-  GETIMPORT R112 K129 [utf8.char]
-  LOADK R113 K130 [57346]
-  CALL R112 1 1
-  JUMP [+1]
-  LOADNIL R112
-  GETIMPORT R113 K17 [require]
-  GETTABLEKS R116 R1 K7 ["Core"]
-  GETTABLEKS R115 R116 K131 ["Flags"]
-  GETTABLEKS R114 R115 K132 ["getFFlagToolboxAddPackageVersionDescriptions"]
-  CALL R113 1 1
-  GETIMPORT R114 K17 [require]
-  GETTABLEKS R118 R1 K7 ["Core"]
-  GETTABLEKS R117 R118 K8 ["Util"]
-  GETTABLEKS R116 R117 K18 ["SharedFlags"]
-  GETTABLEKS R115 R116 K133 ["getFFlagToolboxCleanupLegacyContext"]
+  GETIMPORT R107 K17 [require]
+  GETTABLEKS R110 R1 K7 ["Core"]
+  GETTABLEKS R109 R110 K119 ["ContextServices"]
+  GETTABLEKS R108 R109 K121 ["NetworkContext"]
+  CALL R107 1 1
+  GETIMPORT R108 K17 [require]
+  GETTABLEKS R109 R24 K64 ["Framework"]
+  CALL R108 1 1
+  GETTABLEKS R109 R108 K119 ["ContextServices"]
+  GETTABLEKS R110 R109 K122 ["withContext"]
+  GETTABLEKS R112 R108 K123 ["UI"]
+  GETTABLEKS R111 R112 K124 ["LoadingIndicator"]
+  GETTABLEKS R113 R108 K123 ["UI"]
+  GETTABLEKS R112 R113 K125 ["Container"]
+  GETTABLEKS R113 R25 K126 ["PureComponent"]
+  LOADK R115 K127 ["AssetConfig"]
+  NAMECALL R113 R113 K128 ["extend"]
+  CALL R113 2 1
+  MOVE R115 R9
+  CALL R115 0 1
+  JUMPIFNOT R115 [+5]
+  GETIMPORT R114 K131 [utf8.char]
+  LOADK R115 K132 [57346]
   CALL R114 1 1
-  NEWCLOSURE R115 P0
+  JUMP [+1]
+  LOADNIL R114
+  GETIMPORT R115 K17 [require]
+  GETTABLEKS R118 R1 K7 ["Core"]
+  GETTABLEKS R117 R118 K133 ["Flags"]
+  GETTABLEKS R116 R117 K134 ["getFFlagToolboxAddPackageVersionDescriptions"]
+  CALL R115 1 1
+  GETIMPORT R116 K17 [require]
+  GETTABLEKS R120 R1 K7 ["Core"]
+  GETTABLEKS R119 R120 K8 ["Util"]
+  GETTABLEKS R118 R119 K18 ["SharedFlags"]
+  GETTABLEKS R117 R118 K135 ["getFFlagToolboxCleanupLegacyContext"]
+  CALL R116 1 1
+  GETIMPORT R117 K17 [require]
+  GETTABLEKS R120 R1 K7 ["Core"]
+  GETTABLEKS R119 R120 K133 ["Flags"]
+  GETTABLEKS R118 R119 K136 ["getFFlagToolboxAnimationAPIMigration"]
+  CALL R117 1 1
+  NEWCLOSURE R118 P0
   CAPTURE VAL R4
   CAPTURE VAL R9
-  CAPTURE VAL R113
-  CAPTURE VAL R43
+  CAPTURE VAL R115
   CAPTURE VAL R45
-  CAPTURE VAL R42
+  CAPTURE VAL R47
+  CAPTURE VAL R44
   CAPTURE VAL R8
-  CAPTURE VAL R39
+  CAPTURE VAL R41
   CAPTURE VAL R6
   CAPTURE VAL R7
-  CAPTURE REF R51
-  CAPTURE VAL R21
-  CAPTURE VAL R61
+  CAPTURE REF R53
+  CAPTURE VAL R22
+  CAPTURE VAL R19
+  CAPTURE VAL R63
+  CAPTURE VAL R117
+  CAPTURE VAL R23
   CAPTURE VAL R14
   CAPTURE VAL R16
   CAPTURE VAL R15
-  CAPTURE VAL R48
+  CAPTURE VAL R21
+  CAPTURE VAL R28
+  CAPTURE VAL R50
   CAPTURE VAL R10
-  CAPTURE VAL R26
+  CAPTURE VAL R27
   CAPTURE VAL R17
   CAPTURE VAL R5
-  CAPTURE VAL R53
-  CAPTURE VAL R54
-  CAPTURE VAL R60
+  CAPTURE VAL R20
+  CAPTURE VAL R55
+  CAPTURE VAL R56
+  CAPTURE VAL R62
+  CAPTURE VAL R43
+  SETTABLEKS R118 R113 K137 ["init"]
+  DUPCLOSURE R118 K138 [PROTO_63]
+  SETTABLEKS R118 R113 K139 ["attachXButtonCallback"]
+  DUPCLOSURE R118 K140 [PROTO_64]
+  SETTABLEKS R118 R113 K141 ["detachXButtonCallback"]
+  DUPCLOSURE R118 K142 [PROTO_65]
+  CAPTURE VAL R44
+  SETTABLEKS R118 R113 K143 ["isLoading"]
+  DUPCLOSURE R118 K144 [PROTO_66]
+  CAPTURE VAL R27
+  DUPCLOSURE R119 K145 [PROTO_68]
+  CAPTURE VAL R44
+  CAPTURE VAL R63
   CAPTURE VAL R41
-  SETTABLEKS R115 R111 K134 ["init"]
-  DUPCLOSURE R115 K135 [PROTO_63]
-  SETTABLEKS R115 R111 K136 ["attachXButtonCallback"]
-  DUPCLOSURE R115 K137 [PROTO_64]
-  SETTABLEKS R115 R111 K138 ["detachXButtonCallback"]
-  DUPCLOSURE R115 K139 [PROTO_65]
-  CAPTURE VAL R42
-  SETTABLEKS R115 R111 K140 ["isLoading"]
-  DUPCLOSURE R115 K141 [PROTO_66]
-  CAPTURE VAL R26
-  DUPCLOSURE R116 K142 [PROTO_68]
-  CAPTURE VAL R42
-  CAPTURE VAL R61
-  CAPTURE VAL R39
-  CAPTURE VAL R45
+  CAPTURE VAL R47
   CAPTURE VAL R19
   CAPTURE VAL R20
   CAPTURE VAL R3
   CAPTURE VAL R18
-  CAPTURE VAL R47
-  CAPTURE VAL R48
+  CAPTURE VAL R49
+  CAPTURE VAL R50
   CAPTURE VAL R4
   CAPTURE VAL R9
-  CAPTURE VAL R113
   CAPTURE VAL R115
-  CAPTURE VAL R43
-  SETTABLEKS R116 R111 K143 ["didUpdate"]
-  MOVE R116 R10
-  CALL R116 0 1
-  JUMPIFNOT R116 [+12]
-  DUPCLOSURE R116 K144 [PROTO_70]
-  CAPTURE VAL R63
-  SETTABLEKS R116 R111 K145 ["getIdVerificationStatus"]
-  DUPCLOSURE R116 K146 [PROTO_72]
-  CAPTURE VAL R64
-  SETTABLEKS R116 R111 K147 ["getPremiumStatus"]
-  DUPCLOSURE R116 K148 [PROTO_74]
+  CAPTURE VAL R118
+  CAPTURE VAL R45
+  SETTABLEKS R119 R113 K146 ["didUpdate"]
+  MOVE R119 R10
+  CALL R119 0 1
+  JUMPIFNOT R119 [+12]
+  DUPCLOSURE R119 K147 [PROTO_70]
   CAPTURE VAL R65
-  SETTABLEKS R116 R111 K149 ["getCreationBanStatus"]
-  MOVE R116 R11
-  CALL R116 0 1
-  JUMPIFNOT R116 [+4]
-  DUPCLOSURE R116 K150 [PROTO_76]
+  SETTABLEKS R119 R113 K148 ["getIdVerificationStatus"]
+  DUPCLOSURE R119 K149 [PROTO_72]
   CAPTURE VAL R66
-  SETTABLEKS R116 R111 K151 ["getRoles"]
-  MOVE R116 R113
-  CALL R116 0 1
-  JUMPIFNOT R116 [+4]
-  DUPCLOSURE R116 K152 [PROTO_77]
-  CAPTURE VAL R56
-  SETTABLEKS R116 R111 K153 ["versionsGetPageRootItems"]
-  DUPCLOSURE R116 K154 [PROTO_85]
+  SETTABLEKS R119 R113 K150 ["getPremiumStatus"]
+  DUPCLOSURE R119 K151 [PROTO_74]
+  CAPTURE VAL R67
+  SETTABLEKS R119 R113 K152 ["getCreationBanStatus"]
+  MOVE R119 R11
+  CALL R119 0 1
+  JUMPIFNOT R119 [+4]
+  DUPCLOSURE R119 K153 [PROTO_76]
+  CAPTURE VAL R68
+  SETTABLEKS R119 R113 K154 ["getRoles"]
+  MOVE R119 R115
+  CALL R119 0 1
+  JUMPIFNOT R119 [+4]
+  DUPCLOSURE R119 K155 [PROTO_77]
+  CAPTURE VAL R58
+  SETTABLEKS R119 R113 K156 ["versionsGetPageRootItems"]
+  DUPCLOSURE R119 K157 [PROTO_85]
   CAPTURE VAL R9
-  CAPTURE VAL R42
-  CAPTURE VAL R45
-  CAPTURE VAL R48
+  CAPTURE VAL R44
+  CAPTURE VAL R47
+  CAPTURE VAL R50
   CAPTURE VAL R4
-  SETTABLEKS R116 R111 K155 ["getAssetInformation"]
-  DUPCLOSURE R116 K156 [PROTO_87]
+  SETTABLEKS R119 R113 K158 ["getAssetInformation"]
+  DUPCLOSURE R119 K159 [PROTO_87]
   CAPTURE VAL R9
-  CAPTURE VAL R45
+  CAPTURE VAL R47
   CAPTURE VAL R10
-  CAPTURE VAL R22
+  CAPTURE VAL R23
   CAPTURE VAL R11
-  CAPTURE VAL R113
+  CAPTURE VAL R115
   CAPTURE VAL R19
-  SETTABLEKS R116 R111 K157 ["didMount"]
-  DUPCLOSURE R116 K158 [PROTO_88]
-  SETTABLEKS R116 R111 K159 ["willUnmount"]
-  DUPCLOSURE R116 K160 [PROTO_89]
-  CAPTURE VAL R42
-  MOVE R117 R114
-  CALL R117 0 1
-  JUMPIF R117 [+4]
-  DUPCLOSURE R117 K161 [PROTO_91]
-  CAPTURE VAL R103
-  SETTABLEKS R117 R111 K162 ["render"]
-  MOVE R118 R114
-  CALL R118 0 1
-  JUMPIFNOT R118 [+2]
-  LOADK R117 K162 ["render"]
+  SETTABLEKS R119 R113 K160 ["didMount"]
+  DUPCLOSURE R119 K161 [PROTO_88]
+  SETTABLEKS R119 R113 K162 ["willUnmount"]
+  DUPCLOSURE R119 K163 [PROTO_89]
+  CAPTURE VAL R44
+  MOVE R120 R116
+  CALL R120 0 1
+  JUMPIF R120 [+4]
+  DUPCLOSURE R120 K164 [PROTO_91]
+  CAPTURE VAL R105
+  SETTABLEKS R120 R113 K165 ["render"]
+  MOVE R121 R116
+  CALL R121 0 1
+  JUMPIFNOT R121 [+2]
+  LOADK R120 K165 ["render"]
   JUMP [+1]
-  LOADK R117 K163 ["renderContent"]
-  DUPCLOSURE R118 K164 [PROTO_92]
+  LOADK R120 K166 ["renderContent"]
+  DUPCLOSURE R121 K167 [PROTO_92]
   CAPTURE VAL R10
   CAPTURE VAL R11
   CAPTURE VAL R4
   CAPTURE VAL R18
-  CAPTURE VAL R61
+  CAPTURE VAL R63
   CAPTURE VAL R9
-  CAPTURE VAL R42
-  CAPTURE VAL R45
   CAPTURE VAL R44
-  CAPTURE VAL R48
   CAPTURE VAL R47
-  CAPTURE VAL R113
-  CAPTURE VAL R43
-  CAPTURE VAL R112
+  CAPTURE VAL R46
+  CAPTURE VAL R50
+  CAPTURE VAL R49
+  CAPTURE VAL R115
+  CAPTURE VAL R45
+  CAPTURE VAL R114
   CAPTURE VAL R8
   CAPTURE VAL R16
-  CAPTURE VAL R24
+  CAPTURE VAL R25
+  CAPTURE VAL R40
   CAPTURE VAL R38
-  CAPTURE VAL R36
-  CAPTURE VAL R35
-  CAPTURE VAL R29
-  CAPTURE VAL R13
-  CAPTURE VAL R110
-  CAPTURE VAL R109
-  CAPTURE VAL R30
-  CAPTURE VAL R32
-  CAPTURE VAL R33
   CAPTURE VAL R37
-  CAPTURE VAL R34
   CAPTURE VAL R31
+  CAPTURE VAL R13
+  CAPTURE VAL R112
+  CAPTURE VAL R111
+  CAPTURE VAL R32
+  CAPTURE VAL R34
+  CAPTURE VAL R35
+  CAPTURE VAL R39
+  CAPTURE VAL R36
+  CAPTURE VAL R33
   CAPTURE VAL R17
-  SETTABLE R118 R111 R117
-  MOVE R117 R108
-  DUPTABLE R118 K170 [{"Focus", "IXP", "Localization", "Stylizer", "Network"}]
-  GETTABLEKS R119 R107 K165 ["Focus"]
-  SETTABLEKS R119 R118 K165 ["Focus"]
+  SETTABLE R121 R113 R120
+  MOVE R120 R110
+  DUPTABLE R121 K173 [{"Focus", "IXP", "Localization", "Stylizer", "Network"}]
+  GETTABLEKS R122 R109 K168 ["Focus"]
+  SETTABLEKS R122 R121 K168 ["Focus"]
   JUMPIFNOT R7 [+2]
-  MOVE R119 R104
+  MOVE R122 R106
   JUMP [+1]
-  LOADNIL R119
-  SETTABLEKS R119 R118 K166 ["IXP"]
-  GETTABLEKS R119 R107 K167 ["Localization"]
-  SETTABLEKS R119 R118 K167 ["Localization"]
-  GETTABLEKS R119 R107 K168 ["Stylizer"]
-  SETTABLEKS R119 R118 K168 ["Stylizer"]
-  SETTABLEKS R105 R118 K169 ["Network"]
-  CALL R117 1 1
-  MOVE R118 R111
-  CALL R117 1 1
-  MOVE R111 R117
-  DUPCLOSURE R117 K171 [PROTO_93]
+  LOADNIL R122
+  SETTABLEKS R122 R121 K169 ["IXP"]
+  GETTABLEKS R122 R109 K170 ["Localization"]
+  SETTABLEKS R122 R121 K170 ["Localization"]
+  GETTABLEKS R122 R109 K171 ["Stylizer"]
+  SETTABLEKS R122 R121 K171 ["Stylizer"]
+  SETTABLEKS R107 R121 K172 ["Network"]
+  CALL R120 1 1
+  MOVE R121 R113
+  CALL R120 1 1
+  MOVE R113 R120
+  DUPCLOSURE R120 K174 [PROTO_93]
   CAPTURE VAL R10
   CAPTURE VAL R18
   CAPTURE VAL R4
-  CAPTURE VAL R60
+  CAPTURE VAL R62
   CAPTURE VAL R11
   CAPTURE VAL R9
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R3
   CAPTURE VAL R14
-  CAPTURE VAL R113
+  CAPTURE VAL R115
   CAPTURE VAL R19
-  CAPTURE VAL R50
-  DUPCLOSURE R118 K172 [PROTO_129]
-  CAPTURE VAL R69
-  CAPTURE VAL R83
-  CAPTURE VAL R70
-  CAPTURE VAL R113
-  CAPTURE VAL R93
-  CAPTURE VAL R57
+  CAPTURE VAL R52
+  DUPCLOSURE R121 K175 [PROTO_129]
+  CAPTURE VAL R71
+  CAPTURE VAL R85
+  CAPTURE VAL R72
+  CAPTURE VAL R115
+  CAPTURE VAL R95
+  CAPTURE VAL R59
   CAPTURE VAL R9
-  CAPTURE VAL R99
-  CAPTURE VAL R26
-  CAPTURE VAL R67
-  CAPTURE VAL R68
+  CAPTURE VAL R101
+  CAPTURE VAL R27
+  CAPTURE VAL R69
+  CAPTURE VAL R70
+  CAPTURE VAL R75
+  CAPTURE VAL R76
   CAPTURE VAL R73
   CAPTURE VAL R74
-  CAPTURE VAL R71
-  CAPTURE VAL R72
-  CAPTURE VAL R96
-  CAPTURE VAL R95
-  CAPTURE VAL R42
-  CAPTURE VAL R75
-  CAPTURE VAL R78
-  CAPTURE VAL R84
-  CAPTURE VAL R85
-  CAPTURE VAL R12
-  CAPTURE VAL R46
-  CAPTURE VAL R14
-  CAPTURE VAL R92
+  CAPTURE VAL R98
+  CAPTURE VAL R97
+  CAPTURE VAL R44
+  CAPTURE VAL R77
+  CAPTURE VAL R80
   CAPTURE VAL R86
   CAPTURE VAL R87
-  CAPTURE VAL R79
-  CAPTURE VAL R97
-  CAPTURE VAL R80
-  CAPTURE VAL R81
-  CAPTURE VAL R82
-  CAPTURE VAL R100
-  CAPTURE VAL R101
-  CAPTURE VAL R102
+  CAPTURE VAL R12
+  CAPTURE VAL R48
+  CAPTURE VAL R14
+  CAPTURE VAL R94
   CAPTURE VAL R88
   CAPTURE VAL R89
-  CAPTURE VAL R98
+  CAPTURE VAL R81
+  CAPTURE VAL R99
+  CAPTURE VAL R82
+  CAPTURE VAL R83
+  CAPTURE VAL R84
+  CAPTURE VAL R102
+  CAPTURE VAL R103
+  CAPTURE VAL R104
   CAPTURE VAL R90
   CAPTURE VAL R91
-  CAPTURE VAL R94
-  CAPTURE VAL R76
-  CAPTURE VAL R77
-  GETTABLEKS R119 R25 K173 ["connect"]
-  MOVE R120 R117
-  MOVE R121 R118
-  CALL R119 2 1
-  MOVE R120 R111
-  CALL R119 1 -1
-  CLOSEUPVALS R51
-  RETURN R119 -1
+  CAPTURE VAL R100
+  CAPTURE VAL R92
+  CAPTURE VAL R93
+  CAPTURE VAL R96
+  CAPTURE VAL R78
+  CAPTURE VAL R79
+  GETTABLEKS R122 R26 K176 ["connect"]
+  MOVE R123 R120
+  MOVE R124 R121
+  CALL R122 2 1
+  MOVE R123 R113
+  CALL R122 1 -1
+  CLOSEUPVALS R53
+  RETURN R122 -1

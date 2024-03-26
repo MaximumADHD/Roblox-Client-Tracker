@@ -54,6 +54,7 @@ local FFlagAddPublishAssetPrompt = game:DefineFastFlag("AddPublishAssetPrompt6",
 local isCharacterNameHandlerEnabled = require(CorePackages.Workspace.Packages.SharedFlags).isCharacterNameHandlerEnabled
 local GetFFlagIrisAlwaysOnTopEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisAlwaysOnTopEnabled
 local GetFFlagEnableSocialContextToast = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableSocialContextToast
+local GetFFlagLuaAppEnableSquadPage = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLuaAppEnableSquadPage
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
 local FFlagCoreScriptsGlobalEffects = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreScriptsGlobalEffects
@@ -337,6 +338,13 @@ end
 
 if GetFFlagRtMessaging() then
 	game:GetService("RtMessagingService")
+end
+
+if GetFFlagLuaAppEnableSquadPage() then
+	coroutine.wrap(function()
+		local squad = safeRequire(CorePackages.Workspace.Packages.Squads).renderCoreScriptSquad
+		squad.new()
+	end)()
 end
 
 if game:GetEngineFeature("FacialAnimationStreaming2") then

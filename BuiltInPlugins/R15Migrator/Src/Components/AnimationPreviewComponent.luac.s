@@ -447,261 +447,248 @@ PROTO_18:
   RETURN R0 0
 
 PROTO_19:
-  LOADN R1 0
-  LOADNIL R2
-  MOVE R3 R0
-  LOADNIL R4
-  LOADNIL R5
-  FORGPREP R3
-  ADDK R1 R1 K0 [1]
-  LOADN R8 1
-  JUMPIFNOTLT R8 R1 [+3]
-  LOADNIL R2
-  RETURN R2 1
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K1 ["getAnimationAssetInfo"]
-  MOVE R9 R6
-  CALL R8 1 1
-  MOVE R2 R8
-  FORGLOOP R3 1 [-13]
-  RETURN R2 1
-
-PROTO_20:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["play"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_20:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["pause"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_21:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["scrub"]
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_23:
+PROTO_22:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Stylizer"]
-  GETTABLEKS R3 R1 K2 ["selection"]
+  GETTABLEKS R3 R1 K2 ["previewSelection"]
   GETTABLEKS R4 R1 K3 ["Localization"]
-  GETUPVAL R5 0
+  JUMPIFNOT R3 [+11]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["None"]
+  JUMPIFEQ R3 R6 [+7]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["getAnimationAssetInfo"]
   MOVE R6 R3
   CALL R5 1 1
+  JUMP [+1]
+  LOADNIL R5
   JUMPIFNOT R5 [+3]
-  GETTABLEKS R6 R5 K4 ["url"]
+  GETTABLEKS R6 R5 K6 ["url"]
   JUMP [+1]
   LOADNIL R6
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K5 ["getConvertedAnimationAssetInfo"]
+  GETTABLEKS R7 R8 K7 ["getConvertedAnimationAssetInfo"]
   MOVE R8 R5
   CALL R7 1 1
-  GETTABLEKS R8 R7 K4 ["url"]
-  GETTABLEKS R10 R0 K6 ["state"]
-  GETTABLEKS R9 R10 K7 ["currentIndex"]
+  GETTABLEKS R8 R7 K6 ["url"]
+  GETTABLEKS R10 R0 K8 ["state"]
+  GETTABLEKS R9 R10 K9 ["currentIndex"]
   MOVE R12 R9
-  NAMECALL R10 R0 K8 ["getModels"]
+  NAMECALL R10 R0 K10 ["getModels"]
   CALL R10 2 2
-  GETTABLEKS R12 R0 K6 ["state"]
-  GETTABLEKS R13 R12 K9 ["isPlaying"]
-  GETTABLEKS R14 R12 K10 ["isLoaded"]
-  GETTABLEKS R15 R12 K11 ["currentTime"]
-  GETTABLEKS R16 R12 K12 ["length"]
+  GETTABLEKS R12 R0 K8 ["state"]
+  GETTABLEKS R13 R12 K11 ["isPlaying"]
+  GETTABLEKS R14 R12 K12 ["isLoaded"]
+  GETTABLEKS R15 R12 K13 ["currentTime"]
+  GETTABLEKS R16 R12 K14 ["length"]
   GETUPVAL R18 2
-  GETTABLEKS R17 R18 K13 ["new"]
+  GETTABLEKS R17 R18 K15 ["new"]
   CALL R17 0 1
   GETUPVAL R19 3
-  GETTABLEKS R18 R19 K14 ["createElement"]
+  GETTABLEKS R18 R19 K16 ["createElement"]
   GETUPVAL R19 4
-  DUPTABLE R20 K20 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "AutomaticSize", "Spacing"}]
-  GETIMPORT R21 K24 [Enum.FillDirection.Vertical]
-  SETTABLEKS R21 R20 K15 ["Layout"]
-  GETIMPORT R21 K26 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R21 R20 K16 ["HorizontalAlignment"]
-  GETIMPORT R21 K28 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R21 R20 K17 ["VerticalAlignment"]
-  GETIMPORT R21 K30 [Enum.AutomaticSize.Y]
-  SETTABLEKS R21 R20 K18 ["AutomaticSize"]
-  GETTABLEKS R21 R2 K19 ["Spacing"]
-  SETTABLEKS R21 R20 K19 ["Spacing"]
-  DUPTABLE R21 K34 [{"PreviewContainer", "Controls", "SelectContainer"}]
+  DUPTABLE R20 K22 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "AutomaticSize", "Spacing"}]
+  GETIMPORT R21 K26 [Enum.FillDirection.Vertical]
+  SETTABLEKS R21 R20 K17 ["Layout"]
+  GETIMPORT R21 K28 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R21 R20 K18 ["HorizontalAlignment"]
+  GETIMPORT R21 K30 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R21 R20 K19 ["VerticalAlignment"]
+  GETIMPORT R21 K32 [Enum.AutomaticSize.Y]
+  SETTABLEKS R21 R20 K20 ["AutomaticSize"]
+  GETTABLEKS R21 R2 K21 ["Spacing"]
+  SETTABLEKS R21 R20 K21 ["Spacing"]
+  DUPTABLE R21 K36 [{"PreviewContainer", "Controls", "SelectContainer"}]
   GETUPVAL R23 3
-  GETTABLEKS R22 R23 K14 ["createElement"]
+  GETTABLEKS R22 R23 K16 ["createElement"]
   GETUPVAL R23 4
-  DUPTABLE R24 K37 [{"LayoutOrder", "Size"}]
-  NAMECALL R25 R17 K38 ["getNextOrder"]
+  DUPTABLE R24 K39 [{"LayoutOrder", "Size"}]
+  NAMECALL R25 R17 K40 ["getNextOrder"]
   CALL R25 1 1
-  SETTABLEKS R25 R24 K35 ["LayoutOrder"]
-  GETTABLEKS R25 R2 K39 ["PreviewContainerSize"]
-  SETTABLEKS R25 R24 K36 ["Size"]
-  DUPTABLE R25 K41 [{"Avatars"}]
+  SETTABLEKS R25 R24 K37 ["LayoutOrder"]
+  GETTABLEKS R25 R2 K41 ["PreviewContainerSize"]
+  SETTABLEKS R25 R24 K38 ["Size"]
+  DUPTABLE R25 K43 [{"Avatars"}]
   GETUPVAL R27 3
-  GETTABLEKS R26 R27 K14 ["createElement"]
+  GETTABLEKS R26 R27 K16 ["createElement"]
   GETUPVAL R27 5
-  DUPTABLE R28 K47 [{"Animation1", "Animation2", "Model1", "Model2", "Loaded"}]
-  SETTABLEKS R6 R28 K42 ["Animation1"]
-  SETTABLEKS R8 R28 K43 ["Animation2"]
-  SETTABLEKS R10 R28 K44 ["Model1"]
-  SETTABLEKS R11 R28 K45 ["Model2"]
-  GETTABLEKS R29 R0 K48 ["loaded"]
-  SETTABLEKS R29 R28 K46 ["Loaded"]
+  DUPTABLE R28 K49 [{"Animation1", "Animation2", "Model1", "Model2", "Loaded"}]
+  SETTABLEKS R6 R28 K44 ["Animation1"]
+  SETTABLEKS R8 R28 K45 ["Animation2"]
+  SETTABLEKS R10 R28 K46 ["Model1"]
+  SETTABLEKS R11 R28 K47 ["Model2"]
+  GETTABLEKS R29 R0 K50 ["loaded"]
+  SETTABLEKS R29 R28 K48 ["Loaded"]
   CALL R26 2 1
-  SETTABLEKS R26 R25 K40 ["Avatars"]
+  SETTABLEKS R26 R25 K42 ["Avatars"]
   CALL R22 3 1
-  SETTABLEKS R22 R21 K31 ["PreviewContainer"]
+  SETTABLEKS R22 R21 K33 ["PreviewContainer"]
   GETUPVAL R23 3
-  GETTABLEKS R22 R23 K14 ["createElement"]
+  GETTABLEKS R22 R23 K16 ["createElement"]
   GETUPVAL R23 6
-  DUPTABLE R24 K56 [{"LayoutOrder", "Size", "CurrentTime", "TimeLength", "IsPlaying", "IsLoaded", "OnPlay", "OnPause", "OnScrub"}]
-  NAMECALL R25 R17 K38 ["getNextOrder"]
+  DUPTABLE R24 K58 [{"LayoutOrder", "Size", "CurrentTime", "TimeLength", "IsPlaying", "IsLoaded", "OnPlay", "OnPause", "OnScrub"}]
+  NAMECALL R25 R17 K40 ["getNextOrder"]
   CALL R25 1 1
-  SETTABLEKS R25 R24 K35 ["LayoutOrder"]
-  GETIMPORT R25 K58 [UDim2.new]
+  SETTABLEKS R25 R24 K37 ["LayoutOrder"]
+  GETIMPORT R25 K60 [UDim2.new]
   LOADN R26 1
   LOADN R27 0
   LOADN R28 0
   LOADN R29 32
   CALL R25 4 1
-  SETTABLEKS R25 R24 K36 ["Size"]
-  SETTABLEKS R15 R24 K49 ["CurrentTime"]
-  SETTABLEKS R16 R24 K50 ["TimeLength"]
-  SETTABLEKS R13 R24 K51 ["IsPlaying"]
-  SETTABLEKS R14 R24 K52 ["IsLoaded"]
+  SETTABLEKS R25 R24 K38 ["Size"]
+  SETTABLEKS R15 R24 K51 ["CurrentTime"]
+  SETTABLEKS R16 R24 K52 ["TimeLength"]
+  SETTABLEKS R13 R24 K53 ["IsPlaying"]
+  SETTABLEKS R14 R24 K54 ["IsLoaded"]
   NEWCLOSURE R25 P0
   CAPTURE VAL R0
-  SETTABLEKS R25 R24 K53 ["OnPlay"]
+  SETTABLEKS R25 R24 K55 ["OnPlay"]
   NEWCLOSURE R25 P1
   CAPTURE VAL R0
-  SETTABLEKS R25 R24 K54 ["OnPause"]
+  SETTABLEKS R25 R24 K56 ["OnPause"]
   NEWCLOSURE R25 P2
   CAPTURE VAL R0
-  SETTABLEKS R25 R24 K55 ["OnScrub"]
+  SETTABLEKS R25 R24 K57 ["OnScrub"]
   CALL R22 2 1
-  SETTABLEKS R22 R21 K32 ["Controls"]
+  SETTABLEKS R22 R21 K34 ["Controls"]
   GETUPVAL R23 3
-  GETTABLEKS R22 R23 K14 ["createElement"]
+  GETTABLEKS R22 R23 K16 ["createElement"]
   GETUPVAL R23 4
-  DUPTABLE R24 K59 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "AutomaticSize", "LayoutOrder"}]
-  GETIMPORT R25 K61 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R25 R24 K15 ["Layout"]
-  GETIMPORT R25 K63 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R25 R24 K16 ["HorizontalAlignment"]
-  GETIMPORT R25 K65 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R25 R24 K17 ["VerticalAlignment"]
-  GETIMPORT R25 K30 [Enum.AutomaticSize.Y]
-  SETTABLEKS R25 R24 K18 ["AutomaticSize"]
-  NAMECALL R25 R17 K38 ["getNextOrder"]
+  DUPTABLE R24 K61 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "AutomaticSize", "LayoutOrder"}]
+  GETIMPORT R25 K63 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R25 R24 K17 ["Layout"]
+  GETIMPORT R25 K65 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R25 R24 K18 ["HorizontalAlignment"]
+  GETIMPORT R25 K67 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R25 R24 K19 ["VerticalAlignment"]
+  GETIMPORT R25 K32 [Enum.AutomaticSize.Y]
+  SETTABLEKS R25 R24 K20 ["AutomaticSize"]
+  NAMECALL R25 R17 K40 ["getNextOrder"]
   CALL R25 1 1
-  SETTABLEKS R25 R24 K35 ["LayoutOrder"]
-  DUPTABLE R25 K67 [{"Title", "SelectContainer"}]
+  SETTABLEKS R25 R24 K37 ["LayoutOrder"]
+  DUPTABLE R25 K69 [{"Title", "SelectContainer"}]
   JUMPIFNOT R5 [+38]
   GETUPVAL R27 3
-  GETTABLEKS R26 R27 K14 ["createElement"]
+  GETTABLEKS R26 R27 K16 ["createElement"]
   GETUPVAL R27 7
-  DUPTABLE R28 K70 [{"Text", "LayoutOrder", "AutomaticSize", "TextXAlignment", "Size"}]
+  DUPTABLE R28 K72 [{"Text", "LayoutOrder", "AutomaticSize", "TextXAlignment", "Size"}]
   GETTABLEKS R32 R0 K0 ["props"]
-  GETTABLEKS R31 R32 K71 ["animations"]
-  GETTABLEKS R32 R5 K72 ["id"]
+  GETTABLEKS R31 R32 K73 ["animations"]
+  GETTABLEKS R32 R5 K74 ["id"]
   GETTABLE R30 R31 R32
-  GETTABLEKS R29 R30 K73 ["name"]
-  SETTABLEKS R29 R28 K68 ["Text"]
-  NAMECALL R29 R17 K38 ["getNextOrder"]
+  GETTABLEKS R29 R30 K75 ["name"]
+  SETTABLEKS R29 R28 K70 ["Text"]
+  NAMECALL R29 R17 K40 ["getNextOrder"]
   CALL R29 1 1
-  SETTABLEKS R29 R28 K35 ["LayoutOrder"]
-  GETIMPORT R29 K30 [Enum.AutomaticSize.Y]
-  SETTABLEKS R29 R28 K18 ["AutomaticSize"]
-  GETIMPORT R29 K74 [Enum.TextXAlignment.Left]
-  SETTABLEKS R29 R28 K69 ["TextXAlignment"]
-  GETIMPORT R29 K76 [UDim2.fromScale]
-  LOADK R30 K77 [0.5]
+  SETTABLEKS R29 R28 K37 ["LayoutOrder"]
+  GETIMPORT R29 K32 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K20 ["AutomaticSize"]
+  GETIMPORT R29 K76 [Enum.TextXAlignment.Left]
+  SETTABLEKS R29 R28 K71 ["TextXAlignment"]
+  GETIMPORT R29 K78 [UDim2.fromScale]
+  LOADK R30 K79 [0.5]
   LOADN R31 0
   CALL R29 2 1
-  SETTABLEKS R29 R28 K36 ["Size"]
+  SETTABLEKS R29 R28 K38 ["Size"]
   CALL R26 2 1
   JUMP [+1]
   LOADNIL R26
-  SETTABLEKS R26 R25 K66 ["Title"]
+  SETTABLEKS R26 R25 K68 ["Title"]
   GETUPVAL R27 3
-  GETTABLEKS R26 R27 K14 ["createElement"]
+  GETTABLEKS R26 R27 K16 ["createElement"]
   GETUPVAL R27 4
-  DUPTABLE R28 K78 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "AutomaticSize", "Size", "Spacing", "LayoutOrder"}]
-  GETIMPORT R29 K61 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R29 R28 K15 ["Layout"]
-  GETIMPORT R29 K63 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R29 R28 K16 ["HorizontalAlignment"]
-  GETIMPORT R29 K65 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R29 R28 K17 ["VerticalAlignment"]
-  GETIMPORT R29 K30 [Enum.AutomaticSize.Y]
-  SETTABLEKS R29 R28 K18 ["AutomaticSize"]
-  GETIMPORT R29 K76 [UDim2.fromScale]
-  LOADK R30 K77 [0.5]
+  DUPTABLE R28 K80 [{"Layout", "HorizontalAlignment", "VerticalAlignment", "AutomaticSize", "Size", "Spacing", "LayoutOrder"}]
+  GETIMPORT R29 K63 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R29 R28 K17 ["Layout"]
+  GETIMPORT R29 K65 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R29 R28 K18 ["HorizontalAlignment"]
+  GETIMPORT R29 K67 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R29 R28 K19 ["VerticalAlignment"]
+  GETIMPORT R29 K32 [Enum.AutomaticSize.Y]
+  SETTABLEKS R29 R28 K20 ["AutomaticSize"]
+  GETIMPORT R29 K78 [UDim2.fromScale]
+  LOADK R30 K79 [0.5]
   LOADN R31 0
   CALL R29 2 1
-  SETTABLEKS R29 R28 K36 ["Size"]
-  GETTABLEKS R29 R2 K19 ["Spacing"]
-  SETTABLEKS R29 R28 K19 ["Spacing"]
-  NAMECALL R29 R17 K38 ["getNextOrder"]
+  SETTABLEKS R29 R28 K38 ["Size"]
+  GETTABLEKS R29 R2 K21 ["Spacing"]
+  SETTABLEKS R29 R28 K21 ["Spacing"]
+  NAMECALL R29 R17 K40 ["getNextOrder"]
   CALL R29 1 1
-  SETTABLEKS R29 R28 K35 ["LayoutOrder"]
-  DUPTABLE R29 K81 [{"SelectLabel", "SelectInput"}]
+  SETTABLEKS R29 R28 K37 ["LayoutOrder"]
+  DUPTABLE R29 K83 [{"SelectLabel", "SelectInput"}]
   GETUPVAL R31 3
-  GETTABLEKS R30 R31 K14 ["createElement"]
+  GETTABLEKS R30 R31 K16 ["createElement"]
   GETUPVAL R31 7
-  DUPTABLE R32 K82 [{"Text", "LayoutOrder", "AutomaticSize"}]
-  LOADK R35 K83 ["AvatarSelection"]
-  LOADK R36 K84 ["Character"]
-  NAMECALL R33 R4 K85 ["getText"]
+  DUPTABLE R32 K84 [{"Text", "LayoutOrder", "AutomaticSize"}]
+  LOADK R35 K85 ["AvatarSelection"]
+  LOADK R36 K86 ["Character"]
+  NAMECALL R33 R4 K87 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K68 ["Text"]
-  NAMECALL R33 R17 K38 ["getNextOrder"]
+  SETTABLEKS R33 R32 K70 ["Text"]
+  NAMECALL R33 R17 K40 ["getNextOrder"]
   CALL R33 1 1
-  SETTABLEKS R33 R32 K35 ["LayoutOrder"]
-  GETIMPORT R33 K87 [Enum.AutomaticSize.XY]
-  SETTABLEKS R33 R32 K18 ["AutomaticSize"]
+  SETTABLEKS R33 R32 K37 ["LayoutOrder"]
+  GETIMPORT R33 K89 [Enum.AutomaticSize.XY]
+  SETTABLEKS R33 R32 K20 ["AutomaticSize"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K79 ["SelectLabel"]
+  SETTABLEKS R30 R29 K81 ["SelectLabel"]
   GETUPVAL R31 3
-  GETTABLEKS R30 R31 K14 ["createElement"]
+  GETTABLEKS R30 R31 K16 ["createElement"]
   GETUPVAL R31 8
-  DUPTABLE R32 K93 [{"PlaceholderText", "SelectedIndex", "Items", "OnItemActivated", "LayoutOrder", "Width"}]
-  LOADK R35 K83 ["AvatarSelection"]
-  LOADK R36 K94 ["ChooseAvatarPlaceholder"]
-  NAMECALL R33 R4 K85 ["getText"]
+  DUPTABLE R32 K95 [{"PlaceholderText", "SelectedIndex", "Items", "OnItemActivated", "LayoutOrder", "Width"}]
+  LOADK R35 K85 ["AvatarSelection"]
+  LOADK R36 K96 ["ChooseAvatarPlaceholder"]
+  NAMECALL R33 R4 K87 ["getText"]
   CALL R33 3 1
-  SETTABLEKS R33 R32 K88 ["PlaceholderText"]
-  SETTABLEKS R9 R32 K89 ["SelectedIndex"]
-  NAMECALL R33 R0 K95 ["buildItems"]
+  SETTABLEKS R33 R32 K90 ["PlaceholderText"]
+  SETTABLEKS R9 R32 K91 ["SelectedIndex"]
+  NAMECALL R33 R0 K97 ["buildItems"]
   CALL R33 1 1
-  SETTABLEKS R33 R32 K90 ["Items"]
-  GETTABLEKS R33 R0 K96 ["selectItem"]
-  SETTABLEKS R33 R32 K91 ["OnItemActivated"]
-  NAMECALL R33 R17 K38 ["getNextOrder"]
+  SETTABLEKS R33 R32 K92 ["Items"]
+  GETTABLEKS R33 R0 K98 ["selectItem"]
+  SETTABLEKS R33 R32 K93 ["OnItemActivated"]
+  NAMECALL R33 R17 K40 ["getNextOrder"]
   CALL R33 1 1
-  SETTABLEKS R33 R32 K35 ["LayoutOrder"]
+  SETTABLEKS R33 R32 K37 ["LayoutOrder"]
   LOADN R33 150
-  SETTABLEKS R33 R32 K92 ["Width"]
+  SETTABLEKS R33 R32 K94 ["Width"]
   CALL R30 2 1
-  SETTABLEKS R30 R29 K80 ["SelectInput"]
+  SETTABLEKS R30 R29 K82 ["SelectInput"]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K33 ["SelectContainer"]
+  SETTABLEKS R26 R25 K35 ["SelectContainer"]
   CALL R22 3 1
-  SETTABLEKS R22 R21 K33 ["SelectContainer"]
+  SETTABLEKS R22 R21 K35 ["SelectContainer"]
   CALL R18 3 -1
   RETURN R18 -1
 
-PROTO_24:
-  DUPTABLE R2 K6 [{"animations", "selection", "characters", "convertedCharacters", "characterMetadataLoadedVersion", "worldModels"}]
+PROTO_23:
+  DUPTABLE R2 K6 [{"animations", "previewSelection", "characters", "convertedCharacters", "characterMetadataLoadedVersion", "worldModels"}]
   GETTABLEKS R4 R0 K7 ["AnimationConversion"]
   GETTABLEKS R3 R4 K0 ["animations"]
   SETTABLEKS R3 R2 K0 ["animations"]
   GETTABLEKS R4 R0 K7 ["AnimationConversion"]
-  GETTABLEKS R3 R4 K1 ["selection"]
-  SETTABLEKS R3 R2 K1 ["selection"]
+  GETTABLEKS R3 R4 K1 ["previewSelection"]
+  SETTABLEKS R3 R2 K1 ["previewSelection"]
   GETTABLEKS R4 R0 K8 ["CharacterConversion"]
   GETTABLEKS R3 R4 K2 ["characters"]
   SETTABLEKS R3 R2 K2 ["characters"]
@@ -716,7 +703,7 @@ PROTO_24:
   SETTABLEKS R3 R2 K5 ["worldModels"]
   RETURN R2 1
 
-PROTO_25:
+PROTO_24:
   GETUPVAL R2 0
   GETUPVAL R3 1
   MOVE R4 R0
@@ -725,7 +712,7 @@ PROTO_25:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_25:
   DUPTABLE R1 K1 [{"CreateWorldModels"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
@@ -820,10 +807,8 @@ MAIN:
   DUPCLOSURE R22 K54 [PROTO_18]
   CAPTURE VAL R21
   SETTABLEKS R22 R20 K55 ["didUpdate"]
-  DUPCLOSURE R22 K56 [PROTO_19]
-  CAPTURE VAL R19
-  DUPCLOSURE R23 K57 [PROTO_23]
-  CAPTURE VAL R22
+  DUPCLOSURE R22 K56 [PROTO_22]
+  CAPTURE VAL R5
   CAPTURE VAL R19
   CAPTURE VAL R10
   CAPTURE VAL R2
@@ -832,24 +817,24 @@ MAIN:
   CAPTURE VAL R14
   CAPTURE VAL R9
   CAPTURE VAL R8
-  SETTABLEKS R23 R20 K58 ["render"]
-  DUPCLOSURE R23 K59 [PROTO_24]
-  GETTABLEKS R24 R4 K60 ["withContext"]
-  DUPTABLE R25 K63 [{"Stylizer", "Localization"}]
-  GETTABLEKS R26 R4 K61 ["Stylizer"]
-  SETTABLEKS R26 R25 K61 ["Stylizer"]
-  GETTABLEKS R26 R4 K62 ["Localization"]
-  SETTABLEKS R26 R25 K62 ["Localization"]
-  CALL R24 1 1
-  MOVE R25 R20
-  CALL R24 1 1
-  MOVE R20 R24
-  DUPCLOSURE R24 K64 [PROTO_26]
+  SETTABLEKS R22 R20 K57 ["render"]
+  DUPCLOSURE R22 K58 [PROTO_23]
+  GETTABLEKS R23 R4 K59 ["withContext"]
+  DUPTABLE R24 K62 [{"Stylizer", "Localization"}]
+  GETTABLEKS R25 R4 K60 ["Stylizer"]
+  SETTABLEKS R25 R24 K60 ["Stylizer"]
+  GETTABLEKS R25 R4 K61 ["Localization"]
+  SETTABLEKS R25 R24 K61 ["Localization"]
+  CALL R23 1 1
+  MOVE R24 R20
+  CALL R23 1 1
+  MOVE R20 R23
+  DUPCLOSURE R23 K63 [PROTO_25]
   CAPTURE VAL R16
-  GETTABLEKS R25 R3 K65 ["connect"]
+  GETTABLEKS R24 R3 K64 ["connect"]
+  MOVE R25 R22
   MOVE R26 R23
-  MOVE R27 R24
-  CALL R25 2 1
-  MOVE R26 R20
-  CALL R25 1 -1
-  RETURN R25 -1
+  CALL R24 2 1
+  MOVE R25 R20
+  CALL R24 1 -1
+  RETURN R24 -1

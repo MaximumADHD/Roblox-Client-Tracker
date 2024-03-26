@@ -1,19 +1,29 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = script.Parent.Parent.Parent
-local var1 = require(var0.Packages.Framework)
-local var2 = var1.TestHelpers
-local var3 = var1.ContextServices
-local var4 = {}
-local var27 = var3.Analytics.mock()
-local var6 = var3.Localization.mock()
-local var33 = require(var0.Packages.Rodux).Store
-var33 = require(var0.Src.Reducers.MainReducer)
-local var7 = var3.Store.new(var33.new(var33, nil, nil, nil))
-local var8 = require(var0.Src.Resources.MakeTheme)(true)
+local var1 = require(var0.Packages.React)
+local var2 = require(var0.Packages.Framework)
+local var3 = require(var0.Src.Clients.MockActivityHistoryClient)
+local var4 = require(var0.Src.Contexts.ActivityHistoryProvider)
+local var5 = var2.TestHelpers
+local var6 = var2.ContextServices
+local var7 = {}
+local var32 = var6.Analytics.mock()
+local var33 = var6.Localization
+local var10 = var33.mock()
+var33 = require(var0.Src.Resources.MakeTheme)
+local var11 = var33(true)
 return function(arg1)
    if type(arg1) == "table" then
       local var0 = false
    end
    assert(true, "Expected story to be a table")
-   return var2.provideMockContext(var4, arg1)
+   local var0 = {}
+   var0.activityHistoryClient = var3
+   function var0.showSaveOrPublishPlaceToRobloxFn()
+   end
+   
+   var0.contextType = "mock context"
+   local var1 = {}
+   var1.ActivityHistoryProvider = var1.createElement(var4, var0, arg1)
+   return var5.provideMockContext(var7, var1)
 end

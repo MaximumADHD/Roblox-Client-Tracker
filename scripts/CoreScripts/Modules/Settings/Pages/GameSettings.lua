@@ -212,12 +212,12 @@ local GetFIntVoiceChatDeviceChangeDebounceDelay = require(RobloxGui.Modules.Flag
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
-local FFlagHideEmptyInputDeviceSelector = game:DefineFastFlag("HideEmptyInputDeviceSelector", false)
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
 local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGameSettingsCameraModeFixEnabled
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
 local FFlagUserShowGuiHideToggles = game:DefineFastFlag("UserShowGuiHideToggles", false)
+local FFlagFeedbackEntryPointButtonSizeAdjustment = game:DefineFastFlag("FeedbackEntryPointButtonSizeAdjustment", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -1773,11 +1773,17 @@ local function Initialize()
 				end
 
 				local toggleFeedbackModeButton, toggleFeedbackModeText = nil, nil
-				toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton("toggleFeedbackModeButton", "Give Feedback", UDim2.new(0, 300, 1, -20), onToggleFeedbackMode, this)
+				if FFlagFeedbackEntryPointButtonSizeAdjustment and isDesktopClient then
+					toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton("toggleFeedbackModeButton", "Give Feedback", UDim2.new(0, 465, 1, -20), onToggleFeedbackMode, this)
+					toggleFeedbackModeButton.Position = UDim2.new(1, -465, 0, 10)
+				else
+					toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton("toggleFeedbackModeButton", "Give Feedback", UDim2.new(0, 300, 1, -20), onToggleFeedbackMode, this)
+					toggleFeedbackModeButton.Position = UDim2.new(1, -400, 0, 12)
+				end
+				
 				toggleFeedbackModeButton.ZIndex = 2
 				toggleFeedbackModeButton.Selectable = true
 				toggleFeedbackModeText.ZIndex = 2
-				toggleFeedbackModeButton.Position = UDim2.new(1, -400, 0, 12)
 
 				local row = utility:AddNewRowObject(this, "Give Translation Feedback", toggleFeedbackModeButton)
 				row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["FeedbackModeButton"]
@@ -2973,14 +2979,10 @@ local function Initialize()
 		else
 
 			if GetFFlagVoiceChatUILogging() then
-				if FFlagHideEmptyInputDeviceSelector then
-					if #deviceNames > 0 then
-						log:warning("Errors in get {} device info success: {} VCSSuccess: {}", deviceType, success, VCSSuccess)
-					else
-						log:warning("Empty deviceNames list for {}", deviceType)
-					end
+				if #deviceNames > 0 then
+					log:warning("Errors in get {} device info success: {} VCSSuccess: {}", deviceType, success, VCSSuccess)
 				else
-					log:warning("Errors in get {} device info", deviceType)
+					log:warning("Empty deviceNames list for {}", deviceType)
 				end
 			end
 			this[deviceType.."DeviceNames"] = {}
@@ -2997,13 +2999,11 @@ local function Initialize()
 			this[deviceType.."DeviceSelector"]:SetSelectionIndex(selectedIndex)
 		end
 
-		if FFlagHideEmptyInputDeviceSelector then
-			if this[deviceType.."DeviceFrame"] then
-				if #deviceNames > 0 then
-					this[deviceType.."DeviceFrame"].Visible = true
-				else
-					this[deviceType.."DeviceFrame"].Visible = false
-				end
+		if this[deviceType.."DeviceFrame"] then
+			if #deviceNames > 0 then
+				this[deviceType.."DeviceFrame"].Visible = true
+			else
+				this[deviceType.."DeviceFrame"].Visible = false
 			end
 		end
 	end

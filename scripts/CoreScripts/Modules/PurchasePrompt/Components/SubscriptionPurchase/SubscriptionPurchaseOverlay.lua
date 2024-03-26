@@ -35,6 +35,9 @@ type Props = {
 	description: string,
 	itemIcon: any,
 
+	primaryPaymentMethod: string,
+	secondaryPaymentMethod: string,
+
 	isGamepadEnabled: boolean,
 	isTestingMode: boolean,
 
@@ -127,6 +130,9 @@ function SubscriptionPurchaseOverlay:render()
 		disclaimerText = props.disclaimerText,
 		description = props.description,
 		itemIcon = props.itemIcon,
+
+		primaryPaymentMethod = props.primaryPaymentMethod,
+		secondaryPaymentMethod = props.secondaryPaymentMethod,
 
 		acceptControllerIcon = if props.isGamepadEnabled then BUTTON_A_ICON else nil,
 

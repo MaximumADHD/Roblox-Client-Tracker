@@ -219,7 +219,7 @@ PROTO_10:
   LOADB R3 1
   SETTABLEKS R3 R2 K3 ["Test"]
   LOADB R3 1
-  SETTABLEKS R3 R2 K4 ["Publish"]
+  SETTABLEKS R3 R2 K4 ["ReadyToPublish"]
   SETTABLEKS R2 R1 K0 ["expanded"]
   SETTABLEKS R1 R0 K5 ["state"]
   NEWTABLE R1 4 0
@@ -992,34 +992,37 @@ PROTO_29:
   RETURN R3 1
 
 PROTO_30:
-  DUPTABLE R2 K6 [{"Layout", "LayoutOrder", "Expanded", "OnExpandedChanged", "HeaderOverride", "Text"}]
-  GETIMPORT R3 K10 [Enum.FillDirection.Vertical]
+  DUPTABLE R2 K5 [{"Layout", "LayoutOrder", "Expanded", "OnExpandedChanged", "HeaderOverride"}]
+  GETIMPORT R3 K9 [Enum.FillDirection.Vertical]
   SETTABLEKS R3 R2 K0 ["Layout"]
   GETUPVAL R3 0
-  NAMECALL R3 R3 K11 ["getNextOrder"]
+  NAMECALL R3 R3 K10 ["getNextOrder"]
   CALL R3 1 1
   SETTABLEKS R3 R2 K1 ["LayoutOrder"]
   GETUPVAL R4 1
   GETTABLE R3 R4 R0
   SETTABLEKS R3 R2 K2 ["Expanded"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K12 ["onExpandedChanged"]
+  GETTABLEKS R3 R4 K11 ["onExpandedChanged"]
   MOVE R4 R0
   CALL R3 1 1
   SETTABLEKS R3 R2 K3 ["OnExpandedChanged"]
   GETUPVAL R3 2
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K12 ["onExpandedChanged"]
+  GETTABLEKS R5 R6 K11 ["onExpandedChanged"]
   MOVE R6 R0
   CALL R5 1 1
-  MOVE R6 R0
+  GETUPVAL R6 3
+  LOADK R8 K12 ["Summary"]
+  MOVE R9 R0
+  NAMECALL R6 R6 K13 ["getText"]
+  CALL R6 3 1
   GETUPVAL R8 1
   GETTABLE R7 R8 R0
   MOVE R8 R1
-  NAMECALL R3 R3 K13 ["renderHeader"]
+  NAMECALL R3 R3 K14 ["renderHeader"]
   CALL R3 5 1
   SETTABLEKS R3 R2 K4 ["HeaderOverride"]
-  SETTABLEKS R0 R2 K5 ["Text"]
   RETURN R2 1
 
 PROTO_31:
@@ -1034,6 +1037,7 @@ PROTO_31:
   CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R0
+  CAPTURE VAL R2
   LOADB R7 1
   GETIMPORT R8 K6 [pairs]
   GETTABLEKS R9 R0 K7 ["items"]
@@ -1102,7 +1106,7 @@ PROTO_31:
   GETTABLEKS R15 R16 K16 ["createElement"]
   GETUPVAL R16 3
   MOVE R17 R6
-  LOADK R18 K36 ["Publish"]
+  LOADK R18 K36 ["ReadyToPublish"]
   MOVE R19 R10
   CALL R17 2 1
   DUPTABLE R18 K34 [{"Content"}]
@@ -1142,7 +1146,7 @@ PROTO_31:
   CALL R19 2 1
   SETTABLEKS R19 R18 K33 ["Content"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K36 ["Publish"]
+  SETTABLEKS R15 R14 K36 ["ReadyToPublish"]
   CALL R11 3 -1
   RETURN R11 -1
 

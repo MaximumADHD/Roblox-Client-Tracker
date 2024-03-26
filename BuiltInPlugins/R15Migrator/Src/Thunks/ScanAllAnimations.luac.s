@@ -261,7 +261,7 @@ PROTO_8:
   MOVE R12 R9
   GETIMPORT R10 K8 [table.insert]
   CALL R10 2 0
-  JUMP [+31]
+  JUMP [+41]
   GETUPVAL R11 4
   GETTABLEKS R10 R11 K9 ["isR6Animation"]
   MOVE R11 R9
@@ -276,17 +276,25 @@ PROTO_8:
   MOVE R12 R9
   NAMECALL R10 R10 K10 ["addTag"]
   CALL R10 2 0
-  JUMP [+12]
+  JUMP [+22]
   GETUPVAL R12 6
   NAMECALL R10 R9 K11 ["GetAttribute"]
   CALL R10 2 1
-  JUMPIFNOT R10 [+7]
+  JUMPIFNOT R10 [+17]
+  LOADK R12 K12 ["Animation"]
+  NAMECALL R10 R9 K13 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+8]
   FASTCALL2 TABLE_INSERT R4 R9 [+5]
   MOVE R11 R4
   MOVE R12 R9
   GETIMPORT R10 K8 [table.insert]
   CALL R10 2 0
-  FORGLOOP R5 2 [-52]
+  JUMP [+4]
+  GETIMPORT R10 K15 [warn]
+  LOADK R11 K16 ["OriginalId Attribute should only be found on Animation Instances. Were Attributes manually edited?"]
+  CALL R10 1 0
+  FORGLOOP R5 2 [-62]
   RETURN R2 3
 
 PROTO_9:

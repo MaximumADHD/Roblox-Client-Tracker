@@ -3,7 +3,7 @@ local var0 = require(script:FindFirstAncestor("VisualizationModes").Packages.Fra
 local var1 = var0.TestHelpers
 local var2 = var0.ContextServices
 local var3 = {}
-local var317 = var2.Analytics.mock()
+local var145 = var2.Analytics.mock()
 local var5 = var2.Localization.mock()
 local var6 = var0.Style.Themes.StudioTheme.mock()
 return function(arg1)

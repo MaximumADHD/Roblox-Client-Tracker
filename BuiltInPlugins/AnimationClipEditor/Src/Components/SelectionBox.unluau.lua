@@ -5,7 +5,7 @@ local var2 = require(var0.Packages.Framework)
 local var3 = var2.ContextServices
 local var4 = var2.UI.DragListener
 local var5 = var1.PureComponent:extend("SelectionBox")
-local function fun1(arg1)
+local function fun2(arg1)
    local var0 = arg1.props
    local var1 = var0.SelectionStart
    local var2 = var0.SelectionEnd
@@ -33,7 +33,7 @@ local function fun1(arg1)
    if var5 then
       var5 = var2
       if var5 then
-         local var4 = var1
+         local var81 = var1
          local var0 = var2
          local var1 = var1.joinBindings({}):map(function(arg1)
             local var0 = arg1[2] - arg1[1]
@@ -75,7 +75,7 @@ function var5.render(arg1)
    if var5 then
       var5 = var2
       if var5 then
-         local var4 = var1
+         local var81 = var1
          local var0 = var2
          local var1 = var1.joinBindings({}):map(function(arg1)
             local var0 = arg1[2] - arg1[1]
@@ -89,8 +89,8 @@ function var5.render(arg1)
    return var1.createElement(var4, var29, var32)
 end
 
-fun1 = var3.withContext
-local var22 = {}
-var22.Stylizer = var3.Stylizer
-var5 = fun1(var22)(var5)
+fun2 = var3.withContext
+local var99 = {}
+var99.Stylizer = var3.Stylizer
+var5 = fun2(var99)(var5)
 return var5

@@ -151,15 +151,17 @@ PROTO_5:
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K6 ["createElement"]
   GETUPVAL R16 4
-  DUPTABLE R17 K56 [{"Size", "Text", "OnClick", "LayoutOrder"}]
-  GETTABLEKS R18 R4 K57 ["ConvertButtonSize"]
+  DUPTABLE R17 K57 [{"Style", "Size", "Text", "OnClick", "LayoutOrder"}]
+  LOADK R18 K58 ["RoundPrimary"]
+  SETTABLEKS R18 R17 K56 ["Style"]
+  GETTABLEKS R18 R4 K59 ["ReplaceButtonSize"]
   SETTABLEKS R18 R17 K4 ["Size"]
   LOADK R20 K50 ["ScriptConversion"]
-  LOADK R21 K58 ["Convert"]
+  LOADK R21 K60 ["Replace"]
   NAMECALL R18 R2 K52 ["getText"]
   CALL R18 3 1
   SETTABLEKS R18 R17 K45 ["Text"]
-  GETTABLEKS R18 R0 K59 ["onConvertClicked"]
+  GETTABLEKS R18 R0 K61 ["onConvertClicked"]
   SETTABLEKS R18 R17 K46 ["OnClick"]
   NAMECALL R18 R6 K27 ["getNextOrder"]
   CALL R18 1 1

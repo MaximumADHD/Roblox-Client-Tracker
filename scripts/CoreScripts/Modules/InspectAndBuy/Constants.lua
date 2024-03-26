@@ -328,6 +328,11 @@ Constants.Counters = {
 	PromptRobloxPurchase = "PromptRobloxPurchase",
 	PromptPurchaseUnknownItemType = "PromptPurchaseUnknownItemType",
 
+	PurchaseSucceededBundle = "PurchaseSucceededBundle",
+	PurchaseSucceededAsset = "PurchaseSucceededAsset",
+	PurchaseSucceededOther = "PurchaseSucceededOther",
+	PurchaseFinished = "PurchaseFinished",
+
 	ItemDetailPageOpened = "ItemDetailPageOpened",
 	TryOnButtonClicked = "TryOnButtonClicked",
 }

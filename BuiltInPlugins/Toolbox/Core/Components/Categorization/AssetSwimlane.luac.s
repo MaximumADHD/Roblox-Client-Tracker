@@ -224,12 +224,12 @@ PROTO_6:
   CAPTURE VAL R19
   GETUPVAL R26 7
   GETTABLEKS R25 R26 K21 ["Generator"]
-  DUPTABLE R26 K30 [{"assetsInCameraViewport", "assetsInCameraVicinity", "networkInterface", "categoryName", "includeUnverifiedCreators", "sortName", "queryParams", "sectionName", "initialPageSize", "render", "searchSource"}]
+  DUPTABLE R26 K31 [{"assetsInCameraViewport", "assetsInCameraVicinity", "networkInterface", "categoryName", "includeUnverifiedCreators", "qualityFilterData", "sortName", "queryParams", "sectionName", "initialPageSize", "render", "searchSource"}]
   GETUPVAL R28 0
   CALL R28 0 1
   JUMPIFNOT R28 [+7]
   GETUPVAL R29 3
-  GETTABLEKS R28 R29 K31 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
+  GETTABLEKS R28 R29 K32 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
   JUMPIFNOTEQ R13 R28 [+3]
   MOVE R27 R3
   JUMP [+1]
@@ -239,7 +239,7 @@ PROTO_6:
   CALL R28 0 1
   JUMPIFNOT R28 [+7]
   GETUPVAL R29 3
-  GETTABLEKS R28 R29 K31 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
+  GETTABLEKS R28 R29 K32 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
   JUMPIFNOTEQ R13 R28 [+3]
   MOVE R27 R4
   JUMP [+1]
@@ -247,15 +247,22 @@ PROTO_6:
   SETTABLEKS R27 R26 K3 ["assetsInCameraVicinity"]
   SETTABLEKS R9 R26 K9 ["networkInterface"]
   SETTABLEKS R6 R26 K22 ["categoryName"]
-  GETTABLEKS R27 R1 K32 ["IncludeUnverifiedCreators"]
+  GETTABLEKS R27 R1 K33 ["IncludeUnverifiedCreators"]
   SETTABLEKS R27 R26 K23 ["includeUnverifiedCreators"]
-  SETTABLEKS R15 R26 K24 ["sortName"]
-  SETTABLEKS R11 R26 K25 ["queryParams"]
-  SETTABLEKS R13 R26 K26 ["sectionName"]
-  SETTABLEKS R7 R26 K27 ["initialPageSize"]
-  SETTABLEKS R24 R26 K28 ["render"]
-  GETTABLEKS R27 R1 K29 ["searchSource"]
-  SETTABLEKS R27 R26 K29 ["searchSource"]
+  GETUPVAL R28 8
+  CALL R28 0 1
+  JUMPIFNOT R28 [+3]
+  GETTABLEKS R27 R1 K34 ["QualityFilterData"]
+  JUMP [+1]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K24 ["qualityFilterData"]
+  SETTABLEKS R15 R26 K25 ["sortName"]
+  SETTABLEKS R11 R26 K26 ["queryParams"]
+  SETTABLEKS R13 R26 K27 ["sectionName"]
+  SETTABLEKS R7 R26 K28 ["initialPageSize"]
+  SETTABLEKS R24 R26 K29 ["render"]
+  GETTABLEKS R27 R1 K30 ["searchSource"]
+  SETTABLEKS R27 R26 K30 ["searchSource"]
   CALL R25 1 -1
   RETURN R25 -1
 
@@ -363,13 +370,18 @@ MAIN:
   GETTABLEKS R23 R24 K29 ["SharedFlags"]
   GETTABLEKS R22 R23 K31 ["getFFlagToolboxContextualRecommendations"]
   CALL R21 1 1
-  GETTABLEKS R22 R3 K32 ["PureComponent"]
-  LOADK R24 K33 ["AssetSwimlane"]
-  NAMECALL R22 R22 K34 ["extend"]
-  CALL R22 2 1
-  DUPCLOSURE R23 K35 [PROTO_1]
-  SETTABLEKS R23 R22 K36 ["init"]
-  DUPCLOSURE R23 K37 [PROTO_6]
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R25 R0 K10 ["Core"]
+  GETTABLEKS R24 R25 K32 ["Flags"]
+  GETTABLEKS R23 R24 K33 ["getFFlagQualityFiltersInToolboxSearch"]
+  CALL R22 1 1
+  GETTABLEKS R23 R3 K34 ["PureComponent"]
+  LOADK R25 K35 ["AssetSwimlane"]
+  NAMECALL R23 R23 K36 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K37 [PROTO_1]
+  SETTABLEKS R24 R23 K38 ["init"]
+  DUPCLOSURE R24 K39 [PROTO_6]
   CAPTURE VAL R21
   CAPTURE VAL R3
   CAPTURE VAL R10
@@ -378,24 +390,25 @@ MAIN:
   CAPTURE VAL R17
   CAPTURE VAL R7
   CAPTURE VAL R9
-  SETTABLEKS R23 R22 K38 ["render"]
-  DUPCLOSURE R23 K39 [PROTO_7]
-  MOVE R24 R19
-  DUPTABLE R25 K42 [{"Modal", "Network"}]
-  SETTABLEKS R13 R25 K40 ["Modal"]
-  SETTABLEKS R14 R25 K41 ["Network"]
-  CALL R24 1 1
-  MOVE R25 R22
-  CALL R24 1 1
-  MOVE R22 R24
-  MOVE R25 R21
-  CALL R25 0 1
-  JUMPIFNOT R25 [+7]
-  GETTABLEKS R24 R4 K43 ["connect"]
+  CAPTURE VAL R22
+  SETTABLEKS R24 R23 K40 ["render"]
+  DUPCLOSURE R24 K41 [PROTO_7]
+  MOVE R25 R19
+  DUPTABLE R26 K44 [{"Modal", "Network"}]
+  SETTABLEKS R13 R26 K42 ["Modal"]
+  SETTABLEKS R14 R26 K43 ["Network"]
+  CALL R25 1 1
+  MOVE R26 R23
+  CALL R25 1 1
+  MOVE R23 R25
+  MOVE R26 R21
+  CALL R26 0 1
+  JUMPIFNOT R26 [+7]
+  GETTABLEKS R25 R4 K45 ["connect"]
+  MOVE R26 R24
+  CALL R25 1 1
+  MOVE R26 R23
+  CALL R25 1 1
+  RETURN R25 1
   MOVE R25 R23
-  CALL R24 1 1
-  MOVE R25 R22
-  CALL R24 1 1
-  RETURN R24 1
-  MOVE R24 R22
-  RETURN R24 1
+  RETURN R25 1

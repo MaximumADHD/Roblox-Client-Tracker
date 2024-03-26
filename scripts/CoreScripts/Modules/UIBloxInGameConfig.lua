@@ -12,4 +12,5 @@ return {
 	useInputResponsiveShortcutBarChanges = UIBloxFlags.FFlagUIBloxUseInputResponsiveShortcutBarChanges,
 	enableFontNameMapping = UIBloxFlags.GetUIBloxEnableFontNameMapping(),
 	useGetTextBoundsAsync = UIBloxFlags.GetFFlagUIBloxUseGetTextBoundsAsync(),
+	useTokensWithScale = UIBloxFlags.GetFFlagUIBloxUseTokensWithScale(),
 }

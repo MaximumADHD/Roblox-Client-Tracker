@@ -210,7 +210,7 @@ function CaptureNotification:render()
 					}),
 				}),
 				ScreenshotSavedToAlbumConnection = shouldSaveScreenshotToAlbum() and Roact.createElement(ExternalEventConnection, {
-					event = game.ScreenshotSavedToAlbum,
+					event = game.ScreenshotSavedToAlbum :: RBXScriptSignal,
 					callback = self.screenshotSavedToAlbumCallback,
 				}),
 				PermissionEventConnection = self.props.permissionEvent and Roact.createElement(ExternalEventConnection, {

@@ -7,13 +7,13 @@ local var4 = require(script.Parent.SubcategoriesSwimlaneView)
 local var5 = {}
 var5.summary = "A grid of Subcategory IconTiles with flexible widths."
 function var5.story()
-   local var29 = {}
-   local var33 = {}
-   var33.CategoryName = var3.FREE_MODELS.name
-   function var33.OnClickBack()
+   local var413 = {}
+   local var417 = {}
+   var417.CategoryName = var3.FREE_MODELS.name
+   function var417.OnClickBack()
    end
    
-   function var33.OnClickSeeAllAssets()
+   function var417.OnClickSeeAllAssets()
    end
    
    local var0 = {}
@@ -23,10 +23,10 @@ function var5.story()
    var0.index = 1
    var0.name = "1"
    var0.path = {}
-   local var45 = {}
-   var45.assetId = 5657301130
-   var45.backgroundColor = "#32a852"
-   var0.thumbnail = var45
+   local var429 = {}
+   var429.assetId = 5657301130
+   var429.backgroundColor = "#32a852"
+   var0.thumbnail = var429
    local var2 = {}
    var2.displayName = "Vehicle"
    var2.children = {}
@@ -34,10 +34,10 @@ function var5.story()
    var2.index = 2
    var2.name = "2"
    var2.path = {}
-   local var55 = {}
-   var55.assetId = 5657301130
-   var55.backgroundColor = "#32a852"
-   var2.thumbnail = var55
+   local var439 = {}
+   var439.assetId = 5657301130
+   var439.backgroundColor = "#32a852"
+   var2.thumbnail = var439
    local var4 = {}
    var4.displayName = "3rd"
    var4.children = {}
@@ -45,10 +45,10 @@ function var5.story()
    var4.index = 3
    var4.name = "3"
    var4.path = {}
-   local var65 = {}
-   var65.assetId = 5657301130
-   var65.backgroundColor = "#32a852"
-   var4.thumbnail = var65
+   local var449 = {}
+   var449.assetId = 5657301130
+   var449.backgroundColor = "#32a852"
+   var4.thumbnail = var449
    local var6 = {}
    var6.displayName = "4"
    var6.children = {}
@@ -56,10 +56,10 @@ function var5.story()
    var6.index = 3
    var6.name = "4"
    var6.path = {}
-   local var75 = {}
-   var75.assetId = 5657301130
-   var75.backgroundColor = "#32a852"
-   var6.thumbnail = var75
+   local var459 = {}
+   var459.assetId = 5657301130
+   var459.backgroundColor = "#32a852"
+   var6.thumbnail = var459
    local var8 = {}
    var8.displayName = "5"
    var8.children = {}
@@ -71,9 +71,9 @@ function var5.story()
    var9.assetId = 5657301130
    var9.backgroundColor = "#32a852"
    var8.thumbnail = var9
-   var33.SubcategoryDict = {}
-   var29.SubcategoriesSwimlaneView = var1.createElement(var4, var33)
-   return var1.createElement(var2, {}, var29)
+   var417.SubcategoryDict = {}
+   var413.SubcategoriesSwimlaneView = var1.createElement(var4, var417)
+   return var1.createElement(var2, {}, var413)
 end
 
 return var5

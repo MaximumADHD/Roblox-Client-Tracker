@@ -7,13 +7,13 @@ local var4 = require(var1.Src.Util.RigInfo)
 local var5 = require(var1.Packages.Framework).ContextServices
 local var6 = var2.PureComponent:extend("FloorGrid")
 function var6.renderLine(arg1, arg2, arg3, arg4, arg5)
-   local var233 = {}
-   var233.Thickness = 2
-   var233.Color = arg2.lineColor
-   var233.Adornee = arg3
-   var233.Length = arg5
-   var233.CFrame = arg4
-   return var2.createElement("LineHandleAdornment", var233)
+   local var104 = {}
+   var104.Thickness = 2
+   var104.Color = arg2.lineColor
+   var104.Adornee = arg3
+   var104.Length = arg5
+   var104.CFrame = arg4
+   return var2.createElement("LineHandleAdornment", var104)
 end
 
 function var6.renderLines(arg1, arg2, arg3, arg4)
@@ -22,11 +22,11 @@ function var6.renderLines(arg1, arg2, arg3, arg4)
    local var2 = (var1) / 10
    local var3 = Vector3.new(0, var0.Y * 0.5 + arg4.Position.Y - arg3:GetModelCFrame().p.Y, 0)
    local var4 = {}
-   local var266 = 5
-   local var267 = 1
-   local var273 = Vector3.new(65531 * var2, 0, (var1) / 2)
-   var273 = var4
-   local var281 = arg1:renderLine(arg2, arg4, CFrame.new(var3 + var273), var1)
+   local var137 = 5
+   local var138 = 1
+   local var144 = Vector3.new(65531 * var2, 0, (var1) / 2)
+   var144 = var4
+   local var152 = arg1:renderLine(arg2, arg4, CFrame.new(var3 + var144), var1)
    table.insert()
    local var9 = 5
    local var10 = 1
@@ -42,16 +42,16 @@ local function fun6(arg1)
    local var1 = var0.RootInstance
    local var2 = var1
    if var2 then
-      local var316 = var4
-      var316 = var1
-      local var0 = var316.findRootPart(var316)
+      local var187 = var4
+      var187 = var1
+      local var0 = var187.findRootPart(var187)
    end
    if var2 then
-      local var328 = {}
-      var328.target = var0.Container or var0
-      local var329 = {}
-      var329.GridLines = var2.createElement("Folder", {}, arg1:renderLines(var0.Stylizer.gridTheme, var1, var2))
-      return var2.createElement(var2.Portal, var328, var329)
+      local var199 = {}
+      var199.target = var0.Container or var0
+      local var200 = {}
+      var200.GridLines = var2.createElement("Folder", {}, arg1:renderLines(var0.Stylizer.gridTheme, var1, var2))
+      return var2.createElement(var2.Portal, var199, var200)
    end
 end
 
@@ -60,21 +60,21 @@ function var6.render(arg1)
    local var1 = var0.RootInstance
    local var2 = var1
    if var2 then
-      local var316 = var4
-      var316 = var1
-      local var0 = var316.findRootPart(var316)
+      local var187 = var4
+      var187 = var1
+      local var0 = var187.findRootPart(var187)
    end
    if var2 then
-      local var328 = {}
-      var328.target = var0.Container or var0
-      local var329 = {}
-      var329.GridLines = var2.createElement("Folder", {}, arg1:renderLines(var0.Stylizer.gridTheme, var1, var2))
-      return var2.createElement(var2.Portal, var328, var329)
+      local var199 = {}
+      var199.target = var0.Container or var0
+      local var200 = {}
+      var200.GridLines = var2.createElement("Folder", {}, arg1:renderLines(var0.Stylizer.gridTheme, var1, var2))
+      return var2.createElement(var2.Portal, var199, var200)
    end
 end
 
 fun6 = var5.withContext
-local var337 = {}
-var337.Stylizer = var5.Stylizer
-var6 = fun6(var337)(var6)
+local var208 = {}
+var208.Stylizer = var5.Stylizer
+var6 = fun6(var208)(var6)
 return var6

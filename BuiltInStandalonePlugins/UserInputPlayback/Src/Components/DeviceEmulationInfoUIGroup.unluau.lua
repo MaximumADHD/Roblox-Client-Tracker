@@ -16,58 +16,58 @@ function var9.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
    local var2 = var0.Stylizer
-   local var0 = {}
-   var0.LayoutOrder = var0.LayoutOrder
-   var0.Style = "CornerBox"
-   var0.Size = UDim2.fromOffset(var2.UIGroupWidthPx, 0)
-   var0.AutomaticSize = Enum.AutomaticSize.Y
-   var0.Layout = Enum.FillDirection.Vertical
-   var0.Spacing = UDim.new(0, var2.PaddingPx)
-   var0.Padding = var2.PaddingPx
-   var0.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var0.VerticalAlignment = Enum.VerticalAlignment.Top
-   local var16 = {}
-   local var20 = {}
-   var20.Text = var1:getText("RecordTabView", "CurrentRecordingDeviceLabel")
-   var20.Size = UDim2.fromScale(1, 0)
-   var20.AutomaticSize = Enum.AutomaticSize.Y
-   var20.LayoutOrder = 0
-   var20.TextXAlignment = Enum.TextXAlignment.Left
-   var20.TextYAlignment = Enum.TextYAlignment.Top
-   var16.Label = var1.createElement(var5, var20)
-   local var37 = {}
-   var37.Size = UDim2.fromScale(1, 0)
-   var37.AutomaticSize = Enum.AutomaticSize.Y
-   var37.LayoutOrder = 1
-   var37.Layout = Enum.FillDirection.Vertical
-   var37.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var37.VerticalAlignment = Enum.VerticalAlignment.Top
-   local var47 = {}
-   local var51 = {}
-   var51.Label = var1:getText("RecordTabView", "EmulationDeviceName")
-   var51.Value = var7.formatDeviceName(var0.EmulationDeviceId, var1)
-   var51.LayoutOrder = 1
-   var47.DeviceName = var1.createElement(var8, var51)
-   local var66 = {}
-   var66.Label = var1:getText("RecordTabView", "EmulationDeviceOrientation")
-   var66.Value = var7.formatDeviceOrientation(var0.EmulationDeviceOrientation, var0.EmulationDeviceId, var1)
-   var66.LayoutOrder = 2
-   var47.Orientation = var1.createElement(var8, var66)
-   local var82 = {}
-   var82.Label = var1:getText("RecordTabView", "EmulationDeviceResolution")
-   var82.Value = var7.format2dResolution(var0.CurrentScreenSize, var1:getText("RecordTabView", "ResolutionPixelsName"))
-   var82.LayoutOrder = 3
-   var47.Resolution = var1.createElement(var8, var82)
-   var16.KeyValuePairs = var1.createElement(var6, var37, var47)
-   return var1.createElement(var6, var0, var16)
+   local var108 = {}
+   var108.LayoutOrder = var0.LayoutOrder
+   var108.Style = "CornerBox"
+   var108.Size = UDim2.fromOffset(var2.UIGroupWidthPx, 0)
+   var108.AutomaticSize = Enum.AutomaticSize.Y
+   var108.Layout = Enum.FillDirection.Vertical
+   var108.Spacing = UDim.new(0, var2.PaddingPx)
+   var108.Padding = var2.PaddingPx
+   var108.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var108.VerticalAlignment = Enum.VerticalAlignment.Top
+   local var130 = {}
+   local var136 = {}
+   var136.Text = var1:getText("RecordTabView", "CurrentRecordingDeviceLabel")
+   var136.Size = UDim2.fromScale(1, 0)
+   var136.AutomaticSize = Enum.AutomaticSize.Y
+   var136.LayoutOrder = 0
+   var136.TextXAlignment = Enum.TextXAlignment.Left
+   var136.TextYAlignment = Enum.TextYAlignment.Top
+   var130.Label = var1.createElement(var5, var136)
+   local var166 = {}
+   var166.Size = UDim2.fromScale(1, 0)
+   var166.AutomaticSize = Enum.AutomaticSize.Y
+   var166.LayoutOrder = 1
+   var166.Layout = Enum.FillDirection.Vertical
+   var166.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var166.VerticalAlignment = Enum.VerticalAlignment.Top
+   local var186 = {}
+   local var190 = {}
+   var190.Label = var1:getText("RecordTabView", "EmulationDeviceName")
+   var190.Value = var7.formatDeviceName(var0.EmulationDeviceId, var1)
+   var190.LayoutOrder = 1
+   var186.DeviceName = var1.createElement(var8, var190)
+   local var217 = {}
+   var217.Label = var1:getText("RecordTabView", "EmulationDeviceOrientation")
+   var217.Value = var7.formatDeviceOrientation(var0.EmulationDeviceOrientation, var0.EmulationDeviceId, var1)
+   var217.LayoutOrder = 2
+   var186.Orientation = var1.createElement(var8, var217)
+   local var236 = {}
+   var236.Label = var1:getText("RecordTabView", "EmulationDeviceResolution")
+   var236.Value = var7.format2dResolution(var0.CurrentScreenSize, var1:getText("RecordTabView", "ResolutionPixelsName"))
+   var236.LayoutOrder = 3
+   var186.Resolution = var1.createElement(var8, var236)
+   var130.KeyValuePairs = var1.createElement(var6, var166, var186)
+   return var1.createElement(var6, var108, var130)
 end
 
-local var100 = {}
-var100.Stylizer = var3.Stylizer
-local var102 = var3.Localization
-var100.Localization = var102
-var9 = var3.withContext(var100)(var9)
-function var102(arg1, arg2)
+local var259 = {}
+var259.Stylizer = var3.Stylizer
+local var261 = var3.Localization
+var259.Localization = var261
+var9 = var3.withContext(var259)(var9)
+function var261(arg1, arg2)
    local var0 = {}
    var0.ShouldRecordOnGamePlayStart = arg1.recordTab.shouldStart
    var0.CurrentScreenSize = arg1.recordTab.screenSize
@@ -77,4 +77,4 @@ function var102(arg1, arg2)
    return var0
 end
 
-return require(var0.Packages.RoactRodux).connect(var102, nil)(var9)
+return require(var0.Packages.RoactRodux).connect(var261, nil)(var9)

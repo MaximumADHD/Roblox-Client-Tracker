@@ -130,7 +130,7 @@ PROTO_3:
   GETTABLEKS R16 R17 K7 ["createElement"]
   GETUPVAL R17 5
   DUPTABLE R18 K65 [{"Size", "Text", "OnClick", "LayoutOrder"}]
-  GETTABLEKS R19 R5 K66 ["ConvertButtonSize"]
+  GETTABLEKS R19 R5 K66 ["RevertButtonSize"]
   SETTABLEKS R19 R18 K5 ["Size"]
   LOADK R21 K67 ["CharacterConversion"]
   LOADK R22 K68 ["Revert"]
@@ -147,15 +147,17 @@ PROTO_3:
   GETUPVAL R17 1
   GETTABLEKS R16 R17 K7 ["createElement"]
   GETUPVAL R17 5
-  DUPTABLE R18 K65 [{"Size", "Text", "OnClick", "LayoutOrder"}]
-  GETTABLEKS R19 R5 K71 ["RevertButtonSize"]
+  DUPTABLE R18 K71 [{"Style", "Size", "Text", "OnClick", "LayoutOrder"}]
+  LOADK R19 K72 ["RoundPrimary"]
+  SETTABLEKS R19 R18 K34 ["Style"]
+  GETTABLEKS R19 R5 K73 ["ReplaceButtonSize"]
   SETTABLEKS R19 R18 K5 ["Size"]
   LOADK R21 K67 ["CharacterConversion"]
-  LOADK R22 K72 ["Convert"]
+  LOADK R22 K74 ["Replace"]
   NAMECALL R19 R2 K69 ["getText"]
   CALL R19 3 1
   SETTABLEKS R19 R18 K40 ["Text"]
-  GETTABLEKS R19 R0 K73 ["convertCharacters"]
+  GETTABLEKS R19 R0 K75 ["convertCharacters"]
   SETTABLEKS R19 R18 K64 ["OnClick"]
   NAMECALL R19 R7 K38 ["getNextOrder"]
   CALL R19 1 1

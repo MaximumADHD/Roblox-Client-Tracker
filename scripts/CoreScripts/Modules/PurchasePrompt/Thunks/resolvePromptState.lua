@@ -15,6 +15,7 @@ local PurchaseFlow = require(Root.Enums.PurchaseFlow)
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local PaymentPlatform = require(Root.Enums.PaymentPlatform)
+local RequestType = require(Root.Enums.RequestType)
 
 local RobuxUpsell = require(Root.Models.RobuxUpsell)
 
@@ -146,7 +147,9 @@ local function resolvePromptState(productInfo, accountInfo, balanceInfo, already
 			)
 		end
 
-		analytics.signalProductPurchaseShown(productInfo.productId, state.requestType)
+		if state.requestType ~= RequestType.AvatarCreationFee then
+			analytics.signalProductPurchaseShown(productInfo.productId, state.requestType)
+		end
 
 		return store:dispatch(SetPromptState(PromptState.PromptPurchase))
 	end)

@@ -37,9 +37,13 @@ local ECONOMY_CREATOR_STATS_URL = string.gsub(BASE_URL, "https://www.", "https:/
 local USERS_URL = string.gsub(BASE_URL, "https://www", "https://users")
 
 local function request(options, resolve, reject)
-	debugLog(function() return "Request "..options.Url.."\n"..serializeTable(options) end)
+	debugLog(function()
+		return "Request " .. options.Url .. "\n" .. serializeTable(options)
+	end)
 	return HttpService:RequestInternal(options):Start(function(success, response)
-		debugLog(function() return "Response "..options.Url.."\n"..serializeTable(response) end)
+		debugLog(function()
+			return "Response " .. options.Url .. "\n" .. serializeTable(response)
+		end)
 		if success then
 			local result
 			success, result = pcall(HttpService.JSONDecode, HttpService, response.Body)
@@ -63,7 +67,7 @@ local function getABTestGroup(userId, testName)
 			ExperimentName = testName,
 			SubjectType = AB_SUBJECT_TYPE_USER_ID,
 			SubjectTargetId = userId,
-		}
+		},
 	}
 
 	return Promise.new(function(resolve, reject)
@@ -74,7 +78,7 @@ local function getABTestGroup(userId, testName)
 			Headers = {
 				["Content-Type"] = "application/json",
 				["Accept"] = "application/json",
-			}
+			},
 		}, resolve, reject)
 	end)
 end
@@ -125,12 +129,41 @@ local function getPlayerOwns(player, id, infoType)
 	return false
 end
 
-local function performPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey, purchaseAuthToken)
+local function performPurchase(
+	infoType,
+	productId,
+	expectedPrice,
+	requestId,
+	isRobloxPurchase,
+	collectibleItemId,
+	collectibleProductId,
+	idempotencyKey,
+	purchaseAuthToken
+)
 	local success, result = pcall(function()
-		if (GetFFlagEnablePromptPurchaseRequestedV2() or GetFFlagEnablePromptPurchaseRequestedV2Take2()) then
-			return MarketplaceService:PerformPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey, purchaseAuthToken)
+		if GetFFlagEnablePromptPurchaseRequestedV2() or GetFFlagEnablePromptPurchaseRequestedV2Take2() then
+			return MarketplaceService:PerformPurchase(
+				infoType,
+				productId,
+				expectedPrice,
+				requestId,
+				isRobloxPurchase,
+				collectibleItemId,
+				collectibleProductId,
+				idempotencyKey,
+				purchaseAuthToken
+			)
 		end
-		return MarketplaceService:PerformPurchase(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey)
+		return MarketplaceService:PerformPurchase(
+			infoType,
+			productId,
+			expectedPrice,
+			requestId,
+			isRobloxPurchase,
+			collectibleItemId,
+			collectibleProductId,
+			idempotencyKey
+		)
 	end)
 
 	if success then
@@ -139,7 +172,8 @@ local function performPurchase(infoType, productId, expectedPrice, requestId, is
 
 	--[[ Generic Challenge Responses are HTTP 403 Forbidden responses with a unique
 	response pattern. We explicitly identify the response and return the result.
-	]]--
+	]]
+	--
 	if isGenericChallengeResponse(result) then
 		return result
 	end
@@ -147,7 +181,18 @@ local function performPurchase(infoType, productId, expectedPrice, requestId, is
 	error(tostring(result))
 end
 
-local function performPurchaseV2(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectibleItemId, collectibleProductId, idempotencyKey, purchaseAuthToken, collectibleItemInstanceId)
+local function performPurchaseV2(
+	infoType,
+	productId,
+	expectedPrice,
+	requestId,
+	isRobloxPurchase,
+	collectibleItemId,
+	collectibleProductId,
+	idempotencyKey,
+	purchaseAuthToken,
+	collectibleItemInstanceId
+)
 	local success, result = pcall(function()
 		local collectiblesProductDetails = {
 			CollectibleItemId = collectibleItemId,
@@ -156,7 +201,14 @@ local function performPurchaseV2(infoType, productId, expectedPrice, requestId, 
 			PurchaseAuthToken = purchaseAuthToken,
 			CollectibleItemInstanceId = collectibleItemInstanceId,
 		}
-		return MarketplaceService:PerformPurchaseV2(infoType, productId, expectedPrice, requestId, isRobloxPurchase, collectiblesProductDetails)
+		return MarketplaceService:PerformPurchaseV2(
+			infoType,
+			productId,
+			expectedPrice,
+			requestId,
+			isRobloxPurchase,
+			collectiblesProductDetails
+		)
 	end)
 
 	if success then
@@ -165,7 +217,8 @@ local function performPurchaseV2(infoType, productId, expectedPrice, requestId, 
 
 	--[[ Generic Challenge Responses are HTTP 403 Forbidden responses with a unique
 	response pattern. We explicitly identify the response and return the result.
-	]]--
+	]]
+	--
 	if isGenericChallengeResponse(result) then
 		return result
 	end
@@ -196,7 +249,7 @@ local function getBalanceInfo()
 end
 
 local function getBundleDetails(bundleId)
-	local url = CATALOG_URL .."v1/bundles/" ..tostring(bundleId) .."/details"
+	local url = CATALOG_URL .. "v1/bundles/" .. tostring(bundleId) .. "/details"
 	local options = {
 		Url = url,
 		Method = "GET",
@@ -210,10 +263,10 @@ local function getBundleDetails(bundleId)
 end
 
 local function getProductPurchasableDetails(productId)
-	local url = ECONOMY_URL .."v1/products/" ..tostring(productId) .."?showPurchasable=true"
+	local url = ECONOMY_URL .. "v1/products/" .. tostring(productId) .. "?showPurchasable=true"
 	local options = {
 		Url = url,
-		Method = "GET"
+		Method = "GET",
 	}
 
 	return Promise.new(function(resolve, reject)
@@ -224,29 +277,32 @@ local function getProductPurchasableDetails(productId)
 end
 
 local function getRobuxUpsellProduct(price: number, robuxBalance: number, upsellPlatform: string)
-    local options = {
-        Url = APIS_URL .."payments-gateway/v1/products/get-upsell-product",
-        Method = "POST",
-        Body = HttpService:JSONEncode({
-            upsell_platform = upsellPlatform,
-            user_robux_balance = robuxBalance,
-            attempt_robux_amount = price,
-        }),
-        Headers = {
-            ["Content-Type"] = "application/json",
-            ["Accept"] = "application/json",
-        }
-    }
+	local options = {
+		Url = APIS_URL .. "payments-gateway/v1/products/get-upsell-product",
+		Method = "POST",
+		Body = HttpService:JSONEncode({
+			upsell_platform = upsellPlatform,
+			user_robux_balance = robuxBalance,
+			attempt_robux_amount = price,
+		}),
+		Headers = {
+			["Content-Type"] = "application/json",
+			["Accept"] = "application/json",
+		},
+	}
 
-    return Promise.new(function(resolve, reject)
-        spawn(function()
-            request(options, resolve, reject)
-        end)
-    end)
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			request(options, resolve, reject)
+		end)
+	end)
 end
 
 local function postPremiumImpression()
-	local url = ECONOMY_CREATOR_STATS_URL.."v1/universes/" ..tostring(game.GameId) .."/premium-impressions/increment"
+	local url = ECONOMY_CREATOR_STATS_URL
+		.. "v1/universes/"
+		.. tostring(game.GameId)
+		.. "/premium-impressions/increment"
 	local options = {
 		Url = url,
 		Method = "POST",
@@ -254,7 +310,7 @@ local function postPremiumImpression()
 		Headers = {
 			["Content-Type"] = "application/json",
 			["Accept"] = "application/json",
-		}
+		},
 	}
 
 	return Promise.new(function(resolve, reject)
@@ -268,8 +324,13 @@ end
 
 local function getPremiumUpsellPrecheck()
 	local options = {
-		Url = string.format("%sv1/users/%d/premium-upsell-precheck?universeId=%d&placeId=%d",
-			PREMIUM_FEATURES_URL, Players.LocalPlayer.UserId, game.GameId, game.PlaceId),
+		Url = string.format(
+			"%sv1/users/%d/premium-upsell-precheck?universeId=%d&placeId=%d",
+			PREMIUM_FEATURES_URL,
+			Players.LocalPlayer.UserId,
+			game.GameId,
+			game.PlaceId
+		),
 		Method = "GET",
 	}
 
@@ -290,15 +351,20 @@ local function getSubscriptionPurchaseInfo(subscriptinId)
 	return MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptinId)
 end
 
-local function performSubscriptionPurchase(subscriptinId)
+local function DEPRECATED_performSubscriptionPurchase(subscriptinId)
+	-- remove with Flag EnableRobloxCreditPurchase
 	return MarketplaceService:performSubscriptionPurchase(subscriptinId)
+end
+
+local function performSubscriptionPurchase(subscriptinId, paymentMethod)
+	return MarketplaceService:PerformSubscriptionPurchaseV2(subscriptinId, paymentMethod)
 end
 
 local function getPurchaseWarning(mobileProductId: string?, productId: number?, isPremium: boolean)
 	local url = UrlBuilder.economy.purchaseWarning.getPurchaseWarning(mobileProductId, productId, not isPremium)
 	local options = {
 		Url = url,
-		Method = "GET"
+		Method = "GET",
 	}
 
 	return Promise.new(function(resolve, reject)
@@ -319,7 +385,7 @@ local function postPurchaseWarningAcknowledge(userAction)
 		Headers = {
 			["Content-Type"] = "application/json",
 			["Accept"] = "application/json",
-		}
+		},
 	}
 
 	return Promise.new(function(resolve, reject)
@@ -352,6 +418,7 @@ function Network.new()
 		postPremiumImpression = Promise.promisify(postPremiumImpression),
 		getPremiumUpsellPrecheck = Promise.promisify(getPremiumUpsellPrecheck),
 		getSubscriptionPurchaseInfo = Promise.promisify(getSubscriptionPurchaseInfo),
+		DEPRECATED_performSubscriptionPurchase = Promise.promisify(DEPRECATED_performSubscriptionPurchase),
 		performSubscriptionPurchase = Promise.promisify(performSubscriptionPurchase),
 		getPurchaseWarning = Promise.promisify(getPurchaseWarning),
 		postPurchaseWarningAcknowledge = Promise.promisify(postPurchaseWarningAcknowledge),
@@ -360,7 +427,7 @@ function Network.new()
 	setmetatable(networkService, {
 		__tostring = function()
 			return "Service(Network)"
-		end
+		end,
 	})
 
 	return networkService

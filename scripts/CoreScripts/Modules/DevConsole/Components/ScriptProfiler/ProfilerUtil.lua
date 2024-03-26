@@ -28,6 +28,10 @@ function ProfilerUtil.getDurations(data: RootDataFormat, nodeId: NodeId)
     end
 end
 
+function ProfilerUtil.getName(data: RootDataFormat, func: Function?): string?
+    return func and func.Name
+end
+
 function ProfilerUtil.getSourceName(data: RootDataFormat, func: Function?): string?
     return func and func.Source
 end
@@ -59,6 +63,20 @@ function ProfilerUtil.formatSessionLength(len: number?): string?
     end
 
     return nil
+end
+
+local TOOLTIP_FORMAT = "%s:%s"
+
+function ProfilerUtil.getSourceLocationString(data: RootDataFormat, func: Function, altName: string): string
+    local sourceName = ProfilerUtil.getSourceName(data, func)
+    local name = if not sourceName or #sourceName == 0 then altName else sourceName
+
+    local result = name
+    local lineNumber = ProfilerUtil.getLine(data, func)
+    if lineNumber and lineNumber >= 1 then
+        result = string.format(TOOLTIP_FORMAT, name, tostring(lineNumber))
+    end
+    return result
 end
 
 return ProfilerUtil

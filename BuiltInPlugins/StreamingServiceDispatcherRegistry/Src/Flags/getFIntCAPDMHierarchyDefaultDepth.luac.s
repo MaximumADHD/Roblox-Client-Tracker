@@ -9,7 +9,7 @@ MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["CAPDMHierarchyDefaultDepth"]
-  LOADN R3 3
+  LOADN R3 2
   NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 0
   DUPCLOSURE R0 K4 [PROTO_0]

@@ -44,8 +44,8 @@ function ProfilerView:renderChildren()
 		depth = 0,
 		data = data,
 		nodeId = self.props.rootNode,
+		functionId = self.props.rootFunc,
 		nodeName = self.props.rootNodeName,
-		functionId = nil,
 		average = average,
 		searchTerm = self.props.searchTerm,
 		searchFilter = self.props.searchFilter,
@@ -54,6 +54,7 @@ function ProfilerView:renderChildren()
 		showGC = self.props.showGC,
 		gcNodeOffsets = self.props.gcNodeOffsets,
 		pluginGCOffsets = self.props.pluginGCOffsets,
+		expandedNodes = self.props.expandedNodes,
 		percentageRatio = if self.props.showAsPercentages
 			then totalDuration / 100
 			else nil

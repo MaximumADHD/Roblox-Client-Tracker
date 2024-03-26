@@ -85,62 +85,69 @@ PROTO_4:
   GETUPVAL R25 4
   GETTABLEKS R24 R25 K24 ["createElement"]
   GETUPVAL R25 5
-  DUPTABLE R26 K42 [{"CanInsertAsset", "CategoryName", "SwimlaneCategory", "OnClickSeeAll", "NetworkInterface", "ShouldLogAssetOnMount", "SortName", "SearchTerm", "IncludeUnverifiedCreators", "QueryParams", "InitialPageSize", "LayoutOrder", "LogAssetImpression", "OnClickSeeAllAssets", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "PathName", "ParentAbsolutePosition", "ParentAbsoluteSize", "SwimlaneWidth", "Title", "TryInsert", "TryOpenAssetConfig", "ZIndex", "searchSource"}]
+  DUPTABLE R26 K43 [{"CanInsertAsset", "CategoryName", "SwimlaneCategory", "OnClickSeeAll", "NetworkInterface", "ShouldLogAssetOnMount", "SortName", "SearchTerm", "IncludeUnverifiedCreators", "QualityFilterData", "QueryParams", "InitialPageSize", "LayoutOrder", "LogAssetImpression", "OnClickSeeAllAssets", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "PathName", "ParentAbsolutePosition", "ParentAbsoluteSize", "SwimlaneWidth", "Title", "TryInsert", "TryOpenAssetConfig", "ZIndex", "searchSource"}]
   SETTABLEKS R10 R26 K11 ["CanInsertAsset"]
   SETTABLEKS R2 R26 K2 ["CategoryName"]
-  GETTABLEKS R27 R22 K43 ["name"]
+  GETTABLEKS R27 R22 K44 ["name"]
   SETTABLEKS R27 R26 K25 ["SwimlaneCategory"]
   NEWCLOSURE R27 P1
   CAPTURE UPVAL U0
   CAPTURE VAL R22
   SETTABLEKS R27 R26 K26 ["OnClickSeeAll"]
-  GETTABLEKS R28 R0 K44 ["Network"]
-  GETTABLEKS R27 R28 K45 ["networkInterface"]
+  GETTABLEKS R28 R0 K45 ["Network"]
+  GETTABLEKS R27 R28 K46 ["networkInterface"]
   SETTABLEKS R27 R26 K27 ["NetworkInterface"]
   LOADB R27 0
   SETTABLEKS R27 R26 K28 ["ShouldLogAssetOnMount"]
   SETTABLEKS R6 R26 K6 ["SortName"]
-  GETTABLEKS R27 R22 K46 ["searchKeywords"]
+  GETTABLEKS R27 R22 K47 ["searchKeywords"]
   SETTABLEKS R27 R26 K29 ["SearchTerm"]
   SETTABLEKS R9 R26 K10 ["IncludeUnverifiedCreators"]
-  GETTABLEKS R27 R22 K47 ["queryParams"]
-  SETTABLEKS R27 R26 K30 ["QueryParams"]
-  LOADN R27 20
-  SETTABLEKS R27 R26 K31 ["InitialPageSize"]
-  GETTABLEKS R27 R22 K48 ["index"]
-  SETTABLEKS R27 R26 K32 ["LayoutOrder"]
-  GETTABLEKS R27 R0 K33 ["LogAssetImpression"]
-  SETTABLEKS R27 R26 K33 ["LogAssetImpression"]
-  SETTABLEKS R13 R26 K14 ["OnClickSeeAllAssets"]
-  SETTABLEKS R15 R26 K18 ["OnAssetPreviewButtonClicked"]
   GETUPVAL R28 6
   CALL R28 0 1
   JUMPIFNOT R28 [+3]
-  GETTABLEKS R27 R0 K34 ["OnSearchByCreator"]
+  GETTABLEKS R27 R0 K30 ["QualityFilterData"]
   JUMP [+1]
   LOADNIL R27
-  SETTABLEKS R27 R26 K34 ["OnSearchByCreator"]
-  GETTABLEKS R27 R22 K43 ["name"]
-  SETTABLEKS R27 R26 K35 ["PathName"]
-  GETTABLEKS R27 R0 K49 ["AbsolutePosition"]
-  SETTABLEKS R27 R26 K36 ["ParentAbsolutePosition"]
+  SETTABLEKS R27 R26 K30 ["QualityFilterData"]
+  GETTABLEKS R27 R22 K48 ["queryParams"]
+  SETTABLEKS R27 R26 K31 ["QueryParams"]
+  LOADN R27 20
+  SETTABLEKS R27 R26 K32 ["InitialPageSize"]
+  GETTABLEKS R27 R22 K49 ["index"]
+  SETTABLEKS R27 R26 K33 ["LayoutOrder"]
+  GETTABLEKS R27 R0 K34 ["LogAssetImpression"]
+  SETTABLEKS R27 R26 K34 ["LogAssetImpression"]
+  SETTABLEKS R13 R26 K14 ["OnClickSeeAllAssets"]
+  SETTABLEKS R15 R26 K18 ["OnAssetPreviewButtonClicked"]
+  GETUPVAL R28 7
+  CALL R28 0 1
+  JUMPIFNOT R28 [+3]
+  GETTABLEKS R27 R0 K35 ["OnSearchByCreator"]
+  JUMP [+1]
+  LOADNIL R27
+  SETTABLEKS R27 R26 K35 ["OnSearchByCreator"]
+  GETTABLEKS R27 R22 K44 ["name"]
+  SETTABLEKS R27 R26 K36 ["PathName"]
+  GETTABLEKS R27 R0 K50 ["AbsolutePosition"]
+  SETTABLEKS R27 R26 K37 ["ParentAbsolutePosition"]
   GETTABLEKS R27 R0 K16 ["AbsoluteSize"]
-  SETTABLEKS R27 R26 K37 ["ParentAbsoluteSize"]
-  SETTABLEKS R14 R26 K38 ["SwimlaneWidth"]
-  GETTABLEKS R27 R22 K50 ["displayName"]
-  SETTABLEKS R27 R26 K39 ["Title"]
+  SETTABLEKS R27 R26 K38 ["ParentAbsoluteSize"]
+  SETTABLEKS R14 R26 K39 ["SwimlaneWidth"]
+  GETTABLEKS R27 R22 K51 ["displayName"]
+  SETTABLEKS R27 R26 K40 ["Title"]
   SETTABLEKS R11 R26 K12 ["TryInsert"]
   SETTABLEKS R12 R26 K13 ["TryOpenAssetConfig"]
-  GETTABLEKS R28 R22 K48 ["index"]
+  GETTABLEKS R28 R22 K49 ["index"]
   SUB R27 R17 R28
-  SETTABLEKS R27 R26 K40 ["ZIndex"]
-  GETUPVAL R29 7
-  GETTABLEKS R28 R29 K51 ["SEARCH_SOURCE"]
-  GETTABLEKS R27 R28 K52 ["CATEGORY"]
-  SETTABLEKS R27 R26 K41 ["searchSource"]
+  SETTABLEKS R27 R26 K41 ["ZIndex"]
+  GETUPVAL R29 8
+  GETTABLEKS R28 R29 K52 ["SEARCH_SOURCE"]
+  GETTABLEKS R27 R28 K53 ["CATEGORY"]
+  SETTABLEKS R27 R26 K42 ["searchSource"]
   CALL R24 2 1
   SETTABLE R24 R16 R23
-  FORGLOOP R18 2 [-103]
+  FORGLOOP R18 2 [-112]
   RETURN R16 1
 
 PROTO_5:
@@ -159,6 +166,7 @@ PROTO_5:
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
   CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
   SETTABLEKS R1 R0 K2 ["renderSwimlanes"]
   RETURN R0 0
 
@@ -282,9 +290,16 @@ PROTO_7:
   GETTABLEKS R2 R0 K0 ["pageInfo"]
   JUMPIF R2 [+2]
   NEWTABLE R2 0 0
-  DUPTABLE R3 K2 [{"IncludeUnverifiedCreators"}]
-  GETTABLEKS R4 R2 K3 ["includeUnverifiedCreators"]
+  DUPTABLE R3 K3 [{"IncludeUnverifiedCreators", "QualityFilterData"}]
+  GETTABLEKS R4 R2 K4 ["includeUnverifiedCreators"]
   SETTABLEKS R4 R3 K1 ["IncludeUnverifiedCreators"]
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R4 R2 K5 ["qualityFilterData"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K2 ["QualityFilterData"]
   RETURN R3 1
 
 MAIN:
@@ -368,29 +383,35 @@ MAIN:
   GETTABLEKS R24 R25 K35 ["SharedFlags"]
   GETTABLEKS R23 R24 K36 ["getFFlagToolboxFixInventoryGridSearch"]
   CALL R22 1 1
-  GETTABLEKS R23 R2 K37 ["PureComponent"]
-  LOADK R25 K38 ["SubcategoriesSwimlaneView"]
-  NAMECALL R23 R23 K39 ["extend"]
-  CALL R23 2 1
-  DUPTABLE R24 K41 [{"Size"}]
-  GETIMPORT R25 K44 [UDim2.new]
-  LOADN R26 1
-  LOADN R27 0
-  LOADN R28 1
-  LOADN R29 0
-  CALL R25 4 1
-  SETTABLEKS R25 R24 K40 ["Size"]
-  SETTABLEKS R24 R23 K45 ["defaultProps"]
-  DUPCLOSURE R24 K46 [PROTO_5]
+  GETIMPORT R23 K6 [require]
+  GETTABLEKS R26 R0 K9 ["Core"]
+  GETTABLEKS R25 R26 K37 ["Flags"]
+  GETTABLEKS R24 R25 K38 ["getFFlagQualityFiltersInToolboxSearch"]
+  CALL R23 1 1
+  GETTABLEKS R24 R2 K39 ["PureComponent"]
+  LOADK R26 K40 ["SubcategoriesSwimlaneView"]
+  NAMECALL R24 R24 K41 ["extend"]
+  CALL R24 2 1
+  DUPTABLE R25 K43 [{"Size"}]
+  GETIMPORT R26 K46 [UDim2.new]
+  LOADN R27 1
+  LOADN R28 0
+  LOADN R29 1
+  LOADN R30 0
+  CALL R26 4 1
+  SETTABLEKS R26 R25 K42 ["Size"]
+  SETTABLEKS R25 R24 K47 ["defaultProps"]
+  DUPCLOSURE R25 K48 [PROTO_5]
   CAPTURE VAL R4
   CAPTURE VAL R15
   CAPTURE VAL R6
   CAPTURE VAL R2
   CAPTURE VAL R13
+  CAPTURE VAL R23
   CAPTURE VAL R22
   CAPTURE VAL R20
-  SETTABLEKS R24 R23 K47 ["init"]
-  DUPCLOSURE R24 K48 [PROTO_6]
+  SETTABLEKS R25 R24 K49 ["init"]
+  DUPCLOSURE R25 K50 [PROTO_6]
   CAPTURE VAL R4
   CAPTURE VAL R16
   CAPTURE VAL R6
@@ -399,27 +420,28 @@ MAIN:
   CAPTURE VAL R18
   CAPTURE VAL R20
   CAPTURE VAL R10
-  SETTABLEKS R24 R23 K49 ["render"]
-  DUPCLOSURE R24 K50 [PROTO_7]
-  SETGLOBAL R24 K51 ["mapStateToProps"]
-  MOVE R24 R8
-  DUPTABLE R25 K54 [{"Localization", "Stylizer", "Network"}]
-  GETTABLEKS R26 R7 K27 ["Localization"]
-  SETTABLEKS R26 R25 K27 ["Localization"]
-  GETTABLEKS R26 R7 K52 ["Stylizer"]
-  SETTABLEKS R26 R25 K52 ["Stylizer"]
-  SETTABLEKS R9 R25 K53 ["Network"]
-  CALL R24 1 1
-  MOVE R25 R23
-  CALL R24 1 1
-  MOVE R23 R24
-  GETTABLEKS R24 R5 K55 ["connect"]
-  GETGLOBAL R25 K51 ["mapStateToProps"]
-  CALL R24 1 1
-  MOVE R25 R23
-  CALL R24 1 1
-  MOVE R23 R24
-  MOVE R24 R21
-  MOVE R25 R23
-  CALL R24 1 -1
-  RETURN R24 -1
+  SETTABLEKS R25 R24 K51 ["render"]
+  DUPCLOSURE R25 K52 [PROTO_7]
+  CAPTURE VAL R23
+  SETGLOBAL R25 K53 ["mapStateToProps"]
+  MOVE R25 R8
+  DUPTABLE R26 K56 [{"Localization", "Stylizer", "Network"}]
+  GETTABLEKS R27 R7 K27 ["Localization"]
+  SETTABLEKS R27 R26 K27 ["Localization"]
+  GETTABLEKS R27 R7 K54 ["Stylizer"]
+  SETTABLEKS R27 R26 K54 ["Stylizer"]
+  SETTABLEKS R9 R26 K55 ["Network"]
+  CALL R25 1 1
+  MOVE R26 R24
+  CALL R25 1 1
+  MOVE R24 R25
+  GETTABLEKS R25 R5 K57 ["connect"]
+  GETGLOBAL R26 K53 ["mapStateToProps"]
+  CALL R25 1 1
+  MOVE R26 R24
+  CALL R25 1 1
+  MOVE R24 R25
+  MOVE R25 R21
+  MOVE R26 R24
+  CALL R25 1 -1
+  RETURN R25 -1

@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["CryoProxy"]["CryoProxy"])
+local Package = require(PackageIndex["Cryo"]["Cryo"])
 
 return Package

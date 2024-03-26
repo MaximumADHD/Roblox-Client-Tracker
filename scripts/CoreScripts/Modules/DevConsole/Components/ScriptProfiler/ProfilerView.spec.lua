@@ -40,6 +40,7 @@ return function()
 					pluginGCOffsets = { Total = 0, },
 					gcNodeOffsets = {},
 					showGC = false,
+					expandedNodes = {},
 				}),
 			}),
 		})

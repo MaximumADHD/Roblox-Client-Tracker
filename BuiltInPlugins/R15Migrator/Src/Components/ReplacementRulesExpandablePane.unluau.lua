@@ -11,7 +11,7 @@ function var4.render(arg1)
    var30.Style = "Section"
    var30.LayoutOrder = var0.LayoutOrder
    var30.Text = "Replacement Rules"
-   var30.Expanded = false
+   var30.Expanded = true
    local var34 = {}
    var34.ReplaceOptionsPane = var1.createElement(var3)
    return var1.createElement(var2, var30, var34)

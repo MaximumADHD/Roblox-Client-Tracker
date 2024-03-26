@@ -12,6 +12,9 @@ local withStyle = UIBlox.Core.Style.withStyle
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 
 local HINT_PADDING = 8 --Layout padding for elemnts within feedback bar hint
+local MAX_LABEL_HEIGHT = 1000 -- Fixed max height for feedback bar hint labels
+
+local FFlagFeedbackBarHintSizeAdjustment = game:DefineFastFlag("FeedbackBarHintSizeAdjustment", false)
 
 local FeedbackBarHint = Roact.PureComponent:extend("FeedbackBarHint")
 
@@ -45,7 +48,11 @@ function FeedbackBarHint:render()
 			}),
 			FeedbackBarHintText = Roact.createElement(StyledTextLabel, {
 				textSize = self.props.hintTextSize,
-				maxSize = if self.props.maxWidth then Vector2.new(self.props.maxWidth) else nil,
+				maxSize = if self.props.maxWidth
+					then (if FFlagFeedbackBarHintSizeAdjustment
+						then Vector2.new(MAX_LABEL_HEIGHT, self.props.maxWidth)
+						else Vector2.new(self.props.maxWidth))
+					else nil,
 				layoutOrder = 2,
 				fontStyle = font.Header2,
 				colorStyle = theme.TextEmphasis,

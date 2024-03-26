@@ -42,21 +42,35 @@ PROTO_1:
   JUMPIFEQKN R4 K9 [1] [+2]
   LOADB R3 0 +1
   LOADB R3 1
-  JUMPIFNOT R3 [+17]
+  JUMPIFNOT R3 [+36]
   GETUPVAL R4 4
-  LOADK R6 K10 ["StreamText"]
-  DUPTABLE R7 K12 [{"requestId", "content"}]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+33]
+  GETUPVAL R4 5
+  LOADK R6 K10 ["AddTextDropdown"]
+  DUPTABLE R7 K14 [{"requestId", "content", "closedTitle", "openedTitle"}]
   GETTABLEKS R8 R0 K5 ["requestId"]
   SETTABLEKS R8 R7 K5 ["requestId"]
-  LOADK R8 K13 ["
-```lua
+  LOADK R8 K15 ["```lua
 %s
 ```"]
   MOVE R10 R2
-  NAMECALL R8 R8 K14 ["format"]
+  NAMECALL R8 R8 K16 ["format"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K11 ["content"]
-  NAMECALL R4 R4 K15 ["DisplayContent"]
+  GETUPVAL R8 6
+  LOADK R10 K17 ["RunCode"]
+  LOADK R11 K18 ["CodeDropdownClosedTitle"]
+  NAMECALL R8 R8 K19 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K12 ["closedTitle"]
+  GETUPVAL R8 6
+  LOADK R10 K17 ["RunCode"]
+  LOADK R11 K20 ["CodeDropdownOpenedTitle"]
+  NAMECALL R8 R8 K19 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K13 ["openedTitle"]
+  NAMECALL R4 R4 K21 ["DisplayContent"]
   CALL R4 3 0
   LOADNIL R4
   LOADNIL R5
@@ -64,101 +78,121 @@ PROTO_1:
   GETUPVAL R7 1
   CALL R7 0 1
   JUMPIFNOT R7 [+37]
-  LOADK R7 K16 ["%* %*"]
-  LOADK R9 K17 ["Assistant Code Runner"]
-  GETUPVAL R10 5
-  NAMECALL R7 R7 K14 ["format"]
+  LOADK R7 K22 ["%* %*"]
+  LOADK R9 K23 ["Assistant Code Runner"]
+  GETUPVAL R10 7
+  NAMECALL R7 R7 K16 ["format"]
   CALL R7 3 1
   MOVE R4 R7
-  GETUPVAL R7 5
+  GETUPVAL R7 7
   ADDK R7 R7 K9 [1]
-  SETUPVAL R7 5
+  SETUPVAL R7 7
   GETTABLEKS R7 R0 K5 ["requestId"]
   GETUPVAL R9 1
   CALL R9 0 1
-  FASTCALL2K ASSERT R9 K18 [+4]
-  LOADK R10 K18 ["Local recordings are not available - CodeRunner Telemetry"]
+  FASTCALL2K ASSERT R9 K24 [+4]
+  LOADK R10 K24 ["Local recordings are not available - CodeRunner Telemetry"]
   GETIMPORT R8 K2 [assert]
   CALL R8 2 0
-  DUPTABLE R5 K21 [{"requestId", "hasBeenUndone", "hasBeenRedone"}]
+  DUPTABLE R5 K27 [{"requestId", "hasBeenUndone", "hasBeenRedone"}]
   SETTABLEKS R7 R5 K5 ["requestId"]
   LOADB R8 0
-  SETTABLEKS R8 R5 K19 ["hasBeenUndone"]
+  SETTABLEKS R8 R5 K25 ["hasBeenUndone"]
   LOADB R8 0
-  SETTABLEKS R8 R5 K20 ["hasBeenRedone"]
+  SETTABLEKS R8 R5 K26 ["hasBeenRedone"]
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K7 ["StartRecordingActions"]
   GETTABLEKS R8 R0 K5 ["requestId"]
   MOVE R9 R4
   CALL R7 2 1
   MOVE R6 R7
-  GETIMPORT R7 K23 [pcall]
-  GETUPVAL R9 6
-  GETTABLEKS R8 R9 K24 ["RunSandboxedCode"]
-  GETUPVAL R9 6
+  GETIMPORT R7 K29 [pcall]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K30 ["RunSandboxedCode"]
+  GETUPVAL R9 8
   MOVE R10 R2
   CALL R7 3 3
   GETUPVAL R10 1
   CALL R10 0 1
   JUMPIFNOT R10 [+11]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K25 ["EndRecordingActions"]
+  GETTABLEKS R10 R11 K31 ["EndRecordingActions"]
   GETTABLEKS R11 R0 K5 ["requestId"]
   MOVE R12 R4
   CALL R10 2 1
   JUMPIFNOT R6 [+3]
   JUMPIFNOT R10 [+2]
-  GETUPVAL R11 7
+  GETUPVAL R11 9
   SETTABLE R5 R11 R4
   AND R10 R7 R8
-  JUMPIFNOT R10 [+14]
-  GETUPVAL R11 4
-  LOADK R13 K10 ["StreamText"]
-  DUPTABLE R14 K12 [{"requestId", "content"}]
-  GETTABLEKS R15 R0 K5 ["requestId"]
-  SETTABLEKS R15 R14 K5 ["requestId"]
-  LOADK R15 K26 ["
-<p style = \"color:#73ff57\">Code executed successfully!</p>
+  GETUPVAL R12 4
+  CALL R12 0 1
+  JUMPIFNOT R12 [+2]
+  LOADK R11 K32 ["StreamTextInNewMessage"]
+  JUMP [+1]
+  LOADK R11 K33 ["StreamText"]
+  GETUPVAL R13 4
+  CALL R13 0 1
+  JUMPIFNOT R13 [+2]
+  LOADK R12 K34 ["span"]
+  JUMP [+1]
+  LOADK R12 K35 ["p"]
+  JUMPIFNOT R10 [+20]
+  GETUPVAL R13 5
+  MOVE R15 R11
+  DUPTABLE R16 K36 [{"requestId", "content"}]
+  GETTABLEKS R17 R0 K5 ["requestId"]
+  SETTABLEKS R17 R16 K5 ["requestId"]
+  LOADK R18 K37 ["
+<%* style = \"color:#73ff57\">Code executed successfully!</%*>
 "]
-  SETTABLEKS R15 R14 K11 ["content"]
-  NAMECALL R11 R11 K15 ["DisplayContent"]
-  CALL R11 3 0
-  JUMP [+26]
+  MOVE R20 R12
+  MOVE R21 R12
+  NAMECALL R18 R18 K16 ["format"]
+  CALL R18 3 1
+  MOVE R17 R18
+  SETTABLEKS R17 R16 K11 ["content"]
+  NAMECALL R13 R13 K21 ["DisplayContent"]
+  CALL R13 3 0
+  JUMP [+29]
   JUMPIFNOT R7 [+1]
   JUMP [+1]
   MOVE R9 R8
-  GETIMPORT R11 K29 [task.spawn]
-  GETIMPORT R12 K31 [error]
-  MOVE R13 R9
-  CALL R11 2 0
-  GETUPVAL R11 4
-  LOADK R13 K10 ["StreamText"]
-  DUPTABLE R14 K12 [{"requestId", "content"}]
-  GETTABLEKS R15 R0 K5 ["requestId"]
-  SETTABLEKS R15 R14 K5 ["requestId"]
-  LOADK R15 K32 ["
-<p style = \"color:#ff3838\">%s</p>
+  GETIMPORT R13 K40 [task.spawn]
+  GETIMPORT R14 K42 [error]
+  MOVE R15 R9
+  CALL R13 2 0
+  GETUPVAL R13 5
+  MOVE R15 R11
+  DUPTABLE R16 K36 [{"requestId", "content"}]
+  GETTABLEKS R17 R0 K5 ["requestId"]
+  SETTABLEKS R17 R16 K5 ["requestId"]
+  LOADK R18 K43 ["
+<%* style = \"color:#ff3838\">%*</%*>
 "]
-  MOVE R17 R9
-  NAMECALL R15 R15 K14 ["format"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K11 ["content"]
-  NAMECALL R11 R11 K15 ["DisplayContent"]
-  CALL R11 3 0
-  GETUPVAL R11 1
-  CALL R11 0 1
-  JUMPIFNOT R11 [+9]
-  GETUPVAL R11 2
-  GETTABLEKS R13 R0 K5 ["requestId"]
-  MOVE R14 R10
-  ORK R15 R9 K33 [""]
-  NAMECALL R11 R11 K34 ["CodeRunnerCompleted"]
-  CALL R11 4 0
+  MOVE R20 R12
+  MOVE R21 R9
+  MOVE R22 R12
+  NAMECALL R18 R18 K16 ["format"]
+  CALL R18 4 1
+  MOVE R17 R18
+  SETTABLEKS R17 R16 K11 ["content"]
+  NAMECALL R13 R13 K21 ["DisplayContent"]
+  CALL R13 3 0
+  GETUPVAL R13 1
+  CALL R13 0 1
+  JUMPIFNOT R13 [+9]
+  GETUPVAL R13 2
+  GETTABLEKS R15 R0 K5 ["requestId"]
+  MOVE R16 R10
+  ORK R17 R9 K44 [""]
+  NAMECALL R13 R13 K45 ["CodeRunnerCompleted"]
+  CALL R13 4 0
   RETURN R0 0
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K25 ["EndRecordingActions"]
-  GETTABLEKS R12 R0 K5 ["requestId"]
-  CALL R11 1 0
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K31 ["EndRecordingActions"]
+  GETTABLEKS R14 R0 K5 ["requestId"]
+  CALL R13 1 0
   RETURN R0 0
 
 PROTO_2:
@@ -226,47 +260,59 @@ MAIN:
   GETTABLEKS R6 R7 K14 ["Types"]
   CALL R5 1 1
   GETIMPORT R6 K12 [require]
-  GETTABLEKS R10 R4 K13 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Commands"]
-  GETTABLEKS R8 R9 K16 ["BuilderCommands"]
-  GETTABLEKS R7 R8 K17 ["BuilderNameMap"]
+  GETTABLEKS R9 R4 K13 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Localization"]
+  GETTABLEKS R7 R8 K15 ["Localization"]
   CALL R6 1 1
   GETIMPORT R7 K12 [require]
-  GETTABLEKS R10 R4 K13 ["Src"]
-  GETTABLEKS R9 R10 K18 ["Flags"]
-  GETTABLEKS R8 R9 K19 ["getFFlagConvAICodeRunner"]
+  GETTABLEKS R11 R4 K13 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Commands"]
+  GETTABLEKS R9 R10 K17 ["BuilderCommands"]
+  GETTABLEKS R8 R9 K18 ["BuilderNameMap"]
   CALL R7 1 1
   GETIMPORT R8 K12 [require]
   GETTABLEKS R11 R4 K13 ["Src"]
-  GETTABLEKS R10 R11 K18 ["Flags"]
-  GETTABLEKS R9 R10 K20 ["getFFlagConvAICodeRunnerTelemetry"]
+  GETTABLEKS R10 R11 K19 ["Flags"]
+  GETTABLEKS R9 R10 K20 ["getFFlagConvAICodeRunner"]
   CALL R8 1 1
-  NEWTABLE R9 0 0
-  LOADN R10 1
-  DUPCLOSURE R11 K21 [PROTO_0]
+  GETIMPORT R9 K12 [require]
+  GETTABLEKS R12 R4 K13 ["Src"]
+  GETTABLEKS R11 R12 K19 ["Flags"]
+  GETTABLEKS R10 R11 K21 ["getFFlagConvAICodeRunnerTelemetry"]
+  CALL R9 1 1
+  GETIMPORT R10 K12 [require]
+  GETTABLEKS R13 R4 K13 ["Src"]
+  GETTABLEKS R12 R13 K19 ["Flags"]
+  GETTABLEKS R11 R12 K22 ["getFFlagConvAICodeRunnerUX"]
+  CALL R10 1 1
+  NEWTABLE R11 0 0
+  LOADN R12 1
+  DUPCLOSURE R13 K23 [PROTO_0]
+  CAPTURE VAL R9
+  NEWCLOSURE R14 P1
   CAPTURE VAL R8
-  NEWCLOSURE R12 P1
+  CAPTURE VAL R9
+  CAPTURE VAL R2
   CAPTURE VAL R7
-  CAPTURE VAL R8
-  CAPTURE VAL R2
-  CAPTURE VAL R6
+  CAPTURE VAL R10
   CAPTURE VAL R1
-  CAPTURE REF R10
+  CAPTURE VAL R6
+  CAPTURE REF R12
   CAPTURE VAL R0
-  CAPTURE VAL R9
-  MOVE R13 R8
-  CALL R13 0 1
-  JUMPIFNOT R13 [+15]
-  GETTABLEKS R13 R3 K22 ["OnUndo"]
-  DUPCLOSURE R15 K23 [PROTO_3]
-  CAPTURE VAL R9
+  CAPTURE VAL R11
+  MOVE R15 R9
+  CALL R15 0 1
+  JUMPIFNOT R15 [+15]
+  GETTABLEKS R15 R3 K24 ["OnUndo"]
+  DUPCLOSURE R17 K25 [PROTO_3]
+  CAPTURE VAL R11
   CAPTURE VAL R2
-  NAMECALL R13 R13 K24 ["Connect"]
-  CALL R13 2 0
-  GETTABLEKS R13 R3 K25 ["OnRedo"]
-  DUPCLOSURE R15 K26 [PROTO_4]
-  CAPTURE VAL R9
-  NAMECALL R13 R13 K24 ["Connect"]
-  CALL R13 2 0
-  CLOSEUPVALS R10
-  RETURN R12 1
+  NAMECALL R15 R15 K26 ["Connect"]
+  CALL R15 2 0
+  GETTABLEKS R15 R3 K27 ["OnRedo"]
+  DUPCLOSURE R17 K28 [PROTO_4]
+  CAPTURE VAL R11
+  NAMECALL R15 R15 K26 ["Connect"]
+  CALL R15 2 0
+  CLOSEUPVALS R12
+  RETURN R14 1

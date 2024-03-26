@@ -60,7 +60,7 @@ function ProfilerView:renderChildren()
             functionId = index,
             nodeName = func.Name,
             average = average,
-            gcOffset = if not showGC then gcFunctionOffsets[index] else 0,
+            gcOffset = if not showGC then gcFunctionOffsets[index] else nil,
             percentageRatio = if self.props.showAsPercentages then
                 totalDuration / 100 else nil
         })

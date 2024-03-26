@@ -46,6 +46,9 @@ local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
 local GetFFlagIBEnableRespectSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableRespectSaleLocation)
 
+local GetFFlagIBEnableFixForOwnedText = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForOwnedText)
+local GetFFlagIBEnableFixForSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForSaleLocation)
+
 local AssetInfo = {}
 
 function AssetInfo.new()
@@ -126,12 +129,25 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 				and (saleLocation.SaleLocationType == Constants.SaleLocationType.ExperiencesDevApiOnly or saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById)
 				and type(saleLocation.UniverseIds) == "table"
 				and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
+
+			local isNotDevApiOnly
+			if GetFFlagIBEnableFixForSaleLocation() then
+				isNotSpecificExperienceOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
+				isSpecificExperienceOnlyButInThisUniverse = saleLocation
+					and (saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById)
+					and type(saleLocation.UniverseIds) == "table"
+					and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
+				isNotDevApiOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+			end
 			-- we should respect IsForSale and SaleLocation for collectibles
 			-- CanBeSoldInThisGame attribute is set in the Engine level, it's not provided in the API
 			newAsset.isForSale = assetInfo.IsForSale
 				and assetInfo.CanBeSoldInThisGame
 				and isNotShopOnly
 				and (isNotSpecificExperienceOnly or isSpecificExperienceOnlyButInThisUniverse)
+			if GetFFlagIBEnableFixForSaleLocation() then
+				newAsset.isForSale = newAsset.isForSale and isNotDevApiOnly
+			end
 		end
 		newAsset.collectibleItemId = assetInfo.CollectibleItemId or ""
 		newAsset.collectibleProductId = assetInfo.CollectibleProductId or ""
@@ -242,6 +258,9 @@ function AssetInfo.fromGetItemDetails(itemDetails)
 	newAsset.assetId = tostring(itemDetails.Id)
 	newAsset.owned = itemDetails.Owned
 	newAsset.isForSale = itemDetails.IsPurchasable
+	if GetFFlagIBEnableFixForOwnedText() then
+		newAsset.isForSale = itemDetails.IsPurchasable and not itemDetails.Owned
+	end
 	newAsset.price = itemDetails.Price or 0
 	newAsset.hasResellers = itemDetails.HasResellers
 	newAsset.collectibleItemId = itemDetails.CollectibleItemId

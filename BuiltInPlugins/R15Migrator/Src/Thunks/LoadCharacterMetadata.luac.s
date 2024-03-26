@@ -6,77 +6,79 @@ PROTO_0:
   LOADNIL R5
   FORGPREP R3
   LOADNIL R8
-  GETTABLEKS R10 R7 K0 ["Humanoid"]
-  GETTABLEKS R9 R10 K1 ["RigType"]
-  GETIMPORT R10 K5 [Enum.HumanoidRigType.R6]
+  LOADK R12 K0 ["Humanoid"]
+  NAMECALL R10 R7 K1 ["FindFirstChildOfClass"]
+  CALL R10 2 1
+  GETTABLEKS R9 R10 K2 ["RigType"]
+  GETIMPORT R10 K6 [Enum.HumanoidRigType.R6]
   JUMPIFNOTEQ R9 R10 [+6]
-  NAMECALL R9 R7 K6 ["Clone"]
+  NAMECALL R9 R7 K7 ["Clone"]
   CALL R9 1 1
   MOVE R8 R9
   JUMP [+49]
   MOVE R9 R1
   JUMPIF R9 [+4]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K7 ["getR6Characters"]
+  GETTABLEKS R9 R10 K8 ["getR6Characters"]
   CALL R9 0 1
   MOVE R1 R9
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K8 ["getConversionId"]
+  GETTABLEKS R10 R11 K9 ["getConversionId"]
   MOVE R11 R7
   CALL R10 1 1
   GETTABLE R9 R1 R10
   JUMPIF R9 [+5]
-  GETIMPORT R10 K10 [warn]
-  LOADK R11 K11 ["Original R6 character is unavailable. Was the save folder edited?"]
+  GETIMPORT R10 K11 [warn]
+  LOADK R11 K12 ["Original R6 character is unavailable. Was the save folder edited?"]
   CALL R10 1 0
   JUMP [+60]
   GETUPVAL R10 1
   MOVE R12 R7
-  NAMECALL R10 R10 K12 ["addTag"]
+  NAMECALL R10 R10 K13 ["addTag"]
   CALL R10 2 0
   GETUPVAL R11 2
-  GETTABLEKS R10 R11 K13 ["HasUnificationScripts"]
+  GETTABLEKS R10 R11 K14 ["HasUnificationScripts"]
   MOVE R11 R7
   CALL R10 1 1
   JUMPIFNOT R10 [+6]
   GETUPVAL R10 3
   MOVE R12 R7
-  NAMECALL R10 R10 K12 ["addTag"]
+  NAMECALL R10 R10 K13 ["addTag"]
   CALL R10 2 0
   JUMP [+5]
   GETUPVAL R10 3
   MOVE R12 R7
-  NAMECALL R10 R10 K14 ["removeTag"]
+  NAMECALL R10 R10 K15 ["removeTag"]
   CALL R10 2 0
-  NAMECALL R10 R9 K6 ["Clone"]
+  NAMECALL R10 R9 K7 ["Clone"]
   CALL R10 1 1
   MOVE R8 R10
-  GETTABLEKS R10 R7 K15 ["Name"]
-  SETTABLEKS R10 R8 K15 ["Name"]
-  NAMECALL R9 R7 K16 ["GetFullName"]
+  GETTABLEKS R10 R7 K16 ["Name"]
+  SETTABLEKS R10 R8 K16 ["Name"]
+  NAMECALL R9 R7 K17 ["GetFullName"]
   CALL R9 1 1
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K8 ["getConversionId"]
+  GETTABLEKS R10 R11 K9 ["getConversionId"]
   MOVE R11 R7
   CALL R10 1 1
   JUMPIFNOT R10 [+7]
   GETUPVAL R12 4
-  GETTABLEKS R11 R12 K17 ["SetNpcWithId"]
+  GETTABLEKS R11 R12 K18 ["SetNpcWithId"]
   MOVE R12 R7
   MOVE R13 R10
   CALL R11 2 0
   JUMP [+6]
   GETUPVAL R12 4
-  GETTABLEKS R11 R12 K18 ["AddNpc"]
+  GETTABLEKS R11 R12 K19 ["AddNpc"]
   MOVE R12 R7
   CALL R11 1 1
   MOVE R10 R11
-  DUPTABLE R11 K22 [{"key", "fullName", "model"}]
-  SETTABLEKS R10 R11 K19 ["key"]
-  SETTABLEKS R9 R11 K20 ["fullName"]
-  SETTABLEKS R8 R11 K21 ["model"]
+  DUPTABLE R11 K23 [{"key", "fullName", "model"}]
+  SETTABLEKS R10 R11 K20 ["key"]
+  SETTABLEKS R9 R11 K21 ["fullName"]
+  SETTABLEKS R8 R11 K22 ["model"]
   SETTABLE R11 R2 R10
-  FORGLOOP R3 2 [-94]
+  FORGLOOP R3 2 [-96]
   RETURN R2 1
 
 PROTO_1:
