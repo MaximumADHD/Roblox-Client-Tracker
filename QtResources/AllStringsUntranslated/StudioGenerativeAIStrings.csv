@@ -66,3 +66,8 @@ Studio.App.GenerativeAI.TimeoutErrorV2,,I'm suddenly receiving a lot of requests
 Studio.App.GenerativeAI.TimeoutErrorV3,,"Sorry, there are a lot of requests right now. Please try again later. <br/>","Sorry, there are a lot of requests right now. Please try again later. <br/>"
 Studio.App.GenerativeAI.NetworkError,,"Network error, please try again later.","Network error, please try again later."
 Studio.App.GenerativeAI.CopiedToClipboard,,Copied to clipboard,Copied to clipboard
+Studio.App.GenerativeAI.ShowCodeDropdown,,Show code,Show code
+Studio.App.GenerativeAI.HideCodeDropdown,,Hide code,Hide code
+Studio.App.GenerativeAI.Setting.AutoExpandTextDropdowns,,Auto-expand dropdowns,Auto-expand dropdowns
+Studio.App.GenerativeAI.Setting.ExpandAllTextDropdowns,,Expand all dropdowns,Expand all dropdowns
+Studio.App.GenerativeAI.Setting.CollapseAllTextDropdowns,,Collapse all dropdowns,Collapse all dropdowns

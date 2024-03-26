@@ -34,12 +34,14 @@ Studio.App.ProjectFolderService.MissingScriptsFolderError,,Import failed: Root d
 Studio.App.ProjectFolderService.RootPathNotAFolderError,,Root directory path is not a folder: %1.,Root directory path is not a folder: %1.
 Studio.App.ProjectFolderService.RootFolderCreationError,,Could not create root folder at: %1.,Could not create root folder at: %1.
 Studio.App.ProjectFolderService.FolderCreationError,,Unable to create folder: %1.,Unable to create folder: %1.
-Studio.App.ProjectFolderService.MultipleUsersWarning,,There are currently other users in the TeamCreate session.,There are currently other users in the TeamCreate session.
+Studio.App.ProjectFolderService.MultipleUsersWarningTitle,,Importing may overwrite live edits.,Importing may overwrite live edits.
+Studio.App.ProjectFolderService.MultipleUsersWarningSubtext,,There are live collaborators in this session. Importing now may overwrite their changes.,There are live collaborators in this session. Importing now may overwrite their changes.
+Studio.App.ProjectFolderService.ImportAnywayButtonText,,Import Anyway,Import Anyway
+Studio.App.ProjectFolderService.OverwriteButtonText,,Overwrite,Overwrite
 Studio.App.ProjectFolderService.FirstUseOfDirectoryWarning,,This is your first time using directory %1.,This is your first time using directory %1.
 Studio.App.ProjectFolderService.UnexportedChangesWarningTitle,,Importing will overwrite changes in Studio,Importing will overwrite changes in Studio
-Studio.App.ProjectFolderService.UnexportedChangesWarningSubtext,,"To avoid data loss, consider saving a backup.","To avoid data loss, consider saving a backup."
+Studio.App.ProjectFolderService.SaveBackupSubtext,,"To avoid data loss, consider saving a backup.","To avoid data loss, consider saving a backup."
 Studio.App.ProjectFolderService.UnimportedChangesWarningTitle,,Exporting will overwrite changes in the source files.,Exporting will overwrite changes in the source files.
-Studio.App.ProjectFolderService.UnimportedChangesWarningSubtext,,"To avoid data loss, consider saving a backup.","To avoid data loss, consider saving a backup."
 Studio.App.ProjectFolderService.SuccessfulExport,,Successfully finished exporting scripts to %1.,Successfully finished exporting scripts to %1.
 Studio.App.ProjectFolderService.IneligibleInstancesWarningTitle,,Ineligible Instances won't be exported,Ineligible Instances won't be exported
 Studio.App.ProjectFolderService.IneligibleInstancesWarningSubtext,,Instances containing Tags and/or attributes will be skipped.,Instances containing Tags and/or attributes will be skipped.
@@ -52,3 +54,5 @@ Studio.App.ProjectFolderService.PathCreationForInstanceError,,Error creating pat
 Studio.App.ProjectFolderService.PathTooLongError,,Error exporting: %1 exceeds the path limit of 255 characters.,Error exporting: %1 exceeds the path limit of 255 characters.
 Studio.App.ProjectFolderService.ImportError,,Error importing. Please try again.,Error importing. Please try again.
 Studio.App.ProjectFolderService.ExportError,,Error exporting. Please try again.,Error exporting. Please try again.
+Studio.App.ProjectFolderService.ExportUnderIneligibleRootWarningTitle,,You are exporting with instance(s) under an ineligible root.,You are exporting with instance(s) under an ineligible root.
+Studio.App.ProjectFolderService.ExportUnderIneligibleRootWarningSubtext,,The instance(s) will appear under Scripts/Misc.,The instance(s) will appear under Scripts/Misc.

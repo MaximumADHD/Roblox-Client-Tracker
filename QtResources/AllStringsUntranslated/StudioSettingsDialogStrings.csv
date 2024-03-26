@@ -48,6 +48,7 @@ Studio.App.Property.AreConstraintForcesShownForSelectedOrHoveredInstances,,Are C
 Studio.App.Property.AreConstraintTorquesShownForSelectedOrHoveredInstances,,Are Constraint Torques Shown For Selected Or Hovered Instances,Are Constraint Torques Shown For Selected Or Hovered Instances
 Studio.App.Property.AreGravityForcesShownForSelectedOrHoveredAssemblies,,Are Gravity Forces Shown For Selected Or Hovered Assemblies,Are Gravity Forces Shown For Selected Or Hovered Assemblies
 Studio.App.Property.AreMagnitudesShownForDrawnForcesAndTorques,,Are Magnitudes Shown For Drawn Forces And Torques,Are Magnitudes Shown For Drawn Forces And Torques
+Studio.App.Property.ShowInstanceNamesForDrawnForcesAndTorques,,Show instance names for drawn forces and torques,Show instance names for drawn forces and torques
 Studio.App.Property.ForceDrawScale,,Force Draw Scale (Applies Both To Constraints And To Contacts),Force Draw Scale (Applies Both To Constraints And To Contacts)
 Studio.App.Property.ShowFluidForcesForSelectedOrHoveredMechanisms,,Show fluid forces for selected or hovered mechanisms,Show fluid forces for selected or hovered mechanisms
 Studio.App.Property.FluidForceDrawScale,,Fluid Force Draw Scale,Fluid Force Draw Scale

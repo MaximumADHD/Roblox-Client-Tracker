@@ -148,8 +148,8 @@ Studio.App.BetaFeatures.AutoSetupTitle,,Avatar Auto-Setup Preview,Avatar Auto-Se
 Studio.App.BetaFeatures.AutoSetupDescription,,Early release of our automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Currently for in-game use only. We will remove this restriction and allow for Marketplace submission in later releases.,Early release of our automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Currently for in-game use only. We will remove this restriction and allow for Marketplace submission in later releases.
 Studio.App.BetaFeatures.FasterPlaySoloTitle,,Faster Play Solo,Faster Play Solo
 Studio.App.BetaFeatures.FasterPlaySoloDescription,,Streamlines Play Solo for faster loading performance.,Streamlines Play Solo for faster loading performance.
-Studio.App.BetaFeatures.TextureGeneratorTitle,,AI-Powered Texture Generator,AI-Powered Texture Generator
-Studio.App.BetaFeatures.TextureGeneratorDescription,,AI-Powered texture generation for meshes in Studio.,AI-Powered texture generation for meshes in Studio.
+Studio.App.BetaFeatures.TextureGeneratorTitle,,Texture Generator,Texture Generator
+Studio.App.BetaFeatures.TextureGeneratorDescription,,Enables AI-powered texture generation for mesh parts in Studio.,Enables AI-powered texture generation for mesh parts in Studio.
 Studio.App.BetaFeatures.TextureGeneratorTermsAndConditions,Terms and conditions for being able to use the AI Texture Generator,"Please view the Terms and Conditions at the link below:
 
 https://en.help.roblox.com/hc/articles/20121392440212","Please view the Terms and Conditions at the link below:

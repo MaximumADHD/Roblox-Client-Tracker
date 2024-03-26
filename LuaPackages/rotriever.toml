@@ -13,7 +13,7 @@ Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
 RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.4.1"
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.8"
-Cryo = "github.com/roblox/cryo@1.0"
+Cryo = "github.com/roblox/cryo@1.0.3"
 Dash = "github.com/roblox/dash@0.1"
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
@@ -107,10 +107,6 @@ Promise = { git = "github.com/Roblox/promise-upgrade", rev = "v0.1.0", package =
 
 [config.patch."https://github.com/roblox/roact-navigation"]
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.8"
-
-# Cryo - flagged upgrade
-[config.patch."github.com/roblox/cryo"]
-Cryo = { git = "https://github.com/Roblox/cryo-upgrade", rev = "main", package = "CryoProxy" }
 
 # Roact 17 - Patch in roact compat for legacy roact
 [config.patch."github.com/roblox/roact"]

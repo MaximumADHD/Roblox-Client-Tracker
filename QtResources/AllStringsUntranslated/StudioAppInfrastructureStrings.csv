@@ -48,7 +48,6 @@ Studio.App.IdeDoc.UncommittedScriptChangesPublishedToNewPlace,Roblox IDE Doc,You
 Studio.App.IdeDoc.PublishedFailed1,Roblox IDE Doc,%1 publish failed.,%1 publish failed.
 Studio.App.IdeDoc.SaveFailed1,Roblox IDE Doc,%1 save failed.,%1 save failed.
 Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes to the place detected. Did not save.,No changes to the place detected. Did not save.
-Studio.App.IdeDoc.DeprecateCSG.v1,,You have been upgraded to the latest CSG engine due to a potential security vulnerability found in the legacy CSG engine. <a href=%1>Learn More</a>,You have been upgraded to the latest CSG engine due to a potential security vulnerability found in the legacy CSG engine. <a href=%1>Learn More</a>
 Studio.App.IdeDoc.SavedToLocalFile1,Message displayed when a user successfully saves a place to a file. %1 is the file path.,"Saved to ""%1""","Saved to ""%1"""
 Studio.App.IdeDoc.ClickRealTimeMetrics,Message clickable to direct users to creator dashboard analytics website for experience real-time metrics.,Click to see real time usage metrics.,Click to see real time usage metrics.
 Studio.App.IdeDoc.ClickLiveErrorReports,Message clickable to direct users to creator dashboard analytics website for experience live errors.,Click to view live error reports.,Click to view live error reports.
