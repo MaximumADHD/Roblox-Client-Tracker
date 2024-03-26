@@ -16,7 +16,6 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
 local lerp = require(UIBlox.Utility.lerp)
 
@@ -49,7 +48,7 @@ TooltipContainer.validateProps = t.strictInterface({
 	headerText = t.optional(t.string),
 	screenSize = t.optional(t.Vector2), --the app screen size
 	position = t.optional(t.UDim2),
-	orientation = t.optional(enumerateValidator(TooltipOrientation)),
+	orientation = t.optional(TooltipOrientation.isEnumValue),
 	isDirectChild = t.optional(t.boolean),
 })
 

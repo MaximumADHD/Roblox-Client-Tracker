@@ -12,7 +12,6 @@ local SlidingDirection = require(UIBloxRoot.Core.Animation.Enum.SlidingDirection
 local SlidingContainer = require(UIBloxRoot.Core.Animation.SlidingContainer)
 local validateColorInfo = require(UIBloxRoot.Core.Style.Validator.validateColorInfo)
 local StateTable = require(UIBloxRoot.StateTable.StateTable)
-local enumerateValidator = require(UIBloxRoot.Utility.enumerateValidator)
 local ButtonType = require(AppRoot.Button.Enum.ButtonType)
 
 local AnimationState = require(ToastRoot.Enum.AnimationState)
@@ -76,7 +75,7 @@ Toast.validateProps = t.strictInterface({
 		-- Title text to display in the toast. Should be localized. This prop change will trigger toast to slide up and update the content then slide down.
 		toastTitle = t.string,
 		-- Changes which button component gets displayed
-		buttonType = t.optional(enumerateValidator(ButtonType)),
+		buttonType = t.optional(ButtonType.isEnumValue),
 		-- Callback when toast is swiped to dismiss.
 		onTouchSwipeUp = t.optional(t.callback),
 	}),

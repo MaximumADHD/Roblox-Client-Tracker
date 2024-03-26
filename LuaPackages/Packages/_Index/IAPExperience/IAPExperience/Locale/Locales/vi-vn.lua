@@ -281,4 +281,8 @@
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[Mô Tả Trải Nghiệm]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[Cuộc trò chuyện này là một bản xem trước, cho bạn thấy cách người dùng sẽ thấy nội dung mô tả của gói đăng ký. Bạn sẽ không bị tính phí nếu nhấn vào Đăng Ký.]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[Đăng Ký Gói]],
+    ["Feature.Subscription.Action.Subscribe"] = [[Đăng Ký]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Đăng ký bằng Thẻ tín dụng/Thẻ ghi nợ]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Đăng ký bằng Điểm Credit Roblox]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Thanh Toán Bằng Phương Thức Khác]],
 }

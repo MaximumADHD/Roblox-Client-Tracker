@@ -9,7 +9,6 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local ItemTileEnums = require(Tile.Enum.ItemTileEnums)
@@ -35,7 +34,7 @@ end
 
 ItemIcon.validateProps = t.strictInterface({
 	-- Enum specifying the item type
-	itemIconType = t.intersection(enumerateValidator(ItemTileEnums.ItemIconType), isValidItemIconType),
+	itemIconType = t.intersection(ItemTileEnums.ItemIconType.isEnumValue, isValidItemIconType),
 })
 
 function ItemIcon:render()

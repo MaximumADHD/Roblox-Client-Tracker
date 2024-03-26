@@ -285,4 +285,8 @@
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[اشتراك ضمن التجربة]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[مربع الحوار هذا لمجرد معاينة كيف سيرى المستخدمون وصف اشتراكك. لن يتم أخذ أي رسوم منك إذا ضغطت على "الاشتراك".]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[الحصول على الاشتراك]],
+    ["Feature.Subscription.Action.Subscribe"] = [[إشتراك]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[الاشتراك باستخدام بطاقة الائتمان/الخصم]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[الاشتراك باستخدام رصيد Roblox]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[الدفع بطريقة أخرى]],
 }

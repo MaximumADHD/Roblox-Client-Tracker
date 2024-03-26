@@ -4,7 +4,7 @@ version = "0.4.1"
 commit = "3cb03d33db43ddec64c74b2479f365ea2b156b4a"
 source = "url+https://github.com/roblox/roact-app-experiment"
 dependencies = [
-    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
+    "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",
     "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
     "ReactRoblox ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",

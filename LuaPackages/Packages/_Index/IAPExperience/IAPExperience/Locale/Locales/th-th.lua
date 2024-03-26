@@ -282,4 +282,5 @@ LuaApp หรือไม่]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[การสมัครสมาชิกประสบการณ์]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[กล่องโต้ตอบนี้เป็นตัวอย่าง แสดงให้คุณเห็นว่าผู้ใช้จะเห็นคำอธิบายการสมัครสมาชิกของคุณอย่างไร คุณจะไม่ถูกเรียกเก็บเงินหากคุณคลิกสมัครสมาชิก]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[สมัครสมาชิก]],
+    ["Feature.Subscription.Action.Subscribe"] = [[สมัคร]],
 }

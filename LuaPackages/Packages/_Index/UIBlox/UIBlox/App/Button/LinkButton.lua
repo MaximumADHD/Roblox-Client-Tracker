@@ -14,7 +14,6 @@ local ControlState = require(Core.Control.Enum.ControlState)
 local getContentStyle = require(Core.Button.getContentStyle)
 local GetTextSize = require(Core.Text.GetTextSize)
 local cleanRichTextTags = require(Core.Text.CleanRichTextTags)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
 local withStyle = require(Core.Style.withStyle)
 local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
@@ -78,7 +77,7 @@ LinkButton.validateProps = t.strictInterface({
 	[LinkButton.debugProps.getTextSize] = t.optional(t.callback),
 
 	-- Override the default controlState
-	[LinkButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+	[LinkButton.debugProps.controlState] = t.optional(ControlState.isEnumValue),
 
 	-- optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),

@@ -277,4 +277,8 @@
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[體驗訂閱]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[此對話為預覽畫面，顯示了使用者將看到的訂閱說明。點選「訂閱」並不會向您收費。]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[取得訂閱]],
+    ["Feature.Subscription.Action.Subscribe"] = [[訂閱]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[使用信用卡 / 簽帳金融卡訂閱]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[使用 Roblox 點數訂閱]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[用其他方式支付]],
 }

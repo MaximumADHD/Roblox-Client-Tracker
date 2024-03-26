@@ -8,7 +8,6 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
 local TooltipContainer = require(TooltipRoot.TooltipContainer)
 
@@ -39,7 +38,7 @@ Tooltip.validateProps = t.strictInterface({
 	-- Alternative to set the position of tooltip if `screenSize` is not available
 	position = t.optional(t.UDim2),
 	-- Tooltip orientation
-	orientation = t.optional(enumerateValidator(TooltipOrientation)),
+	orientation = t.optional(TooltipOrientation.isEnumValue),
 	--[[
 		There are 2 methods to activate tooltip:
 

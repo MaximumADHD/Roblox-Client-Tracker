@@ -14,8 +14,6 @@ local ButtonType = require(ButtonRoot.Enum.ButtonType)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
-
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 
@@ -25,7 +23,7 @@ ButtonStack.validateProps = t.strictInterface({
 	-- A table of button tables that contain props that [[Button]] allows.
 	buttons = t.array(t.strictInterface({
 		-- Determines which button to use
-		buttonType = t.optional(enumerateValidator(ButtonType)),
+		buttonType = t.optional(ButtonType.isEnumValue),
 		props = Button.validateProps,
 		-- Default gamepad focus to this button if true.
 		isDefaultChild = t.optional(t.boolean),

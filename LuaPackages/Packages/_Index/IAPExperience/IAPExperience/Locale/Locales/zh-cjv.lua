@@ -288,4 +288,8 @@ LuaApp]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[作品订阅]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[此预览对话框会显示您的用户如何看到订阅描述。点击“订阅”不会向您收取费用。]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[取得订阅]],
+    ["Feature.Subscription.Action.Subscribe"] = [[]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[]],
 }

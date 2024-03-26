@@ -288,4 +288,8 @@ Ressources : {lineBreak}{aTagStartWithHref}{ChangePasswordLink}{hrefEnd}Changer 
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[Abonnement d'expérience]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[Cette boîte de dialogue est un aperçu te montrant comment tes utilisateurs verront la description de ton abonnement. Tu ne seras pas facturé si tu cliques sur S'abonner.]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[Obtenir un abonnement]],
+    ["Feature.Subscription.Action.Subscribe"] = [[S'abonner]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Abonne-toi avec une carte de crédit/débit]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Abonne-toi avec du Crédit Roblox]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Payer d'une autre manière]],
 }

@@ -14,7 +14,6 @@ local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
 local getContentStyle = require(Core.Button.getContentStyle)
 local getIconSize = require(App.ImageSet.getIconSize)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local bindingValidator = require(Core.Utility.bindingValidator)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local validateColorInfo = require(Core.Style.Validator.validateColorInfo)
@@ -75,7 +74,7 @@ IconButton.validateProps = t.strictInterface({
 	-- The icon of the button
 	icon = t.optional(validateImage),
 	-- The icon size to be used. Will automatically set the size of the component to compensate
-	iconSize = t.optional(enumerateValidator(IconSize)),
+	iconSize = t.optional(IconSize.isEnumValue),
 	-- When set, will override the icon's ImageColor3 properly.
 	-- When nil, this property will be derived from the colorStyleDefault and colorStyleHover properties.
 	iconColor3 = t.optional(t.Color3),
@@ -94,7 +93,7 @@ IconButton.validateProps = t.strictInterface({
 	[Roact.Children] = t.optional(t.table),
 
 	-- Override the default controlState
-	[IconButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+	[IconButton.debugProps.controlState] = t.optional(ControlState.isEnumValue),
 
 	-- optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),

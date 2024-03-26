@@ -286,4 +286,8 @@ LuaApp]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[Subscription Pengalaman Virtual]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[Dialog ini adalah preview untuk memperlihatkan bagaimana penggunamu akan melihat deskripsi subscription kamu. Kamu tidak akan dikenai biaya kalau kamu mengklik Subscribe.]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[Dapatkan Subscription]],
+    ["Feature.Subscription.Action.Subscribe"] = [[Subscribe]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Subscribe dengan Kartu Kredit/Debit]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Subscribe dengan Dana Roblox]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Bayar dengan Cara Lain]],
 }

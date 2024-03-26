@@ -21,6 +21,8 @@ local getEnableSubscriptionPurchaseInstrumentation =
 	require(IAPExperienceRoot.Flags.getEnableSubscriptionPurchaseInstrumentation)
 local formatSubscriptionPurchaseEventData = require(IAPExperienceRoot.Utility.formatSubscriptionPurchaseEventData)
 
+local GetFFlagEnableRobloxCreditPurchase = require(IAPExperienceRoot.Flags.GetFFlagEnableRobloxCreditPurchase)
+
 local SubscriptionPurchaseFlow = Roact.Component:extend(script.Name)
 
 local GenericRoot = IAPExperienceRoot.Generic
@@ -43,10 +45,13 @@ type Props = {
 	description: string,
 	itemIcon: any,
 
+	primaryPaymentMethod: string,
+	secondaryPaymentMethod: string,
+
 	acceptControllerIcon: { [string]: any? },
 	isTestingMode: boolean,
 
-	purchaseSubscription: () -> any,
+	purchaseSubscription: (string) -> any,
 	cancelPurchase: () -> any,
 	flowComplete: () -> any,
 
@@ -133,12 +138,15 @@ function SubscriptionPurchaseFlow:render()
 					description = props.description,
 					itemIcon = props.itemIcon,
 
+					primaryPaymentMethod = if GetFFlagEnableRobloxCreditPurchase() then props.primaryPaymentMethod else nil,
+					secondaryPaymentMethod = if GetFFlagEnableRobloxCreditPurchase() then props.secondaryPaymentMethod else nil,
+
 					isTestingMode = props.isTestingMode,
 					screenSize = props.screenSize,
 
-					purchaseSubscriptionActivated = function()
+					purchaseSubscriptionActivated = function(paymentMethod: string)
 						self:reportUserInput("Subscribe")
-						props.purchaseSubscription()
+						props.purchaseSubscription(paymentMethod)
 						if props.isTestingMode then
 							props.flowComplete()
 						end

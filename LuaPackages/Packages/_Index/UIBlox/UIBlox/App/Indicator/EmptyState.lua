@@ -17,7 +17,6 @@ local getPageMargin = require(App.Container.getPageMargin)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local Images = require(App.ImageSet.Images)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
 local Button = require(App.Button.Button)
 local ButtonType = require(App.Button.Enum.ButtonType)
@@ -45,7 +44,7 @@ EmptyState.validateProps = t.strictInterface({
 	-- Button text
 	buttonText = t.optional(t.string),
 	-- Button type from App.Button
-	buttonType = t.optional(enumerateValidator(ButtonType)),
+	buttonType = t.optional(ButtonType.isEnumValue),
 	-- Passing in the callback function will render a button
 	onActivated = t.optional(t.callback),
 	frameRef = t.optional(t.table),

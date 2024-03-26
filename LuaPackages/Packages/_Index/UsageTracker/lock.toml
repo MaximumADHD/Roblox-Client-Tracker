@@ -4,6 +4,6 @@ version = "0.1.1"
 commit = "021b560b34e48a18e9d0af9bb588f7caf9666329"
 source = "url+https://github.com/roblox/usage-tracker-lua"
 dependencies = [
-    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
+    "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",
     "ReactIs ReactIs 17.0.1 url+https://github.com/roblox/roact-alignment",
 ]

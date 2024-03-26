@@ -4,6 +4,6 @@ version = "1.11.5"
 commit = "4882c79d428b186ada265096778c9f96d7987289"
 source = "url+https://github.com/roblox/ugc-validation"
 dependencies = [
-    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
+    "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
 ]

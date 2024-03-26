@@ -1,229 +1,457 @@
---!nonstrict
 local Bar = script.Parent
 local App = Bar.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
-local Roact = require(Packages.Roact)
-local t = require(Packages.t)
 
-local Images = require(App.ImageSet.Images)
-local IconSize = require(App.ImageSet.Enum.IconSize)
-local getPageMargin = require(App.Container.getPageMargin)
-local withStyle = require(UIBlox.Core.Style.withStyle)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
+if not UIBloxConfig.useNewHeaderBar then
+	return require(Bar.HeaderBar_DEPRECATED)
+end
 
-local IconButton = require(UIBlox.App.Button.IconButton)
+local React = require(Packages.React)
+local Cryo = require(Packages.Cryo)
+
+local StyleTypes = require(App.Style.StyleTypes)
+local Fonts = require(App.Style.Fonts)
+local useStyle = require(UIBlox.Core.Style.useStyle)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
-
 local ThreeSectionBar = require(UIBlox.Core.Bar.ThreeSectionBar)
-
-local HeaderBar = Roact.PureComponent:extend("HeaderBar")
 
 local PADDING_AROUND_DIVIDER = 12
 
-HeaderBar.renderLeft = {
-	backButton = function(onActivated)
-		return function(_)
-			return Roact.createElement(IconButton, {
-				size = UDim2.fromOffset(0, 0),
-				iconSize = IconSize.Medium,
-				icon = Images["icons/navigation/pushBack"],
-				onActivated = onActivated,
-			})
-		end
-	end,
-}
+export type Props = {
+	-- The height of the bar and with `isOnMedia` being true extra 40px will be added
+	barHeight: number?,
 
-HeaderBar.validateProps = t.strictInterface({
 	-- The title text for the title bar
-	title = t.optional(t.string),
+	title: string?,
 
-	-- The value for the side margins
-	margin = t.optional(t.number),
+	-- Whether title is centered and it can be overridden by `isSecondary` or `renderLeft`
+	isTitleCentered: boolean?,
 
-	-- Padding around the items from renderRight
-	contentPaddingRight = t.optional(t.UDim),
+	-- A function that returns a React Component, used for customizing, e.g. back button, on the left side of the bar. If this does not exist, the bar will appear as a root HeaderBar and will increase the size of the title and place it to the left
+	renderLeft: (() -> React.ReactElement?)?,
 
-	-- The height of the bar
-	barHeight = t.optional(t.number),
+	-- A function that returns a React Component, used for containing, e.g. search bar, on the center of the bar
+	renderCenter: (() -> React.ReactElement?)?,
 
-	-- A function that returns a Roact Component, used for customizing buttons on the right side of the bar
-	renderRight = t.optional(t.callback),
-
-	-- A function that returns a Roact Component, used for customizing, e.g. back button, on the left side of the bar. If this does not exist, the bar will appear as a root HeaderBar and will increase the size of the title and place it to the left
-	renderLeft = t.optional(t.callback),
-
-	-- A function that returns a Roact Component, used for containing, e.g. search bar, on the center of the bar
-	renderCenter = t.optional(t.callback),
-
-	-- Background transparency of the bar
-	backgroundTransparency = t.optional(t.number),
+	-- A function that returns a React Component, used for customizing buttons on the right side of the bar
+	renderRight: (() -> React.ReactElement?)?,
 
 	-- Add an invisible button to the bar to capture click event
-	onHeaderActivated = t.optional(t.callback),
+	onHeaderActivated: (() -> ())?,
 
-	-- An optional cache key, used when wrapping HeaderBar with React.memo
-	memoKey = t.optional(t.number),
+	-- Background style of header bar and its transparency can be overridden by `backgroundTransparency`
+	backgroundStyle: StyleTypes.ColorItem?,
 
-	-- An optional boolean that, when true, applies secondary header bar styling (smaller font, vertical divider)
-	isSecondary = t.optional(t.boolean),
+	-- Determines whether header bar is displayed on media and extra 40px will be added to header bar height
+	isOnMedia: boolean?,
+
+	-- Determines whether header bar height is scaled automatically
+	automaticHeight: boolean?,
+
+	-- Padding at top of header bar
+	paddingTop: UDim?,
+
+	-- Padding at right of header bar and it can be overridden by `margin`
+	paddingRight: UDim?,
+
+	-- Padding at bottom of header bar
+	paddingBottom: UDim?,
+
+	-- Padding at Left of header bar and it can be overridden by `margin`
+	paddingLeft: UDim?,
+
+	-- ZIndex of header bar
+	zIndex: number?,
+
+	-- Determines whether header bar has bottom divider
+	hasDivider: boolean?,
+
+	-- Padding around the items from renderRight
+	contentPaddingRight: UDim?,
+
+	-- (For compatibility) Background transparency of the bar
+	backgroundTransparency: number?,
+
+	-- (For compatibility) The value for the side margins
+	margin: number?,
+
+	-- (For compatibility) An optional boolean that, when true, applies secondary header bar styling (smaller font, vertical divider) and the title will be left aligned
+	isSecondary: boolean?,
 
 	-- An optional boolean that, when true, hides secondary left item (i.e. title, divider, and renderLeft prop)
-	shouldHideSecondaryLeftItem = t.optional(t.boolean),
-})
-
--- default values are taken from Abstract
-HeaderBar.defaultProps = {
-	barHeight = 48,
-	title = "",
-	isSecondary = false,
+	shouldHideSecondaryLeftItem: boolean?,
 }
 
-function HeaderBar:init()
-	self.state = {
-		margin = 0,
-	}
+local defaultProps = {
+	barHeight = 48,
+	title = "",
+	isTitleCentered = true,
+	isSecondary = false,
+	isOnMedia = false,
+	hasDivider = false,
+}
 
-	self.onResize = function(rbx)
-		local margin = getPageMargin(rbx.AbsoluteSize.X)
-		self:setState({
-			margin = margin,
-		})
-	end
-	self.ref = Roact.createRef()
-end
+local function useHeaderBarStyle(props: Props, style: StyleTypes.AppStyle)
+	local tokens = style.Tokens
+	local theme = style.Theme
 
-function HeaderBar:render()
-	return withStyle(function(style)
-		local theme = style.Theme
-		local font = style.Font
-
-		local renderLeft = self.props.renderLeft
-		local isRoot = renderLeft == nil or renderLeft == Roact.None
-		local renderCenter = self.props.renderCenter
-		local renderRight = self.props.renderRight
-		local estimatedCenterWidth = math.huge
-
-		if isRoot and string.len(self.props.title) > 0 then
-			renderLeft = function(props)
-				return Roact.createFragment({
-					Text = Roact.createElement(GenericTextLabel, {
-						fluidSizing = true,
-						Text = self.props.title,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						fontStyle = font.Title,
-						colorStyle = theme.TextEmphasis,
-					}, props[Roact.Children]),
-				})
-			end
+	local backgroundStyle = props.backgroundStyle
+	local backgroundTransparency = props.backgroundTransparency
+	local isOnMedia = props.isOnMedia
+	local barBackgroundStyle = React.useMemo(function()
+		-- Background style is overridden by UIGradient when on media
+		if isOnMedia then
+			return {}
 		end
 
-		if
-			self.props.isSecondary
-			and not isRoot
-			and not self.props.shouldHideSecondaryLeftItem
-			and string.len(self.props.title) > 0
-		then
-			local textFontStyle = font.Header2
+		-- For compatibility use theme.BackgroundDefault as default
+		local bgStyle: StyleTypes.ColorItem = backgroundStyle
+			or {
+				Color3 = theme.BackgroundDefault.Color,
+				Transparency = theme.BackgroundDefault.Transparency,
+			}
+
+		if backgroundTransparency then
+			bgStyle.Transparency = backgroundTransparency
+		end
+		return bgStyle
+	end, { isOnMedia, backgroundStyle, backgroundTransparency, theme } :: { any })
+
+	local paddingTop = props.paddingTop
+	local paddingRight = props.paddingRight
+	local paddingBottom = props.paddingBottom
+	local paddingLeft = props.paddingLeft
+	local margin = props.margin
+	local padding = React.useMemo(function()
+		local values = {
+			Top = paddingTop or UDim.new(0, tokens.Global.Space_100),
+			Right = paddingRight or UDim.new(0, tokens.Global.Space_250),
+			Bottom = paddingBottom or UDim.new(0, tokens.Global.Space_100),
+			Left = paddingLeft or UDim.new(0, tokens.Global.Space_250),
+		}
+		if margin then
+			values.Left = UDim.new(0, margin)
+			values.Right = UDim.new(0, margin)
+		end
+
+		return values
+	end, { paddingTop, paddingRight, paddingBottom, paddingLeft, margin, tokens } :: { any })
+
+	return {
+		BackgroundStyle = barBackgroundStyle,
+		Padding = padding,
+	}
+end
+
+local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
+	return React.useMemo(function()
+		local title = props.title :: string
+		local renderLeft = props.renderLeft
+		local isTitleCentered = props.isTitleCentered
+		local isSecondary = props.isSecondary
+		local shouldHideSecondaryLeftItem = props.shouldHideSecondaryLeftItem
+		local isRoot = renderLeft == nil or renderLeft == React.None
+		local tokens = style.Tokens
+
+		local renderFun: ((any) -> React.ReactElement?)? = props.renderLeft
+		if isRoot and string.len(title) > 0 then
+			renderFun = function(threeSectionBarProps)
+				local textChildren = Cryo.Dictionary.join(threeSectionBarProps.children, {
+					TextPadding = React.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, tokens.Global.Space_25),
+						PaddingBottom = UDim.new(0, tokens.Global.Space_25),
+					}),
+				})
+				return React.createElement(React.Fragment, nil, {
+					Text = React.createElement(GenericTextLabel, {
+						fluidSizing = true,
+						Text = title,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						fontStyle = tokens.Semantic.Typography.Title,
+						colorStyle = tokens.Semantic.Color.Text.Emphasis,
+					}, textChildren),
+				})
+			end
+
+		-- Secondary style for compatibility
+		elseif isSecondary and not shouldHideSecondaryLeftItem and string.len(title) > 0 then
+			local theme = style.Theme
+			local font = style.Font
+			local textFontStyle: Fonts.Font = font.Header2
 			local textSize = textFontStyle.RelativeSize * font.BaseSize
 
-			renderLeft = function()
-				return Roact.createFragment({
-					Text = Roact.createElement("Frame", {
+			renderFun = function()
+				return React.createElement(React.Fragment, nil, {
+					Text = React.createElement("Frame", {
 						Size = UDim2.new(1, 0, 0, textSize),
+						BorderSizePixel = 0,
 						BackgroundTransparency = 1,
-						Transparency = 1,
 					}, {
-						Layout = Roact.createElement("UIListLayout", {
+						Layout = React.createElement("UIListLayout", {
 							SortOrder = Enum.SortOrder.LayoutOrder,
 							FillDirection = Enum.FillDirection.Horizontal,
 							VerticalAlignment = Enum.VerticalAlignment.Center,
 							Padding = UDim.new(0, PADDING_AROUND_DIVIDER),
 						}),
-						renderLeft = self.props.renderLeft(self.props),
-						Divider = Roact.createElement("Frame", {
+						Left = React.createElement("Frame", {
+							LayoutOrder = 1,
+							Selectable = false,
+							Size = UDim2.fromOffset(0, 0),
+							BorderSizePixel = 0,
+							BackgroundTransparency = 1,
+							AutomaticSize = Enum.AutomaticSize.XY,
+						}, {
+							LeftContent = if renderLeft then renderLeft() else nil,
+						}),
+						Divider = React.createElement("Frame", {
+							LayoutOrder = 2,
+							Selectable = false,
 							BackgroundColor3 = theme.Divider.Color,
 							BackgroundTransparency = theme.Divider.Transparency,
 							BorderSizePixel = 0,
 							Size = UDim2.new(0, 1, 1, 0),
-							LayoutOrder = 1,
 						}),
-						TextLabel = Roact.createElement(GenericTextLabel, {
+						TextLabel = React.createElement(GenericTextLabel, {
+							LayoutOrder = 3,
+							Selectable = false,
 							ClipsDescendants = true,
-							Text = self.props.title,
+							Text = title,
 							TextTruncate = Enum.TextTruncate.AtEnd,
 							TextWrapped = false,
 							TextXAlignment = Enum.TextXAlignment.Left,
 							fontStyle = textFontStyle,
 							colorStyle = theme.TextEmphasis,
+						}),
+					}),
+				})
+			end
+		elseif not isSecondary and not isTitleCentered then
+			local textFontStyle = tokens.Semantic.Typography.Header
+			local textSize = textFontStyle.FontSize
+
+			renderFun = function()
+				return React.createElement(React.Fragment, nil, {
+					LeftFrame = React.createElement("Frame", {
+						Selectable = false,
+						Size = UDim2.new(1, 0, 0, textSize),
+						BorderSizePixel = 0,
+						BackgroundTransparency = 1,
+					}, {
+						Layout = React.createElement("UIListLayout", {
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							FillDirection = Enum.FillDirection.Horizontal,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+							Padding = UDim.new(0, tokens.Global.Space_150),
+						}),
+						Left = React.createElement("Frame", {
+							LayoutOrder = 1,
+							Selectable = false,
+							Size = UDim2.fromOffset(0, 0),
+							BorderSizePixel = 0,
+							BackgroundTransparency = 1,
+							AutomaticSize = Enum.AutomaticSize.XY,
+						}, {
+							LeftContent = if renderLeft then renderLeft() else nil,
+						}),
+						TextLabel = React.createElement(GenericTextLabel, {
 							LayoutOrder = 2,
+							Selectable = false,
+							ClipsDescendants = true,
+							Text = title,
+							TextTruncate = Enum.TextTruncate.AtEnd,
+							TextWrapped = false,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							fontStyle = textFontStyle,
+							colorStyle = tokens.Semantic.Color.Text.Emphasis,
+						}, {
+							TextPadding = React.createElement("UIPadding", {
+								PaddingTop = UDim.new(0, tokens.Global.Space_25),
+								PaddingBottom = UDim.new(0, tokens.Global.Space_25),
+							}),
 						}),
 					}),
 				})
 			end
 		end
 
-		-- Make center fixed-width components in the center, e.g search bar
-		if renderLeft and renderCenter and renderRight then
-			estimatedCenterWidth = 0
-		end
+		return renderFun
+	end, {
+		props.title,
+		props.isTitleCentered,
+		props.renderLeft,
+		props.isSecondary,
+		props.shouldHideSecondaryLeftItem,
+		style,
+	} :: { any })
+end
 
-		if not renderCenter and not isRoot and not self.props.isSecondary then
-			local centerTextFontStyle = font.Header1
-			local centerTextSize = centerTextFontStyle.RelativeSize * font.BaseSize
+local function HeaderBar(providedProps: Props)
+	local props = Cryo.Dictionary.join(defaultProps, providedProps)
+	local style = useStyle()
+	local tokens = style.Tokens
 
-			renderCenter = function()
-				return Roact.createElement(GenericTextLabel, {
+	local title = props.title
+	local renderCenter = props.renderCenter
+	local renderRight = props.renderRight
+	local isTitleCentered = props.isTitleCentered
+	local isSecondary = props.isSecondary
+	local onHeaderActivated = props.onHeaderActivated
+	local contentPaddingRight = props.contentPaddingRight
+	local automaticHeight = props.automaticHeight
+	local isOnMedia = props.isOnMedia
+	local zIndex = props.zIndex
+	local hasDivider = props.hasDivider
+	local isRoot = props.renderLeft == nil or props.renderLeft == React.None
+
+	local barRenderLeft = useRenderLeft(props, style)
+
+	local barRenderCenter = React.useMemo(function()
+		local renderFun: (() -> React.ReactElement?)? = renderCenter
+		-- Render title in the center section if center renderer is empty and
+		-- title is centered
+		if not renderFun and not isRoot and not isSecondary and isTitleCentered then
+			local centerTextFontStyle = tokens.Semantic.Typography.Header
+			local centerTextSize = centerTextFontStyle.FontSize
+			renderFun = function()
+				return React.createElement(GenericTextLabel, {
+					Selectable = false,
 					ClipsDescendants = true,
 					Size = UDim2.new(1, 0, 0, centerTextSize),
-					Text = self.props.title,
+					Text = title,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextWrapped = false,
 					fontStyle = centerTextFontStyle,
-					colorStyle = theme.TextEmphasis,
+					colorStyle = tokens.Semantic.Color.Text.Emphasis,
+				}, {
+					TextPadding = React.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, tokens.Global.Space_25),
+						PaddingBottom = UDim.new(0, tokens.Global.Space_25),
+					}),
 				})
 			end
+		end
+		return renderFun
+	end, { renderCenter, isRoot, isSecondary, isTitleCentered, tokens } :: { any })
 
-			estimatedCenterWidth =
-				GetTextSize(self.props.title, centerTextSize, centerTextFontStyle.Font, Vector2.new(1000, 1000)).X
+	local estimatedCenterWidth = React.useMemo(function()
+		-- Make center fixed-width components in the center, e.g search bar
+		if barRenderLeft and renderCenter and renderRight then
+			return 0
 		end
 
-		return Roact.createElement("Frame", {
+		-- Title is in center section. Get text width as estimatedCenterWidth
+		-- to position it in the center
+		if not renderCenter and not isRoot and not isSecondary and isTitleCentered then
+			local centerTextFontStyle = tokens.Semantic.Typography.Header
+			local centerTextSize = centerTextFontStyle.FontSize
+			return GetTextSize(title, centerTextSize, centerTextFontStyle.Font, Vector2.new(math.huge, math.huge)).X
+		end
+
+		return math.huge
+	end, { title, isTitleCentered, isRoot, barRenderLeft, renderCenter, renderRight, isSecondary, tokens } :: { any })
+
+	local barContentPaddingRight = React.useMemo(function()
+		if contentPaddingRight then
+			return contentPaddingRight
+		end
+
+		if isRoot then
+			return UDim.new(0, 0)
+		end
+
+		return UDim.new(0, tokens.Global.Space_300)
+	end, { contentPaddingRight, isRoot, tokens } :: { any })
+
+	local headerBarStyle = useHeaderBarStyle(props, style)
+	local backgroundStyle = headerBarStyle.BackgroundStyle
+	local padding = headerBarStyle.Padding
+	local barHeight = if isOnMedia
+		then props.barHeight :: number + tokens.Global.Size_500
+		else props.barHeight :: number
+	local threeSectionBarHeight = if automaticHeight
+		then 0
+		else math.max(0, props.barHeight :: number - padding.Top.Offset - padding.Bottom.Offset)
+
+	return React.createElement("Frame", {
+		Selectable = false,
+		Size = UDim2.new(1, 0, 0, barHeight),
+		BorderSizePixel = 0,
+		BackgroundColor3 = backgroundStyle.Color3,
+		BackgroundTransparency = backgroundStyle.Transparency,
+		AutomaticSize = if automaticHeight then Enum.AutomaticSize.Y else nil,
+		ZIndex = zIndex,
+	}, {
+		Gradient = if isOnMedia
+			then React.createElement("UIGradient", {
+				Rotation = 90,
+				Color = ColorSequence.new({
+					ColorSequenceKeypoint.new(0, Color3.new(0, 0, 0)),
+					ColorSequenceKeypoint.new(1, Color3.new(0, 0, 0)),
+				}),
+				Transparency = NumberSequence.new({
+					NumberSequenceKeypoint.new(0, 0.7),
+					NumberSequenceKeypoint.new(1, 1.0),
+				}),
+			})
+			else nil,
+		OnMediaExtendedHeight = if isOnMedia
+			then React.createElement("UIPadding", {
+				PaddingBottom = UDim.new(0, tokens.Global.Size_500),
+			})
+			else nil,
+		Bar = React.createElement("Frame", {
+			Selectable = false,
+			Size = UDim2.fromScale(1, 0),
+			BorderSizePixel = 0,
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, self.props.barHeight),
-			[Roact.Change.AbsoluteSize] = self.onResize,
+			AutomaticSize = Enum.AutomaticSize.Y,
 		}, {
-			HeaderClickArea = self.props.onHeaderActivated and Roact.createElement("TextButton", {
+			Padding = React.createElement("UIPadding", {
+				PaddingTop = padding.Top,
+				PaddingRight = padding.Right,
+				PaddingBottom = padding.Bottom,
+				PaddingLeft = padding.Left,
+			}),
+			ThreeSectionBar = React.createElement(ThreeSectionBar, {
+				BackgroundTransparency = 1,
+				barHeight = threeSectionBarHeight,
+				automaticHeight = automaticHeight,
+				renderLeft = barRenderLeft,
+				renderCenter = barRenderCenter,
+				renderRight = renderRight,
+				estimatedCenterWidth = estimatedCenterWidth,
+				sectionSpacing = tokens.Global.Space_150,
+				contentPaddingRight = barContentPaddingRight,
+			}),
+		}),
+		HeaderClickArea = if onHeaderActivated
+			then React.createElement("TextButton", {
 				AutoButtonColor = false,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				Size = UDim2.new(1, 0, 1, 0),
+				Text = "",
+				Size = UDim2.fromScale(1, 1),
 				Selectable = false,
-				[Roact.Event.Activated] = self.props.onHeaderActivated,
+				[React.Event.Activated] = onHeaderActivated,
 				ZIndex = 0,
-			}) or nil,
-			ThreeSectionBar = Roact.createElement(ThreeSectionBar, {
-				BackgroundTransparency = self.props.backgroundTransparency or theme.BackgroundDefault.Transparency,
-				BackgroundColor3 = theme.BackgroundDefault.Color,
-				barHeight = self.props.barHeight,
-				marginLeft = self.props.margin or self.state.margin,
-				marginRight = self.props.margin or self.state.margin,
-				renderLeft = renderLeft,
-				renderCenter = renderCenter,
-				estimatedCenterWidth = estimatedCenterWidth,
-				contentPaddingRight = self.props.contentPaddingRight
-					or UDim.new(0, isRoot and 0 or PADDING_AROUND_DIVIDER),
-				renderRight = renderRight,
-			}),
-		})
-	end)
-end
-
-function HeaderBar:didMount()
-	if self.ref.current then
-		self.onResize(self.ref.current)
-	end
+			})
+			else nil,
+		BottomDivider = if hasDivider
+			then React.createElement("Frame", {
+				Selectable = false,
+				Size = UDim2.new(1, 0, 0, tokens.Global.Stroke_100),
+				Position = UDim2.new(0, 0, 1, -tokens.Global.Stroke_100),
+				BackgroundColor3 = tokens.Semantic.Color.Common.Divider.Color3,
+				BackgroundTransparency = tokens.Semantic.Color.Common.Divider.Transparency,
+				BorderSizePixel = 0,
+				ZIndex = 1,
+			})
+			else nil,
+	})
 end
 
 return HeaderBar

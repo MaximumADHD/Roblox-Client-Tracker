@@ -6,7 +6,6 @@ local Packages = UIBlox.Parent
 
 local ContentPositionEnum = require(DetailsPage.Enum.ContentPosition)
 
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local t = require(Packages.t)
 
 return t.map(
@@ -17,7 +16,7 @@ return t.map(
 		-- The layout of the component in dual panel landscape mode.
 		landscapeLayoutOrder = t.integer,
 		-- The position of the component in dual panel landscape mode.
-		landscapePosition = enumerateValidator(ContentPositionEnum),
+		landscapePosition = ContentPositionEnum.isEnumValue,
 		-- render function for the component.
 		renderComponent = t.callback,
 		-- 10ft UI only, hides the background gradient when set to false.

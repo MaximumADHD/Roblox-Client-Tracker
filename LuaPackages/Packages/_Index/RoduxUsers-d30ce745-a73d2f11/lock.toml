@@ -4,7 +4,7 @@ version = "1.5.0"
 commit = "a73d2f11fe07d4aaf7ffdc52a2b54be672143a24"
 source = "git+https://github.com/roblox/rodux-users#v1.5.0"
 dependencies = [
-    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
+    "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",
     "FriendsNetworking NetworkingFriends 2.11.0 url+https://github.com/roblox/networking-friends",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxNetworking RoduxNetworking 3.2.1 url+https://github.com/roblox/rodux-networking",

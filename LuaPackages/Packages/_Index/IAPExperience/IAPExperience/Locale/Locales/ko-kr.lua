@@ -285,4 +285,8 @@
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[체험 구독]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[이 대화 상자는 사용자에게 구독 설명이 나타나는 방식을 보여 주는 미리 보기입니다. '구독'을 클릭해도 요금이 청구되지 않습니다.]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[구독하기]],
+    ["Feature.Subscription.Action.Subscribe"] = [[구독]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[신용카드 또는 체크카드로 구독]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Roblox 크레딧으로 구독]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[다른 방법으로 결제]],
 }

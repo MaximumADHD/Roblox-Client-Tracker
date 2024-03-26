@@ -4,6 +4,6 @@ version = "1.1.1"
 commit = "9a5a8b6a2ca0255713a9ce8b1ac0be15ecbafd77"
 source = "url+https://github.com/roblox/http-request"
 dependencies = [
-    "Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main",
+    "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
 ]

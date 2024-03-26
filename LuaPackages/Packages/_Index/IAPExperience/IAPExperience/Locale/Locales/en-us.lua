@@ -287,4 +287,8 @@ LuaApp]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[Experience Subscription]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[This dialog is a preview, showing you how your users will see the description of your subscription. You won’t be charged if you click Subscribe.]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[Get Subscription]],
+    ["Feature.Subscription.Action.Subscribe"] = [[Subscribe]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Subscribe with Credit/Debit Card]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Subscribe with Roblox Credit]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Pay Another Way]],
 }

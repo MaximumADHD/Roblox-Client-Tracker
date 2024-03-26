@@ -285,4 +285,8 @@
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[Deneyim Aboneliği]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[Bu iletişim kutusu, aboneliğinin açıklamasının senin kullanıcıların tarafından nasıl görüleceğini gösteren bir ön izlemedir. Abone Ol düğmesine tıklarsan senden ücret alınmaz.]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[Abonelik Al]],
+    ["Feature.Subscription.Action.Subscribe"] = [[Abone Ol]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Kredi/Banka Kartı ile Abone Ol]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Roblox Kredisi ile Abone Ol]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Başka Bir Yöntemle Öde]],
 }

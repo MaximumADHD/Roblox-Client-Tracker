@@ -22,7 +22,6 @@ local Interactable = require(Core.Control.Interactable)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 
@@ -85,7 +84,7 @@ MenuTile.validateProps = t.strictInterface({
 		-- Color style of icon
 		iconStyle = t.optional(validateColorInfo),
 		-- Size of icon
-		iconSize = t.optional(enumerateValidator(IconSize)),
+		iconSize = t.optional(IconSize.isEnumValue),
 		-- Color style of title
 		titleStyle = t.optional(validateColorInfo),
 		-- Font of title

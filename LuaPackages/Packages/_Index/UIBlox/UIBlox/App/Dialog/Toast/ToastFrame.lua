@@ -13,7 +13,6 @@ local ToastText = require(ToastRoot.ToastText)
 
 local Button = require(AppRoot.Button.Button)
 local ButtonType = require(AppRoot.Button.Enum.ButtonType)
-local enumerateValidator = require(UIBloxRoot.Utility.enumerateValidator)
 
 local StandardButtonSize = require(UIBloxRoot.Core.Button.Enum.StandardButtonSize)
 
@@ -36,7 +35,7 @@ ToastFrame.validateProps = t.strictInterface({
 	subtitleTextProps = t.optional(ToastText.validateProps),
 	textFrameSize = t.UDim2,
 	titleTextProps = ToastText.validateProps,
-	buttonType = t.optional(enumerateValidator(ButtonType)),
+	buttonType = t.optional(ButtonType.isEnumValue),
 })
 
 ToastFrame.defaultProps = {

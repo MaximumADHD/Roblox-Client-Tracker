@@ -18,7 +18,6 @@ local StandardButtonSize = require(Core.Button.Enum.StandardButtonSize)
 local GenericButton = require(Core.Button.GenericButton)
 local ControlState = require(Core.Control.Enum.ControlState)
 
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
 
 local Images = require(App.ImageSet.Images)
@@ -87,14 +86,14 @@ local CORNER_RADIUS = UDim.new(0, 8)
 Button.validateProps = t.strictInterface({
 	[React.Tag] = isReactTagProp,
 	-- The type of the button
-	buttonType = t.optional(enumerateValidator(ButtonType)),
+	buttonType = t.optional(ButtonType.isEnumValue),
 
 	-- The automatic size of the button
 	automaticSize = t.optional(t.EnumItem),
 	-- The size of the button
 	size = t.optional(t.UDim2),
 	-- Standard button size (Regular/Small/XSmall) is optional
-	standardSize = t.optional(enumerateValidator(StandardButtonSize)),
+	standardSize = t.optional(StandardButtonSize.isEnumValue),
 	-- For standard buttons, optionally override the default max width of 640 for Regular and Small,
 	-- or set a max width for XSmall (e.g. width of parent container)
 	maxWidth = t.optional(t.numberPositive),

@@ -34,7 +34,6 @@ local StandardButtonSize = require(Button.Enum.StandardButtonSize)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
 local CONTENT_PADDING = 5
 local PLACEHOLDER_ABSOLUTE_SIZE_PX = 100
@@ -155,7 +154,7 @@ GenericButton.validateProps = t.interface({
 	userInteractionEnabled = t.optional(t.boolean),
 
 	--Which standard button size we should use, instead of fixed Size, to determine button height and font size
-	standardSize = t.optional(enumerateValidator(StandardButtonSize)),
+	standardSize = t.optional(StandardButtonSize.isEnumValue),
 
 	--For standard buttons, optionally override the default max width of 640 for Regular and Small,
 	--or set a max width for XSmall (e.g. width of parent container)

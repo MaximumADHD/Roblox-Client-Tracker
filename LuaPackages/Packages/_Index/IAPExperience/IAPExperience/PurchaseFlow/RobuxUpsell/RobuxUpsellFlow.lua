@@ -37,6 +37,7 @@ type Props = {
 	isDelayedInput: boolean?,
 	onDelayedInputComplete: () -> any?,
 
+	model: any?,
 	itemIcon: any?,
 	itemName: string,
 	itemRobuxCost: number,
@@ -161,6 +162,7 @@ function RobuxUpsellFlow:constructRobuxUpsellPromptAnimatorObj()
 				isDelayedInput = state.isDelayedInput,
 				enableInputDelayed = state.enableInputDelayed,
 
+				model = props.model,
 				itemIcon = props.itemIcon,
 				itemName = props.itemName,
 				itemRobuxCost = props.itemRobuxCost,
@@ -291,6 +293,7 @@ function RobuxUpsellFlow:constructRobuxUpsellSuccessPromptAnimatorObj()
 			return Roact.createElement(RobuxUpsellSuccessPrompt, {
 				screenSize = props.screenSize,
 
+				model = props.model,
 				itemIcon = props.itemIcon,
 				itemName = props.itemName,
 				balance = props.iapRobuxAmount + props.beforeRobuxBalance - props.itemRobuxCost,
@@ -355,6 +358,7 @@ function RobuxUpsellFlow:constructInsufficientRobuxProductAnimatorObj()
 			return Roact.createElement(InsufficientRobuxProductPrompt, {
 				screenSize = props.screenSize,
 
+				model = props.model,
 				itemIcon = props.itemIcon,
 				itemName = props.itemName,
 				itemRobuxCost = props.itemRobuxCost,

@@ -10,7 +10,6 @@ local t = require(Packages.t)
 local RoactGamepad = require(Packages.RoactGamepad)
 local Cryo = require(Packages.Cryo)
 
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local Images = require(AppRoot.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local withStyle = require(UIBlox.Core.Style.withStyle)
@@ -30,7 +29,7 @@ local Alert = Roact.PureComponent:extend("Alert")
 
 Alert.validateProps = t.strictInterface({
 	-- The type of alert to display. Used for stylizing purposes
-	alertType = enumerateValidator(AlertType),
+	alertType = AlertType.isEnumValue,
 	maxWidth = t.optional(t.number),
 	minWidth = t.optional(t.number),
 	margin = t.optional(t.table),

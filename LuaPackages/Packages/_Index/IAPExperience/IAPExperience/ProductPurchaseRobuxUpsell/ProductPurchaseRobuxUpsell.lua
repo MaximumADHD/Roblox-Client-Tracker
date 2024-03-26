@@ -39,6 +39,7 @@ ProductPurchaseRobuxUpsell.validateProps = t.strictInterface({
 	isDelayedInput = t.optional(t.boolean),
 	enableInputDelayed = t.optional(t.boolean),
 
+	model = t.optional(t.table),
 	itemIcon = t.table,
 	itemName = t.string,
 	itemRobuxCost = t.number,
@@ -151,6 +152,7 @@ function ProductPurchaseRobuxUpsell:renderAlert(locMap)
 				}, {
 					ItemDetails = Roact.createElement(ProductDetails, {
 						layoutOrder = 1,
+						model = self.props.model,
 						itemIcon = self.props.itemIcon,
 						itemName = self.props.itemName,
 						itemRobuxCost = self.props.itemRobuxCost,

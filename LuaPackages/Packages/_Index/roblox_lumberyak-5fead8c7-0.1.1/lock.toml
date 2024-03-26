@@ -3,4 +3,4 @@ name = "roblox/lumberyak"
 version = "0.1.1"
 commit = "80926beddd32fe7686e036da2c2e6e08d42c74cf"
 source = "url+https://github.com/roblox/lumberyak"
-dependencies = ["Cryo <patched> CryoProxy 92eeeafa git+https://github.com/roblox/cryo-upgrade#main"]
+dependencies = ["Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo"]

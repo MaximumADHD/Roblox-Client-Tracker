@@ -286,4 +286,8 @@ LuaApp]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[Подписка на плейс]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[Это диалоговое окно является предварительным просмотром, показывающим, как пользователи будут видеть описание подписки. При нажатии кнопки «Подписаться» плата не взимается.]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[Подписаться]],
+    ["Feature.Subscription.Action.Subscribe"] = [[Подписаться]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Подписаться с кредитной/дебетовой картой]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Подписаться, используя баланс Roblox]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Оплатить другим способом]],
 }

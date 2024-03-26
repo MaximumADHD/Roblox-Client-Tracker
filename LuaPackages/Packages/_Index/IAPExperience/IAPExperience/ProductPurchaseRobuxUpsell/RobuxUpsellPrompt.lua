@@ -37,6 +37,7 @@ type Props = {
 	inputDelaySec: number?,
 	isQuest: boolean?,
 
+	model: any?,
 	itemIcon: any?,
 	itemName: string,
 	itemRobuxCost: number,
@@ -210,6 +211,7 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 				}, {
 					ProductDetails = Roact.createElement(ProductDetails, {
 						layoutOrder = 1,
+						model = props.model,
 						itemIcon = props.itemIcon,
 						itemName = props.itemName,
 						itemRobuxCost = props.itemRobuxCost,

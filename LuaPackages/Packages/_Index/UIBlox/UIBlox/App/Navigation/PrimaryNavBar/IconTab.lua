@@ -15,7 +15,6 @@ local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local Placement = require(Navigation.Enum.Placement)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 
@@ -50,14 +49,10 @@ local function IconTab(providedProps: Props)
 	local selected = props.selected
 	local style = useStyle()
 
-	local tokens = style.Tokens
-	local areTokensEnabled = tokens ~= nil and UIBloxConfig.useTokensInIconTab
 	local iconStyle = if selected
 		then style.Tokens.Semantic.Color.Icon.Emphasis
 		else style.Tokens.Semantic.Color.Icon.Default
 	local iconSize = getIconSize(IconSize.Medium, style)
-	local iconTabItemIconWidth = if areTokensEnabled then iconSize else Constants.ICON_TAB_ITEM_ICON_WIDTH
-	local iconTabItemIconHeight = if areTokensEnabled then iconSize else Constants.ICON_TAB_ITEM_ICON_HEIGHT
 	local roundedBackgroundHeight = Constants.ICON_TAB_HEIGHT - Constants.ICON_TAB_PADDING * 2
 	assert(item.icon == nil or item.iconComponent == nil, "icon or iconComponent cannot be assigned at same time")
 	local tabSpacing = if item.icon ~= nil or item.iconComponent ~= nil
@@ -77,18 +72,18 @@ local function IconTab(providedProps: Props)
 	}, {
 		Icon = if item.icon ~= nil
 			then React.createElement(ImageSetLabel, {
-				Size = UDim2.new(0, iconTabItemIconWidth, 0, iconTabItemIconHeight),
+				Size = UDim2.new(0, iconSize, 0, iconSize),
 				LayoutOrder = 1,
 				Image = item.icon,
 				BackgroundTransparency = 1,
 				ScaleType = Enum.ScaleType.Fit,
-				ImageColor3 = if areTokensEnabled then iconStyle.Color3 else nil,
-				ImageTransparency = if areTokensEnabled then iconStyle.Transparency else nil,
+				ImageColor3 = iconStyle.Color3,
+				ImageTransparency = iconStyle.Transparency,
 			})
 			elseif item.iconComponent ~= nil then React.createElement(
 				"Frame",
 				{
-					Size = UDim2.new(0, Constants.ICON_TAB_ITEM_ICON_WIDTH, 0, Constants.ICON_TAB_ITEM_ICON_HEIGHT),
+					Size = UDim2.new(0, iconSize, 0, iconSize),
 					BackgroundTransparency = 1,
 					LayoutOrder = 1,
 				},
@@ -112,7 +107,7 @@ local function IconTab(providedProps: Props)
 				Color = if selected then style.Theme.TextEmphasis.Color else style.Theme.TextDefault.Color,
 				Transparency = 0,
 			},
-			fontStyle = if areTokensEnabled then tokens.Semantic.Typography.Header else style.Font.Header1,
+			fontStyle = style.Tokens.Semantic.Typography.Header,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 			BackgroundTransparency = 1,
 		}),

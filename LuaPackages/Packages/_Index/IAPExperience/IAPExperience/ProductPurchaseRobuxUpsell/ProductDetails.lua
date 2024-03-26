@@ -15,8 +15,11 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
 
+local HumanoidViewport = require(IAPExperienceRoot.Generic.HumanoidViewport)
 local Constants = require(IAPExperienceRoot.Generic.Constants)
+
 local getEnableCondenseRobuxUpsell = require(IAPExperienceRoot.Flags.getEnableCondenseRobuxUpsell)
+local getEnableHumanoidViewportItemIcon = require(IAPExperienceRoot.Flags.getEnableHumanoidViewportItemIcon)
 
 local ROBUX_ICON = Images["icons/common/robux"]
 local MISSING_ICON = Images["icons/status/imageunavailable"]
@@ -27,6 +30,7 @@ local ProductDetails = Roact.Component:extend(script.Name)
 
 type Props = {
 	layoutOrder: number,
+	model: any?,
 	itemIcon: any?,
 	itemName: string,
 	itemRobuxCost: number,
@@ -57,11 +61,43 @@ function ProductDetails:render()
 		local fonts = stylePalette.Font
 
 		local itemIconLengthOfSide = props.itemIcon ~= nil and Constants.NORMAL_ICON_SIZE or UIBloxIconSize.Large
+		if getEnableHumanoidViewportItemIcon() and props.model ~= nil then
+			itemIconLengthOfSide = Constants.NORMAL_ICON_SIZE
+		end
 		local itemIconWidth = itemIconLengthOfSide
 		local itemIconHeight = itemIconLengthOfSide
 		if getEnableCondenseRobuxUpsell() then
 			itemIconWidth = props.itemIconWidth == nil and itemIconLengthOfSide or props.itemIconWidth
 			itemIconHeight = props.itemIconHeight == nil and itemIconLengthOfSide or props.itemIconHeight
+		end
+
+		local itemIconComponent = if props.itemIcon
+			then Roact.createElement(ImageSetLabel, {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 5, 0, 5),
+				Size = UDim2.new(0, itemIconWidth, 0, itemIconHeight),
+				ScaleType = Enum.ScaleType.Stretch,
+				Image = props.itemIcon,
+				ImageTransparency = 0,
+			})
+			else Roact.createElement(ImageSetLabel, {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 5, 0, 5),
+				Size = UDim2.new(0, itemIconWidth, 0, itemIconHeight),
+				ScaleType = Enum.ScaleType.Stretch,
+				Image = MISSING_ICON,
+				ImageColor3 = theme.UIDefault.Color,
+				ImageTransparency = theme.UIDefault.Transparency,
+			})
+
+		-- Render 3D Model in a ViewportFrame if given. Otherwise,
+		-- render thumbnail as the image of the product
+		if getEnableHumanoidViewportItemIcon() and props.model ~= nil then
+			itemIconComponent = Roact.createElement(HumanoidViewport, {
+				model = props.model,
+				Position = UDim2.fromOffset(5, 5),
+				Size = UDim2.fromOffset(itemIconWidth, itemIconHeight),
+			})
 		end
 
 		return Roact.createElement(FitFrameVertical, {
@@ -89,24 +125,7 @@ function ProductDetails:render()
 					right = 20,
 				},
 			}, {
-				ItemIcon = if props.itemIcon
-					then Roact.createElement(ImageSetLabel, {
-						BackgroundTransparency = 1,
-						Position = UDim2.new(0, 5, 0, 5),
-						Size = UDim2.new(0, itemIconWidth, 0, itemIconHeight),
-						ScaleType = Enum.ScaleType.Stretch,
-						Image = props.itemIcon,
-						ImageTransparency = 0,
-					})
-					else Roact.createElement(ImageSetLabel, {
-						BackgroundTransparency = 1,
-						Position = UDim2.new(0, 5, 0, 5),
-						Size = UDim2.new(0, itemIconWidth, 0, itemIconHeight),
-						ScaleType = Enum.ScaleType.Stretch,
-						Image = MISSING_ICON,
-						ImageColor3 = theme.UIDefault.Color,
-						ImageTransparency = theme.UIDefault.Transparency,
-					}),
+				ItemIcon = itemIconComponent,
 			}),
 			ItemDetailsFrame = Roact.createElement(FitFrameVertical, {
 				LayoutOrder = 2,

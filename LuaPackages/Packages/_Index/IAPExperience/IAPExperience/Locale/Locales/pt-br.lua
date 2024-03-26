@@ -285,4 +285,8 @@
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[Assinatura de experiência]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[Esta caixa de diálogo é uma pré-visualização, mostrando como seus usuários verão a descrição da sua assinatura. Você não será cobrado se você clicar em assinar.]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[Obter assinatura]],
+    ["Feature.Subscription.Action.Subscribe"] = [[Assinar]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Assine com cartão de crédito/débito]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Assine com Crédito Roblox]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Pagar de outra forma]],
 }

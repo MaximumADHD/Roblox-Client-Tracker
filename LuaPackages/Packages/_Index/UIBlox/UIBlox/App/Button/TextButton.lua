@@ -15,7 +15,6 @@ local ControlState = require(Core.Control.Enum.ControlState)
 local getContentStyle = require(Core.Button.getContentStyle)
 local GetTextSize = require(Core.Text.GetTextSize)
 local cleanRichTextTags = require(Core.Text.CleanRichTextTags)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local isReactTagProp = require(UIBlox.Utility.isReactTagProp)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(App.SelectionImage.CursorKind)
@@ -83,7 +82,7 @@ TextButton.validateProps = t.strictInterface({
 	[TextButton.debugProps.getTextSize] = t.optional(t.callback),
 
 	-- Override the default controlState
-	[TextButton.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+	[TextButton.debugProps.controlState] = t.optional(ControlState.isEnumValue),
 })
 
 TextButton.defaultProps = {

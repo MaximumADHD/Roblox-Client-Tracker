@@ -9,7 +9,6 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -28,7 +27,7 @@ ItemTileStatus.validateProps = t.strictInterface({
 	statusText = t.string,
 
 	-- Enum specifying the style for the status component
-	statusStyle = enumerateValidator(ItemTileEnums.StatusStyle),
+	statusStyle = ItemTileEnums.StatusStyle.isEnumValue,
 })
 
 local function getStyle(theme, statusStyle)

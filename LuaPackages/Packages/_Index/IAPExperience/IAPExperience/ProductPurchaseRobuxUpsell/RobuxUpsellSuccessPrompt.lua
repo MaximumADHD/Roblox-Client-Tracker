@@ -17,6 +17,9 @@ local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
 
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
+local HumanoidViewport = require(IAPExperienceRoot.Generic.HumanoidViewport)
+
+local getEnableHumanoidViewportItemIcon = require(IAPExperienceRoot.Flags.getEnableHumanoidViewportItemIcon)
 
 local LOC_KEY = "IAPExperience.PurchaseSuccess.%s"
 
@@ -29,6 +32,7 @@ type Props = {
 	position: UDim2?,
 	screenSize: Vector2,
 
+	model: any?,
 	itemIcon: any?,
 	itemName: string,
 	balance: number,
@@ -138,6 +142,35 @@ function PurchaseSuccessPrompt:renderAlert(locMap: { [string]: string })
 			}
 		end
 
+		local itemIconComponent = if props.itemIcon
+			then Roact.createElement(ImageSetLabel, {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 5, 0, 5),
+				Size = UDim2.new(0, 85, 0, 85),
+				ScaleType = Enum.ScaleType.Stretch,
+				Image = props.itemIcon,
+				ImageTransparency = 0,
+			})
+			else Roact.createElement(ImageSetLabel, {
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, 5, 0, 5),
+				Size = UDim2.new(0, UIBloxIconSize.Large, 0, UIBloxIconSize.Large),
+				ScaleType = Enum.ScaleType.Stretch,
+				Image = MISSING_ICON,
+				ImageColor3 = theme.UIDefault.Color,
+				ImageTransparency = theme.UIDefault.Transparency,
+			})
+
+		-- Render 3D Model in a ViewportFrame if given. Otherwise,
+		-- render thumbnail as the image of successful purchase
+		if getEnableHumanoidViewportItemIcon() and props.model then
+			itemIconComponent = Roact.createElement(HumanoidViewport, {
+				model = props.model,
+				Position = UDim2.fromOffset(5, 5),
+				Size = UDim2.fromOffset(85, 85),
+			})
+		end
+
 		return Roact.createElement(InteractiveAlert, {
 			screenSize = props.screenSize,
 			position = props.position,
@@ -162,24 +195,7 @@ function PurchaseSuccessPrompt:renderAlert(locMap: { [string]: string })
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
 						VerticalAlignment = Enum.VerticalAlignment.Center,
 					}, {
-						ItemIcon = if props.itemIcon
-							then Roact.createElement(ImageSetLabel, {
-								BackgroundTransparency = 1,
-								Position = UDim2.new(0, 5, 0, 5),
-								Size = UDim2.new(0, 85, 0, 85),
-								ScaleType = Enum.ScaleType.Stretch,
-								Image = props.itemIcon,
-								ImageTransparency = 0,
-							})
-							else Roact.createElement(ImageSetLabel, {
-								BackgroundTransparency = 1,
-								Position = UDim2.new(0, 5, 0, 5),
-								Size = UDim2.new(0, UIBloxIconSize.Large, 0, UIBloxIconSize.Large),
-								ScaleType = Enum.ScaleType.Stretch,
-								Image = MISSING_ICON,
-								ImageColor3 = theme.UIDefault.Color,
-								ImageTransparency = theme.UIDefault.Transparency,
-							}),
+						ItemIcon = itemIconComponent,
 					}),
 					YouOwnText = Roact.createElement(FitTextLabel, {
 						LayoutOrder = 1,

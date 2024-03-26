@@ -286,4 +286,8 @@
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[バーチャル空間の定期購読]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[このダイアログはプレビューです。定期購読の説明がユーザーにどのように見えているかを表しています。「申し込む」をクリックしても課金されません。]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[定期購入する]],
+    ["Feature.Subscription.Action.Subscribe"] = [[申し込む]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[クレジットカードかデビットカードで定期購入]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Robloxクレジットで定期購入]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[別の方法で支払う]],
 }

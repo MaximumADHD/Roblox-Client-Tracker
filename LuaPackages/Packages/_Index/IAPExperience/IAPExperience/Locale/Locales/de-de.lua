@@ -285,4 +285,8 @@
     ["IAPExperience.SubscriptionPurchasePrompt.Label.ExperienceSubscription"] = [[Erlebnisabonnement]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[Dieser Dialog ist eine Vorschau, die dir zeigt, wie deinen Nutzer:innen die Beschreibung deines Abonnements angezeigt wird. Dir wird nichts berechnet, wenn du auf Abonnieren klickst.]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[Abonnieren]],
+    ["Feature.Subscription.Action.Subscribe"] = [[Abonnieren]],
+    ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Mit Kreditkarte/Debitkarte abonnieren]],
+    ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Mit Roblox-Guthaben abonnieren]],
+    ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Auf andere Weise bezahlen]],
 }

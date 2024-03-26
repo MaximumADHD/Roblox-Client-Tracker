@@ -18,7 +18,7 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local RATING_ICON = "icons/status/games/rating_small"
 local PLAYERS_ICON = "icons/status/games/people-playing_small"
 
-local RATING_ITEM_WIDTH = 40
+local RATING_ITEM_WIDTH = if UIBloxConfig.enableFontNameMapping then 48 else 40
 
 export type Props = {
 	-- String containing game rating; should have "%" appended
@@ -71,6 +71,8 @@ local function renderStatItem(containerProps, icon, text, stylePalette, textWidt
 			TextSize = font.BaseSize * font.Body.RelativeSize,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextYAlignment = Enum.TextYAlignment.Center,
+			TextTruncate = if UIBloxConfig.enableFontNameMapping then Enum.TextTruncate.AtEnd else nil,
+			TextWrapped = if UIBloxConfig.enableFontNameMapping then false else nil,
 			TextColor3 = statLabelContentColor.Color3,
 			TextTransparency = statLabelContentColor.Transparency,
 			LayoutOrder = 2,

@@ -4,7 +4,6 @@ local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(UIBlox.Parent.t)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local SlidingDirection = require(AnimationRoot.Enum.SlidingDirection)
 local SpringAnimatedItem = require(UIBlox.Utility.SpringAnimatedItem)
 
@@ -34,7 +33,7 @@ SlidingContainer.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 	onComplete = t.optional(t.callback),
 	show = t.optional(t.boolean),
-	slidingDirection = enumerateValidator(SlidingDirection),
+	slidingDirection = SlidingDirection.isEnumValue,
 	springOptions = t.optional(t.table),
 	[Roact.Children] = t.optional(t.table),
 })

@@ -27,6 +27,7 @@ type Props = {
 	position: UDim2?,
 	screenSize: Vector2,
 
+	mode: any?,
 	itemIcon: any?,
 	itemName: string,
 	itemRobuxCost: number,
@@ -123,6 +124,7 @@ function RobuxUpsellPrompt:renderAlert(locMap: { [string]: string })
 				}, {
 					ProductDetails = Roact.createElement(ProductDetails, {
 						layoutOrder = 1,
+						model = props.model,
 						itemIcon = props.itemIcon,
 						itemName = props.itemName,
 						itemRobuxCost = props.itemRobuxCost,

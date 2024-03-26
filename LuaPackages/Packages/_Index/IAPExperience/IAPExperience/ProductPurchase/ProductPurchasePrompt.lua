@@ -1,3 +1,6 @@
+local CorePackages = game:GetService("CorePackages")
+local RunService = game:GetService("RunService")
+
 local ProductPurchaseRoot = script.Parent
 local IAPExperienceRoot = ProductPurchaseRoot.Parent
 local Packages = IAPExperienceRoot.Parent
@@ -17,7 +20,10 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local UIBloxIconSize = UIBlox.App.Constant.IconSize
 local withStyle = UIBlox.Core.Style.withStyle
 
+local HumanoidViewport = require(script.Parent.Parent.Generic.HumanoidViewport)
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
+
+local getEnableHumanoidViewportItemIcon = require(IAPExperienceRoot.Flags.getEnableHumanoidViewportItemIcon)
 
 local LOC_KEY = "IAPExperience.PurchasePrompt.%s"
 
@@ -39,6 +45,7 @@ ProductPurchasePrompt.validateProps = t.strictInterface({
 	enableInputDelayed = t.optional(t.boolean),
 
 	itemIcon = t.table,
+	model = t.optional(t.table),
 	itemName = t.string,
 	itemRobuxCost = t.number,
 	currentBalance = t.number,
@@ -130,6 +137,27 @@ function ProductPurchasePrompt:renderAlert(locMap)
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
 		local fonts = stylePalette.Font
+
+		-- Render 3D Model in a ViewportFrame if given. Otherwise,
+		-- render thumbnail as the image of purchase
+		local itemIconComponent = if getEnableHumanoidViewportItemIcon() and self.props.model
+			then Roact.createElement(HumanoidViewport, {
+				model = self.props.model,
+				LayoutOrder = 1,
+				Size = UDim2.fromOffset(85, 85),
+				Position = UDim2.fromOffset(5, 5),
+			})
+			else Roact.createElement(ImageSetLabel, {
+				LayoutOrder = 1,
+				BackgroundTransparency = 1,
+
+				Position = UDim2.new(0, 5, 0, 5),
+				Size = UDim2.new(0, 85, 0, 85),
+				ScaleType = Enum.ScaleType.Stretch,
+				Image = self.props.itemIcon,
+				ImageTransparency = 0,
+			})
+
 		return Roact.createElement(InteractiveAlert, {
 			screenSize = self.props.screenSize,
 			position = self.props.position,
@@ -147,16 +175,7 @@ function ProductPurchasePrompt:renderAlert(locMap)
 					[Roact.Ref] = self.contentRef,
 					[Roact.Change.AbsoluteSize] = self.changeContentSize,
 				}, {
-					ItemIcon = Roact.createElement(ImageSetLabel, {
-						LayoutOrder = 1,
-						BackgroundTransparency = 1,
-
-						Position = UDim2.new(0, 5, 0, 5),
-						Size = UDim2.new(0, 85, 0, 85),
-						ScaleType = Enum.ScaleType.Stretch,
-						Image = self.props.itemIcon,
-						ImageTransparency = 0,
-					}),
+					ItemIcon = itemIconComponent,
 					ItemName = Roact.createElement(FitTextLabel, {
 						LayoutOrder = 2,
 						BackgroundTransparency = 1,

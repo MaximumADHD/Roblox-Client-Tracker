@@ -16,6 +16,8 @@ local withStyle = UIBlox.Style.withStyle
 local MultiTextLocalizer = require(IAPExperienceRoot.Locale.MultiTextLocalizer)
 local SubscriptionTitle = require(IAPExperienceRoot.Subscription.SubscriptionTitle)
 
+local GetFFlagEnableRobloxCreditPurchase = require(IAPExperienceRoot.Flags.GetFFlagEnableRobloxCreditPurchase)
+
 local CONTENT_PADDING = 24
 local CONDENSED_CONTENT_PADDING = 12
 local ICON_SIZE = 96
@@ -33,10 +35,13 @@ type Props = {
 	description: string,
 	itemIcon: any,
 
+	primaryPaymentMethod: string,
+	secondaryPaymentMethod: string,
+
 	isTestingMode: boolean,
 
 	screenSize: Vector,
-	purchaseSubscriptionActivated: () -> any,
+	purchaseSubscriptionActivated: (string) -> any,
 	cancelPurchaseActivated: () -> any,
 }
 
@@ -112,6 +117,66 @@ local function generatePromptText(props, fonts, theme, middleContentSize, calcul
 	})
 end
 
+local function createSubscribeButtonStacks(props, locMap)
+	if not GetFFlagEnableRobloxCreditPurchase() then
+		return {
+			{
+				buttonType = ButtonType.PrimarySystem,
+				props = {
+					onActivated = props.purchaseSubscriptionActivated,
+					text = locMap.subscribe,
+					layoutOrder = 0,
+				},
+			},
+		}
+	end
+	
+	if props.secondaryPaymentMethod == nil or props.secondaryPaymentMethod == '' then
+		return {
+			{
+				buttonType = ButtonType.PrimarySystem,
+				props = {
+					onActivated = function()
+						props.purchaseSubscriptionActivated(props.primaryPaymentMethod)
+					end,
+					text = locMap.subscribe,
+					layoutOrder = 0,
+				},
+			}
+		}
+	end
+
+	local localizedText;
+	if props.primaryPaymentMethod == "Stripe" then
+		localizedText = locMap.subscribeWithCreditDebitCard
+	elseif props.primaryPaymentMethod == "CreditBalance" then
+		localizedText = locMap.subscribeWithRobloxCredit
+	end
+
+	return {
+		{
+			buttonType = ButtonType.PrimarySystem,
+			props = {
+				onActivated = function()
+					props.purchaseSubscriptionActivated(props.primaryPaymentMethod)
+				end,
+				text = localizedText,
+				layoutOrder = 0,
+			},
+		},
+		{
+			buttonType = ButtonType.Secondary,
+			props = {
+				onActivated = function()
+					props.purchaseSubscriptionActivated(props.secondaryPaymentMethod)
+				end,
+				text = locMap.payAnotherWay,
+				layoutOrder = 1,
+			},
+		},
+	}
+end
+
 local function SubscriptionPurchasePrompt(props)
 	local promptHeight, setPromptHeight = React.useState(0)
 	local isCondensed, setIsCondensed = React.useState(false)
@@ -123,11 +188,14 @@ local function SubscriptionPurchasePrompt(props)
 				+ textHeight
 		)
 	end
-
+	
 	return React.createElement(MultiTextLocalizer, {
 		keys = {
 			titleText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription" },
-			subscribe = { key = "IAPExperience.PremiumUpsell.Action.Subscribe" },
+			subscribe = if GetFFlagEnableRobloxCreditPurchase() then { key = "Feature.Subscription.Action.Subscribe" } else { key = "IAPExperience.PremiumUpsell.Action.Subscribe" },
+			subscribeWithCreditDebitCard = { key = "Feature.Subscription.Action.SubscribeWithCreditDebitCard" },
+			subscribeWithRobloxCredit = { key = "Feature.Subscription.Action.SubscribeWithRobloxCredit" },
+			payAnotherWay = { key = "Feature.Subscription.Action.SubscribePayAnotherWay" },
 			footerText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer" },
 		},
 		render = function(locMap)
@@ -140,16 +208,9 @@ local function SubscriptionPurchasePrompt(props)
 					screenSize = props.screenSize,
 					contentPadding = UDim.new(0, CONTENT_PADDING),
 					buttonStackProps = {
-						buttons = {
-							{
-								buttonType = ButtonType.PrimarySystem,
-								props = {
-									onActivated = props.purchaseSubscriptionActivated,
-									text = locMap.subscribe,
-								},
-							},
-						},
+						buttons = createSubscribeButtonStacks(props, locMap),
 						buttonHeight = BUTTON_HEIGHT,
+						forcedFillDirection =  if GetFFlagEnableRobloxCreditPurchase() then Enum.FillDirection.Vertical else nil
 					},
 					onCloseClicked = props.cancelPurchaseActivated,
 					footerContent = function()

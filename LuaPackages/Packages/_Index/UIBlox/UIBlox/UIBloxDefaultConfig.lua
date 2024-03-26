@@ -5,9 +5,6 @@ return {
 	-- Indicate whether to enable the new layout for menu/cell
 	enableNewMenuLayout = false,
 
-	-- Enables token usage in IconTab
-	useTokensInIconTab = false,
-
 	-- Enable IconButton to calculate size based on token values
 	useTokensSizeInIconButton = false,
 
@@ -71,4 +68,7 @@ return {
 
 	-- Make expansion animation happen immediately when selection changes instead of in separate useEffect
 	mediaGalleryExpandedViewImmediateAnimation = false,
+
+	-- Use new designed HeaderBar
+	useNewHeaderBar = false,
 }

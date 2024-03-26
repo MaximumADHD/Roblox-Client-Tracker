@@ -11,7 +11,6 @@ local t = require(Packages.t)
 local Otter = require(Packages.Otter)
 
 local withStyle = require(UIBlox.Core.Style.withStyle)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
@@ -55,7 +54,7 @@ ContextualMenu.validateProps = t.strictInterface({
 	-- Whether the menu is open or not
 	open = t.boolean,
 	-- The direction the menu should slide in from, either MenuDirection.Up or MenuDirection.Down
-	menuDirection = t.optional(enumerateValidator(MenuDirection)),
+	menuDirection = t.optional(MenuDirection.isEnumValue),
 	-- The Y position of the menu when open
 	openPositionY = t.UDim,
 

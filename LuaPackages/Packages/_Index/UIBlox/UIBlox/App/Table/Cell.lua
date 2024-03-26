@@ -15,7 +15,6 @@ local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCurs
 local CursorKind = require(App.SelectionImage.CursorKind)
 local Interactable = require(Core.Control.Interactable)
 local ControlState = require(Core.Control.Enum.ControlState)
-local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local useCursorByType = require(App.SelectionCursor.useCursorByType)
 local CursorType = require(App.SelectionCursor.CursorType)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
@@ -46,6 +45,8 @@ Cell.validateProps = t.strictInterface({
 	-- The Position of the cell.
 	position = t.optional(t.UDim2),
 	horizontalPadding = t.optional(t.number),
+	-- A Boolean value that determines whether the cell can be selected using a gamepad.
+	selectable = t.optional(t.boolean),
 
 	-- A Boolean value that determines whether the cell is disabled.
 	isDisabled = t.optional(t.boolean),
@@ -60,7 +61,7 @@ Cell.validateProps = t.strictInterface({
 	onTouchTapped = t.optional(t.callback),
 
 	-- Override the default controlState
-	[Cell.debugProps.controlState] = t.optional(enumerateValidator(ControlState)),
+	[Cell.debugProps.controlState] = t.optional(ControlState.isEnumValue),
 
 	[Roact.Change.AbsolutePosition] = t.optional(t.callback),
 	[Roact.Ref] = t.optional(t.union(t.callback, t.table)),
@@ -149,6 +150,7 @@ function Cell:renderWithProviders(style, getSelectionCursor)
 		Size = size,
 		BackgroundTransparency = 1,
 		AutoButtonColor = false,
+		Selectable = self.props.selectable,
 		SelectionImageObject = if UIBloxConfig.migrateToNewSelectionCursor
 			then self.props.selectionCursor
 			else (getSelectionCursor and getSelectionCursor(CursorKind.RoundedRectNoInset)),
