@@ -12,6 +12,8 @@ Studio.App.RobloxRibbonMainWindow.MaterialManager,,Material Manager,Material Man
 Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip,,"Manage, select, and apply materials","Manage, select, and apply materials"
 Studio.App.RobloxRibbonMainWindow.MaterialGenerator,,Material Generator,Material Generator
 Studio.App.RobloxRibbonMainWindow.MaterialGeneratorToolTip,,Create AI generated materials through a text prompt,Create AI generated materials through a text prompt
+Studio.App.RobloxRibbonMainWindow.MaterialPicker,,Material,Material
+Studio.App.RobloxRibbonMainWindow.MaterialPickerTooltip,,Select a material to use,Select a material to use
 Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor,,Accessory Fitting Tool,Accessory Fitting Tool
 Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip,,Edit and Preview Cage Mesh for Clothing and Accessories.,Edit and Preview Cage Mesh for Clothing and Accessories.
 Studio.App.RobloxRibbonMainWindow.CreateAccessory,,Create Accessory,Create Accessory

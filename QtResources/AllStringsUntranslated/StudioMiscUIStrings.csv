@@ -43,3 +43,7 @@ Studio.App.ShareModal.ShareWithRobloxFriends,,Share with Roblox Friends,Share wi
 Studio.App.ShareModal.Shared,,Shared,Shared
 Studio.App.ShareModal.SearchPlaceholderText,,Search for friends,Search for friends
 Studio.App.ShareModalInfoBox.MakeGamePublicToShare,,Make your game public to share it,Make your game public to share it
+Studio.App.Diagnostics.LowOnMemory,This is shown as title text for a dialog that is displayed to the user when Studio is running low on memory.,Studio is low on memory.,Studio is low on memory.
+Studio.App.Diagnostics.Restart,This is text for a button that is shown to the user to let them restart Studio,Restart,Restart
+Studio.App.Diagnostics.Continue,This is text for a button that is shown to the user to let them continue running Studio and not restart,Continue,Continue
+Studio.App.Diagnostics.LowMemoryActionWarning,This message is shown to users when Studio detects that the user is low on memory. Studio will offer the user the option to restart or continue what they were trying to do.,Studio may become unstable and the attempted operation may not succeed. Would you like to restart or continue the operation?,Studio may become unstable and the attempted operation may not succeed. Would you like to restart or continue the operation?

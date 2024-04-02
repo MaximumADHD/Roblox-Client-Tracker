@@ -1,7 +1,5 @@
 Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property Instance.Archivable: boolean
-	Property Instance.Capabilities: SecurityCapabilities {RobloxSecurity} [Hidden] [NotScriptable]
-	Property Instance.DefinesCapabilities: boolean {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Instance.Attributes: string {RobloxSecurity} [Hidden] [ReadOnly] [NotScriptable]
 	Property Instance.AttributesReplicate: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Instance.AttributesSerialize: BinaryString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
@@ -15,6 +13,9 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Property Instance.SourceAssetId: number {RobloxScriptSecurity} [Hidden]
 	Property Instance.Tags: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Instance.UniqueId: UniqueId {RobloxSecurity} [NotReplicated] [NotScriptable]
+	Property Instance.Capabilities: SecurityCapabilities {RobloxSecurity} [NotScriptable]
+	Property Instance.DefinesCapabilities: boolean {RobloxSecurity} [Hidden] [NotScriptable]
+	Property Instance.Sandboxed: boolean {RobloxSecurity} [NotReplicated] [NotScriptable]
 	Property Instance.numExpectedDirectChildren: number [Hidden] [NotScriptable]
 	Function Instance:AddTag(tag: string) -> ()
 	Function Instance:ClearAllChildren() -> ()
@@ -107,13 +108,20 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.ShowStaticEudsaDisclosure() {RobloxScriptSecurity}
 	Event AdService.VideoAdClosed(adShown: boolean) [Deprecated]
 Class AdvancedDragger : Instance
-Class AnalyticsService : Instance [Service] [Deprecated]
-	Property AnalyticsService.ApiKey: string {LocalUserSecurity} [Deprecated] [Deprecated]
+Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property AnalyticsService.ApiKey: string {LocalUserSecurity} [Deprecated]
 	Function AnalyticsService:FireCustomEvent(player: Instance, eventCategory: string, customData: any) -> () [Deprecated]
-	Function AnalyticsService:FireEvent(category: string, value: any) -> () [Deprecated] [Deprecated]
+	Function AnalyticsService:FireEvent(category: string, value: any) -> () [Deprecated]
 	Function AnalyticsService:FireInGameEconomyEvent(player: Instance, itemName: string, economyAction: Enum.AnalyticsEconomyAction, itemCategory: string, amount: number, currency: string, location: any, customData: any) -> () [Deprecated]
 	Function AnalyticsService:FireLogEvent(player: Instance, logLevel: Enum.AnalyticsLogLevel, message: string, debugInfo: any, customData: any) -> () [Deprecated]
 	Function AnalyticsService:FirePlayerProgressionEvent(player: Instance, category: string, progressionStatus: Enum.AnalyticsProgressionStatus, location: any, statistics: any, customData: any) -> () [Deprecated]
+	Function AnalyticsService:LogEconomyEvent(player: Player, flowType: Enum.AnalyticsEconomyFlowType, currencyType: string, endingBalance: number, amount: number, transactionType: string, itemSku: string, customFields: { any }) -> ()
+	Function AnalyticsService:LogFunnelStepEvent(player: Player, funnelName: string, step: number, customFields: { any }) -> ()
+	Function AnalyticsService:LogOnboardingFunnelStepEvent(player: Player, step: number, customFields: { any }) -> ()
+	Function AnalyticsService:LogProgressionCompleteEvent(player: Player, level: number, levelName: string, customFields: { any }) -> ()
+	Function AnalyticsService:LogProgressionEvent(player: Player, status: Enum.AnalyticsProgressionType, level: number, levelName: string, customFields: { any }) -> ()
+	Function AnalyticsService:LogProgressionFailEvent(player: Player, level: number, levelName: string, customFields: { any }) -> ()
+	Function AnalyticsService:LogProgressionStartEvent(player: Player, level: number, levelName: string, customFields: { any }) -> ()
 Class Animation : Instance
 	Property Animation.AnimationId: string
 Class AnimationClip : Instance [NotCreatable]
@@ -303,6 +311,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:CreateEditableMeshAsync(meshId: string) -> EditableMesh [Yields]
 	Function AssetService:CreateEditableMeshFromPartAsync(meshPart: Instance) -> EditableMesh [Yields]
 	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: string) -> EditableMesh {RobloxScriptSecurity} [Yields]
+	Function AssetService:CreateMeshPartAsync(meshId: string, options: { [string]: any }? = nil) -> MeshPart {PluginSecurity} [Yields]
 	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {RobloxScriptSecurity}
@@ -685,6 +694,7 @@ Class BaseWrap : Instance [NotCreatable]
 	Function BaseWrap:GetVertices(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
 	Function BaseWrap:IsHSRReady() -> boolean {RobloxScriptSecurity}
 	Function BaseWrap:ModifyVertices(cageType: Enum.CageType, vertices: { any }) -> () {RobloxScriptSecurity}
+	Event BaseWrap.VerticesModified() {RobloxScriptSecurity}
 Class WrapLayer : BaseWrap
 	Property WrapLayer.Order: number
 	Property WrapLayer.Puffiness: number
@@ -1410,7 +1420,7 @@ Class EditableMesh : DataModelMesh [NotReplicated]
 	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
 	Function EditableMesh:AddVertex(p: Vector3) -> number
-	Function EditableMesh:CreateMeshPartAsync(collisionFidelity: Enum.CollisionFidelity) -> MeshPart [Yields]
+	Function EditableMesh:CreateMeshPartAsync(options: { [string]: any }? = nil) -> MeshPart [Yields]
 	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any
 	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number
 	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any }
@@ -2978,7 +2988,7 @@ Class LodDataEntity : Instance [NotCreatable]
 	Property LodDataEntity.EntitySource: Instance? [Hidden] [NotScriptable]
 Class LodDataService : Instance [NotCreatable] [Service] [NotReplicated]
 Class LogReporterService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function LogReporterService:ReportLog(logId: string, desc: string) -> boolean {RobloxScriptSecurity}
+	Function LogReporterService:ReportLog(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }) -> boolean {RobloxScriptSecurity}
 Class LogService : Instance [NotCreatable] [Service]
 	Function LogService:ClearOutput() -> ()
 	Function LogService:ExecuteScript(source: string) -> () {RobloxScriptSecurity}
@@ -4237,6 +4247,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:GetItem(key: string, defaultValue: any) -> any {RobloxScriptSecurity}
 	Function Plugin:GetJoinMode() -> Enum.JointCreationMode {PluginSecurity}
 	Function Plugin:GetMouse() -> PluginMouse {PluginSecurity}
+	Function Plugin:GetPluginComponent(name: string) -> { [string]: any } {RobloxScriptSecurity} [CustomLuaState]
 	Function Plugin:GetSelectedRibbonTool() -> Enum.RibbonTool {PluginSecurity}
 	Function Plugin:GetSetting(key: string) -> any {PluginSecurity}
 	Function Plugin:GetStudioUserId() -> number {PluginSecurity} [Deprecated]
@@ -4370,6 +4381,7 @@ Class ProjectFolderService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ProjectFolderService:ExportScripts(path: string) -> () {RobloxScriptSecurity} [Yields]
 	Function ProjectFolderService:ImportScripts(path: string) -> () {RobloxScriptSecurity} [Yields]
 	Function ProjectFolderService:SelectFolder() -> string {RobloxScriptSecurity} [Yields]
+	Event ProjectFolderService.FileChangedAfterSync() {RobloxScriptSecurity}
 Class ProximityPrompt : Instance
 	Property ProximityPrompt.ActionText: string
 	Property ProximityPrompt.ClickablePrompt: boolean
@@ -4681,6 +4693,7 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptEditorService:OpenScriptDocumentAsync(script: LuaSourceContainer) -> ...any {PluginSecurity} [Yields]
 	Function ScriptEditorService:RegisterAutocompleteCallback(name: string, priority: number, callbackFunction: (...any) -> ...any) -> () {PluginSecurity}
 	Function ScriptEditorService:RegisterScriptAnalysisCallback(name: string, priority: number, callbackFunction: (...any) -> ...any) -> () {PluginSecurity}
+	Function ScriptEditorService:StripComments(code: string) -> string {RobloxScriptSecurity}
 	Function ScriptEditorService:UpdateSourceAsync(script: LuaSourceContainer, callback: (...any) -> ...any) -> () {PluginSecurity} [Yields]
 	Event ScriptEditorService.TextDocumentDidChange(document: ScriptDocument, changesArray: any) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidClose(oldDocument: ScriptDocument) {PluginSecurity}
@@ -5094,7 +5107,7 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:ExecuteCommandAsync(requestId: string, commandName: string, arg: any) -> () {RobloxScriptSecurity} [Yields]
 	Function StreamingService:GetEphemeralVariable(key: string) -> any {RobloxScriptSecurity}
-	Function StreamingService:GetInstance(collectorName: string, requestId: string? = "instanceId") -> Instance? {RobloxScriptSecurity}
+	Function StreamingService:GetInstance(requestId: string, instanceId: string) -> Instance? {RobloxScriptSecurity}
 	Function StreamingService:InvokeCommand(requestId: string, commandName: string, arg: any) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterContextCollector(collectorName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
@@ -5314,6 +5327,7 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Function StudioDeviceEmulatorService:GetTouchInBounds(index: number) -> boolean {RobloxScriptSecurity}
 	Function StudioDeviceEmulatorService:GetTouchPosition(index: number) -> Vector2 {RobloxScriptSecurity}
 	Function StudioDeviceEmulatorService:HasDeviceWithId(deviceId: string) -> boolean {RobloxScriptSecurity} [Yields]
+	Function StudioDeviceEmulatorService:SendGamepadEvent(deviceId: number, keyCode: Enum.KeyCode, position: Vector3, rotation: Vector3) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:SetCurrentDeviceId(deviceId: string) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:SetCurrentOrientation(orientation: Enum.ScreenOrientation) -> () {RobloxScriptSecurity} [Yields]
 	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
@@ -5947,6 +5961,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property UserGameSettings.IsUsingCameraYInverted: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property UserGameSettings.IsUsingGamepadCameraSensitivity: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property UserGameSettings.MasterVolume: number {RobloxScriptSecurity}
+	Property UserGameSettings.MasterVolumeStudio: number {RobloxScriptSecurity}
 	Property UserGameSettings.MicroProfilerWebServerEnabled: boolean {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.MicroProfilerWebServerIP: string {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property UserGameSettings.MicroProfilerWebServerPort: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -6387,6 +6402,16 @@ Enum AnalyticsEconomyAction
 	EnumItem AnalyticsEconomyAction.Default : 0
 	EnumItem AnalyticsEconomyAction.Acquire : 1
 	EnumItem AnalyticsEconomyAction.Spend : 2
+Enum AnalyticsEconomyFlowType
+	EnumItem AnalyticsEconomyFlowType.Sink : 0
+	EnumItem AnalyticsEconomyFlowType.Source : 1
+Enum AnalyticsEconomyTransactionType
+	EnumItem AnalyticsEconomyTransactionType.IAP : 0
+	EnumItem AnalyticsEconomyTransactionType.Shop : 1
+	EnumItem AnalyticsEconomyTransactionType.Gameplay : 2
+	EnumItem AnalyticsEconomyTransactionType.ContextualPurchase : 3
+	EnumItem AnalyticsEconomyTransactionType.TimedReward : 4
+	EnumItem AnalyticsEconomyTransactionType.Onboarding : 5
 Enum AnalyticsLogLevel
 	EnumItem AnalyticsLogLevel.Trace : 0
 	EnumItem AnalyticsLogLevel.Debug : 1
@@ -6400,6 +6425,11 @@ Enum AnalyticsProgressionStatus
 	EnumItem AnalyticsProgressionStatus.Complete : 2
 	EnumItem AnalyticsProgressionStatus.Abandon : 3
 	EnumItem AnalyticsProgressionStatus.Fail : 4
+Enum AnalyticsProgressionType
+	EnumItem AnalyticsProgressionType.Custom : 0
+	EnumItem AnalyticsProgressionType.Start : 1
+	EnumItem AnalyticsProgressionType.Fail : 2
+	EnumItem AnalyticsProgressionType.Complete : 3
 Enum AnimationClipFromVideoStatus
 	EnumItem AnimationClipFromVideoStatus.Initializing : 0
 	EnumItem AnimationClipFromVideoStatus.Pending : 1
@@ -6939,6 +6969,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.PlacelaunchPartyCannotFit : 528
 	EnumItem ConnectionError.PlacelaunchHttpError : 529
 	EnumItem ConnectionError.PlacelaunchUserPrivacyUnauthorized : 533
+	EnumItem ConnectionError.PlacelaunchCreatorBan : 600
 	EnumItem ConnectionError.PlacelaunchCustomMessage : 610
 	EnumItem ConnectionError.PlacelaunchOtherError : 611
 	EnumItem ConnectionError.TeleportErrors : 768
@@ -7261,6 +7292,8 @@ Enum Font
 	EnumItem Font.BuilderSansMedium : 47
 	EnumItem Font.BuilderSansBold : 48
 	EnumItem Font.BuilderSansExtraBold : 49
+	EnumItem Font.Arimo : 50
+	EnumItem Font.ArimoBold : 51
 	EnumItem Font.Unknown : 100
 Enum FontSize
 	EnumItem FontSize.Size8 : 0

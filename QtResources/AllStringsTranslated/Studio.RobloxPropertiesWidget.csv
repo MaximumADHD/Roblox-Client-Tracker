@@ -54,7 +54,7 @@ Studio.RobloxPropertiesWidget.Category.Exposure,,,Exposure,Exposure,,Belichtung,
 Studio.RobloxPropertiesWidget.Category.Eyes,,,Eyes,Eyes,,Augen,Ojos,Yeux,,Occhi,目,눈,,Olhos,,,,,眼睛,眼睛,眼睛
 Studio.RobloxPropertiesWidget.Category.Flipbook,,,Flipbook,Flipbook,,Flipbook,Flipbook,Carnet à feuilles,,Flipbook,フリップブック,플립북,,Flipbook,,,,,翻页动画,翻页动画,翻頁動畫
 Studio.RobloxPropertiesWidget.Category.Fog,,,Fog,Fog,,Nebel,Neblina,Brouillard,,Nebbia,霧,안개,,Neblina,,,,,雾,雾,霧化
-Studio.RobloxPropertiesWidget.Category.Forcefield,,,Forcefield,Forcefield,,Kraftfeld,Campo de fuerza,Champ de force,,Forcefield,フォースフィールド,포스필드,,Campo de força,,,,,力场,力场,力場
+Studio.RobloxPropertiesWidget.Category.Forcefield,,,Forcefield,Forcefield,,Kraftfeld,Campo de fuerza,Champ de force,,Forcefield,力場,포스필드,,Campo de força,,,,,力场,力场,力場
 Studio.RobloxPropertiesWidget.Category.Friction,,,Friction,Friction,,Reibung,Fricción,Friction,,Attrito,摩擦,마찰,,Atrito,,,,,摩擦力,摩擦力,摩擦力
 Studio.RobloxPropertiesWidget.Category.Game,,,Game,Game,,Spiel,Juego,Jeu,,Gioco,ゲーム,게임,,Jogo,,,,,游戏,游戏,遊戲
 Studio.RobloxPropertiesWidget.Category.General,,,General,General,,Allgemein,General,Général,,Generale,全般,일반,,Geral,,,,,通用,通用,一般
@@ -151,7 +151,7 @@ Studio.RobloxPropertiesWidget.Category.Connections,,,Connections,Connections,,Ve
 Studio.RobloxPropertiesWidget.Category.Interactions,,,Interactions,Interactions,,Interaktionen,Interacciones,Interactions,,Interazione,交流,상호 작용,,Interações,,,,,互动,互动,互動
 Studio.RobloxPropertiesWidget.Category.Metering,,,Metering,Metering,,Messung,Medición,Comptage,,Misurazione,計測,측정,,Medição,,,,,计量,计量,計量
 Studio.RobloxPropertiesWidget.Category.Permissions,,,Permissions,Permissions,,Berechtigungen,Permisos,Permissions,,Autorizzazioni,権限,권한,,Permissões,,,,,权限,权限,權限
-Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,Aufnahme,Grabando,Enregistrement,,Registrazione,記録,기록,,Gravação,,,,,记录,记录,錄製
+Studio.RobloxPropertiesWidget.Category.Recording,,,Recording,Recording,,Aufnahme,Grabando,Enregistrement,,Registrazione,録画,기록,,Gravação,,,,,记录,记录,錄製
 Studio.RobloxPropertiesWidget.Category.Scripting,,,Scripting,Scripting,,Scripting,Scripting,Scripting,,,スクリプト作成,스크립팅,,Scripting,,,,,脚本,脚本,指令碼化
 Studio.RobloxPropertiesWidget.Category.ControlPoints,,,Control Points,Control Points,,Kontrollpunkte,Puntos de control,Points de contrôle,,,制御点,제어점,,Pontos de controle,,,,,控制点,控制点,控制點
 Studio.RobloxPropertiesWidget.Category.Alignment,,,Alignment,Alignment,,Ausrichtung,Alineación,Alignement,,Allineamento,整列,정렬,,Alinhamento,,,,,,,
