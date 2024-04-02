@@ -1,5 +1,5 @@
-game:DefineFastFlag("IBEnableSendCounters", false)
+game:DefineFastFlag("IBEnableSendCounters1", false)
 
 return function()
-	return game:GetFastFlag("IBEnableSendCounters")
+	return game:GetFastFlag("IBEnableSendCounters1")
 end

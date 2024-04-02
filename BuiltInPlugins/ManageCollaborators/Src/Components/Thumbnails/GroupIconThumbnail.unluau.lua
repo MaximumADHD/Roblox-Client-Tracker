@@ -17,18 +17,18 @@ end
 
 local function fun13(arg1)
    local var0 = arg1.props
-   local var382 = {}
-   var382.BackgroundTransparency = 1
-   var382.Size = var0.Size
-   var382.Position = var0.Position
-   var382.AnchorPoint = var0.AnchorPoint
-   var382.LayoutOrder = var0.LayoutOrder
-   var382.ZIndex = var0.ZIndex
-   local var384 = {}
-   local var388 = {}
-   var388.Id = var0.Id
-   var388.ThumbnailType = "GroupIcon"
-   function var388.RenderContents(arg1, arg2, arg3)
+   local var387 = {}
+   var387.BackgroundTransparency = 1
+   var387.Size = var0.Size
+   var387.Position = var0.Position
+   var387.AnchorPoint = var0.AnchorPoint
+   var387.LayoutOrder = var0.LayoutOrder
+   var387.ZIndex = var0.ZIndex
+   local var389 = {}
+   local var393 = {}
+   var393.Id = var0.Id
+   var393.ThumbnailType = "GroupIcon"
+   function var393.RenderContents(arg1, arg2, arg3)
       local var0 = arg1.props.Stylizer
       if arg3 == Enum.AssetFetchStatus.Success then
          return arg2
@@ -39,24 +39,24 @@ local function fun13(arg1)
       return var0.groupThumbnail.loadingImage
    end
    
-   var384.AutoThumbnail = var1.createElement(var3, var388)
-   return var1.createElement("Frame", var382, var384)
+   var389.AutoThumbnail = var1.createElement(var3, var393)
+   return var1.createElement("Frame", var387, var389)
 end
 
 function var4.render(arg1)
    local var0 = arg1.props
-   local var382 = {}
-   var382.BackgroundTransparency = 1
-   var382.Size = var0.Size
-   var382.Position = var0.Position
-   var382.AnchorPoint = var0.AnchorPoint
-   var382.LayoutOrder = var0.LayoutOrder
-   var382.ZIndex = var0.ZIndex
-   local var384 = {}
-   local var388 = {}
-   var388.Id = var0.Id
-   var388.ThumbnailType = "GroupIcon"
-   function var388.RenderContents(arg1, arg2, arg3)
+   local var387 = {}
+   var387.BackgroundTransparency = 1
+   var387.Size = var0.Size
+   var387.Position = var0.Position
+   var387.AnchorPoint = var0.AnchorPoint
+   var387.LayoutOrder = var0.LayoutOrder
+   var387.ZIndex = var0.ZIndex
+   local var389 = {}
+   local var393 = {}
+   var393.Id = var0.Id
+   var393.ThumbnailType = "GroupIcon"
+   function var393.RenderContents(arg1, arg2, arg3)
       local var0 = arg1.props.Stylizer
       if arg3 == Enum.AssetFetchStatus.Success then
          return arg2
@@ -67,12 +67,12 @@ function var4.render(arg1)
       return var0.groupThumbnail.loadingImage
    end
    
-   var384.AutoThumbnail = var1.createElement(var3, var388)
-   return var1.createElement("Frame", var382, var384)
+   var389.AutoThumbnail = var1.createElement(var3, var393)
+   return var1.createElement("Frame", var387, var389)
 end
 
 fun13 = var2.ContextServices.withContext
-local var403 = {}
-var403.Stylizer = var2.Style.Stylizer
-var4 = fun13(var403)(var4)
+local var408 = {}
+var408.Stylizer = var2.Style.Stylizer
+var4 = fun13(var408)(var4)
 return var4

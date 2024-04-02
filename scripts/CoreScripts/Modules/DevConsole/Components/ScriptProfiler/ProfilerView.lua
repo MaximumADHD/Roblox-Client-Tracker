@@ -28,7 +28,7 @@ local ProfilerView = Roact.PureComponent:extend("ProfilerView")
 
 function ProfilerView:renderChildren()
 	local data = self.props.data :: ProfilerData.RootDataFormat
-	assert(data.Version == 2);
+	assert(data.Version == 2)
 
 	local totalDuration = getDurations(data, 0)
 
@@ -55,14 +55,11 @@ function ProfilerView:renderChildren()
 		gcNodeOffsets = self.props.gcNodeOffsets,
 		pluginGCOffsets = self.props.pluginGCOffsets,
 		expandedNodes = self.props.expandedNodes,
-		percentageRatio = if self.props.showAsPercentages
-			then totalDuration / 100
-			else nil
+		percentageRatio = if self.props.showAsPercentages then totalDuration / 100 else nil,
 	})
 end
 
 function ProfilerView:render()
-	
 	local layoutOrder = self.props.layoutOrder
 	local size = self.props.size
 	local label = nil
@@ -71,7 +68,7 @@ function ProfilerView:render()
 		label = Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 0, 0, 0),
-			Text =  "Press Stop to Finish Profiling",
+			Text = "Press Stop to Finish Profiling",
 			TextColor3 = Constants.Color.Text,
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
@@ -80,7 +77,7 @@ function ProfilerView:render()
 		label = Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 0, 0, 0),
-			Text =  "Start Profiling to View Data",
+			Text = "Start Profiling to View Data",
 			TextColor3 = Constants.Color.Text,
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
@@ -115,7 +112,7 @@ function ProfilerView:render()
 			}),
 		}),
 
-		Header = 	Roact.createElement("Frame", {
+		Header = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, 0, 0, HEADER_HEIGHT),
@@ -128,13 +125,13 @@ function ProfilerView:render()
 			}),
 			Inclusive = Roact.createElement(HeaderButton, {
 				text = HEADER_NAMES[2],
-				size = UDim2.new( VALUE_CELL_WIDTH, -CELL_PADDING, 0, HEADER_HEIGHT),
+				size = UDim2.new(VALUE_CELL_WIDTH, -CELL_PADDING, 0, HEADER_HEIGHT),
 				pos = UDim2.new(1 - VALUE_CELL_WIDTH * 2, VALUE_PADDING, 0, 0),
 				sortfunction = self.onSortChanged,
 			}),
 			Self = Roact.createElement(HeaderButton, {
 				text = HEADER_NAMES[3],
-				size = UDim2.new( VALUE_CELL_WIDTH, -CELL_PADDING, 0, HEADER_HEIGHT),
+				size = UDim2.new(VALUE_CELL_WIDTH, -CELL_PADDING, 0, HEADER_HEIGHT),
 				pos = UDim2.new(1 - VALUE_CELL_WIDTH, VALUE_PADDING, 0, 0),
 				sortfunction = self.onSortChanged,
 			}),
@@ -173,12 +170,11 @@ function ProfilerView:render()
 			AutomaticCanvasSize = Enum.AutomaticSize.Y,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical
+				FillDirection = Enum.FillDirection.Vertical,
 			}),
-			Children = if label then label else Roact.createFragment(self:renderChildren())
+			Children = if label then label else Roact.createFragment(self:renderChildren()),
 		}),
 	})
-
 end
 
 return ProfilerView

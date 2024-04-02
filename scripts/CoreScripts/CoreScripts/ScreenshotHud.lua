@@ -20,12 +20,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CaptureMaster = require(RobloxGui.Modules.CaptureMaster)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
-	then require(RobloxGui.Modules.Common.httpRequest)
-	else require(CorePackages.AppTempCommon.Temp.httpRequest)
-
+local httpRequest = require(RobloxGui.Modules.Common.httpRequest)
 local httpImpl = httpRequest(HttpRbxApiService)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol
 local Promise = require(CorePackages.Promise)

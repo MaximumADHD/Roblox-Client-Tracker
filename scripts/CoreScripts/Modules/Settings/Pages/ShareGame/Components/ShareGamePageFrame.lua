@@ -6,7 +6,6 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 
 local CommonConstants = require(RobloxGui.Modules.Common.Constants)
-local AppTempCommon = CorePackages.AppTempCommon
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Promise = require(CorePackages.Promise)
@@ -21,11 +20,7 @@ local GetFFlagShareInviteLinkContextMenuV1Enabled =
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
-	then require(Modules.Common.httpRequest)
-	else require(AppTempCommon.Temp.httpRequest)
+local httpRequest = require(Modules.Common.httpRequest)
 
 local Header = require(ShareGame.Components.Header)
 local ConversationList = require(ShareGame.Components.ConversationList)

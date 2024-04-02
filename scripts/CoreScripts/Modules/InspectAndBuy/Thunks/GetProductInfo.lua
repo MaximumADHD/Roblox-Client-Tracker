@@ -31,7 +31,7 @@ local function GetProductInfo(id)
 					local assetInfo = AssetInfo.fromGetProductInfo(results)
 					store:dispatch(SetAssets({assetInfo}))
 					if GetFFlagIBEnableSendCounters() then
-						store:dispatch(SendCounter(Constants.Counters.GetProduct .. Constants.CounterSuffix.RequestSucceeded))
+						store:dispatch(SendCounter(Constants.Counters.GetProductInfo .. Constants.CounterSuffix.RequestSucceeded))
 					end
 				end,
 				if GetFFlagIBEnableSendCounters() then function(err)

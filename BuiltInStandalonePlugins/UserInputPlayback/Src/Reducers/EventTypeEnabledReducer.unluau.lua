@@ -14,45 +14,45 @@ var8.keyboard = true
 var8.gamepad = true
 var8.touch = true
 local function var9()
-   local var97 = {}
-   function var97.SetGamepadEnabled(arg1, arg2)
-      local var102 = {}
-      var102.gamepad = arg2.gamepadEnabled
-      return var2(arg1, var102)
+   local var53 = {}
+   function var53.SetGamepadEnabled(arg1, arg2)
+      local var58 = {}
+      var58.gamepad = arg2.gamepadEnabled
+      return var2(arg1, var58)
    end
    
-   function var97.SetKeyboardEnabled(arg1, arg2)
-      local var109 = {}
-      var109.keyboard = arg2.keyboardEnabled
-      return var2(arg1, var109)
+   function var53.SetKeyboardEnabled(arg1, arg2)
+      local var65 = {}
+      var65.keyboard = arg2.keyboardEnabled
+      return var2(arg1, var65)
    end
    
-   function var97.SetMouseClickEnabled(arg1, arg2)
-      local var116 = {}
-      var116.mouseClick = arg2.mouseClickEnabled
-      return var2(arg1, var116)
+   function var53.SetMouseClickEnabled(arg1, arg2)
+      local var72 = {}
+      var72.mouseClick = arg2.mouseClickEnabled
+      return var2(arg1, var72)
    end
    
-   function var97.SetMouseMoveEnabled(arg1, arg2)
-      local var123 = {}
-      var123.mouseMove = arg2.mouseMoveEnabled
-      return var2(arg1, var123)
+   function var53.SetMouseMoveEnabled(arg1, arg2)
+      local var79 = {}
+      var79.mouseMove = arg2.mouseMoveEnabled
+      return var2(arg1, var79)
    end
    
-   function var97.SetTouchEnabled(arg1, arg2)
-      local var130 = {}
-      var130.touch = arg2.touchEnabled
-      return var2(arg1, var130)
+   function var53.SetTouchEnabled(arg1, arg2)
+      local var86 = {}
+      var86.touch = arg2.touchEnabled
+      return var2(arg1, var86)
    end
    
-   return var1.createReducer(var8, var97)
+   return var1.createReducer(var8, var53)
 end
 
 local function fun0(arg1, arg2)
    return function(arg1, arg2)
-      local var140 = {}
-      var140.gamepad = arg2.gamepadEnabled
-      return var2(arg1, var140)
+      local var96 = {}
+      var96.gamepad = arg2.gamepadEnabled
+      return var2(arg1, var96)
    end
 end
 
@@ -60,9 +60,9 @@ local var10 = {}
 function var10.makeReducerForName(arg1)
    local var0 = var9()
    return function(arg1, arg2)
-      local var150 = {}
-      var150.gamepad = arg2.gamepadEnabled
-      return var2(arg1, var150)
+      local var106 = {}
+      var106.gamepad = arg2.gamepadEnabled
+      return var2(arg1, var106)
    end
 end
 

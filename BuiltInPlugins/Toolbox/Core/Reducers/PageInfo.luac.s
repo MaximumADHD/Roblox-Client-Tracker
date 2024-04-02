@@ -361,7 +361,7 @@ MAIN:
   GETTABLEKS R30 R1 K12 ["Core"]
   GETTABLEKS R29 R30 K13 ["Util"]
   GETTABLEKS R28 R29 K33 ["SharedFlags"]
-  GETTABLEKS R27 R28 K38 ["getFFlagToolboxMigrateOffItemConfig"]
+  GETTABLEKS R27 R28 K38 ["getFFlagToolboxExcludeGroupCreations"]
   CALL R26 1 1
   GETTABLEKS R27 R8 K39 ["SORT_OPTIONS"]
   LOADNIL R28
@@ -377,123 +377,129 @@ MAIN:
   JUMP [+2]
   GETTABLEKS R28 R7 K42 ["MARKETPLACE"]
   DUPCLOSURE R29 K43 [PROTO_0]
-  GETTABLEKS R30 R4 K44 ["createReducer"]
-  DUPTABLE R31 K70 [{"audioSearchInfo", "additionalAudioSearchInfo", "categories", "categoryName", "searchTerm", "sorts", "sortIndex", "groups", "groupIndex", "targetPage", "currentPage", "selectedBackgroundIndex", "hoveredBackgroundIndex", "requestReason", "lastLoggedSearchId", "correctionState", "correctedQuery", "userQuery", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "includeUnverifiedCreators", "uiSortIntent", "sortDirection", "layoutMode"}]
-  LOADNIL R32
-  SETTABLEKS R32 R31 K45 ["audioSearchInfo"]
-  LOADNIL R32
-  SETTABLEKS R32 R31 K46 ["additionalAudioSearchInfo"]
-  SETTABLEKS R28 R31 K47 ["categories"]
-  GETTABLEKS R33 R7 K71 ["DEFAULT"]
-  GETTABLEKS R32 R33 K72 ["name"]
-  SETTABLEKS R32 R31 K48 ["categoryName"]
-  LOADK R32 K73 [""]
-  SETTABLEKS R32 R31 K49 ["searchTerm"]
-  SETTABLEKS R27 R31 K50 ["sorts"]
-  LOADN R32 1
-  SETTABLEKS R32 R31 K51 ["sortIndex"]
-  NEWTABLE R32 0 0
-  SETTABLEKS R32 R31 K52 ["groups"]
-  LOADN R32 0
-  SETTABLEKS R32 R31 K53 ["groupIndex"]
-  LOADN R32 1
-  SETTABLEKS R32 R31 K54 ["targetPage"]
-  LOADN R32 0
-  SETTABLEKS R32 R31 K55 ["currentPage"]
-  LOADN R32 1
-  SETTABLEKS R32 R31 K56 ["selectedBackgroundIndex"]
-  LOADN R32 0
-  SETTABLEKS R32 R31 K57 ["hoveredBackgroundIndex"]
-  GETTABLEKS R32 R9 K74 ["InitLoad"]
-  SETTABLEKS R32 R31 K58 ["requestReason"]
-  LOADK R32 K73 [""]
-  SETTABLEKS R32 R31 K59 ["lastLoggedSearchId"]
-  GETTABLEKS R33 R10 K75 ["AutocorrectResponseState"]
-  GETTABLEKS R32 R33 K76 ["NoCorrection"]
-  SETTABLEKS R32 R31 K60 ["correctionState"]
-  LOADK R32 K73 [""]
-  SETTABLEKS R32 R31 K61 ["correctedQuery"]
-  LOADK R32 K73 [""]
-  SETTABLEKS R32 R31 K62 ["userQuery"]
-  MOVE R33 R23
-  CALL R33 0 1
-  JUMPIFNOT R33 [+3]
-  GETTABLEKS R32 R3 K77 ["None"]
+  LOADNIL R30
+  MOVE R31 R26
+  CALL R31 0 1
+  JUMPIFNOT R31 [+2]
+  LOADB R30 1
+  JUMP [+6]
+  MOVE R31 R24
+  CALL R31 0 1
+  JUMPIFNOT R31 [+2]
+  LOADB R30 0
   JUMP [+1]
-  LOADNIL R32
-  SETTABLEKS R32 R31 K63 ["creatorTargetIds"]
-  MOVE R33 R24
-  CALL R33 0 1
-  JUMPIFNOT R33 [+2]
-  LOADB R32 0
+  LOADNIL R30
+  GETTABLEKS R31 R4 K44 ["createReducer"]
+  DUPTABLE R32 K70 [{"audioSearchInfo", "additionalAudioSearchInfo", "categories", "categoryName", "searchTerm", "sorts", "sortIndex", "groups", "groupIndex", "targetPage", "currentPage", "selectedBackgroundIndex", "hoveredBackgroundIndex", "requestReason", "lastLoggedSearchId", "correctionState", "correctedQuery", "userQuery", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "includeUnverifiedCreators", "uiSortIntent", "sortDirection", "layoutMode"}]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K45 ["audioSearchInfo"]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K46 ["additionalAudioSearchInfo"]
+  SETTABLEKS R28 R32 K47 ["categories"]
+  GETTABLEKS R34 R7 K71 ["DEFAULT"]
+  GETTABLEKS R33 R34 K72 ["name"]
+  SETTABLEKS R33 R32 K48 ["categoryName"]
+  LOADK R33 K73 [""]
+  SETTABLEKS R33 R32 K49 ["searchTerm"]
+  SETTABLEKS R27 R32 K50 ["sorts"]
+  LOADN R33 1
+  SETTABLEKS R33 R32 K51 ["sortIndex"]
+  NEWTABLE R33 0 0
+  SETTABLEKS R33 R32 K52 ["groups"]
+  LOADN R33 0
+  SETTABLEKS R33 R32 K53 ["groupIndex"]
+  LOADN R33 1
+  SETTABLEKS R33 R32 K54 ["targetPage"]
+  LOADN R33 0
+  SETTABLEKS R33 R32 K55 ["currentPage"]
+  LOADN R33 1
+  SETTABLEKS R33 R32 K56 ["selectedBackgroundIndex"]
+  LOADN R33 0
+  SETTABLEKS R33 R32 K57 ["hoveredBackgroundIndex"]
+  GETTABLEKS R33 R9 K74 ["InitLoad"]
+  SETTABLEKS R33 R32 K58 ["requestReason"]
+  LOADK R33 K73 [""]
+  SETTABLEKS R33 R32 K59 ["lastLoggedSearchId"]
+  GETTABLEKS R34 R10 K75 ["AutocorrectResponseState"]
+  GETTABLEKS R33 R34 K76 ["NoCorrection"]
+  SETTABLEKS R33 R32 K60 ["correctionState"]
+  LOADK R33 K73 [""]
+  SETTABLEKS R33 R32 K61 ["correctedQuery"]
+  LOADK R33 K73 [""]
+  SETTABLEKS R33 R32 K62 ["userQuery"]
+  MOVE R34 R23
+  CALL R34 0 1
+  JUMPIFNOT R34 [+3]
+  GETTABLEKS R33 R3 K77 ["None"]
   JUMP [+1]
-  LOADNIL R32
-  SETTABLEKS R32 R31 K64 ["excludeGroupCreations"]
-  MOVE R33 R23
-  CALL R33 0 1
-  JUMPIFNOT R33 [+3]
-  GETTABLEKS R32 R3 K77 ["None"]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K63 ["creatorTargetIds"]
+  SETTABLEKS R30 R32 K64 ["excludeGroupCreations"]
+  MOVE R34 R23
+  CALL R34 0 1
+  JUMPIFNOT R34 [+3]
+  GETTABLEKS R33 R3 K77 ["None"]
   JUMP [+1]
-  LOADNIL R32
-  SETTABLEKS R32 R31 K65 ["groupTargetIds"]
-  LOADNIL R32
-  SETTABLEKS R32 R31 K66 ["includeUnverifiedCreators"]
-  MOVE R33 R23
-  CALL R33 0 1
-  JUMPIFNOT R33 [+3]
-  GETTABLEKS R32 R3 K77 ["None"]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K65 ["groupTargetIds"]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K66 ["includeUnverifiedCreators"]
+  MOVE R34 R23
+  CALL R34 0 1
+  JUMPIFNOT R34 [+3]
+  GETTABLEKS R33 R3 K77 ["None"]
   JUMP [+1]
-  LOADNIL R32
-  SETTABLEKS R32 R31 K67 ["uiSortIntent"]
-  GETTABLEKS R32 R3 K77 ["None"]
-  SETTABLEKS R32 R31 K68 ["sortDirection"]
-  MOVE R33 R22
-  CALL R33 0 1
-  JUMPIFNOT R33 [+3]
-  GETTABLEKS R32 R11 K78 ["Grid"]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K67 ["uiSortIntent"]
+  GETTABLEKS R33 R3 K77 ["None"]
+  SETTABLEKS R33 R32 K68 ["sortDirection"]
+  MOVE R34 R22
+  CALL R34 0 1
+  JUMPIFNOT R34 [+3]
+  GETTABLEKS R33 R11 K78 ["Grid"]
   JUMP [+1]
-  LOADNIL R32
-  SETTABLEKS R32 R31 K69 ["layoutMode"]
-  NEWTABLE R32 8 0
-  GETTABLEKS R33 R16 K72 ["name"]
-  DUPCLOSURE R34 K79 [PROTO_1]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K69 ["layoutMode"]
+  NEWTABLE R33 8 0
+  GETTABLEKS R34 R16 K72 ["name"]
+  DUPCLOSURE R35 K79 [PROTO_1]
   CAPTURE VAL R3
-  SETTABLE R34 R32 R33
-  GETTABLEKS R33 R15 K72 ["name"]
-  DUPCLOSURE R34 K80 [PROTO_2]
+  SETTABLE R35 R33 R34
+  GETTABLEKS R34 R15 K72 ["name"]
+  DUPCLOSURE R35 K80 [PROTO_2]
   CAPTURE VAL R5
   CAPTURE VAL R29
   CAPTURE VAL R3
   CAPTURE VAL R9
   CAPTURE VAL R0
-  SETTABLE R34 R32 R33
-  GETTABLEKS R33 R17 K72 ["name"]
-  DUPCLOSURE R34 K81 [PROTO_3]
+  SETTABLE R35 R33 R34
+  GETTABLEKS R34 R17 K72 ["name"]
+  DUPCLOSURE R35 K81 [PROTO_3]
   CAPTURE VAL R5
   CAPTURE VAL R3
-  SETTABLE R34 R32 R33
-  GETTABLEKS R33 R18 K72 ["name"]
-  MOVE R35 R22
-  CALL R35 0 1
-  JUMPIFNOT R35 [+3]
-  DUPCLOSURE R34 K82 [PROTO_4]
+  SETTABLE R35 R33 R34
+  GETTABLEKS R34 R18 K72 ["name"]
+  MOVE R36 R22
+  CALL R36 0 1
+  JUMPIFNOT R36 [+3]
+  DUPCLOSURE R35 K82 [PROTO_4]
   CAPTURE VAL R3
   JUMP [+1]
-  LOADNIL R34
-  SETTABLE R34 R32 R33
-  GETTABLEKS R33 R14 K72 ["name"]
-  DUPCLOSURE R34 K83 [PROTO_5]
+  LOADNIL R35
+  SETTABLE R35 R33 R34
+  GETTABLEKS R34 R14 K72 ["name"]
+  DUPCLOSURE R35 K83 [PROTO_5]
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R6
-  SETTABLE R34 R32 R33
-  GETTABLEKS R33 R19 K72 ["name"]
-  DUPCLOSURE R34 K84 [PROTO_6]
+  SETTABLE R35 R33 R34
+  GETTABLEKS R34 R19 K72 ["name"]
+  DUPCLOSURE R35 K84 [PROTO_6]
   CAPTURE VAL R3
-  SETTABLE R34 R32 R33
-  GETTABLEKS R33 R20 K72 ["name"]
-  DUPCLOSURE R34 K85 [PROTO_7]
+  SETTABLE R35 R33 R34
+  GETTABLEKS R34 R20 K72 ["name"]
+  DUPCLOSURE R35 K85 [PROTO_7]
   CAPTURE VAL R3
-  SETTABLE R34 R32 R33
-  CALL R30 2 -1
-  RETURN R30 -1
+  SETTABLE R35 R33 R34
+  CALL R31 2 -1
+  RETURN R31 -1

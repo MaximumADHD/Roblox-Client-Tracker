@@ -59,35 +59,37 @@ MAIN:
   CALL R9 1 1
   CALL R9 0 1
   GETTABLEKS R10 R2 K20 ["interface"]
-  DUPTABLE R11 K23 [{"sessionLengthSeconds", "focusTimeSeconds"}]
-  GETTABLEKS R12 R2 K24 ["number"]
+  DUPTABLE R11 K24 [{"sessionLengthSeconds", "focusTimeSeconds", "unmatchedFocusEndCount"}]
+  GETTABLEKS R12 R2 K25 ["number"]
   SETTABLEKS R12 R11 K21 ["sessionLengthSeconds"]
-  GETTABLEKS R12 R2 K24 ["number"]
+  GETTABLEKS R12 R2 K25 ["number"]
   SETTABLEKS R12 R11 K22 ["focusTimeSeconds"]
+  GETTABLEKS R12 R2 K25 ["number"]
+  SETTABLEKS R12 R11 K23 ["unmatchedFocusEndCount"]
   CALL R10 1 1
-  DUPTABLE R11 K31 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-  LOADK R12 K32 ["StyleEditor_PluginUnmounted"]
-  SETTABLEKS R12 R11 K25 ["eventName"]
+  DUPTABLE R11 K32 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
+  LOADK R12 K33 ["StyleEditor_PluginUnmounted"]
+  SETTABLEKS R12 R11 K26 ["eventName"]
   NEWTABLE R12 0 1
-  GETTABLEKS R13 R5 K33 ["Points"]
+  GETTABLEKS R13 R5 K34 ["Points"]
   SETLIST R12 R13 1 [1]
-  SETTABLEKS R12 R11 K26 ["backends"]
+  SETTABLEKS R12 R11 K27 ["backends"]
   JUMPIFNOT R9 [+3]
-  GETTABLEKS R12 R3 K34 ["ONE_HUNDRED_PERCENT"]
+  GETTABLEKS R12 R3 K35 ["ONE_HUNDRED_PERCENT"]
   JUMP [+1]
   LOADN R12 0
-  SETTABLEKS R12 R11 K27 ["throttlingPercentage"]
+  SETTABLEKS R12 R11 K28 ["throttlingPercentage"]
   NEWTABLE R12 0 3
   LOADN R13 24
-  LOADN R14 2
-  LOADN R15 23
+  LOADN R14 3
+  LOADN R15 20
   SETLIST R12 R13 3 [1]
-  SETTABLEKS R12 R11 K28 ["lastUpdated"]
-  LOADK R12 K35 ["Root Roact component unmounted."]
-  SETTABLEKS R12 R11 K29 ["description"]
-  LOADK R12 K36 [""]
-  SETTABLEKS R12 R11 K30 ["links"]
-  DUPCLOSURE R12 K37 [PROTO_0]
+  SETTABLEKS R12 R11 K29 ["lastUpdated"]
+  LOADK R12 K36 ["Root Roact component unmounted."]
+  SETTABLEKS R12 R11 K30 ["description"]
+  LOADK R12 K37 [""]
+  SETTABLEKS R12 R11 K31 ["links"]
+  DUPCLOSURE R12 K38 [PROTO_0]
   CAPTURE VAL R10
   CAPTURE VAL R4
   CAPTURE VAL R11

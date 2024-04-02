@@ -9,9 +9,9 @@ return function(arg1)
       local var0 = arg1
       local var1 = nil
       local var2 = nil
-      if arg1(var39, var3) then
+      if arg1(var360, var3) then
          local var0 = table.clone(arg1)
-         table.remove(var0, var47)
+         table.remove(var0, var368)
          return var0
       end
       return arg1

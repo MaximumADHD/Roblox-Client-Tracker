@@ -29,6 +29,7 @@ local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
 local FFlagIBDisableBuyButtonForUnlimitedAsset = game:DefineFastFlag("IBDisableBuyButtonForUnlimitedAsset", false)
 local FFlagIBDisableBuyButtonForUnlimitedBundle = game:DefineFastFlag("IBDisableBuyButtonForUnlimitedBundle", false)
+local FFlagIBFixBundlePurchase = game:DefineFastFlag("IBFixBundlePurchase", false)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -159,9 +160,17 @@ function DetailsButtons:render()
 		if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
 			partOfBundle = assetInfo.parentBundleId ~= nil
 		end
+		-- not assetInfo.isForSale was true before we reconstruct the code
+		-- right now, if an asset is part of bundle, the asset will be treated as a bundle, including isForSale
 		partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+
 		-- TODO (lliu): restructure, make limited collectible be supported together
-		if partOfBundleAndOffsale then
+		local isBundle = partOfBundleAndOffsale
+		if FFlagIBFixBundlePurchase then
+			isBundle = partOfBundle
+		end
+
+		if isBundle then
 			bundleId = UtilityFunctions.getBundleId(assetInfo)
 			itemType = Constants.ItemType.Bundle
 			itemId = bundleId

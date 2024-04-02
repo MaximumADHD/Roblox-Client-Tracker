@@ -21,9 +21,9 @@ function var9.loadAnimation(arg1, arg2)
    if var8() then
       var5.clearCache()
    end
-   local var139 = var0
-   var139 = var0
-   local var141 = var7(var139.Dummy, var139)
+   local var65 = var0
+   var65 = var0
+   local var67 = var7(var65.Dummy, var65)
    arg1:dispatch()
    local var2 = var6(arg2, var0)
    arg1:dispatch()
@@ -34,9 +34,9 @@ function var9.delay(arg1)
 end
 
 function var9.clickInstance(arg1)
-   local var151 = var3
-   var151 = arg1
-   var151.new(var151):click()
+   local var77 = var3
+   var77 = arg1
+   var77.new(var77):click()
    var9.delay()
 end
 

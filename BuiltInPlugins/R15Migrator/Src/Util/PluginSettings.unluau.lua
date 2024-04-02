@@ -36,4 +36,5 @@ end
 var0.InitiallyEnabled = var1.new("_initially_enabled")
 var0.CorrespondingR15Experience = var1.new("_r6_original_experience")
 var0.IsR15ConvertedExperience = var1.new("_r15_converted_experience")
+var0.SuccessfullyPublishedDateTime = var1.new("_successfully_published_date_time")
 return var0

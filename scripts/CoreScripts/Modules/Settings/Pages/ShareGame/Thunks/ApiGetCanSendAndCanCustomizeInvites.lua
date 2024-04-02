@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 local GetCanSendAndCanCustomizeInvites = Requests.GetCanSendAndCanCustomizeInvites
@@ -8,11 +7,7 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local httpRequest: any = if GetFFlagRemoveAppTempCommonTemp()
-	then require(RobloxGui.Modules.Common.httpRequest)
-	else require(AppTempCommon.Temp.httpRequest)
+local httpRequest: any = require(RobloxGui.Modules.Common.httpRequest)
 
 return function(trigger: string, inviteUserId: number?)
 	local requestImpl = httpRequest(HttpRbxApiService :: any)

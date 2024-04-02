@@ -1,0 +1,439 @@
+PROTO_0:
+  GETIMPORT R1 K1 [game]
+  MOVE R3 R0
+  NAMECALL R1 R1 K2 ["GetService"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_1:
+  PREPVARARGS 1
+  GETTABLEKS R1 R0 K0 ["listeners"]
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  MOVE R6 R5
+  GETVARARGS R7 -1
+  CALL R6 -1 0
+  FORGLOOP R1 2 [-4]
+  RETURN R0 0
+
+PROTO_2:
+  NEWTABLE R0 0 0
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["listeners"]
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  SETTABLE R2 R0 R1
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R3 R0 K0 ["listeners"]
+  FASTCALL2 TABLE_INSERT R3 R1 [+4]
+  MOVE R4 R1
+  GETIMPORT R2 K3 [table.insert]
+  CALL R2 2 0
+  GETTABLEKS R3 R0 K0 ["listeners"]
+  LENGTH R2 R3
+  DUPTABLE R3 K5 [{"Disconnect"}]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  SETTABLEKS R4 R3 K4 ["Disconnect"]
+  RETURN R3 1
+
+PROTO_5:
+  DUPTABLE R1 K1 [{"listeners"}]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K0 ["listeners"]
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K3 [setmetatable]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_6:
+  GETUPVAL R2 0
+  RETURN R2 1
+
+PROTO_7:
+  MOVE R3 R2
+  CALL R3 0 1
+  SETTABLEKS R3 R1 K0 ["Source"]
+  RETURN R0 0
+
+PROTO_8:
+  GETIMPORT R0 K1 [game]
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K2 ["GetService"]
+  CALL R0 2 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_9:
+  LOADNIL R1
+  GETIMPORT R2 K1 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE REF R1
+  CAPTURE VAL R0
+  CALL R2 1 0
+  JUMPIF R1 [+15]
+  GETUPVAL R2 0
+  GETTABLE R1 R2 R0
+  JUMPIFNOT R1 [+3]
+  SETTABLEKS R0 R1 K2 ["Name"]
+  JUMP [+9]
+  GETIMPORT R2 K4 [print]
+  LOADK R4 K5 ["ERROR: Service %* is not available and not mocked"]
+  MOVE R6 R0
+  NAMECALL R4 R4 K6 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  CLOSEUPVALS R1
+  RETURN R1 1
+
+PROTO_10:
+  GETTABLEKS R4 R0 K0 ["_instanceStore"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CONCAT R5 R6 R7
+  GETTABLE R3 R4 R5
+  RETURN R3 1
+
+PROTO_11:
+  GETUPVAL R1 0
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["Loaded code is nil!"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_12:
+  GETIMPORT R2 K1 [loadstring]
+  MOVE R3 R1
+  CALL R2 1 2
+  JUMPIF R2 [+4]
+  LOADB R4 0
+  LOADB R5 0
+  MOVE R6 R3
+  RETURN R4 3
+  GETIMPORT R4 K3 [getfenv]
+  MOVE R5 R2
+  CALL R4 1 1
+  GETIMPORT R5 K5 [print]
+  SETTABLEKS R5 R4 K4 ["print"]
+  GETIMPORT R4 K7 [pcall]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CALL R4 1 2
+  JUMPIF R4 [+4]
+  LOADB R6 1
+  LOADB R7 0
+  MOVE R8 R5
+  RETURN R6 3
+  LOADB R6 1
+  LOADB R7 1
+  LOADNIL R8
+  RETURN R6 3
+
+PROTO_13:
+  GETTABLEKS R3 R0 K0 ["_variableStore"]
+  GETTABLE R2 R3 R1
+  RETURN R2 1
+
+PROTO_14:
+  SETTABLEKS R1 R3 K0 ["requestId"]
+  GETTABLEKS R5 R0 K1 ["_commandStore"]
+  GETTABLE R4 R5 R2
+  MOVE R5 R3
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_15:
+  SETTABLEKS R1 R3 K0 ["requestId"]
+  GETTABLEKS R5 R0 K1 ["_commandStore"]
+  GETTABLE R4 R5 R2
+  MOVE R5 R3
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R3 R0 K0 ["_commandStore"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_17:
+  GETTABLEKS R3 R0 K0 ["_collectorStore"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R3 R0 K0 ["_commandStore"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_19:
+  GETTABLEKS R4 R0 K0 ["_variableStore"]
+  SETTABLE R2 R4 R1
+  RETURN R0 0
+
+PROTO_20:
+  RETURN R0 0
+
+PROTO_21:
+  GETTABLEKS R2 R0 K0 ["_commandStore"]
+  LOADNIL R3
+  SETTABLE R3 R2 R1
+  RETURN R0 0
+
+PROTO_22:
+  GETTABLEKS R2 R0 K0 ["_collectorStore"]
+  LOADNIL R3
+  SETTABLE R3 R2 R1
+  RETURN R0 0
+
+PROTO_23:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [type]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K2 ["table"] [+14]
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETGLOBAL R7 K3 ["replaceInstances"]
+  MOVE R8 R6
+  MOVE R9 R1
+  CALL R7 2 1
+  SETTABLE R7 R0 R5
+  FORGLOOP R2 2 [-7]
+  RETURN R0 1
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K5 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K6 ["Instance"] [+14]
+  LOADK R3 K7 ["Instance_"]
+  NAMECALL R4 R0 K8 ["GetDebugId"]
+  CALL R4 1 1
+  CONCAT R2 R3 R4
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["_instanceStore"]
+  MOVE R5 R1
+  MOVE R6 R2
+  CONCAT R4 R5 R6
+  SETTABLE R0 R3 R4
+  RETURN R2 1
+  RETURN R0 1
+
+PROTO_24:
+  DUPTABLE R0 K4 [{"ClientVersionContext", "use_inventory_assets", "ClientFlagContext", "MessageIdentifier"}]
+  LOADK R1 K5 ["1.0.0"]
+  SETTABLEKS R1 R0 K0 ["ClientVersionContext"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K1 ["use_inventory_assets"]
+  DUPTABLE R1 K8 [{"FFlagCAPFixMissingHREndTag", "FFlagCAPAddStreamIdToRichTextContent"}]
+  DUPTABLE R2 K10 [{"boolean"}]
+  LOADK R3 K11 ["true"]
+  SETTABLEKS R3 R2 K9 ["boolean"]
+  SETTABLEKS R2 R1 K6 ["FFlagCAPFixMissingHREndTag"]
+  DUPTABLE R2 K10 [{"boolean"}]
+  LOADK R3 K11 ["true"]
+  SETTABLEKS R3 R2 K9 ["boolean"]
+  SETTABLEKS R2 R1 K7 ["FFlagCAPAddStreamIdToRichTextContent"]
+  SETTABLEKS R1 R0 K2 ["ClientFlagContext"]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K3 ["MessageIdentifier"]
+  RETURN R0 1
+
+PROTO_25:
+  LOADK R5 K0 ["native_injector"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  NAMECALL R3 R0 K1 ["RegisterContextCollector"]
+  CALL R3 3 0
+  GETTABLEKS R3 R0 K2 ["_collectorStore"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  MOVE R8 R7
+  MOVE R9 R1
+  CALL R8 1 1
+  MOVE R9 R8
+  LOADNIL R10
+  LOADNIL R11
+  FORGPREP R9
+  GETTABLE R14 R2 R12
+  JUMPIF R14 [+1]
+  SETTABLE R13 R2 R12
+  FORGLOOP R9 2 [-4]
+  FORGLOOP R3 2 [-13]
+  GETGLOBAL R3 K3 ["replaceInstances"]
+  MOVE R4 R2
+  MOVE R5 R1
+  CALL R3 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K1 [{"RunningEval"}]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["RunningEval"]
+  GETIMPORT R1 K3 [game]
+  LOADK R3 K4 ["LoadedCode"]
+  NAMECALL R1 R1 K5 ["FindFirstChild"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+28]
+  LOADK R4 K6 ["lib"]
+  NAMECALL R2 R1 K5 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+23]
+  GETIMPORT R3 K8 [require]
+  MOVE R4 R2
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["thisIsEvalFramework"]
+  JUMPIFNOT R4 [+16]
+  LOADB R4 1
+  SETTABLEKS R4 R0 K0 ["RunningEval"]
+  GETIMPORT R4 K12 [Instance.new]
+  LOADK R5 K13 ["ObjectValue"]
+  CALL R4 1 1
+  LOADK R5 K14 ["CliAdapter"]
+  SETTABLEKS R5 R4 K15 ["Name"]
+  GETIMPORT R5 K17 [script]
+  SETTABLEKS R5 R4 K18 ["Value"]
+  SETTABLEKS R1 R4 K19 ["Parent"]
+  GETTABLEKS R2 R0 K0 ["RunningEval"]
+  JUMPIF R2 [+4]
+  DUPCLOSURE R2 K20 [PROTO_0]
+  SETTABLEKS R2 R0 K21 ["GetService"]
+  RETURN R0 1
+  DUPTABLE R2 K23 [{"__call"}]
+  DUPCLOSURE R3 K24 [PROTO_1]
+  SETTABLEKS R3 R2 K22 ["__call"]
+  SETTABLEKS R2 R2 K25 ["__index"]
+  DUPCLOSURE R3 K26 [PROTO_2]
+  DUPCLOSURE R4 K27 [PROTO_4]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R2 K28 ["Connect"]
+  DUPCLOSURE R4 K29 [PROTO_5]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R2 K11 ["new"]
+  DUPTABLE R4 K30 [{"__index"}]
+  DUPCLOSURE R5 K31 [PROTO_6]
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K25 ["__index"]
+  DUPTABLE R6 K37 [{"FindVariationsSignal", "SetMaterialSettingsSignal", "ActionActivatedSignal", "ShiftVariationSignal", "ShiftToAssetIdSignal"}]
+  GETTABLEKS R7 R2 K11 ["new"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K32 ["FindVariationsSignal"]
+  GETTABLEKS R7 R2 K11 ["new"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K33 ["SetMaterialSettingsSignal"]
+  GETTABLEKS R7 R2 K11 ["new"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K34 ["ActionActivatedSignal"]
+  GETTABLEKS R7 R2 K11 ["new"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K35 ["ShiftVariationSignal"]
+  GETTABLEKS R7 R2 K11 ["new"]
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K36 ["ShiftToAssetIdSignal"]
+  FASTCALL2 SETMETATABLE R6 R4 [+4]
+  MOVE R7 R4
+  GETIMPORT R5 K39 [setmetatable]
+  CALL R5 2 1
+  NEWTABLE R7 0 0
+  FASTCALL2 SETMETATABLE R7 R4 [+4]
+  MOVE R8 R4
+  GETIMPORT R6 K39 [setmetatable]
+  CALL R6 2 1
+  NEWTABLE R8 0 0
+  FASTCALL2 SETMETATABLE R8 R4 [+4]
+  MOVE R9 R4
+  GETIMPORT R7 K39 [setmetatable]
+  CALL R7 2 1
+  NEWTABLE R9 0 0
+  FASTCALL2 SETMETATABLE R9 R4 [+4]
+  MOVE R10 R4
+  GETIMPORT R8 K39 [setmetatable]
+  CALL R8 2 1
+  DUPTABLE R9 K51 [{"ConversationCleared", "RequestEnded", "RequestError", "RequestStarted", "SequentialCommandsFinished", "Stream", "_requestId", "_instanceStore", "_variableStore", "_commandStore", "_collectorStore"}]
+  GETTABLEKS R10 R2 K11 ["new"]
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K40 ["ConversationCleared"]
+  GETTABLEKS R10 R2 K11 ["new"]
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K41 ["RequestEnded"]
+  GETTABLEKS R10 R2 K11 ["new"]
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K42 ["RequestError"]
+  GETTABLEKS R10 R2 K11 ["new"]
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K43 ["RequestStarted"]
+  GETTABLEKS R10 R2 K11 ["new"]
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K44 ["SequentialCommandsFinished"]
+  GETTABLEKS R10 R2 K11 ["new"]
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K45 ["Stream"]
+  LOADK R10 K52 ["123"]
+  SETTABLEKS R10 R9 K46 ["_requestId"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K47 ["_instanceStore"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K48 ["_variableStore"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K49 ["_commandStore"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K50 ["_collectorStore"]
+  DUPTABLE R10 K54 [{"UpdateSourceAsync"}]
+  DUPCLOSURE R11 K55 [PROTO_7]
+  SETTABLEKS R11 R10 K53 ["UpdateSourceAsync"]
+  DUPTABLE R11 K62 [{"ChatbotUIService", "ConversationalAIAcceptanceService", "StreamingService", "MaterialGenerationService", "StudioAssetService", "ScriptEditorService"}]
+  SETTABLEKS R5 R11 K56 ["ChatbotUIService"]
+  SETTABLEKS R6 R11 K57 ["ConversationalAIAcceptanceService"]
+  SETTABLEKS R9 R11 K58 ["StreamingService"]
+  SETTABLEKS R7 R11 K59 ["MaterialGenerationService"]
+  SETTABLEKS R8 R11 K60 ["StudioAssetService"]
+  SETTABLEKS R10 R11 K61 ["ScriptEditorService"]
+  DUPCLOSURE R12 K63 [PROTO_9]
+  CAPTURE VAL R11
+  SETTABLEKS R12 R0 K21 ["GetService"]
+  DUPCLOSURE R12 K64 [PROTO_10]
+  SETTABLEKS R12 R9 K65 ["GetInstance"]
+  DUPCLOSURE R12 K66 [PROTO_12]
+  SETTABLEKS R12 R9 K67 ["RunSandboxedCode"]
+  DUPCLOSURE R12 K68 [PROTO_13]
+  SETTABLEKS R12 R9 K69 ["GetEphemeralVariable"]
+  DUPCLOSURE R12 K70 [PROTO_14]
+  SETTABLEKS R12 R9 K71 ["ExecuteCommandAsync"]
+  DUPCLOSURE R12 K72 [PROTO_15]
+  SETTABLEKS R12 R9 K73 ["InvokeCommand"]
+  DUPCLOSURE R12 K74 [PROTO_16]
+  SETTABLEKS R12 R9 K75 ["RegisterCommand"]
+  DUPCLOSURE R12 K76 [PROTO_17]
+  SETTABLEKS R12 R9 K77 ["RegisterContextCollector"]
+  DUPCLOSURE R12 K78 [PROTO_18]
+  SETTABLEKS R12 R9 K79 ["RegisterSequentialCommand"]
+  DUPCLOSURE R12 K80 [PROTO_19]
+  SETTABLEKS R12 R9 K81 ["SetEphemeralVariable"]
+  DUPCLOSURE R12 K82 [PROTO_20]
+  SETTABLEKS R12 R9 K83 ["SetPluginInfoCallback"]
+  DUPCLOSURE R12 K84 [PROTO_21]
+  SETTABLEKS R12 R9 K85 ["UnregisterCommand"]
+  DUPCLOSURE R12 K86 [PROTO_22]
+  SETTABLEKS R12 R9 K87 ["UnregisterContextCollector"]
+  DUPCLOSURE R12 K88 [PROTO_23]
+  CAPTURE VAL R9
+  SETGLOBAL R12 K89 ["replaceInstances"]
+  DUPCLOSURE R12 K90 [PROTO_25]
+  SETTABLEKS R12 R9 K91 ["CollectContexts"]
+  RETURN R0 1

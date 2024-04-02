@@ -1,6 +1,6 @@
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 0 14
+  NEWTABLE R0 0 13
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Warning"]
   SETTABLEKS R2 R1 K1 ["code"]
@@ -100,40 +100,6 @@ MAIN:
   SETTABLEKS R2 R1 K5 ["message"]
   NEWTABLE R2 2 0
   NEWTABLE R3 2 0
-  LOADN R4 58
-  SETTABLEKS R4 R3 K6 ["character"]
-  LOADN R4 127
-  SETTABLEKS R4 R3 K7 ["line"]
-  SETTABLEKS R3 R2 K8 ["end"]
-  NEWTABLE R3 2 0
-  LOADN R4 53
-  SETTABLEKS R4 R3 K6 ["character"]
-  LOADN R4 127
-  SETTABLEKS R4 R3 K7 ["line"]
-  SETTABLEKS R3 R2 K9 ["start"]
-  SETTABLEKS R2 R1 K10 ["range"]
-  GETIMPORT R4 K12 [Enum]
-  GETTABLEKS R3 R4 K13 ["Severity"]
-  GETTABLEKS R2 R3 K14 ["Error"]
-  SETTABLEKS R2 R1 K15 ["severity"]
-  NEWTABLE R2 0 3
-  LOADK R3 K25 ["UpperTorso"]
-  SETTABLEN R3 R2 1
-  LOADK R3 K26 ["LowerTorso"]
-  SETTABLEN R3 R2 2
-  LOADK R3 K27 ["HumanoidRootPart"]
-  SETTABLEN R3 R2 3
-  SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 4
-  NEWTABLE R1 8 0
-  LOADK R2 K0 ["R6 Script Warning"]
-  SETTABLEKS R2 R1 K1 ["code"]
-  LOADK R2 K18 ["Torso"]
-  SETTABLEKS R2 R1 K3 ["instanceName"]
-  LOADK R2 K24 ["Torso found, possible replacements are: UpperTorso, LowerTorso, HumanoidRootPart"]
-  SETTABLEKS R2 R1 K5 ["message"]
-  NEWTABLE R2 2 0
-  NEWTABLE R3 2 0
   LOADN R4 34
   SETTABLEKS R4 R3 K6 ["character"]
   LOADN R4 129
@@ -158,7 +124,7 @@ MAIN:
   LOADK R3 K27 ["HumanoidRootPart"]
   SETTABLEN R3 R2 3
   SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 5
+  SETTABLEN R1 R0 4
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Warning"]
   SETTABLEKS R2 R1 K1 ["code"]
@@ -186,7 +152,7 @@ MAIN:
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 6
+  SETTABLEN R1 R0 5
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Warning"]
   SETTABLEKS R2 R1 K1 ["code"]
@@ -214,42 +180,42 @@ MAIN:
   SETTABLEKS R2 R1 K15 ["severity"]
   NEWTABLE R2 0 1
   LOADK R3 K20 ["RightUpperArm"]
+  SETTABLEN R3 R2 1
+  SETTABLEKS R2 R1 K17 ["suggestions"]
+  SETTABLEN R1 R0 6
+  NEWTABLE R1 8 0
+  LOADK R2 K0 ["R6 Script Warning"]
+  SETTABLEKS R2 R1 K1 ["code"]
+  LOADK R2 K21 ["Right Shoulder"]
+  SETTABLEKS R2 R1 K3 ["instanceName"]
+  LOADK R2 K22 ["Right Shoulder found, possible replacements are: RightShoulder"]
+  SETTABLEKS R2 R1 K5 ["message"]
+  NEWTABLE R2 2 0
+  NEWTABLE R3 2 0
+  LOADN R4 36
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 95
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K8 ["end"]
+  NEWTABLE R3 2 0
+  LOADN R4 22
+  SETTABLEKS R4 R3 K6 ["character"]
+  LOADN R4 95
+  SETTABLEKS R4 R3 K7 ["line"]
+  SETTABLEKS R3 R2 K9 ["start"]
+  SETTABLEKS R2 R1 K10 ["range"]
+  GETIMPORT R4 K12 [Enum]
+  GETTABLEKS R3 R4 K13 ["Severity"]
+  GETTABLEKS R2 R3 K14 ["Error"]
+  SETTABLEKS R2 R1 K15 ["severity"]
+  NEWTABLE R2 0 1
+  LOADK R3 K23 ["RightShoulder"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
   SETTABLEN R1 R0 7
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Warning"]
   SETTABLEKS R2 R1 K1 ["code"]
-  LOADK R2 K21 ["Right Shoulder"]
-  SETTABLEKS R2 R1 K3 ["instanceName"]
-  LOADK R2 K22 ["Right Shoulder found, possible replacements are: RightShoulder"]
-  SETTABLEKS R2 R1 K5 ["message"]
-  NEWTABLE R2 2 0
-  NEWTABLE R3 2 0
-  LOADN R4 36
-  SETTABLEKS R4 R3 K6 ["character"]
-  LOADN R4 95
-  SETTABLEKS R4 R3 K7 ["line"]
-  SETTABLEKS R3 R2 K8 ["end"]
-  NEWTABLE R3 2 0
-  LOADN R4 22
-  SETTABLEKS R4 R3 K6 ["character"]
-  LOADN R4 95
-  SETTABLEKS R4 R3 K7 ["line"]
-  SETTABLEKS R3 R2 K9 ["start"]
-  SETTABLEKS R2 R1 K10 ["range"]
-  GETIMPORT R4 K12 [Enum]
-  GETTABLEKS R3 R4 K13 ["Severity"]
-  GETTABLEKS R2 R3 K14 ["Error"]
-  SETTABLEKS R2 R1 K15 ["severity"]
-  NEWTABLE R2 0 1
-  LOADK R3 K23 ["RightShoulder"]
-  SETTABLEN R3 R2 1
-  SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 8
-  NEWTABLE R1 8 0
-  LOADK R2 K0 ["R6 Script Warning"]
-  SETTABLEKS R2 R1 K1 ["code"]
   LOADK R2 K18 ["Torso"]
   SETTABLEKS R2 R1 K3 ["instanceName"]
   LOADK R2 K19 ["Torso found, possible replacements are: RightUpperArm"]
@@ -276,7 +242,7 @@ MAIN:
   LOADK R3 K20 ["RightUpperArm"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 9
+  SETTABLEN R1 R0 8
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Warning"]
   SETTABLEKS R2 R1 K1 ["code"]
@@ -306,7 +272,7 @@ MAIN:
   LOADK R3 K23 ["RightShoulder"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 10
+  SETTABLEN R1 R0 9
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Warning"]
   SETTABLEKS R2 R1 K1 ["code"]
@@ -336,7 +302,7 @@ MAIN:
   LOADK R3 K20 ["RightUpperArm"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 11
+  SETTABLEN R1 R0 10
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Warning"]
   SETTABLEKS R2 R1 K1 ["code"]
@@ -366,7 +332,7 @@ MAIN:
   LOADK R3 K23 ["RightShoulder"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 12
+  SETTABLEN R1 R0 11
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Warning"]
   SETTABLEKS R2 R1 K1 ["code"]
@@ -396,7 +362,7 @@ MAIN:
   LOADK R3 K20 ["RightUpperArm"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 13
+  SETTABLEN R1 R0 12
   NEWTABLE R1 8 0
   LOADK R2 K0 ["R6 Script Warning"]
   SETTABLEKS R2 R1 K1 ["code"]
@@ -426,5 +392,5 @@ MAIN:
   LOADK R3 K23 ["RightShoulder"]
   SETTABLEN R3 R2 1
   SETTABLEKS R2 R1 K17 ["suggestions"]
-  SETTABLEN R1 R0 14
+  SETTABLEN R1 R0 13
   RETURN R0 1

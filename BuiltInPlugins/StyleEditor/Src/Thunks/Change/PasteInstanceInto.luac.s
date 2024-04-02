@@ -1,19 +1,22 @@
 PROTO_0:
-  GETUPVAL R0 0
+  GETUPVAL R0 1
   NAMECALL R0 R0 K0 ["Clone"]
   CALL R0 1 1
-  GETUPVAL R1 1
+  SETUPVAL R0 0
+  GETUPVAL R0 0
+  GETUPVAL R1 2
   SETTABLEKS R1 R0 K1 ["Parent"]
-  GETIMPORT R1 K5 [Enum.FinishRecordingOperation.Commit]
-  RETURN R1 1
+  GETIMPORT R0 K5 [Enum.FinishRecordingOperation.Commit]
+  RETURN R0 1
 
 PROTO_1:
   NAMECALL R2 R0 K0 ["getState"]
   CALL R2 1 1
   GETTABLEKS R4 R2 K1 ["Clipboard"]
   GETTABLEKS R3 R4 K2 ["Instance"]
-  JUMPIF R3 [+1]
-  RETURN R0 0
+  JUMPIF R3 [+2]
+  LOADNIL R4
+  RETURN R4 1
   JUMPIFNOTEQKNIL R3 [+2]
   LOADB R5 0 +1
   LOADB R5 1
@@ -21,22 +24,37 @@ PROTO_1:
   LOADK R6 K3 ["expecting valid instance"]
   GETIMPORT R4 K5 [assert]
   CALL R4 2 0
-  GETTABLEKS R4 R1 K6 ["recordChange"]
-  DUPTABLE R5 K10 [{"Name", "DisplayName", "DoChange"}]
-  LOADK R6 K11 ["StyleEditor/PasteInstanceInto"]
-  SETTABLEKS R6 R5 K7 ["Name"]
-  LOADK R6 K12 ["StyleEditor - Paste Instance"]
-  SETTABLEKS R6 R5 K8 ["DisplayName"]
-  NEWCLOSURE R6 P0
+  LOADNIL R4
+  GETTABLEKS R5 R1 K6 ["recordChange"]
+  DUPTABLE R6 K10 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R7 K11 ["StyleEditor/PasteInstanceInto"]
+  SETTABLEKS R7 R6 K7 ["Name"]
+  LOADK R7 K12 ["StyleEditor - Paste Instance"]
+  SETTABLEKS R7 R6 K8 ["DisplayName"]
+  NEWCLOSURE R7 P0
+  CAPTURE REF R4
   CAPTURE VAL R3
   CAPTURE UPVAL U0
-  SETTABLEKS R6 R5 K9 ["DoChange"]
-  CALL R4 1 0
-  RETURN R0 0
+  SETTABLEKS R7 R6 K9 ["DoChange"]
+  CALL R5 1 0
+  JUMPIFNOT R4 [+11]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K13 ["createItemId"]
+  MOVE R6 R4
+  CALL R5 1 1
+  GETUPVAL R8 2
+  MOVE R9 R5
+  CALL R8 1 -1
+  NAMECALL R6 R0 K14 ["dispatch"]
+  CALL R6 -1 0
+  CLOSEUPVALS R4
+  RETURN R4 1
 
 PROTO_2:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   RETURN R1 1
 
 MAIN:
@@ -48,13 +66,26 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Reducers"]
-  GETTABLEKS R2 R3 K7 ["RootReducer"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["TreeTableHelpers"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Thunks"]
-  GETTABLEKS R3 R4 K9 ["Types"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K10 [PROTO_2]
-  RETURN R3 1
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K8 ["Actions"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R2 K9 ["Window"]
+  GETTABLEKS R4 R5 K10 ["SelectItem"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K5 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Reducers"]
+  GETTABLEKS R5 R6 K12 ["RootReducer"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Thunks"]
+  GETTABLEKS R6 R7 K14 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  RETURN R6 1

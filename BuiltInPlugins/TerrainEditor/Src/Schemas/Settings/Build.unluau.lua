@@ -13,9 +13,9 @@ var3.AdvancedNoise = var5.LocalPersistent
 var3.Amplitude = var5.LocalPersistent
 var3.BankSize = var5.LocalPersistent
 var3.BlendingEdge = var5.LocalPersistent
+var3.Commit = var5.LocalSession
 var3.CraterDepth = var5.LocalPersistent
 var3.CraterRadius = var5.LocalPersistent
-var3.Material = var5.LocalSession
 var3.FillBottom = var5.LocalPersistent
 var3.Frequency = var5.LocalPersistent
 var3.Offset = var5.LocalPersistent
@@ -91,14 +91,9 @@ function var9.Generator(arg1, arg2, arg3, arg4)
          end
       end
       return Enum.PropertyStatus.Errorvar0:getText("SelectionWarning", "Size"),
-      if arg1.X > var6.MaxBuildRegion then
-         if arg1.Y > var6.MaxBuildRegion then
-            if var6.MaxBuildRegion < arg1.Z then
-               return Enum.PropertyStatus.Errorvar0:getText("SelectionWarning", "SizeMax"),
-            end
-         end
+      if var6.MaxBuildRegion ^ 3 < arg1.X * arg1.Y * arg1.Z then
+         return Enum.PropertyStatus.Errorvar0:getText("SelectionWarning", "SizeMax"),
       end
-      return Enum.PropertyStatus.Errorvar0:getText("SelectionWarning", "SizeMax"),
       return Enum.PropertyStatus.Ok"",
    end
    
@@ -130,42 +125,50 @@ function var9.Generator(arg1, arg2, arg3, arg4)
    var20.Id = var3.Amplitude
    var20.Schema = var10
    local var21 = {}
-   local var500 = {}
-   var500.Id = var3.Offset
-   local var503 = {}
-   var503.Type = "Vector"
-   local var506 = "X"
-   local var25 = "Y"
-   var503.Components = {}
-   function var503.GetValue(arg1)
+   local var493 = {}
+   var493.Id = var3.Offset
+   local var496 = {}
+   var496.Type = "Vector"
+   local var499 = "X"
+   local var500 = "Y"
+   var496.Components = {}
+   function var496.GetValue(arg1)
       return Vector2.new(arg1[1], arg1[2])
    end
    
-   function var503.GetComponents(arg1)
+   function var496.GetComponents(arg1)
       return { arg1.X, arg1.Y }
    end
    
-   var500.Schema = var503
-   local var517 = {}
-   var517.Id = var3.Seed
-   local var27 = {}
-   var27.Type = "Number"
-   var517.Schema = var27
+   var493.Schema = var496
+   local var510 = {}
+   var510.Id = var3.Seed
+   local var513 = {}
+   var513.Type = "Number"
+   var510.Schema = var513
    var21.Children = {}
    var21.Id = var3.AdvancedNoise
-   local var524 = {}
-   var524.Text = ""
-   var524.Type = "Label"
-   var21.Schema = var524
+   local var517 = {}
+   var517.Text = ""
+   var517.Type = "Label"
+   var21.Schema = var517
    var21.Value = true
+   local var28 = {}
+   var28.Id = var3.BlendingEdge
+   var28.Schema = var10
    local var29 = {}
-   var29.Id = var3.BlendingEdge
-   var29.Schema = var10
-   local var532 = {}
-   var532.Category = var8
-   var532.Data = arg2
-   var532.Overrides = arg4
-   return var1(arg1, { {}, {}, {}, {}, {}, {}, {}, {} }, var532)
+   var29.Id = var3.Commit
+   var29.Layout = Enum.FillDirection.Vertical
+   local var529 = {}
+   var529.Label = var0:getText(var8, var3.Commit)
+   var529.Type = "Button"
+   var29.Schema = var529
+   var29.Value = true
+   local var537 = {}
+   var537.Category = var8
+   var537.Data = arg2
+   var537.Overrides = arg4
+   return var1(arg1, { {}, {}, {}, {}, {}, {}, {}, {}, {} }, var537)
 end
 
 return var9

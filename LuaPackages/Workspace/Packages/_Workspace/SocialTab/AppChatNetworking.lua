@@ -5,4 +5,17 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 
 local Package = require(PackageIndex["AppChatNetworking"]["AppChatNetworking"])
 
+export type Response<T> = Package.Response<T> 
+export type Conversation = Package.Conversation
+export type ConversationType = Package.ConversationType
+export type ConversationSource = Package.ConversationSource
+export type Message = Package.Message
+export type MessageUser = Package.MessageUser
+export type MessageSystem = Package.MessageSystem
+export type MessageType = Package.MessageType
+export type GetUserConversationsResponse = Package.GetUserConversationsResponse
+export type GetOlderMessagesResponse = Package.GetOlderMessagesResponse
+export type GetConversationDetailsResponse = Package.GetConversationDetailsResponse
+
+
 return Package

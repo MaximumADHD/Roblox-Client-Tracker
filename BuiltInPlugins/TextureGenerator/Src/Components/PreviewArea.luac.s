@@ -341,13 +341,6 @@ PROTO_14:
   GETTABLEKS R4 R5 K1 ["PreviewData"]
   GETTABLEKS R3 R4 K16 ["uuid"]
   CALL R2 1 0
-  GETUPVAL R2 10
-  CALL R2 0 1
-  JUMPIF R2 [+4]
-  GETUPVAL R2 11
-  GETUPVAL R3 12
-  GETUPVAL R4 9
-  CALL R2 2 0
   GETUPVAL R2 6
   LOADB R3 1
   CALL R2 1 0
@@ -402,10 +395,10 @@ PROTO_14:
   GETUPVAL R4 5
   GETTABLEKS R3 R4 K7 ["promptMasking"]
   SETTABLEKS R3 R2 K7 ["promptMasking"]
-  GETUPVAL R3 13
+  GETUPVAL R3 10
   GETUPVAL R4 4
   CALL R3 1 1
-  GETUPVAL R5 12
+  GETUPVAL R5 11
   GETTABLEKS R4 R5 K30 ["updateGeneration"]
   DUPTABLE R5 K33 [{"action", "uuid", "data"}]
   GETUPVAL R8 8
@@ -416,7 +409,7 @@ PROTO_14:
   SETTABLEKS R6 R5 K16 ["uuid"]
   SETTABLEKS R2 R5 K32 ["data"]
   CALL R4 1 0
-  GETUPVAL R5 12
+  GETUPVAL R5 11
   GETTABLEKS R4 R5 K36 ["updateModelToGenerations"]
   DUPTABLE R5 K38 [{"action", "hash", "uuid"}]
   GETUPVAL R8 8
@@ -447,11 +440,8 @@ PROTO_14:
   GETTABLEKS R14 R2 K16 ["uuid"]
   NAMECALL R4 R4 K8 ["report"]
   CALL R4 10 0
-  GETUPVAL R4 10
-  CALL R4 0 1
-  JUMPIFNOT R4 [+4]
-  GETUPVAL R4 11
-  GETUPVAL R5 12
+  GETUPVAL R4 12
+  GETUPVAL R5 11
   GETUPVAL R6 9
   CALL R4 2 0
   RETURN R0 0
@@ -632,10 +622,9 @@ PROTO_15:
   CAPTURE UPVAL U11
   CAPTURE UPVAL U8
   CAPTURE VAL R5
-  CAPTURE UPVAL U14
-  CAPTURE UPVAL U15
-  CAPTURE VAL R4
   CAPTURE UPVAL U10
+  CAPTURE VAL R4
+  CAPTURE UPVAL U14
   NEWTABLE R26 0 6
   MOVE R27 R3
   GETTABLEKS R28 R4 K31 ["updateGeneration"]
@@ -645,16 +634,16 @@ PROTO_15:
   GETTABLEKS R32 R0 K12 ["PreviewData"]
   SETLIST R26 R27 6 [1]
   CALL R24 2 1
-  GETUPVAL R26 16
+  GETUPVAL R26 15
   GETTABLEKS R25 R26 K34 ["new"]
   CALL R25 0 1
-  GETUPVAL R26 17
+  GETUPVAL R26 16
   LOADK R28 K2 ["PreviewArea"]
   NAMECALL R26 R26 K0 ["use"]
   CALL R26 2 1
   GETUPVAL R28 3
   GETTABLEKS R27 R28 K35 ["createElement"]
-  GETUPVAL R28 18
+  GETUPVAL R28 17
   DUPTABLE R29 K44 [{"AutomaticSize", "HorizontalAlignment", "Layout", "VerticalAlignment", "LayoutOrder", "Padding", "Size", "Style"}]
   GETIMPORT R30 K47 [Enum.AutomaticSize.Y]
   SETTABLEKS R30 R29 K36 ["AutomaticSize"]
@@ -675,7 +664,7 @@ PROTO_15:
   DUPTABLE R30 K58 [{"PreviewLabel", "Display", "PreviewActionArea"}]
   GETUPVAL R32 3
   GETTABLEKS R31 R32 K35 ["createElement"]
-  GETUPVAL R32 19
+  GETUPVAL R32 18
   DUPTABLE R33 K63 [{"AutomaticSize", "LayoutOrder", "RichText", "Size", "Text", "Style", "TextXAlignment", "TextYAlignment"}]
   GETIMPORT R34 K65 [Enum.AutomaticSize.X]
   SETTABLEKS R34 R33 K36 ["AutomaticSize"]
@@ -700,7 +689,7 @@ PROTO_15:
   SETTABLEKS R31 R30 K55 ["PreviewLabel"]
   GETUPVAL R32 3
   GETTABLEKS R31 R32 K35 ["createElement"]
-  GETUPVAL R32 18
+  GETUPVAL R32 17
   DUPTABLE R33 K74 [{"AnchorPoint", "LayoutOrder", "Position", "Size"}]
   GETIMPORT R34 K76 [Vector2.new]
   LOADK R35 K77 [0.5]
@@ -735,7 +724,7 @@ PROTO_15:
   SETTABLEKS R35 R34 K81 ["UIPadding"]
   GETUPVAL R36 3
   GETTABLEKS R35 R36 K35 ["createElement"]
-  GETUPVAL R36 18
+  GETUPVAL R36 17
   DUPTABLE R37 K92 [{"BackgroundColor3", "AnchorPoint", "Position", "ZIndex"}]
   GETIMPORT R38 K94 [Color3.new]
   LOADN R39 0
@@ -765,7 +754,7 @@ PROTO_15:
   JUMPIFNOT R17 [+33]
   GETUPVAL R40 3
   GETTABLEKS R39 R40 K35 ["createElement"]
-  GETUPVAL R40 20
+  GETUPVAL R40 19
   DUPTABLE R41 K102 [{"AnchorPoint", "Position", "Image"}]
   GETIMPORT R42 K76 [Vector2.new]
   LOADK R43 K77 [0.5]
@@ -792,7 +781,7 @@ PROTO_15:
   JUMPIF R17 [+56]
   GETUPVAL R40 3
   GETTABLEKS R39 R40 K35 ["createElement"]
-  GETUPVAL R40 21
+  GETUPVAL R40 20
   DUPTABLE R41 K114 [{"BackgroundColor3", "DisablePan", "DisableZoom", "LayoutOrder", "Model", "Static", "FocusDirection", "LightColor", "LightDirection", "EnableSky"}]
   GETTABLEKS R42 R26 K115 ["BackgroundColor"]
   SETTABLEKS R42 R41 K90 ["BackgroundColor3"]
@@ -820,7 +809,7 @@ PROTO_15:
   GETIMPORT R42 K117 [Vector3.new]
   CALL R42 3 1
   SETTABLEKS R42 R41 K112 ["LightDirection"]
-  GETUPVAL R43 22
+  GETUPVAL R43 21
   CALL R43 0 1
   JUMPIFNOT R43 [+2]
   LOADB R42 1
@@ -834,7 +823,7 @@ PROTO_15:
   JUMPIF R17 [+21]
   GETUPVAL R40 3
   GETTABLEKS R39 R40 K35 ["createElement"]
-  GETUPVAL R40 23
+  GETUPVAL R40 22
   DUPTABLE R41 K118 [{"AnchorPoint", "Position"}]
   GETIMPORT R42 K76 [Vector2.new]
   LOADK R43 K77 [0.5]
@@ -856,7 +845,7 @@ PROTO_15:
   JUMPIFNOT R35 [+78]
   GETUPVAL R36 3
   GETTABLEKS R35 R36 K35 ["createElement"]
-  GETUPVAL R36 18
+  GETUPVAL R36 17
   DUPTABLE R37 K119 [{"ZIndex"}]
   NAMECALL R38 R25 K95 ["getNextOrder"]
   CALL R38 1 1
@@ -864,7 +853,7 @@ PROTO_15:
   DUPTABLE R38 K122 [{"PreviousButton", "NextButton"}]
   GETUPVAL R40 3
   GETTABLEKS R39 R40 K35 ["createElement"]
-  GETUPVAL R40 24
+  GETUPVAL R40 23
   DUPTABLE R41 K125 [{"AnchorPoint", "LeftIcon", "Position", "Style", "OnClick"}]
   GETIMPORT R42 K76 [Vector2.new]
   LOADN R43 0
@@ -887,7 +876,7 @@ PROTO_15:
   SETTABLEKS R39 R38 K120 ["PreviousButton"]
   GETUPVAL R40 3
   GETTABLEKS R39 R40 K35 ["createElement"]
-  GETUPVAL R40 24
+  GETUPVAL R40 23
   DUPTABLE R41 K125 [{"AnchorPoint", "LeftIcon", "Position", "Style", "OnClick"}]
   GETIMPORT R42 K76 [Vector2.new]
   LOADN R43 1
@@ -914,7 +903,7 @@ PROTO_15:
   SETTABLEKS R31 R30 K56 ["Display"]
   GETUPVAL R32 3
   GETTABLEKS R31 R32 K35 ["createElement"]
-  GETUPVAL R32 18
+  GETUPVAL R32 17
   DUPTABLE R33 K129 [{"LayoutOrder", "Padding", "Size"}]
   LOADN R34 4
   SETTABLEKS R34 R33 K40 ["LayoutOrder"]
@@ -930,9 +919,9 @@ PROTO_15:
   DUPTABLE R34 K131 [{"TextInput"}]
   GETUPVAL R36 3
   GETTABLEKS R35 R36 K35 ["createElement"]
-  GETUPVAL R36 25
+  GETUPVAL R36 24
   DUPTABLE R37 K136 [{"BottomComponent", "BottomComponentProps", "Disabled", "MultiLine", "Text", "Size"}]
-  GETUPVAL R38 26
+  GETUPVAL R38 25
   SETTABLEKS R38 R37 K132 ["BottomComponent"]
   DUPTABLE R38 K142 [{"Enabled", "OnBackButtonClick", "GenerateButtonText", "OnGenerateButtonClick", "QuotaTooltipText", "Size", "Style"}]
   SETTABLEKS R21 R38 K137 ["Enabled"]
@@ -1044,35 +1033,30 @@ MAIN:
   GETIMPORT R33 K9 [require]
   GETTABLEKS R36 R0 K29 ["Src"]
   GETTABLEKS R35 R36 K42 ["Flags"]
-  GETTABLEKS R34 R35 K44 ["getFFlagTextureGeneratorMoveQuotaCalls"]
+  GETTABLEKS R34 R35 K44 ["getFFlagTextureGeneratorTelemetry"]
   CALL R33 1 1
   GETIMPORT R34 K9 [require]
   GETTABLEKS R37 R0 K29 ["Src"]
   GETTABLEKS R36 R37 K42 ["Flags"]
-  GETTABLEKS R35 R36 K45 ["getFFlagTextureGeneratorTelemetry"]
+  GETTABLEKS R35 R36 K45 ["getFFlagTextureGeneratorPreviewAreaEnableSky"]
   CALL R34 1 1
   GETIMPORT R35 K9 [require]
   GETTABLEKS R38 R0 K29 ["Src"]
   GETTABLEKS R37 R38 K42 ["Flags"]
-  GETTABLEKS R36 R37 K46 ["getFFlagTextureGeneratorPreviewAreaEnableSky"]
+  GETTABLEKS R36 R37 K46 ["getFFlagTextureGeneratorTelemetryIncludeLocalId"]
   CALL R35 1 1
   GETIMPORT R36 K9 [require]
-  GETTABLEKS R39 R0 K29 ["Src"]
-  GETTABLEKS R38 R39 K42 ["Flags"]
-  GETTABLEKS R37 R38 K47 ["getFFlagTextureGeneratorTelemetryIncludeLocalId"]
+  GETTABLEKS R38 R0 K29 ["Src"]
+  GETTABLEKS R37 R38 K47 ["Types"]
   CALL R36 1 1
-  GETIMPORT R37 K9 [require]
-  GETTABLEKS R39 R0 K29 ["Src"]
-  GETTABLEKS R38 R39 K48 ["Types"]
-  CALL R37 1 1
-  DUPCLOSURE R38 K49 [PROTO_0]
+  DUPCLOSURE R37 K48 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R16
   CAPTURE VAL R12
   CAPTURE VAL R14
   CAPTURE VAL R23
   CAPTURE VAL R19
-  DUPCLOSURE R39 K50 [PROTO_15]
+  DUPCLOSURE R38 K49 [PROTO_15]
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R21
@@ -1085,9 +1069,8 @@ MAIN:
   CAPTURE VAL R32
   CAPTURE VAL R27
   CAPTURE VAL R1
-  CAPTURE VAL R34
-  CAPTURE VAL R36
   CAPTURE VAL R33
+  CAPTURE VAL R35
   CAPTURE VAL R28
   CAPTURE VAL R24
   CAPTURE VAL R22
@@ -1095,9 +1078,9 @@ MAIN:
   CAPTURE VAL R18
   CAPTURE VAL R14
   CAPTURE VAL R11
-  CAPTURE VAL R35
+  CAPTURE VAL R34
   CAPTURE VAL R15
   CAPTURE VAL R13
   CAPTURE VAL R17
-  CAPTURE VAL R38
-  RETURN R39 1
+  CAPTURE VAL R37
+  RETURN R38 1

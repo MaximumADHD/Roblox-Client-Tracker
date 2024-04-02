@@ -49,15 +49,15 @@ end
 
 function var3.render(arg1)
    local var0 = arg1.props
-   local var374 = {}
-   var374.LayoutOrder = var0.LayoutOrder
-   var374.Position = var0.Position
-   var374.Size = var0.Size or UDim2.new(1, 0, 1, 0)
-   var374.BorderSizePixel = 0
-   var374.BackgroundTransparency = 1
-   var374.CurrentCamera = arg1.camera
+   local var450 = {}
+   var450.LayoutOrder = var0.LayoutOrder
+   var450.Position = var0.Position
+   var450.Size = var0.Size or UDim2.new(1, 0, 1, 0)
+   var450.BorderSizePixel = 0
+   var450.BackgroundTransparency = 1
+   var450.CurrentCamera = arg1.camera
    var1.Ref = arg1.viewportFrameRef
-   return var1.createElement("ViewportFrame", var374)
+   return var1.createElement("ViewportFrame", var450)
 end
 
 return var3

@@ -9,74 +9,74 @@ type Node = ProfilerData.Node
 type Function = ProfilerData.Function
 
 function ProfilerUtil.getDurations(data: RootDataFormat, nodeId: NodeId)
-    if nodeId > 0 then
-        local node = data.Nodes[nodeId]
-        assert(node ~= nil)
+	if nodeId > 0 then
+		local node = data.Nodes[nodeId]
+		assert(node ~= nil)
 
-        local totalDuration = node.TotalDuration
-        local selfDuration = node.Duration
-        return totalDuration, selfDuration
-    else
-        -- Assume root "node", calculate total duration from category roots
-        local totalDuration = 0
+		local totalDuration = node.TotalDuration
+		local selfDuration = node.Duration
+		return totalDuration, selfDuration
+	else
+		-- Assume root "node", calculate total duration from category roots
+		local totalDuration = 0
 
-        for _, category: ProfilerData.Category in data.Categories do
-            totalDuration += data.Nodes[category.NodeId].TotalDuration
-        end
+		for _, category: ProfilerData.Category in data.Categories do
+			totalDuration += data.Nodes[category.NodeId].TotalDuration
+		end
 
-        return totalDuration, 0
-    end
+		return totalDuration, 0
+	end
 end
 
 function ProfilerUtil.getName(data: RootDataFormat, func: Function?): string?
-    return func and func.Name
+	return func and func.Name
 end
 
 function ProfilerUtil.getSourceName(data: RootDataFormat, func: Function?): string?
-    return func and func.Source
+	return func and func.Source
 end
 
 function ProfilerUtil.getLine(data: RootDataFormat, func: Function?): number?
-    return func and func.Line
+	return func and func.Line
 end
 
 function ProfilerUtil.getNativeFlag(data: RootDataFormat, func: Function?): boolean
-    return (func and func.IsNative) or false
+	return (func and func.IsNative) or false
 end
 
 function ProfilerUtil.getPluginFlag(data: RootDataFormat, func: ProfilerData.Function?): boolean
-    return (func and func.IsPlugin) or false
+	return (func and func.IsPlugin) or false
 end
 
-function ProfilerUtil.standardizeChildren(data: RootDataFormat, node: Node?): {[FunctionId]: NodeId}?
-    return node and node.Children
+function ProfilerUtil.standardizeChildren(data: RootDataFormat, node: Node?): { [FunctionId]: NodeId }?
+	return node and node.Children
 end
 
 function ProfilerUtil.formatSessionLength(len: number?): string?
-    if len then
-        local hours = len / (1000 * 60 * 60)
-        local mins = (len / (1000 * 60)) % 60
-        local secs = (len / 1000) % 60
-        local millis = len % 1000
+	if len then
+		local hours = len / (1000 * 60 * 60)
+		local mins = (len / (1000 * 60)) % 60
+		local secs = (len / 1000) % 60
+		local millis = len % 1000
 
-        return string.format("%02i:%02i:%02i.%04i", hours, mins, secs, millis)
-    end
+		return string.format("%02i:%02i:%02i.%04i", hours, mins, secs, millis)
+	end
 
-    return nil
+	return nil
 end
 
 local TOOLTIP_FORMAT = "%s:%s"
 
 function ProfilerUtil.getSourceLocationString(data: RootDataFormat, func: Function, altName: string): string
-    local sourceName = ProfilerUtil.getSourceName(data, func)
-    local name = if not sourceName or #sourceName == 0 then altName else sourceName
+	local sourceName = ProfilerUtil.getSourceName(data, func)
+	local name = if not sourceName or #sourceName == 0 then altName else sourceName
 
-    local result = name
-    local lineNumber = ProfilerUtil.getLine(data, func)
-    if lineNumber and lineNumber >= 1 then
-        result = string.format(TOOLTIP_FORMAT, name, tostring(lineNumber))
-    end
-    return result
+	local result = name
+	local lineNumber = ProfilerUtil.getLine(data, func)
+	if lineNumber and lineNumber >= 1 then
+		result = string.format(TOOLTIP_FORMAT, name, tostring(lineNumber))
+	end
+	return result
 end
 
 return ProfilerUtil

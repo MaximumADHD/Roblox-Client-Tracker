@@ -68,31 +68,35 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["StreamingService"]
-  NAMECALL R0 R0 K3 ["GetService"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StreamingServiceDispatcherRegistry"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["StreamingServiceDispatcherRegistry"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R5 R1 K10 ["Src"]
-  GETTABLEKS R4 R5 K11 ["Utils"]
-  GETTABLEKS R3 R4 K11 ["Utils"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utils"]
+  GETTABLEKS R2 R3 K8 ["CliAdapter"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["StreamingService"]
   CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R1 K10 ["Src"]
-  GETTABLEKS R4 R5 K12 ["Types"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Utils"]
+  GETTABLEKS R4 R5 K7 ["Utils"]
   CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R8 R1 K10 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Commands"]
-  GETTABLEKS R6 R7 K14 ["BuilderCommands"]
-  GETTABLEKS R5 R6 K15 ["BuilderNameMap"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Types"]
   CALL R4 1 1
-  DUPCLOSURE R5 K16 [PROTO_0]
-  CAPTURE VAL R4
-  CAPTURE VAL R0
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Commands"]
+  GETTABLEKS R7 R8 K13 ["BuilderCommands"]
+  GETTABLEKS R6 R7 K14 ["BuilderNameMap"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_0]
+  CAPTURE VAL R5
   CAPTURE VAL R2
-  RETURN R5 1
+  CAPTURE VAL R3
+  RETURN R6 1

@@ -14,20 +14,20 @@ var9.__index = var9
 function var9.new()
    local var0 = setmetatable({}, var9)
    var0._maid = var3.new()
-   local var162 = {}
-   var162.stringResourceTable = var6
-   var162.translationResourceTable = var7
-   var162.pluginName = "VisualizationModes"
-   var0._localization = var5.Localization.new(var162)
-   local var172 = Instance.new("Folder")
+   local var80 = {}
+   var80.stringResourceTable = var6
+   var80.translationResourceTable = var7
+   var80.pluginName = "VisualizationModes"
+   var0._localization = var5.Localization.new(var80)
+   local var90 = Instance.new("Folder")
    var0._root = var2.createRoot(var0._maid:add())
-   local var180 = var0._localization
-   local var181 = {}
-   local var187 = {}
-   var187.Plugin = plugin
-   var187.Localization = var0._localization
-   var181.StudioVisualizationModes = var2.createPortal(var1.createElement(var4, var187), var8)
-   local var193 = var5.provide({}, var181)
+   local var98 = var0._localization
+   local var99 = {}
+   local var105 = {}
+   var105.Plugin = plugin
+   var105.Localization = var0._localization
+   var99.StudioVisualizationModes = var2.createPortal(var1.createElement(var4, var105), var8)
+   local var111 = var5.provide({}, var99)
    var0._root:render()
    var0._maid:giveTask(function()
       var0._root:unmount()

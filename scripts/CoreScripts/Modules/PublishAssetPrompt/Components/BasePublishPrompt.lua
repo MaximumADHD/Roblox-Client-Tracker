@@ -25,11 +25,7 @@ local Overlay = UIBlox.App.Dialog.Overlay
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local GamepadUtils = require(CorePackages.Workspace.Packages.AppCommonLib).Utils.GamepadUtils
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local httpRequest: any = if GetFFlagRemoveAppTempCommonTemp()
-	then require(RobloxGui.Modules.Common.httpRequest)
-	else require(CorePackages.AppTempCommon.Temp.httpRequest)
+local httpRequest: any = require(RobloxGui.Modules.Common.httpRequest)
 
 local httpImpl = httpRequest(HttpRbxApiService :: any)
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription

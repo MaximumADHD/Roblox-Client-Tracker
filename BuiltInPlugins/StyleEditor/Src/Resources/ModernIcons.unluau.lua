@@ -140,65 +140,60 @@ function var3.close()
    return `rbxasset://textures/StyleEditor/%*.png`
 end
 
-local var246 = "InsertableObjects"
-local var247 = "Standard"
+local var246 = "StyleEditor"
+local var247 = "Large"
 local var248 = "Color"
-function var3.color()
-   return `rbxasset://textures/StyleEditor/%*.png`
+function var3.colors(arg1, arg2, arg3)
+   return function()
+      return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
+   end
 end
 
-local var254 = "Clipboard"
-local var255 = "Standard"
-local var256 = "Copy"
+local var262 = "Clipboard"
+local var263 = "Standard"
+local var264 = "Copy"
 function var3.copy()
    return `rbxasset://textures/StyleEditor/%*.png`
 end
 
-local var262 = "TagEditor"
-local var263 = "Standard"
-local var264 = "Tag_Delete"
+local var270 = "TagEditor"
+local var271 = "Standard"
+local var272 = "Tag_Delete"
 function var3.delete(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var278 = "StyleEditor"
-local var279 = "Standard"
-local var280 = "Size"
+local var286 = "StyleEditor"
+local var287 = "Standard"
+local var288 = "Size"
 function var3.dimensions(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var294 = "Clipboard"
-local var295 = "Standard"
-local var296 = "Duplicate"
+local var302 = "Clipboard"
+local var303 = "Standard"
+local var304 = "Duplicate"
 function var3.duplicate()
    return `rbxasset://textures/StyleEditor/%*.png`
 end
 
-local var302 = "TagEditor"
-local var303 = "Standard"
-local var304 = "Tag_Edit"
+local var310 = "TagEditor"
+local var311 = "Standard"
+local var312 = "Tag_Edit"
 function var3.edit(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var318 = "InsertableObjects"
-local var319 = "Standard"
-local var320 = "Folder"
-function var3.folder()
-   return `rbxasset://textures/StyleEditor/%*.png`
-end
-
 local var326 = "StyleEditor"
 local var327 = "Standard"
-local var328 = "Typography"
-function var3.font(arg1, arg2, arg3)
+local var328 = "Folder"
+function var3.folder(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
@@ -206,82 +201,93 @@ end
 
 local var342 = "StyleEditor"
 local var343 = "Standard"
-local var344 = "GridPattern"
+local var344 = "Typography"
+function var3.fonts(arg1, arg2, arg3)
+   return function()
+      return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
+   end
+end
+
+local var358 = "StyleEditor"
+local var359 = "Standard"
+local var360 = "GridPattern"
 function var3.gridpattern(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var358 = "InsertableObjects"
-local var359 = "Standard"
-local var360 = "Color"
-function var3.palette()
-   return `rbxasset://textures/StyleEditor/%*.png`
+local var374 = "StyleEditor"
+local var375 = "Large"
+local var376 = "Color"
+function var3.palette(arg1, arg2, arg3)
+   return function()
+      return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
+   end
 end
 
-local var366 = "StyleEditor"
-local var367 = "Standard"
-local var368 = "More"
+local var390 = "StyleEditor"
+local var391 = "Standard"
+local var392 = "More"
 function var3.more(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var382 = "StyleEditor"
-local var383 = "Standard"
-local var384 = "InsertS"
+local var406 = "StyleEditor"
+local var407 = "Standard"
+local var408 = "InsertS"
 function var3.new(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var398 = "StyleEditor"
-local var399 = "Standard"
-local var400 = "QuickOpen"
+local var422 = "StyleEditor"
+local var423 = "Standard"
+local var424 = "QuickOpen"
 function var3.open(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var414 = "Clipboard"
-local var415 = "Standard"
-local var416 = "Paste"
+local var438 = "Clipboard"
+local var439 = "Standard"
+local var440 = "Paste"
 function var3.paste()
    return `rbxasset://textures/StyleEditor/%*.png`
 end
 
-local var422 = "TagEditor"
-local var423 = "Standard"
-local var424 = "Tag_Remove"
+local var446 = "TagEditor"
+local var447 = "Standard"
+local var448 = "Tag_Remove"
 function var3.remove(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var438 = "StyleEditor"
-local var439 = "Standard"
-local var440 = "Size"
-function var3.size(arg1, arg2, arg3)
+local var462 = "StyleEditor"
+local var463 = "Standard"
+local var464 = "Size"
+function var3.sizes(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var454 = "TagEditor"
-local var455 = "Standard"
-local var456 = "Tag_Add"
+local var478 = "TagEditor"
+local var479 = "Standard"
+local var480 = "Tag_Add"
 function var3.set(arg1, arg2, arg3)
    return function()
       return `rbxasset://studio_svg_textures/Lua/%*/%*/%*/%*.png`
    end
 end
 
-local var470 = "StyleEditor"
+local var494 = "StyleEditor"
 local var98 = "Standard"
 local var99 = "Typography"
 function var3.typography(arg1, arg2, arg3)

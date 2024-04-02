@@ -81,6 +81,7 @@ local FFlagAvatarChatCoreScriptSupport = require(RobloxGui.Modules.Flags.FFlagAv
 local GetFFlagVoiceRecordingIndicatorsEnabled = require(RobloxGui.Modules.Flags.GetFFlagVoiceRecordingIndicatorsEnabled)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
+local GetFFlagOpenControlsOnMenuOpen = require(RobloxGui.Modules.Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 local FFlagLuaEnableGameInviteModalSettingsHub = game:DefineFastFlag("LuaEnableGameInviteModalSettingsHub", false)
 local GetFFlagFix10ftBottomButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagFix10ftBottomButtons)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification = require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
@@ -270,6 +271,7 @@ local function CreateSettingsHub()
 	this.BottomBarButtons = {}
 	this.BottomBarButtonsComponents = {}
 	this.ResizedConnection = nil
+	this.TakingScreenshot = false
 	if GetFFlagEnableTeleportBackButton() then
 		this.BackBarVisibleConnection = nil
 	end
@@ -2763,7 +2765,7 @@ local function CreateSettingsHub()
 		end
 	end
 
-	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
+	function setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
 		this.OpenStateChangedCount = this.OpenStateChangedCount + 1
 
 		local visibilityChanged = visible ~= this.Visible
@@ -2803,6 +2805,10 @@ local function CreateSettingsHub()
 		end
 
 		if this.Visible then
+			if GetFFlagOpenControlsOnMenuOpen() then
+				this.TakingScreenshot = false
+			end
+
 			this.ResizedConnection = RobloxGui.Changed:connect(function(prop)
 				if prop == "AbsoluteSize" then
 					onScreenSizeChanged()
@@ -2962,6 +2968,10 @@ local function CreateSettingsHub()
 
 			this.GameSettingsPage:OpenSettingsPage()
 		else
+			if GetFFlagOpenControlsOnMenuOpen() then
+				this.TakingScreenshot = takingScreenshot or false
+			end
+
 			if ChromeEnabled then
 				this.CurrentPageSignal:fire("")
 			end
@@ -3127,10 +3137,10 @@ local function CreateSettingsHub()
 		end
 	end
 
-	function this:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
+	function this:SetVisibility(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
 		if this.Visible == visible then return end
 
-		setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext)
+		setVisibilityInternal(visible, noAnimation, customStartPage, switchedFromGamepadInput, analyticsContext, takingScreenshot)
 	end
 
 	function this:GetVisibility()
@@ -3356,14 +3366,10 @@ local function CreateSettingsHub()
 			-- Create the embedded Roact app for the ShareGame page
 			-- This is accomplished via a Roact Portal into the ShareGame page frame
 			local CorePackages = game:GetService("CorePackages")
-			local GetFFlagRemoveAppTempCommonTemp = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-			local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 			local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 			local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
 
-			local eventStream = if GetFFlagRemoveAppTempCommonTemp()
-				then EventStream.new(AnalyticsService)
-				else DEPRECATED_EventStream.new()
+			local eventStream = EventStream.new(AnalyticsService)
 			local inviteToGameAnalytics = InviteToGameAnalytics.new()
 				:withEventStream(eventStream)
 				:withDiag(Diag.new(AnalyticsService))
@@ -3570,6 +3576,10 @@ end
 
 function moduleApiTable:GetRespawnBehaviour()
 	return SettingsHubInstance:GetRespawnBehaviour()
+end
+
+function moduleApiTable:GetTakingScreenshot()
+	return if GetFFlagOpenControlsOnMenuOpen() then SettingsHubInstance.TakingScreenshot else nil
 end
 
 moduleApiTable.RespawnBehaviourChangedEvent = SettingsHubInstance.RespawnBehaviourChangedEvent

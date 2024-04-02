@@ -390,76 +390,97 @@ PROTO_17:
   MOVE R19 R14
   CALL R17 2 1
   SUB R15 R10 R17
+  GETUPVAL R17 4
+  JUMPIFNOT R17 [+18]
+  LOADNIL R8
+  MOVE R18 R13
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K29 ["createElement"]
+  GETUPVAL R20 5
+  DUPTABLE R21 K46 [{"Style", "StyleModifier"}]
+  GETTABLEKS R22 R1 K44 ["Style"]
+  SETTABLEKS R22 R21 K44 ["Style"]
+  SETTABLEKS R4 R21 K45 ["StyleModifier"]
+  CALL R19 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R17 K40 [table.insert]
+  CALL R17 -1 0
   JUMPIFEQKNIL R8 [+43]
   JUMPIF R5 [+41]
   MOVE R18 R13
   GETUPVAL R20 3
   GETTABLEKS R19 R20 K29 ["createElement"]
-  LOADK R20 K44 ["ImageLabel"]
-  DUPTABLE R21 K50 [{"AnchorPoint", "Position", "Size", "Image", "BackgroundTransparency", "ImageTransparency", "ScaleType"}]
-  GETIMPORT R22 K52 [Vector2.new]
-  LOADK R23 K53 [0.5]
-  LOADK R24 K53 [0.5]
+  LOADK R20 K47 ["ImageLabel"]
+  DUPTABLE R21 K53 [{"AnchorPoint", "Position", "Size", "Image", "BackgroundTransparency", "ImageTransparency", "ScaleType"}]
+  GETIMPORT R22 K55 [Vector2.new]
+  LOADK R23 K56 [0.5]
+  LOADK R24 K56 [0.5]
   CALL R22 2 1
-  SETTABLEKS R22 R21 K45 ["AnchorPoint"]
-  GETIMPORT R22 K55 [UDim2.fromScale]
-  LOADK R23 K53 [0.5]
-  LOADK R24 K53 [0.5]
+  SETTABLEKS R22 R21 K48 ["AnchorPoint"]
+  GETIMPORT R22 K58 [UDim2.fromScale]
+  LOADK R23 K56 [0.5]
+  LOADK R24 K56 [0.5]
   CALL R22 2 1
-  SETTABLEKS R22 R21 K46 ["Position"]
+  SETTABLEKS R22 R21 K49 ["Position"]
   SETTABLEKS R15 R21 K15 ["Size"]
-  SETTABLEKS R8 R21 K47 ["Image"]
+  SETTABLEKS R8 R21 K50 ["Image"]
   GETTABLEKS R22 R3 K31 ["BackgroundTransparency"]
   SETTABLEKS R22 R21 K31 ["BackgroundTransparency"]
-  GETTABLEKS R22 R3 K48 ["ImageTransparency"]
-  SETTABLEKS R22 R21 K48 ["ImageTransparency"]
-  GETIMPORT R22 K58 [Enum.ScaleType.Crop]
-  SETTABLEKS R22 R21 K49 ["ScaleType"]
+  GETTABLEKS R22 R3 K51 ["ImageTransparency"]
+  SETTABLEKS R22 R21 K51 ["ImageTransparency"]
+  GETIMPORT R22 K61 [Enum.ScaleType.Crop]
+  SETTABLEKS R22 R21 K52 ["ScaleType"]
   CALL R19 2 -1
   FASTCALL TABLE_INSERT [+2]
   GETIMPORT R17 K40 [table.insert]
   CALL R17 -1 0
   LOADNIL R17
-  JUMPIFNOT R5 [+68]
-  JUMPIF R8 [+26]
+  JUMPIFNOT R5 [+76]
+  JUMPIF R8 [+34]
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K29 ["createElement"]
   LOADK R19 K30 ["Frame"]
-  DUPTABLE R20 K62 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "Active", "ZIndex"}]
-  GETTABLEKS R21 R3 K45 ["AnchorPoint"]
-  SETTABLEKS R21 R20 K45 ["AnchorPoint"]
-  SETTABLEKS R16 R20 K46 ["Position"]
+  DUPTABLE R20 K65 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "Active", "ZIndex", "BackgroundTransparency"}]
+  GETTABLEKS R21 R3 K48 ["AnchorPoint"]
+  SETTABLEKS R21 R20 K48 ["AnchorPoint"]
+  SETTABLEKS R16 R20 K49 ["Position"]
   SETTABLEKS R10 R20 K15 ["Size"]
-  SETTABLEKS R6 R20 K59 ["BackgroundColor3"]
+  SETTABLEKS R6 R20 K62 ["BackgroundColor3"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K60 ["Active"]
-  GETTABLEKS R21 R1 K61 ["ZIndex"]
-  SETTABLEKS R21 R20 K61 ["ZIndex"]
+  SETTABLEKS R21 R20 K63 ["Active"]
+  GETTABLEKS R21 R1 K64 ["ZIndex"]
+  SETTABLEKS R21 R20 K64 ["ZIndex"]
+  GETUPVAL R22 4
+  JUMPIFNOT R22 [+3]
+  GETTABLEKS R21 R3 K31 ["BackgroundTransparency"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K31 ["BackgroundTransparency"]
   MOVE R21 R13
   CALL R18 3 1
   MOVE R17 R18
   RETURN R17 1
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K29 ["createElement"]
-  LOADK R19 K44 ["ImageLabel"]
-  DUPTABLE R20 K63 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "Image", "Active", "ZIndex", "BackgroundTransparency", "ImageTransparency", "ScaleType"}]
-  GETTABLEKS R21 R3 K45 ["AnchorPoint"]
-  SETTABLEKS R21 R20 K45 ["AnchorPoint"]
-  SETTABLEKS R16 R20 K46 ["Position"]
+  LOADK R19 K47 ["ImageLabel"]
+  DUPTABLE R20 K66 [{"AnchorPoint", "Position", "Size", "BackgroundColor3", "Image", "Active", "ZIndex", "BackgroundTransparency", "ImageTransparency", "ScaleType"}]
+  GETTABLEKS R21 R3 K48 ["AnchorPoint"]
+  SETTABLEKS R21 R20 K48 ["AnchorPoint"]
+  SETTABLEKS R16 R20 K49 ["Position"]
   OR R21 R15 R10
   SETTABLEKS R21 R20 K15 ["Size"]
-  SETTABLEKS R6 R20 K59 ["BackgroundColor3"]
-  SETTABLEKS R8 R20 K47 ["Image"]
+  SETTABLEKS R6 R20 K62 ["BackgroundColor3"]
+  SETTABLEKS R8 R20 K50 ["Image"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K60 ["Active"]
-  GETTABLEKS R21 R1 K61 ["ZIndex"]
-  SETTABLEKS R21 R20 K61 ["ZIndex"]
+  SETTABLEKS R21 R20 K63 ["Active"]
+  GETTABLEKS R21 R1 K64 ["ZIndex"]
+  SETTABLEKS R21 R20 K64 ["ZIndex"]
   GETTABLEKS R21 R3 K31 ["BackgroundTransparency"]
   SETTABLEKS R21 R20 K31 ["BackgroundTransparency"]
-  GETTABLEKS R21 R3 K48 ["ImageTransparency"]
-  SETTABLEKS R21 R20 K48 ["ImageTransparency"]
-  GETIMPORT R21 K58 [Enum.ScaleType.Crop]
-  SETTABLEKS R21 R20 K49 ["ScaleType"]
+  GETTABLEKS R21 R3 K51 ["ImageTransparency"]
+  SETTABLEKS R21 R20 K51 ["ImageTransparency"]
+  GETIMPORT R21 K61 [Enum.ScaleType.Crop]
+  SETTABLEKS R21 R20 K52 ["ScaleType"]
   MOVE R21 R13
   CALL R18 3 1
   MOVE R17 R18
@@ -467,64 +488,64 @@ PROTO_17:
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K29 ["createElement"]
   GETUPVAL R20 3
-  GETTABLEKS R19 R20 K64 ["Fragment"]
+  GETTABLEKS R19 R20 K67 ["Fragment"]
   NEWTABLE R20 0 0
-  DUPTABLE R21 K67 [{"Point", "InputListener"}]
+  DUPTABLE R21 K70 [{"Point", "InputListener"}]
   GETUPVAL R23 3
   GETTABLEKS R22 R23 K29 ["createElement"]
-  LOADK R23 K68 ["ImageButton"]
+  LOADK R23 K71 ["ImageButton"]
   NEWTABLE R24 16 0
-  GETTABLEKS R25 R3 K45 ["AnchorPoint"]
-  SETTABLEKS R25 R24 K45 ["AnchorPoint"]
-  SETTABLEKS R16 R24 K46 ["Position"]
+  GETTABLEKS R25 R3 K48 ["AnchorPoint"]
+  SETTABLEKS R25 R24 K48 ["AnchorPoint"]
+  SETTABLEKS R16 R24 K49 ["Position"]
   SETTABLEKS R10 R24 K15 ["Size"]
-  SETTABLEKS R6 R24 K59 ["BackgroundColor3"]
+  SETTABLEKS R6 R24 K62 ["BackgroundColor3"]
   LOADB R25 1
-  SETTABLEKS R25 R24 K60 ["Active"]
-  GETTABLEKS R25 R1 K61 ["ZIndex"]
-  SETTABLEKS R25 R24 K61 ["ZIndex"]
+  SETTABLEKS R25 R24 K63 ["Active"]
+  GETTABLEKS R25 R1 K64 ["ZIndex"]
+  SETTABLEKS R25 R24 K64 ["ZIndex"]
   GETTABLEKS R25 R3 K31 ["BackgroundTransparency"]
   SETTABLEKS R25 R24 K31 ["BackgroundTransparency"]
   GETUPVAL R27 3
-  GETTABLEKS R26 R27 K69 ["Event"]
-  GETTABLEKS R25 R26 K70 ["MouseEnter"]
-  GETTABLEKS R26 R0 K71 ["onMouseEnter"]
+  GETTABLEKS R26 R27 K72 ["Event"]
+  GETTABLEKS R25 R26 K73 ["MouseEnter"]
+  GETTABLEKS R26 R0 K74 ["onMouseEnter"]
   SETTABLE R26 R24 R25
   GETUPVAL R27 3
-  GETTABLEKS R26 R27 K69 ["Event"]
-  GETTABLEKS R25 R26 K72 ["MouseLeave"]
-  GETTABLEKS R26 R0 K73 ["onMouseLeave"]
+  GETTABLEKS R26 R27 K72 ["Event"]
+  GETTABLEKS R25 R26 K75 ["MouseLeave"]
+  GETTABLEKS R26 R0 K76 ["onMouseLeave"]
   SETTABLE R26 R24 R25
   GETUPVAL R27 3
-  GETTABLEKS R26 R27 K69 ["Event"]
-  GETTABLEKS R25 R26 K74 ["InputBegan"]
-  GETTABLEKS R26 R0 K75 ["onInputBegan"]
+  GETTABLEKS R26 R27 K72 ["Event"]
+  GETTABLEKS R25 R26 K77 ["InputBegan"]
+  GETTABLEKS R26 R0 K78 ["onInputBegan"]
   SETTABLE R26 R24 R25
   GETUPVAL R27 3
-  GETTABLEKS R26 R27 K69 ["Event"]
-  GETTABLEKS R25 R26 K76 ["InputEnded"]
-  GETTABLEKS R26 R0 K77 ["onInputEnded"]
+  GETTABLEKS R26 R27 K72 ["Event"]
+  GETTABLEKS R25 R26 K79 ["InputEnded"]
+  GETTABLEKS R26 R0 K80 ["onInputEnded"]
   SETTABLE R26 R24 R25
   MOVE R25 R13
   CALL R22 3 1
-  SETTABLEKS R22 R21 K65 ["Point"]
+  SETTABLEKS R22 R21 K68 ["Point"]
   GETTABLEKS R23 R2 K3 ["isDragging"]
   JUMPIF R23 [+6]
-  GETTABLEKS R23 R2 K78 ["isDragStarting"]
+  GETTABLEKS R23 R2 K81 ["isDragStarting"]
   JUMPIF R23 [+3]
-  GETTABLEKS R22 R1 K79 ["OnHoverMoved"]
+  GETTABLEKS R22 R1 K82 ["OnHoverMoved"]
   JUMPIFNOT R22 [+15]
   GETUPVAL R23 3
   GETTABLEKS R22 R23 K29 ["createElement"]
-  GETUPVAL R23 4
-  DUPTABLE R24 K82 [{"signal", "callback"}]
-  GETUPVAL R26 5
-  GETTABLEKS R25 R26 K83 ["InputChanged"]
-  SETTABLEKS R25 R24 K80 ["signal"]
-  GETTABLEKS R25 R0 K84 ["onInputChanged"]
-  SETTABLEKS R25 R24 K81 ["callback"]
+  GETUPVAL R23 6
+  DUPTABLE R24 K85 [{"signal", "callback"}]
+  GETUPVAL R26 7
+  GETTABLEKS R25 R26 K86 ["InputChanged"]
+  SETTABLEKS R25 R24 K83 ["signal"]
+  GETTABLEKS R25 R0 K87 ["onInputChanged"]
+  SETTABLEKS R25 R24 K84 ["callback"]
   CALL R22 2 1
-  SETTABLEKS R22 R21 K66 ["InputListener"]
+  SETTABLEKS R22 R21 K69 ["InputListener"]
   CALL R18 3 1
   MOVE R17 R18
   RETURN R17 1
@@ -573,64 +594,74 @@ MAIN:
   GETIMPORT R15 K8 [require]
   GETTABLEKS R16 R14 K26 ["SignalListener"]
   CALL R15 1 1
-  GETTABLEKS R16 R3 K27 ["Component"]
-  LOADK R18 K28 ["DraggablePoint"]
-  NAMECALL R16 R16 K29 ["extend"]
-  CALL R16 2 1
-  DUPTABLE R17 K44 [{"Style", "ZIndex", "AbsolutePosition", "FollowCursorOnDrag", "OnSelected", "OnMouse1Down", "OnHover", "OnHoverMoved", "OnHoverEnd", "OnDeselected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnDoubleClicked", "OnRightClicked"}]
-  LOADK R18 K45 ["ControlPoint"]
-  SETTABLEKS R18 R17 K17 ["Style"]
-  LOADN R18 0
-  SETTABLEKS R18 R17 K30 ["ZIndex"]
-  GETIMPORT R18 K48 [Vector2.new]
-  LOADN R19 0
-  LOADN R20 0
+  GETIMPORT R16 K8 [require]
+  GETTABLEKS R17 R14 K27 ["ControlPointVisual"]
+  CALL R16 1 1
+  GETIMPORT R17 K1 [game]
+  LOADK R19 K28 ["PathEditorControlPointVisualImprovements"]
+  LOADB R20 0
+  NAMECALL R17 R17 K29 ["DefineFastFlag"]
+  CALL R17 3 1
+  GETTABLEKS R18 R3 K30 ["Component"]
+  LOADK R20 K31 ["DraggablePoint"]
+  NAMECALL R18 R18 K32 ["extend"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K31 ["AbsolutePosition"]
-  LOADB R18 1
-  SETTABLEKS R18 R17 K32 ["FollowCursorOnDrag"]
-  DUPCLOSURE R18 K49 [PROTO_0]
-  SETTABLEKS R18 R17 K33 ["OnSelected"]
-  DUPCLOSURE R18 K50 [PROTO_1]
-  SETTABLEKS R18 R17 K34 ["OnMouse1Down"]
-  DUPCLOSURE R18 K51 [PROTO_2]
-  SETTABLEKS R18 R17 K35 ["OnHover"]
-  LOADNIL R18
-  SETTABLEKS R18 R17 K36 ["OnHoverMoved"]
-  DUPCLOSURE R18 K52 [PROTO_3]
-  SETTABLEKS R18 R17 K37 ["OnHoverEnd"]
-  DUPCLOSURE R18 K53 [PROTO_4]
-  SETTABLEKS R18 R17 K38 ["OnDeselected"]
-  DUPCLOSURE R18 K54 [PROTO_5]
-  SETTABLEKS R18 R17 K39 ["OnDragStart"]
-  DUPCLOSURE R18 K55 [PROTO_6]
-  SETTABLEKS R18 R17 K40 ["OnDragMoved"]
-  DUPCLOSURE R18 K56 [PROTO_7]
-  SETTABLEKS R18 R17 K41 ["OnDragEnd"]
-  DUPCLOSURE R18 K57 [PROTO_8]
-  SETTABLEKS R18 R17 K42 ["OnDoubleClicked"]
-  DUPCLOSURE R18 K58 [PROTO_9]
-  SETTABLEKS R18 R17 K43 ["OnRightClicked"]
-  SETTABLEKS R17 R16 K59 ["defaultProps"]
-  DUPCLOSURE R17 K60 [PROTO_15]
+  DUPTABLE R19 K47 [{"Style", "ZIndex", "AbsolutePosition", "FollowCursorOnDrag", "OnSelected", "OnMouse1Down", "OnHover", "OnHoverMoved", "OnHoverEnd", "OnDeselected", "OnDragStart", "OnDragMoved", "OnDragEnd", "OnDoubleClicked", "OnRightClicked"}]
+  LOADK R20 K48 ["ControlPoint"]
+  SETTABLEKS R20 R19 K17 ["Style"]
+  LOADN R20 0
+  SETTABLEKS R20 R19 K33 ["ZIndex"]
+  GETIMPORT R20 K51 [Vector2.new]
+  LOADN R21 0
+  LOADN R22 0
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K34 ["AbsolutePosition"]
+  LOADB R20 1
+  SETTABLEKS R20 R19 K35 ["FollowCursorOnDrag"]
+  DUPCLOSURE R20 K52 [PROTO_0]
+  SETTABLEKS R20 R19 K36 ["OnSelected"]
+  DUPCLOSURE R20 K53 [PROTO_1]
+  SETTABLEKS R20 R19 K37 ["OnMouse1Down"]
+  DUPCLOSURE R20 K54 [PROTO_2]
+  SETTABLEKS R20 R19 K38 ["OnHover"]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K39 ["OnHoverMoved"]
+  DUPCLOSURE R20 K55 [PROTO_3]
+  SETTABLEKS R20 R19 K40 ["OnHoverEnd"]
+  DUPCLOSURE R20 K56 [PROTO_4]
+  SETTABLEKS R20 R19 K41 ["OnDeselected"]
+  DUPCLOSURE R20 K57 [PROTO_5]
+  SETTABLEKS R20 R19 K42 ["OnDragStart"]
+  DUPCLOSURE R20 K58 [PROTO_6]
+  SETTABLEKS R20 R19 K43 ["OnDragMoved"]
+  DUPCLOSURE R20 K59 [PROTO_7]
+  SETTABLEKS R20 R19 K44 ["OnDragEnd"]
+  DUPCLOSURE R20 K60 [PROTO_8]
+  SETTABLEKS R20 R19 K45 ["OnDoubleClicked"]
+  DUPCLOSURE R20 K61 [PROTO_9]
+  SETTABLEKS R20 R19 K46 ["OnRightClicked"]
+  SETTABLEKS R19 R18 K62 ["defaultProps"]
+  DUPCLOSURE R19 K63 [PROTO_15]
   CAPTURE VAL R10
-  SETTABLEKS R17 R16 K61 ["init"]
-  DUPCLOSURE R17 K62 [PROTO_16]
+  SETTABLEKS R19 R18 K64 ["init"]
+  DUPCLOSURE R19 K65 [PROTO_16]
   CAPTURE VAL R13
-  SETTABLEKS R17 R16 K63 ["didUpdate"]
-  DUPCLOSURE R17 K64 [PROTO_17]
+  SETTABLEKS R19 R18 K66 ["didUpdate"]
+  DUPCLOSURE R19 K67 [PROTO_17]
   CAPTURE VAL R12
   CAPTURE VAL R5
   CAPTURE VAL R11
   CAPTURE VAL R3
+  CAPTURE VAL R17
+  CAPTURE VAL R16
   CAPTURE VAL R15
   CAPTURE VAL R0
-  SETTABLEKS R17 R16 K65 ["render"]
-  MOVE R17 R7
-  DUPTABLE R18 K66 [{"Stylizer"}]
-  SETTABLEKS R8 R18 K18 ["Stylizer"]
-  CALL R17 1 1
-  MOVE R18 R16
-  CALL R17 1 1
-  MOVE R16 R17
-  RETURN R16 1
+  SETTABLEKS R19 R18 K68 ["render"]
+  MOVE R19 R7
+  DUPTABLE R20 K69 [{"Stylizer"}]
+  SETTABLEKS R8 R20 K18 ["Stylizer"]
+  CALL R19 1 1
+  MOVE R20 R18
+  CALL R19 1 1
+  MOVE R18 R19
+  RETURN R18 1

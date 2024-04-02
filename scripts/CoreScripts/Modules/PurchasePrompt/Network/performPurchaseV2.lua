@@ -5,6 +5,8 @@ local Constants = require(Root.Misc.Constants)
 local Promise = require(Root.Promise)
 local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse)
 
+local FFlagEnableTempFixCollectibleBundlePurchase = require(Root.Parent.Flags.FFlagEnableTempFixCollectibleBundlePurchase)
+
 --[[
 	we will migrate to V2 for all usage.
 ]]
@@ -21,6 +23,15 @@ local function performPurchaseV2(
 	purchaseAuthToken,
 	collectibleItemInstanceId
 )
+	if FFlagEnableTempFixCollectibleBundlePurchase then
+		-- Temporary fix for purchasing collectible bundles until a new game-engine version is released
+		local isCollectibleBundle = (infoType == Enum.InfoType.Bundle) and collectibleItemId and (collectibleItemId ~= "")
+		if isCollectibleBundle then
+			infoType = Enum.InfoType.Asset
+			collectibleItemInstanceId = nil
+		end
+	end
+
 	return network
 		.performPurchaseV2(
 			infoType,

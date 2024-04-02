@@ -10,6 +10,8 @@
 local Players = game:GetService("Players")
 local WAIT_TIME = 0.1
 
+local FFlagFixAvatarUtilCharacter = game:DefineFastFlag("FixAvatarUtilCharacter", false)
+
 -- Private Helper class 
 local PlayerTracker = {}
 PlayerTracker.__index = PlayerTracker
@@ -35,6 +37,13 @@ function PlayerTracker.new(player : Player)
 	self.connections["characterAppearanceChangedConnection"] = player.CharacterAppearanceLoaded:Connect(function(char)
 		self:onCharacterChanged(char)
 	end)
+
+	if FFlagFixAvatarUtilCharacter then
+		-- manually trigger for existing character
+		if self.player.Character then
+			self:onCharacterChanged(self.player.Character)
+		end
+	end
 	
 	return self
 end

@@ -41,7 +41,8 @@ local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfile
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
-local FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon = game:DefineFastFlag("ScriptProfilerFunctionsViewUseSourceInfoForAnon", false)
+local FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon =
+	game:DefineFastFlag("ScriptProfilerFunctionsViewUseSourceInfoForAnon", false)
 local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes", false)
 local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
@@ -50,12 +51,19 @@ local FFlagScriptProfilerExport = game:DefineFastFlag("ScriptProfilerExport", fa
 
 local FIntScriptProfilerLiveUpdateIntervalMS = game:DefineFastInt("ScriptProfilerLiveUpdateIntervalMS", 1000)
 
-local DATA_VIEW_DROPDOWN_NAMES = { "Callgraph", "Functions", }
+local DATA_VIEW_DROPDOWN_NAMES = { "Callgraph", "Functions" }
 local SMALL_DV_BUTTON_WIDTH = 100
 
-type SearchFilterType = {[number]: boolean}
+type SearchFilterType = { [number]: boolean }
 
-local function annotateSearchFilterNodes(data: ProfilerData.RootDataFormat, searchFilterFuncs: SearchFilterType, searchFilterNodes: SearchFilterType, funcId: number, nodeId: number, parentIsMatch: boolean):  boolean
+local function annotateSearchFilterNodes(
+	data: ProfilerData.RootDataFormat,
+	searchFilterFuncs: SearchFilterType,
+	searchFilterNodes: SearchFilterType,
+	funcId: number,
+	nodeId: number,
+	parentIsMatch: boolean
+): boolean
 	local node = data.Nodes[nodeId]
 
 	if not node.Children then
@@ -63,7 +71,7 @@ local function annotateSearchFilterNodes(data: ProfilerData.RootDataFormat, sear
 		return funcId > 0 and searchFilterFuncs[funcId]
 	end
 
-	local children = node.Children :: {[ProfilerData.FunctionId]: ProfilerData.NodeId}
+	local children = node.Children :: { [ProfilerData.FunctionId]: ProfilerData.NodeId }
 
 	local hasMatch = false
 
@@ -79,7 +87,8 @@ local function annotateSearchFilterNodes(data: ProfilerData.RootDataFormat, sear
 		end
 	else
 		for functionId, nodeId in pairs(children) do
-			local match = annotateSearchFilterNodes(data, searchFilterFuncs, searchFilterNodes, functionId, nodeId, parentIsMatch)
+			local match =
+				annotateSearchFilterNodes(data, searchFilterFuncs, searchFilterNodes, functionId, nodeId, parentIsMatch)
 
 			hasMatch = hasMatch or match
 		end
@@ -138,12 +147,18 @@ local function generateSearchFilters(state, searchTerm: string): (SearchFilterTy
 	return searchFilterFuncs, searchFilterNodes
 end
 
-local function generatePluginDurationOffsets(gcNodeOffsets: {[number]: number, Total: number?}, data: ProfilerData.RootDataFormat?): ({[number]: number, Total: number?}, {[number]: number, Total: number?})
+local function generatePluginDurationOffsets(
+	gcNodeOffsets: { [number]: number, Total: number? },
+	data: ProfilerData.RootDataFormat?
+): (
+	{ [number]: number, Total: number? },
+	{ [number]: number, Total: number? }
+)
 	if data then
 		assert(data.Version == 2)
 
-		local offsets = table.create(#data.Categories, 0) :: {[number]: number, Total: number}
-		local gcOffsets = table.create(#data.Categories, 0) :: {[number]: number, Total: number}
+		local offsets = table.create(#data.Categories, 0) :: { [number]: number, Total: number }
+		local gcOffsets = table.create(#data.Categories, 0) :: { [number]: number, Total: number }
 
 		local total = 0
 		local gcTotal = 0
@@ -182,13 +197,18 @@ local function generatePluginDurationOffsets(gcNodeOffsets: {[number]: number, T
 	return {}, {}
 end
 
-local function getGCOverhead(funcOffsets: {number}, nodeOffsets: {number}, data: ProfilerData.RootDataFormat, nodeId: ProfilerData.NodeId, gcFuncId: ProfilerData.FunctionId): number
+local function getGCOverhead(
+	funcOffsets: { number },
+	nodeOffsets: { number },
+	data: ProfilerData.RootDataFormat,
+	nodeId: ProfilerData.NodeId,
+	gcFuncId: ProfilerData.FunctionId
+): number
 	local node = data.Nodes[nodeId]
 	local total = 0
 
 	if node.Children then
 		for funcId, nodeId in pairs(node.Children) do
-
 			local gc
 			if funcId == gcFuncId then
 				gc = data.Nodes[nodeId].TotalDuration
@@ -205,19 +225,18 @@ local function getGCOverhead(funcOffsets: {number}, nodeOffsets: {number}, data:
 	return total
 end
 
-local function generateGCOverheadOffsets(data: ProfilerData.RootDataFormat?): ({number}, {[number]: number, Total: number?})
+local function generateGCOverheadOffsets(
+	data: ProfilerData.RootDataFormat?
+): ({ number }, { [number]: number, Total: number? })
 	if data and data.GCFuncId then
-
 		local gcFuncId = data.GCFuncId
 
-
 		local funcOffsets = table.create(#data.Functions, 0)
-		local nodeOffsets = table.create(#data.Nodes, 0) :: {[number]: number, Total: number?}
+		local nodeOffsets = table.create(#data.Nodes, 0) :: { [number]: number, Total: number? }
 
 		local total = 0
 
 		for index, category in data.Categories do
-
 			local nodeId = category.NodeId
 
 			local gc = getGCOverhead(funcOffsets, nodeOffsets, data, nodeId, gcFuncId)
@@ -316,7 +335,7 @@ function MainViewScriptProfiler:init()
 
 	self.onUtilTabHeightChanged = function(utilTabHeight)
 		self:setState({
-			utilTabHeight = utilTabHeight
+			utilTabHeight = utilTabHeight,
 		})
 	end
 
@@ -359,7 +378,7 @@ function MainViewScriptProfiler:init()
 		end
 	end
 
-	self.onBeginProfile = function ()
+	self.onBeginProfile = function()
 		local isClientView, state = self:getActiveState()
 
 		StartScriptProfiling(isClientView, state)
@@ -388,7 +407,7 @@ function MainViewScriptProfiler:init()
 		self:UpdateState(isClientView, newState)
 	end
 
-	self.onEndProfile = function ()
+	self.onEndProfile = function()
 		local isClientView, state = self:getActiveState()
 
 		local jsonString = StopScriptProfiling(isClientView)
@@ -416,7 +435,7 @@ function MainViewScriptProfiler:init()
 		self:UpdateState(isClientView, newState)
 	end
 
-	self.toggleTimedProfiling = function ()
+	self.toggleTimedProfiling = function()
 		local isClientView, state = self:getActiveState()
 
 		local duration = state.timedProfilingDuration
@@ -436,7 +455,7 @@ function MainViewScriptProfiler:init()
 		self:UpdateState(isClientView, newState)
 	end
 
-	self.toggleAverage = function ()
+	self.toggleAverage = function()
 		local isClientView, state = self:getActiveState()
 
 		local average = state.average
@@ -458,7 +477,7 @@ function MainViewScriptProfiler:init()
 		self:UpdateState(isClientView, newState)
 	end
 
-	self.toggleUnits = function ()
+	self.toggleUnits = function()
 		self.props.dispatchSetScriptProfilerState(nil, not self.props.usePercentages, nil, nil)
 	end
 
@@ -538,7 +557,7 @@ end
 function MainViewScriptProfiler:didMount()
 	local utilSize = self.utilRef.current.Size
 	self:setState({
-		utilTabHeight = utilSize.Y.Offset
+		utilTabHeight = utilSize.Y.Offset,
 	})
 
 	self.statsConnector = self.props.ServerProfilingData:Signal():Connect(function(jsonString)
@@ -559,7 +578,7 @@ function MainViewScriptProfiler:didUpdate()
 	local utilSize = self.utilRef.current.Size
 	if utilSize.Y.Offset ~= self.state.utilTabHeight then
 		self:setState({
-			utilTabHeight = utilSize.Y.Offset
+			utilTabHeight = utilSize.Y.Offset,
 		})
 	end
 end
@@ -743,16 +762,16 @@ function MainViewScriptProfiler:render()
 	local checkBoxStates = {}
 	local tmpCheckboxIndex = 1 -- Temporary, remove with each flag that uses checkboxes; ensures that each flagged entry does not depend on the others being enabled
 
-	checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate, }
+	checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate }
 
 	if FFlagScriptProfilerShowPlugins then
 		tmpCheckboxIndex += 1
-		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins, }
+		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins }
 	end
 
 	if FFlagScriptProfilerHideGCOverhead then
 		tmpCheckboxIndex += 1
-		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_GC_TEXT, state = state.showGC, }
+		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_GC_TEXT, state = state.showGC }
 	end
 
 	if self.props.isExporting then
@@ -846,8 +865,8 @@ function MainViewScriptProfiler:render()
 			gcFunctionOffsets = state.gcFunctionOffsets,
 			gcNodeOffsets = state.gcNodeOffsets,
 			pluginGCOffsets = state.pluginGCOffsets,
-			expandedNodes = if isFunctionsView then nil else state.expandedNodes
-		})
+			expandedNodes = if isFunctionsView then nil else state.expandedNodes,
+		}),
 	})
 end
 

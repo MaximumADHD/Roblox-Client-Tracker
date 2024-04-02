@@ -48,6 +48,12 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onClose"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_7:
   GETTABLEKS R2 R1 K0 ["Plugin"]
   DUPTABLE R3 K2 [{"enabled"}]
   LOADB R4 0
@@ -140,7 +146,7 @@ PROTO_6:
   LOADK R7 K33 ["ShowMaterialManagerFromElsewhere"]
   NAMECALL R5 R5 K34 ["GetFastFlag"]
   CALL R5 2 1
-  JUMPIFNOT R5 [+9]
+  JUMPIFNOT R5 [+18]
   GETUPVAL R5 13
   GETUPVAL R8 14
   GETTABLEKS R7 R8 K35 ["SHOW_MATERIAL_MANAGER_PLUGIN_EVENT"]
@@ -148,32 +154,39 @@ PROTO_6:
   CAPTURE VAL R0
   NAMECALL R5 R5 K36 ["Bind"]
   CALL R5 3 0
-  RETURN R0 0
-
-PROTO_7:
-  GETTABLEKS R1 R0 K0 ["imageLoader"]
-  JUMPIFNOT R1 [+5]
-  GETTABLEKS R1 R0 K0 ["imageLoader"]
-  NAMECALL R1 R1 K1 ["destroy"]
-  CALL R1 1 0
-  GETTABLEKS R1 R0 K2 ["materialServiceController"]
-  JUMPIFNOT R1 [+5]
-  GETTABLEKS R1 R0 K2 ["materialServiceController"]
-  NAMECALL R1 R1 K1 ["destroy"]
-  CALL R1 1 0
-  GETTABLEKS R1 R0 K3 ["generalServiceController"]
-  JUMPIFNOT R1 [+5]
-  GETTABLEKS R1 R0 K3 ["generalServiceController"]
-  NAMECALL R1 R1 K1 ["destroy"]
-  CALL R1 1 0
-  GETTABLEKS R1 R0 K4 ["pluginController"]
-  JUMPIFNOT R1 [+5]
-  GETTABLEKS R1 R0 K4 ["pluginController"]
-  NAMECALL R1 R1 K1 ["destroy"]
-  CALL R1 1 0
+  GETUPVAL R5 13
+  GETUPVAL R8 14
+  GETTABLEKS R7 R8 K37 ["HIDE_MATERIAL_MANAGER_PLUGIN_EVENT"]
+  NEWCLOSURE R8 P5
+  CAPTURE VAL R0
+  NAMECALL R5 R5 K36 ["Bind"]
+  CALL R5 3 0
   RETURN R0 0
 
 PROTO_8:
+  GETTABLEKS R1 R0 K0 ["imageLoader"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["imageLoader"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["materialServiceController"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K2 ["materialServiceController"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K3 ["generalServiceController"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K3 ["generalServiceController"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K4 ["pluginController"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K4 ["pluginController"]
+  NAMECALL R1 R1 K1 ["destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_9:
   GETTABLEKS R3 R0 K0 ["state"]
   GETTABLEKS R2 R3 K1 ["enabled"]
   DUPTABLE R3 K3 [{"Toggle"}]
@@ -197,101 +210,113 @@ PROTO_8:
   SETTABLEKS R4 R3 K2 ["Toggle"]
   RETURN R3 1
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R1 0
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["renderButtons"]
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_10:
+PROTO_11:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
   GETTABLEKS R4 R2 K3 ["enabled"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["provide"]
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+11]
+  GETUPVAL R5 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K4 ["MATERIAL_MANAGER_ENABLED"]
+  JUMPIFNOT R4 [+2]
+  LOADK R8 K5 ["true"]
+  JUMP [+1]
+  LOADK R8 K6 ["false"]
+  NAMECALL R5 R5 K7 ["setItem"]
+  CALL R5 3 0
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K8 ["provide"]
   NEWTABLE R6 0 11
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K5 ["new"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K9 ["new"]
   MOVE R8 R3
   CALL R7 1 1
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K5 ["new"]
-  GETTABLEKS R9 R0 K6 ["store"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K9 ["new"]
+  GETTABLEKS R9 R0 K10 ["store"]
   CALL R8 1 1
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K5 ["new"]
-  NAMECALL R10 R3 K7 ["getMouse"]
+  GETUPVAL R10 6
+  GETTABLEKS R9 R10 K9 ["new"]
+  NAMECALL R10 R3 K11 ["getMouse"]
   CALL R10 1 -1
   CALL R9 -1 1
-  GETUPVAL R10 4
+  GETUPVAL R10 7
   CALL R10 0 1
-  GETTABLEKS R11 R0 K8 ["localization"]
-  GETTABLEKS R12 R0 K9 ["analytics"]
-  GETTABLEKS R13 R0 K10 ["generalServiceController"]
-  GETTABLEKS R14 R0 K11 ["materialServiceController"]
-  GETTABLEKS R15 R0 K12 ["imageLoader"]
-  GETTABLEKS R16 R0 K13 ["assetHandler"]
-  GETTABLEKS R17 R0 K14 ["pluginController"]
+  GETTABLEKS R11 R0 K12 ["localization"]
+  GETTABLEKS R12 R0 K13 ["analytics"]
+  GETTABLEKS R13 R0 K14 ["generalServiceController"]
+  GETTABLEKS R14 R0 K15 ["materialServiceController"]
+  GETTABLEKS R15 R0 K16 ["imageLoader"]
+  GETTABLEKS R16 R0 K17 ["assetHandler"]
+  GETTABLEKS R17 R0 K18 ["pluginController"]
   SETLIST R6 R7 11 [1]
-  DUPTABLE R7 K17 [{"Toolbar", "MainWidget"}]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K18 ["createElement"]
-  GETUPVAL R9 6
-  DUPTABLE R10 K21 [{"Title", "RenderButtons"}]
-  LOADK R11 K22 ["Edit"]
-  SETTABLEKS R11 R10 K19 ["Title"]
+  DUPTABLE R7 K21 [{"Toolbar", "MainWidget"}]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K22 ["createElement"]
+  GETUPVAL R9 9
+  DUPTABLE R10 K25 [{"Title", "RenderButtons"}]
+  LOADK R11 K26 ["Edit"]
+  SETTABLEKS R11 R10 K23 ["Title"]
   NEWCLOSURE R11 P0
   CAPTURE VAL R0
-  SETTABLEKS R11 R10 K20 ["RenderButtons"]
+  SETTABLEKS R11 R10 K24 ["RenderButtons"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K15 ["Toolbar"]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K18 ["createElement"]
-  GETUPVAL R9 7
-  DUPTABLE R10 K32 [{"Id", "Enabled", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose", "ShouldRestore", "OnWidgetRestored"}]
-  GETUPVAL R12 8
+  SETTABLEKS R8 R7 K19 ["Toolbar"]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K22 ["createElement"]
+  GETUPVAL R9 10
+  DUPTABLE R10 K36 [{"Id", "Enabled", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose", "ShouldRestore", "OnWidgetRestored"}]
+  GETUPVAL R12 11
   JUMPIFNOT R12 [+2]
-  LOADK R11 K33 ["MaterialManager"]
+  LOADK R11 K37 ["MaterialManager"]
   JUMP [+1]
   LOADNIL R11
-  SETTABLEKS R11 R10 K23 ["Id"]
-  SETTABLEKS R4 R10 K24 ["Enabled"]
-  GETTABLEKS R11 R0 K8 ["localization"]
+  SETTABLEKS R11 R10 K27 ["Id"]
+  SETTABLEKS R4 R10 K28 ["Enabled"]
+  GETTABLEKS R11 R0 K12 ["localization"]
   LOADK R13 K2 ["Plugin"]
-  LOADK R14 K34 ["Name"]
-  NAMECALL R11 R11 K35 ["getText"]
+  LOADK R14 K38 ["Name"]
+  NAMECALL R11 R11 K39 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K19 ["Title"]
-  GETIMPORT R11 K38 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R11 R10 K25 ["ZIndexBehavior"]
-  GETIMPORT R11 K40 [Enum.InitialDockState.Bottom]
-  SETTABLEKS R11 R10 K26 ["InitialDockState"]
-  GETIMPORT R11 K42 [Vector2.new]
+  SETTABLEKS R11 R10 K23 ["Title"]
+  GETIMPORT R11 K42 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K29 ["ZIndexBehavior"]
+  GETIMPORT R11 K44 [Enum.InitialDockState.Bottom]
+  SETTABLEKS R11 R10 K30 ["InitialDockState"]
+  GETIMPORT R11 K46 [Vector2.new]
   LOADN R12 128
   LOADN R13 224
   CALL R11 2 1
-  SETTABLEKS R11 R10 K27 ["Size"]
-  GETIMPORT R11 K42 [Vector2.new]
+  SETTABLEKS R11 R10 K31 ["Size"]
+  GETIMPORT R11 K46 [Vector2.new]
   LOADN R12 44
   LOADN R13 200
   CALL R11 2 1
-  SETTABLEKS R11 R10 K28 ["MinSize"]
-  GETTABLEKS R11 R0 K43 ["onClose"]
-  SETTABLEKS R11 R10 K29 ["OnClose"]
+  SETTABLEKS R11 R10 K32 ["MinSize"]
+  GETTABLEKS R11 R0 K47 ["onClose"]
+  SETTABLEKS R11 R10 K33 ["OnClose"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K30 ["ShouldRestore"]
-  GETTABLEKS R11 R0 K44 ["onRestore"]
-  SETTABLEKS R11 R10 K31 ["OnWidgetRestored"]
+  SETTABLEKS R11 R10 K34 ["ShouldRestore"]
+  GETTABLEKS R11 R0 K48 ["onRestore"]
+  SETTABLEKS R11 R10 K35 ["OnWidgetRestored"]
   NEWTABLE R11 0 1
-  GETUPVAL R13 5
-  GETTABLEKS R12 R13 K18 ["createElement"]
-  GETUPVAL R13 9
+  GETUPVAL R13 8
+  GETTABLEKS R12 R13 K22 ["createElement"]
+  GETUPVAL R13 12
   CALL R12 1 -1
   SETLIST R11 R12 -1 [1]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K16 ["MainWidget"]
+  SETTABLEKS R8 R7 K20 ["MainWidget"]
   CALL R5 2 -1
   RETURN R5 -1
 
@@ -380,11 +405,16 @@ MAIN:
   GETIMPORT R29 K8 [require]
   GETTABLEKS R30 R23 K42 ["PluginController"]
   CALL R29 1 1
-  GETTABLEKS R30 R2 K43 ["PureComponent"]
-  LOADK R32 K44 ["MainPlugin"]
-  NAMECALL R30 R30 K45 ["extend"]
-  CALL R30 2 1
-  DUPCLOSURE R31 K46 [PROTO_6]
+  GETIMPORT R30 K8 [require]
+  GETTABLEKS R33 R1 K25 ["Src"]
+  GETTABLEKS R32 R33 K43 ["Flags"]
+  GETTABLEKS R31 R32 K44 ["getFFlagMaterialPickerUIChanges"]
+  CALL R30 1 1
+  GETTABLEKS R31 R2 K45 ["PureComponent"]
+  LOADK R33 K46 ["MainPlugin"]
+  NAMECALL R31 R31 K47 ["extend"]
+  CALL R31 2 1
+  DUPCLOSURE R32 K48 [PROTO_7]
   CAPTURE VAL R15
   CAPTURE VAL R25
   CAPTURE VAL R26
@@ -400,14 +430,17 @@ MAIN:
   CAPTURE VAL R29
   CAPTURE VAL R14
   CAPTURE VAL R13
-  SETTABLEKS R31 R30 K47 ["init"]
-  DUPCLOSURE R31 K48 [PROTO_7]
-  SETTABLEKS R31 R30 K49 ["willUnmount"]
-  DUPCLOSURE R31 K50 [PROTO_8]
+  SETTABLEKS R32 R31 K49 ["init"]
+  DUPCLOSURE R32 K50 [PROTO_8]
+  SETTABLEKS R32 R31 K51 ["willUnmount"]
+  DUPCLOSURE R32 K52 [PROTO_9]
   CAPTURE VAL R2
   CAPTURE VAL R7
-  SETTABLEKS R31 R30 K51 ["renderButtons"]
-  DUPCLOSURE R31 K52 [PROTO_10]
+  SETTABLEKS R32 R31 K53 ["renderButtons"]
+  DUPCLOSURE R32 K54 [PROTO_11]
+  CAPTURE VAL R30
+  CAPTURE VAL R14
+  CAPTURE VAL R13
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R12
@@ -418,5 +451,5 @@ MAIN:
   CAPTURE VAL R6
   CAPTURE VAL R0
   CAPTURE VAL R22
-  SETTABLEKS R31 R30 K53 ["render"]
-  RETURN R30 1
+  SETTABLEKS R32 R31 K55 ["render"]
+  RETURN R31 1

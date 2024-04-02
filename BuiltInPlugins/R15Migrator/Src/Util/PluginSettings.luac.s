@@ -76,4 +76,8 @@ MAIN:
   LOADK R3 K13 ["_r15_converted_experience"]
   CALL R2 1 1
   SETTABLEKS R2 R0 K14 ["IsR15ConvertedExperience"]
+  GETTABLEKS R2 R1 K2 ["new"]
+  LOADK R3 K15 ["_successfully_published_date_time"]
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K16 ["SuccessfullyPublishedDateTime"]
   RETURN R0 1

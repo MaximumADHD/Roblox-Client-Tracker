@@ -92,9 +92,32 @@ PROTO_7:
   GETTABLEKS R5 R0 K3 ["IXPService"]
   LOADK R7 K8 ["CreatorContent.Music.Studio"]
   NAMECALL R5 R5 K5 ["GetUserLayerVariables"]
-  CALL R5 2 -1
+  CALL R5 2 1
+  GETTABLEKS R6 R0 K3 ["IXPService"]
+  LOADK R8 K9 ["Studio.Toolbox.AssetQuality.Exposure"]
+  NAMECALL R6 R6 K5 ["GetUserLayerVariables"]
+  CALL R6 2 -1
   CALL R1 -1 -1
   RETURN R1 -1
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["IXPService"]
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K1 ["LogUserLayerExposure"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_9:
+  NAMECALL R2 R0 K0 ["isReady"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+6]
+  GETIMPORT R2 K2 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R2 1 0
+  RETURN R0 0
 
 MAIN:
   PREPVARARGS 0
@@ -135,4 +158,6 @@ MAIN:
   DUPCLOSURE R8 K25 [PROTO_7]
   CAPTURE VAL R6
   SETTABLEKS R8 R7 K26 ["getVariables"]
+  DUPCLOSURE R8 K27 [PROTO_9]
+  SETTABLEKS R8 R7 K28 ["logUserLayerExposure"]
   RETURN R7 1

@@ -7,14 +7,14 @@ local function fun0()
    return var0
 end
 
-local var128 = {}
-var128.sortSelection = nil
+local var20 = {}
+var20.sortSelection = nil
 function require(var0.Src.Actions.SetSortSelection).name(arg1, arg2)
-   local var135 = var1.Dictionary
-   var135 = arg1
-   local var137 = {}
-   var137.sortSelection = arg2.sortSelection
-   return var135.join(var135, var137)
+   local var27 = var1.Dictionary
+   var27 = arg1
+   local var29 = {}
+   var29.sortSelection = arg2.sortSelection
+   return var27.join(var27, var29)
 end
 
-return require(var0.Packages.Rodux).createReducer(var128, {})
+return require(var0.Packages.Rodux).createReducer(var20, {})

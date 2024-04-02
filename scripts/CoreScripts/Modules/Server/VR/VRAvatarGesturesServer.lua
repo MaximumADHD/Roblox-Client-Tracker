@@ -2,11 +2,15 @@
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local AvatarUtil = require(RobloxGui.Modules.Common.AvatarUtil)
 local ConnectionUtil = require(RobloxGui.Modules.Common.ConnectionUtil)
 
+local VRPLAYERS_REMOTE_EVENT_NAME = "AvatarGesturesVRPlayer"
+
 -- flag to enable immersion mode for all player including non VR for testing purposes
-local FFlagDebugImmersionModeNonVR = game:DefineFastFlag("DebugImmersionModeNonVR", false)
+local FFlagDebugImmersionModeNonVR = game:DefineFastFlag("DebugImmersionModeNonVR", false) -- remove with FFlagUpdateAvatarGestures
+local FFlagUpdateAvatarGestures = game:DefineFastFlag("UpdateAvatarGestures", false)
 
 local VRAvatarGesturesServer = {}
 VRAvatarGesturesServer.__index = VRAvatarGesturesServer
@@ -15,6 +19,8 @@ function VRAvatarGesturesServer.new()
 	local self: any = setmetatable({}, VRAvatarGesturesServer)
 
 	self.connections = ConnectionUtil.new()
+	-- set of players who want to use VR gestures, populated by remote event requests from the client
+	self.VRPlayers = {}
 
 	-- track changes to the API
 	self.connections:connect(VRService:GetPropertyChangedSignal("AvatarGestures"), function() self:onAvatarGesturesChanged() end)
@@ -23,52 +29,125 @@ function VRAvatarGesturesServer.new()
 	return self
 end
 
-function VRAvatarGesturesServer:onAvatarGesturesChanged()
-	if VRService.AvatarGestures then
-		-- if we're not connected to the avatar utility, connect to track avatar changes
-		if not self.avatarUtil then
-			self.avatarUtil = AvatarUtil.new()
+-- deletes created parts and IK controls
+function cleanCharacter(player)
+	-- avatarUtil currently doesn't support disconnecting, but the connection should be cleaned up as well when it is supported
 
-			local function onPlayerAdded(player)
-				self.avatarUtil:connectPlayerCharacterChanges(player, function(character)
-					self:onCharacterChanged(character)
-				end)
-			end
+	if player.Character then
+		local humanoid = player.Character:FindFirstChild("Humanoid")
+		if humanoid then
+			local ikControlNames = { "TrackedIKLeftHand", "TrackedIKRightHand", "TrackedIKHead" }
+			for _, ikName in pairs(ikControlNames) do
+				local ikControl = humanoid:FindFirstChild(ikName)
 
-			self.connections:connect(Players.PlayerAdded, onPlayerAdded)
-			for i, player in pairs(Players:GetPlayers()) do
-				onPlayerAdded(player)
-			end
-		else
-			-- already connected to avatarUtil, manually trigger change callback to reenable IK on existing characters
-			for _, player in pairs(Players:GetPlayers()) do
-				if player.Character then
-					self:onCharacterChanged(player.Character)
+				if ikControl then
+					ikControl:Destroy()
 				end
 			end
 		end
-	else
-		-- delete IK and parts
-		for _, player in pairs(Players:GetPlayers()) do
-			if player.Character then
-				local humanoid = player.Character:FindFirstChild("Humanoid")
-				if humanoid then
-					local ikControlNames = { "VRIKLeftHand", "VRIKRightHand", "VRIKHead" }
-					for _, ikName in pairs(ikControlNames) do
-						local ikControl = humanoid:FindFirstChild(ikName)
 
-						if ikControl then
-							ikControl:Destroy()
-						end
-					end
+		local partNames = { "TrackedLeftHand", "TrackedRightHand", "TrackedHead" }
+		for _, partName in pairs(partNames) do
+			local part = player.Character:FindFirstChild(partName)
+
+			if part then
+				part:Destroy()
+			end
+		end
+	end
+end
+
+function VRAvatarGesturesServer:onPlayerChanged(player, isVRPlayer)
+	self.VRPlayers[player] = isVRPlayer or nil
+
+	if isVRPlayer then
+		-- if we're not connected to the avatar utility, connect to track avatar changes
+		if not self.avatarUtil then
+			self.avatarUtil = AvatarUtil.new()
+		end
+
+		self.avatarUtil:connectPlayerCharacterChanges(player, function(character)
+			self:onCharacterChanged(character)
+		end)
+	else
+		cleanCharacter(player)
+	end
+end
+
+function VRAvatarGesturesServer:onAvatarGesturesChanged()
+	if FFlagUpdateAvatarGestures then
+		if VRService.AvatarGestures then
+			-- create remote event if not existing
+			local isVRPlayerRemoteEvent = RobloxReplicatedStorage:FindFirstChild(VRPLAYERS_REMOTE_EVENT_NAME)
+			if not isVRPlayerRemoteEvent then
+				isVRPlayerRemoteEvent = Instance.new("RemoteEvent")
+				isVRPlayerRemoteEvent.Name = VRPLAYERS_REMOTE_EVENT_NAME
+				isVRPlayerRemoteEvent.Parent = RobloxReplicatedStorage
+			end
+
+			-- add connection to populate VRPlayers
+			self.connections:connect(isVRPlayerRemoteEvent.OnServerEvent, function(player, isVRPlayer) self:onPlayerChanged(player, isVRPlayer) end)
+
+			-- remove a player when they leave
+			self.connections:connect(Players.PlayerRemoving, function(player) self:onPlayerChanged(player, false) end)
+		else
+			-- delete IK and parts
+			for player in pairs(self.VRPlayers) do
+				self:onPlayerChanged(player, false)
+			end
+
+			self.connections:disconnectAll()
+			self.connections:connect(VRService:GetPropertyChangedSignal("AvatarGestures"), function()
+				self:onAvatarGesturesChanged()
+			end)
+		end
+	else
+		if VRService.AvatarGestures then
+			-- if we're not connected to the avatar utility, connect to track avatar changes
+			if not self.avatarUtil then
+				self.avatarUtil = AvatarUtil.new()
+
+				local function onPlayerAdded(player)
+					self.avatarUtil:connectPlayerCharacterChanges(player, function(character)
+						self:onCharacterChanged(character)
+					end)
 				end
 
-				local partNames = { "VRGesturesLeftHand", "VRGesturesRightHand", "VRGesturesHead" }
-				for _, partName in pairs(partNames) do
-					local part = player.Character:FindFirstChild(partName)
+				self.connections:connect(Players.PlayerAdded, onPlayerAdded)
+				for i, player in pairs(Players:GetPlayers()) do
+					onPlayerAdded(player)
+				end
+			else
+				-- already connected to avatarUtil, manually trigger change callback to reenable IK on existing characters
+				for _, player in pairs(Players:GetPlayers()) do
+					if player.Character then
+						self:onCharacterChanged(player.Character)
+					end
+				end
+			end
+		else
+			-- delete IK and parts
+			for _, player in pairs(Players:GetPlayers()) do
+				if player.Character then
+					local humanoid = player.Character:FindFirstChild("Humanoid")
+					if humanoid then
+						local ikControlNames = { "VRIKLeftHand", "VRIKRightHand", "VRIKHead" }
+						for _, ikName in pairs(ikControlNames) do
+							local ikControl = humanoid:FindFirstChild(ikName)
 
-					if part then
-						part:Destroy()
+							if ikControl then
+								ikControl:Destroy()
+							end
+						end
+					end
+
+					local partNames = { "VRGesturesLeftHand", "VRGesturesRightHand", "VRGesturesHead" }
+					for _, partName in pairs(partNames) do
+						local part = player.Character:FindFirstChild(partName)
+
+						if part then
+							part:Destroy()
+						end
 					end
 				end
 			end
@@ -79,7 +158,12 @@ end
 function VRAvatarGesturesServer:findOrCreateColliders(partName, character)
 	local player = Players:GetPlayerFromCharacter(character)
 	-- Create collider part
-	local colliderName = "VRGestures" .. partName
+	local colliderName
+	if FFlagUpdateAvatarGestures then
+		colliderName = "Tracked" .. partName
+	else
+		colliderName = "VRGestures" .. partName
+	end
 	local vrCollider = character:FindFirstChild(colliderName)
 	if not vrCollider then
 		vrCollider = Instance.new("Part")
@@ -136,7 +220,12 @@ function VRAvatarGesturesServer:findOrCreateColliders(partName, character)
 	-- IK control so that the hands follow the collider
 	local humanoid = character:FindFirstChild("Humanoid")
 	if humanoid then
-		local ikControlName = "VRIK" .. partName
+		local ikControlName
+		if FFlagUpdateAvatarGestures then
+			ikControlName = "TrackedIK" .. partName
+		else
+			ikControlName = "VRIK" .. partName
+		end
 		local ikControl = humanoid:FindFirstChild(ikControlName)
 
 		if not ikControl then
@@ -159,6 +248,11 @@ function VRAvatarGesturesServer:createHandCollider(side, character)
 	local humanoid = character:FindFirstChild("Humanoid")
 	if humanoid then
 		local ikControlName = "VRIK" .. side .. "Hand"
+		if FFlagUpdateAvatarGestures then
+			ikControlName = "TrackedIK" .. side .. "Hand"
+		else
+			ikControlName = "VRIK" .. side .. "Hand"
+		end
 		local ikControl = humanoid:FindFirstChild(ikControlName)
 		
 		if ikControl then
@@ -196,7 +290,12 @@ function VRAvatarGesturesServer:createHeadCollider(character)
 	-- IK control
 	local humanoid = character:FindFirstChild("Humanoid")
 	if humanoid then
-		local ikControlName = "VRIKHead"
+		local ikControlName
+		if FFlagUpdateAvatarGestures then
+			ikControlName = "TrackedIKHead"
+		else
+			ikControlName = "VRIKHead"
+		end
 		local ikControl = humanoid:FindFirstChild(ikControlName)
 
 		if ikControl then
@@ -218,10 +317,18 @@ end
 function VRAvatarGesturesServer:onCharacterChanged(character)
 	-- create instances if they don't exist yet
 	local player = Players:GetPlayerFromCharacter(character)
-	if (player.VREnabled or FFlagDebugImmersionModeNonVR) and VRService.AvatarGestures then
-		self:createHandCollider("Left", character)
-		self:createHandCollider("Right", character)
-		self:createHeadCollider(character)
+	if FFlagUpdateAvatarGestures then
+		if self.VRPlayers[player] and VRService.AvatarGestures then
+			self:createHandCollider("Left", character)
+			self:createHandCollider("Right", character)
+			self:createHeadCollider(character)
+		end
+	else
+		if (player.VREnabled or FFlagDebugImmersionModeNonVR) and VRService.AvatarGestures then
+			self:createHandCollider("Left", character)
+			self:createHandCollider("Right", character)
+			self:createHeadCollider(character)
+		end
 	end
 end
 

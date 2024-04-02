@@ -8,7 +8,6 @@ local UserInputService = game:GetService("UserInputService")
 local LocalizationService = game:GetService("LocalizationService")
 local ContextActionService = game:GetService("ContextActionService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local UserGameSettings = UserSettings():GetService("UserGameSettings")
 -- Dependencies
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui:WaitForChild("Modules")
@@ -26,14 +25,9 @@ local UIBlox = require(CorePackages.UIBlox)
 local LoadingSpinner = UIBlox.App.Loading.LoadingSpinner
 local withStyle = UIBlox.Style.withStyle
 
-local AppTempCommon = CorePackages:WaitForChild("AppTempCommon")
 local CoreScriptTranslator = CoreGui.CoreScriptLocalization:GetTranslator(LocalizationService.RobloxLocaleId)
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
-	then require(Modules.Common.httpRequest)
-	else require(AppTempCommon.Temp.httpRequest)
+local httpRequest = require(Modules.Common.httpRequest)
 
 local networking = httpRequest(HttpRbxApiService)
 -- FFlags

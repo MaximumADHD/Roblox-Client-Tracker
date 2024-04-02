@@ -568,90 +568,80 @@ PROTO_6:
   LOADB R2 1
   MOVE R3 R1
   RETURN R2 2
-  LOADNIL R2
-  GETUPVAL R3 3
-  CALL R3 0 1
-  JUMPIFNOT R3 [+8]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["getRigInfo"]
-  MOVE R4 R0
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K2 ["Parts"]
-  JUMP [+6]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["getRigInfo"]
-  MOVE R4 R0
-  CALL R3 1 1
-  MOVE R2 R3
-  DUPTABLE R3 K18 [{"errorList", "motorsMap", "partsWithMultipleParents", "motorsWithMissingPart0", "motorsWithMissingPart1", "unanchoredPartExists", "motors", "parts", "root", "bones", "animConstraints", "animConstraintsMap", "animConstraintsWithMissingAttachment0", "animConstraintsWithMissingAttachment1", "rig"}]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K3 ["errorList"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K4 ["motorsMap"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K5 ["partsWithMultipleParents"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K6 ["motorsWithMissingPart0"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K7 ["motorsWithMissingPart1"]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K8 ["unanchoredPartExists"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K19 ["getMotors"]
-  MOVE R5 R0
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K9 ["motors"]
-  SETTABLEKS R2 R3 K10 ["parts"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K20 ["findRootPart"]
-  MOVE R5 R0
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K11 ["root"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K21 ["getBones"]
-  MOVE R5 R0
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K12 ["bones"]
-  GETUPVAL R5 4
-  CALL R5 0 1
-  JUMPIFNOT R5 [+6]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K22 ["getAnimationConstraints"]
-  MOVE R5 R0
-  CALL R4 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["getRigInfo"]
+  MOVE R3 R0
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K2 ["Parts"]
+  DUPTABLE R4 K18 [{"errorList", "motorsMap", "partsWithMultipleParents", "motorsWithMissingPart0", "motorsWithMissingPart1", "unanchoredPartExists", "motors", "parts", "root", "bones", "animConstraints", "animConstraintsMap", "animConstraintsWithMissingAttachment0", "animConstraintsWithMissingAttachment1", "rig"}]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K3 ["errorList"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K4 ["motorsMap"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K5 ["partsWithMultipleParents"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K6 ["motorsWithMissingPart0"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K7 ["motorsWithMissingPart1"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K8 ["unanchoredPartExists"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K19 ["getMotors"]
+  MOVE R6 R0
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K9 ["motors"]
+  SETTABLEKS R3 R4 K10 ["parts"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K20 ["findRootPart"]
+  MOVE R6 R0
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K11 ["root"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K21 ["getBones"]
+  MOVE R6 R0
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K12 ["bones"]
+  GETUPVAL R6 3
+  CALL R6 0 1
+  JUMPIFNOT R6 [+6]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K22 ["getAnimationConstraints"]
+  MOVE R6 R0
+  CALL R5 1 1
   JUMP [+2]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K13 ["animConstraints"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K14 ["animConstraintsMap"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K15 ["animConstraintsWithMissingAttachment0"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K16 ["animConstraintsWithMissingAttachment1"]
-  SETTABLEKS R0 R3 K17 ["rig"]
-  GETUPVAL R4 5
-  MOVE R5 R3
-  CALL R4 1 0
-  GETUPVAL R4 4
-  CALL R4 0 1
-  JUMPIFNOT R4 [+3]
-  GETUPVAL R4 6
-  MOVE R5 R3
-  CALL R4 1 0
-  GETUPVAL R4 7
-  MOVE R5 R3
-  CALL R4 1 0
-  GETUPVAL R4 8
-  MOVE R5 R3
-  CALL R4 1 0
-  GETTABLEKS R6 R3 K3 ["errorList"]
-  LENGTH R5 R6
-  LOADN R6 0
-  JUMPIFLT R6 R5 [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  GETTABLEKS R5 R3 K3 ["errorList"]
-  RETURN R4 2
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K13 ["animConstraints"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K14 ["animConstraintsMap"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K15 ["animConstraintsWithMissingAttachment0"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K16 ["animConstraintsWithMissingAttachment1"]
+  SETTABLEKS R0 R4 K17 ["rig"]
+  GETUPVAL R5 4
+  MOVE R6 R4
+  CALL R5 1 0
+  GETUPVAL R5 3
+  CALL R5 0 1
+  JUMPIFNOT R5 [+3]
+  GETUPVAL R5 5
+  MOVE R6 R4
+  CALL R5 1 0
+  GETUPVAL R5 6
+  MOVE R6 R4
+  CALL R5 1 0
+  GETUPVAL R5 7
+  MOVE R6 R4
+  CALL R5 1 0
+  GETTABLEKS R7 R4 K3 ["errorList"]
+  LENGTH R6 R7
+  LOADN R7 0
+  JUMPIFLT R7 R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETTABLEKS R6 R4 K3 ["errorList"]
+  RETURN R5 2
 
 MAIN:
   PREPVARARGS 0
@@ -675,40 +665,35 @@ MAIN:
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R6 R0 K10 ["LuaFlags"]
-  GETTABLEKS R5 R6 K12 ["GetFFlagGetRigInfo"]
+  GETTABLEKS R5 R6 K12 ["GetFFlagRigInfoCache"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K10 ["LuaFlags"]
-  GETTABLEKS R6 R7 K13 ["GetFFlagRigInfoCache"]
-  CALL R5 1 1
-  NEWTABLE R6 1 0
-  DUPCLOSURE R7 K14 [PROTO_0]
+  NEWTABLE R5 1 0
+  DUPCLOSURE R6 K13 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R2
-  DUPCLOSURE R8 K15 [PROTO_1]
-  DUPCLOSURE R9 K16 [PROTO_2]
+  DUPCLOSURE R7 K14 [PROTO_1]
+  DUPCLOSURE R8 K15 [PROTO_2]
   CAPTURE VAL R1
-  DUPCLOSURE R10 K17 [PROTO_3]
+  DUPCLOSURE R9 K16 [PROTO_3]
   CAPTURE VAL R2
-  DUPCLOSURE R11 K18 [PROTO_4]
+  DUPCLOSURE R10 K17 [PROTO_4]
   CAPTURE VAL R3
   CAPTURE VAL R1
-  DUPCLOSURE R12 K19 [PROTO_5]
+  DUPCLOSURE R11 K18 [PROTO_5]
   CAPTURE VAL R3
   CAPTURE VAL R2
-  CAPTURE VAL R11
+  CAPTURE VAL R10
   CAPTURE VAL R1
   CAPTURE VAL R0
-  DUPCLOSURE R13 K20 [PROTO_6]
-  CAPTURE VAL R5
-  CAPTURE VAL R1
-  CAPTURE VAL R7
+  DUPCLOSURE R12 K19 [PROTO_6]
   CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R6
   CAPTURE VAL R3
+  CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R12
-  SETTABLEKS R13 R6 K21 ["rigHasErrors"]
-  RETURN R6 1
+  CAPTURE VAL R11
+  SETTABLEKS R12 R5 K20 ["rigHasErrors"]
+  RETURN R5 1

@@ -12,7 +12,7 @@ local var9 = require(var0.Src.Types)
 local var10 = require(var0.Src.Thunks.Types)
 return function(arg1, arg2)
    return function(arg1)
-      local var0 = arg1(var5, arg1.Data.Selector)
+      local var0 = arg1(var5, arg1.Data.Selector, true)
       var2:dispatch()
    end
 end

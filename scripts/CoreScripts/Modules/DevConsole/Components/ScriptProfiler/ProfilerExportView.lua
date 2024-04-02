@@ -141,14 +141,36 @@ function ProfilerExportView:renderExportSection(isClient: boolean, header: strin
 	end
 
 	return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, ROW_HEIGHT * 3),
+		Size = UDim2.new(1, 0, 0, ROW_HEIGHT * 3),
+		BackgroundTransparency = 1,
+		LayoutOrder = 2,
+	}, {
+		Label = Roact.createElement("TextLabel", {
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, ROW_HEIGHT),
+			Position = UDim2.new(OFFSET, 0, 0, 0),
+			Text = header,
+			Font = HEADER_FONT,
+			TextSize = TEXT_SIZE,
+			TextColor3 = Constants.Color.Text,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			BackgroundColor3 = BACKGROUND_COLOR,
 			BackgroundTransparency = 1,
-			LayoutOrder = 2,
-		}, {
-			Label = Roact.createElement("TextLabel", {
-				Size = UDim2.new(0, BUTTON_WIDTH, 0, ROW_HEIGHT),
-				Position = UDim2.new(OFFSET, 0, 0, 0),
-				Text = header,
+		}),
+
+		HorizontalLine = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 1),
+			Position = UDim2.new(0, 0, 0, ROW_HEIGHT),
+		}),
+
+		Export = self:renderExportInputAndButton(isClient, exportFilename, serializedData),
+
+		SavedPath = if not savePath
+			then nil
+			else Roact.createElement("TextBox", {
+				Size = UDim2.new(1 - (OFFSET / 2), 0, 0, ROW_HEIGHT),
+				Position = UDim2.new(OFFSET / 2, 0, 0, 2 * ROW_HEIGHT * 1.25),
+				Text = "Saved to " .. savePath,
 				Font = HEADER_FONT,
 				TextSize = TEXT_SIZE,
 				TextColor3 = Constants.Color.Text,
@@ -156,36 +178,10 @@ function ProfilerExportView:renderExportSection(isClient: boolean, header: strin
 				TextYAlignment = Enum.TextYAlignment.Center,
 				BackgroundColor3 = BACKGROUND_COLOR,
 				BackgroundTransparency = 1,
+				TextEditable = false,
+				ClearTextOnFocus = false,
 			}),
-
-			HorizontalLine = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 1),
-				Position = UDim2.new(0, 0, 0, ROW_HEIGHT),
-			}),
-
-			Export = self:renderExportInputAndButton(
-				isClient,
-				exportFilename,
-				serializedData
-			),
-
-			SavedPath = if not savePath
-				then nil
-				else Roact.createElement("TextBox", {
-					Size = UDim2.new(1 - (OFFSET / 2), 0, 0, ROW_HEIGHT),
-					Position = UDim2.new(OFFSET / 2, 0, 0, 2 * ROW_HEIGHT * 1.25),
-					Text = "Saved to " .. savePath,
-					Font = HEADER_FONT,
-					TextSize = TEXT_SIZE,
-					TextColor3 = Constants.Color.Text,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					BackgroundColor3 = BACKGROUND_COLOR,
-					BackgroundTransparency = 1,
-					TextEditable = false,
-					ClearTextOnFocus = false,
-				}),
-		})
+	})
 end
 
 function ProfilerExportView:render()

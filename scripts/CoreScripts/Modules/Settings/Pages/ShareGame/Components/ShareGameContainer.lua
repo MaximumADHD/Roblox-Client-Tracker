@@ -8,18 +8,13 @@ local CorePackages = game:GetService("CorePackages")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local Players = game:GetService("Players")
 
-local AppTempCommon = CorePackages.AppTempCommon
 local Modules = CoreGui.RobloxGui.Modules
 local ShareGame = Modules.Settings.Pages.ShareGame
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
-	then require(Modules.Common.httpRequest)
-	else require(AppTempCommon.Temp.httpRequest)
+local httpRequest = require(Modules.Common.httpRequest)
 
 local ShareGamePageFrame = require(ShareGame.Components.ShareGamePageFrame)
 local Constants = require(ShareGame.Constants)

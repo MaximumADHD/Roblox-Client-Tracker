@@ -27,6 +27,7 @@ game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAni
 game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateWhenCreatingTrack", false)
 game:DefineFastFlag("StopStreamTrackOnDeath", false)
 game:DefineFastFlag("FacialAnimationStreamingClearAllConnectionsFix", false)
+game:DefineFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C", false)
 local FFlagFacialAnimationStreamingCheckPauseStateAfterEmote2 = game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateAfterEmote2", false)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
@@ -79,6 +80,7 @@ local playerJoinedGame = {}
 local playerAnimations = {}
 local playerConnections = {}
 local playerAnimators = {}
+local playerFaceControls = {}
 
 local trackerErrorConnection = nil
 local trackerPromptConnection = nil
@@ -147,6 +149,14 @@ local function clearCharacterAnimations(player)
 
 		playerAnimations[player.UserId] = nil
 	end
+end
+
+local function getPlayerFaceControls(player)
+	if player and player.Character then
+		return player.Character:FindFirstChildWhichIsA("FaceControls", true)
+	end
+
+	return nil
 end
 
 local function getPlayerHumanoid(player)
@@ -336,12 +346,51 @@ local function onHumanoidAdded(player, humanoid)
 	end
 end
 
+local function onFaceControlsAdded(player, faceControls)
+	assert(game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C"))
+
+	-- only process local player
+	if player ~= Players.LocalPlayer then
+		return
+	end
+
+	-- return if we already registered this face controls
+	if playerFaceControls[player.UserId] ~= nil and faceControls == playerFaceControls[player.UserId] then
+		return
+	end
+
+	-- update face controls registry
+	playerFaceControls[player.UserId] = faceControls
+
+	if playerFaceControls[player.UserId] then
+		-- if FaceControls is found, enable A2C (only if mic is on)
+		if VoiceChatServiceManager and not VoiceChatServiceManager.localMuted then
+			playerTrace("FaceControls found -> enabling A2C (Mic is ON)...", player)
+			FaceAnimatorService.AudioAnimationEnabled = true
+		else
+			playerTrace("FaceControls found -> won't enable A2C (Mic is MUTED)...", player)
+		end
+	else
+		if FaceAnimatorService.AudioAnimationEnabled then
+			playerTrace("FaceControls NOT found -> disabling A2C...", player)
+			-- if FaceControls is NOT found, disable A2C
+			FaceAnimatorService.AudioAnimationEnabled = false
+		else
+			playerTrace("FaceControls NOT found -> won't disable A2C (already is disabled)...", player)
+		end
+	end
+end
+
 local function onCharacterDescendantAdded(player, descendant)
 	if descendant:IsDescendantOf(game) then
 		if descendant:IsA("Animator") then
 			onAnimatorAdded(player, descendant)
 		elseif descendant:IsA("Humanoid") then
 			onHumanoidAdded(player, descendant)
+		elseif game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") and descendant:IsA("MeshPart") and descendant.Name == "Head" then
+			onFaceControlsAdded(player, getPlayerFaceControls(player))
+		elseif game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") and descendant:IsA("FaceControls") then
+			onFaceControlsAdded(player, descendant)
 		end
 	end
 end
@@ -371,6 +420,9 @@ local function onCharacterDescendantRemoving(player, descendant)
 		if game:GetFastFlag("StopStreamTrackOnDeath") then
 			clearConnection(player, Connections.PlayerDied)
 		end
+	elseif game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C")
+		and ((descendant:IsA("MeshPart") and descendant.Name == "Head") or descendant:IsA("FaceControls")) then
+		onFaceControlsAdded(player, getPlayerFaceControls(player))
 	end
 end
 
@@ -389,6 +441,9 @@ local function onCharacterAdded(player, character)
 		onCharacterDescendantRemoving(player, descendant)
 	end)
 
+	if game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") then
+		onFaceControlsAdded(player, getPlayerFaceControls(player))
+	end
 	-- check if we have the humanoid ready to observe emotes
 	onHumanoidAdded(player, getPlayerHumanoid(player))
 	-- check if we have the animator ready to animate character
@@ -587,8 +642,15 @@ function InitializeVoiceChat()
 
 		-- Sync VoiceChat mute status with FaceAnimatorService.AudioAnimationEnabled
 		voiceChatMuteConnection = VoiceChatServiceManager.muteChanged.Event:connect(function(muted)
-			log:trace("Syncing audio processing with VoiceChat mute changed: muted="..tostring(muted))
-			FaceAnimatorService.AudioAnimationEnabled = not muted
+			if game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") then
+				local faceControls = getPlayerFaceControls(Players.LocalPlayer)
+				log:trace("Syncing audio processing with VoiceChat mute changed: muted="..tostring(muted)
+					.. " hasFaceControls="..tostring(faceControls ~= nil))
+				FaceAnimatorService.AudioAnimationEnabled = not muted and faceControls ~= nil
+			else
+				log:trace("Syncing audio processing with VoiceChat mute changed: muted="..tostring(muted))
+				FaceAnimatorService.AudioAnimationEnabled = not muted
+			end
 		end)
 
 		-- Initially set audio enable to false until VoiceChat mic is enabled
@@ -596,6 +658,11 @@ function InitializeVoiceChat()
 		if VoiceChatServiceManager.localMuted ~= nil then
 			log:trace("Syncing audio processing with VoiceChat mute status: muted="..tostring(VoiceChatServiceManager.localMuted))
 			initialAudioEnabled = not VoiceChatServiceManager.localMuted
+		end
+		if game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") then
+			local faceControls = getPlayerFaceControls(Players.LocalPlayer)
+			log:trace("Syncing audio processing with Dynamic Head status: hasFaceControls="..tostring(faceControls ~= nil))
+			initialAudioEnabled = initialAudioEnabled and faceControls ~= nil
 		end
 		FaceAnimatorService.AudioAnimationEnabled = initialAudioEnabled
 	else

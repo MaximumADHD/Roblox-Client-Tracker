@@ -18,9 +18,9 @@ local var15 = require(var11.SetCurrentRecordingDeviceId)
 local var16 = require(var11.SetCurrentRecordingDeviceOrientation)
 local var17 = var1.PureComponent:extend("PlaybackInfoUIGroup")
 function var17.init(arg1)
-   local var475 = {}
-   var475.dataValid = false
-   arg1.state = var475
+   local var165 = {}
+   var165.dataValid = false
+   arg1.state = var165
    function arg1.onPlaybackInfoChanged(arg1, arg2, arg3)
       if arg1 == "props" then
          local var0 = arg1.props
@@ -30,13 +30,13 @@ function var17.init(arg1)
          var0.SetCurrentRecordingDeviceOrientation(arg1.orientation)
          local var1 = arg1.resolution
          var0.SetCurrentRecordingResolution(Vector2.new(var1[1], var1[2]))
-         local var498 = {}
-         var498.dataValid = true
-         arg1:setState(var498)
+         local var188 = {}
+         var188.dataValid = true
+         arg1:setState(var188)
       end
-      local var502 = {}
-      var502.dataValid = false
-      arg1:setState(var502)
+      local var192 = {}
+      var192.dataValid = false
+      arg1:setState(var192)
    end
    
 end
@@ -56,66 +56,66 @@ function var17.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
    local var2 = var0.Stylizer
-   local var522 = {}
-   var522.LayoutOrder = var0.LayoutOrder
-   var522.Style = "CornerBox"
-   var522.Size = UDim2.fromOffset(var2.UIGroupWidthPx, 0)
-   var522.AutomaticSize = Enum.AutomaticSize.Y
-   var522.Layout = Enum.FillDirection.Vertical
-   var522.Spacing = UDim.new(0, var2.PaddingPx)
-   var522.Padding = var2.PaddingPx
-   var522.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var522.VerticalAlignment = Enum.VerticalAlignment.Top
-   local var538 = {}
-   local var542 = {}
-   var542.Text = var1:getText("PlaybackTabView", "RecordingInfoLabel")
-   var542.Size = UDim2.fromScale(1, 0)
-   var542.AutomaticSize = Enum.AutomaticSize.Y
-   var542.LayoutOrder = 0
-   var542.TextXAlignment = Enum.TextXAlignment.Left
-   var542.TextYAlignment = Enum.TextYAlignment.Top
-   var538.Label = var1.createElement(var5, var542)
-   local var559 = {}
-   var559.Size = UDim2.fromScale(1, 0)
-   var559.AutomaticSize = Enum.AutomaticSize.Y
-   var559.LayoutOrder = 1
-   var559.Layout = Enum.FillDirection.Vertical
-   var559.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var559.VerticalAlignment = Enum.VerticalAlignment.Top
-   local var569 = {}
-   local var573 = {}
-   var573.Label = var1:getText("PlaybackTabView", "RecordingDuration")
-   var573.Value = string.format("%.2f ", var0.CurrentRecordingDurationSec) ... var1:getText("PlaybackTabView", "SecondsUnitAbbrevation")
-   var573.LayoutOrder = 1
-   var569.RecordingDuration = var1.createElement(var7, var573)
-   local var593 = {}
-   var593.Label = var1:getText("PlaybackTabView", "RecordingNumberOfEvents")
-   var593.Value = tostring(var0.CurrentRecordingNumEvents)
-   var593.LayoutOrder = 2
-   var569.NumberOfEvents = var1.createElement(var7, var593)
-   local var606 = {}
-   var606.Label = var1:getText("PlaybackTabView", "RecordingDevice")
-   var606.Value = var8.formatDeviceName(var0.CurrentRecordingDeviceId, var1)
-   var606.LayoutOrder = 3
-   var569.RecordingDeviceId = var1.createElement(var7, var606)
-   local var621 = {}
-   var621.Label = var1:getText("PlaybackTabView", "RecordingOrientation")
-   var621.Value = var8.formatDeviceOrientation(var0.CurrentRecordingDeviceOrientation, var0.CurrentRecordingDeviceId, var1)
-   var621.LayoutOrder = 4
-   var569.RecordingOrientation = var1.createElement(var7, var621)
-   local var637 = {}
-   var637.Label = var1:getText("PlaybackTabView", "RecordingResolution")
-   var637.Value = var8.format2dResolution(var0.CurrentRecordingResolution, var1:getText("RecordTabView", "ResolutionPixelsName"))
-   var637.LayoutOrder = 5
-   var569.RecordingResolution = var1.createElement(var7, var637)
-   var538.KeyValuePairs = var1.createElement(var6, var559, var569)
-   return var1.createElement(var6, var522, var538)
+   local var212 = {}
+   var212.LayoutOrder = var0.LayoutOrder
+   var212.Style = "CornerBox"
+   var212.Size = UDim2.fromOffset(var2.UIGroupWidthPx, 0)
+   var212.AutomaticSize = Enum.AutomaticSize.Y
+   var212.Layout = Enum.FillDirection.Vertical
+   var212.Spacing = UDim.new(0, var2.PaddingPx)
+   var212.Padding = var2.PaddingPx
+   var212.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var212.VerticalAlignment = Enum.VerticalAlignment.Top
+   local var228 = {}
+   local var232 = {}
+   var232.Text = var1:getText("PlaybackTabView", "RecordingInfoLabel")
+   var232.Size = UDim2.fromScale(1, 0)
+   var232.AutomaticSize = Enum.AutomaticSize.Y
+   var232.LayoutOrder = 0
+   var232.TextXAlignment = Enum.TextXAlignment.Left
+   var232.TextYAlignment = Enum.TextYAlignment.Top
+   var228.Label = var1.createElement(var5, var232)
+   local var249 = {}
+   var249.Size = UDim2.fromScale(1, 0)
+   var249.AutomaticSize = Enum.AutomaticSize.Y
+   var249.LayoutOrder = 1
+   var249.Layout = Enum.FillDirection.Vertical
+   var249.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var249.VerticalAlignment = Enum.VerticalAlignment.Top
+   local var259 = {}
+   local var263 = {}
+   var263.Label = var1:getText("PlaybackTabView", "RecordingDuration")
+   var263.Value = string.format("%.2f ", var0.CurrentRecordingDurationSec) ... var1:getText("PlaybackTabView", "SecondsUnitAbbrevation")
+   var263.LayoutOrder = 1
+   var259.RecordingDuration = var1.createElement(var7, var263)
+   local var283 = {}
+   var283.Label = var1:getText("PlaybackTabView", "RecordingNumberOfEvents")
+   var283.Value = tostring(var0.CurrentRecordingNumEvents)
+   var283.LayoutOrder = 2
+   var259.NumberOfEvents = var1.createElement(var7, var283)
+   local var296 = {}
+   var296.Label = var1:getText("PlaybackTabView", "RecordingDevice")
+   var296.Value = var8.formatDeviceName(var0.CurrentRecordingDeviceId, var1)
+   var296.LayoutOrder = 3
+   var259.RecordingDeviceId = var1.createElement(var7, var296)
+   local var311 = {}
+   var311.Label = var1:getText("PlaybackTabView", "RecordingOrientation")
+   var311.Value = var8.formatDeviceOrientation(var0.CurrentRecordingDeviceOrientation, var0.CurrentRecordingDeviceId, var1)
+   var311.LayoutOrder = 4
+   var259.RecordingOrientation = var1.createElement(var7, var311)
+   local var327 = {}
+   var327.Label = var1:getText("PlaybackTabView", "RecordingResolution")
+   var327.Value = var8.format2dResolution(var0.CurrentRecordingResolution, var1:getText("RecordTabView", "ResolutionPixelsName"))
+   var327.LayoutOrder = 5
+   var259.RecordingResolution = var1.createElement(var7, var327)
+   var228.KeyValuePairs = var1.createElement(var6, var249, var259)
+   return var1.createElement(var6, var212, var228)
 end
 
-local var655 = {}
-var655.Stylizer = var3.Stylizer
-var655.Localization = var3.Localization
-var17 = var3.withContext(var655)(var17)
+local var345 = {}
+var345.Stylizer = var3.Stylizer
+var345.Localization = var3.Localization
+var17 = var3.withContext(var345)(var17)
 return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.CurrentRecordingDurationSec = arg1.playbackTab.currentRecordingDurationSec
@@ -135,19 +135,19 @@ end, function(arg1)
          var0.SetCurrentRecordingDeviceOrientation(arg1.orientation)
          local var1 = arg1.resolution
          var0.SetCurrentRecordingResolution(Vector2.new(var1[1], var1[2]))
-         local var697 = {}
-         var697.dataValid = true
-         arg1:setState(var697)
+         local var387 = {}
+         var387.dataValid = true
+         arg1:setState(var387)
       end
-      local var701 = {}
-      var701.dataValid = false
-      arg1:setState(var701)
+      local var391 = {}
+      var391.dataValid = false
+      arg1:setState(var391)
    end
    
    function var0.SetCurrentRecordingDeviceId(arg1)
-      local var705 = {}
-      var705.dataValid = false
-      arg1.state = var705
+      local var395 = {}
+      var395.dataValid = false
+      arg1.state = var395
       function arg1.onPlaybackInfoChanged(arg1, arg2, arg3)
          if arg1 == "props" then
             local var0 = arg1.props
@@ -157,13 +157,13 @@ end, function(arg1)
             var0.SetCurrentRecordingDeviceOrientation(arg1.orientation)
             local var1 = arg1.resolution
             var0.SetCurrentRecordingResolution(Vector2.new(var1[1], var1[2]))
-            local var728 = {}
-            var728.dataValid = true
-            arg1:setState(var728)
+            local var418 = {}
+            var418.dataValid = true
+            arg1:setState(var418)
          end
-         local var732 = {}
-         var732.dataValid = false
-         arg1:setState(var732)
+         local var422 = {}
+         var422.dataValid = false
+         arg1:setState(var422)
       end
       
    end
@@ -183,60 +183,60 @@ end, function(arg1)
       local var0 = arg1.props
       local var1 = var0.Localization
       local var2 = var0.Stylizer
-      local var752 = {}
-      var752.LayoutOrder = var0.LayoutOrder
-      var752.Style = "CornerBox"
-      var752.Size = UDim2.fromOffset(var2.UIGroupWidthPx, 0)
-      var752.AutomaticSize = Enum.AutomaticSize.Y
-      var752.Layout = Enum.FillDirection.Vertical
-      var752.Spacing = UDim.new(0, var2.PaddingPx)
-      var752.Padding = var2.PaddingPx
-      var752.HorizontalAlignment = Enum.HorizontalAlignment.Center
-      var752.VerticalAlignment = Enum.VerticalAlignment.Top
-      local var768 = {}
-      local var772 = {}
-      var772.Text = var1:getText("PlaybackTabView", "RecordingInfoLabel")
-      var772.Size = UDim2.fromScale(1, 0)
-      var772.AutomaticSize = Enum.AutomaticSize.Y
-      var772.LayoutOrder = 0
-      var772.TextXAlignment = Enum.TextXAlignment.Left
-      var772.TextYAlignment = Enum.TextYAlignment.Top
-      var768.Label = var1.createElement(var5, var772)
-      local var789 = {}
-      var789.Size = UDim2.fromScale(1, 0)
-      var789.AutomaticSize = Enum.AutomaticSize.Y
-      var789.LayoutOrder = 1
-      var789.Layout = Enum.FillDirection.Vertical
-      var789.HorizontalAlignment = Enum.HorizontalAlignment.Left
-      var789.VerticalAlignment = Enum.VerticalAlignment.Top
-      local var799 = {}
-      local var803 = {}
-      var803.Label = var1:getText("PlaybackTabView", "RecordingDuration")
-      var803.Value = string.format("%.2f ", var0.CurrentRecordingDurationSec) ... var1:getText("PlaybackTabView", "SecondsUnitAbbrevation")
-      var803.LayoutOrder = 1
-      var799.RecordingDuration = var1.createElement(var7, var803)
-      local var823 = {}
-      var823.Label = var1:getText("PlaybackTabView", "RecordingNumberOfEvents")
-      var823.Value = tostring(var0.CurrentRecordingNumEvents)
-      var823.LayoutOrder = 2
-      var799.NumberOfEvents = var1.createElement(var7, var823)
-      local var836 = {}
-      var836.Label = var1:getText("PlaybackTabView", "RecordingDevice")
-      var836.Value = var8.formatDeviceName(var0.CurrentRecordingDeviceId, var1)
-      var836.LayoutOrder = 3
-      var799.RecordingDeviceId = var1.createElement(var7, var836)
-      local var851 = {}
-      var851.Label = var1:getText("PlaybackTabView", "RecordingOrientation")
-      var851.Value = var8.formatDeviceOrientation(var0.CurrentRecordingDeviceOrientation, var0.CurrentRecordingDeviceId, var1)
-      var851.LayoutOrder = 4
-      var799.RecordingOrientation = var1.createElement(var7, var851)
-      local var867 = {}
-      var867.Label = var1:getText("PlaybackTabView", "RecordingResolution")
-      var867.Value = var8.format2dResolution(var0.CurrentRecordingResolution, var1:getText("RecordTabView", "ResolutionPixelsName"))
-      var867.LayoutOrder = 5
-      var799.RecordingResolution = var1.createElement(var7, var867)
-      var768.KeyValuePairs = var1.createElement(var6, var789, var799)
-      return var1.createElement(var6, var752, var768)
+      local var442 = {}
+      var442.LayoutOrder = var0.LayoutOrder
+      var442.Style = "CornerBox"
+      var442.Size = UDim2.fromOffset(var2.UIGroupWidthPx, 0)
+      var442.AutomaticSize = Enum.AutomaticSize.Y
+      var442.Layout = Enum.FillDirection.Vertical
+      var442.Spacing = UDim.new(0, var2.PaddingPx)
+      var442.Padding = var2.PaddingPx
+      var442.HorizontalAlignment = Enum.HorizontalAlignment.Center
+      var442.VerticalAlignment = Enum.VerticalAlignment.Top
+      local var458 = {}
+      local var462 = {}
+      var462.Text = var1:getText("PlaybackTabView", "RecordingInfoLabel")
+      var462.Size = UDim2.fromScale(1, 0)
+      var462.AutomaticSize = Enum.AutomaticSize.Y
+      var462.LayoutOrder = 0
+      var462.TextXAlignment = Enum.TextXAlignment.Left
+      var462.TextYAlignment = Enum.TextYAlignment.Top
+      var458.Label = var1.createElement(var5, var462)
+      local var479 = {}
+      var479.Size = UDim2.fromScale(1, 0)
+      var479.AutomaticSize = Enum.AutomaticSize.Y
+      var479.LayoutOrder = 1
+      var479.Layout = Enum.FillDirection.Vertical
+      var479.HorizontalAlignment = Enum.HorizontalAlignment.Left
+      var479.VerticalAlignment = Enum.VerticalAlignment.Top
+      local var489 = {}
+      local var493 = {}
+      var493.Label = var1:getText("PlaybackTabView", "RecordingDuration")
+      var493.Value = string.format("%.2f ", var0.CurrentRecordingDurationSec) ... var1:getText("PlaybackTabView", "SecondsUnitAbbrevation")
+      var493.LayoutOrder = 1
+      var489.RecordingDuration = var1.createElement(var7, var493)
+      local var513 = {}
+      var513.Label = var1:getText("PlaybackTabView", "RecordingNumberOfEvents")
+      var513.Value = tostring(var0.CurrentRecordingNumEvents)
+      var513.LayoutOrder = 2
+      var489.NumberOfEvents = var1.createElement(var7, var513)
+      local var526 = {}
+      var526.Label = var1:getText("PlaybackTabView", "RecordingDevice")
+      var526.Value = var8.formatDeviceName(var0.CurrentRecordingDeviceId, var1)
+      var526.LayoutOrder = 3
+      var489.RecordingDeviceId = var1.createElement(var7, var526)
+      local var541 = {}
+      var541.Label = var1:getText("PlaybackTabView", "RecordingOrientation")
+      var541.Value = var8.formatDeviceOrientation(var0.CurrentRecordingDeviceOrientation, var0.CurrentRecordingDeviceId, var1)
+      var541.LayoutOrder = 4
+      var489.RecordingOrientation = var1.createElement(var7, var541)
+      local var557 = {}
+      var557.Label = var1:getText("PlaybackTabView", "RecordingResolution")
+      var557.Value = var8.format2dResolution(var0.CurrentRecordingResolution, var1:getText("RecordTabView", "ResolutionPixelsName"))
+      var557.LayoutOrder = 5
+      var489.RecordingResolution = var1.createElement(var7, var557)
+      var458.KeyValuePairs = var1.createElement(var6, var479, var489)
+      return var1.createElement(var6, var442, var458)
    end
    
    return var0

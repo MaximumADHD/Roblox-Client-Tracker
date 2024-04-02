@@ -2,18 +2,19 @@
 local var0 = script.Parent.Parent.Parent
 local var1 = require(var0.Src.Types)
 local var2 = require(var0.Src.Utility.Constants)
-local var3 = {}
+local var3 = require(var0.Src.Flags.getFFlagLightGuidesAttachmentErrors)()
+local var4 = {}
 Enum.NormalId.Back = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1))
 Enum.NormalId.Front = CFrame.fromMatrix(Vector3.new(), Vector3.new(65535, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 65535))
 Enum.NormalId.Right = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 65535), Vector3.new(0, 1, 0), Vector3.new(1, 0, 0))
 Enum.NormalId.Left = CFrame.fromMatrix(Vector3.new(), Vector3.new(0, 0, 1), Vector3.new(0, 1, 0), Vector3.new(65535, 0, 0))
 Enum.NormalId.Bottom = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 0, 1), Vector3.new(0, 65535, 0))
 Enum.NormalId.Top = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 0, 65535), Vector3.new(0, 1, 0))
-local var4 = var2.THICKNESS
-local var5 = var2.TRANSPARENCY
-local var6 = {}
-var6.__index = var6
-function var6.new()
+local var5 = var2.THICKNESS
+local var6 = var2.TRANSPARENCY
+local var7 = {}
+var7.__index = var7
+function var7.new()
    local var0 = {}
    var0._adornee = nil
    var0._parent = nil
@@ -24,10 +25,10 @@ function var6.new()
    var0._handlesPresent = false
    var0._listener = nil
    var0._attachmentListener = nil
-   return setmetatable(var0, var6)
+   return setmetatable(var0, var7)
 end
 
-function var6.render(arg1)
+function var7.render(arg1)
    arg1:_setListeners()
    if not arg1:_setAncestry() then
    end
@@ -47,7 +48,7 @@ function var6.render(arg1)
    local var10 = arg1._handles.Center
    var5.Adornee = arg1._adornee
    var5.Radius = var4
-   var5.InnerRadius = var4 - var4
+   var5.InnerRadius = var4 - var5
    var5.Visible = var0
    var5.Color3 = var3
    var6.Height = var1
@@ -70,16 +71,16 @@ function var6.render(arg1)
    var10.Adornee = arg1._adornee
    var10.Visible = var0
    var10.Color3 = var3
-   local var198 = var3
-   local var199 = arg1._light
-   local var200 = var199.Face
-   var198 = var4
-   var200 = var1
-   var199 = var1 * math.cos(var2 / 2)
-   arg1:_setCFrameValues(var198[var200], var198, var200, var199, var2)
+   local var205 = var4
+   local var206 = arg1._light
+   local var207 = var206.Face
+   var205 = var4
+   var207 = var1
+   var206 = var1 * math.cos(var2 / 2)
+   arg1:_setCFrameValues(var205[var207], var205, var207, var206, var2)
 end
 
-function var6.pool(arg1)
+function var7.pool(arg1)
    assert(arg1._handlesFolder, "Wireframe already pooled")
    assert(arg1._light, "Wireframe already pooled")
    arg1._handlesFolder.Name = "pooled"
@@ -89,7 +90,7 @@ function var6.pool(arg1)
    return arg1
 end
 
-function var6.adorn(arg1, arg2)
+function var7.adorn(arg1, arg2)
    assert(arg2, "Can\'t adorn nil")
    assert(arg1._light, "Wireframe already adorned")
    arg1._light = arg2
@@ -101,18 +102,39 @@ function var6.adorn(arg1, arg2)
    return arg1
 end
 
-function var6.destroy(arg1)
+function var7.destroy(arg1)
    arg1:_removeHandles()
    arg1:_removeListeners()
    arg1._handlesFolder:Destroy()
    arg1._handlesFolder = nil
 end
 
-function var6.setGuidesFolder(arg1, arg2)
+function var7.setGuidesFolder(arg1, arg2)
    arg1._guidesFolder = arg2
 end
 
-function var6._setAncestry(arg1)
+function var7._setAncestry(arg1)
+   if var3 then
+      local var0 = arg1._light.Parent
+      if not var0 then
+         return false
+      end
+      assert(var0, "Cone Wireframe should have valid Adornee.")
+      if var0:IsA("Attachment") then
+         local var0 = arg1._light.Parent.Parent
+         local var1 = arg1._light.Parent.CFrame
+      end
+      if not arg1._light.Parent:IsA("Attachment") then
+         if not arg1._light.Parent:IsA("BasePart") then
+            arg1:_removeHandles()
+            return false
+         end
+      end
+      arg1._adornee = var0
+      arg1._offset = CFrame.new(Vector3.new())
+      arg1._parent = arg1._light.Parent
+      return true
+   end
    local var0 = arg1._light.parent
    if var0:IsA("Attachment") then
       local var0 = arg1._light.parent.parent
@@ -130,7 +152,7 @@ function var6._setAncestry(arg1)
    return true
 end
 
-function var6._setCFrameValues(arg1, arg2, arg3, arg4, arg5, arg6)
+function var7._setCFrameValues(arg1, arg2, arg3, arg4, arg5, arg6)
    if arg1._handles then
       local var0 = arg3 / 2
       local var1 = arg5 / 2
@@ -144,31 +166,31 @@ function var6._setCFrameValues(arg1, arg2, arg3, arg4, arg5, arg6)
    end
 end
 
-function var6._setHandles(arg1)
+function var7._setHandles(arg1)
    local var0 = Instance.new("CylinderHandleAdornment")
-   var0.Transparency = var5
-   var0.Height = var4
-   var0.Transparency = var5
+   var0.Transparency = var6
+   var0.Height = var5
+   var0.Transparency = var6
    var0.Parent = arg1._handlesFolder
    local var1 = Instance.new("CylinderHandleAdornment")
-   var1.Radius = var4 / 2
-   var1.Transparency = var5
+   var1.Radius = var5 / 2
+   var1.Transparency = var6
    var1.Parent = arg1._handlesFolder
    local var2 = Instance.new("CylinderHandleAdornment")
-   var2.Radius = var4 / 2
-   var2.Transparency = var5
+   var2.Radius = var5 / 2
+   var2.Transparency = var6
    var2.Parent = arg1._handlesFolder
    local var3 = Instance.new("CylinderHandleAdornment")
-   var3.Radius = var4 / 2
-   var3.Transparency = var5
+   var3.Radius = var5 / 2
+   var3.Transparency = var6
    var3.Parent = arg1._handlesFolder
    local var4 = Instance.new("CylinderHandleAdornment")
-   var4.Radius = var4 / 2
-   var4.Transparency = var5
+   var4.Radius = var5 / 2
+   var4.Transparency = var6
    var4.Parent = arg1._handlesFolder
    local var5 = Instance.new("CylinderHandleAdornment")
-   var5.Radius = var4 / 2
-   var5.Transparency = var5
+   var5.Radius = var5 / 2
+   var5.Transparency = var6
    var5.Parent = arg1._handlesFolder
    arg1._handles.Spot = var0
    arg1._handles.Left = var1
@@ -179,7 +201,7 @@ function var6._setHandles(arg1)
    arg1._handlesPresent = true
 end
 
-function var6._removeHandles(arg1)
+function var7._removeHandles(arg1)
    if arg1._handles then
       if arg1._handlesPresent then
          arg1._handles.Spot:Destroy()
@@ -193,7 +215,7 @@ function var6._removeHandles(arg1)
    end
 end
 
-function var6._setListeners(arg1)
+function var7._setListeners(arg1)
    if not arg1._listener then
       arg1._listener = arg1._light.Changed:Connect(function()
          local var0 = {}
@@ -206,7 +228,7 @@ function var6._setListeners(arg1)
          var0._handlesPresent = false
          var0._listener = nil
          var0._attachmentListener = nil
-         return setmetatable(var0, var6)
+         return setmetatable(var0, var7)
       end)
    end
    if not arg1._attachmentListener then
@@ -231,7 +253,7 @@ function var6._setListeners(arg1)
             local var10 = arg1._handles.Center
             var5.Adornee = arg1._adornee
             var5.Radius = var4
-            var5.InnerRadius = var4 - var4
+            var5.InnerRadius = var4 - var5
             var5.Visible = var0
             var5.Color3 = var3
             var6.Height = var1
@@ -254,19 +276,19 @@ function var6._setListeners(arg1)
             var10.Adornee = arg1._adornee
             var10.Visible = var0
             var10.Color3 = var3
-            local var515 = var3
-            local var516 = arg1._light
-            local var517 = var516.Face
-            var515 = var4
-            var517 = var1
-            var516 = var1 * math.cos(var2 / 2)
-            arg1:_setCFrameValues(var515[var517], var515, var517, var516, var2)
+            local var557 = var4
+            local var558 = arg1._light
+            local var559 = var558.Face
+            var557 = var4
+            var559 = var1
+            var558 = var1 * math.cos(var2 / 2)
+            arg1:_setCFrameValues(var557[var559], var557, var559, var558, var2)
          end)
       end
    end
 end
 
-function var6._removeListeners(arg1)
+function var7._removeListeners(arg1)
    if arg1._listener then
       arg1._listener:Disconnect()
    end
@@ -277,4 +299,4 @@ function var6._removeListeners(arg1)
    arg1._attachmentListener = nil
 end
 
-return var6
+return var7

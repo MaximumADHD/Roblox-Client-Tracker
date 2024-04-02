@@ -168,9 +168,13 @@ function PlayerListApp:render()
 		childElements["EventConnections"] = Roact.createElement(EventConnections)
 		childElements["ContextActionsBindings"] = Roact.createElement(ContextActionsBinder)
 		childElements["TopStatConnector"] = Roact.createElement(TopStatConnector)
-		if self.props.displayOptions.hasPermissionToVoiceChat then
-			childElements["VoiceChatShield"] = Roact.createElement(VoiceChatShield)
+
+		if not game:GetEngineFeature("XboxRemoveVoiceChatButton") then
+			if self.props.displayOptions.hasPermissionToVoiceChat then
+				childElements["VoiceChatShield"] = Roact.createElement(VoiceChatShield)
+			end
 		end
+
 		if self.props.displayOptions.isTenFootInterface then
 			childElements["TenFootSideBar"] = Roact.createElement(TenFootSideBar)
 		end

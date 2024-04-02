@@ -20,15 +20,15 @@ return function(arg1)
    end
    
    var2.contextType = "real context"
-   local var302 = {}
+   local var220 = {}
    local var3 = var0 and var1.createElement(var6, {})
-   var302.EnableTeamCreate = var3
+   var220.EnableTeamCreate = var3
    var3 = var0
    if var3 then
-      local var313 = {}
-      var313.plugin = arg1.plugin
-      local var0 = var1.createElement(var5, var313)
+      local var231 = {}
+      var231.plugin = arg1.plugin
+      local var0 = var1.createElement(var5, var231)
    end
-   var302.ActivityHistoryMain = var3
-   return var1.createElement(var4, var2, var302)
+   var220.ActivityHistoryMain = var3
+   return var1.createElement(var4, var2, var220)
 end

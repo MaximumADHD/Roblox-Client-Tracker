@@ -26,6 +26,7 @@ local GetFFlagNewUnibarIA = require(script.Parent.Parent.Flags.GetFFlagNewUnibar
 local GetFFlagEnableChromePinIntegrations = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinIntegrations)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
+local GetFFlagOpenControlsOnMenuOpen = require(script.Parent.Parent.Flags.GetFFlagOpenControlsOnMenuOpen)
 
 local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 2.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
@@ -529,7 +530,7 @@ function ChromeService:open(preventFocusCapture: boolean?)
 		self._lastDisplayedNotificationId = ""
 		self._notificationIndicator:set(nil)
 
-		if GetFFlagEnableChromeFTUX() then
+		if GetFFlagEnableChromeFTUX() or GetFFlagOpenControlsOnMenuOpen() then
 			self._lastInputToOpenMenu = if preventFocusCapture
 				then Enum.UserInputType.Touch
 				else UserInputService:GetLastInputType()

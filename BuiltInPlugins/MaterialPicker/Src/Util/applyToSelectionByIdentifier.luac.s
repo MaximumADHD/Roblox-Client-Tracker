@@ -1,0 +1,38 @@
+PROTO_0:
+  GETIMPORT R2 K2 [string.split]
+  MOVE R3 R0
+  LOADK R4 K3 ["__"]
+  CALL R2 2 1
+  NAMECALL R3 R1 K4 ["Get"]
+  CALL R3 1 1
+  LENGTH R4 R2
+  JUMPIFNOTEQKN R4 K5 [2] [+7]
+  GETUPVAL R4 0
+  MOVE R5 R3
+  GETTABLEN R6 R2 2
+  GETTABLEN R7 R2 1
+  CALL R4 3 0
+  RETURN R0 0
+  GETUPVAL R4 0
+  MOVE R5 R3
+  MOVE R6 R0
+  CALL R4 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["MaterialPicker"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["MaterialFramework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["applyToInstances"]
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  SETGLOBAL R3 K11 ["applyToSelectionByIdentifier"]
+  GETGLOBAL R3 K11 ["applyToSelectionByIdentifier"]
+  RETURN R3 1

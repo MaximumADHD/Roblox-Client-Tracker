@@ -71,62 +71,57 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K17 ["ToolboxDoNotCallInsertionEndpointForAvatarAssets"]
+  LOADK R2 K17 ["ToolboxVideoTestUseLocalAudioFile"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K18 ["ToolboxVideoTestUseLocalAudioFile"]
+  LOADK R2 K18 ["ToolboxLiveSearchDebounceWait"]
+  LOADK R3 K19 [0.25]
+  NAMECALL R0 R0 K20 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K21 ["ToolboxUGCAccessoryUploadRequest2"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K19 ["ToolboxLiveSearchDebounceWait"]
-  LOADK R3 K20 [0.25]
-  NAMECALL R0 R0 K21 ["DefineFastInt"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K22 ["ToolboxUGCAccessoryUploadRequest2"]
+  LOADK R2 K22 ["ToolboxAccessoryNameFix"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K23 ["ToolboxAccessoryNameFix"]
+  LOADK R2 K23 ["UpdateAssetUploadResultBundleConfigureLink2"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K24 ["UpdateAssetUploadResultBundleConfigureLink2"]
+  LOADK R2 K24 ["EnableUGCBundleUnknownMeshPartFiltering"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K25 ["EnableUGCBundleUnknownMeshPartFiltering"]
+  LOADK R2 K25 ["ToolboxUseToolboxServiceForGroupAnimations"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K26 ["ToolboxUseToolboxServiceForGroupAnimations"]
+  LOADK R2 K26 ["AICOChatBotFindVariationFix"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K27 ["AICOChatBotFindVariationFix"]
+  LOADK R2 K27 ["IsAssetCommentDisabled"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K28 ["IsAssetCommentDisabled"]
+  LOADK R2 K28 ["ToolboxRunTestsWithTestLoader"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K29 ["ToolboxRunTestsWithTestLoader"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K30 ["ToolboxSendPackageVersionNoteTelemetry"]
+  LOADK R2 K29 ["ToolboxSendPackageVersionNoteTelemetry"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

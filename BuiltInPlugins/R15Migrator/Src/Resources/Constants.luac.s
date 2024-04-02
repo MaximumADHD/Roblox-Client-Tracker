@@ -1,6 +1,6 @@
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 4 0
+  NEWTABLE R0 8 0
   DUPTABLE R1 K5 [{"AdapterTag", "CharacterTag", "AnimationTag", "ScriptTag", "AvatarTag"}]
   LOADK R2 K6 ["R15MigratorHasAdapter"]
   SETTABLEKS R2 R1 K0 ["AdapterTag"]
@@ -29,4 +29,12 @@ MAIN:
   LOADN R5 2
   SETTABLEKS R5 R4 K22 ["STATUS_COLUMN_INDEX"]
   SETTABLEKS R4 R0 K24 ["StatusTableData"]
+  LOADK R5 K25 ["R15Migrator"]
+  SETTABLEKS R5 R0 K26 ["CrossPluginCommunicationName"]
+  DUPTABLE R5 K29 [{"Open", "Published"}]
+  LOADK R6 K27 ["Open"]
+  SETTABLEKS R6 R5 K27 ["Open"]
+  LOADK R6 K28 ["Published"]
+  SETTABLEKS R6 R5 K28 ["Published"]
+  SETTABLEKS R5 R0 K30 ["CrossPluginCommunicationInstructions"]
   RETURN R0 1

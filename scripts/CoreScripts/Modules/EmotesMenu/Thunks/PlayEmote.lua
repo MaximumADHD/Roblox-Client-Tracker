@@ -15,9 +15,6 @@ local Actions = EmotesMenu.Actions
 local Analytics = require(EmotesMenu.Analytics)
 local Constants = require(EmotesMenu.Constants)
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 
 local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
@@ -28,9 +25,7 @@ local HideMenu = require(Actions.HideMenu)
 local HideError = require(Actions.HideError)
 local ShowError = require(Actions.ShowError)
 
-local EmotesAnalytics = Analytics.new():withEventStream(
-	if GetFFlagRemoveAppTempCommonTemp() then EventStream.new(AnalyticsService) else DEPRECATED_EventStream.new()
-)
+local EmotesAnalytics = Analytics.new():withEventStream(EventStream.new(AnalyticsService))
 
 local function handlePlayFailure(store, errorType, slotNumber, emoteAssetId)
 	if errorType then
@@ -62,7 +57,9 @@ local function PlayEmote(emoteName, slotNumber, emoteAssetId, onEmotePlay, onEmo
 		store:dispatch(HideMenu())
 
 		local humanoid = localPlayer.Character:FindFirstChildOfClass("Humanoid")
-		local playEmoteFunction = function() return humanoid:PlayEmoteAndGetAnimTrackById(emoteAssetId) end
+		local playEmoteFunction = function()
+			return humanoid:PlayEmoteAndGetAnimTrackById(emoteAssetId)
+		end
 
 		local success, didPlay, _animationTrack = pcall(playEmoteFunction)
 

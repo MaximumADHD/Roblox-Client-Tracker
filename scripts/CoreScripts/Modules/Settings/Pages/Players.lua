@@ -37,9 +37,6 @@ local reportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu
 local reportAbuseMenuNew = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
 local SocialUtil = require(RobloxGui.Modules:WaitForChild("SocialUtil"))
 local Diag = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.Diag
-local GetFFlagRemoveAppTempCommonTemp =
-    require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 local ShareGameIcons = require(ShareGameDirectory.Spritesheets.ShareGameIcons)
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
@@ -1601,9 +1598,7 @@ local function Initialize()
 				inviteToGameAnalytics = GameInviteAnalyticsManager:withButtonName(GameInviteAnalyticsManager.ButtonName.SettingsHub)
 			else
 				inviteToGameAnalytics = InviteToGameAnalytics.new()
-					:withEventStream(if GetFFlagRemoveAppTempCommonTemp()
-						then EventStream.new(AnalyticsService)
-						else DEPRECATED_EventStream.new())
+					:withEventStream(EventStream.new(AnalyticsService))
 					:withDiag(Diag.new(AnalyticsService))
 					:withButtonName(InviteToGameAnalytics.ButtonName.SettingsHub)
 			end

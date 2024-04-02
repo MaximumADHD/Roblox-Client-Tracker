@@ -1,3 +1,21 @@
+PROTO_0:
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Localization"]
+  GETTABLEKS R0 R1 K1 ["new"]
+  DUPTABLE R1 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R2 2
+  SETTABLEKS R2 R1 K2 ["stringResourceTable"]
+  GETUPVAL R2 3
+  SETTABLEKS R2 R1 K3 ["translationResourceTable"]
+  LOADK R2 K6 ["StreamingServiceDispatcherRegistry"]
+  SETTABLEKS R2 R1 K4 ["pluginName"]
+  CALL R0 1 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  RETURN R0 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -17,12 +35,18 @@ MAIN:
   GETTABLEKS R6 R7 K10 ["Resources"]
   GETTABLEKS R5 R6 K11 ["Localization"]
   GETTABLEKS R4 R5 K13 ["LocalizedStrings"]
-  GETTABLEKS R6 R2 K11 ["Localization"]
-  GETTABLEKS R5 R6 K14 ["new"]
-  DUPTABLE R6 K18 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  SETTABLEKS R3 R6 K15 ["stringResourceTable"]
-  SETTABLEKS R4 R6 K16 ["translationResourceTable"]
-  LOADK R7 K2 ["StreamingServiceDispatcherRegistry"]
-  SETTABLEKS R7 R6 K17 ["pluginName"]
-  CALL R5 1 1
+  LOADNIL R5
+  GETIMPORT R6 K15 [pcall]
+  NEWCLOSURE R7 P0
+  CAPTURE REF R5
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CALL R6 1 0
+  JUMPIF R5 [+5]
+  DUPTABLE R6 K17 [{"getText"}]
+  DUPCLOSURE R7 K18 [PROTO_1]
+  SETTABLEKS R7 R6 K16 ["getText"]
+  MOVE R5 R6
+  CLOSEUPVALS R5
   RETURN R5 1

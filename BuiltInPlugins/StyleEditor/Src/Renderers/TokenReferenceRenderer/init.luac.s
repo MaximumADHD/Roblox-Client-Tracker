@@ -23,7 +23,7 @@ PROTO_2:
   GETUPVAL R2 2
   GETUPVAL R5 3
   GETTABLEKS R4 R5 K1 ["Schema"]
-  GETTABLEKS R3 R4 K2 ["ExpectedType"]
+  GETTABLEKS R3 R4 K2 ["ExpectedTypes"]
   CALL R0 3 2
   LOADNIL R2
   GETUPVAL R4 4
@@ -37,7 +37,7 @@ PROTO_2:
   GETUPVAL R5 2
   CALL R3 2 1
   MOVE R2 R3
-  DUPTABLE R3 K10 [{"Name", "Value", "Error", "Source", "ExpectedType"}]
+  DUPTABLE R3 K10 [{"Name", "Value", "Error", "Source", "ExpectedTypes"}]
   GETUPVAL R4 2
   SETTABLEKS R4 R3 K6 ["Name"]
   SETTABLEKS R0 R3 K7 ["Value"]
@@ -45,8 +45,8 @@ PROTO_2:
   SETTABLEKS R2 R3 K9 ["Source"]
   GETUPVAL R6 3
   GETTABLEKS R5 R6 K1 ["Schema"]
-  GETTABLEKS R4 R5 K2 ["ExpectedType"]
-  SETTABLEKS R4 R3 K2 ["ExpectedType"]
+  GETTABLEKS R4 R5 K2 ["ExpectedTypes"]
+  SETTABLEKS R4 R3 K2 ["ExpectedTypes"]
   RETURN R3 1
 
 PROTO_3:
@@ -112,7 +112,7 @@ PROTO_7:
   MOVE R6 R3
   GETUPVAL R9 4
   GETTABLEKS R8 R9 K4 ["Schema"]
-  GETTABLEKS R7 R8 K5 ["ExpectedType"]
+  GETTABLEKS R7 R8 K5 ["ExpectedTypes"]
   CALL R4 3 2
   GETUPVAL R7 5
   GETTABLEKS R6 R7 K6 ["None"]
@@ -129,15 +129,15 @@ PROTO_7:
   DUPTABLE R7 K12 [{"Id", "Value", "TokenInfo"}]
   SETTABLEKS R3 R7 K9 ["Id"]
   SETTABLEKS R3 R7 K10 ["Value"]
-  DUPTABLE R8 K16 [{"Name", "Value", "Error", "Source", "ExpectedType"}]
+  DUPTABLE R8 K16 [{"Name", "Value", "Error", "Source", "ExpectedTypes"}]
   SETTABLEKS R3 R8 K13 ["Name"]
   SETTABLEKS R4 R8 K10 ["Value"]
   SETTABLEKS R5 R8 K14 ["Error"]
   SETTABLEKS R6 R8 K15 ["Source"]
   GETUPVAL R11 4
   GETTABLEKS R10 R11 K4 ["Schema"]
-  GETTABLEKS R9 R10 K5 ["ExpectedType"]
-  SETTABLEKS R9 R8 K5 ["ExpectedType"]
+  GETTABLEKS R9 R10 K5 ["ExpectedTypes"]
+  SETTABLEKS R9 R8 K5 ["ExpectedTypes"]
   SETTABLEKS R8 R7 K11 ["TokenInfo"]
   RETURN R7 1
 
@@ -215,7 +215,7 @@ PROTO_9:
   GETTABLEKS R11 R0 K1 ["Schema"]
   GETTABLEKS R10 R11 K2 ["Instance"]
   GETTABLEKS R12 R0 K1 ["Schema"]
-  GETTABLEKS R11 R12 K3 ["ExpectedType"]
+  GETTABLEKS R11 R12 K3 ["ExpectedTypes"]
   MOVE R12 R4
   SETLIST R8 R9 4 [1]
   CALL R6 2 1
@@ -254,7 +254,7 @@ PROTO_9:
   NEWTABLE R12 0 2
   GETTABLEKS R13 R0 K1 ["Schema"]
   GETTABLEKS R15 R0 K1 ["Schema"]
-  GETTABLEKS R14 R15 K3 ["ExpectedType"]
+  GETTABLEKS R14 R15 K3 ["ExpectedTypes"]
   SETLIST R12 R13 2 [1]
   CALL R10 2 1
   GETTABLEKS R12 R6 K4 ["Error"]

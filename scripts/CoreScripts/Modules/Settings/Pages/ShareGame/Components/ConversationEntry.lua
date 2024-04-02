@@ -14,9 +14,6 @@ local ShareGame = Modules.Settings.Pages.ShareGame
 local ConversationDetails = require(ShareGame.Components.ConversationDetails)
 local ConversationThumbnail = require(ShareGame.Components.ConversationThumbnail)
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 
 local InviteButton = require(ShareGame.Components.InviteButton)
@@ -35,9 +32,7 @@ local CONTENTS_PADDING = 12
 local ConversationEntry = Roact.PureComponent:extend("ConversationEntry")
 
 function ConversationEntry:init()
-	self.eventStream = if GetFFlagRemoveAppTempCommonTemp()
-		then EventStream.new(AnalyticsService)
-		else DEPRECATED_EventStream.new()
+	self.eventStream = EventStream.new(AnalyticsService)
 
 	self.onInvite = function()
 		local inviteStatus = self.props.inviteStatus

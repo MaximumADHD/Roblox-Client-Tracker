@@ -18,4 +18,9 @@ local var4 = {}
 var4.TEXT_COLUMN_INDEX = 1
 var4.STATUS_COLUMN_INDEX = 2
 var0.StatusTableData = var4
+var0.CrossPluginCommunicationName = "R15Migrator"
+local var5 = {}
+var5.Open = "Open"
+var5.Published = "Published"
+var0.CrossPluginCommunicationInstructions = var5
 return var0

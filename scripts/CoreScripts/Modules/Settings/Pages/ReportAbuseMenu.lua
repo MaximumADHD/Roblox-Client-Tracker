@@ -80,6 +80,7 @@ local GetFFlagRAScreenshotOncePerMenuOpenEnabled =
 	require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagRAScreenshotOncePerMenuOpenEnabled)
 local GetFFlagEnableOptionalScreenshotButton2 = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagEnableOptionalScreenshotButton2)
 local GetFFlagShrinkReportMenuForVisibility = require(RobloxGui.Modules.TrustAndSafety.Flags.GetFFlagShrinkReportMenuForVisibility)
+local GetFFlagOpenControlsOnMenuOpen = require(RobloxGui.Modules.Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 game:DefineFastFlag("ReportAbuseExtraAnalytics", false)
 
@@ -1576,7 +1577,11 @@ do
 
 		if kickOffScreenshot then
 			PageInstance.isHidingForARScreenshot = true
-			PageInstance.HubRef:SetVisibility(false, true)
+			if GetFFlagOpenControlsOnMenuOpen() then
+				PageInstance.HubRef:SetVisibility(false, true, nil, nil, nil, true)
+			else
+				PageInstance.HubRef:SetVisibility(false, true)
+			end
 
 			AbuseReportBuilder.clear()
 

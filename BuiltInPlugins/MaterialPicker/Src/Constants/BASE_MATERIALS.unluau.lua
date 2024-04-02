@@ -1,13 +1,21 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = game:GetFastFlag("MSPhase02")
 return table.freeze(function()
-   local var0 = Enum.Material:GetEnumItems()
-   table.sort(var0, function(arg1, arg2)
+   table.sort(Enum.Material:GetEnumItems(), function(arg1, arg2)
       if arg2.Name > arg1.Name then
          local var0 = false
       end
       return true
    end)
-   table.remove(var0, table.find(var0, Enum.Material.Air))
-   table.remove(var0, table.find(var0, Enum.Material.Water))
-   return var0
+   local var15 = nil
+   if var0 then
+      local var0 = Enum.Material.Water
+      var15 = { Enum.Material.Air }
+   else
+      local var0 = Enum.Material.Rubber
+      var15 = { Enum.Material.Air, Enum.Material.Water, Enum.Material.Cardboard, Enum.Material.Carpet, Enum.Material.CeramicTiles, Enum.Material.ClayRoofTiles, Enum.Material.Leather, Enum.Material.Plaster, Enum.Material.RoofShingles }
+   end
+   local var0 = ipairs(var32)
+   table.remove(var39, table.find(var35, var36))
+   return 
 end())

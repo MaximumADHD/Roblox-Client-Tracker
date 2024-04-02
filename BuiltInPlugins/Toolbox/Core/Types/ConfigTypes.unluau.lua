@@ -35,22 +35,22 @@ var11.name = var1.SIDE_TABS.Override
 local var12 = {}
 var12.name = var1.SIDE_TABS.Permissions
 var12.image = var3.PERMISSIONS_SIDE_TAB
-local var172 = {}
-var172.User = 1
-var172.Group = 2
-var4.OWNER_TYPES = var172
+local var168 = {}
+var168.User = 1
+var168.Group = 2
+var4.OWNER_TYPES = var168
 function var4.getAssetconfigContent(arg1, arg2, arg3, arg4, arg5)
    local var0 = {}
-   local var181 = var8
+   local var177 = var8
    if arg4 then
       if arg5 then
          var0 + 1 = var12
       end
    end
    if arg3 == "keys" then
-      local var186 = var2
-      var186 = arg2
-      if var186.queryParam(var186, arg3, var2.keys.SHOW_VERSIONS_TAB) then
+      local var182 = var2
+      var182 = arg2
+      if var182.queryParam(var182, arg3, var2.keys.SHOW_VERSIONS_TAB) then
          var0 + 1 = var9
       end
    end
@@ -59,9 +59,9 @@ function var4.getAssetconfigContent(arg1, arg2, arg3, arg4, arg5)
          return var0
       end
    end
-   local var200 = var2
-   var200 = arg2
-   if var200.queryParam(var200, arg3, var2.keys.SHOW_SALES_TAB) then
+   local var196 = var2
+   var196 = arg2
+   if var196.queryParam(var196, arg3, var2.keys.SHOW_SALES_TAB) then
       var0 + 1 = var10
    end
    return var0

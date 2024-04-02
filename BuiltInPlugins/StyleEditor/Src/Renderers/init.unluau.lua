@@ -8,6 +8,7 @@ var0.FontFamily = require(script.FontRenderers.FontFamilyRenderer)
 var0.FontStyle = require(script.FontRenderers.FontStyleRenderer)
 var0.FontWeight = require(script.FontRenderers.FontWeightRenderer)
 var0.NumberSequence = require(script.SequenceRenderers.NumberSequenceRenderer)
+var0.PropertyName = require(script.PropertyNameRenderer)
 var0.Theme = require(script.BreadcrumbRadioRenderer)
 var0.TokenReference = require(script.TokenReferenceRenderer)
 return var0

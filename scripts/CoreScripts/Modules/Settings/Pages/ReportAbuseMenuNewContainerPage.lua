@@ -8,6 +8,7 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 
 local AbuseReportMenu = require(CorePackages.Workspace.Packages.AbuseReportMenu).AbuseReportMenu
 local ReportAbuseAnalytics = require(CorePackages.Workspace.Packages.AbuseReportMenu).ReportAbuseAnalytics
+local GetFFlagOpenControlsOnMenuOpen = require(RobloxGui.Modules.Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -51,8 +52,12 @@ local function Initialize()
 		this.HubRef.ReportSentPageV2:ShowReportedPlayer(reportedPlayer, true)
 	end
 
-	function this:HideMenu()
-		this.HubRef:SetVisibility(false, true)
+	function this:HideMenu(takingScreenshot)
+		if GetFFlagOpenControlsOnMenuOpen() then
+			this.HubRef:SetVisibility(false, true, nil, nil, nil, takingScreenshot)
+		else
+			this.HubRef:SetVisibility(false, true)
+		end
 	end
 
 	function this:ShowMenu()
@@ -100,7 +105,11 @@ local function Initialize()
 
 	local abuseReportMenu = Roact.createElement(AbuseReportMenu, {
 		hideReportTab = function()
-			this:HideMenu()
+			if GetFFlagOpenControlsOnMenuOpen() then 
+				this:HideMenu(true) 
+			else 
+				this:HideMenu() 
+			end
 		end,
 		showReportTab = function()
 			this:ShowMenu()

@@ -8,7 +8,7 @@ local var5 = require(var0.Src.Types)
 local var6 = require(var0.Src.Thunks.Types)
 return function(arg1, arg2)
    return function(arg1)
-      local var0 = var4(arg1, arg2)
+      local var0 = var4(arg1, arg2, true)
       var3:dispatch()
    end
 end

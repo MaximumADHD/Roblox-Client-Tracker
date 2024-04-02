@@ -217,7 +217,7 @@ local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
 local FFlagUserShowGuiHideToggles = game:DefineFastFlag("UserShowGuiHideToggles", false)
-local FFlagFeedbackEntryPointButtonSizeAdjustment = game:DefineFastFlag("FeedbackEntryPointButtonSizeAdjustment", false)
+local FFlagFeedbackEntryPointButtonSizeAdjustment = game:DefineFastFlag("FeedbackEntryPointButtonSizeAdjustment2", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -1764,6 +1764,11 @@ local function Initialize()
 
 		local function rolesCheckCallback(enableFeedbackUI)
 			if enableFeedbackUI then
+				-- Either the engine feature is off and so we do the default behavior of always executing the below code, or feedback entry point is enabled and we want to enter it on click
+				if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") and not this.FeedbackEntryPointEnabled then
+					return
+				end
+
 				local function onToggleFeedbackMode()
 					this.HubRef:PopMenu(false, true);
 					if ExperienceStateCaptureService ~= nil then
@@ -1773,9 +1778,11 @@ local function Initialize()
 				end
 
 				local toggleFeedbackModeButton, toggleFeedbackModeText = nil, nil
-				if FFlagFeedbackEntryPointButtonSizeAdjustment and isDesktopClient then
-					toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton("toggleFeedbackModeButton", "Give Feedback", UDim2.new(0, 465, 1, -20), onToggleFeedbackMode, this)
-					toggleFeedbackModeButton.Position = UDim2.new(1, -465, 0, 10)
+				if FFlagFeedbackEntryPointButtonSizeAdjustment then
+					toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton("toggleFeedbackModeButton", "Give Feedback", UDim2.new(1, 0, 1, -20), onToggleFeedbackMode, this)
+					-- Adjust size and position of button relative to frame for use in utility:AddNewRowObject
+					toggleFeedbackModeButton.Size = UDim2.new(0.6, 0, 1, -20)
+					toggleFeedbackModeButton.Position = UDim2.new(0.4, 0, 0, 12)
 				else
 					toggleFeedbackModeButton, toggleFeedbackModeText = utility:MakeStyledButton("toggleFeedbackModeButton", "Give Feedback", UDim2.new(0, 300, 1, -20), onToggleFeedbackMode, this)
 					toggleFeedbackModeButton.Position = UDim2.new(1, -400, 0, 12)
@@ -1785,8 +1792,20 @@ local function Initialize()
 				toggleFeedbackModeButton.Selectable = true
 				toggleFeedbackModeText.ZIndex = 2
 
-				local row = utility:AddNewRowObject(this, "Give Translation Feedback", toggleFeedbackModeButton)
-				row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["FeedbackModeButton"]
+				-- other rows are set to "this", update alongside engine feature so that we can update the row from openSettingsPage
+				if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") then
+					this.toggleFeedbackModeButton = toggleFeedbackModeButton
+					this.toggleFeedbackModeText = toggleFeedbackModeText
+				end
+
+				if FFlagFeedbackEntryPointButtonSizeAdjustment then
+					-- Nil for spacing param, and true for final param enables automatic sizing of the label, see Utility.lua for implementation
+					local row = utility:AddNewRowObject(this, "Give Translation Feedback", toggleFeedbackModeButton, nil, true)
+					row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["FeedbackModeButton"]
+				else
+					local row = utility:AddNewRowObject(this, "Give Translation Feedback", toggleFeedbackModeButton)
+					row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["FeedbackModeButton"]
+				end
 			end
 		end
 
@@ -3280,6 +3299,10 @@ local function Initialize()
 
 	this.PageOpen = false
 
+	if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") then
+		this.FeedbackEntryPointEnabled = true
+	end
+
 	this.OpenSettingsPage = function()
 		this.PageOpen = true
 		
@@ -3297,6 +3320,26 @@ local function Initialize()
 		end
 
 		updateUiToggleSelection()
+
+		-- On settings page open, double check the capture service to see if feedback mode should be enterable
+		if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") then
+			this.FeedbackEntryPointEnabled = ExperienceStateCaptureService ~= nil and ExperienceStateCaptureService:CanEnterCaptureMode()
+			if not this.toggleFeedbackModeButton then
+				createFeedbackModeOptions()
+			else
+				if this.FeedbackEntryPointEnabled then
+					-- Matches with adjustbutton in settings menu for consistency
+					this.toggleFeedbackModeButton.Active = true
+					this.toggleFeedbackModeButton.Enabled.Value = true
+					this.toggleFeedbackModeText.Text = "Give Feedback"
+				else
+					this.toggleFeedbackModeButton.Active = false
+					this.toggleFeedbackModeButton.Enabled.Value = false
+					this.toggleFeedbackModeText.TextColor3 = Theme.color("ButtonNonInteractable", Color3.fromRGB(100, 100, 100))
+					this.toggleFeedbackModeText.Text = "Unavailable"
+				end
+			end
+		end
 	end
 
 	this.CloseSettingsPage = function()

@@ -2,7 +2,6 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
-local AppTempCommon = CorePackages.AppTempCommon
 
 local SocialLibraries = require(CorePackages.Packages.LuaSocialLibrariesDeps).SocialLibraries.config({})
 local sortFriendsByCorrectedPresenceAndRank = SocialLibraries.User.sortFriendsByCorrectedPresenceAndRank
@@ -40,11 +39,7 @@ local GetFFlagEnableNewInviteSendEndpoint = require(Modules.Flags.GetFFlagEnable
 
 local User = require(CorePackages.Workspace.Packages.UserLib).Models.UserModel
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local httpRequest = if GetFFlagRemoveAppTempCommonTemp()
-	then require(Modules.Common.httpRequest)
-	else require(AppTempCommon.Temp.httpRequest)
+local httpRequest = require(Modules.Common.httpRequest)
 
 local memoize = require(CorePackages.Workspace.Packages.AppCommonLib).memoize
 

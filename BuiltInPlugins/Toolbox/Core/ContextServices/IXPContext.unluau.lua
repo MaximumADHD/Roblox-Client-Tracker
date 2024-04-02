@@ -52,7 +52,15 @@ function var5.getVariables(arg1)
    if not arg1:isReady() then
       return {}
    end
-   return var4.Dictionary.join(arg1.IXPService:GetUserLayerVariables("CreatorMarketplace"), arg1.IXPService:GetUserLayerVariables("StudioMarketplace"), arg1.IXPService:GetUserLayerVariables("Studio.Toolbox.Usage"), arg1.IXPService:GetUserLayerVariables("CreatorContent.Music.Studio"))
+   return var4.Dictionary.join(arg1.IXPService:GetUserLayerVariables("CreatorMarketplace"), arg1.IXPService:GetUserLayerVariables("StudioMarketplace"), arg1.IXPService:GetUserLayerVariables("Studio.Toolbox.Usage"), arg1.IXPService:GetUserLayerVariables("CreatorContent.Music.Studio"), arg1.IXPService:GetUserLayerVariables("Studio.Toolbox.AssetQuality.Exposure"))
+end
+
+function var5.logUserLayerExposure(arg1, arg2)
+   if arg1:isReady() then
+      pcall(function()
+         return Enum.IXPLoadingStatus.Initialized
+      end)
+   end
 end
 
 return var5

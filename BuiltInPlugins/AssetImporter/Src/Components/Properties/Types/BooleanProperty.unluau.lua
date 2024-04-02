@@ -3,9 +3,9 @@ local var0 = script.Parent.Parent.Parent.Parent.Parent
 local var1 = require(var0.Packages.Roact)
 local var2 = require(var0.Packages.Framework).UI.Checkbox
 return function(arg1)
-   local var293 = {}
-   var293.OnClick = arg1.OnToggleItem
-   var293.LayoutOrder = arg1.LayoutOrder
-   var293.Checked = arg1.Value
-   return var1.createElement(var2, var293)
+   local var288 = {}
+   var288.OnClick = arg1.OnToggleItem
+   var288.LayoutOrder = arg1.LayoutOrder
+   var288.Checked = arg1.Value
+   return var1.createElement(var2, var288)
 end

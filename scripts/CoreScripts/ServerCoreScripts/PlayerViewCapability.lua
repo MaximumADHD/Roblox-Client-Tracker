@@ -31,39 +31,41 @@ if GetFFlagPlayerViewRemoteEnabled() then
 	ReplicateDeviceCameraCFrameRemoteEvent.Parent = RobloxReplicatedStorage
 
 	local requests = {}
-	local validUserIds = {}
 
 	if GetFFlagPlayerViewValidateRequesteeEnabled() then
-		Players.PlayerAdded:Connect(function(player)
-			validUserIds[tostring(player.UserId)] = true
-		end)
-
-		for _, player in pairs(Players:GetPlayers()) do
-			validUserIds[tostring(player.UserId)] = true
-		end
-
 		Players.PlayerRemoving:Connect(function(player)
 			local userId = tostring(player.UserId)
-			validUserIds[userId] = nil
 			requests[userId] = nil
 		end)
 	end
 
 	RequestDeviceCameraCFrameRemoteEvent.OnServerEvent:Connect(function(player, requesteeUserId)
-		local requesteeUserIdStr = tostring(requesteeUserId)
+		if GetFFlagPlayerViewValidateRequesteeEnabled() then
+			local requestee = Players:GetPlayerByUserId(requesteeUserId)
+			if not requestee then
+				return
+			end
 
-		if GetFFlagPlayerViewValidateRequesteeEnabled() and validUserIds[requesteeUserIdStr] == nil then
-			return
-		end
+			local requesteeUserIdStr = tostring(requesteeUserId)
 
-		if not requests[requesteeUserIdStr] then
-			requests[requesteeUserIdStr] = {}
-		end
+			if not requests[requesteeUserIdStr] then
+				requests[requesteeUserIdStr] = {}
+			end
 
-		requests[requesteeUserIdStr][tostring(player.UserId)] = os.clock()
-		local requestee = Players:GetPlayerByUserId(requesteeUserId)
-		if requestee then
+			requests[requesteeUserIdStr][tostring(player.UserId)] = os.clock()
 			RequestDeviceCameraCFrameRemoteEvent:FireClient(requestee)
+		else
+			local requesteeUserIdStr = tostring(requesteeUserId)
+
+			if not requests[requesteeUserIdStr] then
+				requests[requesteeUserIdStr] = {}
+			end
+
+			requests[requesteeUserIdStr][tostring(player.UserId)] = os.clock()
+			local requestee = Players:GetPlayerByUserId(requesteeUserId)
+			if requestee then
+				RequestDeviceCameraCFrameRemoteEvent:FireClient(requestee)
+			end
 		end
 	end)
 

@@ -10,18 +10,13 @@ local Actions = EmotesMenu.Actions
 
 local CoreScriptModules = EmotesMenu.Parent
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 
 local Analytics = require(EmotesMenu.Analytics)
 local Backpack = require(CoreScriptModules.BackpackScript)
 local ShowMenu = require(Actions.ShowMenu)
 
-local EmotesAnalytics = Analytics.new():withEventStream(
-	if GetFFlagRemoveAppTempCommonTemp() then EventStream.new(AnalyticsService) else DEPRECATED_EventStream.new()
-)
+local EmotesAnalytics = Analytics.new():withEventStream(EventStream.new(AnalyticsService))
 
 local function OpenMenu(emoteName)
 	return function(store)

@@ -2,7 +2,6 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
-local AppTempCommon = CorePackages.AppTempCommon
 local Modules = CoreGui.RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
@@ -11,9 +10,6 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local DEPRECATED_EventStream = require(AppTempCommon.Temp.EventStream)
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 
 local LayoutProvider = require(ShareGame.Components.LayoutProvider)
@@ -44,9 +40,7 @@ function ShareGameApp:render()
 end
 
 function ShareGameApp:didMount()
-	self.eventStream = if GetFFlagRemoveAppTempCommonTemp()
-		then EventStream.new(RbxAnalyticsService) :: any
-		else DEPRECATED_EventStream.new() :: any
+	self.eventStream = EventStream.new(RbxAnalyticsService) :: any
 end
 
 function ShareGameApp:willUnmount()

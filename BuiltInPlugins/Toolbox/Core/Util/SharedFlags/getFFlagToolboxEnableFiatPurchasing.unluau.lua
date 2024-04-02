@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("ToolboxEnableFiatPurchasing2", false)
+game:DefineFastFlag("ToolboxEnableFiatPurchasing3", false)
 return function()
-   return game:GetFastFlag("ToolboxEnableFiatPurchasing2")
+   return game:GetFastFlag("ToolboxEnableFiatPurchasing3")
 end

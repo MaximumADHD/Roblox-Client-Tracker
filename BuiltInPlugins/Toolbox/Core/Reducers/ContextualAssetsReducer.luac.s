@@ -50,25 +50,35 @@ MAIN:
   GETTABLEKS R8 R9 K11 ["Actions"]
   GETTABLEKS R7 R8 K13 ["SetContextualRecommendationsPollingFrequency"]
   CALL R6 1 1
-  DUPTABLE R7 K17 [{"assetsInCameraViewport", "assetsInCameraVicinity", "contextualRecommendationsPollingFrequencyInSeconds"}]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K14 ["assetsInCameraViewport"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K15 ["assetsInCameraVicinity"]
-  GETTABLEKS R8 R4 K18 ["CONTEXTUAL_RECOMMENDATIONS_POLLING_FREQUENCY_DEFAULT"]
-  SETTABLEKS R8 R7 K16 ["contextualRecommendationsPollingFrequencyInSeconds"]
-  GETTABLEKS R8 R3 K19 ["createReducer"]
-  NEWTABLE R9 0 1
-  MOVE R10 R7
-  SETLIST R9 R10 1 [1]
-  NEWTABLE R10 2 0
-  GETTABLEKS R11 R5 K20 ["name"]
-  DUPCLOSURE R12 K21 [PROTO_0]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Core"]
+  GETTABLEKS R9 R10 K14 ["Flags"]
+  GETTABLEKS R8 R9 K15 ["getFFlagToolboxFixContextualRecommendationsDefaultState"]
+  CALL R7 1 1
+  DUPTABLE R8 K19 [{"assetsInCameraViewport", "assetsInCameraVicinity", "contextualRecommendationsPollingFrequencyInSeconds"}]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K16 ["assetsInCameraViewport"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K17 ["assetsInCameraVicinity"]
+  GETTABLEKS R9 R4 K20 ["CONTEXTUAL_RECOMMENDATIONS_POLLING_FREQUENCY_DEFAULT"]
+  SETTABLEKS R9 R8 K18 ["contextualRecommendationsPollingFrequencyInSeconds"]
+  GETTABLEKS R9 R3 K21 ["createReducer"]
+  MOVE R11 R7
+  CALL R11 0 1
+  JUMPIFNOT R11 [+2]
+  MOVE R10 R8
+  JUMP [+5]
+  NEWTABLE R10 0 1
+  MOVE R11 R8
+  SETLIST R10 R11 1 [1]
+  NEWTABLE R11 2 0
+  GETTABLEKS R12 R5 K22 ["name"]
+  DUPCLOSURE R13 K23 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLE R12 R10 R11
-  GETTABLEKS R11 R6 K20 ["name"]
-  DUPCLOSURE R12 K22 [PROTO_1]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R6 K22 ["name"]
+  DUPCLOSURE R13 K24 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLE R12 R10 R11
-  CALL R8 2 -1
-  RETURN R8 -1
+  SETTABLE R13 R11 R12
+  CALL R9 2 -1
+  RETURN R9 -1

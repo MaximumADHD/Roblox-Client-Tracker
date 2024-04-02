@@ -25,6 +25,8 @@ local useStyle = UIBlox.Core.Style.useStyle
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
 local TooltipOrientation = UIBlox.App.Dialog.Enum.TooltipOrientation
 local ControlState = UIBlox.Core.Control.Enum.ControlState
+local Images = UIBlox.App.ImageSet.Images
+local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local CameraStatusIcon = require(script.Parent.CameraStatusIcon)
 local CameraStatusDot = require(script.Parent.CameraStatusDot)
@@ -39,6 +41,7 @@ local Constants = require(script.Parent.Parent.Parent.Chrome.Unibar.Constants)
 local ChromeService = require(script.Parent.Parent.Parent.Chrome.Service)
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
+local GetFFlagSelfieViewPreviewShrinkIcon = require(SelfieViewModule.Flags.GetFFlagSelfieViewPreviewShrinkIcon)
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -52,6 +55,8 @@ local UNFOCUS_DELAY_MS: number = 2000
 -- cause the tooltip to show when the icon is hidden
 local HIDE_TOOLTIP_DELAY_MS = 2000
 
+local CLOSE_ICON = Images["icons/actions/previewShrink"]
+local CLOSE_BUTTON_HOVER_PADDING = 2
 local CLOSE_BUTTON_PADDING = 4
 local CLOSE_BUTTON_POSITION = UDim2.fromOffset(14, 14)
 local CLOSE_BUTTON_HOVER = Constants.CLOSE_BUTTON_SIZE
@@ -227,6 +232,14 @@ local function Window(props: WindowProps): React.ReactNode
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			}),
+			CloseButtonPadding = if GetFFlagSelfieViewPreviewShrinkIcon()
+				then React.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, CLOSE_BUTTON_PADDING),
+					PaddingLeft = UDim.new(0, CLOSE_BUTTON_PADDING),
+					PaddingRight = UDim.new(0, CLOSE_BUTTON_PADDING),
+					PaddingBottom = UDim.new(0, CLOSE_BUTTON_PADDING),
+				})
+				else nil,
 			CloseButtonInteractable = React.createElement(Interactable, {
 				Size = Constants.CLOSE_BUTTON_FRAME,
 				BackgroundTransparency = 1,
@@ -235,34 +248,49 @@ local function Window(props: WindowProps): React.ReactNode
 					ChromeService:toggleWindow(id)
 				end,
 			}, {
-				Fragment = React.createElement(React.Fragment, nil, {
-					React.createElement("Frame", {
-						Name = "X1",
-						Position = CLOSE_BUTTON_POSITION,
-						AnchorPoint = Vector2.new(0.5, 0),
-						Size = UDim2.new(0, 16, 0, 2),
-						BorderSizePixel = 0,
-						BackgroundColor3 = style.Theme.IconEmphasis.Color,
-						BackgroundTransparency = 0,
-						Rotation = 45,
-					}, {
-						Corner = React.createElement("UICorner"),
-					}) :: any,
-					React.createElement("Frame", {
-						Name = "X2",
-						Position = CLOSE_BUTTON_POSITION,
-						AnchorPoint = Vector2.new(0.5, 0),
-						Size = UDim2.new(0, 16, 0, 2),
-						BorderSizePixel = 0,
-						BackgroundColor3 = style.Theme.IconEmphasis.Color,
-						BackgroundTransparency = 0,
-						Rotation = -45,
-					}, {
-						Corner = React.createElement("UICorner"),
-					}) :: any,
-				}),
+				CloseImage = if GetFFlagSelfieViewPreviewShrinkIcon()
+					then React.createElement(ImageSetLabel, {
+						BackgroundTransparency = 1,
+						Size = UDim2.fromOffset(ICON_SIZE, ICON_SIZE),
+						Position = UDim2.fromOffset(CLOSE_BUTTON_HOVER_PADDING, CLOSE_BUTTON_HOVER_PADDING),
+						Image = CLOSE_ICON,
+						ImageColor3 = theme.TextEmphasis.Color,
+						ImageTransparency = theme.TextEmphasis.Transparency,
+					})
+					else nil,
+				Fragment = if not GetFFlagSelfieViewPreviewShrinkIcon()
+					then React.createElement(React.Fragment, nil, {
+						React.createElement("Frame", {
+							Name = "X1",
+							Position = CLOSE_BUTTON_POSITION,
+							AnchorPoint = Vector2.new(0.5, 0),
+							Size = UDim2.new(0, 16, 0, 2),
+							BorderSizePixel = 0,
+							BackgroundColor3 = style.Theme.IconEmphasis.Color,
+							BackgroundTransparency = 0,
+							Rotation = 45,
+						}, {
+							Corner = React.createElement("UICorner"),
+						}) :: any,
+						React.createElement("Frame", {
+							Name = "X2",
+							Position = CLOSE_BUTTON_POSITION,
+							AnchorPoint = Vector2.new(0.5, 0),
+							Size = UDim2.new(0, 16, 0, 2),
+							BorderSizePixel = 0,
+							BackgroundColor3 = style.Theme.IconEmphasis.Color,
+							BackgroundTransparency = 0,
+							Rotation = -45,
+						}, {
+							Corner = React.createElement("UICorner"),
+						}) :: any,
+					})
+					else nil,
 				Hover = React.createElement("Frame", {
 					Size = CLOSE_BUTTON_HOVER,
+					Position = if GetFFlagSelfieViewPreviewShrinkIcon()
+						then UDim2.fromOffset(CLOSE_BUTTON_HOVER_PADDING / 2, CLOSE_BUTTON_HOVER_PADDING / 2)
+						else nil,
 					Visible = closeButtonHover,
 					BackgroundTransparency = style.Theme.BackgroundOnHover.Transparency,
 					BackgroundColor3 = style.Theme.BackgroundOnHover.Color,

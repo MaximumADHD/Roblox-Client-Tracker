@@ -7,12 +7,8 @@ local GamesMultigetPlaceDetails =
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local httpRequest: any = if GetFFlagRemoveAppTempCommonTemp()
-	then require(RobloxGui.Modules.Common.httpRequest)
-	else require(CorePackages.AppTempCommon.Temp.httpRequest)
 
+local httpRequest: any = require(RobloxGui.Modules.Common.httpRequest)
 local httpImpl = httpRequest(HttpRbxApiService :: any)
 
 return function()

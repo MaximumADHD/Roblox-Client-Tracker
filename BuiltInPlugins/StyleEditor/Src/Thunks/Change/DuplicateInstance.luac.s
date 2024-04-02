@@ -1,30 +1,47 @@
 PROTO_0:
-  GETUPVAL R0 0
+  GETUPVAL R0 1
   NAMECALL R0 R0 K0 ["Clone"]
   CALL R0 1 1
-  GETUPVAL R1 1
+  SETUPVAL R0 0
+  GETUPVAL R0 0
+  GETUPVAL R1 2
   SETTABLEKS R1 R0 K1 ["Parent"]
-  GETIMPORT R1 K5 [Enum.FinishRecordingOperation.Commit]
-  RETURN R1 1
+  GETIMPORT R0 K5 [Enum.FinishRecordingOperation.Commit]
+  RETURN R0 1
 
 PROTO_1:
-  GETTABLEKS R2 R1 K0 ["recordChange"]
-  DUPTABLE R3 K4 [{"Name", "DisplayName", "DoChange"}]
-  LOADK R4 K5 ["StyleEditor/DuplicateInstance"]
-  SETTABLEKS R4 R3 K1 ["Name"]
-  LOADK R4 K6 ["StyleEditor - Duplicate Instance"]
-  SETTABLEKS R4 R3 K2 ["DisplayName"]
-  NEWCLOSURE R4 P0
+  LOADNIL R2
+  GETTABLEKS R3 R1 K0 ["recordChange"]
+  DUPTABLE R4 K4 [{"Name", "DisplayName", "DoChange"}]
+  LOADK R5 K5 ["StyleEditor/DuplicateInstance"]
+  SETTABLEKS R5 R4 K1 ["Name"]
+  LOADK R5 K6 ["StyleEditor - Duplicate Instance"]
+  SETTABLEKS R5 R4 K2 ["DisplayName"]
+  NEWCLOSURE R5 P0
+  CAPTURE REF R2
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
-  SETTABLEKS R4 R3 K3 ["DoChange"]
-  CALL R2 1 0
-  RETURN R0 0
+  SETTABLEKS R5 R4 K3 ["DoChange"]
+  CALL R3 1 0
+  JUMPIFNOT R2 [+11]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K7 ["createItemId"]
+  MOVE R4 R2
+  CALL R3 1 1
+  GETUPVAL R6 3
+  MOVE R7 R3
+  CALL R6 1 -1
+  NAMECALL R4 R0 K8 ["dispatch"]
+  CALL R4 -1 0
+  CLOSEUPVALS R2
+  RETURN R2 1
 
 PROTO_2:
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
   CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   RETURN R2 1
 
 MAIN:
@@ -36,13 +53,26 @@ MAIN:
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
   GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Reducers"]
-  GETTABLEKS R2 R3 K7 ["RootReducer"]
+  GETTABLEKS R3 R4 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["TreeTableHelpers"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Thunks"]
-  GETTABLEKS R3 R4 K9 ["Types"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K10 [PROTO_2]
-  RETURN R3 1
+  GETTABLEKS R3 R0 K5 ["Src"]
+  GETTABLEKS R2 R3 K8 ["Actions"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R2 K9 ["Window"]
+  GETTABLEKS R4 R5 K10 ["SelectItem"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K5 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Reducers"]
+  GETTABLEKS R5 R6 K12 ["RootReducer"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R8 R0 K5 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Thunks"]
+  GETTABLEKS R6 R7 K14 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  RETURN R6 1

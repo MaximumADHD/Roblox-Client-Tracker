@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("AvatarPreviewerRemapPreferredLayers", false)
+game:DefineFastFlag("AvatarPreviewerRemapPreferredLayers2", false)
 return function()
-   return game:GetFastFlag("AvatarPreviewerRemapPreferredLayers")
+   return game:GetFastFlag("AvatarPreviewerRemapPreferredLayers2")
 end

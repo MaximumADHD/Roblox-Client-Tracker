@@ -13,6 +13,8 @@ export type Navigator = Package.Navigator
 export type Object = Package.Object
 export type ScreenProps = Package.ScreenProps
 export type Route<NavigationOptions = Object, Params = Object> = Package.Route<NavigationOptions , Params > 
+export type RouteKey = Package.RouteKey
+export type RouteEntry<NavigationOptions = Object, Params = Object> = Package.RouteEntry<NavigationOptions , Params > 
 export type RouteArray<NavigationOptions = Object, Params = Object> = Package.RouteArray<NavigationOptions , Params > 
 export type StackNavigationConfig<NavigationOptions = Object> = Package.StackNavigationConfig<NavigationOptions > 
 export type SwitchNavigationConfig<NavigationOptions = Object> = Package.SwitchNavigationConfig<NavigationOptions > 

@@ -24,8 +24,8 @@ type SessionState = {
 	average: number,
 
 	searchTerm: string,
-	searchFilterGraph: {boolean},
-	searchFilterFlat: {boolean},
+	searchFilterGraph: { boolean },
+	searchFilterFlat: { boolean },
 
 	rootNode: ProfilerData.NodeId,
 	rootFunc: ProfilerData.FunctionId,
@@ -35,12 +35,12 @@ type SessionState = {
 	liveUpdateThread: thread?,
 
 	showPlugins: boolean,
-	pluginOffsets: {[number]: number, Total: number?},
+	pluginOffsets: { [number]: number, Total: number? },
 
 	showGC: boolean,
-	gcFunctionOffsets: {number},
-	gcNodeOffsets: {[number]: number, Total: number?},
-	pluginGCOffsets: {[number]: number, Total: number?},
+	gcFunctionOffsets: { number },
+	gcNodeOffsets: { [number]: number, Total: number? },
+	pluginGCOffsets: { [number]: number, Total: number? },
 
 	expandedNodes: {},
 }
@@ -53,32 +53,67 @@ export type State = {
 	server: SessionState,
 }
 
-return function(state: State?, action: {[string]: any}): State
-	local scriptProfilerState = state or {
-		isClientView = true,
-		usePercentages = false,
-		isExporting = false,
-		client = { isProfiling = false, data = nil, serializedData = nil, frequency = 1000,
-					timedProfilingThread = nil, timedProfilingTimerThread = nil,
-					timedProfilingDuration = 0, timedProfilingCountdown = 0,
-					isFunctionsView = false, average = 0, searchTerm = "",
-					searchFilterGraph = {}, searchFilterFlat = {},
-					rootNode = 0, rootFunc = 0, rootNodeName = nil,
-					liveUpdate = false, liveUpdateThread = nil,
-					showPlugins = false, pluginOffsets = {},
-					showGC = false, gcFunctionOffsets = {}, gcNodeOffsets = {},
-					pluginGCOffsets = {}, expandedNodes = {}, },
-		server = { isProfiling = false, data = nil, serializedData = nil, frequency = 1000,
-					timedProfilingThread = nil, timedProfilingTimerThread = nil,
-					timedProfilingDuration = 0, timedProfilingCountdown = 0,
-					isFunctionsView = false, average = 0, searchTerm = "",
-					searchFilterGraph = {}, searchFilterFlat = {},
-					rootNode = 0, rootFunc = 0, rootNodeName = nil,
-					liveUpdate = false, liveUpdateThread = nil,
-					showPlugins = false, pluginOffsets = {},
-					showGC = false, gcFunctionOffsets = {}, gcNodeOffsets = {},
-					pluginGCOffsets = {}, expandedNodes = {}, },
-	}
+return function(state: State?, action: { [string]: any }): State
+	local scriptProfilerState = state
+		or {
+			isClientView = true,
+			usePercentages = false,
+			isExporting = false,
+			client = {
+				isProfiling = false,
+				data = nil,
+				serializedData = nil,
+				frequency = 1000,
+				timedProfilingThread = nil,
+				timedProfilingTimerThread = nil,
+				timedProfilingDuration = 0,
+				timedProfilingCountdown = 0,
+				isFunctionsView = false,
+				average = 0,
+				searchTerm = "",
+				searchFilterGraph = {},
+				searchFilterFlat = {},
+				rootNode = 0,
+				rootFunc = 0,
+				rootNodeName = nil,
+				liveUpdate = false,
+				liveUpdateThread = nil,
+				showPlugins = false,
+				pluginOffsets = {},
+				showGC = false,
+				gcFunctionOffsets = {},
+				gcNodeOffsets = {},
+				pluginGCOffsets = {},
+				expandedNodes = {},
+			},
+			server = {
+				isProfiling = false,
+				data = nil,
+				serializedData = nil,
+				frequency = 1000,
+				timedProfilingThread = nil,
+				timedProfilingTimerThread = nil,
+				timedProfilingDuration = 0,
+				timedProfilingCountdown = 0,
+				isFunctionsView = false,
+				average = 0,
+				searchTerm = "",
+				searchFilterGraph = {},
+				searchFilterFlat = {},
+				rootNode = 0,
+				rootFunc = 0,
+				rootNodeName = nil,
+				liveUpdate = false,
+				liveUpdateThread = nil,
+				showPlugins = false,
+				pluginOffsets = {},
+				showGC = false,
+				gcFunctionOffsets = {},
+				gcNodeOffsets = {},
+				pluginGCOffsets = {},
+				expandedNodes = {},
+			},
+		}
 
 	if action.type == SetScriptProfilerState.name then
 		local update = {
@@ -92,7 +127,9 @@ return function(state: State?, action: {[string]: any}): State
 	elseif action.type == SetScriptProfilerRoot.name then
 		local update = {}
 
-		local newState = table.clone(if scriptProfilerState.isClientView then scriptProfilerState.client else scriptProfilerState.server)
+		local newState = table.clone(
+			if scriptProfilerState.isClientView then scriptProfilerState.client else scriptProfilerState.server
+		)
 
 		if newState.rootNode ~= action.rootNode then
 			newState.rootNode = action.rootNode

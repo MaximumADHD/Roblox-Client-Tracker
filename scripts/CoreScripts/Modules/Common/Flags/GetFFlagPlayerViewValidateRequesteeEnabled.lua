@@ -1,5 +1,5 @@
-game:DefineFastFlag("PlayerViewValidateRequesteeEnabled", false)
+game:DefineFastFlag("PlayerViewValidateRequesteeEnabled2", false)
 
 return function()
-	return game:GetFastFlag("PlayerViewValidateRequesteeEnabled")
+	return game:GetFastFlag("PlayerViewValidateRequesteeEnabled2")
 end

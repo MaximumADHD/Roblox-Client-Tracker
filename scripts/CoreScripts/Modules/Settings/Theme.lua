@@ -68,6 +68,10 @@ local AppTheme = {
 		Color = Color3.fromRGB(0,0,0),
 		Transparency = 1.0,
 	},
+	IGM_ButtonNonInteractable ={
+		Color = Color3.fromRGB(100, 100, 100),
+		Transparency = 0.0,
+	},
 	IGM_ButtonHover = {
 		Color = Color3.fromRGB(56, 57, 59),
 		Transparency = 0.0,
@@ -235,6 +239,7 @@ local ComponentThemeKeys = {
 	Bold = "Bold_Font",
 	ShareLinkTitle = "Utility_Text_Font",
 
+	ButtonNonInteractable = "IGM_ButtonNonInteractable",
 }
 
 

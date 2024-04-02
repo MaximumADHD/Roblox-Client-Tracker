@@ -8,9 +8,6 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 
-local GetFFlagRemoveAppTempCommonTemp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagRemoveAppTempCommonTemp
-local DEPRECATED_EventStream = require(CorePackages.AppTempCommon.Temp.EventStream)
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 
 local InspectAndBuyFolder = script.Parent.Parent
@@ -30,9 +27,7 @@ function Analytics.new(inspecteeUid, ctx)
 
 	setmetatable(service, Analytics)
 
-	service.eventStream = if GetFFlagRemoveAppTempCommonTemp()
-		then EventStream.new(AnalyticsService)
-		else DEPRECATED_EventStream.new()
+	service.eventStream = EventStream.new(AnalyticsService)
 	service.pid = tostring(game.PlaceId)
 	service.uid = tostring(Players.LocalPlayer.UserId)
 	service.feature = "inspectAndBuy"

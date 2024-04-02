@@ -330,110 +330,112 @@ PROTO_10:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ChangeHistoryService"]
-  NAMECALL R0 R0 K3 ["GetService"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StreamingServiceDispatcherRegistry"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["StreamingService"]
-  NAMECALL R1 R1 K3 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K1 [game]
-  LOADK R4 K5 ["ConversationalAIAcceptanceService"]
-  NAMECALL R2 R2 K3 ["GetService"]
-  CALL R2 2 1
-  GETIMPORT R3 K7 [script]
-  LOADK R5 K8 ["StreamingServiceDispatcherRegistry"]
-  NAMECALL R3 R3 K9 ["FindFirstAncestor"]
-  CALL R3 2 1
-  GETIMPORT R4 K11 [require]
-  GETTABLEKS R7 R3 K12 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Flags"]
-  GETTABLEKS R5 R6 K14 ["getFFlagConvAIMenu_Attrib"]
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utils"]
+  GETTABLEKS R2 R3 K8 ["CliAdapter"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["ChangeHistoryService"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["GetService"]
+  LOADK R4 K11 ["StreamingService"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K9 ["GetService"]
+  LOADK R5 K12 ["ConversationalAIAcceptanceService"]
   CALL R4 1 1
-  GETIMPORT R5 K11 [require]
-  GETTABLEKS R8 R3 K12 ["Src"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
   GETTABLEKS R7 R8 K13 ["Flags"]
-  GETTABLEKS R6 R7 K15 ["getFFlagConvAICodeRunnerTelemetry"]
+  GETTABLEKS R6 R7 K14 ["getFFlagConvAIMenu_Attrib"]
   CALL R5 1 1
-  GETIMPORT R6 K11 [require]
-  GETTABLEKS R9 R3 K12 ["Src"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Src"]
   GETTABLEKS R8 R9 K13 ["Flags"]
-  GETTABLEKS R7 R8 K16 ["getFFlagCAPInstanceTrackerForUndoTelemetry"]
+  GETTABLEKS R7 R8 K15 ["getFFlagConvAICodeRunnerTelemetry"]
   CALL R6 1 1
-  DUPTABLE R7 K27 [{"assetCacheMap", "g2g", "guid2instance", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata", "activeDraftGuids", "draftModeModels"}]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K17 ["assetCacheMap"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K18 ["g2g"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K19 ["guid2instance"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K20 ["guidToInfo"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K21 ["chatBulletMap"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K22 ["altDataMap"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K23 ["requestRegionAdornments"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K24 ["requestMetadata"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K25 ["activeDraftGuids"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K26 ["draftModeModels"]
-  MOVE R8 R4
-  CALL R8 0 1
-  JUMPIFNOT R8 [+4]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K28 ["cachedAssetAttributionInfo"]
-  MOVE R8 R6
-  CALL R8 0 1
-  JUMPIFNOT R8 [+7]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K29 ["recordingActionNumber"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K30 ["requestToRecordName"]
-  NEWTABLE R8 0 0
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Src"]
+  GETTABLEKS R9 R10 K13 ["Flags"]
+  GETTABLEKS R8 R9 K16 ["getFFlagCAPInstanceTrackerForUndoTelemetry"]
+  CALL R7 1 1
+  DUPTABLE R8 K27 [{"assetCacheMap", "g2g", "guid2instance", "guidToInfo", "chatBulletMap", "altDataMap", "requestRegionAdornments", "requestMetadata", "activeDraftGuids", "draftModeModels"}]
   NEWTABLE R9 0 0
-  DUPCLOSURE R10 K31 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R8
-  SETTABLEKS R10 R7 K32 ["get"]
-  DUPCLOSURE R10 K33 [PROTO_1]
-  CAPTURE VAL R8
-  SETTABLEKS R10 R7 K34 ["set"]
-  LOADNIL R10
-  LOADNIL R11
-  NEWCLOSURE R12 P2
-  CAPTURE REF R11
-  CAPTURE VAL R0
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R5
-  SETTABLEKS R12 R7 K35 ["StartRecordingActions"]
-  NEWCLOSURE R12 P3
-  CAPTURE REF R11
-  CAPTURE VAL R0
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R5
-  CAPTURE REF R10
-  CAPTURE VAL R2
-  SETTABLEKS R12 R7 K36 ["EndRecordingActions"]
-  DUPCLOSURE R12 K37 [PROTO_4]
-  CAPTURE VAL R7
-  DUPCLOSURE R13 K38 [PROTO_7]
+  SETTABLEKS R9 R8 K17 ["assetCacheMap"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K18 ["g2g"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K19 ["guid2instance"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K20 ["guidToInfo"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K21 ["chatBulletMap"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K22 ["altDataMap"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K23 ["requestRegionAdornments"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K24 ["requestMetadata"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K25 ["activeDraftGuids"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K26 ["draftModeModels"]
+  MOVE R9 R5
+  CALL R9 0 1
+  JUMPIFNOT R9 [+4]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K28 ["cachedAssetAttributionInfo"]
+  MOVE R9 R7
+  CALL R9 0 1
+  JUMPIFNOT R9 [+7]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K29 ["recordingActionNumber"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K30 ["requestToRecordName"]
+  NEWTABLE R9 0 0
+  NEWTABLE R10 0 0
+  DUPCLOSURE R11 K31 [PROTO_0]
+  CAPTURE VAL R3
   CAPTURE VAL R9
+  SETTABLEKS R11 R8 K32 ["get"]
+  DUPCLOSURE R11 K33 [PROTO_1]
+  CAPTURE VAL R9
+  SETTABLEKS R11 R8 K34 ["set"]
+  LOADNIL R11
+  LOADNIL R12
+  NEWCLOSURE R13 P2
+  CAPTURE REF R12
+  CAPTURE VAL R2
   CAPTURE VAL R7
-  SETTABLEKS R13 R7 K39 ["GetRequestFolder"]
-  DUPCLOSURE R13 K40 [PROTO_8]
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  SETTABLEKS R13 R8 K35 ["StartRecordingActions"]
+  NEWCLOSURE R13 P3
+  CAPTURE REF R12
+  CAPTURE VAL R2
   CAPTURE VAL R7
-  SETTABLEKS R13 R7 K41 ["GetRequestMetadata"]
-  DUPCLOSURE R13 K42 [PROTO_9]
-  CAPTURE VAL R7
-  SETTABLEKS R13 R7 K43 ["SetRequestMetadata"]
-  DUPCLOSURE R13 K44 [PROTO_10]
-  SETTABLEKS R13 R7 K45 ["destroy"]
-  CLOSEUPVALS R10
-  RETURN R7 1
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE REF R11
+  CAPTURE VAL R4
+  SETTABLEKS R13 R8 K36 ["EndRecordingActions"]
+  DUPCLOSURE R13 K37 [PROTO_4]
+  CAPTURE VAL R8
+  DUPCLOSURE R14 K38 [PROTO_7]
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  SETTABLEKS R14 R8 K39 ["GetRequestFolder"]
+  DUPCLOSURE R14 K40 [PROTO_8]
+  CAPTURE VAL R8
+  SETTABLEKS R14 R8 K41 ["GetRequestMetadata"]
+  DUPCLOSURE R14 K42 [PROTO_9]
+  CAPTURE VAL R8
+  SETTABLEKS R14 R8 K43 ["SetRequestMetadata"]
+  DUPCLOSURE R14 K44 [PROTO_10]
+  SETTABLEKS R14 R8 K45 ["destroy"]
+  CLOSEUPVALS R11
+  RETURN R8 1

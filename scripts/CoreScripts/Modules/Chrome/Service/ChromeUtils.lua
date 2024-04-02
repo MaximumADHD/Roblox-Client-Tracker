@@ -290,6 +290,11 @@ function dismissRobloxMenuAndRun(func)
 	end
 end
 
+function isTakingScreenshot()
+	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
+	return SettingsHub.GetTakingScreenshot()
+end
+
 return {
 	MappedSignal = MappedSignal,
 	AvailabilitySignal = AvailabilitySignal,
@@ -298,4 +303,5 @@ return {
 	ObservableValue = ObservableValue,
 	setCoreGuiAvailability = setCoreGuiAvailability,
 	dismissRobloxMenuAndRun = dismissRobloxMenuAndRun,
+	isTakingScreenshot = isTakingScreenshot,
 }

@@ -5,9 +5,9 @@ local var2 = require(var0.Src.Types)
 local var3 = {}
 var3.Fonts = {}
 function require(var0.Src.Actions.Asset.SaveFontMetadata).name(arg1, arg2)
-   local var160 = {}
-   var160.Fonts = var1(arg1.Fonts, arg2.metadata)
-   return var1(arg1, var160)
+   local var258 = {}
+   var258.Fonts = var1(arg1.Fonts, arg2.metadata)
+   return var1(arg1, var258)
 end
 
 return require(var0.Packages.Rodux).createReducer(var3, {})
