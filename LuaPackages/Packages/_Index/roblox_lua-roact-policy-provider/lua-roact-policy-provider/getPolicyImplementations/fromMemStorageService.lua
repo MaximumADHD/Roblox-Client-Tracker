@@ -3,6 +3,7 @@ local DefaultMemStorageService = game:GetService("MemStorageService")
 local DefaultPlayersService = game:GetService("Players")
 
 local GetFFlagFixAppPolicyDefaultUserId = require(script.Parent.Parent.Flags.GetFFlagFixAppPolicyDefaultUserId)
+local GetFFlagCacheParsePolicy = require(script.Parent.Parent.Flags.GetFFlagCacheParsePolicy)
 
 return function(dependencies)
 	dependencies = dependencies or {}
@@ -39,20 +40,24 @@ return function(dependencies)
 
 		local connectionStoreKey
 		local memStorageConnection
-		local previouslyReadValue
+		local previouslyReadJsonValue
+		local previouslyReadPolicy
 
 		local onPolicyChangedEvent = Instance.new("BindableEvent")
 
 		local function onPolicyUpdated(newPolicyData)
 			-- MemStorageService will not de-duplicate the same item from storage
-			if newPolicyData ~= previouslyReadValue then
+			if newPolicyData ~= previouslyReadJsonValue then
 				if newPolicyData and #newPolicyData > 0 then
 					local success, decodedExternalPolicy = pcall(function()
 						return HttpService:JSONDecode(newPolicyData)
 					end)
 					if success then
 						-- never store garbage
-						previouslyReadValue = newPolicyData
+						previouslyReadJsonValue = newPolicyData
+						if GetFFlagCacheParsePolicy() then
+							previouslyReadPolicy = decodedExternalPolicy
+						end
 						onPolicyChangedEvent:Fire(decodedExternalPolicy)
 					end
 				end
@@ -69,7 +74,10 @@ return function(dependencies)
 					end)
 					if success then
 						-- Be sure to store the json string
-						previouslyReadValue = policyData
+						if GetFFlagCacheParsePolicy() then
+							previouslyReadPolicy = policy
+						end
+						previouslyReadJsonValue = policyData
 						return policy
 					end
 				end
@@ -84,13 +92,19 @@ return function(dependencies)
 
 				if memStorageConnection and connectionStoreKey == storeKey then
 					-- Fire listener with existing value
-					if previouslyReadValue then
-						local success, policy = pcall(function()
-							return HttpService:JSONDecode(previouslyReadValue)
-						end)
+					if GetFFlagCacheParsePolicy() then
+						if previouslyReadPolicy then
+							func(previouslyReadPolicy)
+						end
+					else
+						if previouslyReadJsonValue then
+							local success, policy = pcall(function()
+								return HttpService:JSONDecode(previouslyReadJsonValue)
+							end)
 
-						if success then
-							func(policy)
+							if success then
+								func(policy)
+							end
 						end
 					end
 				else

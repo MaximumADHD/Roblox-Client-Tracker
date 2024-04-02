@@ -17,31 +17,30 @@ return function(config: networkingSquadTypes.Config)
 					squad = {
 						squadId = "00000000-0000-0000-0000-000000000000",
 						createdUtc = 1672531200000,
-						updatedUtc = 1672876800000,
-						inviteLinkToken = "QWERTY",
+						updatedUtc = os.clock() * 1000,
 						members = {
 							{
-								userId = 11117151865,
+								userId = 3447631062,
 								status = "Creator",
 							},
 							{
-								userId = 11128063413,
+								userId = 2591622000,
 								status = "Member",
 							},
 							{
-								userId = 11128790087,
+								userId = 3447649029,
 								status = "Member",
 							},
 							{
-								userId = 11133924223,
+								userId = 3447641701,
 								status = "Member",
 							},
 							{
-								userId = 11134037241,
+								userId = 3447635964,
 								status = "Member",
 							},
 							{
-								userId = 11126864429,
+								userId = 3447642362,
 								status = "Member",
 							},
 						},

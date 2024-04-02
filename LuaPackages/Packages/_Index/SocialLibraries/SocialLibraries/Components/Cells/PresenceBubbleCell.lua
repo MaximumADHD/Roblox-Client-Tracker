@@ -1,10 +1,12 @@
 local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
+local getFFlagDeprecatedSocialLibrariesCells = require(SocialLibraries.Flags.getFFlagDeprecatedSocialLibrariesCells)
 
 local Roact = dependencies.Roact
 local Cryo = dependencies.Cryo
 local Text = dependencies.Text
 local UIBlox = dependencies.UIBlox
+local UIBloxConfig = UIBlox.Config
 
 local ShimmerPanel = UIBlox.App.Loading.ShimmerPanel
 local BaseCell = require(script.Parent.BaseCell)
@@ -27,19 +29,19 @@ PresenceBubbleCell.defaultProps = {
 	avatarCirclePresenceImage = nil,
 
 	subTitleText = nil,
-	subTitleTextFont = Enum.Font.Gotham,
+	subTitleTextFont = if UIBloxConfig.enableFontNameMapping then Enum.Font.BuilderSans else Enum.Font.Gotham,
 	subTitleTextTransparency = 0,
 	subTitleTextColor3 = Color3.new(0.1, 0.1, 0.1),
 	subTitleTextSize = 15,
 
 	titleText = "titleText",
-	titleFont = Enum.Font.Gotham,
+	titleFont = if UIBloxConfig.enableFontNameMapping then Enum.Font.BuilderSans else Enum.Font.Gotham,
 	titleTextTransparency = 0,
-	titleTextColor3 = Color3.new(0,0,0),
+	titleTextColor3 = Color3.new(0, 0, 0),
 	titleTextSize = 20,
 
 	secondaryTitleText = nil,
-	secondaryTitleFont = Enum.Font.Gotham,
+	secondaryTitleFont = if UIBloxConfig.enableFontNameMapping then Enum.Font.BuilderSans else Enum.Font.Gotham,
 	secondaryTitleTextTransparency = 0,
 	secondaryTitleTextColor3 = Color3.new(0.2, 0.2, 0.2),
 	secondaryTitleTextSize = 16,
@@ -58,6 +60,11 @@ PresenceBubbleCell.defaultProps = {
 }
 
 function PresenceBubbleCell:init()
+	assert(
+		not getFFlagDeprecatedSocialLibrariesCells(),
+		"social-libraries Cells are deprecated, please use Cell components from app-chat rotriever package"
+	)
+
 	self.widthBinding, self.widthBindingUpdate = Roact.createBinding(0)
 end
 
@@ -72,7 +79,7 @@ function PresenceBubbleCell:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
-		})
+		}),
 	}
 
 	rightAlignChildren = Cryo.Dictionary.join(rightAlignChildren, props[Roact.Children] or {})
@@ -130,11 +137,11 @@ function PresenceBubbleCell:render()
 						showNewPresenceImage = props.showNewPresenceImage,
 
 						onActivated = props.onCircleActivated or props.onActivated,
-					})
+					}),
 				}) or Roact.createElement(ShimmerPanel, {
 					Size = UDim2.new(0, props.avatarCircleSize, 0, props.avatarCircleSize),
 					cornerRadius = UDim.new(1, 0),
-				})
+				}),
 			}),
 
 			conversationInfo = Roact.createElement("Frame", {
@@ -188,7 +195,12 @@ function PresenceBubbleCell:render()
 					secondaryTitle = Roact.createElement("TextLabel", {
 						BackgroundTransparency = 1,
 						Size = self.widthBinding:map(function(width)
-							return UDim2.new(0, math.max(width - titleTextWidth - SECONDARY_TITLE_PADDING, 0), 0, props.secondaryTitleTextSize)
+							return UDim2.new(
+								0,
+								math.max(width - titleTextWidth - SECONDARY_TITLE_PADDING, 0),
+								0,
+								props.secondaryTitleTextSize
+							)
 						end),
 
 						TextSize = props.secondaryTitleTextSize,
@@ -222,20 +234,24 @@ function PresenceBubbleCell:render()
 					cornerRadius = UDim.new(0, 4),
 					LayoutOrder = 2,
 				}),
-			})
+			}),
 		}),
 
-		rightAlign = Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundTransparency = 1,
-		}, Cryo.Dictionary.join({
-			layout = Roact.createElement("UIListLayout", {
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				HorizontalAlignment = Enum.HorizontalAlignment.Right,
-				FillDirection = Enum.FillDirection.Horizontal,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-		}, rightAlignChildren)),
+		rightAlign = Roact.createElement(
+			"Frame",
+			{
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+			},
+			Cryo.Dictionary.join({
+				layout = Roact.createElement("UIListLayout", {
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					HorizontalAlignment = Enum.HorizontalAlignment.Right,
+					FillDirection = Enum.FillDirection.Horizontal,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+			}, rightAlignChildren)
+		),
 	})
 end
 

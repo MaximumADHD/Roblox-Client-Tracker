@@ -176,8 +176,7 @@ function IconButton:render()
 end
 
 function IconButton:renderWithProviders(style, getSelectionCursor, getCursor)
-	local iconSizeMeasurement =
-		getIconSize(self.props.iconSize, if UIBloxConfig.useTokensSizeInIconButton then style else nil)
+	local iconSizeMeasurement = getIconSize(self.props.iconSize, style)
 	local size = self.getSize(iconSizeMeasurement)
 	local showBackground = self.props.showBackground
 	local currentState = self.props[IconButton.debugProps.controlState] or self.state.controlState

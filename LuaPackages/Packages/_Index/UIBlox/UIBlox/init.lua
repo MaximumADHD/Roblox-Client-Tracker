@@ -62,7 +62,12 @@ local function initializeLibrary(configs)
 		Control = strict({
 			Enum = strict({
 				ControlState = require(script.Core.Control.Enum.ControlState),
+				ControlStateEvent = require(script.Core.Control.Enum.ControlStateEvent),
 				SelectionMode = require(script.Core.Control.Enum.SelectionMode),
+			}),
+			Hooks = strict({
+				useGuiControlState = require(script.Core.Control.Hooks.useGuiControlState),
+				useGuiControlStateWithBinding = require(script.Core.Control.Hooks.useGuiControlStateWithBinding),
 			}),
 			Interactable = require(script.Core.Control.Interactable),
 			InteractableList = require(script.Core.Control.InteractableList),

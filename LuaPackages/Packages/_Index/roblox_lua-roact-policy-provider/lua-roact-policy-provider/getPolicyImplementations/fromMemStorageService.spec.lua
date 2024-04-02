@@ -323,5 +323,181 @@ return function()
 				end)
 			end)
 		end)
+
+		describe("GIVEN Performance", function()
+			describe("Benchmark fromMemStorageService", function()
+				local policyJsonData = "{"
+					.. '"ChatConversationHeaderGroupDetails": true,'
+					.. '"ChatHeaderSearch": true,'
+					.. '"ChatHeaderCreateChatGroup": true,'
+					.. '"ChatHeaderHomeButton": false,'
+					.. '"ChatHeaderNotifications": true,'
+					.. '"ChatPlayTogether": true,'
+					.. '"ChatShareGameToChatFromChat": true,'
+					.. '"ChatTapConversationThumbnail": true,'
+					.. '"ChatViewProfileOption": true,'
+					.. '"GamesDropDownList": true,'
+					.. '"UseNewDropDown": true,'
+					.. '"GameDetailsMorePage": true,'
+					.. '"GameDetailsShowGlobalCounters": true,'
+					.. '"GameDetailsPlayWithFriends": true,'
+					.. '"GameDetailsSubtitle": true,'
+					.. '"GameInfoList": true,'
+					.. '"GameInfoListDeveloper": true,'
+					.. '"GamePlaysAndRatings": true,'
+					.. '"GameInfoShowBadges": true,'
+					.. '"GameInfoShowCreated": true,'
+					.. '"GameInfoShowGamepasses": true,'
+					.. '"GameInfoShowGenre": true,'
+					.. '"GameInfoShowMaxPlayers": true,'
+					.. '"GameInfoShowServers": true,'
+					.. '"GameInfoShowUpdated": true,'
+					.. '"GameReportingDisabled": false,'
+					.. '"GamePlayerCounts": true,'
+					.. '"GiftCardsEnabled": true,'
+					.. '"Notifications": true,'
+					.. '"OfficialStoreEnabled": true,'
+					.. '"RecommendedGames": false,'
+					.. '"SearchBar": true,'
+					.. '"MorePageType": "More",'
+					.. '"AboutPageType": "About",'
+					.. '"FriendFinder": true,'
+					.. '"SocialLinks": true,'
+					.. '"SocialGroupLinks": true,'
+					.. '"EligibleForCapturesFeature": false,'
+					.. '"EnableShareCaptureCTA": false,'
+					.. '"SiteMessageBanner": true,'
+					.. '"UseWidthBasedFormFactorRule": false,'
+					.. '"UseHomePageWithAvatarAndPanel": false,'
+					.. '"UseBottomBar": true,'
+					.. '"AvatarHeaderIcon": "LuaApp/icons/ic-back",'
+					.. '"AvatarEditorShowBuyRobuxOnTopBar": true,'
+					.. '"HomeIcon": "LuaApp/icons/ic-roblox-close",'
+					.. '"ShowYouTubeAgeAlert": false,'
+					.. '"GameDetailsShareButton": true,'
+					.. '"CatalogShareButton": true,'
+					.. '"AccountProviderName": "",'
+					.. '"InviteFromAccountProvider": false,'
+					.. '"ShareToAccountProvider": false,'
+					.. '"ShareToAccountProviderTimeout": 8,'
+					.. '"ShowDisplayName": true,'
+					.. '"GamesPageCreationCenterTitle": false,'
+					.. '"ShowShareTargetGameCreator": true,'
+					.. '"SearchAutoComplete": true,'
+					.. '"CatalogShow3dView": true,'
+					.. '"CatalogReportingDisabled": false,'
+					.. '"CatalogCommunityCreations": true,'
+					.. '"CatalogPremiumCategory": true,'
+					.. '"CatalogPremiumContent": true,'
+					.. '"ItemDetailsFullView": true,'
+					.. '"UseAvatarExperienceLandingPage": true,'
+					.. '"HomePageFriendSection": true,'
+					.. '"HomePageProfileLink": true,'
+					.. '"PurchasePromptIncludingWarning": false,'
+					.. '"ShowVideoThumbnails": true,'
+					.. '"VideoSharingTestContent": [],'
+					.. '"SystemBarPlacement": "Left",'
+					.. '"EnableInGameHomeIcon": true,'
+					.. '"UseExternalBrowserForDisclaimerLinks": true,'
+					.. '"ShowExitFullscreenToast": false,'
+					.. '"ExitFullscreenToastEnabled": true,'
+					.. '"UseLuobuAuthentication": false,'
+					.. '"CheckUserAgreementsUpdatedOnLogin": true,'
+					.. '"AddUserAgreementIdsToSignupRequest": true,'
+					.. '"UseOmniRecommendation": true,'
+					.. '"ShowAgeVerificationOverlayEnabled": false,'
+					.. '"ShouldShowGroupsTile": true,'
+					.. '"ShowVoiceUpsell": true,'
+					.. '"ProfileShareEnabled": true,'
+					.. '"ContactImporterEnabled": true,'
+					.. '"FriendCodeQrCodeScannerEnabled": false,'
+					.. '"RealNamesInDisplayNamesEnabled": false,'
+					.. '"CsatSurveyRestrictTextInput": false,'
+					.. '"RobloxCreatedItemsCreatedByLuobu": false,'
+					.. '"GameInfoShowChatFeatures": true,'
+					.. '"PlatformGroup": "Desktop",'
+					.. '"UsePhoneSearchDiscoverEntry": false,'
+					.. '"ShowVoiceUpsellV2": true,'
+					.. '"HomeLocalFeedItems": {'
+					.. '"UserInfo": 1,'
+					.. '"FriendCarousel": 2'
+					.. "},"
+					.. '"Routes": {'
+					.. '"auth": {'
+					.. '"connect": "v2/login",'
+					.. '"login": "v2/login",'
+					.. '"signup": "v2/signup"'
+					.. "}"
+					.. "},"
+					.. '"PromotionalEmailsCheckboxEnabled": true,'
+					.. '"PromotionalEmailsOptInByDefault": true,'
+					.. '"EnablePremiumUserFeatures": true,'
+					.. '"CanShowUnifiedChatU13Upsell": false,'
+					.. '"CanShowUnifiedChatUpsell": true,'
+					.. '"CommunityLinksEnabled": true,'
+					.. '"EnableProfileQrCode": true,'
+					.. '"enableDualLogin": true,'
+					.. '"luaProfileEnabled": true,'
+					.. '"AlwaysFetchFriendRecommendations": false,'
+					.. '"FriendCarouselSorting": "allFriendsThenRecommendations",'
+					.. '"EnableNotificationPreferencesPage": true,'
+					.. '"FullscreenTitleBarEnabled": true,'
+					.. '"UseGridHomePage": true,'
+					.. '"UseGridPageLayout": true,'
+					.. '"ShouldSystemBarUsuallyBePresent": true,'
+					.. '"UseExternalBrowserForMoreLinks": true,'
+					.. '"ShowStudioCTA": true,'
+					.. '"EnableVoiceReportAbuseMenu": true,'
+					.. '"ShowPassesOnExperienceDetails": true,'
+					.. '"displayAccountDeletion": true,'
+					.. '"DisplayCheckboxInVoiceConsent": false'
+					.. "}"
+				local mockMemStorageService = MagicMock.new()
+				mockMemStorageService.GetItem = function()
+					return policyJsonData
+				end
+				local updateMemStorageService = Instance.new("BindableEvent")
+				mockMemStorageService.BindAndFire = function(_, _, func)
+					local initialValue = mockMemStorageService.GetItem()
+					local connection = updateMemStorageService.Event:Connect(function(value, a)
+						func(value)
+					end)
+
+					func(initialValue)
+					return connection
+				end
+
+				local fromMemStorageServiceInstance = fromMemStorageService({
+					MemStorageService = mockMemStorageService,
+				})(behavior)
+
+				it("benchmark read function", function()
+					local startTimeInMs = os.clock() * 1000
+					local result = fromMemStorageServiceInstance.read()
+					local totalTimeSpentInMs = os.clock() * 1000 - startTimeInMs
+					print(string.format("total time to read is %fms ", totalTimeSpentInMs))
+				end)
+
+				it("benchmark onPolicyChanged function", function()
+					local wasEverCalled = false
+					local callback = function(value)
+						wasEverCalled = true
+					end
+					local startTimeInMs = os.clock() * 1000
+					local result = fromMemStorageServiceInstance.onPolicyChanged(callback)
+					updateMemStorageService:Fire(policyJsonData)
+					for i = 1, 1000 do
+						fromMemStorageServiceInstance.onPolicyChanged(callback)
+					end
+
+					local totalTimeSpentInMs = os.clock() * 1000 - startTimeInMs
+					print(string.format("total time on onPolicyChanged 1K times is %fms ", totalTimeSpentInMs))
+
+					result:Disconnect()
+
+					expect(wasEverCalled).to.equal(true)
+				end)
+			end)
+		end)
 	end)
 end

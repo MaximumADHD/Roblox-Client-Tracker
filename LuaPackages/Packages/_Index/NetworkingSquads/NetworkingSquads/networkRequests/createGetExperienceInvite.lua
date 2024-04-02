@@ -18,10 +18,12 @@ return function(config: networkingSquadTypes.Config)
 			return {
 				responseBody = {
 					experienceInvite = {
-						created = 1666384726,
-						inviteId = 123,
-						squadId = "12345",
-						universeId = "1663370770",
+						createdUtc = os.time() * 1000,
+						inviteId = "10000000-0000-0000-0000-000000000000",
+						inviteState = "Active",
+						responses = {},
+						squadId = "00000000-0000-0000-0000-000000000000",
+						universeId = "5279877370",
 					},
 				},
 			}

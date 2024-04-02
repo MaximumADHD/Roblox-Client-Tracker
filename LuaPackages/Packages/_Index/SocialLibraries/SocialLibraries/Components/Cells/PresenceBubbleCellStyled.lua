@@ -1,5 +1,6 @@
 local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
+local getFFlagDeprecatedSocialLibrariesCells = require(SocialLibraries.Flags.getFFlagDeprecatedSocialLibrariesCells)
 
 local Roact = dependencies.Roact
 local PresenceBubbleCell = require(script.Parent.PresenceBubbleCell)
@@ -28,6 +29,13 @@ StyledCell.defaultProps = {
 	boldTitle = true,
 	isLoading = false,
 }
+
+function StyledCell:init()
+	assert(
+		not getFFlagDeprecatedSocialLibrariesCells(),
+		"social-libraries Cells are deprecated, please use Cell components from app-chat rotriever package"
+	)
+end
 
 function StyledCell:render()
 	local style = self.props.style
@@ -68,7 +76,8 @@ function StyledCell:render()
 		subTitleTextSize = font.CaptionBody.RelativeSize * font.BaseSize,
 
 		titleFont = font.Header2.Font,
-		titleTextTransparency = self.props.boldTitle and theme.TextEmphasis.Transparency or theme.TextDefault.Transparency,
+		titleTextTransparency = self.props.boldTitle and theme.TextEmphasis.Transparency
+			or theme.TextDefault.Transparency,
 		titleTextColor3 = self.props.boldTitle and theme.TextEmphasis.Color or theme.TextDefault.Color,
 		titleTextSize = font.Header2.RelativeSize * font.BaseSize,
 

@@ -3,13 +3,14 @@ local dependencies = require(SocialLibraries.dependencies)
 
 local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
+local UIBloxConfig = UIBlox.Config
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local CallbackInputBox = Roact.PureComponent:extend("CallbackInputBox")
 
 CallbackInputBox.defaultProps = {
 	initialInputText = "",
-	inputTextFont = Enum.Font.Gotham,
+	inputTextFont = if UIBloxConfig.enableFontNameMapping then Enum.Font.BuilderSans else Enum.Font.Gotham,
 	inputTextColor3 = Color3.new(1, 0, 1),
 	inputTextSize = 14,
 	inputTextYAlignment = Enum.TextYAlignment.Center,

@@ -22,6 +22,7 @@ return {
 			populate = require(script.populate),
 			TestingAnalytics = require(script.TestingAnalytics),
 			ReleaseHelpers = require(script.ReleaseHelpers),
+			Flags = require(script.Flags),
 
 			StoryMiddleware = require(script.StoryMiddleware),
 			Context = require(script.Context),

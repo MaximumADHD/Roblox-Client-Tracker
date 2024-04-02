@@ -1,8 +1,8 @@
 local RoduxSquad = script:FindFirstAncestor("RoduxSquads")
 local Root = RoduxSquad.Parent
 local Rodux = require(Root.Rodux)
+local CurrentSquadUpdated = require(RoduxSquad.Actions).CurrentSquadUpdated
 local SquadModel = require(RoduxSquad.Models).SquadModel
-local SquadUpdated = require(RoduxSquad.Actions).SquadUpdated
 
 local RoduxSquadsTypes = require(script.Parent.Parent.RoduxSquadsTypes)
 
@@ -74,7 +74,10 @@ return function(options)
 			return getAndUpdateState(state, SquadModel.format(squad))
 		end,
 
-		[SquadUpdated.name] = function(state: RoduxSquadsTypes.CurrentSquad, action: RoduxSquadsTypes.SquadUpdatedAction)
+		[CurrentSquadUpdated.name] = function(
+			state: RoduxSquadsTypes.CurrentSquad,
+			action: RoduxSquadsTypes.SquadUpdatedAction
+		)
 			local squad = action.payload.squad
 			return getAndUpdateState(state, SquadModel.format(squad))
 		end,

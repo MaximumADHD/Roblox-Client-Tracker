@@ -8,15 +8,16 @@ local AlertViewBuilder = require(Components.AlertViewBuilder.AlertViewBuilder)
 
 local WarningAlertView = Roact.Component:extend("WarningAlertView")
 WarningAlertView.defaultProps = {
-    titleText = "TestTitle",
-    bodyText = "TestBody",
-    cancelText = "TestCancel",
+	titleText = "TestTitle",
+	bodyText = "TestBody",
+	cancelText = "TestCancel",
 	confirmText = "TestConfirm",
 
 	failureTitleText = "failure title!",
 	failureBodyText = "Thing failure!",
 	failureButtonText = "failure Placeholder!",
 
+	screenSize = Vector2.new(0, 0),
 	width = UDim.new(0.5, 0),
 	displayFailed = false,
 
@@ -27,9 +28,7 @@ WarningAlertView.defaultProps = {
 	soakAreaTransparency = 0.9,
 }
 
-local function No_Op()
-
-end
+local function No_Op() end
 
 function WarningAlertView:render()
 	local props = self.props
@@ -48,7 +47,7 @@ function WarningAlertView:render()
 					text = props.failureButtonText,
 					onActivated = No_Op,
 				},
-			}
+			},
 		}
 	else
 		titleText = self.props.titleText
@@ -60,7 +59,7 @@ function WarningAlertView:render()
 				props = {
 					text = props.cancelText,
 					onActivated = No_Op,
-				}
+				},
 			},
 			{
 				buttonType = ButtonType.PrimarySystem,
@@ -75,6 +74,7 @@ function WarningAlertView:render()
 	return Roact.createElement(AlertViewBuilder, {
 		title = titleText,
 		bodyText = bodyText,
+		screenSize = self.props.screenSize,
 		width = self.props.width,
 		onModalClose = self.props.onModalClose,
 

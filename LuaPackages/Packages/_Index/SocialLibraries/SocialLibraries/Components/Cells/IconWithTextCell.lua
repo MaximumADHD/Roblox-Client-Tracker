@@ -1,5 +1,6 @@
 local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
+local getFFlagDeprecatedSocialLibrariesCells = require(SocialLibraries.Flags.getFFlagDeprecatedSocialLibrariesCells)
 
 local Roact = dependencies.Roact
 local ImageSetLabel = dependencies.UIBlox.Core.ImageSet.ImageSetLabel
@@ -16,7 +17,9 @@ IconWithTextCell.defaultProps = {
 
 	Size = UDim2.new(1, 0, 1, 0),
 
-	onActivated = function() print("IconWithTextCell onActivated") end,
+	onActivated = function()
+		print("IconWithTextCell onActivated")
+	end,
 
 	secondaryIcon = "",
 	secondaryIconSize = 24,
@@ -27,6 +30,13 @@ IconWithTextCell.defaultProps = {
 
 	showDivider = true,
 }
+
+function IconWithTextCell:init()
+	assert(
+		not getFFlagDeprecatedSocialLibrariesCells(),
+		"social-libraries Cells are deprecated, please use Cell components from app-chat rotriever package"
+	)
+end
 
 function IconWithTextCell:render()
 	local style = self.props.style
@@ -70,7 +80,7 @@ function IconWithTextCell:render()
 					Size = UDim2.new(0, self.props.primaryIconSize, 0, self.props.primaryIconSize),
 					ImageColor3 = theme.IconEmphasis.Color,
 					BackgroundTransparency = 1,
-				})
+				}),
 			}),
 			text = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, -self.props.iconCellWidth, 1, 0),
@@ -97,7 +107,7 @@ function IconWithTextCell:render()
 				Image = self.props.secondaryIcon,
 				BackgroundTransparency = 1,
 				Size = UDim2.fromOffset(self.props.secondaryIconSize, self.props.secondaryIconSize),
-			})
+			}),
 		}),
 	})
 end

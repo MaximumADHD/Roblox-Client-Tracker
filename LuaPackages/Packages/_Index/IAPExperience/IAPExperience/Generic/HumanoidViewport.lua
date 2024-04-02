@@ -4,15 +4,16 @@
 	thumbnail access. For example, purchasing an avatar that is being created from within
 	an experience
 ]]
-
-local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
 
-local React = require(CorePackages.Packages.React)
-local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
-local CameraUtility = require(CorePackages.Thumbnailing).CameraUtility
-local CFrameUtility = require(CorePackages.Thumbnailing).CFrameUtility
-local EmoteUtility = require(CorePackages.Thumbnailing).EmoteUtility
+local GenericRoot = script.Parent
+local IAPExperienceRoot = GenericRoot.Parent
+local Packages = IAPExperienceRoot.Parent
+local React = require(Packages.React)
+local CharacterUtility = require(Packages.Thumbnailing).CharacterUtility
+local CameraUtility = require(Packages.Thumbnailing).CameraUtility
+local CFrameUtility = require(Packages.Thumbnailing).CFrameUtility
+local EmoteUtility = require(Packages.Thumbnailing).EmoteUtility
 
 export type Props = {
 	model: any,

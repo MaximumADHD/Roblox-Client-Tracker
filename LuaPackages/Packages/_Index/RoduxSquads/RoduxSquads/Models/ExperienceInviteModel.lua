@@ -3,6 +3,9 @@ local Packages = RoduxSquad.Parent
 
 local t = require(Packages.t)
 
+local ExperienceInviteResponse = require(RoduxSquad.Enums.ExperienceInviteResponse)
+local ExperienceInviteState = require(RoduxSquad.Enums.ExperienceInviteState)
+
 local ExperienceInviteModel = {}
 
 function ExperienceInviteModel.new(experienceInvite)
@@ -21,11 +24,13 @@ function ExperienceInviteModel.mock(mergeTable)
 	mergeTable = mergeTable or {}
 
 	local self = ExperienceInviteModel.new({
-		created = mergeTable.created or 1665988271,
+		createdUtc = mergeTable.createdUtc or 1665988271,
 		inviteId = mergeTable.inviteId or "987",
+		inviteState = mergeTable.inviteState or ExperienceInviteState.Active,
+		inviterUserId = mergeTable.inviterUserId or 123456,
+		responses = mergeTable.responses or { ["456"] = ExperienceInviteResponse.Accepted },
 		squadId = mergeTable.squadId or "12345",
 		universeId = mergeTable.universeId or "3267012194",
-		responses = mergeTable.responses or { [456] = true },
 	})
 
 	return self
@@ -33,22 +38,26 @@ end
 
 function ExperienceInviteModel.format(experienceInviteData)
 	local self = ExperienceInviteModel.new({
-		created = experienceInviteData.created,
+		createdUtc = experienceInviteData.createdUtc,
 		inviteId = experienceInviteData.inviteId,
+		inviteState = experienceInviteData.inviteState,
+		inviterUserId = experienceInviteData.inviterUserId,
+		responses = experienceInviteData.responses,
 		squadId = experienceInviteData.squadId,
 		universeId = experienceInviteData.universeId,
-		responses = experienceInviteData.responses,
 	})
 
 	return self
 end
 
 ExperienceInviteModel.isValid = t.strictInterface({
-	created = t.number,
+	createdUtc = t.number,
 	inviteId = t.string,
+	inviteState = t.string,
+	inviterUserId = t.number,
+	responses = t.map(t.string, t.string),
 	squadId = t.string,
 	universeId = t.string,
-	responses = t.map(t.integer, t.boolean),
 })
 
 return ExperienceInviteModel

@@ -1,5 +1,6 @@
 local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
+local getFFlagDeprecatedSocialLibrariesCells = require(SocialLibraries.Flags.getFFlagDeprecatedSocialLibrariesCells)
 
 local Cryo = dependencies.Cryo
 local Roact = dependencies.Roact
@@ -25,6 +26,11 @@ BaseCell.defaultProps = {
 }
 
 function BaseCell:init()
+	assert(
+		not getFFlagDeprecatedSocialLibrariesCells(),
+		"social-libraries Cells are deprecated, please use Cell components from app-chat rotriever package"
+	)
+
 	self:setState({
 		isPressed = false,
 	})

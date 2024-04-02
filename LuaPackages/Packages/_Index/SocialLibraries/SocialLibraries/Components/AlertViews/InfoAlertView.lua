@@ -13,6 +13,7 @@ InfoAlertView.defaultProps = {
 	confirmText = "TestConfirm",
 
 	width = UDim.new(0.5, 0),
+	screenSize = Vector2.new(0, 0),
 
 	onModalClose = function() end,
 
@@ -27,6 +28,7 @@ function InfoAlertView:render()
 		title = props.titleText,
 		bodyText = props.bodyText,
 		width = props.width,
+		screenSize = props.screenSize,
 		onModalClose = props.onModalClose,
 
 		buttons = {

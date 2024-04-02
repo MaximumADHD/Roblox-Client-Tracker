@@ -4,49 +4,37 @@ export type Config = {
 	useMockedResponse: boolean,
 }
 
-export type Member = {
-	userId: number,
-	status: string,
-}
-
-export type Squad = {
+export type CreateExperienceInviteRequest = {
 	squadId: string,
-	createdUtc: number,
-	updatedUtc: number,
-	inviteLinkToken: string,
-	members: { [number]: Member },
+	placeId: string,
 }
 
 export type CreateSquadRequest = {
-	userIds: { [number]: number },
+	userIds: { number },
 }
 
-export type CreateSquadResponse = {
-	squad: Squad,
+export type GetExperienceInviteRequest = {
+	inviteId: number,
 }
 
-export type GetSquadActiveResponse = {
-	squad: Squad,
-}
+export type GetSquadActiveRequest = {}
 
 export type GetSquadFromSquadIdRequest = {
 	squadId: string,
-}
-
-export type GetSquadFromSquadIdResponse = {
-	squad: Squad,
 }
 
 export type JoinSquadRequest = {
 	squadId: string,
 }
 
-export type JoinSquadResponse = {
-	squad: Squad,
-}
-
 export type LeaveSquadRequest = {
 	squadId: string,
+}
+
+export type RespondExperienceInviteRequest = {
+	inviteId: number,
+	response: string,
+	userId: number, -- TODO: Temp field for mocking. Remove after.
 }
 
 export type SquadInviteRequest = {
@@ -59,34 +47,17 @@ export type SquadRemoveRequest = {
 	userIdToRemove: number,
 }
 
-export type SquadRemoveResponse = {
-	squad: Squad,
-}
-
-export type CreateExperienceInviteRequest = {
-	squadId: string,
-	placeId: string,
-}
-
-export type GetExperienceInviteRequest = {
-	inviteId: number,
-}
-
-export type RespondExperienceInviteRequest = {
-	inviteId: number,
-	response: string,
-}
-
 export type RequestThunks = {
+	CreateExperienceInvite: CreateExperienceInviteRequest,
 	CreateSquad: CreateSquadRequest,
+	GetExperienceInvite: GetExperienceInviteRequest,
+	GetSquadActive: GetSquadActiveRequest,
 	GetSquadFromSquadId: GetSquadFromSquadIdRequest,
 	JoinSquad: JoinSquadRequest,
 	LeaveSquad: LeaveSquadRequest,
+	RespondExperienceInvite: RespondExperienceInviteRequest,
 	SquadInvite: SquadInviteRequest,
 	SquadRemove: SquadRemoveRequest,
-	CreateExperienceInvite: CreateExperienceInviteRequest,
-	GetExperienceInvite: GetExperienceInviteRequest,
-	RespondExperienceInvite: RespondExperienceInviteRequest,
 }
 
 return {}

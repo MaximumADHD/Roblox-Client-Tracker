@@ -1,20 +1,12 @@
 -- Models
 
 export type ExperienceInviteModel = {
-	created: number,
+	createdUtc: number,
 	inviteId: string,
+	inviteState: string,
+	responses: { [string]: string },
 	squadId: string,
 	universeId: string,
-	responses: {
-		[number]: boolean,
-	},
-}
-
-export type NotificationToastModel = {
-	notificationId: number,
-	title: string,
-	subtext: string,
-	description: string,
 }
 
 export type SquadInviteModel = {
@@ -31,7 +23,6 @@ export type SquadModel = {
 	createdUtc: number, -- Milliseconds
 	updatedUtc: number, -- Milliseconds
 	squadId: string,
-	inviteLinkToken: string,
 	members: { SquadMemberModel },
 }
 
@@ -39,20 +30,10 @@ export type SquadModel = {
 
 export type CurrentSquad = SquadModel | nil
 
-export type ExperienceInviteByCreated = {
-	[number]: ExperienceInviteModel,
-}
+export type CurrentExperienceInvite = ExperienceInviteModel | nil
 
 export type NavigationTopBar = {
 	topBarOpacity: number,
-}
-
-export type NotificationToast = {
-	[number]: NotificationToastModel,
-}
-
-export type SquadInviteByCreated = {
-	[number]: SquadInviteModel,
 }
 
 -- Action
@@ -116,47 +97,15 @@ export type SquadUpdatedAction = {
 	},
 }
 
-export type SquadInviteUpdatedAction = {
-	payload: {
-		squadInvite: SquadInviteModel,
-	},
-}
-
-export type ExperienceInviteRemovedAction = {
-	payload: {
-		inviteId: string,
-	},
-}
-
 export type ExperienceInviteUpdatedAction = {
 	payload: {
 		experienceInvite: ExperienceInviteModel,
 	},
 }
 
-export type ExperienceInviteRespondedAction = {
-	payload: {
-		inviteId: string,
-		userId: number,
-		response: boolean,
-	},
-}
-
 export type NavigationTopBarUpdatedAction = {
 	payload: {
 		topBarOpacity: number,
-	},
-}
-
-export type NotificationToastAddedAction = {
-	payload: {
-		notificationToast: NotificationToastModel,
-	},
-}
-
-export type NotificationToastClearedAction = {
-	payload: {
-		notificationId: number,
 	},
 }
 

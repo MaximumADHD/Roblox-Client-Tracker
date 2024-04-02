@@ -3,17 +3,13 @@ local Packages = Root.Parent
 local Rodux = require(Packages.Rodux)
 
 local currentSquad = require(script.currentSquad)
-local experienceInviteByCreated = require(script.experienceInviteByCreated)
-local notificationToast = require(script.notificationToast)
-local squadInviteByCreated = require(script.squadInviteByCreated)
+local currentExperienceInvite = require(script.currentExperienceInvite)
 local navigationTopBar = require(script.navigationTopBar)
 
 return function(config)
 	return Rodux.combineReducers({
 		currentSquad = currentSquad(config),
-		experienceInviteByCreated = experienceInviteByCreated(config),
-		notificationToast = notificationToast(),
-		squadInviteByCreated = squadInviteByCreated(),
+		currentExperienceInvite = currentExperienceInvite(config),
 		navigationTopBar = navigationTopBar(),
 	})
 end

@@ -76,21 +76,57 @@ function FontLoader:loadFont()
 			RelativeMinSize = tokens.Global.Size_100 / baseSize,
 		},
 	}
-	local fontWithLegacyName = self:mapLegacyFont(fontWithToken)
+	local fontWithLegacyName = self:mapLegacyFont(fontWithToken, baseSize)
 	return Cryo.Dictionary.join(fontWithLegacyName, fontWithToken)
 end
 
-function FontLoader:mapLegacyFont(fontWithToken)
+function FontLoader:mapLegacyFont(fontWithToken, baseSize)
 	return {
-		Title = fontWithToken.HeadingLarge,
-		Header1 = fontWithToken.HeadingSmall,
-		Header2 = fontWithToken.TitleLarge,
-		SubHeader1 = fontWithToken.TitleLarge,
-		Body = fontWithToken.BodyLarge,
-		CaptionHeader = fontWithToken.CaptionLarge,
-		CaptionSubHeader = fontWithToken.CaptionLarge,
-		CaptionBody = fontWithToken.BodySmall,
-		Footer = fontWithToken.CaptionSmall,
+		Title = {
+			Font = fontWithToken.HeadingLarge.Font,
+			RelativeSize = 28 / baseSize,
+			RelativeMinSize = 24 / baseSize,
+		},
+		Header1 = {
+			Font = fontWithToken.HeadingSmall.Font,
+			RelativeSize = 20 / baseSize,
+			RelativeMinSize = 16 / baseSize,
+		},
+		Header2 = {
+			Font = fontWithToken.TitleLarge.Font,
+			RelativeSize = 16 / baseSize,
+			RelativeMinSize = 12 / baseSize,
+		},
+		SubHeader1 = {
+			Font = fontWithToken.TitleLarge.Font,
+			RelativeSize = 16 / baseSize,
+			RelativeMinSize = 12 / baseSize,
+		},
+		Body = {
+			Font = fontWithToken.BodyLarge.Font,
+			RelativeSize = 16 / baseSize,
+			RelativeMinSize = 12 / baseSize,
+		},
+		CaptionHeader = {
+			Font = fontWithToken.CaptionLarge.Font,
+			RelativeSize = 12 / baseSize,
+			RelativeMinSize = 9 / baseSize,
+		},
+		CaptionSubHeader = {
+			Font = fontWithToken.CaptionLarge.Font,
+			RelativeSize = 12 / baseSize,
+			RelativeMinSize = 9 / baseSize,
+		},
+		CaptionBody = {
+			Font = fontWithToken.BodySmall.Font,
+			RelativeSize = 12 / baseSize,
+			RelativeMinSize = 9 / baseSize,
+		},
+		Footer = {
+			Font = fontWithToken.CaptionSmall.Font,
+			RelativeSize = 10 / baseSize,
+			RelativeMinSize = 8 / baseSize,
+		},
 	}
 end
 

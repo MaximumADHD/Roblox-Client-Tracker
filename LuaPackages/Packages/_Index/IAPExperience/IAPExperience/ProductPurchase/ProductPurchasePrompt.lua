@@ -1,4 +1,3 @@
-local CorePackages = game:GetService("CorePackages")
 local RunService = game:GetService("RunService")
 
 local ProductPurchaseRoot = script.Parent

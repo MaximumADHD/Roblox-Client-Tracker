@@ -1,3 +1,5 @@
+export type ControlState = "Initialize" | "Default" | "Pressed" | "Hover" | "Selected" | "SelectedPressed" | "Disabled"
+
 local Core = script.Parent.Parent.Parent
 local UIBlox = Core.Parent
 local Packages = UIBlox.Parent

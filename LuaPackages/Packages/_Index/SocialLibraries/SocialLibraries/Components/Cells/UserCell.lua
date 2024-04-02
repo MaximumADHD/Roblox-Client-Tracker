@@ -1,5 +1,6 @@
 local SocialLibraries = script:FindFirstAncestor("SocialLibraries")
 local dependencies = require(SocialLibraries.dependencies)
+local getFFlagDeprecatedSocialLibrariesCells = require(SocialLibraries.Flags.getFFlagDeprecatedSocialLibrariesCells)
 
 local Roact = dependencies.Roact
 local PresenceBubbleCellStyled = require(script.Parent.PresenceBubbleCellStyled)
@@ -22,6 +23,11 @@ UserCell.defaultProps = {
 }
 
 function UserCell:init()
+	assert(
+		not getFFlagDeprecatedSocialLibrariesCells(),
+		"social-libraries Cells are deprecated, please use Cell components from app-chat rotriever package"
+	)
+
 	self.onActivated = function()
 		if self.props.onActivated then
 			self.props.onActivated(self.props.user)

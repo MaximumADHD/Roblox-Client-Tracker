@@ -5,9 +5,6 @@ return {
 	-- Indicate whether to enable the new layout for menu/cell
 	enableNewMenuLayout = false,
 
-	-- Enable IconButton to calculate size based on token values
-	useTokensSizeInIconButton = false,
-
 	-- enable trace level log
 	enableTraceLevelLog = false,
 
@@ -59,6 +56,9 @@ return {
 
 	-- Use GetTextBoundsAsync instead of GetTextSize to guarantee a correct result
 	useGetTextBoundsAsync = false,
+
+	-- use new refactored interactable
+	refactorInteractable = false,
 
 	-- Automatically resize and wrap text in ModalTitle
 	modalTitleAutomaticSizing = false,

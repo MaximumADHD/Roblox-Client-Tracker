@@ -27,7 +27,6 @@ function SquadModel.mock(mergeTable)
 		createdUtc = mergeTable.createdUtc or 1666635183,
 		updatedUtc = mergeTable.updatedUtc or 1666635183,
 		squadId = mergeTable.squadId or "12345",
-		inviteLinkToken = mergeTable.inviteLinkToken or "45678",
 		members = { SquadMemberModel.mock(mergeTable.members) },
 	})
 
@@ -43,7 +42,6 @@ function SquadModel.format(squadData)
 		createdUtc = squadData.createdUtc,
 		updatedUtc = squadData.updatedUtc,
 		squadId = squadData.squadId,
-		inviteLinkToken = squadData.inviteLinkToken,
 		members = members,
 	})
 
@@ -54,7 +52,6 @@ SquadModel.isValid = t.strictInterface({
 	createdUtc = t.number, -- Milliseconds
 	updatedUtc = t.number, -- Milliseconds
 	squadId = t.string,
-	inviteLinkToken = t.string,
 	members = t.array(SquadMemberModel.isValid),
 })
 

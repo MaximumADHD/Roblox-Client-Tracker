@@ -20,13 +20,11 @@ InputAlertView.defaultProps = {
 
 	maxCharacters = 150,
 
-	onActivated = function()
+	onActivated = function() end,
 
-	end,
+	onModalClose = function() end,
 
-	onModalClose = function()
-
-	end,
+	screenSize = Vector2.new(0, 0),
 
 	soakAreaColor3 = Color3.fromRGB(0, 0, 255),
 	soakAreaTransparency = 0.9,
@@ -49,9 +47,9 @@ function InputAlertView:init()
 		-- Calculate how much the keyboard overlaps with the modal soak, and subtract that from the height.
 		-- This is because on different devices the overlap is different.
 		self:setState({
-			keyboardOffset =
-				UserInputService.OnScreenKeyboardVisible and
-				self.state.yPosition + self.ref:getValue().AbsoluteSize.Y - UserInputService.OnScreenKeyboardPosition.Y or 0,
+			keyboardOffset = UserInputService.OnScreenKeyboardVisible
+					and self.state.yPosition + self.ref:getValue().AbsoluteSize.Y - UserInputService.OnScreenKeyboardPosition.Y
+				or 0,
 		})
 	end
 
@@ -106,9 +104,7 @@ function InputAlertView:render()
 				buttonType = ButtonType.Secondary,
 				props = {
 					text = props.cancelText,
-					onActivated = function()
-
-					end,
+					onActivated = function() end,
 				},
 			},
 			{
@@ -148,7 +144,7 @@ function InputAlertView:render()
 			soakAreaTransparency = self.props.soakAreaTransparency,
 			textboxes = {
 				InputBox = {
-					belowText = maxCharacters and #self.state.inputText.."/"..maxCharacters,
+					belowText = maxCharacters and #self.state.inputText .. "/" .. maxCharacters,
 					belowTextAlignment = Enum.TextXAlignment.Right,
 					LayoutOrder = 1,
 					onTextChanged = self.onTextChanged,
@@ -158,7 +154,8 @@ function InputAlertView:render()
 				},
 			},
 			title = props.titleText,
-		})
+			screenSize = props.screenSize,
+		}),
 	})
 end
 

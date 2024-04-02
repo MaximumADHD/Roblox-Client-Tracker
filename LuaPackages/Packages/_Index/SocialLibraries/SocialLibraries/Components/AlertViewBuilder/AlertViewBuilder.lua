@@ -14,6 +14,7 @@ local CheckboxList = UIBlox.App.InputButton.CheckboxList
 
 local AlertViewBuilder = Roact.Component:extend("AlertViewBuilder")
 
+local FFlagAlertViewUseScreenSize = game:DefineFastFlag("AlertViewUseScreenSize", false)
 
 --[[
 	A component that wraps around AlertView and provides an interface to allow for the easy creation of AlertView
@@ -85,6 +86,7 @@ AlertViewBuilder.defaultProps = {
 
 	checkboxHeight = 50,
 	childComponentWidth = 220,
+	screenSize = Vector2.new(0, 0),
 
 	soakAreaColor3 = Color3.fromRGB(255, 0, 255),
 	soakAreaTransparency = 0.5,
@@ -138,7 +140,7 @@ function AlertViewBuilder:reset()
 		falseDictionary[key] = false
 	end
 	self:setState({
-		checkboxStatuses = falseDictionary
+		checkboxStatuses = falseDictionary,
 	})
 end
 
@@ -168,7 +170,7 @@ function AlertViewBuilder:makeButtonTable()
 						self.props.onModalStayOpen()
 					end
 				end,
-			})
+			}),
 		})
 		buttonTable.buttons[rowIndex] = updatedButton
 	end
@@ -204,23 +206,26 @@ function AlertViewBuilder:makeTextboxList(styles)
 				LayoutOrder = 1,
 				[Roact.Ref] = self.refs[key],
 			}),
-			[key .. " Below Text"] = (textbox.belowText and textbox.belowText ~= "" ) and Roact.createElement(AlertViewLabel, {
-				BackgroundTransparency = 1,
-				Text = textbox.belowText,
-				LayoutOrder = 2,
-				TextXAlignment = textbox.belowTextAlignment or Enum.TextXAlignment.Left,
-				Size = UDim2.new(1, 0, 0, belowTextHeight),
-				TextColor3 = textCounterColor,
-			}) or nil,
-			[key .. " Warning Text"] = (textbox.warningText and textbox.warningText ~= "") and
-			Roact.createElement(AlertViewLabel, {
-				BackgroundTransparency = 1,
-				Text = textbox.warningText,
-				LayoutOrder = 3,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				Size = UDim2.new(1, 0, 0, warningTextHeight),
-				TextColor3 = styles.Theme.Alert.Color,
-			}) or nil,
+			[key .. " Below Text"] = (textbox.belowText and textbox.belowText ~= "")
+					and Roact.createElement(AlertViewLabel, {
+						BackgroundTransparency = 1,
+						Text = textbox.belowText,
+						LayoutOrder = 2,
+						TextXAlignment = textbox.belowTextAlignment or Enum.TextXAlignment.Left,
+						Size = UDim2.new(1, 0, 0, belowTextHeight),
+						TextColor3 = textCounterColor,
+					})
+				or nil,
+			[key .. " Warning Text"] = (textbox.warningText and textbox.warningText ~= "")
+					and Roact.createElement(AlertViewLabel, {
+						BackgroundTransparency = 1,
+						Text = textbox.warningText,
+						LayoutOrder = 3,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						Size = UDim2.new(1, 0, 0, warningTextHeight),
+						TextColor3 = styles.Theme.Alert.Color,
+					})
+				or nil,
 		})
 	end
 	return textboxDisplay
@@ -233,9 +238,9 @@ function AlertViewBuilder:makeCheckboxList()
 		elementSize = UDim2.new(0, self.props.childComponentWidth, 0, self.props.checkboxHeight),
 		onActivated = function(selectedIndicies)
 			self:setState({
-				checkboxStatuses = Cryo.Dictionary.join(self.state.checkboxStatuses, selectedIndicies)
+				checkboxStatuses = Cryo.Dictionary.join(self.state.checkboxStatuses, selectedIndicies),
 			})
-		end
+		end,
 	})
 end
 
@@ -260,7 +265,7 @@ function AlertViewBuilder:makeMiddleContent(styles)
 				width = UDim.new(1, 0),
 				BorderSizePixel = 0,
 				BackgroundTransparency = 1,
-				LayoutOrder = 1
+				LayoutOrder = 1,
 			}, textboxLayout),
 			Checkboxes = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 0, checkboxFrameHeight),
@@ -290,8 +295,8 @@ function AlertViewBuilder:render()
 				bodyText = bodyText,
 				middleContent = middleContent,
 				buttonStackInfo = buttonTableLayout,
-				screenSize = Vector2.new(0, 0)
-			})
+				screenSize = if FFlagAlertViewUseScreenSize then self.props.screenSize else Vector2.new(0, 0),
+			}),
 		})
 	end)
 end
