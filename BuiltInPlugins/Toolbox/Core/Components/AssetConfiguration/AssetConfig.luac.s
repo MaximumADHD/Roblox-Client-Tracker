@@ -3211,15 +3211,22 @@ PROTO_87:
   CALL R2 2 0
   GETUPVAL R1 6
   CALL R1 0 1
-  JUMPIFNOT R1 [+23]
+  JUMPIFNOT R1 [+33]
   GETTABLEKS R2 R0 K2 ["props"]
   GETTABLEKS R1 R2 K13 ["assetId"]
   GETTABLEKS R3 R0 K2 ["props"]
   GETTABLEKS R2 R3 K5 ["assetTypeEnum"]
-  JUMPIFNOT R1 [+14]
-  JUMPIFNOT R2 [+13]
+  JUMPIFNOT R1 [+24]
+  JUMPIFNOT R2 [+23]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K17 ["isMarketplaceAsset"]
+  MOVE R4 R2
+  CALL R3 1 1
+  JUMPIFNOT R3 [+17]
+  GETIMPORT R3 K21 [Enum.AssetType.Animation]
+  JUMPIFEQ R2 R3 [+14]
   GETTABLEKS R4 R0 K2 ["props"]
-  GETTABLEKS R3 R4 K17 ["dispatchGetFiatProduct"]
+  GETTABLEKS R3 R4 K22 ["dispatchGetFiatProduct"]
   GETTABLEKS R6 R0 K2 ["props"]
   GETTABLEKS R5 R6 K15 ["Network"]
   GETTABLEKS R4 R5 K16 ["networkInterface"]

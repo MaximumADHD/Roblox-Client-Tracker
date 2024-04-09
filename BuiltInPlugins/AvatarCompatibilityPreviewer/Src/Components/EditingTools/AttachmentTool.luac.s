@@ -33,6 +33,24 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  LOADK R3 K0 ["CFrame"]
+  NAMECALL R1 R1 K1 ["GetPropertyChangedSignal"]
+  CALL R1 2 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K2 ["Connect"]
+  CALL R1 2 1
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  RETURN R2 1
+
+PROTO_4:
   GETUPVAL R1 0
   MOVE R2 R0
   LOADNIL R3
@@ -62,10 +80,10 @@ PROTO_2:
   FASTCALL2 ASSERT R3 R4 [+3]
   GETIMPORT R2 K5 [assert]
   CALL R2 2 0
-  DUPTABLE R2 K10 [{"name", "limb", "getCFrame", "onChange"}]
-  GETTABLEKS R3 R1 K11 ["Name"]
+  DUPTABLE R2 K11 [{"name", "limb", "getCFrame", "onChange", "connectChanged"}]
+  GETTABLEKS R3 R1 K12 ["Name"]
   SETTABLEKS R3 R2 K6 ["name"]
-  GETTABLEKS R3 R1 K12 ["Parent"]
+  GETTABLEKS R3 R1 K13 ["Parent"]
   SETTABLEKS R3 R2 K7 ["limb"]
   NEWCLOSURE R3 P0
   CAPTURE UPVAL U0
@@ -76,10 +94,13 @@ PROTO_2:
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   SETTABLEKS R3 R2 K9 ["onChange"]
+  NEWCLOSURE R3 P2
+  CAPTURE REF R1
+  SETTABLEKS R3 R2 K10 ["connectChanged"]
   CLOSEUPVALS R1
   RETURN R2 1
 
-PROTO_3:
+PROTO_5:
   GETUPVAL R2 0
   MOVE R3 R0
   CALL R2 1 1
@@ -114,7 +135,7 @@ PROTO_3:
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_6:
   NEWTABLE R1 0 0
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["useRef"]
@@ -540,21 +561,28 @@ PROTO_4:
   CALL R8 2 0
   RETURN R1 1
 
-PROTO_5:
+PROTO_7:
   GETUPVAL R1 0
   GETTABLEKS R2 R0 K0 ["worldModel"]
   CALL R1 1 1
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["createElement"]
   GETUPVAL R3 2
-  DUPTABLE R4 K5 [{"name", "worldModel", "points", "additionalToolbarItems"}]
-  LOADK R5 K6 ["AttachmentTool"]
+  DUPTABLE R4 K6 [{"name", "worldModel", "points", "generallyEquivalentPointNames", "additionalToolbarItems"}]
+  LOADK R5 K7 ["AttachmentTool"]
   SETTABLEKS R5 R4 K2 ["name"]
   GETTABLEKS R5 R0 K0 ["worldModel"]
   SETTABLEKS R5 R4 K0 ["worldModel"]
   SETTABLEKS R1 R4 K3 ["points"]
-  GETTABLEKS R5 R0 K4 ["additionalToolbarItems"]
-  SETTABLEKS R5 R4 K4 ["additionalToolbarItems"]
+  NEWTABLE R5 0 1
+  NEWTABLE R6 0 2
+  LOADK R7 K8 ["HairAttachment"]
+  LOADK R8 K9 ["HatAttachment"]
+  SETLIST R6 R7 2 [1]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K4 ["generallyEquivalentPointNames"]
+  GETTABLEKS R5 R0 K5 ["additionalToolbarItems"]
+  SETTABLEKS R5 R4 K5 ["additionalToolbarItems"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -594,10 +622,10 @@ MAIN:
   GETTABLEKS R8 R0 K9 ["Src"]
   GETTABLEKS R7 R8 K13 ["Types"]
   CALL R6 1 1
-  DUPCLOSURE R7 K16 [PROTO_4]
+  DUPCLOSURE R7 K16 [PROTO_6]
   CAPTURE VAL R1
   CAPTURE VAL R5
-  DUPCLOSURE R8 K17 [PROTO_5]
+  DUPCLOSURE R8 K17 [PROTO_7]
   CAPTURE VAL R7
   CAPTURE VAL R1
   CAPTURE VAL R3

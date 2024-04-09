@@ -49,6 +49,7 @@ export type State = {
 	isClientView: boolean,
 	usePercentages: boolean,
 	isExporting: boolean,
+	isShowingMobileSettings: boolean,
 	client: SessionState,
 	server: SessionState,
 }
@@ -59,6 +60,7 @@ return function(state: State?, action: { [string]: any }): State
 			isClientView = true,
 			usePercentages = false,
 			isExporting = false,
+			isShowingMobileSettings = false,
 			client = {
 				isProfiling = false,
 				data = nil,
@@ -120,6 +122,7 @@ return function(state: State?, action: { [string]: any }): State
 			isClientView = action.isClientView,
 			usePercentages = action.usePercentages,
 			isExporting = action.isExporting,
+			isShowingMobileSettings = action.isShowingMobileSettings,
 			client = action.clientSessionState,
 			server = action.serverSessionState,
 		}

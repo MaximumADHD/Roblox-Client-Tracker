@@ -52,46 +52,55 @@ MAIN:
   GETTABLEKS R9 R10 K12 ["Telemetry"]
   GETTABLEKS R8 R9 K17 ["Types"]
   CALL R7 1 1
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K18 ["Flags"]
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R10 R8 K19 ["getFFlagStyleEditorEnableTelemetry"]
-  CALL R9 1 1
-  CALL R9 0 1
-  GETTABLEKS R10 R2 K20 ["interface"]
-  DUPTABLE R11 K24 [{"sessionLengthSeconds", "focusTimeSeconds", "unmatchedFocusEndCount"}]
-  GETTABLEKS R12 R2 K25 ["number"]
-  SETTABLEKS R12 R11 K21 ["sessionLengthSeconds"]
-  GETTABLEKS R12 R2 K25 ["number"]
-  SETTABLEKS R12 R11 K22 ["focusTimeSeconds"]
-  GETTABLEKS R12 R2 K25 ["number"]
-  SETTABLEKS R12 R11 K23 ["unmatchedFocusEndCount"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K17 ["Types"]
+  CALL R8 1 1
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K18 ["Flags"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R9 K19 ["getFFlagStyleEditorEnableTelemetry"]
   CALL R10 1 1
-  DUPTABLE R11 K32 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
-  LOADK R12 K33 ["StyleEditor_PluginUnmounted"]
-  SETTABLEKS R12 R11 K26 ["eventName"]
-  NEWTABLE R12 0 1
-  GETTABLEKS R13 R5 K34 ["Points"]
-  SETLIST R12 R13 1 [1]
-  SETTABLEKS R12 R11 K27 ["backends"]
-  JUMPIFNOT R9 [+3]
-  GETTABLEKS R12 R3 K35 ["ONE_HUNDRED_PERCENT"]
+  CALL R10 0 1
+  GETTABLEKS R11 R2 K20 ["interface"]
+  DUPTABLE R12 K25 [{"sessionLengthSeconds", "focusTimeSeconds", "unmatchedFocusEndCount", "buttonPressCounts"}]
+  GETTABLEKS R13 R2 K26 ["number"]
+  SETTABLEKS R13 R12 K21 ["sessionLengthSeconds"]
+  GETTABLEKS R13 R2 K26 ["number"]
+  SETTABLEKS R13 R12 K22 ["focusTimeSeconds"]
+  GETTABLEKS R13 R2 K26 ["number"]
+  SETTABLEKS R13 R12 K23 ["unmatchedFocusEndCount"]
+  GETTABLEKS R13 R2 K27 ["map"]
+  GETTABLEKS R14 R2 K28 ["string"]
+  GETTABLEKS R15 R2 K26 ["number"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K24 ["buttonPressCounts"]
+  CALL R11 1 1
+  DUPTABLE R12 K35 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
+  LOADK R13 K36 ["StyleEditor_PluginUnmounted"]
+  SETTABLEKS R13 R12 K29 ["eventName"]
+  NEWTABLE R13 0 1
+  GETTABLEKS R14 R5 K37 ["Points"]
+  SETLIST R13 R14 1 [1]
+  SETTABLEKS R13 R12 K30 ["backends"]
+  JUMPIFNOT R10 [+3]
+  GETTABLEKS R13 R3 K38 ["ONE_HUNDRED_PERCENT"]
   JUMP [+1]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K28 ["throttlingPercentage"]
-  NEWTABLE R12 0 3
-  LOADN R13 24
-  LOADN R14 3
-  LOADN R15 20
-  SETLIST R12 R13 3 [1]
-  SETTABLEKS R12 R11 K29 ["lastUpdated"]
-  LOADK R12 K36 ["Root Roact component unmounted."]
-  SETTABLEKS R12 R11 K30 ["description"]
-  LOADK R12 K37 [""]
-  SETTABLEKS R12 R11 K31 ["links"]
-  DUPCLOSURE R12 K38 [PROTO_0]
-  CAPTURE VAL R10
-  CAPTURE VAL R4
+  LOADN R13 0
+  SETTABLEKS R13 R12 K31 ["throttlingPercentage"]
+  NEWTABLE R13 0 3
+  LOADN R14 24
+  LOADN R15 3
+  LOADN R16 20
+  SETLIST R13 R14 3 [1]
+  SETTABLEKS R13 R12 K32 ["lastUpdated"]
+  LOADK R13 K39 ["Root Roact component unmounted."]
+  SETTABLEKS R13 R12 K33 ["description"]
+  LOADK R13 K40 [""]
+  SETTABLEKS R13 R12 K34 ["links"]
+  DUPCLOSURE R13 K41 [PROTO_0]
   CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R12
   CAPTURE VAL R6
-  RETURN R12 1
+  RETURN R13 1

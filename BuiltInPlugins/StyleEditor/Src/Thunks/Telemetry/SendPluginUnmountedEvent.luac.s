@@ -8,16 +8,19 @@ PROTO_0:
   SUB R4 R3 R5
   GETTABLEKS R5 R1 K6 ["Telemetry"]
   GETUPVAL R8 0
-  DUPTABLE R9 K10 [{"sessionLengthSeconds", "focusTimeSeconds", "unmatchedFocusEndCount"}]
+  DUPTABLE R9 K11 [{"sessionLengthSeconds", "focusTimeSeconds", "unmatchedFocusEndCount", "buttonPressCounts"}]
   SETTABLEKS R4 R9 K7 ["sessionLengthSeconds"]
   GETTABLEKS R11 R2 K4 ["SessionStats"]
-  GETTABLEKS R10 R11 K11 ["TotalPluginFocusTimeSeconds"]
+  GETTABLEKS R10 R11 K12 ["TotalPluginFocusTimeSeconds"]
   SETTABLEKS R10 R9 K8 ["focusTimeSeconds"]
   GETTABLEKS R11 R2 K4 ["SessionStats"]
-  GETTABLEKS R10 R11 K12 ["PluginFocusEndWithoutStartCount"]
+  GETTABLEKS R10 R11 K13 ["PluginFocusEndWithoutStartCount"]
   SETTABLEKS R10 R9 K9 ["unmatchedFocusEndCount"]
+  GETTABLEKS R11 R2 K4 ["SessionStats"]
+  GETTABLEKS R10 R11 K14 ["ButtonPressCounts"]
+  SETTABLEKS R10 R9 K10 ["buttonPressCounts"]
   CALL R8 1 -1
-  NAMECALL R6 R5 K13 ["logTelemetryEvent"]
+  NAMECALL R6 R5 K15 ["logTelemetryEvent"]
   CALL R6 -1 0
   RETURN R0 0
 

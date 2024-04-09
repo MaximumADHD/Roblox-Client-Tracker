@@ -1,0 +1,53 @@
+PROTO_0:
+  JUMPIFEQKS R3 K0 [""] [+3]
+  MOVE R4 R3
+  JUMPIF R4 [+1]
+  LOADNIL R4
+  MOVE R3 R4
+  DUPTABLE R4 K5 [{"id", "text", "defaultShortcut", "allowBinding"}]
+  SETTABLEKS R2 R4 K1 ["id"]
+  MOVE R6 R2
+  LOADK R7 K6 [" Scripts"]
+  CONCAT R5 R6 R7
+  SETTABLEKS R5 R4 K2 ["text"]
+  SETTABLEKS R3 R4 K3 ["defaultShortcut"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K4 ["allowBinding"]
+  RETURN R4 1
+
+PROTO_1:
+  NEWTABLE R2 0 0
+  GETIMPORT R3 K1 [pairs]
+  GETUPVAL R4 0
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  MOVE R9 R7
+  JUMPIFEQKS R9 K2 [""] [+3]
+  MOVE R10 R9
+  JUMPIF R10 [+1]
+  LOADNIL R10
+  MOVE R9 R10
+  DUPTABLE R8 K7 [{"id", "text", "defaultShortcut", "allowBinding"}]
+  SETTABLEKS R6 R8 K3 ["id"]
+  MOVE R11 R6
+  LOADK R12 K8 [" Scripts"]
+  CONCAT R10 R11 R12
+  SETTABLEKS R10 R8 K4 ["text"]
+  SETTABLEKS R9 R8 K5 ["defaultShortcut"]
+  LOADB R10 1
+  SETTABLEKS R10 R8 K6 ["allowBinding"]
+  SETTABLE R8 R2 R6
+  FORGLOOP R3 2 [-22]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K2 [{"Export", "Import"}]
+  LOADK R1 K3 ["F2"]
+  SETTABLEKS R1 R0 K0 ["Export"]
+  LOADK R1 K4 ["F6"]
+  SETTABLEKS R1 R0 K1 ["Import"]
+  DUPCLOSURE R1 K5 [PROTO_0]
+  DUPCLOSURE R2 K6 [PROTO_1]
+  CAPTURE VAL R0
+  RETURN R2 1

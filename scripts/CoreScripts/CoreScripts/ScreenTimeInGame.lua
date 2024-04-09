@@ -11,6 +11,7 @@ local ScreenTimeConstants = require(CorePackages.Regulations.ScreenTime.Constant
 local GetFFlagScreenTimeSignalR = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTimeSignalR)
 local Logging = require(CorePackages.Logging)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
+local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
 
 local function leaveGame()
 	GuiService.SelectedCoreObject = nil
@@ -129,14 +130,28 @@ prompt:updateButtons(buttonList)
 prompt:setErrorTitle("Warning", "InGame.CommonUI.Title.Warning")
 
 local screenWidth = RobloxGui.AbsoluteSize.X
+local screenHeight
+if FFlagErrorPromptResizesHeight() then
+	screenHeight = RobloxGui.AbsoluteSize.Y
+end
+
 local function onScreenSizeChanged()
 	if not prompt then
 		return
 	end
 	local newWidth = RobloxGui.AbsoluteSize.X
-	if screenWidth ~= newWidth then
-		screenWidth = newWidth
-		prompt:resizeWidth(screenWidth)
+	if FFlagErrorPromptResizesHeight() then
+		local newHeight = RobloxGui.AbsoluteSize.Y
+		if screenWidth ~= newWidth or screenHeight ~= newHeight then
+			screenWidth = newWidth
+			screenHeight = newHeight
+			prompt:resizeWidthAndHeight(screenWidth, screenHeight)
+		end
+	else
+		if screenWidth ~= newWidth then
+			screenWidth = newWidth
+			prompt:resizeWidth(screenWidth)
+		end
 	end
 end
 

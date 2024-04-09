@@ -23,6 +23,8 @@ local Promise = require(Root.Promise)
 
 local completePurchase = require(script.Parent.completePurchase)
 
+local FFlagEnableCollectibleCheckToPurchaseItem = require(Root.Parent.Flags.FFlagEnableCollectibleCheckToPurchaseItem)
+
 -- Only tools can be equipped on purchase
 local ASSET_TYPE_TOOL = 19
 
@@ -78,7 +80,15 @@ local function purchaseItem()
 
 		analytics.signalProductPurchaseConfirmed(productId, state.requestType)
 
-		if requestCollectibleItemInstanceId and requestCollectibleItemInstanceId ~= '' then
+		local isCollectibleBundle = false
+		if FFlagEnableCollectibleCheckToPurchaseItem then
+			isCollectibleBundle = requestCollectibleItemId and requestCollectibleItemId ~= "" and
+				infoType == Enum.InfoType.Bundle
+		end
+
+		if (FFlagEnableCollectibleCheckToPurchaseItem and isCollectibleBundle) or
+			(requestCollectibleItemInstanceId and requestCollectibleItemInstanceId ~= '') then
+
 			return performPurchaseV2(network, infoType, productId, salePrice, requestId, isRobloxPurchase, requestCollectibleItemId, requestCollectibleProductId, idempotencyKey, purchaseAuthToken, requestCollectibleItemInstanceId)
 			:andThen(function(result)
 				--[[

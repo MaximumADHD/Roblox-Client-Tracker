@@ -39,102 +39,111 @@ local function var3()
    var0.replaceProgress = nil
    var0.messageKey = ""
    var0.processResult = {}
+   var0.analyticsSent = false
    return var0
 end
 
-local var55 = {}
-function var55.SetDiagnostics(arg1, arg2)
-   local var59 = var1.Dictionary
-   var59 = arg1
-   local var61 = {}
-   var61.diagnostics = arg2.diagnostics
-   return var59.join(var59, var61)
+local var56 = {}
+function var56.SetDiagnostics(arg1, arg2)
+   local var60 = var1.Dictionary
+   var60 = arg1
+   local var62 = {}
+   var62.diagnostics = arg2.diagnostics
+   return var60.join(var60, var62)
 end
 
-function var55.SetFilter(arg1, arg2)
-   local var67 = var1.Dictionary
-   var67 = arg1
-   local var69 = {}
-   var69.filter = arg2.filter
-   return var67.join(var67, var69)
+function var56.SetFilter(arg1, arg2)
+   local var68 = var1.Dictionary
+   var68 = arg1
+   local var70 = {}
+   var70.filter = arg2.filter
+   return var68.join(var68, var70)
 end
 
-function var55.SetScriptSelection(arg1, arg2)
-   local var75 = var1.Dictionary
-   var75 = arg1
-   local var77 = {}
-   var77.selection = arg2.selection
-   return var75.join(var75, var77)
+function var56.SetScriptSelection(arg1, arg2)
+   local var76 = var1.Dictionary
+   var76 = arg1
+   local var78 = {}
+   var78.selection = arg2.selection
+   return var76.join(var76, var78)
 end
 
-function var55.SetScriptExpansion(arg1, arg2)
-   local var83 = var1.Dictionary
-   var83 = arg1
-   local var85 = {}
-   var85.expansion = arg2.expansion
-   return var83.join(var83, var85)
+function var56.SetScriptExpansion(arg1, arg2)
+   local var84 = var1.Dictionary
+   var84 = arg1
+   local var86 = {}
+   var86.expansion = arg2.expansion
+   return var84.join(var84, var86)
 end
 
-function var55.SetCompletedScripts(arg1, arg2)
-   local var91 = var1.Dictionary
-   var91 = arg1
-   local var93 = {}
-   var93.completedScripts = arg2.completedScripts
-   return var91.join(var91, var93)
+function var56.SetCompletedScripts(arg1, arg2)
+   local var92 = var1.Dictionary
+   var92 = arg1
+   local var94 = {}
+   var94.completedScripts = arg2.completedScripts
+   return var92.join(var92, var94)
 end
 
-function var55.SetInitialIssueCounts(arg1, arg2)
-   local var99 = var1.Dictionary
-   var99 = arg1
-   local var101 = {}
-   var101.initialIssueCounts = arg2.initialIssueCounts
-   return var99.join(var99, var101)
+function var56.SetInitialIssueCounts(arg1, arg2)
+   local var100 = var1.Dictionary
+   var100 = arg1
+   local var102 = {}
+   var102.initialIssueCounts = arg2.initialIssueCounts
+   return var100.join(var100, var102)
 end
 
-function var55.SetRevertedScripts(arg1, arg2)
-   local var107 = var1.Dictionary
-   var107 = arg1
-   local var109 = {}
-   var109.revertedScripts = arg2.revertedScripts
-   return var107.join(var107, var109)
+function var56.SetRevertedScripts(arg1, arg2)
+   local var108 = var1.Dictionary
+   var108 = arg1
+   local var110 = {}
+   var110.revertedScripts = arg2.revertedScripts
+   return var108.join(var108, var110)
 end
 
-function var55.SetReplaceRules(arg1, arg2)
-   local var115 = var1.Dictionary
-   var115 = arg1
-   local var117 = {}
-   var117.replaceRules = arg2.replaceRules
-   return var115.join(var115, var117)
+function var56.SetReplaceRules(arg1, arg2)
+   local var116 = var1.Dictionary
+   var116 = arg1
+   local var118 = {}
+   var118.replaceRules = arg2.replaceRules
+   return var116.join(var116, var118)
 end
 
-function var55.SetReplaceProgress(arg1, arg2)
-   local var123 = var1.Dictionary
-   var123 = arg1
-   local var125 = {}
-   var125.replaceProgress = arg2.progress
-   return var123.join(var123, var125)
+function var56.SetReplaceProgress(arg1, arg2)
+   local var124 = var1.Dictionary
+   var124 = arg1
+   local var126 = {}
+   var126.replaceProgress = arg2.progress
+   return var124.join(var124, var126)
 end
 
-function var55.SetProgressBarMessageKey(arg1, arg2)
-   local var131 = var1.Dictionary
-   var131 = arg1
-   local var133 = {}
-   var133.messageKey = arg2.messageKey
-   return var131.join(var131, var133)
+function var56.SetProgressBarMessageKey(arg1, arg2)
+   local var132 = var1.Dictionary
+   var132 = arg1
+   local var134 = {}
+   var134.messageKey = arg2.messageKey
+   return var132.join(var132, var134)
 end
 
-function var55.SetProcessResult(arg1, arg2)
-   local var139 = var1.Dictionary
-   var139 = arg1
-   local var141 = {}
-   var141.processResult = arg2.processResult
-   return var139.join(var139, var141)
+function var56.SetProcessResult(arg1, arg2)
+   local var140 = var1.Dictionary
+   var140 = arg1
+   local var142 = {}
+   var142.processResult = arg2.processResult
+   return var140.join(var140, var142)
 end
 
-function var55.ResetAllScriptConversion(arg1)
-   local var146 = var1.Dictionary
-   var146 = arg1
-   return var146.join(var146, var3())
+function var56.ResetAllScriptConversion(arg1)
+   local var147 = var1.Dictionary
+   var147 = arg1
+   return var147.join(var147, var3())
 end
 
-return require(var0.Packages.Rodux).createReducer(var3(), var55)
+function var56.SetScriptAnalyticsSent(arg1, arg2)
+   local var155 = var1.Dictionary
+   var155 = arg1
+   local var157 = {}
+   var157.analyticsSent = arg2.analyticsSent
+   return var155.join(var155, var157)
+end
+
+return require(var0.Packages.Rodux).createReducer(var3(), var56)

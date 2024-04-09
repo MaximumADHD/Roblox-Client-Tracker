@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("AssetImporter")
 local var1 = require(var0.Packages.Roact)
 local var2 = require(var0.Packages.Framework)
 local var3 = var2.ContextServices
@@ -47,25 +47,25 @@ local function fun4(arg1)
          local var0 = var0.ErrorNodeChecked
       end
    end
-   local var63 = {}
-   var63.Enabled = true
-   var63.MinContentSize = Vector2.new(800, 650)
-   var63.Modal = false
-   var63.Resizable = true
-   var63.Title = var0.Title
-   local var73 = {}
-   var73.Key = "Cancel"
-   var73.Text = var1:getText("Plugin", "Cancel")
-   local var79 = {}
-   var79.Key = "Import"
-   var79.Text = var1:getText("Plugin", "Import")
-   var79.Style = "RoundPrimary"
+   local var62 = {}
+   var62.Enabled = true
+   var62.MinContentSize = Vector2.new(800, 650)
+   var62.Modal = false
+   var62.Resizable = true
+   var62.Title = var0.Title
+   local var72 = {}
+   var72.Key = "Cancel"
+   var72.Text = var1:getText("Plugin", "Cancel")
+   local var78 = {}
+   var78.Key = "Import"
+   var78.Text = var1:getText("Plugin", "Import")
+   var78.Style = "RoundPrimary"
    if not var2 then
       local var0 = var4.Disabled or nil
    end
-   var79.StyleModifier = nil
-   var63.Buttons = {}
-   function var63.OnClose(arg1)
+   var78.StyleModifier = nil
+   var62.Buttons = {}
+   function var62.OnClose(arg1)
       local var0 = arg1.HasInvalidPackageId
       if var0 then
          local var0 = false
@@ -77,20 +77,20 @@ local function fun4(arg1)
       return var0
    end
    
-   var63.OnButtonPressed = arg1.onButtonPressed
-   var63.Style = "FullBleed"
-   local var100 = {}
-   local var104 = {}
-   var104.FillDirection = Enum.FillDirection.Vertical
-   var100.Layout = var1.createElement("UIListLayout", var104)
-   local var110 = {}
-   var110.LayoutOrder = 1
-   var100.AssetImporterUI = var1.createElement(var8, var110)
-   local var116 = {}
-   var116.DominantAxis = Enum.DominantAxis.Width
-   var116.LayoutOrder = 2
-   var100.Separator = var1.createElement(var6, var116)
-   return var1.createElement(var7, var63, var100)
+   var62.OnButtonPressed = arg1.onButtonPressed
+   var62.Style = "FullBleed"
+   local var99 = {}
+   local var103 = {}
+   var103.FillDirection = Enum.FillDirection.Vertical
+   var99.Layout = var1.createElement("UIListLayout", var103)
+   local var109 = {}
+   var109.LayoutOrder = 1
+   var99.AssetImporterUI = var1.createElement(var8, var109)
+   local var115 = {}
+   var115.DominantAxis = Enum.DominantAxis.Width
+   var115.LayoutOrder = 2
+   var99.Separator = var1.createElement(var6, var115)
+   return var1.createElement(var7, var62, var99)
 end
 
 function var9.render(arg1)
@@ -104,25 +104,25 @@ function var9.render(arg1)
          local var0 = var0.ErrorNodeChecked
       end
    end
-   local var63 = {}
-   var63.Enabled = true
-   var63.MinContentSize = Vector2.new(800, 650)
-   var63.Modal = false
-   var63.Resizable = true
-   var63.Title = var0.Title
-   local var73 = {}
-   var73.Key = "Cancel"
-   var73.Text = var1:getText("Plugin", "Cancel")
-   local var79 = {}
-   var79.Key = "Import"
-   var79.Text = var1:getText("Plugin", "Import")
-   var79.Style = "RoundPrimary"
+   local var62 = {}
+   var62.Enabled = true
+   var62.MinContentSize = Vector2.new(800, 650)
+   var62.Modal = false
+   var62.Resizable = true
+   var62.Title = var0.Title
+   local var72 = {}
+   var72.Key = "Cancel"
+   var72.Text = var1:getText("Plugin", "Cancel")
+   local var78 = {}
+   var78.Key = "Import"
+   var78.Text = var1:getText("Plugin", "Import")
+   var78.Style = "RoundPrimary"
    if not var2 then
       local var0 = var4.Disabled or nil
    end
-   var79.StyleModifier = nil
-   var63.Buttons = {}
-   function var63.OnClose(arg1)
+   var78.StyleModifier = nil
+   var62.Buttons = {}
+   function var62.OnClose(arg1)
       local var0 = arg1.HasInvalidPackageId
       if var0 then
          local var0 = false
@@ -134,27 +134,27 @@ function var9.render(arg1)
       return var0
    end
    
-   var63.OnButtonPressed = arg1.onButtonPressed
-   var63.Style = "FullBleed"
-   local var100 = {}
-   local var104 = {}
-   var104.FillDirection = Enum.FillDirection.Vertical
-   var100.Layout = var1.createElement("UIListLayout", var104)
-   local var110 = {}
-   var110.LayoutOrder = 1
-   var100.AssetImporterUI = var1.createElement(var8, var110)
-   local var116 = {}
-   var116.DominantAxis = Enum.DominantAxis.Width
-   var116.LayoutOrder = 2
-   var100.Separator = var1.createElement(var6, var116)
-   return var1.createElement(var7, var63, var100)
+   var62.OnButtonPressed = arg1.onButtonPressed
+   var62.Style = "FullBleed"
+   local var99 = {}
+   local var103 = {}
+   var103.FillDirection = Enum.FillDirection.Vertical
+   var99.Layout = var1.createElement("UIListLayout", var103)
+   local var109 = {}
+   var109.LayoutOrder = 1
+   var99.AssetImporterUI = var1.createElement(var8, var109)
+   local var115 = {}
+   var115.DominantAxis = Enum.DominantAxis.Width
+   var115.LayoutOrder = 2
+   var99.Separator = var1.createElement(var6, var115)
+   return var1.createElement(var7, var62, var99)
 end
 
 fun4 = var3.withContext
-local var121 = {}
-var121.Localization = var3.Localization
-var121.Stylizer = var2.Style.Stylizer
-var9 = fun4(var121)(var9)
+local var120 = {}
+var120.Localization = var3.Localization
+var120.Stylizer = var2.Style.Stylizer
+var9 = fun4(var120)(var9)
 return require(var0.Packages.RoactRodux).connect(function(arg1)
    local var0 = {}
    var0.ImportTree = arg1.importTree

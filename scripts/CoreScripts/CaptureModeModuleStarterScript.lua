@@ -1,5 +1,6 @@
 -- Flags
 local FFlagFeedbackModuleEarlyFontInitialization = game:DefineFastFlag("FeedbackModuleEarlyFontInitialization", false)
+local FFlagCaptureModeNativeExitSupport = game:DefineFastFlag("CaptureModeNativeExitSupport", false)
 
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
@@ -21,6 +22,15 @@ if FFlagFeedbackModuleEarlyFontInitialization then
     params.Size = 19
     params.Width = 0
     local _unused = TextService:GetTextBoundsAsync(params)
+end
+
+if FFlagCaptureModeNativeExitSupport then
+    -- TODO: Show exit modal in capture mode rather than just exiting to UGC game.
+    local function handleNativeExit()
+        game:GetService("ExperienceStateCaptureService"):ToggleCaptureMode()
+    end
+
+    game:GetService("GuiService").NativeClose:Connect(handleNativeExit)
 end
 
 -- Initialize and mount feedback application specifically

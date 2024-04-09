@@ -71,41 +71,39 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K8 ["ContextServices"]
-  GETTABLEKS R4 R3 K9 ["withContext"]
-  GETTABLEKS R5 R3 K10 ["Localization"]
-  GETTABLEKS R7 R1 K11 ["Style"]
-  GETTABLEKS R6 R7 K12 ["Stylizer"]
-  GETTABLEKS R7 R1 K13 ["UI"]
-  GETTABLEKS R8 R7 K14 ["Pane"]
-  GETTABLEKS R9 R7 K15 ["TextLabel"]
-  GETTABLEKS R10 R2 K16 ["PureComponent"]
-  LOADK R12 K17 ["SuccessWidget"]
-  NAMECALL R10 R10 K18 ["extend"]
+  GETTABLEKS R3 R1 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETTABLEKS R5 R3 K11 ["Localization"]
+  GETTABLEKS R7 R1 K12 ["Style"]
+  GETTABLEKS R6 R7 K13 ["Stylizer"]
+  GETTABLEKS R7 R1 K14 ["UI"]
+  GETTABLEKS R8 R7 K15 ["Pane"]
+  GETTABLEKS R9 R7 K16 ["TextLabel"]
+  GETTABLEKS R10 R2 K17 ["PureComponent"]
+  LOADK R12 K18 ["SuccessWidget"]
+  NAMECALL R10 R10 K19 ["extend"]
   CALL R10 2 1
-  DUPCLOSURE R11 K19 [PROTO_0]
+  DUPCLOSURE R11 K20 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R8
   CAPTURE VAL R9
-  SETTABLEKS R11 R10 K20 ["render"]
+  SETTABLEKS R11 R10 K21 ["render"]
   MOVE R11 R4
-  DUPTABLE R12 K21 [{"Localization", "Stylizer"}]
-  SETTABLEKS R5 R12 K10 ["Localization"]
-  SETTABLEKS R6 R12 K12 ["Stylizer"]
+  DUPTABLE R12 K22 [{"Localization", "Stylizer"}]
+  SETTABLEKS R5 R12 K11 ["Localization"]
+  SETTABLEKS R6 R12 K13 ["Stylizer"]
   CALL R11 1 1
   MOVE R12 R10
   CALL R11 1 1

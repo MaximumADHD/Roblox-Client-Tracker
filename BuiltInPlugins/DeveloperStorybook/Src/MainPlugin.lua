@@ -21,6 +21,7 @@ local Store = ContextServices.Store
 local Analytics = ContextServices.Analytics
 local Plugin = ContextServices.Plugin
 local Localization = ContextServices.Localization
+local Design = ContextServices.Design
 local InspectorContext = require(Main.Src.Util.InspectorContext)
 local MakeTheme = require(Main.Src.Resources.MakeTheme)
 
@@ -97,6 +98,8 @@ function MainPlugin:init(props)
 		},
 	})
 
+	self.design = registerPluginStyles(props.Plugin)
+
 	self.contextItems = {
 		InspectorContext.new(props.Inspector),
 		Plugin.new(props.Plugin),
@@ -105,9 +108,8 @@ function MainPlugin:init(props)
 		self.theme,
 		self.localization,
 		Analytics.mock(),
+		Design.new(self.design),
 	}
-
-	self.design = registerPluginStyles(props.Plugin)
 end
 
 function MainPlugin:renderButtons(toolbar)

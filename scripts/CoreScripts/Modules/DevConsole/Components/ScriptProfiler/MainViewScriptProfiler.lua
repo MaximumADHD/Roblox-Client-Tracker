@@ -5,6 +5,8 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local ScriptContext = game:GetService("ScriptContext")
 local HttpService = game:GetService("HttpService")
 
+local Immutable = require(script.Parent.Parent.Parent.Immutable)
+
 local Components = script.Parent.Parent.Parent.Components
 local DataConsumer = require(Components.DataConsumer)
 local UtilAndTab = require(Components.UtilAndTab)
@@ -14,10 +16,12 @@ local ProfilerView = require(script.Parent.ProfilerView)
 local ProfilerFunctionsView = require(script.Parent.ProfilerFunctionsView)
 local ProfilerData = require(script.Parent.ProfilerDataFormatV2)
 local ProfilerExportView = require(script.Parent.ProfilerExportView)
+local MobileSettingsView = require(script.Parent.MobileSettingsView)
 
 local ProfilerUtil = require(script.Parent.ProfilerUtil)
 local getPluginFlag = ProfilerUtil.getPluginFlag
 local getDurations = ProfilerUtil.getDurations
+local formatFreq = ProfilerUtil.formatFrequency
 
 local Actions = script.Parent.Parent.Parent.Actions
 local SetScriptProfilerState = require(Actions.SetScriptProfilerState)
@@ -44,6 +48,7 @@ local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientRe
 local FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon =
 	game:DefineFastFlag("ScriptProfilerFunctionsViewUseSourceInfoForAnon", false)
 local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes", false)
+local FFlagScriptProfilerMobileSettingsUI = game:DefineFastFlag("ScriptProfilerMobileSettingsUI", false)
 local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 local FFlagScriptProfilerSimpleUI = game:DefineFastFlag("ScriptProfilerSimpleUI", false)
@@ -550,7 +555,7 @@ function MainViewScriptProfiler:init()
 
 	self.state = {
 		utilTabHeight = 0,
-		showSimpleUI = true,
+		showSimpleUI = if FFlagScriptProfilerMobileSettingsUI then nil else true,
 	}
 end
 
@@ -583,29 +588,17 @@ function MainViewScriptProfiler:didUpdate()
 	end
 end
 
-local function formatFreq(freq)
-	if freq < 1000 then
-		return tostring(freq) .. " Hz"
-	else
-		return tostring(freq / 1000) .. " KHz"
-	end
-end
-
 local function formatTimer(secs: number?): string
-	if secs ~= nil then
-		if secs == 0 then
-			return ""
-		elseif secs >= 60 then
-			return string.format(": %dm", secs / 60)
-		else
-			return string.format(": %ds", secs)
-		end
+	local result = ProfilerUtil.formatTimer(secs)
+
+	if result ~= "" then
+		return ": " .. result
 	end
 
-	return ""
+	return result
 end
 
-function MainViewScriptProfiler:renderUtilButtons(state, simpleUIformFactor, showSimpleUI)
+function MainViewScriptProfiler:renderUtilButtons(state, mobileUIformFactor, showSimpleUI)
 	local isProfiling = state.isProfiling
 
 	local elements = {} :: {}
@@ -688,7 +681,7 @@ function MainViewScriptProfiler:renderUtilButtons(state, simpleUIformFactor, sho
 				Font = FONT,
 
 				AutoButtonColor = true,
-				BackgroundColor3 = BACKGROUND_COLOR,
+				BackgroundColor3 = if isProfiling then Constants.Color.InactiveBox else BACKGROUND_COLOR,
 				BackgroundTransparency = 0,
 
 				[Roact.Event.Activated] = function()
@@ -722,13 +715,17 @@ function MainViewScriptProfiler:renderUtilButtons(state, simpleUIformFactor, sho
 		)
 	end
 
-	if simpleUIformFactor then
+	if mobileUIformFactor then
 		table.insert(
 			elements,
 			Roact.createElement(BoxButton, {
-				text = if showSimpleUI then "More..." else "Less...",
+				text = if showSimpleUI or FFlagScriptProfilerMobileSettingsUI then "More..." else "Less...",
 				onClicked = function()
-					self:setState({ showSimpleUI = not self.state.showSimpleUI })
+					if FFlagScriptProfilerMobileSettingsUI then
+						self.props.dispatchShowMobileSettings()
+					else
+						self:setState({ showSimpleUI = not self.state.showSimpleUI })
+					end
 				end,
 			})
 		)
@@ -737,84 +734,29 @@ function MainViewScriptProfiler:renderUtilButtons(state, simpleUIformFactor, sho
 	return elements
 end
 
-function MainViewScriptProfiler:render()
+function MainViewScriptProfiler:renderUtilAndTab(props: {}, elements: {})
 	local size = self.props.size
 	local formFactor = self.props.formFactor
 	local tabList = self.props.tabList
 
-	local isClientView, state = self:getActiveState()
+	return Roact.createElement(
+		UtilAndTab,
+		Immutable.JoinDictionaries({
+			windowWidth = size.X.Offset,
+			formFactor = formFactor,
+			tabList = tabList,
+			layoutOrder = 1,
 
-	local isProfiling = state.isProfiling
-	local profilingData = state.data
-	local usePercentages = self.props.usePercentages
-	local isFunctionsView = state.isFunctionsView
-	local rootNode = state.rootNode
-	local rootFunc = state.rootFunc
-	local rootNodeName = state.rootNodeName
+			refForParent = self.utilRef,
+			onHeightChanged = self.onUtilTabHeightChanged,
+		}, props),
+		elements
+	)
+end
 
+function MainViewScriptProfiler:renderExportView()
+	local size = self.props.size
 	local utilTabHeight = self.state.utilTabHeight
-
-	local sessionLength = nil
-	if profilingData and profilingData.SessionStartTime and profilingData.SessionEndTime then
-		sessionLength = profilingData.SessionEndTime - profilingData.SessionStartTime
-	end
-
-	local checkBoxStates = {}
-	local tmpCheckboxIndex = 1 -- Temporary, remove with each flag that uses checkboxes; ensures that each flagged entry does not depend on the others being enabled
-
-	checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate }
-
-	if FFlagScriptProfilerShowPlugins then
-		tmpCheckboxIndex += 1
-		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins }
-	end
-
-	if FFlagScriptProfilerHideGCOverhead then
-		tmpCheckboxIndex += 1
-		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_GC_TEXT, state = state.showGC }
-	end
-
-	if self.props.isExporting then
-		return Roact.createElement("Frame", {
-			Size = size,
-			BackgroundColor3 = Constants.Color.BaseGray,
-			BackgroundTransparency = 1,
-			LayoutOrder = 3,
-		}, {
-			UIListLayout = Roact.createElement("UIListLayout", {
-				Padding = UDim.new(0, PADDING),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
-
-			UtilAndTab = Roact.createElement(UtilAndTab, {
-				windowWidth = size.X.Offset,
-				formFactor = formFactor,
-				tabList = tabList,
-				layoutOrder = 1,
-
-				refForParent = self.utilRef,
-				onHeightChanged = self.onUtilTabHeightChanged,
-
-				onClientButton = self.onClientButton,
-				onServerButton = self.onServerButton,
-			}, {
-				-- Exit export and return to profiler
-				Roact.createElement(BoxButton, {
-					text = "Exit",
-					onClicked = self.props.dispatchFinishedExporting,
-				}),
-			}),
-
-			ExportView = Roact.createElement(ProfilerExportView, {
-				size = UDim2.new(1, 0, 1, -utilTabHeight),
-			}),
-		})
-	end
-
-	local simpleUIformFactor = formFactor == Constants.FormFactor.Small
-	local showSimpleUI = FFlagScriptProfilerSimpleUI and simpleUIformFactor and self.state.showSimpleUI
-
-	local utilButtons = self:renderUtilButtons(state, simpleUIformFactor, showSimpleUI)
 
 	return Roact.createElement("Frame", {
 		Size = size,
@@ -827,15 +769,85 @@ function MainViewScriptProfiler:render()
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
-		UtilAndTab = Roact.createElement(UtilAndTab, {
-			windowWidth = size.X.Offset,
-			formFactor = formFactor,
-			tabList = tabList,
-			layoutOrder = 1,
-			isClientView = isClientView,
+		UtilAndTab = self:renderUtilAndTab({}, {
+			-- Exit export and return to profiler
+			Roact.createElement(BoxButton, {
+				text = "Exit",
+				onClicked = self.props.dispatchFinishedExporting,
+			}),
+		}),
 
-			refForParent = self.utilRef,
-			onHeightChanged = self.onUtilTabHeightChanged,
+		ExportView = Roact.createElement(ProfilerExportView, {
+			size = UDim2.new(1, 0, 1, -utilTabHeight),
+		}),
+	})
+end
+
+function MainViewScriptProfiler:renderMobileSettingsUI()
+	local size = self.props.size
+	local utilTabHeight = self.state.utilTabHeight
+
+	return Roact.createElement("Frame", {
+		Size = size,
+		BackgroundColor3 = Constants.Color.BaseGray,
+		BackgroundTransparency = 1,
+		LayoutOrder = 3,
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, PADDING),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+
+		UtilAndTab = self:renderUtilAndTab({}, {
+			-- Go to export screen from mobile settings
+			Roact.createElement(BoxButton, {
+				text = "Export",
+				onClicked = self.props.dispatchStartExport,
+			}),
+
+			-- Exit mobile settings and return to profiler
+			Roact.createElement(BoxButton, {
+				text = "Exit",
+				onClicked = self.props.dispatchHideMobileSettings,
+			}),
+		}),
+
+		MobileSettingsView = Roact.createElement(MobileSettingsView, {
+			size = UDim2.new(1, 0, 1, -utilTabHeight),
+		}),
+	})
+end
+
+function MainViewScriptProfiler:renderProfilerView(isClientView, state, utilButtons, checkBoxStates)
+	local isProfiling = state.isProfiling
+	local profilingData = state.data
+	local usePercentages = self.props.usePercentages
+	local isFunctionsView = state.isFunctionsView
+	local rootNode = state.rootNode
+	local rootNodeName = state.rootNodeName
+	local rootFunc = state.rootFunc
+
+	local size = self.props.size
+	local utilTabHeight = self.state.utilTabHeight
+
+	local sessionLength = nil
+	if profilingData and profilingData.SessionStartTime and profilingData.SessionEndTime then
+		sessionLength = profilingData.SessionEndTime - profilingData.SessionStartTime
+	end
+
+	return Roact.createElement("Frame", {
+		Size = size,
+		BackgroundColor3 = Constants.Color.BaseGray,
+		BackgroundTransparency = 1,
+		LayoutOrder = 3,
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			Padding = UDim.new(0, PADDING),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+
+		UtilAndTab = self:renderUtilAndTab({
+			isClientView = isClientView,
 
 			onClientButton = self.onClientButton,
 			onServerButton = self.onServerButton,
@@ -870,11 +882,54 @@ function MainViewScriptProfiler:render()
 	})
 end
 
+function MainViewScriptProfiler:render()
+	if self.props.isExporting then
+		return self:renderExportView()
+	end
+
+	if self.props.isShowingMobileSettings then
+		return self:renderMobileSettingsUI()
+	end
+
+	local formFactor = self.props.formFactor
+
+	local isClientView, state = self:getActiveState()
+
+	local checkBoxStates = {}
+	local tmpCheckboxIndex = 1 -- Temporary, remove with each flag that uses checkboxes; ensures that each flagged entry does not depend on the others being enabled
+
+	local mobileUIformFactor = formFactor == Constants.FormFactor.Small
+	local showSimpleUI = FFlagScriptProfilerSimpleUI and mobileUIformFactor and self.state.showSimpleUI
+
+	if not mobileUIformFactor or not FFlagScriptProfilerMobileSettingsUI then
+		checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate }
+
+		if FFlagScriptProfilerShowPlugins then
+			tmpCheckboxIndex += 1
+			checkBoxStates[tmpCheckboxIndex] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins }
+		end
+
+		if FFlagScriptProfilerHideGCOverhead then
+			tmpCheckboxIndex += 1
+			checkBoxStates[tmpCheckboxIndex] = { name = SHOW_GC_TEXT, state = state.showGC }
+		end
+	end
+
+	local utilButtons = self:renderUtilButtons(
+		state,
+		mobileUIformFactor,
+		if FFlagScriptProfilerMobileSettingsUI then mobileUIformFactor else showSimpleUI
+	)
+
+	return self:renderProfilerView(isClientView, state, utilButtons, checkBoxStates)
+end
+
 local function mapStateToProps(state, props)
 	return {
 		isClientView = state.ScriptProfiler.isClientView,
 		usePercentages = state.ScriptProfiler.usePercentages,
 		isExporting = state.ScriptProfiler.isExporting,
+		isShowingMobileSettings = state.ScriptProfiler.isShowingMobileSettings,
 
 		client = state.ScriptProfiler.client,
 		server = state.ScriptProfiler.server,
@@ -893,6 +948,14 @@ local function mapDispatchToProps(dispatch)
 
 		dispatchFinishedExporting = function()
 			dispatch(SetScriptProfilerState(nil, nil, nil, nil, false))
+		end,
+
+		dispatchShowMobileSettings = function()
+			dispatch(SetScriptProfilerState(nil, nil, nil, nil, nil, true))
+		end,
+
+		dispatchHideMobileSettings = function()
+			dispatch(SetScriptProfilerState(nil, nil, nil, nil, nil, false))
 		end,
 	}
 end

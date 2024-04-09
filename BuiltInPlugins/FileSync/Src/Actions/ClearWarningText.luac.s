@@ -1,0 +1,30 @@
+PROTO_0:
+  DUPTABLE R0 K1 [{"warningText"}]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["None"]
+  SETTABLEKS R1 R0 K0 ["warningText"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FileSync"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K7 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K8 ["Util"]
+  GETTABLEKS R1 R2 K9 ["Action"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Cryo"]
+  CALL R2 1 1
+  MOVE R3 R1
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K11 ["Name"]
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R2
+  CALL R3 2 -1
+  RETURN R3 -1

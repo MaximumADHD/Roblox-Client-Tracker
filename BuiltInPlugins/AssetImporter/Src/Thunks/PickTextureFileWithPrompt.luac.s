@@ -60,50 +60,50 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Utility"]
-  GETTABLEKS R2 R3 K7 ["GetErrorChecked"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["GetErrorChecked"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Actions"]
-  GETTABLEKS R3 R4 K9 ["SetErrorNodeChecked"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Actions"]
+  GETTABLEKS R3 R4 K10 ["SetErrorNodeChecked"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Actions"]
-  GETTABLEKS R4 R5 K10 ["SetTreeChecked"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Actions"]
+  GETTABLEKS R4 R5 K11 ["SetTreeChecked"]
   CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K5 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Thunks"]
-  GETTABLEKS R5 R6 K12 ["UpdatePreviewInstance"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Thunks"]
+  GETTABLEKS R5 R6 K13 ["UpdatePreviewInstance"]
   CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R8 R0 K5 ["Src"]
-  GETTABLEKS R7 R8 K6 ["Utility"]
-  GETTABLEKS R6 R7 K13 ["UseServiceInterfaces"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K7 ["Utility"]
+  GETTABLEKS R6 R7 K14 ["UseServiceInterfaces"]
   CALL R5 1 1
   LOADNIL R6
   LOADNIL R7
   MOVE R8 R5
   CALL R8 0 1
   JUMPIFNOT R8 [+11]
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R11 R0 K5 ["Src"]
-  GETTABLEKS R10 R11 K6 ["Utility"]
-  GETTABLEKS R9 R10 K14 ["ServiceInterfaces"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Src"]
+  GETTABLEKS R10 R11 K7 ["Utility"]
+  GETTABLEKS R9 R10 K15 ["ServiceInterfaces"]
   CALL R8 1 1
   MOVE R6 R8
   JUMP [+7]
-  GETIMPORT R8 K16 [game]
-  LOADK R10 K17 ["AssetImportService"]
-  NAMECALL R8 R8 K18 ["GetService"]
+  GETIMPORT R8 K17 [game]
+  LOADK R10 K18 ["AssetImportService"]
+  NAMECALL R8 R8 K19 ["GetService"]
   CALL R8 2 1
   MOVE R7 R8
   NEWCLOSURE R8 P0

@@ -1,6 +1,18 @@
 PROTO_0:
   RETURN R0 0
 
+PROTO_1:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_2:
+  LOADN R0 0
+  LOADN R1 0
+  RETURN R0 2
+
+PROTO_3:
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -21,13 +33,21 @@ MAIN:
   GETTABLEKS R5 R6 K8 ["Clients"]
   GETTABLEKS R4 R5 K10 ["MockActivityHistoryClient"]
   CALL R3 1 1
-  DUPTABLE R4 K14 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "contextType"}]
-  SETTABLEKS R3 R4 K11 ["activityHistoryClient"]
-  DUPCLOSURE R5 K15 [PROTO_0]
-  SETTABLEKS R5 R4 K12 ["showSaveOrPublishPlaceToRobloxFn"]
-  LOADK R5 K16 ["mock context (default)"]
-  SETTABLEKS R5 R4 K13 ["contextType"]
-  GETTABLEKS R5 R1 K17 ["createContext"]
-  MOVE R6 R4
-  CALL R5 1 1
-  RETURN R5 1
+  NEWTABLE R4 0 0
+  DUPTABLE R5 K17 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "useCollaborators", "usePlaceAndUniverseId", "openBrowserLink", "contextType"}]
+  SETTABLEKS R3 R5 K11 ["activityHistoryClient"]
+  DUPCLOSURE R6 K18 [PROTO_0]
+  SETTABLEKS R6 R5 K12 ["showSaveOrPublishPlaceToRobloxFn"]
+  DUPCLOSURE R6 K19 [PROTO_1]
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K13 ["useCollaborators"]
+  DUPCLOSURE R6 K20 [PROTO_2]
+  SETTABLEKS R6 R5 K14 ["usePlaceAndUniverseId"]
+  DUPCLOSURE R6 K21 [PROTO_3]
+  SETTABLEKS R6 R5 K15 ["openBrowserLink"]
+  LOADK R6 K22 ["mock context (default)"]
+  SETTABLEKS R6 R5 K16 ["contextType"]
+  GETTABLEKS R6 R1 K23 ["createContext"]
+  MOVE R7 R5
+  CALL R6 1 1
+  RETURN R6 1

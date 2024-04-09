@@ -1,6 +1,6 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = game:GetService("AssetImportService")
-local var1 = script.Parent.Parent.Parent
+local var1 = script:FindFirstAncestor("AssetImporter")
 local var2 = require(var1.Src.Actions.SetAssetImportSession)
 local var3 = require(var1.Src.Actions.SetImportTree)
 local var4 = require(var1.Src.Actions.SetFilename)

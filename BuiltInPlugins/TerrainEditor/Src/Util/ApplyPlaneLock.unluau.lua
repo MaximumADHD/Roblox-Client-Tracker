@@ -9,13 +9,13 @@ return function(arg1, arg2, arg3)
    local var0 = arg3.Origin.Position
    local var1 = arg1[var4.BrushSettings][var3.PlaneTransform]
    local var2 = arg3.UnitRay.Direction
-   local var101 = var3
-   local var104 = var5
-   if arg1[var4.BrushSettings][var101.PlaneLock] == "Auto" then
+   local var106 = var3
+   local var109 = var5
+   if arg1[var4.BrushSettings][var106.PlaneLock] == "Auto" then
       local var0 = arg2.LookVector
-      var104 = var0
-      var101 = var2
-      local var1 = var1(var104, var101, arg2.Position, var0)
+      var109 = var0
+      var106 = var2
+      local var1 = var1(var109, var106, arg2.Position, var0)
       local var2 = {}
       var2.Distance = var1 - var0.Magnitude
       var2.Normal = var0

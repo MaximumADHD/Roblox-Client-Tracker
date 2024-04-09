@@ -88,43 +88,43 @@ PROTO_3:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K8 ["ContextServices"]
-  GETTABLEKS R4 R3 K9 ["withContext"]
-  GETTABLEKS R5 R1 K10 ["UI"]
-  GETTABLEKS R6 R5 K11 ["Button"]
-  GETTABLEKS R7 R5 K12 ["Pane"]
-  GETTABLEKS R8 R1 K13 ["Dash"]
-  GETTABLEKS R9 R8 K14 ["map"]
-  GETTABLEKS R10 R8 K15 ["some"]
-  GETTABLEKS R11 R2 K16 ["PureComponent"]
-  LOADK R13 K17 ["TreeViewToolbar"]
-  NAMECALL R11 R11 K18 ["extend"]
+  GETTABLEKS R3 R1 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETTABLEKS R5 R1 K11 ["UI"]
+  GETTABLEKS R6 R5 K12 ["Button"]
+  GETTABLEKS R7 R5 K13 ["Pane"]
+  GETTABLEKS R8 R1 K14 ["Dash"]
+  GETTABLEKS R9 R8 K15 ["map"]
+  GETTABLEKS R10 R8 K16 ["some"]
+  GETTABLEKS R11 R2 K17 ["PureComponent"]
+  LOADK R13 K18 ["TreeViewToolbar"]
+  NAMECALL R11 R11 K19 ["extend"]
   CALL R11 2 1
-  DUPCLOSURE R12 K19 [PROTO_3]
+  DUPCLOSURE R12 K20 [PROTO_3]
   CAPTURE VAL R10
   CAPTURE VAL R9
   CAPTURE VAL R2
   CAPTURE VAL R7
   CAPTURE VAL R6
-  SETTABLEKS R12 R11 K20 ["render"]
+  SETTABLEKS R12 R11 K21 ["render"]
   MOVE R12 R4
-  DUPTABLE R13 K23 [{"Localization", "Stylizer"}]
-  GETTABLEKS R14 R3 K21 ["Localization"]
-  SETTABLEKS R14 R13 K21 ["Localization"]
-  GETTABLEKS R14 R3 K22 ["Stylizer"]
-  SETTABLEKS R14 R13 K22 ["Stylizer"]
+  DUPTABLE R13 K24 [{"Localization", "Stylizer"}]
+  GETTABLEKS R14 R3 K22 ["Localization"]
+  SETTABLEKS R14 R13 K22 ["Localization"]
+  GETTABLEKS R14 R3 K23 ["Stylizer"]
+  SETTABLEKS R14 R13 K23 ["Stylizer"]
   CALL R12 1 1
   MOVE R13 R11
   CALL R12 1 1

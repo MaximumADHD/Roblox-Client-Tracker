@@ -19,9 +19,6 @@ return function(arg1)
    assert(true, "Expected story to be a table")
    local var0 = {}
    var0.activityHistoryClient = var3
-   function var0.showSaveOrPublishPlaceToRobloxFn()
-   end
-   
    var0.contextType = "mock context"
    local var1 = {}
    var1.ActivityHistoryProvider = var1.createElement(var4, var0, arg1)

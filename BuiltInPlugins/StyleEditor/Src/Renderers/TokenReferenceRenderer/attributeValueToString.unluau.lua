@@ -46,9 +46,9 @@ function var1.BrickColor(arg1)
 end
 
 function var1.CFrame(arg1)
-   local var120 = arg1.Position
-   var120 = arg1:ToEulerAnglesXYZ()
-   return string.format("{%.3f, %.3f, %.3f}, {%.3f, %.3f, %.3f}", arg1.Position.X, arg1.Position.Y, var120.Z, var120, var122, var123)
+   local var92 = arg1.Position
+   var92 = arg1:ToEulerAnglesXYZ()
+   return string.format("{%.3f, %.3f, %.3f}, {%.3f, %.3f, %.3f}", arg1.Position.X, arg1.Position.Y, var92.Z, var92, var94, var95)
 end
 
 function var1.NumberSequence(arg1)
@@ -72,14 +72,14 @@ function var1.ColorSequence(arg1)
 end
 
 return function(arg1, arg2)
-   local var165 = var1
-   local var168 = typeof(arg1)
-   local var1 = var165[var168]
+   local var137 = var1
+   local var140 = typeof(arg1)
+   local var1 = var137[var140]
    if var1 then
-      var165 = var1
-      var168 = arg1
-      return var165(var168, arg2)
+      var137 = var1
+      var140 = arg1
+      return var137(var140, arg2)
    end
-   var168 = arg1
-   return tostring(var168)
+   var140 = arg1
+   return tostring(var140)
 end

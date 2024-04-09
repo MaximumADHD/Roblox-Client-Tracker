@@ -1,7 +1,7 @@
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K3 [Enum.Font.SourceSans]
-  DUPTABLE R1 K17 [{"filterHeaderHeight", "bubblePaddingHalf", "bubbleTopHeight", "bubbleMiddleHeight", "bubbleBottomHeight", "bubbleHeight", "bubbleCornerRadius", "checkBoxRowHeight", "detailFontSize", "normalFontSize", "buttonFontSize", "headerFontSize", "defaultFont"}]
+  DUPTABLE R1 K18 [{"filterHeaderHeight", "bubblePaddingHalf", "bubbleTopHeight", "bubbleMiddleHeight", "bubbleBottomHeight", "bubbleHeight", "bubbleCornerRadius", "byHeight", "checkBoxRowHeight", "detailFontSize", "normalFontSize", "buttonFontSize", "headerFontSize", "defaultFont"}]
   LOADN R2 40
   SETTABLEKS R2 R1 K4 ["filterHeaderHeight"]
   LOADN R2 3
@@ -17,14 +17,16 @@ MAIN:
   LOADN R2 5
   SETTABLEKS R2 R1 K10 ["bubbleCornerRadius"]
   LOADN R2 30
-  SETTABLEKS R2 R1 K11 ["checkBoxRowHeight"]
+  SETTABLEKS R2 R1 K11 ["byHeight"]
+  LOADN R2 30
+  SETTABLEKS R2 R1 K12 ["checkBoxRowHeight"]
   LOADN R2 17
-  SETTABLEKS R2 R1 K12 ["detailFontSize"]
+  SETTABLEKS R2 R1 K13 ["detailFontSize"]
   LOADN R2 20
-  SETTABLEKS R2 R1 K13 ["normalFontSize"]
+  SETTABLEKS R2 R1 K14 ["normalFontSize"]
   LOADN R2 20
-  SETTABLEKS R2 R1 K14 ["buttonFontSize"]
+  SETTABLEKS R2 R1 K15 ["buttonFontSize"]
   LOADN R2 23
-  SETTABLEKS R2 R1 K15 ["headerFontSize"]
-  SETTABLEKS R0 R1 K16 ["defaultFont"]
+  SETTABLEKS R2 R1 K16 ["headerFontSize"]
+  SETTABLEKS R0 R1 K17 ["defaultFont"]
   RETURN R1 1

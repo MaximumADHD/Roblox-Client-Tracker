@@ -13,6 +13,9 @@ local Constants = {
 		Default = 236,
 		XBox = 180,
 	},
+	ERROR_PROMPT_MIN_HEIGHT = {
+		Default = 250
+	},
 	ERROR_PROMPT_MIN_WIDTH = {
 		Default = 320,
 		XBox = 400,
@@ -30,6 +33,7 @@ local Constants = {
 	SIDE_PADDING = 20,
 	LAYOUT_PADDING = 20,
 	SIDE_MARGIN = 20, -- When resizing according to screen size, reserve with side margins
+	VERTICAL_MARGIN = 50, -- When resizing according to screen size, reserve the top/bottom margins
 
 	PRIMARY_BUTTON_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/PrimaryButton.png",
 	SECONDARY_BUTTON_TEXTURE = "rbxasset://textures/ui/ErrorPrompt/SecondaryButton.png",

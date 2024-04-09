@@ -1,0 +1,17 @@
+PROTO_0:
+  GETIMPORT R1 K2 [string.split]
+  MOVE R2 R0
+  LOADK R3 K3 ["__"]
+  CALL R1 2 1
+  LENGTH R3 R1
+  JUMPIFEQKN R3 K4 [2] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  SETGLOBAL R0 K1 ["isMaterialVariantByIdentifier"]
+  GETGLOBAL R0 K1 ["isMaterialVariantByIdentifier"]
+  RETURN R0 1

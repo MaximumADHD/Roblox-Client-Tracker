@@ -23,21 +23,21 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R6 R0 K7 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Components"]
-  GETTABLEKS R4 R5 K9 ["Dialogs"]
-  GETTABLEKS R3 R4 K10 ["TeachingCallout"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K9 ["Components"]
+  GETTABLEKS R4 R5 K10 ["Dialogs"]
+  GETTABLEKS R3 R4 K11 ["TeachingCallout"]
   CALL R2 1 1
-  DUPCLOSURE R3 K11 [PROTO_0]
+  DUPCLOSURE R3 K12 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R2
   RETURN R3 1

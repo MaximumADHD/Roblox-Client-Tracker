@@ -96,39 +96,37 @@ PROTO_3:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["RoactRodux"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["RoactRodux"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K9 ["UI"]
-  GETTABLEKS R5 R4 K10 ["Pane"]
-  GETTABLEKS R6 R4 K11 ["SelectInput"]
-  GETTABLEKS R7 R2 K12 ["PureComponent"]
-  LOADK R9 K13 ["UploadDestinationProperty"]
-  NAMECALL R7 R7 K14 ["extend"]
+  GETTABLEKS R4 R1 K10 ["UI"]
+  GETTABLEKS R5 R4 K11 ["Pane"]
+  GETTABLEKS R6 R4 K12 ["SelectInput"]
+  GETTABLEKS R7 R2 K13 ["PureComponent"]
+  LOADK R9 K14 ["UploadDestinationProperty"]
+  NAMECALL R7 R7 K15 ["extend"]
   CALL R7 2 1
-  DUPCLOSURE R8 K15 [PROTO_0]
-  DUPCLOSURE R9 K16 [PROTO_2]
+  DUPCLOSURE R8 K16 [PROTO_0]
+  DUPCLOSURE R9 K17 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R6
-  SETTABLEKS R9 R7 K17 ["render"]
-  DUPCLOSURE R9 K18 [PROTO_3]
-  GETTABLEKS R10 R3 K19 ["connect"]
+  SETTABLEKS R9 R7 K18 ["render"]
+  DUPCLOSURE R9 K19 [PROTO_3]
+  GETTABLEKS R10 R3 K20 ["connect"]
   MOVE R11 R9
   CALL R10 1 1
   MOVE R11 R7

@@ -1,9 +1,14 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ShowMaterialGeneratorFromElsewhere"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 -1
-  RETURN R0 -1
+  LOADK R2 K2 ["MaterialPickerBetaEnabled"]
+  NAMECALL R0 R0 K3 ["GetEngineFeature"]
+  CALL R0 2 1
+  JUMPIF R0 [+6]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K4 ["ShowMaterialGeneratorFromElsewhere"]
+  NAMECALL R0 R0 K5 ["GetFastFlag"]
+  CALL R0 2 1
+  RETURN R0 1
 
 MAIN:
   PREPVARARGS 0

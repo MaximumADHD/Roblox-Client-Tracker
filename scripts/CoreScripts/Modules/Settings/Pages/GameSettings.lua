@@ -27,6 +27,7 @@ local UserGameSettings = Settings:GetService("UserGameSettings")
 local Url = require(RobloxGui.Modules.Common.Url)
 local VoiceChatService = nil
 local TextChatService = game:GetService("TextChatService")
+local SafetyService = game:GetService("SafetyService")
 local ExperienceStateCaptureService = nil
 if game:GetEngineFeature("CaptureModeEnabled") then
 	ExperienceStateCaptureService = game:GetService("ExperienceStateCaptureService")
@@ -217,7 +218,9 @@ local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
 local FFlagUserShowGuiHideToggles = game:DefineFastFlag("UserShowGuiHideToggles", false)
+local FFlagEnableTFFeedbackModeEntryCheck = game:DefineFastFlag("EnableTFFeedbackModeEntryCheck", false)
 local FFlagFeedbackEntryPointButtonSizeAdjustment = game:DefineFastFlag("FeedbackEntryPointButtonSizeAdjustment2", false)
+local FFlagFeedbackEntryPointImprovedStrictnessCheck = game:DefineFastFlag("FeedbackEntryPointImprovedStrictnessCheck", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -1765,12 +1768,24 @@ local function Initialize()
 		local function rolesCheckCallback(enableFeedbackUI)
 			if enableFeedbackUI then
 				-- Either the engine feature is off and so we do the default behavior of always executing the below code, or feedback entry point is enabled and we want to enter it on click
-				if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") and not this.FeedbackEntryPointEnabled then
-					return
+				if not FFlagFeedbackEntryPointImprovedStrictnessCheck then
+					if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") and not this.FeedbackEntryPointEnabled then
+						return
+					end
 				end
 
 				local function onToggleFeedbackMode()
+					if FFlagFeedbackEntryPointImprovedStrictnessCheck then
+						-- Perform this check in the on toggle function itself instead of when setting it up to have it execute in all expected scenarios
+						if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") and not this.FeedbackEntryPointEnabled then
+							return
+						end
+					end
 					this.HubRef:PopMenu(false, true);
+					if game:GetEngineFeature("SafetyServiceCaptureModeReportProp") then
+						-- Explicit false set for Safety Service capture mode before entering Feedback mode
+						SafetyService.IsCaptureModeForReport = false
+					end
 					if ExperienceStateCaptureService ~= nil then
 						-- In this function ExperienceStateCaptureService should always exist, but just in case we do a nil check before we attempt a toggle
 						ExperienceStateCaptureService:ToggleCaptureMode()
@@ -3300,7 +3315,26 @@ local function Initialize()
 	this.PageOpen = false
 
 	if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") then
+		-- Dynamic tracker for status of whether feedback entry point is available or not
+		-- Since this is dynamic, not passing this check is expected to show an "unavailable" status for feedback mode, since it may become available later on in the session
 		this.FeedbackEntryPointEnabled = true
+	end
+
+	-- Static checks for if feedback entry point is available, not passing this check will completely hide the entry point setting
+	local function staticFeedbackEntryPointChecksPassed()
+		if RunService:IsStudio() then
+			return false
+		end
+
+		if game:GetEngineFeature("CaptureModeEnabled") == false then
+			return false
+		end
+
+		if FFlagEnableTFFeedbackModeEntryCheck and isTenFootInterface then
+			return false
+		end
+
+		return true
 	end
 
 	this.OpenSettingsPage = function()
@@ -3322,22 +3356,19 @@ local function Initialize()
 		updateUiToggleSelection()
 
 		-- On settings page open, double check the capture service to see if feedback mode should be enterable
-		if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") then
+		-- Only do this if static checks passed and we are expecting to see options at all
+		if game:GetEngineFeature("ExperienceStateCaptureMinMemEnabled") and this.toggleFeedbackModeButton and this.toggleFeedbackModeText then
 			this.FeedbackEntryPointEnabled = ExperienceStateCaptureService ~= nil and ExperienceStateCaptureService:CanEnterCaptureMode()
-			if not this.toggleFeedbackModeButton then
-				createFeedbackModeOptions()
+			if this.FeedbackEntryPointEnabled then
+				-- Matches with adjustbutton in settings menu for consistency
+				this.toggleFeedbackModeButton.Active = true
+				this.toggleFeedbackModeButton.Enabled.Value = true
+				this.toggleFeedbackModeText.Text = "Give Feedback"
 			else
-				if this.FeedbackEntryPointEnabled then
-					-- Matches with adjustbutton in settings menu for consistency
-					this.toggleFeedbackModeButton.Active = true
-					this.toggleFeedbackModeButton.Enabled.Value = true
-					this.toggleFeedbackModeText.Text = "Give Feedback"
-				else
-					this.toggleFeedbackModeButton.Active = false
-					this.toggleFeedbackModeButton.Enabled.Value = false
-					this.toggleFeedbackModeText.TextColor3 = Theme.color("ButtonNonInteractable", Color3.fromRGB(100, 100, 100))
-					this.toggleFeedbackModeText.Text = "Unavailable"
-				end
+				this.toggleFeedbackModeButton.Active = false
+				this.toggleFeedbackModeButton.Enabled.Value = false
+				this.toggleFeedbackModeText.TextColor3 = Theme.color("ButtonNonInteractable", Color3.fromRGB(100, 100, 100))
+				this.toggleFeedbackModeText.Text = "Unavailable"
 			end
 		end
 	end
@@ -3362,18 +3393,6 @@ local function Initialize()
 		then
 			VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
 		end
-	end
-
-	local function isFeedbackModeEntryPointEnabled()
-		if RunService:IsStudio() then
-			return false
-		end
-
-		if game:GetEngineFeature("CaptureModeEnabled") == false then
-			return false
-		end
-
-		return true
 	end
 
 	function isLangaugeSelectionDropdownEnabled()
@@ -3438,7 +3457,7 @@ local function Initialize()
 			end
 		end
 
-		if isFeedbackModeEntryPointEnabled() then
+		if staticFeedbackEntryPointChecksPassed() then
 			createFeedbackModeOptions()
 		end
 	end

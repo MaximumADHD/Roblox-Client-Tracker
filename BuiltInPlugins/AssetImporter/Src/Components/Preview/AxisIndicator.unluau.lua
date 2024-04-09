@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("AssetImporter")
 local var1 = require(var0.Packages.Roact)
 local var2 = require(var0.Src.Utility.createAxisIndicator)
 local var3 = var1.PureComponent:extend("AxisIndicator")
@@ -49,15 +49,15 @@ end
 
 function var3.render(arg1)
    local var0 = arg1.props
-   local var450 = {}
-   var450.LayoutOrder = var0.LayoutOrder
-   var450.Position = var0.Position
-   var450.Size = var0.Size or UDim2.new(1, 0, 1, 0)
-   var450.BorderSizePixel = 0
-   var450.BackgroundTransparency = 1
-   var450.CurrentCamera = arg1.camera
+   local var440 = {}
+   var440.LayoutOrder = var0.LayoutOrder
+   var440.Position = var0.Position
+   var440.Size = var0.Size or UDim2.new(1, 0, 1, 0)
+   var440.BorderSizePixel = 0
+   var440.BackgroundTransparency = 1
+   var440.CurrentCamera = arg1.camera
    var1.Ref = arg1.viewportFrameRef
-   return var1.createElement("ViewportFrame", var450)
+   return var1.createElement("ViewportFrame", var440)
 end
 
 return var3

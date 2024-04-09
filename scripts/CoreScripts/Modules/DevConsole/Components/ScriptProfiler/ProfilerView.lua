@@ -34,7 +34,7 @@ function ProfilerView:renderChildren()
 
 	local average = 1
 
-	if self.props.average > 0 then
+	if self.props.average > 0 and self.props.sessionLength then
 		local lengthSecs = self.props.sessionLength / 1000
 		average = lengthSecs / self.props.average
 	end

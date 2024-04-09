@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("AssetImporter")
 local var1 = require(var0.Src.Types)
 local var2 = require(var0.Src.Utility.GetLocalizedString)
 local var3 = {}
@@ -26,14 +26,14 @@ var3.FacsFrameExtraCharsWarning = "FacsFrameExtraCharsWarning1"
 var3.NoRefMeshForCageWithSuggestionWarning = "NoRefMeshForCageWithSuggestionWarning1"
 var3.CageNameHasTypoWarning = "CageNameHasTypoWarning1"
 return function(arg1, arg2, arg3, arg4)
-   local var41 = var3
-   local var42 = var41[arg2]
-   var41 = arg1
-   local var1 = var2(var41, "Statuses", var45, arg4)
+   local var40 = var3
+   local var41 = var40[arg2]
+   var40 = arg1
+   local var1 = var2(var40, "Statuses", var44, arg4)
    if not var1 then
-      local var53 = {}
-      var53.type = arg2
-      var1 = arg1:getText("Statuses", string.format("Default%s1", arg3), var53)
+      local var52 = {}
+      var52.type = arg2
+      var1 = arg1:getText("Statuses", string.format("Default%s1", arg3), var52)
    end
    return var1
 end

@@ -1,3 +1,72 @@
+PROTO_0:
+  DUPTABLE R0 K5 [{"redrawSignal", "warningText", "syncPath", "lastOperation", "lastOperationTime"}]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["redrawSignal"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["warningText"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["syncPath"]
+  LOADK R1 K6 [""]
+  SETTABLEKS R1 R0 K3 ["lastOperation"]
+  LOADK R1 K6 [""]
+  SETTABLEKS R1 R0 K4 ["lastOperationTime"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"warningText"}]
+  GETTABLEKS R5 R1 K2 ["warningText"]
+  SETTABLEKS R5 R4 K2 ["warningText"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"warningText"}]
+  GETTABLEKS R5 R1 K2 ["warningText"]
+  SETTABLEKS R5 R4 K2 ["warningText"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"syncPath"}]
+  GETTABLEKS R5 R1 K2 ["syncPath"]
+  SETTABLEKS R5 R4 K2 ["syncPath"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"lastOperation"}]
+  GETTABLEKS R5 R1 K2 ["lastOperation"]
+  SETTABLEKS R5 R4 K2 ["lastOperation"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"lastOperationTime"}]
+  GETTABLEKS R5 R1 K2 ["lastOperationTime"]
+  SETTABLEKS R5 R4 K2 ["lastOperationTime"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -9,12 +78,49 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Rodux"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K8 ["Parent"]
-  GETTABLEKS R3 R4 K9 ["ExampleReducer"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K10 ["combineReducers"]
-  DUPTABLE R4 K11 [{"ExampleReducer"}]
-  SETTABLEKS R2 R4 K9 ["ExampleReducer"]
-  CALL R3 1 1
-  RETURN R3 1
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Actions"]
+  GETTABLEKS R4 R3 K11 ["SetWarningText"]
+  GETTABLEKS R5 R3 K12 ["ClearWarningText"]
+  GETTABLEKS R6 R3 K13 ["SetSyncPath"]
+  GETTABLEKS R7 R3 K14 ["SetLastOperation"]
+  GETTABLEKS R8 R3 K15 ["SetLastOperationTime"]
+  DUPCLOSURE R9 K16 [PROTO_0]
+  GETTABLEKS R10 R1 K17 ["createReducer"]
+  DUPTABLE R11 K23 [{"redrawSignal", "warningText", "syncPath", "lastOperation", "lastOperationTime"}]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K18 ["redrawSignal"]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K19 ["warningText"]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K20 ["syncPath"]
+  LOADK R12 K24 [""]
+  SETTABLEKS R12 R11 K21 ["lastOperation"]
+  LOADK R12 K24 [""]
+  SETTABLEKS R12 R11 K22 ["lastOperationTime"]
+  NEWTABLE R12 8 0
+  GETTABLEKS R13 R4 K25 ["Name"]
+  DUPCLOSURE R14 K26 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K25 ["Name"]
+  DUPCLOSURE R14 K27 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R6 K25 ["Name"]
+  DUPCLOSURE R14 K28 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R7 K25 ["Name"]
+  DUPCLOSURE R14 K29 [PROTO_4]
+  CAPTURE VAL R2
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R8 K25 ["Name"]
+  DUPCLOSURE R14 K30 [PROTO_5]
+  CAPTURE VAL R2
+  SETTABLE R14 R12 R13
+  CALL R10 2 -1
+  RETURN R10 -1

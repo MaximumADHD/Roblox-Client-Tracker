@@ -32,6 +32,10 @@ local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
 local FFlagCoreScriptShowTeleportPrompt = require(RobloxGui.Modules.Flags.FFlagCoreScriptShowTeleportPrompt)
 local GetFFlagFixChromeAllowlistWait = require(RobloxGui.Modules.Flags.GetFFlagFixChromeAllowlistWait)
+local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
+
+local fflagCreatorBanWhitespaceSub = game:DefineFastFlag("CreatorBanWhitespaceSub", false)
+local fflagCreatorBanReconnectDisabled = game:DefineFastFlag("CreatorBanReconnectDisabled", false)
 
 local TopBarConstant
 if not GetFFlagFixChromeAllowlistWait() then
@@ -74,6 +78,10 @@ local coreScriptTableTranslator = CoreGui.CoreScriptLocalization:GetTranslator(L
 local errorPrompt
 local graceTimeout = -1
 local screenWidth = RobloxGui.AbsoluteSize.X
+local screenHeight
+if FFlagErrorPromptResizesHeight() then
+	screenHeight = RobloxGui.AbsoluteSize.Y
+end
 
 local ConnectionPromptState = {
 	NONE = 1, -- General Error Message
@@ -239,6 +247,10 @@ if coreGuiOverflowDetection then
 	reconnectDisabledList[Enum.ConnectionError["DisconnectClientFailure"]] = true
 end
 
+if fflagCreatorBanReconnectDisabled then
+	reconnectDisabledList[Enum.ConnectionError['PlacelaunchCreatorBan']] = true
+end
+
 local ButtonList = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = {
 		{
@@ -381,7 +393,11 @@ local function onEnter(newState)
 		}
 		errorPrompt = ErrorPrompt.new("Default", extraConfiguration)
 		errorPrompt:setParent(promptOverlay)
-		errorPrompt:resizeWidth(screenWidth)
+		if FFlagErrorPromptResizesHeight() then
+			errorPrompt:resizeWidthAndHeight(screenWidth, screenHeight)
+		else
+			errorPrompt:resizeWidth(screenWidth)
+		end
 	end
 	if updateFullScreenEffect[newState] then
 		updateFullScreenEffect[newState]()
@@ -493,6 +509,12 @@ local function getErrorString(errorMsg: string, errorCode, reconnectError)
 		return errorMsg
 	end
 
+	if fflagCreatorBanWhitespaceSub and not FFlagErrorPromptResizesHeight() then
+		if errorCode == Enum.ConnectionError.PlacelaunchCreatorBan then
+			return errorMsg:gsub("%s+", " ")
+		end
+	end
+
 	local key = string.gsub(tostring(errorCode), "Enum", "InGame")
 	if coreScriptTableTranslator then
 		local success, attemptTranslation = pcall(function()
@@ -555,9 +577,18 @@ local function onScreenSizeChanged()
 		return
 	end
 	local newWidth = RobloxGui.AbsoluteSize.X
-	if screenWidth ~= newWidth then
-		screenWidth = newWidth
-		errorPrompt:resizeWidth(screenWidth)
+	if FFlagErrorPromptResizesHeight() then
+		local newHeight = RobloxGui.AbsoluteSize.Y
+		if screenWidth ~= newWidth or screenHeight ~= newHeight then
+			screenWidth = newWidth
+			screenHeight = newHeight
+			errorPrompt:resizeWidthAndHeight(screenWidth, screenHeight)
+		end
+	else
+		if screenWidth ~= newWidth then
+			screenWidth = newWidth
+			errorPrompt:resizeWidth(screenWidth)
+		end
 	end
 end
 

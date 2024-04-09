@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("ToolboxSeparatePurchaseStatusDialogsFromAssetPreview2", false)
+game:DefineFastFlag("ToolboxSeparatePurchaseStatusDialogsFromAssetPreview3", false)
 return function()
-   return game:GetFastFlag("ToolboxSeparatePurchaseStatusDialogsFromAssetPreview2")
+   return game:GetFastFlag("ToolboxSeparatePurchaseStatusDialogsFromAssetPreview3")
 end

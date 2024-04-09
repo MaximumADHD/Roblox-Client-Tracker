@@ -44,6 +44,13 @@ local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
 end
 
+local FFlagUserFixTouchJumpBug do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixTouchJumpBug")
+	end)
+	FFlagUserFixTouchJumpBug = success and result
+end
+
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -263,6 +270,9 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 	-- helpers for disable/enable
 	local disable = function()
 		self.activeController:Enable(false)
+		if FFlagUserFixTouchJumpBug then 
+			self.touchJumpController:Enable(false)
+		end
 
 		if self.moveFunction then
 			self.moveFunction(Players.LocalPlayer, Vector3.new(0,0,0), true)
@@ -270,6 +280,27 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 	end
 
 	local enable = function()
+		if FFlagUserFixTouchJumpBug then
+			if
+				self.touchControlFrame
+				and (
+					self.activeControlModule == ClickToMove
+					or self.activeControlModule == TouchThumbstick
+					or self.activeControlModule == DynamicThumbstick
+				)
+			then
+				if not self.controllers[TouchJump] then
+					self.controllers[TouchJump] = TouchJump.new()
+				end
+				self.touchJumpController = self.controllers[TouchJump]
+				self.touchJumpController:Enable(true, self.touchControlFrame)
+			else
+				if self.touchJumpController then
+					self.touchJumpController:Enable(false)
+				end
+			end
+		end
+
 		if self.activeControlModule == ClickToMove then
 			-- For ClickToMove, when it is the player's choice, we also enable the full keyboard controls.
 			-- When the developer is forcing click to move, the most keyboard controls (WASD) are not available, only jump.
@@ -605,17 +636,19 @@ function ControlModule:SwitchToController(controlModule)
 		self.activeController = self.controllers[controlModule]
 		self.activeControlModule = controlModule -- Only used to check if controller switch is necessary
 
-		if self.touchControlFrame and (self.activeControlModule == ClickToMove
-			or self.activeControlModule == TouchThumbstick
-			or self.activeControlModule == DynamicThumbstick) then
-			if not self.controllers[TouchJump] then
-				self.controllers[TouchJump] = TouchJump.new()
-			end
-			self.touchJumpController = self.controllers[TouchJump]
-			self.touchJumpController:Enable(true, self.touchControlFrame)
-		else
-			if self.touchJumpController then
-				self.touchJumpController:Enable(false)
+		if not FFlagUserFixTouchJumpBug then
+			if self.touchControlFrame and (self.activeControlModule == ClickToMove
+				or self.activeControlModule == TouchThumbstick
+				or self.activeControlModule == DynamicThumbstick) then
+				if not self.controllers[TouchJump] then
+					self.controllers[TouchJump] = TouchJump.new()
+				end
+				self.touchJumpController = self.controllers[TouchJump]
+				self.touchJumpController:Enable(true, self.touchControlFrame)
+			else
+				if self.touchJumpController then
+					self.touchJumpController:Enable(false)
+				end
 			end
 		end
 

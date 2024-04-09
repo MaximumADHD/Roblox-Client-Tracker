@@ -59,7 +59,7 @@ PROTO_4:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K5 ["createItemId"]
   MOVE R4 R0
-  LOADK R5 K6 ["_Empty"]
+  LOADK R5 K6 ["@Empty"]
   CALL R3 2 1
   SETTABLEKS R3 R2 K0 ["Id"]
   DUPTABLE R3 K8 [{"Schema", "Value"}]
@@ -146,52 +146,53 @@ PROTO_5:
   SETTABLEKS R5 R8 K10 ["ExpectedTypes"]
   CALL R6 2 1
   MOVE R3 R6
-  DUPTABLE R5 K16 [{"Id", "Name", "Value", "Children"}]
-  GETUPVAL R7 6
-  GETTABLEKS R6 R7 K17 ["createItemId"]
-  GETUPVAL R7 5
-  MOVE R8 R1
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K12 ["Id"]
-  DUPTABLE R6 K19 [{"Schema", "Value"}]
-  GETUPVAL R7 4
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K20 ["PropertyNameSchema"]
-  DUPTABLE R9 K22 [{"StyleRuleInfo"}]
-  GETUPVAL R10 7
-  SETTABLEKS R10 R9 K21 ["StyleRuleInfo"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K18 ["Schema"]
-  SETTABLEKS R1 R6 K14 ["Value"]
-  SETTABLEKS R6 R5 K13 ["Name"]
-  DUPTABLE R6 K24 [{"Actions", "Schema", "Value"}]
-  GETUPVAL R8 8
-  GETTABLEKS R7 R8 K25 ["MoreAction"]
-  SETTABLEKS R7 R6 K23 ["Actions"]
-  SETTABLEKS R3 R6 K18 ["Schema"]
+  GETUPVAL R6 6
+  GETTABLEKS R5 R6 K12 ["createItemId"]
+  GETUPVAL R6 5
+  MOVE R7 R1
+  CALL R5 2 1
+  DUPTABLE R6 K17 [{"Id", "Name", "Value", "Children"}]
+  SETTABLEKS R5 R6 K13 ["Id"]
+  DUPTABLE R7 K19 [{"Schema", "Value"}]
+  GETUPVAL R8 4
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K20 ["PropertyNameSchema"]
+  DUPTABLE R10 K22 [{"StyleRuleInfo"}]
+  GETUPVAL R11 7
+  SETTABLEKS R11 R10 K21 ["StyleRuleInfo"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K18 ["Schema"]
+  SETTABLEKS R1 R7 K15 ["Value"]
+  SETTABLEKS R7 R6 K14 ["Name"]
+  DUPTABLE R7 K24 [{"Actions", "Schema", "Value"}]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K25 ["MoreAction"]
+  SETTABLEKS R8 R7 K23 ["Actions"]
+  SETTABLEKS R3 R7 K18 ["Schema"]
+  GETTABLEKS R9 R3 K26 ["Validate"]
+  MOVE R10 R2
+  CALL R9 1 1
+  JUMPIFNOT R9 [+2]
+  MOVE R8 R2
+  JUMP [+3]
+  GETTABLEKS R8 R3 K27 ["GetDefaultValue"]
+  CALL R8 0 1
+  SETTABLEKS R8 R7 K15 ["Value"]
+  SETTABLEKS R7 R6 K15 ["Value"]
   GETTABLEKS R8 R3 K26 ["Validate"]
   MOVE R9 R2
   CALL R8 1 1
-  JUMPIFNOT R8 [+2]
-  MOVE R7 R2
-  JUMP [+3]
-  GETTABLEKS R7 R3 K27 ["GetDefaultValue"]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K14 ["Value"]
-  SETTABLEKS R6 R5 K14 ["Value"]
-  GETTABLEKS R7 R3 K26 ["Validate"]
-  MOVE R8 R2
-  CALL R7 1 1
-  JUMPIFNOT R7 [+8]
+  JUMPIFNOT R8 [+9]
+  GETTABLEKS R8 R3 K28 ["GetChildren"]
+  JUMPIFNOT R8 [+6]
   GETTABLEKS R7 R3 K28 ["GetChildren"]
-  JUMPIFNOT R7 [+5]
-  GETTABLEKS R6 R3 K28 ["GetChildren"]
-  MOVE R7 R2
-  CALL R6 1 1
+  MOVE R8 R2
+  MOVE R9 R5
+  CALL R7 2 1
   JUMP [+2]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K15 ["Children"]
-  RETURN R5 1
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K16 ["Children"]
+  RETURN R6 1
 
 PROTO_6:
   GETUPVAL R3 0

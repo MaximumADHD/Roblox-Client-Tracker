@@ -7,13 +7,13 @@ local var4 = require(var0.Src.Reducers.RootReducer)
 local var5 = require(var0.Src.Thunks.Types)
 return function(arg1)
    return function(arg1, arg2)
-      local var36 = {}
-      local var37 = arg1
-      var36.loadTimeMillis = var37
-      local var1 = var1(var36)
+      local var96 = {}
+      local var97 = arg1
+      var96.loadTimeMillis = var97
+      local var1 = var1(var96)
       arg2.Telemetry:logTelemetryEvent()
-      var37 = os.time()
-      local var2 = var2(var37)
+      var97 = os.time()
+      local var2 = var2(var97)
       arg1:dispatch()
    end
 end

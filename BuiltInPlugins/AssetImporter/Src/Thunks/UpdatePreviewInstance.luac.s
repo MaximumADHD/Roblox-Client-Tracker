@@ -42,15 +42,15 @@ PROTO_1:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Actions"]
-  GETTABLEKS R2 R3 K7 ["SetPreviewInstance"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Actions"]
+  GETTABLEKS R2 R3 K8 ["SetPreviewInstance"]
   CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_1]
+  DUPCLOSURE R2 K9 [PROTO_1]
   CAPTURE VAL R1
   RETURN R2 1

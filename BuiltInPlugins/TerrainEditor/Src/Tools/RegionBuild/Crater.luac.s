@@ -59,42 +59,50 @@ MAIN:
   LOADK R14 K38 [0.1]
   SETTABLE R14 R12 R13
   GETTABLEKS R13 R5 K39 ["Material"]
-  DUPTABLE R14 K43 [{"Unit", "MaterialList", "FillMaterial"}]
-  GETTABLEKS R15 R7 K44 ["Percentage"]
+  DUPTABLE R14 K46 [{"Unit", "Min", "Max", "MaterialIndex", "MaterialList", "FillMaterial"}]
+  GETTABLEKS R15 R7 K47 ["Percentage"]
   SETTABLEKS R15 R14 K40 ["Unit"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K41 ["Min"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K42 ["Max"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K43 ["MaterialIndex"]
   NEWTABLE R15 0 1
-  DUPTABLE R16 K49 [{"Material", "MinHeight", "MaxHeight", "MinSlope", "MaxSlope"}]
-  GETIMPORT R17 K52 [Enum.Material.Sandstone]
+  DUPTABLE R16 K53 [{"Material", "MinHeight", "MaxHeight", "MinSlope", "MaxSlope", "Priority"}]
+  GETIMPORT R17 K56 [Enum.Material.Sandstone]
   SETTABLEKS R17 R16 K39 ["Material"]
   LOADN R17 0
-  SETTABLEKS R17 R16 K45 ["MinHeight"]
+  SETTABLEKS R17 R16 K48 ["MinHeight"]
   LOADN R17 1
-  SETTABLEKS R17 R16 K46 ["MaxHeight"]
+  SETTABLEKS R17 R16 K49 ["MaxHeight"]
   LOADN R17 0
-  SETTABLEKS R17 R16 K47 ["MinSlope"]
+  SETTABLEKS R17 R16 K50 ["MinSlope"]
   LOADN R17 90
-  SETTABLEKS R17 R16 K48 ["MaxSlope"]
+  SETTABLEKS R17 R16 K51 ["MaxSlope"]
+  LOADN R17 0
+  SETTABLEKS R17 R16 K52 ["Priority"]
   SETLIST R15 R16 1 [1]
-  SETTABLEKS R15 R14 K41 ["MaterialList"]
-  GETIMPORT R15 K54 [Enum.Material.Grass]
-  SETTABLEKS R15 R14 K42 ["FillMaterial"]
+  SETTABLEKS R15 R14 K44 ["MaterialList"]
+  GETIMPORT R15 K58 [Enum.Material.Grass]
+  SETTABLEKS R15 R14 K45 ["FillMaterial"]
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K55 ["RimHeight"]
+  GETTABLEKS R13 R5 K59 ["RimHeight"]
   LOADN R14 0
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K56 ["Size"]
+  GETTABLEKS R13 R5 K60 ["Size"]
   LOADN R15 244
   LOADN R16 200
   LOADN R17 244
   FASTCALL VECTOR [+2]
-  GETIMPORT R14 K58 [Vector3.new]
+  GETIMPORT R14 K62 [Vector3.new]
   CALL R14 3 1
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K59 ["SnapToVoxels"]
+  GETTABLEKS R13 R5 K63 ["SnapToVoxels"]
   LOADB R14 1
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K60 ["Transform"]
-  GETIMPORT R14 K62 [CFrame.new]
+  GETTABLEKS R13 R5 K64 ["Transform"]
+  GETIMPORT R14 K66 [CFrame.new]
   CALL R14 0 1
   SETTABLE R14 R12 R13
   SETTABLEKS R12 R11 K20 ["Defaults"]
@@ -109,8 +117,8 @@ MAIN:
   SETTABLEKS R12 R11 K22 ["Schema"]
   SETLIST R10 R11 1 [1]
   NEWTABLE R11 0 0
-  GETTABLEKS R14 R9 K63 ["Crater"]
-  GETTABLEKS R15 R8 K64 ["None"]
+  GETTABLEKS R14 R9 K67 ["Crater"]
+  GETTABLEKS R15 R8 K68 ["None"]
   MOVE R16 R10
   MOVE R17 R11
   NAMECALL R12 R1 K29 ["new"]

@@ -276,12 +276,13 @@ PROTO_5:
   CALL R4 -1 0
   GETUPVAL R4 6
   LOADK R6 K17 ["onAnimationsConverted"]
-  GETTABLEKS R8 R1 K1 ["AnimationConversion"]
-  GETTABLEKS R7 R8 K6 ["animations"]
-  GETTABLEKS R9 R1 K1 ["AnimationConversion"]
-  GETTABLEKS R8 R9 K2 ["selection"]
   NAMECALL R4 R4 K18 ["getHandler"]
-  CALL R4 4 0
+  CALL R4 2 1
+  GETTABLEKS R6 R1 K1 ["AnimationConversion"]
+  GETTABLEKS R5 R6 K6 ["animations"]
+  GETTABLEKS R7 R1 K1 ["AnimationConversion"]
+  GETTABLEKS R6 R7 K2 ["selection"]
+  CALL R4 2 0
   RETURN R0 0
 
 PROTO_6:

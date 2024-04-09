@@ -42,35 +42,34 @@ PROTO_4:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["RoactRodux"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Thunks"]
-  GETTABLEKS R4 R5 K10 ["ShowImportPrompt"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Thunks"]
+  GETTABLEKS R4 R5 K11 ["ShowImportPrompt"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K11 ["PureComponent"]
-  LOADK R6 K12 ["ImportPrompt"]
-  NAMECALL R4 R4 K13 ["extend"]
+  GETTABLEKS R4 R1 K12 ["PureComponent"]
+  LOADK R6 K13 ["ImportPrompt"]
+  NAMECALL R4 R4 K14 ["extend"]
   CALL R4 2 1
-  DUPCLOSURE R5 K14 [PROTO_1]
-  SETTABLEKS R5 R4 K15 ["init"]
-  DUPCLOSURE R5 K16 [PROTO_2]
-  SETTABLEKS R5 R4 K17 ["render"]
-  DUPCLOSURE R5 K18 [PROTO_4]
+  DUPCLOSURE R5 K15 [PROTO_1]
+  SETTABLEKS R5 R4 K16 ["init"]
+  DUPCLOSURE R5 K17 [PROTO_2]
+  SETTABLEKS R5 R4 K18 ["render"]
+  DUPCLOSURE R5 K19 [PROTO_4]
   CAPTURE VAL R3
-  GETTABLEKS R6 R2 K19 ["connect"]
+  GETTABLEKS R6 R2 K20 ["connect"]
   LOADNIL R7
   MOVE R8 R5
   CALL R6 2 1

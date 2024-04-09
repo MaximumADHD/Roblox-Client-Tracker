@@ -2,12 +2,13 @@
 local var0 = script:FindFirstAncestor("AvatarCompatibilityPreviewer")
 local var1 = require(var0.Packages.DraggerSchemaTemplate.DraggerSchema)
 local var2 = require(var0.Src.Components.EditingTools.BodyPointsTool.Types)
+local var3 = require(var0.Src.Components.EditingTools.BodyPointsTool.getHoveringPair)
 return function(arg1, arg2, arg3)
-   if 1 < arg1.hoveredPointNames then
-      arg1.showAttachmentSelectionDropdown()
-      return "Ready"
+   local var0 = var3(arg1)
+   if var0 == "selection" then
+      arg1.selection:Set(var0)
    end
-   local var624 = var1
-   var624 = arg1
-   return var624.dispatchWorldClick(var624, arg2, arg3)
+   local var32 = var1
+   var32 = arg1
+   return var32.dispatchWorldClick(var32, arg2, arg3)
 end

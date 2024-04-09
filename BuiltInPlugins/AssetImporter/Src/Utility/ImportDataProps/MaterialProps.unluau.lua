@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = require(script.Parent.Parent.Parent.Parent.Src.Components.Properties.Types.PathProperty)
+local var0 = require(script:FindFirstAncestor("AssetImporter").Src.Components.Properties.Types.PathProperty)
 local function fun0(arg1)
    return arg1.IsPbr
 end

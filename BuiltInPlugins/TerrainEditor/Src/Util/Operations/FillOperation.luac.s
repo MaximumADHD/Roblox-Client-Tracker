@@ -22,13 +22,16 @@ PROTO_0:
   MOVE R10 R7
   NAMECALL R8 R2 K5 ["CopyRegion"]
   CALL R8 2 1
-  DUPTABLE R9 K10 [{"BackupRegion", "BackupTerrainRegion", "CurrentIndex", "Regions"}]
+  DUPTABLE R9 K11 [{"BackupRegion", "BackupTerrainRegion", "CurrentIndex", "Regions", "StartTime"}]
   SETTABLEKS R7 R9 K6 ["BackupRegion"]
   SETTABLEKS R8 R9 K7 ["BackupTerrainRegion"]
   LOADN R10 1
   SETTABLEKS R10 R9 K8 ["CurrentIndex"]
   SETTABLEKS R6 R9 K9 ["Regions"]
-  SETTABLEKS R9 R0 K11 ["State"]
+  GETIMPORT R10 K14 [os.clock]
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K10 ["StartTime"]
+  SETTABLEKS R9 R0 K15 ["State"]
   RETURN R0 0
 
 PROTO_1:
@@ -118,10 +121,33 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["ChangeHistoryService"]
-  LOADK R4 K1 ["FillAction"]
-  NAMECALL R2 R2 K2 ["SetWaypoint"]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+30]
+  GETTABLEKS R2 R0 K0 ["State"]
+  JUMPIFNOT R2 [+27]
+  GETTABLEKS R3 R0 K0 ["State"]
+  GETTABLEKS R2 R3 K1 ["StartTime"]
+  JUMPIFNOT R2 [+22]
+  GETTABLEKS R3 R0 K2 ["Payload"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["SelectionSettings"]
+  GETTABLE R2 R3 R4
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["Size"]
+  GETTABLE R3 R2 R4
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K5 ["NormalizeRegionTimer"]
+  GETTABLEKS R8 R0 K0 ["State"]
+  GETTABLEKS R7 R8 K1 ["StartTime"]
+  MOVE R8 R3
+  CALL R6 2 -1
+  NAMECALL R4 R1 K6 ["addTimeStatistic"]
+  CALL R4 -1 0
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K7 ["ChangeHistoryService"]
+  LOADK R4 K8 ["FillAction"]
+  NAMECALL R2 R2 K9 ["SetWaypoint"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -141,8 +167,12 @@ PROTO_4:
   NEWCLOSURE R5 P2
   CAPTURE VAL R2
   NEWCLOSURE R6 P3
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U7
   CAPTURE VAL R2
-  GETUPVAL R8 6
+  GETUPVAL R8 8
   GETTABLEKS R7 R8 K0 ["new"]
   DUPTABLE R8 K9 [{"AllowPause", "AllowCancel", "Description", "Name", "OnCancel", "OnFinish", "OnStart", "OnStep"}]
   LOADB R9 1
@@ -173,25 +203,35 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Src"]
   GETTABLEKS R2 R3 K7 ["Util"]
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R2 K10 ["ConvertTransformToRegion"]
+  GETTABLEKS R4 R2 K10 ["AnalyticsHelper"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R5 R2 K11 ["CreateSubregions"]
+  GETTABLEKS R5 R2 K11 ["ConvertTransformToRegion"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Types"]
+  GETTABLEKS R6 R2 K12 ["CreateSubregions"]
   CALL R5 1 1
-  GETTABLEKS R6 R5 K13 ["Category"]
-  GETTABLEKS R7 R5 K14 ["FillMode"]
-  GETTABLEKS R8 R5 K15 ["MaterialSettings"]
-  GETTABLEKS R9 R5 K16 ["SelectionSettings"]
-  DUPCLOSURE R10 K17 [PROTO_4]
-  CAPTURE VAL R6
-  CAPTURE VAL R9
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R8
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Types"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K14 ["Category"]
+  GETTABLEKS R8 R6 K15 ["FillMode"]
+  GETTABLEKS R9 R6 K16 ["MaterialSettings"]
+  GETTABLEKS R10 R6 K17 ["SelectionSettings"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K6 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Flags"]
+  GETTABLEKS R12 R13 K19 ["getFFlagTerrainEditorTimeStatistic"]
+  CALL R11 1 1
+  DUPCLOSURE R12 K20 [PROTO_4]
   CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  CAPTURE VAL R3
   CAPTURE VAL R1
-  RETURN R10 1
+  RETURN R12 1

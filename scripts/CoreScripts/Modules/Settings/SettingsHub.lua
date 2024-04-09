@@ -3395,8 +3395,12 @@ local function CreateSettingsHub()
 	if eligibleForCapturesFeature or GetShowCapturesTab() then
 		local ShotsPageWrapper = require(RobloxGui.Modules.Settings.Pages.ShotsPageWrapper)
 
+		local function closeSettingsMenu()
+			this:SetVisibility(false, true)
+		end
+
 		this.ScreenshotsApp = ScreenshotsApp
-		this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, Theme)
+		this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, Theme)
 
 		this.ShotsPage = ShotsPageWrapper
 		this.ShotsPage:ConnectHubToApp(this, this.PageViewClipper, this.ScreenshotsApp)

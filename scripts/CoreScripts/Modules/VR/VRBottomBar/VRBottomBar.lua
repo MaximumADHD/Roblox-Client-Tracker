@@ -59,9 +59,6 @@ local FFlagVRBottomBarHighlightedLeaveGameIcon = require(RobloxGui.Modules.Flags
 local FFlagVRBottomBarNoCurvature = game:DefineFastFlag("VRBottomBarNoCurvature", false)
 
 local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
-local GetFFlagHideExperienceLoadingJudder =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagHideExperienceLoadingJudder
-
 
 -- this var moves the gui and bottom bar together
 local GetFIntVRScaleGuiDistance = require(RobloxGui.Modules.Flags.GetFIntVRScaleGuiDistance) or 100
@@ -325,18 +322,16 @@ function VRBottomBar:init()
 		vrMenuOpen = true,
 		lookAway = false, -- whether player looks away from VRBottomBar
 		userGui = VRService.VREnabled and safeRequire(RobloxGui.Modules.VR.UserGui) or Roact.None,
-		hidden = if GetFFlagHideExperienceLoadingJudder() then not SplashScreenManager.isFPSAtTarget() else nil,
+		hidden = not SplashScreenManager.isFPSAtTarget(),
 	})
 
 	self.backpackHasItems = false
 	self.emotesLoaded = false
 
-	if GetFFlagHideExperienceLoadingJudder() then
-		self.onTargetFPSSTateChange = function(isFPSAtTarget)
-			self:setState({hidden = not isFPSAtTarget})
-		end
-		SplashScreenManager.addStatusChangeListener(self.onTargetFPSSTateChange)
+	self.onTargetFPSSTateChange = function(isFPSAtTarget)
+		self:setState({hidden = not isFPSAtTarget})
 	end
+	SplashScreenManager.addStatusChangeListener(self.onTargetFPSSTateChange)
 
 	self.getVoiceIcon = function()
 		return {
@@ -690,7 +685,7 @@ function VRBottomBar:renderWithStyle(style)
 					itemList = itemList,
 					selection = selection,
 					placement = Placement.Bottom,
-					hidden = if GetFFlagHideExperienceLoadingJudder() then self.state.hidden else false,
+					hidden = self.state.hidden,
 					onSafeAreaChanged = function() end,
 					size = UDim2.new(1, 0, 1, 0),
 					position = UDim2.new(),

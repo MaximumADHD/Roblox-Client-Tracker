@@ -35,6 +35,7 @@ local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuIn
 local GetFFlagEnableInsufficientRobuxForBundleUpsellFix =
 	require(Root.Flags.GetFFlagEnableInsufficientRobuxForBundleUpsellFix)
 local FFlagEnableUGC4ACollectiblePurchaseSupport = require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
+local FFlagFixNonCollectibleBundleOwnedCheck = require(Root.Parent.Flags.FFlagFixNonCollectibleBundleOwnedCheck)
 
 local function getPurchasableStatus(productPurchasableDetails)
 	local reason = productPurchasableDetails.reason
@@ -99,8 +100,19 @@ local function resolveBundlePromptState(
 		local failureReason
 		local price
 		if FFlagEnableUGC4ACollectiblePurchaseSupport then
-			canPurchase, failureReason = meetsBundlePrerequisites(bundleDetails)
-			price = expectedPrice
+			if FFlagFixNonCollectibleBundleOwnedCheck then
+				if productPurchasableDetails.productId ~= nil and productPurchasableDetails.productId ~= 0 then
+					canPurchase = productPurchasableDetails.purchasable
+					failureReason = getPurchasableStatus(productPurchasableDetails)
+					price = productPurchasableDetails.price
+				else
+					canPurchase, failureReason = meetsBundlePrerequisites(bundleDetails)
+            		price = expectedPrice
+				end
+			else
+				canPurchase, failureReason = meetsBundlePrerequisites(bundleDetails)
+            	price = expectedPrice
+			end
 		else
 			canPurchase = productPurchasableDetails.purchasable
 			failureReason = getPurchasableStatus(productPurchasableDetails)

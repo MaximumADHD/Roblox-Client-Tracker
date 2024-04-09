@@ -20,9 +20,17 @@ local INITIAL_CAMERA_ANGLE = CFrame.fromOrientation(math.rad(-15), 0, 0)
 local ZOOM_SENSITIVITY_CURVATURE = 0.5
 local FIRST_PERSON_DISTANCE_MIN = 0.5
 
+local FFlagUserRemoveVRReferences
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserRemoveVRReferences")
+	end)
+	FFlagUserRemoveVRReferences = success and result
+end
+
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
-local VRService = game:GetService("VRService")
+local VRService = game:GetService("VRService") -- remove with FFlagUserRemoveVRReferences
 
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
@@ -161,7 +169,7 @@ function ClassicCamera:Update()
 						end
 					end
 
-				elseif self.isFollowCamera and (not (isInFirstPerson or userRecentlyPannedCamera) and not VRService.VREnabled) then
+				elseif self.isFollowCamera and (not (isInFirstPerson or userRecentlyPannedCamera) and (FFlagUserRemoveVRReferences or (not VRService.VREnabled))) then
 					-- Logic that was unique to the old FollowCamera module
 					local lastVec = -(self.lastCameraTransform.p - subjectPosition)
 
@@ -182,9 +190,9 @@ function ClassicCamera:Update()
 		end
 
 		if not self.isFollowCamera then
-			local VREnabled = VRService.VREnabled
+			local VREnabled = VRService.VREnabled and not FFlagUserRemoveVRReferences
 
-			if VREnabled then
+			if VREnabled then -- remove with FFlagUserRemoveVRReferences
 				newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
 			else
 				newCameraFocus = CFrame.new(subjectPosition)
@@ -217,7 +225,7 @@ function ClassicCamera:Update()
 		else -- is FollowCamera
 			local newLookVector = self:CalculateNewLookVectorFromArg(overrideCameraLookVector, rotateInput)
 
-			if VRService.VREnabled then
+			if VRService.VREnabled and not FFlagUserRemoveVRReferences then
 				newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
 			else
 				newCameraFocus = CFrame.new(subjectPosition)

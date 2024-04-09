@@ -2980,21 +2980,26 @@ PROTO_145:
 
 PROTO_146:
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["constructGetFiatProductUrl"]
+  GETTABLEKS R4 R5 K0 ["constructConfigureFiatProductUrl"]
   MOVE R5 R1
   MOVE R6 R2
   CALL R4 2 1
-  GETUPVAL R5 1
-  LOADK R6 K1 ["configureFiatProduct"]
-  LOADK R7 K2 ["PATCH"]
+  GETTABLEKS R5 R0 K1 ["_networkImp"]
+  MOVE R7 R3
+  NAMECALL R5 R5 K2 ["jsonEncode"]
+  CALL R5 2 1
+  GETUPVAL R6 1
+  LOADK R7 K3 ["configureFiatProduct"]
+  LOADK R8 K4 ["PATCH"]
+  MOVE R9 R4
+  MOVE R10 R5
+  CALL R6 4 0
+  GETTABLEKS R6 R0 K1 ["_networkImp"]
   MOVE R8 R4
-  CALL R5 3 0
-  GETTABLEKS R5 R0 K3 ["_networkImp"]
-  MOVE R7 R4
-  MOVE R8 R3
-  NAMECALL R5 R5 K4 ["httpPatch"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  MOVE R9 R5
+  NAMECALL R6 R6 K5 ["httpPatch"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0

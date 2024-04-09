@@ -14,6 +14,13 @@ do
 	end)
 	FFlagUserFixGamepadMaxZoom = success and result
 end
+local FFlagUserFixCameraOffsetJitter
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixCameraOffsetJitter")
+	end)
+	FFlagUserFixCameraOffsetJitter= success and result
+end
 
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane
@@ -242,6 +249,14 @@ function BaseCamera:GetSubjectCFrame(): CFrame
 		local humanoid = cameraSubject
 		local humanoidIsDead = humanoid:GetState() == Enum.HumanoidStateType.Dead
 
+
+		local cameraOffset = humanoid.CameraOffset
+		-- when in mouse lock mode, the character's rotation follows the camera instead of vice versa.
+		-- Allow the mouse lock calculation to be camera based instead of subject based to prevent jitter
+		if FFlagUserFixCameraOffsetJitter and self:GetIsMouseLocked() then
+			cameraOffset = Vector3.new()
+		end
+
 		local bodyPartToFollow = humanoid.RootPart
 
 		-- If the humanoid is dead, prefer their head part as a follow target, if it exists
@@ -273,7 +288,7 @@ function BaseCamera:GetSubjectCFrame(): CFrame
 				heightOffset = ZERO_VECTOR3
 			end
 
-			result = bodyPartToFollow.CFrame*CFrame.new(heightOffset + humanoid.CameraOffset)
+			result = bodyPartToFollow.CFrame*CFrame.new(heightOffset + cameraOffset)
 		end
 
 	elseif cameraSubject:IsA("BasePart") then
@@ -388,6 +403,13 @@ function BaseCamera:GetSubjectPosition(): Vector3?
 			local humanoid = cameraSubject
 			local humanoidIsDead = humanoid:GetState() == Enum.HumanoidStateType.Dead
 
+			local cameraOffset = humanoid.CameraOffset
+			-- when in mouse lock mode, the character's rotation follows the camera instead of vice versa.
+			-- Allow the mouse lock calculation to be camera based instead of subject based to prevent jitter
+			if FFlagUserFixCameraOffsetJitter and self:GetIsMouseLocked() then
+				cameraOffset = Vector3.new()
+			end
+
 			local bodyPartToFollow = humanoid.RootPart
 
 			-- If the humanoid is dead, prefer their head part as a follow target, if it exists
@@ -417,7 +439,7 @@ function BaseCamera:GetSubjectPosition(): Vector3?
 					heightOffset = ZERO_VECTOR3
 				end
 
-				result = bodyPartToFollow.CFrame.p + bodyPartToFollow.CFrame:vectorToWorldSpace(heightOffset + humanoid.CameraOffset)
+				result = bodyPartToFollow.CFrame.p + bodyPartToFollow.CFrame:vectorToWorldSpace(heightOffset + cameraOffset)
 			end
 
 		elseif cameraSubject:IsA("VehicleSeat") then

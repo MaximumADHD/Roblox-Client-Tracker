@@ -88,7128 +88,9392 @@ PROTO_6:
   RETURN R3 -1
 
 PROTO_7:
-  NAMECALL R3 R1 K0 ["getLocale"]
-  CALL R3 1 1
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K2 [0] [+78]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K11 ["Init"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K12 ["Unknown"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K17 ["Description.Init"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K20 [1] [+127]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K26 ["ArchivedExperience"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  GETTABLEKS R9 R2 K29 ["metaData"]
-  GETTABLEKS R8 R9 K28 ["Action"]
-  GETIMPORT R9 K32 [string.lower]
-  MOVE R10 R8
-  CALL R9 1 1
-  JUMPIFNOTEQKS R9 K33 ["true"] [+3]
-  LOADB R7 1
-  JUMP [+1]
-  LOADB R7 0
-  JUMPIFNOT R7 [+35]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K34 ["Description.ArchivedExperience"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  JUMPIF R6 [+34]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K35 ["Description.RestoredExperience"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K36 [2] [+166]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K37 ["PlayabilityChanged"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K38 ["Description.PlayabilityChanged"]
-  DUPTABLE R8 K40 [{"playability"}]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K41 ["Playability"]
-  JUMPIFNOTEQKS R10 K42 ["Public"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K43 ["Description.ActionPublic"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+75]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K41 ["Playability"]
-  JUMPIFNOTEQKS R10 K44 ["Private"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K45 ["Description.ActionPrivate"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K46 ["Description.ActionFriends"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K39 ["playability"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K47 [3] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K48 ["NotificationStringCreated"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K49 ["Description.NotificationStringCreated"]
-  DUPTABLE R8 K51 [{"stringName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K52 ["StringName"]
-  SETTABLEKS R9 R8 K50 ["stringName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K53 [4] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K54 ["NotificationStringDeleted"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K55 ["Description.NotificationStringDeleted"]
-  DUPTABLE R8 K51 [{"stringName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K52 ["StringName"]
-  SETTABLEKS R9 R8 K50 ["stringName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K56 [5] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K57 ["NotificationStringUpdated"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K58 ["Description.NotificationStringUpdated"]
-  DUPTABLE R8 K51 [{"stringName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K52 ["StringName"]
-  SETTABLEKS R9 R8 K50 ["stringName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K59 [6] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K60 ["AvatarSettingsAvatarType"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K61 ["Description.AvatarSettingsAvatarType"]
-  DUPTABLE R8 K63 [{"avatarType"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K64 ["AvatarType"]
-  SETTABLEKS R9 R8 K62 ["avatarType"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K65 [7] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K66 ["AvatarSettingsAnimation"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K67 ["Description.AvatarSettingsAnimation"]
-  DUPTABLE R8 K69 [{"animation"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K70 ["Animation"]
-  SETTABLEKS R9 R8 K68 ["animation"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K71 [8] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K72 ["AvatarSettingsCollision"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K73 ["Description.AvatarSettingsCollision"]
-  DUPTABLE R8 K75 [{"collision"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K76 ["Collision"]
-  SETTABLEKS R9 R8 K74 ["collision"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K77 [9] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K78 ["AvatarSettingsScaleHeight"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K79 ["Description.AvatarSettingsScaleHeight"]
-  DUPTABLE R8 K81 [{"scale"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K82 ["Scale"]
-  SETTABLEKS R9 R8 K80 ["scale"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K83 [10] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K84 ["AvatarSettingsScaleWidth"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K85 ["Description.AvatarSettingsScaleWidth"]
-  DUPTABLE R8 K81 [{"scale"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K82 ["Scale"]
-  SETTABLEKS R9 R8 K80 ["scale"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K86 [11] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K87 ["AvatarSettingsScaleHead"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K88 ["Description.AvatarSettingsScaleHead"]
-  DUPTABLE R8 K81 [{"scale"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K82 ["Scale"]
-  SETTABLEKS R9 R8 K80 ["scale"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K89 [12] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K90 ["AvatarSettingsScaleBodyType"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K91 ["Description.AvatarSettingsScaleBodyType"]
-  DUPTABLE R8 K81 [{"scale"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K82 ["Scale"]
-  SETTABLEKS R9 R8 K80 ["scale"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K92 [13] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K93 ["AvatarSettingsScaleProportions"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K94 ["Description.AvatarSettingsScaleProportions"]
-  DUPTABLE R8 K81 [{"scale"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K82 ["Scale"]
-  SETTABLEKS R9 R8 K80 ["scale"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K95 [14] [+78]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K96 ["AvatarSettingsBodyParts"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K97 ["Description.AvatarSettingsBodyParts"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K98 [15] [+78]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K99 ["AvatarSettingsClothing"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K100 ["Description.AvatarSettingsClothing"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K101 [16] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K102 ["ExperienceName"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K103 ["Description.ExperienceName"]
-  DUPTABLE R8 K106 [{"newName", "oldName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K107 ["NewName"]
-  SETTABLEKS R9 R8 K104 ["newName"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K108 ["OldName"]
-  SETTABLEKS R9 R8 K105 ["oldName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K109 [17] [+78]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K110 ["ExperienceDescription"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K111 ["Description.ExperienceDescription"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K112 [18] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K113 ["ExperienceGenre"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K12 ["Unknown"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K114 ["Description.ExperienceGenre"]
-  DUPTABLE R8 K116 [{"genre"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K117 ["Genre"]
-  SETTABLEKS R9 R8 K115 ["genre"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K118 [19] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K119 ["SecuritySettingsHTTPRequests"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K120 ["Description.SecuritySettingsHTTPRequests"]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K125 [20] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K126 ["SecuritySettingsStudioAccessToAPI"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K127 ["Description.SecuritySettingsStudioAccessToAPI"]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K128 [21] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K129 ["SecuritySettingsThirdPartySales"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K130 ["Description.SecuritySettingsThirdPartySales"]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K131 [22] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K132 ["SecuritySettingsThirdPartyTeleports"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K133 ["Description.SecuritySettingsThirdPartyTeleports"]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K134 [23] [+78]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K135 ["ExperienceShutDown"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K136 ["Description.ExperienceShutDown"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K137 [24] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K138 ["SocialLinksAdded"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K139 ["Description.SocialLinksAdded"]
-  DUPTABLE R8 K141 [{"channel"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K142 ["Channel"]
-  SETTABLEKS R9 R8 K140 ["channel"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K143 [25] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K144 ["SocialLinksRemoved"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K145 ["Description.SocialLinksRemoved"]
-  DUPTABLE R8 K141 [{"channel"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K142 ["Channel"]
-  SETTABLEKS R9 R8 K140 ["channel"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K146 [26] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K147 ["SocialLinksUpdated"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K148 ["Description.SocialLinksUpdated"]
-  DUPTABLE R8 K141 [{"channel"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K142 ["Channel"]
-  SETTABLEKS R9 R8 K140 ["channel"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K149 [27] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K150 ["SpatialVoice"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K151 ["Description.SpatialVoice"]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K152 [28] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K153 ["WorldSettingsWorkSpaceGravity"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K154 ["Description.WorldSettingsWorkSpaceGravity"]
-  DUPTABLE R8 K156 [{"gravity"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K157 ["Gravity"]
-  SETTABLEKS R9 R8 K155 ["gravity"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K158 [29] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K159 ["WorldSettingsJumpHeight"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K160 ["Description.WorldSettingsJumpHeight"]
-  DUPTABLE R8 K162 [{"jumpHeight"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K163 ["JumpHeight"]
-  SETTABLEKS R9 R8 K161 ["jumpHeight"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K164 [30] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K165 ["WorldSettingsJumpPower"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K166 ["Description.WorldSettingsJumpPower"]
-  DUPTABLE R8 K168 [{"jumpPower"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K169 ["JumpPower"]
-  SETTABLEKS R9 R8 K167 ["jumpPower"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K170 [31] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K171 ["WorldSettingsWalkSpeed"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K172 ["Description.WorldSettingsWalkSpeed"]
-  DUPTABLE R8 K174 [{"walkSpeed"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K175 ["WalkSpeed"]
-  SETTABLEKS R9 R8 K173 ["walkSpeed"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K176 [32] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K177 ["WorldSettingsMaxSlopeAngle"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K178 ["Description.WorldSettingsMaxSlopeAngle"]
-  DUPTABLE R8 K180 [{"maxSlopeAngle"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K181 ["MaxSlopeAngle"]
-  SETTABLEKS R9 R8 K179 ["maxSlopeAngle"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K182 [33] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K183 ["SentUpdate"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K184 ["Description.SentUpdate"]
-  DUPTABLE R8 K186 [{"update"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K187 ["Update"]
-  SETTABLEKS R9 R8 K185 ["update"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K188 [34] [+139]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K189 ["SupportedLanguages"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K191 ["Description.SupportedLanguages"]
-  DUPTABLE R8 K193 [{"language", "action"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K195 ["Description.ActionAdded"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K196 ["Description.ActionRemoved"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K197 [35] [+139]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K198 ["AutoTranslationExperienceInformation"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K199 ["Description.AutoTranslationExperienceInformation"]
-  DUPTABLE R8 K193 [{"language", "action"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K200 [36] [+139]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K201 ["AutoTranslationExperienceStringsAndProducts"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K202 ["Description.AutoTranslationExperienceStringsAndProducts"]
-  DUPTABLE R8 K193 [{"language", "action"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K203 [37] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K204 ["LocalizationSettingsAutomaticTextCapture"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K205 ["Description.LocalizationSettingsAutomaticTextCapture"]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K206 [38] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K207 ["LocalizationSettingsUserTranslatedContent"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K208 ["Description.LocalizationSettingsUserTranslatedContent"]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K209 [39] [+45]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K210 ["ClearUnmodifiedAutoCaptureEntries"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K12 ["Unknown"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADK R6 K21 [""]
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K211 [40] [+45]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K212 ["AnalyticsReport"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K12 ["Unknown"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADK R6 K21 [""]
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K213 [41] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K214 ["TranslationIconAdded"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K215 ["Description.TranslationIconAdded"]
-  DUPTABLE R8 K217 [{"language", "iconName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K218 ["IconName"]
-  SETTABLEKS R9 R8 K216 ["iconName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K219 [42] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K220 ["TranslationIconDeleted"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K221 ["Description.TranslationIconDeleted"]
-  DUPTABLE R8 K217 [{"language", "iconName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K218 ["IconName"]
-  SETTABLEKS R9 R8 K216 ["iconName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K222 [43] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K223 ["TranslationExperienceName"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K224 ["Description.TranslationExperienceName"]
-  DUPTABLE R8 K225 [{"language"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K226 [44] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K227 ["TranslationExperienceDescription"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K228 ["Description.TranslationExperienceDescription"]
-  DUPTABLE R8 K225 [{"language"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K229 [45] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K230 ["TranslationThumbnailAltText"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K231 ["Description.TranslationThumbnailAltText"]
-  DUPTABLE R8 K233 [{"language", "thumbnailName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K234 ["ThumbnailName"]
-  SETTABLEKS R9 R8 K232 ["thumbnailName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K235 [46] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K236 ["TranslationThumbnailAdded"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K237 ["Description.TranslationThumbnailAdded"]
-  DUPTABLE R8 K233 [{"language", "thumbnailName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K234 ["ThumbnailName"]
-  SETTABLEKS R9 R8 K232 ["thumbnailName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K238 [47] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K239 ["TranslationThumbnailDeleted"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K240 ["Description.TranslationThumbnailDeleted"]
-  DUPTABLE R8 K233 [{"language", "thumbnailName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K234 ["ThumbnailName"]
-  SETTABLEKS R9 R8 K232 ["thumbnailName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K241 [48] [+45]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K242 ["TranslationThumbnailOrder"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K12 ["Unknown"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADK R6 K21 [""]
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K243 [49] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K244 ["TranslationStringAdded"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K245 ["Description.TranslationStringAdded"]
-  DUPTABLE R8 K247 [{"stringKey", "language"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K248 ["StringKey"]
-  SETTABLEKS R9 R8 K246 ["stringKey"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K249 [50] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K250 ["TranslationStringDeleted"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K251 ["Description.TranslationStringDeleted"]
-  DUPTABLE R8 K247 [{"stringKey", "language"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K248 ["StringKey"]
-  SETTABLEKS R9 R8 K246 ["stringKey"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K252 [51] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K253 ["TranslationStringUpdated"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K254 ["Description.TranslationStringUpdated"]
-  DUPTABLE R8 K247 [{"stringKey", "language"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K248 ["StringKey"]
-  SETTABLEKS R9 R8 K246 ["stringKey"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K255 [52] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K0 ["getLocale"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K1 ["eventType"]
-  DUPTABLE R8 K259 [{"language", "badgeName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K260 ["BadgeName"]
-  SETTABLEKS R9 R8 K258 ["badgeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K5 ["translation"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K263 [53] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K8 ["iconType"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K9 ["iconId"]
-  DUPTABLE R8 K259 [{"language", "badgeName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K260 ["BadgeName"]
-  SETTABLEKS R9 R8 K258 ["badgeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K5 ["translation"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K266 [54] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K11 ["Init"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K12 ["Unknown"]
-  DUPTABLE R8 K259 [{"language", "badgeName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K260 ["BadgeName"]
-  SETTABLEKS R9 R8 K258 ["badgeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K5 ["translation"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K269 [55] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K14 ["pcall"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K15 [pcall]
-  DUPTABLE R8 K259 [{"language", "badgeName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K260 ["BadgeName"]
-  SETTABLEKS R9 R8 K258 ["badgeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K5 ["translation"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K272 [56] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K17 ["Description.Init"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K18 ["([^.]+)"]
-  DUPTABLE R8 K276 [{"language", "productName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K277 ["ProductName"]
-  SETTABLEKS R9 R8 K275 ["productName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K22 ["getText"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K279 [57] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K25 ["universeId"]
-  DUPTABLE R8 K276 [{"language", "productName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K277 ["ProductName"]
-  SETTABLEKS R9 R8 K275 ["productName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K22 ["getText"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K282 [58] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K28 ["Action"]
-  DUPTABLE R8 K276 [{"language", "productName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K277 ["ProductName"]
-  SETTABLEKS R9 R8 K275 ["productName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K22 ["getText"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K285 [59] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K30 ["string"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K31 ["lower"]
-  DUPTABLE R8 K276 [{"language", "productName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K277 ["ProductName"]
-  SETTABLEKS R9 R8 K275 ["productName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K22 ["getText"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K288 [60] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K33 ["true"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K34 ["Description.ArchivedExperience"]
-  DUPTABLE R8 K292 [{"language", "passName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K293 ["PassName"]
-  SETTABLEKS R9 R8 K291 ["passName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K38 ["Description.PlayabilityChanged"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K295 [61] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K40 [{"playability"}]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K41 ["Playability"]
-  DUPTABLE R8 K292 [{"language", "passName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K293 ["PassName"]
-  SETTABLEKS R9 R8 K291 ["passName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K38 ["Description.PlayabilityChanged"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K298 [62] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K43 ["Description.ActionPublic"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K44 ["Private"]
-  DUPTABLE R8 K292 [{"language", "passName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K293 ["PassName"]
-  SETTABLEKS R9 R8 K291 ["passName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K38 ["Description.PlayabilityChanged"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K301 [63] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K46 ["Description.ActionFriends"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K47 [3]
-  DUPTABLE R8 K292 [{"language", "passName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K194 ["Language"]
-  SETTABLEKS R9 R8 K192 ["language"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K293 ["PassName"]
-  SETTABLEKS R9 R8 K291 ["passName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K38 ["Description.PlayabilityChanged"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K304 [64] [+60]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K49 ["Description.NotificationStringCreated"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K50 ["stringName"]
-  DUPTABLE R8 K308 [{"userName"}]
-  MOVE R9 R0
-  GETTABLEKS R11 R2 K262 ["resourceId"]
-  JUMPIFNOT R11 [+3]
-  GETTABLEKS R10 R2 K262 ["resourceId"]
-  JUMPIF R10 [+1]
-  LOADN R10 255
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K307 ["userName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K53 [4]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K310 [65] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K55 ["Description.NotificationStringDeleted"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K56 [5]
-  DUPTABLE R8 K314 [{"groupName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K315 ["GroupName"]
-  SETTABLEKS R9 R8 K313 ["groupName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K60 ["AvatarSettingsAvatarType"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K317 [66] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K62 ["avatarType"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K64 ["AvatarType"]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K65 [7]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K196 ["Description.ActionRemoved"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K322 [67] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K67 ["Description.AvatarSettingsAnimation"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K68 ["animation"]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K46 ["Description.ActionFriends"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K43 ["Description.ActionPublic"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K325 [68] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K70 ["Animation"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K71 [8]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K328 [69] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K73 ["Description.AvatarSettingsCollision"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K74 ["collision"]
-  DUPTABLE R8 K332 [{"price"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K333 ["Price"]
-  SETTABLEKS R9 R8 K331 ["price"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K334 [70] [+45]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K79 ["Description.AvatarSettingsScaleHeight"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADK R6 K80 ["scale"]
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K337 [71] [+133]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K82 ["Scale"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K83 [10]
-  DUPTABLE R8 K122 [{"action"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K340 [72] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K85 ["Description.AvatarSettingsScaleWidth"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K86 [11]
-  DUPTABLE R8 K332 [{"price"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K333 ["Price"]
-  SETTABLEKS R9 R8 K331 ["price"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K343 [73] [+139]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K88 ["Description.AvatarSettingsScaleHead"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K89 [12]
-  DUPTABLE R8 K347 [{"adName", "action"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K348 ["AdName"]
-  SETTABLEKS R9 R8 K346 ["adName"]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K93 ["AvatarSettingsScaleProportions"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K94 ["Description.AvatarSettingsScaleProportions"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K351 [74] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K4 ["date"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K96 ["AvatarSettingsBodyParts"]
-  DUPTABLE R8 K106 [{"newName", "oldName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K107 ["NewName"]
-  SETTABLEKS R9 R8 K104 ["newName"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K108 ["OldName"]
-  SETTABLEKS R9 R8 K105 ["oldName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K5 ["translation"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K353 [75] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K98 [15]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K99 ["AvatarSettingsClothing"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K5 ["translation"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K356 [76] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K101 [16]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K102 ["ExperienceName"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K5 ["translation"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K359 [77] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K104 ["newName"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K105 ["oldName"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K5 ["translation"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K362 [78] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K107 ["NewName"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K108 ["OldName"]
-  DUPTABLE R8 K106 [{"newName", "oldName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K107 ["NewName"]
-  SETTABLEKS R9 R8 K104 ["newName"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K108 ["OldName"]
-  SETTABLEKS R9 R8 K105 ["oldName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K22 ["getText"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K365 [79] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K110 ["ExperienceDescription"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K111 ["Description.ExperienceDescription"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K22 ["getText"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K368 [80] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K113 ["ExperienceGenre"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K114 ["Description.ExperienceGenre"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K22 ["getText"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K371 [81] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K116 [{"genre"}]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K117 ["Genre"]
-  DUPTABLE R8 K332 [{"price"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K333 ["Price"]
-  SETTABLEKS R9 R8 K331 ["price"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K22 ["getText"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K374 [82] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K119 ["SecuritySettingsHTTPRequests"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K120 ["Description.SecuritySettingsHTTPRequests"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K22 ["getText"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K377 [83] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K122 [{"action"}]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K123 ["Description.ActionEnabled"]
-  DUPTABLE R8 K106 [{"newName", "oldName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K107 ["NewName"]
-  SETTABLEKS R9 R8 K104 ["newName"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K108 ["OldName"]
-  SETTABLEKS R9 R8 K105 ["oldName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K38 ["Description.PlayabilityChanged"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K380 [84] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K125 [20]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K126 ["SecuritySettingsStudioAccessToAPI"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K38 ["Description.PlayabilityChanged"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K383 [85] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K128 [21]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K129 ["SecuritySettingsThirdPartySales"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K38 ["Description.PlayabilityChanged"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K386 [86] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K131 [22]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K132 ["SecuritySettingsThirdPartyTeleports"]
-  DUPTABLE R8 K332 [{"price"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K333 ["Price"]
-  SETTABLEKS R9 R8 K331 ["price"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K38 ["Description.PlayabilityChanged"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K389 [87] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K134 [23]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K63 [{"avatarType"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K135 ["ExperienceShutDown"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K38 ["Description.PlayabilityChanged"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K392 [88] [+132]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K137 [24]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K138 ["SocialLinksAdded"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K139 ["Description.SocialLinksAdded"]
-  DUPTABLE R8 K397 [{"userName", "role"}]
-  MOVE R9 R0
-  GETTABLEKS R10 R2 K262 ["resourceId"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K307 ["userName"]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K28 ["Action"]
-  JUMPIFNOTEQKS R10 K398 ["Edit"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K143 [25]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K144 ["SocialLinksRemoved"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K396 ["role"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K53 [4]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K401 [89] [+138]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K146 [26]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K138 ["SocialLinksAdded"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K147 ["SocialLinksUpdated"]
-  DUPTABLE R8 K405 [{"groupRole", "groupName", "role"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K406 ["RolesetName"]
-  SETTABLEKS R9 R8 K404 ["groupRole"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K315 ["GroupName"]
-  SETTABLEKS R9 R8 K313 ["groupName"]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K28 ["Action"]
-  JUMPIFNOTEQKS R10 K398 ["Edit"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K143 [25]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K144 ["SocialLinksRemoved"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K396 ["role"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K60 ["AvatarSettingsAvatarType"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K407 [90] [+209]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K152 [28]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K138 ["SocialLinksAdded"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K153 ["WorldSettingsWorkSpaceGravity"]
-  DUPTABLE R8 K412 [{"userName", "oldRole", "newRole"}]
-  MOVE R9 R0
-  GETTABLEKS R10 R2 K262 ["resourceId"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K307 ["userName"]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K28 ["Action"]
-  JUMPIFNOTEQKS R10 K398 ["Edit"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K144 ["SocialLinksRemoved"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K143 [25]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K410 ["oldRole"]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K28 ["Action"]
-  JUMPIFNOTEQKS R10 K398 ["Edit"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K143 [25]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K144 ["SocialLinksRemoved"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K411 ["newRole"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K53 [4]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K413 [91] [+132]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K158 [29]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K138 ["SocialLinksAdded"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K159 ["WorldSettingsJumpHeight"]
-  DUPTABLE R8 K397 [{"userName", "role"}]
-  MOVE R9 R0
-  GETTABLEKS R10 R2 K262 ["resourceId"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K307 ["userName"]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K28 ["Action"]
-  JUMPIFNOTEQKS R10 K398 ["Edit"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K160 ["Description.WorldSettingsJumpHeight"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K161 ["jumpHeight"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K396 ["role"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K53 [4]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K418 [92] [+215]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K163 ["JumpHeight"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K138 ["SocialLinksAdded"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K164 [30]
-  DUPTABLE R8 K421 [{"groupRole", "groupName", "oldRole", "newRole"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K406 ["RolesetName"]
-  SETTABLEKS R9 R8 K404 ["groupRole"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K315 ["GroupName"]
-  SETTABLEKS R9 R8 K313 ["groupName"]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K28 ["Action"]
-  JUMPIFNOTEQKS R10 K398 ["Edit"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K144 ["SocialLinksRemoved"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K143 [25]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K410 ["oldRole"]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K28 ["Action"]
-  JUMPIFNOTEQKS R10 K398 ["Edit"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K143 [25]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K144 ["SocialLinksRemoved"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K411 ["newRole"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K60 ["AvatarSettingsAvatarType"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K422 [93] [+138]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K167 ["jumpPower"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K138 ["SocialLinksAdded"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K168 [{"jumpPower"}]
-  DUPTABLE R8 K405 [{"groupRole", "groupName", "role"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K406 ["RolesetName"]
-  SETTABLEKS R9 R8 K404 ["groupRole"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K315 ["GroupName"]
-  SETTABLEKS R9 R8 K313 ["groupName"]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K28 ["Action"]
-  JUMPIFNOTEQKS R10 K398 ["Edit"] [+36]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K160 ["Description.WorldSettingsJumpHeight"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K161 ["jumpHeight"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K396 ["role"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K60 ["AvatarSettingsAvatarType"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K262 ["resourceId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K425 [94] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K170 [31]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K138 ["SocialLinksAdded"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K171 ["WorldSettingsWalkSpeed"]
-  DUPTABLE R8 K308 [{"userName"}]
-  MOVE R9 R0
-  GETTABLEKS R10 R2 K262 ["resourceId"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K307 ["userName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K428 [95] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K173 ["walkSpeed"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K175 ["WalkSpeed"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K433 [96] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K178 ["Description.WorldSettingsMaxSlopeAngle"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K179 ["maxSlopeAngle"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K436 [97] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K181 ["MaxSlopeAngle"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K182 [33]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K439 [98] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K184 ["Description.SentUpdate"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K185 ["update"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K442 [99] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K187 ["Update"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K188 [34]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K445 [100] [+58]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K190 ["Localization"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K191 ["Description.SupportedLanguages"]
-  DUPTABLE R8 K449 [{"gearTypes"}]
-  GETGLOBAL R9 K450 ["joinStrings"]
-  GETTABLEKS R11 R2 K29 ["metaData"]
-  GETTABLEKS R10 R11 K451 ["GearTypes"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K448 ["gearTypes"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K452 [101] [+140]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K197 [35]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K198 ["AutoTranslationExperienceInformation"]
-  DUPTABLE R8 K456 [{"action", "placeName"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K457 ["PlaceName"]
-  SETTABLEKS R9 R8 K455 ["placeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K458 [102] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K203 [37]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K204 ["LocalizationSettingsAutomaticTextCapture"]
-  DUPTABLE R8 K116 [{"genre"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K117 ["Genre"]
-  SETTABLEKS R9 R8 K115 ["genre"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K461 [103] [+61]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K201 ["AutoTranslationExperienceStringsAndProducts"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K206 [38]
-  DUPTABLE R8 K106 [{"newName", "oldName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K107 ["NewName"]
-  SETTABLEKS R9 R8 K104 ["newName"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K108 ["OldName"]
-  SETTABLEKS R9 R8 K105 ["oldName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K463 [104] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K208 ["Description.LocalizationSettingsUserTranslatedContent"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K209 [39]
-  DUPTABLE R8 K466 [{"placeName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K457 ["PlaceName"]
-  SETTABLEKS R9 R8 K455 ["placeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K467 [105] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K212 ["AnalyticsReport"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K213 [41]
-  DUPTABLE R8 K471 [{"count"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K472 ["Count"]
-  SETTABLEKS R9 R8 K470 ["count"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K473 [106] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K218 ["IconName"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K219 [42]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K476 [107] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K221 ["Description.TranslationIconDeleted"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K222 [43]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K479 [108] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K224 ["Description.TranslationExperienceName"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K225 [{"language"}]
-  DUPTABLE R8 K471 [{"count"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K472 ["Count"]
-  SETTABLEKS R9 R8 K470 ["count"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K482 [109] [+140]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K227 ["TranslationExperienceDescription"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K228 ["Description.TranslationExperienceDescription"]
-  DUPTABLE R8 K456 [{"action", "placeName"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K457 ["PlaceName"]
-  SETTABLEKS R9 R8 K455 ["placeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K485 [110] [+140]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K230 ["TranslationThumbnailAltText"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K231 ["Description.TranslationThumbnailAltText"]
-  DUPTABLE R8 K456 [{"action", "placeName"}]
-  GETTABLEKS R12 R2 K29 ["metaData"]
-  GETTABLEKS R11 R12 K28 ["Action"]
-  GETIMPORT R12 K32 [string.lower]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOTEQKS R12 K33 ["true"] [+3]
-  LOADB R10 1
-  JUMP [+1]
-  LOADB R10 0
-  JUMPIFNOT R10 [+35]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K123 ["Description.ActionEnabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  JUMPIF R9 [+34]
-  LOADNIL R10
-  NEWTABLE R12 0 0
-  LOADK R13 K124 ["Description.ActionDisabled"]
-  LOADK R15 K18 ["([^.]+)"]
-  NAMECALL R13 R13 K19 ["gmatch"]
-  CALL R13 2 3
-  FORGPREP R13
-  LENGTH R19 R12
-  ADDK R18 R19 K20 [1]
-  SETTABLE R16 R12 R18
-  FORGLOOP R13 1 [-4]
-  MOVE R11 R12
-  GETTABLEN R12 R11 1
-  JUMPIFEQKNIL R12 [+4]
-  GETTABLEN R12 R11 2
-  JUMPIFNOTEQKNIL R12 [+3]
-  LOADK R9 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R10 [+3]
-  NEWTABLE R10 0 0
-  GETTABLEN R14 R11 1
-  GETTABLEN R15 R11 2
-  MOVE R16 R10
-  NAMECALL R12 R1 K22 ["getText"]
-  CALL R12 4 1
-  MOVE R9 R12
-  SETTABLEKS R9 R8 K121 ["action"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K457 ["PlaceName"]
-  SETTABLEKS R9 R8 K455 ["placeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K488 [111] [+67]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K233 [{"language", "thumbnailName"}]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K234 ["ThumbnailName"]
-  DUPTABLE R8 K493 [{"placeName", "oldVersion", "newVersion"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K457 ["PlaceName"]
-  SETTABLEKS R9 R8 K455 ["placeName"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K494 ["OldVersion"]
-  SETTABLEKS R9 R8 K491 ["oldVersion"]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K495 ["NewVersion"]
-  SETTABLEKS R9 R8 K492 ["newVersion"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K496 [112] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K241 [48]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K242 ["TranslationThumbnailOrder"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K499 [113] [+79]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K244 ["TranslationStringAdded"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K245 ["Description.TranslationStringAdded"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K502 [114] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K247 [{"stringKey", "language"}]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K248 ["StringKey"]
-  DUPTABLE R8 K505 [{"thumbnailName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K234 ["ThumbnailName"]
-  SETTABLEKS R9 R8 K232 ["thumbnailName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K506 [115] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K251 ["Description.TranslationStringDeleted"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K252 [51]
-  DUPTABLE R8 K505 [{"thumbnailName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K234 ["ThumbnailName"]
-  SETTABLEKS R9 R8 K232 ["thumbnailName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K509 [116] [+45]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K254 ["Description.TranslationStringUpdated"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K12 ["Unknown"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADK R6 K21 [""]
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K511 [117] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K0 ["getLocale"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K1 ["eventType"]
-  DUPTABLE R8 K505 [{"thumbnailName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K234 ["ThumbnailName"]
-  SETTABLEKS R9 R8 K232 ["thumbnailName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K514 [118] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K3 ["eventCategory"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K4 ["date"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K5 ["translation"]
-  DUPTABLE R8 K466 [{"placeName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K457 ["PlaceName"]
-  SETTABLEKS R9 R8 K455 ["placeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K518 [119] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K7 ["actorName"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K4 ["date"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K8 ["iconType"]
-  DUPTABLE R8 K466 [{"placeName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K457 ["PlaceName"]
-  SETTABLEKS R9 R8 K455 ["placeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K521 [120] [+55]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K4 ["date"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K11 ["Init"]
-  DUPTABLE R8 K466 [{"placeName"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K457 ["PlaceName"]
-  SETTABLEKS R9 R8 K455 ["placeName"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K174 [{"walkSpeed"}]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R7 R2 K432 ["placeId"]
-  ORK R6 R7 K2 [0]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K524 [121] [+78]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K13 ["createdUnixTimeMs"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K27 ["Experience"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADNIL R7
-  NEWTABLE R9 0 0
-  LOADK R10 K14 ["pcall"]
-  LOADK R12 K18 ["([^.]+)"]
-  NAMECALL R10 R10 K19 ["gmatch"]
-  CALL R10 2 3
-  FORGPREP R10
-  LENGTH R16 R9
-  ADDK R15 R16 K20 [1]
-  SETTABLE R13 R9 R15
-  FORGLOOP R10 1 [-4]
-  MOVE R8 R9
-  GETTABLEN R9 R8 1
-  JUMPIFEQKNIL R9 [+4]
-  GETTABLEN R9 R8 2
-  JUMPIFNOTEQKNIL R9 [+3]
-  LOADK R6 K21 [""]
-  JUMP [+11]
-  JUMPIFNOTEQKNIL R7 [+3]
-  NEWTABLE R7 0 0
-  GETTABLEN R11 R8 1
-  GETTABLEN R12 R8 2
-  MOVE R13 R7
-  NAMECALL R9 R1 K22 ["getText"]
-  CALL R9 4 1
-  MOVE R6 R9
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  GETTABLEKS R5 R2 K1 ["eventType"]
-  JUMPIFNOTEQKN R5 K527 [122] [+54]
-  DUPTABLE R5 K10 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId"}]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K12 ["Unknown"]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  GETTABLEKS R7 R2 K13 ["createdUnixTimeMs"]
-  GETIMPORT R8 K15 [pcall]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CALL R8 1 2
-  JUMPIFNOT R8 [+2]
-  MOVE R6 R9
-  JUMP [+2]
-  LOADK R6 K16 ["🤷🏻‍♀️"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K4 ["date"]
-  MOVE R6 R4
-  LOADK R7 K17 ["Description.Init"]
-  DUPTABLE R8 K332 [{"price"}]
-  GETTABLEKS R10 R2 K29 ["metaData"]
-  GETTABLEKS R9 R10 K333 ["Price"]
-  SETTABLEKS R9 R8 K331 ["price"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["translation"]
-  GETTABLEKS R6 R2 K23 ["userId"]
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  MOVE R6 R0
-  GETTABLEKS R7 R2 K23 ["userId"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADK R6 K24 ["Universe"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  GETTABLEKS R6 R2 K25 ["universeId"]
-  JUMP [0]
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  RETURN R5 1
-  DUPTABLE R5 K530 [{"eventType", "date", "translation", "actorId", "actorName", "iconId", "iconType", "eventCategory"}]
-  LOADK R6 K12 ["Unknown"]
-  SETTABLEKS R6 R5 K1 ["eventType"]
-  LOADK R6 K21 [""]
-  SETTABLEKS R6 R5 K4 ["date"]
-  LOADK R6 K19 ["gmatch"]
-  SETTABLEKS R6 R5 K5 ["translation"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K6 ["actorId"]
-  LOADK R6 K20 [1]
-  SETTABLEKS R6 R5 K7 ["actorName"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K9 ["iconId"]
-  LOADK R6 K12 ["Unknown"]
-  SETTABLEKS R6 R5 K8 ["iconType"]
-  LOADK R6 K21 [""]
-  SETTABLEKS R6 R5 K3 ["eventCategory"]
-  RETURN R5 1
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["PlayableDevices"]
+  NAMECALL R1 R0 K5 ["JSONDecode"]
+  CALL R1 2 1
+  NEWTABLE R2 0 0
+  GETIMPORT R3 K7 [pairs]
+  MOVE R4 R1
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  GETUPVAL R9 1
+  GETTABLE R8 R9 R7
+  JUMPIFEQKNIL R8 [+18]
+  GETUPVAL R9 2
+  GETUPVAL R11 1
+  GETTABLE R10 R11 R7
+  GETTABLE R8 R9 R10
+  JUMPIFEQKNIL R8 [+12]
+  MOVE R9 R2
+  GETUPVAL R10 3
+  GETUPVAL R12 2
+  GETUPVAL R14 1
+  GETTABLE R13 R14 R7
+  GETTABLE R11 R12 R13
+  CALL R10 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K10 [table.insert]
+  CALL R8 -1 0
+  FORGLOOP R3 2 [-22]
+  LENGTH R3 R2
+  LOADN R4 0
+  JUMPIFNOTLT R4 R3 [+14]
+  GETUPVAL R3 3
+  LOADK R4 K11 ["Description.MonetizationSettingsPlayableDevices"]
+  DUPTABLE R5 K13 [{"playableDevices"}]
+  GETGLOBAL R6 K14 ["joinStrings"]
+  MOVE R7 R2
+  LOADK R8 K15 [", "]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K12 ["playableDevices"]
+  CALL R3 2 1
+  SETUPVAL R3 4
+  RETURN R0 0
+  LOADNIL R4
+  NEWTABLE R6 0 0
+  LOADK R7 K16 ["Description.MonetizationSettingsPlayableDevicesEmpty"]
+  LOADK R9 K17 ["([^.]+)"]
+  NAMECALL R7 R7 K18 ["gmatch"]
+  CALL R7 2 3
+  FORGPREP R7
+  LENGTH R13 R6
+  ADDK R12 R13 K19 [1]
+  SETTABLE R10 R6 R12
+  FORGLOOP R7 1 [-4]
+  MOVE R5 R6
+  GETTABLEN R6 R5 1
+  JUMPIFEQKNIL R6 [+4]
+  GETTABLEN R6 R5 2
+  JUMPIFNOTEQKNIL R6 [+3]
+  LOADK R3 K20 [""]
+  JUMP [+12]
+  JUMPIFNOTEQKNIL R4 [+3]
+  NEWTABLE R4 0 0
+  GETUPVAL R6 5
+  GETTABLEN R8 R5 1
+  GETTABLEN R9 R5 2
+  MOVE R10 R4
+  NAMECALL R6 R6 K21 ["getText"]
+  CALL R6 4 1
+  MOVE R3 R6
+  SETUPVAL R3 4
+  RETURN R0 0
 
 PROTO_8:
+  LOADK R1 K0 [""]
+  GETIMPORT R2 K2 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE REF R1
+  CAPTURE UPVAL U3
+  CALL R2 1 2
+  CLOSEUPVALS R1
+  RETURN R1 1
+
+PROTO_9:
+  NAMECALL R3 R1 K0 ["getLocale"]
+  CALL R3 1 1
+  GETUPVAL R5 0
+  LOADK R6 K1 ["dashboard/creations/experiences/"]
+  GETTABLEKS R8 R2 K2 ["universeId"]
+  FASTCALL1 TOSTRING R8 [+2]
+  GETIMPORT R7 K4 [tostring]
+  CALL R7 1 1
+  CONCAT R4 R5 R7
+  GETUPVAL R6 0
+  LOADK R7 K1 ["dashboard/creations/experiences/"]
+  GETTABLEKS R12 R2 K2 ["universeId"]
+  FASTCALL1 TOSTRING R12 [+2]
+  GETIMPORT R11 K4 [tostring]
+  CALL R11 1 1
+  MOVE R8 R11
+  LOADK R9 K5 ["/places/"]
+  GETTABLEKS R11 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R11 [+2]
+  GETIMPORT R10 K4 [tostring]
+  CALL R10 1 1
+  CONCAT R5 R6 R10
+  GETUPVAL R7 0
+  LOADK R8 K1 ["dashboard/creations/experiences/"]
+  GETTABLEKS R14 R2 K2 ["universeId"]
+  FASTCALL1 TOSTRING R14 [+2]
+  GETIMPORT R13 K4 [tostring]
+  CALL R13 1 1
+  MOVE R9 R13
+  LOADK R10 K7 ["/badges/"]
+  GETTABLEKS R14 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R14 [+2]
+  GETIMPORT R13 K4 [tostring]
+  CALL R13 1 1
+  MOVE R11 R13
+  LOADK R12 K9 ["/overview"]
+  CONCAT R6 R7 R12
+  GETUPVAL R8 0
+  LOADK R9 K1 ["dashboard/creations/experiences/"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  FASTCALL1 TOSTRING R15 [+2]
+  GETIMPORT R14 K4 [tostring]
+  CALL R14 1 1
+  MOVE R10 R14
+  LOADK R11 K10 ["/developer-products/"]
+  GETTABLEKS R15 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R15 [+2]
+  GETIMPORT R14 K4 [tostring]
+  CALL R14 1 1
+  MOVE R12 R14
+  LOADK R13 K11 ["/configure"]
+  CONCAT R7 R8 R13
+  GETUPVAL R9 0
+  LOADK R10 K1 ["dashboard/creations/experiences/"]
+  GETTABLEKS R16 R2 K2 ["universeId"]
+  FASTCALL1 TOSTRING R16 [+2]
+  GETIMPORT R15 K4 [tostring]
+  CALL R15 1 1
+  MOVE R11 R15
+  LOADK R12 K12 ["/passes/"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R16 [+2]
+  GETIMPORT R15 K4 [tostring]
+  CALL R15 1 1
+  MOVE R13 R15
+  LOADK R14 K11 ["/configure"]
+  CONCAT R8 R9 R14
+  GETUPVAL R10 1
+  LOADK R11 K13 ["users/"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  FASTCALL1 TOSTRING R15 [+2]
+  GETIMPORT R14 K4 [tostring]
+  CALL R14 1 1
+  MOVE R12 R14
+  LOADK R13 K15 ["/profile"]
+  CONCAT R9 R10 R13
+  GETUPVAL R11 1
+  LOADK R12 K13 ["users/"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R16 [+2]
+  GETIMPORT R15 K4 [tostring]
+  CALL R15 1 1
+  MOVE R13 R15
+  LOADK R14 K15 ["/profile"]
+  CONCAT R10 R11 R14
+  GETUPVAL R12 1
+  LOADK R13 K16 ["groups/"]
+  GETTABLEKS R15 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R15 [+2]
+  GETIMPORT R14 K4 [tostring]
+  CALL R14 1 1
+  CONCAT R11 R12 R14
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R1
+  NEWCLOSURE R13 P1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R12
+  CAPTURE VAL R1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K18 [0] [+82]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K27 ["Init"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K33 ["Description.Init"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K36 [1] [+131]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K40 ["ArchivedExperience"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  GETTABLEKS R18 R2 K43 ["metaData"]
+  GETTABLEKS R17 R18 K42 ["Action"]
+  GETIMPORT R18 K46 [string.lower]
+  MOVE R19 R17
+  CALL R18 1 1
+  JUMPIFNOTEQKS R18 K47 ["true"] [+3]
+  LOADB R16 1
+  JUMP [+1]
+  LOADB R16 0
+  JUMPIFNOT R16 [+35]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K48 ["Description.ArchivedExperience"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  JUMPIF R15 [+34]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K49 ["Description.RestoredExperience"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K50 [2] [+181]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K53 ["PlayabilityChanged"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K54 ["Description.PlayabilityChanged"]
+  DUPTABLE R17 K56 [{"playability"}]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K57 ["Playability"]
+  JUMPIFNOTEQKS R19 K58 ["Public"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K59 ["Description.ActionPublic"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+75]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K57 ["Playability"]
+  JUMPIFNOTEQKS R19 K60 ["Private"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K61 ["Description.ActionPrivate"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K62 ["Description.ActionFriends"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K55 ["playability"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K11 ["/configure"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K63 [3] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K64 ["NotificationStringCreated"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K65 ["Description.NotificationStringCreated"]
+  DUPTABLE R17 K67 [{"stringName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K68 ["StringName"]
+  SETTABLEKS R18 R17 K66 ["stringName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K69 ["/notifications"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K70 [4] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K71 ["NotificationStringDeleted"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K72 ["Description.NotificationStringDeleted"]
+  DUPTABLE R17 K67 [{"stringName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K68 ["StringName"]
+  SETTABLEKS R18 R17 K66 ["stringName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K69 ["/notifications"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K73 [5] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K74 ["NotificationStringUpdated"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K75 ["Description.NotificationStringUpdated"]
+  DUPTABLE R17 K67 [{"stringName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K68 ["StringName"]
+  SETTABLEKS R18 R17 K66 ["stringName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K69 ["/notifications"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K76 [6] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K77 ["AvatarSettingsAvatarType"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K78 ["Description.AvatarSettingsAvatarType"]
+  DUPTABLE R17 K80 [{"avatarType"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K81 ["AvatarType"]
+  SETTABLEKS R18 R17 K79 ["avatarType"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K82 [7] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K83 ["AvatarSettingsAnimation"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K84 ["Description.AvatarSettingsAnimation"]
+  DUPTABLE R17 K86 [{"animation"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K87 ["Animation"]
+  SETTABLEKS R18 R17 K85 ["animation"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K88 [8] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K89 ["AvatarSettingsCollision"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K90 ["Description.AvatarSettingsCollision"]
+  DUPTABLE R17 K92 [{"collision"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K93 ["Collision"]
+  SETTABLEKS R18 R17 K91 ["collision"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K94 [9] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K95 ["AvatarSettingsScaleHeight"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K96 ["Description.AvatarSettingsScaleHeight"]
+  DUPTABLE R17 K98 [{"scale"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K99 ["Scale"]
+  SETTABLEKS R18 R17 K97 ["scale"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K100 [10] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K101 ["AvatarSettingsScaleWidth"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K102 ["Description.AvatarSettingsScaleWidth"]
+  DUPTABLE R17 K98 [{"scale"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K99 ["Scale"]
+  SETTABLEKS R18 R17 K97 ["scale"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K103 [11] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K104 ["AvatarSettingsScaleHead"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K105 ["Description.AvatarSettingsScaleHead"]
+  DUPTABLE R17 K98 [{"scale"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K99 ["Scale"]
+  SETTABLEKS R18 R17 K97 ["scale"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K106 [12] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K107 ["AvatarSettingsScaleBodyType"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K108 ["Description.AvatarSettingsScaleBodyType"]
+  DUPTABLE R17 K98 [{"scale"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K99 ["Scale"]
+  SETTABLEKS R18 R17 K97 ["scale"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K109 [13] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K110 ["AvatarSettingsScaleProportions"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K111 ["Description.AvatarSettingsScaleProportions"]
+  DUPTABLE R17 K98 [{"scale"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K99 ["Scale"]
+  SETTABLEKS R18 R17 K97 ["scale"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K112 [14] [+82]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K113 ["AvatarSettingsBodyParts"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K114 ["Description.AvatarSettingsBodyParts"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K115 [15] [+82]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K116 ["AvatarSettingsClothing"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K117 ["Description.AvatarSettingsClothing"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K118 [16] [+75]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K119 ["ExperienceName"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K120 ["Description.ExperienceName"]
+  DUPTABLE R17 K123 [{"newName", "oldName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K124 ["NewName"]
+  SETTABLEKS R18 R17 K121 ["newName"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K125 ["OldName"]
+  SETTABLEKS R18 R17 K122 ["oldName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K11 ["/configure"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K126 [17] [+93]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K127 ["ExperienceDescription"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K128 ["Description.ExperienceDescription"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K11 ["/configure"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K129 [18] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K130 ["ExperienceGenre"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K131 ["Description.ExperienceGenre"]
+  DUPTABLE R17 K133 [{"genre"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K134 ["Genre"]
+  SETTABLEKS R18 R17 K132 ["genre"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K11 ["/configure"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K135 [19] [+137]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K136 ["SecuritySettingsHTTPRequests"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K137 ["Description.SecuritySettingsHTTPRequests"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K142 [20] [+148]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K143 ["SecuritySettingsStudioAccessToAPI"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K144 ["Description.SecuritySettingsStudioAccessToAPI"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K11 ["/configure"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K145 [21] [+137]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K146 ["SecuritySettingsThirdPartySales"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K147 ["Description.SecuritySettingsThirdPartySales"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K148 [22] [+137]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K149 ["SecuritySettingsThirdPartyTeleports"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K150 ["Description.SecuritySettingsThirdPartyTeleports"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K151 [23] [+82]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K152 ["ExperienceShutDown"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K153 ["Description.ExperienceShutDown"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K154 [24] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K155 ["SocialLinksAdded"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K156 ["Description.SocialLinksAdded"]
+  DUPTABLE R17 K158 [{"channel"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K159 ["Channel"]
+  SETTABLEKS R18 R17 K157 ["channel"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K160 ["/social-links"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K161 [25] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K162 ["SocialLinksRemoved"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K163 ["Description.SocialLinksRemoved"]
+  DUPTABLE R17 K158 [{"channel"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K159 ["Channel"]
+  SETTABLEKS R18 R17 K157 ["channel"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K160 ["/social-links"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K164 [26] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K165 ["SocialLinksUpdated"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K166 ["Description.SocialLinksUpdated"]
+  DUPTABLE R17 K158 [{"channel"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K159 ["Channel"]
+  SETTABLEKS R18 R17 K157 ["channel"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K160 ["/social-links"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K167 [27] [+137]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K168 ["SpatialVoice"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K169 ["Description.SpatialVoice"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K170 [28] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K171 ["WorldSettingsWorkSpaceGravity"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K172 ["Description.WorldSettingsWorkSpaceGravity"]
+  DUPTABLE R17 K174 [{"gravity"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K175 ["Gravity"]
+  SETTABLEKS R18 R17 K173 ["gravity"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K176 [29] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K177 ["WorldSettingsJumpHeight"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K178 ["Description.WorldSettingsJumpHeight"]
+  DUPTABLE R17 K180 [{"jumpHeight"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K181 ["JumpHeight"]
+  SETTABLEKS R18 R17 K179 ["jumpHeight"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K182 [30] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K183 ["WorldSettingsJumpPower"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K184 ["Description.WorldSettingsJumpPower"]
+  DUPTABLE R17 K186 [{"jumpPower"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K187 ["JumpPower"]
+  SETTABLEKS R18 R17 K185 ["jumpPower"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K188 [31] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K189 ["WorldSettingsWalkSpeed"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K190 ["Description.WorldSettingsWalkSpeed"]
+  DUPTABLE R17 K192 [{"walkSpeed"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K193 ["WalkSpeed"]
+  SETTABLEKS R18 R17 K191 ["walkSpeed"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K194 [32] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K195 ["WorldSettingsMaxSlopeAngle"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K196 ["Description.WorldSettingsMaxSlopeAngle"]
+  DUPTABLE R17 K198 [{"maxSlopeAngle"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K199 ["MaxSlopeAngle"]
+  SETTABLEKS R18 R17 K197 ["maxSlopeAngle"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K200 [33] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K201 ["SentUpdate"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K202 ["Description.SentUpdate"]
+  DUPTABLE R17 K204 [{"update"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K205 ["Update"]
+  SETTABLEKS R18 R17 K203 ["update"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K206 ["/updates"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K207 [34] [+154]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K208 ["SupportedLanguages"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K210 ["Description.SupportedLanguages"]
+  DUPTABLE R17 K212 [{"language", "action"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K214 ["Description.ActionAdded"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K215 ["Description.ActionRemoved"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K216 ["/localization"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K217 [35] [+154]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K218 ["AutoTranslationExperienceInformation"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K219 ["Description.AutoTranslationExperienceInformation"]
+  DUPTABLE R17 K212 [{"language", "action"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K216 ["/localization"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K220 [36] [+154]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K221 ["AutoTranslationExperienceStringsAndProducts"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K222 ["Description.AutoTranslationExperienceStringsAndProducts"]
+  DUPTABLE R17 K212 [{"language", "action"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K216 ["/localization"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K223 [37] [+148]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K224 ["LocalizationSettingsAutomaticTextCapture"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K225 ["Description.LocalizationSettingsAutomaticTextCapture"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K216 ["/localization"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K226 [38] [+148]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K227 ["LocalizationSettingsUserTranslatedContent"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K228 ["Description.LocalizationSettingsUserTranslatedContent"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K216 ["/localization"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K229 [39] [+49]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K230 ["ClearUnmodifiedAutoCaptureEntries"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K231 [40] [+49]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K232 ["AnalyticsReport"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K233 [41] [+94]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K236 ["TranslationIconAdded"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K237 ["Description.TranslationIconAdded"]
+  DUPTABLE R17 K239 [{"language", "iconName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K240 ["IconName"]
+  SETTABLEKS R18 R17 K238 ["iconName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K243 [42] [+94]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K244 ["TranslationIconDeleted"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K245 ["Description.TranslationIconDeleted"]
+  DUPTABLE R17 K239 [{"language", "iconName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K240 ["IconName"]
+  SETTABLEKS R18 R17 K238 ["iconName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K246 [43] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K247 ["TranslationExperienceName"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K248 ["Description.TranslationExperienceName"]
+  DUPTABLE R17 K249 [{"language"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K250 [44] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K251 ["TranslationExperienceDescription"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K252 ["Description.TranslationExperienceDescription"]
+  DUPTABLE R17 K249 [{"language"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K253 [45] [+75]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K254 ["TranslationThumbnailAltText"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K255 ["Description.TranslationThumbnailAltText"]
+  DUPTABLE R17 K257 [{"language", "thumbnailName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K258 ["ThumbnailName"]
+  SETTABLEKS R18 R17 K256 ["thumbnailName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K259 [46] [+75]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K4 [tostring]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K5 ["/places/"]
+  DUPTABLE R17 K257 [{"language", "thumbnailName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K258 ["ThumbnailName"]
+  SETTABLEKS R18 R17 K256 ["thumbnailName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K262 [47] [+75]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K7 ["/badges/"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K8 ["resourceId"]
+  DUPTABLE R17 K257 [{"language", "thumbnailName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K258 ["ThumbnailName"]
+  SETTABLEKS R18 R17 K256 ["thumbnailName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K265 [48] [+49]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K10 ["/developer-products/"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K267 [49] [+75]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K12 ["/passes/"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K13 ["users/"]
+  DUPTABLE R17 K271 [{"stringKey", "language"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K272 ["StringKey"]
+  SETTABLEKS R18 R17 K270 ["stringKey"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K273 [50] [+75]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K18 [0]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K19 ["eventCategory"]
+  DUPTABLE R17 K271 [{"stringKey", "language"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K272 ["StringKey"]
+  SETTABLEKS R18 R17 K270 ["stringKey"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K276 [51] [+75]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K21 ["translation"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K22 ["actorId"]
+  DUPTABLE R17 K271 [{"stringKey", "language"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K272 ["StringKey"]
+  SETTABLEKS R18 R17 K270 ["stringKey"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K279 [52] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K24 ["iconType"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K25 ["iconId"]
+  DUPTABLE R17 K283 [{"language", "badgeName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K284 ["BadgeName"]
+  SETTABLEKS R18 R17 K282 ["badgeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K29 ["createdUnixTimeMs"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K286 [53] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K31 [pcall]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K32 ["🤷🏻‍♀️"]
+  DUPTABLE R17 K283 [{"language", "badgeName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K284 ["BadgeName"]
+  SETTABLEKS R18 R17 K282 ["badgeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K29 ["createdUnixTimeMs"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K289 [54] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K34 ["([^.]+)"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K35 ["gmatch"]
+  DUPTABLE R17 K283 [{"language", "badgeName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K284 ["BadgeName"]
+  SETTABLEKS R18 R17 K282 ["badgeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K29 ["createdUnixTimeMs"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K292 [55] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K38 ["getText"]
+  DUPTABLE R17 K283 [{"language", "badgeName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K284 ["BadgeName"]
+  SETTABLEKS R18 R17 K282 ["badgeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K29 ["createdUnixTimeMs"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K241 ["/localization/translation"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K295 [56] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K40 ["ArchivedExperience"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K41 ["Experience"]
+  DUPTABLE R17 K299 [{"language", "productName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K300 ["ProductName"]
+  SETTABLEKS R18 R17 K298 ["productName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K45 ["lower"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K46 [string.lower]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K303 [57] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K48 ["Description.ArchivedExperience"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K49 ["Description.RestoredExperience"]
+  DUPTABLE R17 K299 [{"language", "productName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K300 ["ProductName"]
+  SETTABLEKS R18 R17 K298 ["productName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K45 ["lower"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K46 [string.lower]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K306 [58] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K51 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  DUPTABLE R17 K299 [{"language", "productName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K300 ["ProductName"]
+  SETTABLEKS R18 R17 K298 ["productName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K45 ["lower"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K46 [string.lower]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K309 [59] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K54 ["Description.PlayabilityChanged"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K55 ["playability"]
+  DUPTABLE R17 K299 [{"language", "productName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K300 ["ProductName"]
+  SETTABLEKS R18 R17 K298 ["productName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K45 ["lower"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K46 [string.lower]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K312 [60] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K57 ["Playability"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K58 ["Public"]
+  DUPTABLE R17 K316 [{"language", "passName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K317 ["PassName"]
+  SETTABLEKS R18 R17 K315 ["passName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K62 ["Description.ActionFriends"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K63 [3]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K320 [61] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K65 ["Description.NotificationStringCreated"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K66 ["stringName"]
+  DUPTABLE R17 K316 [{"language", "passName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K317 ["PassName"]
+  SETTABLEKS R18 R17 K315 ["passName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K62 ["Description.ActionFriends"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K63 [3]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K323 [62] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K68 ["StringName"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K69 ["/notifications"]
+  DUPTABLE R17 K316 [{"language", "passName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K317 ["PassName"]
+  SETTABLEKS R18 R17 K315 ["passName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K62 ["Description.ActionFriends"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K63 [3]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K326 [63] [+95]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K71 ["NotificationStringDeleted"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K72 ["Description.NotificationStringDeleted"]
+  DUPTABLE R17 K316 [{"language", "passName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K213 ["Language"]
+  SETTABLEKS R18 R17 K211 ["language"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K317 ["PassName"]
+  SETTABLEKS R18 R17 K315 ["passName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K62 ["Description.ActionFriends"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K63 [3]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K242 ["/catalog/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K329 [64] [+77]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K74 ["NotificationStringUpdated"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K75 ["Description.NotificationStringUpdated"]
+  DUPTABLE R17 K333 [{"userName"}]
+  MOVE R18 R0
+  GETTABLEKS R20 R2 K8 ["resourceId"]
+  JUMPIFNOT R20 [+3]
+  GETTABLEKS R19 R2 K8 ["resourceId"]
+  JUMPIF R19 [+1]
+  LOADN R19 255
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K332 ["userName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K78 ["Description.AvatarSettingsAvatarType"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K216 ["/localization"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  SETTABLEKS R10 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K335 [65] [+72]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K80 [{"avatarType"}]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K209 ["Localization"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K81 ["AvatarType"]
+  DUPTABLE R17 K339 [{"groupName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K340 ["GroupName"]
+  SETTABLEKS R18 R17 K338 ["groupName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K85 ["animation"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K216 ["/localization"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  SETTABLEKS R11 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K342 [66] [+137]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K87 ["Animation"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K89 ["AvatarSettingsCollision"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K90 ["Description.AvatarSettingsCollision"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K215 ["Description.ActionRemoved"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K347 [67] [+148]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K92 [{"collision"}]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K93 ["Collision"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K62 ["Description.ActionFriends"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K59 ["Description.ActionPublic"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K94 [9]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K351 [68] [+148]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K96 ["Description.AvatarSettingsScaleHeight"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K97 ["scale"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K94 [9]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K354 [69] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K99 ["Scale"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K100 [10]
+  DUPTABLE R17 K358 [{"price"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K359 ["Price"]
+  SETTABLEKS R18 R17 K357 ["price"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K94 [9]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K360 [70] [+74]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K105 ["Description.AvatarSettingsScaleHead"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  GETTABLEKS R16 R2 K43 ["metaData"]
+  LOADK R17 K37 [""]
+  GETIMPORT R18 K31 [pcall]
+  NEWCLOSURE R19 P3
+  CAPTURE VAL R16
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R12
+  CAPTURE REF R17
+  CAPTURE VAL R1
+  CALL R18 1 2
+  MOVE R15 R17
+  CLOSEUPVALS R17
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K94 [9]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K362 [71] [+148]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K107 ["AvatarSettingsScaleBodyType"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K108 ["Description.AvatarSettingsScaleBodyType"]
+  DUPTABLE R17 K139 [{"action"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K94 [9]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K365 [72] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K110 ["AvatarSettingsScaleProportions"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K111 ["Description.AvatarSettingsScaleProportions"]
+  DUPTABLE R17 K358 [{"price"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K359 ["Price"]
+  SETTABLEKS R18 R17 K357 ["price"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K94 [9]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K368 [73] [+143]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K113 ["AvatarSettingsBodyParts"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K114 ["Description.AvatarSettingsBodyParts"]
+  DUPTABLE R17 K372 [{"adName", "action"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K373 ["AdName"]
+  SETTABLEKS R18 R17 K371 ["adName"]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K118 [16]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K119 ["ExperienceName"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K376 [74] [+103]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K121 ["newName"]
+  DUPTABLE R17 K123 [{"newName", "oldName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K124 ["NewName"]
+  SETTABLEKS R18 R17 K121 ["newName"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K125 ["OldName"]
+  SETTABLEKS R18 R17 K122 ["oldName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K29 ["createdUnixTimeMs"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K7 ["/badges/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K7 ["/badges/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K378 [75] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K123 [{"newName", "oldName"}]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K124 ["NewName"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K29 ["createdUnixTimeMs"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K7 ["/badges/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K7 ["/badges/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K381 [76] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K126 [17]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K127 ["ExperienceDescription"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K29 ["createdUnixTimeMs"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K7 ["/badges/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K7 ["/badges/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K384 [77] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K129 [18]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K130 ["ExperienceGenre"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K29 ["createdUnixTimeMs"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K7 ["/badges/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K9 ["/overview"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K7 ["/badges/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K387 [78] [+103]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K132 ["genre"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K133 [{"genre"}]
+  DUPTABLE R17 K123 [{"newName", "oldName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K124 ["NewName"]
+  SETTABLEKS R18 R17 K121 ["newName"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K125 ["OldName"]
+  SETTABLEKS R18 R17 K122 ["oldName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K45 ["lower"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K390 [79] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K135 [19]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K136 ["SecuritySettingsHTTPRequests"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K45 ["lower"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K393 [80] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K138 ["action"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K139 [{"action"}]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K45 ["lower"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K396 [81] [+97]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K141 ["Description.ActionDisabled"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K142 [20]
+  DUPTABLE R17 K358 [{"price"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K359 ["Price"]
+  SETTABLEKS R18 R17 K357 ["price"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K45 ["lower"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K399 [82] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K144 ["Description.SecuritySettingsStudioAccessToAPI"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K145 [21]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K45 ["lower"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K10 ["/developer-products/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K402 [83] [+103]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K147 ["Description.SecuritySettingsThirdPartySales"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K148 [22]
+  DUPTABLE R17 K123 [{"newName", "oldName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K124 ["NewName"]
+  SETTABLEKS R18 R17 K121 ["newName"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K125 ["OldName"]
+  SETTABLEKS R18 R17 K122 ["oldName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K62 ["Description.ActionFriends"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K12 ["/passes/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K149 ["SecuritySettingsThirdPartyTeleports"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K406 [84] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K151 [23]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K152 ["ExperienceShutDown"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K62 ["Description.ActionFriends"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K12 ["/passes/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K149 ["SecuritySettingsThirdPartyTeleports"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K409 [85] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K154 [24]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K155 ["SocialLinksAdded"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K62 ["Description.ActionFriends"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K12 ["/passes/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K149 ["SecuritySettingsThirdPartyTeleports"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K412 [86] [+97]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K157 ["channel"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K158 [{"channel"}]
+  DUPTABLE R17 K358 [{"price"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K359 ["Price"]
+  SETTABLEKS R18 R17 K357 ["price"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K62 ["Description.ActionFriends"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K12 ["/passes/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K159 ["Channel"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K149 ["SecuritySettingsThirdPartyTeleports"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K416 [87] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K161 [25]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K88 [8]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K162 ["SocialLinksRemoved"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K62 ["Description.ActionFriends"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K12 ["/passes/"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K149 ["SecuritySettingsThirdPartyTeleports"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K419 [88] [+138]
+  DUPTABLE R14 K420 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  LOADK R15 K165 ["SocialLinksUpdated"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K166 ["Description.SocialLinksUpdated"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K167 [27]
+  DUPTABLE R17 K425 [{"userName", "role"}]
+  MOVE R18 R0
+  GETTABLEKS R19 R2 K8 ["resourceId"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K332 ["userName"]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K42 ["Action"]
+  JUMPIFNOTEQKS R19 K426 ["Edit"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K171 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K172 ["Description.WorldSettingsWorkSpaceGravity"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K424 ["role"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K78 ["Description.AvatarSettingsAvatarType"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  SETTABLEKS R10 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K429 [89] [+161]
+  DUPTABLE R14 K420 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  LOADK R15 K174 [{"gravity"}]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K166 ["Description.SocialLinksUpdated"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K175 ["Gravity"]
+  DUPTABLE R17 K433 [{"groupRole", "groupName", "role"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K434 ["RolesetName"]
+  SETTABLEKS R18 R17 K432 ["groupRole"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K340 ["GroupName"]
+  SETTABLEKS R18 R17 K338 ["groupName"]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K42 ["Action"]
+  JUMPIFNOTEQKS R19 K426 ["Edit"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K179 ["jumpHeight"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K180 [{"jumpHeight"}]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K424 ["role"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K85 ["animation"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K181 ["JumpHeight"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K438 [90] [+215]
+  DUPTABLE R14 K420 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  LOADK R15 K183 ["WorldSettingsJumpPower"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K166 ["Description.SocialLinksUpdated"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K184 ["Description.WorldSettingsJumpPower"]
+  DUPTABLE R17 K443 [{"userName", "oldRole", "newRole"}]
+  MOVE R18 R0
+  GETTABLEKS R19 R2 K8 ["resourceId"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K332 ["userName"]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K42 ["Action"]
+  JUMPIFNOTEQKS R19 K426 ["Edit"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K180 [{"jumpHeight"}]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K179 ["jumpHeight"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K441 ["oldRole"]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K42 ["Action"]
+  JUMPIFNOTEQKS R19 K426 ["Edit"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K179 ["jumpHeight"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K180 [{"jumpHeight"}]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K442 ["newRole"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K78 ["Description.AvatarSettingsAvatarType"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  SETTABLEKS R10 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K444 [91] [+138]
+  DUPTABLE R14 K420 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  LOADK R15 K189 ["WorldSettingsWalkSpeed"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K166 ["Description.SocialLinksUpdated"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K190 ["Description.WorldSettingsWalkSpeed"]
+  DUPTABLE R17 K425 [{"userName", "role"}]
+  MOVE R18 R0
+  GETTABLEKS R19 R2 K8 ["resourceId"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K332 ["userName"]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K42 ["Action"]
+  JUMPIFNOTEQKS R19 K426 ["Edit"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K171 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K172 ["Description.WorldSettingsWorkSpaceGravity"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K424 ["role"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K78 ["Description.AvatarSettingsAvatarType"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  SETTABLEKS R10 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K447 [92] [+238]
+  DUPTABLE R14 K420 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  LOADK R15 K192 [{"walkSpeed"}]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K166 ["Description.SocialLinksUpdated"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K193 ["WalkSpeed"]
+  DUPTABLE R17 K450 [{"groupRole", "groupName", "oldRole", "newRole"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K434 ["RolesetName"]
+  SETTABLEKS R18 R17 K432 ["groupRole"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K340 ["GroupName"]
+  SETTABLEKS R18 R17 K338 ["groupName"]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K42 ["Action"]
+  JUMPIFNOTEQKS R19 K426 ["Edit"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K180 [{"jumpHeight"}]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K179 ["jumpHeight"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K441 ["oldRole"]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K42 ["Action"]
+  JUMPIFNOTEQKS R19 K426 ["Edit"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K179 ["jumpHeight"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K180 [{"jumpHeight"}]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K442 ["newRole"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K85 ["animation"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K181 ["JumpHeight"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K451 [93] [+161]
+  DUPTABLE R14 K420 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  LOADK R15 K196 ["Description.WorldSettingsMaxSlopeAngle"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K166 ["Description.SocialLinksUpdated"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K197 ["maxSlopeAngle"]
+  DUPTABLE R17 K433 [{"groupRole", "groupName", "role"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K434 ["RolesetName"]
+  SETTABLEKS R18 R17 K432 ["groupRole"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K340 ["GroupName"]
+  SETTABLEKS R18 R17 K338 ["groupName"]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K42 ["Action"]
+  JUMPIFNOTEQKS R19 K426 ["Edit"] [+36]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K171 ["WorldSettingsWorkSpaceGravity"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K172 ["Description.WorldSettingsWorkSpaceGravity"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K424 ["role"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K85 ["animation"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K8 ["resourceId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K181 ["JumpHeight"]
+  GETTABLEKS R22 R2 K8 ["resourceId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K454 [94] [+58]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K199 ["MaxSlopeAngle"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K166 ["Description.SocialLinksUpdated"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K200 [33]
+  DUPTABLE R17 K333 [{"userName"}]
+  MOVE R18 R0
+  GETTABLEKS R19 R2 K8 ["resourceId"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K332 ["userName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K457 [95] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K202 ["Description.SentUpdate"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K204 [{"update"}]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K205 ["Update"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K463 [96] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K208 ["SupportedLanguages"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K209 ["Localization"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K205 ["Update"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K466 [97] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K211 ["language"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K212 [{"language", "action"}]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K205 ["Update"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K469 [98] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K214 ["Description.ActionAdded"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K215 ["Description.ActionRemoved"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K216 ["/localization"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K473 [99] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K218 ["AutoTranslationExperienceInformation"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K219 ["Description.AutoTranslationExperienceInformation"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K216 ["/localization"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K476 [100] [+100]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K221 ["AutoTranslationExperienceStringsAndProducts"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K222 ["Description.AutoTranslationExperienceStringsAndProducts"]
+  DUPTABLE R17 K480 [{"gearTypes"}]
+  GETGLOBAL R18 K481 ["joinStrings"]
+  GETTABLEKS R20 R2 K43 ["metaData"]
+  GETTABLEKS R19 R20 K482 ["GearTypes"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K479 ["gearTypes"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K216 ["/localization"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K483 [101] [+182]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K228 ["Description.LocalizationSettingsUserTranslatedContent"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K229 [39]
+  DUPTABLE R17 K487 [{"action", "placeName"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K488 ["PlaceName"]
+  SETTABLEKS R18 R17 K486 ["placeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K216 ["/localization"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K489 [102] [+97]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K234 ["viewOnRobloxLink"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  DUPTABLE R17 K133 [{"genre"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K134 ["Genre"]
+  SETTABLEKS R18 R17 K132 ["genre"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K492 [103] [+103]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K232 ["AnalyticsReport"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K237 ["Description.TranslationIconAdded"]
+  DUPTABLE R17 K123 [{"newName", "oldName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K124 ["NewName"]
+  SETTABLEKS R18 R17 K121 ["newName"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K125 ["OldName"]
+  SETTABLEKS R18 R17 K122 ["oldName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K494 [104] [+97]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K239 [{"language", "iconName"}]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K240 ["IconName"]
+  DUPTABLE R17 K497 [{"placeName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K488 ["PlaceName"]
+  SETTABLEKS R18 R17 K486 ["placeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K11 ["/configure"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K498 [105] [+97]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K243 [42]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K244 ["TranslationIconDeleted"]
+  DUPTABLE R17 K502 [{"count"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K503 ["Count"]
+  SETTABLEKS R18 R17 K501 ["count"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K94 [9]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K504 [106] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K249 [{"language"}]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K250 [44]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K94 [9]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K507 [107] [+121]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K252 ["Description.TranslationExperienceDescription"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K253 [45]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K94 [9]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K510 [108] [+97]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K255 ["Description.TranslationThumbnailAltText"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K0 ["getLocale"]
+  DUPTABLE R17 K502 [{"count"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K503 ["Count"]
+  SETTABLEKS R18 R17 K501 ["count"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K94 [9]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K513 [109] [+182]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K2 ["universeId"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K3 ["tostring"]
+  DUPTABLE R17 K487 [{"action", "placeName"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K488 ["PlaceName"]
+  SETTABLEKS R18 R17 K486 ["placeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K216 ["/localization"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K516 [110] [+182]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K5 ["/places/"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K6 ["placeId"]
+  DUPTABLE R17 K487 [{"action", "placeName"}]
+  GETTABLEKS R21 R2 K43 ["metaData"]
+  GETTABLEKS R20 R21 K42 ["Action"]
+  GETIMPORT R21 K46 [string.lower]
+  MOVE R22 R20
+  CALL R21 1 1
+  JUMPIFNOTEQKS R21 K47 ["true"] [+3]
+  LOADB R19 1
+  JUMP [+1]
+  LOADB R19 0
+  JUMPIFNOT R19 [+35]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K140 ["Description.ActionEnabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  JUMPIF R18 [+34]
+  LOADNIL R19
+  NEWTABLE R21 0 0
+  LOADK R22 K141 ["Description.ActionDisabled"]
+  LOADK R24 K34 ["([^.]+)"]
+  NAMECALL R22 R22 K35 ["gmatch"]
+  CALL R22 2 3
+  FORGPREP R22
+  LENGTH R28 R21
+  ADDK R27 R28 K36 [1]
+  SETTABLE R25 R21 R27
+  FORGLOOP R22 1 [-4]
+  MOVE R20 R21
+  GETTABLEN R21 R20 1
+  JUMPIFEQKNIL R21 [+4]
+  GETTABLEN R21 R20 2
+  JUMPIFNOTEQKNIL R21 [+3]
+  LOADK R18 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R19 [+3]
+  NEWTABLE R19 0 0
+  GETTABLEN R23 R20 1
+  GETTABLEN R24 R20 2
+  MOVE R25 R19
+  NAMECALL R21 R1 K38 ["getText"]
+  CALL R21 4 1
+  MOVE R18 R21
+  SETTABLEKS R18 R17 K138 ["action"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K488 ["PlaceName"]
+  SETTABLEKS R18 R17 K486 ["placeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K216 ["/localization"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K519 [111] [+109]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K8 ["resourceId"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K9 ["/overview"]
+  DUPTABLE R17 K524 [{"placeName", "oldVersion", "newVersion"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K488 ["PlaceName"]
+  SETTABLEKS R18 R17 K486 ["placeName"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K525 ["OldVersion"]
+  SETTABLEKS R18 R17 K522 ["oldVersion"]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K526 ["NewVersion"]
+  SETTABLEKS R18 R17 K523 ["newVersion"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K15 ["/profile"]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K528 [112] [+102]
+  DUPTABLE R14 K420 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  LOADK R15 K17 ["eventType"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K18 [0]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K531 [113] [+102]
+  DUPTABLE R14 K420 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  LOADK R15 K20 ["date"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K21 ["translation"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K534 [114] [+97]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K23 ["actorName"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K24 ["iconType"]
+  DUPTABLE R17 K537 [{"thumbnailName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K258 ["ThumbnailName"]
+  SETTABLEKS R18 R17 K256 ["thumbnailName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K539 [115] [+97]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K29 ["createdUnixTimeMs"]
+  DUPTABLE R17 K537 [{"thumbnailName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K258 ["ThumbnailName"]
+  SETTABLEKS R18 R17 K256 ["thumbnailName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K542 [116] [+49]
+  DUPTABLE R14 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  LOADK R15 K31 [pcall]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K544 [117] [+97]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K33 ["Description.Init"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K34 ["([^.]+)"]
+  DUPTABLE R17 K537 [{"thumbnailName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K258 ["ThumbnailName"]
+  SETTABLEKS R18 R17 K256 ["thumbnailName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R22 R4
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K5 ["/places/"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K26 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId"}]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K547 [118] [+89]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K36 [1]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K38 ["getText"]
+  DUPTABLE R17 K497 [{"placeName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K488 ["PlaceName"]
+  SETTABLEKS R18 R17 K486 ["placeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K39 ["Universe"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K552 [119] [+89]
+  DUPTABLE R14 K235 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K42 ["Action"]
+  DUPTABLE R17 K497 [{"placeName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K488 ["PlaceName"]
+  SETTABLEKS R18 R17 K486 ["placeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K39 ["Universe"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K555 [120] [+78]
+  DUPTABLE R14 K420 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewOnRobloxLink"}]
+  LOADK R15 K44 ["string"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K45 ["lower"]
+  DUPTABLE R17 K497 [{"placeName"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K488 ["PlaceName"]
+  SETTABLEKS R18 R17 K486 ["placeName"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K203 ["update"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R16 R2 K6 ["placeId"]
+  ORK R15 R16 K18 [0]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  GETUPVAL R22 1
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R17 R21
+  LOADK R18 K206 ["/updates"]
+  GETTABLEKS R22 R2 K6 ["placeId"]
+  FASTCALL1 TOSTRING R22 [+2]
+  GETIMPORT R21 K4 [tostring]
+  CALL R21 1 1
+  MOVE R19 R21
+  LOADK R20 K37 [""]
+  CONCAT R15 R16 R20
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K558 [121] [+93]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K47 ["true"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K41 ["Experience"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADNIL R16
+  NEWTABLE R18 0 0
+  LOADK R19 K48 ["Description.ArchivedExperience"]
+  LOADK R21 K34 ["([^.]+)"]
+  NAMECALL R19 R19 K35 ["gmatch"]
+  CALL R19 2 3
+  FORGPREP R19
+  LENGTH R25 R18
+  ADDK R24 R25 K36 [1]
+  SETTABLE R22 R18 R24
+  FORGLOOP R19 1 [-4]
+  MOVE R17 R18
+  GETTABLEN R18 R17 1
+  JUMPIFEQKNIL R18 [+4]
+  GETTABLEN R18 R17 2
+  JUMPIFNOTEQKNIL R18 [+3]
+  LOADK R15 K37 [""]
+  JUMP [+11]
+  JUMPIFNOTEQKNIL R16 [+3]
+  NEWTABLE R16 0 0
+  GETTABLEN R20 R17 1
+  GETTABLEN R21 R17 2
+  MOVE R22 R16
+  NAMECALL R18 R1 K38 ["getText"]
+  CALL R18 4 1
+  MOVE R15 R18
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K49 ["Description.RestoredExperience"]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  GETTABLEKS R14 R2 K17 ["eventType"]
+  JUMPIFNOTEQKN R14 K562 [122] [+69]
+  DUPTABLE R14 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  LOADK R15 K51 ["viewBasicSettingsLink"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  GETTABLEKS R16 R2 K29 ["createdUnixTimeMs"]
+  GETIMPORT R17 K31 [pcall]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R16
+  CAPTURE VAL R3
+  CALL R17 1 2
+  JUMPIFNOT R17 [+2]
+  MOVE R15 R18
+  JUMP [+2]
+  LOADK R15 K32 ["🤷🏻‍♀️"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K20 ["date"]
+  MOVE R15 R12
+  LOADK R16 K52 [{"eventType", "eventCategory", "date", "translation", "actorId", "actorName", "iconType", "iconId", "universeId", "viewBasicSettingsLink"}]
+  DUPTABLE R17 K358 [{"price"}]
+  GETTABLEKS R19 R2 K43 ["metaData"]
+  GETTABLEKS R18 R19 K359 ["Price"]
+  SETTABLEKS R18 R17 K357 ["price"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K21 ["translation"]
+  GETTABLEKS R15 R2 K14 ["userId"]
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  MOVE R15 R0
+  GETTABLEKS R16 R2 K14 ["userId"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADK R15 K39 ["Universe"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  JUMP [0]
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  GETTABLEKS R15 R2 K2 ["universeId"]
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADK R16 K37 [""]
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R20 R4
+  GETIMPORT R19 K4 [tostring]
+  CALL R19 1 1
+  MOVE R17 R19
+  LOADK R18 K94 [9]
+  CONCAT R15 R16 R18
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  RETURN R14 1
+  DUPTABLE R14 K565 [{"eventType", "date", "translation", "actorId", "actorName", "iconId", "iconType", "eventCategory", "universeId", "viewBasicSettingsLink", "viewOnRobloxLink"}]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K17 ["eventType"]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K20 ["date"]
+  LOADK R15 K54 ["Description.PlayabilityChanged"]
+  SETTABLEKS R15 R14 K21 ["translation"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K22 ["actorId"]
+  LOADK R15 K55 ["playability"]
+  SETTABLEKS R15 R14 K23 ["actorName"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K25 ["iconId"]
+  LOADK R15 K28 ["Unknown"]
+  SETTABLEKS R15 R14 K24 ["iconType"]
+  LOADK R15 K37 [""]
+  SETTABLEKS R15 R14 K19 ["eventCategory"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K2 ["universeId"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K51 ["viewBasicSettingsLink"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K234 ["viewOnRobloxLink"]
+  RETURN R14 1
+
+PROTO_10:
   JUMPIFNOTEQKN R0 K0 [0] [+3]
   LOADK R1 K1 ["Unknown"]
   RETURN R1 1
@@ -7593,15 +9857,44 @@ MAIN:
   GETTABLEKS R3 R4 K6 ["Clients"]
   GETTABLEKS R2 R3 K7 ["ActivityHistoryClient"]
   CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_0]
-  DUPCLOSURE R3 K9 [PROTO_1]
-  SETGLOBAL R3 K10 ["joinStrings"]
-  DUPCLOSURE R3 K11 [PROTO_2]
-  DUPCLOSURE R4 K12 [PROTO_3]
-  DUPCLOSURE R5 K13 [PROTO_5]
-  DUPCLOSURE R6 K14 [PROTO_7]
-  DUPCLOSURE R7 K15 [PROTO_8]
-  DUPTABLE R8 K18 [{"translateEvent", "eventTypeToCategory"}]
-  SETTABLEKS R6 R8 K16 ["translateEvent"]
-  SETTABLEKS R7 R8 K17 ["eventTypeToCategory"]
-  RETURN R8 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R5 R0 K5 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["BaseUrls"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K10 ["wwwPath"]
+  GETTABLEKS R4 R2 K11 ["createPath"]
+  DUPCLOSURE R5 K12 [PROTO_0]
+  DUPCLOSURE R6 K13 [PROTO_1]
+  SETGLOBAL R6 K14 ["joinStrings"]
+  DUPCLOSURE R6 K15 [PROTO_2]
+  DUPCLOSURE R7 K16 [PROTO_3]
+  DUPCLOSURE R8 K17 [PROTO_5]
+  NEWTABLE R9 0 5
+  LOADK R10 K18 ["Computer"]
+  LOADK R11 K19 ["Phone"]
+  LOADK R12 K20 ["Tablet"]
+  LOADK R13 K21 ["Console"]
+  LOADK R14 K22 ["VR"]
+  SETLIST R9 R10 5 [1]
+  NEWTABLE R10 8 0
+  LOADK R11 K23 ["Label.DeviceType.Desktop"]
+  SETTABLEKS R11 R10 K18 ["Computer"]
+  LOADK R11 K24 ["Label.DeviceType.Mobile"]
+  SETTABLEKS R11 R10 K19 ["Phone"]
+  LOADK R11 K25 ["Label.DeviceType.Tablet"]
+  SETTABLEKS R11 R10 K20 ["Tablet"]
+  LOADK R11 K26 ["Label.DeviceType.Console"]
+  SETTABLEKS R11 R10 K21 ["Console"]
+  LOADK R11 K27 ["Label.DeviceType.VR"]
+  SETTABLEKS R11 R10 K22 ["VR"]
+  DUPCLOSURE R11 K28 [PROTO_9]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  DUPCLOSURE R12 K29 [PROTO_10]
+  DUPTABLE R13 K32 [{"translateEvent", "eventTypeToCategory"}]
+  SETTABLEKS R11 R13 K30 ["translateEvent"]
+  SETTABLEKS R12 R13 K31 ["eventTypeToCategory"]
+  RETURN R13 1

@@ -8,6 +8,13 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
   GETTABLEKS R1 R0 K0 ["plugin"]
   LOADK R3 K1 ["placeid"]
   NAMECALL R1 R1 K2 ["GetItem"]
@@ -19,39 +26,53 @@ PROTO_1:
   LOADK R5 K6 ["StudioPublishService"]
   NAMECALL R3 R3 K7 ["GetService"]
   CALL R3 2 1
-  DUPTABLE R4 K11 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "contextType"}]
-  GETUPVAL R5 0
-  SETTABLEKS R5 R4 K8 ["activityHistoryClient"]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R3
-  SETTABLEKS R5 R4 K9 ["showSaveOrPublishPlaceToRobloxFn"]
-  LOADK R5 K12 ["real context"]
-  SETTABLEKS R5 R4 K10 ["contextType"]
+  GETUPVAL R4 0
+  GETTABLEKS R5 R0 K0 ["plugin"]
+  CALL R4 1 0
+  GETIMPORT R4 K5 [game]
+  LOADK R6 K8 ["GuiService"]
+  NAMECALL R4 R4 K7 ["GetService"]
+  CALL R4 2 1
+  DUPTABLE R5 K15 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "useCollaborators", "usePlaceAndUniverseId", "openBrowserLink", "contextType"}]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K13 ["createElement"]
+  SETTABLEKS R6 R5 K9 ["activityHistoryClient"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K10 ["showSaveOrPublishPlaceToRobloxFn"]
   GETUPVAL R6 2
-  MOVE R7 R4
-  DUPTABLE R8 K16 [{"EnableTeamCreate", "ActivityHistoryMain"}]
-  NOT R9 R2
-  JUMPIFNOT R9 [+7]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["createElement"]
-  GETUPVAL R10 3
-  NEWTABLE R11 0 0
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K14 ["EnableTeamCreate"]
-  MOVE R9 R2
-  JUMPIFNOT R9 [+10]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["createElement"]
-  GETUPVAL R10 4
-  DUPTABLE R11 K17 [{"plugin"}]
-  GETTABLEKS R12 R0 K0 ["plugin"]
-  SETTABLEKS R12 R11 K0 ["plugin"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K15 ["ActivityHistoryMain"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  SETTABLEKS R6 R5 K11 ["useCollaborators"]
+  GETUPVAL R6 0
+  SETTABLEKS R6 R5 K12 ["usePlaceAndUniverseId"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K13 ["openBrowserLink"]
+  LOADK R6 K16 ["real context"]
+  SETTABLEKS R6 R5 K14 ["contextType"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K17 ["createElement"]
+  GETUPVAL R7 4
+  MOVE R8 R5
+  DUPTABLE R9 K20 [{"EnableTeamCreate", "ActivityHistoryMain"}]
+  NOT R10 R2
+  JUMPIFNOT R10 [+7]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K17 ["createElement"]
+  GETUPVAL R11 5
+  NEWTABLE R12 0 0
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K18 ["EnableTeamCreate"]
+  MOVE R10 R2
+  JUMPIFNOT R10 [+10]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K17 ["createElement"]
+  GETUPVAL R11 6
+  DUPTABLE R12 K21 [{"plugin"}]
+  GETTABLEKS R13 R0 K0 ["plugin"]
+  SETTABLEKS R13 R12 K0 ["plugin"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K19 ["ActivityHistoryMain"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -93,10 +114,22 @@ MAIN:
   GETTABLEKS R9 R10 K13 ["Components"]
   GETTABLEKS R8 R9 K16 ["StylingExamples"]
   CALL R7 1 1
-  DUPCLOSURE R8 K17 [PROTO_1]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R11 R0 K7 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Hooks"]
+  GETTABLEKS R9 R10 K18 ["useCollaborators"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K7 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Hooks"]
+  GETTABLEKS R10 R11 K19 ["usePlaceAndUniverseId"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K20 [PROTO_2]
+  CAPTURE VAL R9
   CAPTURE VAL R2
+  CAPTURE VAL R8
   CAPTURE VAL R1
   CAPTURE VAL R4
   CAPTURE VAL R6
   CAPTURE VAL R5
-  RETURN R8 1
+  RETURN R10 1

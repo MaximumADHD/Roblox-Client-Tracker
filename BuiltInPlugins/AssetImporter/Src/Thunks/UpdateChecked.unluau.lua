@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("AssetImporter")
 local var1 = require(var0.Src.Utility.GetErrorChecked)
 local var2 = require(var0.Src.Utility.GetCheckedCount)
 local var3 = require(var0.Src.Actions.SetCheckedCount)

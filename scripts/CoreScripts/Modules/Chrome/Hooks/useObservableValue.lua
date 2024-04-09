@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
+local FFlagChromeObservableStateCheck = require(script.Parent.Parent.Flags.GetFFlagChromeObservableStateCheck)()
 
 return function<T>(observableValue: ChromeUtils.ObservableValue<T>): T | nil
 	if not observableValue then
@@ -13,6 +14,12 @@ return function<T>(observableValue: ChromeUtils.ObservableValue<T>): T | nil
 		local conn = observableValue:connect(function()
 			setValue(observableValue:get())
 		end)
+
+		if FFlagChromeObservableStateCheck then
+			if value ~= observableValue:get() then
+				setValue(observableValue:get())
+			end
+		end
 
 		return function()
 			conn:disconnect()

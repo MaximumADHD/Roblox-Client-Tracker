@@ -181,150 +181,150 @@ PROTO_13:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Rodux"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Cryo"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
   CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Types"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Types"]
   CALL R3 1 1
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Actions"]
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R6 R4 K11 ["ResetState"]
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Actions"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R4 K12 ["ResetState"]
   CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R7 R4 K12 ["SetAssetImportSession"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R4 K13 ["SetAssetImportSession"]
   CALL R6 1 1
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R8 R4 K13 ["SetCheckedCount"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R4 K14 ["SetCheckedCount"]
   CALL R7 1 1
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R9 R4 K14 ["SetCurrentPreset"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R4 K15 ["SetCurrentPreset"]
   CALL R8 1 1
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R10 R4 K15 ["SetErrorNodeChecked"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R4 K16 ["SetErrorNodeChecked"]
   CALL R9 1 1
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R11 R4 K16 ["SetFilename"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R4 K17 ["SetFilename"]
   CALL R10 1 1
-  GETIMPORT R11 K4 [require]
-  GETTABLEKS R12 R4 K17 ["SetHasInvalidPackageId"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R12 R4 K18 ["SetHasInvalidPackageId"]
   CALL R11 1 1
-  GETIMPORT R12 K4 [require]
-  GETTABLEKS R13 R4 K18 ["SetImportTree"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R13 R4 K19 ["SetImportTree"]
   CALL R12 1 1
-  GETIMPORT R13 K4 [require]
-  GETTABLEKS R14 R4 K19 ["SetManagedGroups"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R14 R4 K20 ["SetManagedGroups"]
   CALL R13 1 1
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R15 R4 K20 ["SetPreviewInstance"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R4 K21 ["SetPreviewInstance"]
   CALL R14 1 1
-  GETIMPORT R15 K4 [require]
-  GETTABLEKS R16 R4 K21 ["SetSelectedImportItem"]
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R16 R4 K22 ["SetSelectedImportItem"]
   CALL R15 1 1
-  GETIMPORT R16 K4 [require]
-  GETTABLEKS R17 R4 K22 ["SetSettingsChanged"]
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R17 R4 K23 ["SetSettingsChanged"]
   CALL R16 1 1
-  GETIMPORT R17 K4 [require]
-  GETTABLEKS R18 R4 K23 ["SetTreeChecked"]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R18 R4 K24 ["SetTreeChecked"]
   CALL R17 1 1
-  GETIMPORT R18 K4 [require]
-  GETTABLEKS R19 R4 K24 ["SetTreeExpansion"]
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R19 R4 K25 ["SetTreeExpansion"]
   CALL R18 1 1
-  DUPTABLE R19 K38 [{"assetImportSession", "currentPreset", "errorNodeChecked", "filename", "hasInvalidPackageId", "importDataChecked", "importDataCheckedCount", "importDataExpansion", "importTree", "managedGroups", "previewInstance", "selectedImportItem", "settingsChanged"}]
+  DUPTABLE R19 K39 [{"assetImportSession", "currentPreset", "errorNodeChecked", "filename", "hasInvalidPackageId", "importDataChecked", "importDataCheckedCount", "importDataExpansion", "importTree", "managedGroups", "previewInstance", "selectedImportItem", "settingsChanged"}]
   LOADNIL R20
-  SETTABLEKS R20 R19 K25 ["assetImportSession"]
-  LOADK R20 K39 [""]
-  SETTABLEKS R20 R19 K26 ["currentPreset"]
+  SETTABLEKS R20 R19 K26 ["assetImportSession"]
+  LOADK R20 K40 [""]
+  SETTABLEKS R20 R19 K27 ["currentPreset"]
   LOADB R20 0
-  SETTABLEKS R20 R19 K27 ["errorNodeChecked"]
-  LOADK R20 K39 [""]
-  SETTABLEKS R20 R19 K28 ["filename"]
+  SETTABLEKS R20 R19 K28 ["errorNodeChecked"]
+  LOADK R20 K40 [""]
+  SETTABLEKS R20 R19 K29 ["filename"]
   LOADB R20 0
-  SETTABLEKS R20 R19 K29 ["hasInvalidPackageId"]
+  SETTABLEKS R20 R19 K30 ["hasInvalidPackageId"]
   NEWTABLE R20 0 0
-  SETTABLEKS R20 R19 K30 ["importDataChecked"]
+  SETTABLEKS R20 R19 K31 ["importDataChecked"]
   LOADN R20 255
-  SETTABLEKS R20 R19 K31 ["importDataCheckedCount"]
+  SETTABLEKS R20 R19 K32 ["importDataCheckedCount"]
   NEWTABLE R20 0 0
-  SETTABLEKS R20 R19 K32 ["importDataExpansion"]
+  SETTABLEKS R20 R19 K33 ["importDataExpansion"]
   LOADNIL R20
-  SETTABLEKS R20 R19 K33 ["importTree"]
+  SETTABLEKS R20 R19 K34 ["importTree"]
   NEWTABLE R20 0 0
-  SETTABLEKS R20 R19 K34 ["managedGroups"]
+  SETTABLEKS R20 R19 K35 ["managedGroups"]
   LOADNIL R20
-  SETTABLEKS R20 R19 K35 ["previewInstance"]
+  SETTABLEKS R20 R19 K36 ["previewInstance"]
   LOADNIL R20
-  SETTABLEKS R20 R19 K36 ["selectedImportItem"]
+  SETTABLEKS R20 R19 K37 ["selectedImportItem"]
   LOADB R20 0
-  SETTABLEKS R20 R19 K37 ["settingsChanged"]
-  GETTABLEKS R20 R1 K40 ["createReducer"]
+  SETTABLEKS R20 R19 K38 ["settingsChanged"]
+  GETTABLEKS R20 R1 K41 ["createReducer"]
   MOVE R21 R19
   NEWTABLE R22 16 0
-  GETTABLEKS R23 R6 K41 ["name"]
-  DUPCLOSURE R24 K42 [PROTO_0]
+  GETTABLEKS R23 R6 K42 ["name"]
+  DUPCLOSURE R24 K43 [PROTO_0]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R12 K41 ["name"]
-  DUPCLOSURE R24 K43 [PROTO_1]
+  GETTABLEKS R23 R12 K42 ["name"]
+  DUPCLOSURE R24 K44 [PROTO_1]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R10 K41 ["name"]
-  DUPCLOSURE R24 K44 [PROTO_2]
+  GETTABLEKS R23 R10 K42 ["name"]
+  DUPCLOSURE R24 K45 [PROTO_2]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R11 K41 ["name"]
-  DUPCLOSURE R24 K45 [PROTO_3]
+  GETTABLEKS R23 R11 K42 ["name"]
+  DUPCLOSURE R24 K46 [PROTO_3]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R14 K41 ["name"]
-  DUPCLOSURE R24 K46 [PROTO_4]
+  GETTABLEKS R23 R14 K42 ["name"]
+  DUPCLOSURE R24 K47 [PROTO_4]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R13 K41 ["name"]
-  DUPCLOSURE R24 K47 [PROTO_5]
+  GETTABLEKS R23 R13 K42 ["name"]
+  DUPCLOSURE R24 K48 [PROTO_5]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R15 K41 ["name"]
-  DUPCLOSURE R24 K48 [PROTO_6]
+  GETTABLEKS R23 R15 K42 ["name"]
+  DUPCLOSURE R24 K49 [PROTO_6]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R17 K41 ["name"]
-  DUPCLOSURE R24 K49 [PROTO_7]
+  GETTABLEKS R23 R17 K42 ["name"]
+  DUPCLOSURE R24 K50 [PROTO_7]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R7 K41 ["name"]
-  DUPCLOSURE R24 K50 [PROTO_8]
+  GETTABLEKS R23 R7 K42 ["name"]
+  DUPCLOSURE R24 K51 [PROTO_8]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R18 K41 ["name"]
-  DUPCLOSURE R24 K51 [PROTO_9]
+  GETTABLEKS R23 R18 K42 ["name"]
+  DUPCLOSURE R24 K52 [PROTO_9]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R9 K41 ["name"]
-  DUPCLOSURE R24 K52 [PROTO_10]
+  GETTABLEKS R23 R9 K42 ["name"]
+  DUPCLOSURE R24 K53 [PROTO_10]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R16 K41 ["name"]
-  DUPCLOSURE R24 K53 [PROTO_11]
+  GETTABLEKS R23 R16 K42 ["name"]
+  DUPCLOSURE R24 K54 [PROTO_11]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R8 K41 ["name"]
-  DUPCLOSURE R24 K54 [PROTO_12]
+  GETTABLEKS R23 R8 K42 ["name"]
+  DUPCLOSURE R24 K55 [PROTO_12]
   CAPTURE VAL R2
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R5 K41 ["name"]
-  DUPCLOSURE R24 K55 [PROTO_13]
+  GETTABLEKS R23 R5 K42 ["name"]
+  DUPCLOSURE R24 K56 [PROTO_13]
   CAPTURE VAL R2
   CAPTURE VAL R19
   SETTABLE R24 R22 R23

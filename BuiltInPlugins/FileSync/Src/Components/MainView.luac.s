@@ -1,0 +1,1026 @@
+PROTO_0:
+  NAMECALL R1 R0 K0 ["getLocale"]
+  CALL R1 1 1
+  GETIMPORT R6 K3 [DateTime.now]
+  CALL R6 0 1
+  LOADK R8 K4 ["LL"]
+  MOVE R9 R1
+  NAMECALL R6 R6 K5 ["FormatLocalTime"]
+  CALL R6 3 1
+  MOVE R3 R6
+  LOADK R8 K1 ["DateTime"]
+  LOADK R9 K6 ["At"]
+  NAMECALL R6 R0 K7 ["getText"]
+  CALL R6 3 1
+  MOVE R4 R6
+  GETIMPORT R5 K3 [DateTime.now]
+  CALL R5 0 1
+  LOADK R7 K8 ["LTS"]
+  MOVE R8 R1
+  NAMECALL R5 R5 K5 ["FormatLocalTime"]
+  CALL R5 3 1
+  CONCAT R2 R3 R5
+  RETURN R2 1
+
+PROTO_1:
+  GETIMPORT R2 K1 [game]
+  GETTABLEKS R1 R2 K2 ["GameId"]
+  JUMPIFNOTEQKN R1 K3 [0] [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  JUMPIFNOT R0 [+9]
+  GETIMPORT R3 K1 [game]
+  GETTABLEKS R2 R3 K4 ["PlaceId"]
+  FASTCALL1 TOSTRING R2 [+2]
+  GETIMPORT R1 K6 [tostring]
+  CALL R1 1 1
+  RETURN R1 1
+  LOADK R1 K7 [""]
+  RETURN R1 1
+
+PROTO_2:
+  GETIMPORT R2 K1 [game]
+  GETTABLEKS R1 R2 K2 ["GameId"]
+  JUMPIFEQKN R1 K3 [0] [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_3:
+  DUPTABLE R1 K1 [{"autoImportOnPlayEnabled"}]
+  GETTABLEKS R3 R0 K0 ["autoImportOnPlayEnabled"]
+  NOT R2 R3
+  SETTABLEKS R2 R1 K0 ["autoImportOnPlayEnabled"]
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  DUPCLOSURE R2 K0 [PROTO_3]
+  NAMECALL R0 R0 K1 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R3 K1 [game]
+  GETTABLEKS R2 R3 K2 ["GameId"]
+  JUMPIFEQKN R2 K3 [0] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  JUMPIF R1 [+90]
+  GETTABLEKS R2 R0 K4 ["props"]
+  GETTABLEKS R1 R2 K5 ["Plugin"]
+  NAMECALL R1 R1 K6 ["get"]
+  CALL R1 1 1
+  LOADK R4 K7 ["FileSyncLastOperation"]
+  NAMECALL R2 R1 K8 ["GetSetting"]
+  CALL R2 2 1
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  LOADK R5 K9 ["FileSyncPreviewKey"]
+  NAMECALL R3 R1 K8 ["GetSetting"]
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  GETIMPORT R8 K1 [game]
+  GETTABLEKS R7 R8 K2 ["GameId"]
+  JUMPIFNOTEQKN R7 K3 [0] [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  JUMPIFNOT R6 [+10]
+  GETIMPORT R9 K1 [game]
+  GETTABLEKS R8 R9 K10 ["PlaceId"]
+  FASTCALL1 TOSTRING R8 [+2]
+  GETIMPORT R7 K12 [tostring]
+  CALL R7 1 1
+  MOVE R5 R7
+  JUMP [+2]
+  LOADK R5 K13 [""]
+  JUMP [0]
+  GETTABLE R4 R3 R5
+  GETIMPORT R9 K1 [game]
+  GETTABLEKS R8 R9 K2 ["GameId"]
+  JUMPIFNOTEQKN R8 K3 [0] [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  JUMPIFNOT R7 [+10]
+  GETIMPORT R10 K1 [game]
+  GETTABLEKS R9 R10 K10 ["PlaceId"]
+  FASTCALL1 TOSTRING R9 [+2]
+  GETIMPORT R8 K12 [tostring]
+  CALL R8 1 1
+  MOVE R6 R8
+  JUMP [+2]
+  LOADK R6 K13 [""]
+  JUMP [0]
+  GETTABLE R5 R2 R6
+  JUMPIF R5 [+2]
+  NEWTABLE R5 0 0
+  GETTABLEKS R6 R5 K14 ["LastOpString"]
+  GETTABLEKS R7 R5 K15 ["LastOpTime"]
+  GETTABLEKS R9 R0 K4 ["props"]
+  GETTABLEKS R8 R9 K16 ["SetLastOperation"]
+  MOVE R9 R6
+  CALL R8 1 0
+  GETTABLEKS R9 R0 K4 ["props"]
+  GETTABLEKS R8 R9 K17 ["SetLastOperationTime"]
+  MOVE R9 R7
+  CALL R8 1 0
+  GETTABLEKS R9 R0 K4 ["props"]
+  GETTABLEKS R8 R9 K18 ["SetSyncPath"]
+  MOVE R9 R4
+  CALL R8 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K19 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K20 ["scrollingFrameRef"]
+  DUPTABLE R3 K24 [{"autoImportOnPlayEnabled", "changesInStudio", "changesInDisk"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K21 ["autoImportOnPlayEnabled"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K22 ["changesInStudio"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K23 ["changesInDisk"]
+  NAMECALL R1 R0 K25 ["setState"]
+  CALL R1 2 0
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K26 ["onToggleAutoImport"]
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+11]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ProjectFolderService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K4 ["ExportScripts"]
+  CALL R0 2 -1
+  RETURN R0 -1
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ProjectFolderService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K5 ["ImportScripts"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_7:
+  RETURN R0 0
+
+PROTO_8:
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["Plugin"]
+  NAMECALL R2 R2 K2 ["get"]
+  CALL R2 1 1
+  LOADK R5 K3 ["FileSyncLastOperation"]
+  NAMECALL R3 R2 K4 ["GetSetting"]
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K5 ["syncPath"]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K6 ["Stylizer"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K7 ["Localization"]
+  LOADNIL R7
+  LOADNIL R8
+  JUMPIF R4 [+7]
+  LOADK R11 K8 ["Errors"]
+  LOADK R12 K9 ["NoDirectory"]
+  NAMECALL R9 R6 K10 ["getText"]
+  CALL R9 3 1
+  MOVE R8 R9
+  JUMP [+100]
+  GETIMPORT R9 K12 [pcall]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CALL R9 1 2
+  JUMPIF R9 [+20]
+  JUMPIFNOT R10 [+4]
+  JUMPIFEQKS R10 K13 [""] [+3]
+  MOVE R8 R10
+  JUMP [+88]
+  JUMPIFNOT R1 [+7]
+  LOADK R13 K8 ["Errors"]
+  LOADK R14 K14 ["ExportFailure"]
+  NAMECALL R11 R6 K10 ["getText"]
+  CALL R11 3 1
+  MOVE R8 R11
+  JUMP [+80]
+  LOADK R13 K8 ["Errors"]
+  LOADK R14 K15 ["ImportFailure"]
+  NAMECALL R11 R6 K10 ["getText"]
+  CALL R11 3 1
+  MOVE R8 R11
+  JUMP [+73]
+  JUMPIFNOT R1 [+7]
+  LOADK R13 K16 ["Successes"]
+  LOADK R14 K17 ["ExportSuccess"]
+  NAMECALL R11 R6 K10 ["getText"]
+  CALL R11 3 1
+  MOVE R7 R11
+  JUMP [+6]
+  LOADK R13 K16 ["Successes"]
+  LOADK R14 K18 ["ImportSuccess"]
+  NAMECALL R11 R6 K10 ["getText"]
+  CALL R11 3 1
+  MOVE R7 R11
+  GETIMPORT R13 K20 [game]
+  GETTABLEKS R12 R13 K21 ["GameId"]
+  JUMPIFEQKN R12 K22 [0] [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  JUMPIF R11 [+36]
+  NEWTABLE R11 0 0
+  SETTABLEKS R7 R11 K23 ["LastOpString"]
+  GETUPVAL R12 0
+  MOVE R13 R6
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K24 ["LastOpTime"]
+  GETIMPORT R15 K20 [game]
+  GETTABLEKS R14 R15 K21 ["GameId"]
+  JUMPIFNOTEQKN R14 K22 [0] [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  JUMPIFNOT R13 [+10]
+  GETIMPORT R16 K20 [game]
+  GETTABLEKS R15 R16 K25 ["PlaceId"]
+  FASTCALL1 TOSTRING R15 [+2]
+  GETIMPORT R14 K27 [tostring]
+  CALL R14 1 1
+  MOVE R12 R14
+  JUMP [+2]
+  LOADK R12 K13 [""]
+  JUMP [0]
+  SETTABLE R11 R3 R12
+  LOADK R14 K3 ["FileSyncLastOperation"]
+  MOVE R15 R3
+  NAMECALL R12 R2 K28 ["SetSetting"]
+  CALL R12 3 0
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K29 ["SetLastOperation"]
+  MOVE R12 R7
+  CALL R11 1 0
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K30 ["SetLastOperationTime"]
+  GETUPVAL R12 0
+  MOVE R13 R6
+  CALL R12 1 1
+  CALL R11 1 0
+  JUMPIFNOT R8 [+144]
+  NEWTABLE R9 0 1
+  DUPTABLE R10 K33 [{"Key", "Text"}]
+  LOADK R11 K34 ["OK"]
+  SETTABLEKS R11 R10 K31 ["Key"]
+  LOADK R13 K35 ["Buttons"]
+  LOADK R14 K36 ["Ok"]
+  NAMECALL R11 R6 K10 ["getText"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K32 ["Text"]
+  SETLIST R9 R10 1 [1]
+  GETUPVAL R10 1
+  MOVE R12 R8
+  LOADN R13 18
+  GETIMPORT R14 K40 [Enum.Font.SourceSans]
+  GETIMPORT R15 K43 [Vector2.new]
+  LOADN R16 79
+  LOADK R17 K44 [∞]
+  CALL R15 2 -1
+  NAMECALL R10 R10 K45 ["GetTextSize"]
+  CALL R10 -1 1
+  GETTABLEKS R12 R10 K46 ["Y"]
+  LOADN R13 65
+  JUMPIFLT R13 R12 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K47 ["createElement"]
+  GETUPVAL R13 3
+  DUPTABLE R14 K55 [{"BackgroundTransparency", "TextWrapped", "Text", "Style", "TextSelectable", "TextFont", "TextYAlignment", "Size"}]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K48 ["BackgroundTransparency"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K49 ["TextWrapped"]
+  SETTABLEKS R8 R14 K32 ["Text"]
+  LOADK R15 K56 ["Basic"]
+  SETTABLEKS R15 R14 K50 ["Style"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K51 ["TextSelectable"]
+  GETIMPORT R15 K40 [Enum.Font.SourceSans]
+  SETTABLEKS R15 R14 K52 ["TextFont"]
+  GETIMPORT R15 K58 [Enum.TextYAlignment.Center]
+  SETTABLEKS R15 R14 K53 ["TextYAlignment"]
+  JUMPIFNOT R11 [+9]
+  GETIMPORT R15 K60 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 0
+  GETTABLEKS R19 R10 K46 ["Y"]
+  CALL R15 4 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K54 ["Size"]
+  CALL R12 2 1
+  JUMPIFNOT R11 [+22]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K47 ["createElement"]
+  GETUPVAL R14 4
+  DUPTABLE R15 K63 [{"ref", "ScrollingEnabled", "BackgroundTransparency"}]
+  GETTABLEKS R16 R0 K64 ["scrollingFrameRef"]
+  SETTABLEKS R16 R15 K61 ["ref"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K62 ["ScrollingEnabled"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K48 ["BackgroundTransparency"]
+  NEWTABLE R16 0 1
+  MOVE R17 R12
+  SETLIST R16 R17 1 [1]
+  CALL R13 3 1
+  JUMP [+1]
+  LOADNIL R13
+  GETUPVAL R14 5
+  GETTABLEKS R16 R0 K0 ["props"]
+  GETTABLEKS R15 R16 K1 ["Plugin"]
+  GETTABLEKS R17 R0 K0 ["props"]
+  GETTABLEKS R16 R17 K7 ["Localization"]
+  GETUPVAL R17 6
+  DUPTABLE R18 K70 [{"Style", "OnButtonPressed", "OnClose", "Title", "Modal", "MinContentSize", "Buttons"}]
+  LOADK R19 K71 ["Alert"]
+  SETTABLEKS R19 R18 K50 ["Style"]
+  DUPCLOSURE R19 K72 [PROTO_7]
+  SETTABLEKS R19 R18 K65 ["OnButtonPressed"]
+  DUPCLOSURE R19 K73 [PROTO_8]
+  SETTABLEKS R19 R18 K66 ["OnClose"]
+  LOADK R21 K8 ["Errors"]
+  LOADK R22 K74 ["FileSyncError"]
+  NAMECALL R19 R6 K10 ["getText"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K67 ["Title"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K68 ["Modal"]
+  GETTABLEKS R19 R5 K75 ["ErrorDialogSize"]
+  SETTABLEKS R19 R18 K69 ["MinContentSize"]
+  SETTABLEKS R9 R18 K35 ["Buttons"]
+  DUPTABLE R19 K77 [{"Contents"}]
+  JUMPIFNOT R11 [+2]
+  MOVE R20 R13
+  JUMP [+1]
+  MOVE R20 R12
+  SETTABLEKS R20 R19 K76 ["Contents"]
+  CALL R14 5 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R0 0
+  LOADB R2 1
+  NAMECALL R0 R0 K0 ["syncFiles"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R0 0
+  LOADB R2 0
+  NAMECALL R0 R0 K0 ["syncFiles"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["PluginActions"]
+  LOADK R4 K2 ["Export"]
+  NAMECALL R2 R1 K3 ["get"]
+  CALL R2 2 1
+  LOADK R5 K4 ["Import"]
+  NAMECALL R3 R1 K3 ["get"]
+  CALL R3 2 1
+  JUMPIFNOT R2 [+12]
+  LOADB R4 1
+  SETTABLEKS R4 R2 K5 ["Enabled"]
+  GETTABLEKS R4 R2 K6 ["Triggered"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R0
+  NAMECALL R4 R4 K7 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K8 ["exportHandle"]
+  JUMPIFNOT R3 [+12]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K5 ["Enabled"]
+  GETTABLEKS R4 R3 K6 ["Triggered"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  NAMECALL R4 R4 K7 ["Connect"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K9 ["importHandle"]
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["PluginActions"]
+  LOADK R4 K2 ["Export"]
+  NAMECALL R2 R1 K3 ["get"]
+  CALL R2 2 1
+  LOADK R5 K4 ["Import"]
+  NAMECALL R3 R1 K3 ["get"]
+  CALL R3 2 1
+  JUMPIFNOT R2 [+3]
+  LOADB R4 0
+  SETTABLEKS R4 R2 K5 ["Enabled"]
+  JUMPIFNOT R3 [+3]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K5 ["Enabled"]
+  GETTABLEKS R4 R0 K6 ["exportHandle"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K6 ["exportHandle"]
+  NAMECALL R4 R4 K7 ["Disconnect"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K8 ["importHandle"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K8 ["importHandle"]
+  NAMECALL R4 R4 K7 ["Disconnect"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  LOADB R2 0
+  NAMECALL R0 R0 K0 ["syncFiles"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R0 0
+  LOADB R2 1
+  NAMECALL R0 R0 K0 ["syncFiles"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_16:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ProjectFolderService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K4 ["SelectFolder"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_17:
+  GETIMPORT R0 K1 [pcall]
+  DUPCLOSURE R1 K2 [PROTO_16]
+  CALL R0 1 2
+  JUMPIFNOT R0 [+45]
+  GETIMPORT R4 K4 [game]
+  GETTABLEKS R3 R4 K5 ["GameId"]
+  JUMPIFEQKN R3 K6 [0] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  JUMPIF R2 [+29]
+  GETUPVAL R2 0
+  GETIMPORT R6 K4 [game]
+  GETTABLEKS R5 R6 K5 ["GameId"]
+  JUMPIFNOTEQKN R5 K6 [0] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIFNOT R4 [+10]
+  GETIMPORT R7 K4 [game]
+  GETTABLEKS R6 R7 K7 ["PlaceId"]
+  FASTCALL1 TOSTRING R6 [+2]
+  GETIMPORT R5 K9 [tostring]
+  CALL R5 1 1
+  MOVE R3 R5
+  JUMP [+2]
+  LOADK R3 K10 [""]
+  JUMP [0]
+  SETTABLE R1 R2 R3
+  GETUPVAL R2 1
+  LOADK R4 K11 ["FileSyncPreviewKey"]
+  GETUPVAL R5 0
+  NAMECALL R2 R2 K12 ["SetSetting"]
+  CALL R2 3 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K13 ["props"]
+  GETTABLEKS R2 R3 K14 ["SetSyncPath"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["Plugin"]
+  NAMECALL R1 R1 K2 ["get"]
+  CALL R1 1 1
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["Stylizer"]
+  LOADK R5 K4 ["FileSyncPreviewKey"]
+  NAMECALL R3 R1 K5 ["GetSetting"]
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K6 ["syncPath"]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K7 ["lastOperation"]
+  GETTABLEKS R7 R0 K0 ["props"]
+  GETTABLEKS R6 R7 K8 ["lastOperationTime"]
+  GETTABLEKS R8 R0 K0 ["props"]
+  GETTABLEKS R7 R8 K9 ["Localization"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K10 ["new"]
+  CALL R8 0 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K10 ["new"]
+  CALL R9 0 1
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K11 ["createElement"]
+  LOADK R11 K12 ["Frame"]
+  DUPTABLE R12 K16 [{"Size", "BackgroundColor3", "BackgroundTransparency"}]
+  GETIMPORT R13 K18 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 1
+  LOADN R17 0
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K13 ["Size"]
+  GETTABLEKS R13 R2 K19 ["BackgroundColor"]
+  SETTABLEKS R13 R12 K14 ["BackgroundColor3"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K15 ["BackgroundTransparency"]
+  DUPTABLE R13 K27 [{"Layout", "ButtonsUIPadding", "LatestStatusFrame", "Separator1", "ButtonsFrame", "ConnectionsFrame", "SettingsFrame"}]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  LOADK R15 K28 ["UIListLayout"]
+  DUPTABLE R16 K32 [{"FillDirection", "SortOrder", "Padding"}]
+  GETIMPORT R17 K35 [Enum.FillDirection.Vertical]
+  SETTABLEKS R17 R16 K29 ["FillDirection"]
+  GETIMPORT R17 K37 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R17 R16 K30 ["SortOrder"]
+  GETIMPORT R17 K39 [UDim.new]
+  LOADN R18 0
+  LOADN R19 8
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K31 ["Padding"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K20 ["Layout"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  LOADK R15 K40 ["UIPadding"]
+  DUPTABLE R16 K43 [{"PaddingBottom", "PaddingTop"}]
+  GETIMPORT R17 K39 [UDim.new]
+  LOADN R18 0
+  LOADN R19 8
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K41 ["PaddingBottom"]
+  GETIMPORT R17 K39 [UDim.new]
+  LOADN R18 0
+  LOADN R19 8
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K42 ["PaddingTop"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K21 ["ButtonsUIPadding"]
+  JUMPIFNOT R5 [+46]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  GETUPVAL R15 2
+  DUPTABLE R16 K48 [{"LayoutOrder", "LastOpTime", "StatusText", "ChangesInDisk", "ChangesInStudio"}]
+  NAMECALL R17 R8 K49 ["getNextOrder"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K36 ["LayoutOrder"]
+  SETTABLEKS R6 R16 K44 ["LastOpTime"]
+  LOADK R20 K50 ["Successes"]
+  LOADK R21 K51 ["ExportSuccess"]
+  NAMECALL R18 R7 K52 ["getText"]
+  CALL R18 3 1
+  JUMPIFNOTEQ R5 R18 [+7]
+  LOADK R19 K53 ["Labels"]
+  LOADK R20 K54 ["LastExport"]
+  NAMECALL R17 R7 K52 ["getText"]
+  CALL R17 3 1
+  JUMP [+5]
+  LOADK R19 K53 ["Labels"]
+  LOADK R20 K55 ["LastImport"]
+  NAMECALL R17 R7 K52 ["getText"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K45 ["StatusText"]
+  GETTABLEKS R18 R0 K56 ["state"]
+  GETTABLEKS R17 R18 K57 ["changesInDisk"]
+  SETTABLEKS R17 R16 K46 ["ChangesInDisk"]
+  GETTABLEKS R18 R0 K56 ["state"]
+  GETTABLEKS R17 R18 K58 ["changesInStudio"]
+  SETTABLEKS R17 R16 K47 ["ChangesInStudio"]
+  CALL R14 2 1
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K22 ["LatestStatusFrame"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  GETUPVAL R15 3
+  DUPTABLE R16 K59 [{"LayoutOrder"}]
+  NAMECALL R17 R8 K49 ["getNextOrder"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K36 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K23 ["Separator1"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  GETUPVAL R15 4
+  DUPTABLE R16 K62 [{"Size", "OnImport", "OnExport", "LayoutOrder", "ChangesInDisk", "ChangesInStudio"}]
+  GETIMPORT R17 K18 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 0
+  LOADN R21 140
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K13 ["Size"]
+  NEWCLOSURE R17 P0
+  CAPTURE VAL R0
+  SETTABLEKS R17 R16 K60 ["OnImport"]
+  NEWCLOSURE R17 P1
+  CAPTURE VAL R0
+  SETTABLEKS R17 R16 K61 ["OnExport"]
+  NAMECALL R17 R8 K49 ["getNextOrder"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K36 ["LayoutOrder"]
+  GETTABLEKS R18 R0 K56 ["state"]
+  GETTABLEKS R17 R18 K57 ["changesInDisk"]
+  SETTABLEKS R17 R16 K46 ["ChangesInDisk"]
+  GETTABLEKS R18 R0 K56 ["state"]
+  GETTABLEKS R17 R18 K58 ["changesInStudio"]
+  SETTABLEKS R17 R16 K47 ["ChangesInStudio"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K24 ["ButtonsFrame"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  LOADK R15 K12 ["Frame"]
+  DUPTABLE R16 K63 [{"BackgroundTransparency", "Size", "LayoutOrder"}]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K15 ["BackgroundTransparency"]
+  GETIMPORT R17 K18 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 0
+  LOADN R21 170
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K13 ["Size"]
+  NAMECALL R17 R8 K49 ["getNextOrder"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K36 ["LayoutOrder"]
+  DUPTABLE R17 K72 [{"ListLayout", "ConnectionsLeftPadding", "ConnectionsLabel", "Separator2", "Spacer0", "LocalDirectoryFrame", "Spacer", "PlaceFrame"}]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  LOADK R19 K28 ["UIListLayout"]
+  DUPTABLE R20 K73 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R21 K35 [Enum.FillDirection.Vertical]
+  SETTABLEKS R21 R20 K29 ["FillDirection"]
+  GETIMPORT R21 K39 [UDim.new]
+  LOADN R22 0
+  LOADN R23 4
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K31 ["Padding"]
+  GETIMPORT R21 K37 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R21 R20 K30 ["SortOrder"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K64 ["ListLayout"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  LOADK R19 K40 ["UIPadding"]
+  DUPTABLE R20 K75 [{"PaddingLeft"}]
+  GETIMPORT R21 K39 [UDim.new]
+  LOADN R22 0
+  LOADN R23 8
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K74 ["PaddingLeft"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K65 ["ConnectionsLeftPadding"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  GETUPVAL R19 5
+  DUPTABLE R20 K79 [{"Text", "Style", "Size", "TextXAlignment", "BackgroundTransparency", "LayoutOrder"}]
+  LOADK R23 K53 ["Labels"]
+  LOADK R24 K80 ["Connections"]
+  NAMECALL R21 R7 K52 ["getText"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K76 ["Text"]
+  LOADK R21 K81 ["Bold"]
+  SETTABLEKS R21 R20 K77 ["Style"]
+  GETIMPORT R21 K18 [UDim2.new]
+  LOADN R22 1
+  LOADN R23 0
+  LOADN R24 0
+  LOADN R25 20
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K13 ["Size"]
+  GETIMPORT R21 K83 [Enum.TextXAlignment.Left]
+  SETTABLEKS R21 R20 K78 ["TextXAlignment"]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K15 ["BackgroundTransparency"]
+  NAMECALL R21 R9 K49 ["getNextOrder"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K36 ["LayoutOrder"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K66 ["ConnectionsLabel"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  GETUPVAL R19 3
+  DUPTABLE R20 K59 [{"LayoutOrder"}]
+  NAMECALL R21 R9 K49 ["getNextOrder"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K36 ["LayoutOrder"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K67 ["Separator2"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  LOADK R19 K12 ["Frame"]
+  DUPTABLE R20 K84 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
+  NAMECALL R21 R9 K49 ["getNextOrder"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K36 ["LayoutOrder"]
+  GETIMPORT R21 K18 [UDim2.new]
+  LOADN R22 1
+  LOADN R23 0
+  LOADN R24 0
+  LOADN R25 8
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K13 ["Size"]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K15 ["BackgroundTransparency"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K68 ["Spacer0"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  GETUPVAL R19 6
+  DUPTABLE R20 K87 [{"LayoutOrder", "SyncPath", "Size", "Callback"}]
+  NAMECALL R21 R9 K49 ["getNextOrder"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K36 ["LayoutOrder"]
+  SETTABLEKS R4 R20 K85 ["SyncPath"]
+  GETIMPORT R21 K18 [UDim2.new]
+  LOADN R22 1
+  LOADN R23 0
+  LOADN R24 0
+  LOADN R25 50
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K13 ["Size"]
+  NEWCLOSURE R21 P2
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R21 R20 K86 ["Callback"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K69 ["LocalDirectoryFrame"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  LOADK R19 K12 ["Frame"]
+  DUPTABLE R20 K84 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
+  NAMECALL R21 R9 K49 ["getNextOrder"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K36 ["LayoutOrder"]
+  GETIMPORT R21 K18 [UDim2.new]
+  LOADN R22 1
+  LOADN R23 0
+  LOADN R24 0
+  LOADN R25 8
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K13 ["Size"]
+  LOADN R21 1
+  SETTABLEKS R21 R20 K15 ["BackgroundTransparency"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K70 ["Spacer"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  GETUPVAL R19 7
+  DUPTABLE R20 K89 [{"LayoutOrder", "Size", "PlaceName"}]
+  NAMECALL R21 R9 K49 ["getNextOrder"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K36 ["LayoutOrder"]
+  GETIMPORT R21 K18 [UDim2.new]
+  LOADN R22 1
+  LOADN R23 0
+  LOADN R24 0
+  LOADN R25 50
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K13 ["Size"]
+  LOADK R21 K90 ["Test"]
+  SETTABLEKS R21 R20 K88 ["PlaceName"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K71 ["PlaceFrame"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K25 ["ConnectionsFrame"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  GETUPVAL R15 8
+  DUPTABLE R16 K93 [{"Size", "LayoutOrder", "IsChecked", "OnClick"}]
+  GETIMPORT R17 K18 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 0
+  LOADN R21 50
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K13 ["Size"]
+  NAMECALL R17 R8 K49 ["getNextOrder"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K36 ["LayoutOrder"]
+  GETTABLEKS R18 R0 K56 ["state"]
+  GETTABLEKS R17 R18 K94 ["autoImportOnPlayEnabled"]
+  SETTABLEKS R17 R16 K91 ["IsChecked"]
+  GETTABLEKS R17 R0 K95 ["onToggleAutoImport"]
+  SETTABLEKS R17 R16 K92 ["OnClick"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K26 ["SettingsFrame"]
+  CALL R10 3 -1
+  RETURN R10 -1
+
+PROTO_19:
+  DUPTABLE R2 K4 [{"redrawSignal", "syncPath", "lastOperation", "lastOperationTime"}]
+  GETTABLEKS R3 R0 K0 ["redrawSignal"]
+  SETTABLEKS R3 R2 K0 ["redrawSignal"]
+  GETTABLEKS R3 R0 K1 ["syncPath"]
+  SETTABLEKS R3 R2 K1 ["syncPath"]
+  GETTABLEKS R3 R0 K2 ["lastOperation"]
+  SETTABLEKS R3 R2 K2 ["lastOperation"]
+  GETTABLEKS R3 R0 K3 ["lastOperationTime"]
+  SETTABLEKS R3 R2 K3 ["lastOperationTime"]
+  RETURN R2 1
+
+PROTO_20:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_21:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_23:
+  DUPTABLE R1 K3 [{"SetSyncPath", "SetLastOperation", "SetLastOperationTime"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K0 ["SetSyncPath"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K1 ["SetLastOperation"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K2 ["SetLastOperationTime"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FileSync"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["UI"]
+  GETTABLEKS R5 R4 K11 ["Separator"]
+  GETTABLEKS R6 R4 K12 ["TextLabel"]
+  GETTABLEKS R7 R4 K13 ["ScrollingFrame"]
+  GETTABLEKS R8 R4 K14 ["StyledDialog"]
+  GETTABLEKS R9 R3 K15 ["ContextServices"]
+  GETTABLEKS R10 R9 K16 ["withContext"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K17 ["Src"]
+  GETTABLEKS R13 R14 K18 ["Actions"]
+  GETTABLEKS R12 R13 K19 ["SetSyncPath"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K17 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Actions"]
+  GETTABLEKS R13 R14 K20 ["SetLastOperation"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K17 ["Src"]
+  GETTABLEKS R15 R16 K18 ["Actions"]
+  GETTABLEKS R14 R15 K21 ["SetLastOperationTime"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K17 ["Src"]
+  GETTABLEKS R16 R17 K22 ["Components"]
+  GETTABLEKS R15 R16 K23 ["ImportExportFrame"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K17 ["Src"]
+  GETTABLEKS R17 R18 K22 ["Components"]
+  GETTABLEKS R16 R17 K24 ["SyncStatus"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K17 ["Src"]
+  GETTABLEKS R18 R19 K22 ["Components"]
+  GETTABLEKS R17 R18 K25 ["PlaceDetails"]
+  CALL R16 1 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K17 ["Src"]
+  GETTABLEKS R19 R20 K22 ["Components"]
+  GETTABLEKS R18 R19 K26 ["DirectoryInput"]
+  CALL R17 1 1
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R21 R0 K17 ["Src"]
+  GETTABLEKS R20 R21 K22 ["Components"]
+  GETTABLEKS R19 R20 K27 ["Settings"]
+  CALL R18 1 1
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K17 ["Src"]
+  GETTABLEKS R21 R22 K28 ["Util"]
+  GETTABLEKS R20 R21 K29 ["ShowDialog"]
+  CALL R19 1 1
+  GETIMPORT R20 K31 [game]
+  LOADK R22 K32 ["TextService"]
+  NAMECALL R20 R20 K33 ["GetService"]
+  CALL R20 2 1
+  GETTABLEKS R21 R3 K28 ["Util"]
+  GETTABLEKS R22 R21 K34 ["LayoutOrderIterator"]
+  GETTABLEKS R23 R1 K35 ["Component"]
+  LOADK R25 K36 ["MainView"]
+  NAMECALL R23 R23 K37 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K38 [PROTO_0]
+  DUPCLOSURE R25 K39 [PROTO_1]
+  DUPCLOSURE R26 K40 [PROTO_2]
+  DUPCLOSURE R27 K41 [PROTO_5]
+  CAPTURE VAL R1
+  SETTABLEKS R27 R23 K42 ["init"]
+  DUPCLOSURE R27 K43 [PROTO_9]
+  CAPTURE VAL R24
+  CAPTURE VAL R20
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R19
+  CAPTURE VAL R8
+  SETTABLEKS R27 R23 K44 ["syncFiles"]
+  DUPCLOSURE R27 K45 [PROTO_12]
+  SETTABLEKS R27 R23 K46 ["didMount"]
+  DUPCLOSURE R27 K47 [PROTO_13]
+  SETTABLEKS R27 R23 K48 ["willUnmount"]
+  DUPCLOSURE R27 K49 [PROTO_18]
+  CAPTURE VAL R22
+  CAPTURE VAL R1
+  CAPTURE VAL R15
+  CAPTURE VAL R5
+  CAPTURE VAL R14
+  CAPTURE VAL R6
+  CAPTURE VAL R17
+  CAPTURE VAL R16
+  CAPTURE VAL R18
+  SETTABLEKS R27 R23 K50 ["render"]
+  MOVE R27 R10
+  DUPTABLE R28 K55 [{"Plugin", "Stylizer", "Localization", "PluginActions"}]
+  GETTABLEKS R29 R9 K51 ["Plugin"]
+  SETTABLEKS R29 R28 K51 ["Plugin"]
+  GETTABLEKS R29 R9 K52 ["Stylizer"]
+  SETTABLEKS R29 R28 K52 ["Stylizer"]
+  GETTABLEKS R29 R9 K53 ["Localization"]
+  SETTABLEKS R29 R28 K53 ["Localization"]
+  GETTABLEKS R29 R9 K54 ["PluginActions"]
+  SETTABLEKS R29 R28 K54 ["PluginActions"]
+  CALL R27 1 1
+  MOVE R28 R23
+  CALL R27 1 1
+  MOVE R23 R27
+  DUPCLOSURE R27 K56 [PROTO_19]
+  DUPCLOSURE R28 K57 [PROTO_23]
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  GETTABLEKS R29 R2 K58 ["connect"]
+  MOVE R30 R27
+  MOVE R31 R28
+  CALL R29 2 1
+  MOVE R30 R23
+  CALL R29 1 -1
+  RETURN R29 -1

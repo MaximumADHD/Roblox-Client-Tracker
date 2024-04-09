@@ -42,25 +42,23 @@ MAIN:
   LOADK R2 K2 ["DevFrameworkToggleAllowEyeIcon"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
-  GETIMPORT R6 K5 [script]
-  GETTABLEKS R5 R6 K6 ["Parent"]
-  GETTABLEKS R4 R5 K6 ["Parent"]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R4 R1 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Framework"]
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["AssetImporter"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Framework"]
   CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R5 R1 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Roact"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Roact"]
   CALL R3 1 1
-  GETTABLEKS R5 R2 K12 ["Style"]
-  GETTABLEKS R4 R5 K13 ["Stylizer"]
-  GETTABLEKS R5 R2 K14 ["UI"]
-  GETTABLEKS R6 R5 K15 ["ToggleButton"]
-  DUPCLOSURE R7 K16 [PROTO_0]
+  GETTABLEKS R5 R2 K13 ["Style"]
+  GETTABLEKS R4 R5 K14 ["Stylizer"]
+  GETTABLEKS R5 R2 K15 ["UI"]
+  GETTABLEKS R6 R5 K16 ["ToggleButton"]
+  DUPCLOSURE R7 K17 [PROTO_0]
   CAPTURE VAL R0
   CAPTURE VAL R3
   CAPTURE VAL R6

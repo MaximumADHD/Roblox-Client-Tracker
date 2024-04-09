@@ -6,10 +6,10 @@ local var3 = require(var0.Src.Contexts.NotificationsProvider)
 local var4 = require(var0.Src.Contexts.MenuVisibleProvider)
 local var5 = require(var0.Src.Components.NotificationTray)
 return function()
-   local var340 = {}
-   var340.notificationClient = var2
-   local var342 = {}
-   var342.NotificationTray = var1.createElement(var5)
-   local var0 = var1.createElement(var3, var340, var342)
+   local var107 = {}
+   var107.notificationClient = var2
+   local var109 = {}
+   var109.NotificationTray = var1.createElement(var5)
+   local var0 = var1.createElement(var3, var107, var109)
    return var1.createElement(var4, {}, {})
 end

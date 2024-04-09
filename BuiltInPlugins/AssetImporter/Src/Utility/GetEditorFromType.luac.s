@@ -22,35 +22,35 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R4 R0 K3 ["Src"]
-  GETTABLEKS R3 R4 K4 ["Components"]
-  GETTABLEKS R2 R3 K5 ["Properties"]
-  GETTABLEKS R1 R2 K6 ["Types"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R3 R1 K9 ["BooleanProperty"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R4 R0 K4 ["Src"]
+  GETTABLEKS R3 R4 K5 ["Components"]
+  GETTABLEKS R2 R3 K6 ["Properties"]
+  GETTABLEKS R1 R2 K7 ["Types"]
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R3 R1 K10 ["BooleanProperty"]
   CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R4 R1 K10 ["EnumProperty"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R4 R1 K11 ["EnumProperty"]
   CALL R3 1 1
-  GETIMPORT R4 K8 [require]
-  GETTABLEKS R5 R1 K11 ["NumberProperty"]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R5 R1 K12 ["NumberProperty"]
   CALL R4 1 1
-  GETIMPORT R5 K8 [require]
-  GETTABLEKS R6 R1 K12 ["StringProperty"]
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R6 R1 K13 ["StringProperty"]
   CALL R5 1 1
-  GETIMPORT R6 K8 [require]
-  GETTABLEKS R7 R1 K13 ["VectorProperty"]
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R7 R1 K14 ["VectorProperty"]
   CALL R6 1 1
   NEWTABLE R7 8 0
-  SETTABLEKS R2 R7 K14 ["boolean"]
-  SETTABLEKS R3 R7 K15 ["userdata"]
-  SETTABLEKS R4 R7 K16 ["number"]
-  SETTABLEKS R5 R7 K17 ["string"]
-  SETTABLEKS R6 R7 K18 ["vector"]
-  DUPCLOSURE R8 K19 [PROTO_0]
+  SETTABLEKS R2 R7 K15 ["boolean"]
+  SETTABLEKS R3 R7 K16 ["userdata"]
+  SETTABLEKS R4 R7 K17 ["number"]
+  SETTABLEKS R5 R7 K18 ["string"]
+  SETTABLEKS R6 R7 K19 ["vector"]
+  DUPCLOSURE R8 K20 [PROTO_0]
   CAPTURE VAL R7
   RETURN R8 1

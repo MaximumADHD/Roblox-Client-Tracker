@@ -162,21 +162,21 @@ MAIN:
   NEWTABLE R19 0 0
   CALL R16 3 1
   MOVE R17 R3
-  LOADK R18 K62 ["> .Component-FilterMenu-By"]
+  LOADK R18 K62 [">> .Component-FilterMenu-By"]
   DUPTABLE R19 K63 [{"Size", "BackgroundTransparency"}]
   GETIMPORT R20 K38 [UDim2.new]
   LOADN R21 1
   LOADN R22 0
   LOADN R23 0
-  LOADN R24 30
+  GETTABLEKS R24 R2 K64 ["byHeight"]
   CALL R20 4 1
   SETTABLEKS R20 R19 K35 ["Size"]
   LOADN R20 1
   SETTABLEKS R20 R19 K51 ["BackgroundTransparency"]
-  NEWTABLE R20 0 2
+  NEWTABLE R20 0 3
   MOVE R21 R3
   LOADK R22 K41 ["::UIPadding"]
-  DUPTABLE R23 K64 [{"PaddingLeft"}]
+  DUPTABLE R23 K65 [{"PaddingLeft"}]
   GETIMPORT R24 K33 [UDim.new]
   LOADN R25 0
   LOADN R26 8
@@ -184,34 +184,63 @@ MAIN:
   SETTABLEKS R24 R23 K58 ["PaddingLeft"]
   CALL R21 2 1
   MOVE R22 R3
-  LOADK R23 K50 ["> TextLabel"]
-  DUPTABLE R24 K67 [{"Size", "TextSize", "TextXAlignment", "TextYAlignment", "BackgroundTransparency"}]
+  LOADK R23 K66 ["> #Label"]
+  DUPTABLE R24 K69 [{"Size", "TextSize", "TextXAlignment", "TextYAlignment", "BackgroundTransparency"}]
   GETIMPORT R25 K38 [UDim2.new]
-  LOADN R26 1
+  LOADK R26 K70 [0.5]
   LOADN R27 0
   LOADN R28 1
   LOADN R29 0
   CALL R25 4 1
   SETTABLEKS R25 R24 K35 ["Size"]
-  GETTABLEKS R25 R2 K68 ["normalFontSize"]
+  GETTABLEKS R25 R2 K71 ["normalFontSize"]
   SETTABLEKS R25 R24 K21 ["TextSize"]
-  GETIMPORT R25 K71 [Enum.TextXAlignment.Left]
-  SETTABLEKS R25 R24 K65 ["TextXAlignment"]
-  GETIMPORT R25 K73 [Enum.TextYAlignment.Center]
-  SETTABLEKS R25 R24 K66 ["TextYAlignment"]
+  GETIMPORT R25 K74 [Enum.TextXAlignment.Left]
+  SETTABLEKS R25 R24 K67 ["TextXAlignment"]
+  GETIMPORT R25 K76 [Enum.TextYAlignment.Center]
+  SETTABLEKS R25 R24 K68 ["TextYAlignment"]
   LOADN R25 1
   SETTABLEKS R25 R24 K51 ["BackgroundTransparency"]
-  CALL R22 2 -1
+  CALL R22 2 1
+  MOVE R23 R3
+  LOADK R24 K77 ["> #SelectAll"]
+  DUPTABLE R25 K78 [{"Size", "TextSize", "TextXAlignment", "TextYAlignment", "BackgroundTransparency", "TextColor3"}]
+  GETIMPORT R26 K38 [UDim2.new]
+  LOADK R27 K70 [0.5]
+  LOADN R28 0
+  LOADN R29 1
+  LOADN R30 0
+  CALL R26 4 1
+  SETTABLEKS R26 R25 K35 ["Size"]
+  GETTABLEKS R26 R2 K71 ["normalFontSize"]
+  SETTABLEKS R26 R25 K21 ["TextSize"]
+  GETIMPORT R26 K80 [Enum.TextXAlignment.Right]
+  SETTABLEKS R26 R25 K67 ["TextXAlignment"]
+  GETIMPORT R26 K76 [Enum.TextYAlignment.Center]
+  SETTABLEKS R26 R25 K68 ["TextYAlignment"]
+  LOADN R26 1
+  SETTABLEKS R26 R25 K51 ["BackgroundTransparency"]
+  LOADK R26 K19 ["$TextPrimary"]
+  SETTABLEKS R26 R25 K17 ["TextColor3"]
+  NEWTABLE R26 0 1
+  MOVE R27 R3
+  LOADK R28 K26 [":hover"]
+  DUPTABLE R29 K18 [{"TextColor3"}]
+  LOADK R30 K54 ["$TextSecondary"]
+  SETTABLEKS R30 R29 K17 ["TextColor3"]
+  CALL R27 2 -1
+  SETLIST R26 R27 -1 [1]
+  CALL R23 3 -1
   SETLIST R20 R21 -1 [1]
   CALL R17 3 1
   MOVE R18 R3
-  LOADK R19 K74 [">> .Component-FilterMenu-CheckBoxes"]
+  LOADK R19 K81 [">> .Component-FilterMenu-CheckBoxes"]
   DUPTABLE R20 K49 [{"Size"}]
   GETIMPORT R21 K38 [UDim2.new]
   LOADN R22 1
   LOADN R23 0
   LOADN R24 0
-  GETTABLEKS R25 R2 K75 ["checkBoxRowHeight"]
+  GETTABLEKS R25 R2 K82 ["checkBoxRowHeight"]
   CALL R21 4 1
   SETTABLEKS R21 R20 K35 ["Size"]
   NEWTABLE R21 0 3
@@ -225,29 +254,29 @@ MAIN:
   SETTABLEKS R25 R24 K46 ["Padding"]
   CALL R22 2 1
   MOVE R23 R3
-  LOADK R24 K76 [">> .Component-Checkbox"]
+  LOADK R24 K83 [">> .Component-Checkbox"]
   NEWTABLE R25 0 0
   CALL R23 2 1
   MOVE R24 R3
-  LOADK R25 K77 [">> .Component-CheckboxButton"]
-  DUPTABLE R26 K78 [{"TextColor3", "Size", "BackgroundTransparency", "TextSize", "TextXAlignment", "TextYAlignment"}]
+  LOADK R25 K84 [">> .Component-CheckboxButton"]
+  DUPTABLE R26 K85 [{"TextColor3", "Size", "BackgroundTransparency", "TextSize", "TextXAlignment", "TextYAlignment"}]
   LOADK R27 K19 ["$TextPrimary"]
   SETTABLEKS R27 R26 K17 ["TextColor3"]
   GETIMPORT R27 K38 [UDim2.new]
   LOADN R28 1
   LOADN R29 156
   LOADN R30 0
-  GETTABLEKS R31 R2 K75 ["checkBoxRowHeight"]
+  GETTABLEKS R31 R2 K82 ["checkBoxRowHeight"]
   CALL R27 4 1
   SETTABLEKS R27 R26 K35 ["Size"]
   LOADN R27 1
   SETTABLEKS R27 R26 K51 ["BackgroundTransparency"]
-  GETTABLEKS R27 R2 K68 ["normalFontSize"]
+  GETTABLEKS R27 R2 K71 ["normalFontSize"]
   SETTABLEKS R27 R26 K21 ["TextSize"]
-  GETIMPORT R27 K71 [Enum.TextXAlignment.Left]
-  SETTABLEKS R27 R26 K65 ["TextXAlignment"]
-  GETIMPORT R27 K73 [Enum.TextYAlignment.Center]
-  SETTABLEKS R27 R26 K66 ["TextYAlignment"]
+  GETIMPORT R27 K74 [Enum.TextXAlignment.Left]
+  SETTABLEKS R27 R26 K67 ["TextXAlignment"]
+  GETIMPORT R27 K76 [Enum.TextYAlignment.Center]
+  SETTABLEKS R27 R26 K68 ["TextYAlignment"]
   CALL R24 2 -1
   SETLIST R21 R22 -1 [1]
   CALL R18 3 -1

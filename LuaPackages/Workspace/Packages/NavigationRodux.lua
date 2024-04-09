@@ -5,9 +5,9 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["NavigationRodux"]["NavigationRodux"])
 
-export type Page = Package.Page
-export type Route = Package.Route
-export type History = Package.History
+export type LegacyPage = Package.LegacyPage
+export type LegacyRoute = Package.LegacyRoute
+export type LegacyHistory = Package.LegacyHistory
 export type State = Package.State
 
 

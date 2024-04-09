@@ -15,6 +15,14 @@ local TAU = 2 * math.pi
 local MIN_ALLOWED_ELEVATION_DEG = -80
 local MAX_ALLOWED_ELEVATION_DEG = 80
 
+local FFlagUserRemoveVRReferences
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserRemoveVRReferences")
+	end)
+	FFlagUserRemoveVRReferences = success and result
+end
+
 local externalProperties = {}
 externalProperties["InitialDistance"]  = 25
 externalProperties["MinDistance"]      = 10
@@ -32,7 +40,7 @@ local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 
 --[[ Services ]]--
 local PlayersService = game:GetService('Players')
-local VRService = game:GetService("VRService")
+local VRService = game:GetService("VRService") -- remove with FFlagUserRemoveVRReferences
 
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
@@ -246,7 +254,7 @@ function OrbitalCamera:Update(dt: number): (CFrame, CFrame)
 			self:SetCameraToSubjectDistance(self.currentSubjectDistance * self.gamepadDollySpeedMultiplier)
 		end
 
-		local VREnabled = VRService.VREnabled
+		local VREnabled = VRService.VREnabled and not FFlagUserRemoveVRReferences
 		newCameraFocus = VREnabled and self:GetVRFocus(subjectPosition, timeDelta) or CFrame.new(subjectPosition)
 
 		local flaggedRotateInput = CameraInput.getRotation()

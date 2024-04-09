@@ -1,0 +1,34 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R2 1 2
+  JUMPIFNOT R3 [+10]
+  MOVE R6 R2
+  FASTCALL1 TOSTRING R3 [+3]
+  MOVE R8 R3
+  GETIMPORT R7 K1 [tostring]
+  CALL R7 1 1
+  NAMECALL R4 R1 K2 ["SetCurrentMaterial"]
+  CALL R4 3 0
+  RETURN R0 0
+  MOVE R6 R2
+  LOADK R7 K3 [""]
+  NAMECALL R4 R1 K2 ["SetCurrentMaterial"]
+  CALL R4 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["MaterialPicker"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["MaterialFramework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["parseMaterial"]
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

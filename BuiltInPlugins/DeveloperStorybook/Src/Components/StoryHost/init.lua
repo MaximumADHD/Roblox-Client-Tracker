@@ -199,6 +199,7 @@ function StoryHost:getStoryProps(): Types.StoryProps
 		theme = props.ThemeName,
 		platform = props.Platform,
 		settings = props.Settings,
+		design = props.Design:get(),
 	})
 end
 
@@ -232,6 +233,7 @@ function StoryHost:render()
 end
 
 StoryHost = withContext({
+	Design = ContextServices.Design or nil,
 	Focus = ContextServices.Focus or nil,
 	Plugin = ContextServices.Plugin or nil,
 })(StoryHost)

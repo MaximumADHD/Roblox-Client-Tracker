@@ -1,7 +1,4 @@
 PROTO_0:
-  RETURN R0 0
-
-PROTO_1:
   FASTCALL1 TYPE R0 [+3]
   MOVE R4 R0
   GETIMPORT R3 K1 [type]
@@ -13,23 +10,21 @@ PROTO_1:
   LOADK R3 K3 ["Expected story to be a table"]
   GETIMPORT R1 K5 [assert]
   CALL R1 2 0
-  DUPTABLE R1 K9 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "contextType"}]
+  DUPTABLE R1 K8 [{"activityHistoryClient", "contextType"}]
   GETUPVAL R2 0
   SETTABLEKS R2 R1 K6 ["activityHistoryClient"]
-  DUPCLOSURE R2 K10 [PROTO_0]
-  SETTABLEKS R2 R1 K7 ["showSaveOrPublishPlaceToRobloxFn"]
-  LOADK R2 K11 ["mock context"]
-  SETTABLEKS R2 R1 K8 ["contextType"]
-  DUPTABLE R2 K13 [{"ActivityHistoryProvider"}]
+  LOADK R2 K9 ["mock context"]
+  SETTABLEKS R2 R1 K7 ["contextType"]
+  DUPTABLE R2 K11 [{"ActivityHistoryProvider"}]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K14 ["createElement"]
+  GETTABLEKS R3 R4 K12 ["createElement"]
   GETUPVAL R4 2
   MOVE R5 R1
   MOVE R6 R0
   CALL R3 3 1
-  SETTABLEKS R3 R2 K12 ["ActivityHistoryProvider"]
+  SETTABLEKS R3 R2 K10 ["ActivityHistoryProvider"]
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K15 ["provideMockContext"]
+  GETTABLEKS R3 R4 K13 ["provideMockContext"]
   GETUPVAL R4 4
   MOVE R5 R2
   CALL R3 2 -1
@@ -77,7 +72,7 @@ MAIN:
   LOADB R12 1
   CALL R11 1 -1
   SETLIST R8 R9 -1 [1]
-  DUPCLOSURE R9 K20 [PROTO_1]
+  DUPCLOSURE R9 K20 [PROTO_0]
   CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R5

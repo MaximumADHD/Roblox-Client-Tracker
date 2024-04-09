@@ -151,7 +151,7 @@ PROTO_0:
   GETIMPORT R27 K32 [table.insert]
   CALL R27 2 0
   FORGLOOP R22 2 [-9]
-  DUPTABLE R22 K48 [{"Biomes", "BiomePoints", "BiomeBlending", "BiomeBlendingInverse", "BiomeSize", "GetPerlin", "GetNoise", "MaterialMap", "OccupancyMap", "Position", "PreviousColumnHeights", "ProcessVoxel", "SliceY", "SliceZ", "VoxelCorner", "VoxelExtents", "VoxelSize", "X"}]
+  DUPTABLE R22 K49 [{"Biomes", "BiomePoints", "BiomeBlending", "BiomeBlendingInverse", "BiomeSize", "GetPerlin", "GetNoise", "MaterialMap", "OccupancyMap", "Position", "PreviousColumnHeights", "ProcessVoxel", "SliceY", "SliceZ", "StartTime", "VoxelCorner", "VoxelExtents", "VoxelSize", "X"}]
   SETTABLEKS R21 R22 K30 ["Biomes"]
   SETTABLEKS R19 R22 K33 ["BiomePoints"]
   SETTABLEKS R20 R22 K29 ["BiomeBlending"]
@@ -176,44 +176,47 @@ PROTO_0:
   GETUPVAL R23 7
   MOVE R24 R3
   MOVE R25 R4
-  DUPTABLE R26 K56 [{"Biomes", "DefaultBiomeFill", "DefaultBiomeSurface", "DefaultBiomeValue", "HasCaves", "MapHeight", "SurfaceThickness", "WaterLevel"}]
+  DUPTABLE R26 K57 [{"Biomes", "DefaultBiomeFill", "DefaultBiomeSurface", "DefaultBiomeValue", "HasCaves", "MapHeight", "SurfaceThickness", "WaterLevel"}]
   SETTABLEKS R21 R26 K30 ["Biomes"]
-  GETIMPORT R27 K58 [Enum.Material.Rock]
-  SETTABLEKS R27 R26 K49 ["DefaultBiomeFill"]
-  GETIMPORT R27 K60 [Enum.Material.Grass]
-  SETTABLEKS R27 R26 K50 ["DefaultBiomeSurface"]
-  LOADK R27 K61 [0.5]
-  SETTABLEKS R27 R26 K51 ["DefaultBiomeValue"]
+  GETIMPORT R27 K59 [Enum.Material.Rock]
+  SETTABLEKS R27 R26 K50 ["DefaultBiomeFill"]
+  GETIMPORT R27 K61 [Enum.Material.Grass]
+  SETTABLEKS R27 R26 K51 ["DefaultBiomeSurface"]
+  LOADK R27 K62 [0.5]
+  SETTABLEKS R27 R26 K52 ["DefaultBiomeValue"]
   GETTABLEKS R29 R0 K0 ["Payload"]
   GETUPVAL R31 1
   GETTABLEKS R30 R31 K1 ["BiomeSettings"]
   GETTABLE R28 R29 R30
   GETUPVAL R30 2
-  GETTABLEKS R29 R30 K62 ["Caves"]
+  GETTABLEKS R29 R30 K63 ["Caves"]
   GETTABLE R27 R28 R29
-  SETTABLEKS R27 R26 K52 ["HasCaves"]
-  LOADK R28 K61 [0.5]
+  SETTABLEKS R27 R26 K53 ["HasCaves"]
+  LOADK R28 K62 [0.5]
   GETTABLEKS R30 R6 K17 ["Y"]
   GETUPVAL R31 6
   DIV R29 R30 R31
   DIV R27 R28 R29
-  SETTABLEKS R27 R26 K53 ["MapHeight"]
-  LOADK R27 K63 [0.018]
-  SETTABLEKS R27 R26 K54 ["SurfaceThickness"]
-  LOADK R27 K64 [0.48]
-  SETTABLEKS R27 R26 K55 ["WaterLevel"]
+  SETTABLEKS R27 R26 K54 ["MapHeight"]
+  LOADK R27 K64 [0.018]
+  SETTABLEKS R27 R26 K55 ["SurfaceThickness"]
+  LOADK R27 K65 [0.48]
+  SETTABLEKS R27 R26 K56 ["WaterLevel"]
   CALL R23 3 1
   SETTABLEKS R23 R22 K41 ["ProcessVoxel"]
   SETTABLEKS R15 R22 K42 ["SliceY"]
   SETTABLEKS R16 R22 K43 ["SliceZ"]
+  GETIMPORT R23 K68 [os.clock]
+  CALL R23 0 1
+  SETTABLEKS R23 R22 K44 ["StartTime"]
   DIVK R24 R9 K9 [2]
   SUB R23 R11 R24
-  SETTABLEKS R23 R22 K44 ["VoxelCorner"]
-  SETTABLEKS R10 R22 K45 ["VoxelExtents"]
-  SETTABLEKS R9 R22 K46 ["VoxelSize"]
+  SETTABLEKS R23 R22 K45 ["VoxelCorner"]
+  SETTABLEKS R10 R22 K46 ["VoxelExtents"]
+  SETTABLEKS R9 R22 K47 ["VoxelSize"]
   LOADN R23 1
-  SETTABLEKS R23 R22 K47 ["X"]
-  SETTABLEKS R22 R0 K65 ["State"]
+  SETTABLEKS R23 R22 K48 ["X"]
+  SETTABLEKS R22 R0 K69 ["State"]
   RETURN R0 0
 
 PROTO_1:
@@ -537,19 +540,44 @@ PROTO_1:
   RETURN R26 2
 
 PROTO_2:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["ChangeHistoryService"]
-  LOADK R4 K1 ["GenerateAction"]
-  NAMECALL R2 R2 K2 ["SetWaypoint"]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+37]
+  GETTABLEKS R4 R0 K0 ["Payload"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["SelectionSettings"]
+  GETTABLE R3 R4 R5
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["Size"]
+  GETTABLE R2 R3 R4
+  GETTABLEKS R3 R2 K3 ["X"]
+  GETUPVAL R4 3
+  JUMPIFNOTLE R4 R3 [+23]
+  GETTABLEKS R3 R2 K4 ["Y"]
+  GETUPVAL R4 3
+  JUMPIFNOTLE R4 R3 [+18]
+  GETTABLEKS R3 R2 K5 ["Z"]
+  GETUPVAL R4 3
+  JUMPIFNOTLE R4 R3 [+13]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K6 ["NormalizeRegionTimer"]
+  GETTABLEKS R7 R0 K7 ["State"]
+  GETTABLEKS R6 R7 K8 ["StartTime"]
+  MOVE R7 R2
+  CALL R5 2 -1
+  NAMECALL R3 R1 K9 ["addTimeStatistic"]
+  CALL R3 -1 0
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K10 ["ChangeHistoryService"]
+  LOADK R4 K11 ["GenerateAction"]
+  NAMECALL R2 R2 K12 ["SetWaypoint"]
   CALL R2 2 0
-  GETUPVAL R2 1
-  CALL R2 0 0
   RETURN R0 0
 
 PROTO_3:
+  LOADN R3 0
   LOADN R4 0
-  LOADN R5 0
-  DUPCLOSURE R6 K0 [PROTO_0]
+  DUPCLOSURE R5 K0 [PROTO_0]
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
@@ -558,31 +586,35 @@ PROTO_3:
   CAPTURE UPVAL U5
   CAPTURE UPVAL U6
   CAPTURE UPVAL U7
-  NEWCLOSURE R7 P1
+  NEWCLOSURE R6 P1
   CAPTURE UPVAL U6
   CAPTURE UPVAL U8
   CAPTURE UPVAL U9
+  CAPTURE REF R3
   CAPTURE REF R4
-  CAPTURE REF R5
   CAPTURE VAL R2
-  NEWCLOSURE R8 P2
+  NEWCLOSURE R7 P2
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
   CAPTURE VAL R2
-  CAPTURE VAL R3
-  GETUPVAL R10 10
-  GETTABLEKS R9 R10 K1 ["new"]
-  DUPTABLE R10 K9 [{"AllowPause", "AllowCancel", "Description", "Name", "OnFinish", "OnStart", "OnStep"}]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K2 ["AllowPause"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K3 ["AllowCancel"]
-  SETTABLEKS R1 R10 K4 ["Description"]
-  SETTABLEKS R0 R10 K5 ["Name"]
-  SETTABLEKS R8 R10 K6 ["OnFinish"]
-  SETTABLEKS R6 R10 K7 ["OnStart"]
-  SETTABLEKS R7 R10 K8 ["OnStep"]
-  CALL R9 1 -1
-  CLOSEUPVALS R4
-  RETURN R9 -1
+  GETUPVAL R9 13
+  GETTABLEKS R8 R9 K1 ["new"]
+  DUPTABLE R9 K9 [{"AllowPause", "AllowCancel", "Description", "Name", "OnFinish", "OnStart", "OnStep"}]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K2 ["AllowPause"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K3 ["AllowCancel"]
+  SETTABLEKS R1 R9 K4 ["Description"]
+  SETTABLEKS R0 R9 K5 ["Name"]
+  SETTABLEKS R7 R9 K6 ["OnFinish"]
+  SETTABLEKS R5 R9 K7 ["OnStart"]
+  SETTABLEKS R6 R9 K8 ["OnStep"]
+  CALL R8 1 -1
+  CLOSEUPVALS R3
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0
@@ -614,30 +646,42 @@ MAIN:
   GETTABLEKS R8 R9 K15 ["Constants"]
   CALL R7 1 1
   GETTABLEKS R8 R7 K16 ["VoxelResolution"]
-  GETIMPORT R9 K8 [require]
-  GETTABLEKS R13 R0 K4 ["Src"]
-  GETTABLEKS R12 R13 K5 ["Util"]
-  GETTABLEKS R11 R12 K17 ["Operations"]
-  GETTABLEKS R10 R11 K18 ["BaseOperation"]
-  CALL R9 1 1
-  GETIMPORT R10 K8 [require]
-  GETTABLEKS R12 R0 K4 ["Src"]
-  GETTABLEKS R11 R12 K19 ["Types"]
-  CALL R10 1 1
-  GETTABLEKS R11 R10 K20 ["Biome"]
-  GETTABLEKS R12 R10 K21 ["BiomeSettings"]
-  GETTABLEKS R13 R10 K22 ["Category"]
-  GETTABLEKS R14 R10 K23 ["SelectionSettings"]
-  DUPCLOSURE R15 K24 [PROTO_3]
+  GETTABLEKS R9 R7 K17 ["RegionNormalization"]
+  GETTABLEKS R11 R0 K4 ["Src"]
+  GETTABLEKS R10 R11 K5 ["Util"]
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R12 R10 K18 ["AnalyticsHelper"]
+  CALL R11 1 1
+  GETIMPORT R12 K8 [require]
+  GETTABLEKS R14 R10 K19 ["Operations"]
+  GETTABLEKS R13 R14 K20 ["BaseOperation"]
+  CALL R12 1 1
+  GETIMPORT R13 K8 [require]
+  GETTABLEKS R15 R0 K4 ["Src"]
+  GETTABLEKS R14 R15 K21 ["Types"]
+  CALL R13 1 1
+  GETTABLEKS R14 R13 K22 ["Biome"]
+  GETTABLEKS R15 R13 K23 ["BiomeSettings"]
+  GETTABLEKS R16 R13 K24 ["Category"]
+  GETTABLEKS R17 R13 K25 ["SelectionSettings"]
+  GETIMPORT R18 K8 [require]
+  GETTABLEKS R21 R0 K4 ["Src"]
+  GETTABLEKS R20 R21 K26 ["Flags"]
+  GETTABLEKS R19 R20 K27 ["getFFlagTerrainEditorTimeStatistic"]
+  CALL R18 1 1
+  DUPCLOSURE R19 K28 [PROTO_3]
   CAPTURE VAL R2
-  CAPTURE VAL R13
-  CAPTURE VAL R12
+  CAPTURE VAL R16
+  CAPTURE VAL R15
   CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R14
+  CAPTURE VAL R17
   CAPTURE VAL R8
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R11
+  CAPTURE VAL R14
+  CAPTURE VAL R18
   CAPTURE VAL R9
-  RETURN R15 1
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  RETURN R19 1

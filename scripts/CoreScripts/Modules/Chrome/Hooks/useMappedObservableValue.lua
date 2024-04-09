@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
+local FFlagChromeObservableStateCheck = require(script.Parent.Parent.Flags.GetFFlagChromeObservableStateCheck)()
 
 -- An optimized version of useObservableValue. Allowing the user to narrow the return data to reduce re-renders.
 
@@ -17,6 +18,13 @@ return function<T>(observableValue: ChromeUtils.ObservableValue<T>, mapFunc: (T)
 		local conn = observableValue:connect(function()
 			setValue(mapFunc(observableValue:get()))
 		end)
+
+		if FFlagChromeObservableStateCheck then
+			local v = mapFunc(observableValue:get())
+			if value ~= v then
+				setValue(v)
+			end
+		end
 
 		return function()
 			conn:disconnect()

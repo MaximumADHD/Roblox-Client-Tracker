@@ -1,0 +1,235 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["Size"]
+  JUMPIF R1 [+5]
+  GETIMPORT R1 K3 [UDim2.fromOffset]
+  LOADN R2 100
+  LOADN R3 100
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["createElement"]
+  LOADK R5 K6 ["ImageButton"]
+  NEWTABLE R6 8 0
+  SETTABLEKS R1 R6 K0 ["Size"]
+  JUMPIFNOT R2 [+2]
+  LOADK R7 K7 [0.75]
+  JUMP [+1]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K8 ["BackgroundTransparency"]
+  GETTABLEKS R7 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K9 ["LayoutOrder"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K10 ["Event"]
+  GETTABLEKS R7 R8 K11 ["Activated"]
+  GETTABLEKS R8 R0 K12 ["OnClick"]
+  SETTABLE R8 R6 R7
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K10 ["Event"]
+  GETTABLEKS R7 R8 K13 ["MouseEnter"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R3
+  SETTABLE R8 R6 R7
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K10 ["Event"]
+  GETTABLEKS R7 R8 K14 ["MouseLeave"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R3
+  SETTABLE R8 R6 R7
+  DUPTABLE R7 K19 [{"UICorner", "UIStroke", "UIListLayout", "ImageButton", "TextLabel"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  LOADK R9 K15 ["UICorner"]
+  DUPTABLE R10 K21 [{"CornerRadius"}]
+  GETIMPORT R11 K24 [UDim.new]
+  LOADN R12 0
+  LOADN R13 8
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K20 ["CornerRadius"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["UICorner"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  LOADK R9 K16 ["UIStroke"]
+  DUPTABLE R10 K28 [{"Color", "Transparency", "Thickness"}]
+  GETIMPORT R11 K30 [Color3.new]
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 0
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K25 ["Color"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K26 ["Transparency"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K27 ["Thickness"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K16 ["UIStroke"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  LOADK R9 K17 ["UIListLayout"]
+  DUPTABLE R10 K35 [{"FillDirection", "HorizontalAlignment", "VerticalAlignment", "SortOrder"}]
+  GETIMPORT R11 K38 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K31 ["FillDirection"]
+  GETIMPORT R11 K40 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R11 R10 K32 ["HorizontalAlignment"]
+  GETIMPORT R11 K41 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R11 R10 K33 ["VerticalAlignment"]
+  GETIMPORT R11 K42 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R11 R10 K34 ["SortOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K17 ["UIListLayout"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  LOADK R9 K43 ["ImageLabel"]
+  DUPTABLE R10 K46 [{"Size", "AnchorPoint", "BackgroundTransparency", "Image", "LayoutOrder"}]
+  GETIMPORT R11 K48 [UDim2.fromScale]
+  LOADK R12 K49 [0.3]
+  LOADK R13 K49 [0.3]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K0 ["Size"]
+  GETIMPORT R11 K51 [Vector2.new]
+  LOADK R12 K52 [0.5]
+  LOADK R13 K49 [0.3]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K44 ["AnchorPoint"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K8 ["BackgroundTransparency"]
+  GETTABLEKS R12 R0 K45 ["Image"]
+  ORK R11 R12 K53 [""]
+  SETTABLEKS R11 R10 K45 ["Image"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  DUPTABLE R11 K55 [{"UICorner", "UIStroke", "ModifiedDot"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  LOADK R13 K15 ["UICorner"]
+  DUPTABLE R14 K21 [{"CornerRadius"}]
+  GETIMPORT R15 K24 [UDim.new]
+  LOADN R16 0
+  LOADN R17 50
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K20 ["CornerRadius"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K15 ["UICorner"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  LOADK R13 K16 ["UIStroke"]
+  DUPTABLE R14 K28 [{"Color", "Transparency", "Thickness"}]
+  GETIMPORT R15 K30 [Color3.new]
+  LOADN R16 0
+  LOADN R17 0
+  LOADN R18 0
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K25 ["Color"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K26 ["Transparency"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K27 ["Thickness"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K16 ["UIStroke"]
+  GETTABLEKS R13 R0 K56 ["HasChanges"]
+  JUMPIFNOT R13 [+48]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K5 ["createElement"]
+  LOADK R13 K43 ["ImageLabel"]
+  DUPTABLE R14 K58 [{"Size", "Position", "Image"}]
+  GETIMPORT R15 K3 [UDim2.fromOffset]
+  LOADN R16 10
+  LOADN R17 10
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K0 ["Size"]
+  GETIMPORT R15 K48 [UDim2.fromScale]
+  LOADK R16 K59 [0.85]
+  LOADK R17 K60 [0.15]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K57 ["Position"]
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K61 ["getIconForCurrentTheme"]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K62 ["IconEnums"]
+  GETTABLEKS R16 R17 K63 ["Notification"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K45 ["Image"]
+  DUPTABLE R15 K64 [{"UICorner"}]
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K5 ["createElement"]
+  LOADK R17 K15 ["UICorner"]
+  DUPTABLE R18 K21 [{"CornerRadius"}]
+  GETIMPORT R19 K24 [UDim.new]
+  LOADN R20 0
+  LOADN R21 5
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K20 ["CornerRadius"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K15 ["UICorner"]
+  CALL R12 3 1
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K54 ["ModifiedDot"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K6 ["ImageButton"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K67 [{"Size", "BackgroundTransparency", "Text", "Style", "LayoutOrder"}]
+  GETIMPORT R11 K68 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 0
+  LOADK R14 K69 [0.2]
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K0 ["Size"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K8 ["BackgroundTransparency"]
+  GETTABLEKS R12 R0 K65 ["Text"]
+  ORK R11 R12 K53 [""]
+  SETTABLEKS R11 R10 K65 ["Text"]
+  LOADK R11 K70 ["Bold"]
+  SETTABLEKS R11 R10 K66 ["Style"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K18 ["TextLabel"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FileSync"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["ModernIcons"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K12 ["UI"]
+  GETTABLEKS R5 R4 K13 ["TextLabel"]
+  DUPCLOSURE R6 K14 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  RETURN R6 1

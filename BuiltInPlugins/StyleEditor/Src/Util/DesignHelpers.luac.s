@@ -35,22 +35,27 @@ PROTO_1:
   RETURN R2 1
 
 PROTO_2:
-  LOADK R3 K0 ["StyleCategory"]
-  NAMECALL R1 R0 K1 ["GetAttribute"]
+  LOADK R4 K0 ["StyleDerive"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+10]
+  GETTABLEKS R2 R0 K2 ["Parent"]
+  JUMPIFNOT R2 [+7]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  LOADK R3 K3 ["StyleCategory"]
+  NAMECALL R1 R1 K4 ["GetAttribute"]
+  CALL R1 2 1
+  JUMP [+4]
+  LOADK R3 K3 ["StyleCategory"]
+  NAMECALL R1 R0 K4 ["GetAttribute"]
   CALL R1 2 1
   MOVE R2 R1
-  JUMPIFNOT R2 [+14]
-  GETUPVAL R2 0
-  MOVE R3 R1
-  LOADK R4 K2 ["Themes"]
-  CALL R2 2 1
-  JUMPIF R2 [+9]
-  GETUPVAL R2 0
-  MOVE R3 R1
-  LOADK R4 K3 ["Tokens"]
-  CALL R2 2 1
-  JUMPIF R2 [+4]
-  JUMPIFEQKS R1 K4 ["Design"] [+2]
+  JUMPIFNOT R2 [+10]
+  LOADB R2 1
+  JUMPIFEQKS R1 K5 ["Themes"] [+8]
+  LOADB R2 1
+  JUMPIFEQKS R1 K6 ["Tokens"] [+5]
+  JUMPIFEQKS R1 K7 ["Designs"] [+2]
   LOADB R2 0 +1
   LOADB R2 1
   RETURN R2 1
@@ -431,7 +436,6 @@ MAIN:
   DUPCLOSURE R13 K33 [PROTO_1]
   SETTABLEKS R13 R12 K34 ["isUnderPath"]
   DUPCLOSURE R13 K35 [PROTO_2]
-  CAPTURE VAL R9
   SETTABLEKS R13 R12 K36 ["isPartOfDesignSystem"]
   DUPCLOSURE R13 K37 [PROTO_3]
   CAPTURE VAL R1

@@ -11,6 +11,7 @@ return function()
       var36.sessionLengthSeconds = os.time() - var0.SessionStats.SessionStartTimestamp
       var36.focusTimeSeconds = var0.SessionStats.TotalPluginFocusTimeSeconds
       var36.unmatchedFocusEndCount = var0.SessionStats.PluginFocusEndWithoutStartCount
+      var36.buttonPressCounts = var0.SessionStats.ButtonPressCounts
       local var1 = var1(var36)
       arg2.Telemetry:logTelemetryEvent()
    end

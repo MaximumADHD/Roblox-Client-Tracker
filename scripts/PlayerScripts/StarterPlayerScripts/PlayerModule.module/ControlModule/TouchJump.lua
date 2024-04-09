@@ -24,6 +24,13 @@ local FFlagUserResizeAwareTouchControls do
 	FFlagUserResizeAwareTouchControls = success and result
 end
 
+local FFlagUserFixTouchJumpBug do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixTouchJumpBug")
+	end)
+	FFlagUserFixTouchJumpBug = success and result
+end
+
 function TouchJump.new()
 	local self = setmetatable(BaseCharacterController.new() :: any, TouchJump)
 
@@ -57,6 +64,9 @@ function TouchJump:EnableButton(enable)
 		end
 	else
 		self.jumpButton.Visible = false
+		if FFlagUserFixTouchJumpBug then
+			self.touchObject = nil
+		end
 		self.isJumping = false
 		self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
 	end
@@ -201,34 +211,35 @@ function TouchJump:Create()
 			UDim2.new(1, -(jumpButtonSize*1.5-10), 1, -jumpButtonSize * 1.75)
 	end
 
+	self.touchObject = nil
 	local touchObject: InputObject? = nil
 	self.jumpButton.InputBegan:connect(function(inputObject)
 		--A touch that starts elsewhere on the screen will be sent to a frame's InputBegan event
 		--if it moves over the frame. So we check that this is actually a new touch (inputObject.UserInputState ~= Enum.UserInputState.Begin)
-		if touchObject or inputObject.UserInputType ~= Enum.UserInputType.Touch
+		if self.touchObject or inputObject.UserInputType ~= Enum.UserInputType.Touch
 			or inputObject.UserInputState ~= Enum.UserInputState.Begin then
 			return
 		end
 
-		touchObject = inputObject
+		self.touchObject = inputObject
 		self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
 		self.isJumping = true
 	end)
 
 	local OnInputEnded = function()
-		touchObject = nil
+		self.touchObject = nil
 		self.isJumping = false
 		self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
 	end
 
 	self.jumpButton.InputEnded:connect(function(inputObject: InputObject)
-		if inputObject == touchObject then
+		if inputObject == self.touchObject then
 			OnInputEnded()
 		end
 	end)
 
 	GuiService.MenuOpened:connect(function()
-		if touchObject then
+		if self.touchObject then
 			OnInputEnded()
 		end
 	end)

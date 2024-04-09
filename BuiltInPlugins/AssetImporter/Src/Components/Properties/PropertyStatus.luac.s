@@ -48,45 +48,44 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["ContextServices"]
-  GETTABLEKS R4 R3 K9 ["withContext"]
-  GETTABLEKS R5 R3 K10 ["Localization"]
-  GETTABLEKS R6 R3 K11 ["Stylizer"]
-  GETTABLEKS R7 R2 K12 ["UI"]
-  GETTABLEKS R8 R7 K13 ["Tooltip"]
-  GETTABLEKS R9 R7 K14 ["Image"]
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K15 ["Src"]
-  GETTABLEKS R12 R13 K16 ["Resources"]
-  GETTABLEKS R11 R12 K17 ["StatusLevel"]
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETTABLEKS R5 R3 K11 ["Localization"]
+  GETTABLEKS R6 R3 K12 ["Stylizer"]
+  GETTABLEKS R7 R2 K13 ["UI"]
+  GETTABLEKS R8 R7 K14 ["Tooltip"]
+  GETTABLEKS R9 R7 K15 ["Image"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K16 ["Src"]
+  GETTABLEKS R12 R13 K17 ["Resources"]
+  GETTABLEKS R11 R12 K18 ["StatusLevel"]
   CALL R10 1 1
-  GETTABLEKS R11 R1 K18 ["PureComponent"]
-  LOADK R13 K19 ["PropertyStatus"]
-  NAMECALL R11 R11 K20 ["extend"]
+  GETTABLEKS R11 R1 K19 ["PureComponent"]
+  LOADK R13 K20 ["PropertyStatus"]
+  NAMECALL R11 R11 K21 ["extend"]
   CALL R11 2 1
-  DUPCLOSURE R12 K21 [PROTO_0]
+  DUPCLOSURE R12 K22 [PROTO_0]
   CAPTURE VAL R10
   CAPTURE VAL R1
   CAPTURE VAL R9
   CAPTURE VAL R8
-  SETTABLEKS R12 R11 K22 ["render"]
+  SETTABLEKS R12 R11 K23 ["render"]
   MOVE R12 R4
-  DUPTABLE R13 K23 [{"Localization", "Stylizer"}]
-  SETTABLEKS R5 R13 K10 ["Localization"]
-  SETTABLEKS R6 R13 K11 ["Stylizer"]
+  DUPTABLE R13 K24 [{"Localization", "Stylizer"}]
+  SETTABLEKS R5 R13 K11 ["Localization"]
+  SETTABLEKS R6 R13 K12 ["Stylizer"]
   CALL R12 1 1
   MOVE R13 R11
   CALL R12 1 1

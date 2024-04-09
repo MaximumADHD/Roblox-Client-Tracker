@@ -1,0 +1,34 @@
+PROTO_0:
+  DUPTABLE R1 K1 [{"plugin"}]
+  SETTABLEKS R0 R1 K0 ["plugin"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K3 [setmetatable]
+  CALL R2 2 0
+  RETURN R1 1
+
+PROTO_1:
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetManager"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["ContextServices"]
+  GETTABLEKS R3 R2 K9 ["ContextItem"]
+  LOADK R6 K10 ["PluginController"]
+  NAMECALL R4 R3 K11 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K13 ["new"]
+  DUPCLOSURE R5 K14 [PROTO_1]
+  SETTABLEKS R5 R4 K15 ["destroy"]
+  RETURN R4 1

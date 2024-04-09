@@ -203,6 +203,13 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnChanged"]
+  GETTABLEKS R2 R0 K1 ["Material"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_7:
   GETUPVAL R1 0
   LOADK R3 K0 ["MaterialRenderer"]
   NAMECALL R1 R1 K1 ["use"]
@@ -292,13 +299,14 @@ PROTO_6:
   GETUPVAL R14 12
   DUPTABLE R15 K32 [{"Items", "OnItemActivated", "OnRenderItem", "SelectedId", "Size"}]
   SETTABLEKS R5 R15 K28 ["Items"]
-  GETTABLEKS R16 R0 K33 ["OnChanged"]
+  NEWCLOSURE R16 P4
+  CAPTURE VAL R0
   SETTABLEKS R16 R15 K29 ["OnItemActivated"]
   SETTABLEKS R6 R15 K30 ["OnRenderItem"]
   GETTABLEKS R17 R0 K24 ["Value"]
-  GETTABLEKS R16 R17 K34 ["Name"]
+  GETTABLEKS R16 R17 K33 ["Name"]
   SETTABLEKS R16 R15 K31 ["SelectedId"]
-  GETIMPORT R16 K35 [UDim2.new]
+  GETIMPORT R16 K34 [UDim2.new]
   LOADN R17 1
   GETTABLEKS R20 R1 K27 ["PreviewSize"]
   MINUS R19 R20
@@ -316,9 +324,9 @@ PROTO_6:
   GETUPVAL R9 6
   GETTABLEKS R8 R9 K5 ["createElement"]
   GETUPVAL R9 8
-  DUPTABLE R10 K38 [{"AutomaticSize", "Layout", "Size", "VerticalAlignment"}]
-  GETIMPORT R11 K40 [Enum.AutomaticSize.Y]
-  SETTABLEKS R11 R10 K36 ["AutomaticSize"]
+  DUPTABLE R10 K37 [{"AutomaticSize", "Layout", "Size", "VerticalAlignment"}]
+  GETIMPORT R11 K39 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K35 ["AutomaticSize"]
   GETIMPORT R11 K13 [Enum.FillDirection.Horizontal]
   SETTABLEKS R11 R10 K6 ["Layout"]
   GETIMPORT R11 K16 [UDim2.fromScale]
@@ -326,45 +334,45 @@ PROTO_6:
   LOADN R13 0
   CALL R11 2 1
   SETTABLEKS R11 R10 K7 ["Size"]
-  GETIMPORT R11 K42 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R11 R10 K37 ["VerticalAlignment"]
-  DUPTABLE R11 K44 [{"Grid"}]
+  GETIMPORT R11 K41 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R11 R10 K36 ["VerticalAlignment"]
+  DUPTABLE R11 K43 [{"Grid"}]
   GETUPVAL R13 6
   GETTABLEKS R12 R13 K5 ["createElement"]
   GETUPVAL R13 13
-  DUPTABLE R14 K52 [{"AutomaticSize", "CustomPreviews", "GridItemSize", "InitialDistance", "OnClick", "Items", "ScrollingDirection", "SelectedItem", "ShowGridLabels", "Size", "ViewType"}]
-  GETIMPORT R15 K40 [Enum.AutomaticSize.Y]
-  SETTABLEKS R15 R14 K36 ["AutomaticSize"]
+  DUPTABLE R14 K51 [{"AutomaticSize", "CustomPreviews", "GridItemSize", "InitialDistance", "OnClick", "Items", "ScrollingDirection", "SelectedItem", "ShowGridLabels", "Size", "ViewType"}]
+  GETIMPORT R15 K39 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K35 ["AutomaticSize"]
   NEWTABLE R15 2 0
-  GETIMPORT R16 K54 [Enum.Material.Air]
+  GETIMPORT R16 K53 [Enum.Material.Air]
   GETUPVAL R17 14
   SETTABLE R17 R15 R16
-  GETIMPORT R16 K56 [Enum.Material.Water]
+  GETIMPORT R16 K55 [Enum.Material.Water]
   GETUPVAL R17 15
   SETTABLE R17 R15 R16
-  SETTABLEKS R15 R14 K45 ["CustomPreviews"]
-  GETTABLEKS R15 R1 K46 ["GridItemSize"]
-  SETTABLEKS R15 R14 K46 ["GridItemSize"]
+  SETTABLEKS R15 R14 K44 ["CustomPreviews"]
+  GETTABLEKS R15 R1 K45 ["GridItemSize"]
+  SETTABLEKS R15 R14 K45 ["GridItemSize"]
   GETTABLEKS R15 R1 K18 ["InitialDistance"]
   SETTABLEKS R15 R14 K18 ["InitialDistance"]
-  SETTABLEKS R7 R14 K47 ["OnClick"]
+  SETTABLEKS R7 R14 K46 ["OnClick"]
   SETTABLEKS R3 R14 K28 ["Items"]
-  GETIMPORT R15 K57 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R15 R14 K48 ["ScrollingDirection"]
+  GETIMPORT R15 K56 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R15 R14 K47 ["ScrollingDirection"]
   GETTABLEKS R15 R0 K24 ["Value"]
-  SETTABLEKS R15 R14 K49 ["SelectedItem"]
+  SETTABLEKS R15 R14 K48 ["SelectedItem"]
   LOADB R15 0
-  SETTABLEKS R15 R14 K50 ["ShowGridLabels"]
+  SETTABLEKS R15 R14 K49 ["ShowGridLabels"]
   GETIMPORT R15 K16 [UDim2.fromScale]
   LOADN R16 1
   LOADN R17 0
   CALL R15 2 1
   SETTABLEKS R15 R14 K7 ["Size"]
   GETUPVAL R16 16
-  GETTABLEKS R15 R16 K43 ["Grid"]
-  SETTABLEKS R15 R14 K51 ["ViewType"]
+  GETTABLEKS R15 R16 K42 ["Grid"]
+  SETTABLEKS R15 R14 K50 ["ViewType"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K43 ["Grid"]
+  SETTABLEKS R12 R11 K42 ["Grid"]
   CALL R8 3 -1
   CLOSEUPVALS R4
   RETURN R8 -1
@@ -439,7 +447,7 @@ MAIN:
   CAPTURE VAL R4
   CAPTURE VAL R12
   CAPTURE VAL R11
-  DUPCLOSURE R24 K37 [PROTO_6]
+  DUPCLOSURE R24 K37 [PROTO_7]
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R18

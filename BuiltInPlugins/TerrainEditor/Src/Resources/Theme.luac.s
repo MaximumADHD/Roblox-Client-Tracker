@@ -453,4 +453,68 @@ MAIN:
   LOADN R11 50
   SETTABLEKS R11 R10 K193 ["TextInputWidth"]
   SETTABLE R10 R7 R9
+  LOADK R11 K195 ["MaterialRangesRenderer"]
+  NAMECALL R9 R5 K17 ["add"]
+  CALL R9 2 0
+  GETTABLEKS R9 R5 K195 ["MaterialRangesRenderer"]
+  DUPTABLE R10 K198 [{"BackgroundColor", "CloseButton", "Dialog"}]
+  GETIMPORT R11 K199 [BrickColor.new]
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 0
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K32 ["BackgroundColor"]
+  DUPTABLE R11 K206 [{"AnchorPoint", "BackgroundTransparency", "BorderSizePixel", "Image", "ImageColor3", "Position", "Size", "ZIndex"}]
+  GETIMPORT R12 K62 [Vector2.new]
+  LOADN R13 1
+  LOADN R14 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K200 ["AnchorPoint"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K201 ["BackgroundTransparency"]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K202 ["BorderSizePixel"]
+  LOADK R12 K207 ["rbxasset://textures/DeveloperFramework/AssetPreview/close_button.png"]
+  SETTABLEKS R12 R11 K181 ["Image"]
+  GETIMPORT R12 K209 [Color3.fromRGB]
+  LOADN R13 255
+  LOADN R14 255
+  LOADN R15 255
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K203 ["ImageColor3"]
+  GETIMPORT R12 K211 [UDim2.fromScale]
+  LOADN R13 1
+  LOADN R14 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K204 ["Position"]
+  GETIMPORT R12 K29 [UDim2.fromOffset]
+  LOADN R13 28
+  LOADN R14 28
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K55 ["Size"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K205 ["ZIndex"]
+  SETTABLEKS R11 R10 K196 ["CloseButton"]
+  DUPTABLE R11 K212 [{"AnchorPoint", "BackgroundColor", "Position", "Size"}]
+  GETIMPORT R12 K62 [Vector2.new]
+  LOADK R13 K213 [0.5]
+  LOADK R14 K213 [0.5]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K200 ["AnchorPoint"]
+  GETTABLEKS R12 R3 K34 ["MainBackground"]
+  SETTABLEKS R12 R11 K32 ["BackgroundColor"]
+  GETIMPORT R12 K211 [UDim2.fromScale]
+  LOADK R13 K213 [0.5]
+  LOADK R14 K213 [0.5]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K204 ["Position"]
+  GETIMPORT R12 K214 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 196
+  LOADN R15 1
+  LOADN R16 196
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K55 ["Size"]
+  SETTABLEKS R11 R10 K197 ["Dialog"]
+  SETTABLE R10 R7 R9
   RETURN R7 1

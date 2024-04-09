@@ -13,9 +13,13 @@ export type Message = Package.Message
 export type MessageUser = Package.MessageUser
 export type MessageSystem = Package.MessageSystem
 export type MessageType = Package.MessageType
+export type ModerationType = Package.ModerationType
+export type ParticipantMetadata = Package.ParticipantMetadata
+export type UserPendingStatus = Package.UserPendingStatus
 export type GetUserConversationsResponse = Package.GetUserConversationsResponse
 export type GetOlderMessagesResponse = Package.GetOlderMessagesResponse
 export type GetConversationDetailsResponse = Package.GetConversationDetailsResponse
+export type GetConversationsParticipantsMetadataResponse = Package.GetConversationsParticipantsMetadataResponse
 
 
 return Package

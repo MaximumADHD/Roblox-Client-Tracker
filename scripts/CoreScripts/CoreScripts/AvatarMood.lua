@@ -6,6 +6,7 @@
 	// Description: Avatar's mood controller.
 ]]--
 game:DefineFastFlag("AvatarMoodSearchForReplacementWhenRemovingAnimator", false)
+game:DefineFastFlag("AvatarMoodValidateMoodAnimation", false)
 
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
@@ -292,15 +293,25 @@ function initAvatarMood(animateScript)
 
 	if moodChild then
 		if #moodChild:GetChildren() > 0 then
-			local moodAnimation = moodChild:GetChildren()[1]
-			updateCharacterMood(LocalPlayer.Character, moodAnimation)
+			if game:GetFastFlag("AvatarMoodValidateMoodAnimation") then
+				updateCharacterMood(LocalPlayer.Character, moodChild:FindFirstChildWhichIsA("Animation"))
+			else
+				local moodAnimation = moodChild:GetChildren()[1]
+				updateCharacterMood(LocalPlayer.Character, moodAnimation)
+			end
 		end
 
 		disconnectAndRemoveConnection(Connection.MoodChildAdded)
 
 		-- need to use ChildAdded to get moodAnimation as descendants may not have replicated yet
 		connections[Connection.MoodChildAdded] = moodChild.ChildAdded:Connect(function(moodAnimation)
-			updateCharacterMood(LocalPlayer.Character, moodAnimation)
+			if game:GetFastFlag("AvatarMoodValidateMoodAnimation") then
+				if moodAnimation:IsA("Animation") then
+					updateCharacterMood(LocalPlayer.Character, moodAnimation)
+				end
+			else
+				updateCharacterMood(LocalPlayer.Character, moodAnimation)
+			end
 		end)
 	else
 		stopAndDestroyCurrentMoodTrackConnections()

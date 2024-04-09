@@ -181,41 +181,41 @@ PROTO_4:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [game]
-  LOADK R3 K5 ["InsertService"]
-  NAMECALL R1 R1 K6 ["GetService"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["InsertService"]
+  NAMECALL R1 R1 K7 ["GetService"]
   CALL R1 2 1
-  GETIMPORT R2 K4 [game]
-  LOADK R4 K7 ["Selection"]
-  NAMECALL R2 R2 K6 ["GetService"]
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K8 ["Selection"]
+  NAMECALL R2 R2 K7 ["GetService"]
   CALL R2 2 1
-  GETIMPORT R3 K4 [game]
-  LOADK R5 K8 ["ChangeHistoryService"]
-  NAMECALL R3 R3 K6 ["GetService"]
+  GETIMPORT R3 K5 [game]
+  LOADK R5 K9 ["ChangeHistoryService"]
+  NAMECALL R3 R3 K7 ["GetService"]
   CALL R3 2 1
-  GETIMPORT R4 K10 [require]
-  GETTABLEKS R7 R0 K11 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Utility"]
-  GETTABLEKS R5 R6 K13 ["getWorkspaceInsertPosition"]
+  GETIMPORT R4 K11 [require]
+  GETTABLEKS R7 R0 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Utility"]
+  GETTABLEKS R5 R6 K14 ["getWorkspaceInsertPosition"]
   CALL R4 1 1
-  GETIMPORT R5 K10 [require]
-  GETTABLEKS R8 R0 K11 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Flags"]
-  GETTABLEKS R6 R7 K15 ["getFFlagZoomToExtentsApi"]
+  GETIMPORT R5 K11 [require]
+  GETTABLEKS R8 R0 K12 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Flags"]
+  GETTABLEKS R6 R7 K16 ["getFFlagZoomToExtentsApi"]
   CALL R5 1 1
-  DUPCLOSURE R6 K16 [PROTO_0]
-  DUPCLOSURE R7 K17 [PROTO_1]
+  DUPCLOSURE R6 K17 [PROTO_0]
+  DUPCLOSURE R7 K18 [PROTO_1]
   CAPTURE VAL R5
-  DUPCLOSURE R8 K18 [PROTO_2]
+  DUPCLOSURE R8 K19 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R7
-  DUPCLOSURE R9 K19 [PROTO_4]
+  DUPCLOSURE R9 K20 [PROTO_4]
   CAPTURE VAL R8
   RETURN R9 1

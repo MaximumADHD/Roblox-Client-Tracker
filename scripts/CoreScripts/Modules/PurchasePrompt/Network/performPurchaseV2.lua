@@ -6,6 +6,7 @@ local Promise = require(Root.Promise)
 local isGenericChallengeResponse = require(Root.Utils.isGenericChallengeResponse)
 
 local FFlagEnableTempFixCollectibleBundlePurchase = require(Root.Parent.Flags.FFlagEnableTempFixCollectibleBundlePurchase)
+local FFlagEnableCollectibleCheckToPurchaseItem = require(Root.Parent.Flags.FFlagEnableCollectibleCheckToPurchaseItem)
 
 --[[
 	we will migrate to V2 for all usage.
@@ -23,12 +24,16 @@ local function performPurchaseV2(
 	purchaseAuthToken,
 	collectibleItemInstanceId
 )
-	if FFlagEnableTempFixCollectibleBundlePurchase then
-		-- Temporary fix for purchasing collectible bundles until a new game-engine version is released
-		local isCollectibleBundle = (infoType == Enum.InfoType.Bundle) and collectibleItemId and (collectibleItemId ~= "")
-		if isCollectibleBundle then
-			infoType = Enum.InfoType.Asset
-			collectibleItemInstanceId = nil
+
+	if not FFlagEnableCollectibleCheckToPurchaseItem then
+		-- Remove the temporary fix with the flag: FFlagEnableCollectibleCheckToPurchaseItem
+		if FFlagEnableTempFixCollectibleBundlePurchase then
+			-- Temporary fix for purchasing collectible bundles until a new game-engine version is released
+			local isCollectibleBundle = (infoType == Enum.InfoType.Bundle) and collectibleItemId and (collectibleItemId ~= "")
+			if isCollectibleBundle then
+				infoType = Enum.InfoType.Asset
+				collectibleItemInstanceId = nil
+			end
 		end
 	end
 

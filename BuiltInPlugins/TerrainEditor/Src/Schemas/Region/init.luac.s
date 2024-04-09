@@ -13,73 +13,63 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R4 R2 K9 ["DraggerSchema"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Flags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagTerrainEditorGetNextSelectablesFix"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K13 ["join"]
-  MOVE R6 R3
-  DUPTABLE R7 K25 [{"addUndoWaypoint", "dispatchWorldClick", "endBoxSelect", "getNextSelectables", "isExclusiveSelectable", "ExtrudeHandlesImplementation", "getMouseTarget", "Selection", "SelectionInfo", "TransformHandlesImplementation", "updateBoxSelect"}]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K14 ["addUndoWaypoint"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K14 ["addUndoWaypoint"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K15 ["dispatchWorldClick"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K15 ["dispatchWorldClick"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K16 ["endBoxSelect"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K16 ["endBoxSelect"]
-  MOVE R9 R4
-  CALL R9 0 1
-  JUMPIFNOT R9 [+8]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K17 ["getNextSelectables"]
-  CALL R8 1 1
-  JUMP [+1]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K17 ["getNextSelectables"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K18 ["isExclusiveSelectable"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K18 ["isExclusiveSelectable"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K19 ["ExtrudeHandlesImplementation"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K19 ["ExtrudeHandlesImplementation"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K20 ["getMouseTarget"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K20 ["getMouseTarget"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K21 ["Selection"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K21 ["Selection"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K22 ["SelectionInfo"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K22 ["SelectionInfo"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K23 ["TransformHandlesImplementation"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K23 ["TransformHandlesImplementation"]
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K24 ["updateBoxSelect"]
-  CALL R8 1 1
-  SETTABLEKS R8 R7 K24 ["updateBoxSelect"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  GETTABLEKS R4 R1 K10 ["join"]
+  MOVE R5 R3
+  DUPTABLE R6 K22 [{"addUndoWaypoint", "dispatchWorldClick", "endBoxSelect", "getNextSelectables", "isExclusiveSelectable", "ExtrudeHandlesImplementation", "getMouseTarget", "Selection", "SelectionInfo", "TransformHandlesImplementation", "updateBoxSelect"}]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K11 ["addUndoWaypoint"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K11 ["addUndoWaypoint"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K12 ["dispatchWorldClick"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K12 ["dispatchWorldClick"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K13 ["endBoxSelect"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K13 ["endBoxSelect"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K14 ["getNextSelectables"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K14 ["getNextSelectables"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K15 ["isExclusiveSelectable"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K15 ["isExclusiveSelectable"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K16 ["ExtrudeHandlesImplementation"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K16 ["ExtrudeHandlesImplementation"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K17 ["getMouseTarget"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K17 ["getMouseTarget"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K18 ["Selection"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K18 ["Selection"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K19 ["SelectionInfo"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K19 ["SelectionInfo"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K20 ["TransformHandlesImplementation"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K20 ["TransformHandlesImplementation"]
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K21 ["updateBoxSelect"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K21 ["updateBoxSelect"]
+  CALL R4 2 -1
+  RETURN R4 -1

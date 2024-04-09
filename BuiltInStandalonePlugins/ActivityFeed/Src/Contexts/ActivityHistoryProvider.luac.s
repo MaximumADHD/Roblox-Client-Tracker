@@ -1,34 +1,71 @@
 PROTO_0:
-  DUPTABLE R0 K3 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "contextType"}]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_2:
+  LOADN R0 0
+  LOADN R1 0
+  RETURN R0 2
+
+PROTO_3:
+  RETURN R0 0
+
+PROTO_4:
+  DUPTABLE R0 K6 [{"activityHistoryClient", "showSaveOrPublishPlaceToRobloxFn", "useCollaborators", "usePlaceAndUniverseId", "openBrowserLink", "contextType"}]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["activityHistoryClient"]
   SETTABLEKS R1 R0 K0 ["activityHistoryClient"]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["showSaveOrPublishPlaceToRobloxFn"]
+  JUMPIF R1 [+1]
+  DUPCLOSURE R1 K7 [PROTO_0]
   SETTABLEKS R1 R0 K1 ["showSaveOrPublishPlaceToRobloxFn"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["contextType"]
-  SETTABLEKS R1 R0 K2 ["contextType"]
+  GETTABLEKS R1 R2 K2 ["useCollaborators"]
+  JUMPIF R1 [+2]
+  DUPCLOSURE R1 K8 [PROTO_1]
+  CAPTURE UPVAL U1
+  SETTABLEKS R1 R0 K2 ["useCollaborators"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["usePlaceAndUniverseId"]
+  JUMPIF R1 [+1]
+  DUPCLOSURE R1 K9 [PROTO_2]
+  SETTABLEKS R1 R0 K3 ["usePlaceAndUniverseId"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["openBrowserLink"]
+  JUMPIF R1 [+1]
+  DUPCLOSURE R1 K10 [PROTO_3]
+  SETTABLEKS R1 R0 K4 ["openBrowserLink"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["contextType"]
+  SETTABLEKS R1 R0 K5 ["contextType"]
   RETURN R0 1
 
-PROTO_1:
+PROTO_5:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useMemo"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
-  NEWTABLE R3 0 3
+  CAPTURE UPVAL U1
+  NEWTABLE R3 0 6
   GETTABLEKS R4 R0 K1 ["activityHistoryClient"]
   GETTABLEKS R5 R0 K2 ["showSaveOrPublishPlaceToRobloxFn"]
-  GETTABLEKS R6 R0 K3 ["contextType"]
-  SETLIST R3 R4 3 [1]
+  GETTABLEKS R6 R0 K3 ["openBrowserLink"]
+  GETTABLEKS R7 R0 K4 ["contextType"]
+  GETTABLEKS R8 R0 K5 ["useCollaborators"]
+  GETTABLEKS R9 R0 K6 ["usePlaceAndUniverseId"]
+  SETLIST R3 R4 6 [1]
   CALL R1 2 1
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["createElement"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K5 ["Provider"]
-  DUPTABLE R4 K7 [{"value"}]
-  SETTABLEKS R1 R4 K6 ["value"]
-  GETTABLEKS R5 R0 K8 ["children"]
+  GETTABLEKS R2 R3 K7 ["createElement"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K8 ["Provider"]
+  DUPTABLE R4 K10 [{"value"}]
+  SETTABLEKS R1 R4 K9 ["value"]
+  GETTABLEKS R5 R0 K11 ["children"]
   CALL R2 3 -1
   RETURN R2 -1
 
@@ -52,7 +89,9 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["Contexts"]
   GETTABLEKS R4 R5 K11 ["ActivityHistoryContext"]
   CALL R3 1 1
-  DUPCLOSURE R4 K12 [PROTO_1]
+  NEWTABLE R4 0 0
+  DUPCLOSURE R5 K12 [PROTO_5]
   CAPTURE VAL R1
+  CAPTURE VAL R4
   CAPTURE VAL R3
-  RETURN R4 1
+  RETURN R5 1

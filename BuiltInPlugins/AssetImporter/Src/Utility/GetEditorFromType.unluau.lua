@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent.Src.Components.Properties.Types
+local var0 = script:FindFirstAncestor("AssetImporter").Src.Components.Properties.Types
 local var1 = {}
 var1.boolean = require(var0.BooleanProperty)
 var1.userdata = require(var0.EnumProperty)

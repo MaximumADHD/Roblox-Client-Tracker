@@ -8,33 +8,38 @@ PROTO_0:
   RETURN R1 1
 
 PROTO_1:
-  GETTABLEKS R4 R0 K0 ["_draggerContext"]
-  GETTABLEKS R3 R4 K1 ["selectedPoints"]
-  LENGTH R2 R3
-  JUMPIFEQKN R2 K2 [0] [+2]
-  LOADB R1 0 +1
-  LOADB R1 1
+  LOADB R1 0
   RETURN R1 1
 
 PROTO_2:
-  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K0 ["_draggerContext"]
+  GETTABLEKS R2 R3 K1 ["selectedPoints"]
+  LENGTH R1 R2
+  JUMPIFNOTEQKN R1 K2 [0] [+23]
+  GETTABLEKS R2 R0 K0 ["_draggerContext"]
+  GETTABLEKS R1 R2 K3 ["worldModel"]
+  NAMECALL R1 R1 K4 ["GetPivot"]
+  CALL R1 1 1
+  MOVE R2 R1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["fromObjects"]
+  NEWTABLE R4 0 1
+  GETTABLEKS R6 R0 K0 ["_draggerContext"]
+  GETTABLEKS R5 R6 K3 ["worldModel"]
+  SETLIST R4 R5 1 [1]
+  MOVE R5 R1
+  CALL R3 2 -1
+  RETURN R2 -1
+  GETUPVAL R1 1
   GETTABLEKS R2 R0 K0 ["_draggerContext"]
   CALL R1 1 -1
   RETURN R1 -1
 
 PROTO_3:
-  GETIMPORT R1 K1 [warn]
-  LOADK R2 K2 ["prtodo: Local mode"]
+  GETIMPORT R1 K1 [error]
+  LOADK R2 K2 ["getLocalBoundingBox is not supported"]
   CALL R1 1 0
-  GETIMPORT R1 K5 [CFrame.new]
-  CALL R1 0 1
-  FASTCALL VECTOR [+2]
-  GETIMPORT R2 K7 [Vector3.new]
-  CALL R2 0 1
-  FASTCALL VECTOR [+2]
-  GETIMPORT R3 K7 [Vector3.new]
-  CALL R3 0 1
-  RETURN R1 3
+  RETURN R0 0
 
 PROTO_4:
   GETIMPORT R3 K2 [table.find]
@@ -56,34 +61,41 @@ MAIN:
   LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K7 ["Components"]
-  GETTABLEKS R4 R5 K8 ["EditingTools"]
-  GETTABLEKS R3 R4 K9 ["BodyPointsTool"]
-  GETTABLEKS R2 R3 K10 ["Types"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K7 ["Components"]
-  GETTABLEKS R5 R6 K8 ["EditingTools"]
-  GETTABLEKS R4 R5 K9 ["BodyPointsTool"]
-  GETTABLEKS R3 R4 K11 ["getBoundingBox"]
+  GETTABLEKS R2 R0 K4 ["Packages"]
+  GETTABLEKS R1 R2 K5 ["DraggerFramework"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R4 R1 K8 ["Utility"]
+  GETTABLEKS R3 R4 K9 ["BoundingBox"]
   CALL R2 1 1
-  NEWTABLE R3 8 0
-  SETTABLEKS R3 R3 K12 ["__index"]
-  DUPCLOSURE R4 K13 [PROTO_0]
-  CAPTURE VAL R3
-  SETTABLEKS R4 R3 K14 ["new"]
-  DUPCLOSURE R4 K15 [PROTO_1]
-  SETTABLEKS R4 R3 K16 ["isEmpty"]
-  DUPCLOSURE R4 K17 [PROTO_2]
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Components"]
+  GETTABLEKS R6 R7 K12 ["EditingTools"]
+  GETTABLEKS R5 R6 K13 ["BodyPointsTool"]
+  GETTABLEKS R4 R5 K14 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K11 ["Components"]
+  GETTABLEKS R7 R8 K12 ["EditingTools"]
+  GETTABLEKS R6 R7 K13 ["BodyPointsTool"]
+  GETTABLEKS R5 R6 K15 ["getBoundingBox"]
+  CALL R4 1 1
+  NEWTABLE R5 8 0
+  SETTABLEKS R5 R5 K16 ["__index"]
+  DUPCLOSURE R6 K17 [PROTO_0]
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K18 ["new"]
+  DUPCLOSURE R6 K19 [PROTO_1]
+  SETTABLEKS R6 R5 K20 ["isEmpty"]
+  DUPCLOSURE R6 K21 [PROTO_2]
   CAPTURE VAL R2
-  SETTABLEKS R4 R3 K11 ["getBoundingBox"]
-  DUPCLOSURE R4 K18 [PROTO_3]
-  SETTABLEKS R4 R3 K19 ["getLocalBoundingBox"]
-  DUPCLOSURE R4 K20 [PROTO_4]
-  SETTABLEKS R4 R3 K21 ["doesContainItem"]
-  DUPCLOSURE R4 K22 [PROTO_5]
-  SETTABLEKS R4 R3 K23 ["isDynamic"]
-  RETURN R3 1
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K15 ["getBoundingBox"]
+  DUPCLOSURE R6 K22 [PROTO_3]
+  SETTABLEKS R6 R5 K23 ["getLocalBoundingBox"]
+  DUPCLOSURE R6 K24 [PROTO_4]
+  SETTABLEKS R6 R5 K25 ["doesContainItem"]
+  DUPCLOSURE R6 K26 [PROTO_5]
+  SETTABLEKS R6 R5 K27 ["isDynamic"]
+  RETURN R5 1

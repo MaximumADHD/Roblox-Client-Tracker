@@ -9,6 +9,7 @@ local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
 
 local CONTEXT_ACTION_NAME = "MouseLockSwitchAction"
 local MOUSELOCK_ACTION_PRIORITY = Enum.ContextActionPriority.Medium.Value
+local CAMERA_OFFSET_DEFAULT = Vector3.new(1.75,0,0)  
 
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
@@ -18,6 +19,14 @@ local GameSettings = Settings.GameSettings
 
 --[[ Imports ]]
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
+
+local FFlagUserFixCameraOffsetJitter
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixCameraOffsetJitter")
+	end)
+	FFlagUserFixCameraOffsetJitter= success and result
+end
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -85,26 +94,39 @@ function MouseLockController:GetBindableToggleEvent()
 end
 
 function MouseLockController:GetMouseLockOffset()
-	local offsetValueObj: Vector3Value = script:FindFirstChild("CameraOffset") :: Vector3Value
-	if offsetValueObj and offsetValueObj:IsA("Vector3Value") then
-		return offsetValueObj.Value
-	else
-		-- If CameraOffset object was found but not correct type, destroy
-		if offsetValueObj then
-			offsetValueObj:Destroy()
+	if FFlagUserFixCameraOffsetJitter then
+		-- check for custom CameraOffset
+		if PlayersService.LocalPlayer and PlayersService.LocalPlayer.Character and PlayersService.LocalPlayer.Character.Humanoid then
+			local humanoid = PlayersService.LocalPlayer.Character.Humanoid :: Humanoid
+			-- don't add any additional offsets if already using a custom CameraOffset
+			if humanoid.CameraOffset ~= Vector3.new() then
+				return humanoid.CameraOffset
+			end
 		end
-		offsetValueObj = Instance.new("Vector3Value")
-		assert(offsetValueObj, "")
-		offsetValueObj.Name = "CameraOffset"
-		offsetValueObj.Value = Vector3.new(1.75,0,0) -- Legacy Default Value
-		offsetValueObj.Parent = script
-	end
 
-	if offsetValueObj and offsetValueObj.Value then
-		return offsetValueObj.Value
-	end
+		return CAMERA_OFFSET_DEFAULT 
+	else
+		local offsetValueObj: Vector3Value = script:FindFirstChild("CameraOffset") :: Vector3Value
+		if offsetValueObj and offsetValueObj:IsA("Vector3Value") then
+			return offsetValueObj.Value
+		else
+			-- If CameraOffset object was found but not correct type, destroy
+			if offsetValueObj then
+				offsetValueObj:Destroy()
+			end
+			offsetValueObj = Instance.new("Vector3Value")
+			assert(offsetValueObj, "")
+			offsetValueObj.Name = "CameraOffset"
+			offsetValueObj.Value = Vector3.new(1.75,0,0) -- Legacy Default Value
+			offsetValueObj.Parent = script
+		end
 
-	return Vector3.new(1.75,0,0)
+		if offsetValueObj and offsetValueObj.Value then
+			return offsetValueObj.Value
+		end
+
+		return Vector3.new(1.75,0,0)
+	end
 end
 
 function MouseLockController:UpdateMouseLockAvailability()

@@ -1,21 +1,21 @@
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["enumerate"]
+  GETTABLEKS R3 R1 K8 ["Util"]
+  GETTABLEKS R2 R3 K9 ["enumerate"]
   MOVE R3 R2
-  LOADK R4 K9 ["StatusLevel"]
-  DUPTABLE R5 K12 [{"Error", "Warning"}]
-  LOADK R6 K10 ["Error"]
-  SETTABLEKS R6 R5 K10 ["Error"]
-  LOADK R6 K11 ["Warning"]
-  SETTABLEKS R6 R5 K11 ["Warning"]
+  LOADK R4 K10 ["StatusLevel"]
+  DUPTABLE R5 K13 [{"Error", "Warning"}]
+  LOADK R6 K11 ["Error"]
+  SETTABLEKS R6 R5 K11 ["Error"]
+  LOADK R6 K12 ["Warning"]
+  SETTABLEKS R6 R5 K12 ["Warning"]
   CALL R3 2 -1
   RETURN R3 -1

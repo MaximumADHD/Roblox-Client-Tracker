@@ -370,59 +370,58 @@ PROTO_5:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K8 ["ContextServices"]
-  GETTABLEKS R4 R3 K9 ["withContext"]
-  GETTABLEKS R5 R3 K10 ["Stylizer"]
-  GETTABLEKS R6 R3 K11 ["Localization"]
-  GETTABLEKS R7 R1 K12 ["UI"]
-  GETTABLEKS R8 R7 K13 ["Pane"]
-  GETTABLEKS R9 R7 K14 ["TextInput"]
-  GETTABLEKS R10 R7 K15 ["StyledDialog"]
-  GETTABLEKS R11 R7 K16 ["TextLabel"]
-  GETTABLEKS R13 R1 K17 ["Util"]
-  GETTABLEKS R12 R13 K18 ["StyleModifier"]
-  GETIMPORT R13 K4 [require]
-  GETTABLEKS R16 R0 K19 ["Src"]
-  GETTABLEKS R15 R16 K20 ["Controllers"]
-  GETTABLEKS R14 R15 K21 ["PresetController"]
+  GETTABLEKS R3 R1 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETTABLEKS R5 R3 K11 ["Stylizer"]
+  GETTABLEKS R6 R3 K12 ["Localization"]
+  GETTABLEKS R7 R1 K13 ["UI"]
+  GETTABLEKS R8 R7 K14 ["Pane"]
+  GETTABLEKS R9 R7 K15 ["TextInput"]
+  GETTABLEKS R10 R7 K16 ["StyledDialog"]
+  GETTABLEKS R11 R7 K17 ["TextLabel"]
+  GETTABLEKS R13 R1 K18 ["Util"]
+  GETTABLEKS R12 R13 K19 ["StyleModifier"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K20 ["Src"]
+  GETTABLEKS R15 R16 K21 ["Controllers"]
+  GETTABLEKS R14 R15 K22 ["PresetController"]
   CALL R13 1 1
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R17 R0 K19 ["Src"]
-  GETTABLEKS R16 R17 K22 ["Flags"]
-  GETTABLEKS R15 R16 K23 ["getFIntAssetImportMaxPresetNameLength"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K20 ["Src"]
+  GETTABLEKS R16 R17 K23 ["Flags"]
+  GETTABLEKS R15 R16 K24 ["getFIntAssetImportMaxPresetNameLength"]
   CALL R14 1 1
-  GETIMPORT R15 K4 [require]
-  GETTABLEKS R18 R0 K19 ["Src"]
-  GETTABLEKS R17 R18 K22 ["Flags"]
-  GETTABLEKS R16 R17 K24 ["getFIntAssetImportMaxPresetCount"]
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K20 ["Src"]
+  GETTABLEKS R17 R18 K23 ["Flags"]
+  GETTABLEKS R16 R17 K25 ["getFIntAssetImportMaxPresetCount"]
   CALL R15 1 1
-  GETTABLEKS R16 R2 K25 ["PureComponent"]
-  LOADK R18 K26 ["PresetNamePrompt"]
-  NAMECALL R16 R16 K27 ["extend"]
+  GETTABLEKS R16 R2 K26 ["PureComponent"]
+  LOADK R18 K27 ["PresetNamePrompt"]
+  NAMECALL R16 R16 K28 ["extend"]
   CALL R16 2 1
-  DUPCLOSURE R17 K28 [PROTO_2]
-  SETTABLEKS R17 R16 K29 ["init"]
-  DUPCLOSURE R17 K30 [PROTO_3]
+  DUPCLOSURE R17 K29 [PROTO_2]
+  SETTABLEKS R17 R16 K30 ["init"]
+  DUPCLOSURE R17 K31 [PROTO_3]
   CAPTURE VAL R15
-  SETTABLEKS R17 R16 K31 ["_getInitialPresetName"]
-  DUPCLOSURE R17 K32 [PROTO_4]
+  SETTABLEKS R17 R16 K32 ["_getInitialPresetName"]
+  DUPCLOSURE R17 K33 [PROTO_4]
   CAPTURE VAL R2
   CAPTURE VAL R11
-  SETTABLEKS R17 R16 K33 ["_createMessage"]
-  DUPCLOSURE R17 K34 [PROTO_5]
+  SETTABLEKS R17 R16 K34 ["_createMessage"]
+  DUPCLOSURE R17 K35 [PROTO_5]
   CAPTURE VAL R14
   CAPTURE VAL R2
   CAPTURE VAL R10
@@ -430,12 +429,12 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R11
   CAPTURE VAL R9
-  SETTABLEKS R17 R16 K35 ["render"]
+  SETTABLEKS R17 R16 K36 ["render"]
   MOVE R17 R4
-  DUPTABLE R18 K36 [{"Stylizer", "Localization", "PresetController"}]
-  SETTABLEKS R5 R18 K10 ["Stylizer"]
-  SETTABLEKS R6 R18 K11 ["Localization"]
-  SETTABLEKS R13 R18 K21 ["PresetController"]
+  DUPTABLE R18 K37 [{"Stylizer", "Localization", "PresetController"}]
+  SETTABLEKS R5 R18 K11 ["Stylizer"]
+  SETTABLEKS R6 R18 K12 ["Localization"]
+  SETTABLEKS R13 R18 K22 ["PresetController"]
   CALL R17 1 1
   MOVE R18 R16
   CALL R17 1 1

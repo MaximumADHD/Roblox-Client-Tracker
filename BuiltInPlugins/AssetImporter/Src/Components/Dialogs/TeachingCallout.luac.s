@@ -95,43 +95,42 @@ PROTO_4:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Roact"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["ContextServices"]
-  GETTABLEKS R4 R3 K9 ["withContext"]
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Controllers"]
-  GETTABLEKS R6 R7 K12 ["CalloutController"]
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["withContext"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Controllers"]
+  GETTABLEKS R6 R7 K13 ["CalloutController"]
   CALL R5 1 1
-  GETTABLEKS R6 R1 K13 ["PureComponent"]
-  LOADK R8 K14 ["TeachingCallout"]
-  NAMECALL R6 R6 K15 ["extend"]
+  GETTABLEKS R6 R1 K14 ["PureComponent"]
+  LOADK R8 K15 ["TeachingCallout"]
+  NAMECALL R6 R6 K16 ["extend"]
   CALL R6 2 1
-  DUPCLOSURE R7 K16 [PROTO_0]
+  DUPCLOSURE R7 K17 [PROTO_0]
   CAPTURE VAL R1
-  SETTABLEKS R7 R6 K17 ["init"]
-  DUPCLOSURE R7 K18 [PROTO_2]
-  SETTABLEKS R7 R6 K19 ["didMount"]
-  DUPCLOSURE R7 K20 [PROTO_3]
-  SETTABLEKS R7 R6 K21 ["willUnmount"]
-  DUPCLOSURE R7 K22 [PROTO_4]
+  SETTABLEKS R7 R6 K18 ["init"]
+  DUPCLOSURE R7 K19 [PROTO_2]
+  SETTABLEKS R7 R6 K20 ["didMount"]
+  DUPCLOSURE R7 K21 [PROTO_3]
+  SETTABLEKS R7 R6 K22 ["willUnmount"]
+  DUPCLOSURE R7 K23 [PROTO_4]
   CAPTURE VAL R1
-  SETTABLEKS R7 R6 K23 ["render"]
+  SETTABLEKS R7 R6 K24 ["render"]
   MOVE R7 R4
-  DUPTABLE R8 K24 [{"CalloutController"}]
-  SETTABLEKS R5 R8 K12 ["CalloutController"]
+  DUPTABLE R8 K25 [{"CalloutController"}]
+  SETTABLEKS R5 R8 K13 ["CalloutController"]
   CALL R7 1 1
   MOVE R8 R6
   CALL R7 1 1

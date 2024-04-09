@@ -85,7 +85,7 @@ PROTO_8:
   CALL R1 1 1
   GETUPVAL R3 2
   GETTABLEKS R2 R3 K4 ["useState"]
-  LOADK R3 K5 ["none"]
+  LOADK R3 K5 ["attachments"]
   CALL R2 1 2
   GETUPVAL R4 3
   NAMECALL R4 R4 K3 ["use"]
@@ -160,18 +160,18 @@ PROTO_8:
   SETTABLEKS R19 R18 K34 ["InitialPosition"]
   NEWTABLE R19 0 2
   MOVE R20 R10
-  LOADK R21 K38 ["attachments"]
-  LOADK R22 K39 ["attachments_tool"]
+  LOADK R21 K5 ["attachments"]
+  LOADK R22 K38 ["attachments_tool"]
   LOADK R25 K15 ["EditingTools"]
-  LOADK R26 K40 ["AttachmentsTool"]
+  LOADK R26 K39 ["AttachmentsTool"]
   NAMECALL R23 R1 K17 ["getText"]
   CALL R23 3 -1
   CALL R20 -1 1
   MOVE R21 R10
-  LOADK R22 K41 ["cage"]
-  LOADK R23 K42 ["cage_tool"]
+  LOADK R22 K40 ["cage"]
+  LOADK R23 K41 ["cage_tool"]
   LOADK R26 K15 ["EditingTools"]
-  LOADK R27 K43 ["CageTool"]
+  LOADK R27 K42 ["CageTool"]
   NAMECALL R24 R1 K17 ["getText"]
   CALL R24 3 -1
   CALL R21 -1 1
@@ -182,8 +182,8 @@ PROTO_8:
   MOVE R15 R5
   JUMPIFNOT R15 [+38]
   LOADB R15 0
-  JUMPIFEQKS R2 K5 ["none"] [+36]
-  JUMPIFNOTEQKS R2 K38 ["attachments"] [+12]
+  JUMPIFEQKS R2 K43 ["none"] [+36]
+  JUMPIFNOTEQKS R2 K5 ["attachments"] [+12]
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K18 ["createElement"]
   GETUPVAL R16 8
@@ -195,7 +195,7 @@ PROTO_8:
   GETUPVAL R16 9
   CALL R16 0 1
   JUMPIFNOT R16 [+16]
-  JUMPIFNOTEQKS R2 K41 ["cage"] [+15]
+  JUMPIFNOTEQKS R2 K40 ["cage"] [+15]
   LOADB R15 0
   JUMPIFEQKNIL R5 [+15]
   GETUPVAL R16 2
@@ -211,7 +211,7 @@ PROTO_8:
   CALL R15 1 1
   SETTABLEKS R15 R14 K49 ["Tool"]
   LOADB R15 0
-  JUMPIFEQKS R2 K5 ["none"] [+17]
+  JUMPIFEQKS R2 K43 ["none"] [+17]
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K18 ["createElement"]
   GETUPVAL R16 12

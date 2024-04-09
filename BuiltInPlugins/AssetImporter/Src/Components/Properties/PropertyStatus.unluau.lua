@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent.Parent.Parent
+local var0 = script:FindFirstAncestor("AssetImporter")
 local var1 = require(var0.Packages.Roact)
 local var2 = require(var0.Packages.Framework)
 local var3 = var2.ContextServices
@@ -23,15 +23,15 @@ local function fun10(arg1)
    if var4 then
       local var0 = var1.ErrorIcon or var1.WarningIcon
    end
-   local var464 = {}
-   var464.Size = UDim2.fromOffset(var3, var3)
-   var464.Style = var1.WarningIcon
-   var464.LayoutOrder = var0.LayoutOrder
-   local var469 = {}
-   local var473 = {}
-   var473.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
-   var469.Tooltip = var1.createElement(var5, var473)
-   return var1.createElement(var6, var464, var469)
+   local var462 = {}
+   var462.Size = UDim2.fromOffset(var3, var3)
+   var462.Style = var1.WarningIcon
+   var462.LayoutOrder = var0.LayoutOrder
+   local var467 = {}
+   local var471 = {}
+   var471.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
+   var467.Tooltip = var1.createElement(var5, var471)
+   return var1.createElement(var6, var462, var467)
 end
 
 function var8.render(arg1)
@@ -49,20 +49,20 @@ function var8.render(arg1)
    if var4 then
       local var0 = var1.ErrorIcon or var1.WarningIcon
    end
-   local var464 = {}
-   var464.Size = UDim2.fromOffset(var3, var3)
-   var464.Style = var1.WarningIcon
-   var464.LayoutOrder = var0.LayoutOrder
-   local var469 = {}
-   local var473 = {}
-   var473.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
-   var469.Tooltip = var1.createElement(var5, var473)
-   return var1.createElement(var6, var464, var469)
+   local var462 = {}
+   var462.Size = UDim2.fromOffset(var3, var3)
+   var462.Style = var1.WarningIcon
+   var462.LayoutOrder = var0.LayoutOrder
+   local var467 = {}
+   local var471 = {}
+   var471.Text = var0.Localization:getText("Statuses", var0.StatusMessage, var0.StatusContext)
+   var467.Tooltip = var1.createElement(var5, var471)
+   return var1.createElement(var6, var462, var467)
 end
 
 fun10 = var3.withContext
-local var481 = {}
-var481.Localization = var3.Localization
-var481.Stylizer = var3.Stylizer
-var8 = fun10(var481)(var8)
+local var479 = {}
+var479.Localization = var3.Localization
+var479.Stylizer = var3.Stylizer
+var8 = fun10(var479)(var8)
 return var8

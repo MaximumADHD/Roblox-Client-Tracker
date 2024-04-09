@@ -1,6 +1,4 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-if not game:GetFastFlag("ImprovePluginSpeed_AssetImporter3") then
-end
 local var0 = script.Parent.Parent
 if require(var0.Src.Utility.DebugFlags).RunningUnderCLI() then
 end
@@ -15,41 +13,41 @@ var3.fallbackResourceTable = var0.Src.Resources.Localization.SourceStrings
 var3.overrideLocaleId = nil
 var3.localizationNamespace = nil
 function var3.getToolbarName(arg1, arg2, arg3)
-   local var46 = var2
-   if var46 then
+   local var42 = var2
+   if var42 then
       return "Mesh Importer"
    end
-   var46 = arg1
-   return var46(arg2, arg3, "Plugin", "Toolbar")
+   var42 = arg1
+   return var42(arg2, arg3, "Plugin", "Toolbar")
 end
 
-local var53 = {}
-function var53.getName(arg1, arg2, arg3)
-   local var57 = var2
-   if var57 then
+local var49 = {}
+function var49.getName(arg1, arg2, arg3)
+   local var53 = var2
+   if var53 then
       return "Import"
    end
-   var57 = arg1
-   return var57(arg2, arg3, "Plugin", "Button")
+   var53 = arg1
+   return var53(arg2, arg3, "Plugin", "Button")
 end
 
-function var53.getDescription(arg1, arg2, arg3)
+function var49.getDescription(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Plugin", "Description")
 end
 
-var53.icon = "rbxlocaltheme://MeshImporter"
-function var53.text(arg1, arg2, arg3)
+var49.icon = "rbxlocaltheme://MeshImporter"
+function var49.text(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Plugin", "Button")
 end
 
-local var83 = true
-var53.clickableWhenViewportHidden = var83
-var3.buttonInfo = var53
+local var79 = true
+var49.clickableWhenViewportHidden = var79
+var3.buttonInfo = var49
 var3.dockWidgetInfo = nil
-var83 = var3
-local var6 = require(var0.PluginLoader.PluginLoaderBuilder).build(var83)
+var79 = var3
+local var6 = require(var0.PluginLoader.PluginLoaderBuilder).build(var79)
 if not var6.pluginLoader:waitForUserInteraction() then
 end
-local var91 = script
-var91 = var6
-require(var91.Parent.main)(plugin, var91)
+local var87 = script
+var87 = var6
+require(var87.Parent.main)(plugin, var87)

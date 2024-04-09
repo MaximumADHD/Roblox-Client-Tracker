@@ -67,106 +67,126 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
-  GETIMPORT R3 K2 [table.find]
-  GETUPVAL R4 0
-  LOADK R5 K3 ["Activated"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+29]
-  LOADK R4 K4 ["%*ToolActivated"]
-  MOVE R6 R1
-  NAMECALL R4 R4 K5 ["format"]
-  CALL R4 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["LogAnalytics"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+10]
+  GETIMPORT R2 K2 [print]
+  LOADK R4 K3 ["Terrain ReportCounter counterName=%* count=%*"]
+  MOVE R6 R0
+  MOVE R7 R1
+  NAMECALL R4 R4 K4 ["format"]
+  CALL R4 3 1
   MOVE R3 R4
-  MOVE R4 R2
-  ORK R4 R4 K6 [1]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K7 ["LogAnalytics"]
-  CALL R5 0 1
-  JUMPIFNOT R5 [+10]
-  GETIMPORT R5 K9 [print]
-  LOADK R7 K10 ["Terrain ReportCounter counterName=%* count=%*"]
-  MOVE R9 R3
-  MOVE R10 R4
-  NAMECALL R7 R7 K5 ["format"]
-  CALL R7 3 1
-  MOVE R6 R7
-  CALL R5 1 0
-  GETUPVAL R5 2
-  MOVE R7 R3
-  MOVE R8 R4
-  NAMECALL R5 R5 K11 ["ReportCounter"]
-  CALL R5 3 0
+  CALL R2 1 0
+  GETUPVAL R2 1
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K5 ["ReportStats"]
+  CALL R2 3 0
   RETURN R0 0
 
 PROTO_3:
-  GETIMPORT R3 K2 [table.find]
-  GETUPVAL R4 0
-  LOADK R5 K3 ["Usage"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+29]
-  LOADK R4 K4 ["%*ToolUsage"]
+  LOADK R4 K0 ["%*ToolActivated"]
   MOVE R6 R1
-  NAMECALL R4 R4 K5 ["format"]
+  NAMECALL R4 R4 K1 ["format"]
   CALL R4 2 1
   MOVE R3 R4
   MOVE R4 R2
-  ORK R4 R4 K6 [1]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K7 ["LogAnalytics"]
+  ORK R4 R4 K2 [1]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["LogAnalytics"]
   CALL R5 0 1
   JUMPIFNOT R5 [+10]
-  GETIMPORT R5 K9 [print]
-  LOADK R7 K10 ["Terrain ReportCounter counterName=%* count=%*"]
+  GETIMPORT R5 K5 [print]
+  LOADK R7 K6 ["Terrain ReportCounter counterName=%* count=%*"]
   MOVE R9 R3
   MOVE R10 R4
-  NAMECALL R7 R7 K5 ["format"]
+  NAMECALL R7 R7 K1 ["format"]
   CALL R7 3 1
   MOVE R6 R7
   CALL R5 1 0
-  GETUPVAL R5 2
+  GETUPVAL R5 1
   MOVE R7 R3
   MOVE R8 R4
-  NAMECALL R5 R5 K11 ["ReportCounter"]
+  NAMECALL R5 R5 K7 ["ReportCounter"]
   CALL R5 3 0
   RETURN R0 0
 
 PROTO_4:
-  GETIMPORT R2 K2 [table.find]
-  GETUPVAL R3 0
-  LOADK R4 K3 ["BrushProperties"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+4]
-  GETUPVAL R2 1
-  LOADK R3 K4 ["terrainEditorBrushProperties"]
-  MOVE R4 R1
-  CALL R2 2 0
+  LOADK R4 K0 ["%*ToolUsage"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K1 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  MOVE R4 R2
+  ORK R4 R4 K2 [1]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["LogAnalytics"]
+  CALL R5 0 1
+  JUMPIFNOT R5 [+10]
+  GETIMPORT R5 K5 [print]
+  LOADK R7 K6 ["Terrain ReportCounter counterName=%* count=%*"]
+  MOVE R9 R3
+  MOVE R10 R4
+  NAMECALL R7 R7 K1 ["format"]
+  CALL R7 3 1
+  MOVE R6 R7
+  CALL R5 1 0
+  GETUPVAL R5 1
+  MOVE R7 R3
+  MOVE R8 R4
+  NAMECALL R5 R5 K7 ["ReportCounter"]
+  CALL R5 3 0
   RETURN R0 0
 
 PROTO_5:
-  GETIMPORT R2 K2 [table.find]
-  GETUPVAL R3 0
-  LOADK R4 K3 ["RegionProperties"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+4]
-  GETUPVAL R2 1
-  LOADK R3 K4 ["terrainEditorRegionProperties"]
-  MOVE R4 R1
-  CALL R2 2 0
+  LOADK R4 K0 ["%*ToolPerformance"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K1 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["LogAnalytics"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+10]
+  GETIMPORT R4 K4 [print]
+  LOADK R6 K5 ["Terrain ReportCounter counterName=%* count=%*"]
+  MOVE R8 R3
+  MOVE R9 R2
+  NAMECALL R6 R6 K1 ["format"]
+  CALL R6 3 1
+  MOVE R5 R6
+  CALL R4 1 0
+  GETUPVAL R4 1
+  MOVE R6 R3
+  MOVE R7 R2
+  NAMECALL R4 R4 K6 ["ReportStats"]
+  CALL R4 3 0
   RETURN R0 0
 
 PROTO_6:
-  GETIMPORT R2 K2 [table.find]
-  GETUPVAL R3 0
-  LOADK R4 K3 ["MaterialProperties"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+4]
-  GETUPVAL R2 1
-  LOADK R3 K4 ["terrainEditorMaterialProperties"]
+  GETUPVAL R2 0
+  LOADK R3 K0 ["terrainEditorBrushProperties"]
   MOVE R4 R1
   CALL R2 2 0
   RETURN R0 0
 
 PROTO_7:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["terrainEditorRegionProperties"]
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  LOADK R3 K0 ["terrainEditorMaterialProperties"]
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_9:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U0
@@ -177,30 +197,37 @@ PROTO_7:
   NEWCLOSURE R2 P1
   CAPTURE UPVAL U3
   CAPTURE VAL R0
-  DUPTABLE R3 K5 [{"Activated", "Usage", "BrushProperties", "RegionProperties", "MaterialProperties"}]
-  NEWCLOSURE R4 P2
-  CAPTURE UPVAL U5
+  NEWCLOSURE R3 P2
   CAPTURE UPVAL U3
   CAPTURE VAL R0
-  SETTABLEKS R4 R3 K0 ["Activated"]
-  NEWCLOSURE R4 P3
-  CAPTURE UPVAL U5
+  DUPTABLE R4 K6 [{"Activated", "Usage", "Performance", "BrushProperties", "RegionProperties", "MaterialProperties"}]
+  NEWCLOSURE R5 P3
   CAPTURE UPVAL U3
   CAPTURE VAL R0
-  SETTABLEKS R4 R3 K1 ["Usage"]
-  NEWCLOSURE R4 P4
-  CAPTURE UPVAL U5
+  SETTABLEKS R5 R4 K0 ["Activated"]
+  NEWCLOSURE R5 P4
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K1 ["Usage"]
+  GETUPVAL R6 5
+  CALL R6 0 1
+  JUMPIFNOT R6 [+4]
+  NEWCLOSURE R5 P5
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K2 ["Performance"]
+  NEWCLOSURE R5 P6
   CAPTURE VAL R1
-  SETTABLEKS R4 R3 K2 ["BrushProperties"]
-  NEWCLOSURE R4 P5
-  CAPTURE UPVAL U5
+  SETTABLEKS R5 R4 K3 ["BrushProperties"]
+  NEWCLOSURE R5 P7
   CAPTURE VAL R1
-  SETTABLEKS R4 R3 K3 ["RegionProperties"]
-  NEWCLOSURE R4 P6
-  CAPTURE UPVAL U5
+  SETTABLEKS R5 R4 K4 ["RegionProperties"]
+  NEWCLOSURE R5 P8
   CAPTURE VAL R1
-  SETTABLEKS R4 R3 K4 ["MaterialProperties"]
-  RETURN R3 1
+  SETTABLEKS R5 R4 K5 ["MaterialProperties"]
+  RETURN R4 1
 
 MAIN:
   PREPVARARGS 0
@@ -222,32 +249,27 @@ MAIN:
   GETTABLEKS R6 R3 K12 ["DebugFlags"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Flags"]
-  GETTABLEKS R7 R8 K14 ["getFStringTerrainEditorAnalyticsHandlers"]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Types"]
   CALL R6 1 1
-  GETIMPORT R7 K17 [string.split]
-  MOVE R8 R6
-  CALL R8 0 1
-  LOADK R9 K18 [","]
+  GETIMPORT R7 K15 [game]
+  LOADK R9 K16 ["HttpService"]
+  NAMECALL R7 R7 K17 ["GetService"]
   CALL R7 2 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Src"]
-  GETTABLEKS R9 R10 K19 ["Types"]
-  CALL R8 1 1
-  GETIMPORT R9 K21 [game]
-  LOADK R11 K22 ["HttpService"]
-  NAMECALL R9 R9 K23 ["GetService"]
-  CALL R9 2 1
-  GETIMPORT R10 K21 [game]
-  LOADK R12 K24 ["StudioService"]
-  NAMECALL R10 R10 K23 ["GetService"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K25 [PROTO_7]
-  CAPTURE VAL R10
+  GETIMPORT R8 K15 [game]
+  LOADK R10 K18 ["StudioService"]
+  NAMECALL R8 R8 K17 ["GetService"]
+  CALL R8 2 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K19 ["Flags"]
+  GETTABLEKS R10 R11 K20 ["getFFlagTerrainEditorTimeStatistic"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K21 [PROTO_9]
+  CAPTURE VAL R8
   CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R5
-  CAPTURE VAL R9
   CAPTURE VAL R7
-  RETURN R11 1
+  CAPTURE VAL R9
+  RETURN R10 1

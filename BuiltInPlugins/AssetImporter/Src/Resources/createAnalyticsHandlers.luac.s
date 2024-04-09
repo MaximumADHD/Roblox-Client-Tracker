@@ -93,28 +93,28 @@ PROTO_2:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Cryo"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Cryo"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K7 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Utility"]
-  GETTABLEKS R3 R4 K9 ["DebugFlags"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Utility"]
+  GETTABLEKS R3 R4 K10 ["DebugFlags"]
   CALL R2 1 1
-  GETIMPORT R3 K11 [game]
-  LOADK R5 K12 ["HttpService"]
-  NAMECALL R3 R3 K13 ["GetService"]
+  GETIMPORT R3 K12 [game]
+  LOADK R5 K13 ["HttpService"]
+  NAMECALL R3 R3 K14 ["GetService"]
   CALL R3 2 1
-  GETIMPORT R4 K11 [game]
-  LOADK R6 K14 ["StudioService"]
-  NAMECALL R4 R4 K13 ["GetService"]
+  GETIMPORT R4 K12 [game]
+  LOADK R6 K15 ["StudioService"]
+  NAMECALL R4 R4 K14 ["GetService"]
   CALL R4 2 1
-  DUPCLOSURE R5 K15 [PROTO_2]
+  DUPCLOSURE R5 K16 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R4
   CAPTURE VAL R2

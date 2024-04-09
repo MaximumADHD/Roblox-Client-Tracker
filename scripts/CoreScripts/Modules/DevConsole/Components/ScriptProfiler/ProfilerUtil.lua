@@ -65,6 +65,28 @@ function ProfilerUtil.formatSessionLength(len: number?): string?
 	return nil
 end
 
+function ProfilerUtil.formatTimer(secs: number?): string
+	if secs ~= nil then
+		if secs == 0 then
+			return ""
+		elseif secs >= 60 then
+			return string.format("%dm", secs / 60)
+		else
+			return string.format("%ds", secs)
+		end
+	end
+
+	return ""
+end
+
+function ProfilerUtil.formatFrequency(freq)
+	if freq < 1000 then
+		return tostring(freq) .. " Hz"
+	else
+		return tostring(freq / 1000) .. " KHz"
+	end
+end
+
 local TOOLTIP_FORMAT = "%s:%s"
 
 function ProfilerUtil.getSourceLocationString(data: RootDataFormat, func: Function, altName: string): string

@@ -1,0 +1,45 @@
+PROTO_0:
+  NAMECALL R1 R0 K0 ["getState"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K1 ["ScriptConversion"]
+  GETTABLEKS R2 R3 K2 ["analyticsSent"]
+  JUMPIF R2 [+19]
+  GETUPVAL R2 0
+  LOADK R4 K3 ["onInitialScriptAnalysisScan"]
+  NAMECALL R2 R2 K4 ["getHandler"]
+  CALL R2 2 1
+  GETUPVAL R3 1
+  GETUPVAL R5 2
+  LENGTH R4 R5
+  GETTABLEKS R6 R1 K1 ["ScriptConversion"]
+  GETTABLEKS R5 R6 K5 ["completedScripts"]
+  CALL R2 3 0
+  GETUPVAL R4 3
+  LOADB R5 1
+  CALL R4 1 -1
+  NAMECALL R2 R0 K6 ["dispatch"]
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R2 R0 K4 ["Src"]
+  GETTABLEKS R1 R2 K5 ["Actions"]
+  GETIMPORT R2 K7 [require]
+  GETTABLEKS R3 R1 K8 ["SetScriptAnalyticsSent"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_1]
+  CAPTURE VAL R2
+  RETURN R3 1

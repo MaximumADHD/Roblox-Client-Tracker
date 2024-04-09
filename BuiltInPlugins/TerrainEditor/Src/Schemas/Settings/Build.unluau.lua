@@ -18,6 +18,7 @@ var3.CraterDepth = var5.LocalPersistent
 var3.CraterRadius = var5.LocalPersistent
 var3.FillBottom = var5.LocalPersistent
 var3.Frequency = var5.LocalPersistent
+var3.Material = var5.LocalSession
 var3.Offset = var5.LocalPersistent
 var3.Position = var5.LocalPersistent
 var3.RimHeight = var5.LocalPersistent
@@ -28,6 +29,8 @@ var3.TerrainType = var5.Global
 var3.TopRadius = var5.LocalPersistent
 var3.Transform = var5.LocalPersistent
 var3.WaterLevel = var5.LocalPersistent
+var3.Material = var5.LocalSession
+var3.MaterialLUT = var5.LocalSession
 var9.Storage = {}
 local var10 = {}
 var10.Type = "Slider"
@@ -37,51 +40,51 @@ var10.ShowInput = true
 var10.SnapIncrement = 0.01
 function var9.Generator(arg1, arg2, arg3, arg4)
    local var0 = arg1.Localization
-   local var356 = {}
-   var356.Id = var3.TerrainType
-   local var359 = {}
-   var359.Items = var7(var0, nil, var4.TerrainType)
-   var359.Type = "Select"
-   var356.Schema = var359
-   local var367 = {}
-   var367.DataId = var3.Transform
-   var367.Hidden = false
-   var367.Id = var3.Position
-   local var373 = {}
-   var373.Type = "Vector"
-   local var376 = "X"
-   local var377 = "Y"
-   local var378 = "Z"
-   var373.Components = {}
-   function var373.GetValue(arg1)
+   local var323 = {}
+   var323.Id = var3.TerrainType
+   local var326 = {}
+   var326.Items = var7(var0, nil, var4.TerrainType)
+   var326.Type = "Select"
+   var323.Schema = var326
+   local var334 = {}
+   var334.DataId = var3.Transform
+   var334.Hidden = false
+   var334.Id = var3.Position
+   local var340 = {}
+   var340.Type = "Vector"
+   local var343 = "X"
+   local var344 = "Y"
+   local var345 = "Z"
+   var340.Components = {}
+   function var340.GetValue(arg1)
       return arg2[var3.Transform].Rotation + Vector3.new(arg1[1], arg1[2], arg1[3])
    end
    
-   function var373.GetComponents(arg1)
+   function var340.GetComponents(arg1)
       local var0 = arg1.Position
       local var1 = var0.Z
       return { var0.X, var0.Y }
    end
    
-   var367.Schema = var373
-   var367.Value = arg2[var3.Transform]
+   var334.Schema = var340
+   var334.Value = arg2[var3.Transform]
    local var7 = {}
    var7.Id = var3.Size
-   local var403 = {}
-   var403.Type = "Vector"
-   local var406 = "X"
-   local var407 = "Y"
-   local var408 = "Z"
-   var403.Components = {}
-   function var403.GetValue(arg1)
+   local var370 = {}
+   var370.Type = "Vector"
+   local var373 = "X"
+   local var374 = "Y"
+   local var375 = "Z"
+   var370.Components = {}
+   function var370.GetValue(arg1)
       return Vector3.new(arg1[1], arg1[2], arg1[3])
    end
    
-   function var403.GetComponents(arg1)
+   function var370.GetComponents(arg1)
       return { arg1.X, arg1.Y, arg1.Z }
    end
    
-   var7.Schema = var403
+   var7.Schema = var370
    function var7.Validate(arg1)
       if 4 > arg1.X then
          if 4 > arg1.Y then
@@ -125,50 +128,56 @@ function var9.Generator(arg1, arg2, arg3, arg4)
    var20.Id = var3.Amplitude
    var20.Schema = var10
    local var21 = {}
-   local var493 = {}
-   var493.Id = var3.Offset
-   local var496 = {}
-   var496.Type = "Vector"
-   local var499 = "X"
-   local var500 = "Y"
-   var496.Components = {}
-   function var496.GetValue(arg1)
+   local var460 = {}
+   var460.Id = var3.Offset
+   local var463 = {}
+   var463.Type = "Vector"
+   local var466 = "X"
+   local var467 = "Y"
+   var463.Components = {}
+   function var463.GetValue(arg1)
       return Vector2.new(arg1[1], arg1[2])
    end
    
-   function var496.GetComponents(arg1)
+   function var463.GetComponents(arg1)
       return { arg1.X, arg1.Y }
    end
    
-   var493.Schema = var496
-   local var510 = {}
-   var510.Id = var3.Seed
-   local var513 = {}
-   var513.Type = "Number"
-   var510.Schema = var513
+   var460.Schema = var463
+   local var477 = {}
+   var477.Id = var3.Seed
+   local var480 = {}
+   var480.Type = "Number"
+   var477.Schema = var480
    var21.Children = {}
    var21.Id = var3.AdvancedNoise
-   local var517 = {}
-   var517.Text = ""
-   var517.Type = "Label"
-   var21.Schema = var517
+   local var484 = {}
+   var484.Text = ""
+   var484.Type = "Label"
+   var21.Schema = var484
    var21.Value = true
-   local var28 = {}
-   var28.Id = var3.BlendingEdge
-   var28.Schema = var10
    local var29 = {}
-   var29.Id = var3.Commit
-   var29.Layout = Enum.FillDirection.Vertical
-   local var529 = {}
-   var529.Label = var0:getText(var8, var3.Commit)
-   var529.Type = "Button"
-   var29.Schema = var529
-   var29.Value = true
-   local var537 = {}
-   var537.Category = var8
-   var537.Data = arg2
-   var537.Overrides = arg4
-   return var1(arg1, { {}, {}, {}, {}, {}, {}, {}, {}, {} }, var537)
+   var29.Id = var3.Material
+   local var491 = {}
+   var491.Height = arg2[var3.Size].Y
+   var491.Type = "MaterialRanges"
+   var29.Schema = var491
+   local var31 = {}
+   var31.Id = var3.BlendingEdge
+   var31.Schema = var10
+   local var32 = {}
+   var32.Id = var3.Commit
+   var32.Layout = Enum.FillDirection.Vertical
+   local var505 = {}
+   var505.Label = var0:getText(var8, var3.Commit)
+   var505.Type = "Button"
+   var32.Schema = var505
+   var32.Value = true
+   local var513 = {}
+   var513.Category = var8
+   var513.Data = arg2
+   var513.Overrides = arg4
+   return var1(arg1, { {}, {}, {}, {}, {}, {}, {}, {}, {}, {} }, var513)
 end
 
 return var9

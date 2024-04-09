@@ -22,9 +22,6 @@ local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
 local SplashScreenManager = require(CorePackages.Workspace.Packages.SplashScreenManager).SplashScreenManager
 
 local SafetyBubble = require(script.Parent.SafetyBubble)
-local GetFFlagHideExperienceLoadingJudder =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagHideExperienceLoadingJudder
-
 
 local VRHub = {}
 local RegisteredModules = {}
@@ -40,9 +37,7 @@ VRHub.LeftControllerModel = nil
 VRHub.RightControllerModel = nil
 VRHub.ControllerModelsEnabledSetByDeveloper = true
 
-if GetFFlagHideExperienceLoadingJudder() then
-	VRHub.isFPSAtTarget = SplashScreenManager.isFPSAtTarget()
-end
+VRHub.isFPSAtTarget = SplashScreenManager.isFPSAtTarget()
 VRHub.SafetyBubble = nil
 -- TODO: AvatarGestures cannot be turned on until this is implemented
 VRHub.IsFirstPerson = false
@@ -151,9 +146,9 @@ local function onVREnabledChanged()
 
 		--Check again in case creating the laser pointer gracefully failed
 		if VRHub.LaserPointer then
-			if VRHub.isFPSAtTarget or not GetFFlagHideExperienceLoadingJudder() then
+			if VRHub.isFPSAtTarget then
 				VRHub.LaserPointer:setMode(LaserPointer.Mode.Navigation)
-			elseif GetFFlagHideExperienceLoadingJudder() then
+			else
 				VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
 			end
 		end
@@ -336,11 +331,9 @@ function VRHub:GetControllerButtonPosition(keyCode)
 	return leftControllerButtonPos, rightControllerButtonPos
 end
 
-if GetFFlagHideExperienceLoadingJudder() then
-	SplashScreenManager.addStatusChangeListener(function(isFPSAtTarget)
-		VRHub.isFPSAtTarget = isFPSAtTarget
-		onVREnabledChanged()
-	end)
-end
+SplashScreenManager.addStatusChangeListener(function(isFPSAtTarget)
+	VRHub.isFPSAtTarget = isFPSAtTarget
+	onVREnabledChanged()
+end)
 
 return VRHub

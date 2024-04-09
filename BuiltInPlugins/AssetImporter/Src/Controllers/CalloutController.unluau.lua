@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = require(script.Parent.Parent.Parent.Packages.Framework).ContextServices.ContextItem:extend("CalloutController")
+local var0 = require(script:FindFirstAncestor("AssetImporter").Packages.Framework).ContextServices.ContextItem:extend("CalloutController")
 function var0.new(arg1)
    local var0 = {}
    var0._calloutService = arg1 or game:GetService("CalloutService")

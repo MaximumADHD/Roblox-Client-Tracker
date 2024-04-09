@@ -71,31 +71,29 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Roact"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETTABLEKS R3 R1 K8 ["UI"]
-  GETTABLEKS R4 R3 K9 ["Pane"]
-  GETTABLEKS R5 R3 K10 ["TextInput"]
-  GETTABLEKS R6 R3 K11 ["Tooltip"]
-  GETTABLEKS R7 R3 K12 ["TruncatedTextLabel"]
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R11 R0 K13 ["Src"]
-  GETTABLEKS R10 R11 K14 ["Flags"]
-  GETTABLEKS R9 R10 K15 ["getFFlagAssetImportFixPropertyLength"]
+  GETTABLEKS R3 R1 K9 ["UI"]
+  GETTABLEKS R4 R3 K10 ["Pane"]
+  GETTABLEKS R5 R3 K11 ["TextInput"]
+  GETTABLEKS R6 R3 K12 ["Tooltip"]
+  GETTABLEKS R7 R3 K13 ["TruncatedTextLabel"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K14 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Flags"]
+  GETTABLEKS R9 R10 K16 ["getFFlagAssetImportFixPropertyLength"]
   CALL R8 1 1
-  DUPCLOSURE R9 K16 [PROTO_0]
+  DUPCLOSURE R9 K17 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R7
   CAPTURE VAL R6

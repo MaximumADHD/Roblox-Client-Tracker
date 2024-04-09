@@ -1,0 +1,15 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = game:GetService("ChangeHistoryService")
+local var1 = script:FindFirstAncestor("AvatarCompatibilityPreviewer")
+local var2 = require(var1.Packages.React)
+local var3 = require(var1.Src.Hooks.usePluginAction)
+return function(arg1, arg2)
+   var2.useEffect(function()
+      var0:SetEnabled(false)
+      return function()
+         var0:SetEnabled(true)
+      end
+   end, {})
+   var3("Undo", arg1)
+   var3("Redo", arg2)
+end
