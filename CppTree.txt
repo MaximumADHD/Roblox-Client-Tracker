@@ -1,4 +1,3 @@
-?? :: ?? 
 _com_error
 `anonymous namespace'::AbnormalTerminateMessageBox
 `anonymous namespace'::AppQoSDefaultImpl
