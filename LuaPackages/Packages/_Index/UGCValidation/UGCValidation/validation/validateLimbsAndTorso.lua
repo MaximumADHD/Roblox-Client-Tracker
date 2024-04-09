@@ -80,7 +80,7 @@ local function validateFolderAssetIdsMatch(
 			continue
 		end
 
-		local folder: Folder? = (getInstance(allSelectedInstances, folderName) :: Folder)
+		local folder: Folder? = getInstance(allSelectedInstances, folderName) :: Folder
 		assert(folder)
 
 		local folderInfo = {}

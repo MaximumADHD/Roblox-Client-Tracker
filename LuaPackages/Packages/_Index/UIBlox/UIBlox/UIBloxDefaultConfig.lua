@@ -14,9 +14,6 @@ return {
 	-- Add gamepad support to LinkButton
 	enableLinkButtonGamepadSupport = false,
 
-	-- Destroy laser pointers if the PointerOverlay component is unmounted
-	destroyLaserPointersOnUnmount = false,
-
 	-- Use new selection cursor in related components
 	useNewSelectionCursor = false,
 
@@ -71,4 +68,7 @@ return {
 
 	-- Use new designed HeaderBar
 	useNewHeaderBar = false,
+
+	-- have the System Slider trigger onDragStart and onDragEnd for gamepad
+	sliderGamepadDragStartAndEnd = false,
 }

@@ -8,6 +8,9 @@ local getEditableMeshFromContext = require(Root.util.getEditableMeshFromContext)
 local getFFlagUseUGCValidationContext = require(Root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(Root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
+local getFFlagUGCValidationFixResetPhysicsError = require(Root.flags.getFFlagUGCValidationFixResetPhysicsError)
+
+local Analytics = require(Root.Analytics)
 
 -- validation logic uses MeshPart.Size in several places to check asset bounds
 -- however, MeshPart.Size is based on the bounding box of the physics data
@@ -28,13 +31,44 @@ local function resetPhysicsData(roots: { Instance }, validationContext: Types.Va
 					if not getEditableMeshSuccess then
 						return false, "Failed to load mesh data"
 					end
-					UGCValidationService:ResetCollisionFidelityWithEditableMeshDataLua(
-						instance,
-						editableMesh,
-						instance.CollisionFidelity
-					)
+
+					if getFFlagUGCValidationFixResetPhysicsError() then
+						local success = pcall(function()
+							UGCValidationService:ResetCollisionFidelityWithEditableMeshDataLua(
+								instance,
+								editableMesh,
+								instance.CollisionFidelity
+							)
+						end)
+						if not success then
+							if validationContext.isServer then
+								error("Failed to load mesh data")
+							end
+							Analytics.reportFailure(Analytics.ErrorType.resetPhysicsData_FailedToLoadMesh)
+							return false, "Failed to load mesh data"
+						end
+					else
+						UGCValidationService:ResetCollisionFidelityWithEditableMeshDataLua(
+							instance,
+							editableMesh,
+							instance.CollisionFidelity
+						)
+					end
 				else
-					UGCValidationService:ResetCollisionFidelity(instance, instance.CollisionFidelity)
+					if getFFlagUGCValidationFixResetPhysicsError() then
+						local success = pcall(function()
+							UGCValidationService:ResetCollisionFidelity(instance, instance.CollisionFidelity)
+						end)
+						if not success then
+							if validationContext.isServer then
+								error("Failed to load mesh data")
+							end
+							Analytics.reportFailure(Analytics.ErrorType.resetPhysicsData_FailedToLoadMesh)
+							return false, "Failed to load mesh data"
+						end
+					else
+						UGCValidationService:ResetCollisionFidelity(instance, instance.CollisionFidelity)
+					end
 				end
 			end
 		end
@@ -43,9 +77,9 @@ local function resetPhysicsData(roots: { Instance }, validationContext: Types.Va
 	return true
 end
 
-local function DEPRECATED_resetPhysicsData(roots: { Instance })
+local function DEPRECATED_resetPhysicsData(roots: { Instance }, isServer: boolean?)
 	if not game:GetEngineFeature("EngineResetCollisionFidelity") then
-		return
+		return if getFFlagUGCValidationFixResetPhysicsError() then true else nil
 	end
 
 	for _, root in roots do
@@ -53,10 +87,24 @@ local function DEPRECATED_resetPhysicsData(roots: { Instance })
 		table.insert(instances, 1, root)
 		for _, instance in instances do
 			if instance:IsA("MeshPart") then
-				UGCValidationService:ResetCollisionFidelity(instance, instance.CollisionFidelity)
+				if getFFlagUGCValidationFixResetPhysicsError() then
+					local success = pcall(function()
+						UGCValidationService:ResetCollisionFidelity(instance, instance.CollisionFidelity)
+					end)
+					if not success then
+						if isServer then
+							error("Failed to load mesh data")
+						end
+						Analytics.reportFailure(Analytics.ErrorType.resetPhysicsData_FailedToLoadMesh)
+						return false, "Failed to load mesh data"
+					end
+				else
+					UGCValidationService:ResetCollisionFidelity(instance, instance.CollisionFidelity)
+				end
 			end
 		end
 	end
+	return if getFFlagUGCValidationFixResetPhysicsError() then true else nil
 end
 
 return if getFFlagUseUGCValidationContext() then resetPhysicsData else DEPRECATED_resetPhysicsData :: never

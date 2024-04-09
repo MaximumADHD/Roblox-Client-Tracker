@@ -44,12 +44,16 @@ TileThumbnail.validateProps = t.strictInterface({
 
 	-- Optional backgroundImage of the tile
 	backgroundImage = t.optional(t.union(t.string, t.table)),
+
+	-- Scale type of image thumbnail
+	scaleType = t.optional(t.enum(Enum.ScaleType)),
 })
 
 TileThumbnail.defaultProps = {
 	imageSize = UDim2.fromScale(1, 1),
 	imageTransparency = 0,
 	cornerRadius = UDim.new(0, 10),
+	scaleType = Enum.ScaleType.Stretch,
 }
 
 function TileThumbnail:render()
@@ -63,6 +67,7 @@ function TileThumbnail:render()
 	local overlayComponents = self.props.overlayComponents
 	local backgroundImage = self.props.backgroundImage
 	local cornerRadius = self.props.cornerRadius
+	local scaleType = self.props.scaleType
 
 	local isImageSetImage = typeof(image) == "table"
 
@@ -96,6 +101,7 @@ function TileThumbnail:render()
 						ImageTransparency = imageTransparency,
 						Position = UDim2.fromScale(0.5, 0.5),
 						Size = imageSize,
+						ScaleType = scaleType,
 					}, {
 						UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
 							CornerRadius = cornerRadius,
@@ -110,6 +116,7 @@ function TileThumbnail:render()
 						cornerRadius = hasRoundedCorners and cornerRadius or nil,
 						showFailedStateWhenLoadingFailed = true,
 						useShimmerAnimationWhileLoading = true,
+						ScaleType = scaleType,
 					}),
 					UICorner = hasRoundedCorners and Roact.createElement("UICorner", {
 						CornerRadius = cornerRadius,

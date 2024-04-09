@@ -10,9 +10,9 @@ local Analytics = require(root.Analytics)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
-local getFFlagUGCValidationResetPhysicsData = require(root.flags.getFFlagUGCValidationResetPhysicsData)
 local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
+local getFFlagUGCValidationFixResetPhysicsError = require(root.flags.getFFlagUGCValidationFixResetPhysicsError)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
@@ -46,8 +46,8 @@ local function validateMeshPartBodyPart(
 	local skipSnapshot = if validationContext.bypassFlags then validationContext.bypassFlags.skipSnapshot else false
 	local restrictedUserIds = validationContext.restrictedUserIds
 
-	-- do this ASAP
-	if getFFlagUGCValidationResetPhysicsData() then
+	if not getFFlagUGCValidationFixResetPhysicsError() then
+		-- do this ASAP
 		local success, errorMessage = resetPhysicsData({ inst }, validationContext)
 		if not success then
 			return false, { errorMessage }
@@ -75,6 +75,17 @@ local function validateMeshPartBodyPart(
 		local result, failureReasons = validateDependencies(inst, validationContext)
 		if not result then
 			return result, failureReasons
+		end
+	end
+
+	if getFFlagUGCValidationFixResetPhysicsError() then
+		--[[
+			call resetPhysicsData() after checks above which are making sure mesh ids exist (as resetPhysicsData() uses meshIds) but before any checks
+			for mesh size happen, as this removes physics data to ensure those size checks return accurate results
+		]]
+		local success, errorMessage = resetPhysicsData({ inst }, validationContext)
+		if not success then
+			return false, { errorMessage }
 		end
 	end
 
@@ -131,8 +142,8 @@ local function DEPRECATED_validateMeshPartBodyPart(
 	restrictedUserIds: Types.RestrictedUserIds?,
 	universeId: number?
 ): (boolean, { string }?)
-	-- do this ASAP
-	if getFFlagUGCValidationResetPhysicsData() then
+	if not getFFlagUGCValidationFixResetPhysicsError() then
+		-- do this ASAP
 		(resetPhysicsData :: any)({ inst })
 	end
 
@@ -159,6 +170,17 @@ local function DEPRECATED_validateMeshPartBodyPart(
 		)
 		if not result then
 			return result, failureReasons
+		end
+	end
+
+	if getFFlagUGCValidationFixResetPhysicsError() then
+		--[[
+			call resetPhysicsData() after checks above which are making sure mesh ids exist (as resetPhysicsData() uses meshIds) but before any checks
+			for mesh size happen, as this removes physics data to ensure those size checks return accurate results
+		]]
+		local success, errorMessage = (resetPhysicsData :: any)({ inst }, isServer)
+		if not success then
+			return false, { errorMessage }
 		end
 	end
 

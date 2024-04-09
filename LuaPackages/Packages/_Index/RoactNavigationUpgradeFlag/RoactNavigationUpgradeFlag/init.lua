@@ -1,13 +1,13 @@
 local AppStorageService = game:GetService("AppStorageService")
 
-game:DefineFastInt("RoactNavigationMigrateTo0_5_9Rollout", 0)
-game:DefineFastFlag("RoactNavigationMigrateTo0_5_9", false)
+game:DefineFastInt("RoactNavigationMigrateTo0_5_10Rollout", 0)
+game:DefineFastFlag("RoactNavigationMigrateTo0_5_10", false)
 
 return function()
-	local rolloutPercent = game:GetFastInt("RoactNavigationMigrateTo0_5_9Rollout")
+	local rolloutPercent = game:GetFastInt("RoactNavigationMigrateTo0_5_10Rollout")
 
 	-- For testing, we want need an FFlag, as FInts aren't supported in the --ff allOn case
-	if game:GetFastFlag("RoactNavigationMigrateTo0_5_9") then
+	if game:GetFastFlag("RoactNavigationMigrateTo0_5_10") then
 		return true
 	end
 

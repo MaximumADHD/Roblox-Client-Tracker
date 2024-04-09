@@ -108,6 +108,12 @@ ItemTile.validateProps = t.strictInterface({
 
 	-- Pass through React.Tag
 	[React.Tag] = t.optional(t.string),
+
+	-- The thumbnail aspect ratio
+	aspectRatio = t.optional(t.number),
+
+	-- The thumbnail scale type
+	scaleType = t.optional(t.enum(Enum.ScaleType)),
 })
 
 ItemTile.defaultProps = {
@@ -145,6 +151,8 @@ function ItemTile:render()
 	local Selectable = self.props.Selectable
 	local titleFontStyle = self.props.titleFontStyle
 	local renderTileInset = self.props.renderTileInset
+	local aspectRatio = self.props.aspectRatio
+	local scaleType = self.props.scaleType
 
 	local hasOverlayComponents = false
 	local overlayComponents = {}
@@ -195,7 +203,8 @@ function ItemTile:render()
 		addSubtitleSpace = addSubtitleSpace,
 		titleFontStyle = titleFontStyle,
 		renderTileInset = renderTileInset,
-
+		thumbnailAspectRatio = aspectRatio,
+		thumbnailScaleType = scaleType,
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,

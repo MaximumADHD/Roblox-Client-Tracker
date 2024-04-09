@@ -540,9 +540,28 @@ function GenericSlider:didMount()
 	checkAncestry()
 end
 
-function GenericSlider:didUpdate()
+function GenericSlider:didUpdate(prevProps, prevState)
 	if self.props.disabled then
 		self:stopListeningForDrag()
+	end
+	if UIBloxConfig.sliderGamepadDragStartAndEnd then
+		local lowerKnobDeselected = prevState.lowerKnobIsSelected and not self.state.lowerKnobIsSelected
+		local upperKnobDeselected = prevState.upperKnobIsSelected and not self.state.upperKnobIsSelected
+		if self.props.onDragEnd ~= nil and (lowerKnobDeselected or upperKnobDeselected) then
+			self.props.onDragEnd()
+		elseif
+			self.props.onDragStartLower ~= nil
+			and not prevState.lowerKnobIsSelected
+			and self.state.lowerKnobIsSelected
+		then
+			self.props.onDragStartLower()
+		elseif
+			self.props.onDragStartUpper ~= nil
+			and not prevState.upperKnobIsSelected
+			and self.state.upperKnobIsSelected
+		then
+			self.props.onDragStartUpper()
+		end
 	end
 end
 

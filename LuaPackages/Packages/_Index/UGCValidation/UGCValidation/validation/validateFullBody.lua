@@ -8,7 +8,7 @@ local root = script.Parent.Parent
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateFullBody = require(root.flags.getFFlagUGCValidateFullBody)
-local getFFlagUGCValidationResetPhysicsData = require(root.flags.getFFlagUGCValidationResetPhysicsData)
+local getFFlagUGCValidationFixResetPhysicsError = require(root.flags.getFFlagUGCValidationFixResetPhysicsError)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -23,6 +23,7 @@ local validateSingleInstance = require(root.validation.validateSingleInstance)
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
 local createLimbsAndTorsoSchema = require(root.util.createLimbsAndTorsoSchema)
 local resetPhysicsData = require(root.util.resetPhysicsData)
+local ParseContentIds = require(root.util.ParseContentIds)
 
 local function getInstance(instances: { Instance }, name: string): Instance?
 	for _, inst in instances do
@@ -139,6 +140,39 @@ local function createAllBodyPartsTable(folderName: string, fullBodyData: Types.F
 	return results
 end
 
+local function validateMeshIds(fullBodyData: Types.FullBodyData): (boolean, { string }?)
+	local fieldsToCheckFor = {
+		MeshPart = { "MeshId" },
+	}
+
+	local requiredFields = {
+		MeshPart = { MeshId = true },
+	}
+
+	for _, instancesAndType in fullBodyData do
+		for __, instance in instancesAndType.allSelectedInstances do
+			local contentIdMap = {}
+			local contentIds = {}
+
+			local parseSuccess = ParseContentIds.parseWithErrorCheck(
+				contentIds,
+				contentIdMap,
+				instance,
+				fieldsToCheckFor,
+				requiredFields
+			)
+			if not parseSuccess then
+				Analytics.reportFailure(Analytics.ErrorType.validateFullBody_MeshIdsMissing)
+				return false,
+					{
+						"Unable to run full body validation due to previous errors detected while processing individual body parts",
+					}
+			end
+		end
+	end
+	return true
+end
+
 local function validateInstanceHierarchy(
 	fullBodyData: Types.FullBodyData,
 	requiredTopLevelFolders: { string },
@@ -164,6 +198,14 @@ local function validateInstanceHierarchy(
 				"Unable to run full body validation due to previous errors detected while processing individual body parts.",
 			}
 	end
+
+	if getFFlagUGCValidationFixResetPhysicsError() then
+		local success, errorMessage = validateMeshIds(fullBodyData)
+		if not success then
+			return false, errorMessage
+		end
+	end
+
 	return true
 end
 
@@ -190,13 +232,17 @@ local function DEPRECATED_validateInstanceHierarchy(
 				"Unable to run full body validation due to previous errors detected while processing individual body parts",
 			}
 	end
+
+	if getFFlagUGCValidationFixResetPhysicsError() then
+		local success, errorMessage = validateMeshIds(fullBodyData)
+		if not success then
+			return false, errorMessage
+		end
+	end
 	return true
 end
 
-local function resetAllPhysicsData(validationContext: Types.ValidationContext)
-	if not getFFlagUGCValidationResetPhysicsData() then
-		return
-	end
+local function resetAllPhysicsData(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local fullBodyData = validationContext.fullBodyData :: Types.FullBodyData
 
 	for _, instancesAndType in fullBodyData do
@@ -209,13 +255,22 @@ local function resetAllPhysicsData(validationContext: Types.ValidationContext)
 	return true
 end
 
-local function DEPRECATED_resetAllPhysicsData(fullBodyData: Types.FullBodyData)
-	if not getFFlagUGCValidationResetPhysicsData() then
-		return
-	end
+local function DEPRECATED_resetAllPhysicsData(
+	fullBodyData: Types.FullBodyData,
+	isServer: boolean?
+): (boolean, { string }?)
 	for _, instancesAndType in fullBodyData do
-		(resetPhysicsData :: any)(instancesAndType.allSelectedInstances)
+		if getFFlagUGCValidationFixResetPhysicsError() then
+			local success, errorMessage = (resetPhysicsData :: any)(instancesAndType.allSelectedInstances, isServer)
+			if not success then
+				return false, { errorMessage }
+			end
+		else
+			(resetPhysicsData :: any)(instancesAndType.allSelectedInstances)
+		end
 	end
+
+	return true
 end
 
 local function validateFullBody(validationContext: Types.ValidationContext): (boolean, { string }?)
@@ -273,7 +328,14 @@ local function DEPRECATED_validateFullBody(fullBodyData: Types.FullBodyData, isS
 		return false, reasons
 	end
 
-	DEPRECATED_resetAllPhysicsData(fullBodyData)
+	if getFFlagUGCValidationFixResetPhysicsError() then
+		success, reasons = DEPRECATED_resetAllPhysicsData(fullBodyData, isServer)
+		if not success then
+			return false, reasons
+		end
+	else
+		DEPRECATED_resetAllPhysicsData(fullBodyData)
+	end
 
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 

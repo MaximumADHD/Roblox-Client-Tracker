@@ -81,6 +81,12 @@ local tileInterface = t.strictInterface({
 	-- The item thumbnail's transparency if not 0
 	thumbnailTransparency = t.optional(t.number),
 
+	-- The thumbnail aspect ratio
+	thumbnailAspectRatio = t.optional(t.number),
+
+	-- The thumbnail scale type
+	thumbnailScaleType = t.optional(t.enum(Enum.ScaleType)),
+
 	-- Optional text to display in the Item Tile banner in place of the footer
 	bannerText = t.optional(t.string),
 
@@ -228,7 +234,7 @@ function Tile:render()
 
 			local maxTitleTextHeight = math.ceil(titleFontSize * titleTextLineCount)
 			local footerHeight = tileHeight
-				- tileWidth
+				- (tileWidth / (self.props.thumbnailAspectRatio or 1))
 				- innerPadding
 				- maxTitleTextHeight
 				- innerPadding
@@ -335,8 +341,15 @@ function Tile:render()
 						imageColor = thumbnailColor,
 						imageTransparency = thumbnailTransparency,
 						backgroundImage = backgroundImage,
+						scaleType = self.props.thumbnailScaleType,
 					}),
 					TileInset = renderTileInset and renderTileInset() or nil,
+					UIAspectRatioConstraint = if self.props.thumbnailAspectRatio ~= nil
+						then React.createElement("UIAspectRatioConstraint", {
+							AspectRatio = self.props.thumbnailAspectRatio,
+							AspectType = Enum.AspectType.ScaleWithParentSize,
+						})
+						else nil,
 				}),
 				TitleArea = React.createElement("Frame", {
 					Size = titleAreaSize,

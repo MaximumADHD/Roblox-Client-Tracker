@@ -9,6 +9,7 @@ local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationAnalytics)
 local getFFlagUGCValidateTestInactiveControls = require(root.flags.getFFlagUGCValidateTestInactiveControls)
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
+local getFFlagUGCValidationFixResetPhysicsError = require(root.flags.getFFlagUGCValidationFixResetPhysicsError)
 
 local function joinTables(...)
 	local result = {}
@@ -134,6 +135,11 @@ Analytics.ErrorType = {
 if getFFlagUGCValidateTestInactiveControls() then
 	Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls =
 		"validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls"
+end
+
+if getFFlagUGCValidationFixResetPhysicsError() then
+	Analytics.ErrorType.resetPhysicsData_FailedToLoadMesh = "resetPhysicsData_FailedToLoadMesh"
+	Analytics.ErrorType.validateFullBody_MeshIdsMissing = "validateFullBody_MeshIdsMissing"
 end
 
 setmetatable(Analytics.ErrorType, {

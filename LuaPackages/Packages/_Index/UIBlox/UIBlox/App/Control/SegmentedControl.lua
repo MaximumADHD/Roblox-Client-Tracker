@@ -197,6 +197,7 @@ function SegmentedControl:render()
 			-- gamepad focus is added to the frame, not SegmentedControlTabName
 			local tabs = Cryo.List.map(self.props.tabs, function(tab, index)
 				return Roact.createElement(RoactGamepad.Focusable.Frame, {
+					key = tab.tabName,
 					LayoutOrder = index,
 					Size = UDim2.fromOffset(tabWidth, INTERACTION_HEIGHT),
 					BackgroundTransparency = 1,
@@ -244,16 +245,6 @@ function SegmentedControl:render()
 					}),
 				})
 			end)
-			-- add UIListLayout for tabs
-			table.insert(
-				tabs,
-				Roact.createElement("UIListLayout", {
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				})
-			)
 
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, INTERACTION_HEIGHT),
@@ -334,7 +325,15 @@ function SegmentedControl:render()
 					Position = UDim2.fromScale(0, 0),
 					ZIndex = 5,
 					defaultChild = self.tabRefs[self.props.selectedTabIndex],
-				}, tabs),
+				}, {
+					TabLayout = Roact.createElement("UIListLayout", {
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+					}),
+					Roact.createFragment(tabs),
+				}),
 			})
 		end)
 	end)
