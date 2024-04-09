@@ -169,8 +169,8 @@ Studio.App.RobloxOutputRibbonDropdown.ShowContext,,Show Context,Show Context
 Studio.App.RobloxOutputRibbonDropdown.ShowSource,,Show Source,Show Source
 Studio.App.RobloxOutputRibbonDropdown.LogMode,,Log Mode,Log Mode
 Studio.App.RobloxOutputRibbonDropdown.StackLines,,Stack Lines,Stack Lines
-Studio.App.RobloxOutputRibbonDropdown.ShowTablesExpandedByDefault,,Show tables expanded by default,Show tables expanded by default
-Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForExpandableTables,,Show memory address for expandable tables,Show memory address for expandable tables
+Studio.App.RobloxOutputRibbonDropdown.ShowTablesExpandedByDefault,,Show Tables Expanded by Default,Show Tables Expanded by Default
+Studio.App.RobloxOutputRibbonDropdown.ShowMemoryAddressForTables,,Show Memory Address for Tables,Show Memory Address for Tables
 Studio.App.RobloxOutputRibbonDropdown.Error,,Error,Error
 Studio.App.RobloxOutputRibbonDropdown.Warning,,Warning,Warning
 Studio.App.RobloxOutputRibbonDropdown.Information,,Information,Information
@@ -200,14 +200,22 @@ Studio.Common.Action.No,,No,No
 Studio.Common.Action.OK,,OK,OK
 Studio.Common.Action.Open,,Open,Open
 Studio.Common.Action.Pause,,Pause,Pause
-Studio.Common.Action.PauseCurrent,"Pauses the currently visible workspace, namely client or server.",Pause Current,Pause Current
+Studio.Common.Action.PauseAllPhysics,,Pause Physics: All,Pause Physics: All
+Studio.Common.Action.PauseScripts,,Pause Scripts,Pause Scripts
+Studio.Common.Action.PauseCurrentPhysics,"Pauses the currently visible workspace physics simulation, namely client or server.",Pause Physics: Current,Pause Physics: Current
+Studio.Common.Action.PauseCurrentClient,,Pause Physics: Client,Pause Physics: Client
+Studio.Common.Action.PauseCurrentServer,,Pause Physics: Server,Pause Physics: Server
 Studio.Common.Action.Play,,Play,Play
 Studio.Common.Action.PublishToRobloxAs,,Publish to Roblox As...,Publish to Roblox As...
 Studio.Common.Action.Redo,,Redo,Redo
 Studio.Common.Action.Replace,,Replace,Replace
 Studio.Common.Action.ReportBug,,Report Bug,Report Bug
 Studio.Common.Action.Resume,,Resume,Resume
-Studio.Common.Action.ResumeCurrent,"Resumes the currently visible workspace, namely client or server.",Resume Current,Resume Current
+Studio.Common.Action.ResumeAllPhysics,,Resume Physics: All,Resume Physics: All
+Studio.Common.Action.ResumeScripts,,Resume Scripts,Resume Scripts
+Studio.Common.Action.ResumeCurrentPhysics,"Resumes the currently visible workspace physics simulation, namely client or server.",Resume Physics: Current,Resume Physics: Current
+Studio.Common.Action.ResumeCurrentClient,,Resume Physics: Client,Resume Physics: Client
+Studio.Common.Action.ResumeCurrentServer,,Resume Physics: Server,Resume Physics: Server
 Studio.Common.Action.Rename,,Rename,Rename
 Studio.Common.Action.Reset,,Reset,Reset
 Studio.Common.Action.Retry,,Retry,Retry

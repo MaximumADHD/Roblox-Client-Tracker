@@ -141,8 +141,8 @@ dependencies = [
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactAppExperiment RoactAppExperiment 0.4.1 url+https://github.com/roblox/roact-app-experiment",
     "RoactGamepad <patched> RoactGamepad 0.5.13 url+https://github.com/roblox/roact-gamepad",
-    "RoactNavigation RoactNavigationProxy 01d1aee6 git+https://github.com/roblox/roact-navigation-upgrade#main",
-    "RoactNavigationUpgradeFlag RoactNavigationUpgradeFlag 01d1aee6 git+https://github.com/roblox/roact-navigation-upgrade#main",
+    "RoactNavigation RoactNavigationProxy e63a0353 git+https://github.com/roblox/roact-navigation-upgrade#main",
+    "RoactNavigationUpgradeFlag RoactNavigationUpgradeFlag e63a0353 git+https://github.com/roblox/roact-navigation-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxContacts RoduxContacts 3cde6d38 git+https://github.com/roblox/rodux-contacts#v0.9.0",
@@ -156,8 +156,8 @@ dependencies = [
     "StringUtilities roblox/string-utilities 1.0.0 url+https://github.com/roblox/string-utilities",
     "TagUtils TagUtils 0.1.0 url+https://github.com/roblox/luau-tag-utils",
     "Thumbnailing Thumbnailing 935c3f68 git+https://github.com/roblox/thumbnailing#main",
-    "UGCValidation UGCValidation 1.11.5 url+https://github.com/roblox/ugc-validation",
-    "UIBlox UIBlox 0da90edb git+https://github.com/roblox/uiblox#master",
+    "UGCValidation UGCValidation 1.11.6 url+https://github.com/roblox/ugc-validation",
+    "UIBlox UIBlox 5157a34d git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder f569021f git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 url+https://github.com/roblox/usage-tracker-lua",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
@@ -303,7 +303,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 0da90edb git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5157a34d git+https://github.com/roblox/uiblox#master",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
@@ -379,7 +379,7 @@ dependencies = [
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoactGamepad <patched> RoactGamepad 0.5.13 url+https://github.com/roblox/roact-gamepad",
     "Thumbnailing Thumbnailing 935c3f68 git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 0da90edb git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5157a34d git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -398,7 +398,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 0da90edb git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5157a34d git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -1311,7 +1311,7 @@ dependencies = [
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 0da90edb git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5157a34d git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder f569021f git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1569,9 +1569,9 @@ dependencies = [
 
 [[package]]
 name = "RoactNavigation"
-version = "0.5.9"
-commit = "87b6eb6d52b26af3caf60e8cedf0330845fe1970"
-source = "git+https://github.com/roblox/roact-navigation#v0.5.9"
+version = "0.5.10"
+commit = "660967cae4fb74480058b06de7702f7c26fe04d4"
+source = "git+https://github.com/roblox/roact-navigation#v0.5.10"
 dependencies = [
     "LuauPolyfill LuauPolyfill 1.2.3 url+https://github.com/roblox/luau-polyfill",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
@@ -1581,19 +1581,19 @@ dependencies = [
 
 [[package]]
 name = "RoactNavigationProxy"
-version = "0.3.0"
-commit = "01d1aee60ad7037e021ff310276311df722a80f4"
+version = "0.5.10"
+commit = "e63a0353a87706e30800d76a8a144187ea71a4c3"
 source = "git+https://github.com/roblox/roact-navigation-upgrade#main"
 dependencies = [
     "CurrentRoactNavigation RoactNavigation 2818f7fd git+https://github.com/roblox/roact-navigation#v0.5.8",
-    "RoactNavigation RoactNavigation 87b6eb6d git+https://github.com/roblox/roact-navigation#v0.5.9",
-    "RoactNavigationUpgradeFlag RoactNavigationUpgradeFlag 01d1aee6 git+https://github.com/roblox/roact-navigation-upgrade#main",
+    "RoactNavigation RoactNavigation 660967ca git+https://github.com/roblox/roact-navigation#v0.5.10",
+    "RoactNavigationUpgradeFlag RoactNavigationUpgradeFlag e63a0353 git+https://github.com/roblox/roact-navigation-upgrade#main",
 ]
 
 [[package]]
 name = "RoactNavigationUpgradeFlag"
-version = "0.3.0"
-commit = "01d1aee60ad7037e021ff310276311df722a80f4"
+version = "0.5.10"
+commit = "e63a0353a87706e30800d76a8a144187ea71a4c3"
 source = "git+https://github.com/roblox/roact-navigation-upgrade#main"
 
 [[package]]
@@ -1927,12 +1927,12 @@ dependencies = [
     "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "RoactNavigation <patched> RoactNavigationProxy 01d1aee6 git+https://github.com/roblox/roact-navigation-upgrade#main",
+    "RoactNavigation <patched> RoactNavigationProxy e63a0353 git+https://github.com/roblox/roact-navigation-upgrade#main",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxFriends RoduxFriends 02a3ea83 git+https://github.com/roblox/rodux-friends#v4.0.0",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 0da90edb git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 5157a34d git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -2030,8 +2030,8 @@ dependencies = ["Collections Collections 1.2.3 url+https://github.com/roblox/lua
 
 [[package]]
 name = "UGCValidation"
-version = "1.11.5"
-commit = "4882c79d428b186ada265096778c9f96d7987289"
+version = "1.11.6"
+commit = "4699f9c51654cc6be8df2dfdc97e5bebd47699d7"
 source = "url+https://github.com/roblox/ugc-validation"
 dependencies = [
     "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",
@@ -2041,7 +2041,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "0da90edb3ab89a12161d1a93f57aa19ee1d28504"
+commit = "5157a34db8166a9bc9b7ed7e0a49a67390991973"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",

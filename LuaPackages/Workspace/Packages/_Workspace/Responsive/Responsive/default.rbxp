@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "Responsive",
+    "tree": {
+      "$path": "../../../../../../../modules/app-common/responsive/src"
+    }
+  }
+}

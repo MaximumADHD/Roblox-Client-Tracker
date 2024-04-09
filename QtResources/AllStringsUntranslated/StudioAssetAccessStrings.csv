@@ -1,0 +1,4 @@
+Key,Context,Source,en-us
+Studio.App.AssetAccess.ShareOutputMessage1,,The experience doesn't have access permission to use asset id %1. Click to share access,The experience doesn't have access permission to use asset id %1. Click to share access
+Studio.App.AssetAccess.ShareOutputMessageToolTip,,Share access to asset(s),Share access to asset(s)
+Studio.App.AssetAccess.ShareOutputMessageUnavailable,,Asset access sharing unavailable,Asset access sharing unavailable

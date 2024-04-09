@@ -310,6 +310,7 @@ dependencies = [
     "AppBlox AppBlox 0.1.0",
     "AppChatNetworking AppChatNetworking 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
+    "AppTabBarRodux AppTabBarRodux 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
     "CollisionMatchers2D CollisionMatchers2D 0.1.0",
     "CommunicationsContactConsent CommunicationsContactConsent 0.1.0",
@@ -1147,8 +1148,10 @@ dependencies = [
     "RoactServices RoactServices 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppLocales RobloxAppLocales 0.1.0",
+    "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UserLib UserLib 0.1.0",
@@ -2276,6 +2279,17 @@ name = "RegExp"
 version = "0.1.0"
 
 [[package]]
+name = "Responsive"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+]
+
+[[package]]
 name = "Result"
 version = "0.1.0"
 
@@ -2886,6 +2900,7 @@ dependencies = [
     "ReactRoblox ReactRoblox 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RobloxAppLocales RobloxAppLocales 0.1.0",
     "Rodux Rodux 0.1.0",
@@ -2938,6 +2953,7 @@ dependencies = [
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
+    "LuauPolyfill LuauPolyfill 0.1.0",
     "Lumberyak Lumberyak 0.1.0",
     "PeekView PeekView 0.1.0",
     "React React 0.1.0",
@@ -2957,6 +2973,7 @@ dependencies = [
     "ToastNotificationsProtocol ToastNotificationsProtocol 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UserLib UserLib 0.1.0",
+    "UserProfiles UserProfiles 0.1.0",
     "enumerate enumerate 0.1.0",
     "t t 0.1.0",
 ]
@@ -3111,6 +3128,7 @@ dependencies = [
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
     "Navigation Navigation 0.1.0",
+    "NavigationRodux NavigationRodux 0.1.0",
     "React React 0.1.0",
     "ReactFocusNavigation ReactFocusNavigation 0.1.0",
     "ReactOtter ReactOtter 0.1.0",
@@ -3180,6 +3198,7 @@ dependencies = [
     "LuauPolyfill LuauPolyfill 0.1.0",
     "MessageBus MessageBus 0.1.0",
     "Navigation Navigation 0.1.0",
+    "NavigationRodux NavigationRodux 0.1.0",
     "Otter Otter 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
@@ -3217,6 +3236,7 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "Localization Localization 0.1.0",
+    "NavigationRodux NavigationRodux 0.1.0",
     "React React 0.1.0",
     "RoactNavigation RoactNavigation 0.1.0",
     "RoactRodux RoactRodux 0.1.0",

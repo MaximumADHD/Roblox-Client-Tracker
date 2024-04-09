@@ -159,3 +159,5 @@ Studio.App.BetaFeatures.Path2DTitle,,Path2D Instance,Path2D Instance
 Studio.App.BetaFeatures.Path2DDescription,,Enables the new Path2D Instance and in-viewport editor for 2D splines.,Enables the new Path2D Instance and in-viewport editor for 2D splines.
 Studio.App.BetaFeatures.SimulationPauseAndStepTitle,,Simulation Pause,Simulation Pause
 Studio.App.BetaFeatures.SimulationPauseAndStepDescription,,Enables visual pausing and simulation debugging at studio run time.,Enables visual pausing and simulation debugging at studio run time.
+Studio.App.BetaFeatures.MaterialPickerTitle,,Material Picker,Material Picker
+Studio.App.BetaFeatures.MaterialPickerDescription,,Adds a new Material button to the Home and Edit tabs to quickly change materials.,Adds a new Material button to the Home and Edit tabs to quickly change materials.

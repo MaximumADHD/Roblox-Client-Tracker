@@ -215,3 +215,15 @@ Studio.RobloxPropertiesWidget.Category.VectorForce,,VectorForce,VectorForce
 Studio.RobloxPropertiesWidget.Category.Video,,Video,Video
 Studio.RobloxPropertiesWidget.Category.Visualization,,Visualization,Visualization
 Studio.RobloxPropertiesWidget.Category.Winch,,Winch,Winch
+Studio.CapabilitiesPropertyItem.Capability.RunClientScript,,Allows scripts to run on the Client,Allows scripts to run on the Client
+Studio.CapabilitiesPropertyItem.Capability.RunServerScript,,Allows scripts to run on the Server,Allows scripts to run on the Server
+Studio.CapabilitiesPropertyItem.Capability.AccessOutsideWrite,,Allows access to the instances outside the Sandboxed container,Allows access to the instances outside the Sandboxed container
+Studio.CapabilitiesPropertyItem.Capability.AssetRequire,,Allows calls to 'require' function using asset ID,Allows calls to 'require' function using asset ID
+Studio.CapabilitiesPropertyItem.Capability.LoadString,,Allows 'loadstring' function to be used (restrictions from other settings still apply),Allows 'loadstring' function to be used (restrictions from other settings still apply)
+Studio.CapabilitiesPropertyItem.Capability.ScriptGlobals,,Allows access to scripts globals like '_G' and 'shared',Allows access to scripts globals like '_G' and 'shared'
+Studio.CapabilitiesPropertyItem.Capability.CreateInstances,,"Allows creation of new instances using Instance.new, :Clone and other methods","Allows creation of new instances using Instance.new, :Clone and other methods"
+Studio.CapabilitiesPropertyItem.Capability.Basic,,Allows a basic set of engine APIs to be used,Allows a basic set of engine APIs to be used
+Studio.CapabilitiesPropertyItem.Capability.Audio,,Allows access to Audio related instance APIs,Allows access to Audio related instance APIs
+Studio.CapabilitiesPropertyItem.Capability.DataStore,,Allows access to DataStore/MemoryStore related engine APIs,Allows access to DataStore/MemoryStore related engine APIs
+Studio.CapabilitiesPropertyItem.Capability.Network,,Allows access to Networking engine APIs,Allows access to Networking engine APIs
+Studio.CapabilitiesPropertyItem.Capability.Physics,,Allows access to Physics related instance APIs,Allows access to Physics related instance APIs

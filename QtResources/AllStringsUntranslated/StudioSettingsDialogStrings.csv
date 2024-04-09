@@ -342,5 +342,5 @@ Studio.App.PropertyTooltip.DraggerSummonMarginFactor,,Fine tune how agressively 
 Studio.App.Property.LoadAllBuiltinPluginsInTestMode,,Load All Built-In Plugins in Test Mode,Load All Built-In Plugins in Test Mode
 Studio.App.Property.LoadAllBuiltinPluginsInTestModeTooltip,,"Load All Built-In Plugins when running in test modes, this will allow full edit-time functionality in test modes, but may slow down test mode startup times.","Load All Built-In Plugins when running in test modes, this will allow full edit-time functionality in test modes, but may slow down test mode startup times."
 Studio.App.Category.Test,,Test,Test
-Studio.App.Property.LoadUserPluginsInTestMode,,Load User Plugins in Test mode,Load User Plugins in Test mode
+Studio.App.Property.LoadUserPluginsInTestMode,,Load User Plugins in Test Mode,Load User Plugins in Test Mode
 Studio.App.Property.LoadUserPluginsInTestModeTooltip,,"Load User Plugins when running in test modes, unchecking this box may improve test mode startup time.","Load User Plugins when running in test modes, unchecking this box may improve test mode startup time."

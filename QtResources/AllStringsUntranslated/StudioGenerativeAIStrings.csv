@@ -71,3 +71,4 @@ Studio.App.GenerativeAI.HideCodeDropdown,,Hide code,Hide code
 Studio.App.GenerativeAI.Setting.AutoExpandTextDropdowns,,Auto-expand dropdowns,Auto-expand dropdowns
 Studio.App.GenerativeAI.Setting.ExpandAllTextDropdowns,,Expand all dropdowns,Expand all dropdowns
 Studio.App.GenerativeAI.Setting.CollapseAllTextDropdowns,,Collapse all dropdowns,Collapse all dropdowns
+Studio.App.GenerativeAI.Setting.AutoRunCode,,Auto-run code,Auto-run code

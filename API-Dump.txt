@@ -84,7 +84,7 @@ Class Accessory : Accoutrement
 	Property Accessory.AccessoryType: Enum.AccessoryType
 Class Hat : Accoutrement [Deprecated]
 Class ActivityHistoryService : Instance [NotCreatable] [Service] [NotReplicated]
-	Event ActivityHistoryService.onEventNotificationReceived()
+	Event ActivityHistoryService.EventNotificationReceived()
 Class AdPortal : Instance
 	Property AdPortal.Status: Enum.AdUnitStatus [ReadOnly]
 	Property AdPortal.PortalInvalidReason: string [ReadOnly] [NotScriptable]
@@ -401,10 +401,13 @@ Class AudioEcho : Instance [NotBrowsable]
 	Property AudioEcho.WetLevel: number
 	Function AudioEcho:GetConnectedWires(pin: string) -> { any }
 Class AudioEmitter : Instance [NotBrowsable]
+	Property AudioEmitter.DistanceAttenuation: BinaryString {RobloxSecurity}
 	Property AudioEmitter.AudioInteractionGroup: string
 	Function AudioEmitter:GetAudibilityFor(listener: AudioListener) -> number {RobloxScriptSecurity}
 	Function AudioEmitter:GetConnectedWires(pin: string) -> { any }
+	Function AudioEmitter:GetDistanceAttenuation() -> { [string]: any } [CustomLuaState]
 	Function AudioEmitter:GetInteractingListeners() -> { any } {RobloxScriptSecurity}
+	Function AudioEmitter:SetDistanceAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 Class AudioEqualizer : Instance [NotBrowsable]
 	Property AudioEqualizer.HighGain: number
 	Property AudioEqualizer.LowGain: number
@@ -481,8 +484,11 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Function AvatarChatService:PollServerFeatures() -> number {RobloxScriptSecurity}
 	Event AvatarChatService.OnClientFeatures(features: number) {RobloxSecurity} [Hidden]
 Class AvatarCreationService : Instance [NotCreatable] [Service]
+	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
+	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
-	Event AvatarCreationService.ReplicateAvatarTempAssetIds(serializedModel: string, bufferMap: { [string]: any }) {RobloxSecurity} [Hidden]
+	Event AvatarCreationService.ReplicateAvatarTempAssetIds(id: string, serializedModel: string, bufferMap: { [string]: any }) {RobloxSecurity} [Hidden]
+	Event AvatarCreationService.RequestAvatarModel(id: string) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.UgcValidationFailure(guid: string, errorMessage: string) {RobloxScriptSecurity}
 	Event AvatarCreationService.UgcValidationSuccess(guid: string, serializedModel: string) {RobloxScriptSecurity}
 Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -547,6 +553,20 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.PromptSaveAvatarThumbnailCustomizationCompleted(result: Enum.AvatarPromptResult, failureType: any) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptSetFavoriteCompleted(result: Enum.AvatarPromptResult)
 	Event AvatarEditorService.PromptUpdateOutfitCompleted(result: Enum.AvatarPromptResult)
+Class AvatarGenerationJob : Instance [NotCreatable]
+	Property AvatarGenerationJob.Error: Enum.AvatarGenerationError
+	Property AvatarGenerationJob.ErrorMessage: string
+	Property AvatarGenerationJob.Progress: number
+	Property AvatarGenerationJob.Status: Enum.AvatarGenerationJobStatus
+	Function AvatarGenerationJob:Cancel() -> ()
+	Function AvatarGenerationJob:Wait() -> () [Yields]
+Class Avatar2DGenerationJob : AvatarGenerationJob [NotCreatable]
+	Property Avatar2DGenerationJob.Result: string
+Class Avatar3DGenerationJob : AvatarGenerationJob [NotCreatable]
+	Property Avatar3DGenerationJob.Result: Model?
+Class AvatarGenerationSession : Instance [NotCreatable]
+	Function AvatarGenerationSession:GenerateAvatarModel(previewJob: Avatar2DGenerationJob, options: { [string]: any }) -> Avatar3DGenerationJob
+	Function AvatarGenerationSession:GenerateAvatarPreview(textPrompt: string, options: { [string]: any }) -> Avatar2DGenerationJob
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarImportService:ImportFBXAnimationFromFilePathUserMayChooseModel(fbxFilePath: string, selectedRig: Instance, userChooseModelThenImportCB: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
 	Function AvatarImportService:ImportFBXAnimationUserMayChooseModel(selectedRig: Instance, userChooseModelThenImportCB: (...any) -> ...any) -> Instance? {RobloxScriptSecurity} [Yields]
@@ -877,6 +897,7 @@ Class Camera : Instance [NotReplicated]
 Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CaptureService:CaptureScreenshot(onCaptureReady: (...any) -> ...any) -> ()
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
+	Function CaptureService:DeleteCapturesAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureFilePathAsync(captureContentId: string) -> string {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureSizeAsync(captureContentId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
@@ -1077,6 +1098,10 @@ Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CommandService:Execute(name: string, params: any) -> any {RobloxScriptSecurity} [Yields]
 	Function CommandService:RegisterCommand(plugin: Plugin, name: string, context: string, permission: Enum.CommandPermission? = "LocalUser") -> CommandInstance {RobloxScriptSecurity} [Yields]
 	Event CommandService.CommandExecuting(name: string, params: any) {RobloxScriptSecurity}
+Class CommerceService : Instance [NotCreatable] [Service]
+	Function CommerceService:PromptRealWorldCommerceBrowser(player: Player, url: string) -> ()
+	Function CommerceService:UserEligibleForRealWorldCommerceAsync() -> boolean [Yields]
+	Event CommerceService.InExperienceBrowserRequested(url: string) {RobloxSecurity}
 Class Configuration : Instance
 Class ConfigureServerService : Instance [NotCreatable] [Service]
 Class ConnectivityService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2500,6 +2525,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.NativeClose() {RobloxScriptSecurity}
 	Event GuiService.NetworkPausedEnabledChanged(enabled: boolean) {RobloxScriptSecurity}
 	Event GuiService.Open9SliceEditor(selectedImageObject: Instance) {RobloxScriptSecurity}
+	Event GuiService.OpenAttenuationCurveEditor(selectedCurveObject: Instance) {RobloxScriptSecurity}
 	Event GuiService.PurchasePromptShown() {RobloxScriptSecurity}
 	Event GuiService.SafeZoneOffsetsChanged() {RobloxScriptSecurity}
 	Event GuiService.ShowLeaveConfirmation() {RobloxScriptSecurity}
@@ -3178,6 +3204,7 @@ Class MaterialService : Instance [NotCreatable] [Service]
 	Function MaterialService:GetMaterialVariant(material: Enum.Material, name: string) -> MaterialVariant
 	Function MaterialService:GetOverrideStatus(material: Enum.Material) -> Enum.PropertyStatus {RobloxScriptSecurity}
 	Function MaterialService:SetBaseMaterialOverride(material: Enum.Material, name: string) -> ()
+	Function MaterialService:SetCurrentMaterial(baseMaterial: Enum.Material, materialVariant: string) -> () {RobloxScriptSecurity}
 	Event MaterialService.OverrideStatusChanged(material: Enum.Material) {RobloxScriptSecurity}
 Class MaterialVariant : Instance
 	Property MaterialVariant.BaseMaterial: Enum.Material {✏️PluginSecurity}
@@ -3777,6 +3804,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.TouchesUseCollisionGroups: boolean [NotScriptable]
 	Property Workspace.CurrentCamera: Camera? [NotReplicated]
 	Property Workspace.DistributedGameTime: number [NotReplicated]
+	Property Workspace.InsertPoint: Vector3 [NotReplicated]
 	Property Workspace.RejectCharacterDeletions: Enum.RejectCharacterDeletions [NotScriptable]
 	Property Workspace.EditorLiveScripting: Enum.EditorLiveScripting [NotScriptable]
 	Property Workspace.ModelStreamingBehavior: Enum.ModelStreamingBehavior [NotScriptable]
@@ -4698,6 +4726,18 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptEditorService.TextDocumentDidChange(document: ScriptDocument, changesArray: any) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidClose(oldDocument: ScriptDocument) {PluginSecurity}
 	Event ScriptEditorService.TextDocumentDidOpen(newDocument: ScriptDocument) {PluginSecurity}
+Class ScriptProfilerService : Instance [NotCreatable] [Service]
+	Function ScriptProfilerService:ClientRequestData(player: Player) -> () {PluginSecurity}
+	Function ScriptProfilerService:ClientStart(player: Player, frequency: number?) -> () {PluginSecurity}
+	Function ScriptProfilerService:ClientStop(player: Player) -> () {PluginSecurity}
+	Function ScriptProfilerService:DeserializeJSON(jsonString: string?) -> { [string]: any } {PluginSecurity} [CustomLuaState]
+	Function ScriptProfilerService:SaveScriptProfilingData(jsonString: string, filename: string) -> string {RobloxScriptSecurity}
+	Function ScriptProfilerService:ServerRequestData() -> () {PluginSecurity}
+	Function ScriptProfilerService:ServerStart(frequency: number?) -> () {PluginSecurity}
+	Function ScriptProfilerService:ServerStop() -> () {PluginSecurity}
+	Event ScriptProfilerService.OnNewData(player: Player, jsonString: string) {PluginSecurity}
+	Event ScriptProfilerService.RequestData() {RobloxSecurity} [Hidden]
+	Event ScriptProfilerService.SetProfilingState(start: boolean, frequency: number) {RobloxSecurity} [Hidden]
 Class ScriptRegistrationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptRegistrationService:GetSourceContainerByScriptGuid(guid: string) -> LuaSourceContainer {RobloxScriptSecurity}
 Class ScriptRuntime : Instance [NotCreatable] [NotReplicated]
@@ -4710,6 +4750,7 @@ Class Selection : Instance [NotCreatable] [Service]
 	Property Selection.RenderMode: Enum.SelectionRenderMode {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Selection.ShowActiveInstanceHighlight: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function Selection:Add(instancesToAdd: { Instance }) -> () {PluginSecurity}
+	Function Selection:AddFocusCallback(priority: number, function: (...any) -> ...any) -> RBXScriptConnection {RobloxScriptSecurity}
 	Function Selection:ClearTerrainSelectionHack() -> () {RobloxScriptSecurity}
 	Function Selection:Get() -> { Instance } {PluginSecurity}
 	Function Selection:Remove(instancesToRemove: { Instance }) -> () {PluginSecurity}
@@ -5039,7 +5080,6 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.AvatarJointUpgrade_Serialized: Enum.AvatarJointUpgrade [Hidden] [NotScriptable]
 	Property StarterPlayer.CharacterMaxSlopeAngle: number
 	Property StarterPlayer.CharacterWalkSpeed: number
-	Property StarterPlayer.DeathStyle: Enum.DeathStyle [NotBrowsable]
 	Property StarterPlayer.EnableDynamicHeads: Enum.LoadDynamicHeads [NotScriptable]
 	Property StarterPlayer.GameSettingsAssetIDFace: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StarterPlayer.GameSettingsAssetIDHead: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -6638,6 +6678,17 @@ Enum AvatarContextMenuOption
 	EnumItem AvatarContextMenuOption.Chat : 1
 	EnumItem AvatarContextMenuOption.Emote : 2
 	EnumItem AvatarContextMenuOption.InspectMenu : 3
+Enum AvatarGenerationError
+	EnumItem AvatarGenerationError.None : 0
+	EnumItem AvatarGenerationError.Timeout : 1
+	EnumItem AvatarGenerationError.DownloadFailed : 2
+	EnumItem AvatarGenerationError.Canceled : 3
+	EnumItem AvatarGenerationError.Unknown : 4
+Enum AvatarGenerationJobStatus
+	EnumItem AvatarGenerationJobStatus.NotStarted : 0
+	EnumItem AvatarGenerationJobStatus.InProgress : 1
+	EnumItem AvatarGenerationJobStatus.Completed : 2
+	EnumItem AvatarGenerationJobStatus.Failed : 3
 Enum AvatarItemType
 	EnumItem AvatarItemType.Asset : 1
 	EnumItem AvatarItemType.Bundle : 2
@@ -7031,11 +7082,6 @@ Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.ListAsync : 6
 	EnumItem DataStoreRequestType.GetVersionAsync : 7
 	EnumItem DataStoreRequestType.RemoveVersionAsync : 8
-Enum DeathStyle
-	EnumItem DeathStyle.Default : 0
-	EnumItem DeathStyle.ClassicBreakApart : 1
-	EnumItem DeathStyle.NonGraphic : 2
-	EnumItem DeathStyle.Scriptable : 3
 Enum DebuggerEndReason
 	EnumItem DebuggerEndReason.ClientRequest : 0
 	EnumItem DebuggerEndReason.Timeout : 1
@@ -8865,6 +8911,7 @@ Enum TextInputType
 Enum TextTruncate
 	EnumItem TextTruncate.None : 0
 	EnumItem TextTruncate.AtEnd : 1
+	EnumItem TextTruncate.SplitWord : 2
 Enum TextXAlignment
 	EnumItem TextXAlignment.Left : 0
 	EnumItem TextXAlignment.Right : 1

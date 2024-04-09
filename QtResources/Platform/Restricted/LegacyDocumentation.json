@@ -2076,6 +2076,9 @@
         },
         "Workspace": {
             "members": {
+                "InsertPoint": {
+                    "summary": "The point the engine attempts to place pasted content at. Set and read this where appropriate in plugins for optimal editing mechanics."
+                },
                 "FindPartsInRegion3": {
                     "summary": "Returns parts in the area defined by the Region3, up to specified maxCount or 100, whichever is less"
                 },

@@ -127,7 +127,7 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png" modernIcon="Client"
             width="32"
             height="32"/>
-        <addaction name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
+        <addaction fflag="!EnableSimulationStep" name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" modernIcon="Stop" width="32" height="32"/>
       </Group>
       <Group name="Settings" text="Studio.App.RobloxRibbonMainWindow.Settings" modernIcon="GameSettings" icon=":/RibbonBar/images/RibbonIcons/Home/GameSettings.png" width="32" height="32">
@@ -344,14 +344,14 @@
             height="32"/>
         <MenuPopupButton fflag="EnableSimulationStep" handleMenuTrigger="true" selectChangesText="true" name="pauseGameActionGroup" value="simulationPauseAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32">
           <ActionGroup name="pauseActions" style="textbesideicon" ischeckable="false">
-            <addaction name="simulationPauseAllAction" type="plugin" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
-            <addaction name="simulationPauseActionV3" type="plugin" style="textundericon" text="Studio.Common.Action.PauseCurrent" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
+            <addaction name="simulationPauseAllAction" type="plugin" style="textundericon" text="Studio.Common.Action.PauseAllPhysics" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
+            <addaction name="simulationPauseActionV3" type="plugin" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
           </ActionGroup>
         </MenuPopupButton>
         <MenuPopupButton fflag="EnableSimulationStep" handleMenuTrigger="true" selectChangesText="true" name="resumeGameActionGroup" value="simulationResumeAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32">
           <ActionGroup name="resumeActions" style="textbesideicon" ischeckable="false">
-            <addaction name="simulationResumeAllAction" type="plugin" style="textundericon" text="Studio.Common.Action.Resume" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32" />
-            <addaction name="simulationResumeActionV3" type="plugin" style="textundericon" text="Studio.Common.Action.ResumeCurrent" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32" />
+            <addaction name="simulationResumeAllAction" type="plugin" style="textundericon" text="Studio.Common.Action.ResumeAllPhysics" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32" />
+            <addaction name="simulationResumeActionV3" type="plugin" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32" />
           </ActionGroup>
         </MenuPopupButton>
         <addaction fflag="!EnableSimulationStep" name="simulationPauseActionV2" type="plugin" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
@@ -550,8 +550,8 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png" modernIcon="Client"
             width="32"
             height="32"/>
-        <addaction name="simulationPauseActionV2" type="plugin" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
-        <addaction name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
+        <addaction name="simulationPauseActionV2" type="plugin" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />
+        <addaction name="simulationResumeActionV2" type="plugin" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" modernIcon="Stop" width="32" height="32"/>
       </Group>
       <Group name="Debugger" text="Studio.App.RBXMainWindow.Debugger" debugOnly="true" modernIcon="StepInto" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32">
