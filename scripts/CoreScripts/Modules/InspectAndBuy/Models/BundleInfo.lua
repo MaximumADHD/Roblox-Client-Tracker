@@ -17,6 +17,9 @@
 		owned = bool
 	}
 ]]
+local CorePackages = game:GetService("CorePackages")
+local Dash = require(CorePackages.Packages.Dash)
+
 local InspectAndBuyFolder = script.Parent.Parent
 
 local Constants = require(InspectAndBuyFolder.Constants)
@@ -28,6 +31,7 @@ local GetFFlagIBEnableRespectSaleLocation = require(InspectAndBuyFolder.Flags.Ge
 
 local GetFFlagIBEnableFixForOwnedText = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForOwnedText)
 local GetFFlagIBEnableFixForSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForSaleLocation)
+local GetFFlagIBFixBuyingFromResellers = require(InspectAndBuyFolder.Flags.GetFFlagIBFixBuyingFromResellers)
 
 local MockId = require(script.Parent.Parent.MockId)
 local BundleInfo = {}
@@ -80,6 +84,7 @@ function BundleInfo.fromGetAssetBundles(bundleInfo)
 	newBundle.creatorId = tostring(bundleInfo.creator.id)
 	newBundle.creatorName = bundleInfo.creator.name
 	newBundle.productId = tostring(bundleInfo.product.id)
+
 	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
 		if bundleInfo.collectibleItemDetail then
 			newBundle.isForSale = bundleInfo.collectibleItemDetail.saleStatus == Constants.SaleStatus.OnSale
@@ -101,38 +106,45 @@ function BundleInfo.fromGetAssetBundles(bundleInfo)
 
 			newBundle.collectibleIsLimited = bundleInfo.collectibleItemDetail.collectibleItemType == "Limited"
 
-			if GetFFlagIBEnableRespectSaleLocation() then
+			if GetFFlagIBFixBuyingFromResellers() then
 				newBundle.saleLocation = bundleInfo.collectibleItemDetail.saleLocation
-				local saleLocation = newBundle.saleLocation
+			else
+				if GetFFlagIBEnableRespectSaleLocation() then
+					newBundle.saleLocation = bundleInfo.collectibleItemDetail.saleLocation
+					local saleLocation = newBundle.saleLocation
 
-				local isNotSpecificExperienceOnly = saleLocation
-					and (
-						(saleLocation.saleLocationTypeId ~= Constants.SaleLocationType.ExperiencesDevApiOnly)
-						and (saleLocation.saleLocationTypeId ~= Constants.SaleLocationType.ShopAndExperiencesById)
-					)
-				local isNotShopOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopOnly
-				-- The bundle endpoint returns extra field: the `enabledUniverseIds`
-				-- This field is purely used in Catalog to determine if a deep link should be displayed
-				local isSpecificExperienceOnlyButInThisUniverse = saleLocation
-					and ((saleLocation.saleLocationTypeId == Constants.SaleLocationType.ExperiencesDevApiOnly) or (saleLocation.saleLocationTypeId == Constants.SaleLocationType.ShopAndExperiencesById))
-					and type(saleLocation.universeIds) == "table"
-					and table.find(saleLocation.universeIds, game.GameId) ~= nil
-				local isNotDevApiOnly
-				if GetFFlagIBEnableFixForSaleLocation() then
-					isNotSpecificExperienceOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
-					isSpecificExperienceOnlyButInThisUniverse = saleLocation
-						and saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById
-						and type(saleLocation.UniverseIds) == "table"
-						and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
-					isNotDevApiOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
-				end
-				-- we should respect isForSale and SaleLocation for collectibles
-				-- catalog API doesn't provide CanBeSoldInThisGame attribute for bundle
-				newBundle.isForSale = newBundle.isForSale
-					and isNotShopOnly
-					and (isNotSpecificExperienceOnly or isSpecificExperienceOnlyButInThisUniverse)
-				if GetFFlagIBEnableFixForSaleLocation() then
-					newBundle.isForSale = newBundle.isForSale and isNotDevApiOnly
+					local isNotSpecificExperienceOnly = saleLocation
+						and (
+							(saleLocation.saleLocationTypeId ~= Constants.SaleLocationType.ExperiencesDevApiOnly)
+							and (saleLocation.saleLocationTypeId ~= Constants.SaleLocationType.ShopAndExperiencesById)
+						)
+					local isNotShopOnly = saleLocation
+						and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopOnly
+					-- The bundle endpoint returns extra field: the `enabledUniverseIds`
+					-- This field is purely used in Catalog to determine if a deep link should be displayed
+					local isSpecificExperienceOnlyButInThisUniverse = saleLocation
+						and ((saleLocation.saleLocationTypeId == Constants.SaleLocationType.ExperiencesDevApiOnly) or (saleLocation.saleLocationTypeId == Constants.SaleLocationType.ShopAndExperiencesById))
+						and type(saleLocation.universeIds) == "table"
+						and table.find(saleLocation.universeIds, game.GameId) ~= nil
+					local isNotDevApiOnly
+					if GetFFlagIBEnableFixForSaleLocation() then
+						isNotSpecificExperienceOnly = saleLocation
+							and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
+						isSpecificExperienceOnlyButInThisUniverse = saleLocation
+							and saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById
+							and type(saleLocation.UniverseIds) == "table"
+							and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
+						isNotDevApiOnly = saleLocation
+							and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+					end
+					-- we should respect isForSale and SaleLocation for collectibles
+					-- catalog API doesn't provide CanBeSoldInThisGame attribute for bundle
+					newBundle.isForSale = newBundle.isForSale
+						and isNotShopOnly
+						and (isNotSpecificExperienceOnly or isSpecificExperienceOnlyButInThisUniverse)
+					if GetFFlagIBEnableFixForSaleLocation() then
+						newBundle.isForSale = newBundle.isForSale and isNotDevApiOnly
+					end
 				end
 			end
 		end
@@ -161,7 +173,7 @@ function BundleInfo.fromGetItemDetails(itemDetails)
 	newBundle.bundleId = tostring(itemDetails.Id)
 	newBundle.owned = itemDetails.Owned
 	newBundle.isForSale = itemDetails.IsPurchasable
-	if GetFFlagIBEnableFixForOwnedText() then
+	if GetFFlagIBEnableFixForOwnedText() and not GetFFlagIBFixBuyingFromResellers() then
 		newBundle.isForSale = itemDetails.IsPurchasable and not itemDetails.Owned
 	end
 	newBundle.price = itemDetails.Price or 0
@@ -192,6 +204,54 @@ function BundleInfo.fromPurchaseSuccess(bundleId)
 	newBundle.bundleId = tostring(bundleId)
 	newBundle.owned = true
 	return newBundle
+end
+
+if GetFFlagIBFixBuyingFromResellers() then
+	function BundleInfo.getSaleDetailsForCollectibles(bundleInfo)
+		local newBundle = Dash.joinDeep({}, bundleInfo)
+		if bundleInfo.productType == Constants.ProductType.CollectibleItem then
+			-- Deep copy
+			if GetFFlagIBEnableRespectSaleLocation() then
+				local saleLocation = newBundle.saleLocation
+				local isNotSpecificExperienceOnly = saleLocation
+					and (
+						(saleLocation.saleLocationTypeId ~= Constants.SaleLocationType.ExperiencesDevApiOnly)
+						and (saleLocation.saleLocationTypeId ~= Constants.SaleLocationType.ShopAndExperiencesById)
+					)
+				local isNotShopOnly = saleLocation
+					and saleLocation.saleLocationTypeId ~= Constants.SaleLocationType.ShopOnly
+				-- The bundle endpoint returns extra field: the `enabledUniverseIds`
+				-- This field is purely used in Catalog to determine if a deep link should be displayed
+				local isSpecificExperienceOnlyButInThisUniverse = saleLocation
+					and ((saleLocation.saleLocationTypeId == Constants.SaleLocationType.ExperiencesDevApiOnly) or (saleLocation.saleLocationTypeId == Constants.SaleLocationType.ShopAndExperiencesById))
+					and type(saleLocation.universeIds) == "table"
+					and table.find(saleLocation.universeIds, game.GameId) ~= nil
+				local isNotDevApiOnly
+				if GetFFlagIBEnableFixForSaleLocation() then
+					isNotSpecificExperienceOnly = saleLocation
+						and saleLocation.saleLocationTypeId ~= Constants.SaleLocationType.ShopAndExperiencesById
+					isSpecificExperienceOnlyButInThisUniverse = saleLocation
+						and saleLocation.saleLocationTypeId == Constants.SaleLocationType.ShopAndExperiencesById
+						and type(saleLocation.universeIds) == "table"
+						and table.find(saleLocation.universeIds, game.GameId) ~= nil
+					isNotDevApiOnly = saleLocation
+						and saleLocation.saleLocationTypeId ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+				end
+				-- we should respect isForSale and SaleLocation for collectibles
+				-- catalog API doesn't provide CanBeSoldInThisGame attribute for bundle
+				newBundle.isForSale = newBundle.isForSale
+					and isNotShopOnly
+					and (isNotSpecificExperienceOnly or isSpecificExperienceOnlyButInThisUniverse)
+				if GetFFlagIBEnableFixForSaleLocation() then
+					newBundle.isForSale = newBundle.isForSale and isNotDevApiOnly
+				end
+			end
+			if not bundleInfo.collectibleIsLimited then
+				newBundle.isForSale = newBundle.isForSale and not newBundle.owned
+			end
+		end
+		return newBundle
+	end
 end
 
 return BundleInfo

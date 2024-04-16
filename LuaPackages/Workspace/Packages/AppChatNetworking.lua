@@ -15,11 +15,15 @@ export type MessageSystem = Package.MessageSystem
 export type MessageType = Package.MessageType
 export type ModerationType = Package.ModerationType
 export type ParticipantMetadata = Package.ParticipantMetadata
+export type UnfilteredThreadsFailureReason = Package.UnfilteredThreadsFailureReason
+export type UnfilteredThreadsFtux = Package.UnfilteredThreadsFtux
 export type UserPendingStatus = Package.UserPendingStatus
 export type GetUserConversationsResponse = Package.GetUserConversationsResponse
 export type GetOlderMessagesResponse = Package.GetOlderMessagesResponse
-export type GetConversationDetailsResponse = Package.GetConversationDetailsResponse
+export type GetConversationsResponse = Package.GetConversationsResponse
 export type GetConversationsParticipantsMetadataResponse = Package.GetConversationsParticipantsMetadataResponse
+export type GetMetadataResponse = Package.GetMetadataResponse
+export type GetUnfilteredThreadEligibilityResponse = Package.GetUnfilteredThreadEligibilityResponse
 
 
 return Package

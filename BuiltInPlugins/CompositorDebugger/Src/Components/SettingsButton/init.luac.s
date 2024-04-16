@@ -18,6 +18,12 @@ PROTO_0:
   MOVE R6 R2
   NAMECALL R3 R1 K7 ["SetSetting"]
   CALL R3 3 0
+  GETTABLEKS R3 R0 K8 ["Analytics"]
+  LOADK R5 K9 ["onChangeSetting"]
+  LOADK R6 K10 ["crossFadeFilter"]
+  GETTABLEKS R7 R2 K4 ["CrossFade"]
+  NAMECALL R3 R3 K11 ["report"]
+  CALL R3 4 0
   RETURN R0 0
 
 PROTO_1:
@@ -41,6 +47,12 @@ PROTO_1:
   MOVE R6 R2
   NAMECALL R3 R1 K6 ["SetSetting"]
   CALL R3 3 0
+  GETTABLEKS R3 R0 K7 ["Analytics"]
+  LOADK R5 K8 ["onChangeSetting"]
+  LOADK R6 K9 ["activeLayersFilter"]
+  MOVE R7 R2
+  NAMECALL R3 R3 K10 ["report"]
+  CALL R3 4 0
   RETURN R0 0
 
 PROTO_2:
@@ -61,6 +73,12 @@ PROTO_2:
   MOVE R7 R3
   NAMECALL R4 R2 K7 ["SetSetting"]
   CALL R4 3 0
+  GETTABLEKS R4 R1 K8 ["Analytics"]
+  LOADK R6 K9 ["onChangeSetting"]
+  LOADK R7 K10 ["frameBufferDuration"]
+  MOVE R8 R3
+  NAMECALL R4 R4 K11 ["report"]
+  CALL R4 4 0
   RETURN R0 0
 
 PROTO_3:

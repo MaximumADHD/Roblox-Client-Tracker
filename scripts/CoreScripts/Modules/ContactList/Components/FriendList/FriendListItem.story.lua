@@ -74,13 +74,13 @@ return {
 			byUserId = {
 				["12345678"] = PresenceModel.format(PresenceModel.mock()),
 				["11111111"] = PresenceModel.format(PresenceModel.mock({
-					userPresenceType = EnumPresenceType.Online,
+					userPresenceType = EnumPresenceType.Online.rawValue(),
 				})),
 				["22222222"] = PresenceModel.format(PresenceModel.mock({
-					userPresenceType = EnumPresenceType.InStudio,
+					userPresenceType = EnumPresenceType.InStudio.rawValue(),
 				})),
 				["33333333"] = PresenceModel.format(PresenceModel.mock({
-					userPresenceType = EnumPresenceType.InGame,
+					userPresenceType = EnumPresenceType.InGame.rawValue(),
 					lastLocation = "Iris",
 				})),
 			},

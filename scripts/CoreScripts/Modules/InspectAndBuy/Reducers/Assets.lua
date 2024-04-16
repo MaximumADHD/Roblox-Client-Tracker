@@ -9,10 +9,9 @@ local SetBundlesAssetIsPartOf = require(InspectAndBuyFolder.Actions.SetBundlesAs
 local SetAssetFromBundleInfo = require(InspectAndBuyFolder.Actions.SetAssetFromBundleInfo)
 local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local GetFFlagIBFixBuyingFromResellers = require(InspectAndBuyFolder.Flags.GetFFlagIBFixBuyingFromResellers)
 
-return Rodux.createReducer(
-	{}
-, {
+return Rodux.createReducer({}, {
 	--[[
 		Set a group of assets, joining with any existing assets.
 	]]
@@ -23,6 +22,12 @@ return Rodux.createReducer(
 			assert(asset.assetId ~= nil, "Expected an asset id when setting an asset's information.")
 			local currentAsset = state[asset.assetId] or {}
 			assets[asset.assetId] = Cryo.Dictionary.join(currentAsset, asset)
+			if GetFFlagIBFixBuyingFromResellers() then
+				local newAsset = assets[asset.assetId]
+				if newAsset then
+					assets[asset.assetId] = AssetInfo.getSaleDetailsForCollectibles(newAsset)
+				end
+			end
 		end
 
 		assets = Cryo.Dictionary.join(state, assets)
@@ -41,16 +46,18 @@ return Rodux.createReducer(
 		local currentAsset = state[assetId] or {}
 		local asset = AssetInfo.fromGetAssetBundles(assetId, bundles)
 		asset = Cryo.Dictionary.join(currentAsset, asset)
-		return Cryo.Dictionary.join(state, {[assetId] = asset })
+		return Cryo.Dictionary.join(state, { [assetId] = asset })
 	end,
 
-	[SetAssetFromBundleInfo.name] = if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then function(state, action)
-		local bundleInfo = action.bundleInfo
-		local assetId = tostring(action.assetId)
-		local currentAsset = state[assetId] or {}
-		local asset = AssetInfo.fromBundleInfo(assetId, bundleInfo)
-		asset = Cryo.Dictionary.join(currentAsset, asset)
+	[SetAssetFromBundleInfo.name] = if GetFFlagIBEnableNewDataCollectionForCollectibleSystem()
+		then function(state, action)
+			local bundleInfo = action.bundleInfo
+			local assetId = tostring(action.assetId)
+			local currentAsset = state[assetId] or {}
+			local asset = AssetInfo.fromBundleInfo(assetId, bundleInfo)
+			asset = Cryo.Dictionary.join(currentAsset, asset)
 
-		return Cryo.Dictionary.join(state, { [assetId] = asset })
-	end else nil,
+			return Cryo.Dictionary.join(state, { [assetId] = asset })
+		end
+		else nil,
 })

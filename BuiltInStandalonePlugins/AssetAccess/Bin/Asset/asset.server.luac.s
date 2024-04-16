@@ -82,38 +82,41 @@ MAIN:
   GETIMPORT R2 K9 [require]
   GETTABLEKS R3 R1 K10 ["defineLuaFlags"]
   CALL R2 1 0
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R0 K11 ["Packages"]
-  GETTABLEKS R3 R4 K12 ["TestLoader"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K13 ["launch"]
-  LOADK R4 K4 ["AssetAccess"]
-  GETTABLEKS R5 R0 K14 ["Src"]
-  CALL R3 2 0
-  GETTABLEKS R3 R2 K15 ["isCli"]
-  CALL R3 0 1
-  JUMPIFNOT R3 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K17 [game]
-  LOADK R5 K18 ["AssetAccessErrorMessageImprovements"]
-  NAMECALL R3 R3 K19 ["GetFastFlag"]
-  CALL R3 2 1
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETTABLEKS R3 R2 K20 ["getDebugFlags"]
-  LOADK R4 K4 ["AssetAccess"]
+  GETTABLEKS R3 R0 K11 ["Src"]
+  GETTABLEKS R2 R3 K12 ["SharedFlags"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R4 R2 K13 ["getFFlagAssetAccessErrorMessageImprovements"]
   CALL R3 1 1
-  GETIMPORT R5 K1 [plugin]
-  GETTABLEKS R4 R5 K21 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R5 R4 K22 ["FocusedDataModelSession"]
-  DUPCLOSURE R6 K23 [PROTO_1]
-  CAPTURE VAL R3
-  CAPTURE VAL R0
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R0 K14 ["Packages"]
+  GETTABLEKS R5 R6 K15 ["TestLoader"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K16 ["launch"]
+  LOADK R6 K4 ["AssetAccess"]
+  GETTABLEKS R7 R0 K11 ["Src"]
+  CALL R5 2 0
+  GETTABLEKS R5 R4 K17 ["isCli"]
+  CALL R5 0 1
+  JUMPIFNOT R5 [+1]
+  RETURN R0 0
+  MOVE R5 R3
+  CALL R5 0 1
+  JUMPIF R5 [+1]
+  RETURN R0 0
+  GETTABLEKS R5 R4 K18 ["getDebugFlags"]
+  LOADK R6 K4 ["AssetAccess"]
+  CALL R5 1 1
+  GETIMPORT R7 K1 [plugin]
+  GETTABLEKS R6 R7 K19 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R7 R6 K20 ["FocusedDataModelSession"]
+  DUPCLOSURE R8 K21 [PROTO_1]
   CAPTURE VAL R5
-  GETTABLEKS R7 R5 K24 ["CurrentDataModelTypeChanged"]
-  MOVE R9 R6
-  NAMECALL R7 R7 K25 ["Connect"]
-  CALL R7 2 0
-  MOVE R7 R6
-  CALL R7 0 0
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  GETTABLEKS R9 R7 K22 ["CurrentDataModelTypeChanged"]
+  MOVE R11 R8
+  NAMECALL R9 R9 K23 ["Connect"]
+  CALL R9 2 0
+  MOVE R9 R8
+  CALL R9 0 0
   RETURN R0 0

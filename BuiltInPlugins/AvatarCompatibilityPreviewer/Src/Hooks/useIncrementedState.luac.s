@@ -35,11 +35,11 @@ PROTO_4:
   CAPTURE VAL R1
   NEWTABLE R5 0 0
   CALL R3 2 1
-  MOVE R4 R0
-  DUPTABLE R5 K4 [{"increment", "decrement"}]
-  SETTABLEKS R2 R5 K2 ["increment"]
-  SETTABLEKS R3 R5 K3 ["decrement"]
-  RETURN R4 2
+  DUPTABLE R4 K5 [{"amount", "increment", "decrement"}]
+  SETTABLEKS R0 R4 K2 ["amount"]
+  SETTABLEKS R2 R4 K3 ["increment"]
+  SETTABLEKS R3 R4 K4 ["decrement"]
+  RETURN R4 1
 
 MAIN:
   PREPVARARGS 0

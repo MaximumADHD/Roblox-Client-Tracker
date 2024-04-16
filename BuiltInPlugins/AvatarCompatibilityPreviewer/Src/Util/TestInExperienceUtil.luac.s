@@ -48,6 +48,35 @@ PROTO_2:
   LOADB R6 1
   NAMECALL R3 R2 K6 ["SetAttribute"]
   CALL R3 3 0
+  NAMECALL R3 R1 K7 ["Clone"]
+  CALL R3 1 1
+  LOADK R6 K8 ["RBX_AvatarPreviewer_TestingAvatar"]
+  LOADB R7 1
+  NAMECALL R4 R3 K6 ["SetAttribute"]
+  CALL R4 3 0
+  LOADK R4 K1 ["StarterCharacter"]
+  SETTABLEKS R4 R3 K4 ["Name"]
+  GETUPVAL R4 1
+  SETTABLEKS R4 R3 K9 ["Parent"]
+  GETTABLEKS R4 R0 K10 ["startPlaySolo"]
+  CALL R4 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["clearTestingAvatars"]
+  CALL R2 0 0
+  GETUPVAL R2 1
+  LOADK R4 K1 ["StarterCharacter"]
+  NAMECALL R2 R2 K2 ["FindFirstChild"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+9]
+  LOADK R3 K3 ["StarterCharacter_Backup"]
+  SETTABLEKS R3 R2 K4 ["Name"]
+  LOADK R5 K5 ["RBX_AvatarPreview_TestingBackup"]
+  LOADB R6 1
+  NAMECALL R3 R2 K6 ["SetAttribute"]
+  CALL R3 3 0
   GETTABLEKS R3 R1 K7 ["WorldModel"]
   NAMECALL R3 R3 K8 ["Clone"]
   CALL R3 1 1
@@ -94,4 +123,8 @@ MAIN:
   CAPTURE VAL R4
   CAPTURE VAL R0
   SETTABLEKS R5 R4 K19 ["test"]
+  DUPCLOSURE R5 K20 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  SETTABLEKS R5 R4 K21 ["DEPRECATED_test"]
   RETURN R4 1

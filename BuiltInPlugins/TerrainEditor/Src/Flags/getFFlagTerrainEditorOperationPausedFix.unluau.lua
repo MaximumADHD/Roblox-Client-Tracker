@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("TerrainEditorOperationPausedFix", false)
+game:DefineFastFlag("TerrainEditorOperationPausedFix2", false)
 return function()
-   return game:GetFastFlag("TerrainEditorOperationPausedFix")
+   return game:GetFastFlag("TerrainEditorOperationPausedFix2")
 end

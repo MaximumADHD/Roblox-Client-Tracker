@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 
-local LoadingBar = require(CorePackages.AppTempCommon.LuaApp.Components.LoadingBar)
+local LoadingBar = require(CorePackages.Workspace.Packages.AppBlox).LoadingBar
 
 -- Color 41/41/41 comes from the SettingsShield background color
 local SETTINGS_SHIELD_BACKGROUND_COLOR = Color3.fromRGB(41, 41, 41)

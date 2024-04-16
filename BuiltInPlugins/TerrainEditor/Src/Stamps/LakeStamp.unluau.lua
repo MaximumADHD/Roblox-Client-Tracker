@@ -90,7 +90,7 @@ function var4.blendHeightMap(arg1)
       local var0 = arg1._heightmapCache
       var0[1] = var3
    end
-   if 0 < var4 then
+   if arg1._addBlending then
       local var0 = arg1._blendingFactorMap[var0]
       local var1 = arg1._heightMap
       var1[1] = (1 - var0) * var3 + var0 * var4

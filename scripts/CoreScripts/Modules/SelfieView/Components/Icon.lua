@@ -26,6 +26,7 @@ local useTooltipDismissal = require(script.Parent.Parent.Hooks.useTooltipDismiss
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
+local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -34,6 +35,7 @@ local HIDE_TOOLTIP_DELAY_MS = 2000
 
 export type IconProps = {
 	activatedSignal: AppCommonLib.Signal,
+	outerContainerFrameName: string?,
 }
 
 local function Icon(props: IconProps): React.ReactNode
@@ -56,7 +58,9 @@ local function Icon(props: IconProps): React.ReactNode
 		if _G.__TESTEZ_RUNNING_TEST__ then
 			return
 		end
-		local unmount: () -> ()? = FaceClone(player, frameRef.current)
+		local unmount: () -> ()? = if GetFFlagSelfViewVisibilityFix()
+			then FaceClone(player, frameRef.current, props.outerContainerFrameName)
+			else FaceClone(player, frameRef.current)
 		return function()
 			if unmount then
 				unmount()

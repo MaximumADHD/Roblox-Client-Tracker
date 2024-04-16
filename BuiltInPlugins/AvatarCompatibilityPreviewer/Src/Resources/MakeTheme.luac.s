@@ -49,56 +49,86 @@ MAIN:
   GETTABLEKS R10 R1 K18 ["Dictionary"]
   GETTABLEKS R9 R10 K19 ["join"]
   MOVE R10 R6
-  NEWTABLE R11 8 0
-  GETTABLEKS R12 R5 K20 ["PlayImage"]
-  LOADK R13 K21 ["rbxasset://textures/LayeredClothingEditor/Icon_Play_Light.png"]
+  NEWTABLE R11 16 0
+  GETTABLEKS R12 R5 K20 ["Dots"]
+  LOADK R13 K21 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Dark/Large/OptionsDots.png"]
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R5 K22 ["PreviewerBackgroundImage"]
-  LOADK R13 K23 ["rbxasset://textures/AvatarCompatibilityPreviewer/bg_dark.png"]
+  GETTABLEKS R12 R5 K22 ["Hide"]
+  LOADK R13 K23 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/hide.png"]
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R5 K24 ["ResetCameraImage"]
-  LOADK R13 K25 ["rbxasset://textures/AssetImport/btn_dark_resetcam_28x28.png"]
+  GETTABLEKS R12 R5 K24 ["HideHover"]
+  LOADK R13 K25 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/hide_hover.png"]
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R5 K26 ["SendFeedback"]
-  LOADK R13 K27 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Standard/rate_feedback@2x.png"]
+  GETTABLEKS R12 R5 K26 ["PlayImage"]
+  LOADK R13 K27 ["rbxasset://textures/LayeredClothingEditor/Icon_Play_Light.png"]
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R5 K28 ["Star"]
-  LOADK R13 K29 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/star.png"]
+  GETTABLEKS R12 R5 K28 ["PreviewerBackgroundImage"]
+  LOADK R13 K29 ["rbxasset://textures/AvatarCompatibilityPreviewer/bg_dark.png"]
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R5 K30 ["StarUnfilled"]
-  LOADK R13 K31 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/star_unfilled.png"]
+  GETTABLEKS R12 R5 K30 ["ResetCameraImage"]
+  LOADK R13 K31 ["rbxasset://textures/AssetImport/btn_dark_resetcam_28x28.png"]
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R5 K32 ["UGCValidationSuccessImage"]
-  LOADK R13 K33 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/ugc_validation_success.png"]
+  GETTABLEKS R12 R5 K32 ["SendFeedback"]
+  LOADK R13 K33 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Standard/rate_feedback@2x.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K34 ["Star"]
+  LOADK R13 K35 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/star.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K36 ["StarUnfilled"]
+  LOADK R13 K37 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/star_unfilled.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K38 ["UGCValidationSuccessImage"]
+  LOADK R13 K39 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/ugc_validation_success.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K40 ["Unhide"]
+  LOADK R13 K41 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/unhide.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K42 ["UnhideHover"]
+  LOADK R13 K43 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/unhide_hover.png"]
   SETTABLE R13 R11 R12
   CALL R9 2 1
   GETTABLEKS R11 R1 K18 ["Dictionary"]
   GETTABLEKS R10 R11 K19 ["join"]
   MOVE R11 R7
-  NEWTABLE R12 8 0
-  GETTABLEKS R13 R5 K20 ["PlayImage"]
-  LOADK R14 K34 ["rbxasset://textures/LayeredClothingEditor/Icon_Play_Dark.png"]
+  NEWTABLE R12 16 0
+  GETTABLEKS R13 R5 K20 ["Dots"]
+  LOADK R14 K44 ["rbxasset://studio_svg_textures/Lua/ImportPreview/Light/Large/OptionsDots.png"]
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K22 ["PreviewerBackgroundImage"]
-  LOADK R14 K35 ["rbxasset://textures/AvatarCompatibilityPreviewer/bg_light.png"]
+  GETTABLEKS R13 R5 K22 ["Hide"]
+  LOADK R14 K45 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/hide.png"]
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K24 ["ResetCameraImage"]
-  LOADK R14 K36 ["rbxasset://textures/AssetImport/btn_light_resetcam_28x28.png"]
+  GETTABLEKS R13 R5 K24 ["HideHover"]
+  LOADK R14 K46 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/hide_hover.png"]
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K26 ["SendFeedback"]
-  LOADK R14 K37 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Standard/rate_feedback@2x.png"]
+  GETTABLEKS R13 R5 K26 ["PlayImage"]
+  LOADK R14 K47 ["rbxasset://textures/LayeredClothingEditor/Icon_Play_Dark.png"]
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K28 ["Star"]
-  LOADK R14 K38 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/star.png"]
+  GETTABLEKS R13 R5 K28 ["PreviewerBackgroundImage"]
+  LOADK R14 K48 ["rbxasset://textures/AvatarCompatibilityPreviewer/bg_light.png"]
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K30 ["StarUnfilled"]
-  LOADK R14 K39 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/star_unfilled.png"]
+  GETTABLEKS R13 R5 K30 ["ResetCameraImage"]
+  LOADK R14 K49 ["rbxasset://textures/AssetImport/btn_light_resetcam_28x28.png"]
   SETTABLE R14 R12 R13
-  GETTABLEKS R13 R5 K32 ["UGCValidationSuccessImage"]
-  LOADK R14 K40 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/ugc_validation_success.png"]
+  GETTABLEKS R13 R5 K32 ["SendFeedback"]
+  LOADK R14 K50 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Standard/rate_feedback@2x.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K34 ["Star"]
+  LOADK R14 K51 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/star.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K36 ["StarUnfilled"]
+  LOADK R14 K52 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/star_unfilled.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K38 ["UGCValidationSuccessImage"]
+  LOADK R14 K53 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/ugc_validation_success.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K40 ["Unhide"]
+  LOADK R14 K54 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/unhide.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K42 ["UnhideHover"]
+  LOADK R14 K55 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Light/Large/unhide_hover.png"]
   SETTABLE R14 R12 R13
   CALL R10 2 1
-  DUPCLOSURE R11 K41 [PROTO_0]
+  DUPCLOSURE R11 K56 [PROTO_0]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10

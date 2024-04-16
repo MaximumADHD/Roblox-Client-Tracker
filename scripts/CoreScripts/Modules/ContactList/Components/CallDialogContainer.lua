@@ -28,9 +28,6 @@ local CloseDialog = require(ContactList.Actions.CloseDialog)
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
 
-local GetFFlagIrisReservedServerCheckError =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisReservedServerCheckError
-
 local CALL_DIALOG_DISPLAY_ORDER = 8
 
 export type Props = {
@@ -140,10 +137,7 @@ local function CallDialogContainer(passedProps: Props)
 				-- Print out error message
 				if params.errorType == ErrorType.UniverseAgeIsNotValid then
 					warn("Experience must be at least one week old to place a call")
-				elseif
-					GetFFlagIrisReservedServerCheckError()
-					and params.errorType == ErrorType.ReservedServerAccessCodeIsNotProvided
-				then
+				elseif params.errorType == ErrorType.ReservedServerAccessCodeIsNotProvided then
 					warn("Reserved server access code was not provided via OnCallInviteInvoked callback")
 				end
 			end

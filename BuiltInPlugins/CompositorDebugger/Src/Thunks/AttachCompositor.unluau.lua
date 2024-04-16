@@ -7,11 +7,12 @@ local var4 = require(var2.SetActor)
 local var5 = require(var2.SetDebugPoseEvent)
 local var6 = require(var2.SetLayerAdornmentEvent)
 local var7 = require(var2.SetPropertyOverrideEvent)
-local var8 = var1.Src.Thunks
-local var9 = require(var8.DetachCompositor)
-local var10 = require(var8.ParseDebugData)
-local var11 = require(var1.Src.Util.Constants)
-local var12 = require(var1.Src.Types)
+local var8 = require(var2.SetSendPayloadAnalytics)
+local var9 = var1.Src.Thunks
+local var10 = require(var9.DetachCompositor)
+local var11 = require(var9.ParseDebugData)
+local var12 = require(var1.Src.Util.Constants)
+local var13 = require(var1.Src.Types)
 local function fun0(arg1, arg2)
    local var0 = arg1:FindFirstChild(arg2)
    if var0 then
@@ -25,7 +26,7 @@ local function fun0(arg1, arg2)
    return var1
 end
 
-local function var13(arg1, arg2)
+local function var14(arg1, arg2)
    local var0 = arg1:FindFirstChild(arg2)
    if var0 then
       if not var0:IsA("BindableEvent") then
@@ -43,7 +44,7 @@ local function var13(arg1, arg2)
    return var0
 end
 
-return function(arg1)
+return function(arg1, arg2)
    return function(arg1, arg2)
       local var0 = arg1:FindFirstChild(arg2)
       if var0 then

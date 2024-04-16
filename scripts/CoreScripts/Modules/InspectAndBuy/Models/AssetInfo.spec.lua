@@ -5,6 +5,7 @@ return function()
     local InspectAndBuyFolder = script.Parent.Parent
     local GetFFlagIBEnableRespectSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableRespectSaleLocation)
     local GetCollectibleItemInInspectAndBuyEnabled = require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
+    local GetFFlagIBFixBuyingFromResellers = require(InspectAndBuyFolder.Flags.GetFFlagIBFixBuyingFromResellers)
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
@@ -68,6 +69,9 @@ return function()
             local productInfo = createCollectibleItem()
             productInfo.SaleLocation.SaleLocationType = Constants.SaleLocationType.ExperiencesDevApiOnly
             local assetInfo = AssetInfo.fromGetProductInfo(productInfo)
+            if GetFFlagIBFixBuyingFromResellers() then
+                assetInfo = AssetInfo.getSaleDetailsForCollectibles(assetInfo)
+            end
             -- This one should be false because:
             -- if type is ExperiencesDevApiOnly and UniverseIds is empty, it should not be allowed to purchase
             if GetCollectibleItemInInspectAndBuyEnabled() and GetFFlagIBEnableRespectSaleLocation() then

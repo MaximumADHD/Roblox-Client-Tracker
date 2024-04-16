@@ -48,69 +48,69 @@ local var10 = var2.PureComponent:extend("ScreenSelect")
 function var10.render(arg1)
    local var0 = arg1.props
    local var1 = var0.currentScreen
-   local var1046 = {}
-   var1046.Size = UDim2.new(1, 0, 1, 0)
-   var1046.BackgroundTransparency = 1
-   local var1054 = {}
+   local var161 = {}
+   var161.Size = UDim2.new(1, 0, 1, 0)
+   var161.BackgroundTransparency = 1
+   local var169 = {}
    if var1 ~= var9.SCREENS.CONFIGURE_ASSET then
       local var0 = false
    end
-   local var1059 = true
-   if var1059 then
-      local var1063 = {}
-      var1063.Size = UDim2.new(1, 0, 1, 0)
-      var1063.assetId = var0.assetId
-      var1063.assetTypeEnum = var0.assetTypeEnum
-      var1063.onClose = var0.onClose
-      var1063.pluginGui = var0.pluginGui
-      local var0 = var2.createElement(var4, var1063)
+   local var174 = true
+   if var174 then
+      local var178 = {}
+      var178.Size = UDim2.new(1, 0, 1, 0)
+      var178.assetId = var0.assetId
+      var178.assetTypeEnum = var0.assetTypeEnum
+      var178.onClose = var0.onClose
+      var178.pluginGui = var0.pluginGui
+      local var0 = var2.createElement(var4, var178)
    end
-   var1054.AssetConfig = var1059
+   var169.AssetConfig = var174
    if var1 ~= var9.SCREENS.ASSET_TYPE_SELECTION then
       local var0 = false
    end
-   local var1079 = true
-   if var1079 then
-      local var1083 = {}
-      var1083.Size = UDim2.new(1, 0, 1, 0)
-      var1083.onClose = var0.onClose
-      local var0 = var2.createElement(var5, var1083)
+   local var194 = true
+   if var194 then
+      local var198 = {}
+      var198.Size = UDim2.new(1, 0, 1, 0)
+      var198.onClose = var0.onClose
+      local var0 = var2.createElement(var5, var198)
    end
-   var1054.AssetTypeSelection = var1079
+   var169.AssetTypeSelection = var194
    if var1 ~= var9.SCREENS.ASSET_VALIDATION then
       local var0 = false
    end
-   local var1096 = true
-   if var1096 then
-      local var1100 = {}
-      var1100.Size = UDim2.new(1, 0, 1, 0)
-      var1100.onClose = var0.onClose
-      local var0 = var2.createElement(var6, var1100)
+   local var211 = true
+   if var211 then
+      local var215 = {}
+      var215.Size = UDim2.new(1, 0, 1, 0)
+      var215.onClose = var0.onClose
+      local var0 = var2.createElement(var6, var215)
    end
-   var1054.AssetValidation = var1096
+   var169.AssetValidation = var211
    if var1 ~= var9.SCREENS.UPLOADING_ASSET then
       local var0 = false
    end
-   local var1113 = true
-   if var1113 then
-      local var1117 = {}
-      var1117.Size = UDim2.new(1, 0, 1, 0)
-      var1117.onClose = var0.onClose
-      local var0 = var2.createElement(var7, var1117)
+   local var228 = true
+   if var228 then
+      local var232 = {}
+      var232.Size = UDim2.new(1, 0, 1, 0)
+      var232.onClose = var0.onClose
+      local var0 = var2.createElement(var7, var232)
    end
-   var1054.AssetUpload = var1113
+   var169.AssetUpload = var228
    if var1 ~= var9.SCREENS.UPLOAD_ASSET_RESULT then
       local var0 = false
    end
    local var6 = true
    if var6 then
-      local var1134 = {}
-      var1134.Size = UDim2.new(1, 0, 1, 0)
-      var1134.onClose = var0.onClose
-      local var0 = var2.createElement(var8, var1134)
+      local var249 = {}
+      var249.Size = UDim2.new(1, 0, 1, 0)
+      var249.onClose = var0.onClose
+      local var0 = var2.createElement(var8, var249)
    end
-   var1054.AssetUploadResult = var6
-   return var2.createElement("Frame", var1046, var1054)
+   var169.AssetUploadResult = var6
+   return var2.createElement("Frame", var161, var169)
 end
 
 return require(var1.RoactRodux).connect(function(arg1, arg2)

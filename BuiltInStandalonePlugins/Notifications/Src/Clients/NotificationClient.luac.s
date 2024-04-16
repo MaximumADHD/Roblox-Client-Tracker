@@ -6,16 +6,13 @@ PROTO_1:
   NAMECALL R2 R2 K0 ["GetUserId"]
   CALL R2 1 1
   LOADNIL R3
-  GETUPVAL R4 1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+30]
   DUPTABLE R4 K3 [{"count", "notificationChannel"}]
   LOADN R6 10
   FASTCALL1 TOSTRING R6 [+2]
   GETIMPORT R5 K5 [tostring]
   CALL R5 1 1
   SETTABLEKS R5 R4 K1 ["count"]
-  GETUPVAL R8 2
+  GETUPVAL R8 1
   GETTABLEKS R7 R8 K6 ["Studio"]
   GETTABLEKS R6 R7 K7 ["rawValue"]
   CALL R6 0 -1
@@ -24,28 +21,17 @@ PROTO_1:
   CALL R5 -1 1
   SETTABLEKS R5 R4 K2 ["notificationChannel"]
   MOVE R3 R4
-  JUMPIFNOT R0 [+23]
+  JUMPIFNOT R0 [+7]
   LOADB R5 1
   FASTCALL1 TOSTRING R5 [+2]
   GETIMPORT R4 K5 [tostring]
   CALL R4 1 1
   SETTABLEKS R4 R3 K8 ["full-refresh"]
-  JUMP [+15]
-  DUPTABLE R4 K3 [{"count", "notificationChannel"}]
-  LOADN R5 10
-  SETTABLEKS R5 R4 K1 ["count"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K6 ["Studio"]
-  GETTABLEKS R5 R6 K7 ["rawValue"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K2 ["notificationChannel"]
-  MOVE R3 R4
-  SETTABLEKS R0 R3 K8 ["full-refresh"]
   JUMPIFNOT R1 [+2]
   SETTABLEKS R1 R3 K9 ["cursor"]
-  GETUPVAL R5 3
+  GETUPVAL R5 2
   GETTABLEKS R4 R5 K10 ["composeUrl"]
-  GETUPVAL R6 3
+  GETUPVAL R6 2
   GETTABLEKS R5 R6 K11 ["APIS_URL"]
   LOADK R7 K12 ["creator-notifications/v1/creator-stream-notifications/"]
   LOADK R9 K13 ["users/%*/notifications"]
@@ -56,8 +42,8 @@ PROTO_1:
   CONCAT R6 R7 R8
   MOVE R7 R3
   CALL R4 3 1
-  GETUPVAL R5 4
-  GETUPVAL R7 4
+  GETUPVAL R5 3
+  GETUPVAL R7 3
   MOVE R9 R4
   NAMECALL R7 R7 K15 ["get"]
   CALL R7 2 -1
@@ -74,7 +60,7 @@ PROTO_1:
   GETTABLEKS R6 R5 K20 ["responseCode"]
   LOADN R7 44
   JUMPIFNOTLT R6 R7 [+9]
-  GETUPVAL R6 5
+  GETUPVAL R6 4
   GETTABLEKS R8 R5 K21 ["responseBody"]
   NAMECALL R6 R6 K22 ["JSONDecode"]
   CALL R6 2 1
@@ -215,36 +201,29 @@ MAIN:
   NAMECALL R6 R6 K18 ["GetService"]
   CALL R6 2 1
   GETIMPORT R7 K4 [require]
-  GETTABLEKS R11 R0 K20 ["Src"]
-  GETTABLEKS R10 R11 K21 ["Util"]
-  GETTABLEKS R9 R10 K22 ["SharedFlags"]
-  GETTABLEKS R8 R9 K23 ["getFFlagNotificationTrayClientArgTypes"]
+  GETTABLEKS R10 R0 K20 ["Src"]
+  GETTABLEKS R9 R10 K21 ["Enums"]
+  GETTABLEKS R8 R9 K22 ["NotificationChannel"]
   CALL R7 1 1
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R11 R0 K20 ["Src"]
-  GETTABLEKS R10 R11 K24 ["Enums"]
-  GETTABLEKS R9 R10 K25 ["NotificationChannel"]
-  CALL R8 1 1
-  DUPCLOSURE R9 K26 [PROTO_1]
+  DUPCLOSURE R8 K23 [PROTO_1]
   CAPTURE VAL R6
   CAPTURE VAL R7
-  CAPTURE VAL R8
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R5
-  DUPCLOSURE R10 K27 [PROTO_3]
+  DUPCLOSURE R9 K24 [PROTO_3]
   CAPTURE VAL R6
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R4
-  DUPCLOSURE R11 K28 [PROTO_5]
+  DUPCLOSURE R10 K25 [PROTO_5]
   CAPTURE VAL R6
   CAPTURE VAL R2
-  CAPTURE VAL R8
+  CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R4
-  DUPTABLE R12 K32 [{"getNotifications", "markNotificationRead", "markAllNotificationsRead"}]
-  SETTABLEKS R9 R12 K29 ["getNotifications"]
-  SETTABLEKS R10 R12 K30 ["markNotificationRead"]
-  SETTABLEKS R11 R12 K31 ["markAllNotificationsRead"]
-  RETURN R12 1
+  DUPTABLE R11 K29 [{"getNotifications", "markNotificationRead", "markAllNotificationsRead"}]
+  SETTABLEKS R8 R11 K26 ["getNotifications"]
+  SETTABLEKS R9 R11 K27 ["markNotificationRead"]
+  SETTABLEKS R10 R11 K28 ["markAllNotificationsRead"]
+  RETURN R11 1

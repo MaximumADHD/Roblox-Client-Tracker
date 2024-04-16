@@ -83,23 +83,18 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETIMPORT R1 K2 [os.time]
+  GETIMPORT R1 K2 [os.clock]
   CALL R1 0 1
   SETTABLEKS R1 R0 K3 ["openedTimestamp"]
-  GETTABLEKS R2 R0 K4 ["props"]
-  GETTABLEKS R1 R2 K5 ["Analytics"]
-  LOADK R3 K6 ["onCompositorOpened"]
-  NAMECALL R1 R1 K7 ["report"]
-  CALL R1 2 0
-  NAMECALL R1 R0 K8 ["readSettings"]
+  NAMECALL R1 R0 K4 ["readSettings"]
   CALL R1 1 0
   RETURN R0 0
 
 PROTO_5:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["Analytics"]
-  LOADK R3 K2 ["onCompositorClosed"]
-  GETIMPORT R5 K5 [os.time]
+  LOADK R3 K2 ["onPluginClosed"]
+  GETIMPORT R5 K5 [os.clock]
   CALL R5 0 1
   GETTABLEKS R6 R0 K6 ["openedTimestamp"]
   SUB R4 R5 R6

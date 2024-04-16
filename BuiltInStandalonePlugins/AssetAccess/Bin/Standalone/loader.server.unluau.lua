@@ -1,7 +1,7 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = script:FindFirstAncestor("AssetAccess")
 require(var0.Bin.Common.defineLuaFlags)
-if not game:GetFastFlag("AssetAccessErrorMessageImprovements") then
+if not require(var0.Src.SharedFlags.getFFlagAssetAccessErrorMessageImprovements)() then
 end
 local var1 = require(var0.Packages.TestLoader)
 var1.launch("AssetAccess", var0.Src)
@@ -29,20 +29,20 @@ end
 var3.translationResourceTable = var0.Src.Resources.Localization.LocalizedStrings
 var3.fallbackResourceTable = var0.Src.Resources.Localization.SourceStrings
 var3.buttonInfo = var2
-local var69 = {}
-var69.id = "AssetAccess"
-var69.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
-function var69.getDockTitle(arg1, arg2, arg3)
+local var72 = {}
+var72.id = "AssetAccess"
+var72.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
+function var72.getDockTitle(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Plugin", "Name")
 end
 
-local var89 = Enum.ZIndexBehavior.Sibling
-var69.zIndexBehavior = var89
-var3.dockWidgetInfo = var69
-var89 = var3
-local var6 = require(var0.Packages.PluginLoader.PluginLoaderBuilder).build(var89)
+local var92 = Enum.ZIndexBehavior.Sibling
+var72.zIndexBehavior = var92
+var3.dockWidgetInfo = var72
+var92 = var3
+local var6 = require(var0.Packages.PluginLoader.PluginLoaderBuilder).build(var92)
 if not var6.pluginLoader:waitForUserInteraction() then
 end
-local var96 = script
-var96 = var6
-require(var96.Parent.main)(plugin, var96)
+local var99 = script
+var99 = var6
+require(var99.Parent.main)(plugin, var99)

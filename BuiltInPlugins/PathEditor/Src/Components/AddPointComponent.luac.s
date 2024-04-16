@@ -466,11 +466,11 @@ PROTO_6:
   GETTABLEKS R24 R1 K2 ["SelectedObject"]
   JUMPIFNOT R24 [+5]
   GETTABLEKS R24 R1 K2 ["SelectedObject"]
-  GETTABLEKS R23 R24 K51 ["Color"]
+  GETTABLEKS R23 R24 K54 ["Color3"]
   JUMP [+1]
   LOADNIL R23
   SETTABLEKS R23 R22 K51 ["Color"]
-  LOADK R23 K54 ["Tangent"]
+  LOADK R23 K55 ["Tangent"]
   SETTABLEKS R23 R22 K34 ["Style"]
   GETTABLEKS R24 R1 K2 ["SelectedObject"]
   JUMPIFNOT R24 [+5]
@@ -488,12 +488,12 @@ PROTO_6:
   GETUPVAL R21 9
   GETTABLEKS R20 R21 K26 ["createElement"]
   GETUPVAL R21 12
-  DUPTABLE R22 K56 [{"Style", "Position", "ZIndex"}]
+  DUPTABLE R22 K57 [{"Style", "Position", "ZIndex"}]
   LOADK R23 K49 ["ControlPoint"]
   SETTABLEKS R23 R22 K34 ["Style"]
   SETTABLEKS R7 R22 K15 ["Position"]
   LOADN R23 1
-  SETTABLEKS R23 R22 K55 ["ZIndex"]
+  SETTABLEKS R23 R22 K56 ["ZIndex"]
   CALL R20 2 1
   JUMP [+1]
   LOADNIL R20

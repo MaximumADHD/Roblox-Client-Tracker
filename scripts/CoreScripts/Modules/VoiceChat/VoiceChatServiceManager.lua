@@ -63,8 +63,10 @@ local FFlagHideUIWhenVoiceDefaultDisabled = game:DefineFastFlag("HideUIWhenVoice
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false)
 	and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 local FFlagReceiveLikelySpeakingUsers = game:DefineFastFlag("DebugReceiveLikelySpeakingUsers", false)
-local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
-local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
+local getFFlagMicrophoneDevicePermissionsPromptLogging =
+	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
+local GetFFlagVoiceBanShowToastOnSubsequentJoins =
+	require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 
@@ -86,7 +88,8 @@ local HttpService = game:GetService("HttpService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 -- We require here because one of the side effects of BlockingUtility.lua sets up PlayerBlockedEvent
 local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
-local MicrophoneDevicePermissionsLogging = require(RobloxGui.Modules.Settings.Resources.MicrophoneDevicePermissionsLogging)
+local MicrophoneDevicePermissionsLogging =
+	require(RobloxGui.Modules.Settings.Resources.MicrophoneDevicePermissionsLogging)
 
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local FFlagEasierUnmutingPassMuteStatus = game:DefineFastFlag("EasierUnmutingPassMuteStatus", false)
@@ -826,7 +829,11 @@ function VoiceChatServiceManager:canUseServiceAsync()
 				if not game:IsLoaded() then
 					game.Loaded:Wait()
 				end
-				if FFlagHideUIWhenVoiceDefaultDisabled and not VoiceChatService.UseNewAudioApi and not VoiceChatService.EnableDefaultVoice then
+				if
+					FFlagHideUIWhenVoiceDefaultDisabled
+					and not VoiceChatService.UseNewAudioApi
+					and not VoiceChatService.EnableDefaultVoice
+				then
 					reject()
 					return
 				end
@@ -941,7 +948,12 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 				promptType == VoiceChatPromptType.VoiceToxicityModal
 				or promptType == VoiceChatPromptType.VoiceToxicityToast
 			)
-		local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell() and promptType == VoiceChatPromptType.VoiceConsentModal
+		local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell()
+			and (
+				promptType == VoiceChatPromptType.VoiceConsentModalV1
+				or promptType == VoiceChatPromptType.VoiceConsentModalV2
+				or promptType == VoiceChatPromptType.VoiceConsentModalV3
+			)
 		self.voiceChatPromptInstance = Roact.mount(
 			Roact.createElement(VoiceChatPrompt, {
 				Analytics = Analytics.new(),
@@ -1650,7 +1662,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 
 		self.stateConnection = self.service.StateChanged:Connect(function(oldState, newState)
 			if getFFlagMicrophoneDevicePermissionsPromptLogging() then
-				MicrophoneDevicePermissionsLogging:setClientSessionId(self:GetSessionId());
+				MicrophoneDevicePermissionsLogging:setClientSessionId(self:GetSessionId())
 			end
 
 			local inFailedState = newState == (Enum :: any).VoiceChatState.Failed
@@ -1817,7 +1829,8 @@ end
 
 function VoiceChatServiceManager:GetLikelySpeakingUsersEvent(): RemoteEvent | nil
 	if not self.LikelySpeakingUsersEvent then
-		self.LikelySpeakingUsersEvent = RobloxReplicatedStorage:WaitForChild("SendLikelySpeakingUsers", 3) :: RemoteEvent | nil
+		self.LikelySpeakingUsersEvent =
+			RobloxReplicatedStorage:WaitForChild("SendLikelySpeakingUsers", 3) :: RemoteEvent | nil
 	end
 	return self.LikelySpeakingUsersEvent
 end

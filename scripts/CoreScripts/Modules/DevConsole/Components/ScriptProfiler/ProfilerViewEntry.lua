@@ -34,7 +34,7 @@ local PERCENT_FORMAT = "%.3f%%"
 local ROOT_LABEL = "<root>"
 local ANON_LABEL = "<anonymous>"
 
-local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes", false)
+local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes2", false)
 local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
 local FFlagScriptProfilerSetTerminalRootFix = game:DefineFastFlag("ScriptProfilerSetTerminalRootFix", false)
 local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)

@@ -20,30 +20,40 @@ MAIN:
   GETTABLEKS R3 R4 K13 ["StageType"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K14 ["Util"]
-  GETTABLEKS R4 R5 K15 ["createUnimplemented"]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K14 ["Types"]
   CALL R3 1 1
-  DUPTABLE R4 K22 [{"openPalette", "dummyPreviewLocked", "incrementDummyPreviewLock", "decrementDummyPreviewLock", "resetCamera", "stage"}]
-  MOVE R5 R3
-  LOADK R6 K16 ["openPalette"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K16 ["openPalette"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K17 ["dummyPreviewLocked"]
-  MOVE R5 R3
-  LOADK R6 K18 ["incrementDummyPreviewLock"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K18 ["incrementDummyPreviewLock"]
-  MOVE R5 R3
-  LOADK R6 K19 ["decrementDummyPreviewLock"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K19 ["decrementDummyPreviewLock"]
-  DUPCLOSURE R5 K23 [PROTO_0]
-  SETTABLEKS R5 R4 K20 ["resetCamera"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K21 ["stage"]
-  GETTABLEKS R5 R1 K24 ["createContext"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K15 ["Util"]
+  GETTABLEKS R5 R6 K16 ["createUnimplemented"]
+  CALL R4 1 1
+  DUPTABLE R5 K25 [{"openPalette", "focusedAttachments", "setFocusedAttachments", "dummyPreviewLocked", "incrementDummyPreviewLock", "decrementDummyPreviewLock", "resetCamera", "stage"}]
   MOVE R6 R4
-  CALL R5 1 1
-  RETURN R5 1
+  LOADK R7 K17 ["openPalette"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K17 ["openPalette"]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K18 ["focusedAttachments"]
+  MOVE R6 R4
+  LOADK R7 K19 ["setFocusedAttachments"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K19 ["setFocusedAttachments"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K20 ["dummyPreviewLocked"]
+  MOVE R6 R4
+  LOADK R7 K21 ["incrementDummyPreviewLock"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K21 ["incrementDummyPreviewLock"]
+  MOVE R6 R4
+  LOADK R7 K22 ["decrementDummyPreviewLock"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K22 ["decrementDummyPreviewLock"]
+  DUPCLOSURE R6 K26 [PROTO_0]
+  SETTABLEKS R6 R5 K23 ["resetCamera"]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K24 ["stage"]
+  GETTABLEKS R6 R1 K27 ["createContext"]
+  MOVE R7 R5
+  CALL R6 1 1
+  RETURN R6 1

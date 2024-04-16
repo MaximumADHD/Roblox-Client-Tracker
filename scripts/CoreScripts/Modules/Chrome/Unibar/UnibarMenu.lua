@@ -34,6 +34,8 @@ local GetFFlagNewUnibarIA = require(Chrome.Flags.GetFFlagNewUnibarIA)
 local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagOpenControlsOnMenuOpen = require(Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
+local GetFFlagSupportCompactUtility = require(Chrome.Flags.GetFFlagSupportCompactUtility)
+local GetFFlagEnableScreenshotUtility = require(Chrome.Flags.GetFFlagEnableScreenshotUtility)
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -99,6 +101,14 @@ function configureUnibar(viewportInfo)
 			ChromeService:setRecentlyUsed("chat", true)
 		end
 	end
+
+	if GetFFlagEnableScreenshotUtility() then
+		table.insert(nineDot, "camera_entrypoint")
+		ChromeService:configureCompactUtility("camera_utility", {
+			{ "captures", "screenshot", "chrome_toggle" },
+		})
+	end
+
 	ChromeService:configureSubMenu("nine_dot", nineDot)
 end
 
@@ -515,7 +525,12 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			closeMenuConn = GuiService.MenuClosed:Connect(function()
 				-- if the user had unibar open before IGM opened, do not force close unibar
 				-- if a screenshot is being taken (i.e. by report menu), do not force close unibar
-				if wasUnibarForcedOpen:getValue() and not ChromeUtils.isTakingScreenshot() then
+				-- if a compact utility is open, do not force close unibar (as it cannot normally be closed from that state)
+				if
+					wasUnibarForcedOpen:getValue()
+					and not ChromeUtils.isTakingScreenshot()
+					and (not GetFFlagSupportCompactUtility() or not ChromeService:getCurrentUtility())
+				then
 					ChromeService:close()
 					setWasUnibarForcedOpen(false)
 					setWasUnibarClosedByUser(false)

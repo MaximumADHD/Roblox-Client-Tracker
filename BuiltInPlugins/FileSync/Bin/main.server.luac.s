@@ -208,95 +208,90 @@ MAIN:
   CALL R15 0 1
   JUMPIFNOT R15 [+1]
   RETURN R0 0
-  GETIMPORT R15 K5 [require]
-  GETIMPORT R18 K1 [script]
-  GETTABLEKS R17 R18 K29 ["Parent"]
-  GETTABLEKS R16 R17 K30 ["defineLuaFlags"]
-  CALL R15 1 0
-  GETIMPORT R15 K32 [plugin]
+  GETIMPORT R15 K30 [plugin]
   JUMPIF R15 [+1]
   RETURN R0 0
-  GETIMPORT R15 K34 [game]
-  LOADK R17 K35 ["Collab4900Plugin"]
-  NAMECALL R15 R15 K36 ["GetFastFlag"]
+  GETIMPORT R15 K32 [game]
+  LOADK R17 K33 ["Collab4900"]
+  NAMECALL R15 R15 K34 ["GetFastFlag"]
   CALL R15 2 1
   JUMPIF R15 [+1]
   RETURN R0 0
-  GETIMPORT R15 K39 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R16 K43 [Enum.InitialDockState.Float]
+  GETIMPORT R15 K37 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R16 K41 [Enum.InitialDockState.Float]
   LOADB R17 0
   LOADB R18 0
-  GETTABLEKS R19 R13 K44 ["BACKGROUND_WIDTH"]
+  GETTABLEKS R19 R13 K42 ["BACKGROUND_WIDTH"]
   LOADN R20 43
-  GETTABLEKS R21 R13 K44 ["BACKGROUND_WIDTH"]
+  GETTABLEKS R21 R13 K42 ["BACKGROUND_WIDTH"]
   LOADN R22 8
   CALL R15 7 1
-  GETTABLEKS R17 R5 K45 ["Store"]
-  GETTABLEKS R16 R17 K38 ["new"]
+  GETTABLEKS R17 R5 K43 ["Store"]
+  GETTABLEKS R16 R17 K36 ["new"]
   MOVE R17 R6
   NEWTABLE R18 0 0
   LOADNIL R19
   CALL R16 3 1
-  GETIMPORT R17 K32 [plugin]
+  GETIMPORT R17 K30 [plugin]
   LOADK R19 K2 ["FileSync"]
   MOVE R20 R15
-  NAMECALL R17 R17 K46 ["CreateDockWidgetPluginGui"]
+  NAMECALL R17 R17 K44 ["CreateDockWidgetPluginGui"]
   CALL R17 3 1
   LOADK R18 K2 ["FileSync"]
-  SETTABLEKS R18 R17 K47 ["Name"]
+  SETTABLEKS R18 R17 K45 ["Name"]
   LOADK R18 K2 ["FileSync"]
-  SETTABLEKS R18 R17 K48 ["Title"]
+  SETTABLEKS R18 R17 K46 ["Title"]
   GETTABLEKS R19 R11 K18 ["Localization"]
-  GETTABLEKS R18 R19 K38 ["new"]
-  DUPTABLE R19 K52 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  SETTABLEKS R8 R19 K49 ["stringResourceTable"]
-  SETTABLEKS R9 R19 K50 ["translationResourceTable"]
+  GETTABLEKS R18 R19 K36 ["new"]
+  DUPTABLE R19 K50 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R8 R19 K47 ["stringResourceTable"]
+  SETTABLEKS R9 R19 K48 ["translationResourceTable"]
   LOADK R20 K2 ["FileSync"]
-  SETTABLEKS R20 R19 K51 ["pluginName"]
+  SETTABLEKS R20 R19 K49 ["pluginName"]
   CALL R18 1 1
-  GETTABLEKS R20 R11 K53 ["PluginActions"]
-  GETTABLEKS R19 R20 K38 ["new"]
-  GETIMPORT R20 K32 [plugin]
+  GETTABLEKS R20 R11 K51 ["PluginActions"]
+  GETTABLEKS R19 R20 K36 ["new"]
+  GETIMPORT R20 K30 [plugin]
   MOVE R21 R12
-  GETIMPORT R22 K32 [plugin]
+  GETIMPORT R22 K30 [plugin]
   MOVE R23 R18
   CALL R21 2 -1
   CALL R19 -1 1
-  GETTABLEKS R20 R3 K54 ["createElement"]
+  GETTABLEKS R20 R3 K52 ["createElement"]
   MOVE R21 R2
-  DUPTABLE R22 K61 [{"plugin", "focusGui", "store", "mouse", "theme", "localization", "pluginActions"}]
-  GETIMPORT R23 K32 [plugin]
-  SETTABLEKS R23 R22 K31 ["plugin"]
-  SETTABLEKS R17 R22 K55 ["focusGui"]
-  SETTABLEKS R16 R22 K56 ["store"]
-  GETIMPORT R23 K32 [plugin]
-  NAMECALL R23 R23 K62 ["getMouse"]
+  DUPTABLE R22 K59 [{"plugin", "focusGui", "store", "mouse", "theme", "localization", "pluginActions"}]
+  GETIMPORT R23 K30 [plugin]
+  SETTABLEKS R23 R22 K29 ["plugin"]
+  SETTABLEKS R17 R22 K53 ["focusGui"]
+  SETTABLEKS R16 R22 K54 ["store"]
+  GETIMPORT R23 K30 [plugin]
+  NAMECALL R23 R23 K60 ["getMouse"]
   CALL R23 1 1
-  SETTABLEKS R23 R22 K57 ["mouse"]
+  SETTABLEKS R23 R22 K55 ["mouse"]
   MOVE R23 R7
   CALL R23 0 1
-  SETTABLEKS R23 R22 K58 ["theme"]
-  SETTABLEKS R18 R22 K59 ["localization"]
-  SETTABLEKS R19 R22 K60 ["pluginActions"]
-  DUPTABLE R23 K63 [{"MainView"}]
-  GETTABLEKS R24 R3 K54 ["createElement"]
+  SETTABLEKS R23 R22 K56 ["theme"]
+  SETTABLEKS R18 R22 K57 ["localization"]
+  SETTABLEKS R19 R22 K58 ["pluginActions"]
+  DUPTABLE R23 K61 [{"MainView"}]
+  GETTABLEKS R24 R3 K52 ["createElement"]
   MOVE R25 R1
   NEWTABLE R26 0 0
   CALL R24 2 1
   SETTABLEKS R24 R23 K8 ["MainView"]
   CALL R20 3 1
-  GETTABLEKS R21 R4 K64 ["createRoot"]
+  GETTABLEKS R21 R4 K62 ["createRoot"]
   MOVE R22 R17
   CALL R21 1 1
   MOVE R24 R20
-  NAMECALL R22 R21 K65 ["render"]
+  NAMECALL R22 R21 K63 ["render"]
   CALL R22 2 0
-  DUPCLOSURE R22 K66 [PROTO_0]
+  DUPCLOSURE R22 K64 [PROTO_0]
   CAPTURE VAL R17
   GETIMPORT R25 K1 [script]
-  GETTABLEKS R24 R25 K29 ["Parent"]
-  GETTABLEKS R23 R24 K29 ["Parent"]
-  DUPCLOSURE R24 K67 [PROTO_5]
+  GETTABLEKS R24 R25 K65 ["Parent"]
+  GETTABLEKS R23 R24 K65 ["Parent"]
+  DUPCLOSURE R24 K66 [PROTO_5]
   CAPTURE VAL R23
   CAPTURE VAL R17
   MOVE R25 R24

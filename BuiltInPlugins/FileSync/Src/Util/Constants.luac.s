@@ -29,4 +29,6 @@ MAIN:
   SETTABLEKS R1 R0 K16 ["BACKGROUND_HEIGHT"]
   LOADK R1 K17 ["rbxthumb://type=GameIcon&id=%d&w=50&h=50"]
   SETTABLEKS R1 R0 K18 ["GAME_ICON_URL"]
+  LOADK R1 K19 ["rbxasset://textures/ui/GuiImagePlaceholder.png"]
+  SETTABLEKS R1 R0 K20 ["PLACEHOLDER_ICON_URL"]
   RETURN R0 1

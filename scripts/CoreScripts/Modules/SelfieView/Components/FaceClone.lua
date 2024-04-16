@@ -9,10 +9,12 @@ local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
 
 local FFlagSelfViewLookUpHumanoidByType = game:DefineFastFlag("SelfViewLookUpHumanoidByType", false)
+local FFlagDebugSelfViewPerfBenchmark = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false)
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
 local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
+local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 
 local RunService = game:GetService("RunService")
 
@@ -57,6 +59,8 @@ local headClone: MeshPart? = nil
 local headCloneNeck: Motor6D? = nil
 local headCloneRootFrame: CFrame? = nil
 local wrapperFrame: Frame? = nil
+local outerContainerFrameName: string? = nil
+local outerContainerFrame: Frame? = nil
 local initialized = false
 
 --state
@@ -82,6 +86,8 @@ if not Players.LocalPlayer then
 	warn("Players.LocalPlayer does not exist")
 end
 local LocalPlayer = Players.LocalPlayer :: Player
+
+local isFrameVisible = false
 
 function setCloneDirty(dirty: boolean): ()
 	if dirty then
@@ -534,6 +540,13 @@ end
 function ReInit(player: Player)
 	assert(player.Character ~= nil)
 
+	if GetFFlagSelfViewVisibilityFix() then
+		if outerContainerFrame and not outerContainerFrame.Visible then
+			isFrameVisible = false
+			return
+		end
+	end
+
 	headRef = ModelUtils.getHead(player.Character)
 	updateCachedHeadColor(headRef)
 
@@ -568,6 +581,41 @@ local function onCharacterAdded(character: Model)
 	end
 	if humanoid then
 		addHumanoidStateChangedObserver(humanoid)
+	end
+end
+
+local function FindInParents(name: string?): Instance?
+	if not name then
+		return nil
+	end
+
+	if not wrapperFrame then
+		return nil
+	end
+
+	assert(wrapperFrame ~= nil, "Wrapper Frame cannot be nil")
+	assert(name ~= nil, "Frame name cannot be nil ")
+
+	return wrapperFrame:FindFirstAncestor(name)
+end
+
+function _clearViewportFrame()
+	if viewportFrame then
+		viewportFrame:Destroy()
+	end
+end
+
+local function onOuterContainerVisibilityChanged()
+	if outerContainerFrame then
+		if outerContainerFrame.Visible then
+			if not initialized then
+				return
+			else
+				isFrameVisible = true
+			end
+		else
+			isFrameVisible = false
+		end
 	end
 end
 
@@ -660,9 +708,32 @@ end
 function startRenderStepped(player: Player)
 	stopRenderStepped()
 
-	renderSteppedConnection = RunService.RenderStepped:Connect(function(step: number)
+	local runserviceEvent: RBXScriptSignal = if FFlagDebugSelfViewPerfBenchmark
+		then RunService.Heartbeat
+		else RunService.RenderStepped
+
+	renderSteppedConnection = runserviceEvent:Connect(function(step: number)
+		if FFlagDebugSelfViewPerfBenchmark then
+			debug.profilebegin("faceclone")
+		end
+
 		--GetPropertyChangedSignal for head color/size change fired reliably in a simple test place for animation props
 		--but it did not fire reliably in a more involved test place, so as fallback for now we also check manually for changes..
+
+		if GetFFlagSelfViewVisibilityFix() then
+			if clone and not isFrameVisible then
+				if cloneAnimator ~= nil then
+					-- stop any playing animation
+					local playingAnimations = cloneAnimator:GetPlayingAnimationTracks()
+					for _, track in pairs(playingAnimations) do
+						if track ~= nil then
+							track:Stop(0)
+						end
+					end
+				end
+				return
+			end
+		end
 
 		if LocalPlayer then
 			local character = LocalPlayer.Character
@@ -847,14 +918,34 @@ function startRenderStepped(player: Player)
 				updateCloneCurrentCoolDown = 0
 			end
 		end
+
+		if FFlagDebugSelfViewPerfBenchmark then
+			debug.profileend()
+		end
 	end)
 end
 
-local function Initialize(player: Player, passedWrapperFrame: Frame?): (() -> ())?
+local function Initialize(
+	player: Player,
+	passedWrapperFrame: Frame?,
+	passedOuterContainerFrameName: string?
+): (() -> ())?
 	if passedWrapperFrame then
 		wrapperFrame = passedWrapperFrame
 	else
 		return
+	end
+
+	if GetFFlagSelfViewVisibilityFix() then
+		if passedOuterContainerFrameName then
+			outerContainerFrameName = passedOuterContainerFrameName
+
+			outerContainerFrame = FindInParents(outerContainerFrameName) :: Frame?
+
+			if outerContainerFrame then
+				outerContainerFrame:GetPropertyChangedSignal("Visible"):Connect(onOuterContainerVisibilityChanged)
+			end
+		end
 	end
 
 	createViewport()

@@ -12,6 +12,7 @@ local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieV
 local FFlagSelfViewFixes = require(script.Parent.Parent.Flags.GetFFlagSelfViewFixes)()
 local FFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)()
 local FFlagFixSelfViewPopin = game:DefineFastFlag("FixSelfViewPopin", false)
+local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -56,9 +57,14 @@ local selfieViewChromeIntegration = ChromeService:register({
 	cachePosition = true,
 	components = {
 		Icon = function(_)
-			return React.createElement(SelfieView.Icon, {
-				activatedSignal = activatedSignal,
-			}, {})
+			return if GetFFlagSelfViewVisibilityFix()
+				then React.createElement(SelfieView.Icon, {
+					activatedSignal = activatedSignal,
+					outerContainerFrameName = ID,
+				}, {})
+				else React.createElement(SelfieView.Icon, {
+					activatedSignal = activatedSignal,
+				}, {})
 		end,
 		Window = function(_)
 			local connectionObject: any = ChromeService:dragConnection(ID)

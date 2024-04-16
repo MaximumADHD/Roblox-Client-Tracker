@@ -7,4 +7,7 @@ return {
 	DummyWindow2 = require(script.DummyWindow2),
 	ToggleMic = require(script.ToggleMic),
 	SelfieView = require(script.SelfieView),
+	Captures = require(script.CameraUtility.Captures),
+	Screenshot = require(script.CameraUtility.Screenshot),
+	CameraEntrypoint = require(script.CameraUtility.CameraEntrypoint),
 }

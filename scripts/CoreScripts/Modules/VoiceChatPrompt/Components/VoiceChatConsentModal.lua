@@ -25,13 +25,13 @@ local PADDING = 20
 local DIVIDER = 1
 local EXTRA_PADDING_HEIGHT = 7
 
-local letsChat = RobloxTranslator:FormatByKey("Verification.Identity.Heading.V2LetsChat")
-local turnOnVoiceChat = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.TurnOnVoiceChat")
 local turnOn = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.TurnOn")
 local notNow = RobloxTranslator:FormatByKey("Feature.SettingsHub.Action.NotNow")
 local turnOnDisclaimer = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.SelectingTurnOn")
 
 type Props = {
+	titleText: string,
+	bodyText: string,
 	handlePrimaryActivated: () -> nil,
 	handleSecondaryActivated: () -> nil,
 	Analytics: { [string]: any? },
@@ -43,6 +43,8 @@ type Props = {
 export type VoiceChatConsentModalType = (props: Props) -> React.ReactElement
 
 local validateProps = ArgCheck.wrap(t.strictInterface({
+	titleText = t.optional(t.string),
+	bodyText = t.optional(t.string),
 	handlePrimaryActivated = t.optional(t.callback),
 	handleSecondaryActivated = t.optional(t.callback),
 	Analytics = t.optional(t.table),
@@ -59,7 +61,7 @@ local function VoiceChatConsentModal(props: Props)
 	local titleFont = props.promptStyle.Font.Header1.Font
 	local titleFontSize = props.promptStyle.Font.Header1.RelativeSize * props.promptStyle.Font.BaseSize
 	local titleTextHeight = TextService:GetTextSize(
-		letsChat,
+		props.titleText,
 		titleFontSize,
 		titleFont,
 		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
@@ -69,7 +71,7 @@ local function VoiceChatConsentModal(props: Props)
 	local bodyFont = props.promptStyle.Font.Body.Font
 	local bodyFontSize = props.promptStyle.Font.Body.RelativeSize * props.promptStyle.Font.BaseSize
 	local bodyTextHeight = TextService:GetTextSize(
-		turnOnVoiceChat,
+		props.bodyText,
 		bodyFontSize,
 		bodyFont,
 		Vector2.new(OVERLAY_WIDTH - 2 * PADDING, math.huge)
@@ -146,7 +148,7 @@ local function VoiceChatConsentModal(props: Props)
 					colorStyle = props.promptStyle.Theme.SystemPrimaryDefault,
 					textXAlignment = Enum.TextXAlignment.Center,
 					size = UDim2.new(1, 0, 1, 0),
-					text = letsChat,
+					text = props.titleText,
 				}),
 			}),
 			Divider = Roact.createElement("Frame", {
@@ -171,7 +173,7 @@ local function VoiceChatConsentModal(props: Props)
 					colorStyle = props.promptStyle.Theme.TextDefault,
 					textXAlignment = Enum.TextXAlignment.Center,
 					size = UDim2.new(1, 0, 1, 0),
-					text = turnOnVoiceChat,
+					text = props.bodyText,
 				}),
 			}),
 			SpaceContainer = Roact.createElement("Frame", {

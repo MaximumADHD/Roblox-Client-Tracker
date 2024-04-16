@@ -80,13 +80,6 @@ PROTO_1:
   SETTABLEKS R3 R2 K3 ["fov"]
   RETURN R2 1
 
-PROTO_2:
-  GETUPVAL R1 0
-  GETTABLEKS R3 R0 K0 ["avatarAssets"]
-  GETTABLEKS R2 R3 K1 ["skinTone"]
-  CALL R1 1 -1
-  RETURN R1 -1
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -122,43 +115,25 @@ MAIN:
   GETTABLEKS R7 R8 K15 ["EquipmentStateContext"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Src"]
-  GETTABLEKS R9 R10 K13 ["Util"]
-  GETTABLEKS R8 R9 K16 ["createHumanoidDescriptionWithSkinTone_DEPRECATED"]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K16 ["Parent"]
+  GETTABLEKS R8 R9 K17 ["StageType"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K9 ["Src"]
-  GETTABLEKS R10 R11 K17 ["Flags"]
-  GETTABLEKS R9 R10 K18 ["getFFlagAvatarPreviewerKeepAccessoriesInCheckFace"]
-  CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETIMPORT R12 K1 [script]
-  GETTABLEKS R11 R12 K19 ["Parent"]
-  GETTABLEKS R10 R11 K20 ["StageType"]
-  CALL R9 1 1
-  GETTABLEKS R11 R1 K21 ["ContextServices"]
-  GETTABLEKS R10 R11 K22 ["Localization"]
-  DUPTABLE R11 K27 [{"tabs", "render", "getPreviewCameraModifications", "getHumanoidDescription_DEPRECATED"}]
-  NEWTABLE R12 0 1
-  LOADK R13 K28 ["face"]
-  SETLIST R12 R13 1 [1]
-  SETTABLEKS R12 R11 K23 ["tabs"]
-  DUPCLOSURE R12 K29 [PROTO_0]
-  CAPTURE VAL R10
+  GETTABLEKS R9 R1 K18 ["ContextServices"]
+  GETTABLEKS R8 R9 K19 ["Localization"]
+  DUPTABLE R9 K23 [{"tabs", "render", "getPreviewCameraModifications"}]
+  NEWTABLE R10 0 1
+  LOADK R11 K24 ["face"]
+  SETLIST R10 R11 1 [1]
+  SETTABLEKS R10 R9 K20 ["tabs"]
+  DUPCLOSURE R10 K25 [PROTO_0]
+  CAPTURE VAL R8
   CAPTURE VAL R2
   CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R3
-  SETTABLEKS R12 R11 K24 ["render"]
-  DUPCLOSURE R12 K30 [PROTO_1]
-  SETTABLEKS R12 R11 K25 ["getPreviewCameraModifications"]
-  MOVE R13 R8
-  CALL R13 0 1
-  JUMPIFNOT R13 [+2]
-  LOADNIL R12
-  JUMP [+2]
-  DUPCLOSURE R12 K31 [PROTO_2]
-  CAPTURE VAL R7
-  SETTABLEKS R12 R11 K26 ["getHumanoidDescription_DEPRECATED"]
-  RETURN R11 1
+  SETTABLEKS R10 R9 K21 ["render"]
+  DUPCLOSURE R10 K26 [PROTO_1]
+  SETTABLEKS R10 R9 K22 ["getPreviewCameraModifications"]
+  RETURN R9 1

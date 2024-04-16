@@ -27,108 +27,108 @@ function var13.init(arg1)
    
 end
 
-local function fun13(arg1)
+local function fun2(arg1)
    local var0 = arg1.props
    local var1 = var5.new()
-   local var329 = {}
-   local var331 = {}
-   var331.Key = var14.Cancel
-   var331.Text = var0.CancelText
-   local var334 = {}
-   var334.Key = var14.Accept
-   var334.Text = var0.AcceptText
-   var329.Buttons = {}
+   local var59 = {}
+   local var61 = {}
+   var61.Key = var14.Cancel
+   var61.Text = var0.CancelText
+   local var64 = {}
+   var64.Key = var14.Accept
+   var64.Text = var0.AcceptText
+   var59.Buttons = {}
    if var0.Enabled == "AcceptText" then
       local var0 = false
    end
-   var329.Enabled = true
-   var329.FitTextButtonWidth = true
-   var329.MinContentSize = var12
-   var329.Modal = true
-   var329.OnButtonPressed = arg1.onButtonPressed
-   var329.OnClose = var0.OnCanceled
-   var329.Style = "AssetConfigWarningDialog"
-   var329.Title = var0.Title
-   local var344 = {}
-   local var348 = {}
-   var348.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var348.Layout = Enum.FillDirection.Vertical
-   var348.Spacing = 20
-   var348.Size = UDim2.fromScale(1, 1)
-   local var356 = {}
-   local var360 = {}
-   var360.AutomaticSize = Enum.AutomaticSize.Y
-   var360.LayoutOrder = var1:getNextOrder()
-   var360.Size = UDim2.new(1, 0, 0, 0)
-   var360.Font = var11.FONT_BOLD
-   var360.Text = var0.Heading
-   var360.TextWrapped = true
-   var360.TextXAlignment = Enum.TextXAlignment.Center
-   var356.Heading = var3.createElement(var10, var360)
-   local var378 = {}
-   var378.AutomaticSize = Enum.AutomaticSize.Y
-   var378.LayoutOrder = var1:getNextOrder()
-   var378.Size = UDim2.new(1, 0, 0, 0)
-   var378.Text = var0.Description
-   var378.TextWrapped = true
-   var378.TextXAlignment = Enum.TextXAlignment.Center
-   var356.Description = var3.createElement(var10, var378)
-   var344.Contents = var3.createElement(var7, var348, var356)
-   return var3.createElement(var9, var329, var344)
+   var59.Enabled = true
+   var59.FitTextButtonWidth = true
+   var59.MinContentSize = var12
+   var59.Modal = true
+   var59.OnButtonPressed = arg1.onButtonPressed
+   var59.OnClose = var0.OnCanceled
+   var59.Style = "AssetConfigWarningDialog"
+   var59.Title = var0.Title
+   local var74 = {}
+   local var78 = {}
+   var78.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var78.Layout = Enum.FillDirection.Vertical
+   var78.Spacing = 20
+   var78.Size = UDim2.fromScale(1, 1)
+   local var86 = {}
+   local var90 = {}
+   var90.AutomaticSize = Enum.AutomaticSize.Y
+   var90.LayoutOrder = var1:getNextOrder()
+   var90.Size = UDim2.new(1, 0, 0, 0)
+   var90.Font = var11.FONT_BOLD
+   var90.Text = var0.Heading
+   var90.TextWrapped = true
+   var90.TextXAlignment = Enum.TextXAlignment.Center
+   var86.Heading = var3.createElement(var10, var90)
+   local var108 = {}
+   var108.AutomaticSize = Enum.AutomaticSize.Y
+   var108.LayoutOrder = var1:getNextOrder()
+   var108.Size = UDim2.new(1, 0, 0, 0)
+   var108.Text = var0.Description
+   var108.TextWrapped = true
+   var108.TextXAlignment = Enum.TextXAlignment.Center
+   var86.Description = var3.createElement(var10, var108)
+   var74.Contents = var3.createElement(var7, var78, var86)
+   return var3.createElement(var9, var59, var74)
 end
 
 function var13.render(arg1)
    local var0 = arg1.props
    local var1 = var5.new()
-   local var329 = {}
-   local var331 = {}
-   var331.Key = var14.Cancel
-   var331.Text = var0.CancelText
-   local var334 = {}
-   var334.Key = var14.Accept
-   var334.Text = var0.AcceptText
-   var329.Buttons = {}
+   local var59 = {}
+   local var61 = {}
+   var61.Key = var14.Cancel
+   var61.Text = var0.CancelText
+   local var64 = {}
+   var64.Key = var14.Accept
+   var64.Text = var0.AcceptText
+   var59.Buttons = {}
    if var0.Enabled == "AcceptText" then
       local var0 = false
    end
-   var329.Enabled = true
-   var329.FitTextButtonWidth = true
-   var329.MinContentSize = var12
-   var329.Modal = true
-   var329.OnButtonPressed = arg1.onButtonPressed
-   var329.OnClose = var0.OnCanceled
-   var329.Style = "AssetConfigWarningDialog"
-   var329.Title = var0.Title
-   local var344 = {}
-   local var348 = {}
-   var348.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var348.Layout = Enum.FillDirection.Vertical
-   var348.Spacing = 20
-   var348.Size = UDim2.fromScale(1, 1)
-   local var356 = {}
-   local var360 = {}
-   var360.AutomaticSize = Enum.AutomaticSize.Y
-   var360.LayoutOrder = var1:getNextOrder()
-   var360.Size = UDim2.new(1, 0, 0, 0)
-   var360.Font = var11.FONT_BOLD
-   var360.Text = var0.Heading
-   var360.TextWrapped = true
-   var360.TextXAlignment = Enum.TextXAlignment.Center
-   var356.Heading = var3.createElement(var10, var360)
-   local var378 = {}
-   var378.AutomaticSize = Enum.AutomaticSize.Y
-   var378.LayoutOrder = var1:getNextOrder()
-   var378.Size = UDim2.new(1, 0, 0, 0)
-   var378.Text = var0.Description
-   var378.TextWrapped = true
-   var378.TextXAlignment = Enum.TextXAlignment.Center
-   var356.Description = var3.createElement(var10, var378)
-   var344.Contents = var3.createElement(var7, var348, var356)
-   return var3.createElement(var9, var329, var344)
+   var59.Enabled = true
+   var59.FitTextButtonWidth = true
+   var59.MinContentSize = var12
+   var59.Modal = true
+   var59.OnButtonPressed = arg1.onButtonPressed
+   var59.OnClose = var0.OnCanceled
+   var59.Style = "AssetConfigWarningDialog"
+   var59.Title = var0.Title
+   local var74 = {}
+   local var78 = {}
+   var78.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var78.Layout = Enum.FillDirection.Vertical
+   var78.Spacing = 20
+   var78.Size = UDim2.fromScale(1, 1)
+   local var86 = {}
+   local var90 = {}
+   var90.AutomaticSize = Enum.AutomaticSize.Y
+   var90.LayoutOrder = var1:getNextOrder()
+   var90.Size = UDim2.new(1, 0, 0, 0)
+   var90.Font = var11.FONT_BOLD
+   var90.Text = var0.Heading
+   var90.TextWrapped = true
+   var90.TextXAlignment = Enum.TextXAlignment.Center
+   var86.Heading = var3.createElement(var10, var90)
+   local var108 = {}
+   var108.AutomaticSize = Enum.AutomaticSize.Y
+   var108.LayoutOrder = var1:getNextOrder()
+   var108.Size = UDim2.new(1, 0, 0, 0)
+   var108.Text = var0.Description
+   var108.TextWrapped = true
+   var108.TextXAlignment = Enum.TextXAlignment.Center
+   var86.Description = var3.createElement(var10, var108)
+   var74.Contents = var3.createElement(var7, var78, var86)
+   return var3.createElement(var9, var59, var74)
 end
 
-fun13 = var4.withContext
-local var393 = {}
-var393.Stylizer = var4.Stylizer
-var13 = fun13(var393)(var13)
+fun2 = var4.withContext
+local var123 = {}
+var123.Stylizer = var4.Stylizer
+var13 = fun2(var123)(var13)
 return var13

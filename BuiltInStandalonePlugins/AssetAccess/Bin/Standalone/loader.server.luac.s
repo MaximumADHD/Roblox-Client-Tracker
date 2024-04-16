@@ -45,92 +45,95 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Common"]
   GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
   CALL R1 1 0
-  GETIMPORT R1 K10 [game]
-  LOADK R3 K11 ["AssetAccessErrorMessageImprovements"]
-  NAMECALL R1 R1 K12 ["GetFastFlag"]
-  CALL R1 2 1
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K13 ["Packages"]
-  GETTABLEKS R2 R3 K14 ["TestLoader"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K15 ["launch"]
-  LOADK R3 K2 ["AssetAccess"]
-  GETTABLEKS R4 R0 K16 ["Src"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K17 ["isCli"]
-  CALL R2 0 1
-  JUMPIFNOT R2 [+1]
-  RETURN R0 0
-  GETIMPORT R2 K19 [plugin]
-  GETTABLEKS R3 R0 K20 ["Name"]
-  SETTABLEKS R3 R2 K20 ["Name"]
+  GETTABLEKS R2 R0 K9 ["Src"]
+  GETTABLEKS R1 R2 K10 ["SharedFlags"]
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K13 ["Packages"]
-  GETTABLEKS R4 R5 K21 ["PluginLoader"]
-  GETTABLEKS R3 R4 K22 ["PluginLoaderBuilder"]
+  GETTABLEKS R3 R1 K11 ["getFFlagAssetAccessErrorMessageImprovements"]
   CALL R2 1 1
-  DUPTABLE R3 K27 [{"getName", "getDescription", "icon", "enabled"}]
-  DUPCLOSURE R4 K28 [PROTO_0]
-  SETTABLEKS R4 R3 K23 ["getName"]
-  DUPCLOSURE R4 K29 [PROTO_1]
-  SETTABLEKS R4 R3 K24 ["getDescription"]
-  LOADK R4 K30 ["rbxlocaltheme://GameSettings"]
-  SETTABLEKS R4 R3 K25 ["icon"]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K26 ["enabled"]
-  GETTABLEKS R7 R0 K16 ["Src"]
-  GETTABLEKS R6 R7 K31 ["Resources"]
-  GETTABLEKS R5 R6 K32 ["Localization"]
-  GETTABLEKS R4 R5 K33 ["SourceStrings"]
-  GETTABLEKS R8 R0 K16 ["Src"]
-  GETTABLEKS R7 R8 K31 ["Resources"]
-  GETTABLEKS R6 R7 K32 ["Localization"]
-  GETTABLEKS R5 R6 K34 ["LocalizedStrings"]
-  DUPTABLE R6 K40 [{"plugin", "pluginName", "getToolbarName", "translationResourceTable", "fallbackResourceTable", "buttonInfo"}]
-  GETIMPORT R7 K19 [plugin]
-  SETTABLEKS R7 R6 K18 ["plugin"]
-  LOADK R7 K2 ["AssetAccess"]
-  SETTABLEKS R7 R6 K35 ["pluginName"]
-  DUPCLOSURE R7 K41 [PROTO_2]
-  SETTABLEKS R7 R6 K36 ["getToolbarName"]
-  SETTABLEKS R5 R6 K37 ["translationResourceTable"]
-  SETTABLEKS R4 R6 K38 ["fallbackResourceTable"]
-  SETTABLEKS R3 R6 K39 ["buttonInfo"]
-  DUPTABLE R7 K46 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R8 K2 ["AssetAccess"]
-  SETTABLEKS R8 R7 K42 ["id"]
-  GETIMPORT R8 K49 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R9 K53 [Enum.InitialDockState.Bottom]
-  LOADB R10 0
-  LOADB R11 0
-  LOADN R12 128
-  LOADN R13 224
-  LOADN R14 250
-  LOADN R15 200
-  CALL R8 7 1
-  SETTABLEKS R8 R7 K43 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R8 K54 [PROTO_3]
-  SETTABLEKS R8 R7 K44 ["getDockTitle"]
-  GETIMPORT R8 K57 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R8 R7 K45 ["zIndexBehavior"]
-  SETTABLEKS R7 R6 K58 ["dockWidgetInfo"]
-  GETTABLEKS R7 R2 K59 ["build"]
-  MOVE R8 R6
-  CALL R7 1 1
-  GETTABLEKS R8 R7 K60 ["pluginLoader"]
-  NAMECALL R8 R8 K61 ["waitForUserInteraction"]
-  CALL R8 1 1
-  JUMPIF R8 [+1]
+  MOVE R3 R2
+  CALL R3 0 1
+  JUMPIF R3 [+1]
   RETURN R0 0
-  GETIMPORT R9 K5 [require]
-  GETIMPORT R12 K1 [script]
-  GETTABLEKS R11 R12 K62 ["Parent"]
-  GETTABLEKS R10 R11 K63 ["main"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K12 ["Packages"]
+  GETTABLEKS R4 R5 K13 ["TestLoader"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K14 ["launch"]
+  LOADK R5 K2 ["AssetAccess"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  CALL R4 2 0
+  GETTABLEKS R4 R3 K15 ["isCli"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+1]
+  RETURN R0 0
+  GETIMPORT R4 K17 [plugin]
+  GETTABLEKS R5 R0 K18 ["Name"]
+  SETTABLEKS R5 R4 K18 ["Name"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K12 ["Packages"]
+  GETTABLEKS R6 R7 K19 ["PluginLoader"]
+  GETTABLEKS R5 R6 K20 ["PluginLoaderBuilder"]
+  CALL R4 1 1
+  DUPTABLE R5 K25 [{"getName", "getDescription", "icon", "enabled"}]
+  DUPCLOSURE R6 K26 [PROTO_0]
+  SETTABLEKS R6 R5 K21 ["getName"]
+  DUPCLOSURE R6 K27 [PROTO_1]
+  SETTABLEKS R6 R5 K22 ["getDescription"]
+  LOADK R6 K28 ["rbxlocaltheme://GameSettings"]
+  SETTABLEKS R6 R5 K23 ["icon"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K24 ["enabled"]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K29 ["Resources"]
+  GETTABLEKS R7 R8 K30 ["Localization"]
+  GETTABLEKS R6 R7 K31 ["SourceStrings"]
+  GETTABLEKS R10 R0 K9 ["Src"]
+  GETTABLEKS R9 R10 K29 ["Resources"]
+  GETTABLEKS R8 R9 K30 ["Localization"]
+  GETTABLEKS R7 R8 K32 ["LocalizedStrings"]
+  DUPTABLE R8 K38 [{"plugin", "pluginName", "getToolbarName", "translationResourceTable", "fallbackResourceTable", "buttonInfo"}]
+  GETIMPORT R9 K17 [plugin]
+  SETTABLEKS R9 R8 K16 ["plugin"]
+  LOADK R9 K2 ["AssetAccess"]
+  SETTABLEKS R9 R8 K33 ["pluginName"]
+  DUPCLOSURE R9 K39 [PROTO_2]
+  SETTABLEKS R9 R8 K34 ["getToolbarName"]
+  SETTABLEKS R7 R8 K35 ["translationResourceTable"]
+  SETTABLEKS R6 R8 K36 ["fallbackResourceTable"]
+  SETTABLEKS R5 R8 K37 ["buttonInfo"]
+  DUPTABLE R9 K44 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+  LOADK R10 K2 ["AssetAccess"]
+  SETTABLEKS R10 R9 K40 ["id"]
+  GETIMPORT R10 K47 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R11 K51 [Enum.InitialDockState.Bottom]
+  LOADB R12 0
+  LOADB R13 0
+  LOADN R14 128
+  LOADN R15 224
+  LOADN R16 250
+  LOADN R17 200
+  CALL R10 7 1
+  SETTABLEKS R10 R9 K41 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R10 K52 [PROTO_3]
+  SETTABLEKS R10 R9 K42 ["getDockTitle"]
+  GETIMPORT R10 K55 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R10 R9 K43 ["zIndexBehavior"]
+  SETTABLEKS R9 R8 K56 ["dockWidgetInfo"]
+  GETTABLEKS R9 R4 K57 ["build"]
+  MOVE R10 R8
   CALL R9 1 1
-  MOVE R10 R9
-  GETIMPORT R11 K19 [plugin]
-  MOVE R12 R7
-  CALL R10 2 0
+  GETTABLEKS R10 R9 K58 ["pluginLoader"]
+  NAMECALL R10 R10 K59 ["waitForUserInteraction"]
+  CALL R10 1 1
+  JUMPIF R10 [+1]
+  RETURN R0 0
+  GETIMPORT R11 K5 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K60 ["Parent"]
+  GETTABLEKS R12 R13 K61 ["main"]
+  CALL R11 1 1
+  MOVE R12 R11
+  GETIMPORT R13 K17 [plugin]
+  MOVE R14 R9
+  CALL R12 2 0
   RETURN R0 0

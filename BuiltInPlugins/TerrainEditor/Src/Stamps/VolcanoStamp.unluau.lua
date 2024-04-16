@@ -155,28 +155,11 @@ function var9.updateBlendingFactorMap(arg1, arg2)
    if 0 < arg2 then
       local var0 = {}
       var0.CurveWidth = 1
-      var0.Distance = arg2 * 0.9
+      var0.Distance = (1 - arg2) * 0.9
       var0.PreserveDistance = 0.5 - arg2 / 5
       var0.PreserveRatio = 0
       var0.RoundCorner = 1
       arg1._blendingFactorMap = var7(Vector2.new(arg1._sliceX, arg1._sliceZ), var0)
-   end
-end
-
-function var9.blendHeightMap(arg1)
-   local var1123 = 1
-   local var1125 = arg1._heightMap
-   local var1126 = 1
-   local var1128 = arg1._heightMap[var1123]
-   local var1130 = arg1._heightmapCache[var1123]
-   if var1128 < var1130 then
-      var1128 = var1130
-      local var0 = arg1._heightMap
-      var0[1] = var1130
-   elseif 0 < var1130 then
-      local var0 = arg1._blendingFactorMap[var1123]
-      local var1 = arg1._heightMap
-      var1[1] = (1 - var0) * var1128 + var0 * var1130
    end
 end
 

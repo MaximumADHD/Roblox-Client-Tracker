@@ -403,14 +403,16 @@ PROTO_20:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
-  DUPTABLE R3 K4 [{"AnimationId", "AnimateTargetAsset", "Style"}]
-  GETTABLEKS R4 R0 K5 ["Item"]
+  DUPTABLE R3 K5 [{"AnimationId", "AnimateTargetAsset", "Style", "Transparency"}]
+  GETTABLEKS R4 R0 K6 ["Item"]
   SETTABLEKS R4 R3 K1 ["AnimationId"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K6 ["BODY_PREVIEW_PATH"]
+  GETTABLEKS R4 R5 K7 ["BODY_PREVIEW_PATH"]
   SETTABLEKS R4 R3 K2 ["AnimateTargetAsset"]
-  LOADK R4 K7 ["BodyPreview"]
+  LOADK R4 K8 ["BodyPreview"]
   SETTABLEKS R4 R3 K3 ["Style"]
+  GETTABLEKS R4 R0 K4 ["Transparency"]
+  SETTABLEKS R4 R3 K4 ["Transparency"]
   CALL R1 2 -1
   RETURN R1 -1
 
@@ -441,10 +443,12 @@ PROTO_23:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
-  DUPTABLE R3 K2 [{"Item"}]
+  DUPTABLE R3 K3 [{"Item", "Transparency"}]
   GETTABLEKS R5 R0 K1 ["Item"]
-  GETTABLEKS R4 R5 K3 ["right"]
+  GETTABLEKS R4 R5 K4 ["right"]
   SETTABLEKS R4 R3 K1 ["Item"]
+  GETTABLEKS R4 R0 K2 ["Transparency"]
+  SETTABLEKS R4 R3 K2 ["Transparency"]
   CALL R1 2 -1
   RETURN R1 -1
 
@@ -656,14 +660,16 @@ PROTO_30:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
-  DUPTABLE R3 K4 [{"AnimationId", "AnimateTargetAsset", "Style"}]
-  GETTABLEKS R4 R0 K5 ["Item"]
+  DUPTABLE R3 K5 [{"AnimationId", "AnimateTargetAsset", "Style", "Transparency"}]
+  GETTABLEKS R4 R0 K6 ["Item"]
   SETTABLEKS R4 R3 K1 ["AnimationId"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K6 ["HEAD_PREVIEW_PATH"]
+  GETTABLEKS R4 R5 K7 ["HEAD_PREVIEW_PATH"]
   SETTABLEKS R4 R3 K2 ["AnimateTargetAsset"]
-  LOADK R4 K7 ["FacePreview"]
+  LOADK R4 K8 ["FacePreview"]
   SETTABLEKS R4 R3 K3 ["Style"]
+  GETTABLEKS R4 R0 K4 ["Transparency"]
+  SETTABLEKS R4 R3 K4 ["Transparency"]
   CALL R1 2 -1
   RETURN R1 -1
 

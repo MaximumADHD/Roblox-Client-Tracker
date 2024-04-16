@@ -13,16 +13,16 @@ return function(arg1)
    end
    assert(var3, "Luau")
    if not var2 then
-      local var118 = var4
-      var118 = var0
-      var118.StartRecordingActions(var118)
+      local var144 = var4
+      var144 = var0
+      var144.StartRecordingActions(var144)
    end
    local var4 = var3:Clone()
    if not var4 then
       if not var2 then
-         local var122 = var4
-         var122 = var0
-         var122.EndRecordingActions(var122)
+         local var148 = var4
+         var148 = var0
+         var148.EndRecordingActions(var148)
       end
    end
    if var1.newInstanceId then
@@ -30,15 +30,15 @@ return function(arg1)
    end
    var1.direct_instance = var4
    var1:ExecuteCommandAsync(var0, "SetProperty", arg1)
-   local var134 = var2
-   var134 = var4
-   var4.Parent = var134.getRequestParent(var134, var0)
+   local var160 = var2
+   var160 = var4
+   var4.Parent = var160.getRequestParent(var160, var0)
    if not var2 then
-      local var138 = var4
-      var138 = var0
-      var138.EndRecordingActions(var138)
+      local var164 = var4
+      var164 = var0
+      var164.EndRecordingActions(var164)
    end
-   local var140 = var2
-   var140 = var0
-   var140.modifyChatWithInstanceLink(var140, var4, "copied", var1.chatGroup or var1.newInstanceId)
+   local var166 = var2
+   var166 = var0
+   var166.modifyChatWithInstanceLink(var166, var4, "copied", var1.chatGroup or var1.newInstanceId)
 end

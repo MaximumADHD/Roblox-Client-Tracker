@@ -71,16 +71,16 @@ PROTO_2:
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
   LOADK R13 K18 ["Path2D"]
-  DUPTABLE R14 K23 [{"Color", "Thickness", "ref", "Transparency"}]
-  GETTABLEKS R15 R1 K19 ["Color"]
+  DUPTABLE R14 K23 [{"Color3", "Thickness", "ref", "Transparency"}]
+  GETTABLEKS R15 R1 K24 ["Color"]
   JUMPIF R15 [+2]
-  GETTABLEKS R15 R2 K19 ["Color"]
-  SETTABLEKS R15 R14 K19 ["Color"]
+  GETTABLEKS R15 R2 K24 ["Color"]
+  SETTABLEKS R15 R14 K19 ["Color3"]
   GETTABLEKS R15 R1 K20 ["Thickness"]
   JUMPIF R15 [+2]
   GETTABLEKS R15 R2 K20 ["Thickness"]
   SETTABLEKS R15 R14 K20 ["Thickness"]
-  GETTABLEKS R16 R0 K24 ["pathRefs"]
+  GETTABLEKS R16 R0 K25 ["pathRefs"]
   GETTABLEN R15 R16 1
   SETTABLEKS R15 R14 K21 ["ref"]
   GETTABLEKS R15 R2 K22 ["Transparency"]
@@ -102,23 +102,23 @@ PROTO_2:
   LOADN R13 1
   CALL R11 2 1
   SETTABLEKS R11 R10 K11 ["Size"]
-  SUBK R11 R3 K25 [1]
+  SUBK R11 R3 K26 [1]
   SETTABLEKS R11 R10 K2 ["ZIndex"]
-  DUPTABLE R11 K27 [{"ContrastPath"}]
-  GETTABLEKS R12 R2 K28 ["ContrastColor"]
+  DUPTABLE R11 K28 [{"ContrastPath"}]
+  GETTABLEKS R12 R2 K29 ["ContrastColor"]
   JUMPIFNOT R12 [+30]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
   LOADK R13 K18 ["Path2D"]
-  DUPTABLE R14 K23 [{"Color", "Thickness", "ref", "Transparency"}]
-  GETTABLEKS R15 R2 K28 ["ContrastColor"]
-  SETTABLEKS R15 R14 K19 ["Color"]
+  DUPTABLE R14 K23 [{"Color3", "Thickness", "ref", "Transparency"}]
+  GETTABLEKS R15 R2 K29 ["ContrastColor"]
+  SETTABLEKS R15 R14 K19 ["Color3"]
   GETTABLEKS R16 R1 K20 ["Thickness"]
   JUMPIF R16 [+2]
   GETTABLEKS R16 R2 K20 ["Thickness"]
-  ADDK R15 R16 K25 [1]
+  ADDK R15 R16 K26 [1]
   SETTABLEKS R15 R14 K20 ["Thickness"]
-  GETTABLEKS R16 R0 K24 ["pathRefs"]
+  GETTABLEKS R16 R0 K25 ["pathRefs"]
   GETTABLEN R15 R16 2
   SETTABLEKS R15 R14 K21 ["ref"]
   GETTABLEKS R15 R2 K22 ["Transparency"]
@@ -126,7 +126,7 @@ PROTO_2:
   GETTABLEKS R15 R1 K22 ["Transparency"]
   SETTABLEKS R15 R14 K22 ["Transparency"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K26 ["ContrastPath"]
+  SETTABLEKS R12 R11 K27 ["ContrastPath"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K9 ["Background"]
   CALL R4 3 -1

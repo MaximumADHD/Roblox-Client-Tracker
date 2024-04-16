@@ -1,20 +1,25 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = script:FindFirstAncestor("AvatarCompatibilityPreviewer")
 local var1 = require(var0.Src.Components.Screens.AvatarScreen.Stages.StageType)
-local var56 = var0.Src.Util
-local var3 = require(var56.createUnimplemented)
-local var4 = {}
-var56 = var3
-var4.openPalette = var56("openPalette")
-local var62 = false
-var4.dummyPreviewLocked = var62
-var62 = var3
-local var64 = var62("incrementDummyPreviewLock")
-var4.incrementDummyPreviewLock = var64
-var64 = var3
-var4.decrementDummyPreviewLock = var64("decrementDummyPreviewLock")
-function var4.resetCamera()
+local var2 = require(var0.Src.Types)
+local var60 = var0.Src.Util
+local var4 = require(var60.createUnimplemented)
+local var5 = {}
+var60 = var4
+var5.openPalette = var60("openPalette")
+local var66 = {}
+var5.focusedAttachments = var66
+var66 = var4
+var5.setFocusedAttachments = var66("setFocusedAttachments")
+local var69 = false
+var5.dummyPreviewLocked = var69
+var69 = var4
+local var71 = var69("incrementDummyPreviewLock")
+var5.incrementDummyPreviewLock = var71
+var71 = var4
+var5.decrementDummyPreviewLock = var71("decrementDummyPreviewLock")
+function var5.resetCamera()
 end
 
-var4.stage = {}
-return require(var0.Packages.React).createContext(var4)
+var5.stage = {}
+return require(var0.Packages.React).createContext(var5)

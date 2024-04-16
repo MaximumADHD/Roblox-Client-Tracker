@@ -95,6 +95,9 @@ local PromptTitle = {
 	),
 	[PromptType.VoiceConsentDeclinedToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.ChangeYourMind"),
 	[PromptType.VoiceConsentAcceptedToast] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.JoinedVoiceChat"),
+	[PromptType.VoiceConsentModalV1] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GetVoiceChat"),
+	[PromptType.VoiceConsentModalV2] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.VoiceChatWithOthers"),
+	[PromptType.VoiceConsentModalV3] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.GetVoiceChat"),
 }
 local PromptSubTitle = {
 	[PromptType.None] = "",
@@ -137,6 +140,15 @@ local PromptSubTitle = {
 	[PromptType.VoiceConsentAcceptedToast] = RobloxTranslator:FormatByKey(
 		"Feature.SettingsHub.Prompt.Subtitle.MuteAnyoneAnytime"
 	),
+	[PromptType.VoiceConsentModalV1] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.Subtitle.InExpVoiceUpsell1"
+	),
+	[PromptType.VoiceConsentModalV2] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.Subtitle.InExpVoiceUpsell2"
+	),
+	[PromptType.VoiceConsentModalV3] = RobloxTranslator:FormatByKey(
+		"Feature.SettingsHub.Prompt.Subtitle.InExpVoiceUpsell2"
+	),
 }
 
 if runService:IsStudio() then
@@ -165,8 +177,14 @@ local function IsModalNudge(promptType)
 	return promptType == PromptType.VoiceToxicityModal
 end
 
+local function IsVoiceConsentModal(promptType)
+	return promptType == PromptType.VoiceConsentModalV1
+		or promptType == PromptType.VoiceConsentModalV2
+		or promptType == PromptType.VoiceConsentModalV3
+end
+
 local function PromptTypeIsModal(promptType)
-	return PromptTypeIsBan(promptType) or IsModalNudge(promptType) or promptType == PromptType.VoiceConsentModal
+	return PromptTypeIsBan(promptType) or IsModalNudge(promptType) or IsVoiceConsentModal(promptType)
 end
 
 local function PromptTypeIsVoiceConsent(promptType)
@@ -363,8 +381,7 @@ function VoiceChatPromptFrame:render()
 	local isNudgeToast = self.state.promptType == PromptType.VoiceToxicityToast
 	local isUpdatedBanModalB = GetFFlagUpdateNudgeV3VoiceBanUI()
 		and self.state.promptType == PromptType.VoiceChatSuspendedTemporaryB
-	local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell()
-		and self.state.promptType == PromptType.VoiceConsentModal
+	local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell() and IsVoiceConsentModal(self.state.promptType)
 	local automaticSize = if GetFFlagEnableVoiceNudge() then Enum.AutomaticSize.Y else Enum.AutomaticSize.None
 	local voiceChatPromptFrame
 	if PromptTypeIsModal(self.state.promptType) then
@@ -416,6 +433,8 @@ function VoiceChatPromptFrame:render()
 		}, {
 			InGameMenuInformationalDialog = if isVoiceConsentModal
 				then Roact.createElement(VoiceChatConsentModal, {
+					titleText = PromptTitle[self.state.promptType],
+					bodyText = PromptSubTitle[self.state.promptType],
 					handlePrimaryActivated = self.handlePrimayActivated,
 					handleSecondaryActivated = self.handleSecondaryActivated,
 					Analytics = self.props.Analytics,

@@ -9,6 +9,8 @@ export type IntegrationComponents = {
 export type IntegrationId = string
 export type IntegrationIdList = { [number]: string }
 export type MenuConfig = { [number]: IntegrationIdList }
+export type CompactUtilityId = string
+export type CompactUtilityConfig = { [CompactUtilityId]: MenuConfig }
 export type SecondaryAction = {
 	label: string,
 	activated: (IntegrationComponentProps) -> (),

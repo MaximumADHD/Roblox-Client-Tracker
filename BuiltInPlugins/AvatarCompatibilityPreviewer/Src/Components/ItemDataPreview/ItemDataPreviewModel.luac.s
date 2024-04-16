@@ -83,31 +83,38 @@ PROTO_2:
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K4 ["createElement"]
   GETUPVAL R4 3
-  DUPTABLE R5 K11 [{"FocusDirection", "Model", "Static", "Ambient", "LightColor", "LightDirection"}]
-  GETTABLEKS R6 R2 K12 ["PrimaryPart"]
+  DUPTABLE R5 K12 [{"FocusDirection", "Model", "Static", "Ambient", "LightColor", "LightDirection", "ImageTransparency"}]
+  GETTABLEKS R6 R2 K13 ["PrimaryPart"]
   JUMPIFNOT R6 [+6]
-  GETTABLEKS R8 R2 K12 ["PrimaryPart"]
-  GETTABLEKS R7 R8 K13 ["CFrame"]
-  GETTABLEKS R6 R7 K14 ["LookVector"]
+  GETTABLEKS R8 R2 K13 ["PrimaryPart"]
+  GETTABLEKS R7 R8 K14 ["CFrame"]
+  GETTABLEKS R6 R7 K15 ["LookVector"]
   SETTABLEKS R6 R5 K5 ["FocusDirection"]
   SETTABLEKS R2 R5 K6 ["Model"]
   LOADB R6 1
   SETTABLEKS R6 R5 K7 ["Static"]
-  GETTABLEKS R6 R1 K15 ["InstanceAmbient"]
+  GETTABLEKS R6 R1 K16 ["InstanceAmbient"]
   SETTABLEKS R6 R5 K8 ["Ambient"]
-  GETIMPORT R6 K18 [Color3.new]
+  GETIMPORT R6 K19 [Color3.new]
   LOADN R7 1
   LOADN R8 1
   LOADN R9 1
   CALL R6 3 1
   SETTABLEKS R6 R5 K9 ["LightColor"]
-  GETTABLEKS R6 R2 K12 ["PrimaryPart"]
+  GETTABLEKS R6 R2 K13 ["PrimaryPart"]
   JUMPIFNOT R6 [+7]
-  GETTABLEKS R9 R2 K12 ["PrimaryPart"]
-  GETTABLEKS R8 R9 K13 ["CFrame"]
-  GETTABLEKS R7 R8 K14 ["LookVector"]
+  GETTABLEKS R9 R2 K13 ["PrimaryPart"]
+  GETTABLEKS R8 R9 K14 ["CFrame"]
+  GETTABLEKS R7 R8 K15 ["LookVector"]
   MINUS R6 R7
   SETTABLEKS R6 R5 K10 ["LightDirection"]
+  GETUPVAL R7 4
+  CALL R7 0 1
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R6 R0 K20 ["Transparency"]
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K11 ["ImageTransparency"]
   CALL R3 2 -1
   RETURN R3 -1
 
@@ -123,27 +130,33 @@ MAIN:
   GETTABLEKS R2 R3 K8 ["getFFlagAvatarPreviewerCustomShoes"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Framework"]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K7 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["getFFlagAvatarPreviewerEquippedHoverMenu"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["React"]
+  GETTABLEKS R5 R0 K10 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Resources"]
-  GETTABLEKS R5 R6 K13 ["Theme"]
+  GETTABLEKS R6 R0 K10 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["React"]
   CALL R4 1 1
-  GETTABLEKS R5 R2 K14 ["UI"]
-  GETTABLEKS R6 R5 K15 ["AssetRenderModel"]
-  GETTABLEKS R8 R2 K16 ["ContextServices"]
-  GETTABLEKS R7 R8 K17 ["Stylizer"]
-  DUPCLOSURE R8 K18 [PROTO_0]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K13 ["Resources"]
+  GETTABLEKS R6 R7 K14 ["Theme"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K15 ["UI"]
+  GETTABLEKS R7 R6 K16 ["AssetRenderModel"]
+  GETTABLEKS R9 R3 K17 ["ContextServices"]
+  GETTABLEKS R8 R9 K18 ["Stylizer"]
+  DUPCLOSURE R9 K19 [PROTO_0]
   CAPTURE VAL R1
-  DUPCLOSURE R9 K19 [PROTO_2]
-  CAPTURE VAL R7
-  CAPTURE VAL R3
+  DUPCLOSURE R10 K20 [PROTO_2]
   CAPTURE VAL R8
-  CAPTURE VAL R6
-  RETURN R9 1
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  RETURN R10 1

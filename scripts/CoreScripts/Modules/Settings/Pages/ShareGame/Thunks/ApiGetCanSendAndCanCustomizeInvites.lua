@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
-local Requests = require(CorePackages.Workspace.Packages.Http).Requests
-local GetCanSendAndCanCustomizeInvites = Requests.GetCanSendAndCanCustomizeInvites
+local GameInvite = require(CorePackages.Workspace.Packages.GameInvite)
+local GetCanSendAndCanCustomizeInvites = GameInvite.GetCanSendAndCanCustomizeInvites
 
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
 

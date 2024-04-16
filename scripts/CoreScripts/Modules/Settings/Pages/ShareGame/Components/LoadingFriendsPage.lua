@@ -2,7 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local CoreGui = game:GetService("CoreGui")
 local _RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local LoadingBar = require(CorePackages.AppTempCommon.LuaApp.Components.LoadingBar)
+local LoadingBar = require(CorePackages.Workspace.Packages.AppBlox).LoadingBar
 
 local Roact = require(CorePackages.Roact)
 

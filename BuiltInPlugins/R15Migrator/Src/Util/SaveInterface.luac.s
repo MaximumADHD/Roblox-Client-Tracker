@@ -753,8 +753,10 @@ PROTO_23:
   CALL R6 2 1
   JUMPIF R6 [+1]
   RETURN R0 0
-  GETTABLEKS R6 R5 K14 ["Value"]
-  JUMPIFNOT R6 [+33]
+  GETTABLEKS R7 R5 K14 ["Value"]
+  LENGTH R6 R7
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+34]
   GETIMPORT R6 K16 [warn]
   LOADK R8 K17 ["%*.Value in folder %* should be empty. Was the %* folder edited?"]
   MOVE R10 R2

@@ -2,7 +2,7 @@ PROTO_0:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["IsEdit"]
   CALL R1 1 1
-  JUMPIFNOT R1 [+17]
+  JUMPIFNOT R1 [+32]
   GETUPVAL R1 1
   LOADB R2 0
   SETTABLEKS R2 R1 K1 ["Enabled"]
@@ -13,10 +13,21 @@ PROTO_0:
   LOADB R2 0
   SETTABLEKS R2 R1 K1 ["Enabled"]
   GETUPVAL R1 4
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["Enabled"]
+  GETIMPORT R1 K3 [game]
+  LOADK R3 K4 ["EnableSimulationStepForward"]
+  NAMECALL R1 R1 K5 ["GetFastFlag"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+73]
+  GETUPVAL R1 5
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["Enabled"]
+  GETUPVAL R1 6
   LOADB R2 0
   SETTABLEKS R2 R1 K1 ["Enabled"]
   RETURN R0 0
-  JUMPIFNOT R0 [+17]
+  JUMPIFNOT R0 [+32]
   GETUPVAL R1 1
   LOADB R2 1
   SETTABLEKS R2 R1 K1 ["Enabled"]
@@ -28,6 +39,17 @@ PROTO_0:
   SETTABLEKS R2 R1 K1 ["Enabled"]
   GETUPVAL R1 4
   LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["Enabled"]
+  GETIMPORT R1 K3 [game]
+  LOADK R3 K4 ["EnableSimulationStepForward"]
+  NAMECALL R1 R1 K5 ["GetFastFlag"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+40]
+  GETUPVAL R1 5
+  LOADB R2 1
+  SETTABLEKS R2 R1 K1 ["Enabled"]
+  GETUPVAL R1 6
+  LOADB R2 1
   SETTABLEKS R2 R1 K1 ["Enabled"]
   RETURN R0 0
   GETUPVAL R1 1
@@ -41,6 +63,17 @@ PROTO_0:
   SETTABLEKS R2 R1 K1 ["Enabled"]
   GETUPVAL R1 4
   LOADB R2 1
+  SETTABLEKS R2 R1 K1 ["Enabled"]
+  GETIMPORT R1 K3 [game]
+  LOADK R3 K4 ["EnableSimulationStepForward"]
+  NAMECALL R1 R1 K5 ["GetFastFlag"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+8]
+  GETUPVAL R1 5
+  LOADB R2 0
+  SETTABLEKS R2 R1 K1 ["Enabled"]
+  GETUPVAL R1 6
+  LOADB R2 0
   SETTABLEKS R2 R1 K1 ["Enabled"]
   RETURN R0 0
 
@@ -84,6 +117,18 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["EnableSimulationStepForward"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+6]
+  GETIMPORT R0 K5 [workspace]
+  LOADK R2 K6 [0.016]
+  NAMECALL R0 R0 K7 ["StepPhysics"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_5:
   GETIMPORT R1 K1 [game]
   LOADK R3 K2 ["RunService"]
   NAMECALL R1 R1 K3 ["GetService"]
@@ -97,13 +142,18 @@ PROTO_4:
   GETTABLEKS R1 R2 K6 ["onPause"]
   CALL R1 0 0
   RETURN R0 0
-  JUMPIFNOTEQKS R0 K7 ["Resume"] [+5]
+  JUMPIFNOTEQKS R0 K7 ["Resume"] [+6]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K8 ["onResume"]
   CALL R1 0 0
   RETURN R0 0
+  JUMPIFNOTEQKS R0 K9 ["StepForward"] [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K10 ["onStepForward"]
+  CALL R1 0 0
+  RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETIMPORT R0 K1 [plugin]
   LOADK R2 K2 ["syncRunState"]
   LOADK R3 K3 ["Pause"]
@@ -111,10 +161,18 @@ PROTO_5:
   CALL R0 3 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETIMPORT R0 K1 [plugin]
   LOADK R2 K2 ["syncRunState"]
   LOADK R3 K3 ["Resume"]
+  NAMECALL R0 R0 K4 ["Invoke"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_8:
+  GETIMPORT R0 K1 [plugin]
+  LOADK R2 K2 ["syncRunState"]
+  LOADK R3 K3 ["StepForward"]
   NAMECALL R0 R0 K4 ["Invoke"]
   CALL R0 3 0
   RETURN R0 0
@@ -147,102 +205,139 @@ MAIN:
   LOADNIL R3
   LOADNIL R4
   LOADNIL R5
-  NEWTABLE R6 8 0
-  NEWCLOSURE R7 P0
+  LOADNIL R6
+  LOADNIL R7
+  NEWTABLE R8 16 0
+  NEWCLOSURE R9 P0
   CAPTURE VAL R1
   CAPTURE REF R2
   CAPTURE REF R3
   CAPTURE REF R4
   CAPTURE REF R5
-  SETTABLEKS R7 R6 K17 ["pauseButtons"]
-  DUPCLOSURE R7 K18 [PROTO_1]
-  CAPTURE VAL R6
-  GETIMPORT R8 K7 [game]
-  LOADK R10 K15 ["RunService"]
-  NAMECALL R8 R8 K16 ["GetService"]
-  CALL R8 2 1
-  LOADK R10 K19 ["RunState"]
-  NAMECALL R8 R8 K20 ["GetPropertyChangedSignal"]
-  CALL R8 2 1
-  MOVE R10 R7
-  NAMECALL R8 R8 K21 ["Connect"]
-  CALL R8 2 1
-  SETTABLEKS R8 R6 K22 ["checkRunState"]
-  DUPCLOSURE R8 K23 [PROTO_2]
-  CAPTURE VAL R6
-  SETTABLEKS R8 R6 K24 ["onPause"]
-  DUPCLOSURE R8 K25 [PROTO_3]
-  CAPTURE VAL R6
-  SETTABLEKS R8 R6 K26 ["onResume"]
-  DUPCLOSURE R8 K27 [PROTO_4]
-  CAPTURE VAL R6
-  SETTABLEKS R8 R6 K28 ["invokeAction"]
-  GETIMPORT R8 K13 [plugin]
-  LOADK R10 K29 ["syncRunState"]
-  GETTABLEKS R11 R6 K28 ["invokeAction"]
-  NAMECALL R8 R8 K30 ["OnInvoke"]
-  CALL R8 3 0
-  DUPCLOSURE R8 K31 [PROTO_5]
-  SETTABLEKS R8 R6 K32 ["pauseAll"]
-  DUPCLOSURE R8 K33 [PROTO_6]
-  SETTABLEKS R8 R6 K34 ["resumeAll"]
-  NAMECALL R9 R1 K35 ["IsRunning"]
-  CALL R9 1 1
-  NOT R8 R9
-  GETIMPORT R9 K13 [plugin]
-  LOADK R11 K36 ["simulationStep"]
-  NAMECALL R9 R9 K37 ["CreateToolbar"]
-  CALL R9 2 1
-  LOADK R12 K38 ["ResumeAll"]
-  LOADK R13 K39 [""]
-  LOADK R14 K40 ["rbxlocaltheme://Resume"]
-  NAMECALL R10 R9 K41 ["CreateButton"]
-  CALL R10 4 1
-  MOVE R2 R10
-  LOADB R10 1
-  SETTABLEKS R10 R2 K42 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R10 R2 K43 ["Click"]
-  GETTABLEKS R12 R6 K34 ["resumeAll"]
+  CAPTURE REF R6
+  CAPTURE REF R7
+  SETTABLEKS R9 R8 K17 ["pauseButtons"]
+  DUPCLOSURE R9 K18 [PROTO_1]
+  CAPTURE VAL R8
+  GETIMPORT R10 K7 [game]
+  LOADK R12 K15 ["RunService"]
+  NAMECALL R10 R10 K16 ["GetService"]
+  CALL R10 2 1
+  LOADK R12 K19 ["RunState"]
+  NAMECALL R10 R10 K20 ["GetPropertyChangedSignal"]
+  CALL R10 2 1
+  MOVE R12 R9
   NAMECALL R10 R10 K21 ["Connect"]
-  CALL R10 2 0
-  LOADK R12 K44 ["Resume"]
-  LOADK R13 K39 [""]
-  LOADK R14 K40 ["rbxlocaltheme://Resume"]
-  NAMECALL R10 R9 K41 ["CreateButton"]
-  CALL R10 4 1
-  MOVE R3 R10
-  LOADB R10 1
-  SETTABLEKS R10 R3 K42 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R10 R3 K43 ["Click"]
-  GETTABLEKS R12 R6 K26 ["onResume"]
-  NAMECALL R10 R10 K21 ["Connect"]
-  CALL R10 2 0
-  LOADK R12 K45 ["PauseAll"]
-  LOADK R13 K39 [""]
-  LOADK R14 K46 ["rbxlocaltheme://Pause"]
-  NAMECALL R10 R9 K41 ["CreateButton"]
-  CALL R10 4 1
-  MOVE R4 R10
-  LOADB R10 1
-  SETTABLEKS R10 R4 K42 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R10 R4 K43 ["Click"]
-  GETTABLEKS R12 R6 K32 ["pauseAll"]
-  NAMECALL R10 R10 K21 ["Connect"]
-  CALL R10 2 0
-  LOADK R12 K47 ["Pause"]
-  LOADK R13 K39 [""]
-  LOADK R14 K46 ["rbxlocaltheme://Pause"]
-  NAMECALL R10 R9 K41 ["CreateButton"]
-  CALL R10 4 1
-  MOVE R5 R10
-  LOADB R10 1
-  SETTABLEKS R10 R5 K42 ["ClickableWhenViewportHidden"]
-  GETTABLEKS R10 R5 K43 ["Click"]
-  GETTABLEKS R12 R6 K24 ["onPause"]
-  NAMECALL R10 R10 K21 ["Connect"]
-  CALL R10 2 0
-  GETTABLEKS R10 R6 K17 ["pauseButtons"]
-  MOVE R11 R8
-  CALL R10 1 0
+  CALL R10 2 1
+  SETTABLEKS R10 R8 K22 ["checkRunState"]
+  DUPCLOSURE R10 K23 [PROTO_2]
+  CAPTURE VAL R8
+  SETTABLEKS R10 R8 K24 ["onPause"]
+  DUPCLOSURE R10 K25 [PROTO_3]
+  CAPTURE VAL R8
+  SETTABLEKS R10 R8 K26 ["onResume"]
+  DUPCLOSURE R10 K27 [PROTO_4]
+  SETTABLEKS R10 R8 K28 ["onStepForward"]
+  DUPCLOSURE R10 K29 [PROTO_5]
+  CAPTURE VAL R8
+  SETTABLEKS R10 R8 K30 ["invokeAction"]
+  GETIMPORT R10 K13 [plugin]
+  LOADK R12 K31 ["syncRunState"]
+  GETTABLEKS R13 R8 K30 ["invokeAction"]
+  NAMECALL R10 R10 K32 ["OnInvoke"]
+  CALL R10 3 0
+  DUPCLOSURE R10 K33 [PROTO_6]
+  SETTABLEKS R10 R8 K34 ["pauseAll"]
+  DUPCLOSURE R10 K35 [PROTO_7]
+  SETTABLEKS R10 R8 K36 ["resumeAll"]
+  DUPCLOSURE R10 K37 [PROTO_8]
+  SETTABLEKS R10 R8 K38 ["stepForwardAll"]
+  NAMECALL R11 R1 K39 ["IsRunning"]
+  CALL R11 1 1
+  NOT R10 R11
+  GETIMPORT R11 K13 [plugin]
+  LOADK R13 K40 ["simulationStep"]
+  NAMECALL R11 R11 K41 ["CreateToolbar"]
+  CALL R11 2 1
+  LOADK R14 K42 ["ResumeAll"]
+  LOADK R15 K43 [""]
+  LOADK R16 K44 ["rbxlocaltheme://Resume"]
+  NAMECALL R12 R11 K45 ["CreateButton"]
+  CALL R12 4 1
+  MOVE R2 R12
+  LOADB R12 1
+  SETTABLEKS R12 R2 K46 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R12 R2 K47 ["Click"]
+  GETTABLEKS R14 R8 K36 ["resumeAll"]
+  NAMECALL R12 R12 K21 ["Connect"]
+  CALL R12 2 0
+  LOADK R14 K48 ["Resume"]
+  LOADK R15 K43 [""]
+  LOADK R16 K44 ["rbxlocaltheme://Resume"]
+  NAMECALL R12 R11 K45 ["CreateButton"]
+  CALL R12 4 1
+  MOVE R3 R12
+  LOADB R12 1
+  SETTABLEKS R12 R3 K46 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R12 R3 K47 ["Click"]
+  GETTABLEKS R14 R8 K26 ["onResume"]
+  NAMECALL R12 R12 K21 ["Connect"]
+  CALL R12 2 0
+  LOADK R14 K49 ["PauseAll"]
+  LOADK R15 K43 [""]
+  LOADK R16 K50 ["rbxlocaltheme://Pause"]
+  NAMECALL R12 R11 K45 ["CreateButton"]
+  CALL R12 4 1
+  MOVE R4 R12
+  LOADB R12 1
+  SETTABLEKS R12 R4 K46 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R12 R4 K47 ["Click"]
+  GETTABLEKS R14 R8 K34 ["pauseAll"]
+  NAMECALL R12 R12 K21 ["Connect"]
+  CALL R12 2 0
+  LOADK R14 K51 ["Pause"]
+  LOADK R15 K43 [""]
+  LOADK R16 K50 ["rbxlocaltheme://Pause"]
+  NAMECALL R12 R11 K45 ["CreateButton"]
+  CALL R12 4 1
+  MOVE R5 R12
+  LOADB R12 1
+  SETTABLEKS R12 R5 K46 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R12 R5 K47 ["Click"]
+  GETTABLEKS R14 R8 K24 ["onPause"]
+  NAMECALL R12 R12 K21 ["Connect"]
+  CALL R12 2 0
+  GETIMPORT R12 K7 [game]
+  LOADK R14 K52 ["EnableSimulationStepForward"]
+  NAMECALL R12 R12 K9 ["GetFastFlag"]
+  CALL R12 2 1
+  JUMPIFNOT R12 [+34]
+  LOADK R14 K53 ["StepForwardAll"]
+  LOADK R15 K43 [""]
+  LOADK R16 K54 ["rbxlocaltheme://Fwd"]
+  NAMECALL R12 R11 K45 ["CreateButton"]
+  CALL R12 4 1
+  MOVE R6 R12
+  LOADB R12 1
+  SETTABLEKS R12 R6 K46 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R12 R6 K47 ["Click"]
+  GETTABLEKS R14 R8 K38 ["stepForwardAll"]
+  NAMECALL R12 R12 K21 ["Connect"]
+  CALL R12 2 0
+  LOADK R14 K55 ["StepForward"]
+  LOADK R15 K43 [""]
+  LOADK R16 K54 ["rbxlocaltheme://Fwd"]
+  NAMECALL R12 R11 K45 ["CreateButton"]
+  CALL R12 4 1
+  MOVE R7 R12
+  LOADB R12 1
+  SETTABLEKS R12 R7 K46 ["ClickableWhenViewportHidden"]
+  GETTABLEKS R12 R7 K47 ["Click"]
+  GETTABLEKS R14 R8 K28 ["onStepForward"]
+  NAMECALL R12 R12 K21 ["Connect"]
+  CALL R12 2 0
+  GETTABLEKS R12 R8 K17 ["pauseButtons"]
+  MOVE R13 R10
+  CALL R12 1 0
   CLOSEUPVALS R2
   RETURN R0 0

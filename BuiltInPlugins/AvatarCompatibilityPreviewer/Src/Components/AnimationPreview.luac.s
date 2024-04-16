@@ -79,7 +79,7 @@ PROTO_3:
   JUMP [+2]
   GETTABLEKS R11 R1 K10 ["PausedAnimationAlpha"]
   CALL R7 4 0
-  JUMPIFNOT R4 [+77]
+  JUMPIFNOT R4 [+81]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K11 ["createElement"]
   GETUPVAL R8 5
@@ -100,22 +100,22 @@ PROTO_3:
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K11 ["createElement"]
   GETUPVAL R12 6
-  DUPTABLE R13 K25 [{"Ambient", "Camera", "FocusDirection", "InitialDistance", "Model", "ShouldClone", "Static"}]
-  GETIMPORT R14 K27 [Color3.new]
+  DUPTABLE R13 K26 [{"Ambient", "Camera", "FocusDirection", "InitialDistance", "Model", "ShouldClone", "Static", "ImageTransparency"}]
+  GETIMPORT R14 K28 [Color3.new]
   LOADN R15 1
   LOADN R16 1
   LOADN R17 1
   CALL R14 3 1
   SETTABLEKS R14 R13 K19 ["Ambient"]
   SETTABLEKS R3 R13 K20 ["Camera"]
-  GETTABLEKS R16 R4 K28 ["PrimaryPart"]
-  GETTABLEKS R15 R16 K29 ["CFrame"]
-  GETTABLEKS R14 R15 K30 ["LookVector"]
-  GETTABLEKS R18 R4 K28 ["PrimaryPart"]
-  GETTABLEKS R17 R18 K29 ["CFrame"]
-  GETTABLEKS R16 R17 K31 ["RightVector"]
-  GETTABLEKS R17 R1 K32 ["FrontRightAngleLerp"]
-  NAMECALL R14 R14 K33 ["Lerp"]
+  GETTABLEKS R16 R4 K29 ["PrimaryPart"]
+  GETTABLEKS R15 R16 K30 ["CFrame"]
+  GETTABLEKS R14 R15 K31 ["LookVector"]
+  GETTABLEKS R18 R4 K29 ["PrimaryPart"]
+  GETTABLEKS R17 R18 K30 ["CFrame"]
+  GETTABLEKS R16 R17 K32 ["RightVector"]
+  GETTABLEKS R17 R1 K33 ["FrontRightAngleLerp"]
+  NAMECALL R14 R14 K34 ["Lerp"]
   CALL R14 3 1
   SETTABLEKS R14 R13 K21 ["FocusDirection"]
   GETTABLEKS R14 R1 K22 ["InitialDistance"]
@@ -125,6 +125,8 @@ PROTO_3:
   SETTABLEKS R14 R13 K23 ["ShouldClone"]
   LOADB R14 1
   SETTABLEKS R14 R13 K24 ["Static"]
+  GETTABLEKS R14 R0 K35 ["Transparency"]
+  SETTABLEKS R14 R13 K25 ["ImageTransparency"]
   CALL R11 2 1
   SETTABLEKS R11 R10 K17 ["Model"]
   CALL R7 3 1

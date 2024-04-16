@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("QualityFiltersInToolboxSearch4", false)
+game:DefineFastFlag("QualityFiltersInToolboxSearch5", false)
 return function()
-   return game:GetFastFlag("QualityFiltersInToolboxSearch4")
+   return game:GetFastFlag("QualityFiltersInToolboxSearch5")
 end

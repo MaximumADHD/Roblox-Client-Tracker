@@ -32,32 +32,32 @@ local var29 = require(var23.AddPointComponent)
 local var30 = var2.PureComponent:extend("MainPlugin")
 function var30.init(arg1, arg2)
    arg1.state = {}
-   local var194 = var4.thunkMiddleware
+   local var190 = var4.thunkMiddleware
    arg1.store = var4.Store.new(var13, nil, {}, nil)
-   local var200 = {}
-   var200.stringResourceTable = var15
-   var200.translationResourceTable = var16
-   var200.pluginName = "PathEditor"
-   arg1.localization = var9.Localization.new(var200)
+   local var196 = {}
+   var196.stringResourceTable = var15
+   var196.translationResourceTable = var16
+   var196.pluginName = "PathEditor"
+   arg1.localization = var9.Localization.new(var196)
    function arg1.log(arg1, arg2)
       local var0 = arg1
       local var1 = nil
-      local var213 = {}
-      var213.placeId = game.PlaceId
-      local var218 = var7:GetSessionId()
-      var213.studioSid = var218
-      var218 = arg2
-      local var2 = var5.join(var213, var218)
+      local var209 = {}
+      var209.placeId = game.PlaceId
+      local var214 = var7:GetSessionId()
+      var209.studioSid = var214
+      var214 = arg2
+      local var2 = var5.join(var209, var214)
       arg1.telemetry:logRobloxTelemetryEvent()
    end
    
    function arg1.logUsageReport()
       if 0 < var19:totalCount() then
-         local var228 = {}
-         var228.selectModeCount = var19.selectModeCount
-         var228.addPointModeCount = var19.addPointModeCount
-         var228.addTangentModeCount = var19.addTangentModeCount
-         arg1.log(var20, var228)
+         local var224 = {}
+         var224.selectModeCount = var19.selectModeCount
+         var224.addPointModeCount = var19.addPointModeCount
+         var224.addTangentModeCount = var19.addTangentModeCount
+         arg1.log(var20, var224)
          var19:reset()
       end
    end
@@ -78,25 +78,25 @@ end
 
 function var30.render(arg1)
    local var0 = arg1.props.Plugin
-   local var272 = var10
-   var272 = var0
-   local var286 = arg1.localization
-   local var287 = arg1.analytics
-   local var288 = arg1.actions
-   local var289 = {}
+   local var268 = var10
+   var268 = var0
+   local var282 = arg1.localization
+   local var283 = arg1.analytics
+   local var284 = arg1.actions
+   local var285 = {}
+   local var288 = {}
    local var292 = {}
-   local var296 = {}
-   var296.Name = "PathEditFolder"
-   local var298 = {}
-   var298.ControlPointEditGui = var2.createElement(var24)
-   var298.PathToolbar = var2.createElement(var26)
-   var298.MoveBaseGui = var2.createElement(var27)
-   var298.VisualizationGui = var2.createElement(var28)
-   var298.AddPointComponent = var2.createElement(var29)
-   var292.PathEditFolder = var2.createElement("Folder", var296, var298)
-   var289.Portal = var3.createPortal(var292, var6)
-   var289.SelectionListener = var2.createElement(var25)
-   return var9.provide({ var272.new(var272), var12.new(arg1.store), var11.new(var0:getMouse()), var14() }, var289)
+   var292.Name = "PathEditFolder"
+   local var294 = {}
+   var294.ControlPointEditGui = var2.createElement(var24)
+   var294.PathToolbar = var2.createElement(var26)
+   var294.MoveBaseGui = var2.createElement(var27)
+   var294.VisualizationGui = var2.createElement(var28)
+   var294.AddPointComponent = var2.createElement(var29)
+   var288.PathEditFolder = var2.createElement("Folder", var292, var294)
+   var285.Portal = var3.createPortal(var288, var6)
+   var285.SelectionListener = var2.createElement(var25)
+   return var9.provide({ var268.new(var268), var12.new(arg1.store), var11.new(var0:getMouse()), var14() }, var285)
 end
 
 return var30

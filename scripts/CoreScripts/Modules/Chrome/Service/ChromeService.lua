@@ -27,6 +27,7 @@ local GetFFlagEnableChromePinIntegrations = require(script.Parent.Parent.Flags.G
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 local GetFFlagOpenControlsOnMenuOpen = require(script.Parent.Parent.Flags.GetFFlagOpenControlsOnMenuOpen)
+local GetFFlagSupportCompactUtility = require(script.Parent.Parent.Flags.GetFFlagSupportCompactUtility)
 
 local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 2.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
@@ -80,6 +81,7 @@ export type ChromeService = {
 	toggleSubMenu: (ChromeService, subMenuId: Types.IntegrationId) -> (),
 	currentSubMenu: (ChromeService) -> ObservableSubMenu,
 	toggleOpen: (ChromeService) -> (),
+	toggleCompactUtility: (ChromeService, utility: Types.CompactUtilityId) -> (),
 	open: (ChromeService, preventFocusCapture: boolean?) -> (),
 	close: (ChromeService) -> (),
 	getLastInputToOpenMenu: (ChromeService) -> Enum.UserInputType,
@@ -102,6 +104,8 @@ export type ChromeService = {
 	configureReset: (ChromeService) -> (),
 	configureMenu: (ChromeService, menuConfig: Types.MenuConfig) -> (),
 	configureSubMenu: (ChromeService, parent: Types.IntegrationId, menuConfig: Types.IntegrationIdList) -> (),
+	configureCompactUtility: (ChromeService, utility: Types.CompactUtilityId, menuConfig: Types.MenuConfig) -> (),
+	getCurrentUtility: (ChromeService) -> Types.CompactUtilityId?,
 	gesture: (
 		ChromeService,
 		componentId: Types.IntegrationId,
@@ -165,6 +169,8 @@ export type ChromeService = {
 	_menuConfig: Types.MenuConfig,
 	_subMenuConfig: { [Types.IntegrationId]: Types.IntegrationIdList },
 	_subMenuNotifications: { [Types.IntegrationId]: utils.NotifySignal },
+	_compactUtilityConfig: { [Types.CompactUtilityId]: Types.MenuConfig },
+	_currentCompactUtility: Types.CompactUtilityId?,
 	_menuList: ObservableMenuList,
 	_dragConnection: { [Types.IntegrationId]: DragConnectionObjectType },
 	_windowPositions: { [Types.IntegrationId]: UDim2? },
@@ -233,6 +239,8 @@ function ChromeService.new(): ChromeService
 	self._integrationsStatus = {} -- Icon/Window
 	self._menuConfig = {} :: Types.MenuConfig
 	self._subMenuConfig = {}
+	self._compactUtilityConfig = {} :: Types.CompactUtilityConfig
+	self._currentCompactUtility = nil
 	self._subMenuNotifications = {}
 	self._menuList = ObservableValue.new({})
 	self._windowList = ObservableValue.new({})
@@ -848,8 +856,16 @@ function ChromeService:updateMenuList()
 
 	local root = { children = {} }
 	local windowList = {}
-	-- recursively collectMenu
-	collectMenu(self._menuConfig, root, windowList)
+	-- recursively collectMenu for current unibar (compact utility or default)
+	if
+		GetFFlagSupportCompactUtility()
+		and self._currentCompactUtility
+		and self._compactUtilityConfig[self._currentCompactUtility]
+	then
+		collectMenu(self._compactUtilityConfig[self._currentCompactUtility], root, windowList)
+	else
+		collectMenu(self._menuConfig, root, windowList)
+	end
 
 	-- Remove dangling dividers
 	if #root.children and root.children[#root.children] and root.children[#root.children].isDivider then
@@ -950,6 +966,7 @@ end
 function ChromeService:configureReset()
 	self._menuConfig = {}
 	self._subMenuConfig = {}
+	self._compactUtilityConfig = {}
 	self._subMenuNotifications = {}
 	self:updateMenuList()
 end
@@ -967,6 +984,30 @@ function ChromeService:configureSubMenu(parent: Types.IntegrationId, menuConfig:
 	end
 	self:updateNotificationTotals()
 	self:updateMenuList()
+end
+
+function ChromeService:configureCompactUtility(utility: Types.CompactUtilityId, menuConfig: Types.MenuConfig)
+	if GetFFlagSupportCompactUtility() then
+		self._compactUtilityConfig[utility] = menuConfig
+		self:updateMenuList()
+	end
+end
+
+function ChromeService:toggleCompactUtility(utility: Types.CompactUtilityId)
+	if GetFFlagSupportCompactUtility() then
+		-- turn utility on if no current compact utility or a different utility turned on
+		if not self._currentCompactUtility or self._currentCompactUtility ~= utility then
+			self._currentCompactUtility = utility
+		else
+			self._currentCompactUtility = nil
+		end
+
+		self:updateMenuList()
+	end
+end
+
+function ChromeService:getCurrentUtility()
+	return if GetFFlagSupportCompactUtility() then self._currentCompactUtility else nil
 end
 
 function ChromeService:gesture(

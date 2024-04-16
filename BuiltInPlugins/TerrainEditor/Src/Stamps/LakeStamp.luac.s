@@ -278,9 +278,9 @@ PROTO_4:
   MOVE R5 R4
   GETTABLEKS R6 R0 K1 ["_heightmapCache"]
   SETTABLE R4 R6 R3
-  LOADN R6 0
-  JUMPIFNOTLT R6 R5 [+12]
-  GETTABLEKS R7 R0 K2 ["_blendingFactorMap"]
+  GETTABLEKS R6 R0 K2 ["_addBlending"]
+  JUMPIFNOT R6 [+11]
+  GETTABLEKS R7 R0 K3 ["_blendingFactorMap"]
   GETTABLE R6 R7 R3
   GETTABLEKS R7 R0 K0 ["_heightMap"]
   LOADN R11 1

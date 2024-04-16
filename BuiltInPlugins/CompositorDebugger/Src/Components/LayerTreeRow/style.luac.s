@@ -157,9 +157,9 @@ MAIN:
   CALL R7 1 1
   SETTABLEKS R7 R6 K78 ["Server"]
   SETTABLEKS R6 R5 K85 ["Colors"]
-  DUPTABLE R6 K92 [{"Blend1D", "Blend2D", "ClipLayer", "Default", "SelectLayer", "SequenceLayer"}]
+  DUPTABLE R6 K93 [{"Blend1D", "Blend2D", "BlendSpace", "ClipLayer", "Default", "SelectLayer", "SequenceLayer"}]
   DUPTABLE R7 K34 [{"Image", "Size"}]
-  LOADK R8 K93 ["rbxasset://textures/CompositorDebugger/blend1d.png"]
+  LOADK R8 K94 ["rbxasset://textures/CompositorDebugger/blend1d.png"]
   SETTABLEKS R8 R7 K12 ["Image"]
   GETIMPORT R8 K32 [UDim2.fromOffset]
   LOADN R9 12
@@ -168,7 +168,7 @@ MAIN:
   SETTABLEKS R8 R7 K13 ["Size"]
   SETTABLEKS R7 R6 K86 ["Blend1D"]
   DUPTABLE R7 K34 [{"Image", "Size"}]
-  LOADK R8 K94 ["rbxasset://textures/CompositorDebugger/blend2d.png"]
+  LOADK R8 K95 ["rbxasset://textures/CompositorDebugger/blend2d.png"]
   SETTABLEKS R8 R7 K12 ["Image"]
   GETIMPORT R8 K32 [UDim2.fromOffset]
   LOADN R9 12
@@ -177,40 +177,49 @@ MAIN:
   SETTABLEKS R8 R7 K13 ["Size"]
   SETTABLEKS R7 R6 K87 ["Blend2D"]
   DUPTABLE R7 K34 [{"Image", "Size"}]
-  LOADK R8 K95 ["rbxasset://textures/CompositorDebugger/clip.png"]
+  LOADK R8 K95 ["rbxasset://textures/CompositorDebugger/blend2d.png"]
   SETTABLEKS R8 R7 K12 ["Image"]
   GETIMPORT R8 K32 [UDim2.fromOffset]
   LOADN R9 12
   LOADN R10 12
   CALL R8 2 1
   SETTABLEKS R8 R7 K13 ["Size"]
-  SETTABLEKS R7 R6 K88 ["ClipLayer"]
+  SETTABLEKS R7 R6 K88 ["BlendSpace"]
   DUPTABLE R7 K34 [{"Image", "Size"}]
-  LOADK R8 K96 ["rbxasset://textures/CompositorDebugger/default.png"]
+  LOADK R8 K96 ["rbxasset://textures/CompositorDebugger/clip.png"]
   SETTABLEKS R8 R7 K12 ["Image"]
   GETIMPORT R8 K32 [UDim2.fromOffset]
   LOADN R9 12
   LOADN R10 12
   CALL R8 2 1
   SETTABLEKS R8 R7 K13 ["Size"]
-  SETTABLEKS R7 R6 K89 ["Default"]
+  SETTABLEKS R7 R6 K89 ["ClipLayer"]
   DUPTABLE R7 K34 [{"Image", "Size"}]
-  LOADK R8 K97 ["rbxasset://textures/CompositorDebugger/select.png"]
+  LOADK R8 K97 ["rbxasset://textures/CompositorDebugger/default.png"]
   SETTABLEKS R8 R7 K12 ["Image"]
   GETIMPORT R8 K32 [UDim2.fromOffset]
   LOADN R9 12
   LOADN R10 12
   CALL R8 2 1
   SETTABLEKS R8 R7 K13 ["Size"]
-  SETTABLEKS R7 R6 K90 ["SelectLayer"]
+  SETTABLEKS R7 R6 K90 ["Default"]
   DUPTABLE R7 K34 [{"Image", "Size"}]
-  LOADK R8 K98 ["rbxasset://textures/CompositorDebugger/sequence.png"]
+  LOADK R8 K98 ["rbxasset://textures/CompositorDebugger/select.png"]
   SETTABLEKS R8 R7 K12 ["Image"]
   GETIMPORT R8 K32 [UDim2.fromOffset]
   LOADN R9 12
   LOADN R10 12
   CALL R8 2 1
   SETTABLEKS R8 R7 K13 ["Size"]
-  SETTABLEKS R7 R6 K91 ["SequenceLayer"]
-  SETTABLEKS R6 R5 K99 ["Icons"]
+  SETTABLEKS R7 R6 K91 ["SelectLayer"]
+  DUPTABLE R7 K34 [{"Image", "Size"}]
+  LOADK R8 K99 ["rbxasset://textures/CompositorDebugger/sequence.png"]
+  SETTABLEKS R8 R7 K12 ["Image"]
+  GETIMPORT R8 K32 [UDim2.fromOffset]
+  LOADN R9 12
+  LOADN R10 12
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["Size"]
+  SETTABLEKS R7 R6 K92 ["SequenceLayer"]
+  SETTABLEKS R6 R5 K100 ["Icons"]
   RETURN R5 1

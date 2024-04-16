@@ -7,17 +7,17 @@ local var4 = require(var0.Core.Util.Constants)
 local var5 = require(var0.Core.Util.Images)
 local var6 = require(var0.Core.Util.Immutable)
 return function(arg1)
-   local var301 = var3.Dictionary
-   var301 = arg1
-   local var306 = {}
-   var306.BackgroundTransparency = 1
-   var306.BorderSizePixel = 0
-   var306.Image = var5.DROP_SHADOW_IMAGE
-   var306.ImageColor3 = var4.DROP_SHADOW_COLOR
-   var306.ImageTransparency = var4.DROP_SHADOW_TRANSPARENCY
-   var306.ScaleType = Enum.ScaleType.Slice
-   local var317 = var4.DROP_SHADOW_SLICE_CENTER
-   var306.SliceCenter = var317
-   var317 = var301.join or var6.JoinDictionaries(var301, var306)
-   return var2.createElement("ImageLabel", var317)
+   local var298 = var3.Dictionary
+   var298 = arg1
+   local var303 = {}
+   var303.BackgroundTransparency = 1
+   var303.BorderSizePixel = 0
+   var303.Image = var5.DROP_SHADOW_IMAGE
+   var303.ImageColor3 = var4.DROP_SHADOW_COLOR
+   var303.ImageTransparency = var4.DROP_SHADOW_TRANSPARENCY
+   var303.ScaleType = Enum.ScaleType.Slice
+   local var314 = var4.DROP_SHADOW_SLICE_CENTER
+   var303.SliceCenter = var314
+   var314 = var298.join or var6.JoinDictionaries(var298, var303)
+   return var2.createElement("ImageLabel", var314)
 end

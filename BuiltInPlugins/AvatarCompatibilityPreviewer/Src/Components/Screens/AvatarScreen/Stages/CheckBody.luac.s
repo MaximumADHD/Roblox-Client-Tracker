@@ -1,34 +1,4 @@
 PROTO_0:
-  DUPTABLE R2 K2 [{"AssetId", "AssetType"}]
-  SETTABLEKS R1 R2 K0 ["AssetId"]
-  SETTABLEKS R0 R2 K1 ["AssetType"]
-  RETURN R2 1
-
-PROTO_1:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["List"]
-  GETTABLEKS R1 R2 K1 ["join"]
-  GETTABLEKS R3 R0 K2 ["avatarAssets"]
-  GETTABLEKS R2 R3 K3 ["clothing"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K4 ["collectArray"]
-  GETTABLEKS R5 R0 K2 ["avatarAssets"]
-  GETTABLEKS R4 R5 K5 ["accessories"]
-  DUPCLOSURE R5 K6 [PROTO_0]
-  CALL R3 2 -1
-  CALL R1 -1 1
-  GETUPVAL R2 2
-  GETUPVAL R3 3
-  GETTABLEKS R5 R0 K2 ["avatarAssets"]
-  GETTABLEKS R4 R5 K7 ["skinTone"]
-  CALL R3 1 1
-  GETTABLEKS R5 R0 K2 ["avatarAssets"]
-  GETTABLEKS R4 R5 K8 ["patches"]
-  MOVE R5 R1
-  CALL R2 3 -1
-  RETURN R2 -1
-
-PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useContext"]
   GETUPVAL R2 1
@@ -74,7 +44,7 @@ PROTO_2:
   CALL R4 3 -1
   RETURN R4 -1
 
-PROTO_3:
+PROTO_1:
   DUPTABLE R0 K1 [{"fov"}]
   LOADN R1 50
   SETTABLEKS R1 R0 K0 ["fov"]
@@ -129,52 +99,25 @@ MAIN:
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K16 ["Util"]
-  GETTABLEKS R11 R12 K20 ["createHumanoidDescriptionWithSkinTone_DEPRECATED"]
+  GETTABLEKS R12 R13 K20 ["Hooks"]
+  GETTABLEKS R11 R12 K21 ["useOnClothingLayerOrderChanged"]
   CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K10 ["Src"]
-  GETTABLEKS R13 R14 K16 ["Util"]
-  GETTABLEKS R12 R13 K21 ["patchHumanoidDescription_DEPRECATED"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K10 ["Src"]
-  GETTABLEKS R14 R15 K22 ["Hooks"]
-  GETTABLEKS R13 R14 K23 ["useOnClothingLayerOrderChanged"]
-  CALL R12 1 1
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K10 ["Src"]
-  GETTABLEKS R15 R16 K24 ["Flags"]
-  GETTABLEKS R14 R15 K25 ["getFFlagAvatarPreviewerKeepAccessoriesInCheckFace"]
-  CALL R13 1 1
-  DUPCLOSURE R14 K26 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  DUPCLOSURE R15 K27 [PROTO_2]
+  DUPCLOSURE R11 K22 [PROTO_0]
   CAPTURE VAL R3
   CAPTURE VAL R8
-  CAPTURE VAL R12
+  CAPTURE VAL R10
   CAPTURE VAL R7
   CAPTURE VAL R5
   CAPTURE VAL R4
-  DUPTABLE R16 K32 [{"tabs", "render", "getHumanoidDescription_DEPRECATED", "getPreviewCameraModifications"}]
-  NEWTABLE R17 0 4
-  LOADK R18 K33 ["animations"]
-  LOADK R19 K34 ["clothing"]
-  LOADK R20 K35 ["accessories"]
-  LOADK R21 K36 ["body"]
-  SETLIST R17 R18 4 [1]
-  SETTABLEKS R17 R16 K28 ["tabs"]
-  SETTABLEKS R15 R16 K29 ["render"]
-  MOVE R18 R13
-  CALL R18 0 1
-  JUMPIFNOT R18 [+2]
-  LOADNIL R17
-  JUMP [+1]
-  MOVE R17 R14
-  SETTABLEKS R17 R16 K30 ["getHumanoidDescription_DEPRECATED"]
-  DUPCLOSURE R17 K37 [PROTO_3]
-  SETTABLEKS R17 R16 K31 ["getPreviewCameraModifications"]
-  RETURN R16 1
+  DUPTABLE R12 K26 [{"tabs", "render", "getPreviewCameraModifications"}]
+  NEWTABLE R13 0 4
+  LOADK R14 K27 ["animations"]
+  LOADK R15 K28 ["clothing"]
+  LOADK R16 K29 ["accessories"]
+  LOADK R17 K30 ["body"]
+  SETLIST R13 R14 4 [1]
+  SETTABLEKS R13 R12 K23 ["tabs"]
+  SETTABLEKS R11 R12 K24 ["render"]
+  DUPCLOSURE R13 K31 [PROTO_1]
+  SETTABLEKS R13 R12 K25 ["getPreviewCameraModifications"]
+  RETURN R12 1

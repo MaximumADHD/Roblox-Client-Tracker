@@ -25,7 +25,10 @@
 		creatingUniverseId = string,
 	}
 ]]
+local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local Dash = require(CorePackages.Packages.Dash)
+
 local InspectAndBuyFolder = script.Parent.Parent
 
 local MockId = require(InspectAndBuyFolder.MockId)
@@ -48,6 +51,7 @@ local GetFFlagIBEnableRespectSaleLocation = require(InspectAndBuyFolder.Flags.Ge
 
 local GetFFlagIBEnableFixForOwnedText = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForOwnedText)
 local GetFFlagIBEnableFixForSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForSaleLocation)
+local GetFFlagIBFixBuyingFromResellers = require(InspectAndBuyFolder.Flags.GetFFlagIBFixBuyingFromResellers)
 
 local AssetInfo = {}
 
@@ -111,65 +115,97 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 	newAsset.assetId = tostring(assetInfo.AssetId)
 	newAsset.assetTypeId = tostring(assetInfo.AssetTypeId)
 	newAsset.productId = tostring(assetInfo.ProductId)
-	if GetCollectibleItemInInspectAndBuyEnabled() and newAsset.productType == Constants.ProductType.CollectibleItem then
-		newAsset.isForSale = assetInfo.IsForSale
-			and (assetInfo.Remaining or 0) > 0
-			and assetInfo.CanBeSoldInThisGame
-			and assetInfo.SaleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
-		if GetFFlagIBEnableRespectSaleLocation() then
-			local saleLocation = assetInfo.SaleLocation
-			local isNotSpecificExperienceOnly = saleLocation
-				and (
-					saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
-					and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
-				)
-			local isNotShopOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopOnly
-			-- verified: game.GameId is universe id
-			local isSpecificExperienceOnlyButInThisUniverse = saleLocation
-				and (saleLocation.SaleLocationType == Constants.SaleLocationType.ExperiencesDevApiOnly or saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById)
-				and type(saleLocation.UniverseIds) == "table"
-				and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
 
-			local isNotDevApiOnly
-			if GetFFlagIBEnableFixForSaleLocation() then
-				isNotSpecificExperienceOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
-				isSpecificExperienceOnlyButInThisUniverse = saleLocation
-					and (saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById)
+	if GetFFlagIBFixBuyingFromResellers() then
+		newAsset.isForSale = assetInfo.IsForSale
+		newAsset.canBeSoldInThisGame = assetInfo.CanBeSoldInThisGame
+		newAsset.saleLocation = assetInfo.SaleLocation
+		newAsset.remaining = assetInfo.Remaining or 0
+		if newAsset.productType == Constants.ProductType.CollectibleItem then
+			newAsset.collectibleItemId = assetInfo.CollectibleItemId or ""
+			newAsset.collectibleProductId = assetInfo.CollectibleProductId or ""
+			if assetInfo.CollectiblesItemDetails then
+				newAsset.collectibleLowestResalePrice = assetInfo.CollectiblesItemDetails.CollectibleLowestResalePrice
+					or 0
+				newAsset.collectibleLowestAvailableResaleProductId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleProductId
+					or ""
+				newAsset.collectibleLowestAvailableResaleItemInstanceId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleItemInstanceId
+					or ""
+				newAsset.collectibleQuantityLimitPerUser = assetInfo.CollectiblesItemDetails.CollectibleQuantityLimitPerUser
+					or 0
+				newAsset.collectibleIsLimited = assetInfo.CollectiblesItemDetails.IsLimited
+			end
+		end
+	else
+		-- Old behavior
+		if
+			GetCollectibleItemInInspectAndBuyEnabled()
+			and newAsset.productType == Constants.ProductType.CollectibleItem
+		then
+			newAsset.isForSale = assetInfo.IsForSale
+				and (assetInfo.Remaining or 0) > 0
+				and assetInfo.CanBeSoldInThisGame
+				and assetInfo.SaleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+			if GetFFlagIBEnableRespectSaleLocation() then
+				local saleLocation = assetInfo.SaleLocation
+				local isNotSpecificExperienceOnly = saleLocation
+					and (
+						saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+						and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
+					)
+				local isNotShopOnly = saleLocation
+					and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopOnly
+				-- verified: game.GameId is universe id
+				local isSpecificExperienceOnlyButInThisUniverse = saleLocation
+					and (saleLocation.SaleLocationType == Constants.SaleLocationType.ExperiencesDevApiOnly or saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById)
 					and type(saleLocation.UniverseIds) == "table"
 					and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
-				isNotDevApiOnly = saleLocation and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+
+				local isNotDevApiOnly
+				if GetFFlagIBEnableFixForSaleLocation() then
+					isNotSpecificExperienceOnly = saleLocation
+						and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
+					isSpecificExperienceOnlyButInThisUniverse = saleLocation
+						and (saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById)
+						and type(saleLocation.UniverseIds) == "table"
+						and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
+					isNotDevApiOnly = saleLocation
+						and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+				end
+				-- we should respect IsForSale and SaleLocation for collectibles
+				-- CanBeSoldInThisGame attribute is set in the Engine level, it's not provided in the API
+				newAsset.isForSale = assetInfo.IsForSale
+					and assetInfo.CanBeSoldInThisGame
+					and isNotShopOnly
+					and (isNotSpecificExperienceOnly or isSpecificExperienceOnlyButInThisUniverse)
+				if GetFFlagIBEnableFixForSaleLocation() then
+					newAsset.isForSale = newAsset.isForSale and isNotDevApiOnly
+				end
 			end
-			-- we should respect IsForSale and SaleLocation for collectibles
-			-- CanBeSoldInThisGame attribute is set in the Engine level, it's not provided in the API
+			newAsset.collectibleItemId = assetInfo.CollectibleItemId or ""
+			newAsset.collectibleProductId = assetInfo.CollectibleProductId or ""
+			newAsset.remaining = assetInfo.Remaining or 0
+			if assetInfo.CollectiblesItemDetails then
+				newAsset.collectibleLowestResalePrice = assetInfo.CollectiblesItemDetails.CollectibleLowestResalePrice
+					or 0
+				newAsset.collectibleLowestAvailableResaleProductId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleProductId
+					or ""
+				newAsset.collectibleLowestAvailableResaleItemInstanceId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleItemInstanceId
+					or ""
+				newAsset.collectibleQuantityLimitPerUser = assetInfo.CollectiblesItemDetails.CollectibleQuantityLimitPerUser
+					or 0
+				newAsset.collectibleIsLimited = if GetFFlagIBGateUGC4ACollectibleAssetsBundles()
+						or GetFFlagIBEnableCollectiblesSystemSupport()
+					then assetInfo.CollectiblesItemDetails.IsLimited
+					else nil
+			end
+		elseif FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
+			newAsset.isForSale = assetInfo.IsForSale and assetInfo.CanBeSoldInThisGame
+		else
 			newAsset.isForSale = assetInfo.IsForSale
-				and assetInfo.CanBeSoldInThisGame
-				and isNotShopOnly
-				and (isNotSpecificExperienceOnly or isSpecificExperienceOnlyButInThisUniverse)
-			if GetFFlagIBEnableFixForSaleLocation() then
-				newAsset.isForSale = newAsset.isForSale and isNotDevApiOnly
-			end
 		end
-		newAsset.collectibleItemId = assetInfo.CollectibleItemId or ""
-		newAsset.collectibleProductId = assetInfo.CollectibleProductId or ""
-		newAsset.remaining = assetInfo.Remaining or 0
-		if assetInfo.CollectiblesItemDetails then
-			newAsset.collectibleLowestResalePrice = assetInfo.CollectiblesItemDetails.CollectibleLowestResalePrice or 0
-			newAsset.collectibleLowestAvailableResaleProductId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleProductId
-				or ""
-			newAsset.collectibleLowestAvailableResaleItemInstanceId = assetInfo.CollectiblesItemDetails.CollectibleLowestAvailableResaleItemInstanceId
-				or ""
-			newAsset.collectibleQuantityLimitPerUser = assetInfo.CollectiblesItemDetails.CollectibleQuantityLimitPerUser
-				or 0
-			newAsset.collectibleIsLimited = if GetFFlagIBGateUGC4ACollectibleAssetsBundles()
-					or GetFFlagIBEnableCollectiblesSystemSupport()
-				then assetInfo.CollectiblesItemDetails.IsLimited
-				else nil
-		end
-	elseif FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
-		newAsset.isForSale = assetInfo.IsForSale and assetInfo.CanBeSoldInThisGame
-	else
-		newAsset.isForSale = assetInfo.IsForSale
 	end
+
 	newAsset.creatorHasVerifiedBadge = assetInfo.Creator.HasVerifiedBadge
 	if GetFFlagIBEnableCollectiblesSystemSupport() then
 		-- Differentiate between L1.0 limited and limited unique items
@@ -258,7 +294,7 @@ function AssetInfo.fromGetItemDetails(itemDetails)
 	newAsset.assetId = tostring(itemDetails.Id)
 	newAsset.owned = itemDetails.Owned
 	newAsset.isForSale = itemDetails.IsPurchasable
-	if GetFFlagIBEnableFixForOwnedText() then
+	if GetFFlagIBEnableFixForOwnedText() and not GetFFlagIBFixBuyingFromResellers() then
 		newAsset.isForSale = itemDetails.IsPurchasable and not itemDetails.Owned
 	end
 	newAsset.price = itemDetails.Price or 0
@@ -290,6 +326,63 @@ function AssetInfo.fromGetVersionInfo(assetId, latestVersionData)
 		else nil
 
 	return newAsset
+end
+
+if GetFFlagIBFixBuyingFromResellers() then
+	function AssetInfo.getSaleDetailsForCollectibles(assetInfo)
+		-- Deep clone data
+		local newAsset = Dash.joinDeep({}, assetInfo)
+		local saleLocation = assetInfo.saleLocation
+		if assetInfo.productType == Constants.ProductType.CollectibleItem then
+			newAsset.isForSale = assetInfo.isForSale
+				and (assetInfo.remaining or 0) > 0
+				and assetInfo.canBeSoldInThisGame
+				and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+			if GetFFlagIBEnableRespectSaleLocation() then
+				local isNotSpecificExperienceOnly = saleLocation
+					and (
+						saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+						and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
+					)
+				local isNotShopOnly = saleLocation
+					and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopOnly
+				-- verified: game.GameId is universe id
+				local isSpecificExperienceOnlyButInThisUniverse = saleLocation
+					and (saleLocation.SaleLocationType == Constants.SaleLocationType.ExperiencesDevApiOnly or saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById)
+					and type(saleLocation.UniverseIds) == "table"
+					and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
+				local isNotDevApiOnly
+				if GetFFlagIBEnableFixForSaleLocation() then
+					isNotSpecificExperienceOnly = saleLocation
+						and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ShopAndExperiencesById
+					isSpecificExperienceOnlyButInThisUniverse = saleLocation
+						and (saleLocation.SaleLocationType == Constants.SaleLocationType.ShopAndExperiencesById)
+						and type(saleLocation.UniverseIds) == "table"
+						and table.find(saleLocation.UniverseIds, game.GameId) ~= nil
+					isNotDevApiOnly = saleLocation
+						and saleLocation.SaleLocationType ~= Constants.SaleLocationType.ExperiencesDevApiOnly
+				end
+				-- we should respect isForSale and SaleLocation for collectibles
+				-- CanBeSoldInThisGame attribute is set in the Engine level, it's not provided in the API
+				newAsset.isForSale = assetInfo.isForSale
+					and assetInfo.canBeSoldInThisGame
+					and isNotShopOnly
+					and (isNotSpecificExperienceOnly or isSpecificExperienceOnlyButInThisUniverse)
+				if GetFFlagIBEnableFixForSaleLocation() then
+					newAsset.isForSale = newAsset.isForSale and isNotDevApiOnly
+				end
+			end
+			-- Flip bool if not limited
+			if not assetInfo.collectibleIsLimited then
+				newAsset.isForSale = newAsset.isForSale and not newAsset.owned
+			end
+		elseif FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
+			newAsset.isForSale = assetInfo.isForSale and assetInfo.canBeSoldInThisGame
+		else
+			newAsset.isForSale = assetInfo.isForSale
+		end
+		return newAsset
+	end
 end
 
 return AssetInfo

@@ -56,6 +56,7 @@ function StoryHost:init()
 		storyError = nil,
 	} :: State
 	self.mounted = false
+	self.root = nil
 end
 
 function StoryHost:didMount()
@@ -85,8 +86,8 @@ function StoryHost:_mountStory()
 		-- Still using Roact or RoactCompat
 		self.handle = myReact.mount(element, self.paneRef.current)
 	else
-		local root = myReactRoblox.createRoot(self.paneRef.current)
-		self.handle = root:render(element)
+		self.root = myReactRoblox.createRoot(self.paneRef.current)
+		self.root:render(element)
 	end
 	spawn(function()
 		-- Wait until the story has been loaded and Frame ref has become available
@@ -127,7 +128,10 @@ end
 function StoryHost:_unmountStory()
 	local storyProps = self:getStoryProps()
 	local myReact = storyProps.definition.roact
-	if self.handle then
+	if self.root then
+		self.root:unmount()
+		self.root = nil
+	elseif self.handle then
 		myReact.unmount(self.handle)
 		self.handle = nil
 	end
@@ -154,7 +158,9 @@ function StoryHost:didUpdate(prevProps: Props)
 	local element = myReact.createElement(storyComponent, storyProps)
 	-- Catch and display any error from trying to mount or update the story
 	local ok, result = xpcall(function()
-		if self.handle then
+		if self.root then
+			self.root:render(element)
+		elseif self.handle then
 			myReact.update(self.handle, element)
 		else
 			-- If the previous mounts have failed, try again now
@@ -168,7 +174,7 @@ function StoryHost:didUpdate(prevProps: Props)
 			storyError = React.None,
 		})
 	else
-		if self.handle ~= nil then
+		if self.root ~= nil or self.handle ~= nil then
 			-- Try to clean up the failed story
 			local ok2, err = pcall(function()
 				self:_unmountStory()
@@ -176,6 +182,7 @@ function StoryHost:didUpdate(prevProps: Props)
 			if not ok2 then
 				warn(err)
 			end
+			self.root = nil
 			self.handle = nil
 		end
 		self:setState({

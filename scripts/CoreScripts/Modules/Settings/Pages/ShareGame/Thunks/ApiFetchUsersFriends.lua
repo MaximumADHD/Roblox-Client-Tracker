@@ -4,7 +4,7 @@ local Requests = require(CorePackages.Workspace.Packages.Http).Requests
 
 local Promise = require(CorePackages.Packages.Promise)
 local ApiFetchUsersPresences = require(CorePackages.Workspace.Packages.UserLib).Thunks.ApiFetchUsersPresences
-local UsersGetFriends = Requests.UsersGetFriends
+local DEPRECATED_UsersGetFriends = Requests.DEPRECATED_UsersGetFriends
 local FetchUserFriendsStarted = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsStarted
 local FetchUserFriendsFailed = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsFailed
 local FetchUserFriendsCompleted = require(CorePackages.Workspace.Packages.LegacyFriendsRodux).Actions.FetchUserFriendsCompleted
@@ -17,7 +17,7 @@ return function(requestImpl, userId, thumbnailRequest, userSort)
 	return function(store)
 		store:dispatch(FetchUserFriendsStarted(userId))
 
-		return UsersGetFriends(requestImpl, userId, userSort)
+		return DEPRECATED_UsersGetFriends(requestImpl, userId, userSort)
 			:andThen(function(response)
 				local responseBody = response.responseBody
 

@@ -1,592 +1,499 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"Active"}]
-  GETTABLEKS R5 R1 K4 ["active"]
-  SETTABLEKS R5 R4 K2 ["Active"]
+  DUPTABLE R4 K1 [{"Active"}]
+  GETTABLEKS R5 R1 K2 ["active"]
+  SETTABLEKS R5 R4 K0 ["Active"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_1:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"IsLegacyAnimSaves"}]
-  GETTABLEKS R5 R1 K4 ["isLegacyAnimSaves"]
-  SETTABLEKS R5 R4 K2 ["IsLegacyAnimSaves"]
+  DUPTABLE R4 K1 [{"AnimationFromVideoErroredOut"}]
+  GETTABLEKS R5 R1 K2 ["animationFromVideoErroredOut"]
+  SETTABLEKS R5 R4 K0 ["AnimationFromVideoErroredOut"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_2:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"LegacyAnimationInstances"}]
-  GETTABLEKS R5 R1 K4 ["legacyAnimationInstances"]
-  SETTABLEKS R5 R4 K2 ["LegacyAnimationInstances"]
+  DUPTABLE R4 K1 [{"AnimationFromVideoUploadStartTime"}]
+  GETTABLEKS R5 R1 K2 ["animationFromVideoUploadStartTime"]
+  SETTABLEKS R5 R4 K0 ["AnimationFromVideoUploadStartTime"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_3:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"ReadOnly"}]
-  GETTABLEKS R5 R1 K4 ["readOnly"]
-  SETTABLEKS R5 R4 K2 ["ReadOnly"]
+  DUPTABLE R4 K1 [{"AnimationImportProgress"}]
+  GETTABLEKS R5 R1 K2 ["animationImportProgress"]
+  SETTABLEKS R5 R4 K0 ["AnimationImportProgress"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_4:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"SelectedKeyframes"}]
-  GETTABLEKS R5 R1 K4 ["selected"]
-  SETTABLEKS R5 R4 K2 ["SelectedKeyframes"]
+  DUPTABLE R4 K1 [{"AnimationImportStatus"}]
+  GETTABLEKS R5 R1 K2 ["animationImportStatus"]
+  SETTABLEKS R5 R4 K0 ["AnimationImportStatus"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_5:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"SelectedEvents"}]
-  GETTABLEKS R5 R1 K4 ["selected"]
-  SETTABLEKS R5 R4 K2 ["SelectedEvents"]
+  DUPTABLE R4 K1 [{"AutoFocusFaceEnabled"}]
+  GETTABLEKS R5 R1 K2 ["autoFocusFaceEnabled"]
+  SETTABLEKS R5 R4 K0 ["AutoFocusFaceEnabled"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_6:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K4 [{"Clipboard", "ClipboardType"}]
-  GETTABLEKS R5 R1 K5 ["clipboard"]
-  SETTABLEKS R5 R4 K2 ["Clipboard"]
-  GETTABLEKS R5 R1 K6 ["clipboardType"]
-  SETTABLEKS R5 R4 K3 ["ClipboardType"]
+  DUPTABLE R4 K1 [{"VisualizeBones"}]
+  GETTABLEKS R5 R1 K2 ["visualizeBones"]
+  SETTABLEKS R5 R4 K0 ["VisualizeBones"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_7:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"Playhead"}]
-  GETTABLEKS R5 R1 K4 ["playhead"]
-  SETTABLEKS R5 R4 K2 ["Playhead"]
+  DUPTABLE R4 K2 [{"Clipboard", "ClipboardType"}]
+  GETTABLEKS R5 R1 K3 ["clipboard"]
+  SETTABLEKS R5 R4 K0 ["Clipboard"]
+  GETTABLEKS R5 R1 K4 ["clipboardType"]
+  SETTABLEKS R5 R4 K1 ["ClipboardType"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_8:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"PlaybackSpeed"}]
-  GETTABLEKS R5 R1 K4 ["playbackSpeed"]
-  SETTABLEKS R5 R4 K2 ["PlaybackSpeed"]
+  DUPTABLE R4 K1 [{"CreatingAnimationFromVideo"}]
+  GETTABLEKS R5 R1 K2 ["creatingAnimationFromVideo"]
+  SETTABLEKS R5 R4 K0 ["CreatingAnimationFromVideo"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_9:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"PlaybackStartInfo"}]
-  GETTABLEKS R5 R1 K4 ["playbackStartInfo"]
-  SETTABLEKS R5 R4 K2 ["PlaybackStartInfo"]
+  DUPTABLE R4 K1 [{"DefaultEulerAnglesOrder"}]
+  GETTABLEKS R5 R1 K2 ["defaultEulerAnglesOrder"]
+  SETTABLEKS R5 R4 K0 ["DefaultEulerAnglesOrder"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_10:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"RightClickContextInfo"}]
-  GETTABLEKS R5 R1 K4 ["rightClickContextInfo"]
-  SETTABLEKS R5 R4 K2 ["RightClickContextInfo"]
+  DUPTABLE R4 K1 [{"DefaultRotationType"}]
+  GETTABLEKS R5 R1 K2 ["defaultRotationType"]
+  SETTABLEKS R5 R4 K0 ["DefaultRotationType"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_11:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"RootInstance"}]
-  GETTABLEKS R5 R1 K4 ["rootInstance"]
-  JUMPIF R5 [+3]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["None"]
-  SETTABLEKS R5 R4 K2 ["RootInstance"]
+  DUPTABLE R4 K1 [{"EditingLength"}]
+  GETTABLEKS R5 R1 K2 ["editingLength"]
+  SETTABLEKS R5 R4 K0 ["EditingLength"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_12:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"PlayState"}]
-  GETTABLEKS R5 R1 K4 ["playState"]
-  SETTABLEKS R5 R4 K2 ["PlayState"]
+  DUPTABLE R4 K2 [{"EditorMode", "EditorModeSwitchTime"}]
+  GETTABLEKS R5 R1 K3 ["editorMode"]
+  SETTABLEKS R5 R4 K0 ["EditorMode"]
+  GETTABLEKS R5 R1 K4 ["editorModeSwitchTime"]
+  SETTABLEKS R5 R4 K1 ["EditorModeSwitchTime"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_13:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"inReviewState"}]
-  GETTABLEKS R5 R1 K2 ["inReviewState"]
-  SETTABLEKS R5 R4 K2 ["inReviewState"]
+  DUPTABLE R4 K1 [{"EventEditingTick"}]
+  GETTABLEKS R5 R1 K2 ["eventEditingTick"]
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["None"]
+  SETTABLEKS R5 R4 K0 ["EventEditingTick"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_14:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"haveToSetBackToNotLooping"}]
-  GETTABLEKS R5 R1 K2 ["haveToSetBackToNotLooping"]
-  SETTABLEKS R5 R4 K2 ["haveToSetBackToNotLooping"]
+  DUPTABLE R4 K1 [{"FaceControlsEditorOpenedTimestamp"}]
+  GETTABLEKS R5 R1 K0 ["FaceControlsEditorOpenedTimestamp"]
+  SETTABLEKS R5 R4 K0 ["FaceControlsEditorOpenedTimestamp"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_15:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"FrameRate"}]
-  GETTABLEKS R5 R1 K4 ["frameRate"]
-  SETTABLEKS R5 R4 K2 ["FrameRate"]
+  DUPTABLE R4 K1 [{"FrameRate"}]
+  GETTABLEKS R5 R1 K2 ["frameRate"]
+  SETTABLEKS R5 R4 K0 ["FrameRate"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_16:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K4 [{"HorizontalScroll", "HorizontalZoom"}]
-  GETTABLEKS R5 R1 K5 ["horizontalScroll"]
-  SETTABLEKS R5 R4 K2 ["HorizontalScroll"]
-  GETTABLEKS R5 R1 K6 ["horizontalZoom"]
-  SETTABLEKS R5 R4 K3 ["HorizontalZoom"]
+  DUPTABLE R4 K1 [{"haveToSetBackToNotLooping"}]
+  GETTABLEKS R5 R1 K0 ["haveToSetBackToNotLooping"]
+  SETTABLEKS R5 R4 K0 ["haveToSetBackToNotLooping"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_17:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K4 [{"VerticalScroll", "VerticalZoom"}]
-  GETTABLEKS R5 R1 K5 ["verticalScroll"]
-  SETTABLEKS R5 R4 K2 ["VerticalScroll"]
-  GETTABLEKS R5 R1 K6 ["verticalZoom"]
-  SETTABLEKS R5 R4 K3 ["VerticalZoom"]
+  DUPTABLE R4 K2 [{"HorizontalScroll", "HorizontalZoom"}]
+  GETTABLEKS R5 R1 K3 ["horizontalScroll"]
+  SETTABLEKS R5 R4 K0 ["HorizontalScroll"]
+  GETTABLEKS R5 R1 K4 ["horizontalZoom"]
+  SETTABLEKS R5 R4 K1 ["HorizontalZoom"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_18:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K5 [{"Tracks", "UnusedTracks", "UnusedFacs"}]
-  GETTABLEKS R5 R1 K6 ["tracks"]
-  SETTABLEKS R5 R4 K2 ["Tracks"]
-  GETTABLEKS R5 R1 K7 ["unusedTracks"]
-  SETTABLEKS R5 R4 K3 ["UnusedTracks"]
-  GETTABLEKS R5 R1 K8 ["unusedFacs"]
-  SETTABLEKS R5 R4 K4 ["UnusedFacs"]
+  DUPTABLE R4 K1 [{"IKEnabled"}]
+  GETTABLEKS R5 R1 K2 ["ikEnabled"]
+  SETTABLEKS R5 R4 K0 ["IKEnabled"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_19:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"SelectedTracks"}]
-  GETTABLEKS R5 R1 K4 ["selectedTracks"]
-  JUMPIF R5 [+3]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["None"]
-  SETTABLEKS R5 R4 K2 ["SelectedTracks"]
+  DUPTABLE R4 K1 [{"IKMode"}]
+  GETTABLEKS R5 R1 K2 ["ikMode"]
+  SETTABLEKS R5 R4 K0 ["IKMode"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_20:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"LastSelectedPath"}]
-  GETTABLEKS R5 R1 K4 ["lastSelectedPath"]
-  JUMPIF R5 [+3]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["None"]
-  SETTABLEKS R5 R4 K2 ["LastSelectedPath"]
+  DUPTABLE R4 K1 [{"IKOpenedTimestamp"}]
+  GETTABLEKS R5 R1 K2 ["iKOpenedTimestamp"]
+  SETTABLEKS R5 R4 K0 ["IKOpenedTimestamp"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_21:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"SelectedTrackInstances"}]
-  GETTABLEKS R5 R1 K4 ["selectedTrackInstances"]
-  JUMPIF R5 [+3]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["None"]
-  SETTABLEKS R5 R4 K2 ["SelectedTrackInstances"]
+  DUPTABLE R4 K1 [{"inReviewState"}]
+  GETTABLEKS R5 R1 K0 ["inReviewState"]
+  SETTABLEKS R5 R4 K0 ["inReviewState"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_22:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"EditingLength"}]
-  GETTABLEKS R5 R1 K4 ["editingLength"]
-  SETTABLEKS R5 R4 K2 ["EditingLength"]
+  DUPTABLE R4 K1 [{"IsDirty"}]
+  GETTABLEKS R5 R1 K2 ["isDirty"]
+  SETTABLEKS R5 R4 K0 ["IsDirty"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_23:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"ShowAsSeconds"}]
-  GETTABLEKS R5 R1 K4 ["showAsSeconds"]
-  SETTABLEKS R5 R4 K2 ["ShowAsSeconds"]
+  DUPTABLE R4 K1 [{"IsLegacyAnimSaves"}]
+  GETTABLEKS R5 R1 K2 ["isLegacyAnimSaves"]
+  SETTABLEKS R5 R4 K0 ["IsLegacyAnimSaves"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_24:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"ReduceKeyframesDialogMode"}]
-  GETTABLEKS R5 R1 K4 ["reduceKeyframesDialogMode"]
-  SETTABLEKS R5 R4 K2 ["ReduceKeyframesDialogMode"]
+  DUPTABLE R4 K1 [{"LastSelectedPath"}]
+  GETTABLEKS R5 R1 K2 ["lastSelectedPath"]
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["None"]
+  SETTABLEKS R5 R4 K0 ["LastSelectedPath"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_25:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"SnapMode"}]
-  GETTABLEKS R5 R1 K4 ["snapMode"]
-  SETTABLEKS R5 R4 K2 ["SnapMode"]
+  DUPTABLE R4 K1 [{"LegacyAnimationInstances"}]
+  GETTABLEKS R5 R1 K2 ["legacyAnimationInstances"]
+  SETTABLEKS R5 R4 K0 ["LegacyAnimationInstances"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_26:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"ShowEvents"}]
-  GETTABLEKS R5 R1 K4 ["showEvents"]
-  SETTABLEKS R5 R4 K2 ["ShowEvents"]
+  DUPTABLE R4 K1 [{"MotorData"}]
+  GETTABLEKS R5 R1 K2 ["motorData"]
+  SETTABLEKS R5 R4 K0 ["MotorData"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_27:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"EventEditingTick"}]
-  GETTABLEKS R5 R1 K4 ["eventEditingTick"]
-  JUMPIF R5 [+3]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["None"]
-  SETTABLEKS R5 R4 K2 ["EventEditingTick"]
+  DUPTABLE R4 K1 [{"PinnedParts"}]
+  GETTABLEKS R5 R1 K2 ["pinnedParts"]
+  SETTABLEKS R5 R4 K0 ["PinnedParts"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_28:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"IKEnabled"}]
-  GETTABLEKS R5 R1 K4 ["ikEnabled"]
-  SETTABLEKS R5 R4 K2 ["IKEnabled"]
+  DUPTABLE R4 K1 [{"PlaybackSpeed"}]
+  GETTABLEKS R5 R1 K2 ["playbackSpeed"]
+  SETTABLEKS R5 R4 K0 ["PlaybackSpeed"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_29:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"IKOpenedTimestamp"}]
-  GETTABLEKS R5 R1 K4 ["iKOpenedTimestamp"]
-  SETTABLEKS R5 R4 K2 ["IKOpenedTimestamp"]
+  DUPTABLE R4 K1 [{"PlaybackStartInfo"}]
+  GETTABLEKS R5 R1 K2 ["playbackStartInfo"]
+  SETTABLEKS R5 R4 K0 ["PlaybackStartInfo"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_30:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"FaceControlsEditorOpenedTimestamp"}]
-  GETTABLEKS R5 R1 K2 ["FaceControlsEditorOpenedTimestamp"]
-  SETTABLEKS R5 R4 K2 ["FaceControlsEditorOpenedTimestamp"]
+  DUPTABLE R4 K1 [{"Playhead"}]
+  GETTABLEKS R5 R1 K2 ["playhead"]
+  SETTABLEKS R5 R4 K0 ["Playhead"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_31:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"MotorData"}]
-  GETTABLEKS R5 R1 K4 ["motorData"]
-  SETTABLEKS R5 R4 K2 ["MotorData"]
+  DUPTABLE R4 K1 [{"PlayState"}]
+  GETTABLEKS R5 R1 K2 ["playState"]
+  SETTABLEKS R5 R4 K0 ["PlayState"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_32:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"IsDirty"}]
-  GETTABLEKS R5 R1 K4 ["isDirty"]
-  SETTABLEKS R5 R4 K2 ["IsDirty"]
+  DUPTABLE R4 K1 [{"ReadOnly"}]
+  GETTABLEKS R5 R1 K2 ["readOnly"]
+  SETTABLEKS R5 R4 K0 ["ReadOnly"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_33:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"AnimationImportProgress"}]
-  GETTABLEKS R5 R1 K4 ["animationImportProgress"]
-  SETTABLEKS R5 R4 K2 ["AnimationImportProgress"]
+  DUPTABLE R4 K1 [{"ReduceKeyframesDialogMode"}]
+  GETTABLEKS R5 R1 K2 ["reduceKeyframesDialogMode"]
+  SETTABLEKS R5 R4 K0 ["ReduceKeyframesDialogMode"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_34:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"AnimationImportStatus"}]
-  GETTABLEKS R5 R1 K4 ["animationImportStatus"]
-  SETTABLEKS R5 R4 K2 ["AnimationImportStatus"]
+  DUPTABLE R4 K1 [{"RightClickContextInfo"}]
+  GETTABLEKS R5 R1 K2 ["rightClickContextInfo"]
+  SETTABLEKS R5 R4 K0 ["RightClickContextInfo"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_35:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"AnimationFromVideoUploadStartTime"}]
-  GETTABLEKS R5 R1 K4 ["animationFromVideoUploadStartTime"]
-  SETTABLEKS R5 R4 K2 ["AnimationFromVideoUploadStartTime"]
+  DUPTABLE R4 K1 [{"RootInstance"}]
+  GETTABLEKS R5 R1 K2 ["rootInstance"]
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["None"]
+  SETTABLEKS R5 R4 K0 ["RootInstance"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_36:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"AnimationFromVideoErroredOut"}]
-  GETTABLEKS R5 R1 K4 ["animationFromVideoErroredOut"]
-  SETTABLEKS R5 R4 K2 ["AnimationFromVideoErroredOut"]
+  DUPTABLE R4 K1 [{"SelectedEvents"}]
+  GETTABLEKS R5 R1 K2 ["selected"]
+  SETTABLEKS R5 R4 K0 ["SelectedEvents"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_37:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"CreatingAnimationFromVideo"}]
-  GETTABLEKS R5 R1 K4 ["creatingAnimationFromVideo"]
-  SETTABLEKS R5 R4 K2 ["CreatingAnimationFromVideo"]
+  DUPTABLE R4 K1 [{"SelectedKeyframes"}]
+  GETTABLEKS R5 R1 K2 ["selected"]
+  SETTABLEKS R5 R4 K0 ["SelectedKeyframes"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_38:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"Tool"}]
-  GETTABLEKS R5 R1 K4 ["tool"]
-  SETTABLEKS R5 R4 K2 ["Tool"]
+  DUPTABLE R4 K1 [{"SelectedTrackInstances"}]
+  GETTABLEKS R5 R1 K2 ["selectedTrackInstances"]
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["None"]
+  SETTABLEKS R5 R4 K0 ["SelectedTrackInstances"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_39:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"WorldSpace"}]
-  GETTABLEKS R6 R0 K2 ["WorldSpace"]
-  NOT R5 R6
-  SETTABLEKS R5 R4 K2 ["WorldSpace"]
+  DUPTABLE R4 K1 [{"SelectedTracks"}]
+  GETTABLEKS R5 R1 K2 ["selectedTracks"]
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["None"]
+  SETTABLEKS R5 R4 K0 ["SelectedTracks"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_40:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"IKMode"}]
-  GETTABLEKS R5 R1 K4 ["ikMode"]
-  SETTABLEKS R5 R4 K2 ["IKMode"]
+  DUPTABLE R4 K1 [{"ShowAsSeconds"}]
+  GETTABLEKS R5 R1 K2 ["showAsSeconds"]
+  SETTABLEKS R5 R4 K0 ["ShowAsSeconds"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_41:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"ShowTree"}]
-  GETTABLEKS R5 R1 K4 ["showTree"]
-  SETTABLEKS R5 R4 K2 ["ShowTree"]
+  DUPTABLE R4 K1 [{"ShowEvents"}]
+  GETTABLEKS R5 R1 K2 ["showEvents"]
+  SETTABLEKS R5 R4 K0 ["ShowEvents"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_42:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"ShowFaceControlsEditorPanel"}]
-  GETTABLEKS R5 R1 K4 ["showFaceControlsEditorPanel"]
-  SETTABLEKS R5 R4 K2 ["ShowFaceControlsEditorPanel"]
+  DUPTABLE R4 K1 [{"ShowFaceControlsEditorPanel"}]
+  GETTABLEKS R5 R1 K2 ["showFaceControlsEditorPanel"]
+  SETTABLEKS R5 R4 K0 ["ShowFaceControlsEditorPanel"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_43:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"PinnedParts"}]
-  GETTABLEKS R5 R1 K4 ["pinnedParts"]
-  SETTABLEKS R5 R4 K2 ["PinnedParts"]
+  DUPTABLE R4 K1 [{"ShowTree"}]
+  GETTABLEKS R5 R1 K2 ["showTree"]
+  SETTABLEKS R5 R4 K0 ["ShowTree"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_44:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"StartingPose"}]
-  GETTABLEKS R5 R1 K4 ["startingPose"]
-  JUMPIF R5 [+3]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["None"]
-  SETTABLEKS R5 R4 K2 ["StartingPose"]
+  DUPTABLE R4 K1 [{"SnapMode"}]
+  GETTABLEKS R5 R1 K2 ["snapMode"]
+  SETTABLEKS R5 R4 K0 ["SnapMode"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_45:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"VisualizeBones"}]
-  GETTABLEKS R5 R1 K4 ["visualizeBones"]
-  SETTABLEKS R5 R4 K2 ["VisualizeBones"]
+  DUPTABLE R4 K1 [{"StartingPose"}]
+  GETTABLEKS R5 R1 K2 ["startingPose"]
+  JUMPIF R5 [+3]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["None"]
+  SETTABLEKS R5 R4 K0 ["StartingPose"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_46:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"DefaultRotationType"}]
-  GETTABLEKS R5 R1 K4 ["defaultRotationType"]
-  SETTABLEKS R5 R4 K2 ["DefaultRotationType"]
+  DUPTABLE R4 K1 [{"SymmetryEnabled"}]
+  GETTABLEKS R5 R1 K2 ["symmetryEnabled"]
+  SETTABLEKS R5 R4 K0 ["SymmetryEnabled"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_47:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"DefaultEulerAnglesOrder"}]
-  GETTABLEKS R5 R1 K4 ["defaultEulerAnglesOrder"]
-  SETTABLEKS R5 R4 K2 ["DefaultEulerAnglesOrder"]
+  DUPTABLE R4 K1 [{"Tool"}]
+  GETTABLEKS R5 R1 K2 ["tool"]
+  SETTABLEKS R5 R4 K0 ["Tool"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_48:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K4 [{"EditorMode", "EditorModeSwitchTime"}]
-  GETTABLEKS R5 R1 K5 ["editorMode"]
-  SETTABLEKS R5 R4 K2 ["EditorMode"]
-  GETTABLEKS R5 R1 K6 ["editorModeSwitchTime"]
-  SETTABLEKS R5 R4 K3 ["EditorModeSwitchTime"]
+  DUPTABLE R4 K1 [{"TopTrackIndex"}]
+  GETTABLEKS R5 R1 K2 ["topTrackIndex"]
+  SETTABLEKS R5 R4 K0 ["TopTrackIndex"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_49:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"SymmetryEnabled"}]
-  GETTABLEKS R5 R1 K4 ["symmetryEnabled"]
-  SETTABLEKS R5 R4 K2 ["SymmetryEnabled"]
+  DUPTABLE R4 K3 [{"Tracks", "UnusedTracks", "UnusedFacs"}]
+  GETTABLEKS R5 R1 K4 ["tracks"]
+  SETTABLEKS R5 R4 K0 ["Tracks"]
+  GETTABLEKS R5 R1 K5 ["unusedTracks"]
+  SETTABLEKS R5 R4 K1 ["UnusedTracks"]
+  GETTABLEKS R5 R1 K6 ["unusedFacs"]
+  SETTABLEKS R5 R4 K2 ["UnusedFacs"]
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_50:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
+  GETUPVAL R2 0
   MOVE R3 R0
-  DUPTABLE R4 K3 [{"AutoFocusFaceEnabled"}]
-  GETTABLEKS R5 R1 K4 ["autoFocusFaceEnabled"]
-  SETTABLEKS R5 R4 K2 ["AutoFocusFaceEnabled"]
+  DUPTABLE R4 K2 [{"VerticalScroll", "VerticalZoom"}]
+  GETTABLEKS R5 R1 K3 ["verticalScroll"]
+  SETTABLEKS R5 R4 K0 ["VerticalScroll"]
+  GETTABLEKS R5 R1 K4 ["verticalZoom"]
+  SETTABLEKS R5 R4 K1 ["VerticalZoom"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_51:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  DUPTABLE R4 K1 [{"WorldSpace"}]
+  GETTABLEKS R6 R0 K0 ["WorldSpace"]
+  NOT R5 R6
+  SETTABLEKS R5 R4 K0 ["WorldSpace"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -604,294 +511,307 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Packages"]
   GETTABLEKS R3 R4 K8 ["Cryo"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Util"]
-  GETTABLEKS R4 R5 K11 ["Constants"]
-  CALL R3 1 1
+  GETTABLEKS R4 R2 K9 ["Dictionary"]
+  GETTABLEKS R3 R4 K10 ["join"]
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K12 ["LuaFlags"]
-  GETTABLEKS R5 R6 K13 ["GetFFlagAnimationConstraints"]
+  GETTABLEKS R7 R0 K11 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Util"]
+  GETTABLEKS R5 R6 K13 ["Constants"]
   CALL R4 1 1
-  GETTABLEKS R5 R1 K14 ["createReducer"]
-  NEWTABLE R6 64 0
-  LOADB R7 0
-  SETTABLEKS R7 R6 K15 ["Active"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K16 ["ReadOnly"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K17 ["SelectedKeyframes"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K18 ["SelectedEvents"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K19 ["SelectedTracks"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K20 ["LastSelectedPath"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K21 ["Clipboard"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K22 ["ClipboardType"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K23 ["Playhead"]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K24 ["PlaybackSpeed"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K25 ["PlaybackStartInfo"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K26 ["RightClickContextInfo"]
-  GETTABLEKS R8 R3 K27 ["PLAY_STATE"]
-  GETTABLEKS R7 R8 K28 ["Pause"]
-  SETTABLEKS R7 R6 K29 ["PlayState"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K30 ["inReviewState"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K31 ["haveToSetBackToNotLooping"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K32 ["Scroll"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K33 ["Zoom"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K34 ["HorizontalScroll"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K35 ["HorizontalZoom"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K36 ["VerticalScroll"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K37 ["VerticalZoom"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K38 ["EditingLength"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K39 ["ShowAsSeconds"]
-  GETTABLEKS R8 R3 K40 ["SNAP_MODES"]
-  GETTABLEKS R7 R8 K41 ["Frames"]
-  SETTABLEKS R7 R6 K42 ["SnapMode"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K43 ["ShowEvents"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K44 ["IKEnabled"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K45 ["IKOpenedTimestamp"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K46 ["FaceControlsEditorOpenedTimestamp"]
-  GETTABLEKS R8 R3 K47 ["IK_MODE"]
-  GETTABLEKS R7 R8 K48 ["FullBody"]
-  SETTABLEKS R7 R6 K49 ["IKMode"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K50 ["ShowTree"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K51 ["ShowFaceControlsEditorPanel"]
-  GETTABLEKS R8 R3 K52 ["REDUCE_KEYFRAMES_DIALOG_MODE"]
-  GETTABLEKS R7 R8 K53 ["Hidden"]
-  SETTABLEKS R7 R6 K54 ["ReduceKeyframesDialogMode"]
-  GETIMPORT R7 K58 [Enum.RibbonTool.Rotate]
-  SETTABLEKS R7 R6 K59 ["Tool"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K60 ["WorldSpace"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K61 ["RootInstance"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K62 ["Tracks"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K63 ["UnusedTracks"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K64 ["UnusedFacs"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K65 ["IsDirty"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K66 ["CreatingAnimationFromVideo"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K67 ["AnimationFromVideoUploadStartTime"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K68 ["AnimationFromVideoErroredOut"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K69 ["AnimationImportProgress"]
-  GETTABLEKS R8 R3 K70 ["ANIMATION_FROM_VIDEO_STATUS"]
-  GETTABLEKS R7 R8 K71 ["Initializing"]
-  SETTABLEKS R7 R6 K72 ["AnimationImportStatus"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K73 ["PinnedParts"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K74 ["EventEditingTick"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K75 ["VisualizeBones"]
-  GETTABLEKS R7 R3 K76 ["DEFAULT_FRAMERATE"]
-  SETTABLEKS R7 R6 K77 ["FrameRate"]
-  GETTABLEKS R7 R3 K78 ["DEFAULT_ROTATION_TYPE"]
-  SETTABLEKS R7 R6 K79 ["DefaultRotationType"]
-  GETTABLEKS R8 R3 K80 ["EDITOR_MODE"]
-  GETTABLEKS R7 R8 K81 ["DopeSheet"]
-  SETTABLEKS R7 R6 K82 ["EditorMode"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K83 ["SymmetryEnabled"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K84 ["AutoFocusFaceEnabled"]
-  GETIMPORT R7 K87 [Enum.RotationOrder.XYZ]
-  SETTABLEKS R7 R6 K88 ["DefaultEulerAnglesOrder"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K89 ["EditorModeSwitchTime"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K90 ["IsLegacyAnimSaves"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K91 ["LegacyAnimationInstances"]
-  NEWTABLE R7 64 0
-  DUPCLOSURE R8 K92 [PROTO_0]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K14 ["LuaFlags"]
+  GETTABLEKS R6 R7 K15 ["GetFFlagAnimationConstraints"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K14 ["LuaFlags"]
+  GETTABLEKS R7 R8 K16 ["GetFFlagSelectFromViewport"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K17 ["createReducer"]
+  NEWTABLE R8 64 0
+  LOADB R9 0
+  SETTABLEKS R9 R8 K18 ["Active"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K19 ["AnimationFromVideoErroredOut"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K20 ["AnimationFromVideoUploadStartTime"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K21 ["AnimationImportProgress"]
+  GETTABLEKS R10 R4 K22 ["ANIMATION_FROM_VIDEO_STATUS"]
+  GETTABLEKS R9 R10 K23 ["Initializing"]
+  SETTABLEKS R9 R8 K24 ["AnimationImportStatus"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K25 ["AutoFocusFaceEnabled"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K26 ["Clipboard"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K27 ["ClipboardType"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K28 ["CreatingAnimationFromVideo"]
+  GETIMPORT R9 K32 [Enum.RotationOrder.XYZ]
+  SETTABLEKS R9 R8 K33 ["DefaultEulerAnglesOrder"]
+  GETTABLEKS R9 R4 K34 ["DEFAULT_ROTATION_TYPE"]
+  SETTABLEKS R9 R8 K35 ["DefaultRotationType"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K36 ["EditingLength"]
+  GETTABLEKS R10 R4 K37 ["EDITOR_MODE"]
+  GETTABLEKS R9 R10 K38 ["DopeSheet"]
+  SETTABLEKS R9 R8 K39 ["EditorMode"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K40 ["EditorModeSwitchTime"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K41 ["EventEditingTick"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K42 ["FaceControlsEditorOpenedTimestamp"]
+  GETTABLEKS R9 R4 K43 ["DEFAULT_FRAMERATE"]
+  SETTABLEKS R9 R8 K44 ["FrameRate"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K45 ["haveToSetBackToNotLooping"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K46 ["HorizontalScroll"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K47 ["HorizontalZoom"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K48 ["IKEnabled"]
+  GETTABLEKS R10 R4 K49 ["IK_MODE"]
+  GETTABLEKS R9 R10 K50 ["FullBody"]
+  SETTABLEKS R9 R8 K51 ["IKMode"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K52 ["IKOpenedTimestamp"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K53 ["inReviewState"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K54 ["IsDirty"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K55 ["IsLegacyAnimSaves"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K56 ["LastSelectedPath"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K57 ["LegacyAnimationInstances"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K58 ["PinnedParts"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K59 ["PlaybackSpeed"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K60 ["PlaybackStartInfo"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K61 ["Playhead"]
+  GETTABLEKS R10 R4 K62 ["PLAY_STATE"]
+  GETTABLEKS R9 R10 K63 ["Pause"]
+  SETTABLEKS R9 R8 K64 ["PlayState"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K65 ["ReadOnly"]
+  GETTABLEKS R10 R4 K66 ["REDUCE_KEYFRAMES_DIALOG_MODE"]
+  GETTABLEKS R9 R10 K67 ["Hidden"]
+  SETTABLEKS R9 R8 K68 ["ReduceKeyframesDialogMode"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K69 ["RightClickContextInfo"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K70 ["RootInstance"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K71 ["SelectedEvents"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K72 ["SelectedKeyframes"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K73 ["SelectedTracks"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K74 ["ShowAsSeconds"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K75 ["ShowEvents"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K76 ["ShowFaceControlsEditorPanel"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K77 ["ShowTree"]
+  GETTABLEKS R10 R4 K78 ["SNAP_MODES"]
+  GETTABLEKS R9 R10 K79 ["Frames"]
+  SETTABLEKS R9 R8 K80 ["SnapMode"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K81 ["SymmetryEnabled"]
+  GETIMPORT R9 K84 [Enum.RibbonTool.Rotate]
+  SETTABLEKS R9 R8 K85 ["Tool"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K86 ["TopTrackIndex"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K87 ["Tracks"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K88 ["UnusedFacs"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K89 ["UnusedTracks"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K90 ["VerticalScroll"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K91 ["VerticalZoom"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K92 ["VisualizeBones"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K93 ["WorldSpace"]
+  NEWTABLE R9 64 0
+  DUPCLOSURE R10 K94 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K95 ["SetActive"]
+  DUPCLOSURE R10 K96 [PROTO_1]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K97 ["SetAnimationFromVideoErroredOut"]
+  DUPCLOSURE R10 K98 [PROTO_2]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K99 ["SetAnimationFromVideoUploadStartTime"]
+  DUPCLOSURE R10 K100 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K101 ["SetAnimationImportProgress"]
+  DUPCLOSURE R10 K102 [PROTO_4]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K103 ["SetAnimationImportStatus"]
+  DUPCLOSURE R10 K104 [PROTO_5]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K105 ["SetAutoFocusFaceEnabled"]
+  DUPCLOSURE R10 K106 [PROTO_6]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K107 ["SetBoneVisualization"]
+  DUPCLOSURE R10 K108 [PROTO_7]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K109 ["SetClipboard"]
+  DUPCLOSURE R10 K110 [PROTO_8]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K111 ["SetCreatingAnimationFromVideo"]
+  DUPCLOSURE R10 K112 [PROTO_9]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K113 ["SetDefaultEulerAnglesOrder"]
+  DUPCLOSURE R10 K114 [PROTO_10]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K115 ["SetDefaultRotationType"]
+  DUPCLOSURE R10 K116 [PROTO_11]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K117 ["SetEditingLength"]
+  DUPCLOSURE R10 K118 [PROTO_12]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K119 ["SetEditorMode"]
+  DUPCLOSURE R11 K121 [PROTO_13]
+  CAPTURE VAL R3
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K93 ["SetActive"]
-  DUPCLOSURE R8 K94 [PROTO_1]
+  ORK R10 R11 K120 []
+  SETTABLEKS R10 R9 K122 ["SetEventEditingTick"]
+  DUPCLOSURE R10 K123 [PROTO_14]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K124 ["SetFaceControlsEditorOpenedTimestamp"]
+  DUPCLOSURE R10 K125 [PROTO_15]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K126 ["SetFrameRate"]
+  DUPCLOSURE R10 K127 [PROTO_16]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K128 ["SetHaveToSetBackToNotLooping"]
+  DUPCLOSURE R10 K129 [PROTO_17]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K130 ["SetHorizontalScrollZoom"]
+  DUPCLOSURE R10 K131 [PROTO_18]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K132 ["SetIKEnabled"]
+  DUPCLOSURE R10 K133 [PROTO_19]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K134 ["SetIKMode"]
+  DUPCLOSURE R10 K135 [PROTO_20]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K136 ["SetIKOpenedTimestamp"]
+  DUPCLOSURE R10 K137 [PROTO_21]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K138 ["SetInReviewState"]
+  DUPCLOSURE R10 K139 [PROTO_22]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K140 ["SetIsDirty"]
+  DUPCLOSURE R10 K141 [PROTO_23]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K142 ["SetIsLegacyAnimSaves"]
+  DUPCLOSURE R10 K143 [PROTO_24]
+  CAPTURE VAL R3
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K95 ["SetIsLegacyAnimSaves"]
-  DUPCLOSURE R8 K96 [PROTO_2]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K97 ["SetLegacyAnimationInstances"]
-  DUPCLOSURE R8 K98 [PROTO_3]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K99 ["SetReadOnly"]
-  DUPCLOSURE R8 K100 [PROTO_4]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K101 ["SetSelectedKeyframes"]
-  DUPCLOSURE R8 K102 [PROTO_5]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K103 ["SetSelectedEvents"]
-  DUPCLOSURE R8 K104 [PROTO_6]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K105 ["SetClipboard"]
-  DUPCLOSURE R8 K106 [PROTO_7]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K107 ["SetPlayhead"]
-  DUPCLOSURE R8 K108 [PROTO_8]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K109 ["SetPlaybackSpeed"]
-  DUPCLOSURE R8 K110 [PROTO_9]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K111 ["SetPlaybackStartInfo"]
-  DUPCLOSURE R8 K112 [PROTO_10]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K113 ["SetRightClickContextInfo"]
-  DUPCLOSURE R8 K114 [PROTO_11]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K115 ["SetRootInstance"]
-  DUPCLOSURE R8 K116 [PROTO_12]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K117 ["SetPlayState"]
-  DUPCLOSURE R8 K118 [PROTO_13]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K119 ["SetInReviewState"]
-  DUPCLOSURE R8 K120 [PROTO_14]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K121 ["SetHaveToSetBackToNotLooping"]
-  DUPCLOSURE R8 K122 [PROTO_15]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K123 ["SetFrameRate"]
-  DUPCLOSURE R8 K124 [PROTO_16]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K125 ["SetHorizontalScrollZoom"]
-  DUPCLOSURE R8 K126 [PROTO_17]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K127 ["SetVerticalScrollZoom"]
-  DUPCLOSURE R8 K128 [PROTO_18]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K129 ["SetTracks"]
-  DUPCLOSURE R8 K130 [PROTO_19]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K131 ["SetSelectedTracks"]
-  DUPCLOSURE R8 K132 [PROTO_20]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K133 ["SetLastSelectedPath"]
-  DUPCLOSURE R8 K134 [PROTO_21]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K135 ["SetSelectedTrackInstances"]
-  DUPCLOSURE R8 K136 [PROTO_22]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K137 ["SetEditingLength"]
-  DUPCLOSURE R8 K138 [PROTO_23]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K139 ["SetShowAsSeconds"]
-  DUPCLOSURE R8 K140 [PROTO_24]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K141 ["SetReduceKeyframesDialogMode"]
-  DUPCLOSURE R8 K142 [PROTO_25]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K143 ["SetSnapMode"]
-  DUPCLOSURE R8 K144 [PROTO_26]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K145 ["SetShowEvents"]
-  DUPCLOSURE R9 K147 [PROTO_27]
-  CAPTURE VAL R2
-  ORK R8 R9 K146 []
-  SETTABLEKS R8 R7 K148 ["SetEventEditingTick"]
-  DUPCLOSURE R8 K149 [PROTO_28]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K150 ["SetIKEnabled"]
-  DUPCLOSURE R8 K151 [PROTO_29]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K152 ["SetIKOpenedTimestamp"]
-  DUPCLOSURE R8 K153 [PROTO_30]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K154 ["SetFaceControlsEditorOpenedTimestamp"]
-  MOVE R9 R4
-  CALL R9 0 1
-  JUMPIFNOT R9 [+2]
-  LOADNIL R8
+  SETTABLEKS R10 R9 K144 ["SetLastSelectedPath"]
+  DUPCLOSURE R10 K145 [PROTO_25]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K146 ["SetLegacyAnimationInstances"]
+  MOVE R11 R5
+  CALL R11 0 1
+  JUMPIFNOT R11 [+2]
+  LOADNIL R10
   JUMP [+2]
-  DUPCLOSURE R8 K155 [PROTO_31]
+  DUPCLOSURE R10 K147 [PROTO_26]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K148 ["SetMotorData"]
+  DUPCLOSURE R10 K149 [PROTO_27]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K150 ["SetPinnedParts"]
+  DUPCLOSURE R10 K151 [PROTO_28]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K152 ["SetPlaybackSpeed"]
+  DUPCLOSURE R10 K153 [PROTO_29]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K154 ["SetPlaybackStartInfo"]
+  DUPCLOSURE R10 K155 [PROTO_30]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K156 ["SetPlayhead"]
+  DUPCLOSURE R10 K157 [PROTO_31]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K158 ["SetPlayState"]
+  DUPCLOSURE R10 K159 [PROTO_32]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K160 ["SetReadOnly"]
+  DUPCLOSURE R10 K161 [PROTO_33]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K162 ["SetReduceKeyframesDialogMode"]
+  DUPCLOSURE R10 K163 [PROTO_34]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K164 ["SetRightClickContextInfo"]
+  DUPCLOSURE R10 K165 [PROTO_35]
+  CAPTURE VAL R3
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K156 ["SetMotorData"]
-  DUPCLOSURE R8 K157 [PROTO_32]
+  SETTABLEKS R10 R9 K166 ["SetRootInstance"]
+  DUPCLOSURE R10 K167 [PROTO_36]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K168 ["SetSelectedEvents"]
+  DUPCLOSURE R10 K169 [PROTO_37]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K170 ["SetSelectedKeyframes"]
+  DUPCLOSURE R10 K171 [PROTO_38]
+  CAPTURE VAL R3
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K158 ["SetIsDirty"]
-  DUPCLOSURE R8 K159 [PROTO_33]
+  SETTABLEKS R10 R9 K172 ["SetSelectedTrackInstances"]
+  DUPCLOSURE R10 K173 [PROTO_39]
+  CAPTURE VAL R3
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K160 ["SetAnimationImportProgress"]
-  DUPCLOSURE R8 K161 [PROTO_34]
+  SETTABLEKS R10 R9 K174 ["SetSelectedTracks"]
+  DUPCLOSURE R10 K175 [PROTO_40]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K176 ["SetShowAsSeconds"]
+  DUPCLOSURE R10 K177 [PROTO_41]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K178 ["SetShowEvents"]
+  DUPCLOSURE R10 K179 [PROTO_42]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K180 ["SetShowFaceControlsEditorPanel"]
+  DUPCLOSURE R10 K181 [PROTO_43]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K182 ["SetShowTree"]
+  DUPCLOSURE R10 K183 [PROTO_44]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K184 ["SetSnapMode"]
+  DUPCLOSURE R10 K185 [PROTO_45]
+  CAPTURE VAL R3
   CAPTURE VAL R2
-  SETTABLEKS R8 R7 K162 ["SetAnimationImportStatus"]
-  DUPCLOSURE R8 K163 [PROTO_35]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K164 ["SetAnimationFromVideoUploadStartTime"]
-  DUPCLOSURE R8 K165 [PROTO_36]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K166 ["SetAnimationFromVideoErroredOut"]
-  DUPCLOSURE R8 K167 [PROTO_37]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K168 ["SetCreatingAnimationFromVideo"]
-  DUPCLOSURE R8 K169 [PROTO_38]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K170 ["SetTool"]
-  DUPCLOSURE R8 K171 [PROTO_39]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K172 ["ToggleWorldSpace"]
-  DUPCLOSURE R8 K173 [PROTO_40]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K174 ["SetIKMode"]
-  DUPCLOSURE R8 K175 [PROTO_41]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K176 ["SetShowTree"]
-  DUPCLOSURE R8 K177 [PROTO_42]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K178 ["SetShowFaceControlsEditorPanel"]
-  DUPCLOSURE R8 K179 [PROTO_43]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K180 ["SetPinnedParts"]
-  DUPCLOSURE R8 K181 [PROTO_44]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K182 ["SetStartingPose"]
-  DUPCLOSURE R8 K183 [PROTO_45]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K184 ["SetBoneVisualization"]
-  DUPCLOSURE R8 K185 [PROTO_46]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K186 ["SetDefaultRotationType"]
-  DUPCLOSURE R8 K187 [PROTO_47]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K188 ["SetDefaultEulerAnglesOrder"]
-  DUPCLOSURE R8 K189 [PROTO_48]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K190 ["SetEditorMode"]
-  DUPCLOSURE R8 K191 [PROTO_49]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K192 ["SetSymmetryEnabled"]
-  DUPCLOSURE R8 K193 [PROTO_50]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K194 ["SetAutoFocusFaceEnabled"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  SETTABLEKS R10 R9 K186 ["SetStartingPose"]
+  DUPCLOSURE R10 K187 [PROTO_46]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K188 ["SetSymmetryEnabled"]
+  DUPCLOSURE R10 K189 [PROTO_47]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K190 ["SetTool"]
+  DUPCLOSURE R10 K191 [PROTO_48]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K192 ["SetTopTrackIndex"]
+  DUPCLOSURE R10 K193 [PROTO_49]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K194 ["SetTracks"]
+  DUPCLOSURE R10 K195 [PROTO_50]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K196 ["SetVerticalScrollZoom"]
+  DUPCLOSURE R10 K197 [PROTO_51]
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K198 ["ToggleWorldSpace"]
+  CALL R7 2 -1
+  RETURN R7 -1

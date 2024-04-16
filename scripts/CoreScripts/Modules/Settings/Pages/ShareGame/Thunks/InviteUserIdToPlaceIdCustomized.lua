@@ -11,8 +11,7 @@ local ReceivedUserInviteStatus = require(ShareGame.Actions.ReceivedUserInviteSta
 local Constants = require(ShareGame.Constants)
 local InviteStatus = Constants.InviteStatus
 
-local Requests = require(CorePackages.Workspace.Packages.Http).Requests
-local PostSendExperienceInvite = Requests.PostSendExperienceInvite
+local PostSendExperienceInvite = require(CorePackages.Workspace.Packages.GameInvite).PostSendExperienceInvite
 
 local EMPTY_PLACE_ID = "0"
 

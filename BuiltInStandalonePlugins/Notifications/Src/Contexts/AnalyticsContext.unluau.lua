@@ -7,24 +7,24 @@ local var4 = require(var0.Src.Util.SharedFlags.getFFlagNotificationTrayImpressio
 function createAnalyticsHandler(arg1)
    local function var0(arg1, arg2)
       arg2 = arg2 or {}
-      local var111 = {}
-      var111.studioSid = arg1:GetSessionId()
-      var111.clientId = arg1:GetClientId()
-      local var119 = game.PlaceId
-      var111.placeId = var119
-      var119 = arg2
-      arg1:SendEventDeferred("studio", "NotificationTray", arg1, var1.Dictionary.join(var111, var119))
+      local var385 = {}
+      var385.studioSid = arg1:GetSessionId()
+      var385.clientId = arg1:GetClientId()
+      local var393 = game.PlaceId
+      var385.placeId = var393
+      var393 = arg2
+      arg1:SendEventDeferred("studio", "NotificationTray", arg1, var1.Dictionary.join(var385, var393))
    end
    
    local var1 = {}
    function var1.notificationClicked(arg1, arg2)
-      local var132 = {}
-      var132.id = var2(arg1, "notificationId")
-      var132.type = var2(arg1, "creatorStreamNotificationContent", "clickAction")
-      var132.clickAction = var2(arg1, "notificationType")
-      var132.read = var2(arg1, "read")
-      var132.trayIndex = arg2
-      var0("NotificationClicked", var132)
+      local var406 = {}
+      var406.id = var2(arg1, "notificationId")
+      var406.type = var2(arg1, "creatorStreamNotificationContent", "clickAction")
+      var406.clickAction = var2(arg1, "notificationType")
+      var406.read = var2(arg1, "read")
+      var406.trayIndex = arg2
+      var0("NotificationClicked", var406)
    end
    
    function var1.markAllAsRead()
@@ -36,16 +36,16 @@ function createAnalyticsHandler(arg1)
    end
    
    function var1.trayOpened(arg1)
-      local var157 = {}
-      var157.bellUnseen = arg1
-      var0("NotificationTrayOpened", var157)
+      local var431 = {}
+      var431.bellUnseen = arg1
+      var0("NotificationTrayOpened", var431)
    end
    
    if var4() then
       function var1.logNotificationImpressions(arg1)
-         local var163 = {}
-         var163.notificationIds = arg1
-         var0("NotificationImpressions", var163)
+         local var437 = {}
+         var437.notificationIds = arg1
+         var0("NotificationImpressions", var437)
       end
       
       return var1

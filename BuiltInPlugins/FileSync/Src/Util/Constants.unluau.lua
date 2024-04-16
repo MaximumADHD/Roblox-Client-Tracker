@@ -14,4 +14,5 @@ var0.SIDE_PADDING = 10
 var0.BACKGROUND_WIDTH = 350
 var0.BACKGROUND_HEIGHT = 400
 var0.GAME_ICON_URL = "rbxthumb://type=GameIcon&id=%d&w=50&h=50"
+var0.PLACEHOLDER_ICON_URL = "rbxasset://textures/ui/GuiImagePlaceholder.png"
 return var0

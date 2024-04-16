@@ -17,181 +17,189 @@ PROTO_0:
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K2 ["new"]
   CALL R3 0 1
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K8 ["createElement"]
-  LOADK R5 K9 ["Frame"]
-  DUPTABLE R6 K13 [{"BackgroundTransparency", "LayoutOrder", "Name", "Size"}]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K10 ["BackgroundTransparency"]
-  GETTABLEKS R7 R0 K11 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K11 ["LayoutOrder"]
-  LOADK R7 K14 ["Buttons"]
-  SETTABLEKS R7 R6 K12 ["Name"]
-  SETTABLEKS R1 R6 K0 ["Size"]
-  DUPTABLE R7 K22 [{"ButtonsListLayout", "ButtonsUIPadding", "Spacer1", "ExportButton", "Spacer2", "ImportButton", "Spacer3"}]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K8 ["createElement"]
-  LOADK R9 K23 ["UIListLayout"]
-  DUPTABLE R10 K26 [{"FillDirection", "SortOrder"}]
-  GETIMPORT R11 K29 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R11 R10 K24 ["FillDirection"]
-  GETIMPORT R11 K30 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R11 R10 K25 ["SortOrder"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K15 ["ButtonsListLayout"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K8 ["createElement"]
-  LOADK R9 K31 ["UIPadding"]
-  DUPTABLE R10 K34 [{"PaddingBottom", "PaddingTop"}]
-  GETIMPORT R11 K36 [UDim.new]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K37 ["BUTTON_PADDING_VERTICAL"]
-  LOADN R13 0
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K32 ["PaddingBottom"]
-  GETIMPORT R11 K36 [UDim.new]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K37 ["BUTTON_PADDING_VERTICAL"]
-  LOADN R13 0
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K33 ["PaddingTop"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K16 ["ButtonsUIPadding"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K8 ["createElement"]
-  LOADK R9 K9 ["Frame"]
-  DUPTABLE R10 K38 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K10 ["BackgroundTransparency"]
-  NAMECALL R11 R3 K39 ["getNextOrder"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K11 ["LayoutOrder"]
-  GETIMPORT R11 K3 [UDim2.new]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K40 ["BUTTON_PADDING_HORIZONTAL"]
-  LOADN R13 0
-  LOADN R14 1
-  LOADN R15 0
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K0 ["Size"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K17 ["Spacer1"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K8 ["createElement"]
-  GETUPVAL R9 4
-  DUPTABLE R10 K48 [{"Size", "Image", "OnClick", "Text", "TextColor3", "TextSize", "Font", "LayoutOrder", "HasChanges"}]
-  GETIMPORT R11 K3 [UDim2.new]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K49 ["BUTTON_SIZE"]
-  LOADN R13 0
-  LOADN R14 1
-  LOADN R15 0
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K0 ["Size"]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K50 ["getIconForCurrentTheme"]
-  GETUPVAL R14 5
-  GETTABLEKS R13 R14 K51 ["IconEnums"]
-  GETTABLEKS R12 R13 K52 ["Export"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K41 ["Image"]
-  GETTABLEKS R11 R0 K53 ["OnExport"]
-  SETTABLEKS R11 R10 K42 ["OnClick"]
-  LOADK R13 K54 ["Operations"]
-  LOADK R14 K52 ["Export"]
-  NAMECALL R11 R2 K55 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K43 ["Text"]
-  GETIMPORT R11 K57 [Color3.new]
-  LOADN R12 0
+  GETIMPORT R4 K9 [game]
+  LOADK R6 K10 ["ShowFileSyncStatus"]
+  NAMECALL R4 R4 K11 ["GetFastFlag"]
+  CALL R4 2 1
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K12 ["createElement"]
+  LOADK R6 K13 ["Frame"]
+  DUPTABLE R7 K17 [{"BackgroundTransparency", "LayoutOrder", "Name", "Size"}]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K14 ["BackgroundTransparency"]
+  GETTABLEKS R8 R0 K15 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K15 ["LayoutOrder"]
+  LOADK R8 K18 ["Buttons"]
+  SETTABLEKS R8 R7 K16 ["Name"]
+  SETTABLEKS R1 R7 K0 ["Size"]
+  DUPTABLE R8 K26 [{"ButtonsListLayout", "ButtonsUIPadding", "Spacer1", "ExportButton", "Spacer2", "ImportButton", "Spacer3"}]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  LOADK R10 K27 ["UIListLayout"]
+  DUPTABLE R11 K30 [{"FillDirection", "SortOrder"}]
+  GETIMPORT R12 K33 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R12 R11 K28 ["FillDirection"]
+  GETIMPORT R12 K34 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R12 R11 K29 ["SortOrder"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K19 ["ButtonsListLayout"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  LOADK R10 K35 ["UIPadding"]
+  DUPTABLE R11 K38 [{"PaddingBottom", "PaddingTop"}]
+  GETIMPORT R12 K40 [UDim.new]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K41 ["BUTTON_PADDING_VERTICAL"]
+  LOADN R14 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K36 ["PaddingBottom"]
+  GETIMPORT R12 K40 [UDim.new]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K41 ["BUTTON_PADDING_VERTICAL"]
+  LOADN R14 0
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K37 ["PaddingTop"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K20 ["ButtonsUIPadding"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  LOADK R10 K13 ["Frame"]
+  DUPTABLE R11 K42 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K14 ["BackgroundTransparency"]
+  NAMECALL R12 R3 K43 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K15 ["LayoutOrder"]
+  GETIMPORT R12 K3 [UDim2.new]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K44 ["BUTTON_PADDING_HORIZONTAL"]
+  LOADN R14 0
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K0 ["Size"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K21 ["Spacer1"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K52 [{"Size", "Image", "OnClick", "Text", "TextColor3", "TextSize", "Font", "LayoutOrder", "HasChanges"}]
+  GETIMPORT R12 K3 [UDim2.new]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K53 ["BUTTON_SIZE"]
+  LOADN R14 0
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K0 ["Size"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K54 ["getIconForCurrentTheme"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K55 ["IconEnums"]
+  GETTABLEKS R13 R14 K56 ["Export"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K45 ["Image"]
+  GETTABLEKS R12 R0 K57 ["OnExport"]
+  SETTABLEKS R12 R11 K46 ["OnClick"]
+  LOADK R14 K58 ["Operations"]
+  LOADK R15 K56 ["Export"]
+  NAMECALL R12 R2 K59 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K47 ["Text"]
+  GETIMPORT R12 K61 [Color3.new]
   LOADN R13 0
   LOADN R14 0
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K44 ["TextColor3"]
-  LOADN R11 14
-  SETTABLEKS R11 R10 K45 ["TextSize"]
-  GETIMPORT R11 K59 [Enum.Font.SourceSans]
-  SETTABLEKS R11 R10 K46 ["Font"]
-  NAMECALL R11 R3 K39 ["getNextOrder"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K11 ["LayoutOrder"]
-  GETTABLEKS R11 R0 K60 ["ChangesInStudio"]
-  SETTABLEKS R11 R10 K47 ["HasChanges"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K18 ["ExportButton"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K8 ["createElement"]
-  LOADK R9 K9 ["Frame"]
-  DUPTABLE R10 K38 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K10 ["BackgroundTransparency"]
-  NAMECALL R11 R3 K39 ["getNextOrder"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K11 ["LayoutOrder"]
-  GETIMPORT R11 K3 [UDim2.new]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K61 ["BUTTON_PADDING_CENTER"]
-  LOADN R13 0
-  LOADN R14 1
   LOADN R15 0
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K0 ["Size"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K19 ["Spacer2"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K8 ["createElement"]
-  GETUPVAL R9 4
-  DUPTABLE R10 K62 [{"Size", "Image", "OnClick", "Text", "LayoutOrder", "HasChanges"}]
-  GETIMPORT R11 K3 [UDim2.new]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K49 ["BUTTON_SIZE"]
-  LOADN R13 0
-  LOADN R14 1
-  LOADN R15 0
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K0 ["Size"]
-  GETUPVAL R12 5
-  GETTABLEKS R11 R12 K50 ["getIconForCurrentTheme"]
-  GETUPVAL R14 5
-  GETTABLEKS R13 R14 K51 ["IconEnums"]
-  GETTABLEKS R12 R13 K63 ["Import"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K41 ["Image"]
-  GETTABLEKS R11 R0 K64 ["OnImport"]
-  SETTABLEKS R11 R10 K42 ["OnClick"]
-  LOADK R13 K54 ["Operations"]
-  LOADK R14 K63 ["Import"]
-  NAMECALL R11 R2 K55 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K43 ["Text"]
-  NAMECALL R11 R3 K39 ["getNextOrder"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K11 ["LayoutOrder"]
-  GETTABLEKS R11 R0 K65 ["ChangesInDisk"]
-  SETTABLEKS R11 R10 K47 ["HasChanges"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K20 ["ImportButton"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K8 ["createElement"]
-  LOADK R9 K9 ["Frame"]
-  DUPTABLE R10 K38 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K10 ["BackgroundTransparency"]
-  NAMECALL R11 R3 K39 ["getNextOrder"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K11 ["LayoutOrder"]
-  GETIMPORT R11 K3 [UDim2.new]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K40 ["BUTTON_PADDING_HORIZONTAL"]
-  LOADN R13 0
-  LOADN R14 1
-  LOADN R15 0
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K0 ["Size"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K21 ["Spacer3"]
-  CALL R4 3 -1
-  RETURN R4 -1
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K48 ["TextColor3"]
+  LOADN R12 14
+  SETTABLEKS R12 R11 K49 ["TextSize"]
+  GETIMPORT R12 K63 [Enum.Font.SourceSans]
+  SETTABLEKS R12 R11 K50 ["Font"]
+  NAMECALL R12 R3 K43 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K15 ["LayoutOrder"]
+  MOVE R12 R4
+  JUMPIFNOT R12 [+2]
+  GETTABLEKS R12 R0 K64 ["ChangesInStudio"]
+  SETTABLEKS R12 R11 K51 ["HasChanges"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K22 ["ExportButton"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  LOADK R10 K13 ["Frame"]
+  DUPTABLE R11 K42 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K14 ["BackgroundTransparency"]
+  NAMECALL R12 R3 K43 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K15 ["LayoutOrder"]
+  GETIMPORT R12 K3 [UDim2.new]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K65 ["BUTTON_PADDING_CENTER"]
+  LOADN R14 0
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K0 ["Size"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K23 ["Spacer2"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K66 [{"Size", "Image", "OnClick", "Text", "LayoutOrder", "HasChanges"}]
+  GETIMPORT R12 K3 [UDim2.new]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K53 ["BUTTON_SIZE"]
+  LOADN R14 0
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K0 ["Size"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K54 ["getIconForCurrentTheme"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K55 ["IconEnums"]
+  GETTABLEKS R13 R14 K67 ["Import"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K45 ["Image"]
+  GETTABLEKS R12 R0 K68 ["OnImport"]
+  SETTABLEKS R12 R11 K46 ["OnClick"]
+  LOADK R14 K58 ["Operations"]
+  LOADK R15 K67 ["Import"]
+  NAMECALL R12 R2 K59 ["getText"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K47 ["Text"]
+  NAMECALL R12 R3 K43 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K15 ["LayoutOrder"]
+  MOVE R12 R4
+  JUMPIFNOT R12 [+2]
+  GETTABLEKS R12 R0 K69 ["ChangesInDisk"]
+  SETTABLEKS R12 R11 K51 ["HasChanges"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K24 ["ImportButton"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  LOADK R10 K13 ["Frame"]
+  DUPTABLE R11 K42 [{"BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K14 ["BackgroundTransparency"]
+  NAMECALL R12 R3 K43 ["getNextOrder"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K15 ["LayoutOrder"]
+  GETIMPORT R12 K3 [UDim2.new]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K44 ["BUTTON_PADDING_HORIZONTAL"]
+  LOADN R14 0
+  LOADN R15 1
+  LOADN R16 0
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K0 ["Size"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K25 ["Spacer3"]
+  CALL R5 3 -1
+  RETURN R5 -1
 
 MAIN:
   PREPVARARGS 0
