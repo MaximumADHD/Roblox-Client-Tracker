@@ -1,4 +1,6 @@
 Key,Context,Source,en-us
+Studio.App.BetaFeatures.LuauFileSyncTitle,,Luau File Sync,Luau File Sync
+Studio.App.BetaFeatures.LuauFileSyncDescription,,Enables syncing of scripts between Studio and local disk.,Enables syncing of scripts between Studio and local disk.
 Studio.App.BetaFeatures.AvatarJointUpgradeTitle,,Avatar Joint Upgrade,Avatar Joint Upgrade
 Studio.App.BetaFeatures.AvatarJointUpgradeDescription,,"Adds ragdoll constraints into avatars. Also replaces Motor6Ds with AnimationConstraints, which play animations either kinematically or with physical simulation.","Adds ragdoll constraints into avatars. Also replaces Motor6Ds with AnimationConstraints, which play animations either kinematically or with physical simulation."
 Studio.App.BetaFeatures.ConstraintVisualsDescription,,Details are shown on selected constraints even without the global Constraint Details enabled. Constraints appear translucent through occluding objects.,Details are shown on selected constraints even without the global Constraint Details enabled. Constraints appear translucent through occluding objects.

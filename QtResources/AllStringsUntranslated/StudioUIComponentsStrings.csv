@@ -135,3 +135,5 @@ Studio.App.CalloutService.NoLayerCollector,,Could not find a LayerCollector for 
 Studio.App.CalloutService.InvalidLayerCollector,,Not a valid type of LayerCollector,Not a valid type of LayerCollector
 Studio.App.MainWindow.DraggerImprovementsBetaTitle,,New Dragger Improvements [BETA],New Dragger Improvements [BETA]
 Studio.App.MainWindow.DraggerImprovementsTooltipDescription,,Learn about changes we've made to the draggers and give feedback in the linked DevForum post.,Learn about changes we've made to the draggers and give feedback in the linked DevForum post.
+Studio.App.MainWindow.TextureGeneratorCalloutTitle,,Texture Generator [BETA],Texture Generator [BETA]
+Studio.App.MainWindow.TextureGeneratorCalloutDescription,,Create custom textures for one or more MeshParts using text prompts. Try it now!,Create custom textures for one or more MeshParts using text prompts. Try it now!

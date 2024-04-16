@@ -99,8 +99,8 @@
         <groupoptionsmenu tooltip="Studio.App.RobloxRibbonMainWindow.ActionsAsTools" handleMenuTrigger="true">
           <addaction name="colorFillActionAsTool" text="Studio.App.RobloxRibbonMainWindow.ColorActionAsTool" modernIcon="ColorPicker" ischeckable="true" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool"/>
         </groupoptionsmenu>
-        <addaction name="materialManagerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="MaterialManager" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip" width="32" height="32" />
-        <addaction fflag="EnableMaterialGenerator" name="materialGeneratorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialGenerator" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Generator.png" modernIcon="MaterialGenerator" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialGeneratorToolTip" width="32" height="32" />
+        <addaction fflag="!MaterialPickerBetaEnabled" name="materialManagerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="MaterialManager" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip" width="32" height="32" />
+        <addaction fflag="EnableMaterialGenerator" fflagList="EnableMaterialGenerator,!MaterialPickerBetaEnabled" name="materialGeneratorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialGenerator" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Generator.png" modernIcon="MaterialGenerator" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialGeneratorToolTip" width="32" height="32" />
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" modernIcon="ColorPicker" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32"/>
         <DropdownButton fflag="MainRibbonDropdownButton" name="materialPickerAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.MaterialPicker" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialPickerTooltip" width="32" height="32" />
         <addseparator visible="false"/>
@@ -189,10 +189,10 @@
             <addaction name="CylinderLargeAction" text="Studio.App.Shapes.Cylinder" value="Cylinder" tooltip="Studio.App.RobloxRibbonMainWindow.InsertCylinderPart" icon=":/RibbonBar/images/RibbonIcons/Insert/Cylinder.png" modernIcon="Part_Cylinder" width="32" height="32" />
           </ActionGroup>
         </MenuPopupButton>
-        <addaction name="materialManagerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip" width="32" height="32" />
+        <addaction fflag="!MaterialPickerBetaEnabled" name="materialManagerAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.MaterialManager" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip" width="32" height="32" />
         <ColorPicker name="actionColorSelector" style="textundericon" ischeckable="true" type="color" text="Studio.App.RobloxRibbonMainWindow.Color" icon=":/RibbonBar/images/RibbonIcons/Home/Color.png" modernIcon="ColorPicker" tooltip="Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts" width="32" height="32" />
-        <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool" style="textundericon" width="32" height="32" />
         <DropdownButton fflag="MainRibbonDropdownButton" name="materialPickerAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.MaterialPicker" icon=":/RibbonBar/images/RibbonIcons/Home/Material_Manager.png" modernIcon="Material" tooltip="Studio.App.RobloxRibbonMainWindow.MaterialPickerTooltip" width="32" height="32" />
+        <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool" style="textundericon" width="32" height="32" />
         <addseparator visible="false"/>
         <MenuPopupButton name="groupSelectionAction" style="textbesideicon" text="Studio.App.RBXMainWindow.GroupShort" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16">
           <addaction name="groupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Group.png" modernIcon="Group" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoModel" width="16" height="16" />
@@ -352,6 +352,12 @@
           <ActionGroup name="resumeActions" style="textbesideicon" ischeckable="false">
             <addaction name="simulationResumeAllAction" type="plugin" style="textundericon" text="Studio.Common.Action.ResumeAllPhysics" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32" />
             <addaction name="simulationResumeActionV3" type="plugin" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32" />
+          </ActionGroup>
+        </MenuPopupButton>
+        <MenuPopupButton fflag="EnableSimulationStepForward" handleMenuTrigger="true" selectChangesText="true" name="simulationStepForwardGameActionGroup" value="simulationStepForwardAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.StepForward" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Resume" width="32" height="32">
+          <ActionGroup name="stepForwardActions" style="textbesideicon" ischeckable="false">
+            <addaction name="simulationStepForwardAllAction" type="plugin" text="Studio.Common.Action.StepForward" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Fwd" width="32" height="32"/>
+            <addaction name="simulationStepForwardAction" type="plugin" text="Studio.Common.Action.StepForwardPhysicsCurrent" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Fwd" width="32" height="32"/>
           </ActionGroup>
         </MenuPopupButton>
         <addaction fflag="!EnableSimulationStep" name="simulationPauseActionV2" type="plugin" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" modernIcon="Pause" width="32" height="32" />

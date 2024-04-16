@@ -224,6 +224,10 @@ Studio.Common.Action.SaveToRobloxAs,,Save to Roblox As...,Save to Roblox As...
 Studio.Common.Action.Search,,Search,Search
 Studio.Common.Action.Share,,Share,Share
 Studio.Common.Action.ShowDetails,,Show Details,Show Details
+Studio.Common.Action.StepForwardPhysicsCurrent,"Steps simulation forward in the currently visible workspace, namely client or server.",Step Forward Physics: Current,Step Forward Physics: Current
+Studio.Common.Action.StepForwardPhysicsClient,Steps simulation forward for the client.,Step Forward Physics: Client,Step Forward Physics: Client
+Studio.Common.Action.StepForwardPhysicsServer,Steps simulation forward for the server.,Step Forward Physics: Server,Step Forward Physics: Server
+Studio.Common.Action.StepForward,,Step Forward Physics: All,Step Forward Physics: All
 Studio.Common.Action.Stop,,Stop,Stop
 Studio.Common.Action.Undo,,Undo,Undo
 Studio.Common.Action.Value,,Value,Value

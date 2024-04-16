@@ -99,7 +99,6 @@ dependencies = [
     "DataLoader DataLoader 0.2.0 url+https://github.com/roblox/data-loader-lua",
     "DeveloperTools DeveloperTools 0.2.7 url+https://github.com/roblox/developer-tools",
     "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
-    "ExperienceChat ExperienceChat ba94bdf5 git+https://github.com/roblox/lua-experience-chat#v4.3.1",
     "FitFrame RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "GraphQL GraphQL 15.6.1 url+https://github.com/roblox/graphql-lua",
     "GraphqlToolsUtils Utils 0.3.1 url+https://github.com/roblox/graphql-tools-lua",
@@ -145,7 +144,7 @@ dependencies = [
     "RoactNavigationUpgradeFlag RoactNavigationUpgradeFlag e63a0353 git+https://github.com/roblox/roact-navigation-upgrade#main",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxContacts RoduxContacts 3cde6d38 git+https://github.com/roblox/rodux-contacts#v0.9.0",
+    "RoduxContacts RoduxContacts ce1067fc git+https://github.com/roblox/rodux-contacts#v0.9.1",
     "RoduxDevtools RoduxDevtools 1.0.0-rc.1 url+https://github.com/roblox/rodux-devtools",
     "RoduxFriends RoduxFriends f336d473 git+https://github.com/roblox/rodux-friends#v4.2.3",
     "RoduxGames RoduxGames ca9547e2 git+https://github.com/roblox/rodux-games#master",
@@ -284,28 +283,6 @@ dependencies = [
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "RegExp RegExp 0.2.1 url+https://github.com/roblox/luau-regexp",
     "RobloxShared RobloxShared 3.5.0 url+https://github.com/roblox/jest-roblox",
-]
-
-[[package]]
-name = "ExperienceChat"
-version = "4.3.1"
-commit = "ba94bdf5d649030094ba2a8d8cd19d51957ffc5b"
-source = "git+https://github.com/roblox/lua-experience-chat#v4.3.1"
-dependencies = [
-    "ApolloClient ApolloClient 0.3.8 url+https://github.com/roblox/apollo-client-lua",
-    "EmojiList EmojiList 79876374 git+https://github.com/roblox/emoji-list#1.0.0",
-    "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
-    "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
-    "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React <patched> React 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "ReactIs <patched> ReactIs 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "ReactRoblox <patched> ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
-    "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 5157a34d git+https://github.com/roblox/uiblox#master",
-    "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
-    "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]
 
 [[package]]
@@ -1682,9 +1659,9 @@ dependencies = [
 
 [[package]]
 name = "RoduxContacts"
-version = "0.8.4"
-commit = "3cde6d38a4637c67991b16524621a47368f312e8"
-source = "git+https://github.com/roblox/rodux-contacts#v0.9.0"
+version = "0.9.1"
+commit = "ce1067fc4fd68fa47c9ddef7f4a3f955bdbb672f"
+source = "git+https://github.com/roblox/rodux-contacts#v0.9.1"
 dependencies = [
     "Dash Dash 0.1.9 url+https://github.com/roblox/dash",
     "NetworkingContacts NetworkingContacts 0.4.2 url+https://github.com/roblox/lua-app-networking",

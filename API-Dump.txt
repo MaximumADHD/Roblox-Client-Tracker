@@ -913,6 +913,7 @@ Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event CaptureService.CaptureBegan()
 	Event CaptureService.CaptureEnded()
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any })
+	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }) {RobloxScriptSecurity}
 	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, contentIds: { any }) {RobloxScriptSecurity}
 	Event CaptureService.OpenShareCapturePrompt(promptId: number, contentId: string, launchData: string) {RobloxScriptSecurity}
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
@@ -1406,6 +1407,7 @@ Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [Not
 	Function ConversationalAIAcceptanceService:CodeRunnerActivated(requestId: string, code: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:CodeRunnerCompleted(requestId: string, success: boolean, errorMessage: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:CodeRunnerUndone(requestId: string) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:DataModelHierarchyLatency(requestId: string, latency: number) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:InstanceInserted(requestId: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:RecordingActionEnded(requestId: string, waypointName: string) -> () {RobloxScriptSecurity}
 Class CookiesService : Instance [NotCreatable] [Service]
@@ -1730,11 +1732,13 @@ Class ExperienceNotificationService : Instance [NotCreatable] [Service] [NotRepl
 	Event ExperienceNotificationService.OptInPromptClosed()
 	Event ExperienceNotificationService.PromptOptInRequested() {RobloxScriptSecurity}
 Class ExperienceService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function ExperienceService:GetPendingJoinAttempt() -> { [string]: any } {RobloxScriptSecurity}
 	Function ExperienceService:LaunchExperience(params: { [string]: any }) -> string {RobloxScriptSecurity}
 	Function ExperienceService:LaunchExperienceFromSource(params: { [string]: any }, source: string) -> string {RobloxScriptSecurity}
 	Function ExperienceService:LaunchExperienceFromSourceWithCallback(params: { [string]: any }, source: string, callback: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function ExperienceService:RegisterForExperienceJoin(callback: (...any) -> ...any) -> RBXScriptConnection {RobloxScriptSecurity}
 	Function ExperienceService:RegisterForExperienceLeave(callback: (...any) -> ...any) -> RBXScriptConnection {RobloxScriptSecurity}
+	Event ExperienceService.OnNewJoinAttempt(params: { [string]: any }) {RobloxScriptSecurity}
 Class ExperienceStateCaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property ExperienceStateCaptureService.IsInCaptureMode: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function ExperienceStateCaptureService:CanEnterCaptureMode() -> boolean {RobloxScriptSecurity}
@@ -2422,14 +2426,13 @@ Class SelectionPointLasso : SelectionLasso [Deprecated]
 Class Path2D : GuiBase [NotBrowsable]
 	Property Path2D.SelectedControlPoint: number {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Property Path2D.SelectedControlPointData: Path2DControlPoint {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
-	Property Path2D.Color: Color3
-	Property Path2D.Position: UDim2
+	Property Path2D.Color3: Color3
 	Property Path2D.PropertiesSerialize: BinaryString {RobloxScriptSecurity} [Hidden] [NotScriptable]
 	Property Path2D.Thickness: number
 	Property Path2D.Transparency: number {RobloxScriptSecurity}
 	Property Path2D.Visible: boolean
 	Property Path2D.ZIndex: number
-	Function Path2D:GetBoundingRect2D() -> Rect {RobloxScriptSecurity}
+	Function Path2D:GetBoundingRect() -> Rect
 	Function Path2D:GetControlPoint(index: number) -> Path2DControlPoint
 	Function Path2D:GetControlPoints() -> { any }
 	Function Path2D:GetLength() -> number {RobloxScriptSecurity}
@@ -3049,8 +3052,6 @@ Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property LuaSourceContainer.SandboxedSource: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property LuaSourceContainer.ScriptGuid: string [Hidden] [NotScriptable]
 	Property LuaSourceContainer.SyncingEditorText: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
-	Event LuaSourceContainer.RequestScriptHash() {LocalUserSecurity} [Hidden]
-	Event LuaSourceContainer.VerifyScriptHash(hash: string) {LocalUserSecurity} [Hidden]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property BaseScript.Disabled: boolean
 	Property BaseScript.Enabled: boolean [NotReplicated]
@@ -5152,7 +5153,7 @@ Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:RegisterCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterContextCollector(collectorName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterSequentialCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
-	Function StreamingService:RunSandboxedCode(code: string) -> ...any {RobloxScriptSecurity} [Yields]
+	Function StreamingService:RunSandboxedCode(requestId: string, code: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function StreamingService:SetEphemeralVariable(key: string, value: any, timeToLive: number? = -1) -> () {RobloxScriptSecurity}
 	Function StreamingService:SetPluginInfoCallback(function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterCommand(commandName: string) -> () {RobloxScriptSecurity}
@@ -5380,6 +5381,8 @@ Class StudioWidget : StudioObjectBase [NotCreatable] [NotReplicated]
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property StudioPublishService.PublishLocked: boolean {RobloxScriptSecurity}
 	Function StudioPublishService:ClearUploadNames() -> () {RobloxScriptSecurity}
+	Function StudioPublishService:GetLocalFilePath() -> string {RobloxScriptSecurity}
+	Function StudioPublishService:GetPlaceDisplayName() -> string {RobloxScriptSecurity}
 	Function StudioPublishService:PublishAs(universeId: number, placeId: number, groupId: number, isPublish: boolean, publishParameters: any, willRetryOnConflict: boolean? = false, allowOpeningNewPlace: boolean? = true) -> () {RobloxScriptSecurity}
 	Function StudioPublishService:PublishThenTurnOnTeamCreate() -> () {RobloxScriptSecurity}
 	Function StudioPublishService:RefreshDocumentDisplayName() -> () {RobloxScriptSecurity}
@@ -6330,6 +6333,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property VoiceChatService.VoiceChatEnabledForUniverseOnRcc: boolean {RobloxScriptSecurity} [Hidden]
 	Function VoiceChatService:IsVoiceEnabledForUserIdAsync(userId: number) -> boolean [Yields]
 	Event VoiceChatService.ClientRetryJoin() {RobloxSecurity} [Hidden]
+	Event VoiceChatService.ClientRetryJoinWithConfig(sessionConfigFlags: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.JoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishStateChange(muteState: Enum.MuteState, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.PublishingHandshakeAcked(handshakeAnswer: string, sessionId: string) {RobloxSecurity} [Hidden]
@@ -6347,6 +6351,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.TurnServerInfoAcked(eventTag: number, userId: number, turnServerInfo: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.TurnServerInfoRequested(eventTag: number, userId: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatClientVoiceCapability() {RobloxSecurity} [Hidden]
+	Event VoiceChatService.VoiceChatClientVoiceCapabilityWithConfig(sessionConfigFlags: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedClientToServer(muteState: Enum.MuteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatPlayerMuteStateChangedServerToClient(muteState: Enum.MuteState) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.VoiceChatSampleTaggedEventClientToServer(tag: number, value: string) {RobloxSecurity} [Hidden]
@@ -7409,6 +7414,11 @@ Enum GameAvatarType
 	EnumItem GameAvatarType.R6 : 0
 	EnumItem GameAvatarType.R15 : 1
 	EnumItem GameAvatarType.PlayerChoice : 2
+Enum GamepadType
+	EnumItem GamepadType.Unknown : 0
+	EnumItem GamepadType.PS4 : 1
+	EnumItem GamepadType.PS5 : 2
+	EnumItem GamepadType.XboxOne : 3
 Enum GearGenreSetting [Deprecated]
 	EnumItem GearGenreSetting.AllGenres : 0 [Deprecated] [Deprecated]
 	EnumItem GearGenreSetting.MatchingGenreOnly : 1 [Deprecated] [Deprecated]
@@ -7454,6 +7464,7 @@ Enum GuiType
 	EnumItem GuiType.Custom : 1
 	EnumItem GuiType.PlayerNameplates : 2
 	EnumItem GuiType.CustomBillboards : 3
+	EnumItem GuiType.CoreBillboards : 4
 Enum HandlesStyle
 	EnumItem HandlesStyle.Resize : 0
 	EnumItem HandlesStyle.Movement : 1
