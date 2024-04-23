@@ -3,7 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
-local UIBlox = require(CorePackages.UIBlox)
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local InspectAndBuyModules = CoreGuiModules:WaitForChild("InspectAndBuy")
 local Roact = require(CorePackages.Roact)
@@ -12,14 +11,6 @@ local InspectAndBuyInstanceHandle = nil
 
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyModules.Flags.GetFFlagUseInspectAndBuyControllerBar)
 
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local TopBar = require(RobloxGui.Modules.TopBar)
@@ -32,37 +23,16 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 		InspectAndBuyInstanceHandle = nil
 	end
 
-	local appStyle = nil
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-	end
-
 	local inspectAndBuy
 	if GetFFlagUseInspectAndBuyControllerBar() then
-		if GetFFlagEnableStyleProviderCleanUp() then
-			inspectAndBuy = renderWithCoreScriptsStyleProvider({
-				inspectAndBuy = Roact.createElement(InspectAndBuy, {
-					humanoidDescription = humanoidDescription,
-					playerName = playerName,
-					playerId = userId,
-					ctx = ctx,
-				}),
-			})
-		else
-			inspectAndBuy = Roact.createElement(UIBlox.Core.Style.Provider, {
-				style = appStyle,
-			}, {
-				inspectAndBuy = Roact.createElement(InspectAndBuy, {
-					humanoidDescription = humanoidDescription,
-					playerName = playerName,
-					playerId = userId,
-					ctx = ctx,
-				}),
-			})
-		end
+		inspectAndBuy = renderWithCoreScriptsStyleProvider({
+			inspectAndBuy = Roact.createElement(InspectAndBuy, {
+				humanoidDescription = humanoidDescription,
+				playerName = playerName,
+				playerId = userId,
+				ctx = ctx,
+			}),
+		})
 	else
 		inspectAndBuy = Roact.createElement(InspectAndBuy, {
 			humanoidDescription = humanoidDescription,

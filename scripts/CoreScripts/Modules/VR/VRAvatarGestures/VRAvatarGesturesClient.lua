@@ -20,6 +20,14 @@ local VRPLAYERS_REMOTE_EVENT_NAME = "AvatarGesturesVRPlayer"
 local FFlagDebugImmersionModeNonVR = game:DefineFastFlag("DebugImmersionModeNonVR", false)
 local FFlagUpdateAvatarGestures = game:DefineFastFlag("UpdateAvatarGestures", false)
 
+local FFlagUserFixVRAvatarGesturesSeats
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixVRAvatarGesturesSeats")
+	end)
+	FFlagUserFixVRAvatarGesturesSeats = success and result
+end
+
 export type VRAvatarGesturesClientType = {
 	--------------- Member Variables ------------------------
 	-- holds the input data received at the beginning of the frame and saves it for 
@@ -71,6 +79,37 @@ function VRAvatarGesturesClient:onCharacterChanged(character)
 		if ikControl then
 			ikControl.SmoothTime = 0
 		end
+	end
+
+	if FFlagUserFixVRAvatarGesturesSeats then
+		local camera = workspace.CurrentCamera :: Camera
+		if not camera then
+			return
+		end
+
+		local function updateSeated(seated)
+			-- head IKControlType = Transform will slightly shift the car. Turn off while driving.
+			local isVehicle = camera.CameraSubject and camera.CameraSubject:IsA("VehicleSeat")
+			local firstPerson = (camera.CFrame.Position - camera.Focus.Position).Magnitude <= FIRST_PERSON_THRESHOLD_DISTANCE
+
+			local headIKControl = humanoid:FindFirstChild("TrackedIKHead") :: IKControl
+			if headIKControl then
+				if seated and not isVehicle and firstPerson then
+					headIKControl.Type = Enum.IKControlType.Transform
+				else
+					headIKControl.Type = Enum.IKControlType.Rotation
+				end
+			end
+		end
+
+		updateSeated(humanoid.Sit)
+		self.connections:connect(humanoid.Seated, function(seated)
+			updateSeated(seated)
+			-- recenter when sitting down in first person
+			if seated and (camera.CFrame.Position - camera.Focus.Position).Magnitude <= FIRST_PERSON_THRESHOLD_DISTANCE then
+				VRService:RecenterUserHeadCFrame()
+			end
+		end)
 	end
 end
 

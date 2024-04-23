@@ -13,9 +13,9 @@ local var10 = var0.Src.Resources.Localization.LocalizedStrings
 local var11 = require(var0.Src.Components.BasicExample)
 local var12 = var1.PureComponent:extend("MainPlugin")
 function var12.init(arg1, arg2)
-   local var41 = {}
-   var41.enabled = false
-   arg1.state = var41
+   local var219 = {}
+   var219.enabled = false
+   arg1.state = var219
    function arg1.toggleEnabled(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
@@ -31,28 +31,28 @@ function var12.init(arg1, arg2)
    end
    
    function arg1.onRestore()
-      local var54 = {}
-      var54.enabled = false
-      arg1:setState(var54)
+      local var233 = {}
+      var233.enabled = false
+      arg1:setState(var233)
    end
    
    function arg1.onWidgetEnabledChanged(arg1)
-      local var59 = {}
-      var59.enabled = arg1
-      arg1:setState(var59)
+      local var238 = {}
+      var238.enabled = arg1
+      arg1:setState(var238)
    end
    
    function arg1.onDockWidgetCreated(arg1)
-      local var63 = {}
-      var63.enabled = arg1.Enabled
-      arg1:setState(var63)
+      local var242 = {}
+      var242.enabled = arg1.Enabled
+      arg1:setState(var242)
    end
    
-   local var69 = {}
-   var69.stringResourceTable = var9
-   var69.translationResourceTable = var10
-   var69.pluginName = "SuperTemplate"
-   arg1.localization = var4.Localization.new(var69)
+   local var248 = {}
+   var248.stringResourceTable = var9
+   var248.translationResourceTable = var10
+   var248.pluginName = "SuperTemplate"
+   arg1.localization = var4.Localization.new(var248)
    arg1.analytics = var4.Analytics.new(function()
       return {}
    end, {})
@@ -67,37 +67,37 @@ end
 function var12.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Plugin
-   local var101 = var5
-   var101 = var1
-   local var103 = var101.new(var101)
-   local var108 = var6.new(var1:getMouse())
-   local var109 = arg1.localization
-   local var110 = arg1.analytics
-   local var111 = {}
-   local var115 = {}
-   var115.Id = "SuperTemplate"
-   var115.Enabled = arg1.state.enabled
-   var115.Title = arg1.localization:getText("Plugin", "Name")
-   var115.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var115.InitialDockState = Enum.InitialDockState.Bottom
-   var115.Size = Vector2.new(640, 480)
-   var115.MinSize = Vector2.new(250, 200)
-   var115.OnClose = arg1.onClose
-   var115.Widget = var0.PluginLoaderContext.mainDockWidget
-   var115.OnWidgetCreated = arg1.onDockWidgetCreated
+   local var280 = var5
+   var280 = var1
+   local var282 = var280.new(var280)
+   local var287 = var6.new(var1:getMouse())
+   local var288 = arg1.localization
+   local var289 = arg1.analytics
+   local var290 = {}
+   local var294 = {}
+   var294.Id = "SuperTemplate"
+   var294.Enabled = arg1.state.enabled
+   var294.Title = arg1.localization:getText("Plugin", "Name")
+   var294.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var294.InitialDockState = Enum.InitialDockState.Bottom
+   var294.Size = Vector2.new(640, 480)
+   var294.MinSize = Vector2.new(250, 200)
+   var294.OnClose = arg1.onClose
+   var294.Widget = var0.PluginLoaderContext.mainDockWidget
+   var294.OnWidgetCreated = arg1.onDockWidgetCreated
    var1.Change.Enabled = arg1.onWidgetEnabledChanged
-   local var140 = {}
+   local var319 = {}
    var1.Tag = "X-Fill X-Column"
-   local var148 = {}
-   local var152 = {}
-   var152.showContent = true
-   var148.BasicExample = var1.createElement(var11, var152)
-   var140.Wrapper = var1.createElement("Frame", {}, var148)
-   local var159 = {}
-   var159.StyleSheet = arg1.design
-   var140.StyleLink = var1.createElement("StyleLink", var159)
-   var111.MainWidget = var1.createElement(var3, var115, var140)
-   return var4.provide({}, var111)
+   local var327 = {}
+   local var331 = {}
+   var331.showContent = true
+   var327.BasicExample = var1.createElement(var11, var331)
+   var319.Wrapper = var1.createElement("Frame", {}, var327)
+   local var338 = {}
+   var338.StyleSheet = arg1.design
+   var319.StyleLink = var1.createElement("StyleLink", var338)
+   var290.MainWidget = var1.createElement(var3, var294, var319)
+   return var4.provide({}, var290)
 end
 
 return var12

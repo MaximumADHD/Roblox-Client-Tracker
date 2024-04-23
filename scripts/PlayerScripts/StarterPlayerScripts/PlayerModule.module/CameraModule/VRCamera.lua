@@ -14,6 +14,15 @@ do
 	FFlagUserVRAvatarGestures = success and result
 end
 
+local FFlagUserFixVRAvatarGesturesSeats
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixVRAvatarGesturesSeats")
+	end)
+	FFlagUserFixVRAvatarGesturesSeats = success and result
+end
+
+
 local PlayersService = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -208,58 +217,66 @@ function VRCamera:UpdateImmersionCamera(timeDelta, newCameraCFrame, newCameraFoc
 		-- place the VR head at the subject's CFrame
 		newCameraCFrame = subjectCFrame
 	else
-		-- keep character rotation with torso
-		local torsoRotation = self.controlModule:GetEstimatedVRTorsoFrame()
-		self.characterOrientation.CFrame = curCamera.CFrame * torsoRotation 
-
-		-- The character continues moving for a brief moment after the moveVector stops. Continue updating the camera.
-		if self.controlModule.inputMoveVector.Magnitude > 0 then
-			self.motionDetTime = 0.1
-		end
-
-		if self.controlModule.inputMoveVector.Magnitude > 0 or self.motionDetTime > 0 then
-			self.motionDetTime -= timeDelta
-
-			-- Add an edge blur if the subject moved
-			self:StartVREdgeBlur(PlayersService.LocalPlayer)
-			
-			-- moving by input, so we should align the vrHead with the character
-			local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head) 
-			vrHeadOffset = vrHeadOffset.Rotation + vrHeadOffset.Position * curCamera.HeadScale
-			
-			-- the location of the character's body should be "below" the head. Directly below if the player is looking 
-			-- forward, but further back if they are looking down
-			local hrp = character.HumanoidRootPart
-			local neck_offset = NECK_OFFSET * hrp.Size.Y / 2
-			local neckWorld = curCamera.CFrame * vrHeadOffset * CFrame.new(0, neck_offset, 0)
-			local hrpLook = hrp.CFrame.LookVector
-			neckWorld -= Vector3.new(hrpLook.X, 0, hrpLook.Z).Unit * hrp.Size.Y * TORSO_FORWARD_OFFSET_RATIO
-			
-			-- the camera must remain stable relative to the humanoid root part or the IK calculations will look jittery
-			local goalCameraPosition = subjectPosition - neckWorld.Position + curCamera.CFrame.Position
-
-			-- maintain the Y value
-			goalCameraPosition = Vector3.new(goalCameraPosition.X, subjectPosition.Y, goalCameraPosition.Z)
-			
-			newCameraCFrame = curCamera.CFrame.Rotation + goalCameraPosition
+		-- if seated, just keep aligned with the seat itself
+		if FFlagUserFixVRAvatarGesturesSeats and humanoid.Sit then
+			newCameraCFrame = subjectCFrame
+			if (newCameraCFrame.Position - curCamera.CFrame.Position).Magnitude > 0.01 then
+				self:StartVREdgeBlur(PlayersService.LocalPlayer)
+			end
 		else
-			-- don't change x, z position, follow the y value
-			newCameraCFrame = curCamera.CFrame.Rotation + Vector3.new(curCamera.CFrame.Position.X, subjectPosition.Y, curCamera.CFrame.Position.Z)
-		end
-		
-		local yawDelta = self:getRotation(timeDelta)
-		if math.abs(yawDelta) > 0 then
-			-- The head location in world space
-			local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head) 
-			vrHeadOffset = vrHeadOffset.Rotation + vrHeadOffset.Position * curCamera.HeadScale
-			local VRheadWorld = newCameraCFrame * vrHeadOffset
+			-- keep character rotation with torso
+			local torsoRotation = self.controlModule:GetEstimatedVRTorsoFrame()
+			self.characterOrientation.CFrame = curCamera.CFrame * torsoRotation
 
-			local desiredVRHeadCFrame = CFrame.new(VRheadWorld.Position) * CFrame.Angles(0, -math.rad(yawDelta * 90), 0) * VRheadWorld.Rotation
+			-- The character continues moving for a brief moment after the moveVector stops. Continue updating the camera.
+			if self.controlModule.inputMoveVector.Magnitude > 0 then
+				self.motionDetTime = 0.1
+			end
 
-			-- set the camera to place the VR head at the correct location
-			newCameraCFrame = desiredVRHeadCFrame * vrHeadOffset:Inverse()
+			if self.controlModule.inputMoveVector.Magnitude > 0 or self.motionDetTime > 0 then
+				self.motionDetTime -= timeDelta
+
+				-- Add an edge blur if the subject moved
+				self:StartVREdgeBlur(PlayersService.LocalPlayer)
+
+				-- moving by input, so we should align the vrHead with the character
+				local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+				vrHeadOffset = vrHeadOffset.Rotation + vrHeadOffset.Position * curCamera.HeadScale
+
+				-- the location of the character's body should be "below" the head. Directly below if the player is looking
+				-- forward, but further back if they are looking down
+				local hrp = character.HumanoidRootPart
+				local neck_offset = NECK_OFFSET * hrp.Size.Y / 2
+				local neckWorld = curCamera.CFrame * vrHeadOffset * CFrame.new(0, neck_offset, 0)
+				local hrpLook = hrp.CFrame.LookVector
+				neckWorld -= Vector3.new(hrpLook.X, 0, hrpLook.Z).Unit * hrp.Size.Y * TORSO_FORWARD_OFFSET_RATIO
+
+				-- the camera must remain stable relative to the humanoid root part or the IK calculations will look jittery
+				local goalCameraPosition = subjectPosition - neckWorld.Position + curCamera.CFrame.Position
+
+				-- maintain the Y value
+				goalCameraPosition = Vector3.new(goalCameraPosition.X, subjectPosition.Y, goalCameraPosition.Z)
+
+				newCameraCFrame = curCamera.CFrame.Rotation + goalCameraPosition
+			else
+				-- don't change x, z position, follow the y value
+				newCameraCFrame = curCamera.CFrame.Rotation + Vector3.new(curCamera.CFrame.Position.X, subjectPosition.Y, curCamera.CFrame.Position.Z)
+			end
+
+			local yawDelta = self:getRotation(timeDelta)
+			if math.abs(yawDelta) > 0 then
+				-- The head location in world space
+				local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+				vrHeadOffset = vrHeadOffset.Rotation + vrHeadOffset.Position * curCamera.HeadScale
+				local VRheadWorld = newCameraCFrame * vrHeadOffset
+
+				local desiredVRHeadCFrame = CFrame.new(VRheadWorld.Position) * CFrame.Angles(0, -math.rad(yawDelta * 90), 0) * VRheadWorld.Rotation
+
+				-- set the camera to place the VR head at the correct location
+				newCameraCFrame = desiredVRHeadCFrame * vrHeadOffset:Inverse()
+			end
 		end
-	end
+end
 
 	return newCameraCFrame, newCameraCFrame * CFrame.new(0, 0, -FP_ZOOM)
 end

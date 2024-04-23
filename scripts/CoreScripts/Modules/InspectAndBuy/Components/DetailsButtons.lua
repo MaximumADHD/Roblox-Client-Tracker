@@ -19,6 +19,7 @@ local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagE
 local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local GetCollectibleItemInInspectAndBuyEnabled =
 	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
+local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 local GetFFlagIBGateUGC4ACollectibleAssetsBundles =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBGateUGC4ACollectibleAssetsBundles)
 local GetFFlagIBEnableCollectiblesSystemSupport =
@@ -105,6 +106,7 @@ end
 function DetailsButtons:didUpdate(prevProps)
 	local detailsInformation = self.props.detailsInformation
 	local gamepadEnabled = self.props.gamepadEnabled
+
 	local bundlesObtainedAndDetailPageOpened = (prevProps.assetInfo.bundlesAssetIsIn == nil and self.props.assetInfo.bundlesAssetIsIn ~= nil)
 		and detailsInformation.viewingDetails
 
@@ -135,6 +137,15 @@ function DetailsButtons:didUpdate(prevProps)
 		end
 	elseif self.props.assetInfo.bundlesAssetIsIn == nil and detailsInformation.viewingDetails and gamepadEnabled then
 		GuiService.SelectedCoreObject = nil
+	end
+
+	-- If an overlay was closed, break out of Roact Gamepad and back to regular gamepad usage.
+	if FFlagAttributionInInspectAndBuy then
+		local overlay = self.props.overlay
+		local prevOverlay = prevProps.overlay
+		if gamepadEnabled and overlay and overlay.overlay == nil and prevOverlay and prevOverlay.overlay ~= nil then
+			GuiService.SelectedCoreObject = self.tryOnButtonRef.current
+		end
 	end
 end
 
@@ -393,5 +404,6 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		isFavorited = isFavorited,
 		tryingOn = state.tryingOnInfo.tryingOn,
 		resellableInstances = state.collectibleResellableInstances,
+		overlay = if FFlagAttributionInInspectAndBuy then state.overlay else nil,
 	}
 end)(DetailsButtons)

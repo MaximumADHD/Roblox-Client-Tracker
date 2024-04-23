@@ -12,16 +12,9 @@ local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Symbol = require(CorePackages.Symbol)
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local renderWithCoreScriptsStyleProvider = require(CoreGui.RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 local UIBlox = require(CorePackages.UIBlox)
+local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvider
 
 local InspectAndBuyFolder = script.Parent.Parent
 local SetDetailsInformation = require(InspectAndBuyFolder.Actions.SetDetailsInformation)
@@ -48,6 +41,9 @@ local UpdateOwnedStatus = require(InspectAndBuyFolder.Thunks.UpdateOwnedStatus)
 local GetCharacterModelFromUserId = require(InspectAndBuyFolder.Thunks.GetCharacterModelFromUserId)
 local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+local CloseOverlay = require(InspectAndBuyFolder.Actions.CloseOverlay)
+
+local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 local GetFFlagIBFixl20HasQuantityPurchase = require(InspectAndBuyFolder.Flags.GetFFlagIBFixl20HasQuantityPurchase)
 
 local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
@@ -60,7 +56,7 @@ local InspectAndBuy = Roact.PureComponent:extend("InspectAndBuy")
 
 function InspectAndBuy:pushMouseIconOverride()
 	local input = UserInputService:GetLastInputType()
-	local isGamepad = input.Name:find('Gamepad')
+	local isGamepad = input.Name:find("Gamepad")
 
 	if isGamepad then
 		MouseIconOverrideService.push(CURSOR_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceHide)
@@ -75,7 +71,7 @@ end
 
 function InspectAndBuy:configureInputType(lastInputType)
 	local input = lastInputType or UserInputService:GetLastInputType()
-	local isGamepad = input.Name:find('Gamepad')
+	local isGamepad = input.Name:find("Gamepad")
 
 	if isGamepad then
 		self.state.store:dispatch(SetGamepadEnabled(true))
@@ -170,9 +166,11 @@ function InspectAndBuy:didMount()
 		self:configureInputType(lastInputType)
 	end)
 
-	local viewportSizeListener = (workspace.CurrentCamera :: Camera):GetPropertyChangedSignal("ViewportSize"):Connect(function()
-		self:updateView()
-	end)
+	local viewportSizeListener = (workspace.CurrentCamera :: Camera)
+		:GetPropertyChangedSignal("ViewportSize")
+		:Connect(function()
+			self:updateView()
+		end)
 
 	local localeListener = LocalizationService:GetPropertyChangedSignal("RobloxLocaleId"):Connect(function()
 		self.state.store:dispatch(SetLocale(LocalizationService.RobloxLocaleId))
@@ -270,7 +268,23 @@ end
 function InspectAndBuy:render()
 	local localPlayerModel = self.localPlayerModel
 
-	if GetFFlagEnableStyleProviderCleanUp() then
+	if FFlagAttributionInInspectAndBuy then
+		return Roact.createElement(InspectAndBuyContext.Provider, {
+			value = self.state.views,
+		}, {
+			StoreProvider = Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.state.store,
+			}, {
+				ThemeProvider = renderWithCoreScriptsStyleProvider({
+					CursorProvider = Roact.createElement(SelectionCursorProvider, {}, {
+						Container = Roact.createElement(Container, {
+							localPlayerModel = localPlayerModel,
+						}),
+					}),
+				}),
+			}),
+		})
+	else
 		return Roact.createElement(InspectAndBuyContext.Provider, {
 			value = self.state.views,
 		}, {
@@ -284,52 +298,34 @@ function InspectAndBuy:render()
 				}),
 			}),
 		})
-	else
-		-- include theme provider for shimmer panels used in the asset list
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-
-		return Roact.createElement(InspectAndBuyContext.Provider, {
-			value = self.state.views,
-		}, {
-			Roact.createElement(RoactRodux.StoreProvider, {
-				store = self.state.store,
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					Container = Roact.createElement(Container, {
-						localPlayerModel = localPlayerModel,
-					}),
-				}),
-			}),
-		})
 	end
 end
 
 function InspectAndBuy:bindButtonB()
 	ContextActionService:BindCoreAction(BACK_BUTTON_KEY, function(actionName, inputState, inputObject)
 		if inputState == Enum.UserInputState.End and inputObject.KeyCode == Enum.KeyCode.ButtonB then
-			local viewingDetails = self.state.store:getState().detailsInformation.viewingDetails
+			local state = self.state.store:getState()
+			local viewingDetails = state.detailsInformation.viewingDetails
 
-			if viewingDetails then
+			if FFlagAttributionInInspectAndBuy and state.overlay and state.overlay.overlay ~= nil then
+				self.state.store:dispatch(CloseOverlay())
+			elseif viewingDetails then
 				self.state.store:dispatch(SetDetailsInformation(false, nil))
 				self.state.store:dispatch(SetTryingOnInfo(false, nil))
 			else
 				GuiService:CloseInspectMenu()
 			end
-		elseif inputState == Enum.UserInputState.Begin
-			and inputObject.KeyCode == Enum.KeyCode.Escape or inputObject.KeyCode == Enum.KeyCode.ButtonStart then
+		elseif
+			inputState == Enum.UserInputState.Begin and inputObject.KeyCode == Enum.KeyCode.Escape
+			or inputObject.KeyCode == Enum.KeyCode.ButtonStart
+		then
 			-- Close the Inspect Menu, allow the ESC menu to open.
 			GuiService:CloseInspectMenu()
 			return Enum.ContextActionResult.Pass
 		end
 
 		return Enum.ContextActionResult.Sink
-	end,
-	false, Enum.KeyCode.ButtonB, Enum.KeyCode.Escape, Enum.KeyCode.ButtonStart)
+	end, false, Enum.KeyCode.ButtonB, Enum.KeyCode.Escape, Enum.KeyCode.ButtonStart)
 end
 
 return InspectAndBuy

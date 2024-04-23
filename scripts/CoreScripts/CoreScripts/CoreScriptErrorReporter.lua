@@ -37,12 +37,18 @@ game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitPeriod", 60)
 game:DefineFastInt("CoreScriptBacktraceRepeatedErrorRateLimitProcessIntervalTenths", 10)
 
 game:DefineFastFlag("AddRobloxChannelToLuaBacktrace", false)
+game:DefineFastInt("CoreScriptBacktraceErrorReportPercentage", 100)
+
+local function CanReportCoreScriptBacktrace()
+	return math.random(1, 100) <= math.clamp(game:GetFastInt("CoreScriptBacktraceErrorReportPercentage"), 0, 100)
+end
 
 -- We don't have a default for this fast string, so if it's the empty string we
 -- know we're at the default and we can't do error reports.
 if
 	not game:GetFastFlag("DisableCorescriptBacktraceReporting")
 	and game:GetFastString("CoreScriptBacktraceErrorUploadToken") ~= ""
+	and CanReportCoreScriptBacktrace()
 then
 	local staticAttributes = {
 		LocalVersion = RunService:GetRobloxVersion(),

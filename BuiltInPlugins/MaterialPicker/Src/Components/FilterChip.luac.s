@@ -146,9 +146,11 @@ PROTO_3:
   CALL R14 2 1
   GETUPVAL R15 2
   GETUPVAL R16 5
-  DUPTABLE R17 K48 [{"Size", "Padding", "Text", "TextColor", "TextXAlignment", "TextYAlignment", "TextSize"}]
+  DUPTABLE R17 K48 [{"AutomaticSize", "Size", "Padding", "Text", "TextColor", "TextXAlignment", "TextYAlignment", "TextSize"}]
+  GETIMPORT R18 K50 [Enum.AutomaticSize.X]
+  SETTABLEKS R18 R17 K12 ["AutomaticSize"]
   GETTABLEKS R19 R1 K0 ["Filters"]
-  GETTABLEKS R18 R19 K49 ["ChipSize"]
+  GETTABLEKS R18 R19 K51 ["ChipSize"]
   SETTABLEKS R18 R17 K43 ["Size"]
   DUPTABLE R18 K31 [{"Left", "Right"}]
   LOADN R19 4
@@ -161,9 +163,9 @@ PROTO_3:
   GETTABLEKS R19 R1 K0 ["Filters"]
   GETTABLEKS R18 R19 K44 ["TextColor"]
   SETTABLEKS R18 R17 K44 ["TextColor"]
-  GETIMPORT R18 K51 [Enum.TextXAlignment.Center]
+  GETIMPORT R18 K53 [Enum.TextXAlignment.Center]
   SETTABLEKS R18 R17 K45 ["TextXAlignment"]
-  GETIMPORT R18 K52 [Enum.TextYAlignment.Center]
+  GETIMPORT R18 K54 [Enum.TextYAlignment.Center]
   SETTABLEKS R18 R17 K46 ["TextYAlignment"]
   GETTABLEKS R19 R1 K0 ["Filters"]
   GETTABLEKS R18 R19 K47 ["TextSize"]

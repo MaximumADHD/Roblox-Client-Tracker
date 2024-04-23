@@ -6,14 +6,6 @@ local ContextActionService = game:GetService("ContextActionService")
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 local Cryo = require(CorePackages.Cryo)
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUtils).ExternalEventConnection
@@ -216,21 +208,14 @@ VoiceChatPromptFrame.validateProps = t.strictInterface({
 	showNewContent = t.optional(t.boolean),
 	showCheckbox = t.optional(t.boolean),
 	policyMapper = t.optional(t.callback),
-	appStyle = if GetFFlagEnableStyleProviderCleanUp() then validateStyle else nil,
+	appStyle = validateStyle,
 })
 
 function VoiceChatPromptFrame:init()
-	if GetFFlagEnableStyleProviderCleanUp() then
-		self.promptStyle = {
-			Theme = self.props.appStyle.Theme,
-			Font = self.props.appStyle.Font,
-		}
-	else
-		self.promptStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-	end
+	self.promptStyle = {
+		Theme = self.props.appStyle.Theme,
+		Font = self.props.appStyle.Font,
+	}
 
 	self.state = {
 		screenSize = Vector2.new(0, 0),
@@ -620,15 +605,7 @@ function VoiceChatPromptFrame:render()
 			}),
 		})
 	end
-	if GetFFlagEnableStyleProviderCleanUp() then
-		return voiceChatPromptFrame
-	else
-		return Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = self.promptStyle,
-		}, {
-			VoiceChatPromptFrame = voiceChatPromptFrame,
-		})
-	end
+	return voiceChatPromptFrame
 end
 
 function VoiceChatPromptFrame:didMount()
@@ -656,21 +633,17 @@ VoiceChatPromptFrame = InGameMenuPolicy.connect(function(appPolicy, props)
 	}
 end)(VoiceChatPromptFrame)
 
-if GetFFlagEnableStyleProviderCleanUp() then
-	local function WrappedVoiceChatPromptFrame(props: any)
-		local style = useStyle()
-		return Roact.createElement(
-			VoiceChatPromptFrame,
-			Cryo.Dictionary.join(props, {
-				appStyle = style,
-			})
-		)
-	end
-	return function(props)
-		return renderWithCoreScriptsStyleProvider({
-			Roact.createElement(WrappedVoiceChatPromptFrame, props),
+local function WrappedVoiceChatPromptFrame(props: any)
+	local style = useStyle()
+	return Roact.createElement(
+		VoiceChatPromptFrame,
+		Cryo.Dictionary.join(props, {
+			appStyle = style,
 		})
-	end
-else
-	return VoiceChatPromptFrame
+	)
+end
+return function(props)
+	return renderWithCoreScriptsStyleProvider({
+		Roact.createElement(WrappedVoiceChatPromptFrame, props),
+	})
 end

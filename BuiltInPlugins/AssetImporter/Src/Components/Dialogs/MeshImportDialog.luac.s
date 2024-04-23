@@ -147,16 +147,36 @@ PROTO_4:
   RETURN R4 -1
 
 PROTO_5:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+32]
   DUPTABLE R1 K5 [{"ImportTree", "AssetImportSession", "ImportDataCheckedCount", "ErrorNodeChecked", "HasInvalidPackageId"}]
-  GETTABLEKS R2 R0 K6 ["importTree"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K7 ["importTree"]
   SETTABLEKS R2 R1 K0 ["ImportTree"]
-  GETTABLEKS R2 R0 K7 ["assetImportSession"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K8 ["assetImportSession"]
   SETTABLEKS R2 R1 K1 ["AssetImportSession"]
-  GETTABLEKS R2 R0 K8 ["importDataCheckedCount"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K9 ["importDataCheckedCount"]
   SETTABLEKS R2 R1 K2 ["ImportDataCheckedCount"]
-  GETTABLEKS R2 R0 K9 ["errorNodeChecked"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K10 ["errorNodeChecked"]
   SETTABLEKS R2 R1 K3 ["ErrorNodeChecked"]
-  GETTABLEKS R2 R0 K10 ["hasInvalidPackageId"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K11 ["hasInvalidPackageId"]
+  SETTABLEKS R2 R1 K4 ["HasInvalidPackageId"]
+  RETURN R1 1
+  DUPTABLE R1 K5 [{"ImportTree", "AssetImportSession", "ImportDataCheckedCount", "ErrorNodeChecked", "HasInvalidPackageId"}]
+  GETTABLEKS R2 R0 K7 ["importTree"]
+  SETTABLEKS R2 R1 K0 ["ImportTree"]
+  GETTABLEKS R2 R0 K8 ["assetImportSession"]
+  SETTABLEKS R2 R1 K1 ["AssetImportSession"]
+  GETTABLEKS R2 R0 K9 ["importDataCheckedCount"]
+  SETTABLEKS R2 R1 K2 ["ImportDataCheckedCount"]
+  GETTABLEKS R2 R0 K10 ["errorNodeChecked"]
+  SETTABLEKS R2 R1 K3 ["ErrorNodeChecked"]
+  GETTABLEKS R2 R0 K11 ["hasInvalidPackageId"]
   SETTABLEKS R2 R1 K4 ["HasInvalidPackageId"]
   RETURN R1 1
 
@@ -193,33 +213,39 @@ MAIN:
   GETTABLEKS R15 R16 K21 ["Components"]
   GETTABLEKS R14 R15 K22 ["AssetImporterUI"]
   CALL R13 1 1
-  GETTABLEKS R14 R1 K23 ["PureComponent"]
-  LOADK R16 K24 ["MeshImportDialog"]
-  NAMECALL R14 R14 K25 ["extend"]
-  CALL R14 2 1
-  DUPCLOSURE R15 K26 [PROTO_0]
-  DUPCLOSURE R16 K27 [PROTO_2]
-  SETTABLEKS R16 R14 K28 ["init"]
-  DUPCLOSURE R16 K29 [PROTO_4]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R17 R0 K20 ["Src"]
+  GETTABLEKS R16 R17 K23 ["Flags"]
+  GETTABLEKS R15 R16 K24 ["getFFlagAssetImportRefactorReducer"]
+  CALL R14 1 1
+  GETTABLEKS R15 R1 K25 ["PureComponent"]
+  LOADK R17 K26 ["MeshImportDialog"]
+  NAMECALL R15 R15 K27 ["extend"]
+  CALL R15 2 1
+  DUPCLOSURE R16 K28 [PROTO_0]
+  DUPCLOSURE R17 K29 [PROTO_2]
+  SETTABLEKS R17 R15 K30 ["init"]
+  DUPCLOSURE R17 K31 [PROTO_4]
   CAPTURE VAL R1
   CAPTURE VAL R12
   CAPTURE VAL R9
   CAPTURE VAL R13
   CAPTURE VAL R11
-  SETTABLEKS R16 R14 K30 ["render"]
-  MOVE R16 R5
-  DUPTABLE R17 K31 [{"Localization", "Stylizer"}]
-  SETTABLEKS R6 R17 K12 ["Localization"]
-  SETTABLEKS R7 R17 K14 ["Stylizer"]
-  CALL R16 1 1
-  MOVE R17 R14
-  CALL R16 1 1
-  MOVE R14 R16
-  DUPCLOSURE R16 K32 [PROTO_5]
-  GETTABLEKS R17 R2 K33 ["connect"]
-  MOVE R18 R16
-  LOADNIL R19
-  CALL R17 2 1
-  MOVE R18 R14
-  CALL R17 1 -1
-  RETURN R17 -1
+  SETTABLEKS R17 R15 K32 ["render"]
+  MOVE R17 R5
+  DUPTABLE R18 K33 [{"Localization", "Stylizer"}]
+  SETTABLEKS R6 R18 K12 ["Localization"]
+  SETTABLEKS R7 R18 K14 ["Stylizer"]
+  CALL R17 1 1
+  MOVE R18 R15
+  CALL R17 1 1
+  MOVE R15 R17
+  DUPCLOSURE R17 K34 [PROTO_5]
+  CAPTURE VAL R14
+  GETTABLEKS R18 R2 K35 ["connect"]
+  MOVE R19 R17
+  LOADNIL R20
+  CALL R18 2 1
+  MOVE R19 R15
+  CALL R18 1 -1
+  RETURN R18 -1

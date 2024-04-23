@@ -31,14 +31,6 @@ local PremiumUpsellContainer = require(script.Parent.PremiumUpsell.PremiumUpsell
 local SubscriptionPurchaseContainer = require(script.Parent.SubscriptionPurchase.SubscriptionPurchaseContainer)
 
 local GetFFlagEnableAvatarCreationFeePurchase = require(Root.Flags.GetFFlagEnableAvatarCreationFeePurchase)
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local DarkTheme = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local Gotham = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local renderWithCoreScriptsStyleProvider =
 	require(script.Parent.Parent.Parent.Common.renderWithCoreScriptsStyleProvider)
 
@@ -69,16 +61,7 @@ function PurchasePromptApp:init()
 end
 
 function PurchasePromptApp:renderWithStyle(children)
-	if GetFFlagEnableStyleProviderCleanUp() then
-		return renderWithCoreScriptsStyleProvider(children)
-	else
-		return Roact.createElement(StyleProvider, {
-			style = {
-				Theme = DarkTheme,
-				Font = Gotham,
-			},
-		}, children)
-	end
+	return renderWithCoreScriptsStyleProvider(children)
 end
 
 function PurchasePromptApp:render()

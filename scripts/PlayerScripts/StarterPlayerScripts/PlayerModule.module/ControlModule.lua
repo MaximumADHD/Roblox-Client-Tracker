@@ -51,6 +51,14 @@ local FFlagUserFixTouchJumpBug do
 	FFlagUserFixTouchJumpBug = success and result
 end
 
+local FFlagUserFixVRAvatarGesturesSeats
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixVRAvatarGesturesSeats")
+	end)
+	FFlagUserFixVRAvatarGesturesSeats = success and result
+end
+
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -544,8 +552,10 @@ function ControlModule:updateVRMoveVector(moveVector)
 	local firstPerson = cameraDelta.Magnitude < FIRST_PERSON_THRESHOLD_DISTANCE and true
 	
 	-- if the player is not moving via input in first person, follow the VRHead
-	if moveVector.Magnitude == 0 and firstPerson and VRService.AvatarGestures and self.humanoid then
-		local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head) 
+	if moveVector.Magnitude == 0 and firstPerson and VRService.AvatarGestures and self.humanoid 
+		and (not FFlagUserFixVRAvatarGesturesSeats or not self.humanoid.Sit) then
+
+		local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head)
 		vrHeadOffset = vrHeadOffset.Rotation + vrHeadOffset.Position * curCamera.HeadScale
 
 		-- get the position in world space and offset at the neck

@@ -17,17 +17,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = nil
-local AppFont = nil
-local renderWithCoreScriptsStyleProvider = nil
-if not GetFFlagEnableStyleProviderCleanUp() then
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-else
-	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
-end
+local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local TOAST_DURATION = 3
 local CAPTURE_NOTIFICATION_DISPLAY_ORDER = 9
@@ -47,14 +37,6 @@ CaptureNotification.validateProps = t.strictInterface({
 })
 
 function CaptureNotification:init()
-	self.appStyle = nil
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		self.appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-	end
-
 	self.state = {
 		screenSize = Vector2.new(0, 0),
 		dismissedPermission = false,
@@ -147,13 +129,7 @@ function CaptureNotification:init()
 end
 
 function CaptureNotification:renderWithStyle(children)
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		return Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = self.appStyle,
-		}, children)
-	else
-		return renderWithCoreScriptsStyleProvider(children)
-	end
+	return renderWithCoreScriptsStyleProvider(children)
 end
 
 function CaptureNotification:render()

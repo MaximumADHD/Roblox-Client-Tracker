@@ -62,7 +62,6 @@ function var14.renderButtons(arg1, arg2)
    var91.Active = arg1.state.enabled
    var91.Title = "activity_feed_button"
    var91.Tooltip = arg1.localization:getText("Plugin", "Description")
-   var91.Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png"
    var91.OnClick = arg1.toggleEnabled
    var91.ClickableWhenViewportHidden = true
    var0.Toggle = var1.createElement(var5, var91)
@@ -71,44 +70,44 @@ end
 
 function var14.render(arg1)
    local var0 = arg1.props.Plugin
-   local var110 = var7
-   var110 = var0
-   local var112 = var110.new(var110)
-   local var117 = var8.new(var0:getMouse())
-   local var119 = var9()
-   local var120 = arg1.localization
-   local var121 = arg1.analytics
-   local var122 = {}
-   local var126 = {}
-   var126.Title = "ActivityFeed"
-   function var126.RenderButtons(arg1)
+   local var109 = var7
+   var109 = var0
+   local var111 = var109.new(var109)
+   local var116 = var8.new(var0:getMouse())
+   local var118 = var9()
+   local var119 = arg1.localization
+   local var120 = arg1.analytics
+   local var121 = {}
+   local var125 = {}
+   var125.Title = "ActivityFeed"
+   function var125.RenderButtons(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
       return var0
    end
    
-   var122.Toolbar = var1.createElement(var4, var126)
-   local var136 = {}
-   var136.Id = "ActivityFeed"
-   var136.Enabled = arg1.state.enabled
-   var136.Title = arg1.localization:getText("Plugin", "Name")
-   var136.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var136.InitialDockState = Enum.InitialDockState.Left
-   var136.Size = Vector2.new(640, 480)
-   var136.MinSize = Vector2.new(250, 200)
-   var136.OnClose = arg1.onClose
-   var136.ShouldRestore = true
-   var136.OnWidgetRestored = arg1.onRestore
+   var121.Toolbar = var1.createElement(var4, var125)
+   local var135 = {}
+   var135.Id = "ActivityFeed"
+   var135.Enabled = arg1.state.enabled
+   var135.Title = arg1.localization:getText("Plugin", "Name")
+   var135.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var135.InitialDockState = Enum.InitialDockState.Left
+   var135.Size = Vector2.new(640, 480)
+   var135.MinSize = Vector2.new(250, 200)
+   var135.OnClose = arg1.onClose
+   var135.ShouldRestore = true
+   var135.OnWidgetRestored = arg1.onRestore
    var1.Change.Enabled = arg1.onWidgetEnabledChanged
-   local var160 = {}
-   local var164 = {}
-   var164.plugin = var0
-   var160.App = var1.createElement(var13, var164)
-   local var169 = {}
-   var169.StyleSheet = arg1.design
-   var160.StyleLink = var1.createElement("StyleLink", var169)
-   var122.MainWidget = var1.createElement(var3, var136, var160)
-   return var6.provide({}, var122)
+   local var159 = {}
+   local var163 = {}
+   var163.plugin = var0
+   var159.App = var1.createElement(var13, var163)
+   local var168 = {}
+   var168.StyleSheet = arg1.design
+   var159.StyleLink = var1.createElement("StyleLink", var168)
+   var121.MainWidget = var1.createElement(var3, var135, var159)
+   return var6.provide({}, var121)
 end
 
 return var14

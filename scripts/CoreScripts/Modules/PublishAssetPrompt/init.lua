@@ -4,20 +4,11 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local renderWithCoreScriptsStyleProvider = require(script.Parent.Common.renderWithCoreScriptsStyleProvider)
 
 local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
-local UIBlox = require(CorePackages.UIBlox)
 
 local PublishAssetPromptApp = require(script.Components.PublishAssetPromptApp)
 local Reducer = require(script.Reducer)
@@ -33,30 +24,13 @@ function PublishAssetPrompt.new()
 		Rodux.thunkMiddleware,
 	})
 
-	if GetFFlagEnableStyleProviderCleanUp() then
-		self.root = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
-		}, {
-			ThemeProvider = renderWithCoreScriptsStyleProvider({
-				PublishAssetPromptApp = Roact.createElement(PublishAssetPromptApp),
-			}),
-		})
-	else
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-
-		self.root = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
-		}, {
-			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
-				PublishAssetPromptApp = Roact.createElement(PublishAssetPromptApp),
-			}),
-		})
-	end
+	self.root = Roact.createElement(RoactRodux.StoreProvider, {
+		store = self.store,
+	}, {
+		ThemeProvider = renderWithCoreScriptsStyleProvider({
+			PublishAssetPromptApp = Roact.createElement(PublishAssetPromptApp),
+		}),
+	})
 
 	self.element = Roact.mount(self.root, CoreGui, "PublishAssetPrompt")
 

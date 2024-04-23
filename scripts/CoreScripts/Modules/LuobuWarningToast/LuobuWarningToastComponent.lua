@@ -8,17 +8,7 @@ local SlideFromTopToast = UIBlox.App.Dialog.Toast
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local ContentProvider = game:GetService("ContentProvider")
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme
-local AppFont
-local renderWithCoreScriptsStyleProvider
-if not GetFFlagEnableStyleProviderCleanUp() then
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-else
-	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
-end
+local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local LuobuWarningToastComponent = Roact.PureComponent:extend("LuobuWarningToastComponent")
 local WarningContent = RobloxTranslator:FormatByKey("InGame.CommonUI.Message.LuobuGameJoinWarning")
@@ -26,13 +16,6 @@ local TOAST_DURATION = 5
 local LUOBU_WARNING_TOAST_DISPLAY_ORDER = 9
 
 function LuobuWarningToastComponent:init()
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		self.appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-	end
-
 	self.state = {
 		isLoaded = false,
 	}
@@ -82,17 +65,9 @@ function LuobuWarningToastComponent:render()
 		}),
 	})
 
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		return Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = self.appStyle,
-		}, {
-			RobloxCaptureNotificationGui = robloxCaptureNotificationGui,
-		})
-	else
-		return renderWithCoreScriptsStyleProvider({
-			RobloxCaptureNotificationGui = robloxCaptureNotificationGui,
-		})
-	end
+	return renderWithCoreScriptsStyleProvider({
+		RobloxCaptureNotificationGui = robloxCaptureNotificationGui,
+	})
 end
 
 return LuobuWarningToastComponent

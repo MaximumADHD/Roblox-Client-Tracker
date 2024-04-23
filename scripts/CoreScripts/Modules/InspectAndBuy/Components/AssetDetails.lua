@@ -11,6 +11,8 @@ local DetailsThumbnail = require(InspectAndBuyFolder.Components.DetailsThumbnail
 local DetailsDescription = require(InspectAndBuyFolder.Components.DetailsDescription)
 local DetailsButtons = require(InspectAndBuyFolder.Components.DetailsButtons)
 local TryOnViewport = require(InspectAndBuyFolder.Components.TryOnViewport)
+local OpenOverlay = require(InspectAndBuyFolder.Actions.OpenOverlay)
+local OverlayEnum = require(InspectAndBuyFolder.Enums.Overlay)
 local GetAssetBundles = require(InspectAndBuyFolder.Thunks.GetAssetBundles)
 local ReportOpenDetailsPage = require(InspectAndBuyFolder.Thunks.ReportOpenDetailsPage)
 local GetEconomyProductInfo = require(InspectAndBuyFolder.Thunks.GetEconomyProductInfo)
@@ -77,6 +79,7 @@ function AssetDetails:getInfoRowProps()
 		infoData = assetInfo.creatorName or "",
 		hasVerifiedBadge = assetInfo.creatorHasVerifiedBadge,
 		LayoutOrder = 1,
+		Selectable = if FFlagAttributionInInspectAndBuy then false else nil,
 	}
 
 	-- Attribution Row
@@ -88,7 +91,6 @@ function AssetDetails:getInfoRowProps()
 		local experienceInfo = self.props.creatingExperiences[creatingUniverseId]
 		-- Make sure we have information in the store
 		if experienceInfo then
-
 			local playabilityStatus = experienceInfo.playabilityStatus
 
 			if AttributionConstants.ShowPlayableAttributionMapper[playabilityStatus] then
@@ -97,9 +99,12 @@ function AssetDetails:getInfoRowProps()
 				attributionRow = {
 					infoName = RobloxTranslator:FormatByKeyForLocale("Feature.Catalog.Label.Attribution", locale),
 					infoData = gameName,
-					--TODO AVBURST-12699: Launch attribution experience
-					-- onActivate = function() end,
+					onActivate = if FFlagAttributionInInspectAndBuy then function()
+						self.props.openOverlay(OverlayEnum.AttributionTraversal, experienceInfo)
+					end else nil,
 					LayoutOrder = 2,
+					[Roact.Ref] = if FFlagAttributionInInspectAndBuy then self.attributionRef else nil,
+					Selectable = if FFlagAttributionInInspectAndBuy then true else nil,
 				}
 			end
 		end
@@ -126,6 +131,7 @@ function AssetDetails:getInfoRowProps()
 		infoName = RobloxTranslator:FormatByKeyForLocale("Feature.Catalog.Label.CategoryType", locale),
 		infoData = categoryString,
 		LayoutOrder = 3,
+		Selectable = if FFlagAttributionInInspectAndBuy then false else nil,
 	}
 
 	local rowData = {
@@ -141,6 +147,10 @@ function AssetDetails:init()
 	self.state = {
 		scrollingEnabled = true,
 	}
+
+	if FFlagAttributionInInspectAndBuy then
+		self.attributionRef = Roact.createRef()
+	end
 end
 
 function AssetDetails:willUpdate(nextProps)
@@ -390,6 +400,9 @@ end, function(dispatch)
 		getCollectibleResellableInstances = function(collectibleItemId, userId)
 			dispatch(GetCollectibleResellableInstances(collectibleItemId, userId))
 		end,
+		openOverlay = if FFlagAttributionInInspectAndBuy then function(overlay, overlayProps)
+			dispatch(OpenOverlay(overlay, overlayProps))
+		end else nil,
 		getItemDetails = function(itemId, itemType)
 			dispatch(GetItemDetails(itemId, itemType))
 		end

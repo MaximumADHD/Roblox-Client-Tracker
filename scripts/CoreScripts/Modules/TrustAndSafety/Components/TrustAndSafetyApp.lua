@@ -4,17 +4,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local TnsModule = script.Parent.Parent
@@ -37,12 +28,6 @@ TrustAndSafetyApp.validateProps = t.strictInterface({
 })
 
 function TrustAndSafetyApp:init()
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		self.appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-	end
 end
 
 function TrustAndSafetyApp:render()
@@ -68,17 +53,9 @@ function TrustAndSafetyApp:render()
 			}),
 		}),
 	})
-	if GetFFlagEnableStyleProviderCleanUp() then
-		return renderWithCoreScriptsStyleProvider({
-			VoiceStateContextProvider = voiceStateContextProvider,
-		})
-	else
-		return Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = self.appStyle,
-		}, {
-			VoiceStateContextProvider = voiceStateContextProvider,
-		})
-	end
+	return renderWithCoreScriptsStyleProvider({
+		VoiceStateContextProvider = voiceStateContextProvider,
+	})
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state, props)

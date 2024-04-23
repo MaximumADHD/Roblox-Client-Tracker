@@ -18,4 +18,5 @@ var0.MaxMaterialListSize = 5
 var0.MaxImportVolume = 274877906944
 var0.RegionNormalization = 256
 var0.BrushNormalization = 64
+var0.PlacementSnap = 6
 return var0

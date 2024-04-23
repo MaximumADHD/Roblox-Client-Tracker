@@ -16,21 +16,21 @@ local function fun0()
    if not plugin.HostDataModelTypeIsCurrent then
    end
    local var0 = var3.new()
-   local var289 = require(var0.Src.Model.Tracking.VisualizationModeServiceTracker).new()
-   local var295 = require(var0.Src.Model.VisualizationModeCombinerClient).new(plugin, var0:add())
+   local var236 = require(var0.Src.Model.Tracking.VisualizationModeServiceTracker).new()
+   local var242 = require(var0.Src.Model.VisualizationModeCombinerClient).new(plugin, var0:add())
    var0:add()
    local var3 = require(var0.Src.Modes.StudioVisualizationModeProvider).new()
    var0:add()
    if var2.MountAssetReactTree then
-      local var314 = var0.Src
-      var314 = require(var314.VisualizationModesPlugin)
-      local var318 = {}
-      local var319 = plugin
-      var318.Plugin = var319
+      local var261 = var0.Src
+      var261 = require(var261.VisualizationModesPlugin)
+      local var265 = {}
+      local var266 = plugin
+      var265.Plugin = var266
       local var3 = Instance.new("ScreenGui")
-      var319 = var3
-      local var4 = require(var0.Packages.ReactRoblox).createRoot(var319)
-      var4:render(require(var0.Packages.React).createElement(var314, var318))
+      var266 = var3
+      local var4 = require(var0.Packages.ReactRoblox).createRoot(var266)
+      var4:render(require(var0.Packages.React).createElement(var261, var265))
       var0:giveTask(function()
          var4:unmount()
       end)

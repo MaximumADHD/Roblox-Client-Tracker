@@ -21,9 +21,12 @@ local GamepadEnabled = require(Reducers.GamepadEnabled)
 local StoreId = require(Reducers.StoreId)
 local CollectibleResellableInstances = require(Reducers.CollectibleResellableInstances)
 local CreatingExperiences = require(Reducers.CreatingExperiences)
+local Overlay = require(Reducers.Overlay)
 local InspectAndBuyFolder = script.Parent.Parent
+
 local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 
 return Rodux.combineReducers({
 	view = View,
@@ -46,4 +49,5 @@ return Rodux.combineReducers({
 	storeId = StoreId,
 	collectibleResellableInstances = CollectibleResellableInstances,
 	creatingExperiences = CreatingExperiences,
+	overlay = if FFlagAttributionInInspectAndBuy then Overlay else nil,
 })

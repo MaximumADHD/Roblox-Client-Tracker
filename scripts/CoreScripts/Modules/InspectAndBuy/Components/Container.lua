@@ -6,6 +6,7 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local InitialView = require(InspectAndBuyFolder.Components.InitialView)
 local AssetDetails = require(InspectAndBuyFolder.Components.AssetDetails)
 local CloseButton = require(InspectAndBuyFolder.Components.CloseButton)
+local Overlay = require(InspectAndBuyFolder.Components.Overlay)
 local NoInventoryNotice = require(InspectAndBuyFolder.Components.NoInventoryNotice)
 local Colors = require(InspectAndBuyFolder.Colors)
 local Constants = require(InspectAndBuyFolder.Constants)
@@ -17,6 +18,8 @@ local TopBarConstants = require(Modules.TopBar.Constants)
 
 local screenSideOffset = TopBarConstants.ScreenSideOffset
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+
+local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
 
 local Container = Roact.PureComponent:extend("Container")
 
@@ -104,6 +107,7 @@ function Container:render()
 						CornerRadius = Theme.DefaultCornerRadius,
 					})
 					else nil,
+				Overlay = if FFlagAttributionInInspectAndBuy then Roact.createElement(Overlay) else nil,
 				MainContainer = Roact.createElement("ImageButton", {
 					AnchorPoint = viewMapping.ContainerAnchorPoint,
 					Size = viewMapping.ContainerSize,

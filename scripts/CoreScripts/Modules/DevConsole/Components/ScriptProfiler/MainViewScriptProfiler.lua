@@ -38,6 +38,18 @@ local formatFreq = ProfilerUtil.formatFrequency
 
 local Actions = script.Parent.Parent.Parent.Actions
 local SetScriptProfilerState = require(Actions.SetScriptProfilerState)
+local SetIsProfiling = require(script.Parent.Actions.SetIsProfiling)
+local SetData = require(script.Parent.Actions.SetData)
+local SetThreads = require(script.Parent.Actions.SetThreads)
+local SetTimerState = require(script.Parent.Actions.SetTimerState)
+local ClearStateForNewProfilingSession = require(script.Parent.Actions.ClearStateForNewProfilingSession)
+local SetAverage = require(script.Parent.Actions.SetAverage)
+local SetFrequency = require(script.Parent.Actions.SetFrequency)
+local SetDataView = require(script.Parent.Actions.SetDataView)
+local SetLiveUpdate = require(script.Parent.Actions.SetLiveUpdate)
+local SetShowPlugins = require(script.Parent.Actions.SetShowPlugins)
+local SetShowGC = require(script.Parent.Actions.SetShowGC)
+local SetSearchData = require(script.Parent.Actions.SetSearchData)
 
 local Constants = require(script.Parent.Parent.Parent.Constants)
 local PADDING = Constants.GeneralFormatting.MainRowPadding
@@ -66,6 +78,7 @@ local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHid
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 local FFlagScriptProfilerSimpleUI = game:DefineFastFlag("ScriptProfilerSimpleUI", false)
 local FFlagScriptProfilerExport = game:DefineFastFlag("ScriptProfilerExport", false)
+local FFlagScriptProfilerBetterStateManagement = game:DefineFastFlag("ScriptProfilerBetterStateManagement", false)
 
 local FIntScriptProfilerLiveUpdateIntervalMS = game:DefineFastInt("ScriptProfilerLiveUpdateIntervalMS", 1000)
 
@@ -287,7 +300,7 @@ function MainViewScriptProfiler:UpdateState(isClient, newState)
 	end
 end
 
-local function OnNewProfilingData(state, jsonString: string?)
+local function OnNewProfilingData(state, oldState, jsonString: string?)
 	state.serializedData = jsonString
 	if FFlagScriptProfilerUseNewAPI then
 		state.data = ScriptProfiler:DeserializeJSON(jsonString)
@@ -305,16 +318,19 @@ local function OnNewProfilingData(state, jsonString: string?)
 
 	if FFlagScriptProfilerRememberExpandedNodes then
 		local count = if state.data then #state.data.Nodes else 0
+		local oldCount = if oldState.data then #oldState.data.Nodes else 0
 		local newExpandedNodes = table.create(count, false)
-		local oldExpandedNodes = state.expandedNodes
-		table.move(oldExpandedNodes, 1, count, 1, newExpandedNodes)
+		local oldExpandedNodes = oldState.expandedNodes
+		table.move(oldExpandedNodes, 1, oldCount, 1, newExpandedNodes)
 		state.expandedNodes = newExpandedNodes
 	end
 end
 
 function MainViewScriptProfiler:init()
 	local function StartScriptProfiling(isClient, state)
-		table.clear(state.expandedNodes)
+		if not FFlagScriptProfilerBetterStateManagement then
+			table.clear(state.expandedNodes)
+		end
 
 		if FFlagScriptProfilerUseNewAPI then
 			if isClient then
@@ -361,13 +377,21 @@ function MainViewScriptProfiler:init()
 			return
 		end
 
-		task.delay(0.1, function()
+		if FFlagScriptProfilerBetterStateManagement then
 			if isClient then
 				ScriptProfiler:ClientRequestData(Players.LocalPlayer :: Player)
 			else
 				ScriptProfiler:ServerRequestData()
 			end
-		end)
+		else
+			task.delay(0.1, function()
+				if isClient then
+					ScriptProfiler:ClientRequestData(Players.LocalPlayer :: Player)
+				else
+					ScriptProfiler:ServerRequestData()
+				end
+			end)
+		end
 	end
 
 	local function StopTimedProfiling(isClient)
@@ -376,15 +400,26 @@ function MainViewScriptProfiler:init()
 		if state.isProfiling then
 			local jsonString = StopScriptProfiling(isClient)
 
-			local newState = table.clone(state)
+			if FFlagScriptProfilerBetterStateManagement then
+				self.props.dispatchSetIsProfiling(isClient, false)
 
-			newState.isProfiling = false
+				if not FFlagScriptProfilerUseNewAPI then
+					local newState = {}
+					OnNewProfilingData(newState :: any, state, jsonString)
 
-			if not FFlagScriptProfilerUseNewAPI then
-				OnNewProfilingData(newState, jsonString)
+					self.props.dispatchSetData(isClient, newState)
+				end
+			else
+				local newState = table.clone(state)
+
+				newState.isProfiling = false
+
+				if not FFlagScriptProfilerUseNewAPI then
+					OnNewProfilingData(newState, newState, jsonString)
+				end
+
+				self:UpdateState(isClient, newState)
 			end
-
-			self:UpdateState(isClient, newState)
 
 			RequestNewData(isClient)
 		end
@@ -407,9 +442,13 @@ function MainViewScriptProfiler:init()
 				break
 			end
 
-			local newState = table.clone(state)
-			newState.timedProfilingCountdown = countdown - DELTA
-			self:UpdateState(isClient, newState)
+			if FFlagScriptProfilerBetterStateManagement then
+				self.props.dispatchSetTimer(isClient, { timedProfilingCountdown = countdown - DELTA })
+			else
+				local newState = table.clone(state)
+				newState.timedProfilingCountdown = countdown - DELTA
+				self:UpdateState(isClient, newState)
+			end
 		end
 	end
 
@@ -422,12 +461,21 @@ function MainViewScriptProfiler:init()
 					RequestNewData(isClient)
 				else
 					if isClient then
-						local newState = table.clone(state)
-						local jsonString = ScriptContext:GetScriptProfilingData()
+						if FFlagScriptProfilerBetterStateManagement then
+							local newState = {}
+							local jsonString = ScriptContext:GetScriptProfilingData()
 
-						OnNewProfilingData(newState, jsonString)
+							OnNewProfilingData(newState :: any, state, jsonString)
 
-						self:UpdateState(isClient, newState)
+							self.props.dispatchSetData(isClient, newState)
+						else
+							local newState = table.clone(state)
+							local jsonString = ScriptContext:GetScriptProfilingData()
+
+							OnNewProfilingData(newState, newState, jsonString)
+
+							self:UpdateState(isClient, newState)
+						end
 					else
 						local clientReplicator = getClientReplicator()
 						if clientReplicator then
@@ -444,28 +492,51 @@ function MainViewScriptProfiler:init()
 
 		StartScriptProfiling(isClientView, state)
 
-		local newState = table.clone(state)
-		newState.isProfiling = true
-		newState.rootNode = 0
-		newState.rootFunc = 0
-		newState.rootNodeName = nil
-		newState.searchFilter = {}
+		if FFlagScriptProfilerBetterStateManagement then
+			self.props.dispatchSetIsProfiling(isClientView, true)
+			self.props.dispatchClearStateForNewSession(isClientView)
 
-		if state.timedProfilingDuration > 0 then
-			newState.timedProfilingCountdown = state.timedProfilingDuration
+			local threads = {}
 
-			newState.timedProfilingThread = task.delay(state.timedProfilingDuration, function()
-				StopTimedProfiling(isClientView)
-			end)
+			if state.timedProfilingDuration > 0 then
+				self.props.dispatchSetTimer(isClientView, { timedProfilingCountdown = state.timedProfilingDuration })
 
-			newState.timedProfilingTimerThread = task.spawn(function()
-				UpdateTimedProfilingTimer(isClientView)
-			end)
+				threads.timedProfilingThread = task.delay(state.timedProfilingDuration, function()
+					StopTimedProfiling(isClientView)
+				end)
+
+				threads.timedProfilingTimerThread = task.spawn(function()
+					UpdateTimedProfilingTimer(isClientView)
+				end)
+			end
+
+			threads.liveUpdateThread = task.spawn(LiveUpdate, isClientView)
+
+			self.props.dispatchSetThreads(isClientView, threads)
+		else
+			local newState = table.clone(state)
+			newState.isProfiling = true
+			newState.rootNode = 0
+			newState.rootFunc = 0
+			newState.rootNodeName = nil
+			newState.searchFilter = {}
+
+			if state.timedProfilingDuration > 0 then
+				newState.timedProfilingCountdown = state.timedProfilingDuration
+
+				newState.timedProfilingThread = task.delay(state.timedProfilingDuration, function()
+					StopTimedProfiling(isClientView)
+				end)
+
+				newState.timedProfilingTimerThread = task.spawn(function()
+					UpdateTimedProfilingTimer(isClientView)
+				end)
+			end
+
+			newState.liveUpdateThread = task.spawn(LiveUpdate, isClientView)
+
+			self:UpdateState(isClientView, newState)
 		end
-
-		newState.liveUpdateThread = task.spawn(LiveUpdate, isClientView)
-
-		self:UpdateState(isClientView, newState)
 	end
 
 	self.onEndProfile = function()
@@ -473,11 +544,16 @@ function MainViewScriptProfiler:init()
 
 		local jsonString = StopScriptProfiling(isClientView)
 
-		local newState = table.clone(state)
-		newState.isProfiling = false
+		local newState
+		if FFlagScriptProfilerBetterStateManagement then
+			newState = {}
+		else
+			newState = table.clone(state)
+			newState.isProfiling = false
+		end
 
 		if not FFlagScriptProfilerUseNewAPI then
-			OnNewProfilingData(newState, jsonString)
+			OnNewProfilingData(newState :: any, newState :: any, jsonString)
 		end
 
 		if state.timedProfilingThread then
@@ -495,7 +571,16 @@ function MainViewScriptProfiler:init()
 			newState.liveUpdateThread = nil
 		end
 
-		self:UpdateState(isClientView, newState)
+		if FFlagScriptProfilerBetterStateManagement then
+			self.props.dispatchSetThreads(isClientView, {})
+			self.props.dispatchSetIsProfiling(isClientView, false)
+
+			if not FFlagScriptProfilerUseNewAPI then
+				self.props.dispatchSetData(isClientView, newState)
+			end
+		else
+			self:UpdateState(isClientView, newState)
+		end
 
 		RequestNewData(isClientView)
 	end
@@ -515,9 +600,13 @@ function MainViewScriptProfiler:init()
 			duration = 0
 		end
 
-		local newState = table.clone(state)
-		newState.timedProfilingDuration = duration
-		self:UpdateState(isClientView, newState)
+		if FFlagScriptProfilerBetterStateManagement then
+			self.props.dispatchSetTimer(isClientView, { timedProfilingDuration = duration })
+		else
+			local newState = table.clone(state)
+			newState.timedProfilingDuration = duration
+			self:UpdateState(isClientView, newState)
+		end
 	end
 
 	self.toggleAverage = function()
@@ -537,9 +626,13 @@ function MainViewScriptProfiler:init()
 			average = 0
 		end
 
-		local newState = table.clone(state)
-		newState.average = average
-		self:UpdateState(isClientView, newState)
+		if FFlagScriptProfilerBetterStateManagement then
+			self.props.dispatchSetAverage(isClientView, average)
+		else
+			local newState = table.clone(state)
+			newState.average = average
+			self:UpdateState(isClientView, newState)
+		end
 	end
 
 	self.toggleUnits = function()
@@ -557,9 +650,13 @@ function MainViewScriptProfiler:init()
 			freq = 1000
 		end
 
-		local newState = table.clone(state)
-		newState.frequency = freq
-		self:UpdateState(isClientView, newState)
+		if FFlagScriptProfilerBetterStateManagement then
+			self.props.dispatchSetFrequency(isClientView, freq)
+		else
+			local newState = table.clone(state)
+			newState.frequency = freq
+			self:UpdateState(isClientView, newState)
+		end
 	end
 
 	self.onClientButton = function()
@@ -573,42 +670,75 @@ function MainViewScriptProfiler:init()
 	self.dataViewDropDownCallback = function(index)
 		local isClientView, state = self:getActiveState()
 
-		local newState = table.clone(state)
+		if FFlagScriptProfilerBetterStateManagement then
+			local isFunctionsView = state.isFunctionsView
 
-		if index == 1 then
-			newState.isFunctionsView = false
-		elseif index == 2 then
-			newState.isFunctionsView = true
+			if index == 1 then
+				isFunctionsView = false
+			elseif index == 2 then
+				isFunctionsView = true
+			end
+
+			self.props.dispatchSetDataView(isClientView, isFunctionsView)
+		else
+			local newState = table.clone(state)
+
+			if index == 1 then
+				newState.isFunctionsView = false
+			elseif index == 2 then
+				newState.isFunctionsView = true
+			end
+
+			self:UpdateState(isClientView, newState)
 		end
-
-		self:UpdateState(isClientView, newState)
 	end
 
 	self.onCheckBoxChanged = function(boxName, newValue)
-		local isClientView, state = self:getActiveState()
+		if FFlagScriptProfilerBetterStateManagement then
+			local isClientView = self.props.isClientView
 
-		local newState = table.clone(state)
+			if boxName == LIVE_UPDATE_TEXT then
+				self.props.dispatchSetLiveUpdate(isClientView, newValue)
+			elseif boxName == SHOW_PLUGINS_TEXT then
+				self.props.dispatchSetShowPlugins(isClientView, newValue)
+			elseif boxName == SHOW_GC_TEXT then
+				self.props.dispatchSetShowGC(isClientView, newValue)
+			end
+		else
+			local isClientView, state = self:getActiveState()
 
-		if boxName == LIVE_UPDATE_TEXT then
-			newState.liveUpdate = newValue
-		elseif boxName == SHOW_PLUGINS_TEXT then
-			newState.showPlugins = newValue
-		elseif boxName == SHOW_GC_TEXT then
-			newState.showGC = newValue
+			local newState = table.clone(state)
+
+			if boxName == LIVE_UPDATE_TEXT then
+				newState.liveUpdate = newValue
+			elseif boxName == SHOW_PLUGINS_TEXT then
+				newState.showPlugins = newValue
+			elseif boxName == SHOW_GC_TEXT then
+				newState.showGC = newValue
+			end
+
+			self:UpdateState(isClientView, newState)
 		end
-
-		self:UpdateState(isClientView, newState)
 	end
 
 	self.onSearchTermChanged = function(newSearchTerm)
 		local isClientView, state = self:getActiveState()
 
-		local newState = table.clone(state)
-		newState.searchTerm = newSearchTerm
-		local flat, graph = generateSearchFilters(state, newSearchTerm)
-		newState.searchFilterFlat = flat or {}
-		newState.searchFilterGraph = graph or {}
-		self:UpdateState(isClientView, newState)
+		if FFlagScriptProfilerBetterStateManagement then
+			local flat, graph = generateSearchFilters(state, newSearchTerm)
+
+			self.props.dispatchSetSearchData(
+				isClientView,
+				{ searchTerm = newSearchTerm, searchFilterFlat = flat or {}, searchFilterGraph = graph or {} }
+			)
+		else
+			local newState = table.clone(state)
+			newState.searchTerm = newSearchTerm
+			local flat, graph = generateSearchFilters(state, newSearchTerm)
+			newState.searchFilterFlat = flat or {}
+			newState.searchFilterGraph = graph or {}
+			self:UpdateState(isClientView, newState)
+		end
 	end
 
 	self.utilRef = Roact.createRef()
@@ -633,19 +763,37 @@ function MainViewScriptProfiler:didMount()
 		self.scriptProfilerConnection = ScriptProfiler.OnNewData:Connect(function(player, jsonString)
 			local isClient = (player ~= nil)
 
-			local newState = table.clone(self:getState(isClient))
+			if FFlagScriptProfilerBetterStateManagement then
+				local oldState = self:getState(isClient)
+				local newState = {}
 
-			OnNewProfilingData(newState, jsonString)
+				OnNewProfilingData(newState :: any, oldState, jsonString)
 
-			self:UpdateState(isClient, newState)
+				self.props.dispatchSetData(isClient, newState)
+			else
+				local newState = table.clone(self:getState(isClient))
+
+				OnNewProfilingData(newState, newState, jsonString)
+
+				self:UpdateState(isClient, newState)
+			end
 		end)
 	else
 		self.statsConnector = self.props.ServerProfilingData:Signal():Connect(function(jsonString)
-			local newState = table.clone(self.props.server)
+			if FFlagScriptProfilerBetterStateManagement then
+				local oldState = self:getState(false)
+				local newState = {}
 
-			OnNewProfilingData(newState, jsonString)
+				OnNewProfilingData(newState :: any, oldState, jsonString)
 
-			self:UpdateState(false, newState)
+				self.props.dispatchSetData(false, newState)
+			else
+				local newState = table.clone(self.props.server)
+
+				OnNewProfilingData(newState, newState, jsonString)
+
+				self:UpdateState(false, newState)
+			end
 		end)
 	end
 end
@@ -1025,6 +1173,54 @@ local function mapDispatchToProps(dispatch)
 	return {
 		dispatchSetScriptProfilerState = function(isClientView, usePercentages, clientSessionState, serverSessionState)
 			dispatch(SetScriptProfilerState(isClientView, usePercentages, clientSessionState, serverSessionState))
+		end,
+
+		dispatchSetIsProfiling = function(isClient, isProfiling)
+			dispatch(SetIsProfiling(isClient, isProfiling))
+		end,
+
+		dispatchSetData = function(isClient, state)
+			dispatch(SetData(isClient, state))
+		end,
+
+		dispatchSetThreads = function(isClient, state)
+			dispatch(SetThreads(isClient, state))
+		end,
+
+		dispatchSetTimer = function(isClient, state)
+			dispatch(SetTimerState(isClient, state))
+		end,
+
+		dispatchClearStateForNewSession = function(isClient)
+			dispatch(ClearStateForNewProfilingSession(isClient))
+		end,
+
+		dispatchSetAverage = function(isClient, average)
+			dispatch(SetAverage(isClient, average))
+		end,
+
+		dispatchSetFrequency = function(isClient, frequency)
+			dispatch(SetFrequency(isClient, frequency))
+		end,
+
+		dispatchSetDataView = function(isClient, isFunctionsView)
+			dispatch(SetDataView(isClient, isFunctionsView))
+		end,
+
+		dispatchSetLiveUpdate = function(isClient, liveUpdate)
+			dispatch(SetLiveUpdate(isClient, liveUpdate))
+		end,
+
+		dispatchSetShowPlugins = function(isClient, showPlugins)
+			dispatch(SetShowPlugins(isClient, showPlugins))
+		end,
+
+		dispatchSetShowGC = function(isClient, showGC)
+			dispatch(SetShowGC(isClient, showGC))
+		end,
+
+		dispatchSetSearchData = function(isClient, state)
+			dispatch(SetSearchData(isClient, state))
 		end,
 
 		dispatchStartExport = function()

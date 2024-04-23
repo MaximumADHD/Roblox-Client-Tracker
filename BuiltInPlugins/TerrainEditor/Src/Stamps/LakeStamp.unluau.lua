@@ -40,30 +40,61 @@ function var4.getLakeHeight(arg1, arg2, arg3, arg4)
 end
 
 function var4.generateNoiseMap(arg1)
-   local var0 = arg1._payload[var3.BuildSettings][var2.BankSize]
+   local var0 = arg1._payload[var3.BuildSettings][var2.NoiseScale]
+   local var1 = arg1._payload[var3.BuildSettings][var2.NoiseStrength]
+   local var2 = arg1._payload[var3.BuildSettings][var2.AdvancedNoise].Children[var2.Offset]
+   local var3 = arg1._payload[var3.BuildSettings][var2.AdvancedNoise].Children[var2.Seed]
+   local var4 = arg1._payload[var3.BuildSettings][var2.BankSize]
    arg1._noiseMap = table.create(arg1._sliceX * arg1._sliceZ, 0)
-   if not var0 then
+   if not var4 then
       warn("BankSize not provided!")
    end
-   local var1 = 1
-   local var2 = arg1._sliceX
-   local var3 = 1
-   local var4 = 1
-   local var5 = arg1._sliceZ
-   local var6 = 1
-   local var7 = arg1._noiseMap
-   local var197 = {}
-   var197.bankSize = var0
-   var197.center2d = Vector2.new(0.5, 0.5)
-   var197.regionSize = arg1._region.Size
-   var197.slope = 22
-   var197.width = 0.45
-   local var206 = {}
-   var206.frequency = arg1._payload[var3.BuildSettings][var2.Frequency]
-   var206.amplitude = arg1._payload[var3.BuildSettings][var2.Amplitude]
-   var206.offset = arg1._payload[var3.BuildSettings][var2.AdvancedNoise].Children[var2.Offset]
-   var206.seed = arg1._payload[var3.BuildSettings][var2.AdvancedNoise].Children[var2.Seed]
-   arg1:getIndex(var1, var4) = arg1:getLakeHeight(Vector2.new(var1 / arg1._sliceX, var4 / arg1._sliceZ), var197, var206)
+   local var5 = 1
+   local var6 = arg1._sliceX
+   local var7 = 1
+   local var8 = 1
+   local var9 = arg1._sliceZ
+   local var10 = 1
+   local var11 = arg1:getIndex(var5, var8)
+   if var5 == 1 then
+      if var5 ~= arg1._sliceX then
+         if var8 == 1 then
+            if var8 == "_sliceZ" then
+               local var0 = arg1._noiseMap
+               arg1:getIndex(var5, var8) = 0
+            else
+               local var0 = arg1._noiseMap
+               local var201 = {}
+               var201.bankSize = var4
+               var201.center2d = Vector2.new(0.5, 0.5)
+               var201.regionSize = arg1._region.Size
+               var201.slope = 22
+               var201.width = 0.45
+               local var210 = {}
+               var210.frequency = var0
+               var210.amplitude = var1
+               var210.offset = var2
+               var210.seed = var3
+               arg1:getIndex(var5, var8) = arg1:getLakeHeight(Vector2.new(var5 / arg1._sliceX, var8 / arg1._sliceZ), var201, var210)
+            end
+         end
+      end
+   end
+   local var213 = arg1._noiseMap
+   arg1:getIndex(var5, var8) = 0
+   local var13 = arg1._noiseMap
+   local var223 = {}
+   var223.bankSize = var4
+   var223.center2d = Vector2.new(0.5, 0.5)
+   var223.regionSize = arg1._region.Size
+   var223.slope = 22
+   var223.width = 0.45
+   local var232 = {}
+   var232.frequency = var0
+   var232.amplitude = var1
+   var232.offset = var2
+   var232.seed = var3
+   arg1:getIndex(var5, var8) = arg1:getLakeHeight(Vector2.new(var5 / arg1._sliceX, var8 / arg1._sliceZ), var223, var232)
 end
 
 function var4.generateHeightMap(arg1)
@@ -73,10 +104,10 @@ function var4.generateHeightMap(arg1)
    local var2 = arg1._sliceZ
    local var3 = 1
    local var4 = arg1:getIndex(1, 1)
-   local var233 = 1
+   local var259 = 1
    local var5 = arg1._heightMap
-   var233 = arg1._sliceY * (var233 - math.clamp(arg1._noiseMap[var4], 65535, 1))
-   arg1:getIndex(1, 1) = math.clamp(var233, 1, arg1._sliceY)
+   var259 = arg1._sliceY * (var259 - math.clamp(arg1._noiseMap[var4], 65535, 1))
+   arg1:getIndex(1, 1) = math.clamp(var259, 1, arg1._sliceY)
 end
 
 function var4.blendHeightMap(arg1)
@@ -112,17 +143,20 @@ function var4.postProcessing(arg1)
             local var4 = arg1._sliceZ
             local var5 = 1
             if arg1._materialMap[var0][var0][var3] ~= Enum.Material.Air then
-               if arg1._occupancyMap[var0][var0][var3] == 0 then
-                  local var291 = arg1._materialMap[var0][var0]
-                  var291[1] = Enum.Material.Water
+               local var0 = arg1._occupancyMap[var0][var0][var3]
+               if var0 == 0 then
+                  local var0 = false
+               end
+               local var1 = true
+            end
+            if arg1._blendingFactorMap[arg1:getIndex(var0, var3)] <= 0 then
+               if true then
+                  local var327 = arg1._materialMap[var0][var0]
+                  var327[1] = Enum.Material.Water
                   local var1 = arg1._occupancyMap[var0][var0]
                   var1[1] = 1
                end
             end
-            local var299 = arg1._materialMap[var0][var0]
-            var299[1] = Enum.Material.Water
-            local var7 = arg1._occupancyMap[var0][var0]
-            var7[1] = 1
          end
       end
    end

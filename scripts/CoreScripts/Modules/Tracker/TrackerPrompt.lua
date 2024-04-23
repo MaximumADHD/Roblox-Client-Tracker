@@ -7,14 +7,6 @@ local Images = UIBlox.App.ImageSet.Images
 local SlideFromTopToast = UIBlox.App.Dialog.Toast
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local Roact = require(CorePackages.Roact)
@@ -57,12 +49,6 @@ local PromptSubTitle = {
 }
 
 function TrackerPrompt:init()
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		self.promptStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-	end
 	self.promptType = self.props.promptType
 end
 
@@ -82,18 +68,10 @@ function TrackerPrompt:render()
 			},
 		}),
 	})
-	local content
-	if GetFFlagEnableStyleProviderCleanUp() then
-		content = renderWithCoreScriptsStyleProvider({
-			TrackerPrompt = trackerPrompt,
-		})
-	else
-		content = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = self.promptStyle,
-		}, {
-			TrackerPrompt = trackerPrompt,
-		})
-	end
+
+	local content = renderWithCoreScriptsStyleProvider({
+		TrackerPrompt = trackerPrompt,
+	})
 
 	return Roact.createElement("ScreenGui", {
 		AutoLocalize = false,

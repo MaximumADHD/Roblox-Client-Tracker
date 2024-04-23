@@ -91,23 +91,21 @@ PROTO_7:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K4 ["createElement"]
   GETUPVAL R5 1
-  DUPTABLE R6 K12 [{"Toolbar", "Active", "Title", "Tooltip", "Icon", "OnClick", "ClickableWhenViewportHidden"}]
+  DUPTABLE R6 K11 [{"Toolbar", "Active", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
   SETTABLEKS R1 R6 K5 ["Toolbar"]
   SETTABLEKS R2 R6 K6 ["Active"]
-  LOADK R7 K13 ["activity_feed_button"]
+  LOADK R7 K12 ["activity_feed_button"]
   SETTABLEKS R7 R6 K7 ["Title"]
-  GETTABLEKS R7 R0 K14 ["localization"]
-  LOADK R9 K15 ["Plugin"]
-  LOADK R10 K16 ["Description"]
-  NAMECALL R7 R7 K17 ["getText"]
+  GETTABLEKS R7 R0 K13 ["localization"]
+  LOADK R9 K14 ["Plugin"]
+  LOADK R10 K15 ["Description"]
+  NAMECALL R7 R7 K16 ["getText"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K8 ["Tooltip"]
-  LOADK R7 K18 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
-  SETTABLEKS R7 R6 K9 ["Icon"]
-  GETTABLEKS R7 R0 K19 ["toggleEnabled"]
-  SETTABLEKS R7 R6 K10 ["OnClick"]
+  GETTABLEKS R7 R0 K17 ["toggleEnabled"]
+  SETTABLEKS R7 R6 K9 ["OnClick"]
   LOADB R7 1
-  SETTABLEKS R7 R6 K11 ["ClickableWhenViewportHidden"]
+  SETTABLEKS R7 R6 K10 ["ClickableWhenViewportHidden"]
   CALL R4 2 1
   SETTABLEKS R4 R3 K2 ["Toggle"]
   RETURN R3 1

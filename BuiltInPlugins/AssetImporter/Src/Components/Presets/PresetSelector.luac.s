@@ -231,12 +231,28 @@ PROTO_5:
   RETURN R8 1
 
 PROTO_6:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+23]
   DUPTABLE R1 K3 [{"CurrentPreset", "SettingsChanged", "Checked"}]
-  GETTABLEKS R2 R0 K4 ["currentPreset"]
+  GETTABLEKS R3 R0 K4 ["Preview"]
+  GETTABLEKS R2 R3 K5 ["currentPreset"]
   SETTABLEKS R2 R1 K0 ["CurrentPreset"]
-  GETTABLEKS R2 R0 K5 ["settingsChanged"]
+  GETTABLEKS R3 R0 K4 ["Preview"]
+  GETTABLEKS R2 R3 K6 ["settingsChanged"]
   SETTABLEKS R2 R1 K1 ["SettingsChanged"]
-  GETTABLEKS R2 R0 K6 ["importDataChecked"]
+  GETTABLEKS R3 R0 K4 ["Preview"]
+  GETTABLEKS R2 R3 K7 ["importDataChecked"]
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K2 ["Checked"]
+  RETURN R1 1
+  DUPTABLE R1 K3 [{"CurrentPreset", "SettingsChanged", "Checked"}]
+  GETTABLEKS R2 R0 K5 ["currentPreset"]
+  SETTABLEKS R2 R1 K0 ["CurrentPreset"]
+  GETTABLEKS R2 R0 K6 ["settingsChanged"]
+  SETTABLEKS R2 R1 K1 ["SettingsChanged"]
+  GETTABLEKS R2 R0 K7 ["importDataChecked"]
   JUMPIF R2 [+2]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K2 ["Checked"]
@@ -301,40 +317,46 @@ MAIN:
   GETTABLEKS R20 R21 K28 ["Actions"]
   GETTABLEKS R19 R20 K29 ["SetCurrentPreset"]
   CALL R18 1 1
-  GETTABLEKS R19 R1 K30 ["PureComponent"]
-  LOADK R21 K31 ["PresetSelector"]
-  NAMECALL R19 R19 K32 ["extend"]
-  CALL R19 2 1
-  DUPCLOSURE R20 K33 [PROTO_0]
-  DUPCLOSURE R21 K34 [PROTO_3]
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R22 R0 K25 ["Src"]
+  GETTABLEKS R21 R22 K30 ["Flags"]
+  GETTABLEKS R20 R21 K31 ["getFFlagAssetImportRefactorReducer"]
+  CALL R19 1 1
+  GETTABLEKS R20 R1 K32 ["PureComponent"]
+  LOADK R22 K33 ["PresetSelector"]
+  NAMECALL R20 R20 K34 ["extend"]
+  CALL R20 2 1
+  DUPCLOSURE R21 K35 [PROTO_0]
+  DUPCLOSURE R22 K36 [PROTO_3]
   CAPTURE VAL R16
   CAPTURE VAL R1
   CAPTURE VAL R9
   CAPTURE VAL R13
-  SETTABLEKS R21 R19 K35 ["init"]
-  DUPCLOSURE R21 K36 [PROTO_5]
+  SETTABLEKS R22 R20 K37 ["init"]
+  DUPCLOSURE R22 K38 [PROTO_5]
   CAPTURE VAL R14
   CAPTURE VAL R1
   CAPTURE VAL R10
   CAPTURE VAL R11
   CAPTURE VAL R12
-  SETTABLEKS R21 R19 K37 ["render"]
-  MOVE R21 R5
-  DUPTABLE R22 K38 [{"Localization", "Stylizer", "PresetController"}]
-  SETTABLEKS R6 R22 K12 ["Localization"]
-  SETTABLEKS R7 R22 K14 ["Stylizer"]
-  SETTABLEKS R17 R22 K27 ["PresetController"]
-  CALL R21 1 1
-  MOVE R22 R19
-  CALL R21 1 1
-  MOVE R19 R21
-  DUPCLOSURE R21 K39 [PROTO_6]
-  DUPCLOSURE R22 K40 [PROTO_8]
+  SETTABLEKS R22 R20 K39 ["render"]
+  MOVE R22 R5
+  DUPTABLE R23 K40 [{"Localization", "Stylizer", "PresetController"}]
+  SETTABLEKS R6 R23 K12 ["Localization"]
+  SETTABLEKS R7 R23 K14 ["Stylizer"]
+  SETTABLEKS R17 R23 K27 ["PresetController"]
+  CALL R22 1 1
+  MOVE R23 R20
+  CALL R22 1 1
+  MOVE R20 R22
+  DUPCLOSURE R22 K41 [PROTO_6]
+  CAPTURE VAL R19
+  DUPCLOSURE R23 K42 [PROTO_8]
   CAPTURE VAL R18
-  GETTABLEKS R23 R2 K41 ["connect"]
-  MOVE R24 R21
+  GETTABLEKS R24 R2 K43 ["connect"]
   MOVE R25 R22
-  CALL R23 2 1
-  MOVE R24 R19
-  CALL R23 1 -1
-  RETURN R23 -1
+  MOVE R26 R23
+  CALL R24 2 1
+  MOVE R25 R20
+  CALL R24 1 -1
+  RETURN R24 -1

@@ -3,14 +3,6 @@ local CoreGui = game:GetService("CoreGui")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local Roact = require(CorePackages.Roact)
@@ -50,39 +42,17 @@ function AvatarEditorPrompts.new()
 	})
 
 	self.store:dispatch(GetGameName)
-
-	if GetFFlagEnableStyleProviderCleanUp() then
-		self.root = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
+	self.root = Roact.createElement(RoactRodux.StoreProvider, {
+		store = self.store,
+	}, {
+		PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
+			policy = { AvatarEditorPromptsPolicy.Mapper },
 		}, {
-			PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
-				policy = { AvatarEditorPromptsPolicy.Mapper },
-			}, {
-				ThemeProvider = renderWithCoreScriptsStyleProvider({
-					AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp),
-				}),
+			ThemeProvider = renderWithCoreScriptsStyleProvider({
+				AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp),
 			}),
-		})
-	else
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-
-		self.root = Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.store,
-		}, {
-			PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
-				policy = { AvatarEditorPromptsPolicy.Mapper },
-			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
-				}, {
-					AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp),
-				}),
-			}),
-		})
-	end
+		}),
+	})
 
 	self.element = Roact.mount(self.root, CoreGui, "AvatarEditorPrompts")
 

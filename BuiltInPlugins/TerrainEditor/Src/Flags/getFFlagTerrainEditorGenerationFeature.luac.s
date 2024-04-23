@@ -1,6 +1,6 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["TerrainEditorGenerationFeature2"]
+  LOADK R2 K2 ["TerrainEditorGenerationFeature3"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIFNOT R0 [+16]
@@ -30,7 +30,7 @@ MAIN:
   GETTABLEKS R2 R3 K8 ["getFFlagTerrainEditorRemoveSchema"]
   CALL R1 1 1
   GETIMPORT R2 K10 [game]
-  LOADK R4 K11 ["TerrainEditorGenerationFeature2"]
+  LOADK R4 K11 ["TerrainEditorGenerationFeature3"]
   LOADB R5 0
   NAMECALL R2 R2 K12 ["DefineFastFlag"]
   CALL R2 3 0

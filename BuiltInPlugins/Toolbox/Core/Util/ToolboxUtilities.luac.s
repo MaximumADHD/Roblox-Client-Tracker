@@ -25,45 +25,50 @@ PROTO_4:
 
 PROTO_5:
   GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["HomeViewEnabledAssetTypes"]
+  RETURN R0 1
+
+PROTO_6:
+  GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["MarketplaceShouldUsePluginCreatorWhitelist"]
   JUMPIFNOTEQKNIL R0 [+3]
   LOADB R1 1
   RETURN R1 1
   RETURN R0 1
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["DisableRatings"]
   RETURN R0 1
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["HideNonRelevanceSorts"]
   RETURN R0 1
 
-PROTO_8:
+PROTO_9:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["HideVerifiedCreatorBadges"]
   RETURN R0 1
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["DisableAutocomplete"]
   RETURN R0 1
 
-PROTO_10:
+PROTO_11:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["AssetConfigMessaging"]
   JUMPIF R0 [+2]
   NEWTABLE R0 0 0
   RETURN R0 1
 
-PROTO_11:
+PROTO_12:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["CreatorMarketplaceWebUrl"]
   RETURN R0 1
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["AssetConfigDistributionQuotas"]
   JUMPIFNOTEQKNIL R0 [+4]
@@ -98,7 +103,7 @@ PROTO_12:
   FORGLOOP R2 2 [-12]
   RETURN R1 1
 
-PROTO_13:
+PROTO_14:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["AnnouncementConfiguration"]
   JUMPIFNOTEQKNIL R0 [+4]
@@ -118,37 +123,37 @@ PROTO_13:
   RETURN R1 1
   RETURN R0 1
 
-PROTO_14:
+PROTO_15:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["VerificationDocumentationUrl"]
   RETURN R0 1
 
-PROTO_15:
+PROTO_16:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["AudioPrivacyLearnMoreUrl"]
   RETURN R0 1
 
-PROTO_16:
+PROTO_17:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["VideoPrivacyLearnMoreUrl"]
   RETURN R0 1
 
-PROTO_17:
+PROTO_18:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["SafetyLearnMoreUrl"]
   RETURN R0 1
 
-PROTO_18:
+PROTO_19:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["AppealsPortalUrl"]
   RETURN R0 1
 
-PROTO_19:
+PROTO_20:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["CreatorDashboardBaseUrl"]
   RETURN R0 1
 
-PROTO_20:
+PROTO_21:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["CreatorDashboardCatalogConfigUrlExtension"]
   MOVE R3 R0
@@ -156,17 +161,17 @@ PROTO_20:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_21:
+PROTO_22:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["HideAssetConfigDistributeLearnMoreLink"]
   RETURN R0 1
 
-PROTO_22:
+PROTO_23:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["AssetTypesWithAssetConfigFiatPrice"]
   RETURN R0 1
 
-PROTO_23:
+PROTO_24:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["MarketplaceAssetConfigUrl"]
   MOVE R3 R0
@@ -174,13 +179,18 @@ PROTO_23:
   CALL R1 2 -1
   RETURN R1 -1
 
-PROTO_24:
+PROTO_25:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["MarketplaceOnboardingUrl"]
+  RETURN R0 1
+
+PROTO_26:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["OwnershipPollingWaitTimeInSec"]
   ORK R0 R1 K0 [1]
   RETURN R0 1
 
-PROTO_25:
+PROTO_27:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K1 ["OwnershipPollingMaxRetries"]
   ORK R0 R1 K0 [1]
@@ -228,204 +238,237 @@ MAIN:
   GETTABLEKS R8 R9 K18 ["getFFlagToolboxEnableFiatPurchasing"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
-  GETTABLEKS R11 R0 K13 ["Core"]
-  GETTABLEKS R10 R11 K19 ["Types"]
-  GETTABLEKS R9 R10 K20 ["AssetQuotaTypes"]
+  GETTABLEKS R12 R0 K13 ["Core"]
+  GETTABLEKS R11 R12 K14 ["Util"]
+  GETTABLEKS R10 R11 K15 ["SharedFlags"]
+  GETTABLEKS R9 R10 K19 ["getFFlagToolboxAssetConfigOnboardingLink"]
   CALL R8 1 1
-  LOADNIL R9
-  MOVE R10 R1
-  CALL R10 0 1
-  JUMPIFNOT R10 [+107]
-  DUPTABLE R10 K40 [{"ShowRobloxCreatedAssets", "DisableMarketplaceAndRecents", "DisableRatings", "HideNonRelevanceSorts", "MarketplaceAssetConfigUrl", "MarketplaceDisabledCategories", "MarketplaceShouldUsePluginCreatorWhitelist", "DisableAutocomplete", "Enabled", "VerificationDocumentationUrl", "AudioPrivacyLearnMoreUrl", "VideoPrivacyLearnMoreUrl", "SafetyLearnMoreUrl", "CreatorDashboardBaseUrl", "CreatorDashboardCatalogConfigUrlExtension", "AnnouncementConfiguration", "AppealsPortalUrl", "OwnershipPollingWaitTimeInSec", "OwnershipPollingMaxRetries"}]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K21 ["ShowRobloxCreatedAssets"]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K22 ["DisableMarketplaceAndRecents"]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K23 ["DisableRatings"]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K24 ["HideNonRelevanceSorts"]
-  MOVE R12 R5
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  LOADK R11 K41 ["https://create.roblox.com/dashboard/creations/store/%s/configure"]
-  JUMP [+1]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R13 R0 K13 ["Core"]
+  GETTABLEKS R12 R13 K14 ["Util"]
+  GETTABLEKS R11 R12 K15 ["SharedFlags"]
+  GETTABLEKS R10 R11 K20 ["getFFlagEnablePluginHomeview"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R13 R0 K13 ["Core"]
+  GETTABLEKS R12 R13 K21 ["Types"]
+  GETTABLEKS R11 R12 K22 ["AssetQuotaTypes"]
+  CALL R10 1 1
   LOADNIL R11
-  SETTABLEKS R11 R10 K25 ["MarketplaceAssetConfigUrl"]
-  LOADK R11 K42 ["FreePlugins;PaidPlugins;Plugins;FreeVideo"]
-  SETTABLEKS R11 R10 K26 ["MarketplaceDisabledCategories"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K27 ["MarketplaceShouldUsePluginCreatorWhitelist"]
-  LOADB R11 0
-  SETTABLEKS R11 R10 K28 ["DisableAutocomplete"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K29 ["Enabled"]
-  LOADK R11 K43 ["https://create.roblox.com/docs/production/publishing/creator-marketplace#verifying-your-account"]
-  SETTABLEKS R11 R10 K30 ["VerificationDocumentationUrl"]
-  LOADK R11 K44 ["https://devforum.roblox.com/t/action-needed-upcoming-changes-to-asset-privacy-for-audio/1701697"]
-  SETTABLEKS R11 R10 K31 ["AudioPrivacyLearnMoreUrl"]
-  SETTABLEKS R4 R10 K32 ["VideoPrivacyLearnMoreUrl"]
-  LOADK R11 K45 ["https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use"]
-  SETTABLEKS R11 R10 K33 ["SafetyLearnMoreUrl"]
+  MOVE R12 R1
+  CALL R12 0 1
+  JUMPIFNOT R12 [+118]
+  DUPTABLE R12 K44 [{"ShowRobloxCreatedAssets", "DisableMarketplaceAndRecents", "DisableRatings", "HideNonRelevanceSorts", "HomeViewEnabledAssetTypes", "MarketplaceAssetConfigUrl", "MarketplaceDisabledCategories", "MarketplaceOnboardingUrl", "MarketplaceShouldUsePluginCreatorWhitelist", "DisableAutocomplete", "Enabled", "VerificationDocumentationUrl", "AudioPrivacyLearnMoreUrl", "VideoPrivacyLearnMoreUrl", "SafetyLearnMoreUrl", "CreatorDashboardBaseUrl", "CreatorDashboardCatalogConfigUrlExtension", "AnnouncementConfiguration", "AppealsPortalUrl", "OwnershipPollingWaitTimeInSec", "OwnershipPollingMaxRetries"}]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K23 ["ShowRobloxCreatedAssets"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K24 ["DisableMarketplaceAndRecents"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K25 ["DisableRatings"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K26 ["HideNonRelevanceSorts"]
+  LOADK R13 K45 ["Model;Audio;Plugin"]
+  SETTABLEKS R13 R12 K27 ["HomeViewEnabledAssetTypes"]
+  MOVE R14 R5
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  LOADK R13 K46 ["https://create.roblox.com/dashboard/creations/store/%s/configure"]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K28 ["MarketplaceAssetConfigUrl"]
+  LOADK R13 K47 ["FreePlugins;PaidPlugins;Plugins;FreeVideo"]
+  SETTABLEKS R13 R12 K29 ["MarketplaceDisabledCategories"]
+  MOVE R14 R8
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  LOADK R13 K48 ["https://create.roblox.com/settings/eligibility/priced-assets"]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K30 ["MarketplaceOnboardingUrl"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K31 ["MarketplaceShouldUsePluginCreatorWhitelist"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K32 ["DisableAutocomplete"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K33 ["Enabled"]
+  LOADK R13 K49 ["https://create.roblox.com/docs/production/publishing/creator-marketplace#verifying-your-account"]
+  SETTABLEKS R13 R12 K34 ["VerificationDocumentationUrl"]
+  LOADK R13 K50 ["https://devforum.roblox.com/t/action-needed-upcoming-changes-to-asset-privacy-for-audio/1701697"]
+  SETTABLEKS R13 R12 K35 ["AudioPrivacyLearnMoreUrl"]
+  SETTABLEKS R4 R12 K36 ["VideoPrivacyLearnMoreUrl"]
+  LOADK R13 K51 ["https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use"]
+  SETTABLEKS R13 R12 K37 ["SafetyLearnMoreUrl"]
   JUMPIF R2 [+1]
   JUMPIFNOT R3 [+2]
-  LOADK R11 K46 ["https://create.roblox.com/dashboard"]
+  LOADK R13 K52 ["https://create.roblox.com/dashboard"]
   JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K34 ["CreatorDashboardBaseUrl"]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K38 ["CreatorDashboardBaseUrl"]
   JUMPIFNOT R2 [+2]
-  LOADK R11 K47 ["/creations/catalog/%d/configure"]
+  LOADK R13 K53 ["/creations/catalog/%d/configure"]
   JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K35 ["CreatorDashboardCatalogConfigUrlExtension"]
-  DUPTABLE R11 K55 [{"ButtonKey", "Date", "DescriptionKey", "HeaderKey", "Image", "LinkKey", "LinkLocation"}]
-  LOADK R12 K56 ["Button_Default"]
-  SETTABLEKS R12 R11 K48 ["ButtonKey"]
-  LOADK R12 K57 ["2022-08-08 19:45:23"]
-  SETTABLEKS R12 R11 K49 ["Date"]
-  LOADK R12 K58 ["Description_08092022"]
-  SETTABLEKS R12 R11 K50 ["DescriptionKey"]
-  LOADK R12 K59 ["Header_Default"]
-  SETTABLEKS R12 R11 K51 ["HeaderKey"]
-  LOADK R12 K60 ["rbxasset://textures/StudioToolbox/announcementConstruction.png"]
-  SETTABLEKS R12 R11 K52 ["Image"]
-  LOADK R12 K61 ["LinkText_Default"]
-  SETTABLEKS R12 R11 K53 ["LinkKey"]
-  LOADK R12 K62 ["https://roblox.com"]
-  SETTABLEKS R12 R11 K54 ["LinkLocation"]
-  SETTABLEKS R11 R10 K36 ["AnnouncementConfiguration"]
-  MOVE R12 R6
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  LOADK R11 K63 ["https://www.roblox.com/report-appeals#/"]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K39 ["CreatorDashboardCatalogConfigUrlExtension"]
+  DUPTABLE R13 K61 [{"ButtonKey", "Date", "DescriptionKey", "HeaderKey", "Image", "LinkKey", "LinkLocation"}]
+  LOADK R14 K62 ["Button_Default"]
+  SETTABLEKS R14 R13 K54 ["ButtonKey"]
+  LOADK R14 K63 ["2022-08-08 19:45:23"]
+  SETTABLEKS R14 R13 K55 ["Date"]
+  LOADK R14 K64 ["Description_08092022"]
+  SETTABLEKS R14 R13 K56 ["DescriptionKey"]
+  LOADK R14 K65 ["Header_Default"]
+  SETTABLEKS R14 R13 K57 ["HeaderKey"]
+  LOADK R14 K66 ["rbxasset://textures/StudioToolbox/announcementConstruction.png"]
+  SETTABLEKS R14 R13 K58 ["Image"]
+  LOADK R14 K67 ["LinkText_Default"]
+  SETTABLEKS R14 R13 K59 ["LinkKey"]
+  LOADK R14 K68 ["https://roblox.com"]
+  SETTABLEKS R14 R13 K60 ["LinkLocation"]
+  SETTABLEKS R13 R12 K40 ["AnnouncementConfiguration"]
+  MOVE R14 R6
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  LOADK R13 K69 ["https://www.roblox.com/report-appeals#/"]
   JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K37 ["AppealsPortalUrl"]
-  MOVE R12 R7
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  LOADN R11 3
+  LOADNIL R13
+  SETTABLEKS R13 R12 K41 ["AppealsPortalUrl"]
+  MOVE R14 R7
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  LOADN R13 3
   JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K38 ["OwnershipPollingWaitTimeInSec"]
-  MOVE R12 R7
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  LOADN R11 5
+  LOADNIL R13
+  SETTABLEKS R13 R12 K42 ["OwnershipPollingWaitTimeInSec"]
+  MOVE R14 R7
+  CALL R14 0 1
+  JUMPIFNOT R14 [+2]
+  LOADN R13 5
   JUMP [+1]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K39 ["OwnershipPollingMaxRetries"]
-  MOVE R9 R10
+  LOADNIL R13
+  SETTABLEKS R13 R12 K43 ["OwnershipPollingMaxRetries"]
+  MOVE R11 R12
   JUMP [+11]
-  GETIMPORT R10 K7 [game]
-  LOADK R12 K64 ["PluginPolicyService"]
-  NAMECALL R10 R10 K65 ["GetService"]
-  CALL R10 2 1
-  LOADK R12 K66 ["Toolbox"]
-  NAMECALL R10 R10 K67 ["getPluginPolicy"]
-  CALL R10 2 1
-  MOVE R9 R10
-  NEWTABLE R10 32 0
-  NEWCLOSURE R11 P0
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K68 ["showRobloxCreatedAssets"]
-  NEWCLOSURE R11 P1
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K69 ["disableMarketplaceAndRecents"]
-  NEWCLOSURE R11 P2
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K70 ["getMaxAudioLength"]
-  NEWCLOSURE R11 P3
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K71 ["getToolboxEnabled"]
-  NEWCLOSURE R11 P4
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K72 ["getMarketplaceDisabledCategories"]
-  NEWCLOSURE R11 P5
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K73 ["getShouldUsePluginCreatorWhitelist"]
-  NEWCLOSURE R11 P6
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K74 ["disableRatings"]
-  NEWCLOSURE R11 P7
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K75 ["getShouldHideNonRelevanceSorts"]
-  NEWCLOSURE R11 P8
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K76 ["getShouldHideVerifiedCreatorBadges"]
-  NEWCLOSURE R11 P9
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K77 ["getShouldDisableAutocomplete"]
-  NEWCLOSURE R11 P10
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K78 ["getAssetConfigMessaging"]
-  NEWCLOSURE R11 P11
-  CAPTURE REF R9
-  SETTABLEKS R11 R10 K79 ["getCreatorMarketplaceWebBaseUrl"]
-  NEWTABLE R11 0 0
-  GETIMPORT R12 K81 [pairs]
-  GETIMPORT R13 K84 [Enum.AssetType]
-  NAMECALL R13 R13 K85 ["GetEnumItems"]
-  CALL R13 1 -1
-  CALL R12 -1 3
-  FORGPREP_NEXT R12
-  GETTABLEKS R17 R16 K86 ["Name"]
-  SETTABLE R16 R11 R17
-  FORGLOOP R12 2 [-4]
-  NEWCLOSURE R12 P12
-  CAPTURE REF R9
-  CAPTURE VAL R11
-  SETTABLEKS R12 R10 K87 ["getAssetConfigDistributionQuotas"]
-  NEWCLOSURE R12 P13
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K88 ["getAnnouncementConfiguration"]
-  NEWCLOSURE R12 P14
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K89 ["getVerificationDocumentationUrl"]
-  NEWCLOSURE R12 P15
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K90 ["getAudioPrivacyLearnMoreUrl"]
-  NEWCLOSURE R12 P16
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K91 ["getVideoPrivacyLearnMoreUrl"]
-  NEWCLOSURE R12 P17
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K92 ["getSafetyLearnMoreUrl"]
-  MOVE R12 R6
-  CALL R12 0 1
-  JUMPIFNOT R12 [+4]
-  NEWCLOSURE R12 P18
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K93 ["getAppealsPortalUrl"]
+  GETIMPORT R12 K7 [game]
+  LOADK R14 K70 ["PluginPolicyService"]
+  NAMECALL R12 R12 K71 ["GetService"]
+  CALL R12 2 1
+  LOADK R14 K72 ["Toolbox"]
+  NAMECALL R12 R12 K73 ["getPluginPolicy"]
+  CALL R12 2 1
+  MOVE R11 R12
+  NEWTABLE R12 32 0
+  NEWCLOSURE R13 P0
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K74 ["showRobloxCreatedAssets"]
+  NEWCLOSURE R13 P1
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K75 ["disableMarketplaceAndRecents"]
+  NEWCLOSURE R13 P2
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K76 ["getMaxAudioLength"]
+  NEWCLOSURE R13 P3
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K77 ["getToolboxEnabled"]
+  NEWCLOSURE R13 P4
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K78 ["getMarketplaceDisabledCategories"]
+  MOVE R13 R9
+  CALL R13 0 1
+  JUMPIFNOT R13 [+4]
+  NEWCLOSURE R13 P5
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K79 ["getHomeViewEnabledAssetTypes"]
+  NEWCLOSURE R13 P6
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K80 ["getShouldUsePluginCreatorWhitelist"]
+  NEWCLOSURE R13 P7
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K81 ["disableRatings"]
+  NEWCLOSURE R13 P8
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K82 ["getShouldHideNonRelevanceSorts"]
+  NEWCLOSURE R13 P9
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K83 ["getShouldHideVerifiedCreatorBadges"]
+  NEWCLOSURE R13 P10
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K84 ["getShouldDisableAutocomplete"]
+  NEWCLOSURE R13 P11
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K85 ["getAssetConfigMessaging"]
+  NEWCLOSURE R13 P12
+  CAPTURE REF R11
+  SETTABLEKS R13 R12 K86 ["getCreatorMarketplaceWebBaseUrl"]
+  NEWTABLE R13 0 0
+  GETIMPORT R14 K88 [pairs]
+  GETIMPORT R15 K91 [Enum.AssetType]
+  NAMECALL R15 R15 K92 ["GetEnumItems"]
+  CALL R15 1 -1
+  CALL R14 -1 3
+  FORGPREP_NEXT R14
+  GETTABLEKS R19 R18 K93 ["Name"]
+  SETTABLE R18 R13 R19
+  FORGLOOP R14 2 [-4]
+  NEWCLOSURE R14 P13
+  CAPTURE REF R11
+  CAPTURE VAL R13
+  SETTABLEKS R14 R12 K94 ["getAssetConfigDistributionQuotas"]
+  NEWCLOSURE R14 P14
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K95 ["getAnnouncementConfiguration"]
+  NEWCLOSURE R14 P15
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K96 ["getVerificationDocumentationUrl"]
+  NEWCLOSURE R14 P16
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K97 ["getAudioPrivacyLearnMoreUrl"]
+  NEWCLOSURE R14 P17
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K98 ["getVideoPrivacyLearnMoreUrl"]
+  NEWCLOSURE R14 P18
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K99 ["getSafetyLearnMoreUrl"]
+  MOVE R14 R6
+  CALL R14 0 1
+  JUMPIFNOT R14 [+4]
+  NEWCLOSURE R14 P19
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K100 ["getAppealsPortalUrl"]
   JUMPIF R2 [+1]
   JUMPIFNOT R3 [+4]
-  NEWCLOSURE R12 P19
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K94 ["getCreatorDashboardBaseUrl"]
+  NEWCLOSURE R14 P20
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K101 ["getCreatorDashboardBaseUrl"]
   JUMPIFNOT R2 [+4]
-  NEWCLOSURE R12 P20
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K95 ["getCreatorDashboardCatalogConfigUrlExtension"]
-  NEWCLOSURE R12 P21
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K96 ["hideAssetConfigDistributeLearnMoreLink"]
-  MOVE R12 R5
-  CALL R12 0 1
-  JUMPIFNOT R12 [+8]
-  NEWCLOSURE R12 P22
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K97 ["getAssetTypesWithAssetConfigPrice"]
-  NEWCLOSURE R12 P23
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K98 ["getMarketplaceAssetConfigUrl"]
-  MOVE R12 R7
-  CALL R12 0 1
-  JUMPIFNOT R12 [+8]
-  NEWCLOSURE R12 P24
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K99 ["getOwnershipPollingWaitTimeInSec"]
-  NEWCLOSURE R12 P25
-  CAPTURE REF R9
-  SETTABLEKS R12 R10 K100 ["getOwnershipPollingMaxRetries"]
-  CLOSEUPVALS R9
-  RETURN R10 1
+  NEWCLOSURE R14 P21
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K102 ["getCreatorDashboardCatalogConfigUrlExtension"]
+  NEWCLOSURE R14 P22
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K103 ["hideAssetConfigDistributeLearnMoreLink"]
+  MOVE R14 R5
+  CALL R14 0 1
+  JUMPIFNOT R14 [+8]
+  NEWCLOSURE R14 P23
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K104 ["getAssetTypesWithAssetConfigPrice"]
+  NEWCLOSURE R14 P24
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K105 ["getMarketplaceAssetConfigUrl"]
+  MOVE R14 R8
+  CALL R14 0 1
+  JUMPIFNOT R14 [+4]
+  NEWCLOSURE R14 P25
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K106 ["getMarketplaceOnboardingUrl"]
+  MOVE R14 R7
+  CALL R14 0 1
+  JUMPIFNOT R14 [+8]
+  NEWCLOSURE R14 P26
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K107 ["getOwnershipPollingWaitTimeInSec"]
+  NEWCLOSURE R14 P27
+  CAPTURE REF R11
+  SETTABLEKS R14 R12 K108 ["getOwnershipPollingMaxRetries"]
+  CLOSEUPVALS R11
+  RETURN R12 1

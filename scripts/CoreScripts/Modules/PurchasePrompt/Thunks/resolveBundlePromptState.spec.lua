@@ -25,6 +25,7 @@ return function()
 		require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
 
 	local itSkipOnCollectibleSupport = if FFlagEnableUGC4ACollectiblePurchaseSupport then itSKIP else it
+	local FFlagEnableBundlePurchaseChecks = require(Root.Parent.Flags.FFlagEnableBundlePurchaseChecks)
 
 	local function getTestAccountInfoDetails()
 		return {
@@ -34,7 +35,7 @@ return function()
 
 	local function getTestBalanceDetails()
 		return {
-			robux = 10,
+			robux = if FFlagEnableBundlePurchaseChecks then 100 else 10,
 		}
 	end
 

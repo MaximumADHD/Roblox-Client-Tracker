@@ -17,18 +17,18 @@ if not var1.RunningUnderCLI() then
       end
       var1 = var2
       print("----- All " ... var0.Name ... " Tests ------")
-      local var92 = script
-      require(var92.Parent.defineLuaTestFlags)
-      var92 = var0.Src
-      var92 = var1
-      var0.TestBootstrap:run({}, var92)
+      local var42 = script
+      require(var42.Parent.defineLuaTestFlags)
+      var42 = var0.Src
+      var42 = var1
+      var0.TestBootstrap:run({}, var42)
       print("----------------------------------")
       if var1.RunDeveloperFrameworkTests() then
          print("")
          print("----- All DeveloperFramework Tests ------")
-         local var105 = var2.TestHelpers
-         var105 = var0
-         var105.runFrameworkTests(var105, var1)
+         local var55 = var2.TestHelpers
+         var55 = var0
+         var55.runFrameworkTests(var55, var1)
          print("----------------------------------")
       end
    end
@@ -46,18 +46,18 @@ if _G.TEAMCITY then
 end
 var4 = var5
 print("----- All " ... var0.Name ... " Tests ------")
-local var139 = script
-require(var139.Parent.defineLuaTestFlags)
-var139 = var0.Src
-var139 = var4
-var3.TestBootstrap:run({}, var139)
+local var89 = script
+require(var89.Parent.defineLuaTestFlags)
+var89 = var0.Src
+var89 = var4
+var3.TestBootstrap:run({}, var89)
 print("----------------------------------")
 if var1.RunDeveloperFrameworkTests() then
    print("")
    print("----- All DeveloperFramework Tests ------")
-   local var152 = var2.TestHelpers
-   var152 = var3
-   var152.runFrameworkTests(var152, var4)
+   local var102 = var2.TestHelpers
+   var102 = var3
+   var102.runFrameworkTests(var102, var4)
    print("----------------------------------")
 end
 if var1.RunningUnderCLI() then

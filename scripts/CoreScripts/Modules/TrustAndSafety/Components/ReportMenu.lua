@@ -48,6 +48,10 @@ local withStyle = UIBlox.Core.Style.withStyle
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
 local isPlayerVerified = VerifiedBadges.isPlayerVerified
 
+local GetFFlagUIBloxUseNewHeaderBar =
+	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseNewHeaderBar
+local makeBackButton = require(CorePackages.Workspace.Packages.AppHeaderBar).makeBackButton
+
 local CELL_THEME_OVERRIDES = {
 	-- transparent background for cell
 	BackgroundDefault = {
@@ -190,7 +194,9 @@ function ReportMenu:renderHeaderBar()
 
 	local leftButton;
 	if self.props.canNavigateBack then
-		leftButton = HeaderBar.renderLeft.backButton(self.navigateBack);
+		leftButton = if GetFFlagUIBloxUseNewHeaderBar()
+			then makeBackButton(self.navigateBack)
+			else HeaderBar.renderLeft.backButton(self.navigateBack)
 	else
 		leftButton = function()
 			return Roact.createElement(IconButton, {

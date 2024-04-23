@@ -33,33 +33,33 @@ function var10.render(arg1)
    end
    var4 = var2:getText("AnimationConversion", var1)
    local var5 = var8.new()
-   local var499 = {}
-   var499.Layout = Enum.FillDirection.Vertical
-   var499.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var499.VerticalAlignment = Enum.VerticalAlignment.Center
-   var499.Spacing = var3.Spacing
-   var499.Padding = var3.Padding
-   local var505 = {}
+   local var503 = {}
+   var503.Layout = Enum.FillDirection.Vertical
+   var503.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var503.VerticalAlignment = Enum.VerticalAlignment.Center
+   var503.Spacing = var3.Spacing
+   var503.Padding = var3.Padding
    local var509 = {}
-   var509.Text = var4
-   var509.AutomaticSize = Enum.AutomaticSize.XY
-   var509.LayoutOrder = var5:getNextOrder()
-   var505.Text = var2.createElement(var7, var509)
-   local var517 = {}
-   var517.LayoutOrder = var5:getNextOrder()
-   var505.LoadingIndicator = var2.createElement(var6, var517)
-   return var2.createElement(var5, var499, var505)
+   local var513 = {}
+   var513.Text = var4
+   var513.AutomaticSize = Enum.AutomaticSize.XY
+   var513.LayoutOrder = var5:getNextOrder()
+   var509.Text = var2.createElement(var7, var513)
+   local var521 = {}
+   var521.LayoutOrder = var5:getNextOrder()
+   var509.LoadingIndicator = var2.createElement(var6, var521)
+   return var2.createElement(var5, var503, var509)
 end
 
-local var523 = {}
-var523.Stylizer = var3.Stylizer
-local var525 = var3.Localization
-var523.Localization = var525
-var10 = var3.withContext(var523)(var10)
-function var525(arg1, arg2)
+local var527 = {}
+var527.Stylizer = var3.Stylizer
+local var529 = var3.Localization
+var527.Localization = var529
+var10 = var3.withContext(var527)(var10)
+function var529(arg1, arg2)
    local var0 = {}
    var0.status = arg1.AnimationConversion.status
    return var0
 end
 
-return require(var0.Packages.RoactRodux).connect(var525)(var10)
+return require(var0.Packages.RoactRodux).connect(var529)(var10)

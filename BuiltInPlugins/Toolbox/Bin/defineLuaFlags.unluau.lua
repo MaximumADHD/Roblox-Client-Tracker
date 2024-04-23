@@ -22,6 +22,5 @@ game:DefineFastFlag("EnableUGCBundleUnknownMeshPartFiltering", false)
 game:DefineFastFlag("ToolboxUseToolboxServiceForGroupAnimations", false)
 game:DefineFastFlag("AICOChatBotFindVariationFix", false)
 game:DefineFastFlag("IsAssetCommentDisabled", false)
-game:DefineFastFlag("ToolboxRunTestsWithTestLoader", false)
 game:DefineFastFlag("ToolboxSendPackageVersionNoteTelemetry", false)
 return nil

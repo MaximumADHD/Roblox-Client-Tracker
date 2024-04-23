@@ -196,10 +196,13 @@ PROTO_7:
   RETURN R0 0
 
 PROTO_8:
+  RETURN R0 0
+
+PROTO_9:
   LOADB R0 1
   RETURN R0 1
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R1 0
   NAMECALL R1 R1 K0 ["isMocking"]
   CALL R1 1 1
@@ -226,74 +229,83 @@ PROTO_9:
   SETTABLEKS R1 R0 K11 ["updateRegion"]
   GETUPVAL R1 6
   SETTABLEKS R1 R0 K12 ["updateSelectionOnDrag"]
-  GETUPVAL R1 7
-  SETTABLEKS R1 R0 K13 ["addWaypoint"]
+  GETUPVAL R2 7
+  CALL R2 0 1
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R2 8
+  GETUPVAL R4 9
+  GETTABLEKS R3 R4 K13 ["Build"]
+  JUMPIFEQ R2 R3 [+3]
+  GETUPVAL R1 10
+  JUMP [+1]
   DUPCLOSURE R1 K14 [PROTO_8]
-  SETTABLEKS R1 R0 K15 ["shouldExtendSelection"]
+  SETTABLEKS R1 R0 K15 ["addWaypoint"]
+  DUPCLOSURE R1 K16 [PROTO_9]
+  SETTABLEKS R1 R0 K17 ["shouldExtendSelection"]
   NEWTABLE R1 0 2
-  GETUPVAL R3 8
+  GETUPVAL R3 11
   GETTABLEKS R2 R3 K3 ["new"]
   MOVE R3 R0
-  DUPTABLE R4 K18 [{"ShowBoundingBox", "Summonable"}]
+  DUPTABLE R4 K20 [{"ShowBoundingBox", "Summonable"}]
   LOADB R5 0
-  SETTABLEKS R5 R4 K16 ["ShowBoundingBox"]
+  SETTABLEKS R5 R4 K18 ["ShowBoundingBox"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K17 ["Summonable"]
-  GETUPVAL R6 9
+  SETTABLEKS R5 R4 K19 ["Summonable"]
+  GETUPVAL R6 7
   CALL R6 0 1
   JUMPIFNOT R6 [+26]
-  GETUPVAL R6 10
-  GETUPVAL R8 11
-  GETTABLEKS R7 R8 K19 ["Build"]
+  GETUPVAL R6 8
+  GETUPVAL R8 9
+  GETTABLEKS R7 R8 K13 ["Build"]
   JUMPIFNOTEQ R6 R7 [+21]
   GETUPVAL R7 12
-  GETTABLEKS R6 R7 K20 ["ExtrudeHandlesImplementation"]
+  GETTABLEKS R6 R7 K21 ["ExtrudeHandlesImplementation"]
   GETTABLEKS R5 R6 K3 ["new"]
   MOVE R6 R0
-  DUPTABLE R7 K23 [{"Max", "UseVolume"}]
-  GETIMPORT R9 K26 [Vector3.one]
+  DUPTABLE R7 K24 [{"Max", "UseVolume"}]
+  GETIMPORT R9 K27 [Vector3.one]
   GETUPVAL R11 13
-  GETTABLEKS R10 R11 K27 ["MaxBuildRegion"]
+  GETTABLEKS R10 R11 K28 ["MaxBuildRegion"]
   MUL R8 R9 R10
-  SETTABLEKS R8 R7 K21 ["Max"]
+  SETTABLEKS R8 R7 K22 ["Max"]
   LOADB R8 1
-  SETTABLEKS R8 R7 K22 ["UseVolume"]
+  SETTABLEKS R8 R7 K23 ["UseVolume"]
   CALL R5 2 1
   JUMP [+49]
   GETUPVAL R6 14
   CALL R6 0 1
   JUMPIFNOT R6 [+39]
-  GETUPVAL R6 10
-  GETUPVAL R8 11
-  GETTABLEKS R7 R8 K28 ["Import"]
+  GETUPVAL R6 8
+  GETUPVAL R8 9
+  GETTABLEKS R7 R8 K29 ["Import"]
   JUMPIFNOTEQ R6 R7 [+34]
   GETUPVAL R7 12
-  GETTABLEKS R6 R7 K20 ["ExtrudeHandlesImplementation"]
+  GETTABLEKS R6 R7 K21 ["ExtrudeHandlesImplementation"]
   GETTABLEKS R5 R6 K3 ["new"]
   MOVE R6 R0
-  DUPTABLE R7 K23 [{"Max", "UseVolume"}]
+  DUPTABLE R7 K24 [{"Max", "UseVolume"}]
   LOADN R10 0
   GETUPVAL R12 13
-  GETTABLEKS R11 R12 K29 ["VoxelResolution"]
+  GETTABLEKS R11 R12 K30 ["VoxelResolution"]
   MUL R9 R10 R11
   LOADN R11 0
   GETUPVAL R13 13
-  GETTABLEKS R12 R13 K29 ["VoxelResolution"]
+  GETTABLEKS R12 R13 K30 ["VoxelResolution"]
   MUL R10 R11 R12
   LOADN R12 0
   GETUPVAL R14 13
-  GETTABLEKS R13 R14 K29 ["VoxelResolution"]
+  GETTABLEKS R13 R14 K30 ["VoxelResolution"]
   MUL R11 R12 R13
   FASTCALL VECTOR [+2]
-  GETIMPORT R8 K30 [Vector3.new]
+  GETIMPORT R8 K31 [Vector3.new]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K21 ["Max"]
+  SETTABLEKS R8 R7 K22 ["Max"]
   LOADB R8 1
-  SETTABLEKS R8 R7 K22 ["UseVolume"]
+  SETTABLEKS R8 R7 K23 ["UseVolume"]
   CALL R5 2 1
   JUMP [+7]
   GETUPVAL R7 12
-  GETTABLEKS R6 R7 K20 ["ExtrudeHandlesImplementation"]
+  GETTABLEKS R6 R7 K21 ["ExtrudeHandlesImplementation"]
   GETTABLEKS R5 R6 K3 ["new"]
   MOVE R6 R0
   CALL R5 1 1
@@ -301,15 +313,15 @@ PROTO_9:
   GETUPVAL R4 15
   GETTABLEKS R3 R4 K3 ["new"]
   MOVE R4 R0
-  DUPTABLE R5 K32 [{"ShowBoundingBox", "Summonable", "Outset"}]
+  DUPTABLE R5 K33 [{"ShowBoundingBox", "Summonable", "Outset"}]
   LOADB R6 0
-  SETTABLEKS R6 R5 K16 ["ShowBoundingBox"]
+  SETTABLEKS R6 R5 K18 ["ShowBoundingBox"]
   LOADB R6 0
-  SETTABLEKS R6 R5 K17 ["Summonable"]
+  SETTABLEKS R6 R5 K19 ["Summonable"]
   LOADN R6 1
-  SETTABLEKS R6 R5 K31 ["Outset"]
+  SETTABLEKS R6 R5 K32 ["Outset"]
   GETUPVAL R8 12
-  GETTABLEKS R7 R8 K33 ["TransformHandlesImplementation"]
+  GETTABLEKS R7 R8 K34 ["TransformHandlesImplementation"]
   GETTABLEKS R6 R7 K3 ["new"]
   MOVE R7 R0
   CALL R6 1 -1
@@ -321,71 +333,83 @@ PROTO_9:
   GETUPVAL R5 17
   GETTABLEKS R4 R5 K3 ["new"]
   MOVE R5 R0
-  DUPTABLE R6 K32 [{"ShowBoundingBox", "Summonable", "Outset"}]
+  DUPTABLE R6 K33 [{"ShowBoundingBox", "Summonable", "Outset"}]
   LOADB R7 0
-  SETTABLEKS R7 R6 K16 ["ShowBoundingBox"]
+  SETTABLEKS R7 R6 K18 ["ShowBoundingBox"]
   LOADB R7 0
-  SETTABLEKS R7 R6 K17 ["Summonable"]
+  SETTABLEKS R7 R6 K19 ["Summonable"]
   LOADN R7 1
-  SETTABLEKS R7 R6 K31 ["Outset"]
+  SETTABLEKS R7 R6 K32 ["Outset"]
   GETUPVAL R9 12
-  GETTABLEKS R8 R9 K33 ["TransformHandlesImplementation"]
+  GETTABLEKS R8 R9 K34 ["TransformHandlesImplementation"]
   GETTABLEKS R7 R8 K3 ["new"]
   MOVE R8 R0
   CALL R7 1 -1
   CALL R4 -1 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R2 K36 [table.insert]
+  GETIMPORT R2 K37 [table.insert]
   CALL R2 -1 0
-  DUPTABLE R2 K41 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
+  DUPTABLE R2 K42 [{"Mouse", "DraggerContext", "DraggerSchema", "DraggerSettings"}]
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K4 ["Parent"]
-  NAMECALL R3 R3 K42 ["GetMouse"]
+  NAMECALL R3 R3 K43 ["GetMouse"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K37 ["Mouse"]
-  SETTABLEKS R0 R2 K38 ["DraggerContext"]
+  SETTABLEKS R3 R2 K38 ["Mouse"]
+  SETTABLEKS R0 R2 K39 ["DraggerContext"]
   GETUPVAL R3 12
-  SETTABLEKS R3 R2 K39 ["DraggerSchema"]
-  DUPTABLE R3 K50 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowDragSelect", "ShowLocalSpaceIndicator", "ShowPivotIndicator", "HandlesList"}]
-  LOADK R4 K51 ["TerrainEditorRegion"]
-  SETTABLEKS R4 R3 K43 ["AnalyticsName"]
+  SETTABLEKS R3 R2 K40 ["DraggerSchema"]
+  DUPTABLE R3 K51 [{"AnalyticsName", "AllowDragSelect", "AllowFreeformDrag", "ShowDragSelect", "ShowLocalSpaceIndicator", "ShowPivotIndicator", "HandlesList"}]
+  LOADK R4 K52 ["TerrainEditorRegion"]
+  SETTABLEKS R4 R3 K44 ["AnalyticsName"]
   LOADB R4 1
-  SETTABLEKS R4 R3 K44 ["AllowDragSelect"]
+  SETTABLEKS R4 R3 K45 ["AllowDragSelect"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K45 ["AllowFreeformDrag"]
+  SETTABLEKS R4 R3 K46 ["AllowFreeformDrag"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K46 ["ShowDragSelect"]
+  SETTABLEKS R4 R3 K47 ["ShowDragSelect"]
   LOADB R4 1
-  SETTABLEKS R4 R3 K47 ["ShowLocalSpaceIndicator"]
+  SETTABLEKS R4 R3 K48 ["ShowLocalSpaceIndicator"]
   LOADB R4 1
-  SETTABLEKS R4 R3 K48 ["ShowPivotIndicator"]
-  SETTABLEKS R1 R3 K49 ["HandlesList"]
-  SETTABLEKS R3 R2 K40 ["DraggerSettings"]
+  SETTABLEKS R4 R3 K49 ["ShowPivotIndicator"]
+  SETTABLEKS R1 R3 K50 ["HandlesList"]
+  SETTABLEKS R3 R2 K41 ["DraggerSettings"]
   RETURN R2 1
 
-PROTO_10:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["DraggerContext"]
-  GETUPVAL R1 1
-  SETTABLEKS R1 R0 K1 ["addWaypoint"]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["DraggerContext"]
-  GETUPVAL R1 2
-  SETTABLEKS R1 R0 K2 ["updateRegion"]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["DraggerContext"]
-  GETUPVAL R1 3
-  SETTABLEKS R1 R0 K3 ["updateSelectionOnDrag"]
+PROTO_11:
   RETURN R0 0
 
-PROTO_11:
+PROTO_12:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["DraggerContext"]
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R2 2
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K1 ["Build"]
+  JUMPIFEQ R2 R3 [+3]
+  GETUPVAL R1 4
+  JUMP [+1]
+  DUPCLOSURE R1 K2 [PROTO_11]
+  SETTABLEKS R1 R0 K3 ["addWaypoint"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["DraggerContext"]
+  GETUPVAL R1 5
+  SETTABLEKS R1 R0 K4 ["updateRegion"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["DraggerContext"]
+  GETUPVAL R1 6
+  SETTABLEKS R1 R0 K5 ["updateSelectionOnDrag"]
+  RETURN R0 0
+
+PROTO_13:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["DraggerContext"]
   GETUPVAL R1 1
   SETTABLEKS R1 R0 K1 ["snapToGridSize"]
   RETURN R0 0
 
-PROTO_12:
+PROTO_14:
   DUPTABLE R0 K2 [{"Size", "Transform"}]
   GETUPVAL R3 0
   GETUPVAL R5 1
@@ -428,7 +452,7 @@ PROTO_12:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_15:
   DUPTABLE R0 K2 [{"Size", "Transform"}]
   GETUPVAL R3 0
   GETUPVAL R5 1
@@ -549,7 +573,7 @@ PROTO_13:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_16:
   GETUPVAL R4 0
   NAMECALL R4 R4 K0 ["use"]
   CALL R4 1 1
@@ -674,11 +698,11 @@ PROTO_14:
   CAPTURE VAL R15
   CAPTURE VAL R16
   CAPTURE VAL R17
-  CAPTURE VAL R14
   CAPTURE UPVAL U17
-  CAPTURE UPVAL U18
   CAPTURE VAL R0
   CAPTURE UPVAL U7
+  CAPTURE VAL R14
+  CAPTURE UPVAL U18
   CAPTURE UPVAL U5
   CAPTURE UPVAL U19
   CAPTURE UPVAL U20
@@ -692,6 +716,9 @@ PROTO_14:
   GETUPVAL R19 23
   NEWCLOSURE R20 P8
   CAPTURE VAL R18
+  CAPTURE UPVAL U17
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
   CAPTURE VAL R14
   CAPTURE VAL R16
   CAPTURE VAL R17
@@ -916,7 +943,7 @@ MAIN:
   SETTABLE R20 R30 R31
   GETTABLEKS R31 R22 K53 ["Mock"]
   SETTABLE R21 R30 R31
-  DUPCLOSURE R31 K54 [PROTO_14]
+  DUPCLOSURE R31 K54 [PROTO_16]
   CAPTURE VAL R25
   CAPTURE VAL R6
   CAPTURE VAL R29
@@ -934,8 +961,8 @@ MAIN:
   CAPTURE VAL R28
   CAPTURE VAL R8
   CAPTURE VAL R0
-  CAPTURE VAL R11
   CAPTURE VAL R26
+  CAPTURE VAL R11
   CAPTURE VAL R15
   CAPTURE VAL R27
   CAPTURE VAL R9

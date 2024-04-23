@@ -1,5 +1,6 @@
 --!nonstrict
 local Root = script.Parent.Parent
+local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 
@@ -36,6 +37,7 @@ local GetFFlagEnableInsufficientRobuxForBundleUpsellFix =
 	require(Root.Flags.GetFFlagEnableInsufficientRobuxForBundleUpsellFix)
 local FFlagEnableUGC4ACollectiblePurchaseSupport = require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
 local FFlagFixNonCollectibleBundleOwnedCheck = require(Root.Parent.Flags.FFlagFixNonCollectibleBundleOwnedCheck)
+local FFlagEnableBundlePurchaseChecks = require(Root.Parent.Flags.FFlagEnableBundlePurchaseChecks)
 
 local function getPurchasableStatus(productPurchasableDetails)
 	local reason = productPurchasableDetails.reason
@@ -53,15 +55,44 @@ local function getPurchasableStatus(productPurchasableDetails)
 	end
 end
 
-local function meetsBundlePrerequisites(bundleDetails)
-	local isForSale
-	local failureReason
+local function getBundlePriceFromProductInfo(bundleDetails, isPlayerPremium)
+	if bundleDetails and bundleDetails.product ~= nil then
+		if isPlayerPremium and bundleDetails.product.premiumPricing ~= nil then
+			return bundleDetails.product.premiumPricing.premiumPriceInRobux or 0
+		else
+			return bundleDetails.product.priceInRobux or 0
+		end
+	end
 
+	-- Price info not found so return 0
+	return 0
+end
+
+local function meetsBundlePrerequisites(bundleDetails, balanceInfo, expectedPrice, alreadyOwned)
 	local collectibleItemDetail = bundleDetails.collectibleItemDetail
 	local isCollectible = collectibleItemDetail
 		and collectibleItemDetail.collectibleItemId ~= nil
 		and collectibleItemDetail.collectibleItemId ~= ""
 
+	if FFlagEnableBundlePurchaseChecks then
+		local isLimitedCollectible = collectibleItemDetail
+			and collectibleItemDetail.collectibleItemType ~= nil
+			and collectibleItemDetail.collectibleItemType == "Limited"
+
+		--Check if the bundle is already owned and can't be purchased again
+		if isCollectible then
+			if not isLimitedCollectible and alreadyOwned then
+				return false, PurchaseError.AlreadyOwn
+			end
+		else
+			if alreadyOwned then
+				return false, PurchaseError.AlreadyOwn
+			end
+		end
+	end
+
+	-- Check if the bundle is not for sale
+	local isForSale
 	if isCollectible then
 		isForSale = (collectibleItemDetail.saleStatus == "OnSale")
 	else
@@ -69,10 +100,32 @@ local function meetsBundlePrerequisites(bundleDetails)
 	end
 
 	if not isForSale then
-		failureReason = PurchaseError.NotForSale
+		return false, PurchaseError.NotForSale
 	end
 
-	return isForSale, failureReason
+	if FFlagEnableBundlePurchaseChecks then
+		-- Check if the user has enough Robux to purchase the bundle
+		if expectedPrice ~= nil and balanceInfo.robux ~= nil then
+			if expectedPrice > balanceInfo.robux then
+				return false, PurchaseError.NotEnoughRobux
+			end
+		end
+
+		-- Check for under 13 content restriction
+		if bundleDetails.itemRestrictions ~= nil then
+			for _, val in bundleDetails.itemRestrictions do
+				if val == "ThirteenPlus" then
+					if (Players.LocalPlayer :: Player):GetUnder13() then
+						return false, PurchaseError.Under13
+					end
+					break
+				end
+			end
+		end
+	end
+
+	-- No failed prerequisites
+	return true, nil
 end
 
 local requiredServices = {
@@ -85,7 +138,8 @@ local function resolveBundlePromptState(
 	bundleDetails,
 	accountInfo,
 	balanceInfo,
-	expectedPrice
+	expectedPrice,
+	alreadyOwned
 )
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local state = store:getState()
@@ -96,22 +150,31 @@ local function resolveBundlePromptState(
 		store:dispatch(AccountInfoReceived(accountInfo))
 		store:dispatch(BalanceInfoRecieved(balanceInfo))
 
+		if FFlagEnableBundlePurchaseChecks then
+			if expectedPrice == nil then
+				local isPlayerPremium = accountInfo.isPremium
+				expectedPrice = getBundlePriceFromProductInfo(bundleDetails, isPlayerPremium)
+			end
+		end
+
 		local canPurchase
 		local failureReason
 		local price
 		if FFlagEnableUGC4ACollectiblePurchaseSupport then
-			if FFlagFixNonCollectibleBundleOwnedCheck then
+			if FFlagFixNonCollectibleBundleOwnedCheck and not FFlagEnableBundlePurchaseChecks then
 				if productPurchasableDetails.productId ~= nil and productPurchasableDetails.productId ~= 0 then
 					canPurchase = productPurchasableDetails.purchasable
 					failureReason = getPurchasableStatus(productPurchasableDetails)
 					price = productPurchasableDetails.price
 				else
-					canPurchase, failureReason = meetsBundlePrerequisites(bundleDetails)
-            		price = expectedPrice
+					canPurchase, failureReason =
+						meetsBundlePrerequisites(bundleDetails, balanceInfo, expectedPrice, alreadyOwned)
+					price = expectedPrice
 				end
 			else
-				canPurchase, failureReason = meetsBundlePrerequisites(bundleDetails)
-            	price = expectedPrice
+				canPurchase, failureReason =
+					meetsBundlePrerequisites(bundleDetails, balanceInfo, expectedPrice, alreadyOwned)
+				price = expectedPrice
 			end
 		else
 			canPurchase = productPurchasableDetails.purchasable

@@ -87,12 +87,12 @@ PROTO_4:
 PROTO_5:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["_operation"]
-  JUMPIFNOT R0 [+52]
+  JUMPIFNOT R0 [+53]
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["_operation"]
   NAMECALL R0 R0 K1 ["isRunning"]
   CALL R0 1 1
-  JUMPIFNOT R0 [+45]
+  JUMPIFNOT R0 [+46]
   GETUPVAL R0 0
   GETTABLEKS R1 R0 K2 ["_brushUsages"]
   ADDK R1 R1 K3 [1]
@@ -108,23 +108,24 @@ PROTO_5:
   CALL R3 1 1
   DIV R1 R2 R3
   SETTABLEKS R1 R0 K6 ["_brushTime"]
-  GETUPVAL R0 1
-  CALL R0 0 1
-  JUMPIFNOT R0 [+14]
-  GETUPVAL R0 0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K8 ["_brushStatistic"]
-  ORK R2 R3 K7 [0]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["_operation"]
-  NAMECALL R3 R3 K9 ["getTimeStatistic"]
-  CALL R3 1 1
-  ADD R1 R2 R3
-  SETTABLEKS R1 R0 K8 ["_brushStatistic"]
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["_operation"]
-  NAMECALL R0 R0 K10 ["destroy"]
-  CALL R0 1 0
+  NAMECALL R0 R0 K7 ["getTimeStatistic"]
+  CALL R0 1 1
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIFNOT R1 [+9]
+  JUMPIFNOT R0 [+8]
+  GETUPVAL R1 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["_brushStatistic"]
+  ORK R3 R4 K8 [0]
+  ADD R2 R3 R0
+  SETTABLEKS R2 R1 K9 ["_brushStatistic"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_operation"]
+  NAMECALL R1 R1 K10 ["destroy"]
+  CALL R1 1 0
   RETURN R0 0
 
 PROTO_6:
@@ -165,11 +166,11 @@ PROTO_7:
   NAMECALL R1 R1 K1 ["Disconnect"]
   CALL R1 1 0
   GETTABLEKS R1 R0 K3 ["_operation"]
-  JUMPIFNOT R1 [+46]
+  JUMPIFNOT R1 [+47]
   GETTABLEKS R1 R0 K3 ["_operation"]
   NAMECALL R1 R1 K4 ["isRunning"]
   CALL R1 1 1
-  JUMPIFNOT R1 [+40]
+  JUMPIFNOT R1 [+41]
   GETTABLEKS R1 R0 K5 ["_brushUsages"]
   ADDK R1 R1 K6 [1]
   SETTABLEKS R1 R0 K5 ["_brushUsages"]
@@ -183,19 +184,20 @@ PROTO_7:
   DIV R2 R3 R4
   ADD R1 R1 R2
   SETTABLEKS R1 R0 K7 ["_brushTime"]
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+11]
-  GETTABLEKS R3 R0 K11 ["_brushStatistic"]
-  ORK R2 R3 K10 [0]
-  GETTABLEKS R3 R0 K3 ["_operation"]
-  NAMECALL R3 R3 K12 ["getTimeStatistic"]
-  CALL R3 1 1
-  ADD R1 R2 R3
-  SETTABLEKS R1 R0 K11 ["_brushStatistic"]
   GETTABLEKS R1 R0 K3 ["_operation"]
-  NAMECALL R1 R1 K13 ["destroy"]
-  CALL R1 1 0
+  NAMECALL R1 R1 K10 ["getTimeStatistic"]
+  CALL R1 1 1
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+7]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R4 R0 K12 ["_brushStatistic"]
+  ORK R3 R4 K11 [0]
+  ADD R2 R3 R1
+  SETTABLEKS R2 R0 K12 ["_brushStatistic"]
+  GETTABLEKS R2 R0 K3 ["_operation"]
+  NAMECALL R2 R2 K13 ["destroy"]
+  CALL R2 1 0
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K14 ["deactivate"]
   MOVE R2 R0

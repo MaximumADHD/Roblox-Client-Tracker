@@ -5,23 +5,14 @@ local LocalizationService = game:GetService("LocalizationService")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
 local GetFFlagIrisUseLocalizationProvider =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIrisUseLocalizationProvider
-local AppDarkTheme = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-local AppFont = if GetFFlagEnableStyleProviderCleanUp()
-	then nil
-	else require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
 local renderWithCoreScriptsStyleProvider = require(script.Parent.Common.renderWithCoreScriptsStyleProvider)
 
 local React = require(CorePackages.Packages.React)
 local Rodux = require(CorePackages.Packages.Rodux)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-local UIBlox = require(CorePackages.UIBlox)
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol)
 
 local Localization, LocalizationProvider
@@ -73,59 +64,28 @@ function ContactList.new()
 	self.store = Rodux.Store.new(Reducer, nil, {
 		Rodux.thunkMiddleware,
 	})
-	if GetFFlagEnableStyleProviderCleanUp() then
-		self.root = React.createElement("ScreenGui", {
-			AutoLocalize = false,
-			DisplayOrder = CONTACT_LIST_DISPLAY_ORDER,
-			IgnoreGuiInset = true,
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+	self.root = React.createElement("ScreenGui", {
+		AutoLocalize = false,
+		DisplayOrder = CONTACT_LIST_DISPLAY_ORDER,
+		IgnoreGuiInset = true,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+	}, {
+		Content = React.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
 		}, {
-			Content = React.createElement(RoactRodux.StoreProvider, {
-				store = self.store,
-			}, {
-				ThemeProvider = renderWithCoreScriptsStyleProvider({
-					ApolloProvider = React.createElement(ApolloProvider, {
-						client = ApolloClient,
-					}, {
-						ContextProvider = Roact.createElement(ContactListContext.Provider, {
-							value = defaultContextValues,
-						}, {
-							ContactListApp = renderLocalizationProvider(React.createElement(ContactListApp)),
-						}),
-					}),
-				}),
-			}),
-		})
-	else
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-		self.root = React.createElement("ScreenGui", {
-			AutoLocalize = false,
-			DisplayOrder = CONTACT_LIST_DISPLAY_ORDER,
-			IgnoreGuiInset = true,
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-		}, {
-			Content = React.createElement(RoactRodux.StoreProvider, {
-				store = self.store,
-			}, {
-				ThemeProvider = React.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
+			ThemeProvider = renderWithCoreScriptsStyleProvider({
+				ApolloProvider = React.createElement(ApolloProvider, {
+					client = ApolloClient,
 				}, {
-					ApolloProvider = React.createElement(ApolloProvider, {
-						client = ApolloClient,
+					ContextProvider = Roact.createElement(ContactListContext.Provider, {
+						value = defaultContextValues,
 					}, {
-						ContextProvider = Roact.createElement(ContactListContext.Provider, {
-							value = defaultContextValues,
-						}, {
-							ContactListApp = renderLocalizationProvider(React.createElement(ContactListApp)),
-						}),
+						ContactListApp = renderLocalizationProvider(React.createElement(ContactListApp)),
 					}),
 				}),
 			}),
-		})
-	end
+		}),
+	})
 
 	self.element = Roact.mount(self.root, CoreGui, "ContactList")
 

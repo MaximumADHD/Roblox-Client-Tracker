@@ -4,23 +4,12 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
-local UIBlox = require(CorePackages.UIBlox)
 
 local FocusNavigationEffects = require(RobloxGui.Modules.Common.FocusNavigationEffectsWrapper)
 
 local BlockingModalContainer = require(script.Parent.BlockingModalContainer)
 
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = nil
-local AppFont = nil
-local renderWithCoreScriptsStyleProvider = nil
-if not GetFFlagEnableStyleProviderCleanUp() then
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-else
-	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
-end
+local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
@@ -64,17 +53,7 @@ function BlockingModalScreen:render()
 			}),
 		}),
 	}
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		local appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-		return Roact.createElement(UIBlox.Style.Provider, {
-			style = appStyle,
-		}, children)
-	else
-		return renderWithCoreScriptsStyleProvider(children)
-	end
+	return renderWithCoreScriptsStyleProvider(children)
 end
 
 return BlockingModalScreen

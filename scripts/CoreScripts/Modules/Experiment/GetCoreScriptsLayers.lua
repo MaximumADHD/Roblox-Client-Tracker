@@ -1,7 +1,9 @@
 local CorePackages = game:GetService("CorePackages")
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
+local FFlagEnableBulkManagementExperiment = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableBulkManagementExperiment
 local FFlagEnableCapturesDesktopExperiment = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableCapturesDesktopExperiment
 local FStringCapturesIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringCapturesIXPLayer
+local FStringCapturesTabIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringCapturesTabIXPLayer
 local GetFFlagShareInviteLinkContextMenuABTestEnabled = require(script.Parent.Parent.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
 local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
 local GetFStringLargerRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLargerRobuxUpsellIxpLayer
@@ -23,6 +25,8 @@ local GetFStringMuteTogglesIXPLayerName = require(script.Parent.Parent.Settings.
 local GetFStringGameInviteMenuLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringGameInviteMenuLayer
 local GetFFlagUXForCameraPerformanceIXPEnabled = require(script.Parent.Parent.Flags.GetFFlagUXForCameraPerformanceIXPEnabled)
 local GetFStringUXForCameraPerformanceIXPLayerName = require(script.Parent.Parent.Flags.GetFStringUXForCameraPerformanceIXPLayerName)
+local GetFFlagAddVoiceExposureLayer = require(script.Parent.Parent.Flags.GetFFlagAddVoiceExposureLayer)
+local GetFStringVoiceExposureIXPLayerName = require(script.Parent.Parent.Flags.GetFStringVoiceExposureIXPLayerName)
 
 return function()
 	local layers = {
@@ -75,6 +79,14 @@ return function()
 
 	if FFlagEnableCapturesDesktopExperiment then
 		table.insert(layers, FStringCapturesIXPLayer)
+	end
+
+	if FFlagEnableBulkManagementExperiment then
+		table.insert(layers, FStringCapturesTabIXPLayer)
+	end
+
+	if GetFFlagAddVoiceExposureLayer() then
+		table.insert(layers, GetFStringVoiceExposureIXPLayerName())
 	end
 
 	return layers

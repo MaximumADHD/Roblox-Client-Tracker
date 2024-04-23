@@ -134,97 +134,133 @@ PROTO_11:
   JUMPIFNOT R2 [+2]
   LOADB R2 0
   RETURN R2 1
-  GETTABLEKS R3 R0 K2 ["_store"]
-  NAMECALL R3 R3 K3 ["getState"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K4 ["assetImportSession"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+10]
   GETTABLEKS R4 R0 K2 ["_store"]
   NAMECALL R4 R4 K3 ["getState"]
   CALL R4 1 1
-  GETTABLEKS R3 R4 K5 ["selectedImportItem"]
+  GETTABLEKS R3 R4 K4 ["Preview"]
+  GETTABLEKS R2 R3 K5 ["assetImportSession"]
+  JUMP [+7]
+  GETTABLEKS R3 R0 K2 ["_store"]
+  NAMECALL R3 R3 K3 ["getState"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K5 ["assetImportSession"]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+10]
+  GETTABLEKS R5 R0 K2 ["_store"]
+  NAMECALL R5 R5 K3 ["getState"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K4 ["Preview"]
+  GETTABLEKS R3 R4 K6 ["selectedImportItem"]
+  JUMP [+7]
+  GETTABLEKS R4 R0 K2 ["_store"]
+  NAMECALL R4 R4 K3 ["getState"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K6 ["selectedImportItem"]
   MOVE R6 R3
-  NAMECALL R4 R2 K6 ["CreatePresetFromData"]
+  NAMECALL R4 R2 K7 ["CreatePresetFromData"]
   CALL R4 2 1
   MOVE R7 R4
-  NAMECALL R5 R0 K7 ["_filter"]
+  NAMECALL R5 R0 K8 ["_filter"]
   CALL R5 2 0
-  GETTABLEKS R5 R0 K8 ["_assetImportServiceWrapper"]
+  GETTABLEKS R5 R0 K9 ["_assetImportServiceWrapper"]
   MOVE R7 R1
-  NAMECALL R5 R5 K9 ["GetPreset"]
+  NAMECALL R5 R5 K10 ["GetPreset"]
   CALL R5 2 1
-  GETUPVAL R6 0
+  GETUPVAL R6 1
   MOVE R7 R5
   MOVE R8 R4
   CALL R6 2 1
   GETTABLEKS R7 R0 K2 ["_store"]
-  GETUPVAL R9 1
+  GETUPVAL R9 2
   LOADB R10 0
   CALL R9 1 -1
-  NAMECALL R7 R7 K10 ["dispatch"]
+  NAMECALL R7 R7 K11 ["dispatch"]
   CALL R7 -1 0
-  GETUPVAL R7 2
+  GETUPVAL R7 3
   CALL R7 0 1
   JUMPIFNOT R7 [+8]
   GETTABLEKS R7 R0 K2 ["_store"]
-  GETUPVAL R9 3
+  GETUPVAL R9 4
   MOVE R10 R1
   CALL R9 1 -1
-  NAMECALL R7 R7 K10 ["dispatch"]
+  NAMECALL R7 R7 K11 ["dispatch"]
   CALL R7 -1 0
-  GETTABLEKS R7 R0 K8 ["_assetImportServiceWrapper"]
+  GETTABLEKS R7 R0 K9 ["_assetImportServiceWrapper"]
   MOVE R9 R1
   MOVE R10 R6
-  NAMECALL R7 R7 K11 ["SavePreset"]
+  NAMECALL R7 R7 K12 ["SavePreset"]
   CALL R7 3 -1
   RETURN R7 -1
 
 PROTO_12:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+10]
+  GETTABLEKS R4 R0 K0 ["_store"]
+  NAMECALL R4 R4 K1 ["getState"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K2 ["Preview"]
+  GETTABLEKS R2 R3 K3 ["assetImportSession"]
+  JUMP [+7]
   GETTABLEKS R3 R0 K0 ["_store"]
   NAMECALL R3 R3 K1 ["getState"]
   CALL R3 1 1
-  GETTABLEKS R2 R3 K2 ["assetImportSession"]
+  GETTABLEKS R2 R3 K3 ["assetImportSession"]
   MOVE R5 R1
-  NAMECALL R3 R2 K3 ["CreatePresetFromData"]
+  NAMECALL R3 R2 K4 ["CreatePresetFromData"]
   CALL R3 2 1
   MOVE R6 R3
-  NAMECALL R4 R0 K4 ["_filter"]
+  NAMECALL R4 R0 K5 ["_filter"]
   CALL R4 2 0
-  GETTABLEKS R4 R0 K5 ["_assetImportServiceWrapper"]
-  LOADK R6 K6 ["Last Imported"]
+  GETTABLEKS R4 R0 K6 ["_assetImportServiceWrapper"]
+  LOADK R6 K7 ["Last Imported"]
   MOVE R7 R3
-  NAMECALL R4 R4 K7 ["SavePreset"]
+  NAMECALL R4 R4 K8 ["SavePreset"]
   CALL R4 3 0
   RETURN R0 0
 
 PROTO_13:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+10]
+  GETTABLEKS R4 R0 K0 ["_store"]
+  NAMECALL R4 R4 K1 ["getState"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K2 ["Preview"]
+  GETTABLEKS R2 R3 K3 ["currentPreset"]
+  JUMP [+7]
   GETTABLEKS R3 R0 K0 ["_store"]
   NAMECALL R3 R3 K1 ["getState"]
   CALL R3 1 1
-  GETTABLEKS R2 R3 K2 ["currentPreset"]
-  GETTABLEKS R3 R0 K3 ["_assetImportServiceWrapper"]
+  GETTABLEKS R2 R3 K3 ["currentPreset"]
+  GETTABLEKS R3 R0 K4 ["_assetImportServiceWrapper"]
   MOVE R6 R2
-  NAMECALL R4 R3 K4 ["GetPreset"]
+  NAMECALL R4 R3 K5 ["GetPreset"]
   CALL R4 2 1
   MOVE R7 R2
-  NAMECALL R5 R3 K5 ["RemovePreset"]
+  NAMECALL R5 R3 K6 ["RemovePreset"]
   CALL R5 2 0
   MOVE R7 R1
   MOVE R8 R4
-  NAMECALL R5 R3 K6 ["SavePreset"]
+  NAMECALL R5 R3 K7 ["SavePreset"]
   CALL R5 3 0
-  GETTABLEKS R5 R0 K7 ["defaultName"]
+  GETTABLEKS R5 R0 K8 ["defaultName"]
   JUMPIFNOTEQ R5 R2 [+10]
-  GETTABLEKS R5 R0 K8 ["_plugin"]
-  LOADK R7 K9 ["AssetImporter_DefaultPreset"]
+  GETTABLEKS R5 R0 K9 ["_plugin"]
+  LOADK R7 K10 ["AssetImporter_DefaultPreset"]
   MOVE R8 R1
-  NAMECALL R5 R5 K10 ["SetSetting"]
+  NAMECALL R5 R5 K11 ["SetSetting"]
   CALL R5 3 0
-  SETTABLEKS R1 R0 K7 ["defaultName"]
+  SETTABLEKS R1 R0 K8 ["defaultName"]
   GETTABLEKS R5 R0 K0 ["_store"]
-  GETUPVAL R7 0
+  GETUPVAL R7 1
   MOVE R8 R1
   CALL R7 1 -1
-  NAMECALL R5 R5 K11 ["dispatch"]
+  NAMECALL R5 R5 K12 ["dispatch"]
   CALL R5 -1 0
   RETURN R0 0
 
@@ -266,12 +302,21 @@ PROTO_16:
   LOADNIL R8
   SETTABLEKS R8 R7 K1 ["ImportName"]
   FORGLOOP R3 2 [-4]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+10]
+  GETTABLEKS R5 R0 K2 ["_store"]
+  NAMECALL R5 R5 K3 ["getState"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K4 ["Preview"]
+  GETTABLEKS R3 R4 K5 ["assetImportSession"]
+  JUMP [+7]
   GETTABLEKS R4 R0 K2 ["_store"]
   NAMECALL R4 R4 K3 ["getState"]
   CALL R4 1 1
-  GETTABLEKS R3 R4 K4 ["assetImportSession"]
+  GETTABLEKS R3 R4 K5 ["assetImportSession"]
   MOVE R6 R2
-  NAMECALL R4 R3 K5 ["ApplyPreset"]
+  NAMECALL R4 R3 K6 ["ApplyPreset"]
   CALL R4 2 0
   RETURN R0 0
 
@@ -301,80 +346,108 @@ PROTO_19:
   RETURN R2 1
 
 PROTO_20:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+10]
+  GETTABLEKS R4 R0 K0 ["_store"]
+  NAMECALL R4 R4 K1 ["getState"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K2 ["Preview"]
+  GETTABLEKS R2 R3 K3 ["assetImportSession"]
+  JUMP [+7]
   GETTABLEKS R3 R0 K0 ["_store"]
   NAMECALL R3 R3 K1 ["getState"]
   CALL R3 1 1
-  GETTABLEKS R2 R3 K2 ["assetImportSession"]
+  GETTABLEKS R2 R3 K3 ["assetImportSession"]
   JUMPIF R2 [+1]
   RETURN R0 0
-  FASTCALL2K ASSERT R2 K3 [+5]
+  FASTCALL2K ASSERT R2 K4 [+5]
   MOVE R4 R2
-  LOADK R5 K3 ["Session does not exist!"]
-  GETIMPORT R3 K5 [assert]
+  LOADK R5 K4 ["Session does not exist!"]
+  GETIMPORT R3 K6 [assert]
   CALL R3 2 0
-  NAMECALL R3 R2 K6 ["Reset"]
+  NAMECALL R3 R2 K7 ["Reset"]
   CALL R3 1 0
   GETTABLEKS R3 R0 K0 ["_store"]
-  GETUPVAL R5 0
+  GETUPVAL R5 1
   MOVE R6 R1
   CALL R5 1 -1
-  NAMECALL R3 R3 K7 ["dispatch"]
+  NAMECALL R3 R3 K8 ["dispatch"]
   CALL R3 -1 0
   LOADNIL R3
   MOVE R6 R1
-  NAMECALL R4 R0 K8 ["isLastImport"]
+  NAMECALL R4 R0 K9 ["isLastImport"]
   CALL R4 2 1
   JUMPIFNOT R4 [+9]
-  GETTABLEKS R4 R0 K9 ["_assetImportServiceWrapper"]
-  GETTABLEKS R6 R0 K10 ["lastImportName"]
-  NAMECALL R4 R4 K11 ["GetPreset"]
+  GETTABLEKS R4 R0 K10 ["_assetImportServiceWrapper"]
+  GETTABLEKS R6 R0 K11 ["lastImportName"]
+  NAMECALL R4 R4 K12 ["GetPreset"]
   CALL R4 2 1
   MOVE R3 R4
   JUMP [+7]
-  GETTABLEKS R4 R0 K9 ["_assetImportServiceWrapper"]
+  GETTABLEKS R4 R0 K10 ["_assetImportServiceWrapper"]
   MOVE R6 R1
-  NAMECALL R4 R4 K11 ["GetPreset"]
+  NAMECALL R4 R4 K12 ["GetPreset"]
   CALL R4 2 1
   MOVE R3 R4
   MOVE R6 R3
-  NAMECALL R4 R2 K12 ["ApplyPreset"]
+  NAMECALL R4 R2 K13 ["ApplyPreset"]
   CALL R4 2 0
   NEWTABLE R4 0 0
-  GETTABLEKS R8 R0 K0 ["_store"]
-  NAMECALL R8 R8 K1 ["getState"]
-  CALL R8 1 1
-  GETTABLEKS R5 R8 K13 ["importDataChecked"]
-  LOADNIL R6
-  LOADNIL R7
-  FORGPREP R5
-  GETTABLEKS R10 R8 K14 ["ShouldImport"]
-  SETTABLE R10 R4 R8
-  FORGLOOP R5 2 [-4]
-  GETTABLEKS R5 R0 K0 ["_store"]
-  GETUPVAL R7 1
-  MOVE R8 R4
-  CALL R7 1 -1
-  NAMECALL R5 R5 K7 ["dispatch"]
-  CALL R5 -1 0
+  GETUPVAL R6 0
+  CALL R6 0 1
+  JUMPIFNOT R6 [+10]
+  GETTABLEKS R7 R0 K0 ["_store"]
+  NAMECALL R7 R7 K1 ["getState"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K2 ["Preview"]
+  GETTABLEKS R5 R6 K14 ["importDataChecked"]
+  JUMP [+7]
   GETTABLEKS R6 R0 K0 ["_store"]
   NAMECALL R6 R6 K1 ["getState"]
   CALL R6 1 1
-  GETTABLEKS R5 R6 K15 ["selectedImportItem"]
-  JUMPIFNOT R5 [+11]
-  NAMECALL R6 R5 K16 ["GetPreview"]
-  CALL R6 1 1
-  GETTABLEKS R7 R0 K0 ["_store"]
-  GETUPVAL R9 2
-  MOVE R10 R6
-  CALL R9 1 -1
-  NAMECALL R7 R7 K7 ["dispatch"]
-  CALL R7 -1 0
+  GETTABLEKS R5 R6 K14 ["importDataChecked"]
+  MOVE R6 R5
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  GETTABLEKS R11 R9 K15 ["ShouldImport"]
+  SETTABLE R11 R4 R9
+  FORGLOOP R6 2 [-4]
   GETTABLEKS R6 R0 K0 ["_store"]
-  GETUPVAL R8 3
-  LOADB R9 0
+  GETUPVAL R8 2
+  MOVE R9 R4
   CALL R8 1 -1
-  NAMECALL R6 R6 K7 ["dispatch"]
+  NAMECALL R6 R6 K8 ["dispatch"]
   CALL R6 -1 0
+  GETUPVAL R7 0
+  CALL R7 0 1
+  JUMPIFNOT R7 [+10]
+  GETTABLEKS R8 R0 K0 ["_store"]
+  NAMECALL R8 R8 K1 ["getState"]
+  CALL R8 1 1
+  GETTABLEKS R7 R8 K2 ["Preview"]
+  GETTABLEKS R6 R7 K16 ["selectedImportItem"]
+  JUMP [+7]
+  GETTABLEKS R7 R0 K0 ["_store"]
+  NAMECALL R7 R7 K1 ["getState"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K16 ["selectedImportItem"]
+  JUMPIFNOT R6 [+11]
+  NAMECALL R7 R6 K17 ["GetPreview"]
+  CALL R7 1 1
+  GETTABLEKS R8 R0 K0 ["_store"]
+  GETUPVAL R10 3
+  MOVE R11 R7
+  CALL R10 1 -1
+  NAMECALL R8 R8 K8 ["dispatch"]
+  CALL R8 -1 0
+  GETTABLEKS R7 R0 K0 ["_store"]
+  GETUPVAL R9 4
+  LOADB R10 0
+  CALL R9 1 -1
+  NAMECALL R7 R7 K8 ["dispatch"]
+  CALL R7 -1 0
   RETURN R0 0
 
 PROTO_21:
@@ -389,11 +462,20 @@ PROTO_22:
   NAMECALL R3 R0 K0 ["getAllPresets"]
   CALL R3 1 -1
   CALL R2 -1 1
+  GETUPVAL R4 1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+10]
+  GETTABLEKS R5 R0 K1 ["_store"]
+  NAMECALL R5 R5 K2 ["getState"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K3 ["Preview"]
+  GETTABLEKS R3 R4 K4 ["settingsChanged"]
+  JUMP [+7]
   GETTABLEKS R4 R0 K1 ["_store"]
   NAMECALL R4 R4 K2 ["getState"]
   CALL R4 1 1
-  GETTABLEKS R3 R4 K3 ["settingsChanged"]
-  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["settingsChanged"]
+  GETUPVAL R4 2
   MOVE R5 R2
   NEWCLOSURE R6 P0
   CAPTURE VAL R1
@@ -401,7 +483,7 @@ PROTO_22:
   JUMPIFNOT R4 [+5]
   JUMPIFNOT R3 [+4]
   MOVE R6 R1
-  LOADK R7 K4 ["*"]
+  LOADK R7 K5 ["*"]
   CONCAT R5 R6 R7
   SETTABLE R5 R2 R4
   RETURN R2 1
@@ -534,76 +616,82 @@ MAIN:
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K6 ["Src"]
-  GETTABLEKS R13 R14 K22 ["Reducers"]
-  GETTABLEKS R12 R13 K23 ["MainReducer"]
+  GETTABLEKS R13 R14 K22 ["Flags"]
+  GETTABLEKS R12 R13 K23 ["getFIntAssetImportMaxPresetCount"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETTABLEKS R15 R0 K6 ["Src"]
-  GETTABLEKS R14 R15 K24 ["Flags"]
-  GETTABLEKS R13 R14 K25 ["getFIntAssetImportMaxPresetCount"]
+  GETTABLEKS R14 R15 K22 ["Flags"]
+  GETTABLEKS R13 R14 K24 ["getFFlagAssetImportFixDropdownRender"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R16 R0 K6 ["Src"]
-  GETTABLEKS R15 R16 K24 ["Flags"]
-  GETTABLEKS R14 R15 K26 ["getFFlagAssetImportFixDropdownRender"]
+  GETTABLEKS R15 R16 K22 ["Flags"]
+  GETTABLEKS R14 R15 K25 ["getFFlagAssetImportRefactorReducer"]
   CALL R13 1 1
-  LOADK R16 K27 ["PresetController"]
-  NAMECALL R14 R3 K28 ["extend"]
+  LOADK R16 K26 ["PresetController"]
+  NAMECALL R14 R3 K27 ["extend"]
   CALL R14 2 1
-  DUPCLOSURE R15 K29 [PROTO_0]
+  DUPCLOSURE R15 K28 [PROTO_0]
   CAPTURE VAL R14
-  SETTABLEKS R15 R14 K30 ["new"]
-  DUPCLOSURE R15 K31 [PROTO_6]
-  SETGLOBAL R15 K32 ["wrapAssetImportService"]
-  DUPCLOSURE R15 K33 [PROTO_8]
+  SETTABLEKS R15 R14 K29 ["new"]
+  DUPCLOSURE R15 K30 [PROTO_6]
+  SETGLOBAL R15 K31 ["wrapAssetImportService"]
+  DUPCLOSURE R15 K32 [PROTO_8]
   CAPTURE VAL R14
-  SETTABLEKS R15 R14 K34 ["mock"]
-  DUPCLOSURE R15 K35 [PROTO_9]
-  SETTABLEKS R15 R14 K36 ["destroy"]
-  DUPCLOSURE R15 K37 [PROTO_10]
-  SETTABLEKS R15 R14 K38 ["_filter"]
-  DUPCLOSURE R15 K39 [PROTO_11]
+  SETTABLEKS R15 R14 K33 ["mock"]
+  DUPCLOSURE R15 K34 [PROTO_9]
+  SETTABLEKS R15 R14 K35 ["destroy"]
+  DUPCLOSURE R15 K36 [PROTO_10]
+  SETTABLEKS R15 R14 K37 ["_filter"]
+  DUPCLOSURE R15 K38 [PROTO_11]
+  CAPTURE VAL R13
   CAPTURE VAL R4
   CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R7
+  SETTABLEKS R15 R14 K39 ["save"]
+  DUPCLOSURE R15 K40 [PROTO_12]
+  CAPTURE VAL R13
+  SETTABLEKS R15 R14 K41 ["createPresetFromLastImport"]
+  DUPCLOSURE R15 K42 [PROTO_13]
   CAPTURE VAL R13
   CAPTURE VAL R7
-  SETTABLEKS R15 R14 K40 ["save"]
-  DUPCLOSURE R15 K41 [PROTO_12]
-  SETTABLEKS R15 R14 K42 ["createPresetFromLastImport"]
-  DUPCLOSURE R15 K43 [PROTO_13]
-  CAPTURE VAL R7
-  SETTABLEKS R15 R14 K44 ["rename"]
-  DUPCLOSURE R15 K45 [PROTO_14]
+  SETTABLEKS R15 R14 K43 ["rename"]
+  DUPCLOSURE R15 K44 [PROTO_14]
   CAPTURE VAL R7
   CAPTURE VAL R8
-  SETTABLEKS R15 R14 K46 ["delete"]
-  DUPCLOSURE R15 K47 [PROTO_15]
-  SETTABLEKS R15 R14 K48 ["setDefault"]
-  DUPCLOSURE R15 K49 [PROTO_16]
-  SETTABLEKS R15 R14 K50 ["applyImportDataToSession"]
-  DUPCLOSURE R15 K51 [PROTO_17]
-  SETTABLEKS R15 R14 K52 ["isDefault"]
-  DUPCLOSURE R15 K53 [PROTO_18]
-  SETTABLEKS R15 R14 K54 ["isLastImport"]
-  DUPCLOSURE R15 K55 [PROTO_19]
-  SETTABLEKS R15 R14 K56 ["isStudioDefault"]
-  DUPCLOSURE R15 K57 [PROTO_20]
+  SETTABLEKS R15 R14 K45 ["delete"]
+  DUPCLOSURE R15 K46 [PROTO_15]
+  SETTABLEKS R15 R14 K47 ["setDefault"]
+  DUPCLOSURE R15 K48 [PROTO_16]
+  CAPTURE VAL R13
+  SETTABLEKS R15 R14 K49 ["applyImportDataToSession"]
+  DUPCLOSURE R15 K50 [PROTO_17]
+  SETTABLEKS R15 R14 K51 ["isDefault"]
+  DUPCLOSURE R15 K52 [PROTO_18]
+  SETTABLEKS R15 R14 K53 ["isLastImport"]
+  DUPCLOSURE R15 K54 [PROTO_19]
+  SETTABLEKS R15 R14 K55 ["isStudioDefault"]
+  DUPCLOSURE R15 K56 [PROTO_20]
+  CAPTURE VAL R13
   CAPTURE VAL R7
   CAPTURE VAL R9
   CAPTURE VAL R10
   CAPTURE VAL R8
-  SETTABLEKS R15 R14 K58 ["resolvePreset"]
-  DUPCLOSURE R15 K59 [PROTO_22]
+  SETTABLEKS R15 R14 K57 ["resolvePreset"]
+  DUPCLOSURE R15 K58 [PROTO_22]
   CAPTURE VAL R5
+  CAPTURE VAL R13
   CAPTURE VAL R6
-  SETTABLEKS R15 R14 K60 ["getNameList"]
-  DUPCLOSURE R15 K61 [PROTO_23]
-  SETTABLEKS R15 R14 K62 ["getAllPresets"]
-  DUPCLOSURE R15 K63 [PROTO_24]
+  SETTABLEKS R15 R14 K59 ["getNameList"]
+  DUPCLOSURE R15 K60 [PROTO_23]
+  SETTABLEKS R15 R14 K61 ["getAllPresets"]
+  DUPCLOSURE R15 K62 [PROTO_24]
   CAPTURE VAL R7
-  SETTABLEKS R15 R14 K64 ["initializePresets"]
-  DUPCLOSURE R15 K65 [PROTO_25]
-  CAPTURE VAL R12
+  SETTABLEKS R15 R14 K63 ["initializePresets"]
+  DUPCLOSURE R15 K64 [PROTO_25]
+  CAPTURE VAL R11
   CAPTURE VAL R5
-  SETTABLEKS R15 R14 K66 ["getNumPresetsRemaining"]
+  SETTABLEKS R15 R14 K65 ["getNumPresetsRemaining"]
   RETURN R14 1

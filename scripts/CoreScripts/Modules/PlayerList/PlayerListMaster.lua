@@ -10,17 +10,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local FFlagPlayerListRoactInspector = game:DefineFastFlag("DebugPlayerListRoactInspector", false)
 
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
-local AppDarkTheme = nil
-local AppFont = nil
-local renderWithCoreScriptsStyleProvider = nil
-if not GetFFlagEnableStyleProviderCleanUp() then
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-else
-	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
-end
+local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local SettingsUtil = require(RobloxGui.Modules.Settings.Utility)
@@ -157,14 +147,6 @@ function PlayerListMaster.new()
 
 	self:_trackEnabled()
 
-	local appStyle = nil
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		appStyle = {
-			Theme = AppDarkTheme,
-			Font = AppFont,
-		}
-	end
-
 	local appStyleForUiModeStyleProvider = {
 		themeName = StyleConstants.ThemeName.Dark,
 		fontName = StyleConstants.FontName.Gotham
@@ -175,7 +157,6 @@ function PlayerListMaster.new()
 			store = self.store,
 		}, {
 			Roact.createElement(PlayerListSwitcher, {
-				appStyle = appStyle,
 				appStyleForUiModeStyleProvider = appStyleForUiModeStyleProvider,
 				setLayerCollectorEnabled = function(enabled)
 					layerCollector.Enabled = enabled
@@ -195,18 +176,9 @@ function PlayerListMaster.new()
 		self.element = Roact.mount(self.root, layerCollector, "PlayerListMaster")
 
 	else
-		local themeProvider
-		if not GetFFlagEnableStyleProviderCleanUp() then
-			themeProvider = Roact.createElement(UIBlox.Style.Provider, {
-				style = appStyle,
-			}, {
-				PlayerListApp = Roact.createElement(PlayerListApp)
-			})
-		else
-			themeProvider = renderWithCoreScriptsStyleProvider({
-				PlayerListApp = Roact.createElement(PlayerListApp)
-			})
-		end
+		local themeProvider = renderWithCoreScriptsStyleProvider({
+			PlayerListApp = Roact.createElement(PlayerListApp)
+		})
 		self.root = Roact.createElement(RoactRodux.StoreProvider, {
 			store = self.store,
 		}, {

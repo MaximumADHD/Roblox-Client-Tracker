@@ -451,25 +451,31 @@ local function Initialize()
 
 				table.insert(framerateCaps, 1, -1)
 
-				this.FramerateCapFrame, this.FramerateCapLabel, this.FramerateCapMode =
-					utility:AddNewRow(
-						this,
-						RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MaximumFramerate"),
-						"Selector",
-						framerateCapsToText,
-						table.find(framerateCaps, GameSettings.FramerateCap)
-					)
-				this.FramerateCapFrame.LayoutOrder = 12
+				-- `task.defer` being used because DropDown requires the hub to be set,
+				-- but that isn't done until a later call.
+				task.defer(function()
+					this.FramerateCapFrame, this.FramerateCapLabel, this.FramerateCapMode =
+						utility:AddNewRow(
+							this,
+							RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MaximumFramerate"),
+							"DropDown",
+							framerateCapsToText,
+							table.find(framerateCaps, GameSettings.FramerateCap),
+							nil,
+							RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MaximumFramerate.Description")
+						)
+					this.FramerateCapFrame.LayoutOrder = 12
 
-				this.FramerateCapMode.IndexChanged:Connect(function(newIndex)
-					local oldValue = GameSettings.FramerateCap
-					GameSettings.FramerateCap = tonumber(framerateCaps[newIndex])
+					this.FramerateCapMode.IndexChanged:Connect(function(newIndex)
+						local oldValue = GameSettings.FramerateCap
+						GameSettings.FramerateCap = tonumber(framerateCaps[newIndex])
 
-					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
-						reportSettingsChangeForAnalytics("framerate_cap", oldValue, GameSettings.FramerateCap)
-					end
+						if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+							reportSettingsChangeForAnalytics("framerate_cap", oldValue, GameSettings.FramerateCap)
+						end
 
-					reportSettingsForAnalytics()
+						reportSettingsForAnalytics()
+					end)
 				end)
 			end
 		end

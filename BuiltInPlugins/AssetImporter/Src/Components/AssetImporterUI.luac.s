@@ -216,14 +216,31 @@ PROTO_5:
   RETURN R1 1
 
 PROTO_6:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+26]
   DUPTABLE R1 K4 [{"AssetImportSession", "ImportTree", "Filename", "SelectedImportItem"}]
-  GETTABLEKS R2 R0 K5 ["assetImportSession"]
+  GETTABLEKS R3 R0 K5 ["Preview"]
+  GETTABLEKS R2 R3 K6 ["assetImportSession"]
   SETTABLEKS R2 R1 K0 ["AssetImportSession"]
-  GETTABLEKS R2 R0 K6 ["importTree"]
+  GETTABLEKS R3 R0 K5 ["Preview"]
+  GETTABLEKS R2 R3 K7 ["importTree"]
   SETTABLEKS R2 R1 K1 ["ImportTree"]
-  GETTABLEKS R2 R0 K7 ["filename"]
+  GETTABLEKS R3 R0 K5 ["Preview"]
+  GETTABLEKS R2 R3 K8 ["filename"]
   SETTABLEKS R2 R1 K2 ["Filename"]
-  GETTABLEKS R2 R0 K8 ["selectedImportItem"]
+  GETTABLEKS R3 R0 K5 ["Preview"]
+  GETTABLEKS R2 R3 K9 ["selectedImportItem"]
+  SETTABLEKS R2 R1 K3 ["SelectedImportItem"]
+  RETURN R1 1
+  DUPTABLE R1 K4 [{"AssetImportSession", "ImportTree", "Filename", "SelectedImportItem"}]
+  GETTABLEKS R2 R0 K6 ["assetImportSession"]
+  SETTABLEKS R2 R1 K0 ["AssetImportSession"]
+  GETTABLEKS R2 R0 K7 ["importTree"]
+  SETTABLEKS R2 R1 K1 ["ImportTree"]
+  GETTABLEKS R2 R0 K8 ["filename"]
+  SETTABLEKS R2 R1 K2 ["Filename"]
+  GETTABLEKS R2 R0 K9 ["selectedImportItem"]
   SETTABLEKS R2 R1 K3 ["SelectedImportItem"]
   RETURN R1 1
 
@@ -285,13 +302,18 @@ MAIN:
   GETTABLEKS R18 R19 K28 ["Thunks"]
   GETTABLEKS R17 R18 K29 ["ShowImportPrompt"]
   CALL R16 1 1
-  GETTABLEKS R17 R1 K30 ["PureComponent"]
-  LOADK R19 K31 ["AssetImporterUI"]
-  NAMECALL R17 R17 K32 ["extend"]
-  CALL R17 2 1
-  DUPCLOSURE R18 K33 [PROTO_2]
-  SETTABLEKS R18 R17 K34 ["init"]
-  DUPCLOSURE R18 K35 [PROTO_3]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K18 ["Src"]
+  GETTABLEKS R19 R20 K30 ["Flags"]
+  GETTABLEKS R18 R19 K31 ["getFFlagAssetImportRefactorReducer"]
+  CALL R17 1 1
+  GETTABLEKS R18 R1 K32 ["PureComponent"]
+  LOADK R20 K33 ["AssetImporterUI"]
+  NAMECALL R18 R18 K34 ["extend"]
+  CALL R18 2 1
+  DUPCLOSURE R19 K35 [PROTO_2]
+  SETTABLEKS R19 R18 K36 ["init"]
+  DUPCLOSURE R19 K37 [PROTO_3]
   CAPTURE VAL R1
   CAPTURE VAL R9
   CAPTURE VAL R14
@@ -299,23 +321,24 @@ MAIN:
   CAPTURE VAL R15
   CAPTURE VAL R12
   CAPTURE VAL R13
-  SETTABLEKS R18 R17 K36 ["render"]
-  MOVE R18 R5
-  DUPTABLE R19 K37 [{"Localization", "Stylizer", "PresetController"}]
-  SETTABLEKS R6 R19 K12 ["Localization"]
-  SETTABLEKS R7 R19 K14 ["Stylizer"]
-  SETTABLEKS R11 R19 K20 ["PresetController"]
-  CALL R18 1 1
-  MOVE R19 R17
-  CALL R18 1 1
-  MOVE R17 R18
-  DUPCLOSURE R18 K38 [PROTO_5]
+  SETTABLEKS R19 R18 K38 ["render"]
+  MOVE R19 R5
+  DUPTABLE R20 K39 [{"Localization", "Stylizer", "PresetController"}]
+  SETTABLEKS R6 R20 K12 ["Localization"]
+  SETTABLEKS R7 R20 K14 ["Stylizer"]
+  SETTABLEKS R11 R20 K20 ["PresetController"]
+  CALL R19 1 1
+  MOVE R20 R18
+  CALL R19 1 1
+  MOVE R18 R19
+  DUPCLOSURE R19 K40 [PROTO_5]
   CAPTURE VAL R16
-  DUPCLOSURE R19 K39 [PROTO_6]
-  GETTABLEKS R20 R2 K40 ["connect"]
-  MOVE R21 R19
+  DUPCLOSURE R20 K41 [PROTO_6]
+  CAPTURE VAL R17
+  GETTABLEKS R21 R2 K42 ["connect"]
+  MOVE R22 R20
+  MOVE R23 R19
+  CALL R21 2 1
   MOVE R22 R18
-  CALL R20 2 1
-  MOVE R21 R17
-  CALL R20 1 -1
-  RETURN R20 -1
+  CALL R21 1 -1
+  RETURN R21 -1

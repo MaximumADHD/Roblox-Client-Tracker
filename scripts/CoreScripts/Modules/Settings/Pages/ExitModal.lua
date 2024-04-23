@@ -36,8 +36,6 @@ local Players = game:GetService("Players")
 
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
 
 local NotificationType = GuiService:GetNotificationTypeList()
 local Roact = require(CorePackages.Roact)
@@ -59,18 +57,9 @@ local LocalStore = require(RobloxGui.Modules.Chrome.Service.LocalStore)
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local UIBlox = InGameMenuDependencies.UIBlox
 local Images = UIBlox.App.ImageSet.Images
-local StyleProvider = UIBlox.Core.Style.Provider
 local EducationalModal = UIBlox.App.Dialog.Modal.EducationalModal
 
-local renderWithCoreScriptsStyleProvider
-local AppDarkTheme
-local AppFont
-if not GetFFlagEnableStyleProviderCleanUp() then
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-else
-	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
-end
+local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 ------------ VARIABLES -------------------
 
@@ -246,16 +235,7 @@ local function Initialize()
 				end,
 			}),
 		}
-		if not GetFFlagEnableStyleProviderCleanUp() then
-			return Roact.createElement(StyleProvider, {
-				style = {
-					Theme = AppDarkTheme,
-					Font = AppFont,
-				},
-			}, children)
-		else
-			return renderWithCoreScriptsStyleProvider(children)
-		end
+		return renderWithCoreScriptsStyleProvider(children)
 	end
 
 	local exitModalTree = Roact.mount(ExitModal(), this.Page, "ExitModal")

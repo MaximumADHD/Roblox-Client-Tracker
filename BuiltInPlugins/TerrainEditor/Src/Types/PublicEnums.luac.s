@@ -90,7 +90,7 @@ MAIN:
   LOADK R12 K40 ["Snapping"]
   SETTABLEKS R12 R1 K40 ["Snapping"]
   SETTABLEKS R11 R0 K40 ["Snapping"]
-  DUPTABLE R12 K49 [{"Arctic", "Crater", "Desert", "Lake", "Mesa", "Mountain", "Plain", "Volcano"}]
+  DUPTABLE R12 K50 [{"Arctic", "Crater", "Desert", "Lake", "Mesa", "Mountain", "Plain", "Volcano", "None"}]
   LOADK R13 K41 ["Arctic"]
   SETTABLEKS R13 R12 K41 ["Arctic"]
   LOADK R13 K42 ["Crater"]
@@ -107,9 +107,11 @@ MAIN:
   SETTABLEKS R13 R12 K47 ["Plain"]
   LOADK R13 K48 ["Volcano"]
   SETTABLEKS R13 R12 K48 ["Volcano"]
-  LOADK R13 K50 ["TerrainType"]
-  SETTABLEKS R13 R1 K50 ["TerrainType"]
-  SETTABLEKS R12 R0 K50 ["TerrainType"]
+  LOADK R13 K49 ["None"]
+  SETTABLEKS R13 R12 K49 ["None"]
+  LOADK R13 K51 ["TerrainType"]
+  SETTABLEKS R13 R1 K51 ["TerrainType"]
+  SETTABLEKS R12 R0 K51 ["TerrainType"]
   NEWTABLE R13 16 0
   GETTABLEKS R14 R1 K3 ["BrushMode"]
   NEWTABLE R15 0 2
@@ -175,51 +177,52 @@ MAIN:
   GETTABLEKS R17 R11 K38 ["Voxel"]
   SETLIST R15 R16 2 [1]
   SETTABLE R15 R13 R14
-  GETTABLEKS R14 R1 K50 ["TerrainType"]
-  NEWTABLE R15 0 8
-  GETTABLEKS R16 R12 K41 ["Arctic"]
-  GETTABLEKS R17 R12 K42 ["Crater"]
+  GETTABLEKS R14 R1 K51 ["TerrainType"]
+  NEWTABLE R15 0 9
+  GETTABLEKS R16 R12 K47 ["Plain"]
+  GETTABLEKS R17 R12 K41 ["Arctic"]
   GETTABLEKS R18 R12 K43 ["Desert"]
-  GETTABLEKS R19 R12 K44 ["Lake"]
-  GETTABLEKS R20 R12 K45 ["Mesa"]
-  GETTABLEKS R21 R12 K46 ["Mountain"]
-  GETTABLEKS R22 R12 K47 ["Plain"]
-  GETTABLEKS R23 R12 K48 ["Volcano"]
-  SETLIST R15 R16 8 [1]
+  GETTABLEKS R19 R12 K46 ["Mountain"]
+  GETTABLEKS R20 R12 K48 ["Volcano"]
+  GETTABLEKS R21 R12 K45 ["Mesa"]
+  GETTABLEKS R22 R12 K42 ["Crater"]
+  GETTABLEKS R23 R12 K44 ["Lake"]
+  GETTABLEKS R24 R12 K49 ["None"]
+  SETLIST R15 R16 9 [1]
   SETTABLE R15 R13 R14
   MOVE R14 R0
   LOADNIL R15
   LOADNIL R16
   FORGPREP R14
   GETTABLE R20 R13 R17
-  LOADK R22 K51 ["Expected editor enum index for %*"]
+  LOADK R22 K52 ["Expected editor enum index for %*"]
   MOVE R24 R17
-  NAMECALL R22 R22 K52 ["format"]
+  NAMECALL R22 R22 K53 ["format"]
   CALL R22 2 1
   MOVE R21 R22
   FASTCALL2 ASSERT R20 R21 [+3]
-  GETIMPORT R19 K54 [assert]
+  GETIMPORT R19 K55 [assert]
   CALL R19 2 0
   MOVE R19 R18
   LOADNIL R20
   LOADNIL R21
   FORGPREP R19
-  GETIMPORT R24 K57 [table.find]
+  GETIMPORT R24 K58 [table.find]
   GETTABLE R25 R13 R17
   MOVE R26 R23
   CALL R24 2 1
-  LOADK R28 K58 ["Expected index for enum value %*.%*"]
+  LOADK R28 K59 ["Expected index for enum value %*.%*"]
   MOVE R30 R17
   MOVE R31 R23
-  NAMECALL R28 R28 K52 ["format"]
+  NAMECALL R28 R28 K53 ["format"]
   CALL R28 3 1
   MOVE R27 R28
   FASTCALL2 ASSERT R24 R27 [+4]
   MOVE R26 R24
-  GETIMPORT R25 K54 [assert]
+  GETIMPORT R25 K55 [assert]
   CALL R25 2 0
   FORGLOOP R19 2 [-19]
   FORGLOOP R14 2 [-37]
-  SETTABLEKS R13 R0 K59 ["EnumTypeIndices"]
-  SETTABLEKS R1 R0 K60 ["EnumType"]
+  SETTABLEKS R13 R0 K60 ["EnumTypeIndices"]
+  SETTABLEKS R1 R0 K61 ["EnumType"]
   RETURN R0 1

@@ -96,57 +96,67 @@ PROTO_4:
   RETURN R0 0
 
 PROTO_5:
-  GETUPVAL R4 0
-  NAMECALL R4 R4 K0 ["getGameName"]
-  CALL R4 1 1
-  MOVE R2 R4
-  LOADK R3 K1 ["_R15"]
-  CONCAT R1 R2 R3
-  SETTABLEKS R1 R0 K2 ["name"]
-  LOADK R2 K3 ["MorphToR15"]
-  SETTABLEKS R2 R0 K4 ["universeAvatarType"]
-  GETUPVAL R2 1
-  GETUPVAL R3 2
+  GETUPVAL R1 0
+  LOADK R3 K0 ["InitialFlow"]
+  GETUPVAL R5 1
+  NAMECALL R5 R5 K1 ["isPublishedR15PlayerChoiceExperience"]
+  CALL R5 1 1
+  JUMPIFNOT R5 [+2]
+  LOADK R4 K2 ["CopyR15"]
+  JUMP [+1]
+  LOADK R4 K3 ["CopyR6Local"]
+  DUPTABLE R5 K5 [{"experienceName"}]
+  GETUPVAL R6 1
+  NAMECALL R6 R6 K6 ["getGameName"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K4 ["experienceName"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K8 ["name"]
+  LOADK R2 K9 ["MorphToR15"]
+  SETTABLEKS R2 R0 K10 ["universeAvatarType"]
+  GETUPVAL R2 2
+  GETUPVAL R3 0
   GETUPVAL R4 3
   MOVE R5 R0
   CALL R2 3 1
   JUMPIFNOT R2 [+2]
-  JUMPIFNOTEQKN R2 K5 [0] [+14]
-  GETIMPORT R3 K7 [warn]
-  LOADK R4 K8 ["Failed to create new experience"]
+  JUMPIFNOTEQKN R2 K11 [0] [+14]
+  GETIMPORT R3 K13 [warn]
+  LOADK R4 K14 ["Failed to create new experience"]
   CALL R3 1 0
-  GETUPVAL R3 0
-  DUPTABLE R5 K10 [{"isConverting"}]
+  GETUPVAL R3 1
+  DUPTABLE R5 K16 [{"isConverting"}]
   LOADB R6 0
-  SETTABLEKS R6 R5 K9 ["isConverting"]
-  NAMECALL R3 R3 K11 ["setState"]
+  SETTABLEKS R6 R5 K15 ["isConverting"]
+  NAMECALL R3 R3 K17 ["setState"]
   CALL R3 2 0
   RETURN R0 0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K12 ["isExperiencePublished"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K18 ["isExperiencePublished"]
   JUMPIFNOT R3 [+12]
   GETUPVAL R4 4
-  GETTABLEKS R3 R4 K13 ["CorrespondingR15Experience"]
+  GETTABLEKS R3 R4 K19 ["CorrespondingR15Experience"]
   GETUPVAL R5 5
-  GETIMPORT R7 K15 [game]
-  GETTABLEKS R6 R7 K16 ["GameId"]
+  GETIMPORT R7 K21 [game]
+  GETTABLEKS R6 R7 K22 ["GameId"]
   MOVE R7 R2
-  NAMECALL R3 R3 K17 ["setSetting"]
+  NAMECALL R3 R3 K23 ["setSetting"]
   CALL R3 4 0
   GETUPVAL R4 4
-  GETTABLEKS R3 R4 K18 ["IsR15ConvertedExperience"]
+  GETTABLEKS R3 R4 K24 ["IsR15ConvertedExperience"]
   GETUPVAL R5 5
   MOVE R6 R2
   LOADB R7 1
-  NAMECALL R3 R3 K17 ["setSetting"]
+  NAMECALL R3 R3 K23 ["setSetting"]
   CALL R3 4 0
-  GETUPVAL R3 0
+  GETUPVAL R3 1
   MOVE R5 R2
   NEWCLOSURE R6 P0
   CAPTURE VAL R1
-  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE UPVAL U6
-  NAMECALL R3 R3 K19 ["getR15ExperienceData"]
+  NAMECALL R3 R3 K25 ["getR15ConvertedExperienceData"]
   CALL R3 3 0
   RETURN R0 0
 
@@ -234,9 +244,9 @@ PROTO_9:
   NAMECALL R4 R4 K7 ["setState"]
   CALL R4 2 0
   NEWCLOSURE R4 P0
+  CAPTURE VAL R1
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
-  CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE UPVAL U2
   CAPTURE VAL R3
@@ -318,7 +328,7 @@ PROTO_11:
   NEWCLOSURE R5 P0
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  NAMECALL R2 R0 K17 ["getR15ExperienceData"]
+  NAMECALL R2 R0 K17 ["getR15ConvertedExperienceData"]
   CALL R2 3 0
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
@@ -714,418 +724,580 @@ PROTO_22:
   LOADNIL R5
   LOADNIL R6
   LOADNIL R7
-  GETTABLEKS R8 R0 K4 ["isExperiencePublished"]
+  NAMECALL R10 R0 K4 ["isWaitingForInitialData"]
+  CALL R10 1 1
+  NOT R9 R10
+  FASTCALL1 ASSERT R9 [+2]
+  GETIMPORT R8 K6 [assert]
+  CALL R8 1 0
+  NAMECALL R8 R0 K7 ["isLocalPlace"]
+  CALL R8 1 1
+  JUMPIFNOT R8 [+19]
+  LOADK R10 K8 ["InitialFlow"]
+  LOADK R11 K9 ["PlacefileExplanation"]
+  NAMECALL R8 R3 K10 ["getText"]
+  CALL R8 3 1
+  MOVE R5 R8
+  LOADK R10 K8 ["InitialFlow"]
+  LOADK R11 K11 ["PlacefileInstructions"]
+  NAMECALL R8 R3 K10 ["getText"]
+  CALL R8 3 1
+  MOVE R6 R8
+  LOADK R10 K8 ["InitialFlow"]
+  LOADK R11 K12 ["PlacefileGetStartedButton"]
+  NAMECALL R8 R3 K10 ["getText"]
+  CALL R8 3 1
+  MOVE R7 R8
+  JUMP [+54]
+  NAMECALL R8 R0 K13 ["isPublishedR6Experience"]
+  CALL R8 1 1
   JUMPIFNOT R8 [+25]
-  LOADK R10 K5 ["InitialFlow"]
-  LOADK R11 K6 ["ExperienceExplanation"]
-  DUPTABLE R12 K8 [{"experienceName"}]
-  NAMECALL R13 R0 K9 ["getGameName"]
+  LOADK R10 K8 ["InitialFlow"]
+  LOADK R11 K14 ["ExperienceExplanationR6"]
+  DUPTABLE R12 K16 [{"experienceName"}]
+  NAMECALL R13 R0 K17 ["getGameName"]
   CALL R13 1 1
-  SETTABLEKS R13 R12 K7 ["experienceName"]
+  SETTABLEKS R13 R12 K15 ["experienceName"]
   NAMECALL R8 R3 K10 ["getText"]
   CALL R8 4 1
   MOVE R5 R8
-  LOADK R10 K5 ["InitialFlow"]
-  LOADK R11 K11 ["ExperienceInstructions"]
+  LOADK R10 K8 ["InitialFlow"]
+  LOADK R11 K18 ["ExperienceInstructionsR6"]
   NAMECALL R8 R3 K10 ["getText"]
   CALL R8 3 1
   MOVE R6 R8
-  LOADK R10 K5 ["InitialFlow"]
-  LOADK R11 K12 ["ExperienceGetStartedButton"]
+  LOADK R10 K8 ["InitialFlow"]
+  LOADK R11 K19 ["ExperienceGetStartedButtonR6"]
   NAMECALL R8 R3 K10 ["getText"]
   CALL R8 3 1
   MOVE R7 R8
-  JUMP [+18]
-  LOADK R10 K5 ["InitialFlow"]
-  LOADK R11 K13 ["PlacefileExplanation"]
+  JUMP [+25]
+  NAMECALL R9 R0 K20 ["isPublishedR15PlayerChoiceExperience"]
+  CALL R9 1 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R8 K6 [assert]
+  CALL R8 -1 0
+  LOADK R10 K8 ["InitialFlow"]
+  LOADK R11 K21 ["ExperienceExplanationR15"]
   NAMECALL R8 R3 K10 ["getText"]
   CALL R8 3 1
   MOVE R5 R8
-  LOADK R10 K5 ["InitialFlow"]
-  LOADK R11 K14 ["PlacefileInstructions"]
+  LOADK R10 K8 ["InitialFlow"]
+  LOADK R11 K22 ["ExperienceInstructionsR15"]
   NAMECALL R8 R3 K10 ["getText"]
   CALL R8 3 1
   MOVE R6 R8
-  LOADK R10 K5 ["InitialFlow"]
-  LOADK R11 K15 ["PlacefileGetStartedButton"]
+  LOADK R10 K8 ["InitialFlow"]
+  LOADK R11 K23 ["ExperienceGetStartedButtonR15"]
   NAMECALL R8 R3 K10 ["getText"]
   CALL R8 3 1
   MOVE R7 R8
-  DUPTABLE R8 K21 [{"ThumbnailPane", "ThumbnailSubTextLabel", "ExplanationLabel", "InstructionLabel", "GetStartedButtonPane"}]
+  DUPTABLE R8 K29 [{"ThumbnailPane", "ExplanationLabelR15Only", "ExplanationLabel", "InstructionLabel", "GetStartedButtonPane"}]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K22 ["createElement"]
+  GETTABLEKS R9 R10 K30 ["createElement"]
   GETUPVAL R10 2
-  DUPTABLE R11 K27 [{"Size", "LayoutOrder", "BackgroundColor", "BackgroundTransparency"}]
-  GETIMPORT R12 K29 [UDim2.new]
+  DUPTABLE R11 K38 [{"Size", "LayoutOrder", "BackgroundTransparency", "Spacing", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R12 K40 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
-  GETTABLEKS R16 R2 K30 ["ThumbnailHeight"]
+  GETTABLEKS R16 R2 K41 ["ThumbnailPanelHeight"]
   CALL R12 4 1
-  SETTABLEKS R12 R11 K23 ["Size"]
-  NAMECALL R12 R4 K31 ["getNextOrder"]
+  SETTABLEKS R12 R11 K31 ["Size"]
+  NAMECALL R12 R4 K42 ["getNextOrder"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K24 ["LayoutOrder"]
-  GETIMPORT R12 K34 [Color3.fromRGB]
-  LOADN R13 0
-  LOADN R14 0
-  LOADN R15 0
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K25 ["BackgroundColor"]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K26 ["BackgroundTransparency"]
-  NEWTABLE R12 0 1
+  SETTABLEKS R12 R11 K32 ["LayoutOrder"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K33 ["BackgroundTransparency"]
+  GETTABLEKS R12 R2 K43 ["ThumbnailPanelVerticalTextSpacing"]
+  SETTABLEKS R12 R11 K34 ["Spacing"]
+  GETIMPORT R12 K47 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K35 ["Layout"]
+  GETIMPORT R12 K49 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R12 R11 K36 ["HorizontalAlignment"]
+  GETIMPORT R12 K51 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R12 R11 K37 ["VerticalAlignment"]
+  DUPTABLE R12 K54 [{"ImagePane", "ThumbnailSubTextLabel"}]
   GETUPVAL R14 1
-  GETTABLEKS R13 R14 K22 ["createElement"]
-  GETUPVAL R14 3
-  DUPTABLE R15 K37 [{"Image", "Size", "ImageColor3"}]
-  LOADK R16 K38 ["rbxasset://textures/R15Migrator/Icon_AdapterPaneTab.png"]
-  SETTABLEKS R16 R15 K35 ["Image"]
-  GETIMPORT R16 K29 [UDim2.new]
+  GETTABLEKS R13 R14 K30 ["createElement"]
+  GETUPVAL R14 2
+  DUPTABLE R15 K56 [{"Size", "LayoutOrder", "BackgroundColor", "BackgroundTransparency"}]
+  GETIMPORT R16 K40 [UDim2.new]
   LOADN R17 1
   LOADN R18 0
-  LOADN R19 1
-  LOADN R20 0
+  LOADN R19 0
+  GETTABLEKS R20 R2 K57 ["ThumbnailHeight"]
   CALL R16 4 1
-  SETTABLEKS R16 R15 K23 ["Size"]
-  GETIMPORT R16 K34 [Color3.fromRGB]
-  LOADN R17 255
+  SETTABLEKS R16 R15 K31 ["Size"]
+  NAMECALL R16 R4 K42 ["getNextOrder"]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K32 ["LayoutOrder"]
+  GETIMPORT R16 K60 [Color3.fromRGB]
+  LOADN R17 0
   LOADN R18 0
   LOADN R19 0
   CALL R16 3 1
-  SETTABLEKS R16 R15 K36 ["ImageColor3"]
-  CALL R13 2 -1
-  SETLIST R12 R13 -1 [1]
+  SETTABLEKS R16 R15 K55 ["BackgroundColor"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K33 ["BackgroundTransparency"]
+  NEWTABLE R16 0 1
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K30 ["createElement"]
+  LOADK R18 K61 ["VideoFrame"]
+  DUPTABLE R19 K65 [{"Video", "Size", "Looped", "Playing"}]
+  LOADK R20 K66 ["rbxasset://textures/R15Migrator/start-page-anim.mp4"]
+  SETTABLEKS R20 R19 K62 ["Video"]
+  GETIMPORT R20 K40 [UDim2.new]
+  LOADN R21 1
+  LOADN R22 0
+  LOADN R23 1
+  LOADN R24 0
+  CALL R20 4 1
+  SETTABLEKS R20 R19 K31 ["Size"]
+  LOADB R20 1
+  SETTABLEKS R20 R19 K63 ["Looped"]
+  LOADB R20 1
+  SETTABLEKS R20 R19 K64 ["Playing"]
+  CALL R17 2 -1
+  SETLIST R16 R17 -1 [1]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K52 ["ImagePane"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K30 ["createElement"]
+  GETUPVAL R14 3
+  DUPTABLE R15 K71 [{"LayoutOrder", "Text", "Size", "BackgroundTransparency", "TextWrapped", "TextProps", "LinkMap", "HorizontalAlignment"}]
+  NAMECALL R16 R4 K42 ["getNextOrder"]
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K32 ["LayoutOrder"]
+  LOADK R18 K8 ["InitialFlow"]
+  LOADK R19 K72 ["ThumbnailSubText"]
+  NAMECALL R16 R3 K10 ["getText"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K67 ["Text"]
+  GETIMPORT R16 K40 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 0
+  LOADK R23 K8 ["InitialFlow"]
+  LOADK R24 K72 ["ThumbnailSubText"]
+  NAMECALL R21 R3 K10 ["getText"]
+  CALL R21 3 1
+  GETTABLEKS R22 R2 K73 ["SubTextSize"]
+  GETTABLEKS R23 R2 K74 ["Font"]
+  GETUPVAL R24 4
+  MOVE R25 R21
+  MOVE R26 R22
+  MOVE R27 R23
+  LOADNIL R28
+  CALL R24 4 1
+  GETTABLEKS R25 R24 K75 ["Y"]
+  GETTABLEKS R20 R25 K76 ["Offset"]
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K31 ["Size"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K33 ["BackgroundTransparency"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K68 ["TextWrapped"]
+  DUPTABLE R16 K79 [{"TextSize", "Font", "TextXAlignment"}]
+  GETTABLEKS R17 R2 K73 ["SubTextSize"]
+  SETTABLEKS R17 R16 K77 ["TextSize"]
+  GETTABLEKS R17 R2 K74 ["Font"]
+  SETTABLEKS R17 R16 K74 ["Font"]
+  GETIMPORT R17 K80 [Enum.TextXAlignment.Left]
+  SETTABLEKS R17 R16 K78 ["TextXAlignment"]
+  SETTABLEKS R16 R15 K69 ["TextProps"]
+  NEWTABLE R16 0 0
+  SETTABLEKS R16 R15 K70 ["LinkMap"]
+  GETIMPORT R16 K49 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R16 R15 K36 ["HorizontalAlignment"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K53 ["ThumbnailSubTextLabel"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K16 ["ThumbnailPane"]
+  SETTABLEKS R9 R8 K24 ["ThumbnailPane"]
+  NAMECALL R10 R0 K20 ["isPublishedR15PlayerChoiceExperience"]
+  CALL R10 1 1
+  JUMPIFNOT R10 [+83]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K22 ["createElement"]
-  GETUPVAL R10 4
-  DUPTABLE R11 K45 [{"LayoutOrder", "Text", "Size", "BackgroundTransparency", "TextWrapped", "TextXAlignment", "TextProps", "LinkMap", "HorizontalAlignment"}]
-  NAMECALL R12 R4 K31 ["getNextOrder"]
+  GETTABLEKS R9 R10 K30 ["createElement"]
+  GETUPVAL R10 5
+  DUPTABLE R11 K83 [{"LayoutOrder", "Text", "Size", "BackgroundTransparency", "TextWrapped", "TextSize", "Font", "RichText", "TextXAlignment", "TextYAlignment"}]
+  NAMECALL R12 R4 K42 ["getNextOrder"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K24 ["LayoutOrder"]
-  LOADK R14 K5 ["InitialFlow"]
-  LOADK R15 K46 ["ThumbnailSubText"]
+  SETTABLEKS R12 R11 K32 ["LayoutOrder"]
+  LOADK R14 K8 ["InitialFlow"]
+  LOADK R15 K84 ["R15OnlyMessage"]
+  DUPTABLE R16 K16 [{"experienceName"}]
+  NAMECALL R17 R0 K17 ["getGameName"]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K15 ["experienceName"]
   NAMECALL R12 R3 K10 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K39 ["Text"]
-  GETIMPORT R12 K29 [UDim2.new]
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K67 ["Text"]
+  GETIMPORT R12 K40 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
-  LOADK R19 K5 ["InitialFlow"]
-  LOADK R20 K46 ["ThumbnailSubText"]
+  LOADK R19 K8 ["InitialFlow"]
+  LOADK R20 K84 ["R15OnlyMessage"]
+  DUPTABLE R21 K16 [{"experienceName"}]
+  NAMECALL R22 R0 K17 ["getGameName"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K15 ["experienceName"]
   NAMECALL R17 R3 K10 ["getText"]
-  CALL R17 3 1
-  GETTABLEKS R18 R2 K47 ["SubTextSize"]
-  GETTABLEKS R19 R2 K48 ["Font"]
-  GETUPVAL R20 5
+  CALL R17 4 1
+  GETTABLEKS R18 R2 K77 ["TextSize"]
+  GETTABLEKS R19 R2 K74 ["Font"]
+  GETUPVAL R20 4
   MOVE R21 R17
   MOVE R22 R18
   MOVE R23 R19
   LOADNIL R24
   CALL R20 4 1
-  GETTABLEKS R21 R20 K49 ["Y"]
-  GETTABLEKS R16 R21 K50 ["Offset"]
+  GETTABLEKS R21 R20 K75 ["Y"]
+  GETTABLEKS R16 R21 K76 ["Offset"]
   CALL R12 4 1
-  SETTABLEKS R12 R11 K23 ["Size"]
+  SETTABLEKS R12 R11 K31 ["Size"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K26 ["BackgroundTransparency"]
+  SETTABLEKS R12 R11 K33 ["BackgroundTransparency"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K40 ["TextWrapped"]
-  GETIMPORT R12 K53 [Enum.TextXAlignment.Left]
-  SETTABLEKS R12 R11 K41 ["TextXAlignment"]
-  DUPTABLE R12 K55 [{"TextSize", "Font", "TextXAlignment"}]
-  GETTABLEKS R13 R2 K47 ["SubTextSize"]
-  SETTABLEKS R13 R12 K54 ["TextSize"]
-  GETTABLEKS R13 R2 K48 ["Font"]
-  SETTABLEKS R13 R12 K48 ["Font"]
-  GETIMPORT R13 K53 [Enum.TextXAlignment.Left]
-  SETTABLEKS R13 R12 K41 ["TextXAlignment"]
-  SETTABLEKS R12 R11 K42 ["TextProps"]
-  NEWTABLE R12 0 0
-  SETTABLEKS R12 R11 K43 ["LinkMap"]
-  GETIMPORT R12 K56 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R12 R11 K44 ["HorizontalAlignment"]
+  SETTABLEKS R12 R11 K68 ["TextWrapped"]
+  GETTABLEKS R12 R2 K77 ["TextSize"]
+  SETTABLEKS R12 R11 K77 ["TextSize"]
+  GETTABLEKS R12 R2 K74 ["Font"]
+  SETTABLEKS R12 R11 K74 ["Font"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K81 ["RichText"]
+  GETIMPORT R12 K80 [Enum.TextXAlignment.Left]
+  SETTABLEKS R12 R11 K78 ["TextXAlignment"]
+  GETIMPORT R12 K86 [Enum.TextYAlignment.Center]
+  SETTABLEKS R12 R11 K82 ["TextYAlignment"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K17 ["ThumbnailSubTextLabel"]
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K25 ["ExplanationLabelR15Only"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K22 ["createElement"]
-  GETUPVAL R10 4
-  DUPTABLE R11 K57 [{"LayoutOrder", "Text", "Size", "BackgroundTransparency", "TextWrapped", "TextProps", "LinkMap", "HorizontalAlignment"}]
-  NAMECALL R12 R4 K31 ["getNextOrder"]
+  GETTABLEKS R9 R10 K30 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K87 [{"LayoutOrder", "Text", "BackgroundTransparency", "TextWrapped", "TextProps", "LinkMap", "HorizontalAlignment"}]
+  NAMECALL R12 R4 K42 ["getNextOrder"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K24 ["LayoutOrder"]
-  SETTABLEKS R5 R11 K39 ["Text"]
-  GETIMPORT R12 K29 [UDim2.new]
-  LOADN R13 1
-  LOADN R14 0
-  LOADN R15 0
-  MOVE R17 R5
-  GETTABLEKS R18 R2 K54 ["TextSize"]
-  GETTABLEKS R19 R2 K48 ["Font"]
-  GETUPVAL R20 5
-  MOVE R21 R17
-  MOVE R22 R18
-  MOVE R23 R19
-  LOADNIL R24
-  CALL R20 4 1
-  GETTABLEKS R21 R20 K49 ["Y"]
-  GETTABLEKS R16 R21 K50 ["Offset"]
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K23 ["Size"]
+  SETTABLEKS R12 R11 K32 ["LayoutOrder"]
+  SETTABLEKS R5 R11 K67 ["Text"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K26 ["BackgroundTransparency"]
+  SETTABLEKS R12 R11 K33 ["BackgroundTransparency"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K40 ["TextWrapped"]
-  DUPTABLE R12 K59 [{"TextSize", "Font", "RichText", "TextXAlignment"}]
-  GETTABLEKS R13 R2 K54 ["TextSize"]
-  SETTABLEKS R13 R12 K54 ["TextSize"]
-  GETTABLEKS R13 R2 K48 ["Font"]
-  SETTABLEKS R13 R12 K48 ["Font"]
+  SETTABLEKS R12 R11 K68 ["TextWrapped"]
+  DUPTABLE R12 K88 [{"TextSize", "Font", "RichText", "TextXAlignment"}]
+  GETTABLEKS R13 R2 K77 ["TextSize"]
+  SETTABLEKS R13 R12 K77 ["TextSize"]
+  GETTABLEKS R13 R2 K74 ["Font"]
+  SETTABLEKS R13 R12 K74 ["Font"]
   LOADB R13 1
-  SETTABLEKS R13 R12 K58 ["RichText"]
-  GETIMPORT R13 K53 [Enum.TextXAlignment.Left]
-  SETTABLEKS R13 R12 K41 ["TextXAlignment"]
-  SETTABLEKS R12 R11 K42 ["TextProps"]
+  SETTABLEKS R13 R12 K81 ["RichText"]
+  GETIMPORT R13 K80 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K78 ["TextXAlignment"]
+  SETTABLEKS R12 R11 K69 ["TextProps"]
   NEWTABLE R12 1 0
-  DUPTABLE R13 K62 [{"LinkText", "LinkCallback"}]
-  LOADK R16 K63 ["AdapterPane"]
-  LOADK R17 K64 ["LearnMore"]
+  DUPTABLE R13 K91 [{"LinkText", "LinkCallback"}]
+  LOADK R16 K92 ["AdapterPane"]
+  LOADK R17 K93 ["LearnMore"]
   NAMECALL R14 R3 K10 ["getText"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K60 ["LinkText"]
-  DUPCLOSURE R14 K65 [PROTO_21]
+  SETTABLEKS R14 R13 K89 ["LinkText"]
+  DUPCLOSURE R14 K94 [PROTO_21]
   CAPTURE UPVAL U6
   CAPTURE UPVAL U7
-  SETTABLEKS R14 R13 K61 ["LinkCallback"]
-  SETTABLEKS R13 R12 K66 ["[link1]"]
-  SETTABLEKS R12 R11 K43 ["LinkMap"]
-  GETIMPORT R12 K56 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R12 R11 K44 ["HorizontalAlignment"]
+  SETTABLEKS R14 R13 K90 ["LinkCallback"]
+  SETTABLEKS R13 R12 K95 ["[link1]"]
+  SETTABLEKS R12 R11 K70 ["LinkMap"]
+  GETIMPORT R12 K49 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R12 R11 K36 ["HorizontalAlignment"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K18 ["ExplanationLabel"]
+  SETTABLEKS R9 R8 K26 ["ExplanationLabel"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K22 ["createElement"]
-  GETUPVAL R10 4
-  DUPTABLE R11 K67 [{"LayoutOrder", "Text", "BackgroundTransparency", "TextWrapped", "TextProps", "LinkMap", "HorizontalAlignment"}]
-  NAMECALL R12 R4 K31 ["getNextOrder"]
+  GETTABLEKS R9 R10 K30 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K87 [{"LayoutOrder", "Text", "BackgroundTransparency", "TextWrapped", "TextProps", "LinkMap", "HorizontalAlignment"}]
+  NAMECALL R12 R4 K42 ["getNextOrder"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K24 ["LayoutOrder"]
-  SETTABLEKS R6 R11 K39 ["Text"]
+  SETTABLEKS R12 R11 K32 ["LayoutOrder"]
+  SETTABLEKS R6 R11 K67 ["Text"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K26 ["BackgroundTransparency"]
+  SETTABLEKS R12 R11 K33 ["BackgroundTransparency"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K40 ["TextWrapped"]
-  DUPTABLE R12 K55 [{"TextSize", "Font", "TextXAlignment"}]
-  GETTABLEKS R13 R2 K54 ["TextSize"]
-  SETTABLEKS R13 R12 K54 ["TextSize"]
-  GETTABLEKS R13 R2 K48 ["Font"]
-  SETTABLEKS R13 R12 K48 ["Font"]
-  GETIMPORT R13 K53 [Enum.TextXAlignment.Left]
-  SETTABLEKS R13 R12 K41 ["TextXAlignment"]
-  SETTABLEKS R12 R11 K42 ["TextProps"]
+  SETTABLEKS R12 R11 K68 ["TextWrapped"]
+  DUPTABLE R12 K79 [{"TextSize", "Font", "TextXAlignment"}]
+  GETTABLEKS R13 R2 K77 ["TextSize"]
+  SETTABLEKS R13 R12 K77 ["TextSize"]
+  GETTABLEKS R13 R2 K74 ["Font"]
+  SETTABLEKS R13 R12 K74 ["Font"]
+  GETIMPORT R13 K80 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K78 ["TextXAlignment"]
+  SETTABLEKS R12 R11 K69 ["TextProps"]
   NEWTABLE R12 0 0
-  SETTABLEKS R12 R11 K43 ["LinkMap"]
-  GETIMPORT R12 K56 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R12 R11 K44 ["HorizontalAlignment"]
+  SETTABLEKS R12 R11 K70 ["LinkMap"]
+  GETIMPORT R12 K49 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R12 R11 K36 ["HorizontalAlignment"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K19 ["InstructionLabel"]
+  SETTABLEKS R9 R8 K27 ["InstructionLabel"]
   GETUPVAL R10 1
-  GETTABLEKS R9 R10 K22 ["createElement"]
+  GETTABLEKS R9 R10 K30 ["createElement"]
   GETUPVAL R10 2
-  DUPTABLE R11 K70 [{"Size", "LayoutOrder", "BackgroundTransparency", "HorizontalAlignment", "Layout", "VerticalAlignment"}]
-  GETIMPORT R12 K29 [UDim2.new]
+  DUPTABLE R11 K96 [{"Size", "LayoutOrder", "BackgroundTransparency", "HorizontalAlignment", "Layout", "VerticalAlignment"}]
+  GETIMPORT R12 K40 [UDim2.new]
   LOADN R13 1
   LOADN R14 0
   LOADN R15 0
   MOVE R17 R7
-  GETTABLEKS R18 R2 K54 ["TextSize"]
-  GETTABLEKS R19 R2 K48 ["Font"]
-  GETTABLEKS R20 R2 K71 ["ButtonPanePadding"]
-  GETUPVAL R21 5
+  GETTABLEKS R18 R2 K77 ["TextSize"]
+  GETTABLEKS R19 R2 K74 ["Font"]
+  GETTABLEKS R20 R2 K97 ["ButtonPanePadding"]
+  GETUPVAL R21 4
   MOVE R22 R17
   MOVE R23 R18
   MOVE R24 R19
   MOVE R25 R20
   CALL R21 4 1
-  GETTABLEKS R22 R21 K49 ["Y"]
-  GETTABLEKS R16 R22 K50 ["Offset"]
+  GETTABLEKS R22 R21 K75 ["Y"]
+  GETTABLEKS R16 R22 K76 ["Offset"]
   CALL R12 4 1
-  SETTABLEKS R12 R11 K23 ["Size"]
-  NAMECALL R12 R4 K31 ["getNextOrder"]
+  SETTABLEKS R12 R11 K31 ["Size"]
+  NAMECALL R12 R4 K42 ["getNextOrder"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K24 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K32 ["LayoutOrder"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K26 ["BackgroundTransparency"]
-  GETIMPORT R12 K73 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R12 R11 K44 ["HorizontalAlignment"]
-  GETIMPORT R12 K76 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R12 R11 K68 ["Layout"]
-  GETIMPORT R12 K78 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R12 R11 K69 ["VerticalAlignment"]
-  DUPTABLE R12 K80 [{"GetStartedButton"}]
+  SETTABLEKS R12 R11 K33 ["BackgroundTransparency"]
+  GETIMPORT R12 K99 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R12 R11 K36 ["HorizontalAlignment"]
+  GETIMPORT R12 K101 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R12 R11 K35 ["Layout"]
+  GETIMPORT R12 K102 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R12 R11 K37 ["VerticalAlignment"]
+  DUPTABLE R12 K104 [{"GetStartedButton"}]
   GETUPVAL R14 1
-  GETTABLEKS R13 R14 K22 ["createElement"]
+  GETTABLEKS R13 R14 K30 ["createElement"]
   GETUPVAL R14 8
-  DUPTABLE R15 K83 [{"Size", "Text", "OnClick", "Style"}]
-  GETUPVAL R16 5
+  DUPTABLE R15 K107 [{"Size", "Text", "OnClick", "Style"}]
+  GETUPVAL R16 4
   MOVE R17 R7
-  GETTABLEKS R18 R2 K54 ["TextSize"]
-  GETTABLEKS R19 R2 K48 ["Font"]
-  GETTABLEKS R20 R2 K84 ["ButtonPadding"]
+  GETTABLEKS R18 R2 K77 ["TextSize"]
+  GETTABLEKS R19 R2 K74 ["Font"]
+  GETTABLEKS R20 R2 K108 ["ButtonPadding"]
   CALL R16 4 1
-  SETTABLEKS R16 R15 K23 ["Size"]
-  SETTABLEKS R7 R15 K39 ["Text"]
-  GETTABLEKS R16 R0 K85 ["createNewExperience"]
-  SETTABLEKS R16 R15 K81 ["OnClick"]
-  LOADK R16 K86 ["RoundPrimary"]
-  SETTABLEKS R16 R15 K82 ["Style"]
+  SETTABLEKS R16 R15 K31 ["Size"]
+  SETTABLEKS R7 R15 K67 ["Text"]
+  GETTABLEKS R16 R0 K109 ["createNewExperience"]
+  SETTABLEKS R16 R15 K105 ["OnClick"]
+  LOADK R16 K110 ["RoundPrimary"]
+  SETTABLEKS R16 R15 K106 ["Style"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K79 ["GetStartedButton"]
+  SETTABLEKS R13 R12 K103 ["GetStartedButton"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K20 ["GetStartedButtonPane"]
+  SETTABLEKS R9 R8 K28 ["GetStartedButtonPane"]
   RETURN R8 1
 
 PROTO_23:
   GETTABLEKS R1 R0 K0 ["state"]
+  GETTABLEKS R2 R1 K1 ["isGettingInitialData"]
+  GETTABLEKS R3 R0 K2 ["props"]
+  GETTABLEKS R4 R3 K3 ["avatarType"]
+  JUMPIF R2 [+4]
+  GETTABLEKS R6 R0 K4 ["isExperiencePublished"]
+  JUMPIFNOT R6 [+3]
+  JUMPIF R4 [+2]
+  LOADB R5 1
+  RETURN R5 1
+  LOADB R5 0
+  RETURN R5 1
+
+PROTO_24:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["avatarType"]
+  NAMECALL R5 R0 K2 ["isWaitingForInitialData"]
+  CALL R5 1 1
+  NOT R4 R5
+  FASTCALL1 ASSERT R4 [+2]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 1 0
+  GETTABLEKS R4 R0 K5 ["isExperiencePublished"]
+  JUMPIFNOT R4 [+7]
+  GETIMPORT R4 K9 [Enum.GameAvatarType.R6]
+  JUMPIFEQ R2 R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  RETURN R3 1
+  LOADB R3 0
+  RETURN R3 1
+
+PROTO_25:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["avatarType"]
+  NAMECALL R5 R0 K2 ["isWaitingForInitialData"]
+  CALL R5 1 1
+  NOT R4 R5
+  FASTCALL1 ASSERT R4 [+2]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 1 0
+  GETTABLEKS R4 R0 K5 ["isExperiencePublished"]
+  JUMPIFNOT R4 [+7]
+  GETIMPORT R4 K9 [Enum.GameAvatarType.R6]
+  JUMPIFNOTEQ R2 R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  RETURN R3 1
+  LOADB R3 0
+  RETURN R3 1
+
+PROTO_26:
+  GETTABLEKS R2 R0 K0 ["isExperiencePublished"]
+  NOT R1 R2
+  RETURN R1 1
+
+PROTO_27:
+  GETTABLEKS R1 R0 K0 ["state"]
   GETTABLEKS R2 R1 K1 ["isConverting"]
   GETTABLEKS R3 R1 K2 ["convertedExperience"]
-  GETTABLEKS R4 R1 K3 ["isGettingInitialData"]
-  GETTABLEKS R5 R0 K4 ["props"]
-  GETTABLEKS R6 R5 K5 ["Stylizer"]
-  LOADNIL R7
-  LOADB R8 0
+  GETTABLEKS R4 R0 K3 ["props"]
+  GETTABLEKS R5 R4 K4 ["Stylizer"]
+  LOADNIL R6
+  LOADB R7 0
   JUMPIFNOT R3 [+11]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K6 ["None"]
-  JUMPIFEQ R3 R9 [+7]
-  LOADB R8 1
-  NAMECALL R9 R0 K7 ["renderOpenPanel"]
-  CALL R9 1 1
-  MOVE R7 R9
-  JUMP [+11]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["None"]
+  JUMPIFEQ R3 R8 [+7]
+  LOADB R7 1
+  NAMECALL R8 R0 K6 ["renderOpenPanel"]
+  CALL R8 1 1
+  MOVE R6 R8
+  JUMP [+14]
   JUMPIFNOT R2 [+5]
-  NAMECALL R9 R0 K8 ["renderConvertingPanel"]
-  CALL R9 1 1
-  MOVE R7 R9
-  JUMP [+5]
-  JUMPIF R4 [+4]
-  NAMECALL R9 R0 K9 ["renderGetStartedPanel"]
-  CALL R9 1 1
-  MOVE R7 R9
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K10 ["createElement"]
-  GETUPVAL R10 2
-  NEWTABLE R11 4 0
-  LOADN R12 0
-  SETTABLEKS R12 R11 K11 ["BackgroundTransparency"]
-  GETTABLEKS R12 R6 K12 ["BackgroundColor"]
-  SETTABLEKS R12 R11 K12 ["BackgroundColor"]
-  DUPTABLE R12 K14 [{"Top"}]
-  GETTABLEKS R14 R6 K15 ["PanePadding"]
-  GETTABLEKS R13 R14 K13 ["Top"]
-  SETTABLEKS R13 R12 K13 ["Top"]
-  SETTABLEKS R12 R11 K16 ["Padding"]
+  NAMECALL R8 R0 K7 ["renderConvertingPanel"]
+  CALL R8 1 1
+  MOVE R6 R8
+  JUMP [+8]
+  NAMECALL R8 R0 K8 ["isWaitingForInitialData"]
+  CALL R8 1 1
+  JUMPIF R8 [+4]
+  NAMECALL R8 R0 K9 ["renderGetStartedPanel"]
+  CALL R8 1 1
+  MOVE R6 R8
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K10 ["createElement"]
+  GETUPVAL R9 2
+  NEWTABLE R10 4 0
+  LOADN R11 0
+  SETTABLEKS R11 R10 K11 ["BackgroundTransparency"]
+  GETTABLEKS R11 R5 K12 ["BackgroundColor"]
+  SETTABLEKS R11 R10 K12 ["BackgroundColor"]
+  DUPTABLE R11 K14 [{"Top"}]
+  GETTABLEKS R13 R5 K15 ["PanePadding"]
+  GETTABLEKS R12 R13 K13 ["Top"]
+  SETTABLEKS R12 R11 K13 ["Top"]
+  SETTABLEKS R11 R10 K16 ["Padding"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K17 ["Ref"]
+  GETTABLEKS R12 R0 K18 ["ref"]
+  SETTABLE R12 R10 R11
+  DUPTABLE R11 K21 [{"IconPane", "MainPane"}]
+  JUMPIFNOT R7 [+60]
   GETUPVAL R13 1
-  GETTABLEKS R12 R13 K17 ["Ref"]
-  GETTABLEKS R13 R0 K18 ["ref"]
-  SETTABLE R13 R11 R12
-  DUPTABLE R12 K21 [{"IconPane", "MainPane"}]
-  JUMPIFNOT R8 [+60]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K10 ["createElement"]
-  GETUPVAL R14 2
-  DUPTABLE R15 K23 [{"Size"}]
-  GETIMPORT R16 K26 [UDim2.new]
-  LOADN R17 0
-  GETTABLEKS R21 R1 K28 ["paneSize"]
-  GETTABLEKS R20 R21 K29 ["X"]
-  GETTABLEKS R21 R6 K30 ["Width"]
-  SUB R19 R20 R21
-  DIVK R18 R19 K27 [2]
-  LOADN R19 1
-  LOADN R20 0
-  CALL R16 4 1
-  SETTABLEKS R16 R15 K22 ["Size"]
-  NEWTABLE R16 0 1
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K10 ["createElement"]
-  GETUPVAL R18 3
-  DUPTABLE R19 K34 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency", "Image"}]
-  GETTABLEKS R20 R6 K35 ["IconSize"]
-  SETTABLEKS R20 R19 K22 ["Size"]
-  GETIMPORT R20 K37 [Vector2.new]
-  LOADK R21 K38 [0.5]
-  LOADN R22 0
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K31 ["AnchorPoint"]
-  GETIMPORT R20 K26 [UDim2.new]
-  LOADK R21 K38 [0.5]
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  GETUPVAL R13 2
+  DUPTABLE R14 K23 [{"Size"}]
+  GETIMPORT R15 K26 [UDim2.new]
+  LOADN R16 0
+  GETTABLEKS R20 R1 K28 ["paneSize"]
+  GETTABLEKS R19 R20 K29 ["X"]
+  GETTABLEKS R20 R5 K30 ["Width"]
+  SUB R18 R19 R20
+  DIVK R17 R18 K27 [2]
+  LOADN R18 1
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K22 ["Size"]
+  NEWTABLE R15 0 1
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K10 ["createElement"]
+  GETUPVAL R17 3
+  DUPTABLE R18 K34 [{"Size", "AnchorPoint", "Position", "BackgroundTransparency", "Image"}]
+  GETTABLEKS R19 R5 K35 ["IconSize"]
+  SETTABLEKS R19 R18 K22 ["Size"]
+  GETIMPORT R19 K37 [Vector2.new]
+  LOADK R20 K38 [0.5]
+  LOADN R21 0
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K31 ["AnchorPoint"]
+  GETIMPORT R19 K26 [UDim2.new]
+  LOADK R20 K38 [0.5]
+  LOADN R21 0
   LOADN R22 0
   LOADN R23 0
-  LOADN R24 0
-  CALL R20 4 1
-  SETTABLEKS R20 R19 K32 ["Position"]
-  LOADN R20 1
-  SETTABLEKS R20 R19 K11 ["BackgroundTransparency"]
-  GETTABLEKS R20 R6 K39 ["CompleteIcon"]
-  SETTABLEKS R20 R19 K33 ["Image"]
-  CALL R17 2 -1
-  SETLIST R16 R17 -1 [1]
-  CALL R13 3 1
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K32 ["Position"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K11 ["BackgroundTransparency"]
+  GETTABLEKS R19 R5 K39 ["CompleteIcon"]
+  SETTABLEKS R19 R18 K33 ["Image"]
+  CALL R16 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 1
   JUMP [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K19 ["IconPane"]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K10 ["createElement"]
-  GETUPVAL R14 2
-  DUPTABLE R15 K44 [{"BackgroundTransparency", "BackgroundColor", "Layout", "HorizontalAlignment", "VerticalAlignment", "Padding", "Spacing"}]
-  LOADN R16 0
-  SETTABLEKS R16 R15 K11 ["BackgroundTransparency"]
-  GETTABLEKS R16 R6 K12 ["BackgroundColor"]
-  SETTABLEKS R16 R15 K12 ["BackgroundColor"]
-  GETIMPORT R16 K48 [Enum.FillDirection.Vertical]
-  SETTABLEKS R16 R15 K40 ["Layout"]
-  GETIMPORT R16 K50 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R16 R15 K41 ["HorizontalAlignment"]
-  GETIMPORT R16 K51 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R16 R15 K42 ["VerticalAlignment"]
-  DUPTABLE R16 K53 [{"Left"}]
-  GETTABLEKS R18 R6 K15 ["PanePadding"]
-  GETTABLEKS R17 R18 K52 ["Left"]
-  SETTABLEKS R17 R16 K52 ["Left"]
-  SETTABLEKS R16 R15 K16 ["Padding"]
-  GETTABLEKS R16 R6 K43 ["Spacing"]
-  SETTABLEKS R16 R15 K43 ["Spacing"]
-  DUPTABLE R16 K55 [{"ContentPane"}]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K10 ["createElement"]
-  GETUPVAL R18 2
-  DUPTABLE R19 K56 [{"Size", "Spacing", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
-  GETIMPORT R20 K26 [UDim2.new]
-  LOADN R21 0
-  GETTABLEKS R22 R6 K30 ["Width"]
-  LOADN R23 1
-  LOADN R24 0
-  CALL R20 4 1
-  SETTABLEKS R20 R19 K22 ["Size"]
-  GETTABLEKS R20 R6 K57 ["VerticalTextSpacing"]
-  SETTABLEKS R20 R19 K43 ["Spacing"]
-  GETIMPORT R20 K48 [Enum.FillDirection.Vertical]
-  SETTABLEKS R20 R19 K40 ["Layout"]
-  GETIMPORT R20 K58 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R20 R19 K41 ["HorizontalAlignment"]
-  GETIMPORT R20 K51 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R20 R19 K42 ["VerticalAlignment"]
-  MOVE R20 R7
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K54 ["ContentPane"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K20 ["MainPane"]
-  CALL R9 3 -1
-  RETURN R9 -1
+  LOADNIL R12
+  SETTABLEKS R12 R11 K19 ["IconPane"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K10 ["createElement"]
+  GETUPVAL R13 2
+  DUPTABLE R14 K44 [{"BackgroundTransparency", "BackgroundColor", "Layout", "HorizontalAlignment", "VerticalAlignment", "Padding", "Spacing"}]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K11 ["BackgroundTransparency"]
+  GETTABLEKS R15 R5 K12 ["BackgroundColor"]
+  SETTABLEKS R15 R14 K12 ["BackgroundColor"]
+  GETIMPORT R15 K48 [Enum.FillDirection.Vertical]
+  SETTABLEKS R15 R14 K40 ["Layout"]
+  GETIMPORT R15 K50 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R15 R14 K41 ["HorizontalAlignment"]
+  GETIMPORT R15 K51 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R15 R14 K42 ["VerticalAlignment"]
+  DUPTABLE R15 K53 [{"Left"}]
+  GETTABLEKS R17 R5 K15 ["PanePadding"]
+  GETTABLEKS R16 R17 K52 ["Left"]
+  SETTABLEKS R16 R15 K52 ["Left"]
+  SETTABLEKS R15 R14 K16 ["Padding"]
+  GETTABLEKS R15 R5 K43 ["Spacing"]
+  SETTABLEKS R15 R14 K43 ["Spacing"]
+  DUPTABLE R15 K55 [{"ContentPane"}]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K10 ["createElement"]
+  GETUPVAL R17 2
+  DUPTABLE R18 K56 [{"Size", "Spacing", "Layout", "HorizontalAlignment", "VerticalAlignment"}]
+  GETIMPORT R19 K26 [UDim2.new]
+  LOADN R20 0
+  GETTABLEKS R21 R5 K30 ["Width"]
+  LOADN R22 1
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K22 ["Size"]
+  GETTABLEKS R19 R5 K57 ["VerticalTextSpacing"]
+  SETTABLEKS R19 R18 K43 ["Spacing"]
+  GETIMPORT R19 K48 [Enum.FillDirection.Vertical]
+  SETTABLEKS R19 R18 K40 ["Layout"]
+  GETIMPORT R19 K58 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R19 R18 K41 ["HorizontalAlignment"]
+  GETIMPORT R19 K51 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R19 R18 K42 ["VerticalAlignment"]
+  MOVE R19 R6
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K54 ["ContentPane"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K20 ["MainPane"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+PROTO_28:
+  DUPTABLE R1 K1 [{"avatarType"}]
+  GETTABLEKS R2 R0 K2 ["AvatarType"]
+  SETTABLEKS R2 R1 K0 ["avatarType"]
+  RETURN R1 1
 
 MAIN:
   PREPVARARGS 0
@@ -1165,100 +1337,118 @@ MAIN:
   GETTABLEKS R10 R5 K14 ["Packages"]
   GETTABLEKS R9 R10 K17 ["Cryo"]
   CALL R8 1 1
-  GETTABLEKS R9 R6 K18 ["ContextServices"]
-  GETTABLEKS R10 R6 K19 ["UI"]
-  GETTABLEKS R11 R10 K20 ["Pane"]
-  GETTABLEKS R12 R10 K21 ["TextWithLinks"]
-  GETTABLEKS R13 R10 K22 ["Button"]
-  GETTABLEKS R14 R10 K23 ["Image"]
-  GETTABLEKS R15 R10 K24 ["TextLabel"]
-  GETTABLEKS R16 R6 K25 ["Util"]
-  GETTABLEKS R17 R16 K26 ["LayoutOrderIterator"]
-  GETTABLEKS R19 R5 K27 ["Src"]
-  GETTABLEKS R18 R19 K25 ["Util"]
-  GETIMPORT R19 K13 [require]
-  GETTABLEKS R20 R18 K28 ["saveCopyOfExperience"]
-  CALL R19 1 1
+  GETIMPORT R9 K13 [require]
+  GETTABLEKS R11 R5 K14 ["Packages"]
+  GETTABLEKS R10 R11 K18 ["RoactRodux"]
+  CALL R9 1 1
+  GETTABLEKS R10 R6 K19 ["ContextServices"]
+  GETTABLEKS R11 R6 K20 ["UI"]
+  GETTABLEKS R12 R11 K21 ["Pane"]
+  GETTABLEKS R13 R11 K22 ["TextWithLinks"]
+  GETTABLEKS R14 R11 K23 ["Button"]
+  GETTABLEKS R15 R11 K24 ["Image"]
+  GETTABLEKS R16 R11 K25 ["TextLabel"]
+  GETTABLEKS R17 R6 K26 ["Util"]
+  GETTABLEKS R18 R17 K27 ["LayoutOrderIterator"]
+  GETTABLEKS R20 R5 K28 ["Src"]
+  GETTABLEKS R19 R20 K26 ["Util"]
   GETIMPORT R20 K13 [require]
-  GETTABLEKS R21 R18 K29 ["PluginSettings"]
+  GETTABLEKS R21 R19 K29 ["saveCopyOfExperience"]
   CALL R20 1 1
   GETIMPORT R21 K13 [require]
-  GETTABLEKS R22 R18 K30 ["getExperienceData"]
+  GETTABLEKS R22 R19 K30 ["PluginSettings"]
   CALL R21 1 1
-  GETTABLEKS R22 R7 K31 ["PureComponent"]
-  LOADK R24 K32 ["InitialFlow"]
-  NAMECALL R22 R22 K33 ["extend"]
-  CALL R22 2 1
-  DUPCLOSURE R23 K34 [PROTO_1]
-  CAPTURE VAL R20
+  GETIMPORT R22 K13 [require]
+  GETTABLEKS R23 R19 K31 ["getExperienceData"]
+  CALL R22 1 1
+  GETTABLEKS R23 R7 K32 ["PureComponent"]
+  LOADK R25 K33 ["InitialFlow"]
+  NAMECALL R23 R23 K34 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K35 [PROTO_1]
   CAPTURE VAL R21
-  SETTABLEKS R23 R22 K35 ["getR15ExperienceData"]
-  DUPCLOSURE R23 K36 [PROTO_2]
-  SETTABLEKS R23 R22 K37 ["getGameName"]
-  DUPCLOSURE R23 K38 [PROTO_11]
+  CAPTURE VAL R22
+  SETTABLEKS R24 R23 K36 ["getR15ConvertedExperienceData"]
+  DUPCLOSURE R24 K37 [PROTO_2]
+  SETTABLEKS R24 R23 K38 ["getGameName"]
+  DUPCLOSURE R24 K39 [PROTO_11]
   CAPTURE VAL R2
   CAPTURE VAL R8
-  CAPTURE VAL R19
   CAPTURE VAL R20
+  CAPTURE VAL R21
   CAPTURE VAL R4
   CAPTURE VAL R7
-  SETTABLEKS R23 R22 K39 ["init"]
-  DUPCLOSURE R23 K40 [PROTO_13]
-  SETTABLEKS R23 R22 K41 ["initRef"]
-  DUPCLOSURE R23 K42 [PROTO_14]
-  SETTABLEKS R23 R22 K43 ["didMount"]
-  DUPCLOSURE R23 K44 [PROTO_15]
-  SETTABLEKS R23 R22 K45 ["willUnmount"]
-  DUPCLOSURE R23 K46 [PROTO_16]
-  SETTABLEKS R23 R22 K47 ["didUpdate"]
-  DUPCLOSURE R23 K48 [PROTO_17]
+  SETTABLEKS R24 R23 K40 ["init"]
+  DUPCLOSURE R24 K41 [PROTO_13]
+  SETTABLEKS R24 R23 K42 ["initRef"]
+  DUPCLOSURE R24 K43 [PROTO_14]
+  SETTABLEKS R24 R23 K44 ["didMount"]
+  DUPCLOSURE R24 K45 [PROTO_15]
+  SETTABLEKS R24 R23 K46 ["willUnmount"]
+  DUPCLOSURE R24 K47 [PROTO_16]
+  SETTABLEKS R24 R23 K48 ["didUpdate"]
+  DUPCLOSURE R24 K49 [PROTO_17]
   CAPTURE VAL R3
-  DUPCLOSURE R24 K49 [PROTO_18]
-  CAPTURE VAL R23
-  DUPCLOSURE R25 K50 [PROTO_19]
+  DUPCLOSURE R25 K50 [PROTO_18]
+  CAPTURE VAL R24
+  DUPCLOSURE R26 K51 [PROTO_19]
   CAPTURE VAL R7
-  CAPTURE VAL R12
-  CAPTURE VAL R23
-  SETTABLEKS R25 R22 K51 ["renderConvertingPanel"]
-  DUPCLOSURE R25 K52 [PROTO_20]
-  CAPTURE VAL R8
-  CAPTURE VAL R17
-  CAPTURE VAL R7
-  CAPTURE VAL R12
-  CAPTURE VAL R23
-  CAPTURE VAL R15
-  CAPTURE VAL R11
   CAPTURE VAL R13
-  SETTABLEKS R25 R22 K53 ["renderOpenPanel"]
-  DUPCLOSURE R25 K54 [PROTO_22]
-  CAPTURE VAL R17
+  CAPTURE VAL R24
+  SETTABLEKS R26 R23 K52 ["renderConvertingPanel"]
+  DUPCLOSURE R26 K53 [PROTO_20]
+  CAPTURE VAL R8
+  CAPTURE VAL R18
   CAPTURE VAL R7
-  CAPTURE VAL R11
-  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R24
+  CAPTURE VAL R16
   CAPTURE VAL R12
-  CAPTURE VAL R23
+  CAPTURE VAL R14
+  SETTABLEKS R26 R23 K54 ["renderOpenPanel"]
+  DUPCLOSURE R26 K55 [PROTO_22]
+  CAPTURE VAL R18
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R24
+  CAPTURE VAL R16
   CAPTURE VAL R0
   CAPTURE VAL R1
-  CAPTURE VAL R13
-  SETTABLEKS R25 R22 K55 ["renderGetStartedPanel"]
-  DUPCLOSURE R25 K56 [PROTO_23]
+  CAPTURE VAL R14
+  SETTABLEKS R26 R23 K56 ["renderGetStartedPanel"]
+  DUPCLOSURE R26 K57 [PROTO_23]
+  SETTABLEKS R26 R23 K58 ["isWaitingForInitialData"]
+  DUPCLOSURE R26 K59 [PROTO_24]
+  SETTABLEKS R26 R23 K60 ["isPublishedR6Experience"]
+  DUPCLOSURE R26 K61 [PROTO_25]
+  SETTABLEKS R26 R23 K62 ["isPublishedR15PlayerChoiceExperience"]
+  DUPCLOSURE R26 K63 [PROTO_26]
+  SETTABLEKS R26 R23 K64 ["isLocalPlace"]
+  DUPCLOSURE R26 K65 [PROTO_27]
   CAPTURE VAL R8
   CAPTURE VAL R7
-  CAPTURE VAL R11
-  CAPTURE VAL R14
-  SETTABLEKS R25 R22 K57 ["render"]
-  GETTABLEKS R25 R9 K58 ["withContext"]
-  DUPTABLE R26 K63 [{"Stylizer", "Localization", "API", "Plugin"}]
-  GETTABLEKS R27 R9 K59 ["Stylizer"]
-  SETTABLEKS R27 R26 K59 ["Stylizer"]
-  GETTABLEKS R27 R9 K60 ["Localization"]
-  SETTABLEKS R27 R26 K60 ["Localization"]
-  GETTABLEKS R27 R9 K61 ["API"]
-  SETTABLEKS R27 R26 K61 ["API"]
-  GETTABLEKS R27 R9 K62 ["Plugin"]
-  SETTABLEKS R27 R26 K62 ["Plugin"]
-  CALL R25 1 1
-  MOVE R26 R22
-  CALL R25 1 1
-  MOVE R22 R25
-  RETURN R22 1
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  SETTABLEKS R26 R23 K66 ["render"]
+  DUPCLOSURE R26 K67 [PROTO_28]
+  GETTABLEKS R27 R10 K68 ["withContext"]
+  DUPTABLE R28 K73 [{"Stylizer", "Localization", "API", "Plugin"}]
+  GETTABLEKS R29 R10 K69 ["Stylizer"]
+  SETTABLEKS R29 R28 K69 ["Stylizer"]
+  GETTABLEKS R29 R10 K70 ["Localization"]
+  SETTABLEKS R29 R28 K70 ["Localization"]
+  GETTABLEKS R29 R10 K71 ["API"]
+  SETTABLEKS R29 R28 K71 ["API"]
+  GETTABLEKS R29 R10 K72 ["Plugin"]
+  SETTABLEKS R29 R28 K72 ["Plugin"]
+  CALL R27 1 1
+  MOVE R28 R23
+  CALL R27 1 1
+  MOVE R23 R27
+  GETTABLEKS R27 R9 K74 ["connect"]
+  MOVE R28 R26
+  CALL R27 1 1
+  MOVE R28 R23
+  CALL R27 1 -1
+  RETURN R27 -1

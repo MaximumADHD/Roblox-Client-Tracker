@@ -352,16 +352,38 @@ PROTO_6:
   RETURN R7 -1
 
 PROTO_7:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+35]
   DUPTABLE R1 K5 [{"AssetImportSession", "CurrentPreset", "SettingsChanged", "SelectedImportItem", "Checked"}]
-  GETTABLEKS R2 R0 K6 ["assetImportSession"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K7 ["assetImportSession"]
   SETTABLEKS R2 R1 K0 ["AssetImportSession"]
-  GETTABLEKS R2 R0 K7 ["currentPreset"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K8 ["currentPreset"]
   SETTABLEKS R2 R1 K1 ["CurrentPreset"]
-  GETTABLEKS R2 R0 K8 ["settingsChanged"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K9 ["settingsChanged"]
   SETTABLEKS R2 R1 K2 ["SettingsChanged"]
-  GETTABLEKS R2 R0 K9 ["selectedImportItem"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K10 ["selectedImportItem"]
   SETTABLEKS R2 R1 K3 ["SelectedImportItem"]
-  GETTABLEKS R2 R0 K10 ["importDataChecked"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K11 ["importDataChecked"]
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K4 ["Checked"]
+  RETURN R1 1
+  DUPTABLE R1 K5 [{"AssetImportSession", "CurrentPreset", "SettingsChanged", "SelectedImportItem", "Checked"}]
+  GETTABLEKS R2 R0 K7 ["assetImportSession"]
+  SETTABLEKS R2 R1 K0 ["AssetImportSession"]
+  GETTABLEKS R2 R0 K8 ["currentPreset"]
+  SETTABLEKS R2 R1 K1 ["CurrentPreset"]
+  GETTABLEKS R2 R0 K9 ["settingsChanged"]
+  SETTABLEKS R2 R1 K2 ["SettingsChanged"]
+  GETTABLEKS R2 R0 K10 ["selectedImportItem"]
+  SETTABLEKS R2 R1 K3 ["SelectedImportItem"]
+  GETTABLEKS R2 R0 K11 ["importDataChecked"]
   JUMPIF R2 [+2]
   NEWTABLE R2 0 0
   SETTABLEKS R2 R1 K4 ["Checked"]
@@ -495,26 +517,31 @@ MAIN:
   GETTABLEKS R27 R28 K39 ["Flags"]
   GETTABLEKS R26 R27 K40 ["getFFlagAssetImportRefactorPresetDropdown"]
   CALL R25 1 1
-  GETTABLEKS R26 R1 K41 ["PureComponent"]
-  LOADK R28 K42 ["TopBar"]
-  NAMECALL R26 R26 K43 ["extend"]
-  CALL R26 2 1
-  LOADNIL R27
-  MOVE R28 R25
-  CALL R28 0 1
-  JUMPIF R28 [+9]
-  DUPCLOSURE R27 K44 [PROTO_0]
-  NEWCLOSURE R28 P1
-  CAPTURE REF R27
+  GETIMPORT R26 K5 [require]
+  GETTABLEKS R29 R0 K26 ["Src"]
+  GETTABLEKS R28 R29 K39 ["Flags"]
+  GETTABLEKS R27 R28 K41 ["getFFlagAssetImportRefactorReducer"]
+  CALL R26 1 1
+  GETTABLEKS R27 R1 K42 ["PureComponent"]
+  LOADK R29 K43 ["TopBar"]
+  NAMECALL R27 R27 K44 ["extend"]
+  CALL R27 2 1
+  LOADNIL R28
+  MOVE R29 R25
+  CALL R29 0 1
+  JUMPIF R29 [+9]
+  DUPCLOSURE R28 K45 [PROTO_0]
+  NEWCLOSURE R29 P1
+  CAPTURE REF R28
   CAPTURE VAL R17
   CAPTURE VAL R1
   CAPTURE VAL R9
   CAPTURE VAL R14
-  SETTABLEKS R28 R26 K45 ["init"]
-  NEWCLOSURE R28 P2
+  SETTABLEKS R29 R27 K46 ["init"]
+  NEWCLOSURE R29 P2
   CAPTURE VAL R25
   CAPTURE VAL R15
-  CAPTURE REF R27
+  CAPTURE REF R28
   CAPTURE VAL R1
   CAPTURE VAL R10
   CAPTURE VAL R11
@@ -523,27 +550,28 @@ MAIN:
   CAPTURE VAL R12
   CAPTURE VAL R19
   CAPTURE VAL R18
-  SETTABLEKS R28 R26 K46 ["render"]
-  MOVE R28 R5
-  DUPTABLE R29 K47 [{"Localization", "Stylizer", "PresetController"}]
-  SETTABLEKS R6 R29 K12 ["Localization"]
-  SETTABLEKS R7 R29 K14 ["Stylizer"]
-  SETTABLEKS R20 R29 K32 ["PresetController"]
-  CALL R28 1 1
-  MOVE R29 R26
-  CALL R28 1 1
-  MOVE R26 R28
-  DUPCLOSURE R28 K48 [PROTO_7]
-  DUPCLOSURE R29 K49 [PROTO_12]
+  SETTABLEKS R29 R27 K47 ["render"]
+  MOVE R29 R5
+  DUPTABLE R30 K48 [{"Localization", "Stylizer", "PresetController"}]
+  SETTABLEKS R6 R30 K12 ["Localization"]
+  SETTABLEKS R7 R30 K14 ["Stylizer"]
+  SETTABLEKS R20 R30 K32 ["PresetController"]
+  CALL R29 1 1
+  MOVE R30 R27
+  CALL R29 1 1
+  MOVE R27 R29
+  DUPCLOSURE R29 K49 [PROTO_7]
+  CAPTURE VAL R26
+  DUPCLOSURE R30 K50 [PROTO_12]
   CAPTURE VAL R21
   CAPTURE VAL R22
   CAPTURE VAL R23
   CAPTURE VAL R24
-  GETTABLEKS R30 R2 K50 ["connect"]
-  MOVE R31 R28
+  GETTABLEKS R31 R2 K51 ["connect"]
   MOVE R32 R29
-  CALL R30 2 1
-  MOVE R31 R26
-  CALL R30 1 -1
-  CLOSEUPVALS R27
-  RETURN R30 -1
+  MOVE R33 R30
+  CALL R31 2 1
+  MOVE R32 R27
+  CALL R31 1 -1
+  CLOSEUPVALS R28
+  RETURN R31 -1

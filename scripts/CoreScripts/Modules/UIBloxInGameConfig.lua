@@ -12,4 +12,5 @@ return {
 	enableFontNameMapping = UIBloxFlags.GetUIBloxEnableFontNameMapping(),
 	useGetTextBoundsAsync = UIBloxFlags.GetFFlagUIBloxUseGetTextBoundsAsync(),
 	useTokensWithScale = UIBloxFlags.GetFFlagUIBloxUseTokensWithScale(),
+	useNewHeaderBar = UIBloxFlags.GetFFlagUIBloxUseNewHeaderBar(),
 }

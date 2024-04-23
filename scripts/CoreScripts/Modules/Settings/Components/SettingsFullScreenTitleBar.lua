@@ -16,23 +16,12 @@ local t = InGameMenuDependencies.t
 local InGameMenu = RobloxGui.Modules.InGameMenu
 local Constants = require(InGameMenu.Resources.Constants)
 
-local StyleProvider = UIBlox.Core.Style.Provider
 local FullscreenTitleBar = UIBlox.App.Bar.FullscreenTitleBar
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
-local GetFFlagEnableStyleProviderCleanUp =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableStyleProviderCleanUp
 
-local AppDarkTheme = nil
-local AppFont = nil
-local renderWithCoreScriptsStyleProvider = nil
-if not GetFFlagEnableStyleProviderCleanUp() then
-	AppDarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
-	AppFont = require(CorePackages.Workspace.Packages.Style).Fonts.Gotham
-else
-	renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
-end
+local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local GetFIntFullscreenTitleBarTriggerDelayMillis = require(InGameMenu.Flags.GetFIntFullscreenTitleBarTriggerDelayMillis)
 
@@ -141,20 +130,9 @@ function SettingsFullScreenTitleBar:render()
 			}),
 		}),
 	})
-	if not GetFFlagEnableStyleProviderCleanUp() then
-		return Roact.createElement(StyleProvider, {
-			style = {
-				Theme = AppDarkTheme,
-				Font = AppFont,
-			},
-		}, {
-			FullscreenTitleBar = fullscreenTitleBar,
-		})
-	else
-		return renderWithCoreScriptsStyleProvider({
-			FullscreenTitleBar = fullscreenTitleBar,
-		})
-	end
+	return renderWithCoreScriptsStyleProvider({
+		FullscreenTitleBar = fullscreenTitleBar,
+	})
 end
 
 function SettingsFullScreenTitleBar:willUnmount()

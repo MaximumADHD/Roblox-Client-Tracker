@@ -1,0 +1,32 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var320 = require(script.Parent.Parent.Parent.Parent.Packages.Framework).Styling
+local var1 = var320.createStyleRule
+var320 = var1
+local var323 = {}
+var323.BackgroundColor3 = "$BackgroundPaper"
+var323.BorderSizePixel = 0
+local var329 = {}
+var329.CornerRadius = UDim.new(0, 10)
+local var3 = var1("::UICorner", var329)
+local var337 = {}
+var337.BackgroundColor3 = "$BackgroundHover"
+local var5 = var1(":hover", var337)
+local var342 = {}
+var342.TextSize = 24
+var342.Font = Enum.Font.Gotham
+var342.TextColor3 = "$TextPrimary"
+var342.Size = UDim2.new(1, 0, 0, 50)
+var342.BackgroundTransparency = 1
+var342.TextXAlignment = Enum.TextXAlignment.Center
+var342.TextYAlignment = Enum.TextYAlignment.Center
+local var6 = var1("> TextLabel", var342)
+local var358 = {}
+var358.TextSize = 50
+var358.Font = Enum.Font.Gotham
+var358.TextColor3 = "$TextPrimary"
+var358.Size = UDim2.new(1, 0, 0, 100)
+var358.BackgroundTransparency = 1
+var358.TextXAlignment = Enum.TextXAlignment.Center
+var358.TextYAlignment = Enum.TextYAlignment.Center
+local var7 = var1("> TextButton", var358)
+return var320(".Component-BasicExample", var323, {})

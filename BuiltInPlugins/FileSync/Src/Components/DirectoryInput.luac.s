@@ -136,13 +136,15 @@ PROTO_0:
   SETTABLEKS R17 R16 K35 ["TextXAlignment"]
   GETTABLEKS R17 R3 K51 ["FontColor"]
   SETTABLEKS R17 R16 K52 ["TextColor3"]
+  GETTABLEKS R17 R3 K51 ["FontColor"]
+  SETTABLEKS R17 R16 K53 ["BorderColor3"]
   GETIMPORT R17 K4 [UDim2.new]
   LOADN R18 0
   LOADN R19 0
   LOADN R20 0
   LOADN R21 0
   CALL R17 4 1
-  SETTABLEKS R17 R16 K53 ["Position"]
+  SETTABLEKS R17 R16 K54 ["Position"]
   GETIMPORT R17 K4 [UDim2.new]
   LOADN R18 1
   LOADN R19 231
@@ -150,34 +152,34 @@ PROTO_0:
   LOADN R21 25
   CALL R17 4 1
   SETTABLEKS R17 R16 K1 ["Size"]
-  GETTABLEKS R17 R3 K54 ["DirectoryBackgroundColor"]
-  SETTABLEKS R17 R16 K55 ["BackgroundColor3"]
-  GETTABLEKS R17 R3 K56 ["DirectoryBorderSize"]
-  SETTABLEKS R17 R16 K57 ["BorderSizePixel"]
-  GETTABLEKS R17 R3 K58 ["RegularFont"]
-  SETTABLEKS R17 R16 K59 ["Font"]
+  GETTABLEKS R17 R3 K55 ["DirectoryBackgroundColor"]
+  SETTABLEKS R17 R16 K56 ["BackgroundColor3"]
+  GETTABLEKS R17 R3 K57 ["DirectoryBorderSize"]
+  SETTABLEKS R17 R16 K58 ["BorderSizePixel"]
+  GETTABLEKS R17 R3 K59 ["RegularFont"]
+  SETTABLEKS R17 R16 K60 ["Font"]
   LOADN R17 18
-  SETTABLEKS R17 R16 K60 ["TextSize"]
-  GETIMPORT R17 K63 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R17 R16 K61 ["TextTruncate"]
+  SETTABLEKS R17 R16 K61 ["TextSize"]
+  GETIMPORT R17 K64 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R17 R16 K62 ["TextTruncate"]
   GETUPVAL R19 3
-  GETTABLEKS R18 R19 K64 ["Event"]
-  GETTABLEKS R17 R18 K65 ["Activated"]
-  GETTABLEKS R18 R0 K66 ["Callback"]
+  GETTABLEKS R18 R19 K65 ["Event"]
+  GETTABLEKS R17 R18 K66 ["Activated"]
+  GETTABLEKS R18 R0 K67 ["Callback"]
   SETTABLE R18 R16 R17
   CALL R14 2 1
   SETTABLEKS R14 R13 K5 ["DirectoryInput"]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K7 ["createElement"]
-  LOADK R15 K67 ["ImageLabel"]
-  DUPTABLE R16 K69 [{"Image", "BackgroundTransparency", "Size", "Position"}]
+  LOADK R15 K68 ["ImageLabel"]
+  DUPTABLE R16 K70 [{"Image", "BackgroundTransparency", "Size", "Position"}]
   GETUPVAL R18 6
-  GETTABLEKS R17 R18 K70 ["getIconForCurrentTheme"]
+  GETTABLEKS R17 R18 K71 ["getIconForCurrentTheme"]
   GETUPVAL R20 6
-  GETTABLEKS R19 R20 K71 ["IconEnums"]
-  GETTABLEKS R18 R19 K72 ["Open"]
+  GETTABLEKS R19 R20 K72 ["IconEnums"]
+  GETTABLEKS R18 R19 K73 ["Open"]
   CALL R17 1 1
-  SETTABLEKS R17 R16 K68 ["Image"]
+  SETTABLEKS R17 R16 K69 ["Image"]
   LOADN R17 1
   SETTABLEKS R17 R16 K9 ["BackgroundTransparency"]
   GETIMPORT R17 K4 [UDim2.new]
@@ -193,7 +195,7 @@ PROTO_0:
   LOADN R20 0
   LOADN R21 4
   CALL R17 4 1
-  SETTABLEKS R17 R16 K53 ["Position"]
+  SETTABLEKS R17 R16 K54 ["Position"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K45 ["FolderImageLabel"]
   CALL R10 3 1

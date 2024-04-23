@@ -61,7 +61,7 @@ function var9.addErosion(arg1)
    var887 = {}
    local var28 = 2000 * arg1:getHeightGradient(var19, var886, var887)
    local var29 = arg1:getIndex(var19, var22)
-   arg1:getIndex(var19, var22) = arg1._noiseMap[var29] + {}[var13] * arg1._payload[var5.BuildSettings][var4.Amplitude] * var10:SampleDirectional(Vector3.new(var879 + var0.X, var879, var886 + var887) * {}[var13] * arg1._payload[var5.BuildSettings][var4.Frequency] * 10, Vector3.new(var28.Y, 0, var28.X))
+   arg1:getIndex(var19, var22) = arg1._noiseMap[var29] + {}[var13] * arg1._payload[var5.BuildSettings][var4.NoiseStrength] * var10:SampleDirectional(Vector3.new(var879 + var0.X, var879, var886 + var887) * {}[var13] * arg1._payload[var5.BuildSettings][var4.NoiseScale] * 10, Vector3.new(var28.Y, 0, var28.X))
 end
 
 function var9.generateNoiseMap(arg1)
@@ -89,8 +89,8 @@ function var9.generateNoiseMap(arg1)
    var986 = var2
    local var993 = arg1._noiseMap
    arg1:getIndex(var973, var976) = var8(Vector2.new(var973 / arg1._sliceX, var976 / var986), var986, nil)
-   if 0 < arg1._payload[var5.BuildSettings][var4.Frequency] then
-      if 0 < arg1._payload[var5.BuildSettings][var4.Amplitude] then
+   if 0 < arg1._payload[var5.BuildSettings][var4.NoiseScale] then
+      if 0 < arg1._payload[var5.BuildSettings][var4.NoiseStrength] then
          arg1:addErosion()
       end
    end

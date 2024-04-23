@@ -24,8 +24,7 @@ local var21 = require(var0.Core.Types.CreatorTypes)
 local var22 = require(var0.Core.Util.SharedFlags.getFFlagToolboxEnableSearchOptionsRefactor)
 local var23 = require(var1.Framework).Dash
 local var24 = require(var0.Core.Util.SharedFlags.getFFlagToolboxAddCreationsFilterToListView)
-local var25 = require(var0.Core.Flags.getFFlagToolboxFixFilteringByAlbum)
-local var26 = require(var0.Core.Flags.getFFlagQualityFiltersInToolboxSearch)
+local var25 = require(var0.Core.Flags.getFFlagQualityFiltersInToolboxSearch)
 return function(arg1, arg2, arg3, arg4, arg5, arg6)
    return function(arg1)
       local var0 = {}

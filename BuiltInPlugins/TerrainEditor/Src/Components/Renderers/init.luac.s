@@ -9,7 +9,7 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Flags"]
   GETTABLEKS R2 R3 K8 ["getFFlagTerrainEditorGenerationFeature"]
   CALL R1 1 1
-  DUPTABLE R2 K20 [{"BrushSize", "Button", "Elevation", "Label", "Image", "Material", "MaterialRanges", "MultiSelection", "PlaneLock", "Slope", "Upgrade"}]
+  DUPTABLE R2 K20 [{"BrushSize", "Button", "DelayedSlider", "Label", "Image", "Material", "MaterialRanges", "MultiSelection", "PlaneLock", "TerrainType", "Upgrade"}]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
   GETTABLEKS R4 R5 K9 ["BrushSize"]
@@ -25,11 +25,11 @@ MAIN:
   JUMPIFNOT R4 [+8]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K11 ["Elevation"]
+  GETTABLEKS R4 R5 K11 ["DelayedSlider"]
   CALL R3 1 1
   JUMP [+1]
   LOADNIL R3
-  SETTABLEKS R3 R2 K11 ["Elevation"]
+  SETTABLEKS R3 R2 K11 ["DelayedSlider"]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
   GETTABLEKS R4 R5 K12 ["Label"]
@@ -65,16 +65,11 @@ MAIN:
   GETTABLEKS R4 R5 K17 ["PlaneLock"]
   CALL R3 1 1
   SETTABLEKS R3 R2 K17 ["PlaneLock"]
-  MOVE R4 R1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+8]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K18 ["Slope"]
+  GETTABLEKS R4 R5 K18 ["TerrainType"]
   CALL R3 1 1
-  JUMP [+1]
-  LOADNIL R3
-  SETTABLEKS R3 R2 K18 ["Slope"]
+  SETTABLEKS R3 R2 K18 ["TerrainType"]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
   GETTABLEKS R4 R5 K19 ["Upgrade"]

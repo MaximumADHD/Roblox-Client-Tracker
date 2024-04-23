@@ -187,9 +187,37 @@ PROTO_2:
   RETURN R1 1
 
 PROTO_3:
-  DUPTABLE R1 K1 [{"AssetImportSession"}]
-  GETTABLEKS R2 R0 K2 ["assetImportSession"]
-  SETTABLEKS R2 R1 K0 ["AssetImportSession"]
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+32]
+  DUPTABLE R1 K5 [{"ImportTree", "AssetImportSession", "ImportDataCheckedCount", "ErrorNodeChecked", "HasInvalidPackageId"}]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K7 ["importTree"]
+  SETTABLEKS R2 R1 K0 ["ImportTree"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K8 ["assetImportSession"]
+  SETTABLEKS R2 R1 K1 ["AssetImportSession"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K9 ["importDataCheckedCount"]
+  SETTABLEKS R2 R1 K2 ["ImportDataCheckedCount"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K10 ["errorNodeChecked"]
+  SETTABLEKS R2 R1 K3 ["ErrorNodeChecked"]
+  GETTABLEKS R3 R0 K6 ["Preview"]
+  GETTABLEKS R2 R3 K11 ["hasInvalidPackageId"]
+  SETTABLEKS R2 R1 K4 ["HasInvalidPackageId"]
+  RETURN R1 1
+  DUPTABLE R1 K5 [{"ImportTree", "AssetImportSession", "ImportDataCheckedCount", "ErrorNodeChecked", "HasInvalidPackageId"}]
+  GETTABLEKS R2 R0 K7 ["importTree"]
+  SETTABLEKS R2 R1 K0 ["ImportTree"]
+  GETTABLEKS R2 R0 K8 ["assetImportSession"]
+  SETTABLEKS R2 R1 K1 ["AssetImportSession"]
+  GETTABLEKS R2 R0 K9 ["importDataCheckedCount"]
+  SETTABLEKS R2 R1 K2 ["ImportDataCheckedCount"]
+  GETTABLEKS R2 R0 K10 ["errorNodeChecked"]
+  SETTABLEKS R2 R1 K3 ["ErrorNodeChecked"]
+  GETTABLEKS R2 R0 K11 ["hasInvalidPackageId"]
+  SETTABLEKS R2 R1 K4 ["HasInvalidPackageId"]
   RETURN R1 1
 
 MAIN:
@@ -220,33 +248,39 @@ MAIN:
   GETTABLEKS R10 R9 K17 ["Pane"]
   GETTABLEKS R11 R9 K18 ["TextLabel"]
   GETTABLEKS R12 R9 K19 ["StyledDialog"]
-  GETTABLEKS R13 R2 K20 ["PureComponent"]
-  LOADK R15 K21 ["ErrorWidget"]
-  NAMECALL R13 R13 K22 ["extend"]
-  CALL R13 2 1
-  DUPCLOSURE R14 K23 [PROTO_0]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K20 ["Src"]
+  GETTABLEKS R15 R16 K21 ["Flags"]
+  GETTABLEKS R14 R15 K22 ["getFFlagAssetImportRefactorReducer"]
+  CALL R13 1 1
+  GETTABLEKS R14 R2 K23 ["PureComponent"]
+  LOADK R16 K24 ["ErrorWidget"]
+  NAMECALL R14 R14 K25 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K26 [PROTO_0]
   CAPTURE VAL R4
-  DUPCLOSURE R15 K24 [PROTO_1]
+  DUPCLOSURE R16 K27 [PROTO_1]
   CAPTURE VAL R2
   CAPTURE VAL R12
   CAPTURE VAL R10
   CAPTURE VAL R11
   CAPTURE VAL R4
-  SETTABLEKS R15 R13 K25 ["render"]
-  MOVE R15 R6
-  DUPTABLE R16 K26 [{"Localization", "Stylizer"}]
-  SETTABLEKS R7 R16 K13 ["Localization"]
-  SETTABLEKS R8 R16 K15 ["Stylizer"]
-  CALL R15 1 1
-  MOVE R16 R13
-  CALL R15 1 1
-  MOVE R13 R15
-  DUPCLOSURE R15 K27 [PROTO_2]
-  DUPCLOSURE R16 K28 [PROTO_3]
-  GETTABLEKS R17 R3 K29 ["connect"]
-  MOVE R18 R16
-  MOVE R19 R15
-  CALL R17 2 1
-  MOVE R18 R13
-  CALL R17 1 -1
-  RETURN R17 -1
+  SETTABLEKS R16 R14 K28 ["render"]
+  MOVE R16 R6
+  DUPTABLE R17 K29 [{"Localization", "Stylizer"}]
+  SETTABLEKS R7 R17 K13 ["Localization"]
+  SETTABLEKS R8 R17 K15 ["Stylizer"]
+  CALL R16 1 1
+  MOVE R17 R14
+  CALL R16 1 1
+  MOVE R14 R16
+  DUPCLOSURE R16 K30 [PROTO_2]
+  DUPCLOSURE R17 K31 [PROTO_3]
+  CAPTURE VAL R13
+  GETTABLEKS R18 R3 K32 ["connect"]
+  MOVE R19 R17
+  MOVE R20 R16
+  CALL R18 2 1
+  MOVE R19 R14
+  CALL R18 1 -1
+  RETURN R18 -1
