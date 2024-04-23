@@ -10,16 +10,28 @@ return function(config: networkingSquadTypes.Config)
 		{ Name = "RespondExperienceInvite" },
 		function(requestBuilder, request: networkingSquadTypes.RespondExperienceInviteRequest)
 			if config.useMockedResponse then
+				local mockedExperienceInvite = request.mockedExperienceInvite
+
+				local response
+				for i = 1, #mockedExperienceInvite.responses do
+					if mockedExperienceInvite.responses[i].userId == request.userId then
+						response = mockedExperienceInvite.responses[i]
+						break
+					end
+				end
+
+				if response then
+					response.response = request.response
+				else
+					mockedExperienceInvite.responses[#mockedExperienceInvite.responses + 1] = {
+						userId = request.userId,
+						response = request.response,
+					}
+				end
+
 				mockResponse = {
 					responseBody = {
-						experienceInvite = {
-							createdUtc = os.time() * 1000,
-							inviteId = "10000000-0000-0000-0000-000000000000",
-							inviteState = "Active",
-							responses = { [tostring(request.userId)] = request.response },
-							squadId = "00000000-0000-0000-0000-000000000000",
-							universeId = "5279877370",
-						},
+						experienceInvite = mockedExperienceInvite,
 					},
 				}
 			end

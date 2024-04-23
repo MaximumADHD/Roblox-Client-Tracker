@@ -71,6 +71,8 @@ local function initializeLibrary(configs)
 			}),
 			Interactable = require(script.Core.Control.Interactable),
 			InteractableList = require(script.Core.Control.InteractableList),
+			-- TODO: UIBLOX-707 remove once package dependency is resolved
+			FeedbackManagerInjectionContext = require(script.Core.Control.FeedbackManagerInjectionContext),
 		}),
 
 		Spatial = strict({

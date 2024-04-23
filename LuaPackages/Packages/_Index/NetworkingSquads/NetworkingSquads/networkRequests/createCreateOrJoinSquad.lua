@@ -6,14 +6,14 @@ return function(config: networkingSquadTypes.Config)
 	local roduxNetworking: any = config.roduxNetworking
 
 	local mockResponse
-	local JoinSquad = roduxNetworking.POST(
-		{ Name = "JoinSquad" },
-		function(requestBuilder, request: networkingSquadTypes.JoinSquadRequest)
+	local CreateOrJoinSquad = roduxNetworking.POST(
+		{ Name = "CreateOrJoinSquad" },
+		function(requestBuilder, request: networkingSquadTypes.CreateOrJoinSquadRequest)
 			if config.useMockedResponse then
 				mockResponse = {
 					responseBody = {
 						squad = {
-							squadId = request.squadId,
+							squadId = "20000000-0000-0000-0000-000000000000",
 							initiatorId = 3447631062,
 							createdUtc = os.clock() * 1000,
 							channelId = request.channelId,
@@ -49,17 +49,17 @@ return function(config: networkingSquadTypes.Config)
 			end
 
 			return requestBuilder(SQUAD_URL):path("v1"):path("squad"):body({
-				squadId = request.squadId,
+				channelId = request.channelId,
 			})
 		end
 	)
 
 	if config.useMockedResponse then
-		JoinSquad.Mock.clear()
-		JoinSquad.Mock.reply(function()
+		CreateOrJoinSquad.Mock.clear()
+		CreateOrJoinSquad.Mock.reply(function()
 			return mockResponse
 		end)
 	end
 
-	return JoinSquad
+	return CreateOrJoinSquad
 end

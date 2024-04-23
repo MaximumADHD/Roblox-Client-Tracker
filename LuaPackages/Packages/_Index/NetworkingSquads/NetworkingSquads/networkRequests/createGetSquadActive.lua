@@ -5,48 +5,26 @@ local networkingSquadTypes = require(script.Parent.Parent.networkingSquadTypes)
 return function(config: networkingSquadTypes.Config)
 	local roduxNetworking: any = config.roduxNetworking
 
-	local GetSquadActive = roduxNetworking.GET({ Name = "GetSquadActive" }, function(requestBuilder)
-		return requestBuilder(SQUAD_URL):path("squads"):path("v1"):path("get-active-squad")
-	end)
+	local mockResponse
+	local GetSquadActive = roduxNetworking.GET(
+		{ Name = "GetSquadActive" },
+		function(requestBuilder, request: networkingSquadTypes.GetSquadActiveRequest)
+			if config.useMockedResponse then
+				mockResponse = {
+					responseBody = {
+						squad = request.mockedSquad,
+					},
+				}
+			end
+
+			return requestBuilder(SQUAD_URL):path("squads"):path("v1"):path("get-active-squad")
+		end
+	)
 
 	if config.useMockedResponse then
 		GetSquadActive.Mock.clear()
 		GetSquadActive.Mock.reply(function()
-			return {
-				responseBody = {
-					squad = {
-						squadId = "00000000-0000-0000-0000-000000000000",
-						createdUtc = 1672531200000,
-						updatedUtc = os.clock() * 1000,
-						members = {
-							{
-								userId = 3447631062,
-								status = "Creator",
-							},
-							{
-								userId = 2591622000,
-								status = "Member",
-							},
-							{
-								userId = 3447649029,
-								status = "Member",
-							},
-							{
-								userId = 3447641701,
-								status = "Member",
-							},
-							{
-								userId = 3447635964,
-								status = "Member",
-							},
-							{
-								userId = 3447642362,
-								status = "Member",
-							},
-						},
-					},
-				},
-			}
+			return mockResponse
 		end)
 	end
 

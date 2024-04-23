@@ -173,7 +173,7 @@ GenericButton.validateProps = t.interface({
 		TextXAlignment = t.optional(t.enum(Enum.TextXAlignment)),
 	})),
 
-	forwardedRef = t.optional(t.table),
+	forwardedRef = t.optional(t.union(t.table, t.callback)),
 
 	-- Note that this component can accept all valid properties of the Roblox ImageButton instance
 })

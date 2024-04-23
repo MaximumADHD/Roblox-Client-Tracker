@@ -12,9 +12,10 @@ return function(options)
 	local NetworkingSquads = options.NetworkingSquads
 
 	local getAndUpdateState = function(state: RoduxSquadsTypes.CurrentSquad, squad: RoduxSquadsTypes.SquadModel)
-		-- Update if there is not a current squad or the updated timestamp is
-		-- newer than the current squad.
-		if state == nil or squad.updatedUtc > state.updatedUtc then
+		-- Update if there is not a current squad or the created timestamp is
+		-- newer than the current squad. We might want to add an updated
+		-- timestamp in the future.
+		if state == nil or squad.createdUtc >= state.createdUtc then
 			return squad
 		else
 			return state
@@ -22,9 +23,9 @@ return function(options)
 	end
 
 	return Rodux.createReducer(DEFAULT_STATE, {
-		[NetworkingSquads.CreateSquad.Succeeded.name] = function(
+		[NetworkingSquads.CreateOrJoinSquad.Succeeded.name] = function(
 			state: RoduxSquadsTypes.CurrentSquad,
-			action: RoduxSquadsTypes.CreateSquadSucceeded
+			action: RoduxSquadsTypes.CreateOrJoinSquadSucceeded
 		)
 			local squad = action.responseBody.squad
 			return getAndUpdateState(state, SquadModel.format(squad))
@@ -47,6 +48,9 @@ return function(options)
 			state: RoduxSquadsTypes.CurrentSquad,
 			action: RoduxSquadsTypes.GetSquadFromSquadIdSucceeded
 		)
+			-- Note: We can consider removing this endpoint. The use case is to
+			-- fetch squads user is not in. It's just used for platform chat UI
+			-- which doesn't need the full squad model.
 			local squad = action.responseBody.squad
 			return getAndUpdateState(state, SquadModel.format(squad))
 		end,
@@ -60,18 +64,17 @@ return function(options)
 		end,
 
 		[NetworkingSquads.LeaveSquad.Succeeded.name] = function(
-			_: RoduxSquadsTypes.CurrentSquad,
-			_: RoduxSquadsTypes.LeaveSquadSucceeded
-		)
-			return nil
-		end,
-
-		[NetworkingSquads.SquadRemove.Succeeded.name] = function(
 			state: RoduxSquadsTypes.CurrentSquad,
-			action: RoduxSquadsTypes.SquadRemoveSucceeded
+			action: RoduxSquadsTypes.LeaveSquadSucceeded
 		)
-			local squad = action.responseBody.squad
-			return getAndUpdateState(state, SquadModel.format(squad))
+			if state ~= nil then
+				local squadId = tostring(action.ids[1])
+				if squadId ~= state.squadId then
+					return state
+				end
+			end
+
+			return nil
 		end,
 
 		[CurrentSquadUpdated.name] = function(

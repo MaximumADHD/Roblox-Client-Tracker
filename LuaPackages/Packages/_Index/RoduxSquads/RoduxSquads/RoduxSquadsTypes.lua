@@ -1,28 +1,28 @@
 -- Models
 
 export type ExperienceInviteModel = {
-	createdUtc: number,
-	inviteId: string,
+	experienceInviteId: string,
+	version: number,
+	inviterId: number,
+	createdTimestamp: number,
+	decisionTimestamp: number,
+	universeId: number,
+	placeId: number,
+	totalSpots: number,
 	inviteState: string,
-	responses: { [string]: string },
-	squadId: string,
-	universeId: string,
-}
-
-export type SquadInviteModel = {
-	inviterUserId: number,
-	squad: SquadModel,
+	responses: { { userId: number, response: string } },
 }
 
 export type SquadMemberModel = {
 	userId: number,
-	status: string,
+	rank: number,
 }
 
 export type SquadModel = {
-	createdUtc: number, -- Milliseconds
-	updatedUtc: number, -- Milliseconds
 	squadId: string,
+	initiatorId: number,
+	createdUtc: number, -- Milliseconds
+	channelId: string,
 	members: { SquadMemberModel },
 }
 
@@ -38,7 +38,7 @@ export type NavigationTopBar = {
 
 -- Action
 
-export type CreateSquadSucceeded = {
+export type CreateOrJoinSquadSucceeded = {
 	responseBody: {
 		squad: SquadModel,
 	},

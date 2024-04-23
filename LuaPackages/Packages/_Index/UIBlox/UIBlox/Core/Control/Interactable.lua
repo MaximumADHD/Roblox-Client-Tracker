@@ -17,6 +17,7 @@ local React = require(Packages.React)
 local ControlStateEnum = require(Core.Control.Enum.ControlState)
 local ControlStateEventEnum = require(UIBlox.Core.Control.Enum.ControlStateEvent)
 local useGuiControlState = require(Core.Control.Hooks.useGuiControlState)
+local useInteractionFeedback = require(Core.Control.Hooks.useInteractionFeedback)
 
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 
@@ -38,6 +39,7 @@ type Props = {
 local Interactable = function(props: Props, forwardedRef: React.Ref<Instance>)
 	local guiObjectRef = if forwardedRef then forwardedRef else React.createRef()
 	local isDisabled = React.useRef(nil) :: { current: boolean? }
+	local triggerFeedback: any = if UIBloxConfig.enableInteractionFeedback then useInteractionFeedback() else nil
 
 	-- This is a temporarily solution to handle the userInteractionEnabled prop until GuiState.NonInteractable is released
 	-- userInteractionEnabled will just set a prop on an instance when GuiState.NonInteractable is released
@@ -46,6 +48,10 @@ local Interactable = function(props: Props, forwardedRef: React.Ref<Instance>)
 		React.useRef(if props.userInteractionEnabled ~= nil then props.userInteractionEnabled else true)
 
 	local onGuiStateChange = React.useCallback(function(oldState: ControlState, newState: ControlState)
+		if UIBloxConfig.enableInteractionFeedback then
+			-- TODO: UIBLOX-705, pass props.interactionID as first argument to triggerFeedback once default prop drilling is complete
+			triggerFeedback(nil, oldState, newState)
+		end
 		if props.onStateChanged then
 			props.onStateChanged(oldState, newState)
 		end

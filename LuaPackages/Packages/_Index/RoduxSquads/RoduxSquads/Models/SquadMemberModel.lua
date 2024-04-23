@@ -22,7 +22,7 @@ function SquadMemberModel.mock(mergeTable)
 
 	local self = SquadMemberModel.new({
 		userId = mergeTable.userId or 1234,
-		status = mergeTable.status or "Member",
+		rank = mergeTable.rank or 0,
 	})
 
 	return self
@@ -31,7 +31,7 @@ end
 function SquadMemberModel.format(squadMemberData)
 	local self = SquadMemberModel.new({
 		userId = squadMemberData.userId,
-		status = squadMemberData.status,
+		rank = squadMemberData.rank,
 	})
 
 	return self
@@ -39,7 +39,7 @@ end
 
 SquadMemberModel.isValid = t.strictInterface({
 	userId = t.number,
-	status = t.string,
+	rank = t.number,
 })
 
 return SquadMemberModel

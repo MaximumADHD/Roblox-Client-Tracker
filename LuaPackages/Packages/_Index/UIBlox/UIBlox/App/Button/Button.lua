@@ -144,7 +144,7 @@ Button.validateProps = t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
-	buttonRef = t.optional(t.table),
+	buttonRef = t.optional(t.union(t.table, t.callback)),
 	-- Optional selection cursor
 	cursor = t.optional(t.any),
 
