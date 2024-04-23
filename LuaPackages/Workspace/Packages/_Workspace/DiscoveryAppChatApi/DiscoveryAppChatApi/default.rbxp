@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DiscoveryAppChatApi",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/discovery-dependencies/discovery-app-chat-api/src"
+    }
+  }
+}

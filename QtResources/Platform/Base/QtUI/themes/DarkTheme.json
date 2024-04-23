@@ -830,6 +830,11 @@
             }
         },
         {
+            "Other DerivedQTitanTabBarLineBorderColor": {
+                "Default": "#464646"
+            }
+        },
+        {
             "Primary Main": {
                 "Default": "#008BDB"
             }

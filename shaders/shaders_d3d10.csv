@@ -581,8 +581,11 @@ ImGuiFS,Fragment
 ImGuiTexVS,Vertex
 ImGuiVS,Vertex
 InstancedCopy,Compute
+InstancedCopy_DEPRECATED,Compute
 InstancedDebugGarbage,Compute
+InstancedDebugGarbage_DEPRECATED,Compute
 InstancedUploadFull,Compute
+InstancedUploadFull_DEPRECATED,Compute
 LightGridDebugTilesFS,Fragment
 LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex

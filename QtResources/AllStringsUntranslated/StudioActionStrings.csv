@@ -14,6 +14,8 @@ Studio.App.RobloxRibbonMainWindow.MaterialGenerator,,Material Generator,Material
 Studio.App.RobloxRibbonMainWindow.MaterialGeneratorToolTip,,Create AI generated materials through a text prompt,Create AI generated materials through a text prompt
 Studio.App.RobloxRibbonMainWindow.MaterialPicker,,Material,Material
 Studio.App.RobloxRibbonMainWindow.MaterialPickerTooltip,,Select a material to use,Select a material to use
+Studio.App.RobloxRibbonMainWindow.VisualizationModes,,Visualization Modes,Visualization Modes
+Studio.App.RobloxRibbonMainWindow.VisualizationModesToolTip,,Viewport Options,Viewport Options
 Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor,,Accessory Fitting Tool,Accessory Fitting Tool
 Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip,,Edit and Preview Cage Mesh for Clothing and Accessories.,Edit and Preview Cage Mesh for Clothing and Accessories.
 Studio.App.RobloxRibbonMainWindow.CreateAccessory,,Create Accessory,Create Accessory
@@ -341,6 +343,8 @@ Studio.App.RobloxRibbonMainWindow.RigidConstraint,,Rigid Constraint,Rigid Constr
 Studio.App.RobloxRibbonMainWindow.CreateRigidConstraint,,Create rigid constraint,Create rigid constraint
 Studio.App.RobloxRibbonMainWindow.BallInSocket,,Ball in Socket,Ball in Socket
 Studio.App.RobloxRibbonMainWindow.CreateBallInSocket,,Create ball in socket,Create ball in socket
+Studio.App.RobloxRibbonMainWindow.BallOnAxis,,Ball on axis,Ball on axis
+Studio.App.RobloxRibbonMainWindow.CreateBallOnAxis,,Create ball on axis,Create ball on axis
 Studio.App.RobloxRibbonMainWindow.Hinge,,Hinge,Hinge
 Studio.App.RobloxRibbonMainWindow.CreateHinge,,Create hinge,Create hinge
 Studio.App.RobloxRibbonMainWindow.Prismatic,,Prismatic,Prismatic
@@ -393,6 +397,7 @@ Studio.App.RobloxRibbonMainWindow.Sparkles,Name of the action to insert Sparkles
 Studio.App.RobloxRibbonMainWindow.SpotLight,Name of the action to insert spot light into the workspace,SpotLight,SpotLight
 Studio.App.RobloxRibbonMainWindow.SurfaceLight,Name of the action to insert a surface light into the workspace,SurfaceLight,SurfaceLight
 Studio.App.RobloxRibbonMainWindow.ParticleEmitter,Name of the action to insert a Particle Emitter into the workspace,ParticleEmitter,ParticleEmitter
+Studio.App.Actions.Highlight,Name of the action to insert a Highlight into the workspace,Highlight,Highlight
 Studio.App.RobloxRibbonMainWindow.Spawn,,Spawn,Spawn
 Studio.App.RobloxRibbonMainWindow.AddASpawnPoint,,Click here to add a spawn point into your game,Click here to add a spawn point into your game
 Studio.App.RobloxRibbonMainWindow.CollisionGroups,,Collision Groups,Collision Groups
@@ -409,10 +414,27 @@ Studio.App.RobloxRibbonMainWindow.ViewExistingBreakpoints,,View existing breakpo
 Studio.App.Watch.Watch,,Watch,Watch
 Studio.App.RobloxRibbonMainWindow.ViewCurrentlyWatchedVariables,,View currently watched variables,View currently watched variables
 Studio.App.RobloxRibbonMainWindow.ScreenGUI,,ScreenGUI,ScreenGUI
+Studio.App.Actions.SurfaceGui,,SurfaceGui,SurfaceGui
+Studio.App.Actions.BillboardGui,,BillboardGui,BillboardGui
 Studio.App.RobloxRibbonMainWindow.CoreGuiObject,,The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay,The core GUI object on which tools are built.  Add Frames/Labels/Buttons to this object to have them rendered as a 2D overlay
 Studio.App.RobloxRibbonMainWindow.Frame,,Frame,Frame
 Studio.App.RobloxRibbonMainWindow.ContainerLayoutTooltip,,A container object used to layout other GUI objects,A container object used to layout other GUI objects
 Studio.App.UIEditor.ScrollingFrame,ui editor menu,Scrolling Frame,Scrolling Frame
+Studio.App.Actions.VideoFrame,,VideoFrame,VideoFrame
+Studio.App.Actions.ViewportFrame,,ViewportFrame,ViewportFrame
+Studio.App.Actions.CanvasGroup,,CanvasGroup,CanvasGroup
+Studio.App.Actions.UICorner,,UICorner,UICorner
+Studio.App.Actions.UIGradient,,UIGradient,UIGradient
+Studio.App.Actions.UIPadding,,UIPadding,UIPadding
+Studio.App.Actions.UIStroke,,UIStroke,UIStroke
+Studio.App.Actions.UIGridLayout,,UIGridLayout,UIGridLayout
+Studio.App.Actions.UIListLayout,,UIListLayout,UIListLayout
+Studio.App.Actions.UIPageLayout,,UIPageLayout,UIPageLayout
+Studio.App.Actions.UITableLayout,,UITableLayout,UITableLayout
+Studio.App.Actions.UIAspectRatioConstraint,,UIAspectRatioConstraint,UIAspectRatioConstraint
+Studio.App.Actions.UIScale,,UIScale,UIScale
+Studio.App.Actions.UISizeConstraint,,UISizeConstraint,UISizeConstraint
+Studio.App.Actions.UITextSizeConstraint,,UITextSizeConstraint,UITextSizeConstraint
 Studio.App.RobloxRibbonMainWindow.ScrollingFrameTooltip,,"A container object used to layout other GUI objects, and allows for scrolling","A container object used to layout other GUI objects, and allows for scrolling"
 Studio.App.UIEditor.TextLabel,ui editor menu,Text Label,Text Label
 Studio.App.RobloxRibbonMainWindow.AGUIObjectContainingText,,A GUI object containing text,A GUI object containing text

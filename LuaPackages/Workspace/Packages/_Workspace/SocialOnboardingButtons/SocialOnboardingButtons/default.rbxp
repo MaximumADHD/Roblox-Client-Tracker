@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "SocialOnboardingButtons",
+    "tree": {
+      "$path": "../../../../../../../modules/social/social-onboarding-buttons/src"
+    }
+  }
+}

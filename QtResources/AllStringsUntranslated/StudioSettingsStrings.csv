@@ -146,8 +146,8 @@ Studio.App.BetaFeatures.UIListLayoutFlexTitle,,UIListLayout Flex Features,UIList
 Studio.App.BetaFeatures.UIListLayoutFlexDescription,,Add flexible layout options to UIListLayout.,Add flexible layout options to UIListLayout.
 Studio.App.BetaFeatures.TerrainEditorTitle,,Terrain Editor,Terrain Editor
 Studio.App.BetaFeatures.TerrainEditorDescription,,Updates the Terrain Editor with a new and improved UI.,Updates the Terrain Editor with a new and improved UI.
-Studio.App.BetaFeatures.AutoSetupTitle,,Avatar Auto-Setup Preview,Avatar Auto-Setup Preview
-Studio.App.BetaFeatures.AutoSetupDescription,,Early release of our automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Currently for in-game use only. We will remove this restriction and allow for Marketplace submission in later releases.,Early release of our automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Currently for in-game use only. We will remove this restriction and allow for Marketplace submission in later releases.
+Studio.App.BetaFeatures.AutoSetupTitle,,Avatar Auto-Setup Beta,Avatar Auto-Setup Beta
+Studio.App.BetaFeatures.AutoSetupDescription,,Enables automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Marketplace submission of auto-setup created avatars is enabled in this version.,Enables automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Marketplace submission of auto-setup created avatars is enabled in this version.
 Studio.App.BetaFeatures.FasterPlaySoloTitle,,Faster Play Solo,Faster Play Solo
 Studio.App.BetaFeatures.FasterPlaySoloDescription,,Streamlines Play Solo for faster loading performance.,Streamlines Play Solo for faster loading performance.
 Studio.App.BetaFeatures.TextureGeneratorTitle,,Texture Generator,Texture Generator

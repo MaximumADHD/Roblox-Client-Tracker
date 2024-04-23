@@ -11,6 +11,12 @@ There is also a new version available.","Are you sure you want to publish your c
 There is also a new version available."
 Studio.App.PackageManagementVerbs.ConfirmGetLatest,,Are you sure you want to get the latest version of this package?,Are you sure you want to get the latest version of this package?
 Studio.App.PackageManagementVerbs.GetLatest,,Get Latest,Get Latest
+Studio.App.PackageManagementVerbs.UpdateModifiedSingleHeader,Header for dialog when a package update is going to overwrite local changes.,Package Modifications Will Be Overwritten,Package Modifications Will Be Overwritten
+Studio.App.PackageManagementVerbs.UpdateSingleModifiedMultipleSelectionHeader,Header for dialog when a package update is going to overwrite local changes.,1 Modified Package Will Be Overwritten,1 Modified Package Will Be Overwritten
+Studio.App.PackageManagementVerbs.UpdateModifiedMultipleHeader,Header for dialog when a package update is going to overwrite local changes.,%1 Modified Packages Will Be Overwritten,%1 Modified Packages Will Be Overwritten
+Studio.App.PackageManagementVerbs.UpdateModifiedDetail,,Updating will overwrite any unpublished changes. Confirm to proceed or cancel to keep your modifications.,Updating will overwrite any unpublished changes. Confirm to proceed or cancel to keep your modifications.
+Studio.App.PackageManagementVerbs.UpdateModifiedSingleConfirm,Confirm button for dialog when a package update is going to overwrite local changes.,Overwrite && Update,Overwrite && Update
+Studio.App.PackageManagementVerbs.UpdateModifiedMultipleConfirm,Confirm button for dialog when a package update is going to overwrite local changes.,Overwrite && Update All,Overwrite && Update All
 Studio.App.PackageManagementVerbs.PackageViewChanges1,,Package View Changes error: %1,Package View Changes error: %1
 Studio.App.PackageManagementVerbs.PublishNoop,,The package instance matched the newest version; no new version was created.,The package instance matched the newest version; no new version was created.
 Studio.App.PackageService.PublishPackageError1,,Package publish error: %1,Package publish error: %1

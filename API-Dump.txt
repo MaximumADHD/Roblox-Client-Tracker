@@ -115,13 +115,13 @@ Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AnalyticsService:FireInGameEconomyEvent(player: Instance, itemName: string, economyAction: Enum.AnalyticsEconomyAction, itemCategory: string, amount: number, currency: string, location: any, customData: any) -> () [Deprecated]
 	Function AnalyticsService:FireLogEvent(player: Instance, logLevel: Enum.AnalyticsLogLevel, message: string, debugInfo: any, customData: any) -> () [Deprecated]
 	Function AnalyticsService:FirePlayerProgressionEvent(player: Instance, category: string, progressionStatus: Enum.AnalyticsProgressionStatus, location: any, statistics: any, customData: any) -> () [Deprecated]
-	Function AnalyticsService:LogEconomyEvent(player: Player, flowType: Enum.AnalyticsEconomyFlowType, currencyType: string, endingBalance: number, amount: number, transactionType: string, itemSku: string, customFields: { any }) -> ()
-	Function AnalyticsService:LogFunnelStepEvent(player: Player, funnelName: string, step: number, customFields: { any }) -> ()
-	Function AnalyticsService:LogOnboardingFunnelStepEvent(player: Player, step: number, customFields: { any }) -> ()
-	Function AnalyticsService:LogProgressionCompleteEvent(player: Player, level: number, levelName: string, customFields: { any }) -> ()
-	Function AnalyticsService:LogProgressionEvent(player: Player, status: Enum.AnalyticsProgressionType, level: number, levelName: string, customFields: { any }) -> ()
-	Function AnalyticsService:LogProgressionFailEvent(player: Player, level: number, levelName: string, customFields: { any }) -> ()
-	Function AnalyticsService:LogProgressionStartEvent(player: Player, level: number, levelName: string, customFields: { any }) -> ()
+	Function AnalyticsService:LogEconomyEvent(player: Player, flowType: Enum.AnalyticsEconomyFlowType, currencyType: string, endingBalance: number, amount: number, transactionType: string, itemSku: string? = "", customFields: { [string]: any }? = nil) -> ()
+	Function AnalyticsService:LogFunnelStepEvent(player: Player, funnelName: string, funnelSessionId: string? = "", step: number? = 0, stepName: string? = "", customFields: { [string]: any }? = nil) -> ()
+	Function AnalyticsService:LogOnboardingFunnelStepEvent(player: Player, step: number, stepName: string? = "", customFields: { [string]: any }? = nil) -> ()
+	Function AnalyticsService:LogProgressionCompleteEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
+	Function AnalyticsService:LogProgressionEvent(player: Player, progressionPathName: string, status: Enum.AnalyticsProgressionType, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
+	Function AnalyticsService:LogProgressionFailEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
+	Function AnalyticsService:LogProgressionStartEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
 Class Animation : Instance
 	Property Animation.AnimationId: string
 Class AnimationClip : Instance [NotCreatable]
@@ -475,6 +475,7 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Property AvatarChatService.ClientFeatures: number {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property AvatarChatService.ClientFeaturesInitialized: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property AvatarChatService.ServerFeatures: number {RobloxScriptSecurity} {✏️RobloxSecurity} [Hidden]
+	Function AvatarChatService:EnableVoice() -> boolean {RobloxScriptSecurity}
 	Function AvatarChatService:GetClientFeaturesAsync() -> number {RobloxScriptSecurity} [Yields]
 	Function AvatarChatService:GetServerFeaturesAsync() -> number {RobloxScriptSecurity} [Yields]
 	Function AvatarChatService:IsEnabled(mask: number, feature: Enum.AvatarChatServiceFeature) -> boolean {RobloxScriptSecurity}
@@ -482,12 +483,15 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Function AvatarChatService:IsUniverseEnabled() -> boolean {RobloxScriptSecurity}
 	Function AvatarChatService:PollClientFeatures() -> number {RobloxScriptSecurity}
 	Function AvatarChatService:PollServerFeatures() -> number {RobloxScriptSecurity}
+	Function AvatarChatService:deviceMeetsRequirementsForFeature(feature: Enum.DeviceFeatureType) -> boolean {RobloxScriptSecurity}
 	Event AvatarChatService.OnClientFeatures(features: number) {RobloxSecurity} [Hidden]
+	Event AvatarChatService.RefreshClientFeatures() {RobloxSecurity} [Hidden]
 Class AvatarCreationService : Instance [NotCreatable] [Service]
+	Function AvatarCreationService:CreateAvatarGenerationSessionAsync(player: Player) -> AvatarGenerationSession [Yields]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
 	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
-	Event AvatarCreationService.ReplicateAvatarTempAssetIds(id: string, serializedModel: string, bufferMap: { [string]: any }) {RobloxSecurity} [Hidden]
+	Event AvatarCreationService.ReplicateAvatarModel(id: string, success: boolean, serializedModel: string, bufferTable: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.RequestAvatarModel(id: string) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.UgcValidationFailure(guid: string, errorMessage: string) {RobloxScriptSecurity}
 	Event AvatarCreationService.UgcValidationSuccess(guid: string, serializedModel: string) {RobloxScriptSecurity}
@@ -563,7 +567,7 @@ Class AvatarGenerationJob : Instance [NotCreatable]
 Class Avatar2DGenerationJob : AvatarGenerationJob [NotCreatable]
 	Property Avatar2DGenerationJob.Result: string
 Class Avatar3DGenerationJob : AvatarGenerationJob [NotCreatable]
-	Property Avatar3DGenerationJob.Result: Model?
+	Property Avatar3DGenerationJob.Result: string
 Class AvatarGenerationSession : Instance [NotCreatable]
 	Function AvatarGenerationSession:GenerateAvatarModel(previewJob: Avatar2DGenerationJob, options: { [string]: any }) -> Avatar3DGenerationJob
 	Function AvatarGenerationSession:GenerateAvatarPreview(textPrompt: string, options: { [string]: any }) -> Avatar2DGenerationJob
@@ -1408,6 +1412,7 @@ Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [Not
 	Function ConversationalAIAcceptanceService:CodeRunnerCompleted(requestId: string, success: boolean, errorMessage: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:CodeRunnerUndone(requestId: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:DataModelHierarchyLatency(requestId: string, latency: number) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:ErrorTelemetry(requestId: string, errorType: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:InstanceInserted(requestId: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:RecordingActionEnded(requestId: string, waypointName: string) -> () {RobloxScriptSecurity}
 Class CookiesService : Instance [NotCreatable] [Service]
@@ -1918,6 +1923,8 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GamepadService:GetGamepadCursorPosition() -> Vector2 {RobloxScriptSecurity}
 	Function GamepadService:SetGamepadCursorPosition(position: Vector2) -> () {RobloxScriptSecurity}
 	Event GamepadService.GamepadThumbstick1Changed(event: Vector2) {RobloxScriptSecurity}
+Class GenericChallengeService : Instance [NotCreatable] [Service]
+	Event GenericChallengeService.ChallengeRequiredEvent(challengeID: string, challengeType: string, challengeMetadata: string) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
 Class GeometryService : Instance [NotCreatable] [Service]
 	Function GeometryService:CalculateConstraintsToPreserve(source: Instance, destination: { any }, options: { [string]: any }? = nil) -> { any }
@@ -2249,6 +2256,7 @@ Class LayerCollector : GuiBase2d [NotCreatable] [NotBrowsable]
 	Property LayerCollector.Enabled: boolean
 	Property LayerCollector.ResetOnSpawn: boolean
 	Property LayerCollector.ZIndexBehavior: Enum.ZIndexBehavior
+	Function LayerCollector:GetGuiObjectsAtPosition(x: number, y: number) -> { Instance } {RobloxScriptSecurity}
 	Function LayerCollector:GetLayoutNodeTree() -> { [string]: any } [Deprecated]
 Class BillboardGui : LayerCollector
 	Property BillboardGui.ClipsDescendants: boolean
@@ -2578,13 +2586,13 @@ Class HttpRequest : Instance [NotCreatable]
 Class HttpService : Instance [NotCreatable] [Service]
 	Property HttpService.HttpEnabled: boolean {✏️LocalUserSecurity}
 	Function HttpService:GenerateGUID(wrapInCurlyBraces: boolean? = true) -> string {🧬Safe}
-	Function HttpService:GetAsync(url: string, nocache: boolean? = false, headers: any) -> string [Yields]
+	Function HttpService:GetAsync(url: any, nocache: boolean? = false, headers: any) -> string [Yields]
 	Function HttpService:GetHttpEnabled() -> boolean {RobloxScriptSecurity}
 	Function HttpService:GetSecret(key: string) -> Secret {🧬Safe}
 	Function HttpService:GetUserAgent() -> string {RobloxScriptSecurity}
 	Function HttpService:JSONDecode(input: string) -> any [CustomLuaState] {🧬Safe}
 	Function HttpService:JSONEncode(input: any) -> string [CustomLuaState] {🧬Safe}
-	Function HttpService:PostAsync(url: string, data: string, content_type: Enum.HttpContentType? = "ApplicationJson", compress: boolean? = false, headers: any) -> string [Yields]
+	Function HttpService:PostAsync(url: any, data: string, content_type: Enum.HttpContentType? = "ApplicationJson", compress: boolean? = false, headers: any) -> string [Yields]
 	Function HttpService:RequestAsync(requestOptions: { [string]: any }) -> { [string]: any } [Yields]
 	Function HttpService:RequestInternal(options: { [string]: any }) -> Instance? {RobloxScriptSecurity}
 	Function HttpService:SetHttpEnabled(enabled: boolean) -> () {RobloxScriptSecurity}
@@ -4156,6 +4164,7 @@ Class Player : Instance
 	Event Player.Kill() {LocalUserSecurity} [Hidden]
 	Event Player.OnTeleport(teleportState: Enum.TeleportState, placeId: number, spawnName: string)
 	Event Player.OnTeleportInternal(teleportState: Enum.TeleportState, teleportInfo: { [string]: any }, customLoadingScreen: Instance) {RobloxSecurity} [Hidden]
+	Event Player.PlayerCharacterLoaded(metrics: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event Player.PlayerChatTranslationSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
 	Event Player.PlayerExperienceSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
 	Event Player.ReceivedJoinTelemetry(details: { [string]: any }) {RobloxSecurity} [Hidden]
@@ -4214,6 +4223,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Property Players.RespawnTime: number
 	Property Players.ServerGitHash: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Players.ServerLogPrefix: string {RobloxSecurity} [Hidden] [NotScriptable]
+	Function Players:BanAsync(config: { [string]: any }) -> () [Yields]
 	Function Players:Chat(message: string) -> () {PluginSecurity}
 	Function Players:CreateHumanoidModelFromDescription(description: HumanoidDescription, rigType: Enum.HumanoidRigType, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> Model [Yields]
 	Function Players:CreateHumanoidModelFromUserId(userId: number) -> Model [Yields]
@@ -4235,6 +4245,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Players:SetChatStyle(style: Enum.ChatStyle? = "Classic") -> () {PluginSecurity}
 	Function Players:SetLocalPlayerInfo(userId: number, userName: string, displayName: string, membershipType: Enum.MembershipType, isUnder13: boolean) -> () {RobloxScriptSecurity}
 	Function Players:TeamChat(message: string) -> () {PluginSecurity}
+	Function Players:UnbanAsync(config: { [string]: any }) -> () [Yields]
 	Function Players:WhisperChat(message: string, player: Instance) -> () {LocalUserSecurity}
 	Function Players:playerFromCharacter(character: Model) -> Player [Deprecated]
 	Function Players:players() -> { Instance } [Deprecated]
@@ -4590,7 +4601,7 @@ Class RotationCurve : Instance
 Class RtMessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property RunService.ClientGitHash: string {RobloxScriptSecurity} [ReadOnly]
-	Property RunService.RunState: Enum.RunState {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property RunService.RunState: Enum.RunState {PluginSecurity} [NotReplicated]
 	Function RunService:BindToRenderStep(name: string, priority: number, function: (...any) -> ...any) -> ()
 	Function RunService:GetCoreScriptVersion() -> string {RobloxScriptSecurity}
 	Function RunService:GetRobloxClientChannel() -> string {RobloxScriptSecurity}
@@ -4719,6 +4730,8 @@ Class ScriptEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ScriptEditorService:ForceReloadSource(uri: string, newsrc: string) -> () {RobloxScriptSecurity}
 	Function ScriptEditorService:GetEditorSource(script: LuaSourceContainer) -> string {PluginSecurity}
 	Function ScriptEditorService:GetScriptDocuments() -> { Instance } {PluginSecurity}
+	Function ScriptEditorService:IsAutocompleteCallbackRegistered(name: string) -> boolean {RobloxScriptSecurity}
+	Function ScriptEditorService:IsScriptAnalysisCallbackRegistered(name: string) -> boolean {RobloxScriptSecurity}
 	Function ScriptEditorService:OpenScriptDocumentAsync(script: LuaSourceContainer) -> ...any {PluginSecurity} [Yields]
 	Function ScriptEditorService:RegisterAutocompleteCallback(name: string, priority: number, callbackFunction: (...any) -> ...any) -> () {PluginSecurity}
 	Function ScriptEditorService:RegisterScriptAnalysisCallback(name: string, priority: number, callbackFunction: (...any) -> ...any) -> () {PluginSecurity}
@@ -5153,7 +5166,7 @@ Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:RegisterCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterContextCollector(collectorName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterSequentialCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
-	Function StreamingService:RunSandboxedCode(requestId: string, code: string) -> ...any {RobloxScriptSecurity} [Yields]
+	Function StreamingService:RunSandboxedCode(requestId: string, runCodeGuid: string, defaultCode: string? = "") -> ...any {RobloxScriptSecurity} [Yields]
 	Function StreamingService:SetEphemeralVariable(key: string, value: any, timeToLive: number? = -1) -> () {RobloxScriptSecurity}
 	Function StreamingService:SetPluginInfoCallback(function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterCommand(commandName: string) -> () {RobloxScriptSecurity}
@@ -5361,6 +5374,8 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Property StudioDeviceEmulatorService.IsMultiTouchEmulationOn: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StudioDeviceEmulatorService.IsMultiTouchEnabled: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property StudioDeviceEmulatorService.PivotPosition: Vector2 {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function StudioDeviceEmulatorService:ConnectGamepad(deviceId: number, gamepadDeviceType: Enum.GamepadType) -> () {RobloxScriptSecurity} [Yields]
+	Function StudioDeviceEmulatorService:DisconnectGamepad(deviceId: number) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:EmulatePCDeviceWithResolution(deviceId: string, resolution: Vector2) -> boolean {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:GetCurrentDeviceId() -> string {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:GetCurrentOrientation() -> Enum.ScreenOrientation {RobloxScriptSecurity} [Yields]
@@ -6443,6 +6458,10 @@ Enum AlignType
 Enum AlphaMode
 	EnumItem AlphaMode.Overlay : 0
 	EnumItem AlphaMode.Transparency : 1
+Enum AnalyticsCustomFieldKeys
+	EnumItem AnalyticsCustomFieldKeys.CustomField01 : 0
+	EnumItem AnalyticsCustomFieldKeys.CustomField02 : 1
+	EnumItem AnalyticsCustomFieldKeys.CustomField03 : 2
 Enum AnalyticsEconomyAction
 	EnumItem AnalyticsEconomyAction.Default : 0
 	EnumItem AnalyticsEconomyAction.Acquire : 1
@@ -7175,6 +7194,8 @@ Enum DeveloperMemoryTag
 	EnumItem DeveloperMemoryTag.Animation : 22
 	EnumItem DeveloperMemoryTag.Navigation : 23
 	EnumItem DeveloperMemoryTag.GeometryCSG : 24
+Enum DeviceFeatureType
+	EnumItem DeviceFeatureType.DeviceCapture : 0
 Enum DeviceType
 	EnumItem DeviceType.Unknown : 0
 	EnumItem DeviceType.Desktop : 1

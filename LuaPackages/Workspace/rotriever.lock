@@ -310,6 +310,7 @@ dependencies = [
     "AppBlox AppBlox 0.1.0",
     "AppChatNetworking AppChatNetworking 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
+    "AppHeaderBar AppHeaderBar 0.1.0",
     "AppTabBarRodux AppTabBarRodux 0.1.0",
     "ArgCheck ArgCheck 0.1.0",
     "CollisionMatchers2D CollisionMatchers2D 0.1.0",
@@ -348,6 +349,7 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppEnums RobloxAppEnums 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "RobloxAppLocales RobloxAppLocales 0.1.0",
     "RobloxAppSessionization RobloxAppSessionization 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
@@ -407,6 +409,8 @@ dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "Rhodium Rhodium 0.1.0",
     "UIBlox UIBlox 0.1.0",
 ]
 
@@ -783,6 +787,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "DiscoveryAppChatApi"
+version = "0.1.0"
+dependencies = ["AppChat AppChat 0.1.0"]
+
+[[package]]
 name = "DiscoveryJest3TestSuite"
 version = "0.1.0"
 
@@ -821,6 +830,15 @@ version = "0.1.0"
 dependencies = ["SharedFlags SharedFlags 0.1.0"]
 
 [[package]]
+name = "DiscoveryUiBloxApi"
+version = "0.1.0"
+dependencies = [
+    "React React 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "t t 0.1.0",
+]
+
+[[package]]
 name = "DiscoveryUtils"
 version = "0.1.0"
 dependencies = [
@@ -855,6 +873,7 @@ version = "0.1.0"
 dependencies = [
     "Analytics Analytics 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
+    "AppHeaderBar AppHeaderBar 0.1.0",
     "Dash Dash 0.1.0",
     "FormFactor FormFactor 0.1.0",
     "GraphQLServer GraphQLServer 0.1.0",
@@ -1074,6 +1093,7 @@ dependencies = [
     "Analytics Analytics 0.1.0",
     "ApolloClient ApolloClient 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
+    "AppHeaderBar AppHeaderBar 0.1.0",
     "ContactImporter ContactImporter 0.1.0",
     "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
@@ -1342,7 +1362,9 @@ dependencies = [
     "AppCommonLib AppCommonLib 0.1.0",
     "CentralOverlay CentralOverlay 0.1.0",
     "Cryo Cryo 0.1.0",
+    "DiscoveryAppChatApi DiscoveryAppChatApi 0.1.0",
     "DiscoveryOtaPatch DiscoveryOtaPatch 0.1.0",
+    "DiscoveryUiBloxApi DiscoveryUiBloxApi 0.1.0",
     "GameDetail GameDetail 0.1.0",
     "GameDetailRodux GameDetailRodux 0.1.0",
     "GameIconRodux GameIconRodux 0.1.0",
@@ -1589,6 +1611,17 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
+]
+
+[[package]]
+name = "InteractionFeedback"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "React React 0.1.0",
+    "SoundManager SoundManager 0.1.0",
+    "enumerate enumerate 0.1.0",
 ]
 
 [[package]]
@@ -1942,6 +1975,7 @@ dependencies = [
     "DiscoveryTestHelpers DiscoveryTestHelpers 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
+    "Loggers Loggers 0.1.0",
     "LoggingProtocol LoggingProtocol 0.1.0",
     "MockEngineServices MockEngineServices 0.1.0",
 ]
@@ -2165,6 +2199,7 @@ name = "ProfileQRCode"
 version = "0.1.0"
 dependencies = [
     "Analytics Analytics 0.1.0",
+    "AppHeaderBar AppHeaderBar 0.1.0",
     "Cryo Cryo 0.1.0",
     "Dash Dash 0.1.0",
     "Enumerate enumerate 0.1.0",
@@ -2420,6 +2455,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "RobloxAppInteractionFeedbackConfig"
+version = "0.1.0"
+dependencies = [
+    "InteractionFeedback InteractionFeedback 0.1.0",
+    "SoundManager SoundManager 0.1.0",
+]
+
+[[package]]
 name = "RobloxAppLocales"
 version = "0.1.0"
 dependencies = [
@@ -2576,6 +2619,7 @@ dependencies = [
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
     "Roact RoactCompat 0.1.0",
+    "RoactAppExperiment RoactAppExperiment 0.1.0",
     "RoactRodux RoactRodux 0.1.0",
     "RoactUtils RoactUtils 0.1.0",
     "RobloxAppHooks RobloxAppHooks 0.1.0",
@@ -2738,6 +2782,7 @@ dependencies = [
     "Screenshots Screenshots 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
     "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialOnboardingButtons SocialOnboardingButtons 0.1.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "UserProfiles UserProfiles 0.1.0",
 ]
@@ -2817,6 +2862,22 @@ dependencies = [
     "SetAlias SetAlias 0.1.0",
     "ShareLinkInvalidModal ShareLinkInvalidModal 0.1.0",
     "SocialModalsCommon SocialModalsCommon 0.1.0",
+]
+
+[[package]]
+name = "SocialOnboardingButtons"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "React React 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialModalsCommon SocialModalsCommon 0.1.0",
+    "SocialTestHelpers SocialTestHelpers 0.1.0",
+    "ToastRodux ToastRodux 0.1.0",
+    "UIBlox UIBlox 0.1.0",
 ]
 
 [[package]]
@@ -2911,6 +2972,7 @@ dependencies = [
     "RoactRodux RoactRodux 0.1.0",
     "RobloxAppLocales RobloxAppLocales 0.1.0",
     "Rodux Rodux 0.1.0",
+    "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
 ]

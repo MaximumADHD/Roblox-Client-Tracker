@@ -2,7 +2,7 @@
   "instanceHierarchy": {
     "name": "SoundManager",
     "tree": {
-      "$path": "../../../../../../../modules/core-scripts/sound-manager/src"
+      "$path": "../../../../../../../modules/app-common/sound-manager/src"
     }
   }
 }
