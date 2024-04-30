@@ -5,8 +5,12 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Modules = CoreGui.RobloxGui.Modules
 local Theme = require(Modules.Settings.Theme)
+local ChromeEnabled = require(Modules.Chrome.Enabled)
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
+
+local GetFFlagEnableScreenshotUtility =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 
 local ScreenshotsApp = Screenshots.App.createApp()
 
@@ -33,7 +37,7 @@ OverlayScreenGui.Parent = CoreGui
 
 ScreenshotsApp.mountCaptureManager(CaptureManagerScreenGui, Theme)
 ScreenshotsApp.mountCarousel(CarouselScreenGui)
-ScreenshotsApp.mountCoreUI(RobloxGui)
+ScreenshotsApp.mountCoreUI(RobloxGui, if GetFFlagEnableScreenshotUtility() then ChromeEnabled() else nil)
 ScreenshotsApp.mountCaptureOverlay(OverlayScreenGui)
 
 return ScreenshotsApp

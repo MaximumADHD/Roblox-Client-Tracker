@@ -1,0 +1,102 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"showError"}]
+  GETTABLEKS R5 R1 K2 ["showError"]
+  SETTABLEKS R5 R4 K2 ["showError"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"showPreview"}]
+  GETTABLEKS R5 R1 K2 ["showPreview"]
+  SETTABLEKS R5 R4 K2 ["showPreview"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"showProgress"}]
+  GETTABLEKS R5 R1 K2 ["showProgress"]
+  SETTABLEKS R5 R4 K2 ["showProgress"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"uploading"}]
+  GETTABLEKS R5 R1 K2 ["uploading"]
+  SETTABLEKS R5 R4 K2 ["uploading"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Actions"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R3 K11 ["SetShowError"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R3 K12 ["SetShowPreview"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R3 K13 ["SetShowProgress"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R3 K14 ["SetUploading"]
+  CALL R7 1 1
+  DUPTABLE R8 K19 [{"showError", "showPreview", "showProgress", "uploading"}]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K15 ["showError"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K16 ["showPreview"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K17 ["showProgress"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K18 ["uploading"]
+  GETTABLEKS R9 R1 K20 ["createReducer"]
+  MOVE R10 R8
+  NEWTABLE R11 4 0
+  GETTABLEKS R12 R4 K21 ["name"]
+  DUPCLOSURE R13 K22 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K21 ["name"]
+  DUPCLOSURE R13 K23 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R6 K21 ["name"]
+  DUPCLOSURE R13 K24 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R7 K21 ["name"]
+  DUPCLOSURE R13 K25 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLE R13 R11 R12
+  CALL R9 2 -1
+  RETURN R9 -1

@@ -14,16 +14,31 @@ MAIN:
   GETTABLEKS R4 R2 K10 ["Preview"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Flags"]
-  GETTABLEKS R5 R6 K12 ["getFFlagAssetImportRefactorReducer"]
+  GETTABLEKS R5 R2 K11 ["Dialogs"]
   CALL R4 1 1
-  GETTABLEKS R5 R1 K13 ["combineReducers"]
-  DUPTABLE R6 K14 [{"Preview"}]
-  SETTABLEKS R3 R6 K10 ["Preview"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Flags"]
+  GETTABLEKS R6 R7 K13 ["getFFlagAssetImportRefactorReducer"]
   CALL R5 1 1
-  MOVE R6 R4
-  CALL R6 0 1
-  JUMPIFNOT R6 [+1]
-  RETURN R5 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Flags"]
+  GETTABLEKS R7 R8 K14 ["getFFlagAssetImportRefactorFileOpen"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K15 ["combineReducers"]
+  DUPTABLE R8 K16 [{"Preview", "Dialogs"}]
+  SETTABLEKS R3 R8 K10 ["Preview"]
+  MOVE R10 R6
+  CALL R10 0 1
+  JUMPIFNOT R10 [+2]
+  MOVE R9 R4
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K11 ["Dialogs"]
+  CALL R7 1 1
+  MOVE R8 R5
+  CALL R8 0 1
+  JUMPIFNOT R8 [+1]
+  RETURN R7 1
   RETURN R3 1

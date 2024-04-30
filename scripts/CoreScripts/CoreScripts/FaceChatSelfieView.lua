@@ -51,6 +51,7 @@ local FFlagSelfViewAvoidErrorOnWrongFaceControlsParenting = game:DefineFastFlag(
 local FFlagSelfViewUpdatedCamFraming = game:DefineFastFlag("SelfViewUpdatedCamFraming", false)
 local FFlagSelfViewGetRidOfFalselyRenderedFaceDecal = game:DefineFastFlag("SelfViewGetRidOfFalselyRenderedFaceDecal", false)
 local FFlagSelfViewRemoveVPFWhenClosed = game:DefineFastFlag("SelfViewRemoveVPFWhenClosed", false)
+local FFlagSelfViewTweaksPass = game:DefineFastFlag("SelfViewTweaksPass", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -244,6 +245,8 @@ local r15bodyPartsToShow = {
 --so we can maintain that transparency even if later it gets changed for the game world avatar when entering vehicles or similar
 local partsOrgTransparency = {}
 
+local ALWAYS_TRANSPARENT_PART_TAG = "__RBX__LOCKED_TRANSPARENT"
+
 local r6bodyPartsToShow = {
 	"Head",
 	"Left Arm",
@@ -284,6 +287,9 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	AccessoryWeld = "AccessoryWeld",
 	--PackageLink is here since one can't nill out the parent of a PackageLink
 	PackageLink = "PackageLink",
+	Folder = "Folder",
+	--some games like Winds of Fortune connect things like hair with constraints so we keep those in
+	RigidConstraint = "RigidConstraint"
 }
 
 --we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
@@ -1914,6 +1920,11 @@ local onUpdateTrackerMode = function()
 end
 
 local function syncTrack(animator, track)
+	if FFlagSelfViewTweaksPass then
+		if not isOpen or viewportFrame == nil then
+			return
+		end
+	end
 	if not animator or not track.Animation then
 		return
 	end
@@ -1995,8 +2006,14 @@ function findObjectOfNameAndTypeName(name, typeName, character)
 	end
 	local descendants = character:GetDescendants()
 	for _, child in descendants do
-		if child.Name == name and child:IsA(typeName) then
-			return child
+		if FFlagSelfViewTweaksPass then
+			if child:IsA(typeName) and child.Name == name then
+				return child
+			end			
+		else
+			if child.Name == name and child:IsA(typeName) then
+				return child
+			end
 		end
 	end
 end
@@ -2212,8 +2229,10 @@ local function updateClone(player)
 		return
 	end
 	
-	--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
-	removeTagsFromSelfViewClone(clone)
+	if not FFlagSelfViewTweaksPass then
+		--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
+		removeTagsFromSelfViewClone(clone)
+	end
 
 	--resetting the joints orientations in the clone since it can happen that body/head IK like code was applied on the player avatar
 	--and we want to start with default pose setup in clone, else issues with clone avatar (parts) orientation etc
@@ -2242,7 +2261,18 @@ local function updateClone(player)
 			if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
 				part.Transparency = 0
 			end
+			
+			if FFlagSelfViewTweaksPass then
+				if CollectionService:HasTag(part, ALWAYS_TRANSPARENT_PART_TAG) then
+					part.Transparency = 1
+				end
+			end
 		end
+	end
+	
+	if FFlagSelfViewTweaksPass then
+		--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
+		removeTagsFromSelfViewClone(clone)	
 	end
 
 	clone.Name = cloneCharacterName
@@ -2447,6 +2477,11 @@ function addHumanoidStateChangedObserver(humanoid)
 end
 
 local function characterAdded(character)
+	if FFlagSelfViewTweaksPass then
+		if not isOpen or viewportFrame == nil then
+			return
+		end
+	end
 	headRef = getHead(character)
 	updateCachedHeadColor(headRef)
 
@@ -2468,6 +2503,11 @@ local function characterAdded(character)
 
 	-- listen for updates on the original character's structure
 	observerInstances[Observer.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
+		if FFlagSelfViewTweaksPass then
+			if not isOpen or viewportFrame == nil then
+				return
+			end
+		end
 		--debugPrint("Self View: descendant added,descendant.Name: "..descendant.Name)
 		if descendant.Name == "Head" then
 			headRef = getHead(character)
@@ -2509,6 +2549,12 @@ local function characterAdded(character)
 		end
 	end)
 	observerInstances[Observer.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
+		if FFlagSelfViewTweaksPass then
+			if not isOpen or viewportFrame == nil then
+				return
+			end
+		end
+		
 		--these checks are to avoid unnecessary additional refreshes
 		if descendant and (descendant:IsA("MeshPart") or descendant:IsA("Accessory")) then
 			if descendant:IsA("MeshPart") then

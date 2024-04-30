@@ -201,25 +201,27 @@ PROTO_2:
   CALL R7 3 1
   SETTABLEKS R7 R6 K24 ["Preview"]
   GETTABLEKS R8 R0 K40 ["Selected"]
+  JUMPIFNOT R8 [+50]
+  GETTABLEKS R8 R0 K84 ["CanDelete"]
   JUMPIFNOT R8 [+47]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K3 ["createElement"]
   GETUPVAL R8 8
-  DUPTABLE R9 K85 [{"LayoutOrder", "OnClick", "Size", "Style"}]
+  DUPTABLE R9 K86 [{"LayoutOrder", "OnClick", "Size", "Style"}]
   NAMECALL R10 R2 K41 ["getNextOrder"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K7 ["LayoutOrder"]
-  GETTABLEKS R10 R0 K86 ["OnRemove"]
-  SETTABLEKS R10 R9 K84 ["OnClick"]
-  GETTABLEKS R10 R1 K87 ["ButtonSize"]
+  GETTABLEKS R10 R0 K87 ["OnRemove"]
+  SETTABLEKS R10 R9 K85 ["OnClick"]
+  GETTABLEKS R10 R1 K88 ["ButtonSize"]
   SETTABLEKS R10 R9 K8 ["Size"]
-  LOADK R10 K88 ["RoundSubtle"]
+  LOADK R10 K89 ["RoundSubtle"]
   SETTABLEKS R10 R9 K46 ["Style"]
-  DUPTABLE R10 K90 [{"DeleteIcon"}]
+  DUPTABLE R10 K91 [{"DeleteIcon"}]
   GETUPVAL R12 2
   GETTABLEKS R11 R12 K3 ["createElement"]
   GETUPVAL R12 6
-  DUPTABLE R13 K91 [{"ImageColor3", "Size", "Style"}]
+  DUPTABLE R13 K92 [{"ImageColor3", "Size", "Style"}]
   GETTABLEKS R14 R1 K49 ["ImageColor"]
   SETTABLEKS R14 R13 K27 ["ImageColor3"]
   GETIMPORT R14 K21 [UDim2.fromScale]
@@ -227,10 +229,10 @@ PROTO_2:
   LOADN R16 1
   CALL R14 2 1
   SETTABLEKS R14 R13 K8 ["Size"]
-  GETTABLEKS R14 R1 K92 ["RemoveStyle"]
+  GETTABLEKS R14 R1 K93 ["RemoveStyle"]
   SETTABLEKS R14 R13 K46 ["Style"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K89 ["DeleteIcon"]
+  SETTABLEKS R11 R10 K90 ["DeleteIcon"]
   CALL R7 3 1
   JUMP [+1]
   LOADNIL R7

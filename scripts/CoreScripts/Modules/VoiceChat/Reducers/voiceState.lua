@@ -17,6 +17,7 @@ local ParticipantAdded = require(script.Parent.Parent.Actions.ParticipantAdded)
 local ParticipantRemoved = require(script.Parent.Parent.Actions.ParticipantRemoved)
 local VoiceStateChanged = require(script.Parent.Parent.Actions.VoiceStateChanged)
 local VoiceEnabledChanged = require(script.Parent.Parent.Actions.VoiceEnabledChanged)
+local ParticipantsChanged = require(script.Parent.Parent.Actions.ParticipantsChanged)
 
 local voiceState = Rodux.createReducer({
 	-- [userId] = voiceChatState,
@@ -42,6 +43,26 @@ local voiceState = Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			[action.userId] = Cryo.None,
 		})
+	end,
+
+	-- Bulk state changed action
+	[ParticipantsChanged.name] = function(state, action)
+		local participants = action.newParticipants
+		local newState = table.clone(state)
+		for userId, participantState in participants do
+			local voiceState = VOICE_STATE.INACTIVE
+			if not participantState.subscriptionCompleted then
+				voiceState = VOICE_STATE.CONNECTING
+			elseif participantState.isMutedLocally then
+				voiceState = VOICE_STATE.LOCAL_MUTED
+			elseif participantState.isMuted then
+				voiceState = VOICE_STATE.MUTED
+			elseif participantState.isSignalActive then
+				voiceState = VOICE_STATE.TALKING
+			end
+			newState[tostring(userId)] = voiceState -- We manually mutate the shallow clone for performance
+		end
+		return newState
 	end,
 
 	-- Change the current voice state for a specific player.

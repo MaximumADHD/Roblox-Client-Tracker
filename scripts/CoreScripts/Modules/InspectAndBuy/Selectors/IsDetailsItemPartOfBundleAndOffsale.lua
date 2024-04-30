@@ -1,6 +1,7 @@
 local InspectAndBuyFolder = script.Parent.Parent
 local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 --[[
 	Checks if an asset is part of a bundle.
@@ -11,6 +12,10 @@ return function(state): boolean?
 		return nil
 	end
 	local assetInfo = state.assets[assetId]
+
+	if GetFFlagIBEnableLimitedBundle() then
+		return assetInfo and assetInfo.parentBundleId ~= nil
+	end
 
 	if assetInfo and assetInfo.isForSale then
 		return false

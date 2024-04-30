@@ -32,68 +32,68 @@ local var29 = require(var22.SanitizeAnimation)
 local var30 = require(var22.Exporting.SaveAnimation)
 local var31 = var5.PureComponent:extend("AnimationClipDropdown")
 function var31.init(arg1)
-   local var551 = {}
-   var551.showMenu = false
-   var551.showSaveAsPrompt = false
-   var551.showCreateNewPrompt = false
-   var551.showImportAnimModelChoicePrompt = false
-   var551.showPromotePrompt = false
-   var551.overwriteName = nil
-   var551.loadingName = nil
-   var551.isActionLegacyAnimSaves = nil
-   var551.showCreateAnimationFromVideoTutorial = false
-   arg1.state = var551
+   local var558 = {}
+   var558.showMenu = false
+   var558.showSaveAsPrompt = false
+   var558.showCreateNewPrompt = false
+   var558.showImportAnimModelChoicePrompt = false
+   var558.showPromotePrompt = false
+   var558.overwriteName = nil
+   var558.loadingName = nil
+   var558.isActionLegacyAnimSaves = nil
+   var558.showCreateAnimationFromVideoTutorial = false
+   arg1.state = var558
    function arg1.showMenu()
       if not arg1.props.ReadOnly then
          arg1.props.SetPlayState(var6.PLAY_STATE.Pause)
-         local var571 = {}
-         var571.showMenu = true
-         arg1:setState(var571)
+         local var578 = {}
+         var578.showMenu = true
+         arg1:setState(var578)
       end
    end
    
    function arg1.hideMenu()
-      local var575 = {}
-      var575.showMenu = false
-      arg1:setState(var575)
+      local var582 = {}
+      var582.showMenu = false
+      arg1:setState(var582)
    end
    
    function arg1.showOverwritePrompt(arg1, arg2)
-      local var581 = {}
-      var581.overwriteName = arg1
-      var581.isActionLegacyAnimSaves = arg2
-      arg1:setState(var581)
+      local var588 = {}
+      var588.overwriteName = arg1
+      var588.isActionLegacyAnimSaves = arg2
+      arg1:setState(var588)
    end
    
    function arg1.hideOverwritePrompt()
-      local var584 = {}
-      var584.overwriteName = var5.None
-      var584.isActionLegacyAnimSaves = var5.None
-      arg1:setState(var584)
-   end
-   
-   function arg1.showSaveAsPrompt()
       local var591 = {}
-      var591.showSaveAsPrompt = true
+      var591.overwriteName = var5.None
+      var591.isActionLegacyAnimSaves = var5.None
       arg1:setState(var591)
    end
    
+   function arg1.showSaveAsPrompt()
+      local var598 = {}
+      var598.showSaveAsPrompt = true
+      arg1:setState(var598)
+   end
+   
    function arg1.hideSaveAsPrompt()
-      local var595 = {}
-      var595.showSaveAsPrompt = false
-      arg1:setState(var595)
+      local var602 = {}
+      var602.showSaveAsPrompt = false
+      arg1:setState(var602)
    end
    
    function arg1.showImportAnimModelChoicePrompt()
-      local var599 = {}
-      var599.showImportAnimModelChoicePrompt = true
-      arg1:setState(var599)
+      local var606 = {}
+      var606.showImportAnimModelChoicePrompt = true
+      arg1:setState(var606)
    end
    
    function arg1.hideImportAnimModelChoicePrompt()
-      local var603 = {}
-      var603.showImportAnimModelChoicePrompt = false
-      arg1:setState(var603)
+      local var610 = {}
+      var610.showImportAnimModelChoicePrompt = false
+      arg1:setState(var610)
    end
    
    function arg1.showReduceKeyframesDialog()
@@ -101,47 +101,47 @@ function var31.init(arg1)
    end
    
    function arg1.showCreateNewPrompt()
-      local var613 = {}
-      var613.showCreateNewPrompt = true
-      arg1:setState(var613)
+      local var620 = {}
+      var620.showCreateNewPrompt = true
+      arg1:setState(var620)
    end
    
    function arg1.hideCreateNewPrompt()
-      local var617 = {}
-      var617.showCreateNewPrompt = false
-      arg1:setState(var617)
+      local var624 = {}
+      var624.showCreateNewPrompt = false
+      arg1:setState(var624)
    end
    
    function arg1.showPromotePrompt()
-      local var621 = {}
-      var621.showPromotePrompt = true
-      arg1:setState(var621)
+      local var628 = {}
+      var628.showPromotePrompt = true
+      arg1:setState(var628)
    end
    
    function arg1.hidePromotePrompt()
-      local var625 = {}
-      var625.showPromotePrompt = false
-      arg1:setState(var625)
+      local var632 = {}
+      var632.showPromotePrompt = false
+      arg1:setState(var632)
    end
    
    function arg1.showLoadNewPrompt(arg1, arg2)
-      local var631 = {}
-      var631.loadingName = arg1
-      var631.isActionLegacyAnimSaves = arg2
-      arg1:setState(var631)
+      local var638 = {}
+      var638.loadingName = arg1
+      var638.isActionLegacyAnimSaves = arg2
+      arg1:setState(var638)
    end
    
    function arg1.hideLoadNewPrompt()
-      local var634 = {}
-      var634.loadingName = var5.None
-      var634.isActionLegacyAnimSaves = var5.None
-      arg1:setState(var634)
+      local var641 = {}
+      var641.loadingName = var5.None
+      var641.isActionLegacyAnimSaves = var5.None
+      arg1:setState(var641)
    end
    
    function arg1.setShowCreateAnimationFromVideoTutorial(arg1)
-      local var642 = {}
-      var642.showCreateAnimationFromVideoTutorial = arg1
-      arg1:setState(var642)
+      local var649 = {}
+      var649.showCreateAnimationFromVideoTutorial = arg1
+      arg1:setState(var649)
    end
    
    function arg1.continueAfterCreateAnimationFromVideoTutorial()
@@ -155,9 +155,9 @@ function var31.init(arg1)
          arg1.showLoadNewPrompt(var1)
       end
       arg1.props.SetInReviewState(false)
-      local var666 = arg1.props
-      var666 = arg1.props.Plugin
-      var666.ImportKeyframeSequence(var666, arg1.props.Analytics)
+      local var673 = arg1.props
+      var673 = arg1.props.Plugin
+      var673.ImportKeyframeSequence(var673, arg1.props.Analytics)
    end
    
    function arg1.importFbxRequested()
@@ -165,9 +165,9 @@ function var31.init(arg1)
          arg1.showLoadNewPrompt(var2)
       end
       arg1.props.SetInReviewState(false)
-      local var685 = arg1.props
-      var685 = arg1.props.Plugin
-      var685.ImportFBXAnimationUserMayChooseModel(var685, arg1, arg1.props.Analytics)
+      local var692 = arg1.props
+      var692 = arg1.props.Plugin
+      var692.ImportFBXAnimationUserMayChooseModel(var692, arg1, arg1.props.Analytics)
    end
    
    function arg1.startAnimationFromVideoFlow()
@@ -192,19 +192,19 @@ function var31.init(arg1)
    end
    
    function arg1.loadNew(arg1, arg2)
-      local var725 = arg1
-      if var725.props.IsDirty then
-         local var728 = arg1
-         var728 = arg1
-         var725 = arg2
-         var728.showLoadNewPrompt(var728, var725)
+      local var732 = arg1
+      if var732.props.IsDirty then
+         local var735 = arg1
+         var735 = arg1
+         var732 = arg2
+         var735.showLoadNewPrompt(var735, var732)
       end
       arg1.props.SetInReviewState(false)
-      local var734 = arg1
-      local var735 = var734.props
-      var735 = arg1
-      var734 = arg2
-      var735.LoadAnimation(var735, var734, arg1.props.Analytics)
+      local var741 = arg1
+      local var742 = var741.props
+      var742 = arg1
+      var741 = arg2
+      var742.LoadAnimation(var742, var741, arg1.props.Analytics)
    end
    
    function arg1.handleLoadNewPrompt()
@@ -213,8 +213,8 @@ function var31.init(arg1)
       local var2 = var1.loadingName
       local var3 = arg1.props.Plugin
       arg1.hideLoadNewPrompt()
-      local var751 = arg1
-      var751.props.SetInReviewState(false)
+      local var758 = arg1
+      var758.props.SetInReviewState(false)
       if var2 == "hideLoadNewPrompt" then
          arg1.showCreateNewPrompt()
       end
@@ -227,8 +227,8 @@ function var31.init(arg1)
       if var2 == "hideLoadNewPrompt" then
          arg1.startAnimationFromVideoFlow()
       end
-      var751 = var1.isActionLegacyAnimSaves
-      var0.LoadAnimation(var2, var751, var0.Analytics)
+      var758 = var1.isActionLegacyAnimSaves
+      var0.LoadAnimation(var2, var758, var0.Analytics)
    end
    
    function arg1.onSanitizeAnimation()
@@ -255,57 +255,57 @@ local function fun49(arg1)
          local var0 = false
       end
    end
-   local var808 = {}
-   var808.Size = UDim2.new(1, var6.CONTROLS_WIDTH - var6.TIME_DISPLAY_WIDTH, 1, 0)
-   var808.BackgroundTransparency = 1
-   var808.ImageTransparency = 1
-   var808.AutoButtonColor = false
-   var808.LayoutOrder = var1.LayoutOrder
+   local var815 = {}
+   var815.Size = UDim2.new(1, var6.CONTROLS_WIDTH - var6.TIME_DISPLAY_WIDTH, 1, 0)
+   var815.BackgroundTransparency = 1
+   var815.ImageTransparency = 1
+   var815.AutoButtonColor = false
+   var815.LayoutOrder = var1.LayoutOrder
    var5.Event.Activated = arg1.showMenu
-   local var827 = {}
-   local var831 = {}
-   var831.PaddingLeft = var8
-   var831.PaddingRight = var8
-   var827.Padding = var5.createElement("UIPadding", var831)
+   local var834 = {}
    local var838 = {}
-   var838.Size = UDim2.new(1, var6.TRACKLIST_BUTTON_SIZE - var6.INDENT_PADDING, 1, 0)
-   var838.BackgroundTransparency = 1
-   var838.Text = var4
-   var838.TextTruncate = Enum.TextTruncate.AtEnd
-   var838.TextSize = var5.textSize
-   var838.Font = var3.font
-   var838.TextColor3 = var5.textColor
-   var838.TextXAlignment = Enum.TextXAlignment.Left
-   var827.AnimationClipLabel = var5.createElement("TextLabel", var838)
-   local var860 = {}
-   var860.AnchorPoint = Vector2.new(1, 0.5)
-   var860.Position = UDim2.new(1, 0, 0.5, 0)
-   var860.OnActivated = arg1.showMenu
-   var827.ContextButton = var5.createElement(var19, var860)
-   local var876 = {}
-   var876.ShowMenu = var2.showMenu
-   var876.CurrentAnimation = var4
-   var876.IsLegacyAnimSaves = var1.IsLegacyAnimSaves
-   var876.IsChannelAnimation = var1.IsChannelAnimation
-   var876.OnMenuOpened = arg1.hideMenu
-   var876.OnOverwriteRequested = arg1.showOverwritePrompt
-   var876.OnSaveAsRequested = arg1.showSaveAsPrompt
-   var876.OnCreateNewRequested = arg1.createNew
-   var876.OnLoadRequested = arg1.loadNew
-   var876.OnImportRequested = arg1.importRequested
-   var876.OnImportFbxRequested = arg1.importFbxRequested
-   var876.OnCreateFromVideoRequested = arg1.createFromVideoRequested
-   var876.OnPromoteRequested = arg1.showPromotePrompt
-   var876.OnReduceKeyframesRequested = arg1.showReduceKeyframesDialog
-   var876.OnSanitizeAnimation = arg1.onSanitizeAnimation
-   local var888 = var5.createElement(var18, var876)
-   var827.AnimationClipMenu = var888
-   var888 = var2.showCreateNewPrompt
-   if var888 then
-      local var892 = {}
-      var892.PromptText = var0:getText("Title", "CreateNew")
-      var892.InputText = var0:getText("Dialog", "AnimationName")
-      var892.Text = var0:getText("Title", "DefaultAnimationName")
+   var838.PaddingLeft = var8
+   var838.PaddingRight = var8
+   var834.Padding = var5.createElement("UIPadding", var838)
+   local var845 = {}
+   var845.Size = UDim2.new(1, var6.TRACKLIST_BUTTON_SIZE - var6.INDENT_PADDING, 1, 0)
+   var845.BackgroundTransparency = 1
+   var845.Text = var4
+   var845.TextTruncate = Enum.TextTruncate.AtEnd
+   var845.TextSize = var5.textSize
+   var845.Font = var3.font
+   var845.TextColor3 = var5.textColor
+   var845.TextXAlignment = Enum.TextXAlignment.Left
+   var834.AnimationClipLabel = var5.createElement("TextLabel", var845)
+   local var867 = {}
+   var867.AnchorPoint = Vector2.new(1, 0.5)
+   var867.Position = UDim2.new(1, 0, 0.5, 0)
+   var867.OnActivated = arg1.showMenu
+   var834.ContextButton = var5.createElement(var19, var867)
+   local var883 = {}
+   var883.ShowMenu = var2.showMenu
+   var883.CurrentAnimation = var4
+   var883.IsLegacyAnimSaves = var1.IsLegacyAnimSaves
+   var883.IsChannelAnimation = var1.IsChannelAnimation
+   var883.OnMenuOpened = arg1.hideMenu
+   var883.OnOverwriteRequested = arg1.showOverwritePrompt
+   var883.OnSaveAsRequested = arg1.showSaveAsPrompt
+   var883.OnCreateNewRequested = arg1.createNew
+   var883.OnLoadRequested = arg1.loadNew
+   var883.OnImportRequested = arg1.importRequested
+   var883.OnImportFbxRequested = arg1.importFbxRequested
+   var883.OnCreateFromVideoRequested = arg1.createFromVideoRequested
+   var883.OnPromoteRequested = arg1.showPromotePrompt
+   var883.OnReduceKeyframesRequested = arg1.showReduceKeyframesDialog
+   var883.OnSanitizeAnimation = arg1.onSanitizeAnimation
+   local var895 = var5.createElement(var18, var883)
+   var834.AnimationClipMenu = var895
+   var895 = var2.showCreateNewPrompt
+   if var895 then
+      local var899 = {}
+      var899.PromptText = var0:getText("Title", "CreateNew")
+      var899.InputText = var0:getText("Dialog", "AnimationName")
+      var899.Text = var0:getText("Title", "DefaultAnimationName")
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
@@ -314,27 +314,27 @@ local function fun49(arg1)
       var1.Key = true
       var1.Text = var0:getText("Dialog", "Create")
       var1.Style = "RoundPrimary"
-      var892.Buttons = {}
-      function var892.OnTextSubmitted()
+      var899.Buttons = {}
+      function var899.OnTextSubmitted()
          if not arg1.props.ReadOnly then
             arg1.props.SetPlayState(var6.PLAY_STATE.Pause)
-            local var930 = {}
-            var930.showMenu = true
-            arg1:setState(var930)
+            local var937 = {}
+            var937.showMenu = true
+            arg1:setState(var937)
          end
       end
       
-      var892.OnClose = arg1.hideCreateNewPrompt
-      local var2 = var5.createElement(var21, var892)
+      var899.OnClose = arg1.hideCreateNewPrompt
+      local var2 = var5.createElement(var21, var899)
    end
-   var827.CreateNewPrompt = var888
-   var888 = var2.showSaveAsPrompt
-   if var888 then
-      local var938 = {}
-      var938.PromptText = var0:getText("Title", "SaveAsNew")
-      var938.InputText = var0:getText("Dialog", "AnimationName")
-      var938.NoticeText = var0:getText("Dialog", "SaveLocation")
-      var938.Text = var4
+   var834.CreateNewPrompt = var895
+   var895 = var2.showSaveAsPrompt
+   if var895 then
+      local var945 = {}
+      var945.PromptText = var0:getText("Title", "SaveAsNew")
+      var945.InputText = var0:getText("Dialog", "AnimationName")
+      var945.NoticeText = var0:getText("Dialog", "SaveLocation")
+      var945.Text = var4
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
@@ -343,22 +343,22 @@ local function fun49(arg1)
       var1.Key = true
       var1.Text = var0:getText("Dialog", "Save")
       var1.Style = "RoundPrimary"
-      var938.Buttons = {}
-      function var938.OnTextSubmitted()
-         local var967 = {}
-         var967.showMenu = false
-         arg1:setState(var967)
+      var945.Buttons = {}
+      function var945.OnTextSubmitted()
+         local var974 = {}
+         var974.showMenu = false
+         arg1:setState(var974)
       end
       
-      var938.OnClose = arg1.hideSaveAsPrompt
-      local var2 = var5.createElement(var21, var938)
+      var945.OnClose = arg1.hideSaveAsPrompt
+      local var2 = var5.createElement(var21, var945)
    end
-   var827.SaveAsPrompt = var888
-   var888 = var2.showImportAnimModelChoicePrompt
-   if var888 then
-      local var975 = {}
-      var975.Text = var0:getText("Toast", "AnimationImportModelsDiffer")
-      var975.ButtonWidth = var6.PROMPT_BUTTON_SIZE.X * 1.5
+   var834.SaveAsPrompt = var895
+   var895 = var2.showImportAnimModelChoicePrompt
+   if var895 then
+      local var982 = {}
+      var982.Text = var0:getText("Toast", "AnimationImportModelsDiffer")
+      var982.ButtonWidth = var6.PROMPT_BUTTON_SIZE.X * 1.5
       local var0 = {}
       var0.Key = true
       var0.Text = var0:getText("Toast", "AnimationImportUseFBX")
@@ -367,23 +367,23 @@ local function fun49(arg1)
       var1.Key = false
       var1.Text = var0:getText("Toast", "AnimationImportUseSelected")
       var1.Style = "Round"
-      var975.Buttons = {}
-      function var975.OnButtonClicked(arg1, arg2)
-         local var1002 = {}
-         var1002.overwriteName = arg1
-         var1002.isActionLegacyAnimSaves = arg2
-         arg1:setState(var1002)
+      var982.Buttons = {}
+      function var982.OnButtonClicked(arg1, arg2)
+         local var1009 = {}
+         var1009.overwriteName = arg1
+         var1009.isActionLegacyAnimSaves = arg2
+         arg1:setState(var1009)
       end
       
-      local var2 = var5.createElement(var17, var975)
+      local var2 = var5.createElement(var17, var982)
    end
-   var827.ImportAnimModelChoicePrompt = var888
-   var888 = var6
-   if var888 then
-      local var1008 = {}
-      local var1011 = {}
-      var1011.overwriteName = var6
-      var1008.PromptText = var0:getText("Menu", "Overwrite_Migrated", var1011)
+   var834.ImportAnimModelChoicePrompt = var895
+   var895 = var6
+   if var895 then
+      local var1015 = {}
+      local var1018 = {}
+      var1018.overwriteName = var6
+      var1015.PromptText = var0:getText("Menu", "Overwrite_Migrated", var1018)
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "No")
@@ -392,21 +392,21 @@ local function fun49(arg1)
       var1.Key = true
       var1.Text = var0:getText("Dialog", "Yes")
       var1.Style = "RoundPrimary"
-      var1008.Buttons = {}
-      function var1008.OnButtonClicked()
-         local var1030 = {}
-         var1030.overwriteName = var5.None
-         var1030.isActionLegacyAnimSaves = var5.None
-         arg1:setState(var1030)
+      var1015.Buttons = {}
+      function var1015.OnButtonClicked()
+         local var1037 = {}
+         var1037.overwriteName = var5.None
+         var1037.isActionLegacyAnimSaves = var5.None
+         arg1:setState(var1037)
       end
       
-      var1008.OnClose = arg1.hideOverwritePrompt
-      local var2 = var5.createElement(var20, var1008)
+      var1015.OnClose = arg1.hideOverwritePrompt
+      local var2 = var5.createElement(var20, var1015)
    end
-   var827.OverwritePrompt = var888
+   var834.OverwritePrompt = var895
    if var2.showPromotePrompt then
-      local var1041 = {}
-      var1041.PromptText = var0:getText("Dialog", "PromotePrompt")
+      local var1048 = {}
+      var1048.PromptText = var0:getText("Dialog", "PromotePrompt")
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
@@ -415,25 +415,25 @@ local function fun49(arg1)
       var1.Key = true
       var1.Text = var0:getText("Dialog", "Confirm")
       var1.Style = "RoundPrimary"
-      var1041.Buttons = {}
-      function var1041.OnButtonClicked()
-         local var1062 = {}
-         var1062.showSaveAsPrompt = true
-         arg1:setState(var1062)
+      var1048.Buttons = {}
+      function var1048.OnButtonClicked()
+         local var1069 = {}
+         var1069.showSaveAsPrompt = true
+         arg1:setState(var1069)
       end
       
-      var1041.OnClose = arg1.hidePromotePrompt
-      local var2 = var5.createElement(var20, var1041) or nil
+      var1048.OnClose = arg1.hidePromotePrompt
+      local var2 = var5.createElement(var20, var1048) or nil
    end
    local var11 = nil
-   var827.PromotePrompt = var11
+   var834.PromotePrompt = var11
    var11 = var2.loadingName
    if var11 then
-      local var1073 = {}
-      var1073.PromptText = var0:getText("Title", "ConfirmSave")
-      var1073.InputText = var0:getText("Dialog", "AnimationName")
-      var1073.NoticeText = var0:getText("Dialog", "SaveLocation")
-      var1073.Text = var4
+      local var1080 = {}
+      var1080.PromptText = var0:getText("Title", "ConfirmSave")
+      var1080.InputText = var0:getText("Dialog", "AnimationName")
+      var1080.NoticeText = var0:getText("Dialog", "SaveLocation")
+      var1080.Text = var4
       local var0 = {}
       var0.Key = "Delete"
       var0.Text = var0:getText("Dialog", "Delete")
@@ -446,27 +446,27 @@ local function fun49(arg1)
       var2.Key = true
       var2.Text = var0:getText("Dialog", "Save")
       var2.Style = "RoundPrimary"
-      var1073.Buttons = {}
-      function var1073.OnButtonClicked()
-         local var1109 = {}
-         var1109.showSaveAsPrompt = false
-         arg1:setState(var1109)
+      var1080.Buttons = {}
+      function var1080.OnButtonClicked()
+         local var1116 = {}
+         var1116.showSaveAsPrompt = false
+         arg1:setState(var1116)
       end
       
-      function var1073.OnTextSubmitted()
-         local var1113 = {}
-         var1113.showImportAnimModelChoicePrompt = true
-         arg1:setState(var1113)
+      function var1080.OnTextSubmitted()
+         local var1120 = {}
+         var1120.showImportAnimModelChoicePrompt = true
+         arg1:setState(var1120)
       end
       
-      var1073.OnClose = arg1.hideLoadNewPrompt
-      local var3 = var5.createElement(var21, var1073)
+      var1080.OnClose = arg1.hideLoadNewPrompt
+      local var3 = var5.createElement(var21, var1080)
    end
-   var827.LoadNewPrompt = var11
+   var834.LoadNewPrompt = var11
    var11 = var8
    if var11 then
-      local var1121 = {}
-      var1121.PromptText = var0:getText("AnimationFromVideo", "TutorialText")
+      local var1128 = {}
+      var1128.PromptText = var0:getText("AnimationFromVideo", "TutorialText")
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
@@ -475,46 +475,46 @@ local function fun49(arg1)
       var1.Key = true
       var1.Text = var0:getText("AnimationFromVideo", "ChooseVideo")
       var1.Style = "RoundPrimary"
-      var1121.Buttons = {}
-      function var1121.OnButtonClicked()
-         local var1142 = {}
-         var1142.showImportAnimModelChoicePrompt = false
-         arg1:setState(var1142)
+      var1128.Buttons = {}
+      function var1128.OnButtonClicked()
+         local var1149 = {}
+         var1149.showImportAnimModelChoicePrompt = false
+         arg1:setState(var1149)
       end
       
-      function var1121.OnClose()
+      function var1128.OnClose()
          arg1.props.SetReduceKeyframesDialogMode(var6.REDUCE_KEYFRAMES_DIALOG_MODE.FromMenu)
       end
       
-      local var2 = var5.createElement(var20, var1121)
+      local var2 = var5.createElement(var20, var1128)
    end
-   var827.CreateAnimationFromVideoTutorial = var11
+   var834.CreateAnimationFromVideoTutorial = var11
    var11 = var9
    if var11 then
-      local var1155 = {}
-      var1155.Size = UDim2.new(0, var6.PROMPT_SIZE.Width.Offset, 0, 180)
-      var1155.PromptText = var0:getText("AnimationFromVideo", "AgeRestricted")
+      local var1162 = {}
+      var1162.Size = UDim2.new(0, var6.PROMPT_SIZE.Width.Offset, 0, 180)
+      var1162.PromptText = var0:getText("AnimationFromVideo", "AgeRestricted")
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
       var0.Style = "Round"
-      var1155.Buttons = {}
-      function var1155.OnButtonClicked()
-         local var1178 = {}
-         var1178.showCreateNewPrompt = true
-         arg1:setState(var1178)
+      var1162.Buttons = {}
+      function var1162.OnButtonClicked()
+         local var1185 = {}
+         var1185.showCreateNewPrompt = true
+         arg1:setState(var1185)
       end
       
-      function var1155.OnClose()
-         local var1182 = {}
-         var1182.showCreateNewPrompt = false
-         arg1:setState(var1182)
+      function var1162.OnClose()
+         local var1189 = {}
+         var1189.showCreateNewPrompt = false
+         arg1:setState(var1189)
       end
       
-      local var1 = var5.createElement(var20, var1155)
+      local var1 = var5.createElement(var20, var1162)
    end
-   var827.CreateAnimationFromVideoAgeGate = var11
-   return var5.createElement("ImageButton", var808, var827)
+   var834.CreateAnimationFromVideoAgeGate = var11
+   return var5.createElement("ImageButton", var815, var834)
 end
 
 function var31.render(arg1)
@@ -534,57 +534,57 @@ function var31.render(arg1)
          local var0 = false
       end
    end
-   local var808 = {}
-   var808.Size = UDim2.new(1, var6.CONTROLS_WIDTH - var6.TIME_DISPLAY_WIDTH, 1, 0)
-   var808.BackgroundTransparency = 1
-   var808.ImageTransparency = 1
-   var808.AutoButtonColor = false
-   var808.LayoutOrder = var1.LayoutOrder
+   local var815 = {}
+   var815.Size = UDim2.new(1, var6.CONTROLS_WIDTH - var6.TIME_DISPLAY_WIDTH, 1, 0)
+   var815.BackgroundTransparency = 1
+   var815.ImageTransparency = 1
+   var815.AutoButtonColor = false
+   var815.LayoutOrder = var1.LayoutOrder
    var5.Event.Activated = arg1.showMenu
-   local var827 = {}
-   local var831 = {}
-   var831.PaddingLeft = var8
-   var831.PaddingRight = var8
-   var827.Padding = var5.createElement("UIPadding", var831)
+   local var834 = {}
    local var838 = {}
-   var838.Size = UDim2.new(1, var6.TRACKLIST_BUTTON_SIZE - var6.INDENT_PADDING, 1, 0)
-   var838.BackgroundTransparency = 1
-   var838.Text = var4
-   var838.TextTruncate = Enum.TextTruncate.AtEnd
-   var838.TextSize = var5.textSize
-   var838.Font = var3.font
-   var838.TextColor3 = var5.textColor
-   var838.TextXAlignment = Enum.TextXAlignment.Left
-   var827.AnimationClipLabel = var5.createElement("TextLabel", var838)
-   local var860 = {}
-   var860.AnchorPoint = Vector2.new(1, 0.5)
-   var860.Position = UDim2.new(1, 0, 0.5, 0)
-   var860.OnActivated = arg1.showMenu
-   var827.ContextButton = var5.createElement(var19, var860)
-   local var876 = {}
-   var876.ShowMenu = var2.showMenu
-   var876.CurrentAnimation = var4
-   var876.IsLegacyAnimSaves = var1.IsLegacyAnimSaves
-   var876.IsChannelAnimation = var1.IsChannelAnimation
-   var876.OnMenuOpened = arg1.hideMenu
-   var876.OnOverwriteRequested = arg1.showOverwritePrompt
-   var876.OnSaveAsRequested = arg1.showSaveAsPrompt
-   var876.OnCreateNewRequested = arg1.createNew
-   var876.OnLoadRequested = arg1.loadNew
-   var876.OnImportRequested = arg1.importRequested
-   var876.OnImportFbxRequested = arg1.importFbxRequested
-   var876.OnCreateFromVideoRequested = arg1.createFromVideoRequested
-   var876.OnPromoteRequested = arg1.showPromotePrompt
-   var876.OnReduceKeyframesRequested = arg1.showReduceKeyframesDialog
-   var876.OnSanitizeAnimation = arg1.onSanitizeAnimation
-   local var888 = var5.createElement(var18, var876)
-   var827.AnimationClipMenu = var888
-   var888 = var2.showCreateNewPrompt
-   if var888 then
-      local var892 = {}
-      var892.PromptText = var0:getText("Title", "CreateNew")
-      var892.InputText = var0:getText("Dialog", "AnimationName")
-      var892.Text = var0:getText("Title", "DefaultAnimationName")
+   var838.PaddingLeft = var8
+   var838.PaddingRight = var8
+   var834.Padding = var5.createElement("UIPadding", var838)
+   local var845 = {}
+   var845.Size = UDim2.new(1, var6.TRACKLIST_BUTTON_SIZE - var6.INDENT_PADDING, 1, 0)
+   var845.BackgroundTransparency = 1
+   var845.Text = var4
+   var845.TextTruncate = Enum.TextTruncate.AtEnd
+   var845.TextSize = var5.textSize
+   var845.Font = var3.font
+   var845.TextColor3 = var5.textColor
+   var845.TextXAlignment = Enum.TextXAlignment.Left
+   var834.AnimationClipLabel = var5.createElement("TextLabel", var845)
+   local var867 = {}
+   var867.AnchorPoint = Vector2.new(1, 0.5)
+   var867.Position = UDim2.new(1, 0, 0.5, 0)
+   var867.OnActivated = arg1.showMenu
+   var834.ContextButton = var5.createElement(var19, var867)
+   local var883 = {}
+   var883.ShowMenu = var2.showMenu
+   var883.CurrentAnimation = var4
+   var883.IsLegacyAnimSaves = var1.IsLegacyAnimSaves
+   var883.IsChannelAnimation = var1.IsChannelAnimation
+   var883.OnMenuOpened = arg1.hideMenu
+   var883.OnOverwriteRequested = arg1.showOverwritePrompt
+   var883.OnSaveAsRequested = arg1.showSaveAsPrompt
+   var883.OnCreateNewRequested = arg1.createNew
+   var883.OnLoadRequested = arg1.loadNew
+   var883.OnImportRequested = arg1.importRequested
+   var883.OnImportFbxRequested = arg1.importFbxRequested
+   var883.OnCreateFromVideoRequested = arg1.createFromVideoRequested
+   var883.OnPromoteRequested = arg1.showPromotePrompt
+   var883.OnReduceKeyframesRequested = arg1.showReduceKeyframesDialog
+   var883.OnSanitizeAnimation = arg1.onSanitizeAnimation
+   local var895 = var5.createElement(var18, var883)
+   var834.AnimationClipMenu = var895
+   var895 = var2.showCreateNewPrompt
+   if var895 then
+      local var899 = {}
+      var899.PromptText = var0:getText("Title", "CreateNew")
+      var899.InputText = var0:getText("Dialog", "AnimationName")
+      var899.Text = var0:getText("Title", "DefaultAnimationName")
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
@@ -593,27 +593,27 @@ function var31.render(arg1)
       var1.Key = true
       var1.Text = var0:getText("Dialog", "Create")
       var1.Style = "RoundPrimary"
-      var892.Buttons = {}
-      function var892.OnTextSubmitted()
+      var899.Buttons = {}
+      function var899.OnTextSubmitted()
          if not arg1.props.ReadOnly then
             arg1.props.SetPlayState(var6.PLAY_STATE.Pause)
-            local var930 = {}
-            var930.showMenu = true
-            arg1:setState(var930)
+            local var937 = {}
+            var937.showMenu = true
+            arg1:setState(var937)
          end
       end
       
-      var892.OnClose = arg1.hideCreateNewPrompt
-      local var2 = var5.createElement(var21, var892)
+      var899.OnClose = arg1.hideCreateNewPrompt
+      local var2 = var5.createElement(var21, var899)
    end
-   var827.CreateNewPrompt = var888
-   var888 = var2.showSaveAsPrompt
-   if var888 then
-      local var938 = {}
-      var938.PromptText = var0:getText("Title", "SaveAsNew")
-      var938.InputText = var0:getText("Dialog", "AnimationName")
-      var938.NoticeText = var0:getText("Dialog", "SaveLocation")
-      var938.Text = var4
+   var834.CreateNewPrompt = var895
+   var895 = var2.showSaveAsPrompt
+   if var895 then
+      local var945 = {}
+      var945.PromptText = var0:getText("Title", "SaveAsNew")
+      var945.InputText = var0:getText("Dialog", "AnimationName")
+      var945.NoticeText = var0:getText("Dialog", "SaveLocation")
+      var945.Text = var4
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
@@ -622,22 +622,22 @@ function var31.render(arg1)
       var1.Key = true
       var1.Text = var0:getText("Dialog", "Save")
       var1.Style = "RoundPrimary"
-      var938.Buttons = {}
-      function var938.OnTextSubmitted()
-         local var967 = {}
-         var967.showMenu = false
-         arg1:setState(var967)
+      var945.Buttons = {}
+      function var945.OnTextSubmitted()
+         local var974 = {}
+         var974.showMenu = false
+         arg1:setState(var974)
       end
       
-      var938.OnClose = arg1.hideSaveAsPrompt
-      local var2 = var5.createElement(var21, var938)
+      var945.OnClose = arg1.hideSaveAsPrompt
+      local var2 = var5.createElement(var21, var945)
    end
-   var827.SaveAsPrompt = var888
-   var888 = var2.showImportAnimModelChoicePrompt
-   if var888 then
-      local var975 = {}
-      var975.Text = var0:getText("Toast", "AnimationImportModelsDiffer")
-      var975.ButtonWidth = var6.PROMPT_BUTTON_SIZE.X * 1.5
+   var834.SaveAsPrompt = var895
+   var895 = var2.showImportAnimModelChoicePrompt
+   if var895 then
+      local var982 = {}
+      var982.Text = var0:getText("Toast", "AnimationImportModelsDiffer")
+      var982.ButtonWidth = var6.PROMPT_BUTTON_SIZE.X * 1.5
       local var0 = {}
       var0.Key = true
       var0.Text = var0:getText("Toast", "AnimationImportUseFBX")
@@ -646,23 +646,23 @@ function var31.render(arg1)
       var1.Key = false
       var1.Text = var0:getText("Toast", "AnimationImportUseSelected")
       var1.Style = "Round"
-      var975.Buttons = {}
-      function var975.OnButtonClicked(arg1, arg2)
-         local var1002 = {}
-         var1002.overwriteName = arg1
-         var1002.isActionLegacyAnimSaves = arg2
-         arg1:setState(var1002)
+      var982.Buttons = {}
+      function var982.OnButtonClicked(arg1, arg2)
+         local var1009 = {}
+         var1009.overwriteName = arg1
+         var1009.isActionLegacyAnimSaves = arg2
+         arg1:setState(var1009)
       end
       
-      local var2 = var5.createElement(var17, var975)
+      local var2 = var5.createElement(var17, var982)
    end
-   var827.ImportAnimModelChoicePrompt = var888
-   var888 = var6
-   if var888 then
-      local var1008 = {}
-      local var1011 = {}
-      var1011.overwriteName = var6
-      var1008.PromptText = var0:getText("Menu", "Overwrite_Migrated", var1011)
+   var834.ImportAnimModelChoicePrompt = var895
+   var895 = var6
+   if var895 then
+      local var1015 = {}
+      local var1018 = {}
+      var1018.overwriteName = var6
+      var1015.PromptText = var0:getText("Menu", "Overwrite_Migrated", var1018)
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "No")
@@ -671,21 +671,21 @@ function var31.render(arg1)
       var1.Key = true
       var1.Text = var0:getText("Dialog", "Yes")
       var1.Style = "RoundPrimary"
-      var1008.Buttons = {}
-      function var1008.OnButtonClicked()
-         local var1030 = {}
-         var1030.overwriteName = var5.None
-         var1030.isActionLegacyAnimSaves = var5.None
-         arg1:setState(var1030)
+      var1015.Buttons = {}
+      function var1015.OnButtonClicked()
+         local var1037 = {}
+         var1037.overwriteName = var5.None
+         var1037.isActionLegacyAnimSaves = var5.None
+         arg1:setState(var1037)
       end
       
-      var1008.OnClose = arg1.hideOverwritePrompt
-      local var2 = var5.createElement(var20, var1008)
+      var1015.OnClose = arg1.hideOverwritePrompt
+      local var2 = var5.createElement(var20, var1015)
    end
-   var827.OverwritePrompt = var888
+   var834.OverwritePrompt = var895
    if var2.showPromotePrompt then
-      local var1041 = {}
-      var1041.PromptText = var0:getText("Dialog", "PromotePrompt")
+      local var1048 = {}
+      var1048.PromptText = var0:getText("Dialog", "PromotePrompt")
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
@@ -694,25 +694,25 @@ function var31.render(arg1)
       var1.Key = true
       var1.Text = var0:getText("Dialog", "Confirm")
       var1.Style = "RoundPrimary"
-      var1041.Buttons = {}
-      function var1041.OnButtonClicked()
-         local var1062 = {}
-         var1062.showSaveAsPrompt = true
-         arg1:setState(var1062)
+      var1048.Buttons = {}
+      function var1048.OnButtonClicked()
+         local var1069 = {}
+         var1069.showSaveAsPrompt = true
+         arg1:setState(var1069)
       end
       
-      var1041.OnClose = arg1.hidePromotePrompt
-      local var2 = var5.createElement(var20, var1041) or nil
+      var1048.OnClose = arg1.hidePromotePrompt
+      local var2 = var5.createElement(var20, var1048) or nil
    end
    local var11 = nil
-   var827.PromotePrompt = var11
+   var834.PromotePrompt = var11
    var11 = var2.loadingName
    if var11 then
-      local var1073 = {}
-      var1073.PromptText = var0:getText("Title", "ConfirmSave")
-      var1073.InputText = var0:getText("Dialog", "AnimationName")
-      var1073.NoticeText = var0:getText("Dialog", "SaveLocation")
-      var1073.Text = var4
+      local var1080 = {}
+      var1080.PromptText = var0:getText("Title", "ConfirmSave")
+      var1080.InputText = var0:getText("Dialog", "AnimationName")
+      var1080.NoticeText = var0:getText("Dialog", "SaveLocation")
+      var1080.Text = var4
       local var0 = {}
       var0.Key = "Delete"
       var0.Text = var0:getText("Dialog", "Delete")
@@ -725,27 +725,27 @@ function var31.render(arg1)
       var2.Key = true
       var2.Text = var0:getText("Dialog", "Save")
       var2.Style = "RoundPrimary"
-      var1073.Buttons = {}
-      function var1073.OnButtonClicked()
-         local var1109 = {}
-         var1109.showSaveAsPrompt = false
-         arg1:setState(var1109)
+      var1080.Buttons = {}
+      function var1080.OnButtonClicked()
+         local var1116 = {}
+         var1116.showSaveAsPrompt = false
+         arg1:setState(var1116)
       end
       
-      function var1073.OnTextSubmitted()
-         local var1113 = {}
-         var1113.showImportAnimModelChoicePrompt = true
-         arg1:setState(var1113)
+      function var1080.OnTextSubmitted()
+         local var1120 = {}
+         var1120.showImportAnimModelChoicePrompt = true
+         arg1:setState(var1120)
       end
       
-      var1073.OnClose = arg1.hideLoadNewPrompt
-      local var3 = var5.createElement(var21, var1073)
+      var1080.OnClose = arg1.hideLoadNewPrompt
+      local var3 = var5.createElement(var21, var1080)
    end
-   var827.LoadNewPrompt = var11
+   var834.LoadNewPrompt = var11
    var11 = var8
    if var11 then
-      local var1121 = {}
-      var1121.PromptText = var0:getText("AnimationFromVideo", "TutorialText")
+      local var1128 = {}
+      var1128.PromptText = var0:getText("AnimationFromVideo", "TutorialText")
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
@@ -754,55 +754,55 @@ function var31.render(arg1)
       var1.Key = true
       var1.Text = var0:getText("AnimationFromVideo", "ChooseVideo")
       var1.Style = "RoundPrimary"
-      var1121.Buttons = {}
-      function var1121.OnButtonClicked()
-         local var1142 = {}
-         var1142.showImportAnimModelChoicePrompt = false
-         arg1:setState(var1142)
+      var1128.Buttons = {}
+      function var1128.OnButtonClicked()
+         local var1149 = {}
+         var1149.showImportAnimModelChoicePrompt = false
+         arg1:setState(var1149)
       end
       
-      function var1121.OnClose()
+      function var1128.OnClose()
          arg1.props.SetReduceKeyframesDialogMode(var6.REDUCE_KEYFRAMES_DIALOG_MODE.FromMenu)
       end
       
-      local var2 = var5.createElement(var20, var1121)
+      local var2 = var5.createElement(var20, var1128)
    end
-   var827.CreateAnimationFromVideoTutorial = var11
+   var834.CreateAnimationFromVideoTutorial = var11
    var11 = var9
    if var11 then
-      local var1155 = {}
-      var1155.Size = UDim2.new(0, var6.PROMPT_SIZE.Width.Offset, 0, 180)
-      var1155.PromptText = var0:getText("AnimationFromVideo", "AgeRestricted")
+      local var1162 = {}
+      var1162.Size = UDim2.new(0, var6.PROMPT_SIZE.Width.Offset, 0, 180)
+      var1162.PromptText = var0:getText("AnimationFromVideo", "AgeRestricted")
       local var0 = {}
       var0.Key = false
       var0.Text = var0:getText("Dialog", "Cancel")
       var0.Style = "Round"
-      var1155.Buttons = {}
-      function var1155.OnButtonClicked()
-         local var1178 = {}
-         var1178.showCreateNewPrompt = true
-         arg1:setState(var1178)
+      var1162.Buttons = {}
+      function var1162.OnButtonClicked()
+         local var1185 = {}
+         var1185.showCreateNewPrompt = true
+         arg1:setState(var1185)
       end
       
-      function var1155.OnClose()
-         local var1182 = {}
-         var1182.showCreateNewPrompt = false
-         arg1:setState(var1182)
+      function var1162.OnClose()
+         local var1189 = {}
+         var1189.showCreateNewPrompt = false
+         arg1:setState(var1189)
       end
       
-      local var1 = var5.createElement(var20, var1155)
+      local var1 = var5.createElement(var20, var1162)
    end
-   var827.CreateAnimationFromVideoAgeGate = var11
-   return var5.createElement("ImageButton", var808, var827)
+   var834.CreateAnimationFromVideoAgeGate = var11
+   return var5.createElement("ImageButton", var815, var834)
 end
 
 fun49 = var9.withContext
-local var1187 = {}
-var1187.Stylizer = var9.Stylizer
-var1187.Localization = var9.Localization
-var1187.Plugin = var9.Plugin
-var1187.Analytics = var9.Analytics
-var31 = fun49(var1187)(var31)
+local var1194 = {}
+var1194.Stylizer = var9.Stylizer
+var1194.Localization = var9.Localization
+var1194.Plugin = var9.Plugin
+var1194.Analytics = var9.Analytics
+var31 = fun49(var1194)(var31)
 return require(var4.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.Analytics = arg1.Analytics
@@ -814,54 +814,54 @@ end, function(arg1)
    function var0.LoadAnimationData()
       if not arg1.props.ReadOnly then
          arg1.props.SetPlayState(var6.PLAY_STATE.Pause)
-         local var1215 = {}
-         var1215.showMenu = true
-         arg1:setState(var1215)
+         local var1222 = {}
+         var1222.showMenu = true
+         arg1:setState(var1222)
       end
    end
    
    function var0.LoadAnimation()
-      local var1219 = {}
-      var1219.showMenu = false
-      arg1:setState(var1219)
+      local var1226 = {}
+      var1226.showMenu = false
+      arg1:setState(var1226)
    end
    
    function var0.SaveAnimation(arg1, arg2)
-      local var1225 = {}
-      var1225.overwriteName = arg1
-      var1225.isActionLegacyAnimSaves = arg2
-      arg1:setState(var1225)
+      local var1232 = {}
+      var1232.overwriteName = arg1
+      var1232.isActionLegacyAnimSaves = arg2
+      arg1:setState(var1232)
    end
    
    function var0.ImportKeyframeSequence()
-      local var1228 = {}
-      var1228.overwriteName = var5.None
-      var1228.isActionLegacyAnimSaves = var5.None
-      arg1:setState(var1228)
-   end
-   
-   function var0.ImportFBXAnimationUserMayChooseModel()
       local var1235 = {}
-      var1235.showSaveAsPrompt = true
+      var1235.overwriteName = var5.None
+      var1235.isActionLegacyAnimSaves = var5.None
       arg1:setState(var1235)
    end
    
+   function var0.ImportFBXAnimationUserMayChooseModel()
+      local var1242 = {}
+      var1242.showSaveAsPrompt = true
+      arg1:setState(var1242)
+   end
+   
    function var0.CreateFromVideoAndImportFBXAnimationUserMayChooseModel()
-      local var1239 = {}
-      var1239.showSaveAsPrompt = false
-      arg1:setState(var1239)
+      local var1246 = {}
+      var1246.showSaveAsPrompt = false
+      arg1:setState(var1246)
    end
    
    function var0.ImportLoadedFBXAnimation()
-      local var1243 = {}
-      var1243.showImportAnimModelChoicePrompt = true
-      arg1:setState(var1243)
+      local var1250 = {}
+      var1250.showImportAnimModelChoicePrompt = true
+      arg1:setState(var1250)
    end
    
    function var0.SanitizeAnimation()
-      local var1247 = {}
-      var1247.showImportAnimModelChoicePrompt = false
-      arg1:setState(var1247)
+      local var1254 = {}
+      var1254.showImportAnimModelChoicePrompt = false
+      arg1:setState(var1254)
    end
    
    function var0.SetInReviewState()
@@ -869,27 +869,27 @@ end, function(arg1)
    end
    
    function var0.SetIsDirty()
-      local var1257 = {}
-      var1257.showCreateNewPrompt = true
-      arg1:setState(var1257)
+      local var1264 = {}
+      var1264.showCreateNewPrompt = true
+      arg1:setState(var1264)
    end
    
    function var0.SetIsLegacyAnimSaves()
-      local var1261 = {}
-      var1261.showCreateNewPrompt = false
-      arg1:setState(var1261)
+      local var1268 = {}
+      var1268.showCreateNewPrompt = false
+      arg1:setState(var1268)
    end
    
    function var0.SetPlayState()
-      local var1265 = {}
-      var1265.showPromotePrompt = true
-      arg1:setState(var1265)
+      local var1272 = {}
+      var1272.showPromotePrompt = true
+      arg1:setState(var1272)
    end
    
    function var0.SetReduceKeyframesDialogMode()
-      local var1269 = {}
-      var1269.showPromotePrompt = false
-      arg1:setState(var1269)
+      local var1276 = {}
+      var1276.showPromotePrompt = false
+      arg1:setState(var1276)
    end
    
    return var0

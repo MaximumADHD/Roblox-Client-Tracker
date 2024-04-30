@@ -13,6 +13,11 @@ local VRHub = require(RobloxGui.Modules.VR.VRHub)
 local VRKeyboard = require(RobloxGui.Modules.VR.VirtualKeyboard)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
 
+local CorePackages = game:GetService("CorePackages")
+local GetFFlagSupportToastInVR = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportToastInVR
+local VRModule = require(CorePackages.Workspace.Packages.VrCompatibility)
+local VRAppConstants = VRModule.VRConstants
+
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
@@ -63,7 +68,7 @@ userGuiPanel:SetVisible(false)
 local userGuiTimeout = 0
 
 -- new panel that is semi-attached to the camera orientation
-local plPanel = Panel3D.Get("PositionLocked")
+local plPanel = Panel3D.Get(if GetFFlagSupportToastInVR() then VRAppConstants.PositionLockedPanelName else "PositionLocked")
 plPanel:SetType(Panel3D.Type.PositionLocked)
 -- This panel doesn't use a SurfaceGui, so it doesn't need raycasts to interact with it.
 -- We don't want to potentially block any developer raycasts, so opt out of raycasts and other spatial queries.

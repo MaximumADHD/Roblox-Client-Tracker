@@ -58,7 +58,6 @@ local GetFFlagLuaAppEnableSquadPage = require(CorePackages.Workspace.Packages.Sh
 local GetFFlagEnableAppChatInExperience = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppChatInExperience
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts = game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
-local FFlagCoreScriptsGlobalEffects = require(CorePackages.Workspace.Packages.SharedFlags).FFlagCoreScriptsGlobalEffects
 local FFlagAdPortalTeleportPromptLua = game:DefineFastFlag("AdPortalTeleportPromptLua", false)
 
 local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
@@ -408,11 +407,9 @@ if GetFFlagVoiceUserAgency3() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceUserAgency", RobloxGui)
 end
 
-if FFlagCoreScriptsGlobalEffects then
-	-- Mounts a react root that persists while the user is in-experience.
-	-- This allows us to use react-based listeners that trigger effects
-	ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptsGlobalEffects", script.Parent)
-end
+-- Mounts a react root that persists while the user is in-experience.
+-- This allows us to use react-based listeners that trigger effects
+ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptsGlobalEffects", script.Parent)
 
 local SoundManager = require(CorePackages.Workspace.Packages.SoundManager).SoundManager
 SoundManager.init()

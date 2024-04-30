@@ -7,6 +7,7 @@ local EventIngestService = game:GetService("EventIngestService")
 
 local SocialContextToastPackage = require(CorePackages.Workspace.Packages.SocialContextToasts)
 local SocialContextToastContainer = SocialContextToastPackage.SocialContextToastContainer
+local GetFFlagSocialContextToastEventStream = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSocialContextToastEventStream
 
 local HttpRequest = require(CorePackages.Workspace.Packages.HttpRequest)
 local httpRequest = HttpRequest.config({
@@ -29,4 +30,8 @@ local services = {
     eventIngest = EventIngest.new(EventIngestService),
 }
 
-SocialContextToastContainer(services, game.GameId, game.PlaceId)
+SocialContextToastContainer(
+    services, 
+    if GetFFlagSocialContextToastEventStream() then tostring(game.GameId) else game.GameId, 
+    if GetFFlagSocialContextToastEventStream() then tostring(game.PlaceId) else game.PlaceId
+)

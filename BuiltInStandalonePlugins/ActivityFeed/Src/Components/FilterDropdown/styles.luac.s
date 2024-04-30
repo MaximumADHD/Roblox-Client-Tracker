@@ -76,29 +76,54 @@ MAIN:
   SETTABLEKS R14 R13 K38 ["TextXAlignment"]
   CALL R11 2 1
   MOVE R12 R3
-  LOADK R13 K45 ["> #Button"]
-  DUPTABLE R14 K50 [{"Position", "Size", "BorderSizePixel", "BackgroundTransparency", "Image"}]
-  GETIMPORT R15 K52 [UDim2.new]
+  LOADK R13 K45 ["> #ButtonContainer"]
+  DUPTABLE R14 K48 [{"Position", "Size"}]
+  GETIMPORT R15 K50 [UDim2.new]
   LOADN R16 1
-  LOADN R17 216
+  LOADN R17 222
   LOADN R18 0
   LOADN R19 0
   CALL R15 4 1
   SETTABLEKS R15 R14 K46 ["Position"]
-  GETIMPORT R15 K52 [UDim2.new]
+  GETIMPORT R15 K50 [UDim2.new]
   LOADN R16 0
-  LOADN R17 40
+  LOADN R17 34
   LOADN R18 1
   LOADN R19 0
   CALL R15 4 1
   SETTABLEKS R15 R14 K47 ["Size"]
-  LOADN R15 0
-  SETTABLEKS R15 R14 K13 ["BorderSizePixel"]
-  LOADN R15 1
-  SETTABLEKS R15 R14 K48 ["BackgroundTransparency"]
-  LOADK R15 K53 ["$arrowdownicon"]
-  SETTABLEKS R15 R14 K49 ["Image"]
-  CALL R12 2 -1
+  NEWTABLE R15 0 1
+  MOVE R16 R3
+  LOADK R17 K51 ["> #Button"]
+  DUPTABLE R18 K55 [{"Size", "AnchorPoint", "Position", "BorderSizePixel", "BackgroundTransparency", "Image"}]
+  GETIMPORT R19 K50 [UDim2.new]
+  LOADN R20 0
+  LOADN R21 16
+  LOADN R22 0
+  LOADN R23 16
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K47 ["Size"]
+  GETIMPORT R19 K57 [Vector2.new]
+  LOADK R20 K58 [0.5]
+  LOADK R21 K58 [0.5]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K52 ["AnchorPoint"]
+  GETIMPORT R19 K50 [UDim2.new]
+  LOADK R20 K58 [0.5]
+  LOADN R21 0
+  LOADK R22 K58 [0.5]
+  LOADN R23 0
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K46 ["Position"]
+  LOADN R19 0
+  SETTABLEKS R19 R18 K13 ["BorderSizePixel"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K53 ["BackgroundTransparency"]
+  LOADK R19 K59 ["$arrowdownicon"]
+  SETTABLEKS R19 R18 K54 ["Image"]
+  CALL R16 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 -1
   SETLIST R7 R8 -1 [1]
   CALL R4 3 -1
   RETURN R4 -1

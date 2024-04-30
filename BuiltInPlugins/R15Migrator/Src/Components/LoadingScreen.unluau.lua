@@ -33,33 +33,33 @@ function var10.render(arg1)
    end
    var4 = var2:getText("AnimationConversion", var1)
    local var5 = var8.new()
-   local var503 = {}
-   var503.Layout = Enum.FillDirection.Vertical
-   var503.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var503.VerticalAlignment = Enum.VerticalAlignment.Center
-   var503.Spacing = var3.Spacing
-   var503.Padding = var3.Padding
-   local var509 = {}
-   local var513 = {}
-   var513.Text = var4
-   var513.AutomaticSize = Enum.AutomaticSize.XY
-   var513.LayoutOrder = var5:getNextOrder()
-   var509.Text = var2.createElement(var7, var513)
-   local var521 = {}
-   var521.LayoutOrder = var5:getNextOrder()
-   var509.LoadingIndicator = var2.createElement(var6, var521)
-   return var2.createElement(var5, var503, var509)
+   local var504 = {}
+   var504.Layout = Enum.FillDirection.Vertical
+   var504.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var504.VerticalAlignment = Enum.VerticalAlignment.Center
+   var504.Spacing = var3.Spacing
+   var504.Padding = var3.Padding
+   local var510 = {}
+   local var514 = {}
+   var514.Text = var4
+   var514.AutomaticSize = Enum.AutomaticSize.XY
+   var514.LayoutOrder = var5:getNextOrder()
+   var510.Text = var2.createElement(var7, var514)
+   local var522 = {}
+   var522.LayoutOrder = var5:getNextOrder()
+   var510.LoadingIndicator = var2.createElement(var6, var522)
+   return var2.createElement(var5, var504, var510)
 end
 
-local var527 = {}
-var527.Stylizer = var3.Stylizer
-local var529 = var3.Localization
-var527.Localization = var529
-var10 = var3.withContext(var527)(var10)
-function var529(arg1, arg2)
+local var528 = {}
+var528.Stylizer = var3.Stylizer
+local var530 = var3.Localization
+var528.Localization = var530
+var10 = var3.withContext(var528)(var10)
+function var530(arg1, arg2)
    local var0 = {}
    var0.status = arg1.AnimationConversion.status
    return var0
 end
 
-return require(var0.Packages.RoactRodux).connect(var529)(var10)
+return require(var0.Packages.RoactRodux).connect(var530)(var10)

@@ -11,6 +11,7 @@ local GotCurrentFavoriteCount = require(InspectAndBuyFolder.Selectors.GotCurrent
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local FAVORITES_SIZE = 16
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
@@ -28,6 +29,9 @@ function Favorites:setText()
 		partOfBundle = assetInfo.parentBundleId ~= nil
 	end
 	local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+	if GetFFlagIBEnableLimitedBundle() then
+		partOfBundleAndOffsale = partOfBundle
+	end
 	local bundleInfo = self.props.bundleInfo
 
 	if partOfBundleAndOffsale then
@@ -64,6 +68,9 @@ function Favorites:willUpdate(nextProps)
 			partOfBundle = #assetInfo.bundlesAssetIsIn > 0
 		end
 		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+		if GetFFlagIBEnableLimitedBundle() then
+			partOfBundleAndOffsale = partOfBundle
+		end
 		local gotCurrentFavoriteCount = nextProps.gotCurrentFavoriteCount
 
 		if not gotCurrentFavoriteCount then

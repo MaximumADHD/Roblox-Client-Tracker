@@ -38,22 +38,21 @@ PROTO_3:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K2 ["Tag"]
   GETUPVAL R5 1
-  LOADK R6 K3 ["X-PadXS"]
-  LOADK R7 K4 ["X-Border"]
-  LOADK R8 K5 ["X-Fill"]
-  LOADK R9 K6 ["X-Corner"]
-  LOADK R10 K7 ["CX-Invisible"]
-  CALL R5 5 1
+  LOADK R6 K3 ["X-Border"]
+  LOADK R7 K4 ["X-Fill"]
+  LOADK R8 K5 ["CX-Invisible"]
+  LOADK R9 K6 ["Component-BubbleFrame"]
+  CALL R5 4 1
   SETTABLE R5 R3 R4
-  DUPTABLE R4 K9 [{"BubbleContainer"}]
+  DUPTABLE R4 K8 [{"BubbleContainer"}]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K0 ["createElement"]
   GETUPVAL R6 2
-  DUPTABLE R7 K11 [{"Bubble"}]
-  GETTABLEKS R8 R0 K12 ["item"]
-  SETTABLEKS R8 R7 K10 ["Bubble"]
+  DUPTABLE R7 K10 [{"Bubble"}]
+  GETTABLEKS R8 R0 K11 ["item"]
+  SETTABLEKS R8 R7 K9 ["Bubble"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K8 ["BubbleContainer"]
+  SETTABLEKS R5 R4 K7 ["BubbleContainer"]
   CALL R1 3 -1
   RETURN R1 -1
 

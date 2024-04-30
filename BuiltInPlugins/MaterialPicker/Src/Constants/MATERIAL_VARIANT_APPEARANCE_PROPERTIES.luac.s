@@ -1,0 +1,23 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 8 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["Name"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K1 ["BaseMaterial"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K2 ["ColorMap"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K3 ["MetalnessMap"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K4 ["NormalMap"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K5 ["RoughnessMap"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K6 ["MaterialPattern"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K7 ["StudsPerTile"]
+  GETIMPORT R1 K10 [table.freeze]
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1

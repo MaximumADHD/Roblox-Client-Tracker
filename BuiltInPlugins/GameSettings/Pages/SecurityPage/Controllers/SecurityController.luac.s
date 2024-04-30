@@ -118,6 +118,35 @@ PROTO_12:
   CALL R3 3 -1
   RETURN R3 -1
 
+PROTO_13:
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["LocalSecretsInStudio"]
+  NAMECALL R1 R1 K3 ["GetFastFlag"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K4 ["StudioService"]
+  NAMECALL R2 R2 K5 ["GetService"]
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K6 ["Secrets"]
+  RETURN R3 1
+
+PROTO_14:
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K2 ["LocalSecretsInStudio"]
+  NAMECALL R2 R2 K3 ["GetFastFlag"]
+  CALL R2 2 1
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETIMPORT R3 K1 [game]
+  LOADK R5 K4 ["StudioService"]
+  NAMECALL R3 R3 K5 ["GetService"]
+  CALL R3 2 1
+  SETTABLEKS R1 R3 K6 ["Secrets"]
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   NEWTABLE R0 16 0
@@ -149,4 +178,8 @@ MAIN:
   SETTABLEKS R1 R0 K24 ["GetStudioAccessToApisAllowed"]
   DUPCLOSURE R1 K25 [PROTO_12]
   SETTABLEKS R1 R0 K26 ["SetStudioAccessToApisAllowed"]
+  DUPCLOSURE R1 K27 [PROTO_13]
+  SETTABLEKS R1 R0 K28 ["GetSecrets"]
+  DUPCLOSURE R1 K29 [PROTO_14]
+  SETTABLEKS R1 R0 K30 ["SetSecrets"]
   RETURN R0 1

@@ -1,0 +1,139 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["shouldDebugUrls"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+10]
+  GETIMPORT R1 K2 [warn]
+  LOADK R3 K3 ["networkInterface:getFiatProduct failed to fetch details of asset %*. %*"]
+  GETUPVAL R5 1
+  ORK R6 R0 K4 [""]
+  NAMECALL R3 R3 K5 ["format"]
+  CALL R3 3 1
+  MOVE R2 R3
+  CALL R1 1 0
+  GETUPVAL R1 2
+  LOADB R2 0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["shouldDebugUrls"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+10]
+  GETIMPORT R1 K2 [warn]
+  LOADK R3 K3 ["networkInterface:getIsOwnedByUser failed to check ownership of asset %*. %*"]
+  GETUPVAL R5 1
+  ORK R6 R0 K4 [""]
+  NAMECALL R3 R3 K5 ["format"]
+  CALL R3 3 1
+  MOVE R2 R3
+  CALL R1 1 0
+  GETUPVAL R1 2
+  LOADB R2 0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETIMPORT R4 K3 [Enum.AssetType.Audio]
+  NAMECALL R1 R1 K4 ["getFiatProduct"]
+  CALL R1 3 1
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K5 ["catch"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K6 ["await"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K7 ["responseBody"]
+  JUMPIF R2 [+4]
+  MOVE R3 R0
+  LOADB R4 0
+  CALL R3 1 0
+  RETURN R0 0
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["isFree"]
+  GETTABLEKS R4 R2 K9 ["purchasePrice"]
+  CALL R3 1 1
+  GETTABLEKS R4 R2 K10 ["purchasable"]
+  JUMPIFNOT R3 [+1]
+  JUMPIF R4 [+4]
+  MOVE R5 R0
+  LOADB R6 0
+  CALL R5 1 0
+  RETURN R0 0
+  GETUPVAL R5 0
+  GETUPVAL R7 1
+  GETIMPORT R8 K13 [Enum.AvatarItemType.Asset]
+  NAMECALL R5 R5 K14 ["getIsOwnedByUser"]
+  CALL R5 3 1
+  NEWCLOSURE R7 P1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  NAMECALL R5 R5 K5 ["catch"]
+  CALL R5 2 1
+  NAMECALL R5 R5 K6 ["await"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K7 ["responseBody"]
+  JUMPIFNOT R6 [+4]
+  MOVE R7 R0
+  LOADB R8 0
+  CALL R7 1 0
+  RETURN R0 0
+  MOVE R7 R0
+  LOADB R8 1
+  CALL R7 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R2 1 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["Promise"]
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R7 R0 K10 ["Core"]
+  GETTABLEKS R6 R7 K8 ["Util"]
+  GETTABLEKS R5 R6 K11 ["FiatUtil"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R8 R0 K10 ["Core"]
+  GETTABLEKS R7 R8 K8 ["Util"]
+  GETTABLEKS R6 R7 K12 ["DebugFlags"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R10 R0 K10 ["Core"]
+  GETTABLEKS R9 R10 K8 ["Util"]
+  GETTABLEKS R8 R9 K13 ["SharedFlags"]
+  GETTABLEKS R7 R8 K14 ["getFFlagToolboxEnableFiatPurchasing"]
+  CALL R6 1 1
+  GETIMPORT R7 K16 [game]
+  LOADK R9 K17 ["ToolboxSampleProductMUS418"]
+  NAMECALL R7 R7 K18 ["GetEngineFeature"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K19 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  RETURN R8 1

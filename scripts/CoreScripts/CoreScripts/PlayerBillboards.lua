@@ -28,6 +28,7 @@ local AddMessageWithTimeout = require(RobloxGui.Modules.InGameChat.BubbleChat.Ac
 local UpdateChatSettings = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.UpdateChatSettings)
 local BubbleChatEnabledChanged = require(RobloxGui.Modules.InGameChat.BubbleChat.Actions.BubbleChatEnabledChanged)
 local VoiceEnabledChanged = require(RobloxGui.Modules.VoiceChat.Actions.VoiceEnabledChanged)
+local ParticipantsChanged = require(RobloxGui.Modules.VoiceChat.Actions.ParticipantsChanged)
 local VoiceStateChanged = require(RobloxGui.Modules.VoiceChat.Actions.VoiceStateChanged)
 local ParticipantAdded = require(RobloxGui.Modules.VoiceChat.Actions.ParticipantAdded)
 local ParticipantRemoved = require(RobloxGui.Modules.VoiceChat.Actions.ParticipantRemoved)
@@ -43,6 +44,7 @@ local initVoiceChatStore = require(RobloxGui.Modules.VoiceChat.initVoiceChatStor
 local GetFFlagEnableVoiceChatVoiceUISync = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatVoiceUISync)
 local GetFFlagLocalMutedNilFix = require(RobloxGui.Modules.Flags.GetFFlagLocalMutedNilFix)
 local GetFFlagConsolidateBubbleChat = require(RobloxGui.Modules.Flags.GetFFlagConsolidateBubbleChat)
+local GetFFlagBatchVoiceParticipantsUpdates = require(RobloxGui.Modules.Flags.GetFFlagBatchVoiceParticipantsUpdates)
 local FFlagFixMessageReceivedEventLeak = game:DefineFastFlag("FixMessageReceivedEventLeak", false)
 
 local ExperienceChat = require(CorePackages.ExperienceChat)
@@ -62,6 +64,10 @@ local SPY_ACTION_WHITELIST = {
 
 	[VoiceStateChanged.name] = function(action)
 		ExperienceChat.Events.VoiceStateChanged(action.userId, action.newState)
+	end,
+
+	[ParticipantsChanged.name] = function(action)
+		ExperienceChat.Events.VoiceParticipantsChanged(action.newParticipants)
 	end,
 
 	[ParticipantAdded.name] = function(action)
@@ -160,8 +166,13 @@ local function initBubbleChat()
 				if not validateMessageWithWarning("OnNewMessage", messageData.Message) then
 					return
 				end
-
-				chatStore:dispatch(AddMessageFromEvent(messageData))
+				if GetFFlagConsolidateBubbleChat() then
+					local messageDataCopy = table.clone(messageData)
+					messageDataCopy.Time = workspace:GetServerTimeNow() * 1000
+					chatStore:dispatch(AddMessageFromEvent(messageDataCopy))
+				else
+					chatStore:dispatch(AddMessageFromEvent(messageData))
+				end
 			end
 		end)
 
@@ -176,7 +187,13 @@ local function initBubbleChat()
 			if chatStore:getState().messages[id] then
 				chatStore:dispatch(SetMessageText(id, messageData.Message))
 			else
-				chatStore:dispatch(AddMessageFromEvent(messageData))
+				if GetFFlagConsolidateBubbleChat() then
+					local messageDataCopy = table.clone(messageData)
+					messageDataCopy.Time = workspace:GetServerTimeNow() * 1000
+					chatStore:dispatch(AddMessageFromEvent(messageDataCopy))
+				else
+					chatStore:dispatch(AddMessageFromEvent(messageData))
+				end
 			end
 		end)
 	end))
@@ -361,21 +378,24 @@ local function initVoiceChat()
 	end)
 
 	VoiceChatServiceManager.participantsUpdate.Event:Connect(function(participants)
-		for userId, participantState in pairs(participants) do
-			local voiceState = Constants.VOICE_STATE.INACTIVE
-			if not participantState.subscriptionCompleted then
-				voiceState = Constants.VOICE_STATE.CONNECTING
-			elseif participantState.isMutedLocally then
-				voiceState = Constants.VOICE_STATE.LOCAL_MUTED
-			elseif participantState.isMuted then
-				voiceState = Constants.VOICE_STATE.MUTED
-			elseif participantState.isSignalActive then
-				voiceState = Constants.VOICE_STATE.TALKING
+		if GetFFlagBatchVoiceParticipantsUpdates() then
+			chatStore:dispatch(ParticipantsChanged(participants))
+		else
+			for userId, participantState in pairs(participants) do
+				local voiceState = Constants.VOICE_STATE.INACTIVE
+				if not participantState.subscriptionCompleted then
+					voiceState = Constants.VOICE_STATE.CONNECTING
+				elseif participantState.isMutedLocally then
+					voiceState = Constants.VOICE_STATE.LOCAL_MUTED
+				elseif participantState.isMuted then
+					voiceState = Constants.VOICE_STATE.MUTED
+				elseif participantState.isSignalActive then
+					voiceState = Constants.VOICE_STATE.TALKING
+				end
+				log:trace("Participant update for {}, voice state {}", shorten(userId), voiceState)
+				chatStore:dispatch(VoiceStateChanged(userId, voiceState))
+				-- TODO Update level too
 			end
-			log:trace("Participant update for {}, voice state {}", shorten(userId), voiceState)
-			chatStore:dispatch(VoiceStateChanged(userId, voiceState))
-
-			-- TODO Update level too
 		end
 	end)
 

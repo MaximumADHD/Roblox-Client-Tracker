@@ -3,25 +3,16 @@ PROTO_0:
   GETIMPORT R2 K1 [game]
   NAMECALL R0 R0 K2 ["getAvatarType"]
   CALL R0 2 1
-  GETIMPORT R1 K6 [Enum.GameAvatarType.R6]
-  JUMPIFNOTEQ R0 R1 [+7]
-  GETGLOBAL R1 K7 ["AvatarTagging"]
-  NAMECALL R1 R1 K8 ["addTag"]
-  CALL R1 1 0
-  JUMP [+5]
-  GETGLOBAL R1 K7 ["AvatarTagging"]
-  NAMECALL R1 R1 K9 ["removeTag"]
-  CALL R1 1 0
   GETUPVAL R1 1
   GETUPVAL R3 2
   MOVE R4 R0
   CALL R3 1 -1
-  NAMECALL R1 R1 K10 ["dispatch"]
+  NAMECALL R1 R1 K3 ["dispatch"]
   CALL R1 -1 0
-  GETIMPORT R1 K12 [wait]
+  GETIMPORT R1 K5 [wait]
   LOADN R2 5
   CALL R1 1 0
-  JUMPBACK [-33]
+  JUMPBACK [-18]
   RETURN R0 0
 
 PROTO_1:
@@ -50,13 +41,6 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Actions"]
   GETTABLEKS R2 R3 K8 ["SetAvatarType"]
   CALL R1 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Util"]
-  GETTABLEKS R4 R5 K10 ["PublishTagging"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K11 ["AvatarTagging"]
-  SETGLOBAL R2 K11 ["AvatarTagging"]
-  DUPCLOSURE R2 K12 [PROTO_2]
+  DUPCLOSURE R2 K9 [PROTO_2]
   CAPTURE VAL R1
   RETURN R2 1

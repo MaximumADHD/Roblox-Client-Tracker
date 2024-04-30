@@ -1,10 +1,17 @@
 local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
-local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
-local useLastInputMethod = ReactFocusNavigation.useLastInputMethod
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
+local GetFFlagEnableAppCommonInputHooks =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppCommonInputHooks
+local useLastInputMethod
+if GetFFlagEnableAppCommonInputHooks() then
+	useLastInputMethod = FocusNavigationUtils.useLastInputMethod
+else
+	local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
+	useLastInputMethod = ReactFocusNavigation.useLastInputMethod
+end
 
 local useRegisterFocusNavigableSurface = FocusNavigableSurfaceRegistry.useRegisterFocusNavigableSurface
 local useDeRegisterFocusNavigableSurface = FocusNavigableSurfaceRegistry.useDeRegisterFocusNavigableSurface
@@ -12,7 +19,8 @@ local useAutoFocus = FocusNavigationUtils.useAutoFocus
 local useDescendantHasFocus = FocusNavigationUtils.useDescendantHasFocus
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-local GetFFlagUpdateFocusNavigationEffectsProps = require(RobloxGui.Modules.Common.Flags.GetFFlagUpdateFocusNavigationEffectsProps)
+local GetFFlagUpdateFocusNavigationEffectsProps =
+	require(RobloxGui.Modules.Common.Flags.GetFFlagUpdateFocusNavigationEffectsProps)
 
 type FocusNavigableSurfaceIdentifier = FocusNavigationUtils.FocusNavigableSurfaceIdentifier
 
@@ -33,8 +41,7 @@ local function FocusNavigationEffects(props: Props)
 	local autoFocus = useAutoFocus({ focusRef }, AUTO_FOCUS_DEBOUNCE_TIME)
 	local hasFocus = useDescendantHasFocus(focusRef)
 	local lastInputMethod = useLastInputMethod()
-	local lastInputUseFocus = lastInputMethod == "Gamepad"
-	or lastInputMethod == "Keyboard"
+	local lastInputUseFocus = lastInputMethod == "Gamepad" or lastInputMethod == "Keyboard"
 
 	React.useEffect(function()
 		if focusRef then
@@ -68,7 +75,6 @@ local function FocusNavigationEffects(props: Props)
 			end
 		end
 	end, { shouldAutoFocus, autoFocus } :: { any })
-
 
 	if GetFFlagUpdateFocusNavigationEffectsProps() then
 		return React.createElement("Frame", {

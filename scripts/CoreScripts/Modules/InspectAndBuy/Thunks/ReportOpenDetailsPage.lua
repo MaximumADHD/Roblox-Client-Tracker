@@ -7,6 +7,7 @@ local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 local SendCounter = require(InspectAndBuyFolder.Thunks.SendCounter)
 local GetFFlagIBEnableSendCounters = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableSendCounters)
 local Constants = require(InspectAndBuyFolder.Constants)
+local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local requiredServices = {
 	Analytics,
@@ -29,6 +30,9 @@ local function ReportOpenDetailsPage(assetInfo)
 		end
 		-- We show an asset if it is separately for sale from the bundle it is in
 		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+		if GetFFlagIBEnableLimitedBundle() then
+			partOfBundleAndOffsale = partOfBundle
+		end
 
 		local itemType, id
 

@@ -15,12 +15,6 @@ local FFlagUserClampClassicThumbstick do
 	end)
 	FFlagUserClampClassicThumbstick = success and result
 end
-local FFlagUserResizeAwareTouchControls do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserResizeAwareTouchControls")
-	end)
-	FFlagUserResizeAwareTouchControls = success and result
-end
 
 --[[ Constants ]]--
 local ZERO_VECTOR3 = Vector3.new(0,0,0)
@@ -75,113 +69,63 @@ function TouchThumbstick:OnInputEnded()
 	self.moveTouchObject = nil
 end
 function TouchThumbstick:Create(parentFrame)
-	if FFlagUserResizeAwareTouchControls then
-		if self.thumbstickFrame then
-			self.thumbstickFrame:Destroy()
-			self.thumbstickFrame = nil
-			if self.onTouchMovedConn then
-				self.onTouchMovedConn:Disconnect()
-				self.onTouchMovedConn = nil
-			end
-			if self.onTouchEndedConn then
-				self.onTouchEndedConn:Disconnect()
-				self.onTouchEndedConn = nil
-			end
-			if self.absoluteSizeChangedConn then
-				self.absoluteSizeChangedConn:Disconnect()
-				self.absoluteSizeChangedConn = nil
-			end
+	if self.thumbstickFrame then
+		self.thumbstickFrame:Destroy()
+		self.thumbstickFrame = nil
+		if self.onTouchMovedConn then
+			self.onTouchMovedConn:Disconnect()
+			self.onTouchMovedConn = nil
 		end
-
-		self.thumbstickFrame = Instance.new("Frame")
-		self.thumbstickFrame.Name = "ThumbstickFrame"
-		self.thumbstickFrame.Active = true
-		self.thumbstickFrame.Visible = false
-		self.thumbstickFrame.BackgroundTransparency = 1
-
-		local outerImage = Instance.new("ImageLabel")
-		outerImage.Name = "OuterImage"
-		outerImage.Image = TOUCH_CONTROL_SHEET
-		outerImage.ImageRectOffset = Vector2.new()
-		outerImage.ImageRectSize = Vector2.new(220, 220)
-		outerImage.BackgroundTransparency = 1
-		outerImage.Position = UDim2.new(0, 0, 0, 0)
-
-		self.stickImage = Instance.new("ImageLabel")
-		self.stickImage.Name = "StickImage"
-		self.stickImage.Image = TOUCH_CONTROL_SHEET
-		self.stickImage.ImageRectOffset = Vector2.new(220, 0)
-		self.stickImage.ImageRectSize = Vector2.new(111, 111)
-		self.stickImage.BackgroundTransparency = 1
-		self.stickImage.ZIndex = 2
-
-		local function ResizeThumbstick()
-			local minAxis = math.min(parentFrame.AbsoluteSize.X, parentFrame.AbsoluteSize.Y)
-			local isSmallScreen = minAxis <= 500
-			self.thumbstickSize = isSmallScreen and 70 or 120
-			self.screenPos = isSmallScreen and UDim2.new(0, (self.thumbstickSize/2) - 10, 1, -self.thumbstickSize - 20) or
-				UDim2.new(0, self.thumbstickSize/2, 1, -self.thumbstickSize * 1.75)
-			self.thumbstickFrame.Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize)
-			self.thumbstickFrame.Position = self.screenPos
-			outerImage.Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize)
-			self.stickImage.Size = UDim2.new(0, self.thumbstickSize/2, 0, self.thumbstickSize/2)
-			self.stickImage.Position = UDim2.new(0, self.thumbstickSize/2 - self.thumbstickSize/4, 0, self.thumbstickSize/2 - self.thumbstickSize/4)
+		if self.onTouchEndedConn then
+			self.onTouchEndedConn:Disconnect()
+			self.onTouchEndedConn = nil
 		end
-
-		ResizeThumbstick()
-		self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-		
-		outerImage.Parent = self.thumbstickFrame
-		self.stickImage.Parent = self.thumbstickFrame
-	else
-		if self.thumbstickFrame then
-			self.thumbstickFrame:Destroy()
-			self.thumbstickFrame = nil
-			if self.onTouchMovedConn then
-				self.onTouchMovedConn:Disconnect()
-				self.onTouchMovedConn = nil
-			end
-			if self.onTouchEndedConn then
-				self.onTouchEndedConn:Disconnect()
-				self.onTouchEndedConn = nil
-			end
+		if self.absoluteSizeChangedConn then
+			self.absoluteSizeChangedConn:Disconnect()
+			self.absoluteSizeChangedConn = nil
 		end
+	end
 
+	self.thumbstickFrame = Instance.new("Frame")
+	self.thumbstickFrame.Name = "ThumbstickFrame"
+	self.thumbstickFrame.Active = true
+	self.thumbstickFrame.Visible = false
+	self.thumbstickFrame.BackgroundTransparency = 1
+
+	local outerImage = Instance.new("ImageLabel")
+	outerImage.Name = "OuterImage"
+	outerImage.Image = TOUCH_CONTROL_SHEET
+	outerImage.ImageRectOffset = Vector2.new()
+	outerImage.ImageRectSize = Vector2.new(220, 220)
+	outerImage.BackgroundTransparency = 1
+	outerImage.Position = UDim2.new(0, 0, 0, 0)
+
+	self.stickImage = Instance.new("ImageLabel")
+	self.stickImage.Name = "StickImage"
+	self.stickImage.Image = TOUCH_CONTROL_SHEET
+	self.stickImage.ImageRectOffset = Vector2.new(220, 0)
+	self.stickImage.ImageRectSize = Vector2.new(111, 111)
+	self.stickImage.BackgroundTransparency = 1
+	self.stickImage.ZIndex = 2
+
+	local function ResizeThumbstick()
 		local minAxis = math.min(parentFrame.AbsoluteSize.X, parentFrame.AbsoluteSize.Y)
 		local isSmallScreen = minAxis <= 500
 		self.thumbstickSize = isSmallScreen and 70 or 120
 		self.screenPos = isSmallScreen and UDim2.new(0, (self.thumbstickSize/2) - 10, 1, -self.thumbstickSize - 20) or
 			UDim2.new(0, self.thumbstickSize/2, 1, -self.thumbstickSize * 1.75)
-
-		self.thumbstickFrame = Instance.new("Frame")
-		self.thumbstickFrame.Name = "ThumbstickFrame"
-		self.thumbstickFrame.Active = true
-		self.thumbstickFrame.Visible = false
 		self.thumbstickFrame.Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize)
 		self.thumbstickFrame.Position = self.screenPos
-		self.thumbstickFrame.BackgroundTransparency = 1
-
-		local outerImage = Instance.new("ImageLabel")
-		outerImage.Name = "OuterImage"
-		outerImage.Image = TOUCH_CONTROL_SHEET
-		outerImage.ImageRectOffset = Vector2.new()
-		outerImage.ImageRectSize = Vector2.new(220, 220)
-		outerImage.BackgroundTransparency = 1
 		outerImage.Size = UDim2.new(0, self.thumbstickSize, 0, self.thumbstickSize)
-		outerImage.Position = UDim2.new(0, 0, 0, 0)
-		outerImage.Parent = self.thumbstickFrame
-
-		self.stickImage = Instance.new("ImageLabel")
-		self.stickImage.Name = "StickImage"
-		self.stickImage.Image = TOUCH_CONTROL_SHEET
-		self.stickImage.ImageRectOffset = Vector2.new(220, 0)
-		self.stickImage.ImageRectSize = Vector2.new(111, 111)
-		self.stickImage.BackgroundTransparency = 1
 		self.stickImage.Size = UDim2.new(0, self.thumbstickSize/2, 0, self.thumbstickSize/2)
 		self.stickImage.Position = UDim2.new(0, self.thumbstickSize/2 - self.thumbstickSize/4, 0, self.thumbstickSize/2 - self.thumbstickSize/4)
-		self.stickImage.ZIndex = 2
-		self.stickImage.Parent = self.thumbstickFrame
 	end
+
+	ResizeThumbstick()
+	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
+	
+	outerImage.Parent = self.thumbstickFrame
+	self.stickImage.Parent = self.thumbstickFrame
 
 	local centerPosition = nil
 	local deadZone = 0.05

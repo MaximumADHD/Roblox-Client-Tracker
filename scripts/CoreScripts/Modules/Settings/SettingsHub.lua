@@ -65,7 +65,6 @@ local FFlagLocalizeVersionLabels = settings():GetFFlag("LocalizeVersionLabels")
 local FFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)()
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-local isRoactAbuseReportMenuEnabled = require(RobloxGui.Modules.TrustAndSafety.isRoactAbuseReportMenuEnabled)
 
 local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
 local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
@@ -92,6 +91,8 @@ local GetFFlagRightAlignMicText =  require(RobloxGui.Modules.Settings.Flags.GetF
 local GetFFlagFixResumeSourceAnalytics =  require(RobloxGui.Modules.Settings.Flags.GetFFlagFixResumeSourceAnalytics)
 local GetFFlagShouldInitWithFirstPageWithTabHeader =  require(RobloxGui.Modules.Settings.Flags.GetFFlagShouldInitWithFirstPageWithTabHeader)
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
+local GetFFlagEnableScreenshotUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
+
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -159,12 +160,10 @@ local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForCh
 local shouldLocalize = PolicyService:IsSubjectToChinaPolicies()
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local FFlagAddCapturesGuacPolicy = require(CorePackages.Workspace.Packages.Screenshots).Flags.FFlagAddCapturesGuacPolicy
 local GetFFlagOldMenuNewIcons = require(RobloxGui.Modules.Flags.GetFFlagOldMenuNewIcons)
 local GetFFlagPlayerListAnimateMic = require(RobloxGui.Modules.Flags.GetFFlagPlayerListAnimateMic)
 local NotchSupportExperiment = require(RobloxGui.Modules.Settings.Experiments.NotchSupportExperiment)
 local GetFFlagInGameMenuV1FadeBackgroundAnimation = require(RobloxGui.Modules.Settings.Flags.GetFFlagInGameMenuV1FadeBackgroundAnimation)
-local GetShowCapturesTab = require(RobloxGui.Modules.Settings.Experiments.GetShowCapturesTab)
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
 local FFlagSettingsHubRaceConditionFix = game:DefineFastFlag("SettingsHubRaceConditionFix", false)
 
@@ -3316,11 +3315,7 @@ local function CreateSettingsHub()
 	this.GameSettingsPage = require(RobloxGui.Modules.Settings.Pages.GameSettings)
 	this.GameSettingsPage:SetHub(this)
 
-	if isRoactAbuseReportMenuEnabled() then
-		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
-	else
-		this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-	end
+	this.ReportAbusePage = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
 	this.ReportAbusePage:SetHub(this)
 
 	if GetFFlagAbuseReportEnableReportSentPage() then
@@ -3386,13 +3381,10 @@ local function CreateSettingsHub()
 		end
 	end
 
-	local eligibleForCapturesFeature = false
-	if FFlagAddCapturesGuacPolicy then
-		local policy = ScreenshotsPolicy.PolicyImplementation.read()
-		eligibleForCapturesFeature  = if policy then ScreenshotsPolicy.Mapper(policy).eligibleForCapturesFeature() else false
-	end
+	local policy = ScreenshotsPolicy.PolicyImplementation.read()
+	local eligibleForCapturesFeature = if policy then ScreenshotsPolicy.Mapper(policy).eligibleForCapturesFeature() else false
 
-	if eligibleForCapturesFeature or GetShowCapturesTab() then
+	if eligibleForCapturesFeature then
 		local ShotsPageWrapper = require(RobloxGui.Modules.Settings.Pages.ShotsPageWrapper)
 
 		local function closeSettingsMenu()
@@ -3400,7 +3392,11 @@ local function CreateSettingsHub()
 		end
 
 		this.ScreenshotsApp = ScreenshotsApp
-		this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, Theme)
+		if GetFFlagEnableScreenshotUtility() then
+			this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, Theme, ChromeEnabled)
+		else
+			this.ScreenshotsApp.mountMenuPage(ShotsPageWrapper.Page, closeSettingsMenu, Theme)
+		end
 
 		this.ShotsPage = ShotsPageWrapper
 		this.ShotsPage:ConnectHubToApp(this, this.PageViewClipper, this.ScreenshotsApp)

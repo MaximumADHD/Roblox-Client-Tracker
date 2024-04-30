@@ -43,6 +43,8 @@ local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
 local GetItemDetails = require(InspectAndBuyFolder.Thunks.GetItemDetails)
+local SetAssetFromBundleInfo = require(InspectAndBuyFolder.Actions.SetAssetFromBundleInfo)
+local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local Modules = CoreGui.RobloxGui.Modules
 local Theme = require(Modules.Settings.Theme)
@@ -181,6 +183,15 @@ function AssetDetails:willUpdate(nextProps)
 				~= tutils.fieldCount(nextResellableInstances[itemId])
 		then
 			self:setState({})
+		end
+	end
+
+	if GetFFlagIBEnableLimitedBundle() then
+		local bundleId = self.props.assetInfo and self.props.assetInfo.parentBundleId
+		local bundles = self.props.bundles
+		local nextBundles = nextProps.bundles
+		if bundleId and bundles and bundles[bundleId] and nextBundles and nextBundles[bundleId] and nextBundles[bundleId] ~= bundles[bundleId] then
+			self.props.setAssetFromBundleInfo(self.props.assetInfo.assetId, nextBundles[bundleId])
 		end
 	end
 end
@@ -405,6 +416,9 @@ end, function(dispatch)
 		end else nil,
 		getItemDetails = function(itemId, itemType)
 			dispatch(GetItemDetails(itemId, itemType))
-		end
+		end,
+		setAssetFromBundleInfo = if GetFFlagIBEnableLimitedBundle() then function(assetId, bundleInfo)
+			dispatch(SetAssetFromBundleInfo(assetId, bundleInfo))
+		end else nil,
 	}
 end)(AssetDetails)

@@ -17,8 +17,6 @@ local isNewInGameMenuEnabled = require(CoreGui.RobloxGui.Modules.isNewInGameMenu
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local isRoactAbuseReportMenuEnabled = require(RobloxGui.Modules.TrustAndSafety.isRoactAbuseReportMenuEnabled)
-
 local TenFootSideBar = Roact.PureComponent:extend("TenFootSideBar")
 
 local function openPlatformProfileUI(platformId)
@@ -70,9 +68,11 @@ function TenFootSideBar:openSidebar(player)
 	end
 
 	local savedSelectedGuiObject = GuiService.SelectedCoreObject
-	local screenManagerModule = RobloxGui.Modules:FindFirstChild("ScreenManager") or RobloxGui.Modules.Shell.ScreenManager
+	local screenManagerModule = RobloxGui.Modules:FindFirstChild("ScreenManager")
+		or RobloxGui.Modules.Shell.ScreenManager
 	local ScreenManager = require(screenManagerModule)
-	local stringsModule = RobloxGui.Modules:FindFirstChild("LocalizedStrings") or RobloxGui.Modules.Shell.LocalizedStrings
+	local stringsModule = RobloxGui.Modules:FindFirstChild("LocalizedStrings")
+		or RobloxGui.Modules.Shell.LocalizedStrings
 	local Strings = require(stringsModule)
 
 	if not self.sideBar then
@@ -88,9 +88,6 @@ function TenFootSideBar:openSidebar(player)
 		end)
 	end
 
-	--Remove with FIntNewInGameMenuPercentRollout
-	local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-
 	--We can't report guests/localplayer
 	if addReportItem then
 		local loc_text = Strings:LocalizedString("ReportPlayer")
@@ -103,12 +100,8 @@ function TenFootSideBar:openSidebar(player)
 				local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 				InGameMenu.openReportDialog(player, self.__componentName)
 			else
-				if isRoactAbuseReportMenuEnabled() then
-					local ReportAbuseMenuNew = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
-					ReportAbuseMenuNew:ReportPlayer(player, self.__componentName)
-				else
-					ReportAbuseMenu:ReportPlayer(player, self.__componentName)
-				end
+				local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
+				ReportAbuseMenu:ReportPlayer(player, self.__componentName)
 			end
 		end)
 	end

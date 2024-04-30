@@ -1,6 +1,10 @@
+local CorePackages = game:GetService("CorePackages")
+
 local Players = game:GetService("Players")
-local GetFStringInGameMenuChromeForcedUserIds = require(script.Parent.GetFStringInGameMenuChromeForcedUserIds)
-local GetFIntInGameMenuChromeAllowlistTimeout = require(script.Parent.GetFIntInGameMenuChromeAllowlistTimeout)
+local GetFStringInGameMenuChromeForcedUserIds =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringInGameMenuChromeForcedUserIds
+local GetFIntInGameMenuChromeAllowlistTimeout =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntInGameMenuChromeAllowlistTimeout
 game:DefineFastFlag("UnibarRespawn", false)
 
 return function()

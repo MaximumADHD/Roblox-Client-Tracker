@@ -4,6 +4,7 @@ local CoreGui = game:GetService('CoreGui')
 local GuiService = game:GetService("GuiService")
 local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 
+local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local DarkTheme = require(CorePackages.Workspace.Packages.Style).Themes.DarkTheme
 local UIBlox = require(CorePackages.UIBlox)
@@ -19,6 +20,7 @@ local GetFFlagAddAnimatedFocusState = require(script.Parent.Flags.GetFFlagAddAni
 local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
 local GetUIBloxEnableFontNameMapping = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetUIBloxEnableFontNameMapping
+local FFlagIncreasePlayerNameSizeConsole = game:DefineFastFlag("IncreasePlayerNameSizeConsole", false)
 
 local AppFontBaseSize = 16 * 1.2
 
@@ -102,10 +104,11 @@ local AppFont = {
 		TextSize = if GetUIBloxEnableFontNameMapping() then 22 * nominalSizeFactor else 18,
 	},
 	Username = {
-		RelativeSize = if UseBiggerText then fontSizeMap[Enum.FontSize.Size24] else fontSizeMap[Enum.FontSize.Size18],
+		RelativeSize = if UseBiggerText or (FFlagIncreasePlayerNameSizeConsole and isTenFootInterface) then fontSizeMap[Enum.FontSize.Size24] else fontSizeMap[Enum.FontSize.Size18],
 	},
 	DisplayName = {
-		RelativeSize = Enum.FontSize.Size18,
+		
+		RelativeSize = if FFlagIncreasePlayerNameSizeConsole and isTenFootInterface then Enum.FontSize.Size24 else Enum.FontSize.Size18,
 		Font = AppFonts.default:getMedium(),
 	},
 	Settings_Font = {

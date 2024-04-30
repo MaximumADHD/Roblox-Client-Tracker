@@ -26,6 +26,7 @@ local GetFFlagIBEnableLimitedItemBugFixAndAlignment =
 require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
 local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local PremiumIcon = UIBloxImages["icons/status/premium"]
 local BY_KEY = "InGame.InspectMenu.Label.By"
@@ -56,6 +57,9 @@ function DetailsText:setText()
 		partOfBundle = assetInfo.parentBundleId ~= nil
 	end
 	local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+	if GetFFlagIBEnableLimitedBundle() then
+		partOfBundleAndOffsale = partOfBundle
+	end
 	local bundleInfo = self.props.bundleInfo or {}
 
 	if partOfBundleAndOffsale then

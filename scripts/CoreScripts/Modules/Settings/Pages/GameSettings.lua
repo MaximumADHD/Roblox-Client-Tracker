@@ -41,6 +41,7 @@ local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsP
 local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local GetFFlagSelfViewCameraSettings = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewCameraSettings
+local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 
 
 -------------- CONSTANTS --------------
@@ -218,6 +219,7 @@ local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
 local FFlagUserShowGuiHideToggles = game:DefineFastFlag("UserShowGuiHideToggles", false)
+local FFlagFixDeveloperConsoleButtonSizeAndPositioning = game:DefineFastFlag("FixDeveloperConsoleButtonSizeAndPositioning", false)
 local FFlagEnableTFFeedbackModeEntryCheck = game:DefineFastFlag("EnableTFFeedbackModeEntryCheck", false)
 local FFlagFeedbackEntryPointButtonSizeAdjustment = game:DefineFastFlag("FeedbackEntryPointButtonSizeAdjustment2", false)
 local FFlagFeedbackEntryPointImprovedStrictnessCheck = game:DefineFastFlag("FeedbackEntryPointImprovedStrictnessCheck", false)
@@ -1363,8 +1365,12 @@ local function Initialize()
 				end
 			end
 		end
-		onVREnabledChanged()
-		VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabledChanged)
+		if (GetFFlagAlwaysShowVRToggle()) then
+			createVROption()
+		else
+			onVREnabledChanged()
+			VRService:GetPropertyChangedSignal("VREnabled"):connect(onVREnabledChanged)
+		end
 
 		------------------------------------------------------
 		------------------
@@ -2677,13 +2683,25 @@ local function Initialize()
 				end
 			end
 
-			local devConsoleButton, devConsoleText, setButtonRowRef =
-				utility:MakeStyledButton("DevConsoleButton", "Open", UDim2.new(0, 300, 1, -20), onOpenDevConsole, this)
-			devConsoleText.Font = Theme.font(Enum.Font.SourceSans)
-			devConsoleButton.Position = UDim2.new(1, -400, 0, 12)
-			local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton)
-			row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["DeveloperConsoleButton"]
-			setButtonRowRef(row)
+			if FFlagFixDeveloperConsoleButtonSizeAndPositioning then
+				local devConsoleButton, devConsoleText, setButtonRowRef =
+					utility:MakeStyledButton("DevConsoleButton", "Open", UDim2.new(1, 0, 1, -20), onOpenDevConsole, this)
+				devConsoleText.Font = Theme.font(Enum.Font.SourceSans)
+				devConsoleButton.Size = UDim2.new(0.6, -10, 1, -20)
+				devConsoleButton.Position = UDim2.new(0.4, 10, 0, 12)
+				-- Nil for spacing parameter, true for auto spacing the left hand label
+				local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton, nil, true)
+				row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["DeveloperConsoleButton"]
+				setButtonRowRef(row)
+			else
+				local devConsoleButton, devConsoleText, setButtonRowRef =
+					utility:MakeStyledButton("DevConsoleButton", "Open", UDim2.new(0, 300, 1, -20), onOpenDevConsole, this)
+				devConsoleText.Font = Theme.font(Enum.Font.SourceSans)
+				devConsoleButton.Position = UDim2.new(1, -400, 0, 12)
+				local row = utility:AddNewRowObject(this, "Developer Console", devConsoleButton)
+				row.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["DeveloperConsoleButton"]
+				setButtonRowRef(row)
+			end
 		end
 
 		if RunService:IsStudio() then

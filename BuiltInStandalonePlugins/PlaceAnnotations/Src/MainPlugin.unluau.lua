@@ -13,9 +13,9 @@ local var10 = var0.Src.Resources.Localization.SourceStrings
 local var11 = var0.Src.Resources.Localization.LocalizedStrings
 local var12 = var1.PureComponent:extend("MainPlugin")
 function var12.init(arg1, arg2)
-   local var60 = {}
-   var60.enabled = false
-   arg1.state = var60
+   local var80 = {}
+   var80.enabled = false
+   arg1.state = var80
    function arg1.toggleEnabled(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
@@ -31,28 +31,28 @@ function var12.init(arg1, arg2)
    end
    
    function arg1.onRestore()
-      local var1 = {}
-      var1.enabled = false
-      arg1:setState(var1)
+      local var113 = {}
+      var113.enabled = false
+      arg1:setState(var113)
    end
    
    function arg1.onWidgetEnabledChanged(arg1)
-      local var6 = {}
-      var6.enabled = arg1
-      arg1:setState(var6)
+      local var118 = {}
+      var118.enabled = arg1
+      arg1:setState(var118)
    end
    
    function arg1.onDockWidgetCreated(arg1)
-      local var10 = {}
-      var10.enabled = arg1.Enabled
-      arg1:setState(var10)
+      local var122 = {}
+      var122.enabled = arg1.Enabled
+      arg1:setState(var122)
    end
    
-   local var16 = {}
-   var16.stringResourceTable = var10
-   var16.translationResourceTable = var11
-   var16.pluginName = "PlaceAnnotations"
-   arg1.localization = var5.Localization.new(var16)
+   local var134 = {}
+   var134.stringResourceTable = var10
+   var134.translationResourceTable = var11
+   var134.pluginName = "PlaceAnnotations"
+   arg1.localization = var5.Localization.new(var134)
    arg1.analytics = var5.Analytics.new(function()
       return {}
    end, {})
@@ -67,42 +67,42 @@ end
 function var12.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Plugin
-   local var48 = var6
-   var48 = var1
-   local var50 = var48.new(var48)
-   local var55 = var7.new(var1:getMouse())
-   local var56 = arg1.localization
-   local var57 = arg1.analytics
-   local var58 = {}
-   local var62 = {}
-   var62.Title = arg1.localization:getText("Plugin", "Toolbar")
-   function var62.RenderButtons(arg1)
+   local var173 = var6
+   var173 = var1
+   local var175 = var173.new(var173)
+   local var184 = var7.new(var1:getMouse())
+   local var185 = arg1.localization
+   local var186 = arg1.analytics
+   local var188 = {}
+   local var193 = {}
+   var193.Title = arg1.localization:getText("Plugin", "Toolbar")
+   function var193.RenderButtons(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
       return var0
    end
    
-   var58.Toolbar = var1.createElement(var4, var62)
-   local var76 = {}
-   var76.Id = "PlaceAnnotations"
-   var76.Enabled = arg1.state.enabled
-   var76.Title = arg1.localization:getText("Plugin", "Name")
-   var76.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var76.InitialDockState = Enum.InitialDockState.Bottom
-   var76.Size = Vector2.new(640, 480)
-   var76.MinSize = Vector2.new(250, 200)
-   var76.OnClose = arg1.onClose
-   var76.Widget = var0.PluginLoaderContext.mainDockWidget
-   var76.OnWidgetCreated = arg1.onDockWidgetCreated
+   var188.Toolbar = var1.createElement(var4, var193)
+   local var212 = {}
+   var212.Id = "PlaceAnnotations"
+   var212.Enabled = arg1.state.enabled
+   var212.Title = arg1.localization:getText("Plugin", "Name")
+   var212.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var212.InitialDockState = Enum.InitialDockState.Bottom
+   var212.Size = Vector2.new(640, 480)
+   var212.MinSize = Vector2.new(250, 200)
+   var212.OnClose = arg1.onClose
+   var212.Widget = var0.PluginLoaderContext.mainDockWidget
+   var212.OnWidgetCreated = arg1.onDockWidgetCreated
    var1.Change.Enabled = arg1.onWidgetEnabledChanged
-   local var101 = {}
+   local var241 = {}
    var1.Tag = "X-Fill X-Column"
-   var101.Wrapper = var1.createElement("Frame", {})
-   local var113 = {}
-   var113.StyleSheet = arg1.design
-   var101.StyleLink = var1.createElement("StyleLink", var113)
-   var58.MainWidget = var1.createElement(var3, var76, var101)
-   return var5.provide({}, var58)
+   var241.Wrapper = var1.createElement("Frame", {})
+   local var255 = {}
+   var255.StyleSheet = arg1.design
+   var241.StyleLink = var1.createElement("StyleLink", var255)
+   var188.MainWidget = var1.createElement(var3, var212, var241)
+   return var5.provide({}, var188)
 end
 
 return var12

@@ -1,0 +1,327 @@
+PROTO_0:
+  GETUPVAL R2 0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R7 1
+  MOVE R8 R1
+  LOADK R9 K0 ["Callouts"]
+  GETTABLEKS R10 R6 K1 ["Title"]
+  CALL R7 3 1
+  GETUPVAL R8 1
+  MOVE R9 R1
+  LOADK R10 K0 ["Callouts"]
+  GETTABLEKS R11 R6 K2 ["Description"]
+  CALL R8 3 1
+  JUMPIFNOT R7 [+9]
+  JUMPIFNOT R8 [+8]
+  MOVE R11 R5
+  MOVE R12 R7
+  MOVE R13 R8
+  GETTABLEKS R14 R6 K3 ["Link"]
+  NAMECALL R9 R0 K4 ["defineCallout"]
+  CALL R9 5 0
+  FORGLOOP R2 2 [-23]
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["state"]
+  GETTABLEKS R3 R4 K1 ["promptRequested"]
+  FASTCALL1 ASSERT R3 [+2]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 1 0
+  JUMPIFNOT R0 [+7]
+  JUMPIF R1 [+6]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["PresetController"]
+  NAMECALL R2 R2 K5 ["initializePresets"]
+  CALL R2 1 0
+  GETUPVAL R2 0
+  DUPTABLE R4 K8 [{"sessionStarted", "importOpenError", "promptRequested"}]
+  MOVE R5 R0
+  JUMPIFNOT R5 [+1]
+  NOT R5 R1
+  SETTABLEKS R5 R4 K6 ["sessionStarted"]
+  NOT R5 R0
+  JUMPIFNOT R5 [+1]
+  NOT R5 R1
+  SETTABLEKS R5 R4 K7 ["importOpenError"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K1 ["promptRequested"]
+  NAMECALL R2 R2 K9 ["setState"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["state"]
+  GETTABLEKS R2 R3 K1 ["promptRequested"]
+  NOT R1 R2
+  FASTCALL2K ASSERT R1 K2 [+4]
+  LOADK R2 K2 ["Import prompt already requested"]
+  GETIMPORT R0 K4 [assert]
+  CALL R0 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["state"]
+  GETTABLEKS R0 R1 K5 ["sessionStarted"]
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K6 ["onClose"]
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R0 0
+  DUPTABLE R2 K7 [{"promptRequested"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K1 ["promptRequested"]
+  NAMECALL R0 R0 K8 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  DUPTABLE R2 K4 [{"sessionStarted", "promptRequested", "uploadInProgress", "importOpenError"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["sessionStarted"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K1 ["promptRequested"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["uploadInProgress"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K3 ["importOpenError"]
+  NAMECALL R0 R0 K5 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["onClose"]
+  CALL R1 0 0
+  NAMECALL R1 R0 K1 ["Cancel"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["PresetController"]
+  NAMECALL R3 R0 K1 ["GetImportTree"]
+  CALL R3 1 -1
+  NAMECALL R1 R1 K2 ["createPresetFromLastImport"]
+  CALL R1 -1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["onClose"]
+  CALL R1 0 0
+  GETUPVAL R1 1
+  DUPTABLE R3 K5 [{"uploadInProgress"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K4 ["uploadInProgress"]
+  NAMECALL R1 R1 K6 ["setState"]
+  CALL R1 2 0
+  NAMECALL R1 R0 K7 ["Upload"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
+  DUPTABLE R2 K4 [{"sessionStarted", "promptRequested", "uploadInProgress", "importOpenError"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["sessionStarted"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K1 ["promptRequested"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["uploadInProgress"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K3 ["importOpenError"]
+  SETTABLEKS R2 R0 K5 ["state"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R2 R0 K6 ["promptClosed"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K7 ["toggleEnabled"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K8 ["onClose"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K9 ["onCancel"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K10 ["onImport"]
+  GETTABLEKS R3 R1 K11 ["PluginLoaderContextItem"]
+  GETTABLEKS R2 R3 K12 ["mainButtonClickedSignal"]
+  GETTABLEKS R4 R0 K7 ["toggleEnabled"]
+  NAMECALL R2 R2 K13 ["Connect"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["PluginLoaderContextItem"]
+  GETTABLEKS R1 R2 K2 ["mainButton"]
+  GETTABLEKS R4 R0 K3 ["state"]
+  GETTABLEKS R3 R4 K4 ["promptRequested"]
+  NAMECALL R1 R1 K5 ["SetActive"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R0 K1 ["state"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  GETTABLEKS R4 R2 K3 ["sessionStarted"]
+  GETTABLEKS R6 R2 K3 ["sessionStarted"]
+  NOT R5 R6
+  JUMPIFNOT R5 [+2]
+  GETTABLEKS R5 R2 K4 ["promptRequested"]
+  GETTABLEKS R6 R2 K5 ["uploadInProgress"]
+  GETTABLEKS R7 R2 K6 ["importOpenError"]
+  NEWTABLE R8 0 8
+  GETTABLEKS R9 R1 K7 ["Plugin"]
+  GETTABLEKS R10 R1 K8 ["Mouse"]
+  GETTABLEKS R11 R1 K9 ["Store"]
+  GETTABLEKS R12 R1 K10 ["Theme"]
+  MOVE R13 R3
+  GETTABLEKS R14 R1 K11 ["Analytics"]
+  GETTABLEKS R15 R1 K12 ["CalloutController"]
+  GETTABLEKS R16 R1 K13 ["PresetController"]
+  SETLIST R8 R9 8 [1]
+  GETUPVAL R9 0
+  GETTABLEKS R10 R1 K12 ["CalloutController"]
+  MOVE R11 R3
+  CALL R9 2 0
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K14 ["provide"]
+  MOVE R10 R8
+  DUPTABLE R11 K19 [{"Dialog", "Prompt", "ProgressWidget", "ErrorWidget"}]
+  MOVE R12 R4
+  JUMPIFNOT R12 [+26]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K20 ["createElement"]
+  GETUPVAL R13 3
+  DUPTABLE R14 K25 [{"Resizable", "Title", "OnClose", "OnImport", "Localization"}]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K21 ["Resizable"]
+  LOADK R17 K7 ["Plugin"]
+  LOADK R18 K26 ["WindowTitle"]
+  NAMECALL R15 R3 K27 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K22 ["Title"]
+  GETTABLEKS R15 R0 K28 ["onCancel"]
+  SETTABLEKS R15 R14 K23 ["OnClose"]
+  GETTABLEKS R15 R0 K29 ["onImport"]
+  SETTABLEKS R15 R14 K24 ["OnImport"]
+  SETTABLEKS R3 R14 K2 ["Localization"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K15 ["Dialog"]
+  MOVE R12 R5
+  JUMPIFNOT R12 [+10]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K20 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K31 [{"OnPromptClosed"}]
+  GETTABLEKS R15 R0 K32 ["promptClosed"]
+  SETTABLEKS R15 R14 K30 ["OnPromptClosed"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K16 ["Prompt"]
+  MOVE R12 R6
+  JUMPIFNOT R12 [+17]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K20 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K33 [{"OnClose", "Title"}]
+  GETTABLEKS R15 R0 K34 ["onClose"]
+  SETTABLEKS R15 R14 K23 ["OnClose"]
+  LOADK R17 K35 ["Upload"]
+  LOADK R18 K26 ["WindowTitle"]
+  NAMECALL R15 R3 K27 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K22 ["Title"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K17 ["ProgressWidget"]
+  MOVE R12 R7
+  JUMPIFNOT R12 [+17]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K20 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K33 [{"OnClose", "Title"}]
+  GETTABLEKS R15 R0 K34 ["onClose"]
+  SETTABLEKS R15 R14 K23 ["OnClose"]
+  LOADK R17 K36 ["Error"]
+  LOADK R18 K26 ["WindowTitle"]
+  NAMECALL R15 R3 K27 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K22 ["Title"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K18 ["ErrorWidget"]
+  CALL R9 2 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Packages"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Packages"]
+  GETTABLEKS R3 R4 K7 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K8 ["ContextServices"]
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Components"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R4 K11 ["Dialogs"]
+  GETTABLEKS R6 R7 K12 ["ImportPrompt"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R4 K11 ["Dialogs"]
+  GETTABLEKS R7 R8 K13 ["MeshImportDialog"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R4 K11 ["Dialogs"]
+  GETTABLEKS R8 R9 K14 ["ProgressWidget"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R4 K11 ["Dialogs"]
+  GETTABLEKS R9 R10 K15 ["ErrorWidget"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Resources"]
+  GETTABLEKS R10 R11 K17 ["CalloutList"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R13 R0 K9 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Utility"]
+  GETTABLEKS R11 R12 K19 ["GetLocalizedString"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R13 R0 K20 ["Bin"]
+  GETTABLEKS R12 R13 K21 ["defineLuaFlags"]
+  CALL R11 1 0
+  GETTABLEKS R11 R1 K22 ["PureComponent"]
+  LOADK R13 K23 ["MainPlugin"]
+  NAMECALL R11 R11 K24 ["extend"]
+  CALL R11 2 1
+  DUPCLOSURE R12 K25 [PROTO_0]
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  DUPCLOSURE R13 K26 [PROTO_6]
+  SETTABLEKS R13 R11 K27 ["init"]
+  DUPCLOSURE R13 K28 [PROTO_7]
+  SETTABLEKS R13 R11 K29 ["didUpdate"]
+  DUPCLOSURE R13 K30 [PROTO_8]
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  SETTABLEKS R13 R11 K31 ["render"]
+  RETURN R11 1

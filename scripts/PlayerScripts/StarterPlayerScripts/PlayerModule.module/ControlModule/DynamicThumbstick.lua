@@ -47,13 +47,6 @@ local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	FFlagUserDynamicThumbstickSafeAreaUpdate = success and result
 end
 
-local FFlagUserResizeAwareTouchControls do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserResizeAwareTouchControls")
-	end)
-	FFlagUserResizeAwareTouchControls = success and result
-end
-
 local LocalPlayer = Players.LocalPlayer
 if not LocalPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -401,245 +394,133 @@ function DynamicThumbstick:UnbindContextActions()
 end
 
 function DynamicThumbstick:Create(parentFrame: GuiBase2d)
-	if FFlagUserResizeAwareTouchControls then
-		if self.thumbstickFrame then
-			self.thumbstickFrame:Destroy()
-			self.thumbstickFrame = nil
-			if self.onRenderSteppedConn then
-				self.onRenderSteppedConn:Disconnect()
-				self.onRenderSteppedConn = nil
-			end
-			if self.absoluteSizeChangedConn then
-				self.absoluteSizeChangedConn:Disconnect()
-				self.absoluteSizeChangedConn = nil
-			end
+	if self.thumbstickFrame then
+		self.thumbstickFrame:Destroy()
+		self.thumbstickFrame = nil
+		if self.onRenderSteppedConn then
+			self.onRenderSteppedConn:Disconnect()
+			self.onRenderSteppedConn = nil
 		end
-
-		local safeInset: number = if FFlagUserDynamicThumbstickSafeAreaUpdate then SAFE_AREA_INSET_MAX else 0
-		local function layoutThumbstickFrame(portraitMode: boolean)
-			if portraitMode then
-				self.thumbstickFrame.Size = UDim2.new(1, safeInset, 0.4, safeInset)
-				self.thumbstickFrame.Position = UDim2.new(0, -safeInset, 0.6, 0)
-			else
-				self.thumbstickFrame.Size = UDim2.new(0.4, safeInset, 2/3, safeInset)
-				self.thumbstickFrame.Position = UDim2.new(0, -safeInset, 1/3, 0)
-			end
+		if self.absoluteSizeChangedConn then
+			self.absoluteSizeChangedConn:Disconnect()
+			self.absoluteSizeChangedConn = nil
 		end
+	end
 
-		self.thumbstickFrame = Instance.new("Frame")
-		self.thumbstickFrame.BorderSizePixel = 0
-		self.thumbstickFrame.Name = "DynamicThumbstickFrame"
-		self.thumbstickFrame.Visible = false
-		self.thumbstickFrame.BackgroundTransparency = 1.0
-		self.thumbstickFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-		self.thumbstickFrame.Active = false
-		layoutThumbstickFrame(false)
-
-		self.startImage = Instance.new("ImageLabel")
-		self.startImage.Name = "ThumbstickStart"
-		self.startImage.Visible = true
-		self.startImage.BackgroundTransparency = 1
-		self.startImage.Image = TOUCH_CONTROLS_SHEET
-		self.startImage.ImageRectOffset = Vector2.new(1,1)
-		self.startImage.ImageRectSize = Vector2.new(144, 144)
-		self.startImage.ImageColor3 = Color3.new(0, 0, 0)
-		self.startImage.AnchorPoint = Vector2.new(0.5, 0.5)
-		self.startImage.ZIndex = 10
-		self.startImage.Parent = self.thumbstickFrame
-
-		self.endImage = Instance.new("ImageLabel")
-		self.endImage.Name = "ThumbstickEnd"
-		self.endImage.Visible = true
-		self.endImage.BackgroundTransparency = 1
-		self.endImage.Image = TOUCH_CONTROLS_SHEET
-		self.endImage.ImageRectOffset = Vector2.new(1,1)
-		self.endImage.ImageRectSize =  Vector2.new(144, 144)
-		self.endImage.AnchorPoint = Vector2.new(0.5, 0.5)
-		self.endImage.ZIndex = 10
-		self.endImage.Parent = self.thumbstickFrame
-
-		for i = 1, NUM_MIDDLE_IMAGES do
-			self.middleImages[i] = Instance.new("ImageLabel")
-			self.middleImages[i].Name = "ThumbstickMiddle"
-			self.middleImages[i].Visible = false
-			self.middleImages[i].BackgroundTransparency = 1
-			self.middleImages[i].Image = TOUCH_CONTROLS_SHEET
-			self.middleImages[i].ImageRectOffset = Vector2.new(1,1)
-			self.middleImages[i].ImageRectSize = Vector2.new(144, 144)
-			self.middleImages[i].ImageTransparency = MIDDLE_TRANSPARENCIES[i]
-			self.middleImages[i].AnchorPoint = Vector2.new(0.5, 0.5)
-			self.middleImages[i].ZIndex = 9
-			self.middleImages[i].Parent = self.thumbstickFrame
+	local safeInset: number = if FFlagUserDynamicThumbstickSafeAreaUpdate then SAFE_AREA_INSET_MAX else 0
+	local function layoutThumbstickFrame(portraitMode: boolean)
+		if portraitMode then
+			self.thumbstickFrame.Size = UDim2.new(1, safeInset, 0.4, safeInset)
+			self.thumbstickFrame.Position = UDim2.new(0, -safeInset, 0.6, 0)
+		else
+			self.thumbstickFrame.Size = UDim2.new(0.4, safeInset, 2/3, safeInset)
+			self.thumbstickFrame.Position = UDim2.new(0, -safeInset, 1/3, 0)
 		end
+	end
 
-		local function ResizeThumbstick()
-			local screenSize = parentFrame.AbsoluteSize
-			local isBigScreen = math.min(screenSize.X, screenSize.Y) > 500
+	self.thumbstickFrame = Instance.new("Frame")
+	self.thumbstickFrame.BorderSizePixel = 0
+	self.thumbstickFrame.Name = "DynamicThumbstickFrame"
+	self.thumbstickFrame.Visible = false
+	self.thumbstickFrame.BackgroundTransparency = 1.0
+	self.thumbstickFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	self.thumbstickFrame.Active = false
+	layoutThumbstickFrame(false)
 
-			local DEFAULT_THUMBSTICK_SIZE = 45
-			local DEFAULT_RING_SIZE = 20
-			local DEFAULT_MIDDLE_SIZE = 10
-			local DEFAULT_MIDDLE_SPACING = DEFAULT_MIDDLE_SIZE + 4
-			local RADIUS_OF_DEAD_ZONE = 2
-			local RADIUS_OF_MAX_SPEED = 20
+	self.startImage = Instance.new("ImageLabel")
+	self.startImage.Name = "ThumbstickStart"
+	self.startImage.Visible = true
+	self.startImage.BackgroundTransparency = 1
+	self.startImage.Image = TOUCH_CONTROLS_SHEET
+	self.startImage.ImageRectOffset = Vector2.new(1,1)
+	self.startImage.ImageRectSize = Vector2.new(144, 144)
+	self.startImage.ImageColor3 = Color3.new(0, 0, 0)
+	self.startImage.AnchorPoint = Vector2.new(0.5, 0.5)
+	self.startImage.ZIndex = 10
+	self.startImage.Parent = self.thumbstickFrame
 
-			if isBigScreen then
-				self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE * 2
-				self.thumbstickRingSize = DEFAULT_RING_SIZE * 2
-				self.middleSize = DEFAULT_MIDDLE_SIZE * 2
-				self.middleSpacing = DEFAULT_MIDDLE_SPACING * 2
-				self.radiusOfDeadZone = RADIUS_OF_DEAD_ZONE * 2
-				self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED * 2
-			else
-				self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE
-				self.thumbstickRingSize = DEFAULT_RING_SIZE
-				self.middleSize = DEFAULT_MIDDLE_SIZE
-				self.middleSpacing = DEFAULT_MIDDLE_SPACING
-				self.radiusOfDeadZone = RADIUS_OF_DEAD_ZONE
-				self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED
-			end
+	self.endImage = Instance.new("ImageLabel")
+	self.endImage.Name = "ThumbstickEnd"
+	self.endImage.Visible = true
+	self.endImage.BackgroundTransparency = 1
+	self.endImage.Image = TOUCH_CONTROLS_SHEET
+	self.endImage.ImageRectOffset = Vector2.new(1,1)
+	self.endImage.ImageRectSize =  Vector2.new(144, 144)
+	self.endImage.AnchorPoint = Vector2.new(0.5, 0.5)
+	self.endImage.ZIndex = 10
+	self.endImage.Parent = self.thumbstickFrame
 
-			self.startImage.Position = UDim2.new(0, self.thumbstickRingSize * 3.3 + safeInset, 1, -self.thumbstickRingSize * 2.8 - safeInset)
-			self.startImage.Size = UDim2.new(0, self.thumbstickRingSize  * 3.7, 0, self.thumbstickRingSize  * 3.7)
+	for i = 1, NUM_MIDDLE_IMAGES do
+		self.middleImages[i] = Instance.new("ImageLabel")
+		self.middleImages[i].Name = "ThumbstickMiddle"
+		self.middleImages[i].Visible = false
+		self.middleImages[i].BackgroundTransparency = 1
+		self.middleImages[i].Image = TOUCH_CONTROLS_SHEET
+		self.middleImages[i].ImageRectOffset = Vector2.new(1,1)
+		self.middleImages[i].ImageRectSize = Vector2.new(144, 144)
+		self.middleImages[i].ImageTransparency = MIDDLE_TRANSPARENCIES[i]
+		self.middleImages[i].AnchorPoint = Vector2.new(0.5, 0.5)
+		self.middleImages[i].ZIndex = 9
+		self.middleImages[i].Parent = self.thumbstickFrame
+	end
 
-			self.endImage.Position = self.startImage.Position
-			self.endImage.Size = UDim2.new(0, self.thumbstickSize * 0.8, 0, self.thumbstickSize * 0.8)
-		end
-
-		ResizeThumbstick()
-		self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
-
-		local CameraChangedConn: RBXScriptConnection? = nil
-		local function onCurrentCameraChanged()
-			if CameraChangedConn then
-				CameraChangedConn:Disconnect()
-				CameraChangedConn = nil
-			end
-			local newCamera = workspace.CurrentCamera
-			if newCamera then
-				local function onViewportSizeChanged()
-					local size = newCamera.ViewportSize
-					local portraitMode = size.X < size.Y
-					layoutThumbstickFrame(portraitMode)
-				end
-				CameraChangedConn = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(onViewportSizeChanged)
-				onViewportSizeChanged()
-			end
-		end
-		workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
-		if workspace.CurrentCamera then
-			onCurrentCameraChanged()
-		end
-	else
-		if self.thumbstickFrame then
-			self.thumbstickFrame:Destroy()
-			self.thumbstickFrame = nil
-			if self.onRenderSteppedConn then
-				self.onRenderSteppedConn:Disconnect()
-				self.onRenderSteppedConn = nil
-			end
-		end
-
-		self.thumbstickSize = 45
-		self.thumbstickRingSize = 20
-		self.middleSize = 10
-		self.middleSpacing = self.middleSize + 4
-		self.radiusOfDeadZone = 2
-		self.radiusOfMaxSpeed = 20
-
+	local function ResizeThumbstick()
 		local screenSize = parentFrame.AbsoluteSize
 		local isBigScreen = math.min(screenSize.X, screenSize.Y) > 500
+
+		local DEFAULT_THUMBSTICK_SIZE = 45
+		local DEFAULT_RING_SIZE = 20
+		local DEFAULT_MIDDLE_SIZE = 10
+		local DEFAULT_MIDDLE_SPACING = DEFAULT_MIDDLE_SIZE + 4
+		local RADIUS_OF_DEAD_ZONE = 2
+		local RADIUS_OF_MAX_SPEED = 20
+
 		if isBigScreen then
-			self.thumbstickSize = self.thumbstickSize * 2
-			self.thumbstickRingSize = self.thumbstickRingSize * 2
-			self.middleSize = self.middleSize * 2
-			self.middleSpacing = self.middleSpacing * 2
-			self.radiusOfDeadZone = self.radiusOfDeadZone * 2
-			self.radiusOfMaxSpeed = self.radiusOfMaxSpeed * 2
+			self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE * 2
+			self.thumbstickRingSize = DEFAULT_RING_SIZE * 2
+			self.middleSize = DEFAULT_MIDDLE_SIZE * 2
+			self.middleSpacing = DEFAULT_MIDDLE_SPACING * 2
+			self.radiusOfDeadZone = RADIUS_OF_DEAD_ZONE * 2
+			self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED * 2
+		else
+			self.thumbstickSize = DEFAULT_THUMBSTICK_SIZE
+			self.thumbstickRingSize = DEFAULT_RING_SIZE
+			self.middleSize = DEFAULT_MIDDLE_SIZE
+			self.middleSpacing = DEFAULT_MIDDLE_SPACING
+			self.radiusOfDeadZone = RADIUS_OF_DEAD_ZONE
+			self.radiusOfMaxSpeed = RADIUS_OF_MAX_SPEED
 		end
 
-		local safeInset: number = if FFlagUserDynamicThumbstickSafeAreaUpdate then SAFE_AREA_INSET_MAX else 0
-		local function layoutThumbstickFrame(portraitMode: boolean)
-			if portraitMode then
-				self.thumbstickFrame.Size = UDim2.new(1, safeInset, 0.4, safeInset)
-				self.thumbstickFrame.Position = UDim2.new(0, -safeInset, 0.6, 0)
-			else
-				self.thumbstickFrame.Size = UDim2.new(0.4, safeInset, 2/3, safeInset)
-				self.thumbstickFrame.Position = UDim2.new(0, -safeInset, 1/3, 0)
-			end
-		end
-
-		self.thumbstickFrame = Instance.new("Frame")
-		self.thumbstickFrame.BorderSizePixel = 0
-		self.thumbstickFrame.Name = "DynamicThumbstickFrame"
-		self.thumbstickFrame.Visible = false
-		self.thumbstickFrame.BackgroundTransparency = 1.0
-		self.thumbstickFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-		self.thumbstickFrame.Active = false
-		layoutThumbstickFrame(false)
-
-		self.startImage = Instance.new("ImageLabel")
-		self.startImage.Name = "ThumbstickStart"
-		self.startImage.Visible = true
-		self.startImage.BackgroundTransparency = 1
-		self.startImage.Image = TOUCH_CONTROLS_SHEET
-		self.startImage.ImageRectOffset = Vector2.new(1,1)
-		self.startImage.ImageRectSize = Vector2.new(144, 144)
-		self.startImage.ImageColor3 = Color3.new(0, 0, 0)
-		self.startImage.AnchorPoint = Vector2.new(0.5, 0.5)
 		self.startImage.Position = UDim2.new(0, self.thumbstickRingSize * 3.3 + safeInset, 1, -self.thumbstickRingSize * 2.8 - safeInset)
 		self.startImage.Size = UDim2.new(0, self.thumbstickRingSize  * 3.7, 0, self.thumbstickRingSize  * 3.7)
-		self.startImage.ZIndex = 10
-		self.startImage.Parent = self.thumbstickFrame
 
-		self.endImage = Instance.new("ImageLabel")
-		self.endImage.Name = "ThumbstickEnd"
-		self.endImage.Visible = true
-		self.endImage.BackgroundTransparency = 1
-		self.endImage.Image = TOUCH_CONTROLS_SHEET
-		self.endImage.ImageRectOffset = Vector2.new(1,1)
-		self.endImage.ImageRectSize =  Vector2.new(144, 144)
-		self.endImage.AnchorPoint = Vector2.new(0.5, 0.5)
 		self.endImage.Position = self.startImage.Position
 		self.endImage.Size = UDim2.new(0, self.thumbstickSize * 0.8, 0, self.thumbstickSize * 0.8)
-		self.endImage.ZIndex = 10
-		self.endImage.Parent = self.thumbstickFrame
+	end
 
-		for i = 1, NUM_MIDDLE_IMAGES do
-			self.middleImages[i] = Instance.new("ImageLabel")
-			self.middleImages[i].Name = "ThumbstickMiddle"
-			self.middleImages[i].Visible = false
-			self.middleImages[i].BackgroundTransparency = 1
-			self.middleImages[i].Image = TOUCH_CONTROLS_SHEET
-			self.middleImages[i].ImageRectOffset = Vector2.new(1,1)
-			self.middleImages[i].ImageRectSize = Vector2.new(144, 144)
-			self.middleImages[i].ImageTransparency = MIDDLE_TRANSPARENCIES[i]
-			self.middleImages[i].AnchorPoint = Vector2.new(0.5, 0.5)
-			self.middleImages[i].ZIndex = 9
-			self.middleImages[i].Parent = self.thumbstickFrame
-		end
+	ResizeThumbstick()
+	self.absoluteSizeChangedConn = parentFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeThumbstick)
 
-		local CameraChangedConn: RBXScriptConnection? = nil
-		local function onCurrentCameraChanged()
-			if CameraChangedConn then
-				CameraChangedConn:Disconnect()
-				CameraChangedConn = nil
-			end
-			local newCamera = workspace.CurrentCamera
-			if newCamera then
-				local function onViewportSizeChanged()
-					local size = newCamera.ViewportSize
-					local portraitMode = size.X < size.Y
-					layoutThumbstickFrame(portraitMode)
-				end
-				CameraChangedConn = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(onViewportSizeChanged)
-				onViewportSizeChanged()
-			end
+	local CameraChangedConn: RBXScriptConnection? = nil
+	local function onCurrentCameraChanged()
+		if CameraChangedConn then
+			CameraChangedConn:Disconnect()
+			CameraChangedConn = nil
 		end
-		workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
-		if workspace.CurrentCamera then
-			onCurrentCameraChanged()
+		local newCamera = workspace.CurrentCamera
+		if newCamera then
+			local function onViewportSizeChanged()
+				local size = newCamera.ViewportSize
+				local portraitMode = size.X < size.Y
+				layoutThumbstickFrame(portraitMode)
+			end
+			CameraChangedConn = newCamera:GetPropertyChangedSignal("ViewportSize"):Connect(onViewportSizeChanged)
+			onViewportSizeChanged()
 		end
+	end
+	workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(onCurrentCameraChanged)
+	if workspace.CurrentCamera then
+		onCurrentCameraChanged()
 	end
 
 	self.moveTouchStartPosition = nil

@@ -13,4 +13,5 @@ return {
 	useGetTextBoundsAsync = UIBloxFlags.GetFFlagUIBloxUseGetTextBoundsAsync(),
 	useTokensWithScale = UIBloxFlags.GetFFlagUIBloxUseTokensWithScale(),
 	useNewHeaderBar = UIBloxFlags.GetFFlagUIBloxUseNewHeaderBar(),
+	ignoreRichTextTagsForTextSizeCalculation = UIBloxFlags.GetFFlagUIBloxIgnoreRichTextTagsForTextSizeCalculation(),
 }

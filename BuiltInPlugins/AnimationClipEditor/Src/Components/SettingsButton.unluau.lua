@@ -6,19 +6,19 @@ local var3 = require(var0.Packages.Framework).ContextServices
 local var4 = require(var0.Src.Components.SettingsMenu)
 local var5 = var1.PureComponent:extend("SettingsButton")
 function var5.init(arg1)
-   local var30 = {}
-   var30.showMenu = false
-   arg1.state = var30
+   local var29 = {}
+   var29.showMenu = false
+   arg1.state = var29
    function arg1.showMenu()
-      local var33 = {}
-      var33.showMenu = true
-      arg1:setState(var33)
+      local var32 = {}
+      var32.showMenu = true
+      arg1:setState(var32)
    end
    
    function arg1.hideMenu()
-      local var37 = {}
-      var37.showMenu = false
-      arg1:setState(var37)
+      local var36 = {}
+      var36.showMenu = false
+      arg1:setState(var36)
    end
    
    function arg1.mouseEnter()
@@ -42,56 +42,56 @@ end
 local function fun6(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var69 = {}
-   var69.BackgroundColor3 = var1.backgroundColor
-   var69.BorderColor3 = var1.borderColor
-   var69.Size = UDim2.new(0, var2.SCROLL_BAR_SIZE, 0, var2.TIMELINE_HEIGHT)
-   var69.Image = var1.settingsButtonTheme.image
-   var69.ScaleType = Enum.ScaleType.Fit
-   var69.ImageColor3 = var1.settingsButtonTheme.imageColor
-   var69.AutoButtonColor = false
+   local var68 = {}
+   var68.BackgroundColor3 = var1.backgroundColor
+   var68.BorderColor3 = var1.borderColor
+   var68.Size = UDim2.new(0, var2.SCROLL_BAR_SIZE, 0, var2.TIMELINE_HEIGHT)
+   var68.Image = var1.settingsButtonTheme.image
+   var68.ScaleType = Enum.ScaleType.Fit
+   var68.ImageColor3 = var1.settingsButtonTheme.imageColor
+   var68.AutoButtonColor = false
    var1.Event.Activated = arg1.showMenu
    var1.Event.MouseEnter = arg1.mouseEnter
    var1.Event.MouseLeave = arg1.mouseLeave
-   local var98 = {}
-   local var102 = {}
-   var102.ShowMenu = arg1.state.showMenu
-   var102.OnMenuOpened = arg1.hideMenu
-   var102.OnChangeFPS = var0.OnChangeFPS
-   var102.OnChangeGridSpeed = var0.OnChangeGridSpeed
-   var102.OnChangePlaybackSpeed = var0.OnChangePlaybackSpeed
-   var98.SettingsMenu = var1.createElement(var4, var102)
-   return var1.createElement("ImageButton", var69, var98)
+   local var97 = {}
+   local var101 = {}
+   var101.ShowMenu = arg1.state.showMenu
+   var101.OnMenuOpened = arg1.hideMenu
+   var101.OnChangeFPS = var0.OnChangeFPS
+   var101.OnChangeGridSpeed = var0.OnChangeGridSpeed
+   var101.OnChangePlaybackSpeed = var0.OnChangePlaybackSpeed
+   var97.SettingsMenu = var1.createElement(var4, var101)
+   return var1.createElement("ImageButton", var68, var97)
 end
 
 function var5.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var69 = {}
-   var69.BackgroundColor3 = var1.backgroundColor
-   var69.BorderColor3 = var1.borderColor
-   var69.Size = UDim2.new(0, var2.SCROLL_BAR_SIZE, 0, var2.TIMELINE_HEIGHT)
-   var69.Image = var1.settingsButtonTheme.image
-   var69.ScaleType = Enum.ScaleType.Fit
-   var69.ImageColor3 = var1.settingsButtonTheme.imageColor
-   var69.AutoButtonColor = false
+   local var68 = {}
+   var68.BackgroundColor3 = var1.backgroundColor
+   var68.BorderColor3 = var1.borderColor
+   var68.Size = UDim2.new(0, var2.SCROLL_BAR_SIZE, 0, var2.TIMELINE_HEIGHT)
+   var68.Image = var1.settingsButtonTheme.image
+   var68.ScaleType = Enum.ScaleType.Fit
+   var68.ImageColor3 = var1.settingsButtonTheme.imageColor
+   var68.AutoButtonColor = false
    var1.Event.Activated = arg1.showMenu
    var1.Event.MouseEnter = arg1.mouseEnter
    var1.Event.MouseLeave = arg1.mouseLeave
-   local var98 = {}
-   local var102 = {}
-   var102.ShowMenu = arg1.state.showMenu
-   var102.OnMenuOpened = arg1.hideMenu
-   var102.OnChangeFPS = var0.OnChangeFPS
-   var102.OnChangeGridSpeed = var0.OnChangeGridSpeed
-   var102.OnChangePlaybackSpeed = var0.OnChangePlaybackSpeed
-   var98.SettingsMenu = var1.createElement(var4, var102)
-   return var1.createElement("ImageButton", var69, var98)
+   local var97 = {}
+   local var101 = {}
+   var101.ShowMenu = arg1.state.showMenu
+   var101.OnMenuOpened = arg1.hideMenu
+   var101.OnChangeFPS = var0.OnChangeFPS
+   var101.OnChangeGridSpeed = var0.OnChangeGridSpeed
+   var101.OnChangePlaybackSpeed = var0.OnChangePlaybackSpeed
+   var97.SettingsMenu = var1.createElement(var4, var101)
+   return var1.createElement("ImageButton", var68, var97)
 end
 
 fun6 = var3.withContext
-local var107 = {}
-var107.Mouse = var3.Mouse
-var107.Stylizer = var3.Stylizer
-var5 = fun6(var107)(var5)
+local var106 = {}
+var106.Mouse = var3.Mouse
+var106.Stylizer = var3.Stylizer
+var5 = fun6(var106)(var5)
 return var5

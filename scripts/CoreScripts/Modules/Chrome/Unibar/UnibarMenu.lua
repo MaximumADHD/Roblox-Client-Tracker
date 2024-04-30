@@ -34,8 +34,9 @@ local GetFFlagNewUnibarIA = require(Chrome.Flags.GetFFlagNewUnibarIA)
 local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagOpenControlsOnMenuOpen = require(Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
-local GetFFlagSupportCompactUtility = require(Chrome.Flags.GetFFlagSupportCompactUtility)
-local GetFFlagEnableScreenshotUtility = require(Chrome.Flags.GetFFlagEnableScreenshotUtility)
+local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
+local GetFFlagEnableScreenshotUtility =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }

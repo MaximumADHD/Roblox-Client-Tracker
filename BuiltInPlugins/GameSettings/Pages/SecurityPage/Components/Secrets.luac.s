@@ -1,0 +1,81 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K4 [{"LayoutOrder", "Title"}]
+  GETTABLEKS R5 R1 K2 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
+  GETTABLEKS R5 R1 K5 ["Localization"]
+  LOADK R7 K6 ["General"]
+  LOADK R8 K7 ["TitleSecrets"]
+  NAMECALL R5 R5 K8 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K3 ["Title"]
+  DUPTABLE R5 K10 [{"TextBox"}]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K15 [{"Height", "MultiLine", "OnTextChanged", "Text"}]
+  LOADN R9 130
+  SETTABLEKS R9 R8 K11 ["Height"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K12 ["MultiLine"]
+  GETTABLEKS R9 R1 K16 ["OnChanged"]
+  SETTABLEKS R9 R8 K13 ["OnTextChanged"]
+  GETTABLEKS R9 R1 K17 ["Secrets"]
+  SETTABLEKS R9 R8 K14 ["Text"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K9 ["TextBox"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["LocalSecretsInStudio"]
+  NAMECALL R0 R0 K3 ["GetFastFlag"]
+  CALL R0 2 1
+  JUMPIF R0 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R4 R1 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Cryo"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K13 ["UI"]
+  GETTABLEKS R6 R5 K14 ["TextInput"]
+  GETTABLEKS R7 R5 K15 ["TitledFrame"]
+  GETTABLEKS R8 R4 K16 ["ContextServices"]
+  GETTABLEKS R9 R8 K17 ["withContext"]
+  GETTABLEKS R10 R2 K18 ["PureComponent"]
+  LOADK R12 K19 ["Secrets"]
+  NAMECALL R10 R10 K20 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K21 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K22 ["render"]
+  MOVE R11 R9
+  DUPTABLE R12 K24 [{"Localization"}]
+  GETTABLEKS R13 R8 K23 ["Localization"]
+  SETTABLEKS R13 R12 K23 ["Localization"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

@@ -9,8 +9,15 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local GetFStringFTUXVersion = require(script.Parent.GetFStringFTUXVersion)
 local GetFIntFTUXDelay = require(script.Parent.GetFIntFTUXDelay)
 
-local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
-local useLastInputMode = ReactFocusNavigation.useLastInputMode
+local useLastInputMode
+local GetFFlagEnableAppCommonInputHooks =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableAppCommonInputHooks
+if GetFFlagEnableAppCommonInputHooks() then
+	useLastInputMode = require(CorePackages.Workspace.Packages.FocusNavigationUtils).useLastInputMode
+else
+	local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
+	useLastInputMode = ReactFocusNavigation.useLastInputMode
+end
 
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 

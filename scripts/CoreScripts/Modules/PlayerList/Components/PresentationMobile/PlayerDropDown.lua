@@ -27,7 +27,6 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local Images = UIBlox.App.ImageSet.Images
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
-local isRoactAbuseReportMenuEnabled = require(RobloxGui.Modules.TrustAndSafety.isRoactAbuseReportMenuEnabled)
 
 local PlayerList = Components.Parent
 
@@ -159,15 +158,8 @@ function PlayerDropDown:createReportButton()
 				local InGameMenu = require(RobloxGui.Modules.InGameMenuInit)
 				InGameMenu.openReportDialog(selectedPlayer, self.__componentName)
 			else
-				if isRoactAbuseReportMenuEnabled() then
-					local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
-					ReportAbuseMenu:ReportPlayer(selectedPlayer, self.__componentName)
-				else
-					-- This module has to be required here or it yields on initalization which breaks the unit tests.
-					-- TODO: Revist this with new in game menu.
-					local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenu)
-					ReportAbuseMenu:ReportPlayer(selectedPlayer, self.__componentName)
-				end
+				local ReportAbuseMenu = require(RobloxGui.Modules.Settings.Pages.ReportAbuseMenuNewContainerPage)
+				ReportAbuseMenu:ReportPlayer(selectedPlayer, self.__componentName)
 				self.props.closeDropDown()
 			end
 		end,

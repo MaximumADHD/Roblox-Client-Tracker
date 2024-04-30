@@ -43,9 +43,9 @@ PROTO_1:
 MAIN:
   PREPVARARGS 0
   DUPTABLE R0 K2 [{"Export", "Import"}]
-  LOADK R1 K3 ["F2"]
+  LOADK R1 K3 ["Ctrl+Alt+E"]
   SETTABLEKS R1 R0 K0 ["Export"]
-  LOADK R1 K4 ["F6"]
+  LOADK R1 K4 ["Ctrl+Alt+I"]
   SETTABLEKS R1 R0 K1 ["Import"]
   DUPCLOSURE R1 K5 [PROTO_0]
   DUPCLOSURE R2 K6 [PROTO_1]

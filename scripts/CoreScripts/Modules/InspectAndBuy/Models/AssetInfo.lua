@@ -52,6 +52,7 @@ local GetFFlagIBEnableRespectSaleLocation = require(InspectAndBuyFolder.Flags.Ge
 local GetFFlagIBEnableFixForOwnedText = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForOwnedText)
 local GetFFlagIBEnableFixForSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForSaleLocation)
 local GetFFlagIBFixBuyingFromResellers = require(InspectAndBuyFolder.Flags.GetFFlagIBFixBuyingFromResellers)
+local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local AssetInfo = {}
 
@@ -247,8 +248,26 @@ if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
 			bundleInfo.collectibleLowestAvailableResaleItemInstanceId
 		newAsset.collectibleQuantityLimitPerUser = bundleInfo.collectibleQuantityLimitPerUser
 		newAsset.collectibleIsLimited = bundleInfo.collectibleIsLimited
+		--[[
+			Definition of isForSale
+			In this new refactored data model, if an asset if part of bundle, the assetInfo.isForSale is indicating if the bundle, the asset belongs to, is for sale or not
+
+			Why: The frontend logic doesn't need to consider if it's asset for sale or the bundle for sale.
+			If the asset is part of a bundle, it's can be sold when bundle is for sale in business logic.
+			In real world, an asset inside bundle is NOT for sale on production.
+			According to current design on backend, they should not be for sale, otherwise, we have more problem.
+
+			Thus, calculating assetInBundleButNotForSale is not necessary.
+			Thus, here, we simplify to use bundleInfo.isForSale to indicate if the assetInBundle is for sale.
+		--]]
 		newAsset.isForSale = bundleInfo.isForSale
 		newAsset.remaining = bundleInfo.remaining
+		if GetFFlagIBEnableLimitedBundle() then
+			newAsset.owned = bundleInfo.owned
+			if not newAsset.collectibleIsLimited then
+				newAsset.isForSale = newAsset.isForSale and not newAsset.owned
+			end
+		end
 
 		newAsset.description = bundleInfo.description or ""
 		newAsset.productType = Constants.ProductType.CollectibleItem

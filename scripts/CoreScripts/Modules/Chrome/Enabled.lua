@@ -1,8 +1,11 @@
+local CorePackages = game:GetService("CorePackages")
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(script.Parent.Parent.ExperienceMenuABTestManager)
 local GetFFlagFixChromeAllowlistWait = require(script.Parent.Parent.Flags.GetFFlagFixChromeAllowlistWait)
-local GetFStringInGameMenuChromeForcedUserIds = require(script.Parent.Flags.GetFStringInGameMenuChromeForcedUserIds)
-local GetFIntInGameMenuChromeAllowlistTimeout = require(script.Parent.Flags.GetFIntInGameMenuChromeAllowlistTimeout)
+local GetFStringInGameMenuChromeForcedUserIds =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringInGameMenuChromeForcedUserIds
+local GetFIntInGameMenuChromeAllowlistTimeout =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntInGameMenuChromeAllowlistTimeout
 
 game:DefineFastFlag("EnableInGameMenuChrome", false)
 

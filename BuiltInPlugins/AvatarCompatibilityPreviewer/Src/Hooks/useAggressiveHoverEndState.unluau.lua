@@ -3,6 +3,7 @@ local var0 = script:FindFirstAncestor("AvatarCompatibilityPreviewer")
 local var1 = require(var0.Packages.React)
 local var2 = require(var0.Src.Hooks.useToggleState)
 local var3 = require(var0.Packages.Framework).ContextServices.Focus
+local var4 = game:GetService("UserInputService")
 local function fun0(arg1, arg2)
    local var0 = arg2.AbsolutePosition
    local var1 = var0 + arg2.AbsoluteSize
@@ -22,9 +23,9 @@ local function fun0(arg1, arg2)
 end
 
 return function(arg1)
-   assert(var3:use():get():IsA("PluginGui"), "Focus isn\'t inside a PluginGui")
-   local var0 = var2(false)
-   local var1 = var0.enabled
+   local var0 = var3:use():get()
+   local var1 = var2(false)
+   local var2 = var1.enabled
    var1.useEffect(function(arg1, arg2)
       local var0 = arg2.AbsolutePosition
       local var1 = var0 + arg2.AbsoluteSize
@@ -42,8 +43,8 @@ return function(arg1)
       end
       return false
    end, {})
-   local var2 = {}
-   var2.hover = var0.enable
-   var2.isHovered = var0.enabled
-   return var2
+   local var3 = {}
+   var3.hover = var1.enable
+   var3.isHovered = var1.enabled
+   return var3
 end

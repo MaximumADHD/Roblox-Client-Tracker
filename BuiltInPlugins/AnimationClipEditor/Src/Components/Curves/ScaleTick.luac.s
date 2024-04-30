@@ -168,7 +168,7 @@ MAIN:
   GETTABLEKS R6 R7 K13 ["Constants"]
   CALL R5 1 1
   GETTABLEKS R6 R1 K14 ["PureComponent"]
-  LOADK R8 K15 ["TimelineTick"]
+  LOADK R8 K15 ["ScaleTick"]
   NAMECALL R6 R6 K16 ["extend"]
   CALL R6 2 1
   DUPCLOSURE R7 K17 [PROTO_0]

@@ -1,5 +1,7 @@
 local Players = game:GetService("Players")
-local GetFStringInGameMenuChromeForcedUserIds = require(script.Parent.GetFStringInGameMenuChromeForcedUserIds)
+local CorePackages = game:GetService("CorePackages")
+local GetFStringInGameMenuChromeForcedUserIds =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFStringInGameMenuChromeForcedUserIds
 
 game:DefineFastFlag("ChromeObservableStateCheck", false)
 

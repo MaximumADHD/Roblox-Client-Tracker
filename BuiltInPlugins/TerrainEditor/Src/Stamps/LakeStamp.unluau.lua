@@ -118,8 +118,10 @@ function var4.blendHeightMap(arg1)
    local var4 = arg1._heightmapCache[var0]
    if var3 < var4 then
       var4 = var3
-      local var0 = arg1._heightmapCache
-      var0[1] = var3
+      local var276 = arg1._heightmapCache
+      var276[1] = var3
+      local var1 = arg1._blendingFactorMap
+      var1[1] = 0
    end
    if arg1._addBlending then
       local var0 = arg1._blendingFactorMap[var0]
@@ -151,8 +153,8 @@ function var4.postProcessing(arg1)
             end
             if arg1._blendingFactorMap[arg1:getIndex(var0, var3)] <= 0 then
                if true then
-                  local var327 = arg1._materialMap[var0][var0]
-                  var327[1] = Enum.Material.Water
+                  local var329 = arg1._materialMap[var0][var0]
+                  var329[1] = Enum.Material.Water
                   local var1 = arg1._occupancyMap[var0][var0]
                   var1[1] = 1
                end

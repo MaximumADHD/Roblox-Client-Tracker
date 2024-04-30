@@ -23,6 +23,8 @@ local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.
 local FavoriteShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).Favorite
 local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
+local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
+
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
 local FAVORITE_IMAGE_NOT_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite_off.png"
 local ROBLOX_CREATOR_ID = "1"
@@ -73,6 +75,9 @@ function FavoritesButton:willUpdate(nextProps)
 			partOfBundle = #assetInfo.bundlesAssetIsIn > 0
 		end
 		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+		if GetFFlagIBEnableLimitedBundle() then
+			partOfBundleAndOffsale = partOfBundle
+		end
 
 		coroutine.wrap(function()
 			if not partOfBundleAndOffsale then

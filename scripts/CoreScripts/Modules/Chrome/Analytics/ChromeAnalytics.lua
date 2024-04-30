@@ -17,6 +17,8 @@ local ChromeService = require(Chrome.Service)
 local Constants = require(Chrome.Unibar.Constants)
 local Types = require(Chrome.Service.Types)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
+local GetFFlagEnableScreenshotUtility =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 
 local Tracker = require(script.Parent.Tracker)
 
@@ -31,6 +33,8 @@ local TRACKER_NAME_WINDOW_TIME = "window_time_"
 
 local SOURCE_NAME_UNKNOWN = "unknown"
 local SOURCE_NAME_UNIBAR = "unibar"
+
+local CAPTURES_BTN = "CapturesChromeBarUtilityEntrypointActivated"
 
 local STATUS = {
 	INACTIVE = 0,
@@ -72,6 +76,8 @@ export type ChromeAnalytics = {
 		willReposition: boolean
 	) -> nil,
 	onWindowResize: (ChromeAnalytics, integrationId: Types.IntegrationId, currentWindowSize: UDim2) -> nil,
+
+	onCaptureTaken: (ChromeAnalytics, target: string, eventType: string, ctx: string) -> nil,
 
 	_target: string,
 	_context: string,
@@ -506,6 +512,19 @@ function ChromeAnalytics:onWindowResize(integrationId: Types.IntegrationId, curr
 			current_height = currentWindowSize.Height.Offset,
 		})
 	end
+	return nil
+end
+
+-- Custom analytics tracking for captures compact utility
+function ChromeAnalytics:onCaptureTaken(target, eventType, ctx)
+	if GetFFlagEnableScreenshotUtility() then
+		AnalyticsService:SendEventDeferred(target, ctx, eventType, {
+			isUnder13 = if Players.LocalPlayer then Players.LocalPlayer:GetUnder13() else nil,
+			pid = tostring(game.PlaceId),
+			btn = CAPTURES_BTN,
+		})
+	end
+
 	return nil
 end
 

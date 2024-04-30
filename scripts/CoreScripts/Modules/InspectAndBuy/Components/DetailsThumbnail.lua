@@ -19,6 +19,7 @@ local GetFFlagIBEnableLimitedItemBugFixAndAlignment =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedItemBugFixAndAlignment)
 local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local DetailsThumbnail = Roact.PureComponent:extend("DetailsThumbnail")
 
@@ -26,6 +27,11 @@ local LIMITED_ITEM = "InGame.InspectMenu.Label.LimitedItems"
 local LIMITED_ITEM_IMAGE = "icons/status/item/limited"
 
 local function isPartOfBundleAndOffsale(assetInfo)
+	if GetFFlagIBEnableLimitedBundle() then
+		return assetInfo and assetInfo.parentBundleId ~= nil or false
+	end
+
+	-- remove all below
 	if assetInfo and assetInfo.isForSale then
 		return false
 	else

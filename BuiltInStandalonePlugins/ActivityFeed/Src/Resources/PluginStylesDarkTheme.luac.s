@@ -11,14 +11,16 @@ MAIN:
   GETTABLEKS R3 R1 K7 ["Styling"]
   GETTABLEKS R2 R3 K8 ["createStyleSheet"]
   NEWTABLE R3 0 0
-  LOADK R4 K9 ["rbxasset://studio_svg_textures/Lua/Notifications/Dark/Large/NotificationBell.png"]
-  SETTABLEKS R4 R3 K10 ["threedotsicon"]
-  LOADK R4 K11 ["rbxasset://studio_svg_textures/Lua/Notifications/Dark/Large/HappyFilledNeutral.png"]
-  SETTABLEKS R4 R3 K12 ["arrowdownicon"]
-  LOADK R4 K11 ["rbxasset://studio_svg_textures/Lua/Notifications/Dark/Large/HappyFilledNeutral.png"]
+  LOADK R4 K9 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Standard/DropdownArrow.png"]
+  SETTABLEKS R4 R3 K10 ["arrowdownicon"]
+  LOADK R4 K11 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Standard/More.png"]
+  SETTABLEKS R4 R3 K12 ["threedotsicon"]
+  LOADK R4 K9 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Standard/DropdownArrow.png"]
   SETTABLEKS R4 R3 K13 ["toggleicon"]
+  LOADK R4 K14 ["rbxasset://studio_svg_textures/Lua/DeveloperFramework/Dark/Standard/Search.png"]
+  SETTABLEKS R4 R3 K15 ["search"]
   MOVE R4 R2
-  LOADK R5 K14 ["ActivityHistoryPluginDarkTheme"]
+  LOADK R5 K16 ["ActivityHistoryPluginDarkTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

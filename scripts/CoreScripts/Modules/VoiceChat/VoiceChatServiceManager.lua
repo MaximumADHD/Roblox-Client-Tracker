@@ -69,6 +69,7 @@ local GetFFlagVoiceBanShowToastOnSubsequentJoins =
 	require(RobloxGui.Modules.Flags.GetFFlagVoiceBanShowToastOnSubsequentJoins)
 local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
+local GetFFlagBatchVoiceParticipantsUpdates = require(RobloxGui.Modules.Flags.GetFFlagBatchVoiceParticipantsUpdates)
 
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 local Constants = VoiceChat.Constants
@@ -1626,6 +1627,7 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 						ExperienceChat.Events.VoiceParticipantAdded(tostring(userId))
 					end
 				end
+				local updatedParticipants = {}
 				for _, state in pairs(updatedStates) do
 					local userId = state["userId"]
 					local lastState = self.participants[userId]
@@ -1650,12 +1652,19 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 					end
 
 					self.participants[tostring(userId)] = state
+					if GetFFlagBatchVoiceParticipantsUpdates() then
+						updatedParticipants[tostring(userId)] = state
+					end
 				end
 
 				self:_updateRecentUsersInteractionData()
 
 				if #updatedStates > 0 then
-					self.participantsUpdate:Fire(self.participants)
+					self.participantsUpdate:Fire(
+						if GetFFlagBatchVoiceParticipantsUpdates()
+							then updatedParticipants
+							else self.participants
+					)
 				end
 			end
 		)

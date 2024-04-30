@@ -7,15 +7,15 @@ return table.freeze(function()
       end
       return true
    end)
-   local var420 = nil
+   local var425 = nil
    if var0 then
       local var0 = Enum.Material.Water
-      var420 = { Enum.Material.Air }
+      var425 = { Enum.Material.Air }
    else
       local var0 = Enum.Material.Rubber
-      var420 = { Enum.Material.Air, Enum.Material.Water, Enum.Material.Cardboard, Enum.Material.Carpet, Enum.Material.CeramicTiles, Enum.Material.ClayRoofTiles, Enum.Material.Leather, Enum.Material.Plaster, Enum.Material.RoofShingles }
+      var425 = { Enum.Material.Air, Enum.Material.Water, Enum.Material.Cardboard, Enum.Material.Carpet, Enum.Material.CeramicTiles, Enum.Material.ClayRoofTiles, Enum.Material.Leather, Enum.Material.Plaster, Enum.Material.RoofShingles }
    end
-   local var0 = ipairs(var437)
-   table.remove(var444, table.find(var440, var441))
+   local var0 = ipairs(var442)
+   table.remove(var449, table.find(var445, var446))
    return 
 end())

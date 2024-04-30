@@ -65,7 +65,7 @@ PROTO_2:
   GETTABLEKS R1 R2 K0 ["new"]
   CALL R1 0 1
   GETTABLEKS R2 R0 K1 ["asset"]
-  JUMPIFNOT R2 [+147]
+  JUMPIFNOT R2 [+142]
   DUPTABLE R2 K15 [{"Id", "Name", "TypeId", "AssetGenres", "AssetSubTypes", "IsEndorsed", "Description", "Duration", "Created", "Updated", "HasScripts", "CreatingUniverseId", "Status"}]
   GETTABLEKS R4 R0 K1 ["asset"]
   GETTABLEKS R3 R4 K16 ["id"]
@@ -108,14 +108,9 @@ PROTO_2:
   JUMP [+1]
   LOADNIL R3
   SETTABLEKS R3 R2 K13 ["CreatingUniverseId"]
-  GETUPVAL R4 2
-  CALL R4 0 1
-  JUMPIFNOT R4 [+5]
   GETGLOBAL R3 K28 ["itemsDetailsToCreationsDistributionStatus"]
   MOVE R4 R0
   CALL R3 1 1
-  JUMP [+1]
-  LOADNIL R3
   SETTABLEKS R3 R2 K14 ["Status"]
   SETTABLEKS R2 R1 K29 ["Asset"]
   GETTABLEKS R3 R0 K1 ["asset"]
@@ -173,10 +168,10 @@ PROTO_2:
   GETTABLEKS R3 R4 K56 ["price"]
   SETTABLEKS R3 R2 K53 ["Price"]
   SETTABLEKS R2 R1 K57 ["Product"]
-  GETUPVAL R2 3
+  GETUPVAL R2 2
   CALL R2 0 1
   JUMPIF R2 [+3]
-  GETUPVAL R2 4
+  GETUPVAL R2 3
   CALL R2 0 1
   JUMPIFNOT R2 [+18]
   GETTABLEKS R2 R0 K58 ["fiatProduct"]
@@ -320,30 +315,23 @@ MAIN:
   GETTABLEKS R11 R12 K14 ["SharedFlags"]
   GETTABLEKS R10 R11 K17 ["getFFlagToolboxEnableFiatPurchasing"]
   CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R14 R0 K8 ["Core"]
-  GETTABLEKS R13 R14 K9 ["Util"]
-  GETTABLEKS R12 R13 K14 ["SharedFlags"]
-  GETTABLEKS R11 R12 K18 ["getFFlagToolboxCreationsUseItemsDetails"]
-  CALL R10 1 1
-  DUPCLOSURE R11 K19 [PROTO_0]
+  DUPCLOSURE R10 K18 [PROTO_0]
   CAPTURE VAL R4
   CAPTURE VAL R5
-  SETGLOBAL R11 K20 ["itemsDetailsToCreationsDistributionStatus"]
-  NEWTABLE R11 4 0
-  DUPCLOSURE R12 K21 [PROTO_1]
-  SETTABLEKS R12 R11 K22 ["new"]
-  DUPCLOSURE R12 K23 [PROTO_2]
-  CAPTURE VAL R11
-  CAPTURE VAL R7
+  SETGLOBAL R10 K19 ["itemsDetailsToCreationsDistributionStatus"]
+  NEWTABLE R10 4 0
+  DUPCLOSURE R11 K20 [PROTO_1]
+  SETTABLEKS R11 R10 K21 ["new"]
+  DUPCLOSURE R11 K22 [PROTO_2]
   CAPTURE VAL R10
+  CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R9
-  SETTABLEKS R12 R11 K24 ["fromItemDetailsRequest"]
-  DUPCLOSURE R12 K25 [PROTO_3]
+  SETTABLEKS R11 R10 K23 ["fromItemDetailsRequest"]
+  DUPCLOSURE R11 K24 [PROTO_3]
   CAPTURE VAL R3
-  SETTABLEKS R12 R11 K26 ["AddContextToItemDetails"]
-  DUPCLOSURE R12 K27 [PROTO_4]
-  CAPTURE VAL R11
-  SETTABLEKS R12 R11 K28 ["fromCreationsDetails"]
-  RETURN R11 1
+  SETTABLEKS R11 R10 K25 ["AddContextToItemDetails"]
+  DUPCLOSURE R11 K26 [PROTO_4]
+  CAPTURE VAL R10
+  SETTABLEKS R11 R10 K27 ["fromCreationsDetails"]
+  RETURN R10 1

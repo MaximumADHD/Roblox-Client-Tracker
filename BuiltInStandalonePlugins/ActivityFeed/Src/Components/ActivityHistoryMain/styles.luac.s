@@ -28,7 +28,7 @@ MAIN:
   LOADN R12 0
   CALL R8 4 1
   SETTABLEKS R8 R7 K15 ["Size"]
-  LOADK R8 K21 ["$ForegroundMain"]
+  LOADK R8 K21 ["$BackgroundPaper"]
   SETTABLEKS R8 R7 K16 ["BackgroundColor3"]
   NEWTABLE R8 0 3
   MOVE R9 R2
@@ -41,91 +41,157 @@ MAIN:
   LOADK R16 K24 [0]
   CALL R12 4 1
   SETTABLEKS R12 R11 K15 ["Size"]
-  NEWTABLE R12 0 2
+  NEWTABLE R12 0 3
   MOVE R13 R2
-  LOADK R14 K25 ["> #HeaderContainer"]
-  DUPTABLE R15 K23 [{"Size"}]
-  GETIMPORT R16 K20 [UDim2.new]
-  LOADN R17 1
-  LOADN R18 0
-  LOADN R19 0
-  GETTABLEKS R20 R3 K13 ["filterHeaderHeight"]
-  CALL R16 4 1
-  SETTABLEKS R16 R15 K15 ["Size"]
-  NEWTABLE R16 0 1
-  MOVE R17 R2
-  LOADK R18 K26 [">> #Header"]
-  NEWTABLE R19 0 0
-  NEWTABLE R20 0 2
-  MOVE R21 R2
-  LOADK R22 K27 ["> #ToggleFilterMenuButton"]
-  DUPTABLE R23 K30 [{"BackgroundColor3", "TextColor3", "TextSize"}]
-  LOADK R24 K31 ["$BackgroundPaper"]
-  SETTABLEKS R24 R23 K16 ["BackgroundColor3"]
-  LOADK R24 K32 ["$TextPrimary"]
-  SETTABLEKS R24 R23 K28 ["TextColor3"]
-  GETTABLEKS R24 R3 K33 ["headerFontSize"]
-  SETTABLEKS R24 R23 K29 ["TextSize"]
-  NEWTABLE R24 0 2
-  MOVE R25 R2
-  LOADK R26 K34 ["::UICorner"]
-  DUPTABLE R27 K36 [{"CornerRadius"}]
-  GETIMPORT R28 K38 [UDim.new]
-  LOADN R29 0
-  GETTABLEKS R30 R3 K39 ["bubbleCornerRadius"]
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K35 ["CornerRadius"]
-  CALL R25 2 1
-  MOVE R26 R2
-  LOADK R27 K40 [":hover"]
-  DUPTABLE R28 K41 [{"BackgroundColor3"}]
-  LOADK R29 K42 ["$ActionHover"]
-  SETTABLEKS R29 R28 K16 ["BackgroundColor3"]
-  CALL R26 2 -1
-  SETLIST R24 R25 -1 [1]
-  CALL R21 3 1
-  MOVE R22 R2
-  LOADK R23 K43 ["> #FilterMenuToggleIcon"]
-  DUPTABLE R24 K47 [{"Size", "Position", "Image", "BackgroundTransparency"}]
-  GETIMPORT R25 K20 [UDim2.new]
-  LOADN R26 0
-  MOVE R27 R4
-  LOADN R28 0
-  MOVE R29 R4
-  CALL R25 4 1
-  SETTABLEKS R25 R24 K15 ["Size"]
-  GETIMPORT R25 K20 [UDim2.new]
-  LOADN R26 1
-  MINUS R27 R4
-  LOADN R28 0
-  LOADN R29 0
-  CALL R25 4 1
-  SETTABLEKS R25 R24 K44 ["Position"]
-  LOADK R25 K48 ["$toggleicon"]
-  SETTABLEKS R25 R24 K45 ["Image"]
-  LOADN R25 1
-  SETTABLEKS R25 R24 K46 ["BackgroundTransparency"]
-  CALL R22 2 -1
-  SETLIST R20 R21 -1 [1]
-  CALL R17 3 -1
-  SETLIST R16 R17 -1 [1]
-  CALL R13 3 1
+  LOADK R14 K25 ["::UIPadding"]
+  DUPTABLE R15 K30 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R16 K32 [UDim.new]
+  LOADN R17 0
+  LOADN R18 4
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K26 ["PaddingTop"]
+  GETIMPORT R16 K32 [UDim.new]
+  LOADN R17 0
+  LOADN R18 4
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K27 ["PaddingBottom"]
+  GETIMPORT R16 K32 [UDim.new]
+  LOADN R17 0
+  LOADN R18 4
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K28 ["PaddingLeft"]
+  GETIMPORT R16 K32 [UDim.new]
+  LOADN R17 0
+  LOADN R18 4
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K29 ["PaddingRight"]
+  CALL R13 2 1
   MOVE R14 R2
-  LOADK R15 K49 ["> #ActivityHistoryBubbleListContainer"]
+  LOADK R15 K33 ["> #HeaderContainer"]
   DUPTABLE R16 K23 [{"Size"}]
   GETIMPORT R17 K20 [UDim2.new]
   LOADN R18 1
   LOADN R19 0
-  LOADN R20 1
-  GETTABLEKS R22 R3 K13 ["filterHeaderHeight"]
-  MINUS R21 R22
+  LOADN R20 0
+  GETTABLEKS R21 R3 K13 ["filterHeaderHeight"]
   CALL R17 4 1
   SETTABLEKS R17 R16 K15 ["Size"]
-  CALL R14 2 -1
+  NEWTABLE R17 0 1
+  MOVE R18 R2
+  LOADK R19 K34 [">> #Header"]
+  NEWTABLE R20 0 0
+  NEWTABLE R21 0 4
+  MOVE R22 R2
+  LOADK R23 K35 ["::UICorner"]
+  DUPTABLE R24 K37 [{"CornerRadius"}]
+  GETIMPORT R25 K32 [UDim.new]
+  LOADN R26 0
+  GETTABLEKS R27 R3 K38 ["bubbleCornerRadius"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K36 ["CornerRadius"]
+  CALL R22 2 1
+  MOVE R23 R2
+  LOADK R24 K39 ["::UIStroke"]
+  DUPTABLE R25 K42 [{"Color", "Thickness"}]
+  LOADK R26 K43 ["$Divider"]
+  SETTABLEKS R26 R25 K40 ["Color"]
+  LOADN R26 1
+  SETTABLEKS R26 R25 K41 ["Thickness"]
+  CALL R23 2 1
+  MOVE R24 R2
+  LOADK R25 K44 ["> #ToggleFilterMenuButton"]
+  DUPTABLE R26 K47 [{"BackgroundColor3", "TextColor3", "TextSize"}]
+  LOADK R27 K21 ["$BackgroundPaper"]
+  SETTABLEKS R27 R26 K16 ["BackgroundColor3"]
+  LOADK R27 K48 ["$TextPrimary"]
+  SETTABLEKS R27 R26 K45 ["TextColor3"]
+  GETTABLEKS R27 R3 K49 ["headerFontSize"]
+  SETTABLEKS R27 R26 K46 ["TextSize"]
+  NEWTABLE R27 0 2
+  MOVE R28 R2
+  LOADK R29 K35 ["::UICorner"]
+  DUPTABLE R30 K37 [{"CornerRadius"}]
+  GETIMPORT R31 K32 [UDim.new]
+  LOADN R32 0
+  GETTABLEKS R33 R3 K38 ["bubbleCornerRadius"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K36 ["CornerRadius"]
+  CALL R28 2 1
+  MOVE R29 R2
+  LOADK R30 K50 [":hover"]
+  DUPTABLE R31 K51 [{"BackgroundColor3"}]
+  LOADK R32 K52 ["$ActionHover"]
+  SETTABLEKS R32 R31 K16 ["BackgroundColor3"]
+  CALL R29 2 -1
+  SETLIST R27 R28 -1 [1]
+  CALL R24 3 1
+  MOVE R25 R2
+  LOADK R26 K53 ["> #FilterMenuToggleIconContainer"]
+  DUPTABLE R27 K55 [{"Size", "Position"}]
+  GETIMPORT R28 K20 [UDim2.new]
+  LOADN R29 0
+  MOVE R30 R4
+  LOADN R31 0
+  MOVE R32 R4
+  CALL R28 4 1
+  SETTABLEKS R28 R27 K15 ["Size"]
+  GETIMPORT R28 K20 [UDim2.new]
+  LOADN R29 1
+  MINUS R30 R4
+  LOADN R31 0
+  LOADN R32 0
+  CALL R28 4 1
+  SETTABLEKS R28 R27 K54 ["Position"]
+  NEWTABLE R28 0 1
+  MOVE R29 R2
+  LOADK R30 K56 ["> #FilterMenuToggleIcon"]
+  DUPTABLE R31 K60 [{"Size", "AnchorPoint", "Position", "Image", "BackgroundTransparency"}]
+  GETIMPORT R32 K20 [UDim2.new]
+  LOADN R33 0
+  LOADN R34 16
+  LOADN R35 0
+  LOADN R36 16
+  CALL R32 4 1
+  SETTABLEKS R32 R31 K15 ["Size"]
+  GETIMPORT R32 K62 [Vector2.new]
+  LOADK R33 K63 [0.5]
+  LOADK R34 K63 [0.5]
+  CALL R32 2 1
+  SETTABLEKS R32 R31 K57 ["AnchorPoint"]
+  GETIMPORT R32 K20 [UDim2.new]
+  LOADK R33 K63 [0.5]
+  LOADN R34 0
+  LOADK R35 K63 [0.5]
+  LOADN R36 0
+  CALL R32 4 1
+  SETTABLEKS R32 R31 K54 ["Position"]
+  LOADK R32 K64 ["$toggleicon"]
+  SETTABLEKS R32 R31 K58 ["Image"]
+  LOADN R32 1
+  SETTABLEKS R32 R31 K59 ["BackgroundTransparency"]
+  CALL R29 2 -1
+  SETLIST R28 R29 -1 [1]
+  CALL R25 3 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 -1
+  SETLIST R17 R18 -1 [1]
+  CALL R14 3 1
+  MOVE R15 R2
+  LOADK R16 K65 ["> #ActivityHistoryBubbleListContainer"]
+  DUPTABLE R17 K23 [{"Size"}]
+  GETIMPORT R18 K20 [UDim2.new]
+  LOADN R19 1
+  LOADN R20 0
+  LOADN R21 1
+  GETTABLEKS R23 R3 K13 ["filterHeaderHeight"]
+  MINUS R22 R23
+  CALL R18 4 1
+  SETTABLEKS R18 R17 K15 ["Size"]
+  CALL R15 2 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 1
   MOVE R10 R2
-  LOADK R11 K50 ["> #FilterMenu"]
+  LOADK R11 K66 ["> #FilterMenu"]
   DUPTABLE R12 K23 [{"Size"}]
   GETIMPORT R13 K20 [UDim2.new]
   LOADN R14 1
@@ -136,7 +202,7 @@ MAIN:
   SETTABLEKS R13 R12 K15 ["Size"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K51 ["> #Footer"]
+  LOADK R12 K67 ["> #Footer"]
   DUPTABLE R13 K17 [{"Size", "BackgroundColor3"}]
   GETIMPORT R14 K20 [UDim2.new]
   LOADN R15 1
@@ -145,12 +211,12 @@ MAIN:
   LOADN R18 0
   CALL R14 4 1
   SETTABLEKS R14 R13 K15 ["Size"]
-  LOADK R14 K21 ["$ForegroundMain"]
+  LOADK R14 K68 ["$ForegroundMain"]
   SETTABLEKS R14 R13 K16 ["BackgroundColor3"]
   NEWTABLE R14 0 2
   MOVE R15 R2
-  LOADK R16 K52 [">> .Component-TextLabel"]
-  DUPTABLE R17 K55 [{"Size", "TextColor3", "TextXAlignment", "TextYAlignment", "BackgroundTransparency"}]
+  LOADK R16 K69 [">> .Component-TextLabel"]
+  DUPTABLE R17 K72 [{"Size", "TextColor3", "TextXAlignment", "TextYAlignment", "BackgroundTransparency"}]
   GETIMPORT R18 K20 [UDim2.new]
   LOADN R19 1
   LOADN R20 0
@@ -158,23 +224,23 @@ MAIN:
   LOADN R22 0
   CALL R18 4 1
   SETTABLEKS R18 R17 K15 ["Size"]
-  LOADK R18 K32 ["$TextPrimary"]
-  SETTABLEKS R18 R17 K28 ["TextColor3"]
-  GETIMPORT R18 K58 [Enum.TextXAlignment.Center]
-  SETTABLEKS R18 R17 K53 ["TextXAlignment"]
-  GETIMPORT R18 K59 [Enum.TextYAlignment.Center]
-  SETTABLEKS R18 R17 K54 ["TextYAlignment"]
+  LOADK R18 K48 ["$TextPrimary"]
+  SETTABLEKS R18 R17 K45 ["TextColor3"]
+  GETIMPORT R18 K75 [Enum.TextXAlignment.Center]
+  SETTABLEKS R18 R17 K70 ["TextXAlignment"]
+  GETIMPORT R18 K76 [Enum.TextYAlignment.Center]
+  SETTABLEKS R18 R17 K71 ["TextYAlignment"]
   LOADN R18 1
-  SETTABLEKS R18 R17 K46 ["BackgroundTransparency"]
+  SETTABLEKS R18 R17 K59 ["BackgroundTransparency"]
   CALL R15 2 1
   MOVE R16 R2
-  LOADK R17 K34 ["::UICorner"]
-  DUPTABLE R18 K36 [{"CornerRadius"}]
-  GETIMPORT R19 K38 [UDim.new]
+  LOADK R17 K35 ["::UICorner"]
+  DUPTABLE R18 K37 [{"CornerRadius"}]
+  GETIMPORT R19 K32 [UDim.new]
   LOADN R20 0
   LOADN R21 20
   CALL R19 2 1
-  SETTABLEKS R19 R18 K35 ["CornerRadius"]
+  SETTABLEKS R19 R18 K36 ["CornerRadius"]
   CALL R16 2 -1
   SETLIST R14 R15 -1 [1]
   CALL R11 3 -1

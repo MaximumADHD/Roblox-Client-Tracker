@@ -33,7 +33,7 @@ export type VRAvatarGesturesClientType = {
 	-- holds the input data received at the beginning of the frame and saves it for 
 	-- calculations at a later part of the frame
 	partCFrameMap: {[string]: CFrame},
-	connections: any,
+	connections: ConnectionUtil.ConnectionUtilType,
 	-------------------- Methods ----------------------------
 	new: () -> VRAvatarGesturesClientType,
 
@@ -55,7 +55,7 @@ function VRAvatarGesturesClient.new()
 	local self: any = setmetatable({}, VRAvatarGesturesClient)
 	self.partCFrameMap = {}
 	self.connections = ConnectionUtil.new()
-	self.connections:connect(VRService:GetPropertyChangedSignal("AvatarGestures"), function() self:onAvatarGesturesChanged() end)
+	self.connections:connect("AvatarGestures", VRService:GetPropertyChangedSignal("AvatarGestures"), function() self:onAvatarGesturesChanged() end)
 	if VRService.AvatarGestures then self:onAvatarGesturesChanged() end
 	return self :: any 
 end
@@ -103,7 +103,7 @@ function VRAvatarGesturesClient:onCharacterChanged(character)
 		end
 
 		updateSeated(humanoid.Sit)
-		self.connections:connect(humanoid.Seated, function(seated)
+		self.connections:connect("Seated", humanoid.Seated, function(seated)
 			updateSeated(seated)
 			-- recenter when sitting down in first person
 			if seated and (camera.CFrame.Position - camera.Focus.Position).Magnitude <= FIRST_PERSON_THRESHOLD_DISTANCE then
@@ -155,7 +155,7 @@ function VRAvatarGesturesClient:onAvatarGesturesChanged()
 		end
 
 		self.connections:disconnectAll()
-		self.connections:connect(VRService:GetPropertyChangedSignal("AvatarGestures"), function() self:onAvatarGesturesChanged() end)
+		self.connections:connect("AvatarGestures", VRService:GetPropertyChangedSignal("AvatarGestures"), function() self:onAvatarGesturesChanged() end)
 	end
 end
 
@@ -282,7 +282,7 @@ end
 function VRAvatarGesturesClient:connectInputCFrames()
 	if FFlagUpdateAvatarGestures then
 		if VRService.VREnabled then
-			self.connections:connect(VRService.UserCFrameChanged,function(type, cframe)
+			self.connections:connect("UserCFrameChanged", VRService.UserCFrameChanged,function(type, cframe)
 				if type == Enum.UserCFrame.LeftHand then
 					self.partCFrameMap["TrackedLeftHand"] = cframe
 				elseif type == Enum.UserCFrame.RightHand then
@@ -292,7 +292,7 @@ function VRAvatarGesturesClient:connectInputCFrames()
 				end
 			end)
 		elseif FFlagDebugImmersionModeNonVR then -- Simulate VR Input
-			self.connections:connect(RunService.RenderStepped, function(_)
+			self.connections:connect("NonVRSimulateInput", RunService.RenderStepped, function(_)
 				self.partCFrameMap["TrackedLeftHand"] = CFrame.new(-0.5, 0, -0.5)
 				self.partCFrameMap["TrackedRightHand"] = CFrame.new(0.5, 0, -0.5)
 				self.partCFrameMap["TrackedHead"] = CFrame.new(0, 1, 0)
@@ -300,7 +300,7 @@ function VRAvatarGesturesClient:connectInputCFrames()
 		end
 	else
 		if VRService.VREnabled then
-			self.connections:connect(VRService.UserCFrameChanged,function(type, cframe)
+			self.connections:connect("UserCFrameChanged", VRService.UserCFrameChanged,function(type, cframe)
 				if type == Enum.UserCFrame.LeftHand then
 					self.partCFrameMap["VRGesturesLeftHand"] = cframe
 				elseif type == Enum.UserCFrame.RightHand then
@@ -310,7 +310,7 @@ function VRAvatarGesturesClient:connectInputCFrames()
 				end
 			end)
 		elseif FFlagDebugImmersionModeNonVR then -- Simulate VR Input
-			self.connections:connect(RunService.RenderStepped, function(_)
+			self.connections:connect("NonVRSimulateInput", RunService.RenderStepped, function(_)
 				self.partCFrameMap["VRGesturesLeftHand"] = CFrame.new(-0.5, 0, -0.5)
 				self.partCFrameMap["VRGesturesRightHand"] = CFrame.new(0.5, 0, -0.5)
 				self.partCFrameMap["VRGesturesHead"] = CFrame.new(0, 1, 0)
@@ -319,7 +319,7 @@ function VRAvatarGesturesClient:connectInputCFrames()
 	end
 
 	if VRService.VREnabled or FFlagDebugImmersionModeNonVR then
-		self.connections:connect(RunService.RenderStepped, function(_)
+		self.connections:connect("RenderStepped", RunService.RenderStepped, function(_)
 			self:steppedCframes()
 		end)
 	end

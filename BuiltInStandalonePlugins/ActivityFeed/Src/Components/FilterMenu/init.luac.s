@@ -285,7 +285,7 @@ PROTO_9:
   FORGPREP_INEXT R12
   GETTABLEKS R18 R0 K3 ["rows"]
   GETTABLE R17 R18 R16
-  JUMPIFEQKNIL R17 [+85]
+  JUMPIFEQKNIL R17 [+102]
   ADDK R11 R11 K32 [1]
   NEWCLOSURE R18 P4
   CAPTURE UPVAL U2
@@ -309,23 +309,36 @@ PROTO_9:
   NAMECALL R22 R22 K14 ["getNextOrder"]
   CALL R22 1 1
   SETTABLEKS R22 R21 K15 ["LayoutOrder"]
-  DUPTABLE R22 K36 [{"Checkbox", "Text"}]
+  DUPTABLE R22 K36 [{"CheckboxContainer", "Text"}]
   GETUPVAL R24 1
   GETTABLEKS R23 R24 K9 ["createElement"]
-  GETUPVAL R24 5
-  DUPTABLE R25 K39 [{"LayoutOrder", "Checked", "OnClick"}]
-  GETUPVAL R26 4
-  NAMECALL R26 R26 K14 ["getNextOrder"]
-  CALL R26 1 1
-  SETTABLEKS R26 R25 K15 ["LayoutOrder"]
-  LOADB R26 1
-  GETTABLE R27 R4 R16
-  JUMPIFEQKNIL R27 [+2]
-  GETTABLE R26 R4 R16
-  SETTABLEKS R26 R25 K37 ["Checked"]
-  SETTABLEKS R18 R25 K38 ["OnClick"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K35 ["Checkbox"]
+  LOADK R24 K10 ["Frame"]
+  NEWTABLE R25 1 0
+  GETUPVAL R27 1
+  GETTABLEKS R26 R27 K11 ["Tag"]
+  GETUPVAL R27 3
+  LOADK R28 K34 ["CX-Invisible"]
+  CALL R27 1 1
+  SETTABLE R27 R25 R26
+  DUPTABLE R26 K38 [{"Checkbox"}]
+  GETUPVAL R28 1
+  GETTABLEKS R27 R28 K9 ["createElement"]
+  GETUPVAL R28 5
+  DUPTABLE R29 K41 [{"LayoutOrder", "Checked", "OnClick"}]
+  GETUPVAL R30 4
+  NAMECALL R30 R30 K14 ["getNextOrder"]
+  CALL R30 1 1
+  SETTABLEKS R30 R29 K15 ["LayoutOrder"]
+  LOADB R30 1
+  GETTABLE R31 R4 R16
+  JUMPIFEQKNIL R31 [+2]
+  GETTABLE R30 R4 R16
+  SETTABLEKS R30 R29 K39 ["Checked"]
+  SETTABLEKS R18 R29 K40 ["OnClick"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K37 ["Checkbox"]
+  CALL R23 3 1
+  SETTABLEKS R23 R22 K35 ["CheckboxContainer"]
   GETUPVAL R24 1
   GETTABLEKS R23 R24 K9 ["createElement"]
   LOADK R24 K23 ["TextButton"]
@@ -333,7 +346,7 @@ PROTO_9:
   GETUPVAL R27 1
   GETTABLEKS R26 R27 K11 ["Tag"]
   GETUPVAL R27 3
-  LOADK R28 K40 ["Component-CheckboxButton"]
+  LOADK R28 K42 ["Component-CheckboxButton"]
   CALL R27 1 1
   SETTABLE R27 R25 R26
   SETTABLEKS R17 R25 K20 ["Text"]
@@ -349,7 +362,7 @@ PROTO_9:
   SETTABLEKS R23 R22 K20 ["Text"]
   CALL R19 3 1
   SETTABLE R19 R10 R11
-  FORGLOOP R12 2 [inext] [-90]
+  FORGLOOP R12 2 [inext] [-107]
   GETUPVAL R13 1
   GETTABLEKS R12 R13 K9 ["createElement"]
   LOADK R13 K10 ["Frame"]
@@ -357,27 +370,28 @@ PROTO_9:
   GETUPVAL R16 1
   GETTABLEKS R15 R16 K11 ["Tag"]
   GETUPVAL R16 3
-  LOADK R17 K41 ["X-Column"]
+  LOADK R17 K43 ["X-Column"]
   LOADK R18 K34 ["CX-Invisible"]
   CALL R16 2 1
   SETTABLE R16 R14 R15
-  GETIMPORT R15 K44 [UDim2.new]
+  GETIMPORT R15 K46 [UDim2.new]
   LOADN R16 1
   LOADN R17 0
   LOADN R18 0
   GETUPVAL R22 6
-  GETTABLEKS R21 R22 K45 ["checkBoxRowHeight"]
-  MUL R20 R21 R11
+  GETTABLEKS R21 R22 K47 ["checkBoxRowHeight"]
+  SUBK R22 R11 K32 [1]
+  MUL R20 R21 R22
   GETUPVAL R22 6
-  GETTABLEKS R21 R22 K46 ["byHeight"]
+  GETTABLEKS R21 R22 K48 ["byHeight"]
   ADD R19 R20 R21
   CALL R15 4 1
-  SETTABLEKS R15 R14 K47 ["Size"]
+  SETTABLEKS R15 R14 K49 ["Size"]
   GETTABLEKS R15 R0 K15 ["LayoutOrder"]
   SETTABLEKS R15 R14 K15 ["LayoutOrder"]
   GETUPVAL R17 2
-  GETTABLEKS R16 R17 K48 ["Dictionary"]
-  GETTABLEKS R15 R16 K49 ["join"]
+  GETTABLEKS R16 R17 K50 ["Dictionary"]
+  GETTABLEKS R15 R16 K51 ["join"]
   NEWTABLE R16 0 1
   MOVE R17 R9
   SETLIST R16 R17 1 [1]
@@ -679,17 +693,17 @@ PROTO_16:
   LOADN R18 0
   CALL R14 4 1
   SETTABLEKS R14 R13 K42 ["CanvasSize"]
-  GETIMPORT R14 K45 [Enum.ScrollBarInset.Always]
+  GETIMPORT R14 K45 [Enum.ScrollBarInset.ScrollBar]
   SETTABLEKS R14 R13 K46 ["VerticalScrollBarInset"]
-  DUPTABLE R14 K52 [{"Layout", "ByDateRange", "ByDateRangeFilter", "ByTypeCheckBoxes", "ByCollaboratorCheckBoxes"}]
+  DUPTABLE R14 K55 [{"Layout", "ByDateRange", "TinySpacer", "ByDateRangeFilter", "Spacer1", "ByTypeCheckBoxes", "Spacer2", "ByCollaboratorCheckBoxes"}]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K5 ["createElement"]
-  LOADK R16 K53 ["UIListLayout"]
-  DUPTABLE R17 K56 [{"FillDirection", "SortOrder"}]
-  GETIMPORT R18 K58 [Enum.FillDirection.Vertical]
-  SETTABLEKS R18 R17 K54 ["FillDirection"]
-  GETIMPORT R18 K59 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R18 R17 K55 ["SortOrder"]
+  LOADK R16 K56 ["UIListLayout"]
+  DUPTABLE R17 K59 [{"FillDirection", "SortOrder"}]
+  GETIMPORT R18 K61 [Enum.FillDirection.Vertical]
+  SETTABLEKS R18 R17 K57 ["FillDirection"]
+  GETIMPORT R18 K62 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R18 R17 K58 ["SortOrder"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K47 ["Layout"]
   GETUPVAL R16 0
@@ -698,30 +712,46 @@ PROTO_16:
   NEWTABLE R17 2 0
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K7 ["Tag"]
-  LOADK R19 K60 ["Component-FilterMenu-By"]
+  LOADK R19 K63 ["Component-FilterMenu-By"]
   SETTABLE R19 R17 R18
   GETUPVAL R18 4
   NAMECALL R18 R18 K17 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K18 ["LayoutOrder"]
-  DUPTABLE R18 K62 [{"ByDateRangeText"}]
+  DUPTABLE R18 K65 [{"Label"}]
   GETUPVAL R20 0
   GETTABLEKS R19 R20 K5 ["createElement"]
   LOADK R20 K23 ["TextLabel"]
-  DUPTABLE R21 K63 [{"Text"}]
+  DUPTABLE R21 K66 [{"Text"}]
   LOADK R24 K25 ["FilterMenu"]
-  LOADK R25 K64 ["ByDate"]
+  LOADK R25 K67 ["ByDate"]
   NAMECALL R22 R3 K27 ["getText"]
   CALL R22 3 1
   SETTABLEKS R22 R21 K19 ["Text"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K61 ["ByDateRangeText"]
+  SETTABLEKS R19 R18 K64 ["Label"]
   CALL R15 3 1
   SETTABLEKS R15 R14 K48 ["ByDateRange"]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K5 ["createElement"]
+  LOADK R16 K6 ["Frame"]
+  NEWTABLE R17 2 0
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K7 ["Tag"]
+  GETUPVAL R19 3
+  LOADK R20 K68 ["Component-SpacerSmall"]
+  CALL R19 1 1
+  SETTABLE R19 R17 R18
+  GETUPVAL R18 4
+  NAMECALL R18 R18 K17 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K18 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K49 ["TinySpacer"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K5 ["createElement"]
   GETUPVAL R16 6
-  DUPTABLE R17 K67 [{"LayoutOrder", "OnChanged", "items"}]
+  DUPTABLE R17 K71 [{"LayoutOrder", "OnChanged", "items"}]
   GETUPVAL R18 4
   NAMECALL R18 R18 K17 ["getNextOrder"]
   CALL R18 1 1
@@ -731,27 +761,43 @@ PROTO_16:
   CAPTURE UPVAL U7
   CAPTURE VAL R1
   CAPTURE UPVAL U8
-  SETTABLEKS R18 R17 K65 ["OnChanged"]
+  SETTABLEKS R18 R17 K69 ["OnChanged"]
   GETUPVAL R18 9
   MOVE R19 R3
   CALL R18 1 1
-  SETTABLEKS R18 R17 K66 ["items"]
+  SETTABLEKS R18 R17 K70 ["items"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K49 ["ByDateRangeFilter"]
+  SETTABLEKS R15 R14 K50 ["ByDateRangeFilter"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  LOADK R16 K6 ["Frame"]
+  NEWTABLE R17 2 0
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K7 ["Tag"]
+  GETUPVAL R19 3
+  LOADK R20 K72 ["Component-Spacer"]
+  CALL R19 1 1
+  SETTABLE R19 R17 R18
+  GETUPVAL R18 4
+  NAMECALL R18 R18 K17 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K18 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K51 ["Spacer1"]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K5 ["createElement"]
   GETUPVAL R16 10
-  DUPTABLE R17 K72 [{"ref", "rows", "title", "LayoutOrder", "OnChange"}]
-  SETTABLEKS R4 R17 K68 ["ref"]
+  DUPTABLE R17 K77 [{"ref", "rows", "title", "LayoutOrder", "OnChange"}]
+  SETTABLEKS R4 R17 K73 ["ref"]
   GETUPVAL R18 5
   MOVE R19 R3
   CALL R18 1 1
-  SETTABLEKS R18 R17 K69 ["rows"]
+  SETTABLEKS R18 R17 K74 ["rows"]
   LOADK R20 K25 ["FilterMenu"]
-  LOADK R21 K73 ["ByType"]
+  LOADK R21 K78 ["ByType"]
   NAMECALL R18 R3 K27 ["getText"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K70 ["title"]
+  SETTABLEKS R18 R17 K75 ["title"]
   GETUPVAL R18 4
   NAMECALL R18 R18 K17 ["getNextOrder"]
   CALL R18 1 1
@@ -761,20 +807,36 @@ PROTO_16:
   CAPTURE UPVAL U7
   CAPTURE VAL R1
   CAPTURE UPVAL U11
-  SETTABLEKS R18 R17 K71 ["OnChange"]
+  SETTABLEKS R18 R17 K76 ["OnChange"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K50 ["ByTypeCheckBoxes"]
+  SETTABLEKS R15 R14 K52 ["ByTypeCheckBoxes"]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  LOADK R16 K6 ["Frame"]
+  NEWTABLE R17 2 0
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K7 ["Tag"]
+  GETUPVAL R19 3
+  LOADK R20 K72 ["Component-Spacer"]
+  CALL R19 1 1
+  SETTABLE R19 R17 R18
+  GETUPVAL R18 4
+  NAMECALL R18 R18 K17 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K18 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K53 ["Spacer2"]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K5 ["createElement"]
   GETUPVAL R16 10
-  DUPTABLE R17 K72 [{"ref", "rows", "title", "LayoutOrder", "OnChange"}]
-  SETTABLEKS R5 R17 K68 ["ref"]
-  SETTABLEKS R6 R17 K69 ["rows"]
+  DUPTABLE R17 K77 [{"ref", "rows", "title", "LayoutOrder", "OnChange"}]
+  SETTABLEKS R5 R17 K73 ["ref"]
+  SETTABLEKS R6 R17 K74 ["rows"]
   LOADK R20 K25 ["FilterMenu"]
-  LOADK R21 K74 ["ByUser"]
+  LOADK R21 K79 ["ByUser"]
   NAMECALL R18 R3 K27 ["getText"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K70 ["title"]
+  SETTABLEKS R18 R17 K75 ["title"]
   GETUPVAL R18 4
   NAMECALL R18 R18 K17 ["getNextOrder"]
   CALL R18 1 1
@@ -785,9 +847,9 @@ PROTO_16:
   CAPTURE VAL R2
   CAPTURE UPVAL U7
   CAPTURE VAL R1
-  SETTABLEKS R18 R17 K71 ["OnChange"]
+  SETTABLEKS R18 R17 K76 ["OnChange"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K51 ["ByCollaboratorCheckBoxes"]
+  SETTABLEKS R15 R14 K54 ["ByCollaboratorCheckBoxes"]
   CALL R11 3 1
   SETTABLEKS R11 R10 K13 ["Contents"]
   CALL R7 3 -1

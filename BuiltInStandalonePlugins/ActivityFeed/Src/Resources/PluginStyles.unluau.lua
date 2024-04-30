@@ -16,12 +16,14 @@ local var38 = var3("Frame", var36)
 local var41 = {}
 var41.Font = var2.defaultFont
 var41.TextSize = var2.normalFontSize
-local var44 = var3("TextLabel", var41)
-local var47 = {}
-var47.Font = var2.defaultFont
-var47.TextSize = var2.buttonFontSize
-local var50 = var3("TextButton", var47)
+var41.TextColor = "$TextPrimary"
+local var45 = var3("TextLabel", var41)
+local var48 = {}
+var48.Font = var2.defaultFont
+var48.TextSize = var2.buttonFontSize
+var48.TextColor = "$TextPrimary"
+local var52 = var3("TextButton", var48)
 var33 = var1.Styling.createStyleSheet
-var44 = {}
-var50 = {}
-return var33("ActivityHistoryPlugin", var44, var50)
+var45 = {}
+var52 = {}
+return var33("ActivityHistoryPlugin", var45, var52)

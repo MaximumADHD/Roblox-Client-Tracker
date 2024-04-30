@@ -7,7 +7,7 @@ local Images = UIBlox.App.ImageSet.Images
 
 local chromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
-local GetFFlagSupportCompactUtility = require(script.Parent.Parent.Flags.GetFFlagSupportCompactUtility)
+local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
 
 function ToggleMenuButton(props)
 	local toggleIconTransition = props.toggleTransition

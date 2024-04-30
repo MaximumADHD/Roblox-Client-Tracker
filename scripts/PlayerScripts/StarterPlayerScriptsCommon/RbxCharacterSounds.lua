@@ -13,7 +13,7 @@ local function loadFlag(flag: string)
 	return success and result
 end
 
-local FFlagUserSoundsUseRelativeVelocity = loadFlag('UserSoundsUseRelativeVelocity')
+local FFlagUserSoundsUseRelativeVelocity = loadFlag('UserSoundsUseRelativeVelocity2')
 
 local SOUND_DATA : { [string]: {[string]: any}} = {
 	Climbing = {
@@ -67,7 +67,7 @@ local function getRelativeVelocity(cm, velocity)
 	)
 	if activeSensor and activeSensor.SensedPart then
 		-- Calculate the platform relative velocity by subtracting the velocity of the surface we're attached to or standing on.
-		local platformVelocity = activeSensor.SensedPart:GetVelocityAtPosition(activeSensor.HitFrame.Position)
+		local platformVelocity = activeSensor.SensedPart:GetVelocityAtPosition(cm.RootPart.Position)
 		return velocity - platformVelocity
 	end
 	return velocity

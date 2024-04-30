@@ -241,6 +241,11 @@ PROTO_10:
   GETTABLEKS R4 R5 K3 ["createElement"]
   GETUPVAL R5 1
   DUPTABLE R6 K6 [{"LayoutOrder", "Size"}]
+  GETUPVAL R8 2
+  CALL R8 0 1
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R7 R1 K4 ["LayoutOrder"]
+  JUMP [+1]
   LOADN R7 1
   SETTABLEKS R7 R6 K4 ["LayoutOrder"]
   GETIMPORT R7 K9 [UDim2.new]
@@ -260,7 +265,7 @@ PROTO_10:
   DUPTABLE R11 K20 [{"WorkspacePreview"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 2
+  GETUPVAL R13 3
   DUPTABLE R14 K24 [{"Model", "ReferenceCamera", "Offset"}]
   GETTABLEKS R16 R0 K25 ["previewProps"]
   GETTABLEKS R15 R16 K26 ["workspacePreview"]
@@ -276,7 +281,7 @@ PROTO_10:
   SETTABLEKS R8 R7 K11 ["WorkspacePreviewContainer"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K3 ["createElement"]
-  GETUPVAL R9 3
+  GETUPVAL R9 4
   DUPTABLE R10 K34 [{"InsertContextCallback", "ResetCameraCallback", "ShouldShowWorkspaceToggle", "ShouldShowRigVisualizationToggle", "VisualizeRigCallback"}]
   GETTABLEKS R11 R0 K35 ["onClickToggleContext"]
   SETTABLEKS R11 R10 K29 ["InsertContextCallback"]
@@ -312,7 +317,7 @@ PROTO_10:
   DUPTABLE R11 K45 [{"PreviewRender"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 4
+  GETUPVAL R13 5
   DUPTABLE R14 K55 [{"Model", "InitialDistance", "Camera", "FocusDirection", "RecenterCameraOnUpdate", "RecenterModelOnUpdate", "OnViewModelLoaded", "Ambient", "LightColor", "LightDirection"}]
   GETTABLEKS R16 R0 K25 ["previewProps"]
   GETTABLEKS R15 R16 K56 ["model"]
@@ -322,13 +327,13 @@ PROTO_10:
   SETTABLEKS R15 R14 K46 ["InitialDistance"]
   GETTABLEKS R15 R0 K27 ["camera"]
   SETTABLEKS R15 R14 K47 ["Camera"]
-  GETUPVAL R15 5
+  GETUPVAL R15 6
   SETTABLEKS R15 R14 K48 ["FocusDirection"]
   GETTABLEKS R15 R0 K58 ["recenterCamera"]
   SETTABLEKS R15 R14 K49 ["RecenterCameraOnUpdate"]
   GETTABLEKS R15 R0 K59 ["recenterModel"]
   SETTABLEKS R15 R14 K50 ["RecenterModelOnUpdate"]
-  GETUPVAL R16 6
+  GETUPVAL R16 7
   CALL R16 0 1
   JUMPIFNOT R16 [+3]
   GETTABLEKS R15 R0 K60 ["loadAnimationIntoViewport"]
@@ -363,7 +368,7 @@ PROTO_10:
   NEWTABLE R11 0 1
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 7
+  GETUPVAL R13 8
   DUPTABLE R14 K67 [{"PreviewInstance", "Camera", "AssetImportSession", "SelectedImportItem"}]
   GETTABLEKS R15 R1 K66 ["PreviewInstance"]
   SETTABLEKS R15 R14 K66 ["PreviewInstance"]
@@ -407,7 +412,7 @@ PROTO_10:
   DUPTABLE R11 K76 [{"AxisIndicator"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 8
+  GETUPVAL R13 9
   DUPTABLE R14 K77 [{"ReferenceCamera"}]
   GETTABLEKS R15 R0 K27 ["camera"]
   SETTABLEKS R15 R14 K22 ["ReferenceCamera"]
@@ -565,26 +570,32 @@ MAIN:
   GETTABLEKS R23 R24 K28 ["Flags"]
   GETTABLEKS R22 R23 K37 ["getFFlagAssetImportRefactorReducer"]
   CALL R21 1 1
-  GETTABLEKS R22 R1 K38 ["PureComponent"]
-  LOADK R24 K39 ["PreviewContainer"]
-  NAMECALL R22 R22 K40 ["extend"]
-  CALL R22 2 1
-  DUPCLOSURE R23 K41 [PROTO_6]
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R25 R0 K17 ["Src"]
+  GETTABLEKS R24 R25 K28 ["Flags"]
+  GETTABLEKS R23 R24 K38 ["getFFlagAssetImportRefactorFileOpen"]
+  CALL R22 1 1
+  GETTABLEKS R23 R1 K39 ["PureComponent"]
+  LOADK R25 K40 ["PreviewContainer"]
+  NAMECALL R23 R23 K41 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K42 [PROTO_6]
   CAPTURE VAL R17
   CAPTURE VAL R18
   CAPTURE VAL R20
   CAPTURE VAL R19
-  SETTABLEKS R23 R22 K42 ["init"]
-  DUPCLOSURE R23 K43 [PROTO_7]
+  SETTABLEKS R24 R23 K43 ["init"]
+  DUPCLOSURE R24 K44 [PROTO_7]
   CAPTURE VAL R17
-  SETTABLEKS R23 R22 K44 ["handleCameraTransition"]
-  DUPCLOSURE R23 K45 [PROTO_8]
-  SETTABLEKS R23 R22 K46 ["willUpdate"]
-  DUPCLOSURE R23 K47 [PROTO_9]
-  SETTABLEKS R23 R22 K48 ["didUpdate"]
-  DUPCLOSURE R23 K49 [PROTO_10]
+  SETTABLEKS R24 R23 K45 ["handleCameraTransition"]
+  DUPCLOSURE R24 K46 [PROTO_8]
+  SETTABLEKS R24 R23 K47 ["willUpdate"]
+  DUPCLOSURE R24 K48 [PROTO_9]
+  SETTABLEKS R24 R23 K49 ["didUpdate"]
+  DUPCLOSURE R24 K50 [PROTO_10]
   CAPTURE VAL R1
   CAPTURE VAL R8
+  CAPTURE VAL R22
   CAPTURE VAL R10
   CAPTURE VAL R12
   CAPTURE VAL R9
@@ -592,23 +603,23 @@ MAIN:
   CAPTURE VAL R16
   CAPTURE VAL R13
   CAPTURE VAL R11
-  SETTABLEKS R23 R22 K50 ["render"]
-  MOVE R23 R5
-  DUPTABLE R24 K51 [{"Stylizer"}]
-  SETTABLEKS R6 R24 K13 ["Stylizer"]
-  CALL R23 1 1
-  MOVE R24 R22
-  CALL R23 1 1
-  MOVE R22 R23
-  DUPCLOSURE R23 K52 [PROTO_13]
+  SETTABLEKS R24 R23 K51 ["render"]
+  MOVE R24 R5
+  DUPTABLE R25 K52 [{"Stylizer"}]
+  SETTABLEKS R6 R25 K13 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  DUPCLOSURE R24 K53 [PROTO_13]
   CAPTURE VAL R14
   CAPTURE VAL R15
-  DUPCLOSURE R24 K53 [PROTO_14]
+  DUPCLOSURE R25 K54 [PROTO_14]
   CAPTURE VAL R21
-  GETTABLEKS R25 R2 K54 ["connect"]
-  MOVE R26 R24
+  GETTABLEKS R26 R2 K55 ["connect"]
+  MOVE R27 R25
+  MOVE R28 R24
+  CALL R26 2 1
   MOVE R27 R23
-  CALL R25 2 1
-  MOVE R26 R22
-  CALL R25 1 -1
-  RETURN R25 -1
+  CALL R26 1 -1
+  RETURN R26 -1

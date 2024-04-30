@@ -23,7 +23,7 @@ function VRAvatarGesturesServer.new()
 	self.VRPlayers = {}
 
 	-- track changes to the API
-	self.connections:connect(VRService:GetPropertyChangedSignal("AvatarGestures"), function() self:onAvatarGesturesChanged() end)
+	self.connections:connect("AvatarGestures", VRService:GetPropertyChangedSignal("AvatarGestures"), function() self:onAvatarGesturesChanged() end)
 	if VRService.AvatarGestures then self:onAvatarGesturesChanged() end
 
 	return self
@@ -86,10 +86,10 @@ function VRAvatarGesturesServer:onAvatarGesturesChanged()
 			end
 
 			-- add connection to populate VRPlayers
-			self.connections:connect(isVRPlayerRemoteEvent.OnServerEvent, function(player, isVRPlayer) self:onPlayerChanged(player, isVRPlayer) end)
+			self.connections:connect("VRPlayerOnServerEvent", isVRPlayerRemoteEvent.OnServerEvent, function(player, isVRPlayer) self:onPlayerChanged(player, isVRPlayer) end)
 
 			-- remove a player when they leave
-			self.connections:connect(Players.PlayerRemoving, function(player) self:onPlayerChanged(player, false) end)
+			self.connections:connect("PlayerRemoving", Players.PlayerRemoving, function(player) self:onPlayerChanged(player, false) end)
 		else
 			-- delete IK and parts
 			for player in pairs(self.VRPlayers) do
@@ -97,7 +97,7 @@ function VRAvatarGesturesServer:onAvatarGesturesChanged()
 			end
 
 			self.connections:disconnectAll()
-			self.connections:connect(VRService:GetPropertyChangedSignal("AvatarGestures"), function()
+			self.connections:connect("AvatarGestures", VRService:GetPropertyChangedSignal("AvatarGestures"), function()
 				self:onAvatarGesturesChanged()
 			end)
 		end
@@ -113,7 +113,7 @@ function VRAvatarGesturesServer:onAvatarGesturesChanged()
 					end)
 				end
 
-				self.connections:connect(Players.PlayerAdded, onPlayerAdded)
+				self.connections:connect("PlayerAdded", Players.PlayerAdded, onPlayerAdded)
 				for i, player in pairs(Players:GetPlayers()) do
 					onPlayerAdded(player)
 				end

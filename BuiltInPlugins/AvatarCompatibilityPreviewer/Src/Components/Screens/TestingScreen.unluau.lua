@@ -16,26 +16,26 @@ return function()
    local var1 = var10:use("TestingScreen")
    local var2 = var11.new()
    local var3 = var2.useContext(var3)
-   local var313 = {}
-   var313.Layout = Enum.FillDirection.Vertical
-   var313.Spacing = var1.Spacing
-   var313.HorizontalAlignment = Enum.HorizontalAlignment.Center
-   var313.VerticalAlignment = Enum.VerticalAlignment.Center
-   local var318 = {}
-   local var322 = {}
-   var322.AutomaticSize = Enum.AutomaticSize.XY
-   var322.LayoutOrder = var2:getNextOrder()
-   var322.Text = var0:getText("TestingScreen", "Description")
-   var318.Description = var2.createElement(var8, var322)
+   local var325 = {}
+   var325.Layout = Enum.FillDirection.Vertical
+   var325.Spacing = var1.Spacing
+   var325.HorizontalAlignment = Enum.HorizontalAlignment.Center
+   var325.VerticalAlignment = Enum.VerticalAlignment.Center
+   local var330 = {}
    local var334 = {}
-   var334.AutomaticSize = Enum.AutomaticSize.X
+   var334.AutomaticSize = Enum.AutomaticSize.XY
    var334.LayoutOrder = var2:getNextOrder()
-   function var334.OnClick()
+   var334.Text = var0:getText("TestingScreen", "Description")
+   var330.Description = var2.createElement(var8, var334)
+   local var346 = {}
+   var346.AutomaticSize = Enum.AutomaticSize.X
+   var346.LayoutOrder = var2:getNextOrder()
+   function var346.OnClick()
       var3.stopPlaySolo()
    end
    
-   var334.Size = UDim2.fromOffset(0, var1.ButtonHeight)
-   var334.Text = var0:getText("TestingScreen", "Stop")
-   var318.StopButton = var2.createElement(var6, var334)
-   return var2.createElement(var7, var313, var318)
+   var346.Size = UDim2.fromOffset(0, var1.ButtonHeight)
+   var346.Text = var0:getText("TestingScreen", "Stop")
+   var330.StopButton = var2.createElement(var6, var346)
+   return var2.createElement(var7, var325, var330)
 end

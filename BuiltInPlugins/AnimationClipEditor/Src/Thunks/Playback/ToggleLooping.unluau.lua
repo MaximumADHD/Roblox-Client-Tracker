@@ -9,10 +9,10 @@ return function(arg1)
       if not var0 then
       end
       local var1 = var1(var0)
-      local var60 = var2
-      var60 = var1
-      var60.setLooping(var60, var1.Metadata.Looping)
-      local var65 = var3(var1)
+      local var29 = var2
+      var29 = var1
+      var29.setLooping(var29, var1.Metadata.Looping)
+      local var34 = var3(var1)
       arg1:dispatch()
       arg1:report("onControlPressed", "ToggleLooping")
    end

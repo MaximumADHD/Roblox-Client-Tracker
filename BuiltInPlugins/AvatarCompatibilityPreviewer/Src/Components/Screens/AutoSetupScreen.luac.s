@@ -215,223 +215,230 @@ PROTO_9:
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K12 ["createElement"]
   GETUPVAL R16 10
-  DUPTABLE R17 K24 [{"Model", "GetCameraModifications"}]
+  DUPTABLE R17 K25 [{"Model", "GetCameraModifications", "ShowResetCameraButton"}]
   SETTABLEKS R4 R17 K22 ["Model"]
   GETUPVAL R18 11
   SETTABLEKS R18 R17 K23 ["GetCameraModifications"]
+  GETUPVAL R19 12
+  CALL R19 0 1
+  JUMPIFNOT R19 [+2]
+  LOADB R18 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K24 ["ShowResetCameraButton"]
   CALL R15 2 -1
   CALL R12 -1 1
   SETTABLEKS R12 R11 K14 ["ModelPreview"]
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K12 ["createElement"]
-  GETUPVAL R13 12
-  DUPTABLE R14 K34 [{"Style", "Enabled", "Modal", "Resizable", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
-  LOADK R15 K35 ["AcceptCancel"]
-  SETTABLEKS R15 R14 K25 ["Style"]
-  GETTABLEKS R15 R6 K36 ["enabled"]
-  SETTABLEKS R15 R14 K26 ["Enabled"]
+  GETUPVAL R13 13
+  DUPTABLE R14 K35 [{"Style", "Enabled", "Modal", "Resizable", "Title", "MinContentSize", "Buttons", "OnButtonPressed", "OnClose"}]
+  LOADK R15 K36 ["AcceptCancel"]
+  SETTABLEKS R15 R14 K26 ["Style"]
+  GETTABLEKS R15 R6 K37 ["enabled"]
+  SETTABLEKS R15 R14 K27 ["Enabled"]
   LOADB R15 1
-  SETTABLEKS R15 R14 K27 ["Modal"]
+  SETTABLEKS R15 R14 K28 ["Modal"]
   LOADB R15 0
-  SETTABLEKS R15 R14 K28 ["Resizable"]
-  LOADK R17 K37 ["AvatarScreen"]
-  LOADK R18 K38 ["CancelPromptTitle"]
-  NAMECALL R15 R1 K39 ["getText"]
+  SETTABLEKS R15 R14 K29 ["Resizable"]
+  LOADK R17 K38 ["AvatarScreen"]
+  LOADK R18 K39 ["CancelPromptTitle"]
+  NAMECALL R15 R1 K40 ["getText"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K29 ["Title"]
-  GETIMPORT R15 K41 [Vector2.new]
+  SETTABLEKS R15 R14 K30 ["Title"]
+  GETIMPORT R15 K42 [Vector2.new]
   LOADN R16 44
   LOADN R17 50
   CALL R15 2 1
-  SETTABLEKS R15 R14 K30 ["MinContentSize"]
+  SETTABLEKS R15 R14 K31 ["MinContentSize"]
   NEWTABLE R15 0 2
-  DUPTABLE R16 K44 [{"Key", "Text"}]
-  LOADK R17 K45 ["yes"]
-  SETTABLEKS R17 R16 K42 ["Key"]
-  LOADK R19 K37 ["AvatarScreen"]
-  LOADK R20 K46 ["CancelPromptYes"]
-  NAMECALL R17 R1 K39 ["getText"]
+  DUPTABLE R16 K45 [{"Key", "Text"}]
+  LOADK R17 K46 ["yes"]
+  SETTABLEKS R17 R16 K43 ["Key"]
+  LOADK R19 K38 ["AvatarScreen"]
+  LOADK R20 K47 ["CancelPromptYes"]
+  NAMECALL R17 R1 K40 ["getText"]
   CALL R17 3 1
-  SETTABLEKS R17 R16 K43 ["Text"]
-  DUPTABLE R17 K44 [{"Key", "Text"}]
-  LOADK R18 K47 ["no"]
-  SETTABLEKS R18 R17 K42 ["Key"]
-  LOADK R20 K37 ["AvatarScreen"]
-  LOADK R21 K48 ["CancelPromptNo"]
-  NAMECALL R18 R1 K39 ["getText"]
+  SETTABLEKS R17 R16 K44 ["Text"]
+  DUPTABLE R17 K45 [{"Key", "Text"}]
+  LOADK R18 K48 ["no"]
+  SETTABLEKS R18 R17 K43 ["Key"]
+  LOADK R20 K38 ["AvatarScreen"]
+  LOADK R21 K49 ["CancelPromptNo"]
+  NAMECALL R18 R1 K40 ["getText"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K43 ["Text"]
+  SETTABLEKS R18 R17 K44 ["Text"]
   SETLIST R15 R16 2 [1]
-  SETTABLEKS R15 R14 K31 ["Buttons"]
+  SETTABLEKS R15 R14 K32 ["Buttons"]
   NEWCLOSURE R15 P4
   CAPTURE VAL R0
   CAPTURE VAL R6
-  SETTABLEKS R15 R14 K32 ["OnButtonPressed"]
-  GETTABLEKS R15 R6 K49 ["disable"]
-  SETTABLEKS R15 R14 K33 ["OnClose"]
-  DUPTABLE R15 K50 [{"Text"}]
+  SETTABLEKS R15 R14 K33 ["OnButtonPressed"]
+  GETTABLEKS R15 R6 K50 ["disable"]
+  SETTABLEKS R15 R14 K34 ["OnClose"]
+  DUPTABLE R15 K51 [{"Text"}]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K12 ["createElement"]
-  GETUPVAL R17 13
-  DUPTABLE R18 K52 [{"Text", "TextWrapped"}]
-  LOADK R21 K37 ["AvatarScreen"]
-  LOADK R22 K53 ["CancelPromptConfirmText"]
-  NAMECALL R19 R1 K39 ["getText"]
+  GETUPVAL R17 14
+  DUPTABLE R18 K53 [{"Text", "TextWrapped"}]
+  LOADK R21 K38 ["AvatarScreen"]
+  LOADK R22 K54 ["CancelPromptConfirmText"]
+  NAMECALL R19 R1 K40 ["getText"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K43 ["Text"]
+  SETTABLEKS R19 R18 K44 ["Text"]
   LOADB R19 1
-  SETTABLEKS R19 R18 K51 ["TextWrapped"]
+  SETTABLEKS R19 R18 K52 ["TextWrapped"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K43 ["Text"]
+  SETTABLEKS R16 R15 K44 ["Text"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K15 ["CancelDialog"]
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K12 ["createElement"]
   GETUPVAL R13 8
-  DUPTABLE R14 K56 [{"AutomaticSize", "Size", "ZIndex"}]
-  GETIMPORT R15 K59 [Enum.AutomaticSize.Y]
-  SETTABLEKS R15 R14 K54 ["AutomaticSize"]
-  GETIMPORT R15 K62 [UDim2.fromScale]
+  DUPTABLE R14 K57 [{"AutomaticSize", "Size", "ZIndex"}]
+  GETIMPORT R15 K60 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K55 ["AutomaticSize"]
+  GETIMPORT R15 K63 [UDim2.fromScale]
   LOADN R16 1
   LOADN R17 0
   CALL R15 2 1
-  SETTABLEKS R15 R14 K55 ["Size"]
+  SETTABLEKS R15 R14 K56 ["Size"]
   NAMECALL R15 R7 K21 ["getNextOrder"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K19 ["ZIndex"]
-  DUPTABLE R15 K65 [{"Padding", "Alert"}]
+  DUPTABLE R15 K66 [{"Padding", "Alert"}]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K12 ["createElement"]
-  LOADK R17 K66 ["UIPadding"]
-  DUPTABLE R18 K70 [{"PaddingLeft", "PaddingRight", "PaddingTop"}]
-  GETTABLEKS R19 R2 K71 ["AlertPaddingHorizontal"]
-  SETTABLEKS R19 R18 K67 ["PaddingLeft"]
-  GETTABLEKS R19 R2 K71 ["AlertPaddingHorizontal"]
-  SETTABLEKS R19 R18 K68 ["PaddingRight"]
-  GETTABLEKS R19 R2 K72 ["AlertPaddingVertical"]
-  SETTABLEKS R19 R18 K69 ["PaddingTop"]
+  LOADK R17 K67 ["UIPadding"]
+  DUPTABLE R18 K71 [{"PaddingLeft", "PaddingRight", "PaddingTop"}]
+  GETTABLEKS R19 R2 K72 ["AlertPaddingHorizontal"]
+  SETTABLEKS R19 R18 K68 ["PaddingLeft"]
+  GETTABLEKS R19 R2 K72 ["AlertPaddingHorizontal"]
+  SETTABLEKS R19 R18 K69 ["PaddingRight"]
+  GETTABLEKS R19 R2 K73 ["AlertPaddingVertical"]
+  SETTABLEKS R19 R18 K70 ["PaddingTop"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K63 ["Padding"]
+  SETTABLEKS R16 R15 K64 ["Padding"]
   GETTABLEKS R18 R0 K2 ["autoSetupState"]
   GETTABLEKS R17 R18 K3 ["type"]
-  JUMPIFNOTEQKS R17 K73 ["error"] [+35]
-  GETTABLEKS R17 R5 K36 ["enabled"]
+  JUMPIFNOTEQKS R17 K74 ["error"] [+35]
+  GETTABLEKS R17 R5 K37 ["enabled"]
   JUMPIFNOT R17 [+31]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K12 ["createElement"]
-  GETUPVAL R17 14
-  DUPTABLE R18 K75 [{"Title", "Description", "Style", "OnClose"}]
-  LOADK R21 K37 ["AvatarScreen"]
-  LOADK R22 K76 ["AutoSetupErrorTitle"]
-  NAMECALL R19 R1 K39 ["getText"]
+  GETUPVAL R17 15
+  DUPTABLE R18 K76 [{"Title", "Description", "Style", "OnClose"}]
+  LOADK R21 K38 ["AvatarScreen"]
+  LOADK R22 K77 ["AutoSetupErrorTitle"]
+  NAMECALL R19 R1 K40 ["getText"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K29 ["Title"]
-  LOADK R21 K37 ["AvatarScreen"]
+  SETTABLEKS R19 R18 K30 ["Title"]
+  LOADK R21 K38 ["AvatarScreen"]
   GETTABLEKS R23 R0 K2 ["autoSetupState"]
-  GETTABLEKS R22 R23 K73 ["error"]
-  NAMECALL R19 R1 K39 ["getText"]
+  GETTABLEKS R22 R23 K74 ["error"]
+  NAMECALL R19 R1 K40 ["getText"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K74 ["Description"]
-  LOADK R19 K77 ["Error"]
-  SETTABLEKS R19 R18 K25 ["Style"]
-  GETTABLEKS R19 R5 K49 ["disable"]
-  SETTABLEKS R19 R18 K33 ["OnClose"]
+  SETTABLEKS R19 R18 K75 ["Description"]
+  LOADK R19 K78 ["Error"]
+  SETTABLEKS R19 R18 K26 ["Style"]
+  GETTABLEKS R19 R5 K50 ["disable"]
+  SETTABLEKS R19 R18 K34 ["OnClose"]
   CALL R16 2 1
   JUMP [+106]
-  GETUPVAL R17 15
+  GETUPVAL R17 16
   CALL R17 0 1
   JUMPIFNOT R17 [+34]
   GETTABLEKS R18 R0 K2 ["autoSetupState"]
   GETTABLEKS R17 R18 K3 ["type"]
-  JUMPIFNOTEQKS R17 K78 ["hasSelection"] [+29]
+  JUMPIFNOTEQKS R17 K79 ["hasSelection"] [+29]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K12 ["createElement"]
-  GETUPVAL R17 14
-  DUPTABLE R18 K75 [{"Title", "Description", "Style", "OnClose"}]
-  LOADK R21 K37 ["AvatarScreen"]
-  LOADK R22 K79 ["AutoSetupStartTitle"]
-  NAMECALL R19 R1 K39 ["getText"]
+  GETUPVAL R17 15
+  DUPTABLE R18 K76 [{"Title", "Description", "Style", "OnClose"}]
+  LOADK R21 K38 ["AvatarScreen"]
+  LOADK R22 K80 ["AutoSetupStartTitle"]
+  NAMECALL R19 R1 K40 ["getText"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K29 ["Title"]
-  LOADK R21 K37 ["AvatarScreen"]
-  LOADK R22 K80 ["AutoSetupStartDescription"]
-  NAMECALL R19 R1 K39 ["getText"]
+  SETTABLEKS R19 R18 K30 ["Title"]
+  LOADK R21 K38 ["AvatarScreen"]
+  LOADK R22 K81 ["AutoSetupStartDescription"]
+  NAMECALL R19 R1 K40 ["getText"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K74 ["Description"]
-  LOADK R19 K81 ["Warning"]
-  SETTABLEKS R19 R18 K25 ["Style"]
-  GETTABLEKS R19 R5 K49 ["disable"]
-  SETTABLEKS R19 R18 K33 ["OnClose"]
+  SETTABLEKS R19 R18 K75 ["Description"]
+  LOADK R19 K82 ["Warning"]
+  SETTABLEKS R19 R18 K26 ["Style"]
+  GETTABLEKS R19 R5 K50 ["disable"]
+  SETTABLEKS R19 R18 K34 ["OnClose"]
   CALL R16 2 1
   JUMP [+69]
   LOADB R16 0
   GETTABLEKS R18 R0 K2 ["autoSetupState"]
   GETTABLEKS R17 R18 K3 ["type"]
-  JUMPIFNOTEQKS R17 K82 ["inAutoSetup"] [+63]
+  JUMPIFNOTEQKS R17 K83 ["inAutoSetup"] [+63]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K12 ["createElement"]
-  GETUPVAL R17 14
-  DUPTABLE R18 K84 [{"Title", "Description", "PrimaryAction"}]
-  LOADK R21 K37 ["AvatarScreen"]
-  LOADK R22 K85 ["AutoSetupInProgressTitle"]
-  NAMECALL R19 R1 K39 ["getText"]
+  GETUPVAL R17 15
+  DUPTABLE R18 K85 [{"Title", "Description", "PrimaryAction"}]
+  LOADK R21 K38 ["AvatarScreen"]
+  LOADK R22 K86 ["AutoSetupInProgressTitle"]
+  NAMECALL R19 R1 K40 ["getText"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K29 ["Title"]
-  LOADK R24 K37 ["AvatarScreen"]
-  LOADK R25 K86 ["AutoSetupInProgressDescription"]
-  NAMECALL R22 R1 K39 ["getText"]
+  SETTABLEKS R19 R18 K30 ["Title"]
+  LOADK R24 K38 ["AvatarScreen"]
+  LOADK R25 K87 ["AutoSetupInProgressDescription"]
+  NAMECALL R22 R1 K40 ["getText"]
   CALL R22 3 1
   MOVE R20 R22
   GETTABLEKS R23 R0 K2 ["autoSetupState"]
-  GETTABLEKS R22 R23 K87 ["eta"]
+  GETTABLEKS R22 R23 K88 ["eta"]
   JUMPIFNOTEQKNIL R22 [+3]
-  LOADK R21 K88 [""]
+  LOADK R21 K89 [""]
   JUMP [+18]
-  LOADK R22 K89 ["
+  LOADK R22 K90 ["
 "]
-  LOADK R25 K37 ["AvatarScreen"]
-  LOADK R26 K90 ["AutoSetupETA"]
-  DUPTABLE R27 K91 [{"eta"}]
+  LOADK R25 K38 ["AvatarScreen"]
+  LOADK R26 K91 ["AutoSetupETA"]
+  DUPTABLE R27 K92 [{"eta"}]
   GETTABLEKS R30 R0 K2 ["autoSetupState"]
-  GETTABLEKS R29 R30 K87 ["eta"]
+  GETTABLEKS R29 R30 K88 ["eta"]
   FASTCALL1 MATH_CEIL R29 [+2]
-  GETIMPORT R28 K94 [math.ceil]
+  GETIMPORT R28 K95 [math.ceil]
   CALL R28 1 1
-  SETTABLEKS R28 R27 K87 ["eta"]
-  NAMECALL R23 R1 K39 ["getText"]
+  SETTABLEKS R28 R27 K88 ["eta"]
+  NAMECALL R23 R1 K40 ["getText"]
   CALL R23 4 1
   CONCAT R21 R22 R23
   CONCAT R19 R20 R21
-  SETTABLEKS R19 R18 K74 ["Description"]
-  DUPTABLE R19 K96 [{"Text", "OnClick"}]
-  LOADK R22 K37 ["AvatarScreen"]
-  LOADK R23 K97 ["AutoSetupInProgressActionText"]
-  NAMECALL R20 R1 K39 ["getText"]
+  SETTABLEKS R19 R18 K75 ["Description"]
+  DUPTABLE R19 K97 [{"Text", "OnClick"}]
+  LOADK R22 K38 ["AvatarScreen"]
+  LOADK R23 K98 ["AutoSetupInProgressActionText"]
+  NAMECALL R20 R1 K40 ["getText"]
   CALL R20 3 1
-  SETTABLEKS R20 R19 K43 ["Text"]
-  GETTABLEKS R20 R6 K98 ["enable"]
-  SETTABLEKS R20 R19 K95 ["OnClick"]
-  SETTABLEKS R19 R18 K83 ["PrimaryAction"]
+  SETTABLEKS R20 R19 K44 ["Text"]
+  GETTABLEKS R20 R6 K99 ["enable"]
+  SETTABLEKS R20 R19 K96 ["OnClick"]
+  SETTABLEKS R19 R18 K84 ["PrimaryAction"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K64 ["Alert"]
+  SETTABLEKS R16 R15 K65 ["Alert"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K16 ["ErrorAlert"]
   GETTABLEKS R14 R0 K2 ["autoSetupState"]
   GETTABLEKS R13 R14 K3 ["type"]
-  JUMPIFEQKS R13 K78 ["hasSelection"] [+26]
+  JUMPIFEQKS R13 K79 ["hasSelection"] [+26]
   LOADB R12 0
   GETTABLEKS R14 R0 K2 ["autoSetupState"]
   GETTABLEKS R13 R14 K3 ["type"]
-  JUMPIFNOTEQKS R13 K73 ["error"] [+75]
+  JUMPIFNOTEQKS R13 K74 ["error"] [+75]
   GETTABLEKS R14 R0 K2 ["autoSetupState"]
-  GETTABLEKS R13 R14 K73 ["error"]
-  JUMPIFNOTEQKS R13 K99 ["ErrorMultipleBodies"] [+3]
+  GETTABLEKS R13 R14 K74 ["error"]
+  JUMPIFNOTEQKS R13 K100 ["ErrorMultipleBodies"] [+3]
   LOADB R12 0
   JUMP [+9]
-  JUMPIFNOTEQKS R13 K100 ["ErrorSourceFail"] [+3]
+  JUMPIFNOTEQKS R13 K101 ["ErrorSourceFail"] [+3]
   LOADB R12 1
   JUMP [+5]
-  GETUPVAL R14 16
+  GETUPVAL R14 17
   MOVE R15 R13
   CALL R14 1 1
   MOVE R12 R14
@@ -440,39 +447,39 @@ PROTO_9:
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K12 ["createElement"]
   GETUPVAL R13 8
-  DUPTABLE R14 K103 [{"AnchorPoint", "AutomaticSize", "Position", "ZIndex"}]
-  GETIMPORT R15 K41 [Vector2.new]
+  DUPTABLE R14 K104 [{"AnchorPoint", "AutomaticSize", "Position", "ZIndex"}]
+  GETIMPORT R15 K42 [Vector2.new]
   LOADN R16 1
   LOADN R17 1
   CALL R15 2 1
-  SETTABLEKS R15 R14 K101 ["AnchorPoint"]
-  GETIMPORT R15 K105 [Enum.AutomaticSize.XY]
-  SETTABLEKS R15 R14 K54 ["AutomaticSize"]
-  GETTABLEKS R15 R2 K106 ["ControlsPosition"]
-  SETTABLEKS R15 R14 K102 ["Position"]
+  SETTABLEKS R15 R14 K102 ["AnchorPoint"]
+  GETIMPORT R15 K106 [Enum.AutomaticSize.XY]
+  SETTABLEKS R15 R14 K55 ["AutomaticSize"]
+  GETTABLEKS R15 R2 K107 ["ControlsPosition"]
+  SETTABLEKS R15 R14 K103 ["Position"]
   NAMECALL R15 R7 K21 ["getNextOrder"]
   CALL R15 1 1
   SETTABLEKS R15 R14 K19 ["ZIndex"]
-  DUPTABLE R15 K108 [{"Start"}]
+  DUPTABLE R15 K109 [{"Start"}]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K12 ["createElement"]
-  GETUPVAL R17 17
-  DUPTABLE R18 K109 [{"AutomaticSize", "OnClick", "Style", "Text", "ZIndex"}]
-  GETIMPORT R19 K105 [Enum.AutomaticSize.XY]
-  SETTABLEKS R19 R18 K54 ["AutomaticSize"]
-  GETTABLEKS R19 R0 K110 ["startAutoSetup"]
-  SETTABLEKS R19 R18 K95 ["OnClick"]
-  LOADK R19 K111 ["PrimaryBrand"]
-  SETTABLEKS R19 R18 K25 ["Style"]
-  LOADK R21 K37 ["AvatarScreen"]
-  LOADK R22 K112 ["StartAutoSetup"]
-  NAMECALL R19 R1 K39 ["getText"]
+  GETUPVAL R17 18
+  DUPTABLE R18 K110 [{"AutomaticSize", "OnClick", "Style", "Text", "ZIndex"}]
+  GETIMPORT R19 K106 [Enum.AutomaticSize.XY]
+  SETTABLEKS R19 R18 K55 ["AutomaticSize"]
+  GETTABLEKS R19 R0 K111 ["startAutoSetup"]
+  SETTABLEKS R19 R18 K96 ["OnClick"]
+  LOADK R19 K112 ["PrimaryBrand"]
+  SETTABLEKS R19 R18 K26 ["Style"]
+  LOADK R21 K38 ["AvatarScreen"]
+  LOADK R22 K113 ["StartAutoSetup"]
+  NAMECALL R19 R1 K40 ["getText"]
   CALL R19 3 1
-  SETTABLEKS R19 R18 K43 ["Text"]
+  SETTABLEKS R19 R18 K44 ["Text"]
   LOADN R19 2
   SETTABLEKS R19 R18 K19 ["ZIndex"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K107 ["Start"]
+  SETTABLEKS R16 R15 K108 ["Start"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K17 ["Controls"]
   CALL R8 3 -1
@@ -553,10 +560,15 @@ MAIN:
   LOADB R24 0
   NAMECALL R21 R21 K37 ["DefineFastFlag"]
   CALL R21 3 1
-  DUPCLOSURE R22 K38 [PROTO_0]
-  DUPCLOSURE R23 K39 [PROTO_1]
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R25 R0 K9 ["Src"]
+  GETTABLEKS R24 R25 K32 ["Flags"]
+  GETTABLEKS R23 R24 K38 ["getFFlagAvatarPreviewerSetUpResetCameraButton"]
+  CALL R22 1 1
+  DUPCLOSURE R23 K39 [PROTO_0]
+  DUPCLOSURE R24 K40 [PROTO_1]
   CAPTURE VAL R8
-  DUPCLOSURE R24 K40 [PROTO_9]
+  DUPCLOSURE R25 K41 [PROTO_9]
   CAPTURE VAL R18
   CAPTURE VAL R19
   CAPTURE VAL R5
@@ -568,6 +580,7 @@ MAIN:
   CAPTURE VAL R14
   CAPTURE VAL R3
   CAPTURE VAL R4
+  CAPTURE VAL R23
   CAPTURE VAL R22
   CAPTURE VAL R15
   CAPTURE VAL R16
@@ -575,4 +588,4 @@ MAIN:
   CAPTURE VAL R20
   CAPTURE VAL R8
   CAPTURE VAL R13
-  RETURN R24 1
+  RETURN R25 1

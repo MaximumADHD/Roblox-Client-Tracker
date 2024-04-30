@@ -171,6 +171,34 @@ PROTO_7:
   RETURN R0 0
 
 PROTO_8:
+  GETUPVAL R1 0
+  DUPTABLE R3 K1 [{"color"}]
+  SETTABLEKS R0 R3 K0 ["color"]
+  NAMECALL R1 R1 K2 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["Get"]
+  CALL R0 0 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["tagName"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["state"]
+  GETTABLEKS R3 R4 K4 ["color"]
+  NAMECALL R0 R0 K5 ["SetColor"]
+  CALL R0 3 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["props"]
+  GETTABLEKS R0 R1 K6 ["close"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  JUMPIF R1 [+42]
   DUPTABLE R1 K3 [{"h", "s", "v"}]
   LOADN R2 0
   SETTABLEKS R2 R1 K0 ["h"]
@@ -183,7 +211,7 @@ PROTO_8:
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K5 ["SetNewHSV"]
   NEWCLOSURE R1 P1
-  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K6 ["onSave"]
   NEWCLOSURE R1 P2
@@ -202,8 +230,22 @@ PROTO_8:
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K11 ["onColorValueChanged"]
   RETURN R0 0
+  NEWCLOSURE R1 P7
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K12 ["onColorChanged"]
+  NEWCLOSURE R1 P8
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K6 ["onSave"]
+  DUPTABLE R3 K14 [{"color"}]
+  GETTABLEKS R5 R0 K15 ["props"]
+  GETTABLEKS R4 R5 K16 ["tagColor"]
+  SETTABLEKS R4 R3 K13 ["color"]
+  NAMECALL R1 R0 K17 ["setState"]
+  CALL R1 2 0
+  RETURN R0 0
 
-PROTO_9:
+PROTO_11:
   GETTABLEKS R2 R0 K0 ["tagColor"]
   JUMPIFNOTEQKNIL R2 [+12]
   DUPTABLE R2 K4 [{"h", "s", "v"}]
@@ -232,7 +274,7 @@ PROTO_9:
   LOADNIL R2
   RETURN R2 1
 
-PROTO_10:
+PROTO_12:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R3 R1 K1 ["Stylizer"]
   GETTABLEKS R2 R3 K2 ["ColorPicker"]
@@ -245,142 +287,169 @@ PROTO_10:
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K3 ["new"]
   CALL R5 0 1
-  GETIMPORT R6 K6 [Color3.fromHSV]
-  GETTABLEKS R8 R0 K7 ["state"]
-  GETTABLEKS R7 R8 K8 ["h"]
-  GETTABLEKS R9 R0 K7 ["state"]
-  GETTABLEKS R8 R9 K9 ["s"]
-  GETTABLEKS R10 R0 K7 ["state"]
-  GETTABLEKS R9 R10 K10 ["v"]
+  GETUPVAL R7 1
+  JUMPIFNOT R7 [+5]
+  GETTABLEKS R7 R0 K4 ["state"]
+  GETTABLEKS R6 R7 K5 ["color"]
+  JUMP [+15]
+  GETIMPORT R6 K8 [Color3.fromHSV]
+  GETTABLEKS R8 R0 K4 ["state"]
+  GETTABLEKS R7 R8 K9 ["h"]
+  GETTABLEKS R9 R0 K4 ["state"]
+  GETTABLEKS R8 R9 K10 ["s"]
+  GETTABLEKS R10 R0 K4 ["state"]
+  GETTABLEKS R9 R10 K11 ["v"]
   CALL R6 3 1
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K11 ["createElement"]
   GETUPVAL R8 2
-  DUPTABLE R9 K15 [{"Layout", "Padding", "Spacing"}]
-  GETIMPORT R10 K19 [Enum.FillDirection.Vertical]
-  SETTABLEKS R10 R9 K12 ["Layout"]
-  GETTABLEKS R10 R2 K13 ["Padding"]
-  SETTABLEKS R10 R9 K13 ["Padding"]
-  GETTABLEKS R10 R2 K14 ["Spacing"]
-  SETTABLEKS R10 R9 K14 ["Spacing"]
-  DUPTABLE R10 K22 [{"TopControls", "Body"}]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K11 ["createElement"]
-  GETUPVAL R12 3
-  DUPTABLE R13 K28 [{"LayoutOrder", "TagName", "Color", "Close", "Save"}]
-  NAMECALL R14 R3 K29 ["getNextOrder"]
-  CALL R14 1 1
-  SETTABLEKS R14 R13 K23 ["LayoutOrder"]
-  GETTABLEKS R14 R1 K30 ["tagName"]
-  SETTABLEKS R14 R13 K24 ["TagName"]
-  SETTABLEKS R6 R13 K25 ["Color"]
-  GETTABLEKS R14 R1 K31 ["close"]
-  SETTABLEKS R14 R13 K26 ["Close"]
-  GETTABLEKS R14 R0 K32 ["onSave"]
-  SETTABLEKS R14 R13 K27 ["Save"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K20 ["TopControls"]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K11 ["createElement"]
+  GETTABLEKS R7 R8 K12 ["createElement"]
+  GETUPVAL R8 3
+  DUPTABLE R9 K16 [{"Layout", "Padding", "Spacing"}]
+  GETIMPORT R10 K20 [Enum.FillDirection.Vertical]
+  SETTABLEKS R10 R9 K13 ["Layout"]
+  GETTABLEKS R10 R2 K14 ["Padding"]
+  SETTABLEKS R10 R9 K14 ["Padding"]
+  GETTABLEKS R10 R2 K15 ["Spacing"]
+  SETTABLEKS R10 R9 K15 ["Spacing"]
+  DUPTABLE R10 K24 [{"TopControls", "Body", "ColorPickerComponent"}]
   GETUPVAL R12 2
-  DUPTABLE R13 K34 [{"Size", "LayoutOrder", "Layout", "Spacing"}]
-  GETTABLEKS R14 R2 K35 ["BodySize"]
-  SETTABLEKS R14 R13 K33 ["Size"]
-  NAMECALL R14 R3 K29 ["getNextOrder"]
+  GETTABLEKS R11 R12 K12 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K30 [{"LayoutOrder", "TagName", "Color", "Close", "Save"}]
+  NAMECALL R14 R3 K31 ["getNextOrder"]
   CALL R14 1 1
-  SETTABLEKS R14 R13 K23 ["LayoutOrder"]
-  GETIMPORT R14 K37 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R14 R13 K12 ["Layout"]
-  GETTABLEKS R14 R2 K38 ["BodySpacing"]
-  SETTABLEKS R14 R13 K14 ["Spacing"]
-  DUPTABLE R14 K41 [{"ColorPropertiesPanel", "Picker"}]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K11 ["createElement"]
-  GETUPVAL R16 4
-  DUPTABLE R17 K48 [{"LayoutOrder", "Hue", "Saturation", "Value", "Color", "OnTextChangedHex", "OnTextChangedRGB", "OnTextChangedHSV"}]
-  NAMECALL R18 R4 K29 ["getNextOrder"]
-  CALL R18 1 1
-  SETTABLEKS R18 R17 K23 ["LayoutOrder"]
-  GETTABLEKS R19 R0 K7 ["state"]
-  GETTABLEKS R18 R19 K8 ["h"]
-  SETTABLEKS R18 R17 K42 ["Hue"]
-  GETTABLEKS R19 R0 K7 ["state"]
-  GETTABLEKS R18 R19 K9 ["s"]
-  SETTABLEKS R18 R17 K43 ["Saturation"]
-  GETTABLEKS R19 R0 K7 ["state"]
-  GETTABLEKS R18 R19 K10 ["v"]
-  SETTABLEKS R18 R17 K44 ["Value"]
-  SETTABLEKS R6 R17 K25 ["Color"]
-  GETTABLEKS R18 R0 K49 ["onTextChangedHex"]
-  SETTABLEKS R18 R17 K45 ["OnTextChangedHex"]
-  GETTABLEKS R18 R0 K50 ["onTextChangedRGB"]
-  SETTABLEKS R18 R17 K46 ["OnTextChangedRGB"]
-  GETTABLEKS R18 R0 K51 ["onTextChangedHSV"]
-  SETTABLEKS R18 R17 K47 ["OnTextChangedHSV"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K39 ["ColorPropertiesPanel"]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K11 ["createElement"]
+  SETTABLEKS R14 R13 K25 ["LayoutOrder"]
+  GETTABLEKS R14 R1 K32 ["tagName"]
+  SETTABLEKS R14 R13 K26 ["TagName"]
+  SETTABLEKS R6 R13 K27 ["Color"]
+  GETTABLEKS R14 R1 K33 ["close"]
+  SETTABLEKS R14 R13 K28 ["Close"]
+  GETTABLEKS R14 R0 K34 ["onSave"]
+  SETTABLEKS R14 R13 K29 ["Save"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K21 ["TopControls"]
+  GETUPVAL R12 1
+  JUMPIF R12 [+166]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K12 ["createElement"]
+  GETUPVAL R12 3
+  DUPTABLE R13 K36 [{"Size", "LayoutOrder", "Layout", "Spacing"}]
+  GETTABLEKS R14 R2 K37 ["BodySize"]
+  SETTABLEKS R14 R13 K35 ["Size"]
+  NAMECALL R14 R3 K31 ["getNextOrder"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K25 ["LayoutOrder"]
+  GETIMPORT R14 K39 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R14 R13 K13 ["Layout"]
+  GETTABLEKS R14 R2 K40 ["BodySpacing"]
+  SETTABLEKS R14 R13 K15 ["Spacing"]
+  DUPTABLE R14 K43 [{"ColorPropertiesPanel", "Picker"}]
   GETUPVAL R16 2
-  DUPTABLE R17 K53 [{"Size", "Layout", "LayoutOrder", "VerticalAlignment"}]
-  GETTABLEKS R18 R2 K54 ["PickerSize"]
-  SETTABLEKS R18 R17 K33 ["Size"]
-  GETIMPORT R18 K19 [Enum.FillDirection.Vertical]
-  SETTABLEKS R18 R17 K12 ["Layout"]
-  NAMECALL R18 R4 K29 ["getNextOrder"]
+  GETTABLEKS R15 R16 K12 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K50 [{"LayoutOrder", "Hue", "Saturation", "Value", "Color", "OnTextChangedHex", "OnTextChangedRGB", "OnTextChangedHSV"}]
+  NAMECALL R18 R4 K31 ["getNextOrder"]
   CALL R18 1 1
-  SETTABLEKS R18 R17 K23 ["LayoutOrder"]
-  GETIMPORT R18 K56 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R18 R17 K52 ["VerticalAlignment"]
-  DUPTABLE R18 K59 [{"HueSaturationPicker", "ColorValueSlider"}]
-  GETUPVAL R20 1
-  GETTABLEKS R19 R20 K11 ["createElement"]
-  GETUPVAL R20 5
-  DUPTABLE R21 K61 [{"LayoutOrder", "Hue", "Value", "Saturation", "OnHueSaturationChanged"}]
-  NAMECALL R22 R5 K29 ["getNextOrder"]
-  CALL R22 1 1
-  SETTABLEKS R22 R21 K23 ["LayoutOrder"]
-  GETTABLEKS R23 R0 K7 ["state"]
-  GETTABLEKS R22 R23 K8 ["h"]
-  SETTABLEKS R22 R21 K42 ["Hue"]
-  GETTABLEKS R23 R0 K7 ["state"]
-  GETTABLEKS R22 R23 K10 ["v"]
-  SETTABLEKS R22 R21 K44 ["Value"]
-  GETTABLEKS R23 R0 K7 ["state"]
-  GETTABLEKS R22 R23 K9 ["s"]
-  SETTABLEKS R22 R21 K43 ["Saturation"]
-  GETTABLEKS R22 R0 K62 ["onHueSaturationChanged"]
-  SETTABLEKS R22 R21 K60 ["OnHueSaturationChanged"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K57 ["HueSaturationPicker"]
-  GETUPVAL R20 1
-  GETTABLEKS R19 R20 K11 ["createElement"]
+  SETTABLEKS R18 R17 K25 ["LayoutOrder"]
+  GETTABLEKS R19 R0 K4 ["state"]
+  GETTABLEKS R18 R19 K9 ["h"]
+  SETTABLEKS R18 R17 K44 ["Hue"]
+  GETTABLEKS R19 R0 K4 ["state"]
+  GETTABLEKS R18 R19 K10 ["s"]
+  SETTABLEKS R18 R17 K45 ["Saturation"]
+  GETTABLEKS R19 R0 K4 ["state"]
+  GETTABLEKS R18 R19 K11 ["v"]
+  SETTABLEKS R18 R17 K46 ["Value"]
+  SETTABLEKS R6 R17 K27 ["Color"]
+  GETTABLEKS R18 R0 K51 ["onTextChangedHex"]
+  SETTABLEKS R18 R17 K47 ["OnTextChangedHex"]
+  GETTABLEKS R18 R0 K52 ["onTextChangedRGB"]
+  SETTABLEKS R18 R17 K48 ["OnTextChangedRGB"]
+  GETTABLEKS R18 R0 K53 ["onTextChangedHSV"]
+  SETTABLEKS R18 R17 K49 ["OnTextChangedHSV"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K41 ["ColorPropertiesPanel"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K12 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K55 [{"Size", "Layout", "LayoutOrder", "VerticalAlignment"}]
+  GETTABLEKS R18 R2 K56 ["PickerSize"]
+  SETTABLEKS R18 R17 K35 ["Size"]
+  GETIMPORT R18 K20 [Enum.FillDirection.Vertical]
+  SETTABLEKS R18 R17 K13 ["Layout"]
+  NAMECALL R18 R4 K31 ["getNextOrder"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K25 ["LayoutOrder"]
+  GETIMPORT R18 K58 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R18 R17 K54 ["VerticalAlignment"]
+  DUPTABLE R18 K61 [{"HueSaturationPicker", "ColorValueSlider"}]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K12 ["createElement"]
   GETUPVAL R20 6
-  DUPTABLE R21 K64 [{"LayoutOrder", "Hue", "Saturation", "Value", "updatePosition"}]
-  NAMECALL R22 R5 K29 ["getNextOrder"]
+  DUPTABLE R21 K63 [{"LayoutOrder", "Hue", "Value", "Saturation", "OnHueSaturationChanged"}]
+  NAMECALL R22 R5 K31 ["getNextOrder"]
   CALL R22 1 1
-  SETTABLEKS R22 R21 K23 ["LayoutOrder"]
-  GETTABLEKS R23 R0 K7 ["state"]
-  GETTABLEKS R22 R23 K8 ["h"]
-  SETTABLEKS R22 R21 K42 ["Hue"]
-  GETTABLEKS R23 R0 K7 ["state"]
-  GETTABLEKS R22 R23 K9 ["s"]
-  SETTABLEKS R22 R21 K43 ["Saturation"]
-  GETTABLEKS R23 R0 K7 ["state"]
-  GETTABLEKS R22 R23 K10 ["v"]
-  SETTABLEKS R22 R21 K44 ["Value"]
-  GETTABLEKS R22 R0 K65 ["onColorValueChanged"]
-  SETTABLEKS R22 R21 K63 ["updatePosition"]
+  SETTABLEKS R22 R21 K25 ["LayoutOrder"]
+  GETTABLEKS R23 R0 K4 ["state"]
+  GETTABLEKS R22 R23 K9 ["h"]
+  SETTABLEKS R22 R21 K44 ["Hue"]
+  GETTABLEKS R23 R0 K4 ["state"]
+  GETTABLEKS R22 R23 K11 ["v"]
+  SETTABLEKS R22 R21 K46 ["Value"]
+  GETTABLEKS R23 R0 K4 ["state"]
+  GETTABLEKS R22 R23 K10 ["s"]
+  SETTABLEKS R22 R21 K45 ["Saturation"]
+  GETTABLEKS R22 R0 K64 ["onHueSaturationChanged"]
+  SETTABLEKS R22 R21 K62 ["OnHueSaturationChanged"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K58 ["ColorValueSlider"]
+  SETTABLEKS R19 R18 K59 ["HueSaturationPicker"]
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K12 ["createElement"]
+  GETUPVAL R20 7
+  DUPTABLE R21 K66 [{"LayoutOrder", "Hue", "Saturation", "Value", "updatePosition"}]
+  NAMECALL R22 R5 K31 ["getNextOrder"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K25 ["LayoutOrder"]
+  GETTABLEKS R23 R0 K4 ["state"]
+  GETTABLEKS R22 R23 K9 ["h"]
+  SETTABLEKS R22 R21 K44 ["Hue"]
+  GETTABLEKS R23 R0 K4 ["state"]
+  GETTABLEKS R22 R23 K10 ["s"]
+  SETTABLEKS R22 R21 K45 ["Saturation"]
+  GETTABLEKS R23 R0 K4 ["state"]
+  GETTABLEKS R22 R23 K11 ["v"]
+  SETTABLEKS R22 R21 K46 ["Value"]
+  GETTABLEKS R22 R0 K67 ["onColorValueChanged"]
+  SETTABLEKS R22 R21 K65 ["updatePosition"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K60 ["ColorValueSlider"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K40 ["Picker"]
+  SETTABLEKS R15 R14 K42 ["Picker"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K21 ["Body"]
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K22 ["Body"]
+  GETUPVAL R12 1
+  JUMPIFNOT R12 [+22]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K12 ["createElement"]
+  GETUPVAL R12 8
+  DUPTABLE R13 K69 [{"LayoutOrder", "Color", "Size", "OnColorChanged"}]
+  NAMECALL R14 R3 K31 ["getNextOrder"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K25 ["LayoutOrder"]
+  SETTABLEKS R6 R13 K27 ["Color"]
+  GETTABLEKS R14 R2 K37 ["BodySize"]
+  SETTABLEKS R14 R13 K35 ["Size"]
+  GETTABLEKS R14 R0 K70 ["onColorChanged"]
+  SETTABLEKS R14 R13 K68 ["OnColorChanged"]
+  CALL R11 2 1
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K23 ["ColorPickerComponent"]
   CALL R7 3 -1
   RETURN R7 -1
 
-PROTO_11:
+PROTO_13:
   GETTABLEKS R1 R0 K0 ["ColorPicker"]
   LOADNIL R2
   LOADNIL R3
@@ -400,7 +469,7 @@ PROTO_11:
   SETTABLEKS R3 R4 K9 ["tagColor"]
   RETURN R4 1
 
-PROTO_12:
+PROTO_14:
   GETUPVAL R0 0
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K0 ["ToggleColorPicker"]
@@ -409,7 +478,7 @@ PROTO_12:
   CALL R0 -1 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_15:
   DUPTABLE R1 K1 [{"close"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
@@ -450,60 +519,70 @@ MAIN:
   GETTABLEKS R11 R12 K17 ["Actions"]
   CALL R10 1 1
   GETTABLEKS R11 R3 K18 ["UI"]
-  GETTABLEKS R12 R11 K19 ["Pane"]
-  GETTABLEKS R13 R3 K20 ["Util"]
-  GETTABLEKS R14 R13 K21 ["LayoutOrderIterator"]
-  GETIMPORT R15 K4 [require]
-  GETIMPORT R17 K1 [script]
-  GETTABLEKS R16 R17 K22 ["ColorPickerTopControls"]
-  CALL R15 1 1
+  GETTABLEKS R12 R11 K19 ["ColorPicker"]
+  GETTABLEKS R13 R11 K20 ["Pane"]
+  GETTABLEKS R14 R3 K21 ["Util"]
+  GETTABLEKS R15 R14 K22 ["LayoutOrderIterator"]
   GETIMPORT R16 K4 [require]
   GETIMPORT R18 K1 [script]
-  GETTABLEKS R17 R18 K23 ["ColorPropertiesPanel"]
+  GETTABLEKS R17 R18 K23 ["ColorPickerTopControls"]
   CALL R16 1 1
   GETIMPORT R17 K4 [require]
   GETIMPORT R19 K1 [script]
-  GETTABLEKS R18 R19 K24 ["ColorValueSlider"]
+  GETTABLEKS R18 R19 K24 ["ColorPropertiesPanel"]
   CALL R17 1 1
   GETIMPORT R18 K4 [require]
   GETIMPORT R20 K1 [script]
-  GETTABLEKS R19 R20 K25 ["HueSaturationPicker"]
+  GETTABLEKS R19 R20 K25 ["ColorValueSlider"]
   CALL R18 1 1
-  GETTABLEKS R19 R1 K26 ["PureComponent"]
-  LOADK R21 K27 ["ColorPicker"]
-  NAMECALL R19 R19 K28 ["extend"]
-  CALL R19 2 1
-  DUPCLOSURE R20 K29 [PROTO_8]
+  GETIMPORT R19 K4 [require]
+  GETIMPORT R21 K1 [script]
+  GETTABLEKS R20 R21 K26 ["HueSaturationPicker"]
+  CALL R19 1 1
+  GETIMPORT R20 K28 [game]
+  LOADK R22 K29 ["TagEditorUseColorPicker"]
+  LOADB R23 0
+  NAMECALL R20 R20 K30 ["DefineFastFlag"]
+  CALL R20 3 1
+  GETTABLEKS R21 R1 K31 ["PureComponent"]
+  LOADK R23 K19 ["ColorPicker"]
+  NAMECALL R21 R21 K32 ["extend"]
+  CALL R21 2 1
+  DUPCLOSURE R22 K33 [PROTO_10]
+  CAPTURE VAL R20
   CAPTURE VAL R9
-  SETTABLEKS R20 R19 K30 ["init"]
-  DUPCLOSURE R20 K31 [PROTO_9]
-  SETTABLEKS R20 R19 K32 ["getDerivedStateFromProps"]
-  DUPCLOSURE R20 K33 [PROTO_10]
-  CAPTURE VAL R14
-  CAPTURE VAL R1
-  CAPTURE VAL R12
+  SETTABLEKS R22 R21 K34 ["init"]
+  JUMPIF R20 [+3]
+  DUPCLOSURE R22 K35 [PROTO_11]
+  SETTABLEKS R22 R21 K36 ["getDerivedStateFromProps"]
+  DUPCLOSURE R22 K37 [PROTO_12]
   CAPTURE VAL R15
+  CAPTURE VAL R20
+  CAPTURE VAL R1
+  CAPTURE VAL R13
   CAPTURE VAL R16
-  CAPTURE VAL R18
   CAPTURE VAL R17
-  SETTABLEKS R20 R19 K34 ["render"]
-  MOVE R20 R5
-  DUPTABLE R21 K35 [{"Analytics", "Localization", "Stylizer"}]
-  SETTABLEKS R6 R21 K11 ["Analytics"]
-  SETTABLEKS R7 R21 K12 ["Localization"]
-  SETTABLEKS R8 R21 K14 ["Stylizer"]
-  CALL R20 1 1
-  MOVE R21 R19
-  CALL R20 1 1
-  MOVE R19 R20
-  DUPCLOSURE R20 K36 [PROTO_11]
-  DUPCLOSURE R21 K37 [PROTO_13]
-  CAPTURE VAL R10
-  GETTABLEKS R22 R2 K38 ["connect"]
-  MOVE R23 R20
-  MOVE R24 R21
-  CALL R22 2 1
-  MOVE R23 R19
+  CAPTURE VAL R19
+  CAPTURE VAL R18
+  CAPTURE VAL R12
+  SETTABLEKS R22 R21 K38 ["render"]
+  MOVE R22 R5
+  DUPTABLE R23 K39 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R6 R23 K11 ["Analytics"]
+  SETTABLEKS R7 R23 K12 ["Localization"]
+  SETTABLEKS R8 R23 K14 ["Stylizer"]
   CALL R22 1 1
-  MOVE R19 R22
-  RETURN R19 1
+  MOVE R23 R21
+  CALL R22 1 1
+  MOVE R21 R22
+  DUPCLOSURE R22 K40 [PROTO_13]
+  DUPCLOSURE R23 K41 [PROTO_15]
+  CAPTURE VAL R10
+  GETTABLEKS R24 R2 K42 ["connect"]
+  MOVE R25 R22
+  MOVE R26 R23
+  CALL R24 2 1
+  MOVE R25 R21
+  CALL R24 1 1
+  MOVE R21 R24
+  RETURN R21 1

@@ -389,24 +389,24 @@ PROTO_11:
   MOVE R11 R2
   SETLIST R10 R11 1 [1]
   CALL R8 2 0
-  JUMPIFNOT R2 [+87]
+  JUMPIFNOT R2 [+96]
   GETUPVAL R9 2
   GETTABLEKS R8 R9 K27 ["createElement"]
   GETUPVAL R9 7
-  DUPTABLE R10 K42 [{"Camera", "Model", "FocusPosition", "FocusDirection", "Size", "Ambient", "EnableSky", "LightColor", "LightDirection", "PanSpeedMultiplier", "ShouldClone", "RecenterModelOnUpdate", "RecenterCameraOnUpdate", "Static", "ResetCameraPosition", "OnViewModelLoaded"}]
+  DUPTABLE R10 K43 [{"Camera", "Model", "FocusPosition", "FocusDirection", "Size", "Ambient", "EnableSky", "LightColor", "LightDirection", "PanSpeedMultiplier", "ShouldClone", "RecenterModelOnUpdate", "RecenterCameraOnUpdate", "Static", "ResetCameraPosition", "OnViewModelLoaded", "ShowResetCamera"}]
   SETTABLEKS R4 R10 K13 ["Camera"]
   SETTABLEKS R2 R10 K3 ["Model"]
   GETTABLEKS R14 R0 K3 ["Model"]
   GETTABLEKS R13 R14 K4 ["PrimaryPart"]
   GETTABLEKS R12 R13 K19 ["CFrame"]
-  GETTABLEKS R11 R12 K43 ["Position"]
+  GETTABLEKS R11 R12 K44 ["Position"]
   SETTABLEKS R11 R10 K28 ["FocusPosition"]
   GETTABLEKS R14 R0 K3 ["Model"]
   GETTABLEKS R13 R14 K4 ["PrimaryPart"]
   GETTABLEKS R12 R13 K19 ["CFrame"]
-  GETTABLEKS R11 R12 K44 ["LookVector"]
+  GETTABLEKS R11 R12 K45 ["LookVector"]
   SETTABLEKS R11 R10 K29 ["FocusDirection"]
-  GETIMPORT R11 K47 [UDim2.fromScale]
+  GETIMPORT R11 K48 [UDim2.fromScale]
   LOADN R12 1
   LOADN R13 1
   CALL R11 2 1
@@ -437,11 +437,18 @@ PROTO_11:
   CALL R12 0 1
   JUMPIFNOT R12 [+4]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K48 ["DEFAULT_CAMERA_ANGLE"]
+  GETTABLEKS R11 R12 K49 ["DEFAULT_CAMERA_ANGLE"]
   JUMP [+1]
   LOADNIL R11
   SETTABLEKS R11 R10 K40 ["ResetCameraPosition"]
   SETTABLEKS R7 R10 K41 ["OnViewModelLoaded"]
+  GETUPVAL R12 9
+  CALL R12 0 1
+  JUMPIFNOT R12 [+3]
+  GETTABLEKS R11 R0 K50 ["ShowResetCameraButton"]
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K42 ["ShowResetCamera"]
   CALL R8 2 1
   RETURN R8 1
   LOADNIL R8
@@ -489,44 +496,50 @@ MAIN:
   GETTABLEKS R9 R10 K17 ["Flags"]
   GETTABLEKS R8 R9 K20 ["getFFlagAvatarPreviewerCameraTiltAndState"]
   CALL R7 1 1
-  GETTABLEKS R8 R1 K21 ["UI"]
-  GETTABLEKS R9 R1 K22 ["SharedFlags"]
-  GETTABLEKS R10 R9 K23 ["getFFlagDevFrameworkBetterInit"]
-  CALL R10 0 1
-  JUMPIFNOT R10 [+3]
-  GETTABLEKS R11 R8 K24 ["AssetRenderModel"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K9 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Flags"]
+  GETTABLEKS R9 R10 K21 ["getFFlagAvatarPreviewerSetUpResetCameraButton"]
+  CALL R8 1 1
+  GETTABLEKS R9 R1 K22 ["UI"]
+  GETTABLEKS R10 R1 K23 ["SharedFlags"]
+  GETTABLEKS R11 R10 K24 ["getFFlagDevFrameworkBetterInit"]
+  CALL R11 0 1
+  JUMPIFNOT R11 [+3]
+  GETTABLEKS R12 R9 K25 ["AssetRenderModel"]
   JUMP [+4]
-  GETTABLEKS R12 R1 K25 ["StudioUI"]
-  GETTABLEKS R11 R12 K24 ["AssetRenderModel"]
-  GETTABLEKS R12 R9 K26 ["getFFlagDevFrameworkAssetRenderModelEnableSky"]
-  CALL R12 0 1
-  GETTABLEKS R14 R1 K27 ["ContextServices"]
-  GETTABLEKS R13 R14 K28 ["Stylizer"]
-  GETIMPORT R14 K5 [require]
-  GETTABLEKS R17 R0 K9 ["Src"]
-  GETTABLEKS R16 R17 K10 ["Util"]
-  GETTABLEKS R15 R16 K29 ["Constants"]
-  CALL R14 1 1
+  GETTABLEKS R13 R1 K26 ["StudioUI"]
+  GETTABLEKS R12 R13 K25 ["AssetRenderModel"]
+  GETTABLEKS R13 R10 K27 ["getFFlagDevFrameworkAssetRenderModelEnableSky"]
+  CALL R13 0 1
+  GETTABLEKS R15 R1 K28 ["ContextServices"]
+  GETTABLEKS R14 R15 K29 ["Stylizer"]
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K9 ["Src"]
-  GETTABLEKS R17 R18 K30 ["Resources"]
-  GETTABLEKS R16 R17 K31 ["Theme"]
+  GETTABLEKS R17 R18 K10 ["Util"]
+  GETTABLEKS R16 R17 K30 ["Constants"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
-  GETTABLEKS R18 R0 K9 ["Src"]
-  GETTABLEKS R17 R18 K32 ["Types"]
+  GETTABLEKS R19 R0 K9 ["Src"]
+  GETTABLEKS R18 R19 K31 ["Resources"]
+  GETTABLEKS R17 R18 K32 ["Theme"]
   CALL R16 1 1
-  DUPCLOSURE R17 K33 [PROTO_11]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R19 R0 K9 ["Src"]
+  GETTABLEKS R18 R19 K33 ["Types"]
+  CALL R17 1 1
+  DUPCLOSURE R18 K34 [PROTO_11]
   CAPTURE VAL R5
-  CAPTURE VAL R13
-  CAPTURE VAL R2
   CAPTURE VAL R14
+  CAPTURE VAL R2
+  CAPTURE VAL R15
   CAPTURE VAL R3
   CAPTURE VAL R7
   CAPTURE VAL R6
-  CAPTURE VAL R11
   CAPTURE VAL R12
-  GETTABLEKS R18 R2 K34 ["memo"]
-  MOVE R19 R17
-  CALL R18 1 1
-  RETURN R18 1
+  CAPTURE VAL R13
+  CAPTURE VAL R8
+  GETTABLEKS R19 R2 K35 ["memo"]
+  MOVE R20 R18
+  CALL R19 1 1
+  RETURN R19 1

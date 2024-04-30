@@ -401,13 +401,16 @@ PROTO_5:
   GETTABLE R4 R5 R3
   GETTABLEKS R6 R0 K1 ["_heightmapCache"]
   GETTABLE R5 R6 R3
-  JUMPIFNOTLT R4 R5 [+5]
+  JUMPIFNOTLT R4 R5 [+9]
   MOVE R5 R4
   GETTABLEKS R6 R0 K1 ["_heightmapCache"]
   SETTABLE R4 R6 R3
-  GETTABLEKS R6 R0 K2 ["_addBlending"]
+  GETTABLEKS R6 R0 K2 ["_blendingFactorMap"]
+  LOADN R7 0
+  SETTABLE R7 R6 R3
+  GETTABLEKS R6 R0 K3 ["_addBlending"]
   JUMPIFNOT R6 [+11]
-  GETTABLEKS R7 R0 K3 ["_blendingFactorMap"]
+  GETTABLEKS R7 R0 K2 ["_blendingFactorMap"]
   GETTABLE R6 R7 R3
   GETTABLEKS R7 R0 K0 ["_heightMap"]
   LOADN R11 1

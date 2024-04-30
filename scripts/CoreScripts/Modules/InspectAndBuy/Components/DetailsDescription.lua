@@ -10,6 +10,7 @@ local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local FFlagAssetDetailsUseAutomaticCanvasSize = require(InspectAndBuyFolder.Flags.FFlagAssetDetailsUseAutomaticCanvasSize)
 local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
+local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
 
 local TEXT_SIZE_SMALL = 16
 local DETAILS_SIZES = 451
@@ -27,6 +28,9 @@ function DetailsDescription:setText()
 		partOfBundle = assetInfo.parentBundleId ~= nil
 	end
 	local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
+	if GetFFlagIBEnableLimitedBundle() then
+		partOfBundleAndOffsale = partOfBundle
+	end
 	local bundleInfo = self.props.bundleInfo or {}
 
 	if partOfBundleAndOffsale then

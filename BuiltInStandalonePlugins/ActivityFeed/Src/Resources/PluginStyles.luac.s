@@ -45,24 +45,28 @@ MAIN:
   CALL R8 2 1
   MOVE R9 R3
   LOADK R10 K27 ["TextLabel"]
-  DUPTABLE R11 K30 [{"Font", "TextSize"}]
-  GETTABLEKS R12 R2 K31 ["defaultFont"]
+  DUPTABLE R11 K31 [{"Font", "TextSize", "TextColor"}]
+  GETTABLEKS R12 R2 K32 ["defaultFont"]
   SETTABLEKS R12 R11 K28 ["Font"]
-  GETTABLEKS R12 R2 K32 ["normalFontSize"]
+  GETTABLEKS R12 R2 K33 ["normalFontSize"]
   SETTABLEKS R12 R11 K29 ["TextSize"]
+  LOADK R12 K34 ["$TextPrimary"]
+  SETTABLEKS R12 R11 K30 ["TextColor"]
   CALL R9 2 1
   MOVE R10 R3
-  LOADK R11 K33 ["TextButton"]
-  DUPTABLE R12 K30 [{"Font", "TextSize"}]
-  GETTABLEKS R13 R2 K31 ["defaultFont"]
+  LOADK R11 K35 ["TextButton"]
+  DUPTABLE R12 K31 [{"Font", "TextSize", "TextColor"}]
+  GETTABLEKS R13 R2 K32 ["defaultFont"]
   SETTABLEKS R13 R12 K28 ["Font"]
-  GETTABLEKS R13 R2 K34 ["buttonFontSize"]
+  GETTABLEKS R13 R2 K36 ["buttonFontSize"]
   SETTABLEKS R13 R12 K29 ["TextSize"]
+  LOADK R13 K34 ["$TextPrimary"]
+  SETTABLEKS R13 R12 K30 ["TextColor"]
   CALL R10 2 -1
   SETLIST R5 R6 -1 [1]
   NEWTABLE R6 0 0
   MOVE R7 R4
-  LOADK R8 K35 ["ActivityHistoryPlugin"]
+  LOADK R8 K37 ["ActivityHistoryPlugin"]
   MOVE R9 R5
   MOVE R10 R6
   CALL R7 3 -1

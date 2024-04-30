@@ -57,7 +57,7 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
-local GetFFlagAlwaysShowVRToggle = require(Flags.GetFFlagAlwaysShowVRToggle)
+local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 
 local EnableNewComfortSettingsUI = game:GetEngineFeature("VRMoreComfortSettings")
 
