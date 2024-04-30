@@ -57,9 +57,6 @@ return {
 	-- use new refactored interactable
 	refactorInteractable = false,
 
-	-- Automatically resize and wrap text in ModalTitle
-	modalTitleAutomaticSizing = false,
-
 	-- Support ControlState.Selected in the hover controller for TooltipV2
 	supportControlStateSelectedForTooltipHover = false,
 
@@ -74,4 +71,17 @@ return {
 
 	-- Use InteractionFeedbackManager, which is injected via InteractionFeedbackContext
 	enableInteractionFeedback = false,
+
+	-- Fix existing bugs and update MediaGallerySingle
+	updateMediaGallerySingle = false,
+	-- Multiply FontSizeMax by line height to get the correct textbound in GenericTextLabel
+	fixGenericTextLabelTextBound = false,
+
+	-- Use design tokens to set interactive alert's min/max size
+	interactiveAlertDesignTokenMinMaxSize = false,
+
+	-- Use design tokens to set alert title's header font size
+	alertTitleDesignTokenHeader = false,
+	-- Strips RichText tags from string before calculating size of text
+	ignoreRichTextTagsForTextSizeCalculation = false,
 }

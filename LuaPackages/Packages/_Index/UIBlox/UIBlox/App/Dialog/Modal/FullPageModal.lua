@@ -16,8 +16,6 @@ local ButtonStack = require(AppRoot.Button.ButtonStack)
 local ModalTitle = require(ModalRoot.ModalTitle)
 local ModalWindow = require(ModalRoot.ModalWindow)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local FullPageModal = Roact.PureComponent:extend("FullPageModal")
 
 local MARGIN = 24
@@ -94,15 +92,11 @@ function FullPageModal:render()
 		TitleContainer = Roact.createElement(ModalTitle, {
 			title = self.props.title,
 			onCloseClicked = self.props.onCloseClicked,
-			onTitleSizeChanged = if UIBloxConfig.modalTitleAutomaticSizing then self.changeTitleContainerSize else nil,
+			onTitleSizeChanged = self.changeTitleContainerSize,
 		}),
 		Content = Roact.createElement("Frame", {
-			Size = if UIBloxConfig.modalTitleAutomaticSizing
-				then UDim2.new(1, 0, 1, -self.state.titleContainerSize.Y)
-				else UDim2.new(1, 0, 1, -ModalTitle:GetHeight()),
-			Position = if UIBloxConfig.modalTitleAutomaticSizing
-				then UDim2.new(0, 0, 0, self.state.titleContainerSize.Y)
-				else UDim2.new(0, 0, 0, ModalTitle:GetHeight()),
+			Size = UDim2.new(1, 0, 1, -self.state.titleContainerSize.Y),
+			Position = UDim2.new(0, 0, 0, self.state.titleContainerSize.Y),
 			BackgroundTransparency = 1,
 		}, {
 			Roact.createElement("UIListLayout", {

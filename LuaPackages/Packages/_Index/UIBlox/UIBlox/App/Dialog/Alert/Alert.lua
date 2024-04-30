@@ -56,7 +56,7 @@ Alert.validateProps = t.strictInterface({
 	footerContent = t.optional(t.callback),
 
 	--Gamepad props
-	defaultChildRef = t.optional(t.table),
+	defaultChildRef = t.optional(t.union(t.table, t.callback)),
 	-- Boolean to determine if the middle content is focusable with a gamepad
 	isMiddleContentFocusable = t.optional(t.boolean),
 	-- Boolean to determine if the footer content is focusable with a gamepad

@@ -103,7 +103,7 @@ local function StatGroup(props: Props)
 	local spacingGap = stylePalette.Tokens.Global.Space_100
 
 	local ratingTextWidth = useTextWidth(props.ratingText, stylePalette.Font)
-	local playingTextWidth = useTextWidth(props.playingText, stylePalette.Font)
+	local playingTextWidth = if props.playingText then useTextWidth(props.playingText, stylePalette.Font) else nil
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),

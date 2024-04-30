@@ -24,6 +24,7 @@ local MARGIN = 24
 local MIDDLE_CONTENT_PADDING = 12
 local TITLE_ICON_SIZE = 48
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
@@ -63,7 +64,7 @@ InteractiveAlert.validateProps = t.strictInterface({
 	footerContent = t.optional(t.callback),
 
 	--Gamepad props
-	defaultChildRef = t.optional(t.table),
+	defaultChildRef = t.optional(t.union(t.table, t.callback)),
 	-- Boolean to determine if the middle content is focusable with a gamepad
 	isMiddleContentFocusable = t.optional(t.boolean),
 	-- Boolean to determine if the footer content is focusable with a gamepad
@@ -72,6 +73,10 @@ InteractiveAlert.validateProps = t.strictInterface({
 
 function InteractiveAlert:render()
 	return withStyle(function(stylePalette)
+		if UIBloxConfig.interactiveAlertDesignTokenMinMaxSize then
+			MIN_WIDTH = stylePalette.Tokens.Global.Size_200 * 17 -- 16 * 17 = 272
+			MAX_WIDTH = stylePalette.Tokens.Global.Size_500 * 10 -- 40 * 10 = 400
+		end
 		local theme = stylePalette.Theme
 		local font = stylePalette.Font
 		local textFont = font.Body.Font

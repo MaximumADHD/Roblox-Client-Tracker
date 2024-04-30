@@ -15,6 +15,7 @@ local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypog
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 local validateColorToken = require(UIBlox.Core.Style.Validator.validateColorToken)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local GenericTextLabel = Roact.PureComponent:extend("GenericTextLabel")
 
@@ -67,7 +68,10 @@ function GenericTextLabel:render()
 				sampleText = sampleText .. "..."
 			end
 			local textBounds = self.props.maxSize
-			local textboxBounds = GetTextSize(sampleText, fontSizeMax, textFont, textBounds)
+			local lineHeightMax = if UIBloxConfig.fixGenericTextLabelTextBound and self.props.LineHeight
+				then fontSizeMax * self.props.LineHeight
+				else fontSizeMax
+			local textboxBounds = GetTextSize(sampleText, lineHeightMax, textFont, textBounds)
 			textboxSize = UDim2.new(0, textboxBounds.X, 0, textboxBounds.Y)
 		end
 

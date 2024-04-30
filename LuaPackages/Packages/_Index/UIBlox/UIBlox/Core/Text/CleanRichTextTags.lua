@@ -1,5 +1,6 @@
 -- This function cleans RichText tags from string and returns plain text
 -- RichText does not have this function yet, ex. for getTextLength(RichText)
+-- Note: This removes all tags including unsupported tags from string
 local function cleanRichTextTags(text: string): string
 	local plainText = ""
 	local openTags = 0

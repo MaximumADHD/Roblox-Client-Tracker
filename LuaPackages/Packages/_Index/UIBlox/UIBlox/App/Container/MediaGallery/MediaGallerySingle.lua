@@ -1,5 +1,6 @@
 --!nonstrict
 local UIBlox = script:FindFirstAncestor("UIBlox")
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Cryo = require(UIBlox.Parent.Cryo)
 local Otter = require(UIBlox.Parent.Otter)
@@ -40,10 +41,15 @@ local function MediaGallerySingle(providedProps: Props)
 	local lastDragPosition = React.useRef(nil)
 	local dragDistance = React.useRef(0)
 	local isMotorRunning = React.useRef(false)
+	local currentItemIndex = React.useRef(1)
 
-	local itemWidth = absoluteSize.X + props.itemPadding
-	local nearestItemIndex = 1 + math.round(canvasPosition.X / itemWidth)
+	local nearestItemIndex
+	if not UIBloxConfig.updateMediaGallerySingle then
+		local itemWidth = absoluteSize.X + props.itemPadding
+		nearestItemIndex = 1 + math.round(canvasPosition.X / itemWidth)
+	end
 
+	-- clean up this function when cleaning updateMediaGallerySingle as true
 	local getNextItemIndexInDirection = React.useCallback(function(direction: DragDirection)
 		if direction == "Right" then
 			return nearestItemIndex + 1
@@ -53,17 +59,53 @@ local function MediaGallerySingle(providedProps: Props)
 		end
 	end)
 
+	-- clean up this function when cleaning updateMediaGallerySingle as true
 	local getItemPositionAtIndex = React.useCallback(function(index: number)
 		local itemWidth = absoluteSize.X + props.itemPadding
 		return Vector2.new(itemWidth * (index - 1), 0)
 	end)
 
+	-- clean up this function when cleaning updateMediaGallerySingle as true
 	local scrollToIndex = React.useCallback(function(index: number)
 		isMotorRunning.current = true
 
 		local motor = Otter.createSingleMotor(0)
 		local goal = getItemPositionAtIndex(index)
 
+		motor:onStep(function(alpha: number)
+			setCanvasPosition(canvasPosition:Lerp(goal, alpha))
+		end)
+
+		motor:onComplete(function()
+			isMotorRunning.current = false
+		end)
+
+		motor:setGoal(props.spring(1, {
+			frequency = 3,
+			dampingRatio = 1,
+			restingVelocityLimit = 0.05,
+		}))
+	end)
+
+	local swipeInDirection = React.useCallback(function(direction: DragDirection)
+		local nextIndex
+		if direction == "Right" then
+			nextIndex = currentItemIndex.current + 1
+		else
+			-- direction == "Left"
+			nextIndex = currentItemIndex.current - 1
+		end
+
+		if nextIndex >= 1 and nextIndex <= #props.items and math.abs(dragDistance.current) >= props.dragIntent then
+			currentItemIndex.current = nextIndex
+		end
+
+		local itemWidth = absoluteSize.X + props.itemPadding
+		local goal = Vector2.new(itemWidth * (currentItemIndex.current - 1), 0)
+
+		isMotorRunning.current = true
+
+		local motor = Otter.createSingleMotor(0)
 		motor:onStep(function(alpha: number)
 			setCanvasPosition(canvasPosition:Lerp(goal, alpha))
 		end)
@@ -126,13 +168,17 @@ local function MediaGallerySingle(providedProps: Props)
 			lastDragPosition.current = nil
 
 			local dragDirection: DragDirection = if dragDistance.current > 1 then "Right" else "Left"
-			local nextIndex = getNextItemIndexInDirection(dragDirection)
+			if UIBloxConfig.updateMediaGallerySingle then
+				swipeInDirection(dragDirection)
+			else
+				local nextIndex = getNextItemIndexInDirection(dragDirection)
 
-			if nextIndex >= 1 and nextIndex <= #props.items then
-				if math.abs(dragDistance.current) >= props.dragIntent then
-					scrollToIndex(nextIndex)
-				else
-					scrollToIndex(nearestItemIndex)
+				if nextIndex >= 1 and nextIndex <= #props.items then
+					if math.abs(dragDistance.current) >= props.dragIntent then
+						scrollToIndex(nextIndex)
+					else
+						scrollToIndex(nearestItemIndex)
+					end
 				end
 			end
 

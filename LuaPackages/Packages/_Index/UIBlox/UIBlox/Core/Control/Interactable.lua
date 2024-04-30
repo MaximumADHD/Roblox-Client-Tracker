@@ -1,3 +1,8 @@
+--[[
+	Interactable is a component that can be used as the base component that will handle and respond to Gui State changes using a callback function.
+	It accepts all props that can be passed into a ImageButton or the props of the custom component that is passed in as the component prop.
+]]
+
 local Control = script.Parent
 local Core = Control.Parent
 local UIBlox = Core.Parent
@@ -25,18 +30,27 @@ type ControlState = ControlStateEnum.ControlState
 export type ControlStateChangedCallback = useGuiControlState.ControlStateChangedCallback
 
 type Table = { [any]: any }
-type Props = {
+export type Props = {
+	-- The custom component to render as the base component. By default, it is an ImageButton.
 	component: (React.ReactElement | string)?,
+
+	-- Whether the component is disabled. This will also make the Active = false.
 	isDisabled: boolean?,
+
+	-- Whether the component is user interactable
 	userInteractionEnabled: boolean?,
+
+	-- Callback for when the control state changes. Note: Changing this function will reset the control state.
 	onStateChanged: ControlStateChangedCallback,
+
+	-- The children of the component
 	children: Table?,
 
-	-- Note that this component can accept all valid properties of the Roblox ImageButton instance
+	-- Note that this component can accept all valid properties of the Roblox ImageButton instance or the props of the custom component.
 	[any]: any,
 }
 
-local Interactable = function(props: Props, forwardedRef: React.Ref<Instance>)
+local function Interactable(props: Props, forwardedRef: React.Ref<Instance>)
 	local guiObjectRef = if forwardedRef then forwardedRef else React.createRef()
 	local isDisabled = React.useRef(nil) :: { current: boolean? }
 	local triggerFeedback: any = if UIBloxConfig.enableInteractionFeedback then useInteractionFeedback() else nil
@@ -109,6 +123,8 @@ local Interactable = function(props: Props, forwardedRef: React.Ref<Instance>)
 		onStateChanged = Cryo.None,
 		isDisabled = Cryo.None,
 		userInteractionEnabled = Cryo.None,
+
+		Active = if props.isDisabled ~= nil then not props.isDisabled else nil,
 		[React.Event.Activated] = wrappedActivated,
 	})
 

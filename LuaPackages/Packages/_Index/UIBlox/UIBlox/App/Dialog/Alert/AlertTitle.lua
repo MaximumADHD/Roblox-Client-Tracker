@@ -11,6 +11,7 @@ local t = require(Packages.t)
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
@@ -53,8 +54,13 @@ function AlertTitle:render()
 		local font = stylePalette.Font
 		local theme = stylePalette.Theme
 
-		local headerSize = font.BaseSize * font.Header1.RelativeSize
-
+		local headerToken, headerSize
+		if UIBloxConfig.alertTitleDesignTokenHeader then
+			headerToken = stylePalette.Tokens.Semantic.Typography.Header
+			headerSize = headerToken.FontSize
+		else
+			headerSize = font.BaseSize * font.Header1.RelativeSize
+		end
 		return Roact.createElement(FitFrameOnAxis, {
 			BackgroundTransparency = 1,
 			contentPadding = UDim.new(0, 8),
@@ -84,7 +90,7 @@ function AlertTitle:render()
 			}, {
 				Title = Roact.createElement(GenericTextLabel, {
 					colorStyle = theme.TextEmphasis,
-					fontStyle = font.Header1,
+					fontStyle = if UIBloxConfig.alertTitleDesignTokenHeader then headerToken else font.Header1,
 					maxSize = Vector2.new(innerWidth, headerSize * 2),
 					LayoutOrder = 1,
 					Text = self.props.title,

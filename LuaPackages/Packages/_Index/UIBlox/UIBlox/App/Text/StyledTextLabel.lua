@@ -46,6 +46,7 @@ StyledTextLabel.validateProps = t.strictInterface({
 	automaticSize = t.optional(t.EnumItem),
 	lineHeight = t.optional(t.number),
 	clipsDescendants = t.optional(t.boolean),
+	onAbsoluteSizeChange = t.optional(t.callback),
 })
 
 StyledTextLabel.defaultProps = {
@@ -76,6 +77,7 @@ function StyledTextLabel:render()
 		AutomaticSize = self.props.automaticSize,
 		LineHeight = self.props.lineHeight,
 		ClipsDescendants = self.props.clipsDescendants,
+		[Roact.Change.AbsoluteSize] = self.props.onAbsoluteSizeChange,
 	})
 end
 

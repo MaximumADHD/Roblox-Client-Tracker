@@ -18,8 +18,12 @@ type ControlStateEvent = ControlStateEventEnum.ControlStateEvent
 export type ControlStateChangedCallback = createGuiControlStateTable.onGuiControlStateChange
 
 local function useGuiControlState(
+	-- The ref to the GuiObject that will be connected to control the state. For now, this guiObject must be a TextButton or ImageButton
 	guiObjectRef: React.Ref<Instance>,
+
+	-- The callback that will be called when the control state changes
 	onStateChanged: ControlStateChangedCallback,
+
 	userInteractionEnabled: boolean
 )
 	local previousGuiState = React.useRef(ControlStateEnum.Initialize)

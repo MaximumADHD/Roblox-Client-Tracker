@@ -1,5 +1,9 @@
 --!nonstrict
 --[[
+	-- WARNING: This component is deprecated and will be removed.
+	See `Interactable` and `useGuiControlState` as alternatives.
+
+
 	Creates a Roact wrapper component that tracks state based on Roact input events to a UI control component.
 ]]
 local ControlRoot = script.Parent

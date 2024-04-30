@@ -16,8 +16,6 @@ local Controllable = require(CoreRoot.Control.Controllable)
 local GenericTextLabel = require(CoreRoot.Text.GenericTextLabel.GenericTextLabel)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local X_BUTTON_SIZE = 36
 local X_HORIZONTAL_PADDING = 8
 local TEXT_VERTICAL_PADDING = 8
@@ -141,12 +139,10 @@ function ModalTitle:render()
 		local headerSize = font.BaseSize * font.Header1.RelativeSize
 
 		local titleText = Roact.createElement("Frame", {
-			AutomaticSize = if UIBloxConfig.modalTitleAutomaticSizing then Enum.AutomaticSize.Y else nil,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
 			BackgroundTransparency = 1,
-			[Roact.Change.AbsoluteSize] = if UIBloxConfig.modalTitleAutomaticSizing
-				then self.props.onTitleSizeChanged
-				else nil,
+			[Roact.Change.AbsoluteSize] = self.props.onTitleSizeChanged,
 		}, {
 			CloseButton = self.props.onCloseClicked and Roact.createElement(Controllable, {
 				controlComponent = {
@@ -173,30 +169,22 @@ function ModalTitle:render()
 				onStateChanged = function(...) end,
 			}) or nil,
 			Title = Roact.createElement(GenericTextLabel, {
-				AnchorPoint = if UIBloxConfig.modalTitleAutomaticSizing
-					then Vector2.new(0.5, 0)
-					else Vector2.new(0.5, 0.5),
-				Position = if UIBloxConfig.modalTitleAutomaticSizing
-					then UDim2.new(0.5, 0, 0, 0)
-					else UDim2.new(0.5, 0, 0.5, 0),
-				AutomaticSize = if UIBloxConfig.modalTitleAutomaticSizing then Enum.AutomaticSize.Y else nil,
-				Size = if UIBloxConfig.modalTitleAutomaticSizing
-					then UDim2.new(1, -(TOTAL_X_BUTTON_SPACE * 2), 1, 0)
-					else nil,
+				AnchorPoint = Vector2.new(0.5, 0),
+				Position = UDim2.new(0.5, 0, 0, 0),
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Size = UDim2.new(1, -(TOTAL_X_BUTTON_SPACE * 2), 1, 0),
 				colorStyle = theme.TextEmphasis,
 				fontStyle = font.Header1,
 				LayoutOrder = 1,
 				Text = self.props.title,
 				TextSize = headerSize,
-				TextWrapped = if UIBloxConfig.modalTitleAutomaticSizing then true else nil,
+				TextWrapped = true,
 				TextTruncate = Enum.TextTruncate.AtEnd,
 			}, {
-				Padding = if UIBloxConfig.modalTitleAutomaticSizing
-					then Roact.createElement("UIPadding", {
-						PaddingTop = UDim.new(0, TEXT_VERTICAL_PADDING),
-						PaddingBottom = UDim.new(0, TEXT_VERTICAL_PADDING),
-					})
-					else nil,
+				Padding = Roact.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, TEXT_VERTICAL_PADDING),
+					PaddingBottom = UDim.new(0, TEXT_VERTICAL_PADDING),
+				}),
 			}),
 			Underline = not titleBackgroundImageProps and Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0.5, 0.5),
