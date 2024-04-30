@@ -115,7 +115,7 @@ Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AnalyticsService:FireInGameEconomyEvent(player: Instance, itemName: string, economyAction: Enum.AnalyticsEconomyAction, itemCategory: string, amount: number, currency: string, location: any, customData: any) -> () [Deprecated]
 	Function AnalyticsService:FireLogEvent(player: Instance, logLevel: Enum.AnalyticsLogLevel, message: string, debugInfo: any, customData: any) -> () [Deprecated]
 	Function AnalyticsService:FirePlayerProgressionEvent(player: Instance, category: string, progressionStatus: Enum.AnalyticsProgressionStatus, location: any, statistics: any, customData: any) -> () [Deprecated]
-	Function AnalyticsService:LogEconomyEvent(player: Player, flowType: Enum.AnalyticsEconomyFlowType, currencyType: string, endingBalance: number, amount: number, transactionType: string, itemSku: string? = "", customFields: { [string]: any }? = nil) -> ()
+	Function AnalyticsService:LogEconomyEvent(player: Player, flowType: Enum.AnalyticsEconomyFlowType, currencyType: string, amount: number, endingBalance: number, transactionType: string, itemSku: string? = "", customFields: { [string]: any }? = nil) -> ()
 	Function AnalyticsService:LogFunnelStepEvent(player: Player, funnelName: string, funnelSessionId: string? = "", step: number? = 0, stepName: string? = "", customFields: { [string]: any }? = nil) -> ()
 	Function AnalyticsService:LogOnboardingFunnelStepEvent(player: Player, step: number, stepName: string? = "", customFields: { [string]: any }? = nil) -> ()
 	Function AnalyticsService:LogProgressionCompleteEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
@@ -1482,6 +1482,7 @@ Class FileMesh : DataModelMesh
 Class SpecialMesh : FileMesh
 	Property SpecialMesh.MeshType: Enum.MeshType
 Class DataModelPatchService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function DataModelPatchService:GetLuaVersion(patchName: string) -> string {RobloxScriptSecurity}
 	Function DataModelPatchService:GetPatch(patchName: string) -> Instance? {RobloxScriptSecurity}
 	Function DataModelPatchService:RegisterPatch(patchName: string, behaviorName: string, localConfigPath: string, userId: number) -> () {RobloxScriptSecurity}
 	Function DataModelPatchService:UpdatePatch(userId: number, patchName: string, callbackFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
@@ -1686,10 +1687,11 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property DraggerService.JointsEnabled: boolean [ReadOnly]
 	Property DraggerService.LinearSnapEnabled: boolean [ReadOnly]
 	Property DraggerService.LinearSnapIncrement: number [ReadOnly]
+	Property DraggerService.PartSnapEnabled: boolean {RobloxScriptSecurity} [ReadOnly]
 	Property DraggerService.PivotSnapToGeometry: boolean {RobloxScriptSecurity} [ReadOnly]
 	Property DraggerService.ShowHover: boolean [ReadOnly]
 	Property DraggerService.ShowPivotIndicator: boolean [NotReplicated]
-Class EditableImage : Instance [NotReplicated]
+Class EditableImage : Instance
 	Property EditableImage.ImageData: BinaryString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property EditableImage.Size: Vector2
 	Function EditableImage:Copy(min: Vector2, max: Vector2) -> EditableImage
@@ -1924,6 +1926,15 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GamepadService:SetGamepadCursorPosition(position: Vector2) -> () {RobloxScriptSecurity}
 	Event GamepadService.GamepadThumbstick1Changed(event: Vector2) {RobloxScriptSecurity}
 Class GenericChallengeService : Instance [NotCreatable] [Service]
+	Function GenericChallengeService:SignalChallengeAbandoned(challengeID: string) -> () {RobloxScriptSecurity}
+	Function GenericChallengeService:SignalChallengeCompleted(challengeID: string, challengeType: string, challengeMetadata: string) -> () {RobloxScriptSecurity}
+	Function GenericChallengeService:SignalChallengeInvalidated(challengeID: string) -> () {RobloxScriptSecurity}
+	Function GenericChallengeService:SignalChallengeLoaded(challengeID: string, success: boolean) -> () {RobloxScriptSecurity}
+	Function GenericChallengeService:SignalChallengeRequired(challengeID: string, challengeType: string, challengeMetadata: string) -> () {RobloxScriptSecurity}
+	Event GenericChallengeService.ChallengeAbandonedEvent(challengeID: string) {RobloxScriptSecurity}
+	Event GenericChallengeService.ChallengeCompletedEvent(challengeID: string, challengeType: string, challengeMetadata: string) {RobloxScriptSecurity}
+	Event GenericChallengeService.ChallengeInvalidatedEvent(challengeID: string) {RobloxScriptSecurity}
+	Event GenericChallengeService.ChallengeLoadedEvent(challengeID: string, success: boolean) {RobloxScriptSecurity}
 	Event GenericChallengeService.ChallengeRequiredEvent(challengeID: string, challengeType: string, challengeMetadata: string) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
 Class GeometryService : Instance [NotCreatable] [Service]
@@ -3804,6 +3815,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
 	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
 	Property Workspace.PrimalPhysicsSolver: Enum.PrimalPhysicsSolver [NotScriptable]
+	Property Workspace.RenderingCacheOptimizations: Enum.RenderingCacheOptimizationMode [Hidden]
 	Property Workspace.ReplicateInstanceDestroySetting: Enum.ReplicateInstanceDestroySetting [NotScriptable]
 	Property Workspace.Retargeting: Enum.AnimatorRetargetingMode
 	Property Workspace.SignalBehavior: Enum.SignalBehavior [NotScriptable]
@@ -4167,7 +4179,6 @@ Class Player : Instance
 	Event Player.PlayerCharacterLoaded(metrics: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event Player.PlayerChatTranslationSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
 	Event Player.PlayerExperienceSettingsLocaleSetFromLua(newLocaleId: string) {RobloxSecurity} [Hidden]
-	Event Player.ReceivedJoinTelemetry(details: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event Player.RemoteFriendRequestSignal(otherUserId: number, eventType: Enum.FriendRequestEvent) {RobloxScriptSecurity} [Hidden]
 	Event Player.RemoteInsert(url: string, position: Vector3) {LocalUserSecurity} [Hidden]
 	Event Player.ScopeCheckInitiated(guid: string, serializedScopes: { any }, metadata: { [string]: any }) {RobloxSecurity} [Hidden]
@@ -4291,6 +4302,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Plugin:GetSelectedRibbonTool() -> Enum.RibbonTool {PluginSecurity}
 	Function Plugin:GetSetting(key: string) -> any {PluginSecurity}
 	Function Plugin:GetStudioUserId() -> number {PluginSecurity} [Deprecated]
+	Function Plugin:GetUri() -> { [string]: any } {RobloxScriptSecurity}
 	Function Plugin:ImportFbxAnimation(rigModel: Instance, isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields]
 	Function Plugin:ImportFbxRig(isR15: boolean? = true) -> Instance? {PluginSecurity} [Yields]
 	Function Plugin:Intersect(objects: { Instance }) -> Instance? {PluginSecurity}
@@ -5423,6 +5435,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property StudioService.InstalledPluginData: string {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property StudioService.PivotSnapToGeometry: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property StudioService.RotateIncrement: number [ReadOnly]
+	Property StudioService.Secrets: string {RobloxScriptSecurity}
 	Property StudioService.ShowConstraintDetails: boolean [ReadOnly]
 	Property StudioService.UseLocalSpace: boolean [📁 LoadOnly] [NotReplicated]
 	Property StudioService.ActiveScript: Instance? [ReadOnly]
@@ -5504,6 +5517,7 @@ Class StylingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StylingService:GetStyleSheetInfo(styleSheet: StyleSheet) -> { [string]: any } {RobloxScriptSecurity}
 Class SurfaceAppearance : Instance
 	Property SurfaceAppearance.AlphaMode: Enum.AlphaMode {PluginSecurity}
+	Property SurfaceAppearance.Color: Color3
 	Property SurfaceAppearance.ColorMap: string {PluginSecurity}
 	Property SurfaceAppearance.MetalnessMap: string {PluginSecurity}
 	Property SurfaceAppearance.NormalMap: string {PluginSecurity}
@@ -6054,6 +6068,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property UserGameSettings.VignetteEnabledCustomOption: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.gaID: string {RobloxScriptSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Function UserGameSettings:GetCameraYInvertValue() -> number
+	Function UserGameSettings:GetDefaultFramerateCap() -> number {RobloxScriptSecurity}
 	Function UserGameSettings:GetOnboardingCompleted(onboardingId: string) -> boolean
 	Function UserGameSettings:GetTutorialState(tutorialId: string) -> boolean {RobloxScriptSecurity}
 	Function UserGameSettings:InFullScreen() -> boolean
@@ -8355,6 +8370,10 @@ Enum RenderPriority
 	EnumItem RenderPriority.Camera : 200
 	EnumItem RenderPriority.Character : 300
 	EnumItem RenderPriority.Last : 2000
+Enum RenderingCacheOptimizationMode
+	EnumItem RenderingCacheOptimizationMode.Default : 0
+	EnumItem RenderingCacheOptimizationMode.Disabled : 1
+	EnumItem RenderingCacheOptimizationMode.Enabled : 2
 Enum RenderingTestComparisonMethod
 	EnumItem RenderingTestComparisonMethod.psnr : 0
 	EnumItem RenderingTestComparisonMethod.diff : 1

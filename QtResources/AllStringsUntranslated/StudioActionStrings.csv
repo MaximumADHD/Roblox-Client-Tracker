@@ -42,6 +42,7 @@ Studio.App.RobloxRibbonMainWindow.LockTool,,Lock Tool,Lock Tool
 Studio.App.RobloxRibbonMainWindow.Anchor,,Anchor ,Anchor 
 Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor,,Anchor/Unanchor the selected parts,Anchor/Unanchor the selected parts
 Studio.App.RobloxRibbonMainWindow.Move,,Move,Move
+Studio.App.RobloxRibbonMainWindow.SnapToParts,,Snap to Parts,Snap to Parts
 Studio.App.RobloxRibbonMainWindow.MoveAnObject,,Move an Object,Move an Object
 Studio.App.RobloxRibbonMainWindow.RotateAnObject,,Rotate an Object,Rotate an Object
 Studio.App.RobloxRibbonMainWindow.Transform,,Transform,Transform

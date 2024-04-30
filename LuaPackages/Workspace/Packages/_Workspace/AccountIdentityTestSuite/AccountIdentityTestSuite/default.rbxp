@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AccountIdentityTestSuite",
+    "tree": {
+      "$path": "../../../../../../../modules/account-identity/account-identity-test-suite/src"
+    }
+  }
+}

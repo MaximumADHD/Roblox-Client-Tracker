@@ -68,6 +68,7 @@ Studio.App.RobloxRibbonMainWindow.ShowTabNamesRibbon,,Show only the tab names on
 Studio.App.RobloxRibbonMainWindow.ShowTabNamesRibbonTitle,,Toggle ribbon visiblity,Toggle ribbon visiblity
 Studio.App.RobloxRibbonMainWindow.Simulation,,Simulation,Simulation
 Studio.App.RobloxRibbonMainWindow.SnapToGrid,,Snap to Grid,Snap to Grid
+Studio.App.RobloxRibbonMainWindow.Snapping,,Snapping,Snapping
 Studio.App.RobloxRibbonMainWindow.SolidModeling,,Solid Modeling,Solid Modeling
 Studio.App.RobloxRibbonMainWindow.SwitchDifferentWindow,,Switch to a different Studio window,Switch to a different Studio window
 Studio.App.RobloxRibbonMainWindow.SwitchWindows,,Switch Windows,Switch Windows
@@ -77,6 +78,7 @@ Studio.App.RobloxRibbonMainWindow.TheSnapGrid,,The grid move and resize tools wi
 Studio.App.RobloxRibbonMainWindow.TheRotateGrid,,The grid that rotate tools will snap to,The grid that rotate tools will snap to
 Studio.App.RobloxRibbonMainWindow.TogglesGridSnap,,Toggle move and resize tools snapping to grid,Toggle move and resize tools snapping to grid
 Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap,,Toggle rotate tools snapping to grid,Toggle rotate tools snapping to grid
+Studio.App.RobloxRibbonMainWindow.TogglesSnapToParts,,Toggle dragger tools snapping to nearby parts,Toggle dragger tools snapping to nearby parts
 Studio.App.RobloxRibbonMainWindow.Tools,,Tools,Tools
 Studio.App.RobloxRibbonMainWindow.View,,View,View
 Studio.App.RobloxRibbonMainWindow.WatchTheHighlightedVariables,,Watch the highlighted variable's value,Watch the highlighted variable's value

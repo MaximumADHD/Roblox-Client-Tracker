@@ -67,8 +67,7 @@
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModePhysical" value="1" />
         </addcombobox>
         <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
-        <addcheckbox fflag="!StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces"/>
-        <addcheckbox fflag="StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
+        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
       </Group>
       <Group name="Terrain" text="Studio.App.RobloxRibbonMainWindow.Terrain" modernIcon="TerrainEditor" icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png" width="32" height="32">
           <addaction name="toggleTerrainToolsDockAction"
@@ -155,15 +154,25 @@
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModePhysical" value="1" />
         </addcombobox>
         <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
-        <addcheckbox fflag="!StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces"/>
-        <addcheckbox fflag="StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
+        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
       </Group>
-      <Group name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
+      <Group fflag="!DraggerSnapToParts" name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
         <addseparator visible="false"/>
         <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
         <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
+      </Group>
+      <Group fflag="DraggerSnapToParts" name="Snapping" text="Studio.App.RobloxRibbonMainWindow.Snapping" controlsCentering="true">
+        <addhgroup>
+          <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
+          <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
+        </addhgroup>
+        <addhgroup>
+          <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
+          <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
+        </addhgroup>
+        <addcheckbox fflag="DraggerImprovements" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesSnapToParts" name="toggleSnapToPartsAction" text="Studio.App.RobloxRibbonMainWindow.SnapToParts" checked="true"/>
       </Group>
       <Group name="Pivot" text="Studio.App.RobloxRibbonMainWindow.PivotGroup" modernIcon="EditPivot" icon=":/RibbonBar/images/RibbonIcons/Home/PivotEditor.png" width="32" height="32">
         <addaction name="editPivotAction" style="textundericon" text="Studio.App.RobloxRibbonMainWindow.EditPivot" tooltip="Studio.App.RobloxRibbonMainWindow.EditPivotTooltip" icon=":/RibbonBar/images/RibbonIcons/Home/PivotEditor.png" modernIcon="EditPivot" width="32" height="32" />
@@ -290,15 +299,25 @@
           <comboboxitem text="Studio.App.RBXMainWindow.DraggerModePhysical" value="1" />
         </addcombobox>
         <addcheckbox name="toggleCollisionCheckAction" text="Studio.App.RobloxRibbonMainWindow.Collisions" />
-        <addcheckbox fflag="!StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces"/>
-        <addcheckbox fflag="StudioFixRibbonTooltipSizeForGerman" name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
+        <addcheckbox name="toggleJointCreationAction" text="Studio.App.RobloxRibbonMainWindow.JoinSurfaces" tooltip="Studio.App.RobloxRibbonMainWindow.JoinSurfacesTooltip"/>
       </Group>
-      <Group name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
+      <Group fflag="!DraggerSnapToParts" name="Snap to Grid" text="Studio.App.RobloxRibbonMainWindow.SnapToGrid" controlsCentering="true">
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
         <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
         <addseparator visible="false"/>
         <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
         <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
+      </Group>
+      <Group fflag="DraggerSnapToParts" name="Snapping" text="Studio.App.RobloxRibbonMainWindow.Snapping" controlsCentering="true">
+        <addhgroup>
+          <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesRotateSnap" name="toggleRotateGridAction" text="Studio.App.RBXMainWindow.Rotate" checked="true"/>
+          <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheRotateGrid" name="setRotateIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="5" suffix=" °"/>
+        </addhgroup>
+        <addhgroup>
+          <addcheckbox tooltip="Studio.App.RobloxRibbonMainWindow.TogglesGridSnap" name="toggleDragGridAction" text="Studio.App.RobloxRibbonMainWindow.Move" checked="true"/>
+          <addspinbox type="spinbox" keyboardTracking="false" tooltip="Studio.App.RobloxRibbonMainWindow.TheSnapGrid" name="setDragGridIncrementAction" decimals="3" text="" minimum="0" maximum="2048" minumumWidth="100" step="0.2" suffix="Studio.App.MainWindow.StudsSuffix"/>
+        </addhgroup>
+        <addcheckbox fflag="DraggerImprovements" tooltip="Studio.App.RobloxRibbonMainWindow.TogglesSnapToParts" name="toggleSnapToPartsAction" text="Studio.App.RobloxRibbonMainWindow.SnapToParts" checked="true"/>
       </Group>
       <Group name="Accessory" text="Studio.Common.Action.Accessory" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" width="32" height="32">
         <addaction name="layeredClothingEditorAction" type="plugin" text="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor" icon=":/RibbonBar/images/RibbonIcons/Avatar/LayeredClothingEditorIcon.png" modernIcon="AccessoryFittingTool" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip" width="32" height="32" />
@@ -415,7 +434,8 @@
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" modernIcon="TaskScheduler" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation"/>
         <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance" tooltip="Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat"/>
         <addaction name="toggleFindReplaceWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
-        <addaction name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" modernIcon="TeamCreate" tooltip="Studio.App.RBXMainWindow.ViewTeamCreateWindow"/>
+        <!-- Remove with FFlagCOLLAB5668HideTCWidget -->
+        <addaction fflag="!COLLAB5668HideTCWidget" name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" modernIcon="TeamCreate" tooltip="Studio.App.RBXMainWindow.ViewTeamCreateWindow"/>
         <addaction name="toggleTerrainToolsDockAliasAction"
             style="textbesideicon"
             icon=":/images/RibbonIcons/Terrain/icon_terrain_big.png" modernIcon="TerrainEditor"/>

@@ -148,6 +148,11 @@ Studio.App.BetaFeatures.TerrainEditorTitle,,Terrain Editor,Terrain Editor
 Studio.App.BetaFeatures.TerrainEditorDescription,,Updates the Terrain Editor with a new and improved UI.,Updates the Terrain Editor with a new and improved UI.
 Studio.App.BetaFeatures.AutoSetupTitle,,Avatar Auto-Setup Beta,Avatar Auto-Setup Beta
 Studio.App.BetaFeatures.AutoSetupDescription,,Enables automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Marketplace submission of auto-setup created avatars is enabled in this version.,Enables automated creation of avatars from single-mesh 3D models of humanoid-like bodies. Marketplace submission of auto-setup created avatars is enabled in this version.
+Studio.App.BetaFeatures.AutoSetupTermsAndConditions,Terms and conditions for being able to use Avatar Auto-Setup,"Please view the Terms and Conditions at the link below:
+
+https://en.help.roblox.com/hc/articles/20121392440212","Please view the Terms and Conditions at the link below:
+
+https://en.help.roblox.com/hc/articles/20121392440212"
 Studio.App.BetaFeatures.FasterPlaySoloTitle,,Faster Play Solo,Faster Play Solo
 Studio.App.BetaFeatures.FasterPlaySoloDescription,,Streamlines Play Solo for faster loading performance.,Streamlines Play Solo for faster loading performance.
 Studio.App.BetaFeatures.TextureGeneratorTitle,,Texture Generator,Texture Generator

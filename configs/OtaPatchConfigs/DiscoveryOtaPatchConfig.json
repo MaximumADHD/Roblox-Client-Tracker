@@ -1,6 +1,8 @@
 {
   "AppStorageResetId": "0",
   "AssetId": "16639814581",
-  "AssetVersion": "1",
-  "IsForcedUpdate": false
+  "AssetVersion": "59",
+  "IsForcedUpdate": false,
+  "LocalAssetHash": "a404b69b022df2ad35a69774d38d4c08",
+  "MaxAppVersion": "623"
 }

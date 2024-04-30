@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "GenericChallenges",
+    "tree": {
+      "$path": "../../../../../../../modules/account-security/generic-challenges/src"
+    }
+  }
+}

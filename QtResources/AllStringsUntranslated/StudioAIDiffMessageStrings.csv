@@ -1,0 +1,8 @@
+Key,Context,Source,en-us
+Studio.App.AIDiffMessage.ChangeSummary,,Change Summary,Change Summary
+Studio.App.AIDiffMessage.ServerError,,"Network error, please try again later.","Network error, please try again later."
+Studio.App.AIDiffMessage.QuotaLimit,,You have hit your quota limit for the day. Try sending a request tomorrow.,You have hit your quota limit for the day. Try sending a request tomorrow.
+Studio.App.AIDiffMessage.RequestTimeout,,"Sorry, I'm experiencing a high volume of requests. Please try again later.","Sorry, I'm experiencing a high volume of requests. Please try again later."
+Studio.App.AIDiffMessage.PromptLimit,,Looks like there are too many changes between these versions. Please try again with a simpler request.,Looks like there are too many changes between these versions. Please try again with a simpler request.
+Studio.App.AIDiffMessage.UnknownError,,An error occurred. Please try again later.,An error occurred. Please try again later.
+Studio.App.AIDiffMessage.NoChanges,,The package has no changes.,The package has no changes.
