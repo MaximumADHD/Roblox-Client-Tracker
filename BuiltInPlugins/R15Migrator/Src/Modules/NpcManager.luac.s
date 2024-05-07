@@ -540,7 +540,7 @@ PROTO_21:
   SETTABLEKS R8 R9 K10 ["Source"]
   MOVE R7 R9
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K11 ["UnificationScriptAttributeName"]
+  GETTABLEKS R10 R11 K11 ["AttributeUnificationScriptName"]
   LOADB R11 1
   NAMECALL R8 R7 K12 ["SetAttribute"]
   CALL R8 3 0
@@ -561,7 +561,7 @@ PROTO_21:
   CALL R3 2 1
   SETTABLEKS R3 R2 K10 ["Source"]
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K11 ["UnificationScriptAttributeName"]
+  GETTABLEKS R5 R6 K11 ["AttributeUnificationScriptName"]
   LOADB R6 1
   NAMECALL R3 R2 K12 ["SetAttribute"]
   CALL R3 3 0
@@ -586,7 +586,7 @@ PROTO_21:
   CALL R3 2 1
   SETTABLEKS R3 R2 K10 ["Source"]
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K11 ["UnificationScriptAttributeName"]
+  GETTABLEKS R5 R6 K11 ["AttributeUnificationScriptName"]
   LOADB R6 1
   NAMECALL R3 R2 K12 ["SetAttribute"]
   CALL R3 3 0
@@ -692,7 +692,7 @@ PROTO_25:
   CALL R10 2 1
   JUMPIFNOT R10 [+21]
   GETUPVAL R13 1
-  GETTABLEKS R12 R13 K6 ["UnificationScriptAttributeName"]
+  GETTABLEKS R12 R13 K6 ["AttributeUnificationScriptName"]
   NAMECALL R10 R9 K7 ["GetAttribute"]
   CALL R10 2 1
   JUMPIF R10 [+14]

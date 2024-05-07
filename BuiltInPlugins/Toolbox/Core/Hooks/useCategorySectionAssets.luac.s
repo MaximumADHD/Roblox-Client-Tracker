@@ -282,42 +282,65 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
+  GETTABLEKS R4 R0 K6 ["Core"]
+  GETTABLEKS R3 R4 K7 ["Flags"]
+  GETTABLEKS R2 R3 K8 ["getFFlagToolboxContextualAudioRecommendations"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Cryo"]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K10 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["useCategorySectionAssets.impl"]
   CALL R2 1 1
+  MOVE R3 R1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+15]
+  MOVE R3 R2
+  DUPTABLE R4 K12 [{"fetchCategoryAssets"}]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Core"]
+  GETTABLEKS R7 R8 K13 ["Requests"]
+  GETTABLEKS R6 R7 K11 ["fetchCategoryAssets"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K11 ["fetchCategoryAssets"]
+  CALL R3 1 -1
+  RETURN R3 -1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Core"]
-  GETTABLEKS R5 R6 K10 ["ContextServices"]
-  GETTABLEKS R4 R5 K11 ["NetworkContext"]
+  GETTABLEKS R5 R0 K14 ["Packages"]
+  GETTABLEKS R4 R5 K15 ["React"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Core"]
-  GETTABLEKS R6 R7 K12 ["Types"]
-  GETTABLEKS R5 R6 K13 ["AudioTypes"]
+  GETTABLEKS R6 R0 K14 ["Packages"]
+  GETTABLEKS R5 R6 K16 ["Cryo"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Core"]
-  GETTABLEKS R7 R8 K14 ["Requests"]
-  GETTABLEKS R6 R7 K15 ["fetchCategoryAssets"]
+  GETTABLEKS R8 R0 K6 ["Core"]
+  GETTABLEKS R7 R8 K17 ["ContextServices"]
+  GETTABLEKS R6 R7 K18 ["NetworkContext"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Core"]
-  GETTABLEKS R8 R9 K16 ["Components"]
-  GETTABLEKS R7 R8 K17 ["ResultsFetcher"]
+  GETTABLEKS R9 R0 K6 ["Core"]
+  GETTABLEKS R8 R9 K19 ["Types"]
+  GETTABLEKS R7 R8 K20 ["AudioTypes"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Core"]
-  GETTABLEKS R9 R10 K18 ["Util"]
-  GETTABLEKS R8 R9 K19 ["DebugFlags"]
+  GETTABLEKS R10 R0 K6 ["Core"]
+  GETTABLEKS R9 R10 K13 ["Requests"]
+  GETTABLEKS R8 R9 K11 ["fetchCategoryAssets"]
   CALL R7 1 1
-  DUPCLOSURE R8 K20 [PROTO_7]
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  CAPTURE VAL R2
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K6 ["Core"]
+  GETTABLEKS R10 R11 K21 ["Components"]
+  GETTABLEKS R9 R10 K22 ["ResultsFetcher"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Core"]
+  GETTABLEKS R11 R12 K23 ["Util"]
+  GETTABLEKS R10 R11 K24 ["DebugFlags"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K25 [PROTO_7]
   CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R4
   CAPTURE VAL R7
-  RETURN R8 1
+  CAPTURE VAL R9
+  RETURN R10 1

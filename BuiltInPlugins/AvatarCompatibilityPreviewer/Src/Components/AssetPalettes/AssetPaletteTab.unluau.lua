@@ -4,12 +4,12 @@ local var1 = require(var0.Packages.Cryo)
 local var2 = require(var0.Packages.React)
 local var3 = require(var0.Packages.Framework).UI.SimpleTab
 return function(arg1)
-   local var318 = var1.Dictionary
-   var318 = arg1
-   local var320 = {}
-   var320.Style = "AssetPaletteTab"
+   local var335 = var1.Dictionary
+   var335 = arg1
+   local var337 = {}
+   var337.Style = "AssetPaletteTab"
    local var0 = {}
    var0.BackgroundTransparency = 1
-   var320.WrapperProps = var0
-   return var2.createElement(var3, var318.join(var318, var320))
+   var337.WrapperProps = var0
+   return var2.createElement(var3, var335.join(var335, var337))
 end

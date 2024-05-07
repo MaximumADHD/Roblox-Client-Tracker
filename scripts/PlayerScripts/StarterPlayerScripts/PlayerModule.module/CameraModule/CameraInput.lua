@@ -40,6 +40,14 @@ do
 	FFlagUserClearPanOnCameraDisable = success and result
 end
 
+local FFlagUserFixGamepadSensitivity
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixGamepadSensitivity")
+	end)
+	FFlagUserFixGamepadSensitivity = success and result
+end
+
 -- right mouse button up & down events
 local rmbDown, rmbUp do
 	local rmbDownBindable = Instance.new("BindableEvent")
@@ -190,7 +198,14 @@ do
 
 		-- keyboard input is non-coalesced, so must account for time delta
 		local kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0)*worldDt
-		local kGamepad = gamepadState.Thumbstick2
+		local kGamepad -- inline with FFlagUserFixGamepadSensitivity
+		
+		if FFlagUserFixGamepadSensitivity then
+			kGamepad = gamepadState.Thumbstick2 * UserGameSettings.GamepadCameraSensitivity
+		else
+			kGamepad = gamepadState.Thumbstick2
+		end
+
 		local kMouse = mouseState.Movement
 		local kPointerAction = mouseState.Pan
 		local kTouch = adjustTouchPitchSensitivity(touchState.Move)

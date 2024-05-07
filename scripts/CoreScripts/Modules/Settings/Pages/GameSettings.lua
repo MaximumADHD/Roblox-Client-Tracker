@@ -1365,7 +1365,7 @@ local function Initialize()
 				end
 			end
 		end
-		if (GetFFlagAlwaysShowVRToggle()) then
+		if GetFFlagAlwaysShowVRToggle() and getAppFeaturePolicies().getIsLinkedVRModeAvailable() then
 			createVROption()
 		else
 			onVREnabledChanged()

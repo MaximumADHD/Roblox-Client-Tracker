@@ -34,61 +34,45 @@ PROTO_2:
   LOADN R7 1
   CALL R5 2 1
   SETTABLEKS R5 R4 K3 ["AnchorPoint"]
-  GETUPVAL R6 3
-  CALL R6 0 1
-  JUMPIFNOT R6 [+3]
   GETTABLEKS R5 R1 K4 ["Position"]
-  JUMP [+5]
-  GETIMPORT R5 K13 [UDim2.fromScale]
-  LOADN R6 0
-  LOADN R7 1
-  CALL R5 2 1
   SETTABLEKS R5 R4 K4 ["Position"]
   GETTABLEKS R5 R1 K5 ["Padding"]
   SETTABLEKS R5 R4 K5 ["Padding"]
-  GETUPVAL R6 3
-  CALL R6 0 1
-  JUMPIFNOT R6 [+3]
   GETTABLEKS R5 R1 K6 ["Size"]
-  JUMP [+5]
-  GETIMPORT R5 K13 [UDim2.fromScale]
-  LOADN R6 1
-  LOADK R7 K14 [0.1]
-  CALL R5 2 1
   SETTABLEKS R5 R4 K6 ["Size"]
-  DUPTABLE R5 K16 [{"Slider"}]
+  DUPTABLE R5 K12 [{"Slider"}]
   GETUPVAL R7 1
   GETTABLEKS R6 R7 K2 ["createElement"]
-  GETUPVAL R7 4
-  DUPTABLE R8 K23 [{"Size", "IsPlaying", "Playhead", "OnSliderPlayheadChanged", "OnPlayPauseClicked", "ShowTime", "TrackLength"}]
-  GETIMPORT R9 K13 [UDim2.fromScale]
+  GETUPVAL R7 3
+  DUPTABLE R8 K19 [{"Size", "IsPlaying", "Playhead", "OnSliderPlayheadChanged", "OnPlayPauseClicked", "ShowTime", "TrackLength"}]
+  GETIMPORT R9 K22 [UDim2.fromScale]
   LOADN R10 1
   LOADN R11 1
   CALL R9 2 1
   SETTABLEKS R9 R8 K6 ["Size"]
-  GETTABLEKS R10 R0 K24 ["ForcedPositionAlpha"]
+  GETTABLEKS R10 R0 K23 ["ForcedPositionAlpha"]
   JUMPIFEQKNIL R10 [+2]
   LOADB R9 0 +1
   LOADB R9 1
-  SETTABLEKS R9 R8 K17 ["IsPlaying"]
-  GETTABLEKS R10 R0 K24 ["ForcedPositionAlpha"]
+  SETTABLEKS R9 R8 K13 ["IsPlaying"]
+  GETTABLEKS R10 R0 K23 ["ForcedPositionAlpha"]
   JUMPIF R10 [+2]
-  GETTABLEKS R10 R0 K25 ["AnimationPositionAlpha"]
-  GETTABLEKS R11 R0 K26 ["Length"]
+  GETTABLEKS R10 R0 K24 ["AnimationPositionAlpha"]
+  GETTABLEKS R11 R0 K25 ["Length"]
   MUL R9 R10 R11
-  SETTABLEKS R9 R8 K18 ["Playhead"]
+  SETTABLEKS R9 R8 K14 ["Playhead"]
   NEWCLOSURE R9 P0
   CAPTURE VAL R0
-  SETTABLEKS R9 R8 K19 ["OnSliderPlayheadChanged"]
+  SETTABLEKS R9 R8 K15 ["OnSliderPlayheadChanged"]
   NEWCLOSURE R9 P1
   CAPTURE VAL R0
-  SETTABLEKS R9 R8 K20 ["OnPlayPauseClicked"]
+  SETTABLEKS R9 R8 K16 ["OnPlayPauseClicked"]
   LOADB R9 0
-  SETTABLEKS R9 R8 K21 ["ShowTime"]
-  GETTABLEKS R9 R0 K26 ["Length"]
-  SETTABLEKS R9 R8 K22 ["TrackLength"]
+  SETTABLEKS R9 R8 K17 ["ShowTime"]
+  GETTABLEKS R9 R0 K25 ["Length"]
+  SETTABLEKS R9 R8 K18 ["TrackLength"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K15 ["Slider"]
+  SETTABLEKS R6 R5 K11 ["Slider"]
   CALL R2 3 -1
   RETURN R2 -1
 
@@ -121,15 +105,9 @@ MAIN:
   GETTABLEKS R7 R8 K16 ["Stylizer"]
   GETTABLEKS R9 R1 K17 ["Components"]
   GETTABLEKS R8 R9 K18 ["AnimationPlaybackSlider"]
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K10 ["Src"]
-  GETTABLEKS R11 R12 K19 ["Flags"]
-  GETTABLEKS R10 R11 K20 ["getFFlagAvatarPreviewerFixSurveyOverlap"]
-  CALL R9 1 1
-  DUPCLOSURE R10 K21 [PROTO_2]
+  DUPCLOSURE R9 K19 [PROTO_2]
   CAPTURE VAL R7
   CAPTURE VAL R3
   CAPTURE VAL R6
-  CAPTURE VAL R9
   CAPTURE VAL R8
-  RETURN R10 1
+  RETURN R9 1

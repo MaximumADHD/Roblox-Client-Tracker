@@ -14,4 +14,6 @@ return {
 	useTokensWithScale = UIBloxFlags.GetFFlagUIBloxUseTokensWithScale(),
 	useNewHeaderBar = UIBloxFlags.GetFFlagUIBloxUseNewHeaderBar(),
 	ignoreRichTextTagsForTextSizeCalculation = UIBloxFlags.GetFFlagUIBloxIgnoreRichTextTagsForTextSizeCalculation(),
+	interactiveAlertDesignTokenMinMaxSize = UIBloxFlags.GetFFlagUIBloxInteractiveAlertDesignTokenMinMaxSize(),
+	alertTitleDesignTokenHeader = UIBloxFlags.GetFFlagUIBloxAlertTitleDesignTokenHeader(),
 }

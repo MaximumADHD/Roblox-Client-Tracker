@@ -1,0 +1,54 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AttenuationCurveEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Bin"]
+  GETTABLEKS R3 R4 K7 ["Common"]
+  GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
+  CALL R1 1 0
+  GETIMPORT R1 K10 [game]
+  LOADK R3 K11 ["EnableDistanceAttenuationCurveEditorLua"]
+  NAMECALL R1 R1 K12 ["GetFastFlag"]
+  CALL R1 2 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K13 ["Packages"]
+  GETTABLEKS R2 R3 K14 ["TestLoader"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K15 ["launch"]
+  LOADK R3 K2 ["AttenuationCurveEditor"]
+  GETTABLEKS R4 R0 K16 ["Src"]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K17 ["isCli"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Bin"]
+  GETTABLEKS R4 R5 K7 ["Common"]
+  GETTABLEKS R3 R4 K18 ["pluginType"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K19 ["get"]
+  CALL R3 0 1
+  GETTABLEKS R4 R2 K20 ["standalone"]
+  JUMPIFEQ R3 R4 [+2]
+  RETURN R0 0
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Bin"]
+  GETTABLEKS R5 R6 K7 ["Common"]
+  GETTABLEKS R4 R5 K21 ["setup"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Bin"]
+  GETTABLEKS R6 R7 K7 ["Common"]
+  GETTABLEKS R5 R6 K22 ["setupMain"]
+  CALL R4 1 1
+  MOVE R5 R3
+  GETIMPORT R6 K24 [plugin]
+  MOVE R7 R4
+  CALL R5 2 0
+  RETURN R0 0

@@ -13,7 +13,7 @@ return function(arg1)
    local var0 = var3:use("SlopeRenderer")
    local var1 = var8.new()
    local var2 = arg1.Value
-   local var448 = var2
+   local var451 = var2
    local var3 = var4(function(arg1, arg2)
       local var0 = var2.Min
       local var1 = var2.Max
@@ -29,46 +29,46 @@ return function(arg1)
             var1 = math.clamp(var0, var0, 90)
          end
       end
-      local var446 = {}
-      var446.Min = var0
-      var446.Max = var1
-      arg1.OnChanged(var446)
+      local var449 = {}
+      var449.Min = var0
+      var449.Max = var1
+      arg1.OnChanged(var449)
    end, {})
-   local var453 = {}
-   var453.HorizontalAlignment = Enum.HorizontalAlignment.Left
-   var453.Layout = Enum.FillDirection.Horizontal
-   var453.Size = UDim2.new(1, 0, 0, var0.Height)
-   var453.Spacing = var0.Spacing
-   local var463 = {}
-   local var467 = {}
-   var467.LayoutOrder = var1:getNextOrder()
-   function var467.OnFocusLost(arg1)
+   local var456 = {}
+   var456.HorizontalAlignment = Enum.HorizontalAlignment.Left
+   var456.Layout = Enum.FillDirection.Horizontal
+   var456.Size = UDim2.new(1, 0, 0, var0.Height)
+   var456.Spacing = var0.Spacing
+   local var466 = {}
+   local var470 = {}
+   var470.LayoutOrder = var1:getNextOrder()
+   function var470.OnFocusLost(arg1)
       var3(arg1, nil)
    end
    
-   var467.Size = UDim2.new(0, var0.TextInputWidth, 1, 0)
-   var467.Text = tostring(var2.Min)
-   var463.MinSlope = var2.createElement(var6, var467)
-   local var487 = {}
-   var487.AutomaticSize = Enum.AutomaticSize.X
-   var487.LayoutOrder = var1:getNextOrder()
-   var487.Size = UDim2.fromScale(0, 1)
-   var487.Text = "-"
-   var463.Hyphen = var2.createElement(var7, var487)
-   local var500 = {}
-   var500.LayoutOrder = var1:getNextOrder()
-   var500.Size = UDim2.new(0, var0.TextInputWidth, 1, 0)
-   function var500.OnFocusLost(arg1)
+   var470.Size = UDim2.new(0, var0.TextInputWidth, 1, 0)
+   var470.Text = tostring(var2.Min)
+   var466.MinSlope = var2.createElement(var6, var470)
+   local var490 = {}
+   var490.AutomaticSize = Enum.AutomaticSize.X
+   var490.LayoutOrder = var1:getNextOrder()
+   var490.Size = UDim2.fromScale(0, 1)
+   var490.Text = "-"
+   var466.Hyphen = var2.createElement(var7, var490)
+   local var503 = {}
+   var503.LayoutOrder = var1:getNextOrder()
+   var503.Size = UDim2.new(0, var0.TextInputWidth, 1, 0)
+   function var503.OnFocusLost(arg1)
       var3(nil, arg1)
    end
    
-   var500.Text = tostring(var2.Max)
-   var463.MaxSlope = var2.createElement(var6, var500)
-   local var520 = {}
-   var520.AutomaticSize = Enum.AutomaticSize.X
-   var520.LayoutOrder = var1:getNextOrder()
-   var520.Size = UDim2.fromScale(0, 1)
-   var520.Text = "??"
-   var463.Degree = var2.createElement(var7, var520)
-   return var2.createElement(var5, var453, var463)
+   var503.Text = tostring(var2.Max)
+   var466.MaxSlope = var2.createElement(var6, var503)
+   local var523 = {}
+   var523.AutomaticSize = Enum.AutomaticSize.X
+   var523.LayoutOrder = var1:getNextOrder()
+   var523.Size = UDim2.fromScale(0, 1)
+   var523.Text = "??"
+   var466.Degree = var2.createElement(var7, var523)
+   return var2.createElement(var5, var456, var466)
 end

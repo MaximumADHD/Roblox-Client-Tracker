@@ -375,15 +375,22 @@ MAIN:
   SETTABLEKS R21 R20 K74 ["StrokeColor"]
   SETTABLE R20 R18 R19
   SETTABLEKS R18 R17 K109 ["ControlPoint"]
-  DUPTABLE R18 K103 [{"CornerRadius"}]
+  DUPTABLE R18 K110 [{"CornerRadius", "PointSize", "StrokeWidth"}]
   GETIMPORT R19 K105 [UDim.new]
   LOADN R20 1
   LOADN R21 0
   CALL R19 2 1
   SETTABLEKS R19 R18 K102 ["CornerRadius"]
-  SETTABLEKS R18 R17 K110 ["PhantomControlPoint"]
+  GETIMPORT R19 K39 [UDim2.fromOffset]
+  LOADN R20 2
+  LOADN R21 2
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K68 ["PointSize"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K73 ["StrokeWidth"]
+  SETTABLEKS R18 R17 K111 ["PhantomControlPoint"]
   NEWTABLE R18 8 0
-  GETIMPORT R19 K112 [Enum.LineJoinMode.Miter]
+  GETIMPORT R19 K113 [Enum.LineJoinMode.Miter]
   SETTABLEKS R19 R18 K99 ["LineJoinMode"]
   GETIMPORT R19 K105 [UDim.new]
   LOADN R20 0
@@ -391,7 +398,7 @@ MAIN:
   CALL R19 2 1
   SETTABLEKS R19 R18 K102 ["CornerRadius"]
   LOADN R19 45
-  SETTABLEKS R19 R18 K113 ["Rotation"]
+  SETTABLEKS R19 R18 K114 ["Rotation"]
   GETTABLEKS R19 R9 K80 ["Hover"]
   DUPTABLE R20 K107 [{"PointSize"}]
   GETIMPORT R21 K39 [UDim2.fromOffset]
@@ -416,9 +423,9 @@ MAIN:
   CALL R21 3 1
   SETTABLEKS R21 R20 K74 ["StrokeColor"]
   SETTABLE R20 R18 R19
-  SETTABLEKS R18 R17 K114 ["Tangent"]
-  DUPTABLE R18 K115 [{"LineJoinMode", "CornerRadius", "Rotation"}]
-  GETIMPORT R19 K112 [Enum.LineJoinMode.Miter]
+  SETTABLEKS R18 R17 K115 ["Tangent"]
+  DUPTABLE R18 K116 [{"LineJoinMode", "CornerRadius", "Rotation"}]
+  GETIMPORT R19 K113 [Enum.LineJoinMode.Miter]
   SETTABLEKS R19 R18 K99 ["LineJoinMode"]
   GETIMPORT R19 K105 [UDim.new]
   LOADN R20 0
@@ -426,116 +433,116 @@ MAIN:
   CALL R19 2 1
   SETTABLEKS R19 R18 K102 ["CornerRadius"]
   LOADN R19 45
-  SETTABLEKS R19 R18 K113 ["Rotation"]
-  SETTABLEKS R18 R17 K116 ["PhantomTangent"]
+  SETTABLEKS R19 R18 K114 ["Rotation"]
+  SETTABLEKS R18 R17 K117 ["PhantomTangent"]
   SETTABLE R17 R15 R16
-  DUPTABLE R16 K120 [{"AddPointCursor", "AddTangentCursor", "MoveCursor"}]
-  GETTABLEKS R17 R8 K117 ["AddPointCursor"]
-  SETTABLEKS R17 R16 K117 ["AddPointCursor"]
-  GETTABLEKS R17 R8 K118 ["AddTangentCursor"]
-  SETTABLEKS R17 R16 K118 ["AddTangentCursor"]
-  GETTABLEKS R17 R8 K119 ["MoveCursor"]
-  SETTABLEKS R17 R16 K119 ["MoveCursor"]
-  SETTABLEKS R16 R15 K121 ["MouseIcons"]
-  DUPTABLE R16 K130 [{"DeleteButtonSize", "ModeButtonSize", "DoneButtonSize", "SeparatorSize", "SeparatorPadding", "AddPointImage", "AddTangentImage", "MoveImage"}]
+  DUPTABLE R16 K121 [{"AddPointCursor", "AddTangentCursor", "MoveCursor"}]
+  GETTABLEKS R17 R8 K118 ["AddPointCursor"]
+  SETTABLEKS R17 R16 K118 ["AddPointCursor"]
+  GETTABLEKS R17 R8 K119 ["AddTangentCursor"]
+  SETTABLEKS R17 R16 K119 ["AddTangentCursor"]
+  GETTABLEKS R17 R8 K120 ["MoveCursor"]
+  SETTABLEKS R17 R16 K120 ["MoveCursor"]
+  SETTABLEKS R16 R15 K122 ["MouseIcons"]
+  DUPTABLE R16 K131 [{"DeleteButtonSize", "ModeButtonSize", "DoneButtonSize", "SeparatorSize", "SeparatorPadding", "AddPointImage", "AddTangentImage", "MoveImage"}]
   GETIMPORT R17 K39 [UDim2.fromOffset]
   LOADN R18 100
   LOADN R19 30
   CALL R17 2 1
-  SETTABLEKS R17 R16 K122 ["DeleteButtonSize"]
+  SETTABLEKS R17 R16 K123 ["DeleteButtonSize"]
   GETIMPORT R17 K39 [UDim2.fromOffset]
   LOADN R18 30
   LOADN R19 30
   CALL R17 2 1
-  SETTABLEKS R17 R16 K123 ["ModeButtonSize"]
+  SETTABLEKS R17 R16 K124 ["ModeButtonSize"]
   GETIMPORT R17 K39 [UDim2.fromOffset]
   LOADN R18 100
   LOADN R19 30
   CALL R17 2 1
-  SETTABLEKS R17 R16 K124 ["DoneButtonSize"]
+  SETTABLEKS R17 R16 K125 ["DoneButtonSize"]
   GETIMPORT R17 K39 [UDim2.fromOffset]
   LOADN R18 2
   LOADN R19 30
   CALL R17 2 1
-  SETTABLEKS R17 R16 K125 ["SeparatorSize"]
+  SETTABLEKS R17 R16 K126 ["SeparatorSize"]
   LOADN R17 4
-  SETTABLEKS R17 R16 K126 ["SeparatorPadding"]
+  SETTABLEKS R17 R16 K127 ["SeparatorPadding"]
   GETTABLEKS R17 R8 K106 ["AddPoint"]
-  SETTABLEKS R17 R16 K127 ["AddPointImage"]
-  GETTABLEKS R17 R8 K131 ["AddTangent"]
-  SETTABLEKS R17 R16 K128 ["AddTangentImage"]
-  GETTABLEKS R17 R8 K132 ["Move"]
-  SETTABLEKS R17 R16 K129 ["MoveImage"]
-  SETTABLEKS R16 R15 K133 ["PathToolbar"]
+  SETTABLEKS R17 R16 K128 ["AddPointImage"]
+  GETTABLEKS R17 R8 K132 ["AddTangent"]
+  SETTABLEKS R17 R16 K129 ["AddTangentImage"]
+  GETTABLEKS R17 R8 K133 ["Move"]
+  SETTABLEKS R17 R16 K130 ["MoveImage"]
+  SETTABLEKS R16 R15 K134 ["PathToolbar"]
   GETTABLEKS R16 R2 K8 ["join"]
   MOVE R17 R6
   NEWTABLE R18 8 0
-  GETTABLEKS R19 R8 K117 ["AddPointCursor"]
+  GETTABLEKS R19 R8 K118 ["AddPointCursor"]
   MOVE R21 R14
-  LOADK R22 K134 ["Path2DAddPoint.png"]
+  LOADK R22 K135 ["Path2DAddPoint.png"]
   CONCAT R20 R21 R22
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R8 K118 ["AddTangentCursor"]
+  GETTABLEKS R19 R8 K119 ["AddTangentCursor"]
   MOVE R21 R14
-  LOADK R22 K134 ["Path2DAddPoint.png"]
+  LOADK R22 K135 ["Path2DAddPoint.png"]
   CONCAT R20 R21 R22
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R8 K119 ["MoveCursor"]
+  GETTABLEKS R19 R8 K120 ["MoveCursor"]
   MOVE R21 R14
-  LOADK R22 K135 ["Path2DCursor.png"]
+  LOADK R22 K136 ["Path2DCursor.png"]
   CONCAT R20 R21 R22
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R8 K106 ["AddPoint"]
   MOVE R21 R14
-  LOADK R22 K134 ["Path2DAddPoint.png"]
+  LOADK R22 K135 ["Path2DAddPoint.png"]
   CONCAT R20 R21 R22
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R8 K131 ["AddTangent"]
+  GETTABLEKS R19 R8 K132 ["AddTangent"]
   MOVE R21 R14
-  LOADK R22 K136 ["Path2DAddTangent.png"]
+  LOADK R22 K137 ["Path2DAddTangent.png"]
   CONCAT R20 R21 R22
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R8 K132 ["Move"]
+  GETTABLEKS R19 R8 K133 ["Move"]
   MOVE R21 R14
-  LOADK R22 K137 ["Path2DMove.png"]
+  LOADK R22 K138 ["Path2DMove.png"]
   CONCAT R20 R21 R22
   SETTABLE R20 R18 R19
   CALL R16 2 1
   GETTABLEKS R17 R2 K8 ["join"]
   MOVE R18 R7
   NEWTABLE R19 8 0
-  GETTABLEKS R20 R8 K117 ["AddPointCursor"]
+  GETTABLEKS R20 R8 K118 ["AddPointCursor"]
   MOVE R22 R13
-  LOADK R23 K134 ["Path2DAddPoint.png"]
+  LOADK R23 K135 ["Path2DAddPoint.png"]
   CONCAT R21 R22 R23
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R8 K118 ["AddTangentCursor"]
+  GETTABLEKS R20 R8 K119 ["AddTangentCursor"]
   MOVE R22 R13
-  LOADK R23 K134 ["Path2DAddPoint.png"]
+  LOADK R23 K135 ["Path2DAddPoint.png"]
   CONCAT R21 R22 R23
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R8 K119 ["MoveCursor"]
+  GETTABLEKS R20 R8 K120 ["MoveCursor"]
   MOVE R22 R13
-  LOADK R23 K135 ["Path2DCursor.png"]
+  LOADK R23 K136 ["Path2DCursor.png"]
   CONCAT R21 R22 R23
   SETTABLE R21 R19 R20
   GETTABLEKS R20 R8 K106 ["AddPoint"]
   MOVE R22 R13
-  LOADK R23 K134 ["Path2DAddPoint.png"]
+  LOADK R23 K135 ["Path2DAddPoint.png"]
   CONCAT R21 R22 R23
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R8 K131 ["AddTangent"]
+  GETTABLEKS R20 R8 K132 ["AddTangent"]
   MOVE R22 R13
-  LOADK R23 K136 ["Path2DAddTangent.png"]
+  LOADK R23 K137 ["Path2DAddTangent.png"]
   CONCAT R21 R22 R23
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R8 K132 ["Move"]
+  GETTABLEKS R20 R8 K133 ["Move"]
   MOVE R22 R13
-  LOADK R23 K137 ["Path2DMove.png"]
+  LOADK R23 K138 ["Path2DMove.png"]
   CONCAT R21 R22 R23
   SETTABLE R21 R19 R20
   CALL R17 2 1
-  DUPCLOSURE R18 K138 [PROTO_0]
+  DUPCLOSURE R18 K139 [PROTO_0]
   CAPTURE VAL R5
   CAPTURE VAL R16
   CAPTURE VAL R17

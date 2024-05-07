@@ -9,23 +9,23 @@ local function fun0()
    return var0
 end
 
-local var132 = {}
-var132.isSuccessfullyPublished = false
-var132.experienceData = nil
+local var133 = {}
+var133.isSuccessfullyPublished = false
+var133.experienceData = nil
 function require(var2.SuccessfullyPublished).name(arg1, arg2)
-   local var140 = var1.Dictionary
-   var140 = arg1
-   local var142 = {}
-   var142.isSuccessfullyPublished = arg2.isSuccessfullyPublished
-   return var140.join(var140, var142)
+   local var141 = var1.Dictionary
+   var141 = arg1
+   local var143 = {}
+   var143.isSuccessfullyPublished = arg2.isSuccessfullyPublished
+   return var141.join(var141, var143)
 end
 
 function require(var2.SetExperienceData).name(arg1, arg2)
-   local var149 = var1.Dictionary
-   var149 = arg1
-   local var151 = {}
-   var151.experienceData = arg2.experienceData or var1.None
-   return var149.join(var149, var151)
+   local var150 = var1.Dictionary
+   var150 = arg1
+   local var152 = {}
+   var152.experienceData = arg2.experienceData or var1.None
+   return var150.join(var150, var152)
 end
 
-return require(var0.Packages.Rodux).createReducer(var132, {})
+return require(var0.Packages.Rodux).createReducer(var133, {})

@@ -137,6 +137,40 @@ PROTO_3:
   SETTABLEKS R4 R3 K9 ["Section"]
   RETURN R3 1
 
+PROTO_4:
+  NEWTABLE R0 0 0
+  LOADN R3 1
+  LOADN R1 5
+  LOADN R2 1
+  FORNPREP R1
+  MOVE R5 R0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["createAudioInfo"]
+  MOVE R7 R3
+  CALL R6 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R4 K3 [table.insert]
+  CALL R4 -1 0
+  FORNLOOP R1
+  DUPTABLE R1 K6 [{"ResultsState", "Section"}]
+  DUPTABLE R2 K11 [{"assetIds", "assetMap", "assets", "loading"}]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K7 ["assetIds"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K8 ["assetMap"]
+  SETTABLEKS R0 R2 K9 ["assets"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K10 ["loading"]
+  SETTABLEKS R2 R1 K4 ["ResultsState"]
+  DUPTABLE R2 K14 [{"displayName", "name"}]
+  LOADK R3 K15 ["Based on Your Scene"]
+  SETTABLEKS R3 R2 K12 ["displayName"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K16 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
+  SETTABLEKS R3 R2 K13 ["name"]
+  SETTABLEKS R2 R1 K5 ["Section"]
+  RETURN R1 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -163,45 +197,68 @@ MAIN:
   GETTABLEKS R6 R7 K9 ["Types"]
   GETTABLEKS R5 R6 K12 ["AudioTypes"]
   CALL R4 1 1
-  NEWTABLE R5 8 0
-  NEWTABLE R6 0 11
-  LOADK R7 K13 ["Metal"]
-  LOADK R8 K14 ["Electronic"]
-  LOADK R9 K15 ["Beats"]
-  LOADK R10 K16 ["Ambient"]
-  LOADK R11 K17 ["Classical"]
-  LOADK R12 K18 ["Jazz"]
-  LOADK R13 K19 ["World"]
-  LOADK R14 K20 ["Holiday"]
-  LOADK R15 K21 ["Acoustic"]
-  LOADK R16 K22 ["Funk"]
-  LOADK R17 K23 ["Lofi"]
-  SETLIST R6 R7 11 [1]
-  SETTABLEKS R6 R5 K24 ["MOCK_GENRES"]
-  NEWTABLE R6 0 12
-  LOADK R7 K25 ["Exciting"]
-  LOADK R8 K26 ["Chill"]
-  LOADK R9 K27 ["Suspenseful"]
-  LOADK R10 K28 ["Sad"]
-  LOADK R11 K29 ["Hopeful"]
-  LOADK R12 K30 ["Angry"]
-  LOADK R13 K31 ["Scary"]
-  LOADK R14 K32 ["Happy"]
-  LOADK R15 K33 ["Easy Listening"]
-  LOADK R16 K34 ["Dark"]
-  LOADK R17 K35 ["Trending"]
-  LOADK R18 K36 ["Essential"]
-  SETLIST R6 R7 12 [1]
-  SETTABLEKS R6 R5 K37 ["MOCK_VIBES"]
-  DUPCLOSURE R6 K38 [PROTO_0]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Core"]
+  GETTABLEKS R7 R8 K13 ["Util"]
+  GETTABLEKS R6 R7 K14 ["Constants"]
+  CALL R5 1 1
+  NEWTABLE R6 8 0
+  NEWTABLE R7 0 11
+  LOADK R8 K15 ["Alarm"]
+  LOADK R9 K16 ["Explsion"]
+  LOADK R10 K17 ["Car"]
+  LOADK R11 K18 ["Horror"]
+  LOADK R12 K19 ["Guns"]
+  LOADK R13 K20 ["Animal"]
+  LOADK R14 K21 ["User Interface"]
+  LOADK R15 K22 ["Cartoon"]
+  LOADK R16 K23 ["Industrial"]
+  LOADK R17 K24 ["City"]
+  LOADK R18 K25 ["Birds"]
+  SETLIST R7 R8 11 [1]
+  SETTABLEKS R7 R6 K26 ["MOCK_CATEGORIES"]
+  NEWTABLE R7 0 11
+  LOADK R8 K27 ["Metal"]
+  LOADK R9 K28 ["Electronic"]
+  LOADK R10 K29 ["Beats"]
+  LOADK R11 K30 ["Ambient"]
+  LOADK R12 K31 ["Classical"]
+  LOADK R13 K32 ["Jazz"]
+  LOADK R14 K33 ["World"]
+  LOADK R15 K34 ["Holiday"]
+  LOADK R16 K35 ["Acoustic"]
+  LOADK R17 K36 ["Funk"]
+  LOADK R18 K37 ["Lofi"]
+  SETLIST R7 R8 11 [1]
+  SETTABLEKS R7 R6 K38 ["MOCK_GENRES"]
+  NEWTABLE R7 0 12
+  LOADK R8 K39 ["Exciting"]
+  LOADK R9 K40 ["Chill"]
+  LOADK R10 K41 ["Suspenseful"]
+  LOADK R11 K42 ["Sad"]
+  LOADK R12 K43 ["Hopeful"]
+  LOADK R13 K44 ["Angry"]
+  LOADK R14 K45 ["Scary"]
+  LOADK R15 K46 ["Happy"]
+  LOADK R16 K47 ["Easy Listening"]
+  LOADK R17 K48 ["Dark"]
+  LOADK R18 K49 ["Trending"]
+  LOADK R19 K50 ["Essential"]
+  SETLIST R7 R8 12 [1]
+  SETTABLEKS R7 R6 K51 ["MOCK_VIBES"]
+  DUPCLOSURE R7 K52 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLEKS R6 R5 K39 ["createAudioInfo"]
-  DUPCLOSURE R6 K40 [PROTO_1]
-  SETTABLEKS R6 R5 K41 ["createMockSubcategory"]
-  DUPCLOSURE R6 K42 [PROTO_2]
+  SETTABLEKS R7 R6 K53 ["createAudioInfo"]
+  DUPCLOSURE R7 K54 [PROTO_1]
+  SETTABLEKS R7 R6 K55 ["createMockSubcategory"]
+  DUPCLOSURE R7 K56 [PROTO_2]
+  CAPTURE VAL R6
+  SETTABLEKS R7 R6 K57 ["createMockSwimlane"]
+  DUPCLOSURE R7 K58 [PROTO_3]
+  CAPTURE VAL R6
+  SETTABLEKS R7 R6 K59 ["createMockList"]
+  DUPCLOSURE R7 K60 [PROTO_4]
+  CAPTURE VAL R6
   CAPTURE VAL R5
-  SETTABLEKS R6 R5 K43 ["createMockSwimlane"]
-  DUPCLOSURE R6 K44 [PROTO_3]
-  CAPTURE VAL R5
-  SETTABLEKS R6 R5 K45 ["createMockList"]
-  RETURN R5 1
+  SETTABLEKS R7 R6 K61 ["createMockContextualRecommendations"]
+  RETURN R6 1

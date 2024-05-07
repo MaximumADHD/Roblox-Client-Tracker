@@ -121,31 +121,37 @@ PROTO_7:
   CALL R3 2 1
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K2 ["useContext"]
-  GETUPVAL R5 1
+  GETUPVAL R6 1
+  CALL R6 0 1
+  JUMPIFNOT R6 [+4]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["Context"]
+  JUMP [+1]
+  GETUPVAL R5 3
   CALL R4 1 1
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K2 ["useContext"]
-  GETUPVAL R6 2
+  GETUPVAL R6 4
   CALL R5 1 1
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K2 ["useContext"]
-  GETUPVAL R7 3
+  GETUPVAL R7 5
   CALL R6 1 1
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K1 ["useCallback"]
   NEWCLOSURE R8 P1
   CAPTURE VAL R6
   CAPTURE VAL R5
-  CAPTURE UPVAL U4
+  CAPTURE UPVAL U6
   CAPTURE VAL R4
   CAPTURE VAL R2
   NEWTABLE R9 0 3
-  GETTABLEKS R10 R4 K3 ["openPalette"]
-  GETTABLEKS R11 R5 K4 ["addEquippedItem"]
-  GETTABLEKS R12 R6 K5 ["addNewItem"]
+  GETTABLEKS R10 R4 K4 ["openPalette"]
+  GETTABLEKS R11 R5 K5 ["addEquippedItem"]
+  GETTABLEKS R12 R6 K6 ["addNewItem"]
   SETLIST R9 R10 3 [1]
   CALL R7 2 1
-  GETUPVAL R8 5
+  GETUPVAL R8 7
   CALL R8 0 1
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K0 ["useState"]
@@ -168,16 +174,16 @@ PROTO_7:
   CAPTURE VAL R10
   NEWTABLE R14 0 0
   CALL R12 2 1
-  DUPTABLE R13 K8 [{"addAmbiguousAsset", "addLoneMeshPart"}]
-  SETTABLEKS R3 R13 K6 ["addAmbiguousAsset"]
-  SETTABLEKS R12 R13 K7 ["addLoneMeshPart"]
+  DUPTABLE R13 K9 [{"addAmbiguousAsset", "addLoneMeshPart"}]
+  SETTABLEKS R3 R13 K7 ["addAmbiguousAsset"]
+  SETTABLEKS R12 R13 K8 ["addLoneMeshPart"]
   GETUPVAL R15 0
-  GETTABLEKS R14 R15 K9 ["createElement"]
-  GETUPVAL R16 6
-  GETTABLEKS R15 R16 K10 ["Provider"]
-  DUPTABLE R16 K12 [{"value"}]
-  SETTABLEKS R13 R16 K11 ["value"]
-  GETTABLEKS R17 R0 K13 ["children"]
+  GETTABLEKS R14 R15 K10 ["createElement"]
+  GETUPVAL R16 8
+  GETTABLEKS R15 R16 K11 ["Provider"]
+  DUPTABLE R16 K13 [{"value"}]
+  SETTABLEKS R13 R16 K12 ["value"]
+  GETTABLEKS R17 R0 K14 ["children"]
   LENGTH R19 R1
   LOADN R20 0
   JUMPIFLT R20 R19 [+6]
@@ -186,16 +192,16 @@ PROTO_7:
   LOADN R20 0
   JUMPIFNOTLT R20 R19 [+18]
   GETUPVAL R19 0
-  GETTABLEKS R18 R19 K9 ["createElement"]
-  GETUPVAL R19 7
-  DUPTABLE R20 K18 [{"assign", "ambiguousAssets", "loneMeshParts", "close"}]
-  SETTABLEKS R11 R20 K14 ["assign"]
-  SETTABLEKS R1 R20 K15 ["ambiguousAssets"]
-  SETTABLEKS R9 R20 K16 ["loneMeshParts"]
+  GETTABLEKS R18 R19 K10 ["createElement"]
+  GETUPVAL R19 9
+  DUPTABLE R20 K19 [{"assign", "ambiguousAssets", "loneMeshParts", "close"}]
+  SETTABLEKS R11 R20 K15 ["assign"]
+  SETTABLEKS R1 R20 K16 ["ambiguousAssets"]
+  SETTABLEKS R9 R20 K17 ["loneMeshParts"]
   NEWCLOSURE R21 P4
   CAPTURE VAL R2
   CAPTURE VAL R10
-  SETTABLEKS R21 R20 K17 ["close"]
+  SETTABLEKS R21 R20 K18 ["close"]
   CALL R18 2 1
   CALL R14 4 -1
   RETURN R14 -1
@@ -222,54 +228,66 @@ MAIN:
   GETIMPORT R4 K4 [require]
   GETTABLEKS R7 R0 K7 ["Src"]
   GETTABLEKS R6 R7 K8 ["Util"]
-  GETTABLEKS R5 R6 K11 ["AvatarScreenContext"]
+  GETTABLEKS R5 R6 K11 ["DEPRECATED_AvatarScreenContext"]
   CALL R4 1 1
   GETIMPORT R5 K4 [require]
   GETTABLEKS R8 R0 K7 ["Src"]
   GETTABLEKS R7 R8 K12 ["Components"]
-  GETTABLEKS R6 R7 K13 ["DisambiguationMenu"]
+  GETTABLEKS R6 R7 K13 ["AvatarScreenContext"]
   CALL R5 1 1
   GETIMPORT R6 K4 [require]
   GETTABLEKS R9 R0 K7 ["Src"]
-  GETTABLEKS R8 R9 K8 ["Util"]
-  GETTABLEKS R7 R8 K14 ["EquipmentStateContext"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K14 ["DisambiguationMenu"]
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
   GETTABLEKS R10 R0 K7 ["Src"]
   GETTABLEKS R9 R10 K8 ["Util"]
-  GETTABLEKS R8 R9 K15 ["UserCatalogContext"]
+  GETTABLEKS R8 R9 K15 ["EquipmentStateContext"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
   GETTABLEKS R11 R0 K7 ["Src"]
   GETTABLEKS R10 R11 K8 ["Util"]
-  GETTABLEKS R9 R10 K16 ["createUnimplemented"]
+  GETTABLEKS R9 R10 K16 ["UserCatalogContext"]
   CALL R8 1 1
   GETIMPORT R9 K4 [require]
-  GETIMPORT R11 K1 [script]
-  GETTABLEKS R10 R11 K17 ["useAssignLoneMeshParts"]
+  GETTABLEKS R12 R0 K7 ["Src"]
+  GETTABLEKS R11 R12 K8 ["Util"]
+  GETTABLEKS R10 R11 K17 ["createUnimplemented"]
   CALL R9 1 1
-  DUPTABLE R10 K20 [{"addAmbiguousAsset", "addLoneMeshPart"}]
-  MOVE R11 R8
-  LOADK R12 K18 ["addAmbiguousAsset"]
+  GETIMPORT R10 K4 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K18 ["useAssignLoneMeshParts"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R14 R0 K7 ["Src"]
+  GETTABLEKS R13 R14 K19 ["Flags"]
+  GETTABLEKS R12 R13 K20 ["getFFlagAvatarPreviewerSkinToneAlphaDetection"]
   CALL R11 1 1
-  SETTABLEKS R11 R10 K18 ["addAmbiguousAsset"]
-  MOVE R11 R8
-  LOADK R12 K19 ["addLoneMeshPart"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K19 ["addLoneMeshPart"]
-  GETTABLEKS R11 R1 K21 ["createContext"]
-  MOVE R12 R10
-  CALL R11 1 1
-  DUPCLOSURE R12 K22 [PROTO_7]
+  DUPTABLE R12 K23 [{"addAmbiguousAsset", "addLoneMeshPart"}]
+  MOVE R13 R9
+  LOADK R14 K21 ["addAmbiguousAsset"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K21 ["addAmbiguousAsset"]
+  MOVE R13 R9
+  LOADK R14 K22 ["addLoneMeshPart"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K22 ["addLoneMeshPart"]
+  GETTABLEKS R13 R1 K24 ["createContext"]
+  MOVE R14 R12
+  CALL R13 1 1
+  DUPCLOSURE R14 K25 [PROTO_7]
   CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R2
-  CAPTURE VAL R9
   CAPTURE VAL R11
   CAPTURE VAL R5
-  DUPTABLE R13 K25 [{"Context", "Provider"}]
-  SETTABLEKS R11 R13 K23 ["Context"]
-  SETTABLEKS R12 R13 K24 ["Provider"]
-  RETURN R13 1
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R6
+  DUPTABLE R15 K28 [{"Context", "Provider"}]
+  SETTABLEKS R13 R15 K26 ["Context"]
+  SETTABLEKS R14 R15 K27 ["Provider"]
+  RETURN R15 1

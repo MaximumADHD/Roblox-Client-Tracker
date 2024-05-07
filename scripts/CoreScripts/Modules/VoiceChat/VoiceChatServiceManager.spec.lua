@@ -29,6 +29,13 @@ return function()
 	local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 	local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 
+	local FFlagEnableCoreVoiceChatModule = require(script.Parent.Flags.GetFFlagEnableCoreVoiceChatModule)()
+
+	local CoreVoiceManagerKlass
+	if FFlagEnableCoreVoiceChatModule then
+		CoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatCore).CoreVoiceManager
+	end
+
 	local noop = function() end
 	local stub = function(val)
 		return function()
@@ -123,6 +130,22 @@ return function()
 		return isStudio
 	end
 
+	local createCoreVoiceManager = function(voiceChatServiceStub, httpServiceStub, permissionsService, permissionFn, block, notificationMock)
+		local CoreVoiceManager
+		if CoreVoiceManagerKlass then
+			CoreVoiceManager = CoreVoiceManagerKlass.new(
+				block,
+				permissionsService,
+				httpServiceStub,
+				voiceChatServiceStub,
+				nil,
+				notificationMock,
+				nil
+			)
+		end
+		return CoreVoiceManager
+	end
+
 	beforeEach(function(context)
 		context.RobloxEventReceived = Instance.new("BindableEvent")
 		context.RobloxConnectionChanged = Instance.new("BindableEvent")
@@ -135,7 +158,9 @@ return function()
 		HTTPServiceStub.GetAsyncFullUrlCB = noop
 		isStudio = false
 		VoiceChatServiceStub:resetMocks()
+
 		VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+			createCoreVoiceManager(VoiceChatServiceStub, nil, nil, getPermissionsFunction, BlockMock.Event, NotificationMock),
 			VoiceChatServiceStub,
 			nil,
 			nil,
@@ -309,14 +334,16 @@ return function()
 		if GetFFlagJoinWithoutMicPermissions() then
 			it("requestMicPermission still resolves when a malformed response is given", function()
 				PermissionServiceStub.hasPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED }, Promise.reject)
+				local permFn = getPermissionsFunction()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn),
 					VoiceChatServiceStub,
 					HTTPServiceStub,
 					PermissionServiceStub,
 					nil,
 					nil,
 					nil,
-					getPermissionsFunction()
+					permFn
 				)
 				expectToResolve(VoiceChatServiceManager:requestMicPermission())
 			end)
@@ -324,40 +351,46 @@ return function()
 			it("requestMicPermission rejects when permissions protocol response is denied", function()
 				PermissionServiceStub.hasPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
 				PermissionServiceStub.requestPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
+				local permFn = getPermissionsFunction(PermissionsProtocol.Status.DENIED)
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn),
 					VoiceChatServiceStub,
 					HTTPServiceStub,
 					PermissionServiceStub,
 					nil,
 					nil,
 					nil,
-					getPermissionsFunction(PermissionsProtocol.Status.DENIED)
+					permFn
 				)
 				expectToResolve(VoiceChatServiceManager:requestMicPermission())
 			end)
 		else
 			it("requestMicPermission throws when a malformed response is given", function()
+				local permFn = getPermissionsFunction()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn),
 					VoiceChatServiceStub,
 					HTTPServiceStub,
 					PermissionServiceStub,
 					nil,
 					nil,
 					nil,
-					getPermissionsFunction()
+					permFn
 				)
 				expectToReject(VoiceChatServiceManager:requestMicPermission())
 			end)
 
 			it("requestMicPermission rejects when permissions protocol response is denied", function()
+				local permFn = getPermissionsFunction(PermissionsProtocol.Status.DENIED)
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn),
 					VoiceChatServiceStub,
 					HTTPServiceStub,
 					PermissionServiceStub,
 					nil,
 					nil,
 					nil,
-					getPermissionsFunction(PermissionsProtocol.Status.DENIED)
+					permFn
 				)
 				PermissionServiceStub.requestPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.DENIED })
 				expectToReject(VoiceChatServiceManager:requestMicPermission())
@@ -367,28 +400,32 @@ return function()
 		if GetFFlagJoinWithoutMicPermissions() then
 			it("requestMicPermission resolves when permissions protocol response is approved for join without voice permission", function()
 				PermissionServiceStub.hasPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.AUTHORIZED })
+				local permFn = getPermissionsFunction(PermissionsProtocol.Status.AUTHORIZED)
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn),
 					VoiceChatServiceStub,
 					HTTPServiceStub,
 					PermissionServiceStub,
 					nil,
 					nil,
 					nil,
-					getPermissionsFunction(PermissionsProtocol.Status.AUTHORIZED)
+					permFn
 				)
 				expectToResolve(VoiceChatServiceManager:requestMicPermission())
 				expect(VoiceChatServiceManager.permissionState).toBe(Constants.PERMISSION_STATE.LISTEN_AND_TALK)
 			end)
 		else
 			it("requestMicPermission resolves when permissions protocol response is approved", function()
+				local permFn = getPermissionsFunction(PermissionsProtocol.Status.AUTHORIZED)
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn),
 					VoiceChatServiceStub,
 					HTTPServiceStub,
 					PermissionServiceStub,
 					nil,
 					nil,
 					nil,
-					getPermissionsFunction(PermissionsProtocol.Status.AUTHORIZED)
+					permFn
 				)
 				PermissionServiceStub.requestPermissionsCB = stubPromise({ status = PermissionsProtocol.Status.AUTHORIZED })
 				expectToResolve(VoiceChatServiceManager:requestMicPermission())
@@ -405,7 +442,11 @@ return function()
 			end)
 
 			it("shows correct prompt when user is banned", function()
-				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+					VoiceChatServiceStub,
+					HTTPServiceStub
+				)
 				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
 					universePlaceVoiceEnabledSettings = {
@@ -427,7 +468,11 @@ return function()
 
 			if not GetFFlagAlwaysMountVoicePrompt() then
 				it("Show place prompt if place is not enabled for voice", function()
-					VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+					VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+						createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+						VoiceChatServiceStub,
+						HTTPServiceStub
+					)
 					VoiceChatServiceManager.policyMapper = mockPolicyMapper
 					isStudio = true
 					VoiceChatServiceManager.runService = runServiceStub
@@ -451,7 +496,11 @@ return function()
 			end
 
 			it("Doesn't show place prompt if universe is not enabled for voice", function()
-				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+					VoiceChatServiceStub,
+					HTTPServiceStub
+				)
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
 					universePlaceVoiceEnabledSettings = {
 						isUniverseEnabledForVoice = false,
@@ -484,14 +533,16 @@ return function()
 			end)
 			if not GetFFlagJoinWithoutMicPermissions() then
 				it("shows correct prompt when user does not give voice permission", function()
+					local permFn = getPermissionsFunction(PermissionsProtocol.Status.DENIED)
 					VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+						createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn),
 						VoiceChatServiceStub,
 						HTTPServiceStub,
 						PermissionServiceStub,
 						nil,
 						nil,
 						nil,
-						getPermissionsFunction(PermissionsProtocol.Status.DENIED)
+						permFn
 					)
 					VoiceChatServiceManager.policyMapper = mockPolicyMapper
 					VoiceChatServiceManager.userEligible = true
@@ -512,7 +563,11 @@ return function()
 			end
 
 			it("shows or does not show toast when user is voice banned and has acknowledged ban", function()
-				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+					VoiceChatServiceStub,
+					HTTPServiceStub
+				)
 				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				VoiceChatServiceManager.runService = runServiceStub
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
@@ -547,7 +602,11 @@ return function()
 			end)
 
 			it("shows correct ban modal for ban reason 7 when calling userAndPlaceCanUseVoice", function()
-				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+					VoiceChatServiceStub,
+					HTTPServiceStub
+				)
 				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				VoiceChatServiceManager.runService = runServiceStub
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
@@ -584,7 +643,11 @@ return function()
 			end)
 
 			it("shows correct ban modal for ban reason 7 when calling ShowPlayerModeratedMessage", function()
-				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+					VoiceChatServiceStub,
+					HTTPServiceStub
+				)
 				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				VoiceChatServiceManager.runService = runServiceStub
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
@@ -621,7 +684,11 @@ return function()
 			end)
 
 			it("shows correct ban modal for ban reason not equal to 7 when calling ShowPlayerModeratedMessage", function()
-				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+					VoiceChatServiceStub,
+					HTTPServiceStub
+				)
 				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				VoiceChatServiceManager.runService = runServiceStub
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
@@ -654,7 +721,11 @@ return function()
 			end)
 
 			it("shows correct ban modal for ban reason not equal to 7 when calling userAndPlaceCanUseVoice", function()
-				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub, HTTPServiceStub)
+				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub),
+					VoiceChatServiceStub,
+					HTTPServiceStub
+				)
 				VoiceChatServiceManager.policyMapper = mockPolicyMapper
 				VoiceChatServiceManager.runService = runServiceStub
 				HTTPServiceStub.GetAsyncFullUrlCB = createVoiceOptionsJSONStub({
@@ -688,9 +759,14 @@ return function()
 		end)
 
 		it("VoiceChatAvailable Returns the correct values", function()
-			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new()
+			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+				createCoreVoiceManager()
+			)
 			expect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
-			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(VoiceChatServiceStub)
+			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+				createCoreVoiceManager(VoiceChatServiceStub),
+				VoiceChatServiceStub
+			)
 			VoiceChatServiceStub.GetVoiceChatApiVersionCB = stub(2)
 			expect(VoiceChatServiceManager:VoiceChatAvailable()).toBe(false)
 			VoiceChatServiceStub.GetVoiceChatApiVersionCB = stub(6)
@@ -706,14 +782,16 @@ return function()
 		describe("BlockingUtils", function()
 			it("we call subscribe block when a user is blocked", function()
 				local BlockMock = Instance.new("BindableEvent")
+				local permFn = getPermissionsFunction()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn, BlockMock.Event),
 					VoiceChatServiceStub,
 					HTTPServiceStub,
 					PermissionServiceStub,
 					BlockMock.Event,
 					nil,
 					nil,
-					getPermissionsFunction()
+					permFn
 				)
 				VoiceChatServiceManager:SetupParticipantListeners()
 				local player = makeMockUser("001")
@@ -729,14 +807,16 @@ return function()
 
 			it("we call subscribe unblock when a user is unblocked", function()
 				local UnblockMock = Instance.new("BindableEvent")
+				local permFn = getPermissionsFunction()
 				VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+					createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, permFn, UnblockMock.Event),
 					VoiceChatServiceStub,
 					HTTPServiceStub,
 					PermissionServiceStub,
 					UnblockMock.Event,
 					nil,
 					nil,
-					getPermissionsFunction()
+					permFn
 				)
 				VoiceChatServiceManager:SetupParticipantListeners()
 				local player = makeMockUser("001")

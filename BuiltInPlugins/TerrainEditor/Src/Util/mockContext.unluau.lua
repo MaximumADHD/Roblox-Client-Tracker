@@ -6,28 +6,28 @@ local var3 = var1.TestHelpers
 local var4 = var1.ContextServices
 local var5 = require(var0.Src.Util.mockResourceTable)
 local var6 = {}
-local var171 = {}
-var171.stringResourceTable = var5
-var171.translationResourceTable = var5
-var2.Resources.LOCALIZATION_PROJECT_NAME = var171
-local var174 = {}
-var174.stringResourceTable = var5
-var174.translationResourceTable = var5
-var1.Resources.LOCALIZATION_PROJECT_NAME = var174
+local var186 = {}
+var186.stringResourceTable = var5
+var186.translationResourceTable = var5
+var2.Resources.LOCALIZATION_PROJECT_NAME = var186
+local var189 = {}
+var189.stringResourceTable = var5
+var189.translationResourceTable = var5
+var1.Resources.LOCALIZATION_PROJECT_NAME = var189
 var6.libraries = {}
 local var9 = var3.Instances.MockPlugin.new("TerrainEditor")
 var9:GetMouse().UnitRay = Ray.new(Vector3.zero, Vector3.xAxis)
 var9:GetMouse().X = 0
 var9:GetMouse().Y = 0
 local var10 = var4.Analytics.mock()
-local var193 = var4.Localization
-var193 = var6
-local var12 = var193.mock(var193)
+local var208 = var4.Localization
+var208 = var6
+local var12 = var208.mock(var208)
 local var13 = require(var0.Src.Controllers.PluginController).mock(var9)
 local var14 = require(var0.Src.Controllers.ShortcutController).new(var9, var12)
 local var15 = require(var0.Src.Resources.MakeTheme)(true)
 local var16 = {}
-local var216 = var15
+local var231 = var15
 local var18 = var10
 local var19 = var12
 local var20 = var13
@@ -39,7 +39,7 @@ return function(arg1, arg2)
       local var0 = false
    end
    assert(true, "Expected story to be a table")
-   local var232 = var3
-   var232 = arg2
-   return var232.provideMockContext(var232 or var16, arg1)
+   local var247 = var3
+   var247 = arg2
+   return var247.provideMockContext(var247 or var16, arg1)
 end

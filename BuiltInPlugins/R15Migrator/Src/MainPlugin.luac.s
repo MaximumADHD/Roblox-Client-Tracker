@@ -299,7 +299,7 @@ PROTO_13:
   RETURN R1 1
   GETTABLEKS R1 R0 K0 ["script"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K5 ["UnificationScriptAttributeName"]
+  GETTABLEKS R3 R4 K5 ["AttributeUnificationScriptName"]
   NAMECALL R1 R1 K6 ["GetAttribute"]
   CALL R1 2 1
   JUMPIFNOT R1 [+6]

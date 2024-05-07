@@ -5,6 +5,6 @@ MAIN:
   LOADK R2 K3 ["**/*.spec"]
   SETLIST R1 R2 1 [1]
   SETTABLEKS R1 R0 K0 ["testMatch"]
-  LOADK R1 K4 [60000]
+  LOADK R1 K4 [120000]
   SETTABLEKS R1 R0 K1 ["testTimeout"]
   RETURN R0 1

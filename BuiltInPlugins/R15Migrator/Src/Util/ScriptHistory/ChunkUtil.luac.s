@@ -57,7 +57,7 @@ PROTO_2:
   NAMECALL R3 R1 K2 ["SetAttribute"]
   CALL R3 3 0
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K3 ["InitialIssueCountName"]
+  GETTABLEKS R5 R6 K3 ["AttributeInitialIssueCountName"]
   LOADNIL R6
   NAMECALL R3 R1 K2 ["SetAttribute"]
   CALL R3 3 0

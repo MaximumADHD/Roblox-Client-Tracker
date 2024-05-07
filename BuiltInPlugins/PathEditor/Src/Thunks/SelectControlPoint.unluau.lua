@@ -3,7 +3,6 @@ local var0 = script.Parent.Parent.Parent
 local var1 = require(var0.Src.Types)
 local var2 = require(var0.Src.Thunks.AddControlPointTangent)
 local var3 = require(var0.Src.Actions.SelectControlPoint)
-local var4 = require(var0.Src.Actions.SelectTangentSide)
 return function(arg1)
    return function(arg1)
       local var0 = arg1:getState().PathReducer

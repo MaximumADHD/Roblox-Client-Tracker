@@ -168,7 +168,7 @@ PROTO_6:
   CALL R4 2 1
   GETUPVAL R5 1
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K6 ["InitialIssueCountName"]
+  GETTABLEKS R7 R8 K6 ["AttributeInitialIssueCountName"]
   NAMECALL R5 R5 K5 ["GetAttribute"]
   CALL R5 2 1
   GETTABLE R7 R2 R3
@@ -195,7 +195,7 @@ PROTO_6:
   JUMPIF R5 [+11]
   GETUPVAL R7 1
   GETUPVAL R10 2
-  GETTABLEKS R9 R10 K6 ["InitialIssueCountName"]
+  GETTABLEKS R9 R10 K6 ["AttributeInitialIssueCountName"]
   GETUPVAL R10 3
   NAMECALL R10 R10 K7 ["GetSize"]
   CALL R10 1 -1
@@ -206,7 +206,7 @@ PROTO_6:
   MOVE R9 R3
   GETUPVAL R10 1
   GETUPVAL R13 2
-  GETTABLEKS R12 R13 K6 ["InitialIssueCountName"]
+  GETTABLEKS R12 R13 K6 ["AttributeInitialIssueCountName"]
   NAMECALL R10 R10 K5 ["GetAttribute"]
   CALL R10 2 1
   GETUPVAL R12 3

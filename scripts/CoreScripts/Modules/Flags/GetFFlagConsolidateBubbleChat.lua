@@ -1,15 +1,15 @@
 local Players = game:GetService("Players")
 
-game:DefineFastFlag("ConsolidateBubbleChat4", false)
-game:DefineFastInt("ConsolidateBubbleChatRollout3", 0)
+game:DefineFastFlag("ConsolidateBubbleChat5", false)
+game:DefineFastInt("ConsolidateBubbleChatRollout4", 0)
 
 return function()
-	local rolloutEnabledForAll = game:GetFastFlag("ConsolidateBubbleChat4")
+	local rolloutEnabledForAll = game:GetFastFlag("ConsolidateBubbleChat5")
 	if rolloutEnabledForAll then
 		return true
 	end
 
-	local rollout = game:GetFastInt("ConsolidateBubbleChatRollout3")
+	local rollout = game:GetFastInt("ConsolidateBubbleChatRollout4")
 	if rollout <= 0 then
 		return false
 	end

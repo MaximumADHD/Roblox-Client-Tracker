@@ -7,7 +7,6 @@ local var4 = require(var0.Src.Flags.getFFlagAvatarPreviewerAutoSetup)
 local var5 = require(var0.Src.Flags.getFFlagAvatarPreviewerAutoSetupDisablePublish)
 local var6 = require(var0.Src.Flags.getFFlagAvatarPreviewerAutoSetupTelemetryV2)
 return function(arg1)
-   assert(var4(), "FFlagAvatarPreviewerAutoSetup is not enabled")
    assert(var5() or var6(), "FFlagAvatarPreviewAutoSetupDisablePublish and FFlagAvatarPreviewerAutoSetupTelemetryV2 are not enabled")
    return var3(arg1, var1.ATTRIBUTE_CREATED_BY_AUTO_SETUP)
 end

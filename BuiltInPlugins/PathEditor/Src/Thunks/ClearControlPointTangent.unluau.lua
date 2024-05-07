@@ -20,16 +20,16 @@ return function(arg1, arg2)
       if var2[var1][var3] == "new" then
          return var0
       end
-      local var53 = var2("Removed Tangent")
+      local var248 = var2("Removed Tangent")
       arg1:dispatch()
-      local var55 = var2[var1]
+      local var250 = var2[var1]
       var5(arg2) = UDim2.new()
       if not var0.ControlPointStates[var1].Sharp then
          local var0 = var4(var1)
          arg1:dispatch()
       end
-      var53 = var2
-      var0.SelectedObject:SetControlPoints(var53)
+      var248 = var2
+      var0.SelectedObject:SetControlPoints(var248)
       if arg2 == "new" then
          local var0 = var3(nil)
          arg1:dispatch()

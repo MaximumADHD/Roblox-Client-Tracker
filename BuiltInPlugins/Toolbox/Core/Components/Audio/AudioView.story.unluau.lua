@@ -7,14 +7,14 @@ local var4 = require(script.Parent.AudioView)
 local var5 = require(script.Parent.AudioView.mocks)
 local var6 = {}
 function var6.story()
-   local var294 = var5.createMockSwimlane("Genres", var5.MOCK_GENRES)
-   local var300 = var5.createMockSwimlane("Vibes", var5.MOCK_VIBES)
-   local var304 = var5.createMockList("Trending")
-   local var308 = var5.createMockList("Essentials")
-   local var313 = {}
-   local var317 = {}
-   var317.Sections = {}
-   var317.PageSize = 10
+   local var316 = var5.createMockSwimlane("Categories", var5.MOCK_CATEGORIES)
+   local var319 = var5.createMockContextualRecommendations()
+   local var323 = var5.createMockList("Trending")
+   local var327 = var5.createMockList("Essentials")
+   local var332 = {}
+   local var336 = {}
+   var336.Sections = {}
+   var336.PageSize = 10
    local var1 = {}
    function var1.CanInsertAsset()
       return true
@@ -36,9 +36,9 @@ function var6.story()
       return nil
    end
    
-   var317.AssetLogicWrapperProps = var1
-   var313.AudioView = var1.createElement(var4, var317)
-   return var1.createElement(var2, {}, var313)
+   var336.AssetLogicWrapperProps = var1
+   var332.AudioView = var1.createElement(var4, var336)
+   return var1.createElement(var2, {}, var332)
 end
 
 return var6

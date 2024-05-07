@@ -12,6 +12,13 @@ return function()
 
 	local VoiceChatServiceManagerClass = require(script.Parent.VoiceChatServiceManager)
 	local VCSS = require(script.Parent.VoiceChatServiceStub)
+	local FFlagEnableCoreVoiceChatModule = require(script.Parent.Flags.GetFFlagEnableCoreVoiceChatModule)()
+
+	local CoreVoiceManagerKlass
+	if FFlagEnableCoreVoiceChatModule then
+		CoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatCore).CoreVoiceManager
+	end
+
 	local VoiceChatServiceStub = VCSS.VoiceChatServiceStub
 	local makeMockUser = VCSS.makeMockUser
 
@@ -32,7 +39,23 @@ return function()
 
 	beforeEach(function(c)
 		local BlockMock = Instance.new("BindableEvent")
-		c.VoiceChatServiceManager = VoiceChatServiceManagerClass.new(VoiceChatServiceStub, nil, nil, BlockMock.Event)
+
+		if CoreVoiceManagerKlass then
+			c.CoreVoiceManager = CoreVoiceManagerKlass.new(
+				BlockMock.Event,
+				nil,
+				nil,
+				VoiceChatServiceStub
+			)
+		end
+
+		c.VoiceChatServiceManager = VoiceChatServiceManagerClass.new(
+			c.CoreVoiceManager,
+			VoiceChatServiceStub,
+			nil,
+			nil,
+			BlockMock.Event
+		)
 		c.VoiceChatServiceManager:SetupParticipantListeners()
 
 		local mockPlayersService = {

@@ -131,106 +131,97 @@ PROTO_1:
   GETTABLEKS R9 R0 K9 ["requestId"]
   GETTABLEKS R10 R1 K17 ["runCodeGuid"]
   MOVE R11 R2
-  CALL R6 5 3
-  GETUPVAL R9 3
-  CALL R9 0 1
-  JUMPIFNOT R9 [+12]
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K41 ["EndRecordingActions"]
-  GETTABLEKS R10 R0 K9 ["requestId"]
-  MOVE R11 R3
-  CALL R9 2 1
+  CALL R6 5 2
+  GETUPVAL R8 3
+  CALL R8 0 1
+  JUMPIFNOT R8 [+12]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K41 ["EndRecordingActions"]
+  GETTABLEKS R9 R0 K9 ["requestId"]
+  MOVE R10 R3
+  CALL R8 2 1
   JUMPIFNOT R5 [+4]
-  JUMPIFNOT R9 [+3]
+  JUMPIFNOT R8 [+3]
   JUMPIFNOT R3 [+2]
-  GETUPVAL R10 10
-  SETTABLE R4 R10 R3
-  AND R9 R6 R7
-  GETUPVAL R11 5
+  GETUPVAL R9 10
+  SETTABLE R4 R9 R3
+  GETUPVAL R9 5
+  CALL R9 0 1
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K42 ["StreamTextInNewMessage"]
+  JUMP [+1]
+  LOADK R8 K43 ["StreamText"]
+  GETUPVAL R10 5
+  CALL R10 0 1
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K44 ["span"]
+  JUMP [+1]
+  LOADK R9 K45 ["p"]
+  JUMPIFNOT R6 [+27]
+  GETUPVAL R11 11
   CALL R11 0 1
   JUMPIFNOT R11 [+2]
-  LOADK R10 K42 ["StreamTextInNewMessage"]
+  LOADK R10 K46 ["class=\"successText\""]
   JUMP [+1]
-  LOADK R10 K43 ["StreamText"]
-  GETUPVAL R12 5
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  LOADK R11 K44 ["span"]
-  JUMP [+1]
-  LOADK R11 K45 ["p"]
-  JUMPIFNOT R9 [+27]
-  GETUPVAL R13 11
-  CALL R13 0 1
-  JUMPIFNOT R13 [+2]
-  LOADK R12 K46 ["class=\"successText\""]
-  JUMP [+1]
-  LOADK R12 K47 ["style = \"color:#73ff57\""]
-  GETUPVAL R13 2
-  MOVE R15 R10
-  DUPTABLE R16 K48 [{"requestId", "content"}]
-  GETTABLEKS R17 R0 K9 ["requestId"]
-  SETTABLEKS R17 R16 K9 ["requestId"]
-  LOADK R18 K49 ["
+  LOADK R10 K47 ["style = \"color:#73ff57\""]
+  GETUPVAL R11 2
+  MOVE R13 R8
+  DUPTABLE R14 K48 [{"requestId", "content"}]
+  GETTABLEKS R15 R0 K9 ["requestId"]
+  SETTABLEKS R15 R14 K9 ["requestId"]
+  LOADK R16 K49 ["
 <%* %*>Code executed successfully!</%*>
 "]
-  MOVE R20 R11
-  MOVE R21 R12
-  MOVE R22 R11
-  NAMECALL R18 R18 K25 ["format"]
-  CALL R18 4 1
-  MOVE R17 R18
-  SETTABLEKS R17 R16 K20 ["content"]
-  NAMECALL R13 R13 K30 ["DisplayContent"]
-  CALL R13 3 0
-  JUMP [+37]
-  JUMPIFNOT R6 [+1]
+  MOVE R18 R9
+  MOVE R19 R10
+  MOVE R20 R9
+  NAMECALL R16 R16 K25 ["format"]
+  CALL R16 4 1
+  MOVE R15 R16
+  SETTABLEKS R15 R14 K20 ["content"]
+  NAMECALL R11 R11 K30 ["DisplayContent"]
+  CALL R11 3 0
+  JUMP [+27]
+  GETUPVAL R11 11
+  CALL R11 0 1
+  JUMPIFNOT R11 [+2]
+  LOADK R10 K50 ["class=\"errorText\""]
   JUMP [+1]
-  MOVE R8 R7
-  JUMPIFNOT R6 [+6]
-  GETIMPORT R12 K52 [task.spawn]
-  GETIMPORT R13 K54 [error]
-  MOVE R14 R8
-  CALL R12 2 0
-  GETUPVAL R13 11
-  CALL R13 0 1
-  JUMPIFNOT R13 [+2]
-  LOADK R12 K55 ["class=\"errorText\""]
-  JUMP [+1]
-  LOADK R12 K56 ["style = \"color:#ff3838\""]
-  GETUPVAL R13 2
-  MOVE R15 R10
-  DUPTABLE R16 K48 [{"requestId", "content"}]
-  GETTABLEKS R17 R0 K9 ["requestId"]
-  SETTABLEKS R17 R16 K9 ["requestId"]
-  LOADK R18 K57 ["
+  LOADK R10 K51 ["style = \"color:#ff3838\""]
+  GETUPVAL R11 2
+  MOVE R13 R8
+  DUPTABLE R14 K48 [{"requestId", "content"}]
+  GETTABLEKS R15 R0 K9 ["requestId"]
+  SETTABLEKS R15 R14 K9 ["requestId"]
+  LOADK R16 K52 ["
 <%* %*>%*</%*>
 "]
-  MOVE R20 R11
-  MOVE R21 R12
-  MOVE R22 R8
-  MOVE R23 R11
-  NAMECALL R18 R18 K25 ["format"]
-  CALL R18 5 1
-  MOVE R17 R18
-  SETTABLEKS R17 R16 K20 ["content"]
-  NAMECALL R13 R13 K30 ["DisplayContent"]
-  CALL R13 3 0
-  GETUPVAL R12 12
-  CALL R12 0 1
-  JUMPIFNOT R12 [+8]
-  GETUPVAL R12 13
-  GETTABLEKS R14 R0 K9 ["requestId"]
-  MOVE R15 R9
-  ORK R16 R8 K58 [""]
-  NAMECALL R12 R12 K59 ["CodeRunnerCompleted"]
-  CALL R12 4 0
-  GETUPVAL R12 3
-  CALL R12 0 1
-  JUMPIF R12 [+6]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K41 ["EndRecordingActions"]
-  GETTABLEKS R13 R0 K9 ["requestId"]
-  CALL R12 1 0
+  MOVE R18 R9
+  MOVE R19 R10
+  MOVE R20 R7
+  MOVE R21 R9
+  NAMECALL R16 R16 K25 ["format"]
+  CALL R16 5 1
+  MOVE R15 R16
+  SETTABLEKS R15 R14 K20 ["content"]
+  NAMECALL R11 R11 K30 ["DisplayContent"]
+  CALL R11 3 0
+  GETUPVAL R10 12
+  CALL R10 0 1
+  JUMPIFNOT R10 [+8]
+  GETUPVAL R10 13
+  GETTABLEKS R12 R0 K9 ["requestId"]
+  MOVE R13 R6
+  ORK R14 R7 K53 [""]
+  NAMECALL R10 R10 K54 ["CodeRunnerCompleted"]
+  CALL R10 4 0
+  GETUPVAL R10 3
+  CALL R10 0 1
+  JUMPIF R10 [+6]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K41 ["EndRecordingActions"]
+  GETTABLEKS R11 R0 K9 ["requestId"]
+  CALL R10 1 0
   RETURN R0 0
 
 PROTO_2:

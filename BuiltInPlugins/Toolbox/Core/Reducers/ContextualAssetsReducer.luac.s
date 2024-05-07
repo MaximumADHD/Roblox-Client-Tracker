@@ -77,39 +77,27 @@ MAIN:
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K8 ["Core"]
   GETTABLEKS R9 R10 K14 ["Flags"]
-  GETTABLEKS R8 R9 K15 ["getFFlagToolboxFixContextualRecommendationsDefaultState"]
+  GETTABLEKS R8 R9 K15 ["getFFlagToolboxPortContextualReccomendationsToNewPackage"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K8 ["Core"]
-  GETTABLEKS R10 R11 K14 ["Flags"]
-  GETTABLEKS R9 R10 K16 ["getFFlagToolboxPortContextualReccomendationsToNewPackage"]
-  CALL R8 1 1
-  DUPTABLE R9 K20 [{"assetsInCameraViewport", "assetsInCameraVicinity", "contextualRecommendationsPollingFrequencyInSeconds"}]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K17 ["assetsInCameraViewport"]
-  NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K18 ["assetsInCameraVicinity"]
-  GETTABLEKS R10 R4 K21 ["CONTEXTUAL_RECOMMENDATIONS_POLLING_FREQUENCY_DEFAULT"]
-  SETTABLEKS R10 R9 K19 ["contextualRecommendationsPollingFrequencyInSeconds"]
-  GETTABLEKS R10 R3 K22 ["createReducer"]
-  MOVE R12 R7
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  MOVE R11 R9
-  JUMP [+5]
-  NEWTABLE R11 0 1
-  MOVE R12 R9
-  SETLIST R11 R12 1 [1]
-  NEWTABLE R12 2 0
-  GETTABLEKS R13 R5 K23 ["name"]
-  DUPCLOSURE R14 K24 [PROTO_0]
-  CAPTURE VAL R8
+  DUPTABLE R8 K19 [{"assetsInCameraViewport", "assetsInCameraVicinity", "contextualRecommendationsPollingFrequencyInSeconds"}]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K16 ["assetsInCameraViewport"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K17 ["assetsInCameraVicinity"]
+  GETTABLEKS R9 R4 K20 ["CONTEXTUAL_RECOMMENDATIONS_POLLING_FREQUENCY_DEFAULT"]
+  SETTABLEKS R9 R8 K18 ["contextualRecommendationsPollingFrequencyInSeconds"]
+  GETTABLEKS R9 R3 K21 ["createReducer"]
+  MOVE R10 R8
+  NEWTABLE R11 2 0
+  GETTABLEKS R12 R5 K22 ["name"]
+  DUPCLOSURE R13 K23 [PROTO_0]
+  CAPTURE VAL R7
   CAPTURE VAL R2
-  SETTABLE R14 R12 R13
-  GETTABLEKS R13 R6 K23 ["name"]
-  DUPCLOSURE R14 K25 [PROTO_1]
-  CAPTURE VAL R8
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R6 K22 ["name"]
+  DUPCLOSURE R13 K24 [PROTO_1]
+  CAPTURE VAL R7
   CAPTURE VAL R2
-  SETTABLE R14 R12 R13
-  CALL R10 2 -1
-  RETURN R10 -1
+  SETTABLE R13 R11 R12
+  CALL R9 2 -1
+  RETURN R9 -1

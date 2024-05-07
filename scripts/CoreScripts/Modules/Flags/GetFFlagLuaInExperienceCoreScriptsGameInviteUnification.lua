@@ -1,5 +1,5 @@
-game:DefineFastFlag("LuaInExperienceCoreScriptsGameInviteUnificationV2", false)
+game:DefineFastFlag("LuaInExperienceCoreScriptsGameInviteUnificationV3", false)
 
 return function()
-	return game:GetFastFlag("LuaInExperienceCoreScriptsGameInviteUnificationV2")
+	return game:GetFastFlag("LuaInExperienceCoreScriptsGameInviteUnificationV3")
 end

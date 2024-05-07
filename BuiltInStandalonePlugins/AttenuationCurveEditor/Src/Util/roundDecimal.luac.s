@@ -1,0 +1,25 @@
+PROTO_0:
+  LOADN R4 0
+  JUMPIFLE R4 R1 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["Expecting decimal places is a valid non-negative integer"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  LOADN R3 10
+  FASTCALL2 MATH_POW R3 R1 [+4]
+  MOVE R4 R1
+  GETIMPORT R2 K5 [math.pow]
+  CALL R2 2 1
+  MUL R5 R0 R2
+  FASTCALL1 MATH_ROUND R5 [+2]
+  GETIMPORT R4 K7 [math.round]
+  CALL R4 1 1
+  DIV R3 R4 R2
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

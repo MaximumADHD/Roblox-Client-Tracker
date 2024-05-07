@@ -5,7 +5,7 @@ local GetFStringInGameMenuChromeForcedUserIds =
 local GetFIntInGameMenuChromeAllowlistTimeout =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntInGameMenuChromeAllowlistTimeout
 
-game:DefineFastFlag("EnableChromePinIntegrations", false)
+game:DefineFastFlag("EnableChromePinIntegrations2", false)
 
 return function()
 	-- Determine localPlayer unless it takes longer than timeout
@@ -24,5 +24,5 @@ return function()
 		end
 	end
 
-	return game:GetFastFlag("EnableChromePinIntegrations")
+	return game:GetFastFlag("EnableChromePinIntegrations2")
 end

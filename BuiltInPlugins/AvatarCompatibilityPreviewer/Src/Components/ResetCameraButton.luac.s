@@ -5,33 +5,37 @@ PROTO_0:
   CALL R1 2 1
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K2 ["useContext"]
-  GETUPVAL R3 2
+  GETUPVAL R4 2
+  CALL R4 0 1
+  JUMPIFNOT R4 [+4]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K3 ["Context"]
+  JUMP [+1]
+  GETUPVAL R3 4
   CALL R2 1 1
-  GETIMPORT R3 K5 [UDim.new]
+  GETIMPORT R3 K6 [UDim.new]
   LOADN R4 0
-  GETTABLEKS R5 R1 K6 ["Spacing"]
+  GETTABLEKS R5 R1 K7 ["Spacing"]
   CALL R3 2 1
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K7 ["createElement"]
-  GETUPVAL R5 3
-  DUPTABLE R6 K15 [{"AnchorPoint", "LayoutOrder", "Position", "OnClick", "Style", "Size", "ZIndex"}]
+  GETTABLEKS R4 R5 K8 ["createElement"]
+  GETUPVAL R5 5
+  DUPTABLE R6 K15 [{"AnchorPoint", "LayoutOrder", "OnClick", "Style", "Size", "ZIndex"}]
   GETIMPORT R7 K17 [Vector2.new]
   LOADN R8 1
   LOADN R9 0
   CALL R7 2 1
-  SETTABLEKS R7 R6 K8 ["AnchorPoint"]
-  GETTABLEKS R7 R0 K9 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K9 ["LayoutOrder"]
-  GETTABLEKS R7 R1 K10 ["Position"]
-  SETTABLEKS R7 R6 K10 ["Position"]
+  SETTABLEKS R7 R6 K9 ["AnchorPoint"]
+  GETTABLEKS R7 R0 K10 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K10 ["LayoutOrder"]
   GETTABLEKS R7 R2 K18 ["resetCamera"]
   SETTABLEKS R7 R6 K11 ["OnClick"]
   LOADK R7 K19 ["Round"]
   SETTABLEKS R7 R6 K12 ["Style"]
   GETTABLEKS R8 R1 K13 ["Size"]
   GETIMPORT R9 K22 [UDim2.fromOffset]
-  GETTABLEKS R10 R1 K6 ["Spacing"]
-  GETTABLEKS R11 R1 K6 ["Spacing"]
+  GETTABLEKS R10 R1 K7 ["Spacing"]
+  GETTABLEKS R11 R1 K7 ["Spacing"]
   CALL R9 2 1
   ADD R7 R8 R9
   SETTABLEKS R7 R6 K13 ["Size"]
@@ -39,7 +43,7 @@ PROTO_0:
   SETTABLEKS R7 R6 K14 ["ZIndex"]
   DUPTABLE R7 K25 [{"Spacing", "Icon", "Tooltip"}]
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K7 ["createElement"]
+  GETTABLEKS R8 R9 K8 ["createElement"]
   LOADK R9 K26 ["UIPadding"]
   DUPTABLE R10 K31 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
   SETTABLEKS R3 R10 K27 ["PaddingLeft"]
@@ -47,18 +51,18 @@ PROTO_0:
   SETTABLEKS R3 R10 K29 ["PaddingTop"]
   SETTABLEKS R3 R10 K30 ["PaddingBottom"]
   CALL R8 2 1
-  SETTABLEKS R8 R7 K6 ["Spacing"]
+  SETTABLEKS R8 R7 K7 ["Spacing"]
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K7 ["createElement"]
-  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K8 ["createElement"]
+  GETUPVAL R9 6
   DUPTABLE R10 K33 [{"Image"}]
   GETTABLEKS R11 R1 K32 ["Image"]
   SETTABLEKS R11 R10 K32 ["Image"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K23 ["Icon"]
   GETUPVAL R9 1
-  GETTABLEKS R8 R9 K7 ["createElement"]
-  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K8 ["createElement"]
+  GETUPVAL R9 7
   DUPTABLE R10 K35 [{"Text"}]
   LOADK R11 K36 ["Reset Camera"]
   SETTABLEKS R11 R10 K34 ["Text"]
@@ -83,25 +87,37 @@ MAIN:
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R5 R6 K10 ["Components"]
   GETTABLEKS R4 R5 K11 ["AvatarScreenContext"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K12 ["UI"]
-  GETTABLEKS R5 R4 K13 ["Button"]
-  GETTABLEKS R6 R4 K14 ["Image"]
-  GETTABLEKS R7 R4 K15 ["Tooltip"]
-  GETTABLEKS R9 R1 K16 ["ContextServices"]
-  GETTABLEKS R8 R9 K17 ["Stylizer"]
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K9 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Resources"]
-  GETTABLEKS R10 R11 K19 ["Theme"]
-  CALL R9 1 1
-  DUPCLOSURE R10 K20 [PROTO_0]
-  CAPTURE VAL R8
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Util"]
+  GETTABLEKS R5 R6 K13 ["DEPRECATED_AvatarScreenContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Flags"]
+  GETTABLEKS R6 R7 K15 ["getFFlagAvatarPreviewerSkinToneAlphaDetection"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K16 ["UI"]
+  GETTABLEKS R7 R6 K17 ["Button"]
+  GETTABLEKS R8 R6 K18 ["Image"]
+  GETTABLEKS R9 R6 K19 ["Tooltip"]
+  GETTABLEKS R11 R1 K20 ["ContextServices"]
+  GETTABLEKS R10 R11 K21 ["Stylizer"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K9 ["Src"]
+  GETTABLEKS R13 R14 K22 ["Resources"]
+  GETTABLEKS R12 R13 K23 ["Theme"]
+  CALL R11 1 1
+  DUPCLOSURE R12 K24 [PROTO_0]
+  CAPTURE VAL R10
   CAPTURE VAL R2
-  CAPTURE VAL R3
   CAPTURE VAL R5
-  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R4
   CAPTURE VAL R7
-  RETURN R10 1
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  RETURN R12 1

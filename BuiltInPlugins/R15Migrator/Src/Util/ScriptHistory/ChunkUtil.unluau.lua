@@ -33,7 +33,7 @@ function var4.RemoveScriptBackupChunks(arg1, arg2)
    if not var0 then
    end
    arg2:SetAttribute(var3.AttributeChunkCountName, nil)
-   arg2:SetAttribute(var3.InitialIssueCountName, nil)
+   arg2:SetAttribute(var3.AttributeInitialIssueCountName, nil)
    local var1 = var0
    local var2 = 1
    local var74 = var3

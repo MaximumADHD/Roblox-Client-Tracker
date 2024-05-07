@@ -8,4 +8,5 @@ var0.DragEpsilon = 3
 var0.DragTangentToCenterToDeleteZoneSizePixels = 7
 var0.ChangeHistoryServiceActionName = "PathEditorAction"
 var0.DefaultTangentLength = 50
+var0.MaxControlPoints = 250
 return var0

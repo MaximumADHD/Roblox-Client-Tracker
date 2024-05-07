@@ -13,22 +13,26 @@ PROTO_0:
   SETTABLEKS R3 R2 K7 ["ClassName"]
   LOADNIL R3
   SETTABLEKS R3 R2 K8 ["Parent"]
-  GETIMPORT R3 K10 [pairs]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K9 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K10 ["Changed"]
+  GETIMPORT R3 K12 [pairs]
   MOVE R4 R1
   CALL R3 1 3
   FORGPREP_NEXT R3
   SETTABLE R7 R2 R6
   FORGLOOP R3 2 [-2]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K11 ["new"]
+  GETTABLEKS R3 R4 K9 ["new"]
   CALL R3 0 1
-  SETTABLEKS R3 R2 K12 ["_propertyChangedSignal"]
+  SETTABLEKS R3 R2 K13 ["_propertyChangedSignal"]
   NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K13 ["_statuses"]
+  SETTABLEKS R3 R2 K14 ["_statuses"]
   NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K14 ["_childLookup"]
+  SETTABLEKS R3 R2 K15 ["_childLookup"]
   LOADNIL R3
-  SETTABLEKS R3 R2 K15 ["_previewInstance"]
+  SETTABLEKS R3 R2 K16 ["_previewInstance"]
   RETURN R2 1
 
 PROTO_1:

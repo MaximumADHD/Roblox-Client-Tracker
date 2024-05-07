@@ -1,19 +1,14 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script:FindFirstAncestor("AttenuationCurveEditor")
-local var1 = require(var0.Packages.Framework)
-local var2 = var1.TestHelpers
-local var3 = var1.ContextServices
-local var4 = {}
-local var205 = var3.Analytics.mock()
-local var6 = var3.Localization.mock()
-local var211 = require(var0.Packages.Rodux).Store
-var211 = require(var0.Src.Reducers.MainReducer)
-local var7 = var3.Store.new(var211.new(var211, nil, nil, nil))
-local var8 = var1.Style.Themes.StudioTheme.mock()
+local var0 = require(script:FindFirstAncestor("AttenuationCurveEditor").Packages.Framework)
+local var1 = var0.TestHelpers
+local var2 = var0.ContextServices
+local var3 = {}
+local var13 = var2.Analytics.mock()
+local var5 = var2.Localization.mock()
 return function(arg1)
    if type(arg1) == "table" then
       local var0 = false
    end
-   assert(true, "Expected story to be a table")
-   return var2.provideMockContext(var4, arg1)
+   assert(true, "Expected children to be a table")
+   return var1.provideMockContext(var3, arg1)
 end

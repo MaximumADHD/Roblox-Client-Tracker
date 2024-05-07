@@ -72,7 +72,7 @@ PROTO_4:
   LOADB R1 0
   RETURN R1 1
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["UnificationScriptAttributeName"]
+  GETTABLEKS R3 R4 K2 ["AttributeUnificationScriptName"]
   NAMECALL R1 R0 K3 ["GetAttribute"]
   CALL R1 2 1
   JUMPIFNOT R1 [+2]

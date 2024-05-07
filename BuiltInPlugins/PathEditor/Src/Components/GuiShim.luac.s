@@ -25,13 +25,17 @@ PROTO_0:
   LOADK R4 K8 ["SurfaceGui"]
   NAMECALL R2 R2 K2 ["IsA"]
   CALL R2 2 1
-  JUMPIFNOT R2 [+52]
+  JUMPIFNOT R2 [+86]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K3 ["createElement"]
   LOADK R3 K8 ["SurfaceGui"]
-  DUPTABLE R4 K13 [{"ZIndexBehavior", "ZOffset", "AlwaysOnTop", "Face", "Adornee"}]
+  DUPTABLE R4 K16 [{"ZIndexBehavior", "ZOffset", "AlwaysOnTop", "Face", "SizingMode", "PixelsPerStud", "CanvasSize", "Adornee"}]
   GETTABLEKS R5 R0 K4 ["ZIndexBehavior"]
   SETTABLEKS R5 R4 K4 ["ZIndexBehavior"]
+  GETUPVAL R6 1
+  JUMPIFNOT R6 [+2]
+  LOADNIL R5
+  JUMP [+12]
   GETTABLEKS R7 R0 K0 ["SelectedObjectGui"]
   GETTABLEKS R6 R7 K9 ["ZOffset"]
   GETTABLEKS R8 R0 K5 ["DisplayOrder"]
@@ -46,15 +50,36 @@ PROTO_0:
   GETTABLEKS R6 R0 K0 ["SelectedObjectGui"]
   GETTABLEKS R5 R6 K11 ["Face"]
   SETTABLEKS R5 R4 K11 ["Face"]
-  GETTABLEKS R7 R0 K0 ["SelectedObjectGui"]
-  GETTABLEKS R6 R7 K12 ["Adornee"]
+  GETUPVAL R6 1
   JUMPIFNOT R6 [+5]
   GETTABLEKS R6 R0 K0 ["SelectedObjectGui"]
-  GETTABLEKS R5 R6 K12 ["Adornee"]
+  GETTABLEKS R5 R6 K12 ["SizingMode"]
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K12 ["SizingMode"]
+  GETUPVAL R6 1
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R0 K0 ["SelectedObjectGui"]
+  GETTABLEKS R5 R6 K13 ["PixelsPerStud"]
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K13 ["PixelsPerStud"]
+  GETUPVAL R6 1
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R0 K0 ["SelectedObjectGui"]
+  GETTABLEKS R5 R6 K14 ["CanvasSize"]
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K14 ["CanvasSize"]
+  GETTABLEKS R7 R0 K0 ["SelectedObjectGui"]
+  GETTABLEKS R6 R7 K15 ["Adornee"]
+  JUMPIFNOT R6 [+5]
+  GETTABLEKS R6 R0 K0 ["SelectedObjectGui"]
+  GETTABLEKS R5 R6 K15 ["Adornee"]
   JUMP [+4]
   GETTABLEKS R6 R0 K0 ["SelectedObjectGui"]
-  GETTABLEKS R5 R6 K14 ["Parent"]
-  SETTABLEKS R5 R4 K12 ["Adornee"]
+  GETTABLEKS R5 R6 K17 ["Parent"]
+  SETTABLEKS R5 R4 K15 ["Adornee"]
   GETTABLEKS R5 R0 K7 ["children"]
   CALL R2 3 1
   MOVE R1 R2
@@ -85,11 +110,16 @@ MAIN:
   GETTABLEKS R5 R0 K7 ["Packages"]
   GETTABLEKS R4 R5 K9 ["RoactRodux"]
   CALL R3 1 1
-  DUPCLOSURE R4 K10 [PROTO_0]
+  GETIMPORT R4 K11 [game]
+  LOADK R6 K12 ["PathEditorRotation"]
+  NAMECALL R4 R4 K13 ["GetFastFlag"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K14 [PROTO_0]
   CAPTURE VAL R2
-  GETTABLEKS R5 R3 K11 ["connect"]
-  DUPCLOSURE R6 K12 [PROTO_1]
-  CALL R5 1 1
-  MOVE R6 R4
-  CALL R5 1 -1
-  RETURN R5 -1
+  CAPTURE VAL R4
+  GETTABLEKS R6 R3 K15 ["connect"]
+  DUPCLOSURE R7 K16 [PROTO_1]
+  CALL R6 1 1
+  MOVE R7 R5
+  CALL R6 1 -1
+  RETURN R6 -1

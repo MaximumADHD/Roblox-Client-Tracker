@@ -17,9 +17,9 @@ function var4.getSliceCenterFromSliceRect(arg1)
 end
 
 function var4.copySliceRect(arg1)
-   local var53 = var3.Dictionary
-   var53 = arg1
-   return var53.join(var53)
+   local var86 = var3.Dictionary
+   var86 = arg1
+   return var86.join(var86)
 end
 
 function var4.getOffsetsFromSliceRect(arg1, arg2)

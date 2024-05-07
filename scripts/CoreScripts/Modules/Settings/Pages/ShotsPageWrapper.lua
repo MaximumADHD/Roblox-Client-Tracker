@@ -7,6 +7,7 @@
 --]]
 
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui.Modules 
@@ -14,6 +15,7 @@ local Modules = RobloxGui.Modules
 local RobloxTranslator = require(Modules.RobloxTranslator)
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
 local Theme = require(Modules.Settings.Theme)
+local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
 local FFlagUseNotificationsLocalization do
 	local flagSuccess, flagResult = pcall(function()
@@ -21,6 +23,7 @@ local FFlagUseNotificationsLocalization do
 	end)
 	FFlagUseNotificationsLocalization = flagSuccess and flagResult
 end
+local GetFFlagEnableScreenshotUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 
 -- Initialize page
 local this = SettingsPageFactory:CreateNewPage()
@@ -29,7 +32,7 @@ local this = SettingsPageFactory:CreateNewPage()
 this.TabHeader.Name = "CapturesTab"
 
 if Theme.UIBloxThemeEnabled then
-	local icon = Theme.Images["icons/controls/screenshot"]
+	local icon = if GetFFlagEnableScreenshotUtility() and ChromeEnabled then Theme.Images["icons/controls/cameraOff"] else Theme.Images["icons/controls/screenshot"]
 	this.TabHeader.TabLabel.Icon.Image = icon.Image
 	this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
 	this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize

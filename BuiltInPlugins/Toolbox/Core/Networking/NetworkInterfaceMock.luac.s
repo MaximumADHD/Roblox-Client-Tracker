@@ -286,25 +286,27 @@ PROTO_10:
   MOVE R6 R3
   CALL R4 2 0
   DUPTABLE R4 K3 [{"responseBody"}]
-  DUPTABLE R5 K5 [{"totalResults"}]
-  GETTABLEKS R6 R0 K6 ["assetCount"]
+  DUPTABLE R5 K6 [{"totalResults", "nextPageCursor"}]
+  GETTABLEKS R6 R0 K7 ["assetCount"]
   SETTABLEKS R6 R5 K4 ["totalResults"]
+  LOADK R6 K5 ["nextPageCursor"]
+  SETTABLEKS R6 R5 K5 ["nextPageCursor"]
   SETTABLEKS R5 R4 K2 ["responseBody"]
   NEWTABLE R5 0 0
   LOADN R8 1
-  GETTABLEKS R6 R0 K6 ["assetCount"]
+  GETTABLEKS R6 R0 K7 ["assetCount"]
   LOADN R7 1
   FORNPREP R6
-  DUPTABLE R9 K9 [{"id", "itemType"}]
-  SETTABLEKS R8 R9 K7 ["id"]
-  LOADK R10 K10 ["Asset"]
-  SETTABLEKS R10 R9 K8 ["itemType"]
+  DUPTABLE R9 K10 [{"id", "itemType"}]
+  SETTABLEKS R8 R9 K8 ["id"]
+  LOADK R10 K11 ["Asset"]
+  SETTABLEKS R10 R9 K9 ["itemType"]
   SETTABLE R9 R5 R8
   FORNLOOP R6
   GETTABLEKS R6 R4 K2 ["responseBody"]
-  SETTABLEKS R5 R6 K11 ["data"]
+  SETTABLEKS R5 R6 K12 ["data"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K12 ["resolve"]
+  GETTABLEKS R6 R7 K13 ["resolve"]
   MOVE R7 R4
   CALL R6 1 -1
   RETURN R6 -1
@@ -954,6 +956,10 @@ PROTO_50:
   CALL R3 1 -1
   RETURN R3 -1
 
+PROTO_51:
+  LOADB R2 0
+  RETURN R2 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R3 K1 [script]
@@ -1178,4 +1184,6 @@ MAIN:
   DUPCLOSURE R20 K124 [PROTO_50]
   CAPTURE VAL R3
   SETTABLEKS R20 R13 K125 ["getIsOwnedByUser"]
+  DUPCLOSURE R20 K126 [PROTO_51]
+  SETTABLEKS R20 R13 K127 ["getIsAssetOpenForUse"]
   RETURN R13 1

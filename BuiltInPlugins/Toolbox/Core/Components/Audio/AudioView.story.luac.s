@@ -22,51 +22,48 @@ PROTO_5:
   NEWTABLE R0 0 4
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createMockSwimlane"]
-  LOADK R2 K1 ["Genres"]
+  LOADK R2 K1 ["Categories"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["MOCK_GENRES"]
+  GETTABLEKS R3 R4 K2 ["MOCK_CATEGORIES"]
   CALL R1 2 1
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["createMockSwimlane"]
-  LOADK R3 K3 ["Vibes"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["MOCK_VIBES"]
-  CALL R2 2 1
+  GETTABLEKS R2 R3 K3 ["createMockContextualRecommendations"]
+  CALL R2 0 1
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K5 ["createMockList"]
-  LOADK R4 K6 ["Trending"]
+  GETTABLEKS R3 R4 K4 ["createMockList"]
+  LOADK R4 K5 ["Trending"]
   CALL R3 1 1
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["createMockList"]
-  LOADK R5 K7 ["Essentials"]
+  GETTABLEKS R4 R5 K4 ["createMockList"]
+  LOADK R5 K6 ["Essentials"]
   CALL R4 1 -1
   SETLIST R0 R1 -1 [1]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K8 ["createElement"]
+  GETTABLEKS R1 R2 K7 ["createElement"]
   GETUPVAL R2 2
   NEWTABLE R3 0 0
-  DUPTABLE R4 K10 [{"AudioView"}]
+  DUPTABLE R4 K9 [{"AudioView"}]
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K8 ["createElement"]
+  GETTABLEKS R5 R6 K7 ["createElement"]
   GETUPVAL R6 3
-  DUPTABLE R7 K14 [{"Sections", "PageSize", "AssetLogicWrapperProps"}]
-  SETTABLEKS R0 R7 K11 ["Sections"]
+  DUPTABLE R7 K13 [{"Sections", "PageSize", "AssetLogicWrapperProps"}]
+  SETTABLEKS R0 R7 K10 ["Sections"]
   LOADN R8 10
-  SETTABLEKS R8 R7 K12 ["PageSize"]
-  DUPTABLE R8 K20 [{"CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
-  DUPCLOSURE R9 K21 [PROTO_0]
-  SETTABLEKS R9 R8 K15 ["CanInsertAsset"]
-  DUPCLOSURE R9 K22 [PROTO_1]
-  SETTABLEKS R9 R8 K16 ["LogAssetImpression"]
-  DUPCLOSURE R9 K23 [PROTO_2]
-  SETTABLEKS R9 R8 K17 ["OnAssetPreviewButtonClicked"]
-  DUPCLOSURE R9 K24 [PROTO_3]
-  SETTABLEKS R9 R8 K18 ["TryInsert"]
-  DUPCLOSURE R9 K25 [PROTO_4]
-  SETTABLEKS R9 R8 K19 ["TryOpenAssetConfig"]
-  SETTABLEKS R8 R7 K13 ["AssetLogicWrapperProps"]
+  SETTABLEKS R8 R7 K11 ["PageSize"]
+  DUPTABLE R8 K19 [{"CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
+  DUPCLOSURE R9 K20 [PROTO_0]
+  SETTABLEKS R9 R8 K14 ["CanInsertAsset"]
+  DUPCLOSURE R9 K21 [PROTO_1]
+  SETTABLEKS R9 R8 K15 ["LogAssetImpression"]
+  DUPCLOSURE R9 K22 [PROTO_2]
+  SETTABLEKS R9 R8 K16 ["OnAssetPreviewButtonClicked"]
+  DUPCLOSURE R9 K23 [PROTO_3]
+  SETTABLEKS R9 R8 K17 ["TryInsert"]
+  DUPCLOSURE R9 K24 [PROTO_4]
+  SETTABLEKS R9 R8 K18 ["TryOpenAssetConfig"]
+  SETTABLEKS R8 R7 K12 ["AssetLogicWrapperProps"]
   CALL R5 2 1
-  SETTABLEKS R5 R4 K9 ["AudioView"]
+  SETTABLEKS R5 R4 K8 ["AudioView"]
   CALL R1 3 -1
   RETURN R1 -1
 

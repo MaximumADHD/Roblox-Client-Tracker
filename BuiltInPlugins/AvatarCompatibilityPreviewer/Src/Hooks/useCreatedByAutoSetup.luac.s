@@ -1,23 +1,17 @@
 PROTO_0:
   GETUPVAL R2 0
   CALL R2 0 1
-  FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["FFlagAvatarPreviewerAutoSetup is not enabled"]
-  GETIMPORT R1 K2 [assert]
-  CALL R1 2 0
+  JUMPIF R2 [+2]
   GETUPVAL R2 1
   CALL R2 0 1
-  JUMPIF R2 [+2]
-  GETUPVAL R2 2
-  CALL R2 0 1
-  FASTCALL2K ASSERT R2 K3 [+4]
-  LOADK R3 K3 ["FFlagAvatarPreviewAutoSetupDisablePublish and FFlagAvatarPreviewerAutoSetupTelemetryV2 are not enabled"]
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["FFlagAvatarPreviewAutoSetupDisablePublish and FFlagAvatarPreviewerAutoSetupTelemetryV2 are not enabled"]
   GETIMPORT R1 K2 [assert]
   CALL R1 2 0
-  GETUPVAL R3 3
+  GETUPVAL R3 2
   MOVE R4 R0
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K4 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K3 ["ATTRIBUTE_CREATED_BY_AUTO_SETUP"]
   CALL R3 2 1
   NOT R2 R3
   NOT R1 R2
@@ -59,7 +53,6 @@ MAIN:
   GETTABLEKS R7 R8 K15 ["getFFlagAvatarPreviewerAutoSetupTelemetryV2"]
   CALL R6 1 1
   DUPCLOSURE R7 K16 [PROTO_0]
-  CAPTURE VAL R4
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R3

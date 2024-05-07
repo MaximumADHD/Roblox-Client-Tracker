@@ -32,6 +32,7 @@ local FFlagIBDisableBuyButtonForUnlimitedAsset = game:DefineFastFlag("IBDisableB
 local FFlagIBDisableBuyButtonForUnlimitedBundle = game:DefineFastFlag("IBDisableBuyButtonForUnlimitedBundle", false)
 local FFlagIBFixBundlePurchase = game:DefineFastFlag("IBFixBundlePurchase", false)
 local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
+local FFlagIBFixResaleAfterQuantityLimit = game:DefineFastFlag("IBFixResaleAfterQuantityLimit", false)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -63,13 +64,10 @@ local function getBuyText(itemInfo, locale, collectibleQuantityLimitReached, col
 			locale,
 			{ PRICE = tostring(collectibleLowestResalePrice) }
 		)
-	elseif
-	  collectibleQuantityLimitReached
-		and itemInfo.isForSale
-	then
+	elseif collectibleQuantityLimitReached and itemInfo.isForSale then
 		buyText = RobloxTranslator:FormatByKeyForLocale(LIMIT_REACHED_KEY, locale)
 	elseif
-	  itemInfo.price ~= nil
+		itemInfo.price ~= nil
 		and itemInfo.productType == Constants.ProductType.CollectibleItem -- TODO (lliu): verify if we still use this to identify collectible items
 		and itemInfo.isForSale
 	then
@@ -108,15 +106,15 @@ function DetailsButtons:didUpdate(prevProps)
 	local detailsInformation = self.props.detailsInformation
 	local gamepadEnabled = self.props.gamepadEnabled
 
-	local bundlesObtainedAndDetailPageOpened = (prevProps.assetInfo.bundlesAssetIsIn == nil and self.props.assetInfo.bundlesAssetIsIn ~= nil)
-		and detailsInformation.viewingDetails
+	local bundlesObtainedAndDetailPageOpened = (
+		prevProps.assetInfo.bundlesAssetIsIn == nil and self.props.assetInfo.bundlesAssetIsIn ~= nil
+	) and detailsInformation.viewingDetails
 
 	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
 		bundlesObtainedAndDetailPageOpened = detailsInformation.viewingDetails
 	end
 
-	if bundlesObtainedAndDetailPageOpened
-	then
+	if bundlesObtainedAndDetailPageOpened then
 		local assetInfo = self.props.assetInfo
 		local showTryOn = not isAnimationAsset(assetInfo.assetTypeId)
 		local visible = self.props.visible
@@ -179,7 +177,21 @@ function DetailsButtons:calculateBuyStatusForLimitedItem(itemInfo, locale, forSa
 			and ownedInstances >= itemInfo.collectibleQuantityLimitPerUser
 		local resaleAvailable = itemInfo.collectibleLowestAvailableResaleProductId
 			and itemInfo.collectibleLowestAvailableResaleProductId ~= ""
-		local resaleHasLowerPrice = resaleAvailable and (itemInfo.price or 0) > itemInfo.collectibleLowestResalePrice
+
+		local resaleHasLowerPrice = false
+		if FFlagIBFixResaleAfterQuantityLimit then
+			-- Need to check whether we have remaining quantity for item
+			local hasRemainingOriginalStock = itemInfo.remaining > 0
+			if hasRemainingOriginalStock then
+				resaleHasLowerPrice = resaleAvailable and (itemInfo.price or 0) > itemInfo.collectibleLowestResalePrice
+			else
+				resaleHasLowerPrice = resaleAvailable and itemInfo.collectibleLowestResalePrice
+			end
+		else
+			-- Old behavior
+			resaleHasLowerPrice = resaleAvailable and (itemInfo.price or 0) > itemInfo.collectibleLowestResalePrice
+		end
+
 		if resaleAvailable then
 			if not forSale or collectibleQuantityLimitReached or resaleHasLowerPrice then
 				collectibleLowestResalePrice = itemInfo.collectibleLowestResalePrice
@@ -305,8 +317,23 @@ function DetailsButtons:render()
 						and ownedInstances >= assetInfo.collectibleQuantityLimitPerUser
 					local resaleAvailable = assetInfo.collectibleLowestAvailableResaleProductId
 						and assetInfo.collectibleLowestAvailableResaleProductId ~= ""
-					local resaleHasLowerPrice = resaleAvailable
-						and (assetInfo.price or 0) > assetInfo.collectibleLowestResalePrice
+
+					local resaleHasLowerPrice = false
+					if FFlagIBFixResaleAfterQuantityLimit then
+						-- Need to check whether we have remaining quantity for item
+						local hasRemainingOriginalStock = assetInfo.remaining > 0
+						if hasRemainingOriginalStock then
+							resaleHasLowerPrice = resaleAvailable
+								and (assetInfo.price or 0) > assetInfo.collectibleLowestResalePrice
+						else
+							resaleHasLowerPrice = resaleAvailable and assetInfo.collectibleLowestResalePrice
+						end
+					else
+						-- Old behavior
+						resaleHasLowerPrice = resaleAvailable
+							and (assetInfo.price or 0) > assetInfo.collectibleLowestResalePrice
+					end
+
 					if resaleAvailable then
 						if not forSale or collectibleQuantityLimitReached or resaleHasLowerPrice then
 							collectibleLowestResalePrice = assetInfo.collectibleLowestResalePrice
@@ -400,7 +427,8 @@ function DetailsButtons:render()
 	]]
 	if FFlagIBDisableBuyButtonForUnlimitedAsset or FFlagIBDisableBuyButtonForUnlimitedBundle then
 		if FFlagIBDisableBuyButtonForUnlimitedAsset and FFlagIBDisableBuyButtonForUnlimitedBundle then
-			hideBuyButton = hideBuyButton or UtilityFunctions.isUnlimitedCollectibleAsset(itemType, assetInfo)
+			hideBuyButton = hideBuyButton
+				or UtilityFunctions.isUnlimitedCollectibleAsset(itemType, assetInfo)
 				or UtilityFunctions.isUnlimitedCollectibleBundle(itemType, assetInfo)
 		elseif FFlagIBDisableBuyButtonForUnlimitedAsset then
 			hideBuyButton = hideBuyButton or UtilityFunctions.isUnlimitedCollectibleAsset(itemType, assetInfo)

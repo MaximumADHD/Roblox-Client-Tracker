@@ -50,28 +50,25 @@ MAIN:
   CALL R2 2 0
   GETTABLEKS R2 R1 K12 ["isCli"]
   CALL R2 0 1
-  JUMPIF R2 [+4]
-  GETTABLEKS R2 R1 K13 ["hasInternalPermission"]
-  CALL R2 0 1
-  JUMPIF R2 [+1]
+  JUMPIFNOT R2 [+1]
   RETURN R0 0
-  GETIMPORT R2 K15 [game]
-  LOADK R4 K16 ["EnableMaterialPicker"]
-  NAMECALL R2 R2 K17 ["GetFastFlag"]
+  GETIMPORT R2 K14 [game]
+  LOADK R4 K15 ["EnableMaterialPicker"]
+  NAMECALL R2 R2 K16 ["GetFastFlag"]
   CALL R2 2 1
   JUMPIF R2 [+1]
   RETURN R0 0
   GETIMPORT R2 K6 [require]
   GETTABLEKS R4 R0 K7 ["Packages"]
-  GETTABLEKS R3 R4 K18 ["React"]
+  GETTABLEKS R3 R4 K17 ["React"]
   CALL R2 1 1
   GETIMPORT R3 K6 [require]
   GETTABLEKS R5 R0 K7 ["Packages"]
-  GETTABLEKS R4 R5 K19 ["ReactRoblox"]
+  GETTABLEKS R4 R5 K18 ["ReactRoblox"]
   CALL R3 1 1
   GETIMPORT R4 K6 [require]
   GETTABLEKS R6 R0 K11 ["Src"]
-  GETTABLEKS R5 R6 K20 ["MainPlugin"]
+  GETTABLEKS R5 R6 K19 ["MainPlugin"]
   CALL R4 1 1
   LOADNIL R5
   NEWCLOSURE R6 P0
@@ -81,10 +78,10 @@ MAIN:
   CAPTURE REF R5
   CAPTURE VAL R3
   GETIMPORT R8 K1 [plugin]
-  GETTABLEKS R7 R8 K21 ["Unloading"]
+  GETTABLEKS R7 R8 K20 ["Unloading"]
   NEWCLOSURE R9 P1
   CAPTURE REF R5
-  NAMECALL R7 R7 K22 ["Connect"]
+  NAMECALL R7 R7 K21 ["Connect"]
   CALL R7 2 0
   MOVE R7 R6
   CALL R7 0 0

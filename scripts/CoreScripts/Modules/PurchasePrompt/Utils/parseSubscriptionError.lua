@@ -18,6 +18,8 @@ local function parseSubscriptionError(errorReason)
 		return PurchaseError.SubscriptionNotForSale
 	elseif errorReason == "VpcRequired" then
 		return PurchaseError.VpcRequired
+	elseif errorReason == "ExceedParentalSpendLimit" then
+		return PurchaseError.ExceedParentalSpendLimit
 	end
 
 	return PurchaseError.UnknownFailure

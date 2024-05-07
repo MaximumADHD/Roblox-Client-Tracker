@@ -8,13 +8,13 @@ local var5 = var4.TextLabel
 local var6 = var4.StyledDialog
 local var7 = var1.PureComponent:extend("AlertDialog")
 function var7.init(arg1, arg2)
-   local var41 = {}
-   var41.enabled = arg2.Enabled
-   arg1:setState(var41)
+   local var54 = {}
+   var54.enabled = arg2.Enabled
+   arg1:setState(var54)
    function arg1.closeDialog()
-      local var45 = {}
-      var45.enabled = false
-      arg1:setState(var45)
+      local var58 = {}
+      var58.enabled = false
+      arg1:setState(var58)
       arg1.props.OnClose()
    end
    
@@ -24,65 +24,65 @@ local function fun2(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var0.Localization
-   local var7 = {}
-   var7.Style = "Alert"
-   var7.Enabled = arg1.state.enabled
-   var7.Title = var2:getText("AlertDialog", var0.TitleKey)
-   local var16 = {}
-   var16.Key = "ok"
-   var16.Text = var2:getText("AlertDialog", "OkButtonText")
-   var7.Buttons = {}
-   var7.OnButtonPressed = arg1.closeDialog
-   var7.OnClose = var0.OnClose
-   var7.MinContentSize = var1.PopupMessageSize
-   var7.Modal = true
-   local var26 = {}
-   local var30 = {}
-   var30.Size = UDim2.fromScale(0.95, 1)
-   var30.AnchorPoint = Vector2.new(0.5, 0)
-   var30.Position = UDim2.fromScale(0.5, 0)
-   var30.Text = var2:getText("AlertDialog", var0.MessageKey, var0.MessageKeyFormatTable)
-   var30.TextColor = var1.TextColor
-   var30.TextWrapped = true
-   var30.TextSize = var1.TextSize
-   var30.TextXAlignment = Enum.TextXAlignment.Left
-   var26.Label = var1.createElement(var5, var30)
-   return var1.createElement(var6, var7, var26)
+   local var79 = {}
+   var79.Style = "Alert"
+   var79.Enabled = arg1.state.enabled
+   var79.Title = var2:getText("AlertDialog", var0.TitleKey)
+   local var88 = {}
+   var88.Key = "ok"
+   var88.Text = var2:getText("AlertDialog", "OkButtonText")
+   var79.Buttons = {}
+   var79.OnButtonPressed = arg1.closeDialog
+   var79.OnClose = var0.OnClose
+   var79.MinContentSize = var1.PopupMessageSize
+   var79.Modal = true
+   local var98 = {}
+   local var102 = {}
+   var102.Size = UDim2.fromScale(0.95, 1)
+   var102.AnchorPoint = Vector2.new(0.5, 0)
+   var102.Position = UDim2.fromScale(0.5, 0)
+   var102.Text = var2:getText("AlertDialog", var0.MessageKey, var0.MessageKeyFormatTable)
+   var102.TextColor = var1.TextColor
+   var102.TextWrapped = true
+   var102.TextSize = var1.TextSize
+   var102.TextXAlignment = Enum.TextXAlignment.Left
+   var98.Label = var1.createElement(var5, var102)
+   return var1.createElement(var6, var79, var98)
 end
 
 function var7.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
    local var2 = var0.Localization
-   local var7 = {}
-   var7.Style = "Alert"
-   var7.Enabled = arg1.state.enabled
-   var7.Title = var2:getText("AlertDialog", var0.TitleKey)
-   local var16 = {}
-   var16.Key = "ok"
-   var16.Text = var2:getText("AlertDialog", "OkButtonText")
-   var7.Buttons = {}
-   var7.OnButtonPressed = arg1.closeDialog
-   var7.OnClose = var0.OnClose
-   var7.MinContentSize = var1.PopupMessageSize
-   var7.Modal = true
-   local var26 = {}
-   local var30 = {}
-   var30.Size = UDim2.fromScale(0.95, 1)
-   var30.AnchorPoint = Vector2.new(0.5, 0)
-   var30.Position = UDim2.fromScale(0.5, 0)
-   var30.Text = var2:getText("AlertDialog", var0.MessageKey, var0.MessageKeyFormatTable)
-   var30.TextColor = var1.TextColor
-   var30.TextWrapped = true
-   var30.TextSize = var1.TextSize
-   var30.TextXAlignment = Enum.TextXAlignment.Left
-   var26.Label = var1.createElement(var5, var30)
-   return var1.createElement(var6, var7, var26)
+   local var79 = {}
+   var79.Style = "Alert"
+   var79.Enabled = arg1.state.enabled
+   var79.Title = var2:getText("AlertDialog", var0.TitleKey)
+   local var88 = {}
+   var88.Key = "ok"
+   var88.Text = var2:getText("AlertDialog", "OkButtonText")
+   var79.Buttons = {}
+   var79.OnButtonPressed = arg1.closeDialog
+   var79.OnClose = var0.OnClose
+   var79.MinContentSize = var1.PopupMessageSize
+   var79.Modal = true
+   local var98 = {}
+   local var102 = {}
+   var102.Size = UDim2.fromScale(0.95, 1)
+   var102.AnchorPoint = Vector2.new(0.5, 0)
+   var102.Position = UDim2.fromScale(0.5, 0)
+   var102.Text = var2:getText("AlertDialog", var0.MessageKey, var0.MessageKeyFormatTable)
+   var102.TextColor = var1.TextColor
+   var102.TextWrapped = true
+   var102.TextSize = var1.TextSize
+   var102.TextXAlignment = Enum.TextXAlignment.Left
+   var98.Label = var1.createElement(var5, var102)
+   return var1.createElement(var6, var79, var98)
 end
 
 fun2 = var3.withContext
-local var54 = {}
-var54.Localization = var3.Localization
-var54.Stylizer = var3.Stylizer
-var7 = fun2(var54)(var7)
+local var126 = {}
+var126.Localization = var3.Localization
+var126.Stylizer = var3.Stylizer
+var7 = fun2(var126)(var7)
 return var7

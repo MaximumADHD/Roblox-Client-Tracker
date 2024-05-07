@@ -42,21 +42,5 @@ MAIN:
   GETTABLEKS R2 R3 K2 ["Parent"]
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K5 ["getUDim2FromVector2"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K6 ["getPositionMatchesControlPoint"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K7 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Resources"]
-  GETTABLEKS R4 R5 K9 ["Constants"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K10 ["SnapToPointEpsilon"]
-  DUPCLOSURE R5 K11 [PROTO_0]
-  RETURN R5 1
+  DUPCLOSURE R1 K3 [PROTO_0]
+  RETURN R1 1

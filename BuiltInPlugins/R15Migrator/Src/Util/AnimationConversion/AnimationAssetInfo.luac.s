@@ -1,13 +1,14 @@
 PROTO_0:
-  DUPTABLE R4 K3 [{"id", "url", "_type"}]
-  SETTABLEKS R0 R4 K0 ["id"]
-  SETTABLEKS R1 R4 K1 ["url"]
-  SETTABLEKS R2 R4 K2 ["_type"]
-  GETUPVAL R5 0
-  FASTCALL2 SETMETATABLE R4 R5 [+3]
-  GETIMPORT R3 K5 [setmetatable]
-  CALL R3 2 1
-  RETURN R3 1
+  DUPTABLE R5 K4 [{"id", "url", "_type", "revealTarget"}]
+  SETTABLEKS R0 R5 K0 ["id"]
+  SETTABLEKS R1 R5 K1 ["url"]
+  SETTABLEKS R2 R5 K2 ["_type"]
+  SETTABLEKS R3 R5 K3 ["revealTarget"]
+  GETUPVAL R6 0
+  FASTCALL2 SETMETATABLE R5 R6 [+3]
+  GETIMPORT R4 K6 [setmetatable]
+  CALL R4 2 1
+  RETURN R4 1
 
 PROTO_1:
   GETUPVAL R3 0

@@ -328,7 +328,7 @@ local function CreateSettingsHub()
 			return Theme.AlwaysShowBottomBar()
 		end
 
-		return whichPage.ShouldShowBottomBar == true
+		return whichPage ~= nil and whichPage.ShouldShowBottomBar == true
 	end
 
 	local function setBottomBarBindings()

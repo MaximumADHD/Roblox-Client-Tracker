@@ -52,15 +52,12 @@ MAIN:
   GETTABLEKS R2 R0 K3 ["Src"]
   GETTABLEKS R1 R2 K4 ["Thunks"]
   GETIMPORT R2 K6 [require]
-  GETTABLEKS R3 R1 K7 ["RemoveControlPoint"]
+  GETTABLEKS R3 R1 K7 ["SetControlPointTangent"]
   CALL R2 1 1
   GETIMPORT R3 K6 [require]
-  GETTABLEKS R4 R1 K8 ["SetControlPointTangent"]
+  GETTABLEKS R4 R1 K8 ["RecordChangeHistory"]
   CALL R3 1 1
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R5 R1 K9 ["RecordChangeHistory"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K10 [PROTO_1]
-  CAPTURE VAL R4
+  DUPCLOSURE R4 K9 [PROTO_1]
   CAPTURE VAL R3
-  RETURN R5 1
+  CAPTURE VAL R2
+  RETURN R4 1

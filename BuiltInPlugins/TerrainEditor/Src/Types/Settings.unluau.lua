@@ -45,6 +45,7 @@ var9.Unit = "Unit"
 var9.Elevation = "Elevation"
 var9.Material = "Material"
 var9.Slope = "Slope"
+var9.FallbackMaterial = "FallbackMaterial"
 var9.FillMaterial = "FillMaterial"
 var5.MaterialPresetSettings = var9
 var6.MaterialPresetSettings = "MaterialPresetSettings"

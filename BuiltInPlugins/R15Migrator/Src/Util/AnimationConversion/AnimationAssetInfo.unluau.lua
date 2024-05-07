@@ -2,12 +2,13 @@
 local var0 = require(script.Parent.constants).AssetType
 local var1 = {}
 var1.__index = var1
-function var1.new(arg1, arg2, arg3)
-   local var10 = {}
-   var10.id = arg1
-   var10.url = arg2
-   var10._type = arg3
-   return setmetatable(var10, var1)
+function var1.new(arg1, arg2, arg3, arg4)
+   local var11 = {}
+   var11.id = arg1
+   var11.url = arg2
+   var11._type = arg3
+   var11.revealTarget = arg4
+   return setmetatable(var11, var1)
 end
 
 function var1.IsA(arg1, arg2)

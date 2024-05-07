@@ -265,7 +265,7 @@ function VoiceChatPromptFrame:init()
 			end
 
 			local iconImage = if GetFFlagEnableInExpVoiceUpsell() and PromptTypeIsVoiceConsent(promptType)
-				then Images["icons/controls/headphone"]
+				then Images["icons/controls/publicAudioJoin"]
 				else Images["icons/status/alert"]
 			self:setState({
 				showPrompt = true,

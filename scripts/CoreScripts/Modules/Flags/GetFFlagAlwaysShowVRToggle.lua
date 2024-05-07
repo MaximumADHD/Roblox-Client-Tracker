@@ -1,5 +1,5 @@
-game:DefineFastFlag("AlwaysShowVRToggleV2", false)
+game:DefineFastFlag("AlwaysShowVRToggleV3", false)
 
 return function()
-	return game:GetFastFlag("AlwaysShowVRToggleV2")
+	return game:GetFastFlag("AlwaysShowVRToggleV3")
 end

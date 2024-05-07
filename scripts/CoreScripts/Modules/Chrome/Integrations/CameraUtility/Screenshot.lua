@@ -1,6 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
-local UserInputService = game:GetService("UserInputService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local ScreenshotsApp = require(RobloxGui.Modules.Screenshots.ScreenshotsApp)
@@ -19,10 +18,14 @@ local hotkeyCodes
 if GetFFlagEnableScreenshotUtility() then
 	sound = ScreenshotsApp.createShutterSound()
 
+	-- TODO reenable hotkey tooltip: https://roblox.atlassian.net/browse/APPEXP-1549
+	hotkeyCodes = nil
+	--[[ 
 	local isOSX = UserInputService:GetPlatform() == Enum.Platform.OSX
 	hotkeyCodes = if isOSX
 		then { Enum.KeyCode.LeftSuper, Enum.KeyCode.LeftShift, Enum.KeyCode.S }
 		else { Enum.KeyCode.LeftControl, Enum.KeyCode.LeftShift, Enum.KeyCode.S }
+	]]
 end
 
 return GetFFlagEnableScreenshotUtility()

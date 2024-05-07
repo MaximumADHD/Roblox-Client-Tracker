@@ -319,7 +319,12 @@ PROTO_18:
   CALL R2 2 0
   GETUPVAL R2 2
   DUPTABLE R3 K5 [{"Gizmos", "FromSelf"}]
-  SETTABLEKS R0 R3 K3 ["Gizmos"]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K1 ["getTool"]
+  CALL R4 1 1
+  NAMECALL R4 R4 K6 ["gizmos"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K3 ["Gizmos"]
   LOADB R4 1
   SETTABLEKS R4 R3 K4 ["FromSelf"]
   CALL R2 1 0

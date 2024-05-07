@@ -19,6 +19,7 @@ export type ParticipantMetadata = Package.ParticipantMetadata
 export type UnfilteredThreadsFailureReason = Package.UnfilteredThreadsFailureReason
 export type UnfilteredThreadsFtux = Package.UnfilteredThreadsFtux
 export type UserPendingStatus = Package.UserPendingStatus
+export type CreateConversationsResponse = Package.CreateConversationsResponse
 export type GetUserConversationsResponse = Package.GetUserConversationsResponse
 export type GetOlderMessagesResponse = Package.GetOlderMessagesResponse
 export type GetConversationsResponse = Package.GetConversationsResponse

@@ -104,6 +104,8 @@ function SubscriptionPurchaseOverlay:getErrorType()
 		return PurchaseErrorType.SubscriptionNotForSale
 	elseif props.purchaseError == PurchaseError.VpcRequired then
 		return PurchaseErrorType.VpcRequired
+	elseif props.purchaseError == PurchaseError.ExceedParentalSpendLimit then
+		return PurchaseErrorType.ExceedParentalSpendLimit
 	end
 
 	return PurchaseErrorType.Unknown

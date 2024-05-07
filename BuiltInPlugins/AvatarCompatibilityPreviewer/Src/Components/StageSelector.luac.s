@@ -19,12 +19,7 @@ PROTO_0:
   GETTABLEKS R4 R5 K3 ["createElement"]
   GETUPVAL R5 4
   DUPTABLE R6 K18 [{"AnchorPoint", "BackgroundColor", "BackgroundStyle", "IconColor", "IconScaleType", "IconSize", "LeftIcon", "LayoutOrder", "Size", "Padding", "Position", "TooltipStyle", "TooltipText", "OnClick"}]
-  GETUPVAL R8 5
-  CALL R8 0 1
-  JUMPIFNOT R8 [+3]
   GETTABLEKS R7 R0 K4 ["AnchorPoint"]
-  JUMP [+1]
-  LOADNIL R7
   SETTABLEKS R7 R6 K4 ["AnchorPoint"]
   GETTABLEKS R8 R0 K19 ["IsSelected"]
   JUMPIFNOT R8 [+3]
@@ -61,12 +56,7 @@ PROTO_0:
   SETTABLEKS R7 R6 K12 ["Size"]
   LOADN R7 0
   SETTABLEKS R7 R6 K13 ["Padding"]
-  GETUPVAL R8 5
-  CALL R8 0 1
-  JUMPIFNOT R8 [+3]
   GETTABLEKS R7 R0 K14 ["Position"]
-  JUMP [+1]
-  LOADNIL R7
   SETTABLEKS R7 R6 K14 ["Position"]
   LOADK R7 K32 ["NoDelay"]
   SETTABLEKS R7 R6 K15 ["TooltipStyle"]
@@ -205,12 +195,7 @@ PROTO_5:
   LOADN R15 0
   CALL R11 4 1
   SETTABLEKS R11 R10 K8 ["Size"]
-  GETUPVAL R12 12
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
   LOADN R11 2
-  JUMP [+1]
-  LOADNIL R11
   SETTABLEKS R11 R10 K9 ["ZIndex"]
   DUPTABLE R11 K18 [{"Contents", "SettingsButton", "SettingsMenu", "SubmitDialog"}]
   GETUPVAL R13 3
@@ -224,7 +209,7 @@ PROTO_5:
   DUPTABLE R15 K32 [{"CheckBody", "CheckFace", "Test", "Publish"}]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K6 ["createElement"]
-  GETUPVAL R17 13
+  GETUPVAL R17 12
   DUPTABLE R18 K38 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
   NAMECALL R19 R2 K39 ["getNextOrder"]
   CALL R19 1 1
@@ -248,7 +233,7 @@ PROTO_5:
   SETTABLEKS R16 R15 K28 ["CheckBody"]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K6 ["createElement"]
-  GETUPVAL R17 13
+  GETUPVAL R17 12
   DUPTABLE R18 K38 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
   NAMECALL R19 R2 K39 ["getNextOrder"]
   CALL R19 1 1
@@ -272,7 +257,7 @@ PROTO_5:
   SETTABLEKS R16 R15 K29 ["CheckFace"]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K6 ["createElement"]
-  GETUPVAL R17 13
+  GETUPVAL R17 12
   DUPTABLE R18 K38 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
   NAMECALL R19 R2 K39 ["getNextOrder"]
   CALL R19 1 1
@@ -287,8 +272,8 @@ PROTO_5:
   SETTABLEKS R19 R18 K36 ["StageText"]
   NEWCLOSURE R19 P2
   CAPTURE VAL R3
+  CAPTURE UPVAL U13
   CAPTURE UPVAL U14
-  CAPTURE UPVAL U15
   CAPTURE VAL R4
   CAPTURE VAL R0
   SETTABLEKS R19 R18 K37 ["OnClick"]
@@ -296,7 +281,7 @@ PROTO_5:
   SETTABLEKS R16 R15 K30 ["Test"]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K6 ["createElement"]
-  GETUPVAL R17 13
+  GETUPVAL R17 12
   DUPTABLE R18 K46 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "Enabled", "OnClick"}]
   NAMECALL R19 R2 K39 ["getNextOrder"]
   CALL R19 1 1
@@ -334,12 +319,9 @@ PROTO_5:
   SETTABLEKS R16 R15 K31 ["Publish"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K14 ["Contents"]
-  GETUPVAL R12 12
-  CALL R12 0 1
-  JUMPIFNOT R12 [+33]
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K6 ["createElement"]
-  GETUPVAL R13 13
+  GETUPVAL R13 12
   DUPTABLE R14 K51 [{"Icon", "IsSelected", "StageText", "AnchorPoint", "Position", "OnClick"}]
   LOADK R15 K52 ["rbxassetid://6663675885"]
   SETTABLEKS R15 R14 K34 ["Icon"]
@@ -361,14 +343,11 @@ PROTO_5:
   SETTABLEKS R15 R14 K37 ["OnClick"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K15 ["SettingsButton"]
-  GETUPVAL R12 12
-  CALL R12 0 1
-  JUMPIFNOT R12 [+19]
   GETTABLEKS R12 R6 K59 ["enabled"]
   JUMPIFNOT R12 [+16]
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K6 ["createElement"]
-  GETUPVAL R13 16
+  GETUPVAL R13 15
   DUPTABLE R14 K62 [{"worldModel", "close"}]
   GETTABLEKS R16 R0 K4 ["Avatar"]
   GETTABLEKS R15 R16 K5 ["WorldModel"]
@@ -381,7 +360,7 @@ PROTO_5:
   JUMPIFNOT R12 [+14]
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K6 ["createElement"]
-  GETUPVAL R13 17
+  GETUPVAL R13 16
   DUPTABLE R14 K65 [{"close", "avatar"}]
   GETTABLEKS R15 R5 K63 ["disable"]
   SETTABLEKS R15 R14 K61 ["close"]
@@ -465,53 +444,46 @@ MAIN:
   GETIMPORT R15 K5 [require]
   GETTABLEKS R18 R0 K9 ["Src"]
   GETTABLEKS R17 R18 K23 ["Flags"]
-  GETTABLEKS R16 R17 K26 ["getFFlagAvatarPreviewerProportionControls"]
+  GETTABLEKS R16 R17 K26 ["getFFlagAvatarPreviewerTestWithAssets"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
   GETTABLEKS R19 R0 K9 ["Src"]
   GETTABLEKS R18 R19 K23 ["Flags"]
-  GETTABLEKS R17 R18 K27 ["getFFlagAvatarPreviewerTestWithAssets"]
+  GETTABLEKS R17 R18 K27 ["getFFlagAvatarPreviewerAutoSetupTelemetryV2"]
   CALL R16 1 1
-  GETIMPORT R17 K5 [require]
-  GETTABLEKS R20 R0 K9 ["Src"]
-  GETTABLEKS R19 R20 K23 ["Flags"]
-  GETTABLEKS R18 R19 K28 ["getFFlagAvatarPreviewerAutoSetupTelemetryV2"]
-  CALL R17 1 1
-  GETTABLEKS R18 R1 K29 ["UI"]
-  GETTABLEKS R19 R18 K30 ["IconButton"]
-  GETTABLEKS R20 R18 K31 ["Pane"]
-  GETTABLEKS R22 R1 K13 ["Util"]
-  GETTABLEKS R21 R22 K32 ["LayoutOrderIterator"]
-  GETTABLEKS R23 R1 K33 ["ContextServices"]
-  GETTABLEKS R22 R23 K34 ["Analytics"]
-  GETTABLEKS R24 R1 K33 ["ContextServices"]
-  GETTABLEKS R23 R24 K35 ["Localization"]
-  GETTABLEKS R25 R1 K33 ["ContextServices"]
-  GETTABLEKS R24 R25 K36 ["Stylizer"]
-  DUPCLOSURE R25 K37 [PROTO_0]
-  CAPTURE VAL R24
+  GETTABLEKS R17 R1 K28 ["UI"]
+  GETTABLEKS R18 R17 K29 ["IconButton"]
+  GETTABLEKS R19 R17 K30 ["Pane"]
+  GETTABLEKS R21 R1 K13 ["Util"]
+  GETTABLEKS R20 R21 K31 ["LayoutOrderIterator"]
+  GETTABLEKS R22 R1 K32 ["ContextServices"]
+  GETTABLEKS R21 R22 K33 ["Analytics"]
+  GETTABLEKS R23 R1 K32 ["ContextServices"]
+  GETTABLEKS R22 R23 K34 ["Localization"]
+  GETTABLEKS R24 R1 K32 ["ContextServices"]
+  GETTABLEKS R23 R24 K35 ["Stylizer"]
+  DUPCLOSURE R24 K36 [PROTO_0]
   CAPTURE VAL R23
+  CAPTURE VAL R22
   CAPTURE VAL R14
   CAPTURE VAL R2
-  CAPTURE VAL R19
-  CAPTURE VAL R15
-  DUPCLOSURE R26 K38 [PROTO_5]
-  CAPTURE VAL R24
+  CAPTURE VAL R18
+  DUPCLOSURE R25 K37 [PROTO_5]
+  CAPTURE VAL R23
+  CAPTURE VAL R20
   CAPTURE VAL R21
-  CAPTURE VAL R22
   CAPTURE VAL R2
   CAPTURE VAL R10
   CAPTURE VAL R8
   CAPTURE VAL R13
   CAPTURE VAL R14
-  CAPTURE VAL R17
+  CAPTURE VAL R16
   CAPTURE VAL R6
   CAPTURE VAL R7
-  CAPTURE VAL R20
+  CAPTURE VAL R19
+  CAPTURE VAL R24
   CAPTURE VAL R15
-  CAPTURE VAL R25
-  CAPTURE VAL R16
   CAPTURE VAL R5
   CAPTURE VAL R9
   CAPTURE VAL R11
-  RETURN R26 1
+  RETURN R25 1

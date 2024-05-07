@@ -14,7 +14,7 @@ function var1.willUnmount(arg1)
    end
 end
 
-local function fun18(arg1)
+local function fun11(arg1)
    return nil
 end
 
@@ -22,6 +22,6 @@ function var1.render(arg1)
    return nil
 end
 
-fun18 = require(var0.Packages.Framework).ContextServices.withContext
-var1 = fun18({})(var1)
+fun11 = require(var0.Packages.Framework).ContextServices.withContext
+var1 = fun11({})(var1)
 return var1

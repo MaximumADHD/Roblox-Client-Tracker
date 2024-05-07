@@ -1,12 +1,12 @@
 MAIN:
   PREPVARARGS 0
-  DUPTABLE R0 K8 [{"PointSize", "PointHalfSize", "SnapToPointEpsilon", "SnapToSegmentEpsilon", "DragEpsilon", "DragTangentToCenterToDeleteZoneSizePixels", "ChangeHistoryServiceActionName", "DefaultTangentLength"}]
-  GETIMPORT R1 K11 [Vector2.new]
+  DUPTABLE R0 K9 [{"PointSize", "PointHalfSize", "SnapToPointEpsilon", "SnapToSegmentEpsilon", "DragEpsilon", "DragTangentToCenterToDeleteZoneSizePixels", "ChangeHistoryServiceActionName", "DefaultTangentLength", "MaxControlPoints"}]
+  GETIMPORT R1 K12 [Vector2.new]
   LOADN R2 16
   LOADN R3 16
   CALL R1 2 1
   SETTABLEKS R1 R0 K0 ["PointSize"]
-  GETIMPORT R1 K11 [Vector2.new]
+  GETIMPORT R1 K12 [Vector2.new]
   LOADN R2 8
   LOADN R3 8
   CALL R1 2 1
@@ -19,8 +19,10 @@ MAIN:
   SETTABLEKS R1 R0 K4 ["DragEpsilon"]
   LOADN R1 7
   SETTABLEKS R1 R0 K5 ["DragTangentToCenterToDeleteZoneSizePixels"]
-  LOADK R1 K12 ["PathEditorAction"]
+  LOADK R1 K13 ["PathEditorAction"]
   SETTABLEKS R1 R0 K6 ["ChangeHistoryServiceActionName"]
   LOADN R1 50
   SETTABLEKS R1 R0 K7 ["DefaultTangentLength"]
+  LOADN R1 250
+  SETTABLEKS R1 R0 K8 ["MaxControlPoints"]
   RETURN R0 1

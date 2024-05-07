@@ -10,9 +10,9 @@ PROTO_0:
   LOADNIL R6
   FORGPREP R4
   GETTABLE R9 R3 R8
-  JUMPIFNOT R9 [+39]
+  JUMPIFNOT R9 [+41]
   GETTABLEKS R10 R9 K4 ["model"]
-  JUMPIFNOT R10 [+36]
+  JUMPIFNOT R10 [+38]
   GETUPVAL R10 0
   GETTABLEKS R12 R9 K4 ["model"]
   NAMECALL R10 R10 K5 ["removeTag"]
@@ -30,63 +30,64 @@ PROTO_0:
   MOVE R13 R10
   LOADB R14 0
   CALL R11 3 0
+  SETTABLEKS R10 R9 K8 ["revealTarget"]
   GETUPVAL R11 3
   MOVE R13 R10
-  NAMECALL R11 R11 K8 ["addTag"]
+  NAMECALL R11 R11 K9 ["addTag"]
   CALL R11 2 0
   GETUPVAL R13 4
   MOVE R14 R9
   LOADB R15 0
   CALL R13 2 -1
-  NAMECALL R11 R0 K9 ["dispatch"]
+  NAMECALL R11 R0 K10 ["dispatch"]
   CALL R11 -1 0
-  FORGLOOP R4 2 [-42]
+  FORGLOOP R4 2 [-44]
   NAMECALL R4 R0 K0 ["getState"]
   CALL R4 1 1
   MOVE R1 R4
   GETTABLEKS R5 R1 K1 ["CharacterConversion"]
   GETTABLEKS R4 R5 K3 ["convertedCharacters"]
   GETUPVAL R8 5
-  GETTABLEKS R7 R8 K10 ["Dictionary"]
-  GETTABLEKS R6 R7 K11 ["keys"]
+  GETTABLEKS R7 R8 K11 ["Dictionary"]
+  GETTABLEKS R6 R7 K12 ["keys"]
   MOVE R7 R4
   CALL R6 1 1
   LENGTH R5 R6
-  JUMPIFNOTEQKN R5 K12 [0] [+34]
-  GETIMPORT R5 K14 [game]
-  LOADK R7 K15 ["ReplicatedStorage"]
-  NAMECALL R5 R5 K16 ["GetService"]
+  JUMPIFNOTEQKN R5 K13 [0] [+34]
+  GETIMPORT R5 K15 [game]
+  LOADK R7 K16 ["ReplicatedStorage"]
+  NAMECALL R5 R5 K17 ["GetService"]
   CALL R5 2 1
-  LOADK R8 K17 ["AvatarUnification"]
-  NAMECALL R6 R5 K18 ["FindFirstChild"]
+  LOADK R8 K18 ["AvatarUnification"]
+  NAMECALL R6 R5 K19 ["FindFirstChild"]
   CALL R6 2 1
   JUMPIFNOT R6 [+3]
-  NAMECALL R7 R6 K19 ["Destroy"]
+  NAMECALL R7 R6 K20 ["Destroy"]
   CALL R7 1 0
-  GETIMPORT R7 K14 [game]
-  LOADK R9 K20 ["StarterPlayer"]
-  NAMECALL R7 R7 K16 ["GetService"]
+  GETIMPORT R7 K15 [game]
+  LOADK R9 K21 ["StarterPlayer"]
+  NAMECALL R7 R7 K17 ["GetService"]
   CALL R7 2 1
-  LOADK R10 K21 ["StarterCharacterScripts"]
-  NAMECALL R8 R7 K18 ["FindFirstChild"]
+  LOADK R10 K22 ["StarterCharacterScripts"]
+  NAMECALL R8 R7 K19 ["FindFirstChild"]
   CALL R8 2 1
   JUMPIFNOT R8 [+8]
-  LOADK R11 K22 ["LocalEffects"]
-  NAMECALL R9 R8 K18 ["FindFirstChild"]
+  LOADK R11 K23 ["LocalEffects"]
+  NAMECALL R9 R8 K19 ["FindFirstChild"]
   CALL R9 2 1
   JUMPIFNOT R9 [+3]
-  NAMECALL R10 R9 K19 ["Destroy"]
+  NAMECALL R10 R9 K20 ["Destroy"]
   CALL R10 1 0
   GETUPVAL R7 6
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K23 ["getAdapterData"]
+  GETTABLEKS R8 R9 K24 ["getAdapterData"]
   CALL R8 0 -1
   CALL R7 -1 -1
-  NAMECALL R5 R0 K9 ["dispatch"]
+  NAMECALL R5 R0 K10 ["dispatch"]
   CALL R5 -1 0
   GETUPVAL R5 7
-  LOADK R7 K24 ["onCharactersReverted"]
-  NAMECALL R5 R5 K25 ["getHandler"]
+  LOADK R7 K25 ["onCharactersReverted"]
+  NAMECALL R5 R5 K26 ["getHandler"]
   CALL R5 2 1
   MOVE R6 R3
   MOVE R7 R2

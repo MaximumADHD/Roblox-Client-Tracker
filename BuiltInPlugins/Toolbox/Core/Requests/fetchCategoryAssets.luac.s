@@ -81,34 +81,48 @@ PROTO_2:
   GETUPVAL R12 1
   CALL R12 0 1
   SETTABLEKS R12 R11 K4 ["ownerId"]
-  JUMPIFNOT R3 [+15]
-  DUPTABLE R12 K9 [{"limit", "includeOnlyVerifiedCreators", "cursor"}]
-  GETTABLEKS R13 R3 K10 ["pageSize"]
+  JUMPIFNOT R3 [+33]
+  DUPTABLE R12 K11 [{"limit", "includeOnlyVerifiedCreators", "cursor", "assetsInCameraVicinity", "assetsInCameraViewport"}]
+  GETTABLEKS R13 R3 K12 ["pageSize"]
   SETTABLEKS R13 R12 K6 ["limit"]
-  GETTABLEKS R14 R3 K11 ["includeUnverifiedCreators"]
+  GETTABLEKS R14 R3 K13 ["includeUnverifiedCreators"]
   NOT R13 R14
   SETTABLEKS R13 R12 K7 ["includeOnlyVerifiedCreators"]
-  GETTABLEKS R13 R3 K12 ["nextPageCursor"]
+  GETTABLEKS R13 R3 K14 ["nextPageCursor"]
   SETTABLEKS R13 R12 K8 ["cursor"]
+  GETUPVAL R14 2
+  CALL R14 0 1
+  JUMPIFNOT R14 [+3]
+  GETTABLEKS R13 R3 K9 ["assetsInCameraVicinity"]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K9 ["assetsInCameraVicinity"]
+  GETUPVAL R14 2
+  CALL R14 0 1
+  JUMPIFNOT R14 [+3]
+  GETTABLEKS R13 R3 K10 ["assetsInCameraViewport"]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K10 ["assetsInCameraViewport"]
   JUMP [+2]
   NEWTABLE R12 0 0
   CALL R10 2 -1
-  NAMECALL R8 R0 K13 ["getToolboxItems"]
+  NAMECALL R8 R0 K15 ["getToolboxItems"]
   CALL R8 -1 1
   NEWCLOSURE R10 P0
   CAPTURE REF R7
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R0
-  NAMECALL R8 R8 K14 ["andThen"]
+  NAMECALL R8 R8 K16 ["andThen"]
   CALL R8 2 1
   NEWCLOSURE R10 P1
-  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
   CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE REF R7
-  NAMECALL R8 R8 K14 ["andThen"]
+  NAMECALL R8 R8 K16 ["andThen"]
   CALL R8 2 -1
   CLOSEUPVALS R7
   RETURN R8 -1
@@ -139,11 +153,12 @@ MAIN:
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K9 ["Core"]
-  GETTABLEKS R7 R8 K14 ["Types"]
-  GETTABLEKS R6 R7 K15 ["AudioTypes"]
+  GETTABLEKS R7 R8 K14 ["Flags"]
+  GETTABLEKS R6 R7 K15 ["getFFlagToolboxContextualAudioRecommendations"]
   CALL R5 1 1
   DUPCLOSURE R6 K16 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R3
+  CAPTURE VAL R5
   CAPTURE VAL R4
   RETURN R6 1

@@ -12,14 +12,14 @@ return function(arg1, arg2)
          return var0
       end
    end
-   local var46 = arg1.Parent
-   if var46 == "GetPositionOnCurve" then
+   local var50 = arg1.Parent
+   if var50 == "GetPositionOnCurve" then
       local var0 = arg1.Parent
       local var1 = "AbsoluteSize"
-      var46 = pcall(function()
+      var50 = pcall(function()
          local var0 = arg1[arg2]
       end)
-      if var46 then
+      if var50 then
          return UDim2.fromOffset(var0.X.Scale * arg1.Parent.AbsoluteSize.x, var0.Y.Scale * arg1.Parent.AbsoluteSize.y)
       end
    end

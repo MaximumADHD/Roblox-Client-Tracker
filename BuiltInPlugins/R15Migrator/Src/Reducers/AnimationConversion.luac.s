@@ -1,16 +1,18 @@
 PROTO_0:
-  DUPTABLE R0 K4 [{"selection", "previewSelection", "animations", "status"}]
+  DUPTABLE R0 K5 [{"selection", "previewSelection", "previewSpeed", "animations", "status"}]
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K0 ["selection"]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K5 ["None"]
+  GETTABLEKS R1 R2 K6 ["None"]
   SETTABLEKS R1 R0 K1 ["previewSelection"]
+  LOADN R1 1
+  SETTABLEKS R1 R0 K2 ["previewSpeed"]
   NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K2 ["animations"]
+  SETTABLEKS R1 R0 K3 ["animations"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K6 ["Status"]
-  GETTABLEKS R1 R2 K7 ["NotStarted"]
-  SETTABLEKS R1 R0 K3 ["status"]
+  GETTABLEKS R2 R3 K7 ["Status"]
+  GETTABLEKS R1 R2 K8 ["NotStarted"]
+  SETTABLEKS R1 R0 K4 ["status"]
   RETURN R0 1
 
 PROTO_1:
@@ -45,6 +47,17 @@ PROTO_3:
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
   MOVE R3 R0
+  DUPTABLE R4 K3 [{"previewSpeed"}]
+  GETTABLEKS R5 R1 K2 ["previewSpeed"]
+  SETTABLEKS R5 R4 K2 ["previewSpeed"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
   DUPTABLE R4 K3 [{"animations"}]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K0 ["Dictionary"]
@@ -59,7 +72,7 @@ PROTO_3:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_4:
+PROTO_5:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
@@ -70,7 +83,7 @@ PROTO_4:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["Dictionary"]
   GETTABLEKS R2 R3 K1 ["join"]
@@ -81,7 +94,7 @@ PROTO_5:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["Dictionary"]
   GETTABLEKS R1 R2 K1 ["join"]
@@ -117,25 +130,28 @@ MAIN:
   GETTABLEKS R6 R1 K14 ["createReducer"]
   MOVE R7 R5
   CALL R7 0 1
-  DUPTABLE R8 K21 [{"SetSelection", "SetPreviewSelection", "SetAnimation", "SetAnimations", "SetStatus", "ResetAllAnimationConversion"}]
-  DUPCLOSURE R9 K22 [PROTO_1]
+  DUPTABLE R8 K22 [{"SetSelection", "SetPreviewSelection", "SetPreviewSpeed", "SetAnimation", "SetAnimations", "SetStatus", "ResetAllAnimationConversion"}]
+  DUPCLOSURE R9 K23 [PROTO_1]
   CAPTURE VAL R2
   SETTABLEKS R9 R8 K15 ["SetSelection"]
-  DUPCLOSURE R9 K23 [PROTO_2]
+  DUPCLOSURE R9 K24 [PROTO_2]
   CAPTURE VAL R2
   SETTABLEKS R9 R8 K16 ["SetPreviewSelection"]
-  DUPCLOSURE R9 K24 [PROTO_3]
+  DUPCLOSURE R9 K25 [PROTO_3]
   CAPTURE VAL R2
-  SETTABLEKS R9 R8 K17 ["SetAnimation"]
-  DUPCLOSURE R9 K25 [PROTO_4]
+  SETTABLEKS R9 R8 K17 ["SetPreviewSpeed"]
+  DUPCLOSURE R9 K26 [PROTO_4]
   CAPTURE VAL R2
-  SETTABLEKS R9 R8 K18 ["SetAnimations"]
-  DUPCLOSURE R9 K26 [PROTO_5]
+  SETTABLEKS R9 R8 K18 ["SetAnimation"]
+  DUPCLOSURE R9 K27 [PROTO_5]
   CAPTURE VAL R2
-  SETTABLEKS R9 R8 K19 ["SetStatus"]
-  DUPCLOSURE R9 K27 [PROTO_6]
+  SETTABLEKS R9 R8 K19 ["SetAnimations"]
+  DUPCLOSURE R9 K28 [PROTO_6]
+  CAPTURE VAL R2
+  SETTABLEKS R9 R8 K20 ["SetStatus"]
+  DUPCLOSURE R9 K29 [PROTO_7]
   CAPTURE VAL R2
   CAPTURE VAL R5
-  SETTABLEKS R9 R8 K20 ["ResetAllAnimationConversion"]
+  SETTABLEKS R9 R8 K21 ["ResetAllAnimationConversion"]
   CALL R6 2 -1
   RETURN R6 -1

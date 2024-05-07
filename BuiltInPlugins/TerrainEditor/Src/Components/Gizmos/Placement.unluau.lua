@@ -4,65 +4,71 @@ local var1 = require(var0.Packages.Dash)
 local var2 = require(var0.Packages.React)
 local var3 = var2.useCallback
 local var4 = var2.useMemo
-local var5 = require(var0.Src.Hooks.useRaycast)
-local var6 = require(var0.Src.Hooks.useTerrain)
-local var7 = require(var0.Src.Components.Gizmos.Box)
-local var8 = require(var0.Src.Types)
-local var9 = var8.BrushSettings
-local var10 = var8.BuildSettings
-local var11 = var8.Category
-local var12 = var8.TerrainType
+local var5 = require(var0.Src.Hooks.useEventConnection)
+local var6 = require(var0.Src.Hooks.useRaycast)
+local var7 = require(var0.Src.Hooks.useTerrain)
+local var8 = require(var0.Src.Controllers.ShortcutController)
+local var9 = require(var0.Src.Components.Gizmos.Box)
+local var10 = require(var0.Src.Types)
+local var11 = var10.BrushSettings
+local var12 = var10.BuildSettings
+local var13 = var10.Category
+local var14 = var10.TerrainType
 return function(arg1)
-   local var0 = arg1.Value[var11.BuildSettings]
-   if not var0[var10.PlacementMode] then
+   local var0 = arg1.Value[var13.BuildSettings]
+   if not var0[var12.PlacementMode] then
       return nil
    end
-   local var1 = var0[var10.Size]
-   local var61 = arg1.Value
-   local var172 = arg1.Save
-   local var174 = var10.TerrainType
-   local var175 = var0[var174]
-   var174 = var1
-   var172 = var4(function()
-      var11.BrushSettings = {}
-      return var1.join({}, arg1.Value)
+   local var1 = var0[var12.Size]
+   local var71 = arg1.Value
+   local var182 = arg1.Save
+   local var184 = var12.TerrainType
+   local var185 = var0[var184]
+   var184 = var1
+   local var202 = arg1.Save
+   var5(var8.use().MouseDownAction, function()
+      var12.PlacementMode = false
+      var13.BuildSettings = {}
+      arg1.Save({})
    end, {})
-   var175 = var3(function(arg1)
-      local var0 = arg1[var11.BrushSettings][var9.State].Position
-      local var1 = var0[var10.TerrainType]
-      if var1 ~= var12.Volcano then
-         if var1 ~= var12.Mountain then
+   local var211 = {}
+   var211.Adornee = var7()
+   var211.AlwaysOnTop = true
+   var211.Color = arg1.Schema.Color or Color3.new(1, 1, 1)
+   var211.LineThickness = 0.1
+   var211.Size = Vector3.new(var1.X, 0, var1.Z)
+   var211.Transform = CFrame.new(var6(arg1.Tool, var4(function()
+      var13.BrushSettings = {}
+      return var1.join({}, arg1.Value)
+   end, {}), var3(function(arg1)
+      local var0 = arg1[var13.BrushSettings][var11.State].Position
+      local var1 = var0[var12.TerrainType]
+      if var1 ~= var14.Volcano then
+         if var1 ~= var14.Mountain then
             if var1 == "TerrainType" then
-               var10.Transform = CFrame.new(var0 + Vector3.new(0, var1.Y / 2, 0))
-               var11.BuildSettings = {}
+               var12.Transform = CFrame.new(var0 + Vector3.new(0, var1.Y / 2, 0))
+               var13.BuildSettings = {}
                arg1.Save({})
             end
          end
       end
-      var10.Transform = CFrame.new(var0 + Vector3.new(0, var1.Y / 2, 0))
-      var11.BuildSettings = {}
+      var12.Transform = CFrame.new(var0 + Vector3.new(0, var1.Y / 2, 0))
+      var13.BuildSettings = {}
       arg1.Save({})
-      if var1 ~= var12.Crater then
+      if var1 ~= var14.Crater then
          if var1 == "TerrainType" then
-            var10.Transform = CFrame.new(var0 - Vector3.new(0, var1.Y / 2, 0))
-            var11.BuildSettings = {}
+            var12.Transform = CFrame.new(var0 - Vector3.new(0, var1.Y / 2, 0))
+            var13.BuildSettings = {}
             arg1.Save({})
          end
       end
-      var10.Transform = CFrame.new(var0 - Vector3.new(0, var1.Y / 2, 0))
-      var11.BuildSettings = {}
+      var12.Transform = CFrame.new(var0 - Vector3.new(0, var1.Y / 2, 0))
+      var13.BuildSettings = {}
       arg1.Save({})
-      var10.Transform = CFrame.new(var0)
-      var11.BuildSettings = {}
+      var12.Transform = CFrame.new(var0)
+      var13.BuildSettings = {}
       arg1.Save({})
-   end, {})
-   local var183 = {}
-   var183.Adornee = var6()
-   var183.AlwaysOnTop = true
-   var183.Color = arg1.Schema.Color or Color3.new(1, 1, 1)
-   var183.LineThickness = 0.1
-   var183.Size = Vector3.new(var1.X, 0, var1.Z)
-   var183.Transform = CFrame.new(var5(arg1.Tool, var172, var175).Position)
-   var183.Transparency = 0.9
-   return var2.createElement(var7, var183)
+   end, {})).Position)
+   var211.Transparency = 0.9
+   return var2.createElement(var9, var211)
 end

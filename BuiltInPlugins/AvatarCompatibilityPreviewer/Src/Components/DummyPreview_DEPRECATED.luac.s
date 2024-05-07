@@ -306,7 +306,7 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K9 ["Src"]
   GETTABLEKS R5 R6 K10 ["Util"]
-  GETTABLEKS R4 R5 K11 ["AvatarScreenContext"]
+  GETTABLEKS R4 R5 K11 ["DEPRECATED_AvatarScreenContext"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K9 ["Src"]

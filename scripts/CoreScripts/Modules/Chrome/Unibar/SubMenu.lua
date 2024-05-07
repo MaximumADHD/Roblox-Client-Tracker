@@ -25,13 +25,21 @@ local useObservableValue = require(Chrome.Hooks.useObservableValue)
 
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
 local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
+local GetFFlagUseNewPinIcon = require(Chrome.Flags.GetFFlagUseNewPinIcon)
 local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
--- TODO replace with final icons
-local PIN_ICON = Images["icons/actions/edit/add"]
-local UNPIN_ICON = Images["icons/actions/edit/remove"]
+
+local PINNED_ICON = nil
+local UNPINNED_ICON = nil
+if GetFFlagUseNewPinIcon() then
+	PINNED_ICON = Images["icons/controls/pinned_small"]
+	UNPINNED_ICON = Images["icons/controls/unpinned_small"]
+else
+	PINNED_ICON = Images["icons/actions/edit/remove"]
+	UNPINNED_ICON = Images["icons/actions/edit/add"]
+end
 
 type Table = { [any]: any }
 
@@ -156,7 +164,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					BackgroundTransparency = 1,
-					Image = if currenlyPinned then UNPIN_ICON else PIN_ICON,
+					Image = if currenlyPinned then PINNED_ICON else UNPINNED_ICON,
 					Size = Constants.PIN_ICON_SIZE,
 					ImageColor3 = style.Theme.IconEmphasis.Color,
 					ImageTransparency = if pinDisabled
