@@ -281,8 +281,8 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetManagerService:InsertLinkedSourceAsLocalScript(aliasName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertLinkedSourceAsModuleScript(aliasName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertLinkedSourceAsScript(aliasName: string) -> () {RobloxScriptSecurity}
-	Function AssetManagerService:InsertMesh(aliasName: string, insertWithLocation: boolean) -> () {RobloxScriptSecurity}
-	Function AssetManagerService:InsertMeshesWithLocation(aliasNames: { any }) -> () {RobloxScriptSecurity}
+	Function AssetManagerService:InsertMesh(aliasName: string, insertWithLocation: boolean, sourceAssetId: number) -> () {RobloxScriptSecurity}
+	Function AssetManagerService:InsertMeshesWithLocation(aliasNames: { any }, meshIds: { any }) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertModel(modelId: number) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertPackage(packageId: number) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertVideo(assetId: number, assetName: string) -> () {RobloxScriptSecurity}
@@ -488,6 +488,7 @@ Class AvatarChatService : Instance [NotCreatable] [Service]
 	Event AvatarChatService.RefreshClientFeatures() {RobloxSecurity} [Hidden]
 Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:CreateAvatarGenerationSessionAsync(player: Player) -> AvatarGenerationSession [Yields]
+	Function AvatarCreationService:GetAvatarGenerationConfig() -> { [string]: any } [Yields]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
 	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
@@ -742,6 +743,7 @@ Class Beam : Instance
 	Property Beam.Enabled: boolean
 	Property Beam.LightEmission: number
 	Property Beam.LightInfluence: number
+	Property Beam.LocalTransparencyModifier: number [Hidden] [NotReplicated]
 	Property Beam.Texture: string
 	Property Beam.TextureLength: number
 	Property Beam.TextureMode: Enum.TextureMode
@@ -1450,6 +1452,7 @@ Class BlockMesh : BevelMesh
 Class CylinderMesh : BevelMesh [Deprecated]
 Class EditableMesh : DataModelMesh [NotReplicated]
 	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+	Property EditableMesh.SkinningEnabled: boolean
 	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
 	Function EditableMesh:AddVertex(p: Vector3) -> number
 	Function EditableMesh:CreateMeshPartAsync(options: { [string]: any }? = nil) -> MeshPart [Yields]
@@ -1745,6 +1748,10 @@ Class ExperienceService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ExperienceService:LaunchExperienceFromSourceWithCallback(params: { [string]: any }, source: string, callback: (...any) -> ...any) -> () {RobloxScriptSecurity}
 	Function ExperienceService:RegisterForExperienceJoin(callback: (...any) -> ...any) -> RBXScriptConnection {RobloxScriptSecurity}
 	Function ExperienceService:RegisterForExperienceLeave(callback: (...any) -> ...any) -> RBXScriptConnection {RobloxScriptSecurity}
+	Function ExperienceService:StartCrossExperience(type: string, params: { [string]: any }) -> () {RobloxScriptSecurity}
+	Function ExperienceService:StopCrossExperience(type: string, params: { [string]: any }) -> () {RobloxScriptSecurity}
+	Event ExperienceService.OnCrossExperienceStarted(type: string, params: { [string]: any }) {RobloxScriptSecurity}
+	Event ExperienceService.OnCrossExperienceStopped(type: string, params: { [string]: any }) {RobloxScriptSecurity}
 	Event ExperienceService.OnNewJoinAttempt(params: { [string]: any }) {RobloxScriptSecurity}
 Class ExperienceStateCaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property ExperienceStateCaptureService.IsInCaptureMode: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -2547,7 +2554,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.NativeClose() {RobloxScriptSecurity}
 	Event GuiService.NetworkPausedEnabledChanged(enabled: boolean) {RobloxScriptSecurity}
 	Event GuiService.Open9SliceEditor(selectedImageObject: Instance) {RobloxScriptSecurity}
-	Event GuiService.OpenAttenuationCurveEditor(selectedCurveObject: Instance) {RobloxScriptSecurity}
+	Event GuiService.OpenAttenuationCurveEditor(selectedCurveObjects: { Instance }) {RobloxScriptSecurity}
 	Event GuiService.PurchasePromptShown() {RobloxScriptSecurity}
 	Event GuiService.SafeZoneOffsetsChanged() {RobloxScriptSecurity}
 	Event GuiService.ShowLeaveConfirmation() {RobloxScriptSecurity}
@@ -3580,7 +3587,7 @@ Class SpawnLocation : Part
 Class WedgePart : FormFactorPart
 Class Terrain : BasePart [NotCreatable]
 	Property Terrain.Decoration: boolean [NotScriptable]
-	Property Terrain.GrassLength: number [NotScriptable] [NotBrowsable]
+	Property Terrain.GrassLength: number [NotScriptable]
 	Property Terrain.MaterialColors: BinaryString [NotScriptable]
 	Property Terrain.ShorelinesUpgraded: boolean {RobloxScriptSecurity} [Hidden]
 	Property Terrain.SmoothVoxelsUpgraded: boolean {RobloxScriptSecurity} [Hidden]
@@ -3815,7 +3822,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
 	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
 	Property Workspace.PrimalPhysicsSolver: Enum.PrimalPhysicsSolver [NotScriptable]
-	Property Workspace.RenderingCacheOptimizations: Enum.RenderingCacheOptimizationMode [Hidden]
+	Property Workspace.RenderingCacheOptimizations: Enum.RenderingCacheOptimizationMode [NotScriptable]
 	Property Workspace.ReplicateInstanceDestroySetting: Enum.ReplicateInstanceDestroySetting [NotScriptable]
 	Property Workspace.Retargeting: Enum.AnimatorRetargetingMode
 	Property Workspace.SignalBehavior: Enum.SignalBehavior [NotScriptable]
@@ -3903,6 +3910,7 @@ Class ParticleEmitter : Instance
 	Property ParticleEmitter.Color: ColorSequence
 	Property ParticleEmitter.LightEmission: number
 	Property ParticleEmitter.LightInfluence: number
+	Property ParticleEmitter.LocalTransparencyModifier: number [Hidden] [NotReplicated]
 	Property ParticleEmitter.Orientation: Enum.ParticleOrientation
 	Property ParticleEmitter.Size: NumberSequence
 	Property ParticleEmitter.Squash: NumberSequence
@@ -4123,7 +4131,7 @@ Class Player : Instance
 	Function Player:GetFriendStatus(player: Player) -> Enum.FriendStatus {RobloxScriptSecurity}
 	Function Player:GetFriendsOnline(maxFriends: number? = 200) -> { any } [Yields]
 	Function Player:GetGameSessionID() -> string {RobloxSecurity}
-	Function Player:GetJoinData() -> { [string]: any }
+	Function Player:GetJoinData() -> { [string]: any } [CustomLuaState]
 	Function Player:GetMouse() -> Mouse
 	Function Player:GetNetworkPing() -> number {🧬Safe}
 	Function Player:GetRankInGroup(groupId: number) -> number [Yields]
@@ -4198,6 +4206,8 @@ Class PlayerEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PlayerEmulatorService:GetEmulatedPolicyInfo() -> { [string]: any } {RobloxScriptSecurity}
 	Function PlayerEmulatorService:RegionCodeWillHaveAutomaticNonCustomPolicies(regionCode: string) -> boolean {RobloxScriptSecurity}
 	Function PlayerEmulatorService:SetEmulatedPolicyInfo(emulatedPolicyInfo: { [string]: any }) -> () {RobloxScriptSecurity}
+Class PlayerHydrationService : Instance [NotCreatable] [Service]
+	Event PlayerHydrationService.PlayerHydration(userId: number, playerHydrationBlob: string, playerHydrationSignature: string) {RobloxSecurity} [Hidden]
 Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Function PlayerScripts:ClearComputerCameraMovementModes() -> ()
 	Function PlayerScripts:ClearComputerMovementModes() -> ()
@@ -4882,8 +4892,8 @@ Class UserSettings : GenericSettings [NotCreatable]
 	Function UserSettings:Reset() -> ()
 	Function UserSettings:SaveState() -> () {RobloxScriptSecurity}
 Class ServiceVisibilityService : Instance [NotCreatable] [Service]
-	Property ServiceVisibilityService.VisibleServices: BinaryString {RobloxSecurity}
 	Property ServiceVisibilityService.HiddenServices: BinaryString {RobloxSecurity}
+	Property ServiceVisibilityService.VisibleServices: BinaryString {RobloxSecurity}
 Class SessionService : Instance [NotCreatable] [Service]
 	Function SessionService:AcquireContextFocus(context: string) -> () {RobloxScriptSecurity}
 	Function SessionService:GenerateSessionInfoString(includeArbitrarySessions: boolean, includeTag: boolean, includeTimestamps: boolean, includeMetadata: boolean) -> string {RobloxScriptSecurity}
@@ -5806,6 +5816,7 @@ Class Trail : Instance
 	Property Trail.FaceCamera: boolean
 	Property Trail.LightEmission: number
 	Property Trail.LightInfluence: number
+	Property Trail.LocalTransparencyModifier: number [Hidden] [NotReplicated]
 	Property Trail.Texture: string
 	Property Trail.TextureLength: number
 	Property Trail.TextureMode: Enum.TextureMode
@@ -6161,9 +6172,9 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event UserInputService.WindowFocused()
 Class UserService : Instance [NotCreatable] [Service]
 	Function UserService:GetUserInfosByUserIdsAsync(userIds: { any }) -> { any } [Yields]
-Class VRService : Instance [NotCreatable] [Service] [NotBrowsable]
+Class VRService : Instance [NotCreatable] [Service]
 	Property VRService.AutomaticScaling: Enum.VRScaling
-	Property VRService.AvatarGestures: boolean [NotBrowsable]
+	Property VRService.AvatarGestures: boolean
 	Property VRService.FadeOutViewOnCollision: boolean
 	Property VRService.GuiInputUserCFrame: Enum.UserCFrame [NotReplicated]
 	Property VRService.DidPointerHit: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -7652,6 +7663,8 @@ Enum ItemLineAlignment
 	EnumItem ItemLineAlignment.Center : 2
 	EnumItem ItemLineAlignment.End : 3
 	EnumItem ItemLineAlignment.Stretch : 4
+Enum JoinSource
+	EnumItem JoinSource.CreatedItemAttribution : 1
 Enum JointCreationMode
 	EnumItem JointCreationMode.All : 0
 	EnumItem JointCreationMode.Surface : 1
@@ -7961,6 +7974,26 @@ Enum LoadDynamicHeads
 	EnumItem LoadDynamicHeads.Default : 0
 	EnumItem LoadDynamicHeads.Disabled : 1
 	EnumItem LoadDynamicHeads.Enabled : 2
+Enum MarketplaceBulkPurchasePromptStatus
+	EnumItem MarketplaceBulkPurchasePromptStatus.Completed : 1
+	EnumItem MarketplaceBulkPurchasePromptStatus.Aborted : 2
+	EnumItem MarketplaceBulkPurchasePromptStatus.Error : 3
+Enum MarketplaceItemPurchaseStatus
+	EnumItem MarketplaceItemPurchaseStatus.Success : 1
+	EnumItem MarketplaceItemPurchaseStatus.SystemError : 2
+	EnumItem MarketplaceItemPurchaseStatus.AlreadyOwned : 3
+	EnumItem MarketplaceItemPurchaseStatus.InsufficientRobux : 4
+	EnumItem MarketplaceItemPurchaseStatus.QuantityLimitExceeded : 5
+	EnumItem MarketplaceItemPurchaseStatus.QuotaExceeded : 6
+	EnumItem MarketplaceItemPurchaseStatus.NotForSale : 7
+	EnumItem MarketplaceItemPurchaseStatus.NotAvailableForPurchaser : 8
+	EnumItem MarketplaceItemPurchaseStatus.PriceMismatch : 9
+	EnumItem MarketplaceItemPurchaseStatus.SoldOut : 10
+	EnumItem MarketplaceItemPurchaseStatus.PurchaserIsSeller : 11
+	EnumItem MarketplaceItemPurchaseStatus.InsufficientMembership : 12
+Enum MarketplaceProductType
+	EnumItem MarketplaceProductType.AvatarAsset : 1
+	EnumItem MarketplaceProductType.AvatarBundle : 2
 Enum MarkupKind
 	EnumItem MarkupKind.PlainText : 0
 	EnumItem MarkupKind.Markdown : 1

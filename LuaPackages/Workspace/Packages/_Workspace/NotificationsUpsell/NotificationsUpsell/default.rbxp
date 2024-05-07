@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "NotificationsUpsell",
+    "tree": {
+      "$path": "../../../../../../../modules/notifications/notifications-upsell/src"
+    }
+  }
+}

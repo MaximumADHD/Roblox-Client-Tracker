@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ProfilePlatform",
+    "tree": {
+      "$path": "../../../../../../../modules/social/profile-platform/src"
+    }
+  }
+}

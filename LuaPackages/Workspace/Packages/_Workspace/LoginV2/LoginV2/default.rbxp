@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "LoginV2",
+    "tree": {
+      "$path": "../../../../../../../modules/account-authentication/login-v2/src"
+    }
+  }
+}

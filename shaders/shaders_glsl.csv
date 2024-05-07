@@ -432,6 +432,7 @@ SSAOVS,Vertex
 StarsFS,Fragment
 StarsVS,Vertex
 SunRaysFS,Fragment
+SunRaysFS_old,Fragment
 TentFilterFS,Fragment
 TexCompFS,Fragment
 TexCompPMAFS,Fragment

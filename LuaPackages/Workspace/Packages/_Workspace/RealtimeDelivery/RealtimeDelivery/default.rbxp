@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "RealtimeDelivery",
+    "tree": {
+      "$path": "../../../../../../../modules/social/realtime-delivery/src"
+    }
+  }
+}

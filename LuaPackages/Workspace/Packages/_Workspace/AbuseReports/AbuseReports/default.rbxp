@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AbuseReports",
-    "tree": {
-      "$path": "../../../../../../../modules/notifications/abuse-reports/src"
-    }
-  }
-}

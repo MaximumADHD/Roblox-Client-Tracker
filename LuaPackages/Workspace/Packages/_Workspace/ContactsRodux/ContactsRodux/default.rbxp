@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ContactsRodux",
+    "tree": {
+      "$path": "../../../../../../../modules/social/rodux/contacts-rodux/src"
+    }
+  }
+}

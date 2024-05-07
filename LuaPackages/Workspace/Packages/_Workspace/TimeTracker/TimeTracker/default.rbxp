@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "TimeTracker",
+    "tree": {
+      "$path": "../../../../../../../modules/social/time-tracker/src"
+    }
+  }
+}

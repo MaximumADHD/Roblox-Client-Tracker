@@ -108,8 +108,12 @@
           <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
-        <MenuPopupButton name="lockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
+        <MenuPopupButton fflag="!RenameLockTool" name="lockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
           <addaction name="lockAction" text="Studio.App.RobloxRibbonMainWindow.LockTool" modernIcon="Lock" />
+          <addaction name="unlockAllAction" modernIcon="Unlock" />
+        </MenuPopupButton>
+        <MenuPopupButton fflag="RenameLockTool" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
+          <addaction name="lockToolAction" text="Studio.App.RobloxRibbonMainWindow.LockTool" modernIcon="Lock" />
           <addaction name="unlockAllAction" modernIcon="Unlock" />
         </MenuPopupButton>
         <addaction name="anchorAction" text="Studio.App.RobloxRibbonMainWindow.Anchor" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor" width="16" height="16" />
@@ -208,8 +212,12 @@
           <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
-        <MenuPopupButton name="lockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
+        <MenuPopupButton fflag="!RenameLockTool" name="lockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
           <addaction name="lockAction" text="Studio.App.RobloxRibbonMainWindow.LockTool"  modernIcon="Lock" />
+          <addaction name="unlockAllAction"  modernIcon="Unlock" />
+        </MenuPopupButton>
+        <MenuPopupButton fflag="RenameLockTool" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
+          <addaction name="lockToolAction" text="Studio.App.RobloxRibbonMainWindow.LockTool"  modernIcon="Lock" />
           <addaction name="unlockAllAction"  modernIcon="Unlock" />
         </MenuPopupButton>
         <addaction name="anchorAction" text="Studio.App.RobloxRibbonMainWindow.Anchor" icon=":/RibbonBar/images/RibbonIcons/Home/Anchor.png" modernIcon="Anchor" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor" width="16" height="16" />
