@@ -407,8 +407,9 @@ function Tile:render()
 end
 
 local TileFunctionalWrapper = function(passedProps)
+	local cursor = useCursor(THUMBNAIL_CORNER_RADIUS)
 	local props = Cryo.Dictionary.join({
-		cursor = useCursor(THUMBNAIL_CORNER_RADIUS),
+		cursor = cursor,
 	}, passedProps)
 	return React.createElement(Tile, props)
 end

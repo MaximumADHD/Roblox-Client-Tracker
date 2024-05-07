@@ -290,4 +290,5 @@
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[クレジットカードかデビットカードで定期購入]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Robloxクレジットで定期購入]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[別の方法で支払う]],
+    ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[保護者コントロールで設定された月間購入限度額に達しました。来月まで新しく購入することはできません。]],
 }

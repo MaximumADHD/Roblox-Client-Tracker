@@ -8,6 +8,8 @@
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local WRAP_TARGET_CAGE_REFERENCE_VALUES = require(root.WrapTargetCageUVReferenceValues)
 
@@ -42,13 +44,13 @@ local function validateCageUVValues(
 	)
 
 	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, result = pcall(function()
+	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+		success, result = pcallDeferred(function()
 			return UGCValidationService:ValidateEditableMeshUVValuesInReference(
 				referenceUVValues,
 				meshInfo.editableMesh
 			)
-		end)
+		end, validationContext)
 	else
 		success, result = pcall(function()
 			return UGCValidationService:ValidateUVValuesInReference(referenceUVValues, meshInfo.contentId)

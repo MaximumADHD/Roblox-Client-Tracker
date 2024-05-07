@@ -138,6 +138,8 @@ Button.validateProps = t.strictInterface({
 	onStateChanged = t.optional(t.callback),
 	-- A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
+	-- The feedback type for interaction feedback manager
+	feedbackType = t.optional(t.string),
 
 	-- Gamepad Support props
 	NextSelectionDown = t.optional(t.table),
@@ -199,6 +201,8 @@ function Button:render()
 			NextSelectionRight = self.props.NextSelectionRight,
 			ref = self.props.buttonRef,
 
+			feedbackType = self.props.feedbackType,
+
 			[React.Change.AbsoluteSize] = self.props[React.Change.AbsoluteSize],
 			[React.Change.AbsolutePosition] = self.props[React.Change.AbsolutePosition],
 		})
@@ -206,8 +210,9 @@ function Button:render()
 end
 
 local ButtonFunctionalWrapper = function(passedProps)
+	local cursor = useCursor(CORNER_RADIUS)
 	local props = Cryo.Dictionary.join({
-		cursor = useCursor(CORNER_RADIUS),
+		cursor = cursor,
 	}, passedProps)
 	return React.createElement(Button, props)
 end

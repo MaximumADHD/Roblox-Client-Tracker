@@ -4,8 +4,6 @@ local MannequinUtility = {}
 
 local InsertService = game:GetService("InsertService")
 
-local FFlagMannequinUtilityParentOption = require(script.Parent.FFlagMannequinUtilityParentOption)
-
 type ObjectsFormat = {
 	[number]: Folder,
 }
@@ -94,10 +92,8 @@ for name, _ in pairs(MannequinUtility.CharacterPartNames.R15) do
 end
 
 local function loadMannequin(contentId, parentToWorkspace: boolean?): Model
-	if FFlagMannequinUtilityParentOption then
-		if parentToWorkspace == nil then
-			parentToWorkspace = DEFAULT_PARENT_MANNEQUIN_TO_WORKSPACE
-		end
+	if parentToWorkspace == nil then
+		parentToWorkspace = DEFAULT_PARENT_MANNEQUIN_TO_WORKSPACE
 	end
 
 	local mannequin = InsertService:LoadLocalAsset(contentId) :: Model
@@ -105,11 +101,7 @@ local function loadMannequin(contentId, parentToWorkspace: boolean?): Model
 	assert(humanoid, "Assert Humanoid is not nil to silence type checker")
 	humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 
-	if FFlagMannequinUtilityParentOption then
-		if parentToWorkspace then
-			mannequin.Parent = workspace
-		end
-	else
+	if parentToWorkspace then
 		mannequin.Parent = workspace
 	end
 

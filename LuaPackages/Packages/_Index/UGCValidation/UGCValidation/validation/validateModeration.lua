@@ -8,6 +8,7 @@ local getAssetCreationDetails = require(root.util.getAssetCreationDetails)
 local ParseContentIds = require(root.util.ParseContentIds)
 local Types = require(root.util.Types)
 
+local getFFlagUGCBetterModerationErrorText = require(root.flags.getFFlagUGCBetterModerationErrorText)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 
 local function validateUser(
@@ -83,7 +84,7 @@ local function validateModeration(
 						instance:GetFullName()
 					),
 				}
-		elseif game:GetFastFlag("UGCBetterModerationErrorText") then
+		elseif getFFlagUGCBetterModerationErrorText() then
 			return false,
 				{
 					"Could not fetch moderation details for assets.",

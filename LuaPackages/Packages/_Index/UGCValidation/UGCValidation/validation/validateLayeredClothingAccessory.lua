@@ -36,6 +36,9 @@ local getMeshSize = require(root.util.getMeshSize)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
+local getFFlagUGCLCQualityReplaceLua = require(root.flags.getFFlagUGCLCQualityReplaceLua)
+local getFFlagUGCLCQualityValidation = require(root.flags.getFFlagUGCLCQualityValidation)
+local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
@@ -298,7 +301,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 			validationResult = false
 		end
 
-		if game:GetFastFlag("UGCValidateMeshVertColors") then
+		if getFFlagUGCValidateMeshVertColors() then
 			success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
@@ -306,7 +309,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 			end
 		end
 
-		if game:GetFastFlag("UGCLCQualityReplaceLua") then
+		if getFFlagUGCLCQualityReplaceLua() then
 			success, failedReason = validateUVSpace(meshInfo)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
@@ -315,7 +318,7 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 		end
 	end
 
-	if game:GetFastFlag("UGCLCQualityValidation") then
+	if getFFlagUGCLCQualityValidation() then
 		local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
 		local innerCageMeshInfo = {
 			fullName = wrapLayer:GetFullName() .. " InnerCage",
@@ -619,7 +622,7 @@ local function DEPRECATED_validateLayeredClothingAccessory(
 			validationResult = false
 		end
 
-		if game:GetFastFlag("UGCValidateMeshVertColors") then
+		if getFFlagUGCValidateMeshVertColors() then
 			success, failedReason = (validateMeshVertColors :: any)(meshId, false)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
@@ -627,7 +630,7 @@ local function DEPRECATED_validateLayeredClothingAccessory(
 			end
 		end
 
-		if game:GetFastFlag("UGCLCQualityReplaceLua") then
+		if getFFlagUGCLCQualityReplaceLua() then
 			success, failedReason = (validateUVSpace :: any)(meshId)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
@@ -636,7 +639,7 @@ local function DEPRECATED_validateLayeredClothingAccessory(
 		end
 	end
 
-	if game:GetFastFlag("UGCLCQualityValidation") then
+	if getFFlagUGCLCQualityValidation() then
 		local wrapLayer = handle:FindFirstChildOfClass("WrapLayer")
 		local innerCageId = wrapLayer.ReferenceMeshId
 		local outerCageId = wrapLayer.CageMeshId

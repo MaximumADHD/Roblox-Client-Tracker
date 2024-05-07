@@ -72,6 +72,11 @@ export type ColorItem = {
 	Transparency: number,
 }
 
+export type BackgroundStyle = {
+	Color: Color3,
+	Transparency: number,
+}
+
 export type TypographyItem = {
 	Font: Enum.Font,
 	FontSize: number,

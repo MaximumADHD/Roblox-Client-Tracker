@@ -3,6 +3,8 @@
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 
@@ -22,10 +24,10 @@ local function validateMeshTriangleArea(
 
 	if getEngineFeatureEngineUGCValidateMeshTriangleArea() then
 		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = pcall(function()
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+			success, result = pcallDeferred(function()
 				return UGCValidationService:ValidateEditableMeshTriangleArea(meshInfo.editableMesh)
-			end)
+			end, validationContext)
 		else
 			success, result = pcall(function()
 				return UGCValidationService:validateMeshTriangleArea(meshInfo.contentId)

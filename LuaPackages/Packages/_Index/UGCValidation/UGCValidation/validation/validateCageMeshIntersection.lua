@@ -5,6 +5,8 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
@@ -42,15 +44,16 @@ local function validateCageMeshIntersection(
 	end
 
 	local success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances = pcall(
+	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+		success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances = pcallDeferred(
 			function()
 				return UGCValidationService:ValidateEditableMeshCageMeshIntersection(
 					innerCageMeshInfo.editableMesh,
 					outerCageMeshInfo.editableMesh,
 					meshInfo.editableMesh
 				)
-			end
+			end,
+			validationContext
 		)
 	else
 		success, checkIntersection, checkIrrelevantCageModified, checkOuterCageFarExtendedFromMesh, checkAverageOuterCageToMeshVertDistances = pcall(

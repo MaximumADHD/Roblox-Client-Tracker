@@ -8,6 +8,8 @@ local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 
@@ -19,13 +21,13 @@ local function validateMeshVertexColors(
 	local isServer = validationContext.isServer
 
 	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, result = pcall(function()
+	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+		success, result = pcallDeferred(function()
 			return UGCValidationService:ValidateEditableMeshVertColors(
 				meshInfo.editableMesh :: EditableMesh,
 				checkTransparency
 			) -- ValidateMeshVertColors() checks the color as well as the alpha transparency
-		end)
+		end, validationContext)
 	else
 		success, result = pcall(function()
 			return UGCValidationService:ValidateMeshVertColors(meshInfo.contentId :: string, checkTransparency) -- ValidateMeshVertColors() checks the color as well as the alpha transparency

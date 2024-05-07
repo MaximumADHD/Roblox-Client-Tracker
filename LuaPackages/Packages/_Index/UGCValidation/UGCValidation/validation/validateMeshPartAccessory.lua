@@ -29,6 +29,7 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
+local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
@@ -210,7 +211,7 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 
 		reasonsAccumulator:updateReasons(validateMeshTriangles(meshInfo, nil, validationContext))
 
-		if game:GetFastFlag("UGCValidateMeshVertColors") then
+		if getFFlagUGCValidateMeshVertColors() then
 			reasonsAccumulator:updateReasons(validateMeshVertColors(meshInfo, false, validationContext))
 		end
 	end
@@ -322,7 +323,7 @@ local function DEPRECATED_validateMeshPartAccessory(
 
 		reasonsAccumulator:updateReasons((validateMeshTriangles :: any)(meshId))
 
-		if game:GetFastFlag("UGCValidateMeshVertColors") then
+		if getFFlagUGCValidateMeshVertColors() then
 			reasonsAccumulator:updateReasons((validateMeshVertColors :: any)(meshId, false))
 		end
 	end

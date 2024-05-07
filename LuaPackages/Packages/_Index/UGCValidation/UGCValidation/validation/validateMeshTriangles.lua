@@ -3,10 +3,13 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
+local getFFlagUGCLCQualityReplaceLua = require(root.flags.getFFlagUGCLCQualityReplaceLua)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
@@ -20,12 +23,12 @@ local function validateMeshTriangles(
 ): (boolean, { string }?)
 	local isServer = validationContext.isServer
 
-	if game:GetFastFlag("UGCLCQualityReplaceLua") and getFFlagUGCValidateBodyPartsExtendedMeshTests() then
+	if getFFlagUGCLCQualityReplaceLua() and getFFlagUGCValidateBodyPartsExtendedMeshTests() then
 		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = pcall(function()
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+			success, result = pcallDeferred(function()
 				return UGCValidationService:ValidateEditableMeshTriangles(meshInfo.editableMesh)
-			end)
+			end, validationContext)
 		else
 			success, result = pcall(function()
 				return UGCValidationService:ValidateMeshTriangles(meshInfo.contentId)
@@ -49,10 +52,10 @@ local function validateMeshTriangles(
 		end
 	else
 		local success, triangles
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, triangles = pcall(function()
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+			success, triangles = pcallDeferred(function()
 				return UGCValidationService:GetEditableMeshTriCount(meshInfo.editableMesh)
-			end)
+			end, validationContext)
 		else
 			success, triangles = pcall(function()
 				return UGCValidationService:GetMeshTriCount(meshInfo.contentId)
@@ -102,7 +105,7 @@ local function DEPRECATED_validateMeshTriangles(
 	maxTriangles: number?,
 	isServer: boolean?
 ): (boolean, { string }?)
-	if game:GetFastFlag("UGCLCQualityReplaceLua") and getFFlagUGCValidateBodyPartsExtendedMeshTests() then
+	if getFFlagUGCLCQualityReplaceLua() and getFFlagUGCValidateBodyPartsExtendedMeshTests() then
 		local success, result = pcall(function()
 			return UGCValidationService:ValidateMeshTriangles(meshId)
 		end)

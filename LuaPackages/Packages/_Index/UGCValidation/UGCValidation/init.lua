@@ -1,11 +1,7 @@
-game:DefineFastFlag("UGCValidateMeshVertColors", false)
-game:DefineFastFlag("UGCBetterModerationErrorText", false)
-game:DefineFastFlag("UGCLCQualityValidation", false)
-game:DefineFastFlag("UGCLCQualityReplaceLua", false)
-
 local root = script
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
@@ -13,6 +9,7 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local BundlesMetadata = require(root.util.BundlesMetadata)
+local canUploadBundlesAsync = require(root.util.canUploadBundlesAsync)
 local createUGCBodyPartFolders = require(root.util.createUGCBodyPartFolders)
 local isLayeredClothing = require(root.util.isLayeredClothing)
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
@@ -40,7 +37,8 @@ function UGCValidation.validate(
 	token: string?,
 	universeId: number?,
 	allowEditableInstances: boolean?,
-	bypassFlags: Types.BypassFlags?
+	bypassFlags: Types.BypassFlags?,
+	shouldYield: boolean?
 )
 	Analytics.setMetadata({
 		entrypoint = "validate",
@@ -73,6 +71,11 @@ function UGCValidation.validate(
 			allowEditableInstances = allowEditableInstances :: boolean,
 			bypassFlags = bypassFlags,
 		} :: Types.ValidationContext
+
+		if getFFlagUGCValidationShouldYield() then
+			validationContext.lastTickSeconds = tick()
+			validationContext.shouldYield = shouldYield
+		end
 
 		if getEngineFeatureUGCValidateEditableMeshAndImage() then
 			validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
@@ -388,6 +391,12 @@ UGCValidation.util = {
 	-- Optionally takes an extra boolean for whether or not to include an R15Fixed and stub R6 folder as well.
 	-- You probably only want this on the client.
 	createUGCBodyPartFolders = createUGCBodyPartFolders,
+
+	-- Checks if the user would be allowed to upload a UGC bundle, to an optional group ID.
+	-- Returns a tagged union with `type` "allowed" if allowed, "notAllowed" with a `denyReason`
+	-- as a string (or number if the deny reason code is not yet added to UGCValidation internally),
+	-- or a `type` "error" if the request fails.
+	canUploadBundlesAsync = canUploadBundlesAsync,
 }
 
 UGCValidation.util.isLayeredClothingAllowed = RigidOrLayeredAllowed.isLayeredClothingAllowed
@@ -397,7 +406,8 @@ function UGCValidation.validateFullBody(
 	fullBodyData: Types.FullBodyData,
 	isServer: boolean?,
 	allowEditableInstances: boolean?,
-	bypassFlags: Types.BypassFlags?
+	bypassFlags: Types.BypassFlags?,
+	shouldYield: boolean?
 ): (boolean, { string }?)
 	Analytics.setMetadata({
 		entrypoint = "validateFullBody",
@@ -431,6 +441,11 @@ function UGCValidation.validateFullBody(
 			allowEditableInstances = allowEditableInstances :: boolean,
 			bypassFlags = bypassFlags,
 		} :: Types.ValidationContext
+
+		if getFFlagUGCValidationShouldYield() then
+			validationContext.lastTickSeconds = tick()
+			validationContext.shouldYield = shouldYield
+		end
 
 		if getEngineFeatureUGCValidateEditableMeshAndImage() then
 			validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes

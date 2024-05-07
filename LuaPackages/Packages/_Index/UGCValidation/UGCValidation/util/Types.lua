@@ -41,6 +41,8 @@ export type ValidationContext = {
 	editableImages: EditableImages?,
 	allowEditableInstances: boolean?,
 	bypassFlags: BypassFlags?,
+	lastTickSeconds: number?,
+	shouldYield: boolean?,
 }
 
 export type MeshInfo = {

@@ -17,6 +17,7 @@ local PurchaseErrorType = require(GenericRoot.PurchaseErrorType)
 local PurchaseFlowType = require(GenericRoot.PurchaseFlowType)
 
 local LOC_KEY = "IAPExperience.PurchaseError.%s"
+local ERROR_MESSAGE_KEY = "Feature.Subscription.%s" 
 
 local ErrorPrompt = Roact.Component:extend(script.Name)
 
@@ -99,6 +100,8 @@ function ErrorPrompt:getErrorMessage(locMap: { [string]: string }, errorType: an
 		return locMap.subscriptionUnsupportedPlatformText
 	elseif errorType == PurchaseErrorType.VpcRequired then
 		return locMap.vpcRequiredText
+	elseif errorType == PurchaseErrorType.ExceedParentalSpendLimit then
+		return locMap.exceedParentalSpendLimitText
 	end
 
 	return locMap.unknownText
@@ -204,6 +207,10 @@ function ErrorPrompt:render()
 			vpcRequiredText = {
 				key = LOC_KEY:format("Text.VpcRequired"),
 			},
+			exceedParentalSpendLimitText = {
+				key = ERROR_MESSAGE_KEY:format("Message.MonthlySpendRestrictionsMonthlyLimitExceed"),
+			},
+			
 		},
 		render = function(locMap: { [string]: string })
 			return self:renderAlert(locMap)

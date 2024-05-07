@@ -279,4 +279,5 @@
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Iscriviti con carta di credito/bancomat]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Iscriviti con il credito Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Paga in un altro modo]],
+    ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[Hai raggiunto il limite di acquisto mensile impostato nel controllo genitoriale. Non potrai effettuare un nuovo acquisto fino al prossimo mese.]],
 }

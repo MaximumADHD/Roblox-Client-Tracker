@@ -9,6 +9,8 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
@@ -16,12 +18,16 @@ local getEngineFeatureUGCValidateEditableMeshAndImage =
 
 local calculateMinMax = require(root.util.calculateMinMax)
 
-local function getVerts(meshInfo: Types.MeshInfo, isServer: boolean?): (boolean, { string }?, any?)
+local function getVerts(
+	meshInfo: Types.MeshInfo,
+	isServer: boolean?,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?, any?)
 	local success, verts
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, verts = pcall(function()
+	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+		success, verts = pcallDeferred(function()
 			return UGCValidationService:GetEditableMeshVerts(meshInfo.editableMesh :: EditableMesh)
-		end)
+		end, validationContext)
 	else
 		success, verts = pcall(function()
 			return UGCValidationService:GetMeshVerts(meshInfo.contentId :: string)
@@ -75,7 +81,7 @@ local function getMeshMinMax(
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?, Vector3?, Vector3?)
 	local isServer = validationContext.isServer
-	local success, failureReasons, verts = getVerts(meshInfo, isServer)
+	local success, failureReasons, verts = getVerts(meshInfo, isServer, validationContext)
 	if not success then
 		return success, failureReasons
 	end

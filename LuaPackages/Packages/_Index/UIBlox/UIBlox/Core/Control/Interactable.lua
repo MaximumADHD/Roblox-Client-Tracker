@@ -46,6 +46,9 @@ export type Props = {
 	-- The children of the component
 	children: Table?,
 
+	-- The feedback type for interaction feedback manager
+	feedbackType: string?,
+
 	-- Note that this component can accept all valid properties of the Roblox ImageButton instance or the props of the custom component.
 	[any]: any,
 }
@@ -63,8 +66,7 @@ local function Interactable(props: Props, forwardedRef: React.Ref<Instance>)
 
 	local onGuiStateChange = React.useCallback(function(oldState: ControlState, newState: ControlState)
 		if UIBloxConfig.enableInteractionFeedback then
-			-- TODO: UIBLOX-705, pass props.interactionID as first argument to triggerFeedback once default prop drilling is complete
-			triggerFeedback(nil, oldState, newState)
+			triggerFeedback(props.feedbackType, oldState, newState)
 		end
 		if props.onStateChanged then
 			props.onStateChanged(oldState, newState)
@@ -123,6 +125,7 @@ local function Interactable(props: Props, forwardedRef: React.Ref<Instance>)
 		onStateChanged = Cryo.None,
 		isDisabled = Cryo.None,
 		userInteractionEnabled = Cryo.None,
+		feedbackType = Cryo.None,
 
 		Active = if props.isDisabled ~= nil then not props.isDisabled else nil,
 		[React.Event.Activated] = wrappedActivated,

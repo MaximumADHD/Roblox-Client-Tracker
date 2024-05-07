@@ -27,6 +27,7 @@ local getAccessoryScale = require(root.util.getAccessoryScale)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 
+local getFFlagUGCValidateMeshVertColors = require(root.flags.getFFlagUGCValidateMeshVertColors)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateThumbnailConfiguration = require(root.flags.getFFlagUGCValidateThumbnailConfiguration)
 local getFFlagUGCValidationNameCheck = require(root.flags.getFFlagUGCValidationNameCheck)
@@ -242,7 +243,7 @@ local function validateLegacyAccessory(validationContext: Types.ValidationContex
 			validationResult = false
 		end
 
-		if game:GetFastFlag("UGCValidateMeshVertColors") then
+		if getFFlagUGCValidateMeshVertColors() then
 			success, failedReason = validateMeshVertColors(meshInfo, false, validationContext)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))
@@ -401,7 +402,7 @@ local function DEPRECATED_validateLegacyAccessory(
 			validationResult = false
 		end
 
-		if game:GetFastFlag("UGCValidateMeshVertColors") then
+		if getFFlagUGCValidateMeshVertColors() then
 			success, failedReason = (validateMeshVertColors :: any)(meshId, false)
 			if not success then
 				table.insert(reasons, table.concat(failedReason, "\n"))

@@ -4,7 +4,10 @@ local FFlagTruncateMeshBoundsErrorMessage = game:DefineFastFlag("TruncateMeshBou
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
+local getFFlagUGCLCQualityReplaceLua = require(root.flags.getFFlagUGCLCQualityReplaceLua)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
@@ -76,10 +79,10 @@ local function validateMeshBounds(
 	local boundsOffset = boundsInfo.offset or DEFAULT_OFFSET
 	local boundsCF = handle.CFrame * attachment.CFrame * CFrame.new(boundsOffset)
 
-	if game:GetFastFlag("UGCLCQualityReplaceLua") then
+	if getFFlagUGCLCQualityReplaceLua() then
 		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = pcall(function()
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+			success, result = pcallDeferred(function()
 				return UGCValidationService:ValidateEditableMeshBounds(
 					meshInfo.editableMesh,
 					meshScale,
@@ -87,7 +90,7 @@ local function validateMeshBounds(
 					attachment.CFrame,
 					handle.CFrame
 				)
-			end)
+			end, validationContext)
 		else
 			success, result = pcall(function()
 				return UGCValidationService:ValidateMeshBounds(
@@ -174,7 +177,7 @@ local function DEPRECATED_validateMeshBounds(
 	local boundsOffset = boundsInfo.offset or DEFAULT_OFFSET
 	local boundsCF = handle.CFrame * attachment.CFrame * CFrame.new(boundsOffset)
 
-	if game:GetFastFlag("UGCLCQualityReplaceLua") then
+	if getFFlagUGCLCQualityReplaceLua() then
 		local success, result = pcall(function()
 			return UGCValidationService:ValidateMeshBounds(
 				meshId,

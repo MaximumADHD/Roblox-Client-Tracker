@@ -71,6 +71,7 @@ local function initializeLibrary(configs)
 			}),
 			Interactable = require(script.Core.Control.Interactable),
 			InteractableList = require(script.Core.Control.InteractableList),
+			StateLayer = require(script.Core.Control.StateLayer),
 			-- TODO: UIBLOX-707 remove once package dependency is resolved
 			FeedbackManagerInjectionContext = require(script.Core.Control.FeedbackManagerInjectionContext),
 		}),
@@ -155,6 +156,7 @@ local function initializeLibrary(configs)
 			LinkButton = require(script.App.Button.LinkButton),
 			IconButton = require(script.App.Button.IconButton),
 			ActionBar = require(script.App.Button.ActionBar),
+			UtilityActionIcon = require(script.App.Button.UtilityActionIcon),
 		}),
 
 		Cell = strict({
@@ -202,6 +204,7 @@ local function initializeLibrary(configs)
 			VerticalScrollViewWithMargin = require(script.App.Container.VerticalScrollViewWithMargin),
 			getPageMargin = require(script.App.Container.getPageMargin),
 			LoadingStateContainer = require(script.App.Container.LoadingStateContainer),
+			LoadingStatePage = require(script.App.Container.LoadingStatePage),
 			HorizontalPageMargin = require(script.App.Container.HorizontalPageMargin),
 			MediaGalleryPreview = require(script.App.Container.MediaGallery.MediaGalleryPreview),
 			MediaGalleryFullScreen = require(script.App.Container.MediaGallery.MediaGalleryFullScreen),
@@ -337,9 +340,11 @@ local function initializeLibrary(configs)
 		Navigation = strict({
 			Enum = strict({
 				Placement = require(script.App.Navigation.Enum.Placement),
+				NavigationRailAlignment = require(script.App.Navigation.Enum.NavigationRailAlignment),
 			}),
 			SystemBar = require(script.App.Navigation.SystemBar),
 			NavigationBar = require(script.App.Navigation.NavigationBar),
+			NavigationRail = require(script.App.Navigation.NavigationRail),
 			PrimaryNavBar = strict({
 				ContextBar = require(script.App.Navigation.PrimaryNavBar.ContextBar),
 				IconTab = require(script.App.Navigation.PrimaryNavBar.IconTab),

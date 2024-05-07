@@ -35,6 +35,8 @@ export type Props = {
 	text: string?,
 	-- icon displayed on the button, default based on isActionable
 	icon: Images.ImageSetImage?,
+	-- The feedback type for interaction feedback manager
+	feedbackType: string?,
 }
 
 local function ExperienceActionRow(props: Props)
@@ -57,6 +59,7 @@ local function ExperienceActionRow(props: Props)
 		userInteractionEnabled = isActionable,
 		onActivated = props.onPlayPressed or NOOP,
 		isDisabled = not isActionable,
+		feedbackType = props.feedbackType,
 	})
 end
 

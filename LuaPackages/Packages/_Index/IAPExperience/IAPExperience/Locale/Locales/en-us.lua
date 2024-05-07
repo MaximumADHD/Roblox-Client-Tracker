@@ -291,4 +291,5 @@ LuaApp]],
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Subscribe with Credit/Debit Card]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Subscribe with Roblox Credit]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Pay Another Way]],
+    ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[You have reached the monthly purchasing limit set in Parental Controls. You will not be able to make a new purchase until next month.]],
 }

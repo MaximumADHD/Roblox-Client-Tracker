@@ -2,11 +2,14 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
+local getFFlagUGCLCQualityReplaceLua = require(root.flags.getFFlagUGCLCQualityReplaceLua)
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -50,12 +53,12 @@ local function validateTextureSize(
 		end
 	end
 
-	if game:GetFastFlag("UGCLCQualityReplaceLua") then
+	if getFFlagUGCLCQualityReplaceLua() then
 		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = pcall(function()
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+			success, result = pcallDeferred(function()
 				return UGCValidationService:ValidateEditableImageSize(textureInfo.editableImage)
-			end)
+			end, validationContext)
 		else
 			success, result = pcall(function()
 				return UGCValidationService:ValidateTextureSize(textureInfo.contentId)
@@ -79,10 +82,10 @@ local function validateTextureSize(
 		end
 	else
 		local success, imageSize
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, imageSize = pcall(function()
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+			success, imageSize = pcallDeferred(function()
 				return UGCValidationService:GetEditableImageSize(textureInfo.editableImage)
-			end)
+			end, validationContext)
 		else
 			success, imageSize = pcall(function()
 				return UGCValidationService:GetTextureSize(textureInfo.contentId)
@@ -142,7 +145,7 @@ local function DEPRECATED_validateTextureSize(
 		end
 	end
 
-	if game:GetFastFlag("UGCLCQualityReplaceLua") then
+	if getFFlagUGCLCQualityReplaceLua() then
 		local success, result = pcall(function()
 			return UGCValidationService:ValidateTextureSize(textureId)
 		end)

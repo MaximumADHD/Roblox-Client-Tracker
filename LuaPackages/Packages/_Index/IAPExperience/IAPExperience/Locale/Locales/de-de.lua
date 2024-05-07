@@ -289,4 +289,5 @@
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Mit Kreditkarte/Debitkarte abonnieren]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Mit Roblox-Guthaben abonnieren]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Auf andere Weise bezahlen]],
-}
+    ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[Du hast das in der Kindersicherung festgelegte monatliche Kauflimit erreicht. Du kannst erst im nächsten Monat einen neuen Kauf tätigen.]],
+    }  

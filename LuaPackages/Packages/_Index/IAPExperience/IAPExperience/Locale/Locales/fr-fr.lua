@@ -292,4 +292,6 @@ Ressources : {lineBreak}{aTagStartWithHref}{ChangePasswordLink}{hrefEnd}Changer 
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Abonne-toi avec une carte de crédit/débit]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Abonne-toi avec du Crédit Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Payer d'une autre manière]],
+    ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[Tu as atteint la limite d'achat mensuelle définie dans les Contrôles Parentaux. Tu ne peux pas effectuer de nouvel achat avant le mois prochain.]],
+
 }

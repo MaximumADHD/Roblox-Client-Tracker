@@ -2,6 +2,8 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 
@@ -16,10 +18,10 @@ local function validateFullBodyCageDeletion(
 	local isServer = validationContext.isServer
 
 	local success, result
-	if getEngineFeatureUGCValidateEditableMeshAndImage() then
-		success, result = pcall(function()
+	if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+		success, result = pcallDeferred(function()
 			return UGCValidationService:ValidateEditableMeshFullBodyCageDeletion(meshInfo.editableMesh)
-		end)
+		end, validationContext)
 	else
 		success, result = pcall(function()
 			return UGCValidationService:ValidateFullBodyCageDeletion(meshInfo.contentId)

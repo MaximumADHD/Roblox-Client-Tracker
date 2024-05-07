@@ -163,8 +163,11 @@ local function MediaGalleryExpandableView(providedProps: Props)
 		} :: { any }
 	)
 
+	local cursor = if UIBloxConfig.useNewSelectionCursor then useCursor(borderRadius) else nil
+	local invisibleCursor = if UIBloxConfig.useNewSelectionCursor then useSelectionCursor(CursorKind.Invisible) else nil
+
 	local selectionCursor = if UIBloxConfig.useNewSelectionCursor
-		then (if props.showCursor then useCursor(borderRadius) else useSelectionCursor(CursorKind.Invisible))
+		then (if props.showCursor then cursor else invisibleCursor)
 		else useSelectionCursor(props.selectionCursor)
 	local itemsArray = React.useMemo(function()
 		local newItems = {}

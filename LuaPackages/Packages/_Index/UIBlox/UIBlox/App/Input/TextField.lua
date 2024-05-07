@@ -62,6 +62,13 @@ local function TextField(props: TextFieldProps)
 	local innerBorderThickness = tokens.Semantic.Stroke.Focus
 	local innerBorderOffset = math.ceil(innerBorderThickness) * 2
 
+	local inputCursor = useCursor(
+		UDim.new(0, textFieldStyle.Base.Field.BorderRadius),
+		selectionBorderThickness,
+		selectionBorderThickness
+	)
+	local iconCursor = useCursor(UDim.new(0.5), iconSize / 2, selectionBorderThickness)
+
 	local width = if props.width ~= nil then props.width else defaultProps.width
 
 	local function getTextBoxWidthOffset(): number
@@ -129,11 +136,7 @@ local function TextField(props: TextFieldProps)
 				BackgroundTransparency = 1,
 				Selectable = not props.disabled,
 				Image = "",
-				SelectionImageObject = useCursor(
-					UDim.new(0, textFieldStyle.Base.Field.BorderRadius),
-					selectionBorderThickness,
-					selectionBorderThickness
-				),
+				SelectionImageObject = inputCursor,
 
 				[React.Event.Activated] = function()
 					if textBox.current then
@@ -232,7 +235,7 @@ local function TextField(props: TextFieldProps)
 							Size = UDim2.new(0, iconSize, 0, iconSize),
 							ImageColor3 = textFieldStyle.Base.IconLeading.ContentColor.Color3,
 							Selectable = not props.disabled,
-							SelectionImageObject = useCursor(UDim.new(0.5), iconSize / 2, selectionBorderThickness),
+							SelectionImageObject = iconCursor,
 							LayoutOrder = 3,
 
 							[React.Event.Activated] = if not props.disabled then props.onButtonPress else nil,

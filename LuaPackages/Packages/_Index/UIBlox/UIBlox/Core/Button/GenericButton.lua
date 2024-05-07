@@ -176,6 +176,9 @@ GenericButton.validateProps = t.interface({
 
 	forwardedRef = t.optional(t.union(t.table, t.callback)),
 
+	-- The feedback type for interaction feedback manager
+	feedbackType = t.optional(t.string),
+
 	-- Note that this component can accept all valid properties of the Roblox ImageButton instance
 })
 

@@ -7,7 +7,7 @@ local React = require(Packages.React)
 export type InteractionType = "Press" | "Hover" | "Release"
 
 local FeedbackManagerInjectionContext = React.createContext(
-	function() end :: (contextKey: string, interactionType: InteractionType) -> ()
+	function() end :: (feedbackType: string, interactionType: InteractionType) -> ()
 )
 
 return FeedbackManagerInjectionContext

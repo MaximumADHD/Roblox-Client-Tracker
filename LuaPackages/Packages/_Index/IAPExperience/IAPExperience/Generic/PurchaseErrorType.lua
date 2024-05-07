@@ -159,6 +159,12 @@ local rawKeyToRawValue = {
     ]]
 	--
 	FailedRobuxPurchase = "FailedRobuxPurchase",
+
+	--[[ PurchaseErrorType.ExceedParentalSpendLimit
+	The user exceeded the spent limit that their parents set
+	]]
+	--
+	ExceedParentalSpendLimit = "ExceedParentalSpendLimit",
 }
 
 -- The values here correspond to values in the requested web view.

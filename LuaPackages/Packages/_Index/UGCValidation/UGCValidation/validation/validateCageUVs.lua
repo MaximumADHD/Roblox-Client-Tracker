@@ -7,6 +7,8 @@
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
@@ -40,12 +42,12 @@ local function validateCageUVs(
 	local testPassed
 	local uniqueUVCount
 	if getEngineFeatureEngineUGCValidateCalculateUniqueUV() then
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			testExecutedSuccessfully, testPassed = pcall(function()
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+			testExecutedSuccessfully, testPassed = pcallDeferred(function()
 				uniqueUVCount =
 					UGCValidationService:CalculateEditableMeshUniqueUVCount(meshInfo.editableMesh :: EditableMesh)
 				return math.abs(uniqueUVCount - requiredUVCount) <= getFIntUniqueUVTolerance()
-			end)
+			end, validationContext)
 		else
 			testExecutedSuccessfully, testPassed = pcall(function()
 				uniqueUVCount = UGCValidationService:CalculateUniqueUVCount(meshInfo.contentId :: string)
@@ -53,8 +55,8 @@ local function validateCageUVs(
 			end)
 		end
 	else
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			testExecutedSuccessfully, testPassed = pcall(function()
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+			testExecutedSuccessfully, testPassed = pcallDeferred(function()
 				for tolIter = 0, getFIntUniqueUVTolerance() do
 					if
 						UGCValidationService:ValidateEditableMeshUniqueUVCount(
@@ -79,7 +81,7 @@ local function validateCageUVs(
 					end
 				end
 				return false
-			end)
+			end, validationContext)
 		else
 			testExecutedSuccessfully, testPassed = pcall(function()
 				for tolIter = 0, getFIntUniqueUVTolerance() do

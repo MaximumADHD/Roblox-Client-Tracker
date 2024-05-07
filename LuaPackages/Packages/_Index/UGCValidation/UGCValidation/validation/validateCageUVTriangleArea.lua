@@ -5,6 +5,8 @@ local UGCValidationService = game:GetService("UGCValidationService")
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureEngineUGCValidateCageUVTriangleArea =
@@ -22,10 +24,10 @@ local function validateCageUVTriangleArea(
 
 	if getEngineFeatureEngineUGCValidateCageUVTriangleArea() then
 		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = pcall(function()
+		if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
+			success, result = pcallDeferred(function()
 				return UGCValidationService:ValidateEditableMeshCageUVTriangleArea(meshInfo.editableMesh)
-			end)
+			end, validationContext)
 		else
 			success, result = pcall(function()
 				return UGCValidationService:ValidateCageUVTriangleArea(meshInfo.contentId)

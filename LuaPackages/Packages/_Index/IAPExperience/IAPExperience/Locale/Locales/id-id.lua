@@ -290,4 +290,5 @@ LuaApp]],
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Subscribe dengan Kartu Kredit/Debit]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Subscribe dengan Dana Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Bayar dengan Cara Lain]],
+    ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[Kamu telah mencapai batas pembelian bulanan yang ditetapkan di Kendali Orang Tua. Kamu tidak akan dapat melakukan pembelian baru sampai bulan depan.]],
 }

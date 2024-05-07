@@ -11,6 +11,8 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
 local validateOverlappingVertices = require(root.validation.validateOverlappingVertices)
 local validateCageUVs = require(root.validation.validateCageUVs)
@@ -93,7 +95,7 @@ local function validateTotalAssetTriangles(
 			assert(data.fieldName == "MeshId")
 
 			local success, triangles
-			if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			if getEngineFeatureUGCValidateEditableMeshAndImage() and getFFlagUGCValidationShouldYield() then
 				local getEditableMeshSuccess, editableMesh =
 					getEditableMeshFromContext(data.instance, data.fieldName, validationContext)
 				if not getEditableMeshSuccess then
@@ -105,9 +107,9 @@ local function validateTotalAssetTriangles(
 						)
 				end
 
-				success, triangles = pcall(function()
+				success, triangles = pcallDeferred(function()
 					return UGCValidationService:GetEditableMeshTriCount(editableMesh :: EditableMesh)
-				end)
+				end, validationContext)
 			else
 				success, triangles = pcall(function()
 					return UGCValidationService:GetMeshTriCount(data.instance[data.fieldName])

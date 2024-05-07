@@ -7,6 +7,9 @@
 local root = script.Parent.Parent
 
 local Types = require(root.util.Types)
+local pcallDeferred = require(root.util.pcallDeferred)
+local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
+
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
@@ -145,7 +148,16 @@ local function calculateMeshSize(
 
 		meshInfo.editableMesh = editableMesh
 	end
-	local success, meshSize = pcall(getMeshSize, meshInfo)
+
+	local success, meshSize
+	if getFFlagUGCValidationShouldYield() then
+		success, meshSize = pcallDeferred(function()
+			return getMeshSize(meshInfo)
+		end, validationContext)
+	else
+		success, meshSize = pcall(getMeshSize, meshInfo)
+	end
+
 	if not success then
 		Analytics.reportFailure(Analytics.ErrorType.validateBodyPartMeshBounds_FailedToLoadMesh)
 		local errorMessage = "Failed to read mesh"
