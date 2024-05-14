@@ -6,7 +6,6 @@ Studio.App.IdeDoc.AutoSaving,Roblox IDE Doc,Auto-Saving,Auto-Saving
 Studio.App.IdeDoc.Cancel,Roblox IDE Doc,Cancel,Cancel
 Studio.App.IdeDoc.CannotLoadPublishedPlace,Roblox IDE Doc,Cannot load published place,Cannot load published place
 Studio.App.IdeDoc.DisconnectedFromTeamTestServer,Roblox IDE Doc,You have been disconnected from the team test server.,You have been disconnected from the team test server.
-Studio.App.IdeDoc.Discard,Roblox IDE Doc,Discard,Discard
 Studio.App.IdeDoc.DownloadACopy,Roblox IDE Doc,Download a Copy,Download a Copy
 Studio.App.IdeDoc.ErrorLoadingPlacePleaseClosePlacetryAgain,Roblox IDE Doc,"An error has occurred while loading the place. Please close the place and try again. If this error persists, contact Customer Support.","An error has occurred while loading the place. Please close the place and try again. If this error persists, contact Customer Support."
 Studio.App.IdeDoc.ExportFailure,Roblox IDE Doc,Export Failure,Export Failure
@@ -40,7 +39,6 @@ Studio.App.IdeDoc.SuccessfullyDownloadedCopyTo1,Roblox IDE Doc,Successfully down
 Studio.App.IdeDoc.TestingModeAnyChangesYouMakeWillBeLost,Roblox IDE Doc,"You are in testing mode, any changes you make will be lost when you press the stop button","You are in testing mode, any changes you make will be lost when you press the stop button"
 Studio.App.IdeDoc.UserNotLoggedIn,Roblox IDE Doc,User not logged in.,User not logged in.
 Studio.App.IdeDoc.VerbNotFound1,Roblox IDE Doc,%1 verb not found.,%1 verb not found.
-Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like to save these changes?,Would you like to save these changes?
 Studio.App.IdeDoc.UncommittedScriptChangesNotSaved,Roblox IDE Doc,Your uncommitted script changes have not been saved.,Your uncommitted script changes have not been saved.
 Studio.App.IdeDoc.UncommittedScriptChangesNotPublished,Roblox IDE Doc,Your uncommitted script changes have not been published.,Your uncommitted script changes have not been published.
 Studio.App.IdeDoc.UncommittedScriptChangesSavedToNewPlace,Roblox IDE Doc,Your uncommitted script changes have been saved to the new place.,Your uncommitted script changes have been saved to the new place.

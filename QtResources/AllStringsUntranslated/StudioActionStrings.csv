@@ -394,7 +394,7 @@ Studio.App.RobloxRibbonMainWindow.PointLight,Name of the action to insert a poin
 Studio.App.RobloxRibbonMainWindow.Smoke,Name of the action to insert smoke VFX into the workspace,Smoke,Smoke
 Studio.App.RobloxRibbonMainWindow.Trail,Name of the action to insert Trail (The Trail object is used to create a trail like an effect between two points) VFX into the workspace,Trail,Trail
 Studio.App.RobloxRibbonMainWindow.Beam,Name of the action to insert a Beam (A Beam object connects two Attachments by drawing a texture between them.) into the workspace,Beam,Beam
-Studio.App.RobloxRibbonMainWindow.Sparkles,Name of the action to insert Sparkles VFX into the workspace,Sparkes,Sparkes
+Studio.App.RobloxRibbonMainWindow.Sparkles,Name of the action to insert Sparkles VFX into the workspace,Sparkles,Sparkles
 Studio.App.RobloxRibbonMainWindow.SpotLight,Name of the action to insert spot light into the workspace,SpotLight,SpotLight
 Studio.App.RobloxRibbonMainWindow.SurfaceLight,Name of the action to insert a surface light into the workspace,SurfaceLight,SurfaceLight
 Studio.App.RobloxRibbonMainWindow.ParticleEmitter,Name of the action to insert a Particle Emitter into the workspace,ParticleEmitter,ParticleEmitter

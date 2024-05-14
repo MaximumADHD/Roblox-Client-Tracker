@@ -326,6 +326,7 @@ dependencies = [
     "Promise Promise 0.1.0",
     "React React 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
+    "RealtimeDelivery RealtimeDelivery 0.1.0",
     "RegExp RegExp 0.1.0",
     "Rhodium Rhodium 0.1.0",
     "RhodiumHelpers RhodiumHelpers 0.1.0",
@@ -344,7 +345,7 @@ dependencies = [
     "RoduxNetworking RoduxNetworking 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "Squads Squads 0.1.0",
     "Style Style 0.1.0",
@@ -493,6 +494,32 @@ dependencies = [
 ]
 
 [[package]]
+name = "AuthCompliance"
+version = "0.1.0"
+dependencies = [
+    "Analytics Analytics 0.1.0",
+    "CentralOverlay CentralOverlay 0.1.0",
+    "Cryo Cryo 0.1.0",
+    "Dash Dash 0.1.0",
+    "FitFrame FitFrame 0.1.0",
+    "FormFactor FormFactor 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "NavigationRodux NavigationRodux 0.1.0",
+    "PeekView PeekView 0.1.0",
+    "React React 0.1.0",
+    "RoactNavigation RoactNavigation 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "Style Style 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UserAgreements UserAgreements 0.1.0",
+    "UserLib UserLib 0.1.0",
+]
+
+[[package]]
 name = "AuthenticationProtocol"
 version = "0.1.0"
 dependencies = [
@@ -527,6 +554,34 @@ name = "AvatarExperienceDeps"
 version = "0.1.0"
 
 [[package]]
+name = "AvatarExperienceSearch"
+version = "0.1.0"
+dependencies = [
+    "AppLocales RobloxAppLocales 0.1.0",
+    "Dash Dash 0.1.0",
+    "Http Http 0.1.0",
+    "HttpRequest HttpRequest 0.1.0",
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "Localization Localization 0.1.0",
+    "Promise Promise 0.1.0",
+    "React React 0.1.0",
+    "ReactRoblox ReactRoblox 0.1.0",
+    "ReactTestingLibrary ReactTestingLibrary 0.1.0",
+    "Rhodium Rhodium 0.1.0",
+    "RoactRodux RoactRodux 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "RobloxAppHooks RobloxAppHooks 0.1.0",
+    "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
+    "Rodux Rodux 0.1.0",
+    "Style Style 0.1.0",
+    "TestUtils TestUtils 0.1.0",
+    "UIBlox UIBlox 0.1.0",
+    "UnitTestHelpers UnitTestHelpers 0.1.0",
+    "UserLib UserLib 0.1.0",
+]
+
+[[package]]
 name = "AvatarPolicies"
 version = "0.1.0"
 
@@ -549,6 +604,7 @@ version = "0.1.0"
 name = "BulkPurchaseApp"
 version = "0.1.0"
 dependencies = [
+    "FocusNavigationUtils FocusNavigationUtils 0.1.0",
     "Http Http 0.1.0",
     "HttpRequest HttpRequest 0.1.0",
     "InExperienceLocales InExperienceLocales 0.1.0",
@@ -557,6 +613,7 @@ dependencies = [
     "Localization Localization 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
+    "ReactFocusNavigation ReactFocusNavigation 0.1.0",
     "ReactRoblox ReactRoblox 0.1.0",
     "ReactTestingLibrary ReactTestingLibrary 0.1.0",
     "Rhodium Rhodium 0.1.0",
@@ -715,7 +772,7 @@ dependencies = [
     "RoduxContacts RoduxContacts 0.1.0",
     "SMSProtocol SMSProtocol 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialModalsCommon SocialModalsCommon 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "TestUtils TestUtils 0.1.0",
@@ -782,7 +839,7 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "RoduxUsers RoduxUsers 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialModalsCommon SocialModalsCommon 0.1.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
@@ -850,7 +907,7 @@ dependencies = [
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialModalsCommon SocialModalsCommon 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "TestUtils TestUtils 0.1.0",
@@ -873,6 +930,8 @@ version = "0.1.0"
 dependencies = [
     "LoggingProtocol LoggingProtocol 0.1.0",
     "OtaPatchLoader OtaPatchLoader 0.1.0",
+    "RobloxAppEnums RobloxAppEnums 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
 ]
 
 [[package]]
@@ -892,6 +951,7 @@ dependencies = [
     "GameVotesRodux GameVotesRodux 0.1.0",
     "NextDataExpirationTimeRodux NextDataExpirationTimeRodux 0.1.0",
     "OtaPatchLoader OtaPatchLoader 0.1.0",
+    "OtaPatchValidation OtaPatchValidation 0.1.0",
     "PlayabilityRodux PlayabilityRodux 0.1.0",
     "SocialContextToasts SocialContextToasts 0.1.0",
 ]
@@ -977,7 +1037,7 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "RoduxNetworking RoduxNetworking 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "TestUtils TestUtils 0.1.0",
@@ -1156,7 +1216,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialModalsCommon SocialModalsCommon 0.1.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
@@ -1213,7 +1273,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialModalsCommon SocialModalsCommon 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "Style Style 0.1.0",
@@ -1446,7 +1506,6 @@ name = "GameTile"
 version = "0.1.0"
 dependencies = [
     "Ads Ads 0.1.0",
-    "AppChat AppChat 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
     "CentralOverlay CentralOverlay 0.1.0",
     "Cryo Cryo 0.1.0",
@@ -1467,6 +1526,7 @@ dependencies = [
     "Localization Localization 0.1.0",
     "LuauPolyfill LuauPolyfill 0.1.0",
     "NavigationRodux NavigationRodux 0.1.0",
+    "OtaPatchValidation OtaPatchValidation 0.1.0",
     "Otter Otter 0.1.0",
     "PlayabilityRodux PlayabilityRodux 0.1.0",
     "Promise Promise 0.1.0",
@@ -1486,7 +1546,6 @@ dependencies = [
     "RobloxAppSessionization RobloxAppSessionization 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "Style Style 0.1.0",
-    "UIBlox UIBlox 0.1.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "UserLib UserLib 0.1.0",
     "VoiceChat VoiceChat 0.1.0",
@@ -1513,7 +1572,6 @@ version = "0.1.0"
 dependencies = [
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
-    "UIBlox UIBlox 0.1.0",
     "UrlBuilder UrlBuilder 0.1.0",
     "enumerate enumerate 0.1.0",
 ]
@@ -1546,7 +1604,7 @@ dependencies = [
     "RecordPlayback RecordPlayback 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "UnitTestHelpers UnitTestHelpers 0.1.0",
     "UrlBuilder UrlBuilder 0.1.0",
 ]
@@ -1680,6 +1738,7 @@ dependencies = [
     "Localization Localization 0.1.0",
     "Promise Promise 0.1.0",
     "React React 0.1.0",
+    "Screenshot TnSScreenshot 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
 ]
@@ -1726,9 +1785,12 @@ dependencies = [
 name = "InteractionFeedback"
 version = "0.1.0"
 dependencies = [
+    "AppCommonLib AppCommonLib 0.1.0",
+    "Cryo Cryo 0.1.0",
     "JestConfigs JestConfigs 0.1.0",
     "JestGlobals JestGlobals3 0.1.0",
     "React React 0.1.0",
+    "RoactUtils RoactUtils 0.1.0",
     "SoundManager SoundManager 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "enumerate enumerate 0.1.0",
@@ -1767,7 +1829,7 @@ dependencies = [
     "RobloxAppHooks RobloxAppHooks 0.1.0",
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "Style Style 0.1.0",
     "UIBlox UIBlox 0.1.0",
@@ -2129,6 +2191,15 @@ dependencies = [
     "Loggers Loggers 0.1.0",
     "LoggingProtocol LoggingProtocol 0.1.0",
     "MockEngineServices MockEngineServices 0.1.0",
+    "OtaPatchValidation OtaPatchValidation 0.1.0",
+]
+
+[[package]]
+name = "OtaPatchValidation"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
 ]
 
 [[package]]
@@ -2180,7 +2251,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "TestUtils TestUtils 0.1.0",
@@ -2343,7 +2414,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "Style Style 0.1.0",
     "ToastRodux ToastRodux 0.1.0",
@@ -2426,7 +2497,7 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "TestUtils TestUtils 0.1.0",
@@ -2839,7 +2910,7 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
@@ -2893,7 +2964,7 @@ dependencies = [
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "UIBlox UIBlox 0.1.0",
     "UserProfiles UserProfiles 0.1.0",
@@ -2995,10 +3066,10 @@ dependencies = [
     "RealtimeDelivery RealtimeDelivery 0.1.0",
     "Screenshots Screenshots 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialOnboardingButtons SocialOnboardingButtons 0.1.0",
     "SocialReducerAdaptors SocialReducerAdaptors 0.1.0",
-    "TimeTracker TimeTracker 0.1.0",
+    "SocialStopwatch SocialStopwatch 0.1.0",
     "UserProfiles UserProfiles 0.1.0",
 ]
 
@@ -3032,7 +3103,7 @@ dependencies = [
 
 [[package]]
 name = "SocialLuaAnalytics"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
     "Analytics Analytics 0.1.0",
     "AppCommonLib AppCommonLib 0.1.0",
@@ -3092,7 +3163,7 @@ dependencies = [
     "RobloxAppUIBloxConfig RobloxAppUIBloxConfig 0.1.0",
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialModalsCommon SocialModalsCommon 0.1.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "ToastRodux ToastRodux 0.1.0",
@@ -3113,6 +3184,17 @@ dependencies = [
     "JestGlobals JestGlobals3 0.1.0",
     "LuaSocialLibrariesDeps LuaSocialLibrariesDeps 0.1.0",
     "Rodux Rodux 0.1.0",
+]
+
+[[package]]
+name = "SocialStopwatch"
+version = "0.1.0"
+dependencies = [
+    "JestConfigs JestConfigs 0.1.0",
+    "JestGlobals JestGlobals3 0.1.0",
+    "LoggingProtocol LoggingProtocol 0.1.0",
+    "SharedFlags SharedFlags 0.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
 ]
 
 [[package]]
@@ -3154,7 +3236,7 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "StreamNotifications StreamNotifications 0.1.0",
     "Style Style 0.1.0",
     "TestUtils TestUtils 0.1.0",
@@ -3569,14 +3651,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "TimeTracker"
-version = "0.1.0"
-dependencies = [
-    "JestConfigs JestConfigs 0.1.0",
-    "JestGlobals JestGlobals3 0.1.0",
-]
-
-[[package]]
 name = "TnSAdIdentification"
 version = "0.1.0"
 
@@ -3769,7 +3843,7 @@ dependencies = [
     "RoactUtils RoactUtils 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "VerifiedBadges VerifiedBadges 0.8.1",
 ]
@@ -3808,7 +3882,7 @@ dependencies = [
     "Rodux Rodux 0.1.0",
     "SharedFlags SharedFlags 0.1.0",
     "SocialCommon SocialCommon 0.1.0",
-    "SocialLuaAnalytics SocialLuaAnalytics 1.1.0",
+    "SocialLuaAnalytics SocialLuaAnalytics 1.2.0",
     "SocialTestHelpers SocialTestHelpers 0.1.0",
     "TestUtils TestUtils 0.1.0",
     "UIBlox UIBlox 0.1.0",

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AuthCompliance",
+    "tree": {
+      "$path": "../../../../../../../modules/account-authentication/auth-compliance/src"
+    }
+  }
+}

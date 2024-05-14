@@ -16,6 +16,7 @@ Studio.App.GenerativeAI.ClearAllMessages,,Clear All Messages,Clear All Messages
 Studio.App.GenerativeAI.Placeholder,,Enter request here,Enter request here
 Studio.App.GenerativeAI.ThumbsDown1,,I’ll try to do better next time. Help me to improve by answering some <a href='%1'>quick questions</a>.,I’ll try to do better next time. Help me to improve by answering some <a href='%1'>quick questions</a>.
 Studio.App.GenerativeAI.ServerLogs,,See Server Logs,See Server Logs
+Studio.App.GenerativeAI.SeeLLMTrace,,See LLM Trace,See LLM Trace
 Studio.App.GenerativeAI.FindVariations,,Find Variations,Find Variations
 Studio.App.GenerativeAI.StudsPerTile,,Studs Per Tile,Studs Per Tile
 Studio.App.GenerativeAI.Pattern,,Pattern,Pattern

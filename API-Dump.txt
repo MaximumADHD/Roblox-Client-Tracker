@@ -900,7 +900,7 @@ Class Camera : Instance [NotReplicated]
 	Function Camera:ZoomToExtents(boundingBoxCFrame: CFrame, boundingBoxSize: Vector3) -> ()
 	Event Camera.FirstPersonTransition(entering: boolean) {LocalUserSecurity}
 	Event Camera.InterpolationFinished()
-Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
+Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:CaptureScreenshot(onCaptureReady: (...any) -> ...any) -> ()
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:DeleteCapturesAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
@@ -909,19 +909,23 @@ Class CaptureService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:OnCaptureBegan() -> () {RobloxScriptSecurity}
 	Function CaptureService:OnCaptureEnded() -> () {RobloxScriptSecurity}
+	Function CaptureService:OnCaptureShared(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {RobloxScriptSecurity}
 	Function CaptureService:PromptSaveCapturesToGallery(contentIds: { any }, resultCallback: (...any) -> ...any) -> ()
 	Function CaptureService:PromptShareCapture(contentId: string, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
 	Function CaptureService:RetrieveCaptures() -> { any } {RobloxScriptSecurity}
 	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {RobloxScriptSecurity}
+	Function CaptureService:SaveCapturesToExternalStorageAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:SaveScreenshotCapture() -> () {RobloxScriptSecurity}
 	Event CaptureService.CaptureBegan()
 	Event CaptureService.CaptureEnded()
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any })
 	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }) {RobloxScriptSecurity}
+	Event CaptureService.OnCaptureSignatureResult(content: string, signature: string, signatureVersion: number) {RobloxSecurity} [Hidden]
 	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, contentIds: { any }) {RobloxScriptSecurity}
 	Event CaptureService.OpenShareCapturePrompt(promptId: number, contentId: string, launchData: string) {RobloxScriptSecurity}
+	Event CaptureService.RequestCaptureSignature(content: string) {RobloxSecurity} [Hidden]
 	Event CaptureService.UserCaptureSaved(captureContentId: string)
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function ChangeHistoryService:FinishRecording(identifier: string, operation: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) -> () {PluginSecurity}
@@ -3110,6 +3114,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:GetUserSubscriptionDetailsAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:GetUserSubscriptionPaymentHistoryAsync(user: Player, subscriptionId: string) -> { any } [Yields]
 	Function MarketplaceService:GetUserSubscriptionStatusAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
+	Function MarketplaceService:PerformBulkPurchase(orderRequest: { [string]: any }, options: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PerformPurchase(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectibleItemId: string? = "", collectibleProductId: string? = "", idempotencyKey: string? = "", purchaseAuthToken: string? = "") -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PerformPurchaseV2(infoType: Enum.InfoType, productId: number, expectedPrice: number, requestId: string, isRobloxPurchase: boolean, collectiblesProductDetails: { [string]: any }) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MarketplaceService:PerformSubscriptionPurchase(subscriptionId: string) -> string {RobloxScriptSecurity} [Yields]
@@ -3118,6 +3123,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:PlayerOwnsAsset(player: Instance, assetId: number) -> boolean [Yields]
 	Function MarketplaceService:PlayerOwnsBundle(player: Player, bundleId: number) -> boolean [Yields]
 	Function MarketplaceService:PrepareCollectiblesPurchase(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) -> () {RobloxScriptSecurity}
+	Function MarketplaceService:PromptBulkPurchase(player: Player, lineItems: { any }, options: { [string]: any }) -> ()
 	Function MarketplaceService:PromptBundlePurchase(player: Instance, bundleId: number) -> ()
 	Function MarketplaceService:PromptCollectiblesPurchase(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:PromptGamePassPurchase(player: Instance, gamePassId: number) -> ()
@@ -3134,6 +3140,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:SignalAssetTypePurchased(player: Instance, assetType: Enum.AssetType) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:SignalClientPurchaseSuccess(ticket: string, playerId: number, productId: number) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:SignalMockPurchasePremium() -> () {RobloxScriptSecurity}
+	Function MarketplaceService:SignalPromptBulkPurchaseFinished(status: Enum.MarketplaceBulkPurchasePromptStatus, results: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:SignalPromptBundlePurchaseFinished(player: Instance, bundleId: number, success: boolean) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:SignalPromptGamePassPurchaseFinished(player: Instance, gamePassId: number, success: boolean) -> () {RobloxScriptSecurity}
 	Function MarketplaceService:SignalPromptPremiumPurchaseFinished(didTryPurchasing: boolean) -> () {RobloxScriptSecurity}
@@ -3153,6 +3160,8 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.NativePurchaseFinished(player: Instance, productId: string, wasPurchased: boolean) {RobloxScriptSecurity}
 	Event MarketplaceService.NativePurchaseFinishedWithLocalPlayer(productId: string, wasPurchased: boolean) {RobloxScriptSecurity}
 	Event MarketplaceService.PrepareCollectiblesPurchaseRequested(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) {RobloxScriptSecurity}
+	Event MarketplaceService.PromptBulkPurchaseFinished(player: Instance, status: Enum.MarketplaceBulkPurchasePromptStatus, results: { [string]: any })
+	Event MarketplaceService.PromptBulkPurchaseRequested(player: Instance, displayData: { any }, orderRequest: { [string]: any }, purchaserRobuxBalance: number, orderTotalRobux: number, options: { [string]: any }) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptBundlePurchaseFinished(player: Instance, bundleId: number, wasPurchased: boolean)
 	Event MarketplaceService.PromptBundlePurchaseRequested(player: Instance, bundleId: number) {RobloxScriptSecurity}
 	Event MarketplaceService.PromptCollectibleBundlePurchaseRequested(player: Instance, bundleId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number, idempotencyKey: string, purchaseAuthToken: string) {RobloxScriptSecurity}
@@ -3176,6 +3185,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ThirdPartyPurchaseFinished(player: Instance, productId: string, receipt: string, wasPurchased: boolean) {LocalUserSecurity}
 	Callback MarketplaceService.ProcessReceipt(receiptInfo: { [string]: any }) -> Enum.ProductPurchaseDecision
 Class MaterialGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function MaterialGenerationService:DEPRECATED_GenerateMaterialVariantsAync(prompt: string, samples: number) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:GenerateMaterialVariantsAsync(prompt: string, samples: number) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:StartSession() -> MaterialGenerationSession {RobloxScriptSecurity}
 	Function MaterialGenerationService:UploadMaterialVariantsAsync(materialVaraints: { Instance }) -> () {RobloxScriptSecurity} [Yields]
@@ -3889,6 +3899,7 @@ Class Pages : Instance [NotCreatable] [NotReplicated]
 	Function Pages:AdvanceToNextPageAsync() -> () [Yields]
 	Function Pages:GetCurrentPage() -> { any }
 Class AudioPages : Pages [NotCreatable] [NotReplicated]
+Class BanHistoryPages : Pages [NotCreatable] [NotReplicated]
 Class CatalogPages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreKeyPages : Pages [NotCreatable] [NotReplicated]
 	Property DataStoreKeyPages.Cursor: string [ReadOnly]
@@ -4249,6 +4260,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Players:CreateHumanoidModelFromDescription(description: HumanoidDescription, rigType: Enum.HumanoidRigType, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> Model [Yields]
 	Function Players:CreateHumanoidModelFromUserId(userId: number) -> Model [Yields]
 	Function Players:CreateLocalPlayer() -> Player {LocalUserSecurity}
+	Function Players:GetBanHistoryAsync(userId: number) -> BanHistoryPages [Yields]
 	Function Players:GetCharacterAppearanceAsync(userId: number) -> Model [Yields] [Deprecated]
 	Function Players:GetCharacterAppearanceInfoAsync(userId: number) -> { [string]: any } [Yields]
 	Function Players:GetFriendsAsync(userId: number) -> FriendPages [Yields]
@@ -5181,6 +5193,7 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StopWatchReporter:SendReport(reportName: string) -> () {RobloxScriptSecurity}
 	Function StopWatchReporter:StartTask(reportName: string, taskName: string) -> number {RobloxScriptSecurity}
 Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function StreamingService:BindCodeToGuid(runCodeGuid: string, code: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function StreamingService:ExecuteCommandAsync(requestId: string, commandName: string, arg: any) -> () {RobloxScriptSecurity} [Yields]
 	Function StreamingService:GetEphemeralVariable(key: string) -> any {RobloxScriptSecurity}
 	Function StreamingService:GetInstance(requestId: string, instanceId: string) -> Instance? {RobloxScriptSecurity}
@@ -5188,7 +5201,7 @@ Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StreamingService:RegisterCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterContextCollector(collectorName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:RegisterSequentialCommand(commandName: string, function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
-	Function StreamingService:RunSandboxedCode(requestId: string, runCodeGuid: string, defaultCode: string? = "") -> ...any {RobloxScriptSecurity} [Yields]
+	Function StreamingService:RunSandboxedCode(runCodeGuid: string, requestId: string) -> ...any {RobloxScriptSecurity} [Yields]
 	Function StreamingService:SetEphemeralVariable(key: string, value: any, timeToLive: number? = -1) -> () {RobloxScriptSecurity}
 	Function StreamingService:SetPluginInfoCallback(function: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
 	Function StreamingService:UnregisterCommand(commandName: string) -> () {RobloxScriptSecurity}
@@ -9108,6 +9121,16 @@ Enum TriStateBoolean
 Enum TweenStatus
 	EnumItem TweenStatus.Canceled : 0
 	EnumItem TweenStatus.Completed : 1
+Enum UIDragDetectorDragStyle
+	EnumItem UIDragDetectorDragStyle.TranslatePlane : 0
+	EnumItem UIDragDetectorDragStyle.TranslateLine : 1
+	EnumItem UIDragDetectorDragStyle.Rotate : 2
+	EnumItem UIDragDetectorDragStyle.Scriptable : 3
+Enum UIDragDetectorResponseStyle
+	EnumItem UIDragDetectorResponseStyle.Offset : 0
+	EnumItem UIDragDetectorResponseStyle.Scale : 1
+	EnumItem UIDragDetectorResponseStyle.CustomOffset : 2
+	EnumItem UIDragDetectorResponseStyle.CustomScale : 3
 Enum UIFlexAlignment
 	EnumItem UIFlexAlignment.None : 0
 	EnumItem UIFlexAlignment.Fill : 1

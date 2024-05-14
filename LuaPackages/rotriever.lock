@@ -156,7 +156,7 @@ dependencies = [
     "TagUtils TagUtils 0.1.0 url+https://github.com/roblox/luau-tag-utils",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
     "UGCValidation UGCValidation 1.12.1 url+https://github.com/roblox/ugc-validation",
-    "UIBlox UIBlox 9a659793 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 00900dfa git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder f569021f git+https://github.com/roblox/url-builder#master",
     "UsageTracker UsageTracker 0.1.1 url+https://github.com/roblox/usage-tracker-lua",
     "VirtualizedList <patched> VirtualizedList 1.4.3 url+https://github.com/roblox/virtualized-list-lua",
@@ -356,7 +356,7 @@ dependencies = [
     "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
     "RoactGamepad <patched> RoactGamepad 0.5.13 url+https://github.com/roblox/roact-gamepad",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 9a659793 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 00900dfa git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
@@ -375,7 +375,7 @@ dependencies = [
     "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 9a659793 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 00900dfa git+https://github.com/roblox/uiblox#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
 ]
 
@@ -1288,7 +1288,7 @@ dependencies = [
     "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
     "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 9a659793 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 00900dfa git+https://github.com/roblox/uiblox#master",
     "UrlBuilder UrlBuilder f569021f git+https://github.com/roblox/url-builder#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1303,8 +1303,8 @@ source = "url+https://github.com/roblox/lua-qr-code"
 [[package]]
 name = "RbxDesignFoundations"
 version = "0.0.1"
-commit = "e9ca00193e75941dac18c7b4697460df0f7ac516"
-source = "git+https://github.com/roblox/rbx-design-foundations#1.1.103"
+commit = "fd2e104beb385491c4cc68d5411716f84140c7be"
+source = "git+https://github.com/roblox/rbx-design-foundations#1.1.105"
 dependencies = ["t roblox/t 1.2.5 url+https://github.com/roblox/t"]
 
 [[package]]
@@ -1864,7 +1864,7 @@ dependencies = [
     "RoduxFriends RoduxFriends ff764ac5 git+https://github.com/roblox/rodux-friends#v4.2.4",
     "RoduxPresence RoduxPresence c2fcb3b0 git+https://github.com/roblox/rodux-presence#v3.1.0",
     "Symbol roblox/lua-symbol 139fdfe6 git+https://github.com/roblox/lua-symbol#master",
-    "UIBlox UIBlox 9a659793 git+https://github.com/roblox/uiblox#master",
+    "UIBlox UIBlox 00900dfa git+https://github.com/roblox/uiblox#master",
     "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
     "t roblox/t 1.2.5 url+https://github.com/roblox/t",
@@ -1973,7 +1973,7 @@ dependencies = [
 [[package]]
 name = "UIBlox"
 version = "0.1.1"
-commit = "9a65979326daca46a091c54330c3ceb65e7a21cf"
+commit = "00900dfacb3a439e598569fa9d60e95b8c0c9106"
 source = "git+https://github.com/roblox/uiblox#master"
 dependencies = [
     "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",
@@ -1982,7 +1982,7 @@ dependencies = [
     "Lumberyak roblox/lumberyak 0.1.1 url+https://github.com/roblox/lumberyak",
     "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "RbxDesignFoundations RbxDesignFoundations e9ca0019 git+https://github.com/roblox/rbx-design-foundations#1.1.103",
+    "RbxDesignFoundations RbxDesignFoundations fd2e104b git+https://github.com/roblox/rbx-design-foundations#1.1.105",
     "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
     "ReactOtter ReactOtter 1.1.0 url+https://github.com/roblox/otter",
     "ReactRoblox ReactRoblox 17.0.1 url+https://github.com/roblox/roact-alignment",
