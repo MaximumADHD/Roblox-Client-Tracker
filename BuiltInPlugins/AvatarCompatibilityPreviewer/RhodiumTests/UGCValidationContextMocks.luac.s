@@ -1,4 +1,10 @@
 PROTO_0:
+  DUPTABLE R0 K1 [{"type"}]
+  LOADK R1 K2 ["allowed"]
+  SETTABLEKS R1 R0 K0 ["type"]
+  RETURN R0 1
+
+PROTO_1:
   GETUPVAL R2 0
   GETTABLE R1 R0 R2
   JUMPIFEQKNIL R1 [+2]
@@ -24,7 +30,7 @@ PROTO_0:
   SETTABLE R1 R0 R2
   RETURN R0 1
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R0 0
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U1
@@ -33,7 +39,7 @@ PROTO_1:
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
@@ -56,7 +62,7 @@ PROTO_2:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useState"]
   NEWTABLE R2 0 0
@@ -69,21 +75,28 @@ PROTO_3:
   CAPTURE UPVAL U1
   NEWTABLE R5 0 0
   CALL R3 2 1
-  DUPTABLE R4 K4 [{"cachedResponses", "validateBundle"}]
-  SETTABLEKS R1 R4 K2 ["cachedResponses"]
-  SETTABLEKS R3 R4 K3 ["validateBundle"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["createElement"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K6 ["Context"]
-  GETTABLEKS R6 R7 K7 ["Provider"]
-  DUPTABLE R7 K9 [{"value"}]
-  SETTABLEKS R4 R7 K8 ["value"]
-  GETTABLEKS R8 R0 K10 ["children"]
-  CALL R5 3 -1
-  RETURN R5 -1
+  GETUPVAL R4 2
+  GETTABLEKS R5 R0 K2 ["canUploadBundlesAsync"]
+  JUMPIF R5 [+1]
+  GETUPVAL R5 3
+  CALL R4 1 2
+  DUPTABLE R6 K7 [{"cachedResponses", "validateBundle", "canUploadBundles", "requestCanUploadBundles"}]
+  SETTABLEKS R1 R6 K3 ["cachedResponses"]
+  SETTABLEKS R3 R6 K4 ["validateBundle"]
+  SETTABLEKS R4 R6 K5 ["canUploadBundles"]
+  SETTABLEKS R5 R6 K6 ["requestCanUploadBundles"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K9 ["Context"]
+  GETTABLEKS R8 R9 K10 ["Provider"]
+  DUPTABLE R9 K12 [{"value"}]
+  SETTABLEKS R6 R9 K11 ["value"]
+  GETTABLEKS R10 R0 K13 ["children"]
+  CALL R7 3 -1
+  RETURN R7 -1
 
-PROTO_4:
+PROTO_5:
   DUPTABLE R0 K2 [{"completed", "ugcValidationResponse"}]
   LOADB R1 1
   SETTABLEKS R1 R0 K0 ["completed"]
@@ -95,20 +108,22 @@ PROTO_4:
   SETTABLEKS R1 R0 K1 ["ugcValidationResponse"]
   RETURN R0 1
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
-  DUPTABLE R3 K3 [{"waitForSignal", "createCachedResponse"}]
+  DUPTABLE R3 K4 [{"waitForSignal", "canUploadBundlesAsync", "createCachedResponse"}]
   GETTABLEKS R4 R0 K1 ["waitForSignal"]
   SETTABLEKS R4 R3 K1 ["waitForSignal"]
-  DUPCLOSURE R4 K4 [PROTO_4]
-  SETTABLEKS R4 R3 K2 ["createCachedResponse"]
-  GETTABLEKS R4 R0 K5 ["children"]
+  GETTABLEKS R4 R0 K2 ["canUploadBundlesAsync"]
+  SETTABLEKS R4 R3 K2 ["canUploadBundlesAsync"]
+  DUPCLOSURE R4 K5 [PROTO_5]
+  SETTABLEKS R4 R3 K3 ["createCachedResponse"]
+  GETTABLEKS R4 R0 K6 ["children"]
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_6:
+PROTO_7:
   DUPTABLE R0 K2 [{"completed", "ugcValidationResponse"}]
   LOADB R1 1
   SETTABLEKS R1 R0 K0 ["completed"]
@@ -146,27 +161,27 @@ PROTO_6:
   SETTABLEKS R1 R0 K1 ["ugcValidationResponse"]
   RETURN R0 1
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
   DUPTABLE R3 K2 [{"createCachedResponse"}]
-  DUPCLOSURE R4 K3 [PROTO_6]
+  DUPCLOSURE R4 K3 [PROTO_7]
   SETTABLEKS R4 R3 K1 ["createCachedResponse"]
   GETTABLEKS R4 R0 K4 ["children"]
   CALL R1 3 -1
   RETURN R1 -1
 
-PROTO_8:
+PROTO_9:
   LOADNIL R0
   RETURN R0 1
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["createElement"]
   GETUPVAL R2 1
   DUPTABLE R3 K2 [{"createCachedResponse"}]
-  DUPCLOSURE R4 K3 [PROTO_8]
+  DUPCLOSURE R4 K3 [PROTO_9]
   SETTABLEKS R4 R3 K1 ["createCachedResponse"]
   GETTABLEKS R4 R0 K4 ["children"]
   CALL R1 3 -1
@@ -183,30 +198,48 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Components"]
-  GETTABLEKS R3 R4 K10 ["UGCValidationContext"]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["UGCValidation"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Util"]
-  GETTABLEKS R4 R5 K12 ["Constants"]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Signal"]
   CALL R3 1 1
-  NEWTABLE R4 4 0
-  DUPCLOSURE R5 K13 [PROTO_3]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Components"]
+  GETTABLEKS R5 R6 K13 ["UGCValidationContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Components"]
+  GETTABLEKS R7 R8 K13 ["UGCValidationContext"]
+  GETTABLEKS R6 R7 K14 ["useCanUploadBundles"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Src"]
+  GETTABLEKS R8 R9 K10 ["Util"]
+  GETTABLEKS R7 R8 K15 ["Constants"]
+  CALL R6 1 1
+  NEWTABLE R7 4 0
+  DUPCLOSURE R8 K16 [PROTO_0]
+  DUPCLOSURE R9 K17 [PROTO_4]
   CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  DUPCLOSURE R6 K14 [PROTO_5]
-  CAPTURE VAL R1
+  CAPTURE VAL R6
   CAPTURE VAL R5
-  SETTABLEKS R6 R4 K15 ["AlwaysPassesProvider"]
-  DUPCLOSURE R6 K16 [PROTO_7]
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  DUPCLOSURE R10 K18 [PROTO_6]
   CAPTURE VAL R1
-  CAPTURE VAL R5
-  SETTABLEKS R6 R4 K17 ["AlwaysFailsProvider"]
-  DUPCLOSURE R6 K18 [PROTO_9]
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K19 ["AlwaysPassesProvider"]
+  DUPCLOSURE R10 K20 [PROTO_8]
   CAPTURE VAL R1
-  CAPTURE VAL R5
-  SETTABLEKS R6 R4 K19 ["NeverReturnsProvider"]
-  RETURN R4 1
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K21 ["AlwaysFailsProvider"]
+  DUPCLOSURE R10 K22 [PROTO_10]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  SETTABLEKS R10 R7 K23 ["NeverReturnsProvider"]
+  RETURN R7 1

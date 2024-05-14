@@ -92,7 +92,7 @@ local GetFFlagFixResumeSourceAnalytics =  require(RobloxGui.Modules.Settings.Fla
 local GetFFlagShouldInitWithFirstPageWithTabHeader =  require(RobloxGui.Modules.Settings.Flags.GetFFlagShouldInitWithFirstPageWithTabHeader)
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 local GetFFlagEnableScreenshotUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
-
+local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -1945,6 +1945,9 @@ local function CreateSettingsHub()
 		end
 
 		local function cameraViewportChanged()
+			if FFlagIGMThemeResizeFix then
+				Theme.viewportResized()
+			end
 			utility:FireOnResized()
 		end
 

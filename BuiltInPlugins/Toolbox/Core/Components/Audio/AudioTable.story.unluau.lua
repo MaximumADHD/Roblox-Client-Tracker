@@ -8,22 +8,22 @@ local var5 = require(var0.Stories.ToolboxStoryWrapper)
 local var6 = var1.PureComponent:extend("AudioRowWrapper")
 function createAudioInfo(arg1)
    local var0 = {}
-   local var259 = {}
-   var259.Id = arg1
-   var259.Name = "Cascaded Drumming"
-   var259.AssetGenres = nil
-   var259.TypeId = 10
-   var259.IsEndorsed = false
-   var259.Description = "High hat with various percussion sounds. Loud crashes."
-   var259.Duration = "128"
-   var259.HasScripts = false
-   var0.Asset = var259
-   local var267 = {}
-   var267.Artist = "OnlyTwentyCharacters"
-   var267.Type = var2.SOUND_EFFECTS.name
-   var267.SoundEffectCategory = "instruments"
-   var267.SoundEffectSubcategory = "Drum"
-   var0.AudioDetails = var267
+   local var216 = {}
+   var216.Id = arg1
+   var216.Name = "Cascaded Drumming"
+   var216.AssetGenres = nil
+   var216.TypeId = 10
+   var216.IsEndorsed = false
+   var216.Description = "High hat with various percussion sounds. Loud crashes."
+   var216.Duration = "128"
+   var216.HasScripts = false
+   var0.Asset = var216
+   local var224 = {}
+   var224.Artist = "OnlyTwentyCharacters"
+   var224.Type = var2.SOUND_EFFECTS.name
+   var224.SoundEffectCategory = "instruments"
+   var224.SoundEffectSubcategory = "Drum"
+   var0.AudioDetails = var224
    local var3 = {}
    var3.Id = 1
    var3.Name = "Rolbox"
@@ -33,42 +33,42 @@ function createAudioInfo(arg1)
 end
 
 local var7 = {}
-local var280 = 10
-local var281 = 1
-local var282 = var7
-local var285 = createAudioInfo(1)
+local var237 = 10
+local var238 = 1
+local var239 = var7
+local var242 = createAudioInfo(1)
 table.insert()
 function var6.render(arg1)
-   local var291 = {}
-   var291.Size = UDim2.new(1, 65526, 0, 260)
-   var291.BackgroundTransparency = 1
-   var291.Position = UDim2.new(0, 0, 0, 0)
-   local var305 = {}
-   local var308 = {}
-   var308.Assets = var7
-   var308.AudioType = arg1.props.AudioType
-   function var308.CanInsertAsset()
+   local var248 = {}
+   var248.Size = UDim2.new(1, 65526, 0, 260)
+   var248.BackgroundTransparency = 1
+   var248.Position = UDim2.new(0, 0, 0, 0)
+   local var262 = {}
+   local var265 = {}
+   var265.Assets = var7
+   var265.AudioType = arg1.props.AudioType
+   function var265.CanInsertAsset()
       return true
    end
    
-   function var308.InsertAsset()
+   function var265.InsertAsset()
       print("Insert Asset")
    end
    
-   function var308.TryInsert()
+   function var265.TryInsert()
       print("Try Insert")
    end
    
-   function var308.TryOpenAssetConfig()
+   function var265.TryOpenAssetConfig()
       print("try open asset config")
    end
    
-   function var308.OnAssetPreviewButtonClicked()
+   function var265.OnAssetPreviewButtonClicked()
       print("OnAssetPreviewButtonClicked")
    end
    
-   var305.AudioTable = var3.Generator(var308)
-   return var1.createElement("Frame", var291, var305)
+   var262.AudioTable = var3.Generator(var265)
+   return var1.createElement("Frame", var248, var262)
 end
 
 local var12 = {}
@@ -76,29 +76,29 @@ var12.summary = "Audio Table"
 local var13 = {}
 var13.name = "Soundeffect"
 function var13.story()
-   local var332 = {}
-   local var336 = {}
-   var336.AudioType = var2.SOUND_EFFECTS.name
-   var332.AudioTableWrapper = var1.createElement(var6, var336)
-   return var1.createElement(var5, {}, var332)
+   local var289 = {}
+   local var293 = {}
+   var293.AudioType = var2.SOUND_EFFECTS.name
+   var289.AudioTableWrapper = var1.createElement(var6, var293)
+   return var1.createElement(var5, {}, var289)
 end
 
 local var14 = {}
 var14.name = "Music"
 function var14.story()
-   local var348 = {}
-   local var352 = {}
-   var352.AudioType = var2.MUSIC.name
-   var348.AudioTableWrapper = var1.createElement(var6, var352)
-   return var1.createElement(var5, {}, var348)
+   local var305 = {}
+   local var309 = {}
+   var309.AudioType = var2.MUSIC.name
+   var305.AudioTableWrapper = var1.createElement(var6, var309)
+   return var1.createElement(var5, {}, var305)
 end
 
 local var15 = {}
 var15.name = "Uncategorized"
 function var15.story()
-   local var364 = {}
-   var364.AudioTableWrapper = var1.createElement(var6)
-   return var1.createElement(var5, {}, var364)
+   local var321 = {}
+   var321.AudioTableWrapper = var1.createElement(var6)
+   return var1.createElement(var5, {}, var321)
 end
 
 var12.stories = {}

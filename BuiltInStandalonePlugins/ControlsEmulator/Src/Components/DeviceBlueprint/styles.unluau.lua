@@ -1,0 +1,31 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var9 = require(script.Parent.Parent.Parent.Parent.Packages.Framework).Styling
+local var1 = var9.createStyleRule
+var9 = var1
+local var12 = {}
+var12.BackgroundColor3 = "$BackgroundPaper"
+var12.BorderSizePixel = 0
+local var18 = {}
+var18.SortOrder = Enum.SortOrder.LayoutOrder
+var18.HorizontalAlignment = Enum.HorizontalAlignment.Center
+var18.FillDirection = Enum.FillDirection.Vertical
+local var3 = var1("::UIListLayout", var18)
+local var25 = {}
+var25.TextSize = 24
+var25.Font = Enum.Font.Gotham
+var25.TextColor3 = "$TextPrimary"
+var25.Size = UDim2.new(1, 0, 0, 50)
+var25.BackgroundTransparency = 1
+var25.TextXAlignment = Enum.TextXAlignment.Center
+var25.TextYAlignment = Enum.TextYAlignment.Center
+local var4 = var1("> TextLabel", var25)
+local var41 = {}
+var41.TextSize = 50
+var41.Font = Enum.Font.Gotham
+var41.TextColor3 = "$TextPrimary"
+var41.Size = UDim2.new(1, 0, 0, 100)
+var41.BackgroundTransparency = 1
+var41.TextXAlignment = Enum.TextXAlignment.Center
+var41.TextYAlignment = Enum.TextYAlignment.Center
+local var5 = var1("> TextButton", var41)
+return var9(".Component-DeviceBlueprint", var12, {})

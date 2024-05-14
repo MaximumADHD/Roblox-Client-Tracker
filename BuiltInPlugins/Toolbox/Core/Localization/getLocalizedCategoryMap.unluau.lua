@@ -1,4 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
+local var0 = require(script:FindFirstAncestor("Toolbox").Core.Flags.getFFlagToolboxSharedPackagesSection)
 return function(arg1)
    local var0 = {}
    var0.FreeModels = arg1:getText("General", "CategoryModels")
@@ -14,6 +15,10 @@ return function(arg1)
    var0.MyAudio = arg1:getText("General", "CategoryMyAudio")
    var0.MyPlugins = arg1:getText("General", "CategoryMyPlugins")
    var0.MyPackages = arg1:getText("General", "CategoryMyPackages")
+   if var0() then
+      local var0 = arg1:getText("General", "CategorySharedPackages") or nil
+   end
+   var0.SharedPackages = nil
    var0.MyVideo = arg1:getText("General", "CategoryMyVideos")
    var0.MyAnimations = arg1:getText("General", "CategoryMyAnimations")
    var0.MyFonts = arg1:getText("General", "CategoryMyFonts")

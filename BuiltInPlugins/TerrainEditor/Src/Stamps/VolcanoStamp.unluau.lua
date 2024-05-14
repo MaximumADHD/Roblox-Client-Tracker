@@ -10,58 +10,58 @@ local var7 = require(var6.GetBlendingFactorMap)
 local var8 = require(var6.GetGaussianHillHeight)
 local var9 = var1:new(var3.TerrainType.Mountain)
 function var9.init(arg1, arg2, arg3)
-   local var757 = var1
-   var757 = arg1
-   var757.init(var757, arg2, arg3)
+   local var765 = var1
+   var765 = arg1
+   var765.init(var765, arg2, arg3)
    return arg1
 end
 
 function var9.getHeightGradient(arg1, arg2, arg3, arg4)
-   local var797 = arg4[arg1:getIndex(arg2, math.clamp(arg3 - 1, 1, arg1._sliceZ))]
-   local var799 = var2
-   var799 = (arg4[arg1:getIndex(arg2, arg3)] - arg4[arg1:getIndex(math.clamp(arg2 - 1, 1, arg1._sliceX), arg3)]) / var2
-   var797 = (arg4[arg1:getIndex(arg2, arg3)] - var797) / var799
-   return Vector2.new(var799, var797)
+   local var805 = arg4[arg1:getIndex(arg2, math.clamp(arg3 - 1, 1, arg1._sliceZ))]
+   local var807 = var2
+   var807 = (arg4[arg1:getIndex(arg2, arg3)] - arg4[arg1:getIndex(math.clamp(arg2 - 1, 1, arg1._sliceX), arg3)]) / var2
+   var805 = (arg4[arg1:getIndex(arg2, arg3)] - var805) / var807
+   return Vector2.new(var807, var805)
 end
 
 function var9.addErosion(arg1)
    local var0 = arg1._payload[var5.BuildSettings][var4.AdvancedNoise].Children[var4.Offset]
    local var1 = arg1._payload[var5.BuildSettings][var4.AdvancedNoise].Children[var4.Seed]
-   local var841 = 0.003
-   local var842 = 0.008
-   local var843 = 0.016
-   local var844 = 0.04
-   local var846 = 0.1
-   local var847 = 0.05
-   local var848 = 0.02
-   local var849 = 0.0125
+   local var849 = 0.003
+   local var850 = 0.008
+   local var851 = 0.016
+   local var852 = 0.04
+   local var854 = 0.1
+   local var855 = 0.05
+   local var856 = 0.02
+   local var857 = 0.0125
    local var10 = Instance.new("Noise")
    var10.NoiseType = Enum.NoiseType.SimplexGabor
    var10.Seed = var1
-   local var858 = arg1._sliceX * arg1._sliceZ
-   local var859 = 0
+   local var866 = arg1._sliceX * arg1._sliceZ
+   local var867 = 0
    local var13 = 1
    local var14 = 4
    local var15 = 1
-   local var863 = 1
-   local var865 = arg1._noiseMap
-   local var866 = 1
-   {}[1] = arg1._noiseMap[var863]
+   local var871 = 1
+   local var873 = arg1._noiseMap
+   local var874 = 1
+   {}[1] = arg1._noiseMap[var871]
    local var19 = 1
    local var20 = arg1._sliceX
    local var21 = 1
    local var22 = 1
    local var23 = arg1._sliceZ
    local var24 = 1
-   local var879 = var19 * var2 + var2 / 2
-   var879 = var1
-   local var886 = var22 * var2 + var2 / 2
-   local var887 = var0.Y
-   var886 = var22
-   var887 = {}
-   local var28 = 2000 * arg1:getHeightGradient(var19, var886, var887)
+   local var887 = var19 * var2 + var2 / 2
+   var887 = var1
+   local var894 = var22 * var2 + var2 / 2
+   local var895 = var0.Y
+   var894 = var22
+   var895 = {}
+   local var28 = 2000 * arg1:getHeightGradient(var19, var894, var895)
    local var29 = arg1:getIndex(var19, var22)
-   arg1:getIndex(var19, var22) = arg1._noiseMap[var29] + {}[var13] * arg1._payload[var5.BuildSettings][var4.NoiseStrength] * var10:SampleDirectional(Vector3.new(var879 + var0.X, var879, var886 + var887) * {}[var13] * arg1._payload[var5.BuildSettings][var4.NoiseScale] * 10, Vector3.new(var28.Y, 0, var28.X))
+   arg1:getIndex(var19, var22) = arg1._noiseMap[var29] + {}[var13] * arg1._payload[var5.BuildSettings][var4.NoiseStrength] * var10:SampleDirectional(Vector3.new(var887 + var0.X, var887, var894 + var895) * {}[var13] * arg1._payload[var5.BuildSettings][var4.NoiseScale] * 10, Vector3.new(var28.Y, 0, var28.X))
 end
 
 function var9.generateNoiseMap(arg1)
@@ -78,32 +78,34 @@ function var9.generateNoiseMap(arg1)
    local var2 = {}
    var2.center2d = Vector2.new(0.5, 0.5)
    var2.hillWidth = 0.2
-   var2.hillHeight = 1.1 + var1 * 0.4
-   local var973 = 1
-   local var974 = arg1._sliceX
-   local var975 = 1
-   local var976 = 1
-   local var977 = arg1._sliceZ
-   local var978 = 1
-   local var986 = arg1._sliceZ
-   var986 = var2
-   local var993 = arg1._noiseMap
-   arg1:getIndex(var973, var976) = var8(Vector2.new(var973 / arg1._sliceX, var976 / var986), var986, nil)
+   var2.hillHeight = 1 + var1 * 0.5
+   local var981 = 1
+   local var982 = arg1._sliceX
+   local var983 = 1
+   local var984 = 1
+   local var985 = arg1._sliceZ
+   local var986 = 1
+   local var994 = arg1._sliceZ
+   var994 = var2
+   local var1001 = arg1._noiseMap
+   arg1:getIndex(var981, var984) = var8(Vector2.new(var981 / arg1._sliceX, var984 / var994), var994, nil)
    if 0 < arg1._payload[var5.BuildSettings][var4.NoiseScale] then
       if 0 < arg1._payload[var5.BuildSettings][var4.NoiseStrength] then
          arg1:addErosion()
       end
    end
+   if var1 <= 0 then
+   end
    local var11 = Vector3.new(0.5, 0, 0.5)
    local var12 = 0
-   local var1003 = 1
-   local var1004 = arg1._sliceX
-   local var1005 = 1
-   local var1006 = 1
-   local var1007 = arg1._sliceZ
-   local var1008 = 1
-   if 1 < arg1._noiseMap[arg1:getIndex(var1003, var1006)] then
-      local var0 = Vector3.new(var1003 / arg1._sliceX, 0, var1006 / arg1._sliceZ) - var11.magnitude
+   local var1012 = 1
+   local var1013 = arg1._sliceX
+   local var1014 = 1
+   local var1015 = 1
+   local var1016 = arg1._sliceZ
+   local var1017 = 1
+   if 1 < arg1._noiseMap[arg1:getIndex(var1012, var1015)] then
+      local var0 = Vector3.new(var1012 / arg1._sliceX, 0, var1015 / arg1._sliceZ) - var11.magnitude
       if var12 < var0 then
          var12 = var0
       end
@@ -116,26 +118,28 @@ function var9.generateNoiseMap(arg1)
    local var24 = 1
    local var25 = Vector3.new(var19 / arg1._sliceX, 0, var22 / arg1._sliceZ) - var11.magnitude
    if var25 < var12 then
-      local var1048 = (1 - (1 - (var12 - var25) / var12) ^ 4) * var0
-      local var1 = 1 - var1048 / 2
-      var1048 = var19
-      local var2 = arg1:getIndex(var1048, var22)
+      local var1057 = (1 - (1 - (var12 - var25) / var12) ^ 4) * var0
+      local var1 = 1 - var1057 / 2
+      var1057 = var19
+      local var2 = arg1:getIndex(var1057, var22)
       local var3 = arg1._noiseMap[var2]
       if var3 > 1 then
          if var1 < var3 then
-            local var0 = arg1._noiseMap
-            arg1:getIndex(var1048, var22) = var1
+            local var1066 = arg1._noiseMap
+            arg1:getIndex(var1057, var22) = var1
+            local var1 = arg1._fillBottomPositions
+            arg1:getIndex(var1057, var22) = true
          else
             local var0 = arg1._noiseMap
-            arg1:getIndex(var1048, var22) = (var3 + var1) / 2
+            arg1:getIndex(var1057, var22) = (var3 + var1) / 2
          end
       end
-      local var1061 = arg1._noiseMap
-      arg1:getIndex(var1048, var22) = var1
-      local var1062 = arg1._noiseMap
-      arg1:getIndex(var1048, var22) = (var3 + var1) / 2
-      local var6 = arg1._fillBottomPositions
-      arg1:getIndex(var1048, var22) = true
+      local var1072 = arg1._noiseMap
+      arg1:getIndex(var1057, var22) = var1
+      local var1073 = arg1._fillBottomPositions
+      arg1:getIndex(var1057, var22) = true
+      local var6 = arg1._noiseMap
+      arg1:getIndex(var1057, var22) = (var3 + var1) / 2
    end
 end
 

@@ -24,7 +24,6 @@ local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeat
 local FFlagFacialAnimationStreamingClearTrackImprovementsV2 = game:DefineFastFlag("FacialAnimationStreamingClearTrackImprovementsV2", false)
 game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",false)
 game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
-game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateWhenCreatingTrack", false)
 game:DefineFastFlag("StopStreamTrackOnDeath", false)
 game:DefineFastFlag("FacialAnimationStreamingClearAllConnectionsFix", false)
 game:DefineFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C", false)
@@ -293,12 +292,9 @@ local function onAnimatorAdded(player, animator)
 		playerAnimation.animationTrack:Play(0.1, 1)
 
 		playerAnimations[player.UserId] = playerAnimation
-
-		if game:GetFastFlag("FacialAnimationStreamingCheckPauseStateWhenCreatingTrack") then
-			local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
-			if player == Players.LocalPlayer and not shouldPlayStreamTrack then
-				pauseStreamingAnimationForPlayer(player)
-			end
+		local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
+		if player == Players.LocalPlayer and not shouldPlayStreamTrack then
+			pauseStreamingAnimationForPlayer(player)
 		end
 
 		if game:GetFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving") then

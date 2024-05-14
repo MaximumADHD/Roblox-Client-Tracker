@@ -11,6 +11,7 @@ local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalyti
 local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
 
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)
+local GetFFlagTweakedMicPinning = require(script.Parent.Parent.Flags.GetFFlagTweakedMicPinning)
 
 local ChromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
@@ -24,6 +25,8 @@ local voiceAnalytics
 if GetFFlagEnableVoiceMuteAnalytics() then
 	voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Chrome.Integrations.ToggleMic")
 end
+
+local muteSelf
 
 local toggleMic = function(self)
 	VoiceChatServiceManager:ToggleMic("ChromeIntegrationsToggleMic")
@@ -41,7 +44,7 @@ local showLoading = function(self)
 	VoiceChatServiceManager:ShowVoiceChatLoadingMessage()
 end
 
-local muteSelf = ChromeService:register({
+muteSelf = ChromeService:register({
 	--initialAvailability = ChromeService.AvailabilitySignal.Available,
 	id = "toggle_mic_mute",
 	label = "CoreScripts.TopBar.ToggleMic",
@@ -71,7 +74,11 @@ local muteSelf = ChromeService:register({
 local function updateVoiceState(_, voiceState)
 	local voiceEnabled = voiceState ~= (Enum :: any).VoiceChatState.Ended
 	if voiceEnabled then
-		muteSelf.availability:available()
+		if GetFFlagTweakedMicPinning() then
+			muteSelf.availability:pinned()
+		else
+			muteSelf.availability:available()
+		end
 	else
 		muteSelf.availability:unavailable()
 	end
@@ -96,7 +103,11 @@ if game:GetEngineFeature("VoiceChatSupported") then
 			if voiceService then
 				voiceService.StateChanged:Connect(updateVoiceState)
 				VoiceChatServiceManager:SetupParticipantListeners()
-				muteSelf.availability:available()
+				if GetFFlagTweakedMicPinning() then
+					muteSelf.availability:pinned()
+				else
+					muteSelf.availability:available()
+				end
 			end
 		end)
 		:catch(function() end)

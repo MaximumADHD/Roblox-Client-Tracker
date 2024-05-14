@@ -99,12 +99,11 @@ PROTO_6:
   GETTABLEKS R3 R0 K8 ["onPluginClosed"]
   CALL R2 1 1
   GETIMPORT R3 K1 [plugin]
-  LOADK R5 K9 ["FileSync"]
+  LOADK R5 K9 ["Script Sync"]
   NAMECALL R3 R3 K10 ["CreateToolbar"]
   CALL R3 2 1
-  GETIMPORT R7 K1 [plugin]
-  GETTABLEKS R6 R7 K2 ["Name"]
-  LOADK R7 K11 ["Toggles the Template plugin window."]
+  LOADK R6 K9 ["Script Sync"]
+  LOADK R7 K11 ["Toggles the Script Sync window."]
   LOADK R8 K12 ["rbxasset://textures/GameSettings/ToolbarIcon.png"]
   NAMECALL R4 R3 K13 ["CreateButton"]
   CALL R4 4 1
@@ -256,17 +255,17 @@ MAIN:
   CALL R17 3 1
   LOADK R18 K2 ["FileSync"]
   SETTABLEKS R18 R17 K45 ["Name"]
-  LOADK R18 K2 ["FileSync"]
-  SETTABLEKS R18 R17 K46 ["Title"]
+  LOADK R18 K46 ["Script Sync"]
+  SETTABLEKS R18 R17 K47 ["Title"]
   GETTABLEKS R19 R11 K18 ["Localization"]
   GETTABLEKS R18 R19 K36 ["new"]
-  DUPTABLE R19 K50 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  SETTABLEKS R8 R19 K47 ["stringResourceTable"]
-  SETTABLEKS R9 R19 K48 ["translationResourceTable"]
+  DUPTABLE R19 K51 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R8 R19 K48 ["stringResourceTable"]
+  SETTABLEKS R9 R19 K49 ["translationResourceTable"]
   LOADK R20 K2 ["FileSync"]
-  SETTABLEKS R20 R19 K49 ["pluginName"]
+  SETTABLEKS R20 R19 K50 ["pluginName"]
   CALL R18 1 1
-  GETTABLEKS R20 R11 K51 ["PluginActions"]
+  GETTABLEKS R20 R11 K52 ["PluginActions"]
   GETTABLEKS R19 R20 K36 ["new"]
   GETIMPORT R20 K30 [plugin]
   MOVE R21 R12
@@ -274,41 +273,41 @@ MAIN:
   MOVE R23 R18
   CALL R21 2 -1
   CALL R19 -1 1
-  GETTABLEKS R20 R3 K52 ["createElement"]
+  GETTABLEKS R20 R3 K53 ["createElement"]
   MOVE R21 R2
-  DUPTABLE R22 K59 [{"plugin", "focusGui", "store", "mouse", "theme", "localization", "pluginActions"}]
+  DUPTABLE R22 K60 [{"plugin", "focusGui", "store", "mouse", "theme", "localization", "pluginActions"}]
   GETIMPORT R23 K30 [plugin]
   SETTABLEKS R23 R22 K29 ["plugin"]
-  SETTABLEKS R17 R22 K53 ["focusGui"]
-  SETTABLEKS R16 R22 K54 ["store"]
+  SETTABLEKS R17 R22 K54 ["focusGui"]
+  SETTABLEKS R16 R22 K55 ["store"]
   GETIMPORT R23 K30 [plugin]
-  NAMECALL R23 R23 K60 ["getMouse"]
+  NAMECALL R23 R23 K61 ["getMouse"]
   CALL R23 1 1
-  SETTABLEKS R23 R22 K55 ["mouse"]
+  SETTABLEKS R23 R22 K56 ["mouse"]
   MOVE R23 R7
   CALL R23 0 1
-  SETTABLEKS R23 R22 K56 ["theme"]
-  SETTABLEKS R18 R22 K57 ["localization"]
-  SETTABLEKS R19 R22 K58 ["pluginActions"]
-  DUPTABLE R23 K61 [{"MainView"}]
-  GETTABLEKS R24 R3 K52 ["createElement"]
+  SETTABLEKS R23 R22 K57 ["theme"]
+  SETTABLEKS R18 R22 K58 ["localization"]
+  SETTABLEKS R19 R22 K59 ["pluginActions"]
+  DUPTABLE R23 K62 [{"MainView"}]
+  GETTABLEKS R24 R3 K53 ["createElement"]
   MOVE R25 R1
   NEWTABLE R26 0 0
   CALL R24 2 1
   SETTABLEKS R24 R23 K8 ["MainView"]
   CALL R20 3 1
-  GETTABLEKS R21 R4 K62 ["createRoot"]
+  GETTABLEKS R21 R4 K63 ["createRoot"]
   MOVE R22 R17
   CALL R21 1 1
   MOVE R24 R20
-  NAMECALL R22 R21 K63 ["render"]
+  NAMECALL R22 R21 K64 ["render"]
   CALL R22 2 0
-  DUPCLOSURE R22 K64 [PROTO_0]
+  DUPCLOSURE R22 K65 [PROTO_0]
   CAPTURE VAL R17
   GETIMPORT R25 K1 [script]
-  GETTABLEKS R24 R25 K65 ["Parent"]
-  GETTABLEKS R23 R24 K65 ["Parent"]
-  DUPCLOSURE R24 K66 [PROTO_6]
+  GETTABLEKS R24 R25 K66 ["Parent"]
+  GETTABLEKS R23 R24 K66 ["Parent"]
+  DUPCLOSURE R24 K67 [PROTO_6]
   CAPTURE VAL R23
   CAPTURE VAL R17
   MOVE R25 R24

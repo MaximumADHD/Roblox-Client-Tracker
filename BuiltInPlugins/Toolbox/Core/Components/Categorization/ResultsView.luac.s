@@ -96,41 +96,44 @@ PROTO_3:
   GETUPVAL R3 2
   GETTABLEKS R2 R3 K22 ["CategoryName"]
   CALL R1 1 1
-  JUMPIFNOT R1 [+43]
+  JUMPIFNOT R1 [+48]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K3 ["createElement"]
   GETUPVAL R2 5
-  DUPTABLE R3 K27 [{"ResultsState", "PageSize", "RenderTopContent", "AssetLogicWrapperProps"}]
+  DUPTABLE R3 K28 [{"ResultsState", "PageSize", "RenderTopContent", "SwimlaneName", "AssetLogicWrapperProps"}]
   SETTABLEKS R0 R3 K23 ["ResultsState"]
   GETUPVAL R4 6
   SETTABLEKS R4 R3 K24 ["PageSize"]
   GETUPVAL R4 7
   SETTABLEKS R4 R3 K25 ["RenderTopContent"]
-  DUPTABLE R4 K33 [{"CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K26 ["SwimlaneName"]
+  SETTABLEKS R4 R3 K26 ["SwimlaneName"]
+  DUPTABLE R4 K34 [{"CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K28 ["CanInsertAsset"]
-  SETTABLEKS R5 R4 K28 ["CanInsertAsset"]
+  GETTABLEKS R5 R6 K29 ["CanInsertAsset"]
+  SETTABLEKS R5 R4 K29 ["CanInsertAsset"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K29 ["LogAssetImpression"]
-  SETTABLEKS R5 R4 K29 ["LogAssetImpression"]
+  GETTABLEKS R5 R6 K30 ["LogAssetImpression"]
+  SETTABLEKS R5 R4 K30 ["LogAssetImpression"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K30 ["OnAssetPreviewButtonClicked"]
-  SETTABLEKS R5 R4 K30 ["OnAssetPreviewButtonClicked"]
+  GETTABLEKS R5 R6 K31 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R5 R4 K31 ["OnAssetPreviewButtonClicked"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K31 ["TryInsert"]
-  SETTABLEKS R5 R4 K31 ["TryInsert"]
+  GETTABLEKS R5 R6 K32 ["TryInsert"]
+  SETTABLEKS R5 R4 K32 ["TryInsert"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K32 ["TryOpenAssetConfig"]
-  SETTABLEKS R5 R4 K32 ["TryOpenAssetConfig"]
-  SETTABLEKS R4 R3 K26 ["AssetLogicWrapperProps"]
+  GETTABLEKS R5 R6 K33 ["TryOpenAssetConfig"]
+  SETTABLEKS R5 R4 K33 ["TryOpenAssetConfig"]
+  SETTABLEKS R4 R3 K27 ["AssetLogicWrapperProps"]
   CALL R1 2 -1
   RETURN R1 -1
   GETUPVAL R1 8
-  DUPTABLE R2 K38 [{"AssetIds", "AssetMap", "LayoutOrder", "Position", "RenderTopContent", "RequestNextPage", "Size", "CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "TryInsert", "TryOpenAssetConfig"}]
+  DUPTABLE R2 K39 [{"AssetIds", "AssetMap", "LayoutOrder", "Position", "RenderTopContent", "RequestNextPage", "Size", "CanInsertAsset", "LogAssetImpression", "OnAssetPreviewButtonClicked", "OnSearchByCreator", "TryInsert", "TryOpenAssetConfig"}]
   GETTABLEKS R3 R0 K1 ["assetIds"]
-  SETTABLEKS R3 R2 K34 ["AssetIds"]
-  GETTABLEKS R3 R0 K39 ["assetMap"]
-  SETTABLEKS R3 R2 K35 ["AssetMap"]
+  SETTABLEKS R3 R2 K35 ["AssetIds"]
+  GETTABLEKS R3 R0 K40 ["assetMap"]
+  SETTABLEKS R3 R2 K36 ["AssetMap"]
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K6 ["LayoutOrder"]
   SETTABLEKS R3 R2 K6 ["LayoutOrder"]
@@ -139,34 +142,34 @@ PROTO_3:
   SETTABLEKS R3 R2 K7 ["Position"]
   GETUPVAL R3 7
   SETTABLEKS R3 R2 K25 ["RenderTopContent"]
-  GETTABLEKS R3 R0 K40 ["fetchNextPage"]
-  SETTABLEKS R3 R2 K36 ["RequestNextPage"]
+  GETTABLEKS R3 R0 K41 ["fetchNextPage"]
+  SETTABLEKS R3 R2 K37 ["RequestNextPage"]
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K8 ["Size"]
   SETTABLEKS R3 R2 K8 ["Size"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K28 ["CanInsertAsset"]
-  SETTABLEKS R3 R2 K28 ["CanInsertAsset"]
+  GETTABLEKS R3 R4 K29 ["CanInsertAsset"]
+  SETTABLEKS R3 R2 K29 ["CanInsertAsset"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K29 ["LogAssetImpression"]
-  SETTABLEKS R3 R2 K29 ["LogAssetImpression"]
+  GETTABLEKS R3 R4 K30 ["LogAssetImpression"]
+  SETTABLEKS R3 R2 K30 ["LogAssetImpression"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K30 ["OnAssetPreviewButtonClicked"]
-  SETTABLEKS R3 R2 K30 ["OnAssetPreviewButtonClicked"]
+  GETTABLEKS R3 R4 K31 ["OnAssetPreviewButtonClicked"]
+  SETTABLEKS R3 R2 K31 ["OnAssetPreviewButtonClicked"]
   GETUPVAL R4 9
   CALL R4 0 1
   JUMPIFNOT R4 [+4]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K37 ["OnSearchByCreator"]
+  GETTABLEKS R3 R4 K38 ["OnSearchByCreator"]
   JUMP [+1]
   LOADNIL R3
-  SETTABLEKS R3 R2 K37 ["OnSearchByCreator"]
+  SETTABLEKS R3 R2 K38 ["OnSearchByCreator"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K31 ["TryInsert"]
-  SETTABLEKS R3 R2 K31 ["TryInsert"]
+  GETTABLEKS R3 R4 K32 ["TryInsert"]
+  SETTABLEKS R3 R2 K32 ["TryInsert"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K32 ["TryOpenAssetConfig"]
-  SETTABLEKS R3 R2 K32 ["TryOpenAssetConfig"]
+  GETTABLEKS R3 R4 K33 ["TryOpenAssetConfig"]
+  SETTABLEKS R3 R2 K33 ["TryOpenAssetConfig"]
   CALL R1 1 -1
   RETURN R1 -1
 

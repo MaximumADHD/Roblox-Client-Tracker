@@ -212,40 +212,42 @@ MAIN:
   NAMECALL R2 R2 K9 ["GetFastFlag"]
   CALL R2 2 1
   GETIMPORT R3 K7 [game]
-  LOADK R5 K10 ["EnableAssetUploadCreatorDashboardMessage"]
-  NAMECALL R3 R3 K9 ["GetFastFlag"]
+  LOADK R5 K10 ["ToolboxAssetConfigDisabledVideoSharingLearnMoreLink"]
+  NAMECALL R3 R3 K11 ["GetFastString"]
   CALL R3 2 1
-  GETIMPORT R4 K7 [game]
-  LOADK R6 K11 ["ToolboxAssetConfigDisabledVideoSharingLearnMoreLink"]
-  NAMECALL R4 R4 K12 ["GetFastString"]
-  CALL R4 2 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R8 R0 K12 ["Core"]
+  GETTABLEKS R7 R8 K13 ["Util"]
+  GETTABLEKS R6 R7 K14 ["SharedFlags"]
+  GETTABLEKS R5 R6 K15 ["getFFlagToolboxRestrictAssetConfig"]
+  CALL R4 1 1
   GETIMPORT R5 K4 [require]
-  GETTABLEKS R9 R0 K13 ["Core"]
-  GETTABLEKS R8 R9 K14 ["Util"]
-  GETTABLEKS R7 R8 K15 ["SharedFlags"]
-  GETTABLEKS R6 R7 K16 ["getFFlagToolboxRestrictAssetConfig"]
+  GETTABLEKS R9 R0 K12 ["Core"]
+  GETTABLEKS R8 R9 K13 ["Util"]
+  GETTABLEKS R7 R8 K14 ["SharedFlags"]
+  GETTABLEKS R6 R7 K16 ["getFFlagToolboxAssetConfigOnboardingLink"]
   CALL R5 1 1
   GETIMPORT R6 K4 [require]
-  GETTABLEKS R10 R0 K13 ["Core"]
-  GETTABLEKS R9 R10 K14 ["Util"]
-  GETTABLEKS R8 R9 K15 ["SharedFlags"]
-  GETTABLEKS R7 R8 K17 ["getFFlagToolboxAssetConfigOnboardingLink"]
+  GETTABLEKS R10 R0 K12 ["Core"]
+  GETTABLEKS R9 R10 K13 ["Util"]
+  GETTABLEKS R8 R9 K14 ["SharedFlags"]
+  GETTABLEKS R7 R8 K17 ["getFFlagEnablePluginHomeview"]
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
-  GETTABLEKS R11 R0 K13 ["Core"]
-  GETTABLEKS R10 R11 K14 ["Util"]
-  GETTABLEKS R9 R10 K15 ["SharedFlags"]
-  GETTABLEKS R8 R9 K18 ["getFFlagEnablePluginHomeview"]
+  GETTABLEKS R11 R0 K12 ["Core"]
+  GETTABLEKS R10 R11 K13 ["Util"]
+  GETTABLEKS R9 R10 K14 ["SharedFlags"]
+  GETTABLEKS R8 R9 K18 ["getFFlagAssetConfigLinkToCreatorStore"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
-  GETTABLEKS R11 R0 K13 ["Core"]
+  GETTABLEKS R11 R0 K12 ["Core"]
   GETTABLEKS R10 R11 K19 ["Types"]
   GETTABLEKS R9 R10 K20 ["AssetQuotaTypes"]
   CALL R8 1 1
   LOADNIL R9
   MOVE R10 R1
   CALL R10 0 1
-  JUMPIFNOT R10 [+103]
+  JUMPIFNOT R10 [+99]
   DUPTABLE R10 K42 [{"ShowRobloxCreatedAssets", "DisableMarketplaceAndRecents", "DisableRatings", "HideNonRelevanceSorts", "HomeViewEnabledAssetTypes", "MarketplaceAssetConfigUrl", "MarketplaceDisabledCategories", "MarketplaceOnboardingUrl", "MarketplaceShouldUsePluginCreatorWhitelist", "DisableAutocomplete", "Enabled", "VerificationDocumentationUrl", "AudioPrivacyLearnMoreUrl", "VideoPrivacyLearnMoreUrl", "SafetyLearnMoreUrl", "CreatorDashboardBaseUrl", "CreatorDashboardCatalogConfigUrlExtension", "AnnouncementConfiguration", "AppealsPortalUrl", "OwnershipPollingWaitTimeInSec", "OwnershipPollingMaxRetries"}]
   LOADB R11 0
   SETTABLEKS R11 R10 K21 ["ShowRobloxCreatedAssets"]
@@ -261,7 +263,7 @@ MAIN:
   SETTABLEKS R11 R10 K26 ["MarketplaceAssetConfigUrl"]
   LOADK R11 K45 ["FreePlugins;PaidPlugins;Plugins;FreeVideo"]
   SETTABLEKS R11 R10 K27 ["MarketplaceDisabledCategories"]
-  MOVE R12 R6
+  MOVE R12 R5
   CALL R12 0 1
   JUMPIFNOT R12 [+2]
   LOADK R11 K46 ["https://create.roblox.com/settings/eligibility/priced-assets"]
@@ -278,14 +280,10 @@ MAIN:
   SETTABLEKS R11 R10 K32 ["VerificationDocumentationUrl"]
   LOADK R11 K48 ["https://devforum.roblox.com/t/action-needed-upcoming-changes-to-asset-privacy-for-audio/1701697"]
   SETTABLEKS R11 R10 K33 ["AudioPrivacyLearnMoreUrl"]
-  SETTABLEKS R4 R10 K34 ["VideoPrivacyLearnMoreUrl"]
+  SETTABLEKS R3 R10 K34 ["VideoPrivacyLearnMoreUrl"]
   LOADK R11 K49 ["https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use"]
   SETTABLEKS R11 R10 K35 ["SafetyLearnMoreUrl"]
-  JUMPIF R2 [+1]
-  JUMPIFNOT R3 [+2]
   LOADK R11 K50 ["https://create.roblox.com/dashboard"]
-  JUMP [+1]
-  LOADNIL R11
   SETTABLEKS R11 R10 K36 ["CreatorDashboardBaseUrl"]
   JUMPIFNOT R2 [+2]
   LOADK R11 K51 ["/creations/catalog/%d/configure"]
@@ -308,7 +306,7 @@ MAIN:
   LOADK R12 K66 ["https://roblox.com"]
   SETTABLEKS R12 R11 K58 ["LinkLocation"]
   SETTABLEKS R11 R10 K38 ["AnnouncementConfiguration"]
-  MOVE R12 R5
+  MOVE R12 R4
   CALL R12 0 1
   JUMPIFNOT R12 [+2]
   LOADK R11 K67 ["https://www.roblox.com/report-appeals#/"]
@@ -345,7 +343,7 @@ MAIN:
   NEWCLOSURE R11 P4
   CAPTURE REF R9
   SETTABLEKS R11 R10 K76 ["getMarketplaceDisabledCategories"]
-  MOVE R11 R7
+  MOVE R11 R6
   CALL R11 0 1
   JUMPIFNOT R11 [+4]
   NEWCLOSURE R11 P5
@@ -401,14 +399,12 @@ MAIN:
   NEWCLOSURE R12 P18
   CAPTURE REF R9
   SETTABLEKS R12 R10 K97 ["getSafetyLearnMoreUrl"]
-  MOVE R12 R5
+  MOVE R12 R4
   CALL R12 0 1
   JUMPIFNOT R12 [+4]
   NEWCLOSURE R12 P19
   CAPTURE REF R9
   SETTABLEKS R12 R10 K98 ["getAppealsPortalUrl"]
-  JUMPIF R2 [+1]
-  JUMPIFNOT R3 [+4]
   NEWCLOSURE R12 P20
   CAPTURE REF R9
   SETTABLEKS R12 R10 K99 ["getCreatorDashboardBaseUrl"]
@@ -419,13 +415,16 @@ MAIN:
   NEWCLOSURE R12 P22
   CAPTURE REF R9
   SETTABLEKS R12 R10 K101 ["hideAssetConfigDistributeLearnMoreLink"]
+  MOVE R12 R7
+  CALL R12 0 1
+  JUMPIF R12 [+4]
   NEWCLOSURE R12 P23
   CAPTURE REF R9
   SETTABLEKS R12 R10 K102 ["getAssetTypesWithAssetConfigPrice"]
   NEWCLOSURE R12 P24
   CAPTURE REF R9
   SETTABLEKS R12 R10 K103 ["getMarketplaceAssetConfigUrl"]
-  MOVE R12 R6
+  MOVE R12 R5
   CALL R12 0 1
   JUMPIFNOT R12 [+4]
   NEWCLOSURE R12 P25

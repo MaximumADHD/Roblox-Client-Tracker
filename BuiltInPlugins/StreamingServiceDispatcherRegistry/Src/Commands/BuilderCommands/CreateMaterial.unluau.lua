@@ -11,7 +11,8 @@ local var8 = require(var0.Src.Types)
 local var9 = require(var0.Src.Localization.Localization)
 local var10 = require(var0.Src.Commands.BuilderCommands.BuilderNameMap)
 local var11 = require(var0.Src.Flags.getFFlagMaterialGenErrorTextFiltered)
-local function var12(arg1)
+local var12 = require(var0.Src.Flags.getFFlagMaterialGeneratorNewServiceAsyncApi)
+local function var13(arg1)
    local var0 = var6.collectSet(var3:GetDescendants(), function(arg1, arg2)
       if arg2:IsA("MaterialVariant") then
          return arg2.Name
@@ -81,20 +82,20 @@ local function fun4(arg1)
    return string.format("![](image://instance/%s) %s", arg1.ClassName, arg1.Name)
 end
 
-local function var13(arg1, arg2, arg3, arg4, arg5)
-   local var144 = {}
-   var144.baseMaterial = tostring(arg3)
-   var144.description = tostring(arg2)
-   local var153 = tostring(arg5)
-   var144.materialPattern = var153
-   var153 = var9:getText("CreateMaterial", "Description", var144)
-   var7.streamText(arg1.requestId, string.format("\n%s\n", var153))
+local function var14(arg1, arg2, arg3, arg4, arg5)
+   local var149 = {}
+   var149.baseMaterial = tostring(arg3)
+   var149.description = tostring(arg2)
+   local var158 = tostring(arg5)
+   var149.materialPattern = var158
+   var158 = var9:getText("CreateMaterial", "Description", var149)
+   var7.streamText(arg1.requestId, string.format("\n%s\n", var158))
    if type(arg2) == "string" then
       local var0 = false
    end
    assert(true, "Bad materialDescription")
    assert(true, "Bad amount")
-   local var174 = 4
+   local var179 = 4
    return var5.try(function(arg1, arg2)
       if arg2:IsA("MaterialVariant") then
          return arg2.Name
@@ -123,13 +124,13 @@ local function var13(arg1, arg2, arg3, arg4, arg5)
 end
 
 local function fun5(arg1, arg2, arg3, arg4, arg5)
-   return var13(arg1, arg2, arg3, arg4, arg5)
+   return var14(arg1, arg2, arg3, arg4, arg5)
 end
 
 return function(arg1)
    local var0 = arg1.arguments
-   local var223 = type(var0.materialDescription)
-   if var223 == "string" then
+   local var228 = type(var0.materialDescription)
+   if var228 == "string" then
       local var0 = false
    end
    assert(true, "Bad request.materialDescription")
@@ -139,7 +140,7 @@ return function(arg1)
    var10.StartRecordingActions(arg1.requestId)
    local var3 = var0.materialDescription
    local var4 = var0.materialPattern
-   if not var13(arg1, var3, var0.baseMaterial, var0.materialId, var4):await() then
+   if not var14(arg1, var3, var0.baseMaterial, var0.materialId, var4):await() then
       local var0 = var9:getText("CreateMaterial", "FailedToCreateMaterialImprovedError", {})
       if var11() then
          if string.find(tostring(var3), "text is fully filtered") then

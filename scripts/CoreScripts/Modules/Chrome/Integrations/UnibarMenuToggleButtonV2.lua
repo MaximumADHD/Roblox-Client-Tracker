@@ -8,6 +8,7 @@ local Images = UIBlox.App.ImageSet.Images
 local chromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
+local GetFFlagTweakedMicPinning = require(script.Parent.Parent.Flags.GetFFlagTweakedMicPinning)
 
 function ToggleMenuButton(props)
 	local toggleIconTransition = props.toggleTransition
@@ -92,21 +93,23 @@ function ToggleMenuButton(props)
 			ImageTransparency = style.Theme.IconEmphasis.Transparency,
 			Rotation = 270,
 		}) :: any,
-		React.createElement("Frame", {
-			Name = "RedVoiceDotVisibleContiner",
-			-- If MicToggle isn't always visible in Unibar we'll need to make this more advanced
-			-- ie. a signal from ChromeService to say if MicToggle is visible
-			Visible = toggleIconTransition:map(function(value: any): any
-				return value < 0.5
-			end),
-			Size = UDim2.new(1, 0, 1, 0),
-			BorderSizePixel = 0,
-			BackgroundTransparency = 1,
-		}, {
-			React.createElement(RedVoiceDot, {
-				position = UDim2.new(1, -7, 1, -7),
-			}),
-		}) :: any,
+		if GetFFlagTweakedMicPinning()
+			then nil
+			else React.createElement("Frame", {
+				Name = "RedVoiceDotVisibleContiner",
+				-- If MicToggle isn't always visible in Unibar we'll need to make this more advanced
+				-- ie. a signal from ChromeService to say if MicToggle is visible
+				Visible = toggleIconTransition:map(function(value: any): any
+					return value < 0.5
+				end),
+				Size = UDim2.new(1, 0, 1, 0),
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+			}, {
+				React.createElement(RedVoiceDot, {
+					position = UDim2.new(1, -7, 1, -7),
+				}),
+			}) :: any,
 	})
 end
 

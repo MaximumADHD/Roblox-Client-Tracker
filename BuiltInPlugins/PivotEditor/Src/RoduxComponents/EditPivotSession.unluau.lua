@@ -26,26 +26,26 @@ local function fun0(arg1)
 end
 
 function var15.didMount(arg1)
-   local var234 = var14
-   if arg1.props.statusMessage ~= var234.None then
+   local var228 = var14
+   if arg1.props.statusMessage ~= var228.None then
       local var0 = false
    end
-   var234 = true
-   arg1._oldShowPivot = arg1._draggerContext:setPivotIndicator(var234)
+   var228 = true
+   arg1._oldShowPivot = arg1._draggerContext:setPivotIndicator(var228)
 end
 
 function var15._getCurrentDraggerHandles(arg1)
    if arg1.props.editingMode == "Transform" then
-      local var250 = {}
-      var250.Outset = 0.5
-      var250.ShowBoundingBox = false
-      var250.Summonable = false
-      var250.MustPositionAtPivot = true
-      local var1 = var5.new(arg1._draggerContext, var250, var8.MoveHandlesImplementation.new(arg1._draggerContext, "EditPivot"))
-      local var265 = {}
-      var265.ShowBoundingBox = false
-      var265.Summonable = false
-      local var2 = var6.new(arg1._draggerContext, var265, var8.RotateHandlesImplementation.new(arg1._draggerContext, "EditPivot"))
+      local var244 = {}
+      var244.Outset = 0.5
+      var244.ShowBoundingBox = false
+      var244.Summonable = false
+      var244.MustPositionAtPivot = true
+      local var1 = var5.new(arg1._draggerContext, var244, var8.MoveHandlesImplementation.new(arg1._draggerContext, "EditPivot"))
+      local var259 = {}
+      var259.ShowBoundingBox = false
+      var259.Summonable = false
+      local var2 = var6.new(arg1._draggerContext, var259, var8.RotateHandlesImplementation.new(arg1._draggerContext, "EditPivot"))
       local var3 = var7.new(arg1._draggerContext)
       return {}
    end
@@ -59,48 +59,48 @@ function var15.render(arg1)
    local var3 = var2:GetMouse()
    arg1._draggerContext = arg1.props.DraggerContext
    if not arg1._draggerContext then
-      local var293 = var9
-      var293 = var2
-      arg1._draggerContext = var293.new(var293, game, settings(), var8.Selection.new())
+      local var287 = var9
+      var287 = var2
+      arg1._draggerContext = var287.new(var287, game, settings(), var8.Selection.new())
    end
    if var0 ~= var13.Transform then
       if var0 == "DraggerContext" then
          if var0 ~= var13.Transform then
             local var0 = false
          end
-         local var314 = {}
-         var314.Mouse = var3
-         var314.DraggerContext = arg1._draggerContext
-         var314.DraggerSchema = var8
+         local var308 = {}
+         var308.Mouse = var3
+         var308.DraggerContext = arg1._draggerContext
+         var308.DraggerSchema = var8
          local var0 = {}
          var0.AnalyticsName = "EditPivot"
          var0.AllowDragSelect = false
          var0.AllowFreeformDrag = true
          var0.ShowLocalSpaceIndicator = false
          var0.HandlesList = arg1:_getCurrentDraggerHandles()
-         var314.DraggerSettings = var0
-         var1.DraggerToolComponent = var1.createElement(var4, var314)
+         var308.DraggerSettings = var0
+         var1.DraggerToolComponent = var1.createElement(var4, var308)
       end
    end
    if var0 ~= var13.Transform then
       local var0 = false
    end
-   local var331 = {}
-   var331.Mouse = var3
-   var331.DraggerContext = arg1._draggerContext
-   var331.DraggerSchema = var8
+   local var325 = {}
+   var325.Mouse = var3
+   var325.DraggerContext = arg1._draggerContext
+   var325.DraggerSchema = var8
    local var4 = {}
    var4.AnalyticsName = "EditPivot"
    var4.AllowDragSelect = false
    var4.AllowFreeformDrag = true
    var4.ShowLocalSpaceIndicator = false
    var4.HandlesList = arg1:_getCurrentDraggerHandles()
-   var331.DraggerSettings = var4
-   var1.DraggerToolComponent = var1.createElement(var4, var331)
+   var325.DraggerSettings = var4
+   var1.DraggerToolComponent = var1.createElement(var4, var325)
    var1.SelectionUpdaterBound = var1.createElement(var10)
-   local var345 = var1
-   var345 = var1
-   return var345.createFragment(var345)
+   local var339 = var1
+   var339 = var1
+   return var339.createFragment(var339)
 end
 
 function var15.willUpdate(arg1, arg2, arg3)
@@ -121,7 +121,7 @@ function var15.willUpdate(arg1, arg2, arg3)
             local var0 = true
          end
       end
-      local var373 = false
+      local var367 = false
       if true then
          arg1.props.ToastNotification:showNotification(arg1.props.Localization:getText("Notification", var0), var0)
       end
@@ -137,11 +137,11 @@ function var15.willUnmount(arg1)
 end
 
 fun12 = var3.withContext
-local var390 = {}
-var390.Localization = var3.Localization
-var390.Plugin = var3.Plugin
-var390.ToastNotification = require(var0.Src.Utility.ToastNotification)
-var15 = fun12(var390)(var15)
+local var384 = {}
+var384.Localization = var3.Localization
+var384.Plugin = var3.Plugin
+var384.ToastNotification = require(var0.Src.Utility.ToastNotification)
+var15 = fun12(var384)(var15)
 return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.editingMode = arg1.editingMode
@@ -161,12 +161,12 @@ end, function(arg1)
    end
    
    function var0.doneSelectingPivot(arg1)
-      local var415 = var14
-      if arg1.props.statusMessage ~= var415.None then
+      local var409 = var14
+      if arg1.props.statusMessage ~= var409.None then
          local var0 = false
       end
-      var415 = true
-      arg1._oldShowPivot = arg1._draggerContext:setPivotIndicator(var415)
+      var409 = true
+      arg1._oldShowPivot = arg1._draggerContext:setPivotIndicator(var409)
    end
    
    return var0

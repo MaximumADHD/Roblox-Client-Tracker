@@ -6,6 +6,7 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 local Package = require(PackageIndex["InteractionFeedback"]["InteractionFeedback"])
 
 export type InteractionFeedbackConfig = Package.InteractionFeedbackConfig
+export type HapticEffect = Package.HapticEffect
 export type InteractionType = Package.InteractionType
 
 

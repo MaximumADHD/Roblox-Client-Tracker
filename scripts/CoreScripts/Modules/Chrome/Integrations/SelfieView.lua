@@ -9,6 +9,7 @@ local StarterGui = game:GetService("StarterGui")
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
+local GetFFlagTweakedMicPinning = require(script.Parent.Parent.Flags.GetFFlagTweakedMicPinning)
 local FFlagSelfViewFixes = require(script.Parent.Parent.Flags.GetFFlagSelfViewFixes)()
 local FFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)()
 local FFlagFixSelfViewPopin = game:DefineFastFlag("FixSelfViewPopin", false)
@@ -108,10 +109,19 @@ local updateAvailability = function(): ()
 		return
 	end
 
-	local shouldPin = if FFlagFixSelfViewPopin
-		then FaceAnimatorService:IsStarted()
-			and (FaceAnimatorService.VideoAnimationEnabled or FaceAnimatorService.AudioAnimationEnabled)
-		else FaceAnimatorService.VideoAnimationEnabled or FaceAnimatorService.AudioAnimationEnabled
+	local shouldPin
+	if GetFFlagTweakedMicPinning() then
+		if FFlagFixSelfViewPopin then
+			shouldPin = FaceAnimatorService:IsStarted() and FaceAnimatorService.VideoAnimationEnabled
+		else
+			shouldPin = FaceAnimatorService.VideoAnimationEnabled
+		end
+	else
+		shouldPin = if FFlagFixSelfViewPopin
+			then FaceAnimatorService:IsStarted()
+				and (FaceAnimatorService.VideoAnimationEnabled or FaceAnimatorService.AudioAnimationEnabled)
+			else FaceAnimatorService.VideoAnimationEnabled or FaceAnimatorService.AudioAnimationEnabled
+	end
 
 	if shouldPin then
 		selfieViewChromeIntegration.availability:pinned()

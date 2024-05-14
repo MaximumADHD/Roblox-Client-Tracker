@@ -68,6 +68,7 @@ game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
 
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
+local FFlagEnableBulkPurchaseApp = game:DefineFastFlag("EnableBulkPurchaseApp", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -177,6 +178,10 @@ ScriptContext:AddCoreScriptLocal("CoreScripts/MainBotChatScript2", RobloxGui)
 
 if game:GetEngineFeature("ProximityPrompts") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ProximityPrompt", RobloxGui)
+end
+
+if game:GetEngineFeature("ValidateUGCBodyAPIFeature") then
+	require(CoreGuiModules.Server.UGCValidation.UGCValidationFunctionInstaller)()
 end
 
 coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
@@ -437,6 +442,10 @@ end
 
 if FFlagEnableSendCameraAccessAnalytics then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/SendCameraAccessAnalytics", RobloxGui)
+end
+
+if FFlagEnableBulkPurchaseApp then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/BulkPurchaseApp", RobloxGui)
 end
 
 if GetFFlagEnableAppChatInExperience() then

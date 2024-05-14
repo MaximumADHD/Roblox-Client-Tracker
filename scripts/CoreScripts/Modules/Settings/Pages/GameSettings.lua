@@ -445,10 +445,14 @@ local function Initialize()
 			-- VR is uncapped
 			if not VRService.VREnabled then
 				local framerateCaps = table.clone(Constants.FramerateCaps)
-				local framerateCapsToText = {RobloxTranslator:FormatByKey("InGame.CommonUI.Label.Default")}
+				local framerateCapsToText = {RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.FramerateCapDefaultEntry", {
+					Frames = GameSettings:GetDefaultFramerateCap(),
+				})}
 
 				for _, framerate in framerateCaps do
-					table.insert(framerateCapsToText, tostring(framerate))
+					table.insert(framerateCapsToText, RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.FramerateEntry", {
+						Frames = framerate,
+					}))
 				end
 
 				table.insert(framerateCaps, 1, -1)
@@ -470,7 +474,7 @@ local function Initialize()
 
 					this.FramerateCapMode.IndexChanged:Connect(function(newIndex)
 						local oldValue = GameSettings.FramerateCap
-						GameSettings.FramerateCap = tonumber(framerateCaps[newIndex])
+						GameSettings.FramerateCap = framerateCaps[newIndex]
 
 						if GetFFlagEnableExplicitSettingsChangeAnalytics() then
 							reportSettingsChangeForAnalytics("framerate_cap", oldValue, GameSettings.FramerateCap)

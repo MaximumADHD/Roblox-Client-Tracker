@@ -19,7 +19,7 @@ PROTO_1:
   NEWTABLE R6 1 0
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K4 ["Tag"]
-  LOADK R8 K5 ["Component-BasicExample X-Fit X-Column"]
+  LOADK R8 K5 ["Component-CounterExample X-Fit X-Column"]
   SETTABLE R8 R6 R7
   DUPTABLE R7 K8 [{"Label", "Button"}]
   GETUPVAL R9 1

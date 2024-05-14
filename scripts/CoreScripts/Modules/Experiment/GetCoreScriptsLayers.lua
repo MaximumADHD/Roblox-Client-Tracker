@@ -4,6 +4,7 @@ local FFlagEnableBulkManagementExperiment = require(CorePackages.Workspace.Packa
 local FFlagEnableCapturesDesktopExperiment = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableCapturesDesktopExperiment
 local FStringCapturesIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringCapturesIXPLayer
 local FStringCapturesTabIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringCapturesTabIXPLayer
+local FStringSocialCaptureIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringSocialCaptureIXPLayer
 local GetFFlagShareInviteLinkContextMenuABTestEnabled = require(script.Parent.Parent.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
 local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
 local GetFStringLargerRobuxUpsellIxpLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringLargerRobuxUpsellIxpLayer
@@ -83,6 +84,10 @@ return function()
 
 	if FFlagEnableBulkManagementExperiment then
 		table.insert(layers, FStringCapturesTabIXPLayer)
+	end
+
+	if game:GetEngineFeature("SocialCaptureLayerRegistered") and FStringSocialCaptureIXPLayer then
+		table.insert(layers, FStringSocialCaptureIXPLayer)
 	end
 
 	if GetFFlagAddVoiceExposureLayer() then

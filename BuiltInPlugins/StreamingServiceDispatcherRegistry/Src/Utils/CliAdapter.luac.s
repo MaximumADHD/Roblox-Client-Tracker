@@ -105,6 +105,11 @@ PROTO_10:
   RETURN R3 1
 
 PROTO_11:
+  GETTABLEKS R3 R0 K0 ["_boundCodeGuids"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_12:
   GETUPVAL R1 0
   FASTCALL2K ASSERT R1 K0 [+4]
   LOADK R2 K0 ["Loaded code is nil!"]
@@ -114,54 +119,52 @@ PROTO_11:
   CALL R0 0 0
   RETURN R0 0
 
-PROTO_12:
-  GETIMPORT R3 K1 [loadstring]
-  MOVE R4 R2
-  CALL R3 1 2
-  JUMPIF R3 [+9]
-  GETIMPORT R5 K3 [warn]
-  LOADK R6 K4 ["COMPILATION ERROR"]
-  MOVE R7 R4
-  CALL R5 2 0
-  LOADB R5 0
+PROTO_13:
+  GETTABLEKS R4 R0 K0 ["_boundCodeGuids"]
+  GETTABLE R3 R4 R1
+  JUMPIF R3 [+7]
+  GETIMPORT R4 K2 [warn]
+  LOADK R5 K3 ["Code was not bound to a guid!"]
+  CALL R4 1 0
+  LOADB R4 0
+  LOADK R5 K3 ["Code was not bound to a guid!"]
+  RETURN R4 2
+  GETIMPORT R4 K5 [loadstring]
+  MOVE R5 R3
+  CALL R4 1 2
+  JUMPIF R4 [+8]
+  GETIMPORT R6 K2 [warn]
+  LOADK R7 K6 ["COMPILATION ERROR"]
+  MOVE R8 R5
+  CALL R6 2 0
   LOADB R6 0
+  MOVE R7 R5
+  RETURN R6 2
+  GETIMPORT R6 K8 [getfenv]
   MOVE R7 R4
-  RETURN R5 3
-  GETIMPORT R5 K6 [getfenv]
-  MOVE R6 R3
-  CALL R5 1 1
-  GETIMPORT R6 K8 [print]
-  SETTABLEKS R6 R5 K7 ["print"]
-  GETIMPORT R5 K10 [pcall]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R3
-  CALL R5 1 2
-  JUMPIF R5 [+9]
-  GETIMPORT R7 K3 [warn]
-  LOADK R8 K11 ["RUNTIME ERROR"]
-  MOVE R9 R6
-  CALL R7 2 0
-  LOADB R7 1
+  CALL R6 1 1
+  GETIMPORT R7 K10 [print]
+  SETTABLEKS R7 R6 K9 ["print"]
+  GETIMPORT R6 K12 [pcall]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R4
+  CALL R6 1 2
+  JUMPIF R6 [+8]
+  GETIMPORT R8 K2 [warn]
+  LOADK R9 K13 ["RUNTIME ERROR"]
+  MOVE R10 R7
+  CALL R8 2 0
   LOADB R8 0
-  MOVE R9 R6
-  RETURN R7 3
-  LOADB R7 1
+  MOVE R9 R7
+  RETURN R8 2
   LOADB R8 1
   LOADNIL R9
-  RETURN R7 3
+  RETURN R8 2
 
-PROTO_13:
+PROTO_14:
   GETTABLEKS R3 R0 K0 ["_variableStore"]
   GETTABLE R2 R3 R1
   RETURN R2 1
-
-PROTO_14:
-  SETTABLEKS R1 R3 K0 ["requestId"]
-  GETTABLEKS R5 R0 K1 ["_commandStore"]
-  GETTABLE R4 R5 R2
-  MOVE R5 R3
-  CALL R4 1 0
-  RETURN R0 0
 
 PROTO_15:
   SETTABLEKS R1 R3 K0 ["requestId"]
@@ -172,41 +175,49 @@ PROTO_15:
   RETURN R0 0
 
 PROTO_16:
-  GETTABLEKS R3 R0 K0 ["_commandStore"]
-  SETTABLE R2 R3 R1
+  SETTABLEKS R1 R3 K0 ["requestId"]
+  GETTABLEKS R5 R0 K1 ["_commandStore"]
+  GETTABLE R4 R5 R2
+  MOVE R5 R3
+  CALL R4 1 0
   RETURN R0 0
 
 PROTO_17:
-  GETTABLEKS R3 R0 K0 ["_collectorStore"]
+  GETTABLEKS R3 R0 K0 ["_commandStore"]
   SETTABLE R2 R3 R1
   RETURN R0 0
 
 PROTO_18:
-  GETTABLEKS R3 R0 K0 ["_commandStore"]
+  GETTABLEKS R3 R0 K0 ["_collectorStore"]
   SETTABLE R2 R3 R1
   RETURN R0 0
 
 PROTO_19:
+  GETTABLEKS R3 R0 K0 ["_commandStore"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_20:
   GETTABLEKS R4 R0 K0 ["_variableStore"]
   SETTABLE R2 R4 R1
   RETURN R0 0
 
-PROTO_20:
+PROTO_21:
   RETURN R0 0
 
-PROTO_21:
+PROTO_22:
   GETTABLEKS R2 R0 K0 ["_commandStore"]
   LOADNIL R3
   SETTABLE R3 R2 R1
   RETURN R0 0
 
-PROTO_22:
+PROTO_23:
   GETTABLEKS R2 R0 K0 ["_collectorStore"]
   LOADNIL R3
   SETTABLE R3 R2 R1
   RETURN R0 0
 
-PROTO_23:
+PROTO_24:
   FASTCALL1 TYPE R0 [+3]
   MOVE R3 R0
   GETIMPORT R2 K1 [type]
@@ -241,7 +252,7 @@ PROTO_23:
   RETURN R2 1
   RETURN R0 1
 
-PROTO_24:
+PROTO_25:
   DUPTABLE R0 K4 [{"ClientVersionContext", "use_inventory_assets", "ClientFlagContext", "MessageIdentifier"}]
   LOADK R1 K5 ["1.0.0"]
   SETTABLEKS R1 R0 K0 ["ClientVersionContext"]
@@ -265,7 +276,7 @@ PROTO_24:
   SETTABLEKS R1 R0 K3 ["MessageIdentifier"]
   RETURN R0 1
 
-PROTO_25:
+PROTO_26:
   LOADK R5 K0 ["native_injector"]
   NEWCLOSURE R6 P0
   CAPTURE VAL R1
@@ -377,7 +388,7 @@ MAIN:
   MOVE R10 R4
   GETIMPORT R8 K39 [setmetatable]
   CALL R8 2 1
-  DUPTABLE R9 K51 [{"ConversationCleared", "RequestEnded", "RequestError", "RequestStarted", "SequentialCommandsFinished", "Stream", "_requestId", "_instanceStore", "_variableStore", "_commandStore", "_collectorStore"}]
+  DUPTABLE R9 K52 [{"ConversationCleared", "RequestEnded", "RequestError", "RequestStarted", "SequentialCommandsFinished", "Stream", "_requestId", "_instanceStore", "_variableStore", "_commandStore", "_collectorStore", "_boundCodeGuids"}]
   GETTABLEKS R10 R2 K11 ["new"]
   CALL R10 0 1
   SETTABLEKS R10 R9 K40 ["ConversationCleared"]
@@ -396,7 +407,7 @@ MAIN:
   GETTABLEKS R10 R2 K11 ["new"]
   CALL R10 0 1
   SETTABLEKS R10 R9 K45 ["Stream"]
-  LOADK R10 K52 ["123"]
+  LOADK R10 K53 ["123"]
   SETTABLEKS R10 R9 K46 ["_requestId"]
   NEWTABLE R10 0 0
   SETTABLEKS R10 R9 K47 ["_instanceStore"]
@@ -406,46 +417,50 @@ MAIN:
   SETTABLEKS R10 R9 K49 ["_commandStore"]
   NEWTABLE R10 0 0
   SETTABLEKS R10 R9 K50 ["_collectorStore"]
-  DUPTABLE R10 K54 [{"UpdateSourceAsync"}]
-  DUPCLOSURE R11 K55 [PROTO_7]
-  SETTABLEKS R11 R10 K53 ["UpdateSourceAsync"]
-  DUPTABLE R11 K62 [{"ChatbotUIService", "ConversationalAIAcceptanceService", "StreamingService", "MaterialGenerationService", "StudioAssetService", "ScriptEditorService"}]
-  SETTABLEKS R5 R11 K56 ["ChatbotUIService"]
-  SETTABLEKS R6 R11 K57 ["ConversationalAIAcceptanceService"]
-  SETTABLEKS R9 R11 K58 ["StreamingService"]
-  SETTABLEKS R7 R11 K59 ["MaterialGenerationService"]
-  SETTABLEKS R8 R11 K60 ["StudioAssetService"]
-  SETTABLEKS R10 R11 K61 ["ScriptEditorService"]
-  DUPCLOSURE R12 K63 [PROTO_9]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K51 ["_boundCodeGuids"]
+  DUPTABLE R10 K55 [{"UpdateSourceAsync"}]
+  DUPCLOSURE R11 K56 [PROTO_7]
+  SETTABLEKS R11 R10 K54 ["UpdateSourceAsync"]
+  DUPTABLE R11 K63 [{"ChatbotUIService", "ConversationalAIAcceptanceService", "StreamingService", "MaterialGenerationService", "StudioAssetService", "ScriptEditorService"}]
+  SETTABLEKS R5 R11 K57 ["ChatbotUIService"]
+  SETTABLEKS R6 R11 K58 ["ConversationalAIAcceptanceService"]
+  SETTABLEKS R9 R11 K59 ["StreamingService"]
+  SETTABLEKS R7 R11 K60 ["MaterialGenerationService"]
+  SETTABLEKS R8 R11 K61 ["StudioAssetService"]
+  SETTABLEKS R10 R11 K62 ["ScriptEditorService"]
+  DUPCLOSURE R12 K64 [PROTO_9]
   CAPTURE VAL R11
   SETTABLEKS R12 R0 K21 ["GetService"]
-  DUPCLOSURE R12 K64 [PROTO_10]
-  SETTABLEKS R12 R9 K65 ["GetInstance"]
-  DUPCLOSURE R12 K66 [PROTO_12]
-  SETTABLEKS R12 R9 K67 ["RunSandboxedCode"]
-  DUPCLOSURE R12 K68 [PROTO_13]
-  SETTABLEKS R12 R9 K69 ["GetEphemeralVariable"]
-  DUPCLOSURE R12 K70 [PROTO_14]
-  SETTABLEKS R12 R9 K71 ["ExecuteCommandAsync"]
-  DUPCLOSURE R12 K72 [PROTO_15]
-  SETTABLEKS R12 R9 K73 ["InvokeCommand"]
-  DUPCLOSURE R12 K74 [PROTO_16]
-  SETTABLEKS R12 R9 K75 ["RegisterCommand"]
-  DUPCLOSURE R12 K76 [PROTO_17]
-  SETTABLEKS R12 R9 K77 ["RegisterContextCollector"]
-  DUPCLOSURE R12 K78 [PROTO_18]
-  SETTABLEKS R12 R9 K79 ["RegisterSequentialCommand"]
-  DUPCLOSURE R12 K80 [PROTO_19]
-  SETTABLEKS R12 R9 K81 ["SetEphemeralVariable"]
-  DUPCLOSURE R12 K82 [PROTO_20]
-  SETTABLEKS R12 R9 K83 ["SetPluginInfoCallback"]
-  DUPCLOSURE R12 K84 [PROTO_21]
-  SETTABLEKS R12 R9 K85 ["UnregisterCommand"]
-  DUPCLOSURE R12 K86 [PROTO_22]
-  SETTABLEKS R12 R9 K87 ["UnregisterContextCollector"]
-  DUPCLOSURE R12 K88 [PROTO_23]
+  DUPCLOSURE R12 K65 [PROTO_10]
+  SETTABLEKS R12 R9 K66 ["GetInstance"]
+  DUPCLOSURE R12 K67 [PROTO_11]
+  SETTABLEKS R12 R9 K68 ["BindCodeToGuid"]
+  DUPCLOSURE R12 K69 [PROTO_13]
+  SETTABLEKS R12 R9 K70 ["RunSandboxedCode"]
+  DUPCLOSURE R12 K71 [PROTO_14]
+  SETTABLEKS R12 R9 K72 ["GetEphemeralVariable"]
+  DUPCLOSURE R12 K73 [PROTO_15]
+  SETTABLEKS R12 R9 K74 ["ExecuteCommandAsync"]
+  DUPCLOSURE R12 K75 [PROTO_16]
+  SETTABLEKS R12 R9 K76 ["InvokeCommand"]
+  DUPCLOSURE R12 K77 [PROTO_17]
+  SETTABLEKS R12 R9 K78 ["RegisterCommand"]
+  DUPCLOSURE R12 K79 [PROTO_18]
+  SETTABLEKS R12 R9 K80 ["RegisterContextCollector"]
+  DUPCLOSURE R12 K81 [PROTO_19]
+  SETTABLEKS R12 R9 K82 ["RegisterSequentialCommand"]
+  DUPCLOSURE R12 K83 [PROTO_20]
+  SETTABLEKS R12 R9 K84 ["SetEphemeralVariable"]
+  DUPCLOSURE R12 K85 [PROTO_21]
+  SETTABLEKS R12 R9 K86 ["SetPluginInfoCallback"]
+  DUPCLOSURE R12 K87 [PROTO_22]
+  SETTABLEKS R12 R9 K88 ["UnregisterCommand"]
+  DUPCLOSURE R12 K89 [PROTO_23]
+  SETTABLEKS R12 R9 K90 ["UnregisterContextCollector"]
+  DUPCLOSURE R12 K91 [PROTO_24]
   CAPTURE VAL R9
-  SETGLOBAL R12 K89 ["replaceInstances"]
-  DUPCLOSURE R12 K90 [PROTO_25]
-  SETTABLEKS R12 R9 K91 ["CollectContexts"]
+  SETGLOBAL R12 K92 ["replaceInstances"]
+  DUPCLOSURE R12 K93 [PROTO_26]
+  SETTABLEKS R12 R9 K94 ["CollectContexts"]
   RETURN R0 1

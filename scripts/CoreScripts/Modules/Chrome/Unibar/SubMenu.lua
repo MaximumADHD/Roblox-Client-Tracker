@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
+local LocalStore = require(script.Parent.Parent.Service.LocalStore)
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
 local Interactable = UIBlox.Core.Control.Interactable
@@ -10,6 +11,7 @@ local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
+local Badge = UIBlox.App.Indicator.Badge
 
 local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
@@ -26,10 +28,15 @@ local useObservableValue = require(Chrome.Hooks.useObservableValue)
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
 local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
 local GetFFlagUseNewPinIcon = require(Chrome.Flags.GetFFlagUseNewPinIcon)
+local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSubmenuTruncationFix)
+local GetFFlagEnableCaptureBadge = require(Chrome.Flags.GetFFlagEnableCaptureBadge)
+local GetFIntNumTimesNewBadgeIsDisplayed = require(Chrome.Flags.GetFIntNumTimesNewBadgeIsDisplayed)
+local GetFStringNewFeatureList = require(Chrome.Flags.GetFStringNewFeatureList)
 local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
 local ROW_HEIGHT = Constants.SUB_MENU_ROW_HEIGHT
+local SCROLL_OFFSET = ROW_HEIGHT * 0.5
 
 local PINNED_ICON = nil
 local UNPINNED_ICON = nil
@@ -41,11 +48,31 @@ else
 	UNPINNED_ICON = Images["icons/actions/edit/add"]
 end
 
+local hasOpened9Dot = false
+local TIMES_SEEN = "TimesSeenNewFeatures"
+local NEW_BADGE_TEXT = "NEW"
+local newFeatures = {}
+
+for feature in string.gmatch(GetFStringNewFeatureList(), "([^, ]+)") do
+	newFeatures[feature] = true
+end
+
 type Table = { [any]: any }
 
 export type SubMenuProps = {
 	items: { [number]: ChromeTypes.IntegrationComponentProps },
 }
+
+function ClearBadge(id)
+	if newFeatures[id] then
+		newFeatures[id] = false
+		if LocalStore.isEnabled() then
+			local current = LocalStore.loadForLocalPlayer(TIMES_SEEN) or {}
+			current[id] = GetFIntNumTimesNewBadgeIsDisplayed()
+			LocalStore.storeForLocalPlayer(TIMES_SEEN, current)
+		end
+	end
+end
 
 function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	local style = useStyle()
@@ -123,7 +150,12 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			return v.Color
 		end),
 		SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
-		[React.Event.Activated] = props.activated,
+		[React.Event.Activated] = if GetFFlagEnableCaptureBadge()
+			then function()
+				ClearBadge(props.id)
+				props.activated()
+			end
+			else props.activated,
 		LayoutOrder = props.order,
 		onStateChanged = stateChange,
 	}, {
@@ -139,13 +171,18 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			else rowFragment,
 		UserPin = if GetFFlagEnableChromePinIntegrations()
 			then React.createElement(Interactable, {
-				Size = UDim2.new(0, Constants.PIN_BUTTON_SIZE, 0, Constants.PIN_BUTTON_SIZE),
+				Size = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
+					then UDim2.new(0, Constants.NEW_BADGE_SIZE, 0, Constants.PIN_BUTTON_SIZE)
+					else UDim2.new(0, Constants.PIN_BUTTON_SIZE, 0, Constants.PIN_BUTTON_SIZE),
 				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING, 0.5, 0),
+				Position = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
+					then UDim2.new(1, -Constants.NEW_BADGE_SIZE - Constants.PIN_RIGHT_PADDING, 0.5, 0)
+					else UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING, 0.5, 0),
 				BorderSizePixel = 0,
 				SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
 				isDisabled = pinDisabled,
 				[React.Event.Activated] = function()
+					ClearBadge(props.id)
 					pinActivated(props.id)
 				end,
 				BackgroundTransparency = pinHighlightColor:map(function(v)
@@ -160,17 +197,26 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 				UICorner = React.createElement("UICorner", {
 					CornerRadius = UDim.new(0, 8),
 				}),
-				UserPinIcon = React.createElement(ImageSetLabel, {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 0.5, 0),
-					BackgroundTransparency = 1,
-					Image = if currenlyPinned then PINNED_ICON else UNPINNED_ICON,
-					Size = Constants.PIN_ICON_SIZE,
-					ImageColor3 = style.Theme.IconEmphasis.Color,
-					ImageTransparency = if pinDisabled
-						then style.Theme.UIEmphasis.Transparency
-						else style.Theme.IconEmphasis.Transparency,
-				}),
+				UserPinIcon = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
+					then nil
+					else React.createElement(ImageSetLabel, {
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						BackgroundTransparency = 1,
+						Image = if currenlyPinned then PINNED_ICON else UNPINNED_ICON,
+						Size = Constants.PIN_ICON_SIZE,
+						ImageColor3 = style.Theme.IconEmphasis.Color,
+						ImageTransparency = if pinDisabled
+							then style.Theme.UIEmphasis.Transparency
+							else style.Theme.IconEmphasis.Transparency,
+					}),
+				NewBadge = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
+					then React.createElement(Badge, {
+						anchorPoint = Vector2.new(0.5, 0.5),
+						position = UDim2.new(0.5, 0, 0.5, 0),
+						value = NEW_BADGE_TEXT,
+					})
+					else nil,
 			})
 			else nil,
 	})
@@ -193,6 +239,28 @@ function pinActivated(componentId)
 end
 
 function SubMenu(props: SubMenuProps)
+	if GetFFlagEnableCaptureBadge() then
+		if not hasOpened9Dot then
+			hasOpened9Dot = true
+			if LocalStore.isEnabled() then
+				local current = LocalStore.loadForLocalPlayer(TIMES_SEEN) or {}
+
+				for feature, enabled in pairs(newFeatures) do
+					if not enabled then
+						continue
+					end
+
+					local timesViewed = current[feature] or 0
+					current[feature] = timesViewed + 1
+
+					if current[feature] > GetFIntNumTimesNewBadgeIsDisplayed() then
+						newFeatures[feature] = false
+					end
+				end
+				LocalStore.storeForLocalPlayer(TIMES_SEEN, current)
+			end
+		end
+	end
 	local style = useStyle()
 	local theme = style.Theme
 	local menuRef = React.useRef(nil)
@@ -221,10 +289,20 @@ function SubMenu(props: SubMenuProps)
 		end
 	end, {})
 
-	local EnableUnibarRespawn = GetFFlagUnibarRespawn()
+	local EnableScrollingSubmenu = GetFFlagUnibarRespawn() or GetFFlagEnableSubmenuTruncationFix()
 	local topBuffer = TopBarConstants.TopBarHeight + Constants.ICON_CELL_WIDTH
 	local canvasSize = if props and props.items then ROW_HEIGHT * #props.items else 0
 	local minSize = math.min(screenSize.Y - topBuffer, canvasSize)
+
+	-- scroll affordance: if submenu does not fully fit, shrink height to half of last integration that partially fits
+	if GetFFlagEnableSubmenuTruncationFix() and screenSize.Y - topBuffer < canvasSize then
+		local numberItemsFullyFit = math.floor((screenSize.Y - topBuffer) / ROW_HEIGHT)
+		if (ROW_HEIGHT * numberItemsFullyFit) + SCROLL_OFFSET <= (screenSize.Y - topBuffer) then
+			minSize = ROW_HEIGHT * numberItemsFullyFit + SCROLL_OFFSET
+		else
+			minSize = ROW_HEIGHT * numberItemsFullyFit - SCROLL_OFFSET
+		end
+	end
 
 	local rows: Table = {
 		UIListLayout = React.createElement("UIListLayout", {
@@ -234,8 +312,8 @@ function SubMenu(props: SubMenuProps)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 		UISizeConstraint = React.createElement("UISizeConstraint", {
-			MaxSize = if EnableUnibarRespawn then nil else Vector2.new(math.huge, 232),
-			MinSize = if EnableUnibarRespawn then Vector2.new(0, minSize) else nil,
+			MaxSize = if EnableScrollingSubmenu then nil else Vector2.new(math.huge, 232),
+			MinSize = if EnableScrollingSubmenu then Vector2.new(0, minSize) else nil,
 		}),
 		-- extra padding to account for broken AutomaticSize + Padding
 		BottomPadding = React.createElement("Frame", {
@@ -270,10 +348,10 @@ function SubMenu(props: SubMenuProps)
 			ScrollBarThickness = 1,
 			BorderSizePixel = 0,
 			Size = UDim2.new(1, 0, 0, 0),
-			CanvasSize = if EnableUnibarRespawn then UDim2.new(0, 0, 0, canvasSize) else nil,
-			AutomaticSize = if EnableUnibarRespawn then nil else Enum.AutomaticSize.Y,
+			CanvasSize = if EnableScrollingSubmenu then UDim2.new(0, 0, 0, canvasSize) else nil,
+			AutomaticSize = if EnableScrollingSubmenu then nil else Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
-			AutomaticCanvasSize = if EnableUnibarRespawn then nil else Enum.AutomaticSize.XY,
+			AutomaticCanvasSize = if EnableScrollingSubmenu then nil else Enum.AutomaticSize.XY,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
 			SelectionGroup = true,
 			SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,

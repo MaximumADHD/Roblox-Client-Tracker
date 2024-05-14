@@ -181,7 +181,7 @@ PROTO_9:
   GETTABLEKS R15 R16 K42 ["Tag"]
   LOADK R16 K43 ["X-Fill X-Column"]
   SETTABLE R16 R14 R15
-  DUPTABLE R15 K45 [{"BasicExample"}]
+  DUPTABLE R15 K45 [{"DeviceBlueprint"}]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K11 ["createElement"]
   GETUPVAL R17 5
@@ -189,7 +189,7 @@ PROTO_9:
   LOADB R19 1
   SETTABLEKS R19 R18 K46 ["showContent"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K44 ["BasicExample"]
+  SETTABLEKS R16 R15 K44 ["DeviceBlueprint"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K38 ["Wrapper"]
   GETUPVAL R13 3
@@ -240,7 +240,7 @@ MAIN:
   GETTABLEKS R12 R0 K19 ["Src"]
   GETTABLEKS R11 R12 K24 ["Components"]
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R13 R11 K25 ["BasicExample"]
+  GETTABLEKS R13 R11 K25 ["DeviceBlueprint"]
   CALL R12 1 1
   GETTABLEKS R13 R1 K26 ["PureComponent"]
   LOADK R15 K27 ["MainPlugin"]

@@ -28,6 +28,7 @@ local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChrom
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 local GetFFlagOpenControlsOnMenuOpen = require(script.Parent.Parent.Flags.GetFFlagOpenControlsOnMenuOpen)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
+local GetFFlagDisableMostRecentlyUsed = require(script.Parent.Parent.Flags.GetFFlagDisableMostRecentlyUsed)
 
 local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 2.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
@@ -1075,6 +1076,10 @@ function ChromeService:removeRecentlyUsed(componentId: Types.IntegrationId)
 	self:rebuildMostRecentlyUsed()
 end
 function ChromeService:setRecentlyUsed(componentId: Types.IntegrationId, force: boolean?)
+	if GetFFlagDisableMostRecentlyUsed() then
+		return
+	end
+
 	if force or (self:withinCurrentSubmenu(componentId) and not self:isMostRecentlyUsed(componentId)) then
 		-- if integration is pinned by user, do not set it to an MRU slot
 		if GetFFlagEnableChromePinIntegrations() and self:isUserPinned(componentId) then

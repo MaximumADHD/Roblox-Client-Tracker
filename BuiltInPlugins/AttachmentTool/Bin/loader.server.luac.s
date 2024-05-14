@@ -25,15 +25,6 @@ PROTO_2:
   CALL R3 4 -1
   RETURN R3 -1
 
-PROTO_3:
-  MOVE R3 R0
-  MOVE R4 R1
-  MOVE R5 R2
-  LOADK R6 K0 ["Plugin"]
-  LOADK R7 K1 ["Name"]
-  CALL R3 4 -1
-  RETURN R3 -1
-
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [require]
@@ -98,52 +89,23 @@ MAIN:
   DUPCLOSURE R7 K40 [PROTO_2]
   SETTABLEKS R7 R6 K37 ["getToolbarName"]
   SETTABLEKS R5 R6 K38 ["buttonInfo"]
-  GETIMPORT R7 K7 [game]
-  LOADK R9 K41 ["RunService"]
-  NAMECALL R7 R7 K42 ["GetService"]
-  CALL R7 2 1
-  NAMECALL R8 R7 K43 ["IsEdit"]
+  LOADB R7 1
+  SETTABLEKS R7 R5 K29 ["enabled"]
+  GETTABLEKS R7 R2 K41 ["build"]
+  MOVE R8 R6
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K42 ["pluginLoader"]
+  NAMECALL R8 R8 K43 ["waitForUserInteraction"]
   CALL R8 1 1
-  JUMPIFNOT R8 [+55]
-  LOADB R8 1
-  SETTABLEKS R8 R5 K29 ["enabled"]
-  DUPTABLE R8 K48 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R9 K10 ["AttachmentTool"]
-  SETTABLEKS R9 R8 K44 ["id"]
-  GETIMPORT R9 K51 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R10 K55 [Enum.InitialDockState.Bottom]
-  LOADB R11 0
-  LOADB R12 0
-  LOADN R13 128
-  LOADN R14 224
-  LOADN R15 250
-  LOADN R16 200
-  CALL R9 7 1
-  SETTABLEKS R9 R8 K45 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R9 K56 [PROTO_3]
-  SETTABLEKS R9 R8 K46 ["getDockTitle"]
-  GETIMPORT R9 K59 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R9 R8 K47 ["zIndexBehavior"]
-  SETTABLEKS R8 R6 K60 ["dockWidgetInfo"]
-  GETTABLEKS R8 R2 K61 ["build"]
-  MOVE R9 R6
-  CALL R8 1 1
-  GETTABLEKS R9 R8 K62 ["pluginLoader"]
-  NAMECALL R9 R9 K63 ["waitForUserInteraction"]
+  JUMPIF R8 [+1]
+  RETURN R0 0
+  GETIMPORT R9 K1 [require]
+  GETIMPORT R12 K3 [script]
+  GETTABLEKS R11 R12 K4 ["Parent"]
+  GETTABLEKS R10 R11 K44 ["main"]
   CALL R9 1 1
-  JUMPIF R9 [+1]
-  RETURN R0 0
-  GETIMPORT R10 K1 [require]
-  GETIMPORT R13 K3 [script]
-  GETTABLEKS R12 R13 K4 ["Parent"]
-  GETTABLEKS R11 R12 K64 ["main"]
-  CALL R10 1 1
-  MOVE R11 R10
-  GETIMPORT R12 K18 [plugin]
-  MOVE R13 R8
-  CALL R11 2 0
-  RETURN R0 0
-  GETTABLEKS R8 R2 K61 ["build"]
-  MOVE R9 R6
-  CALL R8 1 0
+  MOVE R10 R9
+  GETIMPORT R11 K18 [plugin]
+  MOVE R12 R7
+  CALL R10 2 0
   RETURN R0 0

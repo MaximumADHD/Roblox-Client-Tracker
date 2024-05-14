@@ -1,9 +1,9 @@
 PROTO_0:
-  DUPTABLE R5 K4 [{"id", "url", "_type", "revealTarget"}]
+  DUPTABLE R5 K4 [{"id", "url", "_type", "instance"}]
   SETTABLEKS R0 R5 K0 ["id"]
   SETTABLEKS R1 R5 K1 ["url"]
   SETTABLEKS R2 R5 K2 ["_type"]
-  SETTABLEKS R3 R5 K3 ["revealTarget"]
+  SETTABLEKS R3 R5 K3 ["instance"]
   GETUPVAL R6 0
   FASTCALL2 SETMETATABLE R5 R6 [+3]
   GETIMPORT R4 K6 [setmetatable]

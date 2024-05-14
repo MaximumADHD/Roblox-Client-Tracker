@@ -7,7 +7,7 @@ function var1.new(arg1, arg2, arg3, arg4)
    var11.id = arg1
    var11.url = arg2
    var11._type = arg3
-   var11.revealTarget = arg4
+   var11.instance = arg4
    return setmetatable(var11, var1)
 end
 

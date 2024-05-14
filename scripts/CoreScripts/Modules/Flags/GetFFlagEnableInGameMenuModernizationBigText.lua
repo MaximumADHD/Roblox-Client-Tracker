@@ -4,7 +4,7 @@ local Players = game:GetService("Players")
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
 local ExperienceMenuABTestManager = require(script.Parent.Parent.ExperienceMenuABTestManager)
 
-game:DefineFastString("InGameMenuModernizationBigTextForcedUserIds", "")
+local GetFStringInGameMenuModernizationBigTextForcedUserIds = require(script.Parent.GetFStringInGameMenuModernizationBigTextForcedUserIds)
 
 return function()
 	local localPlayer = Players.LocalPlayer
@@ -13,7 +13,7 @@ return function()
 		localPlayer = Players.LocalPlayer
 	end
 
-	local forcedUserIds = game:GetFastString("InGameMenuModernizationBigTextForcedUserIds")
+	local forcedUserIds = GetFStringInGameMenuModernizationBigTextForcedUserIds()
 	for forcedUserIdString in forcedUserIds:gmatch("%d+") do
 		if tonumber(forcedUserIdString) == localPlayer.UserId then
 			return true

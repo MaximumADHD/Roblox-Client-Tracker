@@ -46,7 +46,7 @@ end
 
 local FFlagUserFixTouchJumpBug do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixTouchJumpBug")
+		return UserSettings():IsUserFeatureEnabled("UserFixTouchJumpBug2")
 	end)
 	FFlagUserFixTouchJumpBug = success and result
 end
@@ -278,7 +278,7 @@ function ControlModule:UpdateActiveControlModuleEnabled()
 	-- helpers for disable/enable
 	local disable = function()
 		self.activeController:Enable(false)
-		if FFlagUserFixTouchJumpBug then 
+		if FFlagUserFixTouchJumpBug and self.touchJumpController then 
 			self.touchJumpController:Enable(false)
 		end
 

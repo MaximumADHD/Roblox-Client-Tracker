@@ -19,7 +19,7 @@ TouchJump.__index = TouchJump
 
 local FFlagUserFixTouchJumpBug do
 	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixTouchJumpBug")
+		return UserSettings():IsUserFeatureEnabled("UserFixTouchJumpBug2")
 	end)
 	FFlagUserFixTouchJumpBug = success and result
 end

@@ -14,6 +14,8 @@ return {
 	useTokensWithScale = UIBloxFlags.GetFFlagUIBloxUseTokensWithScale(),
 	useNewHeaderBar = UIBloxFlags.GetFFlagUIBloxUseNewHeaderBar(),
 	ignoreRichTextTagsForTextSizeCalculation = UIBloxFlags.GetFFlagUIBloxIgnoreRichTextTagsForTextSizeCalculation(),
+	enableInteractionFeedback = SharedFlags.GetFFlagEnableUISoundAndHaptics(),
 	interactiveAlertDesignTokenMinMaxSize = UIBloxFlags.GetFFlagUIBloxInteractiveAlertDesignTokenMinMaxSize(),
 	alertTitleDesignTokenHeader = UIBloxFlags.GetFFlagUIBloxAlertTitleDesignTokenHeader(),
+	refactorInteractable = UIBloxFlags.FFlagUIBloxUseNewInteractableCoreScript,
 }

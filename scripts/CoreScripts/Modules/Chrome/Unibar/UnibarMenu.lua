@@ -34,6 +34,7 @@ local GetFFlagNewUnibarIA = require(Chrome.Flags.GetFFlagNewUnibarIA)
 local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
 local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChromePinnedChat)()
 local GetFFlagOpenControlsOnMenuOpen = require(Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
+local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSubmenuTruncationFix)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
@@ -104,7 +105,12 @@ function configureUnibar(viewportInfo)
 	end
 
 	if GetFFlagEnableScreenshotUtility() then
-		table.insert(nineDot, "camera_entrypoint")
+		if GetFFlagEnableSubmenuTruncationFix() then
+			table.insert(nineDot, 2, "camera_entrypoint")
+		else
+			table.insert(nineDot, "camera_entrypoint")
+		end
+
 		ChromeService:configureCompactUtility("camera_utility", {
 			{ "captures", "screenshot", "chrome_toggle" },
 		})

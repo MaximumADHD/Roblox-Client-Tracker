@@ -11,6 +11,13 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 
 local GetFFlagSwitchInExpTranslationsPackage = require(RobloxGui.Modules.Flags.GetFFlagSwitchInExpTranslationsPackage)
+local GetFFlagEnableUISoundAndHaptics =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableUISoundAndHaptics
+local InteractionFeedbackPackage = require(CorePackages.Workspace.Packages.InteractionFeedback)
+local InteractionFeedbackContext = InteractionFeedbackPackage.InteractionFeedbackContext
+local FeedbackManagerInjectionContextProvider = InteractionFeedbackPackage.FeedbackManagerInjectionContextProvider
+local InteractionFeedbackAppConfig =
+	require(CorePackages.Workspace.Packages.RobloxAppInteractionFeedbackConfig).InteractionFeedbackAppConfig
 
 local Localization
 local LocalizationProvider
@@ -116,6 +123,21 @@ return {
 				}),
 			}),
 		})
+
+		if GetFFlagEnableUISoundAndHaptics() then
+			themeProvider = Roact.createElement(FeedbackManagerInjectionContextProvider, nil, {
+				themeProvider = themeProvider,
+			})
+
+			themeProvider = Roact.createElement(
+				InteractionFeedbackContext.Provider,
+				{ value = InteractionFeedbackAppConfig },
+				{
+					ThemeProvider = themeProvider,
+				}
+			)
+		end
+
 		local menuTree = Roact.createElement("ScreenGui", {
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,

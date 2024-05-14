@@ -8,13 +8,7 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["Rodux"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K8 ["Parent"]
-  GETTABLEKS R3 R4 K9 ["ExampleReducer"]
+  GETTABLEKS R2 R1 K8 ["combineReducers"]
+  NEWTABLE R3 0 0
   CALL R2 1 1
-  GETTABLEKS R3 R1 K10 ["combineReducers"]
-  DUPTABLE R4 K11 [{"ExampleReducer"}]
-  SETTABLEKS R2 R4 K9 ["ExampleReducer"]
-  CALL R3 1 1
-  RETURN R3 1
+  RETURN R2 1

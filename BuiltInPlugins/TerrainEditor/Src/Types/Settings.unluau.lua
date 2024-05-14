@@ -53,6 +53,7 @@ local var10 = {}
 var10.AdvancedNoise = "AdvancedNoise"
 var10.BankSize = "BankSize"
 var10.BlendingEdge = "BlendingEdge"
+var10.CliffSlope = "CliffSlope"
 var10.Confirm = "Confirm"
 var10.CraterDepth = "CraterDepth"
 var10.CraterRadius = "CraterRadius"

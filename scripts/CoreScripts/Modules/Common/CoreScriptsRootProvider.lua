@@ -2,7 +2,8 @@
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 
-local FFlagSwitchCSRootProviderTranslationsPackage = game:DefineFastFlag("SwitchCSRootProviderTranslationsPackage", false)
+local FFlagSwitchCSRootProviderTranslationsPackage =
+	game:DefineFastFlag("SwitchCSRootProviderTranslationsPackage", false)
 
 local Localization
 if FFlagSwitchCSRootProviderTranslationsPackage then
@@ -24,7 +25,16 @@ local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNaviga
 local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
 local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 local DeviceTypeEnum = RobloxAppEnums.DeviceType
-local GamepadDisconnectTokenMapper = require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadDisconnectTokenMapper
+local GamepadDisconnectTokenMapper =
+	require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadDisconnectTokenMapper
+
+local GetFFlagEnableUISoundAndHaptics =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableUISoundAndHaptics
+local InteractionFeedbackPackage = require(CorePackages.Workspace.Packages.InteractionFeedback)
+local InteractionFeedbackContext = InteractionFeedbackPackage.InteractionFeedbackContext
+local FeedbackManagerInjectionContextProvider = InteractionFeedbackPackage.FeedbackManagerInjectionContextProvider
+local InteractionFeedbackAppConfig =
+	require(CorePackages.Workspace.Packages.RobloxAppInteractionFeedbackConfig).InteractionFeedbackAppConfig
 
 local focusNavigationService =
 	ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
@@ -51,7 +61,7 @@ local defaultStyle = {
 local function CoreScriptsRootProvider(props: Props)
 	local style = Cryo.Dictionary.join(defaultStyle, props.styleOverride or {})
 
-	return React.createElement(RoactRodux.StoreProvider, {
+	local tree = React.createElement(RoactRodux.StoreProvider, {
 		store = Rodux.Store.new(function(state)
 			return state
 		end, {}, {}),
@@ -86,6 +96,16 @@ local function CoreScriptsRootProvider(props: Props)
 			}),
 		}),
 	})
+
+	if GetFFlagEnableUISoundAndHaptics() then
+		tree = React.createElement(InteractionFeedbackContext.Provider, { value = InteractionFeedbackAppConfig }, {
+			tree = React.createElement(FeedbackManagerInjectionContextProvider, nil, {
+				tree = tree,
+			}),
+		})
+	end
+
+	return tree
 end
 
 return CoreScriptsRootProvider

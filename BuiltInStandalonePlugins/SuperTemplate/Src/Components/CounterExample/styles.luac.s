@@ -12,7 +12,7 @@ MAIN:
   GETTABLEKS R3 R1 K7 ["Styling"]
   GETTABLEKS R2 R3 K8 ["createStyleRule"]
   MOVE R3 R2
-  LOADK R4 K9 [".Component-BasicExample"]
+  LOADK R4 K9 [".Component-CounterExample"]
   DUPTABLE R5 K12 [{"BackgroundColor3", "BorderSizePixel"}]
   LOADK R6 K13 ["$BackgroundPaper"]
   SETTABLEKS R6 R5 K10 ["BackgroundColor3"]

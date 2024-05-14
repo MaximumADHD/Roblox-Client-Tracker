@@ -11,6 +11,6 @@ end
 local var2 = require(var0.Bin.Common.pluginType)
 if var2.get() ~= var2.Asset then
 end
-local var143 = var0.Bin
-var143 = require(var143.Common.setupMain)
-require(var0.Bin.Common.setup)(plugin, var143)
+local var35 = var0.Bin
+var35 = require(var35.Common.setupMain)
+require(var0.Bin.Common.setup)(plugin, var35)
