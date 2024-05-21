@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ContentFeed",
+    "tree": {
+      "$path": "../../../../../../../modules/social/captures/content-feed/src"
+    }
+  }
+}

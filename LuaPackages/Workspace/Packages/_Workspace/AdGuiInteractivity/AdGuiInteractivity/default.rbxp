@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AdGuiInteractivity",
+    "tree": {
+      "$path": "../../../../../../../modules/core-scripts/ad-gui-interactivity/src"
+    }
+  }
+}

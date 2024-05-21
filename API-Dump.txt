@@ -492,6 +492,7 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:LoadAvatarModelAsync(id: string) -> Instance? [Yields]
 	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
+	Function AvatarCreationService:SendAnalyticsEvent(eventName: string, params: { [string]: any }) -> ()
 	Event AvatarCreationService.ReplicateAvatarModel(id: string, success: boolean, serializedModel: string, bufferTable: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.RequestAvatarModel(id: string) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.UgcValidationFailure(guid: string, errorMessage: string) {RobloxScriptSecurity}
@@ -921,7 +922,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Event CaptureService.CaptureBegan()
 	Event CaptureService.CaptureEnded()
 	Event CaptureService.CaptureSaved(captureInfo: { [string]: any })
-	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }) {RobloxScriptSecurity}
+	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {RobloxScriptSecurity}
 	Event CaptureService.OnCaptureSignatureResult(content: string, signature: string, signatureVersion: number) {RobloxSecurity} [Hidden]
 	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, contentIds: { any }) {RobloxScriptSecurity}
 	Event CaptureService.OpenShareCapturePrompt(promptId: number, contentId: string, launchData: string) {RobloxScriptSecurity}
@@ -1414,7 +1415,7 @@ Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ConversationalAIAcceptanceService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ConversationalAIAcceptanceService:AlternativeAssetSelected(requestId: string, previousAssetId: number, assetId: number) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:AssetInserted(requestId: string, assetId: number) -> () {RobloxScriptSecurity}
-	Function ConversationalAIAcceptanceService:CodeRunnerActivated(requestId: string, code: string) -> () {RobloxScriptSecurity}
+	Function ConversationalAIAcceptanceService:CodeRunnerActivated(requestId: string, code: string, serverAutorun: boolean, autorunEnabled: boolean, autoExpandDropdowns: boolean) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:CodeRunnerCompleted(requestId: string, success: boolean, errorMessage: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:CodeRunnerUndone(requestId: string) -> () {RobloxScriptSecurity}
 	Function ConversationalAIAcceptanceService:DataModelHierarchyLatency(requestId: string, latency: number) -> () {RobloxScriptSecurity}
@@ -1768,6 +1769,7 @@ Class Explosion : Instance
 	Property Explosion.BlastRadius: number
 	Property Explosion.DestroyJointRadiusPercent: number
 	Property Explosion.ExplosionType: Enum.ExplosionType
+	Property Explosion.LocalTransparencyModifier: number [Hidden] [NotReplicated]
 	Property Explosion.Position: Vector3
 	Property Explosion.TimeScale: number
 	Property Explosion.Visible: boolean
@@ -1882,6 +1884,7 @@ Class Fire : Instance
 	Property Fire.Color: Color3
 	Property Fire.Enabled: boolean
 	Property Fire.Heat: number [📁 LoadOnly] [NotReplicated]
+	Property Fire.LocalTransparencyModifier: number [Hidden] [NotReplicated]
 	Property Fire.SecondaryColor: Color3
 	Property Fire.Size: number [📁 LoadOnly] [NotReplicated]
 	Property Fire.TimeScale: number
@@ -2839,7 +2842,7 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Property InsertService.AllowInsertFreeModels: boolean [NotReplicated] [NotBrowsable] [Deprecated]
 	Function InsertService:ApproveAssetId(assetId: number) -> () [Deprecated]
 	Function InsertService:ApproveAssetVersionId(assetVersionId: number) -> () [Deprecated]
-	Function InsertService:CreateMeshPartAsync(meshId: string, collisionFidelity: Enum.CollisionFidelity, renderFidelity: Enum.RenderFidelity) -> MeshPart {PluginSecurity} [Yields]
+	Function InsertService:CreateMeshPartAsync(meshId: string, collisionFidelity: Enum.CollisionFidelity, renderFidelity: Enum.RenderFidelity) -> MeshPart [Yields]
 	Function InsertService:GetBaseCategories() -> { any } [Yields] [Deprecated]
 	Function InsertService:GetBaseSets() -> { any } [Yields] [Deprecated]
 	Function InsertService:GetCollection(categoryId: number) -> { any } [Yields]
@@ -4945,6 +4948,7 @@ Class Sky : Instance
 Class Smoke : Instance
 	Property Smoke.Color: Color3
 	Property Smoke.Enabled: boolean
+	Property Smoke.LocalTransparencyModifier: number [Hidden] [NotReplicated]
 	Property Smoke.Opacity: number [📁 LoadOnly] [NotReplicated]
 	Property Smoke.RiseVelocity: number [📁 LoadOnly] [NotReplicated]
 	Property Smoke.Size: number [📁 LoadOnly] [NotReplicated]
@@ -5099,6 +5103,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 Class Sparkles : Instance
 	Property Sparkles.Color: Color3 [📁 LoadOnly] [Hidden] [NotReplicated]
 	Property Sparkles.Enabled: boolean
+	Property Sparkles.LocalTransparencyModifier: number [Hidden] [NotReplicated]
 	Property Sparkles.SparkleColor: Color3
 	Property Sparkles.TimeScale: number
 	Function Sparkles:FastForward(numFrames: number) -> () {RobloxScriptSecurity}
@@ -5222,7 +5227,6 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Show Diagnostics Bar: boolean
 	Property Studio.Main Volume: number {RobloxScriptSecurity}
 	Property Studio.Only Play Audio from Window in Focus: boolean
-	Property Studio.Server Audio Behavior: Enum.ServerAudioBehavior
 	Property Studio.Auto-Recovery Enabled: boolean
 	Property Studio.Auto-Recovery Interval (Minutes): number
 	Property Studio.Auto-Recovery Path: QDir
@@ -8004,6 +8008,7 @@ Enum MarketplaceItemPurchaseStatus
 	EnumItem MarketplaceItemPurchaseStatus.SoldOut : 10
 	EnumItem MarketplaceItemPurchaseStatus.PurchaserIsSeller : 11
 	EnumItem MarketplaceItemPurchaseStatus.InsufficientMembership : 12
+	EnumItem MarketplaceItemPurchaseStatus.PlaceInvalid : 13
 Enum MarketplaceProductType
 	EnumItem MarketplaceProductType.AvatarAsset : 1
 	EnumItem MarketplaceProductType.AvatarBundle : 2
@@ -8606,10 +8611,6 @@ Enum SensorMode
 Enum SensorUpdateType
 	EnumItem SensorUpdateType.OnRead : 0
 	EnumItem SensorUpdateType.Manual : 1
-Enum ServerAudioBehavior
-	EnumItem ServerAudioBehavior.Enabled : 0
-	EnumItem ServerAudioBehavior.Muted : 1
-	EnumItem ServerAudioBehavior.OnlineGame : 2
 Enum ServerLiveEditingMode
 	EnumItem ServerLiveEditingMode.Uninitialized : 0
 	EnumItem ServerLiveEditingMode.Enabled : 1
