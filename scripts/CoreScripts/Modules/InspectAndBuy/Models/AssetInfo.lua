@@ -53,6 +53,7 @@ local GetFFlagIBEnableFixForOwnedText = require(InspectAndBuyFolder.Flags.GetFFl
 local GetFFlagIBEnableFixForSaleLocation = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableFixForSaleLocation)
 local GetFFlagIBFixBuyingFromResellers = require(InspectAndBuyFolder.Flags.GetFFlagIBFixBuyingFromResellers)
 local GetFFlagIBEnableLimitedBundle = require(InspectAndBuyFolder.Flags.GetFFlagIBEnableLimitedBundle)
+local FFlagIBFixLegacyItemStatus = game:DefineFastFlag("IBFixLegacyItemStatus", false)
 
 local AssetInfo = {}
 
@@ -202,6 +203,9 @@ function AssetInfo.fromGetProductInfo(assetInfo)
 			end
 		elseif FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
 			newAsset.isForSale = assetInfo.IsForSale and assetInfo.CanBeSoldInThisGame
+			if FFlagIBFixLegacyItemStatus and assetInfo.CanBeSoldInThisGame == nil then
+				newAsset.isForSale = assetInfo.IsForSale
+			end
 		else
 			newAsset.isForSale = assetInfo.IsForSale
 		end
@@ -397,6 +401,9 @@ if GetFFlagIBFixBuyingFromResellers() then
 			end
 		elseif FFlagEnableRestrictedAssetSaleLocationInspectAndBuy then
 			newAsset.isForSale = assetInfo.isForSale and assetInfo.canBeSoldInThisGame
+			if FFlagIBFixLegacyItemStatus and assetInfo.canBeSoldInThisGame == nil then
+				newAsset.isForSale = assetInfo.isForSale
+			end
 		else
 			newAsset.isForSale = assetInfo.isForSale
 		end

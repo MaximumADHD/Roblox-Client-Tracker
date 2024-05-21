@@ -29,6 +29,7 @@ local IconHost = require(script.Parent.ComponentHosts.IconHost)
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
+local GetFFlagEnableSaveUserPins = require(Chrome.Flags.GetFFlagEnableSaveUserPins)
 local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagNewUnibarIA = require(Chrome.Flags.GetFFlagNewUnibarIA)
 local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
@@ -58,7 +59,10 @@ function configureUnibar(viewportInfo)
 
 	-- insert leaderboard into MRU if it's shown on startup and not already a pin
 	if PlayerListInitialVisibleState() then
-		if not GetFFlagEnableChromePinIntegrations() or not ChromeService:isUserPinned("leaderboard") then
+		if
+			(not GetFFlagEnableChromePinIntegrations() or not ChromeService:isUserPinned("leaderboard"))
+			and not GetFFlagEnableSaveUserPins()
+		then
 			ChromeService:setRecentlyUsed("leaderboard", true)
 		end
 	end
@@ -69,7 +73,9 @@ function configureUnibar(viewportInfo)
 		and GetFFlagEnableChromePinIntegrations()
 		and not ChromeService:isUserPinned("trust_and_safety")
 	then
-		ChromeService:setUserPin("trust_and_safety", true)
+		if not GetFFlagEnableSaveUserPins() then
+			ChromeService:setUserPin("trust_and_safety", true)
+		end
 	elseif GetFFlagNewUnibarIA() and not ChromeService:isMostRecentlyUsed("trust_and_safety") then
 		ChromeService:setRecentlyUsed("trust_and_safety", true)
 	end

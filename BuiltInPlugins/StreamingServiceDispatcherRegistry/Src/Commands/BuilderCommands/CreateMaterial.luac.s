@@ -45,7 +45,7 @@ PROTO_2:
   GETUPVAL R0 1
   GETUPVAL R2 2
   GETUPVAL R3 3
-  NAMECALL R0 R0 K1 ["DEPRECATED_GenerateMaterialVariantsAsync"]
+  NAMECALL R0 R0 K1 ["DEPRECATED_GenerateMaterialVariantsAync"]
   CALL R0 3 -1
   RETURN R0 -1
 

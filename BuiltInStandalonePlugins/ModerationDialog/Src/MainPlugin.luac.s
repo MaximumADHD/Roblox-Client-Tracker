@@ -117,93 +117,97 @@ PROTO_9:
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
   GETTABLEKS R4 R2 K3 ["enabled"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["provide"]
-  NEWTABLE R6 0 4
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K5 ["new"]
-  MOVE R8 R3
-  CALL R7 1 1
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K5 ["new"]
-  NAMECALL R9 R3 K6 ["getMouse"]
-  CALL R9 1 -1
-  CALL R8 -1 1
-  GETTABLEKS R9 R0 K7 ["localization"]
-  GETTABLEKS R10 R0 K8 ["analytics"]
-  SETLIST R6 R7 4 [1]
-  DUPTABLE R7 K10 [{"MainWidget"}]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K11 ["createElement"]
-  GETUPVAL R9 4
-  NEWTABLE R10 16 0
-  LOADK R11 K12 ["ModerationDialog"]
-  SETTABLEKS R11 R10 K13 ["Id"]
-  SETTABLEKS R4 R10 K14 ["Enabled"]
-  GETTABLEKS R11 R0 K7 ["localization"]
-  LOADK R13 K2 ["Plugin"]
-  LOADK R14 K15 ["Name"]
-  NAMECALL R11 R11 K16 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K17 ["Title"]
-  GETIMPORT R11 K21 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R11 R10 K19 ["ZIndexBehavior"]
-  GETIMPORT R11 K24 [Enum.InitialDockState.Bottom]
-  SETTABLEKS R11 R10 K22 ["InitialDockState"]
-  GETIMPORT R11 K26 [Vector2.new]
-  LOADN R12 128
-  LOADN R13 224
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K27 ["Size"]
-  GETIMPORT R11 K26 [Vector2.new]
-  LOADN R12 250
-  LOADN R13 200
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K28 ["MinSize"]
-  GETTABLEKS R11 R0 K29 ["onClose"]
-  SETTABLEKS R11 R10 K30 ["OnClose"]
-  GETTABLEKS R12 R1 K31 ["PluginLoaderContext"]
-  GETTABLEKS R11 R12 K32 ["mainDockWidget"]
-  SETTABLEKS R11 R10 K33 ["Widget"]
-  GETTABLEKS R11 R0 K34 ["onDockWidgetCreated"]
-  SETTABLEKS R11 R10 K35 ["OnWidgetCreated"]
+  GETTABLEKS R5 R0 K4 ["localization"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["provide"]
+  NEWTABLE R7 0 5
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["new"]
+  MOVE R9 R3
+  CALL R8 1 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K6 ["new"]
+  NAMECALL R10 R3 K7 ["getMouse"]
+  CALL R10 1 -1
+  CALL R9 -1 1
+  GETTABLEKS R10 R0 K4 ["localization"]
+  GETTABLEKS R11 R0 K8 ["analytics"]
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K36 ["Change"]
-  GETTABLEKS R11 R12 K14 ["Enabled"]
-  GETTABLEKS R12 R0 K37 ["onWidgetEnabledChanged"]
-  SETTABLE R12 R10 R11
-  DUPTABLE R11 K40 [{"Wrapper", "StyleLink"}]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K11 ["createElement"]
-  LOADK R13 K41 ["Frame"]
-  NEWTABLE R14 1 0
-  GETUPVAL R16 3
-  GETTABLEKS R15 R16 K42 ["Tag"]
-  LOADK R16 K43 ["X-Fill X-Column"]
-  SETTABLE R16 R14 R15
-  DUPTABLE R15 K45 [{"BasicExample"}]
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K11 ["createElement"]
-  GETUPVAL R17 5
-  DUPTABLE R18 K47 [{"showContent"}]
-  LOADB R19 1
-  SETTABLEKS R19 R18 K46 ["showContent"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K44 ["BasicExample"]
+  GETTABLEKS R12 R13 K6 ["new"]
+  GETTABLEKS R13 R0 K9 ["design"]
+  CALL R12 1 -1
+  SETLIST R7 R8 -1 [1]
+  DUPTABLE R8 K11 [{"MainWidget"}]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K12 ["createElement"]
+  GETUPVAL R10 5
+  NEWTABLE R11 16 0
+  LOADK R12 K13 ["ModerationDialog"]
+  SETTABLEKS R12 R11 K14 ["Id"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K15 ["Enabled"]
+  GETTABLEKS R12 R0 K4 ["localization"]
+  LOADK R14 K2 ["Plugin"]
+  LOADK R15 K16 ["Name"]
+  NAMECALL R12 R12 K17 ["getText"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K38 ["Wrapper"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K11 ["createElement"]
-  LOADK R13 K39 ["StyleLink"]
-  DUPTABLE R14 K49 [{"StyleSheet"}]
-  GETTABLEKS R15 R0 K50 ["design"]
-  SETTABLEKS R15 R14 K48 ["StyleSheet"]
+  SETTABLEKS R12 R11 K18 ["Title"]
+  GETIMPORT R12 K22 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R12 R11 K20 ["ZIndexBehavior"]
+  GETIMPORT R12 K25 [Enum.InitialDockState.Bottom]
+  SETTABLEKS R12 R11 K23 ["InitialDockState"]
+  GETIMPORT R12 K27 [Vector2.new]
+  LOADN R13 128
+  LOADN R14 224
   CALL R12 2 1
-  SETTABLEKS R12 R11 K39 ["StyleLink"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K9 ["MainWidget"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  SETTABLEKS R12 R11 K28 ["Size"]
+  GETIMPORT R12 K27 [Vector2.new]
+  LOADN R13 250
+  LOADN R14 200
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K29 ["MinSize"]
+  GETTABLEKS R12 R0 K30 ["onClose"]
+  SETTABLEKS R12 R11 K31 ["OnClose"]
+  GETTABLEKS R13 R1 K32 ["PluginLoaderContext"]
+  GETTABLEKS R12 R13 K33 ["mainDockWidget"]
+  SETTABLEKS R12 R11 K34 ["Widget"]
+  GETTABLEKS R12 R0 K35 ["onDockWidgetCreated"]
+  SETTABLEKS R12 R11 K36 ["OnWidgetCreated"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K37 ["Change"]
+  GETTABLEKS R12 R13 K15 ["Enabled"]
+  GETTABLEKS R13 R0 K38 ["onWidgetEnabledChanged"]
+  SETTABLE R13 R11 R12
+  DUPTABLE R12 K41 [{"DialogContainer", "StyleLink"}]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K12 ["createElement"]
+  GETUPVAL R14 6
+  DUPTABLE R15 K45 [{"Reason", "ReviewDateTime", "ModeratorNote", "Enabled"}]
+  GETUPVAL R18 7
+  GETTABLEKS R17 R18 K46 ["badUtterances"]
+  GETTABLEN R16 R17 1
+  SETTABLEKS R16 R15 K42 ["Reason"]
+  GETUPVAL R17 7
+  GETTABLEKS R16 R17 K47 ["beginDate"]
+  SETTABLEKS R16 R15 K43 ["ReviewDateTime"]
+  GETUPVAL R17 7
+  GETTABLEKS R16 R17 K48 ["messageToUser"]
+  SETTABLEKS R16 R15 K44 ["ModeratorNote"]
+  SETTABLEKS R4 R15 K15 ["Enabled"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K39 ["DialogContainer"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K12 ["createElement"]
+  LOADK R14 K40 ["StyleLink"]
+  DUPTABLE R15 K50 [{"StyleSheet"}]
+  GETTABLEKS R16 R0 K9 ["design"]
+  SETTABLEKS R16 R15 K49 ["StyleSheet"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K40 ["StyleLink"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K10 ["MainWidget"]
+  CALL R6 2 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -224,43 +228,93 @@ MAIN:
   GETTABLEKS R4 R2 K11 ["ContextServices"]
   GETTABLEKS R5 R4 K12 ["Plugin"]
   GETTABLEKS R6 R4 K13 ["Mouse"]
-  GETTABLEKS R9 R2 K14 ["Style"]
-  GETTABLEKS R8 R9 K15 ["Themes"]
-  GETTABLEKS R7 R8 K16 ["StudioTheme"]
-  GETTABLEKS R9 R2 K17 ["Styling"]
-  GETTABLEKS R8 R9 K18 ["registerPluginStyles"]
-  GETTABLEKS R12 R0 K19 ["Src"]
-  GETTABLEKS R11 R12 K20 ["Resources"]
-  GETTABLEKS R10 R11 K21 ["Localization"]
-  GETTABLEKS R9 R10 K22 ["SourceStrings"]
-  GETTABLEKS R13 R0 K19 ["Src"]
-  GETTABLEKS R12 R13 K20 ["Resources"]
-  GETTABLEKS R11 R12 K21 ["Localization"]
-  GETTABLEKS R10 R11 K23 ["LocalizedStrings"]
-  GETTABLEKS R12 R0 K19 ["Src"]
-  GETTABLEKS R11 R12 K24 ["Components"]
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R13 R11 K25 ["BasicExample"]
-  CALL R12 1 1
-  GETTABLEKS R13 R1 K26 ["PureComponent"]
-  LOADK R15 K27 ["MainPlugin"]
-  NAMECALL R13 R13 K28 ["extend"]
-  CALL R13 2 1
-  DUPCLOSURE R14 K29 [PROTO_7]
+  GETTABLEKS R7 R4 K14 ["Design"]
+  GETTABLEKS R10 R2 K15 ["Style"]
+  GETTABLEKS R9 R10 K16 ["Themes"]
+  GETTABLEKS R8 R9 K17 ["StudioTheme"]
+  GETTABLEKS R10 R2 K18 ["Styling"]
+  GETTABLEKS R9 R10 K19 ["registerPluginStyles"]
+  GETTABLEKS R13 R0 K20 ["Src"]
+  GETTABLEKS R12 R13 K21 ["Resources"]
+  GETTABLEKS R11 R12 K22 ["Localization"]
+  GETTABLEKS R10 R11 K23 ["SourceStrings"]
+  GETTABLEKS R14 R0 K20 ["Src"]
+  GETTABLEKS R13 R14 K21 ["Resources"]
+  GETTABLEKS R12 R13 K22 ["Localization"]
+  GETTABLEKS R11 R12 K24 ["LocalizedStrings"]
+  GETTABLEKS R13 R0 K20 ["Src"]
+  GETTABLEKS R12 R13 K25 ["Components"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R14 R12 K26 ["DialogContainer"]
+  CALL R13 1 1
+  GETTABLEKS R14 R1 K27 ["PureComponent"]
+  LOADK R16 K28 ["MainPlugin"]
+  NAMECALL R14 R14 K29 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K30 [PROTO_7]
   CAPTURE VAL R4
-  CAPTURE VAL R9
   CAPTURE VAL R10
-  CAPTURE VAL R7
+  CAPTURE VAL R11
   CAPTURE VAL R8
-  SETTABLEKS R14 R13 K30 ["init"]
-  DUPCLOSURE R14 K31 [PROTO_8]
-  SETTABLEKS R14 R13 K32 ["didUpdate"]
-  DUPCLOSURE R14 K33 [PROTO_9]
+  CAPTURE VAL R9
+  SETTABLEKS R15 R14 K31 ["init"]
+  DUPCLOSURE R15 K32 [PROTO_8]
+  SETTABLEKS R15 R14 K33 ["didUpdate"]
+  DUPTABLE R15 K46 [{"punishedUserId", "interventionId", "punishmentId", "messageToUser", "punishmentTypeDescription", "beginDate", "endDate", "badUtterances", "verificationCategory", "consequenceTransparencyMessage", "showAppealsProcessLink", "agreedCheckBoxExperimentVariant"}]
+  LOADK R16 K47 [123456789]
+  SETTABLEKS R16 R15 K34 ["punishedUserId"]
+  LOADK R16 K48 ["af9j230-34j1-2314-jfji-123j43i2oj"]
+  SETTABLEKS R16 R15 K35 ["interventionId"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K36 ["punishmentId"]
+  LOADK R16 K49 ["Roblox does not permit discriminatory language, behavior, or content of any kind."]
+  SETTABLEKS R16 R15 K37 ["messageToUser"]
+  LOADK R16 K50 ["Ban 1 Day"]
+  SETTABLEKS R16 R15 K38 ["punishmentTypeDescription"]
+  LOADK R16 K51 ["2024-05-01T22:27:27.378Z"]
+  SETTABLEKS R16 R15 K39 ["beginDate"]
+  LOADK R16 K52 ["2024-05-02T22:27:27.378Z"]
+  SETTABLEKS R16 R15 K40 ["endDate"]
+  NEWTABLE R16 0 3
+  DUPTABLE R17 K56 [{"abuseType", "utteranceText", "imageUrl"}]
+  LOADK R18 K57 ["ABUSE_TYPE_DISCRIMINATORY"]
+  SETTABLEKS R18 R17 K53 ["abuseType"]
+  LOADK R18 K58 ["some discriminatory text"]
+  SETTABLEKS R18 R17 K54 ["utteranceText"]
+  LOADK R18 K59 ["null"]
+  SETTABLEKS R18 R17 K55 ["imageUrl"]
+  DUPTABLE R18 K56 [{"abuseType", "utteranceText", "imageUrl"}]
+  LOADK R19 K60 ["ABUSE_TYPE_SPAM"]
+  SETTABLEKS R19 R18 K53 ["abuseType"]
+  LOADK R19 K61 ["XDDDDD"]
+  SETTABLEKS R19 R18 K54 ["utteranceText"]
+  LOADK R19 K59 ["null"]
+  SETTABLEKS R19 R18 K55 ["imageUrl"]
+  DUPTABLE R19 K56 [{"abuseType", "utteranceText", "imageUrl"}]
+  LOADK R20 K62 ["ABUSE_TYPE_SEXUAL_CONTENT"]
+  SETTABLEKS R20 R19 K53 ["abuseType"]
+  LOADK R20 K63 ["Asset Name:TEST Asset ID:17357472299"]
+  SETTABLEKS R20 R19 K54 ["utteranceText"]
+  LOADK R20 K59 ["null"]
+  SETTABLEKS R20 R19 K55 ["imageUrl"]
+  SETLIST R16 R17 3 [1]
+  SETTABLEKS R16 R15 K41 ["badUtterances"]
+  LOADK R16 K64 [""]
+  SETTABLEKS R16 R15 K42 ["verificationCategory"]
+  LOADK R16 K64 [""]
+  SETTABLEKS R16 R15 K43 ["consequenceTransparencyMessage"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K44 ["showAppealsProcessLink"]
+  LOADK R16 K59 ["null"]
+  SETTABLEKS R16 R15 K45 ["agreedCheckBoxExperimentVariant"]
+  DUPCLOSURE R16 K65 [PROTO_9]
   CAPTURE VAL R4
   CAPTURE VAL R5
   CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R1
   CAPTURE VAL R3
-  CAPTURE VAL R12
-  SETTABLEKS R14 R13 K34 ["render"]
-  RETURN R13 1
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  SETTABLEKS R16 R14 K66 ["render"]
+  RETURN R14 1

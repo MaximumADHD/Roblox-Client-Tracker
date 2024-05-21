@@ -7,6 +7,9 @@
 
 --[[ Local Constants ]]--
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
 local FFlagUserFixGamepadMaxZoom
 do
 	local success, result = pcall(function()
@@ -14,13 +17,7 @@ do
 	end)
 	FFlagUserFixGamepadMaxZoom = success and result
 end
-local FFlagUserFixCameraOffsetJitter
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixCameraOffsetJitter")
-	end)
-	FFlagUserFixCameraOffsetJitter= success and result
-end
+local FFlagUserFixCameraOffsetJitter = FlagUtil.getUserFlag("UserFixCameraOffsetJitter2")
 
 local UNIT_Z = Vector3.new(0,0,1)
 local X1_Y0_Z1 = Vector3.new(1,0,1)	--Note: not a unit vector, used for projecting onto XZ plane

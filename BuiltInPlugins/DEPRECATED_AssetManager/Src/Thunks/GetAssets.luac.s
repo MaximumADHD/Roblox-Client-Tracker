@@ -133,7 +133,7 @@ PROTO_8:
   JUMPIF R1 [+1]
   RETURN R0 0
   GETUPVAL R2 1
-  GETTABLEKS R3 R1 K1 ["NextPageCursor"]
+  GETTABLEKS R3 R1 K1 ["NextPageToken"]
   SETTABLEKS R3 R2 K2 ["nextPageCursor"]
   GETIMPORT R2 K4 [pairs]
   GETTABLEKS R3 R1 K5 ["Aliases"]
@@ -336,7 +336,7 @@ PROTO_8:
   GETTABLEKS R3 R4 K53 ["AssetManagerReducer"]
   GETTABLEKS R2 R3 K54 ["hasLinkedScripts"]
   GETUPVAL R3 1
-  GETTABLEKS R4 R1 K1 ["NextPageCursor"]
+  GETTABLEKS R4 R1 K1 ["NextPageToken"]
   SETTABLEKS R4 R3 K2 ["nextPageCursor"]
   GETIMPORT R3 K4 [pairs]
   GETTABLEKS R4 R1 K5 ["Aliases"]
@@ -1550,7 +1550,7 @@ MAIN:
   NAMECALL R13 R13 K10 ["GetFastFlag"]
   CALL R13 2 1
   GETIMPORT R14 K8 [game]
-  LOADK R16 K29 ["AssetManagerMigrateAliasesEndpoint"]
+  LOADK R16 K29 ["AssetManagerMigrateAliasesEndpoint1"]
   NAMECALL R14 R14 K10 ["GetFastFlag"]
   CALL R14 2 1
   DUPCLOSURE R15 K30 [PROTO_20]

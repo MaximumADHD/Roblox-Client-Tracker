@@ -617,11 +617,14 @@ PROTO_18:
   GETUPVAL R57 1
   GETTABLEKS R56 R57 K29 ["createElement"]
   GETUPVAL R57 24
-  DUPTABLE R58 K121 [{"LayoutOrder", "LabelWidth", "OnValueChanged", "Text", "Value"}]
+  DUPTABLE R58 K122 [{"LayoutOrder", "LabelWidth", "MaxLength", "OnValueChanged", "Text", "Value"}]
   NAMECALL R59 R35 K73 ["getNextOrder"]
   CALL R59 1 1
   SETTABLEKS R59 R58 K30 ["LayoutOrder"]
   SETTABLEKS R29 R58 K23 ["LabelWidth"]
+  GETUPVAL R60 21
+  GETTABLEKS R59 R60 K123 ["INSTANCE_NAME_MAX_LENGTH"]
+  SETTABLEKS R59 R58 K121 ["MaxLength"]
   SETTABLEKS R18 R58 K103 ["OnValueChanged"]
   LOADK R61 K14 ["Editor"]
   LOADK R62 K12 ["Name"]
@@ -635,25 +638,25 @@ PROTO_18:
   GETUPVAL R57 1
   GETTABLEKS R56 R57 K29 ["createElement"]
   GETUPVAL R57 25
-  DUPTABLE R58 K125 [{"Items", "LayoutOrder", "LabelWidth", "OnValueChanged", "PlaceholderText", "Text", "ErrorText", "Value"}]
+  DUPTABLE R58 K127 [{"Items", "LayoutOrder", "LabelWidth", "OnValueChanged", "PlaceholderText", "Text", "ErrorText", "Value"}]
   GETUPVAL R59 26
-  SETTABLEKS R59 R58 K122 ["Items"]
+  SETTABLEKS R59 R58 K124 ["Items"]
   NAMECALL R59 R35 K73 ["getNextOrder"]
   CALL R59 1 1
   SETTABLEKS R59 R58 K30 ["LayoutOrder"]
   SETTABLEKS R29 R58 K23 ["LabelWidth"]
   SETTABLEKS R20 R58 K103 ["OnValueChanged"]
   LOADK R61 K14 ["Editor"]
-  LOADK R62 K126 ["BaseMaterialPlaceholderText"]
+  LOADK R62 K128 ["BaseMaterialPlaceholderText"]
   NAMECALL R59 R15 K16 ["getText"]
   CALL R59 3 1
-  SETTABLEKS R59 R58 K123 ["PlaceholderText"]
+  SETTABLEKS R59 R58 K125 ["PlaceholderText"]
   LOADK R61 K14 ["Editor"]
   LOADK R62 K11 ["BaseMaterial"]
   NAMECALL R59 R15 K16 ["getText"]
   CALL R59 3 1
   SETTABLEKS R59 R58 K106 ["Text"]
-  SETTABLEKS R16 R58 K124 ["ErrorText"]
+  SETTABLEKS R16 R58 K126 ["ErrorText"]
   SETTABLEKS R14 R58 K107 ["Value"]
   CALL R56 2 1
   SETTABLEKS R56 R55 K11 ["BaseMaterial"]
@@ -665,15 +668,15 @@ PROTO_18:
   GETUPVAL R49 1
   GETTABLEKS R48 R49 K29 ["createElement"]
   GETUPVAL R49 27
-  DUPTABLE R50 K129 [{"LayoutOrder", "Size", "Text", "isLoading", "onClick"}]
+  DUPTABLE R50 K131 [{"LayoutOrder", "Size", "Text", "isLoading", "onClick"}]
   NAMECALL R51 R35 K73 ["getNextOrder"]
   CALL R51 1 1
   SETTABLEKS R51 R50 K30 ["LayoutOrder"]
-  GETTABLEKS R51 R28 K130 ["UploadAndApplyButtonSize"]
+  GETTABLEKS R51 R28 K132 ["UploadAndApplyButtonSize"]
   SETTABLEKS R51 R50 K31 ["Size"]
   SETTABLEKS R27 R50 K106 ["Text"]
-  SETTABLEKS R26 R50 K127 ["isLoading"]
-  SETTABLEKS R23 R50 K128 ["onClick"]
+  SETTABLEKS R26 R50 K129 ["isLoading"]
+  SETTABLEKS R23 R50 K130 ["onClick"]
   CALL R48 2 1
   JUMP [+1]
   LOADNIL R48
@@ -682,21 +685,21 @@ PROTO_18:
   GETUPVAL R49 1
   GETTABLEKS R48 R49 K29 ["createElement"]
   GETUPVAL R49 28
-  DUPTABLE R50 K132 [{"AutomaticSize", "BackgroundColor", "LayoutOrder", "LeftIcon", "OnClick", "Size", "Text"}]
-  GETIMPORT R51 K134 [Enum.AutomaticSize.X]
+  DUPTABLE R50 K134 [{"AutomaticSize", "BackgroundColor", "LayoutOrder", "LeftIcon", "OnClick", "Size", "Text"}]
+  GETIMPORT R51 K136 [Enum.AutomaticSize.X]
   SETTABLEKS R51 R50 K40 ["AutomaticSize"]
-  GETTABLEKS R51 R28 K135 ["ApplyButtonBackgroundColor"]
+  GETTABLEKS R51 R28 K137 ["ApplyButtonBackgroundColor"]
   SETTABLEKS R51 R50 K70 ["BackgroundColor"]
   NAMECALL R51 R35 K73 ["getNextOrder"]
   CALL R51 1 1
   SETTABLEKS R51 R50 K30 ["LayoutOrder"]
-  GETTABLEKS R51 R28 K136 ["ApplyButtonIcon"]
-  SETTABLEKS R51 R50 K131 ["LeftIcon"]
+  GETTABLEKS R51 R28 K138 ["ApplyButtonIcon"]
+  SETTABLEKS R51 R50 K133 ["LeftIcon"]
   SETTABLEKS R22 R50 K49 ["OnClick"]
-  GETTABLEKS R51 R28 K137 ["ApplyButtonSize"]
+  GETTABLEKS R51 R28 K139 ["ApplyButtonSize"]
   SETTABLEKS R51 R50 K31 ["Size"]
   LOADK R53 K14 ["Editor"]
-  LOADK R54 K138 ["ApplyVariant"]
+  LOADK R54 K140 ["ApplyVariant"]
   NAMECALL R51 R15 K16 ["getText"]
   CALL R51 3 1
   SETTABLEKS R51 R50 K106 ["Text"]

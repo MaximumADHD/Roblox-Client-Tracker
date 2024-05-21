@@ -223,6 +223,7 @@ local FFlagFixDeveloperConsoleButtonSizeAndPositioning = game:DefineFastFlag("Fi
 local FFlagEnableTFFeedbackModeEntryCheck = game:DefineFastFlag("EnableTFFeedbackModeEntryCheck", false)
 local FFlagFeedbackEntryPointButtonSizeAdjustment = game:DefineFastFlag("FeedbackEntryPointButtonSizeAdjustment2", false)
 local FFlagFeedbackEntryPointImprovedStrictnessCheck = game:DefineFastFlag("FeedbackEntryPointImprovedStrictnessCheck", false)
+local FFlagFixSensitivityTextPrecision = game:DefineFastFlag("FixSensitivityTextPrecision", false)
 
 local function reportSettingsChangeForAnalytics(fieldName, oldValue, newValue, extraData)
 	if not GetFFlagEnableExplicitSettingsChangeAnalytics() or oldValue == newValue or oldValue == nil or newValue == nil then
@@ -2508,7 +2509,20 @@ local function Initialize()
 			textBox.Text = newText
 		end
 
-		setTextboxText(tostring(GameSettings.MouseSensitivityFirstPerson.X))
+		local function setMouseSensitivityText(num)
+			-- Round the number to 3 decimal places
+			num = math.floor(num * 1000 + 0.5) / 1000
+			local str = string.format("%.3f", num)
+
+			-- Remove trailing zeros and the decimal point if it's the last character
+			textBox.Text = tostring(tonumber(str))
+		end
+
+		if FFlagFixSensitivityTextPrecision then
+			setMouseSensitivityText(GameSettings.MouseSensitivityFirstPerson.X)
+		else
+			setTextboxText(tostring(GameSettings.MouseSensitivityFirstPerson.X))
+		end
 		this.MouseAdvancedEntry:SetValue(translateEngineMouseSensitivityToGui(GameSettings.MouseSensitivityFirstPerson.X))
 
 		function clampMouseSensitivity(value)
@@ -2542,7 +2556,11 @@ local function Initialize()
 					this.MouseAdvancedEntry:SetValue(translateEngineMouseSensitivityToGui(newValue))
 				end
 
-				setTextboxText(tostring(newValue))
+				if FFlagFixSensitivityTextPrecision then
+					setMouseSensitivityText(newValue)
+				else
+					setTextboxText(tostring(newValue))
+				end
 			end
 			canSetSensitivity = true
 		end

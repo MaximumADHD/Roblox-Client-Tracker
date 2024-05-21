@@ -248,6 +248,8 @@ PROTO_8:
   NAMECALL R2 R2 K6 ["report"]
   CALL R2 4 0
   LOADN R2 0
+  SETTABLEKS R2 R0 K9 ["_brushStatistic"]
+  LOADN R2 0
   SETTABLEKS R2 R0 K8 ["_brushUsages"]
   LOADN R2 0
   SETTABLEKS R2 R0 K1 ["_brushTime"]

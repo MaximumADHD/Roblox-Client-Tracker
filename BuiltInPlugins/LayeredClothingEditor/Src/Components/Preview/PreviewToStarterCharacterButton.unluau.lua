@@ -27,36 +27,36 @@ end
 local function fun5(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var258 = {}
-   var258.Size = UDim2.new(0, var8.getTextWidth("Preview", var1.TextSize, var1.Font) + var1.MainPadding, 0, var1.ButtonHeight)
-   var258.Text = "Preview"
-   var258.TextSize = var1.TextSize
-   var258.ButtonHeight = var1.ButtonHeight
-   var258.BackgroundColor3 = Color3.new(0, 0, 0)
-   var258.Style = "Round"
-   var258.LayoutOrder = var0.LayoutOrder
-   var258.OnClick = arg1.onPreviewButtonClick
-   return var2.createElement(var7, var258)
+   local var250 = {}
+   var250.Size = UDim2.new(0, var8.getTextWidth("Preview", var1.TextSize, var1.Font) + var1.MainPadding, 0, var1.ButtonHeight)
+   var250.Text = "Preview"
+   var250.TextSize = var1.TextSize
+   var250.ButtonHeight = var1.ButtonHeight
+   var250.BackgroundColor3 = Color3.new(0, 0, 0)
+   var250.Style = "Round"
+   var250.LayoutOrder = var0.LayoutOrder
+   var250.OnClick = arg1.onPreviewButtonClick
+   return var2.createElement(var7, var250)
 end
 
 function var9.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var258 = {}
-   var258.Size = UDim2.new(0, var8.getTextWidth("Preview", var1.TextSize, var1.Font) + var1.MainPadding, 0, var1.ButtonHeight)
-   var258.Text = "Preview"
-   var258.TextSize = var1.TextSize
-   var258.ButtonHeight = var1.ButtonHeight
-   var258.BackgroundColor3 = Color3.new(0, 0, 0)
-   var258.Style = "Round"
-   var258.LayoutOrder = var0.LayoutOrder
-   var258.OnClick = arg1.onPreviewButtonClick
-   return var2.createElement(var7, var258)
+   local var250 = {}
+   var250.Size = UDim2.new(0, var8.getTextWidth("Preview", var1.TextSize, var1.Font) + var1.MainPadding, 0, var1.ButtonHeight)
+   var250.Text = "Preview"
+   var250.TextSize = var1.TextSize
+   var250.ButtonHeight = var1.ButtonHeight
+   var250.BackgroundColor3 = Color3.new(0, 0, 0)
+   var250.Style = "Round"
+   var250.LayoutOrder = var0.LayoutOrder
+   var250.OnClick = arg1.onPreviewButtonClick
+   return var2.createElement(var7, var250)
 end
 
 fun5 = var5.withContext
-local var277 = {}
-var277.Stylizer = var5.Stylizer
-var277.EditingItemContext = var3.Contexts.EditingItemContext
-var9 = fun5(var277)(var9)
+local var269 = {}
+var269.Stylizer = var5.Stylizer
+var269.EditingItemContext = var3.Contexts.EditingItemContext
+var9 = fun5(var269)(var9)
 return var9

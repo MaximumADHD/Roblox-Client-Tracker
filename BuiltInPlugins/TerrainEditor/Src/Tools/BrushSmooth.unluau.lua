@@ -140,6 +140,7 @@ function var15.reportAnalytics(arg1)
    end
    arg1._brushUsages = 0
    arg1._brushTime = 0
+   arg1._brushStatistic = 0
 end
 
 return var15

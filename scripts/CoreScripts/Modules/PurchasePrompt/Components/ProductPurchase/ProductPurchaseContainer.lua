@@ -68,7 +68,7 @@ local ERROR_ICON = "icons/status/error_large"
 local DELAYED_INPUT_SEC = 2.5
 
 local FFlagPPTwoFactorLogOutMessage = game:DefineFastFlag("PPTwoFactorLogOutMessage", false)
-local FFlagPurchaseWithGamePausedFix = game:DefineFastFlag("PurchaseWithGamePausedFix", false)
+local FFlagFixOpenWithMenuConsole = game:DefineFastFlag("FixOpenWithMenuConsole", false)
 
 local function isRelevantRequestType(requestType, purchaseFlow)
 	if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
@@ -122,7 +122,7 @@ function ProductPurchaseContainer:init()
 	end
 
 	self.canConfirmInput = function()
-		if Players.LocalPlayer.GameplayPaused then
+		if Players.LocalPlayer.GameplayPaused or (GuiService.MenuIsOpen and FFlagFixOpenWithMenuConsole) then
 			return false
 		end
 		-- check == false because isAnimating == nil is used for when its not even shown
@@ -272,7 +272,8 @@ function ProductPurchaseContainer:didUpdate(prevProps, prevState)
 	-- Game unpause and purchase workflow could be triggered at the same time by doing some hack.
 	-- The fix is to check the game pause status in didUpdate(), and close ourchase prompt if in game pause.
 	-- More details in https://jira.rbx.com/browse/CLI-59903.
-	if FFlagPurchaseWithGamePausedFix and Players.LocalPlayer.GameplayPaused then
+	-- Similar issue happens with gamepad/console: https://roblox.atlassian.net/browse/CLIPS-1195
+	if Players.LocalPlayer.GameplayPaused or (GuiService.MenuIsOpen and FFlagFixOpenWithMenuConsole) then
 		self.props.onAnalyticEvent("PurchasePromptGamePausedDetected", { place_id = game.PlaceId })
 		self.props.hideWindow()
 	end

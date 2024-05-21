@@ -5,6 +5,9 @@
 --]]
 
 --[[ Constants ]]--
+
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
 
 local CONTEXT_ACTION_NAME = "MouseLockSwitchAction"
@@ -20,13 +23,7 @@ local GameSettings = Settings.GameSettings
 --[[ Imports ]]
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
 
-local FFlagUserFixCameraOffsetJitter
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixCameraOffsetJitter")
-	end)
-	FFlagUserFixCameraOffsetJitter= success and result
-end
+local FFlagUserFixCameraOffsetJitter = FlagUtil.getUserFlag("UserFixCameraOffsetJitter2")
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -95,15 +92,6 @@ end
 
 function MouseLockController:GetMouseLockOffset()
 	if FFlagUserFixCameraOffsetJitter then
-		-- check for custom CameraOffset
-		if PlayersService.LocalPlayer and PlayersService.LocalPlayer.Character and PlayersService.LocalPlayer.Character.Humanoid then
-			local humanoid = PlayersService.LocalPlayer.Character.Humanoid :: Humanoid
-			-- don't add any additional offsets if already using a custom CameraOffset
-			if humanoid.CameraOffset ~= Vector3.new() then
-				return humanoid.CameraOffset
-			end
-		end
-
 		return CAMERA_OFFSET_DEFAULT 
 	else
 		local offsetValueObj: Vector3Value = script:FindFirstChild("CameraOffset") :: Vector3Value

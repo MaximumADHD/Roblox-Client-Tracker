@@ -6,17 +6,35 @@ local Modules = CoreGui.RobloxGui.Modules
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local RoactAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy).RoactAppPolicy
 
 local ShareGame = Modules.Settings.Pages.ShareGame
 local Constants = require(ShareGame.Constants)
 
+local AppFeaturePolicies = require(CorePackages.Workspace.Packages.UniversalAppPolicy).AppFeaturePolicies
 local EventStream = require(CorePackages.Workspace.Packages.Analytics).AnalyticsReporters.EventStream
 
 local LayoutProvider = require(ShareGame.Components.LayoutProvider)
 
 local ShareGameContainer = require(ShareGame.Components.ShareGameContainer)
 
+local FFlagShareExperienceInviteLinkPolicy = require(Modules.Settings.Flags.FFlagShareExperienceInviteLinkPolicy)
+
 local ShareGameApp = Roact.PureComponent:extend("App")
+
+local function wrapWithProviders(children)
+	if FFlagShareExperienceInviteLinkPolicy then
+		return Roact.createElement(LayoutProvider, nil, {
+			PolicyProvider = Roact.createElement(RoactAppPolicy.Provider, {
+				policy = {
+					AppFeaturePolicies,
+				},
+			}, children),
+		})
+	else
+		return Roact.createElement(LayoutProvider, nil, children)
+	end
+end
 
 function ShareGameApp:render()
 	local analytics = self.props.analytics
@@ -30,7 +48,7 @@ function ShareGameApp:render()
 		})
 	end
 
-	return Roact.createElement(LayoutProvider, nil, {
+	return wrapWithProviders({
 		Roact.createElement(Roact.Portal, {
 			target = pageTarget,
 		}, {

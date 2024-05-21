@@ -43,8 +43,8 @@ MAIN:
   CALL R4 0 1
   DUPCLOSURE R5 K13 [PROTO_1]
   CAPTURE VAL R0
-  DUPTABLE R6 K20 [{"RunningUnderCLI", "RunTests", "LogTestsQuiet", "LogAnalytics", "RunDeveloperFrameworkTests", "EnableRoactConfigs"}]
-  ORK R8 R4 K21 [False]
+  DUPTABLE R6 K21 [{"RunningUnderCLI", "RunTests", "LogTestsQuiet", "LogAnalytics", "ProfileTools", "RunDeveloperFrameworkTests", "EnableRoactConfigs"}]
+  ORK R8 R4 K22 [False]
   LOADK R9 K14 ["RunningUnderCLI"]
   NEWCLOSURE R7 P1
   CAPTURE VAL R0
@@ -72,19 +72,26 @@ MAIN:
   CAPTURE VAL R8
   CAPTURE VAL R9
   SETTABLEKS R7 R6 K17 ["LogAnalytics"]
-  LOADK R8 K18 ["RunDeveloperFrameworkTests"]
+  LOADK R8 K18 ["ProfileTools"]
+  LOADB R9 1
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  SETTABLEKS R7 R6 K18 ["ProfileTools"]
+  LOADK R8 K19 ["RunDeveloperFrameworkTests"]
   LOADB R9 0
   NEWCLOSURE R7 P1
   CAPTURE VAL R0
   CAPTURE VAL R8
   CAPTURE VAL R9
-  SETTABLEKS R7 R6 K18 ["RunDeveloperFrameworkTests"]
+  SETTABLEKS R7 R6 K19 ["RunDeveloperFrameworkTests"]
   OR R8 R4 R3
-  ORK R9 R8 K21 [False]
-  LOADK R10 K19 ["EnableRoactConfigs"]
+  ORK R9 R8 K22 [False]
+  LOADK R10 K20 ["EnableRoactConfigs"]
   NEWCLOSURE R7 P1
   CAPTURE VAL R0
   CAPTURE VAL R10
   CAPTURE VAL R9
-  SETTABLEKS R7 R6 K19 ["EnableRoactConfigs"]
+  SETTABLEKS R7 R6 K20 ["EnableRoactConfigs"]
   RETURN R6 1

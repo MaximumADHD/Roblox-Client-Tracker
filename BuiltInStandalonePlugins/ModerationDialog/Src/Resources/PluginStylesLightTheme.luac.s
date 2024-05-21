@@ -10,9 +10,11 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  NEWTABLE R3 0 0
+  DUPTABLE R3 K11 [{"CheckboxHoveredImage"}]
+  LOADK R4 K12 ["rbxasset://textures/DeveloperFramework/checkbox_unchecked_hover_light.png"]
+  SETTABLEKS R4 R3 K10 ["CheckboxHoveredImage"]
   MOVE R4 R2
-  LOADK R5 K10 ["ModerationDialogLightTheme"]
+  LOADK R5 K13 ["ModerationDialogLightTheme"]
   NEWTABLE R6 0 0
   MOVE R7 R3
   CALL R4 3 -1

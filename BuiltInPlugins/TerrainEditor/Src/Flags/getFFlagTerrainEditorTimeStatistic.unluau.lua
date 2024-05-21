@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("TerrainEditorTimeStatistic2", false)
+game:DefineFastFlag("TerrainEditorTimeStatistic4", false)
 return function()
-   return game:GetFastFlag("TerrainEditorTimeStatistic2")
+   return game:GetFastFlag("TerrainEditorTimeStatistic4")
 end

@@ -1,0 +1,29 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var8 = require(script:FindFirstAncestor("ModerationDialog").Packages.Framework).Styling
+local var1 = var8.createStyleRule
+var8 = var1
+local var15 = {}
+var15.FillDirection = Enum.FillDirection.Horizontal
+var15.Padding = UDim.new(0, 12)
+var15.SortOrder = Enum.SortOrder.LayoutOrder
+local var3 = var1("::UIListLayout", var15)
+local var25 = {}
+var25.Size = UDim2.new(0, 16, 0, 16)
+var25.BackgroundTransparency = 1
+local var5 = var1(">> ImageButton", var25)
+local var36 = {}
+var36.Image = "$CheckboxUncheckedImage"
+var36.HoverImage = "$CheckboxHoveredImage"
+local var7 = var1(">> .Unchecked", var36)
+local var42 = {}
+var42.Image = "$CheckboxCheckedImage"
+local var8 = var1(">> .Checked", var42)
+local var47 = {}
+var47.Font = Enum.Font.SourceSans
+var47.TextColor3 = "$TextPrimary"
+var47.TextSize = 16
+var47.TextWrapped = true
+var47.TextXAlignment = Enum.TextXAlignment.Left
+var47.BackgroundTransparency = 1
+local var9 = var1(">> TextButton", var47)
+return var8(".Component-Checkbox", {}, {})

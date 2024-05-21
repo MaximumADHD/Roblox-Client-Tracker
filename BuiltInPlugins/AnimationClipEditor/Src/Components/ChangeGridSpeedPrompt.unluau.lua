@@ -6,13 +6,13 @@ local var3 = require(var0.Src.Util.Constants)
 local var4 = require(var0.Src.Components.TextEntryPrompt)
 local var5 = var1.PureComponent:extend("ChangeGridSpeedPrompt")
 function var5.init(arg1)
-   local var70 = {}
-   var70.noticeText = var1.None
-   arg1.state = var70
+   local var29 = {}
+   var29.noticeText = var1.None
+   arg1.state = var29
    function arg1.setNotice(arg1)
-      local var75 = {}
-      var75.noticeText = arg1
-      arg1:setState(var75)
+      local var34 = {}
+      var34.noticeText = arg1
+      arg1:setState(var34)
    end
    
    function arg1.onClose()
@@ -35,17 +35,17 @@ local function fun5(arg1)
    end
    local var1 = true
    local var2 = arg1.props.Localization
-   local var104 = {}
-   var104.PromptText = " "
-   local var109 = var2:getText("Title", "CustomGridSpeed")
-   var104.InputText = var109
+   local var63 = {}
+   var63.PromptText = " "
+   local var68 = var2:getText("Title", "CustomGridSpeed")
+   var63.InputText = var68
    if var1 then
-      var109 = var0
-      local var0 = var109 or nil
+      var68 = var0
+      local var0 = var68 or nil
    end
-   var104.NoticeText = nil
-   var104.HasError = var1
-   var104.Text = arg1.props.GridSpeed
+   var63.NoticeText = nil
+   var63.HasError = var1
+   var63.Text = arg1.props.GridSpeed
    local var4 = {}
    var4.Key = false
    var4.Text = var2:getText("Dialog", "Cancel")
@@ -54,15 +54,15 @@ local function fun5(arg1)
    var5.Key = true
    var5.Text = var2:getText("Dialog", "Confirm")
    var5.Style = "RoundPrimary"
-   var104.Buttons = {}
-   function var104.OnTextSubmitted(arg1)
-      local var130 = {}
-      var130.noticeText = arg1
-      arg1:setState(var130)
+   var63.Buttons = {}
+   function var63.OnTextSubmitted(arg1)
+      local var89 = {}
+      var89.noticeText = arg1
+      arg1:setState(var89)
    end
    
-   var104.OnClose = arg1.onClose
-   return var1.createElement(var4, var104)
+   var63.OnClose = arg1.onClose
+   return var1.createElement(var4, var63)
 end
 
 function var5.render(arg1)
@@ -72,17 +72,17 @@ function var5.render(arg1)
    end
    local var1 = true
    local var2 = arg1.props.Localization
-   local var104 = {}
-   var104.PromptText = " "
-   local var109 = var2:getText("Title", "CustomGridSpeed")
-   var104.InputText = var109
+   local var63 = {}
+   var63.PromptText = " "
+   local var68 = var2:getText("Title", "CustomGridSpeed")
+   var63.InputText = var68
    if var1 then
-      var109 = var0
-      local var0 = var109 or nil
+      var68 = var0
+      local var0 = var68 or nil
    end
-   var104.NoticeText = nil
-   var104.HasError = var1
-   var104.Text = arg1.props.GridSpeed
+   var63.NoticeText = nil
+   var63.HasError = var1
+   var63.Text = arg1.props.GridSpeed
    local var4 = {}
    var4.Key = false
    var4.Text = var2:getText("Dialog", "Cancel")
@@ -91,19 +91,19 @@ function var5.render(arg1)
    var5.Key = true
    var5.Text = var2:getText("Dialog", "Confirm")
    var5.Style = "RoundPrimary"
-   var104.Buttons = {}
-   function var104.OnTextSubmitted(arg1)
-      local var130 = {}
-      var130.noticeText = arg1
-      arg1:setState(var130)
+   var63.Buttons = {}
+   function var63.OnTextSubmitted(arg1)
+      local var89 = {}
+      var89.noticeText = arg1
+      arg1:setState(var89)
    end
    
-   var104.OnClose = arg1.onClose
-   return var1.createElement(var4, var104)
+   var63.OnClose = arg1.onClose
+   return var1.createElement(var4, var63)
 end
 
 fun5 = var2.withContext
-local var134 = {}
-var134.Localization = var2.Localization
-var5 = fun5(var134)(var5)
+local var93 = {}
+var93.Localization = var2.Localization
+var5 = fun5(var93)(var5)
 return var5

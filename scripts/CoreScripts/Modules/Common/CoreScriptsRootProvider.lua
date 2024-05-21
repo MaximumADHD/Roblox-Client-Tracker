@@ -1,6 +1,7 @@
 --!strict
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
+local GuiService = game:GetService("GuiService")
 
 local FFlagSwitchCSRootProviderTranslationsPackage =
 	game:DefineFastFlag("SwitchCSRootProviderTranslationsPackage", false)
@@ -36,6 +37,8 @@ local FeedbackManagerInjectionContextProvider = InteractionFeedbackPackage.Feedb
 local InteractionFeedbackAppConfig =
 	require(CorePackages.Workspace.Packages.RobloxAppInteractionFeedbackConfig).InteractionFeedbackAppConfig
 
+local FFlagCoreScriptsDynamicDefaultDeviceType = game:DefineFastFlag("CoreScriptsDynamicDefaultDeviceType", false)
+
 local focusNavigationService =
 	ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
 
@@ -52,11 +55,21 @@ export type Props = {
 	children: React.ReactNode,
 }
 
-local defaultStyle = {
-	themeName = "dark",
-	fontName = "gotham",
-	deviceType = DeviceTypeEnum.Desktop,
-}
+local defaultStyle
+if FFlagCoreScriptsDynamicDefaultDeviceType then
+	defaultStyle = {
+		themeName = "dark",
+		fontName = "gotham",
+		-- For now, design tokens only have console vs desktop values
+		deviceType = if GuiService:IsTenFootInterface() then DeviceTypeEnum.Console else DeviceTypeEnum.Desktop,
+	}
+else
+	defaultStyle = {
+		themeName = "dark",
+		fontName = "gotham",
+		deviceType = DeviceTypeEnum.Desktop,
+	}
+end
 
 local function CoreScriptsRootProvider(props: Props)
 	local style = Cryo.Dictionary.join(defaultStyle, props.styleOverride or {})

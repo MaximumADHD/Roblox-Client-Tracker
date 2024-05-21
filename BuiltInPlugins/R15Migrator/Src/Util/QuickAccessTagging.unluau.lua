@@ -30,7 +30,7 @@ function var2.clearTags(arg1)
    local var4 = nil
    var1:removeTag(arg1)
    local var5 = arg1:GetDescendants()
-   var1:removeTag(var139)
+   var1:removeTag(var146)
 end
 
 var2.CharactersConvertedToR15Tagging = var1.new(require(script:FindFirstAncestor("R15Migrator").Src.Resources.Constants).NonePublishTags.CharactersConvertedToR15Tag)

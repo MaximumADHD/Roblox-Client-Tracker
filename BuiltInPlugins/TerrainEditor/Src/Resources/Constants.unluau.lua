@@ -17,6 +17,9 @@ var0.MaxBuildRegion = 512
 var0.MaxMaterialListSize = 5
 var0.MaxImportVolume = 274877906944
 var0.RegionNormalization = 256
+var0.RegionNormalizationMinVolume = 262144
 var0.BrushNormalization = 64
+var0.BrushNormalizationMinVolume = 216
 var0.PlacementSnap = 6
+var0.SpikeThreshold = 10000
 return var0

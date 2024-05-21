@@ -20,6 +20,9 @@ local INITIAL_CAMERA_ANGLE = CFrame.fromOrientation(math.rad(-15), 0, 0)
 local ZOOM_SENSITIVITY_CURVATURE = 0.5
 local FIRST_PERSON_DISTANCE_MIN = 0.5
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
 local FFlagUserRemoveVRReferences
 do
 	local success, result = pcall(function()
@@ -27,6 +30,7 @@ do
 	end)
 	FFlagUserRemoveVRReferences = success and result
 end
+local FFlagUserFixCameraOffsetJitter = FlagUtil.getUserFlag("UserFixCameraOffsetJitter2")
 
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
@@ -132,6 +136,12 @@ function ClassicCamera:Update()
 			local newLookCFrame: CFrame = self:CalculateNewLookCFrameFromArg(overrideCameraLookVector, rotateInput)
 
 			local offset: Vector3 = self:GetMouseLockOffset()
+			if FFlagUserFixCameraOffsetJitter then
+				-- in mouse lock mode, the offset is applied to the camera instead of to the subject position
+				if humanoid then
+					offset += humanoid.CameraOffset
+				end
+			end
 			local cameraRelativeOffset: Vector3 = offset.X * newLookCFrame.RightVector + offset.Y * newLookCFrame.UpVector + offset.Z * newLookCFrame.LookVector
 
 			--offset can be NAN, NAN, NAN if newLookVector has only y component

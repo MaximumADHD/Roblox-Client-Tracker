@@ -163,7 +163,7 @@ PROTO_4:
   SETTABLEKS R3 R2 K10 ["loading"]
   SETTABLEKS R2 R1 K4 ["ResultsState"]
   DUPTABLE R2 K14 [{"displayName", "name"}]
-  LOADK R3 K15 ["Based on Your Scene"]
+  LOADK R3 K15 ["Scene Suggestions"]
   SETTABLEKS R3 R2 K12 ["displayName"]
   GETUPVAL R4 1
   GETTABLEKS R3 R4 K16 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]

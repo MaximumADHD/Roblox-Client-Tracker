@@ -12,6 +12,8 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 local Badge = UIBlox.App.Indicator.Badge
+local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
+local ScrollBarType = UIBlox.App.Container.Enum.ScrollBarType
 
 local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
@@ -29,6 +31,7 @@ local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
 local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
 local GetFFlagUseNewPinIcon = require(Chrome.Flags.GetFFlagUseNewPinIcon)
 local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSubmenuTruncationFix)
+local GetFFlagKeepSubmenuOpenOnPin = require(Chrome.Flags.GetFFlagKeepSubmenuOpenOnPin)
 local GetFFlagEnableCaptureBadge = require(Chrome.Flags.GetFFlagEnableCaptureBadge)
 local GetFIntNumTimesNewBadgeIsDisplayed = require(Chrome.Flags.GetFIntNumTimesNewBadgeIsDisplayed)
 local GetFStringNewFeatureList = require(Chrome.Flags.GetFStringNewFeatureList)
@@ -52,6 +55,8 @@ local hasOpened9Dot = false
 local TIMES_SEEN = "TimesSeenNewFeatures"
 local NEW_BADGE_TEXT = "NEW"
 local newFeatures = {}
+
+local pinPressed = false
 
 for feature in string.gmatch(GetFStringNewFeatureList(), "([^, ]+)") do
 	newFeatures[feature] = true
@@ -150,6 +155,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			return v.Color
 		end),
 		SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
+		AutoButtonColor = if GetFFlagKeepSubmenuOpenOnPin() then false else nil,
 		[React.Event.Activated] = if GetFFlagEnableCaptureBadge()
 			then function()
 				ClearBadge(props.id)
@@ -180,13 +186,22 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 					else UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING, 0.5, 0),
 				BorderSizePixel = 0,
 				SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
-				isDisabled = pinDisabled,
+				isDisabled = if GetFFlagKeepSubmenuOpenOnPin() then nil else pinDisabled,
+				Selectable = if GetFFlagKeepSubmenuOpenOnPin() then not pinDisabled else nil,
 				[React.Event.Activated] = function()
-					ClearBadge(props.id)
-					pinActivated(props.id)
+					if GetFFlagKeepSubmenuOpenOnPin() then
+						pinPressed = true
+						if not pinDisabled then
+							ClearBadge(props.id)
+							pinActivated(props.id)
+						end
+					else
+						ClearBadge(props.id)
+						pinActivated(props.id)
+					end
 				end,
 				BackgroundTransparency = pinHighlightColor:map(function(v)
-					return v.Transparency
+					return if GetFFlagKeepSubmenuOpenOnPin() and pinDisabled then 1 else v.Transparency
 				end),
 				BackgroundColor3 = pinHighlightColor:map(function(v)
 					return v.Color
@@ -344,21 +359,29 @@ function SubMenu(props: SubMenuProps)
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, 10),
 		}),
-		ScrollingFrame = React.createElement("ScrollingFrame", {
-			ScrollBarThickness = 1,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 0),
-			CanvasSize = if EnableScrollingSubmenu then UDim2.new(0, 0, 0, canvasSize) else nil,
-			AutomaticSize = if EnableScrollingSubmenu then nil else Enum.AutomaticSize.Y,
-			BackgroundTransparency = 1,
-			AutomaticCanvasSize = if EnableScrollingSubmenu then nil else Enum.AutomaticSize.XY,
-			ScrollingDirection = Enum.ScrollingDirection.Y,
-			SelectionGroup = true,
-			SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
-			SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
-			SelectionBehaviorDown = Enum.SelectionBehavior.Stop,
-			Selectable = false,
-		}, rows),
+		ScrollingFrame = if GetFFlagEnableSubmenuTruncationFix()
+			then React.createElement(VerticalScrollView, {
+				size = UDim2.new(1, 0, 1, 0),
+				useAutomaticCanvasSize = if EnableScrollingSubmenu then nil else Enum.AutomaticSize.XY,
+				canvasSizeY = if EnableScrollingSubmenu then UDim.new(0, canvasSize) else nil,
+				selectable = false,
+				scrollBarType = ScrollBarType.Compact,
+			}, rows)
+			else React.createElement("ScrollingFrame", {
+				ScrollBarThickness = 1,
+				BorderSizePixel = 0,
+				Size = UDim2.new(1, 0, 0, 0),
+				CanvasSize = if EnableScrollingSubmenu then UDim2.new(0, 0, 0, canvasSize) else nil,
+				AutomaticSize = if EnableScrollingSubmenu then nil else Enum.AutomaticSize.Y,
+				BackgroundTransparency = 1,
+				AutomaticCanvasSize = if EnableScrollingSubmenu then nil else Enum.AutomaticSize.XY,
+				ScrollingDirection = Enum.ScrollingDirection.Y,
+				SelectionGroup = true,
+				SelectionBehaviorLeft = Enum.SelectionBehavior.Stop,
+				SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
+				SelectionBehaviorDown = Enum.SelectionBehavior.Stop,
+				Selectable = false,
+			}, rows),
 	})
 end
 
@@ -378,7 +401,11 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 				connectionTapped.current = UserInputService.TouchTap:Connect(function(evt)
 					local subMenuId = ChromeService:currentSubMenu():get()
 					if subMenuId then
-						ChromeService:toggleSubMenu(subMenuId)
+						if GetFFlagKeepSubmenuOpenOnPin() and pinPressed then
+							pinPressed = false
+						else
+							ChromeService:toggleSubMenu(subMenuId)
+						end
 					end
 				end)
 			end
@@ -394,7 +421,11 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 
 				local subMenuId = ChromeService:currentSubMenu():get()
 				if subMenuId and pressed then
-					ChromeService:toggleSubMenu(subMenuId)
+					if GetFFlagKeepSubmenuOpenOnPin() and pinPressed then
+						pinPressed = false
+					else
+						ChromeService:toggleSubMenu(subMenuId)
+					end
 				end
 			end)
 		end

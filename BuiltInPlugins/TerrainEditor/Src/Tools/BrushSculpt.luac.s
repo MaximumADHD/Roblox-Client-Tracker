@@ -253,6 +253,8 @@ PROTO_8:
   SETTABLEKS R2 R0 K10 ["_brushUsages"]
   LOADN R2 0
   SETTABLEKS R2 R0 K1 ["_brushTime"]
+  LOADN R2 0
+  SETTABLEKS R2 R0 K11 ["_brushStatistic"]
   RETURN R0 0
 
 MAIN:

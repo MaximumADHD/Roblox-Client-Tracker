@@ -94,17 +94,9 @@ PROTO_4:
   SETTABLEKS R12 R11 K17 ["ShowBackground"]
   LOADB R12 0
   SETTABLEKS R12 R11 K18 ["IsDisabled"]
-  GETUPVAL R13 3
-  JUMPIFNOT R13 [+3]
   GETTABLEKS R12 R0 K29 ["reportFalloffChangeEvent"]
-  JUMP [+1]
-  LOADNIL R12
   SETTABLEKS R12 R11 K19 ["OnChangeBegan"]
-  GETUPVAL R13 3
-  JUMPIFNOT R13 [+3]
   GETTABLEKS R12 R0 K29 ["reportFalloffChangeEvent"]
-  JUMP [+1]
-  LOADNIL R12
   SETTABLEKS R12 R11 K20 ["OnTextBoxValueChanged"]
   CALL R9 2 -1
   RETURN R9 -1
@@ -141,39 +133,31 @@ MAIN:
   GETTABLEKS R9 R8 K17 ["withContext"]
   GETTABLEKS R10 R7 K18 ["UI"]
   GETTABLEKS R11 R10 K19 ["Pane"]
-  GETTABLEKS R13 R2 K20 ["Flags"]
-  GETTABLEKS R12 R13 K21 ["GetFFlagAFTSupportAdditionalAnalyticsLogging"]
-  GETTABLEKS R13 R1 K22 ["PureComponent"]
-  LOADK R15 K23 ["FalloffSlider"]
-  NAMECALL R13 R13 K24 ["extend"]
-  CALL R13 2 1
-  DUPCLOSURE R14 K25 [PROTO_2]
+  GETTABLEKS R12 R1 K20 ["PureComponent"]
+  LOADK R14 K21 ["FalloffSlider"]
+  NAMECALL R12 R12 K22 ["extend"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K23 [PROTO_2]
   CAPTURE VAL R6
-  SETTABLEKS R14 R13 K26 ["init"]
-  DUPCLOSURE R14 K27 [PROTO_3]
-  SETTABLEKS R14 R13 K28 ["didMount"]
-  DUPCLOSURE R14 K29 [PROTO_4]
+  SETTABLEKS R13 R12 K24 ["init"]
+  DUPCLOSURE R13 K25 [PROTO_3]
+  SETTABLEKS R13 R12 K26 ["didMount"]
+  DUPCLOSURE R13 K27 [PROTO_4]
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R12
-  SETTABLEKS R14 R13 K30 ["render"]
-  MOVE R14 R9
-  DUPTABLE R15 K34 [{"Analytics", "Localization", "LuaMeshEditingModuleContext", "Stylizer"}]
-  MOVE R17 R12
-  CALL R17 0 1
-  JUMPIFNOT R17 [+3]
-  GETTABLEKS R16 R8 K31 ["Analytics"]
-  JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K31 ["Analytics"]
-  GETTABLEKS R16 R8 K32 ["Localization"]
-  SETTABLEKS R16 R15 K32 ["Localization"]
-  SETTABLEKS R3 R15 K9 ["LuaMeshEditingModuleContext"]
-  GETTABLEKS R16 R8 K33 ["Stylizer"]
-  SETTABLEKS R16 R15 K33 ["Stylizer"]
-  CALL R14 1 1
-  MOVE R15 R13
-  CALL R14 1 1
-  MOVE R13 R14
-  RETURN R13 1
+  SETTABLEKS R13 R12 K28 ["render"]
+  MOVE R13 R9
+  DUPTABLE R14 K32 [{"Analytics", "Localization", "LuaMeshEditingModuleContext", "Stylizer"}]
+  GETTABLEKS R15 R8 K29 ["Analytics"]
+  SETTABLEKS R15 R14 K29 ["Analytics"]
+  GETTABLEKS R15 R8 K30 ["Localization"]
+  SETTABLEKS R15 R14 K30 ["Localization"]
+  SETTABLEKS R3 R14 K9 ["LuaMeshEditingModuleContext"]
+  GETTABLEKS R15 R8 K31 ["Stylizer"]
+  SETTABLEKS R15 R14 K31 ["Stylizer"]
+  CALL R13 1 1
+  MOVE R14 R12
+  CALL R13 1 1
+  MOVE R12 R13
+  RETURN R12 1

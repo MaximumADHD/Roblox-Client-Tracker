@@ -1,0 +1,324 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  NAMECALL R3 R3 K0 ["use"]
+  CALL R3 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["new"]
+  CALL R4 0 1
+  DUPTABLE R5 K3 [{"DialogContainer"}]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K4 ["createElement"]
+  LOADK R7 K5 ["Frame"]
+  NEWTABLE R8 2 0
+  NAMECALL R9 R4 K6 ["getNextOrder"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K7 ["LayoutOrder"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K8 ["Tag"]
+  LOADK R10 K9 ["X-Fill X-Column Component-DialogContainer"]
+  SETTABLE R10 R8 R9
+  DUPTABLE R9 K16 [{"ReviewedNote", "Separator1", "Reason", "Separator2", "GuidelinesAndToU", "AgreeCheckBox"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K19 [{"ReviewDateTime", "ModeratorNote", "LayoutOrder"}]
+  GETTABLEKS R13 R0 K17 ["ReviewDateTime"]
+  SETTABLEKS R13 R12 K17 ["ReviewDateTime"]
+  GETTABLEKS R13 R0 K18 ["ModeratorNote"]
+  SETTABLEKS R13 R12 K18 ["ModeratorNote"]
+  NAMECALL R13 R4 K6 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K10 ["ReviewedNote"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  LOADK R11 K5 ["Frame"]
+  NEWTABLE R12 2 0
+  NAMECALL R13 R4 K6 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K8 ["Tag"]
+  LOADK R14 K20 ["Separator"]
+  SETTABLE R14 R12 R13
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K11 ["Separator1"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K22 [{"Reason", "OffensiveItem", "LayoutOrder"}]
+  GETUPVAL R13 5
+  MOVE R14 R3
+  GETTABLEKS R16 R0 K12 ["Reason"]
+  GETTABLEKS R15 R16 K23 ["abuseType"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K12 ["Reason"]
+  GETTABLEKS R14 R0 K12 ["Reason"]
+  GETTABLEKS R13 R14 K24 ["utteranceText"]
+  SETTABLEKS R13 R12 K21 ["OffensiveItem"]
+  NAMECALL R13 R4 K6 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K12 ["Reason"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  LOADK R11 K5 ["Frame"]
+  NEWTABLE R12 2 0
+  NAMECALL R13 R4 K6 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K8 ["Tag"]
+  LOADK R14 K20 ["Separator"]
+  SETTABLE R14 R12 R13
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K13 ["Separator2"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  LOADK R11 K25 ["TextLabel"]
+  NEWTABLE R12 4 0
+  LOADK R15 K26 ["Agreement"]
+  LOADK R16 K14 ["GuidelinesAndToU"]
+  NAMECALL R13 R3 K27 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K28 ["Text"]
+  NAMECALL R13 R4 K6 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K8 ["Tag"]
+  LOADK R14 K29 ["X-FitY"]
+  SETTABLE R14 R12 R13
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K14 ["GuidelinesAndToU"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R11 6
+  NEWTABLE R12 8 0
+  NAMECALL R13 R4 K6 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  LOADK R15 K26 ["Agreement"]
+  LOADK R16 K30 ["IAgree"]
+  NAMECALL R13 R3 K27 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K28 ["Text"]
+  SETTABLEKS R1 R12 K31 ["Checked"]
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  SETTABLEKS R13 R12 K32 ["OnChecked"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K8 ["Tag"]
+  LOADK R14 K29 ["X-FitY"]
+  SETTABLE R14 R12 R13
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K15 ["AgreeCheckBox"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K2 ["DialogContainer"]
+  RETURN R5 1
+
+PROTO_2:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["reactivate"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R0 K2 [table.freeze]
+  DUPTABLE R1 K6 [{"Label", "Enabled", "OnActivated"}]
+  GETUPVAL R2 0
+  LOADK R4 K7 ["Buttons"]
+  LOADK R5 K8 ["Reactivate"]
+  NAMECALL R2 R2 K9 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K3 ["Label"]
+  GETUPVAL R2 1
+  SETTABLEKS R2 R1 K4 ["Enabled"]
+  DUPCLOSURE R2 K10 [PROTO_2]
+  SETTABLEKS R2 R1 K5 ["OnActivated"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_4:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["logout"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R0 K2 [table.freeze]
+  DUPTABLE R1 K5 [{"Label", "OnActivated"}]
+  GETUPVAL R2 0
+  LOADK R4 K6 ["Buttons"]
+  LOADK R5 K7 ["LogOut"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K3 ["Label"]
+  DUPCLOSURE R2 K9 [PROTO_4]
+  SETTABLEKS R2 R1 K4 ["OnActivated"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETUPVAL R3 0
+  NAMECALL R1 R0 K4 ["OpenInBrowser_DONOTUSE"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETIMPORT R0 K2 [table.freeze]
+  DUPTABLE R1 K5 [{"Label", "OnActivated"}]
+  GETUPVAL R2 0
+  LOADK R4 K6 ["Buttons"]
+  LOADK R5 K7 ["TermsOfUse"]
+  NAMECALL R2 R2 K8 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K3 ["Label"]
+  DUPCLOSURE R2 K9 [PROTO_6]
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K4 ["OnActivated"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_8:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["useMemo"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  NEWTABLE R6 0 2
+  MOVE R7 R2
+  GETTABLEKS R8 R1 K3 ["locale"]
+  SETLIST R6 R7 2 [1]
+  CALL R4 2 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["useMemo"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R1
+  NEWTABLE R7 0 1
+  GETTABLEKS R8 R1 K3 ["locale"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K2 ["useMemo"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  NEWTABLE R8 0 1
+  GETTABLEKS R9 R1 K3 ["locale"]
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  GETUPVAL R7 3
+  DUPTABLE R8 K13 [{"Intent", "Heading", "Body", "Contents", "ActionPrimary", "ActionSecondary", "ActionTertiary", "Modal", "Width"}]
+  LOADK R9 K14 ["Warning"]
+  SETTABLEKS R9 R8 K4 ["Intent"]
+  LOADK R11 K15 ["WarningHeader"]
+  LOADK R12 K15 ["WarningHeader"]
+  NAMECALL R9 R1 K16 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K5 ["Heading"]
+  LOADK R11 K15 ["WarningHeader"]
+  LOADK R12 K17 ["WarningBody"]
+  NAMECALL R9 R1 K16 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K6 ["Body"]
+  GETUPVAL R9 4
+  MOVE R10 R0
+  MOVE R11 R2
+  MOVE R12 R3
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K7 ["Contents"]
+  SETTABLEKS R4 R8 K8 ["ActionPrimary"]
+  SETTABLEKS R5 R8 K9 ["ActionSecondary"]
+  SETTABLEKS R6 R8 K10 ["ActionTertiary"]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K11 ["Modal"]
+  LOADN R9 219
+  SETTABLEKS R9 R8 K12 ["Width"]
+  CALL R7 1 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K18 ["useEffect"]
+  MOVE R9 R7
+  NEWTABLE R10 0 0
+  CALL R8 2 0
+  LOADNIL R8
+  RETURN R8 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModerationDialog"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["ContextServices"]
+  GETTABLEKS R4 R3 K10 ["Localization"]
+  GETTABLEKS R7 R2 K11 ["UI"]
+  GETTABLEKS R6 R7 K12 ["Hooks"]
+  GETTABLEKS R5 R6 K13 ["useDialog"]
+  GETTABLEKS R7 R2 K14 ["Util"]
+  GETTABLEKS R6 R7 K15 ["LayoutOrderIterator"]
+  GETTABLEKS R8 R0 K16 ["Src"]
+  GETTABLEKS R7 R8 K17 ["Components"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R7 K18 ["Checkbox"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R7 K19 ["Reason"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R7 K20 ["ReviewedNote"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K16 ["Src"]
+  GETTABLEKS R13 R14 K14 ["Util"]
+  GETTABLEKS R12 R13 K21 ["AbuseTypeToString"]
+  CALL R11 1 1
+  GETIMPORT R12 K23 [game]
+  LOADK R14 K24 ["ModerationDialogToULink"]
+  LOADK R15 K25 ["https://en.help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use"]
+  NAMECALL R12 R12 K26 ["DefineFastString"]
+  CALL R12 3 1
+  DUPCLOSURE R13 K27 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  DUPCLOSURE R14 K28 [PROTO_8]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  RETURN R14 1

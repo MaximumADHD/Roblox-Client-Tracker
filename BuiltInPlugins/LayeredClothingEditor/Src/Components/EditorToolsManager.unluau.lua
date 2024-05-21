@@ -14,9 +14,9 @@ local var11 = var3.Util
 function var9.init(arg1)
    arg1.editorFrameRef = var1.createRef()
    function arg1.onToolChange(arg1)
-      local var709 = arg1.props
-      var709 = arg1
-      var709.SetToolMode(var709)
+      local var703 = arg1.props
+      var703 = arg1
+      var703.SetToolMode(var703)
       arg1.props.Signals:get(var7.SIGNAL_KEYS.SelectionChanged):Fire()
       arg1.props.Signals:get(var7.SIGNAL_KEYS.ToolChanged):Fire()
    end
@@ -36,18 +36,18 @@ function var9.render(arg1)
    if var3 == "props" then
       local var0 = var5
    end
-   local var751 = {}
-   local var755 = var1.createElement(var10)
-   var751.WorkspaceEditorControls = var755
-   var755 = var5
-   var751.MeshPartTool = var755 and var1.createElement(var4)
+   local var745 = {}
+   local var749 = var1.createElement(var10)
+   var745.WorkspaceEditorControls = var749
+   var749 = var5
+   var745.MeshPartTool = var749 and var1.createElement(var4)
    if not var8.RunRhodiumTests() or var8.RunTests() then
       if false then
          local var0 = var1.createElement(var5) or nil
       end
    end
-   var751.LuaMeshEditingModuleWrapper = nil
-   return var1.createFragment(var751)
+   var745.LuaMeshEditingModuleWrapper = nil
+   return var1.createFragment(var745)
 end
 
 function var9.willUpdate(arg1, arg2)
@@ -92,10 +92,10 @@ function var9.willUnmount(arg1)
 end
 
 fun25 = var3.ContextServices.withContext
-local var818 = {}
-var818.LuaMeshEditingModuleContext = var2.Contexts.LuaMeshEditingModuleContext
-var818.Signals = var2.Contexts.Signals
-var9 = fun25(var818)(var9)
+local var812 = {}
+var812.LuaMeshEditingModuleContext = var2.Contexts.LuaMeshEditingModuleContext
+var812.Signals = var2.Contexts.Signals
+var9 = fun25(var812)(var9)
 return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = arg1.cageData
    local var1 = {}
@@ -105,9 +105,9 @@ return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
 end, function(arg1)
    local var0 = {}
    function var0.SetToolMode(arg1)
-      local var834 = arg1.props
-      var834 = arg1
-      var834.SetToolMode(var834)
+      local var828 = arg1.props
+      var828 = arg1
+      var828.SetToolMode(var828)
       arg1.props.Signals:get(var7.SIGNAL_KEYS.SelectionChanged):Fire()
       arg1.props.Signals:get(var7.SIGNAL_KEYS.ToolChanged):Fire()
    end

@@ -29,11 +29,15 @@ local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.Shar
 local GetFFlagOpenControlsOnMenuOpen = require(script.Parent.Parent.Flags.GetFFlagOpenControlsOnMenuOpen)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
 local GetFFlagDisableMostRecentlyUsed = require(script.Parent.Parent.Flags.GetFFlagDisableMostRecentlyUsed)
+local GetFFlagEnableSaveUserPins = require(script.Parent.Parent.Flags.GetFFlagEnableSaveUserPins)
+
+local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
 
 local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 2.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
 local CHROME_INTERACTED_KEY = "ChromeInteracted2"
 local CHROME_SEEN_COUNT_KEY = "ChromeSeenCount"
+local CHROME_PINNED_KEY = "ChromePinned"
 local MAX_CHROME_SEEN_COUNT = 3
 
 -- todo: Consider how ChromeService could support multiple UI at the same time, not only the Unibar
@@ -418,6 +422,19 @@ function ChromeService:rebuildUserPins()
 
 		self._userPins = newUserPins
 
+		self:updateMenuList()
+		self:updateNotificationTotals()
+	end
+
+	if GetFFlagEnableSaveUserPins() then
+		local defaultPins = {}
+		for defaultPin in DEFAULT_PINS:gmatch("([^,]+),?") do
+			table.insert(defaultPins, defaultPin)
+		end
+
+		local pinnedComponents = LocalStore.loadForLocalPlayer(CHROME_PINNED_KEY) or defaultPins
+
+		self._userPins = pinnedComponents
 		self:updateMenuList()
 		self:updateNotificationTotals()
 	end
@@ -1122,11 +1139,24 @@ function ChromeService:removeUserPin(componentId: Types.IntegrationId)
 		table.remove(self._userPins, idx)
 	end
 
+	if GetFFlagEnableSaveUserPins() then
+		LocalStore.storeForLocalPlayer(CHROME_PINNED_KEY, self._userPins)
+	end
+
 	self:updateMenuList()
 	self:updateNotificationTotals()
 end
 
 function ChromeService:setUserPin(componentId: Types.IntegrationId, force: boolean?)
+	-- Storing user pins in local store is unbound, but the max number of pins displayed is limited
+	if GetFFlagEnableSaveUserPins() then
+		local pinnedComponents = LocalStore.loadForLocalPlayer(CHROME_PINNED_KEY) or {}
+		if table.find(pinnedComponents, componentId) then
+			return
+		end
+		table.insert(pinnedComponents, componentId)
+		LocalStore.storeForLocalPlayer(CHROME_PINNED_KEY, pinnedComponents)
+	end
 	if
 		(force or (self:withinCurrentSubmenu(componentId) and not self:isUserPinned(componentId)))
 		and #self._userPins < self._mostRecentlyUsedAndPinnedLimit
