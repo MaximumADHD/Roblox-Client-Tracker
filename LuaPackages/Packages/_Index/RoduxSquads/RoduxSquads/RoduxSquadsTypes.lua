@@ -4,13 +4,14 @@ export type ExperienceInviteModel = {
 	experienceInviteId: string,
 	version: number,
 	inviterId: number,
-	createdTimestamp: number,
-	decisionTimestamp: number,
-	universeId: number,
-	placeId: number,
+	createdUtcMs: number,
+	experienceDetail: {
+		placeId: number,
+		experienceResultStatus: string,
+	},
 	totalSpots: number,
-	inviteState: string,
-	responses: { { userId: number, response: string } },
+	state: string,
+	votes: { { userId: number, voteType: string } },
 }
 
 export type SquadMemberModel = {
@@ -26,15 +27,18 @@ export type SquadModel = {
 	members: { SquadMemberModel },
 }
 
+export type PartialSquadModel = {
+	channelId: string,
+	members: { string },
+}
+
 -- Reducer
 
 export type CurrentSquad = SquadModel | nil
 
 export type CurrentExperienceInvite = ExperienceInviteModel | nil
 
-export type NavigationTopBar = {
-	topBarOpacity: number,
-}
+export type PartialSquads = { [string]: PartialSquadModel }
 
 -- Action
 
@@ -85,7 +89,7 @@ export type GetExperienceInviteSucceeded = {
 	},
 }
 
-export type RespondExperienceInviteSucceeded = {
+export type VoteForExperienceInviteSucceeded = {
 	responseBody: {
 		experienceInvite: ExperienceInviteModel,
 	},
@@ -103,9 +107,15 @@ export type ExperienceInviteUpdatedAction = {
 	},
 }
 
-export type NavigationTopBarUpdatedAction = {
+export type PartialSquadAdded = {
 	payload: {
-		topBarOpacity: number,
+		partialSquad: PartialSquadModel,
+	},
+}
+
+export type PartialSquadRemoved = {
+	payload: {
+		channelId: string,
 	},
 }
 

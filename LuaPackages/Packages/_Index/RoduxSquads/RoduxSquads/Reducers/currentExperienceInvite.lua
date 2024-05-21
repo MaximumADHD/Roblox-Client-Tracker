@@ -22,7 +22,7 @@ return function(options)
 			and state.version < experienceInvite.version
 		then
 			return experienceInvite
-		elseif state.createdTimestamp < experienceInvite.createdTimestamp then
+		elseif state.createdUtcMs < experienceInvite.createdUtcMs then
 			return experienceInvite
 		else
 			return state
@@ -46,7 +46,7 @@ return function(options)
 			return getAndUpdateState(state, ExperienceInviteModel.format(experienceInvite))
 		end,
 
-		[NetworkingSquads.RespondExperienceInvite.Succeeded.name] = function(
+		[NetworkingSquads.VoteForExperienceInvite.Succeeded.name] = function(
 			state: RoduxSquadsTypes.CurrentExperienceInvite,
 			action: RoduxSquadsTypes.GetExperienceInviteSucceeded
 		)

@@ -3,4 +3,4 @@ name = "NetworkingCall"
 version = "1.16.0"
 commit = "338ce76db9a7996ee250a4bb71d2b5aef3f56742"
 source = "url+https://github.com/roblox/lua-app-networking"
-dependencies = ["Util Util 1.16.4 url+https://github.com/roblox/lua-app-networking"]
+dependencies = ["Util Util 1.16.6 url+https://github.com/roblox/lua-app-networking"]

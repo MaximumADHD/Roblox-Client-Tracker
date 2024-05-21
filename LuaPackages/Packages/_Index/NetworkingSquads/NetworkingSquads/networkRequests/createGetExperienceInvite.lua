@@ -17,7 +17,7 @@ return function(config: networkingSquadTypes.Config)
 				}
 			end
 
-			return requestBuilder(SQUAD_URL):path("v1"):path("squad"):id(request.inviteId)
+			return requestBuilder(SQUAD_URL):path("v1"):path("squad"):id(request.experienceInviteId)
 		end
 	)
 

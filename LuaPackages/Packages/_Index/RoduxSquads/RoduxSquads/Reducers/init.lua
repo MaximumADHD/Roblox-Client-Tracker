@@ -4,12 +4,12 @@ local Rodux = require(Packages.Rodux)
 
 local currentSquad = require(script.currentSquad)
 local currentExperienceInvite = require(script.currentExperienceInvite)
-local navigationTopBar = require(script.navigationTopBar)
+local partialSquads = require(script.partialSquads)
 
 return function(config)
 	return Rodux.combineReducers({
 		currentSquad = currentSquad(config),
 		currentExperienceInvite = currentExperienceInvite(config),
-		navigationTopBar = navigationTopBar(),
+		partialSquads = partialSquads(),
 	})
 end

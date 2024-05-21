@@ -1,11 +1,11 @@
 local ExperienceInviteModel = require(script.ExperienceInviteModel)
-local NavigationTopBarModel = require(script.NavigationTopBarModel)
+local PartialSquadModel = require(script.PartialSquadModel)
 local SquadModel = require(script.SquadModel)
 local SquadMemberModel = require(script.SquadMemberModel)
 
 return {
 	ExperienceInviteModel = ExperienceInviteModel,
-	NavigationTopBarModel = NavigationTopBarModel,
+	PartialSquadModel = PartialSquadModel,
 	SquadModel = SquadModel,
 	SquadMemberModel = SquadMemberModel,
 }

@@ -10,25 +10,23 @@ return function(config: networkingSquadTypes.Config)
 		{ Name = "CreateExperienceInvite" },
 		function(requestBuilder, request: networkingSquadTypes.CreateExperienceInviteRequest)
 			if config.useMockedResponse then
-				local timestamp = os.time() * 1000
-
 				mockResponse = {
 					responseBody = {
 						experienceInvite = {
 							experienceInviteId = "10000000-0000-0000-0000-000000000000",
 							version = 1,
 							inviterId = 3447649029,
-							membershipEntityType = "group-up",
+							membershipEntityType = "GroupUp",
 							membershipEntityId = request.membershipEntityId,
-							createdTimestamp = timestamp,
-							decisionTimestamp = timestamp + 12000,
-							universeId = 5279877370,
-							placeId = 15308759682,
+							createdUtcMs = os.time() * 1000,
+							experienceDetail = {
+								placeId = request.placeId,
+								experienceResultStatus = "Undecided",
+							},
 							totalSpots = 6,
-							inviteState = "Active",
-							responses = {
-								userId = 3447649029,
-								response = "Accepted",
+							state = "Active",
+							votes = {
+								[1] = { userId = request.userId, voteType = "Accept" },
 							},
 						},
 					},

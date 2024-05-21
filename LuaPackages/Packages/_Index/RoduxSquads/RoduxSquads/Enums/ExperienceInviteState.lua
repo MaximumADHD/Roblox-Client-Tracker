@@ -1,5 +1,7 @@
 return {
+	Initializing = "Initializing" :: "Initializing",
 	Active = "Active" :: "Active",
-	Canceled = "Canceled" :: "Canceled",
-	Expired = "Expired" :: "Expired",
+	Cancelled = "Cancelled" :: "Cancelled",
+	Reserving = "Reserving" :: "Reserving",
+	ReservationEnded = "ReservationEnded" :: "ReservationEnded",
 }

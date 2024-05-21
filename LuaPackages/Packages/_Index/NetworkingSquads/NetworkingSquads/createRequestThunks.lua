@@ -13,8 +13,8 @@ local createCreateExperienceInvite: (networkingSquadTypes.Config) -> any =
 	require(networkRequests.createCreateExperienceInvite)
 local createGetExperienceInvite: (networkingSquadTypes.Config) -> any =
 	require(networkRequests.createGetExperienceInvite)
-local createRespondExperienceInvite: (networkingSquadTypes.Config) -> any =
-	require(networkRequests.createRespondExperienceInvite)
+local createVoteForExperienceInvite: (networkingSquadTypes.Config) -> any =
+	require(networkRequests.createVoteForExperienceInvite)
 
 return function(config: networkingSquadTypes.Config): networkingSquadTypes.RequestThunks
 	return {
@@ -26,6 +26,6 @@ return function(config: networkingSquadTypes.Config): networkingSquadTypes.Reque
 		SquadInvite = createSquadInvite(config),
 		CreateExperienceInvite = createCreateExperienceInvite(config),
 		GetExperienceInvite = createGetExperienceInvite(config),
-		RespondExperienceInvite = createRespondExperienceInvite(config),
+		VoteForExperienceInvite = createVoteForExperienceInvite(config),
 	}
 end
