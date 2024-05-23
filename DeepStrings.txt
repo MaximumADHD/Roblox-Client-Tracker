@@ -43077,6 +43077,7 @@ SimUseGeneralMassPropertiesFunction
 SimV1BallCheckValidity
 SimValidateCollisionGroupDeserialization
 SimValidIndexShouldBeNonNegative
+SimVehicleSeatHinge240hz2
 SimVisuallyMovedNoThread
 SimWarnAboutNoOptChangeToAssemblyVelocity
 SimWorkspaceBreakJointsFix
@@ -58933,7 +58934,7 @@ WildcardCount
 WilError_03
 WillReturn
 Win32HardwareSleepListener
-Win64.626.34602
+Win64.626.34442
 WinchEnabled
 WinchForce
 WinchResponsiveness

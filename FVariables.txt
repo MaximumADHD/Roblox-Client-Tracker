@@ -1391,6 +1391,7 @@
 [C++] DFFlagSimUpdateAssemblyHistoryOnEarlyOut
 [C++] DFFlagSimUseGeneralMassPropertiesFunction
 [C++] DFFlagSimValidateCollisionGroupDeserialization
+[C++] DFFlagSimVehicleSeatHinge240hz2
 [C++] DFFlagSimWarnAboutNoOptChangeToAssemblyVelocity
 [C++] DFFlagSimWorkspaceBreakJointsFix
 [C++] DFFlagSkipIXP
