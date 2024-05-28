@@ -96,6 +96,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:GetReportAdInfo() -> { any } {RobloxScriptSecurity}
 	Function AdService:HideEudsaDisclosure() -> () {RobloxScriptSecurity}
 	Function AdService:ReturnToPublisherExperience(adTeleportMethod: Enum.AdTeleportMethod) -> () {RobloxScriptSecurity}
+	Function AdService:SetAdGuiInteractivityHandlerInitialized() -> () {RobloxScriptSecurity}
 	Function AdService:ShowVideoAd() -> () [Deprecated]
 	Event AdService.AdTeleportEnded() {RobloxScriptSecurity}
 	Event AdService.AdTeleportInitiated() {RobloxScriptSecurity}
@@ -107,6 +108,7 @@ Class AdService : Instance [NotCreatable] [Service]
 	Event AdService.ShowDynamicEudsaDisclosure(advertiserName: string, payerName: string) {RobloxScriptSecurity}
 	Event AdService.ShowStaticEudsaDisclosure() {RobloxScriptSecurity}
 	Event AdService.VideoAdClosed(adShown: boolean) [Deprecated]
+	Event AdService.adGuiRegisterUI(adGui: Instance) {RobloxScriptSecurity}
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property AnalyticsService.ApiKey: string {LocalUserSecurity} [Deprecated]
@@ -228,6 +230,7 @@ Class Animator : Instance
 	Event Animator.OnStreamingUpdated(fadeTime: number, weight: number, priority: Enum.AnimationPriority, valuesUpdated: number) {RobloxSecurity} [Hidden]
 	Event Animator.OnStreamingUpdated2(fadeTime: number, weight: number, priority: Enum.AnimationPriority, maskEnabled: boolean, valuesUpdated: number) {RobloxSecurity} [Hidden]
 	Event Animator.StreamSyncRequest(player: Player) {RobloxSecurity} [Hidden]
+Class AnnotationsService : Instance [NotCreatable] [Service]
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppUpdateService:CanPerformBinaryUpdate() -> boolean {RobloxScriptSecurity}
 	Function AppUpdateService:CheckForUpdate(handler: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
@@ -493,6 +496,9 @@ Class AvatarCreationService : Instance [NotCreatable] [Service]
 	Function AvatarCreationService:LoadAvatarPreviewImageAsync(avatarPreview: string) -> EditableImage [Yields]
 	Function AvatarCreationService:PromptCreateAvatarAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
 	Function AvatarCreationService:SendAnalyticsEvent(eventName: string, params: { [string]: any }) -> ()
+	Function AvatarCreationService:ValidateUGCAccessoryAsync(player: Player, accessory: Instance, accessoryType: Enum.AccessoryType) -> ...any [Yields]
+	Function AvatarCreationService:ValidateUGCBodyPartAsync(player: Player, instance: Instance, bodyPart: Enum.BodyPart) -> ...any [Yields]
+	Function AvatarCreationService:ValidateUGCFullBodyAsync(player: Player, humanoidDescription: HumanoidDescription) -> ...any [Yields]
 	Event AvatarCreationService.ReplicateAvatarModel(id: string, success: boolean, serializedModel: string, bufferTable: { [string]: any }) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.RequestAvatarModel(id: string) {RobloxSecurity} [Hidden]
 	Event AvatarCreationService.UgcValidationFailure(guid: string, errorMessage: string) {RobloxScriptSecurity}
@@ -565,6 +571,7 @@ Class AvatarGenerationJob : Instance [NotCreatable]
 	Property AvatarGenerationJob.Progress: number
 	Property AvatarGenerationJob.Status: Enum.AvatarGenerationJobStatus
 	Function AvatarGenerationJob:Cancel() -> ()
+	Function AvatarGenerationJob:GetOutput() -> { [string]: any }
 	Function AvatarGenerationJob:Wait() -> () [Yields]
 Class Avatar2DGenerationJob : AvatarGenerationJob [NotCreatable]
 	Property Avatar2DGenerationJob.Result: string
@@ -644,6 +651,7 @@ Class RootImportData : BaseImportData [NotCreatable] [NotReplicated]
 	Property RootImportData.InsertInWorkspace: boolean
 	Property RootImportData.InsertWithScenePosition: boolean
 	Property RootImportData.InvertNegativeFaces: boolean
+	Property RootImportData.KeepZeroInfluenceBones: boolean
 	Property RootImportData.MergeMeshes: boolean
 	Property RootImportData.PolygonCount: number [ReadOnly]
 	Property RootImportData.PreferredUploadId: number
@@ -2334,8 +2342,10 @@ Class AdGui : SurfaceGuiBase
 	Property AdGui.Status: Enum.AdUnitStatus [ReadOnly]
 	Property AdGui.AdShape: Enum.AdShape
 	Property AdGui.EnableVideoAds: boolean
+	Function AdGui:HandleLuaUIEvent(eventType: Enum.AdUIEventType) -> () {RobloxScriptSecurity}
 	Event AdGui.AdEvent(adEventType: Enum.AdEventType) {RobloxSecurity} [Hidden]
 	Event AdGui.ReportIsSubscribedToVideoCompletion() {RobloxSecurity} [Hidden]
+	Event AdGui.adGuiStateChanged(adUIState: any) {RobloxScriptSecurity}
 	Callback AdGui.OnAdEvent(eventInfo: { [string]: any }) -> boolean
 Class SurfaceGui : SurfaceGuiBase
 	Property SurfaceGui.HorizontalCurvature: number {RobloxScriptSecurity} [Hidden]
@@ -2773,6 +2783,7 @@ Class HumanoidDescription : Instance
 	Property HumanoidDescription.Shirt: number
 	Property HumanoidDescription.EmotesDataInternal: string [Hidden] [NotScriptable]
 	Property HumanoidDescription.EquippedEmotesDataInternal: string [Hidden] [NotScriptable]
+	Property HumanoidDescription.ResetIncludesBodyParts: boolean {RobloxScriptSecurity} [Hidden]
 	Property HumanoidDescription.BodyTypeScale: number
 	Property HumanoidDescription.DepthScale: number
 	Property HumanoidDescription.HeadScale: number
@@ -3084,7 +3095,6 @@ Class LuaSourceContainer : Instance [NotCreatable] [NotBrowsable]
 	Property LuaSourceContainer.OriginalScriptGuid: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Property LuaSourceContainer.SandboxedSource: string {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 	Property LuaSourceContainer.ScriptGuid: string [Hidden] [NotScriptable]
-	Property LuaSourceContainer.SyncingEditorText: boolean {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
 Class BaseScript : LuaSourceContainer [NotCreatable]
 	Property BaseScript.Disabled: boolean
 	Property BaseScript.Enabled: boolean [NotReplicated]
@@ -3189,7 +3199,7 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Callback MarketplaceService.ProcessReceipt(receiptInfo: { [string]: any }) -> Enum.ProductPurchaseDecision
 Class MaterialGenerationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function MaterialGenerationService:DEPRECATED_GenerateMaterialVariantsAync(prompt: string, samples: number) -> { Instance } {RobloxScriptSecurity} [Yields]
-	Function MaterialGenerationService:GenerateMaterialVariantsAsync(prompt: string, samples: number) -> { Instance } {RobloxScriptSecurity} [Yields]
+	Function MaterialGenerationService:GenerateMaterialVariantsAsync(prompt: string, samples: number) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function MaterialGenerationService:StartSession() -> MaterialGenerationSession {RobloxScriptSecurity}
 	Function MaterialGenerationService:UploadMaterialVariantsAsync(materialVaraints: { Instance }) -> () {RobloxScriptSecurity} [Yields]
 Class MaterialGenerationSession : Instance [NotCreatable] [NotReplicated]
@@ -3658,6 +3668,10 @@ Class Terrain : BasePart [NotCreatable]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.FluidFidelityInternal: Enum.FluidFidelity {RobloxSecurity} [Hidden] [NotScriptable]
+	Property TriangleMeshPart.UnscaledCofm: Vector3 {RobloxSecurity}
+	Property TriangleMeshPart.UnscaledVolInertiaDiags: Vector3 {RobloxSecurity}
+	Property TriangleMeshPart.UnscaledVolInertiaOffDiags: Vector3 {RobloxSecurity}
+	Property TriangleMeshPart.UnscaledVolume: number {RobloxSecurity}
 	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.AeroMeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property TriangleMeshPart.MeshSize: Vector3 [ReadOnly]
@@ -5216,7 +5230,7 @@ Class StreamingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event StreamingService.RequestError(requestId: string, errorType: string, errorMessage: string) {RobloxScriptSecurity}
 	Event StreamingService.RequestStarted(requestId: string, queryToProcess: string) {RobloxScriptSecurity}
 	Event StreamingService.SequentialCommandsFinished(requestId: string, success: boolean) {RobloxScriptSecurity}
-	Event StreamingService.Stream(requestId: string, streamContent: string) {RobloxScriptSecurity}
+	Event StreamingService.Stream(requestId: string, commandName: string, streamContent: string) {RobloxScriptSecurity}
 Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Enable CoreScript Debugger: boolean
 	Property Studio.Enable Http Sandboxing: boolean
@@ -6485,6 +6499,17 @@ Enum AdTeleportMethod
 	EnumItem AdTeleportMethod.PortalForward : 1
 	EnumItem AdTeleportMethod.InGameMenuBackButton : 2
 	EnumItem AdTeleportMethod.UIBackButton : 3
+Enum AdUIEventType
+	EnumItem AdUIEventType.AdLabelClicked : 0
+	EnumItem AdUIEventType.VolumeButtonClicked : 1
+	EnumItem AdUIEventType.FullscreenButtonClicked : 2
+	EnumItem AdUIEventType.PlayButtonClicked : 3
+	EnumItem AdUIEventType.PauseButtonClicked : 4
+	EnumItem AdUIEventType.CloseButtonClicked : 5
+Enum AdUIType
+	EnumItem AdUIType.None : 0
+	EnumItem AdUIType.Image : 1
+	EnumItem AdUIType.Video : 2
 Enum AdUnitStatus
 	EnumItem AdUnitStatus.Inactive : 0
 	EnumItem AdUnitStatus.Active : 1
@@ -6750,7 +6775,8 @@ Enum AvatarGenerationError
 	EnumItem AvatarGenerationError.Timeout : 1
 	EnumItem AvatarGenerationError.DownloadFailed : 2
 	EnumItem AvatarGenerationError.Canceled : 3
-	EnumItem AvatarGenerationError.Unknown : 4
+	EnumItem AvatarGenerationError.Offensive : 4
+	EnumItem AvatarGenerationError.Unknown : 5
 Enum AvatarGenerationJobStatus
 	EnumItem AvatarGenerationJobStatus.NotStarted : 0
 	EnumItem AvatarGenerationJobStatus.InProgress : 1

@@ -88,6 +88,8 @@ Studio.App.RBXMainWindow.RotateEdit,,Rotate - Edit,Rotate - Edit
 Studio.App.RBXMainWindow.RotateCustomIncrement,,Set the rotate grid to a custom increment,Set the rotate grid to a custom increment
 Studio.App.RBXMainWindow.MoveToggle,,Move - Toggle,Move - Toggle
 Studio.App.RBXMainWindow.TogglesTheDragGridSnapping,,Toggles the drag grid snapping,Toggles the drag grid snapping
+Studio.App.ActionInitializer.ToggleSnapToParts,,Snap to Parts - Toggle,Snap to Parts - Toggle
+Studio.App.ActionInitializer.ToggleSnapToPartsTooltip,,Toggle whether dragger tools snap to the edges / centers of parts.,Toggle whether dragger tools snap to the edges / centers of parts.
 Studio.App.RBXMainWindow.RotateToggle,,Rotate - Toggle,Rotate - Toggle
 Studio.App.RBXMainWindow.TogglesRotateSnapping,,Toggles the rotate grid snapping,Toggles the rotate grid snapping
 Studio.App.RBXMainWindow.OneStudGrid,,One Stud Grid,One Stud Grid

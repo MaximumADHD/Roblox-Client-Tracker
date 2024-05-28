@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "GetHumanoidDescription",
+    "tree": {
+      "$path": "../../../../../../../modules/trust-and-safety/get-humanoid-description/src"
+    }
+  }
+}

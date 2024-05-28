@@ -15,7 +15,8 @@ Studio.App.ProjectFolderService.DidntSelectFolderError,,No directory was selecte
 Studio.App.ProjectFolderService.InvalidInstancesTable,,Error reading data model file: Malformed instances table.,Error reading data model file: Malformed instances table.
 Studio.App.ProjectFolderService.InstanceCreationMissingParentError,,Error creating Instance (%1): Parent does not exist.,Error creating Instance (%1): Parent does not exist.
 Studio.App.ProjectFolderService.InstanceMoveMissingParentError,,Error moving Instance (%1): Parent does not exist.,Error moving Instance (%1): Parent does not exist.
-Studio.App.ProjectFolderService.UnsupportedRootError,,Error moving Instance (%1): Instance is parented to an unsupported instance inside an unsupported service.,Error moving Instance (%1): Instance is parented to an unsupported instance inside an unsupported service.
+Studio.App.ProjectFolderService.UnsupportedRootMoveError,,Error moving Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.,Error moving Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.
+Studio.App.ProjectFolderService.UnsupportedRootCreationError,,Error creating Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.,Error creating Instance (%1): Instance is parented to an ineligible instance inside an unsupported service.
 Studio.App.ProjectFolderService.GetSourceMissingDmError,,Unable to get script source: DataModel not found.,Unable to get script source: DataModel not found.
 Studio.App.ProjectFolderService.GetSourceMissingSESError,,Unable to get script source: ScriptEditorService not found.,Unable to get script source: ScriptEditorService not found.
 Studio.App.ProjectFolderService.SetSourceMissingDmError,,Unable to set script source: DataModel not found.,Unable to set script source: DataModel not found.
@@ -57,3 +58,4 @@ Studio.App.ProjectFolderService.ImportError,,Error importing. Please try again.,
 Studio.App.ProjectFolderService.ExportError,,Error exporting. Please try again.,Error exporting. Please try again.
 Studio.App.ProjectFolderService.ExportUnderIneligibleRootWarningTitle,,Scripts parented to non script / folder instances.,Scripts parented to non script / folder instances.
 Studio.App.ProjectFolderService.ExportUnderIneligibleRootWarningSubtext,,Scripts that are not parented to script / folder instances will appear under Scripts/Misc.,Scripts that are not parented to script / folder instances will appear under Scripts/Misc.
+Studio.App.ProjectFolderService.SyncInProgress,,A sync operation is currently in progress. Please try again later.,A sync operation is currently in progress. Please try again later.

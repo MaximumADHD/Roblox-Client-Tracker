@@ -5,7 +5,7 @@ license = ""
 version = "0.1.0"
 
 [config]
-proxy = "https://github.com/roblox/rotriever-proxy-index"
+registry_index = true
 
 [dependencies]
 Roact = { target = "github.com/Roblox/roact-alignment", version = "17.0.1", package = "RoactCompat" }
@@ -34,8 +34,8 @@ FitFrame = "github.com/roblox/roact-fit-components@2.0.0"
 NetworkingFriends = "github.com/roblox/networking-friends@2.11.0"
 EmojiList = { git = "https://github.com/Roblox/emoji-list", rev = "1.0.0", package = "EmojiList" }
 RoduxGames = { git = "https://github.com/Roblox/rodux-games", rev = "master" }
-ReactFocusNavigation = "github.com/roblox/focus-navigation@1.3.0"
-InputHandlers = "github.com/roblox/focus-navigation@1.3.0"
+ReactFocusNavigation = "github.com/roblox/focus-navigation@1.3.1"
+InputHandlers = "github.com/roblox/focus-navigation@1.3.1"
 React = "github.com/Roblox/roact-alignment@17.0.1"
 ReactIs = "github.com/Roblox/roact-alignment@17.0.1"
 ReactRoblox = "github.com/Roblox/roact-alignment@17.0.1"
@@ -139,3 +139,16 @@ Picomatch = "github.com/roblox/picomatch-lua@0.3.1"
 # Patching over a dependency of ReactTestingLibrary remove when mirrored in artifactory
 [config.patch."github.com/roblox/dom-testing-library-lua"]
 DomTestingLibrary = { git = "github.com/roblox/dom-testing-library-lua", rev = "main" }
+
+# registry patches
+[config.patch."github.com/roblox/roact-fit-components"]
+FitFrame = { target = "github.com/roblox/roact-fit-components@2.0.0", version = "2.0.0", package = "RoactFitComponents" }
+
+[config.patch."github.com/roblox/string-utilities"]
+StringUtilities = { target = "github.com/Roblox/string-utilities", version = "1.0.0", package = "string-utilities" }
+
+[config.patch."github.com/roblox/chalk-lua"]
+Chalk = { target = "github.com/roblox/chalk-lua", version = "0.2.0", package = "ChalkLua" }
+
+[config.patch."github.com/roblox/luau-regexp"]
+LuauRegExp = { target = "github.com/Roblox/luau-regexp", version = "0.2.0", package = "RegExp" }

@@ -6,3 +6,4 @@ Studio.App.AIDiffMessage.RequestTimeout,,"Sorry, I'm experiencing a high volume 
 Studio.App.AIDiffMessage.PromptLimit,,Looks like there are too many changes between these versions. Please try again with a simpler request.,Looks like there are too many changes between these versions. Please try again with a simpler request.
 Studio.App.AIDiffMessage.UnknownError,,An error occurred. Please try again later.,An error occurred. Please try again later.
 Studio.App.AIDiffMessage.NoChanges,,The package has no changes.,The package has no changes.
+Studio.App.AIDiffMessage.StopGeneration,,Stop,Stop
