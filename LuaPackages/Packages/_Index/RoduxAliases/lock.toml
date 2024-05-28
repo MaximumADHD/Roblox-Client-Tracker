@@ -4,8 +4,8 @@ version = "2.2.0"
 commit = "868f23dc6b0b20b06603c10d63d274cdb6cf2139"
 source = "git+https://github.com/roblox/rodux-aliases#v2.2.0"
 dependencies = [
-    "AliasNetworking NetworkingAliases 1.15.0 url+https://github.com/roblox/lua-app-networking",
+    "AliasNetworking NetworkingAliases 1.15.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 url+https://github.com/roblox/rodux-networking",
+    "RoduxNetworking RoduxNetworking 3.2.1 registry",
     "llama llama 31db8968 git+https://github.com/roblox/lua-llama#master",
 ]

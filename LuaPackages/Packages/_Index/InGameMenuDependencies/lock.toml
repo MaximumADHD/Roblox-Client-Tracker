@@ -4,14 +4,14 @@ version = "0.2.0"
 commit = "5dd650f714bd6021c9f7841e78275865119435c5"
 source = "git+https://github.com/roblox/in-game-menu-dependencies#master"
 dependencies = [
-    "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",
+    "Cryo Cryo 1.0.3 registry",
     "Mock mock 2db7a70f git+https://github.com/roblox/mock#v1.1.0",
-    "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
+    "Otter Otter 0.1.4 registry",
     "PolicyProvider roblox/lua-roact-policy-provider 285e8396 git+https://github.com/roblox/lua-roact-policy-provider#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "Roact <patched> RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RoactRodux <patched> RoactRodux 0.5.1 url+https://github.com/roblox/roact-rodux",
+    "Roact <patched> RoactCompat 17.0.1 registry",
+    "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "UIBlox UIBlox 00900dfa git+https://github.com/roblox/uiblox#master",
-    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
+    "UIBlox UIBlox 646a4c1c git+https://github.com/roblox/uiblox#master",
+    "t t 1.2.5 registry",
 ]

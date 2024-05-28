@@ -8,6 +8,7 @@ local t = require(Packages.t)
 local validateColorInfo = require(UIBlox.Core.Style.Validator.validateColorInfo)
 
 local validateFontInfo = require(Core.Style.Validator.validateFontInfo)
+local validateTypographyInfo = require(UIBlox.Core.Style.Validator.validateTypographyInfo)
 
 return t.array(t.strictInterface({
 	-- Icon can either be an Image in a ImageSet or a regular image asset
@@ -50,7 +51,7 @@ return t.array(t.strictInterface({
 	-- Padding to the left of the text
 	leftPaddingOffset = t.optional(t.number),
 	-- The font style for the element text
-	fontStyle = t.optional(t.union(t.string, validateFontInfo)),
+	fontStyle = t.optional(t.union(t.string, validateFontInfo, validateTypographyInfo)),
 	-- Size of the icon
 	iconSize = t.optional(t.integer),
 	-- Size of the SelectedIcon

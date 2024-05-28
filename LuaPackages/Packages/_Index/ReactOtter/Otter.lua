@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["Otter-7466d762-1.1.0"]["Otter"])
+local Package = require(PackageIndex["Otter-1.1.0"]["Otter"])
 
 export type Goal<T> = Package.Goal<T> 
 export type Motor<T, U> = Package.Motor<T, U> 

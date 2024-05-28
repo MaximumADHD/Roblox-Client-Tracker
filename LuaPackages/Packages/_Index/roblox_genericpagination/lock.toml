@@ -5,5 +5,5 @@ commit = "885168d01a0de5e0753653746ff8b392dc1d8acc"
 source = "git+https://github.com/roblox/genericpagination#master"
 dependencies = [
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
+    "t t 1.2.5 registry",
 ]

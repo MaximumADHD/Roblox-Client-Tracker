@@ -3,4 +3,4 @@ name = "AvatarExperienceDeps"
 version = "0.0.1"
 commit = "b9c8ce150720083a597d21f48fd33ebd9c8d8311"
 source = "git+https://github.com/roblox/avatar-experience-deps#master"
-dependencies = ["RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components"]
+dependencies = ["RoactFitComponents RoactFitComponents 2.0.0 registry"]

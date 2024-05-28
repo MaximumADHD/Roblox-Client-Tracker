@@ -4,9 +4,9 @@ version = "1.3.0"
 commit = "d8bb287f7f81bbf0035352c445a11dd5e193785a"
 source = "git+https://github.com/roblox/rodux-sharelinks#v1.3.0"
 dependencies = [
-    "Cryo Cryo 1.0.3 url+https://github.com/roblox/cryo",
+    "Cryo Cryo 1.0.3 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
-    "RoduxNetworking RoduxNetworking 3.2.1 url+https://github.com/roblox/rodux-networking",
+    "RoduxNetworking RoduxNetworking 3.2.1 registry",
     "ShareLinksNetworking NetworkingShareLinks 15eccb0a git+https://github.com/roblox/networking-sharelinks#v1.1.1",
-    "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
+    "enumerate enumerate 1.1.0 registry",
 ]

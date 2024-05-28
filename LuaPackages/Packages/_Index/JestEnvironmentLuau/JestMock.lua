@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestMock-edcba0e9-3.5.0"]["JestMock"])
+local Package = require(PackageIndex["JestMock-3.5.0"]["JestMock"])
 
 export type MaybeMockedDeep<T> = Package.MaybeMockedDeep<T> 
 export type MaybeMocked<T> = Package.MaybeMocked<T> 

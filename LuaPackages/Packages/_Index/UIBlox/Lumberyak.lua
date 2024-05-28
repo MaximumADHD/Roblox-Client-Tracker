@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["roblox_lumberyak-5fead8c7-0.1.1"]["lumberyak"])
+local Package = require(PackageIndex["lumberyak"]["lumberyak"])
 
 return Package

@@ -1,6 +1,6 @@
 --!strict
 local Packages = script.Parent.Parent
-local Utils = require(Packages.Utils)
+local Utils = require(Packages.FocusNavigationUtils)
 local getAncestors = Utils.getAncestors
 local warn = Utils.mockableWarn
 

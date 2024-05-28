@@ -1,7 +1,7 @@
 --!strict
 local Packages = script.Parent.Parent
 local EventPropagationService = require(Packages.EventPropagation)
-local Utils = require(Packages.Utils)
+local Utils = require(Packages.FocusNavigationUtils)
 
 local createSignal = Utils.createSignal
 local shallowEqual = Utils.shallowEqual

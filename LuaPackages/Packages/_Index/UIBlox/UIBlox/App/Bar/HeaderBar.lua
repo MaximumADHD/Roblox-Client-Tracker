@@ -172,6 +172,7 @@ local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
 						TextTruncate = Enum.TextTruncate.AtEnd,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						fontStyle = tokens.Semantic.Typography.Title,
+						LineHeight = tokens.Semantic.Typography.Title.LineHeight,
 						colorStyle = tokens.Semantic.Color.Text.Emphasis,
 					}, textChildren),
 				})

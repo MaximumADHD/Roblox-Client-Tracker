@@ -3,7 +3,7 @@ local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 
 local Packages = script.Parent.Parent
-local Utils = require(Packages.Utils)
+local Utils = require(Packages.FocusNavigationUtils)
 
 local warn = Utils.mockableWarn
 

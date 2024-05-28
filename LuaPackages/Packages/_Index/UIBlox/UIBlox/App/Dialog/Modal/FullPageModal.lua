@@ -5,6 +5,7 @@ local AppRoot = DialogRoot.Parent
 local UIBlox = AppRoot.Parent
 local Packages = UIBlox.Parent
 
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
@@ -118,6 +119,7 @@ function FullPageModal:render()
 				),
 				BackgroundTransparency = 1,
 				LayoutOrder = 1,
+				ZIndex = if UIBloxConfig.addMiddleContentZIndex then 2 else nil,
 			}, self.props[Roact.Children]),
 			Buttons = self.props.buttonStackProps and Roact.createElement(FitFrameVertical, {
 				BackgroundTransparency = 1,

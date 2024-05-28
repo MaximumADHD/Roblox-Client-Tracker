@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestFakeTimers-edcba0e9-3.5.0"]["JestFakeTimers"])
+local Package = require(PackageIndex["JestFakeTimers-3.5.0"]["JestFakeTimers"])
 
 export type FakeTimers = Package.FakeTimers
 

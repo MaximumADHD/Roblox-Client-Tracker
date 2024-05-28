@@ -4,14 +4,14 @@ version = "1.0.0"
 commit = "645774c98c3d5935851cfc68d09890e31321fba4"
 source = "git+https://github.com/roblox/iapexperience#master"
 dependencies = [
-    "Otter Otter 0.1.4 url+https://github.com/roblox/otter",
-    "React React 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "ReactOtter ReactOtter 1.1.0 url+https://github.com/roblox/otter",
-    "Roact RoactCompat 17.0.1 url+https://github.com/roblox/roact-alignment",
-    "RoactFitComponents RoactFitComponents 2.0.0 url+https://github.com/roblox/roact-fit-components",
-    "RoactGamepad <patched> RoactGamepad 0.5.13 url+https://github.com/roblox/roact-gamepad",
+    "Otter Otter 0.1.4 registry",
+    "React React 17.0.1 registry",
+    "ReactOtter ReactOtter 1.1.0 registry",
+    "Roact RoactCompat 17.0.1 registry",
+    "RoactFitComponents RoactFitComponents 2.0.0 registry",
+    "RoactGamepad <patched> RoactGamepad 0.5.13 registry",
     "Thumbnailing Thumbnailing 8bbeff1b git+https://github.com/roblox/thumbnailing#main",
-    "UIBlox UIBlox 00900dfa git+https://github.com/roblox/uiblox#master",
-    "enumerate enumerate 1.1.0 url+https://github.com/roblox/enumerate",
-    "t roblox/t 1.2.5 url+https://github.com/roblox/t",
+    "UIBlox UIBlox 646a4c1c git+https://github.com/roblox/uiblox#master",
+    "enumerate enumerate 1.1.0 registry",
+    "t t 1.2.5 registry",
 ]

@@ -84,4 +84,7 @@ return {
 	alertTitleDesignTokenHeader = false,
 	-- Strips RichText tags from string before calculating size of text
 	ignoreRichTextTagsForTextSizeCalculation = false,
+
+	-- Adds a ZIndex for the middle content of FullPageModal so that it overlaps the header/footer
+	addMiddleContentZIndex = false,
 }

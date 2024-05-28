@@ -1,7 +1,7 @@
 --!strict
 local Packages = script.Parent.Parent
 local React = require(Packages.React)
-local Utils = require(Packages.Utils)
+local Utils = require(Packages.FocusNavigationUtils)
 
 local warn = Utils.mockableWarn
 
