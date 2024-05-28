@@ -283,18 +283,11 @@ PROTO_12:
   CAPTURE VAL R3
   NEWTABLE R8 0 0
   CALL R6 2 1
-  LOADNIL R7
-  LOADNIL R8
-  GETUPVAL R9 6
-  CALL R9 0 1
-  JUMPIFNOT R9 [+9]
-  GETUPVAL R9 7
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K8 ["util"]
-  GETTABLEKS R10 R11 K9 ["canUploadBundlesAsync"]
-  CALL R9 1 2
-  MOVE R7 R9
-  MOVE R8 R10
+  GETUPVAL R7 6
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K8 ["util"]
+  GETTABLEKS R8 R9 K9 ["canUploadBundlesAsync"]
+  CALL R7 1 2
   DUPTABLE R9 K14 [{"cachedResponses", "validateBundle", "canUploadBundles", "requestCanUploadBundles"}]
   SETTABLEKS R2 R9 K10 ["cachedResponses"]
   SETTABLEKS R6 R9 K11 ["validateBundle"]
@@ -302,7 +295,7 @@ PROTO_12:
   SETTABLEKS R8 R9 K13 ["requestCanUploadBundles"]
   GETUPVAL R11 1
   GETTABLEKS R10 R11 K15 ["createElement"]
-  GETUPVAL R12 8
+  GETUPVAL R12 7
   GETTABLEKS R11 R12 K16 ["Provider"]
   DUPTABLE R12 K18 [{"value"}]
   SETTABLEKS R9 R12 K17 ["value"]
@@ -352,40 +345,34 @@ MAIN:
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K10 ["Src"]
   GETTABLEKS R11 R12 K21 ["Flags"]
-  GETTABLEKS R10 R11 K22 ["getFFlagAvatarPreviewerAgeAndPremiumChecks"]
+  GETTABLEKS R10 R11 K22 ["getFFlagAvatarPreviewerAutoSetupTelemetryV2"]
   CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K21 ["Flags"]
-  GETTABLEKS R11 R12 K23 ["getFFlagAvatarPreviewerAutoSetupTelemetryV2"]
-  CALL R10 1 1
-  DUPTABLE R11 K28 [{"cachedResponses", "validateBundle", "canUploadBundles", "requestCanUploadBundles"}]
-  NEWTABLE R12 0 0
-  SETTABLEKS R12 R11 K24 ["cachedResponses"]
-  MOVE R12 R5
-  LOADK R13 K25 ["validateBundle"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K25 ["validateBundle"]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K26 ["canUploadBundles"]
-  MOVE R12 R5
-  LOADK R13 K27 ["requestCanUploadBundles"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K27 ["requestCanUploadBundles"]
-  GETTABLEKS R12 R2 K29 ["createContext"]
-  MOVE R13 R11
-  CALL R12 1 1
-  DUPCLOSURE R13 K30 [PROTO_12]
+  DUPTABLE R10 K27 [{"cachedResponses", "validateBundle", "canUploadBundles", "requestCanUploadBundles"}]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K23 ["cachedResponses"]
+  MOVE R11 R5
+  LOADK R12 K24 ["validateBundle"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K24 ["validateBundle"]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K25 ["canUploadBundles"]
+  MOVE R11 R5
+  LOADK R12 K26 ["requestCanUploadBundles"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K26 ["requestCanUploadBundles"]
+  GETTABLEKS R11 R2 K28 ["createContext"]
+  MOVE R12 R10
+  CALL R11 1 1
+  DUPCLOSURE R12 K29 [PROTO_12]
   CAPTURE VAL R7
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R10
-  CAPTURE VAL R8
   CAPTURE VAL R9
+  CAPTURE VAL R8
   CAPTURE VAL R6
-  CAPTURE VAL R12
-  DUPTABLE R14 K33 [{"Context", "Provider"}]
-  SETTABLEKS R12 R14 K31 ["Context"]
-  SETTABLEKS R13 R14 K32 ["Provider"]
-  RETURN R14 1
+  CAPTURE VAL R11
+  DUPTABLE R13 K32 [{"Context", "Provider"}]
+  SETTABLEKS R11 R13 K30 ["Context"]
+  SETTABLEKS R12 R13 K31 ["Provider"]
+  RETURN R13 1

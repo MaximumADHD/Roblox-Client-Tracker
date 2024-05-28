@@ -12,7 +12,7 @@ return function(arg1)
    local var0 = {}
    var0.requestId = arg1.requestId
    var0.arguments = arg1.arguments.arguments
-   local var144 = arg1.arguments
-   var144 = var0
-   var1:ExecuteCommandAsync(arg1.requestId, var144.command, var144)
+   local var149 = arg1.arguments
+   var149 = var0
+   var1:ExecuteCommandAsync(arg1.requestId, var149.command, var149)
 end

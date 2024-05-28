@@ -115,7 +115,7 @@ PROTO_6:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K1 ["findDeepInstance"]
   MOVE R4 R2
-  NEWTABLE R5 0 9
+  NEWTABLE R5 0 8
   LOADK R6 K2 ["2"]
   LOADK R7 K3 ["Left"]
   LOADK R8 K4 ["Text"]
@@ -124,8 +124,7 @@ PROTO_6:
   LOADK R11 K7 ["TextInput"]
   LOADK R12 K8 ["Contents"]
   LOADK R13 K9 ["TextBox"]
-  LOADK R14 K9 ["TextBox"]
-  SETLIST R5 R6 9 [1]
+  SETLIST R5 R6 8 [1]
   CALL R3 2 1
   RETURN R3 1
 

@@ -6,9 +6,9 @@ return function()
    local var0 = var1.useRef(nil)
    return var1.useCallback(function(arg1)
       if var0.current == "current" then
-         local var194 = var0
-         var194 = arg1
-         if var2(var194.current, var194) then
+         local var212 = var0
+         var212 = arg1
+         if var2(var212.current, var212) then
             return var0.current
          end
       end

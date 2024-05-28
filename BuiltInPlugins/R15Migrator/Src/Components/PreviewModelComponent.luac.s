@@ -176,132 +176,135 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["Model"]
-  JUMPIFNOT R1 [+9]
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["Model"]
-  NAMECALL R1 R1 K2 ["Clone"]
-  CALL R1 1 1
-  SETTABLEKS R1 R0 K3 ["model"]
-  RETURN R0 0
+  GETTABLEKS R2 R0 K0 ["AnimationId"]
+  GETTABLEKS R3 R1 K1 ["animationId"]
+  JUMPIFNOTEQ R2 R3 [+7]
+  GETTABLEKS R2 R0 K2 ["Model"]
+  GETTABLEKS R3 R1 K3 ["refModel"]
+  JUMPIFEQ R2 R3 [+32]
+  DUPTABLE R2 K5 [{"animationId", "refModel", "model"}]
+  GETTABLEKS R3 R0 K0 ["AnimationId"]
+  SETTABLEKS R3 R2 K1 ["animationId"]
+  GETTABLEKS R4 R0 K2 ["Model"]
+  JUMPIFNOT R4 [+3]
+  GETTABLEKS R3 R0 K2 ["Model"]
+  JUMP [+3]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["None"]
+  SETTABLEKS R3 R2 K3 ["refModel"]
+  GETTABLEKS R4 R0 K2 ["Model"]
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R3 R0 K2 ["Model"]
+  NAMECALL R3 R3 K7 ["Clone"]
+  CALL R3 1 1
+  JUMP [+3]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["None"]
+  SETTABLEKS R3 R2 K4 ["model"]
+  RETURN R2 1
+  LOADNIL R2
+  RETURN R2 1
 
 PROTO_8:
-  GETTABLEKS R2 R1 K0 ["AnimationId"]
-  GETTABLEKS R4 R0 K1 ["props"]
-  GETTABLEKS R3 R4 K0 ["AnimationId"]
-  JUMPIFNOTEQ R2 R3 [+9]
-  GETTABLEKS R2 R1 K2 ["Model"]
-  GETTABLEKS R4 R0 K1 ["props"]
-  GETTABLEKS R3 R4 K2 ["Model"]
-  JUMPIFEQ R2 R3 [+11]
-  GETTABLEKS R2 R1 K2 ["Model"]
-  JUMPIFNOT R2 [+7]
-  GETTABLEKS R2 R1 K2 ["Model"]
-  NAMECALL R2 R2 K3 ["Clone"]
-  CALL R2 1 1
-  SETTABLEKS R2 R0 K4 ["model"]
-  RETURN R0 0
-
-PROTO_9:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Size"]
   GETTABLEKS R3 R1 K2 ["Position"]
-  GETTABLEKS R4 R0 K3 ["model"]
+  GETTABLEKS R5 R0 K3 ["state"]
+  GETTABLEKS R4 R5 K4 ["model"]
   JUMPIF R4 [+4]
-  GETIMPORT R4 K6 [Instance.new]
-  LOADK R5 K7 ["Model"]
+  GETIMPORT R4 K7 [Instance.new]
+  LOADK R5 K8 ["Model"]
   CALL R4 1 1
-  GETTABLEKS R5 R1 K8 ["Label"]
-  GETTABLEKS R6 R1 K9 ["AnimationId"]
-  GETTABLEKS R7 R1 K10 ["Stylizer"]
+  GETTABLEKS R5 R1 K9 ["Label"]
+  GETTABLEKS R6 R1 K10 ["AnimationId"]
+  GETTABLEKS R7 R1 K11 ["Stylizer"]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K11 ["createElement"]
+  GETTABLEKS R8 R9 K12 ["createElement"]
   GETUPVAL R9 1
-  DUPTABLE R10 K15 [{"Style", "Padding", "Size", "Position", "BackgroundColor3"}]
-  LOADK R11 K16 ["RoundBox"]
-  SETTABLEKS R11 R10 K12 ["Style"]
-  GETTABLEKS R11 R7 K13 ["Padding"]
-  SETTABLEKS R11 R10 K13 ["Padding"]
+  DUPTABLE R10 K16 [{"Style", "Padding", "Size", "Position", "BackgroundColor3"}]
+  LOADK R11 K17 ["RoundBox"]
+  SETTABLEKS R11 R10 K13 ["Style"]
+  GETTABLEKS R11 R7 K14 ["Padding"]
+  SETTABLEKS R11 R10 K14 ["Padding"]
   SETTABLEKS R2 R10 K1 ["Size"]
   SETTABLEKS R3 R10 K2 ["Position"]
-  GETTABLEKS R11 R7 K17 ["BackgroundColor"]
-  SETTABLEKS R11 R10 K14 ["BackgroundColor3"]
-  DUPTABLE R11 K20 [{"PreviewRender", "CameraResetButton", "Label"}]
+  GETTABLEKS R11 R7 K18 ["BackgroundColor"]
+  SETTABLEKS R11 R10 K15 ["BackgroundColor3"]
+  DUPTABLE R11 K21 [{"PreviewRender", "CameraResetButton", "Label"}]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K11 ["createElement"]
+  GETTABLEKS R12 R13 K12 ["createElement"]
   GETUPVAL R13 2
-  DUPTABLE R14 K24 [{"Camera", "Model", "FocusDirection", "OnViewModelLoaded"}]
-  GETTABLEKS R15 R0 K25 ["camera"]
-  SETTABLEKS R15 R14 K21 ["Camera"]
-  SETTABLEKS R4 R14 K7 ["Model"]
+  DUPTABLE R14 K25 [{"Camera", "Model", "FocusDirection", "OnViewModelLoaded"}]
+  GETTABLEKS R15 R0 K26 ["camera"]
+  SETTABLEKS R15 R14 K22 ["Camera"]
+  SETTABLEKS R4 R14 K8 ["Model"]
   GETUPVAL R15 3
-  SETTABLEKS R15 R14 K22 ["FocusDirection"]
+  SETTABLEKS R15 R14 K23 ["FocusDirection"]
   JUMPIFNOT R6 [+3]
-  GETTABLEKS R15 R0 K26 ["loadAnimation"]
+  GETTABLEKS R15 R0 K27 ["loadAnimation"]
   JUMP [+1]
   LOADNIL R15
-  SETTABLEKS R15 R14 K23 ["OnViewModelLoaded"]
+  SETTABLEKS R15 R14 K24 ["OnViewModelLoaded"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K18 ["PreviewRender"]
+  SETTABLEKS R12 R11 K19 ["PreviewRender"]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K11 ["createElement"]
+  GETTABLEKS R12 R13 K12 ["createElement"]
   GETUPVAL R13 4
-  DUPTABLE R14 K29 [{"OnClick", "Style", "Size", "AnchorPoint", "Position"}]
-  GETTABLEKS R15 R0 K30 ["resetCamera"]
-  SETTABLEKS R15 R14 K27 ["OnClick"]
-  LOADK R15 K31 ["RoundSubtle"]
-  SETTABLEKS R15 R14 K12 ["Style"]
-  GETTABLEKS R15 R7 K32 ["ResetButtonSize"]
+  DUPTABLE R14 K30 [{"OnClick", "Style", "Size", "AnchorPoint", "Position"}]
+  GETTABLEKS R15 R0 K31 ["resetCamera"]
+  SETTABLEKS R15 R14 K28 ["OnClick"]
+  LOADK R15 K32 ["RoundSubtle"]
+  SETTABLEKS R15 R14 K13 ["Style"]
+  GETTABLEKS R15 R7 K33 ["ResetButtonSize"]
   SETTABLEKS R15 R14 K1 ["Size"]
-  GETIMPORT R15 K34 [Vector2.new]
+  GETIMPORT R15 K35 [Vector2.new]
   LOADN R16 1
   LOADN R17 0
   CALL R15 2 1
-  SETTABLEKS R15 R14 K28 ["AnchorPoint"]
-  GETIMPORT R15 K37 [UDim2.fromScale]
+  SETTABLEKS R15 R14 K29 ["AnchorPoint"]
+  GETIMPORT R15 K38 [UDim2.fromScale]
   LOADN R16 1
   LOADN R17 0
   CALL R15 2 1
   SETTABLEKS R15 R14 K2 ["Position"]
-  DUPTABLE R15 K40 [{"Icon", "Tooltip"}]
+  DUPTABLE R15 K41 [{"Icon", "Tooltip"}]
   GETUPVAL R17 0
-  GETTABLEKS R16 R17 K11 ["createElement"]
+  GETTABLEKS R16 R17 K12 ["createElement"]
   GETUPVAL R17 5
-  DUPTABLE R18 K42 [{"Image"}]
+  DUPTABLE R18 K43 [{"Image"}]
   GETUPVAL R21 6
-  GETTABLEKS R20 R21 K43 ["getThemeName"]
+  GETTABLEKS R20 R21 K44 ["getThemeName"]
   CALL R20 0 1
-  JUMPIFEQKS R20 K44 ["Dark"] [+3]
-  JUMPIFNOTEQKS R20 K45 ["Default"] [+5]
+  JUMPIFEQKS R20 K45 ["Dark"] [+3]
+  JUMPIFNOTEQKS R20 K46 ["Default"] [+5]
   GETUPVAL R21 7
-  GETTABLEKS R19 R21 K46 ["RESET_CAM_DARK"]
+  GETTABLEKS R19 R21 K47 ["RESET_CAM_DARK"]
   JUMP [+4]
   GETUPVAL R21 7
-  GETTABLEKS R19 R21 K47 ["RESET_CAM_LIGHT"]
+  GETTABLEKS R19 R21 K48 ["RESET_CAM_LIGHT"]
   JUMP [0]
-  SETTABLEKS R19 R18 K41 ["Image"]
+  SETTABLEKS R19 R18 K42 ["Image"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K38 ["Icon"]
+  SETTABLEKS R16 R15 K39 ["Icon"]
   GETUPVAL R17 0
-  GETTABLEKS R16 R17 K11 ["createElement"]
+  GETTABLEKS R16 R17 K12 ["createElement"]
   GETUPVAL R17 8
-  DUPTABLE R18 K49 [{"Text"}]
-  LOADK R19 K50 ["Reset Camera"]
-  SETTABLEKS R19 R18 K48 ["Text"]
+  DUPTABLE R18 K50 [{"Text"}]
+  LOADK R19 K51 ["Reset Camera"]
+  SETTABLEKS R19 R18 K49 ["Text"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K39 ["Tooltip"]
+  SETTABLEKS R16 R15 K40 ["Tooltip"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K19 ["CameraResetButton"]
+  SETTABLEKS R12 R11 K20 ["CameraResetButton"]
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K11 ["createElement"]
+  GETTABLEKS R12 R13 K12 ["createElement"]
   GETUPVAL R13 9
-  DUPTABLE R14 K52 [{"Text", "AutomaticSize"}]
-  SETTABLEKS R5 R14 K48 ["Text"]
-  GETIMPORT R15 K55 [Enum.AutomaticSize.XY]
-  SETTABLEKS R15 R14 K51 ["AutomaticSize"]
+  DUPTABLE R14 K53 [{"Text", "AutomaticSize"}]
+  SETTABLEKS R5 R14 K49 ["Text"]
+  GETIMPORT R15 K56 [Enum.AutomaticSize.XY]
+  SETTABLEKS R15 R14 K52 ["AutomaticSize"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K8 ["Label"]
+  SETTABLEKS R12 R11 K9 ["Label"]
   CALL R8 3 -1
   RETURN R8 -1
 
@@ -313,7 +316,7 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Roact"]
+  GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
@@ -372,10 +375,9 @@ MAIN:
   CAPTURE VAL R18
   SETTABLEKS R23 R19 K50 ["init"]
   DUPCLOSURE R23 K51 [PROTO_7]
-  SETTABLEKS R23 R19 K52 ["willMount"]
+  CAPTURE VAL R1
+  SETTABLEKS R23 R19 K52 ["getDerivedStateFromProps"]
   DUPCLOSURE R23 K53 [PROTO_8]
-  SETTABLEKS R23 R19 K54 ["willUpdate"]
-  DUPCLOSURE R23 K55 [PROTO_9]
   CAPTURE VAL R1
   CAPTURE VAL R11
   CAPTURE VAL R12
@@ -386,9 +388,9 @@ MAIN:
   CAPTURE VAL R17
   CAPTURE VAL R16
   CAPTURE VAL R15
-  SETTABLEKS R23 R19 K56 ["render"]
+  SETTABLEKS R23 R19 K54 ["render"]
   MOVE R23 R4
-  DUPTABLE R24 K57 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
+  DUPTABLE R24 K55 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
   SETTABLEKS R5 R24 K11 ["Analytics"]
   SETTABLEKS R6 R24 K12 ["Localization"]
   SETTABLEKS R8 R24 K15 ["Stylizer"]

@@ -6,161 +6,62 @@ PROTO_0:
   GETTABLEKS R5 R1 K4 ["Message"]
   GETTABLEKS R6 R1 K5 ["Stylizer"]
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["new"]
-  CALL R7 0 1
+  GETTABLEKS R7 R8 K6 ["createElement"]
   GETUPVAL R8 1
-  CALL R8 0 1
-  JUMPIFNOT R8 [+89]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K7 ["createElement"]
-  GETUPVAL R9 3
-  DUPTABLE R10 K13 [{"LayoutOrder", "Size", "Layout", "HorizontalAlignment", "VerticalAlignment", "Padding"}]
-  SETTABLEKS R4 R10 K3 ["LayoutOrder"]
-  GETIMPORT R11 K15 [UDim2.new]
-  LOADN R12 1
+  DUPTABLE R9 K12 [{"LayoutOrder", "Size", "Layout", "HorizontalAlignment", "VerticalAlignment", "Padding"}]
+  SETTABLEKS R4 R9 K3 ["LayoutOrder"]
+  GETIMPORT R10 K15 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
   LOADN R13 0
-  LOADN R14 0
-  MOVE R15 R2
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K8 ["Size"]
-  GETIMPORT R11 K19 [Enum.FillDirection.Vertical]
-  SETTABLEKS R11 R10 K9 ["Layout"]
-  GETIMPORT R11 K21 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R11 R10 K10 ["HorizontalAlignment"]
-  GETIMPORT R11 K22 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R11 R10 K11 ["VerticalAlignment"]
-  GETTABLEKS R11 R6 K12 ["Padding"]
-  SETTABLEKS R11 R10 K12 ["Padding"]
-  DUPTABLE R11 K24 [{"InstructionsLabel"}]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K7 ["createElement"]
-  GETUPVAL R13 4
-  DUPTABLE R14 K32 [{"Text", "Size", "AutomaticSize", "BackgroundTransparency", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextProps", "LinkMap"}]
-  SETTABLEKS R5 R14 K25 ["Text"]
-  GETIMPORT R15 K15 [UDim2.new]
-  LOADN R16 1
+  MOVE R14 R2
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K7 ["Size"]
+  GETIMPORT R10 K19 [Enum.FillDirection.Vertical]
+  SETTABLEKS R10 R9 K8 ["Layout"]
+  GETIMPORT R10 K21 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R10 R9 K9 ["HorizontalAlignment"]
+  GETIMPORT R10 K22 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R10 R9 K10 ["VerticalAlignment"]
+  GETTABLEKS R10 R6 K11 ["Padding"]
+  SETTABLEKS R10 R9 K11 ["Padding"]
+  DUPTABLE R10 K24 [{"InstructionsLabel"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K6 ["createElement"]
+  GETUPVAL R12 2
+  DUPTABLE R13 K32 [{"Text", "Size", "AutomaticSize", "BackgroundTransparency", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextProps", "LinkMap"}]
+  SETTABLEKS R5 R13 K25 ["Text"]
+  GETIMPORT R14 K15 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
   LOADN R17 0
   LOADN R18 0
-  LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K8 ["Size"]
-  GETIMPORT R15 K34 [Enum.AutomaticSize.Y]
-  SETTABLEKS R15 R14 K26 ["AutomaticSize"]
-  LOADN R15 1
-  SETTABLEKS R15 R14 K27 ["BackgroundTransparency"]
-  LOADB R15 1
-  SETTABLEKS R15 R14 K28 ["TextWrapped"]
-  GETIMPORT R15 K35 [Enum.TextXAlignment.Center]
-  SETTABLEKS R15 R14 K29 ["TextXAlignment"]
-  GETIMPORT R15 K36 [Enum.TextYAlignment.Center]
-  SETTABLEKS R15 R14 K30 ["TextYAlignment"]
-  DUPTABLE R15 K39 [{"TextSize", "Font"}]
-  GETTABLEKS R16 R6 K37 ["TextSize"]
-  SETTABLEKS R16 R15 K37 ["TextSize"]
-  GETTABLEKS R16 R6 K38 ["Font"]
-  SETTABLEKS R16 R15 K38 ["Font"]
-  SETTABLEKS R15 R14 K31 ["TextProps"]
-  MOVE R15 R3
-  JUMPIF R15 [+2]
-  NEWTABLE R15 0 0
-  SETTABLEKS R15 R14 K2 ["LinkMap"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K23 ["InstructionsLabel"]
-  CALL R8 3 -1
-  RETURN R8 -1
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K7 ["createElement"]
-  GETUPVAL R9 3
-  DUPTABLE R10 K13 [{"LayoutOrder", "Size", "Layout", "HorizontalAlignment", "VerticalAlignment", "Padding"}]
-  SETTABLEKS R4 R10 K3 ["LayoutOrder"]
-  GETIMPORT R11 K15 [UDim2.new]
-  LOADN R12 1
-  LOADN R13 0
-  LOADN R14 0
-  MOVE R15 R2
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K8 ["Size"]
-  GETIMPORT R11 K19 [Enum.FillDirection.Vertical]
-  SETTABLEKS R11 R10 K9 ["Layout"]
-  GETIMPORT R11 K21 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R11 R10 K10 ["HorizontalAlignment"]
-  GETIMPORT R11 K22 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R11 R10 K11 ["VerticalAlignment"]
-  GETTABLEKS R11 R6 K12 ["Padding"]
-  SETTABLEKS R11 R10 K12 ["Padding"]
-  DUPTABLE R11 K41 [{"InstructionsLabel", "Link"}]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K7 ["createElement"]
-  GETUPVAL R13 5
-  DUPTABLE R14 K42 [{"LayoutOrder", "Text", "Size", "AutomaticSize", "BackgroundTransparency", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextSize"}]
-  NAMECALL R15 R7 K43 ["getNextOrder"]
-  CALL R15 1 1
-  SETTABLEKS R15 R14 K3 ["LayoutOrder"]
-  SETTABLEKS R5 R14 K25 ["Text"]
-  GETIMPORT R15 K15 [UDim2.new]
-  LOADN R16 1
-  LOADN R17 0
-  LOADN R18 0
-  LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K8 ["Size"]
-  GETIMPORT R15 K34 [Enum.AutomaticSize.Y]
-  SETTABLEKS R15 R14 K26 ["AutomaticSize"]
-  LOADN R15 1
-  SETTABLEKS R15 R14 K27 ["BackgroundTransparency"]
-  LOADB R15 1
-  SETTABLEKS R15 R14 K28 ["TextWrapped"]
-  GETIMPORT R15 K35 [Enum.TextXAlignment.Center]
-  SETTABLEKS R15 R14 K29 ["TextXAlignment"]
-  GETIMPORT R15 K36 [Enum.TextYAlignment.Center]
-  SETTABLEKS R15 R14 K30 ["TextYAlignment"]
-  GETTABLEKS R15 R6 K37 ["TextSize"]
-  SETTABLEKS R15 R14 K37 ["TextSize"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K23 ["InstructionsLabel"]
-  JUMPIFNOT R3 [+62]
-  GETTABLEKS R13 R3 K44 ["{link}"]
-  JUMPIFNOT R13 [+59]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K7 ["createElement"]
-  GETUPVAL R13 6
-  DUPTABLE R14 K46 [{"LayoutOrder", "Text", "Size", "AutomaticSize", "BackgroundTransparency", "TextWrapped", "TextXAlignment", "TextYAlignment", "TextSize", "Font", "OnClick"}]
-  NAMECALL R15 R7 K43 ["getNextOrder"]
-  CALL R15 1 1
-  SETTABLEKS R15 R14 K3 ["LayoutOrder"]
-  GETTABLEKS R16 R3 K44 ["{link}"]
-  GETTABLEKS R15 R16 K47 ["LinkText"]
-  SETTABLEKS R15 R14 K25 ["Text"]
-  GETIMPORT R15 K15 [UDim2.new]
-  LOADN R16 1
-  LOADN R17 0
-  LOADN R18 0
-  LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K8 ["Size"]
-  GETIMPORT R15 K34 [Enum.AutomaticSize.Y]
-  SETTABLEKS R15 R14 K26 ["AutomaticSize"]
-  LOADN R15 1
-  SETTABLEKS R15 R14 K27 ["BackgroundTransparency"]
-  LOADB R15 1
-  SETTABLEKS R15 R14 K28 ["TextWrapped"]
-  GETIMPORT R15 K35 [Enum.TextXAlignment.Center]
-  SETTABLEKS R15 R14 K29 ["TextXAlignment"]
-  GETIMPORT R15 K36 [Enum.TextYAlignment.Center]
-  SETTABLEKS R15 R14 K30 ["TextYAlignment"]
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K7 ["Size"]
+  GETIMPORT R14 K34 [Enum.AutomaticSize.Y]
+  SETTABLEKS R14 R13 K26 ["AutomaticSize"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K27 ["BackgroundTransparency"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K28 ["TextWrapped"]
+  GETIMPORT R14 K35 [Enum.TextXAlignment.Center]
+  SETTABLEKS R14 R13 K29 ["TextXAlignment"]
+  GETIMPORT R14 K36 [Enum.TextYAlignment.Center]
+  SETTABLEKS R14 R13 K30 ["TextYAlignment"]
+  DUPTABLE R14 K39 [{"TextSize", "Font"}]
   GETTABLEKS R15 R6 K37 ["TextSize"]
   SETTABLEKS R15 R14 K37 ["TextSize"]
   GETTABLEKS R15 R6 K38 ["Font"]
   SETTABLEKS R15 R14 K38 ["Font"]
-  GETTABLEKS R16 R3 K44 ["{link}"]
-  GETTABLEKS R15 R16 K48 ["LinkCallback"]
-  SETTABLEKS R15 R14 K45 ["OnClick"]
-  CALL R12 2 1
-  JUMP [+1]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K40 ["Link"]
-  CALL R8 3 -1
-  RETURN R8 -1
+  SETTABLEKS R14 R13 K31 ["TextProps"]
+  MOVE R14 R3
+  JUMPIF R14 [+2]
+  NEWTABLE R14 0 0
+  SETTABLEKS R14 R13 K2 ["LinkMap"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K23 ["InstructionsLabel"]
+  CALL R7 3 -1
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0
@@ -180,31 +81,21 @@ MAIN:
   GETTABLEKS R4 R1 K10 ["UI"]
   GETTABLEKS R5 R4 K11 ["Pane"]
   GETTABLEKS R6 R4 K12 ["TextWithLinks"]
-  GETTABLEKS R7 R4 K13 ["LinkText"]
-  GETTABLEKS R8 R4 K14 ["TextLabel"]
-  GETTABLEKS R9 R1 K15 ["Util"]
-  GETTABLEKS R10 R9 K16 ["LayoutOrderIterator"]
-  GETTABLEKS R12 R1 K17 ["SharedFlags"]
-  GETTABLEKS R11 R12 K18 ["getFFlagAssetPreviewContentAttribution"]
-  GETTABLEKS R12 R2 K19 ["PureComponent"]
-  LOADK R14 K20 ["TabInstructions"]
-  NAMECALL R12 R12 K21 ["extend"]
-  CALL R12 2 1
-  DUPCLOSURE R13 K22 [PROTO_0]
-  CAPTURE VAL R10
-  CAPTURE VAL R11
+  GETTABLEKS R7 R2 K13 ["PureComponent"]
+  LOADK R9 K14 ["TabInstructions"]
+  NAMECALL R7 R7 K15 ["extend"]
+  CALL R7 2 1
+  DUPCLOSURE R8 K16 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CAPTURE VAL R8
-  CAPTURE VAL R7
-  SETTABLEKS R13 R12 K23 ["render"]
-  GETTABLEKS R13 R3 K24 ["withContext"]
-  DUPTABLE R14 K26 [{"Stylizer"}]
-  GETTABLEKS R15 R3 K25 ["Stylizer"]
-  SETTABLEKS R15 R14 K25 ["Stylizer"]
-  CALL R13 1 1
-  MOVE R14 R12
-  CALL R13 1 1
-  MOVE R12 R13
-  RETURN R12 1
+  SETTABLEKS R8 R7 K17 ["render"]
+  GETTABLEKS R8 R3 K18 ["withContext"]
+  DUPTABLE R9 K20 [{"Stylizer"}]
+  GETTABLEKS R10 R3 K19 ["Stylizer"]
+  SETTABLEKS R10 R9 K19 ["Stylizer"]
+  CALL R8 1 1
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R7 R8
+  RETURN R7 1

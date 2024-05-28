@@ -1,71 +1,7 @@
 PROTO_0:
   GETUPVAL R0 0
-  JUMPIFNOT R0 [+7]
-  GETUPVAL R0 0
-  LOADNIL R2
-  NAMECALL R0 R0 K0 ["render"]
-  CALL R0 2 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
-
-PROTO_1:
-  GETIMPORT R1 K1 [plugin]
-  GETTABLEKS R0 R1 K2 ["HostDataModelTypeIsCurrent"]
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K3 ["MountAssetReactTree"]
-  JUMPIFNOT R0 [+72]
-  GETIMPORT R0 K5 [require]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K6 ["Packages"]
-  GETTABLEKS R1 R2 K7 ["React"]
-  CALL R0 1 1
-  GETIMPORT R1 K5 [require]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K6 ["Packages"]
-  GETTABLEKS R2 R3 K8 ["ReactRoblox"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K9 ["Src"]
-  GETTABLEKS R3 R4 K10 ["MainPlugin"]
-  CALL R2 1 1
-  GETTABLEKS R3 R0 K11 ["createElement"]
-  MOVE R4 R2
-  DUPTABLE R5 K13 [{"Plugin"}]
-  GETIMPORT R6 K1 [plugin]
-  SETTABLEKS R6 R5 K12 ["Plugin"]
-  CALL R3 2 1
-  GETIMPORT R4 K16 [Instance.new]
-  LOADK R5 K17 ["ScreenGui"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K18 ["createRoot"]
-  MOVE R6 R4
-  CALL R5 1 1
-  JUMPIFNOT R5 [+4]
-  MOVE R8 R3
-  NAMECALL R6 R5 K19 ["render"]
-  CALL R6 2 0
-  GETIMPORT R6 K21 [game]
-  LOADK R8 K22 ["StarterGui"]
-  NAMECALL R6 R6 K23 ["GetService"]
-  CALL R6 2 1
-  SETTABLEKS R6 R4 K24 ["Parent"]
-  NEWCLOSURE R6 P0
-  CAPTURE REF R5
-  GETIMPORT R8 K1 [plugin]
-  GETTABLEKS R7 R8 K25 ["Unloading"]
-  MOVE R9 R6
-  NAMECALL R7 R7 K26 ["Connect"]
-  CALL R7 2 0
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K27 ["CurrentDataModelTypeAboutToChange"]
-  MOVE R9 R6
-  NAMECALL R7 R7 K26 ["Connect"]
-  CALL R7 2 0
-  CLOSEUPVALS R5
+  NAMECALL R0 R0 K0 ["Destroy"]
+  CALL R0 1 0
   RETURN R0 0
 
 MAIN:
@@ -103,20 +39,23 @@ MAIN:
   CALL R5 0 1
   JUMPIF R5 [+1]
   RETURN R0 0
-  GETTABLEKS R5 R4 K18 ["getDebugFlags"]
-  LOADK R6 K4 ["AssetAccess"]
+  GETIMPORT R6 K1 [plugin]
+  GETTABLEKS R5 R6 K18 ["HostDataModelType"]
+  GETIMPORT R6 K22 [Enum.StudioDataModelType.Edit]
+  JUMPIFEQ R5 R6 [+2]
+  RETURN R0 0
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R8 R0 K11 ["Src"]
+  GETTABLEKS R7 R8 K23 ["Util"]
+  GETTABLEKS R6 R7 K24 ["ShareDialogController"]
   CALL R5 1 1
+  GETTABLEKS R6 R5 K25 ["new"]
   GETIMPORT R7 K1 [plugin]
-  GETTABLEKS R6 R7 K19 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R7 R6 K20 ["FocusedDataModelSession"]
-  DUPCLOSURE R8 K21 [PROTO_1]
-  CAPTURE VAL R5
-  CAPTURE VAL R0
-  CAPTURE VAL R7
-  GETTABLEKS R9 R7 K22 ["CurrentDataModelTypeChanged"]
-  MOVE R11 R8
-  NAMECALL R9 R9 K23 ["Connect"]
-  CALL R9 2 0
-  MOVE R9 R8
-  CALL R9 0 0
+  CALL R6 1 1
+  GETIMPORT R8 K1 [plugin]
+  GETTABLEKS R7 R8 K26 ["Unloading"]
+  DUPCLOSURE R9 K27 [PROTO_0]
+  CAPTURE VAL R6
+  NAMECALL R7 R7 K28 ["Once"]
+  CALL R7 2 0
   RETURN R0 0

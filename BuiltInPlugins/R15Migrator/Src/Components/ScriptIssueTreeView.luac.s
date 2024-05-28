@@ -449,6 +449,7 @@ PROTO_18:
 PROTO_19:
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R4 R3 K1 ["Localization"]
+  JUMPIFNOT R4 [+55]
   GETTABLEKS R5 R3 K2 ["diagnostics"]
   GETTABLEKS R6 R1 K2 ["diagnostics"]
   JUMPIFNOTEQ R5 R6 [+7]

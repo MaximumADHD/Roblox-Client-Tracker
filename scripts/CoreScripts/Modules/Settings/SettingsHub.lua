@@ -93,6 +93,7 @@ local GetFFlagShouldInitWithFirstPageWithTabHeader =  require(RobloxGui.Modules.
 local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPage", false)
 local GetFFlagEnableScreenshotUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
+local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM", false)
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -2861,6 +2862,18 @@ local function CreateSettingsHub()
 				end
 
 				if GameSettings.ReducedMotion then
+					
+					if FFlagFixReducedMotionStuckIGM then
+						if this.ReducedMotionOpenTween then
+							this.ReducedMotionOpenTween:Cancel()
+							this.ReducedMotionOpenTween = nil
+						end
+						if this.ReducedMotionCloseTween then
+							this.ReducedMotionCloseTween:Cancel()
+							this.ReducedMotionCloseTween = nil
+						end
+					end
+
 					this.Shield.Parent = this.CanvasGroup
 					this.CanvasGroup.GroupTransparency = 1
 					this.Shield.Position = UDim2.new(0, 0, 0, 0)
@@ -2869,10 +2882,10 @@ local function CreateSettingsHub()
 					local tweenProps = {
 						GroupTransparency = 0
 					}
-					local tween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
-					tween:Play()
+					this.ReducedMotionOpenTween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
+					this.ReducedMotionOpenTween:Play()
 
-					tween.Completed:Connect(function()
+					this.ReducedMotionOpenTween.Completed:Connect(function()
 						this.Shield.Parent = this.ClippingShield
 					end)
 
@@ -3024,15 +3037,27 @@ local function CreateSettingsHub()
 				end
 
 				if GameSettings.ReducedMotion then
+					if FFlagFixReducedMotionStuckIGM then
+						if this.ReducedMotionOpenTween then
+							this.ReducedMotionOpenTween:Cancel()
+							this.ReducedMotionOpenTween = nil
+						end
+						if this.ReducedMotionCloseTween then
+							this.ReducedMotionCloseTween:Cancel()
+							this.ReducedMotionCloseTween = nil
+						end
+					end
+
 					this.Shield.Parent = this.CanvasGroup
 
 					local tweenInfo = TweenInfo.new(0.25)
 					local tweenProps = {
 						GroupTransparency = 1
 					}
-					local tween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
-					tween:Play()
-					tween.Completed:Connect(function()
+					this.ReducedMotionCloseTween = TweenService:Create(this.CanvasGroup, tweenInfo, tweenProps)
+					this.ReducedMotionCloseTween:Play()
+					this.ReducedMotionCloseTween.Completed:Connect(function()
+
 						this.Shield.Position = SETTINGS_SHIELD_INACTIVE_POSITION
 
 						this.Shield.Visible = this.Visible

@@ -43,66 +43,66 @@ MAIN:
   LOADN R13 0
   SETTABLE R13 R11 R12
   GETTABLEKS R12 R3 K31 ["NoiseScale"]
-  LOADK R13 K32 [0.4]
+  LOADK R13 K29 [0.3]
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R3 K33 ["Material"]
-  DUPTABLE R13 K40 [{"Unit", "FallbackMaterial", "Min", "Max", "MaterialIndex", "MaterialList"}]
-  GETTABLEKS R14 R6 K41 ["Percentage"]
-  SETTABLEKS R14 R13 K34 ["Unit"]
-  GETIMPORT R14 K44 [Enum.Material.Ice]
-  SETTABLEKS R14 R13 K35 ["FallbackMaterial"]
+  GETTABLEKS R12 R3 K32 ["Material"]
+  DUPTABLE R13 K39 [{"Unit", "FallbackMaterial", "Min", "Max", "MaterialIndex", "MaterialList"}]
+  GETTABLEKS R14 R6 K40 ["Percentage"]
+  SETTABLEKS R14 R13 K33 ["Unit"]
+  GETIMPORT R14 K43 [Enum.Material.Ice]
+  SETTABLEKS R14 R13 K34 ["FallbackMaterial"]
   LOADN R14 0
-  SETTABLEKS R14 R13 K36 ["Min"]
+  SETTABLEKS R14 R13 K35 ["Min"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K37 ["Max"]
+  SETTABLEKS R14 R13 K36 ["Max"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K38 ["MaterialIndex"]
+  SETTABLEKS R14 R13 K37 ["MaterialIndex"]
   NEWTABLE R14 0 2
-  DUPTABLE R15 K50 [{"Material", "MinHeight", "MaxHeight", "MinSlope", "MaxSlope", "Priority"}]
-  GETIMPORT R16 K44 [Enum.Material.Ice]
-  SETTABLEKS R16 R15 K33 ["Material"]
+  DUPTABLE R15 K49 [{"Material", "MinHeight", "MaxHeight", "MinSlope", "MaxSlope", "Priority"}]
+  GETIMPORT R16 K51 [Enum.Material.Snow]
+  SETTABLEKS R16 R15 K32 ["Material"]
   LOADN R16 0
-  SETTABLEKS R16 R15 K45 ["MinHeight"]
+  SETTABLEKS R16 R15 K44 ["MinHeight"]
   LOADN R16 1
-  SETTABLEKS R16 R15 K46 ["MaxHeight"]
+  SETTABLEKS R16 R15 K45 ["MaxHeight"]
   LOADN R16 0
-  SETTABLEKS R16 R15 K47 ["MinSlope"]
-  LOADN R16 60
-  SETTABLEKS R16 R15 K48 ["MaxSlope"]
+  SETTABLEKS R16 R15 K46 ["MinSlope"]
+  LOADN R16 15
+  SETTABLEKS R16 R15 K47 ["MaxSlope"]
   LOADN R16 0
-  SETTABLEKS R16 R15 K49 ["Priority"]
-  DUPTABLE R16 K50 [{"Material", "MinHeight", "MaxHeight", "MinSlope", "MaxSlope", "Priority"}]
-  GETIMPORT R17 K52 [Enum.Material.Glacier]
-  SETTABLEKS R17 R16 K33 ["Material"]
+  SETTABLEKS R16 R15 K48 ["Priority"]
+  DUPTABLE R16 K49 [{"Material", "MinHeight", "MaxHeight", "MinSlope", "MaxSlope", "Priority"}]
+  GETIMPORT R17 K43 [Enum.Material.Ice]
+  SETTABLEKS R17 R16 K32 ["Material"]
   LOADN R17 0
-  SETTABLEKS R17 R16 K45 ["MinHeight"]
+  SETTABLEKS R17 R16 K44 ["MinHeight"]
   LOADN R17 1
-  SETTABLEKS R17 R16 K46 ["MaxHeight"]
-  LOADN R17 45
-  SETTABLEKS R17 R16 K47 ["MinSlope"]
+  SETTABLEKS R17 R16 K45 ["MaxHeight"]
+  LOADN R17 0
+  SETTABLEKS R17 R16 K46 ["MinSlope"]
   LOADN R17 90
-  SETTABLEKS R17 R16 K48 ["MaxSlope"]
+  SETTABLEKS R17 R16 K47 ["MaxSlope"]
   LOADN R17 1
-  SETTABLEKS R17 R16 K49 ["Priority"]
+  SETTABLEKS R17 R16 K48 ["Priority"]
   SETLIST R14 R15 2 [1]
-  SETTABLEKS R14 R13 K39 ["MaterialList"]
+  SETTABLEKS R14 R13 K38 ["MaterialList"]
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R3 K53 ["PlacementMode"]
+  GETTABLEKS R12 R3 K52 ["PlacementMode"]
   LOADB R13 1
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R3 K54 ["Size"]
-  LOADN R14 244
-  LOADN R15 100
-  LOADN R16 244
+  GETTABLEKS R12 R3 K53 ["Size"]
+  LOADN R14 0
+  LOADN R15 128
+  LOADN R16 0
   FASTCALL VECTOR [+2]
-  GETIMPORT R13 K56 [Vector3.new]
+  GETIMPORT R13 K55 [Vector3.new]
   CALL R13 3 1
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R3 K57 ["SnapToVoxels"]
+  GETTABLEKS R12 R3 K56 ["SnapToVoxels"]
   LOADB R13 1
   SETTABLE R13 R11 R12
-  GETTABLEKS R12 R3 K58 ["Transform"]
-  GETIMPORT R13 K60 [CFrame.new]
+  GETTABLEKS R12 R3 K57 ["Transform"]
+  GETIMPORT R13 K59 [CFrame.new]
   CALL R13 0 1
   SETTABLE R13 R11 R12
   SETTABLEKS R11 R10 K16 ["Defaults"]
@@ -110,27 +110,27 @@ MAIN:
   SETTABLEKS R11 R10 K17 ["Id"]
   SETLIST R9 R10 1 [1]
   NEWTABLE R10 0 2
-  DUPTABLE R11 K62 [{"Id", "Schema"}]
-  GETTABLEKS R12 R5 K63 ["Region"]
+  DUPTABLE R11 K61 [{"Id", "Schema"}]
+  GETTABLEKS R12 R5 K62 ["Region"]
   SETTABLEKS R12 R11 K17 ["Id"]
-  DUPTABLE R12 K67 [{"Type", "Wireframe", "Rotation"}]
-  GETTABLEKS R13 R5 K63 ["Region"]
-  SETTABLEKS R13 R12 K64 ["Type"]
+  DUPTABLE R12 K66 [{"Type", "Wireframe", "Rotation"}]
+  GETTABLEKS R13 R5 K62 ["Region"]
+  SETTABLEKS R13 R12 K63 ["Type"]
   LOADB R13 0
-  SETTABLEKS R13 R12 K65 ["Wireframe"]
+  SETTABLEKS R13 R12 K64 ["Wireframe"]
   LOADB R13 0
-  SETTABLEKS R13 R12 K66 ["Rotation"]
-  SETTABLEKS R12 R11 K61 ["Schema"]
-  DUPTABLE R12 K62 [{"Id", "Schema"}]
-  GETTABLEKS R13 R5 K68 ["Placement"]
+  SETTABLEKS R13 R12 K65 ["Rotation"]
+  SETTABLEKS R12 R11 K60 ["Schema"]
+  DUPTABLE R12 K61 [{"Id", "Schema"}]
+  GETTABLEKS R13 R5 K67 ["Placement"]
   SETTABLEKS R13 R12 K17 ["Id"]
-  DUPTABLE R13 K69 [{"Type"}]
-  GETTABLEKS R14 R5 K68 ["Placement"]
-  SETTABLEKS R14 R13 K64 ["Type"]
-  SETTABLEKS R13 R12 K61 ["Schema"]
+  DUPTABLE R13 K68 [{"Type"}]
+  GETTABLEKS R14 R5 K67 ["Placement"]
+  SETTABLEKS R14 R13 K63 ["Type"]
+  SETTABLEKS R13 R12 K60 ["Schema"]
   SETLIST R10 R11 2 [1]
-  GETTABLEKS R13 R8 K70 ["Arctic"]
-  GETTABLEKS R14 R7 K71 ["None"]
+  GETTABLEKS R13 R8 K69 ["Arctic"]
+  GETTABLEKS R14 R7 K70 ["None"]
   MOVE R15 R9
   MOVE R16 R10
   NAMECALL R11 R1 K24 ["new"]

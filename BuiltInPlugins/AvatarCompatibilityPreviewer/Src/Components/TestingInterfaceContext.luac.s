@@ -13,12 +13,16 @@ MAIN:
   GETTABLEKS R4 R5 K9 ["Util"]
   GETTABLEKS R3 R4 K10 ["Signal"]
   CALL R2 1 1
-  DUPTABLE R3 K12 [{"onIsColorableAcquired"}]
+  DUPTABLE R3 K14 [{"onIsColorableAcquired", "onRepresentEditorStateOnWorldModelDescriptionApplied", "onRepresentEditorStateOnWorldModelUnmounted"}]
   LOADNIL R4
   SETTABLEKS R4 R3 K11 ["onIsColorableAcquired"]
-  GETTABLEKS R4 R1 K13 ["createContext"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K12 ["onRepresentEditorStateOnWorldModelDescriptionApplied"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K13 ["onRepresentEditorStateOnWorldModelUnmounted"]
+  GETTABLEKS R4 R1 K15 ["createContext"]
   MOVE R5 R3
   CALL R4 1 1
-  DUPTABLE R5 K15 [{"Context"}]
-  SETTABLEKS R4 R5 K14 ["Context"]
+  DUPTABLE R5 K17 [{"Context"}]
+  SETTABLEKS R4 R5 K16 ["Context"]
   RETURN R5 1

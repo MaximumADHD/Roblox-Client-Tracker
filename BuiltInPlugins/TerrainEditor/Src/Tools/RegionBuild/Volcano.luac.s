@@ -43,13 +43,13 @@ MAIN:
   LOADN R13 0
   SETTABLE R13 R11 R12
   GETTABLEKS R12 R3 K31 ["CraterDepth"]
-  LOADK R13 K32 [0.2]
+  LOADK R13 K32 [0.6]
   SETTABLE R13 R11 R12
   GETTABLEKS R12 R3 K33 ["CraterRadius"]
   LOADK R13 K34 [0.1]
   SETTABLE R13 R11 R12
   GETTABLEKS R12 R3 K35 ["NoiseScale"]
-  LOADK R13 K36 [0.4]
+  LOADK R13 K36 [0.2]
   SETTABLE R13 R11 R12
   GETTABLEKS R12 R3 K37 ["Material"]
   DUPTABLE R13 K45 [{"FallbackMaterial", "Unit", "Min", "Max", "MaterialIndex", "MaterialList", "FillMaterial"}]
@@ -93,7 +93,7 @@ MAIN:
   DUPTABLE R17 K55 [{"Material", "MinHeight", "MaxHeight", "MinSlope", "MaxSlope", "Priority"}]
   GETIMPORT R18 K60 [Enum.Material.Basalt]
   SETTABLEKS R18 R17 K37 ["Material"]
-  LOADN R18 0
+  LOADK R18 K29 [0.5]
   SETTABLEKS R18 R17 K50 ["MinHeight"]
   LOADN R18 1
   SETTABLEKS R18 R17 K51 ["MaxHeight"]
@@ -112,9 +112,9 @@ MAIN:
   LOADB R13 1
   SETTABLE R13 R11 R12
   GETTABLEKS R12 R3 K64 ["Size"]
-  LOADN R14 244
-  LOADN R15 200
-  LOADN R16 244
+  LOADN R14 0
+  LOADN R15 152
+  LOADN R16 0
   FASTCALL VECTOR [+2]
   GETIMPORT R13 K66 [Vector3.new]
   CALL R13 3 1

@@ -3,4 +3,5 @@ game:DefineFastFlag("ChooseAnimationForRestPose", true)
 game:DefineFastFlag("HideAnimationSettingForGltf", true)
 game:DefineFastFlag("ImporterOpensAvatarPreviewerBetaCheck", true)
 game:DefineFastFlag("AssetImportUseUploadId", true)
+game:DefineFastFlag("KeepZeroInfluenceBones", true)
 return nil

@@ -16,6 +16,7 @@ local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
 local Constants = require(Chrome.Unibar.Constants)
 local Types = require(Chrome.Service.Types)
+local FFlagEnableChromePinAnalytics = require(Chrome.Flags.GetFFlagEnableChromePinAnalytics)()
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
@@ -54,6 +55,12 @@ export type ChromeAnalytics = {
 
 	setScreenSize: (ChromeAnalytics, screenSize: Vector2) -> nil,
 	setWindowDefaultPosition: (ChromeAnalytics, integrationId: Types.IntegrationId, windowPosition: Vector2) -> nil,
+	setPin: (
+		ChromeAnalytics,
+		integrationId: Types.IntegrationId,
+		enabled: boolean,
+		userPins: Types.IntegrationIdList
+	) -> nil,
 
 	onUnibarToggle: (ChromeAnalytics, unibarStatus: number) -> nil,
 	onIconActivated: (ChromeAnalytics, integrationId: Types.IntegrationId) -> nil,
@@ -264,6 +271,18 @@ function ChromeAnalytics.new(): ChromeAnalytics
 	end)
 
 	return self
+end
+
+function ChromeAnalytics:setPin(integrationId: string, enabled: boolean, userPins: Types.IntegrationIdList)
+	if FFlagEnableChromePinAnalytics then
+		local eventType = if enabled then Constants.ANALYTICS.PIN_ADDED else Constants.ANALYTICS.PIN_REMOVED
+		self._sendEvent(eventType, {
+			integration_id = integrationId,
+			source = getInteractionSource(integrationId),
+			user_pins = userPins,
+		})
+	end
+	return nil
 end
 
 function ChromeAnalytics:setScreenSize(screenSize: Vector2)

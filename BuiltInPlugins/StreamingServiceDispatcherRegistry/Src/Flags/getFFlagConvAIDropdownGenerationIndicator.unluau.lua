@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("ConvAIDropdownGenerationIndicator3", false)
+game:DefineFastFlag("ConvAIDropdownGenerationIndicator4", false)
 return function()
-   return game:GetFastFlag("ConvAIDropdownGenerationIndicator3")
+   return game:GetFastFlag("ConvAIDropdownGenerationIndicator4")
 end

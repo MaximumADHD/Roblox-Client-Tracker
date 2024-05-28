@@ -25,13 +25,19 @@ local var86 = var84("showEquippedItem")
 var3.showEquippedItem = var86
 var86 = var2
 var3.setHideAllEquippedItems = var86("setHideAllEquippedItems")
-local var89 = {}
-var89.accessories = {}
-var89.animation = nil
-var89.clothing = {}
-var89.emotion = nil
-local var94 = {}
-var89.patches = var94
-var3.avatarAssets = var89
-var94 = var3
-return require(var0.Packages.React).createContext(var94)
+function var3.startIgnoringChildren()
+   return function()
+   end
+end
+
+var3.isIgnoringChildren = false
+local var90 = {}
+var90.accessories = {}
+var90.animation = nil
+var90.clothing = {}
+var90.emotion = nil
+local var95 = {}
+var90.patches = var95
+var3.avatarAssets = var90
+var95 = var3
+return require(var0.Packages.React).createContext(var95)

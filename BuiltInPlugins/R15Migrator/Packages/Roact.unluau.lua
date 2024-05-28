@@ -1,2 +1,2 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-return require(script.Parent._Index.Roact.Roact)
+return require(script.Parent._Index.RoactCompat.RoactCompat)

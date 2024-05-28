@@ -12,7 +12,7 @@ PROTO_0:
   CALL R2 2 0
   GETUPVAL R2 0
   CALL R2 0 1
-  JUMPIFNOT R2 [+50]
+  JUMPIFNOT R2 [+54]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K6 ["append"]
   NEWTABLE R3 0 4
@@ -31,28 +31,31 @@ PROTO_0:
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K7 ["createElement"]
   GETUPVAL R8 6
-  CALL R7 1 -1
+  DUPTABLE R9 K9 [{"enabled"}]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K8 ["enabled"]
+  CALL R7 2 -1
   SETLIST R3 R4 -1 [1]
   MOVE R4 R1
   JUMPIF R4 [+2]
   NEWTABLE R4 0 0
   CALL R2 2 1
   GETUPVAL R4 7
-  GETTABLEKS R3 R4 K8 ["provideMockContext"]
+  GETTABLEKS R3 R4 K10 ["provideMockContext"]
   GETUPVAL R4 8
-  DUPTABLE R5 K10 [{"ContextStack"}]
+  DUPTABLE R5 K12 [{"ContextStack"}]
   GETUPVAL R7 2
   GETTABLEKS R6 R7 K7 ["createElement"]
   GETUPVAL R7 9
-  DUPTABLE R8 K12 [{"providers"}]
-  SETTABLEKS R2 R8 K11 ["providers"]
+  DUPTABLE R8 K14 [{"providers"}]
+  SETTABLEKS R2 R8 K13 ["providers"]
   MOVE R9 R0
   CALL R6 3 1
-  SETTABLEKS R6 R5 K9 ["ContextStack"]
+  SETTABLEKS R6 R5 K11 ["ContextStack"]
   CALL R3 2 -1
   RETURN R3 -1
   GETUPVAL R3 7
-  GETTABLEKS R2 R3 K8 ["provideMockContext"]
+  GETTABLEKS R2 R3 K10 ["provideMockContext"]
   GETUPVAL R3 8
   MOVE R4 R0
   CALL R2 2 -1

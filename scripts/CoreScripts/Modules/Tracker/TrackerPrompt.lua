@@ -1,5 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local HttpService = game:GetService("HttpService")
+local GuiService = game:GetService("GuiService")
 local ContentProvider = game:GetService("ContentProvider")
 
 local UIBlox = require(CorePackages.UIBlox)
@@ -15,6 +17,7 @@ local t = require(CorePackages.Packages.t)
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
 local FFlagTrackerPromptNewCopyForCameraPerformanceEnabled = game:DefineFastFlag("TrackerPromptNewCopyForCameraPerformanceEnabled", false)
+local FStringCameraUnavailableUrl = game:DefineFastString("CameraUnavailableUrl", "https://help.roblox.com/hc/articles/17877687557396")
 
 local TOAST_DURATION = 8
 local PROMPT_DISPLAY_ORDER = 10
@@ -36,6 +39,7 @@ local PromptTitle = {
 	[TrackerPromptType.NoDynamicHeadEquipped] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.PromptNoDynamicHeadEquipped"),
 	[TrackerPromptType.VideoUnsupported] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.VideoUnsupported"),
 	[TrackerPromptType.UnsupportedDevice] = RobloxTranslator:FormatByKey("Feature.FaceChat.Heading.NotAvailable"),
+	[TrackerPromptType.CameraUnavailable] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.CameraUnavailable"),
 }
 local PromptSubTitle = {
 	[TrackerPromptType.None] = "",
@@ -46,7 +50,24 @@ local PromptSubTitle = {
 	[TrackerPromptType.NoDynamicHeadEquipped] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.PromptNoDynamicHeadEquipped"),
 	[TrackerPromptType.VideoUnsupported] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.VideoUnsupported"),
 	[TrackerPromptType.UnsupportedDevice] = RobloxTranslator:FormatByKey("Feature.FaceChat.Subtitle.UnsupportedDevice"),
+	[TrackerPromptType.CameraUnavailable] = RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.Subtitle.CameraUnavailable"),
 }
+
+local CustomWebviewType: { [string]: number } = {
+	FullScreen = 0,
+	FormSheet = 2,
+}
+local OPEN_CUSTOM_WEBVIEW = 20
+local function openWebview(url)
+	local notificationData = HttpService:JSONEncode({
+		title = if game:GetEngineFeature("SetWebViewTitle") then RobloxTranslator:FormatByKey("Feature.SettingsHub.Prompt.CameraUnavailable") else nil,
+		presentationStyle = CustomWebviewType.FormSheet,
+		visible = true,
+		url = url,
+	})
+
+	GuiService:BroadcastNotification(notificationData, OPEN_CUSTOM_WEBVIEW)
+end
 
 function TrackerPrompt:init()
 	self.promptType = self.props.promptType
@@ -65,6 +86,11 @@ function TrackerPrompt:render()
 				toastTitle = PromptTitle[self.promptType],
 				toastSubtitle = PromptSubTitle[self.promptType],
 				onDismissed = function() end,
+				onActivated = function()
+					if self.promptType == TrackerPromptType.CameraUnavailable then
+						openWebview(FStringCameraUnavailableUrl)
+					end
+				end,
 			},
 		}),
 	})

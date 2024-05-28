@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local Package = require(PackageIndex["roblox_string-utilities"]["string-utilities"])
+local Package = require(PackageIndex["string-utilities"]["string-utilities"])
 
 return Package

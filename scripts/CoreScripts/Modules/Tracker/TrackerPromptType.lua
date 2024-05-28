@@ -7,4 +7,5 @@ return {
 	NoDynamicHeadEquipped = "NoDynamicHeadEquipped",
 	VideoUnsupported = "VideoUnsupported",
 	UnsupportedDevice = "UnsupportedDevice",
+	CameraUnavailable = "CameraUnavailable",
 }

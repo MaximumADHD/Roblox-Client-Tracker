@@ -1,32 +1,21 @@
 PROTO_0:
   GETUPVAL R2 0
   LOADN R3 1
-  DUPTABLE R4 K5 [{"instanceId", "className", "instanceName", "assetId", "scriptSource"}]
+  DUPTABLE R4 K4 [{"instanceId", "className", "instanceName", "assetId"}]
   SETTABLEKS R0 R4 K0 ["instanceId"]
-  GETTABLEKS R5 R0 K6 ["ClassName"]
+  GETTABLEKS R5 R0 K5 ["ClassName"]
   SETTABLEKS R5 R4 K1 ["className"]
-  GETTABLEKS R5 R0 K7 ["Name"]
+  GETTABLEKS R5 R0 K6 ["Name"]
   SETTABLEKS R5 R4 K2 ["instanceName"]
-  GETTABLEKS R6 R0 K8 ["SourceAssetId"]
+  GETTABLEKS R6 R0 K7 ["SourceAssetId"]
   LOADN R7 0
   JUMPIFNOTLT R7 R6 [+4]
-  GETTABLEKS R5 R0 K8 ["SourceAssetId"]
+  GETTABLEKS R5 R0 K7 ["SourceAssetId"]
   JUMP [+1]
   LOADNIL R5
   SETTABLEKS R5 R4 K3 ["assetId"]
-  GETUPVAL R6 1
-  CALL R6 0 1
-  JUMPIFNOT R6 [+8]
-  LOADK R8 K9 ["Script"]
-  NAMECALL R6 R0 K10 ["IsA"]
-  CALL R6 2 1
-  JUMPIFNOT R6 [+3]
-  GETTABLEKS R5 R0 K11 ["Source"]
-  JUMP [+1]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K4 ["scriptSource"]
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R1 K14 [table.insert]
+  GETIMPORT R1 K10 [table.insert]
   CALL R1 3 0
   RETURN R0 0
 
@@ -45,22 +34,16 @@ MAIN:
   LOADK R2 K2 ["StreamingServiceDispatcherRegistry"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["getFFlagCAPScriptSourceInRecentContext"]
-  CALL R1 1 1
-  NEWTABLE R2 4 0
-  NEWTABLE R3 0 0
-  NEWCLOSURE R4 P0
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  SETTABLEKS R4 R2 K9 ["registerInstance"]
-  NEWCLOSURE R4 P1
-  CAPTURE REF R3
-  SETTABLEKS R4 R2 K10 ["fetchContext"]
-  NEWCLOSURE R4 P2
-  CAPTURE REF R3
-  SETTABLEKS R4 R2 K11 ["clear"]
-  CLOSEUPVALS R3
-  RETURN R2 1
+  NEWTABLE R1 4 0
+  NEWTABLE R2 0 0
+  NEWCLOSURE R3 P0
+  CAPTURE REF R2
+  SETTABLEKS R3 R1 K4 ["registerInstance"]
+  NEWCLOSURE R3 P1
+  CAPTURE REF R2
+  SETTABLEKS R3 R1 K5 ["fetchContext"]
+  NEWCLOSURE R3 P2
+  CAPTURE REF R2
+  SETTABLEKS R3 R1 K6 ["clear"]
+  CLOSEUPVALS R2
+  RETURN R1 1

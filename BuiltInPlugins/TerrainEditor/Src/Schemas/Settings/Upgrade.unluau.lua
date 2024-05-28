@@ -9,18 +9,18 @@ local var6 = {}
 var3.Shorelines = var2.Storage.LocalSession
 var6.Storage = {}
 function var6.Generator(arg1, arg2, arg3, arg4)
-   local var32 = {}
-   var32.Id = var3.Shorelines
-   local var35 = {}
-   var35.Id = var3.Shorelines
-   var35.Type = "Upgrade"
-   var35.URL = var5
-   var32.Schema = var35
-   local var40 = {}
-   var40.Category = var4
-   var40.Data = arg2
-   var40.Overrides = arg4
-   return var1(arg1, {}, var40)
+   local var697 = {}
+   var697.Id = var3.Shorelines
+   local var700 = {}
+   var700.Id = var3.Shorelines
+   var700.Type = "Upgrade"
+   var700.URL = var5
+   var697.Schema = var700
+   local var705 = {}
+   var705.Category = var4
+   var705.Data = arg2
+   var705.Overrides = arg4
+   return var1(arg1, {}, var705)
 end
 
 return var6

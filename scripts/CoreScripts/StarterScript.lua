@@ -68,7 +68,7 @@ game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
 
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
-local FFlagEnableBulkPurchaseApp = game:DefineFastFlag("EnableBulkPurchaseApp2", false)
+local FFlagEnableBulkPurchaseApp = game:DefineFastFlag("EnableBulkPurchaseApp3", false)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)

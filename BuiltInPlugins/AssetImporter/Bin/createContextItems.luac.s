@@ -30,83 +30,104 @@ PROTO_0:
   GETIMPORT R12 K1 [require]
   GETUPVAL R16 0
   GETTABLEKS R15 R16 K9 ["Src"]
-  GETTABLEKS R14 R15 K14 ["Resources"]
-  GETTABLEKS R13 R14 K15 ["createAnalyticsHandlers"]
+  GETTABLEKS R14 R15 K10 ["Controllers"]
+  GETTABLEKS R13 R14 K14 ["QueueController"]
   CALL R12 1 1
   GETIMPORT R13 K1 [require]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K9 ["Src"]
-  GETTABLEKS R15 R16 K14 ["Resources"]
-  GETTABLEKS R14 R15 K16 ["MakeTheme"]
+  GETTABLEKS R15 R16 K15 ["Resources"]
+  GETTABLEKS R14 R15 K16 ["createAnalyticsHandlers"]
   CALL R13 1 1
+  GETIMPORT R14 K1 [require]
   GETUPVAL R18 0
   GETTABLEKS R17 R18 K9 ["Src"]
-  GETTABLEKS R16 R17 K14 ["Resources"]
-  GETTABLEKS R15 R16 K6 ["Localization"]
-  GETTABLEKS R14 R15 K17 ["SourceStrings"]
+  GETTABLEKS R16 R17 K15 ["Resources"]
+  GETTABLEKS R15 R16 K17 ["MakeTheme"]
+  CALL R14 1 1
   GETUPVAL R19 0
   GETTABLEKS R18 R19 K9 ["Src"]
-  GETTABLEKS R17 R18 K14 ["Resources"]
+  GETTABLEKS R17 R18 K15 ["Resources"]
   GETTABLEKS R16 R17 K6 ["Localization"]
-  GETTABLEKS R15 R16 K18 ["LocalizedStrings"]
-  GETIMPORT R16 K1 [require]
+  GETTABLEKS R15 R16 K18 ["SourceStrings"]
   GETUPVAL R20 0
   GETTABLEKS R19 R20 K9 ["Src"]
-  GETTABLEKS R18 R19 K19 ["Flags"]
-  GETTABLEKS R17 R18 K20 ["getFFlagAssetImportRefactorFileOpen"]
-  CALL R16 1 1
-  GETTABLEKS R18 R4 K21 ["Plugin"]
-  GETTABLEKS R17 R18 K22 ["new"]
-  MOVE R18 R0
+  GETTABLEKS R18 R19 K15 ["Resources"]
+  GETTABLEKS R17 R18 K6 ["Localization"]
+  GETTABLEKS R16 R17 K19 ["LocalizedStrings"]
+  GETIMPORT R17 K1 [require]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K9 ["Src"]
+  GETTABLEKS R19 R20 K20 ["Flags"]
+  GETTABLEKS R18 R19 K21 ["getFFlagAssetImportRefactorFileOpen"]
   CALL R17 1 1
-  GETTABLEKS R18 R7 K22 ["new"]
-  NAMECALL R19 R0 K23 ["getMouse"]
-  CALL R19 1 -1
-  CALL R18 -1 1
-  GETTABLEKS R19 R8 K22 ["new"]
-  MOVE R20 R1
+  GETIMPORT R18 K1 [require]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K9 ["Src"]
+  GETTABLEKS R20 R21 K20 ["Flags"]
+  GETTABLEKS R19 R20 K22 ["getFFlagAssetImportEnableMultipleFiles"]
+  CALL R18 1 1
+  GETTABLEKS R20 R4 K23 ["Plugin"]
+  GETTABLEKS R19 R20 K24 ["new"]
+  MOVE R20 R0
   CALL R19 1 1
-  MOVE R20 R13
-  CALL R20 0 1
-  GETTABLEKS R21 R6 K22 ["new"]
-  DUPTABLE R22 K27 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  SETTABLEKS R14 R22 K24 ["stringResourceTable"]
-  SETTABLEKS R15 R22 K25 ["translationResourceTable"]
-  LOADK R23 K28 ["AssetImporter"]
-  SETTABLEKS R23 R22 K26 ["pluginName"]
+  GETTABLEKS R20 R7 K24 ["new"]
+  NAMECALL R21 R0 K25 ["getMouse"]
+  CALL R21 1 -1
+  CALL R20 -1 1
+  GETTABLEKS R21 R8 K24 ["new"]
+  MOVE R22 R1
   CALL R21 1 1
-  GETTABLEKS R22 R9 K22 ["new"]
+  MOVE R22 R14
   CALL R22 0 1
-  GETTABLEKS R23 R10 K22 ["new"]
-  MOVE R24 R0
-  MOVE R25 R1
-  MOVE R26 R21
-  CALL R23 3 1
-  MOVE R25 R16
-  CALL R25 0 1
-  JUMPIFNOT R25 [+6]
-  GETTABLEKS R24 R11 K22 ["new"]
-  MOVE R25 R1
-  MOVE R26 R23
-  CALL R24 2 1
+  GETTABLEKS R23 R6 K24 ["new"]
+  DUPTABLE R24 K29 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  SETTABLEKS R15 R24 K26 ["stringResourceTable"]
+  SETTABLEKS R16 R24 K27 ["translationResourceTable"]
+  LOADK R25 K30 ["AssetImporter"]
+  SETTABLEKS R25 R24 K28 ["pluginName"]
+  CALL R23 1 1
+  GETTABLEKS R24 R9 K24 ["new"]
+  CALL R24 0 1
+  GETTABLEKS R25 R10 K24 ["new"]
+  MOVE R26 R0
+  MOVE R27 R1
+  MOVE R28 R23
+  CALL R25 3 1
+  MOVE R27 R17
+  CALL R27 0 1
+  JUMPIFNOT R27 [+6]
+  GETTABLEKS R26 R11 K24 ["new"]
+  MOVE R27 R1
+  MOVE R28 R25
+  CALL R26 2 1
   JUMP [+1]
-  LOADNIL R24
-  GETTABLEKS R25 R5 K22 ["new"]
-  MOVE R26 R12
-  CALL R25 1 1
-  DUPTABLE R26 K30 [{"Plugin", "Mouse", "Store", "Theme", "Localization", "Analytics", "CalloutController", "PresetController", "FileController"}]
-  SETTABLEKS R17 R26 K21 ["Plugin"]
-  SETTABLEKS R18 R26 K7 ["Mouse"]
-  SETTABLEKS R19 R26 K8 ["Store"]
-  SETTABLEKS R20 R26 K29 ["Theme"]
-  SETTABLEKS R21 R26 K6 ["Localization"]
-  SETTABLEKS R25 R26 K5 ["Analytics"]
-  SETTABLEKS R22 R26 K11 ["CalloutController"]
-  SETTABLEKS R23 R26 K12 ["PresetController"]
-  SETTABLEKS R24 R26 K13 ["FileController"]
+  LOADNIL R26
+  MOVE R28 R18
+  CALL R28 0 1
+  JUMPIFNOT R28 [+5]
+  GETTABLEKS R27 R12 K24 ["new"]
+  MOVE R28 R1
+  CALL R27 1 1
+  JUMP [+1]
+  LOADNIL R27
+  GETTABLEKS R28 R5 K24 ["new"]
+  MOVE R29 R13
+  CALL R28 1 1
+  DUPTABLE R29 K32 [{"Plugin", "Mouse", "Store", "Theme", "Localization", "Analytics", "CalloutController", "PresetController", "FileController", "QueueController"}]
+  SETTABLEKS R19 R29 K23 ["Plugin"]
+  SETTABLEKS R20 R29 K7 ["Mouse"]
+  SETTABLEKS R21 R29 K8 ["Store"]
+  SETTABLEKS R22 R29 K31 ["Theme"]
+  SETTABLEKS R23 R29 K6 ["Localization"]
+  SETTABLEKS R28 R29 K5 ["Analytics"]
+  SETTABLEKS R24 R29 K11 ["CalloutController"]
+  SETTABLEKS R25 R29 K12 ["PresetController"]
+  SETTABLEKS R26 R29 K13 ["FileController"]
+  SETTABLEKS R27 R29 K14 ["QueueController"]
   JUMPIFNOT R2 [+2]
-  SETTABLEKS R2 R26 K31 ["PluginLoaderContextItem"]
-  RETURN R26 1
+  SETTABLEKS R2 R29 K33 ["PluginLoaderContextItem"]
+  RETURN R29 1
 
 MAIN:
   PREPVARARGS 0

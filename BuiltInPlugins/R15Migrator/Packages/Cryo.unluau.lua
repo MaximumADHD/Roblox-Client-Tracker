@@ -1,2 +1,2 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-return require(script.Parent._Index.roblox_cryo.cryo)
+return require(script.Parent._Index.Cryo.Cryo)

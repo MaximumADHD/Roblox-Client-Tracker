@@ -65,7 +65,7 @@ PROTO_2:
   GETTABLEKS R1 R2 K0 ["new"]
   CALL R1 0 1
   GETTABLEKS R2 R0 K1 ["asset"]
-  JUMPIFNOT R2 [+142]
+  JUMPIFNOT R2 [+137]
   DUPTABLE R2 K15 [{"Id", "Name", "TypeId", "AssetGenres", "AssetSubTypes", "IsEndorsed", "Description", "Duration", "Created", "Updated", "HasScripts", "CreatingUniverseId", "Status"}]
   GETTABLEKS R4 R0 K1 ["asset"]
   GETTABLEKS R3 R4 K16 ["id"]
@@ -100,13 +100,8 @@ PROTO_2:
   GETTABLEKS R4 R0 K1 ["asset"]
   GETTABLEKS R3 R4 K26 ["hasScripts"]
   SETTABLEKS R3 R2 K12 ["HasScripts"]
-  GETUPVAL R4 1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+5]
   GETTABLEKS R4 R0 K1 ["asset"]
   GETTABLEKS R3 R4 K27 ["creatingUniverseId"]
-  JUMP [+1]
-  LOADNIL R3
   SETTABLEKS R3 R2 K13 ["CreatingUniverseId"]
   GETGLOBAL R3 K28 ["itemsDetailsToCreationsDistributionStatus"]
   MOVE R4 R0
@@ -295,23 +290,20 @@ MAIN:
   GETTABLEKS R8 R9 K12 ["Types"]
   GETTABLEKS R7 R8 K13 ["MarketplaceFiatServiceTypes"]
   CALL R6 1 1
-  GETTABLEKS R8 R2 K14 ["SharedFlags"]
-  GETTABLEKS R7 R8 K15 ["getFFlagAssetPreviewContentAttribution"]
-  DUPCLOSURE R8 K16 [PROTO_0]
+  DUPCLOSURE R7 K14 [PROTO_0]
   CAPTURE VAL R4
   CAPTURE VAL R5
-  SETGLOBAL R8 K17 ["itemsDetailsToCreationsDistributionStatus"]
-  NEWTABLE R8 4 0
-  DUPCLOSURE R9 K18 [PROTO_1]
-  SETTABLEKS R9 R8 K19 ["new"]
-  DUPCLOSURE R9 K20 [PROTO_2]
-  CAPTURE VAL R8
+  SETGLOBAL R7 K15 ["itemsDetailsToCreationsDistributionStatus"]
+  NEWTABLE R7 4 0
+  DUPCLOSURE R8 K16 [PROTO_1]
+  SETTABLEKS R8 R7 K17 ["new"]
+  DUPCLOSURE R8 K18 [PROTO_2]
   CAPTURE VAL R7
-  SETTABLEKS R9 R8 K21 ["fromItemDetailsRequest"]
-  DUPCLOSURE R9 K22 [PROTO_3]
+  SETTABLEKS R8 R7 K19 ["fromItemDetailsRequest"]
+  DUPCLOSURE R8 K20 [PROTO_3]
   CAPTURE VAL R3
-  SETTABLEKS R9 R8 K23 ["AddContextToItemDetails"]
-  DUPCLOSURE R9 K24 [PROTO_4]
-  CAPTURE VAL R8
-  SETTABLEKS R9 R8 K25 ["fromCreationsDetails"]
-  RETURN R8 1
+  SETTABLEKS R8 R7 K21 ["AddContextToItemDetails"]
+  DUPCLOSURE R8 K22 [PROTO_4]
+  CAPTURE VAL R7
+  SETTABLEKS R8 R7 K23 ["fromCreationsDetails"]
+  RETURN R7 1

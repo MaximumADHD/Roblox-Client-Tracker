@@ -18,4 +18,5 @@ return {
 	interactiveAlertDesignTokenMinMaxSize = UIBloxFlags.GetFFlagUIBloxInteractiveAlertDesignTokenMinMaxSize(),
 	alertTitleDesignTokenHeader = UIBloxFlags.GetFFlagUIBloxAlertTitleDesignTokenHeader(),
 	refactorInteractable = UIBloxFlags.FFlagUIBloxUseNewInteractableCoreScript,
+	addMiddleContentZIndex = UIBloxFlags.GetFFlagUIBloxUseFullPageModalZIndex(),
 }

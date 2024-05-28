@@ -44,195 +44,197 @@ PROTO_2:
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K3 ["createElement"]
   GETUPVAL R8 4
-  DUPTABLE R9 K37 [{"ImageColor3", "HideLowerKnob", "HideUpperKnob", "HorizontalDragTolerance", "Layout", "LayoutOrder", "LowerRangeValue", "Max", "Min", "OnInputEnded", "OnValuesChanged", "Size", "UpperRangeValue"}]
+  DUPTABLE R9 K38 [{"ImageColor3", "HideLowerKnob", "HideUpperKnob", "HorizontalDragTolerance", "Layout", "LayoutOrder", "LowerRangeValue", "Max", "Min", "OnInputEnded", "OnValuesChanged", "Precision", "Size", "UpperRangeValue"}]
   GETUPVAL R10 5
-  GETTABLEKS R12 R0 K38 ["Material"]
-  NAMECALL R10 R10 K39 ["GetMaterialColor"]
+  GETTABLEKS R12 R0 K39 ["Material"]
+  NAMECALL R10 R10 K40 ["GetMaterialColor"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K27 ["ImageColor3"]
-  GETTABLEKS R11 R0 K40 ["Selected"]
+  GETTABLEKS R11 R0 K41 ["Selected"]
   NOT R10 R11
   SETTABLEKS R10 R9 K28 ["HideLowerKnob"]
-  GETTABLEKS R11 R0 K40 ["Selected"]
+  GETTABLEKS R11 R0 K41 ["Selected"]
   NOT R10 R11
   SETTABLEKS R10 R9 K29 ["HideUpperKnob"]
   LOADN R10 20
   SETTABLEKS R10 R9 K30 ["HorizontalDragTolerance"]
   GETIMPORT R10 K18 [Enum.FillDirection.Vertical]
   SETTABLEKS R10 R9 K6 ["Layout"]
-  NAMECALL R10 R2 K41 ["getNextOrder"]
+  NAMECALL R10 R2 K42 ["getNextOrder"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K7 ["LayoutOrder"]
-  GETTABLEKS R10 R0 K42 ["MinHeight"]
+  GETTABLEKS R10 R0 K43 ["MinHeight"]
   SETTABLEKS R10 R9 K31 ["LowerRangeValue"]
   GETTABLEKS R10 R0 K32 ["Max"]
   SETTABLEKS R10 R9 K32 ["Max"]
   GETTABLEKS R10 R0 K33 ["Min"]
   SETTABLEKS R10 R9 K33 ["Min"]
-  GETTABLEKS R10 R0 K43 ["OnCommit"]
+  GETTABLEKS R10 R0 K44 ["OnCommit"]
   SETTABLEKS R10 R9 K34 ["OnInputEnded"]
   NEWCLOSURE R10 P0
   CAPTURE VAL R0
   SETTABLEKS R10 R9 K35 ["OnValuesChanged"]
-  GETTABLEKS R10 R1 K44 ["SliderSize"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K36 ["Precision"]
+  GETTABLEKS R10 R1 K45 ["SliderSize"]
   SETTABLEKS R10 R9 K8 ["Size"]
-  GETTABLEKS R10 R0 K45 ["MaxHeight"]
-  SETTABLEKS R10 R9 K36 ["UpperRangeValue"]
+  GETTABLEKS R10 R0 K46 ["MaxHeight"]
+  SETTABLEKS R10 R9 K37 ["UpperRangeValue"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K22 ["Slider"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K3 ["createElement"]
   GETUPVAL R8 6
-  DUPTABLE R9 K47 [{"ImageColor3", "LayoutOrder", "Size", "Style"}]
-  GETTABLEKS R11 R0 K40 ["Selected"]
+  DUPTABLE R9 K48 [{"ImageColor3", "LayoutOrder", "Size", "Style"}]
+  GETTABLEKS R11 R0 K41 ["Selected"]
   JUMPIFNOT R11 [+3]
-  GETTABLEKS R10 R1 K48 ["ImageColorSelected"]
+  GETTABLEKS R10 R1 K49 ["ImageColorSelected"]
   JUMP [+2]
-  GETTABLEKS R10 R1 K49 ["ImageColor"]
+  GETTABLEKS R10 R1 K50 ["ImageColor"]
   SETTABLEKS R10 R9 K27 ["ImageColor3"]
-  NAMECALL R10 R2 K41 ["getNextOrder"]
+  NAMECALL R10 R2 K42 ["getNextOrder"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K7 ["LayoutOrder"]
-  GETTABLEKS R10 R1 K50 ["ArrowSize"]
+  GETTABLEKS R10 R1 K51 ["ArrowSize"]
   SETTABLEKS R10 R9 K8 ["Size"]
-  GETTABLEKS R10 R1 K51 ["ArrowStyle"]
-  SETTABLEKS R10 R9 K46 ["Style"]
+  GETTABLEKS R10 R1 K52 ["ArrowStyle"]
+  SETTABLEKS R10 R9 K47 ["Style"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K23 ["Arrow"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K3 ["createElement"]
-  LOADK R8 K52 ["ImageButton"]
+  LOADK R8 K53 ["ImageButton"]
   NEWTABLE R9 16 0
-  GETTABLEKS R11 R0 K40 ["Selected"]
+  GETTABLEKS R11 R0 K41 ["Selected"]
   JUMPIFNOT R11 [+8]
-  GETIMPORT R10 K54 [BrickColor.new]
-  GETTABLEKS R12 R1 K55 ["PreviewBorder"]
-  GETTABLEKS R11 R12 K56 ["Color"]
+  GETIMPORT R10 K55 [BrickColor.new]
+  GETTABLEKS R12 R1 K56 ["PreviewBorder"]
+  GETTABLEKS R11 R12 K57 ["Color"]
   CALL R10 1 1
   JUMP [+1]
   LOADNIL R10
-  SETTABLEKS R10 R9 K57 ["BackgroundColor"]
-  GETTABLEKS R11 R0 K40 ["Selected"]
+  SETTABLEKS R10 R9 K58 ["BackgroundColor"]
+  GETTABLEKS R11 R0 K41 ["Selected"]
   JUMPIFNOT R11 [+2]
   LOADN R10 0
   JUMP [+1]
   LOADN R10 1
-  SETTABLEKS R10 R9 K58 ["BackgroundTransparency"]
-  GETTABLEKS R11 R0 K40 ["Selected"]
+  SETTABLEKS R10 R9 K59 ["BackgroundTransparency"]
+  GETTABLEKS R11 R0 K41 ["Selected"]
   JUMPIFNOT R11 [+5]
-  GETTABLEKS R11 R1 K55 ["PreviewBorder"]
-  GETTABLEKS R10 R11 K59 ["Image"]
+  GETTABLEKS R11 R1 K56 ["PreviewBorder"]
+  GETTABLEKS R10 R11 K60 ["Image"]
   JUMP [+1]
   LOADNIL R10
-  SETTABLEKS R10 R9 K59 ["Image"]
-  GETTABLEKS R11 R0 K40 ["Selected"]
+  SETTABLEKS R10 R9 K60 ["Image"]
+  GETTABLEKS R11 R0 K41 ["Selected"]
   JUMPIFNOT R11 [+5]
-  GETTABLEKS R11 R1 K55 ["PreviewBorder"]
-  GETTABLEKS R10 R11 K56 ["Color"]
+  GETTABLEKS R11 R1 K56 ["PreviewBorder"]
+  GETTABLEKS R10 R11 K57 ["Color"]
   JUMP [+1]
   LOADNIL R10
   SETTABLEKS R10 R9 K27 ["ImageColor3"]
-  NAMECALL R10 R2 K41 ["getNextOrder"]
+  NAMECALL R10 R2 K42 ["getNextOrder"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K7 ["LayoutOrder"]
-  GETIMPORT R10 K62 [Enum.ScaleType.Slice]
-  SETTABLEKS R10 R9 K60 ["ScaleType"]
-  GETTABLEKS R10 R1 K63 ["MaterialPreviewSize"]
+  GETIMPORT R10 K63 [Enum.ScaleType.Slice]
+  SETTABLEKS R10 R9 K61 ["ScaleType"]
+  GETTABLEKS R10 R1 K64 ["MaterialPreviewSize"]
   SETTABLEKS R10 R9 K8 ["Size"]
-  GETTABLEKS R11 R1 K55 ["PreviewBorder"]
-  GETTABLEKS R10 R11 K64 ["SliceCenter"]
-  SETTABLEKS R10 R9 K64 ["SliceCenter"]
+  GETTABLEKS R11 R1 K56 ["PreviewBorder"]
+  GETTABLEKS R10 R11 K65 ["SliceCenter"]
+  SETTABLEKS R10 R9 K65 ["SliceCenter"]
   GETUPVAL R12 2
-  GETTABLEKS R11 R12 K65 ["Event"]
-  GETTABLEKS R10 R11 K66 ["Activated"]
+  GETTABLEKS R11 R12 K66 ["Event"]
+  GETTABLEKS R10 R11 K67 ["Activated"]
   NEWCLOSURE R11 P1
   CAPTURE VAL R0
   SETTABLE R11 R9 R10
-  DUPTABLE R10 K69 [{"Container", "UICorner"}]
+  DUPTABLE R10 K70 [{"Container", "UICorner"}]
   GETUPVAL R12 2
   GETTABLEKS R11 R12 K3 ["createElement"]
   GETUPVAL R12 3
-  DUPTABLE R13 K72 [{"AnchorPoint", "Position", "Size"}]
-  GETIMPORT R14 K74 [Vector2.new]
-  LOADK R15 K75 [0.5]
-  LOADK R16 K75 [0.5]
+  DUPTABLE R13 K73 [{"AnchorPoint", "Position", "Size"}]
+  GETIMPORT R14 K75 [Vector2.new]
+  LOADK R15 K76 [0.5]
+  LOADK R16 K76 [0.5]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K70 ["AnchorPoint"]
+  SETTABLEKS R14 R13 K71 ["AnchorPoint"]
   GETIMPORT R14 K21 [UDim2.fromScale]
-  LOADK R15 K75 [0.5]
-  LOADK R16 K75 [0.5]
+  LOADK R15 K76 [0.5]
+  LOADK R16 K76 [0.5]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K71 ["Position"]
-  GETIMPORT R14 K76 [UDim2.new]
+  SETTABLEKS R14 R13 K72 ["Position"]
+  GETIMPORT R14 K77 [UDim2.new]
   LOADN R15 1
   LOADN R16 254
   LOADN R17 1
   LOADN R18 254
   CALL R14 4 1
   SETTABLEKS R14 R13 K8 ["Size"]
-  DUPTABLE R14 K78 [{"MaterialPreview"}]
+  DUPTABLE R14 K79 [{"MaterialPreview"}]
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K3 ["createElement"]
   GETUPVAL R16 7
-  DUPTABLE R17 K81 [{"CornerRadius", "InitialDistance", "Material", "Size"}]
-  GETTABLEKS R18 R1 K82 ["Corner"]
-  SETTABLEKS R18 R17 K79 ["CornerRadius"]
+  DUPTABLE R17 K82 [{"CornerRadius", "InitialDistance", "Material", "Size"}]
+  GETTABLEKS R18 R1 K83 ["Corner"]
+  SETTABLEKS R18 R17 K80 ["CornerRadius"]
   LOADN R18 4
-  SETTABLEKS R18 R17 K80 ["InitialDistance"]
-  GETTABLEKS R18 R0 K38 ["Material"]
-  SETTABLEKS R18 R17 K38 ["Material"]
+  SETTABLEKS R18 R17 K81 ["InitialDistance"]
+  GETTABLEKS R18 R0 K39 ["Material"]
+  SETTABLEKS R18 R17 K39 ["Material"]
   GETIMPORT R18 K21 [UDim2.fromScale]
   LOADN R19 1
   LOADN R20 1
   CALL R18 2 1
   SETTABLEKS R18 R17 K8 ["Size"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K77 ["MaterialPreview"]
+  SETTABLEKS R15 R14 K78 ["MaterialPreview"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K67 ["Container"]
+  SETTABLEKS R11 R10 K68 ["Container"]
   GETUPVAL R12 2
   GETTABLEKS R11 R12 K3 ["createElement"]
-  LOADK R12 K68 ["UICorner"]
-  DUPTABLE R13 K83 [{"CornerRadius"}]
-  GETTABLEKS R14 R1 K82 ["Corner"]
-  SETTABLEKS R14 R13 K79 ["CornerRadius"]
+  LOADK R12 K69 ["UICorner"]
+  DUPTABLE R13 K84 [{"CornerRadius"}]
+  GETTABLEKS R14 R1 K83 ["Corner"]
+  SETTABLEKS R14 R13 K80 ["CornerRadius"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K68 ["UICorner"]
+  SETTABLEKS R11 R10 K69 ["UICorner"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K24 ["Preview"]
-  GETTABLEKS R8 R0 K40 ["Selected"]
+  GETTABLEKS R8 R0 K41 ["Selected"]
   JUMPIFNOT R8 [+50]
-  GETTABLEKS R8 R0 K84 ["CanDelete"]
+  GETTABLEKS R8 R0 K85 ["CanDelete"]
   JUMPIFNOT R8 [+47]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K3 ["createElement"]
   GETUPVAL R8 8
-  DUPTABLE R9 K86 [{"LayoutOrder", "OnClick", "Size", "Style"}]
-  NAMECALL R10 R2 K41 ["getNextOrder"]
+  DUPTABLE R9 K87 [{"LayoutOrder", "OnClick", "Size", "Style"}]
+  NAMECALL R10 R2 K42 ["getNextOrder"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K7 ["LayoutOrder"]
-  GETTABLEKS R10 R0 K87 ["OnRemove"]
-  SETTABLEKS R10 R9 K85 ["OnClick"]
-  GETTABLEKS R10 R1 K88 ["ButtonSize"]
+  GETTABLEKS R10 R0 K88 ["OnRemove"]
+  SETTABLEKS R10 R9 K86 ["OnClick"]
+  GETTABLEKS R10 R1 K89 ["ButtonSize"]
   SETTABLEKS R10 R9 K8 ["Size"]
-  LOADK R10 K89 ["RoundSubtle"]
-  SETTABLEKS R10 R9 K46 ["Style"]
-  DUPTABLE R10 K91 [{"DeleteIcon"}]
+  LOADK R10 K90 ["RoundSubtle"]
+  SETTABLEKS R10 R9 K47 ["Style"]
+  DUPTABLE R10 K92 [{"DeleteIcon"}]
   GETUPVAL R12 2
   GETTABLEKS R11 R12 K3 ["createElement"]
   GETUPVAL R12 6
-  DUPTABLE R13 K92 [{"ImageColor3", "Size", "Style"}]
-  GETTABLEKS R14 R1 K49 ["ImageColor"]
+  DUPTABLE R13 K93 [{"ImageColor3", "Size", "Style"}]
+  GETTABLEKS R14 R1 K50 ["ImageColor"]
   SETTABLEKS R14 R13 K27 ["ImageColor3"]
   GETIMPORT R14 K21 [UDim2.fromScale]
   LOADN R15 1
   LOADN R16 1
   CALL R14 2 1
   SETTABLEKS R14 R13 K8 ["Size"]
-  GETTABLEKS R14 R1 K93 ["RemoveStyle"]
-  SETTABLEKS R14 R13 K46 ["Style"]
+  GETTABLEKS R14 R1 K94 ["RemoveStyle"]
+  SETTABLEKS R14 R13 K47 ["Style"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K90 ["DeleteIcon"]
+  SETTABLEKS R11 R10 K91 ["DeleteIcon"]
   CALL R7 3 1
   JUMP [+1]
   LOADNIL R7

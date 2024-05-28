@@ -15,14 +15,12 @@ local var12 = var3.Style.Themes.StudioTheme
 local var13 = var3.Styling.registerPluginStyles
 local var14 = var0.Src.Resources.Localization.SourceStrings
 local var15 = var0.Src.Resources.Localization.LocalizedStrings
-local var16 = var0.Src.Components
-local var17 = require(var16.ExampleComponent)
-local var18 = require(var16.ExampleRoduxComponent)
-local var19 = var1.PureComponent:extend("MainPlugin")
-function var19.init(arg1, arg2)
-   local var55 = {}
-   var55.enabled = false
-   arg1.state = var55
+local var16 = require(var0.Src.Components.App)
+local var17 = var1.PureComponent:extend("MainPlugin")
+function var17.init(arg1, arg2)
+   local var52 = {}
+   var52.enabled = false
+   arg1.state = var52
    function arg1.toggleEnabled(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
@@ -38,30 +36,30 @@ function var19.init(arg1, arg2)
    end
    
    function arg1.onRestore()
-      local var68 = {}
-      var68.enabled = false
-      arg1:setState(var68)
+      local var65 = {}
+      var65.enabled = false
+      arg1:setState(var65)
    end
    
    function arg1.onWidgetEnabledChanged(arg1)
-      local var73 = {}
-      var73.enabled = arg1
-      arg1:setState(var73)
+      local var70 = {}
+      var70.enabled = arg1
+      arg1:setState(var70)
    end
    
    function arg1.onDockWidgetCreated(arg1)
-      local var77 = {}
-      var77.enabled = arg1.Enabled
-      arg1:setState(var77)
+      local var74 = {}
+      var74.enabled = arg1.Enabled
+      arg1:setState(var74)
    end
    
-   local var87 = var2.thunkMiddleware
+   local var84 = var2.thunkMiddleware
    arg1.store = var2.Store.new(var11, nil, {}, nil)
-   local var93 = {}
-   var93.stringResourceTable = var14
-   var93.translationResourceTable = var15
-   var93.pluginName = "AssetManager"
-   arg1.localization = var7.Localization.new(var93)
+   local var90 = {}
+   var90.stringResourceTable = var14
+   var90.translationResourceTable = var15
+   var90.pluginName = "AssetManager"
+   arg1.localization = var7.Localization.new(var90)
    arg1.analytics = var7.Analytics.new(function()
       return {}
    end, {})
@@ -69,44 +67,43 @@ function var19.init(arg1, arg2)
    arg1.design = var13(arg2.Plugin)
 end
 
-function var19.didUpdate(arg1)
+function var17.didUpdate(arg1)
    arg1.props.PluginLoaderContext.mainButton:SetActive(arg1.state.enabled)
 end
 
-function var19.render(arg1)
+function var17.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Plugin
-   local var125 = var8
-   var125 = var1
-   local var131 = var10.new(arg1.store)
-   local var136 = var9.new(var1:getMouse())
-   local var137 = arg1.DEPRECATED_stylizer
-   local var138 = arg1.localization
-   local var139 = arg1.analytics
-   local var140 = {}
-   local var144 = {}
-   var144.Id = "AssetManager"
-   var144.Enabled = arg1.state.enabled
-   var144.Title = arg1.localization:getText("Plugin", "Name")
-   var144.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var144.InitialDockState = Enum.InitialDockState.Bottom
-   var144.Size = Vector2.new(640, 480)
-   var144.MinSize = Vector2.new(250, 200)
-   var144.OnClose = arg1.onClose
-   var144.Widget = var0.PluginLoaderContext.mainDockWidget
-   var144.OnWidgetCreated = arg1.onDockWidgetCreated
+   local var122 = var8
+   var122 = var1
+   local var128 = var10.new(arg1.store)
+   local var133 = var9.new(var1:getMouse())
+   local var134 = arg1.DEPRECATED_stylizer
+   local var135 = arg1.localization
+   local var136 = arg1.analytics
+   local var137 = {}
+   local var141 = {}
+   var141.Id = "AssetManager"
+   var141.Enabled = arg1.state.enabled
+   var141.Title = arg1.localization:getText("Plugin", "Name")
+   var141.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var141.InitialDockState = Enum.InitialDockState.Bottom
+   var141.Size = Vector2.new(640, 480)
+   var141.MinSize = Vector2.new(250, 200)
+   var141.OnClose = arg1.onClose
+   var141.Widget = var0.PluginLoaderContext.mainDockWidget
+   var141.OnWidgetCreated = arg1.onDockWidgetCreated
    var1.Change.Enabled = arg1.onWidgetEnabledChanged
-   local var169 = {}
+   local var166 = {}
    var1.Tag = "X-Fill X-Column"
-   local var177 = {}
-   var177.ExampleComponent = var1.createElement(var17)
-   var177.ExampleRoduxComponent = var1.createElement(var18)
-   var169.Wrapper = var1.createElement(var6, {}, var177)
-   local var190 = {}
-   var190.StyleSheet = arg1.design
-   var169.StyleLink = var1.createElement("StyleLink", var190)
-   var140.MainWidget = var1.createElement(var5, var144, var169)
-   return var7.provide({ var125.new(var125) }, var140)
+   local var174 = {}
+   var174.App = var1.createElement(var16)
+   var166.Wrapper = var1.createElement(var6, {}, var174)
+   local var183 = {}
+   var183.StyleSheet = arg1.design
+   var166.StyleLink = var1.createElement("StyleLink", var183)
+   var137.MainWidget = var1.createElement(var5, var141, var166)
+   return var7.provide({ var122.new(var122) }, var137)
 end
 
-return var19
+return var17

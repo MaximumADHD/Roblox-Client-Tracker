@@ -40,13 +40,15 @@ return function(arg1, arg2)
       local var115 = var3.createElement(var9)
       local var119 = var3.createElement(var10)
       local var123 = var3.createElement(var11)
-      local var127 = var3.createElement(var12)
+      local var127 = {}
+      var127.enabled = true
+      local var129 = var3.createElement(var12, var127)
       var115 = arg2
-      local var134 = {}
-      local var138 = {}
-      var138.providers = var1.append({}, var115 or {})
-      var134.ContextStack = var3.createElement(var5, var138, arg1)
-      return var7.provideMockContext(var14, var134)
+      local var136 = {}
+      local var140 = {}
+      var140.providers = var1.append({}, var115 or {})
+      var136.ContextStack = var3.createElement(var5, var140, arg1)
+      return var7.provideMockContext(var14, var136)
    end
    return var7.provideMockContext(var14, arg1)
 end

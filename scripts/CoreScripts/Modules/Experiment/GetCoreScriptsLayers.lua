@@ -28,6 +28,9 @@ local GetFFlagUXForCameraPerformanceIXPEnabled = require(script.Parent.Parent.Fl
 local GetFStringUXForCameraPerformanceIXPLayerName = require(script.Parent.Parent.Flags.GetFStringUXForCameraPerformanceIXPLayerName)
 local GetFFlagAddVoiceExposureLayer = require(script.Parent.Parent.Flags.GetFFlagAddVoiceExposureLayer)
 local GetFStringVoiceExposureIXPLayerName = require(script.Parent.Parent.Flags.GetFStringVoiceExposureIXPLayerName)
+local GetFFlagAddPhoneVerificationLayers = require(script.Parent.Parent.Flags.GetFFlagAddPhoneVerificationLayers)
+local GetFStringAndroidPhoneVerificationLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringAndroidPhoneVerificationLayer
+local GetFStringIOSPhoneVerificationLayer = require(CorePackages.Workspace.Packages.SharedFlags).GetFStringIOSPhoneVerificationLayer
 
 return function()
 	local layers = {
@@ -92,6 +95,14 @@ return function()
 
 	if GetFFlagAddVoiceExposureLayer() then
 		table.insert(layers, GetFStringVoiceExposureIXPLayerName())
+	end
+
+	if GetFFlagAddPhoneVerificationLayers() and GetFStringAndroidPhoneVerificationLayer() then
+		table.insert(layers, GetFStringAndroidPhoneVerificationLayer())
+	end
+
+	if GetFFlagAddPhoneVerificationLayers() and GetFStringIOSPhoneVerificationLayer() then
+		table.insert(layers, GetFStringIOSPhoneVerificationLayer())
 	end
 
 	return layers

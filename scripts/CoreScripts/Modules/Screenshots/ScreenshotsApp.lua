@@ -9,6 +9,8 @@ local ChromeEnabled = require(Modules.Chrome.Enabled)
 
 local Screenshots = require(CorePackages.Workspace.Packages.Screenshots)
 
+local FFlagCapturesCarouselCTABarUIUpdateEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCapturesCarouselCTABarUIUpdateEnabled
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 
@@ -18,6 +20,9 @@ local CarouselScreenGui = Instance.new("ScreenGui")
 CarouselScreenGui.DisplayOrder = Screenshots.Constants.CarouselDisplayOrder
 CarouselScreenGui.Name = "ScreenshotsCarousel"
 CarouselScreenGui.ResetOnSpawn = false
+if FFlagCapturesCarouselCTABarUIUpdateEnabled then
+	CarouselScreenGui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
+end
 CarouselScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 CarouselScreenGui.Parent = CoreGui
 

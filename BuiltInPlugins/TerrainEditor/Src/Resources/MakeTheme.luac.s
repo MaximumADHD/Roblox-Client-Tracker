@@ -184,8 +184,15 @@ MAIN:
   CALL R21 2 1
   MOVE R20 R21
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R9 K46 ["Unlocked"]
-  LOADK R21 K47 ["%*Standard/Unlocked.png"]
+  GETTABLEKS R19 R9 K46 ["Reset"]
+  LOADK R21 K47 ["%*Standard/Reset.png"]
+  LOADK R23 K45 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/"]
+  NAMECALL R21 R21 K32 ["format"]
+  CALL R21 2 1
+  MOVE R20 R21
+  SETTABLE R20 R18 R19
+  GETTABLEKS R19 R9 K48 ["Unlocked"]
+  LOADK R21 K49 ["%*Standard/Unlocked.png"]
   LOADK R23 K45 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/"]
   NAMECALL R21 R21 K32 ["format"]
   CALL R21 2 1
@@ -196,10 +203,10 @@ MAIN:
   MOVE R18 R11
   NEWTABLE R19 8 0
   GETTABLEKS R20 R9 K26 ["StudioTheme"]
-  LOADK R21 K48 ["Light"]
+  LOADK R21 K50 ["Light"]
   SETTABLE R21 R19 R20
   GETTABLEKS R20 R5 K13 ["BrushShape"]
-  LOADK R23 K49 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/"]
+  LOADK R23 K51 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/"]
   LOADK R24 K29 ["Large/"]
   CONCAT R22 R23 R24
   NEWTABLE R21 4 0
@@ -226,7 +233,7 @@ MAIN:
   SETTABLE R24 R21 R23
   SETTABLE R21 R19 R20
   GETTABLEKS R20 R5 K14 ["FlattenMode"]
-  LOADK R23 K49 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/"]
+  LOADK R23 K51 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/"]
   LOADK R24 K29 ["Large/"]
   CONCAT R22 R23 R24
   NEWTABLE R21 4 0
@@ -254,20 +261,27 @@ MAIN:
   SETTABLE R21 R19 R20
   GETTABLEKS R20 R9 K43 ["Locked"]
   LOADK R22 K44 ["%*Standard/Locked.png"]
-  LOADK R24 K50 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
+  LOADK R24 K52 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
   NAMECALL R22 R22 K32 ["format"]
   CALL R22 2 1
   MOVE R21 R22
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R9 K46 ["Unlocked"]
-  LOADK R22 K47 ["%*Standard/Unlocked.png"]
-  LOADK R24 K50 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
+  GETTABLEKS R20 R9 K46 ["Reset"]
+  LOADK R22 K47 ["%*Standard/Reset.png"]
+  LOADK R24 K52 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
+  NAMECALL R22 R22 K32 ["format"]
+  CALL R22 2 1
+  MOVE R21 R22
+  SETTABLE R21 R19 R20
+  GETTABLEKS R20 R9 K48 ["Unlocked"]
+  LOADK R22 K49 ["%*Standard/Unlocked.png"]
+  LOADK R24 K52 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
   NAMECALL R22 R22 K32 ["format"]
   CALL R22 2 1
   MOVE R21 R22
   SETTABLE R21 R19 R20
   CALL R17 2 1
-  DUPCLOSURE R18 K51 [PROTO_2]
+  DUPCLOSURE R18 K53 [PROTO_2]
   CAPTURE VAL R12
   CAPTURE VAL R16
   CAPTURE VAL R17

@@ -18,6 +18,7 @@ local ScrollBarType = UIBlox.App.Container.Enum.ScrollBarType
 local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
 local ChromeTypes = require(Chrome.Service.Types)
+local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local ViewportUtil = require(Chrome.Service.ViewportUtil)
 local Constants = require(Chrome.Unibar.Constants)
 local TopBarConstants = require(Chrome.Parent.TopBar.Constants)
@@ -35,6 +36,7 @@ local GetFFlagKeepSubmenuOpenOnPin = require(Chrome.Flags.GetFFlagKeepSubmenuOpe
 local GetFFlagEnableCaptureBadge = require(Chrome.Flags.GetFFlagEnableCaptureBadge)
 local GetFIntNumTimesNewBadgeIsDisplayed = require(Chrome.Flags.GetFIntNumTimesNewBadgeIsDisplayed)
 local GetFStringNewFeatureList = require(Chrome.Flags.GetFStringNewFeatureList)
+local GetFFlagEnableChromePinAnalytics = require(Chrome.Flags.GetFFlagEnableChromePinAnalytics)
 local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
 
 local IconHost = require(script.Parent.ComponentHosts.IconHost)
@@ -241,15 +243,21 @@ function isLeft(alignment)
 	return alignment == Enum.HorizontalAlignment.Left
 end
 
-function pinActivated(componentId)
+function pinActivated(componentId: string)
 	if not GetFFlagEnableChromePinIntegrations() then
 		return
 	end
 
 	if ChromeService:isUserPinned(componentId) then
 		ChromeService:removeUserPin(componentId)
+		if GetFFlagEnableChromePinAnalytics() then
+			ChromeAnalytics.default:setPin(componentId, false, ChromeService:userPins())
+		end
 	else
 		ChromeService:setUserPin(componentId)
+		if GetFFlagEnableChromePinAnalytics() then
+			ChromeAnalytics.default:setPin(componentId, true, ChromeService:userPins())
+		end
 	end
 end
 

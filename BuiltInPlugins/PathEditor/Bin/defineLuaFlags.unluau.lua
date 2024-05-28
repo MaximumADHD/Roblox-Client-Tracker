@@ -2,4 +2,5 @@
 game:DefineFastFlag("PathEditorRBXTelemetry", false)
 game:DefineFastFlag("PathEditorSurfaceGui", false)
 game:DefineFastFlag("PathEditorRotation", false)
+game:DefineFastFlag("PathEditorHierarchyValidCheckFixes", false)
 return nil

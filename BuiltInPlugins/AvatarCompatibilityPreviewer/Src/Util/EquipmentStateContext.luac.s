@@ -1,3 +1,10 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [script]
@@ -17,7 +24,7 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["Util"]
   GETTABLEKS R4 R5 K11 ["createUnimplemented"]
   CALL R3 1 1
-  DUPTABLE R4 K21 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "hideEquippedItem", "showEquippedItem", "setHideAllEquippedItems", "avatarAssets"}]
+  DUPTABLE R4 K23 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "hideEquippedItem", "showEquippedItem", "setHideAllEquippedItems", "startIgnoringChildren", "isIgnoringChildren", "avatarAssets"}]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R4 K12 ["equippedItems"]
   MOVE R5 R3
@@ -48,19 +55,23 @@ MAIN:
   LOADK R6 K19 ["setHideAllEquippedItems"]
   CALL R5 1 1
   SETTABLEKS R5 R4 K19 ["setHideAllEquippedItems"]
-  DUPTABLE R5 K27 [{"accessories", "animation", "clothing", "emotion", "patches"}]
+  DUPCLOSURE R5 K24 [PROTO_1]
+  SETTABLEKS R5 R4 K20 ["startIgnoringChildren"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K21 ["isIgnoringChildren"]
+  DUPTABLE R5 K30 [{"accessories", "animation", "clothing", "emotion", "patches"}]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K22 ["accessories"]
+  SETTABLEKS R6 R5 K25 ["accessories"]
   LOADNIL R6
-  SETTABLEKS R6 R5 K23 ["animation"]
+  SETTABLEKS R6 R5 K26 ["animation"]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K24 ["clothing"]
+  SETTABLEKS R6 R5 K27 ["clothing"]
   LOADNIL R6
-  SETTABLEKS R6 R5 K25 ["emotion"]
+  SETTABLEKS R6 R5 K28 ["emotion"]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K26 ["patches"]
-  SETTABLEKS R5 R4 K20 ["avatarAssets"]
-  GETTABLEKS R5 R1 K28 ["createContext"]
+  SETTABLEKS R6 R5 K29 ["patches"]
+  SETTABLEKS R5 R4 K22 ["avatarAssets"]
+  GETTABLEKS R5 R1 K31 ["createContext"]
   MOVE R6 R4
   CALL R5 1 -1
   RETURN R5 -1

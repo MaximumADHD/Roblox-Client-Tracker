@@ -76,15 +76,6 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R0 0
-  DUPTABLE R2 K1 [{"enabled"}]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K0 ["enabled"]
-  NAMECALL R0 R0 K2 ["setState"]
-  CALL R0 2 0
-  RETURN R0 0
-
-PROTO_4:
   GETUPVAL R1 0
   DUPTABLE R3 K1 [{"enabled"}]
   SETTABLEKS R0 R3 K0 ["enabled"]
@@ -92,7 +83,7 @@ PROTO_4:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_4:
   GETUPVAL R1 0
   DUPTABLE R3 K1 [{"enabled"}]
   GETTABLEKS R4 R0 K2 ["Enabled"]
@@ -101,7 +92,7 @@ PROTO_5:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_5:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["toggleEnabled"]
   MOVE R3 R0
@@ -110,7 +101,7 @@ PROTO_6:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_6:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["DatamodelSessionLoadedAttachmentInfo"]
@@ -129,7 +120,7 @@ PROTO_7:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_7:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["DatamodelSessionUnloadedAttachmentInfo"]
@@ -148,7 +139,7 @@ PROTO_8:
   CALL R1 3 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_8:
   DUPTABLE R2 K2 [{"enabled", "widget"}]
   LOADB R3 0
   SETTABLEKS R3 R2 K0 ["enabled"]
@@ -165,55 +156,52 @@ PROTO_9:
   SETTABLEKS R2 R0 K6 ["toggleEnabled"]
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K7 ["onClose"]
+  SETTABLEKS R2 R0 K7 ["onRestore"]
   NEWCLOSURE R2 P2
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K8 ["onRestore"]
-  NEWCLOSURE R2 P3
-  CAPTURE VAL R0
-  SETTABLEKS R2 R0 K9 ["onWidgetEnabledChanged"]
+  SETTABLEKS R2 R0 K8 ["onWidgetEnabledChanged"]
   GETUPVAL R4 3
-  GETTABLEKS R3 R4 K10 ["Localization"]
-  GETTABLEKS R2 R3 K11 ["new"]
-  DUPTABLE R3 K15 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETTABLEKS R3 R4 K9 ["Localization"]
+  GETTABLEKS R2 R3 K10 ["new"]
+  DUPTABLE R3 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R4 4
-  SETTABLEKS R4 R3 K12 ["stringResourceTable"]
+  SETTABLEKS R4 R3 K11 ["stringResourceTable"]
   GETUPVAL R4 5
-  SETTABLEKS R4 R3 K13 ["translationResourceTable"]
-  LOADK R4 K16 ["Notifications"]
-  SETTABLEKS R4 R3 K14 ["pluginName"]
+  SETTABLEKS R4 R3 K12 ["translationResourceTable"]
+  LOADK R4 K15 ["Notifications"]
+  SETTABLEKS R4 R3 K13 ["pluginName"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K17 ["localization"]
+  SETTABLEKS R2 R0 K16 ["localization"]
   GETUPVAL R2 6
-  GETTABLEKS R3 R1 K18 ["Plugin"]
+  GETTABLEKS R3 R1 K17 ["Plugin"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K19 ["design"]
+  SETTABLEKS R2 R0 K18 ["design"]
   GETUPVAL R3 7
-  GETTABLEKS R2 R3 K20 ["ToggleNotificationTray"]
-  NEWCLOSURE R4 P4
+  GETTABLEKS R2 R3 K19 ["ToggleNotificationTray"]
+  NEWCLOSURE R4 P3
   CAPTURE VAL R0
-  NAMECALL R2 R2 K21 ["Connect"]
+  NAMECALL R2 R2 K20 ["Connect"]
   CALL R2 2 1
-  SETTABLEKS R2 R0 K22 ["toggleNotificationTrayConnection"]
-  GETTABLEKS R3 R1 K18 ["Plugin"]
-  GETTABLEKS R2 R3 K23 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R3 R2 K24 ["DataModelSessionStarted"]
+  SETTABLEKS R2 R0 K21 ["toggleNotificationTrayConnection"]
+  GETTABLEKS R3 R1 K17 ["Plugin"]
+  GETTABLEKS R2 R3 K22 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R3 R2 K23 ["DataModelSessionStarted"]
+  NEWCLOSURE R5 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  NAMECALL R3 R3 K20 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K24 ["dmOpenSession"]
+  GETTABLEKS R3 R2 K25 ["DataModelSessionEnded"]
   NEWCLOSURE R5 P5
   CAPTURE VAL R0
   CAPTURE UPVAL U0
-  NAMECALL R3 R3 K21 ["Connect"]
+  NAMECALL R3 R3 K20 ["Connect"]
   CALL R3 2 1
-  SETTABLEKS R3 R0 K25 ["dmOpenSession"]
-  GETTABLEKS R3 R2 K26 ["DataModelSessionEnded"]
-  NEWCLOSURE R5 P6
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  NAMECALL R3 R3 K21 ["Connect"]
-  CALL R3 2 1
-  SETTABLEKS R3 R0 K27 ["dmCloseSession"]
+  SETTABLEKS R3 R0 K26 ["dmCloseSession"]
   RETURN R0 0
 
-PROTO_10:
+PROTO_9:
   GETTABLEKS R2 R0 K0 ["state"]
   GETTABLEKS R1 R2 K1 ["widget"]
   JUMPIFNOT R1 [+1]
@@ -247,7 +235,7 @@ PROTO_10:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_11:
+PROTO_10:
   GETTABLEKS R1 R0 K0 ["toggleNotificationTrayConnection"]
   NAMECALL R1 R1 K1 ["Disconnect"]
   CALL R1 1 0
@@ -259,7 +247,7 @@ PROTO_11:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_12:
+PROTO_11:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
@@ -318,47 +306,40 @@ PROTO_12:
   GETUPVAL R13 9
   CALL R11 2 1
   SETTABLEKS R11 R10 K28 ["MinSize"]
-  GETUPVAL R12 10
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  LOADNIL R11
-  JUMP [+2]
-  GETTABLEKS R11 R0 K29 ["onClose"]
-  SETTABLEKS R11 R10 K30 ["OnClose"]
   LOADB R11 1
-  SETTABLEKS R11 R10 K31 ["ShouldRestore"]
-  GETTABLEKS R11 R0 K32 ["onRestore"]
-  SETTABLEKS R11 R10 K33 ["OnWidgetRestored"]
+  SETTABLEKS R11 R10 K29 ["ShouldRestore"]
+  GETTABLEKS R11 R0 K30 ["onRestore"]
+  SETTABLEKS R11 R10 K31 ["OnWidgetRestored"]
   GETTABLEKS R12 R0 K1 ["state"]
   GETTABLEKS R11 R12 K4 ["widget"]
-  SETTABLEKS R11 R10 K34 ["Widget"]
+  SETTABLEKS R11 R10 K32 ["Widget"]
   GETUPVAL R13 6
-  GETTABLEKS R12 R13 K35 ["Change"]
+  GETTABLEKS R12 R13 K33 ["Change"]
   GETTABLEKS R11 R12 K14 ["Enabled"]
-  GETTABLEKS R12 R0 K36 ["onWidgetEnabledChanged"]
+  GETTABLEKS R12 R0 K34 ["onWidgetEnabledChanged"]
   SETTABLE R12 R10 R11
-  DUPTABLE R11 K39 [{"AppWithProvider", "StyleLink"}]
+  DUPTABLE R11 K37 [{"AppWithProvider", "StyleLink"}]
   GETUPVAL R13 6
   GETTABLEKS R12 R13 K11 ["createElement"]
-  GETUPVAL R13 11
-  DUPTABLE R14 K41 [{"trayVisible"}]
-  SETTABLEKS R4 R14 K40 ["trayVisible"]
-  DUPTABLE R15 K43 [{"App"}]
+  GETUPVAL R13 10
+  DUPTABLE R14 K39 [{"trayVisible"}]
+  SETTABLEKS R4 R14 K38 ["trayVisible"]
+  DUPTABLE R15 K41 [{"App"}]
   GETUPVAL R17 6
   GETTABLEKS R16 R17 K11 ["createElement"]
-  GETUPVAL R17 12
+  GETUPVAL R17 11
   CALL R16 1 1
-  SETTABLEKS R16 R15 K42 ["App"]
+  SETTABLEKS R16 R15 K40 ["App"]
   CALL R12 3 1
-  SETTABLEKS R12 R11 K37 ["AppWithProvider"]
+  SETTABLEKS R12 R11 K35 ["AppWithProvider"]
   GETUPVAL R13 6
   GETTABLEKS R12 R13 K11 ["createElement"]
-  LOADK R13 K38 ["StyleLink"]
-  DUPTABLE R14 K45 [{"StyleSheet"}]
-  GETTABLEKS R15 R0 K46 ["design"]
-  SETTABLEKS R15 R14 K44 ["StyleSheet"]
+  LOADK R13 K36 ["StyleLink"]
+  DUPTABLE R14 K43 [{"StyleSheet"}]
+  GETTABLEKS R15 R0 K44 ["design"]
+  SETTABLEKS R15 R14 K42 ["StyleSheet"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K38 ["StyleLink"]
+  SETTABLEKS R12 R11 K36 ["StyleLink"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K9 ["MainWidget"]
   LOADB R8 1
@@ -440,17 +421,11 @@ MAIN:
   GETIMPORT R27 K4 [require]
   GETTABLEKS R28 R26 K35 ["App"]
   CALL R27 1 1
-  GETIMPORT R28 K4 [require]
-  GETTABLEKS R32 R0 K20 ["Src"]
-  GETTABLEKS R31 R32 K26 ["Util"]
-  GETTABLEKS R30 R31 K36 ["SharedFlags"]
-  GETTABLEKS R29 R30 K37 ["getFFlagNotificationTrayOnCloseRemoval"]
-  CALL R28 1 1
-  GETTABLEKS R29 R1 K38 ["PureComponent"]
-  LOADK R31 K39 ["MainPlugin"]
-  NAMECALL R29 R29 K40 ["extend"]
-  CALL R29 2 1
-  DUPCLOSURE R30 K41 [PROTO_9]
+  GETTABLEKS R28 R1 K36 ["PureComponent"]
+  LOADK R30 K37 ["MainPlugin"]
+  NAMECALL R28 R28 K38 ["extend"]
+  CALL R28 2 1
+  DUPCLOSURE R29 K39 [PROTO_8]
   CAPTURE VAL R20
   CAPTURE VAL R8
   CAPTURE VAL R17
@@ -459,15 +434,15 @@ MAIN:
   CAPTURE VAL R22
   CAPTURE VAL R13
   CAPTURE VAL R11
-  SETTABLEKS R30 R29 K42 ["init"]
-  DUPCLOSURE R30 K43 [PROTO_10]
+  SETTABLEKS R29 R28 K40 ["init"]
+  DUPCLOSURE R29 K41 [PROTO_9]
   CAPTURE VAL R0
   CAPTURE VAL R24
   CAPTURE VAL R25
-  SETTABLEKS R30 R29 K44 ["didMount"]
-  DUPCLOSURE R30 K45 [PROTO_11]
-  SETTABLEKS R30 R29 K46 ["willUnmount"]
-  DUPCLOSURE R30 K47 [PROTO_12]
+  SETTABLEKS R29 R28 K42 ["didMount"]
+  DUPCLOSURE R29 K43 [PROTO_10]
+  SETTABLEKS R29 R28 K44 ["willUnmount"]
+  DUPCLOSURE R29 K45 [PROTO_11]
   CAPTURE VAL R12
   CAPTURE VAL R14
   CAPTURE VAL R15
@@ -478,8 +453,7 @@ MAIN:
   CAPTURE VAL R5
   CAPTURE VAL R24
   CAPTURE VAL R25
-  CAPTURE VAL R28
   CAPTURE VAL R18
   CAPTURE VAL R27
-  SETTABLEKS R30 R29 K48 ["render"]
-  RETURN R29 1
+  SETTABLEKS R29 R28 K46 ["render"]
+  RETURN R28 1

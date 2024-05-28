@@ -102,5 +102,7 @@ return {
 		WINDOW_RESIZE = "chrome_unibar_window_resized",
 		WINDOW_OPENED = "chrome_unibar_window_opened",
 		WINDOW_CLOSED = "chrome_unibar_window_closed",
+		PIN_ADDED = "chrome_unibar_pin_added",
+		PIN_REMOVED = "chrome_unibar_pin_removed",
 	},
 }

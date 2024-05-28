@@ -9,22 +9,22 @@ local var6 = var4.Pane
 local var7 = var1.ContextServices.Stylizer
 return function(arg1)
    local var0 = var7:use("Notice")
-   local var805 = {}
-   var805.AnchorPoint = Vector2.new(0.5, 0.5)
-   var805.Position = UDim2.fromScale(0.5, 0.5)
-   var805.AutomaticSize = Enum.AutomaticSize.XY
-   var805.BackgroundColor = var0.BackgroundColor
-   var805.Padding = var0.Padding
-   local var817 = {}
-   local var821 = {}
-   var821.CornerRadius = var0.CornerRadius
-   var817.UICorner = var2.createElement("UICorner", var821)
-   local var827 = {}
-   var827.AutomaticSize = Enum.AutomaticSize.XY
-   var827.Text = arg1.Text
-   var827.TextColor = var0.TextColor
-   var827.TextSize = var0.TextSize
-   var827.TextWrapped = true
-   var817.NoticeText = var2.createElement(var5, var827)
-   return var2.createElement(var6, var805, var817)
+   local var696 = {}
+   var696.AnchorPoint = Vector2.new(0.5, 0.5)
+   var696.Position = UDim2.fromScale(0.5, 0.5)
+   var696.AutomaticSize = Enum.AutomaticSize.XY
+   var696.BackgroundColor = var0.BackgroundColor
+   var696.Padding = var0.Padding
+   local var708 = {}
+   local var712 = {}
+   var712.CornerRadius = var0.CornerRadius
+   var708.UICorner = var2.createElement("UICorner", var712)
+   local var718 = {}
+   var718.AutomaticSize = Enum.AutomaticSize.XY
+   var718.Text = arg1.Text
+   var718.TextColor = var0.TextColor
+   var718.TextSize = var0.TextSize
+   var718.TextWrapped = true
+   var708.NoticeText = var2.createElement(var5, var718)
+   return var2.createElement(var6, var696, var708)
 end

@@ -91,67 +91,6 @@ PROTO_4:
   RETURN R2 -1
 
 PROTO_5:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["createElement"]
-  GETUPVAL R3 1
-  DUPTABLE R4 K9 [{"key", "AutomaticSize", "Size", "Text", "TextXAlignment", "TextSize", "TextWrapped", "LayoutOrder"}]
-  LOADK R6 K10 ["Error%*"]
-  MOVE R8 R1
-  NAMECALL R6 R6 K11 ["format"]
-  CALL R6 2 1
-  MOVE R5 R6
-  SETTABLEKS R5 R4 K1 ["key"]
-  GETIMPORT R5 K14 [Enum.AutomaticSize.Y]
-  SETTABLEKS R5 R4 K2 ["AutomaticSize"]
-  GETIMPORT R5 K17 [UDim2.fromScale]
-  LOADN R6 1
-  LOADN R7 0
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K3 ["Size"]
-  GETTABLEKS R7 R0 K18 ["error"]
-  GETTABLEKS R6 R7 K19 ["type"]
-  JUMPIFNOTEQKS R6 K20 ["message"] [+6]
-  GETTABLEKS R6 R0 K18 ["error"]
-  GETTABLEKS R5 R6 K20 ["message"]
-  JUMP [+37]
-  GETTABLEKS R7 R0 K18 ["error"]
-  GETTABLEKS R6 R7 K19 ["type"]
-  JUMPIFNOTEQKS R6 K21 ["notFound"] [+26]
-  GETUPVAL R5 2
-  LOADK R7 K22 ["UGCValidation"]
-  LOADK R8 K23 ["AssetNotFound"]
-  DUPTABLE R9 K25 [{"asset"}]
-  GETUPVAL R10 2
-  LOADK R12 K26 ["AssetType"]
-  GETTABLEKS R15 R0 K27 ["assetType"]
-  FASTCALL2K ASSERT R15 K28 [+4]
-  LOADK R16 K28 ["notFound sent with no error type"]
-  GETIMPORT R14 K30 [assert]
-  CALL R14 2 1
-  GETTABLEKS R13 R14 K31 ["Name"]
-  NAMECALL R10 R10 K32 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K24 ["asset"]
-  NAMECALL R5 R5 K32 ["getText"]
-  CALL R5 4 1
-  JUMP [+6]
-  GETUPVAL R5 3
-  GETTABLEKS R7 R0 K18 ["error"]
-  GETTABLEKS R6 R7 K19 ["type"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K4 ["Text"]
-  GETIMPORT R5 K34 [Enum.TextXAlignment.Left]
-  SETTABLEKS R5 R4 K5 ["TextXAlignment"]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K6 ["TextSize"]
-  SETTABLEKS R5 R4 K6 ["TextSize"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K7 ["TextWrapped"]
-  SETTABLEKS R1 R4 K8 ["LayoutOrder"]
-  CALL R2 2 -1
-  RETURN R2 -1
-
-PROTO_6:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["new"]
   CALL R1 0 1
@@ -182,17 +121,11 @@ PROTO_6:
   CAPTURE VAL R8
   NEWTABLE R11 0 0
   CALL R9 2 1
-  LOADNIL R10
-  LOADNIL R11
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K5 ["useContext"]
   GETUPVAL R12 4
-  CALL R12 0 1
-  JUMPIFNOT R12 [+24]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K5 ["useContext"]
-  GETUPVAL R14 5
-  GETTABLEKS R13 R14 K6 ["Context"]
-  CALL R12 1 1
-  MOVE R10 R12
+  GETTABLEKS R11 R12 K6 ["Context"]
+  CALL R10 1 1
   GETTABLEKS R12 R10 K7 ["canUploadBundles"]
   JUMPIFEQKNIL R12 [+12]
   GETTABLEKS R13 R10 K7 ["canUploadBundles"]
@@ -204,7 +137,7 @@ PROTO_6:
   LOADNIL R11
   GETUPVAL R13 3
   GETTABLEKS R12 R13 K11 ["createElement"]
-  GETUPVAL R13 6
+  GETUPVAL R13 5
   DUPTABLE R14 K19 [{"Style", "Title", "MinContentSize", "Resizable", "Buttons", "OnButtonPressed", "OnClose"}]
   LOADK R15 K20 ["Alert"]
   SETTABLEKS R15 R14 K12 ["Style"]
@@ -232,7 +165,7 @@ PROTO_6:
   DUPTABLE R15 K31 [{"Contents"}]
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K11 ["createElement"]
-  GETUPVAL R17 7
+  GETUPVAL R17 6
   DUPTABLE R18 K35 [{"Layout", "HorizontalAlignment", "VerticalAlignment"}]
   GETIMPORT R19 K39 [Enum.FillDirection.Horizontal]
   SETTABLEKS R19 R18 K32 ["Layout"]
@@ -243,7 +176,7 @@ PROTO_6:
   DUPTABLE R19 K46 [{"LeftColumn", "RightColumn"}]
   GETUPVAL R21 3
   GETTABLEKS R20 R21 K11 ["createElement"]
-  GETUPVAL R21 7
+  GETUPVAL R21 6
   DUPTABLE R22 K49 [{"Size", "LayoutOrder"}]
   GETIMPORT R23 K52 [UDim2.fromOffset]
   GETTABLEKS R25 R3 K53 ["TextSize"]
@@ -258,7 +191,7 @@ PROTO_6:
   DUPTABLE R23 K57 [{"Image"}]
   GETUPVAL R25 3
   GETTABLEKS R24 R25 K11 ["createElement"]
-  GETUPVAL R25 8
+  GETUPVAL R25 7
   DUPTABLE R26 K59 [{"Image", "ImageColor3", "Size"}]
   GETTABLEKS R27 R3 K60 ["WarningImage"]
   SETTABLEKS R27 R26 K56 ["Image"]
@@ -275,7 +208,7 @@ PROTO_6:
   SETTABLEKS R20 R19 K44 ["LeftColumn"]
   GETUPVAL R21 3
   GETTABLEKS R20 R21 K11 ["createElement"]
-  GETUPVAL R21 7
+  GETUPVAL R21 6
   NEWTABLE R22 8 0
   GETIMPORT R23 K62 [UDim2.new]
   LOADN R24 1
@@ -303,7 +236,7 @@ PROTO_6:
   DUPTABLE R23 K71 [{"WarningLabel", "Warnings"}]
   GETUPVAL R25 3
   GETTABLEKS R24 R25 K11 ["createElement"]
-  GETUPVAL R25 9
+  GETUPVAL R25 8
   DUPTABLE R26 K77 [{"AutomaticSize", "Font", "Size", "Text", "TextColor", "TextSize", "TextXAlignment", "TextWrapped"}]
   GETIMPORT R27 K79 [Enum.AutomaticSize.Y]
   SETTABLEKS R27 R26 K72 ["AutomaticSize"]
@@ -314,13 +247,10 @@ PROTO_6:
   LOADN R29 0
   CALL R27 2 1
   SETTABLEKS R27 R26 K47 ["Size"]
-  GETUPVAL R27 10
+  GETUPVAL R27 9
   MOVE R28 R2
   LOADK R29 K21 ["UGCValidation"]
   LOADK R30 K83 ["WarningLongTitle"]
-  GETUPVAL R32 4
-  CALL R32 0 1
-  JUMPIFNOT R32 [+10]
   GETTABLEKS R33 R0 K84 ["Errors"]
   LENGTH R32 R33
   JUMPIFNOTEQKNIL R11 [+3]
@@ -328,9 +258,6 @@ PROTO_6:
   JUMP [+1]
   LOADN R33 1
   ADD R31 R32 R33
-  JUMP [+3]
-  GETTABLEKS R32 R0 K84 ["Errors"]
-  LENGTH R31 R32
   CALL R27 4 1
   SETTABLEKS R27 R26 K26 ["Text"]
   GETTABLEKS R27 R3 K61 ["WarningColor"]
@@ -345,7 +272,7 @@ PROTO_6:
   SETTABLEKS R24 R23 K69 ["WarningLabel"]
   GETUPVAL R25 3
   GETTABLEKS R24 R25 K11 ["createElement"]
-  GETUPVAL R25 11
+  GETUPVAL R25 10
   NEWTABLE R26 8 0
   GETIMPORT R27 K79 [Enum.AutomaticSize.Y]
   SETTABLEKS R27 R26 K86 ["AutomaticCanvasSize"]
@@ -367,9 +294,6 @@ PROTO_6:
   GETTABLEKS R28 R29 K67 ["Change"]
   GETTABLEKS R27 R28 K90 ["AbsolutePosition"]
   SETTABLE R9 R26 R27
-  GETUPVAL R28 4
-  CALL R28 0 1
-  JUMPIFNOT R28 [+229]
   NEWTABLE R27 0 2
   MOVE R28 R11
   JUMPIFNOT R28 [+147]
@@ -381,7 +305,7 @@ PROTO_6:
   DUPTABLE R31 K94 [{"Header", "ErrorText"}]
   GETUPVAL R33 3
   GETTABLEKS R32 R33 K11 ["createElement"]
-  GETUPVAL R33 9
+  GETUPVAL R33 8
   DUPTABLE R34 K95 [{"Text", "Style", "AutomaticSize", "Size", "TextXAlignment", "TextSize", "TextWrapped", "LayoutOrder"}]
   LOADK R37 K21 ["UGCValidation"]
   LOADK R38 K96 ["PermissionsRequiredHeader"]
@@ -410,7 +334,7 @@ PROTO_6:
   SETTABLEKS R32 R31 K92 ["Header"]
   GETUPVAL R33 3
   GETTABLEKS R32 R33 K11 ["createElement"]
-  GETUPVAL R33 12
+  GETUPVAL R33 11
   DUPTABLE R34 K100 [{"LayoutOrder", "Text", "TextProps", "HorizontalAlignment", "LinkMap"}]
   NAMECALL R35 R1 K55 ["getNextOrder"]
   CALL R35 1 1
@@ -452,8 +376,8 @@ PROTO_6:
   CALL R37 3 1
   SETTABLEKS R37 R36 K111 ["LinkText"]
   DUPCLOSURE R37 K115 [PROTO_2]
+  CAPTURE UPVAL U12
   CAPTURE UPVAL U13
-  CAPTURE UPVAL U14
   SETTABLEKS R37 R36 K112 ["LinkCallback"]
   SETTABLEKS R36 R35 K116 ["[Age_Verified]"]
   DUPTABLE R36 K113 [{"LinkText", "LinkCallback"}]
@@ -463,8 +387,8 @@ PROTO_6:
   CALL R37 3 1
   SETTABLEKS R37 R36 K111 ["LinkText"]
   DUPCLOSURE R37 K118 [PROTO_3]
-  CAPTURE UPVAL U13
-  CAPTURE UPVAL U15
+  CAPTURE UPVAL U12
+  CAPTURE UPVAL U14
   SETTABLEKS R37 R36 K112 ["LinkCallback"]
   SETTABLEKS R36 R35 K119 ["[Premium_1000_Or_2200_Subscription]"]
   SETTABLEKS R35 R34 K99 ["LinkMap"]
@@ -484,7 +408,7 @@ PROTO_6:
   DUPTABLE R32 K120 [{"Header"}]
   GETUPVAL R34 3
   GETTABLEKS R33 R34 K11 ["createElement"]
-  GETUPVAL R34 9
+  GETUPVAL R34 8
   DUPTABLE R35 K95 [{"Text", "Style", "AutomaticSize", "Size", "TextXAlignment", "TextSize", "TextWrapped", "LayoutOrder"}]
   LOADK R38 K21 ["UGCValidation"]
   LOADK R39 K121 ["ValidationErrorsHeader"]
@@ -511,30 +435,19 @@ PROTO_6:
   SETTABLEKS R36 R35 K48 ["LayoutOrder"]
   CALL R33 2 1
   SETTABLEKS R33 R32 K92 ["Header"]
-  GETUPVAL R34 16
+  GETUPVAL R34 15
   GETTABLEKS R33 R34 K122 ["map"]
   GETTABLEKS R34 R0 K84 ["Errors"]
   NEWCLOSURE R35 P4
   CAPTURE UPVAL U3
-  CAPTURE UPVAL U9
+  CAPTURE UPVAL U8
   CAPTURE VAL R2
-  CAPTURE UPVAL U17
+  CAPTURE UPVAL U16
   CAPTURE VAL R3
   CAPTURE VAL R1
   CALL R33 2 -1
   CALL R29 -1 1
   SETLIST R27 R28 2 [1]
-  JUMP [+12]
-  GETUPVAL R28 16
-  GETTABLEKS R27 R28 K122 ["map"]
-  GETTABLEKS R28 R0 K84 ["Errors"]
-  NEWCLOSURE R29 P5
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U9
-  CAPTURE VAL R2
-  CAPTURE UPVAL U17
-  CAPTURE VAL R3
-  CALL R27 2 1
   CALL R24 3 1
   SETTABLEKS R24 R23 K70 ["Warnings"]
   CALL R20 3 1
@@ -590,51 +503,45 @@ MAIN:
   GETTABLEKS R11 R12 K20 ["Util"]
   GETTABLEKS R10 R11 K22 ["localizePlural"]
   CALL R9 1 1
-  GETIMPORT R10 K9 [require]
-  GETTABLEKS R13 R1 K15 ["Src"]
-  GETTABLEKS R12 R13 K23 ["Flags"]
-  GETTABLEKS R11 R12 K24 ["getFFlagAvatarPreviewerAgeAndPremiumChecks"]
-  CALL R10 1 1
+  GETIMPORT R10 K1 [game]
+  LOADK R12 K23 ["AvatarPreviewerAgeIDVerificationLink"]
+  LOADK R13 K24 ["https://en.help.roblox.com/hc/en-us/articles/4407282410644-Age-ID-Verification"]
+  NAMECALL R10 R10 K25 ["DefineFastString"]
+  CALL R10 3 1
   GETIMPORT R11 K1 [game]
-  LOADK R13 K25 ["AvatarPreviewerAgeIDVerificationLink"]
-  LOADK R14 K26 ["https://en.help.roblox.com/hc/en-us/articles/4407282410644-Age-ID-Verification"]
-  NAMECALL R11 R11 K27 ["DefineFastString"]
+  LOADK R13 K26 ["AvatarPreviewerPremiumLink"]
+  LOADK R14 K27 ["https://www.roblox.com/premium/membership"]
+  NAMECALL R11 R11 K25 ["DefineFastString"]
   CALL R11 3 1
-  GETIMPORT R12 K1 [game]
-  LOADK R14 K28 ["AvatarPreviewerPremiumLink"]
-  LOADK R15 K29 ["https://www.roblox.com/premium/membership"]
-  NAMECALL R12 R12 K27 ["DefineFastString"]
-  CALL R12 3 1
-  GETTABLEKS R13 R3 K30 ["UI"]
-  GETTABLEKS R14 R13 K31 ["Image"]
-  GETTABLEKS R15 R13 K32 ["TextLabel"]
-  GETTABLEKS R16 R13 K33 ["TextWithLinks"]
-  GETTABLEKS R17 R13 K34 ["Pane"]
-  GETTABLEKS R18 R13 K35 ["ScrollingFrame"]
-  GETTABLEKS R19 R13 K36 ["StyledDialog"]
-  GETTABLEKS R21 R3 K20 ["Util"]
-  GETTABLEKS R20 R21 K37 ["LayoutOrderIterator"]
-  GETTABLEKS R22 R3 K38 ["ContextServices"]
-  GETTABLEKS R21 R22 K39 ["Localization"]
-  GETTABLEKS R23 R3 K38 ["ContextServices"]
-  GETTABLEKS R22 R23 K40 ["Stylizer"]
-  DUPCLOSURE R23 K41 [PROTO_6]
+  GETTABLEKS R12 R3 K28 ["UI"]
+  GETTABLEKS R13 R12 K29 ["Image"]
+  GETTABLEKS R14 R12 K30 ["TextLabel"]
+  GETTABLEKS R15 R12 K31 ["TextWithLinks"]
+  GETTABLEKS R16 R12 K32 ["Pane"]
+  GETTABLEKS R17 R12 K33 ["ScrollingFrame"]
+  GETTABLEKS R18 R12 K34 ["StyledDialog"]
+  GETTABLEKS R20 R3 K20 ["Util"]
+  GETTABLEKS R19 R20 K35 ["LayoutOrderIterator"]
+  GETTABLEKS R21 R3 K36 ["ContextServices"]
+  GETTABLEKS R20 R21 K37 ["Localization"]
+  GETTABLEKS R22 R3 K36 ["ContextServices"]
+  GETTABLEKS R21 R22 K38 ["Stylizer"]
+  DUPCLOSURE R22 K39 [PROTO_5]
+  CAPTURE VAL R19
   CAPTURE VAL R20
   CAPTURE VAL R21
-  CAPTURE VAL R22
   CAPTURE VAL R4
-  CAPTURE VAL R10
   CAPTURE VAL R6
-  CAPTURE VAL R19
-  CAPTURE VAL R17
-  CAPTURE VAL R14
-  CAPTURE VAL R15
-  CAPTURE VAL R9
   CAPTURE VAL R18
   CAPTURE VAL R16
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R9
+  CAPTURE VAL R17
+  CAPTURE VAL R15
   CAPTURE VAL R0
+  CAPTURE VAL R10
   CAPTURE VAL R11
-  CAPTURE VAL R12
   CAPTURE VAL R2
   CAPTURE VAL R8
-  RETURN R23 1
+  RETURN R22 1

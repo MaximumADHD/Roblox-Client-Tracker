@@ -8,6 +8,7 @@ local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.Service.ChromeUtils)
 local ViewportUtil = require(Chrome.Service.ViewportUtil)
+local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 
 local _integrations = require(Chrome.Integrations)
 local SubMenu = require(script.Parent.SubMenu)
@@ -30,6 +31,7 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local GetFFlagUnibarRespawn = require(Chrome.Flags.GetFFlagUnibarRespawn)
 local GetFFlagEnableSaveUserPins = require(Chrome.Flags.GetFFlagEnableSaveUserPins)
+local GetFFlagEnableChromePinAnalytics = require(Chrome.Flags.GetFFlagEnableChromePinAnalytics)
 local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagNewUnibarIA = require(Chrome.Flags.GetFFlagNewUnibarIA)
 local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableChromePinIntegrations)
@@ -75,6 +77,10 @@ function configureUnibar(viewportInfo)
 	then
 		if not GetFFlagEnableSaveUserPins() then
 			ChromeService:setUserPin("trust_and_safety", true)
+
+			if GetFFlagEnableChromePinAnalytics() then
+				ChromeAnalytics.default:setPin("trust_and_safety", true, ChromeService:userPins())
+			end
 		end
 	elseif GetFFlagNewUnibarIA() and not ChromeService:isMostRecentlyUsed("trust_and_safety") then
 		ChromeService:setRecentlyUsed("trust_and_safety", true)
@@ -171,8 +177,11 @@ end
 -- Non-visible helper child component to avoid parent re-renders
 -- Updates animation targets based Chrome status
 function AnimationStateHelper(props)
+	local wasUnibarForcedOpen = React.useRef(false)
+	local wasUnibarClosedByUser = React.useRef(false)
 	local menuStatusOpen = useChromeMenuStatus() == ChromeService.MenuStatus.Open
 	local selectedItem = useObservableValue(ChromeService:selectedItem())
+	local utility = useObservableValue(ChromeService:getCurrentUtility())
 
 	React.useEffect(function()
 		if menuStatusOpen then
@@ -188,24 +197,79 @@ function AnimationStateHelper(props)
 							ChromeService:toggleOpen()
 						end
 					end, false, Enum.KeyCode.Escape)
+				end
+
+				if props.menuFrameRef.current then
 					GuiService:Select(props.menuFrameRef.current)
 				end
 			end
+
+			-- if user closes and opens unibar while IGM is open, do not force close unibar
+			if GetFFlagOpenControlsOnMenuOpen() and GuiService.MenuIsOpen and wasUnibarClosedByUser.current then
+				wasUnibarForcedOpen.current = false
+				wasUnibarClosedByUser.current = false
+			end
+
 			props.setToggleTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING))
 		else
 			if not GetFFlagOpenControlsOnMenuOpen() then
 				ContextActionService:UnbindCoreAction("RBXEscapeUnibar")
+			end
 
-				if GuiService.SelectedCoreObject then
-					local selectedWithinUnibar = props.menuFrameRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
-					if selectedWithinUnibar then
-						GuiService.SelectedCoreObject = nil
-					end
+			if GuiService.SelectedCoreObject then
+				local selectedWithinUnibar = props.menuFrameRef.current:IsAncestorOf(GuiService.SelectedCoreObject)
+				if selectedWithinUnibar then
+					GuiService.SelectedCoreObject = nil
 				end
 			end
+
+			if GetFFlagOpenControlsOnMenuOpen() and GuiService.MenuIsOpen and wasUnibarForcedOpen.current then
+				wasUnibarClosedByUser.current = true
+			end
+
 			props.setToggleTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING))
 		end
-	end, { menuStatusOpen })
+
+		local openMenuConn, closeMenuConn
+		if GetFFlagOpenControlsOnMenuOpen() then
+			-- force open unibar when IGM is opened
+			openMenuConn = GuiService.MenuOpened:Connect(function()
+				if ChromeService:status():get() ~= ChromeService.MenuStatus.Open then
+					if GetFFlagSupportCompactUtility() then
+						ChromeService:open(true)
+						wasUnibarForcedOpen.current = true
+					end
+				end
+			end)
+
+			-- force close unibar when IGM closed
+			closeMenuConn = GuiService.MenuClosed:Connect(function()
+				-- if the user had unibar open before IGM opened, do not force close unibar
+				-- if a screenshot is being taken (i.e. by report menu), do not force close unibar
+				-- if a compact utility is open, do not force close unibar (as it cannot normally be closed from that state)
+				if
+					wasUnibarForcedOpen.current
+					and not ChromeUtils.isTakingScreenshot()
+					and (not GetFFlagSupportCompactUtility() or not ChromeService:getCurrentUtility():get())
+				then
+					if GetFFlagSupportCompactUtility() then
+						ChromeService:close()
+						wasUnibarForcedOpen.current = false
+						wasUnibarClosedByUser.current = false
+					end
+				end
+			end)
+		end
+
+		return function()
+			if GetFFlagOpenControlsOnMenuOpen() and openMenuConn then
+				openMenuConn:Disconnect()
+			end
+			if GetFFlagOpenControlsOnMenuOpen() and closeMenuConn then
+				closeMenuConn:Disconnect()
+			end
+		end
+	end, { menuStatusOpen, utility ~= nil })
 
 	React.useEffect(function()
 		if props.menuFrameRef.current and selectedItem then
@@ -502,9 +566,6 @@ type UnibarMenuProp = {
 local UnibarMenu = function(props: UnibarMenuProp)
 	local menuFrame = React.useRef(nil)
 	local menuOutterFrame = React.useRef(nil)
-	local wasUnibarForcedOpen, setWasUnibarForcedOpen = React.useBinding(false)
-	local wasUnibarClosedByUser, setWasUnibarClosedByUser = React.useBinding(false)
-	local menuStatusOpen = useChromeMenuStatus() == ChromeService.MenuStatus.Open
 
 	-- AutomaticSize isn't working for this use-case
 	-- Update size manually
@@ -524,76 +585,12 @@ local UnibarMenu = function(props: UnibarMenuProp)
 
 		updateSize()
 
-		local openMenuConn, closeMenuConn
-		if GetFFlagOpenControlsOnMenuOpen() then
-			-- force open unibar when IGM is opened
-			openMenuConn = GuiService.MenuOpened:Connect(function()
-				if ChromeService:status():get() ~= ChromeService.MenuStatus.Open then
-					ChromeService:open(true)
-					setWasUnibarForcedOpen(true)
-				end
-			end)
-
-			-- force close unibar when IGM closed
-			closeMenuConn = GuiService.MenuClosed:Connect(function()
-				-- if the user had unibar open before IGM opened, do not force close unibar
-				-- if a screenshot is being taken (i.e. by report menu), do not force close unibar
-				-- if a compact utility is open, do not force close unibar (as it cannot normally be closed from that state)
-				if
-					wasUnibarForcedOpen:getValue()
-					and not ChromeUtils.isTakingScreenshot()
-					and (not GetFFlagSupportCompactUtility() or not ChromeService:getCurrentUtility())
-				then
-					ChromeService:close()
-					setWasUnibarForcedOpen(false)
-					setWasUnibarClosedByUser(false)
-				end
-			end)
-		end
-
 		return function()
 			if conn then
 				conn:disconnect()
 			end
-			if GetFFlagOpenControlsOnMenuOpen() and openMenuConn then
-				openMenuConn:Disconnect()
-			end
-			if GetFFlagOpenControlsOnMenuOpen() and closeMenuConn then
-				closeMenuConn:Disconnect()
-			end
 		end
 	end)
-
-	if GetFFlagOpenControlsOnMenuOpen() then
-		React.useEffect(function()
-			if not menuStatusOpen then
-				if GuiService.SelectedCoreObject then
-					local selectedWithinUnibar = menuFrame.current
-						and menuFrame.current:IsAncestorOf(GuiService.SelectedCoreObject)
-					if selectedWithinUnibar then
-						GuiService.SelectedCoreObject = nil
-					end
-				end
-
-				if GuiService.MenuIsOpen then
-					setWasUnibarClosedByUser(true)
-				end
-			else
-				local lastInput = ChromeService:getLastInputToOpenMenu()
-				local pressed = lastInput == Enum.UserInputType.MouseButton1 or lastInput == Enum.UserInputType.Touch
-
-				if not pressed and menuFrame.current then
-					GuiService:Select(menuFrame.current)
-				end
-
-				-- if user closes and opens unibar while IGM is open, do not force close unibar
-				if GuiService.MenuIsOpen and wasUnibarClosedByUser:getValue() then
-					setWasUnibarForcedOpen(false)
-					setWasUnibarClosedByUser(false)
-				end
-			end
-		end, { menuStatusOpen })
-	end
 
 	return {
 		React.createElement("Frame", {

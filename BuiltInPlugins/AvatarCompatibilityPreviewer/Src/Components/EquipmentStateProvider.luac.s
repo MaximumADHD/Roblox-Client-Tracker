@@ -103,6 +103,20 @@ PROTO_5:
 
 PROTO_6:
   GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["decrement"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["increment"]
+  CALL R0 0 0
+  NEWCLOSURE R0 P0
+  CAPTURE UPVAL U0
+  RETURN R0 1
+
+PROTO_8:
+  GETUPVAL R1 0
   CALL R1 0 1
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["useMemo"]
@@ -168,25 +182,45 @@ PROTO_6:
   GETUPVAL R12 8
   MOVE R13 R3
   CALL R12 1 1
-  DUPTABLE R13 K12 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "hideEquippedItem", "showEquippedItem", "setHideAllEquippedItems", "avatarAssets"}]
-  SETTABLEKS R3 R13 K2 ["equippedItems"]
-  SETTABLEKS R8 R13 K4 ["addEquippedItem"]
-  SETTABLEKS R9 R13 K5 ["removeEquippedItem"]
-  SETTABLEKS R10 R13 K6 ["removeAllEquippedItems"]
-  SETTABLEKS R11 R13 K7 ["moveEquippedItemsToIndex"]
-  SETTABLEKS R6 R13 K8 ["hideEquippedItem"]
-  SETTABLEKS R5 R13 K9 ["showEquippedItem"]
-  SETTABLEKS R7 R13 K10 ["setHideAllEquippedItems"]
-  SETTABLEKS R12 R13 K11 ["avatarAssets"]
+  GETUPVAL R13 9
+  CALL R13 0 1
+  GETUPVAL R15 10
+  CALL R15 0 1
+  JUMPIFNOT R15 [+9]
   GETUPVAL R15 1
-  GETTABLEKS R14 R15 K13 ["createElement"]
-  GETUPVAL R16 9
-  GETTABLEKS R15 R16 K14 ["Provider"]
-  DUPTABLE R16 K16 [{"value"}]
-  SETTABLEKS R13 R16 K15 ["value"]
-  GETTABLEKS R17 R0 K17 ["children"]
-  CALL R14 3 -1
-  RETURN R14 -1
+  GETTABLEKS R14 R15 K3 ["useCallback"]
+  NEWCLOSURE R15 P4
+  CAPTURE VAL R13
+  NEWTABLE R16 0 0
+  CALL R14 2 1
+  JUMP [+1]
+  LOADNIL R14
+  DUPTABLE R15 K14 [{"equippedItems", "addEquippedItem", "removeEquippedItem", "removeAllEquippedItems", "moveEquippedItemsToIndex", "hideEquippedItem", "showEquippedItem", "setHideAllEquippedItems", "avatarAssets", "startIgnoringChildren", "isIgnoringChildren"}]
+  SETTABLEKS R3 R15 K2 ["equippedItems"]
+  SETTABLEKS R8 R15 K4 ["addEquippedItem"]
+  SETTABLEKS R9 R15 K5 ["removeEquippedItem"]
+  SETTABLEKS R10 R15 K6 ["removeAllEquippedItems"]
+  SETTABLEKS R11 R15 K7 ["moveEquippedItemsToIndex"]
+  SETTABLEKS R6 R15 K8 ["hideEquippedItem"]
+  SETTABLEKS R5 R15 K9 ["showEquippedItem"]
+  SETTABLEKS R7 R15 K10 ["setHideAllEquippedItems"]
+  SETTABLEKS R12 R15 K11 ["avatarAssets"]
+  SETTABLEKS R14 R15 K12 ["startIgnoringChildren"]
+  GETTABLEKS R17 R13 K15 ["amount"]
+  LOADN R18 0
+  JUMPIFLT R18 R17 [+2]
+  LOADB R16 0 +1
+  LOADB R16 1
+  SETTABLEKS R16 R15 K13 ["isIgnoringChildren"]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K16 ["createElement"]
+  GETUPVAL R18 11
+  GETTABLEKS R17 R18 K17 ["Provider"]
+  DUPTABLE R18 K19 [{"value"}]
+  SETTABLEKS R15 R18 K18 ["value"]
+  GETTABLEKS R19 R0 K20 ["children"]
+  CALL R16 3 -1
+  RETURN R16 -1
 
 MAIN:
   PREPVARARGS 0
@@ -240,24 +274,36 @@ MAIN:
   GETIMPORT R10 K4 [require]
   GETTABLEKS R13 R0 K7 ["Src"]
   GETTABLEKS R12 R13 K12 ["Hooks"]
-  GETTABLEKS R11 R12 K18 ["useUserCatalogFolder"]
+  GETTABLEKS R11 R12 K18 ["useIncrementedState"]
   CALL R10 1 1
   GETIMPORT R11 K4 [require]
   GETTABLEKS R14 R0 K7 ["Src"]
-  GETTABLEKS R13 R14 K19 ["Flags"]
-  GETTABLEKS R12 R13 K20 ["getFFlagAvatarPreviewerEquippedHoverMenu"]
+  GETTABLEKS R13 R14 K12 ["Hooks"]
+  GETTABLEKS R12 R13 K19 ["useUserCatalogFolder"]
   CALL R11 1 1
-  MOVE R12 R11
-  CALL R12 0 1
-  DUPCLOSURE R13 K21 [PROTO_6]
-  CAPTURE VAL R10
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R15 R0 K7 ["Src"]
+  GETTABLEKS R14 R15 K20 ["Flags"]
+  GETTABLEKS R13 R14 K21 ["getFFlagAvatarPreviewerEquippedHoverMenu"]
+  CALL R12 1 1
+  MOVE R13 R12
+  CALL R13 0 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R17 R0 K7 ["Src"]
+  GETTABLEKS R16 R17 K20 ["Flags"]
+  GETTABLEKS R15 R16 K22 ["getFFlagAvatarPreviewerReplicateEditorStateOnWorldModel"]
+  CALL R14 1 1
+  DUPCLOSURE R15 K23 [PROTO_8]
+  CAPTURE VAL R11
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R8
-  CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R9
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R5
+  CAPTURE VAL R10
+  CAPTURE VAL R14
   CAPTURE VAL R2
-  RETURN R13 1
+  RETURN R15 1

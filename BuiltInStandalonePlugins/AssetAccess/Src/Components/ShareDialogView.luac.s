@@ -1,0 +1,267 @@
+PROTO_0:
+  GETIMPORT R2 K2 [table.clone]
+  MOVE R3 R0
+  CALL R2 1 1
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  SETTABLE R7 R2 R6
+  FORGLOOP R3 2 [-2]
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  GETUPVAL R0 1
+  CALL R0 0 0
+  GETUPVAL R0 2
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["state"]
+  JUMPIFNOTEQKS R0 K1 ["Inactive"] [+2]
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["state"]
+  JUMPIFEQKS R0 K2 ["Prompt"] [+6]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["state"]
+  JUMPIFNOTEQKS R0 K3 ["Sharing"] [+4]
+  GETUPVAL R0 1
+  CALL R0 0 0
+  JUMP [+15]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["state"]
+  JUMPIFNOTEQKS R0 K4 ["CantShare"] [+4]
+  GETUPVAL R0 2
+  CALL R0 0 0
+  JUMP [+7]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["state"]
+  JUMPIFNOTEQKS R0 K5 ["UnexpectedError"] [+3]
+  GETUPVAL R0 3
+  CALL R0 0 0
+  NEWCLOSURE R0 P0
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["use"]
+  CALL R0 0 1
+  GETUPVAL R1 1
+  CALL R1 0 2
+  NEWTABLE R3 0 0
+  JUMPIFNOT R1 [+14]
+  GETTABLEKS R4 R1 K1 ["state"]
+  JUMPIFEQKS R4 K2 ["Prompt"] [+9]
+  GETTABLEKS R4 R1 K1 ["state"]
+  JUMPIFEQKS R4 K3 ["Sharing"] [+5]
+  GETTABLEKS R4 R1 K1 ["state"]
+  JUMPIFNOTEQKS R4 K4 ["CantShare"] [+3]
+  GETTABLEKS R3 R1 K5 ["assetModels"]
+  GETUPVAL R4 2
+  DUPTABLE R5 K14 [{"Intent", "Heading", "Body", "Contents", "ActionPrimary", "ActionSecondary", "Modal", "Width"}]
+  LOADK R6 K15 ["Warning"]
+  SETTABLEKS R6 R5 K6 ["Intent"]
+  LOADK R8 K16 ["ShareDialogView"]
+  LOADK R9 K17 ["PromptHeading"]
+  NAMECALL R6 R0 K18 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K7 ["Heading"]
+  LOADK R8 K16 ["ShareDialogView"]
+  LOADK R9 K19 ["PromptBody"]
+  NAMECALL R6 R0 K18 ["getText"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K8 ["Body"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K20 ["createElement"]
+  GETUPVAL R7 4
+  DUPTABLE R8 K22 [{"AssetModels"}]
+  SETTABLEKS R3 R8 K21 ["AssetModels"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K9 ["Contents"]
+  JUMPIFNOT R1 [+13]
+  GETTABLEKS R7 R1 K1 ["state"]
+  JUMPIFNOTEQKS R7 K2 ["Prompt"] [+10]
+  DUPTABLE R6 K24 [{"Label"}]
+  LOADK R9 K16 ["ShareDialogView"]
+  LOADK R10 K25 ["PromptActionShare"]
+  NAMECALL R7 R0 K18 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K23 ["Label"]
+  JUMP [+18]
+  JUMPIFNOT R1 [+16]
+  GETTABLEKS R7 R1 K1 ["state"]
+  JUMPIFNOTEQKS R7 K3 ["Sharing"] [+13]
+  DUPTABLE R6 K27 [{"Label", "Enabled"}]
+  LOADK R9 K16 ["ShareDialogView"]
+  LOADK R10 K28 ["PromptActionSharing"]
+  NAMECALL R7 R0 K18 ["getText"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K23 ["Label"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K26 ["Enabled"]
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K10 ["ActionPrimary"]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K29 ["CLOSE"]
+  DUPTABLE R8 K31 [{"OnActivated"}]
+  SETTABLEKS R2 R8 K30 ["OnActivated"]
+  GETIMPORT R9 K34 [table.clone]
+  MOVE R10 R7
+  CALL R9 1 1
+  MOVE R10 R8
+  LOADNIL R11
+  LOADNIL R12
+  FORGPREP R10
+  SETTABLE R14 R9 R13
+  FORGLOOP R10 2 [-2]
+  MOVE R6 R9
+  SETTABLEKS R6 R5 K11 ["ActionSecondary"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K12 ["Modal"]
+  LOADN R6 215
+  SETTABLEKS R6 R5 K13 ["Width"]
+  CALL R4 1 2
+  GETUPVAL R6 2
+  DUPTABLE R7 K35 [{"Intent", "Heading", "Body", "Contents", "ActionPrimary", "Modal", "Width"}]
+  LOADK R8 K36 ["Error"]
+  SETTABLEKS R8 R7 K6 ["Intent"]
+  LOADK R10 K16 ["ShareDialogView"]
+  LOADK R11 K37 ["CantShareHeading"]
+  NAMECALL R8 R0 K18 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K7 ["Heading"]
+  LOADK R10 K16 ["ShareDialogView"]
+  LOADK R11 K38 ["CantShareBody"]
+  NAMECALL R8 R0 K18 ["getText"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K8 ["Body"]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K20 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K22 [{"AssetModels"}]
+  SETTABLEKS R3 R10 K21 ["AssetModels"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K9 ["Contents"]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K39 ["OK"]
+  DUPTABLE R10 K31 [{"OnActivated"}]
+  SETTABLEKS R2 R10 K30 ["OnActivated"]
+  GETIMPORT R11 K34 [table.clone]
+  MOVE R12 R9
+  CALL R11 1 1
+  MOVE R12 R10
+  LOADNIL R13
+  LOADNIL R14
+  FORGPREP R12
+  SETTABLE R16 R11 R15
+  FORGLOOP R12 2 [-2]
+  MOVE R8 R11
+  SETTABLEKS R8 R7 K10 ["ActionPrimary"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K12 ["Modal"]
+  LOADN R8 215
+  SETTABLEKS R8 R7 K13 ["Width"]
+  CALL R6 1 2
+  GETUPVAL R8 2
+  DUPTABLE R9 K40 [{"Intent", "Heading", "Body", "ActionPrimary", "Modal"}]
+  LOADK R10 K36 ["Error"]
+  SETTABLEKS R10 R9 K6 ["Intent"]
+  LOADK R12 K16 ["ShareDialogView"]
+  LOADK R13 K41 ["UnexpectedErrorHeading"]
+  NAMECALL R10 R0 K18 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K7 ["Heading"]
+  LOADK R12 K16 ["ShareDialogView"]
+  LOADK R13 K42 ["UnexpectedErrorBody"]
+  NAMECALL R10 R0 K18 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K8 ["Body"]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K39 ["OK"]
+  DUPTABLE R12 K31 [{"OnActivated"}]
+  SETTABLEKS R2 R12 K30 ["OnActivated"]
+  GETIMPORT R13 K34 [table.clone]
+  MOVE R14 R11
+  CALL R13 1 1
+  MOVE R14 R12
+  LOADNIL R15
+  LOADNIL R16
+  FORGPREP R14
+  SETTABLE R18 R13 R17
+  FORGLOOP R14 2 [-2]
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K10 ["ActionPrimary"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K12 ["Modal"]
+  CALL R8 1 2
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K43 ["useEffect"]
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  NEWTABLE R12 0 1
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R13 R1 K1 ["state"]
+  JUMP [+1]
+  LOADK R13 K44 ["Inactive"]
+  SETLIST R12 R13 1 [1]
+  CALL R10 2 0
+  LOADNIL R10
+  RETURN R10 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetAccess"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R4 R1 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["DialogAction"]
+  GETTABLEKS R5 R1 K11 ["ContextServices"]
+  GETTABLEKS R4 R5 K12 ["Localization"]
+  GETTABLEKS R7 R1 K13 ["UI"]
+  GETTABLEKS R6 R7 K14 ["Hooks"]
+  GETTABLEKS R5 R6 K15 ["useDialog"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K16 ["Src"]
+  GETTABLEKS R8 R9 K17 ["Components"]
+  GETTABLEKS R7 R8 K18 ["AssetMetadataTable"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K16 ["Src"]
+  GETTABLEKS R9 R10 K14 ["Hooks"]
+  GETTABLEKS R8 R9 K19 ["useShareDialogModel"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K20 [PROTO_0]
+  DUPCLOSURE R9 K21 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  RETURN R9 1

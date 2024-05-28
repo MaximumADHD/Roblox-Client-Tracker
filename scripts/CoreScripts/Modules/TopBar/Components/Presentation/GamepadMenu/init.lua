@@ -82,6 +82,7 @@ local FFlagAddMenuNavigationToggleDialog = require(script.Parent.Parent.Parent.F
 local FFlagEnableGamepadMenuSelector = require(script.Parent.Parent.Parent.Flags.FFlagEnableGamepadMenuSelector)
 local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagOpenPlayersPageFromGamepad = require(script.Parent.Parent.Parent.Flags.GetFFlagOpenPlayersPageFromGamepad)
+local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
 
 GamepadMenu.validateProps = t.strictInterface({
 	screenSize = t.Vector2,
@@ -282,7 +283,12 @@ end
 
 function GamepadMenu.closeUnibarMenu()
 	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-	ChromeService:close()
+	
+	if GetFFlagSupportCompactUtility() then
+		ChromeService:close(true)
+	else 
+		ChromeService:close()
+	end
 end
 
 function GamepadMenu.toggleChatVisible()

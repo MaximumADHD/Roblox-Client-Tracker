@@ -76,8 +76,12 @@ end
 
 HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid: Humanoid)
 	if avatarJointUpgrade then
-		if jointUpgradeActive() or deathType == "Ragdoll" then
+		if humanoid.RigType == Enum.HumanoidRigType.R15 and jointUpgradeActive() then
+			-- joint upgrade is active on an R15. R6 is not supported
 			Rigging.createRagdollJoints(character, humanoid.RigType, jointUpgradeActive())
+		elseif deathType == "Ragdoll" then
+			-- need to ragdoll for policy. Avatar is either R6 or joint upgrade is off, so don't create AnimationConstraints
+			Rigging.createRagdollJoints(character, humanoid.RigType, false)
 		end
 	end
 	if (deathType :: any) ~= "Ragdoll" then

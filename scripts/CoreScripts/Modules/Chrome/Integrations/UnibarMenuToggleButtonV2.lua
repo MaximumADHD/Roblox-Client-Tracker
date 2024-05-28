@@ -7,8 +7,13 @@ local Images = UIBlox.App.ImageSet.Images
 
 local chromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
+local Constants = require(script.Parent.Parent.Unibar.Constants)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
 local GetFFlagTweakedMicPinning = require(script.Parent.Parent.Flags.GetFFlagTweakedMicPinning)
+local GetFFlagUseNewUnibarIcon = require(script.Parent.Parent.Flags.GetFFlagUseNewUnibarIcon)
+
+local UNIBAR_ICON = Images["icons/actions/overflow"]
+local UNIBAR_ICON_SIZE = if GetFFlagUseNewUnibarIcon() then 32 else Constants.ICON_SIZE
 
 function ToggleMenuButton(props)
 	local toggleIconTransition = props.toggleTransition
@@ -16,7 +21,7 @@ function ToggleMenuButton(props)
 
 	local hasCurrentUtility = false
 	if GetFFlagSupportCompactUtility() then
-		hasCurrentUtility = if chromeService:getCurrentUtility() then true else false
+		hasCurrentUtility = if chromeService:getCurrentUtility():get() then true else false
 	end
 
 	local iconColor = style.Theme.IconEmphasis
@@ -34,14 +39,14 @@ function ToggleMenuButton(props)
 			CornerRadius = UDim.new(1, 0),
 		}) :: any,
 		React.createElement(ImageSetLabel, {
-			Name = "Cube",
+			Name = if GetFFlagUseNewUnibarIcon() then "Overflow" else "Cube",
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			BackgroundTransparency = 1,
-			Image = Images["icons/menu/AR"],
+			Image = if GetFFlagUseNewUnibarIcon() then UNIBAR_ICON else Images["icons/menu/AR"],
 			Size = toggleIconTransition:map(function(value: any): any
 				value = 1 - value
-				return UDim2.new(0, 36 * value, 0, 36 * value)
+				return UDim2.new(0, UNIBAR_ICON_SIZE * value, 0, UNIBAR_ICON_SIZE * value)
 			end),
 			ImageColor3 = style.Theme.IconEmphasis.Color,
 			ImageTransparency = style.Theme.IconEmphasis.Transparency,
@@ -51,7 +56,7 @@ function ToggleMenuButton(props)
 			Position = toggleIconTransition:map(function(value): any
 				return UDim2.new(0.5, 0, 0.5, 0)
 			end),
-			AnchorPoint = Vector2.new(0.5, 0),
+			AnchorPoint = if GetFFlagUseNewUnibarIcon() then Vector2.new(0.5, 0.5) else Vector2.new(0.5, 0),
 			Size = toggleIconTransition:map(function(value: any): any
 				return UDim2.new(0, 16 * value, 0, 2)
 			end),
@@ -66,7 +71,7 @@ function ToggleMenuButton(props)
 			Position = toggleIconTransition:map(function(value): any
 				return UDim2.new(0.5, 0, 0.5, 0)
 			end),
-			AnchorPoint = Vector2.new(0.5, 0),
+			AnchorPoint = if GetFFlagUseNewUnibarIcon() then Vector2.new(0.5, 0.5) else Vector2.new(0.5, 0),
 			Size = toggleIconTransition:map(function(value: any): any
 				return UDim2.new(0, 16 * value, 0, 2)
 			end),
@@ -120,7 +125,7 @@ return chromeService:register({
 	flashNotificationSource = true,
 	activated = function()
 		if GetFFlagSupportCompactUtility() then
-			local currentUtility = chromeService:getCurrentUtility()
+			local currentUtility = chromeService:getCurrentUtility():get()
 			if currentUtility then
 				chromeService:toggleCompactUtility(currentUtility)
 			else

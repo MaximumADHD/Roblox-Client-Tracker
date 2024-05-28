@@ -5,7 +5,7 @@ local GetFStringInGameMenuChromeForcedUserIds =
 local GetFIntInGameMenuChromeAllowlistTimeout =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFIntInGameMenuChromeAllowlistTimeout
 
-game:DefineFastFlag("OpenControlsOnMenuOpen", false)
+game:DefineFastFlag("OpenControlsOnMenuOpen2", false)
 
 return function()
 	-- Determine localPlayer unless it takes longer than timeout
@@ -24,5 +24,5 @@ return function()
 		end
 	end
 
-	return game:GetFastFlag("OpenControlsOnMenuOpen")
+	return game:GetFastFlag("OpenControlsOnMenuOpen2")
 end

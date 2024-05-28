@@ -687,36 +687,36 @@ PROTO_27:
   JUMPIFEQKNIL R1 [+10]
   GETUPVAL R1 0
   JUMPIFNOT R1 [+10]
-  GETTABLEKS R1 R0 K1 ["ugcBundleValidationResult"]
+  GETTABLEKS R1 R0 K0 ["ugcBundleValidationResults"]
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["None"]
+  GETTABLEKS R2 R3 K1 ["None"]
   JUMPIFNOTEQ R1 R2 [+4]
   NEWTABLE R1 0 0
   RETURN R1 1
-  GETIMPORT R1 K5 [table.clone]
+  GETIMPORT R1 K4 [table.clone]
   GETTABLEKS R2 R0 K0 ["ugcBundleValidationResults"]
   CALL R1 1 1
-  GETIMPORT R2 K5 [table.clone]
+  GETIMPORT R2 K4 [table.clone]
   LENGTH R4 R1
   GETTABLE R3 R1 R4
   CALL R2 1 1
-  GETTABLEKS R5 R2 K6 ["assetType"]
+  GETTABLEKS R5 R2 K5 ["assetType"]
   JUMPIFEQKNIL R5 [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  FASTCALL2K ASSERT R4 K7 [+4]
-  LOADK R5 K7 ["Expected last validation result to not have an asset type (full body)"]
-  GETIMPORT R3 K9 [assert]
+  FASTCALL2K ASSERT R4 K6 [+4]
+  LOADK R5 K6 ["Expected last validation result to not have an asset type (full body)"]
+  GETIMPORT R3 K8 [assert]
   CALL R3 2 0
-  GETTABLEKS R4 R2 K10 ["errors"]
+  GETTABLEKS R4 R2 K9 ["errors"]
   LENGTH R3 R4
-  JUMPIFNOTEQKN R3 K11 [0] [+6]
+  JUMPIFNOTEQKN R3 K10 [0] [+6]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K12 ["success"]
-  SETTABLEKS R3 R2 K13 ["type"]
+  GETTABLEKS R3 R4 K11 ["success"]
+  SETTABLEKS R3 R2 K12 ["type"]
   LENGTH R3 R1
   SETTABLE R2 R1 R3
-  DUPTABLE R3 K14 [{"ugcBundleValidationResults"}]
+  DUPTABLE R3 K13 [{"ugcBundleValidationResults"}]
   SETTABLEKS R1 R3 K0 ["ugcBundleValidationResults"]
   RETURN R3 1
 
@@ -2434,7 +2434,7 @@ MAIN:
   GETTABLEKS R45 R46 K30 ["getFFlagEnableUGCForAllChecks"]
   CALL R44 1 1
   GETIMPORT R45 K13 [game]
-  LOADK R47 K61 ["FFlagToolboxFixUGCBundleValidationCryoThingy"]
+  LOADK R47 K61 ["ToolboxFixUGCBundleValidationCryoThingy1"]
   LOADB R48 0
   NAMECALL R45 R45 K55 ["DefineFastFlag"]
   CALL R45 3 1

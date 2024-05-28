@@ -1,0 +1,47 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K3 [{"sessionQueue"}]
+  GETTABLEKS R5 R1 K2 ["sessionQueue"]
+  SETTABLEKS R5 R4 K2 ["sessionQueue"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Rodux"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Cryo"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Actions"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R3 K11 ["SetSessionQueue"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K12 ["DataTypes"]
+  GETTABLEKS R6 R7 K13 ["QueuedSession"]
+  CALL R5 1 1
+  DUPTABLE R6 K15 [{"sessionQueue"}]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K14 ["sessionQueue"]
+  GETTABLEKS R7 R1 K16 ["createReducer"]
+  MOVE R8 R6
+  NEWTABLE R9 1 0
+  GETTABLEKS R10 R4 K17 ["name"]
+  DUPCLOSURE R11 K18 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLE R11 R9 R10
+  CALL R7 2 -1
+  RETURN R7 -1

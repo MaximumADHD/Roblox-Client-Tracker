@@ -94,7 +94,7 @@ PROTO_0:
   LOADK R14 K23 ["Material"]
   SETTABLEKS R14 R13 K5 ["Type"]
   SETTABLEKS R13 R12 K2 ["Schema"]
-  DUPTABLE R13 K28 [{"Hidden", "Id", "Label", "Schema"}]
+  DUPTABLE R13 K28 [{"Hidden", "Id", "Layout", "Label", "Schema"}]
   GETUPVAL R16 6
   GETTABLEKS R15 R16 K24 ["Paint"]
   JUMPIFNOTEQ R2 R15 [+2]
@@ -104,6 +104,8 @@ PROTO_0:
   GETUPVAL R15 1
   GETTABLEKS R14 R15 K29 ["Apply"]
   SETTABLEKS R14 R13 K1 ["Id"]
+  GETIMPORT R14 K20 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K14 ["Layout"]
   GETUPVAL R17 1
   GETTABLEKS R16 R17 K8 ["MaterialMode"]
   GETTABLE R15 R1 R16

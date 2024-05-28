@@ -148,44 +148,46 @@ PROTO_5:
   LOADK R7 K22 ["2"]
   LOADK R8 K23 ["]"]
   CONCAT R3 R5 R8
+  LOADB R4 0
+  SETTABLEKS R4 R0 K24 ["teamCreateEnabled"]
   SETTABLEKS R3 R0 K13 ["name"]
-  LOADK R4 K24 ["MorphToR15"]
-  SETTABLEKS R4 R0 K25 ["universeAvatarType"]
+  LOADK R4 K25 ["MorphToR15"]
+  SETTABLEKS R4 R0 K26 ["universeAvatarType"]
   GETUPVAL R4 2
   GETUPVAL R5 1
   GETUPVAL R6 3
   MOVE R7 R0
   CALL R4 3 1
   JUMPIFNOT R4 [+2]
-  JUMPIFNOTEQKN R4 K26 [0] [+15]
-  GETIMPORT R5 K28 [warn]
-  LOADK R6 K29 ["Failed to create new experience"]
+  JUMPIFNOTEQKN R4 K27 [0] [+15]
+  GETIMPORT R5 K29 [warn]
+  LOADK R6 K30 ["Failed to create new experience"]
   CALL R5 1 0
   GETUPVAL R5 0
-  DUPTABLE R7 K31 [{"isConverting"}]
+  DUPTABLE R7 K32 [{"isConverting"}]
   LOADB R8 0
-  SETTABLEKS R8 R7 K30 ["isConverting"]
-  NAMECALL R5 R5 K32 ["setState"]
+  SETTABLEKS R8 R7 K31 ["isConverting"]
+  NAMECALL R5 R5 K33 ["setState"]
   CALL R5 2 0
   CLOSEUPVALS R3
   RETURN R0 0
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K33 ["isExperiencePublished"]
+  GETTABLEKS R5 R6 K34 ["isExperiencePublished"]
   JUMPIFNOT R5 [+12]
   GETUPVAL R6 4
-  GETTABLEKS R5 R6 K34 ["CorrespondingR15Experience"]
+  GETTABLEKS R5 R6 K35 ["CorrespondingR15Experience"]
   GETUPVAL R7 5
-  GETIMPORT R9 K36 [game]
-  GETTABLEKS R8 R9 K37 ["GameId"]
+  GETIMPORT R9 K37 [game]
+  GETTABLEKS R8 R9 K38 ["GameId"]
   MOVE R9 R4
-  NAMECALL R5 R5 K38 ["setSetting"]
+  NAMECALL R5 R5 K39 ["setSetting"]
   CALL R5 4 0
   GETUPVAL R6 4
-  GETTABLEKS R5 R6 K39 ["IsR15ConvertedExperience"]
+  GETTABLEKS R5 R6 K40 ["IsR15ConvertedExperience"]
   GETUPVAL R7 5
   MOVE R8 R4
   LOADB R9 1
-  NAMECALL R5 R5 K38 ["setSetting"]
+  NAMECALL R5 R5 K39 ["setSetting"]
   CALL R5 4 0
   GETUPVAL R5 0
   MOVE R7 R4
@@ -193,7 +195,7 @@ PROTO_5:
   CAPTURE REF R3
   CAPTURE UPVAL U0
   CAPTURE UPVAL U6
-  NAMECALL R5 R5 K40 ["getR15ConvertedExperienceData"]
+  NAMECALL R5 R5 K41 ["getR15ConvertedExperienceData"]
   CALL R5 3 0
   CLOSEUPVALS R3
   RETURN R0 0
@@ -239,29 +241,27 @@ PROTO_8:
   CALL R0 3 0
   RETURN R0 0
   GETUPVAL R0 2
-  DUPTABLE R1 K16 [{"description", "genre", "name", "playableDevices", "isFriendsOnly", "teamCreateEnabled"}]
-  LOADK R2 K17 [""]
+  DUPTABLE R1 K15 [{"description", "genre", "name", "playableDevices", "isFriendsOnly"}]
+  LOADK R2 K16 [""]
   SETTABLEKS R2 R1 K10 ["description"]
-  LOADK R2 K18 ["All"]
+  LOADK R2 K17 ["All"]
   SETTABLEKS R2 R1 K11 ["genre"]
   GETUPVAL R2 0
-  NAMECALL R2 R2 K19 ["getGameName"]
+  NAMECALL R2 R2 K18 ["getGameName"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K12 ["name"]
-  DUPTABLE R2 K24 [{"Computer", "Phone", "Tablet", "VR"}]
+  DUPTABLE R2 K23 [{"Computer", "Phone", "Tablet", "VR"}]
   LOADB R3 1
-  SETTABLEKS R3 R2 K20 ["Computer"]
+  SETTABLEKS R3 R2 K19 ["Computer"]
   LOADB R3 1
-  SETTABLEKS R3 R2 K21 ["Phone"]
+  SETTABLEKS R3 R2 K20 ["Phone"]
   LOADB R3 1
-  SETTABLEKS R3 R2 K22 ["Tablet"]
+  SETTABLEKS R3 R2 K21 ["Tablet"]
   LOADB R3 1
-  SETTABLEKS R3 R2 K23 ["VR"]
+  SETTABLEKS R3 R2 K22 ["VR"]
   SETTABLEKS R2 R1 K13 ["playableDevices"]
   LOADB R2 0
   SETTABLEKS R2 R1 K14 ["isFriendsOnly"]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K15 ["teamCreateEnabled"]
   CALL R0 1 0
   RETURN R0 0
 
