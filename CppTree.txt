@@ -14581,8 +14581,8 @@ rtc::RefCountedObject<class webrtc::`anonymous namespace'::IdWithDirection>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedId>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedIntId>
 rtc::RefCountedObject<class webrtc::AsyncAudioProcessing::Factory>
-rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x895f4fd4::NotAdvertised<struct webrtc::AudioDecoderL16> > >
-rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0xa36abce2::NotAdvertised<struct webrtc::AudioEncoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0xa7586327::NotAdvertised<struct webrtc::AudioDecoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x8d6d9011::NotAdvertised<struct webrtc::AudioEncoderL16> > >
 rtc::RefCountedObject<class webrtc::AudioDeviceModuleImpl>
 rtc::RefCountedObject<class webrtc::AudioMixerImpl>
 rtc::RefCountedObject<class webrtc::AudioProcessingImpl>
@@ -14982,7 +14982,6 @@ std::_Binder<struct std::_Unforced,void (__cdecl*)(struct RBX::HttpResult,class 
 std::_Binder<struct std::_Unforced,void (__cdecl*)(struct RBX::StandardOutMessage,class std::weak_ptr<class RBX::LogService>),struct RBX::StandardOutMessage const & __ptr64,class std::weak_ptr<class RBX::LogService> >
 std::_Binder<struct std::_Unforced,void (__cdecl*)(struct RBX::TextFilterResult const & __ptr64,class std::shared_ptr<class RBX::Player>,class std::function<void __cdecl(class std::string)>,class std::function<void __cdecl(class std::string)>),struct std::_Ph<1> const & __ptr64,class std::shared_ptr<class RBX::Player> & __ptr64,class std::function<void __cdecl(class std::string)> & __ptr64,class std::function<void __cdecl(class std::string)> & __ptr64>
 std::_Deferred_async_state<void>
-std::_Ebco_base<class RBX::PoolAllocator<class RBX::SmallVector<class webrtc::RtpPacketInfo,1> >,0>
 std::_Facet_base
 std::_Fake_no_copy_callable_adapter<unsigned int (__cdecl Etc::Image::*)(unsigned int,unsigned int,unsigned int) __ptr64,class Etc::Image * __ptr64,unsigned int & __ptr64,int & __ptr64,unsigned int & __ptr64>
 std::_Fake_no_copy_callable_adapter<void (__cdecl Etc::Image::*)(unsigned int,unsigned int) __ptr64,class Etc::Image * __ptr64,int & __ptr64,unsigned int & __ptr64>
@@ -16193,7 +16192,6 @@ std::_Node_str<char>
 std::_Packaged_state<unsigned int __cdecl(void)>
 std::_Packaged_state<void __cdecl(void)>
 std::_Ref_count_base
-std::_Ref_count_obj_alloc3<class RBX::SmallVector<class webrtc::RtpPacketInfo,1>,class RBX::PoolAllocator<class RBX::SmallVector<class webrtc::RtpPacketInfo,1> > >
 std::_Ref_count_obj2<__int64>
 std::_Ref_count_obj2<bool>
 std::_Ref_count_obj2<class `anonymous namespace'::DefaultFileLogSink>
@@ -16850,7 +16848,6 @@ std::_Ref_count_obj2<class RenderJob>
 std::_Ref_count_obj2<class RenderScheduler>
 std::_Ref_count_obj2<class ResultEmitter>
 std::_Ref_count_obj2<class RowData>
-std::_Ref_count_obj2<class RSL::AtomicPoolArena>
 std::_Ref_count_obj2<class ScriptCommandHandler>
 std::_Ref_count_obj2<class ScriptContentQuickOpenProvider>
 std::_Ref_count_obj2<class ScriptContentQuickOpenProviderWorker>
@@ -20356,8 +20353,8 @@ webrtc::AsyncDnsResolverFactoryInterface
 webrtc::AsyncDnsResolverInterface
 webrtc::AsyncDnsResolverResult
 webrtc::AsyncResolverFactory
-webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x895f4fd4::NotAdvertised<struct webrtc::AudioDecoderL16> >
-webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0xa36abce2::NotAdvertised<struct webrtc::AudioEncoderL16> >
+webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0xa7586327::NotAdvertised<struct webrtc::AudioDecoderL16> >
+webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x8d6d9011::NotAdvertised<struct webrtc::AudioEncoderL16> >
 webrtc::AudioBuffer
 webrtc::AudioCodingModule
 webrtc::AudioConverter
