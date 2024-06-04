@@ -370,12 +370,14 @@ Class AudioAnalyzer : Instance [NotBrowsable]
 	Function AudioAnalyzer:GetConnectedWires(pin: string) -> { any }
 	Function AudioAnalyzer:GetSpectrum() -> { any } [CustomLuaState]
 Class AudioChorus : Instance [NotBrowsable]
+	Property AudioChorus.Bypass: boolean
 	Property AudioChorus.Depth: number
 	Property AudioChorus.Mix: number
 	Property AudioChorus.Rate: number
 	Function AudioChorus:GetConnectedWires(pin: string) -> { any }
 Class AudioCompressor : Instance [NotBrowsable]
 	Property AudioCompressor.Attack: number
+	Property AudioCompressor.Bypass: boolean
 	Property AudioCompressor.MakeupGain: number
 	Property AudioCompressor.Ratio: number
 	Property AudioCompressor.Release: number
@@ -395,9 +397,11 @@ Class AudioDeviceOutput : Instance [NotBrowsable]
 	Property AudioDeviceOutput.Player: Player?
 	Function AudioDeviceOutput:GetConnectedWires(pin: string) -> { any }
 Class AudioDistortion : Instance [NotBrowsable]
+	Property AudioDistortion.Bypass: boolean
 	Property AudioDistortion.Level: number
 	Function AudioDistortion:GetConnectedWires(pin: string) -> { any }
 Class AudioEcho : Instance [NotBrowsable]
+	Property AudioEcho.Bypass: boolean
 	Property AudioEcho.DelayTime: number
 	Property AudioEcho.DryLevel: number
 	Property AudioEcho.Feedback: number
@@ -412,15 +416,18 @@ Class AudioEmitter : Instance [NotBrowsable]
 	Function AudioEmitter:GetInteractingListeners() -> { any } {RobloxScriptSecurity}
 	Function AudioEmitter:SetDistanceAttenuation(curve: { [string]: any }) -> () [CustomLuaState]
 Class AudioEqualizer : Instance [NotBrowsable]
+	Property AudioEqualizer.Bypass: boolean
 	Property AudioEqualizer.HighGain: number
 	Property AudioEqualizer.LowGain: number
 	Property AudioEqualizer.MidGain: number
 	Property AudioEqualizer.MidRange: NumberRange
 	Function AudioEqualizer:GetConnectedWires(pin: string) -> { any }
 Class AudioFader : Instance [NotBrowsable]
+	Property AudioFader.Bypass: boolean
 	Property AudioFader.Volume: number
 	Function AudioFader:GetConnectedWires(pin: string) -> { any }
 Class AudioFlanger : Instance [NotBrowsable]
+	Property AudioFlanger.Bypass: boolean
 	Property AudioFlanger.Depth: number
 	Property AudioFlanger.Mix: number
 	Property AudioFlanger.Rate: number
@@ -431,6 +438,7 @@ Class AudioListener : Instance [NotBrowsable]
 	Function AudioListener:GetConnectedWires(pin: string) -> { any }
 	Function AudioListener:GetInteractingEmitters() -> { any } {RobloxScriptSecurity}
 Class AudioPitchShifter : Instance [NotBrowsable]
+	Property AudioPitchShifter.Bypass: boolean
 	Property AudioPitchShifter.Pitch: number
 	Function AudioPitchShifter:GetConnectedWires(pin: string) -> { any }
 Class AudioPlayer : Instance [NotBrowsable]
@@ -452,6 +460,7 @@ Class AudioPlayer : Instance [NotBrowsable]
 	Event AudioPlayer.Looped()
 Class AudioReverb : Instance [NotBrowsable]
 	Property AudioReverb.LowShelfGain: number
+	Property AudioReverb.Bypass: boolean
 	Property AudioReverb.DecayRatio: number
 	Property AudioReverb.DecayTime: number
 	Property AudioReverb.Density: number
@@ -2982,6 +2991,18 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Function Lighting:GetSunDirection() -> Vector3
 	Function Lighting:SetMinutesAfterMidnight(minutes: number) -> ()
 	Event Lighting.LightingChanged(skyChanged: boolean)
+Class LinkingService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function LinkingService:DetectUrl(url: string) -> () {RobloxScriptSecurity}
+	Function LinkingService:GetAndClearLastPendingUrl() -> { [string]: any } {RobloxScriptSecurity}
+	Function LinkingService:GetLastLuaUrl() -> string? {RobloxScriptSecurity}
+	Function LinkingService:IsUrlRegistered(url: string) -> boolean {RobloxScriptSecurity}
+	Function LinkingService:OpenUrl(url: string) -> boolean {RobloxScriptSecurity} [Yields]
+	Function LinkingService:RegisterLuaUrl(url: string) -> () {RobloxScriptSecurity}
+	Function LinkingService:StartLuaUrlDelivery() -> { [string]: any }? {RobloxScriptSecurity}
+	Function LinkingService:StopLuaUrlDelivery() -> () {RobloxScriptSecurity}
+	Function LinkingService:SupportsSwitchToSettingsApp() -> boolean {RobloxScriptSecurity} [Yields]
+	Function LinkingService:SwitchToSettingsApp(route: string?) -> () {RobloxScriptSecurity} [Yields]
+	Event LinkingService.OnLuaUrl(url: string, matchedUrl: string, attributionUrl: string?) {RobloxScriptSecurity}
 Class LiveScriptingService : Instance [NotCreatable] [Service]
 	Property LiveScriptingService.ServerLiveEditingMode: Enum.ServerLiveEditingMode [Hidden] [NotScriptable]
 	Event LiveScriptingService.BeginEdit(id: number, guid: string) {RobloxSecurity} [Hidden]
@@ -3668,10 +3689,10 @@ Class Terrain : BasePart [NotCreatable]
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.FluidFidelityInternal: Enum.FluidFidelity {RobloxSecurity} [Hidden] [NotScriptable]
-	Property TriangleMeshPart.UnscaledCofm: Vector3 {RobloxSecurity}
-	Property TriangleMeshPart.UnscaledVolInertiaDiags: Vector3 {RobloxSecurity}
-	Property TriangleMeshPart.UnscaledVolInertiaOffDiags: Vector3 {RobloxSecurity}
-	Property TriangleMeshPart.UnscaledVolume: number {RobloxSecurity}
+	Property TriangleMeshPart.UnscaledCofm: Vector3 {RobloxSecurity} [Hidden]
+	Property TriangleMeshPart.UnscaledVolInertiaDiags: Vector3 {RobloxSecurity} [Hidden]
+	Property TriangleMeshPart.UnscaledVolInertiaOffDiags: Vector3 {RobloxSecurity} [Hidden]
+	Property TriangleMeshPart.UnscaledVolume: number {RobloxSecurity} [Hidden]
 	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity {✏️PluginSecurity} [📁 LoadOnly] [NotReplicated]
 	Property TriangleMeshPart.AeroMeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property TriangleMeshPart.MeshSize: Vector3 [ReadOnly]
@@ -3846,6 +3867,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.IKControlConstraintSupport: Enum.IKControlConstraintSupport [NotScriptable]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
 	Property Workspace.MeshPartHeadsAndAccessories: Enum.MeshPartHeadsAndAccessories [NotScriptable]
+	Property Workspace.MoverConstraintRootBehavior: Enum.MoverConstraintRootBehaviorMode [NotScriptable]
 	Property Workspace.PhysicsSteppingMethod: Enum.PhysicsSteppingMethod [NotScriptable]
 	Property Workspace.PlayerCharacterDestroyBehavior: Enum.PlayerCharacterDestroyBehavior [NotScriptable]
 	Property Workspace.PrimalPhysicsSolver: Enum.PrimalPhysicsSolver [NotScriptable]
@@ -5432,6 +5454,7 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Function StudioDeviceEmulatorService:EmulatePCDeviceWithResolution(deviceId: string, resolution: Vector2) -> boolean {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:GetCurrentDeviceId() -> string {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:GetCurrentOrientation() -> Enum.ScreenOrientation {RobloxScriptSecurity} [Yields]
+	Function StudioDeviceEmulatorService:GetKeyboardShortcut(deviceId: number, gamepadKey: Enum.KeyCode, position: Vector3) -> { any } {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:GetMaxNumTouches() -> number {RobloxScriptSecurity}
 	Function StudioDeviceEmulatorService:GetTouchInBounds(index: number) -> boolean {RobloxScriptSecurity}
 	Function StudioDeviceEmulatorService:GetTouchPosition(index: number) -> Vector2 {RobloxScriptSecurity}
@@ -5439,6 +5462,7 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Function StudioDeviceEmulatorService:SendGamepadEvent(deviceId: number, keyCode: Enum.KeyCode, position: Vector3, rotation: Vector3) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:SetCurrentDeviceId(deviceId: string) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:SetCurrentOrientation(orientation: Enum.ScreenOrientation) -> () {RobloxScriptSecurity} [Yields]
+	Function StudioDeviceEmulatorService:UpdateKeyMapping(deviceId: number, keyboardShortcut: { any }, gamepadKey: Enum.KeyCode, position: Vector3) -> boolean {RobloxScriptSecurity} [Yields]
 	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.TouchInBoundsChanged() {RobloxScriptSecurity}
@@ -5910,6 +5934,7 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:GetPropertyValue(instance: Instance, property: string) -> any {RobloxScriptSecurity}
 	Function UGCValidationService:GetTextureSize(textureId: string) -> Vector2 {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:RegisterUGCValidationFunction(setFunction: (...any) -> ...any) -> () {RobloxScriptSecurity}
+	Function UGCValidationService:ReportUGCValidationTelemetry(assetType: string, data: { [string]: any }) -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ResetCollisionFidelity(meshPart: Instance, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
 	Function UGCValidationService:ResetCollisionFidelityWithEditableMeshDataLua(meshPart: MeshPart, editableMesh: EditableMesh, collisionFidelity: Enum.CollisionFidelity? = "Box") -> () {RobloxScriptSecurity}
 	Function UGCValidationService:SetMeshIdBlocking(meshPart: Instance, meshId: string) -> () {RobloxScriptSecurity}
@@ -5937,7 +5962,9 @@ Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function UGCValidationService:ValidateEditableMeshVertColors(editableMesh: EditableMesh, includeAlpha: boolean? = true) -> boolean {RobloxScriptSecurity}
 	Function UGCValidationService:ValidateFullBodyCageDeletion(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateImageTransparencyThresholdByteString(image: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:ValidateImageTransparencyThresholdByteString_V2(image: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateImageTransparencyThresholdTextureID(textureId: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
+	Function UGCValidationService:ValidateImageTransparencyThresholdTextureID_V2(textureId: string, threshold: number) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateMeshBounds(meshId: string, meshScale: Vector3, boundsOffset: Vector3, attachmentCF: CFrame, handleCF: CFrame) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateMeshTriangleArea(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
 	Function UGCValidationService:ValidateMeshTriangles(meshId: string) -> boolean {RobloxScriptSecurity} [Yields]
@@ -6052,6 +6079,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property UserGameSettings.ComputerCameraMovementMode: Enum.ComputerCameraMovementMode
 	Property UserGameSettings.ComputerMovementMode: Enum.ComputerMovementMode
 	Property UserGameSettings.ControlMode: Enum.ControlMode
+	Property UserGameSettings.HapticStrength: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.RotationType: Enum.RotationType
 	Property UserGameSettings.TouchCameraMovementMode: Enum.TouchCameraMovementMode
 	Property UserGameSettings.TouchMovementMode: Enum.TouchMovementMode
@@ -8167,6 +8195,10 @@ Enum MoveState
 	EnumItem MoveState.Pushing : 2
 	EnumItem MoveState.Stopping : 3
 	EnumItem MoveState.AirFree : 4
+Enum MoverConstraintRootBehaviorMode
+	EnumItem MoverConstraintRootBehaviorMode.Default : 0
+	EnumItem MoverConstraintRootBehaviorMode.Disabled : 1
+	EnumItem MoverConstraintRootBehaviorMode.Enabled : 2
 Enum MuteState
 	EnumItem MuteState.Unmuted : 0
 	EnumItem MuteState.Muted : 1

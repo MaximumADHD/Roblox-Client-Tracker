@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "MultiPageSignup",
+    "tree": {
+      "$path": "../../../../../../../modules/account-authentication/multi-page-signup/src"
+    }
+  }
+}

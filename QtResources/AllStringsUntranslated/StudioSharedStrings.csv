@@ -4,7 +4,7 @@ Studio.FontSelection.FontWeightStatus.Procedural,"Displayed in properties panel 
 Studio.FontSelection.FontWeightStatus.Unavailable,"Displayed in properties panel when a font family doesn't contain a weight, e.g. `Thin (unavailable)`.",%1 (unavailable),%1 (unavailable)
 Studio.FontSelection.Action.CopyID,Context menu item for copying a font family's asset ID to the clipboard,Copy ID,Copy ID
 Studio.AssetImport.TextureFilePickerCaption,,Open Texture File,Open Texture File
-Studio.AssetImport.ImportFilePickerCaption,,Open FBX or OBJ File,Open FBX or OBJ File
+Studio.AssetImport.ImportFilePickerCaption,,"Open 3D File (FBX, OBJ, GLB, GLTF)","Open 3D File (FBX, OBJ, GLB, GLTF)"
 Studio.QtUI.Action.DoNotAskMeAgain,,Do not ask me again,Do not ask me again
 Studio.App.CallStack.CallStack,Call Stack widgets,Call Stack,Call Stack
 Studio.App.RemoteDebugger.Title,,Remote Debugging,Remote Debugging

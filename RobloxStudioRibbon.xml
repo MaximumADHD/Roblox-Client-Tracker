@@ -108,11 +108,7 @@
           <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
-        <MenuPopupButton fflag="!RenameLockTool" name="lockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
-          <addaction name="lockAction" text="Studio.App.RobloxRibbonMainWindow.LockTool" modernIcon="Lock" />
-          <addaction name="unlockAllAction" modernIcon="Unlock" />
-        </MenuPopupButton>
-        <MenuPopupButton fflag="RenameLockTool" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
+        <MenuPopupButton name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
           <addaction name="lockToolAction" text="Studio.App.RobloxRibbonMainWindow.LockTool" modernIcon="Lock" />
           <addaction name="unlockAllAction" modernIcon="Unlock" />
         </MenuPopupButton>
@@ -212,11 +208,7 @@
           <addaction name="groupSelectionFolderAction" modernIcon="Folder" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.GroupsPartsIntoFolder" width="16" height="16" />
           <addaction name="ungroupSelectionAction"  icon=":/RibbonBar/images/RibbonIcons/Home/Ungroup.png" modernIcon="Ungroup" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.UngroupModel" width="16" height="16" />
         </MenuPopupButton>
-        <MenuPopupButton fflag="!RenameLockTool" name="lockAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
-          <addaction name="lockAction" text="Studio.App.RobloxRibbonMainWindow.LockTool"  modernIcon="Lock" />
-          <addaction name="unlockAllAction"  modernIcon="Unlock" />
-        </MenuPopupButton>
-        <MenuPopupButton fflag="RenameLockTool" name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
+        <MenuPopupButton name="lockToolAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.Lock" popupStyle="menubutton" icon=":/RibbonBar/images/RibbonIcons/Home/Lock-16x16.png" modernIcon="Lock" tooltip="Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock">
           <addaction name="lockToolAction" text="Studio.App.RobloxRibbonMainWindow.LockTool"  modernIcon="Lock" />
           <addaction name="unlockAllAction"  modernIcon="Unlock" />
         </MenuPopupButton>
@@ -381,7 +373,7 @@
             <addaction name="simulationResumeActionV3" type="plugin" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" modernIcon="Resume" width="32" height="32" />
           </ActionGroup>
         </MenuPopupButton>
-        <MenuPopupButton fflag="EnableSimulationStepForward" handleMenuTrigger="true" selectChangesText="true" name="simulationStepForwardGameActionGroup" value="simulationStepForwardAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.StepForward" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Resume" width="32" height="32">
+        <MenuPopupButton fflag="EnableSimulationStepForward" fflagList="EnableSimulationStep,EnableSimulationStepForward" handleMenuTrigger="true" selectChangesText="true" name="simulationStepForwardGameActionGroup" value="simulationStepForwardAllAction" style="textundericon" popupStyle="menubutton" text="Studio.Common.Action.StepForward" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Resume" width="32" height="32">
           <ActionGroup name="stepForwardActions" style="textbesideicon" ischeckable="false">
             <addaction name="simulationStepForwardAllAction" type="plugin" text="Studio.Common.Action.StepForward" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Fwd" width="32" height="32"/>
             <addaction name="simulationStepForwardAction" type="plugin" text="Studio.Common.Action.StepForwardPhysicsCurrent" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateFwd.png" modernIcon="Fwd" width="32" height="32"/>

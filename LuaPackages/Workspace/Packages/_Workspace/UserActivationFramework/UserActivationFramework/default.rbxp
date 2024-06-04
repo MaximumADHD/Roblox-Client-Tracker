@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UserActivationFramework",
+    "tree": {
+      "$path": "../../../../../../../modules/account-authentication/user-activation-framework/src"
+    }
+  }
+}

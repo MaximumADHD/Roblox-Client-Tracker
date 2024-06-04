@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "PremiumSponsoredExperienceReporting",
+    "tree": {
+      "$path": "../../../../../../../modules/core-scripts/premium-sponsored-experience-reporting/src"
+    }
+  }
+}
