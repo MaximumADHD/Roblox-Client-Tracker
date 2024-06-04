@@ -39,6 +39,10 @@ local function useGuiControlState(
 
 	local guiStateTable = React.useMemo(function()
 		return createGuiControlStateTable(onGuiControlStateChanged)
+	end, {})
+
+	React.useEffect(function()
+		guiStateTable:onStateChange(onGuiControlStateChanged)
 	end, { onGuiControlStateChanged })
 
 	local onRefChange = React.useCallback(function(instance: GuiObject)

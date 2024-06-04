@@ -289,4 +289,8 @@
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Assine com cartão de crédito/débito]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Assine com Crédito Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Pagar de outra forma]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[Saindo da Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[Ao clicar em "continuar", você será redirecionado para um site que não é propriedade ou operado pela Roblox. O site tem diferentes termos e políticas de privacidade.]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[Cancelar]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[Continuar]],
 }

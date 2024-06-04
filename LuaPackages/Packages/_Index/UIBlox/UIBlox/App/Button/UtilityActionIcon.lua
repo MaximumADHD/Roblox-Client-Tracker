@@ -11,6 +11,7 @@ local Cryo = require(Packages.Cryo)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local ImagesTypes = require(UIBlox.App.ImageSet.ImagesTypes)
+local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 local withHoverTooltip = require(UIBlox.App.Dialog.TooltipV2.Controllers).withHoverTooltip
 local TooltipOrientation = require(UIBlox.App.Dialog.Tooltip.Enum.TooltipOrientation)
 local StateLayer = require(UIBlox.Core.Control.StateLayer)
@@ -25,6 +26,8 @@ export type Props = {
 	layoutOrder: number?,
 	-- Icon to be displayed
 	icon: (string | ImagesTypes.ImageSetImage)?,
+	-- Icon color style
+	iconColor: StyleTypes.ColorItem?,
 	-- Value displayed in the badge. `BadgeStates.isEmpty`
 	-- can be passed in to display an empty badge
 	badgeValue: (string | number | EnumItem)?,
@@ -64,7 +67,9 @@ local function UtilityActionIcon(providedProps: Props)
 
 	local innerSize = tokens.Global.Size_500
 	local iconSize = tokens.Semantic.Icon.Size.Medium
-	local iconColor = if onMedia then tokens.Global.Color.White else tokens.Semantic.Color.Icon.Emphasis
+	local defaultIconColor = if onMedia then tokens.Global.Color.White else tokens.Semantic.Color.Icon.Emphasis
+	local iconColor = if props.iconColor then props.iconColor else defaultIconColor
+
 	local stateStyle = if onMedia then "Darken" else "Standard"
 	local badgeAnchor = Vector2.new(0, 1)
 	local badgePosition = UDim2.new(0.5, tokens.Global.Size_25, 0.5, -tokens.Global.Size_25)
@@ -141,10 +146,13 @@ local function UtilityActionIcon(providedProps: Props)
 				Position = UDim2.fromScale(0.5, 0.5),
 				Image = icon,
 				ImageColor3 = iconColor.Color3,
-				ImageTransparency = iconColor.iconTransparency,
+				ImageTransparency = iconColor.Transparency,
 				BackgroundTransparency = 1,
 				ZIndex = 3,
 			}, {
+				UICorner = React.createElement("UICorner", {
+					CornerRadius = UDim.new(0, tokens.Semantic.Radius.Circle),
+				}),
 				Badge = if badgeValue
 					then React.createElement(Badge, {
 						position = badgePosition,

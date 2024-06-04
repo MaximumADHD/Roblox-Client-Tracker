@@ -54,7 +54,7 @@ export type Props = {
 }
 
 local function Interactable(props: Props, forwardedRef: React.Ref<Instance>)
-	local guiObjectRef = if forwardedRef then forwardedRef else React.createRef()
+	local guiObjectRef = React.useRef(nil)
 	local isDisabled = React.useRef(nil) :: { current: boolean? }
 	local triggerFeedback: any = if UIBloxConfig.enableInteractionFeedback then useInteractionFeedback() else nil
 
@@ -71,13 +71,18 @@ local function Interactable(props: Props, forwardedRef: React.Ref<Instance>)
 		if props.onStateChanged then
 			props.onStateChanged(oldState, newState)
 		end
-	end, { props.onStateChanged } :: { any })
+	end, { props.onStateChanged, triggerFeedback, props.feedbackType } :: { any })
 
 	local wrappedRef, guiStateTable = useGuiControlState(
 		guiObjectRef :: React.Ref<Instance>,
 		onGuiStateChange,
 		userInteractionEnabled.current :: boolean
 	)
+
+	-- Copy ref onto forwardRef
+	React.useImperativeHandle(forwardedRef, function()
+		return guiObjectRef.current
+	end, {})
 
 	-- TODO: Refactor with GuiState.NonInteractable
 	local wrappedActivated = React.useCallback(function(...)

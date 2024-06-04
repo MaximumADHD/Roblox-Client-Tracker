@@ -23,7 +23,7 @@ local function HoverController(props: Types.HoverControllerProps)
 			-- unmounting should automatically end hover
 			lastEndHover.current = tick()
 		end
-	end)
+	end, if UIBloxConfig.enableTooltipV2HoverControllerReRenderFix then {} else nil)
 
 	local delayTime = props.delayTime or Consts.DEFAULT_DELAY_TIME
 

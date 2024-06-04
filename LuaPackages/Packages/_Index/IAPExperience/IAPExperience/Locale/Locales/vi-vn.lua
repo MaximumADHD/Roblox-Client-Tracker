@@ -285,4 +285,8 @@
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Đăng ký bằng Thẻ tín dụng/Thẻ ghi nợ]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Đăng ký bằng Điểm Credit Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Thanh Toán Bằng Phương Thức Khác]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[Đang Rời Khỏi Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[Bằng cách nhấn vào "tiếp tục", bạn sẽ được điều hướng đến một trang web khác không do Roblox vận hành hoặc sở hữu. Trang web đó có thể có những điều khoản và chính sách quyền riêng tư khác.]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[Hủy Bỏ]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[Tiếp Tục]],
 }

@@ -289,4 +289,8 @@
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[الاشتراك باستخدام بطاقة الائتمان/الخصم]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[الاشتراك باستخدام رصيد Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[الدفع بطريقة أخرى]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[مغادرة Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[بالضغط على "متابعة"، سيتم إعادة توجيهك إلى موقع لا تملكه ولا تديره Roblox. قد تكون لدى تلك الشركة شروط وسياسات خصوصية مختلفة.]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[إلغاء]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[متابعة]],
 }

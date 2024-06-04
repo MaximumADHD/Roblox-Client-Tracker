@@ -3,6 +3,7 @@ return {
 
 	ProductPurchase = require(script.ProductPurchase.ProductPurchasePrompt),
 	ProductPurchaseRobuxUpsell = require(script.ProductPurchaseRobuxUpsell.ProductPurchaseRobuxUpsell),
+	LeaveRobloxAlert = require(script.Generic.LeaveRobloxPrompt),
 
 	PurchaseFlow = {
 		BuyRobuxFlow = require(script.PurchaseFlow.BuyRobux.BuyRobuxFlow),

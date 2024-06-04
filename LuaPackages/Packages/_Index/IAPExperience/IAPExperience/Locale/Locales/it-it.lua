@@ -280,4 +280,8 @@
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Iscriviti con il credito Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Paga in un altro modo]],
     ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[Hai raggiunto il limite di acquisto mensile impostato nel controllo genitoriale. Non potrai effettuare un nuovo acquisto fino al prossimo mese.]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[Lasciando Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[Facendo clic su "continua", verrai reindirizzato a un sito Web che non è di proprietà o gestito da Roblox. Potrebbero esserci termini e politiche sulla privacy differenti.]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[Annulla]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[Prosegui]],
 }

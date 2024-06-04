@@ -87,4 +87,7 @@ return {
 
 	-- Adds a ZIndex for the middle content of FullPageModal so that it overlaps the header/footer
 	addMiddleContentZIndex = false,
+
+	-- Indicate whether the fix for the unexpected TooltipV2 Re-Render issue is enabled
+	enableTooltipV2HoverControllerReRenderFix = false,
 }

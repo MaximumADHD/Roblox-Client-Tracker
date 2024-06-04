@@ -292,4 +292,8 @@ LuaApp]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Subscribe with Roblox Credit]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Pay Another Way]],
     ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[You have reached the monthly purchasing limit set in Parental Controls. You will not be able to make a new purchase until next month.]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[Leaving Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[By clicking “continue”, you will be redirected to a website that is not owned or operated by Roblox. they have different terms and privacy policies.]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[Cancel]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[Continue]],
 }

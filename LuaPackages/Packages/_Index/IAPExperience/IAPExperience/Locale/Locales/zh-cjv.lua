@@ -292,4 +292,8 @@ LuaApp]],
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[]],
 }

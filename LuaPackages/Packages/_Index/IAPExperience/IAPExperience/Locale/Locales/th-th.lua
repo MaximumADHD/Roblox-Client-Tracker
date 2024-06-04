@@ -283,4 +283,8 @@ LuaApp หรือไม่]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.TestFlowDisclaimer"] = [[กล่องโต้ตอบนี้เป็นตัวอย่าง แสดงให้คุณเห็นว่าผู้ใช้จะเห็นคำอธิบายการสมัครสมาชิกของคุณอย่างไร คุณจะไม่ถูกเรียกเก็บเงินหากคุณคลิกสมัครสมาชิก]],
     ["IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription"] = [[สมัครสมาชิก]],
     ["Feature.Subscription.Action.Subscribe"] = [[สมัคร]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[กำลังออกจาก Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[การคลิกที่ "ดำเนินการต่อ" จะนำคุณไปยังเว็บไซต์ที่ไม่ได้เป็นเจ้าของหรือดำเนินการโดย Roblox ซึ่งอาจมีข้อกำหนดและนโยบายความเป็นส่วนตัวที่แตกต่างออกไป]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[ยกเลิก]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[ดำเนินการต่อ]],
 }

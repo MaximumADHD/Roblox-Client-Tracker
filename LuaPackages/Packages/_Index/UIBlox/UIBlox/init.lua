@@ -340,6 +340,7 @@ local function initializeLibrary(configs)
 		Navigation = strict({
 			Enum = strict({
 				Placement = require(script.App.Navigation.Enum.Placement),
+				NavigationBarAlignment = require(script.App.Navigation.Enum.NavigationBarAlignment),
 				NavigationRailAlignment = require(script.App.Navigation.Enum.NavigationRailAlignment),
 			}),
 			SystemBar = require(script.App.Navigation.SystemBar),

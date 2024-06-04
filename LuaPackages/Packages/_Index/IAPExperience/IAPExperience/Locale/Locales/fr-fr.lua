@@ -293,5 +293,8 @@ Ressources : {lineBreak}{aTagStartWithHref}{ChangePasswordLink}{hrefEnd}Changer 
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Abonne-toi avec du Crédit Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Payer d'une autre manière]],
     ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[Tu as atteint la limite d'achat mensuelle définie dans les Contrôles Parentaux. Tu ne peux pas effectuer de nouvel achat avant le mois prochain.]],
-
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[Quitter Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[En cliquant sur « Continuer », tu seras redirigé vers un site Web qui n'est pas possédé ou exploité par Roblox.]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[Annuler]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[Continuer]],
 }

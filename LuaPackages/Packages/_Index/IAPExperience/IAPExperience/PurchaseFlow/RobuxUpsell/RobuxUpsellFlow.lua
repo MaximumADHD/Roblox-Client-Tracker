@@ -20,6 +20,7 @@ local TwoStepReqPrompt = require(IAPExperienceRoot.Generic.TwoStepReqPrompt)
 local InsufficientRobuxPrompt = require(IAPExperienceRoot.Generic.InsufficientRobuxPrompt)
 local InsufficientRobuxProductPrompt =
 	require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.InsufficientRobuxProductPrompt)
+local LeaveRobloxPrompt = require(IAPExperienceRoot.Generic.LeaveRobloxPrompt)
 local RobuxUpsellSuccessPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.RobuxUpsellSuccessPrompt)
 local RobuxUpsellPrompt = require(IAPExperienceRoot.ProductPurchaseRobuxUpsell.RobuxUpsellPrompt)
 
@@ -382,6 +383,29 @@ function RobuxUpsellFlow:constructInsufficientRobuxProductAnimatorObj()
 	}
 end
 
+function RobuxUpsellFlow:constructLeaveRobloxPromptAnimatorObj()
+	local props: Props = self.props
+
+	self:BindCancelAction()
+
+	return {
+		shouldAnimate = props.shouldAnimate,
+		shouldShow = props.purchaseState == RobuxUpsellFlowState.LeaveRobloxWarning,
+		renderChildren = function()
+			return Roact.createElement(LeaveRobloxPrompt, {
+				screenSize = props.screenSize,
+
+				cancelActivated = function()
+					self:closeCentralOverlay()
+				end,
+				continueActivated = function()
+					props.openVngShop()
+				end,
+			})
+		end,
+	}
+end
+
 -- Use CentralOverlay to render the modals so that they could get the gamepad focus on Console in app
 -- This method won't be used when it's in game
 function RobuxUpsellFlow:dispatchCentralOverlayAndRenderModal(props: Props)
@@ -424,6 +448,10 @@ function RobuxUpsellFlow:dispatchCentralOverlayAndRenderModal(props: Props)
 	-- InsufficientRobuxProductAnimator
 	if purchaseState == RobuxUpsellFlowState.LargeRobuxPurchaseModal then
 		props.dispatchCentralOverlay(Constants.CENTRAL_OVERLAY_TYPE_ANIMATOR, self:constructInsufficientRobuxProductAnimatorObj())
+	end
+
+	if purchaseState == RobuxUpsellFlowState.LeaveRobloxWarning then
+		props.dispatchCentralOverlay(Constants.CENTRAL_OVERLAY_TYPE_ANIMATOR, self:constructLeaveRobloxPromptAnimatorObj())
 	end
 end
 

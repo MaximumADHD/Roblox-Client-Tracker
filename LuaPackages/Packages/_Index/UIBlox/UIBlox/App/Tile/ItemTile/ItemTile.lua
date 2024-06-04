@@ -106,6 +106,9 @@ ItemTile.validateProps = t.strictInterface({
 	-- An inset on the tile image.
 	renderTileInset = t.optional(t.callback),
 
+	-- Boolean to determine whether a Verified Badge is shown
+	hasVerifiedBadge = t.optional(t.boolean),
+
 	-- Pass through React.Tag
 	[React.Tag] = t.optional(t.string),
 
@@ -205,6 +208,7 @@ function ItemTile:render()
 		renderTileInset = renderTileInset,
 		thumbnailAspectRatio = aspectRatio,
 		thumbnailScaleType = scaleType,
+		hasVerifiedBadge = self.props.hasVerifiedBadge,
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,

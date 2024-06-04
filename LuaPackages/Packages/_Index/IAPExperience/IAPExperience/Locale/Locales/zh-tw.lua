@@ -281,4 +281,8 @@
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[使用信用卡 / 簽帳金融卡訂閱]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[使用 Roblox 點數訂閱]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[用其他方式支付]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[您即將離開 Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[您按下「繼續」後將會前往 Roblox 以外的網站，該網站的條款與隱私權政策可能與 Roblox 不同。]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[取消]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[繼續]],
 }

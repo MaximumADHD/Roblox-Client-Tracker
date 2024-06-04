@@ -18,6 +18,7 @@ local rawKeyToRawValue = {
 	RobuxGrantPending = "RobuxGrantPending",
 	ItemPurchasePending = "ItemPurchasePending",
 	Success = "Success",
+	LeaveRobloxWarning = "LeaveRobloxWarning",
 	Error = "Error",
 }
 

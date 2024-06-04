@@ -291,4 +291,8 @@ LuaApp]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Subscribe dengan Dana Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Bayar dengan Cara Lain]],
     ["Feature.Subscription.Message.MonthlySpendRestrictionsMonthlyLimitExceed"] = [[Kamu telah mencapai batas pembelian bulanan yang ditetapkan di Kendali Orang Tua. Kamu tidak akan dapat melakukan pembelian baru sampai bulan depan.]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[Keluar dari Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[Dengan mengklik "Lanjutkan", kamu akan diarahkan ke situs web yang tidak dimiliki atau dijalankan oleh Roblox. Situs web tersebut memiliki ketentuan dan kebijakan privasi yang berbeda.]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[Batalkan]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[Lanjutkan]],
 }

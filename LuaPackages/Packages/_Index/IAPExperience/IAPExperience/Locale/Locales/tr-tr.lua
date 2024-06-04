@@ -289,4 +289,8 @@
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Kredi/Banka Kartı ile Abone Ol]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Roblox Kredisi ile Abone Ol]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Başka Bir Yöntemle Öde]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[Roblox'tan Çıkılıyor]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [["Devam et" düğmesine tıkladığında Roblox'a ait olmayan veya Roblox tarafından işletilmeyen bir web sitesine yönlendirileceksin. Bu web sitesi, farklı koşullara ve gizlilik politikasına sahip olabilir.]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[İptal Et]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[Devam Et]],
 }

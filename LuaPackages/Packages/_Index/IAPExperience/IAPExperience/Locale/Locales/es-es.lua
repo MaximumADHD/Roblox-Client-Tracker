@@ -290,4 +290,8 @@ LuaApp]],
     ["Feature.Subscription.Action.SubscribeWithCreditDebitCard"] = [[Suscríbete con tarjeta de crédito o débito]],
     ["Feature.Subscription.Action.SubscribeWithRobloxCredit"] = [[Suscríbete con crédito de Roblox]],
     ["Feature.Subscription.Action.SubscribePayAnotherWay"] = [[Otras formas de pago]],
+    ["IAPExperience.LeaveRoblox.Title.LeavingRoblox"] = [[Abandonando Roblox]],
+    ["IAPExperience.LeaveRoblox.Text.ExternalWebsiteWarning"] = [[Al hacer clic en Continuar, se te redirigirá a un sitio web que no pertenece y no es operado por Roblox. Puede que se rija por términos y políticas de privacidad diferentes.]],
+    ["IAPExperience.LeaveRoblox.Action.Cancel"] = [[Cancelar]],
+    ["IAPExperience.LeaveRoblox.Action.Continue"] = [[Continuar]],
 }
