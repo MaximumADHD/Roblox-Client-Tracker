@@ -1,85 +1,80 @@
 PROTO_0:
-  GETTABLEKS R3 R0 K0 ["range"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["StartKey"]
-  GETTABLE R2 R3 R4
-  GETTABLEKS R4 R1 K0 ["range"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K1 ["StartKey"]
-  GETTABLE R3 R4 R5
-  GETTABLEKS R5 R0 K0 ["range"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K2 ["EndKey"]
-  GETTABLE R4 R5 R6
-  GETTABLEKS R6 R1 K0 ["range"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K2 ["EndKey"]
-  GETTABLE R5 R6 R7
-  GETTABLEKS R6 R2 K3 ["line"]
-  GETTABLEKS R7 R3 K3 ["line"]
-  JUMPIFNOTEQ R6 R7 [+7]
-  GETTABLEKS R6 R2 K4 ["character"]
-  GETTABLEKS R7 R3 K4 ["character"]
+  GETTABLEKS R2 R0 K0 ["range"]
+  GETTABLEKS R3 R1 K0 ["range"]
+  JUMPIFNOTEQ R2 R3 [+21]
+  GETTABLEKS R2 R0 K1 ["message"]
+  GETTABLEKS R3 R1 K1 ["message"]
+  JUMPIFNOTEQ R2 R3 [+15]
+  GETTABLEKS R3 R0 K2 ["suggestions"]
+  LENGTH R2 R3
+  GETTABLEKS R4 R1 K2 ["suggestions"]
+  LENGTH R3 R4
+  JUMPIFNOTEQ R2 R3 [+7]
+  GETTABLEKS R2 R0 K3 ["issueType"]
+  GETTABLEKS R3 R1 K3 ["issueType"]
+  JUMPIFEQ R2 R3 [+3]
+  LOADB R2 0
+  RETURN R2 1
+  GETTABLEKS R2 R0 K2 ["suggestions"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R8 R1 K2 ["suggestions"]
+  GETTABLE R7 R8 R5
   JUMPIFEQ R6 R7 [+3]
-  LOADB R6 0
-  RETURN R6 1
-  GETTABLEKS R6 R4 K3 ["line"]
-  GETTABLEKS R7 R5 K3 ["line"]
-  JUMPIFNOTEQ R6 R7 [+7]
-  GETTABLEKS R6 R4 K4 ["character"]
-  GETTABLEKS R7 R5 K4 ["character"]
-  JUMPIFEQ R6 R7 [+3]
-  LOADB R6 0
-  RETURN R6 1
-  GETTABLEKS R6 R0 K5 ["message"]
-  GETTABLEKS R7 R1 K5 ["message"]
-  JUMPIFEQ R6 R7 [+3]
-  LOADB R6 0
-  RETURN R6 1
-  GETTABLEKS R7 R0 K6 ["suggestions"]
-  LENGTH R6 R7
-  GETTABLEKS R8 R1 K6 ["suggestions"]
-  LENGTH R7 R8
-  JUMPIFEQ R6 R7 [+3]
-  LOADB R6 0
-  RETURN R6 1
-  GETTABLEKS R6 R0 K7 ["issueType"]
-  GETTABLEKS R7 R1 K7 ["issueType"]
-  JUMPIFEQ R6 R7 [+3]
-  LOADB R6 0
-  RETURN R6 1
-  GETTABLEKS R6 R0 K6 ["suggestions"]
-  LOADNIL R7
-  LOADNIL R8
-  FORGPREP R6
-  GETTABLEKS R12 R1 K6 ["suggestions"]
-  GETTABLE R11 R12 R9
-  JUMPIFEQ R10 R11 [+3]
-  LOADB R11 0
-  RETURN R11 1
-  FORGLOOP R6 2 [-8]
-  LOADB R6 1
-  RETURN R6 1
+  LOADB R7 0
+  RETURN R7 1
+  FORGLOOP R2 2 [-8]
+  LOADB R2 1
+  RETURN R2 1
 
 PROTO_1:
-  DUPTABLE R9 K8 [{"range", "code", "codeDescription", "instanceName", "message", "severity", "suggestions", "issueType"}]
-  SETTABLEKS R0 R9 K0 ["range"]
-  SETTABLEKS R1 R9 K1 ["code"]
-  SETTABLEKS R6 R9 K2 ["codeDescription"]
-  SETTABLEKS R2 R9 K3 ["instanceName"]
-  SETTABLEKS R3 R9 K4 ["message"]
-  SETTABLEKS R4 R9 K5 ["severity"]
-  SETTABLEKS R5 R9 K6 ["suggestions"]
-  SETTABLEKS R7 R9 K7 ["issueType"]
+  DUPTABLE R9 K9 [{"diagnosticId", "range", "code", "codeDescription", "instanceName", "message", "severity", "suggestions", "issueType"}]
   GETUPVAL R10 0
+  LOADB R12 1
+  NAMECALL R10 R10 K10 ["GenerateGUID"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K0 ["diagnosticId"]
+  SETTABLEKS R0 R9 K1 ["range"]
+  SETTABLEKS R1 R9 K2 ["code"]
+  SETTABLEKS R6 R9 K3 ["codeDescription"]
+  SETTABLEKS R2 R9 K4 ["instanceName"]
+  SETTABLEKS R3 R9 K5 ["message"]
+  SETTABLEKS R4 R9 K6 ["severity"]
+  SETTABLEKS R5 R9 K7 ["suggestions"]
+  SETTABLEKS R7 R9 K8 ["issueType"]
+  GETUPVAL R10 1
   FASTCALL2 SETMETATABLE R9 R10 [+3]
-  GETIMPORT R8 K10 [setmetatable]
+  GETIMPORT R8 K12 [setmetatable]
   CALL R8 2 1
   RETURN R8 1
 
 PROTO_2:
+  GETIMPORT R1 K2 [string.format]
+  LOADK R2 K3 ["[%d:%d] -> [%d:%d] %s %s %s"]
+  GETTABLEKS R5 R0 K5 ["range"]
+  GETTABLEKS R4 R5 K4 ["start"]
+  GETTABLEKS R3 R4 K6 ["line"]
+  GETTABLEKS R6 R0 K5 ["range"]
+  GETTABLEKS R5 R6 K4 ["start"]
+  GETTABLEKS R4 R5 K7 ["character"]
+  GETTABLEKS R7 R0 K5 ["range"]
+  GETTABLEKS R6 R7 K8 ["end"]
+  GETTABLEKS R5 R6 K6 ["line"]
+  GETTABLEKS R8 R0 K5 ["range"]
+  GETTABLEKS R7 R8 K8 ["end"]
+  GETTABLEKS R6 R7 K7 ["character"]
+  GETTABLEKS R7 R0 K9 ["diagnosticId"]
+  GETTABLEKS R8 R0 K10 ["issueType"]
+  GETTABLEKS R9 R0 K11 ["instanceName"]
+  CALL R1 8 -1
+  RETURN R1 -1
+
+PROTO_3:
   DUPTABLE R1 K5 [{"range", "code", "message", "severity", "codeDescription"}]
   GETTABLEKS R2 R0 K0 ["range"]
+  NAMECALL R2 R2 K6 ["GetDataForLinter"]
+  CALL R2 1 1
   SETTABLEKS R2 R1 K0 ["range"]
   GETTABLEKS R2 R0 K1 ["code"]
   SETTABLEKS R2 R1 K1 ["code"]
@@ -97,20 +92,26 @@ MAIN:
   LOADK R2 K2 ["R15Migrator"]
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
-  GETTABLEKS R3 R0 K4 ["Src"]
-  GETTABLEKS R2 R3 K5 ["Util"]
-  GETTABLEKS R1 R2 K6 ["ScriptAnalysis"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R3 R1 K9 ["Constants"]
-  CALL R2 1 1
-  NEWTABLE R3 4 0
-  SETTABLEKS R3 R3 K10 ["__index"]
-  DUPCLOSURE R4 K11 [PROTO_0]
-  CAPTURE VAL R2
-  SETTABLEKS R4 R3 K12 ["__eq"]
-  DUPCLOSURE R4 K13 [PROTO_1]
-  CAPTURE VAL R3
-  SETTABLEKS R4 R3 K14 ["new"]
-  DUPCLOSURE R4 K15 [PROTO_2]
-  SETTABLEKS R4 R3 K16 ["GetDataForLinter"]
-  RETURN R3 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["HttpService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R4 R0 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Util"]
+  GETTABLEKS R2 R3 K10 ["ScriptAnalysis"]
+  GETIMPORT R3 K12 [require]
+  GETTABLEKS R4 R2 K13 ["Constants"]
+  CALL R3 1 1
+  NEWTABLE R4 8 0
+  SETTABLEKS R4 R4 K14 ["__index"]
+  DUPCLOSURE R5 K15 [PROTO_0]
+  SETTABLEKS R5 R4 K16 ["__eq"]
+  DUPCLOSURE R5 K17 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K18 ["new"]
+  DUPCLOSURE R5 K19 [PROTO_2]
+  SETTABLEKS R5 R4 K20 ["Dump"]
+  DUPCLOSURE R5 K21 [PROTO_3]
+  SETTABLEKS R5 R4 K22 ["GetDataForLinter"]
+  RETURN R4 1

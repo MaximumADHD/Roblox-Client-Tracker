@@ -18,8 +18,6 @@ local ServerProfilingData = require(Components.ScriptProfiler.ServerProfilingDat
 local LuauHeapData = require(Components.LuauHeap.LuauHeapData)
 local DataContext = require(Components.DataContext)
 
-local getFFlagDevConsoleLuauHeap = require(Components.LuauHeap.GetFFlagDevConsoleLuauHeap)
-
 local DataProvider = Roact.Component:extend("DataProvider")
 
 function DataProvider:init()
@@ -38,7 +36,7 @@ function DataProvider:init()
 			ServerJobsData = ServerJobsData.new(),
 			DebugVisualizationsData = DebugVisualizationsData.new(),
 			ServerProfilingData = ServerProfilingData.new(),
-			LuauHeapData = if getFFlagDevConsoleLuauHeap() then LuauHeapData.new() else nil,
+			LuauHeapData = LuauHeapData.new(),
 		},
 	})
 end

@@ -8,8 +8,6 @@ local RoactRodux = InGameMenuDependencies.RoactRodux
 local IGMRespawnControllerBar = require(script.Parent.IGMRespawnControllerBar)
 
 local InGameMenu = script.Parent.Parent
-local Flags = InGameMenu.Flags
-local GetFFlagIGMControllerBarRefactor = require(Flags.GetFFlagIGMControllerBarRefactor)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -23,12 +21,9 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local function RespawnDialog(props)
 	local function renderRespawnDialogControllerBar()
-		if GetFFlagIGMControllerBarRefactor() then
-			return Roact.createElement(IGMRespawnControllerBar, {
-				inputType = props.inputType
-			})
-		end
-		return nil
+		return Roact.createElement(IGMRespawnControllerBar, {
+			inputType = props.inputType,
+		})
 	end
 
 	return withLocalization({
@@ -52,7 +47,7 @@ local function RespawnDialog(props)
 				onConfirm = props.onConfirm,
 
 				inputType = props.inputType,
-			})
+			}),
 		})
 	end)
 end
@@ -69,7 +64,7 @@ end, function(dispatch)
 			SendAnalytics(
 				Constants.AnalyticsInGameMenuName,
 				Constants.AnalyticsRespawnCharacterName,
-				{confirmed = Constants.AnalyticsCancelledName}
+				{ confirmed = Constants.AnalyticsCancelledName }
 			)
 		end,
 		onConfirm = function()

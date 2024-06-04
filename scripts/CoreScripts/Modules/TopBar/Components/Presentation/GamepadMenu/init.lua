@@ -77,7 +77,6 @@ local GAMEPAD_MENU_KEY = "GamepadMenu"
 local LocalPlayer = Players.LocalPlayer
 
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
-local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.GetFFlagQuickMenuControllerBarRefactor)
 local FFlagAddMenuNavigationToggleDialog = require(script.Parent.Parent.Parent.Flags.FFlagAddMenuNavigationToggleDialog)
 local FFlagEnableGamepadMenuSelector = require(script.Parent.Parent.Parent.Flags.FFlagEnableGamepadMenuSelector)
 local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
@@ -263,12 +262,16 @@ function GamepadMenu.openRootMenu()
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
 
 		if GetFFlagOpenPlayersPageFromGamepad() then
-			MenuModule:SetVisibility(true, nil, nil, true,
-				InGameMenuConstants.AnalyticsMenuOpenTypes.PlayersTriggered)
+			MenuModule:SetVisibility(true, nil, nil, true, InGameMenuConstants.AnalyticsMenuOpenTypes.PlayersTriggered)
 		else
-			MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true,
-				InGameMenuConstants.AnalyticsMenuOpenTypes.SettingsTriggered)
-		end		
+			MenuModule:SetVisibility(
+				true,
+				nil,
+				MenuModule.Instance.GameSettingsPage,
+				true,
+				InGameMenuConstants.AnalyticsMenuOpenTypes.SettingsTriggered
+			)
+		end
 	end
 end
 
@@ -283,10 +286,10 @@ end
 
 function GamepadMenu.closeUnibarMenu()
 	local ChromeService = require(RobloxGui.Modules.Chrome.Service)
-	
+
 	if GetFFlagSupportCompactUtility() then
 		ChromeService:close(true)
-	else 
+	else
 		ChromeService:close()
 	end
 end
@@ -324,8 +327,13 @@ function GamepadMenu.leaveGame()
 		InGameMenu.openGameLeavePage()
 	else
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-		MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true,
-			InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
+		MenuModule:SetVisibility(
+			true,
+			false,
+			MenuModule.Instance.LeaveGamePage,
+			true,
+			InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadLeaveGame
+		)
 	end
 end
 
@@ -335,8 +343,13 @@ function GamepadMenu.respawnCharacter()
 		InGameMenu.openCharacterResetPage()
 	else
 		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-		MenuModule:SetVisibility(true, false, MenuModule.Instance.ResetCharacterPage, true,
-			InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadResetCharacter)
+		MenuModule:SetVisibility(
+			true,
+			false,
+			MenuModule.Instance.ResetCharacterPage,
+			true,
+			InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadResetCharacter
+		)
 	end
 end
 
@@ -455,7 +468,7 @@ function GamepadMenu.getDerivedStateFromProps(nextProps, prevState)
 
 	return Cryo.Dictionary.join(prevState, {
 		selectedIndex = selectedIndex,
-		menuActions = menuActions
+		menuActions = menuActions,
 	})
 end
 
@@ -514,18 +527,13 @@ function GamepadMenu:render()
 		end
 
 		local visible = self.props.isGamepadMenuOpen
-		local controllerBarComponent
-		if GetFFlagQuickMenuControllerBarRefactor() then
-			controllerBarComponent = visible and Roact.createElement(ControllerBar) or nil
-		else
-			controllerBarComponent = Roact.createElement(BottomBar)
-		end
+		local controllerBarComponent = visible and Roact.createElement(ControllerBar) or nil
 
 		local menuNavigationPromptItems = {
 			MenuNavigationDismissablePrompt = Roact.createElement(MenuNavigationDismissablePrompt, {
-					Position = UDim2.fromScale(0.5, 0.5),
-					Visible = self.props.isGamepadMenuOpen,
-				})
+				Position = UDim2.fromScale(0.5, 0.5),
+				Visible = self.props.isGamepadMenuOpen,
+			}),
 		}
 
 		local defaultMenuItems = {
@@ -542,9 +550,11 @@ function GamepadMenu:render()
 			}, menuChildren),
 
 			ControllerBar = controllerBarComponent,
-			MenuNavigationToggleDialog = if FFlagAddMenuNavigationToggleDialog then Roact.createElement(MenuNavigationToggleDialog, {
-				Position = UDim2.fromScale(0.5, 0.1),
-			}) else nil
+			MenuNavigationToggleDialog = if FFlagAddMenuNavigationToggleDialog
+				then Roact.createElement(MenuNavigationToggleDialog, {
+					Position = UDim2.fromScale(0.5, 0.1),
+				})
+				else nil,
 		}
 
 		local children = if FFlagEnableGamepadMenuSelector and self.state.shouldShowMenuNavigationPrompt
@@ -568,19 +578,32 @@ end
 function GamepadMenu:didMount()
 	if not VRService.VREnabled then
 		ContextActionService:BindCoreAction(
-			TOGGLE_GAMEPAD_MENU_ACTION, self.toggleMenuVisibleAction, false, Enum.KeyCode.ButtonStart)
+			TOGGLE_GAMEPAD_MENU_ACTION,
+			self.toggleMenuVisibleAction,
+			false,
+			Enum.KeyCode.ButtonStart
+		)
 	end
 end
 
 function GamepadMenu:bindMenuOpenActions()
 	self.boundMenuOpenActions = true
 
-	ContextActionService:BindCoreAction(FREEZE_CONTROLLER_ACTION_NAME, function() end, false, Enum.UserInputType.Gamepad1)
+	ContextActionService:BindCoreAction(
+		FREEZE_CONTROLLER_ACTION_NAME,
+		function() end,
+		false,
+		Enum.UserInputType.Gamepad1
+	)
 	ContextActionService:BindCoreAction(CLOSEMENU_ACTION_NAME, self.closeMenuAction, false, Enum.KeyCode.ButtonB)
 	ContextActionService:BindCoreAction(LEAVE_GAME_ACTION_NAME, self.leaveGameMenuAction, false, Enum.KeyCode.ButtonX)
 	ContextActionService:BindCoreAction(RESPAWN_ACTION_NAME, self.respawnMenuAction, false, Enum.KeyCode.ButtonY)
 	ContextActionService:BindCoreAction(
-		ACTIVATE_SELECTION_ACTION_NAME, self.activateSelectionAction, false, Enum.KeyCode.ButtonA)
+		ACTIVATE_SELECTION_ACTION_NAME,
+		self.activateSelectionAction,
+		false,
+		Enum.KeyCode.ButtonA
+	)
 	ContextActionService:BindCoreAction(
 		MOVE_SLECTION_ACTION_NAME,
 		self.moveSelectionAction,
@@ -591,7 +614,12 @@ function GamepadMenu:bindMenuOpenActions()
 	)
 	ContextActionService:BindCoreAction(GO_TO_TOP_ACTION_NAME, self.goToTopAction, false, Enum.KeyCode.ButtonL2)
 	ContextActionService:BindCoreAction(GO_TO_BOTTOM_ACTION_NAME, self.goToBottomAction, false, Enum.KeyCode.ButtonR2)
-	ContextActionService:BindCoreAction(TOGGLE_GAMEPAD_MENU_ACTION, self.toggleMenuVisibleAction, false, Enum.KeyCode.ButtonStart)
+	ContextActionService:BindCoreAction(
+		TOGGLE_GAMEPAD_MENU_ACTION,
+		self.toggleMenuVisibleAction,
+		false,
+		Enum.KeyCode.ButtonStart
+	)
 end
 
 function GamepadMenu:unbindMenuOpenActions()
@@ -660,7 +688,9 @@ local function mapStateToProps(state)
 
 		chatEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Chat] and topBarEnabled and not VRService.VREnabled,
 		leaderboardEnabled = state.coreGuiEnabled[Enum.CoreGuiType.PlayerList] and topBarEnabled,
-		emotesEnabled = state.moreMenu.emotesEnabled and state.coreGuiEnabled[Enum.CoreGuiType.EmotesMenu] and topBarEnabled,
+		emotesEnabled = state.moreMenu.emotesEnabled
+			and state.coreGuiEnabled[Enum.CoreGuiType.EmotesMenu]
+			and topBarEnabled,
 		backpackEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Backpack] and topBarEnabled,
 
 		respawnEnabled = state.respawn.enabled,

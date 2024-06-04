@@ -9,8 +9,12 @@
 local UserInputService = game:GetService("UserInputService")
 local ContextActionService = game:GetService("ContextActionService")
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local FFlagUserUpdateInputConnections = FlagUtil.getUserFlag("UserUpdateInputConnections")
+
 --[[ Constants ]]--
-local ZERO_VECTOR3 = Vector3.new(0,0,0)
+local ZERO_VECTOR3 = Vector3.new()
 
 --[[ The Module ]]--
 local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
@@ -22,9 +26,11 @@ function Keyboard.new(CONTROL_ACTION_PRIORITY)
 
 	self.CONTROL_ACTION_PRIORITY = CONTROL_ACTION_PRIORITY
 
-	self.textFocusReleasedConn = nil
-	self.textFocusGainedConn = nil
-	self.windowFocusReleasedConn = nil
+	if not FFlagUserUpdateInputConnections then
+		self.textFocusReleasedConn = nil
+		self.textFocusGainedConn = nil
+		self.windowFocusReleasedConn = nil
+	end
 
 	self.forwardValue  = 0
 	self.backwardValue = 0
@@ -37,8 +43,10 @@ function Keyboard.new(CONTROL_ACTION_PRIORITY)
 end
 
 function Keyboard:Enable(enable: boolean)
-	if not UserInputService.KeyboardEnabled then
-		return false
+	if not FFlagUserUpdateInputConnections then
+		if not UserInputService.KeyboardEnabled then
+			return false
+		end
 	end
 
 	if enable == self.enabled then
@@ -52,7 +60,7 @@ function Keyboard:Enable(enable: boolean)
 	self.backwardValue = 0
 	self.leftValue = 0
 	self.rightValue = 0
-	self.moveVector = ZERO_VECTOR3
+	self.moveVector = ZERO_VECTOR3 
 	self.jumpRequested = false
 	self:UpdateJump()
 
@@ -60,8 +68,12 @@ function Keyboard:Enable(enable: boolean)
 		self:BindContextActions()
 		self:ConnectFocusEventListeners()
 	else
-		self:UnbindContextActions()
-		self:DisconnectFocusEventListeners()
+		if FFlagUserUpdateInputConnections then
+			self._connections:disconnectAll()
+		else
+			self:UnbindContextActions()
+			self:DisconnectFocusEventListeners()
+		end
 	end
 
 	self.enabled = enable
@@ -70,7 +82,7 @@ end
 
 function Keyboard:UpdateMovement(inputState)
 	if inputState == Enum.UserInputState.Cancel then
-		self.moveVector = ZERO_VECTOR3
+		self.moveVector = ZERO_VECTOR3 
 	else
 		self.moveVector = Vector3.new(self.leftValue + self.rightValue, 0, self.forwardValue + self.backwardValue)
 	end
@@ -128,9 +140,17 @@ function Keyboard:BindContextActions()
 		self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterRight)
 	ContextActionService:BindActionAtPriority("jumpAction", handleJumpAction, false,
 		self.CONTROL_ACTION_PRIORITY, Enum.PlayerActions.CharacterJump)
+	
+	if FFlagUserUpdateInputConnections then
+		self._connections:connectManual("moveForwardAction", function() ContextActionService:UnbindAction("moveForwardAction") end)
+		self._connections:connectManual("moveBackwardAction", function() ContextActionService:UnbindAction("moveBackwardAction") end)
+		self._connections:connectManual("moveLeftAction", function() ContextActionService:UnbindAction("moveLeftAction") end)
+		self._connections:connectManual("moveRightAction", function() ContextActionService:UnbindAction("moveRightAction") end)
+		self._connections:connectManual("jumpAction", function() ContextActionService:UnbindAction("jumpAction") end)
+	end
 end
 
-function Keyboard:UnbindContextActions()
+function Keyboard:UnbindContextActions() -- remove with FFlagUserUpdateInputConnections
 	ContextActionService:UnbindAction("moveForwardAction")
 	ContextActionService:UnbindAction("moveBackwardAction")
 	ContextActionService:UnbindAction("moveLeftAction")
@@ -154,12 +174,18 @@ function Keyboard:ConnectFocusEventListeners()
 		self:UpdateJump()
 	end
 
-	self.textFocusReleasedConn = UserInputService.TextBoxFocusReleased:Connect(onFocusReleased)
-	self.textFocusGainedConn = UserInputService.TextBoxFocused:Connect(onTextFocusGained)
-	self.windowFocusReleasedConn = UserInputService.WindowFocused:Connect(onFocusReleased)
+	if FFlagUserUpdateInputConnections then
+		self._connections:connect("textBoxFocusReleased", UserInputService.TextBoxFocusReleased, onFocusReleased)
+		self._connections:connect("textBoxFocused", UserInputService.TextBoxFocused, onTextFocusGained)
+		self._connections:connect("windowFocusReleased", UserInputService.WindowFocused, onFocusReleased)
+	else
+		self.textFocusReleasedConn = UserInputService.TextBoxFocusReleased:Connect(onFocusReleased)
+		self.textFocusGainedConn = UserInputService.TextBoxFocused:Connect(onTextFocusGained)
+		self.windowFocusReleasedConn = UserInputService.WindowFocused:Connect(onFocusReleased)
+	end
 end
 
-function Keyboard:DisconnectFocusEventListeners()
+function Keyboard:DisconnectFocusEventListeners() -- remove with FFlagUserUpdateInputConnections
 	if self.textFocusReleasedConn then
 		self.textFocusReleasedConn:Disconnect()
 		self.textFocusReleasedConn = nil

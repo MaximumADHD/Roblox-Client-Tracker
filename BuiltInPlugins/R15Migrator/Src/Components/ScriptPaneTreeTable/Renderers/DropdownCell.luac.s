@@ -1,0 +1,123 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["state"]
+  GETTABLEKS R3 R4 K2 ["SelectedId"]
+  GETTABLEKS R4 R0 K3 ["Id"]
+  JUMPIFEQ R3 R4 [+10]
+  GETUPVAL R3 0
+  DUPTABLE R5 K4 [{"SelectedId"}]
+  GETTABLEKS R6 R0 K3 ["Id"]
+  SETTABLEKS R6 R5 K2 ["SelectedId"]
+  NAMECALL R3 R3 K5 ["setState"]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K6 ["OnChanged"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R2 K6 ["OnChanged"]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"SelectedId"}]
+  GETTABLEKS R4 R0 K3 ["props"]
+  GETTABLEKS R3 R4 K0 ["SelectedId"]
+  ORK R2 R3 K2 ["Unassigned"]
+  SETTABLEKS R2 R1 K0 ["SelectedId"]
+  SETTABLEKS R1 R0 K4 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K5 ["onItemActivated"]
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R2 K1 [{"SelectedId"}]
+  GETTABLEKS R3 R0 K2 ["Value"]
+  SETTABLEKS R3 R2 K0 ["SelectedId"]
+  RETURN R2 1
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["state"]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K7 [{"Size", "Items", "OnItemActivated", "SelectedId"}]
+  GETIMPORT R6 K10 [UDim2.fromScale]
+  LOADN R7 1
+  LOADN R8 1
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K3 ["Size"]
+  GETTABLEKS R7 R2 K11 ["Schema"]
+  GETTABLEKS R6 R7 K12 ["Options"]
+  SETTABLEKS R6 R5 K4 ["Items"]
+  GETTABLEKS R6 R0 K13 ["onItemActivated"]
+  SETTABLEKS R6 R5 K5 ["OnItemActivated"]
+  GETTABLEKS R6 R1 K6 ["SelectedId"]
+  SETTABLEKS R6 R5 K6 ["SelectedId"]
+  NEWTABLE R6 0 0
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["withContext"]
+  GETTABLEKS R6 R3 K12 ["Dash"]
+  GETTABLEKS R7 R6 K13 ["join"]
+  GETTABLEKS R8 R3 K14 ["UI"]
+  GETTABLEKS R9 R8 K15 ["SelectInput"]
+  GETTABLEKS R11 R0 K16 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Actions"]
+  GETTABLEKS R12 R0 K16 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Components"]
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R14 R0 K16 ["Src"]
+  GETTABLEKS R13 R14 K19 ["Types"]
+  CALL R12 1 1
+  GETTABLEKS R14 R0 K16 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Util"]
+  GETTABLEKS R14 R1 K21 ["PureComponent"]
+  LOADK R16 K22 ["DropdownCell"]
+  NAMECALL R14 R14 K23 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K24 [PROTO_1]
+  SETTABLEKS R15 R14 K25 ["init"]
+  DUPCLOSURE R15 K26 [PROTO_2]
+  SETTABLEKS R15 R14 K27 ["getDerivedStateFromProps"]
+  DUPCLOSURE R15 K28 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  SETTABLEKS R15 R14 K29 ["render"]
+  MOVE R15 R5
+  DUPTABLE R16 K33 [{"Analytics", "Localization", "Stylizer"}]
+  GETTABLEKS R17 R4 K30 ["Analytics"]
+  SETTABLEKS R17 R16 K30 ["Analytics"]
+  GETTABLEKS R17 R4 K31 ["Localization"]
+  SETTABLEKS R17 R16 K31 ["Localization"]
+  GETTABLEKS R18 R3 K34 ["Style"]
+  GETTABLEKS R17 R18 K32 ["Stylizer"]
+  SETTABLEKS R17 R16 K32 ["Stylizer"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  RETURN R14 1

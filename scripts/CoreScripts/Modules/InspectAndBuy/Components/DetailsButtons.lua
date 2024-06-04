@@ -16,7 +16,6 @@ local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local tutils = require(CorePackages.tutils)
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
-local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local GetCollectibleItemInInspectAndBuyEnabled =
 	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
@@ -440,8 +439,7 @@ function DetailsButtons:render()
 		TEMPORARY FLAGS END
 	]]
 
-	local showControllerBar = GetFFlagUseInspectAndBuyControllerBar()
-		and self.props.detailsInformation.viewingDetails -- only show when item menu is open
+	local showControllerBar = self.props.detailsInformation.viewingDetails -- only show when item menu is open
 		and self.props.gamepadEnabled
 
 	return Roact.createElement("Frame", {
@@ -501,10 +499,7 @@ end
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	local assetId = state.detailsInformation.assetId
 
-	local isFavorited
-	if GetFFlagUseInspectAndBuyControllerBar() then
-		isFavorited = GetIsFavorite(state)
-	end
+	local isFavorited = GetIsFavorite(state)
 
 	return {
 		visible = state.visible,

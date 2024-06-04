@@ -1,19 +1,27 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
-local chromeService = require(script.Parent.Parent.Service)
+local SelfieView = require(script.Parent.Parent.Parent.SelfieView)
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local ChromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
 local Constants = require(script.Parent.Parent.Unibar.Constants)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
 local GetFFlagTweakedMicPinning = require(script.Parent.Parent.Flags.GetFFlagTweakedMicPinning)
 local GetFFlagUseNewUnibarIcon = require(script.Parent.Parent.Flags.GetFFlagUseNewUnibarIcon)
+local GetFFlagUsePolishedAnimations = require(script.Parent.Parent.Flags.GetFFlagUsePolishedAnimations)
+local GetFFlagUseSelfieViewFlatIcon = require(script.Parent.Parent.Flags.GetFFlagUseSelfieViewFlatIcon)
 
 local UNIBAR_ICON = Images["icons/actions/overflow"]
 local UNIBAR_ICON_SIZE = if GetFFlagUseNewUnibarIcon() then 32 else Constants.ICON_SIZE
+
+local buttonPressed
 
 function ToggleMenuButton(props)
 	local toggleIconTransition = props.toggleTransition
@@ -21,7 +29,7 @@ function ToggleMenuButton(props)
 
 	local hasCurrentUtility = false
 	if GetFFlagSupportCompactUtility() then
-		hasCurrentUtility = if chromeService:getCurrentUtility():get() then true else false
+		hasCurrentUtility = if ChromeService:getCurrentUtility():get() then true else false
 	end
 
 	local iconColor = style.Theme.IconEmphasis
@@ -48,6 +56,14 @@ function ToggleMenuButton(props)
 				value = 1 - value
 				return UDim2.new(0, UNIBAR_ICON_SIZE * value, 0, UNIBAR_ICON_SIZE * value)
 			end),
+			Visible = if GetFFlagUsePolishedAnimations()
+				then toggleIconTransition:map(function(value: any): any
+					if value == 1 then
+						buttonPressed = false
+					end
+					return buttonPressed or ChromeService:status():get() == ChromeService.MenuStatus.Closed
+				end)
+				else nil,
 			ImageColor3 = style.Theme.IconEmphasis.Color,
 			ImageTransparency = style.Theme.IconEmphasis.Transparency,
 		}) :: any,
@@ -56,14 +72,20 @@ function ToggleMenuButton(props)
 			Position = toggleIconTransition:map(function(value): any
 				return UDim2.new(0.5, 0, 0.5, 0)
 			end),
-			AnchorPoint = if GetFFlagUseNewUnibarIcon() then Vector2.new(0.5, 0.5) else Vector2.new(0.5, 0),
+			AnchorPoint = if GetFFlagUseNewUnibarIcon() or GetFFlagUsePolishedAnimations()
+				then Vector2.new(0.5, 0.5)
+				else Vector2.new(0.5, 0),
 			Size = toggleIconTransition:map(function(value: any): any
 				return UDim2.new(0, 16 * value, 0, 2)
 			end),
 			Visible = if GetFFlagSupportCompactUtility() then not hasCurrentUtility else nil,
 			BorderSizePixel = 0,
 			BackgroundColor3 = iconColor.Color,
-			BackgroundTransparency = iconColor.Transparency,
+			BackgroundTransparency = if GetFFlagUsePolishedAnimations()
+				then toggleIconTransition:map(function(value: any): any
+					return 1 - value
+				end)
+				else iconColor.Transparency,
 			Rotation = 45,
 		}) :: any,
 		React.createElement("Frame", {
@@ -71,14 +93,20 @@ function ToggleMenuButton(props)
 			Position = toggleIconTransition:map(function(value): any
 				return UDim2.new(0.5, 0, 0.5, 0)
 			end),
-			AnchorPoint = if GetFFlagUseNewUnibarIcon() then Vector2.new(0.5, 0.5) else Vector2.new(0.5, 0),
+			AnchorPoint = if GetFFlagUseNewUnibarIcon() or GetFFlagUsePolishedAnimations()
+				then Vector2.new(0.5, 0.5)
+				else Vector2.new(0.5, 0),
 			Size = toggleIconTransition:map(function(value: any): any
 				return UDim2.new(0, 16 * value, 0, 2)
 			end),
 			Visible = if GetFFlagSupportCompactUtility() then not hasCurrentUtility else nil,
 			BorderSizePixel = 0,
 			BackgroundColor3 = iconColor.Color,
-			BackgroundTransparency = iconColor.Transparency,
+			BackgroundTransparency = if GetFFlagUsePolishedAnimations()
+				then toggleIconTransition:map(function(value: any): any
+					return 1 - value
+				end)
+				else iconColor.Transparency,
 			Rotation = -45,
 		}) :: any,
 		React.createElement(ImageSetLabel, {
@@ -90,10 +118,14 @@ function ToggleMenuButton(props)
 			BackgroundTransparency = 1,
 			Image = Images["icons/actions/truncationCollapse_small"],
 			Size = toggleIconTransition:map(function(value: any): any
+				value = if GetFFlagUsePolishedAnimations() then 1 - value else value
 				return UDim2.new(0, 16 * value, 0, 16 * value)
 			end),
-			-- TODO this should be animated instead of popping into view when utility opened
-			Visible = hasCurrentUtility,
+			Visible = if GetFFlagUsePolishedAnimations()
+				then toggleIconTransition:map(function(_)
+					return not (buttonPressed or ChromeService:status():get() == ChromeService.MenuStatus.Closed)
+				end)
+				else hasCurrentUtility,
 			ImageColor3 = style.Theme.IconEmphasis.Color,
 			ImageTransparency = style.Theme.IconEmphasis.Transparency,
 			Rotation = 270,
@@ -115,31 +147,51 @@ function ToggleMenuButton(props)
 					position = UDim2.new(1, -7, 1, -7),
 				}),
 			}) :: any,
+		if GetFFlagUseSelfieViewFlatIcon()
+			then React.createElement("Frame", {
+				Name = "GreenCameraDotVisibleContiner",
+
+				Visible = toggleIconTransition:map(function(value: any): any
+					return value < 0.5
+				end),
+				Size = UDim2.new(1, 0, 1, 0),
+				BorderSizePixel = 0,
+				BackgroundTransparency = 1,
+			}, {
+				SelfieView.useCameraOn() and React.createElement(SelfieView.CameraStatusDot, {
+					Position = if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
+						then UDim2.new(1, -7, 1, -12)
+						else UDim2.new(1, -7, 1, -8),
+					ZIndex = 2,
+				}),
+			})
+			else nil,
 	})
 end
 
-return chromeService:register({
+return ChromeService:register({
 	id = "chrome_toggle",
 	label = "CoreScripts.TopBar.MenuToggle",
 	hideNotificationCountWhileOpen = true,
 	flashNotificationSource = true,
 	activated = function()
-		if GetFFlagSupportCompactUtility() then
-			local currentUtility = chromeService:getCurrentUtility():get()
+		if GetFFlagSupportCompactUtility() and not GetFFlagUsePolishedAnimations() then
+			local currentUtility = ChromeService:getCurrentUtility():get()
 			if currentUtility then
-				chromeService:toggleCompactUtility(currentUtility)
+				ChromeService:toggleCompactUtility(currentUtility)
 			else
-				chromeService:toggleOpen()
+				ChromeService:toggleOpen()
 			end
 		else
-			chromeService:toggleOpen()
+			ChromeService:toggleOpen()
 		end
+		buttonPressed = true
 	end,
 	components = {
 		Icon = function(props)
 			return React.createElement(ToggleMenuButton, props)
 		end,
 	},
-	notification = chromeService:totalNotifications(),
-	initialAvailability = chromeService.AvailabilitySignal.Pinned,
+	notification = ChromeService:totalNotifications(),
+	initialAvailability = ChromeService.AvailabilitySignal.Pinned,
 })

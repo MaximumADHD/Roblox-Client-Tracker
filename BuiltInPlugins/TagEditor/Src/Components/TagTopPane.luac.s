@@ -7,6 +7,15 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  JUMPIFNOTEQKS R0 K0 [""] [+8]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["setSearch"]
+  LOADK R2 K0 [""]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
   GETTABLEKS R1 R0 K1 ["tagMenu"]
@@ -34,7 +43,7 @@ PROTO_1:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_2:
+PROTO_3:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["tagMenu"]
@@ -54,7 +63,7 @@ PROTO_2:
   CALL R3 3 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
   GETTABLEKS R1 R0 K1 ["setWorldView"]
@@ -69,33 +78,36 @@ PROTO_3:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   NEWCLOSURE R1 P0
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K0 ["onSearchRequested"]
   NEWCLOSURE R1 P1
   CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K1 ["onDeleteClicked"]
+  SETTABLEKS R1 R0 K1 ["onTextChanged"]
   NEWCLOSURE R1 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K2 ["onDeleteClicked"]
+  NEWCLOSURE R1 P3
   CAPTURE VAL R0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K2 ["onNewGroupClicked"]
-  NEWCLOSURE R1 P3
+  SETTABLEKS R1 R0 K3 ["onNewGroupClicked"]
+  NEWCLOSURE R1 P4
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K3 ["onWorldViewButtonClicked"]
-  DUPTABLE R1 K5 [{"worldViewButtonWidth"}]
+  SETTABLEKS R1 R0 K4 ["onWorldViewButtonClicked"]
+  DUPTABLE R1 K6 [{"worldViewButtonWidth"}]
   LOADN R2 0
-  SETTABLEKS R2 R1 K4 ["worldViewButtonWidth"]
-  SETTABLEKS R1 R0 K6 ["state"]
+  SETTABLEKS R2 R1 K5 ["worldViewButtonWidth"]
+  SETTABLEKS R1 R0 K7 ["state"]
   GETUPVAL R2 2
-  GETTABLEKS R1 R2 K7 ["createRef"]
+  GETTABLEKS R1 R2 K8 ["createRef"]
   CALL R1 0 1
-  SETTABLEKS R1 R0 K8 ["worldViewButtonRef"]
+  SETTABLEKS R1 R0 K9 ["worldViewButtonRef"]
   RETURN R0 0
 
-PROTO_5:
+PROTO_6:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["worldViewButtonRef"]
   GETTABLEKS R1 R2 K1 ["current"]
@@ -119,7 +131,7 @@ PROTO_5:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_6:
+PROTO_7:
   GETIMPORT R2 K2 [task.defer]
   NEWCLOSURE R3 P0
   CAPTURE VAL R0
@@ -127,25 +139,25 @@ PROTO_6:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   MOVE R5 R2
   NAMECALL R3 R0 K0 ["updateExtents"]
   CALL R3 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   NAMECALL R1 R0 K0 ["updateExtents"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["onNewGroupClicked"]
   GETUPVAL R1 1
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Localization"]
   GETTABLEKS R4 R1 K2 ["Stylizer"]
@@ -222,8 +234,8 @@ PROTO_10:
   GETUPVAL R22 1
   GETTABLEKS R21 R22 K15 ["createElement"]
   GETUPVAL R22 3
-  DUPTABLE R23 K48 [{"Size", "ShowSearchButton", "ShowSearchIcon", "LayoutOrder", "OnSearchRequested", "Style", "PlaceholderText"}]
-  GETTABLEKS R24 R3 K49 ["SearchBarSize"]
+  DUPTABLE R23 K49 [{"Size", "ShowSearchButton", "ShowSearchIcon", "LayoutOrder", "OnSearchRequested", "OnTextChanged", "Style", "PlaceholderText"}]
+  GETTABLEKS R24 R3 K50 ["SearchBarSize"]
   SETTABLEKS R24 R23 K31 ["Size"]
   LOADB R24 0
   SETTABLEKS R24 R23 K43 ["ShowSearchButton"]
@@ -232,59 +244,65 @@ PROTO_10:
   NAMECALL R24 R5 K35 ["getNextOrder"]
   CALL R24 1 1
   SETTABLEKS R24 R23 K18 ["LayoutOrder"]
-  GETTABLEKS R24 R0 K50 ["onSearchRequested"]
+  GETTABLEKS R24 R0 K51 ["onSearchRequested"]
   SETTABLEKS R24 R23 K45 ["OnSearchRequested"]
-  LOADK R24 K51 ["Compact"]
-  SETTABLEKS R24 R23 K46 ["Style"]
   GETUPVAL R25 4
+  JUMPIFNOT R25 [+3]
+  GETTABLEKS R24 R0 K52 ["onTextChanged"]
+  JUMP [+1]
+  LOADNIL R24
+  SETTABLEKS R24 R23 K46 ["OnTextChanged"]
+  LOADK R24 K53 ["Compact"]
+  SETTABLEKS R24 R23 K47 ["Style"]
+  GETUPVAL R25 5
   JUMPIFNOT R25 [+6]
-  LOADK R26 K52 ["General"]
-  LOADK R27 K53 ["Search"]
+  LOADK R26 K54 ["General"]
+  LOADK R27 K55 ["Search"]
   NAMECALL R24 R2 K11 ["getText"]
   CALL R24 3 1
   JUMP [+1]
   LOADNIL R24
-  SETTABLEKS R24 R23 K47 ["PlaceholderText"]
+  SETTABLEKS R24 R23 K48 ["PlaceholderText"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K39 ["SearchBar"]
   GETUPVAL R22 1
   GETTABLEKS R21 R22 K15 ["createElement"]
-  GETUPVAL R22 5
-  DUPTABLE R23 K59 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "Style", "Disabled", "TooltipText"}]
-  LOADK R24 K60 ["RoundBox"]
-  SETTABLEKS R24 R23 K54 ["BackgroundStyle"]
-  GETTABLEKS R24 R3 K61 ["NewGroupIcon"]
-  SETTABLEKS R24 R23 K55 ["LeftIcon"]
+  GETUPVAL R22 6
+  DUPTABLE R23 K61 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "Style", "Disabled", "TooltipText"}]
+  LOADK R24 K62 ["RoundBox"]
+  SETTABLEKS R24 R23 K56 ["BackgroundStyle"]
+  GETTABLEKS R24 R3 K63 ["NewGroupIcon"]
+  SETTABLEKS R24 R23 K57 ["LeftIcon"]
   NEWCLOSURE R24 P0
   CAPTURE VAL R0
   CAPTURE VAL R2
-  SETTABLEKS R24 R23 K56 ["OnClick"]
+  SETTABLEKS R24 R23 K58 ["OnClick"]
   NAMECALL R24 R5 K35 ["getNextOrder"]
   CALL R24 1 1
   SETTABLEKS R24 R23 K18 ["LayoutOrder"]
-  ANDK R24 R9 K57 ["Disabled"]
-  SETTABLEKS R24 R23 K46 ["Style"]
-  SETTABLEKS R9 R23 K57 ["Disabled"]
-  SETTABLEKS R11 R23 K58 ["TooltipText"]
+  ANDK R24 R9 K59 ["Disabled"]
+  SETTABLEKS R24 R23 K47 ["Style"]
+  SETTABLEKS R9 R23 K59 ["Disabled"]
+  SETTABLEKS R11 R23 K60 ["TooltipText"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K40 ["NewGroupButton"]
   GETUPVAL R22 1
   GETTABLEKS R21 R22 K15 ["createElement"]
-  GETUPVAL R22 5
-  DUPTABLE R23 K59 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "Style", "Disabled", "TooltipText"}]
-  LOADK R24 K60 ["RoundBox"]
-  SETTABLEKS R24 R23 K54 ["BackgroundStyle"]
-  GETTABLEKS R24 R3 K62 ["DeleteIcon"]
-  SETTABLEKS R24 R23 K55 ["LeftIcon"]
-  GETTABLEKS R24 R0 K63 ["onDeleteClicked"]
-  SETTABLEKS R24 R23 K56 ["OnClick"]
+  GETUPVAL R22 6
+  DUPTABLE R23 K61 [{"BackgroundStyle", "LeftIcon", "OnClick", "LayoutOrder", "Style", "Disabled", "TooltipText"}]
+  LOADK R24 K62 ["RoundBox"]
+  SETTABLEKS R24 R23 K56 ["BackgroundStyle"]
+  GETTABLEKS R24 R3 K64 ["DeleteIcon"]
+  SETTABLEKS R24 R23 K57 ["LeftIcon"]
+  GETTABLEKS R24 R0 K65 ["onDeleteClicked"]
+  SETTABLEKS R24 R23 K58 ["OnClick"]
   NAMECALL R24 R5 K35 ["getNextOrder"]
   CALL R24 1 1
   SETTABLEKS R24 R23 K18 ["LayoutOrder"]
-  ANDK R24 R10 K57 ["Disabled"]
-  SETTABLEKS R24 R23 K46 ["Style"]
-  SETTABLEKS R10 R23 K57 ["Disabled"]
-  SETTABLEKS R12 R23 K58 ["TooltipText"]
+  ANDK R24 R10 K59 ["Disabled"]
+  SETTABLEKS R24 R23 K47 ["Style"]
+  SETTABLEKS R10 R23 K59 ["Disabled"]
+  SETTABLEKS R12 R23 K60 ["TooltipText"]
   CALL R21 2 1
   SETTABLEKS R21 R20 K41 ["DeleteButton"]
   CALL R17 3 1
@@ -292,76 +310,76 @@ PROTO_10:
   GETUPVAL R18 1
   GETTABLEKS R17 R18 K15 ["createElement"]
   GETUPVAL R18 2
-  DUPTABLE R19 K65 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
-  GETTABLEKS R20 R3 K66 ["NewTagRowSize"]
+  DUPTABLE R19 K67 [{"Size", "LayoutOrder", "Layout", "HorizontalAlignment"}]
+  GETTABLEKS R20 R3 K68 ["NewTagRowSize"]
   SETTABLEKS R20 R19 K31 ["Size"]
   NAMECALL R20 R4 K35 ["getNextOrder"]
   CALL R20 1 1
   SETTABLEKS R20 R19 K18 ["LayoutOrder"]
   GETIMPORT R20 K37 [Enum.FillDirection.Horizontal]
   SETTABLEKS R20 R19 K16 ["Layout"]
-  GETIMPORT R20 K68 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R20 R19 K64 ["HorizontalAlignment"]
-  DUPTABLE R20 K71 [{"NewTagTextInput", "ToggleWorldViewButton"}]
+  GETIMPORT R20 K70 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R20 R19 K66 ["HorizontalAlignment"]
+  DUPTABLE R20 K73 [{"NewTagTextInput", "ToggleWorldViewButton"}]
   GETUPVAL R22 1
   GETTABLEKS R21 R22 K15 ["createElement"]
-  GETUPVAL R22 6
-  DUPTABLE R23 K73 [{"WidthOffset", "LayoutOrder"}]
-  GETTABLEKS R25 R0 K74 ["state"]
-  GETTABLEKS R24 R25 K75 ["worldViewButtonWidth"]
-  SETTABLEKS R24 R23 K72 ["WidthOffset"]
+  GETUPVAL R22 7
+  DUPTABLE R23 K75 [{"WidthOffset", "LayoutOrder"}]
+  GETTABLEKS R25 R0 K76 ["state"]
+  GETTABLEKS R24 R25 K77 ["worldViewButtonWidth"]
+  SETTABLEKS R24 R23 K74 ["WidthOffset"]
   NAMECALL R24 R6 K35 ["getNextOrder"]
   CALL R24 1 1
   SETTABLEKS R24 R23 K18 ["LayoutOrder"]
   CALL R21 2 1
-  SETTABLEKS R21 R20 K69 ["NewTagTextInput"]
+  SETTABLEKS R21 R20 K71 ["NewTagTextInput"]
   GETUPVAL R22 1
   GETTABLEKS R21 R22 K15 ["createElement"]
-  GETUPVAL R22 5
+  GETUPVAL R22 6
   NEWTABLE R23 16 0
-  LOADK R24 K60 ["RoundBox"]
-  SETTABLEKS R24 R23 K54 ["BackgroundStyle"]
-  GETTABLEKS R25 R1 K76 ["worldView"]
+  LOADK R24 K62 ["RoundBox"]
+  SETTABLEKS R24 R23 K56 ["BackgroundStyle"]
+  GETTABLEKS R25 R1 K78 ["worldView"]
   JUMPIFNOT R25 [+2]
   MOVE R24 R7
   JUMP [+1]
   MOVE R24 R8
-  SETTABLEKS R24 R23 K55 ["LeftIcon"]
+  SETTABLEKS R24 R23 K57 ["LeftIcon"]
   LOADN R24 5
   SETTABLEKS R24 R23 K19 ["Padding"]
   LOADN R24 4
   SETTABLEKS R24 R23 K32 ["Spacing"]
-  GETIMPORT R24 K79 [Enum.AutomaticSize.X]
-  SETTABLEKS R24 R23 K77 ["AutomaticSize"]
-  LOADK R26 K80 ["Info"]
-  LOADK R27 K81 ["WorldView"]
+  GETIMPORT R24 K81 [Enum.AutomaticSize.X]
+  SETTABLEKS R24 R23 K79 ["AutomaticSize"]
+  LOADK R26 K82 ["Info"]
+  LOADK R27 K83 ["WorldView"]
   NAMECALL R24 R2 K11 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K82 ["Text"]
-  GETTABLEKS R24 R0 K83 ["onWorldViewButtonClicked"]
-  SETTABLEKS R24 R23 K56 ["OnClick"]
+  SETTABLEKS R24 R23 K84 ["Text"]
+  GETTABLEKS R24 R0 K85 ["onWorldViewButtonClicked"]
+  SETTABLEKS R24 R23 K58 ["OnClick"]
   NAMECALL R24 R6 K35 ["getNextOrder"]
   CALL R24 1 1
   SETTABLEKS R24 R23 K18 ["LayoutOrder"]
-  GETTABLEKS R24 R3 K84 ["WorldViewButtonSize"]
+  GETTABLEKS R24 R3 K86 ["WorldViewButtonSize"]
   SETTABLEKS R24 R23 K31 ["Size"]
   LOADK R26 K9 ["Tooltip"]
-  LOADK R27 K81 ["WorldView"]
+  LOADK R27 K83 ["WorldView"]
   NAMECALL R24 R2 K11 ["getText"]
   CALL R24 3 1
-  SETTABLEKS R24 R23 K58 ["TooltipText"]
+  SETTABLEKS R24 R23 K60 ["TooltipText"]
   GETUPVAL R25 1
-  GETTABLEKS R24 R25 K85 ["Ref"]
-  GETTABLEKS R25 R0 K86 ["worldViewButtonRef"]
+  GETTABLEKS R24 R25 K87 ["Ref"]
+  GETTABLEKS R25 R0 K88 ["worldViewButtonRef"]
   SETTABLE R25 R23 R24
   CALL R21 2 1
-  SETTABLEKS R21 R20 K70 ["ToggleWorldViewButton"]
+  SETTABLEKS R21 R20 K72 ["ToggleWorldViewButton"]
   CALL R17 3 1
   SETTABLEKS R17 R16 K28 ["NewTagRowPane"]
   GETUPVAL R18 1
   GETTABLEKS R17 R18 K15 ["createElement"]
-  GETUPVAL R18 7
-  DUPTABLE R19 K87 [{"LayoutOrder"}]
+  GETUPVAL R18 8
+  DUPTABLE R19 K89 [{"LayoutOrder"}]
   NAMECALL R20 R4 K35 ["getNextOrder"]
   CALL R20 1 1
   SETTABLEKS R20 R19 K18 ["LayoutOrder"]
@@ -370,7 +388,7 @@ PROTO_10:
   CALL R13 3 -1
   RETURN R13 -1
 
-PROTO_11:
+PROTO_12:
   DUPTABLE R2 K4 [{"tagMenu", "groupMenu", "worldView", "groupData"}]
   GETTABLEKS R3 R0 K5 ["TagMenu"]
   SETTABLEKS R3 R2 K0 ["tagMenu"]
@@ -382,7 +400,7 @@ PROTO_11:
   SETTABLEKS R3 R2 K3 ["groupData"]
   RETURN R2 1
 
-PROTO_12:
+PROTO_13:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["SetSearch"]
@@ -391,7 +409,7 @@ PROTO_12:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["OpenTagMenu"]
@@ -400,7 +418,7 @@ PROTO_13:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["OpenGroupMenu"]
@@ -409,7 +427,7 @@ PROTO_14:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   GETUPVAL R1 0
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K0 ["ToggleWorldView"]
@@ -418,7 +436,7 @@ PROTO_15:
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_16:
+PROTO_17:
   DUPTABLE R1 K4 [{"setSearch", "openTagMenu", "openGroupMenu", "setWorldView"}]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
@@ -499,47 +517,53 @@ MAIN:
   LOADK R23 K30 ["TagEditorFixMissingLocalization2"]
   NAMECALL R21 R21 K31 ["GetFastFlag"]
   CALL R21 2 1
-  GETTABLEKS R22 R2 K32 ["PureComponent"]
-  LOADK R24 K33 ["TagTopPane"]
-  NAMECALL R22 R22 K34 ["extend"]
-  CALL R22 2 1
-  DUPCLOSURE R23 K35 [PROTO_4]
+  GETIMPORT R22 K29 [game]
+  LOADK R24 K32 ["TagEditorSearchClear"]
+  LOADB R25 0
+  NAMECALL R22 R22 K33 ["DefineFastFlag"]
+  CALL R22 3 1
+  GETTABLEKS R23 R2 K34 ["PureComponent"]
+  LOADK R25 K35 ["TagTopPane"]
+  NAMECALL R23 R23 K36 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K37 [PROTO_5]
   CAPTURE VAL R18
   CAPTURE VAL R17
   CAPTURE VAL R2
-  SETTABLEKS R23 R22 K36 ["init"]
-  DUPCLOSURE R23 K37 [PROTO_6]
-  SETTABLEKS R23 R22 K38 ["updateExtents"]
-  DUPCLOSURE R23 K39 [PROTO_7]
-  SETTABLEKS R23 R22 K40 ["didUpdate"]
-  DUPCLOSURE R23 K41 [PROTO_8]
-  SETTABLEKS R23 R22 K42 ["didMount"]
-  DUPCLOSURE R23 K43 [PROTO_10]
+  SETTABLEKS R24 R23 K38 ["init"]
+  DUPCLOSURE R24 K39 [PROTO_7]
+  SETTABLEKS R24 R23 K40 ["updateExtents"]
+  DUPCLOSURE R24 K41 [PROTO_8]
+  SETTABLEKS R24 R23 K42 ["didUpdate"]
+  DUPCLOSURE R24 K43 [PROTO_9]
+  SETTABLEKS R24 R23 K44 ["didMount"]
+  DUPCLOSURE R24 K45 [PROTO_11]
   CAPTURE VAL R15
   CAPTURE VAL R2
   CAPTURE VAL R12
   CAPTURE VAL R13
+  CAPTURE VAL R22
   CAPTURE VAL R21
   CAPTURE VAL R11
   CAPTURE VAL R19
   CAPTURE VAL R20
-  SETTABLEKS R23 R22 K44 ["render"]
-  MOVE R23 R6
-  DUPTABLE R24 K45 [{"Analytics", "Localization", "Stylizer"}]
-  SETTABLEKS R7 R24 K13 ["Analytics"]
-  SETTABLEKS R8 R24 K14 ["Localization"]
-  SETTABLEKS R9 R24 K16 ["Stylizer"]
-  CALL R23 1 1
-  MOVE R24 R22
-  CALL R23 1 1
-  MOVE R22 R23
-  DUPCLOSURE R23 K46 [PROTO_11]
-  DUPCLOSURE R24 K47 [PROTO_16]
+  SETTABLEKS R24 R23 K46 ["render"]
+  MOVE R24 R6
+  DUPTABLE R25 K47 [{"Analytics", "Localization", "Stylizer"}]
+  SETTABLEKS R7 R25 K13 ["Analytics"]
+  SETTABLEKS R8 R25 K14 ["Localization"]
+  SETTABLEKS R9 R25 K16 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  DUPCLOSURE R24 K48 [PROTO_12]
+  DUPCLOSURE R25 K49 [PROTO_17]
   CAPTURE VAL R16
-  GETTABLEKS R25 R3 K48 ["connect"]
-  MOVE R26 R23
+  GETTABLEKS R26 R3 K50 ["connect"]
   MOVE R27 R24
-  CALL R25 2 1
-  MOVE R26 R22
-  CALL R25 1 -1
-  RETURN R25 -1
+  MOVE R28 R25
+  CALL R26 2 1
+  MOVE R27 R23
+  CALL R26 1 -1
+  RETURN R26 -1

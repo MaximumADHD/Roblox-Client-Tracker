@@ -43,6 +43,8 @@ local ChromeService = require(script.Parent.Parent.Parent.Chrome.Service)
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewPreviewShrinkIcon = require(SelfieViewModule.Flags.GetFFlagSelfieViewPreviewShrinkIcon)
 local GetFFlagSelfieViewDontWaitForCharacter = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontWaitForCharacter)
+local GetFFlagSelfieViewDontStartOnOpen = require(SelfieViewModule.Flags.GetFFlagSelfieViewDontStartOnOpen)
+local GetFFlagSelfieViewHideCameraStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewHideCameraStatusDot)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -178,7 +180,9 @@ local function Window(props: WindowProps): React.ReactNode
 
 		local unmount = FaceClone(player, frameRef.current)
 		if not FaceChatUtils.isCameraOn() and not props.isDraggedOut then
-			activateCamera(true)
+			if not GetFFlagSelfieViewDontStartOnOpen() then
+				activateCamera(true)
+			end
 		end
 
 		return function()
@@ -383,11 +387,13 @@ local function Window(props: WindowProps): React.ReactNode
 		}, {
 			Corners = React.createElement("UICorner", {}),
 		}) or nil,
-		CameraStatusDot = cameraOn and React.createElement(CameraStatusDot, {
-			Position = UDim2.new(1, -5, 0, 5),
-			AnchorPoint = Vector2.new(1, 0),
-			ZIndex = 2,
-		}) or nil,
+		CameraStatusDot = if GetFFlagSelfieViewHideCameraStatusDot()
+			then nil
+			else cameraOn and React.createElement(CameraStatusDot, {
+				Position = UDim2.new(1, -5, 0, 5),
+				AnchorPoint = Vector2.new(1, 0),
+				ZIndex = 2,
+			}) or nil,
 		Interactable = React.createElement(Interactable, {
 			Size = UDim2.fromScale(1, 1),
 			BackgroundTransparency = 1,

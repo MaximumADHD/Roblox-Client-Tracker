@@ -1,0 +1,89 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["state"]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETTABLEKS R3 R2 K2 ["Localization"]
+  GETTABLEKS R4 R2 K3 ["Value"]
+  JUMPIFNOT R4 [+31]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K9 [{"AnchorPoint", "Size", "Position", "Image"}]
+  GETIMPORT R8 K12 [Vector2.new]
+  LOADK R9 K13 [0.5]
+  LOADK R10 K13 [0.5]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K5 ["AnchorPoint"]
+  GETIMPORT R8 K16 [UDim2.fromOffset]
+  LOADN R9 16
+  LOADN R10 16
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K6 ["Size"]
+  GETIMPORT R8 K18 [UDim2.fromScale]
+  LOADK R9 K13 [0.5]
+  LOADK R10 K13 [0.5]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K7 ["Position"]
+  LOADK R8 K19 ["rbxasset://textures/R15Migrator/Icon_Checkmark.png"]
+  SETTABLEKS R8 R7 K8 ["Image"]
+  CALL R5 2 -1
+  RETURN R5 -1
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["withContext"]
+  GETTABLEKS R6 R3 K12 ["Dash"]
+  GETTABLEKS R7 R6 K13 ["join"]
+  GETTABLEKS R8 R3 K14 ["UI"]
+  GETTABLEKS R9 R8 K15 ["Image"]
+  GETTABLEKS R10 R8 K16 ["LinkText"]
+  GETTABLEKS R11 R8 K17 ["TextLabel"]
+  GETTABLEKS R13 R0 K18 ["Src"]
+  GETTABLEKS R12 R13 K19 ["Actions"]
+  GETTABLEKS R14 R0 K18 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Components"]
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R16 R0 K18 ["Src"]
+  GETTABLEKS R15 R16 K21 ["Types"]
+  CALL R14 1 1
+  GETTABLEKS R16 R0 K18 ["Src"]
+  GETTABLEKS R15 R16 K22 ["Util"]
+  GETTABLEKS R16 R1 K23 ["PureComponent"]
+  LOADK R18 K24 ["StatusCell"]
+  NAMECALL R16 R16 K25 ["extend"]
+  CALL R16 2 1
+  DUPCLOSURE R17 K26 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K27 ["render"]
+  MOVE R17 R5
+  DUPTABLE R18 K31 [{"Analytics", "Localization", "Stylizer"}]
+  GETTABLEKS R19 R4 K28 ["Analytics"]
+  SETTABLEKS R19 R18 K28 ["Analytics"]
+  GETTABLEKS R19 R4 K29 ["Localization"]
+  SETTABLEKS R19 R18 K29 ["Localization"]
+  GETTABLEKS R20 R3 K32 ["Style"]
+  GETTABLEKS R19 R20 K30 ["Stylizer"]
+  SETTABLEKS R19 R18 K30 ["Stylizer"]
+  CALL R17 1 1
+  MOVE R18 R16
+  CALL R17 1 1
+  MOVE R16 R17
+  RETURN R16 1

@@ -31,7 +31,6 @@ local AttributionConstants = require(InspectAndBuyFolder.AttributionConstants)
 local FFlagAssetDetailsUseAutomaticCanvasSize =
 	require(InspectAndBuyFolder.Flags.FFlagAssetDetailsUseAutomaticCanvasSize)
 local FFlagAttributionInInspectAndBuy = require(InspectAndBuyFolder.Flags.FFlagAttributionInInspectAndBuy)
-local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local GetCollectibleItemInInspectAndBuyEnabled =
 	require(InspectAndBuyFolder.Flags.GetCollectibleItemInInspectAndBuyEnabled)
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
@@ -101,9 +100,11 @@ function AssetDetails:getInfoRowProps()
 				attributionRow = {
 					infoName = RobloxTranslator:FormatByKeyForLocale("Feature.Catalog.Label.Attribution", locale),
 					infoData = gameName,
-					onActivate = if FFlagAttributionInInspectAndBuy then function()
-						self.props.openOverlay(OverlayEnum.AttributionTraversal, experienceInfo)
-					end else nil,
+					onActivate = if FFlagAttributionInInspectAndBuy
+						then function()
+							self.props.openOverlay(OverlayEnum.AttributionTraversal, experienceInfo)
+						end
+						else nil,
 					LayoutOrder = 2,
 					[Roact.Ref] = if FFlagAttributionInInspectAndBuy then self.attributionRef else nil,
 					Selectable = if FFlagAttributionInInspectAndBuy then true else nil,
@@ -167,9 +168,7 @@ function AssetDetails:willUpdate(nextProps)
 		end
 	end
 
-	if
-		UtilityFunctions.isCollectibles(self.props.assetInfo)
-	then
+	if UtilityFunctions.isCollectibles(self.props.assetInfo) then
 		local itemId = self.props.assetInfo.collectibleItemId
 		local prevResellableInstances = self.props.resellableInstances
 		local nextResellableInstances = nextProps.resellableInstances
@@ -190,7 +189,14 @@ function AssetDetails:willUpdate(nextProps)
 		local bundleId = self.props.assetInfo and self.props.assetInfo.parentBundleId
 		local bundles = self.props.bundles
 		local nextBundles = nextProps.bundles
-		if bundleId and bundles and bundles[bundleId] and nextBundles and nextBundles[bundleId] and nextBundles[bundleId] ~= bundles[bundleId] then
+		if
+			bundleId
+			and bundles
+			and bundles[bundleId]
+			and nextBundles
+			and nextBundles[bundleId]
+			and nextBundles[bundleId] ~= bundles[bundleId]
+		then
 			self.props.setAssetFromBundleInfo(self.props.assetInfo.assetId, nextBundles[bundleId])
 		end
 	end
@@ -221,11 +227,8 @@ function AssetDetails:didUpdate(prevProps)
 		local skipEconomyProductInfo = GetCollectibleItemInInspectAndBuyEnabled()
 			and assetInfo.productType == Constants.ProductType.CollectibleItem
 
-		if  GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
-			if
-				(not isBundle and assetInfo.owned == nil)
-				or (isBundle and bundles[bundleId].owned == nil)
-			then
+		if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
+			if (not isBundle and assetInfo.owned == nil) or (isBundle and bundles[bundleId].owned == nil) then
 				local itemId = assetInfo.assetId
 				local itemType = Enum.AvatarItemType.Asset
 				if isBundle then
@@ -256,7 +259,8 @@ function AssetDetails:didUpdate(prevProps)
 		and assetInfo
 		and assetInfo.bundlesAssetIsIn
 
-	local shouldReportOpenDetailPage = (assetInfo and assetInfo.bundlesAssetIsIn and startedViewingDetails) or obtainedBundlesInfo
+	local shouldReportOpenDetailPage = (assetInfo and assetInfo.bundlesAssetIsIn and startedViewingDetails)
+		or obtainedBundlesInfo
 	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
 		shouldReportOpenDetailPage = startedViewingDetails
 	end
@@ -301,7 +305,7 @@ function AssetDetails:render()
 				showOwnedItemLabel = UtilityFunctions.isLimited2Point0_Or_LimitedCollectible(assetInfo)
 			end
 
-			if GetFFlagUseInspectAndBuyControllerBar() and self.props.gamepadEnabled then
+			if self.props.gamepadEnabled then
 				controllerBarOffset = -1 * CONTROLLER_BAR_HEIGHT
 			end
 			if Theme.UIBloxThemeEnabled then
@@ -314,7 +318,9 @@ function AssetDetails:render()
 				BackgroundColor3 = Colors.Carbon,
 				BorderSizePixel = 0,
 				-- Do not show asset information until we know if a bundle should be shown instead.
-				Visible = if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then detailsInformation.viewingDetails else (detailsInformation.viewingDetails and assetInfo.bundlesAssetIsIn ~= nil),
+				Visible = if GetFFlagIBEnableNewDataCollectionForCollectibleSystem()
+					then detailsInformation.viewingDetails
+					else (detailsInformation.viewingDetails and assetInfo.bundlesAssetIsIn ~= nil),
 			}, {
 				DetailsButtons = Roact.createElement(DetailsButtons, {
 					localPlayerModel = localPlayerModel,
@@ -411,14 +417,18 @@ end, function(dispatch)
 		getCollectibleResellableInstances = function(collectibleItemId, userId)
 			dispatch(GetCollectibleResellableInstances(collectibleItemId, userId))
 		end,
-		openOverlay = if FFlagAttributionInInspectAndBuy then function(overlay, overlayProps)
-			dispatch(OpenOverlay(overlay, overlayProps))
-		end else nil,
+		openOverlay = if FFlagAttributionInInspectAndBuy
+			then function(overlay, overlayProps)
+				dispatch(OpenOverlay(overlay, overlayProps))
+			end
+			else nil,
 		getItemDetails = function(itemId, itemType)
 			dispatch(GetItemDetails(itemId, itemType))
 		end,
-		setAssetFromBundleInfo = if GetFFlagIBEnableLimitedBundle() then function(assetId, bundleInfo)
-			dispatch(SetAssetFromBundleInfo(assetId, bundleInfo))
-		end else nil,
+		setAssetFromBundleInfo = if GetFFlagIBEnableLimitedBundle()
+			then function(assetId, bundleInfo)
+				dispatch(SetAssetFromBundleInfo(assetId, bundleInfo))
+			end
+			else nil,
 	}
 end)(AssetDetails)

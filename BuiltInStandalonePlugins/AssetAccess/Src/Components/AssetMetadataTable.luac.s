@@ -131,31 +131,36 @@ PROTO_2:
   GETTABLE R3 R0 R2
   GETTABLE R4 R1 R2
   FASTCALL1 TYPEOF R3 [+3]
+  MOVE R8 R3
+  GETIMPORT R7 K3 [typeof]
+  CALL R7 1 1
+  FASTCALL1 TYPEOF R4 [+3]
+  MOVE R9 R4
+  GETIMPORT R8 K3 [typeof]
+  CALL R8 1 1
+  JUMPIFEQ R7 R8 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  FASTCALL2K ASSERT R6 K4 [+4]
+  LOADK R7 K4 ["valueA and valueB should have the same type"]
+  GETIMPORT R5 K6 [assert]
+  CALL R5 2 0
+  FASTCALL1 TYPEOF R3 [+3]
   MOVE R6 R3
   GETIMPORT R5 K3 [typeof]
   CALL R5 1 1
-  JUMPIFNOTEQKS R5 K4 ["string"] [+24]
-  FASTCALL1 TYPEOF R4 [+3]
-  MOVE R8 R4
-  GETIMPORT R7 K3 [typeof]
-  CALL R7 1 1
-  JUMPIFEQKS R7 K4 ["string"] [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  FASTCALL1 ASSERT R6 [+2]
-  GETIMPORT R5 K6 [assert]
-  CALL R5 1 0
-  GETIMPORT R5 K8 [string.upper]
+  JUMPIFNOTEQKS R5 K7 ["string"] [+11]
+  GETIMPORT R5 K9 [string.upper]
   MOVE R6 R3
   CALL R5 1 1
   MOVE R3 R5
-  GETIMPORT R5 K8 [string.upper]
+  GETIMPORT R5 K9 [string.upper]
   MOVE R6 R4
   CALL R5 1 1
   MOVE R4 R5
   GETUPVAL R6 1
-  GETTABLEKS R5 R6 K9 ["order"]
-  GETIMPORT R6 K13 [Enum.SortDirection.Ascending]
+  GETTABLEKS R5 R6 K10 ["order"]
+  GETIMPORT R6 K14 [Enum.SortDirection.Ascending]
   JUMPIFNOTEQ R5 R6 [+6]
   JUMPIFLT R4 R3 [+2]
   LOADB R5 0 +1

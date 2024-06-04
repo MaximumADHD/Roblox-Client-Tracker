@@ -9,7 +9,7 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Flags"]
   GETTABLEKS R2 R3 K8 ["getFFlagTerrainEditorGenerationFeature"]
   CALL R1 1 1
-  DUPTABLE R2 K20 [{"BrushSize", "Button", "DelayedSlider", "Label", "Image", "Material", "MaterialRanges", "MultiSelection", "PlaneLock", "TerrainType", "Upgrade"}]
+  DUPTABLE R2 K21 [{"BrushSize", "Button", "ConfirmGeneration", "DelayedSlider", "Label", "Image", "Material", "MaterialRanges", "MultiSelection", "PlaneLock", "TerrainType", "Upgrade"}]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
   GETTABLEKS R4 R5 K9 ["BrushSize"]
@@ -25,54 +25,64 @@ MAIN:
   JUMPIFNOT R4 [+8]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K11 ["DelayedSlider"]
+  GETTABLEKS R4 R5 K11 ["ConfirmGeneration"]
   CALL R3 1 1
   JUMP [+1]
   LOADNIL R3
-  SETTABLEKS R3 R2 K11 ["DelayedSlider"]
-  GETIMPORT R3 K5 [require]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K12 ["Label"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K12 ["Label"]
-  GETIMPORT R3 K5 [require]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K13 ["Image"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K13 ["Image"]
-  GETIMPORT R3 K5 [require]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K14 ["Material"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K14 ["Material"]
+  SETTABLEKS R3 R2 K11 ["ConfirmGeneration"]
   MOVE R4 R1
   CALL R4 0 1
   JUMPIFNOT R4 [+8]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K15 ["MaterialRanges"]
+  GETTABLEKS R4 R5 K12 ["DelayedSlider"]
   CALL R3 1 1
   JUMP [+1]
   LOADNIL R3
-  SETTABLEKS R3 R2 K15 ["MaterialRanges"]
+  SETTABLEKS R3 R2 K12 ["DelayedSlider"]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K16 ["MultiSelection"]
+  GETTABLEKS R4 R5 K13 ["Label"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K16 ["MultiSelection"]
+  SETTABLEKS R3 R2 K13 ["Label"]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K17 ["PlaneLock"]
+  GETTABLEKS R4 R5 K14 ["Image"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K17 ["PlaneLock"]
+  SETTABLEKS R3 R2 K14 ["Image"]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K18 ["TerrainType"]
+  GETTABLEKS R4 R5 K15 ["Material"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K18 ["TerrainType"]
+  SETTABLEKS R3 R2 K15 ["Material"]
+  MOVE R4 R1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+8]
   GETIMPORT R3 K5 [require]
   GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K19 ["Upgrade"]
+  GETTABLEKS R4 R5 K16 ["MaterialRanges"]
   CALL R3 1 1
-  SETTABLEKS R3 R2 K19 ["Upgrade"]
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K16 ["MaterialRanges"]
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K17 ["MultiSelection"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K17 ["MultiSelection"]
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K18 ["PlaneLock"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K18 ["PlaneLock"]
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K19 ["TerrainType"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K19 ["TerrainType"]
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K20 ["Upgrade"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K20 ["Upgrade"]
   RETURN R2 1

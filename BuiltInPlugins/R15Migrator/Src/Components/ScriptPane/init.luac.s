@@ -1,0 +1,292 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"expanded"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["state"]
+  GETTABLEKS R4 R5 K0 ["expanded"]
+  NOT R3 R4
+  SETTABLEKS R3 R2 K0 ["expanded"]
+  NAMECALL R0 R0 K3 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"expanded"}]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["expanded"]
+  SETTABLEKS R1 R0 K2 ["state"]
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["expandedChanged"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["state"]
+  GETTABLEKS R2 R0 K1 ["props"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K4 [{"Size"}]
+  GETIMPORT R6 K7 [UDim2.fromScale]
+  LOADN R7 1
+  LOADN R8 1
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K3 ["Size"]
+  DUPTABLE R6 K11 [{"ExpandablePane", "Contents", "Footer"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K16 [{"Expanded", "HeaderComponent", "HeaderComponentProps", "OnExpandedChanged"}]
+  GETTABLEKS R11 R0 K0 ["state"]
+  GETTABLEKS R10 R11 K17 ["expanded"]
+  SETTABLEKS R10 R9 K12 ["Expanded"]
+  GETUPVAL R10 3
+  SETTABLEKS R10 R9 K13 ["HeaderComponent"]
+  DUPTABLE R10 K21 [{"Text", "TextXAlignment", "TextYAlignment"}]
+  LOADK R11 K22 ["Scripts"]
+  SETTABLEKS R11 R10 K18 ["Text"]
+  GETIMPORT R11 K25 [Enum.TextXAlignment.Left]
+  SETTABLEKS R11 R10 K19 ["TextXAlignment"]
+  GETIMPORT R11 K27 [Enum.TextYAlignment.Center]
+  SETTABLEKS R11 R10 K20 ["TextYAlignment"]
+  SETTABLEKS R10 R9 K14 ["HeaderComponentProps"]
+  GETTABLEKS R10 R0 K28 ["expandedChanged"]
+  SETTABLEKS R10 R9 K15 ["OnExpandedChanged"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K8 ["ExpandablePane"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K32 [{"Position", "Size", "Visible", "Layout"}]
+  GETIMPORT R10 K34 [UDim2.new]
+  LOADN R11 0
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 32
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K29 ["Position"]
+  GETIMPORT R10 K34 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 1
+  LOADN R14 176
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K3 ["Size"]
+  GETTABLEKS R11 R0 K0 ["state"]
+  GETTABLEKS R10 R11 K17 ["expanded"]
+  SETTABLEKS R10 R9 K30 ["Visible"]
+  GETIMPORT R10 K37 [Enum.FillDirection.Vertical]
+  SETTABLEKS R10 R9 K31 ["Layout"]
+  DUPTABLE R10 K41 [{"Search", "Toolbar", "ScriptTree"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K2 ["createElement"]
+  GETUPVAL R12 1
+  DUPTABLE R13 K44 [{"LayoutOrder", "BackgroundColor", "Size"}]
+  LOADN R14 0
+  SETTABLEKS R14 R13 K42 ["LayoutOrder"]
+  GETIMPORT R14 K46 [Color3.new]
+  LOADN R15 0
+  LOADK R16 K47 [0.5]
+  LOADN R17 0
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K43 ["BackgroundColor"]
+  GETIMPORT R14 K34 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 0
+  LOADN R18 32
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K3 ["Size"]
+  DUPTABLE R14 K49 [{"TextLabel"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K2 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K21 [{"Text", "TextXAlignment", "TextYAlignment"}]
+  LOADK R18 K38 ["Search"]
+  SETTABLEKS R18 R17 K18 ["Text"]
+  GETIMPORT R18 K50 [Enum.TextXAlignment.Center]
+  SETTABLEKS R18 R17 K19 ["TextXAlignment"]
+  GETIMPORT R18 K27 [Enum.TextYAlignment.Center]
+  SETTABLEKS R18 R17 K20 ["TextYAlignment"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K48 ["TextLabel"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K38 ["Search"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K2 ["createElement"]
+  GETUPVAL R12 1
+  DUPTABLE R13 K44 [{"LayoutOrder", "BackgroundColor", "Size"}]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K42 ["LayoutOrder"]
+  GETIMPORT R14 K46 [Color3.new]
+  LOADN R15 0
+  LOADK R16 K51 [0.25]
+  LOADN R17 0
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K43 ["BackgroundColor"]
+  GETIMPORT R14 K34 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 0
+  LOADN R18 24
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K3 ["Size"]
+  DUPTABLE R14 K49 [{"TextLabel"}]
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K2 ["createElement"]
+  GETUPVAL R16 3
+  DUPTABLE R17 K21 [{"Text", "TextXAlignment", "TextYAlignment"}]
+  LOADK R18 K39 ["Toolbar"]
+  SETTABLEKS R18 R17 K18 ["Text"]
+  GETIMPORT R18 K50 [Enum.TextXAlignment.Center]
+  SETTABLEKS R18 R17 K19 ["TextXAlignment"]
+  GETIMPORT R18 K27 [Enum.TextYAlignment.Center]
+  SETTABLEKS R18 R17 K20 ["TextYAlignment"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K48 ["TextLabel"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K39 ["Toolbar"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K2 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K52 [{"LayoutOrder", "Size"}]
+  LOADN R14 2
+  SETTABLEKS R14 R13 K42 ["LayoutOrder"]
+  GETIMPORT R14 K34 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 1
+  LOADN R18 200
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K3 ["Size"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K40 ["ScriptTree"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K9 ["Contents"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K54 [{"AnchorPoint", "BackgroundColor", "Size", "Position"}]
+  GETIMPORT R10 K56 [Vector2.new]
+  LOADN R11 0
+  LOADN R12 1
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K53 ["AnchorPoint"]
+  GETIMPORT R10 K46 [Color3.new]
+  LOADN R11 0
+  LOADN R12 0
+  LOADK R13 K47 [0.5]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K43 ["BackgroundColor"]
+  GETIMPORT R10 K34 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 48
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K3 ["Size"]
+  GETIMPORT R10 K7 [UDim2.fromScale]
+  LOADN R11 0
+  LOADN R12 1
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K29 ["Position"]
+  DUPTABLE R10 K49 [{"TextLabel"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K2 ["createElement"]
+  GETUPVAL R12 3
+  DUPTABLE R13 K57 [{"Text"}]
+  LOADK R14 K10 ["Footer"]
+  SETTABLEKS R14 R13 K18 ["Text"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K48 ["TextLabel"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K10 ["Footer"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["RoactRodux"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K10 ["ContextServices"]
+  GETTABLEKS R5 R4 K11 ["withContext"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Contexts"]
+  GETTABLEKS R7 R8 K14 ["ScriptConversionContext"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Packages"]
+  GETTABLEKS R8 R9 K15 ["Dash"]
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K16 ["join"]
+  GETTABLEKS R9 R7 K17 ["map"]
+  GETTABLEKS R10 R3 K18 ["UI"]
+  GETTABLEKS R11 R10 K19 ["ExpandablePane"]
+  GETTABLEKS R12 R10 K20 ["Pane"]
+  GETTABLEKS R13 R10 K21 ["TextLabel"]
+  GETTABLEKS R14 R10 K22 ["TreeTable"]
+  GETTABLEKS R16 R0 K12 ["Src"]
+  GETTABLEKS R15 R16 K23 ["Actions"]
+  GETTABLEKS R17 R0 K12 ["Src"]
+  GETTABLEKS R16 R17 K24 ["Components"]
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R18 R16 K25 ["ScriptPaneTreeTable"]
+  CALL R17 1 1
+  GETTABLEKS R19 R0 K12 ["Src"]
+  GETTABLEKS R18 R19 K26 ["Util"]
+  GETIMPORT R19 K5 [require]
+  GETTABLEKS R21 R18 K27 ["ScriptAnalysis"]
+  GETTABLEKS R20 R21 K28 ["R6Info"]
+  CALL R19 1 1
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R22 R18 K27 ["ScriptAnalysis"]
+  GETTABLEKS R21 R22 K29 ["Constants"]
+  CALL R20 1 1
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R22 R18 K30 ["findAllInServices"]
+  CALL R21 1 1
+  GETIMPORT R22 K5 [require]
+  GETTABLEKS R24 R0 K12 ["Src"]
+  GETTABLEKS R23 R24 K31 ["Types"]
+  CALL R22 1 1
+  GETTABLEKS R23 R1 K32 ["PureComponent"]
+  LOADK R25 K33 ["ScriptPane"]
+  NAMECALL R23 R23 K34 ["extend"]
+  CALL R23 2 1
+  DUPCLOSURE R24 K35 [PROTO_1]
+  SETTABLEKS R24 R23 K36 ["init"]
+  DUPCLOSURE R24 K37 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  CAPTURE VAL R17
+  SETTABLEKS R24 R23 K38 ["render"]
+  MOVE R24 R5
+  DUPTABLE R25 K42 [{"Analytics", "Localization", "Stylizer"}]
+  GETTABLEKS R26 R4 K39 ["Analytics"]
+  SETTABLEKS R26 R25 K39 ["Analytics"]
+  GETTABLEKS R26 R4 K40 ["Localization"]
+  SETTABLEKS R26 R25 K40 ["Localization"]
+  GETTABLEKS R26 R4 K41 ["Stylizer"]
+  SETTABLEKS R26 R25 K41 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R23
+  CALL R24 1 1
+  MOVE R23 R24
+  RETURN R23 1

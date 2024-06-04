@@ -167,19 +167,23 @@ PROTO_10:
   CALL R8 2 0
   FORGLOOP R2 2 [-12]
   GETIMPORT R4 K6 [table.freeze]
-  DUPTABLE R5 K11 [{"visualizationModeList", "name", "title", "enabled"}]
+  DUPTABLE R5 K12 [{"visualizationModeList", "name", "title", "enabled", "lastUpdateTimeUnixTimeStamp"}]
   SETTABLEKS R1 R5 K7 ["visualizationModeList"]
-  GETTABLEKS R7 R0 K12 ["_visualizationModeCategory"]
-  GETTABLEKS R6 R7 K13 ["Name"]
+  GETTABLEKS R7 R0 K13 ["_visualizationModeCategory"]
+  GETTABLEKS R6 R7 K14 ["Name"]
   SETTABLEKS R6 R5 K8 ["name"]
-  GETTABLEKS R7 R0 K12 ["_visualizationModeCategory"]
-  GETTABLEKS R6 R7 K14 ["Title"]
+  GETTABLEKS R7 R0 K13 ["_visualizationModeCategory"]
+  GETTABLEKS R6 R7 K15 ["Title"]
   SETTABLEKS R6 R5 K9 ["title"]
-  GETTABLEKS R7 R0 K12 ["_visualizationModeCategory"]
-  GETTABLEKS R6 R7 K15 ["Enabled"]
+  GETTABLEKS R7 R0 K13 ["_visualizationModeCategory"]
+  GETTABLEKS R6 R7 K16 ["Enabled"]
   SETTABLEKS R6 R5 K10 ["enabled"]
+  GETIMPORT R7 K19 [DateTime.now]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K20 ["UnixTimestamp"]
+  SETTABLEKS R6 R5 K11 ["lastUpdateTimeUnixTimeStamp"]
   CALL R4 1 -1
-  NAMECALL R2 R0 K16 ["_setState"]
+  NAMECALL R2 R0 K21 ["_setState"]
   CALL R2 -1 0
   RETURN R0 0
 
@@ -190,22 +194,27 @@ PROTO_11:
   FORGPREP R3
   NAMECALL R8 R7 K1 ["getState"]
   CALL R8 1 1
-  JUMPIFNOT R8 [+8]
+  JUMPIFEQKNIL R8 [+9]
   GETTABLEKS R9 R8 K2 ["name"]
   JUMPIFNOTEQ R9 R1 [+5]
   MOVE R11 R2
   NAMECALL R9 R7 K3 ["updateVisualizationModeIsEnabled"]
   CALL R9 2 0
-  FORGLOOP R3 2 [-13]
+  FORGLOOP R3 2 [-14]
   RETURN R0 0
 
 PROTO_12:
+  GETTABLEKS R2 R0 K0 ["_visualizationModeCategory"]
+  SETTABLEKS R1 R2 K1 ["Enabled"]
+  RETURN R0 0
+
+PROTO_13:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["_queueUpdateState"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_13:
+PROTO_14:
   GETIMPORT R0 K2 [table.find]
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K3 ["_visualizationModeTrackers"]
@@ -222,7 +231,7 @@ PROTO_13:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_14:
+PROTO_15:
   LOADK R4 K0 ["VisualizationMode"]
   NAMECALL R2 R1 K1 ["IsA"]
   CALL R2 2 1
@@ -260,7 +269,7 @@ PROTO_14:
   CALL R4 1 0
   RETURN R0 0
 
-PROTO_15:
+PROTO_16:
   GETTABLEKS R1 R0 K0 ["_maid"]
   NAMECALL R1 R1 K1 ["destroy"]
   CALL R1 1 0
@@ -310,10 +319,12 @@ MAIN:
   SETTABLEKS R6 R5 K25 ["_updateState"]
   DUPCLOSURE R6 K26 [PROTO_11]
   SETTABLEKS R6 R5 K27 ["updateVisualizationModeIsEnabled"]
-  DUPCLOSURE R6 K28 [PROTO_14]
+  DUPCLOSURE R6 K28 [PROTO_12]
+  SETTABLEKS R6 R5 K29 ["setIsCategoryEnabled"]
+  DUPCLOSURE R6 K30 [PROTO_15]
   CAPTURE VAL R1
   CAPTURE VAL R4
-  SETTABLEKS R6 R5 K29 ["_handleChildAdded"]
-  DUPCLOSURE R6 K30 [PROTO_15]
-  SETTABLEKS R6 R5 K31 ["destroy"]
+  SETTABLEKS R6 R5 K31 ["_handleChildAdded"]
+  DUPCLOSURE R6 K32 [PROTO_16]
+  SETTABLEKS R6 R5 K33 ["destroy"]
   RETURN R5 1

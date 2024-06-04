@@ -1,26 +1,56 @@
+--!strict
 --[[
 	BaseCharacterController - Abstract base class for character controllers, not intended to be
 	directly instantiated.
-
-	2018 PlayerScripts Update - AllYourBlox
 --]]
 
-local ZERO_VECTOR3: Vector3 = Vector3.new(0,0,0)
+
+--[[ Utils ]]--
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
+
+local FFlagUserUpdateInputConnections = FlagUtil.getUserFlag("UserUpdateInputConnections")
 
 --[[ The Module ]]--
-local BaseCharacterController = {}
-BaseCharacterController.__index = BaseCharacterController
+export type BaseCharacterControllerType = {
+	-------------------- Public -----------------------------
+	new: () -> BaseCharacterControllerType,
+	OnRenderStepped: (BaseCharacterControllerType, dt: number) -> (), -- remove with FFlagUserUpdateInputConnections
+	GetMoveVector: (BaseCharacterControllerType) -> Vector3,
+	IsMoveVectorCameraRelative: (BaseCharacterControllerType) -> boolean,
+	GetIsJumping: (BaseCharacterControllerType) -> boolean,
+	Enable: (BaseCharacterControllerType, enable: boolean) -> boolean,
+	
+	-------------------- Private ----------------------------
+	enabled: boolean,
+	moveVector: Vector3,
+	moveVectorIsCameraRelative: boolean,
+	isJumping: boolean,
+	_connections: any -- ConnectionUtil.ConnectionUtilType
+}
+
+local ZERO_VECTOR3: Vector3 = Vector3.new()
+
+local BaseCharacterController = {} :: BaseCharacterControllerType
+(BaseCharacterController :: any).__index = BaseCharacterController
 
 function BaseCharacterController.new()
 	local self = setmetatable({}, BaseCharacterController)
+
 	self.enabled = false
 	self.moveVector = ZERO_VECTOR3
 	self.moveVectorIsCameraRelative = true
 	self.isJumping = false
-	return self
+	if FFlagUserUpdateInputConnections then
+		self._connections = ConnectionUtil.new()
+	end
+
+	return self :: any
 end
 
-function BaseCharacterController:OnRenderStepped(dt: number)
+function BaseCharacterController:OnRenderStepped(dt: number) -- remove with FFlagUserUpdateInputConnections
+	assert(not FFlagUserUpdateInputConnections)
 	-- By default, nothing to do
 end
 

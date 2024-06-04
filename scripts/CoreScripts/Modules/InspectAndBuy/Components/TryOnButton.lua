@@ -13,7 +13,6 @@ local TryOnItem = require(InspectAndBuyFolder.Thunks.TryOnItem)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
-local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local TryOnShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).TryOn
 
 local TRY_ON_KEY = "InGame.InspectMenu.Action.TryOn"
@@ -27,18 +26,13 @@ local TryOnButton = Roact.PureComponent:extend("TryOnButton")
 function TryOnButton:init()
 	self.selectedImage = getSelectionImageObjectRounded()
 
-	if GetFFlagUseInspectAndBuyControllerBar() then
-		ContextActionService:BindCoreAction("TryOnGamepadShortcut",
-		function(actionName, inputState, inputObject)
-			if inputState == Enum.UserInputState.End then
-				self:activateButton()
-				return Enum.ContextActionResult.Sink
-			end
-			return Enum.ContextActionResult.Pass
-		end,
-		false,
-		TryOnShorcutKeycode)
-	end
+	ContextActionService:BindCoreAction("TryOnGamepadShortcut", function(actionName, inputState, inputObject)
+		if inputState == Enum.UserInputState.End then
+			self:activateButton()
+			return Enum.ContextActionResult.Sink
+		end
+		return Enum.ContextActionResult.Pass
+	end, false, TryOnShorcutKeycode)
 end
 
 function TryOnButton:activateButton()
@@ -54,7 +48,8 @@ function TryOnButton:activateButton()
 	local bundleId = self.props.bundleId
 
 	-- disable the try on button if wanting to try on a layered clothing asset on R6
-	local layeredClothingOnR6 = assetInfo and self.props.localPlayerModel
+	local layeredClothingOnR6 = assetInfo
+		and self.props.localPlayerModel
 		and Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
 		and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
 
@@ -68,21 +63,15 @@ function TryOnButton:activateButton()
 end
 
 function TryOnButton:willUnmount()
-	if GetFFlagUseInspectAndBuyControllerBar() then
-		ContextActionService:UnbindCoreAction("TryOnGamepadShortcut")
-	end
+	ContextActionService:UnbindCoreAction("TryOnGamepadShortcut")
 end
 
 function TryOnButton:render()
-	local tryOnItem = self.props.tryOnItem
-	local takeOffItem = self.props.takeOffItem
 	local tryingOn = self.props.tryingOnInfo.tryingOn
 	local showTryOn = self.props.showTryOn
 	local locale = self.props.locale
 	local assetInfo = self.props.assetInfo
 	local creatorId = assetInfo and assetInfo.creatorId or 0
-	local partOfBundleAndOffsale = self.props.partOfBundleAndOffsale
-	local bundleId = self.props.bundleId
 	local tryOnButtonRef = self.props.tryOnButtonRef
 	local sizeXAdjustment = if FFlagEnableFavoriteButtonForUgc
 		then -32
@@ -96,7 +85,8 @@ function TryOnButton:render()
 	end
 
 	-- disable the try on button if wanting to try on a layered clothing asset on R6
-	local layeredClothingOnR6 = assetInfo and self.props.localPlayerModel
+	local layeredClothingOnR6 = assetInfo
+		and self.props.localPlayerModel
 		and Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
 		and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
 
@@ -138,42 +128,29 @@ function TryOnButton:render()
 			end,
 			[Roact.Ref] = tryOnButtonRef,
 			[Roact.Event.Activated] = function()
-				if GetFFlagUseInspectAndBuyControllerBar() then
-					self:activateButton()
-				else
-					if not layeredClothingOnR6 then
-						if tryingOn then
-							takeOffItem()
-						else
-							tryOnItem(true, assetInfo.assetId, assetInfo.assetTypeId, partOfBundleAndOffsale, bundleId)
-						end
-					end
-				end
+				self:activateButton()
 			end,
-		})
+		}),
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = state.detailsInformation.assetId
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local assetId = state.detailsInformation.assetId
 
-		return {
+	return {
 		locale = state.locale,
-			view = state.view,
-			assetInfo = state.assets[assetId],
-			bundleInfo = state.bundles,
-			tryingOnInfo = state.tryingOnInfo,
-		}
-	end,
-	function(dispatch)
-		return {
-			tryOnItem = function(tryingOn, assetId, assetTypeId, partOfBundleAndOffsale, bundleId)
-				dispatch(TryOnItem(tryingOn, assetId, assetTypeId, partOfBundleAndOffsale, bundleId))
-			end,
-			takeOffItem = function()
-				dispatch(SetTryingOnInfo(false, nil, nil))
-			end,
-		}
-	end
-)(TryOnButton)
+		view = state.view,
+		assetInfo = state.assets[assetId],
+		bundleInfo = state.bundles,
+		tryingOnInfo = state.tryingOnInfo,
+	}
+end, function(dispatch)
+	return {
+		tryOnItem = function(tryingOn, assetId, assetTypeId, partOfBundleAndOffsale, bundleId)
+			dispatch(TryOnItem(tryingOn, assetId, assetTypeId, partOfBundleAndOffsale, bundleId))
+		end,
+		takeOffItem = function()
+			dispatch(SetTryingOnInfo(false, nil, nil))
+		end,
+	}
+end)(TryOnButton)

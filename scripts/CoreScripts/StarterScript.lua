@@ -70,6 +70,8 @@ local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCame
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
 local FFlagEnableBulkPurchaseApp = game:DefineFastFlag("EnableBulkPurchaseApp3", false)
 
+local FFlagEnablePremiumSponsoredExperienceReporting = game:DefineFastFlag("EnablePremiumSponsoredExperienceReporting", false)
+
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
 UIBlox.init(uiBloxConfig)
@@ -386,6 +388,16 @@ if game:GetEngineFeature("EnableAdsEudsaStaticDisclosure") then
 
 		if AdsEudsaInit and AdsEudsaInit.starterScript then
 			AdsEudsaInit.starterScript()
+		end
+	end)()
+end
+
+-- premium sponsored experience reporting
+if FFlagEnablePremiumSponsoredExperienceReporting then
+	coroutine.wrap(function()
+		local PremiumSponsoredExperienceReporting = safeRequire(CorePackages.Workspace.Packages.PremiumSponsoredExperienceReporting)
+		if PremiumSponsoredExperienceReporting and PremiumSponsoredExperienceReporting.starterScript then
+			PremiumSponsoredExperienceReporting.starterScript()
 		end
 	end)()
 end

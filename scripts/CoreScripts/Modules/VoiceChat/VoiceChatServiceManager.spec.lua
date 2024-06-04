@@ -16,6 +16,7 @@ return function()
 	local HttpService = game:GetService("HttpService")
 	local log = require(RobloxGui.Modules.Logger)
 	local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
+	local MockAvatarChatService = require(RobloxGui.Modules.VoiceChat.Mocks.MockAvatarChatService)
 	local Modules = CoreGui.RobloxGui.Modules
 	local act = require(Modules.act)
 	local VCSS = require(script.Parent.VoiceChatServiceStub)
@@ -903,6 +904,46 @@ return function()
 			VoiceChatServiceManager:RejoinCurrentChannel()
 			expect(deepEqual(VoiceChatServiceManager.participants, {})).toBe(true)
 			game:SetFastFlagForTesting("ClearVoiceStateOnRejoin", ClearStateOnRejoinOld)
+		end)
+	end)
+
+	describe("Voice In-Experience Upsell Features", function()
+		it("EnableVoice should work as expected", function()
+			local mockEnableVoice = function()
+				return true
+			end
+			local mockIsEnabled = function()
+				return true
+			end
+			local mockPropertyChangedEvent = Instance.new("BindableEvent")
+			local mockGetPropertyChangedSignal = function()
+				return mockPropertyChangedEvent.Event
+			end
+			local mockGetClientFeaturesAsync = function()
+				return 0xFF
+			end	
+			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
+				createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub),
+				VoiceChatServiceStub,
+				HTTPServiceStub,
+				PermissionServiceStub,
+				nil,
+				nil,
+				nil,
+				nil,
+				MockAvatarChatService.new(mockIsEnabled, mockEnableVoice, mockGetPropertyChangedSignal, mockGetClientFeaturesAsync)
+			)
+			local voiceRejoinEvent = Instance.new("BindableEvent")
+			local mockRejoinCalled, mockJoin = jest.fn()
+			voiceRejoinEvent.Event:Connect(mockJoin)
+			VoiceChatServiceManager.attemptVoiceRejoin = voiceRejoinEvent
+			act(function()
+				VoiceChatServiceManager:EnableVoice()
+				mockPropertyChangedEvent:Fire()
+			end)
+			waitForEvents()
+			waitForEvents.act()
+			expect(mockRejoinCalled).toHaveBeenCalled()
 		end)
 	end)
 

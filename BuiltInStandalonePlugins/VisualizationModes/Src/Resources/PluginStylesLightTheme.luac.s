@@ -8,12 +8,19 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K8 ["Styling"]
-  GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  NEWTABLE R3 0 0
-  MOVE R4 R2
-  LOADK R5 K10 ["VisualizationModesLightTheme"]
-  NEWTABLE R6 0 0
-  MOVE R7 R3
-  CALL R4 3 -1
-  RETURN R4 -1
+  DUPTABLE R2 K12 [{"VisualizationModesHighlightColor", "VisualizationModesDivider", "VisualizationModesHighlightTextColor", "VisualizationModesDimActionHover"}]
+  LOADK R3 K13 ["$Blue70"]
+  SETTABLEKS R3 R2 K8 ["VisualizationModesHighlightColor"]
+  LOADK R3 K14 ["$Gray50"]
+  SETTABLEKS R3 R2 K9 ["VisualizationModesDivider"]
+  LOADK R3 K15 ["$White"]
+  SETTABLEKS R3 R2 K10 ["VisualizationModesHighlightTextColor"]
+  LOADK R3 K16 ["$Gray30"]
+  SETTABLEKS R3 R2 K11 ["VisualizationModesDimActionHover"]
+  GETTABLEKS R4 R1 K17 ["Styling"]
+  GETTABLEKS R3 R4 K18 ["createStyleSheet"]
+  LOADK R4 K19 ["VisualizationModesLightTheme"]
+  NEWTABLE R5 0 0
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1

@@ -1,189 +1,173 @@
 PROTO_0:
-  GETUPVAL R2 0
-  JUMPIFNOTEQKS R2 K0 [""] [+3]
-  LOADB R2 0
-  RETURN R2 1
-  GETIMPORT R2 K3 [string.lower]
   GETUPVAL R3 0
-  CALL R2 1 1
-  GETIMPORT R3 K5 [string.find]
-  GETIMPORT R4 K3 [string.lower]
-  GETTABLEKS R5 R0 K6 ["title"]
-  CALL R4 1 1
-  MOVE R5 R2
-  LOADNIL R6
-  LOADB R7 1
-  CALL R3 4 1
-  JUMPIFNOT R3 [+2]
-  LOADB R3 0
-  RETURN R3 1
-  GETIMPORT R3 K5 [string.find]
-  GETIMPORT R4 K3 [string.lower]
-  MOVE R5 R1
-  CALL R4 1 1
-  MOVE R5 R2
-  LOADNIL R6
-  LOADB R7 1
-  CALL R3 4 1
-  JUMPIFNOT R3 [+2]
-  LOADB R3 0
-  RETURN R3 1
-  LOADB R3 1
-  RETURN R3 1
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K5 [{"LayoutOrder", "Visible", "OnVisualizationModeToggle", "RecentVisualizationModes"}]
+  SETTABLEKS R0 R4 K1 ["LayoutOrder"]
+  SETTABLEKS R1 R4 K2 ["Visible"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["OnVisualizationModeToggle"]
+  SETTABLEKS R5 R4 K3 ["OnVisualizationModeToggle"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["RecentVisualizationModes"]
+  SETTABLEKS R5 R4 K4 ["RecentVisualizationModes"]
+  CALL R2 2 -1
+  RETURN R2 -1
 
 PROTO_1:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["OnVisualizationModeToggle"]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["name"]
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K1 ["name"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["enabled"]
-  NOT R3 R4
-  CALL R0 3 0
-  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K5 [{"LayoutOrder", "Visible", "HiddenCount", "AllHidden"}]
+  SETTABLEKS R0 R4 K1 ["LayoutOrder"]
+  SETTABLEKS R1 R4 K2 ["Visible"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["getFilteredCount"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K3 ["HiddenCount"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K7 ["getAreAllEntriesHidden"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K4 ["AllHidden"]
+  CALL R2 2 -1
+  RETURN R2 -1
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["use"]
+  GETUPVAL R1 0
   CALL R1 0 1
-  NEWTABLE R2 0 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["useState"]
-  LOADK R4 K2 [""]
-  CALL R3 1 2
-  GETTABLEKS R5 R0 K3 ["VisualizationModeGroups"]
-  JUMPIFNOT R5 [+74]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R3
-  GETTABLEKS R6 R0 K3 ["VisualizationModeGroups"]
-  LOADNIL R7
-  LOADNIL R8
-  FORGPREP R6
-  GETTABLEKS R11 R10 K4 ["visualizationModeList"]
-  JUMPIFNOT R11 [+62]
-  NEWTABLE R11 0 0
-  GETTABLEKS R12 R10 K4 ["visualizationModeList"]
-  LOADNIL R13
-  LOADNIL R14
-  FORGPREP R12
-  MOVE R17 R5
-  MOVE R18 R16
-  GETTABLEKS R19 R10 K5 ["title"]
-  CALL R17 2 1
-  JUMPIF R17 [+25]
-  GETTABLEKS R17 R16 K6 ["name"]
-  GETUPVAL R19 1
-  GETTABLEKS R18 R19 K7 ["createElement"]
-  GETUPVAL R19 2
-  DUPTABLE R20 K12 [{"Text", "Enabled", "LayoutOrder", "OnToggle"}]
-  GETTABLEKS R21 R16 K5 ["title"]
-  SETTABLEKS R21 R20 K8 ["Text"]
-  GETTABLEKS R21 R16 K13 ["enabled"]
-  SETTABLEKS R21 R20 K9 ["Enabled"]
-  SETTABLEKS R15 R20 K10 ["LayoutOrder"]
-  NEWCLOSURE R21 P1
+  GETUPVAL R2 1
+  DUPTABLE R3 K1 [{"SettingsKey"}]
+  LOADK R4 K2 ["VisualizationModesMainView_LastSearchSetting"]
+  SETTABLEKS R4 R3 K0 ["SettingsKey"]
+  CALL R2 1 1
+  GETUPVAL R3 2
+  DUPTABLE R4 K6 [{"FuzzySearch", "OnVisualizationModeCategoryToggle", "OnVisualizationModeToggle"}]
+  SETTABLEKS R2 R4 K3 ["FuzzySearch"]
+  GETTABLEKS R5 R0 K4 ["OnVisualizationModeCategoryToggle"]
+  SETTABLEKS R5 R4 K4 ["OnVisualizationModeCategoryToggle"]
+  GETTABLEKS R5 R0 K5 ["OnVisualizationModeToggle"]
+  SETTABLEKS R5 R4 K5 ["OnVisualizationModeToggle"]
+  CALL R3 1 1
+  GETTABLEKS R4 R1 K7 ["addSection"]
+  DUPTABLE R5 K11 [{"key", "visible", "renderContent"}]
+  LOADK R6 K12 ["RecentSection"]
+  SETTABLEKS R6 R5 K8 ["key"]
+  LOADB R6 0
+  GETTABLEKS R7 R2 K13 ["searchText"]
+  JUMPIFNOTEQKS R7 K14 [""] [+10]
+  GETIMPORT R7 K16 [next]
+  GETTABLEKS R8 R0 K17 ["RecentVisualizationModes"]
+  CALL R7 1 1
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  SETTABLEKS R6 R5 K9 ["visible"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CAPTURE VAL R0
-  CAPTURE VAL R10
-  CAPTURE VAL R16
-  SETTABLEKS R21 R20 K11 ["OnToggle"]
-  CALL R18 2 1
-  SETTABLE R18 R11 R17
-  FORGLOOP R12 2 [-32]
-  GETIMPORT R12 K15 [next]
-  MOVE R13 R11
-  CALL R12 1 1
-  JUMPIFNOT R12 [+17]
-  GETTABLEKS R12 R10 K6 ["name"]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K7 ["createElement"]
-  GETUPVAL R14 3
-  DUPTABLE R15 K17 [{"Text", "GroupEntries", "LayoutOrder"}]
-  GETTABLEKS R16 R10 K5 ["title"]
-  SETTABLEKS R16 R15 K8 ["Text"]
-  SETTABLEKS R11 R15 K16 ["GroupEntries"]
-  SETTABLEKS R9 R15 K10 ["LayoutOrder"]
-  CALL R13 2 1
-  SETTABLE R13 R2 R12
-  FORGLOOP R6 2 [-66]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K7 ["createElement"]
-  GETUPVAL R6 4
-  DUPTABLE R7 K22 [{"Padding", "Spacing", "Layout", "VerticalAlignment"}]
-  LOADN R8 8
-  SETTABLEKS R8 R7 K18 ["Padding"]
-  LOADN R8 8
-  SETTABLEKS R8 R7 K19 ["Spacing"]
-  GETIMPORT R8 K26 [Enum.FillDirection.Vertical]
-  SETTABLEKS R8 R7 K20 ["Layout"]
-  GETIMPORT R8 K28 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R8 R7 K21 ["VerticalAlignment"]
-  DUPTABLE R8 K31 [{"SearchBar", "ScrollingFrame"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K7 ["createElement"]
-  GETUPVAL R10 5
-  DUPTABLE R11 K41 [{"PlaceholderText", "ShowSearchIcon", "ShowSearchButton", "ShowFilterButton", "IncrementalTextSearch", "IncrementalTextSearchDelay", "Style", "Size", "LayoutOrder", "OnSearchRequested"}]
-  LOADK R14 K29 ["SearchBar"]
-  LOADK R15 K42 ["Filter"]
-  NAMECALL R12 R1 K43 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K32 ["PlaceholderText"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K33 ["ShowSearchIcon"]
-  LOADB R12 0
-  SETTABLEKS R12 R11 K34 ["ShowSearchButton"]
-  LOADB R12 0
-  SETTABLEKS R12 R11 K35 ["ShowFilterButton"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K36 ["IncrementalTextSearch"]
-  LOADN R12 5
-  SETTABLEKS R12 R11 K37 ["IncrementalTextSearchDelay"]
-  LOADK R12 K44 ["Compact"]
-  SETTABLEKS R12 R11 K38 ["Style"]
-  GETIMPORT R12 K47 [UDim2.new]
-  LOADN R13 1
-  LOADN R14 0
-  LOADN R15 0
-  LOADN R16 32
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K39 ["Size"]
+  SETTABLEKS R6 R5 K10 ["renderContent"]
+  CALL R4 1 0
+  NEWTABLE R4 1 0
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K18 ["createElement"]
+  GETUPVAL R6 5
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K19 ["View"]
+  GETTABLEKS R5 R0 K20 ["VisualizationModeCategories"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLEKS R11 R9 K21 ["name"]
+  GETTABLE R10 R4 R11
+  GETTABLEKS R11 R1 K7 ["addSection"]
+  GETTABLEKS R12 R3 K22 ["createSection"]
+  MOVE R13 R9
+  MOVE R14 R10
+  CALL R12 2 -1
+  CALL R11 -1 0
+  FORGLOOP R5 2 [-12]
+  GETTABLEKS R5 R1 K7 ["addSection"]
+  DUPTABLE R6 K11 [{"key", "visible", "renderContent"}]
+  LOADK R7 K23 ["HiddenCount"]
+  SETTABLEKS R7 R6 K8 ["key"]
+  GETTABLEKS R8 R2 K24 ["getFilteredCount"]
+  CALL R8 0 1
+  LOADN R9 0
+  JUMPIFLT R9 R8 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  SETTABLEKS R7 R6 K9 ["visible"]
+  NEWCLOSURE R7 P1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U6
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K10 ["renderContent"]
+  CALL R5 1 0
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K18 ["createElement"]
+  GETUPVAL R6 7
+  NEWTABLE R7 2 0
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K25 ["Tag"]
+  LOADK R9 K26 ["X-ColumnS X-Top"]
+  SETTABLE R9 R7 R8
+  GETTABLEKS R8 R0 K27 ["Size"]
+  SETTABLEKS R8 R7 K27 ["Size"]
+  DUPTABLE R8 K30 [{"SearchBarContainer", "ScrollingFrame"}]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K18 ["createElement"]
+  GETUPVAL R10 8
+  DUPTABLE R11 K32 [{"FuzzySearch", "LayoutOrder"}]
+  SETTABLEKS R2 R11 K3 ["FuzzySearch"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K10 ["LayoutOrder"]
-  SETTABLEKS R4 R11 K40 ["OnSearchRequested"]
+  SETTABLEKS R12 R11 K31 ["LayoutOrder"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K29 ["SearchBar"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K7 ["createElement"]
-  GETUPVAL R10 6
-  DUPTABLE R11 K49 [{"Size", "AutomaticCanvasSize", "LayoutOrder"}]
-  GETIMPORT R12 K47 [UDim2.new]
-  LOADN R13 1
-  LOADN R14 0
-  LOADN R15 1
-  LOADN R16 224
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K39 ["Size"]
-  GETIMPORT R12 K52 [Enum.AutomaticSize.Y]
-  SETTABLEKS R12 R11 K48 ["AutomaticCanvasSize"]
+  SETTABLEKS R9 R8 K28 ["SearchBarContainer"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K18 ["createElement"]
+  GETUPVAL R10 9
+  NEWTABLE R11 4 0
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K25 ["Tag"]
+  LOADK R13 K33 ["ScrollingAutomaticSize VisualizationModes-MainScrollingFrame"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R13 R0 K34 ["SizeCalculator"]
+  GETTABLEKS R12 R13 K35 ["scrollingFrameSize"]
+  SETTABLEKS R12 R11 K27 ["Size"]
   LOADN R12 2
-  SETTABLEKS R12 R11 K10 ["LayoutOrder"]
-  DUPTABLE R12 K54 [{"Content"}]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K7 ["createElement"]
-  GETUPVAL R14 4
-  DUPTABLE R15 K55 [{"Layout", "VerticalAlignment", "Spacing"}]
-  GETIMPORT R16 K26 [Enum.FillDirection.Vertical]
-  SETTABLEKS R16 R15 K20 ["Layout"]
-  GETIMPORT R16 K28 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R16 R15 K21 ["VerticalAlignment"]
-  LOADN R16 16
-  SETTABLEKS R16 R15 K19 ["Spacing"]
-  MOVE R16 R2
+  SETTABLEKS R12 R11 K31 ["LayoutOrder"]
+  DUPTABLE R12 K37 [{"Content"}]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K18 ["createElement"]
+  GETUPVAL R14 7
+  NEWTABLE R15 2 0
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K25 ["Tag"]
+  LOADK R17 K38 ["X-Column X-Top X-FitY"]
+  SETTABLE R17 R15 R16
+  GETTABLEKS R17 R0 K34 ["SizeCalculator"]
+  GETTABLEKS R16 R17 K39 ["contentFrameRef"]
+  SETTABLEKS R16 R15 K40 ["ref"]
+  DUPTABLE R16 K43 [{"Sections", "UIPadding"}]
+  GETTABLEKS R17 R1 K44 ["getSections"]
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K41 ["Sections"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K18 ["createElement"]
+  LOADK R18 K42 ["UIPadding"]
+  DUPTABLE R19 K46 [{"PaddingRight"}]
+  GETIMPORT R20 K49 [UDim.new]
+  LOADN R21 0
+  LOADN R22 1
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K45 ["PaddingRight"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K42 ["UIPadding"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K53 ["Content"]
+  SETTABLEKS R13 R12 K36 ["Content"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K30 ["ScrollingFrame"]
+  SETTABLEKS R9 R8 K29 ["ScrollingFrame"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -195,34 +179,70 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Components"]
+  GETTABLEKS R3 R4 K10 ["HiddenCountLabel"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["ContextServices"]
-  GETTABLEKS R4 R3 K10 ["Localization"]
-  GETTABLEKS R5 R2 K11 ["UI"]
-  GETTABLEKS R6 R5 K12 ["Pane"]
-  GETTABLEKS R7 R5 K13 ["SearchBar"]
-  GETTABLEKS R8 R5 K14 ["ScrollingFrame"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K9 ["Components"]
+  GETTABLEKS R6 R7 K12 ["Sections"]
+  GETTABLEKS R5 R6 K13 ["RecentSection"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K9 ["Components"]
+  GETTABLEKS R8 R9 K12 ["Sections"]
+  GETTABLEKS R7 R8 K15 ["ViewSectionControls"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K9 ["Components"]
+  GETTABLEKS R8 R9 K16 ["VisualizationSearchBar"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Compute"]
+  GETTABLEKS R9 R10 K18 ["computeDividedSections"]
+  CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETIMPORT R12 K1 [script]
-  GETTABLEKS R11 R12 K15 ["Parent"]
-  GETTABLEKS R10 R11 K16 ["VisualizationModeEntry"]
+  GETTABLEKS R12 R0 K8 ["Src"]
+  GETTABLEKS R11 R12 K17 ["Compute"]
+  GETTABLEKS R10 R11 K19 ["computeVisualizationModeSections"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K15 ["Parent"]
-  GETTABLEKS R11 R12 K17 ["VisualizationModeGroup"]
+  GETTABLEKS R13 R0 K8 ["Src"]
+  GETTABLEKS R12 R13 K20 ["Hooks"]
+  GETTABLEKS R11 R12 K21 ["useFuzzySearch"]
   CALL R10 1 1
-  DUPCLOSURE R11 K18 [PROTO_2]
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R6
-  CAPTURE VAL R7
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K8 ["Src"]
+  GETTABLEKS R13 R14 K20 ["Hooks"]
+  GETTABLEKS R12 R13 K22 ["useSizeCalculator"]
+  CALL R11 1 1
+  GETTABLEKS R12 R1 K23 ["UI"]
+  GETTABLEKS R13 R12 K24 ["Pane"]
+  GETTABLEKS R14 R12 K25 ["ScrollingFrame"]
+  DUPCLOSURE R15 K26 [PROTO_2]
   CAPTURE VAL R8
-  RETURN R11 1
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R7
+  CAPTURE VAL R14
+  RETURN R15 1

@@ -18,7 +18,7 @@ MAIN:
   SETTABLEKS R6 R5 K10 ["BackgroundColor3"]
   LOADN R6 0
   SETTABLEKS R6 R5 K11 ["BorderSizePixel"]
-  NEWTABLE R6 0 3
+  NEWTABLE R6 0 4
   MOVE R7 R2
   LOADK R8 K14 ["::UIListLayout"]
   DUPTABLE R9 K18 [{"SortOrder", "HorizontalAlignment", "FillDirection"}]
@@ -74,7 +74,22 @@ MAIN:
   SETTABLEKS R12 R11 K32 ["TextXAlignment"]
   GETIMPORT R12 K42 [Enum.TextYAlignment.Center]
   SETTABLEKS R12 R11 K33 ["TextYAlignment"]
-  CALL R9 2 -1
+  CALL R9 2 1
+  MOVE R10 R2
+  LOADK R11 K44 [">> .X-Circle"]
+  NEWTABLE R12 0 0
+  NEWTABLE R13 0 1
+  MOVE R14 R2
+  LOADK R15 K45 ["::UICorner"]
+  DUPTABLE R16 K47 [{"CornerRadius"}]
+  GETIMPORT R17 K49 [UDim.new]
+  LOADN R18 1
+  LOADN R19 0
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K46 ["CornerRadius"]
+  CALL R14 2 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 -1
   SETLIST R6 R7 -1 [1]
   CALL R3 3 -1
   RETURN R3 -1

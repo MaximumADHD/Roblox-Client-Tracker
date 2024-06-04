@@ -19,7 +19,6 @@ local GetFFlagIBEnableNewDataCollectionForCollectibleSystem =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableNewDataCollectionForCollectibleSystem)
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyFolder.Flags.FFlagEnableFavoriteButtonForUgc)
-local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local FavoriteShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).Favorite
 local GetFFlagIBEnableCollectiblePurchaseForUnlimited =
 	require(InspectAndBuyFolder.Flags.GetFFlagIBEnableCollectiblePurchaseForUnlimited)
@@ -39,31 +38,29 @@ function FavoritesButton:init()
 		self.fetchFavoriteRetries = 0
 	end
 
-	if GetFFlagUseInspectAndBuyControllerBar() then
-		ContextActionService:BindCoreAction(FAVORITE_GAMEPAD_SHORTCUT,
-		function(actionName, inputState, inputObject)
-			if inputState == Enum.UserInputState.End then
-				self:activateButton()
-				return Enum.ContextActionResult.Sink
-			end
-			return Enum.ContextActionResult.Pass
-		end,
-		false,
-		FavoriteShorcutKeycode)
-	end
+	ContextActionService:BindCoreAction(FAVORITE_GAMEPAD_SHORTCUT, function(actionName, inputState, inputObject)
+		if inputState == Enum.UserInputState.End then
+			self:activateButton()
+			return Enum.ContextActionResult.Sink
+		end
+		return Enum.ContextActionResult.Pass
+	end, false, FavoriteShorcutKeycode)
 end
 
 function FavoritesButton:willUpdate(nextProps)
 	local gotFavoriteForDetailsItem = nextProps.gotFavoriteForDetailsItem
 	local getFavoriteForAsset = self.props.getFavoriteForAsset
 	local getFavoriteForBundle = self.props.getFavoriteForBundle
-	local bundleLoadedAndFavNotFetched = nextProps.assetInfo and nextProps.assetInfo.bundlesAssetIsIn and not gotFavoriteForDetailsItem
+	local bundleLoadedAndFavNotFetched = nextProps.assetInfo
+		and nextProps.assetInfo.bundlesAssetIsIn
+		and not gotFavoriteForDetailsItem
 	if GetFFlagIBEnableNewDataCollectionForCollectibleSystem() then
 		bundleLoadedAndFavNotFetched = nextProps.assetInfo and not gotFavoriteForDetailsItem
 	end
 
 	if GetFFlagIBEnableCollectiblePurchaseForUnlimited() then
-		bundleLoadedAndFavNotFetched = bundleLoadedAndFavNotFetched and self.fetchFavoriteRetries < MAX_FETCH_FAVORITE_RETRIES
+		bundleLoadedAndFavNotFetched = bundleLoadedAndFavNotFetched
+			and self.fetchFavoriteRetries < MAX_FETCH_FAVORITE_RETRIES
 	end
 
 	if bundleLoadedAndFavNotFetched then
@@ -128,18 +125,11 @@ function FavoritesButton:activateButton()
 end
 
 function FavoritesButton:willUnmount()
-	if GetFFlagUseInspectAndBuyControllerBar() then
-		ContextActionService:UnbindCoreAction(FAVORITE_GAMEPAD_SHORTCUT)
-	end
+	ContextActionService:UnbindCoreAction(FAVORITE_GAMEPAD_SHORTCUT)
 end
 
 function FavoritesButton:render()
 	local isFavorited = self.props.isFavorited
-	local createFavoriteForAsset = self.props.createFavoriteForAsset
-	local deleteFavoriteForAsset = self.props.deleteFavoriteForAsset
-	local createFavoriteForBundle = self.props.createFavoriteForBundle
-	local deleteFavoriteForBundle = self.props.deleteFavoriteForBundle
-	local isDetailsItemPartOfBundleAndOffsale = self.props.IsDetailsItemPartOfBundleAndOffsale
 	local favoriteButtonRef = self.props.favoriteButtonRef
 	local assetInfo = self.props.assetInfo
 	local creatorId = assetInfo and assetInfo.creatorId or 0
@@ -158,25 +148,7 @@ function FavoritesButton:render()
 		Visible = if FFlagEnableFavoriteButtonForUgc then true else creatorId == ROBLOX_CREATOR_ID,
 		[Roact.Ref] = favoriteButtonRef,
 		[Roact.Event.Activated] = function()
-			if GetFFlagUseInspectAndBuyControllerBar() then
-				self:activateButton()
-			else
-				if isFavorited then
-					if isDetailsItemPartOfBundleAndOffsale then
-						local bundleId = UtilityFunctions.getBundleId(assetInfo)
-						deleteFavoriteForBundle(bundleId)
-					else
-						deleteFavoriteForAsset(assetInfo.assetId)
-					end
-				else
-					if isDetailsItemPartOfBundleAndOffsale then
-						local bundleId = UtilityFunctions.getBundleId(assetInfo)
-						createFavoriteForBundle(bundleId)
-					else
-						createFavoriteForAsset(assetInfo.assetId)
-					end
-				end
-			end
+			self:activateButton()
 		end,
 	}, {
 		FavoriteIcon = Roact.createElement("ImageLabel", {
@@ -190,39 +162,36 @@ function FavoritesButton:render()
 	})
 end
 
-return RoactRodux.UNSTABLE_connect2(
-	function(state, props)
-		local assetId = state.detailsInformation.assetId
+return RoactRodux.UNSTABLE_connect2(function(state, props)
+	local assetId = state.detailsInformation.assetId
 
-		return {
-			view = state.view,
-			assetInfo = state.assets[assetId],
-			bundleInfo = state.bundles,
-			gotFavoriteForDetailsItem = GotFavoriteForDetailsItem(state),
-			isFavorited = GetIsFavorite(state),
-			IsDetailsItemPartOfBundleAndOffsale = IsDetailsItemPartOfBundleAndOffsale(state),
-		}
-	end,
-	function(dispatch)
-		return {
-			createFavoriteForAsset = function(assetId)
-				dispatch(CreateFavoriteForAsset(assetId))
-			end,
-			deleteFavoriteForAsset = function(assetId)
-				dispatch(DeleteFavoriteForAsset(assetId))
-			end,
-			createFavoriteForBundle = function(bundleId)
-				dispatch(CreateFavoriteForBundle(bundleId))
-			end,
-			deleteFavoriteForBundle = function(bundleId)
-				dispatch(DeleteFavoriteForBundle(bundleId))
-			end,
-			getFavoriteForAsset = function(assetId)
-				dispatch(GetFavoriteForAsset(assetId))
-			end,
-			getFavoriteForBundle = function(bundleId)
-				dispatch(GetFavoriteForBundle(bundleId))
-			end,
-		}
-	end
-)(FavoritesButton)
+	return {
+		view = state.view,
+		assetInfo = state.assets[assetId],
+		bundleInfo = state.bundles,
+		gotFavoriteForDetailsItem = GotFavoriteForDetailsItem(state),
+		isFavorited = GetIsFavorite(state),
+		IsDetailsItemPartOfBundleAndOffsale = IsDetailsItemPartOfBundleAndOffsale(state),
+	}
+end, function(dispatch)
+	return {
+		createFavoriteForAsset = function(assetId)
+			dispatch(CreateFavoriteForAsset(assetId))
+		end,
+		deleteFavoriteForAsset = function(assetId)
+			dispatch(DeleteFavoriteForAsset(assetId))
+		end,
+		createFavoriteForBundle = function(bundleId)
+			dispatch(CreateFavoriteForBundle(bundleId))
+		end,
+		deleteFavoriteForBundle = function(bundleId)
+			dispatch(DeleteFavoriteForBundle(bundleId))
+		end,
+		getFavoriteForAsset = function(assetId)
+			dispatch(GetFavoriteForAsset(assetId))
+		end,
+		getFavoriteForBundle = function(bundleId)
+			dispatch(GetFavoriteForBundle(bundleId))
+		end,
+	}
+end)(FavoritesButton)

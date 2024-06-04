@@ -25,6 +25,7 @@ local Players = game:GetService("Players")
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
+local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
 ------------ Variables -------------------
 local PageInstance = nil
@@ -33,6 +34,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
+local GetFFlagExtractLeaveGameFunc = require(RobloxGui.Modules.Settings.Flags.GetFFlagExtractLeaveGameFunc)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
 
@@ -164,7 +166,7 @@ local function Initialize()
 		leaveGameText.FontSize = Enum.FontSize.Size48
 	end
 
-	this.LeaveGameButton = utility:MakeStyledButton("LeaveGame", "Leave", nil, this.LeaveFunc)
+	this.LeaveGameButton = utility:MakeStyledButton("LeaveGame", "Leave", nil, if GetFFlagExtractLeaveGameFunc() then (function() leaveGame(true) end) else this.LeaveFunc)
 	this.LeaveGameButton.NextSelectionRight = nil
 	this.LeaveGameButton.Parent = leaveButtonContainer
 

@@ -83,7 +83,7 @@ PROTO_1:
   LOADNIL R10
   GETUPVAL R11 6
   CALL R11 0 1
-  JUMPIFNOT R11 [+118]
+  JUMPIFNOT R11 [+120]
   DUPTABLE R11 K11 [{"Header"}]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K12 ["createElement"]
@@ -101,16 +101,16 @@ PROTO_1:
   CALL R12 2 1
   SETTABLEKS R12 R11 K10 ["Header"]
   MOVE R10 R11
-  JUMPIFNOT R2 [+77]
+  JUMPIFNOT R2 [+79]
   GETTABLEKS R11 R2 K20 ["loading"]
-  JUMPIF R11 [+74]
+  JUMPIF R11 [+76]
   GETTABLEKS R12 R2 K21 ["assets"]
   LENGTH R11 R12
   LOADN R12 0
-  JUMPIFNOTLT R12 R11 [+44]
+  JUMPIFNOTLT R12 R11 [+46]
   GETUPVAL R12 8
   GETTABLEKS R11 R12 K22 ["Generator"]
-  DUPTABLE R12 K29 [{"LayoutOrder", "Assets", "LogImpression", "CanInsertAsset", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
+  DUPTABLE R12 K30 [{"LayoutOrder", "Assets", "LogImpression", "CanInsertAsset", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig", "SwimlaneName"}]
   NAMECALL R13 R1 K17 ["getNextOrder"]
   CALL R13 1 1
   SETTABLEKS R13 R12 K13 ["LayoutOrder"]
@@ -129,60 +129,61 @@ PROTO_1:
   GETTABLEKS R14 R0 K6 ["AssetLogicWrapperProps"]
   GETTABLEKS R13 R14 K28 ["TryOpenAssetConfig"]
   SETTABLEKS R13 R12 K28 ["TryOpenAssetConfig"]
+  SETTABLEKS R3 R12 K29 ["SwimlaneName"]
   CALL R11 1 1
-  SETTABLEKS R11 R10 K30 ["AudioTable"]
+  SETTABLEKS R11 R10 K31 ["AudioTable"]
   JUMP [+38]
   GETTABLEKS R13 R0 K1 ["AudioSection"]
   GETTABLEKS R12 R13 K3 ["Section"]
   GETTABLEKS R11 R12 K4 ["name"]
   GETUPVAL R13 9
-  GETTABLEKS R12 R13 K31 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
+  GETTABLEKS R12 R13 K32 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
   JUMPIFNOTEQ R11 R12 [+28]
   GETUPVAL R12 2
   GETTABLEKS R11 R12 K12 ["createElement"]
   GETUPVAL R12 10
-  DUPTABLE R13 K32 [{"LayoutOrder"}]
+  DUPTABLE R13 K33 [{"LayoutOrder"}]
   NAMECALL R14 R1 K17 ["getNextOrder"]
   CALL R14 1 1
   SETTABLEKS R14 R13 K13 ["LayoutOrder"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K33 ["NoSceneSuggestions"]
+  SETTABLEKS R11 R10 K34 ["NoSceneSuggestions"]
   JUMP [+13]
   GETUPVAL R12 2
   GETTABLEKS R11 R12 K12 ["createElement"]
   GETUPVAL R12 11
-  DUPTABLE R13 K32 [{"LayoutOrder"}]
+  DUPTABLE R13 K33 [{"LayoutOrder"}]
   NAMECALL R14 R1 K17 ["getNextOrder"]
   CALL R14 1 1
   SETTABLEKS R14 R13 K13 ["LayoutOrder"]
   CALL R11 2 1
-  SETTABLEKS R11 R10 K34 ["Loading"]
+  SETTABLEKS R11 R10 K35 ["Loading"]
   GETUPVAL R12 2
   GETTABLEKS R11 R12 K12 ["createElement"]
   GETUPVAL R12 12
-  DUPTABLE R13 K41 [{"LayoutOrder", "Size", "AutomaticSize", "BackgroundTransparency", "Layout", "Spacing", "ref"}]
+  DUPTABLE R13 K42 [{"LayoutOrder", "Size", "AutomaticSize", "BackgroundTransparency", "Layout", "Spacing", "ref"}]
   GETTABLEKS R14 R0 K13 ["LayoutOrder"]
   SETTABLEKS R14 R13 K13 ["LayoutOrder"]
-  GETIMPORT R14 K44 [UDim2.fromScale]
+  GETIMPORT R14 K45 [UDim2.fromScale]
   LOADN R15 1
   LOADN R16 0
   CALL R14 2 1
-  SETTABLEKS R14 R13 K35 ["Size"]
-  GETIMPORT R14 K47 [Enum.AutomaticSize.Y]
-  SETTABLEKS R14 R13 K36 ["AutomaticSize"]
+  SETTABLEKS R14 R13 K36 ["Size"]
+  GETIMPORT R14 K48 [Enum.AutomaticSize.Y]
+  SETTABLEKS R14 R13 K37 ["AutomaticSize"]
   LOADN R14 1
-  SETTABLEKS R14 R13 K37 ["BackgroundTransparency"]
-  GETIMPORT R14 K50 [Enum.FillDirection.Vertical]
-  SETTABLEKS R14 R13 K38 ["Layout"]
-  GETTABLEKS R14 R4 K51 ["spacingUnit"]
-  SETTABLEKS R14 R13 K39 ["Spacing"]
-  SETTABLEKS R6 R13 K40 ["ref"]
+  SETTABLEKS R14 R13 K38 ["BackgroundTransparency"]
+  GETIMPORT R14 K51 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K39 ["Layout"]
+  GETTABLEKS R14 R4 K52 ["spacingUnit"]
+  SETTABLEKS R14 R13 K40 ["Spacing"]
+  SETTABLEKS R6 R13 K41 ["ref"]
   GETUPVAL R15 6
   CALL R15 0 1
   JUMPIFNOT R15 [+2]
   MOVE R14 R10
-  JUMP [+84]
-  DUPTABLE R14 K53 [{"Header", "Table"}]
+  JUMP [+86]
+  DUPTABLE R14 K54 [{"Header", "Table"}]
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K12 ["createElement"]
   GETUPVAL R16 7
@@ -198,12 +199,12 @@ PROTO_1:
   SETTABLEKS R18 R17 K15 ["OnClickSeeAll"]
   CALL R15 2 1
   SETTABLEKS R15 R14 K10 ["Header"]
-  JUMPIFNOT R2 [+44]
+  JUMPIFNOT R2 [+46]
   GETTABLEKS R16 R2 K20 ["loading"]
-  JUMPIF R16 [+41]
+  JUMPIF R16 [+43]
   GETUPVAL R16 8
   GETTABLEKS R15 R16 K22 ["Generator"]
-  DUPTABLE R16 K29 [{"LayoutOrder", "Assets", "LogImpression", "CanInsertAsset", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig"}]
+  DUPTABLE R16 K30 [{"LayoutOrder", "Assets", "LogImpression", "CanInsertAsset", "OnAssetPreviewButtonClicked", "TryInsert", "TryOpenAssetConfig", "SwimlaneName"}]
   NAMECALL R17 R1 K17 ["getNextOrder"]
   CALL R17 1 1
   SETTABLEKS R17 R16 K13 ["LayoutOrder"]
@@ -222,17 +223,18 @@ PROTO_1:
   GETTABLEKS R18 R0 K6 ["AssetLogicWrapperProps"]
   GETTABLEKS R17 R18 K28 ["TryOpenAssetConfig"]
   SETTABLEKS R17 R16 K28 ["TryOpenAssetConfig"]
+  SETTABLEKS R3 R16 K29 ["SwimlaneName"]
   CALL R15 1 1
   JUMP [+11]
   GETUPVAL R16 2
   GETTABLEKS R15 R16 K12 ["createElement"]
   GETUPVAL R16 11
-  DUPTABLE R17 K32 [{"LayoutOrder"}]
+  DUPTABLE R17 K33 [{"LayoutOrder"}]
   NAMECALL R18 R1 K17 ["getNextOrder"]
   CALL R18 1 1
   SETTABLEKS R18 R17 K13 ["LayoutOrder"]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K52 ["Table"]
+  SETTABLEKS R15 R14 K53 ["Table"]
   CALL R11 3 -1
   CLOSEUPVALS R7
   RETURN R11 -1

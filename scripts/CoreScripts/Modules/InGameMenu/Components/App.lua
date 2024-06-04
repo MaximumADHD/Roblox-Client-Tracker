@@ -8,7 +8,6 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 
-local IGMControllerBar = require(script.Parent.IGMControllerBar)
 local InGameMenu = script.Parent.Parent
 local InGameMenuPolicy = require(InGameMenu.InGameMenuPolicy)
 
@@ -27,8 +26,6 @@ local FullscreenTitleBar = require(script.Parent.FullscreenTitleBar)
 
 local Flags = InGameMenu.Flags
 local FFlagLuaMenuPerfImprovements = require(Flags.FFlagLuaMenuPerfImprovements)
-local GetFFlagUseIGMControllerBar = require(Flags.GetFFlagUseIGMControllerBar)
-local GetFFlagIGMControllerBarRefactor = require(Flags.GetFFlagIGMControllerBarRefactor)
 
 local Constants = require(InGameMenu.Resources.Constants)
 
@@ -50,8 +47,6 @@ local function App(props)
 				RespawnDialog = Roact.createElement(RespawnDialog),
 				ReportDialog = Roact.createElement(ReportDialog),
 				ReportSentDialog = Roact.createElement(ReportSentDialog),
-				ControllerBar = (GetFFlagUseIGMControllerBar() and not GetFFlagIGMControllerBarRefactor()) and
-					Roact.createElement(IGMControllerBar) or nil,
 				ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 			}) or nil,
 			Connection = Roact.createElement(Connection),
@@ -68,8 +63,6 @@ local function App(props)
 			RespawnDialog = Roact.createElement(RespawnDialog),
 			ReportDialog = Roact.createElement(ReportDialog),
 			ReportSentDialog = Roact.createElement(ReportSentDialog),
-			ControllerBar = (GetFFlagUseIGMControllerBar() and not GetFFlagIGMControllerBarRefactor()) and
-				Roact.createElement(IGMControllerBar) or nil,
 			ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 			Connection = Roact.createElement(Connection),
 			EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,

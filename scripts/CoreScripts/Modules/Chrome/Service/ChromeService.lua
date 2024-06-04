@@ -30,6 +30,7 @@ local GetFFlagOpenControlsOnMenuOpen = require(script.Parent.Parent.Flags.GetFFl
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
 local GetFFlagDisableMostRecentlyUsed = require(script.Parent.Parent.Flags.GetFFlagDisableMostRecentlyUsed)
 local GetFFlagEnableSaveUserPins = require(script.Parent.Parent.Flags.GetFFlagEnableSaveUserPins)
+local GetFFlagUseSelfieViewFlatIcon = require(script.Parent.Parent.Flags.GetFFlagUseSelfieViewFlatIcon)
 local FFlagPreserveWindowsCompactUtility = game:DefineFastFlag("PreserveWindowsCompactUtility", false)
 
 local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
@@ -876,6 +877,11 @@ function ChromeService:updateMenuList()
 						local isWindowOpen = self:isWindowOpen(v)
 						if isWindowOpen then
 							table.insert(windowList, windowProps(v))
+
+							if GetFFlagUseSelfieViewFlatIcon() then
+								table.insert(parent.children, iconProps(v))
+								validIconCount += 1
+							end
 						else
 							table.insert(parent.children, iconProps(v))
 							validIconCount += 1

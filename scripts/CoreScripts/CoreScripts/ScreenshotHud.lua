@@ -26,6 +26,7 @@ local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsP
 local Promise = require(CorePackages.Promise)
 
 local FFlagScreenshotHudGuiVisibilityApi = game:DefineFastFlag("ScreenshotHudGuiVisibilityApiForScreenshotHud", false)
+local FFlagScreenshotHudRemoveWatermark = game:DefineFastFlag("ScreenshotHudRemoveWatermark", false)
 local GetGameNameAndDescription = require(CorePackages.Workspace.Packages.GameDetailRodux).GetGameNameAndDescription
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreenshotHudApi)
@@ -283,7 +284,7 @@ local OverlayFrame = createFrame({
 	ZIndex = 2,
 }, ScreenshotHudFrame)
 
-local ExperienceNameTextLabel = createTextLabel(game.Name, {
+local ExperienceNameTextLabel = if not FFlagScreenshotHudRemoveWatermark then createTextLabel(game.Name, {
 	Font = ScreenshotHud.OverlayFont,
 	Name = "ExperienceName",
 	Position = UDim2.new(0, 24, 0, 24),
@@ -293,9 +294,9 @@ local ExperienceNameTextLabel = createTextLabel(game.Name, {
 	TextYAlignment = Enum.TextYAlignment.Top,
 	TextWrapped = true,
 	Visible = ScreenshotHud.ExperienceNameOverlayEnabled,
-}, OverlayFrame)
+}, OverlayFrame) else nil
 
-local UserNameTextLabel = createTextLabel("@" .. Players.LocalPlayer.DisplayName, {
+local UserNameTextLabel = if not FFlagScreenshotHudRemoveWatermark then createTextLabel("@" .. Players.LocalPlayer.DisplayName, {
 	AnchorPoint = Vector2.new(1, 1),
 	Font = ScreenshotHud.OverlayFont,
 	Name = "UserName",
@@ -305,13 +306,13 @@ local UserNameTextLabel = createTextLabel("@" .. Players.LocalPlayer.DisplayName
 	TextTransparency = 0.3,
 	TextXAlignment = Enum.TextXAlignment.Right,
 	Visible = ScreenshotHud.UsernameOverlayEnabled,
-}, OverlayFrame)
+}, OverlayFrame) else nil
 
-local RobloxLogo = createImageLabel(ROBLOX_LOGO_IMAGE, {
+local RobloxLogo = if not FFlagScreenshotHudRemoveWatermark then createImageLabel(ROBLOX_LOGO_IMAGE, {
 	AnchorPoint = Vector2.new(1, 1),
 	Position = UDim2.new(1, -24, 1, -24),
 	Size = UDim2.fromOffset(103, 18),
-}, OverlayFrame)
+}, OverlayFrame) else nil
 
 local FlashOverlayFrame = createFrame({
 	Active = true,
@@ -325,6 +326,10 @@ local FlashOverlayFrame = createFrame({
 --
 
 local function fetchExperienceName()
+	if FFlagScreenshotHudRemoveWatermark then
+		return
+	end
+
 	if game.GameId ~= 0 then
 		GetGameNameAndDescription(httpImpl, game.GameId):andThen(function(result)
 			if result.Name then
@@ -647,37 +652,40 @@ ScreenshotHud:GetPropertyChangedSignal("Visible"):Connect(function()
 	screenshotHudEnabled(ScreenshotHud.Visible)
 end)
 
-ScreenshotHud:GetPropertyChangedSignal("OverlayFont"):Connect(function()
-	ExperienceNameTextLabel.Font = ScreenshotHud.OverlayFont
-	UserNameTextLabel.Font = ScreenshotHud.OverlayFont
+if not FFlagScreenshotHudRemoveWatermark then
+	ScreenshotHud:GetPropertyChangedSignal("OverlayFont"):Connect(function()
+		ExperienceNameTextLabel.Font = ScreenshotHud.OverlayFont
+		UserNameTextLabel.Font = ScreenshotHud.OverlayFont
 
-	AnalyticsService:SendEventDeferred("client", "screenshotHud", "OverlayFont", {
-		pid = tostring(game.PlaceId),
-		font = ScreenshotHud.OverlayFont.Name,
-	})
-end)
+		AnalyticsService:SendEventDeferred("client", "screenshotHud", "OverlayFont", {
+			pid = tostring(game.PlaceId),
+			font = ScreenshotHud.OverlayFont.Name,
+		})
+	end)
 
-ScreenshotHud:GetPropertyChangedSignal("ExperienceNameOverlayEnabled"):Connect(function()
-	ExperienceNameTextLabel.Visible = ScreenshotHud.ExperienceNameOverlayEnabled
+	ScreenshotHud:GetPropertyChangedSignal("ExperienceNameOverlayEnabled"):Connect(function()
+		ExperienceNameTextLabel.Visible = ScreenshotHud.ExperienceNameOverlayEnabled
 
-	AnalyticsService:SendEventDeferred("client", "screenshotHud", "ExperienceNameOverlayEnabled", {
-		pid = tostring(game.PlaceId),
-		enabled = ScreenshotHud.ExperienceNameOverlayEnabled,
-	})
-end)
+		AnalyticsService:SendEventDeferred("client", "screenshotHud", "ExperienceNameOverlayEnabled", {
+			pid = tostring(game.PlaceId),
+			enabled = ScreenshotHud.ExperienceNameOverlayEnabled,
+		})
+	end)
 
-ScreenshotHud:GetPropertyChangedSignal("UsernameOverlayEnabled"):Connect(function()
-	local usernameOverlayEnabled = false
-	if ScreenshotHud.UsernameOverlayEnabled and GetFFlagAllowUsernameOverlayInScreenshotHud() then
-		usernameOverlayEnabled = true
-	end
-	UserNameTextLabel.Visible = usernameOverlayEnabled
+	ScreenshotHud:GetPropertyChangedSignal("UsernameOverlayEnabled"):Connect(function()
+		local usernameOverlayEnabled = false
+		if ScreenshotHud.UsernameOverlayEnabled and GetFFlagAllowUsernameOverlayInScreenshotHud() then
+			usernameOverlayEnabled = true
+		end
+		UserNameTextLabel.Visible = usernameOverlayEnabled
 
-	AnalyticsService:SendEventDeferred("client", "screenshotHud", "UsernameOverlayEnabled", {
-		pid = tostring(game.PlaceId),
-		enabled = usernameOverlayEnabled,
-	})
-end)
+		AnalyticsService:SendEventDeferred("client", "screenshotHud", "UsernameOverlayEnabled", {
+			pid = tostring(game.PlaceId),
+			enabled = usernameOverlayEnabled,
+		})
+	end)
+end
+
 
 ScreenshotHud:GetPropertyChangedSignal("CameraButtonIcon"):Connect(function()
 	CameraIcon.Image = ScreenshotHud.CameraButtonIcon or CAMERA_IMAGE
@@ -705,6 +713,8 @@ ScreenshotHud:GetPropertyChangedSignal("CloseButtonPosition"):Connect(function()
 	})
 end)
 
-fetchExperienceName()
+if not FFlagScreenshotHudRemoveWatermark then
+	fetchExperienceName()
+end
 updateGamepadButtons()
 screenshotHudEnabled(ScreenshotHud.Visible)

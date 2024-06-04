@@ -2,10 +2,13 @@
 local CorePackages = game:GetService("CorePackages")
 local React = require(CorePackages.Packages.React)
 local ChromeService = require(script.Parent.Parent.Service)
+local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
 local LocalStore = require(script.Parent.Parent.Service.LocalStore)
 local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local StarterGui = game:GetService("StarterGui")
+local CommonIcon = require(script.Parent.CommonIcon)
+local MappedSignal = ChromeUtils.MappedSignal
 
 local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
@@ -14,6 +17,7 @@ local FFlagSelfViewFixes = require(script.Parent.Parent.Flags.GetFFlagSelfViewFi
 local FFlagEnableChromeFTUX = require(script.Parent.Parent.Flags.GetFFlagEnableChromeFTUX)()
 local FFlagFixSelfViewPopin = game:DefineFastFlag("FixSelfViewPopin", false)
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
+local GetFFlagUseSelfieViewFlatIcon = require(script.Parent.Parent.Flags.GetFFlagUseSelfieViewFlatIcon)
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -27,6 +31,8 @@ local activatedSignal = AppCommonLib.Signal.new()
 local ViewportUtil = require(script.Parent.Parent.Service.ViewportUtil)
 local startingSize = SizingUtils.getSize(ViewportUtil.screenSize:get(), false)
 local windowSize = WindowSizeSignal.new(startingSize.X, startingSize.Y)
+local Constants = require(script.Parent.Parent.Unibar.Constants)
+local ICON_SIZE = UDim2.new(0, Constants.ICON_SIZE, 0, Constants.ICON_SIZE)
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
@@ -35,6 +41,10 @@ local startingWindowPosition = UDim2.new(1, -95, 0, 165)
 -- TODO: Add Localizations
 local ID = "selfie_view"
 local LABEL = "CoreScripts.TopBar.SelfViewLabel"
+
+local mappedSelfieWindowOpenSignal = MappedSignal.new(ChromeService:onIntegrationStatusChanged(), function()
+	return ChromeService:isWindowOpen(ID)
+end)
 
 ChromeService:updateWindowPosition(ID, startingWindowPosition)
 
@@ -57,16 +67,29 @@ local selfieViewChromeIntegration = ChromeService:register({
 	draggable = true,
 	cachePosition = true,
 	components = {
-		Icon = function(_)
-			return if GetFFlagSelfViewVisibilityFix()
-				then React.createElement(SelfieView.Icon, {
-					activatedSignal = activatedSignal,
-					outerContainerFrameName = ID,
+		Icon = if GetFFlagUseSelfieViewFlatIcon()
+			then function(props)
+				return React.createElement("Frame", {
+					Size = ICON_SIZE,
+					BackgroundTransparency = 1,
+				}, {
+					CommonIcon("icons/controls/selfieOff", "icons/controls/selfie", mappedSelfieWindowOpenSignal),
+					CameraStatusDot = SelfieView.useCameraOn() and React.createElement(SelfieView.CameraStatusDot, {
+						Position = UDim2.fromScale(0.8, 0.7),
+						ZIndex = 2,
+					}) or nil,
 				}, {})
-				else React.createElement(SelfieView.Icon, {
-					activatedSignal = activatedSignal,
-				}, {})
-		end,
+			end
+			else function(_)
+				return if GetFFlagSelfViewVisibilityFix()
+					then React.createElement(SelfieView.Icon, {
+						activatedSignal = activatedSignal,
+						outerContainerFrameName = ID,
+					}, {})
+					else React.createElement(SelfieView.Icon, {
+						activatedSignal = activatedSignal,
+					}, {})
+			end,
 		Window = function(_)
 			local connectionObject: any = ChromeService:dragConnection(ID)
 			return React.createElement(SelfieView.Window, {
@@ -123,7 +146,7 @@ local updateAvailability = function(): ()
 			else FaceAnimatorService.VideoAnimationEnabled or FaceAnimatorService.AudioAnimationEnabled
 	end
 
-	if shouldPin then
+	if shouldPin and not GetFFlagUseSelfieViewFlatIcon() then
 		selfieViewChromeIntegration.availability:pinned()
 		return
 	end

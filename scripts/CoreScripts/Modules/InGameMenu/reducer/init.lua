@@ -31,8 +31,6 @@ local nativeClosePrompt = require(script.nativeClosePrompt)
 local voiceStateReducer = require(InGameMenu.Parent.VoiceChat.Reducers.voiceState)
 
 local FFlagRecordRecording = require(InGameMenu.Flags.FFlagRecordRecording)
-local GetFFlagUseIGMControllerBar = require(InGameMenu.Flags.GetFFlagUseIGMControllerBar)
-local GetFFlagIGMControllerBarRefactor = require(InGameMenu.Flags.GetFFlagIGMControllerBarRefactor)
 
 local Constants = require(InGameMenu.Resources.Constants)
 local Controls = require(InGameMenu.Resources.Controls)
@@ -108,21 +106,21 @@ local topLevelReducers = {
 			currentZone = action.zone,
 		})
 	end,
-	[SetControllerBarHeight.name] = GetFFlagUseIGMControllerBar() and function(state, action)
+	[SetControllerBarHeight.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			controllerBarHeight = action.controllerBarHeight,
 		})
-	end or nil,
-	[IncrementControllerBar.name] = GetFFlagIGMControllerBarRefactor() and function(state, action)
+	end,
+	[IncrementControllerBar.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			controllerBarCount = state.controllerBarCount + 1,
 		})
-	end or nil,
-	[DecrementControllerBar.name] = GetFFlagIGMControllerBarRefactor() and function(state, action)
+	end,
+	[DecrementControllerBar.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			controllerBarCount = state.controllerBarCount - 1,
 		})
-	end or nil,
+	end,
 }
 
 local function reducer(state, action)
@@ -144,8 +142,8 @@ local function reducer(state, action)
 			recording = false,
 			isMainPageMoreMenuOpen = false,
 			nativeClosePrompt = nativeClosePrompt(nil, action),
-			controllerBarHeight = GetFFlagUseIGMControllerBar() and 0 or nil,
-			controllerBarCount = GetFFlagIGMControllerBarRefactor() and 0 or nil,
+			controllerBarHeight = 0,
+			controllerBarCount = 0,
 		}
 	end
 

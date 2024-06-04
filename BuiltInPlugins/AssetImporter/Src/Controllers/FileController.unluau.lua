@@ -5,39 +5,42 @@ local var2 = require(var1.ResetState)
 local var3 = require(var1.SetShowError)
 local var4 = require(var1.SetShowPreview)
 local var5 = require(var1.SetShowProgress)
-local var6 = require(var1.SetUploading)
-local var7 = var0.Src.Thunks
-local var8 = require(var0.Packages.Framework).ContextServices.ContextItem:extend("FileController")
-function var8.new(arg1, arg2, arg3)
-   local var35 = {}
-   var35._store = arg1
-   var35._presetController = arg2
-   var35._mock = arg3
-   var35.promptRequested = false
+local var6 = require(var1.SetShowQueue)
+local var7 = require(var1.SetUploading)
+local var8 = var0.Src.Thunks
+local var9 = require(var8.ShowImportPreview)
+local var10 = require(var0.Src.Flags.getFFlagAssetImportEnableMultipleFiles)
+local var11 = require(var0.Packages.Framework).ContextServices.ContextItem:extend("FileController")
+function var11.new(arg1, arg2, arg3)
+   local var46 = {}
+   var46._store = arg1
+   var46._presetController = arg2
+   var46._mock = arg3
+   var46.promptRequested = false
    if arg3 then
-      function var35.showImportPrompt()
+      function var46.showImportPrompt()
          error("Please call FileController.overrideShowImportPrompt to provide testing function")
       end
       
-      function var35.overrideShowImportPrompt(arg1)
-         var35.showImportPrompt = arg1
+      function var46.overrideShowImportPrompt(arg1)
+         var46.showImportPrompt = arg1
       end
       
-      function var35.setPromptRequested(arg1)
-         var35.promptRequested = arg1
+      function var46.setPromptRequested(arg1)
+         var46.promptRequested = arg1
       end
       
    else
-      function var35.showImportPrompt(arg1)
-         local var0 = require(var7.ShowImportPrompt)(arg1)
-         var35._store:dispatch()
+      function var46.showImportPrompt(arg1)
+         local var0 = require(var8.ShowImportPrompt)(arg1)
+         var46._store:dispatch()
       end
       
    end
-   return setmetatable(var55, var8)
+   return setmetatable(var66, var11)
 end
 
-function var8.mock(arg1)
+function var11.mock(arg1)
    local var0 = {}
    function var0.initializePresets(...)
    end
@@ -45,78 +48,106 @@ function var8.mock(arg1)
    function var0.createPresetFromLastImport(...)
    end
    
-   local var60 = var8
-   var60 = arg1
-   return var60.new(var60, var0, true)
+   local var71 = var11
+   var71 = arg1
+   return var71.new(var71, var0, true)
 end
 
-function var8.cleanupPreview(arg1)
+function var11.DEPRECATED_cleanupPreview(arg1)
    local var0 = arg1._store:getState().Preview.assetImportSession
    if var0 then
-      arg1:onSessionCanceled(var0)
+      arg1:DEPRECATED_onSessionCanceled(var0)
    end
    local var1 = var2()
    arg1._store:dispatch()
 end
 
-function var8.onSessionCanceled(arg1, arg2)
+function var11.DEPRECATED_onSessionCanceled(arg1, arg2)
    if arg2 then
       arg2:Cancel()
    end
-   local var83 = var4(false)
+   local var94 = var4(false)
    arg1._store:dispatch()
-   local var1 = var6(false)
+   local var1 = var7(false)
    arg1._store:dispatch()
 end
 
-function var8.destroy(arg1)
-   arg1:cleanupPreview()
+function var11.destroy(arg1)
+   arg1:DEPRECATED_cleanupPreview()
 end
 
-function var8.onPluginButtonClicked(arg1)
+function var11.onPluginButtonClicked(arg1)
    local var0 = arg1._store:getState()
-   if not var0.Dialogs.showPreview or var0.Dialogs.showError or var0.Dialogs.showProgress or arg1.promptRequested then
+   if var10() then
+      if var0.Dialogs.uploading then
+      end
+   end
+   local var1 = var0.Dialogs.showPreview or var0.Dialogs.showError or var0.Dialogs.showProgress or arg1.promptRequested
+   local var122 = var10()
+   if var122 then
+      var122 = var1
+      var1 = var122 or var0.Dialogs.showQueue
+   end
+   if not var1 then
       arg1:requestFilePicker()
    end
    if arg1.promptRequested then
    end
-   local var111 = var4(false)
+   local var131 = var4(false)
    arg1._store:dispatch()
-   local var2 = var3(false)
+   local var4 = var3(false)
    arg1._store:dispatch()
+   if var10() then
+      local var0 = var6(false)
+      arg1._store:dispatch()
+   end
 end
 
-function var8.requestFilePicker(arg1)
+function var11.requestFilePicker(arg1)
    arg1.promptRequested = true
-   arg1.showImportPrompt(function()
-      error("Please call FileController.overrideShowImportPrompt to provide testing function")
+   if var10() then
+      arg1._presetController:initializePresets()
+      local var0 = var6(true)
+      arg1._store:dispatch()
+      arg1.showImportPrompt(function()
+         error("Please call FileController.overrideShowImportPrompt to provide testing function")
+      end)
+   end
+   arg1.showImportPrompt(function(arg1)
+      var46.showImportPrompt = arg1
    end)
 end
 
-function var8.onImport(arg1, arg2)
+function var11.requestPreview(arg1, arg2)
+   local var0 = var9(arg2, function(arg1, arg2)
+   end)
+   arg1._store:dispatch()
+end
+
+function var11.DEPRECATED_onImport(arg1, arg2)
    if not arg2 then
-      local var128 = var4(false)
+      local var176 = var4(false)
       arg1._store:dispatch()
       local var1 = var3(true)
       arg1._store:dispatch()
    end
    if arg1._store:getState().Dialogs.uploading then
    end
-   local var142 = arg2:GetImportTree()
+   local var190 = arg2:GetImportTree()
    arg1._presetController:createPresetFromLastImport()
    arg2:Upload()
-   local var148 = var4(false)
+   local var196 = var4(false)
    arg1._store:dispatch()
-   local var153 = var6(true)
+   local var201 = var7(true)
    arg1._store:dispatch()
    local var3 = var5(true)
    arg1._store:dispatch()
 end
 
-function var8.onImportCompleted(arg1)
-   local var0 = var6(false)
+function var11.DEPRECATED_onImportCompleted(arg1)
+   local var0 = var7(false)
    arg1._store:dispatch()
-   arg1:cleanupPreview()
+   arg1:DEPRECATED_cleanupPreview()
 end
 
-return var8
+return var11

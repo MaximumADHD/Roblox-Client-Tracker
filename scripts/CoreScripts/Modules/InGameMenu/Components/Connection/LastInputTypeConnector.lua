@@ -14,19 +14,15 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local InputTypeMap = Constants.InputTypeMap
 
-local GetFFlagIGMDisableGamepadHighlightVR = require(InGameMenu.Parent.Flags.GetFFlagIGMDisableGamepadHighlightVR)
-
 local LastInputTypeConnector = Roact.PureComponent:extend("LastInputTypeConnector")
 
 function LastInputTypeConnector:updateInputType(inputType)
-	if GetFFlagIGMDisableGamepadHighlightVR() then
-		-- If we are using VR, we don't report our inputType as gamepad (even though this is how it appears)
-		-- Instead, we report it as mouse and keyboard. This is because VR inputs are intended to simulate
-		-- mouse and keyboard virtually using a laser pointer and onscreen keyboard. Thus, VR inputs should simply 
-		-- be regarded as a mouse and keyboard for our purposes.
-		if VRService.VREnabled then
-			inputType = InputTypeMap[Enum.UserInputType.MouseMovement]
-		end
+	-- If we are using VR, we don't report our inputType as gamepad (even though this is how it appears)
+	-- Instead, we report it as mouse and keyboard. This is because VR inputs are intended to simulate
+	-- mouse and keyboard virtually using a laser pointer and onscreen keyboard. Thus, VR inputs should simply
+	-- be regarded as a mouse and keyboard for our purposes.
+	if VRService.VREnabled then
+		inputType = InputTypeMap[Enum.UserInputType.MouseMovement]
 	end
 	if inputType then
 		self.props.setInputType(inputType)
@@ -38,14 +34,13 @@ function LastInputTypeConnector:init()
 	self:updateInputType(initalInputType)
 end
 
-
 function LastInputTypeConnector:render()
 	return Roact.createElement(ExternalEventConnection, {
 		event = UserInputService.LastInputTypeChanged,
 		callback = function(lastInputType)
 			local inputType = InputTypeMap[lastInputType]
 			self:updateInputType(inputType)
-		end
+		end,
 	})
 end
 

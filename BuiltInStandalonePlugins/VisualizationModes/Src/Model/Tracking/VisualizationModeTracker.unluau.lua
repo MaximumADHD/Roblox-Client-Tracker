@@ -1,8 +1,8 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = script:FindFirstAncestor("VisualizationModes")
-local var1 = require(var0.Src.Util.Maid)
-local var2 = require(var0.Src.Util.Signal)
-local var3 = require(var0.Src.Types)
+local var1 = require(var0.Src.Types)
+local var2 = require(var0.Src.Util.Maid)
+local var3 = require(var0.Src.Util.Signal)
 local var4 = {}
 var4.__index = var4
 function var4.new(arg1)
@@ -11,10 +11,10 @@ function var4.new(arg1)
    end
    assert(false, "Bad visualizationMode")
    local var0 = setmetatable({}, var4)
-   var0._maid = var1.new()
+   var0._maid = var2.new()
    var0._visualizationMode = arg1
    var0._state = nil
-   local var1 = var2.new()
+   local var1 = var3.new()
    var0.changed = var0._maid:add()
    var0:_startTracking()
    return var0
@@ -38,10 +38,10 @@ function var4._startTracking(arg1)
       end
       assert(false, "Bad visualizationMode")
       local var0 = setmetatable({}, var4)
-      var0._maid = var1.new()
+      var0._maid = var2.new()
       var0._visualizationMode = arg1
       var0._state = nil
-      local var1 = var2.new()
+      local var1 = var3.new()
       var0.changed = var0._maid:add()
       var0:_startTracking()
       return var0
@@ -62,19 +62,15 @@ function var4._startTracking(arg1)
 end
 
 function var4.updateVisualizationModeIsEnabled(arg1, arg2)
-   if type(arg2) == "boolean" then
-      local var0 = false
-   end
-   assert(true, "Bad isEnabled")
    arg1._visualizationMode.Enabled = arg2
 end
 
 function var4._updateState(arg1)
-   local var123 = {}
-   var123.name = arg1._visualizationMode.Name
-   var123.title = arg1._visualizationMode.Title
-   var123.enabled = arg1._visualizationMode.Enabled
-   local var0 = table.freeze(var123)
+   local var116 = {}
+   var116.name = arg1._visualizationMode.Name
+   var116.title = arg1._visualizationMode.Title
+   var116.enabled = arg1._visualizationMode.Enabled
+   local var0 = table.freeze(var116)
    arg1:_setState()
 end
 

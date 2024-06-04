@@ -24,9 +24,14 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local VRService = game:GetService("VRService")
 
 -- Roblox User Input Control Modules - each returns a new() constructor function used to create controllers as needed
+local CommonUtils = script.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
 local Keyboard = require(script:WaitForChild("Keyboard"))
 local Gamepad = require(script:WaitForChild("Gamepad"))
 local DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
+
+local FFlagUserUpdateInputConnections = FlagUtil.getUserFlag("UserUpdateInputConnections")
 
 
 local FFlagUserVRAvatarGestures
@@ -495,15 +500,20 @@ end
 
 function ControlModule:OnRenderStepped(dt)
 	if self.activeController and self.activeController.enabled and self.humanoid then
-		-- Give the controller a chance to adjust its state
-		self.activeController:OnRenderStepped(dt)
+		if not FFlagUserUpdateInputConnections then
+			self.activeController:OnRenderStepped(dt)
+		end
 
 		-- Now retrieve info from the controller
 		local moveVector = self.activeController:GetMoveVector()
 		local cameraRelative = self.activeController:IsMoveVectorCameraRelative()
 
 		local clickToMoveController = self:GetClickToMoveController()
-		if self.activeController ~= clickToMoveController then
+		if self.activeController == clickToMoveController then
+			if FFlagUserUpdateInputConnections then
+				clickToMoveController:OnRenderStepped(dt)
+			end
+		else
 			if moveVector.magnitude > 0 then
 				-- Clean up any developer started MoveTo path
 				clickToMoveController:CleanupPath()

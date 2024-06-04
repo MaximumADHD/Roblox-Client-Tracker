@@ -85,7 +85,7 @@ PROTO_3:
 PROTO_4:
   GETUPVAL R0 0
   GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["UploadMaterialVariantsSync"]
+  NAMECALL R0 R0 K0 ["UploadMaterialVariantsAsync"]
   CALL R0 2 -1
   RETURN R0 -1
 

@@ -16,7 +16,6 @@ local InspectAndBuyModules = Modules:WaitForChild("InspectAndBuy")
 local act = require(Modules.act)
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyModules.Flags.FFlagEnableFavoriteButtonForUgc)
-local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyModules.Flags.GetFFlagUseInspectAndBuyControllerBar)
 local ControllerShortcutKeycodes = require(InspectAndBuyModules.Components.Common.ControllerShortcutKeycodes)
 local FavoriteShorcutKeycode = ControllerShortcutKeycodes.Favorite
 local TryOnShorcutKeycode = ControllerShortcutKeycodes.TryOn
@@ -59,38 +58,37 @@ return function()
 			sharedBeforeEach(c, c.mountInspectMenu(--[[notRobloxAuthored = ]] false))
 		end)
 
-		if GetFFlagUseInspectAndBuyControllerBar() then
-			it("Should appear for Roblox item, favorite shortcut changes text", function(c)
-				c.gamepadInput(Enum.KeyCode.ButtonA)
-				c.gamepadInput(Enum.KeyCode.ButtonA)
+		it("Should appear for Roblox item, favorite shortcut changes text", function(c)
+			c.gamepadInput(Enum.KeyCode.ButtonA)
+			c.gamepadInput(Enum.KeyCode.ButtonA)
 
+			local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
+			expect(controllerBarElement).never.toBeNil()
+			expect(#controllerBarElement:GetChildren()).toBe(3)
 
-				local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-				expect(controllerBarElement).never.toBeNil()
-				expect(#controllerBarElement:GetChildren()).toBe(3)
+			-- ensure correct text is rendered
+			local leftFrame = controllerBarElement:FindFirstChild("LeftFrame")
+			local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
 
-				-- ensure correct text is rendered
-				local leftFrame = controllerBarElement:FindFirstChild("LeftFrame")
-				local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
+			expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).toBe("Back")
 
-				expect(leftFrame:FindFirstChild("ControllerBarHintText", true).Text).toBe("Back")
+			expect(#rightFrame:GetChildren()).toBe(4)
+			expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Favorite")
+			expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Try On")
+			expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Confirm")
 
-				expect(#rightFrame:GetChildren()).toBe(4)
-				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Favorite")
-				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Try On")
-				expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Confirm")
+			-- favorite shortcut works
+			c.gamepadInput(FavoriteShorcutKeycode)
+			expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Unfavorite")
 
-				-- favorite shortcut works
-				c.gamepadInput(FavoriteShorcutKeycode)
-				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Unfavorite")
-
-				-- try on shortcut works
-				c.gamepadInput(TryOnShorcutKeycode)
-				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).never.toBe("Take off")
-				c.gamepadInput(TryOnShorcutKeycode)
-				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).never.toBe("Try on")
-			end)
-		end
+			-- try on shortcut works
+			c.gamepadInput(TryOnShorcutKeycode)
+			expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).never.toBe(
+				"Take off"
+			)
+			c.gamepadInput(TryOnShorcutKeycode)
+			expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).never.toBe("Try on")
+		end)
 	end)
 
 	describe("Assets are not Roblox authored.", function()
@@ -98,74 +96,28 @@ return function()
 			sharedBeforeEach(c, c.mountInspectMenu(--[[notRobloxAuthored = ]] true))
 		end)
 
-		if GetFFlagUseInspectAndBuyControllerBar() then
-			if FFlagEnableFavoriteButtonForUgc then
-				it("Non-roblox item should be favoritable", function(c)
-					c.gamepadInput(Enum.KeyCode.ButtonA)
-					c.gamepadInput(Enum.KeyCode.ButtonA)
+		if FFlagEnableFavoriteButtonForUgc then
+			it("Non-roblox item should be favoritable", function(c)
+				c.gamepadInput(Enum.KeyCode.ButtonA)
+				c.gamepadInput(Enum.KeyCode.ButtonA)
 
-					local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-					expect(controllerBarElement).never.toBeNil()
-					expect(#controllerBarElement:GetChildren()).toBe(3)
+				local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
+				expect(controllerBarElement).never.toBeNil()
+				expect(#controllerBarElement:GetChildren()).toBe(3)
 
-					-- ensure correct text is rendered
-					local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
-					expect(#rightFrame:GetChildren()).toBe(4)
-					expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe(
-						"Favorite"
-					)
-					expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe(
-						"Try On"
-					)
-					expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).toBe(
-						"Confirm"
-					)
+				-- ensure correct text is rendered
+				local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
+				expect(#rightFrame:GetChildren()).toBe(4)
+				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Favorite")
+				expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Try On")
+				expect(rightFrame:GetChildren()[3]:FindFirstChild("ControllerBarHintText", true).Text).toBe("Confirm")
 
-					-- favorite shortcut works
-					c.gamepadInput(FavoriteShorcutKeycode)
-					expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe(
-						"Unfavorite"
-					)
-				end)
-			else
-				it("Non-roblox item should not be favoritable", function(c)
-					c.gamepadInput(Enum.KeyCode.ButtonA)
-					c.gamepadInput(Enum.KeyCode.ButtonA)
-
-					local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-					expect(controllerBarElement).never.toBeNil()
-					expect(#controllerBarElement:GetChildren()).toBe(3)
-
-					-- ensure correct text is rendered
-					local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
-					expect(#rightFrame:GetChildren()).toBe(3)
-					expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe(
-						"Try On"
-					)
-					expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe(
-						"Confirm"
-					)
-				end)
-
-				it("Items currently being worn should not show try on", function(c)
-					c.gamepadInput(Enum.KeyCode.ButtonA)
-					c.gamepadInput(Enum.KeyCode.ButtonA)
-
-					local controllerBarElement = CoreGui:FindFirstChild("ControllerBar", true)
-					expect(controllerBarElement).never.toBeNil()
-					expect(#controllerBarElement:GetChildren()).toBe(3)
-
-					-- ensure correct text is rendered
-					local rightFrame = controllerBarElement:FindFirstChild("RightFrame")
-					expect(#rightFrame:GetChildren()).toBe(3)
-					expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe(
-						"Try On"
-					)
-					expect(rightFrame:GetChildren()[2]:FindFirstChild("ControllerBarHintText", true).Text).toBe(
-						"Confirm"
-					)
-				end)
-			end
+				-- favorite shortcut works
+				c.gamepadInput(FavoriteShorcutKeycode)
+				expect(rightFrame:GetChildren()[1]:FindFirstChild("ControllerBarHintText", true).Text).toBe(
+					"Unfavorite"
+				)
+			end)
 		end
 	end)
 end

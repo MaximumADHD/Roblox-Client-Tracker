@@ -17,6 +17,9 @@ local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local VoiceChatService = game:GetService("VoiceChatService")
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
+local CoreGuiModules = RobloxGui:WaitForChild("Modules")
+local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
+
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableVoiceMicPromptToastFix = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMicPromptToastFix)
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
@@ -77,6 +80,7 @@ local FFlagSetActiveWhenConnecting = game:DefineFastFlag("SetActiveWhenConnectin
 local FFlagHideUIWhenVoiceDefaultDisabled = game:DefineFastFlag("HideUIWhenVoiceDefaultDisabled", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false) and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 local FFlagReceiveLikelySpeakingUsers = game:DefineFastFlag("DebugReceiveLikelySpeakingUsers", false)
+local FFlagEnableVoiceSignal
 
 if VoiceChatCore then
 	FFlagAlwaysSetupVoiceListeners = require(VoiceChatCore.Flags.GetFFlagAlwaysSetupVoiceListeners)()
@@ -88,6 +92,9 @@ if VoiceChatCore then
 	FFlagHideUIWhenVoiceDefaultDisabled = require(VoiceChatCore.Flags.GetFFlagHideUIWhenVoiceDefaultDisabled)()
 	FFlagUseAudioInstanceAdded = require(VoiceChatCore.Flags.GetFFlagUseAudioInstanceAdded)()
 	FFlagReceiveLikelySpeakingUsers = require(VoiceChatCore.Flags.GetFFlagReceiveLikelySpeakingUsers)()
+	FFlagEnableVoiceSignal = require(VoiceChatCore.Flags.GetFFlagEnableVoiceSignal)()
+else	
+	FFlagEnableVoiceSignal = game:GetEngineFeature("AvatarChatServiceEnableVoiceEnabled") and game:DefineFastFlag("EnableVoiceSignal", false)
 end
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
@@ -95,6 +102,10 @@ local GetFFlagVoiceBanShowToastOnSubsequentJoins = require(RobloxGui.Modules.Fla
 local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 local GetFFlagBatchVoiceParticipantsUpdates = require(RobloxGui.Modules.Flags.GetFFlagBatchVoiceParticipantsUpdates)
+local GetFIntThrottleParticipantsUpdateMs = require(RobloxGui.Modules.Flags.GetFIntThrottleParticipantsUpdateMs)
+local FStringVoiceUIImprovementsIXPLayerName = game:DefineFastString("VoiceUIImprovementsIXPLayerName", "Voice.Exposure")
+local FStringThrottleParticipantsUpdateIXPLayerValue =
+	game:DefineFastString("ThrottleParticipantsUpdateIXPLayerValue", "ThrottleParticipantsUpdate")
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 local Constants = VoiceChat.Constants
 local GetShowAgeVerificationOverlay = VoiceChat.AgeVerificationOverlay.GetShowAgeVerificationOverlay
@@ -127,8 +138,10 @@ local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallP
 local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
 local CoreVoiceManager
+local CoreVoiceConstants
 if VoiceChatCore then
 	CoreVoiceManager = VoiceChatCore.CoreVoiceManager
+	CoreVoiceConstants = VoiceChatCore.Constants
 end
 
 type VoiceMuteIndividualArgs = VCSMAnalytics.VoiceMuteIndividualArgs
@@ -145,6 +158,7 @@ type VoiceChatPlaceSettings = {
 type VoiceChatUserSettings = {
 	isUserEligible: boolean,
 	isVoiceEnabled: boolean,
+	isVerifiedForVoice: boolean?,
 	isAvatarVideoEligible: boolean,
 	isAvatarVideoEnabled: boolean,
 	isBanned: boolean,
@@ -165,6 +179,7 @@ local MIN_VOICE_CHAT_API_VERSION = Constants.MIN_VOICE_CHAT_API_VERSION
 local WATCHED_NAMESPACES = Constants.WATCHED_NAMESPACES
 local WATCHED_MESSAGE_TYPES = Constants.WATCHED_MESSAGE_TYPES
 local PERMISSION_STATE = Constants.PERMISSION_STATE
+local VOICE_JOIN_PROGRESS = if VoiceChatCore then CoreVoiceConstants.VOICE_JOIN_PROGRESS else VoiceConstants.VOICE_JOIN_PROGRESS
 type WatchedMessageTypes = VoiceChat.WatchedMessageTypes
 type EventTable = { [WatchedMessageTypes]: BindableEvent }
 type AudioDeviceData = {
@@ -173,6 +188,11 @@ type AudioDeviceData = {
 	onActiveChanged: RBXScriptConnection,
 	serverActiveState: boolean,
 	analyzer: AudioAnalyzer | nil,
+}
+
+type CommunicationPermissions = {
+	universePlaceVoiceEnabledSettings: VoiceChatPlaceSettings,
+	voiceSettings: VoiceChatUserSettings,
 }
 
 local VoiceChatServiceManager = {
@@ -191,11 +211,15 @@ local VoiceChatServiceManager = {
 	NotificationService = NotificationService,
 	runService = runService,
 	PermissionsService = PermissionsProtocol.default,
+	communicationPermissionsResult = nil,
+	VoiceJoinProgress = VOICE_JOIN_PROGRESS.Idle,
+	VoiceJoinProgressChanged = Instance.new("BindableEvent"),
 	participantJoined = Instance.new("BindableEvent"),
 	participantLeft = Instance.new("BindableEvent"),
 	participantsUpdate = Instance.new("BindableEvent"),
 	muteChanged = Instance.new("BindableEvent"),
 	muteAllChanged = Instance.new("BindableEvent"),
+	attemptVoiceRejoin = Instance.new("BindableEvent"),
 	mutedNonFriends = if FFlagMuteNonFriendsEvent then Instance.new("BindableEvent") else nil,
 	userAgencySelected = if GetFFlagShowMuteToggles() then Instance.new("BindableEvent") else nil,
 	audioDeviceInputAdded = if FFlagHideVoiceUIUntilInputExists then Instance.new("BindableEvent") else nil,
@@ -333,6 +357,21 @@ function VoiceChatServiceManager.new(
 		end
 	end
 
+	-- shouldThrottleParticipantUpdate is only true if and only if FInt > 0 and user is in throttle IXP treatment
+	self.shouldThrottleParticipantUpdate = false
+	self.participantsStateThrottleTime = 0
+	self.lastParticipantsStateUpdate = 0
+	self.lastStateUpdateCounter = 0
+	if GetFIntThrottleParticipantsUpdateMs() > 0 then
+		self.participantsStateThrottleTime = GetFIntThrottleParticipantsUpdateMs() / 1000.0
+		local layerFetchSuccess, layerData = pcall(function()
+			return IXPServiceWrapper:GetLayerData(FStringVoiceUIImprovementsIXPLayerName)
+		end)
+		if layerFetchSuccess and layerData and layerData[FStringThrottleParticipantsUpdateIXPLayerValue] then
+			self.shouldThrottleParticipantUpdate = true
+		end
+	end
+
 	local iconStyle = if GetFFlagOldMenuUseSpeakerIcons() then "SpeakerLight" else "MicLight"
 	self.MuteStatusIcons = {
 		MicOn = self:GetIcon("Unmuted0", iconStyle),
@@ -351,8 +390,8 @@ function VoiceChatServiceManager.new(
 	}
 
 	if FFlagEnableCoreVoiceChatModule then
-		self.coreVoiceManager:subscribe('GetPermissions', function (callback, permissions)
-			self.getPermissionsFunction(callback, permissions, nil, "VoiceChatServiceManager.requestMicPermission")
+		self.coreVoiceManager:subscribe('GetPermissions', function (callback, permissions, shouldNotRequestPerms)
+			self.getPermissionsFunction(callback, permissions, shouldNotRequestPerms, "VoiceChatServiceManager.requestMicPermission")
 		end)
 		self.coreVoiceManager:subscribe('OnVoiceParticipantRemoved', function (userId)
 			if FFlagEasierUnmutingPassMuteStatus and ExperienceChat.Events.VoiceParticipantRemoved then
@@ -423,6 +462,9 @@ function VoiceChatServiceManager.new(
 		self.coreVoiceManager:subscribe('OnVoiceToxicityToast', function ()
 			log:debug("Showing Voice Toxicity Toast")
 			self:showPrompt(VoiceChatPromptType.VoiceToxicityToast)
+		end)
+		self.coreVoiceManager:subscribe('OnPermissionRequested', function ()
+			self:showPrompt(VoiceChatPromptType.Permission)
 		end)
 	end
 	return self
@@ -590,6 +632,24 @@ local function jsonDecode(data)
 	else
 		return {}
 	end
+end
+
+type AgeVerificationOverlayData = {
+	universePlaceVoiceEnabledSettings: any,
+	voiceSettings: any,
+	showVoiceInExperienceUpsell: boolean,
+  	showVoiceInExperienceUpsellVariant: string
+}
+
+function VoiceChatServiceManager:_GetShowAgeVerificationOverlay(): nil | AgeVerificationOverlayData
+	return GetShowAgeVerificationOverlay(bind(self, "GetRequest"), tostring(game.GameId), tostring(game.PlaceId))
+end
+
+function VoiceChatServiceManager:FetchAgeVerificationOverlay(): nil | AgeVerificationOverlayData
+	if not self._getShowAgeVerificationOverlayResult then
+		self._getShowAgeVerificationOverlayResult = self:_GetShowAgeVerificationOverlay()
+	end
+	return self._getShowAgeVerificationOverlayResult
 end
 
 function VoiceChatServiceManager:checkAndUpdateSequence(namespace: string, value: number)
@@ -766,6 +826,10 @@ function VoiceChatServiceManager:avatarChatUserAndPlaceSettingsValueOfClientFeat
 			clientFeatures,
 			Enum.AvatarChatServiceFeature.UserVideo
 		),
+		isUserVerifiedForVoice = if FFlagEnableVoiceSignal then self.AvatarChatService:IsEnabled(
+			clientFeatures,
+			Enum.AvatarChatServiceFeature.UserVerifiedForVoice
+		) else nil,
 		isBanned = self.AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserBanned),
 		bannedUntil = nil,
 	}
@@ -773,7 +837,7 @@ function VoiceChatServiceManager:avatarChatUserAndPlaceSettingsValueOfClientFeat
 	return {
 		universePlaceVoiceEnabledSettings = placeSettings,
 		voiceSettings = userSettings,
-	}
+	} :: CommunicationPermissions
 end
 
 function VoiceChatServiceManager:resolveAvatarChatUserAndPlaceSettings()
@@ -781,13 +845,22 @@ function VoiceChatServiceManager:resolveAvatarChatUserAndPlaceSettings()
 		return self.coreVoiceManager:resolveAvatarChatUserAndPlaceSettings()
 	end
 
-	local ok, clientFeatures = pcall(AvatarChatService.GetClientFeaturesAsync, self.AvatarChatService)
+	local ok, clientFeatures = pcall(self.AvatarChatService.GetClientFeaturesAsync, self.AvatarChatService)
 
 	if not ok then
 		return nil
 	end
 
 	return self:avatarChatUserAndPlaceSettingsValueOfClientFeatures(clientFeatures)
+end
+
+function VoiceChatServiceManager:EnableVoice()
+	log:trace("Enabling voice")
+	 -- We need to wait for the new values to finish replicating from rcc after we call EnableVoice
+	self.AvatarChatService:GetPropertyChangedSignal("ClientFeatures"):Once(function()
+		self.attemptVoiceRejoin:Fire()
+	end)
+	self.AvatarChatService:EnableVoice()
 end
 
 function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings, universePlaceSettings)
@@ -838,6 +911,24 @@ function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings
 	end
 end
 
+function VoiceChatServiceManager:ChangeVoiceJoinProgress(state: VoiceConstants.VoiceJoinProgressType)
+	self.VoiceJoinProgress = state
+	self.VoiceJoinProgressChanged:Fire(self.VoiceJoinProgress)
+end
+
+function VoiceChatServiceManager:UserEligibleForInExperienceUpsell()
+	local result = self.communicationPermissionsResult
+	if not result or not result.voiceSettings or not result.universePlaceVoiceEnabledSettings then
+		return false
+	end
+	local userIsEligibleForUpsell = result.voiceSettings.isUserVerifiedForVoice and not result.voiceSettings.isVoiceEnabled and result.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice
+	if not userIsEligibleForUpsell then -- If the user is voice enabled or not verified for voice, or if the place is not voice enabled, then we can just skip the fetch
+		return false
+	end
+	local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
+	return userIsEligibleForUpsell and ageVerificationOverlayData and ageVerificationOverlayData.showVoiceInExperienceUpsell
+end
+
 function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 	if self.coreVoiceManager then
 		return self.coreVoiceManager:userAndPlaceCanUseVoice()
@@ -854,6 +945,13 @@ function VoiceChatServiceManager:userAndPlaceCanUseVoice()
 	local universePlaceSettings = result.universePlaceVoiceEnabledSettings
 	local userSettings = result.voiceSettings
 	log:trace("Voice settings endpoint returned {}", result)
+
+	if FFlagEnableVoiceSignal then
+		self.communicationPermissionsResult = result
+		if self:UserEligibleForInExperienceUpsell() then
+			self:ChangeVoiceJoinProgress(VOICE_JOIN_PROGRESS.Suspended)
+		end
+	end
 
 	if universePlaceSettings and not universePlaceSettings.isUniverseEnabledForVoice then
 		-- We don't need to show any of these if the universe isn't voice enabled
@@ -1087,7 +1185,15 @@ function VoiceChatServiceManager:canUseServiceAsync()
 	if not self.canUseServicePromise then
 		self.canUseServicePromise = Promise.defer(function(resolve, reject)
 			local canUseService = self:userAndPlaceCanUseVoice()
-			if not canUseService then
+			if FFlagEnableVoiceSignal and self.VoiceJoinProgress == VOICE_JOIN_PROGRESS.Suspended then
+				log:debug("Place is voice enabled but user is not, delaying voice rejection")
+				self.attemptVoiceRejoin.Event:Wait()
+				log:debug("Attempting voice rejoin")
+				self.userEligible = true
+				resolve()
+				self:ChangeVoiceJoinProgress(VOICE_JOIN_PROGRESS.Joining)
+				return
+			elseif not canUseService then
 				log:info("Voice access denied")
 				-- We set self.available here so that we can early exit next time this method gets called
 				self.available = VOICE_CHAT_AVAILABILITY.UserNotAvailable
@@ -1184,6 +1290,9 @@ function VoiceChatServiceManager:GetChannelId()
 end
 
 function VoiceChatServiceManager:JoinWithVoiceMuteData(obj)
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:JoinWithVoiceMuteData(obj)
+	end
 	local localPlayer = PlayersService.LocalPlayer
 	return Cryo.Dictionary.join({
 		userId = localPlayer.UserId,
@@ -1965,12 +2074,38 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 
 				self:_updateRecentUsersInteractionData()
 
-				if #updatedStates > 0 then
-					self.participantsUpdate:Fire(
-						if GetFFlagBatchVoiceParticipantsUpdates()
-							then updatedParticipants
-							else self.participants
-					)
+				if self.shouldThrottleParticipantUpdate then
+					local stateUpdateTime = tick()
+					-- Throttle to once every self.participantsStateThrottleTime seconds
+					if stateUpdateTime - self.lastParticipantsStateUpdate >= self.participantsStateThrottleTime and #updatedStates > 0 then
+						self.lastParticipantsStateUpdate = stateUpdateTime
+						self.participantsUpdate:Fire(
+							if GetFFlagBatchVoiceParticipantsUpdates()
+								then updatedParticipants
+								else self.participants
+						)
+					elseif #updatedStates > 0 then
+						-- Too soon, yield until interval time and make sure only the last update is fired
+						local remainingTime = self.participantsStateThrottleTime - (stateUpdateTime - self.lastParticipantsStateUpdate)
+						self.lastStateUpdateCounter = (self.lastStateUpdateCounter + 1) % 100
+						local currentCounter = self.lastStateUpdateCounter
+						task.wait(remainingTime)
+						if currentCounter == self.lastStateUpdateCounter then
+							self.participantsUpdate:Fire(
+								if GetFFlagBatchVoiceParticipantsUpdates()
+									then updatedParticipants
+									else self.participants
+							)
+						end
+					end
+				else
+					if #updatedStates > 0 then
+						self.participantsUpdate:Fire(
+							if GetFFlagBatchVoiceParticipantsUpdates()
+								then updatedParticipants
+								else self.participants
+						)
+					end
 				end
 			end
 		)
@@ -2166,6 +2301,9 @@ end
 
 -- Do not pass context if the call is not the result of user action
 function VoiceChatServiceManager:ToggleMic(context: string?)
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:ToggleMic(context)
+	end
 	self:ensureInitialized("toggle mic")
 	if self.localMuted == nil then
 		-- Not connected, so don't try and toggle anything.

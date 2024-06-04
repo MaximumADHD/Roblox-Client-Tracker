@@ -24,6 +24,11 @@ local Workspace = game:GetService("Workspace")
 local CollectionService = game:GetService("CollectionService")
 local GuiService = game:GetService("GuiService")
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+
+local FFlagUserUpdateInputConnections = FlagUtil.getUserFlag("UserUpdateInputConnections")
+
 --[[ Configuration ]]
 local ShowPath = true
 local PlayFailureAnimation = true
@@ -990,21 +995,25 @@ function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpContr
 	end
 
 	-- Extension for initializing Keyboard input as this class now derives from Keyboard
-	if UserInputService.KeyboardEnabled and enable ~= self.enabled then
+	if FFlagUserUpdateInputConnections then
+		KeyboardController.Enable(self, enable)
+	else
+		if UserInputService.KeyboardEnabled and enable ~= self.enabled then
 
-		self.forwardValue  = 0
-		self.backwardValue = 0
-		self.leftValue = 0
-		self.rightValue = 0
-
-		self.moveVector = ZERO_VECTOR3
-
-		if enable then
-			self:BindContextActions()
-			self:ConnectFocusEventListeners()
-		else
-			self:UnbindContextActions()
-			self:DisconnectFocusEventListeners()
+			self.forwardValue  = 0
+			self.backwardValue = 0
+			self.leftValue = 0
+			self.rightValue = 0
+	
+			self.moveVector = ZERO_VECTOR3
+	
+			if enable then
+				self:BindContextActions()
+				self:ConnectFocusEventListeners()
+			else
+				self:UnbindContextActions()
+				self:DisconnectFocusEventListeners()
+			end
 		end
 	end
 

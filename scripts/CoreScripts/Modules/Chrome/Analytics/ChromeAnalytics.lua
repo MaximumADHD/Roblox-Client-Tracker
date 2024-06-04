@@ -279,7 +279,7 @@ function ChromeAnalytics:setPin(integrationId: string, enabled: boolean, userPin
 		self._sendEvent(eventType, {
 			integration_id = integrationId,
 			source = getInteractionSource(integrationId),
-			user_pins = userPins,
+			user_pins = table.concat(userPins, ","),
 		})
 	end
 	return nil

@@ -7,8 +7,8 @@ local var4 = {}
 return function(arg1)
    local var0 = arg1.useCollaborators
    local var1 = arg1.usePlaceAndUniverseId
-   local var38 = {}
-   var38.value = var1.useMemo(function()
+   local var34 = {}
+   var34.value = var1.useMemo(function()
    end, { arg1.activityHistoryClient, arg1.showSaveOrPublishPlaceToRobloxFn, arg1.openBrowserLink, arg1.contextType })
-   return var1.createElement(var3.Provider, var38, arg1.children)
+   return var1.createElement(var3.Provider, var34, arg1.children)
 end

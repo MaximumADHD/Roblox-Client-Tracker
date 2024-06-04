@@ -8,6 +8,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local ConnectionUtil = require(RobloxGui.Modules.Common.ConnectionUtil)
 local AvatarUtil = require(RobloxGui.Modules.Common.AvatarUtil)
 
@@ -19,6 +20,11 @@ local VRPLAYERS_REMOTE_EVENT_NAME = "AvatarGesturesVRPlayer"
 -- flag to enable immersion mode for all player including non VR for testing purposes
 local FFlagDebugImmersionModeNonVR = game:DefineFastFlag("DebugImmersionModeNonVR", false)
 local FFlagUpdateAvatarGestures = game:DefineFastFlag("UpdateAvatarGestures", false)
+local FFlagAvatarGesturesTelemetry = game:DefineFastFlag("AvatarGesturesTelemetry", false)
+
+-- Analytics
+local FIntVRAvatarGesturesAnalyticsThrottleHundrethsPercent = game:DefineFastInt("VRAvatarGesturesAnalyticsThrottleHundrethsPercent", 0)
+local VR_AVATAR_GESTURES_ANALYTICS_EVENT_NAME = "VRAvatarGestures"
 
 local FFlagUserFixVRAvatarGesturesSeats
 do
@@ -34,6 +40,9 @@ export type VRAvatarGesturesClientType = {
 	-- calculations at a later part of the frame
 	partCFrameMap: {[string]: CFrame},
 	connections: ConnectionUtil.ConnectionUtilType,
+
+	-- true when the enabled analytics event is ready to be sent. Otherwise, nil.
+	analyticsSendEnabled: boolean?,
 	-------------------- Methods ----------------------------
 	new: () -> VRAvatarGesturesClientType,
 
@@ -55,6 +64,7 @@ function VRAvatarGesturesClient.new()
 	local self: any = setmetatable({}, VRAvatarGesturesClient)
 	self.partCFrameMap = {}
 	self.connections = ConnectionUtil.new()
+	self.analyticsSendEnabled = true
 	self.connections:connect("AvatarGestures", VRService:GetPropertyChangedSignal("AvatarGestures"), function() self:onAvatarGesturesChanged() end)
 	if VRService.AvatarGestures then self:onAvatarGesturesChanged() end
 	return self :: any 
@@ -141,6 +151,18 @@ function VRAvatarGesturesClient:onAvatarGesturesChanged()
 				-- already connected to avatarUtil, manually trigger change callback to reenable IK on existing characters
 				if Players.LocalPlayer and Players.LocalPlayer.Character then
 					self:onCharacterChanged(Players.LocalPlayer.Character :: Model)
+				end
+			end
+
+			-- Analytics
+			if FFlagAvatarGesturesTelemetry	then
+				if self.analyticsSendEnabled then
+					self.analyticsSendEnabled = nil
+					-- send analytics event
+					RbxAnalyticsService:ReportInfluxSeries(VR_AVATAR_GESTURES_ANALYTICS_EVENT_NAME, {
+						placeId = game.PlaceId,
+						calledFrom = "ClientJoined",
+					}, FIntVRAvatarGesturesAnalyticsThrottleHundrethsPercent)
 				end
 			end
 		end

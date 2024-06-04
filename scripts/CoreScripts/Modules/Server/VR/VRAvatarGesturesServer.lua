@@ -3,14 +3,20 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local AvatarUtil = require(RobloxGui.Modules.Common.AvatarUtil)
 local ConnectionUtil = require(RobloxGui.Modules.Common.ConnectionUtil)
 
 local VRPLAYERS_REMOTE_EVENT_NAME = "AvatarGesturesVRPlayer"
+local VR_AVATAR_GESTURES_ANALYTICS_EVENT_NAME = "VRAvatarGestures"
 
 -- flag to enable immersion mode for all player including non VR for testing purposes
 local FFlagDebugImmersionModeNonVR = game:DefineFastFlag("DebugImmersionModeNonVR", false) -- remove with FFlagUpdateAvatarGestures
 local FFlagUpdateAvatarGestures = game:DefineFastFlag("UpdateAvatarGestures", false)
+local FFlagAvatarGesturesTelemetry = game:DefineFastFlag("AvatarGesturesTelemetry", false)
+
+-- Analytics
+local FIntVRAvatarGesturesAnalyticsThrottleHundrethsPercent = game:DefineFastInt("VRAvatarGesturesAnalyticsThrottleHundrethsPercent", 0)
 
 local VRAvatarGesturesServer = {}
 VRAvatarGesturesServer.__index = VRAvatarGesturesServer
@@ -74,6 +80,17 @@ function VRAvatarGesturesServer:onPlayerChanged(player, isVRPlayer)
 	end
 end
 
+function VRAvatarGesturesServer:onPlayerAdded(player)
+	-- report when a player joins and can see an animated VR Player
+	if FFlagAvatarGesturesTelemetry and next(self.VRPlayers) ~= nil then
+		RbxAnalyticsService:ReportInfluxSeries(VR_AVATAR_GESTURES_ANALYTICS_EVENT_NAME, {
+			placeId = game.PlaceId,
+			calledFrom = "ServerPlayerAddedWithVRPlayer",
+			playerUserID = player.UserId,
+		}, FIntVRAvatarGesturesAnalyticsThrottleHundrethsPercent)
+	end
+end
+
 function VRAvatarGesturesServer:onAvatarGesturesChanged()
 	if FFlagUpdateAvatarGestures then
 		if VRService.AvatarGestures then
@@ -87,6 +104,9 @@ function VRAvatarGesturesServer:onAvatarGesturesChanged()
 
 			-- add connection to populate VRPlayers
 			self.connections:connect("VRPlayerOnServerEvent", isVRPlayerRemoteEvent.OnServerEvent, function(player, isVRPlayer) self:onPlayerChanged(player, isVRPlayer) end)
+
+			-- analytics for number of players in an experience with an animated VR Player
+			self.connections:connect("PlayerAdded", Players.PlayerAdded, function(player) self:onPlayerAdded(player) end)
 
 			-- remove a player when they leave
 			self.connections:connect("PlayerRemoving", Players.PlayerRemoving, function(player) self:onPlayerChanged(player, false) end)

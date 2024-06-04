@@ -39,8 +39,10 @@ local EnabledPinnedChat = require(script.Parent.Parent.Flags.GetFFlagEnableChrom
 local GetFFlagOpenControlsOnMenuOpen = require(Chrome.Flags.GetFFlagOpenControlsOnMenuOpen)
 local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSubmenuTruncationFix)
 local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
+local GetFFlagUsePolishedAnimations = require(Chrome.Flags.GetFFlagUsePolishedAnimations)
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
+local GetFIntIconSelectionTimeout = require(Chrome.Flags.GetFIntIconSelectionTimeout)
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -124,7 +126,11 @@ function configureUnibar(viewportInfo)
 		end
 
 		ChromeService:configureCompactUtility("camera_utility", {
-			{ "captures", "screenshot", "chrome_toggle" },
+			{
+				"captures",
+				"screenshot",
+				if GetFFlagUsePolishedAnimations() then "compact_utility_back" else "chrome_toggle",
+			},
 		})
 	end
 
@@ -168,7 +174,11 @@ function IconDivider(props: IconDividerProps)
 			Size = UDim2.new(0, 1, 0, 28),
 			BorderSizePixel = 0,
 			BackgroundColor3 = style.Theme.Divider.Color,
-			BackgroundTransparency = style.Theme.Divider.Transparency,
+			BackgroundTransparency = if GetFFlagUsePolishedAnimations() and props.toggleTransition
+				then props.toggleTransition:map(function(value)
+					return style.Theme.Divider.Transparency + ((1 - value) * (1 - style.Theme.Divider.Transparency))
+				end)
+				else style.Theme.Divider.Transparency,
 			Visible = props.visible or true,
 		}),
 	})
@@ -210,7 +220,14 @@ function AnimationStateHelper(props)
 				wasUnibarClosedByUser.current = false
 			end
 
-			props.setToggleTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING))
+			if GetFFlagUsePolishedAnimations() then
+				props.setToggleIconTransition(ReactOtter.instant(0))
+				task.wait()
+				props.setToggleIconTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING) :: any)
+				props.setToggleWidthTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING) :: any)
+			else
+				props.setToggleTransition(ReactOtter.spring(1, Constants.MENU_ANIMATION_SPRING))
+			end
 		else
 			if not GetFFlagOpenControlsOnMenuOpen() then
 				ContextActionService:UnbindCoreAction("RBXEscapeUnibar")
@@ -227,7 +244,12 @@ function AnimationStateHelper(props)
 				wasUnibarClosedByUser.current = true
 			end
 
-			props.setToggleTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING))
+			if GetFFlagUsePolishedAnimations() then
+				props.setToggleIconTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING) :: any)
+				props.setToggleWidthTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING) :: any)
+			else
+				props.setToggleTransition(ReactOtter.spring(0, Constants.MENU_ANIMATION_SPRING))
+			end
 		end
 
 		local openMenuConn, closeMenuConn
@@ -272,10 +294,31 @@ function AnimationStateHelper(props)
 	end, { menuStatusOpen, utility ~= nil })
 
 	React.useEffect(function()
-		if props.menuFrameRef.current and selectedItem then
-			local selectChild: any? = props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
-			if selectChild then
-				GuiService.SelectedCoreObject = selectChild
+		if GetFFlagUsePolishedAnimations() then
+			local updateSelection = coroutine.create(function()
+				local counter = 0
+				-- React can sometimes take a few frames to update, so retry until successful
+				while counter < GetFIntIconSelectionTimeout() do
+					counter += 1
+					task.wait()
+					if props.menuFrameRef.current and selectedItem then
+						local selectChild: any? =
+							props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
+						if selectChild then
+							GuiService.SelectedCoreObject = selectChild
+							return
+						end
+					end
+				end
+			end)
+			coroutine.resume(updateSelection)
+		else
+			if props.menuFrameRef.current and selectedItem then
+				local selectChild: any? =
+					props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
+				if selectChild then
+					GuiService.SelectedCoreObject = selectChild
+				end
 			end
 		end
 	end, { selectedItem })
@@ -341,6 +384,8 @@ function Unibar(props: UnibarProp)
 	-- Animation for menu open(toggleTransition = 1), closed(toggleTransition = 0) status
 	local menuOpen = ChromeService:status():get() == ChromeService.MenuStatus.Open
 	local toggleTransition, setToggleTransition = ReactOtter.useAnimatedBinding(if menuOpen then 1 else 0)
+	local toggleIconTransition, setToggleIconTransition = ReactOtter.useAnimatedBinding(if menuOpen then 1 else 0)
+	local toggleWidthTransition, setToggleWidthTransition = ReactOtter.useAnimatedBinding(if menuOpen then 1 else 0)
 	local unibarWidth, setUnibarWidth = ReactOtter.useAnimatedBinding(0)
 	local iconReflow, setIconReflow = ReactOtter.useAnimatedBinding(1)
 	local flipLerp = React.useRef(false)
@@ -368,10 +413,12 @@ function Unibar(props: UnibarProp)
 		end
 	end, {})
 
-	local unibarSizeBinding = React.joinBindings({ toggleTransition, unibarWidth })
-		:map(function(val: { [number]: number })
-			return UDim2.new(0, linearInterpolation(minSize, val[2], val[1]), 0, Constants.ICON_CELL_WIDTH)
-		end)
+	local unibarSizeBinding = React.joinBindings({
+		if GetFFlagUsePolishedAnimations() then toggleWidthTransition else toggleTransition,
+		unibarWidth,
+	}):map(function(val: { [number]: number })
+		return UDim2.new(0, linearInterpolation(minSize, val[2], val[1]), 0, Constants.ICON_CELL_WIDTH)
+	end)
 
 	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
 
@@ -397,7 +444,7 @@ function Unibar(props: UnibarProp)
 			currentOpenPositions[item.id] = xOffset
 			updatePositions = updatePositions or (prior ~= xOffset)
 			local positionBinding = IconPositionBinding(
-				toggleTransition,
+				if GetFFlagUsePolishedAnimations() then toggleIconTransition else toggleTransition,
 				prior,
 				xOffset,
 				closedPos,
@@ -426,6 +473,7 @@ function Unibar(props: UnibarProp)
 			children[item.id or ("icon" .. k)] = React.createElement(IconDivider, {
 				position = positionBinding,
 				visible = visibleBinding,
+				toggleTransition = if GetFFlagUsePolishedAnimations() then toggleWidthTransition else nil,
 			})
 			xOffset += Constants.DIVIDER_CELL_WIDTH
 		elseif item.integration then
@@ -440,7 +488,7 @@ function Unibar(props: UnibarProp)
 			currentOpenPositions[item.id] = xOffset
 			updatePositions = updatePositions or (prior ~= xOffset)
 			local positionBinding = IconPositionBinding(
-				toggleTransition,
+				if GetFFlagUsePolishedAnimations() then toggleIconTransition else toggleTransition,
 				prior,
 				xOffset,
 				closedPos,
@@ -469,7 +517,7 @@ function Unibar(props: UnibarProp)
 			children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
 				position = positionBinding :: any,
 				visible = pinned or visibleBinding :: any,
-				toggleTransition = toggleTransition,
+				toggleTransition = if GetFFlagUsePolishedAnimations() then toggleIconTransition else toggleTransition,
 				integration = item,
 			}) :: any
 			xOffset += Constants.ICON_CELL_WIDTH
@@ -531,6 +579,8 @@ function Unibar(props: UnibarProp)
 	}, {
 		React.createElement(AnimationStateHelper, {
 			setToggleTransition = setToggleTransition,
+			setToggleIconTransition = setToggleIconTransition,
+			setToggleWidthTransition = setToggleWidthTransition,
 			menuFrameRef = props.menuFrameRef,
 		}),
 		-- Background

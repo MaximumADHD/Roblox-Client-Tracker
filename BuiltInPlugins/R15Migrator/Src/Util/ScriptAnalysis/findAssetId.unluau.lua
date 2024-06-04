@@ -6,19 +6,19 @@ return function(arg1, arg2, arg3)
    if not var0 then
       return false
    end
-   local var67 = var1
-   var67 = arg1
-   local var1 = var67.MatchBeforeAndAfter(var67, var0, var70, "[\"]", "[\"]")
+   local var83 = var1
+   var83 = arg1
+   local var1 = var83.MatchBeforeAndAfter(var83, var0, var86, "[\"]", "[\"]")
    if not var1 then
-      local var74 = var1
-      var74 = arg1
-      if not var74.MatchBeforeAndAfter(var74, var0, var77, "[\']", "[\']") then
+      local var90 = var1
+      var90 = arg1
+      if not var90.MatchBeforeAndAfter(var90, var0, var93, "[\']", "[\']") then
          return false
       end
    end
    if arg3 then
       var1 = arg3
-      var1(var0, var83, var84, arg1, arg2)
+      var1(var0, var99, var100, arg1, arg2)
    end
    return 
 end

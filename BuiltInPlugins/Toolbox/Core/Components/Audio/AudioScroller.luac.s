@@ -41,7 +41,7 @@ PROTO_1:
 PROTO_2:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["Generator"]
-  DUPTABLE R1 K10 [{"AudioType", "Assets", "TryInsert", "CanInsertAsset", "LayoutOrder", "LogImpression", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig"}]
+  DUPTABLE R1 K11 [{"AudioType", "Assets", "TryInsert", "CanInsertAsset", "LayoutOrder", "LogImpression", "OnAssetPreviewButtonClicked", "ParentAbsoluteSize", "TryOpenAssetConfig", "SwimlaneName"}]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["AudioType"]
   SETTABLEKS R2 R1 K1 ["AudioType"]
@@ -68,6 +68,9 @@ PROTO_2:
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K9 ["TryOpenAssetConfig"]
   SETTABLEKS R2 R1 K9 ["TryOpenAssetConfig"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["SwimlaneName"]
+  SETTABLEKS R2 R1 K10 ["SwimlaneName"]
   CALL R0 1 -1
   RETURN R0 -1
 

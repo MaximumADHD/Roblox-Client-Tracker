@@ -45,8 +45,6 @@ local DevConsoleAnalytics = require(MiddleWare.DevConsoleAnalytics)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local ScriptProfilerEngineFeature = game:GetEngineFeature("ScriptProfiler")
-local LuauHeapProfilerEngineFeature = game:GetEngineFeature("LuauHeapProfiler")
-local getFFlagDevConsoleLuauHeap = require(Components.LuauHeap.GetFFlagDevConsoleLuauHeap)
 
 local GetFFlagRequestServerStatsFix = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagRequestServerStatsFix)
 
@@ -100,12 +98,10 @@ local DEV_TAB_LIST = {
 			layoutOrder = 11,
 		}
 		else nil,
-	LuauHeap = if LuauHeapProfilerEngineFeature and getFFlagDevConsoleLuauHeap()
-		then {
-			tab = LuauHeap,
-			layoutOrder = 12,
-		}
-		else nil,
+	LuauHeap = {
+		tab = LuauHeap,
+		layoutOrder = 12,
+	},
 }
 
 local ADMIN_TAB_LIST = {
@@ -123,12 +119,10 @@ local ADMIN_TAB_LIST = {
 			layoutOrder = 3,
 		}
 		else nil,
-	LuauHeap = if LuauHeapProfilerEngineFeature
-		then {
-			tab = LuauHeap,
-			layoutOrder = 4,
-		}
-		else nil,
+	LuauHeap = {
+		tab = LuauHeap,
+		layoutOrder = 4,
+	},
 }
 
 local PLAYER_TAB_LIST = {
@@ -189,9 +183,7 @@ function DevConsoleMaster.new()
 
 	self.init = false
 
-	if getFFlagDevConsoleLuauHeap() then
-		self.isDeveloperTabListActive = false
-	end
+	self.isDeveloperTabListActive = false
 
 	self.waitForStart = true
 	self.waitForStartBindable = Instance.new("BindableEvent")
@@ -262,15 +254,13 @@ function DevConsoleMaster:Start()
 		self.element = Roact.mount(self.root, CoreGui, "DevConsoleMaster")
 		local clientReplicator = getClientReplicator()
 
-		if getFFlagDevConsoleLuauHeap() then
-			-- Because the request is async, we spawn it as a separate task
-			task.spawn(function()
-				-- Switch to Admin tab list if we didn't already switch to the developer list
-				if isAdminAsync() and not self.isDeveloperTabListActive then
-					self.store:dispatch(SetTabList(ADMIN_TAB_LIST, "Log", false))
-				end
-			end)
-		end
+		-- Because the request is async, we spawn it as a separate task
+		task.spawn(function()
+			-- Switch to Admin tab list if we didn't already switch to the developer list
+			if isAdminAsync() and not self.isDeveloperTabListActive then
+				self.store:dispatch(SetTabList(ADMIN_TAB_LIST, "Log", false))
+			end
+		end)
 
 		if clientReplicator then
 			self._statsConnector = clientReplicator.StatsReceived:connect(function(stats)
@@ -280,9 +270,7 @@ function DevConsoleMaster:Start()
 				self._statsConnector:Disconnect()
 				self._statsConnector = nil
 
-				if getFFlagDevConsoleLuauHeap() then
-					self.isDeveloperTabListActive = true
-				end
+				self.isDeveloperTabListActive = true
 
 				self.store:dispatch(SetTabList(DEV_TAB_LIST, "Log", true))
 			end)

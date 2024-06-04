@@ -241,12 +241,7 @@ PROTO_10:
   GETTABLEKS R4 R5 K3 ["createElement"]
   GETUPVAL R5 1
   DUPTABLE R6 K6 [{"LayoutOrder", "Size"}]
-  GETUPVAL R8 2
-  CALL R8 0 1
-  JUMPIFNOT R8 [+3]
   GETTABLEKS R7 R1 K4 ["LayoutOrder"]
-  JUMP [+1]
-  LOADN R7 1
   SETTABLEKS R7 R6 K4 ["LayoutOrder"]
   GETIMPORT R7 K9 [UDim2.new]
   LOADN R8 1
@@ -265,7 +260,7 @@ PROTO_10:
   DUPTABLE R11 K20 [{"WorkspacePreview"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 3
+  GETUPVAL R13 2
   DUPTABLE R14 K24 [{"Model", "ReferenceCamera", "Offset"}]
   GETTABLEKS R16 R0 K25 ["previewProps"]
   GETTABLEKS R15 R16 K26 ["workspacePreview"]
@@ -281,7 +276,7 @@ PROTO_10:
   SETTABLEKS R8 R7 K11 ["WorkspacePreviewContainer"]
   GETUPVAL R9 0
   GETTABLEKS R8 R9 K3 ["createElement"]
-  GETUPVAL R9 4
+  GETUPVAL R9 3
   DUPTABLE R10 K34 [{"InsertContextCallback", "ResetCameraCallback", "ShouldShowWorkspaceToggle", "ShouldShowRigVisualizationToggle", "VisualizeRigCallback"}]
   GETTABLEKS R11 R0 K35 ["onClickToggleContext"]
   SETTABLEKS R11 R10 K29 ["InsertContextCallback"]
@@ -317,7 +312,7 @@ PROTO_10:
   DUPTABLE R11 K45 [{"PreviewRender"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 5
+  GETUPVAL R13 4
   DUPTABLE R14 K55 [{"Model", "InitialDistance", "Camera", "FocusDirection", "RecenterCameraOnUpdate", "RecenterModelOnUpdate", "OnViewModelLoaded", "Ambient", "LightColor", "LightDirection"}]
   GETTABLEKS R16 R0 K25 ["previewProps"]
   GETTABLEKS R15 R16 K56 ["model"]
@@ -327,13 +322,13 @@ PROTO_10:
   SETTABLEKS R15 R14 K46 ["InitialDistance"]
   GETTABLEKS R15 R0 K27 ["camera"]
   SETTABLEKS R15 R14 K47 ["Camera"]
-  GETUPVAL R15 6
+  GETUPVAL R15 5
   SETTABLEKS R15 R14 K48 ["FocusDirection"]
   GETTABLEKS R15 R0 K58 ["recenterCamera"]
   SETTABLEKS R15 R14 K49 ["RecenterCameraOnUpdate"]
   GETTABLEKS R15 R0 K59 ["recenterModel"]
   SETTABLEKS R15 R14 K50 ["RecenterModelOnUpdate"]
-  GETUPVAL R16 7
+  GETUPVAL R16 6
   CALL R16 0 1
   JUMPIFNOT R16 [+3]
   GETTABLEKS R15 R0 K60 ["loadAnimationIntoViewport"]
@@ -368,7 +363,7 @@ PROTO_10:
   NEWTABLE R11 0 1
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 8
+  GETUPVAL R13 7
   DUPTABLE R14 K67 [{"PreviewInstance", "Camera", "AssetImportSession", "SelectedImportItem"}]
   GETTABLEKS R15 R1 K66 ["PreviewInstance"]
   SETTABLEKS R15 R14 K66 ["PreviewInstance"]
@@ -412,7 +407,7 @@ PROTO_10:
   DUPTABLE R11 K76 [{"AxisIndicator"}]
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 9
+  GETUPVAL R13 8
   DUPTABLE R14 K77 [{"ReferenceCamera"}]
   GETTABLEKS R15 R0 K27 ["camera"]
   SETTABLEKS R15 R14 K22 ["ReferenceCamera"]
@@ -452,9 +447,6 @@ PROTO_13:
   RETURN R1 1
 
 PROTO_14:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+26]
   DUPTABLE R1 K4 [{"AssetImportSession", "ImportTree", "PreviewInstance", "SelectedImportItem"}]
   GETTABLEKS R3 R0 K5 ["Preview"]
   GETTABLEKS R2 R3 K6 ["assetImportSession"]
@@ -467,16 +459,6 @@ PROTO_14:
   SETTABLEKS R2 R1 K2 ["PreviewInstance"]
   GETTABLEKS R3 R0 K5 ["Preview"]
   GETTABLEKS R2 R3 K9 ["selectedImportItem"]
-  SETTABLEKS R2 R1 K3 ["SelectedImportItem"]
-  RETURN R1 1
-  DUPTABLE R1 K4 [{"AssetImportSession", "ImportTree", "PreviewInstance", "SelectedImportItem"}]
-  GETTABLEKS R2 R0 K6 ["assetImportSession"]
-  SETTABLEKS R2 R1 K0 ["AssetImportSession"]
-  GETTABLEKS R2 R0 K7 ["importTree"]
-  SETTABLEKS R2 R1 K1 ["ImportTree"]
-  GETTABLEKS R2 R0 K8 ["previewInstance"]
-  SETTABLEKS R2 R1 K2 ["PreviewInstance"]
-  GETTABLEKS R2 R0 K9 ["selectedImportItem"]
   SETTABLEKS R2 R1 K3 ["SelectedImportItem"]
   RETURN R1 1
 
@@ -565,37 +547,26 @@ MAIN:
   FASTCALL VECTOR [+2]
   GETIMPORT R20 K36 [Vector3.new]
   CALL R20 3 1
-  GETIMPORT R21 K5 [require]
-  GETTABLEKS R24 R0 K17 ["Src"]
-  GETTABLEKS R23 R24 K28 ["Flags"]
-  GETTABLEKS R22 R23 K37 ["getFFlagAssetImportRefactorReducer"]
-  CALL R21 1 1
-  GETIMPORT R22 K5 [require]
-  GETTABLEKS R25 R0 K17 ["Src"]
-  GETTABLEKS R24 R25 K28 ["Flags"]
-  GETTABLEKS R23 R24 K38 ["getFFlagAssetImportRefactorFileOpen"]
-  CALL R22 1 1
-  GETTABLEKS R23 R1 K39 ["PureComponent"]
-  LOADK R25 K40 ["PreviewContainer"]
-  NAMECALL R23 R23 K41 ["extend"]
-  CALL R23 2 1
-  DUPCLOSURE R24 K42 [PROTO_6]
+  GETTABLEKS R21 R1 K37 ["PureComponent"]
+  LOADK R23 K38 ["PreviewContainer"]
+  NAMECALL R21 R21 K39 ["extend"]
+  CALL R21 2 1
+  DUPCLOSURE R22 K40 [PROTO_6]
   CAPTURE VAL R17
   CAPTURE VAL R18
   CAPTURE VAL R20
   CAPTURE VAL R19
-  SETTABLEKS R24 R23 K43 ["init"]
-  DUPCLOSURE R24 K44 [PROTO_7]
+  SETTABLEKS R22 R21 K41 ["init"]
+  DUPCLOSURE R22 K42 [PROTO_7]
   CAPTURE VAL R17
-  SETTABLEKS R24 R23 K45 ["handleCameraTransition"]
-  DUPCLOSURE R24 K46 [PROTO_8]
-  SETTABLEKS R24 R23 K47 ["willUpdate"]
-  DUPCLOSURE R24 K48 [PROTO_9]
-  SETTABLEKS R24 R23 K49 ["didUpdate"]
-  DUPCLOSURE R24 K50 [PROTO_10]
+  SETTABLEKS R22 R21 K43 ["handleCameraTransition"]
+  DUPCLOSURE R22 K44 [PROTO_8]
+  SETTABLEKS R22 R21 K45 ["willUpdate"]
+  DUPCLOSURE R22 K46 [PROTO_9]
+  SETTABLEKS R22 R21 K47 ["didUpdate"]
+  DUPCLOSURE R22 K48 [PROTO_10]
   CAPTURE VAL R1
   CAPTURE VAL R8
-  CAPTURE VAL R22
   CAPTURE VAL R10
   CAPTURE VAL R12
   CAPTURE VAL R9
@@ -603,23 +574,22 @@ MAIN:
   CAPTURE VAL R16
   CAPTURE VAL R13
   CAPTURE VAL R11
-  SETTABLEKS R24 R23 K51 ["render"]
-  MOVE R24 R5
-  DUPTABLE R25 K52 [{"Stylizer"}]
-  SETTABLEKS R6 R25 K13 ["Stylizer"]
-  CALL R24 1 1
-  MOVE R25 R23
-  CALL R24 1 1
-  MOVE R23 R24
-  DUPCLOSURE R24 K53 [PROTO_13]
+  SETTABLEKS R22 R21 K49 ["render"]
+  MOVE R22 R5
+  DUPTABLE R23 K50 [{"Stylizer"}]
+  SETTABLEKS R6 R23 K13 ["Stylizer"]
+  CALL R22 1 1
+  MOVE R23 R21
+  CALL R22 1 1
+  MOVE R21 R22
+  DUPCLOSURE R22 K51 [PROTO_13]
   CAPTURE VAL R14
   CAPTURE VAL R15
-  DUPCLOSURE R25 K54 [PROTO_14]
-  CAPTURE VAL R21
-  GETTABLEKS R26 R2 K55 ["connect"]
-  MOVE R27 R25
-  MOVE R28 R24
-  CALL R26 2 1
-  MOVE R27 R23
-  CALL R26 1 -1
-  RETURN R26 -1
+  DUPCLOSURE R23 K52 [PROTO_14]
+  GETTABLEKS R24 R2 K53 ["connect"]
+  MOVE R25 R23
+  MOVE R26 R22
+  CALL R24 2 1
+  MOVE R25 R21
+  CALL R24 1 -1
+  RETURN R24 -1

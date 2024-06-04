@@ -9,8 +9,6 @@ return function()
 	local LuauHeapTypes = require(script.Parent.LuauHeapTypes)
 
 	it("should create and destroy without errors", function()
-		local oldValue = game:SetFastFlagForTesting("DevConsoleLuauHeap", true)
-
 		local exampleSnapshot: LuauHeapTypes.HeapReport = {
 			Version = 1,
 			TagBreakdown = {
@@ -118,7 +116,5 @@ return function()
 
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
-
-		game:SetFastFlagForTesting("DevConsoleLuauHeap", oldValue)
 	end)
 end

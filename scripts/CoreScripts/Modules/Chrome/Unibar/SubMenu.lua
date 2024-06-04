@@ -33,6 +33,7 @@ local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableC
 local GetFFlagUseNewPinIcon = require(Chrome.Flags.GetFFlagUseNewPinIcon)
 local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSubmenuTruncationFix)
 local GetFFlagKeepSubmenuOpenOnPin = require(Chrome.Flags.GetFFlagKeepSubmenuOpenOnPin)
+local GetFFlagFixSubmenuCloseIOS = require(Chrome.Flags.GetFFlagFixSubmenuCloseIOS)
 local GetFFlagEnableCaptureBadge = require(Chrome.Flags.GetFFlagEnableCaptureBadge)
 local GetFIntNumTimesNewBadgeIsDisplayed = require(Chrome.Flags.GetFIntNumTimesNewBadgeIsDisplayed)
 local GetFStringNewFeatureList = require(Chrome.Flags.GetFStringNewFeatureList)
@@ -59,6 +60,7 @@ local NEW_BADGE_TEXT = "NEW"
 local newFeatures = {}
 
 local pinPressed = false
+local lastTouchPosition = Vector2.new(0, 0)
 
 for feature in string.gmatch(GetFStringNewFeatureList(), "([^, ]+)") do
 	newFeatures[feature] = true
@@ -400,13 +402,25 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 
 	local connection: { current: RBXScriptConnection? } = React.useRef(nil)
 	local connectionTapped: { current: RBXScriptConnection? } = React.useRef(nil)
+	local connectionTapStart: { current: RBXScriptConnection? } = React.useRef(nil)
 	local currentSubMenu = useObservableValue(ChromeService:currentSubMenu())
 
 	-- close submenu on click outside
 	React.useEffect(function()
 		if currentSubMenu then
+			if GetFFlagFixSubmenuCloseIOS() then
+				connectionTapStart.current = UserInputService.TouchStarted:Connect(function(touch)
+					lastTouchPosition = Vector2.new(touch.Position.X, touch.Position.Y)
+				end)
+			end
+
 			if GetFFlagUnibarRespawn() then
 				connectionTapped.current = UserInputService.TouchTap:Connect(function(evt)
+					if GetFFlagFixSubmenuCloseIOS() then
+						if evt[1] - lastTouchPosition ~= Vector2.zero then
+							return
+						end
+					end
 					local subMenuId = ChromeService:currentSubMenu():get()
 					if subMenuId then
 						if GetFFlagKeepSubmenuOpenOnPin() and pinPressed then
@@ -446,6 +460,10 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 			if connectionTapped.current then
 				connectionTapped.current:Disconnect()
 				connectionTapped.current = nil
+			end
+			if connectionTapStart.current then
+				connectionTapStart.current:Disconnect()
+				connectionTapStart.current = nil
 			end
 		end
 	end, { currentSubMenu })

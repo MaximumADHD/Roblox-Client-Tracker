@@ -1,44 +1,251 @@
 PROTO_0:
+  GETTABLEKS R1 R0 K0 ["CanExpand"]
+  JUMPIF R1 [+21]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["createElement"]
+  LOADK R2 K2 ["Frame"]
+  DUPTABLE R3 K6 [{"Size", "LayoutOrder", "BackgroundTransparency"}]
+  GETIMPORT R4 K9 [UDim2.fromOffset]
+  LOADN R5 7
+  LOADN R6 12
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K3 ["Size"]
+  GETTABLEKS R4 R0 K4 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K4 ["LayoutOrder"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K5 ["BackgroundTransparency"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["createElement"]
+  LOADK R2 K10 ["ImageButton"]
+  NEWTABLE R3 4 0
+  GETIMPORT R4 K9 [UDim2.fromOffset]
+  LOADN R5 12
+  LOADN R6 12
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K3 ["Size"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K5 ["BackgroundTransparency"]
+  GETTABLEKS R4 R0 K4 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K4 ["LayoutOrder"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K11 ["Event"]
+  GETTABLEKS R4 R5 K12 ["Activated"]
+  GETTABLEKS R5 R0 K13 ["OnExpansionToggled"]
+  SETTABLE R5 R3 R4
+  DUPTABLE R4 K15 [{"ArrowImage"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["createElement"]
+  LOADK R6 K16 ["ImageLabel"]
+  NEWTABLE R7 1 0
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K17 ["Tag"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K18 ["Styling"]
+  GETTABLEKS R9 R10 K19 ["joinTags"]
+  LOADK R10 K20 ["VisualizationModes-ExpandIcon"]
+  GETTABLEKS R12 R0 K21 ["IsExpanded"]
+  JUMPIFNOT R12 [+2]
+  LOADK R11 K22 ["VisualizationModes-ExpandIcon-Expanded"]
+  JUMP [+1]
+  LOADK R11 K23 ["VisualizationModes-ExpandIcon-Collapsed"]
+  CALL R9 2 1
+  SETTABLE R9 R7 R8
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K14 ["ArrowImage"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["OnToggle"]
+  GETTABLEKS R0 R1 K0 ["CanToggle"]
+  JUMPIFNOTEQKB R0 FALSE [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["OnExpansionToggled"]
   JUMPIFNOT R0 [+4]
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["OnToggle"]
+  GETTABLEKS R0 R1 K1 ["OnExpansionToggled"]
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["OnToggle"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["OnToggle"]
   CALL R0 0 0
   RETURN R0 0
 
-PROTO_1:
+PROTO_2:
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  GETUPVAL R2 1
-  DUPTABLE R3 K4 [{"Size", "HorizontalAlignment", "LayoutOrder"}]
-  GETIMPORT R4 K7 [UDim2.new]
-  LOADN R5 1
-  LOADN R6 0
-  LOADN R7 0
-  LOADN R8 16
-  CALL R4 4 1
-  SETTABLEKS R4 R3 K1 ["Size"]
-  GETIMPORT R4 K10 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R4 R3 K2 ["HorizontalAlignment"]
-  GETTABLEKS R4 R0 K3 ["LayoutOrder"]
-  SETTABLEKS R4 R3 K3 ["LayoutOrder"]
-  DUPTABLE R4 K12 [{"Checkbox"}]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K16 [{"Text", "Checked", "OnClick"}]
-  GETTABLEKS R8 R0 K13 ["Text"]
-  SETTABLEKS R8 R7 K13 ["Text"]
-  GETTABLEKS R8 R0 K17 ["Enabled"]
-  SETTABLEKS R8 R7 K14 ["Checked"]
-  NEWCLOSURE R8 P0
+  GETTABLEKS R1 R2 K0 ["new"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  LOADK R3 K2 ["ImageButton"]
+  NEWTABLE R4 4 0
+  GETTABLEKS R5 R0 K3 ["Visible"]
+  SETTABLEKS R5 R4 K3 ["Visible"]
+  GETTABLEKS R5 R0 K4 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K4 ["LayoutOrder"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["Tag"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K6 ["Styling"]
+  GETTABLEKS R6 R7 K7 ["joinTags"]
+  LOADK R7 K8 ["VisualizationModes-Entry"]
+  GETTABLEKS R9 R0 K9 ["IsEditingEnabled"]
+  JUMPIFNOTEQKB R9 FALSE [+3]
+  LOADK R8 K10 ["VisualizationModes-Disabled"]
+  JUMP [+1]
+  LOADK R8 K11 ["VisualizationModes-Active"]
+  CALL R6 2 1
+  SETTABLE R6 R4 R5
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K12 ["Event"]
+  GETTABLEKS R5 R6 K13 ["Activated"]
+  NEWCLOSURE R6 P0
   CAPTURE VAL R0
-  SETTABLEKS R8 R7 K15 ["OnClick"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K11 ["Checkbox"]
-  CALL R1 3 -1
-  RETURN R1 -1
+  SETTABLE R6 R4 R5
+  DUPTABLE R5 K16 [{"VisualizationModesEntryBacking", "Contents"}]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  LOADK R7 K17 ["Frame"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K14 ["VisualizationModesEntryBacking"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 3
+  NEWTABLE R8 4 0
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["Tag"]
+  LOADK R10 K18 ["X-RowS X-Left X-Middle X-PadS"]
+  SETTABLE R10 R8 R9
+  GETIMPORT R9 K20 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 0
+  LOADN R12 0
+  LOADN R13 24
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K21 ["Size"]
+  GETIMPORT R9 K23 [Vector2.new]
+  LOADK R10 K24 [0.5]
+  LOADK R11 K24 [0.5]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K25 ["AnchorPoint"]
+  GETIMPORT R9 K27 [UDim2.fromScale]
+  LOADK R10 K24 [0.5]
+  LOADK R11 K24 [0.5]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K28 ["Position"]
+  DUPTABLE R9 K31 [{"ExpandButton", "MainEntry"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K1 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K35 [{"LayoutOrder", "CanExpand", "IsExpanded", "OnExpansionToggled"}]
+  NAMECALL R13 R1 K36 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K4 ["LayoutOrder"]
+  GETTABLEKS R13 R0 K32 ["CanExpand"]
+  SETTABLEKS R13 R12 K32 ["CanExpand"]
+  GETTABLEKS R13 R0 K33 ["IsExpanded"]
+  SETTABLEKS R13 R12 K33 ["IsExpanded"]
+  GETTABLEKS R13 R0 K34 ["OnExpansionToggled"]
+  SETTABLEKS R13 R12 K34 ["OnExpansionToggled"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K29 ["ExpandButton"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K1 ["createElement"]
+  LOADK R11 K17 ["Frame"]
+  NEWTABLE R12 2 0
+  NAMECALL R13 R1 K36 ["getNextOrder"]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K4 ["LayoutOrder"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K5 ["Tag"]
+  LOADK R14 K37 ["VisualizationModes-EntryButton"]
+  SETTABLE R14 R12 R13
+  DUPTABLE R13 K38 [{"Contents"}]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K1 ["createElement"]
+  GETUPVAL R15 3
+  NEWTABLE R16 1 0
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K5 ["Tag"]
+  LOADK R18 K39 ["X-RowS X-Left X-Middle"]
+  SETTABLE R18 R16 R17
+  DUPTABLE R17 K43 [{"Checkbox", "VisualizationModeEntryTitle", "Badge"}]
+  GETTABLEKS R19 R0 K44 ["CanToggle"]
+  JUMPIFEQKB R19 FALSE [+29]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K1 ["createElement"]
+  GETUPVAL R19 5
+  DUPTABLE R20 K48 [{"Checked", "OnClick", "Disabled", "LayoutOrder"}]
+  GETTABLEKS R21 R0 K49 ["Enabled"]
+  SETTABLEKS R21 R20 K45 ["Checked"]
+  GETTABLEKS R21 R0 K50 ["OnToggle"]
+  SETTABLEKS R21 R20 K46 ["OnClick"]
+  GETTABLEKS R22 R0 K9 ["IsEditingEnabled"]
+  JUMPIFEQKB R22 FALSE [+2]
+  LOADB R21 0 +1
+  LOADB R21 1
+  SETTABLEKS R21 R20 K47 ["Disabled"]
+  NAMECALL R21 R1 K36 ["getNextOrder"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K4 ["LayoutOrder"]
+  CALL R18 2 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K40 ["Checkbox"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K1 ["createElement"]
+  GETUPVAL R19 6
+  NEWTABLE R20 4 0
+  GETTABLEKS R21 R0 K51 ["MatchIndexes"]
+  SETTABLEKS R21 R20 K51 ["MatchIndexes"]
+  NAMECALL R21 R1 K36 ["getNextOrder"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K4 ["LayoutOrder"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K5 ["Tag"]
+  GETUPVAL R24 2
+  GETTABLEKS R23 R24 K6 ["Styling"]
+  GETTABLEKS R22 R23 K7 ["joinTags"]
+  LOADK R23 K52 ["VisualizationModes-TextLabel"]
+  GETTABLEKS R25 R0 K9 ["IsEditingEnabled"]
+  JUMPIFNOTEQKB R25 FALSE [+3]
+  LOADK R24 K10 ["VisualizationModes-Disabled"]
+  JUMP [+1]
+  LOADNIL R24
+  CALL R22 2 1
+  SETTABLE R22 R20 R21
+  GETTABLEKS R21 R0 K53 ["Text"]
+  SETTABLEKS R21 R20 K53 ["Text"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K41 ["VisualizationModeEntryTitle"]
+  GETTABLEKS R19 R0 K54 ["BadgeText"]
+  JUMPIFNOT R19 [+16]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K1 ["createElement"]
+  GETUPVAL R19 7
+  DUPTABLE R20 K55 [{"LayoutOrder", "Text"}]
+  NAMECALL R21 R1 K36 ["getNextOrder"]
+  CALL R21 1 1
+  SETTABLEKS R21 R20 K4 ["LayoutOrder"]
+  GETTABLEKS R21 R0 K54 ["BadgeText"]
+  SETTABLEKS R21 R20 K53 ["Text"]
+  CALL R18 2 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K42 ["Badge"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K15 ["Contents"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K30 ["MainEntry"]
+  CALL R6 3 1
+  SETTABLEKS R6 R5 K15 ["Contents"]
+  CALL R2 3 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
@@ -47,18 +254,42 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Components"]
+  GETTABLEKS R2 R3 K8 ["Badge"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["UI"]
-  GETTABLEKS R4 R3 K10 ["Pane"]
-  GETTABLEKS R5 R3 K11 ["Checkbox"]
-  DUPCLOSURE R6 K12 [PROTO_1]
-  CAPTURE VAL R1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Components"]
+  GETTABLEKS R4 R5 K11 ["HighlightTextLabel"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Types"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K14 ["UI"]
+  GETTABLEKS R7 R6 K15 ["Pane"]
+  GETTABLEKS R8 R6 K16 ["Checkbox"]
+  GETTABLEKS R10 R2 K17 ["Util"]
+  GETTABLEKS R9 R10 K18 ["LayoutOrderIterator"]
+  DUPCLOSURE R10 K19 [PROTO_0]
   CAPTURE VAL R4
-  CAPTURE VAL R5
-  RETURN R6 1
+  CAPTURE VAL R2
+  DUPCLOSURE R11 K20 [PROTO_2]
+  CAPTURE VAL R9
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R11 1

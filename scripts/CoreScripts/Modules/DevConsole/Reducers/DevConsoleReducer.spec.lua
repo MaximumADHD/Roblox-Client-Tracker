@@ -34,7 +34,7 @@ return function()
 			MicroProfiler = MicroProfiler(nil, {}),
 			DebugVisualizationsData = DebugVisualizationsData(nil, {}),
 			ScriptProfiler = ScriptProfiler(nil, {}),
-			LuauHeap = if game:GetFastFlag("DevConsoleLuauHeap") then LuauHeap(nil, {}) else nil,
+			LuauHeap = LuauHeap(nil, {}),
 		}
 
 		for key in pairs(expectedKeys) do

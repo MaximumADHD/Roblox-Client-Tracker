@@ -1,63 +1,86 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = script.Parent.Parent
+local var0 = script:FindFirstAncestor("AssetImporter")
 local var1 = require(var0.Src.Utility.DebugFlags)
-local var2 = nil
+local var2 = require(var0.Src.Utility.isFTF)
+local var3 = nil
 if not var1.RunningUnderCLI() then
    if var1.RunTests() then
       require(script.Parent.commonInit)()
-      var2 = require(var0.Packages.Framework)
+      var3 = require(var0.Packages.Framework)
       local var0 = require(var0.Packages.Dev.TestEZ)
-      local var1 = var0.Reporters
-      local var2 = var1.TextReporter
+      local var1 = var0.TestBootstrap
+      local var2 = var0.Reporters
+      local var3 = var2.TextReporter
       if _G.TEAMCITY then
-         var1 = var0.Reporters.TeamCityReporter
-         if not var1 then
-            var1 = var2
+         var2 = var0.Reporters.TeamCityReporter
+         if not var2 then
+            var2 = var3
          end
       end
-      var1 = var2
+      var2 = var3
       print("----- All " ... var0.Name ... " Tests ------")
-      local var101 = script
-      require(var101.Parent.defineLuaTestFlags)
-      var101 = var0.Src
-      var101 = var1
-      var0.TestBootstrap:run({}, var101)
+      local var98 = script
+      require(var98.Parent.defineLuaTestFlags)
+      var98 = var0.Src
+      var98 = var2
+      var1:run({}, var98)
       print("----------------------------------")
-      if var1.RunDeveloperFrameworkTests() then
+      local var106 = var1.RunDeveloperFrameworkTests()
+      if var106 then
          print("")
          print("----- All DeveloperFramework Tests ------")
-         local var114 = var2.TestHelpers
-         var114 = var0
-         var114.runFrameworkTests(var114, var1)
+         local var111 = var3.TestHelpers
+         var111 = var0
+         var111.runFrameworkTests(var111, var2)
+         print("----------------------------------")
+      end
+      var106 = var2
+      if var106() then
+         print("")
+         print("----- All FTF Tests ------")
+         local var122 = var0.FTFTest
+         var122 = var2
+         var1:run({}, var122)
          print("----------------------------------")
       end
    end
 end
 require(script.Parent.commonInit)()
-var2 = require(var0.Packages.Framework)
-local var3 = require(var0.Packages.Dev.TestEZ)
-local var4 = var3.Reporters
-local var5 = var4.TextReporter
+var3 = require(var0.Packages.Framework)
+local var4 = require(var0.Packages.Dev.TestEZ)
+local var5 = var4.TestBootstrap
+local var6 = var4.Reporters
+local var7 = var6.TextReporter
 if _G.TEAMCITY then
-   var4 = var3.Reporters.TeamCityReporter
-   if not var4 then
-      var4 = var5
+   var6 = var4.Reporters.TeamCityReporter
+   if not var6 then
+      var6 = var7
    end
 end
-var4 = var5
+var6 = var7
 print("----- All " ... var0.Name ... " Tests ------")
-local var148 = script
-require(var148.Parent.defineLuaTestFlags)
-var148 = var0.Src
-var148 = var4
-var3.TestBootstrap:run({}, var148)
+local var155 = script
+require(var155.Parent.defineLuaTestFlags)
+var155 = var0.Src
+var155 = var6
+var5:run({}, var155)
 print("----------------------------------")
-if var1.RunDeveloperFrameworkTests() then
+local var163 = var1.RunDeveloperFrameworkTests()
+if var163 then
    print("")
    print("----- All DeveloperFramework Tests ------")
-   local var161 = var2.TestHelpers
-   var161 = var3
-   var161.runFrameworkTests(var161, var4)
+   local var168 = var3.TestHelpers
+   var168 = var4
+   var168.runFrameworkTests(var168, var6)
+   print("----------------------------------")
+end
+var163 = var2
+if var163() then
+   print("")
+   print("----- All FTF Tests ------")
+   local var179 = var0.FTFTest
+   var179 = var6
+   var5:run({}, var179)
    print("----------------------------------")
 end
 if var1.RunningUnderCLI() then

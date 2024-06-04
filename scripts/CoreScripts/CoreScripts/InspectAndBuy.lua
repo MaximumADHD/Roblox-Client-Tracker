@@ -9,8 +9,6 @@ local Roact = require(CorePackages.Roact)
 local InspectAndBuy = require(InspectAndBuyModules.Components.InspectAndBuy)
 local InspectAndBuyInstanceHandle = nil
 
-local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyModules.Flags.GetFFlagUseInspectAndBuyControllerBar)
-
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 
 local TopBar = require(RobloxGui.Modules.TopBar)
@@ -23,24 +21,14 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 		InspectAndBuyInstanceHandle = nil
 	end
 
-	local inspectAndBuy
-	if GetFFlagUseInspectAndBuyControllerBar() then
-		inspectAndBuy = renderWithCoreScriptsStyleProvider({
-			inspectAndBuy = Roact.createElement(InspectAndBuy, {
-				humanoidDescription = humanoidDescription,
-				playerName = playerName,
-				playerId = userId,
-				ctx = ctx,
-			}),
-		})
-	else
+	local inspectAndBuy = renderWithCoreScriptsStyleProvider({
 		inspectAndBuy = Roact.createElement(InspectAndBuy, {
 			humanoidDescription = humanoidDescription,
 			playerName = playerName,
 			playerId = userId,
 			ctx = ctx,
-		})
-	end
+		}),
+	})
 
 	InspectAndBuyInstanceHandle = Roact.mount(inspectAndBuy, RobloxGui, "InspectAndBuy")
 	GuiService:SetMenuIsOpen(true, INSPECT_MENU_KEY)

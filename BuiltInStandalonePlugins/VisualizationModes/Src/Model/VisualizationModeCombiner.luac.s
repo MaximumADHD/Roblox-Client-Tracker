@@ -1,12 +1,55 @@
 PROTO_0:
-  GETUPVAL R1 0
+  LOADB R1 0
+  FASTCALL1 TYPEOF R0 [+3]
   MOVE R3 R0
-  NAMECALL R1 R1 K0 ["_setState"]
-  CALL R1 2 0
-  RETURN R0 0
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K2 ["table"] [+29]
+  LOADB R1 0
+  GETTABLEKS R3 R0 K3 ["visualizationModeCategoryName"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K4 ["string"] [+20]
+  LOADB R1 0
+  GETTABLEKS R3 R0 K5 ["visualizationModeName"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K4 ["string"] [+11]
+  GETTABLEKS R3 R0 K6 ["lastEditUnixTimeStamp"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K7 ["number"] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
 
 PROTO_1:
-  NEWTABLE R2 4 0
+  LOADB R2 0
+  GETTABLEKS R3 R0 K0 ["visualizationModeCategoryName"]
+  GETTABLEKS R4 R1 K0 ["visualizationModeCategoryName"]
+  JUMPIFNOTEQ R3 R4 [+9]
+  GETTABLEKS R3 R0 K1 ["visualizationModeName"]
+  GETTABLEKS R4 R1 K1 ["visualizationModeName"]
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_lastReportedClientCombinerStateMap"]
+  GETTABLEKS R2 R0 K1 ["hostDataModelType"]
+  SETTABLE R0 R1 R2
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K2 ["_queueUpdateState"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWTABLE R2 8 0
   GETUPVAL R3 0
   FASTCALL2 SETMETATABLE R2 R3 [+3]
   GETIMPORT R1 K1 [setmetatable]
@@ -21,31 +64,159 @@ PROTO_1:
   GETIMPORT R2 K6 [assert]
   CALL R2 2 1
   SETTABLEKS R2 R1 K7 ["_plugin"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K8 ["_recentModeRecordList"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K9 ["_lastReportedClientCombinerStateMap"]
   LOADNIL R2
-  SETTABLEKS R2 R1 K8 ["_state"]
+  SETTABLEKS R2 R1 K10 ["_state"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K11 ["_session"]
   GETTABLEKS R2 R1 K3 ["_maid"]
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K2 ["new"]
   CALL R4 0 -1
-  NAMECALL R2 R2 K9 ["add"]
+  NAMECALL R2 R2 K12 ["add"]
   CALL R2 -1 1
-  SETTABLEKS R2 R1 K10 ["changed"]
+  SETTABLEKS R2 R1 K13 ["changed"]
+  NAMECALL R2 R1 K14 ["_connectToFocusedDataModelSession"]
+  CALL R2 1 0
   GETTABLEKS R2 R1 K3 ["_maid"]
   GETTABLEKS R4 R1 K7 ["_plugin"]
-  LOADK R6 K11 ["updateVisualizationModes"]
+  LOADK R6 K15 ["reportClientCombinerState"]
   NEWCLOSURE R7 P0
   CAPTURE VAL R1
-  NAMECALL R4 R4 K12 ["OnInvoke"]
+  NAMECALL R4 R4 K16 ["OnInvoke"]
   CALL R4 3 -1
-  NAMECALL R2 R2 K13 ["giveTask"]
+  NAMECALL R2 R2 K17 ["giveTask"]
   CALL R2 -1 0
+  NAMECALL R2 R1 K18 ["_loadRecentRecords"]
+  CALL R2 1 0
   GETTABLEKS R2 R1 K7 ["_plugin"]
-  LOADK R4 K14 ["queryUpdateVisualizationModes"]
-  NAMECALL R2 R2 K15 ["Invoke"]
+  LOADK R4 K19 ["queryClientCombinerState"]
+  NAMECALL R2 R2 K20 ["Invoke"]
   CALL R2 2 0
   RETURN R1 1
 
-PROTO_2:
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_maid"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["_stateUpdateQueue"]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K2 ["_updateState"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["_maid"]
+  GETTABLEKS R1 R2 K1 ["_stateUpdateQueue"]
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K0 ["_maid"]
+  GETIMPORT R2 K4 [task.defer]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K1 ["_stateUpdateQueue"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R3 R0 K0 ["title"]
+  GETTABLEKS R4 R1 K0 ["title"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_7:
+  NEWTABLE R1 0 0
+  GETIMPORT R2 K3 [Enum.StudioDataModelType.None]
+  GETTABLEKS R3 R0 K4 ["_session"]
+  JUMPIFEQKNIL R3 [+5]
+  GETTABLEKS R3 R0 K4 ["_session"]
+  GETTABLEKS R2 R3 K5 ["CurrentDataModelType"]
+  GETTABLEKS R3 R0 K6 ["_lastReportedClientCombinerStateMap"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K7 ["visualizationModeServiceState"]
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  GETTABLEKS R14 R12 K8 ["name"]
+  GETTABLE R13 R1 R14
+  JUMPIFNOTEQKNIL R13 [+12]
+  DUPTABLE R14 K11 [{"lastState", "visualizationModes"}]
+  SETTABLEKS R12 R14 K9 ["lastState"]
+  NEWTABLE R15 0 0
+  SETTABLEKS R15 R14 K10 ["visualizationModes"]
+  MOVE R13 R14
+  GETTABLEKS R14 R12 K8 ["name"]
+  SETTABLE R13 R1 R14
+  JUMPIFNOTEQ R6 R2 [+3]
+  SETTABLEKS R12 R13 K9 ["lastState"]
+  GETTABLEKS R14 R12 K12 ["visualizationModeList"]
+  LOADNIL R15
+  LOADNIL R16
+  FORGPREP R14
+  GETTABLEKS R19 R13 K10 ["visualizationModes"]
+  GETTABLEKS R20 R18 K8 ["name"]
+  SETTABLE R18 R19 R20
+  FORGLOOP R14 2 [-6]
+  FORGLOOP R8 2 [-33]
+  FORGLOOP R3 2 [-40]
+  NEWTABLE R3 0 0
+  MOVE R4 R1
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETTABLEKS R11 R8 K9 ["lastState"]
+  FASTCALL2 TABLE_INSERT R3 R11 [+4]
+  MOVE R10 R3
+  GETIMPORT R9 K15 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R4 2 [-9]
+  GETIMPORT R4 K17 [table.sort]
+  MOVE R5 R3
+  DUPCLOSURE R6 K18 [PROTO_6]
+  CALL R4 2 0
+  NEWTABLE R4 0 0
+  GETTABLEKS R5 R0 K19 ["_recentModeRecordList"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLEKS R11 R9 K20 ["visualizationModeCategoryName"]
+  GETTABLE R10 R1 R11
+  JUMPIFEQKNIL R10 [+23]
+  GETTABLEKS R12 R10 K10 ["visualizationModes"]
+  GETTABLEKS R13 R9 K21 ["visualizationModeName"]
+  GETTABLE R11 R12 R13
+  JUMPIFEQKNIL R11 [+16]
+  GETIMPORT R12 K23 [table.clone]
+  MOVE R13 R11
+  CALL R12 1 1
+  GETTABLEKS R13 R9 K20 ["visualizationModeCategoryName"]
+  SETTABLEKS R13 R12 K20 ["visualizationModeCategoryName"]
+  FASTCALL2 TABLE_INSERT R4 R12 [+5]
+  MOVE R14 R4
+  MOVE R15 R12
+  GETIMPORT R13 K15 [table.insert]
+  CALL R13 2 0
+  FORGLOOP R5 2 [-28]
+  GETIMPORT R7 K25 [table.freeze]
+  DUPTABLE R8 K28 [{"categories", "recentModes"}]
+  SETTABLEKS R3 R8 K26 ["categories"]
+  GETIMPORT R9 K25 [table.freeze]
+  MOVE R10 R4
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K27 ["recentModes"]
+  CALL R7 1 -1
+  NAMECALL R5 R0 K29 ["_setState"]
+  CALL R5 -1 0
+  RETURN R0 0
+
+PROTO_8:
   GETTABLEKS R2 R0 K0 ["_state"]
   JUMPIFNOTEQ R2 R1 [+2]
   RETURN R0 0
@@ -56,54 +227,295 @@ PROTO_2:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_3:
+PROTO_9:
   GETTABLEKS R1 R0 K0 ["_state"]
   RETURN R1 1
 
-PROTO_4:
-  FASTCALL1 TYPE R1 [+3]
-  MOVE R7 R1
-  GETIMPORT R6 K1 [type]
-  CALL R6 1 1
-  JUMPIFEQKS R6 K2 ["string"] [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  FASTCALL2K ASSERT R5 K3 [+4]
-  LOADK R6 K3 ["Bad visualizationModeCategoryName"]
-  GETIMPORT R4 K5 [assert]
-  CALL R4 2 0
-  FASTCALL1 TYPE R2 [+3]
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["name"]
+  GETUPVAL R2 0
+  JUMPIFEQ R1 R2 [+2]
+  RETURN R0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Dictionary"]
+  GETTABLEKS R1 R2 K2 ["join"]
+  MOVE R2 R0
+  DUPTABLE R3 K4 [{"enabled"}]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K3 ["enabled"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_11:
+  GETTABLEKS R3 R0 K0 ["_plugin"]
+  LOADK R5 K1 ["updateVisualizationModeCategoryIsEnabled"]
+  MOVE R6 R1
   MOVE R7 R2
-  GETIMPORT R6 K1 [type]
-  CALL R6 1 1
-  JUMPIFEQKS R6 K2 ["string"] [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  FASTCALL2K ASSERT R5 K6 [+4]
-  LOADK R6 K6 ["Bad visualizationModeName"]
-  GETIMPORT R4 K5 [assert]
-  CALL R4 2 0
-  FASTCALL1 TYPE R3 [+3]
-  MOVE R7 R3
-  GETIMPORT R6 K1 [type]
-  CALL R6 1 1
-  JUMPIFEQKS R6 K7 ["boolean"] [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  FASTCALL2K ASSERT R5 K8 [+4]
-  LOADK R6 K8 ["Bad isEnabled"]
-  GETIMPORT R4 K5 [assert]
-  CALL R4 2 0
-  GETTABLEKS R4 R0 K9 ["_plugin"]
-  LOADK R6 K10 ["updateVisualizationModeIsEnabled"]
+  NAMECALL R3 R3 K2 ["Invoke"]
+  CALL R3 4 0
+  GETTABLEKS R3 R0 K3 ["_lastReportedClientCombinerStateMap"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R0 K3 ["_lastReportedClientCombinerStateMap"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K4 ["Dictionary"]
+  GETTABLEKS R9 R10 K5 ["join"]
+  MOVE R10 R7
+  DUPTABLE R11 K7 [{"visualizationModeServiceState"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K8 ["map"]
+  GETTABLEKS R13 R7 K6 ["visualizationModeServiceState"]
+  NEWCLOSURE R14 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R2
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K6 ["visualizationModeServiceState"]
+  CALL R9 2 1
+  SETTABLE R9 R8 R6
+  FORGLOOP R3 2 [-24]
+  NAMECALL R3 R0 K9 ["_queueUpdateState"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R1 R0 K0 ["name"]
+  GETUPVAL R2 0
+  JUMPIFEQ R1 R2 [+2]
+  RETURN R0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Dictionary"]
+  GETTABLEKS R1 R2 K2 ["join"]
+  MOVE R2 R0
+  DUPTABLE R3 K4 [{"enabled"}]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K3 ["enabled"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_13:
+  GETTABLEKS R1 R0 K0 ["name"]
+  GETUPVAL R2 0
+  JUMPIFEQ R1 R2 [+2]
+  RETURN R0 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["map"]
+  GETTABLEKS R2 R0 K2 ["visualizationModeList"]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CALL R1 2 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K3 ["Dictionary"]
+  GETTABLEKS R2 R3 K4 ["join"]
+  MOVE R3 R0
+  DUPTABLE R4 K5 [{"visualizationModeList"}]
+  SETTABLEKS R1 R4 K2 ["visualizationModeList"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_14:
+  GETTABLEKS R4 R0 K0 ["_plugin"]
+  LOADK R6 K1 ["updateVisualizationModeIsEnabled"]
   MOVE R7 R1
   MOVE R8 R2
   MOVE R9 R3
-  NAMECALL R4 R4 K11 ["Invoke"]
+  NAMECALL R4 R4 K2 ["Invoke"]
   CALL R4 5 0
+  GETTABLEKS R4 R0 K3 ["_lastReportedClientCombinerStateMap"]
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K4 ["Dictionary"]
+  GETTABLEKS R9 R10 K5 ["join"]
+  MOVE R10 R8
+  DUPTABLE R11 K7 [{"visualizationModeServiceState"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K8 ["map"]
+  GETTABLEKS R13 R8 K6 ["visualizationModeServiceState"]
+  NEWCLOSURE R14 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  CAPTURE VAL R3
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K6 ["visualizationModeServiceState"]
+  CALL R9 2 1
+  GETTABLEKS R10 R0 K3 ["_lastReportedClientCombinerStateMap"]
+  SETTABLE R9 R10 R7
+  FORGLOOP R4 2 [-26]
+  NAMECALL R4 R0 K9 ["_queueUpdateState"]
+  CALL R4 1 0
   RETURN R0 0
 
-PROTO_5:
+PROTO_15:
+  GETTABLEKS R3 R0 K0 ["lastEditUnixTimeStamp"]
+  GETTABLEKS R4 R1 K0 ["lastEditUnixTimeStamp"]
+  JUMPIFLT R4 R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["_plugin"]
+  LOADK R3 K1 ["RecentVisualizationModes"]
+  NAMECALL R1 R1 K2 ["GetSetting"]
+  CALL R1 2 1
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K4 [typeof]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K5 ["table"] [+2]
+  RETURN R0 0
+  NEWTABLE R2 0 0
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  LOADB R8 0
+  FASTCALL1 TYPEOF R7 [+3]
+  MOVE R10 R7
+  GETIMPORT R9 K4 [typeof]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K5 ["table"] [+29]
+  LOADB R8 0
+  GETTABLEKS R10 R7 K6 ["visualizationModeCategoryName"]
+  FASTCALL1 TYPEOF R10 [+2]
+  GETIMPORT R9 K4 [typeof]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K7 ["string"] [+20]
+  LOADB R8 0
+  GETTABLEKS R10 R7 K8 ["visualizationModeName"]
+  FASTCALL1 TYPEOF R10 [+2]
+  GETIMPORT R9 K4 [typeof]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K7 ["string"] [+11]
+  GETTABLEKS R10 R7 K9 ["lastEditUnixTimeStamp"]
+  FASTCALL1 TYPEOF R10 [+2]
+  GETIMPORT R9 K4 [typeof]
+  CALL R9 1 1
+  JUMPIFEQKS R9 K10 ["number"] [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  JUMPIFNOT R8 [+7]
+  FASTCALL2 TABLE_INSERT R2 R7 [+5]
+  MOVE R9 R2
+  MOVE R10 R7
+  GETIMPORT R8 K12 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-45]
+  GETIMPORT R3 K14 [table.sort]
+  MOVE R4 R2
+  DUPCLOSURE R5 K15 [PROTO_15]
+  CALL R3 2 0
+  LENGTH R3 R2
+  LOADN R4 3
+  JUMPIFNOTLT R4 R3 [+6]
+  GETIMPORT R3 K17 [table.remove]
+  MOVE R4 R2
+  CALL R3 1 0
+  JUMPBACK [-9]
+  SETTABLEKS R2 R0 K18 ["_recentModeRecordList"]
+  NAMECALL R3 R0 K19 ["_queueUpdateState"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_17:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_queueUpdateState"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R2 R0 K0 ["_plugin"]
+  GETTABLEKS R1 R2 K1 ["MultipleDocumentInterfaceInstance"]
+  JUMPIFNOTEQKNIL R1 [+2]
+  RETURN R0 0
+  GETTABLEKS R2 R1 K2 ["FocusedDataModelSession"]
+  JUMPIFNOTEQKNIL R2 [+2]
+  RETURN R0 0
+  SETTABLEKS R2 R0 K3 ["_session"]
+  GETTABLEKS R3 R0 K4 ["_maid"]
+  GETTABLEKS R5 R2 K5 ["CurrentDataModelTypeChanged"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R0
+  NAMECALL R5 R5 K6 ["Connect"]
+  CALL R5 2 -1
+  NAMECALL R3 R3 K7 ["giveTask"]
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_19:
+  GETTABLEKS R3 R0 K0 ["lastEditUnixTimeStamp"]
+  GETTABLEKS R4 R1 K0 ["lastEditUnixTimeStamp"]
+  JUMPIFLT R4 R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_20:
+  NEWTABLE R3 0 0
+  DUPTABLE R4 K3 [{"visualizationModeCategoryName", "visualizationModeName", "lastEditUnixTimeStamp"}]
+  SETTABLEKS R1 R4 K0 ["visualizationModeCategoryName"]
+  SETTABLEKS R2 R4 K1 ["visualizationModeName"]
+  GETIMPORT R6 K6 [DateTime.now]
+  CALL R6 0 1
+  GETTABLEKS R5 R6 K7 ["UnixTimestamp"]
+  SETTABLEKS R5 R4 K2 ["lastEditUnixTimeStamp"]
+  GETTABLEKS R5 R0 K8 ["_recentModeRecordList"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  LOADB R10 0
+  GETTABLEKS R11 R9 K0 ["visualizationModeCategoryName"]
+  GETTABLEKS R12 R4 K0 ["visualizationModeCategoryName"]
+  JUMPIFNOTEQ R11 R12 [+9]
+  GETTABLEKS R11 R9 K1 ["visualizationModeName"]
+  GETTABLEKS R12 R4 K1 ["visualizationModeName"]
+  JUMPIFEQ R11 R12 [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  JUMPIF R10 [+7]
+  FASTCALL2 TABLE_INSERT R3 R9 [+5]
+  MOVE R11 R3
+  MOVE R12 R9
+  GETIMPORT R10 K11 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R5 2 [-24]
+  FASTCALL2 TABLE_INSERT R3 R4 [+5]
+  MOVE R6 R3
+  MOVE R7 R4
+  GETIMPORT R5 K11 [table.insert]
+  CALL R5 2 0
+  GETIMPORT R5 K13 [table.sort]
+  MOVE R6 R3
+  DUPCLOSURE R7 K14 [PROTO_19]
+  CALL R5 2 0
+  LENGTH R5 R3
+  LOADN R6 3
+  JUMPIFNOTLT R6 R5 [+6]
+  GETIMPORT R5 K16 [table.remove]
+  MOVE R6 R3
+  CALL R5 1 0
+  JUMPBACK [-9]
+  GETIMPORT R5 K18 [table.freeze]
+  MOVE R6 R3
+  CALL R5 1 1
+  SETTABLEKS R5 R0 K8 ["_recentModeRecordList"]
+  GETTABLEKS R5 R0 K19 ["_plugin"]
+  LOADK R7 K20 ["RecentVisualizationModes"]
+  MOVE R8 R3
+  NAMECALL R5 R5 K21 ["SetSetting"]
+  CALL R5 3 0
+  NAMECALL R5 R0 K22 ["_queueUpdateState"]
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_21:
   GETTABLEKS R1 R0 K0 ["_maid"]
   NAMECALL R1 R1 K1 ["destroy"]
   CALL R1 1 0
@@ -116,34 +528,58 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["Maid"]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Util"]
-  GETTABLEKS R3 R4 K9 ["Signal"]
+  GETTABLEKS R4 R0 K8 ["Packages"]
+  GETTABLEKS R3 R4 K9 ["Cryo"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K10 ["Model"]
-  GETTABLEKS R5 R6 K11 ["Tracking"]
-  GETTABLEKS R4 R5 K12 ["VisualizationModeServiceTracker"]
+  GETTABLEKS R5 R0 K8 ["Packages"]
+  GETTABLEKS R4 R5 K10 ["Dash"]
   CALL R3 1 1
-  NEWTABLE R4 8 0
-  SETTABLEKS R4 R4 K13 ["__index"]
-  DUPCLOSURE R5 K14 [PROTO_1]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Util"]
+  GETTABLEKS R5 R6 K12 ["Maid"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K11 ["Util"]
+  GETTABLEKS R6 R7 K13 ["Signal"]
+  CALL R5 1 1
+  NEWTABLE R6 16 0
+  SETTABLEKS R6 R6 K14 ["__index"]
+  DUPCLOSURE R7 K15 [PROTO_0]
+  DUPCLOSURE R8 K16 [PROTO_1]
+  DUPCLOSURE R9 K17 [PROTO_3]
+  CAPTURE VAL R6
   CAPTURE VAL R4
-  CAPTURE VAL R1
+  CAPTURE VAL R5
+  SETTABLEKS R9 R6 K18 ["new"]
+  DUPCLOSURE R9 K19 [PROTO_5]
+  SETTABLEKS R9 R6 K20 ["_queueUpdateState"]
+  DUPCLOSURE R9 K21 [PROTO_7]
+  SETTABLEKS R9 R6 K22 ["_updateState"]
+  DUPCLOSURE R9 K23 [PROTO_8]
+  SETTABLEKS R9 R6 K24 ["_setState"]
+  DUPCLOSURE R9 K25 [PROTO_9]
+  SETTABLEKS R9 R6 K26 ["getState"]
+  DUPCLOSURE R9 K27 [PROTO_11]
   CAPTURE VAL R2
-  SETTABLEKS R5 R4 K15 ["new"]
-  DUPCLOSURE R5 K16 [PROTO_2]
-  SETTABLEKS R5 R4 K17 ["_setState"]
-  DUPCLOSURE R5 K18 [PROTO_3]
-  SETTABLEKS R5 R4 K19 ["getState"]
-  DUPCLOSURE R5 K20 [PROTO_4]
-  SETTABLEKS R5 R4 K21 ["updateVisualizationModeIsEnabled"]
-  DUPCLOSURE R5 K22 [PROTO_5]
-  SETTABLEKS R5 R4 K23 ["destroy"]
-  RETURN R4 1
+  CAPTURE VAL R3
+  SETTABLEKS R9 R6 K28 ["updateVisualizationModeCategoryIsEnabled"]
+  DUPCLOSURE R9 K29 [PROTO_14]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R9 R6 K30 ["updateVisualizationModeIsEnabled"]
+  DUPCLOSURE R9 K31 [PROTO_16]
+  SETTABLEKS R9 R6 K32 ["_loadRecentRecords"]
+  DUPCLOSURE R9 K33 [PROTO_18]
+  SETTABLEKS R9 R6 K34 ["_connectToFocusedDataModelSession"]
+  DUPCLOSURE R9 K35 [PROTO_20]
+  SETTABLEKS R9 R6 K36 ["recordRecentVisualizationMode"]
+  DUPCLOSURE R9 K37 [PROTO_21]
+  SETTABLEKS R9 R6 K38 ["destroy"]
+  RETURN R6 1

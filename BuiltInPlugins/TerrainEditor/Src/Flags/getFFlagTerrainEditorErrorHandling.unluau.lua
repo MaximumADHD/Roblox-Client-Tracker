@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("TerrainEditorErrorHandling", false)
+game:DefineFastFlag("TerrainEditorErrorHandling2", false)
 return function()
-   return game:GetFastFlag("TerrainEditorErrorHandling")
+   return game:GetFastFlag("TerrainEditorErrorHandling2")
 end

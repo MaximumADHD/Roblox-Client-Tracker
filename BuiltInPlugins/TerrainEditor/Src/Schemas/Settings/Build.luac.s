@@ -306,32 +306,28 @@ PROTO_7:
   SETTABLEKS R24 R8 K1 ["Id"]
   GETIMPORT R24 K9 [Enum.FillDirection.Vertical]
   SETTABLEKS R24 R8 K2 ["Layout"]
-  DUPTABLE R24 K69 [{"Label", "Type"}]
+  DUPTABLE R24 K71 [{"CanConfirm", "CanRegenerate", "Label", "Type"}]
+  LOADB R25 0
+  SETTABLEKS R25 R24 K69 ["CanConfirm"]
+  LOADB R25 0
+  SETTABLEKS R25 R24 K70 ["CanRegenerate"]
   GETUPVAL R27 5
   GETUPVAL R29 1
   GETTABLEKS R28 R29 K68 ["Confirm"]
-  NAMECALL R25 R4 K70 ["getText"]
+  NAMECALL R25 R4 K72 ["getText"]
   CALL R25 3 1
   SETTABLEKS R25 R24 K60 ["Label"]
-  LOADK R25 K71 ["Button"]
+  LOADK R25 K73 ["ConfirmGeneration"]
   SETTABLEKS R25 R24 K10 ["Type"]
   SETTABLEKS R24 R8 K3 ["Schema"]
-  GETUPVAL R27 1
-  GETTABLEKS R26 R27 K5 ["TerrainType"]
-  GETTABLE R25 R1 R26
-  GETUPVAL R27 4
-  GETTABLEKS R26 R27 K61 ["None"]
-  JUMPIFEQ R25 R26 [+3]
   LOADB R24 1
-  JUMP [+1]
-  LOADNIL R24
   SETTABLEKS R24 R8 K14 ["Value"]
   SETLIST R7 R8 1 [17]
-  DUPTABLE R8 K75 [{"Category", "Data", "Overrides"}]
+  DUPTABLE R8 K77 [{"Category", "Data", "Overrides"}]
   GETUPVAL R9 5
-  SETTABLEKS R9 R8 K72 ["Category"]
-  SETTABLEKS R1 R8 K73 ["Data"]
-  SETTABLEKS R3 R8 K74 ["Overrides"]
+  SETTABLEKS R9 R8 K74 ["Category"]
+  SETTABLEKS R1 R8 K75 ["Data"]
+  SETTABLEKS R3 R8 K76 ["Overrides"]
   CALL R5 3 -1
   RETURN R5 -1
 

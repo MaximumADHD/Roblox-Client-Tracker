@@ -1,13 +1,9 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-local var0 = require(script:FindFirstAncestor("R15Migrator").Src.Util.ScriptAnalysis.Constants)
+local var0 = script:FindFirstAncestor("R15Migrator")
+local var1 = require(var0.Src.Util.ScriptAnalysis.Constants)
+local var2 = require(var0.Src.Util.ScriptAnalysis.Range)
 return function(arg1, arg2, arg3)
-   local var48 = {}
-   var48.line = arg1
-   var48.character = arg2
-   var0.StartKey = var48
-   local var1 = {}
-   var1.line = arg1
-   var1.character = arg3 + 1
-   var0.EndKey = var1
-   return {}
+   local var51 = var2
+   var51 = arg1
+   return var51.new(var51, arg2, arg1, arg3 + 1)
 end

@@ -25,8 +25,6 @@ local MainViewLuauHeap = Roact.PureComponent:extend("MainViewLuauHeap")
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
-local LuauHeapProfilerReplicationEngineFeature = game:GetEngineFeature("LuauHeapProfilerReplication")
-
 function MainViewLuauHeap:getState(isClient: boolean): LuauHeapTypes.SessionState
 	return if isClient then self.props.client else self.props.server
 end
@@ -158,7 +156,7 @@ function MainViewLuauHeap:render()
 			isClientView = isClientView,
 
 			onClientButton = self.onClientButton,
-			onServerButton = if LuauHeapProfilerReplicationEngineFeature then self.onServerButton else nil,
+			onServerButton = self.onServerButton,
 
 			refForParent = self.utilRef,
 			onHeightChanged = self.onUtilTabHeightChanged,

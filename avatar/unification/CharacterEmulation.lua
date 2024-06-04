@@ -200,10 +200,6 @@ local function setUpDescendant(descendant)
 		setAdapterPart(descendant)
 	end
 
-	if descendant:IsA("BasePart") and descendant.Name == "Head" then
-		maintainPropertyValue(descendant, "CanCollide", true)
-	end
-
 	if descendant:IsA("Humanoid") then
 		setupHumanoid(descendant)
 	end

@@ -1,0 +1,104 @@
+PROTO_0:
+  LOADB R2 0
+  GETTABLEKS R3 R0 K0 ["startLine"]
+  GETTABLEKS R4 R1 K0 ["startLine"]
+  JUMPIFNOTEQ R3 R4 [+23]
+  LOADB R2 0
+  GETTABLEKS R3 R0 K1 ["startCharacter"]
+  GETTABLEKS R4 R1 K1 ["startCharacter"]
+  JUMPIFNOTEQ R3 R4 [+16]
+  LOADB R2 0
+  GETTABLEKS R3 R0 K2 ["endLine"]
+  GETTABLEKS R4 R1 K2 ["endLine"]
+  JUMPIFNOTEQ R3 R4 [+9]
+  GETTABLEKS R3 R0 K3 ["endCharacter"]
+  GETTABLEKS R4 R1 K3 ["endCharacter"]
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETTABLEKS R2 R0 K0 ["startLine"]
+  GETTABLEKS R3 R1 K0 ["startLine"]
+  JUMPIFNOTEQ R2 R3 [+10]
+  GETTABLEKS R3 R0 K1 ["startCharacter"]
+  GETTABLEKS R4 R1 K1 ["startCharacter"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+  GETTABLEKS R3 R0 K0 ["startLine"]
+  GETTABLEKS R4 R1 K0 ["startLine"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_2:
+  LOADB R2 1
+  JUMPIFEQ R0 R1 [+5]
+  JUMPIFLT R0 R1 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_3:
+  DUPTABLE R5 K4 [{"startLine", "startCharacter", "endLine", "endCharacter"}]
+  SETTABLEKS R0 R5 K0 ["startLine"]
+  SETTABLEKS R1 R5 K1 ["startCharacter"]
+  SETTABLEKS R2 R5 K2 ["endLine"]
+  SETTABLEKS R3 R5 K3 ["endCharacter"]
+  GETUPVAL R6 0
+  FASTCALL2 SETMETATABLE R5 R6 [+3]
+  GETIMPORT R4 K6 [setmetatable]
+  CALL R4 2 1
+  RETURN R4 1
+
+PROTO_4:
+  NEWTABLE R1 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["StartKey"]
+  DUPTABLE R3 K3 [{"line", "character"}]
+  GETTABLEKS R4 R0 K4 ["startLine"]
+  SETTABLEKS R4 R3 K1 ["line"]
+  GETTABLEKS R4 R0 K5 ["startCharacter"]
+  SETTABLEKS R4 R3 K2 ["character"]
+  SETTABLE R3 R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["EndKey"]
+  DUPTABLE R3 K3 [{"line", "character"}]
+  GETTABLEKS R4 R0 K7 ["endLine"]
+  SETTABLEKS R4 R3 K1 ["line"]
+  GETTABLEKS R4 R0 K8 ["endCharacter"]
+  SETTABLEKS R4 R3 K2 ["character"]
+  SETTABLE R3 R1 R2
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R3 R0 K4 ["Src"]
+  GETTABLEKS R2 R3 K5 ["Util"]
+  GETTABLEKS R1 R2 K6 ["ScriptAnalysis"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R3 R1 K9 ["Constants"]
+  CALL R2 1 1
+  NEWTABLE R3 8 0
+  SETTABLEKS R3 R3 K10 ["__index"]
+  DUPCLOSURE R4 K11 [PROTO_0]
+  SETTABLEKS R4 R3 K12 ["__eq"]
+  DUPCLOSURE R4 K13 [PROTO_1]
+  SETTABLEKS R4 R3 K14 ["__lt"]
+  DUPCLOSURE R4 K15 [PROTO_2]
+  SETTABLEKS R4 R3 K16 ["__le"]
+  DUPCLOSURE R4 K17 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K18 ["new"]
+  DUPCLOSURE R4 K19 [PROTO_4]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K20 ["GetDataForLinter"]
+  RETURN R3 1
