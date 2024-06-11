@@ -17,7 +17,7 @@ local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
 local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 local OpenReportDialog = require(InGameMenu.Actions.OpenReportDialog)
 
-local act = require(Modules.act)
+local act = require(CorePackages.Roact).act
 
 local Flags = InGameMenu.Flags
 

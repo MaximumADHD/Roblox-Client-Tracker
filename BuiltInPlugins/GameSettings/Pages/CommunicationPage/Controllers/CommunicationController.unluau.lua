@@ -8,15 +8,15 @@ function var0.new(arg1)
 end
 
 function var0.voiceUniverseSettingsPOST(arg1, arg2, arg3)
-   local var708 = {}
-   var708.Body = arg3
-   return arg1.__networking:post("voice", "/v1/settings/universe/" ... arg2, var708)
+   local var713 = {}
+   var713.Body = arg3
+   return arg1.__networking:post("voice", "/v1/settings/universe/" ... arg2, var713)
 end
 
 function var0.avatarVideoUniverseSettingsPOST(arg1, arg2, arg3)
-   local var719 = {}
-   var719.Body = arg3
-   return arg1.__networking:post("voice", "/v1/settings/universe/avatarvideo/" ... arg2, var719)
+   local var724 = {}
+   var724.Body = arg3
+   return arg1.__networking:post("voice", "/v1/settings/universe/avatarvideo/" ... arg2, var724)
 end
 
 function var0.voiceUniverseSettingsGET(arg1, arg2)

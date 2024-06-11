@@ -26,8 +26,7 @@ return function()
 	local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
 	local SetScreenSize = require(Actions.SetScreenSize)
 
-	local FFlagEnableGamepadMenuSelector =
-		require(script.Parent.Parent.Parent.Parent.Flags.FFlagEnableGamepadMenuSelector)
+	local FFlagEnableGamepadMenuSelector = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableGamepadMenuSelector
 
 	local defaultStyle = {
 		themeName = "dark",

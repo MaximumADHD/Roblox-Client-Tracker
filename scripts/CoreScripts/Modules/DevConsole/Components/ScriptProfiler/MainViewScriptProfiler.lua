@@ -70,14 +70,8 @@ local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfile
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
-local FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon =
-	game:DefineFastFlag("ScriptProfilerFunctionsViewUseSourceInfoForAnon", false)
 local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes2", false)
-local FFlagScriptProfilerMobileSettingsUI = game:DefineFastFlag("ScriptProfilerMobileSettingsUI", false)
-local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
-local FFlagScriptProfilerSimpleUI = game:DefineFastFlag("ScriptProfilerSimpleUI", false)
-local FFlagScriptProfilerExport = game:DefineFastFlag("ScriptProfilerExport", false)
 local FFlagScriptProfilerBetterStateManagement = game:DefineFastFlag("ScriptProfilerBetterStateManagement", false)
 
 local FIntScriptProfilerLiveUpdateIntervalMS = game:DefineFastInt("ScriptProfilerLiveUpdateIntervalMS", 1000)
@@ -159,18 +153,16 @@ local function generateSearchFilters(state, searchTerm: string): (SearchFilterTy
 	end
 
 	-- Perform matching against source name after annotating searchFilterNodes so that searching for source name works in Functions view, but not Callgraph view.
-	if FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon then
-		for i, func in data.Functions do
-			if searchFilterFuncs[i] == true then
-				continue
-			end
+	for i, func in data.Functions do
+		if searchFilterFuncs[i] == true then
+			continue
+		end
 
-			local name = ProfilerUtil.getName(data, func)
-			if not name then
-				local source = ProfilerUtil.getSourceName(data, func)
-				if source and string.find(source, searchTerm, 1, true) then
-					searchFilterFuncs[i] = true
-				end
+		local name = ProfilerUtil.getName(data, func)
+		if not name then
+			local source = ProfilerUtil.getSourceName(data, func)
+			if source and string.find(source, searchTerm, 1, true) then
+				searchFilterFuncs[i] = true
 			end
 		end
 	end
@@ -207,7 +199,7 @@ local function generatePluginDurationOffsets(
 					if getPluginFlag(data, data.Functions[functionId]) then
 						offset += getDurations(data, nodeId)
 
-						if FFlagScriptProfilerHideGCOverhead and #gcNodeOffsets > 0 then
+						if #gcNodeOffsets > 0 then
 							gcOffset += gcNodeOffsets[nodeId]
 						end
 					end
@@ -308,9 +300,7 @@ local function OnNewProfilingData(state, oldState, jsonString: string?)
 		state.data = ScriptContext:DeserializeScriptProfilerString(jsonString :: string) -- Temporary type cast to work around type-checker until RIDL defintion is updated.
 	end
 
-	if FFlagScriptProfilerHideGCOverhead then
-		state.gcFunctionOffsets, state.gcNodeOffsets = generateGCOverheadOffsets(state.data)
-	end
+	state.gcFunctionOffsets, state.gcNodeOffsets = generateGCOverheadOffsets(state.data)
 
 	if FFlagScriptProfilerShowPlugins then
 		state.pluginOffsets, state.pluginGCOffsets = generatePluginDurationOffsets(state.gcNodeOffsets, state.data)
@@ -745,7 +735,6 @@ function MainViewScriptProfiler:init()
 
 	self.state = {
 		utilTabHeight = 0,
-		showSimpleUI = if FFlagScriptProfilerMobileSettingsUI then nil else true,
 	}
 end
 
@@ -926,7 +915,7 @@ function MainViewScriptProfiler:renderUtilButtons(state, mobileUIformFactor, sho
 		)
 	end
 
-	if FFlagScriptProfilerExport and not showSimpleUI then
+	if not showSimpleUI then
 		table.insert(
 			elements,
 			Roact.createElement(BoxButton, {
@@ -952,13 +941,9 @@ function MainViewScriptProfiler:renderUtilButtons(state, mobileUIformFactor, sho
 		table.insert(
 			elements,
 			Roact.createElement(BoxButton, {
-				text = if showSimpleUI or FFlagScriptProfilerMobileSettingsUI then "More..." else "Less...",
+				text = "More...",
 				onClicked = function()
-					if FFlagScriptProfilerMobileSettingsUI then
-						self.props.dispatchShowMobileSettings()
-					else
-						self:setState({ showSimpleUI = not self.state.showSimpleUI })
-					end
+					self.props.dispatchShowMobileSettings()
 				end,
 			})
 		)
@@ -1106,7 +1091,7 @@ function MainViewScriptProfiler:renderProfilerView(isClientView, state, utilButt
 			average = state.average,
 			showPlugins = state.showPlugins or not FFlagScriptProfilerShowPlugins,
 			pluginOffsets = state.pluginOffsets,
-			showGC = state.showGC or not FFlagScriptProfilerHideGCOverhead,
+			showGC = state.showGC,
 			gcFunctionOffsets = state.gcFunctionOffsets,
 			gcNodeOffsets = state.gcNodeOffsets,
 			pluginGCOffsets = state.pluginGCOffsets,
@@ -1132,9 +1117,8 @@ function MainViewScriptProfiler:render()
 	local tmpCheckboxIndex = 1 -- Temporary, remove with each flag that uses checkboxes; ensures that each flagged entry does not depend on the others being enabled
 
 	local mobileUIformFactor = formFactor == Constants.FormFactor.Small
-	local showSimpleUI = FFlagScriptProfilerSimpleUI and mobileUIformFactor and self.state.showSimpleUI
 
-	if not mobileUIformFactor or not FFlagScriptProfilerMobileSettingsUI then
+	if not mobileUIformFactor then
 		checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate }
 
 		if FFlagScriptProfilerShowPlugins then
@@ -1142,16 +1126,14 @@ function MainViewScriptProfiler:render()
 			checkBoxStates[tmpCheckboxIndex] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins }
 		end
 
-		if FFlagScriptProfilerHideGCOverhead then
-			tmpCheckboxIndex += 1
-			checkBoxStates[tmpCheckboxIndex] = { name = SHOW_GC_TEXT, state = state.showGC }
-		end
+		tmpCheckboxIndex += 1
+		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_GC_TEXT, state = state.showGC }
 	end
 
 	local utilButtons = self:renderUtilButtons(
 		state,
 		mobileUIformFactor,
-		if FFlagScriptProfilerMobileSettingsUI then mobileUIformFactor else showSimpleUI
+		mobileUIformFactor
 	)
 
 	return self:renderProfilerView(isClientView, state, utilButtons, checkBoxStates)

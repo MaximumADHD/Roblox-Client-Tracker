@@ -36,7 +36,7 @@ if FFlagCaptureModeNativeExitSupport then
     game:GetService("GuiService").NativeClose:Connect(handleNativeExit)
 end
 
-if GetFFlagSelectInSceneReportMenu() then
+if GetFFlagSelectInSceneReportMenu() and game:GetEngineFeature("SafetyServiceCaptureModeReportProp") then
     game:WaitForChild("SafetyService")
     local SafetyService = game:GetService("SafetyService")
 

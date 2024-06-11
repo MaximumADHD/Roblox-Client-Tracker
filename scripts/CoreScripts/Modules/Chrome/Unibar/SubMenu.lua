@@ -33,6 +33,7 @@ local GetFFlagEnableChromePinIntegrations = require(Chrome.Flags.GetFFlagEnableC
 local GetFFlagUseNewPinIcon = require(Chrome.Flags.GetFFlagUseNewPinIcon)
 local GetFFlagEnableSubmenuTruncationFix = require(Chrome.Flags.GetFFlagEnableSubmenuTruncationFix)
 local GetFFlagKeepSubmenuOpenOnPin = require(Chrome.Flags.GetFFlagKeepSubmenuOpenOnPin)
+local GetFFlagNewSubmenuTouchTargets = require(Chrome.Flags.GetFFlagNewSubmenuTouchTargets)
 local GetFFlagFixSubmenuCloseIOS = require(Chrome.Flags.GetFFlagFixSubmenuCloseIOS)
 local GetFFlagEnableCaptureBadge = require(Chrome.Flags.GetFFlagEnableCaptureBadge)
 local GetFIntNumTimesNewBadgeIsDisplayed = require(Chrome.Flags.GetFIntNumTimesNewBadgeIsDisplayed)
@@ -92,6 +93,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		Transparency = 1,
 	}
 
+	local useTouchTargets = GetFFlagNewSubmenuTouchTargets()
 	local currenlyPinned = if GetFFlagEnableChromePinIntegrations() then ChromeService:isUserPinned(props.id) else nil
 	local pinDisabled = if GetFFlagEnableChromePinIntegrations()
 		then ChromeService:areUserPinsFull() and not currenlyPinned
@@ -118,6 +120,11 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		else
 			setPinHighlightColor(defaultBgColor)
 		end
+	end)
+
+	local activateTouchTarget = React.useCallback(function()
+		ClearBadge(props.id)
+		props.activated()
 	end)
 
 	local rowFragment = React.createElement(React.Fragment, nil, {
@@ -159,16 +166,21 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			return v.Color
 		end),
 		SelectionImageObject = useSelectionCursor(CursorKind.RoundedRectNoInset),
-		AutoButtonColor = if GetFFlagKeepSubmenuOpenOnPin() then false else nil,
-		[React.Event.Activated] = if GetFFlagEnableCaptureBadge()
-			then function()
-				ClearBadge(props.id)
-				props.activated()
-			end
-			else props.activated,
+		AutoButtonColor = if GetFFlagKeepSubmenuOpenOnPin() or useTouchTargets then false else nil,
+		[React.Event.Activated] = if GetFFlagEnableCaptureBadge() then activateTouchTarget else props.activated,
 		LayoutOrder = props.order,
-		onStateChanged = stateChange,
+		onStateChanged = if useTouchTargets then nil else stateChange,
 	}, {
+		ButtonTouchTarget = if useTouchTargets
+			then React.createElement(Interactable, {
+				Size = UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING * 2, 0, ROW_HEIGHT),
+				BackgroundTransparency = 1,
+				AutoButtonColor = false,
+				[React.Event.Activated] = if GetFFlagEnableCaptureBadge() then activateTouchTarget else props.activated,
+				Selectable = false,
+				onStateChanged = stateChange,
+			})
+			else nil,
 		RowLabel = if GetFFlagEnableChromePinIntegrations()
 			then React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
@@ -211,8 +223,36 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 					return v.Color
 				end),
 				LayoutOrder = 2,
-				onStateChanged = pinStateChange,
+				AutoButtonColor = if GetFFlagNewSubmenuTouchTargets() then false else nil,
+				onStateChanged = if GetFFlagNewSubmenuTouchTargets() then nil else pinStateChange,
 			}, {
+				PinTouchTarget = if GetFFlagNewSubmenuTouchTargets()
+					then React.createElement(Interactable, {
+						Size = UDim2.new(0, Constants.PIN_BUTTON_SIZE + Constants.PIN_RIGHT_PADDING * 2, 0, ROW_HEIGHT),
+						Position = UDim2.new(
+							0,
+							1 - Constants.PIN_RIGHT_PADDING,
+							0,
+							-(Constants.SUB_MENU_ROW_HEIGHT - Constants.PIN_BUTTON_SIZE) / 2
+						),
+						BackgroundTransparency = 1,
+						AutoButtonColor = false,
+						Selectable = false,
+						[React.Event.Activated] = function()
+							if GetFFlagKeepSubmenuOpenOnPin() then
+								pinPressed = true
+								if not pinDisabled then
+									ClearBadge(props.id)
+									pinActivated(props.id)
+								end
+							else
+								ClearBadge(props.id)
+								pinActivated(props.id)
+							end
+						end,
+						onStateChanged = pinStateChange,
+					})
+					else nil,
 				UICorner = React.createElement("UICorner", {
 					CornerRadius = UDim.new(0, 8),
 				}),

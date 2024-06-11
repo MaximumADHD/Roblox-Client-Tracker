@@ -1,4 +1,5 @@
 local AvatarChatService = game:GetService("AvatarChatService")
+local AppStorageService = game:GetService("AppStorageService")
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local VideoCaptureService = game:GetService("VideoCaptureService")
@@ -20,7 +21,9 @@ local IXPLayer = game:DefineFastString("DisableCameraOnLowSpecDevicesIXPLayer", 
 local IXPField = game:DefineFastString("DisableCameraOnLowSpecDevicesIXPField", "DisableOnAndroid")
 local FFlagOnlyShowToastOnce = game:DefineFastFlag("OnlyShowToastOnce", false)
 local FFlagDebugAlwaysShowDisableCameraToast = game:DefineFastFlag("DebugAlwaysShowDisableCameraToast", false)
-local ShownDisableCameraToastKey = 'ShownDisableCameraToast'
+local FFlagOnlyShowToastOnceInLifetime = game:DefineFastFlag("OnlyShowToastOnceInLifetime", false)
+local hasKeyInGameEngine = game:GetEngineFeature("DisableCameraToastShownStorageKey")
+local ShownDisableCameraToastKey = "DisableCameraToastShown"
 
 local function ShouldCheckDeviceSpecs(): boolean
 	if FFlagDisableCameraOnLowSpecDevices then
@@ -57,7 +60,21 @@ local isCamEnabledForUserAndPlace = function(): boolean
 	end
 
 	if ShouldCheckDeviceSpecs() and not deviceMeetsCameraPerformanceRequirements then
-		if FFlagOnlyShowToastOnce then
+		if FFlagOnlyShowToastOnceInLifetime and hasKeyInGameEngine then
+			local success, shownToastOnce = pcall(function()
+				return AppStorageService:GetItem(ShownDisableCameraToastKey)
+			end)
+
+			local NeedsToShowCameraToast = not success or not (shownToastOnce == "true")
+				or FFlagDebugAlwaysShowDisableCameraToast
+			if NeedsToShowCameraToast then
+				TrackerMenu:showPrompt(TrackerPromptType.CameraUnavailable)
+				pcall(function()
+					AppStorageService:SetItem(ShownDisableCameraToastKey, "true")
+					AppStorageService:Flush()
+				end)
+			end
+		elseif FFlagOnlyShowToastOnce then
 			local NeedsToShowCameraToast = not (MemStorageService:GetItem(ShownDisableCameraToastKey) == "true")
 				or FFlagDebugAlwaysShowDisableCameraToast
 			if NeedsToShowCameraToast then

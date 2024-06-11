@@ -14,7 +14,7 @@ return function()
 		c.jest = JestGlobals.jest
 		c.jestExpect = JestGlobals.expect
 		c.RhodiumHelpers = RhodiumHelpers
-		c.act = require(Modules.act)
+		c.act = Roact.act
 		c.createInstanceWithProps = function(component, props, resolution)
 			local folder = Instance.new("ScreenGui", game:GetService("CoreGui"))
 			local element

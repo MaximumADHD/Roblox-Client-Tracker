@@ -19,4 +19,6 @@ return {
 	alertTitleDesignTokenHeader = UIBloxFlags.GetFFlagUIBloxAlertTitleDesignTokenHeader(),
 	refactorInteractable = UIBloxFlags.FFlagUIBloxUseNewInteractableCoreScript,
 	addMiddleContentZIndex = UIBloxFlags.GetFFlagUIBloxUseFullPageModalZIndex(),
+	enableTooltipV2HoverControllerReRenderFix = UIBloxFlags.GetFFlagUIBloxEnableTooltipV2HoverControllerReRenderFix(),
+	enableTooltipV2BodyFontFix = UIBloxFlags.GetFFlagUIBloxEnableTooltipV2BodyFontFix(),
 }

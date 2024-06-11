@@ -81,7 +81,7 @@ PROTO_2:
   GETUPVAL R12 1
   CALL R12 0 1
   SETTABLEKS R12 R11 K4 ["ownerId"]
-  JUMPIFNOT R3 [+33]
+  JUMPIFNOT R3 [+23]
   DUPTABLE R12 K11 [{"limit", "includeOnlyVerifiedCreators", "cursor", "assetsInCameraVicinity", "assetsInCameraViewport"}]
   GETTABLEKS R13 R3 K12 ["pageSize"]
   SETTABLEKS R13 R12 K6 ["limit"]
@@ -90,19 +90,9 @@ PROTO_2:
   SETTABLEKS R13 R12 K7 ["includeOnlyVerifiedCreators"]
   GETTABLEKS R13 R3 K14 ["nextPageCursor"]
   SETTABLEKS R13 R12 K8 ["cursor"]
-  GETUPVAL R14 2
-  CALL R14 0 1
-  JUMPIFNOT R14 [+3]
   GETTABLEKS R13 R3 K9 ["assetsInCameraVicinity"]
-  JUMP [+1]
-  LOADNIL R13
   SETTABLEKS R13 R12 K9 ["assetsInCameraVicinity"]
-  GETUPVAL R14 2
-  CALL R14 0 1
-  JUMPIFNOT R14 [+3]
   GETTABLEKS R13 R3 K10 ["assetsInCameraViewport"]
-  JUMP [+1]
-  LOADNIL R13
   SETTABLEKS R13 R12 K10 ["assetsInCameraViewport"]
   JUMP [+2]
   NEWTABLE R12 0 0
@@ -117,7 +107,7 @@ PROTO_2:
   NAMECALL R8 R8 K16 ["andThen"]
   CALL R8 2 1
   NEWCLOSURE R10 P1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
   CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R4
@@ -151,14 +141,8 @@ MAIN:
   GETTABLEKS R6 R7 K12 ["Models"]
   GETTABLEKS R5 R6 K13 ["AssetInfo"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Core"]
-  GETTABLEKS R7 R8 K14 ["Flags"]
-  GETTABLEKS R6 R7 K15 ["getFFlagToolboxContextualAudioRecommendations"]
-  CALL R5 1 1
-  DUPCLOSURE R6 K16 [PROTO_2]
+  DUPCLOSURE R5 K14 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R3
-  CAPTURE VAL R5
   CAPTURE VAL R4
-  RETURN R6 1
+  RETURN R5 1

@@ -19,6 +19,7 @@ local ChromeService = require(Chrome.Service)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Chrome.Service.Types)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
+local FFlagWindowFixes = require(Chrome.Flags.GetFFlagWindowFixes)()
 local GetFFlagEnableUnibarSneakPeak = require(Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 
 local useObservableValue = require(Chrome.Hooks.useObservableValue)
@@ -218,6 +219,15 @@ function TooltipButton(props: TooltipButtonProps)
 			if not connection.current then
 				connection.current = UserInputService.InputChanged:Connect(function(inputChangedObj: InputObject, _)
 					if shouldRejectMultiTouch(inputObj, inputChangedObj) then
+						return
+					end
+
+					-- If the window is already open, we don't want to toggle it again. Similarly, connection.current
+					-- becomes nil when we close the window, and we don't want to toggle it back on.
+					if
+						FFlagWindowFixes
+						and (ChromeService:isWindowOpen(props.integration.id) or not connection.current)
+					then
 						return
 					end
 

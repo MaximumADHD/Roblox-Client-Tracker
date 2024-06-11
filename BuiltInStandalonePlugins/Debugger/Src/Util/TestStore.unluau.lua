@@ -31,8 +31,8 @@ return function(arg1)
    var0.value = "somePreview"
    var0.dataType = "string"
    var0.childPaths = {}
-   local var85 = var2
-   var85 = var0
+   local var84 = var2
+   var84 = var0
    local var2 = var12.new(1, "Alex", "somePreview", "map")
    local var3 = {}
    var3.name = "Heesoo"
@@ -71,18 +71,18 @@ return function(arg1)
    var9.scope = var4.Local
    var9.value = "somePreview2"
    var9.dataType = "string"
-   local var144 = var3
-   var144 = var3
-   local var147 = var3
-   var147 = var4
-   local var150 = var3
-   var150 = var5
-   local var153 = var3
-   var153 = var6
-   local var156 = var3
-   var156 = var8
-   local var159 = var3
-   var159 = var9
+   local var143 = var3
+   var143 = var3
+   local var146 = var3
+   var146 = var4
+   local var149 = var3
+   var149 = var5
+   local var152 = var3
+   var152 = var6
+   local var155 = var3
+   var155 = var8
+   local var158 = var3
+   var158 = var9
    local var16 = var10.new()
    local var17 = var10.new()
    local var18 = var9.new(10, var16, "TestFrame1", "C")
@@ -93,71 +93,71 @@ return function(arg1)
    var20 = var11.new(var23.DebuggerPauseReason.Requested, 1, true)
    local var21 = var13.new(1)
    local var22 = var14.new()
-   local var214 = var22
-   var214 = arg1
-   local var220 = var16
-   local var25 = var214.new(var214, var22, var15.new(), var220.new())
+   local var213 = var22
+   var213 = arg1
+   local var219 = var16
+   local var25 = var213.new(var213, var22, var15.new(), var219.new())
    var21.MockSetThreadStateById(1, var8.new(1, var16, true))
    var21.MockSetThreadStateById(2, var8.new(2, var17, true))
    var21.MockSetCallstackByThreadId(1, {})
    var21.MockSetCallstackByThreadId(2, {})
    local var26 = var12.GetDefaultFrameVariables()
-   var220 = var2
+   var219 = var2
    var26.Locals:MockSetChildren({})
    var21.MockSetDebuggerVariablesByCallstackFrame(var18, var26)
    local var27 = var12.GetDefaultFrameVariables()
    var7 = var7
-   local var251 = var2
+   local var250 = var2
    var27.Locals:MockSetChildren({})
    var21.MockSetDebuggerVariablesByCallstackFrame(var19, var27)
    var22.ConnectionStarted:Fire(var21)
    var21.Paused:Fire(var20, var20.Reason)
    local var29 = arg1:getState().Common
-   local var269 = var5
-   var269 = var29.debuggerConnectionIdToDST[var29.currentDebuggerConnectionId]
-   local var31 = var269.ctor(var269, 1, 1)
-   local var276 = var18("Expression 1")
+   local var268 = var5
+   var268 = var29.debuggerConnectionIdToDST[var29.currentDebuggerConnectionId]
+   local var31 = var268.ctor(var268, 1, 1)
+   local var275 = var18("Expression 1")
    arg1:dispatch()
-   local var281 = var19(var31, var85.fromData(var85))
+   local var280 = var19(var31, var84.fromData(var84))
    arg1:dispatch()
-   local var283 = 0
-   local var286 = 1
-   local var288 = 3
+   local var282 = 0
+   local var285 = 1
+   local var287 = 3
    local var33 = 4
-   local var290 = 5
-   local var291 = 6
-   local var292 = 7
-   local var293 = 8
-   local var294 = 9
-   local var295 = 10
+   local var289 = 5
+   local var290 = 6
+   local var291 = 7
+   local var292 = 8
+   local var293 = 9
+   local var294 = 10
    local var36 = 11
    local var37 = 12
    local var38 = 14
-   local var299 = ipairs({})
-   local var304 = {}
-   if var283 >= 6 then
+   local var298 = ipairs({})
+   local var303 = {}
+   if var282 >= 6 then
       local var0 = false
    end
-   local var307 = true
-   var304.isEnabled = var307
-   var307 = 2
+   local var306 = true
+   var303.isEnabled = var306
+   var306 = 2
    arg1:dispatch()
-   local var39 = var283 + 1
-   var286 = var31
-   var33 = var144.fromData(var144)
-   var20(123, var6.mockMetaBreakpoint(var304, var307)) = var147.fromData(var147)
-   local var315 = var21(var286, "Alex", {})
+   local var39 = var282 + 1
+   var285 = var31
+   var33 = var143.fromData(var143)
+   var20(123, var6.mockMetaBreakpoint(var303, var306)) = var146.fromData(var146)
+   local var314 = var21(var285, "Alex", {})
    arg1:dispatch()
-   var33 = var150.fromData(var150)
-   local var321 = var21(var31, "Alex_Heesoo", {})
+   var33 = var149.fromData(var149)
+   local var320 = var21(var31, "Alex_Heesoo", {})
    arg1:dispatch()
-   var33 = var153.fromData(var153)
-   local var327 = var21(var31, "Alex_Austin", {})
+   var33 = var152.fromData(var152)
+   local var326 = var21(var31, "Alex_Austin", {})
    arg1:dispatch()
-   var33 = var156.fromData(var156)
-   local var333 = var21(var31, "UnitedStates", {})
+   var33 = var155.fromData(var155)
+   local var332 = var21(var31, "UnitedStates", {})
    arg1:dispatch()
-   var33 = var159.fromData(var159)
+   var33 = var158.fromData(var158)
    local var44 = var21(var31, "UnitedStates_Wisconsin", {})
    arg1:dispatch()
    return arg1

@@ -450,72 +450,73 @@ PROTO_18:
   RETURN R0 0
 
 PROTO_19:
-  GETTABLEKS R3 R0 K0 ["lastEditUnixTimeStamp"]
-  GETTABLEKS R4 R1 K0 ["lastEditUnixTimeStamp"]
-  JUMPIFLT R4 R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
-
-PROTO_20:
-  NEWTABLE R3 0 0
-  DUPTABLE R4 K3 [{"visualizationModeCategoryName", "visualizationModeName", "lastEditUnixTimeStamp"}]
-  SETTABLEKS R1 R4 K0 ["visualizationModeCategoryName"]
-  SETTABLEKS R2 R4 K1 ["visualizationModeName"]
-  GETIMPORT R6 K6 [DateTime.now]
-  CALL R6 0 1
-  GETTABLEKS R5 R6 K7 ["UnixTimestamp"]
-  SETTABLEKS R5 R4 K2 ["lastEditUnixTimeStamp"]
-  GETTABLEKS R5 R0 K8 ["_recentModeRecordList"]
-  LOADNIL R6
+  DUPTABLE R3 K3 [{"visualizationModeCategoryName", "visualizationModeName", "lastEditUnixTimeStamp"}]
+  SETTABLEKS R1 R3 K0 ["visualizationModeCategoryName"]
+  SETTABLEKS R2 R3 K1 ["visualizationModeName"]
+  GETIMPORT R5 K6 [DateTime.now]
+  CALL R5 0 1
+  GETTABLEKS R4 R5 K7 ["UnixTimestamp"]
+  SETTABLEKS R4 R3 K2 ["lastEditUnixTimeStamp"]
+  LOADNIL R4
+  LOADNIL R5
+  GETTABLEKS R6 R0 K8 ["_recentModeRecordList"]
   LOADNIL R7
-  FORGPREP R5
-  LOADB R10 0
-  GETTABLEKS R11 R9 K0 ["visualizationModeCategoryName"]
-  GETTABLEKS R12 R4 K0 ["visualizationModeCategoryName"]
-  JUMPIFNOTEQ R11 R12 [+9]
-  GETTABLEKS R11 R9 K1 ["visualizationModeName"]
-  GETTABLEKS R12 R4 K1 ["visualizationModeName"]
-  JUMPIFEQ R11 R12 [+2]
-  LOADB R10 0 +1
-  LOADB R10 1
-  JUMPIF R10 [+7]
-  FASTCALL2 TABLE_INSERT R3 R9 [+5]
-  MOVE R11 R3
-  MOVE R12 R9
-  GETIMPORT R10 K11 [table.insert]
-  CALL R10 2 0
-  FORGLOOP R5 2 [-24]
-  FASTCALL2 TABLE_INSERT R3 R4 [+5]
-  MOVE R6 R3
-  MOVE R7 R4
-  GETIMPORT R5 K11 [table.insert]
-  CALL R5 2 0
-  GETIMPORT R5 K13 [table.sort]
-  MOVE R6 R3
-  DUPCLOSURE R7 K14 [PROTO_19]
-  CALL R5 2 0
-  LENGTH R5 R3
-  LOADN R6 3
-  JUMPIFNOTLT R6 R5 [+6]
-  GETIMPORT R5 K16 [table.remove]
-  MOVE R6 R3
-  CALL R5 1 0
-  JUMPBACK [-9]
-  GETIMPORT R5 K18 [table.freeze]
-  MOVE R6 R3
-  CALL R5 1 1
-  SETTABLEKS R5 R0 K8 ["_recentModeRecordList"]
-  GETTABLEKS R5 R0 K19 ["_plugin"]
-  LOADK R7 K20 ["RecentVisualizationModes"]
-  MOVE R8 R3
-  NAMECALL R5 R5 K21 ["SetSetting"]
-  CALL R5 3 0
-  NAMECALL R5 R0 K22 ["_queueUpdateState"]
-  CALL R5 1 0
+  LOADNIL R8
+  FORGPREP R6
+  LOADB R11 0
+  GETTABLEKS R12 R10 K0 ["visualizationModeCategoryName"]
+  GETTABLEKS R13 R3 K0 ["visualizationModeCategoryName"]
+  JUMPIFNOTEQ R12 R13 [+9]
+  GETTABLEKS R12 R10 K1 ["visualizationModeName"]
+  GETTABLEKS R13 R3 K1 ["visualizationModeName"]
+  JUMPIFEQ R12 R13 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  JUMPIFNOT R11 [+2]
+  MOVE R4 R9
+  JUMP [+14]
+  JUMPIFNOTEQKNIL R5 [+3]
+  MOVE R5 R9
+  JUMP [+10]
+  GETTABLEKS R11 R10 K2 ["lastEditUnixTimeStamp"]
+  GETTABLEKS R14 R0 K8 ["_recentModeRecordList"]
+  GETTABLE R13 R14 R5
+  GETTABLEKS R12 R13 K2 ["lastEditUnixTimeStamp"]
+  JUMPIFNOTLT R11 R12 [+2]
+  MOVE R5 R9
+  FORGLOOP R6 2 [-33]
+  LOADNIL R6
+  JUMPIFEQKNIL R4 [+3]
+  MOVE R6 R4
+  JUMP [+14]
+  GETTABLEKS R8 R0 K8 ["_recentModeRecordList"]
+  LENGTH R7 R8
+  LOADN R8 3
+  JUMPIFNOTLE R8 R7 [+5]
+  JUMPIFEQKNIL R5 [+3]
+  MOVE R6 R5
+  JUMP [+4]
+  GETTABLEKS R8 R0 K8 ["_recentModeRecordList"]
+  LENGTH R7 R8
+  ADDK R6 R7 K9 [1]
+  GETIMPORT R7 K12 [table.clone]
+  GETTABLEKS R8 R0 K8 ["_recentModeRecordList"]
+  CALL R7 1 1
+  SETTABLE R3 R7 R6
+  GETIMPORT R8 K14 [table.freeze]
+  MOVE R9 R7
+  CALL R8 1 1
+  SETTABLEKS R8 R0 K8 ["_recentModeRecordList"]
+  GETTABLEKS R8 R0 K15 ["_plugin"]
+  LOADK R10 K16 ["RecentVisualizationModes"]
+  MOVE R11 R7
+  NAMECALL R8 R8 K17 ["SetSetting"]
+  CALL R8 3 0
+  NAMECALL R8 R0 K18 ["_queueUpdateState"]
+  CALL R8 1 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_20:
   GETTABLEKS R1 R0 K0 ["_maid"]
   NAMECALL R1 R1 K1 ["destroy"]
   CALL R1 1 0
@@ -578,8 +579,8 @@ MAIN:
   SETTABLEKS R9 R6 K32 ["_loadRecentRecords"]
   DUPCLOSURE R9 K33 [PROTO_18]
   SETTABLEKS R9 R6 K34 ["_connectToFocusedDataModelSession"]
-  DUPCLOSURE R9 K35 [PROTO_20]
+  DUPCLOSURE R9 K35 [PROTO_19]
   SETTABLEKS R9 R6 K36 ["recordRecentVisualizationMode"]
-  DUPCLOSURE R9 K37 [PROTO_21]
+  DUPCLOSURE R9 K37 [PROTO_20]
   SETTABLEKS R9 R6 K38 ["destroy"]
   RETURN R6 1

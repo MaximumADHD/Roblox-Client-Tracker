@@ -48,7 +48,7 @@ else
 end
 local SendAnalytics = require(RobloxGui.Modules.InGameMenu.Utility.SendAnalytics)
 local UserLocalStore = require(RobloxGui.Modules.InGameMenu.Utility.UserLocalStore)
-local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
+local GetDefaultQualityLevel = require(CorePackages.Workspace.Packages.AppCommonLib).GetDefaultQualityLevel
 local MessageBus = require(CorePackages.Workspace.Packages.MessageBus).MessageBus
 local LocalStore = require(RobloxGui.Modules.Chrome.Service.LocalStore)
 

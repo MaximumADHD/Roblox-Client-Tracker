@@ -22,6 +22,7 @@ local Images = UIBlox.App.ImageSet.Images
 local IAPExperience = require(CorePackages.IAPExperience)
 local ProductPurchase =  IAPExperience.ProductPurchase
 local ProductPurchaseRobuxUpsell =  IAPExperience.ProductPurchaseRobuxUpsell
+local LeaveRobloxAlert = IAPExperience.LeaveRobloxAlert
 
 local PurchaseFlow = require(Root.Enums.PurchaseFlow)
 local RequestType = require(Root.Enums.RequestType)
@@ -180,7 +181,8 @@ function ProductPurchaseContainer:init()
 				or promptState == PromptState.PurchaseInProgress then
 			return self.props.onBuy
 		elseif promptState == PromptState.RobuxUpsell
-				or promptState == PromptState.UpsellInProgress then
+				or promptState == PromptState.UpsellInProgress
+				or promptState == PromptState.LeaveRobloxWarning then
 			return self.props.onRobuxUpsell
 		elseif promptState == PromptState.U13PaymentModal
 				or promptState == PromptState.U13MonthlyThreshold1Modal
@@ -435,6 +437,13 @@ function ProductPurchaseContainer:render()
 
 			isLuobu = self.state.isLuobu,
 		})
+	elseif promptState == PromptState.LeaveRobloxWarning then
+		prompt = Roact.createElement(LeaveRobloxAlert, {
+				screenSize = self.state.screenSize,
+
+				cancelActivated = self.cancelButtonPressed,
+				continueActivated = self.confirmButtonPressed,
+			})
 	elseif (promptState == PromptState.Error
 			and purchaseError == PurchaseError.TwoFactorNeededSettings) or
 			isGenericChallengeResponse(purchaseError) then

@@ -74,24 +74,24 @@ PROTO_2:
   GETTABLEKS R6 R7 K11 ["Roact"]
   CALL R5 1 1
   GETIMPORT R6 K1 [require]
-  GETTABLEKS R8 R3 K10 ["Packages"]
-  GETTABLEKS R7 R8 K12 ["Framework"]
+  GETTABLEKS R9 R3 K10 ["Packages"]
+  GETTABLEKS R8 R9 K12 ["Dev"]
+  GETTABLEKS R7 R8 K13 ["DeveloperTools"]
   CALL R6 1 1
   GETIMPORT R7 K1 [require]
   GETTABLEKS R9 R3 K7 ["Src"]
-  GETTABLEKS R8 R9 K13 ["MainPlugin"]
+  GETTABLEKS R8 R9 K14 ["MainPlugin"]
   CALL R7 1 1
   GETIMPORT R8 K1 [require]
   GETTABLEKS R11 R3 K7 ["Src"]
   GETTABLEKS R10 R11 K8 ["Util"]
-  GETTABLEKS R9 R10 K14 ["hasInternalPermission"]
+  GETTABLEKS R9 R10 K15 ["hasInternalPermission"]
   CALL R8 1 1
   CALL R8 0 1
   LOADNIL R9
   LOADNIL R10
-  JUMPIFNOT R8 [+9]
-  GETTABLEKS R12 R6 K15 ["DeveloperTools"]
-  GETTABLEKS R11 R12 K16 ["forPlugin"]
+  JUMPIFNOT R8 [+7]
+  GETTABLEKS R11 R6 K16 ["forPlugin"]
   GETTABLEKS R12 R3 K17 ["Name"]
   MOVE R13 R0
   CALL R11 2 1

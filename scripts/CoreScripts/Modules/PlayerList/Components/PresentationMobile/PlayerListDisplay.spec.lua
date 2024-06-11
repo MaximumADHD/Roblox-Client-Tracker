@@ -11,7 +11,7 @@ return function()
 	local UIBlox = require(CorePackages.UIBlox)
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
-	local act = require(CoreGui.RobloxGui.Modules.act)
+	local act = Roact.act
 
 	local Components = script.Parent.Parent
 	local PlayerList = Components.Parent

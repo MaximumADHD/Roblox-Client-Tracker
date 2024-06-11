@@ -20,58 +20,58 @@ local var17 = var0.Src.Resources.Localization.LocalizedStrings
 local var18 = require(var0.Src.Components.AttenuationCurveRenderer)
 local var19 = var1.PureComponent:extend("MainPlugin")
 function var19.init(arg1, arg2)
-   local var61 = {}
-   var61.enabled = false
-   var61.instanceId = 65535
-   var61.instanceName = ""
-   var61.initialCurveData = {}
-   var61.currentCurveData = {}
-   var61.closeDMConnection = nil
-   var61.forceRerender = false
-   arg1.state = var61
+   local var101 = {}
+   var101.enabled = false
+   var101.instanceId = 65535
+   var101.instanceName = ""
+   var101.initialCurveData = {}
+   var101.currentCurveData = {}
+   var101.closeDMConnection = nil
+   var101.forceRerender = false
+   arg1.state = var101
    function arg1.setDisabled()
       if arg1.state.closeDMConnection then
          arg1.state.closeDMConnection:Disconnect()
       end
       arg2.Plugin:Invoke("OnStopEditing")
-      local var81 = {}
-      var81.enabled = false
-      var81.initialCurveData = {}
-      var81.currentCurveData = {}
-      var81.instanceId = 65535
-      var81.instanceName = ""
-      var81.closeDMConnection = nil
-      arg1:setState(var81)
+      local var121 = {}
+      var121.enabled = false
+      var121.initialCurveData = {}
+      var121.currentCurveData = {}
+      var121.instanceId = 65535
+      var121.instanceName = ""
+      var121.closeDMConnection = nil
+      arg1:setState(var121)
    end
    
    function arg1.onChanged(arg1)
-      local var92 = "OnEdit"
-      local var93 = var13
-      var93 = arg1
-      local var0 = var93.stringifyCurveTable(var93)
+      local var132 = "OnEdit"
+      local var133 = var13
+      var133 = arg1
+      local var0 = var133.stringifyCurveTable(var133)
       arg2.Plugin:Invoke()
-      local var98 = {}
-      var98.currentCurveData = arg1
-      arg1:setState(var98)
+      local var138 = {}
+      var138.currentCurveData = arg1
+      arg1:setState(var138)
    end
    
    function arg1.onWidgetEnabledChanged(arg1)
       arg1.setDisabled()
-      local var104 = {}
-      var104.forceRerender = arg1.state.forceRerender
-      arg1:setState(var104)
+      local var144 = {}
+      var144.forceRerender = arg1.state.forceRerender
+      arg1:setState(var144)
    end
    
    arg2.Plugin:OnInvoke("OnOpen", function()
       arg2.setDisabled()
    end)
-   local var122 = var2.thunkMiddleware
+   local var162 = var2.thunkMiddleware
    arg1.store = var2.Store.new(var12, nil, {}, nil)
-   local var128 = {}
-   var128.stringResourceTable = var16
-   var128.translationResourceTable = var17
-   var128.pluginName = "AttenuationCurveEditor"
-   arg1.localization = var7.Localization.new(var128)
+   local var168 = {}
+   var168.stringResourceTable = var16
+   var168.translationResourceTable = var17
+   var168.pluginName = "AttenuationCurveEditor"
+   arg1.localization = var7.Localization.new(var168)
    arg1.analytics = var7.Analytics.new(function()
       return {}
    end, {})
@@ -87,43 +87,43 @@ function var19.render(arg1)
    local var1 = arg1.state
    local var2 = var0.Plugin
    local var3 = var1.enabled
-   local var158 = {}
-   var158.CurveData = var1.initialCurveData
-   var158.Enabled = var3
-   var158.OnChanged = arg1.onChanged
-   var158.OnSave = arg1.setDisabled
-   "AttenuationCurveEditor_" ... var1.instanceId = var1.createElement(var18, var158)
-   local var166 = var8
-   var166 = var2
-   local var168 = var166.new(var166)
-   local var172 = var10.new(arg1.store)
-   local var177 = var9.new(var2:getMouse())
-   local var178 = arg1.localization
-   local var179 = arg1.analytics
-   local var180 = {}
-   local var184 = {}
-   var184.Id = "AttenuationCurveEditor"
-   var184.Enabled = var3
-   var184.Title = arg1.localization:getText("Plugin", "Name") ... " - " ... var1.instanceName
-   var184.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var184.InitialDockState = Enum.InitialDockState.Float
-   var184.Size = Vector2.new(640, 480)
-   var184.MinSize = Vector2.new(540, 300)
-   var184.OnClose = arg1.setDisabled
-   var184.Widget = var0.PluginLoaderContext.mainDockWidget
-   var184.OnWidgetCreated = arg1.onDockWidgetCreated
-   var184.ShouldRestore = false
+   local var198 = {}
+   var198.CurveData = var1.initialCurveData
+   var198.Enabled = var3
+   var198.OnChanged = arg1.onChanged
+   var198.OnSave = arg1.setDisabled
+   "AttenuationCurveEditor_" ... var1.instanceId = var1.createElement(var18, var198)
+   local var206 = var8
+   var206 = var2
+   local var208 = var206.new(var206)
+   local var212 = var10.new(arg1.store)
+   local var217 = var9.new(var2:getMouse())
+   local var218 = arg1.localization
+   local var219 = arg1.analytics
+   local var220 = {}
+   local var224 = {}
+   var224.Id = "AttenuationCurveEditor"
+   var224.Enabled = var3
+   var224.Title = arg1.localization:getText("Plugin", "Name") ... " - " ... var1.instanceName
+   var224.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var224.InitialDockState = Enum.InitialDockState.Float
+   var224.Size = Vector2.new(640, 480)
+   var224.MinSize = Vector2.new(540, 300)
+   var224.OnClose = arg1.setDisabled
+   var224.Widget = var0.PluginLoaderContext.mainDockWidget
+   var224.OnWidgetCreated = arg1.onDockWidgetCreated
+   var224.ShouldRestore = false
    var1.Change.Enabled = arg1.onWidgetEnabledChanged
-   local var214 = {}
-   local var220 = var1.Tag
+   local var254 = {}
+   local var260 = var1.Tag
    var1.Tag = "X-Fill X-Column"
-   var220 = {}
-   var214.Wrapper = var1.createElement(var6, {}, var220)
-   local var226 = {}
-   var226.StyleSheet = arg1.design
-   var214.StyleLink = var1.createElement("StyleLink", var226)
-   var180.MainWidget = var1.createElement(var5, var184, var214)
-   return var7.provide({}, var180)
+   var260 = {}
+   var254.Wrapper = var1.createElement(var6, {}, var260)
+   local var266 = {}
+   var266.StyleSheet = arg1.design
+   var254.StyleLink = var1.createElement("StyleLink", var266)
+   var220.MainWidget = var1.createElement(var5, var224, var254)
+   return var7.provide({}, var220)
 end
 
 return var19

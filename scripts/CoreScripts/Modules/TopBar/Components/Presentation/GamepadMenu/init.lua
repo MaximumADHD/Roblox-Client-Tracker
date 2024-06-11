@@ -77,11 +77,12 @@ local GAMEPAD_MENU_KEY = "GamepadMenu"
 local LocalPlayer = Players.LocalPlayer
 
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
-local FFlagAddMenuNavigationToggleDialog = require(script.Parent.Parent.Parent.Flags.FFlagAddMenuNavigationToggleDialog)
-local FFlagEnableGamepadMenuSelector = require(script.Parent.Parent.Parent.Flags.FFlagEnableGamepadMenuSelector)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
+local FFlagEnableGamepadMenuSelector = SharedFlags.FFlagEnableGamepadMenuSelector
 local GetFFlagEnableUnibarSneakPeak = require(RobloxGui.Modules.Chrome.Flags.GetFFlagEnableUnibarSneakPeak)
 local GetFFlagOpenPlayersPageFromGamepad = require(script.Parent.Parent.Parent.Flags.GetFFlagOpenPlayersPageFromGamepad)
-local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSupportCompactUtility
+local GetFFlagSupportCompactUtility = SharedFlags.GetFFlagSupportCompactUtility
 
 GamepadMenu.validateProps = t.strictInterface({
 	screenSize = t.Vector2,

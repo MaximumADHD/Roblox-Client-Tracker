@@ -1,5 +1,5 @@
-game:DefineFastFlag("ChromeCapturesToggle", false)
+game:DefineFastFlag("ChromeCapturesToggle2", false)
 
 return function()
-	return game:GetFastFlag("ChromeCapturesToggle")
+	return game:GetFastFlag("ChromeCapturesToggle2")
 end

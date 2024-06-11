@@ -3,13 +3,13 @@ return require(script.Parent.Parent.Parent.Packages.Framework).Util.Action(scrip
    if type(arg1) == "string" then
       local var0 = false
    end
-   local var300 = true
-   local var306 = `Expected view to be a string, received {type(arg1)}`
+   local var20 = true
+   local var26 = `Expected view to be a string, received {type(arg1)}`
    assert()
    if type(arg2) == "string" then
       local var0 = false
    end
-   local var312 = true
+   local var32 = true
    local var3 = `Expected name to be a string, received {type(arg2)}`
    assert()
    local var4 = {}

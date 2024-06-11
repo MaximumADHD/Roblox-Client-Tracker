@@ -15,7 +15,7 @@ local XPath = Rhodium.XPath
 local JestGlobals = require(CorePackages.JestGlobals)
 local jestExpect = JestGlobals.expect
 
-local RoactAct = require(Modules.act)
+local RoactAct = Roact.act
 
 local RobloxTranslator = require(Modules.RobloxTranslator)
 

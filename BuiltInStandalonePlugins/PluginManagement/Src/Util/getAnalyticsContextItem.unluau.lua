@@ -6,12 +6,12 @@ return function()
    return var2.Analytics.new(function(arg1)
       local function var0(arg1, arg2)
          arg2 = arg2 or {}
-         local var31 = {}
-         var31.studioSid = arg1:GetSessionId()
-         local var43 = arg1:GetClientId()
-         var31.clientId = var43
-         var43 = arg2
-         arg1:SendEventDeferred("studio", "PluginManagement", arg1, var1.Dictionary.join(var31, var43))
+         local var25 = {}
+         var25.studioSid = arg1:GetSessionId()
+         local var31 = arg1:GetClientId()
+         var25.clientId = var31
+         var31 = arg2
+         arg1:SendEventDeferred("studio", "PluginManagement", arg1, var1.Dictionary.join(var25, var31))
       end
       
       local function fun0(arg1, arg2)

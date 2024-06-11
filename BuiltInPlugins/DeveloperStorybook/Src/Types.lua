@@ -47,7 +47,7 @@ export type StoryDefinition = {
 
 -- Stories in Horsecat are currently provided as a constructor function which returns a destructor function, taking a host argument.
 -- This is deprecated, but supported to ease migration.
-export type DeprecatedLifecycleFunction = (Instance) -> (() -> ())
+export type DeprecatedLifecycleFunction = (Instance) -> () -> ()
 
 -- A story translates to a single instance/example displayed on screen.
 export type Story = Instance | RoactComponent | RoactElement | DeprecatedLifecycleFunction

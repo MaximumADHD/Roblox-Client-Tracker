@@ -1,6 +1,5 @@
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
-local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -21,7 +20,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
-local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
+local GetDefaultQualityLevel = require(CorePackages.Workspace.Packages.AppCommonLib).GetDefaultQualityLevel
 
 local validateProps = t.strictInterface({
 	isLeavingGame  = t.boolean,

@@ -1,8 +1,6 @@
 --!nonstrict
 return function()
 	local CorePackages = game:GetService("CorePackages")
-	local Modules = game:GetService("CoreGui").RobloxGui.Modules
-	local act = require(Modules.act)
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
@@ -15,8 +13,7 @@ return function()
 	local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
 	local SetInputType = require(InGameMenu.Actions.SetInputType)
 	local Constants = require(InGameMenu.Resources.Constants)
-
-
+	
 	local Localization = require(InGameMenu.Localization.Localization)
 	local Rodux = InGameMenuDependencies.Rodux
 	local RoactRodux = InGameMenuDependencies.RoactRodux
@@ -26,6 +23,8 @@ return function()
 		script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider
 	)
 	local PlayersPage = require(script.Parent.PlayersPage)
+	
+	local act = Roact.act
 
 	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 	local GuiService = game:GetService("GuiService")

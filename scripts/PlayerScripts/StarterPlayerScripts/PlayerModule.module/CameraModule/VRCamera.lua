@@ -6,23 +6,6 @@
 
 --[[ Services ]]--
 
-local FFlagUserVRAvatarGestures
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRAvatarGestures")
-	end)
-	FFlagUserVRAvatarGestures = success and result
-end
-
-local FFlagUserFixVRAvatarGesturesSeats
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixVRAvatarGesturesSeats")
-	end)
-	FFlagUserFixVRAvatarGesturesSeats = success and result
-end
-
-
 local PlayersService = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -49,10 +32,8 @@ function VRCamera.new()
 	self.focusOffset = CFrame.new()
 	self:Reset()
 
-	if FFlagUserVRAvatarGestures then
-		self.controlModule = require(PlayersService.LocalPlayer:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
-		self.savedAutoRotate = true 
-	end
+	self.controlModule = require(PlayersService.LocalPlayer:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
+	self.savedAutoRotate = true 
 
 	return self
 end
@@ -101,7 +82,7 @@ function VRCamera:Update(timeDelta)
 		newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
 		-- update camera cframe based on first/third person
 		if self:IsInFirstPerson() then
-			if FFlagUserVRAvatarGestures and VRService.AvatarGestures then
+			if VRService.AvatarGestures then
 				-- the immersion camera better aligns the player with the avatar
 				newCameraCFrame, newCameraFocus = self:UpdateImmersionCamera(
 					timeDelta,newCameraCFrame, newCameraFocus, lastSubjPos, subjectPosition)
@@ -218,7 +199,7 @@ function VRCamera:UpdateImmersionCamera(timeDelta, newCameraCFrame, newCameraFoc
 		newCameraCFrame = subjectCFrame
 	else
 		-- if seated, just keep aligned with the seat itself
-		if FFlagUserFixVRAvatarGesturesSeats and humanoid.Sit then
+		if humanoid.Sit then
 			newCameraCFrame = subjectCFrame
 			if (newCameraCFrame.Position - curCamera.CFrame.Position).Magnitude > 0.01 then
 				self:StartVREdgeBlur(PlayersService.LocalPlayer)
@@ -291,12 +272,7 @@ function VRCamera:UpdateThirdPersonComfortTransform(timeDelta, newCameraCFrame, 
 		-- compute delta of subject since last update
 		local player = PlayersService.LocalPlayer
 		local subjectDelta = lastSubjPos - subjectPosition
-		local moveVector
-		if FFlagUserVRAvatarGestures then
-			self.controlModule:GetMoveVector()
-		else
-			moveVector = require(player:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule")):GetMoveVector()
-		end
+		local moveVector = self.controlModule:GetMoveVector()
 
 		-- is the subject still moving?
 		local isMoving = subjectDelta.magnitude > 0.01 or moveVector.magnitude > 0.01
@@ -387,12 +363,7 @@ function VRCamera:UpdateThirdPersonFollowTransform(timeDelta, newCameraCFrame, n
 	-- figure out if the player is moving
 	local player = PlayersService.LocalPlayer
 	local subjectDelta = lastSubjPos - subjectPosition
-	local controlModule
-	if FFlagUserVRAvatarGestures then
-		controlModule = self.controlModule
-	else
-		controlModule = require(player:WaitForChild("PlayerScripts").PlayerModule:WaitForChild("ControlModule"))
-	end
+	local controlModule = self.controlModule
 	local moveVector = controlModule:GetMoveVector()
 
 	-- while moving, slowly adjust camera so the avatar is in front of your head
@@ -444,15 +415,13 @@ function VRCamera:LeaveFirstPerson()
 		self.VRBlur.Visible = false
 	end
 
-	if FFlagUserVRAvatarGestures then
-		if self.characterOrientation then
-			self.characterOrientation.Enabled = false
+	if self.characterOrientation then
+		self.characterOrientation.Enabled = false
 
-		end
-		local humanoid = self:GetHumanoid()
-		if humanoid then
-			humanoid.AutoRotate = self.savedAutoRotate
-		end
+	end
+	local humanoid = self:GetHumanoid()
+	if humanoid then
+		humanoid.AutoRotate = self.savedAutoRotate
 	end
 end
 

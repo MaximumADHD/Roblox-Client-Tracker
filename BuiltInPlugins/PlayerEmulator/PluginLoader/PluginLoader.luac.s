@@ -292,15 +292,32 @@ PROTO_12:
   MOVE R8 R10
   JUMPIFNOT R7 [+1]
   RETURN R8 1
-  JUMPIFNOT R7 [+13]
-  GETIMPORT R9 K11 [string.find]
+  GETIMPORT R9 K11 [game]
+  LOADK R11 K12 ["RefactorTranslatorInstance"]
+  NAMECALL R9 R9 K13 ["GetEngineFeature"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+15]
+  JUMPIFNOT R7 [+28]
+  GETIMPORT R9 K15 [string.find]
   MOVE R10 R8
-  LOADK R11 K12 ["LocalizationTable or parent tables do not contain a translation"]
+  LOADK R11 K16 ["Key .* not found for locale"]
+  CALL R9 2 1
+  JUMPIF R9 [+22]
+  GETIMPORT R9 K18 [warn]
+  MOVE R10 R8
+  GETIMPORT R11 K21 [debug.traceback]
+  CALL R11 0 -1
+  CALL R9 -1 0
+  RETURN R5 1
+  JUMPIFNOT R7 [+13]
+  GETIMPORT R9 K15 [string.find]
+  MOVE R10 R8
+  LOADK R11 K22 ["LocalizationTable or parent tables do not contain a translation"]
   CALL R9 2 1
   JUMPIF R9 [+7]
-  GETIMPORT R9 K14 [warn]
+  GETIMPORT R9 K18 [warn]
   MOVE R10 R8
-  GETIMPORT R11 K17 [debug.traceback]
+  GETIMPORT R11 K21 [debug.traceback]
   CALL R11 0 -1
   CALL R9 -1 0
   RETURN R5 1

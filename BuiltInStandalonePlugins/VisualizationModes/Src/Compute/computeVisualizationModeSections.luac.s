@@ -13,39 +13,41 @@ PROTO_1:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["createElement"]
   GETUPVAL R3 1
-  DUPTABLE R4 K14 [{"Text", "Visible", "LayoutOrder", "SettingKey", "Enabled", "SectionEntries", "MatchIndexes", "CanExpand", "CanToggle", "EntryCount", "EnabledEntryCount", "ForceExpansion", "OnToggle"}]
+  DUPTABLE R4 K15 [{"Text", "Visible", "LayoutOrder", "DefaultIsExpanded", "SettingKey", "Enabled", "SectionEntries", "MatchIndexes", "CanExpand", "CanToggle", "EntryCount", "EnabledEntryCount", "ForceExpansion", "OnToggle"}]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K15 ["title"]
+  GETTABLEKS R5 R6 K16 ["title"]
   SETTABLEKS R5 R4 K1 ["Text"]
   SETTABLEKS R1 R4 K2 ["Visible"]
   SETTABLEKS R0 R4 K3 ["LayoutOrder"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K16 ["name"]
-  SETTABLEKS R5 R4 K4 ["SettingKey"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K17 ["enabled"]
-  SETTABLEKS R5 R4 K5 ["Enabled"]
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K18 ["renderEntries"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K6 ["SectionEntries"]
-  GETUPVAL R5 4
-  SETTABLEKS R5 R4 K7 ["MatchIndexes"]
   LOADB R5 1
-  SETTABLEKS R5 R4 K8 ["CanExpand"]
+  SETTABLEKS R5 R4 K4 ["DefaultIsExpanded"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K17 ["name"]
+  SETTABLEKS R5 R4 K5 ["SettingKey"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K18 ["enabled"]
+  SETTABLEKS R5 R4 K6 ["Enabled"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K19 ["renderEntries"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K7 ["SectionEntries"]
+  GETUPVAL R5 4
+  SETTABLEKS R5 R4 K8 ["MatchIndexes"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K9 ["CanExpand"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K9 ["CanToggle"]
+  SETTABLEKS R5 R4 K10 ["CanToggle"]
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K19 ["getEntryCount"]
+  GETTABLEKS R5 R6 K20 ["getEntryCount"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K10 ["EntryCount"]
+  SETTABLEKS R5 R4 K11 ["EntryCount"]
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K20 ["getEnabledCount"]
+  GETTABLEKS R5 R6 K21 ["getEnabledCount"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K11 ["EnabledEntryCount"]
+  SETTABLEKS R5 R4 K12 ["EnabledEntryCount"]
   LOADB R5 1
   GETUPVAL R7 3
-  GETTABLEKS R6 R7 K21 ["getEntryMatchCount"]
+  GETTABLEKS R6 R7 K22 ["getEntryMatchCount"]
   CALL R6 0 1
   LOADN R7 0
   JUMPIFLT R7 R6 [+6]
@@ -53,11 +55,11 @@ PROTO_1:
   JUMPIFNOTEQKNIL R6 [+2]
   LOADB R5 0 +1
   LOADB R5 1
-  SETTABLEKS R5 R4 K12 ["ForceExpansion"]
+  SETTABLEKS R5 R4 K13 ["ForceExpansion"]
   NEWCLOSURE R5 P0
   CAPTURE UPVAL U5
   CAPTURE UPVAL U2
-  SETTABLEKS R5 R4 K13 ["OnToggle"]
+  SETTABLEKS R5 R4 K14 ["OnToggle"]
   CALL R2 2 -1
   RETURN R2 -1
 

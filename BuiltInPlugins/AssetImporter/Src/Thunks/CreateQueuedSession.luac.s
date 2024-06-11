@@ -8,41 +8,29 @@ PROTO_0:
   LOADNIL R1
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["new"]
-  DUPTABLE R3 K9 [{"assetName", "currentPreset", "enabled", "filepath", "session", "topStatus", "validSession"}]
+  DUPTABLE R3 K7 [{"assetName", "enabled", "filepath", "session", "validSession"}]
   JUMPIFNOT R1 [+3]
-  GETTABLEKS R4 R1 K10 ["ImportName"]
+  GETTABLEKS R4 R1 K8 ["ImportName"]
   JUMP [+1]
   GETUPVAL R4 2
   SETTABLEKS R4 R3 K2 ["assetName"]
-  LOADK R4 K11 [""]
-  SETTABLEKS R4 R3 K3 ["currentPreset"]
   JUMPIFNOTEQKNIL R1 [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  SETTABLEKS R4 R3 K4 ["enabled"]
+  SETTABLEKS R4 R3 K3 ["enabled"]
   GETUPVAL R4 2
-  SETTABLEKS R4 R3 K5 ["filepath"]
+  SETTABLEKS R4 R3 K4 ["filepath"]
   GETUPVAL R4 0
-  SETTABLEKS R4 R3 K6 ["session"]
-  LOADNIL R4
-  SETTABLEKS R4 R3 K7 ["topStatus"]
+  SETTABLEKS R4 R3 K5 ["session"]
   JUMPIFNOTEQKNIL R1 [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  SETTABLEKS R4 R3 K8 ["validSession"]
+  SETTABLEKS R4 R3 K6 ["validSession"]
   CALL R2 1 1
   GETUPVAL R5 3
-  GETUPVAL R6 4
-  NAMECALL R9 R0 K12 ["getState"]
-  CALL R9 1 1
-  GETTABLEKS R8 R9 K13 ["Sessions"]
-  GETTABLEKS R7 R8 K14 ["sessionQueue"]
-  NEWTABLE R8 1 0
-  GETUPVAL R9 2
-  SETTABLE R2 R8 R9
-  CALL R6 2 -1
-  CALL R5 -1 -1
-  NAMECALL R3 R0 K15 ["dispatch"]
+  MOVE R6 R2
+  CALL R5 1 -1
+  NAMECALL R3 R0 K9 ["dispatch"]
   CALL R3 -1 0
   RETURN R0 0
 
@@ -52,7 +40,6 @@ PROTO_1:
   CAPTURE UPVAL U0
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
   RETURN R2 1
 
 MAIN:
@@ -62,23 +49,16 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Thunks"]
+  GETTABLEKS R2 R3 K8 ["UpdateSessionInfo"]
   CALL R1 1 1
-  GETTABLEKS R3 R1 K8 ["Dash"]
-  GETTABLEKS R2 R3 K9 ["join"]
-  GETTABLEKS R4 R0 K10 ["Src"]
-  GETTABLEKS R3 R4 K11 ["Actions"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R5 R3 K12 ["SetSessionQueue"]
-  CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K13 ["DataTypes"]
-  GETTABLEKS R6 R7 K14 ["QueuedSession"]
-  CALL R5 1 1
-  DUPCLOSURE R6 K15 [PROTO_1]
-  CAPTURE VAL R5
-  CAPTURE VAL R4
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K9 ["DataTypes"]
+  GETTABLEKS R3 R4 K10 ["QueuedSession"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K11 [PROTO_1]
   CAPTURE VAL R2
-  RETURN R6 1
+  CAPTURE VAL R1
+  RETURN R3 1

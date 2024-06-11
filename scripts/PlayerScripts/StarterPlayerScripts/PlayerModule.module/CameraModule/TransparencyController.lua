@@ -4,14 +4,6 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
-local FFlagUserVRAvatarGestures
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRAvatarGestures")
-	end)
-	FFlagUserVRAvatarGestures = success and result
-end
-
 local VRService = game:GetService("VRService")
 local MAX_TWEEN_RATE = 2.8 -- per second
 
@@ -178,7 +170,7 @@ function TransparencyController:Update(dt)
 		-- update transparencies 
 		if self.transparencyDirty or self.lastTransparency ~= transparency then
 			for child, _ in pairs(self.cachedParts) do
-				if FFlagUserVRAvatarGestures and VRService.VREnabled and VRService.AvatarGestures then
+				if VRService.VREnabled and VRService.AvatarGestures then
 					-- keep the arms visible in VR
 					local hiddenAccessories = {
 						    [Enum.AccessoryType.Hat] = true,

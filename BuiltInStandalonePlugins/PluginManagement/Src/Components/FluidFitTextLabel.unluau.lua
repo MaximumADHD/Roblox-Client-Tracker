@@ -7,31 +7,31 @@ local var4 = var3.FitFrameVertical
 local var5 = var3.FitTextLabel
 local var6 = var2.Component:extend("FluidFitTextLabel")
 function var6.init(arg1)
-   local var23 = {}
-   var23.frameWidth = 0
-   arg1.state = var23
+   local var70 = {}
+   var70.frameWidth = 0
+   arg1.state = var70
    function arg1.resizeContainer(arg1)
       if arg1.state.frameWidth ~= arg1.AbsoluteSize.X then
-         local var32 = {}
-         var32.frameWidth = arg1.AbsoluteSize.X
-         arg1:setState(var32)
+         local var79 = {}
+         var79.frameWidth = arg1.AbsoluteSize.X
+         arg1:setState(var79)
       end
    end
    
 end
 
 function var6.render(arg1)
-   local var43 = {}
-   var43.maximumWidth = arg1.state.frameWidth
-   var43.width = UDim.new(1, 0)
-   local var54 = {}
-   var54.BackgroundTransparency = 1
-   var54.LayoutOrder = arg1.props.LayoutOrder
-   var54.width = UDim.new(1, 0)
+   local var90 = {}
+   var90.maximumWidth = arg1.state.frameWidth
+   var90.width = UDim.new(1, 0)
+   local var101 = {}
+   var101.BackgroundTransparency = 1
+   var101.LayoutOrder = arg1.props.LayoutOrder
+   var101.width = UDim.new(1, 0)
    var2.Change.AbsoluteSize = arg1.resizeContainer
-   local var64 = {}
-   var64.Text = var2.createElement(var5, var1.Dictionary.join(arg1.props, var43))
-   return var2.createElement(var4, var54, var64)
+   local var111 = {}
+   var111.Text = var2.createElement(var5, var1.Dictionary.join(arg1.props, var90))
+   return var2.createElement(var4, var101, var111)
 end
 
 return var6

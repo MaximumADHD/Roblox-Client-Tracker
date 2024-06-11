@@ -83,7 +83,7 @@ if fun1() then
       local var2 = true
       if arg1._overrides[var3.ClearSettings][var4.Clear].Disabled ~= var2 then
          arg1._overrides[var3.ClearSettings][var4.Clear].Disabled = var2
-         arg1.OnInternalsChanged()
+         arg1.OnInternalsChanged:Fire()
       end
    end
    
@@ -96,9 +96,9 @@ function var8.updateDisabled(arg1)
 end
 
 function var8.activate(arg1)
-   local var128 = var1
-   var128 = arg1
-   var128.activate(var128)
+   local var129 = var1
+   var129 = arg1
+   var129.activate(var129)
    arg1:updateDisabled()
    arg1._undo = arg1._services.ChangeHistoryService.OnUndo:Connect(function()
       arg3.Terrain:Clear()
@@ -112,9 +112,9 @@ function var8.activate(arg1)
       arg1._analytics:report("Usage", var5.Clear, 1)
    end)
    arg1._redo = arg1._services.ChangeHistoryService.OnRedo:Connect(function(arg1, arg2, arg3)
-      local var173 = var1
-      var173 = arg1
-      var173.init(var173, arg2, arg3)
+      local var174 = var1
+      var174 = arg1
+      var174.init(var174, arg2, arg3)
       local var1 = {}
       if arg3.Terrain:CountCells() == 0 then
          local var0 = false
@@ -122,8 +122,8 @@ function var8.activate(arg1)
       var1.Disabled = true
       var1.Hidden = false
       var1.Label = ""
-      local var191 = {}
-      function var191.OnClick()
+      local var192 = {}
+      function var192.OnClick()
          arg3.Terrain:Clear()
          arg3.ChangeHistoryService:SetWaypoint("Cleared Terrain")
          arg1._overrides[var3.ClearSettings][var4.Clear].Disabled = true
@@ -135,7 +135,7 @@ function var8.activate(arg1)
          arg1._analytics:report("Usage", var5.Clear, 1)
       end
       
-      var1.Schema = var191
+      var1.Schema = var192
       var1.Value = true
       var4.Clear = var1
       var3.ClearSettings = {}
@@ -145,9 +145,9 @@ function var8.activate(arg1)
 end
 
 function var8.deactivate(arg1)
-   local var232 = var1
-   var232 = arg1
-   var232.deactivate(var232)
+   local var233 = var1
+   var233 = arg1
+   var233.deactivate(var233)
    if arg1._undo then
       arg1._undo:Disconnect()
    end

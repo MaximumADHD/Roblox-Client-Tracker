@@ -2,13 +2,13 @@
 local var0 = script.Parent.Parent.Parent
 local var1 = require(var0.Packages.Cryo)
 local var2 = require(var0.Src.Constants.PluginInstalledStatus)
-local var41 = {}
-var41.plugins = {}
-local var43 = {}
-function var43.SetPluginId(arg1, arg2)
-   local var47 = var1.Dictionary
-   var47 = arg1
-   local var49 = {}
+local var208 = {}
+var208.plugins = {}
+local var210 = {}
+function var210.SetPluginId(arg1, arg2)
+   local var214 = var1.Dictionary
+   var214 = arg1
+   local var216 = {}
    local var0 = {}
    var0.installStatus = var2.UNKNOWN
    var0.installationMsg = ""
@@ -19,53 +19,53 @@ function var43.SetPluginId(arg1, arg2)
    var0.created = ""
    var0.updated = ""
    arg2.pluginId = var0
-   var49.plugins = var1.Dictionary.join(arg1.plugins, {})
-   return var47.join(var47, var49)
+   var216.plugins = var1.Dictionary.join(arg1.plugins, {})
+   return var214.join(var214, var216)
 end
 
-function var43.ClearPluginData(arg1, arg2)
+function var210.ClearPluginData(arg1, arg2)
    if not arg1.plugins[arg2.pluginId] then
       return arg1
    end
-   local var74 = var1.Dictionary
-   var74 = arg1
-   local var76 = {}
+   local var241 = var1.Dictionary
+   var241 = arg1
+   local var243 = {}
    arg2.pluginId = var1.None
-   var76.plugins = var1.Dictionary.join(arg1.plugins, {})
-   return var74.join(var74, var76)
+   var243.plugins = var1.Dictionary.join(arg1.plugins, {})
+   return var241.join(var241, var243)
 end
 
-function var43.SetPluginMetadata(arg1, arg2)
-   local var91 = arg1.plugins[arg2.pluginId]
-   local var95 = string.format("No plugin entry found for %s", arg2.pluginId)
+function var210.SetPluginMetadata(arg1, arg2)
+   local var258 = arg1.plugins[arg2.pluginId]
+   local var262 = string.format("No plugin entry found for %s", arg2.pluginId)
    assert()
-   local var98 = var1.Dictionary
-   var98 = arg1
-   local var100 = {}
-   local var113 = {}
-   var113.name = arg2.name
-   var113.description = arg2.description
-   var113.versionId = arg2.versionId
-   var113.created = arg2.created
-   var113.updated = arg2.updated
-   arg2.pluginId = var1.Dictionary.join(arg1.plugins[arg2.pluginId], var113)
-   var100.plugins = var1.Dictionary.join(arg1.plugins, {})
-   return var98.join(var98, var100)
+   local var265 = var1.Dictionary
+   var265 = arg1
+   local var267 = {}
+   local var280 = {}
+   var280.name = arg2.name
+   var280.description = arg2.description
+   var280.versionId = arg2.versionId
+   var280.created = arg2.created
+   var280.updated = arg2.updated
+   arg2.pluginId = var1.Dictionary.join(arg1.plugins[arg2.pluginId], var280)
+   var267.plugins = var1.Dictionary.join(arg1.plugins, {})
+   return var265.join(var265, var267)
 end
 
-function var43.SetPluginInstallStatus(arg1, arg2)
-   local var126 = arg1.plugins[arg2.pluginId]
-   local var130 = string.format("No plugin entry found for %s", arg2.pluginId)
+function var210.SetPluginInstallStatus(arg1, arg2)
+   local var293 = arg1.plugins[arg2.pluginId]
+   local var297 = string.format("No plugin entry found for %s", arg2.pluginId)
    assert()
-   local var133 = var1.Dictionary
-   var133 = arg1
-   local var135 = {}
-   local var148 = {}
-   var148.installStatus = arg2.statusCode
-   var148.installationMsg = arg2.message
-   arg2.pluginId = var1.Dictionary.join(arg1.plugins[arg2.pluginId], var148)
-   var135.plugins = var1.Dictionary.join(arg1.plugins, {})
-   return var133.join(var133, var135)
+   local var300 = var1.Dictionary
+   var300 = arg1
+   local var302 = {}
+   local var315 = {}
+   var315.installStatus = arg2.statusCode
+   var315.installationMsg = arg2.message
+   arg2.pluginId = var1.Dictionary.join(arg1.plugins[arg2.pluginId], var315)
+   var302.plugins = var1.Dictionary.join(arg1.plugins, {})
+   return var300.join(var300, var302)
 end
 
-return require(var0.Packages.Rodux).createReducer(var41, var43)
+return require(var0.Packages.Rodux).createReducer(var208, var210)

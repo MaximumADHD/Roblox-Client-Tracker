@@ -15,14 +15,6 @@ local TAU = 2 * math.pi
 local MIN_ALLOWED_ELEVATION_DEG = -80
 local MAX_ALLOWED_ELEVATION_DEG = 80
 
-local FFlagUserRemoveVRReferences
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserRemoveVRReferences")
-	end)
-	FFlagUserRemoveVRReferences = success and result
-end
-
 local externalProperties = {}
 externalProperties["InitialDistance"]  = 25
 externalProperties["MinDistance"]      = 10
@@ -40,7 +32,6 @@ local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 
 --[[ Services ]]--
 local PlayersService = game:GetService('Players')
-local VRService = game:GetService("VRService") -- remove with FFlagUserRemoveVRReferences
 
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
@@ -254,49 +245,26 @@ function OrbitalCamera:Update(dt: number): (CFrame, CFrame)
 			self:SetCameraToSubjectDistance(self.currentSubjectDistance * self.gamepadDollySpeedMultiplier)
 		end
 
-		local VREnabled = VRService.VREnabled and not FFlagUserRemoveVRReferences
-		newCameraFocus = VREnabled and self:GetVRFocus(subjectPosition, timeDelta) or CFrame.new(subjectPosition)
+		newCameraFocus = CFrame.new(subjectPosition)
 
 		local flaggedRotateInput = CameraInput.getRotation()
 
 		local cameraFocusP = newCameraFocus.p
-		if VREnabled and not self:IsInFirstPerson() then
-			local cameraHeight = self:GetCameraHeight()
-			local vecToSubject: Vector3 = (subjectPosition - camera.CFrame.p)
-			local distToSubject: number = vecToSubject.Magnitude
+		-- rotateInput is a Vector2 of mouse movement deltas since last update
+		self.curAzimuthRad = self.curAzimuthRad - flaggedRotateInput.X
 
-			-- Only move the camera if it exceeded a maximum distance to the subject in VR
-			if distToSubject > self.currentSubjectDistance or flaggedRotateInput.X ~= 0 then
-				local desiredDist = math.min(distToSubject, self.currentSubjectDistance)
-
-				-- Note that CalculateNewLookVector is overridden from BaseCamera
-				vecToSubject = self:CalculateNewLookVector(vecToSubject.Unit * X1_Y0_Z1, Vector2.new(flaggedRotateInput.X, 0)) * desiredDist
-
-				local newPos = cameraFocusP - vecToSubject
-				local desiredLookDir = camera.CFrame.LookVector
-				if flaggedRotateInput.X ~= 0 then
-					desiredLookDir = vecToSubject
-				end
-				local lookAt = Vector3.new(newPos.X + desiredLookDir.X, newPos.Y, newPos.Z + desiredLookDir.Z)
-				newCameraCFrame = CFrame.new(newPos, lookAt) + Vector3.new(0, cameraHeight, 0)
-			end
+		if self.useAzimuthLimits then
+			self.curAzimuthRad = math.clamp(self.curAzimuthRad, self.minAzimuthAbsoluteRad, self.maxAzimuthAbsoluteRad)
 		else
-			-- rotateInput is a Vector2 of mouse movement deltas since last update
-			self.curAzimuthRad = self.curAzimuthRad - flaggedRotateInput.X
-
-			if self.useAzimuthLimits then
-				self.curAzimuthRad = math.clamp(self.curAzimuthRad, self.minAzimuthAbsoluteRad, self.maxAzimuthAbsoluteRad)
-			else
-				self.curAzimuthRad = (self.curAzimuthRad ~= 0) and (math.sign(self.curAzimuthRad) * (math.abs(self.curAzimuthRad) % TAU)) or 0
-			end
-
-			self.curElevationRad = math.clamp(self.curElevationRad + flaggedRotateInput.Y, self.minElevationRad, self.maxElevationRad)
-
-			local cameraPosVector = self.currentSubjectDistance * ( CFrame.fromEulerAnglesYXZ( -self.curElevationRad, self.curAzimuthRad, 0 ) * UNIT_Z )
-			local camPos = subjectPosition + cameraPosVector
-
-			newCameraCFrame = CFrame.new(camPos, subjectPosition)
+			self.curAzimuthRad = (self.curAzimuthRad ~= 0) and (math.sign(self.curAzimuthRad) * (math.abs(self.curAzimuthRad) % TAU)) or 0
 		end
+
+		self.curElevationRad = math.clamp(self.curElevationRad + flaggedRotateInput.Y, self.minElevationRad, self.maxElevationRad)
+
+		local cameraPosVector = self.currentSubjectDistance * ( CFrame.fromEulerAnglesYXZ( -self.curElevationRad, self.curAzimuthRad, 0 ) * UNIT_Z )
+		local camPos = subjectPosition + cameraPosVector
+
+		newCameraCFrame = CFrame.new(camPos, subjectPosition)
 
 		self.lastCameraTransform = newCameraCFrame
 		self.lastCameraFocus = newCameraFocus

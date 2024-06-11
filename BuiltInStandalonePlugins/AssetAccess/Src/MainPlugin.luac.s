@@ -54,8 +54,12 @@ PROTO_6:
   GETUPVAL R1 1
   NAMECALL R1 R1 K1 ["GetMouse"]
   CALL R1 1 -1
-  CALL R0 -1 -1
-  RETURN R0 -1
+  CALL R0 -1 1
+  LOADK R3 K2 ["Arrow"]
+  LOADN R4 0
+  NAMECALL R1 R0 K3 ["__pushCursor"]
+  CALL R1 3 0
+  RETURN R0 0
 
 PROTO_7:
   GETUPVAL R1 0

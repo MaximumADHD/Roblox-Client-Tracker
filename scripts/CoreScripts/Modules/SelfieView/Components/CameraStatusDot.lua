@@ -4,6 +4,8 @@ local React = require(Packages.React)
 local UIBlox = require(Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 
+local GetFFlagSelfieViewRedStatusDot = require(script.Parent.Parent.Flags.GetFFlagSelfieViewRedStatusDot)
+
 export type Props = {
 	AnchorPoint: Vector2?,
 	Position: UDim2?,
@@ -20,7 +22,9 @@ local function CameraStatusDot(props: Props): React.ReactNode
 	return React.createElement("Frame", {
 		AnchorPoint = props.AnchorPoint or DEFAULT_ANCHOR_POINT,
 		Size = DOT_SIZE,
-		BackgroundColor3 = style.Theme.OnlineStatus.Color,
+		BackgroundColor3 = if GetFFlagSelfieViewRedStatusDot()
+			then style.Theme.Alert.Color
+			else style.Theme.OnlineStatus.Color,
 		Position = props.Position or DEFAULT_POSITION,
 		ZIndex = props.ZIndex,
 	}, {

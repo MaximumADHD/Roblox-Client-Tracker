@@ -149,6 +149,9 @@ local GetFFlagChatTranslationSettingEnabled = require(RobloxGui.Modules.Flags.Ge
 local GetFStringChatTranslationLayerName = require(RobloxGui.Modules.Flags.GetFStringChatTranslationLayerName)
 local GetFFlagChatTranslationLaunchEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationLaunchEnabled)
 local GetFFlagChatTranslationHoldoutEnabled = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationHoldoutEnabled)
+local GetFFlagChatTranslationWaitForIXP = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationWaitForIXP)
+local GetFFlagChatTranslationForceSetting = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationForceSetting)
+local GetFFlagChatTranslationNewDefaults = require(RobloxGui.Modules.Flags.GetFFlagChatTranslationNewDefaults)
 
 local ChatTranslationSettingsMoved = game:GetEngineFeature("TextChatServiceSettingsSaved")
 local CreateChatTranslationOptionsWithChatLanguageSwitcher = require(RobloxGui.Modules.Settings.Pages.GameSettingsRowInitializers.ChatTranslationOptionsWithChatLanguageSwitcherInitializer)
@@ -1450,13 +1453,25 @@ local function Initialize()
 				return chatTranslationLayerData
 			end
 
+			-- Wait for IXP to initialize to avoid checking layer data before it's ready
+			-- Can potentially block up to the timeout set for IXPController (default 5000 ms)
+			if (GetFFlagChatTranslationWaitForIXP()) then
+				IXPServiceWrapper:WaitForInitialization()
+			end
+
 			local layerSuccess, layerData = pcall(function()
 				return IXPServiceWrapper:GetLayerData(layerName)
 			end)
 
 			if layerSuccess then
-				chatTranslationLayerData.ChatTranslationEnabled = layerData.chatTranslationEnabled or false
-				chatTranslationLayerData.ChatTranslationToggleEnabled = layerData.chatTranslationToggleEnabled or false
+				-- After launching Chat Translation, should be On by default
+				if GetFFlagChatTranslationNewDefaults() then
+					chatTranslationLayerData.ChatTranslationEnabled = layerData.ChatTranslationEnabled or true
+					chatTranslationLayerData.ChatTranslationToggleEnabled = layerData.ChatTranslationToggleEnabled or false
+				else
+					chatTranslationLayerData.ChatTranslationEnabled = layerData.chatTranslationEnabled or false
+					chatTranslationLayerData.ChatTranslationToggleEnabled = layerData.chatTranslationToggleEnabled or false
+				end
 			end
 
 			return chatTranslationLayerData
@@ -1488,11 +1503,24 @@ local function Initialize()
 	
 						if not layerData.ChatTranslationEnabled then
 							if ChatTranslationSettingsMoved then
-								GameSettings.ChatTranslationEnabled = false
+								if GetFFlagChatTranslationNewDefaults() then
+									-- If locale is empty this is a first time load, set to Off
+									if GameSettings.ChatTranslationLocale == "" then
+										GameSettings.ChatTranslationEnabled = false
+										GameSettings.ChatTranslationLocale = "en_us"
+									end
+								else
+									GameSettings.ChatTranslationEnabled = false
+								end
 							else
 								pcall(function ()
 									TextChatService.ChatTranslationEnabled = false
 								end)
+							end
+						else
+							-- Force setting to comply with IXP result
+							if GetFFlagChatTranslationForceSetting() then
+								GameSettings.ChatTranslationEnabled = true
 							end
 						end
 					end
@@ -3481,11 +3509,24 @@ local function Initialize()
 
 						if not layerData.ChatTranslationEnabled then
 							if ChatTranslationSettingsMoved then
-								GameSettings.ChatTranslationEnabled = false
+								if GetFFlagChatTranslationNewDefaults() then
+									-- If locale is empty, this is a first time load, set to Off
+									if GameSettings.ChatTranslationLocale == "" then
+										GameSettings.ChatTranslationEnabled = false
+										GameSettings.ChatTranslationLocale = "en_us"
+									end
+								else
+									GameSettings.ChatTranslationEnabled = false
+								end
 							else
 								pcall(function ()
 									TextChatService.ChatTranslationEnabled = false
 								end)
+							end
+						else
+							-- Force setting to comply with IXP result
+							if GetFFlagChatTranslationForceSetting() then
+								GameSettings.ChatTranslationEnabled = true
 							end
 						end
 					end

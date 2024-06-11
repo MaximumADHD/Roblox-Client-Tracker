@@ -4,7 +4,7 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
 
-local act = require(Modules.act)
+local act = require(CorePackages.Roact).act
 local Rhodium = require(CorePackages.Rhodium)
 local VirtualInput = Rhodium.VirtualInput
 

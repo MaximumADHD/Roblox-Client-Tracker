@@ -31,13 +31,14 @@ local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.Sh
 local GetFFlagDisableMostRecentlyUsed = require(script.Parent.Parent.Flags.GetFFlagDisableMostRecentlyUsed)
 local GetFFlagEnableSaveUserPins = require(script.Parent.Parent.Flags.GetFFlagEnableSaveUserPins)
 local GetFFlagUseSelfieViewFlatIcon = require(script.Parent.Parent.Flags.GetFFlagUseSelfieViewFlatIcon)
+local GetFFlagEnableUserPinPortraitFix = require(script.Parent.Parent.Flags.GetFFlagEnableUserPinPortraitFix)
 local FFlagPreserveWindowsCompactUtility = game:DefineFastFlag("PreserveWindowsCompactUtility", false)
 
 local DEFAULT_PINS = game:DefineFastString("ChromeServiceDefaultPins", "leaderboard,trust_and_safety")
 
 local NOTIFICATION_INDICATOR_DISPLAY_TIME_SEC = 2.5
 local NOTIFICATION_INDICATOR_IDLE_COOLDOWN_TIME_SEC = 10
-local CHROME_INTERACTED_KEY = "ChromeInteracted2"
+local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_SEEN_COUNT_KEY = "ChromeSeenCount"
 local CHROME_PINNED_KEY = "ChromePinned"
 local MAX_CHROME_SEEN_COUNT = 3
@@ -258,8 +259,8 @@ function ChromeService.new(): ChromeService
 	self._totalNotifications = NotifySignal.new(true)
 	self._mostRecentlyUsedFullRecord = {}
 	self._mostRecentlyUsed = {}
-	self._userPins = {}
-	self._mostRecentlyUsedAndPinnedLimit = 1
+	self._userPins = if GetFFlagEnableSaveUserPins() then getUserPinStartingState() else {}
+	self._mostRecentlyUsedAndPinnedLimit = if GetFFlagEnableUserPinPortraitFix() then -1 else 1
 	self._localization = Localization.new(localeId)
 	self._localizedLabelKeys = {}
 
@@ -412,6 +413,20 @@ function ChromeService:rebuildMostRecentlyUsed()
 	self:updateNotificationTotals()
 end
 
+function getUserPinStartingState()
+	if GetFFlagEnableSaveUserPins() then
+		local defaultPins = {}
+		for defaultPin in DEFAULT_PINS:gmatch("([^,]+),?") do
+			table.insert(defaultPins, defaultPin)
+		end
+
+		local pinnedComponents = LocalStore.loadForLocalPlayer(CHROME_PINNED_KEY) or defaultPins
+		return pinnedComponents
+	end
+
+	return nil
+end
+
 function ChromeService:rebuildUserPins()
 	if GetFFlagEnableChromePinIntegrations() and self._mostRecentlyUsedAndPinnedLimit < #self._userPins then
 		local newUserPins = {}
@@ -425,20 +440,10 @@ function ChromeService:rebuildUserPins()
 		)
 
 		self._userPins = newUserPins
-
-		self:updateMenuList()
-		self:updateNotificationTotals()
-	end
-
-	if GetFFlagEnableSaveUserPins() then
-		local defaultPins = {}
-		for defaultPin in DEFAULT_PINS:gmatch("([^,]+),?") do
-			table.insert(defaultPins, defaultPin)
+		if GetFFlagEnableSaveUserPins() then
+			LocalStore.storeForLocalPlayer(CHROME_PINNED_KEY, self._userPins)
 		end
 
-		local pinnedComponents = LocalStore.loadForLocalPlayer(CHROME_PINNED_KEY) or defaultPins
-
-		self._userPins = pinnedComponents
 		self:updateMenuList()
 		self:updateNotificationTotals()
 	end
@@ -1185,21 +1190,17 @@ function ChromeService:removeUserPin(componentId: Types.IntegrationId)
 end
 
 function ChromeService:setUserPin(componentId: Types.IntegrationId, force: boolean?)
-	-- Storing user pins in local store is unbound, but the max number of pins displayed is limited
-	if GetFFlagEnableSaveUserPins() then
-		local pinnedComponents = LocalStore.loadForLocalPlayer(CHROME_PINNED_KEY) or {}
-		if table.find(pinnedComponents, componentId) then
-			return
-		end
-		table.insert(pinnedComponents, componentId)
-		LocalStore.storeForLocalPlayer(CHROME_PINNED_KEY, pinnedComponents)
-	end
 	if
 		(force or (self:withinCurrentSubmenu(componentId) and not self:isUserPinned(componentId)))
 		and #self._userPins < self._mostRecentlyUsedAndPinnedLimit
 		and GetFFlagEnableChromePinIntegrations()
 	then
 		table.insert(self._userPins, componentId)
+
+		-- Storing user pins in local store is unbound, but the max number of pins displayed is limited
+		if GetFFlagEnableSaveUserPins() then
+			LocalStore.storeForLocalPlayer(CHROME_PINNED_KEY, self._userPins)
+		end
 
 		self:removeRecentlyUsed(componentId)
 	end

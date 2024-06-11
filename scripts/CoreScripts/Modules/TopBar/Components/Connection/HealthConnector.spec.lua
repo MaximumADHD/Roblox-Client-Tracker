@@ -13,7 +13,7 @@ return function()
 
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
-	local act = require(Modules.act)
+	local act = Roact.act
 
 	local Connection = script.Parent
 	local HealthConnector = require(Connection.HealthConnector)

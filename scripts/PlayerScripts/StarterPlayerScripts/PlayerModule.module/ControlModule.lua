@@ -33,15 +33,6 @@ local DynamicThumbstick = require(script:WaitForChild("DynamicThumbstick"))
 
 local FFlagUserUpdateInputConnections = FlagUtil.getUserFlag("UserUpdateInputConnections")
 
-
-local FFlagUserVRAvatarGestures
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRAvatarGestures")
-	end)
-	FFlagUserVRAvatarGestures = success and result
-end
-
 local FFlagUserDynamicThumbstickSafeAreaUpdate do
 	local success, result = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserDynamicThumbstickSafeAreaUpdate")
@@ -55,15 +46,6 @@ local FFlagUserFixTouchJumpBug do
 	end)
 	FFlagUserFixTouchJumpBug = success and result
 end
-
-local FFlagUserFixVRAvatarGesturesSeats
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixVRAvatarGesturesSeats")
-	end)
-	FFlagUserFixVRAvatarGesturesSeats = success and result
-end
-
 local TouchThumbstick = require(script:WaitForChild("TouchThumbstick"))
 
 -- These controllers handle only walk/run movement, jumping is handled by the
@@ -139,9 +121,7 @@ function ControlModule.new()
 	self.touchControlFrame = nil
 	self.currentTorsoAngle = 0
 
-	if FFlagUserVRAvatarGestures then
-		self.inputMoveVector = Vector3.new(0,0,0)
-	end
+	self.inputMoveVector = Vector3.new(0,0,0)
 
 	self.vehicleController = VehicleController.new(CONTROL_ACTION_PRIORITY)
 
@@ -539,11 +519,9 @@ function ControlModule:OnRenderStepped(dt)
 			moveVector = self:calculateRawMoveVector(self.humanoid, moveVector)
 		end
 
-		if FFlagUserVRAvatarGestures then
-			self.inputMoveVector = moveVector
-			if VRService.VREnabled then
-				moveVector = self:updateVRMoveVector(moveVector)
-			end
+		self.inputMoveVector = moveVector
+		if VRService.VREnabled then
+			moveVector = self:updateVRMoveVector(moveVector)
 		end
 
 		self.moveFunction(Players.LocalPlayer, moveVector, false)
@@ -563,7 +541,7 @@ function ControlModule:updateVRMoveVector(moveVector)
 	
 	-- if the player is not moving via input in first person, follow the VRHead
 	if moveVector.Magnitude == 0 and firstPerson and VRService.AvatarGestures and self.humanoid 
-		and (not FFlagUserFixVRAvatarGesturesSeats or not self.humanoid.Sit) then
+		and not self.humanoid.Sit then
 
 		local vrHeadOffset = VRService:GetUserCFrame(Enum.UserCFrame.Head)
 		vrHeadOffset = vrHeadOffset.Rotation + vrHeadOffset.Position * curCamera.HeadScale

@@ -13,6 +13,7 @@ local FFlagCapturesCarouselCTABarUIUpdateEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagCapturesCarouselCTABarUIUpdateEnabled
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
+local GetFFlagEnableCapturesInChrome = require(Modules.Chrome.Flags.GetFFlagEnableCapturesInChrome)
 
 local ScreenshotsApp = Screenshots.App.createApp()
 
@@ -42,7 +43,10 @@ OverlayScreenGui.Parent = CoreGui
 
 ScreenshotsApp.mountCaptureManager(CaptureManagerScreenGui, Theme)
 ScreenshotsApp.mountCarousel(CarouselScreenGui)
-ScreenshotsApp.mountCoreUI(RobloxGui, if GetFFlagEnableScreenshotUtility() then ChromeEnabled() else nil)
+ScreenshotsApp.mountCoreUI(
+	RobloxGui,
+	if GetFFlagEnableScreenshotUtility() then GetFFlagEnableCapturesInChrome() and ChromeEnabled() else nil
+)
 ScreenshotsApp.mountCaptureOverlay(OverlayScreenGui)
 
 return ScreenshotsApp

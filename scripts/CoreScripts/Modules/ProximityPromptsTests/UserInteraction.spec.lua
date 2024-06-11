@@ -10,7 +10,7 @@ local expect = JestGlobals.expect
 local jest = JestGlobals.jest
 
 local Rhodium = require(CorePackages.Rhodium)
-local RoactAct = require(game.CoreGui.RobloxGui.Modules.act)
+local RoactAct = require(CorePackages.Roact).act
 
 local FFlagProximityPromptGamepadIcons = require(game.CoreGui.RobloxGui.Modules.Flags.FFlagProximityPromptGamepadIcons)
 

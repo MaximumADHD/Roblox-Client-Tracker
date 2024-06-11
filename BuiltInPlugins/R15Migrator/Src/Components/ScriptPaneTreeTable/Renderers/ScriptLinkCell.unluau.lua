@@ -31,16 +31,16 @@ local function fun2(arg1)
    if var2.Range then
       local var60 = {}
       local var63 = {}
-      var63.line = var2.Range.start.line
-      var63.column = var2.Range.start.character
+      var63.line = var2.Range.startLine
+      var63.column = var2.Range.startCharacter
       var60.Text = var1.Localization:getText("ScriptPane", "LineColumn", var63)
       var60.OnClick = arg1.onLinkClick
       return var1.createElement(var7, var60)
    end
-   local var77 = {}
-   var77.Text = var2.Script:GetFullName()
-   var77.TextXAlignment = Enum.TextXAlignment.Left
-   return var1.createElement(var8, var77)
+   local var75 = {}
+   var75.Text = var2.Script:GetFullName()
+   var75.TextXAlignment = Enum.TextXAlignment.Left
+   return var1.createElement(var8, var75)
 end
 
 function var13.render(arg1)
@@ -50,22 +50,22 @@ function var13.render(arg1)
    if var2.Range then
       local var60 = {}
       local var63 = {}
-      var63.line = var2.Range.start.line
-      var63.column = var2.Range.start.character
+      var63.line = var2.Range.startLine
+      var63.column = var2.Range.startCharacter
       var60.Text = var1.Localization:getText("ScriptPane", "LineColumn", var63)
       var60.OnClick = arg1.onLinkClick
       return var1.createElement(var7, var60)
    end
-   local var77 = {}
-   var77.Text = var2.Script:GetFullName()
-   var77.TextXAlignment = Enum.TextXAlignment.Left
-   return var1.createElement(var8, var77)
+   local var75 = {}
+   var75.Text = var2.Script:GetFullName()
+   var75.TextXAlignment = Enum.TextXAlignment.Left
+   return var1.createElement(var8, var75)
 end
 
 fun2 = var4.withContext
-local var83 = {}
-var83.Analytics = var4.Analytics
-var83.Localization = var4.Localization
-var83.Stylizer = var3.Style.Stylizer
-var13 = fun2(var83)(var13)
+local var81 = {}
+var81.Analytics = var4.Analytics
+var81.Localization = var4.Localization
+var81.Stylizer = var3.Style.Stylizer
+var13 = fun2(var81)(var13)
 return var13

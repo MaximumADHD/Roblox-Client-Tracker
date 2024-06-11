@@ -41,7 +41,7 @@ local ReportList
 local function resetModules()
 	jest.resetModules()
 	Modules = CoreGui.RobloxGui.Modules
-	act = require(Modules.act) -- re-import this first or things will break
+	act = require(CorePackages.Roact).act -- re-import this first or things will break
 	InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	UIBlox = InGameMenuDependencies.UIBlox
 	UIBlox.init(require(CorePackages.Workspace.Packages.RobloxAppUIBloxConfig))

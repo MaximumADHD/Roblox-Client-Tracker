@@ -1,9 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local IsExperienceMenuABTestEnabled = require(script.Parent.Parent.IsExperienceMenuABTestEnabled)
-local FFlagEnableBulkManagementExperiment = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableBulkManagementExperiment
 local FFlagEnableCapturesDesktopExperiment = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableCapturesDesktopExperiment
 local FStringCapturesIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringCapturesIXPLayer
-local FStringCapturesTabIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringCapturesTabIXPLayer
 local FStringSocialCaptureIXPLayer = require(CorePackages.Workspace.Packages.SharedFlags).FStringSocialCaptureIXPLayer
 local GetFFlagShareInviteLinkContextMenuABTestEnabled = require(script.Parent.Parent.Flags.GetFFlagShareInviteLinkContextMenuABTestEnabled)
 local GetFFlagEnableNewInviteMenuIXP = require(script.Parent.Parent.Flags.GetFFlagEnableNewInviteMenuIXP)
@@ -83,10 +81,6 @@ return function()
 
 	if FFlagEnableCapturesDesktopExperiment then
 		table.insert(layers, FStringCapturesIXPLayer)
-	end
-
-	if FFlagEnableBulkManagementExperiment then
-		table.insert(layers, FStringCapturesTabIXPLayer)
 	end
 
 	if game:GetEngineFeature("SocialCaptureLayerRegistered") and FStringSocialCaptureIXPLayer then

@@ -1,15 +1,5 @@
---!nonstrict
-
-local Players = game:GetService("Players")
-
-game:DefineFastFlag("EnableSaveUserPins", false)
+game:DefineFastFlag("EnableSaveUserPins2", false)
 
 return function()
-	local localPlayer = Players.LocalPlayer
-	while not localPlayer do
-		Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
-		localPlayer = Players.LocalPlayer
-	end
-
-	return game:GetFastFlag("EnableSaveUserPins")
+	return game:GetFastFlag("EnableSaveUserPins2")
 end

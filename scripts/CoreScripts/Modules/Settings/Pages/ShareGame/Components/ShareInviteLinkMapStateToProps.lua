@@ -9,7 +9,7 @@ local mapStateToProps = function(state)
 			shortUrl: string?,
 			linkId: string?,
 		},
-		fetchShareInviteLinkNetworkStatus = NetworkingShareLinks.GenerateLink.getStatus(state, RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue()) :: string,
+		fetchShareInviteLinkNetworkStatus = NetworkingShareLinks.GenerateLink.getStatus(state, { linkType = RoduxShareLinks.Enums.LinkType.ExperienceInvite.rawValue() }) :: string,
 	}
 end
 

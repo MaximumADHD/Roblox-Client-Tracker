@@ -49,20 +49,19 @@ PROTO_1:
   CALL R11 2 1
   SETTABLE R11 R2 R10
   FORGLOOP R5 2 [-36]
-  JUMPIFNOTEQKN R3 K15 [0] [+3]
-  LOADNIL R5
-  RETURN R5 1
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K6 ["createElement"]
   GETUPVAL R6 3
-  DUPTABLE R7 K24 [{"Text", "SettingKey", "CanToggle", "EnabledEntryCount", "Enabled", "Visible", "LayoutOrder", "EntryCount", "SectionEntries", "ForceExpansion", "DividerVisible"}]
-  LOADK R10 K25 ["VisualizationModeCategories"]
-  LOADK R11 K26 ["Recent"]
-  NAMECALL R8 R1 K27 ["getText"]
+  DUPTABLE R7 K23 [{"Text", "SettingKey", "DefaultIsExpanded", "CanToggle", "EnabledEntryCount", "Enabled", "Visible", "LayoutOrder", "EntryCount", "SectionEntries", "ForceExpansion", "IsEditingEnabled"}]
+  LOADK R10 K24 ["VisualizationModeCategories"]
+  LOADK R11 K25 ["Recent"]
+  NAMECALL R8 R1 K26 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K7 ["Text"]
-  LOADK R8 K28 ["RecentCategories"]
-  SETTABLEKS R8 R7 K16 ["SettingKey"]
+  LOADK R8 K27 ["RecentCategories"]
+  SETTABLEKS R8 R7 K15 ["SettingKey"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K16 ["DefaultIsExpanded"]
   LOADB R8 0
   SETTABLEKS R8 R7 K17 ["CanToggle"]
   SETTABLEKS R4 R7 K18 ["EnabledEntryCount"]
@@ -76,8 +75,8 @@ PROTO_1:
   SETTABLEKS R2 R7 K21 ["SectionEntries"]
   LOADB R8 0
   SETTABLEKS R8 R7 K22 ["ForceExpansion"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K23 ["DividerVisible"]
+  GETTABLEKS R8 R0 K11 ["IsEditingEnabled"]
+  SETTABLEKS R8 R7 K11 ["IsEditingEnabled"]
   CALL R5 2 -1
   RETURN R5 -1
 

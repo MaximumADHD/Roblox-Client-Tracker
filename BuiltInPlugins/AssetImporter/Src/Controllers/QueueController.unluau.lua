@@ -1,12 +1,12 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = script:FindFirstAncestor("AssetImporter")
 local var1 = require(var0.Packages.Framework)
-local var2 = var1.Dash.join
-local var3 = var1.Util.Promise
-local var4 = var0.Src.Actions
-local var5 = require(var4.SetShowPreview)
-local var6 = require(var4.SetUploading)
-local var7 = require(var4.SetSessionQueue)
+local var2 = var1.Util.Promise
+local var3 = var0.Src.Actions
+local var4 = require(var3.SetShowPreview)
+local var5 = require(var3.SetUploading)
+local var6 = require(var3.SetSessionQueue)
+local var7 = require(var3.UpdateQueueItem)
 local var8 = require(var0.Src.DataTypes.QueuedSession)
 local var9 = var0.Src.Thunks
 local var10 = require(var9.InsertModelInWorkspace)
@@ -21,12 +21,11 @@ function var14.new(arg1, arg2)
    function var0.resolveUploadPromise(arg1, arg2)
       local var0 = arg2.session
       local var1 = var0:GetImportTree()
-      local var155 = var8
-      var155 = arg2
-      local var157 = {}
-      var157.uploaded = true
-      arg2.filepath = var155.update(var155, var157)
-      local var161 = var7(var2(var0._store:getState().Sessions.sessionQueue, {}))
+      local var63 = var8
+      var63 = arg2
+      local var65 = {}
+      var65.uploaded = true
+      local var68 = var7(var63.update(var63, var65))
       var0._store:dispatch()
       local var3 = var0
       local var4 = var10(arg1, var1)
@@ -45,9 +44,9 @@ function var14.new(arg1, arg2)
 end
 
 function var14.mock(arg1)
-   local var180 = var14
-   var180 = arg1
-   return var180.new(var180, true)
+   local var87 = var14
+   var87 = arg1
+   return var87.new(var87, true)
 end
 
 function var14.destroy(arg1)
@@ -71,11 +70,11 @@ end
 function var14.removeAllQueuedFiles(arg1)
    if arg1._store:getState().Dialogs.uploading then
    end
-   local var210 = var11()
+   local var117 = var11()
    arg1._store:dispatch()
-   local var213 = arg1:_getSessionQueue()
-   arg1:destroyItem(var214)
-   local var1 = var7({})
+   local var120 = arg1:_getSessionQueue()
+   arg1:destroyItem(var121)
+   local var1 = var6({})
    arg1._store:dispatch()
 end
 
@@ -94,18 +93,18 @@ function var14.isImportEnabled(arg1, arg2)
 end
 
 function var14.beginImportQueue(arg1)
-   local var238 = arg1._store:getState().Dialogs
-   if var238.uploading then
+   local var145 = arg1._store:getState().Dialogs
+   if var145.uploading then
    end
-   local var243 = var5(false)
+   local var150 = var4(false)
    arg1._store:dispatch()
-   local var248 = var6(true)
+   local var155 = var5(true)
    arg1._store:dispatch()
-   var238 = arg1:_getSessionQueue()
+   var145 = arg1:_getSessionQueue()
    local var2 = nil
-   local var253 = nil
-   arg1:uploadItem(var254)
-   local var4 = var6(false)
+   local var160 = nil
+   arg1:uploadItem(var161)
+   local var4 = var5(false)
    arg1._store:dispatch()
 end
 
@@ -118,15 +117,14 @@ function var14.uploadItem(arg1, arg2)
 end
 
 function var14._createUploadPromise(arg1, arg2)
-   return var3.new(function(arg1, arg2)
+   return var2.new(function(arg1, arg2)
       local var0 = arg2.session
       local var1 = var0:GetImportTree()
-      local var297 = var8
-      var297 = arg2
-      local var299 = {}
-      var299.uploaded = true
-      arg2.filepath = var297.update(var297, var299)
-      local var303 = var7(var2(var0._store:getState().Sessions.sessionQueue, {}))
+      local var194 = var8
+      var194 = arg2
+      local var196 = {}
+      var196.uploaded = true
+      local var199 = var7(var194.update(var194, var196))
       var0._store:dispatch()
       local var3 = var0
       local var4 = var10(arg1, var1)

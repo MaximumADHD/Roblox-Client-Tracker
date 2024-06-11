@@ -40,6 +40,8 @@ local FFlagUseNotificationsLocalization = success and result
 
 local FFlagLogAcceptFriendshipEvent = game:DefineFastFlag("LogAcceptFriendshipEvent", false)
 
+local FFlagChangePlayerNameToDisplayName = game:DefineFastFlag("ChangePlayerNameToDisplayName", false)
+
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
@@ -748,9 +750,15 @@ local function sendFriendNotification(fromPlayer)
 	local declineText = "Decline"
 	sendNotificationInfo({
 		GroupName = "Friends",
-		Title = fromPlayer.Name,
+		Title = if FFlagChangePlayerNameToDisplayName then 
+				fromPlayer.DisplayName 
+			else 
+				fromPlayer.Name,
 		Text = "Sent you a friend request!",
-		DetailText = fromPlayer.Name,
+		DetailText = if FFlagChangePlayerNameToDisplayName then 
+				fromPlayer.DisplayName 
+			else 
+				fromPlayer.Name,
 		Image = getFriendImage(fromPlayer.UserId),
 		Duration = 8,
 		Callback = function(buttonChosen)

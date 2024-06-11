@@ -7,11 +7,11 @@ local var4 = require(var0.Src.Contexts.ActivityHistoryProvider)
 local var5 = var2.TestHelpers
 local var6 = var2.ContextServices
 local var7 = {}
-local var32 = var6.Analytics.mock()
-local var33 = var6.Localization
-local var10 = var33.mock()
-var33 = require(var0.Src.Resources.MakeTheme)
-local var11 = var33(true)
+local var51 = var6.Analytics.mock()
+local var53 = var6.Localization
+local var10 = var53.mock()
+var53 = require(var0.Src.Resources.MakeTheme)
+local var11 = var53(true)
 return function(arg1)
    if type(arg1) == "table" then
       local var0 = false

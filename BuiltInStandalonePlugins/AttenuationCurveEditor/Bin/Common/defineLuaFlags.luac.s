@@ -6,14 +6,19 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["LoadAttenuationCurveEditorInAssetDM"]
+  LOADK R2 K4 ["MoveAttenuationCurveEditorSignal"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K5 ["AudioEmitterDistanceAttenuationMaxPoints"]
+  LOADK R2 K5 ["LoadAttenuationCurveEditorInAssetDM"]
+  LOADB R3 0
+  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K6 ["AudioEmitterDistanceAttenuationMaxPoints"]
   LOADN R3 144
-  NAMECALL R0 R0 K6 ["DefineFastInt"]
+  NAMECALL R0 R0 K7 ["DefineFastInt"]
   CALL R0 3 0
   LOADNIL R0
   RETURN R0 1

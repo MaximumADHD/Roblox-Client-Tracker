@@ -20,8 +20,7 @@ return function()
 	local VirtualInput = Rhodium.VirtualInput
 	local withInt = require(InGameMenu.TestHelpers.withInt)
 
-	local Modules = CoreGui.RobloxGui.Modules
-	local act = require(Modules.act)
+	local act = Roact.act
 
 	local DeferredLuaHelpers = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers
 	local waitForEvents = DeferredLuaHelpers.waitForEvents

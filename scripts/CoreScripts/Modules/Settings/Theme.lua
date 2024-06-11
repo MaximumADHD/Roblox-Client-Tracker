@@ -21,6 +21,7 @@ local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTe
 local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
 local GetUIBloxEnableFontNameMapping = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetUIBloxEnableFontNameMapping
 local FFlagIncreasePlayerNameSizeConsole = game:DefineFastFlag("IncreasePlayerNameSizeConsole", false)
+local FFlagIncreaseUtilityRowTextSizeConsole = game:DefineFastFlag("IncreaseUtilityRowTextSizeConsole", false)
 
 local AppFontBaseSize = 16 * 1.2
 
@@ -152,7 +153,7 @@ local AppFont = {
 	},
 	Utility_Row_Font = {
 		Font = AppFonts.default:getMedium(),
-		TextSize = 16 * nominalSizeFactor,
+		TextSize = if (FFlagIncreaseUtilityRowTextSizeConsole and isTenFootInterface) then 24 * nominalSizeFactor else 16 * nominalSizeFactor,
 	},
 	Back_Button_Font = {
 		Font = AppFonts.default:getSemibold(),

@@ -18,7 +18,6 @@ local Thunk = require(Root.Thunk)
 
 local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
-local FFlagEnableUGC4ACollectiblePurchaseSupport = require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
 local FFlagEnableBundlePurchaseChecks = require(Root.Parent.Flags.FFlagEnableBundlePurchaseChecks)
 
 local requiredServices = {
@@ -46,21 +45,17 @@ local function initiateBundlePurchase(
 			return nil
 		end
 
-		if FFlagEnableUGC4ACollectiblePurchaseSupport then
-			store:dispatch(
-				RequestBundlePurchase(
-					bundleId,
-					idempotencyKey,
-					purchaseAuthToken,
-					collectibleItemId,
-					collectibleItemInstanceId,
-					collectibleProductId,
-					expectedPrice
-				)
+		store:dispatch(
+			RequestBundlePurchase(
+				bundleId,
+				idempotencyKey,
+				purchaseAuthToken,
+				collectibleItemId,
+				collectibleItemInstanceId,
+				collectibleProductId,
+				expectedPrice
 			)
-		else
-			store:dispatch(RequestBundlePurchase(bundleId))
-		end
+		)
 
 		local isStudio = externalSettings.isStudio()
 		if not isStudio and Players.LocalPlayer.UserId <= 0 then
@@ -95,7 +90,7 @@ local function initiateBundlePurchase(
 										results.bundleDetails,
 										results.accountInfo,
 										results.balanceInfo,
-										if FFlagEnableUGC4ACollectiblePurchaseSupport then expectedPrice else nil,
+										expectedPrice,
 										if FFlagEnableBundlePurchaseChecks then results.alreadyOwned else nil
 									)
 								)
@@ -114,7 +109,7 @@ local function initiateBundlePurchase(
 								results.bundleDetails,
 								results.accountInfo,
 								results.balanceInfo,
-								if FFlagEnableUGC4ACollectiblePurchaseSupport then expectedPrice else nil
+								expectedPrice
 							)
 						)
 					end)

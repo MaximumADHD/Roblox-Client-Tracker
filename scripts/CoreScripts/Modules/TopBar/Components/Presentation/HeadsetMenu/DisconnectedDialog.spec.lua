@@ -12,7 +12,7 @@ return function()
 	local jestExpect = JestGlobals.expect
 
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
-	local act = require(Modules.act)
+	local act = Roact.act
 
 	local MockGuiService = require(Modules.TestHelpers.MockGuiService)
 

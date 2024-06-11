@@ -2,15 +2,23 @@ PROTO_0:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["createElement"]
   GETUPVAL R3 1
-  DUPTABLE R4 K5 [{"LayoutOrder", "Visible", "OnVisualizationModeToggle", "RecentVisualizationModes"}]
+  DUPTABLE R4 K6 [{"LayoutOrder", "Visible", "IsEditingEnabled", "OnVisualizationModeToggle", "RecentVisualizationModes"}]
   SETTABLEKS R0 R4 K1 ["LayoutOrder"]
   SETTABLEKS R1 R4 K2 ["Visible"]
+  GETIMPORT R6 K8 [next]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K5 ["RecentVisualizationModes"]
+  CALL R6 1 1
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  SETTABLEKS R5 R4 K3 ["IsEditingEnabled"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K3 ["OnVisualizationModeToggle"]
-  SETTABLEKS R5 R4 K3 ["OnVisualizationModeToggle"]
+  GETTABLEKS R5 R6 K4 ["OnVisualizationModeToggle"]
+  SETTABLEKS R5 R4 K4 ["OnVisualizationModeToggle"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K4 ["RecentVisualizationModes"]
-  SETTABLEKS R5 R4 K4 ["RecentVisualizationModes"]
+  GETTABLEKS R5 R6 K5 ["RecentVisualizationModes"]
+  SETTABLEKS R5 R4 K5 ["RecentVisualizationModes"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -52,13 +60,8 @@ PROTO_2:
   DUPTABLE R5 K11 [{"key", "visible", "renderContent"}]
   LOADK R6 K12 ["RecentSection"]
   SETTABLEKS R6 R5 K8 ["key"]
-  LOADB R6 0
   GETTABLEKS R7 R2 K13 ["searchText"]
-  JUMPIFNOTEQKS R7 K14 [""] [+10]
-  GETIMPORT R7 K16 [next]
-  GETTABLEKS R8 R0 K17 ["RecentVisualizationModes"]
-  CALL R7 1 1
-  JUMPIFNOTEQKNIL R7 [+2]
+  JUMPIFEQKS R7 K14 [""] [+2]
   LOADB R6 0 +1
   LOADB R6 1
   SETTABLEKS R6 R5 K9 ["visible"]
@@ -70,18 +73,18 @@ PROTO_2:
   CALL R4 1 0
   NEWTABLE R4 1 0
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K18 ["createElement"]
+  GETTABLEKS R5 R6 K15 ["createElement"]
   GETUPVAL R6 5
   CALL R5 1 1
-  SETTABLEKS R5 R4 K19 ["View"]
-  GETTABLEKS R5 R0 K20 ["VisualizationModeCategories"]
+  SETTABLEKS R5 R4 K16 ["View"]
+  GETTABLEKS R5 R0 K17 ["VisualizationModeCategories"]
   LOADNIL R6
   LOADNIL R7
   FORGPREP R5
-  GETTABLEKS R11 R9 K21 ["name"]
+  GETTABLEKS R11 R9 K18 ["name"]
   GETTABLE R10 R4 R11
   GETTABLEKS R11 R1 K7 ["addSection"]
-  GETTABLEKS R12 R3 K22 ["createSection"]
+  GETTABLEKS R12 R3 K19 ["createSection"]
   MOVE R13 R9
   MOVE R14 R10
   CALL R12 2 -1
@@ -89,9 +92,9 @@ PROTO_2:
   FORGLOOP R5 2 [-12]
   GETTABLEKS R5 R1 K7 ["addSection"]
   DUPTABLE R6 K11 [{"key", "visible", "renderContent"}]
-  LOADK R7 K23 ["HiddenCount"]
+  LOADK R7 K20 ["HiddenCount"]
   SETTABLEKS R7 R6 K8 ["key"]
-  GETTABLEKS R8 R2 K24 ["getFilteredCount"]
+  GETTABLEKS R8 R2 K21 ["getFilteredCount"]
   CALL R8 0 1
   LOADN R9 0
   JUMPIFLT R9 R8 [+2]
@@ -105,69 +108,69 @@ PROTO_2:
   SETTABLEKS R7 R6 K10 ["renderContent"]
   CALL R5 1 0
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K18 ["createElement"]
+  GETTABLEKS R5 R6 K15 ["createElement"]
   GETUPVAL R6 7
   NEWTABLE R7 2 0
   GETUPVAL R9 3
-  GETTABLEKS R8 R9 K25 ["Tag"]
-  LOADK R9 K26 ["X-ColumnS X-Top"]
+  GETTABLEKS R8 R9 K22 ["Tag"]
+  LOADK R9 K23 ["X-ColumnS X-Top"]
   SETTABLE R9 R7 R8
-  GETTABLEKS R8 R0 K27 ["Size"]
-  SETTABLEKS R8 R7 K27 ["Size"]
-  DUPTABLE R8 K30 [{"SearchBarContainer", "ScrollingFrame"}]
+  GETTABLEKS R8 R0 K24 ["Size"]
+  SETTABLEKS R8 R7 K24 ["Size"]
+  DUPTABLE R8 K27 [{"SearchBarContainer", "ScrollingFrame"}]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K18 ["createElement"]
+  GETTABLEKS R9 R10 K15 ["createElement"]
   GETUPVAL R10 8
-  DUPTABLE R11 K32 [{"FuzzySearch", "LayoutOrder"}]
+  DUPTABLE R11 K29 [{"FuzzySearch", "LayoutOrder"}]
   SETTABLEKS R2 R11 K3 ["FuzzySearch"]
   LOADN R12 1
-  SETTABLEKS R12 R11 K31 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K28 ["LayoutOrder"]
   CALL R9 2 1
-  SETTABLEKS R9 R8 K28 ["SearchBarContainer"]
+  SETTABLEKS R9 R8 K25 ["SearchBarContainer"]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K18 ["createElement"]
+  GETTABLEKS R9 R10 K15 ["createElement"]
   GETUPVAL R10 9
   NEWTABLE R11 4 0
   GETUPVAL R13 3
-  GETTABLEKS R12 R13 K25 ["Tag"]
-  LOADK R13 K33 ["ScrollingAutomaticSize VisualizationModes-MainScrollingFrame"]
+  GETTABLEKS R12 R13 K22 ["Tag"]
+  LOADK R13 K30 ["ScrollingAutomaticSize VisualizationModes-MainScrollingFrame"]
   SETTABLE R13 R11 R12
-  GETTABLEKS R13 R0 K34 ["SizeCalculator"]
-  GETTABLEKS R12 R13 K35 ["scrollingFrameSize"]
-  SETTABLEKS R12 R11 K27 ["Size"]
+  GETTABLEKS R13 R0 K31 ["SizeCalculator"]
+  GETTABLEKS R12 R13 K32 ["scrollingFrameSize"]
+  SETTABLEKS R12 R11 K24 ["Size"]
   LOADN R12 2
-  SETTABLEKS R12 R11 K31 ["LayoutOrder"]
-  DUPTABLE R12 K37 [{"Content"}]
+  SETTABLEKS R12 R11 K28 ["LayoutOrder"]
+  DUPTABLE R12 K34 [{"Content"}]
   GETUPVAL R14 3
-  GETTABLEKS R13 R14 K18 ["createElement"]
+  GETTABLEKS R13 R14 K15 ["createElement"]
   GETUPVAL R14 7
   NEWTABLE R15 2 0
   GETUPVAL R17 3
-  GETTABLEKS R16 R17 K25 ["Tag"]
-  LOADK R17 K38 ["X-Column X-Top X-FitY"]
+  GETTABLEKS R16 R17 K22 ["Tag"]
+  LOADK R17 K35 ["X-Column X-Top X-FitY"]
   SETTABLE R17 R15 R16
-  GETTABLEKS R17 R0 K34 ["SizeCalculator"]
-  GETTABLEKS R16 R17 K39 ["contentFrameRef"]
-  SETTABLEKS R16 R15 K40 ["ref"]
-  DUPTABLE R16 K43 [{"Sections", "UIPadding"}]
-  GETTABLEKS R17 R1 K44 ["getSections"]
+  GETTABLEKS R17 R0 K31 ["SizeCalculator"]
+  GETTABLEKS R16 R17 K36 ["contentFrameRef"]
+  SETTABLEKS R16 R15 K37 ["ref"]
+  DUPTABLE R16 K40 [{"Sections", "UIPadding"}]
+  GETTABLEKS R17 R1 K41 ["getSections"]
   CALL R17 0 1
-  SETTABLEKS R17 R16 K41 ["Sections"]
+  SETTABLEKS R17 R16 K38 ["Sections"]
   GETUPVAL R18 3
-  GETTABLEKS R17 R18 K18 ["createElement"]
-  LOADK R18 K42 ["UIPadding"]
-  DUPTABLE R19 K46 [{"PaddingRight"}]
-  GETIMPORT R20 K49 [UDim.new]
+  GETTABLEKS R17 R18 K15 ["createElement"]
+  LOADK R18 K39 ["UIPadding"]
+  DUPTABLE R19 K43 [{"PaddingRight"}]
+  GETIMPORT R20 K46 [UDim.new]
   LOADN R21 0
   LOADN R22 1
   CALL R20 2 1
-  SETTABLEKS R20 R19 K45 ["PaddingRight"]
+  SETTABLEKS R20 R19 K42 ["PaddingRight"]
   CALL R17 2 1
-  SETTABLEKS R17 R16 K42 ["UIPadding"]
+  SETTABLEKS R17 R16 K39 ["UIPadding"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K36 ["Content"]
+  SETTABLEKS R13 R12 K33 ["Content"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K29 ["ScrollingFrame"]
+  SETTABLEKS R9 R8 K26 ["ScrollingFrame"]
   CALL R5 3 -1
   RETURN R5 -1
 

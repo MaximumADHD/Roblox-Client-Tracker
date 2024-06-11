@@ -23,18 +23,10 @@ local FIRST_PERSON_DISTANCE_MIN = 0.5
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
-local FFlagUserRemoveVRReferences
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserRemoveVRReferences")
-	end)
-	FFlagUserRemoveVRReferences = success and result
-end
 local FFlagUserFixCameraOffsetJitter = FlagUtil.getUserFlag("UserFixCameraOffsetJitter2")
 
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
-local VRService = game:GetService("VRService") -- remove with FFlagUserRemoveVRReferences
 
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local Util = require(script.Parent:WaitForChild("CameraUtils"))
@@ -179,7 +171,7 @@ function ClassicCamera:Update()
 						end
 					end
 
-				elseif self.isFollowCamera and (not (isInFirstPerson or userRecentlyPannedCamera) and (FFlagUserRemoveVRReferences or (not VRService.VREnabled))) then
+				elseif self.isFollowCamera and not (isInFirstPerson or userRecentlyPannedCamera) then
 					-- Logic that was unique to the old FollowCamera module
 					local lastVec = -(self.lastCameraTransform.p - subjectPosition)
 
@@ -200,46 +192,15 @@ function ClassicCamera:Update()
 		end
 
 		if not self.isFollowCamera then
-			local VREnabled = VRService.VREnabled and not FFlagUserRemoveVRReferences
-
-			if VREnabled then -- remove with FFlagUserRemoveVRReferences
-				newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
-			else
-				newCameraFocus = CFrame.new(subjectPosition)
-			end
+			newCameraFocus = CFrame.new(subjectPosition)
 
 			local cameraFocusP = newCameraFocus.p
-			if VREnabled and not self:IsInFirstPerson() then
-				local vecToSubject = (subjectPosition - camera.CFrame.p)
-				local distToSubject = vecToSubject.magnitude
-
-				local flaggedRotateInput = rotateInput
-
-				-- Only move the camera if it exceeded a maximum distance to the subject in VR
-				if distToSubject > zoom or flaggedRotateInput.x ~= 0 then
-					local desiredDist = math.min(distToSubject, zoom)
-					vecToSubject = self:CalculateNewLookVectorFromArg(nil, rotateInput) * desiredDist
-					local newPos = cameraFocusP - vecToSubject
-					local desiredLookDir = camera.CFrame.lookVector
-					if flaggedRotateInput.x ~= 0 then
-						desiredLookDir = vecToSubject
-					end
-					local lookAt = Vector3.new(newPos.x + desiredLookDir.x, newPos.y, newPos.z + desiredLookDir.z)
-
-					newCameraCFrame = CFrame.new(newPos, lookAt) + Vector3.new(0, cameraHeight, 0)
-				end
-			else
-				local newLookVector = self:CalculateNewLookVectorFromArg(overrideCameraLookVector, rotateInput)
-				newCameraCFrame = CFrame.new(cameraFocusP - (zoom * newLookVector), cameraFocusP)
-			end
+			local newLookVector = self:CalculateNewLookVectorFromArg(overrideCameraLookVector, rotateInput)
+			newCameraCFrame = CFrame.new(cameraFocusP - (zoom * newLookVector), cameraFocusP)
 		else -- is FollowCamera
 			local newLookVector = self:CalculateNewLookVectorFromArg(overrideCameraLookVector, rotateInput)
 
-			if VRService.VREnabled and not FFlagUserRemoveVRReferences then
-				newCameraFocus = self:GetVRFocus(subjectPosition, timeDelta)
-			else
-				newCameraFocus = CFrame.new(subjectPosition)
-			end
+			newCameraFocus = CFrame.new(subjectPosition)
 			newCameraCFrame = CFrame.new(newCameraFocus.p - (zoom * newLookVector), newCameraFocus.p) + Vector3.new(0, cameraHeight, 0)
 		end
 

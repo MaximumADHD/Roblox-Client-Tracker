@@ -7,6 +7,8 @@ local Package = require(PackageIndex["SocialLuaAnalytics"]["SocialLuaAnalytics"]
 
 export type DiagEventActionType = Package.DiagEventActionType
 export type EventStreamActionType = Package.EventStreamActionType
+export type TelemetryEventList = Package.TelemetryEventList
+export type TelemetryEventAction = Package.TelemetryEventAction
 export type PlatformSpecificityType = Package.PlatformSpecificityType
 
 

@@ -17,8 +17,7 @@ return function()
 	local log = require(RobloxGui.Modules.Logger)
 	local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 	local MockAvatarChatService = require(RobloxGui.Modules.VoiceChat.Mocks.MockAvatarChatService)
-	local Modules = CoreGui.RobloxGui.Modules
-	local act = require(Modules.act)
+	local act = require(CorePackages.Roact).act
 	local VCSS = require(script.Parent.VoiceChatServiceStub)
 	local VoiceChatServiceStub = VCSS.VoiceChatServiceStub
 	local makeMockUser = VCSS.makeMockUser

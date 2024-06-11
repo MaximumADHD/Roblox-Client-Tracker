@@ -19,8 +19,6 @@ local DEVCONSOLE_TEXT_FRAMESIZE = TextService:GetTextSize(DEVCONSOLE_TEXT, Const
 local LiveUpdateElement = require(script.Parent.Parent.Components.LiveUpdateElement)
 local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsolePosition)
 
-local GetFFlagDevConsoleCloseButtonOverlapFix = require(RobloxGui.Modules.Common.Flags.GetFFlagDevConsoleCloseButtonOverlapFix)
-
 local DevConsoleTopBar = Roact.Component:extend("DevConsoleTopBar")
 
 function DevConsoleTopBar:init()
@@ -66,7 +64,7 @@ function DevConsoleTopBar:init()
 		end
 	end
 	self.inputEnded = function(rbx,input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 and 
+		if input.UserInputType == Enum.UserInputType.MouseButton1 and
 			input.UserInputState == Enum.UserInputState.End then
 
 			-- stop listening to inputchanged when stopping dragging to save performance
@@ -80,7 +78,7 @@ function DevConsoleTopBar:init()
 			})
 		end
 	end
-	
+
 	self.ref = Roact.createRef()
 end
 
@@ -161,28 +159,16 @@ function DevConsoleTopBar:render()
 			})
 		end
 	end
-	if GetFFlagDevConsoleCloseButtonOverlapFix() then
-		elements["CloseButton"] = Roact.createElement("ImageButton", {
-			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-			Position = UDim2.new(1, -FRAME_HEIGHT + ICON_PADDING, 0, ICON_PADDING),
-			BorderColor3 = Color3.new(0, 1, 0),
-			BackgroundColor3 = Constants.Color.BaseGray,
-			BackgroundTransparency = 1,
-			ZIndex = 2,
-			Image = Constants.Image.Close,
-			[Roact.Event.Activated] = onCloseClicked,
-		})
-	else
-		elements["CloseButton"] = Roact.createElement("ImageButton", {
-			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-			Position = UDim2.new(1, -FRAME_HEIGHT + ICON_PADDING, 0, ICON_PADDING),
-			BorderColor3 = Color3.new(0, 1, 0),
-			BackgroundColor3 = Constants.Color.BaseGray,
-			BackgroundTransparency = 1,
-			Image = Constants.Image.Close,
-			[Roact.Event.Activated] = onCloseClicked,
-		})
-	end
+	elements["CloseButton"] = Roact.createElement("ImageButton", {
+		Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+		Position = UDim2.new(1, -FRAME_HEIGHT + ICON_PADDING, 0, ICON_PADDING),
+		BorderColor3 = Color3.new(0, 1, 0),
+		BackgroundColor3 = Constants.Color.BaseGray,
+		BackgroundTransparency = 1,
+		ZIndex = 2,
+		Image = Constants.Image.Close,
+		[Roact.Event.Activated] = onCloseClicked,
+	})
 
 	return Roact.createElement("ImageButton", {
 		Size = UDim2.new(1, 0, 0, FRAME_HEIGHT),

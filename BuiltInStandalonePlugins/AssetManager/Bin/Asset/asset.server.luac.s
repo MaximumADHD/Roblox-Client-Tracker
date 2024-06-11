@@ -85,37 +85,43 @@ MAIN:
   GETIMPORT R2 K9 [require]
   GETTABLEKS R3 R1 K10 ["defineLuaFlags"]
   CALL R2 1 0
+  GETIMPORT R2 K12 [game]
+  LOADK R4 K13 ["DebugAssetMgInAssetDm"]
+  NAMECALL R2 R2 K14 ["GetFastFlag"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
   GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R0 K11 ["Packages"]
-  GETTABLEKS R3 R4 K12 ["TestLoader"]
+  GETTABLEKS R4 R0 K15 ["Packages"]
+  GETTABLEKS R3 R4 K16 ["TestLoader"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K13 ["launch"]
+  GETTABLEKS R3 R2 K17 ["launch"]
   LOADK R4 K4 ["AssetManager"]
-  GETTABLEKS R5 R0 K14 ["Src"]
+  GETTABLEKS R5 R0 K18 ["Src"]
   CALL R3 2 0
-  GETTABLEKS R3 R2 K15 ["isCli"]
+  GETTABLEKS R3 R2 K19 ["isCli"]
   CALL R3 0 1
   JUMPIFNOT R3 [+1]
   RETURN R0 0
-  GETIMPORT R3 K17 [game]
-  LOADK R5 K18 ["EnableAssetManager"]
-  NAMECALL R3 R3 K19 ["GetFastFlag"]
+  GETIMPORT R3 K12 [game]
+  LOADK R5 K20 ["EnableAssetManager"]
+  NAMECALL R3 R3 K14 ["GetFastFlag"]
   CALL R3 2 1
   JUMPIF R3 [+1]
   RETURN R0 0
-  GETTABLEKS R3 R2 K20 ["getDebugFlags"]
+  GETTABLEKS R3 R2 K21 ["getDebugFlags"]
   LOADK R4 K4 ["AssetManager"]
   CALL R3 1 1
   GETIMPORT R5 K1 [plugin]
-  GETTABLEKS R4 R5 K21 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R5 R4 K22 ["FocusedDataModelSession"]
-  DUPCLOSURE R6 K23 [PROTO_1]
+  GETTABLEKS R4 R5 K22 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R5 R4 K23 ["FocusedDataModelSession"]
+  DUPCLOSURE R6 K24 [PROTO_1]
   CAPTURE VAL R3
   CAPTURE VAL R0
   CAPTURE VAL R5
-  GETTABLEKS R7 R5 K24 ["CurrentDataModelTypeChanged"]
+  GETTABLEKS R7 R5 K25 ["CurrentDataModelTypeChanged"]
   MOVE R9 R6
-  NAMECALL R7 R7 K25 ["Connect"]
+  NAMECALL R7 R7 K26 ["Connect"]
   CALL R7 2 0
   MOVE R7 R6
   CALL R7 0 0

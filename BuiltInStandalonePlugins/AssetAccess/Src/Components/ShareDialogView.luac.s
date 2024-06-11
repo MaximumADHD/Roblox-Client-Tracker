@@ -88,36 +88,43 @@ PROTO_3:
   SETTABLEKS R4 R9 K21 ["AssetModels"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K9 ["Contents"]
-  JUMPIFNOT R1 [+15]
+  JUMPIFNOT R1 [+25]
   GETTABLEKS R8 R1 K1 ["state"]
-  JUMPIFNOTEQKS R8 K2 ["Prompt"] [+12]
-  DUPTABLE R7 K25 [{"Label", "OnActivated"}]
+  JUMPIFNOTEQKS R8 K2 ["Prompt"] [+22]
+  DUPTABLE R7 K26 [{"Label", "OnActivated", "Enabled"}]
   LOADK R10 K16 ["ShareDialogView"]
-  LOADK R11 K26 ["PromptActionShare"]
+  LOADK R11 K27 ["PromptActionShare"]
   NAMECALL R8 R0 K18 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K23 ["Label"]
   SETTABLEKS R2 R7 K24 ["OnActivated"]
+  GETIMPORT R9 K29 [next]
+  MOVE R10 R4
+  CALL R9 1 1
+  JUMPIFNOTEQKNIL R9 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  SETTABLEKS R8 R7 K25 ["Enabled"]
   JUMP [+18]
   JUMPIFNOT R1 [+16]
   GETTABLEKS R8 R1 K1 ["state"]
   JUMPIFNOTEQKS R8 K3 ["Sharing"] [+13]
-  DUPTABLE R7 K28 [{"Label", "Enabled"}]
+  DUPTABLE R7 K30 [{"Label", "Enabled"}]
   LOADK R10 K16 ["ShareDialogView"]
-  LOADK R11 K29 ["PromptActionSharing"]
+  LOADK R11 K31 ["PromptActionSharing"]
   NAMECALL R8 R0 K18 ["getText"]
   CALL R8 3 1
   SETTABLEKS R8 R7 K23 ["Label"]
   LOADB R8 0
-  SETTABLEKS R8 R7 K27 ["Enabled"]
+  SETTABLEKS R8 R7 K25 ["Enabled"]
   JUMP [+1]
   LOADNIL R7
   SETTABLEKS R7 R6 K10 ["ActionPrimary"]
   GETUPVAL R9 5
-  GETTABLEKS R8 R9 K30 ["CLOSE"]
-  DUPTABLE R9 K31 [{"OnActivated"}]
+  GETTABLEKS R8 R9 K32 ["CLOSE"]
+  DUPTABLE R9 K33 [{"OnActivated"}]
   SETTABLEKS R3 R9 K24 ["OnActivated"]
-  GETIMPORT R10 K34 [table.clone]
+  GETIMPORT R10 K36 [table.clone]
   MOVE R11 R8
   CALL R10 1 1
   MOVE R11 R9
@@ -134,16 +141,16 @@ PROTO_3:
   SETTABLEKS R7 R6 K13 ["Width"]
   CALL R5 1 2
   GETUPVAL R7 2
-  DUPTABLE R8 K35 [{"Intent", "Heading", "Body", "Contents", "ActionPrimary", "Modal", "Width"}]
-  LOADK R9 K36 ["Error"]
+  DUPTABLE R8 K37 [{"Intent", "Heading", "Body", "Contents", "ActionPrimary", "Modal", "Width"}]
+  LOADK R9 K38 ["Error"]
   SETTABLEKS R9 R8 K6 ["Intent"]
   LOADK R11 K16 ["ShareDialogView"]
-  LOADK R12 K37 ["CantShareHeading"]
+  LOADK R12 K39 ["CantShareHeading"]
   NAMECALL R9 R0 K18 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K7 ["Heading"]
   LOADK R11 K16 ["ShareDialogView"]
-  LOADK R12 K38 ["CantShareBody"]
+  LOADK R12 K40 ["CantShareBody"]
   NAMECALL R9 R0 K18 ["getText"]
   CALL R9 3 1
   SETTABLEKS R9 R8 K8 ["Body"]
@@ -155,10 +162,10 @@ PROTO_3:
   CALL R9 2 1
   SETTABLEKS R9 R8 K9 ["Contents"]
   GETUPVAL R11 5
-  GETTABLEKS R10 R11 K39 ["OK"]
-  DUPTABLE R11 K31 [{"OnActivated"}]
+  GETTABLEKS R10 R11 K41 ["OK"]
+  DUPTABLE R11 K33 [{"OnActivated"}]
   SETTABLEKS R3 R11 K24 ["OnActivated"]
-  GETIMPORT R12 K34 [table.clone]
+  GETIMPORT R12 K36 [table.clone]
   MOVE R13 R10
   CALL R12 1 1
   MOVE R13 R11
@@ -175,24 +182,24 @@ PROTO_3:
   SETTABLEKS R9 R8 K13 ["Width"]
   CALL R7 1 2
   GETUPVAL R9 2
-  DUPTABLE R10 K40 [{"Intent", "Heading", "Body", "ActionPrimary", "Modal"}]
-  LOADK R11 K36 ["Error"]
+  DUPTABLE R10 K42 [{"Intent", "Heading", "Body", "ActionPrimary", "Modal"}]
+  LOADK R11 K38 ["Error"]
   SETTABLEKS R11 R10 K6 ["Intent"]
   LOADK R13 K16 ["ShareDialogView"]
-  LOADK R14 K41 ["UnexpectedErrorHeading"]
+  LOADK R14 K43 ["UnexpectedErrorHeading"]
   NAMECALL R11 R0 K18 ["getText"]
   CALL R11 3 1
   SETTABLEKS R11 R10 K7 ["Heading"]
   LOADK R13 K16 ["ShareDialogView"]
-  LOADK R14 K42 ["UnexpectedErrorBody"]
+  LOADK R14 K44 ["UnexpectedErrorBody"]
   NAMECALL R11 R0 K18 ["getText"]
   CALL R11 3 1
   SETTABLEKS R11 R10 K8 ["Body"]
   GETUPVAL R13 5
-  GETTABLEKS R12 R13 K39 ["OK"]
-  DUPTABLE R13 K31 [{"OnActivated"}]
+  GETTABLEKS R12 R13 K41 ["OK"]
+  DUPTABLE R13 K33 [{"OnActivated"}]
   SETTABLEKS R3 R13 K24 ["OnActivated"]
-  GETIMPORT R14 K34 [table.clone]
+  GETIMPORT R14 K36 [table.clone]
   MOVE R15 R12
   CALL R14 1 1
   MOVE R15 R13
@@ -207,7 +214,7 @@ PROTO_3:
   SETTABLEKS R11 R10 K12 ["Modal"]
   CALL R9 1 2
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K43 ["useEffect"]
+  GETTABLEKS R11 R12 K45 ["useEffect"]
   NEWCLOSURE R12 P0
   CAPTURE VAL R1
   CAPTURE VAL R5
@@ -220,7 +227,7 @@ PROTO_3:
   JUMPIFNOT R1 [+3]
   GETTABLEKS R14 R1 K1 ["state"]
   JUMP [+1]
-  LOADK R14 K44 ["Inactive"]
+  LOADK R14 K46 ["Inactive"]
   SETLIST R13 R14 1 [1]
   CALL R11 2 0
   LOADNIL R11

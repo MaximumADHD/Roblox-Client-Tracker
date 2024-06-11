@@ -2,17 +2,17 @@
 return function()
 	--For tests specific to InviteFriendsList, see InviteFriendsList.spec.lua
 	local CorePackages = game:GetService("CorePackages")
-	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
 
-	local act = require(Modules.act)
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local Rodux = InGameMenuDependencies.Rodux
 	local RoactRodux = InGameMenuDependencies.RoactRodux
 	local UIBlox = InGameMenuDependencies.UIBlox
+	
+	local act = Roact.act
 
 	local InGameMenu = script.Parent.Parent.Parent
 	local Localization = require(InGameMenu.Localization.Localization)

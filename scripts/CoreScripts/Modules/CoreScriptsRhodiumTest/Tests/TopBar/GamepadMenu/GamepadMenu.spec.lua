@@ -28,7 +28,7 @@ local defaultStyle = {
 local JestGlobals = require(CorePackages.JestGlobals)
 local jestExpect = JestGlobals.expect
 
-local RoactAct = require(Modules.act)
+local RoactAct = Roact.act
 
 local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
 
@@ -37,7 +37,7 @@ local Presentation = TopBar.Components.Presentation
 local GamepadMenu = require(Presentation.GamepadMenu)
 local Reducer = require(TopBar.Reducer)
 local MenuNavigationPromptTokenMapper = require(TopBar.TokenMappers.MenuNavigationPromptTokenMapper)
-local FFlagEnableGamepadMenuSelector = require(TopBar.Flags.FFlagEnableGamepadMenuSelector)
+local FFlagEnableGamepadMenuSelector = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableGamepadMenuSelector
 
 local ChromeEnabled = require(Modules.Chrome.Enabled)
 

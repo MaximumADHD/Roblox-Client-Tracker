@@ -45,65 +45,38 @@ PROTO_1:
   GETIMPORT R15 K17 [table.insert]
   CALL R15 2 0
   FORGLOOP R10 2 [-21]
-  LOADB R10 0
   GETUPVAL R11 0
-  CALL R11 0 1
-  JUMPIF R11 [+15]
-  GETIMPORT R11 K9 [pairs]
-  MOVE R12 R8
-  CALL R11 1 3
-  FORGPREP_NEXT R11
-  GETTABLEKS R16 R15 K11 ["name"]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K18 ["CONTEXTUAL_RECOMMENDATIONS_HOME_CONFIG_SECTION_NAME"]
-  JUMPIFNOTEQ R16 R17 [+2]
-  LOADB R10 1
-  FORGLOOP R11 2 [-9]
-  GETUPVAL R12 2
-  GETTABLEKS R11 R12 K19 ["createElement"]
-  LOADK R12 K20 ["Frame"]
-  DUPTABLE R13 K25 [{"BackgroundColor3", "BorderSizePixel", "Position", "Size"}]
-  GETTABLEKS R14 R6 K26 ["backgroundColor"]
-  SETTABLEKS R14 R13 K21 ["BackgroundColor3"]
-  LOADN R14 0
-  SETTABLEKS R14 R13 K22 ["BorderSizePixel"]
-  GETTABLEKS R14 R1 K23 ["Position"]
-  SETTABLEKS R14 R13 K23 ["Position"]
-  GETTABLEKS R14 R1 K24 ["Size"]
-  SETTABLEKS R14 R13 K24 ["Size"]
-  DUPTABLE R14 K29 [{"Navigation", "ContextualRecommendations"}]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K19 ["createElement"]
-  GETUPVAL R16 3
-  DUPTABLE R17 K35 [{"AssetType", "CategoryName", "Config", "MaxWidth", "SortName", "AssetSections", "SubcategoryDict", "TopKeywords", "TryOpenAssetConfig"}]
-  SETTABLEKS R2 R17 K1 ["AssetType"]
-  SETTABLEKS R3 R17 K2 ["CategoryName"]
-  SETTABLEKS R4 R17 K30 ["Config"]
-  GETTABLEKS R18 R1 K31 ["MaxWidth"]
-  SETTABLEKS R18 R17 K31 ["MaxWidth"]
-  SETTABLEKS R5 R17 K5 ["SortName"]
-  SETTABLEKS R8 R17 K32 ["AssetSections"]
-  SETTABLEKS R9 R17 K33 ["SubcategoryDict"]
-  GETTABLEKS R18 R4 K36 ["topKeywords"]
-  SETTABLEKS R18 R17 K34 ["TopKeywords"]
-  SETTABLEKS R7 R17 K7 ["TryOpenAssetConfig"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K27 ["Navigation"]
-  GETUPVAL R16 0
-  CALL R16 0 1
-  JUMPIFNOT R16 [+2]
-  LOADNIL R15
-  JUMP [+8]
-  JUMPIFNOT R10 [+6]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K19 ["createElement"]
-  GETUPVAL R16 4
-  CALL R15 1 1
-  JUMP [+1]
-  LOADNIL R15
-  SETTABLEKS R15 R14 K28 ["ContextualRecommendations"]
-  CALL R11 3 -1
-  RETURN R11 -1
+  GETTABLEKS R10 R11 K18 ["createElement"]
+  LOADK R11 K19 ["Frame"]
+  DUPTABLE R12 K24 [{"BackgroundColor3", "BorderSizePixel", "Position", "Size"}]
+  GETTABLEKS R13 R6 K25 ["backgroundColor"]
+  SETTABLEKS R13 R12 K20 ["BackgroundColor3"]
+  LOADN R13 0
+  SETTABLEKS R13 R12 K21 ["BorderSizePixel"]
+  GETTABLEKS R13 R1 K22 ["Position"]
+  SETTABLEKS R13 R12 K22 ["Position"]
+  GETTABLEKS R13 R1 K23 ["Size"]
+  SETTABLEKS R13 R12 K23 ["Size"]
+  DUPTABLE R13 K27 [{"Navigation"}]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K18 ["createElement"]
+  GETUPVAL R15 1
+  DUPTABLE R16 K33 [{"AssetType", "CategoryName", "Config", "MaxWidth", "SortName", "AssetSections", "SubcategoryDict", "TopKeywords", "TryOpenAssetConfig"}]
+  SETTABLEKS R2 R16 K1 ["AssetType"]
+  SETTABLEKS R3 R16 K2 ["CategoryName"]
+  SETTABLEKS R4 R16 K28 ["Config"]
+  GETTABLEKS R17 R1 K29 ["MaxWidth"]
+  SETTABLEKS R17 R16 K29 ["MaxWidth"]
+  SETTABLEKS R5 R16 K5 ["SortName"]
+  SETTABLEKS R8 R16 K30 ["AssetSections"]
+  SETTABLEKS R9 R16 K31 ["SubcategoryDict"]
+  GETTABLEKS R17 R4 K34 ["topKeywords"]
+  SETTABLEKS R17 R16 K32 ["TopKeywords"]
+  SETTABLEKS R7 R16 K7 ["TryOpenAssetConfig"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K26 ["Navigation"]
+  CALL R10 3 -1
+  RETURN R10 -1
 
 PROTO_2:
   GETIMPORT R1 K1 [ipairs]
@@ -176,103 +149,84 @@ MAIN:
   GETIMPORT R4 K5 [require]
   GETTABLEKS R5 R1 K8 ["Framework"]
   CALL R4 1 1
-  GETTABLEKS R6 R0 K9 ["Core"]
-  GETTABLEKS R5 R6 K10 ["Util"]
+  GETTABLEKS R7 R0 K9 ["Core"]
+  GETTABLEKS R6 R7 K10 ["Networking"]
+  GETTABLEKS R5 R6 K11 ["Requests"]
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R7 R5 K11 ["Constants"]
+  GETTABLEKS R7 R5 K12 ["GetHomeConfigurationRequest"]
   CALL R6 1 1
-  GETTABLEKS R9 R0 K9 ["Core"]
-  GETTABLEKS R8 R9 K12 ["Networking"]
-  GETTABLEKS R7 R8 K13 ["Requests"]
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R9 R7 K14 ["GetHomeConfigurationRequest"]
-  CALL R8 1 1
-  GETTABLEKS R9 R4 K15 ["ContextServices"]
-  GETTABLEKS R10 R9 K16 ["withContext"]
+  GETTABLEKS R7 R4 K13 ["ContextServices"]
+  GETTABLEKS R8 R7 K14 ["withContext"]
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Core"]
+  GETTABLEKS R11 R12 K13 ["ContextServices"]
+  GETTABLEKS R10 R11 K15 ["NetworkContext"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K9 ["Core"]
+  GETTABLEKS R12 R13 K16 ["Types"]
+  GETTABLEKS R11 R12 K17 ["Category"]
+  CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K9 ["Core"]
-  GETTABLEKS R13 R14 K15 ["ContextServices"]
-  GETTABLEKS R12 R13 K17 ["NetworkContext"]
+  GETTABLEKS R13 R14 K16 ["Types"]
+  GETTABLEKS R12 R13 K18 ["HomeTypes"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETTABLEKS R15 R0 K9 ["Core"]
-  GETTABLEKS R14 R15 K18 ["Types"]
-  GETTABLEKS R13 R14 K19 ["Category"]
+  GETTABLEKS R14 R15 K16 ["Types"]
+  GETTABLEKS R13 R14 K19 ["Sort"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K9 ["Core"]
-  GETTABLEKS R15 R16 K18 ["Types"]
-  GETTABLEKS R14 R15 K20 ["HomeTypes"]
-  CALL R13 1 1
-  GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K9 ["Core"]
-  GETTABLEKS R16 R17 K18 ["Types"]
-  GETTABLEKS R15 R16 K21 ["Sort"]
-  CALL R14 1 1
+  GETTABLEKS R16 R17 K20 ["Components"]
+  GETTABLEKS R15 R16 K21 ["Home"]
+  GETTABLEKS R14 R15 K22 ["NavigationContainer"]
+  CALL R13 1 1
   GETIMPORT R15 K5 [require]
-  GETTABLEKS R19 R0 K9 ["Core"]
-  GETTABLEKS R18 R19 K22 ["Components"]
-  GETTABLEKS R17 R18 K23 ["Home"]
-  GETTABLEKS R16 R17 K24 ["NavigationContainer"]
+  GETTABLEKS R16 R1 K8 ["Framework"]
   CALL R15 1 1
-  GETIMPORT R16 K5 [require]
-  GETTABLEKS R20 R0 K9 ["Core"]
-  GETTABLEKS R19 R20 K22 ["Components"]
-  GETTABLEKS R18 R19 K23 ["Home"]
-  GETTABLEKS R17 R18 K25 ["ContextualRecommendationsWrapper"]
-  CALL R16 1 1
-  GETIMPORT R18 K5 [require]
-  GETTABLEKS R19 R1 K8 ["Framework"]
+  GETTABLEKS R14 R15 K23 ["Util"]
+  GETTABLEKS R15 R14 K24 ["deepEqual"]
+  GETTABLEKS R16 R2 K25 ["Component"]
+  LOADK R18 K26 ["HomeWrapper"]
+  NAMECALL R16 R16 K27 ["extend"]
+  CALL R16 2 1
+  DUPTABLE R17 K30 [{"CategoryName", "SortName"}]
+  GETTABLEKS R19 R10 K31 ["FREE_MODELS"]
+  GETTABLEKS R18 R19 K32 ["name"]
+  SETTABLEKS R18 R17 K28 ["CategoryName"]
+  GETTABLEKS R18 R12 K33 ["getDefaultSortNameForCategory"]
+  GETTABLEKS R20 R10 K31 ["FREE_MODELS"]
+  GETTABLEKS R19 R20 K32 ["name"]
   CALL R18 1 1
-  GETTABLEKS R17 R18 K10 ["Util"]
-  GETTABLEKS R18 R17 K26 ["deepEqual"]
-  GETIMPORT R19 K5 [require]
-  GETTABLEKS R22 R0 K9 ["Core"]
-  GETTABLEKS R21 R22 K27 ["Flags"]
-  GETTABLEKS R20 R21 K28 ["getFFlagToolboxPortContextualReccomendationsToNewPackage"]
-  CALL R19 1 1
-  GETTABLEKS R20 R2 K29 ["Component"]
-  LOADK R22 K30 ["HomeWrapper"]
-  NAMECALL R20 R20 K31 ["extend"]
-  CALL R20 2 1
-  DUPTABLE R21 K34 [{"CategoryName", "SortName"}]
-  GETTABLEKS R23 R12 K35 ["FREE_MODELS"]
-  GETTABLEKS R22 R23 K36 ["name"]
-  SETTABLEKS R22 R21 K32 ["CategoryName"]
-  GETTABLEKS R22 R14 K37 ["getDefaultSortNameForCategory"]
-  GETTABLEKS R24 R12 K35 ["FREE_MODELS"]
-  GETTABLEKS R23 R24 K36 ["name"]
-  CALL R22 1 1
-  SETTABLEKS R22 R21 K33 ["SortName"]
-  SETTABLEKS R21 R20 K38 ["defaultProps"]
-  DUPCLOSURE R21 K39 [PROTO_0]
-  CAPTURE VAL R18
-  SETTABLEKS R21 R20 K40 ["shouldUpdate"]
-  DUPCLOSURE R21 K41 [PROTO_1]
-  CAPTURE VAL R19
-  CAPTURE VAL R6
-  CAPTURE VAL R2
+  SETTABLEKS R18 R17 K29 ["SortName"]
+  SETTABLEKS R17 R16 K34 ["defaultProps"]
+  DUPCLOSURE R17 K35 [PROTO_0]
   CAPTURE VAL R15
-  CAPTURE VAL R16
-  SETTABLEKS R21 R20 K42 ["render"]
-  DUPCLOSURE R21 K43 [PROTO_2]
-  SETTABLEKS R21 R20 K44 ["didMount"]
-  MOVE R21 R10
-  DUPTABLE R22 K47 [{"Stylizer", "Network"}]
-  GETTABLEKS R23 R9 K45 ["Stylizer"]
-  SETTABLEKS R23 R22 K45 ["Stylizer"]
-  SETTABLEKS R11 R22 K46 ["Network"]
-  CALL R21 1 1
-  MOVE R22 R20
-  CALL R21 1 1
-  MOVE R20 R21
-  DUPCLOSURE R21 K48 [PROTO_3]
-  DUPCLOSURE R22 K49 [PROTO_5]
-  CAPTURE VAL R8
-  GETTABLEKS R23 R3 K50 ["connect"]
-  MOVE R24 R21
-  MOVE R25 R22
-  CALL R23 2 1
-  MOVE R24 R20
-  CALL R23 1 -1
-  RETURN R23 -1
+  SETTABLEKS R17 R16 K36 ["shouldUpdate"]
+  DUPCLOSURE R17 K37 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  SETTABLEKS R17 R16 K38 ["render"]
+  DUPCLOSURE R17 K39 [PROTO_2]
+  SETTABLEKS R17 R16 K40 ["didMount"]
+  MOVE R17 R8
+  DUPTABLE R18 K43 [{"Stylizer", "Network"}]
+  GETTABLEKS R19 R7 K41 ["Stylizer"]
+  SETTABLEKS R19 R18 K41 ["Stylizer"]
+  SETTABLEKS R9 R18 K42 ["Network"]
+  CALL R17 1 1
+  MOVE R18 R16
+  CALL R17 1 1
+  MOVE R16 R17
+  DUPCLOSURE R17 K44 [PROTO_3]
+  DUPCLOSURE R18 K45 [PROTO_5]
+  CAPTURE VAL R6
+  GETTABLEKS R19 R3 K46 ["connect"]
+  MOVE R20 R17
+  MOVE R21 R18
+  CALL R19 2 1
+  MOVE R20 R16
+  CALL R19 1 -1
+  RETURN R19 -1

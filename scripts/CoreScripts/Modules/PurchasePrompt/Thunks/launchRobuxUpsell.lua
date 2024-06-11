@@ -1,6 +1,7 @@
 --!nonstrict
 local Root = script.Parent.Parent
 local Players = game:GetService("Players")
+local CorePackages = game:GetService("CorePackages")
 
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local SetPromptState = require(Root.Actions.SetPromptState)
@@ -17,6 +18,11 @@ local Network = require(Root.Services.Network)
 local PlatformInterface = require(Root.Services.PlatformInterface)
 local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
+
+local UniversalAppPolicy = require(CorePackages.Workspace.Packages.UniversalAppPolicy)
+local getAppFeaturePolicies = UniversalAppPolicy.getAppFeaturePolicies
+local GetFFlagOpenVngShopForVngRobuxPurchase =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagOpenVngShopForVngRobuxPurchase
 
 local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
@@ -70,16 +76,33 @@ local function launchRobuxUpsell()
 
 		if upsellFlow == UpsellFlow.Web then
 			local requestType = state.requestType
-
 			analytics.signalProductPurchaseUpsellConfirmed(productId, requestType, state.nativeUpsell.productId)
-			local purchaseFlow = state.purchaseFlow
-			if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
-				platformInterface.startRobuxUpsellWeb(state.nativeUpsell.productId)
+			if GetFFlagOpenVngShopForVngRobuxPurchase() then
+				if getAppFeaturePolicies().getRedirectBuyRobuxToVNG() then
+					if state.promptState == PromptState.LeaveRobloxWarning then
+						platformInterface.openVngStore()
+						store:dispatch(SetPromptState(PromptState.UpsellInProgress))
+					else
+						store:dispatch(SetPromptState(PromptState.LeaveRobloxWarning))
+					end
+				else
+					local purchaseFlow = state.purchaseFlow
+					if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
+						platformInterface.startRobuxUpsellWeb(state.nativeUpsell.productId)
+					else
+						platformInterface.startRobuxUpsellWeb()
+					end
+					store:dispatch(SetPromptState(PromptState.UpsellInProgress))
+				end
 			else
-				platformInterface.startRobuxUpsellWeb()
+				local purchaseFlow = state.purchaseFlow
+				if purchaseFlow == PurchaseFlow.RobuxUpsellV2 or purchaseFlow == PurchaseFlow.LargeRobuxUpsell then
+					platformInterface.startRobuxUpsellWeb(state.nativeUpsell.productId)
+				else
+					platformInterface.startRobuxUpsellWeb()
+				end
+				store:dispatch(SetPromptState(PromptState.UpsellInProgress))
 			end
-			store:dispatch(SetPromptState(PromptState.UpsellInProgress))
-
 		elseif upsellFlow == UpsellFlow.Mobile then
 			local nativeProductId = state.nativeUpsell.robuxProductId
 			local productId = state.productInfo.productId

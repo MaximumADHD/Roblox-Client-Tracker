@@ -21,11 +21,10 @@ return function()
 	local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
 	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
-	local FFlagEnableUGC4ACollectiblePurchaseSupport =
-		require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
 
-	local itSkipOnCollectibleSupport = if FFlagEnableUGC4ACollectiblePurchaseSupport then itSKIP else it
 	local FFlagEnableBundlePurchaseChecks = require(Root.Parent.Flags.FFlagEnableBundlePurchaseChecks)
+
+	local itSkipOnEnableBundlePurchaseChecksDisabled = if not FFlagEnableBundlePurchaseChecks then itSKIP else it
 
 	local function getTestAccountInfoDetails()
 		return {
@@ -94,27 +93,6 @@ return function()
 		expect(state.accountInfo.balance).never.toBeNil()
 	end)
 
-	itSkipOnCollectibleSupport("should resolve state to Error if prerequisites are failed", function()
-		local store = Rodux.Store.new(Reducer, {})
-
-		local purchasableDetails = getTestPurchasableDetails()
-		local bundleDetails = getTestBundleDetails() -- Set product to not for sale
-		purchasableDetails.purchasable = false
-		local accountInfo = getTestAccountInfoDetails()
-		local balanceInfo = getTestBalanceDetails()
-		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
-
-		Thunk.test(thunk, store, {
-			[Analytics] = MockAnalytics.new().mockService,
-			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
-			[Network] = MockNetwork.new(),
-		})
-
-		local state = store:getState()
-
-		expect(state.promptState).toBe(PromptState.Error)
-	end)
-
 	it("should resolve state to PromptPurchase if account meets requirements", function()
 		local store = Rodux.Store.new(Reducer, {})
 
@@ -135,34 +113,37 @@ return function()
 		expect(state.promptState).toBe(PromptState.PromptPurchase)
 	end)
 
-	it("should resolve state to RobuxUpsell if account is short on Robux", function()
-		local store = Rodux.Store.new(Reducer, {})
+	itSkipOnEnableBundlePurchaseChecksDisabled(
+		"should resolve state to RobuxUpsell if account is short on Robux",
+		function()
+			local store = Rodux.Store.new(Reducer, {})
 
-		local purchasableDetails = getTestPurchasableDetails()
-		local bundleDetails = getTestBundleDetails()
+			local purchasableDetails = getTestPurchasableDetails()
+			local bundleDetails = getTestBundleDetails()
 
-		purchasableDetails.purchasable = false
-		purchasableDetails.reason = "InsufficientFunds"
-		-- Player will not have enough robux
-		local accountInfo = {
-			RobuxBalance = 0,
-			MembershipType = 0,
-		}
+			purchasableDetails.purchasable = false
+			purchasableDetails.reason = "InsufficientFunds"
+			-- Player will not have enough robux
+			local accountInfo = {
+				RobuxBalance = 0,
+				MembershipType = 0,
+			}
 
-		local balanceInfo = getTestBalanceDetails()
-		balanceInfo.robux = 0
-		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
+			local balanceInfo = getTestBalanceDetails()
+			balanceInfo.robux = 0
+			local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
 
-		Thunk.test(thunk, store, {
-			[Analytics] = MockAnalytics.new().mockService,
-			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
-			[Network] = MockNetwork.new(),
-		})
+			Thunk.test(thunk, store, {
+				[Analytics] = MockAnalytics.new().mockService,
+				[ExternalSettings] = MockExternalSettings.new(false, false, {}),
+				[Network] = MockNetwork.new(),
+			})
 
-		local state = store:getState()
+			local state = store:getState()
 
-		if not GetFFlagDisableRobuxUpsell() then
-			expect(state.promptState).toBe(PromptState.RobuxUpsell)
+			if not GetFFlagDisableRobuxUpsell() then
+				expect(state.promptState).toBe(PromptState.RobuxUpsell)
+			end
 		end
-	end)
+	)
 end

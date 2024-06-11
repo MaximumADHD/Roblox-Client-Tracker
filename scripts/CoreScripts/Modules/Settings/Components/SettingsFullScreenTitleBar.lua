@@ -19,7 +19,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 local FullscreenTitleBar = UIBlox.App.Bar.FullscreenTitleBar
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 
-local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
+local GetDefaultQualityLevel = require(CorePackages.Workspace.Packages.AppCommonLib).GetDefaultQualityLevel
 
 local renderWithCoreScriptsStyleProvider = require(RobloxGui.Modules.Common.renderWithCoreScriptsStyleProvider)
 

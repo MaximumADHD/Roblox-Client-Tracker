@@ -23,131 +23,131 @@ PROTO_2:
   MOVE R7 R4
   CALL R5 2 1
   MOVE R3 R5
-  LOADB R4 1
+  GETTABLEKS R4 R0 K6 ["DefaultIsExpanded"]
   CALL R2 2 2
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K6 ["useToggleState"]
+  GETTABLEKS R4 R5 K7 ["useToggleState"]
   MOVE R5 R2
   CALL R4 1 1
   GETUPVAL R6 3
-  GETTABLEKS R5 R6 K7 ["useEffect"]
+  GETTABLEKS R5 R6 K8 ["useEffect"]
   NEWCLOSURE R6 P0
   CAPTURE VAL R3
   CAPTURE VAL R4
   NEWTABLE R7 0 1
-  GETTABLEKS R8 R4 K8 ["enabled"]
+  GETTABLEKS R8 R4 K9 ["enabled"]
   SETLIST R7 R8 1 [1]
   CALL R5 2 0
-  GETTABLEKS R5 R4 K8 ["enabled"]
+  GETTABLEKS R5 R4 K9 ["enabled"]
   JUMPIF R5 [+2]
-  GETTABLEKS R5 R0 K9 ["ForceExpansion"]
+  GETTABLEKS R5 R0 K10 ["ForceExpansion"]
   GETUPVAL R7 3
-  GETTABLEKS R6 R7 K10 ["createElement"]
-  LOADK R7 K11 ["ImageButton"]
+  GETTABLEKS R6 R7 K11 ["createElement"]
+  LOADK R7 K12 ["ImageButton"]
   NEWTABLE R8 4 0
-  GETTABLEKS R9 R0 K12 ["Visible"]
-  SETTABLEKS R9 R8 K12 ["Visible"]
-  GETTABLEKS R9 R0 K13 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K13 ["LayoutOrder"]
+  GETTABLEKS R9 R0 K13 ["Visible"]
+  SETTABLEKS R9 R8 K13 ["Visible"]
+  GETTABLEKS R9 R0 K14 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K14 ["LayoutOrder"]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K14 ["Tag"]
-  LOADK R10 K15 ["VisualizationModes-Group"]
+  GETTABLEKS R9 R10 K15 ["Tag"]
+  LOADK R10 K16 ["VisualizationModes-Group"]
   SETTABLE R10 R8 R9
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K16 ["Event"]
-  GETTABLEKS R9 R10 K17 ["Activated"]
-  GETTABLEKS R10 R4 K18 ["toggle"]
+  GETTABLEKS R10 R11 K17 ["Event"]
+  GETTABLEKS R9 R10 K18 ["Activated"]
+  GETTABLEKS R10 R4 K19 ["toggle"]
   SETTABLE R10 R8 R9
-  DUPTABLE R9 K20 [{"Contents"}]
+  DUPTABLE R9 K21 [{"Contents"}]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K10 ["createElement"]
+  GETTABLEKS R10 R11 K11 ["createElement"]
   GETUPVAL R11 4
   NEWTABLE R12 2 0
   GETUPVAL R14 3
-  GETTABLEKS R13 R14 K14 ["Tag"]
-  LOADK R14 K21 ["X-Column X-Top X-FitY X-Left"]
+  GETTABLEKS R13 R14 K15 ["Tag"]
+  LOADK R14 K22 ["X-Column X-Top X-FitY X-Left"]
   SETTABLE R14 R12 R13
-  GETIMPORT R13 K24 [UDim2.fromScale]
+  GETIMPORT R13 K25 [UDim2.fromScale]
   LOADN R14 1
   LOADN R15 0
   CALL R13 2 1
-  SETTABLEKS R13 R12 K25 ["Size"]
-  DUPTABLE R13 K27 [{"Main"}]
+  SETTABLEKS R13 R12 K26 ["Size"]
+  DUPTABLE R13 K28 [{"Main"}]
   GETUPVAL R15 3
-  GETTABLEKS R14 R15 K10 ["createElement"]
+  GETTABLEKS R14 R15 K11 ["createElement"]
   GETUPVAL R15 4
   NEWTABLE R16 2 0
   GETUPVAL R18 3
-  GETTABLEKS R17 R18 K14 ["Tag"]
-  LOADK R18 K28 ["X-Column X-Top X-Fit"]
+  GETTABLEKS R17 R18 K15 ["Tag"]
+  LOADK R18 K29 ["X-Column X-Top X-Fit"]
   SETTABLE R18 R16 R17
-  GETIMPORT R17 K24 [UDim2.fromScale]
+  GETIMPORT R17 K25 [UDim2.fromScale]
   LOADN R18 1
   LOADN R19 0
   CALL R17 2 1
-  SETTABLEKS R17 R16 K25 ["Size"]
-  DUPTABLE R17 K31 [{"Title", "Content"}]
+  SETTABLEKS R17 R16 K26 ["Size"]
+  DUPTABLE R17 K32 [{"Title", "Content"}]
   GETUPVAL R19 3
-  GETTABLEKS R18 R19 K10 ["createElement"]
+  GETTABLEKS R18 R19 K11 ["createElement"]
   GETUPVAL R19 5
-  DUPTABLE R20 K42 [{"LayoutOrder", "Enabled", "BadgeText", "MatchIndexes", "CanExpand", "IsExpanded", "OnToggle", "CanToggle", "IsEditingEnabled", "OnExpansionToggled", "Text"}]
-  NAMECALL R21 R1 K43 ["getNextOrder"]
+  DUPTABLE R20 K43 [{"LayoutOrder", "Enabled", "BadgeText", "MatchIndexes", "CanExpand", "IsExpanded", "OnToggle", "CanToggle", "IsEditingEnabled", "OnExpansionToggled", "Text"}]
+  NAMECALL R21 R1 K44 ["getNextOrder"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K13 ["LayoutOrder"]
-  GETTABLEKS R21 R0 K32 ["Enabled"]
-  SETTABLEKS R21 R20 K32 ["Enabled"]
+  SETTABLEKS R21 R20 K14 ["LayoutOrder"]
+  GETTABLEKS R21 R0 K33 ["Enabled"]
+  SETTABLEKS R21 R20 K33 ["Enabled"]
   JUMPIF R5 [+12]
-  GETTABLEKS R22 R0 K44 ["EnabledEntryCount"]
+  GETTABLEKS R22 R0 K45 ["EnabledEntryCount"]
   LOADN R23 0
   JUMPIFNOTLT R23 R22 [+8]
-  GETTABLEKS R22 R0 K44 ["EnabledEntryCount"]
+  GETTABLEKS R22 R0 K45 ["EnabledEntryCount"]
   FASTCALL1 TOSTRING R22 [+2]
-  GETIMPORT R21 K46 [tostring]
+  GETIMPORT R21 K47 [tostring]
   CALL R21 1 1
   JUMP [+1]
   LOADNIL R21
-  SETTABLEKS R21 R20 K33 ["BadgeText"]
-  GETTABLEKS R21 R0 K34 ["MatchIndexes"]
-  SETTABLEKS R21 R20 K34 ["MatchIndexes"]
+  SETTABLEKS R21 R20 K34 ["BadgeText"]
+  GETTABLEKS R21 R0 K35 ["MatchIndexes"]
+  SETTABLEKS R21 R20 K35 ["MatchIndexes"]
   LOADB R21 1
-  SETTABLEKS R21 R20 K35 ["CanExpand"]
-  SETTABLEKS R5 R20 K36 ["IsExpanded"]
-  GETTABLEKS R21 R0 K37 ["OnToggle"]
-  SETTABLEKS R21 R20 K37 ["OnToggle"]
-  GETTABLEKS R21 R0 K38 ["CanToggle"]
-  SETTABLEKS R21 R20 K38 ["CanToggle"]
-  GETTABLEKS R21 R0 K39 ["IsEditingEnabled"]
-  SETTABLEKS R21 R20 K39 ["IsEditingEnabled"]
-  GETTABLEKS R21 R4 K18 ["toggle"]
-  SETTABLEKS R21 R20 K40 ["OnExpansionToggled"]
-  GETTABLEKS R21 R0 K41 ["Text"]
-  SETTABLEKS R21 R20 K41 ["Text"]
+  SETTABLEKS R21 R20 K36 ["CanExpand"]
+  SETTABLEKS R5 R20 K37 ["IsExpanded"]
+  GETTABLEKS R21 R0 K38 ["OnToggle"]
+  SETTABLEKS R21 R20 K38 ["OnToggle"]
+  GETTABLEKS R21 R0 K39 ["CanToggle"]
+  SETTABLEKS R21 R20 K39 ["CanToggle"]
+  GETTABLEKS R21 R0 K40 ["IsEditingEnabled"]
+  SETTABLEKS R21 R20 K40 ["IsEditingEnabled"]
+  GETTABLEKS R21 R4 K19 ["toggle"]
+  SETTABLEKS R21 R20 K41 ["OnExpansionToggled"]
+  GETTABLEKS R21 R0 K42 ["Text"]
+  SETTABLEKS R21 R20 K42 ["Text"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K29 ["Title"]
+  SETTABLEKS R18 R17 K30 ["Title"]
   GETUPVAL R19 3
-  GETTABLEKS R18 R19 K10 ["createElement"]
+  GETTABLEKS R18 R19 K11 ["createElement"]
   GETUPVAL R19 4
   NEWTABLE R20 4 0
   GETUPVAL R22 3
-  GETTABLEKS R21 R22 K14 ["Tag"]
-  LOADK R22 K47 ["X-Column X-Top X-FitY"]
+  GETTABLEKS R21 R22 K15 ["Tag"]
+  LOADK R22 K48 ["X-Column X-Top X-FitY"]
   SETTABLE R22 R20 R21
-  GETIMPORT R21 K24 [UDim2.fromScale]
+  GETIMPORT R21 K25 [UDim2.fromScale]
   LOADN R22 1
   LOADN R23 0
   CALL R21 2 1
-  SETTABLEKS R21 R20 K25 ["Size"]
-  NAMECALL R21 R1 K43 ["getNextOrder"]
+  SETTABLEKS R21 R20 K26 ["Size"]
+  NAMECALL R21 R1 K44 ["getNextOrder"]
   CALL R21 1 1
-  SETTABLEKS R21 R20 K13 ["LayoutOrder"]
-  SETTABLEKS R5 R20 K12 ["Visible"]
-  GETTABLEKS R21 R0 K48 ["SectionEntries"]
+  SETTABLEKS R21 R20 K14 ["LayoutOrder"]
+  SETTABLEKS R5 R20 K13 ["Visible"]
+  GETTABLEKS R21 R0 K49 ["SectionEntries"]
   CALL R18 3 1
-  SETTABLEKS R18 R17 K30 ["Content"]
+  SETTABLEKS R18 R17 K31 ["Content"]
   CALL R14 3 1
-  SETTABLEKS R14 R13 K26 ["Main"]
+  SETTABLEKS R14 R13 K27 ["Main"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K19 ["Contents"]
+  SETTABLEKS R10 R9 K20 ["Contents"]
   CALL R6 3 -1
   RETURN R6 -1
 

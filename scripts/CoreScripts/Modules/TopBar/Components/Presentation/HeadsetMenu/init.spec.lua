@@ -15,7 +15,7 @@ return function()
 	local waitForEvents = require(CorePackages.Workspace.Packages.TestUtils).DeferredLuaHelpers.waitForEvents
 
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
-	local act = require(Modules.act)
+	local act = Roact.act
 
 	local MockVRService = require(Modules.TestHelpers.MockVRService)
 	local MockGuiService = require(Modules.TestHelpers.MockGuiService)

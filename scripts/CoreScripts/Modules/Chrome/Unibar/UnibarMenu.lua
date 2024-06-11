@@ -43,6 +43,7 @@ local GetFFlagUsePolishedAnimations = require(Chrome.Flags.GetFFlagUsePolishedAn
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 local GetFIntIconSelectionTimeout = require(Chrome.Flags.GetFIntIconSelectionTimeout)
+local GetFFlagEnableCapturesInChrome = require(Chrome.Flags.GetFFlagEnableCapturesInChrome)
 
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
@@ -118,7 +119,7 @@ function configureUnibar(viewportInfo)
 		end
 	end
 
-	if GetFFlagEnableScreenshotUtility() then
+	if GetFFlagEnableScreenshotUtility() and GetFFlagEnableCapturesInChrome() then
 		if GetFFlagEnableSubmenuTruncationFix() then
 			table.insert(nineDot, 2, "camera_entrypoint")
 		else

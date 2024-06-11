@@ -7,11 +7,11 @@ local var4 = var2.ContextServices
 local var5 = require(var0.Src.Reducers.MainReducer)
 local var6 = require(var0.Src.Middleware.MainMiddleware)
 local var7 = {}
-local var32 = var4.Analytics.mock()
-local var33 = var4.Localization
-local var10 = var33.mock()
-var33 = require(var0.Src.Resources.MakeTheme)
-local var11 = var33(true)
+local var40 = var4.Analytics.mock()
+local var41 = var4.Localization
+local var10 = var41.mock()
+var41 = require(var0.Src.Resources.MakeTheme)
+local var11 = var41(true)
 return function(arg1, arg2)
    if type(arg1) == "table" then
       local var0 = false
@@ -21,13 +21,13 @@ return function(arg1, arg2)
       local var0 = false
    end
    assert(true, "Expected children to be a table")
-   local var54 = var1
-   var54 = arg1
-   local var1 = var54.Store.new(var5, var54, var6)
-   local var60 = var7
-   local var62 = var4.Store
-   var62 = var1
-   local var3 = var62.new(var62)
+   local var62 = var1
+   var62 = arg1
+   local var1 = var62.Store.new(var5, var62, var6)
+   local var68 = var7
+   local var70 = var4.Store
+   var70 = var1
+   local var3 = var70.new(var70)
    table.insert()
    local var4 = {}
    function var4.getStore()

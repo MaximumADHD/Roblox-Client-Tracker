@@ -20,96 +20,112 @@ PROTO_1:
   GETTABLEKS R3 R1 K1 ["Stylizer"]
   GETTABLEKS R2 R3 K2 ["PathToolbar"]
   GETTABLEKS R3 R1 K3 ["Localization"]
-  GETTABLEKS R4 R1 K4 ["SelectedObject"]
-  JUMPIF R4 [+2]
   LOADNIL R4
-  RETURN R4 1
-  NEWTABLE R4 0 1
-  DUPTABLE R5 K9 [{"Type", "Value", "OnChange", "Items"}]
-  LOADK R6 K10 ["Radio"]
-  SETTABLEKS R6 R5 K5 ["Type"]
-  GETTABLEKS R6 R1 K11 ["Path2DToolMode"]
-  SETTABLEKS R6 R5 K6 ["Value"]
-  NEWCLOSURE R6 P0
+  GETTABLEKS R5 R1 K4 ["SelectedObject"]
+  JUMPIF R5 [+2]
+  LOADNIL R5
+  RETURN R5 1
+  GETUPVAL R5 0
+  JUMPIFNOT R5 [+7]
+  GETTABLEKS R5 R1 K4 ["SelectedObject"]
+  NAMECALL R5 R5 K5 ["GetControlPoints"]
+  CALL R5 1 1
+  LENGTH R4 R5
+  JUMP [+1]
+  LOADNIL R4
+  NEWTABLE R5 0 1
+  DUPTABLE R6 K10 [{"Type", "Value", "OnChange", "Items"}]
+  LOADK R7 K11 ["Radio"]
+  SETTABLEKS R7 R6 K6 ["Type"]
+  GETTABLEKS R7 R1 K12 ["Path2DToolMode"]
+  SETTABLEKS R7 R6 K7 ["Value"]
+  NEWCLOSURE R7 P0
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K7 ["OnChange"]
-  NEWTABLE R6 0 3
-  DUPTABLE R7 K15 [{"Id", "Tooltip", "Icon"}]
-  LOADK R8 K16 ["Move"]
-  SETTABLEKS R8 R7 K12 ["Id"]
-  LOADK R9 K17 ["%* (%*)"]
-  LOADK R13 K18 ["Info"]
-  LOADK R14 K19 ["SelectTool"]
-  NAMECALL R11 R3 K20 ["getText"]
-  CALL R11 3 1
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K16 ["Move"]
-  NAMECALL R9 R9 K21 ["format"]
-  CALL R9 3 1
-  MOVE R8 R9
-  SETTABLEKS R8 R7 K13 ["Tooltip"]
-  GETTABLEKS R8 R2 K22 ["MoveImage"]
-  SETTABLEKS R8 R7 K14 ["Icon"]
-  DUPTABLE R8 K15 [{"Id", "Tooltip", "Icon"}]
-  LOADK R9 K23 ["AddPoint"]
-  SETTABLEKS R9 R8 K12 ["Id"]
-  LOADK R10 K17 ["%* (%*)"]
-  LOADK R14 K18 ["Info"]
-  LOADK R15 K24 ["AddPointTool"]
-  NAMECALL R12 R3 K20 ["getText"]
+  SETTABLEKS R7 R6 K8 ["OnChange"]
+  NEWTABLE R7 0 3
+  DUPTABLE R8 K16 [{"Id", "Tooltip", "Icon"}]
+  LOADK R9 K17 ["Move"]
+  SETTABLEKS R9 R8 K13 ["Id"]
+  LOADK R10 K18 ["%* (%*)"]
+  LOADK R14 K19 ["Info"]
+  LOADK R15 K20 ["SelectTool"]
+  NAMECALL R12 R3 K21 ["getText"]
   CALL R12 3 1
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K23 ["AddPoint"]
-  NAMECALL R10 R10 K21 ["format"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K17 ["Move"]
+  NAMECALL R10 R10 K22 ["format"]
   CALL R10 3 1
   MOVE R9 R10
-  SETTABLEKS R9 R8 K13 ["Tooltip"]
-  GETTABLEKS R9 R2 K25 ["AddPointImage"]
-  SETTABLEKS R9 R8 K14 ["Icon"]
-  DUPTABLE R9 K15 [{"Id", "Tooltip", "Icon"}]
-  LOADK R10 K26 ["AddTangent"]
-  SETTABLEKS R10 R9 K12 ["Id"]
-  LOADK R11 K17 ["%* (%*)"]
-  LOADK R15 K18 ["Info"]
-  LOADK R16 K27 ["AddTangentTool"]
-  NAMECALL R13 R3 K20 ["getText"]
+  SETTABLEKS R9 R8 K14 ["Tooltip"]
+  GETTABLEKS R9 R2 K23 ["MoveImage"]
+  SETTABLEKS R9 R8 K15 ["Icon"]
+  GETUPVAL R10 0
+  JUMPIFNOT R10 [+5]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K24 ["MaxControlPoints"]
+  JUMPIFNOTLT R4 R10 [+25]
+  DUPTABLE R9 K16 [{"Id", "Tooltip", "Icon"}]
+  LOADK R10 K25 ["AddPoint"]
+  SETTABLEKS R10 R9 K13 ["Id"]
+  LOADK R11 K18 ["%* (%*)"]
+  LOADK R15 K19 ["Info"]
+  LOADK R16 K26 ["AddPointTool"]
+  NAMECALL R13 R3 K21 ["getText"]
   CALL R13 3 1
-  GETUPVAL R15 0
-  GETTABLEKS R14 R15 K26 ["AddTangent"]
-  NAMECALL R11 R11 K21 ["format"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K25 ["AddPoint"]
+  NAMECALL R11 R11 K22 ["format"]
   CALL R11 3 1
   MOVE R10 R11
-  SETTABLEKS R10 R9 K13 ["Tooltip"]
-  GETTABLEKS R10 R2 K28 ["AddTangentImage"]
-  SETTABLEKS R10 R9 K14 ["Icon"]
-  SETLIST R6 R7 3 [1]
-  SETTABLEKS R6 R5 K8 ["Items"]
-  SETLIST R4 R5 1 [1]
-  GETTABLEKS R5 R1 K11 ["Path2DToolMode"]
-  JUMPIFEQKS R5 K29 ["DoneEditing"] [+22]
-  DUPTABLE R7 K32 [{"Type", "Text", "OnClick"}]
-  LOADK R8 K33 ["TextButton"]
-  SETTABLEKS R8 R7 K5 ["Type"]
-  LOADK R10 K18 ["Info"]
-  LOADK R11 K34 ["Done"]
-  NAMECALL R8 R3 K20 ["getText"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K30 ["Text"]
-  GETTABLEKS R8 R1 K35 ["dispatchToggleDone"]
-  SETTABLEKS R8 R7 K31 ["OnClick"]
-  FASTCALL2 TABLE_INSERT R4 R7 [+4]
-  MOVE R6 R4
-  GETIMPORT R5 K38 [table.insert]
-  CALL R5 2 0
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K39 ["createElement"]
-  GETUPVAL R6 2
-  DUPTABLE R7 K42 [{"DisplayOrder", "HorizontalItems"}]
-  LOADN R8 4
-  SETTABLEKS R8 R7 K40 ["DisplayOrder"]
-  SETTABLEKS R4 R7 K41 ["HorizontalItems"]
-  CALL R5 2 -1
-  RETURN R5 -1
+  SETTABLEKS R10 R9 K14 ["Tooltip"]
+  GETTABLEKS R10 R2 K27 ["AddPointImage"]
+  SETTABLEKS R10 R9 K15 ["Icon"]
+  JUMP [+1]
+  LOADNIL R9
+  DUPTABLE R10 K16 [{"Id", "Tooltip", "Icon"}]
+  LOADK R11 K28 ["AddTangent"]
+  SETTABLEKS R11 R10 K13 ["Id"]
+  LOADK R12 K18 ["%* (%*)"]
+  LOADK R16 K19 ["Info"]
+  LOADK R17 K29 ["AddTangentTool"]
+  NAMECALL R14 R3 K21 ["getText"]
+  CALL R14 3 1
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K28 ["AddTangent"]
+  NAMECALL R12 R12 K22 ["format"]
+  CALL R12 3 1
+  MOVE R11 R12
+  SETTABLEKS R11 R10 K14 ["Tooltip"]
+  GETTABLEKS R11 R2 K30 ["AddTangentImage"]
+  SETTABLEKS R11 R10 K15 ["Icon"]
+  SETLIST R7 R8 3 [1]
+  SETTABLEKS R7 R6 K9 ["Items"]
+  SETLIST R5 R6 1 [1]
+  GETTABLEKS R6 R1 K12 ["Path2DToolMode"]
+  JUMPIFEQKS R6 K31 ["DoneEditing"] [+22]
+  DUPTABLE R8 K34 [{"Type", "Text", "OnClick"}]
+  LOADK R9 K35 ["TextButton"]
+  SETTABLEKS R9 R8 K6 ["Type"]
+  LOADK R11 K19 ["Info"]
+  LOADK R12 K36 ["Done"]
+  NAMECALL R9 R3 K21 ["getText"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K32 ["Text"]
+  GETTABLEKS R9 R1 K37 ["dispatchToggleDone"]
+  SETTABLEKS R9 R8 K33 ["OnClick"]
+  FASTCALL2 TABLE_INSERT R5 R8 [+4]
+  MOVE R7 R5
+  GETIMPORT R6 K40 [table.insert]
+  CALL R6 2 0
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K41 ["createElement"]
+  GETUPVAL R7 4
+  DUPTABLE R8 K44 [{"DisplayOrder", "HorizontalItems"}]
+  LOADN R9 4
+  SETTABLEKS R9 R8 K42 ["DisplayOrder"]
+  SETTABLEKS R5 R8 K43 ["HorizontalItems"]
+  CALL R6 2 -1
+  RETURN R6 -1
 
 PROTO_2:
   DUPTABLE R2 K5 [{"ControlPointStates", "SelectedObject", "Path2DToolMode", "SelectedControlPointIndex", "SelectedTangentSide"}]
@@ -347,28 +363,39 @@ MAIN:
   GETTABLEKS R27 R28 K30 ["Util"]
   GETTABLEKS R26 R27 K32 ["TelemetryGlobals"]
   CALL R25 1 1
-  GETTABLEKS R26 R2 K33 ["PureComponent"]
-  LOADK R28 K34 ["PathToolbar"]
-  NAMECALL R26 R26 K35 ["extend"]
-  CALL R26 2 1
-  DUPCLOSURE R27 K36 [PROTO_1]
+  GETIMPORT R26 K4 [require]
+  GETTABLEKS R29 R0 K5 ["Src"]
+  GETTABLEKS R28 R29 K33 ["Resources"]
+  GETTABLEKS R27 R28 K34 ["Constants"]
+  CALL R26 1 1
+  GETIMPORT R27 K36 [game]
+  LOADK R29 K37 ["PathEditorMaxControlPointDisableAdd"]
+  NAMECALL R27 R27 K38 ["GetFastFlag"]
+  CALL R27 2 1
+  GETTABLEKS R28 R2 K39 ["PureComponent"]
+  LOADK R30 K40 ["PathToolbar"]
+  NAMECALL R28 R28 K41 ["extend"]
+  CALL R28 2 1
+  DUPCLOSURE R29 K42 [PROTO_1]
+  CAPTURE VAL R27
   CAPTURE VAL R24
+  CAPTURE VAL R26
   CAPTURE VAL R2
   CAPTURE VAL R12
-  SETTABLEKS R27 R26 K37 ["render"]
-  MOVE R27 R7
-  DUPTABLE R28 K38 [{"Mouse", "Plugin", "Stylizer", "Localization"}]
-  SETTABLEKS R8 R28 K14 ["Mouse"]
-  SETTABLEKS R9 R28 K15 ["Plugin"]
-  SETTABLEKS R10 R28 K16 ["Stylizer"]
-  SETTABLEKS R11 R28 K17 ["Localization"]
-  CALL R27 1 1
-  MOVE R28 R26
-  CALL R27 1 1
-  MOVE R26 R27
-  GETTABLEKS R27 R3 K39 ["connect"]
-  DUPCLOSURE R28 K40 [PROTO_2]
-  DUPCLOSURE R29 K41 [PROTO_13]
+  SETTABLEKS R29 R28 K43 ["render"]
+  MOVE R29 R7
+  DUPTABLE R30 K44 [{"Mouse", "Plugin", "Stylizer", "Localization"}]
+  SETTABLEKS R8 R30 K14 ["Mouse"]
+  SETTABLEKS R9 R30 K15 ["Plugin"]
+  SETTABLEKS R10 R30 K16 ["Stylizer"]
+  SETTABLEKS R11 R30 K17 ["Localization"]
+  CALL R29 1 1
+  MOVE R30 R28
+  CALL R29 1 1
+  MOVE R28 R29
+  GETTABLEKS R29 R3 K45 ["connect"]
+  DUPCLOSURE R30 K46 [PROTO_2]
+  DUPCLOSURE R31 K47 [PROTO_13]
   CAPTURE VAL R25
   CAPTURE VAL R14
   CAPTURE VAL R15
@@ -379,7 +406,7 @@ MAIN:
   CAPTURE VAL R19
   CAPTURE VAL R21
   CAPTURE VAL R17
-  CALL R27 2 1
-  MOVE R28 R26
-  CALL R27 1 -1
-  RETURN R27 -1
+  CALL R29 2 1
+  MOVE R30 R28
+  CALL R29 1 -1
+  RETURN R29 -1

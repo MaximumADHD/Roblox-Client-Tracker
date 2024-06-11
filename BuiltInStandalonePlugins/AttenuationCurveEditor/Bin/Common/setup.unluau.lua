@@ -21,15 +21,15 @@ return function(arg1, arg2)
    end
    if not true then
       if game:GetService("RunService"):IsEdit() then
-         local var53 = var1
-         var53 = var0
-         arg2(arg1, var53.build(var53))
+         local var114 = var1
+         var114 = var0
+         arg2(arg1, var114.build(var114))
       end
    end
-   local var59 = var1
-   var59 = var0
-   arg2(arg1, var59.build(var59))
-   local var65 = var1
-   var65 = var0
-   var65.build(var65)
+   local var120 = var1
+   var120 = var0
+   arg2(arg1, var120.build(var120))
+   local var126 = var1
+   var126 = var0
+   var126.build(var126)
 end

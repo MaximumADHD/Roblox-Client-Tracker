@@ -36,8 +36,6 @@ local ANON_LABEL = "<anonymous>"
 
 local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes2", false)
 local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
-local FFlagScriptProfilerSetTerminalRootFix = game:DefineFastFlag("ScriptProfilerSetTerminalRootFix", false)
-local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)
 
 local ProfilerViewEntryComponent = Roact.PureComponent:extend("ProfilerViewEntry")
 
@@ -160,7 +158,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 					continue
 				end
 
-				if FFlagScriptProfilerHideGCOverhead and not showGC and functionId == gcFuncId then
+				if not showGC and functionId == gcFuncId then
 					continue
 				end
 
@@ -189,10 +187,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 					expandedNodes = expandedNodes,
 				})
 			end
-		elseif
-			(FFlagScriptProfilerSetTerminalRootFix and self.props.nodeId == 0)
-			or (not FFlagScriptProfilerSetTerminalRootFix and self.props.depth == 0)
-		then
+		elseif self.props.nodeId == 0 then
 			-- Since this is the "root node", childData should be nil, instead generate children from Category root IDs
 			assert(childData == nil)
 
@@ -210,7 +205,7 @@ function ProfilerViewEntryComponent:renderChildren(childData)
 				if not showPlugins then
 					childTotalDuration -= pluginOffset
 
-					if FFlagScriptProfilerHideGCOverhead and showGC then
+					if showGC then
 						childTotalDuration -= pluginGCOffset
 					end
 				end
@@ -283,19 +278,19 @@ function ProfilerViewEntryComponent:render()
 			local pluginOffsets = self.props.pluginOffsets
 			totalDuration -= pluginOffsets.Total or 0
 
-			if FFlagScriptProfilerHideGCOverhead and showGC then
+			if showGC then
 				totalDuration -= self.props.pluginGCOffsets.Total or 0
 			end
 		else
 			totalDuration -= self.props.pluginOffset or 0
 
-			if FFlagScriptProfilerHideGCOverhead and showGC then
+			if showGC then
 				totalDuration -= self.props.pluginGCOffset or 0
 			end
 		end
 	end
 
-	if FFlagScriptProfilerHideGCOverhead and not showGC then
+	if not showGC then
 		local gcNodeOffsets = props.gcNodeOffsets
 
 		if nodeId == 0 then

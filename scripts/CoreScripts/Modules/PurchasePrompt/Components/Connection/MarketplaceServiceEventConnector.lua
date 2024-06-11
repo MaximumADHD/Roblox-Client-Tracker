@@ -23,7 +23,6 @@ local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
 local GetFFlagEnablePromptPurchaseRequestedV2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2)
 local GetFFlagEnablePromptPurchaseRequestedV2Take2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2Take2)
-local FFlagEnableUGC4ACollectiblePurchaseSupport = require(Root.Parent.Flags.FFlagEnableUGC4ACollectiblePurchaseSupport)
 
 local function MarketplaceServiceEventConnector(props)
 	local onPurchaseRequest = props.onPurchaseRequest
@@ -36,9 +35,7 @@ local function MarketplaceServiceEventConnector(props)
 	local onRobloxPurchaseRequest = props.onRobloxPurchaseRequest
 	local onPromptCollectiblesPurchaseRequest = props.onPromptCollectiblesPurchaseRequest
 	local onSubscriptionPurchaseRequest = props.onSubscriptionPurchaseRequest
-	local onCollectibleBundlePurchaseRequest = if FFlagEnableUGC4ACollectiblePurchaseSupport
-		then props.onCollectibleBundlePurchaseRequest
-		else nil
+	local onCollectibleBundlePurchaseRequest = props.onCollectibleBundlePurchaseRequest
 
 	local function checkNewEventExists()
 		return MarketplaceService.PromptPurchaseRequestedV2
@@ -76,7 +73,7 @@ local function MarketplaceServiceEventConnector(props)
 	end
 
 	local promptCollectibleBundlePurchaseConnection
-	if FFlagEnableUGC4ACollectiblePurchaseSupport and pcall(checkCollectibleBundlePurchaseEventExists) then
+	if pcall(checkCollectibleBundlePurchaseEventExists) then
 		promptCollectibleBundlePurchaseConnection = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptCollectibleBundlePurchaseRequested,
 			callback = onCollectibleBundlePurchaseRequest,
@@ -222,20 +219,18 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		idempotencyKey,
 		purchaseAuthToken
 	)
-		if FFlagEnableUGC4ACollectiblePurchaseSupport then
-			if player == Players.LocalPlayer then
-				dispatch(
-					initiateBundlePurchase(
-						bundleId,
-						idempotencyKey,
-						purchaseAuthToken,
-						collectibleItemId,
-						collectibleItemInstanceId,
-						collectibleProductId,
-						expectedPrice
-					)
+		if player == Players.LocalPlayer then
+			dispatch(
+				initiateBundlePurchase(
+					bundleId,
+					idempotencyKey,
+					purchaseAuthToken,
+					collectibleItemId,
+					collectibleItemInstanceId,
+					collectibleProductId,
+					expectedPrice
 				)
-			end
+			)
 		end
 	end
 
@@ -260,9 +255,7 @@ MarketplaceServiceEventConnector = connectToStore(nil, function(dispatch)
 		onPremiumPurchaseRequest = onPremiumPurchaseRequest,
 		onPromptCollectiblesPurchaseRequest = onPromptCollectiblesPurchaseRequest,
 		onSubscriptionPurchaseRequest = onSubscriptionPurchaseRequest,
-		onCollectibleBundlePurchaseRequest = if FFlagEnableUGC4ACollectiblePurchaseSupport
-			then onCollectibleBundlePurchaseRequest
-			else nil,
+		onCollectibleBundlePurchaseRequest = onCollectibleBundlePurchaseRequest,
 	}
 end)(MarketplaceServiceEventConnector)
 

@@ -38,7 +38,6 @@ local ARROW_SIZE = Constants.GeneralFormatting.DropDownArrowHeight
 local ARROW_OFFSET = ARROW_SIZE / 2
 local OPEN_ARROW = Constants.Image.DownArrow
 
-local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 
 local function makeFormattedStringTable(src: {}, formatFn: (any) -> string)
@@ -253,9 +252,7 @@ function MobileSettingsView:render()
 			then nil
 			else self:renderStateToggle("Show Plugins", "showPlugins"),
 
-		GCToggle = if not FFlagScriptProfilerHideGCOverhead
-			then nil
-			else self:renderStateToggle("GC Overhead", "showGc"),
+		GCToggle = self:renderStateToggle("GC Overhead", "showGc"),
 
 		AverageDropDown = self:renderDropDown(
 			"Average",

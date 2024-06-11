@@ -3,16 +3,16 @@ return function()
 	local CorePackages = game:GetService("CorePackages")
 	local GuiService = game:GetService("GuiService")
 	local Players = game:GetService("Players")
-	local Modules = game:GetService("CoreGui").RobloxGui.Modules
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jestExpect = JestGlobals.expect
 
-	local act = require(Modules.act)
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local Rodux = InGameMenuDependencies.Rodux
 	local RoactRodux = InGameMenuDependencies.RoactRodux
 	local UIBlox = InGameMenuDependencies.UIBlox
+	
+	local act = Roact.act
 
 	local InGameMenu = script.Parent.Parent.Parent
 	local Localization = require(InGameMenu.Localization.Localization)

@@ -3,13 +3,13 @@ return function()
 	local GuiService = game:GetService("GuiService")
 	local Players = game:GetService("Players")
 
-	local Modules = game:GetService("CoreGui").RobloxGui.Modules
-	local act = require(Modules.act)
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local Cryo = InGameMenuDependencies.Cryo
 	local FocusHandlerContextProvider = require(script.Parent.FocusHandlerUtils.FocusHandlerContextProvider)
 	local FocusHandler = require(script.Parent.FocusHandler)
+	
+	local act = Roact.act
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local jest = JestGlobals.jest

@@ -9,9 +9,20 @@ local GetFFlagChromeCapturesToggle = require(script.Parent.Parent.Parent.Flags.G
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 
+local initialAvailability = ChromeService.AvailabilitySignal.Available
+if GetFFlagChromeCapturesToggle() then
+	if
+		StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Captures)
+	then
+		initialAvailability = ChromeService.AvailabilitySignal.Available
+	else
+		initialAvailability = ChromeService.AvailabilitySignal.Unavailable
+	end
+end
+
 local cameraEntrypointIntegration = GetFFlagEnableScreenshotUtility()
 		and ChromeService:register({
-			initialAvailability = ChromeService.AvailabilitySignal.Available,
+			initialAvailability = initialAvailability,
 			id = "camera_entrypoint",
 			label = "Feature.SettingsHub.Label.Captures",
 			activated = function(self)

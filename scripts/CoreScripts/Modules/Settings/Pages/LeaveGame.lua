@@ -36,7 +36,7 @@ local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.
 local GetFFlagChromeSurveySupport = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagChromeSurveySupport
 local GetFFlagExtractLeaveGameFunc = require(RobloxGui.Modules.Settings.Flags.GetFFlagExtractLeaveGameFunc)
 
-local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
+local GetDefaultQualityLevel = require(CorePackages.Workspace.Packages.AppCommonLib).GetDefaultQualityLevel
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 

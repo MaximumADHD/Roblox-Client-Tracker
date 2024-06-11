@@ -17,8 +17,6 @@ local SetShowGC = require(script.Parent.Parent.Components.ScriptProfiler.Actions
 local SetSearchData = require(script.Parent.Parent.Components.ScriptProfiler.Actions.SetSearchData)
 local ProfilerData = require(script.Parent.Parent.Components.ScriptProfiler.ProfilerDataFormatV2)
 
-local FFlagScriptProfilerSetRootFixSourceInfo = game:DefineFastFlag("ScriptProfilerSetRootFixSourceInfo", false)
-
 type SessionState = {
 	isProfiling: boolean,
 
@@ -252,11 +250,7 @@ return function(state: State?, action: { [string]: any }): State
 
 		if newState.rootNode ~= action.rootNode then
 			newState.rootNode = action.rootNode
-
-			if FFlagScriptProfilerSetRootFixSourceInfo then
-				newState.rootFunc = action.rootFunc
-			end
-
+			newState.rootFunc = action.rootFunc
 			newState.rootNodeName = action.rootNodeName
 		else
 			newState.rootNode = 0

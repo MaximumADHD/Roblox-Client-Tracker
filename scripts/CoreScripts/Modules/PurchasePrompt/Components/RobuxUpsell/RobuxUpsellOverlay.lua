@@ -191,6 +191,8 @@ function RobuxUpsellOverlay:getFlowState()
 		return RobuxUpsellFlowState.PurchaseWarning
 	elseif promptState == PromptState.PurchaseComplete then
 		return RobuxUpsellFlowState.Success
+	elseif promptState == PromptState.LeaveRobloxWarning then
+		return RobuxUpsellFlowState.LeaveRobloxWarning
 	elseif promptState == PromptState.Error then
 		if purchaseError == PurchaseError.TwoFactorNeeded or purchaseError == PurchaseError.TwoFactorNeededSettings then
 			return RobuxUpsellFlowState.TwoStepRequired

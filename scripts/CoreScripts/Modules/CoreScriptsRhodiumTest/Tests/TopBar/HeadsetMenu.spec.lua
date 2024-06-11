@@ -8,7 +8,7 @@ return function()
 	local jestExpect = JestGlobals.expect
 	local jest = JestGlobals.jest
 
-	local act = require(Modules.act)
+	local act = require(CorePackages.Roact).act
 
 	local TopBar = Modules.TopBar
 	local HeadsetDisconnectedDialog = require(TopBar.Components.Presentation.HeadsetMenu.DisconnectedDialog)

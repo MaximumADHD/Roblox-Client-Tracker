@@ -27,7 +27,7 @@ PROTO_2:
   GETTABLEKS R3 R2 K2 ["Localization"]
   GETTABLEKS R4 R2 K3 ["Value"]
   GETTABLEKS R5 R4 K4 ["Range"]
-  JUMPIFNOT R5 [+35]
+  JUMPIFNOT R5 [+31]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K5 ["createElement"]
   GETUPVAL R6 1
@@ -35,13 +35,11 @@ PROTO_2:
   LOADK R10 K9 ["ScriptPane"]
   LOADK R11 K10 ["LineColumn"]
   DUPTABLE R12 K13 [{"line", "column"}]
-  GETTABLEKS R15 R4 K4 ["Range"]
-  GETTABLEKS R14 R15 K14 ["start"]
-  GETTABLEKS R13 R14 K11 ["line"]
+  GETTABLEKS R14 R4 K4 ["Range"]
+  GETTABLEKS R13 R14 K14 ["startLine"]
   SETTABLEKS R13 R12 K11 ["line"]
-  GETTABLEKS R15 R4 K4 ["Range"]
-  GETTABLEKS R14 R15 K14 ["start"]
-  GETTABLEKS R13 R14 K15 ["character"]
+  GETTABLEKS R14 R4 K4 ["Range"]
+  GETTABLEKS R13 R14 K15 ["startCharacter"]
   SETTABLEKS R13 R12 K12 ["column"]
   NAMECALL R8 R3 K16 ["getText"]
   CALL R8 4 1

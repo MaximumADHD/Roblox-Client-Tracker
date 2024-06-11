@@ -29,6 +29,14 @@ PROTO_0:
   RETURN R2 1
 
 PROTO_1:
+  GETTABLEKS R3 R0 K0 ["range"]
+  GETTABLEKS R4 R1 K0 ["range"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_2:
   DUPTABLE R9 K9 [{"diagnosticId", "range", "code", "codeDescription", "instanceName", "message", "severity", "suggestions", "issueType"}]
   GETUPVAL R10 0
   LOADB R12 1
@@ -48,27 +56,6 @@ PROTO_1:
   GETIMPORT R8 K12 [setmetatable]
   CALL R8 2 1
   RETURN R8 1
-
-PROTO_2:
-  GETIMPORT R1 K2 [string.format]
-  LOADK R2 K3 ["[%d:%d] -> [%d:%d] %s %s %s"]
-  GETTABLEKS R5 R0 K5 ["range"]
-  GETTABLEKS R4 R5 K4 ["start"]
-  GETTABLEKS R3 R4 K6 ["line"]
-  GETTABLEKS R6 R0 K5 ["range"]
-  GETTABLEKS R5 R6 K4 ["start"]
-  GETTABLEKS R4 R5 K7 ["character"]
-  GETTABLEKS R7 R0 K5 ["range"]
-  GETTABLEKS R6 R7 K8 ["end"]
-  GETTABLEKS R5 R6 K6 ["line"]
-  GETTABLEKS R8 R0 K5 ["range"]
-  GETTABLEKS R7 R8 K8 ["end"]
-  GETTABLEKS R6 R7 K7 ["character"]
-  GETTABLEKS R7 R0 K9 ["diagnosticId"]
-  GETTABLEKS R8 R0 K10 ["issueType"]
-  GETTABLEKS R9 R0 K11 ["instanceName"]
-  CALL R1 8 -1
-  RETURN R1 -1
 
 PROTO_3:
   DUPTABLE R1 K5 [{"range", "code", "message", "severity", "codeDescription"}]
@@ -107,11 +94,11 @@ MAIN:
   DUPCLOSURE R5 K15 [PROTO_0]
   SETTABLEKS R5 R4 K16 ["__eq"]
   DUPCLOSURE R5 K17 [PROTO_1]
+  SETTABLEKS R5 R4 K18 ["__lt"]
+  DUPCLOSURE R5 K19 [PROTO_2]
   CAPTURE VAL R1
   CAPTURE VAL R4
-  SETTABLEKS R5 R4 K18 ["new"]
-  DUPCLOSURE R5 K19 [PROTO_2]
-  SETTABLEKS R5 R4 K20 ["Dump"]
+  SETTABLEKS R5 R4 K20 ["new"]
   DUPCLOSURE R5 K21 [PROTO_3]
   SETTABLEKS R5 R4 K22 ["GetDataForLinter"]
   RETURN R4 1

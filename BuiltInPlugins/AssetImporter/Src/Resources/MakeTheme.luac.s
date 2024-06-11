@@ -409,13 +409,23 @@ MAIN:
   LOADN R16 244
   SETTABLEKS R16 R15 K152 ["Width"]
   SETTABLEKS R15 R14 K166 ["ErrorWidget"]
-  DUPTABLE R15 K167 [{"Image"}]
+  DUPTABLE R15 K167 [{"Image", "Size"}]
   LOADK R16 K168 ["rbxasset://textures/StudioSharedUI/alert_error@2x.png"]
   SETTABLEKS R16 R15 K66 ["Image"]
+  GETIMPORT R16 K71 [UDim2.fromOffset]
+  LOADN R17 20
+  LOADN R18 20
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K58 ["Size"]
   SETTABLEKS R15 R14 K169 ["ErrorIcon"]
-  DUPTABLE R15 K167 [{"Image"}]
+  DUPTABLE R15 K167 [{"Image", "Size"}]
   LOADK R16 K170 ["rbxasset://textures/StudioSharedUI/alert_warning@2x.png"]
   SETTABLEKS R16 R15 K66 ["Image"]
+  GETIMPORT R16 K71 [UDim2.fromOffset]
+  LOADN R17 20
+  LOADN R18 20
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K58 ["Size"]
   SETTABLEKS R15 R14 K171 ["WarningIcon"]
   DUPTABLE R15 K172 [{"TextColor", "TextXAlignment", "TextSize"}]
   GETIMPORT R16 K137 [Color3.fromRGB]

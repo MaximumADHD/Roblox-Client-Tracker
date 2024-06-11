@@ -25,7 +25,7 @@ local SetInputType = require(InGameMenu.Actions.SetInputType)
 
 local Constants = require(InGameMenu.Resources.Constants)
 
-local act = require(Modules.act)
+local act = require(CorePackages.Roact).act
 
 local Flags = InGameMenu.Flags
 local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)

@@ -81,6 +81,10 @@ function PlatformInterface.new()
 		return PlatformService:BeginPlatformStorePurchase(xboxProductId)
 	end
 
+	function service.openVngStore()
+		GuiService:OpenBrowserWindow("https://shop.vnggames.com/global")
+	end
+
 	return service
 end
 

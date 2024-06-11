@@ -7,7 +7,8 @@ local useStyle = UIBlox.Core.Style.useStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
-local SelfieView = require(script.Parent.Parent.Parent.SelfieView)
+local SelfieViewModule = script.Parent.Parent.Parent.SelfieView
+local SelfieView = require(SelfieViewModule)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local ChromeService = require(script.Parent.Parent.Service)
 local RedVoiceDot = require(script.Parent.RedVoiceDot)
@@ -17,6 +18,7 @@ local GetFFlagTweakedMicPinning = require(script.Parent.Parent.Flags.GetFFlagTwe
 local GetFFlagUseNewUnibarIcon = require(script.Parent.Parent.Flags.GetFFlagUseNewUnibarIcon)
 local GetFFlagUsePolishedAnimations = require(script.Parent.Parent.Flags.GetFFlagUsePolishedAnimations)
 local GetFFlagUseSelfieViewFlatIcon = require(script.Parent.Parent.Flags.GetFFlagUseSelfieViewFlatIcon)
+local GetFFlagSelfieViewRedStatusDot = require(SelfieViewModule.Flags.GetFFlagSelfieViewRedStatusDot)
 
 local UNIBAR_ICON = Images["icons/actions/overflow"]
 local UNIBAR_ICON_SIZE = if GetFFlagUseNewUnibarIcon() then 32 else Constants.ICON_SIZE
@@ -149,7 +151,9 @@ function ToggleMenuButton(props)
 			}) :: any,
 		if GetFFlagUseSelfieViewFlatIcon()
 			then React.createElement("Frame", {
-				Name = "GreenCameraDotVisibleContiner",
+				Name = if GetFFlagSelfieViewRedStatusDot()
+					then "RedCameraDotVisibleContainer"
+					else "GreenCameraDotVisibleContiner",
 
 				Visible = toggleIconTransition:map(function(value: any): any
 					return value < 0.5
@@ -159,9 +163,11 @@ function ToggleMenuButton(props)
 				BackgroundTransparency = 1,
 			}, {
 				SelfieView.useCameraOn() and React.createElement(SelfieView.CameraStatusDot, {
-					Position = if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
-						then UDim2.new(1, -7, 1, -12)
-						else UDim2.new(1, -7, 1, -8),
+					Position = if GetFFlagSelfieViewRedStatusDot()
+						then UDim2.new(1, -7, 1, -7)
+						else if not GetFFlagTweakedMicPinning() and not VoiceChatServiceManager.localMuted
+							then UDim2.new(1, -7, 1, -12)
+							else UDim2.new(1, -7, 1, -8),
 					ZIndex = 2,
 				}),
 			})

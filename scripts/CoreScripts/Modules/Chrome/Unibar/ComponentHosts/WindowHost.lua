@@ -18,6 +18,7 @@ local ChromeTypes = require(Chrome.Service.Types)
 local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local FFlagEnableChromeAnalytics = require(Chrome.Flags.GetFFlagEnableChromeAnalytics)()
 local FFlagSelfViewFixes = require(Chrome.Flags.GetFFlagSelfViewFixes)()
+local FFlagWindowFixes = require(Chrome.Flags.GetFFlagWindowFixes)()
 local shouldRejectMultiTouch = require(Chrome.Utility.shouldRejectMultiTouch)
 
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
@@ -80,8 +81,11 @@ local WindowHost = function(props: WindowHostProps)
 		local storedConnection: { current: RBXScriptConnection? }? = nil
 		local originalInputObj: InputObject? = nil
 		local dragConnection: any = ChromeService:dragConnection(props.integration.id)
-		storedConnection = dragConnection.connection
-		originalInputObj = dragConnection.inputObject
+
+		if not FFlagWindowFixes or dragConnection then
+			storedConnection = dragConnection.connection
+			originalInputObj = dragConnection.inputObject
+		end
 		assert(windowRef.current ~= nil)
 		assert(windowRef.current.Parent ~= nil)
 

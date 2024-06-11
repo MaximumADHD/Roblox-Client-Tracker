@@ -54,8 +54,9 @@ local GlobalConfig = require(script.GlobalConfig)
 
 local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFlagEnableTeleportBackButton)
-local FFlagAddMenuNavigationToggleDialog = require(script.Flags.FFlagAddMenuNavigationToggleDialog)
-local FFlagEnableGamepadMenuSelector = require(script.Flags.FFlagEnableGamepadMenuSelector)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
+local FFlagEnableGamepadMenuSelector = SharedFlags.FFlagEnableGamepadMenuSelector
 
 -- FTUX
 local FTUX = RobloxGui.Modules.FTUX

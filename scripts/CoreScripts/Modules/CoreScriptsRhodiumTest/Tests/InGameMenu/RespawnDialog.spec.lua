@@ -6,7 +6,7 @@ local Modules = game:GetService("CoreGui").RobloxGui.Modules
 
 local Rhodium = require(CorePackages.Rhodium)
 local VirtualInput = Rhodium.VirtualInput
-local act = require(Modules.act)
+local act = require(CorePackages.Roact).act
 
 local JestGlobals = require(CorePackages.JestGlobals)
 local expect = JestGlobals.expect

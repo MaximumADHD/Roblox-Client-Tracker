@@ -1,6 +1,6 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
 local var0 = game:GetFastFlag("BaseWrapVerticesModified")
-game:DefineFastFlag("EnableCageEditingTools2", false)
+game:DefineFastFlag("EnableCageEditingTools_Dev", false)
 return function()
-   return game:GetFastFlag("EnableCageEditingTools2") and var0
+   return game:GetFastFlag("EnableCageEditingTools_Dev") and var0
 end

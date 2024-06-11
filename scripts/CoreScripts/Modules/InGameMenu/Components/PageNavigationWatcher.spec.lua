@@ -1,17 +1,16 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
-	local Modules = game:GetService("CoreGui").RobloxGui.Modules
-
+	
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect
-
-	local act = require(Modules.act)
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local RoactRodux = InGameMenuDependencies.RoactRodux
 	local Rodux = InGameMenuDependencies.Rodux
-
+	
+	local act = Roact.act
+	
 	local InGameMenu = script.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
 

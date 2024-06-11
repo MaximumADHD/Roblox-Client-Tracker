@@ -18,9 +18,9 @@ local TopBar = Modules.TopBar
 local QuickMenu = require(TopBar.Components.Presentation.GamepadMenu)
 local SetGamepadMenuOpen = require(TopBar.Actions.SetGamepadMenuOpen)
 
-local FFlagEnableGamepadMenuSelector = require(TopBar.Flags.FFlagEnableGamepadMenuSelector)
+local FFlagEnableGamepadMenuSelector = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableGamepadMenuSelector
 
-local act = require(Modules.act)
+local act = require(CorePackages.Roact).act
 
 return function()
 	beforeEach(function(c)

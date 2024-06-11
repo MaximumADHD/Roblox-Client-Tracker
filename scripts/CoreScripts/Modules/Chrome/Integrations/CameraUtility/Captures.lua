@@ -26,8 +26,10 @@ end)
 task.defer(function()
 	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 	SettingsHub.CurrentPageSignal:connect(function(pageName)
-		capturesPageOpen = pageName == SettingsHub.Instance.ShotsPage.Page.Name
-		capturesPageOpenSignal:fire()
+		if SettingsHub.Instance.ShotsPage then
+			capturesPageOpen = pageName == SettingsHub.Instance.ShotsPage.Page.Name
+			capturesPageOpenSignal:fire()
+		end
 	end)
 end)
 

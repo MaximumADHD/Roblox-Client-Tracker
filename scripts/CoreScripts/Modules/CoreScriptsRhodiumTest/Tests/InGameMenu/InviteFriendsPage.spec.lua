@@ -9,7 +9,7 @@ local Rhodium = require(CorePackages.Rhodium)
 local VirtualInput = Rhodium.VirtualInput
 local Element = Rhodium.Element
 local XPath = Rhodium.XPath
-local act = require(Modules.act)
+local act = require(CorePackages.Roact).act
 
 local JestGlobals = require(CorePackages.JestGlobals)
 local expect = JestGlobals.expect

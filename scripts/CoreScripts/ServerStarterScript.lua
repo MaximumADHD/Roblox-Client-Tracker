@@ -149,15 +149,5 @@ if GetFFlagEnableVoiceDefaultServerScript() then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/VoiceDefault", script.Parent)
 end
 
-local FFlagUserVRAvatarGestures
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRAvatarGestures")
-	end)
-	FFlagUserVRAvatarGestures = success and result
-end
-
- if FFlagUserVRAvatarGestures then
-	-- controls avatar gestures using VR controls
-	require(game:GetService("CoreGui").RobloxGui.Modules.Server.VR.VRAvatarGesturesServer).new()
- end
+-- controls avatar gestures using VR controls
+require(game:GetService("CoreGui").RobloxGui.Modules.Server.VR.VRAvatarGesturesServer).new()

@@ -8,7 +8,7 @@ return function()
 	local expect = JestGlobals.expect
 
 	local Modules = game:GetService("CoreGui").RobloxGui.Modules
-	local act = require(Modules.act)
+	local act = Roact.act
 	local RhodiumHelpers = require(CorePackages.Workspace.Packages.RhodiumHelpers)
 
 	local DataProvider = require(script.Parent.Parent.DataProvider)

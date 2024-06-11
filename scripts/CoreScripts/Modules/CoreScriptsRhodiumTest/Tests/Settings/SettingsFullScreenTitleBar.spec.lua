@@ -8,7 +8,7 @@ return function()
 	local VirtualInput = Rhodium.VirtualInput
 
 	local Modules = CoreGui.RobloxGui.Modules
-	local act = require(Modules.act)
+	local act = require(CorePackages.Roact).act
 
 	local JestGlobals = require(CorePackages.JestGlobals)
 	local expect = JestGlobals.expect

@@ -13,7 +13,7 @@ local JestGlobals = require(CorePackages.JestGlobals)
 local expect = JestGlobals.expect
 
 local InspectAndBuyModules = Modules:WaitForChild("InspectAndBuy")
-local act = require(Modules.act)
+local act = require(CorePackages.Roact).act
 
 local FFlagEnableFavoriteButtonForUgc = require(InspectAndBuyModules.Flags.FFlagEnableFavoriteButtonForUgc)
 local ControllerShortcutKeycodes = require(InspectAndBuyModules.Components.Common.ControllerShortcutKeycodes)

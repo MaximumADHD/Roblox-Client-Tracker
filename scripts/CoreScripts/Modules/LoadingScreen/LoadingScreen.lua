@@ -33,7 +33,6 @@ local networking = httpRequest(HttpRbxApiService)
 -- FFlags
 local FFlagFixServerInfoLocalization = game:DefineFastFlag("FixServerInfoLocalization", false)
 local GetFFlagReportFirstExperienceCancelled = require(RobloxGui.Modules.Flags.GetFFlagReportFirstExperienceCancelled)
-local GetFFlagLoadingScreenLargerJoinStatusText = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLoadingScreenLargerJoinStatusText
 local FFlagLoadingScriptCancelButtonBeforeWait = game:DefineFastFlag("LoadingScriptCancelButtonBeforeWait", false)
 
 -- Constants
@@ -496,18 +495,18 @@ function LoadingScreen:renderServerFrame(style)
 		BorderSizePixel = 0,
 		AnchorPoint = Vector2.new(0.5, 1),
 		Position = UDim2.fromScale(0.5, 1),
-		Size = if GetFFlagLoadingScreenLargerJoinStatusText() then UDim2.new(1, -48, 0.2, 0) else UDim2.fromScale(0.5, 0.2),
+		Size = UDim2.new(1, -48, 0.2, 0),
 		Active = true,
 	}, {
 		PolicyLabel = showPolicyText and Roact.createElement("TextLabel", {
 			Name = 'PolicyLabel',
 			BackgroundTransparency = 1,
-			Size = if GetFFlagLoadingScreenLargerJoinStatusText() then  UDim2.new(1, 0, 0, 2 * policyLabelSize) else UDim2.new(1, 0, 0, 20),
-			Position = if GetFFlagLoadingScreenLargerJoinStatusText() then  UDim2.new(0, 0, 1, -4 * serverLabelSize - 2 * policyLabelSize) else UDim2.fromScale(0, 0.5),
+			Size = UDim2.new(1, 0, 0, 2 * policyLabelSize),
+			Position = UDim2.new(0, 0, 1, -4 * serverLabelSize - 2 * policyLabelSize),
 			Font = style.Font.Footer.Font,
 			TextSize = policyLabelSize,
 			TextWrapped = true,
-			TextScaled = if GetFFlagLoadingScreenLargerJoinStatusText() then  false else true,
+			TextScaled = false,
 			TextColor3 = style.Theme.TextDefault.Color,
 			TextStrokeTransparency = 1,
 			Text = CoreScriptTranslator:FormatByKey("Authentication.Login.WeChat.AntiAddictionText"),
@@ -518,12 +517,12 @@ function LoadingScreen:renderServerFrame(style)
 		JoinServerLabel = Roact.createElement("TextLabel", {
 			Name = 'JoinText',
 			BackgroundTransparency = 1,
-			Size = if GetFFlagLoadingScreenLargerJoinStatusText() then UDim2.new(1, 0, 0, 4 * serverLabelSize) else UDim2.new(1, 0, 0, - serverLabelSize),
-			Position = if GetFFlagLoadingScreenLargerJoinStatusText() then UDim2.new(0, 0, 1, -2 * serverLabelSize) else UDim2.fromScale(0, 1),
+			Size = UDim2.new(1, 0, 0, 4 * serverLabelSize),
+			Position = UDim2.new(0, 0, 1, -2 * serverLabelSize),
 			Font = style.Font.Footer.Font,
 			TextSize = serverLabelSize,
 			TextWrapped = true,
-			TextScaled = if GetFFlagLoadingScreenLargerJoinStatusText() then false else true,
+			TextScaled = false,
 			TextColor3 = style.Theme.TextDefault.Color,
 			TextStrokeTransparency = 1,
 			Text = serverStatusText,

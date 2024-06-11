@@ -33,10 +33,7 @@ local ANON_LABEL = "<anonymous>"
 
 local ProfilerFunctionViewEntry = Roact.PureComponent:extend("ProfilerFunctionViewEntry")
 
-local FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon =
-	game:DefineFastFlag("ScriptProfilerFunctionsViewUseSourceInfoForAnon", false)
 local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
-local FFlagScriptProfilerHideGCOverhead = game:DefineFastFlag("ScriptProfilerHideGCOverhead2", false)
 
 type BorderedCellLabelProps = {
 	text: string,
@@ -126,9 +123,7 @@ function ProfilerFunctionViewEntry:render()
 
 	local totalDuration = func.TotalDuration / self.props.average
 
-	if FFlagScriptProfilerHideGCOverhead then
-		totalDuration -= self.props.gcOffset or 0
-	end
+	totalDuration -= self.props.gcOffset or 0
 
 	local isNative = getNativeFlag(data, func)
 	local isPlugin = getPluginFlag(data, func)
@@ -153,7 +148,7 @@ function ProfilerFunctionViewEntry:render()
 
 	local hoverText = ProfilerUtil.getSourceLocationString(data, func, name)
 
-	if FFlagScriptProfilerFunctionsViewUseSourceInfoForAnon and name == defaultName then
+	if name == defaultName then
 		name = hoverText
 		hoverText = ""
 	end

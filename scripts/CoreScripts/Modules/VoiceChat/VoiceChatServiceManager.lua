@@ -284,6 +284,11 @@ local VOICE_CHAT_CORE_PROPERTIES = LuauPolyfill.Set.new({
 
 -- Initialized in GetVoiceStateFromEnum
 local LOCAL_STATE_MAP = {}
+local IN_EXP_VARIANT_TO_PROMPT = {
+	[VoiceConstants.IN_EXP_UPSELL_VARIANT.VARIANT1] = VoiceChatPromptType.VoiceConsentModalV1,
+	[VoiceConstants.IN_EXP_UPSELL_VARIANT.VARIANT2] = VoiceChatPromptType.VoiceConsentModalV2,
+	[VoiceConstants.IN_EXP_UPSELL_VARIANT.VARIANT3] = VoiceChatPromptType.VoiceConsentModalV3,
+}
 
 function getIconSrc(name, folder)
 	local folderStr = folder and folder .. "/" or ""
@@ -916,17 +921,45 @@ function VoiceChatServiceManager:ChangeVoiceJoinProgress(state: VoiceConstants.V
 	self.VoiceJoinProgressChanged:Fire(self.VoiceJoinProgress)
 end
 
-function VoiceChatServiceManager:UserEligibleForInExperienceUpsell()
+function VoiceChatServiceManager:UserOnlyEligibleForVoice(): boolean
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:UserOnlyEligibleForVoice()
+	end
+
 	local result = self.communicationPermissionsResult
 	if not result or not result.voiceSettings or not result.universePlaceVoiceEnabledSettings then
 		return false
 	end
-	local userIsEligibleForUpsell = result.voiceSettings.isUserVerifiedForVoice and not result.voiceSettings.isVoiceEnabled and result.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice
+	local userOnlyEligibleForVoice = result.voiceSettings.isUserVerifiedForVoice and not result.voiceSettings.isVoiceEnabled and result.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice
+	return userOnlyEligibleForVoice
+end
+
+function VoiceChatServiceManager:UserVoiceEnabled(): boolean
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:UserVoiceEnabled()
+	end
+
+	local result = self.communicationPermissionsResult
+	if not result or not result.voiceSettings or not result.universePlaceVoiceEnabledSettings then
+		return false
+	end
+	local userVoiceEnabled = result.voiceSettings.isVoiceEnabled and result.universePlaceVoiceEnabledSettings.isPlaceEnabledForVoice
+	return userVoiceEnabled
+end
+
+function VoiceChatServiceManager:UserEligibleForInExperienceUpsell(): boolean
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:UserEligibleForInExperienceUpsell()
+	end
+
+	local userIsEligibleForUpsell = self:UserOnlyEligibleForVoice()
 	if not userIsEligibleForUpsell then -- If the user is voice enabled or not verified for voice, or if the place is not voice enabled, then we can just skip the fetch
 		return false
 	end
 	local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
-	return userIsEligibleForUpsell and ageVerificationOverlayData and ageVerificationOverlayData.showVoiceInExperienceUpsell
+	return userIsEligibleForUpsell
+		and ageVerificationOverlayData
+		and ageVerificationOverlayData.showVoiceInExperienceUpsell
 end
 
 function VoiceChatServiceManager:userAndPlaceCanUseVoice()
@@ -1956,6 +1989,11 @@ function VoiceChatServiceManager:GetVoiceStateFromEnum(voiceStateEnum)
 		}
 	end
 	return LOCAL_STATE_MAP[voiceStateEnum]
+end
+
+-- Map the in-experience upsell variant to the prompt type we should show
+function VoiceChatServiceManager:GetInExpUpsellPromptFromEnum(upsellVariant: string)
+	return IN_EXP_VARIANT_TO_PROMPT[upsellVariant]
 end
 
 export type RecentInteractionData = { [string]: { lastHeardTime: number } }

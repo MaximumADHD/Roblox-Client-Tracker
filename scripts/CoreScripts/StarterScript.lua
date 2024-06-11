@@ -69,8 +69,8 @@ local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCame
 
 local FFlagEnableExperienceNotificationPrompts = game:DefineFastFlag("EnableExperienceNotificationPrompts2", false)
 local FFlagEnableBulkPurchaseApp = game:DefineFastFlag("EnableBulkPurchaseApp3", false)
-
 local FFlagEnablePremiumSponsoredExperienceReporting = game:DefineFastFlag("EnablePremiumSponsoredExperienceReporting", false)
+local FFlagMoveUGCValidationFunction = require(RobloxGui.Modules.Common.Flags.FFlagMoveUGCValidationFunctionFeature)
 
 local UIBlox = require(CorePackages.UIBlox)
 local uiBloxConfig = require(CoreGuiModules.UIBloxInGameConfig)
@@ -182,7 +182,7 @@ if game:GetEngineFeature("ProximityPrompts") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ProximityPrompt", RobloxGui)
 end
 
-if game:GetEngineFeature("ValidateUGCBodyAPIFeature") then
+if FFlagMoveUGCValidationFunction and game:GetEngineFeature("ValidateUGCBodyAPIFeature") then
 	require(CoreGuiModules.Server.UGCValidation.UGCValidationFunctionInstaller)()
 end
 
@@ -287,19 +287,8 @@ coroutine.wrap(function()
 	safeRequire(RobloxGui.Modules.VR.UserGui)
 end)()
 
-
-local FFlagUserVRAvatarGestures
-do
-	local success, result = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserVRAvatarGestures")
-	end)
-	FFlagUserVRAvatarGestures = success and result
-end
-
 -- Allows players to animate their hands in VR
-if FFlagUserVRAvatarGestures then
-	coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.VRAvatarGestures.VRAvatarGesturesClient)
-end
+coroutine.wrap(safeRequire)(RobloxGui.Modules.VR.VRAvatarGestures.VRAvatarGesturesClient)
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/NetworkPause", RobloxGui)
 
