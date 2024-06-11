@@ -1,3 +1,4 @@
+--!nocheck
 local Invites = require(script.Reducers)
 local Actions = require(script.Actions)
 local Models = require(script.Models)

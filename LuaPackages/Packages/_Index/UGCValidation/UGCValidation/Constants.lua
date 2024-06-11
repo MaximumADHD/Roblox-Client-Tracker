@@ -9,10 +9,11 @@ local getFIntMeshDivisionFullExtended = require(root.flags.getFIntMeshDivisionFu
 local getFIntMeshDivisionMedium = require(root.flags.getFIntMeshDivisionMedium)
 local getFIntMeshDivisionNarrow = require(root.flags.getFIntMeshDivisionNarrow)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagUGCValidationAdjustLegBounds = require(root.flags.getFFlagUGCValidationAdjustLegBounds)
 local getFFlagUGCValidateSurfaceAppearanceAlphaMode = require(root.flags.getFFlagUGCValidateSurfaceAppearanceAlphaMode)
+local getFFlagUGCValidateAddSpecificPropertyRequirements =
+	require(root.flags.getFFlagUGCValidateAddSpecificPropertyRequirements)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getFFlagUGCValidateRestrictAttachmentPositions =
 	require(root.flags.getFFlagUGCValidateRestrictAttachmentPositions)
@@ -778,6 +779,11 @@ Constants.LC_BOUNDS = {
 	size = Vector3.new(8, 8, 8),
 }
 
+if getFFlagUGCValidateAddSpecificPropertyRequirements() then
+	-- this is used to specify that we don't care about a property's value
+	Constants.PROPERTIES_UNRESTRICTED = {}
+end
+
 Constants.PROPERTIES = {
 	Instance = {
 		Archivable = true,
@@ -842,6 +848,22 @@ Constants.PROPERTIES = {
 		else nil,
 }
 
+if getFFlagUGCValidateAddSpecificPropertyRequirements() then
+	local bodyPartSpecificProperties = {
+		BasePart = {
+			Color = Constants.PROPERTIES_UNRESTRICTED, -- for body parts, we don't care about the color
+		},
+	}
+	Constants.SPECIFIC_PROPERTIES = {
+		[Enum.AssetType.DynamicHead] = bodyPartSpecificProperties,
+		[Enum.AssetType.Torso] = bodyPartSpecificProperties,
+		[Enum.AssetType.LeftArm] = bodyPartSpecificProperties,
+		[Enum.AssetType.RightArm] = bodyPartSpecificProperties,
+		[Enum.AssetType.LeftLeg] = bodyPartSpecificProperties,
+		[Enum.AssetType.RightLeg] = bodyPartSpecificProperties,
+	}
+end
+
 Constants.CONTENT_ID_FIELDS = {
 	SpecialMesh = { "MeshId", "TextureId" },
 	MeshPart = { "MeshId", "TextureID" },
@@ -860,7 +882,7 @@ Constants.MESH_CONTENT_ID_FIELDS = {
 	SpecialMesh = { "MeshId" },
 	MeshPart = { "MeshId" },
 	WrapTarget = { "CageMeshId" },
-	WrapLayer = if getFFlagUseUGCValidationContext() then { "CageMeshId", "ReferenceMeshId" } else nil,
+	WrapLayer = { "CageMeshId", "ReferenceMeshId" },
 }
 
 Constants.TEXTURE_CONTENT_ID_FIELDS = {

@@ -6,7 +6,6 @@
 
 local root = script.Parent.Parent
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 
 local Constants = require(root.Constants)
@@ -26,20 +25,13 @@ local function validateScaleType(partScaleTypeNullable: StringValue?): (boolean,
 	if not Constants.AvatarPartScaleTypes[partScaleType.Value] then
 		Analytics.reportFailure(Analytics.ErrorType.validateScaleType_InvalidAvatarPartScaleType :: string)
 		assert(partScaleType.Parent) -- a partScaleType will never be the root, it'll have a parent
-		if getFFlagUseUGCValidationContext() then
-			return false,
-				{
-					string.format(
-						"The AvatarPartScaleType value in '%s' is invalid. Please, verify the value you are using is either Classic, ProportionsSlender, or ProportionsNormal.",
-						partScaleType.Parent.Name
-					),
-				}
-		else
-			return false,
-				{
-					`{partScaleType.Parent.Name}.{partScaleType.Name}.Value must be either Classic, ProportionsSlender, or ProportionsNormal`,
-				}
-		end
+		return false,
+			{
+				string.format(
+					"The AvatarPartScaleType value in '%s' is invalid. Please, verify the value you are using is either Classic, ProportionsSlender, or ProportionsNormal.",
+					partScaleType.Parent.Name
+				),
+			}
 	end
 	return true
 end

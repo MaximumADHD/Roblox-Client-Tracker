@@ -2,7 +2,10 @@
 
 local root = script.Parent
 
+local Types = require(root.util.Types)
+
 local RunService = game:GetService("RunService")
+local UGCValidationService = game:GetService("UGCValidationService")
 local StudioService = if RunService:IsStudio() then game:GetService("StudioService") else nil
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
@@ -10,6 +13,8 @@ local getFFlagUGCValidationAnalytics = require(root.flags.getFFlagUGCValidationA
 local getFFlagUGCValidateTestInactiveControls = require(root.flags.getFFlagUGCValidateTestInactiveControls)
 local getFFlagUGCValidateAccessoriesScaleType = require(root.flags.getFFlagUGCValidateAccessoriesScaleType)
 local getFFlagUGCValidationFixResetPhysicsError = require(root.flags.getFFlagUGCValidationFixResetPhysicsError)
+local getEngineFeatureEngineUGCValidationReportScriptTime =
+	require(root.flags.getEngineFeatureEngineUGCValidationReportScriptTime)
 
 local function joinTables(...)
 	local result = {}
@@ -190,6 +195,37 @@ function Analytics.reportThumbnailing(time: number, extraArgs: { [string]: strin
 		userId = if StudioService then StudioService:GetUserId() else 0,
 	})
 	RbxAnalyticsService:SendEventDeferred(target, "ugcValidation", "thumbnailing", args)
+end
+
+function Analytics.recordScriptTime(label: string, startTime: number, validationContext: Types.ValidationContext)
+	if not getEngineFeatureEngineUGCValidationReportScriptTime() then
+		return
+	end
+
+	if not validationContext.scriptTimes then
+		validationContext.scriptTimes = {}
+	end
+
+	local scriptTimes = validationContext.scriptTimes :: Types.ScriptTimes
+	if not scriptTimes[label] then
+		scriptTimes[label] = 0
+	end
+
+	local elapsed = tick() - startTime
+	scriptTimes[label] += elapsed
+end
+
+function Analytics.reportScriptTimes(validationContext: Types.ValidationContext)
+	if not getEngineFeatureEngineUGCValidationReportScriptTime() then
+		return
+	end
+
+	if validationContext.isServer and not RunService:IsStudio() and validationContext.scriptTimes then
+		(UGCValidationService :: any):ReportUGCValidationTelemetry(
+			if validationContext.assetTypeEnum then validationContext.assetTypeEnum.Name else "FullBody",
+			validationContext.scriptTimes :: Types.ScriptTimes
+		)
+	end
 end
 
 return Analytics

@@ -7,7 +7,6 @@ local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidatio
 
 local Analytics = require(root.Analytics)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
@@ -15,6 +14,8 @@ local function validateFullBodyCageDeletion(
 	meshInfo: Types.MeshInfo,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
+	local startTime = tick()
+
 	local isServer = validationContext.isServer
 
 	local success, result
@@ -61,38 +62,8 @@ local function validateFullBodyCageDeletion(
 			}
 	end
 
+	Analytics.recordScriptTime(script.Name, startTime, validationContext)
 	return true
 end
 
-local function DEPRECATED_validateFullBodyCageDeletion(
-	meshId: string,
-	meshType: string,
-	isServer: boolean?
-): (boolean, { string }?)
-	local success, result = pcall(function()
-		return UGCValidationService:ValidateFullBodyCageDeletion(meshId)
-	end)
-
-	if not success then
-		if nil ~= isServer and isServer then
-			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
-			-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
-			-- which would mean the asset failed validation
-			error("Failed to execute validateFullBodyCageDeletion check")
-		end
-		Analytics.reportFailure(Analytics.ErrorType.validateFullBodyCageDeletion_FailedToExecute)
-		return false, { "Failed to execute validateFullBodyCageDeletion check" }
-	end
-
-	if not result then
-		Analytics.reportFailure(Analytics.ErrorType.validateFullBodyCageDeletion_GeometryRemoved)
-		return false,
-			{ string.format("Some %s geometry has been removed. This will result in layering issues.", meshType) }
-	end
-
-	return true
-end
-
-return if getFFlagUseUGCValidationContext()
-	then validateFullBodyCageDeletion
-	else DEPRECATED_validateFullBodyCageDeletion :: never
+return validateFullBodyCageDeletion

@@ -8,7 +8,6 @@ local Types = require(root.util.Types)
 local pcallDeferred = require(root.util.pcallDeferred)
 local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureEngineUGCValidateCageUVTriangleArea =
 	require(root.flags.getEngineFeatureEngineUGCValidateCageUVTriangleArea)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
@@ -20,6 +19,8 @@ local function validateCageUVTriangleArea(
 	meshInfo: Types.MeshInfo,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
+	local startTime = tick()
+
 	local isServer = validationContext.isServer
 
 	if getEngineFeatureEngineUGCValidateCageUVTriangleArea() then
@@ -65,46 +66,8 @@ local function validateCageUVTriangleArea(
 		end
 	end
 
+	Analytics.recordScriptTime(script.Name, startTime, validationContext)
 	return true
 end
 
-local function DEPRECATED_validateCageUVTriangleArea(
-	instance: Instance,
-	fieldName: string,
-	isServer: boolean?
-): (boolean, { string }?)
-	local contentId = instance[fieldName]
-
-	if getEngineFeatureEngineUGCValidateCageUVTriangleArea() then
-		local success, result = pcall(function()
-			return UGCValidationService:ValidateCageUVTriangleArea(contentId)
-		end)
-
-		if not success then
-			if isServer then
-				error("Failed to load mesh data")
-			end
-			Analytics.reportFailure(Analytics.ErrorType.validateCageUVTriangleArea_FailedToLoadMesh)
-			return false, { "Failed to load mesh data" }
-		end
-
-		if not result then
-			Analytics.reportFailure(Analytics.ErrorType.validateCageUVTriangleArea_ZeroAreaTriangle)
-			return false,
-				{
-					string.format(
-						"%s.%s ( %s ) contained an invalid triangle which contained no area",
-						instance:GetFullName(),
-						fieldName,
-						contentId
-					),
-				}
-		end
-	end
-
-	return true
-end
-
-return if getFFlagUseUGCValidationContext()
-	then validateCageUVTriangleArea
-	else DEPRECATED_validateCageUVTriangleArea :: never
+return validateCageUVTriangleArea

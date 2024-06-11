@@ -90,4 +90,7 @@ return {
 
 	-- Indicate whether the fix for the unexpected TooltipV2 Re-Render issue is enabled
 	enableTooltipV2HoverControllerReRenderFix = false,
+
+	-- Indicate whether the fix for the the TooltipV2 body font is enabled
+	enableTooltipV2BodyFontFix = false,
 }

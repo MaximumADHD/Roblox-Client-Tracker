@@ -436,6 +436,7 @@ exports.buildClientSchema = utilitiesModule.buildClientSchema
 exports.buildASTSchema = utilitiesModule.buildASTSchema
 -- Build a GraphQLSchema from a GraphQL schema language document.
 exports.buildSchema = utilitiesModule.buildSchema
+exports.parse = utilitiesModule.parse
 -- Extends an existing GraphQLSchema from a parsed GraphQL Schema
 -- language AST.
 exports.extendSchema = utilitiesModule.extendSchema

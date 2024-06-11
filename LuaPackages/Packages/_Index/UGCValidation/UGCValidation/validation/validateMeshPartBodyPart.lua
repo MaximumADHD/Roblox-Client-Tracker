@@ -8,7 +8,6 @@ local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagDebugUGCDisableSurfaceAppearanceTests = require(root.flags.getFFlagDebugUGCDisableSurfaceAppearanceTests)
 local getFFlagUGCValidateBodyPartsCollisionFidelity = require(root.flags.getFFlagUGCValidateBodyPartsCollisionFidelity)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
@@ -105,12 +104,14 @@ local function validateMeshPartBodyPart(
 
 	-- TODO: refactor to take in a context table after FFlagUseThumbnailerUtil is cleaned up
 	if not skipSnapshot then
+		local startTime = tick()
 		reasonsAccumulator:updateReasons(validateAssetTransparency(inst, assetTypeEnum, isServer))
+		Analytics.recordScriptTime("validateAssetTransparency", startTime, validationContext)
 	end
 
 	reasonsAccumulator:updateReasons(validateMaterials(inst))
 
-	reasonsAccumulator:updateReasons(validateProperties(inst))
+	reasonsAccumulator:updateReasons(validateProperties(inst, assetTypeEnum))
 
 	if getFFlagUGCValidateBodyPartsCollisionFidelity() then
 		reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst))
@@ -133,98 +134,4 @@ local function validateMeshPartBodyPart(
 	return reasonsAccumulator:getFinalResults()
 end
 
-local function DEPRECATED_validateMeshPartBodyPart(
-	inst: Instance,
-	schema: any,
-	assetTypeEnum: Enum.AssetType,
-	isServer: boolean?,
-	allowUnreviewedAssets: boolean?,
-	restrictedUserIds: Types.RestrictedUserIds?,
-	universeId: number?
-): (boolean, { string }?)
-	if not getFFlagUGCValidationFixResetPhysicsError() then
-		-- do this ASAP
-		(resetPhysicsData :: any)({ inst })
-	end
-
-	local validationResult = validateWithSchema(schema, inst)
-	if not validationResult.success then
-		Analytics.reportFailure(Analytics.ErrorType.validateMeshPartBodyPart_ValidateWithSchema)
-		return false, { validationResult.message }
-	end
-
-	if not getFFlagDebugUGCDisableSurfaceAppearanceTests() then
-		local result, failureReasons = validateSurfaceAppearances(inst)
-		if not result then
-			return result, failureReasons
-		end
-	end
-
-	do
-		local result, failureReasons = (validateDependencies :: any)(
-			inst,
-			isServer,
-			allowUnreviewedAssets,
-			restrictedUserIds,
-			universeId
-		)
-		if not result then
-			return result, failureReasons
-		end
-	end
-
-	if getFFlagUGCValidationFixResetPhysicsError() then
-		--[[
-			call resetPhysicsData() after checks above which are making sure mesh ids exist (as resetPhysicsData() uses meshIds) but before any checks
-			for mesh size happen, as this removes physics data to ensure those size checks return accurate results
-		]]
-		local success, errorMessage = (resetPhysicsData :: any)({ inst }, isServer)
-		if not success then
-			return false, { errorMessage }
-		end
-	end
-
-	local reasonsAccumulator = FailureReasonsAccumulator.new()
-
-	reasonsAccumulator:updateReasons((validateBodyPartMeshBounds :: any)(inst, assetTypeEnum, isServer))
-
-	reasonsAccumulator:updateReasons((validateBodyPartChildAttachmentBounds :: any)(inst, assetTypeEnum, isServer))
-
-	reasonsAccumulator:updateReasons((validateAssetBounds :: any)(nil, inst, assetTypeEnum, isServer))
-
-	reasonsAccumulator:updateReasons((validateDescendantMeshMetrics :: any)(inst, assetTypeEnum, isServer))
-
-	reasonsAccumulator:updateReasons((validateDescendantTextureMetrics :: any)(inst, isServer))
-
-	reasonsAccumulator:updateReasons((validateHSR :: any)(inst))
-
-	reasonsAccumulator:updateReasons(validateAssetTransparency(inst, assetTypeEnum, isServer))
-
-	reasonsAccumulator:updateReasons(validateMaterials(inst))
-
-	reasonsAccumulator:updateReasons(validateProperties(inst))
-
-	if getFFlagUGCValidateBodyPartsCollisionFidelity() then
-		reasonsAccumulator:updateReasons(validateBodyPartCollisionFidelity(inst))
-	end
-
-	reasonsAccumulator:updateReasons(validateTags(inst))
-
-	reasonsAccumulator:updateReasons(validateAttributes(inst))
-
-	if getFFlagUGCValidateBodyPartsModeration() then
-		local checkModeration = not isServer
-		if allowUnreviewedAssets then
-			checkModeration = false
-		end
-		if checkModeration then
-			reasonsAccumulator:updateReasons((validateModeration :: any)(inst, restrictedUserIds))
-		end
-	end
-
-	return reasonsAccumulator:getFinalResults()
-end
-
-return if getFFlagUseUGCValidationContext()
-	then validateMeshPartBodyPart
-	else DEPRECATED_validateMeshPartBodyPart :: never
+return validateMeshPartBodyPart

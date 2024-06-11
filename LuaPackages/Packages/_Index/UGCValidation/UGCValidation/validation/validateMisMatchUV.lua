@@ -6,7 +6,6 @@ local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
 
@@ -55,25 +54,4 @@ local function validateMisMatchUV(
 	return true
 end
 
-local function DEPRECATED_validateMisMatchUV(innerCageMeshId: string, outerCageMeshId: string): (boolean, { string }?)
-	local success, result = pcall(function()
-		return UGCValidationService:ValidateMisMatchUV(innerCageMeshId, outerCageMeshId)
-	end)
-
-	if not success then
-		Analytics.reportFailure(Analytics.ErrorType.validateMisMatchUV_FailedToExecute)
-		return false, { "Failed to execute validateMisMatchUV check" }
-	end
-
-	if not result then
-		Analytics.reportFailure(Analytics.ErrorType.validateMisMatchUV_UVMismatch)
-		return false,
-			{
-				"Inner and Outer cage UV mismatched. Original cage template should be used and no modification to the UV map.",
-			}
-	end
-
-	return true
-end
-
-return if getFFlagUseUGCValidationContext() then validateMisMatchUV else DEPRECATED_validateMisMatchUV :: never
+return validateMisMatchUV

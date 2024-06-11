@@ -50,6 +50,8 @@ Badge.validateProps = t.strictInterface({
 	value = t.union(t.string, t.integer, BadgeStates.isEnumValue),
 	-- Badge variant for different color options
 	badgeVariant = t.optional(BadgeVariant.isEnumValue),
+	-- LayoutOrder
+	layoutOrder = t.optional(t.integer),
 })
 
 Badge.defaultProps = {
@@ -109,6 +111,7 @@ function Badge:render()
 			AnchorPoint = self.props.anchorPoint,
 			BackgroundTransparency = 1,
 			Size = UDim2.fromOffset(badgeWidth, badgeHeight),
+			LayoutOrder = self.props.layoutOrder,
 		}, {
 			Shadow = self.props.hasShadow and Roact.createElement(ImageSetComponent.Label, {
 				ZIndex = 1,

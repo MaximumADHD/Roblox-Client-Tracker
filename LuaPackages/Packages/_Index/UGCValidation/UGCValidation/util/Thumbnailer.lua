@@ -7,6 +7,9 @@
 local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 
+local getEngineFeatureEngineUGCValidateOrthographicTransparency =
+	require(root.flags.getEngineFeatureEngineUGCValidateOrthographicTransparency)
+
 local Thumbnailer = {}
 Thumbnailer.__index = Thumbnailer
 
@@ -27,6 +30,10 @@ function Thumbnailer.new(isServer: boolean, cameraFov: number, imgSize: Vector2)
 	return self
 end
 
+function Thumbnailer:setImgSize(imgSize: Vector2)
+	self.imgSize = imgSize
+end
+
 function Thumbnailer:setupViewportFrame()
 	assert(self.screenGui)
 	assert(self.worldModel)
@@ -42,7 +49,12 @@ function Thumbnailer:setupViewportFrame()
 	self.worldModel.Parent = vpf
 
 	-- reconfigure camera because seomtimes worldmodel without parent wont cause joints to move.
-	self:setCamera(self.cameraOptions.fill, self.cameraOptions.maxDim, self.cameraOptions.dir)
+	if getEngineFeatureEngineUGCValidateOrthographicTransparency() and self.cameraOptions.cameraTransform then
+		self:setCameraTransform(self.cameraOptions.cameraTransform)
+	else
+		self:setCamera(self.cameraOptions.fill, self.cameraOptions.maxDim, self.cameraOptions.dir)
+	end
+
 	local camera: Camera = self.camera :: Camera
 	camera.Parent = vpf
 	vpf.CurrentCamera = camera
@@ -82,6 +94,24 @@ function Thumbnailer:init(target: Instance)
 	elseif self.mode == SERVER then
 		ancestor.Parent = workspace
 	end
+end
+
+function Thumbnailer:setCameraTransform(cameraTransform: CFrame)
+	if not self.camera then
+		self.camera = Instance.new("Camera")
+		self.camera.FieldOfView = self.cameraFov
+
+		if self.mode == SERVER then
+			self.camera.Name = "ThumbnailCamera"
+			self.camera.Parent = workspace:GetChildren()[1]
+		end
+	end
+
+	self.camera.CFrame = cameraTransform
+
+	self.cameraOptions = {
+		cameraTransform = cameraTransform,
+	}
 end
 
 function Thumbnailer:setCamera(fill: number, maxDim: number, dir: Vector3)

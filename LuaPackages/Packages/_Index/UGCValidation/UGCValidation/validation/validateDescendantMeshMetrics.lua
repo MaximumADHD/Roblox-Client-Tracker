@@ -27,7 +27,6 @@ local ParseContentIds = require(root.util.ParseContentIds)
 local getMeshMinMax = require(root.util.getMeshMinMax)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidateBodyPartsExtendedMeshTests = require(root.flags.getFFlagUGCValidateBodyPartsExtendedMeshTests)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFFlagUGCValidateCageUVTriangleArea = require(root.flags.getFFlagUGCValidateCageUVTriangleArea)
@@ -154,52 +153,6 @@ local function validateTotalAssetTriangles(
 	return true
 end
 
-local function DEPRECATED_validateTotalAssetTriangles(
-	allMeshes: any,
-	assetTypeEnum: Enum.AssetType,
-	isServer: boolean?
-): (boolean, { string }?)
-	local maxTriangleCount = assert(Constants.ASSET_RENDER_MESH_MAX_TRIANGLES[assetTypeEnum.Name])
-
-	local function calculateTotalAssetTriangles(): (boolean, string?, number?)
-		local result = 0
-		for _, data in allMeshes do
-			if data.instance.ClassName ~= "MeshPart" then
-				continue
-			end
-			assert(data.fieldName == "MeshId")
-
-			local success, triangles = pcall(function()
-				return UGCValidationService:GetMeshTriCount(data.instance[data.fieldName])
-			end)
-
-			if not success then
-				Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_FailedToLoadMesh)
-				return false, `Failed to load mesh data for {data.instance.Name}.{data.fieldName} ({data.id})`
-			end
-			result = result + triangles
-		end
-		return true, nil, result
-	end
-
-	local success, message, totalAssetTriangles = calculateTotalAssetTriangles()
-	if not success then
-		if isServer then
-			-- there could be many reasons that an error occurred, the asset is not necessarilly incorrect, we just didn't get as
-			-- far as testing it, so we throw an error which means the RCC will try testing the asset again, rather than returning false
-			-- which would mean the asset failed validation
-			error(message :: string)
-		end
-		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_FailedToCalculateTriangles)
-		return false, { message :: string }
-	end
-	if totalAssetTriangles :: number > maxTriangleCount then
-		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_TooManyTriangles)
-		return false, { `{assetTypeEnum.Name} cannot have more than {maxTriangleCount} triangles in render meshes` }
-	end
-	return true
-end
-
 -- the mesh should be created at the origin
 local function validateMeshIsAtOrigin(
 	meshInfo: Types.MeshInfo,
@@ -230,25 +183,6 @@ local function validateMeshIsAtOrigin(
 	return true
 end
 
-local function DEPRECATED_validateMeshIsAtOrigin(obj: MeshPart, isServer: boolean?): (boolean, { string }?)
-	local success, failureReasons, meshMinOpt, meshMaxOpt = (getMeshMinMax :: any)(obj.MeshId, isServer)
-	if not success then
-		return success, failureReasons
-	end
-
-	local meshMin = meshMinOpt :: Vector3
-	local meshMax = meshMaxOpt :: Vector3
-	local meshHalfSize = (meshMax - meshMin) / 2
-	local meshCenter = meshMin + meshHalfSize
-
-	local Tol = 0.001
-	if meshCenter.Magnitude > Tol then
-		Analytics.reportFailure(Analytics.ErrorType.validateDescendantMeshMetrics_TooFarFromOrigin)
-		return false, { `Mesh for MeshPart {obj.Name} has been built too far from the origin` }
-	end
-	return true
-end
-
 local function validateDescendantMeshMetrics(
 	rootInstance: Instance,
 	validationContext: Types.ValidationContext
@@ -265,7 +199,9 @@ local function validateDescendantMeshMetrics(
 
 	local allMeshes = ParseContentIds.parse(rootInstance, Constants.MESH_CONTENT_ID_FIELDS, validationContext)
 
+	local startTime = tick()
 	reasonsAccumulator:updateReasons(validateTotalAssetTriangles(allMeshes, assetTypeEnum, validationContext))
+	Analytics.recordScriptTime("validateTotalAssetTriangles", startTime, validationContext)
 
 	for _, data in allMeshes do
 		local meshInfo = {
@@ -294,12 +230,16 @@ local function validateDescendantMeshMetrics(
 		if data.instance.ClassName == "MeshPart" then
 			assert(data.fieldName == "MeshId")
 
+			startTime = tick()
 			reasonsAccumulator:updateReasons(validateMeshIsAtOrigin(meshInfo, validationContext))
+			Analytics.recordScriptTime("validateMeshIsAtOrigin", startTime, validationContext)
 
 			reasonsAccumulator:updateReasons(validateMeshVertColors(meshInfo, true, validationContext))
 
 			-- EditableMesh data currently does not support skinning, leave this check as-is for now
+			startTime = tick()
 			reasonsAccumulator:updateReasons(validateIsSkinned(data.instance :: MeshPart, isServer))
+			Analytics.recordScriptTime("validateIsSkinned", startTime, validationContext)
 
 			if getFFlagUGCValidateMeshTriangleAreaForMeshes() then
 				reasonsAccumulator:updateReasons(validateMeshTriangleArea(meshInfo, validationContext))
@@ -336,88 +276,4 @@ local function validateDescendantMeshMetrics(
 	return reasonsAccumulator:getFinalResults()
 end
 
-local function DEPRECATED_validateDescendantMeshMetrics(
-	rootInstance: Instance,
-	assetTypeEnum: Enum.AssetType,
-	isServer: boolean?
-): (boolean, { string }?)
-	local reasonsAccumulator = FailureReasonsAccumulator.new()
-
-	local allMeshes = ParseContentIds.parse(rootInstance, Constants.MESH_CONTENT_ID_FIELDS)
-
-	reasonsAccumulator:updateReasons(DEPRECATED_validateTotalAssetTriangles(allMeshes, assetTypeEnum, isServer))
-
-	for _, data in allMeshes do
-		local errorString = string.format("%s.%s ( %s )", data.instance:GetFullName(), data.fieldName, data.id)
-
-		if data.instance.ClassName == "MeshPart" then
-			assert(data.fieldName == "MeshId")
-
-			reasonsAccumulator:updateReasons(DEPRECATED_validateMeshIsAtOrigin(data.instance :: MeshPart, isServer))
-
-			reasonsAccumulator:updateReasons(
-				(validateMeshVertColors :: any)(data.instance[data.fieldName], true, isServer)
-			)
-
-			reasonsAccumulator:updateReasons(validateIsSkinned(data.instance :: MeshPart, isServer))
-
-			if getFFlagUGCValidateMeshTriangleAreaForMeshes() then
-				reasonsAccumulator:updateReasons(
-					(validateMeshTriangleArea :: any)(data.instance, data.fieldName, isServer)
-				)
-			end
-		elseif data.instance.ClassName == "WrapTarget" then
-			assert(data.fieldName == "CageMeshId")
-
-			if getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-				reasonsAccumulator:updateReasons(
-					(validateFullBodyCageDeletion :: any)(data.instance[data.fieldName], errorString, isServer)
-				)
-			end
-
-			reasonsAccumulator:updateReasons(
-				(validateCageUVs :: any)(
-					data.instance[data.fieldName],
-					data.instance :: WrapTarget,
-					data.fieldName,
-					isServer
-				)
-			)
-
-			if getFFlagUGCValidateCageUVTriangleArea() then
-				reasonsAccumulator:updateReasons(
-					(validateCageUVTriangleArea :: any)(data.instance, data.fieldName, isServer)
-				)
-			end
-
-			if getFFlagUGCValidateUVValuesInReference() then
-				reasonsAccumulator:updateReasons(
-					(validateCageUVValues :: any)(
-						data.instance[data.fieldName],
-						data.instance :: WrapTarget,
-						data.fieldName,
-						isServer
-					)
-				)
-			end
-
-			if getFFlagUGCValidateMeshTriangleAreaForCages() then
-				reasonsAccumulator:updateReasons(
-					(validateMeshTriangleArea :: any)(data.instance, data.fieldName, isServer)
-				)
-			end
-		end
-
-		if getFFlagUGCValidateBodyPartsExtendedMeshTests() then
-			reasonsAccumulator:updateReasons(
-				(validateOverlappingVertices :: any)(data.instance[data.fieldName], errorString, isServer)
-			)
-		end
-	end
-
-	return reasonsAccumulator:getFinalResults()
-end
-
-return if getFFlagUseUGCValidationContext()
-	then validateDescendantMeshMetrics
-	else DEPRECATED_validateDescendantMeshMetrics :: never
+return validateDescendantMeshMetrics

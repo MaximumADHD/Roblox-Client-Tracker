@@ -8,7 +8,6 @@
 
 local root = script.Parent.Parent
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagDebugUGCDisableRCCOwnershipCheck = require(root.flags.getFFlagDebugUGCDisableRCCOwnershipCheck)
 local getFFlagUGCValidateBodyPartsModeration = require(root.flags.getFFlagUGCValidateBodyPartsModeration)
 local getFFlagUGCValidateAssetStatusNameChange = require(root.flags.getFFlagUGCValidateAssetStatusNameChange)
@@ -61,14 +60,10 @@ end
 local function validateCreatorId(idsHashTable, creatorId, instance, fieldName, id): (boolean, { string }?)
 	if not idsHashTable[tonumber(creatorId)] then
 		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsRestrictedUserId)
-		if getFFlagUseUGCValidationContext() then
-			return false,
-				{
-					`{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the current user. You can only validate assets that you or a group you belong to owns.`,
-				}
-		else
-			return false, { `{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the developer` }
-		end
+		return false,
+			{
+				`{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the current user. You can only validate assets that you or a group you belong to owns.`,
+			}
 	end
 	return true
 end
@@ -81,13 +76,9 @@ local function validateModerationState(moderationState, instance, fieldName, id)
 		-- throw an error here, which means that the validation of this asset will be run again, rather than returning false. This is because we can't
 		-- conclusively say it failed. It's inconclusive / in-progress, so we need to try again later
 		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsReviewing)
-		if getFFlagUseUGCValidationContext() then
-			error(
-				"Failed to load asset {instance:GetFullName()}.{fieldName} ( {id} ) that is still going through the review process. Please, wait for a notification of completion from the review process and try again."
-			)
-		else
-			error("Asset is under review")
-		end
+		error(
+			"Failed to load asset {instance:GetFullName()}.{fieldName} ( {id} ) that is still going through the review process. Please, wait for a notification of completion from the review process and try again."
+		)
 	end
 
 	local isApproved = if getFFlagUGCValidateAssetStatusNameChange()
@@ -96,14 +87,10 @@ local function validateModerationState(moderationState, instance, fieldName, id)
 
 	if not isApproved then
 		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_IsNotApproved)
-		if getFFlagUseUGCValidationContext() then
-			return false,
-				{
-					`{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the current user. You can only validate assets that you or a group you belong to owns.`,
-				}
-		else
-			return false, { `{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the developer` }
-		end
+		return false,
+			{
+				`{instance:GetFullName()}.{fieldName} ( {id} ) is not owned by the current user. You can only validate assets that you or a group you belong to owns.`,
+			}
 	end
 
 	return true
@@ -177,24 +164,12 @@ local function validateAssetCreatorsRCC(contentIdMap: any, validationContext: Ty
 	return validateAssetCreator(contentIdMap, validationContext)
 end
 
-local function DEPRECATED_validateAssetCreatorsRCC(
-	restrictedUserIds: Types.RestrictedUserIds?,
-	contentIdMap: any,
-	universeId: number
-)
-	return (validateAssetCreator :: any)(
-		contentIdMap,
-		true, --[[isServer]]
-		restrictedUserIds or {},
-		"", --[[token]]
-		universeId
-	)
-end
-
 local function validateDependencies(
 	instance: Instance,
 	validationContext: Types.ValidationContext?
 ): (boolean, { string }?)
+	local startTime = tick()
+
 	local isServer = if validationContext then validationContext.isServer else nil
 	local allowUnreviewedAssets = if validationContext then validationContext.allowUnreviewedAssets else nil
 	local restrictedUserIds = if validationContext then validationContext.restrictedUserIds else nil
@@ -247,64 +222,11 @@ local function validateDependencies(
 		end
 	end
 
-	return reasonsAccumulator:getFinalResults()
-end
-
-local function DEPRECATED_validateDependencies(
-	instance: Instance,
-	isServer: boolean?,
-	allowUnreviewedAssets: boolean?,
-	restrictedUserIds: Types.RestrictedUserIds?,
-	universeId: number?
-): (boolean, { string }?)
-	local contentIdMap = {}
-	local contentIds = {}
-
-	local parseSuccess, parseReasons = ParseContentIds.parseWithErrorCheck(
-		contentIds,
-		contentIdMap,
-		instance,
-		nil,
-		Constants.CONTENT_ID_REQUIRED_FIELDS
-	)
-	if not parseSuccess then
-		Analytics.reportFailure(Analytics.ErrorType.validateDependencies_ParseFailure)
-		return false, parseReasons
-	end
-
-	if isServer then
-		validateExistance(contentIdMap)
-	end
-
-	local reasonsAccumulator = FailureReasonsAccumulator.new()
-
-	if not getFFlagDebugUGCDisableRCCOwnershipCheck() then
-		if isServer then
-			-- This block will check user and universe permissions without considering moderation
-			-- This is from in experience creation, assets may not be moderated yet
-			if FFlagValidateUserAndUniverseNoModeration and universeId then
-				reasonsAccumulator:updateReasons(
-					DEPRECATED_validateAssetCreatorsRCC(restrictedUserIds, contentIdMap, universeId)
-				)
-			else
-				reasonsAccumulator:updateReasons(
-					validateModerationRCC(restrictedUserIds :: Types.RestrictedUserIds, contentIdMap)
-				)
-			end
-		end
-	end
-
-	if not getFFlagUGCValidateBodyPartsModeration() then
-		local checkModeration = not isServer
-		if allowUnreviewedAssets then
-			checkModeration = false
-		end
-		if checkModeration then
-			reasonsAccumulator:updateReasons((validateModeration :: any)(instance, restrictedUserIds))
-		end
+	if validationContext then
+		Analytics.recordScriptTime(script.Name, startTime, validationContext :: Types.ValidationContext)
 	end
 
 	return reasonsAccumulator:getFinalResults()
 end
 
-return if getFFlagUseUGCValidationContext() then validateDependencies else DEPRECATED_validateDependencies :: never
+return validateDependencies

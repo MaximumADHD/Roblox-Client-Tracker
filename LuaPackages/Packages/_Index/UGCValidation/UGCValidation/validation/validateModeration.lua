@@ -8,9 +8,6 @@ local getAssetCreationDetails = require(root.util.getAssetCreationDetails)
 local ParseContentIds = require(root.util.ParseContentIds)
 local Types = require(root.util.Types)
 
-local getFFlagUGCBetterModerationErrorText = require(root.flags.getFFlagUGCBetterModerationErrorText)
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
-
 local function validateUser(
 	restrictedUserIds: Types.RestrictedUserIds?,
 	endPointResponse: any,
@@ -30,27 +27,15 @@ local function validateUser(
 		if not idsHashTable[tonumber(individualAssetResponse.creatorTargetId)] then
 			local mapped = contentIdMap[tostring(individualAssetResponse.assetId)]
 			assert(mapped)
-			if getFFlagUseUGCValidationContext() then
-				return false,
-					{
-						string.format(
-							"Failed to validate current user owns %s.%s ( %s ). Make sure you own the assets being validated and try again.",
-							mapped.instance:GetFullName(),
-							mapped.fieldName,
-							tostring(individualAssetResponse.assetId)
-						),
-					}
-			else
-				return false,
-					{
-						string.format(
-							"%s.%s ( %s ) is not owned by the developer",
-							mapped.instance:GetFullName(),
-							mapped.fieldName,
-							tostring(individualAssetResponse.assetId)
-						),
-					}
-			end
+			return false,
+				{
+					string.format(
+						"Failed to validate current user owns %s.%s ( %s ). Make sure you own the assets being validated and try again.",
+						mapped.instance:GetFullName(),
+						mapped.fieldName,
+						tostring(individualAssetResponse.assetId)
+					),
+				}
 		end
 	end
 	return true
@@ -76,23 +61,13 @@ local function validateModeration(
 
 	if not success or #response ~= #contentIds then
 		Analytics.reportFailure(Analytics.ErrorType.validateModeration_CouldNotFetchModerationDetails)
-		if getFFlagUseUGCValidationContext() then
-			return false,
-				{
-					string.format(
-						"Failed to fetch moderation results for %s. Make sure all assets are owned by the current user.",
-						instance:GetFullName()
-					),
-				}
-		elseif getFFlagUGCBetterModerationErrorText() then
-			return false,
-				{
-					"Could not fetch moderation details for assets.",
-					"Make sure all assets are created by the current user.",
-				}
-		else
-			return false, { "Could not fetch details for assets" }
-		end
+		return false,
+			{
+				string.format(
+					"Failed to fetch moderation results for %s. Make sure all assets are owned by the current user.",
+					instance:GetFullName()
+				),
+			}
 	end
 
 	local passedUserCheck, reasons = validateUser(restrictedUserIds, response, contentIdMap)
@@ -123,18 +98,10 @@ local function validateModeration(
 			end
 		end
 		Analytics.reportFailure(Analytics.ErrorType.validateModeration_AssetsHaveNotPassedModeration)
-		if getFFlagUseUGCValidationContext() then
-			return false, {
-				"Asset(s) failed to pass moderation:",
-				unpack(moderationMessages),
-			}
-		else
-			return false,
-				{
-					"The following asset IDs have not passed moderation:",
-					unpack(moderationMessages),
-				}
-		end
+		return false, {
+			"Asset(s) failed to pass moderation:",
+			unpack(moderationMessages),
+		}
 	end
 
 	return true

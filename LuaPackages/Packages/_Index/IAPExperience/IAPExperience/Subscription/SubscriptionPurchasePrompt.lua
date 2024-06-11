@@ -18,6 +18,8 @@ local SubscriptionTitle = require(IAPExperienceRoot.Subscription.SubscriptionTit
 
 local GetFFlagEnableRobloxCreditPurchase = require(IAPExperienceRoot.Flags.GetFFlagEnableRobloxCreditPurchase)
 
+local getEnableDisableSubPurchase = require(IAPExperienceRoot.Flags.getEnableDisableSubPurchase)
+
 local CONTENT_PADDING = 24
 local CONDENSED_CONTENT_PADDING = 12
 local ICON_SIZE = 96
@@ -39,6 +41,8 @@ type Props = {
 	secondaryPaymentMethod: string,
 
 	isTestingMode: boolean,
+	disablePurchase: boolean?,
+	disablePurchaseText: string?,
 
 	screenSize: Vector,
 	purchaseSubscriptionActivated: (string) -> any,
@@ -78,23 +82,6 @@ local function generateFooter(isTestingMode, footerText, fonts, theme, middleCon
 	})
 end
 
-local function DEPRECATED_generatePromptText(props, fonts, theme, middleContentSize)
-	return React.createElement("TextLabel", {
-		LayoutOrder = 3,
-		BackgroundTransparency = 1,
-		Size = UDim2.new(0, middleContentSize, 0, 0),
-		AutomaticSize = Enum.AutomaticSize.Y,
-		TextXAlignment = Enum.TextXAlignment.Left,
-		Font = fonts.Body.Font,
-		Text = props.description,
-		TextSize = 16,
-		TextWrapped = true,
-		TextColor3 = theme.TextDefault.Color,
-		TextTransparency = theme.TextDefault.Transparency,
-		RichText = true,
-	})
-end
-
 local function generatePromptText(props, fonts, theme, middleContentSize, calculatePromptHeight)
 	return React.createElement("TextLabel", {
 		LayoutOrder = 2,
@@ -118,6 +105,20 @@ local function generatePromptText(props, fonts, theme, middleContentSize, calcul
 end
 
 local function createSubscribeButtonStacks(props, locMap)
+	if getEnableDisableSubPurchase() and props.disablePurchase then
+		return {
+			{
+				buttonType = ButtonType.PrimarySystem,
+				props = {
+					onActivated = function() end,
+					isDisabled = true,
+					text = props.disablePurchaseText,
+					layoutOrder = 0,
+				},
+			},
+		}
+	end
+
 	if not GetFFlagEnableRobloxCreditPurchase() then
 		return {
 			{
@@ -130,8 +131,8 @@ local function createSubscribeButtonStacks(props, locMap)
 			},
 		}
 	end
-	
-	if props.secondaryPaymentMethod == nil or props.secondaryPaymentMethod == '' then
+
+	if props.secondaryPaymentMethod == nil or props.secondaryPaymentMethod == "" then
 		return {
 			{
 				buttonType = ButtonType.PrimarySystem,
@@ -142,11 +143,11 @@ local function createSubscribeButtonStacks(props, locMap)
 					text = locMap.subscribe,
 					layoutOrder = 0,
 				},
-			}
+			},
 		}
 	end
 
-	local localizedText;
+	local localizedText
 	if props.primaryPaymentMethod == "Stripe" then
 		localizedText = locMap.subscribeWithCreditDebitCard
 	elseif props.primaryPaymentMethod == "CreditBalance" then
@@ -188,11 +189,13 @@ local function SubscriptionPurchasePrompt(props)
 				+ textHeight
 		)
 	end
-	
+
 	return React.createElement(MultiTextLocalizer, {
 		keys = {
 			titleText = { key = "IAPExperience.SubscriptionPurchasePrompt.Label.GetSubscription" },
-			subscribe = if GetFFlagEnableRobloxCreditPurchase() then { key = "Feature.Subscription.Action.Subscribe" } else { key = "IAPExperience.PremiumUpsell.Action.Subscribe" },
+			subscribe = if GetFFlagEnableRobloxCreditPurchase()
+				then { key = "Feature.Subscription.Action.Subscribe" }
+				else { key = "IAPExperience.PremiumUpsell.Action.Subscribe" },
 			subscribeWithCreditDebitCard = { key = "Feature.Subscription.Action.SubscribeWithCreditDebitCard" },
 			subscribeWithRobloxCredit = { key = "Feature.Subscription.Action.SubscribeWithRobloxCredit" },
 			payAnotherWay = { key = "Feature.Subscription.Action.SubscribePayAnotherWay" },
@@ -210,17 +213,13 @@ local function SubscriptionPurchasePrompt(props)
 					buttonStackProps = {
 						buttons = createSubscribeButtonStacks(props, locMap),
 						buttonHeight = BUTTON_HEIGHT,
-						forcedFillDirection =  if GetFFlagEnableRobloxCreditPurchase() then Enum.FillDirection.Vertical else nil
+						forcedFillDirection = if GetFFlagEnableRobloxCreditPurchase()
+							then Enum.FillDirection.Vertical
+							else nil,
 					},
 					onCloseClicked = props.cancelPurchaseActivated,
 					footerContent = function()
-						return generateFooter(
-							props.isTestingMode,
-							locMap.footerText,
-							fonts,
-							theme,
-							middleContentSize
-						)
+						return generateFooter(props.isTestingMode, locMap.footerText, fonts, theme, middleContentSize)
 					end,
 				}, {
 					React.createElement("Frame", {
@@ -235,7 +234,7 @@ local function SubscriptionPurchasePrompt(props)
 							BorderSizePixel = 0,
 							ZIndex = 2,
 							ScrollingEnabled = promptHeight > (props.screenSize.Y - MARGIN),
-							ScrollBarThickness = promptHeight > (props.screenSize.Y - MARGIN) and 5,
+							ScrollBarThickness = promptHeight > (props.screenSize.Y - MARGIN) and 5 or nil,
 							ScrollingDirection = Enum.ScrollingDirection.Y,
 							Selectable = false,
 							CanvasSize = UDim2.new(1, 0, 0, promptHeight),

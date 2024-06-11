@@ -13,7 +13,6 @@ local root = script.Parent.Parent
 local Analytics = require(root.Analytics)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getEngineFeatureUGCValidateGetInactiveControls =
 	require(root.flags.getEngineFeatureUGCValidateGetInactiveControls)
@@ -49,13 +48,8 @@ local requiredActiveFACSControls = {
 }
 
 local function downloadFailure(isServer: boolean?, name: string?): (boolean, { string }?)
-	local errorMessage
-	if getFFlagUseUGCValidationContext() then
-		errorMessage =
-			string.format("Failed to load model for dynamic head '%s'. Make sure model exists and try again.", name)
-	else
-		errorMessage = "Failed to retrieve mesh data to validate dynamic head"
-	end
+	local errorMessage =
+		string.format("Failed to load model for dynamic head '%s'. Make sure model exists and try again.", name)
 	if isServer then
 		-- ValidateDynamicHead() failed retriving mesh data, meaning the tests on the mesh couldn't proceed, therefore we throw an error here,
 		-- which means that the validation of this asset will be run again, rather than returning false. This is because we can't conclusively
@@ -148,6 +142,7 @@ local function validateDynamicHeadData(
 	meshPartHead: MeshPart,
 	validationContext: Types.ValidationContext
 ): (boolean, { string }?)
+	local startTime = tick()
 	if not getEngineFeatureEngineUGCValidateBodyParts() then
 		return true
 	end
@@ -161,103 +156,17 @@ local function validateDynamicHeadData(
 		end)
 
 		if not retrievedMeshData then
-			if getFFlagUseUGCValidationContext() then
-				return downloadFailure(isServer, meshPartHead.Name)
-			else
-				return downloadFailure(isServer)
-			end
-		end
-
-		if not testsPassed then
-			Analytics.reportFailure(Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh)
-			if getFFlagUseUGCValidationContext() then
-				return false,
-					{
-						string.format(
-							"Failed validation for dynamic head '%s' due to missing FACS information. You need to provide FACS controls for at least 17 poses (see documentation).",
-							meshPartHead.Name
-						),
-					}
-			else
-				return false,
-					{
-						`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is not correctly set-up to be a dynamic head mesh as it has no FACS information`,
-					}
-			end
-		end
-	end
-
-	local reasonsAccumulator = FailureReasonsAccumulator.new()
-
-	if getEngineFeatureUGCValidateGetInactiveControls() and getFFlagUGCValidateTestInactiveControls() then
-		local commandExecuted, missingControlsOrErrorMessage, inactiveControls = pcall(function()
-			return UGCValidationService:GetDynamicHeadMeshInactiveControls(
-				meshPartHead.MeshId,
-				requiredActiveFACSControls
-			)
-		end)
-
-		if not commandExecuted then
-			local errorMessage = missingControlsOrErrorMessage
-			if string.find(errorMessage, "Download Error") == 1 then
-				if getFFlagUseUGCValidationContext() then
-					return downloadFailure(isServer, meshPartHead.Name)
-				else
-					return downloadFailure(isServer)
-				end
-			end
-			assert(false, errorMessage) --any other error to download error is a code problem
-		end
-
-		local missingControls = missingControlsOrErrorMessage
-
-		local doAllControlsExist = #missingControls == 0
-		local areAllControlsActive = #inactiveControls == 0
-		if not doAllControlsExist or not areAllControlsActive then
-			Analytics.reportFailure(
-				Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls
-			)
-
-			reasonsAccumulator:updateReasons(doAllControlsExist, {
-				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is missing FACS controls: {table.concat(missingControls, ", ")}`,
-			})
-			reasonsAccumulator:updateReasons(areAllControlsActive, {
-				`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) has inactive FACS controls: {table.concat(inactiveControls, ", ")}`,
-			})
-		end
-	end
-
-	if EngineFeatureGCValidateCompareTextureOverlap and not skipSnapshot then
-		local succ, errorMessage = checkFACSDataOperational(meshPartHead, isServer)
-		reasonsAccumulator:updateReasons(succ, errorMessage)
-	end
-
-	return reasonsAccumulator:getFinalResults()
-end
-
-local function DEPRECATED_validateDynamicHeadData(
-	meshPartHead: MeshPart,
-	isServer: boolean?,
-	skipSnapshot: boolean?
-): (boolean, { string }?)
-	if not getEngineFeatureEngineUGCValidateBodyParts() then
-		return true
-	end
-
-	do
-		local retrievedMeshData, testsPassed = pcall(function()
-			return UGCValidationService:ValidateDynamicHeadMesh(meshPartHead.MeshId)
-		end)
-
-		if not retrievedMeshData then
-			return downloadFailure(isServer)
+			return downloadFailure(isServer, meshPartHead.Name)
 		end
 
 		if not testsPassed then
 			Analytics.reportFailure(Analytics.ErrorType.validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh)
 			return false,
 				{
-					`{meshPartHead.Name}.MeshId ({meshPartHead.MeshId}) is not correctly set-up to be a dynamic head mesh as it has no FACS information`,
+					string.format(
+						"Failed validation for dynamic head '%s' due to missing FACS information. You need to provide FACS controls for at least 17 poses (see documentation).",
+						meshPartHead.Name
+					),
 				}
 		end
 	end
@@ -275,7 +184,7 @@ local function DEPRECATED_validateDynamicHeadData(
 		if not commandExecuted then
 			local errorMessage = missingControlsOrErrorMessage
 			if string.find(errorMessage, "Download Error") == 1 then
-				return downloadFailure(isServer)
+				return downloadFailure(isServer, meshPartHead.Name)
 			end
 			assert(false, errorMessage) --any other error to download error is a code problem
 		end
@@ -303,9 +212,8 @@ local function DEPRECATED_validateDynamicHeadData(
 		reasonsAccumulator:updateReasons(succ, errorMessage)
 	end
 
+	Analytics.recordScriptTime(script.Name, startTime, validationContext)
 	return reasonsAccumulator:getFinalResults()
 end
 
-return if getFFlagUseUGCValidationContext()
-	then validateDynamicHeadData
-	else DEPRECATED_validateDynamicHeadData :: never
+return validateDynamicHeadData

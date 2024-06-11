@@ -26,6 +26,7 @@ local TooltipOrientation = require(Dialog.Tooltip.Enum.TooltipOrientation)
 local IconButton = require(UIBlox.App.Button.IconButton)
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local Images = require(UIBlox.App.ImageSet.Images)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 -- return elementwise product of two vectors
 local function product(v1: Vector2, v2: Vector2)
@@ -140,7 +141,12 @@ local function TooltipWithRef(props: Types.TooltipProps, ref)
 		headerSize = (headerSize :: any):Min(maxHeaderSize)
 		contentWidth = math.max(contentWidth, headerSize.X)
 	end
-	local bodyFont = font.CaptionBody
+	local bodyFont
+	if UIBloxConfig.enableTooltipV2BodyFontFix then
+		bodyFont = font.BodySmall
+	else
+		bodyFont = font.CaptionBody
+	end
 	local bodySize
 	if props.bodyText then
 		bodySize = GetTextSize(props.bodyText, baseSize * bodyFont.RelativeSize, bodyFont.Font, sizeConstraint)

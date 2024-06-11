@@ -9,7 +9,6 @@ local root = script.Parent.Parent
 
 local Constants = require(root.Constants)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagAddUGCValidationForPackage = require(root.flags.getFFlagAddUGCValidationForPackage)
 local getFFlagFixPackageIDFieldName = require(root.flags.getFFlagFixPackageIDFieldName)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
@@ -115,8 +114,7 @@ local function parseContentId(contentIds, contentIdMap, allResults, object, fiel
 		end
 
 		if
-			getFFlagUseUGCValidationContext()
-			and getEngineFeatureUGCValidateEditableMeshAndImage()
+			getEngineFeatureUGCValidateEditableMeshAndImage()
 			and hasInExpCreatedEditableInstance(object, fieldName, validationContext)
 		then
 			if allResults then
@@ -129,22 +127,15 @@ local function parseContentId(contentIds, contentIdMap, allResults, object, fiel
 
 	local id = tryGetAssetIdFromContentIdInternal(contentId)
 	if id == nil then
-		if getFFlagUseUGCValidationContext() then
-			return false,
-				{
-					string.format(
-						"Could not parse ContentId %s in %s.%s. Please make sure you are using a valid URL with a valid ID.",
-						contentId,
-						object:GetFullName(),
-						fieldName
-					),
-				}
-		else
-			return false,
-				{
-					string.format("Could not parse ContentId %s in %s.%s", contentId, object:GetFullName(), fieldName),
-				}
-		end
+		return false,
+			{
+				string.format(
+					"Could not parse ContentId %s in %s.%s. Please make sure you are using a valid URL with a valid ID.",
+					contentId,
+					object:GetFullName(),
+					fieldName
+				),
+			}
 	end
 
 	-- do not check the same asset ID multiple times
@@ -185,23 +176,17 @@ local function parseWithErrorCheckInternal(
 			local requiredFieldsForClassType = requiredFields and requiredFields[descendant.ClassName]
 			for __, field in ipairs(contentIdFields) do
 				local isRequired = requiredFieldsForClassType and requiredFieldsForClassType[field]
-				if getFFlagUseUGCValidationContext() then
-					reasonsAccumulator:updateReasons(
-						parseContentId(
-							contentIds,
-							contentIdMap,
-							allResults,
-							descendant,
-							field,
-							isRequired,
-							validationContext
-						)
+				reasonsAccumulator:updateReasons(
+					parseContentId(
+						contentIds,
+						contentIdMap,
+						allResults,
+						descendant,
+						field,
+						isRequired,
+						validationContext
 					)
-				else
-					reasonsAccumulator:updateReasons(
-						parseContentId(contentIds, contentIdMap, allResults, descendant, field, isRequired)
-					)
-				end
+				)
 			end
 		end
 	end
@@ -222,13 +207,8 @@ function ParseContentIds.parse(object, allFields, validationContext)
 	local contentIds = {}
 	local allResults = {}
 
-	local success
-	if getFFlagUseUGCValidationContext() then
-		success =
-			parseWithErrorCheckInternal(contentIds, contentIdMap, allResults, object, allFields, nil, validationContext)
-	else
-		success = parseWithErrorCheckInternal(contentIds, contentIdMap, allResults, object, allFields)
-	end
+	local success =
+		parseWithErrorCheckInternal(contentIds, contentIdMap, allResults, object, allFields, nil, validationContext)
 
 	assert(success)
 	return allResults

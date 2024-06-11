@@ -25,6 +25,7 @@ export type BypassFlags = {
 	skipSnapshot: boolean?,
 	skipValidateHSR: boolean?,
 }
+export type ScriptTimes = { [string]: number }
 export type EditableMeshes = { [Instance]: { [string]: EditableMeshInfo } }
 export type EditableImages = { [Instance]: { [string]: EditableImageInfo } }
 export type ValidationContext = {
@@ -43,6 +44,7 @@ export type ValidationContext = {
 	bypassFlags: BypassFlags?,
 	lastTickSeconds: number?,
 	shouldYield: boolean?,
+	scriptTimes: ScriptTimes?,
 }
 
 export type MeshInfo = {

@@ -4,21 +4,15 @@ local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 local validateWithSchema = require(root.util.validateWithSchema)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
-
 -- validates a given instance based on a schema
 local function validateInstanceTree(schema: any, instance: Instance): (boolean, { string }?)
 	-- validate using hat schema
 	local validationResult = validateWithSchema(schema, instance)
 	if validationResult.success == false then
 		Analytics.reportFailure(Analytics.ErrorType.validateInstanceTree)
-		if getFFlagUseUGCValidationContext() then
-			return false, {
-				"Detected the following error(s): " .. validationResult.message,
-			}
-		else
-			return false, { validationResult.message }
-		end
+		return false, {
+			"Detected the following error(s): " .. validationResult.message,
+		}
 	end
 
 	-- fallback case for if validateWithSchema breaks

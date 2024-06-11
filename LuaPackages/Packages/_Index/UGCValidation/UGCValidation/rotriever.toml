@@ -1,0 +1,17 @@
+[package]
+name = "UGCValidation"
+version = "1.12.5"
+content_root = "src"
+files = [
+    "*",
+    "!*.spec.lua",
+    "!*jest.config.lua",
+    "!*.rbxm",
+    "!AssetsForUnitTests",
+]
+publish = true
+[dependencies.Cryo]
+version = "^1.0"
+
+[dependencies.Promise]
+version = "^3.3.0"

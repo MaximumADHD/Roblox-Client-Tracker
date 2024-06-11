@@ -2,8 +2,6 @@ local root = script.Parent.Parent
 
 local Analytics = require(root.Analytics)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
-
 local function validateLayeredClothingAccessoryMeshPartAssetFormatMatch(
 	meshPartAccessory: Instance,
 	specialMeshAccessory: Instance
@@ -20,34 +18,26 @@ local function validateLayeredClothingAccessoryMeshPartAssetFormatMatch(
 		Analytics.reportFailure(
 			Analytics.ErrorType.validateLayeredClothingAccessoryMeshPartAssetFormatMatch_MeshIdMismatch
 		)
-		if getFFlagUseUGCValidationContext() then
-			return false,
-				{
-					string.format(
-						"Model meshId mismatch between MeshPart.MeshId and SpecialMesh.MeshId for %s. You need to match the meshIds and try again.",
-						meshPartAccessory.Name
-					),
-				}
-		else
-			return false, { "MeshPart.MeshId did not match SpecialMesh.MeshId" }
-		end
+		return false,
+			{
+				string.format(
+					"Model meshId mismatch between MeshPart.MeshId and SpecialMesh.MeshId for %s. You need to match the meshIds and try again.",
+					meshPartAccessory.Name
+				),
+			}
 	end
 
 	if meshPartHandle.TextureID ~= specialMeshHandle.TextureID then
 		Analytics.reportFailure(
 			Analytics.ErrorType.validateLayeredClothingAccessoryMeshPartAssetFormatMatch_TextureIdMismatch
 		)
-		if getFFlagUseUGCValidationContext() then
-			return false,
-				{
-					string.format(
-						"Model textureId mismatch between MeshPart.TextureID and SpecialMesh.TextureId for %s. You need to match the textureIds and try again.",
-						meshPartAccessory.Name
-					),
-				}
-		else
-			return false, { "MeshPart.TextureID did not match SpecialMesh.TextureId" }
-		end
+		return false,
+			{
+				string.format(
+					"Model textureId mismatch between MeshPart.TextureID and SpecialMesh.TextureId for %s. You need to match the textureIds and try again.",
+					meshPartAccessory.Name
+				),
+			}
 	end
 
 	return true

@@ -1,3 +1,5 @@
+local FFlagUseNewAboutUrls = game:DefineFastFlag("UseNewAboutUrls", false)
+
 return function(UrlBuilder)
 	local function isQQ()
 		return string.find(UrlBuilder.fromString("corp:")(), "qq.com")
@@ -23,7 +25,7 @@ return function(UrlBuilder)
 			-- link the Report & Appeals standalone portal (e.g. not part of settings)
 			main = UrlBuilder.fromString("www:report-appeals?t_source={source|app}"),
 			-- link to a specific violation within the portal
-			-- The URL builder does not support paramters in the hash 
+			-- The URL builder does not support paramters in the hash
 			-- so we send that as a query parameter instead and handle it in the portal
 			violation = UrlBuilder.fromString("www:report-appeals?vid={id}&t_source={source|app}"),
 		},
@@ -32,9 +34,28 @@ return function(UrlBuilder)
 			sendVerificationEmail = UrlBuilder.fromString("accountSettings:v1/email/verify"),
 		},
 		about = {
-			us = UrlBuilder.fromString("corp:"),
-			careers = UrlBuilder.fromString(isQQ() and "corp:careers.html" or "corp:careers"),
-			parents = UrlBuilder.fromString("corp:parents"),
+			us = if FFlagUseNewAboutUrls
+				then function(locale)
+					local localeCode = locale or ""
+					return UrlBuilder.fromString("www:info/about-us?locale={localeCode}")({ localeCode = localeCode })
+				end
+				else UrlBuilder.fromString("corp:"),
+			careers = if FFlagUseNewAboutUrls
+				then function(locale)
+					if isQQ() then
+						return UrlBuilder.fromString("corp:careers.html")
+					else
+						local localeCode = locale or ""
+						return UrlBuilder.fromString("www:info/jobs?locale={localeCode}")({ localeCode = localeCode })
+					end
+				end
+				else UrlBuilder.fromString(isQQ() and "corp:careers.html" or "corp:careers"),
+			parents = if FFlagUseNewAboutUrls
+				then function(locale)
+					local localeCode = locale or ""
+					return UrlBuilder.fromString("www:info/parents?locale={localeCode}")({ localeCode = localeCode })
+				end
+				else UrlBuilder.fromString("corp:parents"),
 			terms = function(params)
 				if isQQ() and params.useGameQQUrls then
 					return UrlBuilder.fromString("https://game.qq.com/contract.shtml")()

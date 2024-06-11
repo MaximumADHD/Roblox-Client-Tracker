@@ -3,12 +3,13 @@ local root = script.Parent.Parent
 
 local Cryo = require(root.Parent.Cryo)
 
+local getFFlagUGCValidateAddSpecificPropertyRequirements =
+	require(root.flags.getFFlagUGCValidateAddSpecificPropertyRequirements)
+
 local Analytics = require(root.Analytics)
 local Constants = require(root.Constants)
 
 local valueToString = require(root.util.valueToString)
-
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 
 local EPSILON = 1e-5
 
@@ -38,7 +39,25 @@ local function propEq(propValue: any, expectedValue: any)
 	end
 end
 
-local function validateProperties(instance): (boolean, { string }?)
+local function getSpecificExpectedValue(
+	expectedValue: any,
+	className: string,
+	propName: string,
+	assetTypeEnum: Enum.AssetType?
+): any
+	if
+		not assetTypeEnum
+		or not Constants.SPECIFIC_PROPERTIES[assetTypeEnum :: Enum.AssetType]
+		or not Constants.SPECIFIC_PROPERTIES[assetTypeEnum :: Enum.AssetType][className]
+		or not Constants.SPECIFIC_PROPERTIES[assetTypeEnum :: Enum.AssetType][className][propName]
+	then
+		return expectedValue
+	end
+
+	return Constants.SPECIFIC_PROPERTIES[assetTypeEnum :: Enum.AssetType][className][propName]
+end
+
+local function validateProperties(instance, assetTypeEnum: Enum.AssetType?): (boolean, { string }?)
 	-- full tree of instance + descendants
 	local objects: { Instance } = instance:GetDescendants()
 	table.insert(objects, instance)
@@ -54,47 +73,36 @@ local function validateProperties(instance): (boolean, { string }?)
 
 					if not propExists then
 						Analytics.reportFailure(Analytics.ErrorType.validateProperties_PropertyDoesNotExist)
-						if getFFlagUseUGCValidationContext() then
-							return false,
-								{
-									string.format(
-										"Property '%s' does not exist on type '%s'. Delete the property and try again.",
-										propName,
-										object.ClassName
-									),
-								}
-						else
-							return false,
-								{
-									string.format("Property %s does not exist on type %s", propName, object.ClassName),
-								}
-						end
+						return false,
+							{
+								string.format(
+									"Property '%s' does not exist on type '%s'. Delete the property and try again.",
+									propName,
+									object.ClassName
+								),
+							}
 					end
 
-					if not propEq(propValue, expectedValue) then
-						Analytics.reportFailure(Analytics.ErrorType.validateProperties_PropertyMismatch)
-						if getFFlagUseUGCValidationContext() then
-							return false,
-								{
-									string.format(
-										"Tying to access property '%s.%s' using the incorrect type for it. Expected '%s' to be '%s'.",
-										object:GetFullName(),
-										propName,
-										propName,
-										valueToString(expectedValue)
-									),
-								}
-						else
-							return false,
-								{
-									string.format(
-										"Expected %s.%s to be %s",
-										object:GetFullName(),
-										propName,
-										valueToString(expectedValue)
-									),
-								}
+					local specificExpectedValue = expectedValue
+					if getFFlagUGCValidateAddSpecificPropertyRequirements() then
+						specificExpectedValue =
+							getSpecificExpectedValue(expectedValue, className, propName, assetTypeEnum)
+						if specificExpectedValue == Constants.PROPERTIES_UNRESTRICTED then
+							continue
 						end
+					end
+					if not propEq(propValue, specificExpectedValue) then
+						Analytics.reportFailure(Analytics.ErrorType.validateProperties_PropertyMismatch)
+						return false,
+							{
+								string.format(
+									"Tying to access property '%s.%s' using the incorrect type for it. Expected '%s' to be '%s'.",
+									object:GetFullName(),
+									propName,
+									propName,
+									valueToString(specificExpectedValue)
+								),
+							}
 					end
 				end
 			end

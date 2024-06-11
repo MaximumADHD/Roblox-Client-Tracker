@@ -67,6 +67,7 @@ return {
 	-- Build a GraphQLSchema from GraphQL Schema language.
 	buildASTSchema = buildASTSchemaModule.buildASTSchema,
 	buildSchema = buildASTSchemaModule.buildSchema,
+	parse = buildASTSchemaModule.parse,
 
 	-- Extends an existing GraphQLSchema from a parsed GraphQL Schema language AST.
 	extendSchema = require(script.extendSchema).extendSchema,

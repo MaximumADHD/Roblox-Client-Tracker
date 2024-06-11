@@ -16,6 +16,7 @@ local withHoverTooltip = require(UIBlox.App.Dialog.TooltipV2.Controllers).withHo
 local TooltipOrientation = require(UIBlox.App.Dialog.Tooltip.Enum.TooltipOrientation)
 local StateLayer = require(UIBlox.Core.Control.StateLayer)
 local Badge = require(UIBlox.App.Indicator.Badge)
+local BadgeVariant = require(UIBlox.App.Indicator.Enum.BadgeVariant)
 
 export type Props = {
 	-- AnchorPoint of component
@@ -31,6 +32,8 @@ export type Props = {
 	-- Value displayed in the badge. `BadgeStates.isEmpty`
 	-- can be passed in to display an empty badge
 	badgeValue: (string | number | EnumItem)?,
+	-- Badge variant for different color options
+	badgeVariant: any,
 	-- Text to be displayed on tooltip
 	tooltipText: string?,
 	-- Portal target where tooltip is mounted on
@@ -44,18 +47,20 @@ export type Props = {
 }
 
 local defaultProps = {
+	badgeVariant = BadgeVariant.Alert,
 	tooltipTarget = CoreGui,
 	disableOutset = false,
 	onMedia = false,
 }
 
-local function UtilityActionIcon(providedProps: Props)
+local function UtilityActionIcon(providedProps: Props, ref: React.Ref<Frame>)
 	local props = Cryo.Dictionary.join(defaultProps, providedProps)
 	local anchorPoint = props.anchorPoint
 	local position = props.position
 	local layoutOrder = props.layoutOrder
 	local icon = props.icon
 	local badgeValue = props.badgeValue
+	local badgeVariant = props.badgeVariant
 	local tooltipText = props.tooltipText
 	local tooltipTarget = props.tooltipTarget
 	local disableOutset = props.disableOutset
@@ -111,6 +116,7 @@ local function UtilityActionIcon(providedProps: Props)
 			LayoutOrder = layoutOrder,
 			[React.Change.AbsoluteSize] = triggerPointChanged,
 			[React.Change.AbsolutePosition] = triggerPointChanged,
+			ref = ref,
 		}, {
 			Background = if onMedia
 				then React.createElement("Frame", {
@@ -157,13 +163,13 @@ local function UtilityActionIcon(providedProps: Props)
 					then React.createElement(Badge, {
 						position = badgePosition,
 						anchorPoint = badgeAnchor,
-						-- value = BadgeStates.isEmpty,
 						value = badgeValue,
+						badgeVariant = badgeVariant,
 					})
 					else nil,
-			}),
+			}, props.children),
 		})
 	end)
 end
 
-return UtilityActionIcon
+return React.forwardRef(UtilityActionIcon)

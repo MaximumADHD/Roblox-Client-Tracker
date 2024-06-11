@@ -4,8 +4,6 @@ local Analytics = require(root.Analytics)
 
 local Types = require(root.util.Types)
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
-
 local function validateSingleInstance(
 	instances: { Instance },
 	validationContext: Types.ValidationContext
@@ -36,17 +34,4 @@ local function validateSingleInstance(
 	return true
 end
 
-local function DEPRECATED_validateSingleInstance(instances: { Instance }): (boolean, { string }?)
-	-- validate that only one instance was selected
-	if #instances == 0 then
-		Analytics.reportFailure(Analytics.ErrorType.validateSingleInstance_ZeroInstances)
-		return false, { "No instances selected" }
-	elseif #instances > 1 then
-		Analytics.reportFailure(Analytics.ErrorType.validateSingleInstance_MultipleInstances)
-		return false, { "More than one instance selected" }
-	end
-
-	return true
-end
-
-return if getFFlagUseUGCValidationContext() then validateSingleInstance else DEPRECATED_validateSingleInstance :: never
+return validateSingleInstance

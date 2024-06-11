@@ -127,9 +127,12 @@ local function parseDocument(source: string): DocumentNode
 end
 
 --ROBLOX deviation: we are not dealing with fragmentation
-local function gql(literals: string): DocumentNode
-	if typeof(literals) == "string" then
+local function gql(literals: string|DocumentNode): DocumentNode
+	local t = typeof(literals)
+	if t == "string" then
 		return parseDocument(literals)
+	elseif t == "table" and literals.kind == "Document"  then
+		return literals
 	end
 	error(
 		"graphql-tag-lua does not currently support non-strings or Fragments. Please file an issue or PR if you need this feature added."

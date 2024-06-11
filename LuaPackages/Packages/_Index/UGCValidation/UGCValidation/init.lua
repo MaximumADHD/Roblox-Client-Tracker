@@ -1,6 +1,5 @@
 local root = script
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getFFlagUGCValidationShouldYield = require(root.flags.getFFlagUGCValidationShouldYield)
 local getEngineFeatureUGCValidateEditableMeshAndImage =
 	require(root.flags.getEngineFeatureUGCValidateEditableMeshAndImage)
@@ -40,68 +39,61 @@ function UGCValidation.validate(
 	bypassFlags: Types.BypassFlags?,
 	shouldYield: boolean?
 )
+	local startTime = tick()
+
 	Analytics.setMetadata({
 		entrypoint = "validate",
 		assetType = assetTypeEnum.Name,
 		isServer = isServer,
 	})
 
-	if getFFlagUseUGCValidationContext() then
-		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = createEditableInstancesForContext(instances, allowEditableInstances)
-			if not success then
-				if isServer then
-					error(result[1])
-				else
-					return success, result
-				end
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+		if not success then
+			if isServer then
+				error(result[1])
+			else
+				return success, result
 			end
 		end
-
-		local validationContext = {
-			instances = instances :: { Instance },
-			assetTypeEnum = assetTypeEnum :: Enum.AssetType,
-			allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
-			restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
-			isServer = isServer :: boolean,
-			token = token :: string,
-			universeId = universeId :: number,
-			isAsync = false,
-			allowEditableInstances = allowEditableInstances :: boolean,
-			bypassFlags = bypassFlags,
-		} :: Types.ValidationContext
-
-		if getFFlagUGCValidationShouldYield() then
-			validationContext.lastTickSeconds = tick()
-			validationContext.shouldYield = shouldYield
-		end
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-			validationContext.editableImages = result.editableImages :: Types.EditableImages
-		end
-
-		local validationSuccess, reasons = validateInternal(validationContext)
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-		end
-
-		return validationSuccess, reasons
-	else
-		local success, reasons = (validateInternal :: any)(
-			false, --[[ isAsync = ]]
-			instances,
-			assetTypeEnum,
-			isServer,
-			allowUnreviewedAssets,
-			restrictedUserIds,
-			token,
-			universeId
-		)
-		return success, reasons
 	end
+
+	local validationContext = {
+		instances = instances :: { Instance },
+		assetTypeEnum = assetTypeEnum :: Enum.AssetType,
+		allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
+		restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
+		isServer = isServer :: boolean,
+		token = token :: string,
+		universeId = universeId :: number,
+		isAsync = false,
+		allowEditableInstances = allowEditableInstances :: boolean,
+		bypassFlags = bypassFlags,
+	} :: Types.ValidationContext
+
+	if getFFlagUGCValidationShouldYield() then
+		validationContext.lastTickSeconds = tick()
+		validationContext.shouldYield = shouldYield
+	end
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = result.editableImages :: Types.EditableImages
+	end
+
+	local validationSuccess, reasons = validateInternal(validationContext)
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
+	end
+
+	if validationSuccess then
+		Analytics.recordScriptTime(script.Name, startTime, validationContext)
+		Analytics.reportScriptTimes(validationContext)
+	end
+
+	return validationSuccess, reasons
 end
 
 function UGCValidation.validateAsync(
@@ -118,55 +110,39 @@ function UGCValidation.validateAsync(
 		isServer = isServer,
 	})
 
-	if getFFlagUseUGCValidationContext() then
-		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = createEditableInstancesForContext(instances)
-			if not success then
-				if isServer then
-					error(result[1])
-				else
-					callback(success, result)
-				end
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = createEditableInstancesForContext(instances)
+		if not success then
+			if isServer then
+				error(result[1])
+			else
+				callback(success, result)
 			end
 		end
-
-		local validationContext = {
-			instances = instances :: { Instance },
-			assetTypeEnum = assetTypeEnum :: Enum.AssetType,
-			allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
-			restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
-			isServer = isServer :: boolean,
-			token = "",
-			isAsync = true,
-		} :: Types.ValidationContext
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-			validationContext.editableImages = result.editableImages :: Types.EditableImages
-		end
-
-		coroutine.wrap(function()
-			callback(validateInternal(validationContext))
-			if getEngineFeatureUGCValidateEditableMeshAndImage() then
-				destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-			end
-		end)()
-	else
-		coroutine.wrap(function()
-			callback(
-				(validateInternal :: any)(--[[ isAsync = ]]
-					true,
-					instances,
-					assetTypeEnum,
-					isServer,
-					allowUnreviewedAssets,
-					restrictedUserIds,
-					""
-				)
-			)
-		end)()
 	end
+
+	local validationContext = {
+		instances = instances :: { Instance },
+		assetTypeEnum = assetTypeEnum :: Enum.AssetType,
+		allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
+		restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
+		isServer = isServer :: boolean,
+		token = "",
+		isAsync = true,
+	} :: Types.ValidationContext
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = result.editableImages :: Types.EditableImages
+	end
+
+	coroutine.wrap(function()
+		callback(validateInternal(validationContext))
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
+		end
+	end)()
 end
 
 function UGCValidation.validateMeshPartFormat(
@@ -186,42 +162,38 @@ function UGCValidation.validateMeshPartFormat(
 	-- but for DynamicHeads they upload the MeshPart version
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
 
-	if getFFlagUseUGCValidationContext() then
-		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = createEditableInstancesForContext(instances)
-			if not success then
-				if isServer then
-					error(result[1])
-				else
-					return success, result
-				end
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = createEditableInstancesForContext(instances)
+		if not success then
+			if isServer then
+				error(result[1])
+			else
+				return success, result
 			end
 		end
-
-		local validationContext = {
-			instances = instances :: { Instance },
-			assetTypeEnum = assetTypeEnum :: Enum.AssetType,
-			allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
-			restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
-			isServer = isServer :: boolean,
-		} :: Types.ValidationContext
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-			validationContext.editableImages = result.editableImages :: Types.EditableImages
-		end
-
-		local validationSuccess, reasons = validateDynamicHeadMeshPartFormat(validationContext)
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-		end
-
-		return validationSuccess, reasons
-	else
-		return (validateDynamicHeadMeshPartFormat :: any)(instances, isServer, allowUnreviewedAssets, restrictedUserIds)
 	end
+
+	local validationContext = {
+		instances = instances :: { Instance },
+		assetTypeEnum = assetTypeEnum :: Enum.AssetType,
+		allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
+		restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
+		isServer = isServer :: boolean,
+	} :: Types.ValidationContext
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = result.editableImages :: Types.EditableImages
+	end
+
+	local validationSuccess, reasons = validateDynamicHeadMeshPartFormat(validationContext)
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
+	end
+
+	return validationSuccess, reasons
 end
 
 function UGCValidation.validateAsyncMeshPartFormat(
@@ -242,50 +214,37 @@ function UGCValidation.validateAsyncMeshPartFormat(
 	-- but for DynamicHeads they upload the MeshPart version
 	assert(Enum.AssetType.DynamicHead == assetTypeEnum)
 
-	if getFFlagUseUGCValidationContext() then
-		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = createEditableInstancesForContext(instances)
-			if not success then
-				if isServer then
-					error(result[1])
-				else
-					callback(success, result)
-				end
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = createEditableInstancesForContext(instances)
+		if not success then
+			if isServer then
+				error(result[1])
+			else
+				callback(success, result)
 			end
 		end
-
-		local validationContext = {
-			instances = instances :: { Instance },
-			assetTypeEnum = assetTypeEnum :: Enum.AssetType,
-			allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
-			restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
-			isServer = isServer :: boolean,
-		} :: Types.ValidationContext
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-			validationContext.editableImages = result.editableImages :: Types.EditableImages
-		end
-
-		coroutine.wrap(function()
-			callback(validateDynamicHeadMeshPartFormat(validationContext))
-			if getEngineFeatureUGCValidateEditableMeshAndImage() then
-				destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-			end
-		end)()
-	else
-		coroutine.wrap(function()
-			callback(
-				(validateDynamicHeadMeshPartFormat :: any)(
-					instances,
-					isServer,
-					allowUnreviewedAssets,
-					restrictedUserIds
-				)
-			)
-		end)()
 	end
+
+	local validationContext = {
+		instances = instances :: { Instance },
+		assetTypeEnum = assetTypeEnum :: Enum.AssetType,
+		allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
+		restrictedUserIds = restrictedUserIds :: Types.RestrictedUserIds,
+		isServer = isServer :: boolean,
+	} :: Types.ValidationContext
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = result.editableImages :: Types.EditableImages
+	end
+
+	coroutine.wrap(function()
+		callback(validateDynamicHeadMeshPartFormat(validationContext))
+		if getEngineFeatureUGCValidateEditableMeshAndImage() then
+			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
+		end
+	end)()
 end
 
 function UGCValidation.validateMeshPartAssetFormat2(
@@ -302,63 +261,43 @@ function UGCValidation.validateMeshPartAssetFormat2(
 		isServer = isServer,
 	})
 
-	if getFFlagUseUGCValidationContext() then
-		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			success, result = createEditableInstancesForContext(instances)
-			if not success then
-				if isServer then
-					error(result[1])
-				else
-					return success, result
-				end
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		success, result = createEditableInstancesForContext(instances)
+		if not success then
+			if isServer then
+				error(result[1])
+			else
+				return success, result
 			end
 		end
-
-		local validationContext = {
-			instances = instances :: { Instance },
-			assetTypeEnum = assetTypeEnum :: Enum.AssetType,
-			allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
-			isServer = isServer :: boolean,
-		} :: Types.ValidationContext
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-			validationContext.editableImages = result.editableImages :: Types.EditableImages
-		end
-
-		local validationSuccess, reasons
-		if isLayeredClothing(instances[1]) then
-			validationSuccess, reasons =
-				validateLayeredClothingAccessoryMeshPartAssetFormat(specialMeshAccessory, validationContext)
-		else
-			validationSuccess, reasons =
-				validateLegacyAccessoryMeshPartAssetFormat(specialMeshAccessory, validationContext)
-		end
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-		end
-
-		return validationSuccess, reasons
-	else
-		if isLayeredClothing(instances[1]) then
-			return (validateLayeredClothingAccessoryMeshPartAssetFormat :: any)(
-				instances,
-				specialMeshAccessory,
-				assetTypeEnum,
-				isServer,
-				allowUnreviewedAssets
-			)
-		else
-			return (validateLegacyAccessoryMeshPartAssetFormat :: any)(
-				instances,
-				specialMeshAccessory,
-				assetTypeEnum,
-				isServer
-			)
-		end
 	end
+
+	local validationContext = {
+		instances = instances :: { Instance },
+		assetTypeEnum = assetTypeEnum :: Enum.AssetType,
+		allowUnreviewedAssets = allowUnreviewedAssets :: boolean,
+		isServer = isServer :: boolean,
+	} :: Types.ValidationContext
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = result.editableImages :: Types.EditableImages
+	end
+
+	local validationSuccess, reasons
+	if isLayeredClothing(instances[1]) then
+		validationSuccess, reasons =
+			validateLayeredClothingAccessoryMeshPartAssetFormat(specialMeshAccessory, validationContext)
+	else
+		validationSuccess, reasons = validateLegacyAccessoryMeshPartAssetFormat(specialMeshAccessory, validationContext)
+	end
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
+	end
+
+	return validationSuccess, reasons
 end
 
 export type AvatarValidationError = validateBundleReadyForUpload.AvatarValidationError
@@ -415,53 +354,56 @@ function UGCValidation.validateFullBody(
 		isServer = isServer,
 	})
 
-	if getFFlagUseUGCValidationContext() then
-		local success, result
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			local instances = {}
-			for _, instancesAndType in fullBodyData do
-				for _, instance in instancesAndType.allSelectedInstances do
-					table.insert(instances, instance)
-				end
-			end
+	local startTime = tick()
 
-			success, result = createEditableInstancesForContext(instances, allowEditableInstances)
-			if not success then
-				if isServer then
-					error(result[1])
-				else
-					return success, result
-				end
+	local success, result
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		local instances = {}
+		for _, instancesAndType in fullBodyData do
+			for _, instance in instancesAndType.allSelectedInstances do
+				table.insert(instances, instance)
 			end
 		end
 
-		local validationContext = {
-			fullBodyData = fullBodyData :: Types.FullBodyData,
-			isServer = isServer :: boolean,
-			allowEditableInstances = allowEditableInstances :: boolean,
-			bypassFlags = bypassFlags,
-		} :: Types.ValidationContext
-
-		if getFFlagUGCValidationShouldYield() then
-			validationContext.lastTickSeconds = tick()
-			validationContext.shouldYield = shouldYield
+		success, result = createEditableInstancesForContext(instances, allowEditableInstances)
+		if not success then
+			if isServer then
+				error(result[1])
+			else
+				return success, result
+			end
 		end
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
-			validationContext.editableImages = result.editableImages :: Types.EditableImages
-		end
-
-		local validationSuccess, reasons = validateFullBody(validationContext)
-
-		if getEngineFeatureUGCValidateEditableMeshAndImage() then
-			destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
-		end
-
-		return validationSuccess, reasons
-	else
-		return (validateFullBody :: any)(fullBodyData, isServer)
 	end
+
+	local validationContext = {
+		fullBodyData = fullBodyData :: Types.FullBodyData,
+		isServer = isServer :: boolean,
+		allowEditableInstances = allowEditableInstances :: boolean,
+		bypassFlags = bypassFlags,
+	} :: Types.ValidationContext
+
+	if getFFlagUGCValidationShouldYield() then
+		validationContext.lastTickSeconds = tick()
+		validationContext.shouldYield = shouldYield
+	end
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		validationContext.editableMeshes = result.editableMeshes :: Types.EditableMeshes
+		validationContext.editableImages = result.editableImages :: Types.EditableImages
+	end
+
+	local validationSuccess, reasons = validateFullBody(validationContext)
+
+	if getEngineFeatureUGCValidateEditableMeshAndImage() then
+		destroyEditableInstances(validationContext.editableMeshes, validationContext.editableImages)
+	end
+
+	if validationSuccess then
+		Analytics.recordScriptTime(script.Name, startTime, validationContext)
+		Analytics.reportScriptTimes(validationContext)
+	end
+
+	return validationSuccess, reasons
 end
 
 UGCValidation.GUIDAttributeName = Constants.GUIDAttributeName

@@ -15,10 +15,13 @@ local SubscriptionPurchaseFlowState = require(SubscriptionPurchase.SubscriptionP
 local Animator = require(IAPExperienceRoot.Generic.Animator)
 local PurchaseErrorPrompt = require(IAPExperienceRoot.Generic.PurchaseErrorPrompt)
 
-local SubscriptionPurchasePrompt =require(IAPExperienceRoot.Subscription.SubscriptionPurchasePrompt)
+local SubscriptionPurchasePrompt = require(IAPExperienceRoot.Subscription.SubscriptionPurchasePrompt)
 
 local getEnableSubscriptionPurchaseInstrumentation =
 	require(IAPExperienceRoot.Flags.getEnableSubscriptionPurchaseInstrumentation)
+
+local getEnableDisableSubPurchase = require(IAPExperienceRoot.Flags.getEnableDisableSubPurchase)
+
 local formatSubscriptionPurchaseEventData = require(IAPExperienceRoot.Utility.formatSubscriptionPurchaseEventData)
 
 local GetFFlagEnableRobloxCreditPurchase = require(IAPExperienceRoot.Flags.GetFFlagEnableRobloxCreditPurchase)
@@ -44,6 +47,8 @@ type Props = {
 	disclaimerText: string,
 	description: string,
 	itemIcon: any,
+	disablePurchase: boolean?,
+	disablePurchaseText: string?,
 
 	primaryPaymentMethod: string,
 	secondaryPaymentMethod: string,
@@ -137,9 +142,15 @@ function SubscriptionPurchaseFlow:render()
 					disclaimerText = props.disclaimerText,
 					description = props.description,
 					itemIcon = props.itemIcon,
+					disablePurchase = if getEnableDisableSubPurchase() then props.disablePurchase else nil,
+					disablePurchaseText = if getEnableDisableSubPurchase() then props.disablePurchaseText else nil,
 
-					primaryPaymentMethod = if GetFFlagEnableRobloxCreditPurchase() then props.primaryPaymentMethod else nil,
-					secondaryPaymentMethod = if GetFFlagEnableRobloxCreditPurchase() then props.secondaryPaymentMethod else nil,
+					primaryPaymentMethod = if GetFFlagEnableRobloxCreditPurchase()
+						then props.primaryPaymentMethod
+						else nil,
+					secondaryPaymentMethod = if GetFFlagEnableRobloxCreditPurchase()
+						then props.secondaryPaymentMethod
+						else nil,
 
 					isTestingMode = props.isTestingMode,
 					screenSize = props.screenSize,

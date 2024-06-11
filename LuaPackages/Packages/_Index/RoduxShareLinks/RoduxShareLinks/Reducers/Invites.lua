@@ -1,3 +1,4 @@
+--!nocheck
 local RoduxSharelinks = script:FindFirstAncestor("RoduxShareLinks")
 local Root = RoduxSharelinks.Parent
 local Cryo = require(Root.Cryo)

@@ -342,10 +342,12 @@ local function initializeLibrary(configs)
 				Placement = require(script.App.Navigation.Enum.Placement),
 				NavigationBarAlignment = require(script.App.Navigation.Enum.NavigationBarAlignment),
 				NavigationRailAlignment = require(script.App.Navigation.Enum.NavigationRailAlignment),
+				NavigationTabLayout = require(script.App.Navigation.Enum.NavigationTabLayout),
 			}),
 			SystemBar = require(script.App.Navigation.SystemBar),
 			NavigationBar = require(script.App.Navigation.NavigationBar),
 			NavigationRail = require(script.App.Navigation.NavigationRail),
+			NavigationTab = require(script.App.Navigation.NavigationTab),
 			PrimaryNavBar = strict({
 				ContextBar = require(script.App.Navigation.PrimaryNavBar.ContextBar),
 				IconTab = require(script.App.Navigation.PrimaryNavBar.IconTab),

@@ -4,7 +4,6 @@ local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
-local getFFlagUseUGCValidationContext = require(root.flags.getFFlagUseUGCValidationContext)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFFlagUGCValidateMoveDynamicHeadTest = require(root.flags.getFFlagUGCValidateMoveDynamicHeadTest)
 local getFFlagUGCValidateDynamicHeadMoodClient = require(root.flags.getFFlagUGCValidateDynamicHeadMoodClient)
@@ -87,8 +86,10 @@ local function validateDynamicHeadMeshPartFormat(validationContext: Types.Valida
 		) and not skipSnapshot
 	then
 		-- TODO: refactor to take in a context table after FFlagUseThumbnailerUtil is cleaned up
+		local startTime = tick()
 		result, failureReasons =
 			validateDynamicHeadMood(inst :: MeshPart, if nil ~= isServer then isServer :: boolean else false)
+		Analytics.recordScriptTime("validateDynamicHeadMood", startTime, validationContext)
 		if not result then
 			return false, failureReasons
 		end
@@ -101,52 +102,4 @@ local function validateDynamicHeadMeshPartFormat(validationContext: Types.Valida
 	end
 end
 
-local function DEPRECATED_validateDynamicHeadMeshPartFormat(
-	allSelectedInstances: { Instance },
-	isServer: boolean?,
-	allowUnreviewedAssets: boolean?,
-	restrictedUserIds: Types.RestrictedUserIds?,
-	universeId: number?
-): (boolean, { string }?)
-	local result, failureReasons = (validateSingleInstance :: any)(allSelectedInstances)
-	if not result then
-		return result, failureReasons
-	end
-
-	local inst = allSelectedInstances[1]
-	result, failureReasons = (validateMeshPartBodyPart :: any)(
-		inst,
-		createDynamicHeadMeshPartSchema(),
-		Enum.AssetType.DynamicHead,
-		isServer,
-		allowUnreviewedAssets,
-		restrictedUserIds,
-		universeId
-	)
-	-- return if failure at this point, as the above function could've found whole Instances or meshes to be missing
-	-- carrying on would mean later functions called could not assume all Instances and meshes/textures are present
-	if not result then
-		return false, failureReasons
-	end
-
-	if
-		(isServer and getFFlagUGCValidateDynamicHeadMoodRCC())
-		or (not isServer and getFFlagUGCValidateDynamicHeadMoodClient())
-	then
-		result, failureReasons =
-			validateDynamicHeadMood(inst :: MeshPart, if nil ~= isServer then isServer :: boolean else false)
-		if not result then
-			return false, failureReasons
-		end
-	end
-
-	if getFFlagUGCValidateMoveDynamicHeadTest() then
-		return (validateDynamicHeadData :: any)(inst :: MeshPart, isServer)
-	else
-		return validateDynamicHeadMesh(inst :: MeshPart, isServer)
-	end
-end
-
-return if getFFlagUseUGCValidationContext()
-	then validateDynamicHeadMeshPartFormat
-	else DEPRECATED_validateDynamicHeadMeshPartFormat :: never
+return validateDynamicHeadMeshPartFormat
