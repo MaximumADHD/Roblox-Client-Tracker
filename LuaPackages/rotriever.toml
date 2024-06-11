@@ -55,7 +55,7 @@ QRCode = "github.com/Roblox/lua-qr-code@0.1.0"
 Merge = "github.com/Roblox/graphql-tools-lua@0.3.1"
 GraphqlToolsUtils = { target = "github.com/Roblox/graphql-tools-lua", version = "0.3.1", package = "Utils" }
 DataLoader = "github.com/Roblox/data-loader-lua@0.2.0"
-UGCValidation = "github.com/roblox/ugc-validation@1.12.1"
+UGCValidation = "github.com/roblox/ugc-validation@1.12.5"
 RbxDesignFoundations = { git = "https://github.com/Roblox/rbx-design-foundations", rev = "main" }
 RoduxPresence = { git = "https://github.com/Roblox/rodux-presence", rev = "v3.1.0" }
 RoduxFriends = { git = "https://github.com/Roblox/rodux-friends", rev = "v4.2.4" }

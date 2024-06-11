@@ -30,11 +30,8 @@ Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
 BokehFarCoCFS,Fragment
-BokehFarCoCNoUnrollFS,Fragment
 BokehNearCoCFS,Fragment
-BokehNearCoCNoUnrollFS,Fragment
 CheapBokehFS,Fragment
-CheapBokehNoUnrollFS,Fragment
 CheckerboardDepthFS,Fragment
 CloudsBsmFS,Fragment
 CloudsClearToSkyColorFS,Fragment

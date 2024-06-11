@@ -19,12 +19,6 @@
                      "$path": ".robloxrc"
                  }
              },
-            "GetDefaultQualityLevel": {
-                "$path": "GetDefaultQualityLevel.lua",
-                ".robloxrc": {
-                    "$path": ".robloxrc"
-                }
-            },
             "HumanoidReadyUtil": {
                 "$path": "HumanoidReadyUtil.lua",
                 ".robloxrc": {

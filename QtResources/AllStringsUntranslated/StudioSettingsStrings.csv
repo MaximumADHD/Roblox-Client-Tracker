@@ -168,3 +168,5 @@ Studio.App.BetaFeatures.SimulationPauseAndStepTitle,,Simulation Pause,Simulation
 Studio.App.BetaFeatures.SimulationPauseAndStepDescription,,Enables visual pausing and simulation debugging at studio run time.,Enables visual pausing and simulation debugging at studio run time.
 Studio.App.BetaFeatures.MaterialPickerTitle,,Material Picker,Material Picker
 Studio.App.BetaFeatures.MaterialPickerDescription,,Adds a new Material button to the Home and Edit tabs to quickly change materials.,Adds a new Material button to the Home and Edit tabs to quickly change materials.
+Studio.App.BetaFeatures.UIDragDetectorTitle,,UIDragDetectors,UIDragDetectors
+Studio.App.BetaFeatures.UIDragDetectorDescription,,New Instance type UIDragDetector that enables click-drag-release interactions for UI Elements. Enabling this beta feature allows adding and using UIDragDetectors only within Roblox Studio.,New Instance type UIDragDetector that enables click-drag-release interactions for UI Elements. Enabling this beta feature allows adding and using UIDragDetectors only within Roblox Studio.

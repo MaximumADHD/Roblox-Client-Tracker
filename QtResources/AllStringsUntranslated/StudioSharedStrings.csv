@@ -10,7 +10,7 @@ Studio.App.CallStack.CallStack,Call Stack widgets,Call Stack,Call Stack
 Studio.App.RemoteDebugger.Title,,Remote Debugging,Remote Debugging
 Studio.App.IdeDoc.Publish,Roblox IDE Doc,Publish,Publish
 Studio.App.IdeDoc.Saving,Roblox IDE Doc,Saving,Saving
-Studio.App.GUAC.UserFriendlyFailedToFetch1,main,Failed to load settings with %s. Please restart Studio or contact support if the problem persists.,Failed to load settings with %s. Please restart Studio or contact support if the problem persists.
+Studio.App.GUAC.UserFriendlyFailedToFetch,Show user some error message in the case of no internet during startup.,No internet connection. Check your network and try opening Studio again.,No internet connection. Check your network and try opening Studio again.
 Studio.App.MainWindow.RobloxStudio,Main Window,Roblox Studio,Roblox Studio
 Studio.App.MainWindow.UnableToConnect,Main Window,Unable to Connect,Unable to Connect
 Studio.App.MainWindow.UploadingPlaceQuitSaveAuto,Main Window,Saving in progress. Studio will close automatically when complete.,Saving in progress. Studio will close automatically when complete.

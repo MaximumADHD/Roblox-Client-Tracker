@@ -3,30 +3,60 @@
 
 document.title = "MicroProfile Capture";
 
-var urlAnchor = window.location.hash;
-if (!window.g_Reload && urlAnchor != "") {
+var S = {};
+var g_Loader = {};
+
+g_Loader.urlAnchor = window.location.hash;
+if (!window.g_Reload && g_Loader.urlAnchor != "") {
+	var newScriptSpecified = false;
 	var newScriptUrl = "";
-	if (urlAnchor == "#local") {
-		newScriptUrl = "rofiler.js";
-	} else if (urlAnchor.startsWith("#www=")) {
-		newScriptUrl = urlAnchor.split("=")[1];
+	if (g_Loader.urlAnchor == "#local") {
+		newScriptSpecified = true;
+	} else if (g_Loader.urlAnchor.startsWith("#www=")) {
+		newScriptSpecified = true;
+		newScriptUrl = g_Loader.urlAnchor.split("&")[0].split("=")[1];
 		newScriptUrl = decodeURIComponent(newScriptUrl);
 	}
-	if (newScriptUrl != "") {
+	if (newScriptSpecified) {
 		window.g_Reload = true;
+		var newViewerUrl = "rofiler.js";
+		var newToolsUrl = "rofiler.tools.js";
+		if (newScriptUrl.endsWith(".js")) {
+			newViewerUrl = newScriptUrl;
+			newToolsUrl = "";
+		} else if (newScriptUrl != "") {
+			newViewerUrl = newScriptUrl + "/" + newViewerUrl;
+			newToolsUrl = newScriptUrl + "/" + newToolsUrl;
+		}
 		var currentScript = document.currentScript;
 		var parentElement = currentScript.parentNode;
-
 		parentElement.removeChild(currentScript);
-		var newScript = document.createElement('script');
-		newScript.src = newScriptUrl;
-		parentElement.appendChild(newScript);
+		
+		function AddNewScript(url, onloadFunc) {
+			var newScript = document.createElement('script');
+			newScript.src = url;
+			if (onloadFunc != undefined) {
+				newScript.onload = onloadFunc;
+			}
+			parentElement.appendChild(newScript);
+		};
+		if (newToolsUrl != "") {
+			AddNewScript(newToolsUrl, () => {
+				AddNewScript(newViewerUrl);
+			});
+		} else {
+			AddNewScript(newViewerUrl);
+		}
 	}
 } else {
+	if (window.g_Reload) {
+		window.g_wasReloaded = true;
+		console.log("Reloading the viewer");
+	}
 	window.g_Reload = false;
 }
 
-var styleText = `
+g_Loader.styleText = `
 /* about css: http://bit.ly/1eMQ42U */
 body {margin: 0px;padding: 0px; font: 12px Courier New;background-color:#474747; color:white;overflow:hidden;}
 ul {list-style-type: none;margin: 0;padding: 0;}
@@ -41,9 +71,43 @@ a {
 	padding-top:0px;
     color: #FFFFFF;
     background-color: #474747;
+	user-select: none;
 }
 a:hover, a:active{
 	background-color: #000000;
+}
+
+.highlighted-background {
+	background-color: #707070;
+}
+.highlighted-text {
+	font-weight: bold;
+    color: #ffcc77;
+}
+.spinner-container {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999;
+	pointer-events: none;
+}
+.spinner {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	border: 8px solid rgba(0, 0, 0, 0.2);
+	border-top: 8px solid #000000;
+	animation: spin 1s linear infinite;
+	pointer-events: none;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 ul ul {
@@ -67,23 +131,15 @@ li a{ float:none; }
 .filterinput0{position:fixed;bottom:10px;left:25px;background-color: #313131}
 .filterinput1{position:fixed;bottom:10px;left:175px;background-color: #313131}
 `;
-var styleElement = document.querySelector("style")
-if (styleElement) {
-	styleElement.textContent = styleText;
-} else {
-	styleElement = document.createElement("style");
-	styleElement.textContent = styleText;
-	document.head.appendChild(styleElement);
-}
 
-var bodyText = `
+g_Loader.bodyText = `
 <body style="">
-<div id='filterinput'>
+<div id='filterinput' style="display: none;">
 <div class="filterinput0">Group<br><input type="text" id="filtergroup"></div>
 <div class="filterinput1">Timer/Thread<br><input type="text" id="filtertimer"></div>
 </div>
 <canvas id="History" height="130" style="background-color:#474747;margin:0px;padding:0px;"></canvas><canvas id="DetailedView" height="200" style="background-color:#474747;margin:0px;padding:0px;"></canvas>
-<div id="root" class="root">
+<div id="root" class="root" style="display: none;">
 <div class="helpstart" id="helpwindow" style="left:20px;top:20px">
 History View:<br>
 Click + Drag: Pan View<br>
@@ -100,6 +156,7 @@ Ctrl + Drag: Pan<br>
 Click + Drag: Pan<br>
 z: Toggle ToolTip<br>
 x: Toggle X-Ray view<br>
+c: Toggle X-Ray count/sum modes<br>
 <hr>
 Detailed View:<br>
 W: Go To Worst Instance<br>
@@ -157,17 +214,17 @@ Esc: Exit &amp; Clear filter
         <li><a>---</a></li>
     </ul>
 </li>
-<li id="ilPlugins" style="display: none;"><a>X-Ray</a>
+<li id="ilPlugins" style="display: none;"><a class="highlighted-background">X-Ray</a>
     <ul id='PluginMenu'>
     </ul>
 </li>
-<li id="ilExport"><a>Export</a>
+<li id="ilExport"><a class="highlighted-background">Export</a>
     <ul id="ExportSubMenu">
         <li><a href="javascript:void(0)" onclick="ExportSummaryJSON();">Summary to JSON</a></li>
         <li><a href="javascript:void(0)" onclick="ExportMarkersCSV();">Markers to CSV</a></li>
     </ul>
 </li>
-<li id="ilOptions"><a>Options&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+<li id="ilOptions"><a>Options</a>
     <ul id='OptionsMenu'>
         <li><a href="javascript:void(0)" onclick="ToggleContextSwitch();">Context Switch</a></li>
 		<li><a href="javascript:void(0)" onclick="ToggleDisableMerge();">MergeDisable</a></li>
@@ -179,15 +236,41 @@ Esc: Exit &amp; Clear filter
 <!--      	<li><a href="javascript:void(0)" onclick="ToggleDebug();">DEBUG</a></li> -->
     </ul>
 </li>
+<li id="ilReload" title="Re-capture" style="cursor: pointer; display: none;"><a class="highlighted-text">&nbsp;&#8635;&nbsp;</a>
+</li>
+<li id="ilSave" title="Save to file" style="cursor: pointer; display: none;"><a class="highlighted-text">&nbsp;\u21e9&nbsp;</a>
+</li>
 </ul>
 </div>
+<span id="progressDotSample" style="position: absolute; top: 0px; left: 0px; visibility: hidden;">.</span>
+<div id="progressDots" style="position: absolute; top: 0px; left: 0px; width: 100%;"></div>
+<div id="progressSpinner" class="spinner-container" style="display: none;"><div class="spinner"></div></div>
 `;
-if (document.body) {
-	document.body.innerHTML = bodyText;
-} else {
-	var newBody = document.createElement('body');
-	newBody.innerHTML = bodyText;
-	document.documentElement.appendChild(newBody);
+
+function InitCssHtml() {
+	var styleElement = document.querySelector("style")
+	if (styleElement) {
+		styleElement.textContent = g_Loader.styleText;
+	} else {
+		styleElement = document.createElement("style");
+		styleElement.textContent = g_Loader.styleText;
+		document.head.appendChild(styleElement);
+	}
+
+	if (document.body) {
+		document.body.innerHTML = g_Loader.bodyText;
+	} else {
+		var newBody = document.createElement("body");
+		newBody.innerHTML = g_Loader.bodyText;
+		document.documentElement.appendChild(newBody);
+	}
+	
+	document.addEventListener("DOMContentLoaded", function() {
+		var bodyElements = document.getElementsByTagName("body");
+		for (var i = 1; i < bodyElements.length; i++) {
+			bodyElements[i].remove();
+		}
+	});
 }
 
 function InvertColor(hexTripletColor) {
@@ -245,7 +328,6 @@ function MakeTimes(scale, ts)
 	return ts;
 }
 
-var g_TickToTimeScale = 0;
 function MakeTimesType(scale, tt, ts)
 {
 	g_TickToTimeScale = scale;
@@ -288,129 +370,218 @@ function MakeCounter(id, parent, sibling, firstchild, level, name, value, minval
 	return counter;
 }
 
-var DumpHost;
-var DumpUtcCaptureTime;
-var AggregateInfo;
-var PlatformInfo;
-var CategoryInfo;
-var GroupInfo;
-var TimerInfo;
-
-var ThreadNames;
-var ThreadIds;
-var ThreadGpu;
-var ThreadClobbered;
-var ThreadClobbered;
-var ThreadBufferSizes;
-var ThreadGroupTimeArray;
-
-var MetaNames;
-var CounterInfo;
-var Frames;
-
-var CGlobalLabels;
-var CSwitchThreadInOutCpu;
-var CSwitchTime;
-var CSwitchThreads;
-
-if (!window.g_Reload) {
-	InitDataImpl();
-}
-
-var CanvasDetailedView = document.getElementById('DetailedView');
-var CanvasHistory = document.getElementById('History');
-var CanvasDetailedOffscreen = document.createElement('canvas');
-var FilterInputGroup = document.getElementById('filtergroup');
-var FilterInputTimer = document.getElementById('filtertimer');
-var FilterInputGroupString = null;
-var FilterInputTimerString = null;
-var FilterInputArray = [FilterInputGroup, FilterInputTimer];
-var FilterGroup = null;
-var FilterTimer = null;
-var g_Msg = '0';
-
-var Initialized = 0;
-var fDetailedOffset = 0;
-var fDetailedRange = 0;
-var nWidth = CanvasDetailedView.width;
-var nHeight = CanvasDetailedView.height;
-var ReferenceTime = 33;
-var FrameOverflowDetection = 33;var nHistoryHeight = 130;
-var nOffsetY = 0;
-var nOffsetBarsX = 0;
-var nOffsetBarsY = 0;
-var nOffsetCountersY = 0;
-var nBarsWidth = 80;
-var NameWidth = 200;
-var MouseButtonState = [0,0,0,0,0,0,0,0];
-var KeyShiftDown = 0;
-var MouseDragButton = 0;
-var KeyCtrlDown = 0;
-var ToolTip = 1; //0: off, 1: default, 2: flipped
-var DetailedViewMouseX = 0;
-var DetailedViewMouseY = 0;
-var HistoryViewMouseX = -1;
-var HistoryViewMouseY = -1;
-var MouseHistory = 0;
-var MouseDetailed = 0;
-var FontHeight = 10;
-var FontWidth = 1;
-var FontAscent = 3; //Set manually
-var Font = 'Bold ' + FontHeight + 'px Courier New';
-var FontFlash = 'Bold ' + 35 + 'px Courier New';
-var BoxHeight = FontHeight + 2;
-var ThreadsActive = new Object();
-var ThreadsAllActive = 1;
-var GroupsActive = new Object();
-var GroupsAllActive = 1;
-var nMinWidth = 0.01;//subpixel width
-var nMinWidthPan = 1.0;//subpixel width when panning
-var nContextSwitchEnabled = 1;
-var DisableLod = 0;
-var DisableMerge = 0;
-var GroupColors = 0;
-var nModDown = 0;
-var g_MSG = 'no';
-var nDrawCount = 0;
-var nBackColors = ['#474747', '#313131' ];
-var nBackColorOffset = '#606060';
-var CSwitchColors =["#9DD8AF","#D7B6DA","#EAAC76","#DBDA61","#8AD5E1","#8CE48B","#C4D688","#57E5C4"];//generated by http://tools.medialab.sciences-po.fr/iwanthue/index.php
-var CSwitchHeight = 5;
-var FRAME_HISTORY_COLOR_CPU = '#ff7f27';
-var FRAME_HISTORY_COLOR_CPU_RENDER = '#37a0ee';
-var FRAME_HISTORY_COLOR_GPU = '#ff2f4f';
-var FRAME_HISTORY_COLOR_EMPTY = '#664a00';
-var FRAME_HISTORY_COLOR_INCOMPLETE = '#202020';
-var FRAME_HISTORY_COLOR_WRAPAROUND = '#ff0000'; // these frames are partially clobbered by the ring buffer
-var FRAME_HISTORY_COLOR_MOUSE_HOVER = '#ffffff';
-var ZOOM_TIME = 0.5;
-var AnimationActive = false;
-var nHoverCSCpu = -1;
-var nHoverCSCpuNext = -1;
-var nHoverCSToolTip = null;
-var nHoverToken = -1;
-var nHoverFrame = -1;
-var nHoverTokenIndex = -1;
-var nHoverTokenLogIndex = -1;
-var nHoverCounter = 0;
-var nHoverCounterDelta = 8;
-var nHoverTokenNext = -1;
-var nHoverTokenLogIndexNext = -1;
-var nHoverTokenIndexNext = -1;
-var nHoverCounter = -1;
-var nHoverTokenDrawn = -1;
-var nHideHelp = 1;
-var fFrameScale = 33.33;
-var SortColumn = 0;
-var SortColumnOrderFlip = 0;
-var SortColumnMouseOver = null;
-var SortColumnMouseOverNext = null;
-
-function InitVars()
+function InitDataVars()
 {
-	fDetailedOffset = Frames[0].framestart;
-	fDetailedRange = Frames[0].frameend - fDetailedOffset;
+	window.DumpHost = undefined;
+	window.DumpUtcCaptureTime = undefined;
+	window.AggregateInfo = undefined;
+	window.PlatformInfo = undefined;
+	window.CategoryInfo = undefined;
+	window.GroupInfo = undefined;
+	window.TimerInfo = undefined;
+	
+	window.ThreadNames = undefined;
+	window.ThreadIds = undefined;
+	window.ThreadGpu = undefined;
+	window.ThreadClobbered = undefined;
+	window.ThreadClobbered = undefined;
+	window.ThreadBufferSizes = undefined;
+	window.ThreadGroupTimeArray = undefined;
+	
+	window.MetaNames = undefined;
+	window.CounterInfo = undefined;
+	window.Frames = undefined;
+	
+	window.CGlobalLabels = undefined;
+	window.CSwitchThreadInOutCpu = undefined;
+	window.CSwitchTime = undefined;
+	window.CSwitchThreads = undefined;
+	
+	window.g_TickToTimeScale = 0;
 }
+
+function InitViewerVars()
+{
+	// Part 1
+	window.CanvasDetailedView = document.getElementById('DetailedView');
+	window.CanvasHistory = document.getElementById('History');
+	window.CanvasDetailedOffscreen = document.createElement('canvas');
+	window.FilterInputGroup = document.getElementById('filtergroup');
+	window.FilterInputTimer = document.getElementById('filtertimer');
+	window.FilterInputGroupString = null;
+	window.FilterInputTimerString = null;
+	window.FilterInputArray = [FilterInputGroup, FilterInputTimer];
+	window.FilterGroup = null;
+	window.FilterTimer = null;
+	window.g_Msg = '0';
+
+	window.Initialized = 0;
+	window.fDetailedOffset = Frames[0].framestart;
+	window.fDetailedRange = Frames[0].frameend - fDetailedOffset;
+	window.nWidth = CanvasDetailedView.width;
+	window.nHeight = CanvasDetailedView.height;
+	window.ReferenceTime = 33;
+	window.FrameOverflowDetection = 33;window.nHistoryHeightOrig = 130;window.nHistoryHeight = nHistoryHeightOrig;
+	window.nOffsetY = 0;
+	window.nOffsetBarsX = 0;
+	window.nOffsetBarsY = 0;
+	window.nOffsetCountersY = 0;
+	window.nBarsWidth = 80;
+	window.NameWidth = 200;
+	window.MouseButtonState = [0,0,0,0,0,0,0,0];
+	window.KeyShiftDown = 0;
+	window.MouseDragButton = 0;
+	window.KeyCtrlDown = 0;
+	window.ToolTip = 1; //0: off, 1: default, 2: flipped
+	window.DetailedViewMouseX = 0;
+	window.DetailedViewMouseY = 0;
+	window.HistoryViewMouseX = -1;
+	window.HistoryViewMouseY = -1;
+	window.MouseHistory = 0;
+	window.MouseDetailed = 0;
+	window.FontHeight = 10;
+	window.FontWidth = 1;
+	window.FontAscent = 3; //Set manually
+	window.Font = 'Bold ' + FontHeight + 'px Courier New';
+	window.FontFlashHeight = 35;
+	window.FontFlash = 'Bold ' + FontFlashHeight + 'px Courier New';
+	window.BoxHeight = FontHeight + 2;
+	window.ThreadsActive = new Object();
+	window.ThreadsAllActive = 1;
+	window.GroupsActive = new Object();
+	window.GroupsAllActive = 1;
+	window.nMinWidth = 0.01;//subpixel width
+	window.nMinWidthPan = 1.0;//subpixel width when panning
+	window.nContextSwitchEnabled = 1;
+	window.DisableLod = 0;
+	window.DisableMerge = 0;
+	window.GroupColors = 0;
+	window.nModDown = 0;
+	window.g_MSG = 'no';
+	window.nDrawCount = 0;
+	window.nBackColors = ['#474747', '#313131' ];
+	window.nBackColorOffset = '#606060';
+	window.CSwitchColors =["#9DD8AF","#D7B6DA","#EAAC76","#DBDA61","#8AD5E1","#8CE48B","#C4D688","#57E5C4"];//generated by http://tools.medialab.sciences-po.fr/iwanthue/index.php
+	window.CSwitchHeight = 5;
+	window.FRAME_HISTORY_COLOR_CPU = '#ff7f27';
+	window.FRAME_HISTORY_COLOR_CPU_RENDER = '#37a0ee';
+	window.FRAME_HISTORY_COLOR_GPU = '#ff2f4f';
+	window.FRAME_HISTORY_COLOR_EMPTY = '#664a00';
+	window.FRAME_HISTORY_COLOR_INCOMPLETE = '#202020';
+	window.FRAME_HISTORY_COLOR_WRAPAROUND = '#ff0000'; // these frames are partially clobbered by the ring buffer
+	window.FRAME_HISTORY_COLOR_MOUSE_HOVER = '#ffffff';
+	window.ZOOM_TIME = 0.5;
+	window.AnimationActive = false;
+	window.nHoverCSCpu = -1;
+	window.nHoverCSCpuNext = -1;
+	window.nHoverCSToolTip = null;
+	window.nHoverToken = -1;
+	window.nHoverFrame = -1;
+	window.nHoverTokenIndex = -1;
+	window.nHoverTokenLogIndex = -1;
+	window.nHoverCounter = 0;
+	window.nHoverCounterDelta = 8;
+	window.nHoverTokenNext = -1;
+	window.nHoverTokenLogIndexNext = -1;
+	window.nHoverTokenIndexNext = -1;
+	window.nHoverCounter = -1;
+	window.nHoverTokenDrawn = -1;
+	window.nHideHelp = 1;
+	window.fFrameScale = 33.33;
+	window.SortColumn = 0;
+	window.SortColumnOrderFlip = 0;
+	window.SortColumnMouseOver = null;
+	window.SortColumnMouseOverNext = null;
+
+	// Part 2
+	window.RangeCpu = RangeInit();
+	window.RangeGpu = RangeInit();
+	window.RangeSelect = RangeInit();
+
+	window.RangeCpuNext = RangeInit();
+	window.RangeGpuNext = RangeInit();
+
+	window.RangeCpuHistory = RangeInit();
+	window.RangeGpuHistory = RangeInit();
+
+	window.fRangeBegin = 0;
+	window.fRangeEnd = -1;
+	window.fRangeThreadId = -1;
+	window.fRangeThreadIdNext = -1;
+	window.fRangeBeginNext = 0;
+	window.fRangeEndNext = 0;
+	window.fRangeBeginGpuNext = 0;
+	window.fRangeEndGpuNext = 0;
+	window.fRangeBeginHistory = -1;
+	window.fRangeEndHistory = -1;
+	window.fRangeBeginHistoryGpu = -1;
+	window.fRangeEndHistoryGpu = -1;
+	window.fRangeBeginSelect = 0;
+	window.fRangeEndSelect = -1;
+	window.ThreadY = undefined;
+
+	window.ModeDetailed = 0;
+	window.ModeTimers = 1;
+	window.ModeCounters = 2;
+	window.Mode = ModeDetailed;
+
+	window.DebugDrawQuadCount = 0;
+	window.DebugDrawTextCount = 0;
+	window.ProfileMode = 0;
+	window.ProfileRedraw0 = 0;
+	window.ProfileRedraw1 = 0;
+	window.ProfileRedraw2 = 0;
+	window.ProfileFps = 0;
+	window.ProfileFpsAggr = 0;
+	window.ProfileFpsCount = 0;
+	window.ProfileLastTimeStamp = new Date();
+
+	window.CSwitchCache = {};
+	window.CSwitchOnlyThreads = [];
+	window.ProfileData = {};
+	window.ProfileStackTime = {};
+	window.ProfileStackName = {};
+	window.Debug = 1;
+
+	window.g_MaxStack = Array();
+	window.g_TypeArray;
+	window.g_TimeArray;
+	window.g_IndexArray;
+	window.g_LabelArray;
+	window.g_XtraArray; // Events
+	window.LodData = new Array();
+	window.NumLodSplits = 10;
+	window.SplitMin = 100;
+	window.SPLIT_LIMIT = 1e20;
+	window.DPR = 1;
+	window.DetailedRedrawState = {};
+	window.OffscreenData;
+	window.DetailedFrameCounter = 0;
+	window.Invalidate = 0;
+	window.GroupOrder = Array();
+	window.ThreadOrder = Array();
+	window.TimersGroups = 0;
+	window.TimersMeta = 1;
+	window.ZeroBasedBars = 1;
+	window.MetaLengths = Array();
+	window.MetaLengthsAvg = Array();
+	window.MetaLengthsMax = Array();
+
+	window.ZoomActive = 0;
+
+	window.StrGroup = "Group";
+	window.StrThread = "Thread";
+	window.StrTimer = "Timer";
+	window.StrAverage = "Average";
+	window.StrMax = "Max";
+	window.StrTotal = "Total";
+	window.StrMin = "Min";
+	window.StrCallAverage = "Call Average";
+	window.StrCount = "Count";
+	window.StrExclAverage = "Excl Average";
+	window.StrExclMax = "Excl Max";
+}
+
 function RangeInit()
 {
 	return {"Begin":-1, "End":-1, "YBegin":-1, "YEnd":-1, "Thread": -1 , "Index": -1};
@@ -427,93 +598,6 @@ function RangeCopy(Dst, Src)
 	Dst.YEnd = Src.YEnd;
 	Dst.Thread = Src.Thread;
 }
-var RangeCpu = RangeInit();
-var RangeGpu = RangeInit();
-var RangeSelect = RangeInit();
-
-var RangeCpuNext = RangeInit();
-var RangeGpuNext = RangeInit();
-
-var RangeCpuHistory = RangeInit();
-var RangeGpuHistory = RangeInit();
-
-var fRangeBegin = 0;
-var fRangeEnd = -1;
-var fRangeThreadId = -1;
-var fRangeThreadIdNext = -1;
-var fRangeBeginNext = 0;
-var fRangeEndNext = 0;
-var fRangeBeginGpuNext = 0;
-var fRangeEndGpuNext = 0;
-var fRangeBeginHistory = -1;
-var fRangeEndHistory = -1;
-var fRangeBeginHistoryGpu = -1;
-var fRangeEndHistoryGpu = -1;
-var fRangeBeginSelect = 0;
-var fRangeEndSelect = -1;
-var ThreadY;
-
-var ModeDetailed = 0;
-var ModeTimers = 1;
-var ModeCounters = 2;
-var Mode = ModeDetailed;
-
-var DebugDrawQuadCount = 0;
-var DebugDrawTextCount = 0;
-var ProfileMode = 0;
-var ProfileRedraw0 = 0;
-var ProfileRedraw1 = 0;
-var ProfileRedraw2 = 0;
-var ProfileFps = 0;
-var ProfileFpsAggr = 0;
-var ProfileFpsCount = 0;
-var ProfileLastTimeStamp = new Date();
-
-var CSwitchCache = {};
-var CSwitchOnlyThreads = [];
-var ProfileData = {};
-var ProfileStackTime = {};
-var ProfileStackName = {};
-var Debug = 1;
-
-var g_MaxStack = Array();
-var g_TypeArray;
-var g_TimeArray;
-var g_IndexArray;
-var g_LabelArray;
-var g_XtraArray; // Events
-var LodData = new Array();
-var NumLodSplits = 10;
-var SplitMin = 100;
-var SPLIT_LIMIT = 1e20;
-var DPR = 1;
-var DetailedRedrawState = {};
-var OffscreenData;
-var DetailedFrameCounter = 0;
-var Invalidate = 0;
-var GroupOrder = Array();
-var ThreadOrder = Array();
-var TimersGroups = 0;
-var TimersMeta = 1;
-var ZeroBasedBars = 1;
-var MetaLengths = Array();
-var MetaLengthsAvg = Array();
-var MetaLengthsMax = Array();
-
-var ZoomActive = 0;
-
-var StrGroup = "Group";
-var StrThread = "Thread";
-var StrTimer = "Timer";
-var StrAverage = "Average";
-var StrMax = "Max";
-var StrTotal = "Total";
-var StrMin = "Min";
-var StrCallAverage = "Call Average";
-var StrCount = "Count";
-var StrExclAverage = "Excl Average";
-var StrExclMax = "Excl Max";
-
 
 function ProfileModeClear()
 {
@@ -1153,7 +1237,7 @@ function ExportSummaryJSON()
     var gpuTimeArray = [];
     var gpuTimeDeviceArray = [];
 
-	for (i = 0; i < Frames.length; i++)
+	for (var i = 0; i < Frames.length; i++)
 	{
 		if (Frames[i].paused)
         {
@@ -1366,7 +1450,7 @@ function ExportSummaryJSON()
 }
 
 
-function ExportMarkersCSV()
+function ExportMarkersCSV(returnAsText)
 {
    var tab_text = 'frames,' + AggregateInfo.Frames + '\nname,group,average,max,callaverage\n'; 
    for (timerid in TimerInfo)
@@ -1488,13 +1572,18 @@ function ExportMarkersCSV()
            tab_text = tab_text + '\n';
        }
    }
-   var url = window.location.pathname; 
-   var filename = url.substring(url.lastIndexOf('/') + 1); 
-   filename = filename.substring(0, filename.lastIndexOf('.')) + '.csv'; 
-   var link = document.createElement('a'); 
-   link.setAttribute('download', filename); 
-   link.setAttribute('href', 'data:text/csv' + ';charset=utf-8,' + encodeURIComponent(tab_text)); 
-   link.click(); 
+   
+   if (returnAsText) {
+	   return tab_text;
+   }
+   
+   var url = window.location.pathname;
+   var filename = url.substring(url.lastIndexOf('/') + 1);
+   filename = filename.substring(0, filename.lastIndexOf('.')) + '.csv';
+   var link = document.createElement('a');
+   link.setAttribute('download', filename);
+   link.setAttribute('href', 'data:text/csv' + ';charset=utf-8,' + encodeURIComponent(tab_text));
+   link.click();
 }
 
 function ShowHelp(Show, Forever)
@@ -2036,6 +2125,7 @@ function PreprocessCalculateAllTimers()
 var FlashFrames = 10;
 var FlashFrameCounter = 0;
 var FlashMessage = '';
+var FlashColor = '';
 function TimeString(Diff)
 {
 	var DiffString = "0 sec";
@@ -2051,10 +2141,11 @@ function TimeString(Diff)
 	return DiffString;
 
 }
-function ShowFlashMessage(Message, FrameCount)
+function ShowFlashMessage(Message, FrameCount, Color)
 {
 	FlashMessage = Message;
 	FlashFrameCounter = FrameCount;
+	FlashColor = Color ? Color : 'red';
 }
 function OnPageReady()
 {
@@ -2070,6 +2161,7 @@ function OnPageReady()
 	{
 		ShowHelp(1,0);
 	}
+	g_Loader.pageReady = true;
 }
 
 function DrawFlashMessage(context)
@@ -2078,12 +2170,17 @@ function DrawFlashMessage(context)
 	{
 		if(FlashFrameCounter>1)
 		{
+			var h = FontFlashHeight;
+			var lines = FlashMessage.split('\n');
 			var FlashPrc = Math.sin(FlashFrameCounter / FlashFrames);
 			context.font = FontFlash;
 			context.globalAlpha = FlashPrc * 0.35 + 0.5;
 			context.textAlign = 'center';
-			context.fillStyle = 'red';
-			context.fillText(FlashMessage, nWidth * 0.5, 50);
+			context.fillStyle = FlashColor;
+			for (var i = 0; i < lines.length; i++) {
+				var line = lines[i];
+				context.fillText(line, nWidth * 0.5, 50 + i * h);
+			}
 			context.globalAlpha = 1;
 			context.textAlign = 'left';
 			context.font = Font;
@@ -2138,7 +2235,7 @@ function DrawDetailedFrameHistory()
 	var aveAllocCount = 0;
 	if (Frames.length > 0)
 	{
-		for (i = 0; i < Frames.length; i++)
+		for (var i = 0; i < Frames.length; i++)
 		{
 			if (Frames[i].paused)
 				continue;
@@ -2298,7 +2395,24 @@ function DrawDetailedFrameHistory()
 
 	DrawCaptureInfo(context);
 
-	if(FrameIndex>=0 && !MouseDragging)
+	if (HistoryViewMouseY < fHeight && (HistoryViewMouseY >= fHeight - g_Ext.xray.barFrameHeight) &&
+		!g_Loader.barFramesTooltipBlocked && !MouseDragging &&
+		g_Ext.xray.barEnabled && !g_Ext.xray.viewEnabled && g_Ext.currentPlugin && g_Ext.currentPlugin.tooltipBarFrames)
+	{
+		if (!g_Loader.barFramesTooltipShown) {
+			g_Loader.barFramesTooltipShown = true;
+			setTimeout(function() {
+				g_Loader.barFramesTooltipBlocked = true;
+			}, 4500);
+		}
+		var StringArray = [];
+		g_Ext.currentPlugin.tooltipBarFrames.forEach(line => {
+			StringArray.push(line);
+			StringArray.push("");
+		});		
+		DrawToolTip(StringArray, CanvasHistory, HistoryViewMouseX, HistoryViewMouseY+20);
+	}
+	else if(FrameIndex>=0 && !MouseDragging && HistoryViewMouseX >= 0 && HistoryViewMouseY >= 0)
 	{
 		var StringArray = [];
         var cpuTimeIncl = Frames[FrameIndex].frameend - Frames[FrameIndex].framestart;
@@ -2307,18 +2421,21 @@ function DrawDetailedFrameHistory()
         var gpuTimeDevice = Frames[FrameIndex].gpu_time_ms;
         var waitForRenderingThread = Frames[FrameIndex].render_finished_ms - Frames[FrameIndex].jobs_finished_ms;
         var desc = "Simulation (CPU)";
+        var descColor = FRAME_HISTORY_COLOR_CPU;
         if(Frames[FrameIndex].cpu_waits_for_gpu > 2.5)
         {
             desc = "Rendering (GPU)";
+			descColor = FRAME_HISTORY_COLOR_GPU;
         } else if(waitForRenderingThread > 0)
         {
             desc = "Render Thread (CPU)";
+			descColor = FRAME_HISTORY_COLOR_CPU_RENDER;			
         }
 
 		StringArray.push("Frame");
 		StringArray.push(String(FrameIndex));
 		StringArray.push("Bottleneck");
-		StringArray.push(desc);
+		StringArray.push({ str: desc, textColor: descColor });
 		StringArray.push("CPU Time (excl/incl)");
 		StringArray.push(String(cpuTimeExcl.toFixed(3)) + "ms/" + String(cpuTimeIncl.toFixed(3)) + "ms");
 		StringArray.push("GPU Time (mp/dev)");
@@ -2401,6 +2518,7 @@ function DrawDetailedBackground(context)
 	var fScaleX = nWidth / fDetailedRange; 
 	var HeaderString = TimeToString(fStep);
 	context.textAlign = 'center';
+	context.font = Font;
 
 	var barYOffset = 0;
 	if (g_Ext.xray.barEnabled)
@@ -2449,6 +2567,16 @@ function DrawDetailedBackground(context)
 }
 function DrawToolTip(StringArray, Canvas, x, y, color, textColor, updatedRect)
 {
+	function GetText(entry) {
+		return IsSimpleType(entry) ? entry : entry.str;
+	}
+	function UpdateFillStyle(ctx, entry, defaultColor) {
+		var curColor = IsSimpleType(entry) ? defaultColor : entry.textColor;
+		if (ctx.fillStyle != curColor) {
+			ctx.fillStyle = curColor;
+		}
+	}
+
 	var context = Canvas.getContext('2d');
 	context.font = Font;
 	var WidthArray = Array(StringArray.length);
@@ -2456,8 +2584,8 @@ function DrawToolTip(StringArray, Canvas, x, y, color, textColor, updatedRect)
 	var nHeight = 0;
 	for(i = 0; i < StringArray.length; i += 2)
 	{
-		var nWidth0 = context.measureText(StringArray[i]).width;
-		var nWidth1 = context.measureText(StringArray[i+1]).width;
+		var nWidth0 = context.measureText(GetText(StringArray[i])).width;
+		var nWidth1 = context.measureText(GetText(StringArray[i+1])).width;
 		var nSum = nWidth0 + nWidth1;
 		WidthArray[i] = nWidth0;
 		WidthArray[i+1] = nWidth1;
@@ -2487,19 +2615,24 @@ function DrawToolTip(StringArray, Canvas, x, y, color, textColor, updatedRect)
 		updatedRect.h = nHeight;
 	}
 
+	var defaultColor = textColor ? textColor : 'white';
 	context.fillStyle = color ? color : 'black';
 	context.fillRect(x-2, y-1, nMaxWidth+4, nHeight+2);
 	context.fillStyle = 'black';
 	context.fillRect(x-1, y, nMaxWidth+2, nHeight);
-	context.fillStyle = textColor ? textColor : 'white';
+	context.fillStyle = defaultColor;
 
 	var XPos = x;
 	var XPosRight = x + nMaxWidth;
 	var YPos = y + BoxHeight-2;
 	for(i = 0; i < StringArray.length; i += 2)
 	{
-		context.fillText(StringArray[i], XPos, YPos);
-		context.fillText(StringArray[i+1], XPosRight - WidthArray[i+1], YPos);
+		var left = StringArray[i];
+		var right = StringArray[i+1];
+		UpdateFillStyle(context, left, defaultColor);
+		context.fillText(GetText(left), XPos, YPos);
+		UpdateFillStyle(context, right, defaultColor);
+		context.fillText(GetText(right), XPosRight - WidthArray[i+1], YPos);
 		YPos += BoxHeight;
 	}
 }
@@ -2529,6 +2662,8 @@ function DrawHoverToolTip()
 	// Do not draw the tooltip if the events window is visible
 	var EventsWindow = document.getElementById('eventswindow');
 	if (EventsWindow.style.display != 'none')
+		return;
+	if (DetailedViewMouseX < 0 || DetailedViewMouseY < 0)
 		return;
 
 	if(!ToolTip)
@@ -2776,6 +2911,22 @@ function DrawHoverToolTip()
 		StringArray.push("" + RangeCpu.Begin);
 		StringArray.push("End");
 		StringArray.push("" + RangeCpu.End);
+		DrawToolTip(StringArray, CanvasDetailedView, DetailedViewMouseX, DetailedViewMouseY+20);
+	}
+	else if (DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0 && !g_Loader.barDetailedTooltipBlocked &&
+		g_Ext.xray.barEnabled && g_Ext.currentPlugin && g_Ext.currentPlugin.tooltipBarDetailed)
+	{
+		if (!g_Loader.barDetailedTooltipShown) {
+			g_Loader.barDetailedTooltipShown = true;
+			setTimeout(function() {
+				g_Loader.barDetailedTooltipBlocked = true;
+			}, 4500);
+		}
+		var StringArray = [];
+		g_Ext.currentPlugin.tooltipBarDetailed.forEach(line => {
+			StringArray.push(line);
+			StringArray.push("");
+		});
 		DrawToolTip(StringArray, CanvasDetailedView, DetailedViewMouseX, DetailedViewMouseY+20);
 	}
 	ProfileLeave();
@@ -3907,7 +4058,9 @@ function DrawDetailedView(context, MinWidth, bDrawEnabled)
 									}
 								}
 
-								if(DetailedViewMouseX >= X && DetailedViewMouseX <= X+W && DetailedViewMouseY < Y+BoxHeight && DetailedViewMouseY >= Y)
+								if(DetailedViewMouseX >= 0 && DetailedViewMouseY >= 0 &&
+									DetailedViewMouseX >= X && DetailedViewMouseX <= X+W &&
+									DetailedViewMouseY < Y+BoxHeight && DetailedViewMouseY >= Y)
 								{
 									RangeCpuNext.Begin = timestart;
 									RangeCpuNext.End = timeend;
@@ -4308,7 +4461,11 @@ function DrawDetailed(Animation)
 		var eventNames = [];
 		g_Ext.typeLookup.forEach(function(entry) {
 			if (entry.IsActive() && !entry.isBackground) {
-				eventNames.push(entry.name);
+				entry.subSelections.forEach(function(sel, i) {
+					if (sel) {
+						eventNames.push(entry.subnames[i]);
+					}
+				});
 			}
 		});
 		var eventNamesJoin = eventNames.join('|');
@@ -4361,7 +4518,8 @@ function DrawDetailed(Animation)
 function ZoomToHighlight(NoGpu)
 {
 	// In XRay mode, display events on scope click instead of zooming in
-	if (g_Ext.xray.viewEnabled && g_Ext.currentPlugin && NoGpu == undefined && nHoverToken != -1) {
+	if (g_Ext.xray.viewEnabled && g_Ext.currentPlugin && g_Ext.currentPlugin.display &&
+		NoGpu == undefined && nHoverToken != -1) {
 		ShowEvents(true);
 		return;
 	}
@@ -4561,6 +4719,9 @@ function RequestRedraw()
 
 function Draw(RedrawMode)
 {
+	if (!g_Loader.pageReady)
+		return;
+	
 	if(ProfileMode)
 	{
 		ProfileModeClear();
@@ -4656,9 +4817,10 @@ function MeasureFont()
 }
 function ResizeCanvas() 
 {
-	nWidth = window.innerWidth;
-	nHeight = window.innerHeight - CanvasHistory.height-2;
 	DPR = window.devicePixelRatio;
+	nHistoryHeight = nHistoryHeightOrig / (1 + (DPR - 1) * 0.4);
+	nWidth = window.innerWidth;
+	nHeight = window.innerHeight - nHistoryHeight-2;
 
 	if(DPR)
 	{
@@ -5012,7 +5174,7 @@ function MouseMove(evt)
 		DetailedViewMouseX = x;
 		DetailedViewMouseY = y;
 	}
-	else if(evt.target = CanvasHistory)
+	else if(evt.target == CanvasHistory)
 	{
 		var Rect = CanvasHistory.getBoundingClientRect();
 		HistoryViewMouseX = x;
@@ -5089,13 +5251,64 @@ function MouseOut(evt)
 	MouseDragButton = 0;
 	nHoverToken = -1;
 	RangeCpu = RangeInit();
+	
+	if(evt.target == CanvasDetailedView) {
+		DetailedViewMouseX = -1;
+		DetailedViewMouseY = -1;
+	} else if(evt.target == CanvasHistory) {
+		HistoryViewMouseX = -1;
+		HistoryViewMouseY = -1;
+	}
+	
+    Draw(1);
 }
 
 function MouseWheel(e)
 {
     var e = window.event || e;
     var delta = (e.wheelDelta || e.detail * (-120));
-    ZoomGraph((-4 * delta / 120.0) | 0);
+	
+	var dir = delta > 0 ? 1 : -1;
+	function dirPostfix() {
+		return (dir > 0 ? "_dec" : "_inc");
+	}
+	function clickBtnIdDir(baseBtnId) {
+		var btnId = baseBtnId + dirPostfix();
+		document.getElementById(btnId).click();
+	}
+	
+	if (e.target == CanvasDetailedView) {
+		if (KeyShiftDown == 1 && g_Ext.xray.barEnabled && DetailedViewMouseY <= g_Ext.xray.barYOffset && DetailedViewMouseY > 0) {
+			// Select x-Ray threshold for the preview bar
+			clickBtnIdDir("xthreshold_bar");
+		} else if (KeyShiftDown == 1 && g_Ext.xray.viewEnabled) {
+			// Select x-Ray threshold for the main view
+			clickBtnIdDir("xthreshold_main");
+		} else if (KeyCtrlDown == 0) {
+			// Default behaviour = zoom
+			ZoomGraph((-4 * delta / 120.0) | 0);
+		}
+	} else if (e.target = CanvasHistory) {
+		if (KeyShiftDown == 1 && (g_Ext.xray.viewEnabled || g_Ext.xray.barEnabled)) {
+			// Select X-Ray threshold for frames
+			clickBtnIdDir("xthreshold_frames");
+		} else if (KeyCtrlDown == 0) {
+			// Select reference time for frames
+			var selRefId = 0;
+			var ReferenceMenu = document.getElementById('ReferenceSubMenu');
+			var Links = ReferenceMenu.getElementsByTagName('a');
+			for (var i = 0; i < Links.length; ++i) {
+				var selected = (Links[i].style['text-decoration'] == 'underline');
+				if (selected) {
+					selRefId = i;
+					break;
+				}
+			}
+			selRefId = clamp(selRefId + (-dir), 0, Links.length - 1);
+			Links[selRefId].click();
+		}
+	}
+	
     Draw(1);
 }
 function ShowFilterInput(bShow)
@@ -5291,13 +5504,21 @@ function KeyUp(evt)
 		ShowFlashMessage('ToolTip: ' + ToolTipStr, 100);
 	}
 
-	if(evt.keyCode == 88) { // x to toggle XRay mode
+	function ClickMenuButton(elId) {
 		var PluginsTab = document.getElementById('ilPlugins');
 		if (PluginsTab.style.display != 'none') {
-			var XView = document.getElementById('xview');
+			var XView = document.getElementById(elId);
 			var firstA = XView.querySelector('a');
 			firstA.click();
 		}
+	}
+
+	if(evt.keyCode == 88) { // x to toggle XRay view
+		ClickMenuButton('xview');
+	}
+	
+	if(evt.keyCode == 67) { // c to toggle XRay count/sum modes
+		ClickMenuButton('xmode');
 	}
 
 	Invalidate = 0;
@@ -5947,6 +6168,467 @@ function ShowHelp(Show, Forever)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
+// Data loader
+
+function SaveExportResult(str) {
+	g_Loader.toolsData.exportResult = str;
+}
+
+function ExecStatement(js) {
+    eval(js);
+}
+
+async function UnzipData(compressedData, prefix, postfix, hasSize, method) {
+	var compressedDataNoHeader = hasSize ? compressedData.slice(2 * 4) : compressedData;
+	const compressedStream = new ReadableStream({
+		start(controller) {
+			controller.enqueue(compressedDataNoHeader);
+			controller.close();
+		}
+	});
+
+	const decompressionStream = new DecompressionStream(method);
+	const readableStream = compressedStream.pipeThrough(decompressionStream);
+
+	let encoder = new TextEncoder();
+	var prefixData = (prefix.length > 0) ? encoder.encode(prefix) : new Uint8Array;
+	var postfixData = (postfix.length > 0) ? encoder.encode(postfix) : new Uint8Array;
+
+	const reader = readableStream.getReader();
+	var chunks = [];
+	var resData = null;
+	var resPos = 0;
+
+	if (hasSize) {
+		const view = new DataView(compressedData.buffer);
+		var uncompressedSize = view.getUint32(0, true);
+		resData = new Uint8Array(prefixData.length + uncompressedSize + postfixData.length);
+	}
+	
+	if (prefixData.length > 0) {
+		if (hasSize) {
+			resData.set(prefixData, resPos);
+		} else {
+			chunks.push(prefixData);
+		}
+		resPos += prefixData.length;
+	}	
+	
+	while (true) {
+		const { done, value } = await reader.read();
+		if (done)
+			break;
+
+		if (hasSize) {
+			resData.set(value, resPos);
+		} else {
+			chunks.push(value);
+		}
+		resPos += value.length;
+	}
+
+	if (postfixData.length > 0) {
+		if (hasSize) {
+			resData.set(postfixData, resPos);
+		} else {
+			chunks.push(postfixData);
+		}
+		resPos += postfixData.length;
+	}
+
+	if (!hasSize) {
+		var resData = new Uint8Array(resPos);
+		resPos = 0;
+		chunks.forEach(chunk => {
+			resData.set(chunk, resPos);
+			resPos += chunk.length;
+		});
+	}
+	return resData;
+}
+
+async function ExtractDataFromComment(nodeId, magic, prefix, postfix, hasSize, method, callback) {
+	var orig = null;
+	if (nodeId < document.childNodes.length) {
+		var node = document.childNodes[nodeId];
+		if (node.nodeType === Node.COMMENT_NODE && node.data.startsWith(magic)) {
+			orig = node.data.substring(magic.length);
+		}
+	}
+	if (orig === null) {
+		console.error("Error extracting data from node");
+		callback(new Uint8Array);
+		return;
+	}
+	
+	const base64Data = orig;
+	const compressedData = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
+
+	return UnzipData(compressedData, prefix, postfix, hasSize, method)
+		.then(data => {
+			callback(data);
+		})
+		.catch(error => {
+			console.error('Error unzipping data: ', error);
+			callback(new Uint8Array);
+		});
+}
+
+function UpdateLoadingProgress() {
+	if (!g_Loader.progress) {
+		g_Loader.progress = {};
+		var dotSpanElement = document.getElementById("progressDotSample");
+		var dotWidth = dotSpanElement.offsetWidth;
+		var windowWidth = window.innerWidth;
+		g_Loader.progress.dotsNum = Math.floor(windowWidth / dotWidth);
+		g_Loader.progress.dotsText = Array(g_Loader.progress.dotsNum).fill(".").join("");
+		g_Loader.progress.dotsDiv = document.getElementById("progressDots");
+		g_Loader.progress.nextFrameId = 0;
+	}
+	
+	if (window.Frames != undefined && Frames[g_Loader.progress.nextFrameId] != undefined) {
+		var progressDots = Math.floor(g_Loader.progress.dotsNum * g_Loader.progress.nextFrameId / Frames.length);
+		g_Loader.progress.dotsDiv.textContent = g_Loader.progress.dotsText.substring(0, progressDots);
+		g_Loader.progress.nextFrameId++;
+	}
+}
+
+async function ExtractToolsJs() {
+	await ExtractDataFromComment(1, "", "",
+		"ToolsModule().then(Module => { self.Tools = Module; Tools.ccall('Init', 'number', []); });", true, "deflate",
+		function(dataArr){
+			g_Loader.worker = {};
+			g_Loader.worker.jsDataArr = dataArr;
+			g_Loader.worker.blob = new Blob(
+				[ g_Loader.worker.jsDataArr ],
+				{ type: 'text/javascript' }
+			);
+			g_Loader.worker.urlObj = URL.createObjectURL(g_Loader.worker.blob);
+		}
+	);
+}
+
+async function ExtractRawData() {
+	await ExtractDataFromComment(0, "R0FL", "    R0FL", "", true, "deflate",
+		function(dataArr){
+			g_Loader.rawDataArr = dataArr;
+		}
+	);
+}
+
+function ComposeOrigDatetime(forTitle) {
+	function ZeroPad(number) {
+		return ('0' + number).slice(-2);
+	}
+	var utc = DumpUtcCaptureTime * 1000;
+	var date = new Date(utc);
+	var year = date.getUTCFullYear();
+	var month = ZeroPad(date.getUTCMonth() + 1); // Months are zero-indexed
+	var day = ZeroPad(date.getUTCDate());
+	var hours = ZeroPad(date.getUTCHours());
+	var minutes = ZeroPad(date.getUTCMinutes());
+	var seconds = ZeroPad(date.getUTCSeconds());
+	var res = forTitle ?
+		(year + "" + month + "" + day + " " + hours + "" +  minutes + "" + seconds) :
+		(year + month + day + "-" + hours + minutes + seconds);
+	return res;
+}
+
+function OpenNewExportTab(shortName, forceDownload) {
+	var tabOpened = false;
+
+	function ComposeOrigFilename() {
+		var res = "microprofile-" + ComposeOrigDatetime() + ".html";
+		return res;
+	}
+
+	function GetExportFilename(shortName) {
+		var filename = "";
+		var pathname = window.location.pathname;
+		if (pathname.endsWith('.htm') || pathname.endsWith('.html')) {
+			var parts = pathname.split('/');
+			filename = parts.pop();
+		} else {
+			filename = ComposeOrigFilename();
+		}
+		if (shortName != "") {
+			var dotIndex = filename.lastIndexOf('.');
+			var baseName = filename.substring(0, dotIndex);
+			var extension = filename.substring(dotIndex);
+			filename = baseName + '_' + shortName + extension;
+		}
+		return filename;
+	}
+
+	var pageBlob = new Blob(
+		[ g_Loader.toolsData.exportResult ],
+		{ type: 'text/html' }
+	);
+	var pageObj = URL.createObjectURL(pageBlob);
+
+	if (!forceDownload) {
+		if (window.open(pageObj)) {
+			tabOpened = true;
+		}
+	}
+	
+	if (!tabOpened) {
+		var filename = GetExportFilename(shortName);
+		var link = document.createElement('a');
+		link.setAttribute('download', filename);
+		link.href = pageObj;
+		link.click();
+		URL.revokeObjectURL(pageObj);
+	}
+	
+	g_Loader.toolsData.exportResult = null;
+}
+
+function InitToolsExportMenu() {
+	if (g_Loader.toolsData.isExportMenuInitialized)
+		return;
+	
+	g_Loader.toolsData.isExportMenuInitialized = true;
+	var ExportMenu = document.getElementById('ExportSubMenu');
+	
+	if (g_Loader.toolsData.exportOptions && g_Loader.toolsData.exportOptions.length > 0) {
+		MenuAddEntry(ExportMenu, '', 'Extra tools', null, true);
+		g_Loader.toolsData.exportOptions.forEach(entry => {
+			if (entry.eventIdsNeeded != undefined) {
+				var hasNeededEvents = false;
+				for (const eventId of entry.eventIdsNeeded) {
+					if (g_Ext.typeLookup[EventBaseId + eventId].isPresented) {
+						hasNeededEvents = true;
+						break;
+					}
+				}
+				if (!hasNeededEvents)
+					return;
+			}
+
+			MenuAddEntry(ExportMenu, '', entry.displayName, async function() {
+				if (window.InitDataImpl != undefined || g_Loader.isExportInProgress || !g_Loader.isViewerInitialized)
+					return;
+				
+				ShowSpinner(true);
+				await ExtractAndExportRaw(entry.funcName);
+				OpenNewExportTab(entry.shortName);
+				ShowSpinner(false);
+			});
+		});
+	}
+	
+	AdjustMenuItemsWidth(ExportMenu);
+}
+
+function GetHtmlSource(checkOnly) {
+	var doc = "";
+
+	var commentsCount = 0;
+	var nodes = document.childNodes;
+	for (var i = 0; i < 2 && i < nodes.length; i++) {
+		var node = nodes[i];
+		if (node.nodeType == Node.COMMENT_NODE) {
+			commentsCount++;
+			if (!checkOnly) {
+				doc += "<!--" + node.data + "-->\n";
+			}
+		}
+	}
+	if (checkOnly && commentsCount < 2)
+		return null;
+	
+	if (!checkOnly) {
+		doc += "<!DOCTYPE html>\n";
+		doc += "<html>";
+	}
+	
+	var embeddedScriptsCount = 0;
+	var scripts = document.getElementsByTagName('script');
+	for (var i = 0; i < scripts.length; i++) {
+		var script = scripts[i];
+		var js = script.textContent;
+		var src = script.getAttribute('src');
+		if (src == null && js != "") {
+			embeddedScriptsCount++;
+		}
+		if (!checkOnly) {
+			doc += "<script";
+			doc += (src == null) ? ('>\n' + js) : (' src="' + src + '">');
+			doc += "</" + "script>"; // Breaking up the tag to ensure that it is not interpreted as the end of the script
+		}
+	}
+	if (checkOnly && embeddedScriptsCount < 1)
+		return null;
+
+	if (!checkOnly) {
+		doc += "</html>\n";
+	}
+	
+	return doc;
+}
+
+function InitAuxMenus() {
+	var OptionsMenu = document.getElementById('OptionsMenu');
+	AdjustMenuItemsWidth(OptionsMenu);
+	
+	var isHttpProtocol = window.location.protocol.startsWith("http");
+	var reloadAllowed = isHttpProtocol;
+	if (reloadAllowed) {
+		var ReloadMenu = document.getElementById('ilReload');
+		ReloadMenu.style.display = "";
+		ReloadMenu.onclick = function() {
+			if (!g_Loader.isExportInProgress) {
+				ShowSpinner(true);
+				window.location.reload(true);
+			}
+		}
+	}
+	
+	var savingAllowed = isHttpProtocol && !window.g_wasReloaded && (GetHtmlSource(true) != null);
+	if (savingAllowed) {
+		var SaveMenu = document.getElementById('ilSave');
+		SaveMenu.style.display = "";
+		SaveMenu.onclick = function() {
+			if (!g_Loader.isExportInProgress) {
+				var doc = GetHtmlSource();
+				SaveExportResult(doc);
+				OpenNewExportTab("", true);
+				ShowFlashMessage("Saving started\n" + "Please allow file download if prompted", 150, "#ffcc77");
+			}
+		};
+	}
+}
+
+async function ExtractAndExportRaw(funcName) {
+	await ExtractRawData();
+	if (!funcName && (!g_Loader.rawDataArr || g_Loader.rawDataArr.length == 0)) {
+		return Promise.reject("No data");
+	}
+	if (window.ToolsModule != undefined) {
+		await ParseRawModule(funcName);
+	} else {
+		await ExtractToolsJs();
+		await ParseRawWorker(funcName);
+	}
+}
+
+function ParseRawModule(exporterFuncName) {
+	var funcName = exporterFuncName ? exporterFuncName : "ParseRaw";
+	return ToolsModule().then(Module => {
+		window.Tools = Module;
+		Tools.ccall('Init', 'number', []);
+		g_Loader.toolsData.exportOptions = JSON.parse(g_Loader.toolsData.exportResult);
+		g_Loader.toolsData.exportResult = null;
+		
+		var dataPtr = Tools._malloc(g_Loader.rawDataArr.length);
+		Tools.HEAPU8.set(g_Loader.rawDataArr, dataPtr);
+		var func = Tools.cwrap(funcName, 'number', ['number', 'number']);
+		func(dataPtr, g_Loader.rawDataArr.length);
+		g_Loader.isDataInitialized = true;
+		g_Loader.rawDataArr = null;
+		window.Tools = null;
+	});
+}
+
+function ParseRawWorker(exporterFuncName) {
+	var funcName = exporterFuncName ? exporterFuncName : "";
+	return new Promise((resolve, reject) => {
+		g_Loader.worker.isReady = false;
+		g_Loader.worker.instance = new Worker(g_Loader.worker.urlObj);
+		g_Loader.worker.instance.onmessage = function(event){
+			if (event.data == "") {
+				if (g_Loader.worker.isReady) {
+					g_Loader.isDataInitialized = true;
+					g_Loader.worker.instance.terminate();
+					URL.revokeObjectURL(g_Loader.worker.urlObj);
+					g_Loader.worker = {};
+					resolve();
+				} else {
+					g_Loader.worker.isReady = true;
+					g_Loader.worker.instance.postMessage(funcName);
+					g_Loader.worker.instance.postMessage(g_Loader.rawDataArr.buffer, [g_Loader.rawDataArr.buffer]);
+					g_Loader.rawDataArr = null;
+				}
+			} else {
+				if (g_Loader.worker.isReady) {
+					if (funcName == "") {
+						ExecStatement(event.data);
+						UpdateLoadingProgress();
+					} else {
+						SaveExportResult(event.data);
+					}
+				} else {
+					g_Loader.toolsData.exportOptions = JSON.parse(event.data);
+				}
+			}
+		};
+	});
+}
+
+function ShowSpinner(vis) {
+	var divElement = document.getElementById("progressSpinner");
+	divElement.style.display = vis ? "" : "none";
+	g_Loader.isExportInProgress = vis;
+}
+
+function ShowUiRoot() {
+	g_Loader.progress = {};
+	var divElement = document.getElementById("progressDots");
+	divElement.textContent = "";
+	divElement.display = "none";
+
+	divElement = document.getElementById("root");
+	divElement.style.display = "";
+	
+	var dt = ComposeOrigDatetime(true);
+	document.title += " " + dt;
+}
+
+function HaltPage() {
+	var dotsDiv = document.getElementById("progressDots");
+	dotsDiv.style.textAlign = "center";
+	if (g_Loader.isDataInitialized) {
+		dotsDiv.innerHTML = "<span style='font-size: 1.2rem;'>Error loading viewer.</span><br>" +
+			"See browser's developer console for details.";
+	} else {
+		dotsDiv.innerHTML = "<span style='font-size: 1.2rem;'>No profiling data found.</span><br>" +
+			"If this page was saved using a web browser, please retry saving it by clicking the " +
+			"top menu button \u21e9 (Save to file) in the Microprofiler's web UI.<br>" +
+			"This option ensures the original file name and internal data remain intact.<br>" +
+			"Alternatively, you can try 'Webpage, HTML Only' mode when saving.";
+	}
+}
+
+function ParseUrlArgs() {
+	const argsStr = g_Loader.urlAnchor.slice(1);
+	const pairs = argsStr.split('&');
+	const argsMap = new Map();
+	pairs.forEach(pair => {
+		const [key, value] = pair.split('=');
+		argsMap.set(key, value);
+	});
+	return argsMap;
+}
+
+function ProcessUrlArgs() {
+	var argsMap = ParseUrlArgs();
+	if (argsMap.has("ExportMarkersCSV")) {
+		ExportMarkersCSV();
+	}
+}
+
+async function InitData() {
+	g_Loader.toolsData = {};
+	if (window.InitDataImpl != undefined) {
+		InitDataImpl();
+		g_Loader.isDataInitialized = true;
+		return;
+	}
+	await ExtractAndExportRaw();
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
 // Extension code for events support and XRay mode
 
 var EventBaseId = 128;
@@ -5990,14 +6672,20 @@ function DecimalToHex(d, padding) {
 	return hex;
 }
 
+function IsString(s) {
+	return (typeof s === 'string' || s instanceof String);
+}
+
+function IsObject(v) {
+    return (typeof v === 'object' && v !== null);
+}
+
+function IsSimpleType(v) {
+    return (typeof v !== 'object' || v === null);
+}
+
 function DeepCopy(obj) {
-	var res = JSON.parse(JSON.stringify(obj));
-	for (var key in obj) {
-		if (typeof obj[key] === 'function') {
-			res[key] = obj[key];
-		}
-	}
-	return res;
+	return Object.create(obj);
 }
 
 function Grad255ToColor(grad255) {
@@ -6014,7 +6702,10 @@ function GetNormalizedFromTx(txEntry, isFrameLimits) {
 	var limits = isFrameLimits ? g_Ext.xray.selectedLimits.frame : g_Ext.xray.selectedLimits.scope;
 	var maxValue = limits.getField(g_Ext.xray.mode);
 	var value = txEntry.getField(g_Ext.xray.mode);
-	var grad01 = Math.min(value / maxValue, 1);
+	var grad01 = (maxValue > 0) ? Math.min(value / maxValue, 1) : 0;
+	if (grad01 > 0) {
+		grad01 = Math.max(grad01, 0.02);
+	}
 	var grad255 = Math.floor(Math.pow(grad01, g_Ext.xray.intensityPower) * 255);
 	var color = Grad255ToColor(grad255);
 	return {
@@ -6045,7 +6736,7 @@ function ValueToBytes(v) {
 	else if (v > 1000)
 		res = Math.floor(v / 100) / 10 + "KB";
 	else
-		res = v;
+		res = v + "B";
 	return res;
 }
 
@@ -6062,61 +6753,6 @@ function ColorUint32Multiply(color, k) {
 	res |= (b <<  0);
 	return res;
 }
-
-// Main context of the extension code
-var g_Ext = {
-	plugins: [],
-	currentPlugin: null,
-	typeLookup: [],
-	eventsPresented: false,
-	knownEventsPresented: false,
-
-	xray: {
-		viewEnabled: false,
-		barEnabled: false,
-		mode: XRayModes.Count,
-		barFrameHeight: BoxHeight * 0.8,
-		barYOffset: BoxHeight,
-		intensityPower: 0.33,
-		smallScopesHighlighting: {
-			thresholdWidth: 20,
-			thresholdIntensity: 0.45,
-			extraIntensity: 0.2,
-		},
-		autoLimits: true,
-		selectedLimits: {
-			frame: DeepCopy(TxType),
-			scope: DeepCopy(TxType),
-		},
-		calculatedLimits: {
-			frameVariants: {
-				count: [],
-				sum: [],
-			},
-			scopeVariants: {
-				count: [],
-				sum: [],
-			},
-			frameThresholds: {
-				count: 100,
-				sum: 100,
-			},
-			barThresholds: {
-				count: 45,
-				sum: 60,
-			},
-			scopeThresholds: {
-				count: 85,
-				sum: 90,
-			},
-		}
-	},
-
-	spans: [],
-	reset: function() {
-		this.spans = [];
-	},
-};
 
 // Calculate threshold values for all sensitivity levels from 0 to 100.
 // The concept is similar to percentiles.
@@ -6521,6 +7157,11 @@ function SetCurrentPlugin(p) {
 	g_Ext.currentPlugin = p;
 }
 
+function DefinePlugin(func) {
+	g_Loader.pluginDefines = g_Loader.pluginDefines ? g_Loader.pluginDefines : [];
+	g_Loader.pluginDefines.push(func);
+}
+
 function RegisterPlugin(p) {
 	if (window.g_Reload)
 		return;
@@ -6529,17 +7170,31 @@ function RegisterPlugin(p) {
 	p.isPresented = false;
 	const id = p.baseId + EventBaseId;
 	for (var i = 0; i < p.events.length; i++) {
-		var eventName = p.events[i];
-		var isInPreset = (p.preset && p.preset.events) ? p.preset.events.includes(eventName) : false;
+		var entry = p.events[i];
+		var isStrEntry = IsString(entry);
+		var eventName = isStrEntry ? entry : entry.name;
+		if (eventName == "")
+			continue;
+		var eventSubnames = isStrEntry ? [eventName] : entry.subnames;
+		var isInPresetArr = [];
+		eventSubnames.forEach(subname => {
+			var found = p.preset && p.preset.events && p.preset.events.includes(subname);
+			isInPresetArr.push(found);
+		});
 		g_Ext.typeLookup[id + i] = {
 			id: p.baseId + i,
 			name: eventName,
+			subnames: eventSubnames,
+			subSelections: isInPresetArr,
 			plugin: p,
-			isSelected: isInPreset || p.isBackground,
 			isBackground: p.isBackground,
 			isPresented: false,
+			IsSelected: function() {
+				const hasSubSelection = this.subSelections.some(Boolean);
+				return hasSubSelection || this.isBackground;
+			},
 			IsActive: function() {
-				return this.isSelected && this.plugin.isActive; 
+				return this.IsSelected() && this.plugin.isActive; 
 			}
 		};
 	}
@@ -6572,9 +7227,53 @@ function InitPluginStates() {
 	g_Ext.xray.barEnabled = isPresetSet;
 }
 
+function AdjustXRayStyle() {
+	CanvasHistory.style.backgroundColor = g_Ext.xray.viewEnabled ? '#242424' : '#474747';
+}
+
+function MenuAddEntry(menuElement, id, text, clickFn, isCategory) {
+	var newLi = document.createElement('li');
+	newLi.id = id;
+
+	var newA = document.createElement('a');
+	newA.innerHTML = text;
+	if (clickFn) {
+		newA.href = "javascript:void(0)";
+		newA.onclick = function() {
+			if (newA.style.display != 'none') {
+				clickFn();
+			}
+		};
+	}
+	if (isCategory == true) {
+		newA.style.color = "black";
+		newA.style.backgroundColor = GradToColor(0.6);
+	}
+
+	newLi.appendChild(newA);
+	menuElement.appendChild(newLi);
+}
+
+function AdjustMenuItemsWidth(MenuElement) {
+	// Adjust the width of all menu items according to max text length
+	var maxLen = 0;
+	var As = MenuElement.getElementsByTagName('a');
+	for(var i = 0; i < As.length; ++i) {
+		maxLen = Math.max(maxLen, As[i].textContent.length);
+	}
+
+	var LenStr = (5+(0+maxLen) * (1+FontWidth)) + 'px';
+	var Lis = MenuElement.getElementsByTagName('li');
+	for(var i = 0; i < Lis.length; ++i) {
+		Lis[i].style['width'] = LenStr;
+	}
+}
+
 function InitPluginUi() {
 	if (g_Ext.plugins.length == 0)
 		return;
+
+	AdjustXRayStyle();
 
 	var PluginsTab = document.getElementById('ilPlugins');
 	if (g_Ext.hasVisiblePlugins) {
@@ -6584,38 +7283,19 @@ function InitPluginUi() {
 	var PluginMenu = document.getElementById('PluginMenu');
 	// Add a regular menu entry
 	var AddEntry = function (id, text, clickFn, isCategory) {
-		var newLi = document.createElement('li');
-		newLi.id = id;
-
-		var newA = document.createElement('a');
-		newA.href = "javascript:void(0)";
-		newA.textContent = text;
-		if (clickFn) {
-			newA.onclick = function() {
-				if (newA.style.display != 'none') {
-					clickFn();
-				}
-			};
-		}
-		if (isCategory == true) {
-			newA.style.color = "black";
-			newA.style.backgroundColor = GradToColor(0.6);
-		}
-
-		newLi.appendChild(newA);
-		PluginMenu.appendChild(newLi);
+		MenuAddEntry(PluginMenu, id, text, clickFn, isCategory);
 	};
 	// Add a value selector
 	var AddSelector = function (id, text, thresholds) {
 		var newLi = document.createElement('li');
-		newLi.style = "cursor: pointer; user-select: none;"
-		newLi.innerHTML = "<a>" + text + "<span> \<\< </span><span id="+ id +">00</span><span> \>\> </span></a>";
+		newLi.innerHTML = "<a>" + text + "<span id='" + id + "_dec'> \<\< </span><span id='"+ id +"'>00</span><span id='" + id + "_inc'> \>\> </span></a>";
 
 		var sps = newLi.getElementsByTagName('span');
 		for(var i = 0; i < sps.length; ++i) {
 			var sp = sps[i];
-			if (sp.id)
+			if (sp.id == id)
 				continue;
+			sp.style = "cursor: pointer;";
 			sp.onclick = function(clickEvent) {
 				var dir = clickEvent.target.textContent.includes("<<") ? -1 : 1;
 				var val = (g_Ext.xray.mode == XRayModes.Count) ? thresholds.count : thresholds.sum;
@@ -6632,8 +7312,9 @@ function InitPluginUi() {
 		PluginMenu.appendChild(newLi);
 	};
 
-	AddEntry('xview', 'Main view', function() {
+	AddEntry('xview', 'Main view&nbsp;&nbsp;&nbsp;&nbsp;[x]', function() {
 		g_Ext.xray.viewEnabled = !g_Ext.xray.viewEnabled;
+		AdjustXRayStyle();
 		PluginUiUpdate(false, true);
 	});
 	AddEntry('xbar', 'Preview bar', function() {
@@ -6671,25 +7352,15 @@ function InitPluginUi() {
 		if (e.isBackground || e.plugin.isHidden)
 			return;
 		var entryClosure = e;
-		AddEntry('xevent_' + i, e.name, function() {
-			entryClosure.isSelected = !entryClosure.isSelected;
-			PluginUiUpdate();
+		e.subnames.forEach(function(subname, j) {
+			AddEntry('xevent_' + i + '_' + j, subname, function() {
+				entryClosure.subSelections[j] = !entryClosure.subSelections[j];
+				PluginUiUpdate();
+			});
 		});
 	});
 
-	// Adjust the width of all menu items according to max text length
-	var maxLen = 0;
-	var As = PluginMenu.getElementsByTagName('a');
-	for(var i = 0; i < As.length; ++i) {
-		maxLen = Math.max(maxLen, As[i].textContent.length);
-	}
-
-	var LenStr = (5+(0+maxLen) * (1+FontWidth)) + 'px';
-	var Lis = PluginMenu.getElementsByTagName('li');
-	for(var i = 0; i < Lis.length; ++i) {
-		Lis[i].style['width'] = LenStr;
-	}
-
+	AdjustMenuItemsWidth(PluginMenu);
 	PluginUiUpdate(true);
 }
 
@@ -6703,7 +7374,7 @@ function PluginUiUpdate(isInitialCall, onlyThresholds) {
 				a.style['text-decoration'] = isSel ? 'underline' : 'none';
 			}
 			if (text != undefined) {
-				a.textContent = text;
+				a.innerHTML = text;
 			}
 			a.style.display = (isHid == true) ? 'none' : '';
 		}
@@ -6722,7 +7393,7 @@ function PluginUiUpdate(isInitialCall, onlyThresholds) {
 	UpdateElement('xview', g_Ext.xray.viewEnabled, noFg);
 	UpdateElement('xbar', g_Ext.xray.barEnabled, noFg);
 
-	var modeText = "Mode: " + (g_Ext.xray.mode == XRayModes.Count ? "#Count" : "\u2211Sum");
+	var modeText = "Mode: " + (g_Ext.xray.mode == XRayModes.Count ? "#Count&nbsp;[c]" : "\u2211Sum&nbsp;&nbsp;&nbsp;[c]");
 	UpdateElement('xmode', false, noFg, modeText)
 
 	UpdateElement('xthresholds', undefined, noFg)
@@ -6740,7 +7411,9 @@ function PluginUiUpdate(isInitialCall, onlyThresholds) {
 	g_Ext.typeLookup.forEach(function(e, i) {
 		if (e.isBackground || e.plugin.isHidden)
 			return;
-		UpdateElement('xevent_' + i, e.isSelected, !e.plugin.isActive);
+		e.subnames.forEach(function(subname, j) {
+			UpdateElement('xevent_' + i + '_' + j, e.subSelections[j], !e.plugin.isActive);
+		});
 	});
 
 	if (!isInitialCall)
@@ -6755,13 +7428,76 @@ function PluginUiUpdate(isInitialCall, onlyThresholds) {
 	}
 }
 
+function InitPluginVars() {
+	// Main context of the extension code
+	window.g_Ext = {
+		plugins: [],
+		currentPlugin: null,
+		typeLookup: [],
+		eventsPresented: false,
+		knownEventsPresented: false,
+
+		xray: {
+			viewEnabled: false,
+			barEnabled: false,
+			mode: XRayModes.Count,
+			barFrameHeight: BoxHeight * 0.8,
+			barYOffset: BoxHeight,
+			intensityPower: 0.33,
+			smallScopesHighlighting: {
+				thresholdWidth: 20,
+				thresholdIntensity: 0.45,
+				extraIntensity: 0.2,
+			},
+			autoLimits: true,
+			selectedLimits: {
+				frame: DeepCopy(TxType),
+				scope: DeepCopy(TxType),
+			},
+			calculatedLimits: {
+				frameVariants: {
+					count: [],
+					sum: [],
+				},
+				scopeVariants: {
+					count: [],
+					sum: [],
+				},
+				frameThresholds: {
+					count: 100,
+					sum: 100,
+				},
+				barThresholds: {
+					count: 45,
+					sum: 60,
+				},
+				scopeThresholds: {
+					count: 85,
+					sum: 90,
+				},
+			}
+		},
+
+		spans: [],
+		reset: function() {
+			this.spans = [];
+		},
+	};
+	
+	g_Loader.pluginDefines.forEach(func => {
+		var p = func();
+		RegisterPlugin(p);
+	});
+	g_Loader.pluginDefines = [];
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////
 // Plugins
 
-RegisterPlugin({
+DefinePlugin(function() { return {
 	category: "Span",
 	events: ["Begin", "End"],
-	baseId: 26,
+	baseId: 29,
 	isBackground: true,
 	preset: {
 		hideIfNoEvents: true,
@@ -6813,9 +7549,9 @@ RegisterPlugin({
 			span.colorLine = "#" + DecimalToHex(ColorUint32Multiply(ctx.color, 0.65), 6);
 		}
 	},
-});
+}});
 
-RegisterPlugin({
+DefinePlugin(function() { return {
 	category: "Memory",
 	events: ["Alloc", "Free", "Realloc"],
 	baseId: 17,
@@ -6867,7 +7603,48 @@ RegisterPlugin({
 		};
 		return dtl;
 	},
-});
+}});
+
+DefinePlugin(function() { return {
+	category: "MemoryScope",
+	events: [ {name:"MemoryScopeStats",subnames:["Alloc","Free"]} ],
+	baseId: 20,
+	preset: {
+		mode: XRayModes.Count,
+		events: ["Alloc"],
+		hideIfNoEvents: true,
+	},
+	tooltipBarFrames: ["Memory operations' intensity"],
+	tooltipBarDetailed: ["Memory operations' intensity", "localized within frames.", "Use X-Ray for details."],
+	decorate: ValueToBytes,
+	decode: function(evt, full) {
+		var count = 0;
+		var value = 0;
+		var data = BigInt(evt.data);
+		const extraView = new DataView(evt.extra.buffer);
+		const typeLookup = g_Ext.typeLookup[evt.type + EventBaseId];
+		const allocSelected = typeLookup.subSelections[0];
+		const freeSelected = typeLookup.subSelections[1];
+		if (allocSelected) {
+			var allocCounter = Number((data >> 24n) & 0xffffffn);
+			var allocSize = extraView.getUint32(4, true);
+			count += allocCounter;
+			value += allocSize;
+		}
+		if (freeSelected) {
+			var freeCounter = Number(data & 0xffffffn);
+			var freeSize = extraView.getUint32(0, true);
+			count += freeCounter;
+			value += freeSize;
+		}
+		var ctx = {
+			value: value,
+			count: count,
+			evt: evt,
+		};
+		return ctx;
+	},
+}});
 
 var eventsCurl = ["CurlRx", "CurlTx"];
 var eventsReplica = ["ReplicaRx", "ReplicaTx"];
@@ -6876,7 +7653,7 @@ var eventNetRxTag = "Rx";
 var netIdBase = 129;
 var netIdNames = [];
 var netTypeNames = [];
-RegisterPlugin({
+DefinePlugin(function() { return {
 	category: "Network",
 	events: eventsNet,
 	baseId: 1,
@@ -6993,10 +7770,10 @@ RegisterPlugin({
 		};
 		return dtl;
 	},
-});
+}});
 
 var eventsTest = ["Test0", "Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7"];
-RegisterPlugin({
+DefinePlugin(function() { return {
 	category: "Test",
 	events: eventsTest,
 	baseId: 119,
@@ -7050,13 +7827,15 @@ RegisterPlugin({
 		};
 		return dtl;
 	},
-});
+}});
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // Initialization
 
-if (!window.g_Reload) {
-	InitVars();
+function InitMain() {
+	ShowUiRoot();
+	InitViewerVars();
+	InitPluginVars();
 	RegisterInputListeners()
 	InitGroups();
 
@@ -7068,6 +7847,8 @@ if (!window.g_Reload) {
 	ReadCookie();
 	MeasureFont();
 
+	InitToolsExportMenu();
+	InitAuxMenus();
 	InitPluginUi(); // Events
 
 	InitThreadMenu();
@@ -7081,4 +7862,18 @@ if (!window.g_Reload) {
 	OnPageReady();
 	Draw(1);
 	AutoRedraw();
+
+	g_Loader.isViewerInitialized = true;
+	ProcessUrlArgs();
+}
+
+if (!window.g_Reload) {
+	InitCssHtml();
+	InitDataVars();
+	InitData().then(() => {
+		InitMain();
+	}).catch(error => {
+		console.error(error);
+		HaltPage();
+    });
 }

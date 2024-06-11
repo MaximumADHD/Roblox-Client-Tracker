@@ -161,18 +161,12 @@ Class AnimationFromVideoCreatorStudioService : Instance [NotCreatable] [Service]
 	Function AnimationFromVideoCreatorStudioService:IsAgeRestricted() -> boolean {RobloxScriptSecurity}
 Class AnimationRigData : Instance
 	Property AnimationRigData.articulatedJoint: BinaryString [Hidden] [NotScriptable]
-	Property AnimationRigData.endEffectorRotationConstraint: BinaryString [Hidden] [NotScriptable]
-	Property AnimationRigData.endEffectorTranslationConstraint: BinaryString [Hidden] [NotScriptable]
-	Property AnimationRigData.endEffectorWeight: BinaryString [Hidden] [NotScriptable]
-	Property AnimationRigData.facsControl: BinaryString [Hidden] [NotScriptable]
 	Property AnimationRigData.label: BinaryString [Hidden] [NotScriptable]
 	Property AnimationRigData.name: BinaryString [Hidden] [NotScriptable]
 	Property AnimationRigData.parent: BinaryString [Hidden] [NotScriptable]
 	Property AnimationRigData.postTransform: BinaryString [Hidden] [NotScriptable]
 	Property AnimationRigData.preTransform: BinaryString [Hidden] [NotScriptable]
-	Property AnimationRigData.rootMotion: BinaryString [Hidden] [NotScriptable]
 	Property AnimationRigData.transform: BinaryString [Hidden] [NotScriptable]
-	Property AnimationRigData.weight: BinaryString [Hidden] [NotScriptable]
 	Function AnimationRigData:LoadFromHumanoid(humanoid: Instance) -> boolean {RobloxScriptSecurity}
 Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
 	Property AnimationStreamTrack.Animation: TrackerStreamAnimation? [Hidden] [ReadOnly]
@@ -182,6 +176,7 @@ Class AnimationStreamTrack : Instance [NotCreatable] [NotReplicated]
 	Property AnimationStreamTrack.WeightCurrent: number [Hidden] [ReadOnly]
 	Property AnimationStreamTrack.WeightTarget: number [Hidden] [ReadOnly]
 	Function AnimationStreamTrack:AdjustWeight(weight: number? = 1, fadeTime: number? = 0.100000001) -> () {RobloxScriptSecurity}
+	Function AnimationStreamTrack:GetActive() -> boolean {RobloxScriptSecurity}
 	Function AnimationStreamTrack:GetTrackerData() -> ...any {RobloxScriptSecurity}
 	Function AnimationStreamTrack:Play(fadeTime: number? = 0.100000001, weight: number? = 1) -> () {RobloxScriptSecurity}
 	Function AnimationStreamTrack:Stop(fadeTime: number? = 0.100000001) -> () {RobloxScriptSecurity}
@@ -277,34 +272,25 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetManagerService:GetMeshIdFromAssetId(assetId: number) -> number {RobloxScriptSecurity}
 	Function AssetManagerService:GetTextureIdFromAliasName(aliasName: string) -> number {RobloxScriptSecurity}
 	Function AssetManagerService:GetTextureIdFromAssetId(assetId: number) -> number {RobloxScriptSecurity}
-	Function AssetManagerService:HasUnpublishedChangesForLinkedSource(aliasName: string) -> boolean {RobloxScriptSecurity}
 	Function AssetManagerService:InsertAudio(assetId: number, assetName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertImage(assetId: number) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertImages(assetIds: { any }) -> () {RobloxScriptSecurity}
-	Function AssetManagerService:InsertLinkedSourceAsLocalScript(aliasName: string) -> () {RobloxScriptSecurity}
-	Function AssetManagerService:InsertLinkedSourceAsModuleScript(aliasName: string) -> () {RobloxScriptSecurity}
-	Function AssetManagerService:InsertLinkedSourceAsScript(aliasName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertMesh(aliasName: string, insertWithLocation: boolean, sourceAssetId: number) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertMeshesWithLocation(aliasNames: { any }, meshIds: { any }) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertModel(modelId: number) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertPackage(packageId: number) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:InsertVideo(assetId: number, assetName: string) -> () {RobloxScriptSecurity}
-	Function AssetManagerService:OpenLinkedSource(aliasName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:OpenPlace(placeId: number) -> () {RobloxScriptSecurity}
-	Function AssetManagerService:PublishLinkedSource(assetId: number, aliasName: string) -> () {RobloxScriptSecurity} [Yields]
-	Function AssetManagerService:RefreshLinkedSource(aliasName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:RemovePlace(placeId: number) -> () {RobloxScriptSecurity} [Yields]
 	Function AssetManagerService:RenameAlias(assetType: number, assetId: number, oldAliasName: string, newAliasName: string) -> () {RobloxScriptSecurity} [Yields]
 	Function AssetManagerService:RenameModel(modelId: number, newName: string) -> () {RobloxScriptSecurity} [Yields]
 	Function AssetManagerService:RenamePlace(placeId: number, newName: string) -> () {RobloxScriptSecurity} [Yields]
-	Function AssetManagerService:RevertLinkedSourceToLastPublishedVersion(aliasName: string) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:ShowPackageDetails(packageId: number) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:UpdateAllPackages(packageId: number) -> () {RobloxScriptSecurity}
 	Function AssetManagerService:ViewPackageOnWebsite(packageId: number) -> () {RobloxScriptSecurity}
 	Event AssetManagerService.AssetImportedSignal(assetType: Enum.AssetType, assetId: string, assetName: number) {RobloxScriptSecurity}
 	Event AssetManagerService.ImportSessionFinished() {RobloxScriptSecurity}
 	Event AssetManagerService.ImportSessionStarted() {RobloxScriptSecurity}
-	Event AssetManagerService.MayBeLinkedSourceModified(aliasName: string) {RobloxScriptSecurity}
 Class AssetPatchSettings : Instance [NotCreatable] [NotReplicated]
 	Property AssetPatchSettings.ContentId: string
 	Property AssetPatchSettings.OutputPath: string
@@ -390,6 +376,7 @@ Class AudioDeviceInput : Instance [NotBrowsable]
 	Property AudioDeviceInput.IsReady: boolean {RobloxScriptSecurity} [ReadOnly]
 	Property AudioDeviceInput.Muted: boolean
 	Property AudioDeviceInput.Player: Player?
+	Property AudioDeviceInput.Volume: number
 	Function AudioDeviceInput:GetConnectedWires(pin: string) -> { any }
 	Function AudioDeviceInput:GetUserIdAccessList() -> { any }
 	Function AudioDeviceInput:SetUserIdAccessList(userIds: { any }) -> ()
@@ -453,6 +440,7 @@ Class AudioPlayer : Instance [NotBrowsable]
 	Property AudioPlayer.TimePosition: number
 	Property AudioPlayer.LoopRegion: NumberRange
 	Property AudioPlayer.PlaybackRegion: NumberRange
+	Property AudioPlayer.Volume: number
 	Function AudioPlayer:GetConnectedWires(pin: string) -> { any }
 	Function AudioPlayer:Play() -> ()
 	Function AudioPlayer:Stop() -> ()
@@ -734,6 +722,7 @@ Class BaseWrap : Instance [NotCreatable]
 	Property BaseWrap.ImportOriginWorld: CFrame [ReadOnly]
 	Function BaseWrap:GetCageOffset() -> Vector3 {RobloxScriptSecurity}
 	Function BaseWrap:GetFaces(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
+	Function BaseWrap:GetUVs(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
 	Function BaseWrap:GetVertices(cageType: Enum.CageType) -> { any } {RobloxScriptSecurity}
 	Function BaseWrap:IsHSRReady() -> boolean {RobloxScriptSecurity}
 	Function BaseWrap:ModifyVertices(cageType: Enum.CageType, vertices: { any }) -> () {RobloxScriptSecurity}
@@ -1776,6 +1765,7 @@ Class ExperienceService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ExperienceService.OnCrossExperienceStopped(type: string, params: { [string]: any }) {RobloxScriptSecurity}
 	Event ExperienceService.OnNewJoinAttempt(params: { [string]: any }) {RobloxScriptSecurity}
 Class ExperienceStateCaptureService : Instance [NotCreatable] [Service] [NotReplicated]
+	Property ExperienceStateCaptureService.HiddenSelectionEnabled: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property ExperienceStateCaptureService.IsInCaptureMode: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function ExperienceStateCaptureService:CanEnterCaptureMode() -> boolean {RobloxScriptSecurity}
 	Function ExperienceStateCaptureService:ResetHighlight() -> () {RobloxScriptSecurity}
@@ -2128,6 +2118,8 @@ Class TextButton : GuiButton
 	Property TextButton.LocalizationMatchIdentifier: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextButton.LocalizationMatchedSourceText: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextButton.MaxVisibleGraphemes: number
+	Property TextButton.OpenTypeFeatures: string
+	Property TextButton.OpenTypeFeaturesError: string [ReadOnly]
 	Property TextButton.RichText: boolean
 	Property TextButton.Text: string
 	Property TextButton.TextBounds: Vector2 [ReadOnly]
@@ -2172,6 +2164,8 @@ Class TextLabel : GuiLabel
 	Property TextLabel.LocalizationMatchIdentifier: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextLabel.LocalizationMatchedSourceText: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextLabel.MaxVisibleGraphemes: number
+	Property TextLabel.OpenTypeFeatures: string
+	Property TextLabel.OpenTypeFeaturesError: string [ReadOnly]
 	Property TextLabel.RichText: boolean
 	Property TextLabel.Text: string
 	Property TextLabel.TextBounds: Vector2 [ReadOnly]
@@ -2235,6 +2229,8 @@ Class TextBox : GuiObject
 	Property TextBox.LocalizationMatchIdentifier: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.LocalizationMatchedSourceText: string {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property TextBox.MaxVisibleGraphemes: number
+	Property TextBox.OpenTypeFeatures: string
+	Property TextBox.OpenTypeFeaturesError: string [ReadOnly]
 	Property TextBox.PlaceholderColor3: Color3
 	Property TextBox.PlaceholderText: string
 	Property TextBox.RichText: boolean
@@ -2580,7 +2576,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event GuiService.NativeClose() {RobloxScriptSecurity}
 	Event GuiService.NetworkPausedEnabledChanged(enabled: boolean) {RobloxScriptSecurity}
 	Event GuiService.Open9SliceEditor(selectedImageObject: Instance) {RobloxScriptSecurity}
-	Event GuiService.OpenAttenuationCurveEditor(selectedCurveObjects: { Instance }) {RobloxScriptSecurity}
+	Event GuiService.OpenAttenuationCurveEditor(selectedCurveObjects: { Instance }) {RobloxScriptSecurity} [Deprecated]
 	Event GuiService.PurchasePromptShown() {RobloxScriptSecurity}
 	Event GuiService.SafeZoneOffsetsChanged() {RobloxScriptSecurity}
 	Event GuiService.ShowLeaveConfirmation() {RobloxScriptSecurity}
@@ -3083,6 +3079,7 @@ Class LodDataEntity : Instance [NotCreatable]
 Class LodDataService : Instance [NotCreatable] [Service] [NotReplicated]
 Class LogReporterService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function LogReporterService:ReportLog(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }) -> boolean {RobloxScriptSecurity}
+	Function LogReporterService:ReportMultipleLogs(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }, numLogs: number) -> boolean {RobloxScriptSecurity}
 Class LogService : Instance [NotCreatable] [Service]
 	Function LogService:ClearOutput() -> ()
 	Function LogService:ExecuteScript(source: string) -> () {RobloxScriptSecurity}
@@ -3883,7 +3880,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.DistributedGameTime: number [NotReplicated]
 	Property Workspace.InsertPoint: Vector3 [NotReplicated]
 	Property Workspace.RejectCharacterDeletions: Enum.RejectCharacterDeletions [NotScriptable]
-	Property Workspace.EditorLiveScripting: Enum.EditorLiveScripting [NotScriptable]
 	Property Workspace.ModelStreamingBehavior: Enum.ModelStreamingBehavior [NotScriptable]
 	Property Workspace.StreamOutBehavior: Enum.StreamOutBehavior [NotScriptable]
 	Property Workspace.StreamingEnabled: boolean {✏️PluginSecurity}
@@ -4324,7 +4320,6 @@ Class Players : Instance [NotCreatable] [Service]
 	Event Players.CloudEditApplyEditsMessage(playerName: string, scriptName: string) {RobloxSecurity} [Hidden]
 	Event Players.FriendRequestEvent(player: Player, player: Player, friendRequestEvent: Enum.FriendRequestEvent) {RobloxScriptSecurity}
 	Event Players.GameAnnounce(message: string) {RobloxScriptSecurity}
-	Event Players.OnLinkedScriptsUpdated() {RobloxSecurity} [Hidden]
 	Event Players.PlayerAdded(player: Player)
 	Event Players.PlayerChatted(chatType: Enum.PlayerChatType, player: Player, message: string, targetPlayer: Player) {LocalUserSecurity}
 	Event Players.PlayerConnecting(player: Player) {LocalUserSecurity}
@@ -4481,6 +4476,7 @@ Class ColorCorrectionEffect : PostEffect
 	Property ColorCorrectionEffect.Contrast: number
 	Property ColorCorrectionEffect.Saturation: number
 	Property ColorCorrectionEffect.TintColor: Color3
+	Property ColorCorrectionEffect.TonemapperPreset: Enum.TonemapperPreset [NotScriptable]
 Class DepthOfFieldEffect : PostEffect
 	Property DepthOfFieldEffect.FarIntensity: number
 	Property DepthOfFieldEffect.FocusDistance: number
@@ -5128,6 +5124,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Function SoundService:GetOutputDevices() -> ...any {RobloxScriptSecurity}
 	Function SoundService:GetRecordingDevices() -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function SoundService:GetSoundMemoryData() -> { [string]: any } {RobloxScriptSecurity}
+	Function SoundService:OpenAttenuationCurveEditor(selectedCurveObjects: { Instance }) -> () {PluginSecurity}
 	Function SoundService:PlayLocalSound(sound: Instance) -> ()
 	Function SoundService:SetInputDevice(name: string, guid: string) -> () {RobloxScriptSecurity}
 	Function SoundService:SetListener(listenerType: Enum.ListenerType, listener: ...any) -> ()
@@ -5136,6 +5133,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Event SoundService.AudioInstanceAdded(instance: Instance) {RobloxScriptSecurity}
 	Event SoundService.ClientLoggedEvent(sessionIdRaw: string) {RobloxSecurity} [Hidden]
 	Event SoundService.DeviceListChanged(newDevices: ...any) {RobloxScriptSecurity}
+	Event SoundService.OpenAttenuationCurveEditorSignal(selectedCurveObjects: { Instance }) {RobloxScriptSecurity}
 Class Sparkles : Instance
 	Property Sparkles.Color: Color3 [📁 LoadOnly] [Hidden] [NotReplicated]
 	Property Sparkles.Enabled: boolean
@@ -5462,6 +5460,7 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Function StudioDeviceEmulatorService:SendGamepadEvent(deviceId: number, keyCode: Enum.KeyCode, position: Vector3, rotation: Vector3) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:SetCurrentDeviceId(deviceId: string) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:SetCurrentOrientation(orientation: Enum.ScreenOrientation) -> () {RobloxScriptSecurity} [Yields]
+	Function StudioDeviceEmulatorService:SetGamepadEmulationEnabled(enable: boolean) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:UpdateKeyMapping(deviceId: number, keyboardShortcut: { any }, gamepadKey: Enum.KeyCode, position: Vector3) -> boolean {RobloxScriptSecurity} [Yields]
 	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
@@ -5995,6 +5994,28 @@ Class UITextSizeConstraint : UIConstraint
 	Property UITextSizeConstraint.MinTextSize: number
 Class UICorner : UIComponent
 	Property UICorner.CornerRadius: UDim
+Class UIDragDetector : UIComponent
+	Property UIDragDetector.BoundingUI: GuiBase2d?
+	Property UIDragDetector.DragRelativity: Enum.UIDragDetectorDragRelativity
+	Property UIDragDetector.DragSpace: Enum.UIDragDetectorDragSpace
+	Property UIDragDetector.DragStyle: Enum.UIDragDetectorDragStyle
+	Property UIDragDetector.Enabled: boolean
+	Property UIDragDetector.ReferenceUIInstance: GuiObject?
+	Property UIDragDetector.ResponseStyle: Enum.UIDragDetectorResponseStyle
+	Property UIDragDetector.DragAxis: Vector2
+	Property UIDragDetector.MaxDragAngle: number
+	Property UIDragDetector.MaxDragTranslation: UDim2
+	Property UIDragDetector.MinDragAngle: number
+	Property UIDragDetector.MinDragTranslation: UDim2
+	Property UIDragDetector.DragRotation: number
+	Property UIDragDetector.DragUDim2: UDim2
+	Function UIDragDetector:AddConstraintFunction(priority: number, function: (...any) -> ...any) -> RBXScriptConnection
+	Function UIDragDetector:GetReferencePosition() -> UDim2
+	Function UIDragDetector:GetReferenceRotation() -> number
+	Function UIDragDetector:SetDragStyleFunction(function: (...any) -> ...any) -> ()
+	Event UIDragDetector.DragContinue(inputPosition: Vector2)
+	Event UIDragDetector.DragEnd(inputPosition: Vector2)
+	Event UIDragDetector.DragStart(inputPosition: Vector2)
 Class UIFlexItem : UIComponent [NotBrowsable]
 	Property UIFlexItem.FlexMode: Enum.UIFlexMode
 	Property UIFlexItem.GrowRatio: number
@@ -7357,10 +7378,6 @@ Enum EasingStyle
 	EnumItem EasingStyle.Exponential : 8
 	EnumItem EasingStyle.Circular : 9
 	EnumItem EasingStyle.Cubic : 10
-Enum EditorLiveScripting
-	EnumItem EditorLiveScripting.Default : 0
-	EnumItem EditorLiveScripting.Disabled : 1
-	EnumItem EditorLiveScripting.Enabled : 2
 Enum ElasticBehavior
 	EnumItem ElasticBehavior.WhenScrollable : 0
 	EnumItem ElasticBehavior.Always : 1
@@ -9117,6 +9134,9 @@ Enum TickCountSampleMethod
 	EnumItem TickCountSampleMethod.Fast : 0
 	EnumItem TickCountSampleMethod.Benchmark : 1
 	EnumItem TickCountSampleMethod.Precise : 2
+Enum TonemapperPreset
+	EnumItem TonemapperPreset.Default : 0
+	EnumItem TonemapperPreset.Retro : 1
 Enum TopBottom
 	EnumItem TopBottom.Top : 0
 	EnumItem TopBottom.Center : 1
@@ -9180,6 +9200,13 @@ Enum TriStateBoolean
 Enum TweenStatus
 	EnumItem TweenStatus.Canceled : 0
 	EnumItem TweenStatus.Completed : 1
+Enum UIDragDetectorDragRelativity
+	EnumItem UIDragDetectorDragRelativity.Absolute : 0
+	EnumItem UIDragDetectorDragRelativity.Relative : 1
+Enum UIDragDetectorDragSpace
+	EnumItem UIDragDetectorDragSpace.Parent : 0
+	EnumItem UIDragDetectorDragSpace.LayerCollector : 1
+	EnumItem UIDragDetectorDragSpace.Reference : 2
 Enum UIDragDetectorDragStyle
 	EnumItem UIDragDetectorDragStyle.TranslatePlane : 0
 	EnumItem UIDragDetectorDragStyle.TranslateLine : 1

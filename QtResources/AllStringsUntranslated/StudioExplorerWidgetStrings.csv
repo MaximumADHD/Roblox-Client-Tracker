@@ -10,3 +10,8 @@ Studio.App.RobloxExplorerWidget.SelectNextMatch1,%1 is the hotkey,Select Next Ma
 Studio.App.RobloxExplorerWidget.SelectAllMatches1,%1 is the hotkey,Select All Matches (%1),Select All Matches (%1)
 Studio.App.RobloxExplorerWidget.SelectRefreshResults,,Refresh Results,Refresh Results
 Studio.App.RobloxExplorerWidget.HasCustomizations1,Tooltip shown when hovering the original package name,Is customized configuration of package %1,Is customized configuration of package %1
+Studio.App.RobloxExplorerWidget.AutoupdateOn,,Package auto-updates are on,Package auto-updates are on
+Studio.App.RobloxExplorerWidget.AutoupdateOff,,Package auto-updates are off,Package auto-updates are off
+Studio.App.RobloxExplorerWidget.AutoupdateDisabled,,Package auto-update is disabled,Package auto-update is disabled
+Studio.App.RobloxExplorerWidget.UnpublishedChanges,,Package has unpublished changes,Package has unpublished changes
+Studio.App.RobloxExplorerWidget.UpdateAvailable,,Package update available,Package update available

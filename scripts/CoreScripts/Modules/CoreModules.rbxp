@@ -151,12 +151,6 @@
             "LoadingScreen":{
                 "$path": "LoadingScreen"
             },
-            "act": {
-                "$path": "act.lua",
-                ".robloxrc": {
-                    "$path": "../.robloxrc"
-                }
-            },
             "ActionBindingsTab": {
                 "$path": "ActionBindingsTab.lua",
                 ".robloxrc": {
