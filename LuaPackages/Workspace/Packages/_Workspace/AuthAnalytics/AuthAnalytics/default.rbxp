@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "AuthAnalytics",
+    "tree": {
+      "$path": "../../../../../../../modules/account-authentication/auth-analytics/src"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UserBlockingNetworking",
+    "tree": {
+      "$path": "../../../../../../../modules/social/networking/user-blocking-networking/src"
+    }
+  }
+}

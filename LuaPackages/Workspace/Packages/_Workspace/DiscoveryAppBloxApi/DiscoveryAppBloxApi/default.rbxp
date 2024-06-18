@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DiscoveryAppBloxApi",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/discovery-dependencies/discovery-appblox-api/src"
+    }
+  }
+}

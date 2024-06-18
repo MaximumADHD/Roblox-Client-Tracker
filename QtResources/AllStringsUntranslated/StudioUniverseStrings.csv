@@ -3,6 +3,10 @@ Studio.App.GameExplorerUtils.NameAlreadyTakenNotCaseSensitive,,Name already take
 Studio.App.GameExplorerUtils.NameCannotBeEmpty,,Name cannot be empty,Name cannot be empty
 Studio.App.GameExplorerUtils.FailedToCreateImage1,,Failed to create image: %1,Failed to create image: %1
 Studio.App.GameExplorerUtils.NameInappropriate,,The name or description contains inappropriate text.,The name or description contains inappropriate text.
+Studio.App.GameExplorerUtils.AliasNameInvalid,,Alias name is invalid,Alias name is invalid
+Studio.App.GameExplorerUtils.DataModelInvalid,,DataModel is invalid,DataModel is invalid
+Studio.App.GameExplorerUtils.MessageFieldNotFound,,"'success' is false, 'message' field not found","'success' is false, 'message' field not found"
+Studio.App.GameExplorerUtils.ResponseInvalid,,Http response is invalid,Http response is invalid
 Studio.App.UniverseController.FailedToLoadGameAssets,,"Failed to load game assets, some Studio features have been disabled.","Failed to load game assets, some Studio features have been disabled."
 Studio.App.UniverseController.CanAddToGame,,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.,This place does not belong to a game. You can add it to a game by going to a game's configuration page on the website.
 Studio.App.UniverseController.PermissionDenied,,Unable to load universe. Permission denied.,Unable to load universe. Permission denied.

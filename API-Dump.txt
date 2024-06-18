@@ -63,7 +63,10 @@ Class AccessoryDescription : Instance [NotBrowsable]
 	Property AccessoryDescription.Instance: Instance?
 	Property AccessoryDescription.IsLayered: boolean
 	Property AccessoryDescription.Order: number
+	Property AccessoryDescription.Position: Vector3
 	Property AccessoryDescription.Puffiness: number
+	Property AccessoryDescription.Rotation: Vector3
+	Property AccessoryDescription.Scale: Vector3
 Class AccountService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AccountService:DeviceAccessTokenAvailable() -> boolean {RobloxScriptSecurity}
 	Function AccountService:DeviceIntegrityAvailable() -> boolean {RobloxScriptSecurity}
@@ -226,6 +229,14 @@ Class Animator : Instance
 	Event Animator.OnStreamingUpdated2(fadeTime: number, weight: number, priority: Enum.AnimationPriority, maskEnabled: boolean, valuesUpdated: number) {RobloxSecurity} [Hidden]
 	Event Animator.StreamSyncRequest(player: Player) {RobloxSecurity} [Hidden]
 Class AnnotationsService : Instance [NotCreatable] [Service]
+Class AppLifecycleObserverService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function AppLifecycleObserverService:IsDidDetachSupported() -> boolean {RobloxScriptSecurity}
+	Event AppLifecycleObserverService.OnBecomeActive() {RobloxScriptSecurity}
+	Event AppLifecycleObserverService.OnDetach() {RobloxScriptSecurity}
+	Event AppLifecycleObserverService.OnHide() {RobloxScriptSecurity}
+	Event AppLifecycleObserverService.OnResignActive() {RobloxScriptSecurity}
+	Event AppLifecycleObserverService.OnStart() {RobloxScriptSecurity}
+	Event AppLifecycleObserverService.OnUnhide() {RobloxScriptSecurity}
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AppUpdateService:CanPerformBinaryUpdate() -> boolean {RobloxScriptSecurity}
 	Function AppUpdateService:CheckForUpdate(handler: ((...any) -> ...any)? = nil) -> () {RobloxScriptSecurity}
@@ -567,7 +578,7 @@ Class AvatarGenerationJob : Instance [NotCreatable]
 	Property AvatarGenerationJob.ErrorMessage: string
 	Property AvatarGenerationJob.Progress: number
 	Property AvatarGenerationJob.Status: Enum.AvatarGenerationJobStatus
-	Function AvatarGenerationJob:Cancel() -> ()
+	Function AvatarGenerationJob:Cancel() -> () [Yields]
 	Function AvatarGenerationJob:GetOutput() -> { [string]: any }
 	Function AvatarGenerationJob:Wait() -> () [Yields]
 Class Avatar2DGenerationJob : AvatarGenerationJob [NotCreatable]
@@ -1461,8 +1472,8 @@ Class BevelMesh : DataModelMesh [NotCreatable] [NotBrowsable] [Deprecated]
 	Property BevelMesh.Bulge: number [Hidden] [NotScriptable] [Deprecated]
 Class BlockMesh : BevelMesh
 Class CylinderMesh : BevelMesh [Deprecated]
-Class EditableMesh : DataModelMesh [NotReplicated]
-	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotReplicated] [NotScriptable]
+Class EditableMesh : DataModelMesh
+	Property EditableMesh.MeshData: SharedString {RobloxSecurity} [Hidden] [NotScriptable]
 	Property EditableMesh.SkinningEnabled: boolean
 	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
 	Function EditableMesh:AddVertex(p: Vector3) -> number
@@ -2471,7 +2482,7 @@ Class SelectionPartLasso : SelectionLasso [Deprecated]
 	Property SelectionPartLasso.Part: BasePart? [Deprecated]
 Class SelectionPointLasso : SelectionLasso [Deprecated]
 	Property SelectionPointLasso.Point: Vector3 [Deprecated]
-Class Path2D : GuiBase [NotBrowsable]
+Class Path2D : GuiBase
 	Property Path2D.SelectedControlPoint: number {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Property Path2D.SelectedControlPointData: Path2DControlPoint {RobloxScriptSecurity} [📁 LoadOnly] [NotReplicated]
 	Property Path2D.Color3: Color3
@@ -3268,11 +3279,14 @@ Class MaterialService : Instance [NotCreatable] [Service]
 	Property MaterialService.Use2022Materials: boolean {RobloxScriptSecurity} [NotReplicated]
 	Property MaterialService.Use2022MaterialsXml: boolean [Hidden] [NotScriptable]
 	Function MaterialService:GetBaseMaterialOverride(material: Enum.Material) -> string
+	Function MaterialService:GetIsMaterialActionAsToolEnabled() -> boolean {RobloxScriptSecurity}
 	Function MaterialService:GetMaterialOverrideChanged(material: Enum.Material) -> RBXScriptSignal {RobloxScriptSecurity}
 	Function MaterialService:GetMaterialVariant(material: Enum.Material, name: string) -> MaterialVariant
 	Function MaterialService:GetOverrideStatus(material: Enum.Material) -> Enum.PropertyStatus {RobloxScriptSecurity}
 	Function MaterialService:SetBaseMaterialOverride(material: Enum.Material, name: string) -> ()
 	Function MaterialService:SetCurrentMaterial(baseMaterial: Enum.Material, materialVariant: string) -> () {RobloxScriptSecurity}
+	Function MaterialService:ToggleMaterialFillToolEnabled() -> () {RobloxScriptSecurity}
+	Event MaterialService.MaterialFillToolEnabledChanged(shouldEnable: boolean) {RobloxScriptSecurity}
 	Event MaterialService.OverrideStatusChanged(material: Enum.Material) {RobloxScriptSecurity}
 Class MaterialVariant : Instance
 	Property MaterialVariant.BaseMaterial: Enum.Material {✏️PluginSecurity}
@@ -4438,6 +4452,7 @@ Class PluginToolbarButton : Instance [NotCreatable]
 	Property PluginToolbarButton.Enabled: boolean [📁 LoadOnly] [NotReplicated]
 	Property PluginToolbarButton.Icon: string [📁 LoadOnly] [NotReplicated]
 	Function PluginToolbarButton:SetActive(active: boolean) -> () {PluginSecurity}
+	Function PluginToolbarButton:SetDropdownActive(active: boolean) -> () {RobloxScriptSecurity}
 	Event PluginToolbarButton.Click() {PluginSecurity}
 	Event PluginToolbarButton.DropdownClick() {RobloxScriptSecurity}
 Class PointsService : Instance [NotCreatable] [Service] [Deprecated]
@@ -5134,6 +5149,7 @@ Class SoundService : Instance [NotCreatable] [Service]
 	Event SoundService.ClientLoggedEvent(sessionIdRaw: string) {RobloxSecurity} [Hidden]
 	Event SoundService.DeviceListChanged(newDevices: ...any) {RobloxScriptSecurity}
 	Event SoundService.OpenAttenuationCurveEditorSignal(selectedCurveObjects: { Instance }) {RobloxScriptSecurity}
+	Event SoundService.OpenAudioEqualizerEditorSignal(selectedEqualizerObjects: { Instance }) {RobloxScriptSecurity}
 Class Sparkles : Instance
 	Property Sparkles.Color: Color3 [📁 LoadOnly] [Hidden] [NotReplicated]
 	Property Sparkles.Enabled: boolean

@@ -10,6 +10,8 @@ Studio.App.RobloxRibbonMainWindow.GlobalWindControl,,Wind Direction,Wind Directi
 Studio.App.RobloxRibbonMainWindow.GlobalWindControlTooltip,,Show Wind Direction,Show Wind Direction
 Studio.App.RobloxRibbonMainWindow.MaterialManager,,Material Manager,Material Manager
 Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip,,"Manage, select, and apply materials","Manage, select, and apply materials"
+Studio.App.Ribbon.Beta.Material,"Add, select, and apply materials",Material,Material
+Studio.App.Ribbon.Beta.Material.Tooltip,,"Add, select, and apply materials","Add, select, and apply materials"
 Studio.App.RobloxRibbonMainWindow.MaterialGenerator,,Material Generator,Material Generator
 Studio.App.RobloxRibbonMainWindow.MaterialGeneratorToolTip,,Create AI generated materials through a text prompt,Create AI generated materials through a text prompt
 Studio.App.RobloxRibbonMainWindow.MaterialPicker,,Material,Material
@@ -18,15 +20,23 @@ Studio.App.RobloxRibbonMainWindow.VisualizationModes,,Visualization Modes,Visual
 Studio.App.RobloxRibbonMainWindow.VisualizationModesToolTip,,Viewport Options,Viewport Options
 Studio.App.RobloxRibbonMainWindow.LayeredClothingEditor,,Accessory Fitting Tool,Accessory Fitting Tool
 Studio.App.RobloxRibbonMainWindow.LayeredClothingEditorTooltip,,Edit and Preview Cage Mesh for Clothing and Accessories.,Edit and Preview Cage Mesh for Clothing and Accessories.
+Studio.App.Ribbon.Beta.Accessory,Edit and review cage mesh for clothing and accessories,Accessory,Accessory
+Studio.App.Ribbon.Beta.Accessory.Tooltip,,Edit and review cage mesh for clothing and accessories,Edit and review cage mesh for clothing and accessories
 Studio.App.RobloxRibbonMainWindow.CreateAccessory,,Create Accessory,Create Accessory
-Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip,,Select one or multiple Models to convert into Accessories,Select one or multiple Models to convert into Accessories
+Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip,,Select one or multiple Models to convert into accessories,Select one or multiple Models to convert into accessories
+Studio.App.Ribbon.Beta.Layered,Select one or multiple Models to convert into accessories,Layered,Layered
 Studio.App.RobloxRibbonMainWindow.BulkCreateAccessories,,Bulk Create Accessories,Bulk Create Accessories
 Studio.App.RobloxRibbonMainWindow.Import3D,,Import 3D,Import 3D
 Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
 Studio.App.RobloxRibbonMainWindow.RigBuilder,,Rig Builder,Rig Builder
 Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip,,Insert rigs to animate,Insert rigs to animate
+Studio.App.Ribbon.Beta.Character,Choose from a selection of pre-made animation rigs to create,Character,Character
+Studio.App.Ribbon.Beta.Character.Tooltip,,Choose from a selection of pre-made animation rigs to create,Choose from a selection of pre-made animation rigs to create
 Studio.App.RobloxRibbonMainWindow.AnimationEditor,,Animation Editor,Animation Editor
-Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip,,"Create, preview, and publish Animation clips","Create, preview, and publish Animation clips"
+Studio.App.Ribbon.Beta.Animation,"Create, preview, and publish animation clips",Animation,Animation
+Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip,,"Create, preview, and publish animation clips","Create, preview, and publish animation clips"
+Studio.App.Ribbon.Beta.R6toR15,"Convert scripts, animations, and characters from R6 to R15",R6 to R15,R6 to R15
+Studio.App.Ribbon.Beta.R6toR15.Tooltip,,"Convert scripts, animations, and characters from R6 to R15","Convert scripts, animations, and characters from R6 to R15"
 Studio.App.RobloxRibbonMainWindow.R15Migrator,,R6-to-R15 Conversion,R6-to-R15 Conversion
 Studio.App.RobloxRibbonMainWindow.R15MigratorFinalize,,Finalize Conversion,Finalize Conversion
 Studio.App.RobloxRibbonMainWindow.R15MigratorFinalizeTooltip,,Clean up temporary instances used for avatar compatability and backup data used during the conversion process.,Clean up temporary instances used for avatar compatability and backup data used during the conversion process.
@@ -48,6 +58,7 @@ Studio.App.RobloxRibbonMainWindow.RotateAnObject,,Rotate an Object,Rotate an Obj
 Studio.App.RobloxRibbonMainWindow.Transform,,Transform,Transform
 Studio.App.RobloxRibbonMainWindow.PreciselyManipulateAnObject,,Precisely manipulate an object,Precisely manipulate an object
 Studio.App.RobloxRibbonMainWindow.AlignTool,,Align Tool,Align Tool
+Studio.App.Ribbon.Beta.Align,Align the selected parts and models,Align,Align
 Studio.App.RobloxRibbonMainWindow.AlignToolTooltip,,Align the selected parts and models,Align the selected parts and models
 Studio.App.RBXMainWindow.ZoomIn,,Zoom In,Zoom In
 Studio.App.RBXMainWindow.ZoomOut,,Zoom Out,Zoom Out
@@ -167,6 +178,8 @@ Studio.App.RBXMainWindow.OpenStyleEditor,Tooltip that displays when opening the 
 Studio.App.RBXMainWindow.Editor,,Editor,Editor
 Studio.App.RBXMainWindow.AddRemoveAndModifyTerrain,,"Add, remove, and modify terrain","Add, remove, and modify terrain"
 Studio.App.RBXMainWindow.TerrainEditor,,Terrain Editor,Terrain Editor
+Studio.App.Ribbon.Beta.Terrain,Create and edit terrain,Terrain,Terrain
+Studio.App.Ribbon.Beta.Terrain.Tooltip,,Create and edit terrain,Create and edit terrain
 Studio.App.RBXMainWindow.Toolbox,,Toolbox,Toolbox
 Studio.App.RobloxRibbonMainWindow.InsertItemsFromTheToolbox,,Insert items from the toolbox,Insert items from the toolbox
 Studio.App.RBXMainWindow.ViewSelectorTooltip,,Show view selector,Show view selector
@@ -191,6 +204,8 @@ Studio.App.RBXMainWindow.TaskScheduler,,Task Scheduler,Task Scheduler
 Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation,,View task execution information,View task execution information
 Studio.App.RBXMainWindow.ScriptPerformance,,Script Performance,Script Performance
 Studio.App.RobloxRibbonMainWindow.ViewScriptPerformanceInformat,,View script performance information,View script performance information
+Studio.App.Ribbon.Beta.Performance,View diagnostic information,Performance,Performance
+Studio.App.Ribbon.Beta.Performance.Tooltip,,View diagnostic information,View diagnostic information
 Studio.App.RBXMainWindow.Explorer,,Explorer,Explorer
 Studio.App.RobloxRibbonMainWindow.ViewObjectsInWorkspace,,View a list of objects in the workspace,View a list of objects in the workspace
 Studio.App.RobloxRibbonMainWindow.ViewPropertiesOfObjects,,View properties of objects,View properties of objects
@@ -269,7 +284,11 @@ Studio.App.RobloxRibbonMainWindow.ToggleGameAudioSounds,,Toggle Game Audio Sound
 Studio.App.RBXMainWindow.Sandbox,,Drafts,Drafts
 Studio.App.RBXMainWindow.ViewSandbox,,View Drafts,View Drafts
 Studio.App.RobloxRibbonMainWindow.ViewScriptAnalysis,,View Script Analysis,View Script Analysis
+Studio.App.Ribbon.Beta.Analysis,View active errors and warnings in scripts,Analysis,Analysis
+Studio.App.Ribbon.Beta.Analysis.Tooltip,,View active errors and warnings in scripts,View active errors and warnings in scripts
 Studio.App.RobloxRibbonMainWindow.ViewCodeSnippet,,View Code Snippet,View Code Snippet
+Studio.App.Ribbon.Beta.Snippets,Create and use reusable blocks of code,Snippets,Snippets
+Studio.App.Ribbon.Beta.Snippets.Tooltip,,Create and use reusable blocks of code,Create and use reusable blocks of code
 Studio.App.RBXMainWindow.ScriptRecovery,,Script Recovery,Script Recovery
 Studio.App.RobloxRibbonMainWindow.ViewRecoveredScripts,,View Recovered Scripts,View Recovered Scripts
 Studio.App.RBXMainWindow.TeamCreate,,Team Create,Team Create
@@ -281,6 +300,8 @@ Studio.App.RBXMainWindow.CalibrateScalingElps,,Calibrate scaling...,Calibrate sc
 Studio.App.RBXMainWindow.CalibratePhysicalSizeScaling,,Calibrate Physical Size scaling for your screen,Calibrate Physical Size scaling for your screen
 Studio.App.RBXMainWindow.ShowHelpForSelectedObject,,Show help for selected object,Show help for selected object
 Studio.App.RBXMainWindow.ViewCommandBar,,View Command Bar,View Command Bar
+Studio.App.Ribbon.Beta.Command,Run commands in the Studio IDE,Command,Command
+Studio.App.Ribbon.Beta.Command.Tooltip,,Run commands in the Studio IDE,Run commands in the Studio IDE
 Studio.App.RBXMainWindow.FocusOnCommandBar,,Focus on Command Bar,Focus on Command Bar
 Studio.App.RBXMainWindow.FocusOnCommandBarTooltip,,Set keyboard focus to Command Bar,Set keyboard focus to Command Bar
 Studio.App.RBXMainWindow.OpenAutoSaves,,Open Auto Saves,Open Auto Saves
@@ -315,6 +336,8 @@ Studio.App.RobloxStudioVerbs.QuickOpenActions,,Quick Open Actions,Quick Open Act
 Studio.App.RBXMainWindow.AssetManager,,Asset Manager,Asset Manager
 Studio.App.RobloxRibbonMainWindow.TagEditor,,Tag Editor,Tag Editor
 Studio.App.RobloxRibbonMainWindow.TagEditorTooltip,,Create and manage groupings of instances.,Create and manage groupings of instances.
+Studio.App.Ribbon.Beta.Setup,Set up avatar bodies and accessories for the experience or Marketplace,Setup,Setup
+Studio.App.Ribbon.Beta.Setup.Tooltip,,Set up avatar bodies and accessories for the experience or Marketplace,Set up avatar bodies and accessories for the experience or Marketplace
 Studio.App.RobloxRibbonMainWindow.AvatarPreviewer,,Avatar Setup,Avatar Setup
 Studio.App.PackageContextMenu.ShowPackagesDiff,,Compare Package Versions,Compare Package Versions
 Studio.App.RibbonUpdatesBar.UpdateAvailableAction,,Update Available,Update Available
@@ -338,6 +361,8 @@ Studio.App.RobloxRibbonMainWindow.InsertCornerWedge,,Insert CornerWedgePart,Inse
 Studio.App.Shapes.Cylinder,,Cylinder,Cylinder
 Studio.App.RobloxRibbonMainWindow.InsertCylinderPart,,Insert cylinder part,Insert cylinder part
 Studio.App.RobloxRibbonMainWindow.ColorActionAsTool,,Color Action as Tool,Color Action as Tool
+Studio.App.RobloxRibbonMainWindow.TogglesColorActionAsTool,,Toggle color action as tool,Toggle color action as tool
+Studio.App.RobloxRibbonMainWindow.MaterialActionAsTool,,Material Action as Tool,Material Action as Tool
 Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool,,Toggle material action as tool,Toggle material action as tool
 Studio.App.RobloxRibbonMainWindow.SelectColorAndApplyToParts,,Select color and apply to parts,Select color and apply to parts
 Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,Update settings related to current game,Update settings related to current game

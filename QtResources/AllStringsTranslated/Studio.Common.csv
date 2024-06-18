@@ -1,92 +1,92 @@
 Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.Common.Action.Apply,,,Apply,Apply,,Anwenden,Aplicar,Appliquer,,Applica,適用,적용,,Aplicar,Применить,,,,应用,应用,套用
-Studio.Common.Action.Back,,,Back,Back,,Zurück,Volver,Retour,,Indietro,戻る,뒤로,,Voltar,Назад,,,,返回,返回,返回
-Studio.Common.Action.Cancel,,,Cancel,Cancel,,Abbrechen,Cancelar,Annuler,,Annulla,キャンセル,취소,,Cancelar,Отмена,,,,取消,取消,取消
-Studio.Common.Action.Clear,,,Clear,Clear,,Löschen,Eliminar,Effacer,,Cancella,消す,지우기,,Limpar,Очистить,,,,清除,清除,清除
-Studio.Common.Action.Close,,,Close,Close,,Schließen,Cerrar,Fermer,,Chiudi,閉じる,닫기,,Fechar,Закрыть,,,,关闭,关闭,關閉
-Studio.Common.Action.Copy,,,Copy,Copy,,Kopieren,Copiar,Copier,,Copia,コピー,복사,,Copiar,Скопировать,,,,复制,复制,複製
-Studio.Common.Action.Create,,,Create,Create,,Erstellen,Crear,Créer,,Crea,作成,만들기,,Criar,Создать,,,,创建,创建,建立
-Studio.Common.Action.Cut,,,Cut,Cut,,Ausschneiden,Cortar,Couper,,Taglia,切り抜き,잘라내기,,Recortar,Вырезать,,,,剪切,剪切,剪下
-Studio.Common.Action.Delete,,,Delete,Delete,,Löschen,Eliminar,Supprimer,,Elimina,削除,삭제,,Excluir,Удалить,,,,删除,删除,刪除
-Studio.Common.Action.Edit,,,Edit,Edit,,Bearbeiten,Editar,Modifier,,Modifica,編集,편집,,Editar,Изменить,,,,编辑,编辑,編輯
-Studio.Common.Action.Exit,,,Exit,Exit,,Verlassen,Salir,Quitter,,Esci,退出,나가기,,Sair,Выход,,,,退出,退出,結束
-Studio.Common.Action.File,,,File,File,,Datei,Archivo,Fichier,,File,ファイル,파일,,Arquivo,Файл,,,,文件,文件,檔案
-Studio.Common.Action.Find,,,Find,Find,,Suchen,Buscar,Rechercher,,Trova,探す,찾기,,Localizar,Найти,,,,查找,查找,尋找
-Studio.Common.Action.Help,,,Help,Help,,Hilfe,Ayuda,Aide,,Guida,ヘルプ,도움말,,Ajuda,Справка,,,,帮助,帮助,說明
-Studio.Common.Action.Home,,,Home,Home,,Start,Inicio,Accueil,,Inizio,ホーム,홈,,Início,Главная,,,,首页,首页,首頁
-Studio.Common.Action.Ignore,,,Ignore,Ignore,,Ignorieren,Omitir,Ignorer,,Ignora,無視,무시,,Ignorar,Пропустить,,,,忽略,忽略,忽略
-Studio.Common.Action.Insert,,,Insert,Insert,,Einfügen,Insertar,Insérer,,Immetti,挿入,삽입,,Inserir,Вставить,,,,插入,插入,插入
-Studio.Common.Action.New,,,New,New,,Neu,Nuevo,Nouveau,,Nuovo,新規,새로 만들기,,Novo,Новый,,,,新增,新增,新增
-Studio.Common.Action.Next,,,Next,Next,,Weiter,Siguiente,Suivant,,Avanti,次へ,다음,,Próximo,Далее,,,,下一个,下一个,繼續
-Studio.Common.Action.No,,,No,No,,Nein,No,Non,,No,いいえ,아니요,,Não,Нет,,,,否,否,否
-Studio.Common.Action.OK,,,OK,OK,,OK,Aceptar,OK,,OK,OK,확인,,OK,ОК,,,,确认,确认,確定
-Studio.Common.Action.Okay,,,Okay,Okay,,OK,Aceptar,OK,,Okay,OK,확인,,OK,ОК,,,,好的,好的,好
-Studio.Common.Action.Open,,,Open,Open,,Öffnen,Abrir,Ouvrir,,Apri,開く,열기,,Abrir,Открыть,,,,打开,打开,開啟
-Studio.Common.Action.Paste,,,Paste,Paste,,Einfügen,Pegar,Coller,,Incolla,貼り付け,붙여넣기,,Colar,Вставить,,,,粘贴,粘贴,貼上
-Studio.Common.Action.Pause,,,Pause,Pause,,Pause,Pausar,Pause,,Pausa,一時停止,일시 중지,,Pausar,Приостановить,,,,暂停,暂停,暫停
-Studio.Common.Action.Play,,,Play,Play,,Spielen,Jugar,Jouer,,Gioca,プレイ,플레이,,Jogar,Воспроизвести,,,,开始游戏,开始游戏,開始
-Studio.Common.Action.Previous,,,Previous,Previous,,Zurück,Anterior,Précédent,,Precedente,前へ,이전,,Anterior,Предыдущий,,,,上一个,上一个,上一步
-Studio.Common.Action.Reload,,,Reload,Reload,,Erneut laden,Volver a cargar,Recharger,,Ricarica,リロード,다시 불러오기,,Recarregar,Перезагрузить,,,,重新加载,重新加载,重新載入
-Studio.Common.Action.Remove,,,Remove,Remove,,Entfernen,Eliminar,Supprimer,,Rimuovi,削除,제거,,Remover,Удалить,,,,移除,移除,移除
-Studio.Common.Action.Rename,,,Rename,Rename,,Umbenennen,Renombrar,Renommer,,Rinomina,名前を変更,이름 변경,,Renomear,Переименовать,,,,重命名,重命名,重新命名
-Studio.Common.Action.Replace,,,Replace,Replace,,Ersetzen,Reemplazar,Remplacer,,Sostituisci,置き換え,바꾸기,,Substituir,Заменить,,,,替换,替换,取代
-Studio.Common.Action.Resize,,,Resize,Resize,,Größe anpassen,Ajustar,Redimensionner,,Ridimensiona,サイズ変更,크기 조정,,Dimensionar,Изменить размер,,,,缩放,缩放,調整大小
-Studio.Common.Action.Retry,,,Retry,Retry,,Erneut versuchen,Reintentar,Réessayer,,Riprova,再試行,다시 시도,,Tentar novamente,Повтор,,,,重试,重试,重試
-Studio.Common.Action.Save,,,Save,Save,,Speichern,Guardar,Enregistrer,,Salva,保存,저장,,Salvar,Сохранить,,,,保存,保存,儲存
-Studio.Common.Action.Select,,,Select,Select,,Auswählen,Seleccionar,Sélectionner,,Seleziona,選択,선택,,Selecionar,Выбрать,,,,选择,选择,選擇
-Studio.Common.Action.Share,,,Share,Share,,Teilen,Compartir,Partager,,Condividi,シェア,공유,,Compartilhar,Поделиться,,,,分享,分享,分享
-Studio.Common.Action.Stop,,,Stop,Stop,,Stoppen,Detener,Arrêter,,Interrompi,停止,중지,,Parar,Остановить,,,,停止,停止,停止
-Studio.Common.Action.Yes,,,Yes,Yes,,Ja,Sí,Oui,,Sì,はい,예,,Sim,Да,,,,是,是,是
-Studio.Common.Action.Continue,,,Continue,Continue,,Fortfahren,Continuar,Continuer,,Continua,続ける,계속,,Continuar,Продолжить,,,,继续,继续,繼續
-Studio.Common.Action.Redo,,,Redo,Redo,,Wiederholen,Rehacer,Refaire,,Ripeti,やり直す,다시 실행,,Refazer,Вернуть,,,,恢复,恢复,重做
-Studio.Common.Action.Undo,,,Undo,Undo,,Rückgängig,Deshacer,Annuler,,Annulla,取り消す,실행 취소,,Desfazer,Отменить,,,,撤消,撤消,復原
-Studio.Common.Action.Update,,,Update,Update,,Aktualisieren,Actualizar,Mettre à jour,,Aggiorna,更新,업데이트,,Atualizar,Обновить,,,,更新,更新,更新
-Studio.Common.Action.Reset,,,Reset,Reset,,Zurücksetzen,Restablecer,Réinitialiser,,Reimposta,再設定,재설정,,Reiniciar,Сбросить,,,,重置,重置,重置
-Studio.Common.Action.Fill,,,Fill,Fill,,Füllen,Llenar,Remplir,,Riempi,埋める,채우기,,Preencher,Заполнить,,,,填充,填充,填滿
-Studio.Common.Action.Goto,,,Goto,Goto,,Gehe zu,Ir a,Aller à,,Vai a,別ページに移動,이동,,Ir para,Перейти,,,,前往,前往,前往
-Studio.Common.Action.Move,,,Move,Move,,Verschieben,Mover,Déplacer,,Sposta,移動,이동,,Mover,Переместить,,,,移动,移动,移動
-Studio.Common.Action.Rotate,,,Rotate,Rotate,,Drehen,Girar,Pivoter,,Ruota,回転,회전,,Girar,Вращать,,,,旋转,旋转,旋轉
-Studio.Common.Action.Error,,,Error,Error,,Fehler,Error,Erreur,,Errore,エラー,오류,,Erro,Ошибка,,,,错误,错误,錯誤
-Studio.Common.Action.Height,,,Height,Height,,Höhe,Altura,Hauteur,,Altezza,高さ,높이,,Altura,Высота,,,,高度,高度,高度：
-Studio.Common.Action.LabelWithColon1,,,%1:,%1:,,%1:,%1:,%1 :,,%1:,%1:,%1:,,%1:,%1:,,,,%1,%1,%1：
-Studio.Common.Action.Name,,,Name,Name,,Name,Nombre,Nom,,Nome,名前,이름,,Nome,Имя,,,,名称,名称,名稱
-Studio.Common.Action.Search,,,Search,Search,,Suchen,Buscar,Rechercher,,Cerca,サーチ,검색,,Pesquisar,Поиск,,,,搜索,搜索,搜尋
-Studio.Common.Action.Value,,,Value,Value,,Wert,Valor,Valeur,,Valore,値,값,,Valor,Значение,,,,值,值,值
-Studio.Common.Action.Warning,,,Warning,Warning,,Warnung,Advertencia,Avertissement,,Attenzione,警告,경고,,Aviso,Предупреждение,,,,警告,警告,警告
-Studio.Common.Action.Width,,,Width,Width,,Breite,Ancho,Largeur,,Larghezza,幅,너비,,Largura,Ширина,,,,宽度,宽度,寬度
-Studio.Common.Action.Submit,,,Submit,Submit,,Absenden,Enviar,Soumettre,,Invia,送信,제출,,Enviar,Завершить,,,,提交,提交,提交
-Studio.Common.Action.Install,,,Install,Install,,Installieren,Instalar,Installer,,Installa,インストール,설치,,Instalar,Установить,,,,安装,安装,安裝
-Studio.Common.Action.Installed,,,Installed,Installed,,Installiert,Instalado,Installé,,Installazione riuscita,インストール済み,설치됨,,Instalado,Установлено,,,,已安装,已安装,已安裝
-Studio.Common.Action.Loading,,,Loading...,Loading...,,Lädt ...,Cargando...,Chargement...,,Caricamento...,読み込み中...,불러오는 중...,,Carregando...,Загрузка...,,,,正在加载...,正在加载...,正在載入……
-Studio.Common.Action.Resume,,,Resume,Resume,,Fortsetzen,Reanudar,Reprendre,,Riprendi,再開,재개,,Retomar,Возобновить,,,,继续,继续,繼續
-Studio.Common.Action.Confirm,,,Confirm,Confirm,,Bestätigen,Confirmar,Confirmer,,Conferma,確定,확인,,Confirmar,Подтвердить,,,,确认,确认,確認
-Studio.Common.Action.HideDetails,,,Hide Details,Hide Details,,Details ausblenden,Ocultar detalles,Cacher les détails,,Nascondi dettagli,詳細を非表示にする,세부 정보 숨기기,,Ocultar detalhes,Скрыть,,,,隐藏详情,隐藏详情,隱藏詳細資料
-Studio.Common.Action.LearnMore,,,Learn More,Learn More,,Mehr erfahren,Aprende más,En savoir plus,,Maggiori informazioni,もっと詳しく,더 알아보기,,Saiba mais,Подробнее,,,,了解更多,了解更多,了解更多
-Studio.Common.Action.SelectAll,,,Select All,Select All,,Alles auswählen,Seleccionar todo,Tout sélectionner,,Seleziona tutto,すべて選択,모두 선택,,Selecionar tudo,Выбрать все,,,,全选,全选,全選
-Studio.Common.Action.ShowDetails,,,Show Details,Show Details,,Details anzeigen,Mostrar detalles,Afficher détails,,Mostra dettagli,詳細を表示,세부 정보 표시,,Exibir detalhes,Развернуть,,,,显示详情,显示详情,顯示詳細資料
-Studio.Common.Action.ReportBug,,,Report Bug,Report Bug,,Fehler melden,Reportar error,Signaler un bug,,Segnala bug,バグを報告,버그 신고,,Comunicar bug,Сообщить об ошибке,,,,回报问题,回报问题,舉報問題
-Studio.Common.Action.SaveToRoblox,,,Save to Roblox,Save to Roblox,,Auf Roblox speichern,Guardar en Roblox,Sauvegarder sur Roblox,,Salva su Roblox,Robloxに保存,Roblox에 저장,,Salvar na Roblox,Сохранить в Roblox,,,,保存至 Roblox,保存至 Roblox,儲存到 Roblox
-Studio.Common.Action.Accessory,,,Accessory,Accessory,,Accessoire,Accesorio,Accessoire,,Accessorio,アクセサリ,장신구,,Acessório,Аксессуар,,,,配饰,配饰,飾品
-Studio.Common.Action.Import,,,Import,Import,,Importieren,Importar,Importer,,Importa,インポート,가져오기,,Importar,Импортировать,,,,导入,导入,匯入
-Studio.Common.Action.Rig,,,Rig,Rig,,Rig,Rig,Rig,,Rig,リグ,리그,,Rig,,,,,骨架,骨架,骨架
-Studio.Common.Action.Animation,,,Animation,Animation,,Animation,Animación,Animation,,Animazione,アニメーション,애니메이션,,Animação,Анимация,,,,动画,动画,動畫
-Studio.Common.Action.AvatarUnification,,,Avatar Unification,Avatar Unification,,Avatarvereinigung,Unificación de avatar,Unification de l'Avatar,,Unificazione Avatar,アバターの統一,아바타 통합,,Unificação de avatar,,,,,虚拟形象统一,虚拟形象统一,虛擬人偶統一
-Studio.Common.Action.PublishToRobloxAs,,,Publish to Roblox As...,Publish to Roblox As...,,Auf Roblox veröffentlichen als ...,Publicar en Roblox como...,Publier sur Roblox comme...,,Pubblicare su Roblox come...,名前をつけてRobloxに公開...,다른 이름으로 Roblox에 게시...,,Publicar na Roblox como...,,,,,发布至 Roblox 为...,发布至 Roblox 为...,發佈至 Roblox 為……
-Studio.Common.Action.SaveToRobloxAs,,,Save to Roblox As...,Save to Roblox As...,,Auf Roblox speichern als ...,Guardar en Roblox como...,Sauvegarder sur Roblox...,,Salva su Roblox come...,名前をつけてRobloxに保存...,다른 이름으로 Roblox에 저장...,,Salvar na Roblox como...,,,,,保存至 Roblox 为...,保存至 Roblox 为...,儲存至 Roblox 為……
-Studio.Common.Action.Preview,,,Setup,Setup,,Einstellungen,Configurar,Configuration,,,設定,설정,,Configuração,,,,,预览,预览,預覽
-Studio.Common.Action.PauseCurrent,,,Pause Current,Pause Current,,Aktuelle pausieren,Pausar actual,Pause actuelle,,,現在の一時停止,현재 항목 일시 중지,,Pausar atual,,,,,,,
-Studio.Common.Action.ResumeCurrent,,,Resume Current,Resume Current,,Aktuelle fortsetzen,Reanudar actual,Reprendre ce qui est en cours,,,現在の再開,현재 항목 재개,,Retomar atual,,,,,,,
-Studio.Common.Action.PauseAllPhysics,,,Pause Physics: All,Pause Physics: All,,Physik anhalten: Alle,Pausar física: Todo,Mettre en pause la physique: Tout,,,物理を一時停止: すべて,피직스 일시 중지: 전체,,Pausar física: Todos,,,,,,,
-Studio.Common.Action.PauseScripts,,,Pause Scripts,Pause Scripts,,Skripte anhalten,Pausar scripts,Mettre en pause les scripts,,,スクリプトを一時停止,스크립트 일시 중지,,Pausar scripts,,,,,,,
-Studio.Common.Action.PauseCurrentPhysics,,,Pause Physics: Current,Pause Physics: Current,,Physik anhalten: Aktuell,Pausar física: Actual,Pause Physique: En cours,,,物理を一時停止: 現在,피직스 일시 중지: 현재,,Pausar física: Atual,,,,,,,
-Studio.Common.Action.PauseCurrentClient,,,Pause Physics: Client,Pause Physics: Client,,Physik anhalten: Client,Pausar física: Cliente,Mettre en pause la physique: Client,,,物理を一時停止: クライアント,피직스 일시 중지: 클라이언트,,Pausar física: Cliente,,,,,,,
-Studio.Common.Action.PauseCurrentServer,,,Pause Physics: Server,Pause Physics: Server,,Physik anhalten: Server,Pausar física: Servidor,Mettre en pause la physique: Serveur,,,物理を一時停止: サーバー,피직스 일시 중지: 서버,,Pausar física: Servidor,,,,,,,
-Studio.Common.Action.ResumeAllPhysics,,,Resume Physics: All,Resume Physics: All,,Physik fortsetzen: Alle,Reanudar física: todo,Reprendre la physique: Tout,,,物理学を再開: すべて,피직스 재개: 전체,,Retomar física: Todos,,,,,,,
-Studio.Common.Action.ResumeScripts,,,Resume Scripts,Resume Scripts,,Skripte fortsetzen,Reanudar scripts,Reprendre les scripts,,,スクリプトを再開,스크립트 재개,,Retomar scripts,,,,,,,
-Studio.Common.Action.ResumeCurrentPhysics,,,Resume Physics: Current,Resume Physics: Current,,Physik fortsetzen: Aktuell,Reanudar física: Actual,Resume Physics: En cours,,,物理を再開: 現在,피직스 재개: 현재,,Retomar física: Atual,,,,,,,
-Studio.Common.Action.ResumeCurrentClient,,,Resume Physics: Client,Resume Physics: Client,,Physik fortsetzen: Client,Reanudar física: Cliente,Reprendre la physique: Client,,,物理を再開: クライアント,피직스 재개: 클라이언트,,Retomar física: Cliente,,,,,,,
-Studio.Common.Action.ResumeCurrentServer,,,Resume Physics: Server,Resume Physics: Server,,Physik fortsetzen: Server,Reanudar física: Servidor,Reprendre la physique: Serveur,,,物理を再開: サーバー,피직스 재개: 서버,,Retomar física: Servidor,,,,,,,
-Studio.Common.Action.StepForwardPhysicsClient,,,Step Forward Physics: Client,Step Forward Physics: Client,,Fortschritt der Physik: Client,Avance de la física: Cliente,Avancer étape physique : Client,,,ステップ進行物理: クライアント,스텝 포워드 피직스: 클라이언트,,Encaminhar física: Cliente,,,,,,,
-Studio.Common.Action.StepForwardPhysicsCurrent,,,Step Forward Physics: Current,Step Forward Physics: Current,,Fortschritt der Physik: Aktuell,Avance de la física: Actual,Avancer étape physique : Actuel,,,ステップ進行物理: 現在,스텝 포워드 피직스: 현재,,Encaminhar física: Atual,,,,,,,
-Studio.Common.Action.StepForwardPhysicsServer,,,Step Forward Physics: Server,Step Forward Physics: Server,,Fortschritt der Physik: Server,Avance de la física: Servidor,Avancer étape physique : Serveur,,,ステップ進行物理: サーバー,스텝 포워드 피직스: 서버,,Encaminhar física: Servidor,,,,,,,
-Studio.Common.Action.StepForward,,,Step Forward Physics: All,Step Forward Physics: All,,Fortschritt der Physik: Alle,Avance de la física: Todo,Avancer étape physique : Tout,,,ステップ進行物理: すべて,스텝 포워드 피직스: 전체,,Encaminhar física: Todos,,,,,,,
+Studio.Common.Action.Apply,,,Apply,Apply,,Anwenden,Aplicar,Appliquer,,Applica,適用,적용,,Aplicar,Применить,,,Áp Dụng,应用,应用,套用
+Studio.Common.Action.Back,,,Back,Back,,Zurück,Volver,Retour,,Indietro,戻る,뒤로,,Voltar,Назад,,,Lưng,返回,返回,返回
+Studio.Common.Action.Cancel,,,Cancel,Cancel,,Abbrechen,Cancelar,Annuler,,Annulla,キャンセル,취소,,Cancelar,Отмена,,,Hủy Bỏ,取消,取消,取消
+Studio.Common.Action.Clear,,,Clear,Clear,,Löschen,Eliminar,Effacer,,Cancella,消す,지우기,,Limpar,Очистить,,,Dọn Sạch,清除,清除,清除
+Studio.Common.Action.Close,,,Close,Close,,Schließen,Cerrar,Fermer,,Chiudi,閉じる,닫기,,Fechar,Закрыть,,,Đóng,关闭,关闭,關閉
+Studio.Common.Action.Copy,,,Copy,Copy,,Kopieren,Copiar,Copier,,Copia,コピー,복사,,Copiar,Скопировать,,,Sao Chép,复制,复制,複製
+Studio.Common.Action.Create,,,Create,Create,,Erstellen,Crear,Créer,,Crea,作成,만들기,,Criar,Создать,,,Tạo,创建,创建,建立
+Studio.Common.Action.Cut,,,Cut,Cut,,Ausschneiden,Cortar,Couper,,Taglia,切り抜き,잘라내기,,Recortar,Вырезать,,,Cắt,剪切,剪切,剪下
+Studio.Common.Action.Delete,,,Delete,Delete,,Löschen,Eliminar,Supprimer,,Elimina,削除,삭제,,Excluir,Удалить,,,Xóa,删除,删除,刪除
+Studio.Common.Action.Edit,,,Edit,Edit,,Bearbeiten,Editar,Modifier,,Modifica,編集,편집,,Editar,Изменить,,,Chỉnh Sửa,编辑,编辑,編輯
+Studio.Common.Action.Exit,,,Exit,Exit,,Verlassen,Salir,Quitter,,Esci,退出,나가기,,Sair,Выход,,,Thoát,退出,退出,結束
+Studio.Common.Action.File,,,File,File,,Datei,Archivo,Fichier,,File,ファイル,파일,,Arquivo,Файл,,,Tệp,文件,文件,檔案
+Studio.Common.Action.Find,,,Find,Find,,Suchen,Buscar,Rechercher,,Trova,探す,찾기,,Localizar,Найти,,,Tìm,查找,查找,尋找
+Studio.Common.Action.Help,,,Help,Help,,Hilfe,Ayuda,Aide,,Guida,ヘルプ,도움말,,Ajuda,Справка,,,Trợ Giúp,帮助,帮助,說明
+Studio.Common.Action.Home,,,Home,Home,,Start,Inicio,Accueil,,Inizio,ホーム,홈,,Início,Главная,,,Trang Chủ,首页,首页,首頁
+Studio.Common.Action.Ignore,,,Ignore,Ignore,,Ignorieren,Omitir,Ignorer,,Ignora,無視,무시,,Ignorar,Пропустить,,,Bỏ Qua,忽略,忽略,忽略
+Studio.Common.Action.Insert,,,Insert,Insert,,Einfügen,Insertar,Insérer,,Immetti,挿入,삽입,,Inserir,Вставить,,,Chèn,插入,插入,插入
+Studio.Common.Action.New,,,New,New,,Neu,Nuevo,Nouveau,,Nuovo,新規,새로 만들기,,Novo,Новый,,,Mới,新增,新增,新增
+Studio.Common.Action.Next,,,Next,Next,,Weiter,Siguiente,Suivant,,Avanti,次へ,다음,,Próximo,Далее,,,Tiếp Theo,下一个,下一个,繼續
+Studio.Common.Action.No,,,No,No,,Nein,No,Non,,No,いいえ,아니요,,Não,Нет,,,Không,否,否,否
+Studio.Common.Action.OK,,,OK,OK,,OK,Aceptar,OK,,OK,OK,확인,,OK,ОК,,,OK,确认,确认,確定
+Studio.Common.Action.Okay,,,Okay,Okay,,OK,Aceptar,OK,,Okay,OK,확인,,OK,ОК,,,Đồng Ý,好的,好的,好
+Studio.Common.Action.Open,,,Open,Open,,Öffnen,Abrir,Ouvrir,,Apri,開く,열기,,Abrir,Открыть,,,Mở,打开,打开,開啟
+Studio.Common.Action.Paste,,,Paste,Paste,,Einfügen,Pegar,Coller,,Incolla,貼り付け,붙여넣기,,Colar,Вставить,,,Dán,粘贴,粘贴,貼上
+Studio.Common.Action.Pause,,,Pause,Pause,,Pause,Pausar,Pause,,Pausa,一時停止,일시 중지,,Pausar,Приостановить,,,Tạm Dừng,暂停,暂停,暫停
+Studio.Common.Action.Play,,,Play,Play,,Spielen,Jugar,Jouer,,Gioca,プレイ,플레이,,Jogar,Воспроизвести,,,Chơi,开始游戏,开始游戏,開始
+Studio.Common.Action.Previous,,,Previous,Previous,,Zurück,Anterior,Précédent,,Precedente,前へ,이전,,Anterior,Предыдущий,,,Trước,上一个,上一个,上一步
+Studio.Common.Action.Reload,,,Reload,Reload,,Erneut laden,Volver a cargar,Recharger,,Ricarica,リロード,다시 불러오기,,Recarregar,Перезагрузить,,,Tải Lại,重新加载,重新加载,重新載入
+Studio.Common.Action.Remove,,,Remove,Remove,,Entfernen,Eliminar,Supprimer,,Rimuovi,削除,제거,,Remover,Удалить,,,Loại Bỏ,移除,移除,移除
+Studio.Common.Action.Rename,,,Rename,Rename,,Umbenennen,Renombrar,Renommer,,Rinomina,名前を変更,이름 변경,,Renomear,Переименовать,,,Đổi Tên,重命名,重命名,重新命名
+Studio.Common.Action.Replace,,,Replace,Replace,,Ersetzen,Reemplazar,Remplacer,,Sostituisci,置き換え,바꾸기,,Substituir,Заменить,,,Thay Thế,替换,替换,取代
+Studio.Common.Action.Resize,,,Resize,Resize,,Größe anpassen,Ajustar,Redimensionner,,Ridimensiona,サイズ変更,크기 조정,,Dimensionar,Изменить размер,,,Đổi Cỡ,缩放,缩放,調整大小
+Studio.Common.Action.Retry,,,Retry,Retry,,Erneut versuchen,Reintentar,Réessayer,,Riprova,再試行,다시 시도,,Tentar novamente,Повтор,,,Thử Lại,重试,重试,重試
+Studio.Common.Action.Save,,,Save,Save,,Speichern,Guardar,Enregistrer,,Salva,保存,저장,,Salvar,Сохранить,,,Lưu,保存,保存,儲存
+Studio.Common.Action.Select,,,Select,Select,,Auswählen,Seleccionar,Sélectionner,,Seleziona,選択,선택,,Selecionar,Выбрать,,,Chọn,选择,选择,選擇
+Studio.Common.Action.Share,,,Share,Share,,Teilen,Compartir,Partager,,Condividi,シェア,공유,,Compartilhar,Поделиться,,,Chia Sẻ,分享,分享,分享
+Studio.Common.Action.Stop,,,Stop,Stop,,Stoppen,Detener,Arrêter,,Interrompi,停止,중지,,Parar,Остановить,,,Dừng,停止,停止,停止
+Studio.Common.Action.Yes,,,Yes,Yes,,Ja,Sí,Oui,,Sì,はい,예,,Sim,Да,,,Có,是,是,是
+Studio.Common.Action.Continue,,,Continue,Continue,,Fortfahren,Continuar,Continuer,,Continua,続ける,계속,,Continuar,Продолжить,,,Tiếp Tục,继续,继续,繼續
+Studio.Common.Action.Redo,,,Redo,Redo,,Wiederholen,Rehacer,Refaire,,Ripeti,やり直す,다시 실행,,Refazer,Вернуть,,,Làm Lại,恢复,恢复,重做
+Studio.Common.Action.Undo,,,Undo,Undo,,Rückgängig,Deshacer,Annuler,,Annulla,取り消す,실행 취소,,Desfazer,Отменить,,,Hoàn Tác,撤消,撤消,復原
+Studio.Common.Action.Update,,,Update,Update,,Aktualisieren,Actualizar,Mettre à jour,,Aggiorna,更新,업데이트,,Atualizar,Обновить,,,Cập Nhật,更新,更新,更新
+Studio.Common.Action.Reset,,,Reset,Reset,,Zurücksetzen,Restablecer,Réinitialiser,,Reimposta,再設定,재설정,,Reiniciar,Сбросить,,,Đặt Lại,重置,重置,重置
+Studio.Common.Action.Fill,,,Fill,Fill,,Füllen,Llenar,Remplir,,Riempi,埋める,채우기,,Preencher,Заполнить,,,Điền,填充,填充,填滿
+Studio.Common.Action.Goto,,,Goto,Goto,,Gehe zu,Ir a,Aller à,,Vai a,別ページに移動,이동,,Ir para,Перейти,,,Đi,前往,前往,前往
+Studio.Common.Action.Move,,,Move,Move,,Verschieben,Mover,Déplacer,,Sposta,移動,이동,,Mover,Переместить,,,Di Chuyển,移动,移动,移動
+Studio.Common.Action.Rotate,,,Rotate,Rotate,,Drehen,Girar,Pivoter,,Ruota,回転,회전,,Girar,Вращать,,,Xoay,旋转,旋转,旋轉
+Studio.Common.Action.Error,,,Error,Error,,Fehler,Error,Erreur,,Errore,エラー,오류,,Erro,Ошибка,,,Lỗi,错误,错误,錯誤
+Studio.Common.Action.Height,,,Height,Height,,Höhe,Altura,Hauteur,,Altezza,高さ,높이,,Altura,Высота,,,Chiều Cao,高度,高度,高度：
+Studio.Common.Action.LabelWithColon1,,,%1:,%1:,,%1:,%1:,%1 :,,%1:,%1:,%1:,,%1:,%1:,,,%1:,%1,%1,%1：
+Studio.Common.Action.Name,,,Name,Name,,Name,Nombre,Nom,,Nome,名前,이름,,Nome,Имя,,,Tên,名称,名称,名稱
+Studio.Common.Action.Search,,,Search,Search,,Suchen,Buscar,Rechercher,,Cerca,サーチ,검색,,Pesquisar,Поиск,,,Tìm Kiếm,搜索,搜索,搜尋
+Studio.Common.Action.Value,,,Value,Value,,Wert,Valor,Valeur,,Valore,値,값,,Valor,Значение,,,Giá Trị,值,值,值
+Studio.Common.Action.Warning,,,Warning,Warning,,Warnung,Advertencia,Avertissement,,Attenzione,警告,경고,,Aviso,Предупреждение,,,Cảnh Báo,警告,警告,警告
+Studio.Common.Action.Width,,,Width,Width,,Breite,Ancho,Largeur,,Larghezza,幅,너비,,Largura,Ширина,,,Chiều Rộng,宽度,宽度,寬度
+Studio.Common.Action.Submit,,,Submit,Submit,,Absenden,Enviar,Soumettre,,Invia,送信,제출,,Enviar,Завершить,,,Gửi,提交,提交,提交
+Studio.Common.Action.Install,,,Install,Install,,Installieren,Instalar,Installer,,Installa,インストール,설치,,Instalar,Установить,,,Cài Đặt,安装,安装,安裝
+Studio.Common.Action.Installed,,,Installed,Installed,,Installiert,Instalado,Installé,,Installazione riuscita,インストール済み,설치됨,,Instalado,Установлено,,,Đã Cài Đặt,已安装,已安装,已安裝
+Studio.Common.Action.Loading,,,Loading...,Loading...,,Lädt ...,Cargando...,Chargement...,,Caricamento...,読み込み中...,불러오는 중...,,Carregando...,Загрузка...,,,Đang Tải...,正在加载...,正在加载...,正在載入……
+Studio.Common.Action.Resume,,,Resume,Resume,,Fortsetzen,Reanudar,Reprendre,,Riprendi,再開,재개,,Retomar,Возобновить,,,Tiếp Tục,继续,继续,繼續
+Studio.Common.Action.Confirm,,,Confirm,Confirm,,Bestätigen,Confirmar,Confirmer,,Conferma,確定,확인,,Confirmar,Подтвердить,,,Xác Nhận,确认,确认,確認
+Studio.Common.Action.HideDetails,,,Hide Details,Hide Details,,Details ausblenden,Ocultar detalles,Cacher les détails,,Nascondi dettagli,詳細を非表示にする,세부 정보 숨기기,,Ocultar detalhes,Скрыть,,,Ẩn Chi Tiết,隐藏详情,隐藏详情,隱藏詳細資料
+Studio.Common.Action.LearnMore,,,Learn More,Learn More,,Mehr erfahren,Aprende más,En savoir plus,,Maggiori informazioni,もっと詳しく,더 알아보기,,Saiba mais,Подробнее,,,Tìm Hiểu Thêm,了解更多,了解更多,了解更多
+Studio.Common.Action.SelectAll,,,Select All,Select All,,Alles auswählen,Seleccionar todo,Tout sélectionner,,Seleziona tutto,すべて選択,모두 선택,,Selecionar tudo,Выбрать все,,,Chọn Tất Cả,全选,全选,全選
+Studio.Common.Action.ShowDetails,,,Show Details,Show Details,,Details anzeigen,Mostrar detalles,Afficher détails,,Mostra dettagli,詳細を表示,세부 정보 표시,,Exibir detalhes,Развернуть,,,Hiển Thị Chi Tiết,显示详情,显示详情,顯示詳細資料
+Studio.Common.Action.ReportBug,,,Report Bug,Report Bug,,Fehler melden,Reportar error,Signaler un bug,,Segnala bug,バグを報告,버그 신고,,Comunicar bug,Сообщить об ошибке,,,Báo Cáo Lỗi,回报问题,回报问题,舉報問題
+Studio.Common.Action.SaveToRoblox,,,Save to Roblox,Save to Roblox,,Auf Roblox speichern,Guardar en Roblox,Sauvegarder sur Roblox,,Salva su Roblox,Robloxに保存,Roblox에 저장,,Salvar na Roblox,Сохранить в Roblox,,,Lưu vào Roblox,保存至 Roblox,保存至 Roblox,儲存到 Roblox
+Studio.Common.Action.Accessory,,,Accessory,Accessory,,Accessoire,Accesorio,Accessoire,,Accessorio,アクセサリ,장신구,,Acessório,Аксессуар,,,Phụ Kiện,配饰,配饰,飾品
+Studio.Common.Action.Import,,,Import,Import,,Importieren,Importar,Importer,,Importa,インポート,가져오기,,Importar,Импортировать,,,Nhập,导入,导入,匯入
+Studio.Common.Action.Rig,,,Rig,Rig,,Rig,Rig,Rig,,Rig,リグ,리그,,Rig,,,,Khung Xương,骨架,骨架,骨架
+Studio.Common.Action.Animation,,,Animation,Animation,,Animation,Animación,Animation,,Animazione,アニメーション,애니메이션,,Animação,Анимация,,,Hiệu Ứng Động,动画,动画,動畫
+Studio.Common.Action.AvatarUnification,,,Avatar Unification,Avatar Unification,,Avatarvereinigung,Unificación de avatar,Unification de l'Avatar,,Unificazione Avatar,アバターの統一,아바타 통합,,Unificação de avatar,,,,Hợp Nhất Avatar,虚拟形象统一,虚拟形象统一,虛擬人偶統一
+Studio.Common.Action.PublishToRobloxAs,,,Publish to Roblox As...,Publish to Roblox As...,,Auf Roblox veröffentlichen als ...,Publicar en Roblox como...,Publier sur Roblox comme...,,Pubblicare su Roblox come...,名前をつけてRobloxに公開...,다른 이름으로 Roblox에 게시...,,Publicar na Roblox como...,,,,Đăng tải lên Roblox Dưới Dạng...,发布至 Roblox 为...,发布至 Roblox 为...,發佈至 Roblox 為……
+Studio.Common.Action.SaveToRobloxAs,,,Save to Roblox As...,Save to Roblox As...,,Auf Roblox speichern als ...,Guardar en Roblox como...,Sauvegarder sur Roblox...,,Salva su Roblox come...,名前をつけてRobloxに保存...,다른 이름으로 Roblox에 저장...,,Salvar na Roblox como...,,,,Lưu vào Roblox Dưới Dạng...,保存至 Roblox 为...,保存至 Roblox 为...,儲存至 Roblox 為……
+Studio.Common.Action.Preview,,,Setup,Setup,,Einstellungen,Configurar,Configuration,,,設定,설정,,Configuração,,,,Cài Đặt,设置,设置,預覽
+Studio.Common.Action.PauseCurrent,,,Pause Current,Pause Current,,Aktuelle pausieren,Pausar actual,Pause actuelle,,,現在の一時停止,현재 항목 일시 중지,,Pausar atual,,,,Tạm Dừng Workspace Hiện Tại,暂停当前操作,暂停当前操作,
+Studio.Common.Action.ResumeCurrent,,,Resume Current,Resume Current,,Aktuelle fortsetzen,Reanudar actual,Reprendre ce qui est en cours,,,現在の再開,현재 항목 재개,,Retomar atual,,,,Tiếp Tục Workspace Hiện Tại,继续当前操作,继续当前操作,
+Studio.Common.Action.PauseAllPhysics,,,Pause Physics: All,Pause Physics: All,,Physik anhalten: Alle,Pausar física: Todo,Mettre en pause la physique: Tout,,,物理を一時停止: すべて,피직스 일시 중지: 전체,,Pausar física: Todos,,,,Tạm Dừng Vật Lý: Tất Cả,暂停物理模拟：全部,暂停物理模拟：全部,
+Studio.Common.Action.PauseScripts,,,Pause Scripts,Pause Scripts,,Skripte anhalten,Pausar scripts,Mettre en pause les scripts,,,スクリプトを一時停止,스크립트 일시 중지,,Pausar scripts,,,,Tạm Dừng Kịch Bản,暂停脚本,暂停脚本,
+Studio.Common.Action.PauseCurrentPhysics,,,Pause Physics: Current,Pause Physics: Current,,Physik anhalten: Aktuell,Pausar física: Actual,Pause Physique: En cours,,,物理を一時停止: 現在,피직스 일시 중지: 현재,,Pausar física: Atual,,,,Tạm Dừng Vật Lý: Hiện Tại,暂停物理模拟：当前,暂停物理模拟：当前,
+Studio.Common.Action.PauseCurrentClient,,,Pause Physics: Client,Pause Physics: Client,,Physik anhalten: Client,Pausar física: Cliente,Mettre en pause la physique: Client,,,物理を一時停止: クライアント,피직스 일시 중지: 클라이언트,,Pausar física: Cliente,,,,Tạm Dừng Vật Lý: Máy Khách,暂停物理模拟：客户端,暂停物理模拟：客户端,
+Studio.Common.Action.PauseCurrentServer,,,Pause Physics: Server,Pause Physics: Server,,Physik anhalten: Server,Pausar física: Servidor,Mettre en pause la physique: Serveur,,,物理を一時停止: サーバー,피직스 일시 중지: 서버,,Pausar física: Servidor,,,,Tạm Dừng Vật Lý: Máy Chủ,暂停物理模拟：服务器,暂停物理模拟：服务器,
+Studio.Common.Action.ResumeAllPhysics,,,Resume Physics: All,Resume Physics: All,,Physik fortsetzen: Alle,Reanudar física: todo,Reprendre la physique: Tout,,,物理学を再開: すべて,피직스 재개: 전체,,Retomar física: Todos,,,,Tiếp Tục Vật Lý: Tất Cả,继续物理模拟：全部,继续物理模拟：全部,
+Studio.Common.Action.ResumeScripts,,,Resume Scripts,Resume Scripts,,Skripte fortsetzen,Reanudar scripts,Reprendre les scripts,,,スクリプトを再開,스크립트 재개,,Retomar scripts,,,,Tiếp Tục Kịch Bản,继续脚本,继续脚本,
+Studio.Common.Action.ResumeCurrentPhysics,,,Resume Physics: Current,Resume Physics: Current,,Physik fortsetzen: Aktuell,Reanudar física: Actual,Resume Physics: En cours,,,物理を再開: 現在,피직스 재개: 현재,,Retomar física: Atual,,,,Tiếp Tục Vật Lý: Hiện Tại,继续物理模拟：当前,继续物理模拟：当前,
+Studio.Common.Action.ResumeCurrentClient,,,Resume Physics: Client,Resume Physics: Client,,Physik fortsetzen: Client,Reanudar física: Cliente,Reprendre la physique: Client,,,物理を再開: クライアント,피직스 재개: 클라이언트,,Retomar física: Cliente,,,,Tiếp Tục Vật Lý: Máy Khách,继续物理模拟：客户端,继续物理模拟：客户端,
+Studio.Common.Action.ResumeCurrentServer,,,Resume Physics: Server,Resume Physics: Server,,Physik fortsetzen: Server,Reanudar física: Servidor,Reprendre la physique: Serveur,,,物理を再開: サーバー,피직스 재개: 서버,,Retomar física: Servidor,,,,Tiếp Tục Vật Lý: Máy Chủ,继续物理模拟：服务器,继续物理模拟：服务器,
+Studio.Common.Action.StepForwardPhysicsClient,,,Step Forward Physics: Client,Step Forward Physics: Client,,Fortschritt der Physik: Client,Avance de la física: Cliente,Avancer étape physique : Client,,,ステップ進行物理: クライアント,스텝 포워드 피직스: 클라이언트,,Encaminhar física: Cliente,,,,Tiến Về Phía Vật lý: Máy Khách,推进物理模拟：客户端,推进物理模拟：客户端,
+Studio.Common.Action.StepForwardPhysicsCurrent,,,Step Forward Physics: Current,Step Forward Physics: Current,,Fortschritt der Physik: Aktuell,Avance de la física: Actual,Avancer étape physique : Actuel,,,ステップ進行物理: 現在,스텝 포워드 피직스: 현재,,Encaminhar física: Atual,,,,Tiến Về Phía Vật Lý: Hiện Tại,推进物理模拟：当前,推进物理模拟：当前,
+Studio.Common.Action.StepForwardPhysicsServer,,,Step Forward Physics: Server,Step Forward Physics: Server,,Fortschritt der Physik: Server,Avance de la física: Servidor,Avancer étape physique : Serveur,,,ステップ進行物理: サーバー,스텝 포워드 피직스: 서버,,Encaminhar física: Servidor,,,,Tiến Về Phía Vật lý: Máy Chủ,推进物理模拟：服务器,推进物理模拟：服务器,
+Studio.Common.Action.StepForward,,,Step Forward Physics: All,Step Forward Physics: All,,Fortschritt der Physik: Alle,Avance de la física: Todo,Avancer étape physique : Tout,,,ステップ進行物理: すべて,스텝 포워드 피직스: 전체,,Encaminhar física: Todos,,,,Tiến Về Phía Vật lý: Tất Cả,推进物理模拟：全部,推进物理模拟：全部,

@@ -13,7 +13,7 @@ Rodux = "github.com/roblox/rodux@1.0"
 RoactRodux = "github.com/roblox/roact-rodux@0.2"
 RoactAppExperiment = "github.com/roblox/roact-app-experiment@0.4.1"
 RoactNavigation = "github.com/roblox/roact-navigation@0.5.10"
-Cryo = "github.com/roblox/cryo@1.0.3"
+Cryo = "github.com/roblox/cryo@1.1.0"
 Dash = "github.com/roblox/dash@0.1"
 LuaSocialLibrariesDeps = { git = "https://github.com/Roblox/lua-social-libraries-deps" }
 PremiumUpsellDeps = { git = "https://github.com/Roblox/premium-upsell-deps" }
@@ -72,10 +72,10 @@ InGameMenuDependencies = { git = "https://github.com/Roblox/in-game-menu-depende
 RoactGamepad = "github.com/roblox/roact-gamepad@0.5.13"
 
 [dev_dependencies]
-Jest = "github.com/roblox/jest-roblox@3.5.0"
-JestBenchmark = "github.com/roblox/jest-roblox@3.5.0"
+Jest = "github.com/roblox/jest-roblox@3.8.0"
+JestBenchmark = "github.com/roblox/jest-roblox@3.8.0"
 JestGlobals = "github.com/roblox/jest-roblox@2.4.1"
-JestGlobals3 = { target = "github.com/roblox/jest-roblox", version = "3.5.0", package = "JestGlobals" }
+JestGlobals3 = { target = "github.com/roblox/jest-roblox", version = "3.8.0", package = "JestGlobals" }
 # switch from git-dependency once mirrored in artifactory
 ReactTestingLibrary = "github.com/Roblox/react-testing-library-lua@12.2.0"
 Rhodium = "github.com/roblox/rhodium@0.5.0"
