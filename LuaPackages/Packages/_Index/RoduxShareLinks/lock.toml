@@ -4,7 +4,7 @@ version = "1.4.0"
 commit = "f205067ed550d6dd9c8c4708a166a76a0d89d836"
 source = "git+https://github.com/roblox/rodux-sharelinks#v1.4.0"
 dependencies = [
-    "Cryo Cryo 1.0.3 registry",
+    "Cryo Cryo 1.1.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxNetworking RoduxNetworking 3.2.1 registry",
     "ShareLinksNetworking NetworkingShareLinks 1612d269 git+https://github.com/roblox/networking-sharelinks#v1.4.0",

@@ -1,0 +1,47 @@
+[package]
+name = "JestConfig"
+version = "3.8.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+    "!**/__mocks__/**",
+]
+publish = true
+authors = ["Chris Trześniewski <k.trzesniewski@gmail.com>"]
+license = "MIT"
+[dependencies.ChalkLua]
+version = "^0.2.0"
+
+[dependencies.JestEnvironmentLuau]
+package = "JestEnvironmentLuau"
+version = "^3.8.0"
+
+[dependencies.JestGetType]
+package = "JestGetType"
+version = "^3.8.0"
+
+[dependencies.JestTypes]
+package = "JestTypes"
+version = "^3.8.0"
+
+[dependencies.JestUtil]
+package = "JestUtil"
+version = "^3.8.0"
+
+[dependencies.JestValidate]
+package = "JestValidate"
+version = "^3.8.0"
+
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.Promise]
+version = "^3.3.0"
+
+[dependencies.RegExp]
+version = "^0.2.1"
+
+[dependencies.RobloxShared]
+package = "RobloxShared"
+version = "^3.8.0"

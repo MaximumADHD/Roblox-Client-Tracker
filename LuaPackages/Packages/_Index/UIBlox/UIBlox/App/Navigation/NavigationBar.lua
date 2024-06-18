@@ -8,6 +8,7 @@ local ReactOtter = require(Packages.ReactOtter)
 local StyleTypes = require(App.Style.StyleTypes)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local InteractableList = require(UIBlox.Core.Control.InteractableList)
+local ControlStateEnum = require(UIBlox.Core.Control.Enum.ControlState)
 local NavigationBarAlignment = require(App.Navigation.Enum.NavigationBarAlignment)
 
 local defaultProps = {
@@ -23,21 +24,28 @@ local defaultProps = {
 	showAnimation = false,
 }
 
+type ControlState = ControlStateEnum.ControlState
+
+export type NavigationBarItem = {
+	onActivated: (() -> ())?,
+	[any]: any,
+}
 export type Props = {
 	-- NavigationBar alignment type
 	alignment: NavigationBarAlignment.NavigationBarAlignmentType,
 	-- Array of items to be rendered
-	items: { any },
+	items: { NavigationBarItem },
 	-- Determines if the NavigationBar is visible, and animate in/out when this property is toggled
 	isVisible: boolean,
-	-- Determines if each NavigationTab item will show a label
-	hasLabels: boolean,
 	-- Size of the NavigationBar
+	-- Height is size.Y.Offset
 	size: UDim2,
 	-- Callback function to render each item
-	renderItem: () -> React.ReactElement?,
+	renderItem: (NavigationBarItem, ControlState, boolean, number) -> (React.ReactElement?, { [any]: any }?),
 	-- Overrides the default color and transparency of the navigation bar background
-	backgroundColor: StyleTypes.ThemeItem?,
+	backgroundColor: StyleTypes.BackgroundStyle?,
+	-- Overrides the default color and transparency of the root background
+	rootBackgroundColor: StyleTypes.BackgroundStyle?,
 	-- Override paddings to adapt a navigation bar instance to Safe Area Insets
 	paddings: StyleTypes.PaddingItem?,
 	-- Override position of the NavigationBar
@@ -54,9 +62,13 @@ export type Props = {
 	showAnimation: boolean?,
 	-- Max width of the NavigationBar
 	maxWidth: number?,
+	-- ClipsDescendants
+	clipsDescendants: boolean?,
 }
 
-local function getAlignmentTypesProps(props)
+local function NavigationBar(providedProps: Props)
+	assert(#providedProps.items > 0, "At least one item should be present!")
+	local props = Cryo.Dictionary.join(defaultProps, providedProps)
 	local style = useStyle()
 	local itemSize, setItemSize = React.useState(UDim2.new(0, 0, 0, 0))
 	local height = props.size.Y.Offset :: number
@@ -79,10 +91,9 @@ local function getAlignmentTypesProps(props)
 			local totalWidth = if rbx.AbsoluteSize.X > props.maxWidth then props.maxWidth else rbx.AbsoluteSize.X
 			local itemWidth = (totalWidth - paddingLeft - paddingRight) / #props.items
 			local itemHeight = height - paddingTop - paddingBottom
-			setItemSize(UDim2.new(0, itemWidth, props.size.Y.Scale, itemHeight))
+			setItemSize(UDim2.new(0, itemWidth, 0, itemHeight))
 		end
 	end, {
-		style,
 		height,
 		paddingTop,
 		paddingBottom,
@@ -90,7 +101,6 @@ local function getAlignmentTypesProps(props)
 		paddingRight,
 		props.maxWidth,
 		props.alignment,
-		props.size,
 		props.items,
 	})
 
@@ -109,9 +119,17 @@ local function getAlignmentTypesProps(props)
 			return renderItem(key)
 		end)
 		return React.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, height),
+			BackgroundColor3 = if props.rootBackgroundColor
+				then props.rootBackgroundColor.Color
+				else style.Theme.BackgroundDefault.Color,
+			BackgroundTransparency = if props.rootBackgroundColor
+				then props.rootBackgroundColor.Transparency
+				else style.Theme.BackgroundDefault.Transparency,
+			BorderSizePixel = 0,
+			ClipsDescendants = props.clipsDescendants,
+			Size = props.size,
 			Position = props.position,
+			Visible = props.visible,
 			[React.Change.AbsoluteSize] = onAbsoluteSizeChanged,
 		}, {
 			AnimatedNavigationBar = React.createElement("Frame", {
@@ -122,10 +140,10 @@ local function getAlignmentTypesProps(props)
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = if props.backgroundColor
 					then props.backgroundColor.Color
-					else style.Theme.BackgroundUIContrast.Color,
+					else style.Theme.NavigationBar.Color,
 				BackgroundTransparency = if props.backgroundColor
 					then props.backgroundColor.Transparency
-					else style.Theme.BackgroundUIContrast.Transparency,
+					else style.Theme.NavigationBar.Transparency,
 				Selectable = false,
 				Visible = props.visible,
 				ZIndex = props.zIndex,
@@ -170,30 +188,26 @@ local function getAlignmentTypesProps(props)
 		props.maxWidth,
 		props.visible,
 		props.zIndex,
+		props.size,
+		props.clipsDescendants,
+		props.rootBackgroundColor,
+		props.backgroundColor,
 	} :: { any })
 
+	local alignmentTypesProps = {}
 	if props.alignment == NavigationBarAlignment.Left then
-		return {
+		alignmentTypesProps = {
 			itemSize = UDim2.fromScale(0, 0),
 			automaticSize = Enum.AutomaticSize.X,
 			padding = props.spacing,
-			renderList = if props.showAnimation then renderAnimatedList else nil,
 		} :: { any }
 	elseif props.alignment == NavigationBarAlignment.EvenlyDistributed then
-		return {
+		alignmentTypesProps = {
 			itemSize = itemSize,
-			renderList = if props.showAnimation then renderAnimatedList else nil,
 		} :: { any }
 	else
 		error("NavigationBar Alignment type is incorrect!")
 	end
-end
-
-local function NavigationBar(providedProps: Props)
-	assert(#providedProps.items > 0, "At least one item should be present!")
-	local props = Cryo.Dictionary.join(defaultProps, providedProps)
-
-	local alignmentTypesProps = getAlignmentTypesProps(props)
 
 	local selection = props.selection
 	if selection then
@@ -221,10 +235,12 @@ local function NavigationBar(providedProps: Props)
 			verticalAlignment = Enum.VerticalAlignment.Center,
 			sortOrder = Enum.SortOrder.LayoutOrder,
 			size = props.size,
+			position = props.position,
 			itemList = props.items,
 			selection = selection,
 			renderItem = props.renderItem,
 			onSelectionChanged = onSelectionChanged,
+			renderList = if props.showAnimation then renderAnimatedList else nil,
 		}, alignmentTypesProps)
 	)
 end

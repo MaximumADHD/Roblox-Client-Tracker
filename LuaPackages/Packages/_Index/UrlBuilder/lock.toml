@@ -4,6 +4,6 @@ version = "1.2.1"
 commit = "7ecf93c359c48d57500ec2da9a19dc1f590a5adc"
 source = "git+https://github.com/roblox/url-builder#master"
 dependencies = [
-    "Cryo Cryo 1.0.3 registry",
+    "Cryo Cryo 1.1.0 registry",
     "StringUtilities string-utilities 1.0.0 registry",
 ]

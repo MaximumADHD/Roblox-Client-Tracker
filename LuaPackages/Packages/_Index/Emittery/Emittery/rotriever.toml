@@ -1,0 +1,16 @@
+[package]
+name = "Emittery"
+version = "3.8.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+authors = ["Chris Trześniewski <k.trzesniewski@gmail.com>"]
+license = "MIT"
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.Promise]
+version = "^3.3.0"

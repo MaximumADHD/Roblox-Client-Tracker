@@ -111,12 +111,16 @@ DropdownMenu.validateProps = t.strictInterface({
 
 	-- Override selection order. This selection order only affects calling GuiService:Select() on an ancestor. This property does not affect directional navigation.
 	selectionOrder = t.optional(t.number),
+
+	-- Override the menu list position (keeping it mounted directly under the DropdownMenu component instead of the bottom of the screen)
+	dropdownMenuListPositionFixed = t.optional(t.boolean),
 })
 
 DropdownMenu.defaultProps = {
 	showDropShadow = false,
 	fixedListHeight = nil,
 	enableTokenOverride = false,
+	dropdownMenuListPositionFixed = false,
 }
 
 function DropdownMenu:didUpdate(prevProps, prevState)
@@ -292,6 +296,7 @@ function DropdownMenu:render()
 				onDismiss = self.closeMenu,
 				enableTokenOverride = self.props.enableTokenOverride,
 				selectionOrder = if selectionOrder then selectionOrder + 1 else nil,
+				menuPositionFixed = self.props.dropdownMenuListPositionFixed,
 			}),
 			UISizeConstraint = limitMenuWidth and Roact.createElement("UISizeConstraint", {
 				MaxSize = Vector2.new(DROPDOWN_MENU_MAX_WIDTH, math.huge),

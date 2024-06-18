@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["PrettyFormat-3.5.0"]["PrettyFormat"])
+local Package = require(PackageIndex["PrettyFormat-3.8.0"]["PrettyFormat"])
 
 export type Colors = Package.Colors
 export type CompareKeys = Package.CompareKeys

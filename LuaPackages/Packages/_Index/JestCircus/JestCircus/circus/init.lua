@@ -201,12 +201,14 @@ end
 local test: Global_It = (function()
 	-- ROBLOX deviation START: predefine variables
 	local _addTest: (
-		testName: Circus_TestName,
+		testName: Circus_TestNameLike,
 		mode: Circus_TestMode,
 		fn: Circus_TestFn | nil,
 		testFn: (testName: Circus_TestNameLike, fn: Circus_TestFn, timeout: number?) -> (),
-		timeout: number?
+		timeout: number?,
+		failing: boolean?
 	) -> ()
+
 	-- ROBLOX deviation END
 	local test: FIXME_ANALYZE
 	test = setmetatable({}, {
@@ -227,6 +229,13 @@ local test: Global_It = (function()
 		end,
 	})
 
+	function bindFailing(mode: Circus_TestMode)
+		function failing(testName: Circus_TestNameLike, fn: Circus_TestFn?, timeout: number?)
+			return _addTest(testName, mode, fn, failing, timeout, true)
+		end
+		return failing
+	end
+
 	test.todo = function(testName: Circus_TestName, ...: any): ()
 		local rest = { ... }
 		if #rest > 0 or typeof(testName) ~= "string" then
@@ -236,11 +245,12 @@ local test: Global_It = (function()
 	end
 
 	function _addTest(
-		testName: Circus_TestName,
+		testName: Circus_TestNameLike,
 		mode: Circus_TestMode,
 		fn: Circus_TestFn | nil,
 		testFn: (testName: Circus_TestName, fn: Circus_TestFn, timeout: number?) -> (),
-		timeout: number?
+		timeout: number?,
+		failing: boolean?
 	): ()
 		local asyncError, hasErrored = ErrorWithStack.new(nil, testFn), false
 
@@ -269,9 +279,11 @@ local test: Global_It = (function()
 			asyncError.message = ("Invalid second argument, %s. It must be a callback function."):format(tostring(fn))
 			error(asyncError)
 		end
+
 		return dispatchSync({
 			asyncError = asyncError,
 			fn = fn,
+			failing = if failing == nil then false else failing,
 			mode = mode,
 			-- ROBLOX FIXME Luau: roblox-cli doesn't recognize this type as one of the SyncEvent union members
 			name = "add_test" :: any,
@@ -279,9 +291,15 @@ local test: Global_It = (function()
 			timeout = timeout,
 		})
 	end
+
 	test.each = bindEach(test)
 	only.each = bindEach(only)
 	skip.each = bindEach(skip)
+
+	only.failing = bindFailing("only")
+	skip.failing = bindFailing("skip")
+
+	test.failing = bindFailing()
 	test.only = only
 	test.skip = skip
 	return test

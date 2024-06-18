@@ -40,8 +40,7 @@ type Global_Global = typesModule.Global_Global
 local jestMockModule = require(Packages.JestMock)
 local JestMockFn = jestMockModule.fn
 local JestMockMocked = jestMockModule.mocked
--- ROBLOX TODO: spyOn is not implemented
--- local JestMockSpyOn = jestMockModule.spyOn
+local JestMockSpyOn = jestMockModule.spyOn
 
 type ModuleMocker = jestMockModule.ModuleMocker
 
@@ -113,7 +112,8 @@ export type Jest = {
 	* of the specified module, including all of the specified module's
 	* dependencies.
 	]]
-	deepUnmock: (moduleName: string) -> Jest,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	deepUnmock: (moduleName: ModuleScript) -> Jest,
 	--[[*
 	* Disables automatic mocking in the module loader.
 	*
@@ -126,13 +126,15 @@ export type Jest = {
 	* the top of the code block. Use this method if you want to explicitly avoid
 	* this behavior.
 	]]
-	doMock: (moduleName: string, moduleFactory: (() -> any)?) -> Jest,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	doMock: (moduleName: ModuleScript, moduleFactory: (() -> any)?) -> Jest,
 	--[[*
 	* Indicates that the module system should never return a mocked version
 	* of the specified module from require() (e.g. that it should always return
 	* the real module).
 	]]
-	dontMock: (moduleName: string) -> Jest,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	dontMock: (moduleName: ModuleScript) -> Jest,
 	--[[*
 	* Enables automatic mocking in the module loader.
 	]]
@@ -150,7 +152,8 @@ export type Jest = {
 	*
 	* @deprecated Use `jest.createMockFromModule()` instead
 	]]
-	genMockFromModule: (moduleName: string) -> any,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	genMockFromModule: (moduleName: ModuleScript) -> any,
 	--[[*
 	* Given the name of a module, use the automatic mocking system to generate a
 	* mocked version of the module for you.
@@ -158,7 +161,8 @@ export type Jest = {
 	* This is useful when you want to create a manual mock that extends the
 	* automatic mock's behavior.
 	]]
-	createMockFromModule: (moduleName: string) -> any,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	createMockFromModule: (moduleName: ModuleScript) -> any,
 	--[[*
 	* Determines if the given function is a mocked function.
 	]]
@@ -166,13 +170,15 @@ export type Jest = {
 	--[[*
 	* Mocks a module with an auto-mocked version when it is being required.
 	]]
-	mock: (moduleName: string, moduleFactory: (() -> any)?, options: { virtual: boolean? }?) -> Jest,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	mock: (moduleName: ModuleScript, moduleFactory: (() -> any)?, options: { virtual: boolean? }?) -> Jest,
 	--[[*
 	* Mocks a module with the provided module factory when it is being imported.
 	]]
 	-- ROBLOX TODO: add default generic. <T = any>
 	unstable_mockModule: <T>(
-		moduleName: string,
+		-- ROBLOX deviation: using ModuleScript instead of string
+		moduleName: ModuleScript,
 		moduleFactory: () -> Promise<T> | T,
 		options: { virtual: boolean? }?
 	) -> Jest,
@@ -195,12 +201,14 @@ export type Jest = {
 	  getRandom(); // Always returns 10
 	 ```
 	]]
-	requireActual: (moduleName: string) -> any,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	requireActual: (moduleName: ModuleScript) -> any,
 	--[[*
 	* Returns a mock module instead of the actual module, bypassing all checks
 	* on whether the module should be required normally or not.
 	]]
-	requireMock: (moduleName: string) -> any,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	requireMock: (moduleName: ModuleScript) -> any,
 	--[[*
 	* Resets the state of all mocks.
 	* Equivalent to calling .mockReset() on every mocked function.
@@ -266,7 +274,8 @@ export type Jest = {
 	* API's second argument is a module factory instead of the expected
 	* exported module object.
 	]]
-	setMock: (moduleName: string, moduleExports: any) -> Jest,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	setMock: (moduleName: ModuleScript, moduleExports: any) -> Jest,
 	--[[*
 	* Set the default timeout interval for tests and before/after hooks in
 	* milliseconds.
@@ -282,14 +291,14 @@ export type Jest = {
 	* Note: By default, jest.spyOn also calls the spied method. This is
 	* different behavior from most other test libraries.
 	]]
-	-- ROBLOX TODO: spyOn is not implemented
-	-- spyOn: typeof(JestMockSpyOn),
+	spyOn: typeof(JestMockSpyOn),
 	--[[*
 	* Indicates that the module system should never return a mocked version of
 	* the specified module from require() (e.g. that it should always return the
 	* real module).
 	]]
-	unmock: (moduleName: string) -> Jest,
+	-- ROBLOX deviation: using ModuleScript instead of string
+	unmock: (moduleName: ModuleScript) -> Jest,
 	--[[*
 	* Instructs Jest to use fake versions of the standard timer functions.
 	]]

@@ -166,14 +166,15 @@ local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
 					}),
 				})
 				return React.createElement(React.Fragment, nil, {
-					Text = React.createElement(GenericTextLabel, {
-						fluidSizing = true,
+					Text = React.createElement("TextLabel", {
+						AutomaticSize = Enum.AutomaticSize.XY,
+						BackgroundTransparency = 1,
 						Text = title,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						fontStyle = tokens.Semantic.Typography.Title,
+						Font = tokens.Semantic.Typography.Title.Font,
+						TextSize = tokens.Semantic.Typography.Title.FontSize,
 						LineHeight = tokens.Semantic.Typography.Title.LineHeight,
-						colorStyle = tokens.Semantic.Color.Text.Emphasis,
+						TextColor3 = tokens.Semantic.Color.Text.Emphasis.Color3,
+						TextTransparency = tokens.Semantic.Color.Text.Emphasis.Transparency,
 					}, textChildren),
 				})
 			end

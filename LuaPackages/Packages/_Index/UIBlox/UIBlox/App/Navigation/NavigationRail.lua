@@ -9,6 +9,7 @@ local ReactOtter = require(Packages.ReactOtter)
 local StyleTypes = require(App.Style.StyleTypes)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local InteractableList = require(UIBlox.Core.Control.InteractableList)
+local ControlStateEnum = require(UIBlox.Core.Control.Enum.ControlState)
 local NavigationRailAlignment = require(App.Navigation.Enum.NavigationRailAlignment)
 
 local defaultProps = {
@@ -22,29 +23,33 @@ local defaultProps = {
 	},
 }
 
+type ControlState = ControlStateEnum.ControlState
+
+export type NavigationRailItem = {
+	isSecondary: boolean?,
+	onActivated: (() -> ())?,
+	[any]: any,
+}
 export type Props = {
 	-- Aligns primary and secondary navigation items within the NavigationRail
 	alignment: NavigationRailAlignment.NavigationRailAlignmentType,
-	-- Determines if each NavigationTab item will show a label
-	hasLabels: boolean,
-	-- Toggles visibility of secondary navigation items
-	hasSecondaryNavigation: boolean,
 	-- Array of items to be rendered
-	items: any,
-	-- Width of the NavigationRail
-	width: number,
+	items: { NavigationRailItem },
+	-- Size of the NavigationRail
+	-- Width is size.X.Offset
+	size: UDim2,
 	-- Size of each item in the NavigationRail
 	itemSize: UDim2,
 	-- Determines if the NavigationRail has in/out animation when it is toggled
 	isVisible: boolean?,
 	-- Callback function to render each item
-	renderItem: () -> React.ReactElement?,
+	renderItem: (NavigationRailItem, ControlState, boolean, number) -> (React.ReactElement?, { [any]: any }?),
 	-- Overrides the default color and transparency of the navigation rail background
 	backgroundColor: StyleTypes.BackgroundStyle?,
+	-- Overrides the default color and transparency of the root background
+	rootBackgroundColor: StyleTypes.BackgroundStyle?,
 	-- Override paddings to adapt a navigation rail instance to Safe Area Insets
 	paddings: StyleTypes.PaddingItem?,
-	-- Override the size of the NavigationRail
-	size: UDim2?,
 	-- Override the position of the NavigationRail
 	position: UDim2?,
 	-- Override the visibility of NavigationRail
@@ -53,46 +58,51 @@ export type Props = {
 	zIndex: number?,
 	-- Selection number in the InteractableList
 	selection: number?,
+	-- ClipsDescendants
+	clipsDescendants: boolean?,
 }
 
 local function NavigationRail(providedProps: Props)
 	local props = Cryo.Dictionary.join(defaultProps, providedProps)
 	local style = useStyle()
 
+	local width = props.size.X.Offset
 	local widthOffset, animateWidthOffset = ReactOtter.useAnimatedBinding(0)
 	React.useEffect(function()
 		if props.isVisible then
 			animateWidthOffset(ReactOtter.spring(0, props.animationConfig))
 		else
-			animateWidthOffset(ReactOtter.spring(-props.width, props.animationConfig))
+			animateWidthOffset(ReactOtter.spring(-width, props.animationConfig))
 		end
 		return nil
-	end, { props.width, props.isVisible, props.animationConfig } :: { any })
+	end, { width, props.isVisible, props.animationConfig } :: { any })
 
 	local verticalAlignment = if props.alignment == NavigationRailAlignment.Centered
 		then Enum.VerticalAlignment.Center
 		else Enum.VerticalAlignment.Top
 
 	local renderList = React.useCallback(function(items, renderItem)
-		local renderPrimeryItems = Cryo.List.map(items, function(item, key)
+		local renderPrimeryItems = {}
+		local renderSecondaryItems = {}
+		for i, item in ipairs(items) do
 			if item.isSecondary then
-				return nil
+				table.insert(renderSecondaryItems, renderItem(i))
 			else
-				return renderItem(key)
+				table.insert(renderPrimeryItems, renderItem(i))
 			end
-		end)
-		local renderSecondaryItems = if props.hasSecondaryNavigation
-			then Cryo.List.map(items, function(item, key)
-				if item.isSecondary then
-					return renderItem(key)
-				else
-					return nil
-				end
-			end)
-			else nil
+		end
+		local hasSecondaryNavigation = (#renderSecondaryItems > 0)
+
 		return React.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(0, props.width, 1, 0),
+			BackgroundColor3 = if props.rootBackgroundColor
+				then props.rootBackgroundColor.Color
+				else style.Theme.BackgroundDefault.Color,
+			BackgroundTransparency = if props.rootBackgroundColor
+				then props.rootBackgroundColor.Transparency
+				else style.Theme.BackgroundDefault.Transparency,
+			BorderSizePixel = 0,
+			ClipsDescendants = props.clipsDescendants,
+			Size = props.size,
 			Position = props.position,
 			Visible = props.visible,
 		}, {
@@ -104,10 +114,10 @@ local function NavigationRail(providedProps: Props)
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = if props.backgroundColor
 					then props.backgroundColor.Color
-					else style.Theme.BackgroundUIContrast.Color,
+					else style.Theme.NavigationBar.Color,
 				BackgroundTransparency = if props.backgroundColor
 					then props.backgroundColor.Transparency
-					else style.Theme.BackgroundUIContrast.Transparency,
+					else style.Theme.NavigationBar.Transparency,
 				Selectable = false,
 				Visible = props.visible,
 				ZIndex = props.zIndex,
@@ -151,7 +161,7 @@ local function NavigationRail(providedProps: Props)
 							}),
 						}, renderPrimeryItems),
 					}),
-					CenteredSeondaryItems = if props.hasSecondaryNavigation
+					CenteredSeondaryItems = if hasSecondaryNavigation
 							and props.alignment == NavigationRailAlignment.Centered
 						then React.createElement("Frame", {
 							BackgroundTransparency = 1,
@@ -168,7 +178,7 @@ local function NavigationRail(providedProps: Props)
 						})
 						else nil,
 				}),
-				BottomAlignedSecondaryItems = if props.hasSecondaryNavigation
+				BottomAlignedSecondaryItems = if hasSecondaryNavigation
 						and props.alignment == NavigationRailAlignment.Justified
 					then React.createElement("Frame", {
 						Position = UDim2.new(0, 0, 0, 0),
@@ -187,13 +197,16 @@ local function NavigationRail(providedProps: Props)
 			}),
 		})
 	end, {
+		style,
 		verticalAlignment,
-		props.width,
+		props.size,
+		props.clipsDescendants,
 		props.alignment,
-		props.hasSecondaryNavigation,
 		props.visible,
 		props.zIndex,
 		props.paddings,
+		props.rootBackgroundColor,
+		props.backgroundColor,
 	} :: { any })
 
 	local selection = props.selection
@@ -219,6 +232,7 @@ local function NavigationRail(providedProps: Props)
 		horizontalAlignment = Enum.HorizontalAlignment.Left,
 		sortOrder = Enum.SortOrder.LayoutOrder,
 		size = props.size,
+		position = props.position,
 		itemList = props.items,
 		selection = selection,
 		itemSize = props.itemSize,

@@ -1,0 +1,11 @@
+[package]
+name = "Cryo"
+version = "1.1.0"
+content_root = "src"
+files = [
+    "*",
+    "!*.spec.lua",
+]
+publish = true
+authors = ["Roblox"]
+license = "MIT"

@@ -35,6 +35,12 @@ export type Props = {
 	badgeValue: any?,
 	-- Layout style of the component
 	layout: NavigationTabLayoutType?,
+	-- Anchor point
+	anchorPoint: Vector2?,
+	-- Position
+	position: UDim2?,
+	-- Layout order
+	layoutOrder: number?,
 	-- Callback for activated event
 	onActivated: (() -> ())?,
 }
@@ -182,6 +188,9 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 		ref = ref,
 		Size = absSize,
 		BackgroundTransparency = 1,
+		AnchorPoint = props.anchorPoint,
+		Position = props.position,
+		LayoutOrder = props.layoutOrder,
 	}, {
 		Contents = contents,
 		StateLayer = React.createElement(StateLayer, {

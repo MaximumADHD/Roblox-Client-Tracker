@@ -2,4 +2,4 @@
 name = "lumberyak"
 version = "0.1.1"
 source = "registry"
-dependencies = ["Cryo Cryo 1.0.3 registry"]
+dependencies = ["Cryo Cryo 1.1.0 registry"]

@@ -4,7 +4,7 @@ version = "12.2.0"
 source = "registry"
 dependencies = [
     "DomTestingLibrary <patched> DomTestingLibrary d6029ec3 git+https://github.com/roblox/dom-testing-library-lua#main",
-    "JestGlobals JestGlobals 3.5.0 registry",
+    "JestGlobals JestGlobals 3.8.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
     "React React 17.0.1 registry",

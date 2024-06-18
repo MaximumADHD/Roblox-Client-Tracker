@@ -4,6 +4,7 @@ local DialogRoot = AlertRoot.Parent
 local AppRoot = DialogRoot.Parent
 local UIBlox = AppRoot.Parent
 local Packages = UIBlox.Parent
+local CoreRoot = UIBlox.Core
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
@@ -14,8 +15,12 @@ local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local Images = require(AppRoot.ImageSet.Images)
+local ImageSetComponent = require(CoreRoot.ImageSet.ImageSetComponent)
 
 local MARGIN = 24
+local X_IMAGE = "icons/navigation/close"
+local X_BUTTON_SIZE = 36
 
 local AlertTitle = Roact.PureComponent:extend("AlertTitle")
 
@@ -28,6 +33,7 @@ AlertTitle.validateProps = t.strictInterface({
 	title = t.string,
 	titlePadding = t.optional(t.number),
 	titleContent = t.optional(t.callback),
+	onCloseClicked = t.optional(t.callback),
 })
 
 AlertTitle.defaultProps = {
@@ -61,6 +67,7 @@ function AlertTitle:render()
 		else
 			headerSize = font.BaseSize * font.Header1.RelativeSize
 		end
+
 		return Roact.createElement(FitFrameOnAxis, {
 			BackgroundTransparency = 1,
 			contentPadding = UDim.new(0, 8),
@@ -88,15 +95,43 @@ function AlertTitle:render()
 				LayoutOrder = 1,
 				minimumSize = UDim2.new(1, 0, 0, 0),
 			}, {
-				Title = Roact.createElement(GenericTextLabel, {
-					colorStyle = theme.TextEmphasis,
-					fontStyle = if UIBloxConfig.alertTitleDesignTokenHeader then headerToken else font.Header1,
-					maxSize = Vector2.new(innerWidth, headerSize * 2),
-					LayoutOrder = 1,
-					Text = self.props.title,
-					TextSize = headerSize,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-				}),
+				Title = if self.props.onCloseClicked
+					then Roact.createElement("Frame", {
+						BackgroundTransparency = 1,
+						LayoutOrder = 1,
+						Size = UDim2.new(1, 0, 0, headerSize),
+					}, {
+						CloseButton = Roact.createElement(ImageSetComponent.Button, {
+							BackgroundTransparency = 1,
+							Size = UDim2.new(0, X_BUTTON_SIZE, 0, X_BUTTON_SIZE),
+							Image = Images[X_IMAGE],
+							ImageColor3 = theme.IconEmphasis.Color,
+							ImageTransparency = theme.IconEmphasis.Transparency,
+							AnchorPoint = Vector2.new(0, 0.5),
+							Position = UDim2.new(0, 0, 0.5, 0),
+							[Roact.Event.Activated] = self.props.onCloseClicked,
+						}),
+						TitleText = Roact.createElement(GenericTextLabel, {
+							AnchorPoint = Vector2.new(0.5, 0.5),
+							Position = UDim2.new(0.5, 0, 0.5, 0),
+							colorStyle = theme.TextEmphasis,
+							fontStyle = if UIBloxConfig.alertTitleDesignTokenHeader then headerToken else font.Header1,
+							Size = UDim2.new(1, -(2 * (X_BUTTON_SIZE + self.props.titlePadding)), 0, headerSize * 2),
+							LayoutOrder = 1,
+							Text = self.props.title,
+							TextSize = headerSize,
+							TextTruncate = Enum.TextTruncate.AtEnd,
+						}),
+					})
+					else Roact.createElement(GenericTextLabel, {
+						colorStyle = theme.TextEmphasis,
+						fontStyle = if UIBloxConfig.alertTitleDesignTokenHeader then headerToken else font.Header1,
+						maxSize = Vector2.new(innerWidth, headerSize * 2),
+						LayoutOrder = 1,
+						Text = self.props.title,
+						TextSize = headerSize,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+					}),
 				Underline = Roact.createElement("Frame", {
 					BorderSizePixel = 0,
 					BackgroundColor3 = theme.Divider.Color,

@@ -35,6 +35,7 @@ dropdownMenuListComponent.validateProps = t.strictInterface({
 	-- Indicate whether design override is enabled
 	enableTokenOverride = t.optional(t.boolean),
 	selectionOrder = t.optional(t.number),
+	menuPositionFixed = t.optional(t.boolean),
 })
 
 dropdownMenuListComponent.defaultProps = {
@@ -44,6 +45,7 @@ dropdownMenuListComponent.defaultProps = {
 	fixedListHeight = nil,
 	menuListBackground = nil,
 	enableTokenOverride = false,
+	menuPositionFixed = false,
 }
 
 function dropdownMenuListComponent:init()
@@ -92,7 +94,7 @@ function dropdownMenuListComponent:render()
 		end
 		local menuPosition = UDim2.new(0, 0, menuPositionY.Scale, menuPositionY.Offset)
 
-		if self.props.screenSize.X < 640 then
+		if self.props.screenSize.X < 640 and not self.props.menuPositionFixed then
 			anchorPointY = 1
 			menuPosition = UDim2.new(
 				-self.props.buttonSize.X.Scale / 2,

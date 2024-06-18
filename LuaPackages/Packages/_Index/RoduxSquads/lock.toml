@@ -4,7 +4,7 @@ version = "5.0.0"
 commit = "955a0dfbe4d92d08718d92489e5925f0c01283b2"
 source = "git+https://github.com/roblox/rodux-squads#v5.0.0"
 dependencies = [
-    "Cryo Cryo 1.0.3 registry",
+    "Cryo Cryo 1.1.0 registry",
     "NetworkingSquads NetworkingSquads 1.16.6 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxNetworking RoduxNetworking 3.2.1 registry",

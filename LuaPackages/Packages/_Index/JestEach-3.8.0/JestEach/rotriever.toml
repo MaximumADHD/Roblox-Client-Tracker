@@ -1,0 +1,34 @@
+[package]
+name = "JestEach"
+version = "3.8.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+license = "MIT"
+[dependencies.ChalkLua]
+version = "^0.2.0"
+
+[dependencies.JestGetType]
+package = "JestGetType"
+version = "^3.8.0"
+
+[dependencies.JestTypes]
+package = "JestTypes"
+version = "^3.8.0"
+
+[dependencies.JestUtil]
+package = "JestUtil"
+version = "^3.8.0"
+
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.PrettyFormat]
+package = "PrettyFormat"
+version = "^3.8.0"
+
+[dependencies.RegExp]
+version = "^0.2.1"

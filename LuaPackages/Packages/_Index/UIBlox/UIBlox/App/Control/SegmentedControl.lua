@@ -204,11 +204,6 @@ function SegmentedControl:render()
 					[Roact.Ref] = self.tabRefs[index],
 					NextSelectionLeft = index > 1 and self.tabRefs[index - 1] or nil,
 					NextSelectionRight = index < #self.props.tabs and self.tabRefs[index + 1] or nil,
-					onFocusGained = function()
-						if not tab.isDisabled then
-							self.selectTab(tab)
-						end
-					end,
 					inputBindings = {
 						LeaveA = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, moveToParent),
 						LeaveB = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonB, moveToParent),

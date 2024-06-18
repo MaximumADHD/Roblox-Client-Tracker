@@ -154,13 +154,15 @@ local function makeTest(
 	name: Circus_TestName,
 	parent: Circus_DescribeBlock,
 	timeout: number | nil,
-	asyncError: Circus_Exception
+	asyncError: Circus_Exception,
+	failing: boolean
 ): Circus_TestEntry
 	return {
 		type = "test", -- eslint-disable-next-line sort-keys
 		asyncError = asyncError,
 		duration = nil,
 		errors = {},
+		failing = failing,
 		fn = fn,
 		invocations = 0,
 		mode = mode,

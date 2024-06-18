@@ -1,0 +1,42 @@
+[package]
+name = "JestSnapshot"
+version = "3.8.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+license = "MIT"
+[dependencies.ChalkLua]
+version = "^0.2.0"
+
+[dependencies.JestDiff]
+package = "JestDiff"
+version = "^3.8.0"
+
+[dependencies.JestGetType]
+package = "JestGetType"
+version = "^3.8.0"
+
+[dependencies.JestMatcherUtils]
+package = "JestMatcherUtils"
+version = "^3.8.0"
+
+[dependencies.JestTypes]
+package = "JestTypes"
+version = "^3.8.0"
+
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.PrettyFormat]
+package = "PrettyFormat"
+version = "^3.8.0"
+
+[dependencies.Promise]
+version = "^3.3.0"
+
+[dependencies.RobloxShared]
+package = "RobloxShared"
+version = "^3.8.0"

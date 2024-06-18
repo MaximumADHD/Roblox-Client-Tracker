@@ -4,7 +4,7 @@ version = "0.1.0"
 commit = "285e839695342e4dcd66b78e9fc29de4f09c5d17"
 source = "git+https://github.com/roblox/lua-roact-policy-provider#master"
 dependencies = [
-    "Cryo Cryo 1.0.3 registry",
+    "Cryo Cryo 1.1.0 registry",
     "Lumberyak roblox/lumberyak e6abd03f git+https://github.com/roblox/lumberyak#master",
     "Mock jtaylor/mock d2c4005c git+https://github.com/roblox/mock#master",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",

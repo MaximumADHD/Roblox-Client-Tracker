@@ -1,0 +1,12 @@
+[package]
+name = "JestMock"
+version = "3.8.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+license = "MIT"
+[dependencies.LuauPolyfill]
+version = "^1"

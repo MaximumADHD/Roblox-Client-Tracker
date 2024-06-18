@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["RobloxShared-3.5.0"]["RobloxShared"])
+local Package = require(PackageIndex["RobloxShared-3.8.0"]["RobloxShared"])
 
 export type NodeJS_WriteStream = Package.NodeJS_WriteStream
 export type Writeable = Package.Writeable

@@ -12,6 +12,7 @@ local Array = LuauPolyfill.Array
 local Object = LuauPolyfill.Object
 local Set = LuauPolyfill.Set
 local console = LuauPolyfill.console
+local Boolean = LuauPolyfill.Boolean
 type Array<T> = LuauPolyfill.Array<T>
 type Object = LuauPolyfill.Object
 type Promise<T> = LuauPolyfill.Promise<T>
@@ -93,6 +94,10 @@ local process = nodeUtils.process
 local exit = nodeUtils.exit
 type NodeJS_WriteStream = RobloxShared.NodeJS_WriteStream
 local JSON = nodeUtils.JSON
+local ensureDirectoryExists = RobloxShared.ensureDirectoryExists
+local getDataModelService = RobloxShared.getDataModelService
+local FileSystemService = getDataModelService("FileSystemService")
+local CoreScriptSyncService = getDataModelService("CoreScriptSyncService")
 -- ROBLOX deviation END
 
 local function getTestPaths(
@@ -182,16 +187,13 @@ local function processResults(runResults: AggregatedResult, options: ProcessResu
 		-- ROBLOX deviation END
 
 		if isJSON then
-			-- ROBLOX deviation START: no output to file support
-			-- if Boolean.toJSBoolean(outputFile) then
-			-- 	local cwd = tryRealpath(process:cwd())
-			-- 	local filePath = path:resolve(cwd, outputFile)
-			-- 	fs:writeFileSync(filePath, JSON.stringify(formatTestResults(runResults)))
-			-- 	outputStream:write(("Test results written to: %s\n"):format(tostring(path:relative(cwd, filePath))))
-			-- else
-			process.stdout:write(JSON.stringify(formatTestResults(runResults)))
-			-- end
-			-- ROBLOX deviation END
+			if _outputFile and FileSystemService and Boolean.toJSBoolean(_outputFile) then
+				ensureDirectoryExists(_outputFile)
+				FileSystemService:WriteFile(_outputFile, JSON.stringify(formatTestResults(runResults)))
+				process.stdout:write(("Test results written to: %s\n"):format(tostring(_outputFile)))
+			else
+				process.stdout:write(JSON.stringify(formatTestResults(runResults)))
+			end
 		end
 
 		if onComplete ~= nil then
@@ -290,6 +292,10 @@ local function runJest(ref: {
 
 		if globalConfig.listTests then
 			local testsPaths = Array.from(Set.new(Array.map(allTests, function(test)
+				-- ROBLOX deviation: resolve to a FS path if CoreScriptSyncService is available
+				if CoreScriptSyncService then
+					return CoreScriptSyncService:GetScriptFilePath(test.script)
+				end
 				return test.path
 			end)))
 			--[[ eslint-disable no-console ]]

@@ -3,7 +3,7 @@ name = "RoactAppExperiment"
 version = "0.4.1"
 source = "registry"
 dependencies = [
-    "Cryo Cryo 1.0.3 registry",
+    "Cryo Cryo 1.1.0 registry",
     "React React 17.0.1 registry",
     "ReactRoblox ReactRoblox 17.0.1 registry",
     "Roact RoactCompat 17.0.1 registry",

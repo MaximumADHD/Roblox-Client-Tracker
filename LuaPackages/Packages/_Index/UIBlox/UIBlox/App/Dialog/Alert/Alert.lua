@@ -61,6 +61,8 @@ Alert.validateProps = t.strictInterface({
 	isMiddleContentFocusable = t.optional(t.boolean),
 	-- Boolean to determine if the footer content is focusable with a gamepad
 	isFooterContentFocusable = t.optional(t.boolean),
+	-- A function that is called when the X button in the Title has been clicked
+	onCloseClicked = t.optional(t.callback),
 })
 
 Alert.defaultProps = {
@@ -159,6 +161,7 @@ function Alert:render()
 					screenSize = self.props.screenSize,
 					title = self.props.title,
 					titleContent = self.props.titleContent,
+					onCloseClicked = self.props.onCloseClicked,
 				}),
 				MiddleContent = self.props.middleContent
 					and Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {

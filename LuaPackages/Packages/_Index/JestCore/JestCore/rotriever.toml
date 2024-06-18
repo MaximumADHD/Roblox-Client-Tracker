@@ -1,0 +1,73 @@
+[package]
+name = "JestCore"
+version = "3.8.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+license = "MIT"
+[dependencies.ChalkLua]
+version = "^0.2.0"
+
+[dependencies.Emittery]
+package = "Emittery"
+version = "^3.8.0"
+
+[dependencies.JestConfig]
+package = "JestConfig"
+version = "^3.8.0"
+
+[dependencies.JestConsole]
+package = "JestConsole"
+version = "^3.8.0"
+
+[dependencies.JestMessageUtil]
+package = "JestMessageUtil"
+version = "^3.8.0"
+
+[dependencies.JestReporters]
+package = "JestReporters"
+version = "^3.8.0"
+
+[dependencies.JestRunner]
+package = "JestRunner"
+version = "^3.8.0"
+
+[dependencies.JestRuntime]
+package = "JestRuntime"
+version = "^3.8.0"
+
+[dependencies.JestSnapshot]
+package = "JestSnapshot"
+version = "^3.8.0"
+
+[dependencies.JestTestResult]
+package = "JestTestResult"
+version = "^3.8.0"
+
+[dependencies.JestTypes]
+package = "JestTypes"
+version = "^3.8.0"
+
+[dependencies.JestUtil]
+package = "JestUtil"
+version = "^3.8.0"
+
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.PrettyFormat]
+package = "PrettyFormat"
+version = "^3.8.0"
+
+[dependencies.Promise]
+version = "^3.3.0"
+
+[dependencies.RegExp]
+version = "^0.2.1"
+
+[dependencies.RobloxShared]
+package = "RobloxShared"
+version = "^3.8.0"

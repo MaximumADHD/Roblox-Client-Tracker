@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestMessageUtil-3.5.0"]["JestMessageUtil"])
+local Package = require(PackageIndex["JestMessageUtil-3.8.0"]["JestMessageUtil"])
 
 export type StackTraceConfig = Package.StackTraceConfig
 export type StackTraceOptions = Package.StackTraceOptions

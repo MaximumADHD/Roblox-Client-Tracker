@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["JestTestResult-3.5.0"]["JestTestResult"])
+local Package = require(PackageIndex["JestTestResult-3.8.0"]["JestTestResult"])
 
 export type AggregatedResult = Package.AggregatedResult
 export type AssertionLocation = Package.AssertionLocation

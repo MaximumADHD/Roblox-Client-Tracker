@@ -69,9 +69,6 @@ local function wrapBenchFnInProfiler(testName: Circus_TestName, benchFn: BenchFn
 		Profiler.stop()
 
 		Profiler.finish()
-
-		-- Force gc step
-		task.wait()
 	end
 end
 

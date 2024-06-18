@@ -4,7 +4,7 @@ version = "3.1.0"
 commit = "c2fcb3b018db3be44b9b8a2acffe7c9f6da755f1"
 source = "git+https://github.com/roblox/rodux-presence#v3.1.0"
 dependencies = [
-    "Cryo Cryo 1.0.3 registry",
+    "Cryo Cryo 1.1.0 registry",
     "NetworkingPresence NetworkingPresence 0.8.0 registry",
     "Rodux <patched> Rodux 7ee23111 git+https://github.com/roblox/rodux#v3.2.0",
     "RoduxNetworking RoduxNetworking 3.2.1 registry",

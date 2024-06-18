@@ -3,6 +3,7 @@
 ]]
 
 return {
+	equals = require(script.equals),
 	filter = require(script.filter),
 	filterMap = require(script.filterMap),
 	find = require(script.find),

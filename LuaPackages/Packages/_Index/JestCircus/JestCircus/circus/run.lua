@@ -207,13 +207,26 @@ function _callCircusTest(test: Circus_TestEntry, testContext: Circus_TestContext
 		if #test.errors > 0 then
 			return -- We don't run the test if there's already an error in before hooks.
 		end
-
 		local ok, error_ = pcall(function()
 			callAsyncCircusFn(test, testContext, { isHook = false, timeout = timeout }):expect()
-			dispatch({ name = "test_fn_success", test = test }):expect()
+			if test.failing then
+				test.asyncError.message =
+					"Failing test passed even though it was supposed to fail. Remove `.failing` to remove error."
+				dispatch({
+					error = test.asyncError,
+					name = "test_fn_failure",
+					test = test,
+				})
+			else
+				dispatch({ name = "test_fn_success", test = test }):expect()
+			end
 		end)
 		if not ok then
-			dispatch({ error = error_, name = "test_fn_failure", test = test }):expect()
+			if test.failing then
+				dispatch({ name = "test_fn_success", test = test })
+			else
+				dispatch({ error = error_, name = "test_fn_failure", test = test }):expect()
+			end
 		end
 	end)
 end

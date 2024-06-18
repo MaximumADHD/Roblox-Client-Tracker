@@ -1,0 +1,31 @@
+[package]
+name = "JestEnvironmentLuau"
+version = "3.8.0"
+content_root = "src"
+files = [
+    "*",
+    "!**/__tests__/**",
+]
+publish = true
+license = "MIT"
+[dependencies.JestEnvironment]
+package = "JestEnvironment"
+version = "^3.8.0"
+
+[dependencies.JestFakeTimers]
+package = "JestFakeTimers"
+version = "^3.8.0"
+
+[dependencies.JestMock]
+package = "JestMock"
+version = "^3.8.0"
+
+[dependencies.JestTypes]
+package = "JestTypes"
+version = "^3.8.0"
+
+[dependencies.LuauPolyfill]
+version = "^1"
+
+[dependencies.Promise]
+version = "^3.3.0"

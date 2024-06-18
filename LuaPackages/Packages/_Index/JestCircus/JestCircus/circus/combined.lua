@@ -13,7 +13,6 @@ local exports = {}
 
 local CurrentModule = script.Parent
 local Packages = CurrentModule.Parent.Parent
-
 local typesModule = require(Packages.JestTypes)
 type Circus_EventHandler = typesModule.Circus_EventHandler
 
@@ -177,8 +176,8 @@ do
 				local currentDescribeBlock, currentlyRunningTest, hasStarted =
 					state.currentDescribeBlock, state.currentlyRunningTest, state.hasStarted
 				-- ROBLOX FIXME Luau: requires "type states" feature. need to explicitely type as Circus_BlockMode as Luau doesn't correctly infer the union of singleton types.
-				local asyncError, fn, mode: Circus_BlockMode, name, timeout =
-					event.asyncError, event.fn, event.mode, event.testName, event.timeout
+				local asyncError, fn, mode: Circus_BlockMode, name, timeout, failing =
+					event.asyncError, event.fn, event.mode, event.testName, event.timeout, event.failing
 
 				if currentlyRunningTest ~= nil then
 					table.insert(
@@ -200,8 +199,7 @@ do
 					)
 					break
 				end
-
-				local test = makeTest(fn, mode, name, currentDescribeBlock, timeout, asyncError)
+				local test = makeTest(fn, mode, name, currentDescribeBlock, timeout, asyncError, failing)
 				if currentDescribeBlock.mode ~= "skip" and test.mode == "only" then
 					state.hasFocusedTests = true
 				end

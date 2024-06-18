@@ -3,7 +3,7 @@ name = "RoactGamepad"
 version = "0.5.13"
 source = "registry"
 dependencies = [
-    "Cryo Cryo 1.0.3 registry",
+    "Cryo Cryo 1.1.0 registry",
     "React React 17.0.1 registry",
     "Roact RoactCompat 17.0.1 registry",
     "enumerate enumerate 1.1.0 registry",
