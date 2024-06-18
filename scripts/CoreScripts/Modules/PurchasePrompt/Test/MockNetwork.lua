@@ -8,14 +8,17 @@ local Promise = require(Root.Promise)
 
 local PurchaseWarning = require(Root.Enums.PurchaseWarning)
 
+local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
+	require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
+
 local function getABTestGroup()
 	return Promise.resolve(false)
 end
 
 local function getProductInfo(id, infoType)
 	return Promise.resolve({
-		AssetId	= 1,
-		AssetTypeId	= 2,
+		AssetId = 1,
+		AssetTypeId = 2,
 		ContentRatingTypeId = 0,
 		Creator = {
 			CreatorType = "Group",
@@ -86,7 +89,7 @@ local function getBundleDetails(bundleId)
 			id = 1,
 			isForSale = true,
 			priceInRobux = 100,
-		}
+		},
 	})
 end
 
@@ -95,6 +98,92 @@ local function getProductPurchasableDetails(productId)
 		purchasable = false,
 		reason = "mock-reason",
 		price = 100,
+	})
+end
+
+local function getCatalogItemDetails(itemId: number, itemType: ("asset" | "bundle"))
+	return Promise.resolve({
+		bundleType = 1,
+		bundledItems = {
+			[1] = {
+				["id"] = 10001,
+				["name"] = "Mock bundle - Left Arm",
+				["owned"] = true,
+				["type"] = "Asset",
+			},
+			[2] = {
+				["id"] = 1002,
+				["name"] = "Mock bundle - Right Leg",
+				["owned"] = true,
+				["type"] = "Asset",
+			},
+			[3] = {
+				["id"] = 1003,
+				["name"] = "Mock bundle - Right Arm",
+				["owned"] = true,
+				["type"] = "Asset",
+			},
+			[4] = {
+				["id"] = 1004,
+				["name"] = "Mock bundle - Left Leg",
+				["owned"] = true,
+				["type"] = "Asset",
+			},
+			[5] = {
+				["id"] = 1005,
+				["name"] = "Mock bundle - Dynamic Head",
+				["owned"] = true,
+				["type"] = "Asset",
+			},
+			[6] = {
+				["id"] = 1006,
+				["name"] = "Default Mood",
+				["owned"] = true,
+				["type"] = "Asset",
+			},
+			[7] = {
+				["id"] = 1007,
+				["name"] = "Mock bundle - Torso",
+				["owned"] = true,
+				["type"] = "Asset",
+			},
+			[8] = {
+				["id"] = 1008,
+				["name"] = "Mock item",
+				["owned"] = true,
+				["type"] = "UserOutfit",
+			},
+			[9] = {
+				["id"] = 1009,
+				["name"] = "Mock bundle Head",
+				["owned"] = true,
+				["type"] = "UserOutfit",
+			},
+		},
+		collectibleItemId = "random-collectible-item-id-123",
+		creatorHasVerifiedBadge = true,
+		creatorName = "mockRobloxCreator",
+		creatorTargetId = 123,
+		creatorType = "User",
+		description = "Mock bundle",
+		expectedSellerId = 123,
+		favoriteCount = 908,
+		hasReseller = false,
+		id = 123456,
+		isPurchasable = true,
+		itemRestrictions = {},
+		itemStatus = {},
+		itemType = "Bundle",
+		lowestPrice = 175,
+		lowestResalePrice = 0,
+		name = "Roblox Collectible Bundle",
+		owned = false,
+		price = 175,
+		productId = 1234567890123456,
+		purchaseCount = 0,
+		saleLocationType = "ShopAndAllExperiences",
+		totalQuantity = 0,
+		unitsAvailableForConsumption = 0,
 	})
 end
 
@@ -117,7 +206,7 @@ end
 
 local function getPurchaseWarning(productId)
 	return Promise.resolve({
-		action = PurchaseWarning.NoAction
+		action = PurchaseWarning.NoAction,
 	})
 end
 
@@ -132,7 +221,7 @@ function MockNetwork.new(successResult, failureResult)
 	local mockNetworkService
 
 	if failureResult or successResult then
-		local retFunction = function ()
+		local retFunction = function()
 			if successResult then
 				return Promise.resolve(successResult)
 			else
@@ -149,6 +238,7 @@ function MockNetwork.new(successResult, failureResult)
 			getBalanceInfo = retFunction,
 			getBundleDetails = retFunction,
 			getProductPurchasableDetails = retFunction,
+			getCatalogItemDetails = if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase() then retFunction else nil,
 			getRobuxUpsellProduct = retFunction,
 			postPremiumImpression = retFunction,
 			getPremiumUpsellPrecheck = retFunction,
@@ -166,6 +256,9 @@ function MockNetwork.new(successResult, failureResult)
 			getBalanceInfo = getBalanceInfo,
 			getBundleDetails = getBundleDetails,
 			getProductPurchasableDetails = getProductPurchasableDetails,
+			getCatalogItemDetails = if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase()
+				then getCatalogItemDetails
+				else nil,
 			getRobuxUpsellProduct = getRobuxUpsellProduct,
 			postPremiumImpression = postPremiumImpression,
 			getPremiumUpsellPrecheck = getPremiumUpsellPrecheck,
@@ -177,7 +270,7 @@ function MockNetwork.new(successResult, failureResult)
 	setmetatable(mockNetworkService, {
 		__tostring = function()
 			return "MockService(Network)"
-		end
+		end,
 	})
 
 	return mockNetworkService

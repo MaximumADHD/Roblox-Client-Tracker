@@ -25,7 +25,7 @@ local FFlagFacialAnimationStreamingClearTrackImprovementsV2 = game:DefineFastFla
 game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",false)
 game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
 game:DefineFastFlag("StopStreamTrackOnDeath", false)
-game:DefineFastFlag("FacialAnimationStreamingClearAllConnectionsFix", false)
+game:DefineFastFlag("FacialAnimationStreamingClearAllConnectionsFix2", false)
 game:DefineFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C", false)
 local FFlagFacialAnimationStreamingCheckPauseStateAfterEmote2 = game:DefineFastFlag("FacialAnimationStreamingCheckPauseStateAfterEmote2", false)
 local GetFFlagAvatarChatServiceEnabled = require(RobloxGui.Modules.Flags.GetFFlagAvatarChatServiceEnabled)
@@ -110,7 +110,7 @@ local function clearConnection(player, connectionType)
 end
 
 local function clearAllConnections(player)
-	if game:GetFastFlag("FacialAnimationStreamingClearAllConnectionsFix") then
+	if game:GetFastFlag("FacialAnimationStreamingClearAllConnectionsFix2") then
 		for _,connectionType in pairs(Connections) do
 			clearConnection(player, connectionType)
 		end
@@ -450,7 +450,7 @@ local function onCharacterRemoving(player, character)
 	playerTrace("Player character removing", player)
 
 	-- clear previous connections
-	if game:GetFastFlag("FacialAnimationStreamingClearAllConnectionsFix") then
+	if game:GetFastFlag("FacialAnimationStreamingClearAllConnectionsFix2") then
 		clearConnection(player, Connections.CharacterDescendantAdded)
 		clearConnection(player, Connections.CharacterDescendantRemoving)
 	else
@@ -466,12 +466,21 @@ local function playerUpdate(player)
 	-- Setup the player animation
 	local setupPlayer = playerJoinedGame[player.UserId]
 
+	if game:GetFastFlag("FacialAnimationStreamingClearAllConnectionsFix2") then
+		if setupPlayer and playerAnimations[player.UserId] then
+			playerTrace("Player already setup", player)
+			return
+		end
+	end
+
 	clearAllConnections(player)
 
 	if setupPlayer then
-		if playerAnimations[player.UserId] then
-			playerTrace("Player already setup", player)
-			return
+		if not game:GetFastFlag("FacialAnimationStreamingClearAllConnectionsFix2") then
+			if playerAnimations[player.UserId] then
+				playerTrace("Player already setup", player)
+				return
+			end
 		end
 		playerTrace("Player update - joined", player)
 

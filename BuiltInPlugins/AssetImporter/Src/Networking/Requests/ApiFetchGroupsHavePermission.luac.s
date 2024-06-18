@@ -20,13 +20,15 @@ PROTO_0:
   MOVE R12 R9
   GETIMPORT R10 K7 [table.insert]
   CALL R10 2 0
-  JUMP [+6]
+  JUMP [+9]
   GETIMPORT R10 K9 [error]
-  LOADK R12 K10 ["Parsing error for ApiFetchGroupsCanManage: "]
-  MOVE R13 R9
-  CONCAT R11 R12 R13
+  LOADK R12 K10 ["Parsing error for ApiFetchGroupsCanManage: %*"]
+  MOVE R14 R9
+  NAMECALL R12 R12 K11 ["format"]
+  CALL R12 2 1
+  MOVE R11 R12
   CALL R10 1 0
-  FORGLOOP R3 2 [-22]
+  FORGLOOP R3 2 [-25]
   RETURN R2 1
 
 PROTO_1:

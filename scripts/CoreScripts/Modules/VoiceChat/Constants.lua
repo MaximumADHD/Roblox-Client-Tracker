@@ -36,11 +36,20 @@ local VOICE_JOIN_PROGRESS = {
 	Left = "Left" :: VoiceJoinProgressType, -- User has declined to join call
 }
 
-local IN_EXP_UPSELL_VARIANT  = {
+local IN_EXP_UPSELL_VARIANT = {
 	CONTROL = "control",
 	VARIANT1 = "variant1",
 	VARIANT2 = "variant2",
 	VARIANT3 = "variant3",
+}
+
+local MODAL_IDS = {
+	IN_EXP_UPSELL = "in-experience-voice-upsell",
+}
+
+local IN_EXP_UPSELL_ENTRYPOINTS = {
+	JOIN_VOICE = "joinVoiceButton",
+	LIKELY_SPEAKING = "likelySpeakingBubble",
 }
 
 return {
@@ -50,4 +59,6 @@ return {
 	VOICE_STATE = VOICE_STATE,
 	BAN_REASON = BAN_REASON,
 	IN_EXP_UPSELL_VARIANT = IN_EXP_UPSELL_VARIANT,
+	MODAL_IDS = MODAL_IDS,
+	IN_EXP_UPSELL_ENTRYPOINTS = IN_EXP_UPSELL_ENTRYPOINTS,
 }

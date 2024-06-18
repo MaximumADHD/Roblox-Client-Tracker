@@ -7,8 +7,8 @@ return function(arg1, arg2)
    local var1 = arg2
    local var2 = nil
    local var3 = nil
-   if var2(var35, arg1) then
-      table.insert(var0, var39)
+   if var2(var21, arg1) then
+      table.insert(var0, var25)
    end
    return var0
 end

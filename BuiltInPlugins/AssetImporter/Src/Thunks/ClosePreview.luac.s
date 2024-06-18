@@ -2,26 +2,21 @@ PROTO_0:
   NAMECALL R3 R0 K0 ["getState"]
   CALL R3 1 1
   GETTABLEKS R2 R3 K1 ["Preview"]
-  GETTABLEKS R1 R2 K2 ["filename"]
-  NAMECALL R5 R0 K0 ["getState"]
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K3 ["Sessions"]
-  GETTABLEKS R3 R4 K4 ["sessionQueue"]
-  GETTABLE R2 R3 R1
-  GETUPVAL R5 0
-  MOVE R6 R2
-  CALL R5 1 -1
-  NAMECALL R3 R0 K5 ["dispatch"]
-  CALL R3 -1 0
-  GETUPVAL R5 1
-  LOADB R6 0
-  CALL R5 1 -1
-  NAMECALL R3 R0 K5 ["dispatch"]
-  CALL R3 -1 0
-  GETUPVAL R5 2
-  CALL R5 0 -1
-  NAMECALL R3 R0 K5 ["dispatch"]
-  CALL R3 -1 0
+  GETTABLEKS R1 R2 K2 ["activeQueueItem"]
+  GETUPVAL R4 0
+  MOVE R5 R1
+  CALL R4 1 -1
+  NAMECALL R2 R0 K3 ["dispatch"]
+  CALL R2 -1 0
+  GETUPVAL R4 1
+  LOADB R5 0
+  CALL R4 1 -1
+  NAMECALL R2 R0 K3 ["dispatch"]
+  CALL R2 -1 0
+  GETUPVAL R4 2
+  CALL R4 0 -1
+  NAMECALL R2 R0 K3 ["dispatch"]
+  CALL R2 -1 0
   RETURN R0 0
 
 PROTO_1:

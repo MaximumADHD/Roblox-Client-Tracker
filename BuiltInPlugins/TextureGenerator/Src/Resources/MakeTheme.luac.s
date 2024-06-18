@@ -49,26 +49,50 @@ MAIN:
   GETTABLEKS R10 R1 K18 ["Dictionary"]
   GETTABLEKS R9 R10 K19 ["join"]
   MOVE R10 R6
-  NEWTABLE R11 2 0
+  NEWTABLE R11 8 0
   GETTABLEKS R12 R5 K20 ["PreviewAreaNext"]
   LOADK R13 K21 ["rbxasset://studio_svg_textures/Lua/TextureGenerator/Dark/Standard/next.png"]
   SETTABLE R13 R11 R12
   GETTABLEKS R12 R5 K22 ["PreviewAreaPrevious"]
   LOADK R13 K23 ["rbxasset://studio_svg_textures/Lua/TextureGenerator/Dark/Standard/previous.png"]
   SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K24 ["ThumbsUp"]
+  LOADK R13 K25 ["rbxasset://studio_svg_textures/Shared/GenerativeAI/Dark/Standard/ThumbsUp.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K26 ["ThumbsDown"]
+  LOADK R13 K27 ["rbxasset://studio_svg_textures/Shared/GenerativeAI/Dark/Standard/ThumbsDown.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K28 ["ThumbsUpOutline"]
+  LOADK R13 K29 ["rbxasset://studio_svg_textures/Shared/GenerativeAI/Dark/Standard/ThumbsUpOutline.png"]
+  SETTABLE R13 R11 R12
+  GETTABLEKS R12 R5 K30 ["ThumbsDownOutline"]
+  LOADK R13 K31 ["rbxasset://studio_svg_textures/Shared/GenerativeAI/Dark/Standard/ThumbsDownOutline.png"]
+  SETTABLE R13 R11 R12
   CALL R9 2 1
   GETTABLEKS R11 R1 K18 ["Dictionary"]
   GETTABLEKS R10 R11 K19 ["join"]
   MOVE R11 R7
-  NEWTABLE R12 2 0
+  NEWTABLE R12 8 0
   GETTABLEKS R13 R5 K20 ["PreviewAreaNext"]
-  LOADK R14 K24 ["rbxasset://studio_svg_textures/Lua/TextureGenerator/Light/Standard/next.png"]
+  LOADK R14 K32 ["rbxasset://studio_svg_textures/Lua/TextureGenerator/Light/Standard/next.png"]
   SETTABLE R14 R12 R13
   GETTABLEKS R13 R5 K22 ["PreviewAreaPrevious"]
-  LOADK R14 K25 ["rbxasset://studio_svg_textures/Lua/TextureGenerator/Light/Standard/previous.png"]
+  LOADK R14 K33 ["rbxasset://studio_svg_textures/Lua/TextureGenerator/Light/Standard/previous.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K24 ["ThumbsUp"]
+  LOADK R14 K34 ["rbxasset://studio_svg_textures/Shared/GenerativeAI/Light/Standard/ThumbsUp.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K26 ["ThumbsDown"]
+  LOADK R14 K35 ["rbxasset://studio_svg_textures/Shared/GenerativeAI/Light/Standard/ThumbsDown.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K28 ["ThumbsUpOutline"]
+  LOADK R14 K36 ["rbxasset://studio_svg_textures/Shared/GenerativeAI/Light/Standard/ThumbsUpOutline.png"]
+  SETTABLE R14 R12 R13
+  GETTABLEKS R13 R5 K30 ["ThumbsDownOutline"]
+  LOADK R14 K37 ["rbxasset://studio_svg_textures/Shared/GenerativeAI/Light/Standard/ThumbsDownOutline.png"]
   SETTABLE R14 R12 R13
   CALL R10 2 1
-  DUPCLOSURE R11 K26 [PROTO_0]
+  DUPCLOSURE R11 K38 [PROTO_0]
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10

@@ -36,6 +36,8 @@ local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuIn
 local GetFFlagEnableInsufficientRobuxForBundleUpsellFix =
 	require(Root.Flags.GetFFlagEnableInsufficientRobuxForBundleUpsellFix)
 local FFlagEnableBundlePurchaseChecks = require(Root.Parent.Flags.FFlagEnableBundlePurchaseChecks)
+local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
+	require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
 
 local function getBundlePriceFromProductInfo(bundleDetails, isPlayerPremium)
 	if bundleDetails and bundleDetails.product ~= nil then
@@ -48,6 +50,43 @@ local function getBundlePriceFromProductInfo(bundleDetails, isPlayerPremium)
 
 	-- Price info not found so return 0
 	return 0
+end
+
+local function meetsBundlePrerequisitesV2(catalogItemDetails, bundleDetails, balanceInfo, expectedPrice)
+	local isOwned = catalogItemDetails.owned
+	local collectibleItemDetail = bundleDetails.collectibleItemDetail
+	local isCollectible = collectibleItemDetail
+		and collectibleItemDetail.collectibleItemId ~= nil
+		and collectibleItemDetail.collectibleItemId ~= ""
+
+	local isLimitedCollectible = collectibleItemDetail and collectibleItemDetail.collectibleItemType == "Limited"
+
+	--Check if the bundle is already owned and can't be purchased again
+	if isCollectible then
+		if not isLimitedCollectible and isOwned then
+			-- Non-limited collectibles can only be purchased once
+			return false, PurchaseError.AlreadyOwn
+		end
+	else
+		if isOwned then
+			-- Legacy bundles can only be puchased once
+			return false, PurchaseError.AlreadyOwn
+		end
+	end
+
+	if not catalogItemDetails.isPurchasable then
+		return false, PurchaseError.NotForSale
+	end
+
+	-- Check if the user has enough Robux to purchase the bundle
+	if expectedPrice ~= nil and balanceInfo.robux ~= nil then
+		if expectedPrice > balanceInfo.robux then
+			return false, PurchaseError.NotEnoughRobux
+		end
+	end
+
+	-- No failed prerequisites
+	return true, nil
 end
 
 local function meetsBundlePrerequisites(bundleDetails, balanceInfo, expectedPrice, alreadyOwned)
@@ -116,7 +155,7 @@ local requiredServices = {
 }
 
 local function resolveBundlePromptState(
-	productPurchasableDetails,
+	catalogItemDetails,
 	bundleDetails,
 	accountInfo,
 	balanceInfo,
@@ -139,8 +178,14 @@ local function resolveBundlePromptState(
 			end
 		end
 
-		local canPurchase, failureReason =
-			meetsBundlePrerequisites(bundleDetails, balanceInfo, expectedPrice, alreadyOwned)
+		local canPurchase, failureReason
+		if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase() then
+			canPurchase, failureReason =
+				meetsBundlePrerequisitesV2(catalogItemDetails, bundleDetails, balanceInfo, expectedPrice)
+		else
+			canPurchase, failureReason =
+				meetsBundlePrerequisites(bundleDetails, balanceInfo, expectedPrice, alreadyOwned)
+		end
 		local price = expectedPrice
 		local platform = UserInputService:GetPlatform()
 		local upsellFlow = getUpsellFlow(platform)

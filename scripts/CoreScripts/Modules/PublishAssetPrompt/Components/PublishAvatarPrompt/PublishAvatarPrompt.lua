@@ -23,9 +23,6 @@ local DELAYED_INPUT_ANIM_SEC = 3
 
 local NAME_METADATA_STRING = "avatarName"
 
-local TITLE_TEXT = "title"
-local BODY_TEXT = "body"
-
 local PublishAvatarPrompt = Roact.PureComponent:extend("PublishAvatarPrompt")
 
 PublishAvatarPrompt.validateProps = t.strictInterface({
@@ -43,7 +40,8 @@ function PublishAvatarPrompt:init()
 
 	self:setState({
 		showingPreviewView = false,
-		name = LocalPlayer.Name .. "'s Body", -- TODO AVBURST-12954 localize
+		-- UGC body creation does not localize similar text, so we don't localize here
+		name = LocalPlayer.Name .. "'s Body",
 		isNameValid = true,
 	})
 	self.openPreviewView = function()
@@ -114,18 +112,7 @@ function PublishAvatarPrompt:renderPromptBody()
 	})
 end
 
-local function GetLocalizedStrings()
-	local strings = {}
-	strings[BODY_TEXT] = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Body")
-
-	-- TODO: AVBURST-12954 placeholder title
-	strings[TITLE_TEXT] = "Submit Creation"
-
-	return strings
-end
-
 function PublishAvatarPrompt:render()
-	local localized = GetLocalizedStrings()
 	assert(Players, "Players should always be defined, silence type checker")
 	return Roact.createElement(BasePublishPrompt, {
 		promptBody = self:renderPromptBody(),
@@ -133,10 +120,10 @@ function PublishAvatarPrompt:render()
 		showingPreviewView = self.state.showingPreviewView,
 		closePreviewView = self.closePreviewView,
 		asset = self.props.humanoidModel,
-		nameLabel = "Body Name", -- TODO AVBURST-12954 localize
+		nameLabel = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.BodyName"),
 		defaultName = self.state.name,
-		typeData = localized[BODY_TEXT],
-		titleText = localized[TITLE_TEXT],
+		typeData = RobloxTranslator:FormatByKey("Feature.Catalog.Label.Body"),
+		titleText = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.SubmitCreation"),
 		onNameUpdated = self.onNameUpdated,
 		canSubmit = self.canSubmit,
 		onSubmit = self.onSubmit,

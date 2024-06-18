@@ -120,5 +120,30 @@ MAIN:
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K29 ["ToolboxSceneAnalysisPollingSeconds"]
+  LOADN R3 15
+  NAMECALL R0 R0 K19 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K30 ["ToolboxSceneAnalysisViewportMaxScreenDivisions"]
+  LOADN R3 16
+  NAMECALL R0 R0 K19 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K31 ["ToolboxSceneAnalysisViewportMaxDistance"]
+  LOADN R3 136
+  NAMECALL R0 R0 K19 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K32 ["ToolboxSceneAnalysisRangeMaxDistance"]
+  LOADN R3 100
+  NAMECALL R0 R0 K19 ["DefineFastInt"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K33 ["ToolboxSceneAnalysisAssetLimit"]
+  LOADN R3 30
+  NAMECALL R0 R0 K19 ["DefineFastInt"]
+  CALL R0 3 0
   LOADNIL R0
   RETURN R0 1

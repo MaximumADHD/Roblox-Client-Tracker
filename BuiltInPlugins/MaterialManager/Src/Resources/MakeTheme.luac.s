@@ -511,7 +511,7 @@ PROTO_0:
   SETTABLEKS R14 R13 K115 ["Image"]
   SETTABLEKS R13 R12 K159 ["Warning"]
   SETTABLEKS R12 R11 K29 ["StatusIcon"]
-  DUPTABLE R12 K171 [{"CreateNewVariant", "ShowInExplorer", "MaterialAsToolMouseIcon", "TopBarButtonWidth", "BackgroundColor", "ViewTypeBackground", "ButtonSize", "Padding", "SearchBarMaxWidth", "SpacerWidth", "ViewTypeSize"}]
+  DUPTABLE R12 K171 [{"CreateNewVariant", "ShowInExplorer", "DEPRECATED_MaterialAsToolMouseIcon", "TopBarButtonWidth", "BackgroundColor", "ViewTypeBackground", "ButtonSize", "Padding", "SearchBarMaxWidth", "SpacerWidth", "ViewTypeSize"}]
   DUPTABLE R13 K174 [{"Image", "Color", "Position", "Size"}]
   LOADK R14 K149 ["rbxasset://textures/MaterialManager/Create_New_Variant.png"]
   SETTABLEKS R14 R13 K115 ["Image"]
@@ -582,7 +582,7 @@ PROTO_0:
   GETTABLEKS R16 R17 K182 ["ButtonPressed"]
   SETTABLEKS R16 R15 K35 ["BackgroundColor"]
   SETTABLE R15 R13 R14
-  SETTABLEKS R13 R12 K165 ["MaterialAsToolMouseIcon"]
+  SETTABLEKS R13 R12 K165 ["DEPRECATED_MaterialAsToolMouseIcon"]
   LOADN R13 28
   SETTABLEKS R13 R12 K166 ["TopBarButtonWidth"]
   GETUPVAL R14 1

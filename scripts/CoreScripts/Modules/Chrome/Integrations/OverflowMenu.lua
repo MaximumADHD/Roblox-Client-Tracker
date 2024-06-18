@@ -9,6 +9,32 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local EmotesMenuMaster = require(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(RobloxGui.Modules.BackpackScript)
+local Types = require(script.Parent.Parent.Service.Types)
+
+local GetFFlagUnpinUnavailable = require(script.Parent.Parent.Flags.GetFFlagUnpinUnavailable)
+
+function checkCoreGui(
+	integration: { availability: ChromeUtils.AvailabilitySignal, id: Types.IntegrationId },
+	coreGui,
+	callback: (boolean) -> ()?
+)
+	ChromeUtils.setCoreGuiAvailability(integration, coreGui, function(available)
+		if not available then
+			ChromeService:removeUserPin(integration.id)
+		end
+
+		if callback then
+			callback(available)
+			return
+		end
+
+		if available then
+			integration.availability:available()
+		else
+			integration.availability:unavailable()
+		end
+	end)
+end
 
 local leaderboardVisibility = MappedSignal.new(PlayerListMaster:GetSetVisibleChangedEvent().Event, function()
 	return PlayerListMaster:GetSetVisible()
@@ -37,7 +63,11 @@ local leaderboard = ChromeService:register({
 		end,
 	},
 })
-ChromeUtils.setCoreGuiAvailability(leaderboard, Enum.CoreGuiType.PlayerList)
+if GetFFlagUnpinUnavailable() then
+	checkCoreGui(leaderboard, Enum.CoreGuiType.PlayerList)
+else
+	ChromeUtils.setCoreGuiAvailability(leaderboard, Enum.CoreGuiType.PlayerList)
+end
 
 local emotesVisibility = MappedSignal.new(EmotesMenuMaster.EmotesMenuToggled.Event, function()
 	return EmotesMenuMaster:isOpen()
@@ -76,10 +106,17 @@ function updateEmoteAvailability()
 	end
 end
 
-ChromeUtils.setCoreGuiAvailability(emotes, Enum.CoreGuiType.EmotesMenu, function(available)
-	coreGuiEmoteAvailable = available
-	updateEmoteAvailability()
-end)
+if GetFFlagUnpinUnavailable() then
+	checkCoreGui(emotes, Enum.CoreGuiType.EmotesMenu, function(available)
+		coreGuiEmoteAvailable = available
+		updateEmoteAvailability()
+	end)
+else
+	ChromeUtils.setCoreGuiAvailability(emotes, Enum.CoreGuiType.EmotesMenu, function(available)
+		coreGuiEmoteAvailable = available
+		updateEmoteAvailability()
+	end)
+end
 
 EmotesMenuMaster.MenuVisibilityChanged.Event:Connect(function()
 	emoteMounted = EmotesMenuMaster.MenuIsVisible
@@ -107,7 +144,11 @@ local backpack = ChromeService:register({
 		end,
 	},
 })
-ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
+if GetFFlagUnpinUnavailable() then
+	checkCoreGui(backpack, Enum.CoreGuiType.Backpack)
+else
+	ChromeUtils.setCoreGuiAvailability(backpack, Enum.CoreGuiType.Backpack)
+end
 
 local respawn = ChromeService:register({
 	id = "respawn",
@@ -129,6 +170,9 @@ function updateRespawn(enabled)
 		respawn.availability:available()
 	else
 		respawn.availability:unavailable()
+		if GetFFlagUnpinUnavailable() then
+			ChromeService:removeUserPin(respawn.id)
+		end
 	end
 end
 

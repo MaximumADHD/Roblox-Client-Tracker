@@ -42,9 +42,7 @@ PROTO_0:
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K2 ["update"]
   GETUPVAL R6 0
-  DUPTABLE R7 K11 [{"currentPreset", "errors", "warnings"}]
-  LOADK R8 K12 [""]
-  SETTABLEKS R8 R7 K10 ["currentPreset"]
+  DUPTABLE R7 K10 [{"errors", "warnings"}]
   SETTABLEKS R3 R7 K6 ["errors"]
   SETTABLEKS R4 R7 K8 ["warnings"]
   CALL R5 2 1

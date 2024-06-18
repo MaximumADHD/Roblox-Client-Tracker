@@ -15,27 +15,27 @@ local function fun9(arg1)
    local var4 = var0.NextScreen
    local var5 = var0.OpenNextScreen
    local var6 = var0.IsPublish
-   local var480 = {}
-   var480.BackgroundColor3 = var1.backgroundColor
-   var480.BorderSizePixel = 0
-   var480.Size = UDim2.new(1, 0, 0, var1.FOOTER_HEIGHT)
-   var480.AnchorPoint = Vector2.new(0, 1)
-   var480.Position = UDim2.new(0, 0, 1, 0)
-   var480.ZIndex = 2
-   local var500 = {}
-   local var504 = {}
-   var504.Size = UDim2.new(1, 0, 0, 3)
-   var504.AnchorPoint = Vector2.new(0, 1)
-   var504.Image = "rbxasset://textures/gradient.png"
-   var504.ImageRectSize = var0
-   var504.BorderSizePixel = 0
-   var504.BackgroundTransparency = 1
-   var504.ImageColor3 = var1.footer.gradient
-   var504.ImageTransparency = 0.9
-   var504.ZIndex = 1
-   var500.Gradient = var2.createElement("ImageLabel", var504)
-   local var527 = {}
-   var527.ZIndex = 2
+   local var510 = {}
+   var510.BackgroundColor3 = var1.backgroundColor
+   var510.BorderSizePixel = 0
+   var510.Size = UDim2.new(1, 0, 0, var1.FOOTER_HEIGHT)
+   var510.AnchorPoint = Vector2.new(0, 1)
+   var510.Position = UDim2.new(0, 0, 1, 0)
+   var510.ZIndex = 2
+   local var530 = {}
+   local var534 = {}
+   var534.Size = UDim2.new(1, 0, 0, 3)
+   var534.AnchorPoint = Vector2.new(0, 1)
+   var534.Image = "rbxasset://textures/gradient.png"
+   var534.ImageRectSize = var0
+   var534.BorderSizePixel = 0
+   var534.BackgroundTransparency = 1
+   var534.ImageColor3 = var1.footer.gradient
+   var534.ImageTransparency = 0.9
+   var534.ZIndex = 1
+   var530.Gradient = var2.createElement("ImageLabel", var534)
+   local var557 = {}
+   var557.ZIndex = 2
    local var7 = {}
    var7.Name = "Cancel"
    var7.Active = true
@@ -45,8 +45,8 @@ local function fun9(arg1)
    var8.Default = true
    var8.Active = var3.Active
    var8.Value = true
-   var527.Buttons = {}
-   var527.HorizontalAlignment = Enum.HorizontalAlignment.Right
+   var557.Buttons = {}
+   var557.HorizontalAlignment = Enum.HorizontalAlignment.Right
    local function fun7(arg1)
       if arg1 then
          var3.OnActivated()
@@ -55,7 +55,7 @@ local function fun9(arg1)
       var2()
    end
    
-   function var527.buttonActivated(arg1)
+   function var557.buttonActivated(arg1)
       if arg1 then
          var3.OnActivated()
       end
@@ -64,27 +64,27 @@ local function fun9(arg1)
    end
    
    fun7 = var0[var2.Children]
-   var500.SaveSettings = var2.createElement(var5, var527, fun7)
+   var530.SaveSettings = var2.createElement(var5, var557, fun7)
    if var4 == "props" then
-      local var552 = {}
-      var552.Size = UDim2.new(0.15, 0, 0.5, 0)
-      var552.Position = UDim2.new(0.13, 0, 0.5, 0)
-      var552.AnchorPoint = Vector2.new(0.5, 0.5)
-      var552.BorderSizePixel = 3
-      var552.TextColor3 = var1.defaultButton.ButtonColor
-      var552.BackgroundTransparency = 1
-      var552.TextXAlignment = Enum.TextXAlignment.Left
-      var552.TextSize = 20
-      var552.Font = var1.footer.textbutton.font
-      var552.Text = var0.Localization:getText("FooterButton", var0.NextScreenText)
+      local var582 = {}
+      var582.Size = UDim2.new(0.15, 0, 0.5, 0)
+      var582.Position = UDim2.new(0.13, 0, 0.5, 0)
+      var582.AnchorPoint = Vector2.new(0.5, 0.5)
+      var582.BorderSizePixel = 3
+      var582.TextColor3 = var1.defaultButton.ButtonColor
+      var582.BackgroundTransparency = 1
+      var582.TextXAlignment = Enum.TextXAlignment.Left
+      var582.TextSize = 20
+      var582.Font = var1.footer.textbutton.font
+      var582.Text = var0.Localization:getText("FooterButton", var0.NextScreenText)
       function var2.Event.Activated()
          var5(var4)
       end
       
-      local var0 = var2.createElement("TextButton", var552)
+      local var0 = var2.createElement("TextButton", var582)
    end
-   var500.GotoNextScreen = false
-   return var2.createElement("Frame", var480, var500)
+   var530.GotoNextScreen = false
+   return var2.createElement("Frame", var510, var530)
 end
 
 function var7.render(arg1)
@@ -95,27 +95,27 @@ function var7.render(arg1)
    local var4 = var0.NextScreen
    local var5 = var0.OpenNextScreen
    local var6 = var0.IsPublish
-   local var480 = {}
-   var480.BackgroundColor3 = var1.backgroundColor
-   var480.BorderSizePixel = 0
-   var480.Size = UDim2.new(1, 0, 0, var1.FOOTER_HEIGHT)
-   var480.AnchorPoint = Vector2.new(0, 1)
-   var480.Position = UDim2.new(0, 0, 1, 0)
-   var480.ZIndex = 2
-   local var500 = {}
-   local var504 = {}
-   var504.Size = UDim2.new(1, 0, 0, 3)
-   var504.AnchorPoint = Vector2.new(0, 1)
-   var504.Image = "rbxasset://textures/gradient.png"
-   var504.ImageRectSize = var0
-   var504.BorderSizePixel = 0
-   var504.BackgroundTransparency = 1
-   var504.ImageColor3 = var1.footer.gradient
-   var504.ImageTransparency = 0.9
-   var504.ZIndex = 1
-   var500.Gradient = var2.createElement("ImageLabel", var504)
-   local var527 = {}
-   var527.ZIndex = 2
+   local var510 = {}
+   var510.BackgroundColor3 = var1.backgroundColor
+   var510.BorderSizePixel = 0
+   var510.Size = UDim2.new(1, 0, 0, var1.FOOTER_HEIGHT)
+   var510.AnchorPoint = Vector2.new(0, 1)
+   var510.Position = UDim2.new(0, 0, 1, 0)
+   var510.ZIndex = 2
+   local var530 = {}
+   local var534 = {}
+   var534.Size = UDim2.new(1, 0, 0, 3)
+   var534.AnchorPoint = Vector2.new(0, 1)
+   var534.Image = "rbxasset://textures/gradient.png"
+   var534.ImageRectSize = var0
+   var534.BorderSizePixel = 0
+   var534.BackgroundTransparency = 1
+   var534.ImageColor3 = var1.footer.gradient
+   var534.ImageTransparency = 0.9
+   var534.ZIndex = 1
+   var530.Gradient = var2.createElement("ImageLabel", var534)
+   local var557 = {}
+   var557.ZIndex = 2
    local var7 = {}
    var7.Name = "Cancel"
    var7.Active = true
@@ -125,8 +125,8 @@ function var7.render(arg1)
    var8.Default = true
    var8.Active = var3.Active
    var8.Value = true
-   var527.Buttons = {}
-   var527.HorizontalAlignment = Enum.HorizontalAlignment.Right
+   var557.Buttons = {}
+   var557.HorizontalAlignment = Enum.HorizontalAlignment.Right
    local function fun7(arg1)
       if arg1 then
          var3.OnActivated()
@@ -135,7 +135,7 @@ function var7.render(arg1)
       var2()
    end
    
-   function var527.buttonActivated(arg1)
+   function var557.buttonActivated(arg1)
       if arg1 then
          var3.OnActivated()
       end
@@ -144,34 +144,34 @@ function var7.render(arg1)
    end
    
    fun7 = var0[var2.Children]
-   var500.SaveSettings = var2.createElement(var5, var527, fun7)
+   var530.SaveSettings = var2.createElement(var5, var557, fun7)
    if var4 == "props" then
-      local var552 = {}
-      var552.Size = UDim2.new(0.15, 0, 0.5, 0)
-      var552.Position = UDim2.new(0.13, 0, 0.5, 0)
-      var552.AnchorPoint = Vector2.new(0.5, 0.5)
-      var552.BorderSizePixel = 3
-      var552.TextColor3 = var1.defaultButton.ButtonColor
-      var552.BackgroundTransparency = 1
-      var552.TextXAlignment = Enum.TextXAlignment.Left
-      var552.TextSize = 20
-      var552.Font = var1.footer.textbutton.font
-      var552.Text = var0.Localization:getText("FooterButton", var0.NextScreenText)
+      local var582 = {}
+      var582.Size = UDim2.new(0.15, 0, 0.5, 0)
+      var582.Position = UDim2.new(0.13, 0, 0.5, 0)
+      var582.AnchorPoint = Vector2.new(0.5, 0.5)
+      var582.BorderSizePixel = 3
+      var582.TextColor3 = var1.defaultButton.ButtonColor
+      var582.BackgroundTransparency = 1
+      var582.TextXAlignment = Enum.TextXAlignment.Left
+      var582.TextSize = 20
+      var582.Font = var1.footer.textbutton.font
+      var582.Text = var0.Localization:getText("FooterButton", var0.NextScreenText)
       function var2.Event.Activated()
          var5(var4)
       end
       
-      local var0 = var2.createElement("TextButton", var552)
+      local var0 = var2.createElement("TextButton", var582)
    end
-   var500.GotoNextScreen = false
-   return var2.createElement("Frame", var480, var500)
+   var530.GotoNextScreen = false
+   return var2.createElement("Frame", var510, var530)
 end
 
 fun9 = var3.withContext
-local var589 = {}
-var589.Stylizer = var3.Stylizer
-var589.Localization = var3.Localization
-var7 = fun9(var589)(var7)
+local var619 = {}
+var619.Stylizer = var3.Stylizer
+var619.Localization = var3.Localization
+var7 = fun9(var619)(var7)
 return require(var1.Packages.RoactRodux).connect(nil, function(arg1)
    local var0 = {}
    function var0.OpenNextScreen(arg1)

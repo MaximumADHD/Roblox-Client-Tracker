@@ -391,6 +391,16 @@ if FFlagEnablePremiumSponsoredExperienceReporting then
 	end)()
 end
 
+if game:GetEngineFeature("EnableAdGuiInteractivityControlRefactor") then
+	coroutine.wrap(function()
+		local AdGuiInteractivity = safeRequire(CorePackages.Workspace.Packages.AdGuiInteractivity)
+
+		if AdGuiInteractivity and AdGuiInteractivity.starterScript then
+			AdGuiInteractivity.starterScript()
+		end
+	end)()
+end
+
 if game:GetEngineFeature("EnableVoiceAttention") then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceAttention", script.Parent)
 end

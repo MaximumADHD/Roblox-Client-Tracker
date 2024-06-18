@@ -7,43 +7,43 @@ local var4 = var2.UI.CaptureFocus
 local var5 = var1.PureComponent:extend("RecordingModeCover")
 local function fun0(arg1)
    local var0 = arg1.props.Stylizer
-   local var26 = {}
-   var26.Priority = 100
    local var28 = {}
-   local var32 = {}
-   var32.Size = UDim2.new(1, 0, 1, 0)
-   var32.BackgroundColor3 = Color3.new()
-   var32.BackgroundTransparency = 0.35
-   var32.AutoButtonColor = false
-   var32.Font = var0.font
-   var32.TextSize = var0.startScreenTheme.textSize
-   var32.TextColor3 = var0.startScreenTheme.darkTextColor
-   var32.Text = arg1.props.Localization:getText("FaceCapture", "IsRecordingCoverText")
-   var28.Text = var1.createElement("TextButton", var32)
-   return var1.createElement(var4, var26, var28)
+   var28.Priority = 100
+   local var30 = {}
+   local var34 = {}
+   var34.Size = UDim2.new(1, 0, 1, 0)
+   var34.BackgroundColor3 = Color3.new()
+   var34.BackgroundTransparency = 0.35
+   var34.AutoButtonColor = false
+   var34.Font = var0.font
+   var34.TextSize = var0.startScreenTheme.textSize
+   var34.TextColor3 = var0.startScreenTheme.darkTextColor
+   var34.Text = arg1.props.Localization:getText("FaceCapture", "IsRecordingCoverText")
+   var30.Text = var1.createElement("TextButton", var34)
+   return var1.createElement(var4, var28, var30)
 end
 
 function var5.render(arg1)
    local var0 = arg1.props.Stylizer
-   local var26 = {}
-   var26.Priority = 100
    local var28 = {}
-   local var32 = {}
-   var32.Size = UDim2.new(1, 0, 1, 0)
-   var32.BackgroundColor3 = Color3.new()
-   var32.BackgroundTransparency = 0.35
-   var32.AutoButtonColor = false
-   var32.Font = var0.font
-   var32.TextSize = var0.startScreenTheme.textSize
-   var32.TextColor3 = var0.startScreenTheme.darkTextColor
-   var32.Text = arg1.props.Localization:getText("FaceCapture", "IsRecordingCoverText")
-   var28.Text = var1.createElement("TextButton", var32)
-   return var1.createElement(var4, var26, var28)
+   var28.Priority = 100
+   local var30 = {}
+   local var34 = {}
+   var34.Size = UDim2.new(1, 0, 1, 0)
+   var34.BackgroundColor3 = Color3.new()
+   var34.BackgroundTransparency = 0.35
+   var34.AutoButtonColor = false
+   var34.Font = var0.font
+   var34.TextSize = var0.startScreenTheme.textSize
+   var34.TextColor3 = var0.startScreenTheme.darkTextColor
+   var34.Text = arg1.props.Localization:getText("FaceCapture", "IsRecordingCoverText")
+   var30.Text = var1.createElement("TextButton", var34)
+   return var1.createElement(var4, var28, var30)
 end
 
 fun0 = var3.withContext
-local var54 = {}
-var54.Stylizer = var3.Stylizer
-var54.Localization = var3.Localization
-var5 = fun0(var54)(var5)
+local var56 = {}
+var56.Stylizer = var3.Stylizer
+var56.Localization = var3.Localization
+var5 = fun0(var56)(var5)
 return var5

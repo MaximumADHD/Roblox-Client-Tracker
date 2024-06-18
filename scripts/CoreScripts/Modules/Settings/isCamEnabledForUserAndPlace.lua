@@ -16,12 +16,12 @@ local cameraDevicesHelper = require(RobloxGui.Modules.Settings.cameraDevicesHelp
 local TrackerMenu = require(RobloxGui.Modules.Tracker.TrackerMenu)
 local TrackerPromptType = require(RobloxGui.Modules.Tracker.TrackerPromptType)
 
-local FFlagDisableCameraOnLowSpecDevices = game:DefineFastFlag("DisableCameraOnLowSpecDevices", false)
+local FFlagDisableCameraOnLowSpecDevices = game:DefineFastFlag("DisableCameraOnLowSpecDevices2", false)
 local IXPLayer = game:DefineFastString("DisableCameraOnLowSpecDevicesIXPLayer", "AvatarChat.DisableOnLowSpecAndroid")
 local IXPField = game:DefineFastString("DisableCameraOnLowSpecDevicesIXPField", "DisableOnAndroid")
-local FFlagOnlyShowToastOnce = game:DefineFastFlag("OnlyShowToastOnce", false)
+local FFlagOnlyShowToastOnce = game:DefineFastFlag("OnlyShowToastOnce2", false)
 local FFlagDebugAlwaysShowDisableCameraToast = game:DefineFastFlag("DebugAlwaysShowDisableCameraToast", false)
-local FFlagOnlyShowToastOnceInLifetime = game:DefineFastFlag("OnlyShowToastOnceInLifetime", false)
+local FFlagOnlyShowToastOnceInLifetime = game:DefineFastFlag("OnlyShowToastOnceInLifetime2", false)
 local hasKeyInGameEngine = game:GetEngineFeature("DisableCameraToastShownStorageKey")
 local ShownDisableCameraToastKey = "DisableCameraToastShown"
 
@@ -33,9 +33,11 @@ local function ShouldCheckDeviceSpecs(): boolean
 		end)
 
 		-- bail if we aren't able to communicate with IXP service
-		if not success or not IXPData or not IXPData[IXPField] then
+		if not success or not IXPData or IXPData[IXPField] == nil then
 			return false
 		end
+
+		IXPService:LogUserLayerExposure(IXPLayer)
 		return IXPData[IXPField]
 	end
 	return false
@@ -53,43 +55,41 @@ local isCamEnabledForUserAndPlace = function(): boolean
 		return false
 	end
 
-	local deviceMeetsCameraPerformanceRequirements = AvatarChatService:deviceMeetsRequirementsForFeature(Enum.DeviceFeatureType.DeviceCapture)
-
-	if not deviceMeetsCameraPerformanceRequirements then
-		IXPService:LogUserLayerExposure(IXPLayer)
-	end
-
-	if ShouldCheckDeviceSpecs() and not deviceMeetsCameraPerformanceRequirements then
-		if FFlagOnlyShowToastOnceInLifetime and hasKeyInGameEngine then
-			local success, shownToastOnce = pcall(function()
-				return AppStorageService:GetItem(ShownDisableCameraToastKey)
-			end)
-
-			local NeedsToShowCameraToast = not success or not (shownToastOnce == "true")
-				or FFlagDebugAlwaysShowDisableCameraToast
-			if NeedsToShowCameraToast then
-				TrackerMenu:showPrompt(TrackerPromptType.CameraUnavailable)
-				pcall(function()
-					AppStorageService:SetItem(ShownDisableCameraToastKey, "true")
-					AppStorageService:Flush()
-				end)
-			end
-		elseif FFlagOnlyShowToastOnce then
-			local NeedsToShowCameraToast = not (MemStorageService:GetItem(ShownDisableCameraToastKey) == "true")
-				or FFlagDebugAlwaysShowDisableCameraToast
-			if NeedsToShowCameraToast then
-				TrackerMenu:showPrompt(TrackerPromptType.CameraUnavailable)
-				MemStorageService:SetItem(ShownDisableCameraToastKey, "true")
-			end
-		else
-			TrackerMenu:showPrompt(TrackerPromptType.CameraUnavailable)
-		end
-		return false
-	end
-
 	local placeCamEnabled = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.PlaceVideo)
 	local userCamEnabled = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserVideo)
 	local userCamEligible = AvatarChatService:IsEnabled(clientFeatures, Enum.AvatarChatServiceFeature.UserVideoEligible)
+
+	if FFlagDisableCameraOnLowSpecDevices and placeCamEnabled and userCamEnabled and userCamEligible then
+		local deviceMeetsCameraPerformanceRequirements = AvatarChatService:deviceMeetsRequirementsForFeature(Enum.DeviceFeatureType.DeviceCapture)
+	
+		if not deviceMeetsCameraPerformanceRequirements and ShouldCheckDeviceSpecs() then
+			if FFlagOnlyShowToastOnceInLifetime and hasKeyInGameEngine then
+				local success, shownToastOnce = pcall(function()
+					return AppStorageService:GetItem(ShownDisableCameraToastKey)
+				end)
+	
+				local NeedsToShowCameraToast = not success or not (shownToastOnce == "true")
+					or FFlagDebugAlwaysShowDisableCameraToast
+				if NeedsToShowCameraToast then
+					TrackerMenu:showPrompt(TrackerPromptType.CameraUnavailable)
+					pcall(function()
+						AppStorageService:SetItem(ShownDisableCameraToastKey, "true")
+						AppStorageService:Flush()
+					end)
+				end
+			elseif FFlagOnlyShowToastOnce then
+				local NeedsToShowCameraToast = not (MemStorageService:GetItem(ShownDisableCameraToastKey) == "true")
+					or FFlagDebugAlwaysShowDisableCameraToast
+				if NeedsToShowCameraToast then
+					TrackerMenu:showPrompt(TrackerPromptType.CameraUnavailable)
+					MemStorageService:SetItem(ShownDisableCameraToastKey, "true")
+				end
+			else
+				TrackerMenu:showPrompt(TrackerPromptType.CameraUnavailable)
+			end
+			return false
+		end
+	end
 
 	if getFFlagEnableAlwaysAvailableCamera() then
 		-- If user does not have a eligible camera device, cam cannot be enabled

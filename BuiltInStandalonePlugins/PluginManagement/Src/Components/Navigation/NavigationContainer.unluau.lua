@@ -8,45 +8,45 @@ local var5 = require(var0.Src.Components.PluginDetails.PluginDetailsView)
 local var6 = require(var0.Src.Util.Constants)
 local function fun0(arg1)
    return function(arg1, arg2)
-      local var41 = {}
-      var41.navigation = arg1
-      return var2.createElement(var1, var41, var3(arg1, arg2))
+      local var55 = {}
+      var55.navigation = arg1
+      return var2.createElement(var1, var55, var3(arg1, arg2))
    end
 end
 
 local function fun2(arg1, arg2)
-   local var55 = {}
-   var55.navigation = arg1
-   return var1.createElement(var4, var55)
+   local var10 = {}
+   var10.navigation = arg1
+   return var1.createElement(var4, var10)
 end
 
 function var6.APP_PAGE.Main(arg1)
    return function(arg1, arg2)
-      local var63 = {}
-      var63.navigation = arg1
-      return var2.createElement(var1, var63, var3(arg1, arg2))
+      local var18 = {}
+      var18.navigation = arg1
+      return var2.createElement(var1, var18, var3(arg1, arg2))
    end
 end
 
 local function fun5(arg1, arg2)
-   local var79 = {}
-   var79.assetId = arg1.getParam("assetId")
-   var79.navigation = arg1
-   var79.Size = UDim2.new(1, 0, 1, 0)
-   return var1.createElement(var5, var79)
+   local var34 = {}
+   var34.assetId = arg1.getParam("assetId")
+   var34.navigation = arg1
+   var34.Size = UDim2.new(1, 0, 1, 0)
+   return var1.createElement(var5, var34)
 end
 
 function var6.APP_PAGE.Detail(arg1)
    return function(arg1, arg2)
-      local var93 = {}
-      var93.navigation = arg1
-      return var2.createElement(var1, var93, var3(arg1, arg2))
+      local var48 = {}
+      var48.navigation = arg1
+      return var2.createElement(var1, var48, var3(arg1, arg2))
    end
 end
 
-local var100 = {}
-var100.routes = {}
-local var102 = var6.APP_PAGE.Main
-var100.initialRouteName = var102
-var102 = var2.createStackNavigator(var100)
-return var2.createAppContainer(var102)
+local var55 = {}
+var55.routes = {}
+local var57 = var6.APP_PAGE.Main
+var55.initialRouteName = var57
+var57 = var2.createStackNavigator(var55)
+return var2.createAppContainer(var57)

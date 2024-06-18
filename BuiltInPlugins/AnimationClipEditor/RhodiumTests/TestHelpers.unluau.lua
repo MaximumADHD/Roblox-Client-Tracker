@@ -18,9 +18,9 @@ end
 function var8.loadAnimation(arg1, arg2)
    local var0 = var2.mock()
    var5.clearCache()
-   local var133 = var0
-   var133 = var0
-   local var135 = var7(var133.Dummy, var133)
+   local var59 = var0
+   var59 = var0
+   local var61 = var7(var59.Dummy, var59)
    arg1:dispatch()
    local var2 = var6(arg2, var0)
    arg1:dispatch()
@@ -31,9 +31,9 @@ function var8.delay(arg1)
 end
 
 function var8.clickInstance(arg1)
-   local var145 = var3
-   var145 = arg1
-   var145.new(var145):click()
+   local var71 = var3
+   var71 = arg1
+   var71.new(var71):click()
    var8.delay()
 end
 

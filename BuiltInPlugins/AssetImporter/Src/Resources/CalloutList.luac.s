@@ -17,6 +17,4 @@ MAIN:
   LOADK R2 K12 [""]
   SETTABLEKS R2 R1 K5 ["Link"]
   SETTABLEKS R1 R0 K1 ["ApplyToAllCallout"]
-  SETGLOBAL R0 K13 ["CalloutList"]
-  GETGLOBAL R0 K13 ["CalloutList"]
   RETURN R0 1

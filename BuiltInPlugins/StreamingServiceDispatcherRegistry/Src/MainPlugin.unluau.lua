@@ -18,10 +18,10 @@ function var7.init(arg1)
    local var0 = var2
    local var1 = var1.GetService("StreamingService")
    if var1 then
-      local var173 = pairs(var0.parallel)
-      var1:RegisterCommand(var174, var175)
-      local var179 = pairs(var0.sequential)
-      var1:RegisterSequentialCommand(var180, var181)
+      local var183 = pairs(var0.parallel)
+      var1:RegisterCommand(var184, var185)
+      local var189 = pairs(var0.sequential)
+      var1:RegisterSequentialCommand(var190, var191)
       arg1.streamingServiceListener = var3.new()
       var4.register()
    end
@@ -31,10 +31,10 @@ end
 function var7.destroy(arg1)
    local var0 = var2
    local var1 = var1.GetService("StreamingService")
-   local var203 = pairs(var0.parallel)
-   var1:UnregisterCommand(var204)
-   local var208 = pairs(var0.sequential)
-   var1:UnregisterCommand(var209)
+   local var213 = pairs(var0.parallel)
+   var1:UnregisterCommand(var214)
+   local var218 = pairs(var0.sequential)
+   var1:UnregisterCommand(var219)
    if arg1.streamingServiceListener then
       arg1.streamingServiceListener:destroy()
       arg1.streamingServiceListener = nil

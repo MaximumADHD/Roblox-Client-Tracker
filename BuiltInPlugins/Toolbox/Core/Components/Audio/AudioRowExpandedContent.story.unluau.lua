@@ -8,37 +8,37 @@ local var5 = {}
 var5.name = "AudioRowExpandedContent"
 var5.summary = "Expanded content component used in the AudioRow"
 function var5.story()
-   local var638 = {}
-   local var642 = {}
-   var642.AutomaticSize = Enum.AutomaticSize.Y
-   var642.BackgroundTransparency = 1
-   var642.Size = UDim2.new(1, 0, 0, 0)
-   local var651 = {}
-   local var655 = {}
-   var655.AudioDetails = var4.AudioDetails
-   var655.AssetInfo = var4
-   var655.IsPlaying = false
-   function var655.OnAssetPreviewButtonClicked()
+   local var594 = {}
+   local var598 = {}
+   var598.AutomaticSize = Enum.AutomaticSize.Y
+   var598.BackgroundTransparency = 1
+   var598.Size = UDim2.new(1, 0, 0, 0)
+   local var607 = {}
+   local var611 = {}
+   var611.AudioDetails = var4.AudioDetails
+   var611.AssetInfo = var4
+   var611.IsPlaying = false
+   function var611.OnAssetPreviewButtonClicked()
       print("OnAssetPreviewButtonClicked")
    end
    
-   function var655.OnAudioEnd()
+   function var611.OnAudioEnd()
       print("Audio End")
    end
    
-   function var655.OnInsertClicked()
+   function var611.OnInsertClicked()
       print("Insert Asset")
    end
    
-   var651.List = var2.createElement(var1, var655)
-   local var670 = {}
-   var670.PaddingTop = UDim.new(0, 10)
-   var670.PaddingBottom = UDim.new(0, 10)
-   var670.PaddingLeft = UDim.new(0, 10)
-   var670.PaddingRight = UDim.new(0, 10)
-   var651.Padding = var2.createElement("UIPadding", var670)
-   var638.Frame = var2.createElement("Frame", var642, var651)
-   return var2.createElement(var3, {}, var638)
+   var607.List = var2.createElement(var1, var611)
+   local var626 = {}
+   var626.PaddingTop = UDim.new(0, 10)
+   var626.PaddingBottom = UDim.new(0, 10)
+   var626.PaddingLeft = UDim.new(0, 10)
+   var626.PaddingRight = UDim.new(0, 10)
+   var607.Padding = var2.createElement("UIPadding", var626)
+   var594.Frame = var2.createElement("Frame", var598, var607)
+   return var2.createElement(var3, {}, var594)
 end
 
 return var5

@@ -41,12 +41,23 @@ PROTO_0:
   CALL R8 1 -1
   NAMECALL R6 R0 K10 ["dispatch"]
   CALL R6 -1 0
+  GETIMPORT R6 K13 [game]
+  LOADK R8 K14 ["PathEditorUsePerformantAPICalls"]
+  NAMECALL R6 R6 K15 ["getFastFlag"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+8]
+  GETTABLEKS R6 R1 K3 ["SelectedObject"]
+  MOVE R8 R2
+  GETTABLE R9 R3 R2
+  NAMECALL R6 R6 K16 ["UpdateControlPoint"]
+  CALL R6 3 0
+  JUMP [+6]
   GETTABLEKS R6 R1 K3 ["SelectedObject"]
   MOVE R8 R3
-  NAMECALL R6 R6 K12 ["SetControlPoints"]
+  NAMECALL R6 R6 K17 ["SetControlPoints"]
   CALL R6 2 0
   GETUPVAL R6 2
-  GETTABLEKS R7 R1 K13 ["SelectedTangentSide"]
+  GETTABLEKS R7 R1 K18 ["SelectedTangentSide"]
   JUMPIFNOTEQ R6 R7 [+7]
   GETUPVAL R8 5
   LOADNIL R9

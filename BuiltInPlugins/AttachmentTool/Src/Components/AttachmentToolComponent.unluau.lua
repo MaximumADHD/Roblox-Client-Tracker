@@ -19,7 +19,7 @@ function var7.willUnmount(arg1)
 end
 
 function var7.willUpdate(arg1, arg2, arg3)
-   local var128 = arg1.props
+   local var48 = arg1.props
    if arg2.DraggerContext == "teardown" then
       if arg2.DraggerSchema == "teardown" then
          local var0 = arg1.props
@@ -31,8 +31,8 @@ function var7.willUpdate(arg1, arg2, arg3)
       end
    end
    arg1:teardown()
-   var128 = arg2
-   arg1:setup(var128)
+   var48 = arg2
+   arg1:setup(var48)
 end
 
 function var7.render(arg1)
@@ -56,7 +56,7 @@ function var7.setup(arg1, arg2)
    end)
    arg1._attachmentToolModel:_processSelected()
    arg1._inputBeganConnection = var3.InputBegan:Connect(function(arg1, arg2, arg3)
-      local var187 = arg1.props
+      local var107 = arg1.props
       if arg2.DraggerContext == "teardown" then
          if arg2.DraggerSchema == "teardown" then
             local var0 = arg1.props
@@ -68,8 +68,8 @@ function var7.setup(arg1, arg2)
          end
       end
       arg1:teardown()
-      var187 = arg2
-      arg1:setup(var187)
+      var107 = arg2
+      arg1:setup(var107)
    end)
    arg1._inputEndedConnection = var3.InputEnded:Connect(function(arg1)
       return arg1._attachmentToolModel:render()
@@ -85,9 +85,9 @@ function var7.setup(arg1, arg2)
    arg1._mouseLeaveConnection = var1.MouseLeaveStudioViewport:Connect(function()
       arg1._viewBoundsAreDirty = true
    end)
-   local var228 = var6
-   var228 = arg2.Mouse
-   local var1 = var228.new(var228)
+   local var148 = var6
+   var148 = arg2.Mouse
+   local var1 = var148.new(var148)
    local var2 = arg2.DraggerContext:shouldUseLocalSpace()
    var2:BindToRenderStep(arg1._bindName, Enum.RenderPriority.First.Value, function()
       arg1._selectionBoundsAreDirty = true

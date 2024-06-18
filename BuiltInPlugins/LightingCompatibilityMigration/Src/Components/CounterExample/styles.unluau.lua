@@ -1,0 +1,32 @@
+-- Generated with Unluau (https://github.com/valencefun/unluau)
+local var45 = require(script:FindFirstAncestor("LightingCompatibilityMigration").Packages.Framework).Styling
+local var1 = var45.createStyleRule
+var45 = var1
+local var48 = {}
+var48.BackgroundColor3 = "$BackgroundPaper"
+var48.BorderSizePixel = 0
+local var54 = {}
+var54.CornerRadius = UDim.new(0, 10)
+local var3 = var1("::UICorner", var54)
+local var62 = {}
+var62.BackgroundColor3 = "$BackgroundHover"
+local var5 = var1(":hover", var62)
+local var67 = {}
+var67.TextSize = 24
+var67.Font = Enum.Font.Gotham
+var67.TextColor3 = "$TextPrimary"
+var67.Size = UDim2.new(1, 0, 0, 50)
+var67.BackgroundTransparency = 1
+var67.TextXAlignment = Enum.TextXAlignment.Center
+var67.TextYAlignment = Enum.TextYAlignment.Center
+local var6 = var1("> TextLabel", var67)
+local var83 = {}
+var83.TextSize = 50
+var83.Font = Enum.Font.Gotham
+var83.TextColor3 = "$TextPrimary"
+var83.Size = UDim2.new(1, 0, 0, 100)
+var83.BackgroundTransparency = 1
+var83.TextXAlignment = Enum.TextXAlignment.Center
+var83.TextYAlignment = Enum.TextYAlignment.Center
+local var7 = var1("> TextButton", var83)
+return var45(".Component-CounterExample", var48, {})

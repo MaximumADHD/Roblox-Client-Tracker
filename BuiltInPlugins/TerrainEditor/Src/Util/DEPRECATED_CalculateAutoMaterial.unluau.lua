@@ -2,7 +2,7 @@
 return function(arg1, arg2, arg3, arg4)
    local var0 = Enum.Material.Air
    local var1 = {}
-   local var52 = 1
+   local var65 = 1
    local var3 = 1
    local var4 = 1
    local var5 = 1

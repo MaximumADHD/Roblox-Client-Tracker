@@ -9,13 +9,13 @@ function var1.new()
    local var0 = {}
    var0.map = {}
    var0.mt = {}
-   local var213 = var0.mt
-   function var213.__index(arg1)
+   local var218 = var0.mt
+   function var218.__index(arg1)
       return var0:JSONEncode(arg1)
    end
    
-   var213 = var0
-   setmetatable(var213, var0.mt)
+   var218 = var0
+   setmetatable(var218, var0.mt)
    return var0
 end
 

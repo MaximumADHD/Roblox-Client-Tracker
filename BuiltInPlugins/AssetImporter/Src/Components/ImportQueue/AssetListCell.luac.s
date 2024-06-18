@@ -2,11 +2,10 @@ PROTO_0:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["props"]
   GETTABLEKS R0 R1 K1 ["FileController"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["props"]
-  GETTABLEKS R3 R4 K2 ["Row"]
-  GETTABLEKS R2 R3 K3 ["session"]
-  NAMECALL R0 R0 K4 ["requestPreview"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K2 ["Row"]
+  NAMECALL R0 R0 K3 ["requestPreview"]
   CALL R0 2 0
   RETURN R0 0
 
@@ -269,17 +268,16 @@ PROTO_7:
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K7 ["createElement"]
   GETUPVAL R7 1
-  DUPTABLE R8 K10 [{"CurrentPreset", "Enabled"}]
-  GETTABLEKS R9 R2 K11 ["currentPreset"]
-  SETTABLEKS R9 R8 K8 ["CurrentPreset"]
-  GETTABLEKS R9 R2 K12 ["enabled"]
+  DUPTABLE R8 K10 [{"ActiveQueueItem", "Enabled"}]
+  SETTABLEKS R2 R8 K8 ["ActiveQueueItem"]
+  GETTABLEKS R9 R2 K11 ["enabled"]
   SETTABLEKS R9 R8 K9 ["Enabled"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K4 ["PresetSelector"]
   GETUPVAL R7 0
   GETTABLEKS R6 R7 K7 ["createElement"]
-  LOADK R7 K13 ["UIPadding"]
-  GETTABLEKS R9 R3 K14 ["AssetListCell"]
+  LOADK R7 K12 ["UIPadding"]
+  GETTABLEKS R9 R3 K13 ["AssetListCell"]
   GETTABLEKS R8 R9 K5 ["Padding"]
   CALL R6 2 1
   SETTABLEKS R6 R5 K5 ["Padding"]

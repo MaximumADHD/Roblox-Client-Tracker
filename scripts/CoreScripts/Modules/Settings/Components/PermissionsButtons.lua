@@ -42,17 +42,19 @@ local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUp
 local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local getFFlagDoNotPromptCameraPermissionsOnMount =
-	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local GetFFlagRemoveInGameChatBubbleChatReferences =
 	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
+local GetFFlagPassShouldRequestPermsArg = require(RobloxGui.Modules.Flags.GetFFlagPassShouldRequestPermsArg)
 
 if GetFFlagRemoveInGameChatBubbleChatReferences() then
 	displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
 end
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
+local VOICE_JOIN_PROGRESS = VoiceConstants.VOICE_JOIN_PROGRESS
 
 local PermissionsButtons = Roact.PureComponent:extend("PermissionsButtons")
 
@@ -135,6 +137,13 @@ function PermissionsButtons:init()
 					self:setState({
 						voiceServiceInitialized = true,
 					})
+
+					-- Before we enable and join voice through the upsell, mic permissions state should be false. However
+					-- after enabling and connecting to voice, the user should have provided mic permissions. We should
+					-- confirm that we have mic permissions so we can change that state and update the UI accordingly.
+					if GetFFlagEnableInExpVoiceUpsell() and GetFFlagPassShouldRequestPermsArg() and not self.state.hasMicPermissions then
+						self:getMicPermission(false)
+					end
 				end
 			end)
 			:catch(function()
@@ -293,10 +302,22 @@ function PermissionsButtons:init()
 		local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
 
 		if VoiceChatServiceManager:UserOnlyEligibleForVoice() then
+			VoiceChatServiceManager:SetInExpUpsellEntrypoint(VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE)
+
 			local promptToShow = VoiceChatServiceManager:GetInExpUpsellPromptFromEnum(voiceInExpUpsellVariant)
 			VoiceChatServiceManager:showPrompt(promptToShow)
 		elseif VoiceChatServiceManager:UserVoiceEnabled() and not self.state.hasMicPermissions then
 			VoiceChatServiceManager:showPrompt(VoiceChatPromptType.Permission)
+		end
+	end
+
+	self.voiceJoinProgressCallback = function(state)
+		if state == VOICE_JOIN_PROGRESS.Joined then
+			-- When we enable and join voice through this button, we unmute the user
+			if VoiceChatServiceManager.inExpUpsellEntrypoint == VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE then
+				VoiceChatServiceManager:ToggleMic()
+				VoiceChatServiceManager:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
+			end
 		end
 	end
 end
@@ -317,7 +338,7 @@ end
 --[[
 	Check if Roblox has permissions for mic access only.
 ]]
-function PermissionsButtons:getMicPermission()
+function PermissionsButtons:getMicPermission(shouldRequestPerms: boolean?)
 	local callback = function(response)
 		self:setState({
 			hasMicPermissions = response.hasMicPermissions,
@@ -326,7 +347,7 @@ function PermissionsButtons:getMicPermission()
 	getCamMicPermissions(
 		callback,
 		{ PermissionsProtocol.Permissions.MICROPHONE_ACCESS :: string },
-		nil,
+		if GetFFlagPassShouldRequestPermsArg() and shouldRequestPerms ~= nil then not shouldRequestPerms else nil,
 		"PermissionsButtons.getMicPermission"
 	)
 end
@@ -348,19 +369,10 @@ function PermissionsButtons:getCameraButtonVisibleAtMount()
 end
 
 function PermissionsButtons:getJoinVoiceButtonVisibleAtMount()
-	local ageVerificationResponse = VoiceChatServiceManager:FetchAgeVerificationOverlay()
-	local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
-	if
-		not voiceInExpUpsellVariant
-		or voiceInExpUpsellVariant == ""
-		or voiceInExpUpsellVariant == VoiceConstants.IN_EXP_UPSELL_VARIANT.CONTROL
-	then
-		return false
-	end
-
+	local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
 	local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
 		or (VoiceChatServiceManager:UserVoiceEnabled() and not self.state.hasMicPermissions)
-	return userVoiceUpsellEligible
+	return userInInExperienceUpsellTreatment and userVoiceUpsellEligible
 end
 
 function PermissionsButtons:didUpdate(prevProps, prevState)
@@ -554,6 +566,11 @@ function PermissionsButtons:render()
 					end,
 				})
 				else nil,
+			VoiceJoinProgressChanged = if GetFFlagEnableInExpVoiceUpsell()
+				then Roact.createElement(ExternalEventConnection, {
+					event = VoiceChatServiceManager.VoiceJoinProgressChanged.Event,
+					callback = self.voiceJoinProgressCallback,
+				}) else nil,
 		})
 end
 

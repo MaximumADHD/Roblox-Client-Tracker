@@ -36,5 +36,6 @@ local var9 = {}
 var9.TempId = var0.AttributePrefix ... "R15MigratorTempId"
 var9.OriginalId = var0.AttributePrefix ... "OriginalId"
 var9.Name = var0.AttributePrefix ... "name"
+var9.Adapted = var0.AttributePrefix ... "Adapted"
 var0.Attributes = var9
 return var0

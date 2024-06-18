@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-if require(script:FindFirstAncestor("AssetImporter").Src.Utility.isFTF)() then
+if require(script:FindFirstAncestor("AssetImporter").Src.Testing.isFTF)() then
    return nil
 end
 game:DefineFastFlag("ChooseAnimationForRestPose", true)

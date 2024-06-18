@@ -1,41 +1,38 @@
 PROTO_0:
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["use"]
+  GETTABLEKS R1 R2 K0 ["new"]
   CALL R1 0 1
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["new"]
-  CALL R2 0 1
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K2 ["createElement"]
-  GETUPVAL R4 3
-  NEWTABLE R5 2 0
-  GETTABLEKS R6 R0 K3 ["LayoutOrder"]
-  SETTABLEKS R6 R5 K3 ["LayoutOrder"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K4 ["Tag"]
-  LOADK R7 K5 ["Contrast X-Border X-Top X-Column"]
-  SETTABLE R7 R5 R6
-  DUPTABLE R6 K8 [{"SearchPanel", "ScopeExplorer"}]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R8 4
-  DUPTABLE R9 K9 [{"LayoutOrder"}]
-  NAMECALL R10 R2 K10 ["getNextOrder"]
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K3 ["LayoutOrder"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K6 ["SearchPanel"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R8 5
-  DUPTABLE R9 K9 [{"LayoutOrder"}]
-  NAMECALL R10 R2 K10 ["getNextOrder"]
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K3 ["LayoutOrder"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K7 ["ScopeExplorer"]
-  CALL R3 3 -1
-  RETURN R3 -1
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 2
+  NEWTABLE R4 2 0
+  GETTABLEKS R5 R0 K2 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["Tag"]
+  LOADK R6 K4 ["Contrast X-Border X-Top X-Column"]
+  SETTABLE R6 R4 R5
+  DUPTABLE R5 K7 [{"SearchPanel", "ScopeExplorer"}]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K8 [{"LayoutOrder"}]
+  NAMECALL R9 R1 K9 ["getNextOrder"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K2 ["LayoutOrder"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K5 ["SearchPanel"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 4
+  DUPTABLE R8 K8 [{"LayoutOrder"}]
+  NAMECALL R9 R1 K9 ["getNextOrder"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K2 ["LayoutOrder"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["ScopeExplorer"]
+  CALL R2 3 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
@@ -51,25 +48,22 @@ MAIN:
   GETTABLEKS R4 R0 K6 ["Packages"]
   GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["ContextServices"]
-  GETTABLEKS R4 R3 K10 ["Localization"]
-  GETTABLEKS R5 R2 K11 ["UI"]
-  GETTABLEKS R6 R5 K12 ["Pane"]
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K13 ["ScopeExplorer"]
-  CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETIMPORT R10 K1 [script]
-  GETTABLEKS R9 R10 K14 ["SearchPanel"]
-  CALL R8 1 1
-  GETTABLEKS R10 R2 K15 ["Util"]
-  GETTABLEKS R9 R10 K16 ["LayoutOrderIterator"]
-  DUPCLOSURE R10 K17 [PROTO_0]
-  CAPTURE VAL R4
-  CAPTURE VAL R9
-  CAPTURE VAL R1
-  CAPTURE VAL R6
-  CAPTURE VAL R8
+  GETTABLEKS R3 R2 K9 ["UI"]
+  GETTABLEKS R4 R3 K10 ["Pane"]
+  GETIMPORT R5 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K11 ["ScopeExplorer"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K12 ["SearchPanel"]
+  CALL R6 1 1
+  GETTABLEKS R8 R2 K13 ["Util"]
+  GETTABLEKS R7 R8 K14 ["LayoutOrderIterator"]
+  DUPCLOSURE R8 K15 [PROTO_0]
   CAPTURE VAL R7
-  RETURN R10 1
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  RETURN R8 1

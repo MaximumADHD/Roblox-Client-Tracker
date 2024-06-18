@@ -45,18 +45,20 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Cryo"]
   CALL R2 1 1
   DUPTABLE R3 K9 [{"groupInfo"}]
-  DUPTABLE R4 K11 [{"groups"}]
+  DUPTABLE R4 K12 [{"groups", "ownedGroups"}]
   NEWTABLE R5 0 0
   SETTABLEKS R5 R4 K10 ["groups"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K11 ["ownedGroups"]
   SETTABLEKS R4 R3 K8 ["groupInfo"]
-  GETTABLEKS R4 R1 K12 ["createReducer"]
+  GETTABLEKS R4 R1 K13 ["createReducer"]
   MOVE R5 R3
-  DUPTABLE R6 K15 [{"SetGroupInfo", "ResetInfo"}]
-  DUPCLOSURE R7 K16 [PROTO_0]
+  DUPTABLE R6 K16 [{"SetGroupInfo", "ResetInfo"}]
+  DUPCLOSURE R7 K17 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLEKS R7 R6 K13 ["SetGroupInfo"]
-  DUPCLOSURE R7 K17 [PROTO_1]
+  SETTABLEKS R7 R6 K14 ["SetGroupInfo"]
+  DUPCLOSURE R7 K18 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R7 R6 K14 ["ResetInfo"]
+  SETTABLEKS R7 R6 K15 ["ResetInfo"]
   CALL R4 2 -1
   RETURN R4 -1

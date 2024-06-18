@@ -58,9 +58,9 @@ MAIN:
   LOADK R2 K35 ["Published"]
   SETTABLEKS R2 R1 K35 ["Published"]
   SETTABLEKS R1 R0 K6 ["CrossPluginCommunicationInstructions"]
-  DUPTABLE R1 K39 [{"TempId", "OriginalId", "Name"}]
+  DUPTABLE R1 K40 [{"TempId", "OriginalId", "Name", "Adapted"}]
   GETTABLEKS R3 R0 K2 ["AttributePrefix"]
-  LOADK R4 K40 ["R15MigratorTempId"]
+  LOADK R4 K41 ["R15MigratorTempId"]
   CONCAT R2 R3 R4
   SETTABLEKS R2 R1 K37 ["TempId"]
   GETTABLEKS R3 R0 K2 ["AttributePrefix"]
@@ -68,8 +68,12 @@ MAIN:
   CONCAT R2 R3 R4
   SETTABLEKS R2 R1 K38 ["OriginalId"]
   GETTABLEKS R3 R0 K2 ["AttributePrefix"]
-  LOADK R4 K41 ["name"]
+  LOADK R4 K42 ["name"]
   CONCAT R2 R3 R4
   SETTABLEKS R2 R1 K13 ["Name"]
-  SETTABLEKS R1 R0 K42 ["Attributes"]
+  GETTABLEKS R3 R0 K2 ["AttributePrefix"]
+  LOADK R4 K39 ["Adapted"]
+  CONCAT R2 R3 R4
+  SETTABLEKS R2 R1 K39 ["Adapted"]
+  SETTABLEKS R1 R0 K43 ["Attributes"]
   RETURN R0 1

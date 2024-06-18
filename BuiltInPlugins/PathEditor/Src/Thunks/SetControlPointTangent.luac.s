@@ -141,9 +141,20 @@ PROTO_0:
   CALL R11 -1 -1
   NAMECALL R9 R0 K23 ["dispatch"]
   CALL R9 -1 0
+  GETIMPORT R9 K25 [game]
+  LOADK R11 K26 ["PathEditorUsePerformantAPICalls"]
+  NAMECALL R9 R9 K27 ["getFastFlag"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+8]
+  GETTABLEKS R9 R1 K6 ["SelectedObject"]
+  MOVE R11 R2
+  GETTABLE R12 R3 R2
+  NAMECALL R9 R9 K28 ["UpdateControlPoint"]
+  CALL R9 3 0
+  RETURN R0 0
   GETTABLEKS R9 R1 K6 ["SelectedObject"]
   MOVE R11 R3
-  NAMECALL R9 R9 K24 ["SetControlPoints"]
+  NAMECALL R9 R9 K29 ["SetControlPoints"]
   CALL R9 2 0
   RETURN R0 0
 

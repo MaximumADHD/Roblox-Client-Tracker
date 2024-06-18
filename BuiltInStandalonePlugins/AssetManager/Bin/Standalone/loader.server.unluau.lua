@@ -31,20 +31,20 @@ end
 var3.translationResourceTable = var0.Src.Resources.Localization.LocalizedStrings
 var3.fallbackResourceTable = var0.Src.Resources.Localization.SourceStrings
 var3.buttonInfo = var2
-local var73 = {}
-var73.id = "AssetManager"
-var73.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
-function var73.getDockTitle(arg1, arg2, arg3)
+local var108 = {}
+var108.id = "AssetManager"
+var108.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
+function var108.getDockTitle(arg1, arg2, arg3)
    return arg1(arg2, arg3, "Plugin", "Name")
 end
 
-local var93 = Enum.ZIndexBehavior.Sibling
-var73.zIndexBehavior = var93
-var3.dockWidgetInfo = var73
-var93 = var3
-local var6 = require(var0.Packages.PluginLoader.PluginLoaderBuilder).build(var93)
+local var128 = Enum.ZIndexBehavior.Sibling
+var108.zIndexBehavior = var128
+var3.dockWidgetInfo = var108
+var128 = var3
+local var6 = require(var0.Packages.PluginLoader.PluginLoaderBuilder).build(var128)
 if not var6.pluginLoader:waitForUserInteraction() then
 end
-local var100 = var0.Bin
-var100 = var6
-require(var100.Common.main)(plugin, var100)
+local var135 = var0.Bin
+var135 = var6
+require(var135.Common.main)(plugin, var135)

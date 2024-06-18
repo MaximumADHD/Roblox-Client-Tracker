@@ -25,6 +25,9 @@ return function(arg1, arg2)
          var1 = var1(var1, var0.SelectedObject.Parent)
       end
       var2[arg1].Position = var1
+      if game:getFastFlag("PathEditorUsePerformantAPICalls") then
+         var0.SelectedObject:UpdateControlPoint(arg1, var2[arg1])
+      end
       var0.SelectedObject:SetControlPoints(var2)
    end
 end

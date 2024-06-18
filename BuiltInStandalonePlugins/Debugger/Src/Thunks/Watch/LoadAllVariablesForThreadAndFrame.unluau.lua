@@ -16,14 +16,14 @@ return function(arg1, arg2, arg3, arg4)
       if arg1 == "table" then
          table.insert(arg2, arg1)
          local var0 = arg1
-         local var126 = arg3
-         var126 = arg1
-         local var1 = var126.fromInstance(var126, arg4)
+         local var60 = arg3
+         var60 = arg1
+         local var1 = var60.fromInstance(var60, arg4)
          table.insert()
       end
-      local var132 = var9 - 1
+      local var66 = var9 - 1
       if var9 == 0 then
-         local var138 = var7(var11, arg1)
+         local var72 = var7(var11, arg1)
          var3:dispatch()
          local var1 = var4("", arg2, var11, false, var10)
          var3:dispatch()

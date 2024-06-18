@@ -39,6 +39,6 @@ var51 = var1
 local var5 = require(var0.PluginLoader.PluginLoaderBuilder).build(var51)
 if not var5.pluginLoader:waitForUserInteraction() then
 end
-local var58 = script
-var58 = var5
-require(var58.Parent.main)(plugin, var58)
+local var65 = script
+var65 = var5
+require(var65.Parent.main)(plugin, var65)

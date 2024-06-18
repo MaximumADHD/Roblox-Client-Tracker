@@ -5,21 +5,26 @@ PROTO_0:
 PROTO_1:
   GETUPVAL R2 0
   LOADN R3 1
-  DUPTABLE R4 K4 [{"instanceId", "className", "instanceName", "assetId"}]
+  DUPTABLE R4 K5 [{"instanceId", "className", "instanceName", "assetId", "attributes"}]
   SETTABLEKS R0 R4 K0 ["instanceId"]
-  GETTABLEKS R5 R0 K5 ["ClassName"]
+  GETTABLEKS R5 R0 K6 ["ClassName"]
   SETTABLEKS R5 R4 K1 ["className"]
-  GETTABLEKS R5 R0 K6 ["Name"]
+  GETTABLEKS R5 R0 K7 ["Name"]
   SETTABLEKS R5 R4 K2 ["instanceName"]
-  GETTABLEKS R6 R0 K7 ["SourceAssetId"]
+  GETTABLEKS R6 R0 K8 ["SourceAssetId"]
   LOADN R7 0
   JUMPIFNOTLT R7 R6 [+4]
-  GETTABLEKS R5 R0 K7 ["SourceAssetId"]
+  GETTABLEKS R5 R0 K8 ["SourceAssetId"]
   JUMP [+1]
   LOADNIL R5
   SETTABLEKS R5 R4 K3 ["assetId"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K9 ["getInstanceAttributes"]
+  MOVE R6 R0
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K4 ["attributes"]
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R1 K10 [table.insert]
+  GETIMPORT R1 K12 [table.insert]
   CALL R1 3 0
   RETURN R0 0
 
@@ -44,21 +49,26 @@ PROTO_2:
   GETTABLEKS R6 R7 K6 ["ScriptAttached"]
   CALL R3 3 0
   GETUPVAL R3 3
-  DUPTABLE R4 K13 [{"instanceId", "className", "instanceName", "assetId", "instanceType", "requestId"}]
+  DUPTABLE R4 K14 [{"instanceId", "className", "instanceName", "assetId", "attributes", "instanceType", "requestId"}]
   SETTABLEKS R0 R4 K7 ["instanceId"]
   GETTABLEKS R5 R0 K0 ["ClassName"]
   SETTABLEKS R5 R4 K8 ["className"]
-  GETTABLEKS R5 R0 K14 ["Name"]
+  GETTABLEKS R5 R0 K15 ["Name"]
   SETTABLEKS R5 R4 K9 ["instanceName"]
-  GETTABLEKS R6 R0 K15 ["SourceAssetId"]
+  GETTABLEKS R6 R0 K16 ["SourceAssetId"]
   LOADN R7 0
   JUMPIFNOTLT R7 R6 [+4]
-  GETTABLEKS R5 R0 K15 ["SourceAssetId"]
+  GETTABLEKS R5 R0 K16 ["SourceAssetId"]
   JUMP [+1]
   LOADNIL R5
   SETTABLEKS R5 R4 K10 ["assetId"]
-  SETTABLEKS R2 R4 K11 ["instanceType"]
-  SETTABLEKS R1 R4 K12 ["requestId"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K17 ["getInstanceAttributes"]
+  MOVE R6 R0
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K11 ["attributes"]
+  SETTABLEKS R2 R4 K12 ["instanceType"]
+  SETTABLEKS R1 R4 K13 ["requestId"]
   SETTABLE R4 R3 R0
   RETURN R0 0
 
@@ -115,60 +125,67 @@ MAIN:
   GETTABLEKS R3 R4 K7 ["Flags"]
   GETTABLEKS R2 R3 K8 ["getFFlagCAPRecentInstancesContextV2"]
   CALL R1 1 1
-  NEWTABLE R2 8 0
-  NEWTABLE R3 0 0
-  NEWTABLE R4 16 0
-  LOADB R5 1
-  SETTABLEKS R5 R4 K9 ["Workspace"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K10 ["ReplicatedStorage"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K11 ["ReplicatedFirst"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K12 ["ServerScriptService"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K13 ["ServerStorage"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K14 ["StarterGui"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K15 ["StarterPack"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K16 ["StarterPlayer"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K17 ["StarterPlayerScripts"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K18 ["StarterCharacterScripts"]
-  DUPTABLE R5 K22 [{"Created", "Selected", "ScriptAttached"}]
-  LOADK R6 K19 ["Created"]
-  SETTABLEKS R6 R5 K19 ["Created"]
-  LOADK R6 K20 ["Selected"]
-  SETTABLEKS R6 R5 K20 ["Selected"]
-  LOADK R6 K21 ["ScriptAttached"]
-  SETTABLEKS R6 R5 K21 ["ScriptAttached"]
-  DUPCLOSURE R6 K23 [PROTO_0]
-  CAPTURE VAL R5
-  SETTABLEKS R6 R2 K24 ["getInstanceTypes"]
-  NEWCLOSURE R6 P1
-  CAPTURE REF R3
-  SETTABLEKS R6 R2 K25 ["registerInstance"]
-  NEWCLOSURE R6 P2
-  CAPTURE VAL R4
-  CAPTURE VAL R5
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Utils"]
+  GETTABLEKS R3 R4 K9 ["Utils"]
+  CALL R2 1 1
+  NEWTABLE R3 8 0
+  NEWTABLE R4 0 0
+  NEWTABLE R5 16 0
+  LOADB R6 1
+  SETTABLEKS R6 R5 K10 ["Workspace"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K11 ["ReplicatedStorage"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K12 ["ReplicatedFirst"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K13 ["ServerScriptService"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K14 ["ServerStorage"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K15 ["StarterGui"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K16 ["StarterPack"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K17 ["StarterPlayer"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K18 ["StarterPlayerScripts"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K19 ["StarterCharacterScripts"]
+  DUPTABLE R6 K23 [{"Created", "Selected", "ScriptAttached"}]
+  LOADK R7 K20 ["Created"]
+  SETTABLEKS R7 R6 K20 ["Created"]
+  LOADK R7 K21 ["Selected"]
+  SETTABLEKS R7 R6 K21 ["Selected"]
+  LOADK R7 K22 ["ScriptAttached"]
+  SETTABLEKS R7 R6 K22 ["ScriptAttached"]
+  DUPCLOSURE R7 K24 [PROTO_0]
+  CAPTURE VAL R6
+  SETTABLEKS R7 R3 K25 ["getInstanceTypes"]
+  NEWCLOSURE R7 P1
+  CAPTURE REF R4
   CAPTURE VAL R2
-  CAPTURE REF R3
-  SETTABLEKS R6 R2 K26 ["registerInstanceV2"]
-  NEWCLOSURE R6 P3
-  CAPTURE REF R3
-  SETTABLEKS R6 R2 K27 ["fetchContext"]
-  NEWCLOSURE R6 P4
+  SETTABLEKS R7 R3 K26 ["registerInstance"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE REF R4
+  CAPTURE VAL R2
+  SETTABLEKS R7 R3 K27 ["registerInstanceV2"]
+  NEWCLOSURE R7 P3
+  CAPTURE REF R4
+  SETTABLEKS R7 R3 K28 ["fetchContext"]
+  NEWCLOSURE R7 P4
   CAPTURE VAL R1
-  CAPTURE REF R3
-  SETTABLEKS R6 R2 K28 ["fetchContextV2"]
-  NEWCLOSURE R6 P5
-  CAPTURE REF R3
-  SETTABLEKS R6 R2 K29 ["syncContext"]
-  NEWCLOSURE R6 P6
-  CAPTURE REF R3
-  SETTABLEKS R6 R2 K30 ["clear"]
-  CLOSEUPVALS R3
-  RETURN R2 1
+  CAPTURE REF R4
+  SETTABLEKS R7 R3 K29 ["fetchContextV2"]
+  NEWCLOSURE R7 P5
+  CAPTURE REF R4
+  SETTABLEKS R7 R3 K30 ["syncContext"]
+  NEWCLOSURE R7 P6
+  CAPTURE REF R4
+  SETTABLEKS R7 R3 K31 ["clear"]
+  CLOSEUPVALS R4
+  RETURN R3 1

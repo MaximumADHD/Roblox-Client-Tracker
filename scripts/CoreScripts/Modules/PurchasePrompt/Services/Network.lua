@@ -22,6 +22,8 @@ local EngineFeatureEnablePlayerOwnsBundleApi = game:GetEngineFeature("EnablePlay
 
 local GetFFlagEnablePromptPurchaseRequestedV2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2)
 local GetFFlagEnablePromptPurchaseRequestedV2Take2 = require(Root.Flags.GetFFlagEnablePromptPurchaseRequestedV2Take2)
+local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
+	require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
 
 -- This is the approximate strategy for URL building that we use elsewhere
 local BASE_URL = string.gsub(ContentProvider.BaseUrl:lower(), "/m.", "/www.")
@@ -276,6 +278,19 @@ local function getProductPurchasableDetails(productId)
 	end)
 end
 
+local function getCatalogItemDetails(itemId: number, itemType: ("asset" | "bundle"))
+	local options = {
+		Url = string.format("%sv1/catalog/items/%d/details?itemType=%s", CATALOG_URL, itemId, itemType),
+		Method = "GET",
+	}
+
+	return Promise.new(function(resolve, reject)
+		spawn(function()
+			request(options, resolve, reject)
+		end)
+	end)
+end
+
 local function getRobuxUpsellProduct(price: number, robuxBalance: number, upsellPlatform: string)
 	local options = {
 		Url = APIS_URL .. "payments-gateway/v1/products/get-upsell-product",
@@ -413,6 +428,9 @@ function Network.new()
 		getBalanceInfo = Promise.promisify(getBalanceInfo),
 		getBundleDetails = getBundleDetails,
 		getProductPurchasableDetails = getProductPurchasableDetails,
+		getCatalogItemDetails = if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase()
+			then getCatalogItemDetails
+			else nil,
 		getRobuxUpsellProduct = Promise.promisify(getRobuxUpsellProduct),
 		getPremiumProductInfo = Promise.promisify(getPremiumProductInfo),
 		postPremiumImpression = Promise.promisify(postPremiumImpression),

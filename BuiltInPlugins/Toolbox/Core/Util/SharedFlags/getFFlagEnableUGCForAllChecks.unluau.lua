@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("EnableUGCForAllChecks", false)
+game:DefineFastFlag("EnableUGCForAllChecks1", false)
 return function()
-   return game:GetFastFlag("EnableUGCForAllChecks")
+   return game:GetFastFlag("EnableUGCForAllChecks1")
 end

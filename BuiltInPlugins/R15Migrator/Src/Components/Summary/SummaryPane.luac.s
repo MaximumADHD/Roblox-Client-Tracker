@@ -912,7 +912,7 @@ PROTO_30:
   JUMP [+1]
   LOADK R7 K18 ["R15"]
   SETTABLEKS R7 R6 K5 ["SelectedKey"]
-  GETTABLEKS R8 R1 K19 ["adaptedWithScripts"]
+  GETTABLEKS R8 R1 K19 ["adapted"]
   JUMPIFNOT R8 [+2]
   LOADK R7 K17 ["R6_R15"]
   JUMP [+1]
@@ -1227,7 +1227,7 @@ PROTO_37:
   LOADB R9 0
   JUMP [+2]
   FORGLOOP R10 2 [-9]
-  GETTABLEKS R11 R1 K12 ["adaptedWithScripts"]
+  GETTABLEKS R11 R1 K12 ["adapted"]
   NOT R10 R11
   GETTABLEKS R12 R1 K13 ["avatarType"]
   GETIMPORT R13 K17 [Enum.GameAvatarType.R6]
@@ -1402,7 +1402,7 @@ PROTO_37:
   RETURN R13 -1
 
 PROTO_38:
-  DUPTABLE R1 K11 [{"animations", "characters", "charactersConverted", "characterMetadataLoadedVersion", "scripts", "adaptedWithScripts", "avatarType", "selectedTab", "sortSelection", "isSuccessfullyPublished", "experienceData"}]
+  DUPTABLE R1 K11 [{"animations", "characters", "charactersConverted", "characterMetadataLoadedVersion", "scripts", "adapted", "avatarType", "selectedTab", "sortSelection", "isSuccessfullyPublished", "experienceData"}]
   GETTABLEKS R3 R0 K12 ["AnimationConversion"]
   GETTABLEKS R2 R3 K0 ["animations"]
   SETTABLEKS R2 R1 K0 ["animations"]
@@ -1419,8 +1419,8 @@ PROTO_38:
   GETTABLEKS R2 R3 K16 ["diagnostics"]
   SETTABLEKS R2 R1 K4 ["scripts"]
   GETTABLEKS R3 R0 K17 ["Adapter"]
-  GETTABLEKS R2 R3 K5 ["adaptedWithScripts"]
-  SETTABLEKS R2 R1 K5 ["adaptedWithScripts"]
+  GETTABLEKS R2 R3 K5 ["adapted"]
+  SETTABLEKS R2 R1 K5 ["adapted"]
   GETTABLEKS R2 R0 K18 ["AvatarType"]
   SETTABLEKS R2 R1 K6 ["avatarType"]
   GETTABLEKS R3 R0 K19 ["PanelSelection"]

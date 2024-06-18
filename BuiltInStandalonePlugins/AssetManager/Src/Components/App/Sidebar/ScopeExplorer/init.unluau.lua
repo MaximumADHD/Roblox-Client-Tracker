@@ -6,23 +6,27 @@ local var3 = var2.UI
 local var4 = var3.Pane
 local var5 = var3.TreeView
 local var6 = require(script.ExplorerRow)
-local var7 = require(script.styles)
-local var8 = var2.Util.LayoutOrderIterator
+local var7 = require(var0.Src.Controllers.ExplorerController)
+local var8 = require(var0.Src.Controllers.PluginController)
+local var9 = require(var0.Src.Hooks.useExplorerState)
+local var10 = require(script.styles)
+local var11 = var2.Util.LayoutOrderIterator
 return function(arg1)
-   local var63 = {}
-   var63.LayoutOrder = arg1.LayoutOrder
+   local var0 = var9(var8.use(), var7.use())
+   local var57 = {}
+   var57.LayoutOrder = arg1.LayoutOrder
    var1.Tag = "Explorer X-Column"
-   local var68 = {}
-   local var72 = {}
-   var72.LayoutOrder = var8.new():getNextOrder()
-   var72.Expansion = {}
-   var72.RootItems = {}
-   function var72.OnExpansionChange(arg1)
+   local var62 = {}
+   local var66 = {}
+   var66.LayoutOrder = var11.new():getNextOrder()
+   var66.RootItems = var0.Items
+   var66.Expansion = var0.Expansion
+   function var66.OnExpansionChange(arg1)
    end
    
-   var72.RowComponent = var6
-   var72.RowHeight = var7:GetAttribute("RowHeight")
+   var66.RowComponent = var6
+   var66.RowHeight = var10:GetAttribute("RowHeight")
    var1.Tag = ""
-   var68.TreeView = var1.createElement(var5, var72)
-   return var1.createElement(var4, var63, var68)
+   var62.TreeView = var1.createElement(var5, var66)
+   return var1.createElement(var4, var57, var62)
 end

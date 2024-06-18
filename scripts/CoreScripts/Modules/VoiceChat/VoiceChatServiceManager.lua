@@ -80,7 +80,7 @@ local FFlagSetActiveWhenConnecting = game:DefineFastFlag("SetActiveWhenConnectin
 local FFlagHideUIWhenVoiceDefaultDisabled = game:DefineFastFlag("HideUIWhenVoiceDefaultDisabled", false)
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false) and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 local FFlagReceiveLikelySpeakingUsers = game:DefineFastFlag("DebugReceiveLikelySpeakingUsers", false)
-local FFlagEnableVoiceSignal
+local FFlagEnableVoiceSignal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceSignal()
 
 if VoiceChatCore then
 	FFlagAlwaysSetupVoiceListeners = require(VoiceChatCore.Flags.GetFFlagAlwaysSetupVoiceListeners)()
@@ -92,9 +92,6 @@ if VoiceChatCore then
 	FFlagHideUIWhenVoiceDefaultDisabled = require(VoiceChatCore.Flags.GetFFlagHideUIWhenVoiceDefaultDisabled)()
 	FFlagUseAudioInstanceAdded = require(VoiceChatCore.Flags.GetFFlagUseAudioInstanceAdded)()
 	FFlagReceiveLikelySpeakingUsers = require(VoiceChatCore.Flags.GetFFlagReceiveLikelySpeakingUsers)()
-	FFlagEnableVoiceSignal = require(VoiceChatCore.Flags.GetFFlagEnableVoiceSignal)()
-else	
-	FFlagEnableVoiceSignal = game:GetEngineFeature("AvatarChatServiceEnableVoiceEnabled") and game:DefineFastFlag("EnableVoiceSignal", false)
 end
 
 local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
@@ -109,6 +106,8 @@ local FStringThrottleParticipantsUpdateIXPLayerValue =
 local VoiceChat = require(CorePackages.Workspace.Packages.VoiceChat)
 local Constants = VoiceChat.Constants
 local GetShowAgeVerificationOverlay = VoiceChat.AgeVerificationOverlay.GetShowAgeVerificationOverlay
+local PostRecordUserSeenGeneralModal = VoiceChat.AgeVerificationOverlay.PostRecordUserSeenGeneralModal
+local VoiceChatFlags = VoiceChat.Flags
 local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local VoiceChatPrompt = require(RobloxGui.Modules.VoiceChatPrompt.Components.VoiceChatPrompt)
 local AudioDeviceInputDebugger = require(RobloxGui.Modules.VoiceChat.Components.AudioDeviceInputDebugger)
@@ -132,6 +131,8 @@ local MicrophoneDevicePermissionsLogging =
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local FFlagEasierUnmutingPassMuteStatus = game:DefineFastFlag("EasierUnmutingPassMuteStatus", false)
 local ExperienceChat = if FFlagEasierUnmutingPassMuteStatus then require(CorePackages.ExperienceChat) else nil
+
+local GetFFlagUsePostRecordUserSeenGeneralModal = VoiceChatFlags.GetFFlagUsePostRecordUserSeenGeneralModal
 
 local LinkingProtocol = require(CorePackages.Workspace.Packages.LinkingProtocol).LinkingProtocol.default
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
@@ -246,6 +247,7 @@ local VoiceChatServiceManager = {
 	VOICE_CHAT_DEVICE_TYPE = VOICE_CHAT_DEVICE_TYPE,
 	getPermissionsFunction = getCamMicPermissions,
 	AvatarChatService = AvatarChatService,
+	inExpUpsellEntrypoint = nil,
 }
 
 -- Getting/Setting these properties on VoiceChatServiceManager passes through to CoreVoiceManager instance.
@@ -274,6 +276,8 @@ local VOICE_CHAT_CORE_PROPERTIES = LuauPolyfill.Set.new({
 	"isInCall",
 	"callMutedState",
 
+	"attemptVoiceRejoin",
+	"VoiceJoinProgressChanged",
 	"participantJoined",
 	"participantLeft",
 	"participantsUpdate",
@@ -647,14 +651,29 @@ type AgeVerificationOverlayData = {
 }
 
 function VoiceChatServiceManager:_GetShowAgeVerificationOverlay(): nil | AgeVerificationOverlayData
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:_GetShowAgeVerificationOverlay()
+	end
+
 	return GetShowAgeVerificationOverlay(bind(self, "GetRequest"), tostring(game.GameId), tostring(game.PlaceId))
 end
 
 function VoiceChatServiceManager:FetchAgeVerificationOverlay(): nil | AgeVerificationOverlayData
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:FetchAgeVerificationOverlay()
+	end
+
 	if not self._getShowAgeVerificationOverlayResult then
 		self._getShowAgeVerificationOverlayResult = self:_GetShowAgeVerificationOverlay()
 	end
 	return self._getShowAgeVerificationOverlayResult
+end
+
+function VoiceChatServiceManager:RecordUserSeenModal(modalId: string): nil
+	if GetFFlagUsePostRecordUserSeenGeneralModal() then
+		return PostRecordUserSeenGeneralModal(bind(self, "PostRequest"), modalId)
+	end
+	return nil
 end
 
 function VoiceChatServiceManager:checkAndUpdateSequence(namespace: string, value: number)
@@ -860,6 +879,10 @@ function VoiceChatServiceManager:resolveAvatarChatUserAndPlaceSettings()
 end
 
 function VoiceChatServiceManager:EnableVoice()
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:EnableVoice()
+	end
+
 	log:trace("Enabling voice")
 	 -- We need to wait for the new values to finish replicating from rcc after we call EnableVoice
 	self.AvatarChatService:GetPropertyChangedSignal("ClientFeatures"):Once(function()
@@ -917,6 +940,10 @@ function VoiceChatServiceManager:_onUserAndPlaceCanUseVoiceResolved(userSettings
 end
 
 function VoiceChatServiceManager:ChangeVoiceJoinProgress(state: VoiceConstants.VoiceJoinProgressType)
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:ChangeVoiceJoinProgress(state)
+	end
+
 	self.VoiceJoinProgress = state
 	self.VoiceJoinProgressChanged:Fire(self.VoiceJoinProgress)
 end
@@ -947,6 +974,22 @@ function VoiceChatServiceManager:UserVoiceEnabled(): boolean
 	return userVoiceEnabled
 end
 
+function VoiceChatServiceManager:UserInInExperienceUpsellTreatment(): boolean
+	if self.coreVoiceManager then
+		return self.coreVoiceManager:UserInInExperienceUpsellTreatment()
+	end
+
+	local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
+	if not ageVerificationOverlayData then
+		return false
+	end
+	
+	local voiceInExpUpsellVariant = ageVerificationOverlayData.showVoiceInExperienceUpsellVariant
+	return voiceInExpUpsellVariant == VoiceConstants.IN_EXP_UPSELL_VARIANT.VARIANT1
+		or voiceInExpUpsellVariant == VoiceConstants.IN_EXP_UPSELL_VARIANT.VARIANT2
+		or voiceInExpUpsellVariant == VoiceConstants.IN_EXP_UPSELL_VARIANT.VARIANT3
+end
+
 function VoiceChatServiceManager:UserEligibleForInExperienceUpsell(): boolean
 	if self.coreVoiceManager then
 		return self.coreVoiceManager:UserEligibleForInExperienceUpsell()
@@ -956,10 +999,23 @@ function VoiceChatServiceManager:UserEligibleForInExperienceUpsell(): boolean
 	if not userIsEligibleForUpsell then -- If the user is voice enabled or not verified for voice, or if the place is not voice enabled, then we can just skip the fetch
 		return false
 	end
-	local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
-	return userIsEligibleForUpsell
-		and ageVerificationOverlayData
-		and ageVerificationOverlayData.showVoiceInExperienceUpsell
+
+	if FFlagEnableVoiceSignal then
+		-- If a user is voice eligible, we also check if a user is in a treatment variant for the experiment to determine if they are eligible for the upsell
+		local userInInExperienceUpsellTreatment = self:UserInInExperienceUpsellTreatment()
+		return userIsEligibleForUpsell and userInInExperienceUpsellTreatment
+	else
+		-- In this previous version if a user is voice eligible, we check showVoiceInExperienceUpsell, but this can be false even if a user is in a treatment variant
+		-- This causes an issue where joining voice fails to complete
+		local ageVerificationOverlayData = self:FetchAgeVerificationOverlay()
+		return userIsEligibleForUpsell
+			and ageVerificationOverlayData
+			and ageVerificationOverlayData.showVoiceInExperienceUpsell
+	end
+end
+
+function VoiceChatServiceManager:SetInExpUpsellEntrypoint(entrypoint: string)
+	self.inExpUpsellEntrypoint = entrypoint
 end
 
 function VoiceChatServiceManager:userAndPlaceCanUseVoice()
@@ -1222,6 +1278,10 @@ function VoiceChatServiceManager:canUseServiceAsync()
 				log:debug("Place is voice enabled but user is not, delaying voice rejection")
 				self.attemptVoiceRejoin.Event:Wait()
 				log:debug("Attempting voice rejoin")
+				-- isVoiceEnabled is still false here because the user was not voice enabled in
+				-- this flow. But if we are attempting a voice rejoin at this point, then the
+				-- user must have opted into voice, so we should update isVoiceEnabled to be true
+				self.communicationPermissionsResult.voiceSettings.isVoiceEnabled = true
 				self.userEligible = true
 				resolve()
 				self:ChangeVoiceJoinProgress(VOICE_JOIN_PROGRESS.Joining)
@@ -1392,6 +1452,11 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 					elseif isNudge then function()
 						self.Analytics:reportClosedNudge(self:GetNudgeAnalyticsData())
 					end
+					elseif isVoiceConsentModal then function()
+						if GetFFlagUsePostRecordUserSeenGeneralModal() then
+							self:RecordUserSeenModal(VoiceConstants.MODAL_IDS.IN_EXP_UPSELL)
+						end
+					end
 					else nil,
 				onPrimaryActivated = if isNudge
 					then function()
@@ -1420,7 +1485,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 						self.Analytics:reportBanMessageEvent("Understood")
 					end
 					elseif isVoiceConsentModal then function()
-						self:showPrompt(VoiceChatPromptType.VoiceConsentAcceptedToast)
+						self:EnableVoice()
 					end
 					else nil,
 				onSecondaryActivated = if promptType == VoiceChatPromptType.VoiceToxicityModal
@@ -2199,6 +2264,14 @@ function VoiceChatServiceManager:SetupParticipantListeners()
 					end
 					self:showPrompt(VoiceChatPromptType.Retry)
 				end
+			end
+
+			if
+				FFlagEnableVoiceSignal
+				and self.VoiceJoinProgress == VOICE_JOIN_PROGRESS.Joining
+				and newState == (Enum :: any).VoiceChatState.Joined
+			then
+				self:ChangeVoiceJoinProgress(VOICE_JOIN_PROGRESS.Joined)
 			end
 		end)
 

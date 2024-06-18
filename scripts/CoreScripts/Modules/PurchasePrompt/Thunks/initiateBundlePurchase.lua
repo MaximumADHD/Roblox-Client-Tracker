@@ -7,6 +7,7 @@ local RequestBundlePurchase = require(Root.Actions.RequestBundlePurchase)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local getBundleDetails = require(Root.Network.getBundleDetails)
 local getProductPurchasableDetails = require(Root.Network.getProductPurchasableDetails)
+local getCatalogItemDetails = require(Root.Network.getCatalogItemDetails)
 local getAccountInfo = require(Root.Network.getAccountInfo)
 local getBalanceInfo = require(Root.Network.getBalanceInfo)
 local getIsAlreadyOwned = require(Root.Network.getIsAlreadyOwned)
@@ -19,6 +20,8 @@ local Thunk = require(Root.Thunk)
 local resolveBundlePromptState = require(script.Parent.resolveBundlePromptState)
 
 local FFlagEnableBundlePurchaseChecks = require(Root.Parent.Flags.FFlagEnableBundlePurchaseChecks)
+local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
+	require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
 
 local requiredServices = {
 	Network,
@@ -81,6 +84,62 @@ local function initiateBundlePurchase(
 				if GetFFlagReturnNotForSaleOnInvalidBundleId() then
 					-- Only continue the purchase if the bundleId was valid and VEP returned a valid product
 					if results.bundleDetails.product then
+						if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase() then
+							getCatalogItemDetails(network, bundleId, "bundle")
+								:andThen(function(catalogItemDetails)
+									store:dispatch(
+										resolveBundlePromptState(
+											catalogItemDetails,
+											results.bundleDetails,
+											results.accountInfo,
+											results.balanceInfo,
+											expectedPrice,
+											if FFlagEnableBundlePurchaseChecks then results.alreadyOwned else nil
+										)
+									)
+								end)
+								:catch(function(errorReason)
+									store:dispatch(ErrorOccurred(errorReason))
+								end)
+						else
+							local bundleProductId = results.bundleDetails.product.id
+							getProductPurchasableDetails(network, bundleProductId):andThen(
+								function(productPurchasableDetails)
+									store:dispatch(
+										resolveBundlePromptState(
+											productPurchasableDetails,
+											results.bundleDetails,
+											results.accountInfo,
+											results.balanceInfo,
+											expectedPrice,
+											if FFlagEnableBundlePurchaseChecks then results.alreadyOwned else nil
+										)
+									)
+								end
+							)
+						end
+					-- Otherwise, we can dispatch the NotForSale error and end early to not crash the UI
+					else
+						store:dispatch(ErrorOccurred(PurchaseError.NotForSale))
+					end
+				else
+					if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase() then
+						getCatalogItemDetails(network, bundleId, "bundle")
+							:andThen(function(catalogItemDetails)
+								store:dispatch(
+									resolveBundlePromptState(
+										catalogItemDetails,
+										results.bundleDetails,
+										results.accountInfo,
+										results.balanceInfo,
+										expectedPrice
+									)
+								)
+							end)
+							:catch(function(errorReason)
+								store:dispatch(ErrorOccurred(errorReason))
+							end)
+					else
 						local bundleProductId = results.bundleDetails.product.id
 						getProductPurchasableDetails(network, bundleProductId):andThen(
 							function(productPurchasableDetails)
@@ -90,29 +149,12 @@ local function initiateBundlePurchase(
 										results.bundleDetails,
 										results.accountInfo,
 										results.balanceInfo,
-										expectedPrice,
-										if FFlagEnableBundlePurchaseChecks then results.alreadyOwned else nil
+										expectedPrice
 									)
 								)
 							end
 						)
-					-- Otherwise, we can dispatch the NotForSale error and end early to not crash the UI
-					else
-						store:dispatch(ErrorOccurred(PurchaseError.NotForSale))
 					end
-				else
-					local bundleProductId = results.bundleDetails.product.id
-					getProductPurchasableDetails(network, bundleProductId):andThen(function(productPurchasableDetails)
-						store:dispatch(
-							resolveBundlePromptState(
-								productPurchasableDetails,
-								results.bundleDetails,
-								results.accountInfo,
-								results.balanceInfo,
-								expectedPrice
-							)
-						)
-					end)
 				end
 			end)
 			:catch(function(errorReason)

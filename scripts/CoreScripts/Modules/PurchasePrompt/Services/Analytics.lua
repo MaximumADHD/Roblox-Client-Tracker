@@ -34,7 +34,7 @@ function Analytics.new()
 		if GetFFlagUsePlatformNameForUnknown() then
 			platformStr = tostring(platform)
 		end
-		
+
 		if platform == Enum.Platform.Windows then
 			platformStr = "Windows"
 		elseif platform == Enum.Platform.OSX then
@@ -70,7 +70,7 @@ function Analytics.new()
 		if RunService:IsStudio() then
 			return
 		end
-		AnalyticsService:ReportCounter(eventName..GetPlatformString())
+		AnalyticsService:ReportCounter(eventName .. GetPlatformString())
 	end
 
 	function service.sendCounter(eventName: string)
@@ -84,10 +84,10 @@ function Analytics.new()
 		if RunService:IsStudio() then
 			return
 		end
-		AnalyticsService:SetRBXEvent("client", "InGamePrompt", eventName, params or {}) 
+		AnalyticsService:SetRBXEvent("client", "InGamePrompt", eventName, params or {})
 	end
 
-	function service.signalEvent(name, data )
+	function service.signalEvent(name, data)
 		ReportEvent(name, data)
 	end
 
@@ -146,7 +146,7 @@ function Analytics.new()
 			gameID = game.GameId,
 			productId = productId,
 			requestType = tostring(requestType),
-		}) 
+		})
 		ReportPlatformCounter("ProductPurchaseShown")
 	end
 
@@ -156,7 +156,7 @@ function Analytics.new()
 			productId = productId,
 			requestType = tostring(requestType),
 			iapProductId = iapProductId,
-		}) 
+		})
 		ReportPlatformCounter("ProductPurchaseUpsellShown")
 	end
 
@@ -165,7 +165,7 @@ function Analytics.new()
 			gameID = game.GameId,
 			productId = productId,
 			requestType = tostring(requestType),
-		}) 
+		})
 		ReportPlatformCounter("ProductPurchaseConfirmed")
 	end
 
@@ -175,7 +175,7 @@ function Analytics.new()
 			productId = productId,
 			requestType = tostring(requestType),
 			iapProductId = iapProductId,
-		}) 
+		})
 		ReportPlatformCounter("ProductPurchaseUpsellConfirmed")
 	end
 
@@ -185,8 +185,8 @@ function Analytics.new()
 			productId = productId,
 			requestType = requestType,
 			iapProductId = iapProductId or "",
-		}) 
-		ReportPlatformCounter("ScaryModalShown"..requestType)
+		})
+		ReportPlatformCounter("ScaryModalShown" .. requestType)
 	end
 
 	function service.signalScaryModalConfirmed(productId, requestType, iapProductId)
@@ -195,8 +195,8 @@ function Analytics.new()
 			productId = productId,
 			requestType = requestType,
 			iapProductId = iapProductId or "",
-		}) 
-		ReportPlatformCounter("ScaryModalConfirmed"..requestType)
+		})
+		ReportPlatformCounter("ScaryModalConfirmed" .. requestType)
 	end
 
 	function service.signalScaryModalCanceled(productId, requestType, iapProductId)
@@ -205,8 +205,8 @@ function Analytics.new()
 			productId = productId,
 			requestType = requestType,
 			iapProductId = iapProductId or "",
-		}) 
-		ReportPlatformCounter("ScaryModalCanceled"..requestType)
+		})
+		ReportPlatformCounter("ScaryModalCanceled" .. requestType)
 	end
 
 	function service.signalXboxInGamePurchaseCanceled(productId, requestType, iapProductId)
@@ -250,7 +250,7 @@ function Analytics.new()
 			gameID = game.GameId,
 			productId = productId,
 			requestType = requestType,
-		}) 
+		})
 		ReportPlatformCounter("2SVSettingsErrorShown")
 	end
 
@@ -259,7 +259,7 @@ function Analytics.new()
 			gameID = game.GameId,
 			productId = productId,
 			requestType = requestType,
-		}) 
+		})
 		ReportPlatformCounter("2SVSettingsErrorConfirmed")
 	end
 

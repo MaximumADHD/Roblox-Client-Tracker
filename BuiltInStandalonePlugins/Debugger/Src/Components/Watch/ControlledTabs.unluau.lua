@@ -7,14 +7,14 @@ local var4 = require(var0.Src.Actions.Watch.SetTab)
 local var5 = var1.PureComponent:extend("Tabs")
 function var5.render(arg1)
    local var0 = arg1.props
-   local var40 = {}
-   var40.Tabs = var0.Tabs
-   var40.SelectedTab = var0.selectedTab
-   var40.OnTabSelected = var0.onTabSelected
-   var40.LayoutOrder = var0.LayoutOrder
-   var40.Size = var0.Size
-   var40.AutomaticSize = Enum.AutomaticSize.X
-   return var1.createElement(var2, var40)
+   local var874 = {}
+   var874.Tabs = var0.Tabs
+   var874.SelectedTab = var0.selectedTab
+   var874.OnTabSelected = var0.onTabSelected
+   var874.LayoutOrder = var0.LayoutOrder
+   var874.Size = var0.Size
+   var874.AutomaticSize = Enum.AutomaticSize.X
+   return var1.createElement(var2, var874)
 end
 
 var5 = require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
@@ -28,14 +28,14 @@ end, function(arg1)
    local var0 = {}
    function var0.onTabSelected(arg1)
       local var0 = arg1.props
-      local var70 = {}
-      var70.Tabs = var0.Tabs
-      var70.SelectedTab = var0.selectedTab
-      var70.OnTabSelected = var0.onTabSelected
-      var70.LayoutOrder = var0.LayoutOrder
-      var70.Size = var0.Size
-      var70.AutomaticSize = Enum.AutomaticSize.X
-      return var1.createElement(var2, var70)
+      local var904 = {}
+      var904.Tabs = var0.Tabs
+      var904.SelectedTab = var0.selectedTab
+      var904.OnTabSelected = var0.onTabSelected
+      var904.LayoutOrder = var0.LayoutOrder
+      var904.Size = var0.Size
+      var904.AutomaticSize = Enum.AutomaticSize.X
+      return var1.createElement(var2, var904)
    end
    
    return var0

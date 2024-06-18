@@ -22,9 +22,14 @@ return function()
 
 	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
 
+	local GetFFlagUseCatalogItemDetailsToResolveBundlePurchase =
+		require(Root.Flags.GetFFlagUseCatalogItemDetailsToResolveBundlePurchase)
+
 	local FFlagEnableBundlePurchaseChecks = require(Root.Parent.Flags.FFlagEnableBundlePurchaseChecks)
 
 	local itSkipOnEnableBundlePurchaseChecksDisabled = if not FFlagEnableBundlePurchaseChecks then itSKIP else it
+
+	local EXPECTED_PRICE = 100
 
 	local function getTestAccountInfoDetails()
 		return {
@@ -42,7 +47,7 @@ return function()
 		return {
 			purchasable = true,
 			reason = "mock-reason",
-			price = 100,
+			price = EXPECTED_PRICE,
 		}
 	end
 
@@ -71,15 +76,25 @@ return function()
 		}
 	end
 
+	local function getTestCatalogItemDetails()
+		return {
+			isPurchasable = true,
+			owned = false,
+		}
+	end
+
 	it("should populate store with provided info", function()
 		local store = Rodux.Store.new(Reducer, {})
 
-		local purchasableDetails = getTestPurchasableDetails()
+		local purchasableDetails = if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase()
+			then getTestCatalogItemDetails()
+			else getTestPurchasableDetails()
 		local bundleDetails = getTestBundleDetails()
 		local accountInfo = getTestAccountInfoDetails()
 		local balanceInfo = getTestBalanceDetails()
 
-		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
+		local thunk =
+			resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo, EXPECTED_PRICE)
 
 		Thunk.test(thunk, store, {
 			[Analytics] = MockAnalytics.new().mockService,
@@ -96,11 +111,14 @@ return function()
 	it("should resolve state to PromptPurchase if account meets requirements", function()
 		local store = Rodux.Store.new(Reducer, {})
 
-		local purchasableDetails = getTestPurchasableDetails()
+		local purchasableDetails = if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase()
+			then getTestCatalogItemDetails()
+			else getTestPurchasableDetails()
 		local bundleDetails = getTestBundleDetails()
 		local accountInfo = getTestAccountInfoDetails()
 		local balanceInfo = getTestBalanceDetails()
-		local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
+		local thunk =
+			resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo, EXPECTED_PRICE)
 
 		Thunk.test(thunk, store, {
 			[Analytics] = MockAnalytics.new().mockService,
@@ -119,6 +137,7 @@ return function()
 			local store = Rodux.Store.new(Reducer, {})
 
 			local purchasableDetails = getTestPurchasableDetails()
+			local catalogItemDetails = getTestCatalogItemDetails()
 			local bundleDetails = getTestBundleDetails()
 
 			purchasableDetails.purchasable = false
@@ -131,7 +150,25 @@ return function()
 
 			local balanceInfo = getTestBalanceDetails()
 			balanceInfo.robux = 0
-			local thunk = resolveBundlePromptState(purchasableDetails, bundleDetails, accountInfo, balanceInfo)
+
+			local thunk
+			if GetFFlagUseCatalogItemDetailsToResolveBundlePurchase() then
+				thunk = resolveBundlePromptState(
+					catalogItemDetails,
+					bundleDetails,
+					accountInfo,
+					balanceInfo,
+					EXPECTED_PRICE
+				)
+			else
+				thunk = resolveBundlePromptState(
+					purchasableDetails,
+					bundleDetails,
+					accountInfo,
+					balanceInfo,
+					EXPECTED_PRICE
+				)
+			end
 
 			Thunk.test(thunk, store, {
 				[Analytics] = MockAnalytics.new().mockService,

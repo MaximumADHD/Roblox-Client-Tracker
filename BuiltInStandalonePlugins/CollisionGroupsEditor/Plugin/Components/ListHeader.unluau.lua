@@ -24,37 +24,37 @@ function var10.render(arg1)
       end
    end
    local var4 = ""
-   local var381 = var3
+   local var130 = var3
    var4 = var1:getText("Info", "CanCollideWith", {})
-   local var387 = {}
-   var387.Size = UDim2.new(1, 0, 0, var8.GroupRowHeight)
-   var387.LayoutOrder = var0.LayoutOrder
-   var387.Layout = Enum.FillDirection.Horizontal
-   var387.Padding = var2.Padding
-   local var398 = {}
-   local var402 = {}
-   var402.GroupCount = var0.GroupCount
-   var402.LayoutOrder = 1
-   var398.GroupCountDisplay = var2.createElement(var9, var402)
-   local var409 = {}
-   var409.Style = "GroupLabel"
-   var409.Size = UDim2.new(1, var8.GroupRowWidth, 0, var8.GroupRowHeight)
-   var409.LayoutOrder = 2
-   var409.Layout = Enum.FillDirection.Horizontal
-   var409.Padding = var2.LabelPanePadding
-   local var423 = {}
-   local var427 = {}
-   var427.Size = UDim2.new(1, 0, 1, 0)
-   var427.Text = var4
-   var427.TextXAlignment = Enum.TextXAlignment.Left
-   var427.TextYAlignment = Enum.TextYAlignment.Center
-   var423.TextLabel = var2.createElement(var7, var427)
-   var398.LabelPane = var2.createElement(var6, var409, var423)
-   return var2.createElement(var6, var387, var398)
+   local var136 = {}
+   var136.Size = UDim2.new(1, 0, 0, var8.GroupRowHeight)
+   var136.LayoutOrder = var0.LayoutOrder
+   var136.Layout = Enum.FillDirection.Horizontal
+   var136.Padding = var2.Padding
+   local var147 = {}
+   local var151 = {}
+   var151.GroupCount = var0.GroupCount
+   var151.LayoutOrder = 1
+   var147.GroupCountDisplay = var2.createElement(var9, var151)
+   local var158 = {}
+   var158.Style = "GroupLabel"
+   var158.Size = UDim2.new(1, var8.GroupRowWidth, 0, var8.GroupRowHeight)
+   var158.LayoutOrder = 2
+   var158.Layout = Enum.FillDirection.Horizontal
+   var158.Padding = var2.LabelPanePadding
+   local var172 = {}
+   local var176 = {}
+   var176.Size = UDim2.new(1, 0, 1, 0)
+   var176.Text = var4
+   var176.TextXAlignment = Enum.TextXAlignment.Left
+   var176.TextYAlignment = Enum.TextYAlignment.Center
+   var172.TextLabel = var2.createElement(var7, var176)
+   var147.LabelPane = var2.createElement(var6, var158, var172)
+   return var2.createElement(var6, var136, var147)
 end
 
-local var440 = {}
-var440.Stylizer = var4.Stylizer
-var440.Localization = var4.Localization
-var10 = var4.withContext(var440)(var10)
+local var189 = {}
+var189.Stylizer = var4.Stylizer
+var189.Localization = var4.Localization
+var10 = var4.withContext(var189)(var10)
 return var10

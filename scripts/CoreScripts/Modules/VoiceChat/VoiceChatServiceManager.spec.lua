@@ -130,7 +130,7 @@ return function()
 		return isStudio
 	end
 
-	local createCoreVoiceManager = function(voiceChatServiceStub, httpServiceStub, permissionsService, permissionFn, block, notificationMock)
+	local createCoreVoiceManager = function(voiceChatServiceStub, httpServiceStub, permissionsService, permissionFn, block, notificationMock, avatarChatServiceStub)
 		local CoreVoiceManager
 		if CoreVoiceManagerKlass then
 			CoreVoiceManager = CoreVoiceManagerKlass.new(
@@ -140,7 +140,7 @@ return function()
 				voiceChatServiceStub,
 				nil,
 				notificationMock,
-				nil
+				avatarChatServiceStub
 			)
 		end
 		return CoreVoiceManager
@@ -921,8 +921,9 @@ return function()
 			local mockGetClientFeaturesAsync = function()
 				return 0xFF
 			end	
+			local AvatarChatServiceStub = MockAvatarChatService.new(mockIsEnabled, mockEnableVoice, mockGetPropertyChangedSignal, mockGetClientFeaturesAsync)
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
-				createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub),
+				createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, nil, nil, nil, AvatarChatServiceStub),
 				VoiceChatServiceStub,
 				HTTPServiceStub,
 				PermissionServiceStub,
@@ -930,7 +931,7 @@ return function()
 				nil,
 				nil,
 				nil,
-				MockAvatarChatService.new(mockIsEnabled, mockEnableVoice, mockGetPropertyChangedSignal, mockGetClientFeaturesAsync)
+				AvatarChatServiceStub
 			)
 			local voiceRejoinEvent = Instance.new("BindableEvent")
 			local mockRejoinCalled, mockJoin = jest.fn()

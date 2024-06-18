@@ -15,69 +15,69 @@ function var9.init(arg1, arg2)
    arg1.state = var0
 end
 
-local function fun7(arg1)
+local function fun2(arg1)
    local var0 = arg1.props
-   local var440 = {}
-   var440.BackgroundColor3 = var0.Stylizer.typeValidation.background
-   var440.BackgroundTransparency = 0
-   var440.BorderSizePixel = 0
-   var440.Size = var0.Size
-   local var446 = {}
-   local var450 = {}
-   var450.titleHeight = 24
-   var450.titlePadding = 12
-   var450.title = var0.assetName
-   var450.Position = UDim2.new(0.5, 65461, 0, 48)
-   var450.Size = UDim2.new(0, 150, 0, 186)
-   var446.ModelPreview = var2.createElement(var8, var450)
-   local var469 = {}
-   var469.loadingText = var0.Localization:getText("Action", "Converting")
-   var469.loadingTime = 0.5
-   var469.holdPercent = 0.92
-   var469.Size = UDim2.new(0, 400, 0, 6)
-   var469.Position = UDim2.new(0.5, 65336, 0, 314)
+   local var301 = {}
+   var301.BackgroundColor3 = var0.Stylizer.typeValidation.background
+   var301.BackgroundTransparency = 0
+   var301.BorderSizePixel = 0
+   var301.Size = var0.Size
+   local var307 = {}
+   local var311 = {}
+   var311.titleHeight = 24
+   var311.titlePadding = 12
+   var311.title = var0.assetName
+   var311.Position = UDim2.new(0.5, 65461, 0, 48)
+   var311.Size = UDim2.new(0, 150, 0, 186)
+   var307.ModelPreview = var2.createElement(var8, var311)
+   local var330 = {}
+   var330.loadingText = var0.Localization:getText("Action", "Converting")
+   var330.loadingTime = 0.5
+   var330.holdPercent = 0.92
+   var330.Size = UDim2.new(0, 400, 0, 6)
+   var330.Position = UDim2.new(0.5, 65336, 0, 314)
    if var0.uploadSucceeded == "props" then
       local var0 = var0.onNext or nil
    end
-   var469.onFinish = nil
-   var446.LoadingBar = var2.createElement(var7, var469)
-   return var2.createElement("Frame", var440, var446)
+   var330.onFinish = nil
+   var307.LoadingBar = var2.createElement(var7, var330)
+   return var2.createElement("Frame", var301, var307)
 end
 
 function var9.render(arg1)
    local var0 = arg1.props
-   local var440 = {}
-   var440.BackgroundColor3 = var0.Stylizer.typeValidation.background
-   var440.BackgroundTransparency = 0
-   var440.BorderSizePixel = 0
-   var440.Size = var0.Size
-   local var446 = {}
-   local var450 = {}
-   var450.titleHeight = 24
-   var450.titlePadding = 12
-   var450.title = var0.assetName
-   var450.Position = UDim2.new(0.5, 65461, 0, 48)
-   var450.Size = UDim2.new(0, 150, 0, 186)
-   var446.ModelPreview = var2.createElement(var8, var450)
-   local var469 = {}
-   var469.loadingText = var0.Localization:getText("Action", "Converting")
-   var469.loadingTime = 0.5
-   var469.holdPercent = 0.92
-   var469.Size = UDim2.new(0, 400, 0, 6)
-   var469.Position = UDim2.new(0.5, 65336, 0, 314)
+   local var301 = {}
+   var301.BackgroundColor3 = var0.Stylizer.typeValidation.background
+   var301.BackgroundTransparency = 0
+   var301.BorderSizePixel = 0
+   var301.Size = var0.Size
+   local var307 = {}
+   local var311 = {}
+   var311.titleHeight = 24
+   var311.titlePadding = 12
+   var311.title = var0.assetName
+   var311.Position = UDim2.new(0.5, 65461, 0, 48)
+   var311.Size = UDim2.new(0, 150, 0, 186)
+   var307.ModelPreview = var2.createElement(var8, var311)
+   local var330 = {}
+   var330.loadingText = var0.Localization:getText("Action", "Converting")
+   var330.loadingTime = 0.5
+   var330.holdPercent = 0.92
+   var330.Size = UDim2.new(0, 400, 0, 6)
+   var330.Position = UDim2.new(0.5, 65336, 0, 314)
    if var0.uploadSucceeded == "props" then
       local var0 = var0.onNext or nil
    end
-   var469.onFinish = nil
-   var446.LoadingBar = var2.createElement(var7, var469)
-   return var2.createElement("Frame", var440, var446)
+   var330.onFinish = nil
+   var307.LoadingBar = var2.createElement(var7, var330)
+   return var2.createElement("Frame", var301, var307)
 end
 
-fun7 = var3.withContext
-local var495 = {}
-var495.Localization = var3.Localization
-var495.Stylizer = var3.Stylizer
-var9 = fun7(var495)(var9)
+fun2 = var3.withContext
+local var356 = {}
+var356.Localization = var3.Localization
+var356.Stylizer = var3.Stylizer
+var9 = fun2(var356)(var9)
 return require(var1.RoactRodux).connect(function(arg1, arg2)
    arg1 = arg1 or {}
    local var0 = {}

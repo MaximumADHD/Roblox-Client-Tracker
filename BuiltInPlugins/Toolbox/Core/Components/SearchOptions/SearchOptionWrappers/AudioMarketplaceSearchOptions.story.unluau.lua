@@ -8,19 +8,19 @@ local var5 = {}
 var5.name = "AudioMarketplaceSearchOptions"
 var5.summary = "The Search Option component for Audio"
 function {}.story()
-   local var164 = {}
-   local var168 = {}
-   function var168.OnRender(arg1, arg2)
-      local var174 = {}
-      function var174.GetSearchOptions()
+   local var185 = {}
+   local var189 = {}
+   function var189.OnRender(arg1, arg2)
+      local var195 = {}
+      function var195.GetSearchOptions()
       end
       
-      var174.OnClose = arg2
-      return var1.createElement(var2, var174)
+      var195.OnClose = arg2
+      return var1.createElement(var2, var195)
    end
    
-   var164.ClickToShowInteractiveStoryWrapper = var1.createElement(var3, var168)
-   return var1.createElement(var4, {}, var164)
+   var185.ClickToShowInteractiveStoryWrapper = var1.createElement(var3, var189)
+   return var1.createElement(var4, {}, var185)
 end
 
 var5.stories = {}

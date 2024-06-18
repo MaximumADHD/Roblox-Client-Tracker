@@ -3,77 +3,77 @@ local var0 = script.Parent.Parent.Parent
 local var1 = require(var0.Packages.Cryo)
 local var2 = require(var0.Src.Resources.Constants)
 local var3 = {}
-local var58 = {}
-var58.places = {}
-var58.parentGame = {}
-var58.queryState = var2.QUERY_STATE.QUERY_STATE_NONE
-var3.placeInfo = var58
-local var63 = {}
-var63.games = {}
-var63.queryState = var2.QUERY_STATE.QUERY_STATE_NONE
-var3.gameInfo = var63
+local var84 = {}
+var84.places = {}
+var84.parentGame = {}
+var84.queryState = var2.QUERY_STATE.QUERY_STATE_NONE
+var3.placeInfo = var84
+local var89 = {}
+var89.games = {}
+var89.queryState = var2.QUERY_STATE.QUERY_STATE_NONE
+var3.gameInfo = var89
 var3.selectedGame = {}
-local var68 = {}
-local var69 = {}
-var68.optInRegions = var69
-var3.gameConfiguration = var68
-var69 = var3
-local var71 = {}
-function var71.SetChooseGameQueryState(arg1, arg2)
-   local var75 = var1.Dictionary
-   var75 = arg1
-   local var77 = {}
-   var77.gameInfo = var1.Dictionary.join(arg1.gameInfo, arg2.gameInfo)
-   return var75.join(var75, var77)
+local var94 = {}
+local var95 = {}
+var94.optInRegions = var95
+var3.gameConfiguration = var94
+var95 = var3
+local var97 = {}
+function var97.SetChooseGameQueryState(arg1, arg2)
+   local var101 = var1.Dictionary
+   var101 = arg1
+   local var103 = {}
+   var103.gameInfo = var1.Dictionary.join(arg1.gameInfo, arg2.gameInfo)
+   return var101.join(var101, var103)
 end
 
-function var71.SetSelectedGame(arg1, arg2)
-   local var88 = var1.Dictionary
-   var88 = arg1
-   local var90 = {}
-   var90.selectedGame = arg2.selectedGame
-   return var88.join(var88, var90)
+function var97.SetSelectedGame(arg1, arg2)
+   local var114 = var1.Dictionary
+   var114 = arg1
+   local var116 = {}
+   var116.selectedGame = arg2.selectedGame
+   return var114.join(var114, var116)
 end
 
-function var71.SetGameInfo(arg1, arg2)
-   local var96 = var1.Dictionary
-   var96 = arg1
-   local var98 = {}
-   var98.gameInfo = var1.Dictionary.join(arg1.gameInfo, arg2.gameInfo)
-   return var96.join(var96, var98)
-end
-
-function var71.SetPlaceInfo(arg1, arg2)
-   local var109 = var1.Dictionary
-   var109 = arg1
-   local var111 = {}
-   var111.placeInfo = var1.Dictionary.join(arg1.placeInfo, arg2.placeInfo)
-   return var109.join(var109, var111)
-end
-
-function var71.SetChoosePlaceQueryState(arg1, arg2)
+function var97.SetGameInfo(arg1, arg2)
    local var122 = var1.Dictionary
    var122 = arg1
    local var124 = {}
-   var124.placeInfo = var1.Dictionary.join(arg1.placeInfo, arg2.placeInfo)
+   var124.gameInfo = var1.Dictionary.join(arg1.gameInfo, arg2.gameInfo)
    return var122.join(var122, var124)
 end
 
-function var71.ResetInfo(arg1, arg2)
+function var97.SetPlaceInfo(arg1, arg2)
    local var135 = var1.Dictionary
    var135 = arg1
    local var137 = {}
-   var137.gameInfo = var1.Dictionary.join(arg1.gameInfo, arg2.gameInfo)
    var137.placeInfo = var1.Dictionary.join(arg1.placeInfo, arg2.placeInfo)
    return var135.join(var135, var137)
 end
 
-function var71.SetGameConfiguration(arg1, arg2)
-   local var154 = var1.Dictionary
-   var154 = arg1
-   local var156 = {}
-   var156.gameConfiguration = var1.Dictionary.join(arg1.gameConfiguration, arg2.gameConfiguration)
-   return var154.join(var154, var156)
+function var97.SetChoosePlaceQueryState(arg1, arg2)
+   local var148 = var1.Dictionary
+   var148 = arg1
+   local var150 = {}
+   var150.placeInfo = var1.Dictionary.join(arg1.placeInfo, arg2.placeInfo)
+   return var148.join(var148, var150)
 end
 
-return require(var0.Packages.Rodux).createReducer(var69, var71)
+function var97.ResetInfo(arg1, arg2)
+   local var161 = var1.Dictionary
+   var161 = arg1
+   local var163 = {}
+   var163.gameInfo = var1.Dictionary.join(arg1.gameInfo, arg2.gameInfo)
+   var163.placeInfo = var1.Dictionary.join(arg1.placeInfo, arg2.placeInfo)
+   return var161.join(var161, var163)
+end
+
+function var97.SetGameConfiguration(arg1, arg2)
+   local var180 = var1.Dictionary
+   var180 = arg1
+   local var182 = {}
+   var182.gameConfiguration = var1.Dictionary.join(arg1.gameConfiguration, arg2.gameConfiguration)
+   return var180.join(var180, var182)
+end
+
+return require(var0.Packages.Rodux).createReducer(var95, var97)

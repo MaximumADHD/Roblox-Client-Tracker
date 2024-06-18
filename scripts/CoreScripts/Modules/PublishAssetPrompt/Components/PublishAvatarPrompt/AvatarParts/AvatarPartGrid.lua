@@ -54,7 +54,7 @@ local function getItems(humanoidModel: Model, name: string): { [number]: AvatarI
 	local items: { AvatarItemCard.Props } = {
 		{
 			asset = getPart(humanoidModel, "Head"),
-			-- Note that it was decided by design to not localize titleText
+			-- UGC body creation does not localize similar text, so we don't localize here
 			titleText = name .. "'s Head",
 		},
 		{

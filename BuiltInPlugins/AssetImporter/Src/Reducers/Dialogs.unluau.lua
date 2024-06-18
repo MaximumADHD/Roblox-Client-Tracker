@@ -8,51 +8,51 @@ var3.showPreview = false
 var3.showProgress = false
 var3.uploading = false
 function require(var2.SetShowError).name(arg1, arg2)
-   local var328 = var1.Dictionary
-   var328 = arg1
-   local var330 = {}
-   var330.showError = arg2.showError
-   return var328.join(var328, var330)
+   local var70 = var1.Dictionary
+   var70 = arg1
+   local var77 = {}
+   var77.showError = arg2.showError
+   return var70.join(var70, var77)
 end
 
 function require(var2.SetShowPreview).name(arg1, arg2)
-   local var337 = var1.Dictionary
-   var337 = arg1
-   local var339 = {}
-   var339.showPreview = arg2.showPreview
-   return var337.join(var337, var339)
+   local var103 = var1.Dictionary
+   var103 = arg1
+   local var105 = {}
+   var105.showPreview = arg2.showPreview
+   return var103.join(var103, var105)
 end
 
 function require(var2.SetShowProgress).name(arg1, arg2)
-   local var346 = var1.Dictionary
-   var346 = arg1
-   local var348 = {}
-   var348.showProgress = arg2.showProgress
-   return var346.join(var346, var348)
+   local var116 = var1.Dictionary
+   var116 = arg1
+   local var118 = {}
+   var118.showProgress = arg2.showProgress
+   return var116.join(var116, var118)
 end
 
 function require(var2.SetShowQueue).name(arg1, arg2)
-   local var355 = var1.Dictionary
-   var355 = arg1
-   local var357 = {}
-   var357.showQueue = arg2.showQueue
-   return var355.join(var355, var357)
+   local var135 = var1.Dictionary
+   var135 = arg1
+   local var137 = {}
+   var137.showQueue = arg2.showQueue
+   return var135.join(var135, var137)
 end
 
 function require(var2.SetShowWarning).name(arg1, arg2)
-   local var364 = var1.Dictionary
-   var364 = arg1
-   local var366 = {}
-   var366.showWarning = arg2.showWarning
-   return var364.join(var364, var366)
+   local var150 = var1.Dictionary
+   var150 = arg1
+   local var154 = {}
+   var154.showWarning = arg2.showWarning
+   return var150.join(var150, var154)
 end
 
 function require(var2.SetUploading).name(arg1, arg2)
-   local var373 = var1.Dictionary
-   var373 = arg1
-   local var375 = {}
-   var375.uploading = arg2.uploading
-   return var373.join(var373, var375)
+   local var179 = var1.Dictionary
+   var179 = arg1
+   local var183 = {}
+   var183.uploading = arg2.uploading
+   return var179.join(var179, var183)
 end
 
 return require(var0.Packages.Rodux).createReducer(var3, {})

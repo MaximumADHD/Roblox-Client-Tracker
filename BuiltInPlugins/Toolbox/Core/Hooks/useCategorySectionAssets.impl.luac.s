@@ -268,14 +268,14 @@ PROTO_7:
   CALL R1 0 1
   JUMPIFNOT R1 [+11]
   GETIMPORT R1 K2 [warn]
-  LOADK R3 K3 ["failed to fetch assets for category \"%*\" and section \"%*\": %*"]
+  LOADK R3 K3 ["failed to fetch assets for category \"%*\" and section \"%*\":"]
   GETUPVAL R5 1
   GETUPVAL R6 2
-  MOVE R7 R0
   NAMECALL R3 R3 K4 ["format"]
-  CALL R3 4 1
+  CALL R3 3 1
   MOVE R2 R3
-  CALL R1 1 0
+  MOVE R3 R0
+  CALL R1 2 0
   GETUPVAL R2 3
   GETTABLEKS R1 R2 K5 ["current"]
   GETUPVAL R2 2

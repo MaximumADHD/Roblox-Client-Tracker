@@ -1,4 +1,5 @@
 local CoreGui = game:GetService("CoreGui")
+local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagReportAnythingAnnotationIXP =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
@@ -11,6 +12,7 @@ local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local OPTIONAL_SCREENSHOT_ENABLED = "OptionalScreenshotEnabled"
 local OPTIONAL_SCREENSHOT_AVATAR = "OptionalScreenshotAvatar"
 local OPTIONAL_SCREENSHOT_EXPERIENCE = "OptionalScreenshotExperience"
+local SELECT_IN_SCENE = "SelectInScene"
 
 local TrustAndSafetyIXPManager = {}
 TrustAndSafetyIXPManager.__index = TrustAndSafetyIXPManager
@@ -23,6 +25,7 @@ function TrustAndSafetyIXPManager.new(serviceWrapper: any): any
 		_optionalScreenshotEnabled = false,
 		_reportAnythingExperienceEnabled = false,
 		_reportAnythingAvatarEnabled = false,
+		_selectInSceneEnabled = false,
 		_callbacks = {},
 	}
 	setmetatable(manager, TrustAndSafetyIXPManager)
@@ -41,6 +44,10 @@ function TrustAndSafetyIXPManager:getReportAnythingAvatarEnabled()
 		return true
 	end
 	return self._reportAnythingAvatarEnabled or self._optionalScreenshotEnabled
+end
+
+function TrustAndSafetyIXPManager:getSelectInSceneEnabled()
+	return self._selectInSceneEnabled
 end
 
 function TrustAndSafetyIXPManager:waitForInitialization(callback)
@@ -78,13 +85,15 @@ function TrustAndSafetyIXPManager:initialize()
 			self._optionalScreenshotEnabled = layerData[OPTIONAL_SCREENSHOT_ENABLED] or false
 			self._reportAnythingExperienceEnabled = layerData[OPTIONAL_SCREENSHOT_EXPERIENCE] or false
 			self._reportAnythingAvatarEnabled = layerData[OPTIONAL_SCREENSHOT_AVATAR] or false
+			self._selectInSceneEnabled = layerData[SELECT_IN_SCENE] or false
 		end
 
 		log:debug(
-			"RA Optional Screenshot enabled? Both: {}, Exp: {}, Avatar: {}. Invoking {} callbacks.",
+			"RA Optional Screenshot enabled (Avatar and/or Experience) or Select In Scene enabled? Both Avatar and Exp: {}, Exp: {}, Avatar: {}, Select in Scene: {}. Invoking {} callbacks.",
 			self._optionalScreenshotEnabled,
 			self._reportAnythingExperienceEnabled,
 			self._reportAnythingAvatarEnabled,
+			self._selectInSceneEnabled,
 			#self._callbacks
 		)
 

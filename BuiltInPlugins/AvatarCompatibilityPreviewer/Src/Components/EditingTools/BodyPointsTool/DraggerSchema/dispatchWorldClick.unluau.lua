@@ -8,7 +8,7 @@ return function(arg1, arg2, arg3)
    if var0 == "selection" then
       arg1.selection:Set(var0)
    end
-   local var194 = var1
-   var194 = arg1
-   return var194.dispatchWorldClick(var194, arg2, arg3)
+   local var32 = var1
+   var32 = arg1
+   return var32.dispatchWorldClick(var32, arg2, arg3)
 end

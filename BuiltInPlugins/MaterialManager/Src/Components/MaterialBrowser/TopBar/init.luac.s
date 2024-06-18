@@ -84,18 +84,18 @@ PROTO_1:
 PROTO_2:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["props"]
-  GETTABLEKS R1 R0 K1 ["ActiveAsTool"]
+  GETTABLEKS R1 R0 K1 ["DEPRECATED_ActiveAsTool"]
   JUMPIF R1 [+9]
   GETTABLEKS R1 R0 K2 ["Material"]
   JUMPIFNOT R1 [+6]
   GETTABLEKS R1 R0 K3 ["PluginController"]
-  NAMECALL R1 R1 K4 ["toggleMaterialAsTool"]
+  NAMECALL R1 R1 K4 ["DEPRECATED_toggleMaterialAsTool"]
   CALL R1 1 0
   JUMP [+8]
-  GETTABLEKS R1 R0 K1 ["ActiveAsTool"]
+  GETTABLEKS R1 R0 K1 ["DEPRECATED_ActiveAsTool"]
   JUMPIFNOT R1 [+5]
   GETTABLEKS R1 R0 K3 ["PluginController"]
-  NAMECALL R1 R1 K5 ["untoggleMaterialAsTool"]
+  NAMECALL R1 R1 K5 ["DEPRECATED_untoggleMaterialAsTool"]
   CALL R1 1 0
   GETTABLEKS R1 R0 K6 ["Analytics"]
   LOADK R3 K7 ["materialAsTool"]
@@ -131,7 +131,7 @@ PROTO_4:
   SETTABLEKS R1 R0 K1 ["showInExplorer"]
   NEWCLOSURE R1 P2
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K2 ["materialAsTool"]
+  SETTABLEKS R1 R0 K2 ["DEPRECATED_materialAsTool"]
   NEWCLOSURE R1 P3
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K3 ["setSearch"]
@@ -149,7 +149,12 @@ PROTO_5:
   CALL R6 0 1
   GETTABLEKS R7 R2 K7 ["CreateNewVariant"]
   GETTABLEKS R8 R2 K8 ["ShowInExplorer"]
-  GETTABLEKS R9 R2 K9 ["MaterialAsToolMouseIcon"]
+  GETUPVAL R10 1
+  CALL R10 0 1
+  JUMPIFNOT R10 [+2]
+  LOADNIL R9
+  JUMP [+2]
+  GETTABLEKS R9 R2 K9 ["DEPRECATED_MaterialAsToolMouseIcon"]
   GETTABLEKS R10 R2 K10 ["BackgroundColor"]
   GETTABLEKS R13 R2 K11 ["ButtonSize"]
   GETTABLEKS R12 R13 K12 ["X"]
@@ -163,7 +168,7 @@ PROTO_5:
   GETTABLEKS R16 R17 K13 ["Offset"]
   GETTABLEKS R19 R1 K19 ["AbsoluteSize"]
   GETTABLEKS R18 R19 K12 ["X"]
-  LOADN R21 3
+  GETUPVAL R21 2
   ADD R22 R11 R12
   MUL R20 R21 R22
   ADD R21 R16 R12
@@ -185,11 +190,16 @@ PROTO_5:
   LOADB R19 1
   JUMP [+1]
   LOADB R19 0
-  GETTABLEKS R20 R1 K25 ["ActiveAsTool"]
-  GETUPVAL R22 1
+  GETUPVAL R21 1
+  CALL R21 0 1
+  JUMPIFNOT R21 [+2]
+  LOADNIL R20
+  JUMP [+2]
+  GETTABLEKS R20 R1 K25 ["DEPRECATED_ActiveAsTool"]
+  GETUPVAL R22 3
   GETTABLEKS R21 R22 K26 ["createElement"]
-  GETUPVAL R22 2
-  GETUPVAL R23 3
+  GETUPVAL R22 4
+  GETUPVAL R23 5
   DUPTABLE R24 K30 [{"BackgroundColor", "Layout", "HorizontalAlignment", "LayoutOrder", "Padding", "Size", "Spacing"}]
   SETTABLEKS R10 R24 K10 ["BackgroundColor"]
   GETIMPORT R25 K34 [Enum.FillDirection.Horizontal]
@@ -203,9 +213,9 @@ PROTO_5:
   GETTABLEKS R25 R1 K37 ["WrapperProps"]
   CALL R23 2 1
   DUPTABLE R24 K42 [{"CreateMaterialVariant", "ShowInExplorer", "MaterialAsTool", "RestPane", "ViewType"}]
-  GETUPVAL R26 1
+  GETUPVAL R26 3
   GETTABLEKS R25 R26 K26 ["createElement"]
-  GETUPVAL R26 4
+  GETUPVAL R26 6
   DUPTABLE R27 K47 [{"ImageStyle", "IsDisabled", "LayoutOrder", "OnClick", "TooltipText"}]
   SETTABLEKS R7 R27 K43 ["ImageStyle"]
   LOADB R28 0
@@ -222,9 +232,9 @@ PROTO_5:
   SETTABLEKS R28 R27 K46 ["TooltipText"]
   CALL R25 2 1
   SETTABLEKS R25 R24 K38 ["CreateMaterialVariant"]
-  GETUPVAL R26 1
+  GETUPVAL R26 3
   GETTABLEKS R25 R26 K26 ["createElement"]
-  GETUPVAL R26 4
+  GETUPVAL R26 6
   DUPTABLE R27 K47 [{"ImageStyle", "IsDisabled", "LayoutOrder", "OnClick", "TooltipText"}]
   SETTABLEKS R8 R27 K43 ["ImageStyle"]
   SETTABLEKS R19 R27 K44 ["IsDisabled"]
@@ -241,15 +251,26 @@ PROTO_5:
   CALL R25 2 1
   SETTABLEKS R25 R24 K8 ["ShowInExplorer"]
   GETUPVAL R26 1
+  CALL R26 0 1
+  JUMPIFNOT R26 [+2]
+  LOADNIL R25
+  JUMP [+32]
+  GETUPVAL R26 3
   GETTABLEKS R25 R26 K26 ["createElement"]
-  GETUPVAL R26 4
+  GETUPVAL R26 6
   DUPTABLE R27 K55 [{"ImageStyle", "IsPressed", "LayoutOrder", "OnClick", "TooltipText"}]
   SETTABLEKS R9 R27 K43 ["ImageStyle"]
-  SETTABLEKS R20 R27 K54 ["IsPressed"]
+  GETUPVAL R29 1
+  CALL R29 0 1
+  JUMPIFNOT R29 [+2]
+  LOADNIL R28
+  JUMP [+1]
+  MOVE R28 R20
+  SETTABLEKS R28 R27 K54 ["IsPressed"]
   NAMECALL R28 R6 K48 ["getNextOrder"]
   CALL R28 1 1
   SETTABLEKS R28 R27 K3 ["LayoutOrder"]
-  GETTABLEKS R28 R0 K56 ["materialAsTool"]
+  GETTABLEKS R28 R0 K56 ["DEPRECATED_materialAsTool"]
   SETTABLEKS R28 R27 K45 ["OnClick"]
   LOADK R30 K2 ["TopBar"]
   LOADK R31 K39 ["MaterialAsTool"]
@@ -258,13 +279,13 @@ PROTO_5:
   SETTABLEKS R28 R27 K46 ["TooltipText"]
   CALL R25 2 1
   SETTABLEKS R25 R24 K39 ["MaterialAsTool"]
-  GETUPVAL R26 1
+  GETUPVAL R26 3
   GETTABLEKS R25 R26 K26 ["createElement"]
-  GETUPVAL R26 2
+  GETUPVAL R26 4
   DUPTABLE R27 K57 [{"Size", "LayoutOrder"}]
   GETIMPORT R28 K59 [UDim2.new]
   LOADN R29 1
-  LOADN R33 3
+  GETUPVAL R33 2
   ADD R34 R11 R12
   MUL R32 R33 R34
   ADD R33 R16 R12
@@ -278,9 +299,9 @@ PROTO_5:
   CALL R28 1 1
   SETTABLEKS R28 R27 K3 ["LayoutOrder"]
   DUPTABLE R28 K61 [{"SearchBar"}]
-  GETUPVAL R30 1
+  GETUPVAL R30 3
   GETTABLEKS R29 R30 K26 ["createElement"]
-  GETUPVAL R30 5
+  GETUPVAL R30 7
   DUPTABLE R31 K68 [{"Position", "AnchorPoint", "OnSearchRequested", "PlaceholderText", "ShowSearchButton", "ShowSearchIcon", "Size"}]
   GETIMPORT R32 K59 [UDim2.new]
   LOADK R33 K69 [0.5]
@@ -316,9 +337,9 @@ PROTO_5:
   SETTABLEKS R29 R28 K60 ["SearchBar"]
   CALL R25 3 1
   SETTABLEKS R25 R24 K40 ["RestPane"]
-  GETUPVAL R26 1
+  GETUPVAL R26 3
   GETTABLEKS R25 R26 K26 ["createElement"]
-  GETUPVAL R26 6
+  GETUPVAL R26 8
   DUPTABLE R27 K74 [{"LayoutOrder"}]
   NAMECALL R28 R6 K48 ["getNextOrder"]
   CALL R28 1 1
@@ -329,10 +350,15 @@ PROTO_5:
   RETURN R21 -1
 
 PROTO_6:
-  DUPTABLE R1 K4 [{"ActiveAsTool", "Material", "Path", "Search"}]
+  DUPTABLE R1 K4 [{"DEPRECATED_ActiveAsTool", "Material", "Path", "Search"}]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+2]
+  LOADNIL R2
+  JUMP [+4]
   GETTABLEKS R3 R0 K5 ["MaterialBrowserReducer"]
-  GETTABLEKS R2 R3 K0 ["ActiveAsTool"]
-  SETTABLEKS R2 R1 K0 ["ActiveAsTool"]
+  GETTABLEKS R2 R3 K0 ["DEPRECATED_ActiveAsTool"]
+  SETTABLEKS R2 R1 K0 ["DEPRECATED_ActiveAsTool"]
   GETTABLEKS R3 R0 K5 ["MaterialBrowserReducer"]
   GETTABLEKS R2 R3 K1 ["Material"]
   SETTABLEKS R2 R1 K1 ["Material"]
@@ -445,53 +471,67 @@ MAIN:
   GETIMPORT R32 K4 [require]
   GETTABLEKS R33 R29 K44 ["getSupportedMaterials"]
   CALL R32 1 1
-  GETIMPORT R33 K46 [game]
-  LOADK R35 K47 ["InfluxReportMaterialManagerHundrethPercent2"]
-  NAMECALL R33 R33 K48 ["GetFastInt"]
-  CALL R33 2 1
-  MOVE R34 R32
-  CALL R34 0 1
-  GETTABLEKS R35 R2 K49 ["PureComponent"]
-  LOADK R37 K37 ["TopBar"]
-  NAMECALL R35 R35 K50 ["extend"]
+  GETTABLEKS R34 R0 K5 ["Src"]
+  GETTABLEKS R33 R34 K45 ["Flags"]
+  GETIMPORT R34 K4 [require]
+  GETTABLEKS R35 R33 K46 ["getFFlagMaterialActionAsTool"]
+  CALL R34 1 1
+  GETIMPORT R35 K48 [game]
+  LOADK R37 K49 ["InfluxReportMaterialManagerHundrethPercent2"]
+  NAMECALL R35 R35 K50 ["GetFastInt"]
   CALL R35 2 1
-  NEWCLOSURE R36 P0
-  CAPTURE VAL R34
+  MOVE R36 R32
+  CALL R36 0 1
+  GETTABLEKS R37 R2 K51 ["PureComponent"]
+  LOADK R39 K37 ["TopBar"]
+  NAMECALL R37 R37 K52 ["extend"]
+  CALL R37 2 1
+  MOVE R39 R34
+  CALL R39 0 1
+  JUMPIFNOT R39 [+2]
+  LOADN R38 2
+  JUMP [+1]
+  LOADN R38 3
+  NEWCLOSURE R39 P0
+  CAPTURE VAL R36
   CAPTURE VAL R30
-  CAPTURE VAL R33
+  CAPTURE VAL R35
   CAPTURE VAL R31
   CAPTURE REF R25
   CAPTURE VAL R2
-  SETTABLEKS R36 R35 K51 ["init"]
-  DUPCLOSURE R36 K52 [PROTO_5]
+  SETTABLEKS R39 R37 K53 ["init"]
+  DUPCLOSURE R39 K54 [PROTO_5]
   CAPTURE VAL R6
+  CAPTURE VAL R34
+  CAPTURE VAL R38
   CAPTURE VAL R2
   CAPTURE VAL R16
   CAPTURE VAL R12
   CAPTURE VAL R27
   CAPTURE VAL R15
   CAPTURE VAL R28
-  SETTABLEKS R36 R35 K53 ["render"]
-  MOVE R36 R8
-  DUPTABLE R37 K54 [{"Analytics", "GeneralServiceController", "Localization", "MaterialServiceController", "PluginController", "Stylizer"}]
-  SETTABLEKS R9 R37 K15 ["Analytics"]
-  SETTABLEKS R21 R37 K31 ["GeneralServiceController"]
-  SETTABLEKS R10 R37 K16 ["Localization"]
-  SETTABLEKS R22 R37 K32 ["MaterialServiceController"]
-  SETTABLEKS R23 R37 K33 ["PluginController"]
-  SETTABLEKS R13 R37 K22 ["Stylizer"]
-  CALL R36 1 1
-  MOVE R37 R35
-  CALL R36 1 1
-  MOVE R35 R36
-  GETTABLEKS R36 R3 K55 ["connect"]
-  DUPCLOSURE R37 K56 [PROTO_6]
-  DUPCLOSURE R38 K57 [PROTO_8]
+  SETTABLEKS R39 R37 K55 ["render"]
+  MOVE R39 R8
+  DUPTABLE R40 K56 [{"Analytics", "GeneralServiceController", "Localization", "MaterialServiceController", "PluginController", "Stylizer"}]
+  SETTABLEKS R9 R40 K15 ["Analytics"]
+  SETTABLEKS R21 R40 K31 ["GeneralServiceController"]
+  SETTABLEKS R10 R40 K16 ["Localization"]
+  SETTABLEKS R22 R40 K32 ["MaterialServiceController"]
+  SETTABLEKS R23 R40 K33 ["PluginController"]
+  SETTABLEKS R13 R40 K22 ["Stylizer"]
+  CALL R39 1 1
+  MOVE R40 R37
+  CALL R39 1 1
+  MOVE R37 R39
+  GETTABLEKS R39 R3 K57 ["connect"]
+  DUPCLOSURE R40 K58 [PROTO_6]
+  CAPTURE VAL R34
+  DUPCLOSURE R41 K59 [PROTO_8]
   CAPTURE VAL R18
-  CALL R36 2 1
-  MOVE R37 R11
-  MOVE R38 R35
-  CALL R37 1 -1
-  CALL R36 -1 -1
+  CALL R39 2 1
+  MOVE R40 R11
+  MOVE R41 R37
+  CALL R40 1 -1
+  CALL R39 -1 -1
   CLOSEUPVALS R25
-  RETURN R36 -1
+  RETURN R39 -1

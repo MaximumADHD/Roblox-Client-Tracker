@@ -24,4 +24,6 @@ var23.REMOVE = "REMOVE"
 var1.GENERATION_ACTIONS = var23
 var1.COMPLETED_GENERATIONS_INDEX = 3
 var1.MAX_SEED_VALUE = 2147483647
+var1.TEXTURE_GENERATOR_LEGAL_ACCEPT = "TextureGeneratorLegalAccept"
+var1.TERMS_OF_SERVICE_URL = "https://en.help.roblox.com/hc/en-us/articles/20121392440212-AI-Based-Tools-Supplemental-Terms-and-Disclaimer"
 return var1

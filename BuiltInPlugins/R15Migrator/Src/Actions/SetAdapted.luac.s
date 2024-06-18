@@ -1,8 +1,7 @@
 PROTO_0:
-  DUPTABLE R2 K2 [{"adapted", "adaptedWithScripts"}]
-  SETTABLEKS R0 R2 K0 ["adapted"]
-  SETTABLEKS R1 R2 K1 ["adaptedWithScripts"]
-  RETURN R2 1
+  DUPTABLE R1 K1 [{"adapted"}]
+  SETTABLEKS R0 R1 K0 ["adapted"]
+  RETURN R1 1
 
 MAIN:
   PREPVARARGS 0

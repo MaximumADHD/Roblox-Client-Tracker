@@ -10,43 +10,43 @@ local var7 = var1.PureComponent:extend("DeleteAllBreakpointsDialog")
 function var7.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
-   local var209 = {}
-   var209.Style = "AcceptCancel"
-   var209.Enabled = var0.Enabled
-   var209.Modal = true
-   var209.Title = var1:getText("BreakpointsWindow", "DeleteAll")
-   var209.MinContentSize = Vector2.new(300, 100)
-   local var222 = {}
-   var222.Key = "Yes"
-   var222.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupYes")
-   local var228 = {}
-   var228.Key = "No"
-   var228.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupNo")
-   var209.Buttons = {}
-   function var209.OnButtonPressed(arg1)
+   local var71 = {}
+   var71.Style = "AcceptCancel"
+   var71.Enabled = var0.Enabled
+   var71.Modal = true
+   var71.Title = var1:getText("BreakpointsWindow", "DeleteAll")
+   var71.MinContentSize = Vector2.new(300, 100)
+   local var84 = {}
+   var84.Key = "Yes"
+   var84.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupYes")
+   local var90 = {}
+   var90.Key = "No"
+   var90.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupNo")
+   var71.Buttons = {}
+   function var71.OnButtonPressed(arg1)
       if arg1 == "Yes" then
          var0.DeleteAllBreakpoints()
       end
       var0.CloseDialog()
    end
    
-   function var209.OnClose()
+   function var71.OnClose()
       var0.CloseDialog()
    end
    
-   local var241 = {}
-   local var245 = {}
-   var245.BackgroundTransparency = 1
-   var245.TextSize = 20
-   var245.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupText")
-   var245.TextColor3 = Color3.new(1, 1, 1)
-   var245.Size = UDim2.fromScale(1, 1)
-   var245.Position = UDim2.fromScale(0, 0)
-   var241.Contents = var1.createElement(var4, var245)
-   return var1.createElement(var5, var209, var241)
+   local var103 = {}
+   local var107 = {}
+   var107.BackgroundTransparency = 1
+   var107.TextSize = 20
+   var107.Text = var1:getText("BreakpointsWindow", "DeleteAllPopupText")
+   var107.TextColor3 = Color3.new(1, 1, 1)
+   var107.Size = UDim2.fromScale(1, 1)
+   var107.Position = UDim2.fromScale(0, 0)
+   var103.Contents = var1.createElement(var4, var107)
+   return var1.createElement(var5, var71, var103)
 end
 
-local var268 = {}
-var268.Localization = var6.Localization
-var7 = var6.withContext(var268)(var7)
+local var130 = {}
+var130.Localization = var6.Localization
+var7 = var6.withContext(var130)(var7)
 return var7

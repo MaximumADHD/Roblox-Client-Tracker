@@ -47,18 +47,29 @@ PROTO_0:
   GETTABLEKS R7 R8 K12 ["Parent"]
   CALL R5 2 1
   SETTABLEKS R5 R4 K13 ["Position"]
+  GETIMPORT R5 K15 [game]
+  LOADK R7 K16 ["PathEditorUsePerformantAPICalls"]
+  NAMECALL R5 R5 K17 ["getFastFlag"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+8]
+  GETTABLEKS R5 R1 K2 ["SelectedObject"]
+  MOVE R7 R3
+  MOVE R8 R4
+  NAMECALL R5 R5 K18 ["InsertControlPoint"]
+  CALL R5 3 0
+  JUMP [+13]
   MOVE R6 R2
   MOVE R7 R3
   MOVE R8 R4
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R5 K16 [table.insert]
+  GETIMPORT R5 K21 [table.insert]
   CALL R5 3 0
   GETTABLEKS R5 R1 K2 ["SelectedObject"]
   MOVE R7 R2
-  NAMECALL R5 R5 K17 ["SetControlPoints"]
+  NAMECALL R5 R5 K22 ["SetControlPoints"]
   CALL R5 2 0
   GETTABLEKS R5 R1 K2 ["SelectedObject"]
-  SETTABLEKS R3 R5 K18 ["SelectedControlPoint"]
+  SETTABLEKS R3 R5 K23 ["SelectedControlPoint"]
   GETUPVAL R5 1
   JUMPIFNOT R5 [+6]
   GETUPVAL R7 7

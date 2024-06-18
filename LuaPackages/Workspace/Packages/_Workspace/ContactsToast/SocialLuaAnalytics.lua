@@ -9,6 +9,7 @@ export type DiagEventActionType = Package.DiagEventActionType
 export type EventStreamActionType = Package.EventStreamActionType
 export type TelemetryEventList = Package.TelemetryEventList
 export type TelemetryEventAction = Package.TelemetryEventAction
+export type ContextsType = Package.ContextsType
 export type PlatformSpecificityType = Package.PlatformSpecificityType
 
 

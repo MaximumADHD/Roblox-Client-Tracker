@@ -163,12 +163,30 @@ PROTO_7:
   RETURN R0 0
 
 PROTO_8:
+  GETUPVAL R12 0
+  LOADK R13 K0 ["SendFeedback"]
+  MOVE R14 R2
+  MOVE R15 R3
+  MOVE R16 R4
+  MOVE R17 R5
+  MOVE R18 R6
+  MOVE R19 R7
+  DUPTABLE R20 K6 [{"acceptance", "feedback", "jobId", "colorMapId", "localId"}]
+  SETTABLEKS R10 R20 K1 ["acceptance"]
+  SETTABLEKS R11 R20 K2 ["feedback"]
+  SETTABLEKS R1 R20 K3 ["jobId"]
+  SETTABLEKS R8 R20 K4 ["colorMapId"]
+  SETTABLEKS R9 R20 K5 ["localId"]
+  CALL R12 8 0
+  RETURN R0 0
+
+PROTO_9:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE VAL R0
   CAPTURE UPVAL U2
-  DUPTABLE R2 K7 [{"GeneratedPreview", "ReceivedPreview", "GeneratedTexture", "ReceivedTexture", "CancelTextureGeneration", "ExportGeneratedTexture", "RemoveGeneratedTexture"}]
+  DUPTABLE R2 K8 [{"GeneratedPreview", "ReceivedPreview", "GeneratedTexture", "ReceivedTexture", "CancelTextureGeneration", "ExportGeneratedTexture", "RemoveGeneratedTexture", "SendFeedback"}]
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K0 ["GeneratedPreview"]
@@ -190,6 +208,9 @@ PROTO_8:
   NEWCLOSURE R3 P7
   CAPTURE VAL R1
   SETTABLEKS R3 R2 K6 ["RemoveGeneratedTexture"]
+  NEWCLOSURE R3 P8
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K7 ["SendFeedback"]
   RETURN R2 1
 
 MAIN:
@@ -211,7 +232,7 @@ MAIN:
   GETTABLEKS R5 R6 K13 ["Flags"]
   GETTABLEKS R4 R5 K14 ["getFFlagTextureGeneratorTelemetry"]
   CALL R3 1 1
-  DUPCLOSURE R4 K15 [PROTO_8]
+  DUPCLOSURE R4 K15 [PROTO_9]
   CAPTURE VAL R3
   CAPTURE VAL R2
   CAPTURE VAL R1

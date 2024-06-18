@@ -88,8 +88,8 @@ MAIN:
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K7 ["Utility"]
-  GETTABLEKS R6 R7 K14 ["UseServiceInterfaces"]
+  GETTABLEKS R7 R8 K14 ["Testing"]
+  GETTABLEKS R6 R7 K15 ["UseServiceInterfaces"]
   CALL R5 1 1
   LOADNIL R6
   LOADNIL R7
@@ -98,14 +98,14 @@ MAIN:
   JUMPIFNOT R8 [+11]
   GETIMPORT R8 K5 [require]
   GETTABLEKS R11 R0 K6 ["Src"]
-  GETTABLEKS R10 R11 K7 ["Utility"]
-  GETTABLEKS R9 R10 K15 ["ServiceInterfaces"]
+  GETTABLEKS R10 R11 K14 ["Testing"]
+  GETTABLEKS R9 R10 K16 ["ServiceInterfaces"]
   CALL R8 1 1
   MOVE R6 R8
   JUMP [+7]
-  GETIMPORT R8 K17 [game]
-  LOADK R10 K18 ["AssetImportService"]
-  NAMECALL R8 R8 K19 ["GetService"]
+  GETIMPORT R8 K18 [game]
+  LOADK R10 K19 ["AssetImportService"]
+  NAMECALL R8 R8 K20 ["GetService"]
   CALL R8 2 1
   MOVE R7 R8
   NEWCLOSURE R8 P0

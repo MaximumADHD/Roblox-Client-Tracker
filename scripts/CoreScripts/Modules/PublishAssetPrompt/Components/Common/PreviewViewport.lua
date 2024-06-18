@@ -387,44 +387,38 @@ local localized = {
 
 function PreviewViewport:render()
 	local loadingState = self.state.loadingState
-	-- TODO: AVBURST-13893 Still missing Touch control icons
 	local toolTipItems = {
 		{
 			icon = {
 				[InputType.MouseAndKeyboard] = Images["icons/controls/mouse/scroll"],
 				[InputType.Gamepad] = Images["icons/controls/keys/xboxRSVertical"],
 			},
-			-- TODO: AVBURST-12954
-			text = "Zoom",
+			text = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.Zoom"),
 		},
 		{
 			icon = {
 				[InputType.MouseAndKeyboard] = Images["icons/controls/mouse/clickLeft"],
 				[InputType.Gamepad] = Images["icons/controls/keys/xboxRSHorizontal"],
 			},
-			-- TODO: AVBURST-12954
-			text = "Rotate",
+			text = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.Rotate"),
 		},
 		{
 			icon = {
 				[InputType.MouseAndKeyboard] = Images["icons/controls/mouse/clickRight"],
 			},
-			-- TODO: AVBURST-12954
-			text = "Pan",
+			text = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.Pan"),
 		},
 		{
 			icon = {
 				[InputType.Gamepad] = Images["icons/controls/keys/xboxY"],
 			},
-			-- TODO: AVBURST-12954
-			text = "Reset View",
+			text = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.ResetView"),
 		},
 		{
 			icon = {
 				[InputType.Gamepad] = Images["icons/controls/keys/xboxB"],
 			},
-			-- TODO: AVBURST-12954
-			text = "Close",
+			text = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.Close"),
 		},
 	}
 

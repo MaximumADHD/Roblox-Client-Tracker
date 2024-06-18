@@ -9,17 +9,39 @@ PROTO_0:
   JUMPIF R1 [+2]
   NEWTABLE R1 0 0
   GETTABLEKS R2 R1 K3 ["groups"]
+  GETUPVAL R3 1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+8]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["assertType"]
+  GETTABLEKS R3 R4 K0 ["assertNullableType"]
   MOVE R4 R2
   LOADK R5 K1 ["table"]
-  LOADK R6 K5 ["SetGroupInfo.groups"]
+  LOADK R6 K4 ["SetGroupInfo.groups"]
   CALL R3 3 0
-  DUPTABLE R3 K7 [{"groupInfo"}]
-  DUPTABLE R4 K8 [{"groups"}]
-  SETTABLEKS R2 R4 K3 ["groups"]
-  SETTABLEKS R4 R3 K6 ["groupInfo"]
-  RETURN R3 1
+  JUMP [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["assertType"]
+  MOVE R4 R2
+  LOADK R5 K1 ["table"]
+  LOADK R6 K4 ["SetGroupInfo.groups"]
+  CALL R3 3 0
+  LOADNIL R3
+  GETUPVAL R4 1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+9]
+  GETTABLEKS R3 R1 K6 ["ownedGroups"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["assertNullableType"]
+  MOVE R5 R3
+  LOADK R6 K1 ["table"]
+  LOADK R7 K7 ["SetGroupInfo.ownedGroups"]
+  CALL R4 3 0
+  DUPTABLE R4 K9 [{"groupInfo"}]
+  DUPTABLE R5 K10 [{"groups", "ownedGroups"}]
+  SETTABLEKS R2 R5 K3 ["groups"]
+  SETTABLEKS R3 R5 K6 ["ownedGroups"]
+  SETTABLEKS R5 R4 K8 ["groupInfo"]
+  RETURN R4 1
 
 MAIN:
   PREPVARARGS 0
@@ -41,10 +63,16 @@ MAIN:
   GETTABLEKS R5 R6 K2 ["Parent"]
   GETTABLEKS R4 R5 K10 ["Action"]
   CALL R3 1 1
-  MOVE R4 R3
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K11 ["Name"]
-  DUPCLOSURE R6 K12 [PROTO_0]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Flags"]
+  GETTABLEKS R5 R6 K12 ["getFFlagCAP1107"]
+  CALL R4 1 1
+  MOVE R5 R3
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K13 ["Name"]
+  DUPCLOSURE R7 K14 [PROTO_0]
   CAPTURE VAL R2
-  CALL R4 2 -1
-  RETURN R4 -1
+  CAPTURE VAL R4
+  CALL R5 2 -1
+  RETURN R5 -1

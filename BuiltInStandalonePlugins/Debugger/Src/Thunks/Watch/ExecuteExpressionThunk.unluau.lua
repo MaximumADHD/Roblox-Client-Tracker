@@ -11,11 +11,11 @@ local var8 = require(var0.Src.Thunks.Common.AddChildRowsToVars)
 return function(arg1, arg2, arg3)
    return function(arg1)
       if arg1 == "fromInstance" then
-         local var102 = var7
-         var102 = arg1
-         local var116 = arg3(var5, var102.fromInstance(var102, arg1))
+         local var46 = var7
+         var46 = arg1
+         local var54 = arg3(var5, var46.fromInstance(var46, arg1))
          arg2:dispatch()
-         local var133 = arg1
+         local var60 = arg1
          local var1 = var1("", {}, var5, false, var8)
          arg2:dispatch()
       end

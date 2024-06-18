@@ -13,75 +13,75 @@ local var10 = require(var0.Src.Components.RelativeToSetting)
 local var11 = require(var0.Src.Thunks.UpdateActiveInstanceHighlight)
 local var12 = require(var0.Src.Thunks.UpdateAlignEnabled)
 local var13 = var1.PureComponent:extend("AlignmentSettings")
-local function fun2(arg1)
+local function fun0(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
-   local var168 = {}
-   var168.Text = var1:getText("ModeSection", "Title")
-   var168.TextYAlignment = Enum.TextYAlignment.Center
-   local var177 = {}
-   var177.Value = var0.alignmentMode
-   var177.OnValueChanged = var0.setAlignmentMode
-   var168.Content = var1.createElement(var8, var177)
-   local var181 = {}
-   var181.Text = var1:getText("AxesSection", "Title")
-   local var189 = {}
-   var189.AlignmentSpace = var0.alignmentSpace
-   var189.EnabledAxes = var0.enabledAxes
-   var189.OnAlignmentSpaceChanged = var0.setAlignmentSpace
-   var189.OnEnabledAxesChanged = var0.setEnabledAxes
-   var181.Content = var1.createElement(var7, var189)
-   local var195 = {}
-   var195.Text = var1:getText("RelativeToSection", "Title")
-   local var203 = {}
-   var203.Value = var0.relativeTo
-   var203.OnValueChanged = var0.setRelativeTo
-   var195.Content = var1.createElement(var10, var203)
-   local var210 = {}
-   var210.Collapsible = true
-   var210.Items = {}
-   var210.LayoutOrder = var0.LayoutOrder
-   var210.MaximumLabelWidth = var0.Stylizer.MaximumLabelWidth
-   return var1.createElement(var9, var210)
+   local var77 = {}
+   var77.Text = var1:getText("ModeSection", "Title")
+   var77.TextYAlignment = Enum.TextYAlignment.Center
+   local var86 = {}
+   var86.Value = var0.alignmentMode
+   var86.OnValueChanged = var0.setAlignmentMode
+   var77.Content = var1.createElement(var8, var86)
+   local var90 = {}
+   var90.Text = var1:getText("AxesSection", "Title")
+   local var98 = {}
+   var98.AlignmentSpace = var0.alignmentSpace
+   var98.EnabledAxes = var0.enabledAxes
+   var98.OnAlignmentSpaceChanged = var0.setAlignmentSpace
+   var98.OnEnabledAxesChanged = var0.setEnabledAxes
+   var90.Content = var1.createElement(var7, var98)
+   local var104 = {}
+   var104.Text = var1:getText("RelativeToSection", "Title")
+   local var112 = {}
+   var112.Value = var0.relativeTo
+   var112.OnValueChanged = var0.setRelativeTo
+   var104.Content = var1.createElement(var10, var112)
+   local var119 = {}
+   var119.Collapsible = true
+   var119.Items = {}
+   var119.LayoutOrder = var0.LayoutOrder
+   var119.MaximumLabelWidth = var0.Stylizer.MaximumLabelWidth
+   return var1.createElement(var9, var119)
 end
 
 function var13.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Localization
-   local var168 = {}
-   var168.Text = var1:getText("ModeSection", "Title")
-   var168.TextYAlignment = Enum.TextYAlignment.Center
-   local var177 = {}
-   var177.Value = var0.alignmentMode
-   var177.OnValueChanged = var0.setAlignmentMode
-   var168.Content = var1.createElement(var8, var177)
-   local var181 = {}
-   var181.Text = var1:getText("AxesSection", "Title")
-   local var189 = {}
-   var189.AlignmentSpace = var0.alignmentSpace
-   var189.EnabledAxes = var0.enabledAxes
-   var189.OnAlignmentSpaceChanged = var0.setAlignmentSpace
-   var189.OnEnabledAxesChanged = var0.setEnabledAxes
-   var181.Content = var1.createElement(var7, var189)
-   local var195 = {}
-   var195.Text = var1:getText("RelativeToSection", "Title")
-   local var203 = {}
-   var203.Value = var0.relativeTo
-   var203.OnValueChanged = var0.setRelativeTo
-   var195.Content = var1.createElement(var10, var203)
-   local var210 = {}
-   var210.Collapsible = true
-   var210.Items = {}
-   var210.LayoutOrder = var0.LayoutOrder
-   var210.MaximumLabelWidth = var0.Stylizer.MaximumLabelWidth
-   return var1.createElement(var9, var210)
+   local var77 = {}
+   var77.Text = var1:getText("ModeSection", "Title")
+   var77.TextYAlignment = Enum.TextYAlignment.Center
+   local var86 = {}
+   var86.Value = var0.alignmentMode
+   var86.OnValueChanged = var0.setAlignmentMode
+   var77.Content = var1.createElement(var8, var86)
+   local var90 = {}
+   var90.Text = var1:getText("AxesSection", "Title")
+   local var98 = {}
+   var98.AlignmentSpace = var0.alignmentSpace
+   var98.EnabledAxes = var0.enabledAxes
+   var98.OnAlignmentSpaceChanged = var0.setAlignmentSpace
+   var98.OnEnabledAxesChanged = var0.setEnabledAxes
+   var90.Content = var1.createElement(var7, var98)
+   local var104 = {}
+   var104.Text = var1:getText("RelativeToSection", "Title")
+   local var112 = {}
+   var112.Value = var0.relativeTo
+   var112.OnValueChanged = var0.setRelativeTo
+   var104.Content = var1.createElement(var10, var112)
+   local var119 = {}
+   var119.Collapsible = true
+   var119.Items = {}
+   var119.LayoutOrder = var0.LayoutOrder
+   var119.MaximumLabelWidth = var0.Stylizer.MaximumLabelWidth
+   return var1.createElement(var9, var119)
 end
 
-fun2 = var2.withContext
-local var215 = {}
-var215.Localization = var2.Localization
-var215.Stylizer = var2.Stylizer
-var13 = fun2(var215)(var13)
+fun0 = var2.withContext
+local var124 = {}
+var124.Localization = var2.Localization
+var124.Stylizer = var2.Stylizer
+var13 = fun0(var124)(var13)
 return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.alignmentMode = arg1.alignmentMode
@@ -94,33 +94,33 @@ end, function(arg1)
    function var0.setAlignmentMode(arg1)
       local var0 = arg1.props
       local var1 = var0.Localization
-      local var235 = {}
-      var235.Text = var1:getText("ModeSection", "Title")
-      var235.TextYAlignment = Enum.TextYAlignment.Center
-      local var244 = {}
-      var244.Value = var0.alignmentMode
-      var244.OnValueChanged = var0.setAlignmentMode
-      var235.Content = var1.createElement(var8, var244)
-      local var248 = {}
-      var248.Text = var1:getText("AxesSection", "Title")
-      local var256 = {}
-      var256.AlignmentSpace = var0.alignmentSpace
-      var256.EnabledAxes = var0.enabledAxes
-      var256.OnAlignmentSpaceChanged = var0.setAlignmentSpace
-      var256.OnEnabledAxesChanged = var0.setEnabledAxes
-      var248.Content = var1.createElement(var7, var256)
-      local var262 = {}
-      var262.Text = var1:getText("RelativeToSection", "Title")
-      local var270 = {}
-      var270.Value = var0.relativeTo
-      var270.OnValueChanged = var0.setRelativeTo
-      var262.Content = var1.createElement(var10, var270)
-      local var277 = {}
-      var277.Collapsible = true
-      var277.Items = {}
-      var277.LayoutOrder = var0.LayoutOrder
-      var277.MaximumLabelWidth = var0.Stylizer.MaximumLabelWidth
-      return var1.createElement(var9, var277)
+      local var144 = {}
+      var144.Text = var1:getText("ModeSection", "Title")
+      var144.TextYAlignment = Enum.TextYAlignment.Center
+      local var153 = {}
+      var153.Value = var0.alignmentMode
+      var153.OnValueChanged = var0.setAlignmentMode
+      var144.Content = var1.createElement(var8, var153)
+      local var157 = {}
+      var157.Text = var1:getText("AxesSection", "Title")
+      local var165 = {}
+      var165.AlignmentSpace = var0.alignmentSpace
+      var165.EnabledAxes = var0.enabledAxes
+      var165.OnAlignmentSpaceChanged = var0.setAlignmentSpace
+      var165.OnEnabledAxesChanged = var0.setEnabledAxes
+      var157.Content = var1.createElement(var7, var165)
+      local var171 = {}
+      var171.Text = var1:getText("RelativeToSection", "Title")
+      local var179 = {}
+      var179.Value = var0.relativeTo
+      var179.OnValueChanged = var0.setRelativeTo
+      var171.Content = var1.createElement(var10, var179)
+      local var186 = {}
+      var186.Collapsible = true
+      var186.Items = {}
+      var186.LayoutOrder = var0.LayoutOrder
+      var186.MaximumLabelWidth = var0.Stylizer.MaximumLabelWidth
+      return var1.createElement(var9, var186)
    end
    
    function var0.setAlignmentSpace(arg1, arg2)

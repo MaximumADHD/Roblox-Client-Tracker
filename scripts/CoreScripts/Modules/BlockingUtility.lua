@@ -11,7 +11,7 @@ local Url = require(RobloxGui.Modules.Common.Url)
 local rolloutByApplicationId = require(CorePackages.Workspace.Packages.AppCommonLib).rolloutByApplicationId
 
 local newBlockingUtilityRollout  = function()
-	return game:DefineFastInt("NewBlockingUtilityRollout", 0)
+	return game:DefineFastInt("NewBlockingUtilityRollout_v1", 0)
 end
 local shouldUseNewBlockingUtility = rolloutByApplicationId(newBlockingUtilityRollout)
 
@@ -41,10 +41,6 @@ local GetBlockedPlayersStarted = false
 local GetBlockedPlayersFinished = Instance.new("BindableEvent")
 local BlockedList = {}
 local MutedList = {}
-
-local buildIsBlockedUrl = function(userId)
-	return Url.APIS_URL.."user-blocking-api/v1/users/"..userId.."/is-blocked"
-end
 
 local batchIsBlockedApi = Url.APIS_URL.."user-blocking-api/v1/users/batch-is-blocked"
 
@@ -151,28 +147,10 @@ local function initializeBlockList()
 end
 
 local function isBlocked(userId): boolean
-	if shouldUseNewBlockingUtility() then
-		local success, isBlocked
-		success, isBlocked = pcall(function()
-			local fullUrl = buildIsBlockedUrl(userId)
-			local result = HttpRbxApiService:GetAsyncFullUrl(fullUrl, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
-	
-			if result then
-				result = HttpService:JSONDecode(result)
-				return result
-			end
-		end)
-	
-		if success and isBlocked then
-			return true
-		end
-		return false
-	else
-		if (BlockedList[userId]) then
-			return true
-		end
-		return false
+	if (BlockedList[userId]) then
+		return true
 	end
+	return false
 end
 
 local function isMuted(userId): boolean

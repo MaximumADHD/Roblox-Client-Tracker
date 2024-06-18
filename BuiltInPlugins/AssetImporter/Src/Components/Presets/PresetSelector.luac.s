@@ -107,16 +107,27 @@ PROTO_1:
   RETURN R9 -1
 
 PROTO_2:
-  GETUPVAL R4 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+12]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["props"]
+  GETTABLEKS R3 R2 K1 ["PresetController"]
+  MOVE R5 R0
+  GETTABLEKS R6 R2 K2 ["ActiveQueueItem"]
+  NAMECALL R3 R3 K3 ["resolvePreset"]
+  CALL R3 3 0
+  RETURN R0 0
+  GETUPVAL R4 1
   GETTABLEKS R3 R4 K0 ["props"]
-  GETTABLEKS R2 R3 K1 ["SetCurrentPreset"]
+  GETTABLEKS R2 R3 K4 ["SetCurrentPreset"]
   MOVE R3 R0
   CALL R2 1 0
-  GETUPVAL R4 0
+  GETUPVAL R4 1
   GETTABLEKS R3 R4 K0 ["props"]
-  GETTABLEKS R2 R3 K2 ["PresetController"]
+  GETTABLEKS R2 R3 K1 ["PresetController"]
   MOVE R4 R0
-  NAMECALL R2 R2 K3 ["resolvePreset"]
+  NAMECALL R2 R2 K5 ["DEPRECATED_resolvePreset"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -129,6 +140,7 @@ PROTO_3:
   CAPTURE UPVAL U3
   SETTABLEKS R1 R0 K0 ["renderDropdownItem"]
   NEWCLOSURE R1 P1
+  CAPTURE UPVAL U4
   CAPTURE VAL R0
   SETTABLEKS R1 R0 K1 ["onItemActivated"]
   RETURN R0 0
@@ -159,98 +171,107 @@ PROTO_5:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R3 R1 K1 ["Stylizer"]
   GETTABLEKS R2 R3 K2 ["TopBar"]
-  GETTABLEKS R3 R1 K3 ["CurrentPreset"]
-  GETTABLEKS R4 R1 K4 ["PresetController"]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R1 K3 ["ActiveQueueItem"]
+  GETTABLEKS R3 R4 K4 ["currentPreset"]
+  JUMP [+2]
+  GETTABLEKS R3 R1 K5 ["CurrentPreset"]
+  GETTABLEKS R4 R1 K6 ["PresetController"]
   MOVE R6 R3
-  NAMECALL R4 R4 K5 ["getNameList"]
+  NAMECALL R4 R4 K7 ["getNameList"]
   CALL R4 2 1
-  GETTABLEKS R5 R1 K4 ["PresetController"]
+  GETTABLEKS R5 R1 K6 ["PresetController"]
   MOVE R7 R3
-  NAMECALL R5 R5 K6 ["isLastImport"]
+  NAMECALL R5 R5 K8 ["isLastImport"]
   CALL R5 2 1
   LOADNIL R6
   JUMPIFNOT R5 [+8]
-  GETTABLEKS R7 R1 K7 ["Localization"]
-  LOADK R9 K8 ["Templates"]
-  LOADK R10 K9 ["LastImportTooltip"]
-  NAMECALL R7 R7 K10 ["getText"]
+  GETTABLEKS R7 R1 K9 ["Localization"]
+  LOADK R9 K10 ["Templates"]
+  LOADK R10 K11 ["LastImportTooltip"]
+  NAMECALL R7 R7 K12 ["getText"]
   CALL R7 3 1
   MOVE R6 R7
-  GETTABLEKS R7 R1 K11 ["SettingsChanged"]
+  GETTABLEKS R7 R1 K13 ["SettingsChanged"]
   JUMPIFNOT R7 [+8]
-  GETTABLEKS R7 R1 K7 ["Localization"]
-  LOADK R9 K8 ["Templates"]
-  LOADK R10 K12 ["ModifiedTemplateTooltip"]
-  NAMECALL R7 R7 K10 ["getText"]
+  GETTABLEKS R7 R1 K9 ["Localization"]
+  LOADK R9 K10 ["Templates"]
+  LOADK R10 K14 ["ModifiedTemplateTooltip"]
+  NAMECALL R7 R7 K12 ["getText"]
   CALL R7 3 1
   MOVE R6 R7
-  GETUPVAL R7 0
+  GETUPVAL R7 1
   MOVE R8 R4
   NEWCLOSURE R9 P0
   CAPTURE VAL R3
   CALL R7 2 1
-  GETTABLEKS R9 R1 K13 ["Size"]
+  GETTABLEKS R9 R1 K15 ["Size"]
   JUMPIFNOT R9 [+3]
-  GETTABLEKS R8 R1 K13 ["Size"]
+  GETTABLEKS R8 R1 K15 ["Size"]
   JUMP [+5]
-  GETIMPORT R8 K16 [UDim2.fromScale]
+  GETIMPORT R8 K18 [UDim2.fromScale]
   LOADN R9 1
   LOADN R10 1
   CALL R8 2 1
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K17 ["createElement"]
   GETUPVAL R10 2
-  DUPTABLE R11 K26 [{"Items", "LayoutOrder", "OnRenderItem", "OnItemActivated", "SelectedIndex", "Size", "Width", "Enabled", "TextTruncate"}]
-  SETTABLEKS R4 R11 K18 ["Items"]
-  GETTABLEKS R12 R1 K19 ["LayoutOrder"]
-  SETTABLEKS R12 R11 K19 ["LayoutOrder"]
-  GETTABLEKS R12 R0 K27 ["renderDropdownItem"]
-  SETTABLEKS R12 R11 K20 ["OnRenderItem"]
-  GETTABLEKS R12 R0 K28 ["onItemActivated"]
-  SETTABLEKS R12 R11 K21 ["OnItemActivated"]
-  SETTABLEKS R7 R11 K22 ["SelectedIndex"]
-  GETUPVAL R13 3
+  GETTABLEKS R9 R10 K19 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K28 [{"Items", "LayoutOrder", "OnRenderItem", "OnItemActivated", "SelectedIndex", "Size", "Width", "Enabled", "TextTruncate"}]
+  SETTABLEKS R4 R11 K20 ["Items"]
+  GETTABLEKS R12 R1 K21 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K21 ["LayoutOrder"]
+  GETTABLEKS R12 R0 K29 ["renderDropdownItem"]
+  SETTABLEKS R12 R11 K22 ["OnRenderItem"]
+  GETTABLEKS R12 R0 K30 ["onItemActivated"]
+  SETTABLEKS R12 R11 K23 ["OnItemActivated"]
+  SETTABLEKS R7 R11 K24 ["SelectedIndex"]
+  GETUPVAL R13 0
   CALL R13 0 1
   JUMPIFNOT R13 [+2]
   MOVE R12 R8
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K13 ["Size"]
-  GETUPVAL R13 3
+  SETTABLEKS R12 R11 K15 ["Size"]
+  GETUPVAL R13 0
   CALL R13 0 1
   JUMPIF R13 [+7]
-  GETTABLEKS R14 R2 K29 ["TemplateDropDown"]
-  GETTABLEKS R13 R14 K30 ["X"]
-  GETTABLEKS R12 R13 K31 ["Offset"]
+  GETTABLEKS R14 R2 K31 ["TemplateDropDown"]
+  GETTABLEKS R13 R14 K32 ["X"]
+  GETTABLEKS R12 R13 K33 ["Offset"]
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K23 ["Width"]
-  GETUPVAL R13 3
+  SETTABLEKS R12 R11 K25 ["Width"]
+  GETUPVAL R13 0
   CALL R13 0 1
   JUMPIFNOT R13 [+3]
-  GETTABLEKS R12 R1 K24 ["Enabled"]
+  GETTABLEKS R12 R1 K26 ["Enabled"]
   JUMP [+1]
   LOADNIL R12
-  SETTABLEKS R12 R11 K24 ["Enabled"]
-  GETIMPORT R12 K34 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R12 R11 K25 ["TextTruncate"]
+  SETTABLEKS R12 R11 K26 ["Enabled"]
+  GETIMPORT R12 K36 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R12 R11 K27 ["TextTruncate"]
   CALL R9 2 1
+  GETUPVAL R10 0
+  CALL R10 0 1
+  JUMPIF R10 [+29]
   JUMPIFNOT R6 [+28]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K17 ["createElement"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K19 ["createElement"]
   GETUPVAL R11 4
-  DUPTABLE R12 K35 [{"LayoutOrder", "Size"}]
+  DUPTABLE R12 K37 [{"LayoutOrder", "Size"}]
   LOADN R13 3
-  SETTABLEKS R13 R12 K19 ["LayoutOrder"]
-  GETTABLEKS R13 R2 K29 ["TemplateDropDown"]
-  SETTABLEKS R13 R12 K13 ["Size"]
+  SETTABLEKS R13 R12 K21 ["LayoutOrder"]
+  GETTABLEKS R13 R2 K31 ["TemplateDropDown"]
+  SETTABLEKS R13 R12 K15 ["Size"]
   NEWTABLE R13 0 1
-  GETUPVAL R15 1
-  GETTABLEKS R14 R15 K17 ["createElement"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K19 ["createElement"]
   GETUPVAL R15 5
-  DUPTABLE R16 K38 [{"Text", "Child"}]
-  SETTABLEKS R6 R16 K36 ["Text"]
-  SETTABLEKS R9 R16 K37 ["Child"]
+  DUPTABLE R16 K40 [{"Text", "Child"}]
+  SETTABLEKS R6 R16 K38 ["Text"]
+  SETTABLEKS R9 R16 K39 ["Child"]
   CALL R14 2 -1
   SETLIST R13 R14 -1 [1]
   CALL R10 3 -1
@@ -259,16 +280,31 @@ PROTO_5:
 
 PROTO_6:
   DUPTABLE R1 K3 [{"CurrentPreset", "SettingsChanged", "Checked"}]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+5]
   GETTABLEKS R3 R0 K4 ["Preview"]
   GETTABLEKS R2 R3 K5 ["currentPreset"]
+  JUMP [+1]
+  LOADNIL R2
   SETTABLEKS R2 R1 K0 ["CurrentPreset"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+5]
   GETTABLEKS R3 R0 K4 ["Preview"]
   GETTABLEKS R2 R3 K6 ["settingsChanged"]
+  JUMP [+1]
+  LOADNIL R2
   SETTABLEKS R2 R1 K1 ["SettingsChanged"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+8]
   GETTABLEKS R3 R0 K4 ["Preview"]
   GETTABLEKS R2 R3 K7 ["importDataChecked"]
-  JUMPIF R2 [+2]
+  JUMPIF R2 [+4]
   NEWTABLE R2 0 0
+  JUMP [+1]
+  LOADNIL R2
   SETTABLEKS R2 R1 K2 ["Checked"]
   RETURN R1 1
 
@@ -282,9 +318,14 @@ PROTO_7:
 
 PROTO_8:
   DUPTABLE R1 K1 [{"SetCurrentPreset"}]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+4]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
-  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  JUMP [+1]
+  LOADNIL R2
   SETTABLEKS R2 R1 K0 ["SetCurrentPreset"]
   RETURN R1 1
 
@@ -353,12 +394,13 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R9
   CAPTURE VAL R13
+  CAPTURE VAL R19
   SETTABLEKS R22 R20 K40 ["init"]
   DUPCLOSURE R22 K41 [PROTO_5]
+  CAPTURE VAL R19
   CAPTURE VAL R14
   CAPTURE VAL R1
   CAPTURE VAL R10
-  CAPTURE VAL R19
   CAPTURE VAL R11
   CAPTURE VAL R12
   SETTABLEKS R22 R20 K42 ["render"]
@@ -372,7 +414,9 @@ MAIN:
   CALL R22 1 1
   MOVE R20 R22
   DUPCLOSURE R22 K44 [PROTO_6]
+  CAPTURE VAL R19
   DUPCLOSURE R23 K45 [PROTO_8]
+  CAPTURE VAL R19
   CAPTURE VAL R18
   GETTABLEKS R24 R2 K46 ["connect"]
   MOVE R25 R22

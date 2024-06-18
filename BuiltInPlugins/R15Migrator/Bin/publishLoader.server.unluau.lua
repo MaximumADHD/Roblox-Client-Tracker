@@ -16,20 +16,20 @@ var3.fallbackResourceTable = var0.Src.Resources.Localization.SourceStrings
 var3.overrideLocaleId = nil
 var3.localizationNamespace = nil
 var3.noToolbar = true
-local var85 = {}
+local var81 = {}
 local function fun0()
    return var2.OnPublishAttempt
 end
 
-function var85.StudioPublishService.OnPublishAttempt()
+function var81.StudioPublishService.OnPublishAttempt()
    return var2.OnPublishAttempt
 end
 
-var3.extraTriggers = var85
+var3.extraTriggers = var81
 fun0 = var3
 local var5 = require(var0.PluginLoader.PluginLoaderBuilder).build(fun0)
 if not var5.pluginLoader:waitForUserInteraction() then
 end
-local var94 = script
-var94 = var5
-require(var94.Parent.publishMain)(plugin, var94)
+local var90 = script
+var90 = var5
+require(var90.Parent.publishMain)(plugin, var90)

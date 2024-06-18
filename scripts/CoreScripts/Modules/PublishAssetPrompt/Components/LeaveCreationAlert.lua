@@ -20,8 +20,7 @@ type Props = {
 
 local function LeaveCreationAlert(props: Props)
 	return React.createElement(InteractiveAlert, {
-		-- TODO: AVBURST-12954 placeholder title until localized
-		title = "Leave Creation?",
+		title = RobloxTranslator:FormatByKey("CoreScripts.PublishAvatarPrompt.LeaveCreationTitle"),
 		bodyText = RobloxTranslator:FormatByKey("CoreScripts.PublishCommon.UnsavedWarning"),
 		buttonStackInfo = {
 			buttons = {

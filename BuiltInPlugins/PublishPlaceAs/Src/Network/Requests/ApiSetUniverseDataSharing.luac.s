@@ -1,0 +1,72 @@
+PROTO_0:
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["Error setting universe data sharing configuration"]
+  MOVE R3 R0
+  CALL R1 2 0
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  CALL R2 0 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R1 K1 [assert]
+  CALL R1 -1 0
+  DUPTABLE R1 K5 [{"Url", "Method", "Body"}]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["BuildRobloxUrl"]
+  LOADK R3 K7 ["apis"]
+  LOADK R4 K8 ["resource-settings/v1/universes"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K2 ["Url"]
+  LOADK R2 K9 ["POST"]
+  SETTABLEKS R2 R1 K3 ["Method"]
+  GETUPVAL R2 2
+  DUPTABLE R4 K11 [{"configurations"}]
+  NEWTABLE R5 0 1
+  DUPTABLE R6 K14 [{"universeId", "dataSharingLicenseTypes"}]
+  SETTABLEKS R0 R6 K12 ["universeId"]
+  NEWTABLE R7 0 1
+  LOADK R8 K15 ["RobloxGlobal"]
+  SETLIST R7 R8 1 [1]
+  SETTABLEKS R7 R6 K13 ["dataSharingLicenseTypes"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K10 ["configurations"]
+  NAMECALL R2 R2 K16 ["JSONEncode"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K4 ["Body"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K17 ["Request"]
+  MOVE R3 R1
+  CALL R2 1 1
+  DUPCLOSURE R4 K18 [PROTO_0]
+  NAMECALL R2 R2 K19 ["catch"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R5 K5 [script]
+  GETTABLEKS R4 R5 K6 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R5 R1 K9 ["Src"]
+  GETTABLEKS R4 R5 K10 ["Network"]
+  GETTABLEKS R3 R4 K11 ["Http"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R6 R1 K9 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Flags"]
+  GETTABLEKS R4 R5 K13 ["getFFlagCAP1107"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K14 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  RETURN R4 1

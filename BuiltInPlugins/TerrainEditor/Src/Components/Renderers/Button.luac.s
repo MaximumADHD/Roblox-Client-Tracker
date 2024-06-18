@@ -1,11 +1,8 @@
 PROTO_0:
   GETTABLEKS R1 R0 K0 ["Schema"]
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+40]
-  GETUPVAL R3 1
+  GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["createElement"]
-  GETUPVAL R3 2
+  GETUPVAL R3 1
   DUPTABLE R4 K8 [{"Disabled", "OnClick", "Size", "Style", "Text", "TextXAlignment"}]
   GETTABLEKS R5 R0 K2 ["Disabled"]
   SETTABLEKS R5 R4 K2 ["Disabled"]
@@ -30,32 +27,6 @@ PROTO_0:
   SETTABLEKS R5 R4 K7 ["TextXAlignment"]
   CALL R2 2 -1
   RETURN R2 -1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["createElement"]
-  GETUPVAL R3 3
-  DUPTABLE R4 K18 [{"OnClick", "Size", "Style", "Text", "StyleModifier"}]
-  GETTABLEKS R5 R1 K3 ["OnClick"]
-  SETTABLEKS R5 R4 K3 ["OnClick"]
-  GETIMPORT R5 K11 [UDim2.new]
-  LOADN R6 1
-  LOADN R7 0
-  LOADN R8 0
-  LOADN R9 32
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K4 ["Size"]
-  LOADK R5 K19 ["RoundPrimary"]
-  SETTABLEKS R5 R4 K5 ["Style"]
-  GETTABLEKS R5 R1 K13 ["Label"]
-  SETTABLEKS R5 R4 K6 ["Text"]
-  GETTABLEKS R6 R0 K2 ["Disabled"]
-  JUMPIFNOT R6 [+4]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K2 ["Disabled"]
-  JUMP [+1]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K17 ["StyleModifier"]
-  CALL R2 2 -1
-  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
@@ -77,15 +48,7 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["IconButton"]
   GETTABLEKS R6 R1 K12 ["Util"]
   GETTABLEKS R5 R6 K13 ["StyleModifier"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K14 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Flags"]
-  GETTABLEKS R7 R8 K16 ["getFFlagTerrainEditorUseIconButton"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K17 [PROTO_0]
-  CAPTURE VAL R6
+  DUPCLOSURE R6 K14 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  RETURN R7 1
+  RETURN R6 1

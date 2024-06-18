@@ -22,25 +22,35 @@ PROTO_0:
   NAMECALL R3 R0 K6 ["dispatch"]
   CALL R3 -1 0
   GETUPVAL R3 0
-  GETIMPORT R4 K9 [table.remove]
-  MOVE R5 R2
-  MOVE R6 R3
-  CALL R4 2 0
   GETUPVAL R6 2
   MOVE R7 R3
   CALL R6 1 -1
   NAMECALL R4 R0 K6 ["dispatch"]
   CALL R4 -1 0
+  GETIMPORT R4 K8 [game]
+  LOADK R6 K9 ["PathEditorUsePerformantAPICalls"]
+  NAMECALL R4 R4 K10 ["getFastFlag"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R4 R1 K3 ["SelectedObject"]
+  MOVE R6 R3
+  NAMECALL R4 R4 K11 ["RemoveControlPoint"]
+  CALL R4 2 0
+  JUMP [+11]
+  GETIMPORT R4 K14 [table.remove]
+  MOVE R5 R2
+  MOVE R6 R3
+  CALL R4 2 0
   GETTABLEKS R4 R1 K3 ["SelectedObject"]
   MOVE R6 R2
-  NAMECALL R4 R4 K10 ["SetControlPoints"]
+  NAMECALL R4 R4 K15 ["SetControlPoints"]
   CALL R4 2 0
   GETTABLEKS R6 R1 K3 ["SelectedObject"]
   NAMECALL R6 R6 K4 ["GetControlPoints"]
   CALL R6 1 1
   LENGTH R5 R6
   JUMPIFNOTLT R5 R3 [+3]
-  SUBK R4 R3 K11 [1]
+  SUBK R4 R3 K16 [1]
   JUMP [+1]
   MOVE R4 R3
   GETUPVAL R7 3

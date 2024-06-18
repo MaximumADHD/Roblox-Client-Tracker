@@ -34,13 +34,21 @@ local YPOS_OFFSET = -math.floor(STYLE_PADDING / 2)
 local usingGamepad = false
 
 local FFlagFixDialogInstanceGamepadImages = game:DefineFastFlag("FixDialogInstanceGamepadImages", false)
+local FFlagFixDialogTouchNotWorking = game:DefineFastFlag("FixDialogTouchNotWorking", false)
 
 local FlagHasReportedPlace = false
-
 local localPlayer = playerService.LocalPlayer
 while localPlayer == nil do
 	playerService.PlayerAdded:wait()
 	localPlayer = playerService.LocalPlayer
+end
+
+local character
+if FFlagFixDialogTouchNotWorking then
+	character = localPlayer.Character
+	if not character or character.Parent == nil then
+		character = localPlayer.CharacterAdded:Wait()
+	end
 end
 
 function setUsingGamepad(input, processed)
@@ -55,9 +63,12 @@ end
 game:GetService("UserInputService").InputBegan:Connect(setUsingGamepad)
 game:GetService("UserInputService").InputChanged:Connect(setUsingGamepad)
 
-function waitForProperty(instance, name)
-	while not instance[name] do
-		instance.Changed:wait()
+local waitForProperty
+if not FFlagFixDialogTouchNotWorking then
+	function waitForProperty(instance, name)
+		while not instance[name] do
+			instance.Changed:wait()
+		end
 	end
 end
 
@@ -329,16 +340,20 @@ function selectChoice(choice)
 
 	renewKillswitch(currentConversationDialog)
 
+	if FFlagFixDialogTouchNotWorking and not character:FindFirstAncestorOfClass("Workspace") then
+		return
+	end
+
 	--First hide the Gui
 	mainFrame.Visible = false
 	if choice == lastChoice then
-		chatFunc(currentConversationDialog, localPlayer.Character, lastChoice.UserPrompt.Text, getChatColor(currentTone()))
+		chatFunc(currentConversationDialog, if FFlagFixDialogTouchNotWorking then character else localPlayer.Character, lastChoice.UserPrompt.Text, getChatColor(currentTone()))
 
 		normalEndDialog()
 	else
 		local dialogChoice = choiceMap[choice]
 
-		chatFunc(currentConversationDialog, localPlayer.Character, sanitizeMessage(dialogChoice.UserDialog), getChatColor(currentTone()))
+		chatFunc(currentConversationDialog, if FFlagFixDialogTouchNotWorking then character else localPlayer.Character, sanitizeMessage(dialogChoice.UserDialog), getChatColor(currentTone()))
 		wait(1)
 
 		if not currentConversationDialog then
@@ -370,9 +385,15 @@ function newChoice()
 		frame.BackgroundTransparency = 1
 	end)
 	frame.SelectionImageObject = dummyFrame
-	frame.MouseButton1Click:connect(function()
-		selectChoice(frame)
-	end)
+	if FFlagFixDialogTouchNotWorking then
+		frame.Activated:connect(function()
+			selectChoice(frame)
+		end)
+	else
+		frame.MouseButton1Click:connect(function()
+			selectChoice(frame)
+		end)
+	end
 	frame.RobloxLocked = true
 
 	local prompt = Instance.new("TextLabel")
@@ -648,7 +669,9 @@ function addDialog(dialog)
 end
 
 function onLoad()
-	waitForProperty(localPlayer, "Character")
+	if not FFlagFixDialogTouchNotWorking then
+		waitForProperty(localPlayer, "Character")
+	end
 
 	createChatNotificationGui()
 
