@@ -238,6 +238,7 @@
 [C++] DFFlagContentProviderFixClearContent
 [C++] DFFlagContentProviderPriorityList
 [C++] DFFlagContentProviderPriorityList2
+[C++] DFFlagContentProviderPriorityListFix
 [C++] DFFlagControllerManagerUpDirectionProp
 [C++] DFFlagCookieStoreEnabledMac
 [C++] DFFlagCountCoalescedTouches
@@ -5693,7 +5694,6 @@
 [Lua] FFlagEnableFavoriteButtonForUgc
 [C++] FFlagEnableFeatureTracking
 [Lua] FFlagEnableFeedbackModeModalTextFixes
-[Lua] FFlagEnableFeedbackOnboardingModal
 [Lua] FFlagEnableFeedbackReportDialogAdjustments
 [Lua] FFlagEnableFeedbackSelectionUpdate
 [C++] FFlagEnableFindFirstDescendant2

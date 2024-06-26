@@ -2345,7 +2345,7 @@ Class QWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 Class ScreenGui : LayerCollector
 	Property ScreenGui.ClipToDeviceSafeArea: boolean
 	Property ScreenGui.SafeAreaCompatibility: Enum.SafeAreaCompatibility
-	Property ScreenGui.ScreenInsets: Enum.ScreenInsets [NotBrowsable]
+	Property ScreenGui.ScreenInsets: Enum.ScreenInsets
 	Property ScreenGui.OnTopOfCoreBlur: boolean {RobloxScriptSecurity} [Hidden]
 	Property ScreenGui.DisplayOrder: number
 	Property ScreenGui.IgnoreGuiInset: boolean [📁 LoadOnly]

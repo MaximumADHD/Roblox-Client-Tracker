@@ -1,8 +1,0 @@
-{
-  "instanceHierarchy": {
-    "name": "AvatarExperience",
-    "tree": {
-      "$path": "../../../../../../../modules/economy/avatar-experience/src"
-    }
-  }
-}
