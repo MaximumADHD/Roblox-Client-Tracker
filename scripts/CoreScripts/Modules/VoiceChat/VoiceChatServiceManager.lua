@@ -81,6 +81,7 @@ local FFlagHideUIWhenVoiceDefaultDisabled = game:DefineFastFlag("HideUIWhenVoice
 local FFlagUseAudioInstanceAdded = game:DefineFastFlag("UseAudioInstanceAdded", false) and game:GetEngineFeature("AudioInstanceAddedApiEnabled")
 local FFlagReceiveLikelySpeakingUsers = game:DefineFastFlag("DebugReceiveLikelySpeakingUsers", false)
 local FFlagEnableVoiceSignal = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceSignal()
+local FFlagEnqueueVoiceClientJoinOperationLua = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnqueueVoiceClientJoinOperationLua()
 
 if VoiceChatCore then
 	FFlagAlwaysSetupVoiceListeners = require(VoiceChatCore.Flags.GetFFlagAlwaysSetupVoiceListeners)()
@@ -508,6 +509,13 @@ function VoiceChatServiceManager:_asyncInit()
 	return (if FFlagFixNonSelfCalls then self else VoiceChatServiceManager)
 		:canUseServiceAsync()
 		:andThen(function(canUseService)
+			if FFlagEnqueueVoiceClientJoinOperationLua then
+				local service = game:GetService("VoiceChatService")
+				if service then
+					service:joinVoice()
+					log:debug("Starting Voice Chat Client Join Operation")
+				end
+			end 
 			local serviceName = "VoiceChatService"
 			if game:GetEngineFeature("UseNewVoiceChatService") then
 				serviceName = "VoiceChatInternal"

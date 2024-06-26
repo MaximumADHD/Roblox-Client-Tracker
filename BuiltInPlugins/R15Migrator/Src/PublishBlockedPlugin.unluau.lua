@@ -15,16 +15,16 @@ end
 
 function var7.render(arg1)
    local var0 = arg1.props
-   local var184 = var9.new(plugin)
-   local var186 = var3()
-   local var187 = var0.Localization
-   local var192 = {}
-   var192.OnClose = var0.OnClose
-   function var192.OnOpen(arg1)
+   local var298 = var9.new(plugin)
+   local var300 = var3()
+   local var301 = var0.Localization
+   local var306 = {}
+   var306.OnClose = var0.OnClose
+   function var306.OnOpen(arg1)
       arg1.connection = var5.new(var4.CrossPluginCommunicationName)
    end
    
-   local var2 = var1.createElement(var6, var192)
+   local var2 = var1.createElement(var6, var306)
    return var8.provide({}, {})
 end
 

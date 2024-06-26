@@ -56,7 +56,7 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  NEWTABLE R1 0 3
+  NEWTABLE R1 0 4
   DUPTABLE R2 K3 [{"Name", "Key", "Width"}]
   LOADK R3 K4 [""]
   SETTABLEKS R3 R2 K0 ["Name"]
@@ -73,40 +73,50 @@ PROTO_3:
   LOADK R4 K9 ["Asset"]
   SETTABLEKS R4 R3 K1 ["Key"]
   GETIMPORT R4 K8 [UDim.new]
-  LOADN R5 1
-  LOADN R6 88
+  LOADK R5 K10 [0.5]
+  LOADN R6 172
   CALL R4 2 1
   SETTABLEKS R4 R3 K2 ["Width"]
   DUPTABLE R4 K3 [{"Name", "Key", "Width"}]
-  LOADK R5 K10 ["Preset"]
+  LOADK R5 K11 ["Preset"]
   SETTABLEKS R5 R4 K0 ["Name"]
-  LOADK R5 K10 ["Preset"]
+  LOADK R5 K11 ["Preset"]
   SETTABLEKS R5 R4 K1 ["Key"]
   GETIMPORT R5 K8 [UDim.new]
   LOADN R6 0
   LOADN R7 140
   CALL R5 2 1
   SETTABLEKS R5 R4 K2 ["Width"]
-  SETLIST R1 R2 3 [1]
-  SETTABLEKS R1 R0 K11 ["columnDefaults"]
-  DUPTABLE R1 K13 [{"columns"}]
-  GETTABLEKS R2 R0 K11 ["columnDefaults"]
-  SETTABLEKS R2 R1 K12 ["columns"]
-  SETTABLEKS R1 R0 K14 ["state"]
+  DUPTABLE R5 K3 [{"Name", "Key", "Width"}]
+  LOADK R6 K12 ["Path"]
+  SETTABLEKS R6 R5 K0 ["Name"]
+  LOADK R6 K12 ["Path"]
+  SETTABLEKS R6 R5 K1 ["Key"]
+  GETIMPORT R6 K8 [UDim.new]
+  LOADK R7 K10 [0.5]
+  LOADN R8 172
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K2 ["Width"]
+  SETLIST R1 R2 4 [1]
+  SETTABLEKS R1 R0 K13 ["columnDefaults"]
+  DUPTABLE R1 K15 [{"columns"}]
+  GETTABLEKS R2 R0 K13 ["columnDefaults"]
+  SETTABLEKS R2 R1 K14 ["columns"]
+  SETTABLEKS R1 R0 K16 ["state"]
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
-  SETTABLEKS R1 R0 K15 ["onColumnSizesChange"]
+  SETTABLEKS R1 R0 K17 ["onColumnSizesChange"]
   NEWCLOSURE R1 P1
   CAPTURE VAL R0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
-  SETTABLEKS R1 R0 K16 ["getRows"]
+  SETTABLEKS R1 R0 K18 ["getRows"]
   NEWCLOSURE R1 P2
   CAPTURE VAL R0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U2
-  SETTABLEKS R1 R0 K17 ["onCheckboxToggle"]
+  SETTABLEKS R1 R0 K19 ["onCheckboxToggle"]
   RETURN R0 0
 
 PROTO_4:

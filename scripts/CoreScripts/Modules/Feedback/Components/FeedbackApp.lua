@@ -10,8 +10,6 @@ local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local FeedbackModule = script.Parent.Parent
 
@@ -32,14 +30,7 @@ local FeedbackReportDialog = require(FeedbackModule.Components.FeedbackReportDia
 local RefinedFeedbackBar = require(FeedbackModule.Components.RefinedFeedbackBar)
 local FeedbackSubmissionToast = require(FeedbackModule.Components.FeedbackSubmissionToast)
 local HelpModal = require(FeedbackModule.Components.HelpModal)
-
--- Flags
-local FFlagEnableFeedbackModeBottomBarTextFixes = game:DefineFastFlag("EnableFeedbackModeBottomBarTextFixes", false)
-local GetFFlagEnableFeedbackOnboardingModal = require(RobloxGui.Modules.Flags.GetFFlagEnableFeedbackOnboardingModal)
-local OnboardingModal = nil
-if GetFFlagEnableFeedbackOnboardingModal() then
-	OnboardingModal = require(FeedbackModule.Components.OnboardingModal)
-end
+local OnboardingModal = require(FeedbackModule.Components.OnboardingModal)
 
 local FeedbackApp = Roact.PureComponent:extend("FeedbackApp")
 
@@ -48,87 +39,43 @@ FeedbackApp.validateProps = t.strictInterface({
 })
 
 function FeedbackApp:render()
-	if GetFFlagEnableFeedbackOnboardingModal() then
-		-- Only difference is onboarding modal is created in this flow
-		return Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-			Gui = Roact.createElement("ScreenGui", {
-				AutoLocalize = false,
-				IgnoreGuiInset = true,
-				OnTopOfCoreBlur = true,
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				[Roact.Change.AbsoluteSize] = self.props.setScreenGuiSize,
+	return Roact.createElement(UIBlox.Core.Style.Provider, {}, {
+		Gui = Roact.createElement("ScreenGui", {
+			AutoLocalize = false,
+			IgnoreGuiInset = true,
+			OnTopOfCoreBlur = true,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			[Roact.Change.AbsoluteSize] = self.props.setScreenGuiSize,
+		}, {
+			-- Frame that covers the entire screen such that underlying
+			-- component positions are relative to the whole screen
+			ScreenFrame = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				ZIndex = 10,
 			}, {
-				-- Frame that covers the entire screen such that underlying
-				-- component positions are relative to the whole screen
-				ScreenFrame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 1, 0),
-					ZIndex = 10,
-				}, {
-					FeedbackSubmissionToast = Roact.createElement(FeedbackSubmissionToast),
-					HelpModal = Roact.createElement(HelpModal),
-					OnboardingModal = Roact.createElement(OnboardingModal),
-					FeedbackReportDialog = Roact.createElement(FeedbackReportDialog),
-				}),
-				RefinedFeedbackBar = withLocalization({
-					feedbackBarText = if FFlagEnableFeedbackModeBottomBarTextFixes
-						then "CoreScripts.Feedback.FeedbackBar.MainLabel"
-						else "CoreScripts.Feedback.EntryPoint.MenuLabel",
-				})(function(localized)
-					return withStyle(function(style)
-						local fonts: { BaseSize: number, Body: { RelativeSize: number } } = style.Font
-						return Roact.createElement(RefinedFeedbackBar, {
-							leftHint = {
-								text = localized.feedbackBarText,
-								hintTextSize = fonts.BaseSize * fonts.Body.RelativeSize,
-								maxWidth = 200,
-								icon = Assets.Images.FeedbackBarHintIcon,
-							},
-						}, {})
-					end)
-				end),
+				FeedbackSubmissionToast = Roact.createElement(FeedbackSubmissionToast),
+				HelpModal = Roact.createElement(HelpModal),
+				OnboardingModal = Roact.createElement(OnboardingModal),
+				FeedbackReportDialog = Roact.createElement(FeedbackReportDialog),
 			}),
-		})
-	else
-		return Roact.createElement(UIBlox.Core.Style.Provider, {}, {
-			Gui = Roact.createElement("ScreenGui", {
-				AutoLocalize = false,
-				IgnoreGuiInset = true,
-				OnTopOfCoreBlur = true,
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				[Roact.Change.AbsoluteSize] = self.props.setScreenGuiSize,
-			}, {
-				-- Frame that covers the entire screen such that underlying
-				-- component positions are relative to the whole screen
-				ScreenFrame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 1, 0),
-					ZIndex = 10,
-				}, {
-					FeedbackSubmissionToast = Roact.createElement(FeedbackSubmissionToast),
-					HelpModal = Roact.createElement(HelpModal),
-					FeedbackReportDialog = Roact.createElement(FeedbackReportDialog),
-				}),
-				RefinedFeedbackBar = withLocalization({
-					feedbackBarText = if FFlagEnableFeedbackModeBottomBarTextFixes
-						then "CoreScripts.Feedback.FeedbackBar.MainLabel"
-						else "CoreScripts.Feedback.EntryPoint.MenuLabel",
-				})(function(localized)
-					return withStyle(function(style)
-						local fonts: { BaseSize: number, Body: { RelativeSize: number } } = style.Font
-						return Roact.createElement(RefinedFeedbackBar, {
-							leftHint = {
-								text = localized.feedbackBarText,
-								hintTextSize = fonts.BaseSize * fonts.Body.RelativeSize,
-								maxWidth = 200,
-								icon = Assets.Images.FeedbackBarHintIcon,
-							},
-						}, {})
-					end)
-				end),
-			}),
-		})
-	end
+			RefinedFeedbackBar = withLocalization({
+				feedbackBarText = "CoreScripts.Feedback.FeedbackBar.MainLabel",
+			})(function(localized)
+				return withStyle(function(style)
+					local fonts: { BaseSize: number, Body: { RelativeSize: number } } = style.Font
+					return Roact.createElement(RefinedFeedbackBar, {
+						leftHint = {
+							text = localized.feedbackBarText,
+							hintTextSize = fonts.BaseSize * fonts.Body.RelativeSize,
+							maxWidth = 200,
+							icon = Assets.Images.FeedbackBarHintIcon,
+						},
+					}, {})
+				end)
+			end),
+		}),
+	})
 end
 
 return RoactRodux.connect(function() end, function(dispatch)

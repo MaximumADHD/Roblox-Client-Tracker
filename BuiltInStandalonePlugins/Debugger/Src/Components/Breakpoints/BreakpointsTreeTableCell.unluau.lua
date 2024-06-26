@@ -47,52 +47,52 @@ function var10.render(arg1)
       local var0 = true
    end
    if true then
-      local var302 = {}
-      var302.ColumnIndex = var0.ColumnIndex
-      var302.Row = var3
-      var302.Style = var6
-      var302.HasChildren = var8
-      var302.BackgroundColor = var7
-      var302.Width = var2
-      var302.CellProps = var4
-      return var1.createElement(var7, var302)
+      local var272 = {}
+      var272.ColumnIndex = var0.ColumnIndex
+      var272.Row = var3
+      var272.Style = var6
+      var272.HasChildren = var8
+      var272.BackgroundColor = var7
+      var272.Width = var2
+      var272.CellProps = var4
+      return var1.createElement(var7, var272)
    end
    if true then
-      local var308 = {}
-      var308.Row = var3
-      var308.Style = var6
-      var308.HasChildren = var8
-      var308.BackgroundColor = var7
-      var308.Width = var2
-      var308.Value = var5
-      return var1.createElement(var8, var308)
+      local var278 = {}
+      var278.Row = var3
+      var278.Style = var6
+      var278.HasChildren = var8
+      var278.BackgroundColor = var7
+      var278.Width = var2
+      var278.Value = var5
+      return var1.createElement(var8, var278)
    end
    if true then
-      local var313 = {}
-      var313.Row = var3
-      var313.Style = var6
-      var313.HasChildren = var8
-      var313.BackgroundColor = var7
-      var313.Width = var2
-      var313.Value = var5
-      return var1.createElement(var9, var313)
+      local var283 = {}
+      var283.Row = var3
+      var283.Style = var6
+      var283.HasChildren = var8
+      var283.BackgroundColor = var7
+      var283.Width = var2
+      var283.Value = var5
+      return var1.createElement(var9, var283)
    end
-   local var318 = {}
-   var318.CellProps = var0.CellProps
-   var318.Columns = var0.Columns
-   var318.ColumnIndex = var0.ColumnIndex
-   var318.Row = var0.Row
-   var318.Width = var0.Width
-   var318.Style = var0.Style
-   var318.RowIndex = var0.RowIndex
-   var318.HighlightCell = var0.HighlightCell
-   var318.OnRightClick = var0.OnRightClick
-   var318.SetCellContentsWidth = var0.SetCellContentsWidth
-   var318.Emphasis = var0.Emphasis
-   return var1.createElement(var6, var318)
+   local var288 = {}
+   var288.CellProps = var0.CellProps
+   var288.Columns = var0.Columns
+   var288.ColumnIndex = var0.ColumnIndex
+   var288.Row = var0.Row
+   var288.Width = var0.Width
+   var288.Style = var0.Style
+   var288.RowIndex = var0.RowIndex
+   var288.HighlightCell = var0.HighlightCell
+   var288.OnRightClick = var0.OnRightClick
+   var288.SetCellContentsWidth = var0.SetCellContentsWidth
+   var288.Emphasis = var0.Emphasis
+   return var1.createElement(var6, var288)
 end
 
-local var332 = {}
-var332.Analytics = var5.Analytics
-var10 = var5.withContext(var332)(var10)
+local var302 = {}
+var302.Analytics = var5.Analytics
+var10 = var5.withContext(var302)(var10)
 return var10

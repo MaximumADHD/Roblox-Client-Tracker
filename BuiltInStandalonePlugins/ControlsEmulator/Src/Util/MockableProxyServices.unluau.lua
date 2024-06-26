@@ -9,10 +9,10 @@ function var0.settingsProxy()
    return settings()
 end
 
-local var7 = {}
-function var7.__index(arg1, arg2)
+local var188 = {}
+function var188.__index(arg1, arg2)
    return game:GetService(arg2)
 end
 
-setmetatable(var0, var7)
+setmetatable(var0, var188)
 return var0

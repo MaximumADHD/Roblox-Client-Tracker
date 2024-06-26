@@ -1,0 +1,39 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetManager"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETTABLEKS R3 R1 K8 ["Styling"]
+  GETTABLEKS R2 R3 K9 ["createStyleRule"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["Images"]
+  CALL R3 1 1
+  MOVE R4 R2
+  LOADK R5 K13 [".HeaderOptions"]
+  NEWTABLE R6 0 0
+  NEWTABLE R7 0 1
+  MOVE R8 R2
+  LOADK R9 K14 ["> .ClearFilter"]
+  DUPTABLE R10 K16 [{"Size"}]
+  GETIMPORT R11 K19 [UDim2.fromOffset]
+  LOADN R12 20
+  LOADN R13 20
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K15 ["Size"]
+  CALL R8 2 -1
+  SETLIST R7 R8 -1 [1]
+  DUPTABLE R8 K21 [{"FilterSize"}]
+  GETIMPORT R9 K19 [UDim2.fromOffset]
+  LOADN R10 80
+  LOADN R11 32
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K20 ["FilterSize"]
+  CALL R4 4 -1
+  RETURN R4 -1

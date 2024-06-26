@@ -36,7 +36,7 @@ local RoactAppExperiment = require(CorePackages.Packages.RoactAppExperiment)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local ScreenshotsPolicy  = require(CorePackages.Workspace.Packages.Screenshots).ScreenshotsPolicy
-local InExperienceCapabilities = require(RobloxGui.Modules.Common.InExperienceCapabilities)
+local InExperienceCapabilities = require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
 
 local Theme = require(script.Parent.Theme)
 
@@ -2863,7 +2863,7 @@ local function CreateSettingsHub()
 				end
 
 				if GameSettings.ReducedMotion then
-					
+
 					if FFlagFixReducedMotionStuckIGM then
 						if this.ReducedMotionOpenTween then
 							this.ReducedMotionOpenTween:Cancel()

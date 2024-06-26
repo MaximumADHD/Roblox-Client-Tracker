@@ -21,7 +21,6 @@ local TEXT_EDGE_DISTANCE = 20
 
 -------------- SERVICES --------------
 local CoreGui = game:GetService("CoreGui")
-local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
@@ -33,7 +32,6 @@ local GameSettings = Settings.GameSettings
 local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
-local ScreenshotsPolicy  = require(CorePackages.Workspace.Packages.Screenshots).ScreenshotsPolicy
 local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ------------ Variables -------------------
@@ -46,7 +44,7 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local GetFFlagOptimizeHelpMenuInputEvent = require(RobloxGui.Modules.Flags.GetFFlagOptimizeHelpMenuInputEvent)
 local FFlagFixGamepadHelpImage = game:DefineFastFlag("FixGamepadHelpImage", false)
-local FFlagShowUpdatedScreenshotHotkey = game:DefineFastFlag("ShowUpdatedScreenshotHotkey", false)
+local FFlagShowUpdatedScreenshotHotkey = game:DefineFastFlag("ShowUpdatedScreenshotHotkey_v2", false)
 
 ----------- CLASS DECLARATION --------------
 
@@ -225,14 +223,8 @@ local function Initialize()
 		local canShowRecordAndStats = not PolicyService:IsSubjectToChinaPolicies()
 
 		if canShowRecordAndStats then
-			local eligibleForCapturesFeature = false
 			if FFlagShowUpdatedScreenshotHotkey then
-				local policy = ScreenshotsPolicy.PolicyImplementation.read()
-				eligibleForCapturesFeature  = if policy then ScreenshotsPolicy.Mapper(policy).eligibleForCapturesFeature() else false
-			end
-
-			if eligibleForCapturesFeature then
-				table.insert(miscActions, {["Screenshot"] = isOSX and "Cmd + Shift + S" or "Ctrl + Shift + S"})
+				table.insert(miscActions, {["Screenshot"] = isOSX and "Opt + 1" or "Alt + 1"})
 			else
 				table.insert(miscActions, {["Screenshot"] = isOSX and "Cmd + Shift + 3" or "Print Screen"})
 			end

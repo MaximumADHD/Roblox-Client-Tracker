@@ -21,23 +21,27 @@ function var13.init(arg1)
    local var1 = {}
    var1.Name = "Asset"
    var1.Key = "Asset"
-   var1.Width = UDim.new(1, 65368)
+   var1.Width = UDim.new(0.5, 65452)
    local var2 = {}
    var2.Name = "Preset"
    var2.Key = "Preset"
    var2.Width = UDim.new(0, 140)
-   arg1.columnDefaults = { {}, {}, {} }
-   local var75 = {}
-   var75.columns = arg1.columnDefaults
-   arg1.state = var75
+   local var3 = {}
+   var3.Name = "Path"
+   var3.Key = "Path"
+   var3.Width = UDim.new(0.5, 65452)
+   arg1.columnDefaults = { {}, {}, {}, {} }
+   local var82 = {}
+   var82.columns = arg1.columnDefaults
+   arg1.state = var82
    function arg1.onColumnSizesChange(arg1)
       local var0 = var4(arg1.state.columns)
-      local var87 = arg1.state.columns
+      local var94 = arg1.state.columns
       local var1 = 1
       var0.Width = arg1[1]
-      local var91 = {}
-      var91.columns = var0
-      arg1:setState(var91)
+      local var98 = {}
+      var98.columns = var0
+      arg1:setState(var98)
    end
    
    function arg1.getRows()
@@ -49,9 +53,9 @@ function var13.init(arg1)
    function arg1.onCheckboxToggle(arg1)
       local var0 = arg1.props
       local var1 = var4(var0.SessionQueue)
-      local var114 = {}
-      var114.enabled = var1[arg1].enabled
-      var0.UpdateQueueItem(var12.update(var1[arg1], var114))
+      local var121 = {}
+      var121.enabled = var1[arg1].enabled
+      var0.UpdateQueueItem(var12.update(var1[arg1], var121))
    end
    
 end
@@ -59,54 +63,54 @@ end
 local function fun4(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var133 = {}
-   var133.Size = var0.Size
-   var133.Padding = var1.AssetList.Padding
-   var133.LayoutOrder = arg1.props.LayoutOrder
-   local var135 = {}
-   local var139 = {}
-   var139.Rows = arg1.getRows()
-   var139.Columns = arg1.state.columns
-   var139.Size = UDim2.fromScale(1, 1)
-   var139.Scroll = true
-   var139.CellComponent = var11
+   local var140 = {}
+   var140.Size = var0.Size
+   var140.Padding = var1.AssetList.Padding
+   var140.LayoutOrder = arg1.props.LayoutOrder
+   local var142 = {}
+   local var146 = {}
+   var146.Rows = arg1.getRows()
+   var146.Columns = arg1.state.columns
+   var146.Size = UDim2.fromScale(1, 1)
+   var146.Scroll = true
+   var146.CellComponent = var11
    local var2 = {}
    var2.OnCheckboxToggle = arg1.onCheckboxToggle
    var2.StatusIconSize = var1.PropertyView.IconSize
-   var139.CellProps = var2
-   var139.RowHeight = var1.AssetList.RowHeight
-   var135.Inner = var1.createElement(var7, var139)
-   return var1.createElement(var8, var133, var135)
+   var146.CellProps = var2
+   var146.RowHeight = var1.AssetList.RowHeight
+   var142.Inner = var1.createElement(var7, var146)
+   return var1.createElement(var8, var140, var142)
 end
 
 function var13.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Stylizer
-   local var133 = {}
-   var133.Size = var0.Size
-   var133.Padding = var1.AssetList.Padding
-   var133.LayoutOrder = arg1.props.LayoutOrder
-   local var135 = {}
-   local var139 = {}
-   var139.Rows = arg1.getRows()
-   var139.Columns = arg1.state.columns
-   var139.Size = UDim2.fromScale(1, 1)
-   var139.Scroll = true
-   var139.CellComponent = var11
+   local var140 = {}
+   var140.Size = var0.Size
+   var140.Padding = var1.AssetList.Padding
+   var140.LayoutOrder = arg1.props.LayoutOrder
+   local var142 = {}
+   local var146 = {}
+   var146.Rows = arg1.getRows()
+   var146.Columns = arg1.state.columns
+   var146.Size = UDim2.fromScale(1, 1)
+   var146.Scroll = true
+   var146.CellComponent = var11
    local var2 = {}
    var2.OnCheckboxToggle = arg1.onCheckboxToggle
    var2.StatusIconSize = var1.PropertyView.IconSize
-   var139.CellProps = var2
-   var139.RowHeight = var1.AssetList.RowHeight
-   var135.Inner = var1.createElement(var7, var139)
-   return var1.createElement(var8, var133, var135)
+   var146.CellProps = var2
+   var146.RowHeight = var1.AssetList.RowHeight
+   var142.Inner = var1.createElement(var7, var146)
+   return var1.createElement(var8, var140, var142)
 end
 
 fun4 = var3.withContext
-local var154 = {}
-var154.Localization = var3.Localization
-var154.Stylizer = var2.Style.Stylizer
-var13 = fun4(var154)(var13)
+local var161 = {}
+var161.Localization = var3.Localization
+var161.Stylizer = var2.Style.Stylizer
+var13 = fun4(var161)(var13)
 return require(var0.Packages.RoactRodux).connect(function(arg1)
    local var0 = {}
    var0.SessionQueue = arg1.Sessions.sessionQueue
@@ -115,12 +119,12 @@ end, function(arg1)
    local var0 = {}
    function var0.UpdateQueueItem(arg1)
       local var0 = var4(arg1.state.columns)
-      local var170 = arg1.state.columns
+      local var177 = arg1.state.columns
       local var1 = 1
       var0.Width = arg1[1]
-      local var174 = {}
-      var174.columns = var0
-      arg1:setState(var174)
+      local var181 = {}
+      var181.columns = var0
+      arg1:setState(var181)
    end
    
    return var0

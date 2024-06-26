@@ -5,4 +5,7 @@ local PackageIndex = script.Parent._Workspace
 
 local Package = require(PackageIndex["AuthCommon"]["AuthCommon"])
 
+export type InputValidityType = Package.InputValidityType
+
+
 return Package

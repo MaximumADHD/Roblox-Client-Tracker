@@ -1,5 +1,5 @@
-game:DefineFastInt("ThrottleParticipantsUpdateMs", 0)
+game:DefineFastInt("ThrottleParticipantsUpdateMs2", 0)
 
 return function()
-    return game:GetFastInt("ThrottleParticipantsUpdateMs")
+    return game:GetFastInt("ThrottleParticipantsUpdateMs2")
 end

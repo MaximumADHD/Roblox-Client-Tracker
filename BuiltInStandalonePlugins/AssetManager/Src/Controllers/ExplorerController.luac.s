@@ -1,20 +1,21 @@
 PROTO_0:
   NEWTABLE R0 0 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["_pluginController"]
-  GETTABLEKS R3 R4 K1 ["user"]
-  FASTCALL2 TABLE_INSERT R0 R3 [+4]
   MOVE R2 R0
-  GETIMPORT R1 K4 [table.insert]
-  CALL R1 2 0
   GETUPVAL R4 0
-  GETTABLEKS R1 R4 K5 ["visibleGroups"]
+  GETTABLEKS R3 R4 K0 ["_pluginController"]
+  NAMECALL R3 R3 K1 ["getUser"]
+  CALL R3 1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R1 K4 [table.insert]
+  CALL R1 -1 0
+  GETUPVAL R4 0
+  GETTABLEKS R1 R4 K5 ["_visibleGroups"]
   LOADNIL R2
   LOADNIL R3
   FORGPREP R1
   DUPTABLE R6 K9 [{"Name", "Id", "Scope"}]
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K10 ["groups"]
+  GETTABLEKS R8 R9 K10 ["_groups"]
   GETTABLE R7 R8 R5
   JUMPIF R7 [+5]
   FASTCALL1 TOSTRING R5 [+3]
@@ -42,12 +43,12 @@ PROTO_1:
   LOADNIL R4
   FORGPREP R2
   GETUPVAL R8 0
-  GETTABLEKS R7 R8 K1 ["groups"]
+  GETTABLEKS R7 R8 K1 ["_groups"]
   GETTABLEKS R8 R6 K2 ["id"]
   GETTABLEKS R9 R6 K3 ["name"]
   SETTABLE R9 R7 R8
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K4 ["visibleGroups"]
+  GETTABLEKS R8 R9 K4 ["_visibleGroups"]
   GETTABLEKS R9 R6 K2 ["id"]
   FASTCALL2 TABLE_INSERT R8 R9 [+3]
   GETIMPORT R7 K7 [table.insert]
@@ -57,11 +58,11 @@ PROTO_1:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K8 ["populateExplorerItems"]
   CALL R3 0 1
-  SETTABLEKS R3 R2 K9 ["explorerItems"]
+  SETTABLEKS R3 R2 K9 ["_explorerItems"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K10 ["OnExplorerItemsChanged"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K9 ["explorerItems"]
+  GETTABLEKS R4 R5 K9 ["_explorerItems"]
   NAMECALL R2 R2 K11 ["Fire"]
   CALL R2 2 0
   RETURN R0 0
@@ -80,43 +81,39 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  DUPTABLE R3 K11 [{"_isMock", "_networking", "_pluginController", "explorerItems", "OnExplorerItemsChanged", "groups", "visibleGroups", "_selection", "OnSelectionChanged", "expansion", "OnExpansionChanged"}]
+  DUPTABLE R3 K10 [{"_isMock", "_networking", "_pluginController", "explorerItems", "_groups", "_visibleGroups", "_selection", "_expansion", "OnExplorerItemsChanged", "OnExpansionChanged"}]
   SETTABLEKS R2 R3 K0 ["_isMock"]
   SETTABLEKS R1 R3 K1 ["_networking"]
   SETTABLEKS R0 R3 K2 ["_pluginController"]
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K3 ["explorerItems"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K4 ["_groups"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K5 ["_visibleGroups"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K6 ["_selection"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K7 ["_expansion"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K12 ["new"]
+  GETTABLEKS R4 R5 K11 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K4 ["OnExplorerItemsChanged"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K5 ["groups"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K6 ["visibleGroups"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K7 ["_selection"]
+  SETTABLEKS R4 R3 K8 ["OnExplorerItemsChanged"]
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K12 ["new"]
+  GETTABLEKS R4 R5 K11 ["new"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K8 ["OnSelectionChanged"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R3 K9 ["expansion"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K12 ["new"]
-  CALL R4 0 1
-  SETTABLEKS R4 R3 K10 ["OnExpansionChanged"]
+  SETTABLEKS R4 R3 K9 ["OnExpansionChanged"]
   GETTABLEKS R4 R3 K2 ["_pluginController"]
-  NAMECALL R4 R4 K13 ["getUser"]
+  NAMECALL R4 R4 K12 ["getUser"]
   CALL R4 1 1
-  SETTABLEKS R4 R3 K7 ["_selection"]
+  SETTABLEKS R4 R3 K6 ["_selection"]
   NEWCLOSURE R4 P0
   CAPTURE VAL R3
   CAPTURE UPVAL U1
-  SETTABLEKS R4 R3 K14 ["populateExplorerItems"]
-  GETTABLEKS R4 R3 K14 ["populateExplorerItems"]
+  SETTABLEKS R4 R3 K13 ["populateExplorerItems"]
+  GETTABLEKS R4 R3 K13 ["populateExplorerItems"]
   CALL R4 0 1
-  SETTABLEKS R4 R3 K3 ["explorerItems"]
+  SETTABLEKS R4 R3 K14 ["_explorerItems"]
   GETTABLEKS R4 R3 K1 ["_networking"]
   NEWCLOSURE R6 P1
   CAPTURE VAL R3
@@ -144,11 +141,11 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETTABLEKS R1 R0 K0 ["explorerItems"]
+  GETTABLEKS R1 R0 K0 ["_explorerItems"]
   RETURN R1 1
 
 PROTO_7:
-  GETTABLEKS R1 R0 K0 ["expansion"]
+  GETTABLEKS R1 R0 K0 ["_expansion"]
   RETURN R1 1
 
 PROTO_8:
@@ -157,9 +154,10 @@ PROTO_8:
 
 PROTO_9:
   SETTABLEKS R1 R0 K0 ["_selection"]
-  GETTABLEKS R2 R0 K1 ["OnSelectionChanged"]
+  GETTABLEKS R3 R0 K1 ["_pluginController"]
+  GETTABLEKS R2 R3 K2 ["OnSelectionChanged"]
   MOVE R4 R1
-  NAMECALL R2 R2 K2 ["Fire"]
+  NAMECALL R2 R2 K3 ["Fire"]
   CALL R2 2 0
   RETURN R0 0
 

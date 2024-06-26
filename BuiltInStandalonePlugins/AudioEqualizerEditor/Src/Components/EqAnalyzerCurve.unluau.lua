@@ -18,16 +18,16 @@ local function fun0(arg1)
 end
 
 local function var11(arg1, arg2)
-   local var55 = var9
-   var55 = arg1
-   local var59 = var8
-   var59 = var55.plotToAbs(var55, arg2)
-   return var59.makeControlPoint(var59)
+   local var204 = var9
+   var204 = arg1
+   local var208 = var8
+   var208 = var204.plotToAbs(var204, arg2)
+   return var208.makeControlPoint(var208)
 end
 
 return function(arg1)
    local var0 = var4({})
-   local var77 = arg1.Enabled
+   local var226 = arg1.Enabled
    var2(function(arg1)
       if arg1 < 0.0001 then
          return 65456
@@ -35,21 +35,21 @@ return function(arg1)
       return 20 * math.log(arg1) * 0.4342944819
    end, {})
    local var1 = var3(function(arg1, arg2)
-      local var81 = var9
-      var81 = arg1
-      local var85 = var8
-      var85 = var81.plotToAbs(var81, arg2)
-      return var85.makeControlPoint(var85)
+      local var230 = var9
+      var230 = arg1
+      local var234 = var8
+      var234 = var230.plotToAbs(var230, arg2)
+      return var234.makeControlPoint(var234)
    end, {})
    local var2 = var0
    local var3 = arg1.Enabled
    if var3 then
-      local var100 = {}
-      var100.Position = UDim2.new(0, 50, 0, 50)
-      var100.Size = UDim2.new(1, 65436, 1, 65436)
-      var100.BackgroundTransparency = 1
-      local var114 = {}
-      local var118 = {}
+      local var249 = {}
+      var249.Position = UDim2.new(0, 50, 0, 50)
+      var249.Size = UDim2.new(1, 65436, 1, 65436)
+      var249.BackgroundTransparency = 1
+      local var263 = {}
+      local var267 = {}
       if arg1.Enabled then
          local var0 = var3(function()
             var0.stopAnalyzing()
@@ -58,10 +58,10 @@ return function(arg1)
             var0 = var1
          end
       end
-      var118.ControlPoints = var1
-      var118.Tag = "AnalyzerCurve"
-      var114.Curve = var1.createElement(var6, var118)
-      local var0 = var1.createElement(var5, var100, var114)
+      var267.ControlPoints = var1
+      var267.Tag = "AnalyzerCurve"
+      var263.Curve = var1.createElement(var6, var267)
+      local var0 = var1.createElement(var5, var249, var263)
    end
    return var3
 end

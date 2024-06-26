@@ -7,6 +7,7 @@ local TextService = game:GetService("TextService")
 local GuiService = game:GetService("GuiService")
 local LocalizationService = game:GetService("LocalizationService")
 local VRService = game:GetService("VRService")
+local UserInputService = game:GetService("UserInputService")
 
 local create = require(RobloxGui.Modules.Common.Create)
 local MouseIconOverrideService = require(CorePackages.InGameServices.MouseIconOverrideService)
@@ -16,6 +17,7 @@ local Shimmer = require(RobloxGui.Modules.Shimmer)
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 local FFlagFixGamepadDisconnectHighlight = game:DefineFastFlag("FixGamepadDisconnectHighlight2", false)
 local FFlagErrorPromptResizesHeight = require(RobloxGui.Modules.Flags.FFlagErrorPromptResizesHeight)
+local FFlagFixPromptFocusLossWhenMenuOpened = game:DefineFastFlag("FixPromptFocusLossWhenMenuOpened", false)
 
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
 
@@ -229,6 +231,16 @@ function ErrorPrompt.new(style, extraConfiguration)
 
 		local errorLabel = self._frame.MessageArea.ErrorFrame.ErrorMessage
 		errorLabel.TextScaled = extraConfiguration.MessageTextScaled or false
+	end
+
+	if FFlagFixPromptFocusLossWhenMenuOpened then
+		if UserInputService.GamepadEnabled then
+			GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
+				if self._isOpen and GuiService.SelectedCoreObject == nil then
+					GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
+				end
+			end)
+		end
 	end
 
 	return self

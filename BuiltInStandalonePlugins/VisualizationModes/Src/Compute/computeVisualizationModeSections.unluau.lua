@@ -6,10 +6,10 @@ local var3 = require(var0.Src.Components.VisualizationModeSection)
 local var4 = require(var0.Src.Compute.computeVisualizationModeSectionEntries)
 local var5 = require(var0.Src.Hooks.useFuzzySearch)
 return function(arg1)
-   local var75 = {}
-   function var75.createSection()
+   local var123 = {}
+   function var123.createSection()
       arg1.OnVisualizationModeCategoryToggle(var4.name, var4.enabled)
    end
    
-   return table.freeze(var75)
+   return table.freeze(var123)
 end

@@ -24,13 +24,13 @@ end
 function var1.new(arg1, arg2)
    local var0 = {}
    var0.store = arg1
-   local var278 = arg2 or game:GetService("DebuggerUIService").ExpressionsCleared:Connect(function(arg1)
+   local var125 = arg2 or game:GetService("DebuggerUIService").ExpressionsCleared:Connect(function(arg1)
       local var0 = var0()
       arg1.store:dispatch()
    end)
-   var0._expressionsClearedConnection = var278
-   var278 = var0
-   setmetatable(var278, var1)
+   var0._expressionsClearedConnection = var125
+   var125 = var0
+   setmetatable(var125, var1)
    return var0
 end
 

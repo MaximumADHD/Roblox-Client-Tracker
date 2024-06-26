@@ -34,165 +34,191 @@ PROTO_3:
 
 PROTO_4:
   GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["ToggleState"]
+  GETTABLEKS R0 R1 K1 ["enabled"]
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R0 1
+  LOADK R2 K2 ["openPlugin"]
+  NAMECALL R0 R0 K3 ["report"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["Localization"]
   NAMECALL R1 R1 K1 ["use"]
   CALL R1 1 1
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["Plugin"]
+  GETTABLEKS R2 R3 K2 ["Analytics"]
   NAMECALL R2 R2 K1 ["use"]
   CALL R2 1 1
-  NAMECALL R2 R2 K3 ["get"]
-  CALL R2 1 1
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K4 ["useRef"]
-  LOADB R4 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["Plugin"]
+  NAMECALL R3 R3 K1 ["use"]
   CALL R3 1 1
-  GETUPVAL R4 2
-  DUPTABLE R5 K10 [{"Width", "HeaderHeight", "MaxHeight", "InnerPadding", "Padding"}]
-  LOADN R6 69
-  SETTABLEKS R6 R5 K5 ["Width"]
-  LOADN R6 32
-  SETTABLEKS R6 R5 K6 ["HeaderHeight"]
-  LOADN R6 188
-  SETTABLEKS R6 R5 K7 ["MaxHeight"]
-  LOADN R6 5
-  SETTABLEKS R6 R5 K8 ["InnerPadding"]
-  GETIMPORT R6 K13 [Vector2.new]
-  LOADN R7 10
-  LOADN R8 10
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K9 ["Padding"]
+  NAMECALL R3 R3 K4 ["get"]
+  CALL R3 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["useRef"]
+  LOADB R5 0
   CALL R4 1 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K14 ["useState"]
-  NEWCLOSURE R6 P0
+  GETUPVAL R5 2
+  DUPTABLE R6 K11 [{"Width", "HeaderHeight", "MaxHeight", "InnerPadding", "Padding"}]
+  LOADN R7 69
+  SETTABLEKS R7 R6 K6 ["Width"]
+  LOADN R7 32
+  SETTABLEKS R7 R6 K7 ["HeaderHeight"]
+  LOADN R7 188
+  SETTABLEKS R7 R6 K8 ["MaxHeight"]
+  LOADN R7 5
+  SETTABLEKS R7 R6 K9 ["InnerPadding"]
+  GETIMPORT R7 K14 [Vector2.new]
+  LOADN R8 10
+  LOADN R9 10
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K10 ["Padding"]
+  CALL R5 1 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K15 ["useState"]
+  NEWCLOSURE R7 P0
   CAPTURE UPVAL U3
-  CAPTURE VAL R2
+  CAPTURE VAL R3
   CAPTURE UPVAL U4
-  NEWTABLE R7 0 1
-  MOVE R8 R2
-  SETLIST R7 R8 1 [1]
-  CALL R5 2 1
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K15 ["useEffect"]
-  NEWCLOSURE R7 P1
-  CAPTURE VAL R5
   NEWTABLE R8 0 1
-  GETTABLEKS R9 R5 K16 ["conn"]
+  MOVE R9 R3
   SETLIST R8 R9 1 [1]
-  CALL R6 2 0
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K17 ["useCallback"]
-  NEWCLOSURE R7 P2
-  CAPTURE VAL R0
-  CALL R6 1 1
-  GETTABLEKS R7 R0 K18 ["PluginButton"]
-  JUMPIF R7 [+2]
-  LOADNIL R7
-  RETURN R7 1
-  GETTABLEKS R8 R0 K19 ["ToggleState"]
-  GETTABLEKS R7 R8 K20 ["enabled"]
-  JUMPIF R7 [+5]
-  GETTABLEKS R7 R3 K21 ["current"]
-  JUMPIF R7 [+2]
-  LOADNIL R7
-  RETURN R7 1
-  LOADB R7 0
-  SETTABLEKS R7 R3 K21 ["current"]
+  CALL R6 2 1
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K22 ["createElement"]
-  GETUPVAL R8 5
-  DUPTABLE R9 K32 [{"CreateWidgetImmediately", "Enabled", "Modal", "Title", "Size", "OnClose", "PopupTarget", "PopupSelfAnchorPoint", "PopupTargetAnchorPoint"}]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K23 ["CreateWidgetImmediately"]
-  GETTABLEKS R11 R0 K19 ["ToggleState"]
-  GETTABLEKS R10 R11 K20 ["enabled"]
-  SETTABLEKS R10 R9 K24 ["Enabled"]
-  LOADB R10 0
-  SETTABLEKS R10 R9 K25 ["Modal"]
-  LOADK R12 K2 ["Plugin"]
-  LOADK R13 K33 ["Name"]
-  NAMECALL R10 R1 K34 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K26 ["Title"]
-  GETTABLEKS R10 R4 K35 ["size"]
-  SETTABLEKS R10 R9 K27 ["Size"]
-  SETTABLEKS R6 R9 K28 ["OnClose"]
-  GETTABLEKS R10 R0 K18 ["PluginButton"]
-  SETTABLEKS R10 R9 K29 ["PopupTarget"]
-  GETUPVAL R11 6
-  JUMPIFNOT R11 [+6]
-  GETIMPORT R10 K13 [Vector2.new]
-  LOADN R11 1
-  LOADN R12 0
-  CALL R10 2 1
-  JUMP [+1]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K30 ["PopupSelfAnchorPoint"]
-  GETUPVAL R11 6
-  JUMPIFNOT R11 [+6]
-  GETIMPORT R10 K13 [Vector2.new]
-  LOADN R11 1
-  LOADN R12 1
-  CALL R10 2 1
-  JUMP [+1]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K31 ["PopupTargetAnchorPoint"]
-  DUPTABLE R10 K39 [{"Wrapper", "VisualizationModesStrokePane", "StyleLink"}]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K22 ["createElement"]
-  GETUPVAL R12 7
-  NEWTABLE R13 1 0
-  GETUPVAL R15 1
-  GETTABLEKS R14 R15 K40 ["Tag"]
-  LOADK R15 K41 ["X-Fill X-Column X-Top VisualizationModes-Popup"]
-  SETTABLE R15 R13 R14
-  DUPTABLE R14 K43 [{"VisualizationModesMainView"}]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K22 ["createElement"]
-  GETUPVAL R16 8
-  DUPTABLE R17 K49 [{"VisualizationModeCategories", "RecentVisualizationModes", "SizeCalculator", "OnVisualizationModeToggle", "OnVisualizationModeCategoryToggle"}]
-  GETTABLEKS R20 R0 K50 ["CombinerState"]
-  GETTABLEKS R19 R20 K51 ["state"]
-  GETTABLEKS R18 R19 K52 ["categories"]
-  SETTABLEKS R18 R17 K44 ["VisualizationModeCategories"]
-  GETTABLEKS R20 R0 K50 ["CombinerState"]
-  GETTABLEKS R19 R20 K51 ["state"]
-  GETTABLEKS R18 R19 K53 ["recentModes"]
-  SETTABLEKS R18 R17 K45 ["RecentVisualizationModes"]
-  SETTABLEKS R4 R17 K46 ["SizeCalculator"]
-  GETTABLEKS R19 R0 K50 ["CombinerState"]
-  GETTABLEKS R18 R19 K54 ["onVisualizationModeToggle"]
-  SETTABLEKS R18 R17 K47 ["OnVisualizationModeToggle"]
-  GETTABLEKS R19 R0 K50 ["CombinerState"]
-  GETTABLEKS R18 R19 K55 ["onVisualizationModeCategoryToggle"]
-  SETTABLEKS R18 R17 K48 ["OnVisualizationModeCategoryToggle"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K42 ["VisualizationModesMainView"]
+  GETTABLEKS R7 R8 K16 ["useEffect"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R6
+  NEWTABLE R9 0 1
+  GETTABLEKS R10 R6 K17 ["conn"]
+  SETLIST R9 R10 1 [1]
+  CALL R7 2 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K18 ["useCallback"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R0
+  CALL R7 1 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K16 ["useEffect"]
+  NEWCLOSURE R9 P3
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NEWTABLE R10 0 2
+  MOVE R11 R2
+  GETTABLEKS R13 R0 K19 ["ToggleState"]
+  GETTABLEKS R12 R13 K20 ["enabled"]
+  SETLIST R10 R11 2 [1]
+  CALL R8 2 0
+  GETTABLEKS R8 R0 K21 ["PluginButton"]
+  JUMPIF R8 [+2]
+  LOADNIL R8
+  RETURN R8 1
+  GETTABLEKS R9 R0 K19 ["ToggleState"]
+  GETTABLEKS R8 R9 K20 ["enabled"]
+  JUMPIF R8 [+5]
+  GETTABLEKS R8 R4 K22 ["current"]
+  JUMPIF R8 [+2]
+  LOADNIL R8
+  RETURN R8 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K23 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K33 [{"CreateWidgetImmediately", "Enabled", "Modal", "Title", "Size", "OnClose", "PopupTarget", "PopupSelfAnchorPoint", "PopupTargetAnchorPoint"}]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K24 ["CreateWidgetImmediately"]
+  GETTABLEKS R12 R0 K19 ["ToggleState"]
+  GETTABLEKS R11 R12 K20 ["enabled"]
+  SETTABLEKS R11 R10 K25 ["Enabled"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K26 ["Modal"]
+  LOADK R13 K3 ["Plugin"]
+  LOADK R14 K34 ["Name"]
+  NAMECALL R11 R1 K35 ["getText"]
   CALL R11 3 1
-  SETTABLEKS R11 R10 K36 ["Wrapper"]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K22 ["createElement"]
-  LOADK R12 K56 ["Frame"]
-  NEWTABLE R13 1 0
-  GETUPVAL R15 1
-  GETTABLEKS R14 R15 K40 ["Tag"]
-  LOADK R15 K37 ["VisualizationModesStrokePane"]
-  SETTABLE R15 R13 R14
+  SETTABLEKS R11 R10 K27 ["Title"]
+  GETTABLEKS R11 R5 K36 ["size"]
+  SETTABLEKS R11 R10 K28 ["Size"]
+  SETTABLEKS R7 R10 K29 ["OnClose"]
+  GETTABLEKS R11 R0 K21 ["PluginButton"]
+  SETTABLEKS R11 R10 K30 ["PopupTarget"]
+  GETUPVAL R12 6
+  CALL R12 0 1
+  JUMPIFNOT R12 [+6]
+  GETIMPORT R11 K14 [Vector2.new]
+  LOADN R12 1
+  LOADN R13 0
   CALL R11 2 1
-  SETTABLEKS R11 R10 K37 ["VisualizationModesStrokePane"]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K22 ["createElement"]
-  LOADK R12 K38 ["StyleLink"]
-  DUPTABLE R13 K58 [{"StyleSheet"}]
-  GETTABLEKS R14 R5 K59 ["design"]
-  SETTABLEKS R14 R13 K57 ["StyleSheet"]
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K31 ["PopupSelfAnchorPoint"]
+  GETUPVAL R12 6
+  CALL R12 0 1
+  JUMPIFNOT R12 [+6]
+  GETIMPORT R11 K14 [Vector2.new]
+  LOADN R12 1
+  LOADN R13 1
   CALL R11 2 1
-  SETTABLEKS R11 R10 K38 ["StyleLink"]
-  CALL R7 3 -1
-  RETURN R7 -1
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K32 ["PopupTargetAnchorPoint"]
+  DUPTABLE R11 K40 [{"Wrapper", "VisualizationModesStrokePane", "StyleLink"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K23 ["createElement"]
+  GETUPVAL R13 7
+  NEWTABLE R14 1 0
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K41 ["Tag"]
+  LOADK R16 K42 ["X-Fill X-Column X-Top VisualizationModes-Popup"]
+  SETTABLE R16 R14 R15
+  DUPTABLE R15 K44 [{"VisualizationModesMainView"}]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K23 ["createElement"]
+  GETUPVAL R17 8
+  DUPTABLE R18 K50 [{"VisualizationModeCategories", "RecentVisualizationModes", "SizeCalculator", "OnVisualizationModeToggle", "OnVisualizationModeCategoryToggle"}]
+  GETTABLEKS R21 R0 K51 ["CombinerState"]
+  GETTABLEKS R20 R21 K52 ["state"]
+  GETTABLEKS R19 R20 K53 ["categories"]
+  SETTABLEKS R19 R18 K45 ["VisualizationModeCategories"]
+  GETTABLEKS R21 R0 K51 ["CombinerState"]
+  GETTABLEKS R20 R21 K52 ["state"]
+  GETTABLEKS R19 R20 K54 ["recentModes"]
+  SETTABLEKS R19 R18 K46 ["RecentVisualizationModes"]
+  SETTABLEKS R5 R18 K47 ["SizeCalculator"]
+  GETTABLEKS R20 R0 K51 ["CombinerState"]
+  GETTABLEKS R19 R20 K55 ["onVisualizationModeToggle"]
+  SETTABLEKS R19 R18 K48 ["OnVisualizationModeToggle"]
+  GETTABLEKS R20 R0 K51 ["CombinerState"]
+  GETTABLEKS R19 R20 K56 ["onVisualizationModeCategoryToggle"]
+  SETTABLEKS R19 R18 K49 ["OnVisualizationModeCategoryToggle"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K43 ["VisualizationModesMainView"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K37 ["Wrapper"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K23 ["createElement"]
+  LOADK R13 K57 ["Frame"]
+  NEWTABLE R14 1 0
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K41 ["Tag"]
+  LOADK R16 K38 ["VisualizationModesStrokePane"]
+  SETTABLE R16 R14 R15
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K38 ["VisualizationModesStrokePane"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K23 ["createElement"]
+  LOADK R13 K39 ["StyleLink"]
+  DUPTABLE R14 K59 [{"StyleSheet"}]
+  GETTABLEKS R15 R6 K60 ["design"]
+  SETTABLEKS R15 R14 K58 ["StyleSheet"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K39 ["StyleLink"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
-PROTO_5:
+PROTO_6:
   DUPTABLE R1 K1 [{"Toggle"}]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K2 ["createElement"]
@@ -216,7 +242,7 @@ PROTO_5:
   NAMECALL R5 R5 K17 ["getText"]
   CALL R5 3 1
   SETTABLEKS R5 R4 K7 ["Tooltip"]
-  LOADK R5 K18 ["rbxlocaltheme://Placeholder"]
+  LOADK R5 K18 ["rbxlocaltheme://VisualizationModes"]
   SETTABLEKS R5 R4 K8 ["Icon"]
   GETUPVAL R6 2
   GETTABLEKS R5 R6 K19 ["toggle"]
@@ -229,7 +255,7 @@ PROTO_5:
   SETTABLEKS R2 R1 K0 ["Toggle"]
   RETURN R1 1
 
-PROTO_6:
+PROTO_7:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["useToggleState"]
   CALL R0 0 1
@@ -249,6 +275,11 @@ PROTO_6:
   CALL R3 1 1
   GETUPVAL R4 3
   CALL R4 0 1
+  GETUPVAL R5 4
+  CALL R5 0 1
+  JUMPIF R5 [+2]
+  LOADNIL R5
+  RETURN R5 1
   GETUPVAL R6 1
   GETTABLEKS R5 R6 K6 ["createElement"]
   GETUPVAL R7 1
@@ -257,7 +288,7 @@ PROTO_6:
   DUPTABLE R8 K11 [{"Actions", "Toolbar", "Popup"}]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K6 ["createElement"]
-  GETUPVAL R10 4
+  GETUPVAL R10 5
   DUPTABLE R11 K14 [{"VisualizationModeCategories", "OnVisualizationModeToggle"}]
   GETTABLEKS R13 R4 K15 ["state"]
   GETTABLEKS R12 R13 K16 ["categories"]
@@ -268,14 +299,14 @@ PROTO_6:
   SETTABLEKS R9 R8 K8 ["Actions"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K6 ["createElement"]
-  GETUPVAL R10 5
+  GETUPVAL R10 6
   DUPTABLE R11 K20 [{"Title", "Plugin", "RenderButtons"}]
   LOADK R12 K21 ["visualizationModesToolbar"]
   SETTABLEKS R12 R11 K18 ["Title"]
   SETTABLEKS R3 R11 K4 ["Plugin"]
   NEWCLOSURE R12 P0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
   CAPTURE VAL R0
   CAPTURE VAL R2
   CAPTURE VAL R1
@@ -284,7 +315,7 @@ PROTO_6:
   SETTABLEKS R9 R8 K9 ["Toolbar"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K6 ["createElement"]
-  GETUPVAL R10 7
+  GETUPVAL R10 8
   DUPTABLE R11 K25 [{"ToggleState", "CombinerState", "PluginButton"}]
   SETTABLEKS R0 R11 K22 ["ToggleState"]
   SETTABLEKS R4 R11 K23 ["CombinerState"]
@@ -298,22 +329,17 @@ PROTO_6:
   CALL R5 3 -1
   RETURN R5 -1
 
-PROTO_7:
+PROTO_8:
   GETUPVAL R0 0
   CALL R0 0 -1
   RETURN R0 -1
-
-PROTO_8:
-  NEWTABLE R0 0 0
-  RETURN R0 1
 
 PROTO_9:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["Analytics"]
   GETTABLEKS R0 R1 K1 ["new"]
-  DUPCLOSURE R1 K2 [PROTO_8]
-  NEWTABLE R2 0 0
-  CALL R0 2 -1
+  GETUPVAL R1 1
+  CALL R0 1 -1
   RETURN R0 -1
 
 PROTO_10:
@@ -325,18 +351,19 @@ PROTO_10:
 PROTO_11:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["useState"]
-  DUPCLOSURE R2 K1 [PROTO_7]
+  DUPCLOSURE R2 K1 [PROTO_8]
   CAPTURE UPVAL U1
   CALL R1 1 1
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["useState"]
   DUPCLOSURE R3 K2 [PROTO_9]
   CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
   CALL R2 1 1
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["useState"]
   DUPCLOSURE R4 K3 [PROTO_10]
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CALL R3 1 1
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K4 ["provide"]
@@ -360,7 +387,7 @@ PROTO_11:
   DUPTABLE R6 K10 [{"Main"}]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K11 ["createElement"]
-  GETUPVAL R8 4
+  GETUPVAL R8 5
   CALL R7 1 1
   SETTABLEKS R7 R6 K9 ["Main"]
   CALL R4 2 -1
@@ -373,82 +400,95 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Resources"]
-  GETTABLEKS R3 R4 K8 ["Localization"]
-  GETTABLEKS R2 R3 K9 ["createLocalization"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Resources"]
+  GETTABLEKS R2 R3 K8 ["createAnalyticsHandlers"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["Framework"]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K7 ["Resources"]
+  GETTABLEKS R4 R5 K9 ["Localization"]
+  GETTABLEKS R3 R4 K10 ["createLocalization"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["React"]
+  GETTABLEKS R5 R0 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Framework"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Packages"]
-  GETTABLEKS R5 R6 K13 ["ReactUtils"]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["React"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Hooks"]
-  GETTABLEKS R6 R7 K15 ["useSizeCalculator"]
+  GETTABLEKS R7 R0 K11 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["ReactUtils"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R9 R0 K6 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Hooks"]
-  GETTABLEKS R7 R8 K16 ["useVisualizationModeCombiner"]
+  GETTABLEKS R8 R9 K15 ["Hooks"]
+  GETTABLEKS R7 R8 K16 ["useSizeCalculator"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
   GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K17 ["Components"]
-  GETTABLEKS R8 R9 K18 ["VisualizationModesMainView"]
+  GETTABLEKS R9 R10 K15 ["Hooks"]
+  GETTABLEKS R8 R9 K17 ["useVisualizationModeCombiner"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R12 R0 K6 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Components"]
+  GETTABLEKS R11 R12 K18 ["Components"]
   GETTABLEKS R10 R11 K19 ["Actions"]
   GETTABLEKS R9 R10 K20 ["VisualizationModeActions"]
   CALL R8 1 1
-  GETTABLEKS R9 R2 K21 ["UI"]
-  GETTABLEKS R10 R9 K22 ["PluginButton"]
-  GETTABLEKS R11 R9 K23 ["PluginToolbar"]
-  GETTABLEKS R12 R9 K24 ["Pane"]
-  GETTABLEKS R13 R9 K25 ["Popup"]
-  GETTABLEKS R14 R2 K26 ["ContextServices"]
-  GETTABLEKS R17 R2 K27 ["Style"]
-  GETTABLEKS R16 R17 K28 ["Themes"]
-  GETTABLEKS R15 R16 K29 ["StudioTheme"]
-  GETTABLEKS R17 R2 K30 ["Styling"]
-  GETTABLEKS R16 R17 K31 ["registerPluginStyles"]
-  GETIMPORT R17 K33 [game]
-  LOADK R19 K34 ["StudioPluginPopupAnchorPoint"]
-  NAMECALL R17 R17 K35 ["GetFastFlag"]
-  CALL R17 2 1
-  DUPCLOSURE R18 K36 [PROTO_4]
-  CAPTURE VAL R14
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R16
-  CAPTURE VAL R0
-  CAPTURE VAL R13
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Components"]
+  GETTABLEKS R10 R11 K21 ["VisualizationModesMainView"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K6 ["Src"]
+  GETTABLEKS R12 R13 K22 ["Flags"]
+  GETTABLEKS R11 R12 K23 ["getFFlagStudioVisualizationModesUI"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R14 R0 K6 ["Src"]
+  GETTABLEKS R13 R14 K22 ["Flags"]
+  GETTABLEKS R12 R13 K24 ["getFFlagStudioPluginPopupAnchorPoint"]
+  CALL R11 1 1
+  GETTABLEKS R12 R3 K25 ["UI"]
+  GETTABLEKS R13 R12 K26 ["PluginButton"]
+  GETTABLEKS R14 R12 K27 ["PluginToolbar"]
+  GETTABLEKS R15 R12 K28 ["Pane"]
+  GETTABLEKS R16 R12 K29 ["Popup"]
+  GETTABLEKS R17 R3 K30 ["ContextServices"]
+  GETTABLEKS R20 R3 K31 ["Style"]
+  GETTABLEKS R19 R20 K32 ["Themes"]
+  GETTABLEKS R18 R19 K33 ["StudioTheme"]
+  GETTABLEKS R20 R3 K34 ["Styling"]
+  GETTABLEKS R19 R20 K35 ["registerPluginStyles"]
+  DUPCLOSURE R20 K36 [PROTO_5]
   CAPTURE VAL R17
-  CAPTURE VAL R12
-  CAPTURE VAL R7
-  DUPCLOSURE R19 K37 [PROTO_6]
   CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R14
   CAPTURE VAL R6
-  CAPTURE VAL R8
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  CAPTURE VAL R18
-  DUPCLOSURE R20 K38 [PROTO_11]
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  CAPTURE VAL R14
-  CAPTURE VAL R15
   CAPTURE VAL R19
-  RETURN R20 1
+  CAPTURE VAL R0
+  CAPTURE VAL R16
+  CAPTURE VAL R11
+  CAPTURE VAL R15
+  CAPTURE VAL R9
+  DUPCLOSURE R21 K37 [PROTO_7]
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R17
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R20
+  DUPCLOSURE R22 K38 [PROTO_11]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R17
+  CAPTURE VAL R1
+  CAPTURE VAL R18
+  CAPTURE VAL R21
+  RETURN R22 1

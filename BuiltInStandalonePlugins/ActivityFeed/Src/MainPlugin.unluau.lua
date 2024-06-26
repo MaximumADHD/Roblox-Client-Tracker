@@ -12,13 +12,14 @@ local var9 = require(var0.Src.Resources.MakeTheme)
 local var10 = var2.Styling.registerPluginStyles
 local var11 = var0.Src.Resources.Localization.SourceStrings
 local var12 = var0.Src.Resources.Localization.LocalizedStrings
-local var13 = require(var0.Src.Components.App)
-local var14 = var1.PureComponent:extend("MainPlugin")
-function var14.init(arg1, arg2)
+local var13 = require(var0.Src.Util.AnalyticsHandlers)
+local var14 = require(var0.Src.Components.App)
+local var15 = var1.PureComponent:extend("MainPlugin")
+function var15.init(arg1, arg2)
    arg1.design = var10(arg2.Plugin)
-   local var49 = {}
-   var49.enabled = false
-   arg1.state = var49
+   local var54 = {}
+   var54.enabled = false
+   arg1.state = var54
    function arg1.toggleEnabled(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
@@ -34,80 +35,78 @@ function var14.init(arg1, arg2)
    end
    
    function arg1.onRestore()
-      local var62 = {}
-      var62.enabled = false
-      arg1:setState(var62)
-   end
-   
-   function arg1.onWidgetEnabledChanged(arg1)
       local var67 = {}
-      var67.enabled = arg1
+      var67.enabled = false
       arg1:setState(var67)
    end
    
-   local var72 = {}
-   var72.stringResourceTable = var11
-   var72.translationResourceTable = var12
-   var72.pluginName = "ActivityFeed"
-   arg1.localization = var6.Localization.new(var72)
-   arg1.analytics = var6.Analytics.new(function()
-      return {}
-   end, {})
+   function arg1.onWidgetEnabledChanged(arg1)
+      local var72 = {}
+      var72.enabled = arg1
+      arg1:setState(var72)
+   end
+   
+   local var77 = {}
+   var77.stringResourceTable = var11
+   var77.translationResourceTable = var12
+   var77.pluginName = "ActivityFeed"
+   arg1.localization = var6.Localization.new(var77)
+   arg1.analytics = var6.Analytics.new(var13)
 end
 
-function var14.renderButtons(arg1, arg2)
+function var15.renderButtons(arg1, arg2)
    local var0 = {}
-   local var91 = {}
-   var91.Toolbar = arg2
-   var91.Active = arg1.state.enabled
-   var91.Title = "activity_feed_button"
-   var91.Tooltip = arg1.localization:getText("Plugin", "Description")
-   var91.OnClick = arg1.toggleEnabled
-   var91.ClickableWhenViewportHidden = true
-   var0.Toggle = var1.createElement(var5, var91)
+   local var95 = {}
+   var95.Toolbar = arg2
+   var95.Active = arg1.state.enabled
+   var95.Title = "activity_feed_button"
+   var95.Tooltip = arg1.localization:getText("Plugin", "Description")
+   var95.OnClick = arg1.toggleEnabled
+   var95.ClickableWhenViewportHidden = true
+   var0.Toggle = var1.createElement(var5, var95)
    return var0
 end
 
-function var14.render(arg1)
+function var15.render(arg1)
    local var0 = arg1.props.Plugin
-   local var109 = var7
-   var109 = var0
-   local var111 = var109.new(var109)
-   local var116 = var8.new(var0:getMouse())
-   local var118 = var9()
-   local var119 = arg1.localization
-   local var120 = arg1.analytics
-   local var121 = {}
+   local var113 = var7
+   var113 = var0
+   local var115 = var113.new(var113)
+   local var120 = var8.new(var0:getMouse())
+   local var122 = var9()
+   local var123 = arg1.localization
+   local var124 = arg1.analytics
    local var125 = {}
-   var125.Title = "ActivityFeed"
-   function var125.RenderButtons(arg1)
+   local var129 = {}
+   var129.Title = "ActivityFeed"
+   function var129.RenderButtons(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
       return var0
    end
    
-   var121.Toolbar = var1.createElement(var4, var125)
-   local var135 = {}
-   var135.Id = "ActivityFeed"
-   var135.Enabled = arg1.state.enabled
-   var135.Title = arg1.localization:getText("Plugin", "Name")
-   var135.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var135.InitialDockState = Enum.InitialDockState.Left
-   var135.Size = Vector2.new(640, 480)
-   var135.MinSize = Vector2.new(250, 200)
-   var135.OnClose = arg1.onClose
-   var135.ShouldRestore = true
-   var135.OnWidgetRestored = arg1.onRestore
+   var125.Toolbar = var1.createElement(var4, var129)
+   local var139 = {}
+   var139.Id = "ActivityFeed"
+   var139.Enabled = arg1.state.enabled
+   var139.Title = arg1.localization:getText("Plugin", "Name")
+   var139.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var139.InitialDockState = Enum.InitialDockState.Left
+   var139.Size = Vector2.new(640, 480)
+   var139.MinSize = Vector2.new(250, 200)
+   var139.OnClose = arg1.onClose
+   var139.ShouldRestore = true
+   var139.OnWidgetRestored = arg1.onRestore
    var1.Change.Enabled = arg1.onWidgetEnabledChanged
-   local var159 = {}
    local var163 = {}
-   var163.plugin = var0
-   var159.App = var1.createElement(var13, var163)
-   local var168 = {}
-   var168.StyleSheet = arg1.design
-   var159.StyleLink = var1.createElement("StyleLink", var168)
-   var121.MainWidget = var1.createElement(var3, var135, var159)
-   return var6.provide({}, var121)
+   local var167 = {}
+   var167.plugin = var0
+   var163.App = var1.createElement(var14, var167)
+   local var172 = {}
+   var172.StyleSheet = arg1.design
+   var163.StyleLink = var1.createElement("StyleLink", var172)
+   var125.MainWidget = var1.createElement(var3, var139, var163)
+   return var6.provide({}, var125)
 end
 
-return var14
+return var15

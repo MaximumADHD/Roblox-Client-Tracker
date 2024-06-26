@@ -1,79 +1,83 @@
 PROTO_0:
+  GETIMPORT R1 K2 [math.randomseed]
+  GETIMPORT R2 K4 [tick]
+  CALL R2 0 -1
+  CALL R1 -1 0
   NEWTABLE R1 0 0
   LOADN R4 1
   MOVE R2 R0
   LOADN R3 1
   FORNPREP R2
-  GETIMPORT R5 K2 [math.random]
-  LOADK R6 K3 [1000000000]
-  LOADK R7 K4 [9999999999]
+  GETIMPORT R5 K6 [math.random]
+  LOADK R6 K7 [100000]
+  LOADK R7 K8 [100000000]
   CALL R5 2 1
-  GETIMPORT R6 K2 [math.random]
+  GETIMPORT R6 K6 [math.random]
   LOADN R7 1
   LOADN R8 5
   CALL R6 2 1
   GETUPVAL R9 0
-  GETTABLEKS R8 R9 K5 ["getEnumAsList"]
+  GETTABLEKS R8 R9 K9 ["getEnumAsList"]
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K6 ["AssetType"]
+  GETTABLEKS R9 R10 K10 ["AssetType"]
   CALL R8 1 1
-  GETIMPORT R9 K2 [math.random]
+  GETIMPORT R9 K6 [math.random]
   LOADN R10 1
   LOADN R11 5
   CALL R9 2 1
   GETTABLE R7 R8 R9
   GETUPVAL R10 0
-  GETTABLEKS R9 R10 K5 ["getEnumAsList"]
+  GETTABLEKS R9 R10 K9 ["getEnumAsList"]
   GETUPVAL R11 0
-  GETTABLEKS R10 R11 K7 ["ModerationStatus"]
+  GETTABLEKS R10 R11 K11 ["ModerationStatus"]
   CALL R9 1 1
-  GETIMPORT R10 K2 [math.random]
+  GETIMPORT R10 K6 [math.random]
   LOADN R11 1
   LOADN R12 3
   CALL R10 2 1
   GETTABLE R8 R9 R10
-  GETIMPORT R9 K2 [math.random]
+  GETIMPORT R9 K6 [math.random]
   LOADN R10 1
   LOADN R11 10
   CALL R9 2 1
-  JUMPIFNOTEQKN R4 K8 [1] [+7]
+  JUMPIFNOTEQKN R4 K12 [1] [+7]
   GETUPVAL R12 0
-  GETTABLEKS R11 R12 K9 ["Scope"]
-  GETTABLEKS R10 R11 K10 ["User"]
+  GETTABLEKS R11 R12 K13 ["Scope"]
+  GETTABLEKS R10 R11 K14 ["User"]
   JUMP [+5]
   GETUPVAL R12 0
-  GETTABLEKS R11 R12 K9 ["Scope"]
-  GETTABLEKS R10 R11 K11 ["Group"]
-  DUPTABLE R13 K18 [{"AssetId", "AssetType", "DisplayName", "VersionNumber", "Created", "Modified", "ModerationStatus", "Owner"}]
-  SETTABLEKS R5 R13 K12 ["AssetId"]
-  SETTABLEKS R7 R13 K6 ["AssetType"]
-  LOADK R15 K19 ["Test %*"]
+  GETTABLEKS R11 R12 K13 ["Scope"]
+  GETTABLEKS R10 R11 K15 ["Group"]
+  DUPTABLE R13 K22 [{"AssetId", "AssetType", "DisplayName", "VersionNumber", "Created", "Modified", "ModerationStatus", "Owner"}]
+  SETTABLEKS R5 R13 K16 ["AssetId"]
+  SETTABLEKS R7 R13 K10 ["AssetType"]
+  LOADK R15 K23 ["Test %*"]
   MOVE R17 R7
-  NAMECALL R15 R15 K20 ["format"]
+  NAMECALL R15 R15 K24 ["format"]
   CALL R15 2 1
   MOVE R14 R15
-  SETTABLEKS R14 R13 K13 ["DisplayName"]
-  SETTABLEKS R9 R13 K14 ["VersionNumber"]
-  GETIMPORT R14 K23 [DateTime.now]
+  SETTABLEKS R14 R13 K17 ["DisplayName"]
+  SETTABLEKS R9 R13 K18 ["VersionNumber"]
+  GETIMPORT R14 K27 [DateTime.now]
   CALL R14 0 1
-  SETTABLEKS R14 R13 K15 ["Created"]
-  GETIMPORT R14 K23 [DateTime.now]
+  SETTABLEKS R14 R13 K19 ["Created"]
+  GETIMPORT R14 K27 [DateTime.now]
   CALL R14 0 1
-  SETTABLEKS R14 R13 K16 ["Modified"]
-  SETTABLEKS R8 R13 K7 ["ModerationStatus"]
-  DUPTABLE R14 K26 [{"Id", "Name", "Scope"}]
-  SETTABLEKS R6 R14 K24 ["Id"]
-  LOADK R16 K27 ["%*"]
+  SETTABLEKS R14 R13 K20 ["Modified"]
+  SETTABLEKS R8 R13 K11 ["ModerationStatus"]
+  DUPTABLE R14 K30 [{"Id", "Name", "Scope"}]
+  SETTABLEKS R6 R14 K28 ["Id"]
+  LOADK R16 K31 ["Owner %*"]
   MOVE R18 R6
-  NAMECALL R16 R16 K20 ["format"]
+  NAMECALL R16 R16 K24 ["format"]
   CALL R16 2 1
   MOVE R15 R16
-  SETTABLEKS R15 R14 K25 ["Name"]
-  SETTABLEKS R10 R14 K9 ["Scope"]
-  SETTABLEKS R14 R13 K17 ["Owner"]
+  SETTABLEKS R15 R14 K29 ["Name"]
+  SETTABLEKS R10 R14 K13 ["Scope"]
+  SETTABLEKS R14 R13 K21 ["Owner"]
   FASTCALL2 TABLE_INSERT R1 R13 [+4]
   MOVE R12 R1
-  GETIMPORT R11 K30 [table.insert]
+  GETIMPORT R11 K34 [table.insert]
   CALL R11 2 0
   FORNLOOP R2
   RETURN R1 1

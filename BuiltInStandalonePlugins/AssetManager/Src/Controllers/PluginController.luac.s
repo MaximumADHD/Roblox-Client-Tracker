@@ -12,7 +12,7 @@ PROTO_0:
   CALL R2 -1 0
   RETURN R0 0
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K5 ["user"]
+  GETTABLEKS R2 R3 K5 ["_user"]
   SETTABLEKS R0 R2 K6 ["Name"]
   GETUPVAL R3 2
   GETTABLEKS R2 R3 K7 ["OnUsernameFetched"]
@@ -22,40 +22,50 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  DUPTABLE R4 K5 [{"_isMock", "_networking", "plugin", "user", "OnUsernameFetched"}]
+  DUPTABLE R4 K8 [{"_isMock", "_networking", "_plugin", "_pressedKeys", "_user", "OnUsernameFetched", "OnSelectionChanged", "OnInputChanged"}]
   SETTABLEKS R3 R4 K0 ["_isMock"]
   SETTABLEKS R1 R4 K1 ["_networking"]
-  SETTABLEKS R0 R4 K2 ["plugin"]
-  DUPTABLE R5 K9 [{"Id", "Name", "Scope"}]
+  SETTABLEKS R0 R4 K2 ["_plugin"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K3 ["_pressedKeys"]
+  DUPTABLE R5 K12 [{"Id", "Name", "Scope"}]
   GETUPVAL R6 0
-  NAMECALL R6 R6 K10 ["GetUserId"]
+  NAMECALL R6 R6 K13 ["GetUserId"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K6 ["Id"]
-  LOADK R8 K11 ["Plugin"]
-  LOADK R9 K12 ["PlaceholderUsername"]
-  NAMECALL R6 R2 K13 ["getText"]
+  SETTABLEKS R6 R5 K9 ["Id"]
+  LOADK R8 K14 ["Plugin"]
+  LOADK R9 K15 ["PlaceholderUsername"]
+  NAMECALL R6 R2 K16 ["getText"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K7 ["Name"]
+  SETTABLEKS R6 R5 K10 ["Name"]
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K8 ["Scope"]
-  GETTABLEKS R6 R7 K14 ["User"]
-  SETTABLEKS R6 R5 K8 ["Scope"]
-  SETTABLEKS R5 R4 K3 ["user"]
+  GETTABLEKS R7 R8 K11 ["Scope"]
+  GETTABLEKS R6 R7 K17 ["User"]
+  SETTABLEKS R6 R5 K11 ["Scope"]
+  SETTABLEKS R5 R4 K4 ["_user"]
   GETUPVAL R6 2
-  GETTABLEKS R5 R6 K15 ["new"]
+  GETTABLEKS R5 R6 K18 ["new"]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K4 ["OnUsernameFetched"]
+  SETTABLEKS R5 R4 K5 ["OnUsernameFetched"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K18 ["new"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K6 ["OnSelectionChanged"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K18 ["new"]
+  CALL R5 0 1
+  SETTABLEKS R5 R4 K7 ["OnInputChanged"]
   GETTABLEKS R5 R4 K1 ["_networking"]
   NEWCLOSURE R7 P0
   CAPTURE UPVAL U3
   CAPTURE VAL R2
   CAPTURE VAL R4
-  NAMECALL R5 R5 K16 ["fetchUsernameAsync"]
+  NAMECALL R5 R5 K19 ["fetchUsernameAsync"]
   CALL R5 2 0
   GETUPVAL R7 4
   FASTCALL2 SETMETATABLE R4 R7 [+4]
   MOVE R6 R4
-  GETIMPORT R5 K18 [setmetatable]
+  GETIMPORT R5 K21 [setmetatable]
   CALL R5 2 0
   RETURN R4 1
 
@@ -73,7 +83,31 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  GETTABLEKS R1 R0 K0 ["user"]
+  GETTABLEKS R1 R0 K0 ["_plugin"]
+  RETURN R1 1
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["_pressedKeys"]
+  LOADB R3 1
+  SETTABLE R3 R2 R1
+  GETTABLEKS R2 R0 K1 ["OnInputChanged"]
+  GETTABLEKS R4 R0 K0 ["_pressedKeys"]
+  NAMECALL R2 R2 K2 ["Fire"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["_pressedKeys"]
+  LOADNIL R3
+  SETTABLE R3 R2 R1
+  GETTABLEKS R2 R0 K1 ["OnInputChanged"]
+  GETTABLEKS R4 R0 K0 ["_pressedKeys"]
+  NAMECALL R2 R2 K2 ["Fire"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_user"]
   RETURN R1 1
 
 MAIN:
@@ -88,41 +122,42 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["ContextServices"]
   GETTABLEKS R3 R2 K9 ["ContextItem"]
-  GETTABLEKS R4 R2 K10 ["Localization"]
+  GETTABLEKS R5 R1 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Signal"]
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K11 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Networking"]
+  GETTABLEKS R7 R0 K12 ["Src"]
+  GETTABLEKS R6 R7 K13 ["Types"]
   CALL R5 1 1
-  GETTABLEKS R7 R1 K13 ["Util"]
-  GETTABLEKS R6 R7 K14 ["Signal"]
+  GETIMPORT R6 K15 [game]
+  LOADK R8 K16 ["StudioService"]
+  NAMECALL R6 R6 K17 ["GetService"]
+  CALL R6 2 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Types"]
+  GETTABLEKS R10 R0 K12 ["Src"]
+  GETTABLEKS R9 R10 K18 ["Flags"]
+  GETTABLEKS R8 R9 K19 ["getFFlagDebugAmrOutput"]
   CALL R7 1 1
-  GETIMPORT R8 K17 [game]
-  LOADK R10 K18 ["StudioService"]
-  NAMECALL R8 R8 K19 ["GetService"]
+  LOADK R10 K20 ["PluginController"]
+  NAMECALL R8 R3 K21 ["extend"]
   CALL R8 2 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K11 ["Src"]
-  GETTABLEKS R11 R12 K20 ["Flags"]
-  GETTABLEKS R10 R11 K21 ["getFFlagDebugAmrOutput"]
-  CALL R9 1 1
-  LOADK R12 K22 ["PluginController"]
-  NAMECALL R10 R3 K23 ["extend"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K24 [PROTO_1]
-  CAPTURE VAL R8
-  CAPTURE VAL R7
+  DUPCLOSURE R9 K22 [PROTO_1]
   CAPTURE VAL R6
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  SETTABLEKS R11 R10 K25 ["new"]
-  DUPCLOSURE R11 K26 [PROTO_2]
-  CAPTURE VAL R10
-  SETTABLEKS R11 R10 K27 ["mock"]
-  DUPCLOSURE R11 K28 [PROTO_3]
-  SETTABLEKS R11 R10 K29 ["destroy"]
-  DUPCLOSURE R11 K30 [PROTO_4]
-  SETTABLEKS R11 R10 K31 ["getUser"]
-  RETURN R10 1
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  SETTABLEKS R9 R8 K23 ["new"]
+  DUPCLOSURE R9 K24 [PROTO_2]
+  CAPTURE VAL R8
+  SETTABLEKS R9 R8 K25 ["mock"]
+  DUPCLOSURE R9 K26 [PROTO_3]
+  SETTABLEKS R9 R8 K27 ["destroy"]
+  DUPCLOSURE R9 K28 [PROTO_4]
+  SETTABLEKS R9 R8 K29 ["getPlugin"]
+  DUPCLOSURE R9 K30 [PROTO_5]
+  SETTABLEKS R9 R8 K31 ["addKeyPress"]
+  DUPCLOSURE R9 K32 [PROTO_6]
+  SETTABLEKS R9 R8 K33 ["removeKeyPress"]
+  DUPCLOSURE R9 K34 [PROTO_7]
+  SETTABLEKS R9 R8 K35 ["getUser"]
+  RETURN R8 1

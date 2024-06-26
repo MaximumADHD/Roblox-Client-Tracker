@@ -8,15 +8,16 @@ local var5 = require(var0.Src.Networking).mock()
 local var6 = require(var0.Src.Controllers.PluginController).mock(var2.Instances.MockPlugin.new("AssetManager"), var5, var4)
 local var7 = {}
 local var8 = var3.Analytics
-local var58 = var8.mock()
+local var227 = var8.mock()
 var8 = var4
-local var61 = require(var0.Packages.Rodux).Store
-var61 = require(var0.Src.Reducers.MainReducer)
-local var11 = var3.Store.new(var61.new(var61, nil, nil, nil))
+local var230 = require(var0.Packages.Rodux).Store
+var230 = require(var0.Src.Reducers.MainReducer)
+local var11 = var3.Store.new(var230.new(var230, nil, nil, nil))
 local var12 = var1.Style.Themes.StudioTheme.mock()
 local var13 = var6
 local var14 = require(var0.Src.Controllers.ExplorerController).mock(var6, var5)
-local var15 = var5
+local var15 = require(var0.Src.Controllers.ItemsController).mock(var6, var5)
+local var16 = var5
 return function(arg1)
    if type(arg1) == "table" then
       local var0 = false

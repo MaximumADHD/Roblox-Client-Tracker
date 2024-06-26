@@ -8,6 +8,6 @@ end
 local var1 = require(var0.Bin.Common.pluginType)
 if var1.get() ~= var1.Standalone then
 end
-local var68 = var0.Bin
-var68 = require(var68.Common.setupMain)
-require(var0.Bin.Common.setup)(plugin, var68)
+local var243 = var0.Bin
+var243 = require(var243.Common.setupMain)
+require(var0.Bin.Common.setup)(plugin, var243)

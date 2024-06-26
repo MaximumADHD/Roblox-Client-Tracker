@@ -203,11 +203,11 @@ PROTO_8:
   MOVE R12 R9
   CALL R10 2 0
   MOVE R10 R5
-  JUMPIFNOT R10 [+20]
+  JUMPIFNOT R10 [+22]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K8 ["createElement"]
   GETUPVAL R11 7
-  DUPTABLE R12 K14 [{"Mouse", "Plugin", "VertexToolBase", "Radius", "Falloff"}]
+  DUPTABLE R12 K14 [{"Mouse", "Plugin", "VertexToolBase", "Radius", "Falloff", "Mannequin"}]
   SETTABLEKS R3 R12 K9 ["Mouse"]
   SETTABLEKS R4 R12 K10 ["Plugin"]
   SETTABLEKS R5 R12 K11 ["VertexToolBase"]
@@ -215,6 +215,7 @@ PROTO_8:
   SETTABLEKS R13 R12 K12 ["Radius"]
   GETTABLEKS R13 R0 K13 ["Falloff"]
   SETTABLEKS R13 R12 K13 ["Falloff"]
+  SETTABLEKS R2 R12 K1 ["Mannequin"]
   CALL R10 2 1
   RETURN R10 1
 

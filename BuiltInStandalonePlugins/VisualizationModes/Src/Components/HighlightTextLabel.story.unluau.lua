@@ -10,21 +10,21 @@ var5.summary = "This text label allows for highlighting specific parts of the te
 local var6 = {}
 var6.name = "HighlightTextLabel"
 function var6.story(arg1)
-   local var192 = {}
+   local var29 = {}
    var3.Tag = "X-Fill X-Column X-Top"
-   var192.Size = UDim2.fromOffset(325, 300)
-   local var200 = {}
-   local var204 = {}
-   var204.StyleSheet = var1.Styling.registerPluginStyles(arg1.plugin, var0)
-   var200.StyleLink = var3.createElement("StyleLink", var204)
-   local var209 = {}
-   var209.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus laoreet"
+   var29.Size = UDim2.fromOffset(325, 300)
+   local var37 = {}
+   local var41 = {}
+   var41.StyleSheet = var1.Styling.registerPluginStyles(arg1.plugin, var0)
+   var37.StyleLink = var3.createElement("StyleLink", var41)
+   local var46 = {}
+   var46.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus laoreet"
    local var0 = 1
    local var1 = 3
    local var2 = 4
-   var209.MatchIndexes = {}
-   var200.HighlightTextLabel = var3.createElement(var2, var209)
-   return var3.createElement(var4, var192, var200)
+   var46.MatchIndexes = {}
+   var37.HighlightTextLabel = var3.createElement(var2, var46)
+   return var3.createElement(var4, var29, var37)
 end
 
 var5.stories = {}

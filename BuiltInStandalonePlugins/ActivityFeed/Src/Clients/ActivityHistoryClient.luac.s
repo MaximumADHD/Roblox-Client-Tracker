@@ -154,28 +154,22 @@ PROTO_6:
 
 PROTO_7:
   GETUPVAL R0 0
-  JUMPIFNOT R0 [+8]
-  GETIMPORT R0 K1 [print]
-  LOADK R1 K2 ["unsubscribing"]
-  CALL R0 1 0
+  JUMPIFNOT R0 [+4]
   GETUPVAL R0 0
-  NAMECALL R0 R0 K3 ["Disconnect"]
+  NAMECALL R0 R0 K0 ["Disconnect"]
   CALL R0 1 0
   RETURN R0 0
 
 PROTO_8:
   LOADNIL R0
-  GETIMPORT R1 K1 [print]
-  LOADK R2 K2 ["subscribe RTE"]
-  CALL R1 1 0
-  GETIMPORT R1 K4 [game]
-  LOADK R3 K5 ["ActivityHistoryService"]
-  NAMECALL R1 R1 K6 ["GetService"]
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["ActivityHistoryService"]
+  NAMECALL R1 R1 K3 ["GetService"]
   CALL R1 2 1
-  GETTABLEKS R2 R1 K7 ["EventNotificationReceived"]
+  GETTABLEKS R2 R1 K4 ["EventNotificationReceived"]
   NEWCLOSURE R4 P0
   CAPTURE UPVAL U0
-  NAMECALL R2 R2 K8 ["Connect"]
+  NAMECALL R2 R2 K5 ["Connect"]
   CALL R2 2 1
   MOVE R0 R2
   NEWCLOSURE R2 P1

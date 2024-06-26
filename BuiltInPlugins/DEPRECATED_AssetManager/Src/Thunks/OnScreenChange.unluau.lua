@@ -10,19 +10,19 @@ local var7 = require(var0.Src.Thunks.GetAssets)
 local var8 = require(var0.Src.Util.Screens)
 return function(arg1, arg2)
    return function(arg1)
-      local var149 = {}
-      var149.assets = {}
-      local var151 = var1(var149)
+      local var48 = {}
+      var48.assets = {}
+      local var50 = var1(var48)
       arg1:dispatch()
-      local var155 = var2({})
+      local var54 = var2({})
       arg1:dispatch()
-      local var159 = var3(false)
+      local var58 = var3(false)
       arg1:dispatch()
-      local var163 = var4({})
+      local var62 = var4({})
       arg1:dispatch()
-      local var167 = var5({})
+      local var66 = var5({})
       arg1:dispatch()
-      local var171 = var6("")
+      local var70 = var6("")
       arg1:dispatch()
       if arg2.Path ~= var8.MAIN.Path then
          local var0 = var7(arg1, arg2.AssetType)

@@ -21,11 +21,11 @@ function var14.new(arg1, arg2)
    function var0.resolveUploadPromise(arg1, arg2)
       local var0 = arg2.session
       local var1 = var0:GetImportTree()
-      local var63 = var8
-      var63 = arg2
-      local var65 = {}
-      var65.uploaded = true
-      local var68 = var7(var63.update(var63, var65))
+      local var166 = var8
+      var166 = arg2
+      local var168 = {}
+      var168.uploaded = true
+      local var171 = var7(var166.update(var166, var168))
       var0._store:dispatch()
       local var3 = var0
       local var4 = var10(arg1, var1)
@@ -44,9 +44,9 @@ function var14.new(arg1, arg2)
 end
 
 function var14.mock(arg1)
-   local var87 = var14
-   var87 = arg1
-   return var87.new(var87, true)
+   local var190 = var14
+   var190 = arg1
+   return var190.new(var190, true)
 end
 
 function var14.destroy(arg1)
@@ -70,10 +70,10 @@ end
 function var14.removeAllQueuedFiles(arg1)
    if arg1._store:getState().Dialogs.uploading then
    end
-   local var117 = var11()
+   local var220 = var11()
    arg1._store:dispatch()
-   local var120 = arg1:_getSessionQueue()
-   arg1:destroyItem(var121)
+   local var223 = arg1:_getSessionQueue()
+   arg1:destroyItem(var224)
    local var1 = var6({})
    arg1._store:dispatch()
 end
@@ -93,17 +93,17 @@ function var14.isImportEnabled(arg1, arg2)
 end
 
 function var14.beginImportQueue(arg1)
-   local var145 = arg1._store:getState().Dialogs
-   if var145.uploading then
+   local var248 = arg1._store:getState().Dialogs
+   if var248.uploading then
    end
-   local var150 = var4(false)
+   local var253 = var4(false)
    arg1._store:dispatch()
-   local var155 = var5(true)
+   local var258 = var5(true)
    arg1._store:dispatch()
-   var145 = arg1:_getSessionQueue()
+   var248 = arg1:_getSessionQueue()
    local var2 = nil
-   local var160 = nil
-   arg1:uploadItem(var161)
+   local var263 = nil
+   arg1:uploadItem(var264)
    local var4 = var5(false)
    arg1._store:dispatch()
 end
@@ -120,11 +120,11 @@ function var14._createUploadPromise(arg1, arg2)
    return var2.new(function(arg1, arg2)
       local var0 = arg2.session
       local var1 = var0:GetImportTree()
-      local var194 = var8
-      var194 = arg2
-      local var196 = {}
-      var196.uploaded = true
-      local var199 = var7(var194.update(var194, var196))
+      local var297 = var8
+      var297 = arg2
+      local var299 = {}
+      var299.uploaded = true
+      local var302 = var7(var297.update(var297, var299))
       var0._store:dispatch()
       local var3 = var0
       local var4 = var10(arg1, var1)

@@ -7,11 +7,11 @@ local var4 = {}
 function var4.PruneSelectedTracks(arg1, arg2)
    local var0 = {}
    if arg2 then
-      local var31 = ipairs(arg2)
-      local var32 = var1
-      var32 = arg1
-      if var32.getTrack(var32, "Root", var35) then
-         table.insert(var0, var38)
+      local var26 = ipairs(arg2)
+      local var27 = var1
+      var27 = arg1
+      if var27.getTrack(var27, "Root", var30) then
+         table.insert(var0, var33)
       else
          local var0 = true
       end

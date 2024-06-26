@@ -15,6 +15,9 @@ function var3.usePlaceAndUniverseId()
    return 00,
 end
 
+function var3.useConnectToDataModelSessionEffect()
+end
+
 function var3.openBrowserLink()
 end
 

@@ -1086,46 +1086,29 @@ PROTO_1:
   GETTABLEKS R10 R11 K204 ["TextSecondary"]
   SETTABLEKS R10 R9 K156 ["textColor"]
   SETTABLEKS R9 R8 K205 ["audioTabs"]
-  GETUPVAL R10 10
-  CALL R10 0 1
-  JUMPIFNOT R10 [+17]
-  DUPTABLE R9 K211 [{"checkboxIndent", "labelIndent", "verticalTextSpacing", "verticalListPadding", "bottomPadding"}]
-  LOADN R10 24
-  SETTABLEKS R10 R9 K206 ["checkboxIndent"]
-  LOADN R10 8
-  SETTABLEKS R10 R9 K207 ["labelIndent"]
-  LOADN R10 4
-  SETTABLEKS R10 R9 K208 ["verticalTextSpacing"]
-  LOADN R10 32
-  SETTABLEKS R10 R9 K209 ["verticalListPadding"]
-  LOADN R10 32
-  SETTABLEKS R10 R9 K210 ["bottomPadding"]
-  JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K212 ["checkbox"]
   GETUPVAL R10 5
   CALL R10 0 1
   JUMPIFNOT R10 [+22]
-  DUPTABLE R9 K216 [{"spacingUnit", "textSize", "font", "thumbnailBackgroundColor", "textColor"}]
+  DUPTABLE R9 K209 [{"spacingUnit", "textSize", "font", "thumbnailBackgroundColor", "textColor"}]
   LOADN R10 10
   SETTABLEKS R10 R9 K139 ["spacingUnit"]
   LOADN R10 18
-  SETTABLEKS R10 R9 K213 ["textSize"]
-  GETIMPORT R10 K220 [Enum.Font.SourceSans]
-  SETTABLEKS R10 R9 K214 ["font"]
+  SETTABLEKS R10 R9 K206 ["textSize"]
+  GETIMPORT R10 K213 [Enum.Font.SourceSans]
+  SETTABLEKS R10 R9 K207 ["font"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K26 ["Toolbox_CreatorLabelThumbnailBackgroundColor"]
-  SETTABLEKS R10 R9 K215 ["thumbnailBackgroundColor"]
+  SETTABLEKS R10 R9 K208 ["thumbnailBackgroundColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K24 ["Toolbox_CreatorLabelTextColor"]
   SETTABLEKS R10 R9 K156 ["textColor"]
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K221 ["creatorLabel"]
+  SETTABLEKS R9 R8 K214 ["creatorLabel"]
   GETUPVAL R10 5
   CALL R10 0 1
   JUMPIFNOT R10 [+10]
-  DUPTABLE R9 K222 [{"spacingUnit", "backgroundColor"}]
+  DUPTABLE R9 K215 [{"spacingUnit", "backgroundColor"}]
   LOADN R10 10
   SETTABLEKS R10 R9 K139 ["spacingUnit"]
   GETUPVAL R11 3
@@ -1133,170 +1116,170 @@ PROTO_1:
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K223 ["creatorPill"]
+  SETTABLEKS R9 R8 K216 ["creatorPill"]
   DUPTABLE R9 K162 [{"textColor"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K187 ["SubText"]
   SETTABLEKS R10 R9 K156 ["textColor"]
-  SETTABLEKS R9 R8 K224 ["creatorName"]
-  DUPTABLE R9 K226 [{"errorIcon"}]
+  SETTABLEKS R9 R8 K217 ["creatorName"]
+  DUPTABLE R9 K219 [{"errorIcon"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K29 ["Toolbox_DialogErrorIcon"]
-  SETTABLEKS R10 R9 K225 ["errorIcon"]
-  SETTABLEKS R9 R8 K227 ["dialog"]
-  DUPTABLE R9 K232 [{"dropdownIconColor", "currentSelection", "item", "dropdownFrame"}]
+  SETTABLEKS R10 R9 K218 ["errorIcon"]
+  SETTABLEKS R9 R8 K220 ["dialog"]
+  DUPTABLE R9 K225 [{"dropdownIconColor", "currentSelection", "item", "dropdownFrame"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K54 ["Toolbox_DropdownIconColor"]
-  SETTABLEKS R10 R9 K228 ["dropdownIconColor"]
-  DUPTABLE R10 K237 [{"backgroundColor", "backgroundSelectedColor", "backgroundDisabledColor", "borderColor", "borderSelectedColor", "textColor", "textSelectedColor"}]
+  SETTABLEKS R10 R9 K221 ["dropdownIconColor"]
+  DUPTABLE R10 K230 [{"backgroundColor", "backgroundSelectedColor", "backgroundDisabledColor", "borderColor", "borderSelectedColor", "textColor", "textSelectedColor"}]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K238 ["Dropdown"]
+  GETTABLEKS R11 R12 K231 ["Dropdown"]
   SETTABLEKS R11 R10 K132 ["backgroundColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K239 ["CurrentMarker"]
-  SETTABLEKS R11 R10 K233 ["backgroundSelectedColor"]
+  GETTABLEKS R11 R12 K232 ["CurrentMarker"]
+  SETTABLEKS R11 R10 K226 ["backgroundSelectedColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K240 ["Border"]
-  SETTABLEKS R11 R10 K234 ["backgroundDisabledColor"]
+  GETTABLEKS R11 R12 K233 ["Border"]
+  SETTABLEKS R11 R10 K227 ["backgroundDisabledColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K240 ["Border"]
+  GETTABLEKS R11 R12 K233 ["Border"]
   SETTABLEKS R11 R10 K167 ["borderColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K239 ["CurrentMarker"]
-  SETTABLEKS R11 R10 K235 ["borderSelectedColor"]
+  GETTABLEKS R11 R12 K232 ["CurrentMarker"]
+  SETTABLEKS R11 R10 K228 ["borderSelectedColor"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K175 ["MainText"]
   SETTABLEKS R11 R10 K156 ["textColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K241 ["MainTextSelected"]
-  SETTABLEKS R11 R10 K236 ["textSelectedColor"]
-  SETTABLEKS R10 R9 K229 ["currentSelection"]
-  DUPTABLE R10 K243 [{"backgroundColor", "backgroundSelectedColor", "selectedBarColor", "textColor", "labelTextColor"}]
+  GETTABLEKS R11 R12 K234 ["MainTextSelected"]
+  SETTABLEKS R11 R10 K229 ["textSelectedColor"]
+  SETTABLEKS R10 R9 K222 ["currentSelection"]
+  DUPTABLE R10 K236 [{"backgroundColor", "backgroundSelectedColor", "selectedBarColor", "textColor", "labelTextColor"}]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K244 ["Item"]
+  GETTABLEKS R11 R12 K237 ["Item"]
   SETTABLEKS R11 R10 K132 ["backgroundColor"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K52 ["Toolbox_DropdownItemSelectedColor"]
-  SETTABLEKS R11 R10 K233 ["backgroundSelectedColor"]
+  SETTABLEKS R11 R10 K226 ["backgroundSelectedColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K239 ["CurrentMarker"]
-  SETTABLEKS R11 R10 K242 ["selectedBarColor"]
+  GETTABLEKS R11 R12 K232 ["CurrentMarker"]
+  SETTABLEKS R11 R10 K235 ["selectedBarColor"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K175 ["MainText"]
   SETTABLEKS R11 R10 K156 ["textColor"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K194 ["DimmedText"]
   SETTABLEKS R11 R10 K192 ["labelTextColor"]
-  SETTABLEKS R10 R9 K230 ["item"]
-  DUPTABLE R10 K245 [{"borderColor"}]
+  SETTABLEKS R10 R9 K223 ["item"]
+  DUPTABLE R10 K238 [{"borderColor"}]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K240 ["Border"]
+  GETTABLEKS R11 R12 K233 ["Border"]
   SETTABLEKS R11 R10 K167 ["borderColor"]
-  SETTABLEKS R10 R9 K231 ["dropdownFrame"]
-  SETTABLEKS R9 R8 K246 ["dropdownMenu"]
-  DUPTABLE R9 K249 [{"backgroundColor", "hoveredBackgroundColor", "textFillColor"}]
+  SETTABLEKS R10 R9 K224 ["dropdownFrame"]
+  SETTABLEKS R9 R8 K239 ["dropdownMenu"]
+  DUPTABLE R9 K242 [{"backgroundColor", "hoveredBackgroundColor", "textFillColor"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K55 ["Toolbox_FontTileBackgroundColor"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K57 ["Toolbox_FontTileHoveredBackgroundColor"]
-  SETTABLEKS R10 R9 K247 ["hoveredBackgroundColor"]
+  SETTABLEKS R10 R9 K240 ["hoveredBackgroundColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K58 ["Toolbox_FontTileTextFillColor"]
-  SETTABLEKS R10 R9 K248 ["textFillColor"]
-  SETTABLEKS R9 R8 K250 ["fontTile"]
-  DUPTABLE R9 K252 [{"backgroundColor", "borderColor", "labelTextColor", "button"}]
+  SETTABLEKS R10 R9 K241 ["textFillColor"]
+  SETTABLEKS R9 R8 K243 ["fontTile"]
+  DUPTABLE R9 K245 [{"backgroundColor", "borderColor", "labelTextColor", "button"}]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K253 ["Titlebar"]
+  GETTABLEKS R10 R11 K246 ["Titlebar"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K240 ["Border"]
+  GETTABLEKS R10 R11 K233 ["Border"]
   SETTABLEKS R10 R9 K167 ["borderColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K175 ["MainText"]
   SETTABLEKS R10 R9 K192 ["labelTextColor"]
-  DUPTABLE R10 K254 [{"backgroundColor", "backgroundSelectedColor", "borderColor", "borderSelectedColor", "textColor", "textSelectedColor"}]
+  DUPTABLE R10 K247 [{"backgroundColor", "backgroundSelectedColor", "borderColor", "borderSelectedColor", "textColor", "textSelectedColor"}]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K238 ["Dropdown"]
+  GETTABLEKS R11 R12 K231 ["Dropdown"]
   SETTABLEKS R11 R10 K132 ["backgroundColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K239 ["CurrentMarker"]
-  SETTABLEKS R11 R10 K233 ["backgroundSelectedColor"]
+  GETTABLEKS R11 R12 K232 ["CurrentMarker"]
+  SETTABLEKS R11 R10 K226 ["backgroundSelectedColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K240 ["Border"]
+  GETTABLEKS R11 R12 K233 ["Border"]
   SETTABLEKS R11 R10 K167 ["borderColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K239 ["CurrentMarker"]
-  SETTABLEKS R11 R10 K235 ["borderSelectedColor"]
+  GETTABLEKS R11 R12 K232 ["CurrentMarker"]
+  SETTABLEKS R11 R10 K228 ["borderSelectedColor"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K175 ["MainText"]
   SETTABLEKS R11 R10 K156 ["textColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K241 ["MainTextSelected"]
-  SETTABLEKS R11 R10 K236 ["textSelectedColor"]
-  SETTABLEKS R10 R9 K251 ["button"]
-  SETTABLEKS R9 R8 K255 ["footer"]
-  DUPTABLE R9 K257 [{"backgroundColor", "borderColor", "iconColor"}]
+  GETTABLEKS R11 R12 K234 ["MainTextSelected"]
+  SETTABLEKS R11 R10 K229 ["textSelectedColor"]
+  SETTABLEKS R10 R9 K244 ["button"]
+  SETTABLEKS R9 R8 K248 ["footer"]
+  DUPTABLE R9 K250 [{"backgroundColor", "borderColor", "iconColor"}]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K253 ["Titlebar"]
+  GETTABLEKS R10 R11 K246 ["Titlebar"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K240 ["Border"]
+  GETTABLEKS R10 R11 K233 ["Border"]
   SETTABLEKS R10 R9 K167 ["borderColor"]
-  GETUPVAL R11 11
+  GETUPVAL R11 10
   CALL R11 0 1
   JUMPIFNOT R11 [+4]
   GETUPVAL R11 8
-  GETTABLEKS R10 R11 K258 ["GRAY_2"]
+  GETTABLEKS R10 R11 K251 ["GRAY_2"]
   JUMP [+1]
   LOADNIL R10
-  SETTABLEKS R10 R9 K256 ["iconColor"]
-  SETTABLEKS R9 R8 K259 ["header"]
-  DUPTABLE R9 K260 [{"backgroundColor"}]
+  SETTABLEKS R10 R9 K249 ["iconColor"]
+  SETTABLEKS R9 R8 K252 ["header"]
+  DUPTABLE R9 K253 [{"backgroundColor"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K81 ["Toolbox_HomeviewBackgroundColor"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
-  SETTABLEKS R9 R8 K261 ["homeView"]
-  DUPTABLE R9 K266 [{"font", "gradientColor", "overlayColor", "overlayTransparency", "padding", "spacing", "textColor", "textColorHovered", "textSize"}]
-  GETIMPORT R10 K268 [Enum.Font.SourceSansBold]
-  SETTABLEKS R10 R9 K214 ["font"]
+  SETTABLEKS R9 R8 K254 ["homeView"]
+  DUPTABLE R9 K259 [{"font", "gradientColor", "overlayColor", "overlayTransparency", "padding", "spacing", "textColor", "textColorHovered", "textSize"}]
+  GETIMPORT R10 K261 [Enum.Font.SourceSansBold]
+  SETTABLEKS R10 R9 K207 ["font"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K80 ["Toolbox_IconTileGradientColor"]
-  SETTABLEKS R10 R9 K262 ["gradientColor"]
+  SETTABLEKS R10 R9 K255 ["gradientColor"]
   GETIMPORT R10 K7 [Color3.fromHex]
-  LOADK R11 K13 ["fromRGB"]
+  LOADK R11 K6 ["fromHex"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K143 ["overlayColor"]
-  LOADK R10 K14 [Color3.fromRGB]
+  LOADK R10 K7 [Color3.fromHex]
   SETTABLEKS R10 R9 K144 ["overlayTransparency"]
   LOADN R10 8
-  SETTABLEKS R10 R9 K263 ["padding"]
+  SETTABLEKS R10 R9 K256 ["padding"]
   LOADN R10 16
-  SETTABLEKS R10 R9 K264 ["spacing"]
+  SETTABLEKS R10 R9 K257 ["spacing"]
   GETIMPORT R10 K7 [Color3.fromHex]
   LOADK R11 K109 ["#E1E1E1"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K156 ["textColor"]
   LOADNIL R10
-  SETTABLEKS R10 R9 K265 ["textColorHovered"]
+  SETTABLEKS R10 R9 K258 ["textColorHovered"]
   LOADN R10 16
-  SETTABLEKS R10 R9 K213 ["textSize"]
-  SETTABLEKS R9 R8 K271 ["iconTile"]
-  DUPTABLE R9 K272 [{"backgroundColor", "textColor"}]
+  SETTABLEKS R10 R9 K206 ["textSize"]
+  SETTABLEKS R9 R8 K264 ["iconTile"]
+  DUPTABLE R9 K265 [{"backgroundColor", "textColor"}]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K253 ["Titlebar"]
+  GETTABLEKS R10 R11 K246 ["Titlebar"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K187 ["SubText"]
   SETTABLEKS R10 R9 K156 ["textColor"]
-  SETTABLEKS R9 R8 K273 ["infoBanner"]
-  DUPTABLE R9 K282 [{"backgroundColorEven", "backgroundColorOdd", "borderColor", "headerTextColor", "titleTextColor", "primaryIconColor", "textColor", "textSize", "playButtonColor", "pauseButtonColor", "insertButtonColor", "insertButtonTextColor"}]
+  SETTABLEKS R9 R8 K266 ["infoBanner"]
+  DUPTABLE R9 K275 [{"backgroundColorEven", "backgroundColorOdd", "borderColor", "headerTextColor", "titleTextColor", "primaryIconColor", "textColor", "textSize", "playButtonColor", "pauseButtonColor", "insertButtonColor", "insertButtonTextColor"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K31 ["Toolbox_ItemRowBackgroundColorEven"]
-  SETTABLEKS R10 R9 K274 ["backgroundColorEven"]
+  SETTABLEKS R10 R9 K267 ["backgroundColorEven"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K33 ["Toolbox_ItemRowBackgroundColorOdd"]
-  SETTABLEKS R10 R9 K275 ["backgroundColorOdd"]
+  SETTABLEKS R10 R9 K268 ["backgroundColorOdd"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K35 ["Toolbox_ItemRowBorderColor"]
   SETTABLEKS R10 R9 K167 ["borderColor"]
@@ -1305,30 +1288,30 @@ PROTO_1:
   SETTABLEKS R10 R9 K142 ["headerTextColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K39 ["Toolbox_ItemRowTitleTextColor"]
-  SETTABLEKS R10 R9 K276 ["titleTextColor"]
+  SETTABLEKS R10 R9 K269 ["titleTextColor"]
   GETIMPORT R10 K7 [Color3.fromHex]
-  LOADK R11 K27 ["#D9D9D9"]
+  LOADK R11 K20 ["Toolbox_AssetNameColor"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K277 ["primaryIconColor"]
+  SETTABLEKS R10 R9 K270 ["primaryIconColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K187 ["SubText"]
   SETTABLEKS R10 R9 K156 ["textColor"]
   LOADN R10 16
-  SETTABLEKS R10 R9 K213 ["textSize"]
+  SETTABLEKS R10 R9 K206 ["textSize"]
   GETUPVAL R11 8
-  GETTABLEKS R10 R11 K284 ["BLACK"]
-  SETTABLEKS R10 R9 K278 ["playButtonColor"]
+  GETTABLEKS R10 R11 K277 ["BLACK"]
+  SETTABLEKS R10 R9 K271 ["playButtonColor"]
   GETUPVAL R11 8
   GETTABLEKS R10 R11 K133 ["BLUE_PRIMARY"]
-  SETTABLEKS R10 R9 K279 ["pauseButtonColor"]
+  SETTABLEKS R10 R9 K272 ["pauseButtonColor"]
   GETIMPORT R10 K7 [Color3.fromHex]
   LOADK R11 K46 ["#0077D6"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K280 ["insertButtonColor"]
+  SETTABLEKS R10 R9 K273 ["insertButtonColor"]
   GETUPVAL R11 8
-  GETTABLEKS R10 R11 K285 ["WHITE"]
-  SETTABLEKS R10 R9 K281 ["insertButtonTextColor"]
-  SETTABLEKS R9 R8 K286 ["itemRow"]
+  GETTABLEKS R10 R11 K278 ["WHITE"]
+  SETTABLEKS R10 R9 K274 ["insertButtonTextColor"]
+  SETTABLEKS R9 R8 K279 ["itemRow"]
   DUPTABLE R9 K162 [{"textColor"}]
   GETIMPORT R10 K14 [Color3.fromRGB]
   LOADN R11 0
@@ -1336,8 +1319,8 @@ PROTO_1:
   LOADN R13 255
   CALL R10 3 1
   SETTABLEKS R10 R9 K156 ["textColor"]
-  SETTABLEKS R9 R8 K287 ["linkButton"]
-  DUPTABLE R9 K289 [{"backgroundColor", "textColor", "informativeTextColor", "button"}]
+  SETTABLEKS R9 R8 K280 ["linkButton"]
+  DUPTABLE R9 K282 [{"backgroundColor", "textColor", "informativeTextColor", "button"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K146 ["MainBackground"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
@@ -1346,130 +1329,130 @@ PROTO_1:
   SETTABLEKS R10 R9 K156 ["textColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K187 ["SubText"]
-  SETTABLEKS R10 R9 K288 ["informativeTextColor"]
-  DUPTABLE R10 K290 [{"textColor", "textSelectedColor", "backgroundColor", "backgroundSelectedColor", "borderColor", "borderSelectedColor"}]
+  SETTABLEKS R10 R9 K281 ["informativeTextColor"]
+  DUPTABLE R10 K283 [{"textColor", "textSelectedColor", "backgroundColor", "backgroundSelectedColor", "borderColor", "borderSelectedColor"}]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K175 ["MainText"]
   SETTABLEKS R11 R10 K156 ["textColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K241 ["MainTextSelected"]
-  SETTABLEKS R11 R10 K236 ["textSelectedColor"]
+  GETTABLEKS R11 R12 K234 ["MainTextSelected"]
+  SETTABLEKS R11 R10 K229 ["textSelectedColor"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K146 ["MainBackground"]
   SETTABLEKS R11 R10 K132 ["backgroundColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K239 ["CurrentMarker"]
-  SETTABLEKS R11 R10 K233 ["backgroundSelectedColor"]
+  GETTABLEKS R11 R12 K232 ["CurrentMarker"]
+  SETTABLEKS R11 R10 K226 ["backgroundSelectedColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K240 ["Border"]
+  GETTABLEKS R11 R12 K233 ["Border"]
   SETTABLEKS R11 R10 K167 ["borderColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K239 ["CurrentMarker"]
-  SETTABLEKS R11 R10 K235 ["borderSelectedColor"]
-  SETTABLEKS R10 R9 K251 ["button"]
-  SETTABLEKS R9 R8 K291 ["messageBox"]
-  DUPTABLE R9 K294 [{"promptText", "balanceText"}]
+  GETTABLEKS R11 R12 K232 ["CurrentMarker"]
+  SETTABLEKS R11 R10 K228 ["borderSelectedColor"]
+  SETTABLEKS R10 R9 K244 ["button"]
+  SETTABLEKS R9 R8 K284 ["messageBox"]
+  DUPTABLE R9 K287 [{"promptText", "balanceText"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K175 ["MainText"]
-  SETTABLEKS R10 R9 K292 ["promptText"]
+  SETTABLEKS R10 R9 K285 ["promptText"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K194 ["DimmedText"]
-  SETTABLEKS R10 R9 K293 ["balanceText"]
-  SETTABLEKS R9 R8 K295 ["purchaseDialog"]
-  DUPTABLE R9 K301 [{"backgroundColor", "distributionQuotaTextColor", "titleTextColor", "textColor", "quotaTextColor", "verifyTextColor", "warningIconColor", "additionalImagesThumbnailSize"}]
+  SETTABLEKS R10 R9 K286 ["balanceText"]
+  SETTABLEKS R9 R8 K288 ["purchaseDialog"]
+  DUPTABLE R9 K294 [{"backgroundColor", "distributionQuotaTextColor", "titleTextColor", "textColor", "quotaTextColor", "verifyTextColor", "warningIconColor", "additionalImagesThumbnailSize"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K2 ["Toolbox_PublishAssetBackground"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K104 ["AssetConfig_DistributionQuotaTextColor"]
-  SETTABLEKS R10 R9 K296 ["distributionQuotaTextColor"]
+  SETTABLEKS R10 R9 K289 ["distributionQuotaTextColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K187 ["SubText"]
-  SETTABLEKS R10 R9 K276 ["titleTextColor"]
+  SETTABLEKS R10 R9 K269 ["titleTextColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K175 ["MainText"]
   SETTABLEKS R10 R9 K156 ["textColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K148 ["BrightText"]
-  SETTABLEKS R10 R9 K297 ["quotaTextColor"]
+  SETTABLEKS R10 R9 K290 ["quotaTextColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K204 ["TextSecondary"]
-  SETTABLEKS R10 R9 K298 ["verifyTextColor"]
+  SETTABLEKS R10 R9 K291 ["verifyTextColor"]
   GETIMPORT R10 K7 [Color3.fromHex]
-  LOADK R11 K46 ["#0077D6"]
+  LOADK R11 K39 ["Toolbox_ItemRowTitleTextColor"]
   CALL R10 1 1
-  SETTABLEKS R10 R9 K299 ["warningIconColor"]
-  GETIMPORT R10 K304 [UDim2.new]
+  SETTABLEKS R10 R9 K292 ["warningIconColor"]
+  GETIMPORT R10 K297 [UDim2.new]
   LOADN R11 0
   LOADN R12 185
   LOADN R13 0
   LOADN R14 104
   CALL R10 4 1
-  SETTABLEKS R10 R9 K300 ["additionalImagesThumbnailSize"]
-  SETTABLEKS R9 R8 K305 ["publishAsset"]
-  DUPTABLE R9 K312 [{"backgroundColor", "liveBackgroundColor", "borderColor", "borderHoveredColor", "borderSelectedColor", "textColor", "placeholderTextColor", "divideLineColor", "searchButton", "clearButton"}]
+  SETTABLEKS R10 R9 K293 ["additionalImagesThumbnailSize"]
+  SETTABLEKS R9 R8 K298 ["publishAsset"]
+  DUPTABLE R9 K305 [{"backgroundColor", "liveBackgroundColor", "borderColor", "borderHoveredColor", "borderSelectedColor", "textColor", "placeholderTextColor", "divideLineColor", "searchButton", "clearButton"}]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K238 ["Dropdown"]
+  GETTABLEKS R10 R11 K231 ["Dropdown"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K131 ["InputFieldBackground"]
-  SETTABLEKS R10 R9 K306 ["liveBackgroundColor"]
+  SETTABLEKS R10 R9 K299 ["liveBackgroundColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K240 ["Border"]
+  GETTABLEKS R10 R11 K233 ["Border"]
   SETTABLEKS R10 R9 K167 ["borderColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K239 ["CurrentMarker"]
-  SETTABLEKS R10 R9 K307 ["borderHoveredColor"]
+  GETTABLEKS R10 R11 K232 ["CurrentMarker"]
+  SETTABLEKS R10 R9 K300 ["borderHoveredColor"]
   GETUPVAL R11 8
   GETTABLEKS R10 R11 K133 ["BLUE_PRIMARY"]
-  SETTABLEKS R10 R9 K235 ["borderSelectedColor"]
+  SETTABLEKS R10 R9 K228 ["borderSelectedColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K175 ["MainText"]
   SETTABLEKS R10 R9 K156 ["textColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K194 ["DimmedText"]
-  SETTABLEKS R10 R9 K308 ["placeholderTextColor"]
+  SETTABLEKS R10 R9 K301 ["placeholderTextColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K240 ["Border"]
-  SETTABLEKS R10 R9 K309 ["divideLineColor"]
-  DUPTABLE R10 K315 [{"imageColor", "imageSelectedColor"}]
+  GETTABLEKS R10 R11 K233 ["Border"]
+  SETTABLEKS R10 R9 K302 ["divideLineColor"]
+  DUPTABLE R10 K308 [{"imageColor", "imageSelectedColor"}]
   GETIMPORT R11 K14 [Color3.fromRGB]
   LOADN R12 184
   LOADN R13 184
   LOADN R14 184
   CALL R11 3 1
-  SETTABLEKS R11 R10 K313 ["imageColor"]
+  SETTABLEKS R11 R10 K306 ["imageColor"]
   GETIMPORT R11 K14 [Color3.fromRGB]
   LOADN R12 0
   LOADN R13 162
   LOADN R14 255
   CALL R11 3 1
-  SETTABLEKS R11 R10 K314 ["imageSelectedColor"]
-  SETTABLEKS R10 R9 K310 ["searchButton"]
-  DUPTABLE R10 K315 [{"imageColor", "imageSelectedColor"}]
+  SETTABLEKS R11 R10 K307 ["imageSelectedColor"]
+  SETTABLEKS R10 R9 K303 ["searchButton"]
+  DUPTABLE R10 K308 [{"imageColor", "imageSelectedColor"}]
   GETIMPORT R11 K14 [Color3.fromRGB]
   LOADN R12 184
   LOADN R13 184
   LOADN R14 184
   CALL R11 3 1
-  SETTABLEKS R11 R10 K313 ["imageColor"]
+  SETTABLEKS R11 R10 K306 ["imageColor"]
   GETIMPORT R11 K14 [Color3.fromRGB]
   LOADN R12 0
   LOADN R13 162
   LOADN R14 255
   CALL R11 3 1
-  SETTABLEKS R11 R10 K314 ["imageSelectedColor"]
-  SETTABLEKS R10 R9 K311 ["clearButton"]
-  SETTABLEKS R9 R8 K316 ["searchBar"]
-  DUPTABLE R9 K319 [{"scrollbarBackgroundColor", "scrollbarImageColor"}]
+  SETTABLEKS R11 R10 K307 ["imageSelectedColor"]
+  SETTABLEKS R10 R9 K304 ["clearButton"]
+  SETTABLEKS R9 R8 K309 ["searchBar"]
+  DUPTABLE R9 K312 [{"scrollbarBackgroundColor", "scrollbarImageColor"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K70 ["ScrollingFrameBackgroundColor"]
-  SETTABLEKS R10 R9 K317 ["scrollbarBackgroundColor"]
+  SETTABLEKS R10 R9 K310 ["scrollbarBackgroundColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K71 ["ScrollingFrameImageColor"]
-  SETTABLEKS R10 R9 K318 ["scrollbarImageColor"]
-  SETTABLEKS R9 R8 K320 ["scrollingFrame"]
-  DUPTABLE R9 K323 [{"labelTextColor", "textColor", "textHoveredColor", "underlineColor"}]
+  SETTABLEKS R10 R9 K311 ["scrollbarImageColor"]
+  SETTABLEKS R9 R8 K313 ["scrollingFrame"]
+  DUPTABLE R9 K316 [{"labelTextColor", "textColor", "textHoveredColor", "underlineColor"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K175 ["MainText"]
   SETTABLEKS R10 R9 K192 ["labelTextColor"]
@@ -1478,59 +1461,59 @@ PROTO_1:
   SETTABLEKS R10 R9 K156 ["textColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K136 ["LinkText"]
-  SETTABLEKS R10 R9 K321 ["textHoveredColor"]
+  SETTABLEKS R10 R9 K314 ["textHoveredColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K136 ["LinkText"]
-  SETTABLEKS R10 R9 K322 ["underlineColor"]
-  SETTABLEKS R9 R8 K324 ["suggestionsComponent"]
-  DUPTABLE R9 K331 [{"background", "border", "headerTextColor", "imageColor", "imageHoveredColor", "imageSelectedColor", "warningIconColor", "audioSearch", "timeTextBox", "applyButton", "cancelButton"}]
+  SETTABLEKS R10 R9 K315 ["underlineColor"]
+  SETTABLEKS R9 R8 K317 ["suggestionsComponent"]
+  DUPTABLE R9 K324 [{"background", "border", "headerTextColor", "imageColor", "imageHoveredColor", "imageSelectedColor", "warningIconColor", "audioSearch", "timeTextBox", "applyButton", "cancelButton"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K146 ["MainBackground"]
   SETTABLEKS R10 R9 K152 ["background"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K240 ["Border"]
-  SETTABLEKS R10 R9 K325 ["border"]
+  GETTABLEKS R10 R11 K233 ["Border"]
+  SETTABLEKS R10 R9 K318 ["border"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K175 ["MainText"]
   SETTABLEKS R10 R9 K142 ["headerTextColor"]
   GETUPVAL R11 8
-  GETTABLEKS R10 R11 K258 ["GRAY_2"]
-  SETTABLEKS R10 R9 K313 ["imageColor"]
+  GETTABLEKS R10 R11 K251 ["GRAY_2"]
+  SETTABLEKS R10 R9 K306 ["imageColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K82 ["Toolbox_SearchOptionButtonHover"]
-  SETTABLEKS R10 R9 K326 ["imageHoveredColor"]
+  SETTABLEKS R10 R9 K319 ["imageHoveredColor"]
   GETUPVAL R11 8
   GETTABLEKS R10 R11 K133 ["BLUE_PRIMARY"]
-  SETTABLEKS R10 R9 K314 ["imageSelectedColor"]
-  SETTABLEKS R5 R9 K299 ["warningIconColor"]
+  SETTABLEKS R10 R9 K307 ["imageSelectedColor"]
+  SETTABLEKS R5 R9 K292 ["warningIconColor"]
   DUPTABLE R10 K162 [{"textColor"}]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K175 ["MainText"]
   SETTABLEKS R11 R10 K156 ["textColor"]
-  SETTABLEKS R10 R9 K327 ["audioSearch"]
-  DUPTABLE R10 K333 [{"borderColor", "backgroundColor", "selectedBorderColor", "textColor", "placeholderTextColor"}]
+  SETTABLEKS R10 R9 K320 ["audioSearch"]
+  DUPTABLE R10 K326 [{"borderColor", "backgroundColor", "selectedBorderColor", "textColor", "placeholderTextColor"}]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K240 ["Border"]
+  GETTABLEKS R11 R12 K233 ["Border"]
   SETTABLEKS R11 R10 K167 ["borderColor"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K131 ["InputFieldBackground"]
   SETTABLEKS R11 R10 K132 ["backgroundColor"]
   GETUPVAL R12 8
   GETTABLEKS R11 R12 K133 ["BLUE_PRIMARY"]
-  SETTABLEKS R11 R10 K332 ["selectedBorderColor"]
+  SETTABLEKS R11 R10 K325 ["selectedBorderColor"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K175 ["MainText"]
   SETTABLEKS R11 R10 K156 ["textColor"]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K194 ["DimmedText"]
-  SETTABLEKS R11 R10 K308 ["placeholderTextColor"]
-  SETTABLEKS R10 R9 K328 ["timeTextBox"]
-  GETUPVAL R11 12
+  SETTABLEKS R11 R10 K301 ["placeholderTextColor"]
+  SETTABLEKS R10 R9 K321 ["timeTextBox"]
+  GETUPVAL R11 11
   CALL R11 0 1
   JUMPIF R11 [+17]
-  DUPTABLE R10 K334 [{"textColor", "backgroundColor", "borderColor"}]
+  DUPTABLE R10 K327 [{"textColor", "backgroundColor", "borderColor"}]
   GETUPVAL R12 8
-  GETTABLEKS R11 R12 K285 ["WHITE"]
+  GETTABLEKS R11 R12 K278 ["WHITE"]
   SETTABLEKS R11 R10 K156 ["textColor"]
   GETUPVAL R12 8
   GETTABLEKS R11 R12 K133 ["BLUE_PRIMARY"]
@@ -1540,111 +1523,126 @@ PROTO_1:
   SETTABLEKS R11 R10 K167 ["borderColor"]
   JUMP [+1]
   LOADNIL R10
-  SETTABLEKS R10 R9 K329 ["applyButton"]
-  GETUPVAL R11 12
+  SETTABLEKS R10 R9 K322 ["applyButton"]
+  GETUPVAL R11 11
   CALL R11 0 1
   JUMPIF R11 [+17]
-  DUPTABLE R10 K334 [{"textColor", "backgroundColor", "borderColor"}]
+  DUPTABLE R10 K327 [{"textColor", "backgroundColor", "borderColor"}]
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K175 ["MainText"]
   SETTABLEKS R11 R10 K156 ["textColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K335 ["Button"]
+  GETTABLEKS R11 R12 K328 ["Button"]
   SETTABLEKS R11 R10 K132 ["backgroundColor"]
   GETUPVAL R12 3
-  GETTABLEKS R11 R12 K240 ["Border"]
+  GETTABLEKS R11 R12 K233 ["Border"]
   SETTABLEKS R11 R10 K167 ["borderColor"]
   JUMP [+1]
   LOADNIL R10
-  SETTABLEKS R10 R9 K330 ["cancelButton"]
-  SETTABLEKS R9 R8 K336 ["searchOptions"]
-  DUPTABLE R9 K338 [{"buttonSpacing"}]
+  SETTABLEKS R10 R9 K323 ["cancelButton"]
+  SETTABLEKS R9 R8 K329 ["searchOptions"]
+  DUPTABLE R9 K331 [{"buttonSpacing"}]
   LOADN R10 3
-  SETTABLEKS R10 R9 K337 ["buttonSpacing"]
-  SETTABLEKS R9 R8 K339 ["searchList"]
-  DUPTABLE R9 K341 [{"backgroundColor", "backgroundColorHovered", "font", "padding", "textSize", "textColor"}]
+  SETTABLEKS R10 R9 K330 ["buttonSpacing"]
+  SETTABLEKS R9 R8 K332 ["searchList"]
+  DUPTABLE R9 K334 [{"backgroundColor", "backgroundColorHovered", "font", "padding", "textSize", "textColor"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K74 ["Toolbox_SearchPillBackgroundColor"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K75 ["Toolbox_SearchPillBackgroundColorHovered"]
-  SETTABLEKS R10 R9 K340 ["backgroundColorHovered"]
-  GETIMPORT R10 K220 [Enum.Font.SourceSans]
-  SETTABLEKS R10 R9 K214 ["font"]
-  DUPTABLE R10 K346 [{"top", "bottom", "left", "right"}]
+  SETTABLEKS R10 R9 K333 ["backgroundColorHovered"]
+  GETIMPORT R10 K213 [Enum.Font.SourceSans]
+  SETTABLEKS R10 R9 K207 ["font"]
+  DUPTABLE R10 K339 [{"top", "bottom", "left", "right"}]
   LOADN R11 4
-  SETTABLEKS R11 R10 K342 ["top"]
+  SETTABLEKS R11 R10 K335 ["top"]
   LOADN R11 6
-  SETTABLEKS R11 R10 K343 ["bottom"]
+  SETTABLEKS R11 R10 K336 ["bottom"]
   LOADN R11 10
-  SETTABLEKS R11 R10 K344 ["left"]
+  SETTABLEKS R11 R10 K337 ["left"]
   LOADN R11 10
-  SETTABLEKS R11 R10 K345 ["right"]
-  SETTABLEKS R10 R9 K263 ["padding"]
+  SETTABLEKS R11 R10 K338 ["right"]
+  SETTABLEKS R10 R9 K256 ["padding"]
   LOADN R10 18
-  SETTABLEKS R10 R9 K213 ["textSize"]
+  SETTABLEKS R10 R9 K206 ["textSize"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K73 ["Toolbox_SearchPillTextColor"]
   SETTABLEKS R10 R9 K156 ["textColor"]
-  SETTABLEKS R9 R8 K347 ["searchPill"]
-  DUPTABLE R9 K349 [{"backgroundColor", "borderColor", "textColor", "clearAllText"}]
+  SETTABLEKS R9 R8 K340 ["searchPill"]
+  DUPTABLE R9 K342 [{"backgroundColor", "borderColor", "textColor", "clearAllText"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K72 ["Toolbox_SearchTagBackgroundColor"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K240 ["Border"]
+  GETTABLEKS R10 R11 K233 ["Border"]
   SETTABLEKS R10 R9 K167 ["borderColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K148 ["BrightText"]
   SETTABLEKS R10 R9 K156 ["textColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K136 ["LinkText"]
-  SETTABLEKS R10 R9 K348 ["clearAllText"]
-  SETTABLEKS R9 R8 K350 ["searchTag"]
-  DUPTABLE R9 K351 [{"textColor", "font", "textSize"}]
+  SETTABLEKS R10 R9 K341 ["clearAllText"]
+  SETTABLEKS R9 R8 K343 ["searchTag"]
+  DUPTABLE R9 K344 [{"textColor", "font", "textSize"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K61 ["Toolbox_NavigationLinkTextColor"]
   SETTABLEKS R10 R9 K156 ["textColor"]
-  GETIMPORT R10 K268 [Enum.Font.SourceSansBold]
-  SETTABLEKS R10 R9 K214 ["font"]
+  GETIMPORT R10 K261 [Enum.Font.SourceSansBold]
+  SETTABLEKS R10 R9 K207 ["font"]
   LOADN R10 18
-  SETTABLEKS R10 R9 K213 ["textSize"]
-  SETTABLEKS R9 R8 K352 ["sectionHeader"]
-  DUPTABLE R9 K354 [{"textColor", "hoverTextColor", "font", "textSize"}]
+  SETTABLEKS R10 R9 K206 ["textSize"]
+  SETTABLEKS R9 R8 K345 ["sectionHeader"]
+  DUPTABLE R9 K347 [{"textColor", "hoverTextColor", "font", "textSize"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K61 ["Toolbox_NavigationLinkTextColor"]
   SETTABLEKS R10 R9 K156 ["textColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K62 ["Toolbox_NavigationLinkTextColorHover"]
-  SETTABLEKS R10 R9 K353 ["hoverTextColor"]
-  GETIMPORT R10 K220 [Enum.Font.SourceSans]
-  SETTABLEKS R10 R9 K214 ["font"]
+  SETTABLEKS R10 R9 K346 ["hoverTextColor"]
+  GETIMPORT R10 K213 [Enum.Font.SourceSans]
+  SETTABLEKS R10 R9 K207 ["font"]
   LOADN R10 16
-  SETTABLEKS R10 R9 K213 ["textSize"]
-  SETTABLEKS R9 R8 K355 ["sectionHeaderNavLink"]
-  DUPTABLE R9 K361 [{"backgroundColor", "borderColor", "topBorderColor", "tabBackground", "disabledColor", "contentColor", "selectedColor"}]
+  SETTABLEKS R10 R9 K206 ["textSize"]
+  SETTABLEKS R9 R8 K348 ["sectionHeaderNavLink"]
+  DUPTABLE R9 K354 [{"backgroundColor", "borderColor", "topBorderColor", "tabBackground", "disabledColor", "contentColor", "selectedColor"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K146 ["MainBackground"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K240 ["Border"]
+  GETTABLEKS R10 R11 K233 ["Border"]
   SETTABLEKS R10 R9 K167 ["borderColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K77 ["Toolbox_TabTopBorderColor"]
-  SETTABLEKS R10 R9 K356 ["topBorderColor"]
+  SETTABLEKS R10 R9 K349 ["topBorderColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K253 ["Titlebar"]
-  SETTABLEKS R10 R9 K357 ["tabBackground"]
+  GETTABLEKS R10 R11 K246 ["Titlebar"]
+  SETTABLEKS R10 R9 K350 ["tabBackground"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K240 ["Border"]
-  SETTABLEKS R10 R9 K358 ["disabledColor"]
+  GETTABLEKS R10 R11 K233 ["Border"]
+  SETTABLEKS R10 R9 K351 ["disabledColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K362 ["TitlebarText"]
-  SETTABLEKS R10 R9 K359 ["contentColor"]
+  GETTABLEKS R10 R11 K355 ["TitlebarText"]
+  SETTABLEKS R10 R9 K352 ["contentColor"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K79 ["Toolbox_TabSelectedColor"]
-  SETTABLEKS R10 R9 K360 ["selectedColor"]
-  SETTABLEKS R9 R8 K363 ["tabSet"]
+  SETTABLEKS R10 R9 K353 ["selectedColor"]
+  SETTABLEKS R9 R8 K356 ["tabSet"]
+  GETUPVAL R10 12
+  CALL R10 0 1
+  JUMPIFNOT R10 [+14]
+  DUPTABLE R9 K361 [{"buttonHeight", "buttonWidth", "verticalTextSpacing", "verticalListPadding"}]
+  LOADN R10 24
+  SETTABLEKS R10 R9 K357 ["buttonHeight"]
+  LOADN R10 40
+  SETTABLEKS R10 R9 K358 ["buttonWidth"]
+  LOADN R10 4
+  SETTABLEKS R10 R9 K359 ["verticalTextSpacing"]
+  LOADN R10 16
+  SETTABLEKS R10 R9 K360 ["verticalListPadding"]
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K362 ["toggle"]
   GETUPVAL R10 13
   GETTABLEKS R9 R10 K136 ["LinkText"]
   GETUPVAL R11 14
@@ -1653,121 +1651,121 @@ PROTO_1:
   LOADK R12 K136 ["LinkText"]
   CALL R11 1 1
   NEWTABLE R12 4 0
-  DUPTABLE R13 K367 [{"TextSize", "TextColor", "ShowUnderline"}]
+  DUPTABLE R13 K366 [{"TextSize", "TextColor", "ShowUnderline"}]
   LOADN R14 16
-  SETTABLEKS R14 R13 K364 ["TextSize"]
+  SETTABLEKS R14 R13 K363 ["TextSize"]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K187 ["SubText"]
-  SETTABLEKS R14 R13 K365 ["TextColor"]
+  SETTABLEKS R14 R13 K364 ["TextColor"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K366 ["ShowUnderline"]
-  SETTABLEKS R13 R12 K368 ["&ToolboxItemRowLink"]
-  DUPTABLE R13 K369 [{"TextColor", "ShowUnderline"}]
+  SETTABLEKS R14 R13 K365 ["ShowUnderline"]
+  SETTABLEKS R13 R12 K367 ["&ToolboxItemRowLink"]
+  DUPTABLE R13 K368 [{"TextColor", "ShowUnderline"}]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K41 ["Toolbox_ItemRowTextColor"]
-  SETTABLEKS R14 R13 K365 ["TextColor"]
+  SETTABLEKS R14 R13 K364 ["TextColor"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K366 ["ShowUnderline"]
-  SETTABLEKS R13 R12 K370 ["&ToolboxItemRowInnerLink"]
-  DUPTABLE R13 K367 [{"TextSize", "TextColor", "ShowUnderline"}]
+  SETTABLEKS R14 R13 K365 ["ShowUnderline"]
+  SETTABLEKS R13 R12 K369 ["&ToolboxItemRowInnerLink"]
+  DUPTABLE R13 K366 [{"TextSize", "TextColor", "ShowUnderline"}]
   LOADN R14 16
-  SETTABLEKS R14 R13 K364 ["TextSize"]
+  SETTABLEKS R14 R13 K363 ["TextSize"]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K39 ["Toolbox_ItemRowTitleTextColor"]
-  SETTABLEKS R14 R13 K365 ["TextColor"]
+  SETTABLEKS R14 R13 K364 ["TextColor"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K366 ["ShowUnderline"]
-  SETTABLEKS R13 R12 K371 ["&ToolboxItemRowTitle"]
+  SETTABLEKS R14 R13 K365 ["ShowUnderline"]
+  SETTABLEKS R13 R12 K370 ["&ToolboxItemRowTitle"]
   CALL R10 2 1
   SETTABLE R10 R8 R9
   GETUPVAL R10 13
-  GETTABLEKS R9 R10 K372 ["SearchBar"]
+  GETTABLEKS R9 R10 K371 ["SearchBar"]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K0 ["Dictionary"]
   GETTABLEKS R10 R11 K1 ["join"]
   GETUPVAL R11 15
-  LOADK R12 K116 ["Blue_Light"]
+  LOADK R12 K115 ["#0055AC"]
   CALL R11 1 1
   NEWTABLE R12 1 0
-  DUPTABLE R13 K379 [{"Padding", "SearchIcon", "IconColor", "IconWidth", "IconOffset", "Buttons"}]
-  DUPTABLE R14 K384 [{"Top", "Left", "Bottom", "Right"}]
+  DUPTABLE R13 K378 [{"Padding", "SearchIcon", "IconColor", "IconWidth", "IconOffset", "Buttons"}]
+  DUPTABLE R14 K383 [{"Top", "Left", "Bottom", "Right"}]
   LOADN R15 255
-  SETTABLEKS R15 R14 K380 ["Top"]
+  SETTABLEKS R15 R14 K379 ["Top"]
   LOADN R15 0
-  SETTABLEKS R15 R14 K381 ["Left"]
+  SETTABLEKS R15 R14 K380 ["Left"]
   LOADN R15 0
-  SETTABLEKS R15 R14 K382 ["Bottom"]
+  SETTABLEKS R15 R14 K381 ["Bottom"]
   LOADN R15 0
-  SETTABLEKS R15 R14 K383 ["Right"]
-  SETTABLEKS R14 R13 K373 ["Padding"]
-  LOADK R14 K129 ["mock"]
-  SETTABLEKS R14 R13 K374 ["SearchIcon"]
+  SETTABLEKS R15 R14 K382 ["Right"]
+  SETTABLEKS R14 R13 K372 ["Padding"]
+  LOADK R14 K128 [0.9]
+  SETTABLEKS R14 R13 K373 ["SearchIcon"]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K91 ["Toolbox_SearchIconColor"]
-  SETTABLEKS R14 R13 K375 ["IconColor"]
+  SETTABLEKS R14 R13 K374 ["IconColor"]
   LOADN R14 16
-  SETTABLEKS R14 R13 K376 ["IconWidth"]
+  SETTABLEKS R14 R13 K375 ["IconWidth"]
   LOADN R14 8
-  SETTABLEKS R14 R13 K377 ["IconOffset"]
-  DUPTABLE R14 K389 [{"Clear", "Filter", "FilterHighlighted"}]
+  SETTABLEKS R14 R13 K376 ["IconOffset"]
+  DUPTABLE R14 K388 [{"Clear", "Filter", "FilterHighlighted"}]
   GETUPVAL R15 16
-  LOADK R16 K134 ["progressBarColor"]
-  LOADK R17 K135 ["horizontalLineColor"]
+  LOADK R16 K133 ["BLUE_PRIMARY"]
+  LOADK R17 K134 ["progressBarColor"]
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K93 ["SecondaryMain"]
-  GETIMPORT R19 K393 [UDim2.fromOffset]
+  GETIMPORT R19 K392 [UDim2.fromOffset]
   LOADN R20 11
   LOADN R21 11
   CALL R19 2 1
   LOADNIL R20
   GETUPVAL R22 3
-  GETTABLEKS R21 R22 K394 ["SecondaryContrast"]
+  GETTABLEKS R21 R22 K393 ["SecondaryContrast"]
   CALL R15 6 1
-  SETTABLEKS R15 R14 K386 ["Clear"]
+  SETTABLEKS R15 R14 K385 ["Clear"]
   GETUPVAL R15 16
-  LOADK R16 K139 ["spacingUnit"]
+  LOADK R16 K138 ["redText"]
   LOADNIL R17
   GETUPVAL R19 3
   GETTABLEKS R18 R19 K91 ["Toolbox_SearchIconColor"]
-  GETIMPORT R19 K393 [UDim2.fromOffset]
+  GETIMPORT R19 K392 [UDim2.fromOffset]
   LOADN R20 16
   LOADN R21 16
   CALL R19 2 -1
   CALL R15 -1 1
-  SETTABLEKS R15 R14 K387 ["Filter"]
+  SETTABLEKS R15 R14 K386 ["Filter"]
   GETUPVAL R15 16
-  LOADK R16 K139 ["spacingUnit"]
+  LOADK R16 K138 ["redText"]
   LOADNIL R17
   GETIMPORT R18 K14 [Color3.fromRGB]
   LOADN R19 0
   LOADN R20 162
   LOADN R21 255
   CALL R18 3 1
-  GETIMPORT R19 K393 [UDim2.fromOffset]
+  GETIMPORT R19 K392 [UDim2.fromOffset]
   LOADN R20 16
   LOADN R21 16
   CALL R19 2 -1
   CALL R15 -1 1
-  SETTABLEKS R15 R14 K388 ["FilterHighlighted"]
-  SETTABLEKS R14 R13 K378 ["Buttons"]
-  SETTABLEKS R13 R12 K396 ["&ToolboxSearchBar"]
+  SETTABLEKS R15 R14 K387 ["FilterHighlighted"]
+  SETTABLEKS R14 R13 K377 ["Buttons"]
+  SETTABLEKS R13 R12 K395 ["&ToolboxSearchBar"]
   CALL R10 2 1
   SETTABLE R10 R8 R9
   GETUPVAL R10 17
   CALL R10 0 1
   JUMPIFNOT R10 [+12]
-  DUPTABLE R9 K398 [{"backgroundColor", "hoverColor"}]
+  DUPTABLE R9 K397 [{"backgroundColor", "hoverColor"}]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K93 ["SecondaryMain"]
   SETTABLEKS R10 R9 K132 ["backgroundColor"]
   GETUPVAL R11 3
-  GETTABLEKS R10 R11 K394 ["SecondaryContrast"]
-  SETTABLEKS R10 R9 K397 ["hoverColor"]
+  GETTABLEKS R10 R11 K393 ["SecondaryContrast"]
+  SETTABLEKS R10 R9 K396 ["hoverColor"]
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K399 ["recentSearchesCloseButton"]
+  SETTABLEKS R9 R8 K398 ["recentSearchesCloseButton"]
   GETUPVAL R10 13
-  GETTABLEKS R9 R10 K335 ["Button"]
+  GETTABLEKS R9 R10 K328 ["Button"]
   GETUPVAL R11 17
   CALL R11 0 1
   JUMPIFNOT R11 [+37]
@@ -1775,94 +1773,94 @@ PROTO_1:
   GETTABLEKS R11 R12 K0 ["Dictionary"]
   GETTABLEKS R10 R11 K1 ["join"]
   GETUPVAL R11 15
-  LOADK R12 K79 ["Toolbox_TabSelectedColor"]
+  LOADK R12 K72 ["Toolbox_SearchTagBackgroundColor"]
   CALL R11 1 1
   NEWTABLE R12 1 0
   NEWTABLE R13 2 0
-  DUPTABLE R14 K401 [{"Color"}]
+  DUPTABLE R14 K400 [{"Color"}]
   GETUPVAL R16 3
-  GETTABLEKS R15 R16 K402 ["ForegroundMain"]
-  SETTABLEKS R15 R14 K400 ["Color"]
-  SETTABLEKS R14 R13 K403 ["BackgroundStyle"]
+  GETTABLEKS R15 R16 K401 ["ForegroundMain"]
+  SETTABLEKS R15 R14 K399 ["Color"]
+  SETTABLEKS R14 R13 K402 ["BackgroundStyle"]
   GETUPVAL R15 18
-  GETTABLEKS R14 R15 K404 ["Hover"]
-  DUPTABLE R15 K405 [{"BackgroundStyle"}]
-  DUPTABLE R16 K401 [{"Color"}]
+  GETTABLEKS R14 R15 K403 ["Hover"]
+  DUPTABLE R15 K404 [{"BackgroundStyle"}]
+  DUPTABLE R16 K400 [{"Color"}]
   GETUPVAL R18 3
-  GETTABLEKS R17 R18 K406 ["ActionHover"]
-  SETTABLEKS R17 R16 K400 ["Color"]
-  SETTABLEKS R16 R15 K403 ["BackgroundStyle"]
+  GETTABLEKS R17 R18 K405 ["ActionHover"]
+  SETTABLEKS R17 R16 K399 ["Color"]
+  SETTABLEKS R16 R15 K402 ["BackgroundStyle"]
   SETTABLE R15 R13 R14
-  SETTABLEKS R13 R12 K407 ["&ToolboxRecentSearchesButton"]
+  SETTABLEKS R13 R12 K406 ["&ToolboxRecentSearchesButton"]
   CALL R10 2 1
   JUMP [+1]
   LOADNIL R10
   SETTABLE R10 R8 R9
   GETUPVAL R10 13
-  GETTABLEKS R9 R10 K408 ["TextLabel"]
+  GETTABLEKS R9 R10 K407 ["TextLabel"]
   GETUPVAL R11 14
   GETTABLEKS R10 R11 K1 ["join"]
   GETUPVAL R11 15
-  LOADK R12 K152 ["background"]
+  LOADK R12 K151 ["assetName"]
   CALL R11 1 1
   NEWTABLE R12 2 0
-  DUPTABLE R13 K409 [{"TextColor", "TextSize"}]
+  DUPTABLE R13 K408 [{"TextColor", "TextSize"}]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K187 ["SubText"]
-  SETTABLEKS R14 R13 K365 ["TextColor"]
+  SETTABLEKS R14 R13 K364 ["TextColor"]
   LOADN R14 16
-  SETTABLEKS R14 R13 K364 ["TextSize"]
-  SETTABLEKS R13 R12 K410 ["&ToolboxItemRowText"]
-  DUPTABLE R13 K409 [{"TextColor", "TextSize"}]
+  SETTABLEKS R14 R13 K363 ["TextSize"]
+  SETTABLEKS R13 R12 K409 ["&ToolboxItemRowText"]
+  DUPTABLE R13 K408 [{"TextColor", "TextSize"}]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K37 ["Toolbox_ItemRowHeaderTextColor"]
-  SETTABLEKS R14 R13 K365 ["TextColor"]
+  SETTABLEKS R14 R13 K364 ["TextColor"]
   LOADN R14 14
-  SETTABLEKS R14 R13 K364 ["TextSize"]
-  SETTABLEKS R13 R12 K411 ["&ToolboxItemRowHeader"]
+  SETTABLEKS R14 R13 K363 ["TextSize"]
+  SETTABLEKS R13 R12 K410 ["&ToolboxItemRowHeader"]
   CALL R10 2 1
   SETTABLE R10 R8 R9
   GETUPVAL R10 13
-  GETTABLEKS R9 R10 K412 ["TextLabelWithRobloxLinks"]
+  GETTABLEKS R9 R10 K411 ["TextLabelWithRobloxLinks"]
   GETUPVAL R11 14
   GETTABLEKS R10 R11 K1 ["join"]
   GETUPVAL R11 15
-  LOADK R12 K156 ["textColor"]
+  LOADK R12 K155 ["outline"]
   CALL R11 1 1
   NEWTABLE R12 1 0
-  DUPTABLE R13 K413 [{"TextColor"}]
+  DUPTABLE R13 K412 [{"TextColor"}]
   GETUPVAL R15 3
   GETTABLEKS R14 R15 K41 ["Toolbox_ItemRowTextColor"]
-  SETTABLEKS R14 R13 K365 ["TextColor"]
-  SETTABLEKS R13 R12 K414 ["&ToolboxItemRowInnerText"]
+  SETTABLEKS R14 R13 K364 ["TextColor"]
+  SETTABLEKS R13 R12 K413 ["&ToolboxItemRowInnerText"]
   CALL R10 2 1
   SETTABLE R10 R8 R9
-  NAMECALL R6 R2 K415 ["extend"]
+  NAMECALL R6 R2 K414 ["extend"]
   CALL R6 2 0
   JUMPIFNOT R0 [+4]
   MOVE R8 R0
-  NAMECALL R6 R2 K415 ["extend"]
+  NAMECALL R6 R2 K414 ["extend"]
   CALL R6 2 0
   NEWTABLE R8 1 0
   GETUPVAL R10 13
-  GETTABLEKS R9 R10 K416 ["DropdownMenu"]
+  GETTABLEKS R9 R10 K415 ["DropdownMenu"]
   GETUPVAL R12 1
   GETTABLEKS R11 R12 K0 ["Dictionary"]
   GETTABLEKS R10 R11 K1 ["join"]
   GETUPVAL R11 15
-  LOADK R12 K160 ["packages"]
+  LOADK R12 K159 ["voting"]
   CALL R11 1 1
   NEWTABLE R12 1 0
-  DUPTABLE R13 K418 [{"Offset"}]
-  GETIMPORT R14 K420 [Vector2.new]
+  DUPTABLE R13 K417 [{"Offset"}]
+  GETIMPORT R14 K419 [Vector2.new]
   LOADN R15 0
   LOADN R16 4
   CALL R14 2 1
-  SETTABLEKS R14 R13 K417 ["Offset"]
-  SETTABLEKS R13 R12 K421 ["&ToolboxSearchBarDropdown"]
+  SETTABLEKS R14 R13 K416 ["Offset"]
+  SETTABLEKS R13 R12 K420 ["&ToolboxSearchBarDropdown"]
   CALL R10 2 1
   SETTABLE R10 R8 R9
-  NAMECALL R6 R2 K415 ["extend"]
+  NAMECALL R6 R2 K414 ["extend"]
   CALL R6 2 0
   RETURN R2 1
 
@@ -1967,9 +1965,9 @@ MAIN:
   CAPTURE VAL R16
   CAPTURE VAL R12
   CAPTURE VAL R13
-  CAPTURE VAL R6
   CAPTURE VAL R3
   CAPTURE VAL R5
+  CAPTURE VAL R6
   CAPTURE VAL R20
   CAPTURE VAL R11
   CAPTURE VAL R15

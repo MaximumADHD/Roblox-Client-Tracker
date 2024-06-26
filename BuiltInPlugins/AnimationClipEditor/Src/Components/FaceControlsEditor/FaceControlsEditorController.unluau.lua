@@ -17,26 +17,26 @@ local var14 = require(var0.LuaFlags.GetFFlagSelectFromViewport)
 local var15 = var1.PureComponent:extend("FaceControlsEditorController")
 local var16 = var2.Util.GetTextSize
 function var15.init(arg1)
-   local var77 = {}
-   var77.showMenu = false
-   var77.showFaceControlsEditorPanel = false
-   arg1.state = var77
+   local var94 = {}
+   var94.showMenu = false
+   var94.showFaceControlsEditorPanel = false
+   arg1.state = var94
    function arg1.showMenu()
-      local var81 = {}
-      var81.showMenu = true
-      arg1:setState(var81)
+      local var98 = {}
+      var98.showMenu = true
+      arg1:setState(var98)
    end
    
    function arg1.hideMenu()
-      local var85 = {}
-      var85.showMenu = false
-      arg1:setState(var85)
+      local var102 = {}
+      var102.showMenu = false
+      arg1:setState(var102)
    end
    
    function arg1.setShowFaceControlsEditorPanel(arg1)
-      local var90 = {}
-      var90.showFaceControlsEditorPanel = arg1
-      arg1:setState(var90)
+      local var107 = {}
+      var107.showFaceControlsEditorPanel = arg1
+      arg1:setState(var107)
    end
    
    function arg1.getLastSelectedTrack()
@@ -56,9 +56,9 @@ function var15.didUpdate(arg1)
    if var0.ShowFaceControlsEditorPanel ~= arg1.state.showFaceControlsEditorPanel then
       if var0.ShowFaceControlsEditorPanel == "props" then
          spawn(function()
-            local var118 = {}
-            var118.showMenu = true
-            arg1:setState(var118)
+            local var135 = {}
+            var135.showMenu = true
+            arg1:setState(var135)
          end)
       end
       arg1.setShowFaceControlsEditorPanel(var0.ShowFaceControlsEditorPanel)
@@ -73,61 +73,61 @@ local function fun8(arg1)
    local var4 = arg1.state
    local var5 = arg1.props.RootInstance
    if var5 then
-      local var160 = {}
-      var160.Position = var1.Position
-      var160.Size = UDim2.new(0, var16(var0:getText("Title", "FACE"), var2.ikTheme.textSize, var2.font, Vector2.new(1000, 1000)).X + 10, 0, 18)
-      var160.BackgroundTransparency = 1
-      var160.AnchorPoint = Vector2.new(0, 0.5)
-      var160.LayoutOrder = 2
-      local var174 = {}
-      local var175 = var1.RootInstance
-      if var175 then
-         var175 = var5.canUseFaceControlsEditor(var1.RootInstance)
-         if var175 then
-            local var179 = {}
+      local var177 = {}
+      var177.Position = var1.Position
+      var177.Size = UDim2.new(0, var16(var0:getText("Title", "FACE"), var2.ikTheme.textSize, var2.font, Vector2.new(1000, 1000)).X + 10, 0, 18)
+      var177.BackgroundTransparency = 1
+      var177.AnchorPoint = Vector2.new(0, 0.5)
+      var177.LayoutOrder = 2
+      local var191 = {}
+      local var192 = var1.RootInstance
+      if var192 then
+         var192 = var5.canUseFaceControlsEditor(var1.RootInstance)
+         if var192 then
+            local var196 = {}
             if var4.showFaceControlsEditorPanel then
                local var0 = var3.FaceControlsEditorActive or var3.FaceControlsEditorDefault
             end
-            var179.Style = var3.FaceControlsEditorDefault
-            var179.Size = UDim2.new(1, 0, 1, 0)
-            var179.OnClick = var1.ToggleShowFaceControlsEditorPanel
-            local var191 = {}
-            local var195 = {}
-            var195.BackgroundTransparency = 1
-            var195.Size = UDim2.new(1, 0, 1, 0)
-            var195.TextYAlignment = Enum.TextYAlignment.Center
-            var195.TextSize = var2.ikTheme.textSize
-            var195.Text = var0:getText("Title", "FACE")
-            var195.Font = var2.font
-            var195.TextColor3 = var2.ikTheme.textColor
-            local var213 = {}
-            local var217 = {}
-            var217.Offset = Vector2.new(0, 6)
-            var217.DefinitionId = "FaceControlsEditorCallout"
-            var217.LocationId = "FaceControlsEditorButton"
-            var213.TeachingCallout = var1.createElement(var13, var217)
-            var191.Label = var1.createElement("TextLabel", var195, var213)
-            local var0 = var1.createElement(var3, var179, var191)
+            var196.Style = var3.FaceControlsEditorDefault
+            var196.Size = UDim2.new(1, 0, 1, 0)
+            var196.OnClick = var1.ToggleShowFaceControlsEditorPanel
+            local var208 = {}
+            local var212 = {}
+            var212.BackgroundTransparency = 1
+            var212.Size = UDim2.new(1, 0, 1, 0)
+            var212.TextYAlignment = Enum.TextYAlignment.Center
+            var212.TextSize = var2.ikTheme.textSize
+            var212.Text = var0:getText("Title", "FACE")
+            var212.Font = var2.font
+            var212.TextColor3 = var2.ikTheme.textColor
+            local var230 = {}
+            local var234 = {}
+            var234.Offset = Vector2.new(0, 6)
+            var234.DefinitionId = "FaceControlsEditorCallout"
+            var234.LocationId = "FaceControlsEditorButton"
+            var230.TeachingCallout = var1.createElement(var13, var234)
+            var208.Label = var1.createElement("TextLabel", var212, var230)
+            local var0 = var1.createElement(var3, var196, var208)
          end
       end
-      var174.FaceControlsEditorButton = var175
+      var191.FaceControlsEditorButton = var192
       local var1 = var1.ShowFaceControlsEditorPanel
       if var1 then
          if var4.showFaceControlsEditorPanel then
-            local var232 = {}
-            var232.RootInstance = var1.RootInstance
-            var232.FaceControlsEditorEnabled = var1.FaceControlsEditorEnabled
-            var232.ShowFaceControlsEditorPanel = var1.ShowFaceControlsEditorPanel
-            var232.SelectedTrack = arg1.getLastSelectedTrack()
-            var232.SetSelectedTracks = var1.SetSelectedTracks
-            var232.ToggleFaceControlsEditorEnabled = arg1.toggleFaceControlsEditorEnabledHandler
-            var232.SetShowFaceControlsEditorPanel = var1.SetShowFaceControlsEditorPanel
-            var232.SetFaceControlsEditorEnabled = var1.SetFaceControlsEditorEnabled
-            local var0 = var1.createElement(var6, var232)
+            local var249 = {}
+            var249.RootInstance = var1.RootInstance
+            var249.FaceControlsEditorEnabled = var1.FaceControlsEditorEnabled
+            var249.ShowFaceControlsEditorPanel = var1.ShowFaceControlsEditorPanel
+            var249.SelectedTrack = arg1.getLastSelectedTrack()
+            var249.SetSelectedTracks = var1.SetSelectedTracks
+            var249.ToggleFaceControlsEditorEnabled = arg1.toggleFaceControlsEditorEnabledHandler
+            var249.SetShowFaceControlsEditorPanel = var1.SetShowFaceControlsEditorPanel
+            var249.SetFaceControlsEditorEnabled = var1.SetFaceControlsEditorEnabled
+            local var0 = var1.createElement(var6, var249)
          end
       end
-      var174.FaceControlsEditorWindow = var1
-      local var2 = var1.createElement("Frame", var160, var174)
+      var191.FaceControlsEditorWindow = var1
+      local var2 = var1.createElement("Frame", var177, var191)
    end
    return var5
 end
@@ -140,71 +140,71 @@ function var15.render(arg1)
    local var4 = arg1.state
    local var5 = arg1.props.RootInstance
    if var5 then
-      local var160 = {}
-      var160.Position = var1.Position
-      var160.Size = UDim2.new(0, var16(var0:getText("Title", "FACE"), var2.ikTheme.textSize, var2.font, Vector2.new(1000, 1000)).X + 10, 0, 18)
-      var160.BackgroundTransparency = 1
-      var160.AnchorPoint = Vector2.new(0, 0.5)
-      var160.LayoutOrder = 2
-      local var174 = {}
-      local var175 = var1.RootInstance
-      if var175 then
-         var175 = var5.canUseFaceControlsEditor(var1.RootInstance)
-         if var175 then
-            local var179 = {}
+      local var177 = {}
+      var177.Position = var1.Position
+      var177.Size = UDim2.new(0, var16(var0:getText("Title", "FACE"), var2.ikTheme.textSize, var2.font, Vector2.new(1000, 1000)).X + 10, 0, 18)
+      var177.BackgroundTransparency = 1
+      var177.AnchorPoint = Vector2.new(0, 0.5)
+      var177.LayoutOrder = 2
+      local var191 = {}
+      local var192 = var1.RootInstance
+      if var192 then
+         var192 = var5.canUseFaceControlsEditor(var1.RootInstance)
+         if var192 then
+            local var196 = {}
             if var4.showFaceControlsEditorPanel then
                local var0 = var3.FaceControlsEditorActive or var3.FaceControlsEditorDefault
             end
-            var179.Style = var3.FaceControlsEditorDefault
-            var179.Size = UDim2.new(1, 0, 1, 0)
-            var179.OnClick = var1.ToggleShowFaceControlsEditorPanel
-            local var191 = {}
-            local var195 = {}
-            var195.BackgroundTransparency = 1
-            var195.Size = UDim2.new(1, 0, 1, 0)
-            var195.TextYAlignment = Enum.TextYAlignment.Center
-            var195.TextSize = var2.ikTheme.textSize
-            var195.Text = var0:getText("Title", "FACE")
-            var195.Font = var2.font
-            var195.TextColor3 = var2.ikTheme.textColor
-            local var213 = {}
-            local var217 = {}
-            var217.Offset = Vector2.new(0, 6)
-            var217.DefinitionId = "FaceControlsEditorCallout"
-            var217.LocationId = "FaceControlsEditorButton"
-            var213.TeachingCallout = var1.createElement(var13, var217)
-            var191.Label = var1.createElement("TextLabel", var195, var213)
-            local var0 = var1.createElement(var3, var179, var191)
+            var196.Style = var3.FaceControlsEditorDefault
+            var196.Size = UDim2.new(1, 0, 1, 0)
+            var196.OnClick = var1.ToggleShowFaceControlsEditorPanel
+            local var208 = {}
+            local var212 = {}
+            var212.BackgroundTransparency = 1
+            var212.Size = UDim2.new(1, 0, 1, 0)
+            var212.TextYAlignment = Enum.TextYAlignment.Center
+            var212.TextSize = var2.ikTheme.textSize
+            var212.Text = var0:getText("Title", "FACE")
+            var212.Font = var2.font
+            var212.TextColor3 = var2.ikTheme.textColor
+            local var230 = {}
+            local var234 = {}
+            var234.Offset = Vector2.new(0, 6)
+            var234.DefinitionId = "FaceControlsEditorCallout"
+            var234.LocationId = "FaceControlsEditorButton"
+            var230.TeachingCallout = var1.createElement(var13, var234)
+            var208.Label = var1.createElement("TextLabel", var212, var230)
+            local var0 = var1.createElement(var3, var196, var208)
          end
       end
-      var174.FaceControlsEditorButton = var175
+      var191.FaceControlsEditorButton = var192
       local var1 = var1.ShowFaceControlsEditorPanel
       if var1 then
          if var4.showFaceControlsEditorPanel then
-            local var232 = {}
-            var232.RootInstance = var1.RootInstance
-            var232.FaceControlsEditorEnabled = var1.FaceControlsEditorEnabled
-            var232.ShowFaceControlsEditorPanel = var1.ShowFaceControlsEditorPanel
-            var232.SelectedTrack = arg1.getLastSelectedTrack()
-            var232.SetSelectedTracks = var1.SetSelectedTracks
-            var232.ToggleFaceControlsEditorEnabled = arg1.toggleFaceControlsEditorEnabledHandler
-            var232.SetShowFaceControlsEditorPanel = var1.SetShowFaceControlsEditorPanel
-            var232.SetFaceControlsEditorEnabled = var1.SetFaceControlsEditorEnabled
-            local var0 = var1.createElement(var6, var232)
+            local var249 = {}
+            var249.RootInstance = var1.RootInstance
+            var249.FaceControlsEditorEnabled = var1.FaceControlsEditorEnabled
+            var249.ShowFaceControlsEditorPanel = var1.ShowFaceControlsEditorPanel
+            var249.SelectedTrack = arg1.getLastSelectedTrack()
+            var249.SetSelectedTracks = var1.SetSelectedTracks
+            var249.ToggleFaceControlsEditorEnabled = arg1.toggleFaceControlsEditorEnabledHandler
+            var249.SetShowFaceControlsEditorPanel = var1.SetShowFaceControlsEditorPanel
+            var249.SetFaceControlsEditorEnabled = var1.SetFaceControlsEditorEnabled
+            local var0 = var1.createElement(var6, var249)
          end
       end
-      var174.FaceControlsEditorWindow = var1
-      local var2 = var1.createElement("Frame", var160, var174)
+      var191.FaceControlsEditorWindow = var1
+      local var2 = var1.createElement("Frame", var177, var191)
    end
    return var5
 end
 
 fun8 = var4.withContext
-local var242 = {}
-var242.Stylizer = var4.Stylizer
-var242.Localization = var4.Localization
-var242.Analytics = var4.Analytics
-var15 = fun8(var242)(var15)
+local var259 = {}
+var259.Stylizer = var4.Stylizer
+var259.Localization = var4.Localization
+var259.Analytics = var4.Analytics
+var15 = fun8(var259)(var15)
 return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
    local var0 = {}
    var0.ShowFaceControlsEditorPanel = arg1.Status.ShowFaceControlsEditorPanel
@@ -215,21 +215,21 @@ return require(var0.Packages.RoactRodux).connect(function(arg1, arg2)
 end, function(arg1)
    local var0 = {}
    function var0.ToggleShowFaceControlsEditorPanel()
-      local var263 = {}
-      var263.showMenu = true
-      arg1:setState(var263)
+      local var280 = {}
+      var280.showMenu = true
+      arg1:setState(var280)
    end
    
    function var0.SetFaceControlsEditorEnabled()
-      local var267 = {}
-      var267.showMenu = false
-      arg1:setState(var267)
+      local var284 = {}
+      var284.showMenu = false
+      arg1:setState(var284)
    end
    
    function var0.ToggleFaceControlsEditorEnabled(arg1)
-      local var272 = {}
-      var272.showFaceControlsEditorPanel = arg1
-      arg1:setState(var272)
+      local var289 = {}
+      var289.showFaceControlsEditorPanel = arg1
+      arg1:setState(var289)
    end
    
    function var0.SetShowFaceControlsEditorPanel()

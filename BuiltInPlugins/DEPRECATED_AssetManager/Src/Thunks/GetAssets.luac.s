@@ -962,7 +962,7 @@ MAIN:
   NAMECALL R11 R11 K26 ["GetFastFlag"]
   CALL R11 2 1
   GETIMPORT R12 K22 [game]
-  LOADK R14 K27 ["AssetManagerMigrateAliasesEndpoint1"]
+  LOADK R14 K27 ["AssetManagerMigrateAliasesEndpoint2"]
   NAMECALL R12 R12 K26 ["GetFastFlag"]
   CALL R12 2 1
   DUPCLOSURE R13 K28 [PROTO_16]

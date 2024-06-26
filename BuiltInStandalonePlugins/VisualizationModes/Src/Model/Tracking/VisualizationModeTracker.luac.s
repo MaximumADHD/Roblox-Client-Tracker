@@ -69,6 +69,12 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_updateState"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
   GETTABLEKS R1 R0 K0 ["_maid"]
   GETTABLEKS R3 R0 K1 ["_visualizationMode"]
   LOADK R5 K2 ["Name"]
@@ -102,33 +108,47 @@ PROTO_6:
   CALL R3 2 -1
   NAMECALL R1 R1 K5 ["giveTask"]
   CALL R1 -1 0
-  NAMECALL R1 R0 K8 ["_updateState"]
+  GETTABLEKS R1 R0 K0 ["_maid"]
+  GETTABLEKS R3 R0 K1 ["_visualizationMode"]
+  LOADK R5 K8 ["ToolTip"]
+  NAMECALL R3 R3 K3 ["GetPropertyChangedSignal"]
+  CALL R3 2 1
+  NEWCLOSURE R5 P3
+  CAPTURE VAL R0
+  NAMECALL R3 R3 K4 ["Connect"]
+  CALL R3 2 -1
+  NAMECALL R1 R1 K5 ["giveTask"]
+  CALL R1 -1 0
+  NAMECALL R1 R0 K9 ["_updateState"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_7:
+PROTO_8:
   GETTABLEKS R2 R0 K0 ["_visualizationMode"]
   SETTABLEKS R1 R2 K1 ["Enabled"]
   RETURN R0 0
 
-PROTO_8:
+PROTO_9:
   GETIMPORT R3 K2 [table.freeze]
-  DUPTABLE R4 K6 [{"name", "title", "enabled"}]
-  GETTABLEKS R6 R0 K7 ["_visualizationMode"]
-  GETTABLEKS R5 R6 K8 ["Name"]
+  DUPTABLE R4 K7 [{"name", "title", "enabled", "toolTip"}]
+  GETTABLEKS R6 R0 K8 ["_visualizationMode"]
+  GETTABLEKS R5 R6 K9 ["Name"]
   SETTABLEKS R5 R4 K3 ["name"]
-  GETTABLEKS R6 R0 K7 ["_visualizationMode"]
-  GETTABLEKS R5 R6 K9 ["Title"]
+  GETTABLEKS R6 R0 K8 ["_visualizationMode"]
+  GETTABLEKS R5 R6 K10 ["Title"]
   SETTABLEKS R5 R4 K4 ["title"]
-  GETTABLEKS R6 R0 K7 ["_visualizationMode"]
-  GETTABLEKS R5 R6 K10 ["Enabled"]
+  GETTABLEKS R6 R0 K8 ["_visualizationMode"]
+  GETTABLEKS R5 R6 K11 ["Enabled"]
   SETTABLEKS R5 R4 K5 ["enabled"]
+  GETTABLEKS R6 R0 K8 ["_visualizationMode"]
+  GETTABLEKS R5 R6 K12 ["ToolTip"]
+  SETTABLEKS R5 R4 K6 ["toolTip"]
   CALL R3 1 -1
-  NAMECALL R1 R0 K11 ["_setState"]
+  NAMECALL R1 R0 K13 ["_setState"]
   CALL R1 -1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   GETTABLEKS R1 R0 K0 ["_maid"]
   NAMECALL R1 R1 K1 ["destroy"]
   CALL R1 1 0
@@ -165,12 +185,12 @@ MAIN:
   SETTABLEKS R5 R4 K15 ["getState"]
   DUPCLOSURE R5 K16 [PROTO_2]
   SETTABLEKS R5 R4 K17 ["_setState"]
-  DUPCLOSURE R5 K18 [PROTO_6]
+  DUPCLOSURE R5 K18 [PROTO_7]
   SETTABLEKS R5 R4 K19 ["_startTracking"]
-  DUPCLOSURE R5 K20 [PROTO_7]
+  DUPCLOSURE R5 K20 [PROTO_8]
   SETTABLEKS R5 R4 K21 ["updateVisualizationModeIsEnabled"]
-  DUPCLOSURE R5 K22 [PROTO_8]
+  DUPCLOSURE R5 K22 [PROTO_9]
   SETTABLEKS R5 R4 K23 ["_updateState"]
-  DUPCLOSURE R5 K24 [PROTO_9]
+  DUPCLOSURE R5 K24 [PROTO_10]
   SETTABLEKS R5 R4 K25 ["destroy"]
   RETURN R4 1

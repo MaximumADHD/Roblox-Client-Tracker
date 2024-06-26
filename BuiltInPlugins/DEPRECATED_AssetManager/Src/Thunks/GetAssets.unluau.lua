@@ -11,7 +11,7 @@ local var8 = require(var0.Src.Util.AssetManagerUtilities).enableVideoImport
 local var9 = require(var0.Packages.Framework).Util.sendResultToKibana
 local var10 = game:GetFastInt("StudioAssetManagerAssetFetchNumber")
 local var11 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local var12 = game:GetFastFlag("AssetManagerMigrateAliasesEndpoint1")
+local var12 = game:GetFastFlag("AssetManagerMigrateAliasesEndpoint2")
 return function(arg1, arg2, arg3, arg4, arg5)
    return function(arg1)
       return arg1

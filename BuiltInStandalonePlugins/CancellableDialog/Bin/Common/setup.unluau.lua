@@ -51,22 +51,22 @@ return function(arg1, arg2)
       end
    end
    var0.enabled = true
-   local var120 = {}
-   var120.id = "CancellableDialog"
-   var120.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
-   function var120.getDockTitle(arg1, arg2, arg3)
+   local var105 = {}
+   var105.id = "CancellableDialog"
+   var105.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
+   function var105.getDockTitle(arg1, arg2, arg3)
       return arg1(arg2, arg3, "Plugin", "Name")
    end
    
-   var120.zIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var1.dockWidgetInfo = var120
-   local var186 = var1
-   var186 = var1
-   local var188 = var186.build(var186)
-   if not var188.pluginLoader:waitForUserInteraction() then
+   var105.zIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var1.dockWidgetInfo = var105
+   local var126 = var1
+   var126 = var1
+   local var128 = var126.build(var126)
+   if not var128.pluginLoader:waitForUserInteraction() then
    end
-   arg2(arg1, var188)
-   local var206 = var1
-   var206 = var1
-   var206.build(var206)
+   arg2(arg1, var128)
+   local var135 = var1
+   var135 = var1
+   var135.build(var135)
 end

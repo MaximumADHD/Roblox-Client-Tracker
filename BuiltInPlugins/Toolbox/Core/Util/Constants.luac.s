@@ -692,9 +692,9 @@ MAIN:
   MOVE R13 R3
   CALL R13 0 1
   JUMPIFNOT R13 [+6]
-  DUPTABLE R13 K304 [{"Roblox"}]
+  DUPTABLE R13 K304 [{"RobloxGlobal"}]
   LOADK R14 K47 ["Subcategory"]
-  SETTABLEKS R14 R13 K303 ["Roblox"]
+  SETTABLEKS R14 R13 K303 ["RobloxGlobal"]
   SETTABLEKS R13 R9 K305 ["DataSharingLicenseTypes"]
   MOVE R13 R4
   MOVE R14 R9

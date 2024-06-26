@@ -6,13 +6,13 @@ local var3 = require(var0.Src.Util.Constants)
 local var4 = require(var0.Src.Components.TextEntryPrompt)
 local var5 = var1.PureComponent:extend("ChangeFPSPrompt")
 function var5.init(arg1)
-   local var88 = {}
-   var88.noticeText = var1.None
-   arg1.state = var88
+   local var29 = {}
+   var29.noticeText = var1.None
+   arg1.state = var29
    function arg1.setNotice(arg1)
-      local var93 = {}
-      var93.noticeText = arg1
-      arg1:setState(var93)
+      local var34 = {}
+      var34.noticeText = arg1
+      arg1:setState(var34)
    end
    
    function arg1.onClose()
@@ -35,17 +35,17 @@ local function fun5(arg1)
    end
    local var1 = true
    local var2 = arg1.props.Localization
-   local var122 = {}
-   var122.PromptText = " "
-   local var127 = var2:getText("Title", "CustomFPS")
-   var122.InputText = var127
+   local var63 = {}
+   var63.PromptText = " "
+   local var68 = var2:getText("Title", "CustomFPS")
+   var63.InputText = var68
    if var1 then
-      var127 = var0
-      local var0 = var127 or nil
+      var68 = var0
+      local var0 = var68 or nil
    end
-   var122.NoticeText = nil
-   var122.HasError = var1
-   var122.Text = arg1.props.FrameRate
+   var63.NoticeText = nil
+   var63.HasError = var1
+   var63.Text = arg1.props.FrameRate
    local var4 = {}
    var4.Key = false
    var4.Text = var2:getText("Dialog", "Cancel")
@@ -54,15 +54,15 @@ local function fun5(arg1)
    var5.Key = true
    var5.Text = var2:getText("Dialog", "Confirm")
    var5.Style = "RoundPrimary"
-   var122.Buttons = {}
-   function var122.OnTextSubmitted(arg1)
-      local var148 = {}
-      var148.noticeText = arg1
-      arg1:setState(var148)
+   var63.Buttons = {}
+   function var63.OnTextSubmitted(arg1)
+      local var89 = {}
+      var89.noticeText = arg1
+      arg1:setState(var89)
    end
    
-   var122.OnClose = arg1.onClose
-   return var1.createElement(var4, var122)
+   var63.OnClose = arg1.onClose
+   return var1.createElement(var4, var63)
 end
 
 function var5.render(arg1)
@@ -72,17 +72,17 @@ function var5.render(arg1)
    end
    local var1 = true
    local var2 = arg1.props.Localization
-   local var122 = {}
-   var122.PromptText = " "
-   local var127 = var2:getText("Title", "CustomFPS")
-   var122.InputText = var127
+   local var63 = {}
+   var63.PromptText = " "
+   local var68 = var2:getText("Title", "CustomFPS")
+   var63.InputText = var68
    if var1 then
-      var127 = var0
-      local var0 = var127 or nil
+      var68 = var0
+      local var0 = var68 or nil
    end
-   var122.NoticeText = nil
-   var122.HasError = var1
-   var122.Text = arg1.props.FrameRate
+   var63.NoticeText = nil
+   var63.HasError = var1
+   var63.Text = arg1.props.FrameRate
    local var4 = {}
    var4.Key = false
    var4.Text = var2:getText("Dialog", "Cancel")
@@ -91,19 +91,19 @@ function var5.render(arg1)
    var5.Key = true
    var5.Text = var2:getText("Dialog", "Confirm")
    var5.Style = "RoundPrimary"
-   var122.Buttons = {}
-   function var122.OnTextSubmitted(arg1)
-      local var148 = {}
-      var148.noticeText = arg1
-      arg1:setState(var148)
+   var63.Buttons = {}
+   function var63.OnTextSubmitted(arg1)
+      local var89 = {}
+      var89.noticeText = arg1
+      arg1:setState(var89)
    end
    
-   var122.OnClose = arg1.onClose
-   return var1.createElement(var4, var122)
+   var63.OnClose = arg1.onClose
+   return var1.createElement(var4, var63)
 end
 
 fun5 = var2.withContext
-local var152 = {}
-var152.Localization = var2.Localization
-var5 = fun5(var152)(var5)
+local var93 = {}
+var93.Localization = var2.Localization
+var5 = fun5(var93)(var5)
 return var5

@@ -62,112 +62,69 @@ PROTO_3:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["RunService"]
-  NAMECALL R0 R0 K3 ["GetService"]
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["Common"]
+  GETTABLEKS R1 R2 K6 ["defineLuaFlags"]
+  CALL R0 1 0
+  GETIMPORT R0 K8 [game]
+  LOADK R2 K9 ["RunService"]
+  NAMECALL R0 R0 K10 ["GetService"]
   CALL R0 2 1
-  NAMECALL R0 R0 K4 ["IsEdit"]
+  NAMECALL R0 R0 K11 ["IsEdit"]
   CALL R0 1 1
   JUMPIFNOT R0 [+48]
-  GETIMPORT R1 K1 [game]
-  GETTABLEKS R0 R1 K5 ["PlaceId"]
-  GETIMPORT R2 K1 [game]
-  GETTABLEKS R1 R2 K6 ["GameId"]
-  GETIMPORT R2 K8 [plugin]
-  LOADK R4 K9 ["placeid"]
+  GETIMPORT R1 K8 [game]
+  GETTABLEKS R0 R1 K12 ["PlaceId"]
+  GETIMPORT R2 K8 [game]
+  GETTABLEKS R1 R2 K13 ["GameId"]
+  GETIMPORT R2 K15 [plugin]
+  LOADK R4 K16 ["placeid"]
   MOVE R5 R0
-  NAMECALL R2 R2 K10 ["SetItem"]
+  NAMECALL R2 R2 K17 ["SetItem"]
   CALL R2 3 0
-  GETIMPORT R2 K8 [plugin]
-  LOADK R4 K11 ["universeid"]
+  GETIMPORT R2 K15 [plugin]
+  LOADK R4 K18 ["universeid"]
   MOVE R5 R1
-  NAMECALL R2 R2 K10 ["SetItem"]
+  NAMECALL R2 R2 K17 ["SetItem"]
   CALL R2 3 0
-  GETIMPORT R2 K8 [plugin]
-  LOADK R4 K12 ["idsupdated"]
-  NAMECALL R2 R2 K13 ["Invoke"]
+  GETIMPORT R2 K15 [plugin]
+  LOADK R4 K19 ["idsupdated"]
+  NAMECALL R2 R2 K20 ["Invoke"]
   CALL R2 2 0
-  GETIMPORT R2 K1 [game]
-  LOADK R4 K5 ["PlaceId"]
-  NAMECALL R2 R2 K14 ["GetPropertyChangedSignal"]
+  GETIMPORT R2 K8 [game]
+  LOADK R4 K12 ["PlaceId"]
+  NAMECALL R2 R2 K21 ["GetPropertyChangedSignal"]
   CALL R2 2 1
-  DUPCLOSURE R4 K15 [PROTO_0]
-  NAMECALL R2 R2 K16 ["Connect"]
+  DUPCLOSURE R4 K22 [PROTO_0]
+  NAMECALL R2 R2 K23 ["Connect"]
   CALL R2 2 0
-  GETIMPORT R2 K1 [game]
-  LOADK R4 K6 ["GameId"]
-  NAMECALL R2 R2 K14 ["GetPropertyChangedSignal"]
+  GETIMPORT R2 K8 [game]
+  LOADK R4 K13 ["GameId"]
+  NAMECALL R2 R2 K21 ["GetPropertyChangedSignal"]
   CALL R2 2 1
-  DUPCLOSURE R4 K17 [PROTO_1]
-  NAMECALL R2 R2 K16 ["Connect"]
+  DUPCLOSURE R4 K24 [PROTO_1]
+  NAMECALL R2 R2 K23 ["Connect"]
   CALL R2 2 0
-  GETIMPORT R3 K19 [script]
-  GETTABLEKS R2 R3 K20 ["Parent"]
-  GETTABLEKS R1 R2 K20 ["Parent"]
-  GETTABLEKS R0 R1 K21 ["Common"]
-  GETIMPORT R1 K23 [require]
-  GETTABLEKS R2 R0 K24 ["defineLuaFlags"]
-  CALL R1 1 0
-  GETIMPORT R1 K8 [plugin]
-  JUMPIF R1 [+1]
+  GETIMPORT R0 K15 [plugin]
+  JUMPIF R0 [+1]
   RETURN R0 0
-  GETIMPORT R4 K19 [script]
-  GETTABLEKS R3 R4 K20 ["Parent"]
-  GETTABLEKS R2 R3 K20 ["Parent"]
-  GETTABLEKS R1 R2 K20 ["Parent"]
-  GETIMPORT R2 K23 [require]
-  GETTABLEKS R3 R0 K25 ["commonInit"]
-  CALL R2 1 1
-  MOVE R3 R2
-  CALL R3 0 0
-  GETIMPORT R3 K23 [require]
-  GETTABLEKS R5 R1 K26 ["Packages"]
-  GETTABLEKS R4 R5 K27 ["TestLoader"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K28 ["launch"]
-  LOADK R5 K29 ["ActivityFeed"]
-  GETTABLEKS R6 R1 K30 ["Src"]
-  CALL R4 2 0
-  GETTABLEKS R4 R3 K31 ["isCli"]
-  CALL R4 0 1
-  JUMPIFNOT R4 [+1]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  GETTABLEKS R0 R1 K4 ["Parent"]
+  GETIMPORT R1 K1 [require]
+  GETTABLEKS R3 R0 K25 ["Packages"]
+  GETTABLEKS R2 R3 K26 ["TestLoader"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K27 ["launch"]
+  LOADK R3 K28 ["ActivityFeed"]
+  GETTABLEKS R4 R0 K29 ["Src"]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K30 ["isCli"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+1]
   RETURN R0 0
-  GETIMPORT R4 K1 [game]
-  LOADK R6 K32 ["COLLAB4260ActivityFeed"]
-  NAMECALL R4 R4 K33 ["GetFastFlag"]
-  CALL R4 2 1
-  JUMPIF R4 [+1]
-  RETURN R0 0
-  GETIMPORT R4 K36 [Instance.new]
-  LOADK R5 K37 ["Frame"]
-  CALL R4 1 1
-  GETIMPORT R5 K23 [require]
-  GETTABLEKS R7 R1 K26 ["Packages"]
-  GETTABLEKS R6 R7 K38 ["React"]
-  CALL R5 1 1
-  GETIMPORT R6 K23 [require]
-  GETTABLEKS R8 R1 K26 ["Packages"]
-  GETTABLEKS R7 R8 K39 ["ReactRoblox"]
-  CALL R6 1 1
-  GETIMPORT R7 K23 [require]
-  GETTABLEKS R9 R1 K30 ["Src"]
-  GETTABLEKS R8 R9 K40 ["MainPlugin"]
-  CALL R7 1 1
-  LOADNIL R8
-  NEWCLOSURE R9 P2
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  CAPTURE REF R8
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  GETIMPORT R11 K8 [plugin]
-  GETTABLEKS R10 R11 K41 ["Unloading"]
-  NEWCLOSURE R12 P3
-  CAPTURE REF R8
-  NAMECALL R10 R10 K16 ["Connect"]
-  CALL R10 2 0
-  MOVE R10 R9
-  CALL R10 0 0
-  CLOSEUPVALS R8
   RETURN R0 0

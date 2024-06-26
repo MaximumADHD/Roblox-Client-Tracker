@@ -15,6 +15,9 @@ PROTO_0:
   RETURN R2 1
 
 PROTO_1:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADN R1 0
+  RETURN R1 1
   LENGTH R1 R0
   RETURN R1 1
 
@@ -152,19 +155,34 @@ PROTO_7:
   RETURN R1 -1
 
 PROTO_8:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["List"]
-  GETTABLEKS R0 R1 K1 ["join"]
-  GETUPVAL R1 1
-  GETUPVAL R2 2
-  CALL R0 2 -1
-  RETURN R0 -1
+  NEWTABLE R1 0 0
+  GETIMPORT R2 K1 [pairs]
+  GETTABLEKS R3 R0 K2 ["viewableItems"]
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  GETTABLEKS R7 R6 K3 ["key"]
+  LOADB R8 1
+  SETTABLE R8 R1 R7
+  FORGLOOP R2 2 [-5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["OnViewableItemsChanged"]
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
 
 PROTO_9:
+  DUPTABLE R0 K2 [{"viewabilityConfig", "onViewableItemsChanged"}]
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K0 ["viewabilityConfig"]
+  GETUPVAL R1 1
+  SETTABLEKS R1 R0 K1 ["onViewableItemsChanged"]
+  RETURN R0 1
+
+PROTO_10:
   GETTABLEKS R1 R0 K0 ["id"]
   RETURN R1 1
 
-PROTO_10:
+PROTO_11:
   GETUPVAL R1 0
   CALL R1 0 1
   GETUPVAL R3 1
@@ -179,65 +197,71 @@ PROTO_10:
   SETLIST R4 R5 2 [1]
   CALL R2 2 1
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K3 ["useState"]
-  NEWTABLE R4 0 0
-  CALL R3 1 2
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K0 ["useMemo"]
-  NEWCLOSURE R6 P1
+  GETTABLEKS R3 R4 K3 ["useCallback"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  NEWTABLE R5 0 1
+  GETTABLEKS R6 R0 K4 ["OnViewableItemsChanged"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["useMemo"]
+  NEWCLOSURE R5 P2
   CAPTURE UPVAL U3
   CAPTURE VAL R3
-  CAPTURE VAL R2
-  NEWTABLE R7 0 2
-  MOVE R8 R3
-  MOVE R9 R2
-  SETLIST R7 R8 2 [1]
-  CALL R5 2 1
+  NEWTABLE R6 0 1
+  MOVE R7 R3
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["useRef"]
+  LOADNIL R6
+  CALL R5 1 1
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K4 ["useRef"]
-  LOADNIL R7
-  CALL R6 1 1
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K5 ["createElement"]
-  LOADK R8 K6 ["Frame"]
-  NEWTABLE R9 1 0
+  GETTABLEKS R6 R7 K6 ["createElement"]
+  LOADK R7 K7 ["Frame"]
+  NEWTABLE R8 1 0
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K8 ["Tag"]
+  GETUPVAL R10 4
+  LOADK R11 K9 ["X-Fill"]
+  LOADK R12 K10 ["CX-Invisible"]
+  LOADK R13 K11 ["Component-ActivityHistoryBubbleList"]
+  CALL R10 3 1
+  SETTABLE R10 R8 R9
+  DUPTABLE R9 K13 [{"VirtualizedList"}]
   GETUPVAL R11 1
-  GETTABLEKS R10 R11 K7 ["Tag"]
-  GETUPVAL R11 4
-  LOADK R12 K8 ["X-Fill"]
-  LOADK R13 K9 ["CX-Invisible"]
-  LOADK R14 K10 ["Component-ActivityHistoryBubbleList"]
-  CALL R11 3 1
-  SETTABLE R11 R9 R10
-  DUPTABLE R10 K12 [{"VirtualizedList"}]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K5 ["createElement"]
-  GETUPVAL R12 5
-  DUPTABLE R13 K24 [{"ref", "data", "getItem", "getItemCount", "getItemLayout", "renderItem", "windowSize", "showsVerticalScrollIndicator", "showsHorizontalScrollIndicator", "onEndReached", "keyExtractor"}]
-  SETTABLEKS R6 R13 K13 ["ref"]
-  SETTABLEKS R5 R13 K14 ["data"]
-  GETUPVAL R14 6
-  SETTABLEKS R14 R13 K15 ["getItem"]
-  GETUPVAL R14 7
-  SETTABLEKS R14 R13 K16 ["getItemCount"]
-  GETUPVAL R14 8
-  SETTABLEKS R14 R13 K17 ["getItemLayout"]
-  GETUPVAL R14 9
-  SETTABLEKS R14 R13 K18 ["renderItem"]
-  LOADN R14 3
-  SETTABLEKS R14 R13 K19 ["windowSize"]
-  LOADB R14 0
-  SETTABLEKS R14 R13 K20 ["showsVerticalScrollIndicator"]
-  LOADB R14 0
-  SETTABLEKS R14 R13 K21 ["showsHorizontalScrollIndicator"]
-  GETTABLEKS R14 R0 K25 ["OnEndReached"]
-  SETTABLEKS R14 R13 K22 ["onEndReached"]
-  DUPCLOSURE R14 K26 [PROTO_9]
-  SETTABLEKS R14 R13 K23 ["keyExtractor"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K11 ["VirtualizedList"]
-  CALL R7 3 -1
-  RETURN R7 -1
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  GETUPVAL R11 5
+  DUPTABLE R12 K26 [{"ref", "data", "getItem", "getItemCount", "getItemLayout", "renderItem", "windowSize", "viewabilityConfigCallbackPairs", "showsVerticalScrollIndicator", "showsHorizontalScrollIndicator", "onEndReached", "keyExtractor"}]
+  SETTABLEKS R5 R12 K14 ["ref"]
+  SETTABLEKS R2 R12 K15 ["data"]
+  GETUPVAL R13 6
+  SETTABLEKS R13 R12 K16 ["getItem"]
+  GETUPVAL R13 7
+  SETTABLEKS R13 R12 K17 ["getItemCount"]
+  GETUPVAL R13 8
+  SETTABLEKS R13 R12 K18 ["getItemLayout"]
+  GETUPVAL R13 9
+  SETTABLEKS R13 R12 K19 ["renderItem"]
+  LOADN R13 3
+  SETTABLEKS R13 R12 K20 ["windowSize"]
+  NEWTABLE R13 0 1
+  MOVE R14 R4
+  SETLIST R13 R14 1 [1]
+  SETTABLEKS R13 R12 K21 ["viewabilityConfigCallbackPairs"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K22 ["showsVerticalScrollIndicator"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K23 ["showsHorizontalScrollIndicator"]
+  GETTABLEKS R13 R0 K27 ["OnEndReached"]
+  SETTABLEKS R13 R12 K24 ["onEndReached"]
+  DUPCLOSURE R13 K28 [PROTO_10]
+  SETTABLEKS R13 R12 K25 ["keyExtractor"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K12 ["VirtualizedList"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -311,15 +335,24 @@ MAIN:
   CAPTURE VAL R12
   CAPTURE VAL R8
   CAPTURE VAL R13
-  DUPCLOSURE R22 K35 [PROTO_10]
+  DUPTABLE R22 K39 [{"minimumViewTime", "viewAreaCoveragePercentThreshold", "itemVisiblePercentThreshold", "waitForInteraction"}]
+  LOADN R23 208
+  SETTABLEKS R23 R22 K35 ["minimumViewTime"]
+  LOADN R23 80
+  SETTABLEKS R23 R22 K36 ["viewAreaCoveragePercentThreshold"]
+  LOADNIL R23
+  SETTABLEKS R23 R22 K37 ["itemVisiblePercentThreshold"]
+  LOADB R23 0
+  SETTABLEKS R23 R22 K38 ["waitForInteraction"]
+  DUPCLOSURE R23 K40 [PROTO_11]
   CAPTURE VAL R21
   CAPTURE VAL R1
   CAPTURE VAL R14
-  CAPTURE VAL R3
+  CAPTURE VAL R22
   CAPTURE VAL R16
   CAPTURE VAL R10
   CAPTURE VAL R17
   CAPTURE VAL R18
   CAPTURE VAL R19
   CAPTURE VAL R20
-  RETURN R22 1
+  RETURN R23 1

@@ -1,5 +1,5 @@
 -- Generated with Unluau (https://github.com/valencefun/unluau)
-game:DefineFastFlag("FFlagDebugStudioShowBrokenVisualizationModes", false)
+game:DefineFastFlag("DebugStudioShowBrokenVisualizationModes", false)
 return function()
-   return game:GetFastFlag("FFlagDebugStudioShowBrokenVisualizationModes")
+   return game:GetFastFlag("DebugStudioShowBrokenVisualizationModes")
 end

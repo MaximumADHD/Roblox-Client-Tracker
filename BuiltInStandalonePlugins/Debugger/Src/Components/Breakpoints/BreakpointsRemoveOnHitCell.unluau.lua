@@ -19,26 +19,26 @@ end
 
 function var8.render(arg1)
    local var0 = arg1.props
-   local var57 = {}
-   var57.Style = "Box"
-   var57.BackgroundColor3 = var0.BackgroundColor
-   var57.BorderSizePixel = 1
-   var57.BorderColor3 = var0.Style.Border
-   var57.Size = UDim2.new(var0.Width.Scale, var0.Width.Offset, 1, 0)
-   var57.ClipsDescendants = true
-   local var72 = {}
+   local var55 = {}
+   var55.Style = "Box"
+   var55.BackgroundColor3 = var0.BackgroundColor
+   var55.BorderSizePixel = 1
+   var55.BorderColor3 = var0.Style.Border
+   var55.Size = UDim2.new(var0.Width.Scale, var0.Width.Offset, 1, 0)
+   var55.ClipsDescendants = true
+   local var70 = {}
    local var1 = var0.HasChildren
    if var1 then
-      local var77 = {}
-      var77.Checked = var0.Value
-      var77.OnClick = arg1.onCheckboxClicked
-      local var0 = var1.createElement(var7, var77)
+      local var75 = {}
+      var75.Checked = var0.Value
+      var75.OnClick = arg1.onCheckboxClicked
+      local var0 = var1.createElement(var7, var75)
    end
-   var72.EnabledCheckbox = var1
-   return var1.createElement(var6, var57, var72)
+   var70.EnabledCheckbox = var1
+   return var1.createElement(var6, var55, var70)
 end
 
-local var83 = {}
-var83.Analytics = var3.Analytics
-var8 = var3.withContext(var83)(var8)
+local var81 = {}
+var81.Analytics = var3.Analytics
+var8 = var3.withContext(var81)(var8)
 return var8

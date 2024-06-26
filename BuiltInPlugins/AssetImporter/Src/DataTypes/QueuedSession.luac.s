@@ -24,8 +24,8 @@ PROTO_1:
   RETURN R2 -1
 
 PROTO_2:
-  GETTABLEKS R3 R0 K0 ["assetName"]
-  GETTABLEKS R4 R1 K0 ["assetName"]
+  GETTABLEKS R3 R0 K0 ["timestamp"]
+  GETTABLEKS R4 R1 K0 ["timestamp"]
   JUMPIFLT R3 R4 [+2]
   LOADB R2 0 +1
   LOADB R2 1
@@ -48,16 +48,16 @@ MAIN:
   GETTABLEKS R4 R2 K10 ["Dash"]
   GETTABLEKS R3 R4 K11 ["joinDeep"]
   GETIMPORT R4 K14 [table.freeze]
-  DUPTABLE R5 K25 [{"assetName", "currentPreset", "enabled", "errors", "filepath", "progressValue", "session", "uploaded", "validSession", "warnings"}]
-  LOADK R6 K26 [""]
+  DUPTABLE R5 K26 [{"assetName", "currentPreset", "enabled", "errors", "filepath", "progressValue", "session", "uploaded", "timestamp", "validSession", "warnings"}]
+  LOADK R6 K27 [""]
   SETTABLEKS R6 R5 K15 ["assetName"]
-  LOADK R6 K26 [""]
+  LOADK R6 K27 [""]
   SETTABLEKS R6 R5 K16 ["currentPreset"]
   LOADB R6 0
   SETTABLEKS R6 R5 K17 ["enabled"]
   LOADN R6 0
   SETTABLEKS R6 R5 K18 ["errors"]
-  LOADK R6 K26 [""]
+  LOADK R6 K27 [""]
   SETTABLEKS R6 R5 K19 ["filepath"]
   LOADN R6 0
   SETTABLEKS R6 R5 K20 ["progressValue"]
@@ -65,19 +65,21 @@ MAIN:
   SETTABLEKS R6 R5 K21 ["session"]
   LOADB R6 0
   SETTABLEKS R6 R5 K22 ["uploaded"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K23 ["validSession"]
   LOADN R6 0
-  SETTABLEKS R6 R5 K24 ["warnings"]
+  SETTABLEKS R6 R5 K23 ["timestamp"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K24 ["validSession"]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K25 ["warnings"]
   CALL R4 1 1
   NEWTABLE R5 4 0
-  DUPCLOSURE R6 K27 [PROTO_0]
+  DUPCLOSURE R6 K28 [PROTO_0]
   CAPTURE VAL R4
   CAPTURE VAL R3
-  SETTABLEKS R6 R5 K28 ["new"]
-  DUPCLOSURE R6 K29 [PROTO_1]
+  SETTABLEKS R6 R5 K29 ["new"]
+  DUPCLOSURE R6 K30 [PROTO_1]
   CAPTURE VAL R3
-  SETTABLEKS R6 R5 K30 ["update"]
-  DUPCLOSURE R6 K31 [PROTO_2]
-  SETTABLEKS R6 R5 K32 ["compare"]
+  SETTABLEKS R6 R5 K31 ["update"]
+  DUPCLOSURE R6 K32 [PROTO_2]
+  SETTABLEKS R6 R5 K33 ["compare"]
   RETURN R5 1

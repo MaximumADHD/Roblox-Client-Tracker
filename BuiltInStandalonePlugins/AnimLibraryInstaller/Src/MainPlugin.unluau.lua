@@ -13,9 +13,9 @@ local var10 = var0.Src.Resources.Localization.LocalizedStrings
 local var11 = require(var0.Src.Components.BasicExample)
 local var12 = var1.PureComponent:extend("MainPlugin")
 function var12.init(arg1, arg2)
-   local var291 = {}
-   var291.enabled = false
-   arg1.state = var291
+   local var41 = {}
+   var41.enabled = false
+   arg1.state = var41
    function arg1.toggleEnabled(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
@@ -31,28 +31,28 @@ function var12.init(arg1, arg2)
    end
    
    function arg1.onRestore()
-      local var304 = {}
-      var304.enabled = false
-      arg1:setState(var304)
+      local var54 = {}
+      var54.enabled = false
+      arg1:setState(var54)
    end
    
    function arg1.onWidgetEnabledChanged(arg1)
-      local var309 = {}
-      var309.enabled = arg1
-      arg1:setState(var309)
+      local var59 = {}
+      var59.enabled = arg1
+      arg1:setState(var59)
    end
    
    function arg1.onDockWidgetCreated(arg1)
-      local var313 = {}
-      var313.enabled = arg1.Enabled
-      arg1:setState(var313)
+      local var63 = {}
+      var63.enabled = arg1.Enabled
+      arg1:setState(var63)
    end
    
-   local var319 = {}
-   var319.stringResourceTable = var9
-   var319.translationResourceTable = var10
-   var319.pluginName = "AnimLibraryInstaller"
-   arg1.localization = var4.Localization.new(var319)
+   local var69 = {}
+   var69.stringResourceTable = var9
+   var69.translationResourceTable = var10
+   var69.pluginName = "AnimLibraryInstaller"
+   arg1.localization = var4.Localization.new(var69)
    arg1.analytics = var4.Analytics.new(function()
       return {}
    end, {})
@@ -67,37 +67,37 @@ end
 function var12.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Plugin
-   local var351 = var5
-   var351 = var1
-   local var353 = var351.new(var351)
-   local var358 = var6.new(var1:getMouse())
-   local var359 = arg1.localization
-   local var360 = arg1.analytics
-   local var361 = {}
-   local var365 = {}
-   var365.Id = "AnimLibraryInstaller"
-   var365.Enabled = arg1.state.enabled
-   var365.Title = arg1.localization:getText("Plugin", "Name")
-   var365.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var365.InitialDockState = Enum.InitialDockState.Bottom
-   var365.Size = Vector2.new(640, 480)
-   var365.MinSize = Vector2.new(250, 200)
-   var365.OnClose = arg1.onClose
-   var365.Widget = var0.PluginLoaderContext.mainDockWidget
-   var365.OnWidgetCreated = arg1.onDockWidgetCreated
+   local var101 = var5
+   var101 = var1
+   local var103 = var101.new(var101)
+   local var108 = var6.new(var1:getMouse())
+   local var109 = arg1.localization
+   local var110 = arg1.analytics
+   local var111 = {}
+   local var115 = {}
+   var115.Id = "AnimLibraryInstaller"
+   var115.Enabled = arg1.state.enabled
+   var115.Title = arg1.localization:getText("Plugin", "Name")
+   var115.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var115.InitialDockState = Enum.InitialDockState.Bottom
+   var115.Size = Vector2.new(640, 480)
+   var115.MinSize = Vector2.new(250, 200)
+   var115.OnClose = arg1.onClose
+   var115.Widget = var0.PluginLoaderContext.mainDockWidget
+   var115.OnWidgetCreated = arg1.onDockWidgetCreated
    var1.Change.Enabled = arg1.onWidgetEnabledChanged
-   local var390 = {}
+   local var140 = {}
    var1.Tag = "X-Fill X-Column"
-   local var398 = {}
-   local var402 = {}
-   var402.showContent = true
-   var398.BasicExample = var1.createElement(var11, var402)
-   var390.Wrapper = var1.createElement("Frame", {}, var398)
-   local var409 = {}
-   var409.StyleSheet = arg1.design
-   var390.StyleLink = var1.createElement("StyleLink", var409)
-   var361.MainWidget = var1.createElement(var3, var365, var390)
-   return var4.provide({}, var361)
+   local var148 = {}
+   local var152 = {}
+   var152.showContent = true
+   var148.BasicExample = var1.createElement(var11, var152)
+   var140.Wrapper = var1.createElement("Frame", {}, var148)
+   local var159 = {}
+   var159.StyleSheet = arg1.design
+   var140.StyleLink = var1.createElement("StyleLink", var159)
+   var111.MainWidget = var1.createElement(var3, var115, var140)
+   return var4.provide({}, var111)
 end
 
 return var12

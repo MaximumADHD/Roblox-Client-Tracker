@@ -11,6 +11,7 @@ var15.filepath = ""
 var15.progressValue = 0
 var15.session = nil
 var15.uploaded = false
+var15.timestamp = 0
 var15.validSession = false
 var15.warnings = 0
 local var4 = table.freeze(var15)
@@ -25,7 +26,7 @@ function var5.update(arg1, arg2)
 end
 
 function var5.compare(arg1, arg2)
-   if arg2.assetName > arg1.assetName then
+   if arg2.timestamp > arg1.timestamp then
       local var0 = false
    end
    return true

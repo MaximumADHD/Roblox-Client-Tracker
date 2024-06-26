@@ -15,7 +15,7 @@ MAIN:
   NEWTABLE R5 0 0
   NEWTABLE R6 0 2
   MOVE R7 R2
-  LOADK R8 K11 ["> .Header"]
+  LOADK R8 K11 ["> .HeaderTitle"]
   DUPTABLE R9 K13 [{"Size"}]
   GETIMPORT R10 K16 [UDim2.new]
   LOADN R11 0
@@ -26,7 +26,7 @@ MAIN:
   SETTABLEKS R10 R9 K12 ["Size"]
   CALL R7 2 1
   MOVE R8 R2
-  LOADK R9 K17 ["> .Options"]
+  LOADK R9 K17 ["> .HeaderOptions"]
   DUPTABLE R10 K13 [{"Size"}]
   GETIMPORT R11 K16 [UDim2.new]
   LOADN R12 1

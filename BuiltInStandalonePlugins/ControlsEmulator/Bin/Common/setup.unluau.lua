@@ -33,40 +33,40 @@ return function(arg1, arg2)
    if not true then
       if game:GetService("RunService"):IsEdit() then
          var0.enabled = true
-         local var74 = {}
-         var74.id = "ControlsEmulator"
-         var74.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
-         function var74.getDockTitle(arg1, arg2, arg3)
+         local var265 = {}
+         var265.id = "ControlsEmulator"
+         var265.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
+         function var265.getDockTitle(arg1, arg2, arg3)
             return arg1(arg2, arg3, "Plugin", "Name")
          end
          
-         var74.zIndexBehavior = Enum.ZIndexBehavior.Sibling
-         var1.dockWidgetInfo = var74
-         local var95 = var1
-         var95 = var1
-         local var2 = var95.build(var95)
+         var265.zIndexBehavior = Enum.ZIndexBehavior.Sibling
+         var1.dockWidgetInfo = var265
+         local var286 = var1
+         var286 = var1
+         local var2 = var286.build(var286)
          if not var2.pluginLoader:waitForUserInteraction() then
          end
          arg2(arg1, var2)
       end
    end
    var0.enabled = true
-   local var105 = {}
-   var105.id = "ControlsEmulator"
-   var105.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
-   function var105.getDockTitle(arg1, arg2, arg3)
+   local var296 = {}
+   var296.id = "ControlsEmulator"
+   var296.dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Bottom, false, false, 640, 480, 250, 200)
+   function var296.getDockTitle(arg1, arg2, arg3)
       return arg1(arg2, arg3, "Plugin", "Name")
    end
    
-   var105.zIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var1.dockWidgetInfo = var105
-   local var126 = var1
-   var126 = var1
-   local var128 = var126.build(var126)
-   if not var128.pluginLoader:waitForUserInteraction() then
+   var296.zIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var1.dockWidgetInfo = var296
+   local var317 = var1
+   var317 = var1
+   local var319 = var317.build(var317)
+   if not var319.pluginLoader:waitForUserInteraction() then
    end
-   arg2(arg1, var128)
-   local var135 = var1
-   var135 = var1
-   var135.build(var135)
+   arg2(arg1, var319)
+   local var326 = var1
+   var326 = var1
+   var326.build(var326)
 end

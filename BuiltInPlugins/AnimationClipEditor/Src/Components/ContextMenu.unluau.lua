@@ -18,7 +18,7 @@ function var4.didUpdate(arg1)
    arg1:showMenu()
 end
 
-local function fun9(arg1)
+local function fun3(arg1)
    return nil
 end
 
@@ -26,8 +26,8 @@ function var4.render(arg1)
    return nil
 end
 
-fun9 = var2.withContext
-local var153 = {}
-var153.Plugin = var2.Plugin
-var4 = fun9(var153)(var4)
+fun3 = var2.withContext
+local var36 = {}
+var36.Plugin = var2.Plugin
+var4 = fun3(var36)(var4)
 return var4

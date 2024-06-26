@@ -14,9 +14,9 @@ local var11 = var0.Src.Resources.Localization.LocalizedStrings
 local var12 = require(var0.Src.Components.DialogContainer)
 local var13 = var1.PureComponent:extend("MainPlugin")
 function var13.init(arg1, arg2)
-   local var145 = {}
-   var145.enabled = false
-   arg1.state = var145
+   local var42 = {}
+   var42.enabled = false
+   arg1.state = var42
    function arg1.toggleEnabled(arg1)
       local var0 = {}
       var0.enabled = arg1.enabled
@@ -32,28 +32,28 @@ function var13.init(arg1, arg2)
    end
    
    function arg1.onRestore()
-      local var158 = {}
-      var158.enabled = false
-      arg1:setState(var158)
+      local var55 = {}
+      var55.enabled = false
+      arg1:setState(var55)
    end
    
    function arg1.onWidgetEnabledChanged(arg1)
-      local var163 = {}
-      var163.enabled = arg1
-      arg1:setState(var163)
+      local var60 = {}
+      var60.enabled = arg1
+      arg1:setState(var60)
    end
    
    function arg1.onDockWidgetCreated(arg1)
-      local var167 = {}
-      var167.enabled = arg1.Enabled
-      arg1:setState(var167)
+      local var64 = {}
+      var64.enabled = arg1.Enabled
+      arg1:setState(var64)
    end
    
-   local var173 = {}
-   var173.stringResourceTable = var10
-   var173.translationResourceTable = var11
-   var173.pluginName = "ModerationDialog"
-   arg1.localization = var4.Localization.new(var173)
+   local var70 = {}
+   var70.stringResourceTable = var10
+   var70.translationResourceTable = var11
+   var70.pluginName = "ModerationDialog"
+   arg1.localization = var4.Localization.new(var70)
    arg1.analytics = var4.Analytics.new(function()
       return {}
    end, {})
@@ -94,38 +94,38 @@ function var13.render(arg1)
    local var0 = arg1.props
    local var1 = var0.Plugin
    local var2 = arg1.localization
-   local var231 = var5
-   var231 = var1
-   local var233 = var231.new(var231)
-   local var238 = var6.new(var1:getMouse())
-   local var239 = arg1.localization
-   local var240 = arg1.analytics
-   local var244 = var7.new(arg1.design)
-   local var245 = {}
-   local var249 = {}
-   var249.Id = "ModerationDialog"
-   var249.Enabled = false
-   var249.Title = arg1.localization:getText("Plugin", "Name")
-   var249.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-   var249.InitialDockState = Enum.InitialDockState.Bottom
-   var249.Size = Vector2.new(640, 480)
-   var249.MinSize = Vector2.new(250, 200)
-   var249.OnClose = arg1.onClose
-   var249.Widget = var0.PluginLoaderContext.mainDockWidget
-   var249.OnWidgetCreated = arg1.onDockWidgetCreated
+   local var128 = var5
+   var128 = var1
+   local var130 = var128.new(var128)
+   local var135 = var6.new(var1:getMouse())
+   local var136 = arg1.localization
+   local var137 = arg1.analytics
+   local var141 = var7.new(arg1.design)
+   local var142 = {}
+   local var146 = {}
+   var146.Id = "ModerationDialog"
+   var146.Enabled = false
+   var146.Title = arg1.localization:getText("Plugin", "Name")
+   var146.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+   var146.InitialDockState = Enum.InitialDockState.Bottom
+   var146.Size = Vector2.new(640, 480)
+   var146.MinSize = Vector2.new(250, 200)
+   var146.OnClose = arg1.onClose
+   var146.Widget = var0.PluginLoaderContext.mainDockWidget
+   var146.OnWidgetCreated = arg1.onDockWidgetCreated
    var1.Change.Enabled = arg1.onWidgetEnabledChanged
-   local var275 = {}
-   local var279 = {}
-   var279.Reason = var14.badUtterances[1]
-   var279.ReviewDateTime = var14.beginDate
-   var279.ModeratorNote = var14.messageToUser
-   var279.Enabled = arg1.state.enabled
-   var275.DialogContainer = var1.createElement(var12, var279)
-   local var291 = {}
-   var291.StyleSheet = arg1.design
-   var275.StyleLink = var1.createElement("StyleLink", var291)
-   var245.MainWidget = var1.createElement(var3, var249, var275)
-   return var4.provide({}, var245)
+   local var172 = {}
+   local var176 = {}
+   var176.Reason = var14.badUtterances[1]
+   var176.ReviewDateTime = var14.beginDate
+   var176.ModeratorNote = var14.messageToUser
+   var176.Enabled = arg1.state.enabled
+   var172.DialogContainer = var1.createElement(var12, var176)
+   local var188 = {}
+   var188.StyleSheet = arg1.design
+   var172.StyleLink = var1.createElement("StyleLink", var188)
+   var142.MainWidget = var1.createElement(var3, var146, var172)
+   return var4.provide({}, var142)
 end
 
 return var13

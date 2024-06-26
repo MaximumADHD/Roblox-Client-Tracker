@@ -26,7 +26,7 @@ MAIN:
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K9 ["AssetManagerMigrateAliasesEndpoint1"]
+  LOADK R2 K9 ["AssetManagerMigrateAliasesEndpoint2"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

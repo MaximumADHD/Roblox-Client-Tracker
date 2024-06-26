@@ -25,7 +25,7 @@ PROTO_1:
   CALL R5 2 1
   GETTABLEKS R6 R0 K2 ["Item"]
   MOVE R9 R6
-  NAMECALL R7 R4 K3 ["getImageUriForItem"]
+  NAMECALL R7 R4 K3 ["getThumbnailForScope"]
   CALL R7 2 1
   GETTABLEKS R10 R5 K4 ["Selection"]
   GETTABLEKS R9 R10 K5 ["Id"]

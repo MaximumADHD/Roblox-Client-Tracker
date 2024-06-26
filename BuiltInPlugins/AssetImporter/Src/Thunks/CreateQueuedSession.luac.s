@@ -8,9 +8,9 @@ PROTO_0:
   LOADNIL R1
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K1 ["new"]
-  DUPTABLE R3 K7 [{"assetName", "enabled", "filepath", "session", "validSession"}]
+  DUPTABLE R3 K8 [{"assetName", "enabled", "filepath", "session", "timestamp", "validSession"}]
   JUMPIFNOT R1 [+3]
-  GETTABLEKS R4 R1 K8 ["ImportName"]
+  GETTABLEKS R4 R1 K9 ["ImportName"]
   JUMP [+1]
   GETUPVAL R4 2
   SETTABLEKS R4 R3 K2 ["assetName"]
@@ -22,15 +22,18 @@ PROTO_0:
   SETTABLEKS R4 R3 K4 ["filepath"]
   GETUPVAL R4 0
   SETTABLEKS R4 R3 K5 ["session"]
+  GETIMPORT R4 K12 [os.time]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K6 ["timestamp"]
   JUMPIFNOTEQKNIL R1 [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  SETTABLEKS R4 R3 K6 ["validSession"]
+  SETTABLEKS R4 R3 K7 ["validSession"]
   CALL R2 1 1
   GETUPVAL R5 3
   MOVE R6 R2
   CALL R5 1 -1
-  NAMECALL R3 R0 K9 ["dispatch"]
+  NAMECALL R3 R0 K13 ["dispatch"]
   CALL R3 -1 0
   RETURN R0 0
 

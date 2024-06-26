@@ -12,21 +12,21 @@ function require(var2.Common.SetFilenameForGuid).name(arg1, arg2)
       end
    end
    arg2.scriptRefGuid = arg2.fileName
-   local var134 = var1.Dictionary
-   var134 = arg1
-   local var136 = {}
-   var136.ScriptInfo = var1.Dictionary.join(arg1.ScriptInfo, {})
-   return var134.join(var134, var136)
+   local var44 = var1.Dictionary
+   var44 = arg1
+   local var46 = {}
+   var46.ScriptInfo = var1.Dictionary.join(arg1.ScriptInfo, {})
+   return var44.join(var44, var46)
 end
 
 function require(var2.Common.SetScriptSourceLine).name(arg1, arg2)
    arg2.lineNumber = arg2.source
    arg2.scriptRefGuid = var1.Dictionary.join(arg1.ScriptLineContents[arg2.scriptRefGuid] or {}, {})
-   local var161 = var1.Dictionary
-   var161 = arg1
-   local var163 = {}
-   var163.ScriptLineContents = var1.Dictionary.join(arg1.ScriptLineContents, {})
-   return var161.join(var161, var163)
+   local var71 = var1.Dictionary
+   var71 = arg1
+   local var73 = {}
+   var73.ScriptLineContents = var1.Dictionary.join(arg1.ScriptLineContents, {})
+   return var71.join(var71, var73)
 end
 
 return require(var0.Packages.Rodux).createReducer(var3, {})

@@ -51,11 +51,15 @@ function var4._startTracking(arg1)
       return arg1._state
    end)
    arg1._maid:giveTask()
-   local var2 = arg1._visualizationMode:GetPropertyChangedSignal("Enabled"):Connect(function(arg1, arg2)
+   local var108 = arg1._visualizationMode:GetPropertyChangedSignal("Enabled"):Connect(function(arg1, arg2)
       if arg1._state == "changed" then
       end
       arg1._state = arg2
       arg1.changed:Fire(arg2)
+   end)
+   arg1._maid:giveTask()
+   local var3 = arg1._visualizationMode:GetPropertyChangedSignal("ToolTip"):Connect(function()
+      arg1:_updateState()
    end)
    arg1._maid:giveTask()
    arg1:_updateState()
@@ -66,11 +70,12 @@ function var4.updateVisualizationModeIsEnabled(arg1, arg2)
 end
 
 function var4._updateState(arg1)
-   local var116 = {}
-   var116.name = arg1._visualizationMode.Name
-   var116.title = arg1._visualizationMode.Title
-   var116.enabled = arg1._visualizationMode.Enabled
-   local var0 = table.freeze(var116)
+   local var126 = {}
+   var126.name = arg1._visualizationMode.Name
+   var126.title = arg1._visualizationMode.Title
+   var126.enabled = arg1._visualizationMode.Enabled
+   var126.toolTip = arg1._visualizationMode.ToolTip
+   local var0 = table.freeze(var126)
    arg1:_setState()
 end
 
