@@ -83,6 +83,9 @@ GenericSlider.validateProps = t.strictInterface({
 	NextSelectionDown = t.optional(t.table),
 	focusController = t.optional(t.table),
 
+	-- Some guiObject that encompasses the entire area we should be listening to input changed events on
+	containerRef = t.optional(t.table),
+
 	customTrack = t.optional(t.table),
 	customKnobHeight = t.optional(t.number),
 	customKnobBorderColor = t.optional(t.Color3),
@@ -544,24 +547,22 @@ function GenericSlider:didUpdate(prevProps, prevState)
 	if self.props.disabled then
 		self:stopListeningForDrag()
 	end
-	if UIBloxConfig.sliderGamepadDragStartAndEnd then
-		local lowerKnobDeselected = prevState.lowerKnobIsSelected and not self.state.lowerKnobIsSelected
-		local upperKnobDeselected = prevState.upperKnobIsSelected and not self.state.upperKnobIsSelected
-		if self.props.onDragEnd ~= nil and (lowerKnobDeselected or upperKnobDeselected) then
-			self.props.onDragEnd()
-		elseif
-			self.props.onDragStartLower ~= nil
-			and not prevState.lowerKnobIsSelected
-			and self.state.lowerKnobIsSelected
-		then
-			self.props.onDragStartLower()
-		elseif
-			self.props.onDragStartUpper ~= nil
-			and not prevState.upperKnobIsSelected
-			and self.state.upperKnobIsSelected
-		then
-			self.props.onDragStartUpper()
-		end
+	local lowerKnobDeselected = prevState.lowerKnobIsSelected and not self.state.lowerKnobIsSelected
+	local upperKnobDeselected = prevState.upperKnobIsSelected and not self.state.upperKnobIsSelected
+	if self.props.onDragEnd ~= nil and (lowerKnobDeselected or upperKnobDeselected) then
+		self.props.onDragEnd()
+	elseif
+		self.props.onDragStartLower ~= nil
+		and not prevState.lowerKnobIsSelected
+		and self.state.lowerKnobIsSelected
+	then
+		self.props.onDragStartLower()
+	elseif
+		self.props.onDragStartUpper ~= nil
+		and not prevState.upperKnobIsSelected
+		and self.state.upperKnobIsSelected
+	then
+		self.props.onDragStartUpper()
 	end
 end
 
@@ -608,7 +609,7 @@ function GenericSlider:startListeningForDrag()
 		-- This is the nice clean path, where we can just use UserInputService to
 		-- capture the mouse movements. We will use this path in all production
 		-- cases (desktop, mobile, console, etc.)
-		self.moveConnection = UserInputService.InputChanged:Connect(function(inputObject)
+		local inputChangedEvent = function(inputObject)
 			-- We don't check whether the input was processed by something else
 			-- because we don't care about it: when we move the mouse, we want to
 			-- move the slider to match the movement, regardless of whether the
@@ -629,7 +630,13 @@ function GenericSlider:startListeningForDrag()
 			end
 
 			self:processDrag(inputObject.Position.X)
-		end)
+		end
+
+		if self.props.containerRef then
+			self.moveConnection = self.props.containerRef.current.InputChanged:Connect(inputChangedEvent)
+		else
+			self.moveConnection = UserInputService.InputChanged:Connect(inputChangedEvent)
+		end
 
 		self.releaseConnection = UserInputService.InputEnded:Connect(function(inputObject)
 			local inputType = inputObject.UserInputType

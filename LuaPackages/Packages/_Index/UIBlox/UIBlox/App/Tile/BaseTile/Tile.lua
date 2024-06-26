@@ -42,6 +42,9 @@ local tileInterface = t.strictInterface({
 	-- The text color for name
 	nameTextColor = t.optional(t.Color3),
 
+	-- The text transparency for the name
+	nameTextTransparency = t.optional(t.number),
+
 	-- If the name should be overlayed on top of the thumbnail
 	nameOverThumbnail = t.optional(t.boolean),
 
@@ -369,6 +372,7 @@ function Tile:render()
 						titleIcon = titleIcon,
 						name = name,
 						nameTextColor = self.props.nameTextColor,
+						nameTextTransparency = self.props.nameTextTransparency,
 						hasVerifiedBadge = hasVerifiedBadge,
 						maxHeight = maxTitleTextHeight,
 						maxWidth = tileWidth,

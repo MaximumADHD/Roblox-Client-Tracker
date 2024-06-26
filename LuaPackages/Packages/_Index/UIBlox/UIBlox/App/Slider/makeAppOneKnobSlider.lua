@@ -72,6 +72,9 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 		customKnobBorderColor = t.optional(t.Color3),
 		-- Internal Only - Don't Pass In
 		style = validateStyle,
+
+		-- Some guiObject that encompasses the entire area we should be listening to input changed events on
+		containerRef = t.optional(t.table),
 	})
 
 	oneKnobAppSliderComponent.defaultProps = {
@@ -102,6 +105,7 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 			customKnobBorderSize = props.customKnobBorderSize,
 			customKnobColorLower = props.customKnobColorLower,
 			customPressedKnobShadowTransparencyLower = props.customPressedKnobShadowTransparencyLower,
+			containerRef = props.containerRef,
 		}
 
 		if not props.textInputEnabled then

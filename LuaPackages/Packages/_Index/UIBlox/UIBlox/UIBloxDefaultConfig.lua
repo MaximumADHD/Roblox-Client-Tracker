@@ -66,9 +66,6 @@ return {
 	-- Use new designed HeaderBar
 	useNewHeaderBar = false,
 
-	-- have the System Slider trigger onDragStart and onDragEnd for gamepad
-	sliderGamepadDragStartAndEnd = false,
-
 	-- Use InteractionFeedbackManager, which is injected via InteractionFeedbackContext
 	enableInteractionFeedback = false,
 

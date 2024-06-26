@@ -199,6 +199,9 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			customKnobHeight = props.customKnobHeight,
 			customKnobBorderSize = props.customKnobBorderSize,
 			customKnobBorderColor = props.customKnobBorderColor,
+
+			-- Some guiObject that encompasses the entire area we should be listening to input changed events on
+			containerRef = props.containerRef,
 		}
 
 		if isTwoKnobs then

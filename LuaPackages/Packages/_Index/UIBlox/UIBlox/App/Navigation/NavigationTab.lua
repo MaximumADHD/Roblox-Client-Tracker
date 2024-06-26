@@ -16,13 +16,14 @@ local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 export type NavigationTabLayoutType = NavigationTabLayout.Type
 export type ImageSetImage = ImagesTypes.ImageSetImage
 export type TypographyItem = StyleTypes.TypographyItem
+export type ControlStateChangedCallback = StateLayer.ControlStateChangedCallback
 export type Props = {
 	-- Image of the icon in default state
-	iconImage: (string | ImageSetImage),
+	iconImage: (string | ImageSetImage)?,
 	-- Image of the icon in checked state
 	iconCheckedImage: (string | ImageSetImage)?,
 	-- The icon element to be rendered manually, this will override iconImage and iconCheckedImage
-	renderIcon: ((isChecked: boolean) -> React.ComponentType<any>)?,
+	renderIcon: ((isChecked: boolean) -> React.ElementType)?,
 	-- Whether to render the text label
 	hasLabel: boolean?,
 	-- Text of the label
@@ -43,6 +44,8 @@ export type Props = {
 	layoutOrder: number?,
 	-- Callback for activated event
 	onActivated: (() -> ())?,
+	-- Callback for state event
+	onStateChanged: ControlStateChangedCallback?,
 }
 
 local defaultProps = {
@@ -87,7 +90,7 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 		Badge = if (props.layout == NavigationTabLayout.Stacked and props.badgeValue ~= nil)
 			then React.createElement(Badge, {
 				position = UDim2.fromScale(1, 0),
-				anchorPoint = Vector2.new(1, 0),
+				anchorPoint = Vector2.new(0.6, 0.35),
 				value = props.badgeValue,
 				badgeVariant = BadgeVariant.Alert,
 			})
@@ -199,6 +202,7 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 			size = absSize,
 			zIndex = 10,
 			onActivated = props.onActivated,
+			onStateChanged = props.onStateChanged,
 		}),
 	})
 end)

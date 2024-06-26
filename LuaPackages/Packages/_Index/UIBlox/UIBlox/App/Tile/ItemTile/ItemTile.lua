@@ -33,6 +33,12 @@ ItemTile.validateProps = t.strictInterface({
 	-- The item's name that will show a loading state if nil
 	name = t.optional(t.string),
 
+	-- The text color for name
+	nameTextColor = t.optional(t.Color3),
+
+	-- The text transparency for the name
+	nameTextTransparency = t.optional(t.number),
+
 	-- The item's subtitle  that will be hidden if nil
 	subtitle = t.optional(t.string),
 
@@ -140,6 +146,8 @@ function ItemTile:render()
 	local multiSelect = self.props.multiSelect
 	local itemIconType = self.props.itemIconType
 	local name = self.props.name
+	local nameTextColor = self.props.nameTextColor
+	local nameTextTransparency = self.props.nameTextTransparency
 	local subtitle = self.props.subtitle
 	local onActivated = self.props.onActivated
 	local restrictionInfo = self.props.restrictionInfo
@@ -195,6 +203,8 @@ function ItemTile:render()
 		Selectable = Selectable,
 		multiSelect = multiSelect,
 		name = name,
+		nameTextColor = nameTextColor,
+		nameTextTransparency = nameTextTransparency,
 		subtitle = subtitle,
 		onActivated = onActivated,
 		thumbnail = thumbnail,

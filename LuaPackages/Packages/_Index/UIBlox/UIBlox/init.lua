@@ -7,6 +7,7 @@ local ImagesTypes = require(script.App.ImageSet.ImagesTypes)
 local StyleTypes = require(script.App.Style.StyleTypes)
 local ResponsiveLayoutConfigReader = require(script.Core.Layout.Responsive.ResponsiveLayoutConfigReader)
 local DialogOverlay = require(script.App.Dialog.Overlay.Overlay)
+local ControlStateEnum = require(script.Core.Control.Enum.ControlState)
 
 local ReactUtils = require(script.Parent.ReactUtils)
 
@@ -23,6 +24,8 @@ export type AppStyle = StyleTypes.AppStyle
 export type ResponsiveLayoutConfig<T = number> = ResponsiveLayoutConfigReader.Config<T>
 
 export type GradientDirection = DialogOverlay.GradientDirection
+
+export type ControlState = ControlStateEnum.ControlState
 
 local function initializeLibrary(configs)
 	local strict = require(script.Utility.strict)
@@ -61,7 +64,7 @@ local function initializeLibrary(configs)
 
 		Control = strict({
 			Enum = strict({
-				ControlState = require(script.Core.Control.Enum.ControlState),
+				ControlState = ControlStateEnum,
 				ControlStateEvent = require(script.Core.Control.Enum.ControlStateEvent),
 				SelectionMode = require(script.Core.Control.Enum.SelectionMode),
 			}),

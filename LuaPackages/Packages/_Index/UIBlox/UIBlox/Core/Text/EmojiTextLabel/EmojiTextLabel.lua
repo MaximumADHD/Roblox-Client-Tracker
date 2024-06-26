@@ -28,7 +28,7 @@ type Props = {
 	-- the Font table from the style palette
 	fontStyle: validateFontInfo.FontInfo | StyleTypes.TypographyItem?,
 	-- the color table from the style palette
-	colorStyle: validateColorInfo.ColorInfo,
+	colorStyle: validateColorInfo.ColorInfo?,
 	-- the size available for the textbox
 	maxSize: Vector2?,
 	-- whether the TextLabel has Fluid Sizing between the font's min and default sizes
@@ -50,6 +50,7 @@ local function EmojiTextLabel(props: Props)
 	local style = useStyle()
 	local hasEmoji = EmojiEnum.isEnumValue(props.emoji)
 	local baseSize = style.Font.BaseSize
+	local colorStyle = props.colorStyle
 
 	local fontStyle = props.fontStyle
 	local textFont = fontStyle.Font
@@ -65,6 +66,7 @@ local function EmojiTextLabel(props: Props)
 	local genericTextLabelProps = Cryo.Dictionary.join(props, {
 		emoji = Cryo.None,
 		emojiOnActivated = Cryo.None,
+		colorStyle = colorStyle,
 		Size = UDim2.fromOffset(textLabelWidth, labelTextSize.Y),
 	})
 

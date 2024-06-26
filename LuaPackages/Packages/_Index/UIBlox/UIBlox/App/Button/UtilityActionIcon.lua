@@ -75,7 +75,7 @@ local function UtilityActionIcon(providedProps: Props, ref: React.Ref<Frame>)
 	local defaultIconColor = if onMedia then tokens.Global.Color.White else tokens.Semantic.Color.Icon.Emphasis
 	local iconColor = if props.iconColor then props.iconColor else defaultIconColor
 
-	local stateStyle = if onMedia then "Darken" else "Standard"
+	local stateStyle: StateLayer.StateStyle = if onMedia then "Darken" else "Standard"
 	local badgeAnchor = Vector2.new(0, 1)
 	local badgePosition = UDim2.new(0.5, tokens.Global.Size_25, 0.5, -tokens.Global.Size_25)
 

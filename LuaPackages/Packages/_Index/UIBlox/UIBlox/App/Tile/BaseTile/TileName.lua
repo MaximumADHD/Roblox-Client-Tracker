@@ -38,6 +38,9 @@ ItemTileName.validateProps = t.strictInterface({
 	-- Optional text color to use for tile name
 	nameTextColor = t.optional(t.Color3),
 
+	-- Optional text transparency to use for tile name
+	nameTextTransparency = t.optional(t.number),
+
 	-- Optional boolean to determine whether a VerifiedBadge is shown
 	hasVerifiedBadge = t.optional(t.boolean),
 
@@ -73,13 +76,18 @@ function ItemTileName:render()
 		if name ~= nil then
 			local maxSize = Vector2.new(maxWidth, maxHeight)
 
+			local colorStyle = {
+				Color = self.props.nameTextColor or theme.TextEmphasis.Color,
+				Transparency = self.props.nameTextTransparency or theme.TextEmphasis.Transparency,
+			}
+
 			if hasVerifiedBadge then
 				return Roact.createElement(EmojiTextLabel, {
 					maxSize = maxSize,
 					fluidSizing = useFluidSizing,
 					emoji = Emoji.Verified,
 					fontStyle = titleFontStyle,
-					colorStyle = theme.TextEmphasis,
+					colorStyle = colorStyle,
 					Text = name,
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextXAlignment = Enum.TextXAlignment.Left,
@@ -90,10 +98,6 @@ function ItemTileName:render()
 
 			local titleIconSize = titleIcon and titleIcon.ImageRectSize / Images.ImagesResolutionScale
 				or Vector2.new(0, 0)
-
-			local colorStyle = if self.props.nameTextColor
-				then { Color = self.props.nameTextColor, Transparency = 0 }
-				else theme.TextEmphasis
 
 			return Roact.createElement(ImageTextLabel, {
 				imageProps = titleIcon and {
