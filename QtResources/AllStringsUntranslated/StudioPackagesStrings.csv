@@ -32,7 +32,7 @@ Studio.App.PackageService.PackageAPIError.UploadPrepFailed,,Failed to prepare in
 Studio.App.PackageService.PackageAPIError.LatestVersionFail,,Can't get selected package link latestVersionNum: data not available,Can't get selected package link latestVersionNum: data not available
 Studio.App.PackageService.PackageAPIError.VersionLowerBound,,VersionNumber cannot be less than 1,VersionNumber cannot be less than 1
 Studio.App.PackageService.PackageAPIError.VersionUpperBound.1,%1 is a number. e.g. VersionNumber cannot be greater than 45,VersionNumber cannot be greater than %1,VersionNumber cannot be greater than %1
-Studio.App.StudioPackageManager.PackageUnlinkConfirmation,,Modifying packages will prevent you from updating them until you publish or revert the changes,Modifying packages will prevent you from updating them until you publish or revert the changes
+Studio.App.StudioPackageManager.PackageUnlinkConfirmation,,Modifying packages disables auto-update until you publish or revert the changes,Modifying packages disables auto-update until you publish or revert the changes
 Studio.App.StudioPackageManager.PackageUnlinkRevertButton,"The user modified a package, and we told them that this will have consequences. We're offering them a chance to avoid this by clicking a button and reverting the changes.",Revert Changes,Revert Changes
 Studio.App.StudioPackageManager.PackageScriptDocMessage,,This script is part of a package. <a href='unlinkpackage://asset'>Click here</a> to modify.,This script is part of a package. <a href='unlinkpackage://asset'>Click here</a> to modify.
 Studio.App.PackageMassUpdate.MassUpdate,A function that enables developer to update package across places.,Mass Update,Mass Update
@@ -115,3 +115,4 @@ Studio.App.Package.Version.Current1,,Version %1 (Current),Version %1 (Current)
 Studio.App.Package.Version.Latest1,,Version %1 (Latest),Version %1 (Latest)
 Studio.App.Package.Version.Local,,Local Copy,Local Copy
 Studio.App.Package.ShowPackagesDiff1,,Compare %1 Package Versions,Compare %1 Package Versions
+Studio.App.Package.NoChanges,Shows when there are no changes between two package versions,The package has no changes.,The package has no changes.

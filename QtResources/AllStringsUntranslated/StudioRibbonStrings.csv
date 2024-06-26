@@ -26,7 +26,6 @@ Studio.App.RobloxRibbonMainWindow.OpenSaveManageDoc,,"Click here to open, save o
 Studio.App.RobloxRibbonMainWindow.ClickOnPartsToLockUnlock,,Click on parts to lock/unlock,Click on parts to lock/unlock
 Studio.App.RobloxRibbonMainWindow.ClientsAndServers,,Clients and Servers,Clients and Servers
 Studio.App.RobloxRibbonMainWindow.Clipboard,,Clipboard,Clipboard
-Studio.App.RobloxRibbonMainWindow.Collisions,,Collisions,Collisions
 Studio.App.RobloxRibbonMainWindow.Constraints,,Constraints,Constraints
 Studio.App.RobloxRibbonMainWindow.CreateBeamToolTip,,Create beam,Create beam
 Studio.App.RobloxRibbonMainWindow.CreateExplosionToolTip,,Create explosion,Create explosion
@@ -82,7 +81,6 @@ Studio.App.RobloxRibbonMainWindow.TogglesSnapToParts,,Toggle dragger tools snapp
 Studio.App.RobloxRibbonMainWindow.Tools,,Tools,Tools
 Studio.App.RobloxRibbonMainWindow.View,,View,View
 Studio.App.RobloxRibbonMainWindow.WatchTheHighlightedVariables,,Watch the highlighted variable's value,Watch the highlighted variable's value
-Studio.App.RobloxRibbonMainWindow.JoinSurfaces,,Join Surfaces,Join Surfaces
 Studio.App.RobloxRibbonMainWindow.PivotGroup,,Pivot,Pivot
 Studio.App.RobloxRibbonMainWindow.AlignToolGroup,,Alignment,Alignment
 Studio.App.RobloxRibbonMainWindow.TextureGenerator,,Texture Generator,Texture Generator

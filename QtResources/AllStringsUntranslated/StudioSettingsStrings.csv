@@ -49,8 +49,8 @@ Studio.App.BetaFeatures.FacialAnimationRecordingDescription,,"Animation Editor w
 Studio.App.BetaFeatures.ForumPostTitleEnding,,%1 is now enabled,%1 is now enabled
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
-Studio.App.BetaFeatures.LuauDCRTitle,,Enable Deferred Constraint Resolution,Enable Deferred Constraint Resolution
-Studio.App.BetaFeatures.LuauDCRDescription,,Script analysis uses the new Deferred Constraint Resolution inference engine/type checker. Yields potentially better error messages.,Script analysis uses the new Deferred Constraint Resolution inference engine/type checker. Yields potentially better error messages.
+Studio.App.BetaFeatures.LuauDCRTitle,,New Luau type solver,New Luau type solver
+Studio.App.BetaFeatures.LuauDCRDescription,,Script analysis uses the new Luau type inference engine and type checker. Yields better error messages.,Script analysis uses the new Luau type inference engine and type checker. Yields better error messages.
 Studio.App.BetaFeatures.LuauLowerBoundsTitle,,Experimental Luau language features,Experimental Luau language features
 Studio.App.BetaFeatures.LuauLowerBoundsDescription,,Adds lower-bounds calculation to script analysis for more accurate type inference.,Adds lower-bounds calculation to script analysis for more accurate type inference.
 Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Fitting Tool,Accessory Fitting Tool

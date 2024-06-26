@@ -1,0 +1,6 @@
+Key,Context,Source,en-us
+Studio.App.DraggerModeSettings.DragMode,The title for the setting that toggles current dragging mode of the select action (it toggles between Geometric and Physical),Drag Mode,Drag Mode
+Studio.App.RobloxRibbonMainWindow.Collisions,,Collisions,Collisions
+Studio.App.RobloxRibbonMainWindow.JoinSurfaces,,Join Surfaces,Join Surfaces
+Studio.App.MoveGridSettings.MoveGridSize,"The title of the setting for the size (in studs) of the grid that the move action will snap to. Default is 4, but can be fractional (1.2) as well",Move Grid Size,Move Grid Size
+Studio.App.RotateGridSettings.RotateGridSize,The title of the setting for the size (in degrees) of the angle that rotating object will snap to. Default is 90deg but can be any value between 1 and 360,Rotate Grid Size,Rotate Grid Size

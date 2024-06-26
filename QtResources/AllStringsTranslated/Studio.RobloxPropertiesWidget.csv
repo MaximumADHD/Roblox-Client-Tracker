@@ -29,7 +29,7 @@ Studio.RobloxPropertiesWidget.Category.Cache,,,Cache,Cache,,Zwischenspeicher,Cac
 Studio.RobloxPropertiesWidget.Category.Camera,,,Camera,Camera,,Kamera,Cámara,Caméra,,Fotocamera,カメラ,카메라,,Câmera,,,,Camera,镜头,镜头,相機
 Studio.RobloxPropertiesWidget.Category.Character,,,Character,Character,,Charakter,Personaje,Personnage,,Carattere,キャラクター,캐릭터,,Personagem,,,,Nhân Vật,人物,人物,人物
 Studio.RobloxPropertiesWidget.Category.CharacterJumpSettings,,,Character Jump Settings,Character Jump Settings,,Charakter-Sprungeinstellungen,Configuración de Salto de personaje,Paramètres de saut de caractère,,Impostazioni salto personaggio,キャラクターのジャンプ設定,캐릭터 점프 설정,,Configurações de pulo de personagem,,,,Cài Đặt Nhảy Cho Nhân Vật,人物跳跃设置,人物跳跃设置,人物跳躍設定
-Studio.RobloxPropertiesWidget.Category.Clothes,,,Clothes,Clothes,,Kleidung,Ropa,Vêtements,,Vestiti,衣装,복장,,Roupas,,,,Quần Áo,服装,服装,衣物
+Studio.RobloxPropertiesWidget.Category.Clothes,,,Clothes,Clothes,,Kleidung,Ropa,Vêtements,,Vestiti,衣装,복장,,Roupas,,,,Trang Phục,服装,服装,衣物
 Studio.RobloxPropertiesWidget.Category.Collision,,,Collision,Collision,,Kollision,Colisión,Collision,,Collisione,衝突,충돌,,Colisão,,,,Va Chạm,碰撞,碰撞,碰撞
 Studio.RobloxPropertiesWidget.Category.Compliance,,,Compliance,Compliance,,Einhaltung,Cumplimiento,Conformité,,Conformità,コンプライアンス,규정 준수,,Conformidade,,,,Tuân Thủ,合规性,合规性,合規性
 Studio.RobloxPropertiesWidget.Category.Configuration,,,Configuration,Configuration,,Konfiguration,Configuración,Configuration,,Configurazione,環境設定,구성,,Configuração,,,,Cấu Hình,配置,配置,配置
@@ -49,7 +49,7 @@ Studio.RobloxPropertiesWidget.Category.Emission,,,Emission,Emission,,Emission,Em
 Studio.RobloxPropertiesWidget.Category.Emitter,,,Emitter,Emitter,,Emitter,Emisor,Émetteur,,Emettitore,放射器,이미터,,Emissor,,,,Nguồn Phát,释放器,释放器,發射器
 Studio.RobloxPropertiesWidget.Category.EmitterShape,,,EmitterShape,EmitterShape,,EmitterShape,EmitterShape,Forme de l'émetteur,,EmitterShape,放射器の形状,EmitterShape,,EmitterShape,,,,EmitterShape,EmitterShape,EmitterShape,發射器形狀
 Studio.RobloxPropertiesWidget.Category.Errors,,,Errors,Errors,,Fehler,Errores,Erreurs,,Errori,エラー,오류,,Erros,,,,Lỗi,错误,错误,錯誤
-Studio.RobloxPropertiesWidget.Category.Explorer,,,Explorer,Explorer,,Explorer,Explorador,Explorateur,,Esploratore,エクスプローラ,탐색기,,Explorador,,,,Trình Khám Phá,项目管理器,项目管理器,瀏覽
+Studio.RobloxPropertiesWidget.Category.Explorer,,,Explorer,Explorer,,Explorer,Explorador,Explorateur,,Esploratore,エクスプローラ,탐색기,,Explorador,,,,Cửa Sổ Khám Phá,项目管理器,项目管理器,瀏覽
 Studio.RobloxPropertiesWidget.Category.Exposure,,,Exposure,Exposure,,Belichtung,Exposición,Exposition,,Esposizione,露出,노출,,Exposição,,,,Phơi Nhiễm,曝光,曝光,曝光
 Studio.RobloxPropertiesWidget.Category.Eyes,,,Eyes,Eyes,,Augen,Ojos,Yeux,,Occhi,目,눈,,Olhos,,,,Mắt,眼睛,眼睛,眼睛
 Studio.RobloxPropertiesWidget.Category.Flipbook,,,Flipbook,Flipbook,,Flipbook,Flipbook,Carnet à feuilles,,Flipbook,フリップブック,플립북,,Flipbook,,,,Sách Lật,翻页动画,翻页动画,翻頁動畫
@@ -88,12 +88,12 @@ Studio.RobloxPropertiesWidget.Category.Particles,,,Particles,Particles,,Partikel
 Studio.RobloxPropertiesWidget.Category.Parts,,,Parts,Parts,,Teile,Piezas,Parties,,Parti,パーツ,파트,,Partes,,,,Bộ Phận,部件,部件,零件
 Studio.RobloxPropertiesWidget.Category.Performance,,,Performance,Performance,,Leistung,Rendimiento,Performances,,Prestazioni,パフォーマンス,성능,,Desempenho,,,,Hiệu Suất,性能,性能,效能
 Studio.RobloxPropertiesWidget.Category.Physics,,,Physics,Physics,,Physik,Física,Physique,,Fisica,物理,물리,,Física,,,,Vật Lý,物理,物理,物理
-Studio.RobloxPropertiesWidget.Category.Pivot,,,Pivot,Pivot,,Drehpunkt,Pivote,Pivot,,Pivot,ピボット,피벗,,Pivô,,,,Điểm Neo,枢轴,枢轴,中心點
+Studio.RobloxPropertiesWidget.Category.Pivot,,,Pivot,Pivot,,Drehpunkt,Pivote,Pivot,,Pivot,ピボット,피벗,,Pivô,,,,Điểm Xoay,枢轴,枢轴,中心點
 Studio.RobloxPropertiesWidget.Category.Plane,,,Plane,Plane,,Ebene,Plano,Plan,,Piano,平面,비행기,,Avião,,,,Máy Bay,平面,平面,平面
 Studio.RobloxPropertiesWidget.Category.Playback,,,Playback,Playback,,Wiedergabe,Reproducción,Relecture,,Riproduzione,再生,재생,,Reprodução,,,,Phát Lại,回放,回放,倒轉
 Studio.RobloxPropertiesWidget.Category.PrimaryPart,,,Primary Part,Primary Part,,Primärteil,Pieza principal,Partie principale,,Parte primaria,メインパーツ,기본 파트,,Parte primária,,,,Bộ Phận Chính,主要部件,主要部件,主要零件
 Studio.RobloxPropertiesWidget.Category.Profile,,,Profile,Profile,,Profil,Perfil,Profil,,Profilo,プロフィール,프로필,,Perfil,,,,Hồ Sơ,配置,配置,個人檔
-Studio.RobloxPropertiesWidget.Category.ProxySettings,,,Proxy Settings,Proxy Settings,,Proxy-Einstellungen,Configuración del proxy,Paramètres du proxy,,Impostazioni proxy,プロキシ設定,프록시 설정,,Configurações de proxy,,,,Cài Đặt Quyền Riêng Tư,代理设置,代理设置,Proxy 設定
+Studio.RobloxPropertiesWidget.Category.ProxySettings,,,Proxy Settings,Proxy Settings,,Proxy-Einstellungen,Configuración del proxy,Paramètres du proxy,,Impostazioni proxy,プロキシ設定,프록시 설정,,Configurações de proxy,,,,Cài Đặt Proxy,代理设置,代理设置,Proxy 設定
 Studio.RobloxPropertiesWidget.Category.Reflection,,,Reflection,Reflection,,Reflexion,Reflexión,Reflet,,Riflessione,反射,반사,,Reflexão,,,,Phản Xạ,反射,反射,反射
 Studio.RobloxPropertiesWidget.Category.Regions,,,Regions,Regions,,Regionen,Regiones,Régions,,Regioni,地域,영역,,Regiões,,,,Khu Vực,区域,区域,地區
 Studio.RobloxPropertiesWidget.Category.RenderingTest,,,RenderingTest,RenderingTest,,RenderingTest,Prueba de renderizado,Test de rendu,,Test Rendering,レンダリングテスト,RenderingTest,,RenderingTest,,,,RenderingTest,渲染测试,渲染测试,成像測試
@@ -101,7 +101,7 @@ Studio.RobloxPropertiesWidget.Category.Results,,,Results,Results,,Ergebnisse,Res
 Studio.RobloxPropertiesWidget.Category.Rod,,,Rod,Rod,,Stange,Barra,Barre,,Bastone,ロッド,막대,,Vara,,,,Thanh,杆,杆,連桿
 Studio.RobloxPropertiesWidget.Category.Rope,,,Rope,Rope,,Seil,Cuerda,Corde,,Fune,ロープ,밧줄,,Corda,,,,Dây Thừng,绳索,绳索,繩索
 Studio.RobloxPropertiesWidget.Category.Routing,,,Routing,Routing,,Routing,Ruta,Routage,,Percorso,ルーティング,라우팅,,Roteamento,,,,Định Tuyến,路由,路由,路由
-Studio.RobloxPropertiesWidget.Category.Scale,,,Scale,Scale,,Skalierung,Escalar,Échelle,,Bilancia,拡大/縮小,스케일,,Escala,,,,Đổi Tỉ Lệ,缩放,缩放,比例
+Studio.RobloxPropertiesWidget.Category.Scale,,,Scale,Scale,,Skalierung,Escalar,Échelle,,Bilancia,拡大/縮小,스케일,,Escala,,,,Đổi Tỷ Lệ,缩放,缩放,比例
 Studio.RobloxPropertiesWidget.Category.ScriptEditor,,,Script Editor,Script Editor,,Skript-Editor,Editor de script,Éditeur de script,,Editor Script,スクリプト編集,스크립트 편집기,,Editor de script,,,,Trình Chỉnh Sửa Kịch Bản,脚本编辑器,脚本编辑器,指令碼編輯器
 Studio.RobloxPropertiesWidget.Category.ScriptEditorColors,,,Script Editor Colors,Script Editor Colors,,Skript-Editor-Farben,Colores del Editor de script,Couleurs de l'éditeur de script,,Script editor colori,スクリプト編集の色,스크립트 편집기 색상,,Cores do editor de script,,,,Màu Sắc của Trình Chỉnh Sửa Kịch Bản,脚本编辑器颜色,脚本编辑器颜色,指令碼編輯器顏色
 Studio.RobloxPropertiesWidget.Category.Scrolling,,,Scrolling,Scrolling,,Scrollen,Desplazamiento,Défilement,,Scorrimento,スクロール,스크롤,,Rolagem,,,,Cuộn,滑动,滑动,捲動
@@ -112,7 +112,7 @@ Studio.RobloxPropertiesWidget.Category.Shape,,,Shape,Shape,,Form,Forma,Forme,,Fo
 Studio.RobloxPropertiesWidget.Category.Sizing,,,Sizing,Sizing,,Größe,Tamaño,Taille,,Dimensionamento,サイズ,크기 조정,,Dimensionamento,,,,Định Cỡ,尺寸,尺寸,尺寸
 Studio.RobloxPropertiesWidget.Category.Slider,,,Slider,Slider,,Schieber,Deslizador,Curseur,,Scorrevole,スライダー,슬라이더,,Deslizador,,,,Thanh Trượt,滑块,滑块,滑軌
 Studio.RobloxPropertiesWidget.Category.Spring,,,Spring,Spring,,Feder,Resorte,Ressort,,Primavera,ばね,용수철,,Mola,,,,Mùa Xuân,弹簧,弹簧,彈簧
-Studio.RobloxPropertiesWidget.Category.State,,,State,State,,Status,Estado,État,,Stato,状況,상태,,Estado,,,,Bang,状态,状态,狀態
+Studio.RobloxPropertiesWidget.Category.State,,,State,State,,Status,Estado,État,,Stato,状況,상태,,Estado,,,,Tiểu Bang,状态,状态,狀態
 Studio.RobloxPropertiesWidget.Category.Streaming,,,Streaming,Streaming,,Streaming,Transmisión,Streaming en cours,,Streaming,配信,스트리밍,,Streaming,,,,Phát Trực Tuyến,串流,串流,串流
 Studio.RobloxPropertiesWidget.Category.Surface,,,Surface,Surface,,Oberfläche,Superficie,Surface,,Superficie,表面,표면,,Superfície,,,,Bề Mặt,表面,表面,表面
 Studio.RobloxPropertiesWidget.Category.SurfaceInputs,,,Surface Inputs,Surface Inputs,,Oberflächeneingänge,Entradas de superficie,Entrées de la surface,,Input Superficie,表面の入力,표면 입력,,Entradas de superfície,,,,Thông Tin Bề Mặt,表面输入,表面输入,表面輸入

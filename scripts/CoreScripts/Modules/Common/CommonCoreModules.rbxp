@@ -36,7 +36,7 @@
                 ".robloxrc": {
                     "$path": ".robloxrc"
                 }
-            },           
+            },
             "LegacyThumbnailUrls": {
                 "$path": "LegacyThumbnailUrls.lua",
                 ".robloxrc": {
@@ -135,12 +135,6 @@
             },
             "FocusNavigationEffectsWrapper": {
                 "$path": "FocusNavigationEffectsWrapper.lua",
-                ".robloxrc": {
-                    "$path": ".robloxrc"
-                }
-            },
-            "InExperienceCapabilities": {
-                "$path": "InExperienceCapabilities.lua",
                 ".robloxrc": {
                     "$path": ".robloxrc"
                 }

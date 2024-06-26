@@ -1,5 +1,5 @@
 Key,Context,Example,Source,en-us,ar-001,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pl-pl,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
-Studio.SimulationStep.Plugin.Text,,,Example Text!,Example Text!,,Beispieltext!,Texto de ejemplo,Exemple de texte !,,,テキストの例,예시 텍스트!,,Texto de exemplo!,,,,Văn Bản Ví Dụ!,示例文本！,示例文本！,
+Studio.SimulationStep.Plugin.Text,,,Example Text!,Example Text!,,Beispieltext!,Texto de ejemplo,Exemple de texte !,,,テキストの例,예시 텍스트!,,Texto de exemplo!,,,,Văn Bản Mẫu!,示例文本！,示例文本！,
 Studio.SimulationStep.Plugin.Description,,,Toggles the Template plugin window.,Toggles the Template plugin window.,,Schaltet das Vorlagen-Plugin-Fenster um.,Activa la ventana del plugin Plantilla.,Bascule la fenêtre du plug-in du modèle.,,,テンプレートのプラグインウィンドウを切りかえ。,템플릿 플러그인 창을 전환합니다.,,Alterna a janela do plugin de modelos.,,,,Bật/tắt cửa sổ plugin Mẫu.,切换模板插件窗口。,切换模板插件窗口。,
 Studio.SimulationStep.Plugin.Name,,,SimulationStep,SimulationStep,,SimulationStep,SimulationStep,SimulationStep,,,SimulationStep,SimulationStep,,SimulationStep,,,,SimulationStep,模拟步骤,模拟步骤,
 Studio.SimulationStep.Plugin.Toolbar,,,SimulationStep,SimulationStep,,SimulationStep,SimulationStep,SimulationStep,,,SimulationStep,SimulationStep,,SimulationStep,,,,SimulationStep,模拟步骤,模拟步骤,

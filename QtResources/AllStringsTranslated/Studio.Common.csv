@@ -27,7 +27,7 @@ Studio.Common.Action.Pause,,,Pause,Pause,,Pause,Pausar,Pause,,Pausa,一時停止
 Studio.Common.Action.Play,,,Play,Play,,Spielen,Jugar,Jouer,,Gioca,プレイ,플레이,,Jogar,Воспроизвести,,,Chơi,开始游戏,开始游戏,開始
 Studio.Common.Action.Previous,,,Previous,Previous,,Zurück,Anterior,Précédent,,Precedente,前へ,이전,,Anterior,Предыдущий,,,Trước,上一个,上一个,上一步
 Studio.Common.Action.Reload,,,Reload,Reload,,Erneut laden,Volver a cargar,Recharger,,Ricarica,リロード,다시 불러오기,,Recarregar,Перезагрузить,,,Tải Lại,重新加载,重新加载,重新載入
-Studio.Common.Action.Remove,,,Remove,Remove,,Entfernen,Eliminar,Supprimer,,Rimuovi,削除,제거,,Remover,Удалить,,,Loại Bỏ,移除,移除,移除
+Studio.Common.Action.Remove,,,Remove,Remove,,Entfernen,Eliminar,Supprimer,,Rimuovi,削除,제거,,Remover,Удалить,,,Bỏ,移除,移除,移除
 Studio.Common.Action.Rename,,,Rename,Rename,,Umbenennen,Renombrar,Renommer,,Rinomina,名前を変更,이름 변경,,Renomear,Переименовать,,,Đổi Tên,重命名,重命名,重新命名
 Studio.Common.Action.Replace,,,Replace,Replace,,Ersetzen,Reemplazar,Remplacer,,Sostituisci,置き換え,바꾸기,,Substituir,Заменить,,,Thay Thế,替换,替换,取代
 Studio.Common.Action.Resize,,,Resize,Resize,,Größe anpassen,Ajustar,Redimensionner,,Ridimensiona,サイズ変更,크기 조정,,Dimensionar,Изменить размер,,,Đổi Cỡ,缩放,缩放,調整大小
@@ -42,8 +42,8 @@ Studio.Common.Action.Redo,,,Redo,Redo,,Wiederholen,Rehacer,Refaire,,Ripeti,や�
 Studio.Common.Action.Undo,,,Undo,Undo,,Rückgängig,Deshacer,Annuler,,Annulla,取り消す,실행 취소,,Desfazer,Отменить,,,Hoàn Tác,撤消,撤消,復原
 Studio.Common.Action.Update,,,Update,Update,,Aktualisieren,Actualizar,Mettre à jour,,Aggiorna,更新,업데이트,,Atualizar,Обновить,,,Cập Nhật,更新,更新,更新
 Studio.Common.Action.Reset,,,Reset,Reset,,Zurücksetzen,Restablecer,Réinitialiser,,Reimposta,再設定,재설정,,Reiniciar,Сбросить,,,Đặt Lại,重置,重置,重置
-Studio.Common.Action.Fill,,,Fill,Fill,,Füllen,Llenar,Remplir,,Riempi,埋める,채우기,,Preencher,Заполнить,,,Điền,填充,填充,填滿
-Studio.Common.Action.Goto,,,Goto,Goto,,Gehe zu,Ir a,Aller à,,Vai a,別ページに移動,이동,,Ir para,Перейти,,,Đi,前往,前往,前往
+Studio.Common.Action.Fill,,,Fill,Fill,,Füllen,Llenar,Remplir,,Riempi,埋める,채우기,,Preencher,Заполнить,,,Lấp Đầy,填充,填充,填滿
+Studio.Common.Action.Goto,,,Goto,Goto,,Gehe zu,Ir a,Aller à,,Vai a,別ページに移動,이동,,Ir para,Перейти,,,Đi Đến,前往,前往,前往
 Studio.Common.Action.Move,,,Move,Move,,Verschieben,Mover,Déplacer,,Sposta,移動,이동,,Mover,Переместить,,,Di Chuyển,移动,移动,移動
 Studio.Common.Action.Rotate,,,Rotate,Rotate,,Drehen,Girar,Pivoter,,Ruota,回転,회전,,Girar,Вращать,,,Xoay,旋转,旋转,旋轉
 Studio.Common.Action.Error,,,Error,Error,,Fehler,Error,Erreur,,Errore,エラー,오류,,Erro,Ошибка,,,Lỗi,错误,错误,錯誤
@@ -71,7 +71,7 @@ Studio.Common.Action.Import,,,Import,Import,,Importieren,Importar,Importer,,Impo
 Studio.Common.Action.Rig,,,Rig,Rig,,Rig,Rig,Rig,,Rig,リグ,리그,,Rig,,,,Khung Xương,骨架,骨架,骨架
 Studio.Common.Action.Animation,,,Animation,Animation,,Animation,Animación,Animation,,Animazione,アニメーション,애니메이션,,Animação,Анимация,,,Hiệu Ứng Động,动画,动画,動畫
 Studio.Common.Action.AvatarUnification,,,Avatar Unification,Avatar Unification,,Avatarvereinigung,Unificación de avatar,Unification de l'Avatar,,Unificazione Avatar,アバターの統一,아바타 통합,,Unificação de avatar,,,,Hợp Nhất Avatar,虚拟形象统一,虚拟形象统一,虛擬人偶統一
-Studio.Common.Action.PublishToRobloxAs,,,Publish to Roblox As...,Publish to Roblox As...,,Auf Roblox veröffentlichen als ...,Publicar en Roblox como...,Publier sur Roblox comme...,,Pubblicare su Roblox come...,名前をつけてRobloxに公開...,다른 이름으로 Roblox에 게시...,,Publicar na Roblox como...,,,,Đăng tải lên Roblox Dưới Dạng...,发布至 Roblox 为...,发布至 Roblox 为...,發佈至 Roblox 為……
+Studio.Common.Action.PublishToRobloxAs,,,Publish to Roblox As...,Publish to Roblox As...,,Auf Roblox veröffentlichen als ...,Publicar en Roblox como...,Publier sur Roblox comme...,,Pubblicare su Roblox come...,名前をつけてRobloxに公開...,다른 이름으로 Roblox에 게시...,,Publicar na Roblox como...,,,,Đăng lên Roblox Dưới Dạng...,发布至 Roblox 为...,发布至 Roblox 为...,發佈至 Roblox 為……
 Studio.Common.Action.SaveToRobloxAs,,,Save to Roblox As...,Save to Roblox As...,,Auf Roblox speichern als ...,Guardar en Roblox como...,Sauvegarder sur Roblox...,,Salva su Roblox come...,名前をつけてRobloxに保存...,다른 이름으로 Roblox에 저장...,,Salvar na Roblox como...,,,,Lưu vào Roblox Dưới Dạng...,保存至 Roblox 为...,保存至 Roblox 为...,儲存至 Roblox 為……
 Studio.Common.Action.Preview,,,Setup,Setup,,Einstellungen,Configurar,Configuration,,,設定,설정,,Configuração,,,,Cài Đặt,设置,设置,預覽
 Studio.Common.Action.PauseCurrent,,,Pause Current,Pause Current,,Aktuelle pausieren,Pausar actual,Pause actuelle,,,現在の一時停止,현재 항목 일시 중지,,Pausar atual,,,,Tạm Dừng Workspace Hiện Tại,暂停当前操作,暂停当前操作,

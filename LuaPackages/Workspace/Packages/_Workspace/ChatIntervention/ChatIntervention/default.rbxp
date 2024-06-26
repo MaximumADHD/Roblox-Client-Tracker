@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "ChatIntervention",
+    "tree": {
+      "$path": "../../../../../../../modules/trust-and-safety/chat-intervention/src"
+    }
+  }
+}

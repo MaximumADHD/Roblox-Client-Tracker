@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "UserBlockingRodux",
+    "tree": {
+      "$path": "../../../../../../../modules/social/rodux/user-blocking-rodux/src"
+    }
+  }
+}

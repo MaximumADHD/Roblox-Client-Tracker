@@ -31,7 +31,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Function Instance:GetActor() -> Actor {🧬Safe}
 	Function Instance:GetAttribute(attribute: string) -> any {🧬Safe}
 	Function Instance:GetAttributeChangedSignal(attribute: string) -> RBXScriptSignal
-	Function Instance:GetAttributes() -> { [string]: any } {🧬Safe}
+	Function Instance:GetAttributes() -> { [string]: any } [CustomLuaState] {🧬Safe}
 	Function Instance:GetChildren() -> { Instance } {🧬Safe}
 	Function Instance:GetDebugId(scopeLength: number? = 4) -> string {PluginSecurity} [NotBrowsable]
 	Function Instance:GetDescendants() -> { any } [CustomLuaState] {🧬Safe}
@@ -1978,6 +1978,7 @@ Class GeometryService : Instance [NotCreatable] [Service]
 	Function GeometryService:UnionAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } [Yields]
 Class GetTextBoundsParams : Instance [NotReplicated]
 	Property GetTextBoundsParams.Font: Font
+	Property GetTextBoundsParams.RichText: boolean
 	Property GetTextBoundsParams.Size: number
 	Property GetTextBoundsParams.Text: string
 	Property GetTextBoundsParams.Width: number
@@ -2983,7 +2984,7 @@ Class Lighting : Instance [NotCreatable] [Service]
 	Property Lighting.Outlines: boolean [Deprecated]
 	Property Lighting.ShadowColor: Color3 [📁 LoadOnly] [NotReplicated] [Deprecated]
 	Property Lighting.ShadowSoftness: number
-	Property Lighting.Technology: Enum.Technology [NotScriptable]
+	Property Lighting.Technology: Enum.Technology {RobloxScriptSecurity}
 	Property Lighting.TempUseNewSkyRemovalBehaviour: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Lighting.ClockTime: number [📁 LoadOnly] [NotReplicated]
 	Property Lighting.GeographicLatitude: number
@@ -3565,6 +3566,9 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property BasePart.ExtentsCFrame: CFrame [ReadOnly]
 	Property BasePart.ExtentsSize: Vector3 [ReadOnly]
 	Property BasePart.Orientation: Vector3 [Hidden] [NotReplicated]
+	Property BasePart.PhysicsCFrame: CFrame {RobloxSecurity} [Hidden] [NotScriptable]
+	Property BasePart.PhysicsLinearVelocity: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
+	Property BasePart.PhysicsRotationalVelocity: Vector3 {RobloxSecurity} [Hidden] [NotScriptable]
 	Property BasePart.Position: Vector3 [Hidden] [NotReplicated]
 	Property BasePart.Size: Vector3 [📁 LoadOnly] [NotReplicated]
 	Property BasePart.siz: Vector3 [📁 LoadOnly] [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
@@ -4491,7 +4495,6 @@ Class ColorCorrectionEffect : PostEffect
 	Property ColorCorrectionEffect.Contrast: number
 	Property ColorCorrectionEffect.Saturation: number
 	Property ColorCorrectionEffect.TintColor: Color3
-	Property ColorCorrectionEffect.TonemapperPreset: Enum.TonemapperPreset [NotScriptable]
 Class DepthOfFieldEffect : PostEffect
 	Property DepthOfFieldEffect.FarIntensity: number
 	Property DepthOfFieldEffect.FocusDistance: number
@@ -6010,7 +6013,7 @@ Class UITextSizeConstraint : UIConstraint
 	Property UITextSizeConstraint.MinTextSize: number
 Class UICorner : UIComponent
 	Property UICorner.CornerRadius: UDim
-Class UIDragDetector : UIComponent
+Class UIDragDetector : UIComponent [NotBrowsable]
 	Property UIDragDetector.BoundingUI: GuiBase2d?
 	Property UIDragDetector.DragRelativity: Enum.UIDragDetectorDragRelativity
 	Property UIDragDetector.DragSpace: Enum.UIDragDetectorDragSpace
@@ -6025,6 +6028,8 @@ Class UIDragDetector : UIComponent
 	Property UIDragDetector.MinDragTranslation: UDim2
 	Property UIDragDetector.DragRotation: number
 	Property UIDragDetector.DragUDim2: UDim2
+	Property UIDragDetector.ActivatedCursorIcon: string
+	Property UIDragDetector.CursorIcon: string
 	Function UIDragDetector:AddConstraintFunction(priority: number, function: (...any) -> ...any) -> RBXScriptConnection
 	Function UIDragDetector:GetReferencePosition() -> UDim2
 	Function UIDragDetector:GetReferenceRotation() -> number
@@ -6104,6 +6109,7 @@ Class UIStroke : UIComponent
 	Property UIStroke.Thickness: number
 	Property UIStroke.Transparency: number
 	Property UIStroke.Enabled: boolean
+Class UIDragDetectorService : Instance [NotCreatable] [Service] [NotReplicated]
 Class UnvalidatedAssetService : Instance [NotCreatable] [Service]
 	Property UnvalidatedAssetService.CachedData: string {RobloxSecurity} [Hidden] [NotScriptable]
 	Function UnvalidatedAssetService:AppendTempAssetId(userId: number, id: number, lookAt: Vector3, camPos: Vector3, usage: string) -> () {RobloxScriptSecurity}
@@ -6421,6 +6427,7 @@ Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class VisualizationMode : Instance
 	Property VisualizationMode.Enabled: boolean {RobloxScriptSecurity}
 	Property VisualizationMode.Title: string {RobloxScriptSecurity}
+	Property VisualizationMode.ToolTip: string {RobloxScriptSecurity}
 Class VisualizationModeCategory : Instance
 	Property VisualizationModeCategory.Enabled: boolean {RobloxScriptSecurity}
 	Property VisualizationModeCategory.Title: string {RobloxScriptSecurity}
@@ -6469,6 +6476,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property VoiceChatService.VoiceChatEnabledForPlaceOnRcc: boolean {RobloxScriptSecurity} [Hidden]
 	Property VoiceChatService.VoiceChatEnabledForUniverseOnRcc: boolean {RobloxScriptSecurity} [Hidden]
 	Function VoiceChatService:IsVoiceEnabledForUserIdAsync(userId: number) -> boolean [Yields]
+	Function VoiceChatService:joinVoice() -> () {RobloxScriptSecurity}
 	Event VoiceChatService.ClientRetryJoin() {RobloxSecurity} [Hidden]
 	Event VoiceChatService.ClientRetryJoinWithConfig(sessionConfigFlags: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.JoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {RobloxSecurity} [Hidden]
@@ -9150,9 +9158,6 @@ Enum TickCountSampleMethod
 	EnumItem TickCountSampleMethod.Fast : 0
 	EnumItem TickCountSampleMethod.Benchmark : 1
 	EnumItem TickCountSampleMethod.Precise : 2
-Enum TonemapperPreset
-	EnumItem TonemapperPreset.Default : 0
-	EnumItem TonemapperPreset.Retro : 1
 Enum TopBottom
 	EnumItem TopBottom.Top : 0
 	EnumItem TopBottom.Center : 1

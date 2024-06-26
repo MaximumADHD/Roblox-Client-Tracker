@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "GameModels",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/game-models/src"
+    }
+  }
+}

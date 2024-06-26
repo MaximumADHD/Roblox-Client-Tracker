@@ -958,6 +958,41 @@
             "OnboardingHighlight": {
                 "Default": "#4785FF"
             }
+        },
+        {
+            "RdlSemanticColorContentStandard": {
+                "Default": "#F9F9F9"
+            }
+        },
+        {
+            "RdlSemanticColorContentMuted": {
+                "Default": "#BBBCBE"
+            }
+        },
+        {
+            "RdlSemanticColorContentDisabled": {
+                "Default": "#696A6D"
+            }
+        },
+        {
+            "RdlSemanticColorStatesHoverOverForegroundContrast": {
+                "Default": "#454647"
+            }
+        },
+        {
+            "RdlSemanticColorStatesHoverOverForegroundMain": {
+                "Default": "#38393A"
+            }
+        },
+        {
+            "RdlSemanticColorStatesPressOverForegroundContrast": {
+                "Default": "#505153"
+            }
+        },
+        {
+            "RdlSemanticColorStatesPressOverForegroundMain": {
+                "Default": "#434446"
+            }
         }
     ],
     "Paths": [

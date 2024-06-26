@@ -28,3 +28,5 @@ Studio.App.PlaceManager.FailedToAutoSave,,Failed to AutoSave,Failed to AutoSave
 Studio.App.PlaceManager.FailedToAutoSaveTemporarilyDisable,,Failed to AutoSave.  Do you want to temporarily disable AutoSave?,Failed to AutoSave.  Do you want to temporarily disable AutoSave?
 Studio.App.PlaceManager.FailedToClosePlaceDueToAutoSave,,Failed to close the place because we are auto-saving. Please wait for it to complete and then retry.,Failed to close the place because we are auto-saving. Please wait for it to complete and then retry.
 Studio.App.PlaceManager.OpenRobloxFile,,Open Roblox File,Open Roblox File
+Studio.App.PlaceManager.PlaySoloError,,Error loading PlaySolo. Please try again later.,Error loading PlaySolo. Please try again later.
+Studio.App.PlaceManager.GameJoin403FailureMessage,,Bad authentication for joining a team create place. We will log out and please try again after logging in.,Bad authentication for joining a team create place. We will log out and please try again after logging in.
