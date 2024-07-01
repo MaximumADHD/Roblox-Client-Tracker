@@ -3,7 +3,7 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["Expect-3.8.0"]["Expect"])
+local Package = require(PackageIndex["Expect-31ab8d40-3.8.0"]["Expect"])
 
 export type Expect = Package.Expect
 export type ExpectObj = Package.ExpectObj

@@ -12,10 +12,13 @@ local ImagesTypes = require(App.ImageSet.ImagesTypes)
 
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local useCursor = require(UIBlox.App.SelectionCursor.useCursor)
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 type TextFieldProps = {
 	-- Input text value
 	text: string,
+	-- Input type. Note: Only available on CoreGui.
+	textInputType: Enum.TextInputType?,
 	-- Whether the input is in an error state
 	error: boolean?,
 	-- Whether the input is disabled
@@ -70,6 +73,18 @@ local function TextField(props: TextFieldProps)
 	local iconCursor = useCursor(UDim.new(0.5), iconSize / 2, selectionBorderThickness)
 
 	local width = if props.width ~= nil then props.width else defaultProps.width
+
+	local function canUseTextInputType(): boolean
+		if not UIBloxConfig.enableTextFieldInputType then
+			return false
+		end
+		local success, value = pcall(function()
+			local CoreGui = game:GetService("CoreGui")
+			local _ = CoreGui.Name
+			return CoreGui
+		end)
+		return success and value ~= nil
+	end
 
 	local function getTextBoxWidthOffset(): number
 		local offset = 0
@@ -207,6 +222,7 @@ local function TextField(props: TextFieldProps)
 					TextBox = React.createElement("TextBox", {
 						ref = textBox,
 						Text = props.text,
+						TextInputType = canUseTextInputType() and props.textInputType or nil,
 						ClearTextOnFocus = false,
 						Size = UDim2.new(1, getTextBoxWidthOffset(), 1, 0),
 						TextEditable = not props.disabled,

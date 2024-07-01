@@ -9,5 +9,6 @@ return enumerate("ButtonType", {
 	"Alert",
 	"PrimaryContextual",
 	"PrimarySystem",
+	"PrimarySystemCircular",
 	"Secondary",
 })

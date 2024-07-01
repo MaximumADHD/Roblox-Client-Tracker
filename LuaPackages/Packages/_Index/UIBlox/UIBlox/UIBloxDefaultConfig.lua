@@ -79,12 +79,13 @@ return {
 
 	-- Use design tokens to set alert title's header font size
 	alertTitleDesignTokenHeader = false,
-	-- Strips RichText tags from string before calculating size of text
-	ignoreRichTextTagsForTextSizeCalculation = false,
 
 	-- Indicate whether the fix for the unexpected TooltipV2 Re-Render issue is enabled
 	enableTooltipV2HoverControllerReRenderFix = false,
 
 	-- Indicate whether the fix for the the TooltipV2 body font is enabled
 	enableTooltipV2BodyFontFix = false,
+
+	-- Allow the user to specify the input type for TextField
+	enableTextFieldInputType = false,
 }

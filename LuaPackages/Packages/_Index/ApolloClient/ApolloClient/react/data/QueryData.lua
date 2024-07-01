@@ -298,8 +298,7 @@ function QueryData:getExecuteSsrResult(): any
 		data = nil,
 		stale = false,
 		client = self.client,
-		self:observableQueryFields(),
-	}) :: QueryResult<any, any>
+	}, self:observableQueryFields()) :: QueryResult<any, any>
 
 	-- // If SSR has been explicitly disabled, and this function has been called
 	-- // on the server side, return the default loading state.

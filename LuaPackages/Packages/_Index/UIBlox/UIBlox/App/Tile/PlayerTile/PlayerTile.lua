@@ -59,6 +59,8 @@ PlayerTile.validateProps = t.strictInterface({
 	}),
 	-- The size of the tile
 	tileSize = t.optional(t.UDim2),
+	-- Whether the thumbnails and buttons should be circular
+	isCircular = t.optional(t.boolean),
 	-- A function that fires when the tile is pressed
 	onActivated = t.optional(t.callback),
 	forwardedRef = t.optional(t.table),
@@ -70,6 +72,7 @@ PlayerTile.defaultProps = {
 	tileSize = UDim2.new(0, 150, 0, 150),
 	onActivated = function() end,
 	Selectable = false,
+	isCircular = false,
 }
 
 local ANIMATION_SPRING_SETTINGS = {
@@ -125,27 +128,28 @@ local function thumbnailOverlayComponents(props)
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
-			ButtonBackgroundGradient = not Cryo.isEmpty(props.buttons) and Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, buttonHeight + outerButtonPadding * 2),
-				AnchorPoint = Vector2.new(0, 1),
-				Position = UDim2.new(0, 0, 1, 0),
-				LayoutOrder = 1,
-			}, {
-				UIGradient = Roact.createElement("UIGradient", {
-					Rotation = 90,
-					Color = ColorSequence.new({
-						ColorSequenceKeypoint.new(0, style.Theme.BackgroundUIContrast.Color),
-						ColorSequenceKeypoint.new(1, style.Theme.BackgroundUIContrast.Color),
+			ButtonBackgroundGradient = (not props.isCircular and not Cryo.isEmpty(props.buttons))
+				and Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, buttonHeight + outerButtonPadding * 2),
+					AnchorPoint = Vector2.new(0, 1),
+					Position = UDim2.new(0, 0, 1, 0),
+					LayoutOrder = 1,
+				}, {
+					UIGradient = Roact.createElement("UIGradient", {
+						Rotation = 90,
+						Color = ColorSequence.new({
+							ColorSequenceKeypoint.new(0, style.Theme.BackgroundUIContrast.Color),
+							ColorSequenceKeypoint.new(1, style.Theme.BackgroundUIContrast.Color),
+						}),
+						Transparency = NumberSequence.new({
+							NumberSequenceKeypoint.new(0, 1),
+							NumberSequenceKeypoint.new(1, style.Theme.BackgroundUIContrast.Transparency),
+						}),
 					}),
-					Transparency = NumberSequence.new({
-						NumberSequenceKeypoint.new(0, 1),
-						NumberSequenceKeypoint.new(1, style.Theme.BackgroundUIContrast.Transparency),
+					UICorner = Roact.createElement("UICorner", {
+						CornerRadius = UDim.new(0, 8),
 					}),
 				}),
-				UICorner = Roact.createElement("UICorner", {
-					CornerRadius = UDim.new(0, 8),
-				}),
-			}),
 			HoverTransparency = Roact.createElement(SpringAnimatedItem.AnimatedImageLabel, {
 				springOptions = ANIMATION_SPRING_SETTINGS,
 				animatedValues = {
@@ -170,7 +174,7 @@ local function thumbnailOverlayComponents(props)
 				},
 			}, {
 				corner = Roact.createElement("UICorner", {
-					CornerRadius = UDim.new(0, 8),
+					CornerRadius = if props.isCircular then UDim.new(0.5, 0) else UDim.new(0, 8),
 				}),
 			}),
 			ButtonContainer = Roact.createElement("Frame", {
@@ -200,6 +204,7 @@ local function thumbnailOverlayComponents(props)
 								onActivated = button.onActivated,
 								mouseEnter = props.hoverMouseEnter,
 								mouseLeave = props.hoverMouseLeave,
+								isCircular = props.isCircular,
 							})
 						end),
 						{
@@ -297,6 +302,7 @@ function PlayerTile:render()
 					mouseEntered = self.state.mouseEntered,
 				})),
 				addSubtitleSpace = title == nil,
+				isCircular = self.props.isCircular,
 			}),
 		})
 	end)

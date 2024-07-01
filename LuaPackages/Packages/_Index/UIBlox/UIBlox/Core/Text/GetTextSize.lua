@@ -28,7 +28,7 @@ local function getTextSize(
 	ignoreRichTextTags: boolean?
 )
 	if UIBloxConfig.useGetTextBoundsAsync then
-		if UIBloxConfig.ignoreRichTextTagsForTextSizeCalculation and ignoreRichTextTags then
+		if ignoreRichTextTags then
 			string = CleanRichTextTags(string)
 		end
 
@@ -50,7 +50,7 @@ local function getTextSize(
 			return frameSize
 		end
 	else
-		if UIBloxConfig.ignoreRichTextTagsForTextSizeCalculation and ignoreRichTextTags then
+		if ignoreRichTextTags then
 			string = CleanRichTextTags(string)
 		end
 

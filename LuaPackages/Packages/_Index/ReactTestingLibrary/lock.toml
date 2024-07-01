@@ -7,8 +7,8 @@ dependencies = [
     "JestGlobals JestGlobals 3.8.0 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",
     "Promise <patched> Promise 8c520dea git+https://github.com/roblox/promise-upgrade#v0.1.0",
-    "React React 17.0.1 registry",
-    "ReactRoblox ReactRoblox 17.0.1 registry",
-    "Scheduler Scheduler 17.0.1 registry",
-    "Shared Shared 17.0.1 registry",
+    "React React 17.0.4 registry",
+    "ReactRoblox ReactRoblox 17.0.4 registry",
+    "Scheduler Scheduler 17.0.4 registry",
+    "Shared Shared 17.0.4 registry",
 ]

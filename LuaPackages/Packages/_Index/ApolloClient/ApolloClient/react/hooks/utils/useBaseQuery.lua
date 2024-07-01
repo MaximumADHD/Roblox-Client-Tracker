@@ -60,7 +60,7 @@ local function useBaseQuery<TData, TVariables>(
 	end, 0)
 	local updatedOptions = Boolean.toJSBoolean(options) and Object.assign({}, options, { query = query })
 		or { query = query }
-	local queryDataRef = useRef((nil :: any) :: QueryData<TData, TVariables>)
+	local queryDataRef = useRef((nil :: any) :: QueryData<TData, TVariables>?)
 	local queryData: QueryData<TData, TVariables>
 	queryData = queryDataRef.current
 		or (function(): QueryData<TData, TVariables>

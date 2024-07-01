@@ -39,6 +39,9 @@ export type Dispatcher = Package.Dispatcher
 export type React_Ref<ElementType> = Package.React_Ref<ElementType> 
 export type React_Context<T> = Package.React_Context<T> 
 export type React_AbstractComponent<Config, Instance> = Package.React_AbstractComponent<Config, Instance> 
+export type React_ForwardRefComponent<Config, Instance> =
+Package.React_ForwardRefComponent<Config, Instance> 
+export type React_MemoComponent<Config, T> = Package.React_MemoComponent<Config, T> 
 export type React_ComponentType<Config> = Package.React_ComponentType<Config> 
 export type React_PureComponent<Props, State = nil> = Package.React_PureComponent<Props, State > 
 export type React_Component<Props, State> = Package.React_Component<Props, State> 

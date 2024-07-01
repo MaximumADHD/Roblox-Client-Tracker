@@ -40,6 +40,10 @@ local BUTTON_STATE_COLOR = {
 		[ControlState.Default] = "SystemPrimaryDefault",
 		[ControlState.Hover] = "SystemPrimaryOnHover",
 	},
+	[ButtonType.PrimarySystemCircular] = {
+		[ControlState.Default] = "SystemPrimaryDefault",
+		[ControlState.Hover] = "SystemPrimaryOnHover",
+	},
 	[ButtonType.Secondary] = {
 		[ControlState.Default] = "SecondaryDefault",
 		[ControlState.Hover] = "SecondaryOnHover",
@@ -56,6 +60,9 @@ local CONTENT_STATE_COLOR = {
 	[ButtonType.PrimarySystem] = {
 		[ControlState.Default] = "SystemPrimaryContent",
 	},
+	[ButtonType.PrimarySystemCircular] = {
+		[ControlState.Default] = "SystemPrimaryContent",
+	},
 	[ButtonType.Secondary] = {
 		[ControlState.Default] = "SecondaryContent",
 		[ControlState.Hover] = "SecondaryOnHover",
@@ -66,18 +73,21 @@ local IMAGE = {
 	[ButtonType.Alert] = Images["component_assets/circle_17_stroke_1"],
 	[ButtonType.PrimaryContextual] = Images["component_assets/circle_17"],
 	[ButtonType.PrimarySystem] = Images["component_assets/circle_17"],
+	[ButtonType.PrimarySystemCircular] = Images["component_assets/circle_36"],
 	[ButtonType.Secondary] = Images["component_assets/circle_17_stroke_1"],
 }
 
 local DELAYED_INPUT_IMAGE = {
 	[ButtonType.PrimaryContextual] = Images["component_assets/bulletRight_17"],
 	[ButtonType.PrimarySystem] = Images["component_assets/bulletRight_17"],
+	[ButtonType.PrimarySystemCircular] = Images["component_assets/bulletRight_17"],
 }
 
 local IS_HOVER_BACKGROUND_ENABLED = {
 	[ButtonType.Alert] = false,
 	[ButtonType.PrimaryContextual] = true,
 	[ButtonType.PrimarySystem] = false,
+	[ButtonType.PrimarySystemCircular] = false,
 	[ButtonType.Secondary] = false,
 }
 

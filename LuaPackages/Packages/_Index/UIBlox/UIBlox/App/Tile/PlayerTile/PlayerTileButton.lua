@@ -26,11 +26,13 @@ PlayerTileButton.validateProps = t.strictInterface({
 	tileSize = t.optional(t.UDim2),
 	mouseEnter = t.optional(t.callback),
 	mouseLeave = t.optional(t.callback),
+	isCircular = t.optional(t.boolean),
 })
 
 PlayerTileButton.defaultProps = {
 	isSecondary = false,
 	isDisabled = false,
+	isCircular = false,
 	buttonHeight = 36,
 	outerButtonPadding = 10,
 	tileSize = UDim2.new(0, 150, 0, 150),
@@ -44,11 +46,15 @@ function PlayerTileButton:render()
 	local buttonHeight = self.props.buttonHeight
 	local outerButtonPadding = self.props.outerButtonPadding
 	local tileSize = self.props.tileSize
+	local isCircular = self.props.isCircular
 
 	local maxButtonSize = tileSize.X.Offset / 2 - (outerButtonPadding * 1.5)
-	local buttonSize = UDim2.new(0, maxButtonSize, 0, buttonHeight)
+	local buttonSize = if isCircular
+		then UDim2.new(0, buttonHeight, 0, buttonHeight)
+		else UDim2.new(0, maxButtonSize, 0, buttonHeight)
 
-	local buttonType = isSecondary and ButtonType.Secondary or ButtonType.PrimarySystem
+	local buttonType = isSecondary and ButtonType.Secondary
+		or (if isCircular then ButtonType.PrimarySystemCircular else ButtonType.PrimarySystem)
 
 	return Roact.createElement(Button, {
 		buttonType = buttonType,

@@ -28,6 +28,9 @@ export type ReactChild = Package.ReactChild
 export type FC<P> = Package.FC<P> 
 export type ReactNode = Package.ReactNode
 export type React_AbstractComponent<Props, Instance> = Package.React_AbstractComponent<Props, Instance> 
+export type React_FowardRefComponent<Props, Instance> =
+Package.React_FowardRefComponent<Props, Instance> 
+export type React_MemoComponent<Config, T> = Package.React_MemoComponent<Config, T> 
 export type React_Component<Props, State> = Package.React_Component<Props, State> 
 export type React_ComponentType<P> = Package.React_ComponentType<P> 
 export type React_Context<T> = Package.React_Context<T> 

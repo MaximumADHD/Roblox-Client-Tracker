@@ -149,6 +149,9 @@ local tileInterface = t.strictInterface({
 
 	-- Optional selection cursor
 	cursor = t.optional(t.any),
+
+	-- Whether the tile should be circular
+	isCircular = t.optional(t.boolean),
 })
 
 local function tileBannerUseValidator(props)
@@ -172,6 +175,7 @@ Tile.defaultProps = {
 	isDisabled = false,
 	hasRoundedCorners = true,
 	Selectable = false,
+	isCircular = false,
 }
 
 function Tile:init()
@@ -336,7 +340,10 @@ function Tile:render()
 					Image = React.createElement(TileThumbnail, {
 						Image = thumbnail,
 						hasRoundedCorners = hasRoundedCorners,
-						cornerRadius = if UIBloxConfig.useNewSelectionCursor then THUMBNAIL_CORNER_RADIUS else nil,
+						cornerRadius = if self.props.isCircular
+							then UDim.new(0.5, 0)
+							elseif UIBloxConfig.useNewSelectionCursor then THUMBNAIL_CORNER_RADIUS
+							else nil,
 						isSelected = isSelected,
 						multiSelect = multiSelect,
 						overlayComponents = thumbnailOverlayComponents,

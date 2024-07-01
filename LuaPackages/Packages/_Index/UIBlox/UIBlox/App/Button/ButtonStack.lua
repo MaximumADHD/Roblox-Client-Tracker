@@ -13,7 +13,6 @@ local Button = require(ButtonRoot.Button)
 local ButtonType = require(ButtonRoot.Enum.ButtonType)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local withStyle = require(UIBlox.Core.Style.withStyle)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local FitFrame = require(Packages.FitFrame)
 local FitFrameOnAxis = FitFrame.FitFrameOnAxis
@@ -105,10 +104,7 @@ function ButtonStack:render()
 					textSize,
 					font.Body.Font,
 					Vector2.new(self.state.frameWidth, self.props.buttonHeight),
-					if UIBloxConfig.ignoreRichTextTagsForTextSizeCalculation
-							and button.props.buttonTextOverride
-						then button.props.buttonTextOverride.RichText
-						else false
+					if button.props.buttonTextOverride then button.props.buttonTextOverride.RichText else false
 				)
 				if buttonTextWidth.X > (nonStackedButtonWidth - (2 * self.props.minHorizontalButtonPadding)) then
 					isButtonStacked = true

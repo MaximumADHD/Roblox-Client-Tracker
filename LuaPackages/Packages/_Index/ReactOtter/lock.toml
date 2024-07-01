@@ -4,5 +4,5 @@ version = "1.1.0"
 source = "registry"
 dependencies = [
     "Otter Otter 1.1.0 registry",
-    "React React 17.0.1 registry",
+    "React React 17.0.4 registry",
 ]

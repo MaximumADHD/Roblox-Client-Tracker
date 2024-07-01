@@ -92,6 +92,20 @@ local function NavigationRail(providedProps: Props)
 			end
 		end
 		local hasSecondaryNavigation = (#renderSecondaryItems > 0)
+		local uiPadding = React.createElement("UIPadding", {
+			PaddingTop = if props.paddings and props.paddings.Top
+				then UDim.new(0, props.paddings.Top)
+				else UDim.new(0, style.Tokens.Global.Space_75),
+			PaddingBottom = if props.paddings and props.paddings.Bottom
+				then UDim.new(0, props.paddings.Bottom)
+				else UDim.new(0, style.Tokens.Global.Space_75),
+			PaddingLeft = if props.paddings and props.paddings.Left
+				then UDim.new(0, props.paddings.Left)
+				else UDim.new(0, style.Tokens.Global.Space_75),
+			PaddingRight = if props.paddings and props.paddings.Right
+				then UDim.new(0, props.paddings.Right)
+				else UDim.new(0, style.Tokens.Global.Space_75),
+		})
 
 		return React.createElement("Frame", {
 			BackgroundColor3 = if props.rootBackgroundColor
@@ -134,20 +148,7 @@ local function NavigationRail(providedProps: Props)
 						VerticalAlignment = verticalAlignment,
 						Padding = UDim.new(0, style.Tokens.Global.Space_200),
 					}),
-					UIPadding = React.createElement("UIPadding", {
-						PaddingTop = if props.paddings and props.paddings.Top
-							then UDim.new(0, props.paddings.Top)
-							else UDim.new(0, style.Tokens.Global.Space_75),
-						PaddingBottom = if props.paddings and props.paddings.Bottom
-							then UDim.new(0, props.paddings.Bottom)
-							else UDim.new(0, style.Tokens.Global.Space_75),
-						PaddingLeft = if props.paddings and props.paddings.Left
-							then UDim.new(0, props.paddings.Left)
-							else UDim.new(0, style.Tokens.Global.Space_75),
-						PaddingRight = if props.paddings and props.paddings.Right
-							then UDim.new(0, props.paddings.Right)
-							else UDim.new(0, style.Tokens.Global.Space_75),
-					}),
+					UIPadding = uiPadding,
 					PrimaryItems = React.createElement("Frame", {
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, 0, 0, 0),
@@ -191,6 +192,7 @@ local function NavigationRail(providedProps: Props)
 								VerticalAlignment = Enum.VerticalAlignment.Bottom,
 								HorizontalAlignment = Enum.HorizontalAlignment.Center,
 							}),
+							UIPadding = uiPadding,
 						}, renderSecondaryItems),
 					})
 					else nil,
