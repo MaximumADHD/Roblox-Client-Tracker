@@ -1,6 +1,6 @@
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 4 0
+  NEWTABLE R0 8 0
   DUPTABLE R1 K3 [{"Cancel", "Pause", "Resume"}]
   LOADK R2 K0 ["Cancel"]
   SETTABLEKS R2 R1 K0 ["Cancel"]
@@ -45,4 +45,10 @@ MAIN:
   LOADK R5 K23 ["Stamp"]
   SETTABLEKS R5 R4 K23 ["Stamp"]
   SETTABLEKS R4 R0 K25 ["TransformMode"]
+  DUPTABLE R5 K28 [{"Colormap", "Heightmap"}]
+  LOADK R6 K26 ["Colormap"]
+  SETTABLEKS R6 R5 K26 ["Colormap"]
+  LOADK R6 K27 ["Heightmap"]
+  SETTABLEKS R6 R5 K27 ["Heightmap"]
+  SETTABLEKS R5 R0 K29 ["ImageType"]
   RETURN R0 1

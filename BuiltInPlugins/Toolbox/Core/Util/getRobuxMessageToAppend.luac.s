@@ -1,21 +1,38 @@
 PROTO_0:
-  GETUPVAL R3 0
-  CALL R3 0 -1
+  GETUPVAL R4 0
+  CALL R4 0 -1
   FASTCALL ASSERT [+2]
-  GETIMPORT R2 K1 [assert]
-  CALL R2 -1 0
-  LOADN R2 0
-  JUMPIFNOTLT R2 R0 [+9]
-  LOADK R3 K2 ["
+  GETIMPORT R3 K1 [assert]
+  CALL R3 -1 0
+  LOADN R3 0
+  JUMPIFNOTLT R3 R0 [+28]
+  GETUPVAL R3 1
+  CALL R3 0 1
+  JUMPIFNOT R3 [+16]
+  JUMPIFNOT R2 [+15]
+  LOADK R5 K2 ["AssetConfig"]
+  LOADK R6 K3 ["SomethingWentWrongMsgWithDashboardLink"]
+  DUPTABLE R7 K5 [{"creatorDashboardLink"}]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K6 ["CREATOR_DASHBOARD_LINK_PLACEHOLDER"]
+  SETTABLEKS R8 R7 K4 ["creatorDashboardLink"]
+  NAMECALL R3 R1 K7 ["getText"]
+  CALL R3 4 1
+  LOADK R5 K8 ["
 "]
-  LOADK R6 K3 ["AssetConfig"]
-  LOADK R7 K4 ["CreateBundleNoRobuxDeducted"]
-  NAMECALL R4 R1 K5 ["getText"]
-  CALL R4 3 1
-  CONCAT R2 R3 R4
-  RETURN R2 1
-  LOADK R2 K6 [""]
-  RETURN R2 1
+  MOVE R6 R3
+  CONCAT R4 R5 R6
+  RETURN R4 1
+  LOADK R4 K8 ["
+"]
+  LOADK R7 K2 ["AssetConfig"]
+  LOADK R8 K9 ["CreateBundleNoRobuxDeducted"]
+  NAMECALL R5 R1 K7 ["getText"]
+  CALL R5 3 1
+  CONCAT R3 R4 R5
+  RETURN R3 1
+  LOADK R3 K10 [""]
+  RETURN R3 1
 
 MAIN:
   PREPVARARGS 0
@@ -26,9 +43,18 @@ MAIN:
   GETTABLEKS R2 R0 K4 ["Core"]
   GETTABLEKS R1 R2 K5 ["Util"]
   GETIMPORT R2 K7 [require]
-  GETTABLEKS R4 R1 K8 ["SharedFlags"]
-  GETTABLEKS R3 R4 K9 ["getFFlagEnableCreateUGCBundleCreationFeeErrorCodes"]
+  GETTABLEKS R3 R1 K8 ["Constants"]
   CALL R2 1 1
-  DUPCLOSURE R3 K10 [PROTO_0]
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R5 R1 K9 ["SharedFlags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagEnableCreateUGCBundleCreationFeeErrorCodes"]
+  CALL R3 1 1
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R6 R1 K9 ["SharedFlags"]
+  GETTABLEKS R5 R6 K11 ["getFFlagEnableUnknownErrorCreatorDashboardMessage"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
   CAPTURE VAL R2
-  RETURN R3 1
+  RETURN R5 1

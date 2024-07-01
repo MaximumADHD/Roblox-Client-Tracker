@@ -50,6 +50,7 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 	local newCameraCFrame = camera.CFrame
 	local newCameraFocus = camera.Focus
 	local player = PlayersService.LocalPlayer
+	local rotateInput = CameraInput.getRotation(dt)
 
 	if self.lastUpdate == nil or timeDelta > 1 then
 		self.lastDistanceToSubject = nil
@@ -59,7 +60,7 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 	if self.cameraType == Enum.CameraType.Fixed then
 		if subjectPosition and player and camera then
 			local distanceToSubject = self:GetCameraToSubjectDistance()
-			local newLookVector = self:CalculateNewLookVectorFromArg(nil, CameraInput.getRotation())
+			local newLookVector = self:CalculateNewLookVectorFromArg(nil, rotateInput)
 
 			newCameraFocus = camera.Focus -- Fixed camera does not change focus
 			newCameraCFrame = CFrame.new(camera.CFrame.p, camera.CFrame.p + (distanceToSubject * newLookVector))
@@ -70,7 +71,7 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 		local cameraPitch = camera.CFrame:ToEulerAnglesYXZ()
 		local _, subjectYaw = subjectCFrame:ToEulerAnglesYXZ()
 
-		cameraPitch = math.clamp(cameraPitch - CameraInput.getRotation().Y, -PITCH_LIMIT, PITCH_LIMIT)
+		cameraPitch = math.clamp(cameraPitch - rotateInput.Y, -PITCH_LIMIT, PITCH_LIMIT)
 
 		newCameraFocus = CFrame.new(subjectCFrame.p)*CFrame.fromEulerAnglesYXZ(cameraPitch, subjectYaw, 0)
 		newCameraCFrame = newCameraFocus*CFrame.new(0, 0, self:StepZoom())
@@ -97,7 +98,7 @@ function LegacyCamera:Update(dt: number): (CFrame?, CFrame?)
 			end
 
 			local distanceToSubject: number = self:GetCameraToSubjectDistance()
-			local newLookVector: Vector3 = self:CalculateNewLookVectorFromArg(cameraLook, CameraInput.getRotation())
+			local newLookVector: Vector3 = self:CalculateNewLookVectorFromArg(cameraLook, rotateInput)
 
 			newCameraFocus = CFrame.new(subjectPosition)
 			newCameraCFrame = CFrame.new(subjectPosition - (distanceToSubject * newLookVector), subjectPosition)

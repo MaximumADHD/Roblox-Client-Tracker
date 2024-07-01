@@ -5,7 +5,10 @@ local GetFFlagReportAnythingAnnotationIXP =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFStringReportAnythingAnnotationIXPLayerName =
 	require(RobloxGui.Modules.Settings.Flags.GetFStringReportAnythingAnnotationIXPLayerName)
+local GetFStringLuaAppExperienceMenuLayer =
+	require(RobloxGui.Modules.Flags.GetFStringLuaAppExperienceMenuLayer)
 local GetFFlagForceReportAnythingAnnotationEnabled = require(script.Parent.Flags.GetFFlagForceReportAnythingAnnotationEnabled)
+local GetFFlagReportTabShareIXPLayerWithMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagReportTabShareIXPLayerWithMenu
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
@@ -13,6 +16,7 @@ local OPTIONAL_SCREENSHOT_ENABLED = "OptionalScreenshotEnabled"
 local OPTIONAL_SCREENSHOT_AVATAR = "OptionalScreenshotAvatar"
 local OPTIONAL_SCREENSHOT_EXPERIENCE = "OptionalScreenshotExperience"
 local SELECT_IN_SCENE = "SelectInScene"
+local REPORT_TAB_SELECT_IN_SCENE = "ReportTabSelectInScene"
 
 local TrustAndSafetyIXPManager = {}
 TrustAndSafetyIXPManager.__index = TrustAndSafetyIXPManager
@@ -86,6 +90,14 @@ function TrustAndSafetyIXPManager:initialize()
 			self._reportAnythingExperienceEnabled = layerData[OPTIONAL_SCREENSHOT_EXPERIENCE] or false
 			self._reportAnythingAvatarEnabled = layerData[OPTIONAL_SCREENSHOT_AVATAR] or false
 			self._selectInSceneEnabled = layerData[SELECT_IN_SCENE] or false
+		end
+
+		if GetFFlagReportTabShareIXPLayerWithMenu() then
+			local experienceMenuLayerData = self._ixpServiceWrapper:GetLayerData(GetFStringLuaAppExperienceMenuLayer())
+
+			if experienceMenuLayerData then
+				self._selectInSceneEnabled = experienceMenuLayerData[REPORT_TAB_SELECT_IN_SCENE] or self._selectInSceneEnabled
+			end
 		end
 
 		log:debug(

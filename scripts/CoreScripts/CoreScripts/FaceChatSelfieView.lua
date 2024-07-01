@@ -52,6 +52,7 @@ local FFlagSelfViewUpdatedCamFraming = game:DefineFastFlag("SelfViewUpdatedCamFr
 local FFlagSelfViewGetRidOfFalselyRenderedFaceDecal = game:DefineFastFlag("SelfViewGetRidOfFalselyRenderedFaceDecal", false)
 local FFlagSelfViewRemoveVPFWhenClosed = game:DefineFastFlag("SelfViewRemoveVPFWhenClosed", false)
 local FFlagSelfViewTweaksPass = game:DefineFastFlag("SelfViewTweaksPass", false)
+local FFlagInExperienceUpsellSelfViewFix = game:DefineFastFlag("InExperienceUpsellSelfViewFix", false)
 
 local CorePackages = game:GetService("CorePackages")
 local CharacterUtility = require(CorePackages.Thumbnailing).CharacterUtility
@@ -70,6 +71,7 @@ local AppStorageService = game:GetService("AppStorageService")
 local SocialService = game:GetService("SocialService")
 local UserInputService = game:GetService("UserInputService")
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local FaceAnimatorService = game:FindService("FaceAnimatorService")
 local VideoCaptureService = game:FindService("VideoCaptureService")
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -158,6 +160,7 @@ local videoCaptureServiceStartedConnection = nil
 local videoCaptureServiceStoppedConnection = nil
 local videoCaptureServiceDevicesChangedConnection = nil
 local playerScreenOrientationConnection = nil
+local voiceJoinProgressChangedConnection = nil
 
 local cloneAnimator = nil
 local cloneAnimationTracks = {}
@@ -577,6 +580,19 @@ function initVoiceChatServiceManager()
 					end
 					--trigger opening self view here (too) so it shows mic button (, too, if cam also enabled), needed here again to show both buttons on self view showing on place start
 					displaySelfieViewByDefault()
+					if FFlagInExperienceUpsellSelfViewFix then
+						hasMicPermissions = true -- If asyncInit resolves, then we know the user has mic permissions
+						local localMuted = VoiceChatServiceManager.localMuted
+						if localMuted ~= nil then
+							isVoiceConnecting = false
+							updateVoiceIndicatorRenderStepped(localMuted)
+							updateMicIcon(if localMuted
+								then VoiceChatServiceManager.VOICE_STATE.MUTED
+								else VoiceChatServiceManager.VOICE_STATE.INACTIVE,
+							cachedLevel)
+							updateSelfViewButtonVisibility()
+						end
+					end
 				voiceService.StateChanged:Connect(function(_oldState, newState)
 					local voiceManagerState = LOCAL_STATE_MAP[newState]
 					if GetFFlagShowMicConnectingIconAndToast() then
@@ -904,7 +920,7 @@ function clearClone()
 	cloneAnimationTracks = {}
 	-- clear objects
 	clearCloneCharacter()
-end	
+end
 
 function clearViewportFrame()
 	if viewportFrame then
@@ -933,6 +949,11 @@ local function setIsOpen(shouldBeOpen)
 		if playerScreenOrientationConnection then
 			playerScreenOrientationConnection:Disconnect()
 			playerScreenOrientationConnection = nil
+		end
+
+		if voiceJoinProgressChangedConnection then
+			voiceJoinProgressChangedConnection:Disconnect()
+			voiceJoinProgressChangedConnection = nil
 		end
 
 		prepMicAndCamPropertyChangedSignalHandler()
@@ -993,7 +1014,7 @@ function createViewportFrame()
 	viewportFrame.CurrentCamera = viewportCamera
 	viewportCamera.Parent = viewportFrame
 
-	return viewportFrame	
+	return viewportFrame
 end
 
 function getViewportFrame()
@@ -2578,6 +2599,16 @@ local function characterAdded(character)
 	setCloneDirty(true)
 end
 
+function connectToVoiceJoinProgressChanged()
+	if FFlagInExperienceUpsellSelfViewFix and not voiceJoinProgressChangedConnection then
+		voiceJoinProgressChangedConnection = VoiceChatServiceManager.VoiceJoinProgressChanged.Event:Connect(function(state)
+			if state == VoiceConstants.VOICE_JOIN_PROGRESS.Joined then
+				initVoiceChatServiceManager()
+			end
+		end)
+	end
+end
+
 function ReInit(player)
 	debugPrint("Self View: ReInit()")
 	gotUsableClone = false
@@ -2591,6 +2622,7 @@ function ReInit(player)
 	createViewport()
 	playerAdded(player)
 	startRenderStepped(player)
+	connectToVoiceJoinProgressChanged()
 end
 
 local function onCharacterAdded(character)
@@ -3197,6 +3229,8 @@ function Initialize(player)
 			end
 		end
 	end)
+
+	connectToVoiceJoinProgressChanged()
 
 	startRenderStepped(player)
 

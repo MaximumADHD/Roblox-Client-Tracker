@@ -54,57 +54,68 @@ PROTO_6:
   RETURN R0 1
 
 PROTO_7:
-  DUPTABLE R2 K2 [{"enabled", "wrapperRef"}]
+  DUPTABLE R2 K3 [{"enabled", "wrapperRef", "editMappingsVisible"}]
   LOADB R3 0
   SETTABLEKS R3 R2 K0 ["enabled"]
   LOADNIL R3
   SETTABLEKS R3 R2 K1 ["wrapperRef"]
-  SETTABLEKS R2 R0 K3 ["state"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["editMappingsVisible"]
+  SETTABLEKS R2 R0 K4 ["state"]
   NEWCLOSURE R2 P0
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K4 ["toggleEnabled"]
+  SETTABLEKS R2 R0 K5 ["toggleEnabled"]
   NEWCLOSURE R2 P1
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K5 ["onClose"]
+  SETTABLEKS R2 R0 K6 ["onClose"]
   NEWCLOSURE R2 P2
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K6 ["onRestore"]
+  SETTABLEKS R2 R0 K7 ["onRestore"]
   NEWCLOSURE R2 P3
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K7 ["onWidgetEnabledChanged"]
+  SETTABLEKS R2 R0 K8 ["onWidgetEnabledChanged"]
   NEWCLOSURE R2 P4
   CAPTURE VAL R0
-  SETTABLEKS R2 R0 K8 ["onDockWidgetCreated"]
+  SETTABLEKS R2 R0 K9 ["onDockWidgetCreated"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K9 ["Localization"]
-  GETTABLEKS R2 R3 K10 ["new"]
-  DUPTABLE R3 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETTABLEKS R3 R4 K10 ["Localization"]
+  GETTABLEKS R2 R3 K11 ["new"]
+  DUPTABLE R3 K15 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
   GETUPVAL R4 1
-  SETTABLEKS R4 R3 K11 ["stringResourceTable"]
+  SETTABLEKS R4 R3 K12 ["stringResourceTable"]
   GETUPVAL R4 2
-  SETTABLEKS R4 R3 K12 ["translationResourceTable"]
-  LOADK R4 K15 ["ControlsEmulator"]
-  SETTABLEKS R4 R3 K13 ["pluginName"]
+  SETTABLEKS R4 R3 K13 ["translationResourceTable"]
+  LOADK R4 K16 ["ControlsEmulator"]
+  SETTABLEKS R4 R3 K14 ["pluginName"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K16 ["localization"]
+  SETTABLEKS R2 R0 K17 ["localization"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K17 ["Analytics"]
-  GETTABLEKS R2 R3 K10 ["new"]
-  DUPCLOSURE R3 K18 [PROTO_6]
+  GETTABLEKS R3 R4 K18 ["Analytics"]
+  GETTABLEKS R2 R3 K11 ["new"]
+  DUPCLOSURE R3 K19 [PROTO_6]
   NEWTABLE R4 0 0
   CALL R2 2 1
-  SETTABLEKS R2 R0 K19 ["analytics"]
+  SETTABLEKS R2 R0 K20 ["analytics"]
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K10 ["new"]
+  GETTABLEKS R2 R3 K11 ["new"]
   CALL R2 0 1
-  SETTABLEKS R2 R0 K20 ["DEPRECATED_stylizer"]
+  SETTABLEKS R2 R0 K21 ["DEPRECATED_stylizer"]
   GETUPVAL R2 4
-  GETTABLEKS R3 R1 K21 ["Plugin"]
+  GETTABLEKS R3 R1 K22 ["Plugin"]
   CALL R2 1 1
-  SETTABLEKS R2 R0 K22 ["design"]
+  SETTABLEKS R2 R0 K23 ["design"]
   RETURN R0 0
 
 PROTO_8:
+  GETUPVAL R0 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["state"]
+  GETTABLEKS R2 R3 K1 ["enabled"]
+  NAMECALL R0 R0 K2 ["SetGamepadEmulationEnabled"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_9:
   GETTABLEKS R3 R0 K0 ["props"]
   GETTABLEKS R2 R3 K1 ["PluginLoaderContext"]
   GETTABLEKS R1 R2 K2 ["mainButton"]
@@ -112,9 +123,14 @@ PROTO_8:
   GETTABLEKS R3 R4 K4 ["enabled"]
   NAMECALL R1 R1 K5 ["SetActive"]
   CALL R1 2 0
+  GETIMPORT R1 K7 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R1 1 0
   RETURN R0 0
 
-PROTO_9:
+PROTO_10:
   GETUPVAL R1 0
   DUPTABLE R3 K1 [{"wrapperRef"}]
   SETTABLEKS R0 R3 K0 ["wrapperRef"]
@@ -122,7 +138,28 @@ PROTO_9:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_10:
+PROTO_11:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"editMappingsVisible"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["state"]
+  GETTABLEKS R4 R5 K0 ["editMappingsVisible"]
+  NOT R3 R4
+  SETTABLEKS R3 R2 K0 ["editMappingsVisible"]
+  NAMECALL R0 R0 K3 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"editMappingsVisible"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K0 ["editMappingsVisible"]
+  NAMECALL R0 R0 K2 ["setState"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_13:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
@@ -144,97 +181,167 @@ PROTO_10:
   SETLIST R6 R7 4 [1]
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K9 ["createElement"]
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K10 ["Provider"]
-  DUPTABLE R9 K12 [{"value"}]
-  GETTABLEKS R12 R0 K1 ["state"]
-  GETTABLEKS R11 R12 K13 ["wrapperRef"]
-  JUMPIFNOT R11 [+18]
-  DUPTABLE R10 K16 [{"InputChanged", "InputEnded"}]
-  GETTABLEKS R13 R0 K1 ["state"]
-  GETTABLEKS R12 R13 K13 ["wrapperRef"]
-  GETTABLEKS R11 R12 K14 ["InputChanged"]
-  SETTABLEKS R11 R10 K14 ["InputChanged"]
-  GETTABLEKS R13 R0 K1 ["state"]
-  GETTABLEKS R12 R13 K13 ["wrapperRef"]
-  GETTABLEKS R11 R12 K15 ["InputEnded"]
-  SETTABLEKS R11 R10 K15 ["InputEnded"]
-  JUMP [+1]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K11 ["value"]
-  DUPTABLE R10 K18 [{"MainWidget"}]
+  GETUPVAL R8 4
+  NEWTABLE R9 0 0
+  NEWTABLE R10 0 1
   GETUPVAL R12 3
   GETTABLEKS R11 R12 K9 ["createElement"]
-  GETUPVAL R12 5
-  NEWTABLE R13 16 0
-  LOADK R14 K19 ["ControlsEmulator"]
-  SETTABLEKS R14 R13 K20 ["Id"]
-  SETTABLEKS R4 R13 K21 ["Enabled"]
-  GETTABLEKS R14 R0 K7 ["localization"]
-  LOADK R16 K2 ["Plugin"]
-  LOADK R17 K22 ["Name"]
-  NAMECALL R14 R14 K23 ["getText"]
-  CALL R14 3 1
-  SETTABLEKS R14 R13 K24 ["Title"]
-  GETIMPORT R14 K28 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R14 R13 K26 ["ZIndexBehavior"]
-  GETIMPORT R14 K31 [Enum.InitialDockState.Bottom]
-  SETTABLEKS R14 R13 K29 ["InitialDockState"]
-  GETIMPORT R14 K33 [Vector2.new]
-  LOADN R15 128
-  LOADN R16 224
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K34 ["Size"]
-  GETIMPORT R14 K33 [Vector2.new]
-  LOADN R15 250
-  LOADN R16 200
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K35 ["MinSize"]
-  GETTABLEKS R14 R0 K36 ["onClose"]
-  SETTABLEKS R14 R13 K37 ["OnClose"]
-  GETTABLEKS R15 R1 K38 ["PluginLoaderContext"]
-  GETTABLEKS R14 R15 K39 ["mainDockWidget"]
-  SETTABLEKS R14 R13 K40 ["Widget"]
-  GETTABLEKS R14 R0 K41 ["onDockWidgetCreated"]
-  SETTABLEKS R14 R13 K42 ["OnWidgetCreated"]
-  GETUPVAL R16 3
-  GETTABLEKS R15 R16 K43 ["Change"]
-  GETTABLEKS R14 R15 K21 ["Enabled"]
-  GETTABLEKS R15 R0 K44 ["onWidgetEnabledChanged"]
-  SETTABLE R15 R13 R14
-  DUPTABLE R14 K47 [{"Wrapper", "StyleLink"}]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K10 ["Provider"]
+  DUPTABLE R13 K12 [{"value"}]
+  GETTABLEKS R16 R0 K1 ["state"]
+  GETTABLEKS R15 R16 K13 ["wrapperRef"]
+  JUMPIFNOT R15 [+18]
+  DUPTABLE R14 K16 [{"InputChanged", "InputEnded"}]
+  GETTABLEKS R17 R0 K1 ["state"]
+  GETTABLEKS R16 R17 K13 ["wrapperRef"]
+  GETTABLEKS R15 R16 K14 ["InputChanged"]
+  SETTABLEKS R15 R14 K14 ["InputChanged"]
+  GETTABLEKS R17 R0 K1 ["state"]
+  GETTABLEKS R16 R17 K13 ["wrapperRef"]
+  GETTABLEKS R15 R16 K15 ["InputEnded"]
+  SETTABLEKS R15 R14 K15 ["InputEnded"]
+  JUMP [+3]
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K17 ["DEFAULT_MOUSE_POSITION_CONTEXT_STATE"]
+  SETTABLEKS R14 R13 K11 ["value"]
+  DUPTABLE R14 K20 [{"MainWidget", "MappingsDialog"}]
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K9 ["createElement"]
-  LOADK R16 K48 ["Frame"]
-  NEWTABLE R17 2 0
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K49 ["Tag"]
-  LOADK R19 K50 ["X-Fill X-Column"]
+  GETUPVAL R16 7
+  NEWTABLE R17 16 0
+  LOADK R18 K21 ["ControlsEmulator"]
+  SETTABLEKS R18 R17 K22 ["Id"]
+  SETTABLEKS R4 R17 K23 ["Enabled"]
+  GETTABLEKS R18 R0 K7 ["localization"]
+  LOADK R20 K2 ["Plugin"]
+  LOADK R21 K24 ["Name"]
+  NAMECALL R18 R18 K25 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K26 ["Title"]
+  GETIMPORT R18 K30 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R18 R17 K28 ["ZIndexBehavior"]
+  GETIMPORT R18 K33 [Enum.InitialDockState.Bottom]
+  SETTABLEKS R18 R17 K31 ["InitialDockState"]
+  GETIMPORT R18 K35 [Vector2.new]
+  LOADN R19 128
+  LOADN R20 224
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K36 ["Size"]
+  GETIMPORT R18 K35 [Vector2.new]
+  LOADN R19 250
+  LOADN R20 200
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K37 ["MinSize"]
+  GETTABLEKS R18 R0 K38 ["onClose"]
+  SETTABLEKS R18 R17 K39 ["OnClose"]
+  GETTABLEKS R19 R1 K40 ["PluginLoaderContext"]
+  GETTABLEKS R18 R19 K41 ["mainDockWidget"]
+  SETTABLEKS R18 R17 K42 ["Widget"]
+  GETTABLEKS R18 R0 K43 ["onDockWidgetCreated"]
+  SETTABLEKS R18 R17 K44 ["OnWidgetCreated"]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K45 ["Change"]
+  GETTABLEKS R18 R19 K23 ["Enabled"]
+  GETTABLEKS R19 R0 K46 ["onWidgetEnabledChanged"]
   SETTABLE R19 R17 R18
-  NEWCLOSURE R18 P0
-  CAPTURE VAL R0
-  SETTABLEKS R18 R17 K51 ["ref"]
-  DUPTABLE R18 K53 [{"DeviceBlueprint"}]
+  DUPTABLE R18 K49 [{"Wrapper", "StyleLink"}]
   GETUPVAL R20 3
   GETTABLEKS R19 R20 K9 ["createElement"]
-  GETUPVAL R20 6
-  DUPTABLE R21 K55 [{"showContent"}]
-  LOADB R22 1
-  SETTABLEKS R22 R21 K54 ["showContent"]
+  LOADK R20 K50 ["Frame"]
+  NEWTABLE R21 2 0
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K51 ["Tag"]
+  LOADK R23 K52 ["X-Fill X-Column"]
+  SETTABLE R23 R21 R22
+  NEWCLOSURE R22 P0
+  CAPTURE VAL R0
+  SETTABLEKS R22 R21 K53 ["ref"]
+  DUPTABLE R22 K56 [{"EditMappingsButton", "DeviceBlueprint"}]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K9 ["createElement"]
+  GETUPVAL R24 8
+  DUPTABLE R25 K60 [{"LayoutOrder", "Text", "OnClick"}]
+  GETUPVAL R26 9
+  NAMECALL R26 R26 K61 ["getNextOrder"]
+  CALL R26 1 1
+  SETTABLEKS R26 R25 K57 ["LayoutOrder"]
+  LOADK R26 K62 ["Edit Mappings"]
+  SETTABLEKS R26 R25 K58 ["Text"]
+  NEWCLOSURE R26 P1
+  CAPTURE VAL R0
+  SETTABLEKS R26 R25 K59 ["OnClick"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K54 ["EditMappingsButton"]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K9 ["createElement"]
+  GETUPVAL R24 10
+  DUPTABLE R25 K63 [{"LayoutOrder"}]
+  GETUPVAL R26 9
+  NAMECALL R26 R26 K61 ["getNextOrder"]
+  CALL R26 1 1
+  SETTABLEKS R26 R25 K57 ["LayoutOrder"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K55 ["DeviceBlueprint"]
+  CALL R19 3 1
+  SETTABLEKS R19 R18 K47 ["Wrapper"]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K9 ["createElement"]
+  LOADK R20 K48 ["StyleLink"]
+  DUPTABLE R21 K65 [{"StyleSheet"}]
+  GETTABLEKS R22 R0 K66 ["design"]
+  SETTABLEKS R22 R21 K64 ["StyleSheet"]
   CALL R19 2 1
-  SETTABLEKS R19 R18 K52 ["DeviceBlueprint"]
+  SETTABLEKS R19 R18 K48 ["StyleLink"]
   CALL R15 3 1
-  SETTABLEKS R15 R14 K45 ["Wrapper"]
+  SETTABLEKS R15 R14 K18 ["MainWidget"]
   GETUPVAL R16 3
   GETTABLEKS R15 R16 K9 ["createElement"]
-  LOADK R16 K46 ["StyleLink"]
-  DUPTABLE R17 K57 [{"StyleSheet"}]
-  GETTABLEKS R18 R0 K58 ["design"]
-  SETTABLEKS R18 R17 K56 ["StyleSheet"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K46 ["StyleLink"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K17 ["MainWidget"]
+  GETUPVAL R16 7
+  DUPTABLE R17 K67 [{"Id", "Enabled", "Title", "ZIndexBehavior", "InitialDockState", "Size", "MinSize", "OnClose"}]
+  LOADK R18 K68 ["ControlsEmulatorMappings"]
+  SETTABLEKS R18 R17 K22 ["Id"]
+  GETTABLEKS R19 R0 K1 ["state"]
+  GETTABLEKS R18 R19 K69 ["editMappingsVisible"]
+  SETTABLEKS R18 R17 K23 ["Enabled"]
+  LOADK R18 K62 ["Edit Mappings"]
+  SETTABLEKS R18 R17 K26 ["Title"]
+  GETIMPORT R18 K30 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R18 R17 K28 ["ZIndexBehavior"]
+  GETIMPORT R18 K71 [Enum.InitialDockState.Float]
+  SETTABLEKS R18 R17 K31 ["InitialDockState"]
+  GETIMPORT R18 K35 [Vector2.new]
+  LOADN R19 128
+  LOADN R20 224
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K36 ["Size"]
+  GETIMPORT R18 K35 [Vector2.new]
+  LOADN R19 250
+  LOADN R20 200
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K37 ["MinSize"]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R0
+  SETTABLEKS R18 R17 K39 ["OnClose"]
+  NEWTABLE R18 1 1
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K9 ["createElement"]
+  GETUPVAL R20 11
+  NEWTABLE R21 0 0
+  CALL R19 2 1
+  SETLIST R18 R19 1 [1]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K9 ["createElement"]
+  LOADK R21 K48 ["StyleLink"]
+  DUPTABLE R22 K65 [{"StyleSheet"}]
+  GETTABLEKS R23 R0 K66 ["design"]
+  SETTABLEKS R23 R22 K64 ["StyleSheet"]
+  CALL R20 2 1
+  SETTABLEKS R20 R18 K48 ["StyleLink"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K19 ["MappingsDialog"]
+  CALL R11 3 -1
+  SETLIST R10 R11 -1 [1]
   CALL R7 3 -1
   CALL R5 -1 -1
   RETURN R5 -1
@@ -255,52 +362,90 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R4 R2 K9 ["UI"]
   GETTABLEKS R3 R4 K10 ["DockWidget"]
-  GETTABLEKS R4 R2 K11 ["ContextServices"]
-  GETTABLEKS R5 R4 K12 ["Plugin"]
-  GETTABLEKS R6 R4 K13 ["Mouse"]
-  GETTABLEKS R9 R2 K14 ["Style"]
-  GETTABLEKS R8 R9 K15 ["Themes"]
-  GETTABLEKS R7 R8 K16 ["StudioTheme"]
-  GETTABLEKS R9 R2 K17 ["Styling"]
-  GETTABLEKS R8 R9 K18 ["registerPluginStyles"]
-  GETTABLEKS R12 R0 K19 ["Src"]
-  GETTABLEKS R11 R12 K20 ["Resources"]
-  GETTABLEKS R10 R11 K21 ["Localization"]
-  GETTABLEKS R9 R10 K22 ["SourceStrings"]
-  GETTABLEKS R13 R0 K19 ["Src"]
-  GETTABLEKS R12 R13 K20 ["Resources"]
-  GETTABLEKS R11 R12 K21 ["Localization"]
-  GETTABLEKS R10 R11 K23 ["LocalizedStrings"]
-  GETTABLEKS R12 R0 K19 ["Src"]
-  GETTABLEKS R11 R12 K24 ["Components"]
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R13 R11 K25 ["DeviceBlueprint"]
-  CALL R12 1 1
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R16 R0 K19 ["Src"]
-  GETTABLEKS R15 R16 K26 ["Util"]
-  GETTABLEKS R14 R15 K27 ["MousePositionContext"]
-  CALL R13 1 1
-  GETTABLEKS R14 R1 K28 ["PureComponent"]
-  LOADK R16 K29 ["MainPlugin"]
-  NAMECALL R14 R14 K30 ["extend"]
-  CALL R14 2 1
-  DUPCLOSURE R15 K31 [PROTO_7]
-  CAPTURE VAL R4
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R7
+  GETTABLEKS R5 R2 K9 ["UI"]
+  GETTABLEKS R4 R5 K11 ["IconButton"]
+  GETTABLEKS R5 R2 K12 ["ContextServices"]
+  GETTABLEKS R6 R5 K13 ["Plugin"]
+  GETTABLEKS R7 R5 K14 ["Mouse"]
+  GETTABLEKS R10 R2 K15 ["Style"]
+  GETTABLEKS R9 R10 K16 ["Themes"]
+  GETTABLEKS R8 R9 K17 ["StudioTheme"]
+  GETTABLEKS R10 R2 K18 ["Styling"]
+  GETTABLEKS R9 R10 K19 ["registerPluginStyles"]
+  GETTABLEKS R11 R2 K20 ["Util"]
+  GETTABLEKS R10 R11 K21 ["LayoutOrderIterator"]
+  GETTABLEKS R11 R10 K22 ["new"]
+  CALL R11 0 1
+  GETTABLEKS R15 R0 K23 ["Src"]
+  GETTABLEKS R14 R15 K24 ["Resources"]
+  GETTABLEKS R13 R14 K25 ["Localization"]
+  GETTABLEKS R12 R13 K26 ["SourceStrings"]
+  GETTABLEKS R16 R0 K23 ["Src"]
+  GETTABLEKS R15 R16 K24 ["Resources"]
+  GETTABLEKS R14 R15 K25 ["Localization"]
+  GETTABLEKS R13 R14 K27 ["LocalizedStrings"]
+  GETTABLEKS R15 R0 K23 ["Src"]
+  GETTABLEKS R14 R15 K28 ["Components"]
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R16 R14 K29 ["DeviceBlueprint"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETTABLEKS R19 R0 K23 ["Src"]
+  GETTABLEKS R18 R19 K20 ["Util"]
+  GETTABLEKS R17 R18 K30 ["MousePositionContext"]
+  CALL R16 1 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R20 R0 K23 ["Src"]
+  GETTABLEKS R19 R20 K28 ["Components"]
+  GETTABLEKS R18 R19 K31 ["MappingsContextProvider"]
+  CALL R17 1 1
+  GETIMPORT R18 K5 [require]
+  GETTABLEKS R21 R0 K23 ["Src"]
+  GETTABLEKS R20 R21 K28 ["Components"]
+  GETTABLEKS R19 R20 K32 ["MappingsList"]
+  CALL R18 1 1
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R23 R0 K23 ["Src"]
+  GETTABLEKS R22 R23 K20 ["Util"]
+  GETTABLEKS R21 R22 K33 ["MockableProxyPluginComponents"]
+  CALL R20 1 1
+  GETTABLEKS R19 R20 K34 ["StudioDeviceEmulator"]
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R23 R0 K23 ["Src"]
+  GETTABLEKS R22 R23 K28 ["Components"]
+  GETTABLEKS R21 R22 K35 ["MappingsDialog"]
+  CALL R20 1 1
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R24 R0 K23 ["Src"]
+  GETTABLEKS R23 R24 K20 ["Util"]
+  GETTABLEKS R22 R23 K36 ["Constants"]
+  CALL R21 1 1
+  GETTABLEKS R22 R1 K37 ["PureComponent"]
+  LOADK R24 K38 ["MainPlugin"]
+  NAMECALL R22 R22 K39 ["extend"]
+  CALL R22 2 1
+  DUPCLOSURE R23 K40 [PROTO_7]
+  CAPTURE VAL R5
+  CAPTURE VAL R12
+  CAPTURE VAL R13
   CAPTURE VAL R8
-  SETTABLEKS R15 R14 K32 ["init"]
-  DUPCLOSURE R15 K33 [PROTO_8]
-  SETTABLEKS R15 R14 K34 ["didUpdate"]
-  DUPCLOSURE R15 K35 [PROTO_10]
-  CAPTURE VAL R4
+  CAPTURE VAL R9
+  SETTABLEKS R23 R22 K41 ["init"]
+  DUPCLOSURE R23 K42 [PROTO_9]
+  CAPTURE VAL R19
+  SETTABLEKS R23 R22 K43 ["didUpdate"]
+  DUPCLOSURE R23 K44 [PROTO_13]
   CAPTURE VAL R5
   CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R1
-  CAPTURE VAL R13
+  CAPTURE VAL R17
+  CAPTURE VAL R16
+  CAPTURE VAL R21
   CAPTURE VAL R3
-  CAPTURE VAL R12
-  SETTABLEKS R15 R14 K36 ["render"]
-  RETURN R14 1
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  CAPTURE VAL R15
+  CAPTURE VAL R20
+  SETTABLEKS R23 R22 K45 ["render"]
+  RETURN R22 1

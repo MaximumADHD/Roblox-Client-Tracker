@@ -6,6 +6,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local React = require(CorePackages.Packages.React)
 local t = require(CorePackages.Packages.t)
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 local Cryo = require(CorePackages.Packages.Cryo)
 
 local PlayerList = script.Parent.Parent.Parent
@@ -96,7 +97,7 @@ function PlayerNameTag:render()
 		local playerNameChildren = {}
 		local platformName = self.props.player.PlatformName
 
-		local hasVerifiedBadge = VerifiedBadges.isPlayerVerified(self.props.player)
+		local hasVerifiedBadge = UserLib.Utils.isPlayerVerified(self.props.player)
 
 		if layoutValues.IsTenFoot and platformName ~= "" then
 			playerNameChildren["VerticalLayout"] = React.createElement("UIListLayout", {

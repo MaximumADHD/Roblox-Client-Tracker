@@ -13,6 +13,7 @@ local GetFFlagEnableTeleportBackButton = require(script.Parent.Parent.Flags.GetF
 local GetFStringTeleportBackButtonIXPCustomLayerName = require(script.Parent.Parent.Flags.GetFStringTeleportBackButtonIXPCustomLayerName)
 local GetFFlagReportAnythingAnnotationIXP = require(script.Parent.Parent.Settings.Flags.GetFFlagReportAnythingAnnotationIXP)
 local GetFStringReportAnythingAnnotationIXPLayerName = require(script.Parent.Parent.Settings.Flags.GetFStringReportAnythingAnnotationIXPLayerName)
+local GetFFlagReportTabShareIXPLayerWithMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagReportTabShareIXPLayerWithMenu
 local GetFStringChatTranslationLayerName = require(script.Parent.Parent.Flags.GetFStringChatTranslationLayerName)
 local GetFFlagChatTranslationSettingEnabled = require(script.Parent.Parent.Flags.GetFFlagChatTranslationSettingEnabled)
 local GetFFlagVoiceUserAgencyEnableIXP = require(script.Parent.Parent.Flags.GetFFlagVoiceUserAgencyEnableIXP)
@@ -39,6 +40,7 @@ return function()
 	if IsExperienceMenuABTestEnabled()
 		or GetFFlagShareInviteLinkContextMenuABTestEnabled()
 		or GetFFlagEnableNewInviteMenuIXP()
+		or GetFFlagReportTabShareIXPLayerWithMenu()
 	then
 		table.insert(layers, GetFStringLuaAppExperienceMenuLayer())
 		table.insert(layers, GetFStringLuaAppConsoleExperienceMenuLayer())

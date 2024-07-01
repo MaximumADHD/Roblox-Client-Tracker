@@ -15,6 +15,9 @@ local RemoveKeepOutArea = require(Actions.RemoveKeepOutArea)
 local SetInputType = require(Actions.SetInputType)
 local SetInspectMenuOpen = require(Actions.SetInspectMenuOpen)
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
+local SetGamepadNavigationDialogOpen = require(Actions.SetGamepadNavigationDialogOpen)
+
+local FFlagGamepadNavigationDialogABTest = require(script.Parent.Parent.Flags.FFlagGamepadNavigationDialogABTest)
 
 local Constants = require(TopBar.Constants)
 local InputType = Constants.InputType
@@ -30,6 +33,7 @@ local initialDisplayOptions = {
 	screenSize = Vector2.new(0, 0),
 	inputType = InputType.MouseAndKeyBoard,
 	isGamepadMenuOpen = false,
+	isGamepadNavigationDialogOpen = if FFlagGamepadNavigationDialogABTest then false else nil,
 	keepOutAreas = {},
 }
 
@@ -73,17 +77,26 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 
 	[SetInspectMenuOpen.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			inspectMenuOpen = action.inspectMenuOpen
+			inspectMenuOpen = action.inspectMenuOpen,
 		})
 	end,
 
 	[SetGamepadMenuOpen.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isGamepadMenuOpen = action.open,
+			isGamepadNavigationDialogOpen = if FFlagGamepadNavigationDialogABTest then false else nil,
 		})
 	end,
 
-	[SetKeepOutArea.name] = function (state, action)
+	[SetGamepadNavigationDialogOpen.name] = if FFlagGamepadNavigationDialogABTest
+		then function(state, action)
+			return Cryo.Dictionary.join(state, {
+				isGamepadNavigationDialogOpen = action.open,
+			})
+		end
+		else nil,
+
+	[SetKeepOutArea.name] = function(state, action)
 		local keepOutAreas = table.clone(state.keepOutAreas)
 		keepOutAreas[action.id] = {
 			size = action.size,
@@ -95,7 +108,7 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 		})
 	end,
 
-	[RemoveKeepOutArea.name] = function (state, action)
+	[RemoveKeepOutArea.name] = function(state, action)
 		local keepOutAreas = table.clone(state.keepOutAreas)
 		keepOutAreas[action.id] = nil
 

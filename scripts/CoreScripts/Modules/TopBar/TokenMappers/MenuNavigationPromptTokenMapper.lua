@@ -51,6 +51,8 @@ return function(_, tokens: DesignTokens): MenuNavigationPromptTokens
 			backgroundUiColor = tokens.Semantic.Color.BackgroundUi.Default,
 			separatorColor = tokens.Semantic.Color.Common.Divider,
 			textColor = tokens.Semantic.Color.Text.Emphasis,
+			buttonColor = tokens.Semantic.Color.Text.Emphasis,
+			buttonTextColor = tokens.Semantic.Color.BackgroundUi.Default,
 		},
 		Size = {
 			displayWidth = 1920,
@@ -67,6 +69,7 @@ return function(_, tokens: DesignTokens): MenuNavigationPromptTokens
 		},
 		Radius = {
 			cornerRadius = tokens.Semantic.Radius.Medium,
+			buttonRadius = tokens.Semantic.Radius.Small,
 		},
 		Typography = {
 			label = tokens.Semantic.Typography.Subheader,

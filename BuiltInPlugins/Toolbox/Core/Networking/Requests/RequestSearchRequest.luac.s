@@ -20,84 +20,68 @@ PROTO_0:
   GETUPVAL R5 4
   GETUPVAL R6 5
   GETUPVAL R7 6
-  DUPTABLE R8 K20 [{"audioSearchInfo", "additionalAudioSearchInfo", "searchTerm", "sortIndex", "sortDirection", "uiSortIntent", "categoryName", "targetPage", "currentPage", "requestReason", "isTopKeyword", "searchSource", "querySource", "originalUserQuery", "originalCorrection", "queryParams"}]
-  GETUPVAL R10 7
-  CALL R10 0 1
-  JUMPIFNOT R10 [+2]
-  LOADNIL R9
-  JUMP [+3]
-  GETUPVAL R10 8
-  GETTABLEKS R9 R10 K21 ["None"]
-  SETTABLEKS R9 R8 K6 ["audioSearchInfo"]
-  GETUPVAL R10 7
-  CALL R10 0 1
-  JUMPIFNOT R10 [+2]
-  LOADNIL R9
-  JUMP [+3]
-  GETUPVAL R10 8
-  GETTABLEKS R9 R10 K21 ["None"]
-  SETTABLEKS R9 R8 K7 ["additionalAudioSearchInfo"]
+  DUPTABLE R8 K18 [{"searchTerm", "sortIndex", "sortDirection", "uiSortIntent", "categoryName", "targetPage", "currentPage", "requestReason", "isTopKeyword", "searchSource", "querySource", "originalUserQuery", "originalCorrection", "queryParams"}]
   GETUPVAL R9 2
-  SETTABLEKS R9 R8 K8 ["searchTerm"]
+  SETTABLEKS R9 R8 K6 ["searchTerm"]
   SETTABLEKS R2 R8 K5 ["sortIndex"]
-  GETUPVAL R10 8
-  GETTABLEKS R9 R10 K21 ["None"]
-  SETTABLEKS R9 R8 K9 ["sortDirection"]
-  GETUPVAL R10 8
-  GETTABLEKS R9 R10 K21 ["None"]
-  SETTABLEKS R9 R8 K10 ["uiSortIntent"]
+  GETUPVAL R10 7
+  GETTABLEKS R9 R10 K19 ["None"]
+  SETTABLEKS R9 R8 K7 ["sortDirection"]
+  GETUPVAL R10 7
+  GETTABLEKS R9 R10 K19 ["None"]
+  SETTABLEKS R9 R8 K8 ["uiSortIntent"]
   GETUPVAL R9 3
   SETTABLEKS R9 R8 K4 ["categoryName"]
   LOADN R9 1
-  SETTABLEKS R9 R8 K11 ["targetPage"]
+  SETTABLEKS R9 R8 K9 ["targetPage"]
   LOADN R9 0
-  SETTABLEKS R9 R8 K12 ["currentPage"]
+  SETTABLEKS R9 R8 K10 ["currentPage"]
+  GETUPVAL R10 8
+  GETTABLEKS R9 R10 K20 ["StartSearch"]
+  SETTABLEKS R9 R8 K11 ["requestReason"]
   GETUPVAL R10 9
-  GETTABLEKS R9 R10 K22 ["StartSearch"]
-  SETTABLEKS R9 R8 K13 ["requestReason"]
-  GETUPVAL R10 10
-  ORK R9 R10 K23 [False]
-  SETTABLEKS R9 R8 K14 ["isTopKeyword"]
+  ORK R9 R10 K21 [False]
+  SETTABLEKS R9 R8 K12 ["isTopKeyword"]
   GETUPVAL R10 2
   JUMPIFNOT R10 [+6]
-  GETUPVAL R11 11
-  GETTABLEKS R10 R11 K24 ["SEARCH_SOURCE"]
-  GETTABLEKS R9 R10 K25 ["KEYWORD"]
+  GETUPVAL R11 10
+  GETTABLEKS R10 R11 K22 ["SEARCH_SOURCE"]
+  GETTABLEKS R9 R10 K23 ["KEYWORD"]
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K15 ["searchSource"]
-  GETUPVAL R10 12
+  SETTABLEKS R9 R8 K13 ["searchSource"]
+  GETUPVAL R10 11
   JUMPIFNOT R10 [+5]
-  GETUPVAL R10 13
+  GETUPVAL R10 12
   CALL R10 0 1
   JUMPIFNOT R10 [+2]
-  GETUPVAL R9 12
+  GETUPVAL R9 11
   JUMP [+5]
-  GETUPVAL R11 14
-  GETTABLEKS R10 R11 K26 ["QuerySource"]
-  GETTABLEKS R9 R10 K27 ["OriginalUserQuery"]
-  SETTABLEKS R9 R8 K16 ["querySource"]
+  GETUPVAL R11 13
+  GETTABLEKS R10 R11 K24 ["QuerySource"]
+  GETTABLEKS R9 R10 K25 ["OriginalUserQuery"]
+  SETTABLEKS R9 R8 K14 ["querySource"]
+  GETUPVAL R10 14
+  JUMPIFNOT R10 [+5]
+  GETUPVAL R10 12
+  CALL R10 0 1
+  JUMPIFNOT R10 [+2]
+  GETUPVAL R9 14
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K15 ["originalUserQuery"]
   GETUPVAL R10 15
   JUMPIFNOT R10 [+5]
-  GETUPVAL R10 13
+  GETUPVAL R10 12
   CALL R10 0 1
   JUMPIFNOT R10 [+2]
   GETUPVAL R9 15
   JUMP [+1]
   LOADNIL R9
-  SETTABLEKS R9 R8 K17 ["originalUserQuery"]
-  GETUPVAL R10 16
-  JUMPIFNOT R10 [+5]
-  GETUPVAL R10 13
-  CALL R10 0 1
-  JUMPIFNOT R10 [+2]
-  GETUPVAL R9 16
-  JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K18 ["originalCorrection"]
-  GETUPVAL R10 8
-  GETTABLEKS R9 R10 K21 ["None"]
-  SETTABLEKS R9 R8 K19 ["queryParams"]
+  SETTABLEKS R9 R8 K16 ["originalCorrection"]
+  GETUPVAL R10 7
+  GETTABLEKS R9 R10 K19 ["None"]
+  SETTABLEKS R9 R8 K17 ["queryParams"]
   CALL R5 3 -1
   NAMECALL R3 R0 K0 ["dispatch"]
   CALL R3 -1 0
@@ -114,12 +98,11 @@ PROTO_1:
   CAPTURE VAL R1
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
   CAPTURE VAL R4
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U5
   CAPTURE VAL R5
+  CAPTURE UPVAL U6
   CAPTURE UPVAL U7
-  CAPTURE UPVAL U8
   CAPTURE VAL R6
   CAPTURE VAL R7
   RETURN R8 1
@@ -172,19 +155,13 @@ MAIN:
   GETTABLEKS R11 R12 K19 ["SharedFlags"]
   GETTABLEKS R10 R11 K20 ["getFFlagToolboxAddAutocorrect"]
   CALL R9 1 1
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K7 ["Core"]
-  GETTABLEKS R12 R13 K21 ["Flags"]
-  GETTABLEKS R11 R12 K22 ["getFFlagToolboxFixAlbumAndArtistClearingOnNewSearch"]
-  CALL R10 1 1
-  DUPCLOSURE R11 K23 [PROTO_1]
+  DUPCLOSURE R10 K21 [PROTO_1]
   CAPTURE VAL R8
   CAPTURE VAL R4
   CAPTURE VAL R7
-  CAPTURE VAL R10
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R9
   CAPTURE VAL R6
-  RETURN R11 1
+  RETURN R10 1

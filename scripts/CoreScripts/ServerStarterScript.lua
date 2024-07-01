@@ -33,6 +33,9 @@ end
 if game:DefineFastFlag("OpenCloudCoreScriptLuaEnabled", false) then
     ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudV2", script.Parent)
 end
+if game:DefineFastFlag("OpenCloudClientLibraryCoreScriptEnabled", false) then
+    ScriptContext:AddCoreScriptLocal("ServerCoreScripts/OpenCloud/OpenCloudClientLibraryCoreScript", script.Parent)
+end
 
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerInGameMenu", script.Parent)
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerSocialScript", script.Parent)

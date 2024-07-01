@@ -42,6 +42,7 @@ local GetFFlagSupportCompactUtility = require(CorePackages.Workspace.Packages.Sh
 local GetFFlagUsePolishedAnimations = require(Chrome.Flags.GetFFlagUsePolishedAnimations)
 local GetFFlagEnableScreenshotUtility =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
+local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 local GetFIntIconSelectionTimeout = require(Chrome.Flags.GetFIntIconSelectionTimeout)
 local GetFFlagEnableCapturesInChrome = require(Chrome.Flags.GetFFlagEnableCapturesInChrome)
 
@@ -675,5 +676,12 @@ local UnibarMenu = function(props: UnibarMenuProp)
 	}
 end
 
--- Block outter renders while we have new props
-return React.memo(UnibarMenu :: any)
+-- Unibar should never have to be rerendered
+return React.memo(
+	UnibarMenu :: any,
+	if GetFFlagAnimateSubMenu()
+		then function(_, _)
+			return true
+		end
+		else nil
+)

@@ -48,7 +48,7 @@ local function OcclusionMetricsManager()
 		id = Constants.UNIBAR_KEEP_OUT_AREA_ID,
 		position = Vector2.new(),
 		size = Vector2.new(),
-	})
+	} :: KeepOutArea?)
 	local unibarArea: KeepOutArea? = useSelector(function(state)
 		return state.displayOptions.keepOutAreas[Constants.UNIBAR_KEEP_OUT_AREA_ID]
 	end)

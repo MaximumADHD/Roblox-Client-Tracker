@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.UIBlox)
 local LocalStore = require(script.Parent.Parent.Service.LocalStore)
@@ -14,6 +15,7 @@ local Images = UIBlox.App.ImageSet.Images
 local Badge = UIBlox.App.Indicator.Badge
 local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local ScrollBarType = UIBlox.App.Container.Enum.ScrollBarType
+local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local Chrome = script.Parent.Parent
 local ChromeService = require(Chrome.Service)
@@ -22,6 +24,7 @@ local ChromeAnalytics = require(Chrome.Analytics.ChromeAnalytics)
 local ViewportUtil = require(Chrome.Service.ViewportUtil)
 local Constants = require(Chrome.Unibar.Constants)
 local TopBarConstants = require(Chrome.Parent.TopBar.Constants)
+local SubMenuContext = require(script.Parent.SubMenuContext)
 
 local UserInputService = game:GetService("UserInputService")
 
@@ -38,6 +41,7 @@ local GetFFlagFixSubmenuCloseIOS = require(Chrome.Flags.GetFFlagFixSubmenuCloseI
 local GetFFlagEnableCaptureBadge = require(Chrome.Flags.GetFFlagEnableCaptureBadge)
 local GetFIntNumTimesNewBadgeIsDisplayed = require(Chrome.Flags.GetFIntNumTimesNewBadgeIsDisplayed)
 local GetFStringNewFeatureList = require(Chrome.Flags.GetFStringNewFeatureList)
+local GetFFlagAnimateSubMenu = require(Chrome.Flags.GetFFlagAnimateSubMenu)
 local GetFFlagEnableChromePinAnalytics = require(Chrome.Flags.GetFFlagEnableChromePinAnalytics)
 local useMappedObservableValue = require(Chrome.Hooks.useMappedObservableValue)
 
@@ -63,6 +67,10 @@ local newFeatures = {}
 local pinPressed = false
 local lastTouchPosition = Vector2.new(0, 0)
 
+local AnimationStatus = { Closed = 0, Open = 1 }
+local lastItemList = {}
+local lastSubMenu = nil
+
 for feature in string.gmatch(GetFStringNewFeatureList(), "([^, ]+)") do
 	newFeatures[feature] = true
 end
@@ -71,6 +79,7 @@ type Table = { [any]: any }
 
 export type SubMenuProps = {
 	items: { [number]: ChromeTypes.IntegrationComponentProps },
+	menuTransition: any?,
 }
 
 function ClearBadge(id)
@@ -92,6 +101,8 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		Color = Color3.new(0, 0, 0),
 		Transparency = 1,
 	}
+
+	local menuTransition = React.useContext(SubMenuContext)
 
 	local useTouchTargets = GetFFlagNewSubmenuTouchTargets()
 	local currenlyPinned = if GetFFlagEnableChromePinIntegrations() then ChromeService:isUserPinned(props.id) else nil
@@ -147,7 +158,14 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 
 		StyledTextLabel = React.createElement(StyledTextLabel, {
 			fontStyle = font.Header2,
-			colorStyle = theme.TextEmphasis,
+			colorStyle = if GetFFlagAnimateSubMenu() and menuTransition
+				then {
+					Color = theme.TextEmphasis.Color,
+					Transparency = menuTransition:map(function(v)
+						return 1 - v
+					end),
+				}
+				else theme.TextEmphasis,
 			text = props.integration.label,
 			textTruncate = Enum.TextTruncate.AtEnd,
 			textXAlignment = Enum.TextXAlignment.Left,
@@ -265,8 +283,14 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 						Image = if currenlyPinned then PINNED_ICON else UNPINNED_ICON,
 						Size = Constants.PIN_ICON_SIZE,
 						ImageColor3 = style.Theme.IconEmphasis.Color,
-						ImageTransparency = if pinDisabled
-							then style.Theme.UIEmphasis.Transparency
+						ImageTransparency = if GetFFlagAnimateSubMenu() and menuTransition
+							then menuTransition:map(function(v)
+								local transparency = if pinDisabled
+									then style.Theme.UIEmphasis.Transparency
+									else style.Theme.IconEmphasis.Transparency
+								return transparency + (1 - transparency) * (1 - v)
+							end)
+							elseif pinDisabled then style.Theme.UIEmphasis.Transparency
 							else style.Theme.IconEmphasis.Transparency,
 					}),
 				NewBadge = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
@@ -378,7 +402,15 @@ function SubMenu(props: SubMenuProps)
 		}),
 		UISizeConstraint = React.createElement("UISizeConstraint", {
 			MaxSize = if EnableScrollingSubmenu then nil else Vector2.new(math.huge, 232),
-			MinSize = if EnableScrollingSubmenu then Vector2.new(0, minSize) else nil,
+			MinSize = if EnableScrollingSubmenu
+				then if GetFFlagAnimateSubMenu()
+						and not UserGameSettings.ReducedMotion
+						and props.menuTransition
+					then props.menuTransition:map(function(v)
+						return Vector2.new(0, minSize * v)
+					end)
+					else Vector2.new(0, minSize)
+				else nil,
 		}),
 		-- extra padding to account for broken AutomaticSize + Padding
 		BottomPadding = React.createElement("Frame", {
@@ -398,7 +430,11 @@ function SubMenu(props: SubMenuProps)
 		AnchorPoint = if leftAlign then Vector2.zero else Vector2.new(1, 0),
 		Position = if leftAlign then UDim2.new(0, 0, 0, 0) else UDim2.new(1, 0, 0, 0),
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,
-		BackgroundTransparency = theme.BackgroundUIContrast.Transparency,
+		BackgroundTransparency = if GetFFlagAnimateSubMenu() and props.menuTransition
+			then props.menuTransition:map(function(v)
+				return theme.BackgroundUIContrast.Transparency + (1 - theme.BackgroundUIContrast.Transparency) * (1 - v)
+			end)
+			else theme.BackgroundUIContrast.Transparency,
 		AutomaticSize = Enum.AutomaticSize.Y,
 		ref = menuRef,
 	}, {
@@ -445,9 +481,27 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 	local connectionTapStart: { current: RBXScriptConnection? } = React.useRef(nil)
 	local currentSubMenu = useObservableValue(ChromeService:currentSubMenu())
 
+	local _openState, setOpenState = React.useState(AnimationStatus.Closed)
+
+	local menuItems = useChromeMenuItems()
+	local subMenuItems = {}
+
+	local menuTransition, setMenuTransition = ReactOtter.useAnimatedBinding(AnimationStatus.Closed, function(v)
+		setOpenState(v)
+	end)
+
 	-- close submenu on click outside
 	React.useEffect(function()
+		if GetFFlagAnimateSubMenu() then
+			lastItemList = subMenuItems
+			lastSubMenu = currentSubMenu
+		end
+
 		if currentSubMenu then
+			if GetFFlagAnimateSubMenu() then
+				setMenuTransition(ReactOtter.spring(AnimationStatus.Open, Constants.MENU_ANIMATION_SPRING))
+			end
+
 			if GetFFlagFixSubmenuCloseIOS() then
 				connectionTapStart.current = UserInputService.TouchStarted:Connect(function(touch)
 					lastTouchPosition = Vector2.new(touch.Position.X, touch.Position.Y)
@@ -490,6 +544,10 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 					end
 				end
 			end)
+		else
+			if GetFFlagAnimateSubMenu() then
+				setMenuTransition(ReactOtter.spring(AnimationStatus.Closed, Constants.MENU_ANIMATION_SPRING))
+			end
 		end
 
 		return function()
@@ -508,9 +566,6 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 		end
 	end, { currentSubMenu })
 
-	local menuItems = useChromeMenuItems()
-	local subMenuItems = {}
-
 	if currentSubMenu and menuItems then
 		-- todo: scanning for the menu id isn't ideal - improve
 		for i, v in menuItems do
@@ -524,13 +579,25 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 	if #subMenuItems > 0 then
 		children[currentSubMenu] = React.createElement(SubMenu, {
 			items = subMenuItems,
+			menuTransition = if GetFFlagAnimateSubMenu() then menuTransition else nil,
+		})
+	elseif GetFFlagAnimateSubMenu() and #lastItemList > 0 then
+		children[lastSubMenu] = React.createElement(SubMenu, {
+			items = lastItemList,
+			menuTransition = menuTransition,
 		})
 	end
 
-	return React.createElement("Frame", {
-		Name = "SubMenuHost",
-		Size = UDim2.new(0, 0, 1, 0),
-		BorderSizePixel = 0,
-		BackgroundTransparency = 1,
-	}, children)
+	return React.createElement(
+		"Frame",
+		{
+			Name = "SubMenuHost",
+			Size = UDim2.new(0, 0, 1, 0),
+			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+		},
+		if GetFFlagAnimateSubMenu()
+			then React.createElement(SubMenuContext.Provider, { value = menuTransition }, children)
+			else children
+	)
 end

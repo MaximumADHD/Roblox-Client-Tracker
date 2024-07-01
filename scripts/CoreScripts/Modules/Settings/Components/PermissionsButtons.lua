@@ -12,6 +12,7 @@ local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local StarterGui = game:GetService("StarterGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local VideoCaptureService = game:GetService("VideoCaptureService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local Roact = require(CorePackages.Roact)
 local UIBlox = require(CorePackages.UIBlox)
@@ -42,12 +43,15 @@ local GetFFlagUpdateSelfieViewOnBan = require(RobloxGui.Modules.Flags.GetFFlagUp
 local GetFFlagShowMicConnectingIconAndToast = require(RobloxGui.Modules.Flags.GetFFlagShowMicConnectingIconAndToast)
 local FFlagMuteNonFriendsEvent = require(RobloxGui.Modules.Flags.FFlagMuteNonFriendsEvent)
 local getFFlagDoNotPromptCameraPermissionsOnMount =
-require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
+	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local GetFFlagRemoveInGameChatBubbleChatReferences =
 	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
+local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
 local GetFFlagPassShouldRequestPermsArg = require(RobloxGui.Modules.Flags.GetFFlagPassShouldRequestPermsArg)
+local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
+	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 if GetFFlagRemoveInGameChatBubbleChatReferences() then
 	displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
@@ -141,7 +145,11 @@ function PermissionsButtons:init()
 					-- Before we enable and join voice through the upsell, mic permissions state should be false. However
 					-- after enabling and connecting to voice, the user should have provided mic permissions. We should
 					-- confirm that we have mic permissions so we can change that state and update the UI accordingly.
-					if GetFFlagEnableInExpVoiceUpsell() and GetFFlagPassShouldRequestPermsArg() and not self.state.hasMicPermissions then
+					if
+						GetFFlagEnableInExpVoiceUpsell()
+						and GetFFlagPassShouldRequestPermsArg()
+						and not self.state.hasMicPermissions
+					then
 						self:getMicPermission(false)
 					end
 				end
@@ -301,6 +309,13 @@ function PermissionsButtons:init()
 		local ageVerificationResponse = VoiceChatServiceManager:FetchAgeVerificationOverlay()
 		local voiceInExpUpsellVariant = ageVerificationResponse.showVoiceInExperienceUpsellVariant
 
+		if GetFFlagEnableInExpJoinVoiceAnalytics() then
+			VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEvent(
+				"clicked",
+				self:GetInExpJoinVoiceAnalyticsData()
+			)
+		end
+
 		if VoiceChatServiceManager:UserOnlyEligibleForVoice() then
 			VoiceChatServiceManager:SetInExpUpsellEntrypoint(VoiceConstants.IN_EXP_UPSELL_ENTRYPOINTS.JOIN_VOICE)
 
@@ -413,6 +428,14 @@ function PermissionsButtons:isShowingPermissionButtons()
 			or (GetFFlagEnableInExpVoiceUpsell() and self:getJoinVoiceButtonVisibleAtMount())
 	end
 	return self.state.hasMicPermissions or self.state.hasCameraPermissions or self.state.showSelfView
+end
+
+function PermissionsButtons:GetInExpJoinVoiceAnalyticsData()
+	local sessionId = ""
+	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+		sessionId = AnalyticsService:GetPlaySessionId()
+	end
+	return game.GameId, game.PlaceId, sessionId
 end
 
 function PermissionsButtons:render()
@@ -570,7 +593,8 @@ function PermissionsButtons:render()
 				then Roact.createElement(ExternalEventConnection, {
 					event = VoiceChatServiceManager.VoiceJoinProgressChanged.Event,
 					callback = self.voiceJoinProgressCallback,
-				}) else nil,
+				})
+				else nil,
 		})
 end
 

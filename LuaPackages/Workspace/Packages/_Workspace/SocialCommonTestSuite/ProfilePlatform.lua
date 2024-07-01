@@ -5,4 +5,8 @@ local PackageIndex = script.Parent.Parent.Parent._Workspace
 
 local Package = require(PackageIndex["ProfilePlatform"]["ProfilePlatform"])
 
+export type ProfileWrapperContext = Package.ProfileWrapperContext
+export type ProfileTypeEnums = Package.ProfileTypeEnums
+
+
 return Package

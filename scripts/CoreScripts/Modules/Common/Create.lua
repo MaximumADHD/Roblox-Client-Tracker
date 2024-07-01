@@ -1,4 +1,12 @@
-return function(className, defaultParent)
+local CorePackages = game:GetService("CorePackages")
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
+
+-- FFlagLuaAppUnifiedCreateUtility cleanup TODO: Cleanup and replace usage
+return function(className, defaultParent): any
+	if Create.GetFFlagLuaAppUnifiedCreateUtility() then
+		return Create(className)
+	end
+
 	return function(propertyList)
 		local object = Instance.new(className)
 		local parent = nil

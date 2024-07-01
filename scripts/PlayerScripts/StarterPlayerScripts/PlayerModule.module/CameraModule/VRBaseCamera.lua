@@ -21,17 +21,17 @@ do
 end
 
 local VRService = game:GetService("VRService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local Lighting = game:GetService("Lighting")
+local RunService = game:GetService("RunService")
+local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
-
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
-local Lighting = game:GetService("Lighting")
-local RunService = game:GetService("RunService")
-
-local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local FFlagUserCameraInputDt = FlagUtil.getUserFlag("UserCameraInputDt")
 
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
@@ -389,13 +389,18 @@ end
 -- gets the desired rotation accounting for smooth rotation. Manages fades and resets resulting 
 -- from rotation
 function VRBaseCamera:getRotation(dt)
-	local rotateInput = CameraInput.getRotation()
+	local rotateInput = CameraInput.getRotation(dt)
 	local yawDelta = 0
 	
 	if UserGameSettings.VRSmoothRotationEnabled then
-		yawDelta = rotateInput.X * 40 * dt
+		if FFlagUserCameraInputDt then
+			yawDelta = rotateInput.X
+		else
+			yawDelta = rotateInput.X * 40 * dt
+		end
 	else
-		
+		-- ignore the magnitude of the input, use just the direction and
+		-- a timer to rotate 30 degrees each step
 		if math.abs(rotateInput.X) > 0.03 then
 			if self.stepRotateTimeout > 0 then
 				self.stepRotateTimeout -= dt

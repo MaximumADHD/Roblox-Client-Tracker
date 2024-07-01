@@ -9,6 +9,8 @@ return function()
 	local SetInputType = require(Actions.SetInputType)
 	local SetInspectMenuOpen = require(Actions.SetInspectMenuOpen)
 	local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
+	local SetGamepadNavigationDialogOpen = require(Actions.SetGamepadNavigationDialogOpen)
+	local FFlagGamepadNavigationDialogABTest = require(script.Parent.Parent.Flags.FFlagGamepadNavigationDialogABTest)
 
 	local CorePackages = game:GetService("CorePackages")
 
@@ -180,4 +182,28 @@ return function()
 			end
 		end)
 	end)
+
+	if FFlagGamepadNavigationDialogABTest then
+		describe("SetGamepadNavigationDialogOpen", function()
+			it("should change the value of isGamepadNavigationDialogOpen", function()
+				local oldState = DisplayOptions(nil, {})
+				local newState = DisplayOptions(oldState, SetGamepadNavigationDialogOpen(true))
+				expect(oldState).never.toBe(newState)
+				expect(newState.isGamepadNavigationDialogOpen).toBe(true)
+				newState = DisplayOptions(newState, SetGamepadNavigationDialogOpen(false))
+				expect(newState.isGamepadNavigationDialogOpen).toBe(false)
+			end)
+
+			it("should not change any other values", function()
+				local oldState = DisplayOptions(nil, {})
+				local newState = DisplayOptions(oldState, SetGamepadNavigationDialogOpen(true))
+				expect(countValues(newState)).toBe(countValues(oldState))
+				for key, value in pairs(newState) do
+					if key ~= "isGamepadNavigationDialogOpen" then
+						expect(value).toBe(oldState[key])
+					end
+				end
+			end)
+		end)
+	end
 end

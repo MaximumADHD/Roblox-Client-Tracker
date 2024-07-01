@@ -9,7 +9,7 @@ MAIN:
   GETTABLEKS R2 R3 K7 ["Framework"]
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["RobloxAPI"]
-  NEWTABLE R3 2 0
+  NEWTABLE R3 8 0
   GETTABLEKS R4 R2 K9 ["new"]
   CALL R4 0 1
   SETTABLEKS R4 R3 K10 ["_FrameworkAPI"]
@@ -20,4 +20,25 @@ MAIN:
   GETTABLEKS R5 R6 K14 ["Groups"]
   GETTABLEKS R4 R5 K15 ["canManage"]
   SETTABLEKS R4 R3 K16 ["CreateFetchGroupsRequest"]
+  GETTABLEKS R9 R3 K10 ["_FrameworkAPI"]
+  GETTABLEKS R8 R9 K17 ["APIS"]
+  GETTABLEKS R7 R8 K18 ["ToolboxService"]
+  GETTABLEKS R6 R7 K12 ["V1"]
+  GETTABLEKS R5 R6 K19 ["Inventory"]
+  GETTABLEKS R4 R5 K20 ["user"]
+  SETTABLEKS R4 R3 K21 ["CreateFetchAssetsForUserRequest"]
+  GETTABLEKS R9 R3 K10 ["_FrameworkAPI"]
+  GETTABLEKS R8 R9 K17 ["APIS"]
+  GETTABLEKS R7 R8 K18 ["ToolboxService"]
+  GETTABLEKS R6 R7 K12 ["V1"]
+  GETTABLEKS R5 R6 K19 ["Inventory"]
+  GETTABLEKS R4 R5 K22 ["group"]
+  SETTABLEKS R4 R3 K23 ["CreateFetchAssetsForGroupRequest"]
+  GETTABLEKS R9 R3 K10 ["_FrameworkAPI"]
+  GETTABLEKS R8 R9 K17 ["APIS"]
+  GETTABLEKS R7 R8 K18 ["ToolboxService"]
+  GETTABLEKS R6 R7 K12 ["V1"]
+  GETTABLEKS R5 R6 K24 ["Items"]
+  GETTABLEKS R4 R5 K25 ["details"]
+  SETTABLEKS R4 R3 K26 ["CreateFetchAssetInfosRequest"]
   RETURN R3 1

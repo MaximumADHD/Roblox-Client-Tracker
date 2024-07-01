@@ -19,7 +19,6 @@ local EnableInGameMenuModernizationStickyBar = require(RobloxGui.Modules.Flags.G
 local GetFFlagAddAnimatedFocusState = require(script.Parent.Flags.GetFFlagAddAnimatedFocusState)
 local ExperienceMenuABTestManager = require(RobloxGui.Modules.ExperienceMenuABTestManager)
 local ChromeEnabled = require(script.Parent.Parent.Chrome.Enabled)
-local GetUIBloxEnableFontNameMapping = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetUIBloxEnableFontNameMapping
 local FFlagIncreasePlayerNameSizeConsole = game:DefineFastFlag("IncreasePlayerNameSizeConsole", false)
 local FFlagIncreaseUtilityRowTextSizeConsole = game:DefineFastFlag("IncreaseUtilityRowTextSizeConsole", false)
 
@@ -33,7 +32,7 @@ local UseIconButtons = false
 local UseBottomButtonBarOnMobile = false
 
 -- Roblox -> Nominal scaling factor depending on font
-local nominalSizeFactor = if GetUIBloxEnableFontNameMapping() then 0.794 else 0.833
+local nominalSizeFactor = 0.794
 local topCornerInset, _ = GuiService:GetGuiInset()
 
 -- roughly maps SourceSans font size to Gotham/Builder using nominalSizeFactor, rounding down
@@ -48,7 +47,7 @@ local fontSizeMap = {
 local nullColor = Color3.fromRGB(0, 0, 0);
 local nullFont: any? = AppFonts.default:getDefault()
 local nullFontSize: any? = fontSizeMap[Enum.FontSize.Size24]
-local nullTextSize: any? = if GetUIBloxEnableFontNameMapping() then 19 else 20
+local nullTextSize: any? = 19
 
 local AppTheme = {
 	MenuContainer = {
@@ -102,7 +101,7 @@ local AppFont = {
 	Button_Font = {
 		Font = AppFonts.default:getMedium(),
 		RelativeSize = fontSizeMap[Enum.FontSize.Size24],
-		TextSize = if GetUIBloxEnableFontNameMapping() then 22 * nominalSizeFactor else 18,
+		TextSize = 22 * nominalSizeFactor,
 	},
 	Username = {
 		RelativeSize = if UseBiggerText or (FFlagIncreasePlayerNameSizeConsole and isTenFootInterface) then fontSizeMap[Enum.FontSize.Size24] else fontSizeMap[Enum.FontSize.Size18],
@@ -141,7 +140,7 @@ local AppFont = {
 	},
 	Utility_Text_Font = {
 		Font = AppFonts.default:getDefault(),
-		TextSize = if GetUIBloxEnableFontNameMapping() then 22 * nominalSizeFactor else 18,
+		TextSize = 22 * nominalSizeFactor,
 	},
 	Utility_Text_Small_Font = {
 		Font = AppFonts.default:getDefault(),

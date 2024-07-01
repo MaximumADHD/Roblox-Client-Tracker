@@ -26,6 +26,9 @@ export type TopBarAnalytics = {
 	onLeaderboardActivated: (TopBarAnalytics, isActive: boolean) -> nil,
 	onEmotesActivated: (TopBarAnalytics, isActive: boolean) -> nil,
 
+	onShowGamepadNavigationDialog: (TopBarAnalytics) -> nil,
+	onDismissGamepadNavigationDialog: (TopBarAnalytics) -> nil,
+
 	_target: string,
 	_context: string,
 	_defaultProps: any,
@@ -55,39 +58,47 @@ function TopBarAnalytics.new(): TopBarAnalytics
 
 	self._sendEvent = function(eventName: string, eventProperties: any)
 		local props = Cryo.Dictionary.join(self._defaultProps, eventProperties or {})
-    AnalyticsService:SendEventDeferred(self._target, self._context, eventName, props)
-    return nil
+		AnalyticsService:SendEventDeferred(self._target, self._context, eventName, props)
+		return nil
 	end
 
-  self._onButtonActivated = function(buttonName: string, isActive: boolean)
-    return self._sendEvent(Constants.Analytics.EventNameTopBarButtonActivated, {
-      button = buttonName,
-      status = if isActive then Constants.Analytics.StatusActive else Constants.Analytics.StatusInactive,
-    })  
-  end
+	self._onButtonActivated = function(buttonName: string, isActive: boolean)
+		return self._sendEvent(Constants.Analytics.EventNameTopBarButtonActivated, {
+			button = buttonName,
+			status = if isActive then Constants.Analytics.StatusActive else Constants.Analytics.StatusInactive,
+		})
+	end
 
 	return self
 end
 
 function TopBarAnalytics:onChatButtonActivated(isActive: boolean)
-  return self._onButtonActivated(Constants.Analytics.ChatButtonName, isActive)
+	return self._onButtonActivated(Constants.Analytics.ChatButtonName, isActive)
 end
 
 function TopBarAnalytics:onMoreMenuActivated()
-  -- Will not be triggered on deactivated due to MoreMenu being hidden by full screen overlay
-  return self._onButtonActivated(Constants.Analytics.MoreMenuButtonName, true)
+	-- Will not be triggered on deactivated due to MoreMenu being hidden by full screen overlay
+	return self._onButtonActivated(Constants.Analytics.MoreMenuButtonName, true)
 end
 
 function TopBarAnalytics:onInventoryActivated(isActive: boolean)
-  return self._onButtonActivated(Constants.Analytics.InventoryButtonName, isActive)
+	return self._onButtonActivated(Constants.Analytics.InventoryButtonName, isActive)
 end
 
 function TopBarAnalytics:onLeaderboardActivated(isActive: boolean)
-  return self._onButtonActivated(Constants.Analytics.LeaderboardButtonName, isActive)
+	return self._onButtonActivated(Constants.Analytics.LeaderboardButtonName, isActive)
 end
 
 function TopBarAnalytics:onEmotesActivated(isActive: boolean)
-  return self._onButtonActivated(Constants.Analytics.EmotesButtonName, isActive)
+	return self._onButtonActivated(Constants.Analytics.EmotesButtonName, isActive)
+end
+
+function TopBarAnalytics:onShowGamepadNavigationDialog()
+	return self._sendEvent(Constants.Analytics.ShowGamepadNavigationDialog)
+end
+
+function TopBarAnalytics:onDismissGamepadNavigationDialog()
+	return self._sendEvent(Constants.Analytics.DismissGamepadNavigationDialog)
 end
 
 TopBarAnalytics.default = TopBarAnalytics.new()

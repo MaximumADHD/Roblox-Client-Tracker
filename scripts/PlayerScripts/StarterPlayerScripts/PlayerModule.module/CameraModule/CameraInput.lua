@@ -5,7 +5,10 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local VRService = game:GetService("VRService")
-local StarterGui = game:GetService("StarterGui")
+
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local FFlagUserCameraInputDt = FlagUtil.getUserFlag("UserCameraInputDt")
 
 local player = Players.LocalPlayer
 
@@ -13,10 +16,19 @@ local CAMERA_INPUT_PRIORITY = Enum.ContextActionPriority.Medium.Value
 local MB_TAP_LENGTH = 0.3 -- (s) length of time for a short mouse button tap to be registered
 
 local ROTATION_SPEED_KEYS = math.rad(120) -- (rad/s)
-local ROTATION_SPEED_MOUSE = Vector2.new(1, 0.77)*math.rad(0.5) -- (rad/s)
-local ROTATION_SPEED_POINTERACTION = Vector2.new(1, 0.77)*math.rad(7) -- (rad/s)
-local ROTATION_SPEED_TOUCH = Vector2.new(1, 0.66)*math.rad(1) -- (rad/s)
 local ROTATION_SPEED_GAMEPAD = Vector2.new(1, 0.77)*math.rad(4) -- (rad/s)
+
+-- these speeds should not be scaled by dt because the input returned is not normalized. 
+-- that is, at lower framerates, the magnitude of the input delta will be larger because the pointer/mouse/touch
+-- has moved more pixels between frames.
+local ROTATION_SPEED_MOUSE = Vector2.new(1, 0.77)*math.rad(0.5) -- (rad/inputdelta)
+local ROTATION_SPEED_POINTERACTION = Vector2.new(1, 0.77)*math.rad(7) -- (rad/inputdelta)
+local ROTATION_SPEED_TOUCH = Vector2.new(1, 0.66)*math.rad(1) -- (rad/inputdelta)
+
+if FFlagUserCameraInputDt then
+	ROTATION_SPEED_GAMEPAD *= 60 -- inline with FFlagUserCameraInputDt
+end
+
 
 local ZOOM_SPEED_MOUSE = 1 -- (scaled studs/wheel click)
 local ZOOM_SPEED_KEYS = 0.1 -- (studs/s)
@@ -137,7 +149,7 @@ local function isInDynamicThumbstickArea(pos: Vector3): boolean
 		pos.Y <= posBottomRight.Y
 end
 
-local worldDt = 1/60
+local worldDt = 1/60 -- remove with FFlagUserCameraInputDt
 RunService.Stepped:Connect(function(_, _worldDt)
 	worldDt = _worldDt
 end)
@@ -193,17 +205,26 @@ do
 		return panInputCount > 0 or gamepadState.Thumbstick2.Magnitude > 0
 	end
 	
-	function CameraInput.getRotation(disableKeyboardRotation: boolean?): Vector2
+	function CameraInput.getRotation(dt, disableKeyboardRotation: boolean?): Vector2
 		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
 
 		-- keyboard input is non-coalesced, so must account for time delta
-		local kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0)*worldDt
+		local kKeyboard
+		if FFlagUserCameraInputDt then
+			kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0) * dt
+		else
+			kKeyboard = Vector2.new(keyboardState.Right - keyboardState.Left, 0)*worldDt
+		end
 		local kGamepad -- inline with FFlagUserFixGamepadSensitivity
 		
 		if FFlagUserFixGamepadSensitivity then
 			kGamepad = gamepadState.Thumbstick2 * UserGameSettings.GamepadCameraSensitivity
 		else
 			kGamepad = gamepadState.Thumbstick2
+		end
+
+		if FFlagUserCameraInputDt then
+			kGamepad *= dt -- inline with FFlagUserCameraInputDt
 		end
 
 		local kMouse = mouseState.Movement

@@ -28,14 +28,12 @@ local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 local DeviceTypeEnum = RobloxAppEnums.DeviceType
 local GamepadDisconnectTokenMapper =
 	require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadDisconnectTokenMapper
-
 local GetFFlagEnableUISoundAndHaptics =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableUISoundAndHaptics
 local InteractionFeedbackPackage = require(CorePackages.Workspace.Packages.InteractionFeedback)
-local InteractionFeedbackContext = InteractionFeedbackPackage.InteractionFeedbackContext
 local FeedbackManagerInjectionContextProvider = InteractionFeedbackPackage.FeedbackManagerInjectionContextProvider
-local InteractionFeedbackAppConfig =
-	require(CorePackages.Workspace.Packages.RobloxAppInteractionFeedbackConfig).InteractionFeedbackAppConfig
+local AppInteractionFeedbackProvider =
+	require(CorePackages.Workspace.Packages.RobloxAppInteractionFeedbackConfig).AppInteractionFeedbackProvider
 
 local FFlagCoreScriptsDynamicDefaultDeviceType = game:DefineFastFlag("CoreScriptsDynamicDefaultDeviceType", false)
 
@@ -111,7 +109,7 @@ local function CoreScriptsRootProvider(props: Props)
 	})
 
 	if GetFFlagEnableUISoundAndHaptics() then
-		tree = React.createElement(InteractionFeedbackContext.Provider, { value = InteractionFeedbackAppConfig }, {
+		tree = React.createElement(AppInteractionFeedbackProvider, {}, {
 			tree = React.createElement(FeedbackManagerInjectionContextProvider, nil, {
 				tree = tree,
 			}),

@@ -84,100 +84,91 @@ MAIN:
   GETIMPORT R4 K4 [require]
   GETTABLEKS R7 R0 K15 ["Src"]
   GETTABLEKS R6 R7 K19 ["Flags"]
-  GETTABLEKS R5 R6 K20 ["getFFlagImprovePluginSpeedMaterialGenerator"]
+  GETTABLEKS R5 R6 K20 ["getFFlagShowMaterialGeneratorFromElsewhere"]
   CALL R4 1 1
   GETIMPORT R5 K4 [require]
-  GETTABLEKS R8 R0 K15 ["Src"]
-  GETTABLEKS R7 R8 K19 ["Flags"]
-  GETTABLEKS R6 R7 K21 ["getFFlagShowMaterialGeneratorFromElsewhere"]
+  GETTABLEKS R7 R0 K21 ["PluginLoader"]
+  GETTABLEKS R6 R7 K22 ["PluginLoaderBuilder"]
   CALL R5 1 1
-  MOVE R6 R4
-  CALL R6 0 1
-  JUMPIF R6 [+1]
-  RETURN R0 0
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R8 R0 K22 ["PluginLoader"]
-  GETTABLEKS R7 R8 K23 ["PluginLoaderBuilder"]
-  CALL R6 1 1
+  GETTABLEKS R9 R0 K15 ["Src"]
+  GETTABLEKS R8 R9 K23 ["Resources"]
+  GETTABLEKS R7 R8 K24 ["Localization"]
+  GETTABLEKS R6 R7 K25 ["SourceStrings"]
   GETTABLEKS R10 R0 K15 ["Src"]
-  GETTABLEKS R9 R10 K24 ["Resources"]
-  GETTABLEKS R8 R9 K25 ["Localization"]
-  GETTABLEKS R7 R8 K26 ["SourceStrings"]
-  GETTABLEKS R11 R0 K15 ["Src"]
-  GETTABLEKS R10 R11 K24 ["Resources"]
-  GETTABLEKS R9 R10 K25 ["Localization"]
-  GETTABLEKS R8 R9 K27 ["LocalizedStrings"]
-  NEWTABLE R9 1 0
-  LOADK R11 K28 ["MemStorageService."]
-  GETTABLEKS R12 R3 K29 ["LOAD_MATERIAL_GENERATOR"]
-  CONCAT R10 R11 R12
-  DUPCLOSURE R11 K30 [PROTO_1]
+  GETTABLEKS R9 R10 K23 ["Resources"]
+  GETTABLEKS R8 R9 K24 ["Localization"]
+  GETTABLEKS R7 R8 K26 ["LocalizedStrings"]
+  NEWTABLE R8 1 0
+  LOADK R10 K27 ["MemStorageService."]
+  GETTABLEKS R11 R3 K28 ["LOAD_MATERIAL_GENERATOR"]
+  CONCAT R9 R10 R11
+  DUPCLOSURE R10 K29 [PROTO_1]
   CAPTURE VAL R1
   CAPTURE VAL R3
-  SETTABLE R11 R9 R10
-  DUPTABLE R10 K41 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "extraTriggers", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
-  GETIMPORT R11 K42 [plugin]
-  SETTABLEKS R11 R10 K31 ["plugin"]
-  LOADK R11 K14 ["MaterialGenerator"]
-  SETTABLEKS R11 R10 K32 ["pluginName"]
-  SETTABLEKS R8 R10 K33 ["translationResourceTable"]
-  SETTABLEKS R7 R10 K34 ["fallbackResourceTable"]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K35 ["overrideLocaleId"]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K36 ["localizationNamespace"]
-  MOVE R12 R5
-  CALL R12 0 1
-  JUMPIFNOT R12 [+2]
-  MOVE R11 R9
+  SETTABLE R10 R8 R9
+  DUPTABLE R9 K40 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "extraTriggers", "getToolbarName", "buttonInfo", "dockWidgetInfo"}]
+  GETIMPORT R10 K41 [plugin]
+  SETTABLEKS R10 R9 K30 ["plugin"]
+  LOADK R10 K14 ["MaterialGenerator"]
+  SETTABLEKS R10 R9 K31 ["pluginName"]
+  SETTABLEKS R7 R9 K32 ["translationResourceTable"]
+  SETTABLEKS R6 R9 K33 ["fallbackResourceTable"]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K34 ["overrideLocaleId"]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K35 ["localizationNamespace"]
+  MOVE R11 R4
+  CALL R11 0 1
+  JUMPIFNOT R11 [+2]
+  MOVE R10 R8
   JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K36 ["extraTriggers"]
+  DUPCLOSURE R10 K42 [PROTO_2]
+  SETTABLEKS R10 R9 K37 ["getToolbarName"]
+  DUPTABLE R10 K47 [{"getName", "getDescription", "icon", "text"}]
+  DUPCLOSURE R11 K48 [PROTO_3]
+  SETTABLEKS R11 R10 K43 ["getName"]
+  DUPCLOSURE R11 K49 [PROTO_4]
+  SETTABLEKS R11 R10 K44 ["getDescription"]
+  LOADK R11 K50 [""]
+  SETTABLEKS R11 R10 K45 ["icon"]
   LOADNIL R11
-  SETTABLEKS R11 R10 K37 ["extraTriggers"]
-  DUPCLOSURE R11 K43 [PROTO_2]
-  SETTABLEKS R11 R10 K38 ["getToolbarName"]
-  DUPTABLE R11 K48 [{"getName", "getDescription", "icon", "text"}]
-  DUPCLOSURE R12 K49 [PROTO_3]
-  SETTABLEKS R12 R11 K44 ["getName"]
-  DUPCLOSURE R12 K50 [PROTO_4]
-  SETTABLEKS R12 R11 K45 ["getDescription"]
-  LOADK R12 K51 [""]
-  SETTABLEKS R12 R11 K46 ["icon"]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K47 ["text"]
-  SETTABLEKS R11 R10 K39 ["buttonInfo"]
-  DUPTABLE R11 K56 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R12 K14 ["MaterialGenerator"]
-  SETTABLEKS R12 R11 K52 ["id"]
-  GETIMPORT R12 K59 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R13 K63 [Enum.InitialDockState.Left]
+  SETTABLEKS R11 R10 K46 ["text"]
+  SETTABLEKS R10 R9 K38 ["buttonInfo"]
+  DUPTABLE R10 K55 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+  LOADK R11 K14 ["MaterialGenerator"]
+  SETTABLEKS R11 R10 K51 ["id"]
+  GETIMPORT R11 K58 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R12 K62 [Enum.InitialDockState.Left]
+  LOADB R13 0
   LOADB R14 0
-  LOADB R15 0
-  LOADN R16 128
-  LOADN R17 224
-  LOADN R18 250
-  LOADN R19 200
-  CALL R12 7 1
-  SETTABLEKS R12 R11 K53 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R12 K64 [PROTO_5]
-  SETTABLEKS R12 R11 K54 ["getDockTitle"]
-  GETIMPORT R12 K67 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R12 R11 K55 ["zIndexBehavior"]
-  SETTABLEKS R11 R10 K40 ["dockWidgetInfo"]
-  GETTABLEKS R11 R6 K68 ["build"]
-  MOVE R12 R10
+  LOADN R15 128
+  LOADN R16 224
+  LOADN R17 250
+  LOADN R18 200
+  CALL R11 7 1
+  SETTABLEKS R11 R10 K52 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R11 K63 [PROTO_5]
+  SETTABLEKS R11 R10 K53 ["getDockTitle"]
+  GETIMPORT R11 K66 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R11 R10 K54 ["zIndexBehavior"]
+  SETTABLEKS R10 R9 K39 ["dockWidgetInfo"]
+  GETTABLEKS R10 R5 K67 ["build"]
+  MOVE R11 R9
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K68 ["pluginLoader"]
+  NAMECALL R11 R11 K69 ["waitForUserInteraction"]
   CALL R11 1 1
-  GETTABLEKS R12 R11 K69 ["pluginLoader"]
-  NAMECALL R12 R12 K70 ["waitForUserInteraction"]
-  CALL R12 1 1
-  JUMPIF R12 [+1]
+  JUMPIF R11 [+1]
   RETURN R0 0
-  GETIMPORT R13 K4 [require]
-  GETIMPORT R16 K1 [script]
-  GETTABLEKS R15 R16 K2 ["Parent"]
-  GETTABLEKS R14 R15 K71 ["main"]
-  CALL R13 1 1
-  MOVE R14 R13
-  GETIMPORT R15 K42 [plugin]
-  MOVE R16 R11
-  CALL R14 2 0
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K70 ["main"]
+  CALL R12 1 1
+  MOVE R13 R12
+  GETIMPORT R14 K41 [plugin]
+  MOVE R15 R10
+  CALL R13 2 0
   RETURN R0 0

@@ -33,8 +33,6 @@ local ANON_LABEL = "<anonymous>"
 
 local ProfilerFunctionViewEntry = Roact.PureComponent:extend("ProfilerFunctionViewEntry")
 
-local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
-
 type BorderedCellLabelProps = {
 	text: string,
 	size: UDim2,
@@ -153,7 +151,7 @@ function ProfilerFunctionViewEntry:render()
 		hoverText = ""
 	end
 
-	if FFlagScriptProfilerPluginAnnotation and isPlugin then
+	if isPlugin then
 		name = name .. " <plugin>"
 	end
 

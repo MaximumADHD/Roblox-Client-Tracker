@@ -5,10 +5,12 @@
 	Description: Common work.
 --]]
 
+local CorePackages = game:GetService("CorePackages")
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 --[[ Classes ]]--
 local CommonUtil = {}
-			
+
 -- Concatenate these two tables, return result.
 function CommonUtil.TableConcat(t1,t2)
 	for i=1,#t2 do
@@ -39,7 +41,12 @@ end
 --			Scale = Vector3.new(0.5, 0.2, 10)
 --		}
 --	}
+-- FFlagLuaAppUnifiedCreateUtility cleanup TODO: Cleanup and replace usage
 function CommonUtil.Create(instanceType)
+	if Create.GetFFlagLuaAppUnifiedCreateUtility() then
+		return Create(instanceType)
+	end
+
 	return function(data)
 		local obj = Instance.new(instanceType)
 		local parent = nil

@@ -11,12 +11,8 @@ return function()
 		end
 	end
 
-	local FFlagEnableCoreVoiceChatModule = require(script.Parent.Flags.GetFFlagEnableCoreVoiceChatModule)()
 
-	local CoreVoiceManagerKlass
-	if FFlagEnableCoreVoiceChatModule then
-		CoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatCore).CoreVoiceManager
-	end
+	local CoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatCore).CoreVoiceManager
 
 	local ReportAbuseLogic = require(script.Parent.ReportAbuseLogic)
 	local MethodsOfAbuse = ReportAbuseLogic.MethodsOfAbuse
@@ -31,14 +27,12 @@ return function()
 	beforeEach(function(context)
 		VoiceChatServiceStub:resetMocks()
 		local BlockMock = Instance.new("BindableEvent")
-		if CoreVoiceManagerKlass then
-			CoreVoiceManager = CoreVoiceManagerKlass.new(
-				BlockMock.Event,
-				nil,
-				nil,
-				VoiceChatServiceStub
-			)
-		end
+		CoreVoiceManager = CoreVoiceManagerKlass.new(
+			BlockMock.Event,
+			nil,
+			nil,
+			VoiceChatServiceStub
+		)
 		VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 			CoreVoiceManager,
 			VoiceChatServiceStub,

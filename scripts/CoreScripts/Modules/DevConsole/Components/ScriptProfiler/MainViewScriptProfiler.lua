@@ -70,7 +70,6 @@ local MainViewScriptProfiler = Roact.PureComponent:extend("MainViewScriptProfile
 
 local getClientReplicator = require(script.Parent.Parent.Parent.Util.getClientReplicator)
 
-local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes2", false)
 local FFlagScriptProfilerShowPlugins = game:DefineFastFlag("ScriptProfilerShowPlugins2", false)
 local FFlagScriptProfilerBetterStateManagement = game:DefineFastFlag("ScriptProfilerBetterStateManagement", false)
 
@@ -306,14 +305,12 @@ local function OnNewProfilingData(state, oldState, jsonString: string?)
 		state.pluginOffsets, state.pluginGCOffsets = generatePluginDurationOffsets(state.gcNodeOffsets, state.data)
 	end
 
-	if FFlagScriptProfilerRememberExpandedNodes then
-		local count = if state.data then #state.data.Nodes else 0
-		local oldCount = if oldState.data then #oldState.data.Nodes else 0
-		local newExpandedNodes = table.create(count, false)
-		local oldExpandedNodes = oldState.expandedNodes
-		table.move(oldExpandedNodes, 1, oldCount, 1, newExpandedNodes)
-		state.expandedNodes = newExpandedNodes
-	end
+	local count = if state.data then #state.data.Nodes else 0
+	local oldCount = if oldState.data then #oldState.data.Nodes else 0
+	local newExpandedNodes = table.create(count, false)
+	local oldExpandedNodes = oldState.expandedNodes
+	table.move(oldExpandedNodes, 1, oldCount, 1, newExpandedNodes)
+	state.expandedNodes = newExpandedNodes
 end
 
 function MainViewScriptProfiler:init()

@@ -29,12 +29,7 @@ return function()
 	local GetFFlagJoinWithoutMicPermissions = require(RobloxGui.Modules.Flags.GetFFlagJoinWithoutMicPermissions)
 	local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 
-	local FFlagEnableCoreVoiceChatModule = require(script.Parent.Flags.GetFFlagEnableCoreVoiceChatModule)()
-
-	local CoreVoiceManagerKlass
-	if FFlagEnableCoreVoiceChatModule then
-		CoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatCore).CoreVoiceManager
-	end
+	local CoreVoiceManagerKlass = require(CorePackages.Workspace.Packages.VoiceChatCore).CoreVoiceManager
 
 	local noop = function() end
 	local stub = function(val)
@@ -131,19 +126,15 @@ return function()
 	end
 
 	local createCoreVoiceManager = function(voiceChatServiceStub, httpServiceStub, permissionsService, permissionFn, block, notificationMock, avatarChatServiceStub)
-		local CoreVoiceManager
-		if CoreVoiceManagerKlass then
-			CoreVoiceManager = CoreVoiceManagerKlass.new(
-				block,
-				permissionsService,
-				httpServiceStub,
-				voiceChatServiceStub,
-				nil,
-				notificationMock,
-				avatarChatServiceStub
-			)
-		end
-		return CoreVoiceManager
+		return CoreVoiceManagerKlass.new(
+			block,
+			permissionsService,
+			httpServiceStub,
+			voiceChatServiceStub,
+			nil,
+			notificationMock,
+			avatarChatServiceStub
+		)
 	end
 
 	beforeEach(function(context)
@@ -920,7 +911,7 @@ return function()
 			end
 			local mockGetClientFeaturesAsync = function()
 				return 0xFF
-			end	
+			end
 			local AvatarChatServiceStub = MockAvatarChatService.new(mockIsEnabled, mockEnableVoice, mockGetPropertyChangedSignal, mockGetClientFeaturesAsync)
 			VoiceChatServiceManager = VoiceChatServiceManagerKlass.new(
 				createCoreVoiceManager(VoiceChatServiceStub, HTTPServiceStub, PermissionServiceStub, nil, nil, nil, AvatarChatServiceStub),

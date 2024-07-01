@@ -4,7 +4,7 @@ local CorePackages = game:GetService("CorePackages")
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
-local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 
 local withStyle = UIBlox.Style.withStyle
 
@@ -33,7 +33,7 @@ function DropDownPlayerHeader:render()
 		return withStyle(function(style)
 			local player = self.props.player
 			local avatarBackgroundImage = "rbxasset://textures/ui/PlayerList/NewAvatarBackground.png"
-			local showVerifiedBadge = VerifiedBadges.isPlayerVerified(player)
+			local showVerifiedBadge = UserLib.Utils.isPlayerVerified(player)
 
 			return Roact.createElement("TextButton", {
 				--Used as a text button instead of a frame so that clicking on this doesn't close the player drop down.

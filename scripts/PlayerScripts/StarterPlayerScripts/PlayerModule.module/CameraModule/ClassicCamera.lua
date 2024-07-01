@@ -24,6 +24,8 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
 local FFlagUserFixCameraOffsetJitter = FlagUtil.getUserFlag("UserFixCameraOffsetJitter2")
+local FFlagUserCameraInputDt = FlagUtil.getUserFlag("UserCameraInputDt")
+
 
 --[[ Services ]]--
 local PlayersService = game:GetService("Players")
@@ -72,9 +74,13 @@ function ClassicCamera:SetCameraMovementMode(cameraMovementMode: Enum.ComputerCa
 	self.isCameraToggle = cameraMovementMode == Enum.ComputerCameraMovementMode.CameraToggle
 end
 
-function ClassicCamera:Update()
+function ClassicCamera:Update(dt)
 	local now = tick()
-	local timeDelta = now - self.lastUpdate
+	local timeDelta = now - self.lastUpdate -- replace with dt if FFlagUserCameraInputDt
+	if FFlagUserCameraInputDt then
+		timeDelta = dt
+	end
+
 
 	local camera = workspace.CurrentCamera
 	local newCameraCFrame = camera.CFrame
@@ -102,14 +108,14 @@ function ClassicCamera:Update()
 		self.lastCameraTransform = nil
 	end
 
-	local rotateInput = CameraInput.getRotation()
+	local rotateInput = CameraInput.getRotation(timeDelta)
 
 	self:StepZoom()
 
 	local cameraHeight = self:GetCameraHeight()
 
 	-- Reset tween speed if user is panning
-	if CameraInput.getRotation() ~= Vector2.new() then
+	if rotateInput ~= Vector2.new() then
 		tweenSpeed = 0
 		self.lastUserPanCamera = tick()
 	end
@@ -141,7 +147,7 @@ function ClassicCamera:Update()
 				subjectPosition = subjectPosition + cameraRelativeOffset
 			end
 		else
-			local userPanningTheCamera = CameraInput.getRotation() ~= Vector2.new()
+			local userPanningTheCamera = rotateInput ~= Vector2.new()
 
 			if not userPanningTheCamera and self.lastCameraTransform then
 

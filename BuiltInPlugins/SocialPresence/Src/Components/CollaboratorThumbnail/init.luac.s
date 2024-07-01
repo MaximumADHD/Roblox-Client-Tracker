@@ -1,0 +1,106 @@
+PROTO_0:
+  LOADK R3 K0 ["rbxthumb://type=AvatarHeadShot"]
+  LOADK R4 K1 ["&id="]
+  MOVE R5 R0
+  LOADK R6 K2 ["&w="]
+  GETTABLEKS R7 R1 K3 ["X"]
+  LOADK R8 K4 ["&h="]
+  GETTABLEKS R9 R1 K5 ["Y"]
+  LOADK R10 K6 ["&filters=circular"]
+  CONCAT R2 R3 R10
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Frame"]
+  NEWTABLE R3 8 0
+  GETTABLEKS R4 R0 K2 ["Size"]
+  SETTABLEKS R4 R3 K2 ["Size"]
+  GETTABLEKS R4 R0 K3 ["Position"]
+  SETTABLEKS R4 R3 K3 ["Position"]
+  GETTABLEKS R4 R0 K4 ["AnchorPoint"]
+  SETTABLEKS R4 R3 K4 ["AnchorPoint"]
+  GETTABLEKS R4 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K5 ["LayoutOrder"]
+  GETTABLEKS R4 R0 K6 ["ZIndex"]
+  SETTABLEKS R4 R3 K6 ["ZIndex"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["Tag"]
+  GETUPVAL R5 1
+  LOADK R6 K8 ["Component-CollaboratorThumbnail"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["Tag"]
+  GETTABLE R7 R0 R8
+  CALL R5 2 1
+  SETTABLE R5 R3 R4
+  DUPTABLE R4 K11 [{"ActivityRing", "Avatar"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K12 ["ImageLabel"]
+  NEWTABLE R7 2 0
+  GETTABLEKS R8 R0 K13 ["RingColor"]
+  SETTABLEKS R8 R7 K14 ["ImageColor3"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["Tag"]
+  GETTABLEKS R10 R0 K15 ["IsIdle"]
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K16 ["Idle"]
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLE R9 R7 R8
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K9 ["ActivityRing"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K12 ["ImageLabel"]
+  NEWTABLE R7 2 0
+  GETTABLEKS R9 R0 K17 ["UserId"]
+  GETIMPORT R10 K20 [Vector2.new]
+  LOADN R11 60
+  LOADN R12 60
+  CALL R10 2 1
+  LOADK R11 K21 ["rbxthumb://type=AvatarHeadShot"]
+  LOADK R12 K22 ["&id="]
+  MOVE R13 R9
+  LOADK R14 K23 ["&w="]
+  GETTABLEKS R15 R10 K24 ["X"]
+  LOADK R16 K25 ["&h="]
+  GETTABLEKS R17 R10 K26 ["Y"]
+  LOADK R18 K27 ["&filters=circular"]
+  CONCAT R8 R11 R18
+  SETTABLEKS R8 R7 K28 ["Image"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["Tag"]
+  GETTABLEKS R10 R0 K15 ["IsIdle"]
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K16 ["Idle"]
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLE R9 R7 R8
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["Avatar"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["SocialPresence"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K9 ["Styling"]
+  GETTABLEKS R3 R4 K10 ["joinTags"]
+  DUPCLOSURE R4 K11 [PROTO_0]
+  DUPCLOSURE R5 K12 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  RETURN R5 1

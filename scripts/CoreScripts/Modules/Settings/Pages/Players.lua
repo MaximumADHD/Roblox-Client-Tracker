@@ -49,6 +49,7 @@ local BlockingUtility = require(RobloxGui.Modules.BlockingUtility)
 local log = require(RobloxGui.Modules.Logger):new(script.Name)
 local MuteToggles = require(RobloxGui.Modules.Settings.Components.MuteToggles)
 local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
+local setAppChatVisible = require(CorePackages.Workspace.Packages.AppChat).App.AppChatVisible.setAppChatVisible
 
 local FFlagUpdateFriendLabelOnChange = game:DefineFastFlag("UpdateFriendLabelOnChange", false)
 local FFlagFixPlayersExtremeTruncation = game:DefineFastFlag("FixPlayersExtremeTruncation", false)
@@ -147,6 +148,10 @@ local isEngineTruncationEnabledForIngameSettings = require(RobloxGui.Modules.Fla
 local EngineFeatureVoiceChatMultistreamSubscriptionsEnabled = game:GetEngineFeature("VoiceChatMultistreamSubscriptionsEnabled")
 local LuaFlagVoiceChatDisableSubscribeRetryForMultistream = game:DefineFastFlag("LuaFlagVoiceChatDisableSubscribeRetryForMultistream", true)
 local FFlagPlayerListRefactorUsernameFormatting = game:DefineFastFlag("PlayerListRefactorUsernameFormatting", false)
+local FFlagCorrectlyPositionMuteButton = game:DefineFastFlag("CorrectlyPositionMuteButton", false)
+local FFlagAppChatIGMEntryPoint = game:DefineFastFlag("DebugAppChatIGMEntryPoint", false)
+local BUTTON_ROW_HORIZONTAL_PADDING = 20
+local BUTTON_ROW_VERTICAL_PADDING = 16
 
 local FFlagEnablePlatformName = game:DefineFastFlag("EnablePlatformName", false)
 local FFlagCheckForNilUserIdOnPlayerList = game:DefineFastFlag("CheckForNilUserIdOnPlayerList", false)
@@ -357,12 +362,80 @@ local function Initialize()
 
 	local shareGameButton
 	local muteAllButton
+	local chatButton
 	local muteToggles
 	local muteImageButtons = {}
 	local shouldShowMuteToggles = GetFFlagShowMuteToggles()
 	local initialMuteTogglesState = false
 	local playersFriends = {}
 	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "Players")
+	local updateButtonsLayout
+	local buttonFrame
+	local buttonFrameLayout
+	
+	if FFlagAppChatIGMEntryPoint then
+		updateButtonsLayout = function()
+			local buttons = {}
+			local columnLayout = utility:IsPortrait() or utility:IsSmallTouchScreen()
+			
+			if shareGameButton then
+				table.insert(buttons, shareGameButton)
+			end
+			
+			if muteAllButton then
+				table.insert(buttons, muteAllButton)
+			end
+			
+			if chatButton then
+				table.insert(buttons, chatButton)
+			end
+			
+			if #buttons > 0 then
+				local buttonSize = UDim2.new(1 / #buttons, 0, 0, BUTTON_ROW_HEIGHT)
+				local buttonFrameProperties = {
+					Size = UDim2.new(1, -BUTTON_ROW_HORIZONTAL_PADDING * (#buttons - 1), 0, BUTTON_ROW_HEIGHT),
+					AutomaticSize = Enum.AutomaticSize.None,
+				}
+				local buttonFrameLayoutProperties = {
+					FillDirection = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, BUTTON_ROW_HORIZONTAL_PADDING),
+				}
+				
+				if columnLayout then
+					buttonSize = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT)
+					buttonFrameProperties = {
+						Size = UDim2.fromScale(1, 0),
+						AutomaticSize = Enum.AutomaticSize.Y,
+					}
+					buttonFrameLayoutProperties = {
+						FillDirection = Enum.FillDirection.Vertical,
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, BUTTON_ROW_VERTICAL_PADDING),
+					}
+				end
+					
+				for _, button in buttons do
+					button.Size = buttonSize
+				end
+				
+				for property, value in buttonFrameLayoutProperties do
+					buttonFrameLayout[property] = value
+				end
+
+				for property, value in buttonFrameProperties do
+					buttonFrame[property] = value
+				end
+			else
+				buttonFrame:Destroy()
+				buttonFrame = nil
+			end
+		end
+	end
 
 	local function resizeFriendButton(parent, player, isPortrait, wasIsPortrait)
 		local friendLabel = parent:FindFirstChild("FriendStatus")
@@ -881,6 +954,7 @@ local function Initialize()
 
 	local createShareGameButton = nil
 	local createMuteAllButton = nil
+	local createChatButton = nil
 	local createPlayerRow = nil
 
 	local voiceChatServiceConnected = false
@@ -894,9 +968,16 @@ local function Initialize()
 			if muteAllButton then
 				muteAllButton.Visible = false
 				muteAllButton:Destroy()
+				if FFlagAppChatIGMEntryPoint then
+					muteAllButton = nil
+				end
 			end
-			if shareGameButton then
-				shareGameButton.Size = FULL_SIZE_SHARE_GAME_BUTTON_SIZE
+			if FFlagAppChatIGMEntryPoint then
+				updateButtonsLayout()
+			else
+				if shareGameButton then
+					shareGameButton.Size = FULL_SIZE_SHARE_GAME_BUTTON_SIZE
+				end
 			end
 		end
 	end
@@ -1115,6 +1196,80 @@ local function Initialize()
 		end
 
 		return frame
+	end
+
+	if FFlagAppChatIGMEntryPoint then
+		createChatButton = function()
+			local frame = createRow("ImageButton")
+			local textLabel = frame.TextLabel
+			local icon = frame.Icon
+
+			textLabel.Size = if FFlagFixPlayersExtremeTruncation then UDim2.new(1, -LABEL_POSX, 0, 0) else UDim2.new(0.5, 0, 0, 0)
+			textLabel.TextTruncate = Enum.TextTruncate.AtEnd
+			textLabel.Font = Theme.font(Enum.Font.SourceSansSemibold, "Semibold")
+			textLabel.AutoLocalize = false
+			textLabel.Text = "Chat"
+
+			icon.Size = UDim2.new(0, 24, 0, 24)
+			icon.Position = UDim2.new(0, 18, 0, 18)
+			if GetFFlagOldMenuNewIcons() then
+				icon.Size = UDim2.new(0, 32, 0, 32)
+				icon.Position = UDim2.new(0, 18, 0, 16)
+			end
+
+			if Theme.UIBloxThemeEnabled then
+				icon.AnchorPoint = Vector2.new(0, 0.5)
+				icon.Position = UDim2.new(0, 18, 0.5, 0)
+
+				local iconImg = Theme.Images["icons/menu/chat_off"]
+				icon.Image = iconImg.Image
+				icon.ImageRectOffset = iconImg.ImageRectOffset
+				icon.ImageRectSize = iconImg.ImageRectSize
+			end
+
+			local setHighlighted = function(isHighlighted)
+				frame.ImageTransparency = FRAME_SELECTED_TRANSPARENCY
+			end
+			
+			local setNotHighlighted = function(isHighlighted)
+				frame.ImageTransparency = FRAME_DEFAULT_TRANSPARENCY
+			end
+
+			frame.InputBegan:Connect(setHighlighted)
+			frame.InputEnded:Connect(setNotHighlighted)
+			frame.Activated:Connect(setNotHighlighted)
+			frame.TouchPan:Connect(function(_, totalTranslation)
+				if math.abs(totalTranslation.Y) > TAP_ACCURACY_THREASHOLD then
+					setNotHighlighted()
+				end
+			end)
+
+			frame.SelectionGained:connect(setHighlighted)
+			frame.SelectionLost:connect(setNotHighlighted)
+			frame.SelectionImageObject = frame:Clone()
+
+			if GetFFlagFixInviteTextVisibility() and Theme.UIBloxThemeEnabled and not GetFFlagAddAnimatedFocusState() then 
+				local SelectionOverrideObject = utility:Create'Frame'{
+						BackgroundTransparency = Theme.transparency("PlayerRowSelection"),
+						BorderSizePixel = 0,
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundColor3 = Theme.color("PlayerRowSelection")
+					}
+				utility:Create'UICorner'{
+					CornerRadius = Theme.DefaultCornerRadius,
+					Parent = SelectionOverrideObject,
+				}
+			
+				frame.SelectionImageObject = SelectionOverrideObject
+			end
+
+			if GetFFlagAddAnimatedFocusState() and Theme.UIBloxThemeEnabled then
+				local renderName = RENDER_NAME_PREFIX.."-chat"
+				utility:MakeFocusState(frame, renderName)
+			end
+
+			return frame
+		end
 	end
 
 	local function createMuteToggles(initialTogglesState, playersFriends)
@@ -1567,20 +1722,64 @@ local function Initialize()
 			extraOffset = if shouldShowMuteToggles then 125 else 85
 		end
 
-		local buttonFrame
 		local showMuteAllButton = voiceChatServiceConnected and not muteAllButton
 		local renderMuteToggles = voiceChatServiceConnected and not muteToggles
-		if not shouldShowMuteToggles then
-			if showMuteAllButton then
+		local showChatButton
+		local showShareGameButton
+
+		if FFlagAppChatIGMEntryPoint then
+			showShareGameButton = canShareCurrentGame() and not shareGameButton and not RunService:IsStudio()
+			showChatButton = not chatButton
+
+			if (showShareGameButton or showMuteAllButton or showChatButton) and not buttonFrame then
 				buttonFrame = utility:Create'Frame'
 				{
 					Name = "Holder",
 					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT),
+					Size = UDim2.fromScale(1, 0),
+					AutomaticSize = Enum.AutomaticSize.Y,
 					Parent = this.Page,
 					LayoutOrder = 1,
 				}
+				buttonFrameLayout = utility:Create'UIListLayout'
+				{
+					FillDirection = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, BUTTON_ROW_HORIZONTAL_PADDING),
+					Parent = buttonFrame,
+				}
 			end
+		else
+			if not shouldShowMuteToggles then
+				if showMuteAllButton then
+					buttonFrame = utility:Create'Frame'
+					{
+						Name = "Holder",
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT),
+						Parent = this.Page,
+						LayoutOrder = 1,
+					}
+				end
+			end
+		end
+
+		local function layoutMuteAll()
+			if not buttonFrame then
+				buttonFrame = utility:Create'Frame'
+					{
+						Name = "Holder",
+						BackgroundTransparency = 1,
+						Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT),
+						Parent = this.Page,
+						LayoutOrder = 1,
+					}
+			end
+			shareGameButton.Parent = buttonFrame
+			shareGameButton.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
+			muteAllButton.Parent = buttonFrame
 		end
 
 		-- Create "invite friends" button if it doesn't exist yet
@@ -1605,11 +1804,29 @@ local function Initialize()
 			end)
 
 			shareGameButton.LayoutOrder = 1
-			if not shouldShowMuteToggles and showMuteAllButton then
+			if FFlagAppChatIGMEntryPoint then
 				shareGameButton.Parent = buttonFrame
+				updateButtonsLayout()
 			else
-				-- Ensure the button is always at the top of the list
-				shareGameButton.Parent = this.Page
+				if not shouldShowMuteToggles and showMuteAllButton then
+					shareGameButton.Parent = buttonFrame
+				else
+					-- Ensure the button is always at the top of the list
+					shareGameButton.Parent = this.Page
+				end
+			end
+		end
+		
+		if FFlagAppChatIGMEntryPoint then
+			if showChatButton then
+				chatButton = createChatButton()
+				chatButton.Activated:connect(function()
+					setAppChatVisible(true)
+					this.HubRef:SetVisibility(false, true)
+				end)
+				chatButton.LayoutOrder = 3
+				chatButton.Parent = buttonFrame
+				updateButtonsLayout()
 			end
 		end
 
@@ -1764,7 +1981,14 @@ local function Initialize()
 				end)
 
 				muteAllButton.LayoutOrder = 1
-				muteAllButton.Parent = buttonFrame
+				if FFlagCorrectlyPositionMuteButton then
+					layoutMuteAll()
+				else
+					muteAllButton.Parent = buttonFrame
+        end
+				if FFlagAppChatIGMEntryPoint then
+					updateButtonsLayout()
+				end
 			end
 		end
 
@@ -1923,6 +2147,9 @@ local function Initialize()
 				VoiceChatServiceManager.userAgencySelected.Event:Connect(function(isMuteAll)
 					initialMuteTogglesState = isMuteAll
 				end)
+			end
+			if FFlagCorrectlyPositionMuteButton then
+				rebuildPlayerList()
 			end
 		end):catch(function(err)
 			if GetFFlagVoiceChatUILogging() then

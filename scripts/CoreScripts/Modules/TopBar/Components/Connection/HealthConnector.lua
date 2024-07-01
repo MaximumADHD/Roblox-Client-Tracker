@@ -13,6 +13,7 @@ local SetIsDead = require(TopBar.Actions.SetIsDead)
 local UpdateHealth = require(TopBar.Actions.UpdateHealth)
 
 local EventConnection = require(TopBar.Parent.Common.EventConnection)
+local GetFFlagFixHealthDesync = require(TopBar.Flags.GetFFlagFixHealthDesync)
 
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
@@ -28,21 +29,41 @@ HealthConnector.validateProps = t.strictInterface({
 })
 
 function HealthConnector:init()
-	local character = LocalPlayer.Character
-	local humanoid = nil
-	if character then
-		humanoid = character:FindFirstChildOfClass("Humanoid")
-	end
+	if GetFFlagFixHealthDesync() then 
+		self:setState({
+			character = nil,
+			humanoid = nil,
+		})
+	else
+		local character = LocalPlayer.Character
+		local humanoid = nil
+		if character then
+			humanoid = character:FindFirstChildOfClass("Humanoid")
+		end
 
-	self:setState({
-		character = character,
-		humanoid = humanoid,
-	})
+		self:setState({
+			character = character,
+			humanoid = humanoid,
+		})
+	end
 end
 
 function HealthConnector:didMount()
-	if self.state.humanoid then
-		self.props.updateHealth(self.state.humanoid.Health, self.state.humanoid.MaxHealth)
+	if GetFFlagFixHealthDesync() then 
+		local character = LocalPlayer.Character
+		local humanoid = nil
+		if character then
+			humanoid = character:FindFirstChildOfClass("Humanoid")
+		end
+
+		self:setState({
+			character = character,
+			humanoid = humanoid,
+		})
+	else
+		if self.state.humanoid then
+			self.props.updateHealth(self.state.humanoid.Health, self.state.humanoid.MaxHealth)
+		end
 	end
 end
 

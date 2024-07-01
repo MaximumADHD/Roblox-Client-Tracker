@@ -30,60 +30,48 @@ PROTO_1:
   RETURN R0 0
 
 PROTO_2:
+  GETTABLEKS R2 R0 K0 ["Data"]
+  GETTABLEKS R1 R2 K1 ["RigType"]
   GETTABLEKS R3 R0 K0 ["Data"]
-  GETTABLEKS R2 R3 K1 ["RigType"]
-  GETTABLEKS R4 R0 K0 ["Data"]
-  GETTABLEKS R3 R4 K2 ["InstanceName"]
-  GETUPVAL R4 0
-  DUPTABLE R6 K4 [{"searchFilters"}]
-  GETUPVAL R7 1
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K5 ["state"]
-  GETTABLEKS R8 R9 K3 ["searchFilters"]
-  DUPTABLE R9 K7 [{"rigFilters"}]
-  GETUPVAL R10 1
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K5 ["state"]
-  GETTABLEKS R12 R13 K3 ["searchFilters"]
-  GETTABLEKS R11 R12 K6 ["rigFilters"]
-  NEWTABLE R12 1 0
-  GETUPVAL R13 1
-  GETUPVAL R18 0
-  GETTABLEKS R17 R18 K5 ["state"]
-  GETTABLEKS R16 R17 K3 ["searchFilters"]
-  GETTABLEKS R15 R16 K6 ["rigFilters"]
-  GETTABLE R14 R15 R2
-  NEWTABLE R15 1 0
-  GETUPVAL R22 0
-  GETTABLEKS R21 R22 K5 ["state"]
-  GETTABLEKS R20 R21 K3 ["searchFilters"]
-  GETTABLEKS R19 R20 K6 ["rigFilters"]
-  GETTABLE R18 R19 R2
-  GETTABLE R17 R18 R3
-  NOT R16 R17
-  JUMPIF R16 [+1]
-  GETUPVAL R16 2
-  SETTABLE R16 R15 R3
-  CALL R13 2 1
-  SETTABLE R13 R12 R2
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K6 ["rigFilters"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K3 ["searchFilters"]
-  NAMECALL R4 R4 K8 ["setState"]
-  CALL R4 2 0
-  JUMPIFNOT R1 [+15]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K9 ["ExpandTreeView"]
-  LOADB R6 1
-  NAMECALL R4 R4 K10 ["Fire"]
-  CALL R4 2 0
-  GETUPVAL R4 0
-  DUPTABLE R6 K12 [{"expandedTreeView"}]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K11 ["expandedTreeView"]
-  NAMECALL R4 R4 K8 ["setState"]
-  CALL R4 2 0
+  GETTABLEKS R2 R3 K2 ["InstanceName"]
+  GETUPVAL R3 0
+  DUPTABLE R5 K4 [{"searchFilters"}]
+  GETUPVAL R6 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["state"]
+  GETTABLEKS R7 R8 K3 ["searchFilters"]
+  DUPTABLE R8 K7 [{"rigFilters"}]
+  GETUPVAL R9 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K5 ["state"]
+  GETTABLEKS R11 R12 K3 ["searchFilters"]
+  GETTABLEKS R10 R11 K6 ["rigFilters"]
+  NEWTABLE R11 1 0
+  GETUPVAL R12 1
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K5 ["state"]
+  GETTABLEKS R15 R16 K3 ["searchFilters"]
+  GETTABLEKS R14 R15 K6 ["rigFilters"]
+  GETTABLE R13 R14 R1
+  NEWTABLE R14 1 0
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K5 ["state"]
+  GETTABLEKS R19 R20 K3 ["searchFilters"]
+  GETTABLEKS R18 R19 K6 ["rigFilters"]
+  GETTABLE R17 R18 R1
+  GETTABLE R16 R17 R2
+  NOT R15 R16
+  JUMPIF R15 [+1]
+  GETUPVAL R15 2
+  SETTABLE R15 R14 R2
+  CALL R12 2 1
+  SETTABLE R12 R11 R1
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K6 ["rigFilters"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K3 ["searchFilters"]
+  NAMECALL R3 R3 K8 ["setState"]
+  CALL R3 2 0
   RETURN R0 0
 
 PROTO_3:
@@ -174,14 +162,6 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["onFilterSelected"]
-  MOVE R2 R0
-  LOADB R3 1
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_7:
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["state"]
   GETTABLEKS R1 R2 K1 ["expandedTreeView"]
@@ -198,7 +178,7 @@ PROTO_7:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_8:
+PROTO_7:
   GETTABLEKS R1 R0 K0 ["state"]
   GETTABLEKS R2 R0 K1 ["props"]
   GETTABLEKS R4 R0 K1 ["props"]
@@ -330,8 +310,7 @@ PROTO_8:
   GETTABLEKS R20 R1 K71 ["searchFilters"]
   GETTABLEKS R19 R20 K72 ["rigFilters"]
   SETTABLEKS R19 R18 K65 ["Filters"]
-  NEWCLOSURE R19 P0
-  CAPTURE VAL R0
+  GETTABLEKS R19 R0 K73 ["onFilterSelected"]
   SETTABLEKS R19 R18 K66 ["OnFilterSelected"]
   CALL R16 2 1
   SETTABLEKS R16 R15 K51 ["FilterMenuButton"]
@@ -340,7 +319,7 @@ PROTO_8:
   GETUPVAL R13 0
   GETTABLEKS R12 R13 K3 ["createElement"]
   GETUPVAL R13 1
-  DUPTABLE R14 K74 [{"LayoutOrder", "Size", "Layout", "VerticalAlignment"}]
+  DUPTABLE R14 K75 [{"LayoutOrder", "Size", "Layout", "VerticalAlignment"}]
   LOADN R15 1
   SETTABLEKS R15 R14 K47 ["LayoutOrder"]
   GETIMPORT R15 K37 [UDim2.new]
@@ -352,28 +331,28 @@ PROTO_8:
   SETTABLEKS R15 R14 K4 ["Size"]
   GETIMPORT R15 K50 [Enum.FillDirection.Horizontal]
   SETTABLEKS R15 R14 K32 ["Layout"]
-  GETIMPORT R15 K75 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R15 R14 K73 ["VerticalAlignment"]
-  DUPTABLE R15 K78 [{"TagsBar", "ExpandCollapse"}]
+  GETIMPORT R15 K76 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R15 R14 K74 ["VerticalAlignment"]
+  DUPTABLE R15 K79 [{"TagsBar", "ExpandCollapse"}]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K3 ["createElement"]
   GETUPVAL R17 6
-  DUPTABLE R18 K81 [{"LayoutOrder", "Size", "Filters", "OnFilterClosed", "ClipsDescendants"}]
+  DUPTABLE R18 K82 [{"LayoutOrder", "Size", "Filters", "OnFilterClosed", "ClipsDescendants"}]
   LOADN R19 1
   SETTABLEKS R19 R18 K47 ["LayoutOrder"]
   GETIMPORT R19 K8 [UDim2.fromScale]
-  LOADK R20 K82 [0.7]
+  LOADK R20 K83 [0.7]
   LOADN R21 1
   CALL R19 2 1
   SETTABLEKS R19 R18 K4 ["Size"]
   GETTABLEKS R19 R1 K71 ["searchFilters"]
   SETTABLEKS R19 R18 K65 ["Filters"]
-  GETTABLEKS R19 R0 K83 ["onFilterSelected"]
-  SETTABLEKS R19 R18 K79 ["OnFilterClosed"]
+  GETTABLEKS R19 R0 K73 ["onFilterSelected"]
+  SETTABLEKS R19 R18 K80 ["OnFilterClosed"]
   LOADB R19 1
-  SETTABLEKS R19 R18 K80 ["ClipsDescendants"]
+  SETTABLEKS R19 R18 K81 ["ClipsDescendants"]
   CALL R16 2 1
-  SETTABLEKS R16 R15 K76 ["TagsBar"]
+  SETTABLEKS R16 R15 K77 ["TagsBar"]
   GETUPVAL R17 0
   GETTABLEKS R16 R17 K3 ["createElement"]
   GETUPVAL R17 1
@@ -385,7 +364,7 @@ PROTO_8:
   LOADN R21 1
   CALL R19 2 1
   SETTABLEKS R19 R18 K4 ["Size"]
-  NEWCLOSURE R19 P1
+  NEWCLOSURE R19 P0
   CAPTURE VAL R0
   SETTABLEKS R19 R18 K84 ["OnClick"]
   GETIMPORT R19 K50 [Enum.FillDirection.Horizontal]
@@ -412,7 +391,7 @@ PROTO_8:
   CALL R20 2 1
   SETTABLEKS R20 R19 K89 ["TextLabel"]
   CALL R16 3 1
-  SETTABLEKS R16 R15 K77 ["ExpandCollapse"]
+  SETTABLEKS R16 R15 K78 ["ExpandCollapse"]
   CALL R12 3 1
   SETTABLEKS R12 R11 K44 ["Toolbar"]
   GETUPVAL R13 0
@@ -477,7 +456,7 @@ PROTO_8:
   CALL R4 3 -1
   RETURN R4 -1
 
-PROTO_9:
+PROTO_8:
   DUPTABLE R2 K1 [{"diagnostics"}]
   GETTABLEKS R4 R0 K2 ["ScriptConversion"]
   GETTABLEKS R3 R4 K0 ["diagnostics"]
@@ -569,7 +548,7 @@ MAIN:
   CAPTURE VAL R30
   CAPTURE VAL R8
   SETTABLEKS R31 R29 K45 ["getDerivedStateFromProps"]
-  DUPCLOSURE R31 K46 [PROTO_8]
+  DUPCLOSURE R31 K46 [PROTO_7]
   CAPTURE VAL R1
   CAPTURE VAL R15
   CAPTURE VAL R13
@@ -591,7 +570,7 @@ MAIN:
   MOVE R32 R29
   CALL R31 1 1
   MOVE R29 R31
-  DUPCLOSURE R31 K52 [PROTO_9]
+  DUPCLOSURE R31 K52 [PROTO_8]
   GETTABLEKS R32 R2 K53 ["connect"]
   MOVE R33 R31
   CALL R32 1 1

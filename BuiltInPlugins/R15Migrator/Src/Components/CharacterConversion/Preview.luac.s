@@ -297,157 +297,118 @@ PROTO_8:
 PROTO_9:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Character"]
-  GETTABLEKS R3 R1 K2 ["Selection"]
-  GETTABLEKS R4 R1 K3 ["Stylizer"]
-  GETTABLEKS R5 R0 K4 ["setupAssetRenderModel"]
-  MOVE R6 R2
-  CALL R5 1 1
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K5 ["LayoutOrderIterator"]
-  GETTABLEKS R6 R7 K6 ["new"]
-  CALL R6 0 1
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K7 ["createFragment"]
-  DUPTABLE R8 K10 [{"ViewPortPane", "TreeViewArea"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["createElement"]
-  GETUPVAL R10 2
-  DUPTABLE R11 K19 [{"BackgroundColor3", "BackgroundTransparency", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
-  GETTABLEKS R12 R4 K20 ["ViewportBackgroundColor"]
-  SETTABLEKS R12 R11 K12 ["BackgroundColor3"]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K13 ["BackgroundTransparency"]
-  NAMECALL R12 R6 K21 ["getNextOrder"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
-  GETIMPORT R12 K25 [Enum.FillDirection.Vertical]
-  SETTABLEKS R12 R11 K15 ["Layout"]
-  GETIMPORT R12 K27 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R12 R11 K16 ["HorizontalAlignment"]
-  GETIMPORT R12 K29 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R12 R11 K17 ["VerticalAlignment"]
-  GETIMPORT R12 K31 [UDim2.new]
-  LOADN R13 1
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  GETTABLEKS R4 R0 K3 ["setupAssetRenderModel"]
+  MOVE R5 R2
+  CALL R4 1 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["LayoutOrderIterator"]
+  GETTABLEKS R5 R6 K5 ["new"]
+  CALL R5 0 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K6 ["createFragment"]
+  DUPTABLE R7 K8 [{"ViewPortPane"}]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K17 [{"BackgroundColor3", "BackgroundTransparency", "LayoutOrder", "Layout", "HorizontalAlignment", "VerticalAlignment", "Size"}]
+  GETTABLEKS R11 R3 K18 ["ViewportBackgroundColor"]
+  SETTABLEKS R11 R10 K10 ["BackgroundColor3"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K11 ["BackgroundTransparency"]
+  NAMECALL R11 R5 K19 ["getNextOrder"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K12 ["LayoutOrder"]
+  GETIMPORT R11 K23 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K13 ["Layout"]
+  GETIMPORT R11 K25 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R11 R10 K14 ["HorizontalAlignment"]
+  GETIMPORT R11 K27 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R11 R10 K15 ["VerticalAlignment"]
+  GETIMPORT R11 K29 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 0
   LOADN R14 0
-  LOADN R15 0
-  GETTABLEKS R16 R4 K32 ["ViewportHeight"]
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K18 ["Size"]
-  DUPTABLE R12 K34 [{"Viewport"}]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K11 ["createElement"]
-  GETUPVAL R14 3
-  DUPTABLE R15 K41 [{"DisablePan", "DisableZoom", "FocusDirection", "Model", "OnViewModelLoaded", "RecenterModelOnUpdate", "Size"}]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K35 ["DisablePan"]
-  LOADB R16 1
-  SETTABLEKS R16 R15 K36 ["DisableZoom"]
+  GETTABLEKS R15 R3 K30 ["ViewportHeight"]
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K16 ["Size"]
+  DUPTABLE R11 K32 [{"Viewport"}]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K9 ["createElement"]
+  GETUPVAL R13 3
+  DUPTABLE R14 K39 [{"DisablePan", "DisableZoom", "FocusDirection", "Model", "OnViewModelLoaded", "RecenterModelOnUpdate", "Size"}]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K33 ["DisablePan"]
+  LOADB R15 1
+  SETTABLEKS R15 R14 K34 ["DisableZoom"]
+  LOADN R16 0
   LOADN R17 0
-  LOADN R18 0
-  LOADN R19 255
+  LOADN R18 255
   FASTCALL VECTOR [+2]
-  GETIMPORT R16 K43 [Vector3.new]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K37 ["FocusDirection"]
-  SETTABLEKS R5 R15 K38 ["Model"]
-  GETTABLEKS R16 R0 K44 ["onViewModelLoaded"]
-  SETTABLEKS R16 R15 K39 ["OnViewModelLoaded"]
-  LOADB R16 0
-  SETTABLEKS R16 R15 K40 ["RecenterModelOnUpdate"]
-  GETIMPORT R16 K46 [UDim2.fromScale]
+  GETIMPORT R15 K41 [Vector3.new]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K35 ["FocusDirection"]
+  SETTABLEKS R4 R14 K36 ["Model"]
+  GETTABLEKS R15 R0 K42 ["onViewModelLoaded"]
+  SETTABLEKS R15 R14 K37 ["OnViewModelLoaded"]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K38 ["RecenterModelOnUpdate"]
+  GETIMPORT R15 K44 [UDim2.fromScale]
+  LOADN R16 1
   LOADN R17 1
-  LOADN R18 1
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K18 ["Size"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K33 ["Viewport"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K8 ["ViewPortPane"]
-  GETUPVAL R10 4
-  JUMPIFNOT R10 [+39]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["createElement"]
-  GETUPVAL R10 2
-  DUPTABLE R11 K47 [{"Size", "LayoutOrder"}]
-  GETIMPORT R12 K31 [UDim2.new]
-  LOADN R13 1
-  LOADN R14 0
-  LOADN R15 0
-  GETTABLEKS R16 R4 K48 ["TreeHeight"]
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K18 ["Size"]
-  NAMECALL R12 R6 K21 ["getNextOrder"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K14 ["LayoutOrder"]
-  DUPTABLE R12 K50 [{"TreeView"}]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K11 ["createElement"]
-  GETUPVAL R14 5
-  DUPTABLE R15 K53 [{"Instance", "OnSelectionChange", "Selection"}]
-  SETTABLEKS R2 R15 K51 ["Instance"]
-  GETTABLEKS R16 R0 K54 ["onSelectionChanged"]
-  SETTABLEKS R16 R15 K52 ["OnSelectionChange"]
-  SETTABLEKS R3 R15 K2 ["Selection"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K49 ["TreeView"]
-  CALL R9 3 1
-  JUMP [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K9 ["TreeViewArea"]
-  CALL R7 1 -1
-  RETURN R7 -1
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K16 ["Size"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K31 ["Viewport"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K7 ["ViewPortPane"]
+  CALL R6 1 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["DebugShowCharacterInstanceTree"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 1
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["R15Migrator"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R1 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["Framework"]
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["R15Migrator"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
   CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R1 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["Roact"]
-  CALL R3 1 1
-  GETTABLEKS R5 R1 K13 ["Src"]
-  GETTABLEKS R4 R5 K14 ["Components"]
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R7 R4 K15 ["CharacterConversion"]
-  GETTABLEKS R6 R7 K16 ["InstanceTree"]
-  CALL R5 1 1
-  GETTABLEKS R6 R2 K17 ["ContextServices"]
-  GETTABLEKS R7 R2 K18 ["UI"]
-  GETTABLEKS R8 R2 K19 ["Util"]
-  GETTABLEKS R9 R7 K20 ["AssetRenderModel"]
-  GETTABLEKS R10 R7 K21 ["Pane"]
-  GETTABLEKS R11 R3 K22 ["PureComponent"]
-  LOADK R13 K23 ["CharacterPreview"]
-  NAMECALL R11 R11 K24 ["extend"]
-  CALL R11 2 1
-  DUPCLOSURE R12 K25 [PROTO_8]
-  CAPTURE VAL R5
-  SETTABLEKS R12 R11 K26 ["init"]
-  DUPCLOSURE R12 K27 [PROTO_9]
-  CAPTURE VAL R8
-  CAPTURE VAL R3
-  CAPTURE VAL R10
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Components"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R3 K11 ["CharacterConversion"]
+  GETTABLEKS R5 R6 K12 ["InstanceTree"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K13 ["ContextServices"]
+  GETTABLEKS R6 R1 K14 ["UI"]
+  GETTABLEKS R7 R1 K15 ["Util"]
+  GETTABLEKS R8 R6 K16 ["AssetRenderModel"]
+  GETTABLEKS R9 R6 K17 ["Pane"]
+  GETTABLEKS R10 R2 K18 ["PureComponent"]
+  LOADK R12 K19 ["CharacterPreview"]
+  NAMECALL R10 R10 K20 ["extend"]
+  CALL R10 2 1
+  DUPCLOSURE R11 K21 [PROTO_8]
+  CAPTURE VAL R4
+  SETTABLEKS R11 R10 K22 ["init"]
+  DUPCLOSURE R11 K23 [PROTO_9]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
   CAPTURE VAL R9
-  CAPTURE VAL R0
-  CAPTURE VAL R5
-  SETTABLEKS R12 R11 K28 ["render"]
-  GETTABLEKS R12 R6 K29 ["withContext"]
-  DUPTABLE R13 K31 [{"Stylizer"}]
-  GETTABLEKS R14 R6 K30 ["Stylizer"]
-  SETTABLEKS R14 R13 K30 ["Stylizer"]
-  CALL R12 1 1
-  MOVE R13 R11
-  CALL R12 1 1
-  MOVE R11 R12
-  RETURN R11 1
+  CAPTURE VAL R8
+  SETTABLEKS R11 R10 K24 ["render"]
+  GETTABLEKS R11 R5 K25 ["withContext"]
+  DUPTABLE R12 K27 [{"Stylizer"}]
+  GETTABLEKS R13 R5 K26 ["Stylizer"]
+  SETTABLEKS R13 R12 K26 ["Stylizer"]
+  CALL R11 1 1
+  MOVE R12 R10
+  CALL R11 1 1
+  MOVE R10 R11
+  RETURN R10 1

@@ -87,7 +87,7 @@ PROTO_0:
   JUMPIFNOT R16 [+2]
   LOADK R15 K54 ["rbxasset://textures/R15Migrator/Icon_Checkmark.png"]
   JUMP [+1]
-  LOADNIL R15
+  LOADK R15 K55 ["rbxasset://textures/R15Migrator/Icon_Error_Checkmark.png"]
   SETTABLEKS R15 R14 K48 ["Image"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K48 ["Image"]

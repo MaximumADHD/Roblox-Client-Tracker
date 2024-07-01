@@ -2,6 +2,7 @@
 local CorePackages = game:GetService("CorePackages")
 local TextService = game:GetService("TextService")
 local ContextActionService = game:GetService("ContextActionService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -37,6 +38,10 @@ local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEn
 local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
 local GetFFlagUpdateNudgeV3VoiceBanUI = require(RobloxGui.Modules.Flags.GetFFlagUpdateNudgeV3VoiceBanUI)
 local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
+local GetFFlagEnableInExpVoiceConsentAnalytics =
+	require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceConsentAnalytics)
+local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
+	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 local RobloxTranslator
 if FFlagEnableVoiceChatStorybookFix() then
@@ -248,6 +253,21 @@ function VoiceChatPromptFrame:init()
 			end
 			if self.props.VoiceChatServiceManager then
 				self.props.VoiceChatServiceManager:reportBanMessage("Shown")
+			end
+		end
+		if IsVoiceConsentModal(promptType) and GetFFlagEnableInExpVoiceConsentAnalytics() then
+			if self.props.Analytics then
+				local playSessionId = ""
+				if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+					playSessionId = AnalyticsService:GetPlaySessionId()
+				end
+				self.props.Analytics:reportInExpConsent(
+					"shown",
+					self.props.VoiceChatServiceManager.inExpUpsellEntrypoint,
+					game.GameId,
+					game.PlaceId,
+					playSessionId
+				)
 			end
 		end
 		if promptType and promptType ~= PromptType.None then

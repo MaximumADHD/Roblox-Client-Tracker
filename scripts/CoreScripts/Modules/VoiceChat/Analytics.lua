@@ -83,6 +83,8 @@ type AnalyticsWrapperMeta = {
 	reportVoiceMuteIndividual: (AnalyticsWrapper, VoiceMuteIndividualArgs) -> (),
 	reportVoiceMuteGroup: (AnalyticsWrapper, VoiceMuteGroupArgs) -> (),
 	reportVoiceMuteSelf: (AnalyticsWrapper, VoiceMuteSelfArgs) -> (),
+	reportJoinVoiceButtonEvent: (AnalyticsWrapper, string, number, number, string) -> (),
+	reportInExpConsent: (AnalyticsWrapper, string, string, number, number, string) -> (),
 }
 
 -- Replace this when Luau supports it
@@ -99,6 +101,9 @@ type LogLevel = "info" | "warning" | "error"
 
 type NudgeCloseType = "ACKNOWLEDGED" | "CLOSED" | "DENIED"
 local closedNudgeType = "closedNudge"
+
+type InExpConsentEventType = "shown" | "accepted" | "denied"
+local InExpConsentEventName = "inExpConsentModalEvent"
 
 function Analytics.new(impl: AnalyticsService?)
 	if not impl then
@@ -258,6 +263,36 @@ function Analytics:reportVoiceMuteSelf(args: VoiceMuteSelfArgs)
 		channel_id = args.channelId,
 		context = args.context,
 		muted = args.muted,
+	})
+end
+
+function Analytics:reportJoinVoiceButtonEvent(
+	eventType: string,
+	universe_id: number,
+	place_id: number,
+	play_session_id: string
+)
+	self._impl:SendEventDeferred("client", "voice", "joinVoiceButtonEvent", {
+		eventType = eventType,
+		universeId = universe_id,
+		placeId = place_id,
+		playSessionId = play_session_id,
+	})
+end
+
+function Analytics:reportInExpConsent(
+	eventType: string,
+	entry: string,
+	universe_id: number,
+	place_id: number,
+	play_session_id: string
+)
+	self._impl:SendEventDeferred("client", "voiceChat", InExpConsentEventName, {
+		eventType = eventType :: InExpConsentEventType,
+		entry = entry,
+		universeId = universe_id,
+		placeId = place_id,
+		playSessionId = play_session_id,
 	})
 end
 

@@ -122,36 +122,37 @@ PROTO_3:
   DUPTABLE R12 K31 [{"Left", "Right"}]
   LOADN R13 6
   SETTABLEKS R13 R12 K29 ["Left"]
-  LOADN R13 6
+  GETTABLEKS R14 R0 K33 ["PaddingRight"]
+  ORK R13 R14 K32 [6]
   SETTABLEKS R13 R12 K30 ["Right"]
   SETTABLEKS R12 R11 K27 ["Padding"]
   NEWTABLE R12 0 3
   GETUPVAL R13 2
-  LOADK R14 K32 ["UICorner"]
-  DUPTABLE R15 K34 [{"CornerRadius"}]
-  GETIMPORT R16 K37 [UDim.new]
+  LOADK R14 K34 ["UICorner"]
+  DUPTABLE R15 K36 [{"CornerRadius"}]
+  GETIMPORT R16 K39 [UDim.new]
   LOADN R17 0
   LOADN R18 4
   CALL R16 2 1
-  SETTABLEKS R16 R15 K33 ["CornerRadius"]
+  SETTABLEKS R16 R15 K35 ["CornerRadius"]
   CALL R13 2 1
   GETUPVAL R14 2
-  LOADK R15 K38 ["UIStroke"]
-  DUPTABLE R16 K41 [{"Thickness", "Color"}]
+  LOADK R15 K40 ["UIStroke"]
+  DUPTABLE R16 K43 [{"Thickness", "Color"}]
   LOADN R17 1
-  SETTABLEKS R17 R16 K39 ["Thickness"]
+  SETTABLEKS R17 R16 K41 ["Thickness"]
   GETTABLEKS R18 R1 K0 ["Filters"]
-  GETTABLEKS R17 R18 K42 ["BorderColor"]
-  SETTABLEKS R17 R16 K40 ["Color"]
+  GETTABLEKS R17 R18 K44 ["BorderColor"]
+  SETTABLEKS R17 R16 K42 ["Color"]
   CALL R14 2 1
   GETUPVAL R15 2
   GETUPVAL R16 5
-  DUPTABLE R17 K48 [{"AutomaticSize", "Size", "Padding", "Text", "TextColor", "TextXAlignment", "TextYAlignment", "TextSize"}]
-  GETIMPORT R18 K50 [Enum.AutomaticSize.X]
+  DUPTABLE R17 K50 [{"AutomaticSize", "Size", "Padding", "Text", "TextColor", "TextXAlignment", "TextYAlignment", "TextSize"}]
+  GETIMPORT R18 K52 [Enum.AutomaticSize.X]
   SETTABLEKS R18 R17 K12 ["AutomaticSize"]
   GETTABLEKS R19 R1 K0 ["Filters"]
-  GETTABLEKS R18 R19 K51 ["ChipSize"]
-  SETTABLEKS R18 R17 K43 ["Size"]
+  GETTABLEKS R18 R19 K53 ["ChipSize"]
+  SETTABLEKS R18 R17 K45 ["Size"]
   DUPTABLE R18 K31 [{"Left", "Right"}]
   LOADN R19 4
   SETTABLEKS R19 R18 K29 ["Left"]
@@ -161,15 +162,15 @@ PROTO_3:
   GETTABLEKS R18 R0 K20 ["Text"]
   SETTABLEKS R18 R17 K20 ["Text"]
   GETTABLEKS R19 R1 K0 ["Filters"]
-  GETTABLEKS R18 R19 K44 ["TextColor"]
-  SETTABLEKS R18 R17 K44 ["TextColor"]
-  GETIMPORT R18 K53 [Enum.TextXAlignment.Center]
-  SETTABLEKS R18 R17 K45 ["TextXAlignment"]
-  GETIMPORT R18 K54 [Enum.TextYAlignment.Center]
-  SETTABLEKS R18 R17 K46 ["TextYAlignment"]
+  GETTABLEKS R18 R19 K46 ["TextColor"]
+  SETTABLEKS R18 R17 K46 ["TextColor"]
+  GETIMPORT R18 K55 [Enum.TextXAlignment.Center]
+  SETTABLEKS R18 R17 K47 ["TextXAlignment"]
+  GETIMPORT R18 K56 [Enum.TextYAlignment.Center]
+  SETTABLEKS R18 R17 K48 ["TextYAlignment"]
   GETTABLEKS R19 R1 K0 ["Filters"]
-  GETTABLEKS R18 R19 K47 ["TextSize"]
-  SETTABLEKS R18 R17 K47 ["TextSize"]
+  GETTABLEKS R18 R19 K49 ["TextSize"]
+  SETTABLEKS R18 R17 K49 ["TextSize"]
   CALL R15 2 -1
   SETLIST R12 R13 -1 [1]
   CALL R9 3 -1

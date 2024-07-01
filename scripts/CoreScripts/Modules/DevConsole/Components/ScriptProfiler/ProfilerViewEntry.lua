@@ -34,9 +34,6 @@ local PERCENT_FORMAT = "%.3f%%"
 local ROOT_LABEL = "<root>"
 local ANON_LABEL = "<anonymous>"
 
-local FFlagScriptProfilerRememberExpandedNodes = game:DefineFastFlag("ScriptProfilerRememberExpandedNodes2", false)
-local FFlagScriptProfilerPluginAnnotation = game:DefineFastFlag("ScriptProfilerPluginAnnotation", false)
-
 local ProfilerViewEntryComponent = Roact.PureComponent:extend("ProfilerViewEntry")
 
 local function mapDispatchToProps(dispatch)
@@ -92,16 +89,13 @@ end
 
 function ProfilerViewEntryComponent:init()
 	self.state = {
-		expanded = self.props.depth == 0
-			or (FFlagScriptProfilerRememberExpandedNodes and self.props.expandedNodes[self.props.nodeId]),
+		expanded = self.props.depth == 0 or self.props.expandedNodes[self.props.nodeId],
 		showTooltip = false,
 		tooltipPos = UDim2.fromOffset(0, 0),
 	}
 
 	self.onButtonPress = function()
-		if FFlagScriptProfilerRememberExpandedNodes then
-			self.props.expandedNodes[self.props.nodeId] = not self.state.expanded
-		end
+		self.props.expandedNodes[self.props.nodeId] = not self.state.expanded
 
 		self:setState(function(_)
 			return {
@@ -324,7 +318,7 @@ function ProfilerViewEntryComponent:render()
 	local isNative = getNativeFlag(data, func)
 	local isPlugin = getPluginFlag(data, func)
 
-	if FFlagScriptProfilerPluginAnnotation and isPlugin then
+	if isPlugin then
 		name = name .. " <plugin>"
 	end
 

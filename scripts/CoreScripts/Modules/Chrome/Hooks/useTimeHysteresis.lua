@@ -43,7 +43,7 @@ return function(
 	local rising, setRising = React.useState(initRising or false)
 	local active, setActive = React.useState(false)
 	local signal = React.useRef(initRising or 0) :: { current: seconds }
-	local snapped = React.useRef(false)
+	local snapped = React.useRef(false :: boolean?)
 
 	React.useEffect(function()
 		local runStart: seconds = tick()

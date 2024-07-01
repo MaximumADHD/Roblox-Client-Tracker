@@ -45,8 +45,8 @@ local StyleProvider = UIBlox.Core.Style.Provider
 local UIBloxImages = UIBlox.App.ImageSet.Images
 local withStyle = UIBlox.Core.Style.withStyle
 
-local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
-local isPlayerVerified = VerifiedBadges.isPlayerVerified
+local UserLib = require(CorePackages.Workspace.Packages.UserLib)
+local isPlayerVerified = UserLib.Utils.isPlayerVerified
 
 local GetFFlagUIBloxUseNewHeaderBar =
 	require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.GetFFlagUIBloxUseNewHeaderBar

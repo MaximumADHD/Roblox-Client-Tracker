@@ -1,13 +1,30 @@
 PROTO_0:
-  DUPTABLE R3 K3 [{"id", "text", "allowBinding"}]
+  GETUPVAL R3 0
+  JUMPIFNOT R3 [+21]
+  DUPTABLE R3 K4 [{"id", "text", "statusTip", "allowBinding"}]
   SETTABLEKS R2 R3 K0 ["id"]
-  LOADK R6 K4 ["ContextMenu"]
+  LOADK R6 K5 ["ShortcutNames"]
   MOVE R7 R2
-  NAMECALL R4 R1 K5 ["getText"]
+  NAMECALL R4 R1 K6 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K1 ["text"]
+  LOADK R6 K7 ["ShortcutDescriptions"]
+  MOVE R7 R2
+  NAMECALL R4 R1 K6 ["getText"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K2 ["statusTip"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K3 ["allowBinding"]
+  RETURN R3 1
+  DUPTABLE R3 K8 [{"id", "text", "allowBinding"}]
+  SETTABLEKS R2 R3 K0 ["id"]
+  LOADK R6 K9 ["ContextMenu"]
+  MOVE R7 R2
+  NAMECALL R4 R1 K6 ["getText"]
   CALL R4 3 1
   SETTABLEKS R4 R3 K1 ["text"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K2 ["allowBinding"]
+  SETTABLEKS R4 R3 K3 ["allowBinding"]
   RETURN R3 1
 
 PROTO_1:
@@ -16,41 +33,39 @@ PROTO_1:
   GETUPVAL R4 0
   CALL R3 1 3
   FORGPREP_INEXT R3
-  DUPTABLE R8 K5 [{"id", "text", "allowBinding"}]
-  SETTABLEKS R7 R8 K2 ["id"]
-  LOADK R11 K6 ["ContextMenu"]
-  MOVE R12 R7
-  NAMECALL R9 R1 K7 ["getText"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K3 ["text"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K4 ["allowBinding"]
+  GETUPVAL R8 1
+  MOVE R9 R0
+  MOVE R10 R1
+  MOVE R11 R7
+  CALL R8 3 1
   SETTABLE R8 R2 R7
-  FORGLOOP R3 2 [inext] [-15]
-  GETTABLEKS R3 R2 K8 ["MoveTool"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K9 ["Move"]
-  SETTABLEKS R4 R3 K10 ["defaultShortcut"]
-  GETTABLEKS R3 R2 K11 ["AddPointMode"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K12 ["AddPoint"]
-  SETTABLEKS R4 R3 K10 ["defaultShortcut"]
-  GETTABLEKS R3 R2 K13 ["AddTangentMode"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K14 ["AddTangent"]
-  SETTABLEKS R4 R3 K10 ["defaultShortcut"]
-  GETTABLEKS R3 R2 K15 ["DoneEditing"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K16 ["Done"]
-  SETTABLEKS R4 R3 K10 ["defaultShortcut"]
-  GETTABLEKS R3 R2 K17 ["DeletePoint"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K18 ["Delete"]
-  SETTABLEKS R4 R3 K10 ["defaultShortcut"]
-  GETTABLEKS R3 R2 K19 ["DeletePoint2"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K20 ["Delete2"]
-  SETTABLEKS R4 R3 K10 ["defaultShortcut"]
+  FORGLOOP R3 2 [inext] [-7]
+  GETTABLEKS R3 R2 K2 ["MoveTool"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["Move"]
+  SETTABLEKS R4 R3 K4 ["defaultShortcut"]
+  GETTABLEKS R3 R2 K5 ["AddPointMode"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K6 ["AddPoint"]
+  SETTABLEKS R4 R3 K4 ["defaultShortcut"]
+  GETTABLEKS R3 R2 K7 ["AddTangentMode"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["AddTangent"]
+  SETTABLEKS R4 R3 K4 ["defaultShortcut"]
+  GETTABLEKS R3 R2 K9 ["DoneEditing"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K10 ["Done"]
+  SETTABLEKS R4 R3 K4 ["defaultShortcut"]
+  GETUPVAL R3 3
+  JUMPIF R3 [+14]
+  GETTABLEKS R3 R2 K11 ["DeletePoint"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K12 ["Delete"]
+  SETTABLEKS R4 R3 K4 ["defaultShortcut"]
+  GETTABLEKS R3 R2 K13 ["DeletePoint2"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K14 ["Delete2"]
+  SETTABLEKS R4 R3 K4 ["defaultShortcut"]
   RETURN R2 1
 
 MAIN:
@@ -65,16 +80,35 @@ MAIN:
   GETTABLEKS R2 R3 K8 ["getShortcuts"]
   CALL R1 1 1
   CALL R1 0 1
-  NEWTABLE R2 0 6
-  LOADK R3 K9 ["DoneEditing"]
-  LOADK R4 K10 ["AddPointMode"]
-  LOADK R5 K11 ["AddTangentMode"]
-  LOADK R6 K12 ["MoveTool"]
-  LOADK R7 K13 ["DeletePoint"]
-  LOADK R8 K14 ["DeletePoint2"]
-  SETLIST R2 R3 6 [1]
-  DUPCLOSURE R3 K15 [PROTO_0]
-  DUPCLOSURE R4 K16 [PROTO_1]
+  GETIMPORT R2 K10 [game]
+  LOADK R4 K11 ["PathEditorCustomBindings"]
+  NAMECALL R2 R2 K12 ["GetFastFlag"]
+  CALL R2 2 1
+  LOADNIL R3
+  JUMPIFNOT R2 [+10]
+  NEWTABLE R4 0 4
+  LOADK R5 K13 ["DoneEditing"]
+  LOADK R6 K14 ["AddPointMode"]
+  LOADK R7 K15 ["AddTangentMode"]
+  LOADK R8 K16 ["MoveTool"]
+  SETLIST R4 R5 4 [1]
+  MOVE R3 R4
+  JUMP [+11]
+  NEWTABLE R4 0 6
+  LOADK R5 K13 ["DoneEditing"]
+  LOADK R6 K14 ["AddPointMode"]
+  LOADK R7 K15 ["AddTangentMode"]
+  LOADK R8 K16 ["MoveTool"]
+  LOADK R9 K17 ["DeletePoint"]
+  LOADK R10 K18 ["DeletePoint2"]
+  SETLIST R4 R5 6 [1]
+  MOVE R3 R4
+  DUPCLOSURE R4 K19 [PROTO_0]
   CAPTURE VAL R2
+  NEWCLOSURE R5 P1
+  CAPTURE REF R3
+  CAPTURE VAL R4
   CAPTURE VAL R1
-  RETURN R4 1
+  CAPTURE VAL R2
+  CLOSEUPVALS R3
+  RETURN R5 1

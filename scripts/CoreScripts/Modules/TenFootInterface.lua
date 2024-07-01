@@ -19,6 +19,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local Players = game:GetService("Players")
+local CorePackages = game:GetService("CorePackages")
+
+local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = false
@@ -36,7 +39,12 @@ end
 
 local Util = {}
 do
+	-- FFlagLuaAppUnifiedCreateUtility cleanup TODO: Cleanup and replace usage
 	function Util.Create(instanceType)
+		if Create.GetFFlagLuaAppUnifiedCreateUtility() then
+			return Create(instanceType)
+		end
+
 		return function(data)
 			local obj = Instance.new(instanceType)
 			for k, v in pairs(data) do

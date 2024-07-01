@@ -40,8 +40,10 @@ local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnab
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local cameraDevicePermissionGrantedSignal = require(CoreGui.RobloxGui.Modules.Settings.cameraDevicePermissionGrantedSignal)
 local getFFlagDoNotPromptCameraPermissionsOnMount = require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
-local GetFFlagSelfViewCameraSettings = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewCameraSettings
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
+local GetFFlagAddHapticsToggle = SharedFlags.GetFFlagAddHapticsToggle
 
 
 -------------- CONSTANTS --------------
@@ -119,6 +121,7 @@ local SETTINGS_MENU_LAYOUT_ORDER = {
 	["DeviceFrameInput"] = 60,
 	["DeviceFrameOutput"] = 61,
 	["VolumeFrame"] = 62,
+	["HapticsFrame"] = 63,
 	-- Graphics
 	["FullScreenFrame"] = 70,
 	["GraphicsEnablerFrame"] = 71,
@@ -218,7 +221,7 @@ local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoice
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagVoiceChatUseSoundServiceInputApi = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUseSoundServiceInputApi)
 local GetFFlagEnableExplicitSettingsChangeAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
-local GetFFlagGameSettingsCameraModeFixEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGameSettingsCameraModeFixEnabled
+local GetFFlagGameSettingsCameraModeFixEnabled = SharedFlags.GetFFlagGameSettingsCameraModeFixEnabled
 local GetFFlagFixCyclicFullscreenIndexEvent = require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
 local FFlagUserShowGuiHideToggles = game:DefineFastFlag("UserShowGuiHideToggles", false)
@@ -2381,6 +2384,30 @@ local function Initialize()
 		)
 	end
 
+	local function createHapticsToggle()
+		local initialIndex = GameSettings.HapticStrength == 0 and 1 or 2
+		this.HapticsFrame, _, this.HapticsSelector =
+			utility:AddNewRow(this, "Haptics", "Selector", {"Off", "On"}, initialIndex)
+		this.HapticsFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["HapticsFrame"]
+
+		this.HapticsSelector.IndexChanged:connect(
+			function(newIndex)
+				local oldValue = GameSettings.HapticStrength
+
+				if newIndex == 2 then
+					GameSettings.HapticStrength = 1
+				else
+					GameSettings.HapticStrength = 0
+				end
+
+				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
+					reportSettingsChangeForAnalytics('haptics_toggle', oldValue, GameSettings.HapticStrength)
+				end
+				reportSettingsForAnalytics()
+			end
+		)
+	end
+
 	local function createCameraInvertedOptions()
 		local initialIndex = 1
 		local success =
@@ -3317,6 +3344,9 @@ local function Initialize()
 	end
 
 	createVolumeOptions()
+	if GetFFlagAddHapticsToggle() then
+		createHapticsToggle()
+	end
 	createGraphicsOptions()
 
 	createReducedMotionOptions()

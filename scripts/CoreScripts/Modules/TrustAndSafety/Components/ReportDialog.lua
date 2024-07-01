@@ -39,8 +39,8 @@ local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local Colors = UIBlox.App.Style.Colors
 local DropdownMenu = UIBlox.App.Menu.DropdownMenu
 
-local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
-local isPlayerVerified = VerifiedBadges.isPlayerVerified
+local UserLib = require(CorePackages.Workspace.Packages.UserLib)
+local isPlayerVerified = UserLib.Utils.isPlayerVerified
 
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")

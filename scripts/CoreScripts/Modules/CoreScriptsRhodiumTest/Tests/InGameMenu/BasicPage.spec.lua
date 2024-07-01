@@ -127,7 +127,8 @@ return function()
 			expect(store:getState().menuPage).toBe(Constants.MainPagePageKey)
 		end)
 
-		it("If the respawn dialog is opened, dropdowns close", function(c)
+		-- This test depends on FFlagIntroduceHapticStrength that we won't flip until we flip FFlagAddHapticsToggle. So we skip it for now.
+		xit("If the respawn dialog is opened, dropdowns close", function(c)
 			local path = c.path
 			local store = c.store
 			-- Send an input to update currently used input device

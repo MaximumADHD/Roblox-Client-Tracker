@@ -10,8 +10,7 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 -- Load the error reporter as early as possible, even before we finish requiring,
 -- so that it can report any errors that come after this point.
--- TODO IRIS-1793 ErrorReporter bring in React, we need simplified class for CEV Reporting
--- ScriptContext:AddCoreScriptLocal("CoreScripts/CoreScriptErrorReporter", RobloxGui)
+ScriptContext:AddCoreScriptLocal("CoreScripts/CrossExperienceVoiceErrorReporter", RobloxGui)
 
 local localPlayer = Players.LocalPlayer
 while not localPlayer do

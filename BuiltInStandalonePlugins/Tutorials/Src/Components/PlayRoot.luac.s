@@ -40,82 +40,128 @@ PROTO_1:
   NAMECALL R1 R1 K2 ["setState"]
   CALL R1 2 0
   GETUPVAL R1 1
-  GETUPVAL R3 2
+  JUMPIFNOT R1 [+35]
+  GETUPVAL R1 2
+  LOADK R3 K3 ["Panels"]
+  NAMECALL R1 R1 K4 ["GetPluginComponent"]
+  CALL R1 2 1
   GETUPVAL R4 3
-  GETUPVAL R5 4
-  NAMECALL R1 R1 K3 ["AttachPluginGui"]
+  DUPTABLE R5 K9 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  GETUPVAL R6 4
+  SETTABLEKS R6 R5 K5 ["TargetWidgetUri"]
+  GETIMPORT R6 K12 [Vector2.new]
+  LOADN R7 0
+  LOADN R8 0
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["SubjectAnchorPoint"]
+  GETIMPORT R6 K12 [Vector2.new]
+  LOADN R7 0
+  LOADN R8 0
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K7 ["TargetAnchorPoint"]
+  GETIMPORT R6 K12 [Vector2.new]
+  LOADN R7 20
+  LOADN R8 20
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K8 ["Offset"]
+  NAMECALL R2 R1 K13 ["SetAttachment"]
+  CALL R2 3 0
+  RETURN R0 0
+  GETUPVAL R1 5
+  GETUPVAL R3 6
+  GETUPVAL R4 7
+  GETUPVAL R5 8
+  NAMECALL R1 R1 K14 ["AttachPluginGui"]
   CALL R1 4 0
   RETURN R0 0
 
 PROTO_2:
   GETTABLEKS R2 R0 K0 ["props"]
   GETTABLEKS R1 R2 K1 ["Plugin"]
-  GETTABLEKS R5 R1 K2 ["Name"]
-  LOADK R6 K3 ["_Avatar"]
+  GETUPVAL R5 0
+  JUMPIFNOT R5 [+2]
+  LOADK R4 K2 ["PlaytestWidget"]
+  JUMP [+4]
+  GETTABLEKS R5 R1 K3 ["Name"]
+  LOADK R6 K4 ["_Avatar"]
   CONCAT R4 R5 R6
-  DUPTABLE R5 K9 [{"Size", "MinSize", "Modal", "Callout", "InitialEnabled"}]
-  GETIMPORT R6 K12 [Vector2.new]
+  DUPTABLE R5 K10 [{"Size", "MinSize", "Modal", "Callout", "InitialEnabled"}]
+  GETIMPORT R6 K13 [Vector2.new]
   LOADN R7 19
   LOADN R8 94
   CALL R6 2 1
-  SETTABLEKS R6 R5 K4 ["Size"]
-  GETIMPORT R6 K12 [Vector2.new]
+  SETTABLEKS R6 R5 K5 ["Size"]
+  GETIMPORT R6 K13 [Vector2.new]
   LOADN R7 19
   LOADN R8 94
   CALL R6 2 1
-  SETTABLEKS R6 R5 K5 ["MinSize"]
+  SETTABLEKS R6 R5 K6 ["MinSize"]
   LOADB R6 0
-  SETTABLEKS R6 R5 K6 ["Modal"]
+  SETTABLEKS R6 R5 K7 ["Modal"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K7 ["Callout"]
+  SETTABLEKS R6 R5 K8 ["Callout"]
   LOADB R6 1
-  SETTABLEKS R6 R5 K8 ["InitialEnabled"]
-  NAMECALL R2 R1 K13 ["CreateQWidgetPluginGui"]
+  SETTABLEKS R6 R5 K9 ["InitialEnabled"]
+  NAMECALL R2 R1 K14 ["CreateQWidgetPluginGui"]
   CALL R2 3 1
-  GETIMPORT R3 K15 [game]
-  LOADK R5 K16 ["StudioWidgetsService"]
-  NAMECALL R3 R3 K17 ["GetService"]
+  GETIMPORT R3 K16 [game]
+  LOADK R5 K17 ["StudioWidgetsService"]
+  NAMECALL R3 R3 K18 ["GetService"]
   CALL R3 2 1
-  LOADK R6 K18 ["ideDocDocumentPanel"]
-  NAMECALL R4 R3 K19 ["GetWidgetFromLabel"]
-  CALL R4 2 1
-  GETIMPORT R5 K21 [Instance.new]
-  LOADK R6 K22 ["StudioAttachment"]
-  CALL R5 1 1
+  LOADNIL R4
+  LOADNIL R5
+  GETUPVAL R6 0
+  JUMPIFNOT R6 [+4]
+  LOADK R6 K2 ["PlaytestWidget"]
+  SETTABLEKS R6 R2 K3 ["Name"]
+  JUMP [+34]
+  LOADK R8 K19 ["ideDocDocumentPanel"]
+  NAMECALL R6 R3 K20 ["GetWidgetFromLabel"]
+  CALL R6 2 1
+  MOVE R5 R6
+  GETIMPORT R6 K22 [Instance.new]
+  LOADK R7 K23 ["StudioAttachment"]
+  CALL R6 1 1
+  MOVE R4 R6
   LOADB R6 0
-  SETTABLEKS R6 R5 K23 ["IsArrowVisible"]
-  GETIMPORT R6 K12 [Vector2.new]
+  SETTABLEKS R6 R4 K24 ["IsArrowVisible"]
+  GETIMPORT R6 K13 [Vector2.new]
   LOADN R7 0
   LOADN R8 0
   CALL R6 2 1
-  SETTABLEKS R6 R5 K24 ["SourceAnchorPoint"]
-  GETIMPORT R6 K12 [Vector2.new]
+  SETTABLEKS R6 R4 K25 ["SourceAnchorPoint"]
+  GETIMPORT R6 K13 [Vector2.new]
   LOADN R7 0
   LOADN R8 0
   CALL R6 2 1
-  SETTABLEKS R6 R5 K25 ["TargetAnchorPoint"]
-  GETIMPORT R6 K12 [Vector2.new]
+  SETTABLEKS R6 R4 K26 ["TargetAnchorPoint"]
+  GETIMPORT R6 K13 [Vector2.new]
   LOADN R7 20
   LOADN R8 20
   CALL R6 2 1
-  SETTABLEKS R6 R5 K26 ["Offset"]
-  DUPTABLE R8 K28 [{"widget"}]
-  SETTABLEKS R2 R8 K27 ["widget"]
-  NAMECALL R6 R0 K29 ["setState"]
-  CALL R6 2 0
-  LOADK R8 K30 ["SendPlayStep"]
+  SETTABLEKS R6 R4 K27 ["Offset"]
+  LOADK R8 K28 ["SendPlayStep"]
   NEWCLOSURE R9 P0
   CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
   CAPTURE VAL R3
-  CAPTURE VAL R4
+  CAPTURE REF R5
   CAPTURE VAL R2
-  CAPTURE VAL R5
-  NAMECALL R6 R1 K31 ["OnInvoke"]
+  CAPTURE REF R4
+  NAMECALL R6 R1 K29 ["OnInvoke"]
   CALL R6 3 1
-  SETTABLEKS R6 R0 K32 ["connection"]
-  LOADK R8 K33 ["GetPlayStep"]
-  NAMECALL R6 R1 K34 ["Invoke"]
+  SETTABLEKS R6 R0 K30 ["connection"]
+  DUPTABLE R8 K32 [{"widget"}]
+  SETTABLEKS R2 R8 K31 ["widget"]
+  NAMECALL R6 R0 K33 ["setState"]
   CALL R6 2 0
+  LOADK R8 K34 ["GetPlayStep"]
+  NAMECALL R6 R1 K35 ["Invoke"]
+  CALL R6 2 0
+  CLOSEUPVALS R4
   RETURN R0 0
 
 PROTO_3:
@@ -149,43 +195,55 @@ PROTO_7:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R0 K1 ["state"]
   GETTABLEKS R3 R1 K2 ["Plugin"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["provide"]
+  GETUPVAL R4 0
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R2 K3 ["widget"]
+  JUMPIF R4 [+2]
+  LOADNIL R4
+  RETURN R4 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["provide"]
   NEWTABLE R5 0 4
-  GETUPVAL R8 0
+  GETUPVAL R8 1
   GETTABLEKS R7 R8 K2 ["Plugin"]
-  GETTABLEKS R6 R7 K4 ["new"]
+  GETTABLEKS R6 R7 K5 ["new"]
   MOVE R7 R3
   CALL R6 1 1
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K4 ["new"]
-  NAMECALL R8 R3 K5 ["getMouse"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K5 ["new"]
+  NAMECALL R8 R3 K6 ["getMouse"]
   CALL R8 1 -1
   CALL R7 -1 1
-  GETUPVAL R8 2
-  CALL R8 0 1
-  GETTABLEKS R9 R0 K6 ["localization"]
-  SETLIST R5 R6 4 [1]
-  DUPTABLE R6 K8 [{"Tour"}]
   GETUPVAL R8 3
-  GETTABLEKS R7 R8 K9 ["createElement"]
+  CALL R8 0 1
+  GETTABLEKS R9 R0 K7 ["localization"]
+  SETLIST R5 R6 4 [1]
+  DUPTABLE R6 K9 [{"Tour"}]
   GETUPVAL R8 4
-  DUPTABLE R9 K16 [{"OnNext", "OnSkip", "OnQuit", "PressedKeys", "StepData", "Widget"}]
-  DUPCLOSURE R10 K17 [PROTO_4]
-  SETTABLEKS R10 R9 K10 ["OnNext"]
+  GETTABLEKS R7 R8 K10 ["createElement"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K17 [{"OnNext", "OnSkip", "OnQuit", "Plugin", "PressedKeys", "StepData", "Widget"}]
+  DUPCLOSURE R10 K18 [PROTO_4]
+  SETTABLEKS R10 R9 K11 ["OnNext"]
   NEWCLOSURE R10 P1
   CAPTURE VAL R3
-  SETTABLEKS R10 R9 K11 ["OnSkip"]
-  DUPCLOSURE R10 K18 [PROTO_6]
-  SETTABLEKS R10 R9 K12 ["OnQuit"]
+  SETTABLEKS R10 R9 K12 ["OnSkip"]
+  DUPCLOSURE R10 K19 [PROTO_6]
+  SETTABLEKS R10 R9 K13 ["OnQuit"]
+  GETUPVAL R11 0
+  JUMPIFNOT R11 [+2]
+  MOVE R10 R3
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K2 ["Plugin"]
   NEWTABLE R10 0 0
-  SETTABLEKS R10 R9 K13 ["PressedKeys"]
-  GETTABLEKS R10 R2 K19 ["stepData"]
-  SETTABLEKS R10 R9 K14 ["StepData"]
-  GETTABLEKS R10 R2 K20 ["widget"]
-  SETTABLEKS R10 R9 K15 ["Widget"]
+  SETTABLEKS R10 R9 K14 ["PressedKeys"]
+  GETTABLEKS R10 R2 K20 ["stepData"]
+  SETTABLEKS R10 R9 K15 ["StepData"]
+  GETTABLEKS R10 R2 K3 ["widget"]
+  SETTABLEKS R10 R9 K16 ["Widget"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K7 ["Tour"]
+  SETTABLEKS R7 R6 K8 ["Tour"]
   CALL R4 2 -1
   RETURN R4 -1
 
@@ -224,25 +282,53 @@ MAIN:
   GETTABLEKS R11 R12 K16 ["Components"]
   GETTABLEKS R10 R11 K17 ["TourWidget"]
   CALL R9 1 1
-  GETTABLEKS R10 R1 K18 ["PureComponent"]
-  LOADK R12 K19 ["PlayRoot"]
-  NAMECALL R10 R10 K20 ["extend"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K21 [PROTO_0]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R13 R0 K11 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Flags"]
+  GETTABLEKS R11 R12 K19 ["getFFlagTutorialsUseExtensibilityApi"]
+  CALL R10 1 1
+  CALL R10 0 1
+  DUPTABLE R11 K25 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R12 K26 ["PlayClient"]
+  SETTABLEKS R12 R11 K20 ["DataModel"]
+  LOADK R12 K27 ["Standalone"]
+  SETTABLEKS R12 R11 K21 ["PluginType"]
+  LOADK R12 K28 ["Tutorials"]
+  SETTABLEKS R12 R11 K22 ["PluginId"]
+  LOADK R12 K29 ["Panels"]
+  SETTABLEKS R12 R11 K23 ["Category"]
+  LOADK R12 K30 ["PlaytestWidget"]
+  SETTABLEKS R12 R11 K24 ["ItemId"]
+  DUPTABLE R12 K31 [{"PluginId", "Category", "ItemId"}]
+  LOADK R13 K32 ["MainWindow"]
+  SETTABLEKS R13 R12 K22 ["PluginId"]
+  LOADK R13 K33 ["Widgets"]
+  SETTABLEKS R13 R12 K23 ["Category"]
+  LOADK R13 K34 ["Main"]
+  SETTABLEKS R13 R12 K24 ["ItemId"]
+  GETTABLEKS R13 R1 K35 ["PureComponent"]
+  LOADK R15 K36 ["PlayRoot"]
+  NAMECALL R13 R13 K37 ["extend"]
+  CALL R13 2 1
+  DUPCLOSURE R14 K38 [PROTO_0]
   CAPTURE VAL R5
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R2
-  SETTABLEKS R11 R10 K22 ["init"]
-  DUPCLOSURE R11 K23 [PROTO_2]
-  SETTABLEKS R11 R10 K24 ["didMount"]
-  DUPCLOSURE R11 K25 [PROTO_3]
-  SETTABLEKS R11 R10 K26 ["willUnmount"]
-  DUPCLOSURE R11 K27 [PROTO_7]
+  SETTABLEKS R14 R13 K39 ["init"]
+  DUPCLOSURE R14 K40 [PROTO_2]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  SETTABLEKS R14 R13 K41 ["didMount"]
+  DUPCLOSURE R14 K42 [PROTO_3]
+  SETTABLEKS R14 R13 K43 ["willUnmount"]
+  DUPCLOSURE R14 K44 [PROTO_7]
+  CAPTURE VAL R10
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R8
   CAPTURE VAL R1
   CAPTURE VAL R9
-  SETTABLEKS R11 R10 K28 ["render"]
-  RETURN R10 1
+  SETTABLEKS R14 R13 K45 ["render"]
+  RETURN R13 1

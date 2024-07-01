@@ -16,103 +16,109 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  NEWTABLE R4 0 0
-  DUPTABLE R5 K16 [{"completed", "dataModel", "currentStep", "data", "steps", "instances", "localization", "incrementing", "toolboxConnection", "toolboxLimits", "callouts", "topics", "onStepChanged", "onKeyPressed", "onCompleted", "widget"}]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K0 ["completed"]
-  SETTABLEKS R0 R5 K1 ["dataModel"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K2 ["currentStep"]
-  SETTABLEKS R1 R5 K3 ["data"]
-  SETTABLEKS R4 R5 K4 ["steps"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K5 ["instances"]
-  SETTABLEKS R2 R5 K6 ["localization"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K7 ["incrementing"]
-  SETTABLEKS R3 R5 K8 ["toolboxConnection"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K9 ["toolboxLimits"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K10 ["callouts"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K11 ["topics"]
-  GETUPVAL R6 0
-  SETTABLEKS R6 R5 K12 ["onStepChanged"]
-  GETUPVAL R6 0
-  SETTABLEKS R6 R5 K13 ["onKeyPressed"]
-  GETUPVAL R6 0
-  SETTABLEKS R6 R5 K14 ["onCompleted"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K15 ["widget"]
-  GETIMPORT R6 K18 [ipairs]
-  GETTABLEKS R7 R1 K4 ["steps"]
-  CALL R6 1 3
-  FORGPREP_INEXT R6
-  GETUPVAL R12 1
-  GETTABLEKS R13 R10 K19 ["kind"]
-  GETTABLE R11 R12 R13
-  GETTABLEKS R14 R1 K20 ["id"]
-  LOADK R15 K21 ["%s_Title"]
-  GETTABLEKS R17 R10 K20 ["id"]
-  NAMECALL R15 R15 K22 ["format"]
-  CALL R15 2 -1
-  NAMECALL R12 R2 K23 ["getText"]
-  CALL R12 -1 1
-  GETTABLEKS R15 R1 K20 ["id"]
-  LOADK R16 K24 ["%s_Description"]
-  GETTABLEKS R18 R10 K20 ["id"]
-  NAMECALL R16 R16 K22 ["format"]
+  NEWTABLE R5 0 0
+  DUPTABLE R6 K16 [{"completed", "dataModel", "currentStep", "data", "steps", "instances", "localization", "incrementing", "toolboxConnection", "toolboxLimits", "callouts", "topics", "onStepChanged", "onKeyPressed", "onCompleted", "widget"}]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K0 ["completed"]
+  SETTABLEKS R0 R6 K1 ["dataModel"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K2 ["currentStep"]
+  SETTABLEKS R1 R6 K3 ["data"]
+  SETTABLEKS R5 R6 K4 ["steps"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K5 ["instances"]
+  SETTABLEKS R2 R6 K6 ["localization"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K7 ["incrementing"]
+  SETTABLEKS R3 R6 K8 ["toolboxConnection"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K9 ["toolboxLimits"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K10 ["callouts"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K11 ["topics"]
+  GETUPVAL R7 0
+  SETTABLEKS R7 R6 K12 ["onStepChanged"]
+  GETUPVAL R7 0
+  SETTABLEKS R7 R6 K13 ["onKeyPressed"]
+  GETUPVAL R7 0
+  SETTABLEKS R7 R6 K14 ["onCompleted"]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K15 ["widget"]
+  GETUPVAL R7 1
+  JUMPIFNOT R7 [+6]
+  LOADK R9 K17 ["Panels"]
+  NAMECALL R7 R4 K18 ["GetPluginComponent"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K17 ["Panels"]
+  GETIMPORT R7 K20 [ipairs]
+  GETTABLEKS R8 R1 K4 ["steps"]
+  CALL R7 1 3
+  FORGPREP_INEXT R7
+  GETUPVAL R13 2
+  GETTABLEKS R14 R11 K21 ["kind"]
+  GETTABLE R12 R13 R14
+  GETTABLEKS R15 R1 K22 ["id"]
+  LOADK R16 K23 ["%s_Title"]
+  GETTABLEKS R18 R11 K22 ["id"]
+  NAMECALL R16 R16 K24 ["format"]
   CALL R16 2 -1
-  NAMECALL R13 R2 K23 ["getText"]
+  NAMECALL R13 R2 K25 ["getText"]
   CALL R13 -1 1
-  SETTABLEKS R12 R10 K25 ["title"]
-  SETTABLEKS R13 R10 K26 ["description"]
-  GETTABLEKS R14 R10 K27 ["topic"]
-  GETTABLEKS R16 R5 K11 ["topics"]
-  GETTABLEKS R18 R5 K11 ["topics"]
-  LENGTH R17 R18
-  GETTABLE R15 R16 R17
-  JUMPIFEQ R14 R15 [+9]
-  GETTABLEKS R15 R5 K11 ["topics"]
-  GETTABLEKS R16 R10 K27 ["topic"]
-  FASTCALL2 TABLE_INSERT R15 R16 [+2]
-  GETUPVAL R14 2
-  CALL R14 2 0
-  JUMPIFNOT R11 [+10]
-  MOVE R15 R4
-  GETTABLEKS R16 R11 K28 ["new"]
-  MOVE R17 R5
-  MOVE R18 R10
-  CALL R16 2 -1
+  GETTABLEKS R16 R1 K22 ["id"]
+  LOADK R17 K26 ["%s_Description"]
+  GETTABLEKS R19 R11 K22 ["id"]
+  NAMECALL R17 R17 K24 ["format"]
+  CALL R17 2 -1
+  NAMECALL R14 R2 K25 ["getText"]
+  CALL R14 -1 1
+  SETTABLEKS R13 R11 K27 ["title"]
+  SETTABLEKS R14 R11 K28 ["description"]
+  GETTABLEKS R15 R11 K29 ["topic"]
+  GETTABLEKS R17 R6 K11 ["topics"]
+  GETTABLEKS R19 R6 K11 ["topics"]
+  LENGTH R18 R19
+  GETTABLE R16 R17 R18
+  JUMPIFEQ R15 R16 [+9]
+  GETTABLEKS R16 R6 K11 ["topics"]
+  GETTABLEKS R17 R11 K29 ["topic"]
+  FASTCALL2 TABLE_INSERT R16 R17 [+2]
+  GETUPVAL R15 3
+  CALL R15 2 0
+  JUMPIFNOT R12 [+10]
+  MOVE R16 R5
+  GETTABLEKS R17 R12 K30 ["new"]
+  MOVE R18 R6
+  MOVE R19 R11
+  CALL R17 2 -1
   FASTCALL TABLE_INSERT [+1]
-  GETUPVAL R14 2
-  CALL R14 -1 0
+  GETUPVAL R15 3
+  CALL R15 -1 0
   JUMP [+21]
-  GETTABLEKS R14 R10 K19 ["kind"]
-  JUMPIFNOT R14 [+8]
-  GETIMPORT R14 K30 [warn]
-  LOADK R16 K31 ["Missing step class: "]
-  GETTABLEKS R17 R10 K19 ["kind"]
-  CONCAT R15 R16 R17
-  CALL R14 1 0
+  GETTABLEKS R15 R11 K21 ["kind"]
+  JUMPIFNOT R15 [+8]
+  GETIMPORT R15 K32 [warn]
+  LOADK R17 K33 ["Missing step class: "]
+  GETTABLEKS R18 R11 K21 ["kind"]
+  CONCAT R16 R17 R18
+  CALL R15 1 0
   JUMP [+10]
-  MOVE R15 R4
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K28 ["new"]
-  MOVE R17 R5
-  MOVE R18 R10
-  CALL R16 2 -1
+  MOVE R16 R5
+  GETUPVAL R18 4
+  GETTABLEKS R17 R18 K30 ["new"]
+  MOVE R18 R6
+  MOVE R19 R11
+  CALL R17 2 -1
   FASTCALL TABLE_INSERT [+1]
-  GETUPVAL R14 2
-  CALL R14 -1 0
-  FORGLOOP R6 2 [inext] [-81]
-  GETUPVAL R8 4
-  FASTCALL2 SETMETATABLE R5 R8 [+4]
-  MOVE R7 R5
-  GETIMPORT R6 K33 [setmetatable]
-  CALL R6 2 1
-  RETURN R6 1
+  GETUPVAL R15 3
+  CALL R15 -1 0
+  FORGLOOP R7 2 [inext] [-81]
+  GETUPVAL R9 5
+  FASTCALL2 SETMETATABLE R6 R9 [+4]
+  MOVE R8 R6
+  GETIMPORT R7 K35 [setmetatable]
+  CALL R7 2 1
+  RETURN R7 1
 
 PROTO_4:
   GETTABLEKS R2 R0 K0 ["data"]
@@ -134,67 +140,126 @@ PROTO_5:
   RETURN R0 0
 
 PROTO_6:
-  DUPTABLE R3 K5 [{"target", "hideArrow", "sourceAnchorPoint", "targetAnchorPoint", "offset"}]
-  LOADK R4 K6 ["ideDocDocumentPanel"]
-  SETTABLEKS R4 R3 K0 ["target"]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K1 ["hideArrow"]
-  GETIMPORT R4 K9 [Vector2.new]
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+33]
+  GETTABLEKS R1 R0 K0 ["widget"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  DUPTABLE R3 K5 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+  GETUPVAL R4 1
+  SETTABLEKS R4 R3 K1 ["TargetWidgetUri"]
+  GETIMPORT R4 K8 [Vector2.new]
   LOADN R5 0
   LOADN R6 0
   CALL R4 2 1
-  SETTABLEKS R4 R3 K2 ["sourceAnchorPoint"]
-  GETIMPORT R4 K9 [Vector2.new]
+  SETTABLEKS R4 R3 K2 ["SubjectAnchorPoint"]
+  GETIMPORT R4 K8 [Vector2.new]
   LOADN R5 0
   LOADN R6 0
   CALL R4 2 1
-  SETTABLEKS R4 R3 K3 ["targetAnchorPoint"]
-  GETIMPORT R4 K9 [Vector2.new]
+  SETTABLEKS R4 R3 K3 ["TargetAnchorPoint"]
+  GETIMPORT R4 K8 [Vector2.new]
   LOADN R5 20
   LOADN R6 20
   CALL R4 2 1
-  SETTABLEKS R4 R3 K4 ["offset"]
-  NAMECALL R1 R0 K10 ["attachTo"]
+  SETTABLEKS R4 R3 K4 ["Offset"]
+  NAMECALL R1 R0 K9 ["attachTo"]
+  CALL R1 2 0
+  RETURN R0 0
+  DUPTABLE R3 K15 [{"target", "hideArrow", "sourceAnchorPoint", "targetAnchorPoint", "offset"}]
+  LOADK R4 K16 ["ideDocDocumentPanel"]
+  SETTABLEKS R4 R3 K10 ["target"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K11 ["hideArrow"]
+  GETIMPORT R4 K8 [Vector2.new]
+  LOADN R5 0
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K12 ["sourceAnchorPoint"]
+  GETIMPORT R4 K8 [Vector2.new]
+  LOADN R5 0
+  LOADN R6 0
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K13 ["targetAnchorPoint"]
+  GETIMPORT R4 K8 [Vector2.new]
+  LOADN R5 20
+  LOADN R6 20
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K14 ["offset"]
+  NAMECALL R1 R0 K9 ["attachTo"]
   CALL R1 2 0
   RETURN R0 0
 
 PROTO_7:
   GETUPVAL R2 0
-  GETTABLEKS R4 R1 K0 ["target"]
-  NAMECALL R2 R2 K1 ["GetWidgetFromLabel"]
+  JUMPIFNOT R2 [+44]
+  GETTABLEKS R2 R1 K0 ["TargetWidgetUri"]
+  JUMPIF R2 [+1]
+  GETUPVAL R2 1
+  SETTABLEKS R2 R1 K0 ["TargetWidgetUri"]
+  GETTABLEKS R2 R1 K1 ["SubjectAnchorPoint"]
+  JUMPIF R2 [+5]
+  GETIMPORT R2 K4 [Vector2.new]
+  LOADK R3 K5 [0.5]
+  LOADN R4 0
   CALL R2 2 1
-  GETIMPORT R3 K4 [Instance.new]
-  LOADK R4 K5 ["StudioAttachment"]
+  SETTABLEKS R2 R1 K1 ["SubjectAnchorPoint"]
+  GETTABLEKS R2 R1 K6 ["TargetAnchorPoint"]
+  JUMPIF R2 [+5]
+  GETIMPORT R2 K4 [Vector2.new]
+  LOADK R3 K5 [0.5]
+  LOADN R4 1
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K6 ["TargetAnchorPoint"]
+  GETTABLEKS R2 R1 K7 ["Offset"]
+  JUMPIF R2 [+5]
+  GETIMPORT R2 K4 [Vector2.new]
+  LOADN R3 0
+  LOADN R4 0
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K7 ["Offset"]
+  GETTABLEKS R2 R0 K8 ["Panels"]
+  GETUPVAL R4 2
+  MOVE R5 R1
+  NAMECALL R2 R2 K9 ["SetAttachment"]
+  CALL R2 3 0
+  RETURN R0 0
+  GETUPVAL R2 3
+  GETTABLEKS R4 R1 K10 ["target"]
+  NAMECALL R2 R2 K11 ["GetWidgetFromLabel"]
+  CALL R2 2 1
+  GETIMPORT R3 K13 [Instance.new]
+  LOADK R4 K14 ["StudioAttachment"]
   CALL R3 1 1
-  GETTABLEKS R5 R1 K6 ["hideArrow"]
+  GETTABLEKS R5 R1 K15 ["hideArrow"]
   NOT R4 R5
-  SETTABLEKS R4 R3 K7 ["IsArrowVisible"]
-  GETTABLEKS R4 R1 K8 ["sourceAnchorPoint"]
+  SETTABLEKS R4 R3 K16 ["IsArrowVisible"]
+  GETTABLEKS R4 R1 K17 ["sourceAnchorPoint"]
   JUMPIF R4 [+5]
-  GETIMPORT R4 K10 [Vector2.new]
-  LOADK R5 K11 [0.5]
+  GETIMPORT R4 K4 [Vector2.new]
+  LOADK R5 K5 [0.5]
   LOADN R6 0
   CALL R4 2 1
-  SETTABLEKS R4 R3 K12 ["SourceAnchorPoint"]
-  GETTABLEKS R4 R1 K13 ["targetAnchorPoint"]
+  SETTABLEKS R4 R3 K18 ["SourceAnchorPoint"]
+  GETTABLEKS R4 R1 K19 ["targetAnchorPoint"]
   JUMPIF R4 [+5]
-  GETIMPORT R4 K10 [Vector2.new]
-  LOADK R5 K11 [0.5]
+  GETIMPORT R4 K4 [Vector2.new]
+  LOADK R5 K5 [0.5]
   LOADN R6 1
   CALL R4 2 1
-  SETTABLEKS R4 R3 K14 ["TargetAnchorPoint"]
-  GETTABLEKS R4 R1 K15 ["offset"]
+  SETTABLEKS R4 R3 K6 ["TargetAnchorPoint"]
+  GETTABLEKS R4 R1 K20 ["offset"]
   JUMPIF R4 [+5]
-  GETIMPORT R4 K10 [Vector2.new]
+  GETIMPORT R4 K4 [Vector2.new]
   LOADN R5 0
   LOADN R6 0
   CALL R4 2 1
-  SETTABLEKS R4 R3 K16 ["Offset"]
-  GETUPVAL R4 0
+  SETTABLEKS R4 R3 K7 ["Offset"]
+  GETUPVAL R4 3
   MOVE R6 R2
-  GETTABLEKS R7 R0 K17 ["widget"]
+  GETTABLEKS R7 R0 K21 ["widget"]
   MOVE R8 R3
-  NAMECALL R4 R4 K18 ["AttachPluginGui"]
+  NAMECALL R4 R4 K22 ["AttachPluginGui"]
   CALL R4 4 0
   RETURN R0 0
 
@@ -778,62 +843,92 @@ MAIN:
   MOVE R12 R11
   JUMP [+1]
   LOADNIL R12
-  GETIMPORT R13 K19 [game]
-  LOADK R15 K20 ["StudioSpotlight"]
-  NAMECALL R13 R13 K21 ["GetFastFlag"]
-  CALL R13 2 1
-  GETIMPORT R14 K24 [table.insert]
-  GETIMPORT R15 K26 [table.find]
-  NEWTABLE R16 32 0
-  DUPTABLE R17 K28 [{"__index"}]
-  SETTABLEKS R16 R17 K27 ["__index"]
-  DUPCLOSURE R18 K29 [PROTO_2]
-  DUPCLOSURE R19 K30 [PROTO_3]
-  CAPTURE VAL R18
-  CAPTURE VAL R5
-  CAPTURE VAL R14
-  CAPTURE VAL R6
-  CAPTURE VAL R17
-  SETTABLEKS R19 R16 K31 ["new"]
-  DUPCLOSURE R19 K32 [PROTO_4]
-  SETTABLEKS R19 R16 K33 ["start"]
-  DUPCLOSURE R19 K34 [PROTO_5]
-  SETTABLEKS R19 R16 K35 ["setWidget"]
-  DUPCLOSURE R19 K36 [PROTO_6]
-  SETTABLEKS R19 R16 K37 ["resetAttachment"]
-  DUPCLOSURE R19 K38 [PROTO_7]
-  CAPTURE VAL R12
-  SETTABLEKS R19 R16 K39 ["attachTo"]
-  DUPCLOSURE R19 K40 [PROTO_10]
-  CAPTURE VAL R9
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R16 R0 K9 ["Src"]
+  GETTABLEKS R15 R16 K18 ["Flags"]
+  GETTABLEKS R14 R15 K19 ["getFFlagTutorialsUseExtensibilityApi"]
+  CALL R13 1 1
+  CALL R13 0 1
+  GETIMPORT R14 K21 [game]
+  LOADK R16 K22 ["StudioSpotlight"]
+  NAMECALL R14 R14 K23 ["GetFastFlag"]
+  CALL R14 2 1
+  DUPTABLE R15 K29 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+  LOADK R16 K30 ["Edit"]
+  SETTABLEKS R16 R15 K24 ["DataModel"]
+  LOADK R16 K31 ["Standalone"]
+  SETTABLEKS R16 R15 K25 ["PluginType"]
+  LOADK R16 K32 ["Tutorials"]
+  SETTABLEKS R16 R15 K26 ["PluginId"]
+  LOADK R16 K33 ["Panels"]
+  SETTABLEKS R16 R15 K27 ["Category"]
+  LOADK R16 K34 ["TourWidget"]
+  SETTABLEKS R16 R15 K28 ["ItemId"]
+  DUPTABLE R16 K35 [{"PluginId", "Category", "ItemId"}]
+  LOADK R17 K36 ["MainWindow"]
+  SETTABLEKS R17 R16 K26 ["PluginId"]
+  LOADK R17 K37 ["Widgets"]
+  SETTABLEKS R17 R16 K27 ["Category"]
+  LOADK R17 K38 ["Main"]
+  SETTABLEKS R17 R16 K28 ["ItemId"]
+  GETIMPORT R17 K41 [table.insert]
+  GETIMPORT R18 K43 [table.find]
+  NEWTABLE R19 32 0
+  DUPTABLE R20 K45 [{"__index"}]
+  SETTABLEKS R19 R20 K44 ["__index"]
+  DUPCLOSURE R21 K46 [PROTO_2]
+  DUPCLOSURE R22 K47 [PROTO_3]
+  CAPTURE VAL R21
   CAPTURE VAL R13
+  CAPTURE VAL R5
+  CAPTURE VAL R17
+  CAPTURE VAL R6
+  CAPTURE VAL R20
+  SETTABLEKS R22 R19 K48 ["new"]
+  DUPCLOSURE R22 K49 [PROTO_4]
+  SETTABLEKS R22 R19 K50 ["start"]
+  DUPCLOSURE R22 K51 [PROTO_5]
+  SETTABLEKS R22 R19 K52 ["setWidget"]
+  DUPCLOSURE R22 K53 [PROTO_6]
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  SETTABLEKS R22 R19 K54 ["resetAttachment"]
+  DUPCLOSURE R22 K55 [PROTO_7]
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  CAPTURE VAL R15
+  CAPTURE VAL R12
+  SETTABLEKS R22 R19 K56 ["attachTo"]
+  DUPCLOSURE R22 K57 [PROTO_10]
+  CAPTURE VAL R9
+  CAPTURE VAL R14
   CAPTURE VAL R12
   CAPTURE VAL R2
-  SETTABLEKS R19 R16 K41 ["setStep"]
-  DUPCLOSURE R19 K42 [PROTO_12]
+  SETTABLEKS R22 R19 K58 ["setStep"]
+  DUPCLOSURE R22 K59 [PROTO_12]
   CAPTURE VAL R9
-  SETTABLEKS R19 R16 K43 ["showCallout"]
-  DUPCLOSURE R19 K44 [PROTO_13]
-  SETTABLEKS R19 R16 K45 ["getCurrentStep"]
-  DUPCLOSURE R19 K46 [PROTO_14]
-  CAPTURE VAL R15
-  SETTABLEKS R19 R16 K47 ["getCurrentStepData"]
-  DUPCLOSURE R19 K48 [PROTO_18]
-  SETTABLEKS R19 R16 K49 ["increment"]
-  DUPCLOSURE R19 K50 [PROTO_19]
-  SETTABLEKS R19 R16 K51 ["back"]
-  DUPCLOSURE R19 K52 [PROTO_20]
-  SETTABLEKS R19 R16 K53 ["finishIncrement"]
-  DUPCLOSURE R19 K54 [PROTO_21]
-  SETTABLEKS R19 R16 K55 ["selectTopic"]
-  DUPCLOSURE R19 K56 [PROTO_23]
+  SETTABLEKS R22 R19 K60 ["showCallout"]
+  DUPCLOSURE R22 K61 [PROTO_13]
+  SETTABLEKS R22 R19 K62 ["getCurrentStep"]
+  DUPCLOSURE R22 K63 [PROTO_14]
+  CAPTURE VAL R18
+  SETTABLEKS R22 R19 K64 ["getCurrentStepData"]
+  DUPCLOSURE R22 K65 [PROTO_18]
+  SETTABLEKS R22 R19 K66 ["increment"]
+  DUPCLOSURE R22 K67 [PROTO_19]
+  SETTABLEKS R22 R19 K68 ["back"]
+  DUPCLOSURE R22 K69 [PROTO_20]
+  SETTABLEKS R22 R19 K70 ["finishIncrement"]
+  DUPCLOSURE R22 K71 [PROTO_21]
+  SETTABLEKS R22 R19 K72 ["selectTopic"]
+  DUPCLOSURE R22 K73 [PROTO_23]
   CAPTURE VAL R3
-  SETTABLEKS R19 R16 K57 ["getTopicStep"]
-  DUPCLOSURE R19 K58 [PROTO_24]
+  SETTABLEKS R22 R19 K74 ["getTopicStep"]
+  DUPCLOSURE R22 K75 [PROTO_24]
   CAPTURE VAL R12
-  SETTABLEKS R19 R16 K59 ["showSpotlight"]
-  DUPCLOSURE R19 K60 [PROTO_25]
-  SETTABLEKS R19 R16 K61 ["setToolboxLimits"]
-  DUPCLOSURE R19 K62 [PROTO_27]
-  SETTABLEKS R19 R16 K63 ["syncChildren"]
-  RETURN R16 1
+  SETTABLEKS R22 R19 K76 ["showSpotlight"]
+  DUPCLOSURE R22 K77 [PROTO_25]
+  SETTABLEKS R22 R19 K78 ["setToolboxLimits"]
+  DUPCLOSURE R22 K79 [PROTO_27]
+  SETTABLEKS R22 R19 K80 ["syncChildren"]
+  RETURN R19 1

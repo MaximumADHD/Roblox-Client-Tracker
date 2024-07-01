@@ -71,6 +71,7 @@ local RobloxTranslator = require(CoreGui.RobloxGui.Modules:WaitForChild("RobloxT
 local CorePackages = game:GetService("CorePackages")
 local AppCommonLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = AppCommonLib.Signal
+local Create = AppCommonLib.Create
 
 ------------------ VARIABLES --------------------
 local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootInterface")):IsEnabled()
@@ -78,7 +79,12 @@ local tenFootInterfaceEnabled = require(RobloxGui.Modules:WaitForChild("TenFootI
 ----------- UTILITIES --------------
 local Util = {}
 do
+	-- FFlagLuaAppUnifiedCreateUtility cleanup TODO: Cleanup and replace usage
 	function Util.Create(instanceType)
+		if Create.GetFFlagLuaAppUnifiedCreateUtility() then
+			return Create(instanceType)
+		end
+
 		return function(data)
 			local obj = Instance.new(instanceType)
 			local parent = nil
@@ -3261,7 +3267,12 @@ end
 -------- public facing API ----------------
 local moduleApiTable = {}
 
+-- FFlagLuaAppUnifiedCreateUtility cleanup TODO: Cleanup and replace usage
 function moduleApiTable:Create(instanceType)
+	if Create.GetFFlagLuaAppUnifiedCreateUtility() then
+		return Create(instanceType)
+	end
+
 	return function(data)
 		local obj = Instance.new(instanceType)
 		local parent = nil

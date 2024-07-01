@@ -24,6 +24,7 @@ local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
 local GamepadMenu = require(Presentation.GamepadMenu)
+local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
 local VoiceBetaBadge = require(Presentation.VoiceBetaBadge)
 local BadgeOver13 = require(Presentation.BadgeOver13)
@@ -72,6 +73,7 @@ local GetFFlagEnableTeleportBackButton = require(RobloxGui.Modules.Flags.GetFFla
 local FFlagVRMoveVoiceIndicatorToBottomBar = require(RobloxGui.Modules.Flags.FFlagVRMoveVoiceIndicatorToBottomBar)
 local GetFFlagAddOver12TopBarBadge = require(script.Parent.Parent.Parent.Flags.GetFFlagAddOver12TopBarBadge)
 local GetFFlagEnableChromeFTUX = require(script.Parent.Parent.Parent.Chrome.Flags.GetFFlagEnableChromeFTUX)
+local FFlagGamepadNavigationDialogABTest = require(TopBar.Flags.FFlagGamepadNavigationDialogABTest)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceStateContext = require(RobloxGui.Modules.VoiceChat.VoiceStateContext)
@@ -198,6 +200,9 @@ function TopBarApp:renderWithStyle(style)
 	}, {
 		Connection = Roact.createElement(Connection),
 		GamepadMenu = Roact.createElement(GamepadMenu),
+		GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
+			then Roact.createElement(GamepadNavigationDialog)
+			else nil,
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
 		VRBottomBar = VRService.VREnabled and bottomBar or nil,
 		KeepOutAreasHandler = if FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
@@ -410,7 +415,8 @@ function TopBarApp:renderWithStyle(style)
 							})
 							else nil,
 
-						VoiceBetaBadge = if GetFFlagBetaBadge() and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
+						VoiceBetaBadge = if GetFFlagBetaBadge()
+								and (not GetFFlagFixDupeBetaBadge() or policyAllowsBetaBadge)
 							then Roact.createElement(VoiceBetaBadge, {
 								layoutOrder = 6,
 								Analytics = Analytics.new(),
@@ -502,9 +508,12 @@ function TopBarApp:renderWithStyle(style)
 					showBadgeOver12 = if GetFFlagAddOver12TopBarBadge() then self.props.showBadgeOver12 else nil,
 				}),
 
-				BackIcon = not chromeEnabled and GetFFlagEnableTeleportBackButton() and Roact.createElement(BackIcon, {
-					layoutOrder = 2,
-				}) or nil,
+				BackIcon = not chromeEnabled
+						and GetFFlagEnableTeleportBackButton()
+						and Roact.createElement(BackIcon, {
+							layoutOrder = 2,
+						})
+					or nil,
 
 				ChatIcon = not chromeEnabled and Roact.createElement(ChatIcon, {
 					layoutOrder = 3,

@@ -44,19 +44,22 @@ PROTO_3:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K2 ["createElement"]
   GETUPVAL R4 1
-  DUPTABLE R5 K7 [{"Size", "Items", "OnItemActivated", "SelectedId"}]
-  GETIMPORT R6 K10 [UDim2.fromScale]
+  DUPTABLE R5 K8 [{"Size", "Items", "OnItemActivated", "SelectedId", "Enabled"}]
+  GETIMPORT R6 K11 [UDim2.fromScale]
   LOADN R7 1
   LOADN R8 1
   CALL R6 2 1
   SETTABLEKS R6 R5 K3 ["Size"]
-  GETTABLEKS R7 R2 K11 ["Schema"]
-  GETTABLEKS R6 R7 K12 ["Options"]
+  GETTABLEKS R7 R2 K12 ["Schema"]
+  GETTABLEKS R6 R7 K13 ["Options"]
   SETTABLEKS R6 R5 K4 ["Items"]
-  GETTABLEKS R6 R0 K13 ["onItemActivated"]
+  GETTABLEKS R6 R0 K14 ["onItemActivated"]
   SETTABLEKS R6 R5 K5 ["OnItemActivated"]
   GETTABLEKS R6 R1 K6 ["SelectedId"]
   SETTABLEKS R6 R5 K6 ["SelectedId"]
+  GETTABLEKS R7 R2 K15 ["Disabled"]
+  NOT R6 R7
+  SETTABLEKS R6 R5 K7 ["Enabled"]
   NEWTABLE R6 0 0
   CALL R3 3 -1
   RETURN R3 -1

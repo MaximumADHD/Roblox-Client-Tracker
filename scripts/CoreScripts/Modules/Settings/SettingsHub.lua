@@ -37,6 +37,7 @@ local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local ScreenshotsPolicy  = require(CorePackages.Workspace.Packages.Screenshots).ScreenshotsPolicy
 local InExperienceCapabilities = require(CorePackages.Workspace.Packages.InExperienceCapabilities).InExperienceCapabilities
+local getCamMicPermissions = require(CoreGui.RobloxGui.Modules.Settings.getCamMicPermissions)
 
 local Theme = require(script.Parent.Theme)
 
@@ -95,6 +96,8 @@ local FFlagPreventHiddenSwitchPage = game:DefineFastFlag("PreventHiddenSwitchPag
 local GetFFlagEnableScreenshotUtility = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableScreenshotUtility
 local FFlagIGMThemeResizeFix = game:DefineFastFlag("IGMThemeResizeFix", false)
 local FFlagFixReducedMotionStuckIGM = game:DefineFastFlag("FixReducedMotionStuckIGM", false)
+local GetFFlagEnableInExpJoinVoiceAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpJoinVoiceAnalytics)
+local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 --[[ SERVICES ]]
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
@@ -284,6 +287,7 @@ local function CreateSettingsHub()
 	this.CurrentPageSignal = utility:CreateSignal()
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
+	this.hasMicPermissions = false
 
 	local voiceAnalytics = VoiceAnalytics.new(AnalyticsService, "SettingsHub")
 
@@ -812,6 +816,12 @@ local function CreateSettingsHub()
 					end)
 				end
 				VoiceChatServiceManager:SetupParticipantListeners()
+				if GetFFlagEnableInExpJoinVoiceAnalytics() then
+					local callback = function(response)
+						this.hasMicPermissions = response.hasMicPermissions
+					end
+					getCamMicPermissions(callback, nil, true, "PermissionsButtons.getPermissions")
+				end
 				addMuteButtonToBar()
 				if GetFFlagMuteButtonRaceConditionFix() then
 					VoiceChatServiceManager.muteChanged.Event:Connect(function(muted)
@@ -1433,6 +1443,21 @@ local function CreateSettingsHub()
 			else
 				this.permissionsButtonsRoot = Roact.mount(createPermissionsButtons(true), this.MenuContainer, "PermissionsButtons")
 			end
+		end
+
+		if GetFFlagEnableInExpJoinVoiceAnalytics then
+			this.SettingsShowSignal:connect(function(isOpen)
+				local userInInExperienceUpsellTreatment = VoiceChatServiceManager:UserInInExperienceUpsellTreatment()
+				local userVoiceUpsellEligible = VoiceChatServiceManager:UserOnlyEligibleForVoice()
+					or (VoiceChatServiceManager:UserVoiceEnabled() and not this.hasMicPermissions)
+				if isOpen and userInInExperienceUpsellTreatment and userVoiceUpsellEligible then
+					local sessionId = ""
+					if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+						sessionId = AnalyticsService:GetPlaySessionId()
+					end
+					VoiceChatServiceManager.Analytics:reportJoinVoiceButtonEvent("shown", game.GameId, game.PlaceId, sessionId)
+				end
+			end)
 		end
 
 		this.MenuListLayout = utility:Create'UIListLayout'

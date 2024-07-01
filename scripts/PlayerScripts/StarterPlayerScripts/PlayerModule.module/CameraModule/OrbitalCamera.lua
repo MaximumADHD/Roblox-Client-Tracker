@@ -247,9 +247,8 @@ function OrbitalCamera:Update(dt: number): (CFrame, CFrame)
 
 		newCameraFocus = CFrame.new(subjectPosition)
 
-		local flaggedRotateInput = CameraInput.getRotation()
+		local flaggedRotateInput = CameraInput.getRotation(dt)
 
-		local cameraFocusP = newCameraFocus.p
 		-- rotateInput is a Vector2 of mouse movement deltas since last update
 		self.curAzimuthRad = self.curAzimuthRad - flaggedRotateInput.X
 

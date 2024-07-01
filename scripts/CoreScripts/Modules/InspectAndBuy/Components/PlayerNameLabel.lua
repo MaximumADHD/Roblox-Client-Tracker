@@ -9,6 +9,7 @@ local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 local Colors = require(InspectAndBuyFolder.Colors)
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local VerifiedBadges = require(CorePackages.Workspace.Packages.VerifiedBadges)
+local UserLib = require(CorePackages.Workspace.Packages.UserLib)
 
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
@@ -24,7 +25,7 @@ function PlayerNameLabel:render()
 	local playerName = self.props.playerName
 	local playerId = tonumber(self.props.playerId)
 	local player = playerId and Players:GetPlayerByUserId(playerId)
-	local hasVerifiedBadge = if player then VerifiedBadges.isPlayerVerified(player) else false
+	local hasVerifiedBadge = if player then UserLib.Utils.isPlayerVerified(player) else false
 	local playerNameText
 
 	if playerName == "" then

@@ -6,6 +6,9 @@ local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 local Constants = require(script.Parent.Parent.Unibar.Constants)
 local ChromeUtils = require(script.Parent.Parent.Service.ChromeUtils)
+local SubMenuContext = require(script.Parent.Parent.Unibar.SubMenuContext)
+
+local GetFFlagAnimateSubMenu = require(script.Parent.Parent.Flags.GetFFlagAnimateSubMenu)
 
 local useMappedSignal = require(script.Parent.Parent.Hooks.useMappedSignal)
 
@@ -30,13 +33,18 @@ function CommonIconComponent(props)
 	end
 
 	local style = useStyle()
+	local submenuTransition = React.useContext(SubMenuContext)
 
 	return React.createElement(ImageSetLabel, {
 		BackgroundTransparency = 1,
 		Image = icon,
 		Size = ICON_SIZE,
 		ImageColor3 = style.Theme.IconEmphasis.Color,
-		ImageTransparency = style.Theme.IconEmphasis.Transparency,
+		ImageTransparency = if GetFFlagAnimateSubMenu() and submenuTransition
+			then submenuTransition:map(function(v)
+				return style.Theme.IconEmphasis.Transparency + (1 - style.Theme.IconEmphasis.Transparency) * (1 - v)
+			end)
+			else style.Theme.IconEmphasis.Transparency,
 	})
 end
 
