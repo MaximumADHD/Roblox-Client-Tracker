@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <LightShadowTransformGPU.h>
 #include <Params.h>
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 uniform vec4 CB8[24];
 uniform vec4 CB3[3];
 uniform sampler2D ShadowAtlasTexture;
@@ -46,13 +46,13 @@ void main()
     vec4 f14 = vec4(f0, 1.0) * mat4(CB8[((dot(f11, f11) < CB0[46].w) ? 0 : ((dot(f12, f12) < CB0[47].w) ? 1 : ((dot(f13, f13) < CB0[48].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f11, f11) < CB0[46].w) ? 0 : ((dot(f12, f12) < CB0[47].w) ? 1 : ((dot(f13, f13) < CB0[48].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f11, f11) < CB0[46].w) ? 0 : ((dot(f12, f12) < CB0[47].w) ? 1 : ((dot(f13, f13) < CB0[48].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f11, f11) < CB0[46].w) ? 0 : ((dot(f12, f12) < CB0[47].w) ? 1 : ((dot(f13, f13) < CB0[48].w) ? 2 : 3))) * 4 + 3]);
     vec4 f15 = textureLod(ShadowAtlasTexture, f14.xy, 0.0);
     vec2 f16 = vec2(0.0);
-    f16.x = CB0[51].z;
+    f16.x = CB0[52].z;
     vec2 f17 = f16;
-    f17.y = CB0[51].w;
+    f17.y = CB0[52].w;
     float f18 = (2.0 * f14.z) - 1.0;
-    float f19 = exp(CB0[51].z * f18);
-    float f20 = -exp((-CB0[51].w) * f18);
-    vec2 f21 = (f17 * CB0[52].y) * vec2(f19, f20);
+    float f19 = exp(CB0[52].z * f18);
+    float f20 = -exp((-CB0[52].w) * f18);
+    vec2 f21 = (f17 * CB0[53].y) * vec2(f19, f20);
     vec2 f22 = f21 * f21;
     float f23 = f15.x;
     float f24 = max(f15.y - (f23 * f23), f22.x);
@@ -60,7 +60,7 @@ void main()
     float f26 = f15.z;
     float f27 = max(f15.w - (f26 * f26), f22.y);
     float f28 = f20 - f26;
-    float f29 = ((dot(VARYING6.xyz, f1) * CB0[52].x) > 0.0) ? mix(min((f19 <= f23) ? 1.0 : clamp(((f24 / (f24 + (f25 * f25))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f20 <= f26) ? 1.0 : clamp(((f27 / (f27 + (f28 * f28))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f10, clamp((length(f0 - CB0[11].xyz) * CB0[51].y) - (CB0[51].x * CB0[51].y), 0.0, 1.0)) : f10;
+    float f29 = ((dot(VARYING6.xyz, f1) * CB0[53].x) > 0.0) ? mix(min((f19 <= f23) ? 1.0 : clamp(((f24 / (f24 + (f25 * f25))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f20 <= f26) ? 1.0 : clamp(((f27 / (f27 + (f28 * f28))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f10, clamp((length(f0 - CB0[11].xyz) * CB0[52].y) - (CB0[52].x * CB0[52].y), 0.0, 1.0)) : f10;
     vec4 f30 = texture(NormalMap1Texture, VARYING2);
     vec4 f31 = texture(NormalMap2Texture, VARYING2);
     vec4 f32 = vec4(CB3[0].w);
@@ -92,12 +92,12 @@ void main()
     vec2 f58 = VARYING8.xy / vec2(VARYING8.w);
     vec2 f59 = f58 + (f42.xz * 0.0500000007450580596923828125);
     vec4 f60 = texture(GBufferColorTexture, f58);
-    vec4 f61 = texture(GBufferDepthTexture, f58);
-    vec4 f62 = texture(GBufferColorTexture, f59);
+    vec4 f61 = texture(GBufferColorTexture, f59);
+    vec4 f62 = texture(GBufferDepthTexture, f58);
     vec4 f63 = texture(GBufferDepthTexture, f59);
     float f64 = f63.x * 500.0;
     float f65 = clamp(f64 - VARYING8.w, 0.0, 1.0);
-    vec3 f66 = mix(f60.xyz, f62.xyz, vec3(f65));
+    vec3 f66 = mix(f60.xyz, f61.xyz, vec3(f65));
     float f67 = VARYING8.w * 0.20000000298023223876953125;
     vec4 f68 = vec4(f47, 0.0);
     vec4 f69 = f68 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
@@ -161,7 +161,7 @@ void main()
     {
         f110 = vec3(0.0);
     }
-    vec3 f120 = mix(mix((f66 * f66) * CB0[20].x, ((min((f7.xyz * (f7.w * 120.0)) + (CB0[32].xyz + (CB0[33].xyz * (f9 * (2.0 - CB0[14].w)))), vec3(CB0[21].w)) + (((((((CB0[40].xyz * f52) + (CB0[42].xyz * f53)) + (CB0[44].xyz * f54)) + (CB0[41].xyz * f55)) + (CB0[43].xyz * f56)) + (CB0[45].xyz * f57)) + (((((((CB0[34].xyz * f52) + (CB0[36].xyz * f53)) + (CB0[38].xyz * f54)) + (CB0[35].xyz * f55)) + (CB0[37].xyz * f56)) + (CB0[39].xyz * f57)) * f9))) + (CB0[15].xyz * f29)) * CB3[1].xyz, vec3(clamp(clamp(((mix(f61.x * 500.0, f64, f65) - VARYING8.w) * CB3[2].x) + CB3[2].y, 0.0, 1.0) + clamp((VARYING8.w * 0.0040000001899898052215576171875) - 1.0, 0.0, 1.0), 0.0, 1.0))), mix((textureLod(PrefilteredEnvTexture, f68.xyz, 0.0).xyz * mix(CB0[31].xyz, CB0[30].xyz, vec3(clamp(f47.y * 1.58823525905609130859375, 0.0, 1.0)))) * f9, (f107 * f107) * CB0[20].x, vec3((((float(abs(f104.x - 0.5) < 0.550000011920928955078125) * float(abs(f104.y - 0.5) < 0.5)) * clamp(3.900000095367431640625 - (max(VARYING8.w, f103) * 0.008000000379979610443115234375), 0.0, 1.0)) * float(abs((f105.x * 500.0) - f103) < 10.0)) * float(f69.w > 0.0))), vec3((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f44, f45))), 0.0, 1.0) + 0.300000011920928955078125) * (VARYING0.w * CB3[2].z))) + (f110 * clamp(1.0 - (VARYING7.w * CB0[28].y), 0.0, 1.0));
+    vec3 f120 = mix(mix((f66 * f66) * CB0[20].x, ((min((f7.xyz * (f7.w * 120.0)) + (CB0[32].xyz + (CB0[33].xyz * (f9 * (2.0 - CB0[14].w)))), vec3(CB0[21].w)) + (((((((CB0[40].xyz * f52) + (CB0[42].xyz * f53)) + (CB0[44].xyz * f54)) + (CB0[41].xyz * f55)) + (CB0[43].xyz * f56)) + (CB0[45].xyz * f57)) + (((((((CB0[34].xyz * f52) + (CB0[36].xyz * f53)) + (CB0[38].xyz * f54)) + (CB0[35].xyz * f55)) + (CB0[37].xyz * f56)) + (CB0[39].xyz * f57)) * f9))) + (CB0[15].xyz * f29)) * CB3[1].xyz, vec3(clamp(clamp(((mix(f62.x * 500.0, f64, f65) - VARYING8.w) * CB3[2].x) + CB3[2].y, 0.0, 1.0) + clamp((VARYING8.w * 0.0040000001899898052215576171875) - 1.0, 0.0, 1.0), 0.0, 1.0))), mix((textureLod(PrefilteredEnvTexture, f68.xyz, 0.0).xyz * mix(CB0[31].xyz, CB0[30].xyz, vec3(clamp(f47.y * 1.58823525905609130859375, 0.0, 1.0)))) * f9, (f107 * f107) * CB0[20].x, vec3((((float(abs(f104.x - 0.5) < 0.550000011920928955078125) * float(abs(f104.y - 0.5) < 0.5)) * clamp(3.900000095367431640625 - (max(VARYING8.w, f103) * 0.008000000379979610443115234375), 0.0, 1.0)) * float(abs((f105.x * 500.0) - f103) < 10.0)) * float(f69.w > 0.0))), vec3((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f44, f45))), 0.0, 1.0) + 0.300000011920928955078125) * (VARYING0.w * CB3[2].z))) + (f110 * clamp(1.0 - (VARYING7.w * CB0[28].y), 0.0, 1.0));
     vec4 f121 = vec4(0.0);
     f121.x = f120.x;
     vec4 f122 = f121;

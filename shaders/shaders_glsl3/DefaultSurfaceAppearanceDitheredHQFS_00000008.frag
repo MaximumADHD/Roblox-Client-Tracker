@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <LightShadowTransformGPU.h>
 #include <SAParams.h>
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 uniform vec4 CB8[24];
 uniform vec4 CB3[1];
 uniform sampler2D ShadowAtlasTexture;
@@ -31,7 +31,7 @@ void main()
 {
     vec4 f0 = texture(DiffuseMapTexture, VARYING0);
     float f1 = f0.w;
-    if (f1 < (0.5 * CB0[52].z))
+    if (f1 < (0.5 * CB0[53].z))
     {
         discard;
     }
@@ -80,13 +80,13 @@ void main()
     vec4 f41 = vec4(f27, 1.0) * mat4(CB8[((dot(f38, f38) < CB0[46].w) ? 0 : ((dot(f39, f39) < CB0[47].w) ? 1 : ((dot(f40, f40) < CB0[48].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f38, f38) < CB0[46].w) ? 0 : ((dot(f39, f39) < CB0[47].w) ? 1 : ((dot(f40, f40) < CB0[48].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f38, f38) < CB0[46].w) ? 0 : ((dot(f39, f39) < CB0[47].w) ? 1 : ((dot(f40, f40) < CB0[48].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f38, f38) < CB0[46].w) ? 0 : ((dot(f39, f39) < CB0[47].w) ? 1 : ((dot(f40, f40) < CB0[48].w) ? 2 : 3))) * 4 + 3]);
     vec4 f42 = textureLod(ShadowAtlasTexture, f41.xy, 0.0);
     vec2 f43 = vec2(0.0);
-    f43.x = CB0[51].z;
+    f43.x = CB0[52].z;
     vec2 f44 = f43;
-    f44.y = CB0[51].w;
+    f44.y = CB0[52].w;
     float f45 = (2.0 * f41.z) - 1.0;
-    float f46 = exp(CB0[51].z * f45);
-    float f47 = -exp((-CB0[51].w) * f45);
-    vec2 f48 = (f44 * CB0[52].y) * vec2(f46, f47);
+    float f46 = exp(CB0[52].z * f45);
+    float f47 = -exp((-CB0[52].w) * f45);
+    vec2 f48 = (f44 * CB0[53].y) * vec2(f46, f47);
     vec2 f49 = f48 * f48;
     float f50 = f42.x;
     float f51 = max(f42.y - (f50 * f50), f49.x);
@@ -94,7 +94,7 @@ void main()
     float f53 = f42.z;
     float f54 = max(f42.w - (f53 * f53), f49.y);
     float f55 = f47 - f53;
-    float f56 = (f13 * CB0[14].w) * (((f13 * CB0[52].x) > 0.0) ? mix(min((f46 <= f50) ? 1.0 : clamp(((f51 / (f51 + (f52 * f52))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f47 <= f53) ? 1.0 : clamp(((f54 / (f54 + (f55 * f55))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f37, clamp((length(f27 - CB0[11].xyz) * CB0[51].y) - (CB0[51].x * CB0[51].y), 0.0, 1.0)) : f37);
+    float f56 = (f13 * CB0[14].w) * (((f13 * CB0[53].x) > 0.0) ? mix(min((f46 <= f50) ? 1.0 : clamp(((f51 / (f51 + (f52 * f52))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f47 <= f53) ? 1.0 : clamp(((f54 / (f54 + (f55 * f55))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f37, clamp((length(f27 - CB0[11].xyz) * CB0[52].y) - (CB0[52].x * CB0[52].y), 0.0, 1.0)) : f37);
     vec3 f57;
     vec3 f58;
     if (f56 > 0.0)

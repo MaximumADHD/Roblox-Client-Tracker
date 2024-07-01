@@ -392,11 +392,12 @@ function InitDataVars()
 	window.CounterInfo = undefined;
 	window.Frames = undefined;
 	
+	window.FeatureList = undefined;
 	window.CGlobalLabels = undefined;
 	window.CSwitchThreadInOutCpu = undefined;
 	window.CSwitchTime = undefined;
 	window.CSwitchThreads = undefined;
-	
+
 	window.g_TickToTimeScale = 0;
 }
 
@@ -6403,6 +6404,18 @@ function InitToolsExportMenu() {
 					}
 				}
 				if (!hasNeededEvents)
+					return;
+			}
+			if (entry.featuresNeeded != undefined) {
+				var hasNeededFeatures = false;
+				var featureList = (window.FeatureList == undefined) ? [] : window.FeatureList;
+				for (const featureName of entry.featuresNeeded) {
+					if (featureList.includes(featureName)) {
+						hasNeededFeatures = true;
+						break;
+					}
+				}
+				if (!hasNeededFeatures)
 					return;
 			}
 

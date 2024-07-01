@@ -2,7 +2,7 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <UIParams.h>
-uniform vec4 CB1[8];
+uniform vec4 CB1[9];
 uniform sampler2D DiffuseMapTexture;
 
 in vec2 VARYING0;
@@ -39,16 +39,12 @@ void main()
                 vec4 f7;
                 if (CB1[5].y < 3.5)
                 {
-                    float f8 = VARYING0.x * 0.5;
-                    float f9 = VARYING0.y * 0.3333333432674407958984375;
-                    vec2 f10 = vec2(f8, f9);
-                    vec2 f11 = f10;
-                    f11.y = f9 + 0.666666686534881591796875;
-                    vec2 f12 = f10;
-                    f12.x = f8 + 0.5;
-                    vec2 f13 = f12;
-                    f13.y = f9 + 0.666666686534881591796875;
-                    f7 = vec4((vec4(texture(DiffuseMapTexture, vec2(VARYING0.x, VARYING0.y * 0.666666686534881591796875)).x, texture(DiffuseMapTexture, f11).x, texture(DiffuseMapTexture, f13).x, 1.0) * mat4(vec4(1.16429996490478515625, 0.0, 1.59580004215240478515625, -0.8705999851226806640625), vec4(1.16429996490478515625, -0.391730010509490966796875, -0.812900006771087646484375, 0.52960002422332763671875), vec4(1.16429996490478515625, 2.0169999599456787109375, 0.0, -1.0813000202178955078125), vec4(0.0, 0.0, 0.0, 1.0))).xyz, 1.0);
+                    float f8 = CB1[8].x - 2.0;
+                    float f9 = CB1[8].y - 2.0;
+                    float f10 = f9 * 0.3333333432674407958984375;
+                    float f11 = 1.0 - (f10 / CB1[8].y);
+                    vec2 f12 = (VARYING0 * vec2(f8 * 0.5, f10)) / CB1[8].xy;
+                    f7 = vec4((vec4(texture(DiffuseMapTexture, (VARYING0 * vec2(f8, f9 * 0.666666686534881591796875)) / CB1[8].xy).x, texture(DiffuseMapTexture, vec2(0.0, f11) + f12).x, texture(DiffuseMapTexture, vec2(0.5, f11) + f12).x, 1.0) * mat4(vec4(1.164000034332275390625, 0.0, 1.7929999828338623046875, -0.969500005245208740234375), vec4(1.164000034332275390625, -0.212999999523162841796875, -0.53299999237060546875, 0.300000011920928955078125), vec4(1.164000034332275390625, 2.111999988555908203125, 0.0, -1.1289999485015869140625), vec4(0.0, 0.0, 0.0, 1.0))).xyz, 1.0);
                 }
                 else
                 {
@@ -60,9 +56,9 @@ void main()
         }
         f0 = f1;
     }
-    vec4 f14 = VARYING1 * f0;
-    float f15 = f14.w;
-    _entryPointOutput = vec4(f14.xyz * f15, f15);
+    vec4 f13 = VARYING1 * f0;
+    float f14 = f13.w;
+    _entryPointOutput = vec4(f13.xyz * f14, f14);
 }
 
 //$$DiffuseMapTexture=s0

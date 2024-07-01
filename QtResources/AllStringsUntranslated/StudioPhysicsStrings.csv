@@ -1,0 +1,3 @@
+Key,Context,Source,en-us
+Studio.App.Physics.ProcessingAeroMeshes,Shown during aerodynamic mesh generation,Processing aerodynamic meshes,Processing aerodynamic meshes
+Studio.App.Physics.AeroMeshPleaseWait,Waiting for aerodynamic mesh generation to complete,Please Wait,Please Wait

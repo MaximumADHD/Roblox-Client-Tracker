@@ -4,7 +4,7 @@
 #include <UnpackInfo.h>
 #include <Globals.h>
 uniform vec4 CB1[1];
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 in vec4 POSITION;
 
 void main()

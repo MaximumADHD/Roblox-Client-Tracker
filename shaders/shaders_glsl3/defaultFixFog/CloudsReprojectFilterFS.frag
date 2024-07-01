@@ -7,7 +7,7 @@
 #include <CBMatrix.h>
 uniform vec4 CB4[2];
 uniform vec4 CB1[10];
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 uniform vec4 CB3[8];
 uniform sampler2D distTexture;
 uniform sampler2D cloudColorTexture;

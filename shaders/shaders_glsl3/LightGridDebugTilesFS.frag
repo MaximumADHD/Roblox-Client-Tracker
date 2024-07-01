@@ -4,7 +4,7 @@
 #include <Params.h>
 #include <Globals.h>
 uniform vec4 CB1[10];
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 uniform sampler2D GBufferDepthTexture;
 uniform isampler3D LightGrid;
 
@@ -19,7 +19,7 @@ void main()
         vec2 f1 = vec2((VARYING0.x * 2.0) - 1.0, 1.0 - (VARYING0.y * 2.0));
         vec4 f2 = texture(GBufferDepthTexture, VARYING0);
         vec3 f3 = vec3(vec2(dot(f1, CB1[3].xy), dot(f1, CB1[3].zw)) + CB1[4].zw, -1.0) * (f2.x * 500.0);
-        vec4 f4 = vec4(((CB0[11].xyz + (CB0[8].xyz * f3.x)) + (CB0[9].xyz * f3.y)) + (CB0[10].xyz * f3.z), 1.0) * mat4(CB0[53], CB0[54], CB0[55], CB0[56]);
+        vec4 f4 = vec4(((CB0[11].xyz + (CB0[8].xyz * f3.x)) + (CB0[9].xyz * f3.y)) + (CB0[10].xyz * f3.z), 1.0) * mat4(CB0[54], CB0[55], CB0[56], CB0[57]);
         float f5 = f4.w;
         vec2 f6 = f4.xy / vec2(f5);
         ivec2 f7 = ivec2(f6);

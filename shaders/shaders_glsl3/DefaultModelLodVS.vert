@@ -4,7 +4,7 @@
 #include <InstanceData.h>
 #include <Globals.h>
 uniform vec4 CB1[384];
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 in vec4 POSITION;
 in vec4 NORMAL;
 out vec3 VARYING0;

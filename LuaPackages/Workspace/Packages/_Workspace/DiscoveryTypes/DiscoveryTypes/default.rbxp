@@ -1,0 +1,8 @@
+{
+  "instanceHierarchy": {
+    "name": "DiscoveryTypes",
+    "tree": {
+      "$path": "../../../../../../../modules/discovery/discovery-types/src"
+    }
+  }
+}

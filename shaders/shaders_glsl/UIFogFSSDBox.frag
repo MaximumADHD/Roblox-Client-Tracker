@@ -3,8 +3,8 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <UIParams.h>
-uniform vec4 CB0[57];
-uniform vec4 CB1[8];
+uniform vec4 CB0[58];
+uniform vec4 CB1[9];
 uniform sampler2D DiffuseMapTexture;
 
 varying vec2 VARYING0;
@@ -41,16 +41,12 @@ void main()
                 vec4 f7;
                 if (CB1[5].y < 3.5)
                 {
-                    float f8 = VARYING0.x * 0.5;
-                    float f9 = VARYING0.y * 0.3333333432674407958984375;
-                    vec2 f10 = vec2(f8, f9);
-                    vec2 f11 = f10;
-                    f11.y = f9 + 0.666666686534881591796875;
-                    vec2 f12 = f10;
-                    f12.x = f8 + 0.5;
-                    vec2 f13 = f12;
-                    f13.y = f9 + 0.666666686534881591796875;
-                    f7 = vec4((vec4(texture2D(DiffuseMapTexture, vec2(VARYING0.x, VARYING0.y * 0.666666686534881591796875)).x, texture2D(DiffuseMapTexture, f11).x, texture2D(DiffuseMapTexture, f13).x, 1.0) * mat4(vec4(1.16429996490478515625, 0.0, 1.59580004215240478515625, -0.8705999851226806640625), vec4(1.16429996490478515625, -0.391730010509490966796875, -0.812900006771087646484375, 0.52960002422332763671875), vec4(1.16429996490478515625, 2.0169999599456787109375, 0.0, -1.0813000202178955078125), vec4(0.0, 0.0, 0.0, 1.0))).xyz, 1.0);
+                    float f8 = CB1[8].x - 2.0;
+                    float f9 = CB1[8].y - 2.0;
+                    float f10 = f9 * 0.3333333432674407958984375;
+                    float f11 = 1.0 - (f10 / CB1[8].y);
+                    vec2 f12 = (VARYING0 * vec2(f8 * 0.5, f10)) / CB1[8].xy;
+                    f7 = vec4((vec4(texture2D(DiffuseMapTexture, (VARYING0 * vec2(f8, f9 * 0.666666686534881591796875)) / CB1[8].xy).x, texture2D(DiffuseMapTexture, vec2(0.0, f11) + f12).x, texture2D(DiffuseMapTexture, vec2(0.5, f11) + f12).x, 1.0) * mat4(vec4(1.164000034332275390625, 0.0, 1.7929999828338623046875, -0.969500005245208740234375), vec4(1.164000034332275390625, -0.212999999523162841796875, -0.53299999237060546875, 0.300000011920928955078125), vec4(1.164000034332275390625, 2.111999988555908203125, 0.0, -1.1289999485015869140625), vec4(0.0, 0.0, 0.0, 1.0))).xyz, 1.0);
                 }
                 else
                 {
@@ -62,36 +58,36 @@ void main()
         }
         f0 = f1;
     }
-    vec4 f14 = VARYING1 * f0;
-    vec2 f15 = abs(vec2((VARYING0.x * CB1[6].x) + CB1[6].y, (VARYING0.y * CB1[6].z) + CB1[6].w)) - CB1[7].xy;
-    float f16 = length(max(f15, vec2(0.0))) + min(max(f15.x, f15.y), 0.0);
-    float f17 = (f14.w * clamp(CB1[7].z - f16, 0.0, 1.0)) * clamp(f16 - CB1[7].w, 0.0, 1.0);
-    vec4 f18 = f14;
-    f18.w = f17;
-    vec4 f19 = f18;
-    f19.w = f17;
-    vec3 f20 = f19.xyz * f19.xyz;
-    vec4 f21 = f19;
-    f21.x = f20.x;
+    vec4 f13 = VARYING1 * f0;
+    vec2 f14 = abs(vec2((VARYING0.x * CB1[6].x) + CB1[6].y, (VARYING0.y * CB1[6].z) + CB1[6].w)) - CB1[7].xy;
+    float f15 = length(max(f14, vec2(0.0))) + min(max(f14.x, f14.y), 0.0);
+    float f16 = (f13.w * clamp(CB1[7].z - f15, 0.0, 1.0)) * clamp(f15 - CB1[7].w, 0.0, 1.0);
+    vec4 f17 = f13;
+    f17.w = f16;
+    vec4 f18 = f17;
+    f18.w = f16;
+    vec3 f19 = f18.xyz * f18.xyz;
+    vec4 f20 = f18;
+    f20.x = f19.x;
+    vec4 f21 = f20;
+    f21.y = f19.y;
     vec4 f22 = f21;
-    f22.y = f20.y;
-    vec4 f23 = f22;
-    f23.z = f20.z;
-    vec3 f24 = mix(CB0[19].xyz, f23.xyz, vec3(clamp(exp2((CB0[18].z * length(VARYING2)) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
-    vec4 f25 = f23;
-    f25.x = f24.x;
+    f22.z = f19.z;
+    vec3 f23 = mix(CB0[19].xyz, f22.xyz, vec3(clamp(exp2((CB0[18].z * length(VARYING2)) + CB0[18].x) - CB0[18].w, 0.0, 1.0)));
+    vec4 f24 = f22;
+    f24.x = f23.x;
+    vec4 f25 = f24;
+    f25.y = f23.y;
     vec4 f26 = f25;
-    f26.y = f24.y;
-    vec4 f27 = f26;
-    f27.z = f24.z;
-    vec3 f28 = sqrt(clamp(f27.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
-    vec4 f29 = f27;
-    f29.x = f28.x;
+    f26.z = f23.z;
+    vec3 f27 = sqrt(clamp(f26.xyz * CB0[20].y, vec3(0.0), vec3(1.0)));
+    vec4 f28 = f26;
+    f28.x = f27.x;
+    vec4 f29 = f28;
+    f29.y = f27.y;
     vec4 f30 = f29;
-    f30.y = f28.y;
-    vec4 f31 = f30;
-    f31.z = f28.z;
-    gl_FragData[0] = f31;
+    f30.z = f27.z;
+    gl_FragData[0] = f30;
 }
 
 //$$DiffuseMapTexture=s0

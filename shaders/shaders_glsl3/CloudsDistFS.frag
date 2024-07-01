@@ -4,7 +4,7 @@
 #include <RayFrame.h>
 #include <Globals.h>
 uniform vec4 CB4[2];
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 out vec2 _entryPointOutput;
 
 void main()

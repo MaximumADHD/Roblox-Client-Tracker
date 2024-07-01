@@ -5177,6 +5177,14 @@
         <string name="PreferredParent">BasePart</string>
       </Properties>
     </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">AtmosphereSensor</string>
+        <string name="ClassCategory">Sensors</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="PreferredParent">BasePart</string>
+      </Properties>
+    </Item>
 
     <Item class="ReflectionMetadataClass">
       <Properties>

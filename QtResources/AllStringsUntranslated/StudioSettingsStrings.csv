@@ -51,8 +51,6 @@ Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By D
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
 Studio.App.BetaFeatures.LuauDCRTitle,,New Luau type solver,New Luau type solver
 Studio.App.BetaFeatures.LuauDCRDescription,,Script analysis uses the new Luau type inference engine and type checker. Yields better error messages.,Script analysis uses the new Luau type inference engine and type checker. Yields better error messages.
-Studio.App.BetaFeatures.LuauLowerBoundsTitle,,Experimental Luau language features,Experimental Luau language features
-Studio.App.BetaFeatures.LuauLowerBoundsDescription,,Adds lower-bounds calculation to script analysis for more accurate type inference.,Adds lower-bounds calculation to script analysis for more accurate type inference.
 Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Fitting Tool,Accessory Fitting Tool
 Studio.App.BetaFeatures.AccessoryToolBetaDescription,,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.
 Studio.App.BetaFeatures.RobloxClassicTitle,,Roblox Classic,Roblox Classic
@@ -77,6 +75,8 @@ Studio.App.BetaFeatures.ParticleFlipbooksTitle,,Particle Flipbooks,Particle Flip
 Studio.App.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames).","Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames)."
 Studio.App.BetaFeatures.AerodynamicsTitle,,Aerodynamics,Aerodynamics
 Studio.App.BetaFeatures.AerodynamicsDescription,,"This beta feature allows creators to incorporate aerodynamic forces on parts and their assemblies. Once enabled, creators will have access to the workspace enum 'FluidForces' allowing them to opt-into this new force model via toggling it to 'Experimental'. This feature also exposes the workspace property 'AirDensity', and the BasePart property 'EnableFluidForces' in the Studio UI.","This beta feature allows creators to incorporate aerodynamic forces on parts and their assemblies. Once enabled, creators will have access to the workspace enum 'FluidForces' allowing them to opt-into this new force model via toggling it to 'Experimental'. This feature also exposes the workspace property 'AirDensity', and the BasePart property 'EnableFluidForces' in the Studio UI."
+Studio.App.BetaFeatures.UnifiedMeshMassTitle,,Mass from Visual Mesh,Mass from Visual Mesh
+Studio.App.BetaFeatures.UnifiedMeshMassDescription,,"Enable calculating masses for Mesh Parts, Unions, Intersections, and Negations directly based on their visual mesh instead of their collision fidelity. Old meshes will not be affected until you change their physical properties or collision fidelity. ","Enable calculating masses for Mesh Parts, Unions, Intersections, and Negations directly based on their visual mesh instead of their collision fidelity. Old meshes will not be affected until you change their physical properties or collision fidelity. "
 Studio.App.BetaFeatures.NewCSGAPITitle,,In-experience CSG improvements,In-experience CSG improvements
 Studio.App.BetaFeatures.NewCSGAPIDescription,,This beta feature allows creators to test and develop for the new CSG APIs in the Geometry Service along with all performance improvements.,This beta feature allows creators to test and develop for the new CSG APIs in the Geometry Service along with all performance improvements.
 Studio.App.BetaFeatures.LuauNativeCodegenTitle,,Luau Native Code,Luau Native Code
@@ -162,8 +162,6 @@ Studio.App.BetaFeatures.TextureGeneratorTermsAndConditions,Terms and conditions 
 https://en.help.roblox.com/hc/articles/20121392440212","Please view the Terms and Conditions at the link below:
 
 https://en.help.roblox.com/hc/articles/20121392440212"
-Studio.App.BetaFeatures.Path2DTitle,,Path2D Instance,Path2D Instance
-Studio.App.BetaFeatures.Path2DDescription,,Enables the new Path2D Instance and in-viewport editor for 2D splines.,Enables the new Path2D Instance and in-viewport editor for 2D splines.
 Studio.App.BetaFeatures.SimulationPauseAndStepTitle,,Simulation Pause,Simulation Pause
 Studio.App.BetaFeatures.SimulationPauseAndStepDescription,,Enables visual pausing and simulation debugging at studio run time.,Enables visual pausing and simulation debugging at studio run time.
 Studio.App.BetaFeatures.MaterialPickerTitle,,Material Picker,Material Picker

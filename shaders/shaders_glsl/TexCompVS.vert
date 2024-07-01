@@ -4,7 +4,7 @@
 #include <Params.h>
 #include <Globals.h>
 uniform vec4 CB1[2];
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 attribute vec4 POSITION;
 attribute vec2 TEXCOORD0;
 varying vec2 VARYING0;

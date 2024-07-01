@@ -32,6 +32,8 @@ struct Globals
     vec4 CascadeSphere2;
     vec4 CascadeSphere3;
     vec2 invViewportWH;
+    vec2 viewportScale;
+    vec2 padding;
     float hqDist;
     float localLightDist;
     float sunDist;

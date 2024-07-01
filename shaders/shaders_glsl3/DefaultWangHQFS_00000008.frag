@@ -4,7 +4,7 @@
 #include <Globals.h>
 #include <LightShadowTransformGPU.h>
 #include <MaterialParams.h>
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 uniform vec4 CB8[24];
 uniform vec4 CB2[4];
 uniform sampler2D ShadowAtlasTexture;
@@ -94,13 +94,13 @@ void main()
     vec4 f55 = vec4(f41, 1.0) * mat4(CB8[((dot(f52, f52) < CB0[46].w) ? 0 : ((dot(f53, f53) < CB0[47].w) ? 1 : ((dot(f54, f54) < CB0[48].w) ? 2 : 3))) * 4 + 0], CB8[((dot(f52, f52) < CB0[46].w) ? 0 : ((dot(f53, f53) < CB0[47].w) ? 1 : ((dot(f54, f54) < CB0[48].w) ? 2 : 3))) * 4 + 1], CB8[((dot(f52, f52) < CB0[46].w) ? 0 : ((dot(f53, f53) < CB0[47].w) ? 1 : ((dot(f54, f54) < CB0[48].w) ? 2 : 3))) * 4 + 2], CB8[((dot(f52, f52) < CB0[46].w) ? 0 : ((dot(f53, f53) < CB0[47].w) ? 1 : ((dot(f54, f54) < CB0[48].w) ? 2 : 3))) * 4 + 3]);
     vec4 f56 = textureLod(ShadowAtlasTexture, f55.xy, 0.0);
     vec2 f57 = vec2(0.0);
-    f57.x = CB0[51].z;
+    f57.x = CB0[52].z;
     vec2 f58 = f57;
-    f58.y = CB0[51].w;
+    f58.y = CB0[52].w;
     float f59 = (2.0 * f55.z) - 1.0;
-    float f60 = exp(CB0[51].z * f59);
-    float f61 = -exp((-CB0[51].w) * f59);
-    vec2 f62 = (f58 * CB0[52].y) * vec2(f60, f61);
+    float f60 = exp(CB0[52].z * f59);
+    float f61 = -exp((-CB0[52].w) * f59);
+    vec2 f62 = (f58 * CB0[53].y) * vec2(f60, f61);
     vec2 f63 = f62 * f62;
     float f64 = f56.x;
     float f65 = max(f56.y - (f64 * f64), f63.x);
@@ -108,7 +108,7 @@ void main()
     float f67 = f56.z;
     float f68 = max(f56.w - (f67 * f67), f63.y);
     float f69 = f61 - f67;
-    float f70 = (f27 * CB0[14].w) * (((f27 * CB0[52].x) > 0.0) ? mix(min((f60 <= f64) ? 1.0 : clamp(((f65 / (f65 + (f66 * f66))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f61 <= f67) ? 1.0 : clamp(((f68 / (f68 + (f69 * f69))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f51, clamp((length(f41 - CB0[11].xyz) * CB0[51].y) - (CB0[51].x * CB0[51].y), 0.0, 1.0)) : f51);
+    float f70 = (f27 * CB0[14].w) * (((f27 * CB0[53].x) > 0.0) ? mix(min((f60 <= f64) ? 1.0 : clamp(((f65 / (f65 + (f66 * f66))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0), (f61 <= f67) ? 1.0 : clamp(((f68 / (f68 + (f69 * f69))) - 0.20000000298023223876953125) * 1.25, 0.0, 1.0)), f51, clamp((length(f41 - CB0[11].xyz) * CB0[52].y) - (CB0[52].x * CB0[52].y), 0.0, 1.0)) : f51);
     vec3 f71;
     vec3 f72;
     if (f70 > 0.0)

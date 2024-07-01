@@ -341,6 +341,9 @@ Studio.App.Ribbon.Beta.Setup.Tooltip,,Set up avatar bodies and accessories for t
 Studio.App.RobloxRibbonMainWindow.AvatarPreviewer,,Avatar Setup,Avatar Setup
 Studio.App.PackageContextMenu.ShowPackagesDiff,,Compare Package Versions,Compare Package Versions
 Studio.App.RibbonUpdatesBar.UpdateAvailableAction,,Update Available,Update Available
+Studio.App.RibbonUpdatesBar.UpdateAvailableAction.Studio,,Update available,Update available
+Studio.App.RibbonUpdatesBar.UpdateAvailableAction.Channel,,Channel update available,Channel update available
+Studio.App.RibbonUpdatesBar.UpdateAvailableAction.Tooltip,,Studio will save all changes and restart,Studio will save all changes and restart
 Studio.App.RibbonUpdatesBar.WhatsNewAction,,Notifications,Notifications
 Studio.App.RibbonUpdatesBar.WhatsNewAction.ToolTip,,Click this button to see what's new with Studio and our developer community!,Click this button to see what's new with Studio and our developer community!
 Studio.App.RibbonUpdatesBar.StudioNotifications,,Creator Notifications,Creator Notifications
@@ -361,6 +364,7 @@ Studio.App.RobloxRibbonMainWindow.InsertCornerWedge,,Insert CornerWedgePart,Inse
 Studio.App.Shapes.Cylinder,,Cylinder,Cylinder
 Studio.App.RobloxRibbonMainWindow.InsertCylinderPart,,Insert cylinder part,Insert cylinder part
 Studio.App.RobloxRibbonMainWindow.ColorActionAsTool,,Color Action as Tool,Color Action as Tool
+Studio.App.RobloxRibbonMainWindow.ColorActionAsToolTooltip,,Click object to apply color,Click object to apply color
 Studio.App.RobloxRibbonMainWindow.TogglesColorActionAsTool,,Toggle color action as tool,Toggle color action as tool
 Studio.App.RobloxRibbonMainWindow.MaterialActionAsTool,,Material Action as Tool,Material Action as Tool
 Studio.App.RobloxRibbonMainWindow.TogglesMaterialActionAsTool,,Toggle material action as tool,Toggle material action as tool
@@ -474,3 +478,7 @@ Studio.App.RobloxRibbonMainWindow.ImageButton,,Image Button,Image Button
 Studio.App.RobloxRibbonMainWindow.AGUIButtonContainingAnImage,,A GUI button containing an Image,A GUI button containing an Image
 Studio.App.RobloxRibbonMainWindow.ImageLabel,,Image Label,Image Label
 Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture,,Specifies the asset id of the texture to display,Specifies the asset id of the texture to display
+Studio.App.Actions.LogoutMenu,,Username,Username
+Studio.App.Help.OpenDocumentationUrl,Launches documentation DevHub URL,Documentation,Documentation
+Studio.App.Help.OpenTutorialsUrl,Launches tutorials DevHub URL,Tutorials,Tutorials
+Studio.App.Help.OpenDeveloperForumUrl,Launches Developer Forum URL,Developer Forum,Developer Forum

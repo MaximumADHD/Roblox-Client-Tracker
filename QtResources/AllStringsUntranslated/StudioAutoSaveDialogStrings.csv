@@ -1,0 +1,10 @@
+Key,Context,Source,en-us
+Studio.App.AutoSaveDialog.Title,,AutoSave,AutoSave
+Studio.App.AutoSaveDialog.Description,,We have found recovery files,We have found recovery files
+Studio.App.AutoSaveDialog.Details,,Roblox Studio saves your progress automatically in case something unexpected happens. Simply double click on the file name to open it or right click to delete it.,Roblox Studio saves your progress automatically in case something unexpected happens. Simply double click on the file name to open it or right click to delete it.
+Studio.App.AutoSaveDialog.DeleteAll,,Delete All,Delete All
+Studio.App.AutoSaveDialog.ConfirmTitle,,Confirm AutoSave Deletion,Confirm AutoSave Deletion
+Studio.App.AutoSaveDialog.ConfirmDescription,,Are you sure you want to delete all AutoSaves? This cannot be undone.,Are you sure you want to delete all AutoSaves? This cannot be undone.
+Studio.App.AutoSaveDialog.Open,,Open,Open
+Studio.App.AutoSaveDialog.ShowInFolder,,Show in Folder,Show in Folder
+Studio.App.AutoSaveDialog.Delete,,Delete,Delete

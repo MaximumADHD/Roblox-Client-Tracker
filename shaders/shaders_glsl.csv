@@ -58,6 +58,7 @@ DefaultForceFieldHQVS_00001006,Vertex
 DefaultForceFieldHQVS_04000006,Vertex
 DefaultForceFieldHQVS_04001006,Vertex
 DefaultForceFieldSHQFS_00000000,Fragment
+DefaultForceFieldSHQFS_00000100,Fragment
 DefaultForceFieldVS_00000000,Vertex
 DefaultForceFieldVS_00000002,Vertex
 DefaultForceFieldVS_00000006,Vertex
@@ -76,6 +77,7 @@ DefaultForceFieldVS_04001006,Vertex
 DefaultForceFieldVS_04001406,Vertex
 DefaultGlassHQFS_00000000,Fragment
 DefaultGlassSuperHQFS_00000000,Fragment
+DefaultGlassSuperHQFS_00000100,Fragment
 DefaultHighlightAlphaTestVS_00000000,Vertex
 DefaultHighlightAlphaTestVS_00000002,Vertex
 DefaultHighlightAlphaTestVS_00000006,Vertex
@@ -218,6 +220,7 @@ DownSampleGjoelLinearFS,Fragment
 DownSampleGjoelMipFS,Fragment
 DownSampleGlowTemporal8x8FS,Fragment
 DownSampleGlowTemporalLinear8x8FS,Fragment
+DownSampleScaled4x4VS,Vertex
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
 GlassTintFS,Fragment
@@ -304,11 +307,13 @@ ParticleLightingVS,Vertex
 PassThrough3MRTFS,Fragment
 PassThroughArrayFS,Fragment
 PassThroughFS,Fragment
+PassThroughGlobalScaleResolutionVS,Vertex
 PassThroughLodFS,Fragment
 PassThroughModifyUVVS,Vertex
 PassThroughModifyVS,Vertex
 PassThroughNoOpVS,Vertex
 PassThroughPosVS,Vertex
+PassThroughScaleResolutionVS,Vertex
 PassThroughVS,Vertex
 PerformanceOverlayFS_00000000,Fragment
 PerformanceOverlayLightPS,Fragment
@@ -396,6 +401,7 @@ SmoothWaterFS_00000000,Fragment
 SmoothWaterHQFS_00000000,Fragment
 SmoothWaterHQVS_00000000,Vertex
 SmoothWaterSuperHQFS_00000000,Fragment
+SmoothWaterSuperHQFS_00000100,Fragment
 SmoothWaterVS_00000000,Vertex
 SRGBToLinearFS,Fragment
 SSAOBlurXFS,Fragment
@@ -404,6 +410,8 @@ SSAOCompositFS,Fragment
 SSAOCompositVS,Vertex
 SSAODepthDownFS,Fragment
 SSAOFS,Fragment
+SSAOScalingCompositFS,Fragment
+SSAOScalingVS,Vertex
 SSAOVS,Vertex
 StarsFS,Fragment
 StarsVS,Vertex

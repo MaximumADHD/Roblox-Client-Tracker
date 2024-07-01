@@ -11,6 +11,8 @@ AssetId: %2
 Type: %3","Name: %1
 AssetId: %2
 Type: %3"
+Studio.App.IDEScriptLinkDefinition.MalformedLink,,Malformed link,Malformed link
+Studio.App.IDEScriptLinkDefinition.SourceNotAvailable,,Source not available,Source not available
 Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
 Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
 Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All

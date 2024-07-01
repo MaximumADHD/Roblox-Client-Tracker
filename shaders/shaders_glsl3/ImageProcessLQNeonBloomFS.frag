@@ -2,7 +2,9 @@
 
 #extension GL_ARB_shading_language_include : require
 #include <Params.h>
+#include <Globals.h>
 uniform vec4 CB1[10];
+uniform vec4 CB0[58];
 uniform vec4 CB6[64];
 uniform sampler2DMS DepthAATexture;
 uniform sampler2D Texture0Texture;
@@ -25,7 +27,7 @@ void main()
     f7.y = dot(f5, CB1[2].xyz) + CB1[2].w;
     vec3 f8 = f7;
     f8.z = dot(f5, CB1[3].xyz) + CB1[3].w;
-    ivec2 f9 = ivec2(VARYING0 * CB1[8].xy);
+    ivec2 f9 = ivec2((VARYING0 * CB0[50].zw) * CB1[8].xy);
     vec4 f10 = texelFetch(DepthAATexture, f9, 0);
     float f11 = f10.x;
     vec4 f12 = texelFetch(DepthAATexture, f9 + ivec2(1, 0), 0);

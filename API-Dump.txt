@@ -67,6 +67,7 @@ Class AccessoryDescription : Instance [NotBrowsable]
 	Property AccessoryDescription.Puffiness: number
 	Property AccessoryDescription.Rotation: Vector3
 	Property AccessoryDescription.Scale: Vector3
+	Function AccessoryDescription:GetAppliedInstance() -> Instance?
 Class AccountService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AccountService:DeviceAccessTokenAvailable() -> boolean {RobloxScriptSecurity}
 	Function AccountService:DeviceIntegrityAvailable() -> boolean {RobloxScriptSecurity}
@@ -121,7 +122,7 @@ Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AnalyticsService:FireLogEvent(player: Instance, logLevel: Enum.AnalyticsLogLevel, message: string, debugInfo: any, customData: any) -> () [Deprecated]
 	Function AnalyticsService:FirePlayerProgressionEvent(player: Instance, category: string, progressionStatus: Enum.AnalyticsProgressionStatus, location: any, statistics: any, customData: any) -> () [Deprecated]
 	Function AnalyticsService:LogEconomyEvent(player: Player, flowType: Enum.AnalyticsEconomyFlowType, currencyType: string, amount: number, endingBalance: number, transactionType: string, itemSku: string? = "", customFields: { [string]: any }? = nil) -> ()
-	Function AnalyticsService:LogFunnelStepEvent(player: Player, funnelName: string, funnelSessionId: string? = "", step: number? = 0, stepName: string? = "", customFields: { [string]: any }? = nil) -> ()
+	Function AnalyticsService:LogFunnelStepEvent(player: Player, funnelName: string, funnelSessionId: string? = "", step: number? = 1, stepName: string? = "", customFields: { [string]: any }? = nil) -> ()
 	Function AnalyticsService:LogOnboardingFunnelStepEvent(player: Player, step: number, stepName: string? = "", customFields: { [string]: any }? = nil) -> ()
 	Function AnalyticsService:LogProgressionCompleteEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
 	Function AnalyticsService:LogProgressionEvent(player: Player, progressionPathName: string, status: Enum.AnalyticsProgressionType, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
@@ -920,6 +921,7 @@ Class Camera : Instance [NotReplicated]
 	Event Camera.InterpolationFinished()
 Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:CaptureScreenshot(onCaptureReady: (...any) -> ...any) -> ()
+	Function CaptureService:CreatePostAsync(pathArr: { any }, caption: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function CaptureService:DeleteCapture(capturePath: string) -> () {RobloxScriptSecurity}
 	Function CaptureService:DeleteCapturesAsync(pathArr: { any }) -> number {RobloxScriptSecurity} [Yields]
 	Function CaptureService:GetCaptureFilePathAsync(captureContentId: string) -> string {RobloxScriptSecurity} [Yields]
@@ -938,7 +940,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:SaveScreenshotCapture() -> () {RobloxScriptSecurity}
 	Event CaptureService.CaptureBegan()
 	Event CaptureService.CaptureEnded()
-	Event CaptureService.CaptureSaved(captureInfo: { [string]: any })
+	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) [Deprecated]
 	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {RobloxScriptSecurity}
 	Event CaptureService.OnCaptureSignatureResult(content: string, signature: string, signatureVersion: number) {RobloxSecurity} [Hidden]
 	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, contentIds: { any }) {RobloxScriptSecurity}
@@ -1721,11 +1723,11 @@ Class EditableImage : Instance
 	Property EditableImage.Size: Vector2
 	Function EditableImage:Copy(min: Vector2, max: Vector2) -> EditableImage
 	Function EditableImage:Crop(min: Vector2, max: Vector2) -> ()
-	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number) -> ()
+	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:DrawImage(position: Vector2, image: EditableImage, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number) -> ()
+	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:DrawProjectionImage(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
-	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number) -> ()
+	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
 	Function EditableImage:ReadPixels(position: Vector2, size: Vector2) -> { any } [CustomLuaState] {🧬Safe}
 	Function EditableImage:Resize(size: Vector2) -> ()
 	Function EditableImage:Rotate(degrees: number, changeSize: boolean) -> ()
@@ -2736,6 +2738,7 @@ Class Humanoid : Instance
 	Function Humanoid:TakeDamage(amount: number) -> ()
 	Function Humanoid:UnequipTools() -> ()
 	Event Humanoid.AnimationPlayed(animationTrack: AnimationTrack) [Deprecated]
+	Event Humanoid.ApplyDescriptionFinished(description: HumanoidDescription)
 	Event Humanoid.Climbing(speed: number)
 	Event Humanoid.ClusterCompositionFinished() {RobloxScriptSecurity}
 	Event Humanoid.CustomStatusAdded(status: string) [Deprecated]
@@ -4550,6 +4553,14 @@ Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PublishService:CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsync(serializedInstance: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, assetId: number, name: string, description: string, token: string, contentType: string, expectedPrice: number? = 0) -> { [string]: any } {RobloxScriptSecurity} [Yields]
 	Function PublishService:PublishCageMeshAsync(wrap: Instance, cageType: Enum.CageType) -> string {RobloxScriptSecurity} [Yields]
 	Function PublishService:PublishDescendantAssets(instance: Instance) -> boolean {RobloxScriptSecurity}
+Class RTAnimationTracker : Instance [NotReplicated]
+	Property RTAnimationTracker.Active: boolean [Hidden] [NotReplicated]
+	Property RTAnimationTracker.EnableFallbackAudioInput: boolean [Hidden] [NotReplicated]
+	Property RTAnimationTracker.SessionName: string [Hidden] [NotReplicated]
+	Property RTAnimationTracker.TrackerMode: Enum.TrackerMode [Hidden] [ReadOnly]
+	Property RTAnimationTracker.TrackerType: Enum.TrackerType [Hidden] [NotReplicated]
+	Event RTAnimationTracker.TrackerError(errorCode: Enum.TrackerError, msg: string)
+	Event RTAnimationTracker.TrackerPrompt(prompt: Enum.TrackerPromptEvent)
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
 	Function RbxAnalyticsService:AddGlobalPointsField(key: string, value: number) -> () {RobloxScriptSecurity}
 	Function RbxAnalyticsService:AddGlobalPointsTag(key: string, value: string) -> () {RobloxScriptSecurity}
@@ -4727,9 +4738,9 @@ Class ScreenshotHud : Instance [NotCreatable] [NotReplicated]
 	Property ScreenshotHud.CameraButtonIcon: string
 	Property ScreenshotHud.CameraButtonPosition: UDim2
 	Property ScreenshotHud.CloseButtonPosition: UDim2
-	Property ScreenshotHud.ExperienceNameOverlayEnabled: boolean
-	Property ScreenshotHud.OverlayFont: Enum.Font
-	Property ScreenshotHud.UsernameOverlayEnabled: boolean
+	Property ScreenshotHud.ExperienceNameOverlayEnabled: boolean [Hidden] [Deprecated]
+	Property ScreenshotHud.OverlayFont: Enum.Font [Hidden] [Deprecated]
+	Property ScreenshotHud.UsernameOverlayEnabled: boolean [Hidden] [Deprecated]
 	Property ScreenshotHud.CloseWhenScreenshotTaken: boolean
 	Property ScreenshotHud.HideCoreGuiForCaptures: boolean
 	Property ScreenshotHud.HidePlayerGuiForCaptures: boolean
@@ -4863,6 +4874,9 @@ Class SensorBase : Instance [NotCreatable]
 	Property SensorBase.UpdateType: Enum.SensorUpdateType
 	Function SensorBase:Sense() -> () [Deprecated]
 	Event SensorBase.OnSensorOutputChanged()
+Class AtmosphereSensor : SensorBase
+	Property AtmosphereSensor.AirDensity: number [ReadOnly]
+	Property AtmosphereSensor.RelativeWindVelocity: Vector3 [ReadOnly]
 Class BuoyancySensor : SensorBase
 	Property BuoyancySensor.FullySubmerged: boolean
 	Property BuoyancySensor.TouchingSurface: boolean
@@ -5466,21 +5480,15 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Property StudioDeviceEmulatorService.IsMultiTouchEmulationOn: boolean {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StudioDeviceEmulatorService.IsMultiTouchEnabled: boolean {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property StudioDeviceEmulatorService.PivotPosition: Vector2 {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function StudioDeviceEmulatorService:ConnectGamepad(deviceId: number, gamepadDeviceType: Enum.GamepadType) -> () {RobloxScriptSecurity} [Yields]
-	Function StudioDeviceEmulatorService:DisconnectGamepad(deviceId: number) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:EmulatePCDeviceWithResolution(deviceId: string, resolution: Vector2) -> boolean {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:GetCurrentDeviceId() -> string {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:GetCurrentOrientation() -> Enum.ScreenOrientation {RobloxScriptSecurity} [Yields]
-	Function StudioDeviceEmulatorService:GetKeyboardShortcut(deviceId: number, gamepadKey: Enum.KeyCode, position: Vector3) -> { any } {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:GetMaxNumTouches() -> number {RobloxScriptSecurity}
 	Function StudioDeviceEmulatorService:GetTouchInBounds(index: number) -> boolean {RobloxScriptSecurity}
 	Function StudioDeviceEmulatorService:GetTouchPosition(index: number) -> Vector2 {RobloxScriptSecurity}
 	Function StudioDeviceEmulatorService:HasDeviceWithId(deviceId: string) -> boolean {RobloxScriptSecurity} [Yields]
-	Function StudioDeviceEmulatorService:SendGamepadEvent(deviceId: number, keyCode: Enum.KeyCode, position: Vector3, rotation: Vector3) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:SetCurrentDeviceId(deviceId: string) -> () {RobloxScriptSecurity} [Yields]
 	Function StudioDeviceEmulatorService:SetCurrentOrientation(orientation: Enum.ScreenOrientation) -> () {RobloxScriptSecurity} [Yields]
-	Function StudioDeviceEmulatorService:SetGamepadEmulationEnabled(enable: boolean) -> () {RobloxScriptSecurity} [Yields]
-	Function StudioDeviceEmulatorService:UpdateKeyMapping(deviceId: number, keyboardShortcut: { any }, gamepadKey: Enum.KeyCode, position: Vector3) -> boolean {RobloxScriptSecurity} [Yields]
 	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.TouchInBoundsChanged() {RobloxScriptSecurity}
@@ -6157,6 +6165,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property UserGameSettings.OnboardingsCompleted: string {RobloxScriptSecurity}
 	Property UserGameSettings.PerformanceStatsVisible: boolean {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.PlayerHeight: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property UserGameSettings.PreferredTextSize: Enum.PreferredTextSize {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.PreferredTransparency: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property UserGameSettings.QualityResetLevel: number {RobloxScriptSecurity} [Hidden]
 	Property UserGameSettings.RCCProfilerRecordFrameRate: number
@@ -6487,6 +6496,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.ReJoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscribeStateChange(muteState: Enum.MuteState, userIds: string, sessionId: string) {RobloxSecurity} [Hidden]
+	Event VoiceChatService.SubscriptionDropped(sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeAcked(eventTag: number, handshakeAnswer: string, usersToMute: string, sessionId: string) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeCompleted(sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeInitiated(handshakeOffer: string, newSubscriptionStates: string, isNewConnection: boolean, sessionId: string, eventTag: number) {RobloxSecurity} [Hidden]
@@ -8413,6 +8423,11 @@ Enum PoseEasingStyle
 Enum PositionAlignmentMode
 	EnumItem PositionAlignmentMode.OneAttachment : 0
 	EnumItem PositionAlignmentMode.TwoAttachment : 1
+Enum PreferredTextSize
+	EnumItem PreferredTextSize.Medium : 0
+	EnumItem PreferredTextSize.Large : 4
+	EnumItem PreferredTextSize.Larger : 9
+	EnumItem PreferredTextSize.Largest : 14
 Enum PrimalPhysicsSolver
 	EnumItem PrimalPhysicsSolver.Default : 0
 	EnumItem PrimalPhysicsSolver.Experimental : 1
@@ -9214,6 +9229,10 @@ Enum TrackerMode
 	EnumItem TrackerMode.AudioVideo : 3
 Enum TrackerPromptEvent
 	EnumItem TrackerPromptEvent.LODCameraRecommendDisable : 0
+Enum TrackerType
+	EnumItem TrackerType.None : 0
+	EnumItem TrackerType.Face : 1
+	EnumItem TrackerType.UpperBody : 2
 Enum TriStateBoolean
 	EnumItem TriStateBoolean.Unknown : 0
 	EnumItem TriStateBoolean.True : 1

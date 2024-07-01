@@ -3,7 +3,7 @@
 #extension GL_ARB_shading_language_include : require
 #include <Globals.h>
 #include <SAParams.h>
-uniform vec4 CB0[57];
+uniform vec4 CB0[58];
 uniform vec4 CB3[1];
 uniform sampler2D ShadowMapTexture;
 uniform sampler3D LightMapTexture;
@@ -23,7 +23,7 @@ out vec4 _entryPointOutput;
 void main()
 {
     vec4 f0 = texture(DiffuseMapTexture, VARYING0);
-    if (f0.w < (0.5 * CB0[52].z))
+    if (f0.w < (0.5 * CB0[53].z))
     {
         discard;
     }
